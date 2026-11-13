@@ -95,8 +95,9 @@ say so stay as they are.
   SQL instance `keksdose:europe-west4:keksdose-db`, the way Kastlan does it:
   an owner role for the migrations, a DML-only app role for the service, the
   URLs in Secret Manager, migrations as a Cloud Run job. The instance is a
-  db-f1-micro of about 25 connections shared by four apps, so the pool is small
-  (2 + 2 per instance).
+  db-f1-micro of about 22 usable connections shared by every app on it, and
+  every app gets the same cap: one connection and one more per instance, a
+  request waiting at most 10 s for one (the owner, 2026-11-13; it was 2 + 2).
 - **Accounts as in Keksdose, Kastlan and Kurvenschmiede,** on the same kit
   parts. Visitors still need none to use the exhibits.
 - **The scope of Kurvenschmiede:** public feedback (comments, votes, the public
@@ -120,7 +121,10 @@ say so stay as they are.
 Steps, each its own commits:
 
 1. The database's ground: the engine, Alembic, a Postgres database per test
-   worker, `npm run db:setup`, CI's Postgres.
+   worker, `npm run db:setup`, CI's Postgres. *(on `feat/accounts`: the engine
+   and the request's unit of work, the kit's `[sql]` tables, migration 0001 and
+   its check against the models, a database per test worker, `npm run
+   db:migrate`)*
 2. Accounts and user administration on the kit's Layer 2.
 3. Feedback and the translation review on the kit's routers.
 4. The pages: sign-in, settings, admin, feedback, `/translations`.

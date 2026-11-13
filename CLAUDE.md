@@ -49,12 +49,15 @@ Test Task* is `npm run check`; `.vscode/tasks.json` has the rest, and
 | `npm run check:frontend` | prettier + eslint + tsc + vitest with coverage + build |
 | `npm run check:backend` | `scripts/check-backend.sh`: ruff check + ruff format + pytest with coverage |
 | `npm run format` | Prettier rewrites the frontend (120 columns) |
+| `npm run db:setup` | Once: the local role `staunlabor` (CREATEDB) and the databases `staunlabor` and `staunlabor_test` |
+| `npm run db:migrate` | `alembic upgrade head` on `STAUNLABOR_DATABASE_URL` (default: the local `staunlabor`) |
 
 ```bash
 cd backend && uv run pytest tests/unit/test_experiments.py -q
 cd frontend && npx vitest run src/features/experiments/daily.test.ts
 cd backend && uv run python ../scripts/write-experiments-cases.py         # after an engine change
 cd backend && uv run python ../scripts/write-test-fixtures.py             # after a change to a route's answer
+cd backend && uv run alembic revision -m "…" --rev-id 0002                # a new migration, written by hand
 ```
 
 Coverage floors: `test.coverage.thresholds` in `frontend/vite.config.ts` and
@@ -68,7 +71,10 @@ backend/staunlabor/
                         library only; raises ValueError, which main.py makes a 400
   domain/schemas/       pydantic wire shapes with the per-field bounds
   api/                  the routes: shapes in, schemas out, no physics
-  security.py           the one request budget, per address
+  security.py           the request budgets, per address
+  database.py           the accounts' engine (pool 1 + 1) and the request's unit of work
+  models.py             the accounts' tables: server-kit's [sql] mixins, named here
+backend/alembic/        the migrations, numbered by hand (0001: the account tables)
 frontend/src/
   app/                  routes (every page but the overview lazy), router link
   features/experiments/ the pages, the views, the overview, the daily pick,

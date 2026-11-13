@@ -1,14 +1,18 @@
 """The app: the exhibits' routes under ``/api/v1``, a health check, and the
 two answers an error can get.
 
-No database, no accounts, no middleware beyond CORS, which only the
-development server needs: in production the web service proxies ``/api`` on
-the site's own origin.
+No middleware beyond CORS, which only the development server needs: in
+production the web service proxies ``/api`` on the site's own origin. The
+accounts' database is built with the app and connects only when an account
+route asks for it (``staunlabor.database``): the exhibits and the health check
+never do.
 """
 
 from __future__ import annotations
 
 import logging
+from collections.abc import AsyncIterator
+from contextlib import asynccontextmanager
 from uuid import uuid4
 
 from eifi1_server_kit.errors import install_contract_error_handlers
@@ -18,6 +22,7 @@ from fastapi.responses import JSONResponse
 
 from staunlabor import __version__
 from staunlabor.api.experiments_router import router as experiments_router
+from staunlabor.database import Database
 from staunlabor.security import ExperimentsLimiters
 from staunlabor.settings import get_settings
 
@@ -26,14 +31,26 @@ logger = logging.getLogger(__name__)
 API_PREFIX = "/api/v1"
 
 
+@asynccontextmanager
+async def _lifespan(app: FastAPI) -> AsyncIterator[None]:
+    yield
+    await app.state.database.dispose()
+
+
 def create_app() -> FastAPI:
+    settings = get_settings()
     app = FastAPI(
-        title="Staunlabor", version=__version__, docs_url=f"{API_PREFIX}/docs", openapi_url=f"{API_PREFIX}/openapi.json"
+        title="Staunlabor",
+        version=__version__,
+        docs_url=f"{API_PREFIX}/docs",
+        openapi_url=f"{API_PREFIX}/openapi.json",
+        lifespan=_lifespan,
     )
     app.state.experiments_limiters = ExperimentsLimiters()
+    app.state.database = Database(settings)
     app.add_middleware(
         CORSMiddleware,
-        allow_origins=[get_settings().app_base_url.rstrip("/")],
+        allow_origins=[settings.app_base_url.rstrip("/")],
         allow_methods=["GET", "POST"],
         allow_headers=["Content-Type"],
     )
