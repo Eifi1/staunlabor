@@ -8,7 +8,21 @@ dependencies = [
     "uvicorn[standard]>=0.34.0",
     "pydantic>=2.10.0",
     "pydantic-settings>=2.7.0",
-    "eifi1-server-kit[fastapi]",
+    # The accounts' rows, on PostgreSQL in development, in the suite and in
+    # production; asyncpg is the only driver. The exhibits never touch it.
+    "sqlalchemy[asyncio]>=2.0.0",
+    "asyncpg>=0.30.0",
+    "alembic>=1.14.0",
+    # The kit builds and checks the claims and signs nothing (its "no JWT
+    # library"): HS256 through PyJWT, as Kurvenschmiede signs.
+    "pyjwt>=2.10",
+    # The kit's PasswordHasher port, bcrypt as in every sibling app.
+    "bcrypt>=4.0.0",
+    # The kit's account layer (0.29): `fastapi` the routers, `sql` the tables and
+    # their stores, `passkeys` py_webauthn for the passkey routes, `mail` the
+    # Resend client the console transport gives way to once the domain is
+    # verified. The wheel and its sha256 are pinned in uv.lock.
+    "eifi1-server-kit[fastapi,mail,passkeys,sql]",
 ]
 
 [dependency-groups]
@@ -69,4 +83,4 @@ min_confidence = 60
 ignore_decorators = ["@router.*", "@app.*", "@model_validator", "@field_validator"]
 
 [tool.uv.sources]
-eifi1-server-kit = { url = "https://github.com/Eifi1/server-kit/releases/download/v0.28.0/eifi1_server_kit-0.28.0-py3-none-any.whl" }
+eifi1-server-kit = { url = "https://github.com/Eifi1/server-kit/releases/download/v0.29.0/eifi1_server_kit-0.29.0-py3-none-any.whl" }
