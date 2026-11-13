@@ -1,6 +1,6 @@
 [project]
 name = "staunlabor"
-version = "0.1.3"
+version = "0.1.4"
 description = "Staunlabor — hands-on exhibits, computed. The exhibits' engine behind a few public routes."
 requires-python = ">=3.14"
 dependencies = [
