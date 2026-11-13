@@ -2,6 +2,13 @@
 
 All notable changes to Staunlabor are documented in this file, generated from the commit messages by commit-and-tag-version at each release.
 
+## [0.1.5](https://github.com/Eifi1/staunlabor/compare/v0.1.4...v0.1.5) (2026-11-13)
+
+### Fixed
+
+* **deploy:** the backend takes only the site's requests, so the request budget holds ([ec09065](https://github.com/Eifi1/staunlabor/commit/ec090651a78062d5438d75a51dd9c34bd09c9b2d))
+* **security:** the request budget trusts its proxies only with the edge token ([f633662](https://github.com/Eifi1/staunlabor/commit/f633662fee6b6f368833db7730ae4534509830e0))
+
 ## [0.1.4](https://github.com/Eifi1/staunlabor/compare/v0.1.3...v0.1.4) (2026-11-13)
 
 ## [0.1.3](https://github.com/Eifi1/staunlabor/compare/v0.1.2...v0.1.3) (2026-11-13)
