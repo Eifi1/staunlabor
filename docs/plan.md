@@ -102,10 +102,12 @@ say so stay as they are.
 - **The scope of Kurvenschmiede:** public feedback (comments, votes, the public
   list), passkeys, the data export and account deletion, the mail switches, the
   reviewer role and `/translations`. No teams, no billing, no demo.
-- **No mail sent at first:** the console backend. The admin page shows an
-  invitation's or a reset's link once, to be handed on in person; sending can
-  be switched on later (the shared Resend plan verifies three domains, all
-  taken).
+- **Mail through Resend,** in the account the sibling apps send from: its plan
+  verifies three domains, and Kastlan, taken offline on 2026-11-13 for the
+  time being, gave its place to `staunlabor.app` (region Ireland, sending
+  access for this domain only). Until the domain is verified the console
+  backend stands in: the admin page shows an invitation's or a reset's link
+  once, to be handed on in person.
 - **The kit first:** feedback and the translation review mount the
   server-kit's routers (Layer 2). Accounts and user administration are asked of
   the kit as a Layer 2 of their own before anything is written here, so the
