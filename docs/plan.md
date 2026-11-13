@@ -75,10 +75,10 @@ The stack of the apps it comes from, so the same people and tools work on it:
    - the overview as the front page;
    - the about page with the credit, the imprint and the privacy policy;
    - the 404 page, SEO and the icons.
-5. **The deploy:** *(the files are written: `deploy/`, `.github/workflows/`)*
+5. **The deploy:** *(done 2026-11-13: v0.1.3 on https://staunlabor.app)*
    - the Artifact Registry repository and the service accounts;
    - Workload Identity Federation for GitHub;
    - Cloud Build;
    - the domain mapped through Cloudflare.
-6. **The old address:** the engineering app's experiments area redirects to
+6. **The old address:** *(done 2026-11-13: Kurvenschmiede v0.4.0)* the engineering app's experiments area redirects to
    `staunlabor.app` and is then removed there.
