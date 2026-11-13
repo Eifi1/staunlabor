@@ -43,6 +43,10 @@
     "impressum": {
       "disclaimer": {
         "body": "Staunlabor 是一个私人的非商业项目，不作任何保证。我们所链接的外部网站由其各自的运营者负责；我们无法控制其内容。"
+      },
+      "credits": {
+        "title": "致谢",
+        "body": "图表和插图中的颜色来自 anyplot.ai 的分类调色板“Imprint”。anyplot.ai 针对绿色盲、红色盲和蓝色盲验证了其八种色调，并针对暖色纸张进行了调校：https://anyplot.ai/palette"
       }
     },
     "privacy": {

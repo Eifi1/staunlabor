@@ -56,6 +56,12 @@ describe("the imprint", () => {
     expect(screen.getByText(new RegExp(OPERATOR.email))).toBeInTheDocument();
   });
 
+  it("credits anyplot.ai for the palette the charts and drawings are coloured from", async () => {
+    renderWithProviders(<ImprintPage />);
+    expect(await screen.findByRole("heading", { name: en.legal.impressum.credits.title })).toBeInTheDocument();
+    expect(screen.getByText(en.legal.impressum.credits.body)).toHaveTextContent("https://anyplot.ai/palette");
+  });
+
   it("disclaims as a private, non-commercial project, not as a beta", async () => {
     renderWithProviders(<ImprintPage />);
     expect(await screen.findByText(en.legal.impressum.disclaimer.body)).toBeInTheDocument();

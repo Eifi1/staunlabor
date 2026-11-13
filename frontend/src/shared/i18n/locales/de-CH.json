@@ -43,6 +43,10 @@
     "impressum": {
       "disclaimer": {
         "body": "Staunlabor ist ein privates, nicht kommerzielles Projekt und wird ohne Gewähr angeboten. Für externe Seiten, auf die wir verlinken, sind deren Betreiber verantwortlich; auf ihre Inhalte haben wir keinen Einfluss."
+      },
+      "credits": {
+        "title": "Danksagungen",
+        "body": "Die Farben in den Diagrammen und Zeichnungen stammen aus „Imprint“, der kategorialen Palette von anyplot.ai. Ihre acht Farbtöne hat anyplot.ai gegen Deuteranopie, Protanopie und Tritanopie geprüft und auf warmes Papier abgestimmt: https://anyplot.ai/palette"
       }
     },
     "privacy": {

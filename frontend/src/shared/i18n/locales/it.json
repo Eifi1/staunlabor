@@ -43,6 +43,10 @@
     "impressum": {
       "disclaimer": {
         "body": "Staunlabor è un progetto privato e non commerciale, offerto senza garanzia. I siti esterni a cui rimandiamo sono di responsabilità dei rispettivi gestori; non abbiamo alcun controllo sui loro contenuti."
+      },
+      "credits": {
+        "title": "Ringraziamenti",
+        "body": "I colori dei grafici e dei disegni provengono da «Imprint», la palette categoriale di anyplot.ai. Le sue otto tonalità sono state verificate da anyplot.ai per deuteranopia, protanopia e tritanopia e calibrate per carta calda: https://anyplot.ai/palette"
       }
     },
     "privacy": {

@@ -32,6 +32,14 @@ export function ImprintPage() {
       <LegalKitSection section="operator" />
       <LegalKitSection section="contact" />
       <LegalKitSection section="disclaimer" />
+      {/* Third-party acknowledgements, as keksdose's imprint has them: the
+          page that names who is behind the site. Today the palette every
+          chart and drawing is coloured from, anyplot.ai's "Imprint". */}
+      <LegalSection
+        key="credits"
+        heading={t("legal.impressum.credits.title")}
+        body={t("legal.impressum.credits.body")}
+      />
     </LegalPage>
   );
 }

@@ -43,6 +43,10 @@
     "impressum": {
       "disclaimer": {
         "body": "A Staunlabor egy magán, nem kereskedelmi projekt, amelyet szavatosság nélkül kínálunk. Az általunk hivatkozott külső oldalakért azok üzemeltetői felelősek; tartalmukra nincs befolyásunk."
+      },
+      "credits": {
+        "title": "Köszönetnyilvánítás",
+        "body": "A diagramok és rajzok színei az anyplot.ai „Imprint” nevű kategorikus palettájából származnak. Nyolc színárnyalatát az anyplot.ai deuteranópiára, protanópiára és tritanópiára ellenőrizte, és meleg tónusú papírhoz hangolta: https://anyplot.ai/palette"
       }
     },
     "privacy": {

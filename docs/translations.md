@@ -58,3 +58,4 @@ so a reviewer knows which wordings are newer than the rest.
 | --- | --- | --- | --- |
 | 2026-11-13 | `legal.impressum.disclaimer.body` | new: the imprint's disclaimer without the kit's "offered during a closed beta"; `de-CH` and `en` written, the other five from the kit's own translation with that clause taken out | the site is not a beta |
 | 2026-11-13 | `legal.privacy.browser.tail` | new: the privacy page's closing line on what the browser keeps; `de-CH` and `en` written, the other five machine-translated | the kit's line speaks of reports waiting to be sent and of signing out, and the site has neither |
+| 2026-11-13 | `legal.impressum.credits.title`, `legal.impressum.credits.body` | new: the imprint credits anyplot.ai's "Imprint", the palette of the charts and drawings, as keksdose's imprint does; `de-CH` and `en` from keksdose's words, the other five machine-translated | the colours are anyplot.ai's |
