@@ -6,8 +6,9 @@
 dist/
 coverage/
 
-# Generated from the Python engine by `scripts/write-experiments-cases.py`, and
-# checked against it as written (`json.dumps(…, indent=1)`): a reformat would be
-# undone by the next write.
+# Written from the Python engine as `json.dumps(…, indent=1)`: the reference
+# cases by `scripts/write-experiments-cases.py`, the pages' test answers through
+# the wire models (no script of their own yet). A reformat would be undone by
+# the next write.
 src/features/experiments/simulate/engine-cases.json
 src/features/experiments/test-fixtures.json

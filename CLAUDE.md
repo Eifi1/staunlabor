@@ -34,7 +34,9 @@ logo, photo or text of theirs, and every drawing is its own.
 
 ## Commands
 
-From the repo root.
+From the repo root. **In VS Code, Ctrl+Shift+B starts the site** and *Run
+Test Task* is `npm run check`; `.vscode/tasks.json` has the rest, and
+`staunlabor.code-workspace` opens the site with the two kits' clones.
 
 | Command | What it does |
 | --- | --- |

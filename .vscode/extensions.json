@@ -1,0 +1,19 @@
+{
+  "//": [
+    "The extensions this repo's own tooling assumes. Ruff and ESLint are the ones",
+    "`npm run check` runs, so the editor and CI agree on what is wrong. Prettier",
+    "formats the frontend from frontend/.prettierrc.json (120 columns), as",
+    "`npm run format` does; settings.json lets it format only where that config",
+    "applies. The Tailwind extension matters more than usual because many class",
+    "names on screen are the design system's, compiled into its published `dist`",
+    "inside node_modules, which Tailwind ignores unless told (the @source line in",
+    "frontend/src/app.css)."
+  ],
+  "recommendations": [
+    "ms-python.python",
+    "charliermarsh.ruff",
+    "dbaeumer.vscode-eslint",
+    "esbenp.prettier-vscode",
+    "bradlc.vscode-tailwindcss"
+  ]
+}

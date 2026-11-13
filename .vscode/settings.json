@@ -1,0 +1,49 @@
+{
+  // Python: the backend's uv-managed venv, and pytest run from backend/.
+  // Without this the Testing sidebar finds no backend tests at all: there is no
+  // Python config at the repository's root for the extension to read.
+  "python.defaultInterpreterPath": "${workspaceFolder}/backend/.venv/bin/python",
+  "python.testing.pytestEnabled": true,
+  "python.testing.pytestPath": "${workspaceFolder}/backend/.venv/bin/pytest",
+  "python.testing.cwd": "${workspaceFolder}/backend",
+  "python.testing.pytestArgs": ["tests"],
+  "python.testing.unittestEnabled": false,
+  "python.analysis.extraPaths": ["${workspaceFolder}/backend"],
+
+  // Auto-imports from the packages the site depends on, @eifi1/ui-kit included.
+  // Go to Definition on a kit component lands in its shipped `.d.ts`; to edit
+  // it, open its own clone (`staunlabor.code-workspace` has it as a root).
+  "typescript.preferences.includePackageJsonAutoImports": "on",
+
+  // Prettier only where frontend/.prettierrc.json applies. Without a config
+  // the extension formats by its own defaults, 80 columns, and rewraps whole
+  // files; the backend is ruff's.
+  "prettier.requireConfig": true,
+
+  // The two kits' clones beside this one, so their working trees show in
+  // Source Control from this window while a fix is made there for a page here.
+  // A convenience only: the site builds the released kits, so nothing in the
+  // clones changes anything here until it is released and bumped. Relative on
+  // purpose: the Git extension refuses an absolute path in this setting, and
+  // a missing clone scans nothing.
+  "git.scanRepositories": ["../ui-kit", "../server-kit"],
+
+  // Caches that flood Search and Quick Open. The Explorer sees through these.
+  "files.watcherExclude": {
+    "**/__pycache__/**": true,
+    "**/.pytest_cache/**": true,
+    "**/.ruff_cache/**": true,
+    "**/.venv/**": true,
+    "**/node_modules/**": true,
+    "**/dist/**": true,
+    "**/coverage/**": true
+  },
+  "search.exclude": {
+    "**/.venv": true,
+    "**/dist": true,
+    "**/node_modules": true,
+    "**/coverage": true,
+    "**/engine-cases.json": true,
+    "**/test-fixtures.json": true
+  }
+}

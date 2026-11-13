@@ -1,0 +1,132 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "//": [
+        "THE Ctrl+Shift+B TASK. Everything below it exists to make this one work",
+        "or to be run on its own.",
+        "",
+        "`npm run dev` runs the API (:8002) and the site (:5176) in parallel, off",
+        "the sibling apps' ports, so all of them can run at once. The site proxies",
+        "/api to the backend. There is no database to start or migrate."
+      ],
+      "label": "Start site (backend + frontend)",
+      "type": "shell",
+      "command": "npm run dev",
+      "dependsOn": ["Install dependencies"],
+      "dependsOrder": "sequence",
+      "options": { "cwd": "${workspaceFolder}" },
+      "isBackground": true,
+      "presentation": { "reveal": "always", "panel": "dedicated", "clear": true },
+      "problemMatcher": [],
+      "group": { "kind": "build", "isDefault": true },
+      "detail": "Bound to Ctrl+Shift+B. Runs the API on :8002 and the site on http://localhost:5176. Checks for uv and installs first."
+    },
+    {
+      "//": [
+        "The backend half of `npm run dev` is `uv run`; without uv it would fail",
+        "quietly while the site comes up and every exhibit's figures answer 502."
+      ],
+      "label": "Preflight: uv",
+      "type": "shell",
+      "command": "command -v uv >/dev/null || { echo ''; echo '  uv is missing — the backend runs through it.'; echo '  Install: https://docs.astral.sh/uv/getting-started/installation/'; echo ''; exit 1; }; echo 'preflight ok: uv found'",
+      "options": { "cwd": "${workspaceFolder}" },
+      "presentation": { "reveal": "silent", "panel": "shared" },
+      "problemMatcher": [],
+      "detail": "Fails with a readable message when uv is missing, instead of letting uvicorn fail obscurely."
+    },
+    {
+      "//": [
+        "`npm ci`, not `npm install`, and only when the lockfile is newer than the",
+        "last install: `npm install` may move any ^-ranged dependency and rewrite",
+        "the lockfile on every start, putting development on a set CI never",
+        "checked. npm writes node_modules/.package-lock.json at the end of an",
+        "install, so the two timestamps say whether the lockfile changed since.",
+        "Then `uv sync`, which does nothing when the backend's venv already",
+        "matches uv.lock.",
+        "",
+        "Use 'Install dependencies (may update the lockfile)' when you mean to add",
+        "or bump something."
+      ],
+      "label": "Install dependencies",
+      "type": "shell",
+      "command": "if [ ! -e node_modules/.package-lock.json ] || [ package-lock.json -nt node_modules/.package-lock.json ]; then echo 'lockfile changed — running npm ci'; npm ci; else echo 'npm dependencies up to date'; fi && (cd backend && uv sync --frozen)",
+      "dependsOn": ["Preflight: uv"],
+      "dependsOrder": "sequence",
+      "options": { "cwd": "${workspaceFolder}" },
+      "presentation": { "reveal": "silent", "panel": "shared" },
+      "problemMatcher": [],
+      "detail": "npm ci at the root when the lockfile changed, then uv sync --frozen in backend/."
+    },
+    {
+      "label": "Install dependencies (may update the lockfile)",
+      "type": "shell",
+      "command": "npm install",
+      "options": { "cwd": "${workspaceFolder}" },
+      "presentation": { "reveal": "always", "panel": "shared" },
+      "problemMatcher": [],
+      "detail": "For when you mean to add or bump a dependency. Rewrites package-lock.json."
+    },
+    {
+      "label": "Check everything (what CI runs)",
+      "type": "shell",
+      "command": "npm run check",
+      "options": { "cwd": "${workspaceFolder}" },
+      "presentation": { "reveal": "always", "panel": "dedicated", "clear": true },
+      "problemMatcher": [],
+      "group": { "kind": "test", "isDefault": true },
+      "detail": "The five check:* stages — versioning, security, deadcode, frontend, backend — as the pre-push hook runs them. Bound to the default test task."
+    },
+    {
+      "label": "Frontend: format + lint + typecheck + test + build",
+      "type": "shell",
+      "command": "npm run check:frontend",
+      "options": { "cwd": "${workspaceFolder}" },
+      "presentation": { "reveal": "always", "panel": "dedicated" },
+      "problemMatcher": ["$tsc", "$eslint-stylish"]
+    },
+    {
+      "label": "Frontend: vitest (watch)",
+      "type": "shell",
+      "command": "npm run test:watch",
+      "options": { "cwd": "${workspaceFolder}/frontend" },
+      "isBackground": true,
+      "presentation": { "reveal": "always", "panel": "dedicated" },
+      "problemMatcher": []
+    },
+    {
+      "label": "Backend: ruff + pytest",
+      "type": "shell",
+      "command": "npm run check:backend",
+      "options": { "cwd": "${workspaceFolder}" },
+      "presentation": { "reveal": "always", "panel": "dedicated" },
+      "problemMatcher": [],
+      "detail": "Coverage has a floor (fail_under in backend/pyproject.toml), so this fails on uncovered new code even when every test passes."
+    },
+    {
+      "//": [
+        "After a change to an exhibit's engine: the browser's time loops are held",
+        "to the engine by these cases, from both sides",
+        "(tests/unit/test_experiments_browser.py, simulate.test.ts). Rewrite them",
+        "in the same commit as the engine change, and port the change to",
+        "frontend/src/features/experiments/simulate/ until both tests pass."
+      ],
+      "label": "Engine: rewrite the reference cases",
+      "type": "shell",
+      "command": "uv run python ../scripts/write-experiments-cases.py",
+      "options": { "cwd": "${workspaceFolder}/backend" },
+      "presentation": { "reveal": "always", "panel": "shared" },
+      "problemMatcher": [],
+      "detail": "Writes frontend/src/features/experiments/simulate/engine-cases.json from domain/experiments/."
+    },
+    {
+      "label": "Format the frontend (Prettier)",
+      "type": "shell",
+      "command": "npm run format",
+      "options": { "cwd": "${workspaceFolder}" },
+      "presentation": { "reveal": "silent", "panel": "shared" },
+      "problemMatcher": [],
+      "detail": "What check:frontend's format check asks for."
+    }
+  ]
+}

@@ -1,0 +1,63 @@
+{
+  // A multi-root workspace: this site, and the two shared packages it installs.
+  //
+  // Open it with File → Open Workspace from File… when you want the kits in the
+  // Explorer, in Search and in Go to File, and not only in Source Control.
+  // Opening the folder on its own still works and still shows both kits'
+  // repositories, because `.vscode/settings.json` scans for them; this file is
+  // the larger version of the same wiring, not a replacement for it.
+  //
+  // Neither kit is a dependency path: the site installs `@eifi1/ui-kit` from npm
+  // and `eifi1-server-kit` as the wheel on its GitHub release, and a build needs
+  // nothing outside this repository. They are here because a gap found on a
+  // page is fixed in a kit, released there and bumped here, and doing that in
+  // one window beats doing it in three.
+  "folders": [
+    { "name": "staunlabor", "path": "." },
+    { "name": "@eifi1/ui-kit — design system", "path": "../ui-kit" },
+    { "name": "eifi1-server-kit — shared backend", "path": "../server-kit" }
+  ],
+
+  "settings": {
+    // These apply to every root; this repo's own `.vscode/settings.json` still
+    // wins for this repo. They are for the kits' roots, which otherwise put
+    // their `node_modules`, `.venv` and `dist` into every Quick Open and every
+    // search. `.mypy_cache` is the server kit's.
+    "files.watcherExclude": {
+      "**/__pycache__/**": true,
+      "**/.mypy_cache/**": true,
+      "**/.pytest_cache/**": true,
+      "**/.ruff_cache/**": true,
+      "**/.venv/**": true,
+      "**/node_modules/**": true,
+      "**/dist/**": true,
+      "**/coverage/**": true
+    },
+    "search.exclude": {
+      "**/.venv": true,
+      "**/dist": true,
+      "**/node_modules": true,
+      "**/coverage": true,
+      // The engine's reference cases: half a megabyte each of numbers that
+      // match every search for a digit.
+      "**/engine-cases.json": true,
+      "**/test-fixtures.json": true
+    }
+    // No interpreter here on purpose: a workspace-level one applies to every
+    // root and would hand the server kit this site's `backend/.venv`, where
+    // `eifi1_server_kit` is the released wheel rather than the `src/` being
+    // edited. Each root names its own (this one in `.vscode/settings.json`).
+  },
+
+  // Mirrored from `.vscode/extensions.json`: a multi-root window reads its
+  // recommendations from the workspace file rather than from each folder.
+  "extensions": {
+    "recommendations": [
+      "ms-python.python",
+      "charliermarsh.ruff",
+      "dbaeumer.vscode-eslint",
+      "esbenp.prettier-vscode",
+      "bradlc.vscode-tailwindcss"
+    ]
+  }
+}
