@@ -124,7 +124,7 @@ Steps, each its own commits:
    worker, `npm run db:setup`, CI's Postgres. *(on `feat/accounts`: the engine
    and the request's unit of work, the kit's `[sql]` tables, migration 0001 and
    its check against the models, a database per test worker, `npm run
-   db:migrate`)*
+   db:migrate`, a Postgres service in CI's backend job, not yet run on GitHub)*
 2. Accounts and user administration on the kit's Layer 2. *(accounts on
    `feat/accounts`: server-kit 0.29's `auth_router` and
    `invitations_admin_router`, invitation-only with the first admin through
