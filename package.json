@@ -14,6 +14,7 @@
     "dev": "npm-run-all -p dev:frontend dev:backend",
     "dev:backend": "cd backend && uv run uvicorn staunlabor.main:app --reload --host 0.0.0.0 --port 8002",
     "dev:frontend": "cd frontend && npm run dev -- --host",
+    "db:setup": "bash scripts/setup-postgres.sh",
     "check": "npm-run-all -s check:versioning check:security check:deadcode check:frontend check:backend",
     "check:versioning": "node scripts/check-version-sync.cjs && BASE_SHA=$(git merge-base origin/main HEAD 2>/dev/null || true) node scripts/check-commit-range.cjs",
     "check:security": "npm-run-all -s check:security:backend check:security:frontend",

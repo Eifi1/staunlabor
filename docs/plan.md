@@ -82,3 +82,46 @@ The stack of the apps it comes from, so the same people and tools work on it:
    - the domain mapped through Cloudflare.
 6. **The old address:** *(done 2026-11-13: Kurvenschmiede v0.4.0)* the engineering app's experiments area redirects to
    `staunlabor.app` and is then removed there.
+
+## The second stage: accounts, feedback and the translation review (decided 2026-11-13)
+
+Native readers should review the five machine-translated languages on the same
+page the sibling apps use, and visitors should be able to give feedback the
+same way. Both need to know who someone is, so the site gets accounts and a
+database. Until it ships, the live site stays without both, and the pages that
+say so stay as they are.
+
+- **The database:** a database of its own, `staunlabor`, on the shared Cloud
+  SQL instance `keksdose:europe-west4:keksdose-db`, the way Kastlan does it:
+  an owner role for the migrations, a DML-only app role for the service, the
+  URLs in Secret Manager, migrations as a Cloud Run job. The instance is a
+  db-f1-micro of about 25 connections shared by four apps, so the pool is small
+  (2 + 2 per instance).
+- **Accounts as in Keksdose, Kastlan and Kurvenschmiede,** on the same kit
+  parts. Visitors still need none to use the exhibits.
+- **The scope of Kurvenschmiede:** public feedback (comments, votes, the public
+  list), passkeys, the data export and account deletion, the mail switches, the
+  reviewer role and `/translations`. No teams, no billing, no demo.
+- **No mail sent at first:** the console backend. The admin page shows an
+  invitation's or a reset's link once, to be handed on in person; sending can
+  be switched on later (the shared Resend plan verifies three domains, all
+  taken).
+- **The kit first:** feedback and the translation review mount the
+  server-kit's routers (Layer 2). Accounts and user administration are asked of
+  the kit as a Layer 2 of their own before anything is written here, so the
+  site does not become a fourth copy of the same sign-in code; Staunlabor is
+  its first user.
+- **The request budget's proof:** the edge token Keksdose uses, once the
+  server-kit carries it (0.28); the internal ingress stays only if a cold start
+  keeps its first `/api` request.
+
+Steps, each its own commits:
+
+1. The database's ground: the engine, Alembic, a Postgres database per test
+   worker, `npm run db:setup`, CI's Postgres.
+2. Accounts and user administration on the kit's Layer 2.
+3. Feedback and the translation review on the kit's routers.
+4. The pages: sign-in, settings, admin, feedback, `/translations`.
+5. The texts: the privacy policy, the terms, the about page, in all seven.
+6. The deploy: the database and its roles on keksdose-db, the secrets, the
+   migrate job, the bucket for feedback files.
