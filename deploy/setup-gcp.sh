@@ -11,7 +11,9 @@
 #     (starts a build as staunlabor-build, uploads its source);
 #   * GitHub's keyless sign-in, only for runs of Eifi1/staunlabor on main;
 #   * three alert mails: a service deployed by anyone but the build, a key made
-#     for a service account, a change to the project's access.
+#     for a service account, a change to the project's access;
+#   * the site's private way to the backend: the default network, and Private
+#     Google Access on its europe-west4 subnet;
 # and takes roles/editor from the Compute default account, if the project gave
 # it one.
 set -euo pipefail
@@ -164,6 +166,24 @@ policy "Staunlabor: access changed" \
   "The project's IAM policy changed" \
   "$ACTIVITY AND protoPayload.serviceName=\"cloudresourcemanager.googleapis.com\" AND protoPayload.methodName=\"SetIamPolicy\"" \
   "Who may do what in the project changed. Expected only when you changed it yourself."
+
+say "7. The site's private way to the backend"
+# The backend is --ingress=internal (cloudbuild.yaml), so its run.app URL
+# answers only what arrives through the project's VPC; the web service gets
+# there by Direct VPC egress into the default network. Enabling Compute makes
+# that network (one auto-mode subnet per region); Private Google Access on
+# this region's subnet is what carries a run.app request out of it. Without it
+# the network has no way out at all (there is no Cloud NAT), so Caddy cannot
+# reach the backend and every /api request fails.
+quiet gcloud services enable compute.googleapis.com --project=$P
+if [ "$(gcloud compute networks subnets describe default --region=$R --project=$P \
+    --format='value(privateIpGoogleAccess)')" = "True" ]; then
+  echo "Private Google Access is on for default/$R"
+else
+  quiet gcloud compute networks subnets update default --region=$R --project=$P \
+    --enable-private-ip-google-access
+  echo "Private Google Access turned on for default/$R"
+fi
 
 say "Done. GitHub's Actions variables:"
 echo "  GCP_WIF_PROVIDER = projects/$PN/locations/global/workloadIdentityPools/github/providers/github"

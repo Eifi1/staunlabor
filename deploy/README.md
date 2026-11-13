@@ -11,11 +11,17 @@ looks at it.
         https://staunlabor.app   (Cloud Run domain mapping, TLS by Cloud Run;
                 │                 DNS at Cloudflare, records DNS-only)
         staunlabor-web  (Caddy + site)        public, 256 MB, 0–3
-          ├─ /api/* → staunlabor-backend       (TLS reverse proxy, same origin)
+          ├─ /api/* → staunlabor-backend       (TLS reverse proxy, same origin,
+          │                                     out through the VPC)
           └─ /*     → the site (try_files → index.html)
-                │
-        staunlabor-backend (FastAPI)           public run.app, 512 MB, 0–3
+                │   Direct VPC egress, all traffic → default network,
+                │   europe-west4 subnet with Private Google Access
+        staunlabor-backend (FastAPI)           ingress internal, 512 MB, 0–3
 ```
+
+The backend's run.app URL answers only what arrives through the project's
+VPC; anybody else gets a 404 from Cloud Run. That is what keeps the request
+budget honest (§4).
 
 Region **europe-west4** (the Netherlands) throughout, as the privacy policy
 says.
@@ -54,6 +60,11 @@ bash deploy/setup-gcp.sh            # the alert mails go to the project's owner,
   Cloud Run service changed by anyone but the build, a key created for a
   service account (no account here uses keys), and a change to the project's
   access. They prevent nothing; they make misuse visible.
+* **The site's private way to the backend:** the Compute API, which makes the
+  `default` network, and Private Google Access on its europe-west4 subnet.
+  The web service leaves through it (`--vpc-egress=all-traffic`), so its
+  requests to the backend count as internal. The network holds no machine and
+  costs nothing.
 
 Then, on GitHub (Eifi1/staunlabor → Settings):
 
@@ -111,6 +122,33 @@ Three proxies append to it: the web service's Cloud Run front end (the
 caller), Caddy (its peer, Cloud Run's internal `169.254.x.x` hop, kept because
 the Caddyfile trusts it) and the backend's front end (the web service's
 egress). If one reader's budget runs out for everyone, the count is one off.
+
+The count is only true of that path, which is why the backend is
+`--ingress=internal`. While its run.app URL was public, a direct request got
+one entry appended, not three, and the third from the right was the caller's
+own to write: with a fresh fake per request, 150 parallel requests were all
+answered (2026-11-13). After every change to the network or the proxies,
+run these three (150 parallel requests each, `xargs -P 25`):
+
+| Request | Expected |
+| --- | --- |
+| straight to the backend's run.app URL | every one a 404 |
+| through the site, a fresh fake `X-Forwarded-For` each | 90 answered, the rest 429 |
+| through the site, no header | 90 answered, the rest 429 |
+
+```bash
+B=$(gcloud run services describe staunlabor-backend --project=staunlabor \
+  --region=europe-west4 --format='value(status.url)')
+for url in "$B" https://staunlabor.app; do
+  seq 1 150 | xargs -P 25 -I{} curl -s -o /dev/null -w '%{http_code}\n' \
+    -H 'X-Forwarded-For: 203.0.113.{}, 198.51.100.1' "$url/api/v1/experiments/chair" | sort | uniq -c
+  sleep 11   # the budget's ten-second window
+done
+```
+
+Measured on 2026-11-13, after the change: 150 × 404 direct, 90 × 200 and
+60 × 429 through the site, with and without the header. Direct VPC egress did
+not change the hop count.
 
 ## 5. Mail into the domain (Cloudflare Email Routing)
 

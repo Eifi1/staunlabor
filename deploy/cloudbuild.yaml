@@ -59,6 +59,15 @@ steps:
   # address three entries from the RIGHT of X-Forwarded-For (the web service's
   # front end, Caddy and the backend's front end each append one; README §4),
   # never the left-most, which the client writes.
+  #
+  # --ingress=internal: the count holds only for requests that came through
+  # Caddy. A caller who reached the run.app URL directly got ONE entry
+  # appended, so the third from the right was its own to write, and a fresh
+  # fake per request was a fresh budget per request (150 of 150 answered,
+  # 2026-11-13). Internal, the backend takes only what arrives through the
+  # project's VPC, which is the web service's egress below; the run.app URL
+  # answers everybody else 404. Still --allow-unauthenticated: Caddy carries
+  # no identity token, and ingress is what keeps strangers out.
   - id: deploy-backend
     name: gcr.io/google.com/cloudsdktool/cloud-sdk
     entrypoint: gcloud
@@ -71,6 +80,7 @@ steps:
       - --platform=managed
       - --port=8080
       - --allow-unauthenticated
+      - --ingress=internal
       - --service-account=${_RUN_SA}
       - --min-instances=0
       - --max-instances=3
@@ -81,6 +91,13 @@ steps:
       - --set-env-vars=STAUNLABOR_APP_BASE_URL=${_APP_BASE_URL},STAUNLABOR_TRUSTED_PROXY_HOPS=3
 
   # ── web (public; finds the backend host and proxies /api to it) ─────────
+  # Direct VPC egress for ALL traffic, so Caddy's requests to the backend's
+  # run.app host leave through the default network, whose europe-west4 subnet
+  # has Private Google Access (setup-gcp.sh §7), and count as internal. Only
+  # `all-traffic` does that: `private-ranges-only` would send the run.app
+  # address the public way, and the backend would refuse it. Caddy talks to
+  # nothing else, so it needs no way out to the internet (no Cloud NAT). The
+  # hop count above is unchanged by it (measured 2026-11-13).
   - id: deploy-web
     name: gcr.io/google.com/cloudsdktool/cloud-sdk
     entrypoint: bash
@@ -96,6 +113,7 @@ steps:
           --image=${_REGION}-docker.pkg.dev/$PROJECT_ID/${_AR_REPO}/staunlabor-web:${_TAG} \
           --region=${_REGION} --platform=managed --port=8080 \
           --allow-unauthenticated \
+          --network=default --subnet=default --vpc-egress=all-traffic \
           --service-account=${_RUN_SA} \
           --min-instances=0 --max-instances=3 --memory=256Mi --cpu=1 \
           --set-env-vars=BACKEND_HOST=$$BACKEND_HOST
