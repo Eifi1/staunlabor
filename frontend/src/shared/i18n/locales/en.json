@@ -46,7 +46,7 @@
       },
       "credits": {
         "title": "Credits",
-        "body": "The colours in the charts and drawings come from “Imprint”, anyplot.ai's categorical palette. Its eight hues were validated by anyplot.ai against deuteranopia, protanopia and tritanopia and tuned for warm paper: https://anyplot.ai/palette"
+        "body": "The colours in the charts and drawings come from “<palette>Imprint</palette>”, the categorical palette of <site>anyplot.ai</site>. Its eight hues were validated by anyplot.ai against deuteranopia, protanopia and tritanopia and tuned for warm paper."
       }
     },
     "privacy": {

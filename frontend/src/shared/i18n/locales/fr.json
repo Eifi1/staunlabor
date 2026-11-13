@@ -46,7 +46,7 @@
       },
       "credits": {
         "title": "Crédits",
-        "body": "Les couleurs des graphiques et des dessins proviennent de « Imprint », la palette catégorielle d’anyplot.ai. Ses huit teintes ont été validées par anyplot.ai contre la deutéranopie, la protanopie et la tritanopie et ajustées pour un papier chaud : https://anyplot.ai/palette"
+        "body": "Les couleurs des graphiques et des dessins proviennent de « <palette>Imprint</palette> », la palette catégorielle de <site>anyplot.ai</site>. Ses huit teintes ont été validées par anyplot.ai contre la deutéranopie, la protanopie et la tritanopie et ajustées pour un papier chaud."
       }
     },
     "privacy": {

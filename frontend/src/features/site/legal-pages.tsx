@@ -1,6 +1,7 @@
 import { useTranslation } from "react-i18next";
 import { LegalKitSection, LegalPage, LegalSection } from "@eifi1/ui-kit";
 import { changeLanguage } from "@/shared/i18n/index";
+import { CreditsText } from "./credits";
 import { OPERATOR } from "./operator";
 
 /** The day each page's text last changed for its readers: the deploy that put
@@ -35,11 +36,9 @@ export function ImprintPage() {
       {/* Third-party acknowledgements, as keksdose's imprint has them: the
           page that names who is behind the site. Today the palette every
           chart and drawing is coloured from, anyplot.ai's "Imprint". */}
-      <LegalSection
-        key="credits"
-        heading={t("legal.impressum.credits.title")}
-        body={t("legal.impressum.credits.body")}
-      />
+      <LegalSection key="credits" heading={t("legal.impressum.credits.title")}>
+        <CreditsText />
+      </LegalSection>
     </LegalPage>
   );
 }

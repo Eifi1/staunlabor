@@ -46,7 +46,7 @@
       },
       "credits": {
         "title": "Créditos",
-        "body": "Los colores de los gráficos y las ilustraciones proceden de «Imprint», la paleta categórica de anyplot.ai. anyplot.ai validó sus ocho tonos frente a la deuteranopía, la protanopía y la tritanopía y los ajustó para papel cálido: https://anyplot.ai/palette"
+        "body": "Los colores de los gráficos y las ilustraciones proceden de «<palette>Imprint</palette>», la paleta categórica de <site>anyplot.ai</site>. anyplot.ai validó sus ocho tonos frente a la deuteranopía, la protanopía y la tritanopía y los ajustó para papel cálido."
       }
     },
     "privacy": {

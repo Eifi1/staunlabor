@@ -12,6 +12,7 @@ import en from "@/shared/i18n/locales/en.json";
 import { renderWithProviders } from "@/test/render";
 import { AppRoutes } from "@/app/routes";
 import { AboutPage } from "./about-page";
+import { ANYPLOT_PALETTE_URL, ANYPLOT_URL } from "./credits";
 import { ImprintPage, PrivacyPage } from "./legal-pages";
 import { ISSUES_URL, OPERATOR, SOURCE_URL } from "./operator";
 import { SiteFooter } from "./site-footer";
@@ -59,7 +60,16 @@ describe("the imprint", () => {
   it("credits anyplot.ai for the palette the charts and drawings are coloured from", async () => {
     renderWithProviders(<ImprintPage />);
     expect(await screen.findByRole("heading", { name: en.legal.impressum.credits.title })).toBeInTheDocument();
-    expect(screen.getByText(en.legal.impressum.credits.body)).toHaveTextContent("https://anyplot.ai/palette");
+    // Two links that count for anyplot.ai: no nofollow, and the referrer kept.
+    const palette = screen.getByRole("link", { name: "Imprint" });
+    const site = screen.getByRole("link", { name: "anyplot.ai" });
+    expect(palette).toHaveAttribute("href", ANYPLOT_PALETTE_URL);
+    expect(site).toHaveAttribute("href", ANYPLOT_URL);
+    for (const link of [palette, site]) {
+      expect(link).toHaveAttribute("target", "_blank");
+      expect(link.getAttribute("rel")).toBe("noopener");
+    }
+    expect(document.getElementById("credits")).toHaveTextContent(/anyplot\.ai against deuteranopia/);
   });
 
   it("disclaims as a private, non-commercial project, not as a beta", async () => {

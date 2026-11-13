@@ -46,7 +46,7 @@
       },
       "credits": {
         "title": "Köszönetnyilvánítás",
-        "body": "A diagramok és rajzok színei az anyplot.ai „Imprint” nevű kategorikus palettájából származnak. Nyolc színárnyalatát az anyplot.ai deuteranópiára, protanópiára és tritanópiára ellenőrizte, és meleg tónusú papírhoz hangolta: https://anyplot.ai/palette"
+        "body": "A diagramok és rajzok színei az <site>anyplot.ai</site> „<palette>Imprint</palette>” nevű kategorikus palettájából származnak. Nyolc színárnyalatát az anyplot.ai deuteranópiára, protanópiára és tritanópiára ellenőrizte, és meleg tónusú papírhoz hangolta."
       }
     },
     "privacy": {
