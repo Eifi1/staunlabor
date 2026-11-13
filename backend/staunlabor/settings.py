@@ -1,9 +1,10 @@
 """What a deployment says about itself, prefixed ``STAUNLABOR_``.
 
-There is little to say: the site has no database, no accounts, no mail and no
-secrets. What is left is where it is served from, which the CORS check reads
-in development (in production the web service proxies ``/api`` on the same
-origin), and how many proxies stand in front, which the address budget reads.
+There is little to say: the site has no database, no accounts and no mail.
+What is left is where it is served from, which the CORS check reads in
+development (in production the web service proxies ``/api`` on the same
+origin), and how many proxies stand in front with the one secret that proves
+a request came through them, which the address budget reads.
 """
 
 from __future__ import annotations
@@ -25,6 +26,12 @@ class Settings(BaseSettings):
     #: never the left, where the client does. On Cloud Run behind the web
     #: service it is 3 (the web's front end, Caddy, the backend's front end).
     trusted_proxy_hops: int = Field(default=0, ge=0, le=10)
+    #: The secret the web service's Caddy sets on every request it proxies
+    #: (``security.EDGE_HEADER``): only with it does a request vouch for
+    #: ``trusted_proxy_hops``; without it, it is counted from the one entry
+    #: its own front end appended. Empty with more than one hop means every
+    #: request shares one budget, the safe error.
+    edge_token: str = Field(default="", repr=False)
 
 
 @lru_cache

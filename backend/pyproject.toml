@@ -69,4 +69,4 @@ min_confidence = 60
 ignore_decorators = ["@router.*", "@app.*", "@model_validator", "@field_validator"]
 
 [tool.uv.sources]
-eifi1-server-kit = { url = "https://github.com/Eifi1/server-kit/releases/download/v0.26.0/eifi1_server_kit-0.26.0-py3-none-any.whl" }
+eifi1-server-kit = { url = "https://github.com/Eifi1/server-kit/releases/download/v0.28.0/eifi1_server_kit-0.28.0-py3-none-any.whl" }

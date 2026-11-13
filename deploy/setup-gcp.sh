@@ -7,13 +7,14 @@
 # It makes
 #   * the Artifact Registry repository and the build's source bucket, in the EU;
 #   * three accounts: staunlabor-build (what a deploy does, nothing else),
-#     staunlabor-run (both services, no roles at all) and github-deployer
+#     staunlabor-run (both services; it reads the edge token, nothing else) and github-deployer
 #     (starts a build as staunlabor-build, uploads its source);
 #   * GitHub's keyless sign-in, only for runs of Eifi1/staunlabor on main;
 #   * three alert mails: a service deployed by anyone but the build, a key made
 #     for a service account, a change to the project's access;
 #   * the site's private way to the backend: the default network, and Private
 #     Google Access on its europe-west4 subnet;
+#   * the edge token, the one secret, which the run account alone may read;
 # and takes roles/editor from the Compute default account, if the project gave
 # it one.
 set -euo pipefail
@@ -184,6 +185,24 @@ else
     --enable-private-ip-google-access
   echo "Private Google Access turned on for default/$R"
 fi
+
+say "8. The edge token: the proof that a request came through Caddy"
+# Caddy sets it as X-Staunlabor-Edge, and only a request carrying it vouches for
+# the three proxies the request budget counts (staunlabor/security.py, server-kit's
+# vouched_hops). Made once from 32 random bytes, never printed, never in a file;
+# the run account may read this one secret and nothing else.
+quiet gcloud services enable secretmanager.googleapis.com --project=$P
+if gcloud secrets describe staunlabor-edge-token --project=$P >/dev/null 2>&1; then
+  echo "secret staunlabor-edge-token exists"
+else
+  python3 -c "import secrets; print(secrets.token_urlsafe(32), end='')" \
+    | quiet gcloud secrets create staunlabor-edge-token --project=$P --replication-policy=user-managed \
+        --locations=$R --data-file=-
+  echo "secret staunlabor-edge-token created"
+fi
+quiet gcloud secrets add-iam-policy-binding staunlabor-edge-token --project=$P \
+  --member=serviceAccount:$RUN --role=roles/secretmanager.secretAccessor
+echo "$RUN reads staunlabor-edge-token"
 
 say "Done. GitHub's Actions variables:"
 echo "  GCP_WIF_PROVIDER = projects/$PN/locations/global/workloadIdentityPools/github/providers/github"

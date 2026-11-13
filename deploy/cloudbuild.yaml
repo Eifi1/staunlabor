@@ -1,17 +1,18 @@
 # Cloud Build pipeline for Staunlabor on Cloud Run, GCP project `staunlabor`:
 # two images, then the backend, then the web service, which finds the backend's
 # host and proxies /api to it. Nothing else: no database to migrate, no job, no
-# schedule, no secret. Both services scale to zero.
+# schedule, and one secret, the edge token. Both services scale to zero.
 #
 # One-time prerequisites are deploy/README.md §1.
 
 substitutions:
   _REGION: europe-west4
   _AR_REPO: staunlabor                              # Artifact Registry repo name
-  # Both services run as this account, which has no roles at all: the backend
-  # computes and answers, Caddy serves files and proxies /api, and neither
-  # needs anything of GCP. Without it a service runs as the Compute default
-  # account, which a project gives roles/editor.
+  # Both services run as this account, whose one grant is reading the secret
+  # staunlabor-edge-token (setup-gcp.sh §8): the backend computes and answers,
+  # Caddy serves files and proxies /api, and neither needs anything else of
+  # GCP. Without it a service runs as the Compute default account, which a
+  # project gives roles/editor.
   _RUN_SA: staunlabor-run@staunlabor.iam.gserviceaccount.com
   _APP_BASE_URL: https://staunlabor.app             # == the custom domain
   _TAG: latest                                      # the deploy workflow passes the short SHA
@@ -68,6 +69,12 @@ steps:
   # project's VPC, which is the web service's egress below; the run.app URL
   # answers everybody else 404. Still --allow-unauthenticated: Caddy carries
   # no identity token, and ingress is what keeps strangers out.
+  #
+  # STAUNLABOR_EDGE_TOKEN, the same secret Caddy sets as X-Staunlabor-Edge:
+  # the proof that a request came through Caddy, without which the budget
+  # counts one hop, not three (server-kit's vouched_hops). It holds even if the
+  # backend's ingress is ever opened again; the internal ingress is the second
+  # line, the token the one every sibling app shares.
   - id: deploy-backend
     name: gcr.io/google.com/cloudsdktool/cloud-sdk
     entrypoint: gcloud
@@ -89,6 +96,7 @@ steps:
       - --cpu=1
       - --timeout=60
       - --set-env-vars=STAUNLABOR_APP_BASE_URL=${_APP_BASE_URL},STAUNLABOR_TRUSTED_PROXY_HOPS=3
+      - --set-secrets=STAUNLABOR_EDGE_TOKEN=staunlabor-edge-token:latest
 
   # ── web (public; finds the backend host and proxies /api to it) ─────────
   # Direct VPC egress for ALL traffic, so Caddy's requests to the backend's
@@ -116,7 +124,8 @@ steps:
           --network=default --subnet=default --vpc-egress=all-traffic \
           --service-account=${_RUN_SA} \
           --min-instances=0 --max-instances=3 --memory=256Mi --cpu=1 \
-          --set-env-vars=BACKEND_HOST=$$BACKEND_HOST
+          --set-env-vars=BACKEND_HOST=$$BACKEND_HOST \
+          --set-secrets=EDGE_TOKEN=staunlabor-edge-token:latest
 
 images:
   - ${_REGION}-docker.pkg.dev/$PROJECT_ID/${_AR_REPO}/staunlabor-backend:${_TAG}

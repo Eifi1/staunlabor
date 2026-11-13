@@ -139,14 +139,14 @@ wheels = [
 
 [[package]]
 name = "eifi1-server-kit"
-version = "0.26.0"
-source = { url = "https://github.com/Eifi1/server-kit/releases/download/v0.26.0/eifi1_server_kit-0.26.0-py3-none-any.whl" }
+version = "0.28.0"
+source = { url = "https://github.com/Eifi1/server-kit/releases/download/v0.28.0/eifi1_server_kit-0.28.0-py3-none-any.whl" }
 dependencies = [
     { name = "pydantic" },
     { name = "starlette" },
 ]
 wheels = [
-    { url = "https://github.com/Eifi1/server-kit/releases/download/v0.26.0/eifi1_server_kit-0.26.0-py3-none-any.whl", hash = "sha256:6d49747205d4fe01ef5d91ecf46603dc89561d95221a8ef68dcbc69fc4350204" },
+    { url = "https://github.com/Eifi1/server-kit/releases/download/v0.28.0/eifi1_server_kit-0.28.0-py3-none-any.whl", hash = "sha256:6bbf528296de1830585864aba87b4a9e0921b7d3cc56056423da516c932fb431" },
 ]
 
 [package.optional-dependencies]
@@ -614,7 +614,7 @@ dev = [
 
 [package.metadata]
 requires-dist = [
-    { name = "eifi1-server-kit", extras = ["fastapi"], url = "https://github.com/Eifi1/server-kit/releases/download/v0.26.0/eifi1_server_kit-0.26.0-py3-none-any.whl" },
+    { name = "eifi1-server-kit", extras = ["fastapi"], url = "https://github.com/Eifi1/server-kit/releases/download/v0.28.0/eifi1_server_kit-0.28.0-py3-none-any.whl" },
     { name = "fastapi", specifier = ">=0.115.0" },
     { name = "pydantic", specifier = ">=2.10.0" },
     { name = "pydantic-settings", specifier = ">=2.7.0" },

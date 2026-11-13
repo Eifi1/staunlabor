@@ -6,6 +6,7 @@
 #
 # Env (set by cloudbuild.yaml's deploy-web step):
 #   BACKEND_HOST = the backend's run.app host WITHOUT scheme
+#   EDGE_TOKEN   = the secret staunlabor-edge-token, proof of this proxy
 #   PORT         = injected by Cloud Run
 
 {
@@ -42,6 +43,11 @@
 		# "first record does not look like a TLS handshake" (a 502).
 		reverse_proxy {$BACKEND_HOST}:443 {
 			header_up Host {$BACKEND_HOST}
+			# The edge token: the proof that a request came through here, so the
+			# backend may count its three proxies (staunlabor/security.py). `header_up`
+			# SETS the header, replacing whatever the browser sent; never `+`, which
+			# would append to it.
+			header_up X-Staunlabor-Edge {$EDGE_TOKEN}
 			transport http {
 				tls
 			}

@@ -3,9 +3,9 @@
 Two Cloud Run services behind one custom domain, **staunlabor.app**.
 `staunlabor-web` (Caddy and the built site) serves the frontend and proxies
 `/api/*` to `staunlabor-backend` (FastAPI), so the browser sees one origin and
-CORS has nothing to allow. There is no database, no secret, no job and no
-schedule; both services scale to zero, so the site costs nothing while nobody
-looks at it.
+CORS has nothing to allow. There is no database, no job and no schedule, and
+one secret, the edge token (§4); both services scale to zero, so the site costs
+nothing while nobody looks at it.
 
 ```
         https://staunlabor.app   (Cloud Run domain mapping, TLS by Cloud Run;
@@ -20,8 +20,8 @@ looks at it.
 ```
 
 The backend's run.app URL answers only what arrives through the project's
-VPC; anybody else gets a 404 from Cloud Run. That is what keeps the request
-budget honest (§4).
+VPC; anybody else gets a 404 from Cloud Run. With the edge token Caddy sets,
+that is what keeps the request budget honest (§4).
 
 Region **europe-west4** (the Netherlands) throughout, as the privacy policy
 says.
@@ -44,9 +44,9 @@ bash deploy/setup-gcp.sh            # the alert mails go to the project's owner,
     Run (`run.admin`) as `staunlabor-run` (`serviceAccountUser` on it alone),
     pushes images (`artifactregistry.writer` on the repository), writes its log,
     reads its source (`objectViewer` on the source bucket).
-  * `staunlabor-run`, which both services run as: **no roles at all**. Neither
-    service needs anything of GCP. Without it a service runs as the Compute
-    default account.
+  * `staunlabor-run`, which both services run as: **one grant**, reading the
+    secret `staunlabor-edge-token`, and nothing else of GCP. Without it a
+    service runs as the Compute default account.
   * `github-deployer`, which GitHub signs in as: starts a build
     (`cloudbuild.builds.editor`, `serviceUsageConsumer`) as `staunlabor-build`
     (`serviceAccountUser` on it alone) and uploads its source (`storage.admin`;
@@ -65,6 +65,11 @@ bash deploy/setup-gcp.sh            # the alert mails go to the project's owner,
   The web service leaves through it (`--vpc-egress=all-traffic`), so its
   requests to the backend count as internal. The network holds no machine and
   costs nothing.
+* **The edge token**, the one secret: `staunlabor-edge-token`, 32 random bytes
+  made by the script and never printed, readable by `staunlabor-run` alone.
+  Caddy sends it to the backend, which trusts its proxies only with it (§4). To
+  change it, add a version (`gcloud secrets versions add`) and deploy: both
+  services read `latest` at start.
 
 Then, on GitHub (Eifi1/staunlabor → Settings):
 
@@ -123,11 +128,22 @@ caller), Caddy (its peer, Cloud Run's internal `169.254.x.x` hop, kept because
 the Caddyfile trusts it) and the backend's front end (the web service's
 egress). If one reader's budget runs out for everyone, the count is one off.
 
-The count is only true of that path, which is why the backend is
-`--ingress=internal`. While its run.app URL was public, a direct request got
-one entry appended, not three, and the third from the right was the caller's
-own to write: with a fresh fake per request, 150 parallel requests were all
-answered (2026-11-13). After every change to the network or the proxies,
+The count is only true of that path. While the backend's run.app URL was
+public, a direct request got one entry appended, not three, and the third from
+the right was the caller's own to write: with a fresh fake per request, 150
+parallel requests were all answered (2026-11-13). Two things close it, each on
+its own:
+
+* **The edge token** (server-kit's `vouched_hops`, the rule every sibling app
+  shares): Caddy sets `X-Staunlabor-Edge` to the secret `staunlabor-edge-token`
+  (`setup-gcp.sh` §8), and only a request carrying it counts three proxies; any
+  other is counted from the one entry its own front end appended, the caller.
+  Without the secret configured every request shares one budget, which limits
+  too much, never too little.
+* **The internal ingress**: the backend answers nothing that did not come
+  through the project's VPC.
+
+After every change to the network, the proxies or the secret,
 run these three (150 parallel requests each, `xargs -P 25`):
 
 | Request | Expected |
