@@ -1,5 +1,5 @@
-"""The app: the exhibits' routes under ``/api/v1``, a health check, and the
-two answers an error can get.
+"""The app: the exhibits' routes and the accounts' (server-kit's) under
+``/api/v1``, a health check, and the two answers an error can get.
 
 No middleware beyond CORS, which only the development server needs: in
 production the web service proxies ``/api`` on the site's own origin. The
@@ -15,20 +15,61 @@ from collections.abc import AsyncIterator
 from contextlib import asynccontextmanager
 from uuid import uuid4
 
+from eifi1_server_kit.auth import AuthLimiters, parse_env_list
+from eifi1_server_kit.auth.router import auth_router, invitations_admin_router
 from eifi1_server_kit.errors import install_contract_error_handlers
-from fastapi import FastAPI, Request
+from eifi1_server_kit.settings import secret_problems
+from fastapi import Depends, FastAPI, Request
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
 
 from staunlabor import __version__
+from staunlabor.accounts import account_deps
 from staunlabor.api.experiments_router import router as experiments_router
 from staunlabor.database import Database
-from staunlabor.security import ExperimentsLimiters
-from staunlabor.settings import get_settings
+from staunlabor.security import AccountLimiters, ExperimentsLimiters, limit_account_request
+from staunlabor.settings import Settings, get_settings
 
 logger = logging.getLogger(__name__)
 
 API_PREFIX = "/api/v1"
+
+
+def check_deployment(settings: Settings) -> None:
+    """Refuse to start a deployment anybody could take over; on a laptop, say so.
+
+    * **The signing key** unset, the one in this repository, or under 32
+      characters (server-kit's ``secret_problems``): whoever holds it signs a
+      session for any account, the admin's included.
+    * **An empty allow-list**: whoever signs up first on an empty database is
+      its admin, a stranger who finds the deployment first too.
+    * **A passkey RP id that is not the site's host**: every ceremony fails, in
+      the person's browser and in no log.
+
+    A deployment (``Settings.deployed``) refuses to start on any of them. A
+    laptop boots with nothing configured, and hears about the key and the RP id.
+    A console transport on a deployment is the plan's stand-in until Resend has
+    verified the domain, so it is allowed, and said once: its log line carries
+    every mail's link, a credential while it is unspent.
+    """
+    problems = secret_problems(settings.jwt_secret, name="STAUNLABOR_JWT_SECRET")
+    if not settings.webauthn_rp_id_fits:
+        problems.append(
+            f"STAUNLABOR_WEBAUTHN_RP_ID ({settings.webauthn_rp_id!r}) is neither the host of STAUNLABOR_APP_BASE_URL"
+            f" ({settings.app_base_url}) nor a suffix of it: no browser uses a passkey here"
+        )
+    if not settings.deployed:
+        for problem in problems:
+            logger.warning("%s. Development only.", problem)
+        return
+    if not parse_env_list(settings.registration_allowlist):
+        problems.append(
+            "STAUNLABOR_REGISTRATION_ALLOWLIST is empty: whoever signs up first on an empty database is its admin"
+        )
+    if problems:
+        raise RuntimeError("Refusing to start a deployment: " + "; ".join(problems) + ".")
+    if settings.mail_backend == "console":
+        logger.warning("Mail goes to the log (STAUNLABOR_MAIL_BACKEND=console): each line carries the mail's link.")
 
 
 @asynccontextmanager
@@ -39,6 +80,7 @@ async def _lifespan(app: FastAPI) -> AsyncIterator[None]:
 
 def create_app() -> FastAPI:
     settings = get_settings()
+    check_deployment(settings)
     app = FastAPI(
         title="Staunlabor",
         version=__version__,
@@ -47,6 +89,8 @@ def create_app() -> FastAPI:
         lifespan=_lifespan,
     )
     app.state.experiments_limiters = ExperimentsLimiters()
+    app.state.account_limiters = AccountLimiters()
+    app.state.auth_limiters = AuthLimiters()
     app.state.database = Database(settings)
     app.add_middleware(
         CORSMiddleware,
@@ -60,6 +104,12 @@ def create_app() -> FastAPI:
         return {"status": "ok", "version": __version__}
 
     app.include_router(experiments_router, prefix=API_PREFIX)
+    # Every account route spends the address's budget first, the kit's own
+    # windows after it (security.ACCOUNT_REQUESTS).
+    accounts = account_deps(settings)
+    budget = [Depends(limit_account_request)]
+    app.include_router(auth_router(accounts), prefix=API_PREFIX, dependencies=budget)
+    app.include_router(invitations_admin_router(accounts), prefix=API_PREFIX, dependencies=budget)
     # The kit's refusals — the budget's 429 with its Retry-After — are
     # ValueErrors too; the kit's handlers answer them at their own status,
     # beside the engine's 400 below.

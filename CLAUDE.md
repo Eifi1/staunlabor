@@ -19,9 +19,11 @@ document it points to.
 **Staunlabor** (staunlabor.app): hands-on exhibits, computed. Eight exhibits,
 each a page in one shape (at the exhibit, try it, what happens, how it is
 computed, the trick), and an overview with the experiment of the day. Free,
-open source (code MIT, texts and drawings CC BY 4.0), **no accounts, no
-database, no cookies, no tracking**. A FastAPI backend holds the exhibits'
-engine behind a few public routes; a React SPA on `@eifi1/ui-kit` draws them.
+open source (code MIT, texts and drawings CC BY 4.0), **no cookies, no
+tracking, and no account needed for any exhibit**. A FastAPI backend holds the
+exhibits' engine behind a few public routes; a React SPA on `@eifi1/ui-kit`
+draws them. The second stage (`docs/plan.md`) adds invitation-only accounts on
+a database of its own, server-kit's account layer; the exhibits never touch it.
 It began as the "Experiments" area of Kurvenschmiede (`../kurvenschmiede`),
 whose differential-equations course the pages still link to at
 `https://kurvenschmiede.app/dynamics/...`.
@@ -47,7 +49,7 @@ Test Task* is `npm run check`; `.vscode/tasks.json` has the rest, and
 | `npm run check:security` | server-kit's dependency audit + `npm audit --audit-level=high` |
 | `npm run check:deadcode` | vulture and ts-prune against their baselines (empty, and to stay so) |
 | `npm run check:frontend` | prettier + eslint + tsc + vitest with coverage + build |
-| `npm run check:backend` | `scripts/check-backend.sh`: ruff check + ruff format + pytest with coverage |
+| `npm run check:backend` | `scripts/check-backend.sh`: ruff check + ruff format + pytest with coverage (the accounts' tests on PostgreSQL) |
 | `npm run format` | Prettier rewrites the frontend (120 columns) |
 | `npm run db:setup` | Once: the local role `staunlabor` (CREATEDB) and the databases `staunlabor` and `staunlabor_test` |
 | `npm run db:migrate` | `alembic upgrade head` on `STAUNLABOR_DATABASE_URL` (default: the local `staunlabor`) |
@@ -72,6 +74,7 @@ backend/staunlabor/
   domain/schemas/       pydantic wire shapes with the per-field bounds
   api/                  the routes: shapes in, schemas out, no physics
   security.py           the request budgets, per address
+  accounts.py           server-kit's account routes wired: the stores, signer, hasher, mail, policy
   database.py           the accounts' engine (pool 1 + 1) and the request's unit of work
   models.py             the accounts' tables: server-kit's [sql] mixins, named here
 backend/alembic/        the migrations, numbered by hand (0001: the account tables)
@@ -104,8 +107,9 @@ frontend/src/
   `shared/lib/storage-keys.ts` and listed on the privacy page.
 * **Reuse the kits before writing anything**: `@eifi1/ui-kit` (npm) for every
   component, the legal pages and the language menu; `eifi1-server-kit` (a wheel
-  pinned by URL and sha256 in `uv.lock`) for the limiter and the error
-  handlers. What the kit lacks is an ask upstream.
+  pinned by URL and sha256 in `uv.lock`) for the limiter, the error handlers
+  and the accounts (routes, tables, stores; `accounts.py` holds only what the
+  kit leaves to an app). What the kit lacks is an ask upstream.
 * **It works on a phone**: a grid says `grid-cols-1` before its breakpoint;
   check a page at 390 px and 360 px. One appearance, light and dark.
 * **Conventional Commits**, headers of at most 100 characters; a release is

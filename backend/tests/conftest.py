@@ -50,6 +50,15 @@ MAINTENANCE_URL = os.environ.get(
 # Every test that does not ask for a database gets one that is not there, over
 # whatever the shell exported: an account route reached by mistake is an error.
 os.environ["STAUNLABOR_DATABASE_URL"] = f"{MAINTENANCE_URL.rsplit('/', 1)[0]}/staunlabor_no_database_here"
+# The suite's own signing key (32 characters or more, so nothing warns), and
+# bcrypt at its floor: every password here is written beside its assertion, and
+# a hash carries its cost, so production's 12 is only slower, never truer.
+os.environ["STAUNLABOR_JWT_SECRET"] = "the-suite-s-own-signing-key-and-nobody-else-s"
+os.environ["STAUNLABOR_BCRYPT_ROUNDS"] = "4"
+# A laptop, whatever the shell says: a deployment refuses to start without its
+# allow-list, and a test that wants one says so.
+for _name in ("K_SERVICE", "CLOUD_RUN_JOB", "STAUNLABOR_APP_BASE_URL", "STAUNLABOR_REGISTRATION_ALLOWLIST"):
+    os.environ.pop(_name, None)
 
 _NO_DATABASE = (
     "Could not reach the test database at {where}\n"
@@ -217,6 +226,23 @@ async def database(worker_database_url: str, monkeypatch: pytest.MonkeyPatch) ->
     finally:
         await engine.dispose()
     yield worker_database_url
+
+
+#: The address that may claim the suite's empty database as its first admin.
+FIRST_ADMIN = "ada@example.com"
+
+
+@pytest.fixture
+async def accounts(database: str, monkeypatch: pytest.MonkeyPatch) -> AsyncIterator[AsyncClient]:
+    """The app on this test's empty database, :data:`FIRST_ADMIN` on its allow-list."""
+    from staunlabor.main import create_app
+
+    monkeypatch.setenv("STAUNLABOR_REGISTRATION_ALLOWLIST", FIRST_ADMIN)
+    get_settings.cache_clear()
+    app = create_app()
+    async with AsyncClient(transport=ASGITransport(app=app), base_url="http://test") as client:
+        yield client
+    await app.state.database.dispose()
 
 
 @pytest.fixture

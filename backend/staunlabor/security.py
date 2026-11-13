@@ -1,10 +1,15 @@
-"""The one budget the site has: the exhibits' calculations, per address.
+"""The site's budgets, per address: the exhibits' calculations, and every
+account route.
 
 Every route is public, so every route's cost is a stranger's to spend. The
 time simulations run in the browser and cost nothing here; the figures a slider
 asks for cost a millisecond to a couple of hundred, and a debounced slider asks
-at most once per :data:`PAGE_SETTLE_S`. The window forgets everything on a
-restart, which for a limiter is the right failure.
+at most once per :data:`PAGE_SETTLE_S`. The account routes (server-kit's
+``auth_router``) charge the kit's own windows where a route hashes, mails or
+redeems a token (``AuthLimiters``, on ``app.state.auth_limiters``); the rest
+read a row or two and had none, so :data:`ACCOUNT_REQUESTS` spans them all.
+Every window forgets everything on a restart, which for a limiter is the right
+failure.
 """
 
 from __future__ import annotations
@@ -13,7 +18,7 @@ from collections.abc import Callable
 from time import monotonic
 
 from eifi1_server_kit.auth.limits import Budget
-from eifi1_server_kit.limiter import client_ip, vouched_hops
+from eifi1_server_kit.limiter import charge, client_ip, vouched_hops
 from fastapi import Request
 
 from staunlabor.settings import get_settings
@@ -27,6 +32,15 @@ PAGE_SETTLE_S = 0.150
 #: ``1 + 10/0.150 = 67`` requests in ten seconds; the dearest routes take up to
 #: two hundred milliseconds, the most an address can keep one core busy for.
 EXPERIMENT_RUNS = Budget(90, 10)
+
+
+#: Every account route, per address: sixty a minute. A person's page asks for
+#: a handful (``/auth/me``, a refresh, the sessions or the invitations); the
+#: limit is what a script gets for nothing, each request holding one of the
+#: instance's two connections (``settings.db_pool_size`` + ``db_max_overflow``)
+#: while it runs. Charged before the kit's own windows,
+#: which stay tighter where a route costs more (five sign-ups in five minutes).
+ACCOUNT_REQUESTS = Budget(60, 60)
 
 
 #: The header the web service's Caddy SETS on every request it proxies, to the
@@ -62,3 +76,19 @@ class ExperimentsLimiters:
 
     def __init__(self, *, clock: Callable[[], float] = monotonic) -> None:
         self.runs = EXPERIMENT_RUNS.limiter(clock)
+
+
+class AccountLimiters:
+    """The account routes' budget, one per process."""
+
+    def __init__(self, *, clock: Callable[[], float] = monotonic) -> None:
+        self.requests = ACCOUNT_REQUESTS.limiter(clock)
+
+
+def limit_account_request(request: Request) -> None:
+    """Spend one of this address's account requests, or refuse with the wait."""
+    charge(
+        request.app.state.account_limiters.requests,
+        caller_address(request),
+        lambda seconds: f"Too many requests from this address. Try again in {seconds} seconds.",
+    )

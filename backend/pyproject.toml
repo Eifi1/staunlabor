@@ -81,6 +81,9 @@ max-complexity = 12
 paths = ["staunlabor"]
 min_confidence = 60
 ignore_decorators = ["@router.*", "@app.*", "@model_validator", "@field_validator"]
+# The methods of server-kit's ports the app implements (`accounts.JwtSigner`,
+# `accounts.BcryptHasher`): the kit calls them, in a package vulture does not read.
+ignore_names = ["sign", "verify", "hash"]
 
 [tool.uv.sources]
 eifi1-server-kit = { url = "https://github.com/Eifi1/server-kit/releases/download/v0.29.0/eifi1_server_kit-0.29.0-py3-none-any.whl" }

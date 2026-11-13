@@ -125,7 +125,13 @@ Steps, each its own commits:
    and the request's unit of work, the kit's `[sql]` tables, migration 0001 and
    its check against the models, a database per test worker, `npm run
    db:migrate`)*
-2. Accounts and user administration on the kit's Layer 2.
+2. Accounts and user administration on the kit's Layer 2. *(accounts on
+   `feat/accounts`: server-kit 0.29's `auth_router` and
+   `invitations_admin_router`, invitation-only with the first admin through
+   the allow-list, roles ADMIN, MEMBER and REVIEWER, passkeys, the console
+   transport, every route under the address budget, the kit's contract checks
+   on PostgreSQL. User administration waits for server-kit 0.30's
+   `user_admin_router`.)*
 3. Feedback and the translation review on the kit's routers.
 4. The pages: sign-in, settings, admin, feedback, `/translations`.
 5. The texts: the privacy policy, the terms, the about page, in all seven.

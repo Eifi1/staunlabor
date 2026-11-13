@@ -173,6 +173,47 @@ The imprint names `kontakt@staunlabor.app`. Cloudflare → Email Routing: onboar
 forward `kontakt@` to the operator's inbox; no catch-all. The site sends no
 mail, so there is nothing else.
 
+## 6. To do before the accounts deploy
+
+Nothing below is done yet, and nothing in `cloudbuild.yaml` or the Dockerfiles
+knows about a database: everything above describes the site as it runs today.
+The backend on `feat/accounts` mounts server-kit's account routes on a
+database of its own, and **refuses to start on Cloud Run** (`main.check_deployment`)
+until the signing key and the allow-list below are set; Cloud Run then keeps
+serving the revision before it. Plan, second stage, step 6.
+
+* **The database** `staunlabor` on the shared instance
+  `keksdose:europe-west4:keksdose-db`, the way Kastlan's is: an owner role
+  (`staunlabor_owner`, owns the schema, runs the migrations) and a DML-only app
+  role (`staunlabor_app`: `SELECT, INSERT, UPDATE, DELETE` on the tables, `USAGE`
+  on the sequences, and the same by `ALTER DEFAULT PRIVILEGES` for what the
+  owner creates later). The pool is 1 + 1 per instance (`settings.py`), so the
+  service's three instances hold six connections at most; a `CONNECTION LIMIT`
+  on each role keeps it so whatever the code says.
+* **The secrets** (Secret Manager, project `staunlabor`, readable by
+  `staunlabor-run`): `staunlabor-db-url-app` and `staunlabor-db-url-owner`
+  (`postgresql+asyncpg://<role>:<password>@/staunlabor?host=/cloudsql/keksdose:europe-west4:keksdose-db`),
+  `staunlabor-jwt-secret` (`openssl rand -hex 32`), later `staunlabor-resend-api-key`.
+* **Cloud SQL access**: `roles/cloudsql.client` for `staunlabor-run` (and for
+  `staunlabor-build`, which deploys the job) **in the project `keksdose`**, and
+  `--add-cloudsql-instances=keksdose:europe-west4:keksdose-db` on the backend.
+* **The backend's variables**: `STAUNLABOR_DATABASE_URL` from
+  `staunlabor-db-url-app`, `STAUNLABOR_JWT_SECRET` from `staunlabor-jwt-secret`,
+  `STAUNLABOR_REGISTRATION_ALLOWLIST` (the address that claims the empty
+  database as its admin), `STAUNLABOR_WEBAUTHN_RP_ID=staunlabor.app`.
+* **The migrate job**: a Cloud Run job `staunlabor-migrate` on the backend's
+  image, `alembic upgrade head` with `STAUNLABOR_DATABASE_URL` from
+  `staunlabor-db-url-owner`, run by `cloudbuild.yaml` before the backend
+  deploys. `Dockerfile.backend` copies `alembic.ini` and `alembic/` for it
+  (today it copies `staunlabor/` only).
+* **Mail**: until Resend has verified `staunlabor.app`, `STAUNLABOR_MAIL_BACKEND`
+  stays `console`, and every account mail is a line in Cloud Logging, its link
+  included, for 30 days (the backend says so at every start); an admin's answer
+  shows an invitation's link once. Then `STAUNLABOR_MAIL_BACKEND=resend` with
+  the key. Replies go to `kontakt@staunlabor.app` (§5), not the kit's `support@`.
+* **The texts first**: the privacy policy, the about page and this file's
+  "no database, no job" (plan, step 5) are untrue from the deploy on.
+
 ## Files here
 
 | File | What it is |
