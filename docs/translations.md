@@ -16,6 +16,12 @@ screen. **There is one German, `de-CH`: Swiss spelling (ss for ß), formal
 * The imprint and the privacy policy are the kit's text in the kit's
   translations wherever every site says the same; German is binding, and
   every other language says so with a link to it.
+* The account mails (the invitation, the address check and change, the reset,
+  the deletion, a new passkey) are server-kit's (`eifi1_server_kit.auth.mails`,
+  0.29), in the same seven languages, `de-CH` formal with "ss"; the backend
+  writes none of its own. Each goes in its reader's account language, an
+  invitation in the one the admin picks. A wording a reviewer finds there is an
+  ask upstream.
 
 ## Who wrote which
 
