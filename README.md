@@ -11,12 +11,28 @@ the trick. Every number comes from the site's own engine and is held by its
 tests.
 
 It is free, without an account and without ads, in seven languages, at
-**https://staunlabor.app** (being built).
+**https://staunlabor.app**.
 
-## Status
+## Run it
 
-Being set up: the exhibits move here from the experiments area of an
-engineering app where they were first built. `docs/plan.md` says how.
+Node 26 and [uv](https://docs.astral.sh/uv/) (Python 3.14):
+
+```bash
+npm install
+cd backend && uv sync && cd ..
+npm run dev          # the API on :8002, the site on http://localhost:5176
+npm run check        # everything CI runs
+```
+
+`CLAUDE.md` is the short guide to the code, `docs/experiments.md` the long one
+to each exhibit, `deploy/README.md` how it is hosted. The exhibits were first
+built as the experiments area of an engineering app and moved here on
+2026-11-13 (`docs/plan.md`).
+
+## Feedback
+
+Something wrong, unclear, or an exhibit you would like to see? Open an issue:
+https://github.com/Eifi1/staunlabor/issues
 
 ## Licence
 

@@ -61,21 +61,21 @@ The stack of the apps it comes from, so the same people and tools work on it:
 ## Steps
 
 1. **The repository:** licences, README, this plan. *(done)*
-2. **The skeleton:**
+2. **The skeleton:** *(done)*
    - backend and frontend workspaces, the kits, lint, format and types;
    - the test runners, the check script, the hook, CI and the release workflow;
    - CLAUDE.md and `docs/`.
-3. **The exhibits:**
+3. **The exhibits:** *(done)*
    - the engine and its tests;
    - the browser ports and their reference cases;
    - the eight pages and the overview, the daily pick;
    - the seven catalogues and the docs on each exhibit.
-4. **The frame:**
+4. **The frame:** *(done)*
    - a header with the language and theme;
    - the overview as the front page;
    - the about page with the credit, the imprint and the privacy policy;
    - the 404 page, SEO and the icons.
-5. **The deploy:**
+5. **The deploy:** *(the files are written: `deploy/`, `.github/workflows/`)*
    - the Artifact Registry repository and the service accounts;
    - Workload Identity Federation for GitHub;
    - Cloud Build;
