@@ -1,0 +1,93 @@
+name: CI
+
+# Backend and frontend are independent jobs, so a red suite on one side does
+# not hide the other's result. The commit check is a third, because it is the
+# only step that needs the whole history.
+#
+# Local first: every check here is an npm script that `npm run check` (and the
+# pre-push hook) already ran on the machine the push came from, and this only
+# confirms it, piece by piece, nothing allowed to fail quietly. Two steps exist
+# only here, because only here is there a push to check: the commit range
+# (Eifi1/shared-workflows' commit-check) and that the suite ran rather than
+# skipped (its tests-ran). Both are pinned to a release commit; Dependabot's
+# github-actions entry moves the pin.
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  # By hand on any branch, e.g. the monthly browserslist PR, which the default
+  # token opens without starting this workflow. No step reads the push or PR
+  # payload, so a manual run checks the branch exactly as a PR would.
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  commits:
+    name: Versioning (version sync · Conventional Commits)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0 # the range between the push's or PR's base and head
+      # Every file a release bumps carries one version (.versionrc.json's list).
+      - run: npm run version:check
+      # Every non-merge commit in the pushed or PR range, never the history
+      # before it. Locally, `check:versioning` runs the same rule over the branch.
+      - uses: Eifi1/shared-workflows/actions/commit-check@b4f160070fe9a80273925839ae60db80f1674747 # v1.3.1
+
+  backend:
+    name: Backend (lint · format · tests · security · dead code)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: astral-sh/setup-uv@v5
+        with:
+          # The uv `deploy/Dockerfile.backend` pins and `uv.lock` was checked
+          # with. The security step's audit is server-kit's, over `uv audit`, a
+          # uv preview: it fails closed on a uv that words it differently, so a
+          # newer uv must not arrive here on a day nobody changed the code.
+          version: "0.12.22"
+          enable-cache: true
+      - run: uv sync --frozen
+        working-directory: backend
+      # No database and no secrets: the engine is pure and the API tests run
+      # the real app in-process. The coverage floor is `fail_under` in
+      # pyproject.toml, so this fails the job on its own.
+      - name: Lint, format, tests (scripts/check-backend.sh)
+        run: npm run check:backend
+      # Green is not the same as run: a test that stops running for any reason
+      # still reads as a pass. `tests.` is the whole suite: nothing may skip.
+      - uses: Eifi1/shared-workflows/actions/tests-ran@b4f160070fe9a80273925839ae60db80f1674747 # v1.3.1
+        with:
+          working-directory: backend
+          prefix: tests.
+      - name: Security (dependency audit)
+        run: npm run check:security:backend
+      - name: Dead code (vulture)
+        run: npm run check:deadcode:backend
+
+  frontend:
+    name: Frontend (format · lint · types · tests · build · security · dead code)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: .nvmrc
+          cache: npm
+      - run: npm ci
+      # With coverage, so the thresholds in vite.config.ts are a gate here as
+      # they are on the machine the push came from.
+      - name: Format, lint, types, tests, build
+        run: npm run check:frontend
+      - name: Security (npm audit, high and above)
+        run: npm run check:security:frontend
+      - name: Dead code (ts-prune against frontend/.ts-prune-baseline)
+        run: npm run check:deadcode:frontend

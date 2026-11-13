@@ -1,0 +1,43 @@
+name: Release
+
+# A semver release on every merge to main: commit-and-tag-version reads the
+# Conventional Commits since the last tag, bumps every file in .versionrc.json
+# (package.json twice, pyproject.toml, staunlabor/__init__.py, both
+# lockfiles), writes CHANGELOG.md, commits "chore(release): …", tags vX.Y.Z and
+# opens a GitHub release. On 0.x a feat is a patch and a breaking change a minor.
+#
+# The job is Eifi1/shared-workflows' — the same release every Eifi1 app cuts,
+# with the hardening against a half-pushed tag and a main that moved under it.
+# By hand: Actions → Release → Run workflow, to force a bump or preview one.
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+    inputs:
+      release-as:
+        description: "Version bump"
+        type: choice
+        default: auto
+        options: [auto, patch, minor, major]
+      dry-run:
+        description: "Preview only — no commit, tag, or push"
+        type: boolean
+        default: false
+
+concurrency:
+  group: release
+  cancel-in-progress: false
+
+jobs:
+  release:
+    permissions:
+      contents: write
+    # Pinned to the v1.3.1 commit; Dependabot's github-actions entry keeps it current.
+    # Defaults fit this repo: commit-and-tag-version is a root devDependency, the
+    # version is read from the root package.json, and scripts/check-version-sync.cjs
+    # runs before the cut.
+    uses: Eifi1/shared-workflows/.github/workflows/release.yml@b4f160070fe9a80273925839ae60db80f1674747 # v1.3.1
+    with:
+      release-as: ${{ inputs.release-as || 'auto' }}
+      dry-run: ${{ inputs.dry-run || false }}

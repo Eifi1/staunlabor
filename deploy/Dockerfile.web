@@ -1,0 +1,23 @@
+# The web service for Cloud Run: the built site served by Caddy, which also
+# proxies /api/* to the backend service (deploy/Caddyfile), so the browser sees
+# one origin and CORS has nothing to allow.
+#
+#     docker build -f deploy/Dockerfile.web -t <img> .          # from the repo root
+
+# ── stage 1: build the static bundle ──────────────────────────────────────
+FROM node:26-slim AS build
+WORKDIR /build
+
+COPY package.json package-lock.json .npmrc ./
+COPY frontend/package.json ./frontend/
+RUN npm ci
+
+COPY frontend/ ./frontend/
+# The API is the same origin's "/api/v1" (shared/api/client.ts), which Caddy
+# proxies.
+RUN npm run build -w staunlabor-frontend
+
+# ── stage 2: serve ────────────────────────────────────────────────────────
+FROM caddy:2-alpine
+COPY deploy/Caddyfile /etc/caddy/Caddyfile
+COPY --from=build /build/frontend/dist /srv

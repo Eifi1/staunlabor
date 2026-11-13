@@ -1,0 +1,38 @@
+# The FastAPI backend for Cloud Run: the exhibits' engine behind a few public
+# routes. No database, no migrations, no secrets, so no entrypoint either: the
+# container starts the server and nothing else.
+#
+#     docker build -f deploy/Dockerfile.backend -t <img> .     # from the repo root
+FROM python:3.14-slim
+
+# uv at one release rather than `latest`, by tag and digest: the tool that
+# installs the lockfile must not change between two builds of one commit, and a
+# tag pushed again cannot move a digest. It is the uv `uv.lock` was checked
+# with and CI pins (ci.yml). Nothing bumps this line for you; move tag and
+# digest together:
+#     docker buildx imagetools inspect ghcr.io/astral-sh/uv:<version>
+COPY --from=ghcr.io/astral-sh/uv:0.12.22@sha256:f513a91fc62fe7c17567eee97230dd198e43edb8a9fbecca843714a4358fe1bc /uv /uvx /usr/local/bin/
+
+ENV UV_COMPILE_BYTECODE=1 \
+    UV_LINK_MODE=copy \
+    PYTHONUNBUFFERED=1
+
+WORKDIR /app/backend
+# 1) Dependencies only: this layer is cached until the lockfile changes.
+COPY backend/pyproject.toml backend/uv.lock backend/.python-version ./
+RUN uv sync --frozen --no-dev --no-install-project
+
+# 2) The app itself.
+COPY backend/staunlabor ./staunlabor
+RUN uv sync --frozen --no-dev
+
+# Not root: the process needs to write nothing.
+RUN useradd --system --no-create-home staunlabor
+USER staunlabor
+
+EXPOSE 8080
+# The environment's own uvicorn, not `uv run`: at run time uv would want a
+# cache directory the unprivileged user has none of, and has nothing to do.
+# One worker: Cloud Run scales by instances, and the request budget is per
+# process, so two workers would be two budgets.
+CMD ["/app/backend/.venv/bin/uvicorn", "staunlabor.main:app", "--host", "0.0.0.0", "--port", "8080", "--workers", "1"]

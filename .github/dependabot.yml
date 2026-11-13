@@ -1,0 +1,31 @@
+# Monthly updates for the GitHub Actions pins, on the 1st, and nothing else.
+#
+# npm and uv are not here: scripts/check-dependencies.py does that half
+# locally, first in .husky/pre-push. An open Dependabot ALERT blocks the push,
+# and newer minor/patch versions of the direct dependencies are listed without
+# blocking (majors left out, and the design system, which is adopted by hand).
+# GitHub still raises alerts and opens security updates for every ecosystem.
+#
+# Browser data (caniuse-lite, baseline-browser-mapping) is transitive and never
+# Dependabot's: the monthly .github/workflows/browserslist.yml job refreshes it.
+#
+# `ci(deps): …`, a type the commit-message gate accepts. No rebases: each one
+# would be a CI run of its own. No majors: a major is adopted by hand.
+version: 2
+
+updates:
+  - package-ecosystem: github-actions
+    directory: "/"
+    schedule:
+      interval: monthly
+      timezone: Europe/Zurich
+    rebase-strategy: disabled
+    commit-message:
+      prefix: ci
+      include: scope
+    groups:
+      actions:
+        patterns: ["*"]
+    ignore:
+      - dependency-name: "*"
+        update-types: ["version-update:semver-major"]

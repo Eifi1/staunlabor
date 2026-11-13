@@ -1,0 +1,76 @@
+name: Deploy
+
+# Deploy to Cloud Run (GCP project `staunlabor`) by hand: nothing ships unless
+# somebody with write access to this repository clicks "Run workflow".
+#
+#   merge to main → CI + Release (a version and a tag) → when ready,
+#   Actions → Deploy → "Run workflow" → deploy/cloudbuild.yaml builds the
+#   chosen commit and rolls both services.
+#
+# Release ≠ deploy: release.yml owns versions, tags and the changelog; this owns
+# shipping, and tags images by git SHA rather than by version, so a deploy of a
+# commit between two releases is still traceable.
+#
+# Auth is keyless, by Workload Identity Federation (deploy/README.md §1):
+#   • pool `github` with the OIDC provider `github`, limited to runs of
+#     Eifi1/staunlabor on main: run this workflow from main (the default) and
+#     name the commit, tag or branch to deploy in its input;
+#   • the account github-deployer@staunlabor.iam.gserviceaccount.com, which may
+#     start a build as staunlabor-build and upload its source, and nothing else;
+#   • the repository's Actions variables GCP_WIF_PROVIDER and GCP_DEPLOY_SA.
+#
+# The `production` environment is where a required reviewer goes: on a public
+# repository GitHub offers it on the free plan, so a run waits for a click.
+
+on:
+  workflow_dispatch:
+    inputs:
+      ref:
+        description: "Commit SHA, tag or branch to deploy (blank = this run's ref, i.e. main)"
+        required: false
+        default: ""
+
+permissions:
+  contents: read
+  id-token: write # required for Workload Identity Federation
+
+concurrency:
+  group: deploy-production
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    name: Build + deploy to Cloud Run
+    runs-on: ubuntu-latest
+    environment: production
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ inputs.ref || github.sha }}
+          # Nothing in this job re-authenticates to GitHub, and a token left in
+          # the git config is one a later step could use without saying so.
+          persist-credentials: false
+
+      - name: Authenticate to Google Cloud
+        uses: google-github-actions/auth@v2
+        with:
+          workload_identity_provider: ${{ vars.GCP_WIF_PROVIDER }}
+          service_account: ${{ vars.GCP_DEPLOY_SA }}
+
+      - name: Set up gcloud
+        uses: google-github-actions/setup-gcloud@v2
+        with:
+          project_id: staunlabor
+
+      - name: Submit Cloud Build deploy
+        run: |
+          set -euo pipefail
+          # _TAG must be passed explicitly: the built-in $SHORT_SHA is empty on
+          # a manual submit, and cloudbuild.yaml keys the images off _TAG.
+          TAG="$(git rev-parse --short HEAD)"
+          echo "Deploying commit $TAG"
+          gcloud builds submit \
+            --project=staunlabor \
+            --config=deploy/cloudbuild.yaml \
+            --substitutions=_TAG="$TAG" \
+            .

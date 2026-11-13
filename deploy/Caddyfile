@@ -1,0 +1,86 @@
+# Caddy for the `staunlabor-web` Cloud Run service.
+#
+# Cloud Run terminates TLS and injects $PORT, so Caddy listens on :$PORT over
+# plain HTTP with its own HTTPS off. The browser sees ONE origin, the custom
+# domain: Caddy serves the site and proxies /api/* to the backend service.
+#
+# Env (set by cloudbuild.yaml's deploy-web step):
+#   BACKEND_HOST = the backend's run.app host WITHOUT scheme
+#   PORT         = injected by Cloud Run
+
+{
+	admin off
+	auto_https off
+	servers {
+		# Every connection to this container comes through Cloud Run's front
+		# end, which appends the caller's address to X-Forwarded-For. Trusted,
+		# Caddy keeps that header and appends its own peer; untrusted, it would
+		# replace the header with the peer (Cloud Run's internal 169.254.x.x
+		# hop) and every caller would share one request budget. The backend
+		# counts from the right (STAUNLABOR_TRUSTED_PROXY_HOPS), so what a
+		# client writes on the left is never read.
+		trusted_proxies static 0.0.0.0/0 ::/0
+	}
+}
+
+:{$PORT} {
+	encode zstd gzip
+
+	header {
+		X-Content-Type-Options nosniff
+		Referrer-Policy strict-origin-when-cross-origin
+		Strict-Transport-Security "max-age=31536000"
+		# Nothing here is meant to be framed by another site.
+		X-Frame-Options DENY
+		-Server
+	}
+
+	handle /api/* {
+		# Cloud Run routes by SNI and Host, so dial over TLS and present the
+		# backend's own hostname. The :443 is required: with `transport http
+		# { tls }` Caddy still defaults to port 80 and the handshake fails with
+		# "first record does not look like a TLS handshake" (a 502).
+		reverse_proxy {$BACKEND_HOST}:443 {
+			header_up Host {$BACKEND_HOST}
+			transport http {
+				tls
+			}
+		}
+	}
+
+	handle {
+		root * /srv
+
+		# The legal pages stay out of search results. The page's own
+		# <meta name="robots"> says the same, but only once the script has run.
+		@noindex path /impressum /privacy
+		header @noindex X-Robots-Tag "noindex"
+
+		# In a `route`, because order matters here and Caddy's own directive
+		# order puts `header` BEFORE `try_files`: outside it, a header matched
+		# on `/index.html` sees the path as requested, so the shell would go out
+		# without `no-cache` at every client route. A browser free to keep a
+		# stale shell asks for chunks the last deploy deleted, and the page
+		# fails to load.
+		route {
+			# Hashed build assets are content-addressed: cache them for good.
+			# One that is not there is a plain 404 — never the shell under an
+			# asset's name, and never a year's cache on the 404 either, since a
+			# rollback brings the same hash back.
+			@asset {
+				path /assets/*
+				file
+			}
+			header @asset Cache-Control "public, max-age=31536000, immutable"
+			handle /assets/* {
+				file_server
+			}
+
+			# A single-page app: an unknown path is a client route, and the
+			# shell names the hashed bundles, so it is always re-fetched.
+			try_files {path} /index.html
+			header /index.html Cache-Control "no-cache"
+			file_server
+		}
+	}
+}

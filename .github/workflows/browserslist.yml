@@ -1,0 +1,32 @@
+name: Browserslist data
+
+# The monthly refresh of the browser-support data (caniuse-lite,
+# baseline-browser-mapping) that the frontend build reads through browserslist.
+# Both are transitive and pinned in the root package-lock.json, so `npm ci`
+# never moves them and Dependabot only bumps them for a security advisory.
+#
+# The job itself is Eifi1/shared-workflows' — one copy for every app, whose
+# README says what it does and what it needs. This file only says when. No
+# `directory` input: the lockfile is at the root (frontend/ is a workspace), and
+# "." is the default.
+#
+# The 15th rather than the 1st: Dependabot's monthly run is on the 1st and
+# rewrites the same lockfile, so the same day would conflict every month.
+
+on:
+  schedule:
+    - cron: "0 5 15 * *" # 15th of every month, 05:00 UTC
+  workflow_dispatch:
+
+jobs:
+  update:
+    # A called workflow cannot raise its caller's permissions, so grant them here.
+    permissions:
+      contents: write
+      pull-requests: write
+    # Pinned to the v1.3.1 commit; Dependabot's github-actions entry keeps it current.
+    uses: Eifi1/shared-workflows/.github/workflows/browserslist.yml@b4f160070fe9a80273925839ae60db80f1674747 # v1.3.1
+    secrets:
+      # Optional. Without it the PR is opened with the default token and CI has
+      # to be started by hand (ci.yml takes workflow_dispatch for that).
+      pr_token: ${{ secrets.BROWSERSLIST_PR_TOKEN }}

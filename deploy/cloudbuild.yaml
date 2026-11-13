@@ -1,0 +1,105 @@
+# Cloud Build pipeline for Staunlabor on Cloud Run, GCP project `staunlabor`:
+# two images, then the backend, then the web service, which finds the backend's
+# host and proxies /api to it. Nothing else: no database to migrate, no job, no
+# schedule, no secret. Both services scale to zero.
+#
+# One-time prerequisites are deploy/README.md §1.
+
+substitutions:
+  _REGION: europe-west4
+  _AR_REPO: staunlabor                              # Artifact Registry repo name
+  # Both services run as this account, which has no roles at all: the backend
+  # computes and answers, Caddy serves files and proxies /api, and neither
+  # needs anything of GCP. Without it a service runs as the Compute default
+  # account, which a project gives roles/editor.
+  _RUN_SA: staunlabor-run@staunlabor.iam.gserviceaccount.com
+  _APP_BASE_URL: https://staunlabor.app             # == the custom domain
+  _TAG: latest                                      # the deploy workflow passes the short SHA
+
+# The build runs as an account of its own, with only what this file does: push
+# the images, deploy Cloud Run as _RUN_SA, write its log, read its source.
+serviceAccount: projects/staunlabor/serviceAccounts/staunlabor-build@staunlabor.iam.gserviceaccount.com
+
+options:
+  logging: CLOUD_LOGGING_ONLY
+  dynamicSubstitutions: true
+
+steps:
+  # ── build + push images ─────────────────────────────────────────────────
+  - id: build-backend
+    name: gcr.io/cloud-builders/docker
+    args:
+      - build
+      - -f
+      - deploy/Dockerfile.backend
+      - -t
+      - ${_REGION}-docker.pkg.dev/$PROJECT_ID/${_AR_REPO}/staunlabor-backend:${_TAG}
+      - .
+
+  - id: build-web
+    name: gcr.io/cloud-builders/docker
+    args:
+      - build
+      - -f
+      - deploy/Dockerfile.web
+      - -t
+      - ${_REGION}-docker.pkg.dev/$PROJECT_ID/${_AR_REPO}/staunlabor-web:${_TAG}
+      - .
+
+  - id: push-backend
+    name: gcr.io/cloud-builders/docker
+    args: [push, '${_REGION}-docker.pkg.dev/$PROJECT_ID/${_AR_REPO}/staunlabor-backend:${_TAG}']
+
+  - id: push-web
+    name: gcr.io/cloud-builders/docker
+    args: [push, '${_REGION}-docker.pkg.dev/$PROJECT_ID/${_AR_REPO}/staunlabor-web:${_TAG}']
+
+  # ── backend ─────────────────────────────────────────────────────────────
+  # STAUNLABOR_TRUSTED_PROXY_HOPS=3: the request budget reads the caller's
+  # address three entries from the RIGHT of X-Forwarded-For (the web service's
+  # front end, Caddy and the backend's front end each append one; README §4),
+  # never the left-most, which the client writes.
+  - id: deploy-backend
+    name: gcr.io/google.com/cloudsdktool/cloud-sdk
+    entrypoint: gcloud
+    args:
+      - run
+      - deploy
+      - staunlabor-backend
+      - --image=${_REGION}-docker.pkg.dev/$PROJECT_ID/${_AR_REPO}/staunlabor-backend:${_TAG}
+      - --region=${_REGION}
+      - --platform=managed
+      - --port=8080
+      - --allow-unauthenticated
+      - --service-account=${_RUN_SA}
+      - --min-instances=0
+      - --max-instances=3
+      - --concurrency=20
+      - --memory=512Mi
+      - --cpu=1
+      - --timeout=60
+      - --set-env-vars=STAUNLABOR_APP_BASE_URL=${_APP_BASE_URL},STAUNLABOR_TRUSTED_PROXY_HOPS=3
+
+  # ── web (public; finds the backend host and proxies /api to it) ─────────
+  - id: deploy-web
+    name: gcr.io/google.com/cloudsdktool/cloud-sdk
+    entrypoint: bash
+    args:
+      - -c
+      - |
+        set -e
+        BACKEND_URL=$$(gcloud run services describe staunlabor-backend \
+          --region=${_REGION} --format='value(status.url)')
+        BACKEND_HOST=$${BACKEND_URL#https://}
+        echo "Proxying /api → $$BACKEND_HOST"
+        gcloud run deploy staunlabor-web \
+          --image=${_REGION}-docker.pkg.dev/$PROJECT_ID/${_AR_REPO}/staunlabor-web:${_TAG} \
+          --region=${_REGION} --platform=managed --port=8080 \
+          --allow-unauthenticated \
+          --service-account=${_RUN_SA} \
+          --min-instances=0 --max-instances=3 --memory=256Mi --cpu=1 \
+          --set-env-vars=BACKEND_HOST=$$BACKEND_HOST
+
+images:
+  - ${_REGION}-docker.pkg.dev/$PROJECT_ID/${_AR_REPO}/staunlabor-backend:${_TAG}
+  - ${_REGION}-docker.pkg.dev/$PROJECT_ID/${_AR_REPO}/staunlabor-web:${_TAG}
