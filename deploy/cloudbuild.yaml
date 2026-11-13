@@ -94,6 +94,11 @@ steps:
       - --concurrency=20
       - --memory=512Mi
       - --cpu=1
+      # Twice the CPU while an instance starts and shortly after, billed only then: a
+      # scale-to-zero backend's first request waits on Python loading the app (4.4 s
+      # on 2026-11-13). On already, as Cloud Run's default for a new service; said
+      # here so a changed default cannot switch it off unnoticed.
+      - --cpu-boost
       - --timeout=60
       - --set-env-vars=STAUNLABOR_APP_BASE_URL=${_APP_BASE_URL},STAUNLABOR_TRUSTED_PROXY_HOPS=3
       - --set-secrets=STAUNLABOR_EDGE_TOKEN=staunlabor-edge-token:latest
