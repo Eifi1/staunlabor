@@ -1,0 +1,45 @@
+{
+  "compilerOptions": {
+    "target": "ES2022",
+    "useDefineForClassFields": true,
+    "lib": ["ES2022", "DOM", "DOM.Iterable"],
+    "module": "ESNext",
+    "skipLibCheck": true,
+    "moduleResolution": "bundler",
+    "allowImportingTsExtensions": false,
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "moduleDetection": "force",
+    "noEmit": true,
+    // So that `tsc -b` keeps what it checked, in `tsconfig.tsbuildinfo` beside
+    // this file. Without it a project that emits nothing is never up to date —
+    // build mode looks for the JavaScript it would have written — and
+    // `npm run build`'s own `tsc -b` checked all of `src` again a minute after
+    // `typecheck` had (the third plan's F120). Build mode decides "up to date"
+    // from the root files' times against this file's and never looks into
+    // node_modules, so a dependency upgrade with no source change since reads
+    // as up to date: that is why `typecheck` is `tsc -b --force`, and only the
+    // build's second pass is the one that gets skipped.
+    "incremental": true,
+    "jsx": "react-jsx",
+    "strict": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "noFallthroughCasesInSwitch": true,
+    // `@/*` only. The singleton mappings that used to stand here — react,
+    // react-dom, react-router, recharts, sonner, zustand, lucide-react, each
+    // pinned to ../node_modules — existed because @hb/ui was a symlink into a
+    // SIBLING repository: its own `import ... from "react"` resolved upward
+    // from there, into that repo's @types/react, and TypeScript then held two
+    // unrelated declarations of every React type ("two different types with
+    // this name exist"). @eifi1/ui-kit is an ordinary installed package now, so
+    // it resolves React from this workspace like everything else and the
+    // mappings are inert — worse than inert, since a `paths` entry would hide a
+    // genuine version mismatch rather than report it.
+    "paths": {
+      "@/*": ["./src/*"]
+    }
+  },
+  "include": ["src"],
+  "references": [{ "path": "./tsconfig.node.json" }]
+}

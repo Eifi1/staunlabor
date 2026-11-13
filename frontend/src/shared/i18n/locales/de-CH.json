@@ -1,0 +1,984 @@
+{
+  "app": {
+    "name": "Staunlabor",
+    "tagline": "Exponate zum Anfassen, nachgerechnet"
+  },
+  "common": {
+    "cancel": "Abbrechen",
+    "delete": "Löschen",
+    "close": "Schliessen",
+    "loading": "Wird geladen…",
+    "reset": "Zurücksetzen",
+    "open": "Öffnen",
+    "language": "Sprache",
+    "theme_toggle": "Hell / dunkel umschalten",
+    "error": "Da ist etwas schiefgelaufen.",
+    "edit": "Bearbeiten",
+    "saving": "Wird gespeichert…"
+  },
+  "site": {
+    "footer": {
+      "label": "Seiten",
+      "about": "Über Staunlabor",
+      "imprint": "Impressum",
+      "privacy": "Datenschutz",
+      "source": "Quellcode",
+      "issues": "Fehler oder Wunsch melden",
+      "licence": "Code unter MIT, Texte und Zeichnungen unter CC BY 4.0. Unabhängig und nicht kommerziell.",
+      "version": "Version {{version}}"
+    },
+    "about": {
+      "title": "Über Staunlabor",
+      "lead": "Exponate zum Anfassen, nachgerechnet – frei, ohne Anmeldung und ohne Werbung.",
+      "what": "Staunlabor nimmt Exponate, wie sie in einem Science Center stehen – einen Ball, der auf einem Luftstrahl schwebt, einen Rauchring aus einer Trommel, drei aufeinander fallen gelassene Kugeln –, und lässt Sie am Zwilling jedes Exponats den Besucher spielen. Danach zeigt jede Seite, was geschieht: die Bewegungsgleichungen, wie sie gelöst werden, und die eine Einsicht, die den Trick erklärt.",
+      "computed": "Jede Zahl stammt aus dem eigenen Rechenkern der Seite und ist durch dessen Tests abgesichert. Was sich bewegt, rechnet Ihr Browser, mit denselben Schritten wie der Rechenkern; was ein Regler verändert, rechnet der Server.",
+      "model": "Die Exponate sind inspiriert von Exponaten im Swiss Science Center Technorama in Winterthur. Staunlabor ist ein unabhängiges Projekt und mit dem Technorama nicht verbunden; alle Zeichnungen und Texte sind eigene.",
+      "open": "Staunlabor ist frei: Der Code steht unter der MIT-Lizenz, Texte und Zeichnungen stehen unter CC BY 4.0. Sie dürfen sie mit Nennung weiterverwenden, auch im Unterricht.",
+      "feedback": "Etwas falsch, unklar oder ein Exponat, das Sie sich wünschen?",
+      "issues": "Auf GitHub melden",
+      "source": "Quellcode ansehen"
+    }
+  },
+  "legal": {
+    "impressum": {
+      "disclaimer": {
+        "body": "Staunlabor ist ein privates, nicht kommerzielles Projekt und wird ohne Gewähr angeboten. Für externe Seiten, auf die wir verlinken, sind deren Betreiber verantwortlich; auf ihre Inhalte haben wir keinen Einfluss."
+      }
+    },
+    "privacy": {
+      "data": {
+        "title": "Welche Daten wir bearbeiten",
+        "body": "Staunlabor hat keine Konten, keine Datenbank und keine Formulare. Wenn Sie ein Exponat verändern, schickt Ihr Browser dessen Werte – etwa einen Kugeldurchmesser oder eine Fallhöhe – an den Server, der daraus Kennzahlen und Kurven berechnet und zurückschickt; gespeichert wird davon nichts.\n\nTechnische Daten: Unser Hosting-Anbieter protokolliert jede Anfrage – den Zeitpunkt, die angefragte Adresse, Ihre IP-Adresse und den Browsertyp –, um den Dienst zu betreiben und zu schützen. Um die Zahl der Berechnungen pro Adresse zu begrenzen, hält der Server Ihre IP-Adresse kurz im Arbeitsspeicher; gespeichert wird sie nicht."
+      },
+      "legal_basis": {
+        "site": "Es gibt kein Tracking, keine Analysewerkzeuge, keine Cookies und keine Werbung."
+      },
+      "third_parties": {
+        "title": "Hosting und Auftragsbearbeiter",
+        "body": "Die Seite läuft auf Google Cloud in der Europäischen Union (europe-west4, Niederlande). Google handelt als Auftragsbearbeiter in unserem Auftrag.\n\nCloudflare betreibt das DNS für staunlabor.app und leitet E-Mails an Adressen @staunlabor.app an das Postfach des Betreibers weiter; dabei bearbeitet es die Nachricht sowie die Absender- und die Empfängeradresse. Der Webverkehr läuft nicht über das Netzwerk von Cloudflare.\n\nDer Quellcode und die Rückmeldungen liegen auf GitHub. Wer dort etwas meldet, tut das mit seinem GitHub-Konto und unter den Bedingungen von GitHub."
+      },
+      "browser": {
+        "entries": {
+          "language": "Die gewählte Sprache",
+          "look": "Das helle oder dunkle Erscheinungsbild",
+          "tried": "Welche Exponate Sie ausprobiert haben, damit die Übersicht sie abhakt"
+        },
+        "tail": "Nichts davon dient dazu, Sie zu verfolgen, und nichts davon wird an uns gesendet. Alles verschwindet, wenn Sie die Daten der Seite in Ihrem Browser löschen."
+      },
+      "transfers": {
+        "title": "Datenübermittlung ins Ausland",
+        "body": "Die Daten werden in der EU (Niederlande) bearbeitet. Google, Cloudflare und GitHub sind Unternehmen mit Sitz in den USA; soweit von ausserhalb der Schweiz und der EU auf Daten zugegriffen werden kann, stützt sich die Übermittlung auf die Standardvertragsklauseln der Anbieter und, soweit anwendbar, auf das EU-US- und das Swiss-US Data Privacy Framework. Die Schweiz, wo der Betreiber ansässig ist, ist von der EU als Land mit angemessenem Datenschutzniveau anerkannt."
+      },
+      "retention": {
+        "title": "Aufbewahrung und Löschung",
+        "body": "Staunlabor speichert keine Daten über Sie. Unser Hosting-Anbieter löscht seine Anfrageprotokolle nach 30 Tagen. Was Ihr Browser speichert, können Sie jederzeit in dessen Einstellungen löschen."
+      }
+    }
+  },
+  "experiments": {
+    "title": "Experimente",
+    "area": "Die Experimente",
+    "failed": "Das Exponat konnte nicht berechnet werden.",
+    "overview": {
+      "short": "Übersicht",
+      "lead": "Exponate zum Anfassen, nachgerechnet. Spielen Sie den Besucher am Zwilling des Exponats und sehen Sie dann die Rechnung hinter dem, was Sie erlebt haben.",
+      "how": "Jede Seite beginnt mit dem, was am Exponat steht, lässt Sie es ausprobieren und zeigt dann, was geschieht, und die eine Einsicht, die den Trick erklärt. Jede Zahl stammt aus dem Rechenkern der App und ist durch dessen Tests abgesichert.",
+      "open": "Exponat öffnen",
+      "coming": "In Vorbereitung",
+      "credit": "Inspiriert von Exponaten im Swiss Science Center Technorama, Winterthur.",
+      "daily": {
+        "eyebrow": "Experiment des Tages",
+        "open": "Ausprobieren",
+        "today": "Heute"
+      },
+      "history": {
+        "title": "Die Experimente der letzten Tage",
+        "open": "Frühere Tage"
+      },
+      "all": "Alle Exponate",
+      "topics_label": "Nach Thema filtern",
+      "all_topics": "Alle Themen",
+      "tried": {
+        "label": "Auf diesem Gerät ausprobiert",
+        "count": "{{tried}} von {{total}}",
+        "mark": "Ausprobiert",
+        "forget": "Vergessen"
+      },
+      "builds_on": "Baut auf:"
+    },
+    "topics": {
+      "momentum": "Impuls",
+      "angular_momentum": "Drehimpuls",
+      "energy": "Energie",
+      "oscillation": "Schwingung",
+      "flow": "Strömung",
+      "induction": "Induktion",
+      "perception": "Wahrnehmung"
+    },
+    "frame": {
+      "eyebrow": "Exponat",
+      "at_the_exhibit": "Am Exponat",
+      "try_it": "Ausprobieren",
+      "what_happens": "Was geschieht",
+      "sweet_spot": "Der Trick",
+      "computed": "Wie es gerechnet wird"
+    },
+    "exhibits": {
+      "chair": {
+        "short": "Der Stuhl",
+        "title": "Der Stuhl, der drei Dinge ist",
+        "summary": "Drei Gucklöcher, ein Stuhl – und dahinter ein Stuhl, ein verzogener Stuhl und Stäbe, die sich nirgends berühren.",
+        "question": "Wie können drei verschiedene Dinge durch ein Guckloch wie derselbe Stuhl aussehen?"
+      },
+      "coil": {
+        "short": "Magnet und Spule",
+        "title": "Das Magnetauto und die Spule",
+        "summary": "Zwei Tasten, eine Spule, ein Wagen mit Magnet: Im richtigen Moment gedrückt, fährt er beide Rampen hinauf.",
+        "question": "Wann drücken Sie, damit der Wagen bei jeder Fahrt höher kommt?"
+      },
+      "sphere": {
+        "short": "Kugel in Hohlkugel",
+        "title": "Die Kugel in der hängenden Hohlkugel",
+        "summary": "Bewegen Sie die hängende Hohlkugel im Kreis, bis die Kugel darin um den Äquator läuft.",
+        "question": "Wie schnell muss die Hohlkugel kreisen, damit die Kugel darin um den Äquator läuft?"
+      },
+      "platform": {
+        "short": "Die Drehscheibe",
+        "title": "Die Drehscheibe",
+        "summary": "Draufstehen, anschubsen lassen und einziehen: Je näher an der Achse, desto schneller drehen Sie sich.",
+        "question": "Wie viel schneller drehen Sie sich, wenn Sie sich aufrichten?"
+      },
+      "race": {
+        "short": "Das Rennen",
+        "title": "Das Rennen der Kurven",
+        "summary": "Sechs Bahnen, ein Start, ein Ziel: Welche Kugel ist zuerst da – und das Tal, in dem alle zugleich ankommen.",
+        "question": "Welche der sechs Bahnen gewinnt – und ist es die kürzeste?"
+      },
+      "elephant": {
+        "short": "Der Bernoulli-Elefant",
+        "title": "Der Bernoulli-Elefant",
+        "summary": "Setzen Sie einen leichten Ball auf den Rüssel: Er schwebt in der Luft, die der Elefant bläst, und bleibt dort, auch wenn man ihn anstösst.",
+        "question": "Wie weit lässt sich der Luftstrahl neigen, bevor der Ball fällt?"
+      },
+      "smoke": {
+        "short": "Der Rauchring",
+        "title": "Der Rauchring",
+        "summary": "Drücken Sie auf die Haut einer Trommel voller Rauch, und aus ihrem Loch fliegt ein Ring – wenn Sie weder zu kräftig noch zu sanft drücken.",
+        "question": "Fliegt der Ring weiter, wenn Sie kräftiger drücken?"
+      },
+      "cannon": {
+        "short": "Die Kugelkanone",
+        "title": "Die Kugelkanone",
+        "summary": "Drei Kugeln, aufeinander auf einen Draht gefädelt, fallen gelassen – und die kleine oben schiesst weit höher hinauf, als sie gefallen ist.",
+        "question": "Wie hoch fliegt die kleine Kugel, wenn der Stapel aus einem Meter fällt?"
+      }
+    },
+    "chair": {
+      "kinds": {
+        "chair": "Der Stuhl",
+        "skewed": "Der verzogene Stuhl",
+        "scattered": "Die Stäbe"
+      },
+      "at": {
+        "boxes": "Ein langer Kasten steht auf einem Tisch, mit drei Gucklöchern nebeneinander in der Front. Durch jedes sieht man einen Stuhl.",
+        "round": "Dann schaut man von der Seite in den Kasten: Hinter dem ersten Loch steht ein Stuhl; hinter dem zweiten ein verzogener Stuhl – Beine verschieden lang, eine Sitzfläche, die kein Quadrat ist; hinter dem dritten hängen Stäbe in der Luft, die sich nirgends berühren."
+      },
+      "model": {
+        "directions": "Ein Auge an einem Loch sieht Richtungen, keine Entfernungen. Jeder Punkt P kann auf seiner Sichtlinie vom Auge E aus näher oder weiter rücken, ohne dass sich das Bild ändert:",
+        "skewed": "Der verzogene Stuhl rückt jeden Punkt um einen Faktor, der sich über den Stuhl hinweg stetig ändert. Diese Abbildung erhält jede Gerade durch das Auge, also bleiben gerade Stäbe gerade und Gelenke verbunden – es ist ein Stuhl, nur nicht der, den Sie meinen:",
+        "scattered": "Die Stäbe rücken jeder um einen eigenen Faktor. Jeder bleibt ein Stab in derselben Richtung, aber zwei Stäbe, die sich in einem Gelenk trafen, treffen sich nur noch auf der Sichtlinie – in zwei verschiedenen Tiefen.",
+        "cave": "Platon erzählt von Gefangenen in einer Höhle, die nur Schatten an der Wand sehen und sie für die Dinge selbst halten. Das Guckloch ist diese Wand: ein Bild und unzählige Gegenstände, die es werfen könnten. Der Blick um den Kasten herum ist der Schritt aus der Höhle."
+      },
+      "sweet": {
+        "question": "Wie genau muss das Loch sein? Rückt das Auge um δ zur Seite, so laufen zwei Punkte, die in den Abständen d₁ und d₂ hintereinander lagen, um etwa so viel auseinander:",
+        "tolerance": "Bei diesen Kästen öffnet sich ein Gelenk der Stäbe auf eine Bogenminute – was ein scharfes Auge unterscheidet – schon nach {{tolerance}} mm. Ein zweites Auge, {{baseline}} mm daneben, sieht die Lücken {{binocular}}° breit: darum ein Loch und ein Auge.",
+        "brain": "Dass die Stäbe durch ein grösseres Loch trotzdem als Stuhl erscheinen, ist das Werk des Gehirns: Die Pupille verwischt jeden Punkt ein wenig, und eine verwischte Lücke in falscher Tiefe wird als Stuhl gelesen – weil es Stühle eben gibt. Der verzogene Stuhl fällt nie auseinander; bewegt sich das Auge, verbiegt sich nur seine Form."
+      },
+      "figures": {
+        "tolerance": "Auge darf rücken",
+        "binocular": "Lücke, zweites Auge",
+        "acuity": "Auge löst auf",
+        "joints": "Gelenke"
+      },
+      "equations": {
+        "slide": "Wohin ein Punkt rücken darf, ohne dass sich das Bild ändert: überallhin auf der Linie vom Auge durch ihn hindurch, näher oder weiter weg.",
+        "skew": "Eine Regel für den ganzen Stuhl: Jeder Punkt rückt um einen Faktor, der davon abhängt, wo er liegt – so bleiben gerade Stäbe gerade.",
+        "gap": "Wie weit zwei Punkte, die hintereinander lagen, auseinanderliegen, wenn das Auge sich bewegt hat: Je verschiedener ihre Abstände, desto schneller trennen sie sich."
+      },
+      "symbols": {
+        "p": "ein Punkt des Stuhls",
+        "p_moved": "wohin dieser Punkt rückt",
+        "eye": "das Auge, am Loch",
+        "lambda": "wie weit auf seiner Sichtlinie: über 1 weiter weg, unter 1 näher",
+        "w": "eine feste Richtung, die bestimmt, wie sich der Faktor über den Stuhl ändert",
+        "dot": "das Skalarprodukt: wie weit der Punkt in dieser Richtung liegt",
+        "gap": "der Winkel zwischen den beiden Punkten, wie das Auge sie sieht",
+        "delta": "wie weit sich das Auge seitwärts bewegt hat",
+        "distances": "die Abstände der beiden Punkte vom Auge"
+      },
+      "auto": "Automatisch: einmal herum",
+      "auto_hint": "Die Ansicht ruht zwei Sekunden bei den Löchern, geht dann einmal um die Kammer herum und zurück. Berühren Sie einen Regler, um zu übernehmen.",
+      "views": {
+        "title": "In der Kammer",
+        "hint": "Drehen und kippen Sie die Ansicht: Alle drei bewegen sich zusammen. Bei 0° und 0° schauen Sie genau von der Stelle der Löcher – und die drei werden ein Stuhl.",
+        "view": "{{name}}, vom gedrehten Blickpunkt aus gesehen",
+        "align": "Durch die Löcher schauen",
+        "aligned": "Durch die Löcher: ein Stuhl, dreimal",
+        "apart": "Von hier aus: drei verschiedene Dinge",
+        "turn": "Drehen",
+        "tilt": "Kippen"
+      }
+    },
+    "equation": {
+      "symbols": "Was die Zeichen bedeuten"
+    },
+    "coil": {
+      "at": {
+        "track": "Eine Bahn aus zwei Rampen, links und rechts, die sich aus einem flachen Stück dazwischen hochbiegen. Um das flache Stück liegt eine Drahtspule, und ein kleiner Wagen trägt einen Magneten hindurch. Ein digitales Messgerät, von −100 bis +100 mA, zeigt, was der Wagen beim Durchrollen in der Spule erzeugt – und nichts, solange eine Taste gedrückt ist.",
+        "buttons": "Zwei Tasten schalten die Spule ein, je in eine Richtung. Drückt man die erste, wenn der Wagen in die Spule fährt, und die zweite, sobald er die Mitte passiert hat, fährt er mit jeder Durchfahrt höher die andere Rampe hinauf, bis er oben an beiden ankommt."
+      },
+      "play": {
+        "title": "An den Tasten",
+        "hint": "Halten Sie + gedrückt, während der Wagen in die Spule fährt, und − sobald er die Mitte passiert hat. In Echtzeit zu schwer? Verlangsamen Sie, oder lassen Sie die Regel drücken und schauen Sie, wann sie es tut.",
+        "pause": "Anhalten",
+        "run": "Weiter",
+        "restart": "Neu starten",
+        "plus": "Taste +, zieht den Wagen in die Spule",
+        "minus": "Taste −, stösst den Wagen aus der Spule",
+        "plus_caption": "Hineinfahren",
+        "minus_caption": "Hinausfahren",
+        "last_peak": "Letzter Umkehrpunkt",
+        "goal": "Rampe oben",
+        "tops": "Oben angekommen",
+        "time": "Zeit",
+        "autopilot": "Automatisch: perfektes Timing",
+        "autopilot_hint": "Plus vom Fuss der Rampe bis zur Mitte, minus von der Mitte bis zur anderen Rampe, umgeschaltet genau dann, wenn der Wagen die Mitte passiert – {{window}} cm auf jeder Seite. Die Kurve unter «Der Trick» zeigt, warum.",
+        "speed": "Tempo",
+        "speeds": {
+          "1": "Echtzeit",
+          "0_25": "¼",
+          "0_1": "⅒"
+        },
+        "keys": "Mit der Tastatur: + oder ← für plus halten, − oder → für minus."
+      },
+      "meter": {
+        "label": "Das Messgerät, in Milliampere",
+        "caption": "Was der Wagen erzeugt",
+        "buttons_label": "Der Strom der Tasten in der Spule, in Milliampere",
+        "buttons_caption": "Was die Tasten treiben"
+      },
+      "track": {
+        "label": "Die Bahn von der Seite: zwei Rampen, die Spule in der Mitte, der Wagen mit seinem Magneten"
+      },
+      "change": {
+        "title": "Das Exponat verändern",
+        "hint": "Die echten Werte des Exponats sind nicht veröffentlicht; dies ist ein Tischaufbau, der zu dem passt, was ein Besucher sieht. Jede Änderung startet den Wagen neu.",
+        "supply": "Batterie",
+        "turns": "Windungen",
+        "turns_hint": "Derselbe Draht: mehr Windungen, mehr Widerstand, also weniger Strom – und doch gewinnt jede Durchfahrt etwa gleich viel.",
+        "mass": "Masse des Wagens",
+        "rolling": "Rollwiderstand",
+        "closed": "Das Messgerät bleibt zwischen den Tastendrücken angeschlossen",
+        "closed_hint": "Am Exponat ist es so: Die Anzeige schlägt aus, wenn der Wagen hindurchrollt, und dieser Strom bremst den Wagen ein wenig.",
+        "radius": "Rampenradius",
+        "radius_hint": "Jede Rampe ist ein Kreisbogen mit diesem Radius, der flach beim flachen Stück beginnt: Je kleiner, desto steiler und höher steigt sie auf derselben Länge."
+      },
+      "model": {
+        "flux_intro": "Alles beginnt mit einer Kurve: wie viel vom Feld des Magneten durch die Windungen der Spule geht, wenn der Wagen an einer bestimmten Stelle steht.",
+        "flux": "Der Fluss des Magneten durch alle Windungen: am grössten, wenn der Magnet in der Mitte der Spule ist, klein weit weg. Der Magnet wird als Punkt gerechnet; für diesen beträgt der Fehler wenige Prozent.",
+        "coupling": "Wie schnell sich dieser Fluss ändert, wenn der Wagen weiterfährt: positiv beim Hineinfahren von links, null in der Mitte, negativ beim Hinausfahren. Diese eine Kurve hat zwei Aufgaben.",
+        "induced": "Die erste Aufgabe: die Spannung, die der rollende Magnet in der Spule erzeugt. Sie bewegt die Anzeige, wenn niemand drückt – ein Ausschlag beim Hineinfahren, der entgegengesetzte beim Hinausfahren.",
+        "force": "Die zweite Aufgabe: der Schub der Spule auf den Wagen, wenn Strom fliesst. Weil k in der Mitte das Vorzeichen wechselt, muss es auch der Strom tun – darum gibt es zwei Tasten, und darum gilt «plus beim Hineinfahren, minus beim Hinausfahren» in beiden Fahrtrichtungen.",
+        "circuit": "Der Stromkreis der Spule: Die Spannung der Taste treibt den Strom gegen den Widerstand des Drahts und gegen die Spannung, die der Wagen selbst erzeugt.",
+        "motion": "Der Wagen: der Schub der Spule, die Schwerkraft entlang der gebogenen Bahn und der Rollwiderstand – der in der Kurve wächst, wo die Bahn den Wagen zusätzlich um v²/R herumdrücken muss.",
+        "energy": "Die Energie der Batterie geht in Tempo und Höhe des Wagens, in Wärme im Draht, ins Feld der Spule und in den Rollwiderstand. Der Rechenkern führt diese Buchhaltung, und sie geht auf ein Millionstel auf."
+      },
+      "symbols": {
+        "psi": "Flussverkettung, der Fluss des Magneten durch alle Windungen",
+        "x": "die Position des Wagens, von der Spulenmitte aus",
+        "mu0": "die magnetische Feldkonstante",
+        "moment": "die Stärke des Magneten (sein Dipolmoment)",
+        "turns": "die Zahl der Windungen",
+        "length": "die Länge der Spule",
+        "radius": "der Radius der Spule",
+        "k": "Kopplung: Volt pro Meter pro Sekunde, und Newton pro Ampere",
+        "e": "die induzierte Spannung",
+        "v": "das Tempo des Wagens",
+        "force": "der Schub der Spule auf den Wagen",
+        "i": "der Strom in der Spule",
+        "inductance": "die Induktivität der Spule",
+        "u": "die Spannung der Taste: +U, 0 oder −U",
+        "resistance": "der Widerstand des Drahts",
+        "mass": "die Masse des Wagens",
+        "g": "die Erdbeschleunigung",
+        "alpha": "die Neigung der Bahn: null auf dem flachen Stück, s/R auf dem Bogen einer Rampe",
+        "rolling": "Rollwiderstand, ein Anteil des Gewichts",
+        "tau": "die Zeitkonstante der Spule",
+        "gain": "die grösste Energie, die eine Durchfahrt bringen kann",
+        "full_current": "der Strom bei gedrückter Taste",
+        "supply": "die Spannung der Batterie",
+        "top_speed": "das Tempo, ab dem die Spule nicht mehr schieben kann",
+        "arc": "wie weit den Bogen hinauf, vom Ende des flachen Stücks aus",
+        "ramp_radius": "der Radius der Rampen"
+      },
+      "sweet": {
+        "timing": "Die Spule ist schnell, Ihre Hand ist langsam. Der Strom folgt einer Taste in etwa {{tau}} ms; der Wagen braucht etwa {{between}} ms vom Moment für + bis zum Moment für −. Das Spiel ist nicht die Spule, sondern die Hand.",
+        "tau": "Wie schnell der Strom einer Taste folgt: Nach einer Zeitkonstante hat er etwa zwei Drittel seines Wegs zurückgelegt.",
+        "gain": "Energiegewinn pro Durchfahrt",
+        "late": "Wie spät die Hand die Taste − erreicht",
+        "reading": "So liest man die Kurve: Pünktlich umschalten gewinnt am meisten; 20 ms zu spät bringt noch etwa zwei Drittel; 30 ms zu spät, und der Wagen kommt nie oben an; etwa 60 ms zu spät bremst der verbliebene Zug den Wagen. Diese Zahlen gelten für den voreingestellten Aufbau.",
+        "gain_bound": "Das Meiste, was eine Durchfahrt bringen kann: das Hineinziehen von weit weg bis zur Mitte bringt I·Ψ(0), das Hinausstossen noch einmal so viel. Die induzierte Spannung und der Rollwiderstand nehmen davon etwas weg.",
+        "top_speed": "Wie gut Sie auch drücken, es gibt ein Höchsttempo: Wo die Spannung, die der Wagen erzeugt, der Batteriespannung gleicht, fliesst kein Strom mehr, und die Spule kann nicht mehr schieben."
+      },
+      "figures": {
+        "tau": "Zeitkonstante",
+        "between": "Zwischen den Tasten",
+        "current": "Strom, Taste gedrückt",
+        "coasting": "Strom beim Rollen",
+        "gain": "Bester Gewinn pro Durchfahrt",
+        "speed": "Tempo für oben",
+        "vmax": "Höchsttempo"
+      },
+      "computed": {
+        "system": "Zusammen sind das drei Differenzialgleichungen: Sie sagen, wie schnell sich die Position des Wagens, sein Tempo und der Strom in der Spule ändern, jede über die anderen – k(x) koppelt die Mechanik und den Stromkreis. Das System hat keine geschlossene Lösung, darum rechnet der Rechenkern es Schritt für Schritt vorwärts, mit dem klassischen Runge-Kutta-Verfahren (RK4): alle {{step}} ms, {{steps}} Schritte für jede Sekunde. Ihr Browser rechnet beim Spielen genau dieselben Schritte.",
+        "circuit": "Für sich allein ist der Stromkreis das System erster Ordnung aus dem Kurs: Nach einem Tastendruck steigt der Strom mit der Zeitkonstante L/R gegen U/R. Die Bewegung des Wagens ist ein System zweiter Ordnung – Position und Tempo –, geschoben von der Spule und gezogen von der Schwerkraft auf den Rampen.",
+        "dot": "ein Punkt heisst: wie schnell sich die Grösse in der Zeit ändert, ẋ = dx/dt",
+        "fade": "unter {{fade}} mm/s setzt der Rollwiderstand sanft ein, denn ein stehender Wagen hat keine Richtung, gegen die er wirken könnte",
+        "alpha": "die Neigung der Bahn, wo der Wagen ist: null auf dem flachen Stück, s/R auf einer Rampe",
+        "kappa": "die Krümmung der Bahn: null auf dem flachen Stück, 1/R auf einer Rampe – wo die Kurve den Wagen um v²/R stärker auf die Bahn drückt"
+      }
+    },
+    "sphere": {
+      "at": {
+        "sphere": "Eine durchsichtige Hohlkugel hängt zwischen einem Seil zur Decke und einem Seil zum Boden, mit einer Kugel darin. Die Seile halten sie in einer waagrechten Ebene: Man kann sie nach links und rechts, vor und zurück oder im Kreis schieben.",
+        "push": "Schiebt man sie im richtigen Tempo im Kreis, beginnt auch die Kugel zu kreisen und steigt an der Innenwand hoch, bis sie um den Äquator läuft, nur in dieser Ebene. Um sie höher zu bringen, muss man schneller kreisen – und den richtigen Moment wieder finden."
+      },
+      "play": {
+        "title": "Die Hohlkugel schieben",
+        "who": "Wer schiebt",
+        "modes": {
+          "hand": "Sie",
+          "circle": "Ein gleichmässiger Kreis",
+          "perfect": "Automatisch: perfektes Timing"
+        },
+        "hint_hand": "Ziehen Sie in der Ansicht von oben: Die Hohlkugel folgt Ihrem Finger, wie eine Hand es täte. Kreisen Sie um die Mitte – zuerst langsam, etwa einmal pro Sekunde, dann schneller, wenn die Kugel steigt.",
+        "hint_circle": "Die Hohlkugel wird auf einem Kreis von 2 cm im eingestellten Tempo geschoben. Ändern Sie das Tempo langsam, folgt die Kugel; ändern Sie es auf einmal, fällt sie zurück.",
+        "hint_perfect": "Die Hohlkugel wird immer eine Vierteldrehung vor der Kugel geschoben und wird genau so schneller, wie die Kugel steigt – das Timing richtig gemacht, bis etwa 4 Hz, so schnell, wie ein Arm kann.",
+        "pause": "Anhalten",
+        "run": "Weiter",
+        "restart": "Neu starten",
+        "tempo": "Tempo",
+        "change": "Das Tempo ändern",
+        "slowly": "Langsam",
+        "at_once": "Auf einmal",
+        "angle": "Kugel, an der Wand hoch",
+        "depth": "Unter dem Äquator",
+        "your_tempo": "Ihr Tempo",
+        "needed": "Tempo für diese Höhe",
+        "lead": "Hohlkugel vor der Kugel",
+        "reading": "Unter {{f0}} Hz gibt es keinen Kreis: Die Kugel wackelt nur unten. Jede Höhe hat ihr eigenes Tempo – die Linie im Diagramm –, und je höher, desto schneller."
+      },
+      "views": {
+        "top": "Die Hohlkugel von oben: ziehen, um sie zu schieben",
+        "top_caption": "Von oben – hier schieben",
+        "side": "Die Hohlkugel von der Seite: wie hoch die Kugel läuft",
+        "side_caption": "Von der Seite"
+      },
+      "chart": {
+        "circle": "Im Kreis",
+        "swing": "Hin und her",
+        "tempo": "Tempo",
+        "angle": "Winkel vom tiefsten Punkt",
+        "you": "Sie"
+      },
+      "change": {
+        "title": "Das Exponat verändern",
+        "hint": "Die echte Grösse des Exponats ist nicht veröffentlicht; angenommen ist eine Kugel für den Tisch. Jede Änderung startet die Kugel neu.",
+        "shell": "Durchmesser der Hohlkugel",
+        "shell_hint": "Die Grösse ändert das Tempo, das unten nötig ist – nicht, wie weit unter dem Äquator ein bestimmtes Tempo läuft.",
+        "ball": "Durchmesser der Kugel",
+        "kind": "Kugel",
+        "solid": "Voll",
+        "hollow": "Hohl",
+        "rolling": "Rollwiderstand"
+      },
+      "model": {
+        "rolling_intro": "Eine Kugel, die innen an einer Hohlkugel rollt, bewegt ihren Mittelpunkt genau wie ein Pendel an einem Faden der Länge ρ – aber unter weniger Schwerkraft.",
+        "rolling": "Ein Teil des Zugs der Schwerkraft geht ins Andrehen der Kugel, darum spürt ihr Mittelpunkt nur g′: 5/7 der Schwerkraft für eine Vollkugel, 3/5 für eine hohle. Das gilt genau, solange die Kugel sich nicht um die Linie zur Wand dreht, und eine Kugel, die in Ruhe startet, bekommt nie eine solche Drehung.",
+        "push": "Die Hohlkugel zu bewegen ist eine zweite Schwerkraft: Im Bezugssystem der Hohlkugel zieht ihre Beschleunigung A die Kugel in die Gegenrichtung – mit denselben 5/7.",
+        "orbit": "Eine Kugel, die mit der Rate Ω kreist, läuft in dieser Tiefe unter dem Äquator. Schnellere Kreise laufen höher; der Äquator selbst bräuchte ein unendliches Tempo. Die Grösse der Hohlkugel kommt nicht vor.",
+        "lowest": "Der langsamste Kreis, den es gibt – darunter wackelt die Kugel nur unten. Es ist auch die Rate einer kleinen Schwingung.",
+        "wobble": "Ein leicht gekippter Kreis wippt mit dieser Rate auf und ab: nahe am Äquator einmal pro Umlauf – die Kugel noch nicht «in der Ebene».",
+        "swing": "Hin und her ist es umgekehrt: Ein Pendel schwingt langsamer, je weiter es ausschlägt. Im Kreis ist es schneller, je höher es läuft."
+      },
+      "symbols": {
+        "g_share": "die Schwerkraft, die der Mittelpunkt der Kugel spürt",
+        "g": "die Erdbeschleunigung",
+        "k": "wie viel der Masse der Kugel weit von ihrem Mittelpunkt liegt",
+        "inertia": "das Trägheitsmoment der Kugel",
+        "mass": "die Masse der Kugel",
+        "ball_radius": "der Radius der Kugel",
+        "push": "die Beschleunigung der Hohlkugel, von Ihrem Schieben",
+        "rho": "wie weit der Mittelpunkt der Kugel von dem der Hohlkugel bleibt",
+        "shell_radius": "der Innenradius der Hohlkugel",
+        "theta": "der Winkel der Kugel an der Wand hoch, vom tiefsten Punkt aus",
+        "omega": "die Rate der Kugel um die Hohlkugel (2π mal das Tempo)",
+        "depth": "wie weit unter dem Äquator sie läuft",
+        "omega0": "die Rate des tiefsten Kreises",
+        "wobble": "wie oft ein gekippter Kreis wippt",
+        "amplitude": "wie weit die Schwingung auf jeder Seite ausschlägt",
+        "f0": "das Tempo einer kleinen Schwingung",
+        "elliptic": "das vollständige elliptische Integral erster Art"
+      },
+      "sweet": {
+        "moves": "Die Resonanz wandert, während Sie pumpen. Das Tempo, mit dem Sie kreisen, bestimmt, wie hoch die Kugel läuft – um sie höher zu bringen, müssen Sie also schneller kreisen, mit der Kugel, und der richtige Moment, den Sie eben gefunden haben, ist weg.",
+        "ahead": "Ein Schub leistet am meisten eine Vierteldrehung vor der Kugel: die Hohlkugel dorthin geschoben, wohin die Kugel gerade läuft. «Automatisch: perfektes Timing» macht genau das und steigt schneller als jede gleichmässige Steigerung.",
+        "too_fast": "Wird das Tempo zu schnell gesteigert, fällt die Kugel zurück und sinkt ab. Der Rechenkern zeigt es: Eine langsame Steigerung von 0.7 auf 2.5 Hz über 30 s bringt die Kugel auf 81°; direkt auf 2.5 Hz zu springen lässt sie nahe am Boden. Physiker nennen das Autoresonanz. Diese Zahlen gelten für den voreingestellten Aufbau.",
+        "limit": "Gibt es eine Höchstgeschwindigkeit? Auf einem gleichmässigen Kreis läuft die Kugel genau so oft um wie die Hohlkugel, und jede Höhe hat ihr eigenes Tempo – der Äquator selbst bräuchte ein unendliches. Von selbst wird die Kugel also nicht immer schneller: Lässt man die Hohlkugel in Ruhe, wird die Kugel langsamer und sinkt ab, und die Grenze ist der Arm. Bei 4 Hz, etwa so schnell, wie man kreisen kann, läuft sie 1.1 cm unter dem Äquator, auf 86°, ihr Mittelpunkt mit 4.5 m/s, und die Wand drückt mit fast dem Zwölffachen ihres Gewichts auf sie. Diese Zahlen gelten für den voreingestellten Aufbau.",
+        "figures_note": "Tempi und Tiefen sind die Bahnen des Rechenkerns für diese Hohlkugel; der nötige Schub ist, was der Rollwiderstand in dieser Höhe kostet."
+      },
+      "figures": {
+        "f0": "Tiefster Kreis",
+        "at": "Tempo bei {{angle}}°",
+        "depth": "Unter dem Äquator bei {{angle}}°",
+        "push": "Nötiger Schub bei {{angle}}°",
+        "friction": "Nötige Haftung, höchstens",
+        "share": "Anteil der Schwerkraft"
+      },
+      "computed": {
+        "system": "Sechs Differenzialgleichungen erster Ordnung: Position und Geschwindigkeit des Kugelmittelpunkts in drei Dimensionen, mit dem Schub Ihrer Hand darin als A. Auch sie haben keine geschlossene Lösung; der Rechenkern rechnet sie mit RK4 alle {{step}} ms vorwärts und setzt nach jedem Schritt den Mittelpunkt auf seine Kugel und die Geschwindigkeit entlang der Wand zurück, wovon RK4 um seinen eigenen winzigen Fehler abweicht. Ihr Browser rechnet dieselben Schritte, mit dem Schub Ihrer Hand.",
+        "centripetal": "Der letzte Term hält die Kugel an der Wand: v²/ρ ist die Beschleunigung, die ein Kreis mit Radius ρ verlangt.",
+        "p": "die Position des Kugelmittelpunkts, vom Mittelpunkt der Hohlkugel aus",
+        "v": "seine Geschwindigkeit",
+        "along": "der Anteil entlang der Wand",
+        "normal": "der Druck der Wand, pro Kilogramm",
+        "n": "die Richtung vom Mittelpunkt der Hohlkugel zu dem der Kugel",
+        "cr": "Rollwiderstand, ein Anteil von N",
+        "fade": "unter {{fade}} mm/s setzt der Rollwiderstand sanft ein, denn eine ruhende Kugel hat keine Richtung, gegen die er wirken könnte"
+      }
+    },
+    "platform": {
+      "view": "Die Drehscheibe von oben, mit der Person darauf",
+      "at": {
+        "stand": "Eine runde Scheibe dreht sich auf einem Lager auf Bodenhöhe, mit einem Haltegriff quer über ihrer Mitte. Man stellt sich darauf, beide Hände am Griff, und wird angeschubst. Die Füsse bleiben, wo sie sind.",
+        "pull": "Mit dem ganzen Körper nach hinten gelehnt, die Arme gestreckt, dreht man sich langsam; aufrecht stehend immer schneller. Lehnt man sich wieder hinaus, wird die Drehung langsamer. Niemand schubst stärker – das Tempo kommt davon, wo der Körper ist."
+      },
+      "play": {
+        "title": "Auf der Drehscheibe",
+        "hint": "Schubsen Sie an, dann lehnen Sie sich hinaus oder richten sich auf. Die Scheibe dreht sich umso schneller, je aufrechter Sie stehen.",
+        "hint_auto": "Die Person lehnt sich hinaus, richtet sich auf, hält, und lehnt sich wieder hinaus, Runde um Runde – schauen Sie, wie das Tempo folgt.",
+        "push": "Anschubsen",
+        "pause": "Anhalten",
+        "run": "Weiter",
+        "restart": "Neu starten",
+        "auto": "Automatisch: hinauslehnen und aufrichten",
+        "auto_hint": "Drei Sekunden hinausgelehnt, zweieinhalb aufrecht, und zurück – mit einem Schubs, wenn die Scheibe steht.",
+        "lean": "Hinauslehnen",
+        "rate": "Umdrehungen",
+        "rate_unit": "pro s",
+        "inertia": "Trägheitsmoment",
+        "momentum": "Drehimpuls",
+        "energy": "Energie der Drehung",
+        "pull": "Zug am Griff",
+        "times": "Schneller als hinausgelehnt",
+        "reading": "Jeder Schubs gibt {{push}} kg·m²/s Drehimpuls. Zwischen den Schubsen nimmt nur das Lager etwas weg – wie Sie sich auch lehnen, der Drehimpuls bleibt.",
+        "lean_hint": "Wie weit sich der Rumpf von der Achse wegneigt, die Hände am Griff und die Füsse, wo sie sind."
+      },
+      "change": {
+        "title": "Das Exponat verändern",
+        "hint": "Die echten Werte des Exponats sind nicht veröffentlicht; angenommen sind eine leichte Scheibe und eine Person von 70 kg. Jede Änderung startet neu.",
+        "mass": "Masse der Person",
+        "platform_mass": "Masse der Scheibe",
+        "diameter": "Durchmesser der Scheibe",
+        "friction": "Lagerreibung",
+        "friction_hint": "Ein gleichmässiges Moment gegen die Drehung: Es nimmt Drehimpuls mit konstanter Rate weg, bis die Scheibe steht."
+      },
+      "model": {
+        "intro": "Nichts ausserhalb der Person dreht sie ausser dem Lager. Was das Tempo bestimmt, ist darum, wie die Masse der Person um die Achse verteilt ist.",
+        "momentum": "Der Drehimpuls: Trägheitsmoment mal Drehrate. Ohne Schubs ändert ihn nur die Reibung des Lagers, langsam und gleichmässig.",
+        "rate": "Die Drehrate ist also der Drehimpuls, verteilt auf das Trägheitsmoment: halbes Trägheitsmoment, doppeltes Tempo.",
+        "sum": "Das Trägheitsmoment zählt jedes Massestück, jedes mit dem Quadrat seines Abstands von der Achse: Masse weit aussen zählt viel, Masse nahe der Achse kaum.",
+        "disc": "Die Scheibe selbst.",
+        "arm": "Ein Arm, ein Stab von der Hand am Griff bis zur Schulter: aufrecht liegt er entlang des Griffs; hinausgelehnt reicht er mit der Schulter hinaus und zählt mehr.",
+        "lean": "Hinauslehnen schiebt den Rumpf von der Achse weg: sein eigener Anteil plus seine Masse mal Abstand im Quadrat (der Satz von Steiner). Die Beine bleiben bei der Achse."
+      },
+      "symbols": {
+        "momentum": "Drehimpuls",
+        "inertia": "Trägheitsmoment",
+        "omega": "Drehrate (2π mal die Umdrehungen pro Sekunde)",
+        "friction": "das Reibmoment des Lagers",
+        "piece": "ein Massestück",
+        "r": "sein Abstand von der Achse",
+        "platform_mass": "die Masse der Scheibe",
+        "platform_radius": "der Radius der Scheibe",
+        "arm_mass": "die Masse eines Arms",
+        "shoulder": "wie weit Hand und Schulter seitlich von der Achse sind",
+        "lean": "wie weit sich der Rumpf hinauslehnt",
+        "own": "das eigene Trägheitsmoment des Teils",
+        "energy": "die Energie der Drehung",
+        "pull": "was die Hände am Griff halten: den hinausgelehnten Körper auf seinem Kreis",
+        "trunk_mass": "die Masse des Rumpfs, mit dem Kopf"
+      },
+      "sweet": {
+        "faster": "Aufrecht dreht sich die Person {{ratio}}-mal so schnell wie hinausgelehnt – mit demselben Drehimpuls.",
+        "energy": "Die Energie der Drehung, bei gleichem Drehimpuls: kleineres Trägheitsmoment, mehr Energie. Einziehen macht die Drehung energiereicher, nicht nur schneller.",
+        "pull": "Diese Energie muss irgendwoher kommen: aus den Armen. Hinausgelehnt braucht der Körper diesen Zug nach innen, um auf seinem Kreis zu bleiben, und die Hände geben ihn über den Griff – er wächst mit dem Quadrat der Drehrate, und man spürt ihn, als zöge der Griff an den Händen.",
+        "paid": "Beim Aufrichten aus der hinausgelehnten Haltung leisten die Arme {{work}} J Arbeit gegen diesen Zug, und die Energie der Drehung steigt um genau so viel, von {{from}} J auf {{to}} J. Der Rechenkern prüft es, indem er den Zug entlang des Wegs nach innen aufsummiert.",
+        "replay": "Hier der automatische Ablauf über sechzehn Sekunden, nach einem Schubs von {{push}} kg·m²/s: Das Tempo springt jedes Mal, wenn sich die Person aufrichtet, und fällt, wenn sie sich hinauslehnt, während der Drehimpuls nur abnimmt, langsam und gleichmässig, durch das Lager."
+      },
+      "chart": {
+        "rate": "Umdrehungen",
+        "lean": "Hinauslehnen",
+        "time": "Zeit"
+      },
+      "figures": {
+        "work": "Arbeit zum Aufrichten",
+        "stops": "Steht nach",
+        "leaning": "Hinausgelehnt",
+        "upright": "Aufrecht",
+        "pull_leaning": "Zug, hinausgelehnt"
+      },
+      "computed": {
+        "system": "Hier gibt es eine einzige Differenzialgleichung, und sie hat eine exakte Lösung: Der Drehimpuls fällt geradlinig, bis er null ist – das Lager dreht die Scheibe nie zurück. Darum muss nichts schrittweise gerechnet werden: Die Drehrate ist in jedem Moment L/I, reine Algebra. Es ist die einfachste Gleichung erster Ordnung, die es gibt.",
+        "l0": "der Drehimpuls gleich nach dem letzten Schubs",
+        "t": "die Zeit seither"
+      }
+    },
+    "computed": {
+      "course": "Die Grundlagen dazu im Kurs über Differenzialgleichungen:",
+      "links": {
+        "first_order": "Systeme 1. Ordnung",
+        "second_order": "Systeme 2. Ordnung",
+        "numerics": "Numerische Lösung"
+      }
+    },
+    "race": {
+      "at": {
+        "tracks": "Mehrere Bahnen führen vom selben Start hinunter zum selben Ziel, jede eine andere Kurve. Oben auf jeder liegt eine Kugel; ein Hebel lässt alle im selben Moment los.",
+        "which": "Die gerade Bahn ist die kürzeste – und nicht die erste. Die schnellste taucht unter das Ziel und steigt am Ende zu ihm hinauf. Auf einer anderen Bahn, einem gekrümmten Tal, kommen Kugeln, die aus verschiedenen Höhen losgelassen werden, alle zugleich unten an."
+      },
+      "curves": {
+        "line": "Gerade",
+        "cycloid": "Zykloide",
+        "circle": "Kreisbogen",
+        "parabola": "Parabel",
+        "hyperbola": "Steiler Start",
+        "hump": "Buckel unterwegs"
+      },
+      "balls": {
+        "solid": "Vollkugel",
+        "hollow": "Hohlkugel",
+        "sliding": "Gleitender Klotz"
+      },
+      "play": {
+        "title": "Loslassen",
+        "hint": "Starten Sie das Rennen und schauen Sie, wo jede Kugel ist. Die Zeiten neben den Farben sind die des Rechenkerns, in der Reihenfolge, in der die Kugeln ankommen. Bei der Flagge endet jede Bahn, und die Kugel fliegt weiter in ein gepolstertes Auffangbecken, wo alle sechs zusammen landen.",
+        "start": "Start",
+        "pause": "Anhalten",
+        "run": "Weiter",
+        "view": "Sechs Bahnen von einem Start zu einem Ziel, auf jeder eine Kugel",
+        "auto": "Automatisch: immer wieder rennen",
+        "auto_hint": "Das Rennen beginnt neu, kurz nachdem die letzte Kugel angekommen ist.",
+        "speed": "Tempo",
+        "speeds": {
+          "1": "Echtzeit",
+          "0_25": "¼",
+          "0_1": "⅒"
+        }
+      },
+      "motion": {
+        "hint": "Geschwindigkeit und Beschleunigung jeder Kugel, als Pfeile von einem Punkt aus und als Zahlen: x nach rechts, y nach oben. Auf der Bahn treibt die Schwerkraft die Kugel entlang der Bahn an, und die Bahn lenkt sie um; in der Luft fällt jede Kugel allein mit g, alle Pfeile gleich; im Becken ist jeder Stoss gegen die Polsterung oder eine andere Kugel ein Ruck weit über die Skala hinaus – das Mittel über 5 ms, gestrichelt gezeichnet, seine Grösse in der Tabelle.",
+        "velocity": "Geschwindigkeit",
+        "acceleration": "Beschleunigung",
+        "velocity_label": "Die Geschwindigkeit jeder Kugel als Pfeil von einem Punkt aus",
+        "acceleration_label": "Die Beschleunigung jeder Kugel als Pfeil von einem Punkt aus",
+        "table": "Zeit, Tempo und Beschleunigung jeder Kugel, nach Rang",
+        "track": "Bahn",
+        "time": "Zeit"
+      },
+      "change": {
+        "title": "Das Exponat verändern",
+        "hint": "Die echte Grösse des Exponats ist nicht veröffentlicht; angenommen ist eine Bahn für den Tisch. Jede Änderung startet das Rennen neu.",
+        "drop": "Höhe bis zum Ziel",
+        "run": "Weite bis zum Ziel",
+        "run_hint": "Ab π/2-mal der Höhe taucht die Zykloide unter das Ziel. Kürzer als 1.1-mal die Höhe würde der Buckel eine Kugel von seiner Kuppe werfen und der Kreisbogen über seinen eigenen Start zurückbiegen; darum endet die Weite dort.",
+        "ball": "Was läuft"
+      },
+      "valley": {
+        "title": "Das Tal, in dem alle zugleich ankommen",
+        "hint": "Vier Kugeln, zugleich aus verschiedenen Höhen losgelassen, in einem Zykloidental und daneben in einer Kreisschale mit derselben Krümmung am Boden.",
+        "let_go": "Loslassen",
+        "cycloid": "Zykloidental",
+        "circle": "Kreisschale",
+        "to_bottom": "Bis zum Boden, von überall",
+        "bowl_from": "Schale, aus {{height}} cm"
+      },
+      "model": {
+        "intro": "Nichts als die Schwerkraft treibt die Kugeln an, und die Bahn lenkt sie nur. Darum folgt das Tempo an jeder Stelle allein aus der Höhe.",
+        "speed": "Wie schnell die Kugel ist, eine Höhe h unter dem Start: was auch immer die Bahn unterwegs getan hat. Eine rollende Kugel spürt entlang der Bahn nur g′ der Schwerkraft – der Rest geht in ihre Drehung.",
+        "time": "Die Zeit einer Bahn: ihre Länge, Stück für Stück, geteilt durch das Tempo auf jedem Stück. Die schnellste Bahn ist nicht die kürzeste, sondern die, die früh schnell wird.",
+        "cycloid": "Die Zykloide, die Kurve, die ein Punkt am Rand eines rollenden Rads zeichnet: durch Start und Ziel ist sie die schnellste Bahn überhaupt (Bernoulli, 1696), und ihre Zeit hat eine geschlossene Form.",
+        "line": "Die Gerade, zum Vergleich: die kürzeste Bahn, und eine langsame.",
+        "valley": "In einem Zykloidental erreicht jede Kugel den Boden nach derselben Zeit, aus welcher Höhe sie auch startet (Huygens, 1659: die Tautochrone). In einer Kreisschale kommt eine Kugel, die höher startet, später an – ein Pendel schwingt langsamer, je weiter es ausschlägt."
+      },
+      "symbols": {
+        "v": "das Tempo der Kugel",
+        "h": "wie weit sie unter dem Start ist",
+        "g_share": "die Schwerkraft, die eine rollende Kugel entlang der Bahn spürt",
+        "k": "wie viel der Masse der Kugel weit von ihrem Mittelpunkt liegt: 2/5 voll, 2/3 hohl, 0 gleitend",
+        "time": "die Zeit der Bahn, vom Start bis zum Ziel",
+        "ds": "ein kurzes Stück der Bahn",
+        "r": "der Radius des Rads, das die Zykloide zeichnet",
+        "theta": "wie weit sich dieses Rad gedreht hat",
+        "theta_b": "wie weit es sich beim Ziel gedreht hat",
+        "run": "wie weit das Ziel entfernt ist, waagrecht",
+        "drop": "wie weit das Ziel unter dem Start liegt",
+        "bowl": "der Radius der Schale",
+        "phi0": "der Winkel, aus dem eine Kugel in der Schale startet",
+        "elliptic": "das vollständige elliptische Integral erster Art"
+      },
+      "computed": {
+        "system": "Hier wird keine Zeit Schritt für Schritt gerechnet: Das Tempo in jeder Höhe ist bekannt, also ist die Zeit jeder Bahn ein einziges Integral entlang der Bahn. Am Start ist das Tempo null und der Integrand wird unendlich; die Substitution p = u² nimmt das heraus, und die Trapezregel über 1440 Schritte summiert es auf ein Zehnmillionstel genau. Dieselbe Summe, unterwegs festgehalten, ist der Fahrplan jeder Kugel für die Animation.",
+        "p": "wie weit entlang der Bahn, von 0 am Start bis 1 am Ziel",
+        "r": "der Punkt der Bahn bei p",
+        "u": "die Wurzel aus p, die den Start glättet"
+      },
+      "sweet": {
+        "shortest": "Die Gerade ist die kürzeste Bahn und braucht {{line}} s; die längere Zykloide braucht {{cycloid}} s. Was gewinnt, ist frühes Tempo: Eine Bahn, die zuerst steil abfällt, hat die Kugel den grössten Teil des Wegs schnell.",
+        "dips": "Für dieses Ziel geht die schnellste Bahn {{below}} cm unter das Ziel und steigt das letzte Stück hinauf: Das Tempo, das sie weiter unten gewinnt, ist den Anstieg wert.",
+        "no_dip": "Für dieses Ziel muss die Zykloide nicht unter das Ziel tauchen; machen Sie die Weite grösser als π/2-mal die Höhe, dann tut sie es.",
+        "galileo": "Galilei meinte 1638, der Kreis sei der schnellste; er ist nah dran, mit {{circle}} s, aber die Zykloide schlägt ihn.",
+        "same_speed": "Jede Kugel kommt gleich schnell ins Ziel, mit {{speed}} m/s: Ihr Tempo hängt nur von der Höhe ab, die sie gefallen ist, nie von der Bahn. Das Rennen entscheidet allein die Zeit.",
+        "throw_up": "Hinter der Flagge fliegt jede Kugel in die Richtung weiter, in die ihre Bahn am Ende zeigt: die auf der Zykloide nach oben – sie steigt von unten zum Ziel auf und war an ihrem tiefsten Punkt noch schneller –, die auf der Geraden nach unten. Im Becken prallen sie ab, rollen und stossen einander, bis alle sechs zusammen am Boden liegen.",
+        "throw_down": "Hinter der Flagge fliegt jede Kugel in die Richtung weiter, in die ihre Bahn am Ende zeigt – für dieses Ziel sogar die auf der Zykloide nach unten, weil sie nicht unter das Ziel taucht. Im Becken prallen sie ab, rollen und stossen einander, bis alle sechs zusammen am Boden liegen.",
+        "rolling": "Eine rollende Kugel ist auf jeder Bahn um denselben Faktor, {{factor}}, langsamer als ein reibungsfrei gleitender Klotz – darum ändert sich die Reihenfolge nie, und die Zykloide ist für jede Kugel die schnellste."
+      }
+    },
+    "elephant": {
+      "view": "Der Elefant von der Seite, wie er durch den Rüssel nach oben bläst, mit dem Ball in der Luft darüber",
+      "at": {
+        "blow": "Ein Elefant steht mit erhobenem Rüssel da und bläst einen gleichmässigen Luftstrom senkrecht nach oben. Daneben liegt ein aufblasbarer Ball, etwa 15 cm gross.",
+        "float": "Setzt man den Ball auf die Rüsselspitze, hebt er ab, steigt eine Handbreit und bleibt dort, ein wenig wippend. Stösst man ihn an, kommt er zurück."
+      },
+      "play": {
+        "title": "Am Rüssel",
+        "hint": "Der Ball liegt auf dem Rüssel, bis die Luft ihn hebt. Ändern Sie die Luft, neigen Sie den Rüssel oder stossen Sie den Ball an, und sehen Sie, wo die Luft ihn hält und wann sie es nicht mehr kann.",
+        "hint_auto": "Der Rüssel neigt sich immer weiter, bis die Luft den Ball nicht mehr halten kann; dann wird der Ball wieder aufgesetzt.",
+        "pause": "Pause",
+        "run": "Weiter",
+        "restart": "Neu beginnen",
+        "push_left": "Nach links stossen",
+        "push_right": "Nach rechts stossen",
+        "air": "Luft aus dem Rüssel",
+        "air_hint": "{{flow}} m³ Luft pro Stunde durch den Rüssel",
+        "tilt": "Neigung des Rüssels",
+        "tilt_hint": "Am Exponat neigt sich der Rüssel nicht; hier schon, um zu finden, wo der Ball fällt.",
+        "auto": "Automatisch: neigen, bis er fällt",
+        "auto_hint": "Neigt den Rüssel von senkrecht aus um {{rate}}° pro Sekunde, bis der Ball aus der Luft fällt, und setzt ihn dann wieder auf.",
+        "height": "Ballmitte über dem Rüssel",
+        "air_at_ball": "Luft am Ball",
+        "off_axis": "Neben der Strahlachse",
+        "falls_at": "Fällt bei einer Neigung von",
+        "resting": "Auf dem Rüssel: Die Luft kann ihn nicht heben",
+        "floating": "Schwebt",
+        "fallen": "Aus der Luft gefallen"
+      },
+      "change": {
+        "title": "Exponat verändern",
+        "hint": "Die echten Masse des Exponats sind nicht veröffentlicht; diese entsprechen dem, was man dort sieht: ein Rüssel von etwa 10 cm, ein Ball von etwa 15 cm, der rund 30 cm hoch schwebt. Eine Änderung wirkt sofort, auf den Ball in der Luft.",
+        "opening": "Rüsselöffnung",
+        "diameter": "Balldurchmesser",
+        "mass": "Ballmasse",
+        "coanda": "Seitlicher Sog (Modell)",
+        "coanda_hint": "Die einzige angenommene Zahl des Modells: wie viel vom Sog der Luft seitlich wirkt. Etwa 1 ergibt die Form einer Kugel; bei 0 hält nichts den Ball im Strahl."
+      },
+      "model": {
+        "intro": "Drei Dinge wirken auf den Ball: die Luft, die ihn nach oben drückt, die Luft, die ihn in den Strahl zieht, und sein Gewicht abzüglich des Auftriebs der Luft, die er verdrängt.",
+        "jet": "Die Luft verlässt den Rüssel als Strahl, der beim Aufsteigen breiter wird: auf seiner Achse am schnellsten, zum Rand hin langsamer, und auf jeden Meter etwa 12 cm breiter.",
+        "momentum": "Was der Strahl nach oben trägt, sein Impuls, bleibt, was der Rüssel hineingesteckt hat. Wird der Strahl breiter, wird er also langsamer: derselbe Schub, breiter verteilt.",
+        "lift": "Der Ball spürt die Luft, die er abdeckt: den Luftwiderstand einer Kugel, auf die über seinen Querschnitt gemittelte Luftgeschwindigkeit.",
+        "weight": "Nach unten zieht das Gewicht, abzüglich des Gewichts der Luft, die der Ball verdrängt, was bei einem aufblasbaren Ball nicht nichts ist.",
+        "balance": "Der Ball schwebt dort, wo der Schub der Luft genau das ist.",
+        "side": "Neben der Achse strömt die Luft an der Seite näher zur Mitte schneller vorbei, und schnellere Luft drückt weniger (Bernoulli): Der Ball wird zurückgezogen. Wie viel davon seitlich wirkt, ist die einzige angenommene Zahl des Modells.",
+        "tilt": "Geneigt teilt sich das Gewicht in zwei: Entlang des Strahls trägt es der Schub, quer dazu der Sog. Der Ball sinkt zur tiefen Seite, bis beides im Gleichgewicht ist, oder er fällt, sobald der Sog das nicht mehr schafft."
+      },
+      "symbols": {
+        "u": "die Luftgeschwindigkeit",
+        "r": "der Abstand von der Strahlachse",
+        "s": "der Abstand entlang der Achse vom Rüssel",
+        "b": "die Breite des Strahls",
+        "uc": "die Geschwindigkeit auf der Achse",
+        "u0": "die Luftgeschwindigkeit am Rüsselausgang",
+        "d": "die Rüsselöffnung",
+        "k": "wie schnell der Strahl breiter wird",
+        "rho": "die Dichte der Luft",
+        "cd": "der Widerstandsbeiwert einer Kugel",
+        "f": "der Schub der Luft",
+        "area": "der Querschnitt des Balls",
+        "m": "die Masse des Balls",
+        "v": "das Volumen des Balls",
+        "g": "die Erdbeschleunigung",
+        "cb": "der Anteil des Sogs, der seitlich wirkt",
+        "phi": "die Richtung zu einem Punkt des Querschnitts, von der Seite näher zur Achse aus",
+        "beta": "die Neigung des Rüssels",
+        "fs": "der seitliche Zug",
+        "w": "die Geschwindigkeit der Luft relativ zum Ball",
+        "p": "die Lage des Balls",
+        "mean": "die Luftgeschwindigkeit am Ball, über seinen Querschnitt gemittelt",
+        "a": "die Achse des Strahls",
+        "n": "quer zur Achse, zu ihrer tiefen Seite hin",
+        "y": "senkrecht nach oben"
+      },
+      "computed": {
+        "system": "Vier Differenzialgleichungen, Lage und Geschwindigkeit des Balls quer und nach oben, gelöst mit dem Runge-Kutta-Verfahren vierter Ordnung alle 2 ms. Die Integrale über den Querschnitt des Balls sind Summen über 288 Punkte, dieselben in den Kennzahlen und in Ihrem Browser, darum kommt der Ball genau dort zur Ruhe, wo die Kennzahlen es sagen.",
+        "inertia": "die Masse des Balls, dazu die Hälfte der verdrängten Luft, die sich mit ihm bewegen muss"
+      },
+      "sweet": {
+        "height": "Warum er auf seiner Höhe bleibt: Weiter oben ist der Strahl breiter als der Ball, der Ball fängt weniger davon und sinkt; weiter unten fängt er mehr und steigt. Er schwebt dort, wo der Schub sein Gewicht kreuzt, {{height}} cm über dem Rüssel, und wippt um diesen Punkt {{bob}}-mal pro Sekunde, während die Luft ihn dämpft.",
+        "middle": "Warum er in der Mitte bleibt: Zur Seite gestossen, zieht ihn die schnellere Luft auf seiner inneren Seite zurück, umso stärker, je weiter er abweicht, bis etwa {{offset}} cm neben der Achse. Darüber hinaus verlässt er den Strahl.",
+        "rise": "Vom Rüssel auf seine Höhe: Der Ball schiesst darüber hinaus, kommt zurück und pendelt sich ein, das Wippen klingt ab wie bei einer gedämpften Feder. Die Kurve ist der Lauf des Rechenkerns für den Aufbau auf dem Bildschirm, derselbe, den die Seite oben abspielt.",
+        "tilt": "Wie weit sich der Rüssel neigen lässt: bis {{limit}}°. Davor hängt der Ball tiefer und zur tiefen Seite hin; bei {{limit}}° kann der Sog den Anteil des Gewichts, der quer zum Strahl zieht, nicht mehr halten.",
+        "lift_off": "Die Luft muss schnell genug sein, um den Ball überhaupt vom Rüssel zu heben: ab {{speed}} m/s.",
+        "buoyancy": "Ein aufblasbarer Ball verdrängt Luft, die {{share}} % seines eigenen Gewichts wiegt, und die muss der Strahl nicht tragen.",
+        "assumed": "Was angenommen ist: die Form des Strahls direkt am Rüssel (ein echter Strahl behält auf den ersten paar Durchmessern seine volle Geschwindigkeit auf der Achse), ein Widerstandsbeiwert von 0.47 für einen glatten Ball und der seitliche Anteil des Sogs. Die Zahlen sind die des Modells, nicht auf den Zentimeter die des Exponats.",
+        "none": "Dieser Ball schwebt nicht: Die Luft hebt ihn erst ab {{speed}} m/s vom Rüssel."
+      },
+      "chart": {
+        "lift": "Schub der Luft",
+        "weight": "Gewicht abzüglich Auftrieb",
+        "height": "Ballmitte über dem Rüssel",
+        "side": "Zug zur Achse",
+        "offset": "Neben der Achse",
+        "tilt": "Neigung des Rüssels",
+        "sag": "Ball neben der Achse",
+        "sink": "Ball über dem Rüssel",
+        "force": "Kraft",
+        "time": "Zeit"
+      },
+      "figures": {
+        "height": "Schwebt auf",
+        "lift_off": "Hebt ab ab",
+        "air": "Luft am Ball",
+        "limit": "Fällt bei einer Neigung von",
+        "bob": "Wippt",
+        "flow": "Luft durch den Rüssel"
+      }
+    },
+    "smoke": {
+      "view": "Die Rauchtrommel im Schnitt, ihre Haut am Ring um das Loch gedrückt, und der Rauchring, der daraus nach oben fliegt",
+      "at": {
+        "drum": "Eine breite, flache Trommel, fast zwei Meter gross und mit Rauch gefüllt, steht auf Hüfthöhe. Oben ist eine gespannte Haut mit einem Loch von 30 cm in der Mitte, eingefasst von einem Ring, den man hinunterdrückt.",
+        "press": "Drückt man den Ring, fliegt ein Rauchring aus dem Loch und durch die Halle nach oben. Drückt man zu kräftig, wirbelt der Rauch nur auseinander; drückt man zu sanft, geschieht gar nichts. Etwa eine halbe Sekunde ist am besten."
+      },
+      "play": {
+        "title": "An der Trommel",
+        "hint": "Ziehen Sie den Ring hinunter und lassen Sie los, schnell oder langsam, oder drücken Sie die Taste: Das Tempo entscheidet, ob ein Ring fliegt.",
+        "hint_auto": "Drei Drücke nacheinander: ein Stoss, eine halbe Sekunde und ein langsames Drücken – Wirbel, Ring und nichts.",
+        "press": "Drücken",
+        "pause": "Pause",
+        "run": "Weiter",
+        "restart": "Neu beginnen",
+        "auto": "Automatisch: drei Drücke",
+        "auto_hint": "Ein Stoss von {{fast}} s, ein Druck von {{best}} s und ein langsames Drücken von {{slow}} s, nacheinander.",
+        "duration": "Dauer des Drucks",
+        "depth": "Wie tief",
+        "drag": "Oder ziehen Sie den Ring in der Zeichnung hinunter und lassen Sie los.",
+        "last": "Letzter Druck",
+        "jet": "Luft aus dem Loch",
+        "reynolds": "Reynoldszahl des Rings",
+        "speed": "Tempo des Rings",
+        "force": "Kraft auf die Hand",
+        "verdict": {
+          "ring": "Ein Ring fliegt",
+          "too_fast": "Zu kräftig: Der Rauch wirbelt auseinander",
+          "too_slow": "Zu sanft: Der Rauch treibt weg",
+          "none": "Drücken Sie den Ring"
+        }
+      },
+      "change": {
+        "title": "Exponat verändern",
+        "hint": "Die echten Masse des Exponats sind nicht veröffentlicht; diese entsprechen dem, was man dort sieht: eine Trommel von etwa 1.9 m, 30 cm tief, ein Loch von 30 cm, höchstens 8 cm tief gedrückt.",
+        "diameter": "Trommeldurchmesser",
+        "hole": "Loch",
+        "ring": "Ring um das Loch",
+        "stroke": "Tiefster Druck",
+        "tension": "Spannung der Haut",
+        "tension_hint": "Angenommen: wie stark die Haut gespannt ist. Sie ändert nur die Kraft auf die Hand, nicht den Ring.",
+        "draught": "Luftzug im Raum (Modell)",
+        "draught_hint": "Ein Ring, der langsamer ist als die Luft in der Halle, wird weggetragen, bevor er sich bildet. So gesetzt, dass ein Druck langsamer als etwa 1.2 s nichts bewirkt.",
+        "turbulent": "Turbulent ab (Modell)",
+        "turbulent_hint": "Über dieser Reynoldszahl ist der Ring turbulent und verwischt seinen Rauch. So gesetzt, dass ein Druck schneller als etwa 0.2 s keinen sichtbaren Ring macht."
+      },
+      "model": {
+        "intro": "Der Druck presst Luft aus der Trommel; die Luft, die aus dem Loch kommt, rollt sich zu einem Ring auf; wie schnell und wie stark der Ring ist, entscheidet, ob er fliegt.",
+        "area": "Der Ring drückt die Haut hinunter, und die Haut zwischen Ring und Rand nimmt die Form einer gespannten Membran an. Die Trommel verliert dieses Volumen pro Zentimeter Druck.",
+        "jet": "Dieses Volumen verlässt die Trommel durch das Loch, das elfmal kleiner ist: Die Luft kommt elfmal schneller heraus, als die Hand hinuntergeht.",
+        "circulation": "Die hinausgedrückte Luft rollt sich zu einem Ring auf; seine Zirkulation, wie stark er wirbelt, ist die Hälfte des Integrals über das Quadrat der Luftgeschwindigkeit.",
+        "formation": "Ein Ring nimmt höchstens einen Luftpfropfen von vier Lochdurchmessern auf; ein längerer lässt einen Strahl hinter sich zurück. Ein voller Druck ergibt hier drei.",
+        "speed": "Ein Ring fliegt mit einem Tempo, das seine Zirkulation und seine Grösse bestimmen, umso schneller, je stärker er wirbelt.",
+        "reynolds": "Seine Reynoldszahl sagt, wie turbulent er ist: Über einer Schwelle gibt der Ring seinen Rauch an seinen Nachlauf ab.",
+        "hand": "Die Hand spürt die Feder der Haut und den Gegendruck der Luft, der mit dem Quadrat des Tempos wächst."
+      },
+      "symbols": {
+        "v": "das hinausgedrückte Volumen",
+        "x": "wie tief der Ring gedrückt ist",
+        "aeff": "die wirksame Fläche der Trommel",
+        "rbig": "der Radius der Trommel",
+        "a": "der Radius des Rings um das Loch",
+        "rh": "der Radius des Lochs",
+        "u": "die Geschwindigkeit der Luft aus dem Loch",
+        "ah": "die Fläche des Lochs",
+        "gamma": "die Zirkulation des Rings",
+        "t": "die Zeit",
+        "l": "die Länge des hinausgedrückten Luftpfropfens",
+        "d": "der Durchmesser des Lochs",
+        "uring": "das Tempo des Rings",
+        "rring": "der Radius des Rings",
+        "core": "der Radius seines Kerns",
+        "re": "die Reynoldszahl des Rings",
+        "nu": "die kinematische Viskosität der Luft",
+        "f": "die Kraft auf die Hand",
+        "k": "die Steifigkeit der Haut",
+        "tension": "die Spannung der Haut",
+        "rho": "die Dichte der Luft",
+        "z": "die Höhe des Rings über dem Loch",
+        "alpha": "wie schnell ein turbulenter Ring breiter wird"
+      },
+      "computed": {
+        "system": "Der Druck selbst braucht keine Zeitschritte: Die Zirkulation des Rings ist eine Summe über den abgetasteten Druck, auch Ihr eigenes Ziehen. Der Flug sind zwei Differenzialgleichungen, Höhe und Radius, gelöst mit dem Runge-Kutta-Verfahren vierter Ordnung alle 10 ms: Ein laminarer Ring behält seine Grösse und wird nur langsamer, weil die Viskosität seinen Kern verdickt; ein turbulenter wird im Flug breiter, behält dabei seinen Impuls und wird mit der dritten Potenz seiner Grösse langsamer.",
+        "a0": "der Radius des Kerns, wenn der Ring entsteht"
+      },
+      "sweet": {
+        "window": "Das Tempo ist alles: Ein voller Druck macht einen Ring zwischen {{fastest}} s und {{slowest}} s, am besten bei etwa {{best}} s.",
+        "fast": "Schneller wirbelt der Ring so stark, dass er turbulent wird und seinen Rauch in der Luft verteilt.",
+        "slow": "Langsamer bewegt er sich weniger schnell als die Luft in der Halle selbst, die den Rauch wegträgt, bevor er sich gebildet hat.",
+        "both": "Beides wächst mit dem Tempo zusammen – die Stärke des Rings und sein Tempo –, darum hat das Fenster zwei Enden.",
+        "force": "Und die Hand bezahlt für einen schnellen Druck: Der Gegendruck der Luft wächst mit dem Quadrat des Tempos, {{fast}} N bei einem Stoss gegenüber {{slow}} N bei einem langsamen Drücken, bei dem nur die Haut zurückdrückt.",
+        "assumed": "Was angenommen ist: die beiden Schwellen, auf das Exponat abgestimmt (ein Ring gelingt am besten bei etwa einer halben Sekunde), die Grösse des Rings und seines Kerns, wie man sie an echten Ringen misst, und die Spannung der Haut. Das Schwingen der Haut und der Sog beim Loslassen sind weggelassen.",
+        "none": "Mit diesen Einstellungen macht kein Druck einen Ring: Das Fenster ist zu."
+      },
+      "chart": {
+        "duration": "Dauer des Drucks",
+        "reynolds": "Reynoldszahl",
+        "threshold": "Turbulent ab",
+        "speed": "Tempo des Rings",
+        "draught": "Luftzug im Raum",
+        "force": "Kraft auf die Hand"
+      },
+      "figures": {
+        "fastest": "Schnellster Druck",
+        "slowest": "Langsamster Druck",
+        "best": "Bester Druck",
+        "ratio": "Luft heraus pro Handtempo",
+        "stroke": "Luftpfropfen in Lochdurchmessern"
+      }
+    },
+    "cannon": {
+      "view": "Der Stapel aus der Nähe, in der Grösse der Kugeln: der Draht, der Boden und die Kugeln, wo der Fall sie gerade hat, ineinandergedrückt, solange sie sich berühren",
+      "climb_view": "Der ganze Aufstieg: jede Kugel als Punkt, und eine Marke, wo die oberste umgekehrt ist",
+      "at": {
+        "balls": "Drei gummiartige Kugeln von etwa 10, 7 und 5 cm Durchmesser sind auf einen Stahldraht gefädelt, der senkrecht vom Boden aufragt, die grösste zuunterst.",
+        "drop": "Heben Sie sie zusammen an, aufeinander, und lassen Sie los. Die grosse Kugel trifft den Boden, und die kleine oben schiesst den Draht hinauf, weit höher, als Sie sie fallen liessen."
+      },
+      "play": {
+        "title": "Am Draht",
+        "hint": "Ziehen Sie den Stapel in der Zeichnung hoch und lassen Sie los, oder stellen Sie die Höhe ein und drücken Sie «Fallen lassen»: Der Aufstieg der kleinen Kugel ist rechts markiert, und darunter erscheinen die Kräfte beim Aufprall.",
+        "hint_auto": "Eine Kugel, dann zwei, dann drei, jedes Mal aus derselben Höhe: Sehen Sie, wie der Aufstieg der obersten wächst.",
+        "pause": "Anhalten",
+        "run": "Weiter",
+        "restart": "Neu beginnen",
+        "height": "Höhe der untersten Kugel",
+        "drop": "Fallen lassen",
+        "drag": "Oder ziehen Sie den Stapel in der Zeichnung hoch und lassen Sie los.",
+        "slow": "Zeitlupe beim Aufprall",
+        "slow_hint": "Die Kugeln berühren sich etwa zehn Tausendstelsekunden lang; hundertfach verlangsamt sieht man, wie sie sich ineinanderdrücken.",
+        "auto": "Automatisch: eine, zwei, drei Kugeln",
+        "auto_hint": "Lässt die unterste Kugel allein fallen, dann die unteren zwei, dann alle drei, immer wieder.",
+        "launch": "Oberste Kugel startet mit",
+        "apex": "Höchster Punkt der obersten Kugel",
+        "times": "Aufstieg im Verhältnis zur Fallhöhe",
+        "of_one": "Letzter Fall: eine Kugel aus {{height}} m.",
+        "of_other": "Letzter Fall: {{count}} Kugeln aus {{height}} m."
+      },
+      "forces": {
+        "title": "Die Kräfte beim Aufprall",
+        "contact": "Kontakt",
+        "peak": "Grösste Kraft",
+        "squash": "Eingedrückt um",
+        "duration": "Dauer",
+        "impulse": "Kraftstoss",
+        "force": "Kraft",
+        "time": "Zeit seit der ersten Berührung",
+        "floor_contact": "Boden – {{ball}}",
+        "ball_contact": "{{lower}} – {{upper}}"
+      },
+      "change": {
+        "title": "Den Stapel ändern",
+        "hint": "Die Kugeln des Exponats haben etwa 10, 7 und 5 cm Durchmesser und sind aus einem Elastomer; wie elastisch und wie steif sie sind, ist geschätzt und lässt sich hier ändern.",
+        "count": "Wie viele Kugeln",
+        "balls_one": "{{count}} Kugel",
+        "balls_other": "{{count}} Kugeln",
+        "flip": "Stapel umdrehen",
+        "ball_0": "Unterste Kugel",
+        "ball_1": "Mittlere Kugel",
+        "ball_2": "Oberste Kugel",
+        "gap": "Abstand zwischen den Kugeln",
+        "gap_hint": "Berühren sich die Kugeln, überlagern sich ihre Kontakte, und die Kanone ist schwach; ein paar Millimeter auseinander folgen die Stösse aufeinander.",
+        "youngs": "Steifigkeit des Elastomers (Elastizitätsmodul)",
+        "youngs_hint": "Geschätzt: Weicher Gummi hat 1 bis 10 MPa. Er bestimmt, wie stark und wie kurz die Kugeln drücken, und ändert den Aufstieg nur wenig.",
+        "floor_e": "Rückprall am Boden",
+        "e_hint": "Der Anteil der Annäherungsgeschwindigkeit, den ein Kontakt zurückgibt: 1 verliert nichts, eine Elastomerkugel etwa 0,85.",
+        "ball_e": "Rückprall zwischen zwei Kugeln"
+      },
+      "model": {
+        "intro": "Jede Kugel bewegt sich nach Newtons zweitem Gesetz, alle zugleich: Schwerkraft und Luft ziehen an ihr, der Kontakt darunter drückt sie nach oben, der Kontakt darüber nach unten. Die Kugeln berühren sich nur, wo sie sich ineinanderdrücken.",
+        "motion": "Masse mal Beschleunigung der Kugel i ist ihr Gewicht, der Luftwiderstand und die beiden Kontaktkräfte – eine Gleichung je Kugel, zusammen gelöst.",
+        "hertz": "Zwei Kugeln, die sich um δ ineinanderdrücken, stossen sich mit der Hertzschen Kraft ab, die mit δ hoch anderthalb wächst. Die Dämpfung in der Klammer nimmt beim Zusammendrücken und Auseinandergehen Energie weg, sodass ein Kontakt e seiner Annäherungsgeschwindigkeit zurückgibt.",
+        "stiffness": "Wie steif ein Kontakt ist, folgt aus dem Elastizitätsmodul und der Querkontraktionszahl des Elastomers und aus den beiden Radien; der Boden gilt als starr.",
+        "textbook": "Die Abkürzung des Lehrbuchs: jeder Stoss augenblicklich und vorbei, bevor der nächste beginnt, keine Verluste, und jede Kugel viel leichter als die darunter. Dann startet jede Kugel mit dieser Geschwindigkeit, was 3v für zwei Kugeln und 7v für drei ergibt – und eine Kugel, die mit 7v startet, steigt 49-mal so hoch, wie sie gefallen ist.",
+        "real": "Echte Kugeln bleiben darunter: Ihre Massen liegen nicht weit auseinander, jeder Kontakt verliert etwas Energie, und zusammengedrückte Kugeln berühren sich Millisekunden lang – aufeinanderliegende Kugeln drücken also alle gleichzeitig aufeinander statt nacheinander."
+      },
+      "computed": {
+        "system": "Die Gleichungen aller Kugeln als ein System, Höhe und Geschwindigkeit jeder Kugel, gerechnet mit Runge–Kutta: jede halbe Millisekunde, solange die Kugeln frei fliegen, alle 10 Mikrosekunden, solange ein Kontakt geschlossen ist oder sich gleich schliesst."
+      },
+      "symbols": {
+        "y": "die Höhe der Kugel i",
+        "m": "ihre Masse",
+        "g": "die Erdbeschleunigung",
+        "rho": "die Dichte der Luft",
+        "cd": "der Widerstandsbeiwert einer Kugel",
+        "a": "ihr Querschnitt",
+        "f": "die Kraft im Kontakt unter der Kugel i",
+        "delta": "wie weit sich die beiden ineinanderdrücken",
+        "ddelta": "wie schnell sie es tun, jetzt und bei der ersten Berührung",
+        "e": "wie viel der Annäherungsgeschwindigkeit ein Kontakt zurückgibt",
+        "k": "die Steifigkeit des Kontakts",
+        "young": "der Elastizitätsmodul des Elastomers",
+        "nu": "seine Querkontraktionszahl, 0,5 für Gummi",
+        "r": "die Radien der beiden Kugeln",
+        "v": "die Geschwindigkeit des Stapels am Boden",
+        "uk": "die Startgeschwindigkeit der Kugel k",
+        "n": "die Zahl der Kugeln",
+        "hh": "der Aufstieg der obersten Kugel und die Fallhöhe des Stapels",
+        "u": "die Geschwindigkeit der Kugel i",
+        "kdrag": "die Stärke des Luftwiderstands für eine Kugel dieser Grösse und dieses Gewichts",
+        "dt": "der Schritt"
+      },
+      "sweet": {
+        "climb_one": "Allein aus {{height}} m fallen gelassen, steigt eine Kugel {{times}}-mal so hoch zurück.",
+        "climb_other": "Aufeinander aus {{height}} m fallen gelassen, steigt die oberste von {{count}} Kugeln {{times}}-mal so hoch, auf {{apex}} m.",
+        "level_one": "{{count}} Kugel",
+        "level_other": "{{count}} Kugeln",
+        "speeds": "Der Stapel trifft mit {{impact}} m/s auf den Boden, und die oberste Kugel startet mit {{launch}} m/s. Mit augenblicklichen Stössen nacheinander wären es {{sequential}} m/s; dazu ohne Verluste {{ideal}} m/s; wäre jede Kugel viel leichter als die darunter, {{textbook}} m/s.",
+        "overlap": "Den Unterschied zwischen den ersten beiden macht das Zusammendrücken. Aufeinanderliegende Kugeln stossen nicht nacheinander: Die mittlere drückt schon in die unterste, während diese noch in den Boden drückt, und die oberste drückt auf beide. Von oben niedergedrückt, während sie zurückfedern will, gibt die unterste weniger weiter.",
+        "forces": "Der Boden drückt mit bis zu {{force}} kN zurück – etwa {{weight}}-mal so viel wie das Gewicht der untersten Kugel –, während die Kugel um {{squash}} mm eingedrückt wird, etwa {{duration}} Tausendstelsekunden lang.",
+        "gap": "Halten Sie die Kugeln ein paar Millimeter auseinander, folgen die Kontakte aufeinander: Der Aufstieg erreicht fast, was augenblickliche Stösse ergäben. Probieren Sie den Abstand aus.",
+        "masses": "Die 7v des Lehrbuchs verlangen, dass jede Kugel viel leichter ist als die darunter. Diese wiegen {{masses}} g: Die mittlere hat ein Drittel der untersten, die oberste ein Drittel der mittleren.",
+        "energy": "Trotzdem verlassen {{share}} % der Energie, mit der der ganze Stapel auf den Boden traf, den Stapel in der kleinsten Kugel.",
+        "flip": "Drehen Sie den Stapel um, und nichts fliegt: Eine leichte Kugel unten kann keine schwere nach oben stossen.",
+        "name": "Warum Kanone: Physikbücher nennen den Versuch «galileische Kanone», weil die kleine Kugel senkrecht aus dem Stapel geschossen wird wie aus einem Rohr. Seitwärts wird nichts abgefeuert.",
+        "assumed": "Angenommen sind: volle Kugeln von 1100 kg/m³, die Steifigkeit des Elastomers und wie elastisch es ist, Kontakte nach Hertz mit einer Dämpfung, die einen festen Anteil der Annäherungsgeschwindigkeit zurückgibt, und ein starrer Boden. Die Reibung am Draht und der Drall der Kugeln sind weggelassen."
+      }
+    }
+  }
+}

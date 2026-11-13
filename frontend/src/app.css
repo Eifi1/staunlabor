@@ -1,0 +1,73 @@
+@import "tailwindcss";
+
+/* Shared design tokens + semantic utilities + global chrome. The :root/.dark
+   values are the canonical default; the palette layer writes the active preset's
+   tokens inline on <html> at runtime (see @eifi1/ui-kit's palette store). */
+@import "@eifi1/ui-kit/tokens.css";
+
+/* Tailwind ignores node_modules by default, so point it at the shared design
+   system — without this, the class names @eifi1/ui-kit's own components use are
+   never generated and every shared component renders unstyled, which nothing
+   fails loudly about: the build succeeds and the app comes up unreadable.
+   `dist`, not `src`: the published package ships `files: ["dist","tokens.css"]`
+   and carries no sources at all, so the path it had while it was a `file:`
+   dependency on a sibling checkout now points at nothing. Its `.d.ts` files and
+   source maps are left out (ui-kit 0.52): the words of their comments read as
+   class names and put about 180 unused rules, 11 KB, into this stylesheet. */
+@source "../../node_modules/@eifi1/ui-kit/dist";
+@source not "../../node_modules/@eifi1/ui-kit/dist/**/*.{map,d.ts}";
+
+/* Toasts must sit above every dialog and overlay. Sonner injects its own
+   z-index at runtime, which can land too late; pinning it in the bundled
+   stylesheet makes it deterministic. */
+[data-sonner-toaster] {
+  z-index: 2147483647 !important;
+}
+
+/* A results figure reads as a column of numbers, so the digits have to line up
+   even when the values do not — proportional digits make a table of forces
+   impossible to scan down. */
+.hb-figure {
+  font-variant-numeric: tabular-nums;
+}
+
+/* The flags the language switcher can show, instead of `flag-icons`' full
+   stylesheet.
+   That file carries a rule per ISO country and Vite emits every one of their
+   SVGs — ~430 kB of CSS for an app that ships seven flags. The classes
+   below are the same ones @eifi1/ui-kit's LanguageMenu renders (`fi fi-de`); the paths
+   are relative for the same reason the @source line above is. Adding a language
+   to LANGUAGES means adding its rule here — `languages.test.ts` fails until it is. */
+.fi {
+  position: relative;
+  display: inline-block;
+  width: 1.333333em;
+  line-height: 1em;
+  background-size: contain;
+  background-position: 50%;
+  background-repeat: no-repeat;
+}
+.fi-de {
+  background-image: url("../../node_modules/flag-icons/flags/4x3/de.svg");
+}
+.fi-gb {
+  background-image: url("../../node_modules/flag-icons/flags/4x3/gb.svg");
+}
+.fi-ch {
+  background-image: url("../../node_modules/flag-icons/flags/4x3/ch.svg");
+}
+.fi-cn {
+  background-image: url("../../node_modules/flag-icons/flags/4x3/cn.svg");
+}
+.fi-es {
+  background-image: url("../../node_modules/flag-icons/flags/4x3/es.svg");
+}
+.fi-fr {
+  background-image: url("../../node_modules/flag-icons/flags/4x3/fr.svg");
+}
+.fi-hu {
+  background-image: url("../../node_modules/flag-icons/flags/4x3/hu.svg");
+}
+.fi-it {
+  background-image: url("../../node_modules/flag-icons/flags/4x3/it.svg");
+}

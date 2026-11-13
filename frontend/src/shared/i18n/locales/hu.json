@@ -1,0 +1,984 @@
+{
+  "app": {
+    "name": "Staunlabor",
+    "tagline": "Kézbe vehető kiállítási tárgyak, kiszámolva"
+  },
+  "common": {
+    "cancel": "Mégse",
+    "delete": "Törlés",
+    "close": "Bezárás",
+    "loading": "Betöltés…",
+    "reset": "Visszaállítás",
+    "open": "Megnyitás",
+    "language": "Nyelv",
+    "theme_toggle": "Váltás világos / sötét között",
+    "error": "Hiba történt.",
+    "edit": "Szerkesztés",
+    "saving": "Mentés…"
+  },
+  "site": {
+    "footer": {
+      "label": "Oldalak",
+      "about": "A Staunlaborról",
+      "imprint": "Impresszum",
+      "privacy": "Adatvédelem",
+      "source": "Forráskód",
+      "issues": "Hiba vagy ötlet bejelentése",
+      "licence": "A kód MIT-licenc alatt áll, a szövegek és a rajzok CC BY 4.0 licenc alatt. Független és nem kereskedelmi célú.",
+      "version": "Verzió: {{version}}"
+    },
+    "about": {
+      "title": "A Staunlaborról",
+      "lead": "Kézbe vehető kiállítási tárgyak, kiszámolva — ingyenesen, regisztráció és hirdetések nélkül.",
+      "what": "A Staunlabor olyan kiállítási tárgyakat vesz alapul, amilyenek egy tudományos élményközpontban állnak — egy légsugáron lebegő labdát, egy dobból kilökött füstkarikát, három egymásra rakva leejtett labdát —, és lehetővé teszi, hogy minden tárgy ikerpárjánál Ön legyen a látogató. Ezután minden oldal megmutatja, mi történik: a mozgásegyenleteket, azt, hogyan oldjuk meg őket, és azt az egy felismerést, amely a trükköt megmagyarázza.",
+      "computed": "Minden szám az oldal saját számítómotorjából származik, és a tesztjei garantálják. Ami mozog, azt az Ön böngészője számolja ki, ugyanazokkal a lépésekkel, mint a számítómotor; amit egy csúszka megváltoztat, azt a szerver számolja ki.",
+      "model": "A kiállítási tárgyakat a winterthuri Swiss Science Center Technorama kiállítási tárgyai ihlették. A Staunlabor független projekt, és nem áll kapcsolatban a Technoramával; minden rajz és szöveg saját készítésű.",
+      "open": "A Staunlabor szabad: a kód MIT-licenc alatt áll, a szövegek és a rajzok CC BY 4.0 licenc alatt. A forrás megjelölésével továbbfelhasználhatja őket, az oktatásban is.",
+      "feedback": "Valami hibás vagy nem világos, vagy van egy kiállítási tárgy, amelyet szívesen látna?",
+      "issues": "Jelezze a GitHubon",
+      "source": "A forráskód megtekintése"
+    }
+  },
+  "legal": {
+    "impressum": {
+      "disclaimer": {
+        "body": "A Staunlabor egy magán, nem kereskedelmi projekt, amelyet szavatosság nélkül kínálunk. Az általunk hivatkozott külső oldalakért azok üzemeltetői felelősek; tartalmukra nincs befolyásunk."
+      }
+    },
+    "privacy": {
+      "data": {
+        "title": "Milyen adatokat kezelünk",
+        "body": "A Staunlabornak nincsenek felhasználói fiókjai, nincs adatbázisa és nincsenek űrlapjai. Ha Ön módosít egy kiállítási tárgyat, a böngészője elküldi annak értékeit — például egy labda átmérőjét vagy egy ejtési magasságot — a szervernek, amely ezekből jellemző értékeket és görbéket számol, és visszaküldi őket; ebből semmit sem tárolunk.\n\nMűszaki adatok: tárhelyszolgáltatónk minden kérést naplóz — az időpontot, a kért címet, az Ön IP-címét és böngészőjének típusát — a szolgáltatás működtetése és védelme érdekében. Hogy korlátozza a címenkénti számítások számát, a szerver rövid ideig a memóriájában tartja az Ön IP-címét, de nem menti el."
+      },
+      "legal_basis": {
+        "site": "Nincs követés, nincsenek analitikai eszközök, nincsenek sütik és nincs hirdetés."
+      },
+      "third_parties": {
+        "title": "Tárhely és adatfeldolgozók",
+        "body": "Az oldal a Google Cloudon fut az Európai Unióban (europe-west4, Hollandia). A Google a nevünkben adatfeldolgozóként jár el.\n\nA Cloudflare üzemelteti a staunlabor.app DNS-ét, és a @staunlabor.app végű címekre küldött e-maileket továbbítja az üzemeltető postafiókjába; eközben kezeli az üzenetet, valamint a feladó és a címzett címét. A webes forgalom nem halad át a Cloudflare hálózatán.\n\nA forráskód és a visszajelzések a GitHubon találhatók. Aki ott bejelent valamit, azt a saját GitHub-fiókjával és a GitHub feltételei szerint teszi."
+      },
+      "browser": {
+        "entries": {
+          "language": "A választott nyelv",
+          "look": "A világos vagy sötét megjelenés",
+          "tried": "Mely kiállítási tárgyakat próbálta ki, hogy az áttekintés kipipálhassa őket"
+        },
+        "tail": "Egyiket sem használjuk az Ön követésére, és egyik sem jut el hozzánk. Mindez eltűnik, amikor törli a webhely adatait a böngészőjében."
+      },
+      "transfers": {
+        "title": "Adattovábbítás külföldre",
+        "body": "Az adatokat az EU-ban (Hollandiában) kezeljük. A Google, a Cloudflare és a GitHub amerikai székhelyű vállalatok; amennyiben az adatokhoz Svájcon és az EU-n kívülről is hozzá lehet férni, a továbbítás a szolgáltatók által alkalmazott általános adatvédelmi kikötéseken és — ahol alkalmazandók — az EU–US Data Privacy Framework és a Swiss–US Data Privacy Framework adatvédelmi keretrendszereken alapul. Svájcot, ahol az üzemeltető lakóhelye van, az EU megfelelő adatvédelmi szintet biztosító országként ismeri el."
+      },
+      "retention": {
+        "title": "Megőrzés és törlés",
+        "body": "A Staunlabor nem tárol Önről adatokat. Tárhelyszolgáltatónk a kérésnaplóit 30 nap után törli. Amit a böngészője tárol, azt bármikor törölheti a böngésző beállításaiban."
+      }
+    }
+  },
+  "experiments": {
+    "title": "Kísérletek",
+    "area": "A kísérletek",
+    "failed": "A kiállítási tárgyat nem sikerült kiszámolni.",
+    "overview": {
+      "short": "Áttekintés",
+      "lead": "Kézbe vehető kiállítási tárgyak, kiszámolva. Legyen látogató a tárgy ikerpárjánál, majd nézze meg a számítást amögött, amit érzett.",
+      "how": "Minden oldal azzal kezdődik, ami a kiállításon áll, kipróbálhatja, majd megmutatja, mi történik, és azt az egy felismerést, amely a trükköt megmagyarázza. Minden szám az alkalmazás saját számítómotorjából származik, és a tesztjei garantálják.",
+      "open": "A tárgy megnyitása",
+      "coming": "Előkészületben",
+      "credit": "A winterthuri Swiss Science Center Technorama kiállítási tárgyai ihlették.",
+      "daily": {
+        "eyebrow": "A nap kísérlete",
+        "open": "Próbálja ki",
+        "today": "Ma"
+      },
+      "history": {
+        "title": "Az elmúlt napok kísérletei",
+        "open": "Korábbi napok"
+      },
+      "all": "Az összes kiállítási tárgy",
+      "topics_label": "Szűrés téma szerint",
+      "all_topics": "Minden téma",
+      "tried": {
+        "label": "Ezen az eszközön kipróbálva",
+        "count": "{{tried}} / {{total}}",
+        "mark": "Kipróbálva",
+        "forget": "Törlés"
+      },
+      "builds_on": "Erre épül:"
+    },
+    "topics": {
+      "momentum": "Impulzus",
+      "angular_momentum": "Perdület",
+      "energy": "Energia",
+      "oscillation": "Lengés",
+      "flow": "Áramlás",
+      "induction": "Indukció",
+      "perception": "Észlelés"
+    },
+    "frame": {
+      "eyebrow": "Kiállítási tárgy",
+      "at_the_exhibit": "A kiállításon",
+      "try_it": "Próbálja ki",
+      "what_happens": "Mi történik",
+      "sweet_spot": "A trükk",
+      "computed": "Hogyan számoljuk ki"
+    },
+    "exhibits": {
+      "chair": {
+        "short": "A szék",
+        "title": "A szék, amely három dolog",
+        "summary": "Három kukucskálólyuk, egy szék — mögöttük pedig egy szék, egy torz szék és rudak, amelyek sehol sem érnek össze.",
+        "question": "Hogyan látszhat három különböző dolog egy kukucskálólyukon át ugyanannak a széknek?"
+      },
+      "coil": {
+        "short": "Mágnes és tekercs",
+        "title": "A mágneses kocsi és a tekercs",
+        "summary": "Két gomb, egy tekercs, egy mágnest vivő kocsi: a megfelelő pillanatban megnyomva mindkét rámpán felmegy.",
+        "question": "Mikor nyomja meg a gombot, hogy a kocsi minden áthaladáskor magasabbra jusson?"
+      },
+      "sphere": {
+        "short": "Golyó a gömbben",
+        "title": "A golyó a függő gömbben",
+        "summary": "Mozgassa körbe a függő gömböt, amíg a benne lévő golyó az egyenlítője mentén nem fut.",
+        "question": "Milyen gyorsan kell a gömbnek köröznie, hogy a benne lévő golyó az egyenlítője mentén fusson?"
+      },
+      "platform": {
+        "short": "A forgókorong",
+        "title": "A forgókorong",
+        "summary": "Álljon rá, lökjék meg, és húzódjon össze: minél közelebb van a tengelyhez, annál gyorsabban forog.",
+        "question": "Mennyivel gyorsabban forog, ha felegyenesedik?"
+      },
+      "race": {
+        "short": "A verseny",
+        "title": "A görbék versenye",
+        "summary": "Hat pálya, egy rajt, egy cél: melyik golyó ér be elsőként — és a völgy, ahová mind egyszerre érkeznek.",
+        "question": "Melyik pálya nyer a hat közül — és vajon az-e a legrövidebb?"
+      },
+      "elephant": {
+        "short": "A Bernoulli-elefánt",
+        "title": "A Bernoulli-elefánt",
+        "summary": "Tegyen egy könnyű labdát az elefánt ormányára: lebeg a levegőben, amelyet az elefánt fúj, és ott marad akkor is, ha meglökik.",
+        "question": "Mennyire dönthető meg a légsugár, mielőtt a labda leesik?"
+      },
+      "smoke": {
+        "short": "A füstkarika",
+        "title": "A füstkarika",
+        "summary": "Nyomja le egy füsttel teli dob bőrét, és a lyukából kirepül egy karika — ha sem túl erősen, sem túl gyengéden nem nyomja.",
+        "question": "Messzebbre repül a karika, ha erősebben nyomja?"
+      },
+      "cannon": {
+        "short": "A labdaágyú",
+        "title": "A labdaágyú",
+        "summary": "Ejtsen le három, egy huzalon egymásra rakott labdát, és a tetején lévő kicsi sokkal magasabbra repül fel, mint ahonnan leesett.",
+        "question": "Milyen magasra repül a kis labda, ha a labdaoszlop egy méter magasból esik le?"
+      }
+    },
+    "chair": {
+      "kinds": {
+        "chair": "A szék",
+        "skewed": "A torz szék",
+        "scattered": "A rudak"
+      },
+      "at": {
+        "boxes": "Egy asztalon egy hosszú doboz áll, elején három, egymás melletti kukucskálólyukkal. Bármelyiken benézve egy széket lát.",
+        "round": "Aztán nézzen be a dobozba oldalról: az első lyuk mögött egy szék áll; a második mögött egy eltorzult szék — különböző hosszúságú lábak, nem négyzet alakú ülőlap; a harmadik mögött a levegőben lógó rudak, amelyek sehol sem érnek össze."
+      },
+      "model": {
+        "directions": "Egy lyuknál lévő szem irányokat lát, nem távolságokat. Minden P pont elcsúszhat a látóvonalán az E szemtől közelebb vagy távolabb, és a kép nem változik:",
+        "skewed": "A torz szék minden pontot olyan tényezővel tol el, amely a széken át folytonosan változik. Ez a leképezés megőrzi a szemen átmenő egyeneseket, így az egyenes rudak egyenesek maradnak, az illesztések összeérnek — ez egy szék, csak nem az, amire gondol:",
+        "scattered": "A rudak mindegyike saját tényezővel csúszik el. Mindegyik ugyanabba az irányba mutató rúd marad, de két rúd, amely egy illesztésben találkozott, most csak a látóvonalon találkozik, két különböző mélységben.",
+        "cave": "Platón barlangba zárt foglyokról beszél, akik csak árnyékokat látnak a falon, és azokat tartják a dolgoknak. A kukucskálólyuk ez a fal: egy kép és végtelen sok tárgy, amely vethetné. A doboz körüli nézet a kilépés a barlangból."
+      },
+      "sweet": {
+        "question": "Mennyire pontosnak kell lennie a lyuknak? Ha a szem δ-val oldalra mozdul, két pont, amely d₁ és d₂ távolságban egy vonalba esett, körülbelül ennyivel távolodik el egymástól:",
+        "tolerance": "Ezeknél a dobozoknál a rudak egy illesztése már {{tolerance}} mm után egy ívpercnyire nyílik — ennyit különböztet meg egy éles szem. Egy második szem {{baseline}} mm-rel oldalt {{binocular}}° szélesnek látja a réseket: ezért egy lyuk és egy szem.",
+        "brain": "Hogy a rudak egy nagyobb lyukon át is széknek látszanak, az az agy műve: a pupilla minden pontot kissé elmos, és egy rossz mélységben lévő elmosódott rést az agy széknek olvas, mert székek vannak. A torz szék sosem esik szét — a szem mozgatásakor csak az alakja hajlik."
+      },
+      "figures": {
+        "tolerance": "A szem elmozdulhat",
+        "binocular": "Rés, második szem",
+        "acuity": "A szem felbontása",
+        "joints": "Illesztések"
+      },
+      "equations": {
+        "slide": "Hová mehet egy pont anélkül, hogy a kép megváltozna: bárhová a szemtől rajta át húzódó egyenesen, közelebb vagy távolabb.",
+        "skew": "Egyetlen szabály az egész székre: minden pont olyan tényezővel csúszik el, amely attól függ, hol van, így az egyenes rudak egyenesek maradnak.",
+        "gap": "Milyen messze látszik egymástól két pont, amely egy vonalba esett, miután a szem elmozdult: minél jobban eltér a távolságuk, annál gyorsabban válnak szét."
+      },
+      "symbols": {
+        "p": "a szék egy pontja",
+        "p_moved": "ahová ez a pont kerül",
+        "eye": "a szem, a lyuknál",
+        "lambda": "mennyire a látóvonala mentén: 1 felett távolabb, 1 alatt közelebb",
+        "w": "egy rögzített irány, amely meghatározza, hogyan változik a tényező a széken át",
+        "dot": "a skaláris szorzat: milyen messze fekszik a pont ebben az irányban",
+        "gap": "a két pont közötti szög, ahogy a szem látja őket",
+        "delta": "mennyit mozdult el a szem oldalra",
+        "distances": "a két pont távolsága a szemtől"
+      },
+      "auto": "Automatikus: egyszer körbe",
+      "auto_hint": "A nézet két másodpercig a lyukaknál időzik, aztán egyszer körbejárja a kamrát, és visszatér. Érintsen meg egy csúszkát, hogy átvegye az irányítást.",
+      "views": {
+        "title": "A kamrában",
+        "hint": "Forgassa és döntse meg a nézetet: mindhárom együtt mozog. 0° és 0° esetén pontosan a lyukak helyéről néz — és a három egyetlen székké válik.",
+        "view": "{{name}}, az elforgatott nézőpontból",
+        "align": "Nézzen be a lyukakon",
+        "aligned": "A lyukakon át: egy szék, háromszor",
+        "apart": "Innen: három különböző dolog",
+        "turn": "Forgatás",
+        "tilt": "Döntés"
+      }
+    },
+    "equation": {
+      "symbols": "Mit jelentenek a jelölések"
+    },
+    "coil": {
+      "at": {
+        "track": "Egy pálya két rámpából, balra és jobbra, amelyek a köztük lévő sík szakaszból ívelnek felfelé. A sík szakaszt huzaltekercs veszi körül, és egy kis kocsi egy mágnest visz át rajta. Egy −100 és +100 mA közötti digitális árammérő azt mutatja, amit a kocsi a tekercsen átgurulva indukál — és semmit, amíg egy gomb le van nyomva.",
+        "buttons": "Két gomb kapcsolja be a tekercset, az egyik az egyik, a másik a másik irányba. Ha az elsőt akkor nyomja meg, amikor a kocsi belép a tekercsbe, a másodikat pedig, amint túljutott a közepén, a kocsi minden áthaladáskor magasabbra jut a másik rámpán, míg el nem éri mindkettő tetejét."
+      },
+      "play": {
+        "title": "A gomboknál",
+        "hint": "Tartsa lenyomva a + gombot, amíg a kocsi befelé halad a tekercsbe, és a − gombot, amint túljutott a közepén. Teljes sebességnél túl nehéz? Lassítsa le, vagy hagyja, hogy a szabály nyomja a gombokat, és figyelje, mikor teszi.",
+        "pause": "Szünet",
+        "run": "Folytatás",
+        "restart": "Újrakezdés",
+        "plus": "+ gomb, behúzza a kocsit a tekercsbe",
+        "minus": "− gomb, kilöki a kocsit a tekercsből",
+        "plus_caption": "Befelé",
+        "minus_caption": "Kifelé",
+        "last_peak": "Utolsó fordulópont",
+        "goal": "A rámpa teteje",
+        "tops": "Elért tetők",
+        "time": "Idő",
+        "autopilot": "Automatikus: tökéletes időzítés",
+        "autopilot_hint": "+ a rámpa aljától a középig, − a középtől a másik rámpáig, pontosan abban a pillanatban átkapcsolva, amikor a kocsi áthalad a közepén — mindkét oldalon {{window}} cm. Hogy miért, azt „A trükk” alatti görbe mutatja.",
+        "speed": "Sebesség",
+        "speeds": {
+          "1": "Valós idő",
+          "0_25": "¼",
+          "0_1": "⅒"
+        },
+        "keys": "Billentyűzeten: a pluszhoz tartsa lenyomva a + vagy a ← billentyűt, a mínuszhoz a − vagy a → billentyűt."
+      },
+      "meter": {
+        "label": "Az árammérő, milliamperben",
+        "caption": "Amit a kocsi indukál",
+        "buttons_label": "A gombok árama a tekercsben, milliamperben",
+        "buttons_caption": "Amit a gombok hajtanak"
+      },
+      "track": {
+        "label": "A pálya oldalról: két rámpa, középen a tekercs, a kocsi a mágnesével"
+      },
+      "change": {
+        "title": "Változtasson a kiállítási tárgyon",
+        "hint": "A kiállítási tárgy valódi adatait nem tették közzé; ezek egy asztali összeállítás értékei, amely megfelel annak, amit a látogató lát. Minden változtatás újraindítja a kocsit.",
+        "supply": "Telep",
+        "turns": "Menetszám",
+        "turns_hint": "Ugyanaz a huzal: több menet, nagyobb ellenállás, tehát kisebb áram — és mégis minden áthaladás nagyjából ugyanannyit nyer.",
+        "mass": "A kocsi tömege",
+        "rolling": "Gördülési ellenállás",
+        "closed": "Az árammérő a gombnyomások között is bekötve marad",
+        "closed_hint": "A kiállításon így van: a kijelzés kitér, amikor a kocsi átgurul, és ez az áram kissé fékezi a kocsit.",
+        "radius": "Rámpasugár",
+        "radius_hint": "Minden rámpa egy ilyen sugarú körív, amely a sík szakasznál vízszintesen indul: minél kisebb, annál meredekebben és magasabbra emelkedik ugyanazon a hosszon."
+      },
+      "model": {
+        "flux_intro": "Minden egyetlen görbével kezdődik: a mágnes teréből mennyi halad át a tekercs menetein, ha a kocsi egy adott helyen van.",
+        "flux": "A mágnes fluxusa az összes meneten át: a legnagyobb, ha a mágnes a tekercs közepén van, kicsi, ha messze van tőle. A mágnest pontként kezeljük; ennél a hiba néhány százalék.",
+        "coupling": "Milyen gyorsan változik ez a fluxus, ahogy a kocsi halad: pozitív, amikor balról befelé jön, nulla középen, negatív kifelé menet. Ennek az egy görbének két feladata van.",
+        "induced": "Az első feladat: a feszültség, amelyet a guruló mágnes a tekercsben indukál. Ez mozgatja az árammérőt, amikor senki sem nyom gombot — egy kitérés befelé, az ellenkező kifelé menet.",
+        "force": "A második feladat: a tolóerő, amelyet a tekercs a kocsira kifejt, ha áram folyik. Mivel k középen előjelet vált, az áramnak is ott kell előjelet váltania — ezért van két gomb, és ezért működik a „befelé +, kifelé −” szabály, bármerre halad is a kocsi.",
+        "circuit": "A tekercs áramköre: a gomb feszültsége hajtja az áramot a huzal ellenállása és a kocsi által indukált feszültség ellenében.",
+        "motion": "A kocsi: a tekercs tolóereje, a nehézségi erő az ívelt pálya mentén és a gördülési ellenállás — amely az ívben megnő, ahol a pályának ráadásul v²/R-rel kell nyomnia a kocsit, hogy az ív mentén forduljon.",
+        "energy": "A telep energiája a kocsi sebességébe és magasságába, a huzalban keletkező hőbe, a tekercs saját terébe és a gördülési ellenállásba megy. A számítómotor vezeti ezt a mérleget, és az egymilliomod pontossággal kijön."
+      },
+      "symbols": {
+        "psi": "tekercsfluxus (fluxuskapcsolódás), a mágnes fluxusa az összes meneten át",
+        "x": "a kocsi helyzete a tekercs közepétől mérve",
+        "mu0": "a mágneses állandó",
+        "moment": "a mágnes erőssége (dipólusmomentuma)",
+        "turns": "a menetszám",
+        "length": "a tekercs hossza",
+        "radius": "a tekercs sugara",
+        "k": "csatolás: volt per méter per másodperc, egyben newton per amper",
+        "e": "az indukált feszültség",
+        "v": "a kocsi sebessége",
+        "force": "a tekercs tolóereje a kocsira",
+        "i": "a tekercs árama",
+        "inductance": "a tekercs induktivitása",
+        "u": "a gomb feszültsége: +U, 0 vagy −U",
+        "resistance": "a huzal ellenállása",
+        "mass": "a kocsi tömege",
+        "g": "a nehézségi gyorsulás",
+        "alpha": "a pálya dőlésszöge: a sík szakaszon nulla, a rámpa ívén s/R",
+        "rolling": "gördülési ellenállás, a súly egy hányada",
+        "tau": "a tekercs időállandója",
+        "gain": "a legtöbb energia, amelyet egy áthaladás adhat",
+        "full_current": "az áram lenyomva tartott gombbal",
+        "supply": "a telep feszültsége",
+        "top_speed": "a sebesség, amely fölött a tekercs már nem tud tolni",
+        "arc": "milyen messze az íven felfelé, a sík szakasz végétől mérve",
+        "ramp_radius": "a rámpák sugara"
+      },
+      "sweet": {
+        "timing": "A tekercs gyors, az Ön keze lassú. Az áram körülbelül {{tau}} ms alatt követi a gombot; a kocsinak körülbelül {{between}} ms kell a + megnyomásának pillanatától a − megnyomásának pillanatáig. A játék nem a tekercsről szól, hanem a kézről.",
+        "tau": "Milyen gyorsan követi az áram a gombot: egy időállandó után nagyjából kétharmadát tette meg az útnak a végértékéig.",
+        "gain": "Egy áthaladás energianyeresége",
+        "late": "Mennyit késik a kéz a − gombbal",
+        "reading": "Így értelmezze a görbét: a pontos átkapcsolás nyer a legtöbbet; 20 ms késéssel még nagyjából kétharmad marad; 30 ms késéssel a kocsi sosem ér fel; mintegy 60 ms késéssel a megmaradt húzóerő már fékezi a kocsit. Ezek az értékek az alapbeállítású összeállításra érvényesek.",
+        "gain_bound": "A legtöbb, amit egy áthaladás adhat: messziről a közepéig behúzva I·Ψ(0) a nyereség, kifelé tolva ugyanennyi. Az indukált feszültség és a gördülési ellenállás ebből elvesz valamennyit.",
+        "top_speed": "Akármilyen jól nyomja is a gombokat, van egy legnagyobb sebesség: ahol a kocsi által indukált feszültség eléri a telepét, nem folyik áram, és a tekercs már nem tud tolni."
+      },
+      "figures": {
+        "tau": "Időállandó",
+        "between": "A gombok között",
+        "current": "Áram, lenyomott gombbal",
+        "coasting": "Áram, szabadon gurulva",
+        "gain": "Legjobb nyereség áthaladásonként",
+        "speed": "A tetőhöz szükséges sebesség",
+        "vmax": "Legnagyobb sebesség"
+      },
+      "computed": {
+        "system": "Együtt ez három differenciálegyenlet: megmondják, milyen gyorsan változik a kocsi helyzete, a sebessége és a tekercs árama, mindegyik a többin keresztül — k(x) csatolja a mechanikát és az áramkört. A rendszernek nincs zárt alakú megoldása, ezért a számítómotor lépésenként lépteti előre az időben, a klasszikus Runge–Kutta-módszerrel (RK4): {{step}} ms-onként, vagyis másodpercenként {{steps}} lépéssel. Az Ön böngészője játék közben pontosan ugyanezeket a lépéseket számolja.",
+        "circuit": "Önmagában az áramkör a kurzus elsőrendű rendszere: egy gomb megnyomása után az áram az L/R időállandóval emelkedik U/R felé. A kocsi mozgása másodrendű rendszer — helyzet és sebesség —, amelyet a tekercs tol, a rámpákon pedig a nehézségi erő húz.",
+        "dot": "a pont azt jelenti, milyen gyorsan változik a mennyiség az időben: ẋ = dx/dt",
+        "fade": "{{fade}} mm/s alatt a gördülési ellenállás fokozatosan lép be, mert egy álló kocsinak nincs iránya, amellyel szemben hathatna",
+        "alpha": "a pálya dőlésszöge ott, ahol a kocsi van: a sík szakaszon nulla, a rámpán s/R",
+        "kappa": "a pálya görbülete: a sík szakaszon nulla, a rámpán 1/R — ahol az ív v²/R-rel jobban a pályához nyomja a kocsit"
+      }
+    },
+    "sphere": {
+      "at": {
+        "sphere": "Egy átlátszó gömb lóg egy mennyezethez és egy padlóhoz futó kötél között, benne egy golyóval. A kötelek vízszintes síkban tartják: tolhatja balra és jobbra, előre és hátra, vagy körbe-körbe.",
+        "push": "Ha a megfelelő tempóban körbe-körbe tolja, a golyó is körözni kezd, és felkapaszkodik a belső falon, míg végül az egyenlítő mentén fut körbe, csak ebben a síkban. Ahhoz, hogy feljebb vigye, gyorsabban kell köröznie — és újra meg kell találnia az ideális pontot."
+      },
+      "play": {
+        "title": "Tolja a gömböt",
+        "who": "Ki tol",
+        "modes": {
+          "hand": "Ön",
+          "circle": "Egyenletes kör",
+          "perfect": "Automatikus: tökéletes időzítés"
+        },
+        "hint_hand": "Húzza az ujját a felülnézetben: a gömb úgy követi az ujját, ahogy egy kéz tenné. Körözzön a közép körül — eleinte lassan, nagyjából másodpercenként egyszer, aztán egyre gyorsabban, ahogy a golyó emelkedik.",
+        "hint_circle": "A gömböt egy 2 cm-es körön toljuk körbe az Ön által beállított tempóban. Ha lassan változtatja a tempót, a golyó követi; ha egyszerre, lemarad.",
+        "hint_perfect": "A gömböt mindig negyed fordulattal a golyó előtt toljuk, és pontosan olyan ütemben gyorsítunk, ahogy a golyó emelkedik — így helyes az időzítés, nagyjából 4 Hz-ig, amilyen gyorsan egy kar csak bírja.",
+        "pause": "Szünet",
+        "run": "Folytatás",
+        "restart": "Újrakezdés",
+        "tempo": "Tempó",
+        "change": "A tempó változtatása",
+        "slowly": "Lassan",
+        "at_once": "Egyszerre",
+        "angle": "Golyó, fel a falon",
+        "depth": "Az egyenlítő alatt",
+        "your_tempo": "Az Ön tempója",
+        "needed": "Tempó ehhez a magassághoz",
+        "lead": "Gömb a golyó előtt",
+        "reading": "{{f0}} Hz alatt nincs kör: a golyó csak billeg a gömb alján. Minden magasságnak megvan a saját tempója — ez a vonal a diagramon —, és minél magasabban, annál gyorsabb."
+      },
+      "views": {
+        "top": "A gömb felülről: húzza, hogy tolja",
+        "top_caption": "Felülről — itt toljon",
+        "side": "A gömb oldalról: milyen magasan fut a golyó",
+        "side_caption": "Oldalról"
+      },
+      "chart": {
+        "circle": "Körbe-körbe",
+        "swing": "Ide-oda",
+        "tempo": "Tempó",
+        "angle": "Szög a legalsó ponttól",
+        "you": "Ön"
+      },
+      "change": {
+        "title": "Változtasson a kiállítási tárgyon",
+        "hint": "A kiállítási tárgy valódi méretét nem tették közzé; asztali méretű gömböt feltételezünk. Minden változtatás újraindítja a golyót.",
+        "shell": "A gömb átmérője",
+        "shell_hint": "A méret azt változtatja meg, mekkora tempó kell lent — azt nem, hogy egy adott tempónál mennyivel az egyenlítő alatt fut a golyó.",
+        "ball": "A golyó átmérője",
+        "kind": "Golyó",
+        "solid": "Tömör",
+        "hollow": "Üreges",
+        "rolling": "Gördülési ellenállás"
+      },
+      "model": {
+        "rolling_intro": "Egy gömb belsejében guruló golyó középpontja pontosan úgy mozog, mint egy ρ hosszúságú fonálon lógó inga — csak gyengébb gravitációban.",
+        "rolling": "A gravitáció húzásának egy része a golyó megforgatására megy el, ezért a középpontja csak g′-t érez: tömör golyónál a gravitáció 5/7-ét, üregesnél 3/5-ét. Ez pontosan érvényes, amíg a golyó nem forog a falhoz vezető egyenes körül, és egy nyugalomból induló golyó soha nem kap ilyen forgást.",
+        "push": "A gömb mozgatása egy második gravitáció: a gömb vonatkoztatási rendszerében az A gyorsulása az ellenkező irányba húzza a golyót — ugyanazzal az 5/7-del.",
+        "orbit": "Egy Ω szögsebességgel körbefutó golyó ilyen mélyen fut az egyenlítő alatt. A gyorsabb körök magasabban futnak; magához az egyenlítőhöz végtelen tempó kellene. A gömb mérete nem szerepel benne.",
+        "lowest": "A létező leglassabb kör — ez alatt a golyó csak billeg a gömb alján. Ez egy kis lengés szögsebessége is.",
+        "wobble": "Egy kissé megdöntött kör ilyen ütemben bólogat fel-le: az egyenlítő közelében fordulatonként egyszer — a golyó még nincs „a síkban”.",
+        "swing": "Az ide-oda lengés éppen fordított: egy inga annál lassabban leng, minél szélesebben leng ki. Körbe-körbe annál gyorsabb, minél magasabban fut."
+      },
+      "symbols": {
+        "g_share": "a gravitáció, amelyet a golyó középpontja érez",
+        "g": "a nehézségi gyorsulás",
+        "k": "a golyó tömegének mekkora része van messze a középpontjától",
+        "inertia": "a golyó tehetetlenségi nyomatéka",
+        "mass": "a golyó tömege",
+        "ball_radius": "a golyó sugara",
+        "push": "a gömb gyorsulása az Ön tolásából",
+        "rho": "milyen messze marad a golyó középpontja a gömbétől",
+        "shell_radius": "a gömb belső sugara",
+        "theta": "a golyó szöge a falon felfelé, a legalsó ponttól mérve",
+        "omega": "a golyó szögsebessége a gömbben körbe (a tempó 2π-szerese)",
+        "depth": "milyen mélyen fut az egyenlítő alatt",
+        "omega0": "a legalsó kör szögsebessége",
+        "wobble": "milyen gyakran bólogat egy megdöntött kör",
+        "amplitude": "milyen messzire leng ki a lengés mindkét oldalra",
+        "f0": "a kis lengés tempója",
+        "elliptic": "az elsőfajú teljes elliptikus integrál"
+      },
+      "sweet": {
+        "moves": "A rezonancia vándorol, miközben Ön pumpál. A tempó, amellyel köröz, határozza meg, milyen magasan fut a golyó — ahhoz tehát, hogy feljebb vigye, gyorsabban kell köröznie, a golyóval együtt, és az imént megtalált ideális pont eltűnik.",
+        "ahead": "Egy lökés negyed fordulattal a golyó előtt végzi a legtöbb munkát: a gömb oda tolva, ahová a golyó éppen tart. Az „Automatikus: tökéletes időzítés” pontosan ezt teszi, és gyorsabban emelkedik bármilyen egyenletes tempónövelésnél.",
+        "too_fast": "Ha túl gyorsan gyorsít, a golyó lemarad és visszaesik. A számítómotor megmutatja: egy lassú tempónövelés 0.7-ről 2.5 Hz-re 30 s alatt 81°-ig viszi a golyót; ha egyből 2.5 Hz-re ugrik, a golyó az alja közelében marad. A fizikusok ezt autorezonanciának nevezik. Ezek az értékek az alapbeállítású összeállításra érvényesek.",
+        "limit": "Van-e legnagyobb sebesség? Egyenletes körön a golyó pontosan annyiszor fut körbe, mint a gömb, és minden magassághoz saját tempó tartozik — magához az egyenlítőhöz végtelen kellene. Magától tehát nem gyorsul a golyó a végtelenségig: ha a gömböt magára hagyja, a golyó lelassul és lejjebb süllyed, a határ pedig a kar. 4 Hz-nél, nagyjából olyan gyorsan, ahogy körözni lehet, 1.1 cm-rel az egyenlítő alatt fut, 86°-on, a középpontja 4.5 m/s-mal, és a fal csaknem a súlya tizenkétszeresével nyomja. Ezek az értékek az alapbeállítású összeállításra érvényesek.",
+        "figures_note": "A tempók és a mélységek a számítómotor pályái ehhez a gömbhöz; a szükséges tolás az, amit a gördülési ellenállás ezen a magasságon elvesz."
+      },
+      "figures": {
+        "f0": "Legalsó kör",
+        "at": "Tempó {{angle}}°-nál",
+        "depth": "Az egyenlítő alatt, {{angle}}°-nál",
+        "push": "Szükséges tolás {{angle}}°-nál",
+        "friction": "Szükséges tapadás, legfeljebb",
+        "share": "A gravitáció hányada"
+      },
+      "computed": {
+        "system": "Hat elsőrendű differenciálegyenlet: a golyó középpontjának helyzete és sebessége három dimenzióban, bennük az Ön kezének tolásával mint A. Ezeknek sincs zárt alakú megoldása, ezért a számítómotor {{step}} ms-onként RK4-gyel lépteti őket előre, és minden lépés után visszateszi a középpontot a saját gömbjére, a sebességet pedig a fal menti irányba, ahonnan az RK4 a saját parányi hibája miatt elsodródik. Az Ön böngészője ugyanezeket a lépéseket számolja, az Ön kezének tolásával.",
+        "centripetal": "Az utolsó tag tartja a golyót a falon: v²/ρ az a gyorsulás, amelyet egy ρ sugarú kör megkövetel.",
+        "p": "a golyó középpontjának helyzete a gömb középpontjától mérve",
+        "v": "a sebessége",
+        "along": "a fal menti összetevő",
+        "normal": "a fal nyomóereje kilogrammonként",
+        "n": "az irány a gömb középpontjától a golyóéig",
+        "cr": "gördülési ellenállás, N egy hányada",
+        "fade": "{{fade}} mm/s alatt a gördülési ellenállás fokozatosan lép be, mert egy nyugvó golyónak nincs iránya, amellyel szemben hathatna"
+      }
+    },
+    "platform": {
+      "view": "A forgókorong felülről, a rajta álló látogatóval",
+      "at": {
+        "stand": "Egy kerek korong forog egy padlószinten lévő csapágyon, a közepén keresztben rögzített kapaszkodórúddal. Egy látogató rááll, két kézzel a kapaszkodót fogja, és meglökik. A lába ott marad, ahol van.",
+        "pull": "Egész testével hátradőlve, nyújtott karral lassan forog; egyenesen állva egyre gyorsabban. Ha újra kifelé dől, a forgás lelassul. Senki sem lök erősebben — a sebesség abból adódik, hol van a test."
+      },
+      "play": {
+        "title": "A forgókorongon",
+        "hint": "Lökje meg, hogy forogni kezdjen, aztán dőljön kifelé, vagy egyenesedjen fel. A korong annál gyorsabban forog, minél egyenesebben áll.",
+        "hint_auto": "A látogató kifelé dől, felegyenesedik, kitart, majd újra kifelé dől, újra meg újra — figyelje, ahogy a sebesség követi.",
+        "push": "Lökés",
+        "pause": "Szünet",
+        "run": "Folytatás",
+        "restart": "Újrakezdés",
+        "auto": "Automatikus: kidőlés és felegyenesedés",
+        "auto_hint": "Három másodpercig kifelé dőlve, két és felig egyenesen állva, majd vissza — egy lökéssel, ha a korong áll.",
+        "lean": "Kifelé dőlés",
+        "rate": "Fordulat",
+        "rate_unit": "per s",
+        "inertia": "Tehetetlenségi nyomaték",
+        "momentum": "Perdület",
+        "energy": "A forgás energiája",
+        "pull": "Húzóerő a kapaszkodón",
+        "times": "Gyorsabb, mint kifelé dőlve",
+        "reading": "Minden lökés {{push}} kg·m²/s perdületet ad. Két lökés között csak a csapágy vesz el belőle valamennyit — akárhogy dől is, a perdület megmarad.",
+        "lean_hint": "Mennyire dől hátra a törzs a tengelytől, a kezek a kapaszkodón, a lábak a helyükön."
+      },
+      "change": {
+        "title": "Változtasson a kiállítási tárgyon",
+        "hint": "A kiállítási tárgy valódi adatait nem tették közzé; könnyű korongot és 70 kg-os látogatót feltételezünk. Minden változtatás után elölről indul.",
+        "mass": "A látogató tömege",
+        "platform_mass": "A korong tömege",
+        "diameter": "A korong átmérője",
+        "friction": "Csapágysúrlódás",
+        "friction_hint": "Egyenletes nyomaték a forgás ellen: állandó ütemben vesz el perdületet, amíg a korong meg nem áll."
+      },
+      "model": {
+        "intro": "A csapágyon kívül semmi sem hat kívülről a látogató forgására. A sebességet ezért az dönti el, hogyan oszlik el a látogató tömege a tengely körül.",
+        "momentum": "A perdület: a tehetetlenségi nyomaték szorozva a szögsebességgel. Lökés nélkül csak a csapágy súrlódása változtat rajta, lassan és egyenletesen.",
+        "rate": "A szögsebesség tehát a perdület elosztva a tehetetlenségi nyomatékkal: fele akkora nyomaték, kétszer akkora sebesség.",
+        "sum": "A tehetetlenségi nyomaték minden tömegdarabot összead, mindegyiket a tengelytől mért távolsága négyzetével számítva: a távoli tömeg sokat számít, a tengely közelében lévő alig.",
+        "disc": "Maga a korong, egy tárcsa.",
+        "arm": "Egy kar, egy rúd a kapaszkodón nyugvó kéztől a vállig: egyenes testtartásnál a kapaszkodó mentén fekszik; kifelé dőlve a vállal együtt kinyúlik, és többet számít.",
+        "lean": "A kifelé dőlés eltávolítja a törzset a tengelytől: a saját része plusz a tömege szorozva a távolság négyzetével (a Steiner-tétel). A lábak a tengelynél maradnak."
+      },
+      "symbols": {
+        "momentum": "perdület",
+        "inertia": "tehetetlenségi nyomaték",
+        "omega": "szögsebesség (a másodpercenkénti fordulatok 2π-szerese)",
+        "friction": "a csapágy súrlódási nyomatéka",
+        "piece": "egy tömegdarab",
+        "r": "a tengelytől mért távolsága",
+        "platform_mass": "a korong tömege",
+        "platform_radius": "a korong sugara",
+        "arm_mass": "egy kar tömege",
+        "shoulder": "mindkét kéz és váll oldalirányú távolsága a tengelytől",
+        "lean": "mennyire dől ki a törzs",
+        "own": "az adott rész saját tehetetlenségi nyomatéka",
+        "energy": "a forgás energiája",
+        "pull": "amit a kezeknek a kapaszkodón tartaniuk kell: hogy a kidőlt test a körpályáján maradjon",
+        "trunk_mass": "a törzs tömege, a fejjel együtt"
+      },
+      "sweet": {
+        "faster": "Egyenesen állva a látogató {{ratio}}× olyan gyorsan forog, mint kifelé dőlve — ugyanazzal a perdülettel.",
+        "energy": "A forgás energiája azonos perdület mellett: kisebb tehetetlenségi nyomaték, több energia. Az összehúzódás nemcsak gyorsabbá, hanem energiadúsabbá is teszi a forgást.",
+        "pull": "Ennek az energiának valahonnan jönnie kell: a karokból. Kifelé dőlve a testnek szüksége van erre a befelé irányuló húzóerőre, hogy a körpályáján maradjon, és ezt a kezek adják a kapaszkodón keresztül — a szögsebesség négyzetével nő, és a látogató úgy érzi, mintha a kapaszkodó húzná a kezét.",
+        "paid": "Kifelé dőlt helyzetből felegyenesedve a karok {{work}} J munkát végeznek e húzóerő ellenében, és a forgás energiája pontosan ennyivel nő, {{from}} J-ról {{to}} J-ra. A számítómotor ezt úgy ellenőrzi, hogy a befelé vezető út mentén összegzi a húzóerőt.",
+        "replay": "Itt az automatikus mód tizenhat másodpercen át, egy {{push}} kg·m²/s-os lökés után: a sebesség minden felegyenesedésnél megugrik, kifelé dőléskor visszaesik, miközben a perdület csak csökken, lassan és egyenletesen, a csapágy miatt."
+      },
+      "chart": {
+        "rate": "Fordulat",
+        "lean": "Kifelé dőlés",
+        "time": "Idő"
+      },
+      "figures": {
+        "work": "A felegyenesedés munkája",
+        "stops": "Megállásig",
+        "leaning": "Kifelé dőlve",
+        "upright": "Egyenesen állva",
+        "pull_leaning": "Húzóerő, kifelé dőlve"
+      },
+      "computed": {
+        "system": "Itt egyetlen differenciálegyenlet van, és ennek pontos megoldása van: a perdület egyenes vonalban csökken, amíg el nem éri a nullát — a csapágy soha nem forgatja vissza a korongot. Ezért semmit sem kell lépésenként számolni: a szögsebesség minden pillanatban L/I, egyszerű algebra. Ez a lehető legegyszerűbb elsőrendű egyenlet.",
+        "l0": "a perdület közvetlenül az utolsó lökés után",
+        "t": "az azóta eltelt idő"
+      }
+    },
+    "computed": {
+      "course": "Az alapok a differenciálegyenlet-kurzusban:",
+      "links": {
+        "first_order": "Elsőrendű rendszerek",
+        "second_order": "Másodrendű rendszerek",
+        "numerics": "Numerikus megoldás"
+      }
+    },
+    "race": {
+      "at": {
+        "tracks": "Több pálya fut le ugyanarról a rajtról ugyanahhoz a célhoz, mindegyik más-más görbe mentén. Mindegyik tetején egy golyó áll; egyetlen kar mindet ugyanabban a pillanatban engedi el.",
+        "which": "Az egyenes a legrövidebb — és mégsem az első. A leggyorsabb a cél alá merül, és a végén felkapaszkodik hozzá. Egy másik pályán, egy ívelt völgyben, a különböző magasságokból elengedett golyók mind egyszerre érnek le az aljára."
+      },
+      "curves": {
+        "line": "Egyenes",
+        "cycloid": "Ciklois",
+        "circle": "Körív",
+        "parabola": "Parabola",
+        "hyperbola": "Meredek rajt",
+        "hump": "Púp útközben"
+      },
+      "balls": {
+        "solid": "Tömör golyó",
+        "hollow": "Üreges golyó",
+        "sliding": "Csúszó hasáb"
+      },
+      "play": {
+        "title": "Engedje el őket",
+        "hint": "Indítsa el a versenyt, és figyelje, hol jár éppen mindegyik golyó. A színek melletti idők a számítómotoréi, a golyók beérkezésének sorrendjében. A zászlónál minden pálya véget ér, és a golyó tovarepül egy párnázott gödörbe, ahol mind a hat együtt köt ki.",
+        "start": "Rajt",
+        "pause": "Szünet",
+        "run": "Folytatás",
+        "view": "Hat pálya egy rajttól egy célig, mindegyiken egy golyóval",
+        "auto": "Automatikus: verseny újra és újra",
+        "auto_hint": "A verseny nem sokkal azután indul újra, hogy az utolsó golyó is beért.",
+        "speed": "Sebesség",
+        "speeds": {
+          "1": "Valós idő",
+          "0_25": "¼",
+          "0_1": "⅒"
+        }
+      },
+      "motion": {
+        "hint": "Minden golyó sebessége és gyorsulása, nyilakként egy pontból és számokként: x jobbra, y felfelé. A pályán a nehézségi erő a pálya mentén gyorsítja a golyót, a pálya pedig eltéríti; a levegőben minden golyó csak g-vel esik, minden nyíl egyforma; a gödörben minden ütközés a párnázattal vagy egy másik golyóval a skálán messze túli rántás — 5 ms-os átlag, szaggatottan rajzolva, nagysága a táblázatban.",
+        "velocity": "Sebesség",
+        "acceleration": "Gyorsulás",
+        "velocity_label": "Minden golyó sebessége nyílként egy pontból",
+        "acceleration_label": "Minden golyó gyorsulása nyílként egy pontból",
+        "table": "Minden golyó ideje, sebessége és gyorsulása, helyezés szerint",
+        "track": "Pálya",
+        "time": "Idő"
+      },
+      "change": {
+        "title": "Változtasson a kiállítási tárgyon",
+        "hint": "A kiállítási tárgy valódi méretét nem tették közzé; asztali méretű pályát feltételezünk. Minden változtatás újraindítja a versenyt.",
+        "drop": "Szintkülönbség a célig",
+        "run": "Vízszintes távolság a célig",
+        "run_hint": "A szintkülönbség π/2-szerese fölött a ciklois a cél alá merül. A szintkülönbség 1.1-szeresénél rövidebb távon a púp a tetejéről lerepítené a golyót, a körív pedig visszahajlana a saját rajtja fölé, ezért a táv itt véget ér.",
+        "ball": "Mi halad a pályán"
+      },
+      "valley": {
+        "title": "A völgy, ahová mind egyszerre érkeznek",
+        "hint": "Négy golyó, egyszerre elengedve különböző magasságokból: egy cikloisvölgyben, mellette pedig egy köríves tálban, amelynek az alján ugyanakkora a görbület.",
+        "let_go": "Elengedés",
+        "cycloid": "Cikloisvölgy",
+        "circle": "Köríves tál",
+        "to_bottom": "Az aljáig, bármilyen magasságból",
+        "bowl_from": "Tál, {{height}} cm magasról"
+      },
+      "model": {
+        "intro": "A golyókat semmi más nem hajtja, csak a nehézségi erő, a pálya pedig csak tereli őket. Ezért a sebesség minden pontban egyedül a magasságból következik.",
+        "speed": "Milyen gyorsan halad a golyó h mélységgel a rajt alatt: akármit tett is közben a pálya. Egy guruló golyó a pálya mentén csak g′-t érez a nehézségi gyorsulásból — a többi a forgására megy el.",
+        "time": "Egy pálya ideje: a hossza, darabról darabra elosztva az egyes darabokon elért sebességgel. A leggyorsabb pálya nem a legrövidebb, hanem az, amelyik korán felgyorsul.",
+        "cycloid": "A ciklois, az a görbe, amelyet egy guruló kerék peremének egy pontja rajzol: a rajton és a célon át ez a leggyorsabb pálya mind közül (Bernoulli, 1696), és az ideje zárt alakban felírható.",
+        "line": "Az egyenes, összehasonlításképpen: a legrövidebb pálya, és lassú is.",
+        "valley": "Egy cikloisvölgyben minden golyó ugyanannyi idő alatt ér le az aljára, bármilyen magasról indul is (Huygens, 1659: a tautokron). Egy köríves tálban a magasabbról induló golyó később érkezik — egy inga annál lassabban leng, minél szélesebben leng ki."
+      },
+      "symbols": {
+        "v": "a golyó sebessége",
+        "h": "milyen mélyen van a rajt alatt",
+        "g_share": "a nehézségi gyorsulás, amelyet egy guruló golyó a pálya mentén érez",
+        "k": "a golyó tömegének mekkora része van messze a középpontjától: tömörnél 2/5, üregesnél 2/3, csúszásnál 0",
+        "time": "a pálya ideje a rajttól a célig",
+        "ds": "a pálya egy rövid darabja",
+        "r": "a cikloist rajzoló kerék sugara",
+        "theta": "mennyit fordult el ez a kerék",
+        "theta_b": "mennyit fordult el a célnál",
+        "run": "milyen messze van a cél vízszintesen",
+        "drop": "milyen mélyen van a cél a rajt alatt",
+        "bowl": "a tál sugara",
+        "phi0": "a szög, ahonnan egy golyó a tálban indul",
+        "elliptic": "az elsőfajú teljes elliptikus integrál"
+      },
+      "computed": {
+        "system": "Itt nem léptetjük előre az időt: a sebesség minden magasságban ismert, így minden pálya ideje egyetlen integrál a pálya mentén. A rajtnál a sebesség nulla, és az integrandus végtelenné válik; a p = u² helyettesítés ezt kiküszöböli, és a trapézszabály 1440 lépésben tízmilliomod pontossággal összegzi. Ugyanez az összeg, menet közben feljegyezve, adja minden golyó menetrendjét az animációhoz.",
+        "p": "milyen messze jár a pályán, a rajtnál 0-tól a célnál 1-ig",
+        "r": "a pálya pontja p-nél",
+        "u": "p négyzetgyöke, amely kisimítja a rajtot"
+      },
+      "sweet": {
+        "shortest": "Az egyenes a legrövidebb pálya, és {{line}} s alatt fut le; a hosszabb ciklois {{cycloid}} s alatt. A korai sebesség nyer: egy eleinte meredeken lejtő pályán a golyó az út nagy részében gyors.",
+        "dips": "Ehhez a célhoz a leggyorsabb pálya {{below}} cm-rel a cél alá megy, és az utolsó szakaszon felkapaszkodik: a mélyebben nyert sebesség megéri az emelkedőt.",
+        "no_dip": "Ehhez a célhoz a cikloisnak nem kell a cél alá merülnie; tegye a vízszintes távolságot a szintkülönbség π/2-szeresénél nagyobbra, és akkor alá fog merülni.",
+        "galileo": "Galilei 1638-ban úgy vélte, hogy a kör a leggyorsabb; nem jár messze, {{circle}} s az ideje, de a ciklois legyőzi.",
+        "same_speed": "Minden golyó ugyanolyan gyorsan ér célba, {{speed}} m/s sebességgel: a sebessége csak attól függ, milyen magasról jött le, a pályától soha. A versenyt egyedül az idő dönti el.",
+        "throw_up": "A zászló után minden golyó abba az irányba repül tovább, amerre a pályája a végén mutat: a cikloisé felfelé — alulról emelkedik fel a célhoz, és a legmélyebb pontján még gyorsabb volt —, az egyenesé lefelé. A gödörben pattognak, gurulnak és egymásnak ütköznek, amíg mind a hat együtt nem fekszik az alján.",
+        "throw_down": "A zászló után minden golyó abba az irányba repül tovább, amerre a pályája a végén mutat — ennél a célnál még a cikloisé is lefelé, mert nem merül a cél alá. A gödörben pattognak, gurulnak és egymásnak ütköznek, amíg mind a hat együtt nem fekszik az alján.",
+        "rolling": "Egy guruló golyó minden pályán ugyanannyiszor lassabb — a tényező {{factor}} —, mint egy súrlódás nélkül csúszó hasáb; ezért a sorrend sosem változik, és a ciklois bármilyen golyónak a leggyorsabb."
+      }
+    },
+    "elephant": {
+      "view": "Az elefánt oldalról, amint az ormányán át felfelé fúj, fölötte a levegőben a labdával",
+      "at": {
+        "blow": "Egy elefánt áll felemelt ormánnyal, és egyenletes légáramot fúj függőlegesen felfelé. Mellette egy körülbelül 15 cm-es felfújható labda fekszik.",
+        "float": "Ha a labdát az ormány végére teszi, a labda elemelkedik, feljebb száll egy tenyérnyit, és ott marad, kissé fel-le ringatózva. Ha kissé meglöki, visszatér."
+      },
+      "play": {
+        "title": "Az ormánynál",
+        "hint": "A labda az ormányon fekszik, amíg a levegő fel nem emeli. Változtasson a légáramon, döntse meg az ormányt, vagy lökje meg a labdát, és figyelje, hol tartja meg a levegő, és mikor már nem tudja.",
+        "hint_auto": "Az ormány egyre jobban megdől, amíg a levegő már nem tudja megtartani a labdát; ekkor a labda visszakerül az ormányra.",
+        "pause": "Szünet",
+        "run": "Folytatás",
+        "restart": "Újrakezdés",
+        "push_left": "Lökés balra",
+        "push_right": "Lökés jobbra",
+        "air": "Az ormányból kiáramló levegő",
+        "air_hint": "Óránként {{flow}} m³ levegő az ormányon át",
+        "tilt": "Az ormány dőlése",
+        "tilt_hint": "A kiállítási tárgy ormánya nem dől meg; itt igen, hogy kiderüljön, hol esik le a labda.",
+        "auto": "Automatikus: döntés, amíg le nem esik",
+        "auto_hint": "Másodpercenként {{rate}}°-kal dönti meg az ormányt a függőlegestől, amíg a labda ki nem esik a légsugárból, aztán visszateszi.",
+        "height": "A labda középpontja az ormány fölött",
+        "air_at_ball": "Légsebesség a labdánál",
+        "off_axis": "Eltérés a légsugár tengelyétől",
+        "falls_at": "Dőlés, amelynél leesik",
+        "resting": "Az ormányon: a levegő nem tudja felemelni",
+        "floating": "Lebeg",
+        "fallen": "Kiesett a légsugárból"
+      },
+      "change": {
+        "title": "Változtasson a kiállítási tárgyon",
+        "hint": "A kiállítási tárgy valódi adatait nem tették közzé; ezek annak felelnek meg, amit a látogató lát: egy körülbelül 10 cm-es ormány és egy körülbelül 15 cm-es labda, amely mintegy 30 cm magasan lebeg. A változtatás azonnal hat, a levegőben lévő labdára.",
+        "opening": "Az ormány nyílása",
+        "diameter": "A labda átmérője",
+        "mass": "A labda tömege",
+        "coanda": "Oldalirányú szívóhatás (modell)",
+        "coanda_hint": "A modell egyetlen feltételezett száma: a levegő szívóhatásának mekkora része hat oldalirányban. Nagyjából 1 adódik egy gömb alakjából; 0-nál semmi sem tartja a labdát a légsugárban."
+      },
+      "model": {
+        "intro": "Három dolog hat a labdára: a levegő, amely felfelé tolja, a levegő, amely a légsugárba húzza, és a súlya, csökkentve az általa kiszorított levegő felhajtóerejével.",
+        "jet": "A levegő légsugárként hagyja el az ormányt, és a légsugár felfelé haladva szélesedik: a tengelyén a leggyorsabb, a széle felé lassabb, és méterenként körülbelül 12 cm-rel szélesebb lesz.",
+        "momentum": "Amit a légsugár felfelé visz, az impulzusa, ugyanannyi marad, amennyit az ormány beletett. Ahogy tehát a légsugár szélesedik, lassul: ugyanaz a tolóerő, szélesebben elosztva.",
+        "lift": "A labda azt a levegőt érzi, amelyet lefed: egy gömb közegellenállását, a labda keresztmetszetére átlagolt légsebességgel számolva.",
+        "weight": "Lefelé a súly húz, csökkentve a labda által kiszorított levegő súlyával, ami egy felfújható labdánál nem elhanyagolható.",
+        "balance": "A labda ott lebeg, ahol a levegő tolóereje pontosan ennyi.",
+        "side": "A tengelyen kívül a levegő a középhez közelebbi oldalon gyorsabban áramlik el, és a gyorsabb levegő kisebb nyomást fejt ki (Bernoulli): ez visszahúzza a labdát. Hogy ebből mennyi hat oldalirányban, az a modell egyetlen feltételezett száma.",
+        "tilt": "Megdöntött ormánynál a súly két részre oszlik: a légsugár mentén a tolóerő tartja, keresztben a szívóhatás. A labda a mélyebb oldal felé süllyed, amíg a kettő egyensúlyba nem kerül, vagy leesik, amint a szívóhatás már nem bírja."
+      },
+      "symbols": {
+        "u": "a levegő sebessége",
+        "r": "a légsugár tengelyétől mért távolság",
+        "s": "az ormánytól a tengely mentén mért távolság",
+        "b": "a légsugár szélessége",
+        "uc": "a sebesség a tengelyen",
+        "u0": "a levegő sebessége az ormányból kilépve",
+        "d": "az ormány nyílása",
+        "k": "milyen gyorsan szélesedik a légsugár",
+        "rho": "a levegő sűrűsége",
+        "cd": "egy gömb közegellenállási tényezője",
+        "f": "a levegő tolóereje",
+        "area": "a labda keresztmetszete",
+        "m": "a labda tömege",
+        "v": "a labda térfogata",
+        "g": "a nehézségi gyorsulás",
+        "cb": "a szívóhatás oldalirányban ható hányada",
+        "phi": "az irány a keresztmetszet egy pontja felé, a tengelyhez közelebbi oldaltól mérve",
+        "beta": "az ormány dőlése",
+        "fs": "az oldalirányú húzóerő",
+        "w": "a levegő sebessége a labdához képest",
+        "p": "a labda helyzete",
+        "mean": "a levegő sebessége a labdánál, a keresztmetszetére átlagolva",
+        "a": "a légsugár tengelye",
+        "n": "a tengelyre merőlegesen, annak mélyebb oldala felé",
+        "y": "függőlegesen felfelé"
+      },
+      "computed": {
+        "system": "Négy differenciálegyenlet — a labda helyzete és sebessége vízszintesen és függőlegesen —, amelyeket negyedrendű Runge–Kutta-módszerrel oldunk meg 2 ms-onként. A labda keresztmetszetére vett integrálok 288 pontra vett összegek, ugyanazok az értékekben és az Ön böngészőjében, így a labda pontosan ott áll meg, ahol az értékek mondják.",
+        "inertia": "a labda tömege, hozzá a kiszorított levegő tömegének fele, amelynek vele együtt kell mozognia"
+      },
+      "sweet": {
+        "height": "Miért marad a magasságában: feljebb a légsugár szélesebb a labdánál, így a labda kevesebbet fog fel belőle, és süllyed; lejjebb többet fog fel, és emelkedik. Ott lebeg, ahol a tolóerő metszi a súlyát, {{height}} cm-rel az ormány fölött, és e pont körül fel-le leng, másodpercenként {{bob}} lengéssel, miközben a levegő csillapítja.",
+        "middle": "Miért marad középen: ha oldalra lökik, a labdát a belső oldalán gyorsabban áramló levegő visszahúzza, annál erősebben, minél messzebbre téved, egészen a tengelytől mintegy {{offset}} cm-ig. Azon túl már elhagyja a légsugarat.",
+        "rise": "Az ormánytól a magasságáig: a labda túllendül rajta, visszatér és beáll, a lengés pedig lecseng, mint egy csillapított rugóé. A görbe a számítómotor futása a képernyőn látható összeállításra, ugyanaz, amelyet az oldal fent lejátszik.",
+        "tilt": "Mennyire dőlhet meg az ormány: legfeljebb {{limit}}°-ig. Addig a labda lejjebb és a mélyebb oldal felé lóg; {{limit}}°-nál a szívóhatás már nem tudja megtartani a súlynak azt a részét, amely a légsugárra merőlegesen húz.",
+        "lift_off": "A levegőnek elég gyorsnak kell lennie ahhoz, hogy egyáltalán felemelje a labdát az ormányról: {{speed}} m/s sebességtől kezdve.",
+        "buoyancy": "Egy felfújható labda annyi levegőt szorít ki, amelynek súlya a labda saját súlyának {{share}} %-a, és ezt a légsugárnak nem kell megtartania.",
+        "assumed": "Amit feltételezünk: a légsugár alakja közvetlenül az ormánynál (egy valódi légsugár az első néhány átmérőnyi szakaszon megtartja teljes sebességét a tengelyén), egy sima labda 0.47-es közegellenállási tényezője, valamint a szívóhatás oldalirányú hányada. Az értékek a modellé, nem centiméterre pontosan a kiállítási tárgyé.",
+        "none": "Ez a labda nem lebeg: a levegő csak {{speed}} m/s sebességtől kezdve emeli fel az ormányról."
+      },
+      "chart": {
+        "lift": "A levegő tolóereje",
+        "weight": "Súly mínusz felhajtóerő",
+        "height": "A labda középpontja az ormány fölött",
+        "side": "Húzóerő a tengely felé",
+        "offset": "Eltérés a tengelytől",
+        "tilt": "Az ormány dőlése",
+        "sag": "A labda eltérése a tengelytől",
+        "sink": "A labda magassága az ormány fölött",
+        "force": "Erő",
+        "time": "Idő"
+      },
+      "figures": {
+        "height": "Lebegési magasság",
+        "lift_off": "Felemelkedési küszöb",
+        "air": "Légsebesség a labdánál",
+        "limit": "Dőlés, amelynél leesik",
+        "bob": "Fel-le lengés",
+        "flow": "Levegő az ormányon át"
+      }
+    },
+    "smoke": {
+      "view": "A füstdob keresztmetszetben, a bőre a lyuk körüli gyűrűnél lenyomva, és a belőle felfelé kirepülő füstkarika",
+      "at": {
+        "drum": "Egy széles, lapos, közel két méter átmérőjű, füsttel teli dob áll csípőmagasságban. A teteje egy kifeszített bőr, közepén egy 30 cm-es lyukkal, amelyet egy lenyomható gyűrű vesz körül.",
+        "press": "Ha lenyomja a gyűrűt, a lyukból füstkarika repül ki, és felfelé száll a csarnokon át. Ha túl erősen nyomja, a füst csak szétörvénylik; ha túl gyengéden, egyáltalán semmi sem történik. Körülbelül fél másodperc a legjobb."
+      },
+      "play": {
+        "title": "A dobnál",
+        "hint": "Húzza le a gyűrűt, és engedje el, gyorsan vagy lassan, vagy nyomja meg a gombot: a tempó dönti el, kirepül-e egy karika.",
+        "hint_auto": "Három lenyomás egymás után: egy hirtelen bökés, egy fél másodperces lenyomás és egy lassú nyomás — szétfoszló füst, egy karika és semmi.",
+        "press": "Lenyomás",
+        "pause": "Szünet",
+        "run": "Folytatás",
+        "restart": "Újrakezdés",
+        "auto": "Automatikus: három lenyomás",
+        "auto_hint": "Egy {{fast}} s-os bökés, egy {{best}} s-os lenyomás és egy {{slow}} s-os lassú nyomás, egymás után.",
+        "duration": "A lenyomás időtartama",
+        "depth": "Milyen mélyre",
+        "drag": "Vagy húzza le a gyűrűt a rajzon, és engedje el.",
+        "last": "Utolsó lenyomás",
+        "jet": "A lyukból kiáramló levegő",
+        "reynolds": "A karika Reynolds-száma",
+        "speed": "A karika sebessége",
+        "force": "A kézre ható erő",
+        "verdict": {
+          "ring": "Kirepül egy karika",
+          "too_fast": "Túl erős: a füst szétörvénylik",
+          "too_slow": "Túl gyenge: a füst elsodródik",
+          "none": "Nyomja le a gyűrűt"
+        }
+      },
+      "change": {
+        "title": "Változtasson a kiállítási tárgyon",
+        "hint": "A kiállítási tárgy valódi adatait nem tették közzé; ezek azok, amiket a látogató lát: egy körülbelül 1.9 m-es, 30 cm mély dob, egy 30 cm-es lyuk, legfeljebb 8 cm-es lenyomás.",
+        "diameter": "A dob átmérője",
+        "hole": "Lyuk",
+        "ring": "A lyuk körüli gyűrű",
+        "stroke": "Legmélyebb lenyomás",
+        "tension": "A bőr feszítése",
+        "tension_hint": "Feltételezett érték: mennyire feszes a bőr. Csak a kézre ható erőt változtatja meg, a karikát nem.",
+        "draught": "Légmozgás a teremben (modell)",
+        "draught_hint": "Egy karikát, amely lassabb a terem levegőjénél, a levegő elsodor, mielőtt kialakulna. Úgy beállítva, hogy a nagyjából 1.2 s-nál lassabb lenyomás semmit se hozzon létre.",
+        "turbulent": "Turbulens küszöb (modell)",
+        "turbulent_hint": "E Reynolds-szám fölött a karika turbulens, és szétkeni a füstjét. Úgy beállítva, hogy a nagyjából 0.2 s-nál gyorsabb lenyomás ne hozzon létre látható karikát."
+      },
+      "model": {
+        "intro": "A lenyomás levegőt présel ki a dobból; a lyukon kilépő levegő karikává csavarodik fel; az, hogy a karika milyen gyors és milyen erős, dönti el, hogy repül-e.",
+        "area": "A gyűrű lenyomja a bőrt, és a bőr a gyűrű és a perem között egy kifeszített membrán alakját veszi fel. A dob a lenyomás minden centiméterével ennyi térfogatot veszít.",
+        "jet": "Ez a térfogat a lyukon át távozik, amely tizenegyszer kisebb: a levegő tizenegyszer gyorsabban jön ki, mint ahogy a kéz lefelé halad.",
+        "circulation": "A kitolt levegő karikává, egy örvénygyűrűvé csavarodik fel; a cirkulációja, vagyis hogy milyen erősen örvénylik, a légsebesség négyzete integráljának a fele.",
+        "formation": "Egy karika legfeljebb négy lyukátmérő hosszú kitolt légoszlopot vesz fel; egy hosszabb légoszlop egy légsugarat hagy maga mögött. Itt egy teljes lenyomás három lyukátmérőnyi légoszlopot ad.",
+        "speed": "Egy karika olyan sebességgel repül, amelyet a cirkulációja és a mérete határoz meg: annál gyorsabban, minél erősebben örvénylik.",
+        "reynolds": "A Reynolds-száma megmondja, mennyire turbulens: egy küszöb fölött a karika a füstjét a nyomában hagyja.",
+        "hand": "A kéz a bőr rugóerejét és a levegő ellennyomását érzi, amely a tempó négyzetével nő."
+      },
+      "symbols": {
+        "v": "a kinyomott térfogat",
+        "x": "milyen mélyre van lenyomva a gyűrű",
+        "aeff": "a dob hatásos felülete",
+        "rbig": "a dob sugara",
+        "a": "a lyuk körüli gyűrű sugara",
+        "rh": "a lyuk sugara",
+        "u": "a lyukból kiáramló levegő sebessége",
+        "ah": "a lyuk területe",
+        "gamma": "a karika cirkulációja",
+        "t": "az idő",
+        "l": "a kitolt légoszlop hossza",
+        "d": "a lyuk átmérője",
+        "uring": "a karika sebessége",
+        "rring": "a karika sugara",
+        "core": "a karika magjának sugara",
+        "re": "a karika Reynolds-száma",
+        "nu": "a levegő kinematikai viszkozitása",
+        "f": "a kézre ható erő",
+        "k": "a bőr merevsége",
+        "tension": "a bőr feszítése",
+        "rho": "a levegő sűrűsége",
+        "z": "a karika magassága a lyuk fölött",
+        "alpha": "milyen gyorsan szélesedik egy turbulens karika"
+      },
+      "computed": {
+        "system": "Magához a lenyomáshoz nem kell időlépésenként számolni: a karika cirkulációja egy összeg a mintavételezett lenyomás mentén, az Ön saját húzását is beleértve. A repülés két differenciálegyenlet, a magasság és a sugár, amelyeket negyedrendű Runge–Kutta-módszerrel oldunk meg 10 ms-onként: egy lamináris karika megtartja a méretét, és csak azért lassul, mert a viszkozitás megvastagítja a magját; egy turbulens karika repülés közben szélesedik, megtartja az impulzusát, és a mérete harmadik hatványával lassul.",
+        "a0": "a mag sugara, amikor a karika létrejön"
+      },
+      "sweet": {
+        "window": "A tempó minden: egy teljes lenyomás {{fastest}} s és {{slowest}} s között hoz létre karikát, a legjobbat {{best}} s körül.",
+        "fast": "Gyorsabban a karika olyan erősen örvénylik, hogy turbulenssé válik, és a füstjét szétteríti a levegőben.",
+        "slow": "Lassabban kevésbé gyorsan halad, mint a csarnok saját levegője, amely elsodorja a füstpamacsot, mielőtt az kialakulna.",
+        "both": "A kettő együtt nő a tempóval — a karika erőssége és a sebessége —, ezért van az ablaknak két vége.",
+        "force": "És a kéz megfizeti a gyors lenyomás árát: a levegő ellennyomása a tempó négyzetével nő, bökésnél {{fast}} N, lassú nyomásnál pedig {{slow}} N, amikor már csak a bőr számít.",
+        "assumed": "Amit feltételezünk: a két küszöb, a kiállítási tárgyhoz igazítva (egy karika nagyjából fél másodpercnél sikerül a legjobban), a karika és a magja mérete, ahogyan a mért karikáknál, valamint a bőr feszítése. A bőr saját rezgését és az elengedéskor fellépő szívóhatást kihagytuk.",
+        "none": "Ezekkel a beállításokkal egyetlen lenyomás sem hoz létre karikát: az ablak bezárult."
+      },
+      "chart": {
+        "duration": "A lenyomás időtartama",
+        "reynolds": "Reynolds-szám",
+        "threshold": "Turbulens küszöb",
+        "speed": "A karika sebessége",
+        "draught": "Légmozgás a teremben",
+        "force": "A kézre ható erő"
+      },
+      "figures": {
+        "fastest": "Leggyorsabb lenyomás",
+        "slowest": "Leglassabb lenyomás",
+        "best": "Legjobb lenyomás",
+        "ratio": "Kiáramló levegő a kéz sebességéhez képest",
+        "stroke": "Kitolt légoszlop lyukátmérőben"
+      }
+    },
+    "cannon": {
+      "view": "A labdaoszlop közelről, a labdák méretarányában: a huzal, a padló és a labdák ott, ahol az esésben éppen járnak, egymásba nyomódva, amíg érintkeznek",
+      "climb_view": "A teljes emelkedés: minden labda egy pontként, és egy jel ott, ahol a legfelső labda visszafordult",
+      "at": {
+        "balls": "Három gumiszerű, nagyjából 10, 7 és 5 cm átmérőjű labda van felfűzve egy acélhuzalra, amely függőlegesen áll ki a padlóból; a legnagyobb van alul.",
+        "drop": "Emelje fel őket együtt, egymásra rakva, és engedje el. A nagy labda a padlónak ütközik, a tetején lévő kicsi pedig felrepül a huzalon, sokkal magasabbra, mint ahonnan Ön leejtette."
+      },
+      "play": {
+        "title": "A huzalnál",
+        "hint": "Húzza fel az oszlopot a rajzon, és engedje el, vagy állítsa be a magasságot, és nyomja meg az „Ejtés” gombot: a kis labda emelkedése jobbra van jelölve, alatta pedig megjelennek a becsapódás erői.",
+        "hint_auto": "Egy labda, aztán kettő, aztán három, mindig ugyanabból a magasságból: figyelje, hogyan nő a legfelső labda emelkedése.",
+        "pause": "Szünet",
+        "run": "Folytatás",
+        "restart": "Újrakezdés",
+        "height": "Az alsó labda magassága",
+        "drop": "Ejtés",
+        "drag": "Vagy húzza fel az oszlopot a rajzon, és engedje el.",
+        "slow": "Lassítás a becsapódásnál",
+        "slow_hint": "A labdák nagyjából tíz ezredmásodpercig érintkeznek; százszorosan lassítva látszik, ahogy egymásba nyomódnak.",
+        "auto": "Automatikus: egy, két, három labda",
+        "auto_hint": "Leejti az alsó labdát egyedül, aztán az alsó kettőt, aztán mind a hármat, újra meg újra.",
+        "launch": "A legfelső labda indulási sebessége",
+        "apex": "A legfelső labda legmagasabb pontja",
+        "times": "Emelkedés az ejtési magassághoz képest",
+        "of_one": "Utolsó ejtés: egy labda {{height}} m magasról.",
+        "of_other": "Utolsó ejtés: {{count}} labda {{height}} m magasról."
+      },
+      "forces": {
+        "title": "A becsapódás erői",
+        "contact": "Érintkezés",
+        "peak": "Legnagyobb erő",
+        "squash": "Benyomódás",
+        "duration": "Időtartam",
+        "impulse": "Erőlökés",
+        "force": "Erő",
+        "time": "Idő az első érintkezés óta",
+        "floor_contact": "Padló – {{ball}}",
+        "ball_contact": "{{lower}} – {{upper}}"
+      },
+      "change": {
+        "title": "Változtasson az oszlopon",
+        "hint": "A kiállítási tárgy labdái nagyjából 10, 7 és 5 cm átmérőjűek, és elasztomerből készültek; hogy mennyire rugalmasak és mennyire merevek, az becslés, és itt megváltoztathatja.",
+        "count": "Hány labda",
+        "balls_one": "{{count}} labda",
+        "balls_other": "{{count}} labda",
+        "flip": "Az oszlop megfordítása",
+        "ball_0": "Alsó labda",
+        "ball_1": "Középső labda",
+        "ball_2": "Felső labda",
+        "gap": "Távolság a labdák között",
+        "gap_hint": "Ha a labdák összeérnek, az érintkezéseik átfedik egymást, és az ágyú gyenge; néhány milliméter távolságból az ütközések egymás után következnek.",
+        "youngs": "Az elasztomer merevsége (Young-modulus)",
+        "youngs_hint": "Becsült érték: a puha gumié 1 és 10 MPa között van. Ez szabja meg, milyen erősen és milyen röviden nyomják egymást a labdák, az emelkedést pedig csak kevéssé változtatja meg.",
+        "floor_e": "Visszapattanás a padlón",
+        "e_hint": "A közeledési sebességnek az a hányada, amelyet egy érintkezés visszaad: 1 semmit sem veszít, egy elasztomer labda nagyjából 0.85.",
+        "ball_e": "Visszapattanás két labda között"
+      },
+      "model": {
+        "intro": "Minden labda Newton második törvénye szerint mozog, mind egyszerre: a nehézségi erő és a levegő húzza, az alatta lévő érintkezés felfelé, a fölötte lévő lefelé nyomja. A labdák csak ott érnek össze, ahol egymásba nyomódnak.",
+        "motion": "Az i-edik labda tömegének és gyorsulásának szorzata egyenlő a súlya, a levegő közegellenállása és a két érintkezési erő összegével — labdánként egy egyenlet, együtt megoldva.",
+        "hertz": "Két labda, amely δ átfedéssel nyomódik egymásba, a Hertz-féle erővel taszítja egymást, amely δ másfeledik hatványával nő. A zárójelben lévő csillapítás energiát von el, miközben közelednek és szétválnak, így egy érintkezés a közeledési sebességének e-szeresét adja vissza.",
+        "stiffness": "Hogy egy érintkezés mennyire merev, az az elasztomer Young-modulusából és Poisson-számából, valamint a két sugárból következik; a padló merevnek számít.",
+        "textbook": "A tankönyv egyszerűsítése: minden ütközés pillanatszerű, és véget ér a következő előtt, nincs veszteség, és minden labda sokkal könnyebb az alatta lévőnél. Ekkor minden labda ezzel a sebességgel indul, ami két labdára 3v-t, háromra 7v-t ad — és egy 7v sebességgel induló labda 49-szer olyan magasra emelkedik, mint amilyen magasról leesett.",
+        "real": "A valódi labdák elmaradnak ettől: a tömegük nem különbözik nagyon, minden érintkezés elveszít némi energiát, és az összenyomódó labdák ezredmásodpercekig érintkeznek, így az egymáson fekvő labdák mind egyszerre nyomják egymást, nem egymás után."
+      },
+      "computed": {
+        "system": "Az összes labda egyenletei egyetlen rendszerként — minden labda magassága és sebessége —, Runge–Kutta-módszerrel léptetve: fél ezredmásodpercenként, amíg a labdák szabadon repülnek, és 10 mikroszekundumonként, amíg egy érintkezés zárva van, vagy éppen záródni készül."
+      },
+      "symbols": {
+        "y": "az i-edik labda magassága",
+        "m": "a tömege",
+        "g": "a nehézségi gyorsulás",
+        "rho": "a levegő sűrűsége",
+        "cd": "egy gömb közegellenállási tényezője",
+        "a": "a keresztmetszete",
+        "f": "az i-edik labda alatti érintkezésben ható erő",
+        "delta": "mennyire nyomódik egymásba a kettő",
+        "ddelta": "milyen gyorsan, most és az első érintkezéskor",
+        "e": "a közeledési sebesség mekkora részét adja vissza egy érintkezés",
+        "k": "az érintkezés merevsége",
+        "young": "az elasztomer Young-modulusa",
+        "nu": "a Poisson-száma, gumira 0.5",
+        "r": "a két labda sugara",
+        "v": "a labdaoszlop sebessége a padlónál",
+        "uk": "a k-adik labda indulási sebessége",
+        "n": "a labdák száma",
+        "hh": "a legfelső labda emelkedése, illetve az oszlop ejtési magassága",
+        "u": "az i-edik labda sebessége",
+        "kdrag": "a közegellenállás erőssége egy ilyen méretű és súlyú labdára",
+        "dt": "a lépésköz"
+      },
+      "sweet": {
+        "climb_one": "Ha egy labdát egyedül ejtenek le {{height}} m magasról, {{times}}× ilyen magasra pattan vissza.",
+        "climb_other": "Ha {{count}} labdát egymásra rakva ejtenek le {{height}} m magasról, a legfelső {{times}}× ilyen magasra emelkedik: {{apex}} m magasra.",
+        "level_one": "{{count}} labda",
+        "level_other": "{{count}} labda",
+        "speeds": "A labdaoszlop {{impact}} m/s sebességgel ér a padlóra, és a legfelső labda {{launch}} m/s sebességgel indul. Egymás után következő, pillanatszerű ütközésekkel {{sequential}} m/s sebességgel indulna; ha ráadásul veszteségek sem volnának, {{ideal}} m/s sebességgel; ha minden labda sokkal könnyebb volna az alatta lévőnél, {{textbook}} m/s sebességgel.",
+        "overlap": "Az első két érték közti különbséget a benyomódás okozza. Az egymáson fekvő labdák nem egymás után ütköznek: a középső már az alsóba nyomódik, miközben az még a padlóba nyomódik, a legfelső pedig mindkettőre nyom. Mivel felülről lenyomják, miközben vissza akarna rugózni, az alsó labda kevesebbet ad tovább.",
+        "forces": "A padló legfeljebb {{force}} kN erővel nyom vissza — nagyjából {{weight}}× akkorával, mint az alsó labda súlya —, miközben a labda {{squash}} mm mélyen benyomódik, nagyjából {{duration}} ezredmásodpercig.",
+        "gap": "Tartsa a labdákat néhány milliméterre egymástól, és az érintkezések egymás után következnek: az emelkedés majdnem eléri azt, amit pillanatszerű ütközések adnának. Próbálja ki a távolságot.",
+        "masses": "A tankönyvi 7v-hez minden labdának sokkal könnyebbnek kell lennie az alatta lévőnél. Ezek tömege {{masses}} g: a középsőé az alsóénak a harmada, a legfelsőé a középsőének a harmada.",
+        "energy": "Mégis annak az energiának, amellyel az egész oszlop a padlónak ütközött, {{share}} %-a a legkisebb labdában távozik.",
+        "flip": "Fordítsa meg az oszlopot, és semmi sem repül: egy alul lévő könnyű labda nem tud felfelé lökni egy nehezet.",
+        "name": "Miért ágyú: a fizikakönyvek Galilei-ágyúnak nevezik, mert a kis labdát az oszlop függőlegesen felfelé lövi ki, mintha egy ágyúcsőből. Oldalra semmit sem lő ki.",
+        "assumed": "Amit feltételezünk: tömör, 1100 kg/m³ sűrűségű labdák, az elasztomer merevsége és rugalmassága, Hertz törvényét követő érintkezések olyan csillapítással, amely a közeledési sebesség rögzített hányadát adja vissza, valamint merev padló. A huzalon fellépő súrlódást és a labdák pörgését kihagytuk."
+      }
+    }
+  }
+}

@@ -7,3 +7,8 @@ __pycache__/
 .env
 .env.local
 .DS_Store
+.pytest_cache/
+.ruff_cache/
+.coverage
+junit.xml
+*.tsbuildinfo

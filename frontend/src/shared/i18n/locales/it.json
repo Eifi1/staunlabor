@@ -1,0 +1,984 @@
+{
+  "app": {
+    "name": "Staunlabor",
+    "tagline": "Exhibit interattivi, calcolati"
+  },
+  "common": {
+    "cancel": "Annulla",
+    "delete": "Elimina",
+    "close": "Chiudi",
+    "loading": "Caricamento…",
+    "reset": "Ripristina",
+    "open": "Apri",
+    "language": "Lingua",
+    "theme_toggle": "Passa a chiaro / scuro",
+    "error": "Qualcosa è andato storto.",
+    "edit": "Modifica",
+    "saving": "Salvataggio…"
+  },
+  "site": {
+    "footer": {
+      "label": "Pagine",
+      "about": "Informazioni su Staunlabor",
+      "imprint": "Impressum",
+      "privacy": "Privacy",
+      "source": "Codice sorgente",
+      "issues": "Segnala un errore o un'idea",
+      "licence": "Codice con licenza MIT, testi e disegni con licenza CC BY 4.0. Indipendente e non commerciale.",
+      "version": "Versione {{version}}"
+    },
+    "about": {
+      "title": "Informazioni su Staunlabor",
+      "lead": "Exhibit interattivi, calcolati — gratuiti, senza registrazione e senza pubblicità.",
+      "what": "Staunlabor prende exhibit come quelli che si trovano in un science center — una palla sospesa su un getto d'aria, un anello di fumo che esce da un tamburo, tre palle impilate lasciate cadere — e Le permette di fare il visitatore davanti al gemello di ogni exhibit. Poi ogni pagina mostra che cosa accade: le equazioni del moto, come si risolvono e l'idea che spiega il trucco.",
+      "computed": "Ogni numero viene dal motore di calcolo proprio del sito ed è garantito dai suoi test. Ciò che si muove lo calcola il Suo browser, con gli stessi passi del motore di calcolo; ciò che cambia un cursore lo calcola il server.",
+      "model": "Gli exhibit sono ispirati agli exhibit dello Swiss Science Center Technorama di Winterthur. Staunlabor è un progetto indipendente e non è affiliato al Technorama; tutti i disegni e i testi sono originali.",
+      "open": "Staunlabor è libero: il codice è distribuito con licenza MIT, i testi e i disegni con licenza CC BY 4.0. Può riutilizzarli citando la fonte, anche nell'insegnamento.",
+      "feedback": "Qualcosa di sbagliato o poco chiaro, o un exhibit che vorrebbe vedere?",
+      "issues": "Lo segnali su GitHub",
+      "source": "Consulti il codice sorgente"
+    }
+  },
+  "legal": {
+    "impressum": {
+      "disclaimer": {
+        "body": "Staunlabor è un progetto privato e non commerciale, offerto senza garanzia. I siti esterni a cui rimandiamo sono di responsabilità dei rispettivi gestori; non abbiamo alcun controllo sui loro contenuti."
+      }
+    },
+    "privacy": {
+      "data": {
+        "title": "Quali dati trattiamo",
+        "body": "Staunlabor non ha né account, né database, né moduli. Quando modifica un exhibit, il Suo browser ne invia i valori — ad esempio il diametro di una palla o un'altezza di caduta — al server, che ne calcola grandezze caratteristiche e curve e le rinvia; nulla di tutto ciò viene salvato.\n\nDati tecnici: il nostro fornitore di hosting registra ogni richiesta — l'ora, l'indirizzo richiesto, il Suo indirizzo IP e il tipo di browser — per gestire e proteggere il servizio. Per limitare il numero di calcoli per indirizzo, il server conserva per breve tempo il Suo indirizzo IP in memoria; non viene salvato."
+      },
+      "legal_basis": {
+        "site": "Non ci sono tracciamento, strumenti di analisi, cookie né pubblicità."
+      },
+      "third_parties": {
+        "title": "Hosting e responsabili del trattamento",
+        "body": "Il sito funziona su Google Cloud nell'Unione europea (europe-west4, Paesi Bassi). Google agisce in qualità di responsabile del trattamento per nostro conto.\n\nCloudflare gestisce il DNS di staunlabor.app e inoltra le e-mail inviate a indirizzi @staunlabor.app alla casella di posta del gestore; nel farlo tratta il messaggio e gli indirizzi del mittente e del destinatario. Il traffico web non passa attraverso la rete di Cloudflare.\n\nIl codice sorgente e le segnalazioni si trovano su GitHub. Chi vi segnala qualcosa lo fa con il proprio account GitHub e alle condizioni di GitHub."
+      },
+      "browser": {
+        "entries": {
+          "language": "La lingua scelta",
+          "look": "Il tema chiaro o scuro",
+          "tried": "Quali exhibit ha provato, affinché la panoramica possa spuntarli"
+        },
+        "tail": "Niente di tutto ciò viene usato per tracciarLa, e niente ci viene inviato. Tutto questo scompare quando cancella i dati del sito nel Suo browser."
+      },
+      "transfers": {
+        "title": "Trasferimenti di dati all'estero",
+        "body": "I dati sono trattati nell'UE (Paesi Bassi). Google, Cloudflare e GitHub sono aziende con sede negli Stati Uniti; qualora i dati possano essere consultati da fuori della Svizzera e dell'UE, il trasferimento si basa sulle clausole contrattuali standard dei fornitori e, ove applicabili, sull'EU–US Data Privacy Framework e sullo Swiss–US Data Privacy Framework. La Svizzera, dove risiede il gestore, è riconosciuta dall'UE come Paese con un livello adeguato di protezione dei dati."
+      },
+      "retention": {
+        "title": "Conservazione e cancellazione",
+        "body": "Staunlabor non salva alcun dato che La riguardi. Il nostro fornitore di hosting elimina i propri registri delle richieste dopo 30 giorni. Ciò che il Suo browser salva può cancellarlo in qualsiasi momento nelle impostazioni del browser."
+      }
+    }
+  },
+  "experiments": {
+    "title": "Esperimenti",
+    "area": "Gli esperimenti",
+    "failed": "Non è stato possibile calcolare l'exhibit.",
+    "overview": {
+      "short": "Panoramica",
+      "lead": "Exhibit interattivi, calcolati. Faccia il visitatore davanti al gemello dell'exhibit, poi scopra il calcolo dietro ciò che ha provato.",
+      "how": "Ogni pagina comincia da ciò che si trova all'exhibit, Le permette di provarlo e poi mostra che cosa accade e l'idea che spiega il trucco. Ogni numero viene dal motore di calcolo dell'app ed è garantito dai suoi test.",
+      "open": "Apri l'exhibit",
+      "coming": "In preparazione",
+      "credit": "Ispirato agli exhibit dello Swiss Science Center Technorama, Winterthur.",
+      "daily": {
+        "eyebrow": "Esperimento del giorno",
+        "open": "Lo provi",
+        "today": "Oggi"
+      },
+      "history": {
+        "title": "Gli esperimenti degli ultimi giorni",
+        "open": "Giorni precedenti"
+      },
+      "all": "Tutti gli exhibit",
+      "topics_label": "Filtra per tema",
+      "all_topics": "Tutti i temi",
+      "tried": {
+        "label": "Provati su questo dispositivo",
+        "count": "{{tried}} di {{total}}",
+        "mark": "Provato",
+        "forget": "Dimentica"
+      },
+      "builds_on": "Si basa su:"
+    },
+    "topics": {
+      "momentum": "Quantità di moto",
+      "angular_momentum": "Momento angolare",
+      "energy": "Energia",
+      "oscillation": "Oscillazione",
+      "flow": "Fluidi",
+      "induction": "Induzione",
+      "perception": "Percezione"
+    },
+    "frame": {
+      "eyebrow": "Exhibit",
+      "at_the_exhibit": "All'exhibit",
+      "try_it": "Lo provi",
+      "what_happens": "Che cosa accade",
+      "sweet_spot": "Il trucco",
+      "computed": "Come si calcola"
+    },
+    "exhibits": {
+      "chair": {
+        "short": "La sedia",
+        "title": "La sedia che è tre cose",
+        "summary": "Tre spioncini, una sedia — e dietro, una sedia, una sedia deformata e aste che non si toccano da nessuna parte.",
+        "question": "Come possono tre cose diverse sembrare la stessa sedia attraverso uno spioncino?"
+      },
+      "coil": {
+        "short": "Magnete e bobina",
+        "title": "Il carrello magnetico e la bobina",
+        "summary": "Due pulsanti, una bobina, un carrello con un magnete: premendo al momento giusto sale su entrambe le rampe.",
+        "question": "Quando deve premere perché il carrello salga più in alto a ogni passaggio?"
+      },
+      "sphere": {
+        "short": "Pallina nella sfera",
+        "title": "La pallina nella sfera sospesa",
+        "summary": "Muova la sfera sospesa in cerchio finché la pallina all'interno non percorre il suo equatore.",
+        "question": "Quanto velocemente deve girare la sfera perché la pallina all'interno percorra il suo equatore?"
+      },
+      "platform": {
+        "short": "La piattaforma girevole",
+        "title": "La piattaforma girevole",
+        "summary": "Ci salga sopra, si faccia dare una spinta e si raccolga: più è vicino all'asse, più in fretta gira.",
+        "question": "Quanto più in fretta gira quando si raddrizza?"
+      },
+      "race": {
+        "short": "La corsa",
+        "title": "La corsa delle curve",
+        "summary": "Sei piste, una partenza, un traguardo: quale pallina arriva per prima — e la valle dove arrivano tutte insieme.",
+        "question": "Quale delle sei piste vince — ed è la più corta?"
+      },
+      "elephant": {
+        "short": "L'elefante di Bernoulli",
+        "title": "L'elefante di Bernoulli",
+        "summary": "Appoggi una palla leggera sulla proboscide dell'elefante: resta sospesa nel getto d'aria che ne esce, e ci rimane anche quando la si spinge.",
+        "question": "Di quanto si può inclinare il getto prima che la palla cada?"
+      },
+      "smoke": {
+        "short": "L'anello di fumo",
+        "title": "L'anello di fumo",
+        "summary": "Prema la membrana di un tamburo pieno di fumo e dal suo foro esce in volo un anello — se non preme né troppo forte né troppo piano.",
+        "question": "L'anello vola più lontano se preme più forte?"
+      },
+      "cannon": {
+        "short": "Il cannone a palle",
+        "title": "Il cannone a palle",
+        "summary": "Lasci cadere tre palle impilate su un filo, e quella piccola in cima schizza in alto molto più di quanto sia caduta.",
+        "question": "Quanto in alto vola la palla piccola quando la pila cade da un metro?"
+      }
+    },
+    "chair": {
+      "kinds": {
+        "chair": "La sedia",
+        "skewed": "La sedia deformata",
+        "scattered": "Le aste"
+      },
+      "at": {
+        "boxes": "Su un tavolo c'è una lunga scatola, con tre spioncini uno accanto all'altro sul davanti. Da ognuno si vede una sedia.",
+        "round": "Poi guardi dentro la scatola di lato: dietro il primo foro c'è una sedia; dietro il secondo, una sedia deformata — gambe di lunghezze diverse, una seduta che non è quadrata; dietro il terzo, aste sospese nell'aria che non si toccano da nessuna parte."
+      },
+      "model": {
+        "directions": "Un occhio a un foro vede direzioni, non distanze. Ogni punto P può scorrere lungo la sua linea di vista dall'occhio E, più vicino o più lontano, senza che l'immagine cambi:",
+        "skewed": "La sedia deformata sposta ogni punto di un fattore che varia con continuità sulla sedia. Questa trasformazione conserva ogni retta che passa per l'occhio, così le aste diritte restano diritte e i giunti restano uniti — è una sedia, solo non quella che pensa:",
+        "scattered": "Le aste scorrono ciascuna di un fattore proprio. Ognuna resta un'asta con la stessa direzione, ma due aste che si univano in un giunto ora si incontrano solo sulla linea di vista, a due profondità diverse.",
+        "cave": "Platone racconta di prigionieri in una caverna che vedono solo ombre sulla parete e le scambiano per le cose stesse. Lo spioncino è quella parete: un'immagine e infiniti oggetti che potrebbero proiettarla. La vista attorno alla scatola è uscire dalla caverna."
+      },
+      "sweet": {
+        "question": "Quanto preciso deve essere il foro? Se l'occhio si sposta di lato di δ, due punti allineati alle distanze d₁ e d₂ si separano di circa",
+        "tolerance": "In queste scatole un giunto delle aste si apre fino a un minuto d'arco — ciò che distingue un occhio acuto — dopo soli {{tolerance}} mm. Un secondo occhio, a {{baseline}} mm di lato, vede gli spazi larghi {{binocular}}°: per questo un foro e un occhio.",
+        "brain": "Che le aste sembrino ancora una sedia attraverso un foro più grande è opera del cervello: la pupilla sfuma un poco ogni punto, e uno spazio sfumato alla profondità sbagliata viene letto come una sedia, perché le sedie esistono. La sedia deformata non si scompone mai — muovendo l'occhio se ne piega solo la forma."
+      },
+      "figures": {
+        "tolerance": "L'occhio può spostarsi",
+        "binocular": "Spazio, secondo occhio",
+        "acuity": "L'occhio distingue",
+        "joints": "Giunti"
+      },
+      "equations": {
+        "slide": "Dove può andare un punto senza che l'immagine cambi: ovunque sulla retta che va dall'occhio attraverso di esso, più vicino o più lontano.",
+        "skew": "Una sola regola per tutta la sedia: ogni punto scorre di un fattore che dipende da dove si trova, così le aste diritte restano diritte.",
+        "gap": "Quanto appaiono distanti due punti che erano allineati, una volta che l'occhio si è mosso: più differiscono le loro distanze, più in fretta si separano."
+      },
+      "symbols": {
+        "p": "un punto della sedia",
+        "p_moved": "dove viene spostato quel punto",
+        "eye": "l'occhio, al foro",
+        "lambda": "quanto lungo la sua linea di vista: sopra 1 più lontano, sotto 1 più vicino",
+        "w": "una direzione fissa che stabilisce come varia il fattore sulla sedia",
+        "dot": "il prodotto scalare: quanto si trova il punto lungo quella direzione",
+        "gap": "l'angolo tra i due punti, come li vede l'occhio",
+        "delta": "di quanto l'occhio si è spostato di lato",
+        "distances": "le distanze dei due punti dall'occhio"
+      },
+      "auto": "Automatico: un giro",
+      "auto_hint": "La vista resta per due secondi ai fori, poi fa un giro attorno alla camera e torna indietro. Tocchi un cursore per prendere il controllo.",
+      "views": {
+        "title": "Dentro la camera",
+        "hint": "Ruoti e inclini la vista: tutti e tre si muovono insieme. A 0° e 0° Lei guarda esattamente dal punto dei fori — e i tre diventano una sola sedia.",
+        "view": "{{name}}, vista dal punto di osservazione ruotato",
+        "align": "Guardare attraverso i fori",
+        "aligned": "Attraverso i fori: una sedia, tre volte",
+        "apart": "Da qui: tre cose diverse",
+        "turn": "Ruotare",
+        "tilt": "Inclinare"
+      }
+    },
+    "equation": {
+      "symbols": "Che cosa significano i simboli"
+    },
+    "coil": {
+      "at": {
+        "track": "Un percorso di due rampe, a sinistra e a destra, che si incurvano verso l'alto da un tratto piano in mezzo. Attorno al tratto piano c'è una bobina di filo, e un piccolo carrello vi fa passare attraverso un magnete. Un amperometro digitale, da −100 a +100 mA, mostra ciò che il carrello induce mentre attraversa la bobina rotolando — e nulla finché un pulsante è premuto.",
+        "buttons": "Due pulsanti accendono la bobina, uno per ciascun verso. Premendo il primo quando il carrello entra nella bobina e il secondo appena ha superato il centro, il carrello sale più in alto sull'altra rampa a ogni passaggio, finché non raggiunge la cima di entrambe."
+      },
+      "play": {
+        "title": "Ai pulsanti",
+        "hint": "Tenga premuto + mentre il carrello entra nella bobina, e − appena ha superato il centro. Troppo difficile a piena velocità? Lo rallenti, oppure lasci premere la regola e osservi quando lo fa.",
+        "pause": "Pausa",
+        "run": "Riprendi",
+        "restart": "Ricomincia",
+        "plus": "Pulsante +, tira il carrello nella bobina",
+        "minus": "Pulsante −, spinge il carrello fuori dalla bobina",
+        "plus_caption": "In entrata",
+        "minus_caption": "In uscita",
+        "last_peak": "Ultimo punto di inversione",
+        "goal": "Cima di una rampa",
+        "tops": "Cime raggiunte",
+        "time": "Tempo",
+        "autopilot": "Automatico: tempismo perfetto",
+        "autopilot_hint": "+ dal piede della rampa fino al centro, − dal centro fino all'altra rampa, con il passaggio dall'uno all'altro esattamente quando il carrello supera il centro — {{window}} cm per lato. La curva sotto “Il trucco” mostra perché.",
+        "speed": "Velocità",
+        "speeds": {
+          "1": "Tempo reale",
+          "0_25": "¼",
+          "0_1": "⅒"
+        },
+        "keys": "Da tastiera: tenga premuto + o ← per il più, − o → per il meno."
+      },
+      "meter": {
+        "label": "L'amperometro, in milliampere",
+        "caption": "Ciò che induce il carrello",
+        "buttons_label": "La corrente dei pulsanti nella bobina, in milliampere",
+        "buttons_caption": "Ciò che spingono i pulsanti"
+      },
+      "track": {
+        "label": "Il percorso visto di lato: due rampe, la bobina al centro, il carrello con il suo magnete"
+      },
+      "change": {
+        "title": "Modifichi l'exhibit",
+        "hint": "I valori reali dell'exhibit non sono pubblicati; questi sono quelli di un montaggio da tavolo che corrisponde a ciò che vede un visitatore. Ogni modifica fa ripartire il carrello.",
+        "supply": "Batteria",
+        "turns": "Spire",
+        "turns_hint": "Lo stesso filo: più spire, più resistenza, quindi meno corrente — eppure ogni passaggio guadagna all'incirca lo stesso.",
+        "mass": "Massa del carrello",
+        "rolling": "Resistenza al rotolamento",
+        "closed": "L'amperometro resta collegato tra una pressione e l'altra",
+        "closed_hint": "All'exhibit è così: la lettura si muove quando il carrello passa rotolando, e quella corrente frena un poco il carrello.",
+        "radius": "Raggio della rampa",
+        "radius_hint": "Ogni rampa è un arco di questo raggio, che parte orizzontale dal tratto piano: più è piccolo, più la rampa sale ripida e in alto sulla stessa lunghezza."
+      },
+      "model": {
+        "flux_intro": "Tutto comincia da una curva: quanta parte del campo del magnete attraversa le spire della bobina, con il carrello in un dato punto.",
+        "flux": "Il flusso del magnete attraverso tutte le spire: massimo con il magnete al centro della bobina, piccolo lontano da essa. Il magnete è trattato come un punto; per questo l'errore è di pochi punti percentuali.",
+        "coupling": "Quanto rapidamente cambia quel flusso mentre il carrello avanza: positivo entrando da sinistra, zero al centro, negativo uscendo. Questa sola curva svolge due compiti.",
+        "induced": "Il primo compito: la tensione che il magnete in movimento induce nella bobina. È ciò che muove l'amperometro quando nessuno preme — un'oscillazione in entrata, quella opposta in uscita.",
+        "force": "Il secondo compito: la spinta che la bobina dà al carrello quando scorre corrente. Poiché k cambia segno al centro, anche la corrente deve cambiare segno lì — ecco perché ci sono due pulsanti, e perché “+ in entrata, − in uscita” funziona in qualunque verso vada il carrello.",
+        "circuit": "Il circuito della bobina: la tensione del pulsante spinge la corrente contro la resistenza del filo e contro la tensione che il carrello stesso induce.",
+        "motion": "Il carrello: la spinta della bobina, la gravità lungo il percorso curvo e la resistenza al rotolamento — che cresce in curva, dove il percorso deve anche far curvare il carrello, di v²/R.",
+        "energy": "L'energia della batteria va nella velocità e nell'altezza del carrello, nel calore del filo, nel campo proprio della bobina e nella resistenza al rotolamento. Il motore di calcolo tiene questo bilancio, e torna fino a una parte su un milione."
+      },
+      "symbols": {
+        "psi": "flusso concatenato, il flusso del magnete attraverso tutte le spire",
+        "x": "la posizione del carrello, misurata dal centro della bobina",
+        "mu0": "la costante magnetica",
+        "moment": "l'intensità del magnete (il suo momento di dipolo)",
+        "turns": "il numero di spire",
+        "length": "la lunghezza della bobina",
+        "radius": "il raggio della bobina",
+        "k": "accoppiamento: volt per metro al secondo, e newton per ampere",
+        "e": "la tensione indotta",
+        "v": "la velocità del carrello",
+        "force": "la spinta della bobina sul carrello",
+        "i": "la corrente nella bobina",
+        "inductance": "l'induttanza della bobina",
+        "u": "la tensione del pulsante: +U, 0 o −U",
+        "resistance": "la resistenza del filo",
+        "mass": "la massa del carrello",
+        "g": "l'accelerazione di gravità",
+        "alpha": "la pendenza del percorso: zero nel tratto piano, s/R sull'arco di una rampa",
+        "rolling": "resistenza al rotolamento, una frazione del peso",
+        "tau": "la costante di tempo della bobina",
+        "gain": "la massima energia che un passaggio può dare",
+        "full_current": "la corrente con un pulsante premuto",
+        "supply": "la tensione della batteria",
+        "top_speed": "la velocità oltre la quale la bobina non può più spingere",
+        "arc": "la distanza percorsa sull'arco, dalla fine del tratto piano",
+        "ramp_radius": "il raggio delle rampe"
+      },
+      "sweet": {
+        "timing": "La bobina è veloce e la Sua mano è lenta. La corrente segue un pulsante in circa {{tau}} ms; il carrello impiega circa {{between}} ms dal momento di premere + al momento di premere −. Il gioco non è la bobina, è la mano.",
+        "tau": "Quanto rapidamente la corrente segue un pulsante: dopo una costante di tempo ha percorso circa due terzi della strada verso il valore finale.",
+        "gain": "Energia guadagnata in un passaggio",
+        "late": "Ritardo della mano sul pulsante −",
+        "reading": "Come leggere la curva: commutare in tempo guadagna di più; con 20 ms di ritardo si ottengono ancora circa due terzi; con 30 ms di ritardo il carrello non arriva mai in cima; con circa 60 ms di ritardo, l'attrazione che resta frena il carrello. Questi valori valgono per il montaggio predefinito.",
+        "gain_bound": "Il massimo che un passaggio può dare: tirare il carrello da lontano fino al centro guadagna I·Ψ(0), spingerlo di nuovo fuori altrettanto. La tensione indotta e la resistenza al rotolamento ne prendono una parte.",
+        "top_speed": "Per quanto bene Lei prema, c'è una velocità massima: dove la tensione che il carrello induce eguaglia quella della batteria, non scorre corrente e la bobina non può più spingere."
+      },
+      "figures": {
+        "tau": "Costante di tempo",
+        "between": "Tra i pulsanti",
+        "current": "Corrente, pulsante premuto",
+        "coasting": "Corrente, a ruota libera",
+        "gain": "Miglior guadagno per passaggio",
+        "speed": "Velocità per la cima",
+        "vmax": "Velocità massima"
+      },
+      "computed": {
+        "system": "Insieme sono tre equazioni differenziali: dicono quanto rapidamente cambiano la posizione del carrello, la sua velocità e la corrente nella bobina, ciascuna attraverso le altre — k(x) accoppia la meccanica e il circuito. Il sistema non ha una soluzione in forma chiusa, perciò il motore di calcolo lo fa avanzare nel tempo passo per passo con il metodo classico di Runge–Kutta (RK4): ogni {{step}} ms, {{steps}} passi per ogni secondo. Il Suo browser esegue esattamente gli stessi passi mentre Lei gioca.",
+        "circuit": "Da solo, il circuito è il sistema del primo ordine del corso: dopo la pressione di un pulsante, la corrente sale verso U/R con la costante di tempo L/R. Il moto del carrello è un sistema del secondo ordine — posizione e velocità —, spinto dalla bobina e tirato dalla gravità sulle rampe.",
+        "dot": "un punto indica quanto rapidamente la grandezza cambia nel tempo: ẋ = dx/dt",
+        "fade": "sotto {{fade}} mm/s la resistenza al rotolamento entra gradualmente, perché un carrello fermo non ha una direzione a cui opporsi",
+        "alpha": "la pendenza del percorso dove si trova il carrello: zero nel tratto piano, s/R su una rampa",
+        "kappa": "la curvatura del percorso: zero nel tratto piano, 1/R su una rampa — dove la curva preme il carrello sul percorso di v²/R in più"
+      }
+    },
+    "sphere": {
+      "at": {
+        "sphere": "Una sfera trasparente è sospesa tra una fune verso il soffitto e una verso il pavimento, con una pallina all'interno. Le funi la mantengono in un piano orizzontale: può spingerla a sinistra e a destra, avanti e indietro, oppure in cerchio.",
+        "push": "Se la spinge in cerchio al ritmo giusto, anche la pallina comincia a girare, salendo lungo la parete interna finché non percorre l'equatore, solo in quel piano. Per portarla più in alto bisogna girare più in fretta — e ritrovare il punto giusto."
+      },
+      "play": {
+        "title": "Spinga la sfera",
+        "who": "Chi spinge",
+        "modes": {
+          "hand": "Lei",
+          "circle": "Un cerchio regolare",
+          "perfect": "Automatico: tempismo perfetto"
+        },
+        "hint_hand": "Trascini nella vista dall'alto: la sfera segue il Suo dito come farebbe una mano. Giri attorno al centro — lentamente all'inizio, circa una volta al secondo, poi più in fretta man mano che la pallina sale.",
+        "hint_circle": "La sfera viene spinta lungo un cerchio di 2 cm al ritmo che Lei imposta. Se cambia il ritmo lentamente, la pallina segue; se lo cambia di colpo, resta indietro.",
+        "hint_perfect": "La sfera viene spinta sempre un quarto di giro davanti alla pallina e accelera esattamente man mano che la pallina sale — il tempismo fatto bene, fino a circa 4 Hz, alla massima velocità di un braccio.",
+        "pause": "Pausa",
+        "run": "Riprendi",
+        "restart": "Ricomincia",
+        "tempo": "Ritmo",
+        "change": "Cambiare il ritmo",
+        "slowly": "Lentamente",
+        "at_once": "Di colpo",
+        "angle": "Pallina, su per la parete",
+        "depth": "Sotto l'equatore",
+        "your_tempo": "Il Suo ritmo",
+        "needed": "Ritmo per questa altezza",
+        "lead": "Sfera davanti alla pallina",
+        "reading": "Sotto {{f0}} Hz non c'è cerchio: la pallina traballa soltanto sul fondo. Ogni altezza ha il suo ritmo — la linea nel grafico — e più in alto, più veloce."
+      },
+      "views": {
+        "top": "La sfera dall'alto: trascini per spingerla",
+        "top_caption": "Dall'alto — spinga qui",
+        "side": "La sfera di lato: quanto in alto corre la pallina",
+        "side_caption": "Di lato"
+      },
+      "chart": {
+        "circle": "In cerchio",
+        "swing": "Avanti e indietro",
+        "tempo": "Ritmo",
+        "angle": "Angolo dal fondo",
+        "you": "Lei"
+      },
+      "change": {
+        "title": "Modifichi l'exhibit",
+        "hint": "Le dimensioni reali dell'exhibit non sono pubblicate; si assume una sfera da tavolo. Ogni modifica fa ripartire la pallina.",
+        "shell": "Diametro della sfera",
+        "shell_hint": "Le dimensioni cambiano il ritmo necessario in basso — non quanto sotto l'equatore corre la pallina a un dato ritmo.",
+        "ball": "Diametro della pallina",
+        "kind": "Pallina",
+        "solid": "Piena",
+        "hollow": "Cava",
+        "rolling": "Resistenza al rotolamento"
+      },
+      "model": {
+        "rolling_intro": "Una pallina che rotola all'interno di una sfera muove il proprio centro esattamente come un pendolo appeso a un filo di lunghezza ρ — ma con meno gravità.",
+        "rolling": "Parte della trazione della gravità serve a far girare la pallina su sé stessa, perciò il suo centro sente solo g′: 5/7 della gravità per una pallina piena, 3/5 per una cava. Questo vale esattamente finché la pallina non ruota attorno alla linea verso la parete, e una pallina che parte da ferma non acquista mai una tale rotazione.",
+        "push": "Muovere la sfera è una seconda gravità: nel sistema di riferimento della sfera, la sua accelerazione A tira la pallina nel verso opposto — con lo stesso 5/7.",
+        "orbit": "Una pallina che gira con velocità angolare Ω corre a questa profondità sotto l'equatore. I cerchi più veloci corrono più in alto; l'equatore stesso richiederebbe un ritmo infinito. Le dimensioni della sfera non vi compaiono.",
+        "lowest": "Il cerchio più lento che esista — al di sotto la pallina traballa soltanto sul fondo. È anche la velocità angolare di una piccola oscillazione.",
+        "wobble": "Un cerchio leggermente inclinato sale e scende con questa frequenza: vicino all'equatore una volta per giro — la pallina non ancora “nel piano”.",
+        "swing": "Avanti e indietro è il contrario: un pendolo oscilla tanto più lentamente quanto più ampia è l'oscillazione. In cerchio, è tanto più veloce quanto più in alto corre."
+      },
+      "symbols": {
+        "g_share": "la gravità che sente il centro della pallina",
+        "g": "l'accelerazione di gravità",
+        "k": "quanta parte della massa della pallina si trova lontano dal suo centro",
+        "inertia": "il momento d'inerzia della pallina",
+        "mass": "la massa della pallina",
+        "ball_radius": "il raggio della pallina",
+        "push": "l'accelerazione della sfera, dovuta alla Sua spinta",
+        "rho": "la distanza a cui il centro della pallina resta da quello della sfera",
+        "shell_radius": "il raggio interno della sfera",
+        "theta": "l'angolo della pallina su per la parete, misurato dal fondo",
+        "omega": "la velocità angolare della pallina attorno alla sfera (2π volte il ritmo)",
+        "depth": "quanto sotto l'equatore corre",
+        "omega0": "la velocità angolare del cerchio più basso",
+        "wobble": "quanto spesso un cerchio inclinato sale e scende",
+        "amplitude": "quanto si allarga l'oscillazione da ciascun lato",
+        "f0": "il ritmo di una piccola oscillazione",
+        "elliptic": "l'integrale ellittico completo di prima specie"
+      },
+      "sweet": {
+        "moves": "La risonanza si sposta mentre Lei pompa. Il ritmo a cui gira stabilisce quanto in alto corre la pallina — perciò, per portarla più in alto, deve girare più in fretta, insieme alla pallina, e il punto giusto che ha appena trovato non c'è più.",
+        "ahead": "Una spinta rende di più un quarto di giro davanti alla pallina: la sfera spinta verso dove sta andando la pallina. “Automatico: tempismo perfetto” fa esattamente questo, e sale più in fretta di qualsiasi aumento regolare del ritmo.",
+        "too_fast": "Se accelera troppo in fretta, la pallina resta indietro e ricade. Il motore di calcolo lo mostra: un aumento lento da 0,7 a 2,5 Hz in 30 s porta la pallina a 81°; saltare direttamente a 2,5 Hz la lascia vicino al fondo. I fisici la chiamano autorisonanza. Questi valori valgono per il montaggio predefinito.",
+        "limit": "C'è una velocità massima? Su un cerchio costante la pallina fa esattamente tanti giri quanti la sfera, e ogni altezza ha il suo ritmo — l'equatore stesso ne richiederebbe uno infinito. Da sola, quindi, la pallina non accelera senza fine: se si lascia ferma la sfera, la pallina rallenta e scende, e il limite è il braccio. A 4 Hz, all'incirca il massimo con cui si riesce a girare, corre 1,1 cm sotto l'equatore, a 86°, con il centro a 4,5 m/s, e la parete la preme con quasi dodici volte il suo peso. Questi valori valgono per il montaggio predefinito.",
+        "figures_note": "Ritmi e profondità sono le orbite del motore di calcolo per questa sfera; la spinta necessaria è ciò che la resistenza al rotolamento si prende a quell'altezza."
+      },
+      "figures": {
+        "f0": "Cerchio più basso",
+        "at": "Ritmo a {{angle}}°",
+        "depth": "Sotto l'equatore a {{angle}}°",
+        "push": "Spinta necessaria a {{angle}}°",
+        "friction": "Aderenza necessaria, al massimo",
+        "share": "Quota della gravità"
+      },
+      "computed": {
+        "system": "Sei equazioni differenziali del primo ordine: posizione e velocità del centro della pallina in tre dimensioni, con dentro la spinta della Sua mano come A. Neanche queste hanno una soluzione in forma chiusa, perciò il motore di calcolo le fa avanzare con RK4 ogni {{step}} ms e, dopo ogni passo, riporta il centro sulla sua sfera e la velocità lungo la parete, da cui RK4 si allontana per il suo stesso minuscolo errore. Il Suo browser esegue gli stessi passi, con dentro la spinta della Sua mano.",
+        "centripetal": "L'ultimo termine tiene la pallina sulla parete: v²/ρ è l'accelerazione che un cerchio di raggio ρ richiede.",
+        "p": "la posizione del centro della pallina, misurata dal centro della sfera",
+        "v": "la sua velocità",
+        "along": "la componente lungo la parete",
+        "normal": "la spinta della parete, per chilogrammo",
+        "n": "la direzione dal centro della sfera a quello della pallina",
+        "cr": "resistenza al rotolamento, una frazione di N",
+        "fade": "sotto {{fade}} mm/s la resistenza al rotolamento entra gradualmente, perché una pallina ferma non ha una direzione a cui opporsi"
+      }
+    },
+    "platform": {
+      "view": "La piattaforma dall'alto, con il visitatore in piedi sopra",
+      "at": {
+        "stand": "Una piattaforma rotonda gira su un cuscinetto a livello del pavimento, con una barra di appoggio fissata di traverso al centro. Un visitatore ci sale sopra, con entrambe le mani sulla barra, e riceve una spinta. I piedi restano dove sono.",
+        "pull": "Inclinato all'indietro con tutto il corpo, le braccia tese, gira lentamente; stando dritto, sempre più in fretta. Se si sporge di nuovo in fuori, la rotazione rallenta. Nessuno spinge più forte — la velocità viene da dove si trova il corpo."
+      },
+      "play": {
+        "title": "Sulla piattaforma",
+        "hint": "Spinga per avviare la rotazione, poi si sporga in fuori o si raddrizzi. La piattaforma gira tanto più in fretta quanto più Lei sta dritto.",
+        "hint_auto": "Il visitatore si sporge in fuori, si raddrizza, tiene la posizione e si sporge di nuovo, più e più volte — osservi come la velocità lo segue.",
+        "push": "Spingi",
+        "pause": "Pausa",
+        "run": "Riprendi",
+        "restart": "Ricomincia",
+        "auto": "Automatico: sporgersi e raddrizzarsi",
+        "auto_hint": "Tre secondi inclinato in fuori, due e mezzo dritto, e di nuovo inclinato — con una spinta se la piattaforma è ferma.",
+        "lean": "Inclinazione verso l'esterno",
+        "rate": "Giri",
+        "rate_unit": "al s",
+        "inertia": "Momento d'inerzia",
+        "momentum": "Momento angolare",
+        "energy": "Energia della rotazione",
+        "pull": "Trazione sulla barra",
+        "times": "Più veloce che inclinato in fuori",
+        "reading": "Ogni spinta dà {{push}} kg·m²/s di momento angolare. Tra una spinta e l'altra solo il cuscinetto ne toglie un po' — comunque Lei si inclini, il momento angolare resta.",
+        "lean_hint": "Quanto il tronco si inclina all'indietro, lontano dall'asse, con le mani sulla barra e i piedi dove sono."
+      },
+      "change": {
+        "title": "Modifichi l'exhibit",
+        "hint": "I valori reali dell'exhibit non sono pubblicati; si assumono una piattaforma leggera e un visitatore di 70 kg. Ogni modifica fa ricominciare da capo.",
+        "mass": "Massa del visitatore",
+        "platform_mass": "Massa della piattaforma",
+        "diameter": "Diametro della piattaforma",
+        "friction": "Attrito del cuscinetto",
+        "friction_hint": "Una coppia costante contro la rotazione: toglie momento angolare a ritmo costante finché la piattaforma non si ferma."
+      },
+      "model": {
+        "intro": "A parte il cuscinetto, nulla di esterno al visitatore agisce sulla sua rotazione. Perciò a decidere la velocità è il modo in cui la sua massa è distribuita attorno all'asse.",
+        "momentum": "Il momento angolare: il momento d'inerzia per la velocità angolare. Senza spinte lo cambia solo l'attrito del cuscinetto, lentamente e in modo costante.",
+        "rate": "La velocità angolare è quindi il momento angolare ripartito sul momento d'inerzia: metà inerzia, doppia velocità.",
+        "sum": "Il momento d'inerzia somma ogni pezzo di massa, ciascuno contato con il quadrato della sua distanza dall'asse: la massa lontana dall'asse conta molto, quella vicina all'asse quasi nulla.",
+        "disc": "La piattaforma stessa, un disco.",
+        "arm": "Un braccio, un'asta dalla mano sulla barra fino alla spalla: a corpo dritto giace lungo la barra; a corpo inclinato in fuori, si allontana con la spalla e conta di più.",
+        "lean": "Sporgersi in fuori allontana il tronco dall'asse: la sua parte propria più la sua massa per la distanza al quadrato (il teorema di Huygens-Steiner). Le gambe restano sull'asse."
+      },
+      "symbols": {
+        "momentum": "momento angolare",
+        "inertia": "momento d'inerzia",
+        "omega": "velocità angolare (2π volte i giri al secondo)",
+        "friction": "la coppia d'attrito del cuscinetto",
+        "piece": "un pezzo di massa",
+        "r": "la sua distanza dall'asse",
+        "platform_mass": "la massa della piattaforma",
+        "platform_radius": "il raggio della piattaforma",
+        "arm_mass": "la massa di un braccio",
+        "shoulder": "la distanza laterale di ciascuna mano e spalla dall'asse",
+        "lean": "quanto il tronco si sporge in fuori",
+        "own": "il momento d'inerzia proprio della parte",
+        "energy": "l'energia della rotazione",
+        "pull": "ciò che le mani reggono sulla barra: il corpo inclinato, mantenuto sul suo cerchio",
+        "trunk_mass": "la massa del tronco, testa compresa"
+      },
+      "sweet": {
+        "faster": "Dritto, il visitatore gira {{ratio}} volte più veloce che inclinato in fuori — con lo stesso momento angolare.",
+        "energy": "L'energia della rotazione, a parità di momento angolare: meno inerzia, più energia. Raccogliersi rende la rotazione più ricca di energia, non solo più veloce.",
+        "pull": "Quell'energia deve venire da qualche parte: dalle braccia. Inclinato in fuori, il corpo ha bisogno di questa trazione verso l'interno per restare sul suo cerchio, e le mani la danno attraverso la barra — cresce con il quadrato della velocità angolare, e il visitatore la sente come se la barra gli tirasse le mani.",
+        "paid": "Raddrizzandosi dalla posizione inclinata in fuori, le braccia compiono {{work}} J di lavoro contro quella trazione, e l'energia della rotazione cresce esattamente di tanto, da {{from}} J a {{to}} J. Il motore di calcolo lo verifica sommando la trazione lungo il percorso verso l'interno.",
+        "replay": "Ecco la modalità automatica su sedici secondi, dopo una spinta di {{push}} kg·m²/s: la velocità balza ogni volta che il visitatore si raddrizza e cala quando si sporge in fuori, mentre il momento angolare diminuisce soltanto, lentamente e in modo uniforme, per il cuscinetto."
+      },
+      "chart": {
+        "rate": "Giri",
+        "lean": "Inclinazione verso l'esterno",
+        "time": "Tempo"
+      },
+      "figures": {
+        "work": "Lavoro per raddrizzarsi",
+        "stops": "Si ferma dopo",
+        "leaning": "Inclinato in fuori",
+        "upright": "Dritto",
+        "pull_leaning": "Trazione, inclinato in fuori"
+      },
+      "computed": {
+        "system": "Qui c'è una sola equazione differenziale, e ha una soluzione esatta: il momento angolare cala in linea retta fino a raggiungere lo zero — il cuscinetto non fa mai girare la piattaforma all'indietro. Perciò non serve procedere passo per passo: la velocità angolare è L/I in ogni istante, semplice algebra. È l'equazione del primo ordine più semplice che esista.",
+        "l0": "il momento angolare subito dopo l'ultima spinta",
+        "t": "il tempo trascorso da allora"
+      }
+    },
+    "computed": {
+      "course": "Le basi, nel corso sulle equazioni differenziali:",
+      "links": {
+        "first_order": "Sistemi del primo ordine",
+        "second_order": "Sistemi del secondo ordine",
+        "numerics": "Soluzione numerica"
+      }
+    },
+    "race": {
+      "at": {
+        "tracks": "Diverse piste scendono dalla stessa partenza fino allo stesso traguardo, ciascuna lungo una curva diversa. In cima a ciascuna c'è una pallina; un'unica leva le lascia andare tutte nello stesso istante.",
+        "which": "Quella dritta è la più corta — e non la prima. La più veloce scende sotto il traguardo e alla fine risale fino a esso. Su un'altra pista, una valle curva, palline lasciate andare da altezze diverse raggiungono tutte il fondo nello stesso momento."
+      },
+      "curves": {
+        "line": "Linea retta",
+        "cycloid": "Cicloide",
+        "circle": "Arco di circonferenza",
+        "parabola": "Parabola",
+        "hyperbola": "Partenza ripida",
+        "hump": "Gobba lungo il tragitto"
+      },
+      "balls": {
+        "solid": "Pallina piena",
+        "hollow": "Pallina cava",
+        "sliding": "Blocchetto che scivola"
+      },
+      "play": {
+        "title": "Le lasci andare",
+        "hint": "Avvii la corsa e osservi dove si trova ciascuna pallina. I tempi accanto ai colori sono quelli del motore di calcolo, nell'ordine in cui arrivano le palline. Alla bandierina ogni pista finisce e la pallina vola avanti fino a una vasca imbottita, dove finiscono tutte e sei insieme.",
+        "start": "Avvia",
+        "pause": "Pausa",
+        "run": "Riprendi",
+        "view": "Sei piste da un'unica partenza a un unico traguardo, con una pallina su ciascuna",
+        "auto": "Automatico: una corsa dopo l'altra",
+        "auto_hint": "La corsa riparte poco dopo l'arrivo dell'ultima pallina.",
+        "speed": "Velocità",
+        "speeds": {
+          "1": "Tempo reale",
+          "0_25": "¼",
+          "0_1": "⅒"
+        }
+      },
+      "motion": {
+        "hint": "La velocità e l’accelerazione di ogni pallina, come frecce da un unico punto e come numeri: x verso destra, y verso l’alto. Sulla sua pista la gravità accelera la pallina lungo di essa e la pista la fa curvare; in aria ogni pallina cade con la sola g, tutte le frecce uguali; nella vasca ogni urto contro l’imbottitura o un’altra pallina è uno strappo ben oltre la scala — la media su 5 ms, disegnata tratteggiata, il suo valore nella tabella.",
+        "velocity": "Velocità",
+        "acceleration": "Accelerazione",
+        "velocity_label": "La velocità di ogni pallina come freccia da un unico punto",
+        "acceleration_label": "L’accelerazione di ogni pallina come freccia da un unico punto",
+        "table": "Il tempo, la velocità e l’accelerazione di ogni pallina, per posizione",
+        "track": "Pista",
+        "time": "Tempo"
+      },
+      "change": {
+        "title": "Modifichi l'exhibit",
+        "hint": "Le dimensioni reali dell'exhibit non sono pubblicate; si assume una pista da tavolo. Ogni modifica fa ripartire la corsa.",
+        "drop": "Dislivello fino al traguardo",
+        "run": "Distanza orizzontale fino al traguardo",
+        "run_hint": "Oltre π/2 volte il dislivello, la cicloide scende sotto il traguardo. Sotto 1,1 volte il dislivello, la gobba farebbe saltare la pallina dalla sua cima e l’arco di circonferenza si ripiegherebbe sopra la propria partenza; per questo la distanza si ferma lì.",
+        "ball": "Che cosa scende"
+      },
+      "valley": {
+        "title": "La valle dove arrivano tutte insieme",
+        "hint": "Quattro palline lasciate andare insieme da altezze diverse, in una valle cicloidale e, accanto, in una conca circolare con la stessa curvatura sul fondo.",
+        "let_go": "Lascia andare",
+        "cycloid": "Valle cicloidale",
+        "circle": "Conca circolare",
+        "to_bottom": "Fino al fondo, da qualsiasi altezza",
+        "bowl_from": "Conca, da {{height}} cm"
+      },
+      "model": {
+        "intro": "Nient'altro che la gravità spinge le palline, e la pista si limita a guidarle. Perciò la velocità in ogni punto dipende soltanto dall'altezza.",
+        "speed": "Quanto va veloce la pallina a un'altezza h sotto la partenza: qualunque cosa abbia fatto la pista lungo il tragitto. Una pallina che rotola sente lungo la pista solo g′ della gravità — il resto va nella sua rotazione.",
+        "time": "Il tempo di una pista: la sua lunghezza, tratto per tratto, divisa per la velocità su ciascun tratto. La pista più veloce non è la più corta, ma quella che prende velocità presto.",
+        "cycloid": "La cicloide, la curva che disegna un punto sul bordo di una ruota che rotola: passando per la partenza e il traguardo è la pista più veloce di tutte (Bernoulli, 1696), e il suo tempo ha una forma chiusa.",
+        "line": "La retta, per confronto: la pista più corta, e una pista lenta.",
+        "valley": "In una valle cicloidale ogni pallina raggiunge il fondo dopo lo stesso tempo, da qualunque altezza parta (Huygens, 1659: la tautocrona). In una conca circolare una pallina che parte più in alto arriva più tardi — un pendolo oscilla tanto più lentamente quanto più ampia è l'oscillazione."
+      },
+      "symbols": {
+        "v": "la velocità della pallina",
+        "h": "quanto si trova sotto la partenza",
+        "g_share": "la gravità che una pallina che rotola sente lungo la pista",
+        "k": "quanta parte della massa della pallina si trova lontano dal suo centro: 2/5 piena, 2/3 cava, 0 che scivola",
+        "time": "il tempo della pista, dalla partenza al traguardo",
+        "ds": "un breve tratto della pista",
+        "r": "il raggio della ruota che disegna la cicloide",
+        "theta": "di quanto ha girato quella ruota",
+        "theta_b": "di quanto ha girato al traguardo",
+        "run": "la distanza orizzontale del traguardo",
+        "drop": "quanto si trova il traguardo sotto la partenza",
+        "bowl": "il raggio della conca",
+        "phi0": "l'angolo da cui parte una pallina nella conca",
+        "elliptic": "l'integrale ellittico completo di prima specie"
+      },
+      "computed": {
+        "system": "Qui il tempo non avanza passo per passo: la velocità a ogni altezza è nota, quindi il tempo di ciascuna pista è un solo integrale lungo di essa. Alla partenza la velocità è zero e l'integranda diverge; il cambio di variabile p = u² elimina il problema, e la regola dei trapezi su 1440 passi ne fa la somma fino a una parte su dieci milioni. La stessa somma, conservata man mano, è la tabella di marcia di ciascuna pallina per l'animazione.",
+        "p": "quanto si è avanzati lungo la pista, da 0 alla partenza a 1 al traguardo",
+        "r": "il punto della pista in p",
+        "u": "la radice quadrata di p, che addolcisce la partenza"
+      },
+      "sweet": {
+        "shortest": "La retta è la pista più corta e impiega {{line}} s; la cicloide, più lunga, impiega {{cycloid}} s. A vincere è la velocità presa presto: su una pista che all'inizio scende ripida, la pallina va veloce per gran parte del tragitto.",
+        "dips": "Per questo traguardo la pista più veloce scende {{below}} cm sotto il traguardo e risale nell'ultimo tratto: la velocità guadagnata scendendo più in basso vale la risalita.",
+        "no_dip": "Per questo traguardo la cicloide non ha bisogno di scendere sotto il traguardo; renda la distanza orizzontale maggiore di π/2 volte il dislivello e lo farà.",
+        "galileo": "Galileo pensava nel 1638 che il cerchio fosse il più veloce; ci va vicino, con {{circle}} s, ma la cicloide lo batte.",
+        "same_speed": "Ogni pallina taglia il traguardo alla stessa velocità, {{speed}} m/s: la velocità dipende solo dall’altezza da cui è scesa, mai dalla pista. La gara la decide solo il tempo.",
+        "throw_up": "Dopo la bandierina ogni pallina vola avanti nella direzione in cui punta la sua pista alla fine: quella della cicloide verso l’alto — risale al traguardo da sotto ed era ancora più veloce nel suo punto più basso — quella della retta verso il basso. Nella vasca rimbalzano, rotolano e si urtano finché tutte e sei giacciono insieme sul fondo.",
+        "throw_down": "Dopo la bandierina ogni pallina vola avanti nella direzione in cui punta la sua pista alla fine — per questo traguardo perfino quella della cicloide verso il basso, perché non scende sotto il traguardo. Nella vasca rimbalzano, rotolano e si urtano finché tutte e sei giacciono insieme sul fondo.",
+        "rolling": "Una pallina che rotola è più lenta su ogni pista dello stesso fattore, {{factor}}, rispetto a un blocchetto che scivola senza attrito — perciò l'ordine non cambia mai, e la cicloide è la più veloce per qualsiasi pallina."
+      }
+    },
+    "elephant": {
+      "view": "L'elefante di lato, che soffia verso l'alto attraverso la proboscide, con la palla in aria sopra di essa",
+      "at": {
+        "blow": "Un elefante sta in piedi con la proboscide sollevata e soffia un flusso d'aria costante dritto verso l'alto. Accanto c'è una palla gonfiabile di circa 15 cm di diametro.",
+        "float": "Se appoggia la palla sulla punta della proboscide, la palla si stacca, sale di un palmo e resta lì, oscillando un poco. Se le dà un colpetto, torna al suo posto."
+      },
+      "play": {
+        "title": "Sulla proboscide",
+        "hint": "La palla poggia sulla proboscide finché l'aria non la solleva. Cambi l'aria, inclini la proboscide o spinga la palla, e osservi dove l'aria la trattiene, e quando non ci riesce più.",
+        "hint_auto": "La proboscide si inclina sempre di più, finché l'aria non riesce più a trattenere la palla; poi la palla viene rimessa sulla proboscide.",
+        "pause": "Pausa",
+        "run": "Riprendi",
+        "restart": "Ricomincia",
+        "push_left": "Spingi a sinistra",
+        "push_right": "Spingi a destra",
+        "air": "Aria che esce dalla proboscide",
+        "air_hint": "{{flow}} m³ d'aria all'ora attraverso la proboscide",
+        "tilt": "Inclinazione della proboscide",
+        "tilt_hint": "La proboscide dell'exhibit non si inclina; qui sì, per trovare dove cade la palla.",
+        "auto": "Automatico: inclinare finché cade",
+        "auto_hint": "Inclina la proboscide di {{rate}}° al secondo a partire dalla verticale finché la palla non cade fuori dal getto d'aria, poi la rimette sopra.",
+        "height": "Centro della palla sopra la proboscide",
+        "air_at_ball": "Aria all'altezza della palla",
+        "off_axis": "Scostamento dall'asse del getto",
+        "falls_at": "Cade con un'inclinazione di",
+        "resting": "Sulla proboscide: l'aria non riesce a sollevarla",
+        "floating": "Sospesa",
+        "fallen": "Caduta fuori dal getto d'aria"
+      },
+      "change": {
+        "title": "Modifichi l'exhibit",
+        "hint": "I valori reali dell'exhibit non sono pubblicati; questi corrispondono a ciò che vede un visitatore: una proboscide di circa 10 cm di diametro e una palla di circa 15 cm, sospesa a circa 30 cm di altezza. Una modifica agisce subito, sulla palla in aria.",
+        "opening": "Apertura della proboscide",
+        "diameter": "Diametro della palla",
+        "mass": "Massa della palla",
+        "coanda": "Risucchio laterale (modello)",
+        "coanda_hint": "L'unico numero assunto del modello: quanta parte del risucchio dell'aria agisce lateralmente. Circa 1 è ciò che dà la forma di una sfera; a 0 nulla trattiene la palla nel getto."
+      },
+      "model": {
+        "intro": "Sulla palla agiscono tre cose: l'aria che la spinge verso l'alto, l'aria che la attira nel getto, e il suo peso meno la spinta di Archimede dell'aria che sposta.",
+        "jet": "L'aria esce dalla proboscide come un getto che si allarga salendo: più veloce sul suo asse, più lento verso il bordo, e circa 12 cm più largo per ogni metro.",
+        "momentum": "Ciò che il getto porta verso l'alto, la sua quantità di moto, resta quella che la proboscide vi ha immesso. Perciò, allargandosi, il getto rallenta: la stessa spinta, distribuita su una larghezza maggiore.",
+        "lift": "La palla sente l'aria che copre: la resistenza aerodinamica di una sfera, calcolata sulla velocità dell'aria mediata sulla sezione trasversale della palla.",
+        "weight": "Verso il basso tira il peso, meno il peso dell'aria che la palla sposta, che per una palla gonfiabile non è trascurabile.",
+        "balance": "La palla resta sospesa dove la spinta dell'aria è esattamente questa.",
+        "side": "Fuori dall'asse, l'aria scorre più veloce lungo il lato più vicino al centro, e l'aria più veloce preme meno (Bernoulli): la palla viene richiamata indietro. Quanta parte di questo effetto agisce lateralmente è l'unico numero assunto del modello.",
+        "tilt": "Con la proboscide inclinata, il peso si divide in due: lungo il getto lo sostiene la spinta, di traverso il risucchio. La palla si abbassa verso il lato basso finché le due non si equilibrano, oppure cade appena il risucchio non ce la fa più."
+      },
+      "symbols": {
+        "u": "la velocità dell'aria",
+        "r": "la distanza dall'asse del getto",
+        "s": "la distanza dalla proboscide lungo l'asse",
+        "b": "la larghezza del getto",
+        "uc": "la velocità sull'asse",
+        "u0": "la velocità dell'aria all'uscita dalla proboscide",
+        "d": "l'apertura della proboscide",
+        "k": "quanto rapidamente si allarga il getto",
+        "rho": "la densità dell'aria",
+        "cd": "il coefficiente di resistenza aerodinamica di una sfera",
+        "f": "la spinta dell'aria",
+        "area": "la sezione trasversale della palla",
+        "m": "la massa della palla",
+        "v": "il volume della palla",
+        "g": "l'accelerazione di gravità",
+        "cb": "la quota del risucchio che agisce lateralmente",
+        "phi": "la direzione verso un punto della sezione trasversale, misurata dal lato più vicino all'asse",
+        "beta": "l'inclinazione della proboscide",
+        "fs": "il richiamo laterale",
+        "w": "la velocità dell'aria relativa alla palla",
+        "p": "la posizione della palla",
+        "mean": "la velocità dell'aria all'altezza della palla, mediata sulla sua sezione trasversale",
+        "a": "l'asse del getto",
+        "n": "di traverso all'asse, verso il suo lato basso",
+        "y": "dritto verso l'alto"
+      },
+      "computed": {
+        "system": "Quattro equazioni differenziali, posizione e velocità della palla in orizzontale e in verticale, risolte con il metodo di Runge–Kutta del quarto ordine ogni 2 ms. Gli integrali sulla sezione trasversale della palla sono somme su 288 punti, le stesse nei valori e nel Suo browser, perciò la palla si ferma esattamente dove dicono i valori.",
+        "inertia": "la massa della palla, più metà della massa dell'aria che sposta, che deve muoversi con essa"
+      },
+      "sweet": {
+        "height": "Perché resta alla sua altezza: più in alto il getto è più largo della palla, che ne cattura meno e scende; più in basso ne cattura di più e sale. Resta sospesa dove la spinta incrocia il suo peso, {{height}} cm sopra la proboscide, e oscilla attorno a quel punto {{bob}} volte al secondo, mentre l'aria la smorza.",
+        "middle": "Perché resta al centro: spinta di lato, la palla viene richiamata dall'aria più veloce sul suo lato interno, tanto più forte quanto più si allontana, fino a circa {{offset}} cm dall'asse. Oltre, sta uscendo dal getto.",
+        "rise": "Dalla proboscide alla sua altezza: la palla sale oltre, torna indietro e si assesta, e l'oscillazione si spegne come quella di una molla smorzata. La curva è la simulazione del motore di calcolo per il montaggio sullo schermo, la stessa che la pagina riproduce sopra.",
+        "tilt": "Quanto può inclinarsi la proboscide: fino a {{limit}}°. Prima di allora la palla sta più in basso e verso il lato basso; a {{limit}}° il risucchio non riesce più a trattenere la quota del peso che tira di traverso al getto.",
+        "lift_off": "Già per staccare la palla dalla proboscide l'aria deve essere abbastanza veloce: da {{speed}} m/s in su.",
+        "buoyancy": "Una palla gonfiabile sposta aria che pesa il {{share}} % del suo stesso peso: una parte che il getto non deve sostenere.",
+        "assumed": "Che cosa si assume: la forma del getto subito all'uscita della proboscide (un getto reale mantiene sull'asse tutta la sua velocità per i primi diametri), un coefficiente di resistenza aerodinamica di 0,47 per una palla liscia e la quota laterale del risucchio. I valori sono quelli del modello, non quelli dell'exhibit al centimetro.",
+        "none": "Questa palla non resta sospesa: l'aria la stacca dalla proboscide solo da {{speed}} m/s in su."
+      },
+      "chart": {
+        "lift": "Spinta dell'aria",
+        "weight": "Peso meno spinta di Archimede",
+        "height": "Centro della palla sopra la proboscide",
+        "side": "Richiamo verso l'asse",
+        "offset": "Scostamento dall'asse",
+        "tilt": "Inclinazione della proboscide",
+        "sag": "Scostamento della palla dall'asse",
+        "sink": "Altezza della palla sopra la proboscide",
+        "force": "Forza",
+        "time": "Tempo"
+      },
+      "figures": {
+        "height": "Sospesa a",
+        "lift_off": "Si stacca a partire da",
+        "air": "Aria all'altezza della palla",
+        "limit": "Cade con un'inclinazione di",
+        "bob": "Oscilla",
+        "flow": "Aria attraverso la proboscide"
+      }
+    },
+    "smoke": {
+      "view": "Il tamburo di fumo in sezione, con la membrana abbassata dall'anello rigido attorno al foro, e l'anello di fumo che ne esce volando verso l'alto",
+      "at": {
+        "drum": "Un tamburo largo e piatto, di quasi due metri di diametro e pieno di fumo, sta all'altezza dei fianchi. Il suo lato superiore è una membrana tesa con un foro di 30 cm al centro, bordato da un anello rigido che si preme verso il basso.",
+        "press": "Se preme l'anello rigido, un anello di fumo esce volando dal foro e sale attraverso la sala. Se preme troppo forte, il fumo si limita a disperdersi in vortici; se preme troppo piano, non succede proprio nulla. Circa mezzo secondo è l'ideale."
+      },
+      "play": {
+        "title": "Al tamburo",
+        "hint": "Trascini giù l'anello rigido e lo lasci andare, in fretta o lentamente, oppure prema il pulsante: è la rapidità a decidere se un anello vola.",
+        "hint_auto": "Tre pressioni di seguito: un colpo secco, mezzo secondo e una spinta lenta — uno sbuffo informe, un anello e niente.",
+        "press": "Premi",
+        "pause": "Pausa",
+        "run": "Riprendi",
+        "restart": "Ricomincia",
+        "auto": "Automatico: tre pressioni",
+        "auto_hint": "Un colpo secco di {{fast}} s, una pressione di {{best}} s e una spinta lenta di {{slow}} s, uno dopo l'altro.",
+        "duration": "Durata della pressione",
+        "depth": "Quanto a fondo",
+        "drag": "Oppure trascini giù l'anello rigido nel disegno e lo lasci andare.",
+        "last": "Ultima pressione",
+        "jet": "Aria che esce dal foro",
+        "reynolds": "Numero di Reynolds dell'anello",
+        "speed": "Velocità dell'anello",
+        "force": "Forza sulla mano",
+        "verdict": {
+          "ring": "Vola un anello",
+          "too_fast": "Troppo forte: il fumo si disperde in vortici",
+          "too_slow": "Troppo piano: il fumo va alla deriva",
+          "none": "Prema l'anello rigido"
+        }
+      },
+      "change": {
+        "title": "Modifichi l'exhibit",
+        "hint": "I valori reali dell'exhibit non sono pubblicati; questi corrispondono a ciò che vede un visitatore: un tamburo di circa 1,9 m, profondo 30 cm, un foro di 30 cm, premuto al massimo di 8 cm.",
+        "diameter": "Diametro del tamburo",
+        "hole": "Foro",
+        "ring": "Anello rigido attorno al foro",
+        "stroke": "Pressione più profonda",
+        "tension": "Tensione della membrana",
+        "tension_hint": "Assunta: quanto è tesa la membrana. Cambia solo la forza sulla mano, non l'anello.",
+        "draught": "Corrente d'aria nella sala (modello)",
+        "draught_hint": "Un anello più lento dell'aria nella sala viene portato via prima di formarsi. Impostata in modo che una pressione più lenta di circa 1,2 s non produca nulla.",
+        "turbulent": "Turbolento da (modello)",
+        "turbulent_hint": "Oltre questo numero di Reynolds l'anello è turbolento e sfuma il suo fumo. Impostato in modo che una pressione più rapida di circa 0,2 s non produca alcun anello visibile."
+      },
+      "model": {
+        "intro": "La pressione spinge l'aria fuori dal tamburo; l'aria che esce dal foro si arrotola in un anello; quanto è veloce e quanto è intenso l'anello decide se vola.",
+        "area": "L'anello rigido spinge giù la membrana, e la membrana tra l'anello rigido e il bordo assume la forma di una membrana tesa. Il tamburo perde questo volume per ogni centimetro di pressione.",
+        "jet": "Questo volume esce dal foro, che è undici volte più piccolo: l'aria esce undici volte più veloce di quanto scenda la mano.",
+        "circulation": "L'aria spinta fuori si arrotola in un anello vorticoso; la sua circolazione, quanto forte vortica, è metà dell'integrale del quadrato della velocità dell'aria.",
+        "formation": "Un anello non assorbe più di una colonna d'aria lunga quattro diametri del foro; una più lunga si lascia dietro un getto. Qui una pressione completa ne dà tre.",
+        "speed": "Un anello vola a una velocità fissata dalla sua circolazione e dalle sue dimensioni, tanto più veloce quanto più forte vortica.",
+        "reynolds": "Il suo numero di Reynolds dice quanto è turbolento: oltre una soglia l'anello cede il suo fumo alla scia.",
+        "hand": "La mano sente la molla della membrana e la contropressione dell'aria, che cresce con il quadrato della rapidità."
+      },
+      "symbols": {
+        "v": "il volume spinto fuori",
+        "x": "quanto è premuto l'anello rigido",
+        "aeff": "l'area efficace del tamburo",
+        "rbig": "il raggio del tamburo",
+        "a": "il raggio dell'anello rigido attorno al foro",
+        "rh": "il raggio del foro",
+        "u": "la velocità dell'aria che esce dal foro",
+        "ah": "l'area del foro",
+        "gamma": "la circolazione dell'anello",
+        "t": "il tempo",
+        "l": "la lunghezza della colonna d'aria spinta fuori",
+        "d": "il diametro del foro",
+        "uring": "la velocità dell'anello",
+        "rring": "il raggio dell'anello",
+        "core": "il raggio del nucleo dell'anello",
+        "re": "il numero di Reynolds dell'anello",
+        "nu": "la viscosità cinematica dell'aria",
+        "f": "la forza sulla mano",
+        "k": "la rigidezza della membrana",
+        "tension": "la tensione della membrana",
+        "rho": "la densità dell'aria",
+        "z": "l'altezza dell'anello sopra il foro",
+        "alpha": "quanto rapidamente si allarga un anello turbolento"
+      },
+      "computed": {
+        "system": "La pressione in sé non richiede passi nel tempo: la circolazione dell'anello è una somma sulla pressione così come viene campionata, anche quando è Lei a trascinare l'anello rigido. Il volo è dato da due equazioni differenziali, altezza e raggio, risolte con il metodo di Runge–Kutta del quarto ordine ogni 10 ms: un anello laminare mantiene le sue dimensioni e rallenta solo perché la viscosità ne ispessisce il nucleo; uno turbolento si allarga in volo, conservando il suo impulso, e rallenta con il cubo delle sue dimensioni.",
+        "a0": "il raggio del nucleo quando l'anello si forma"
+      },
+      "sweet": {
+        "window": "La rapidità è tutto: una pressione completa produce un anello tra {{fastest}} s e {{slowest}} s, al meglio verso {{best}} s.",
+        "fast": "Più in fretta, l'anello vortica così forte da diventare turbolento e sparge il suo fumo nell'aria.",
+        "slow": "Più lentamente, si muove meno veloce dell'aria stessa della sala, che porta via lo sbuffo prima che si sia formato.",
+        "both": "Entrambe crescono insieme con la rapidità — l'intensità dell'anello e la sua velocità —, ed è per questo che la finestra ha due estremi.",
+        "force": "E la mano paga per una pressione rapida: la contropressione dell'aria cresce con il quadrato della rapidità, {{fast}} N per un colpo secco contro {{slow}} N per una spinta lenta, dove conta solo la membrana.",
+        "assumed": "Che cosa si assume: le due soglie, tarate sull'exhibit (un anello riesce meglio con circa mezzo secondo), le dimensioni dell'anello e del suo nucleo, come le hanno gli anelli misurati, e la tensione della membrana. L'oscillazione propria della membrana e il risucchio al rilascio sono tralasciati.",
+        "none": "Con queste impostazioni nessuna pressione produce un anello: la finestra si è chiusa."
+      },
+      "chart": {
+        "duration": "Durata della pressione",
+        "reynolds": "Numero di Reynolds",
+        "threshold": "Turbolento da",
+        "speed": "Velocità dell'anello",
+        "draught": "Corrente d'aria nella sala",
+        "force": "Forza sulla mano"
+      },
+      "figures": {
+        "fastest": "Pressione più rapida",
+        "slowest": "Pressione più lenta",
+        "best": "Pressione migliore",
+        "ratio": "Aria in uscita, per velocità della mano",
+        "stroke": "Colonna d'aria, in diametri del foro"
+      }
+    },
+    "cannon": {
+      "view": "La pila da vicino, alla scala delle palle: il filo, il pavimento e le palle dove si trovano nella caduta, schiacciate l'una nell'altra finché si toccano",
+      "climb_view": "Tutta la risalita: ogni palla come un punto, e un segno dove la palla in cima ha invertito il moto",
+      "at": {
+        "balls": "Tre palle gommose, di circa 10, 7 e 5 cm di diametro, sono infilate su un filo d'acciaio che si alza verticale dal pavimento, la più grande in basso.",
+        "drop": "Le sollevi insieme, impilate, e le lasci andare. La palla grande colpisce il pavimento e quella piccola in cima schizza su lungo il filo, molto più in alto del punto da cui l'ha lasciata cadere."
+      },
+      "play": {
+        "title": "Al filo",
+        "hint": "Trascini la pila verso l'alto nel disegno e la lasci andare, oppure imposti l'altezza e prema “Lascia cadere”: la risalita della palla piccola è segnata a destra, e sotto compaiono le forze dell'impatto.",
+        "hint_auto": "Una palla, poi due, poi tre, ogni volta dalla stessa altezza: osservi come cresce la risalita della palla in cima.",
+        "pause": "Pausa",
+        "run": "Riprendi",
+        "restart": "Ricomincia",
+        "height": "Altezza della palla in basso",
+        "drop": "Lascia cadere",
+        "drag": "Oppure trascini la pila verso l'alto nel disegno e la lasci andare.",
+        "slow": "Rallentatore all'impatto",
+        "slow_hint": "Le palle si toccano per circa dieci millesimi di secondo; rallentate cento volte, si vede come si schiacciano l'una nell'altra.",
+        "auto": "Automatico: una, due, tre palle",
+        "auto_hint": "Lascia cadere la palla in basso da sola, poi le due in basso, poi tutte e tre, ancora e ancora.",
+        "launch": "La palla in cima parte a",
+        "apex": "Punto più alto della palla in cima",
+        "times": "Risalita rispetto alla caduta",
+        "of_one": "Ultima caduta: una palla da {{height}} m.",
+        "of_other": "Ultima caduta: {{count}} palle da {{height}} m."
+      },
+      "forces": {
+        "title": "Le forze all'impatto",
+        "contact": "Contatto",
+        "peak": "Forza massima",
+        "squash": "Schiacciamento",
+        "duration": "Durata",
+        "impulse": "Impulso",
+        "force": "Forza",
+        "time": "Tempo dal primo contatto",
+        "floor_contact": "Pavimento – {{ball}}",
+        "ball_contact": "{{lower}} – {{upper}}"
+      },
+      "change": {
+        "title": "Modifichi la pila",
+        "hint": "Le palle dell'exhibit hanno circa 10, 7 e 5 cm di diametro e sono di un elastomero; quanto siano elastiche e quanto rigide è una stima, e può cambiarlo Lei.",
+        "count": "Quante palle",
+        "balls_one": "{{count}} palla",
+        "balls_other": "{{count}} palle",
+        "flip": "Capovolgi la pila",
+        "ball_0": "Palla in basso",
+        "ball_1": "Palla centrale",
+        "ball_2": "Palla in cima",
+        "gap": "Distanza tra le palle",
+        "gap_hint": "Se le palle si toccano, i loro contatti si sovrappongono e il cannone è debole; a qualche millimetro di distanza, gli urti si susseguono uno dopo l'altro.",
+        "youngs": "Rigidezza dell'elastomero (modulo di Young)",
+        "youngs_hint": "Una stima: la gomma morbida ha da 1 a 10 MPa. Determina quanto forte e quanto brevemente premono le palle, e cambia la risalita solo di poco.",
+        "floor_e": "Rimbalzo sul pavimento",
+        "e_hint": "La quota della velocità di avvicinamento che un contatto restituisce: 1 non perde nulla, una palla di elastomero circa 0,85.",
+        "ball_e": "Rimbalzo tra due palle"
+      },
+      "model": {
+        "intro": "Ogni palla si muove secondo la seconda legge di Newton, tutte insieme: la gravità e l'aria la tirano, il contatto sotto la spinge verso l'alto e il contatto sopra verso il basso. Le palle si toccano solo dove si schiacciano l'una nell'altra.",
+        "motion": "Massa per accelerazione della palla i è il suo peso, la resistenza dell'aria e le due forze di contatto — un'equazione per palla, risolte insieme.",
+        "hertz": "Due palle schiacciate l'una nell'altra di una compenetrazione δ si respingono con la forza di Hertz, che cresce con δ elevato alla potenza uno e mezzo. Lo smorzamento tra parentesi sottrae energia mentre si avvicinano e si separano, così che un contatto restituisce la frazione e della sua velocità di avvicinamento.",
+        "stiffness": "La rigidezza di un contatto deriva dal modulo di Young e dal coefficiente di Poisson dell'elastomero e dai due raggi; il pavimento è considerato rigido.",
+        "textbook": "La scorciatoia dei libri di testo: ogni urto istantaneo e concluso prima del successivo, nessuna perdita, e ogni palla molto più leggera di quella sottostante. Allora ogni palla parte con questa velocità, il che dà 3v per due palle e 7v per tre — e una palla che parte a 7v sale 49 volte l'altezza da cui è caduta.",
+        "real": "Le palle vere restano al di sotto: le loro masse non sono molto diverse, ogni contatto perde un po' di energia, e le palle schiacciate restano a contatto per millisecondi, così le palle che si toccano premono l'una sull'altra tutte nello stesso momento anziché una dopo l'altra."
+      },
+      "computed": {
+        "system": "Le equazioni di tutte le palle come un unico sistema, l'altezza e la velocità di ogni palla, calcolate con Runge–Kutta: ogni mezzo millisecondo finché le palle volano libere, ogni 10 microsecondi finché un contatto è chiuso o sta per chiudersi."
+      },
+      "symbols": {
+        "y": "l'altezza della palla i",
+        "m": "la sua massa",
+        "g": "l'accelerazione di gravità",
+        "rho": "la densità dell'aria",
+        "cd": "il coefficiente di resistenza aerodinamica di una sfera",
+        "a": "la sua sezione trasversale",
+        "f": "la forza nel contatto sotto la palla i",
+        "delta": "quanto le due si schiacciano l'una nell'altra",
+        "ddelta": "quanto rapidamente lo fanno, ora e al primo contatto",
+        "e": "quanta parte della velocità di avvicinamento restituisce un contatto",
+        "k": "la rigidezza del contatto",
+        "young": "il modulo di Young dell'elastomero",
+        "nu": "il suo coefficiente di Poisson, 0,5 per la gomma",
+        "r": "i raggi delle due palle",
+        "v": "la velocità della pila al pavimento",
+        "uk": "la velocità di partenza della palla k",
+        "n": "il numero di palle",
+        "hh": "la risalita della palla in cima, e l'altezza da cui è caduta la pila",
+        "u": "la velocità della palla i",
+        "kdrag": "l'intensità della resistenza aerodinamica per una palla di quelle dimensioni e di quel peso",
+        "dt": "il passo"
+      },
+      "sweet": {
+        "climb_one": "Lasciata cadere da sola da {{height}} m, una palla risale {{times}} volte quell'altezza.",
+        "climb_other": "Se {{count}} palle impilate vengono lasciate cadere da {{height}} m, quella in cima sale {{times}} volte quell'altezza, fino a {{apex}} m.",
+        "level_one": "{{count}} palla",
+        "level_other": "{{count}} palle",
+        "speeds": "La pila arriva al pavimento a {{impact}} m/s e la palla in cima parte a {{launch}} m/s. Con urti istantanei uno dopo l'altro partirebbe a {{sequential}} m/s; se in più non ci fossero perdite, a {{ideal}} m/s; se ogni palla fosse molto più leggera di quella sottostante, a {{textbook}} m/s.",
+        "overlap": "La differenza tra i primi due valori è lo schiacciamento. Le palle che si toccano non si urtano una dopo l'altra: quella centrale preme già in quella in basso mentre questa si sta ancora schiacciando contro il pavimento, e quella in cima preme su entrambe. Spinta verso il basso dall'alto mentre cerca di rimbalzare, la palla in basso trasmette meno.",
+        "forces": "Il pavimento spinge indietro con fino a {{force}} kN — circa {{weight}} volte il peso della palla in basso — mentre la palla si schiaccia di {{squash}} mm, per circa {{duration}} millesimi di secondo.",
+        "gap": "Tenga le palle a qualche millimetro l'una dall'altra e i contatti si susseguono uno dopo l'altro: la risalita raggiunge quasi ciò che darebbero urti istantanei. Provi la distanza.",
+        "masses": "Il 7v dei libri di testo richiede che ogni palla sia molto più leggera di quella sottostante. Queste pesano {{masses}} g: la palla centrale pesa un terzo di quella in basso, quella in cima un terzo di quella centrale.",
+        "energy": "Eppure il {{share}} % dell'energia con cui l'intera pila ha colpito il pavimento se ne va nella palla più piccola.",
+        "flip": "Capovolga la pila e non vola niente: una palla leggera in basso non può spingere in alto una pesante.",
+        "name": "Perché un cannone: i libri di fisica lo chiamano cannone di Galileo, perché la palla piccola viene sparata dritta verso l'alto fuori dalla pila, come dalla canna di un cannone. Nulla viene sparato di lato.",
+        "assumed": "Che cosa si assume: palle piene di 1100 kg/m³, la rigidezza dell'elastomero e quanto è elastico, contatti che seguono la legge di Hertz con uno smorzamento che restituisce una quota fissa della velocità di avvicinamento, e un pavimento rigido. L'attrito sul filo e la rotazione delle palle sono tralasciati."
+      }
+    }
+  }
+}

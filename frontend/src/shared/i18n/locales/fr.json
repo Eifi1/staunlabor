@@ -1,0 +1,984 @@
+{
+  "app": {
+    "name": "Staunlabor",
+    "tagline": "Des expositions interactives, calculées"
+  },
+  "common": {
+    "cancel": "Annuler",
+    "delete": "Supprimer",
+    "close": "Fermer",
+    "loading": "Chargement…",
+    "reset": "Réinitialiser",
+    "open": "Ouvrir",
+    "language": "Langue",
+    "theme_toggle": "Basculer clair / sombre",
+    "error": "Une erreur s'est produite.",
+    "edit": "Modifier",
+    "saving": "Enregistrement…"
+  },
+  "site": {
+    "footer": {
+      "label": "Pages",
+      "about": "À propos de Staunlabor",
+      "imprint": "Mentions légales",
+      "privacy": "Confidentialité",
+      "source": "Code source",
+      "issues": "Signaler un problème ou proposer une idée",
+      "licence": "Code sous licence MIT, textes et dessins sous CC BY 4.0. Indépendant et non commercial.",
+      "version": "Version {{version}}"
+    },
+    "about": {
+      "title": "À propos de Staunlabor",
+      "lead": "Des expositions interactives, calculées — gratuites, sans inscription et sans publicité.",
+      "what": "Staunlabor reprend des expositions telles qu’on en trouve dans un centre de sciences — un ballon qui flotte sur un jet d’air, un anneau de fumée sorti d’un tambour, trois balles lâchées empilées — et vous laisse jouer le visiteur devant le jumeau de chaque exposition. Ensuite, chaque page montre ce qui se passe : les équations du mouvement, la façon de les résoudre et l’idée qui explique le tour.",
+      "computed": "Chaque nombre provient du moteur de calcul propre au site et est garanti par ses tests. Ce qui bouge est calculé par votre navigateur, selon les mêmes étapes que le moteur de calcul ; ce que modifie un curseur est calculé par le serveur.",
+      "model": "Les expositions s’inspirent d’expositions du Swiss Science Center Technorama, à Winterthour. Staunlabor est un projet indépendant, sans lien avec le Technorama ; tous les dessins et tous les textes lui sont propres.",
+      "open": "Staunlabor est libre : le code est sous licence MIT, les textes et les dessins sous CC BY 4.0. Vous pouvez les réutiliser en citant la source, y compris dans l’enseignement.",
+      "feedback": "Une erreur, un point peu clair, ou une exposition que vous aimeriez voir ?",
+      "issues": "Signalez-le sur GitHub",
+      "source": "Voir le code source"
+    }
+  },
+  "legal": {
+    "impressum": {
+      "disclaimer": {
+        "body": "Staunlabor est un projet privé et non commercial, proposé sans garantie. Les sites externes vers lesquels nous renvoyons relèvent de la responsabilité de leurs exploitants respectifs ; nous n’avons aucun contrôle sur leur contenu."
+      }
+    },
+    "privacy": {
+      "data": {
+        "title": "Quelles données nous traitons",
+        "body": "Staunlabor n’a ni comptes, ni base de données, ni formulaires. Lorsque vous modifiez une exposition, votre navigateur envoie ses valeurs — par exemple le diamètre d’une balle ou une hauteur de chute — au serveur, qui en calcule des grandeurs caractéristiques et des courbes et vous les renvoie ; rien de tout cela n’est enregistré.\n\nDonnées techniques : notre hébergeur enregistre chaque requête — l’heure, l’adresse demandée, votre adresse IP et le type de navigateur — afin d’exploiter et de sécuriser le service. Pour limiter le nombre de calculs par adresse, le serveur garde brièvement votre adresse IP en mémoire vive ; elle n’est pas enregistrée."
+      },
+      "legal_basis": {
+        "site": "Il n’y a ni suivi, ni outil d’analyse, ni cookies, ni publicité."
+      },
+      "third_parties": {
+        "title": "Hébergement et sous-traitants",
+        "body": "Le site fonctionne sur Google Cloud dans l’Union européenne (europe-west4, Pays-Bas). Google agit en tant que sous-traitant pour notre compte.\n\nCloudflare gère le DNS de staunlabor.app et transfère les e-mails envoyés à une adresse @staunlabor.app vers la boîte aux lettres de l’exploitant ; ce faisant, il traite le message ainsi que les adresses de l’expéditeur et du destinataire. Le trafic web ne passe pas par le réseau de Cloudflare.\n\nLe code source et les retours se trouvent sur GitHub. Quiconque y signale quelque chose le fait avec son compte GitHub et selon les conditions de GitHub."
+      },
+      "browser": {
+        "entries": {
+          "language": "La langue choisie",
+          "look": "Le thème clair ou sombre",
+          "tried": "Les expositions que vous avez essayées, pour que l’aperçu puisse les cocher"
+        },
+        "tail": "Rien de tout cela ne sert à vous suivre, et rien ne nous en est envoyé. Tout cela disparaît lorsque vous effacez les données du site dans votre navigateur."
+      },
+      "transfers": {
+        "title": "Transferts de données à l’étranger",
+        "body": "Les données sont traitées dans l’UE (Pays-Bas). Google, Cloudflare et GitHub sont des entreprises établies aux États-Unis ; lorsque des données peuvent être consultées depuis l’extérieur de la Suisse et de l’UE, le transfert repose sur les clauses contractuelles types des fournisseurs et, lorsqu’ils s’appliquent, sur l’EU–US Data Privacy Framework et le Swiss–US Data Privacy Framework. La Suisse, où l’exploitant est établi, est reconnue par l’UE comme offrant un niveau de protection des données adéquat."
+      },
+      "retention": {
+        "title": "Conservation et suppression",
+        "body": "Staunlabor n’enregistre aucune donnée vous concernant. Notre hébergeur supprime ses journaux de requêtes après 30 jours. Ce que votre navigateur enregistre, vous pouvez l’effacer à tout moment dans ses paramètres."
+      }
+    }
+  },
+  "experiments": {
+    "title": "Expériences",
+    "area": "Les expériences",
+    "failed": "L’exposition n’a pas pu être calculée.",
+    "overview": {
+      "short": "Aperçu",
+      "lead": "Des expositions interactives, calculées. Jouez le visiteur devant le jumeau de l’exposition, puis découvrez le calcul derrière ce que vous avez ressenti.",
+      "how": "Chaque page commence par ce qui se trouve à l’exposition, vous laisse l’essayer, puis montre ce qui se passe et l’idée qui explique le tour. Chaque nombre vient du moteur de calcul de l’application et est garanti par ses tests.",
+      "open": "Ouvrir l’exposition",
+      "coming": "En préparation",
+      "credit": "Inspiré d’expositions du Swiss Science Center Technorama, Winterthour.",
+      "daily": {
+        "eyebrow": "Expérience du jour",
+        "open": "Essayez",
+        "today": "Aujourd’hui"
+      },
+      "history": {
+        "title": "Les expériences des derniers jours",
+        "open": "Jours précédents"
+      },
+      "all": "Toutes les expositions",
+      "topics_label": "Filtrer par thème",
+      "all_topics": "Tous les thèmes",
+      "tried": {
+        "label": "Essayées sur cet appareil",
+        "count": "{{tried}} sur {{total}}",
+        "mark": "Essayée",
+        "forget": "Oublier"
+      },
+      "builds_on": "S’appuie sur :"
+    },
+    "topics": {
+      "momentum": "Quantité de mouvement",
+      "angular_momentum": "Moment cinétique",
+      "energy": "Énergie",
+      "oscillation": "Oscillation",
+      "flow": "Écoulement",
+      "induction": "Induction",
+      "perception": "Perception"
+    },
+    "frame": {
+      "eyebrow": "Exposition",
+      "at_the_exhibit": "À l’exposition",
+      "try_it": "Essayez",
+      "what_happens": "Ce qui se passe",
+      "sweet_spot": "Le tour",
+      "computed": "Comment c’est calculé"
+    },
+    "exhibits": {
+      "chair": {
+        "short": "La chaise",
+        "title": "La chaise qui est trois choses",
+        "summary": "Trois judas, une chaise — et derrière, une chaise, une chaise déformée et des tiges qui ne se touchent nulle part.",
+        "question": "Comment trois choses différentes peuvent-elles apparaître comme la même chaise à travers un judas ?"
+      },
+      "coil": {
+        "short": "Aimant et bobine",
+        "title": "La voiture à aimant et la bobine",
+        "summary": "Deux boutons, une bobine, une voiture qui porte un aimant : appuyez au bon moment et elle gravit les deux rampes.",
+        "question": "À quel moment appuyer pour que la voiture monte plus haut à chaque passage ?"
+      },
+      "sphere": {
+        "short": "Bille dans la sphère",
+        "title": "La bille dans la sphère suspendue",
+        "summary": "Faites tourner la sphère suspendue en cercles jusqu’à ce que la bille à l’intérieur parcoure son équateur.",
+        "question": "À quelle vitesse la sphère doit-elle tourner pour que la bille à l’intérieur parcoure son équateur ?"
+      },
+      "platform": {
+        "short": "La plateforme tournante",
+        "title": "La plateforme tournante",
+        "summary": "Montez dessus, faites-vous pousser et repliez-vous : plus vous êtes près de l’axe, plus vous tournez vite.",
+        "question": "De combien tournez-vous plus vite quand vous vous redressez ?"
+      },
+      "race": {
+        "short": "La course",
+        "title": "La course des courbes",
+        "summary": "Six pistes, un départ, une arrivée : quelle bille arrive la première — et la vallée où toutes arrivent ensemble.",
+        "question": "Laquelle des six pistes gagne — et est-ce la plus courte ?"
+      },
+      "elephant": {
+        "short": "L’éléphant de Bernoulli",
+        "title": "L’éléphant de Bernoulli",
+        "summary": "Posez un ballon léger sur la trompe de l’éléphant : il flotte dans l’air que celui-ci souffle, et y reste même quand on le pousse.",
+        "question": "Jusqu’où peut-on incliner le jet avant que le ballon ne tombe ?"
+      },
+      "smoke": {
+        "short": "L’anneau de fumée",
+        "title": "L’anneau de fumée",
+        "summary": "Appuyez sur la peau d’un tambour rempli de fumée et un anneau s’envole de son trou — si vous n’appuyez ni trop fort ni trop doucement.",
+        "question": "L’anneau vole-t-il plus loin si vous appuyez plus fort ?"
+      },
+      "cannon": {
+        "short": "Le canon à balles",
+        "title": "Le canon à balles",
+        "summary": "Lâchez trois balles empilées sur un fil, et la petite du dessus s’élance bien plus haut que sa hauteur de chute.",
+        "question": "À quelle hauteur monte la petite balle quand la pile tombe d’un mètre ?"
+      }
+    },
+    "chair": {
+      "kinds": {
+        "chair": "La chaise",
+        "skewed": "La chaise déformée",
+        "scattered": "Les tiges"
+      },
+      "at": {
+        "boxes": "Une longue boîte est posée sur une table, avec trois judas côte à côte à l’avant. Par chacun d’eux, on voit une chaise.",
+        "round": "Regardez ensuite dans la boîte par le côté : derrière le premier trou se trouve une chaise ; derrière le deuxième, une chaise déformée — des pieds de longueurs différentes, une assise qui n’est pas carrée ; derrière le troisième, des tiges suspendues en l’air qui ne se touchent nulle part."
+      },
+      "model": {
+        "directions": "Un œil derrière un trou voit des directions, pas des distances. Chaque point P peut glisser le long de sa ligne de visée depuis l’œil E, plus près ou plus loin, sans que l’image change :",
+        "skewed": "La chaise déformée fait glisser chaque point d’un facteur qui varie continûment sur la chaise. Cette transformation conserve chaque droite passant par l’œil : les tiges droites restent droites et les jonctions restent jointes — c’est une chaise, mais pas celle que vous croyez :",
+        "scattered": "Les tiges glissent chacune d’un facteur qui lui est propre. Chacune reste une tige orientée de la même façon, mais deux tiges qui se rejoignaient à une jonction ne se rencontrent plus que sur la ligne de visée, à deux profondeurs différentes.",
+        "cave": "Platon raconte des prisonniers dans une caverne qui ne voient que des ombres sur la paroi et les prennent pour les choses elles-mêmes. Le judas est cette paroi : une image, et une infinité d’objets qui pourraient la projeter. La vue autour de la boîte, c’est sortir de la caverne."
+      },
+      "sweet": {
+        "question": "Quelle précision faut-il au trou ? Si l’œil se décale latéralement de δ, deux points alignés aux distances d₁ et d₂ s’écartent d’environ",
+        "tolerance": "Pour ces boîtes, une jonction des tiges s’ouvre jusqu’à une minute d’arc — ce que distingue un œil exercé — après seulement {{tolerance}} mm. Un second œil, à {{baseline}} mm sur le côté, voit les écarts larges de {{binocular}}° : d’où un trou, et un œil.",
+        "brain": "Que les tiges paraissent encore une chaise à travers un trou plus large, c’est l’œuvre du cerveau : la pupille brouille un peu chaque point, et un écart flou à la mauvaise profondeur est lu comme une chaise, parce que les chaises existent. La chaise déformée ne se défait jamais — bouger l’œil ne fait que plier sa forme."
+      },
+      "figures": {
+        "tolerance": "L’œil peut bouger",
+        "binocular": "Écart, second œil",
+        "acuity": "L’œil distingue",
+        "joints": "Jonctions"
+      },
+      "equations": {
+        "slide": "Où un point peut aller sans que l’image change : n’importe où sur la droite qui va de l’œil à travers lui, plus près ou plus loin.",
+        "skew": "Une seule règle pour toute la chaise : chaque point glisse d’un facteur qui dépend de l’endroit où il se trouve, si bien que les tiges droites restent droites.",
+        "gap": "À quelle distance l’un de l’autre paraissent deux points alignés une fois que l’œil a bougé : plus leurs distances diffèrent, plus vite ils s’écartent."
+      },
+      "symbols": {
+        "p": "un point de la chaise",
+        "p_moved": "l’endroit où ce point est déplacé",
+        "eye": "l’œil, au trou",
+        "lambda": "jusqu’où le long de sa ligne de visée : au-dessus de 1 plus loin, en dessous de 1 plus près",
+        "w": "une direction fixe qui détermine comment le facteur varie sur la chaise",
+        "dot": "le produit scalaire : jusqu’où le point s’étend dans cette direction",
+        "gap": "l’angle entre les deux points, tels que l’œil les voit",
+        "delta": "de combien l’œil s’est déplacé latéralement",
+        "distances": "les distances des deux points à l’œil"
+      },
+      "auto": "Automatique : un tour complet",
+      "auto_hint": "La vue reste deux secondes aux trous, puis fait une fois le tour de la chambre et revient. Touchez un curseur pour reprendre la main.",
+      "views": {
+        "title": "Dans la chambre",
+        "hint": "Tournez et inclinez la vue : les trois bougent ensemble. À 0° et 0°, vous regardez depuis l’emplacement exact des trous — et les trois deviennent une seule chaise.",
+        "view": "{{name}}, vue depuis le point d’observation tourné",
+        "align": "Regarder par les trous",
+        "aligned": "Par les trous : une chaise, trois fois",
+        "apart": "D’ici : trois choses différentes",
+        "turn": "Tourner",
+        "tilt": "Incliner"
+      }
+    },
+    "equation": {
+      "symbols": "Ce que signifient les symboles"
+    },
+    "coil": {
+      "at": {
+        "track": "Une piste de deux rampes, à gauche et à droite, qui s’incurvent vers le haut à partir d’un plat situé entre elles. Autour du plat se trouve une bobine de fil, et une petite voiture y fait passer un aimant. Un ampèremètre numérique, de −100 à +100 mA, indique ce que la voiture induit en traversant la bobine — et rien tant qu’un bouton est maintenu enfoncé.",
+        "buttons": "Deux boutons mettent la bobine sous tension, un dans chaque sens. Appuyez sur le premier quand la voiture entre dans la bobine et sur le second dès qu’elle a passé le milieu : à chaque passage, la voiture monte plus haut sur l’autre rampe, jusqu’à atteindre le sommet de chacune."
+      },
+      "play": {
+        "title": "Aux boutons",
+        "hint": "Maintenez + enfoncé pendant que la voiture entre dans la bobine, et − dès qu’elle a passé le milieu. Trop difficile à pleine vitesse ? Ralentissez, ou laissez la règle appuyer et regardez quand elle le fait.",
+        "pause": "Pause",
+        "run": "Reprendre",
+        "restart": "Recommencer",
+        "plus": "Bouton +, attire la voiture dans la bobine",
+        "minus": "Bouton −, repousse la voiture hors de la bobine",
+        "plus_caption": "Entrée",
+        "minus_caption": "Sortie",
+        "last_peak": "Dernier point de retour",
+        "goal": "Sommet d’une rampe",
+        "tops": "Sommets atteints",
+        "time": "Temps",
+        "autopilot": "Automatique : synchronisation parfaite",
+        "autopilot_hint": "+ du pied de la rampe jusqu’au milieu, − du milieu jusqu’à l’autre rampe, avec la commutation exactement quand la voiture passe le milieu — {{window}} cm de chaque côté. La courbe sous « Le tour » montre pourquoi.",
+        "speed": "Vitesse",
+        "speeds": {
+          "1": "Temps réel",
+          "0_25": "¼",
+          "0_1": "⅒"
+        },
+        "keys": "Au clavier : maintenez + ou ← pour plus, − ou → pour moins."
+      },
+      "meter": {
+        "label": "L’ampèremètre, en milliampères",
+        "caption": "Ce que la voiture induit",
+        "buttons_label": "Le courant des boutons dans la bobine, en milliampères",
+        "buttons_caption": "Ce que les boutons font passer"
+      },
+      "track": {
+        "label": "La piste vue de côté : deux rampes, la bobine au milieu, la voiture avec son aimant"
+      },
+      "change": {
+        "title": "Modifier l’exposition",
+        "hint": "Les vraies valeurs de l’exposition ne sont pas publiées ; celles-ci sont celles d’un montage de table qui correspond à ce que voit un visiteur. Chaque modification relance la voiture.",
+        "supply": "Batterie",
+        "turns": "Spires",
+        "turns_hint": "Le même fil : plus de spires, plus de résistance, donc moins de courant — et pourtant chaque passage gagne à peu près autant.",
+        "mass": "Masse de la voiture",
+        "rolling": "Résistance au roulement",
+        "closed": "L’ampèremètre reste branché entre les appuis",
+        "closed_hint": "C’est le cas à l’exposition : l’affichage bouge quand la voiture passe en roulant, et ce courant freine un peu la voiture.",
+        "radius": "Rayon de la rampe",
+        "radius_hint": "Chaque rampe est un arc de ce rayon, qui part à l’horizontale depuis le plat : plus il est petit, plus elle monte raide et haut sur la même longueur."
+      },
+      "model": {
+        "flux_intro": "Tout part d’une courbe : la part du champ de l’aimant qui traverse les spires de la bobine, la voiture étant à un endroit donné.",
+        "flux": "Le flux de l’aimant à travers toutes les spires : maximal quand l’aimant est au milieu de la bobine, faible loin d’elle. L’aimant est traité comme un point ; pour celui-ci, l’erreur est de quelques pour cent.",
+        "coupling": "La vitesse à laquelle ce flux change quand la voiture avance : positive en entrant par la gauche, nulle au milieu, négative en sortant. Cette seule courbe joue deux rôles.",
+        "induced": "Premier rôle : la tension que l’aimant qui roule induit dans la bobine. C’est elle qui fait bouger l’ampèremètre quand personne n’appuie — un écart en entrant, l’écart opposé en sortant.",
+        "force": "Second rôle : la poussée que la bobine exerce sur la voiture quand un courant circule. Comme k change de signe au milieu, le courant doit lui aussi y changer de signe — c’est pourquoi il y a deux boutons, et pourquoi « + en entrant, − en sortant » marche dans quelque sens que roule la voiture.",
+        "circuit": "Le circuit de la bobine : la tension du bouton fait circuler le courant contre la résistance du fil et contre la tension que la voiture induit elle-même.",
+        "motion": "La voiture : la poussée de la bobine, la pesanteur le long de la piste courbe et la résistance au roulement — qui augmente dans la courbe, où la piste doit en plus faire tourner la voiture, de v²/R.",
+        "energy": "L’énergie de la batterie passe dans la vitesse et la hauteur de la voiture, dans la chaleur du fil, dans le champ propre de la bobine et dans la résistance au roulement. Le moteur de calcul tient ce bilan, et il tombe juste à un millionième près."
+      },
+      "symbols": {
+        "psi": "flux totalisé, le flux de l’aimant à travers toutes les spires",
+        "x": "la position de la voiture, comptée depuis le milieu de la bobine",
+        "mu0": "la constante magnétique",
+        "moment": "la force de l’aimant (son moment dipolaire)",
+        "turns": "le nombre de spires",
+        "length": "la longueur de la bobine",
+        "radius": "le rayon de la bobine",
+        "k": "couplage : volts par mètre par seconde, et newtons par ampère",
+        "e": "la tension induite",
+        "v": "la vitesse de la voiture",
+        "force": "la poussée de la bobine sur la voiture",
+        "i": "le courant dans la bobine",
+        "inductance": "l’inductance de la bobine",
+        "u": "la tension du bouton : +U, 0 ou −U",
+        "resistance": "la résistance du fil",
+        "mass": "la masse de la voiture",
+        "g": "l’accélération de la pesanteur",
+        "alpha": "la pente de la piste : nulle sur le plat, s/R sur l’arc d’une rampe",
+        "rolling": "résistance au roulement, une fraction du poids",
+        "tau": "la constante de temps de la bobine",
+        "gain": "le plus d’énergie qu’un passage puisse apporter",
+        "full_current": "le courant quand un bouton est maintenu",
+        "supply": "la tension de la batterie",
+        "top_speed": "la vitesse au-delà de laquelle la bobine ne peut plus pousser",
+        "arc": "la distance parcourue sur l’arc, depuis la fin du plat",
+        "ramp_radius": "le rayon des rampes"
+      },
+      "sweet": {
+        "timing": "La bobine est rapide et votre main est lente. Le courant suit un bouton en environ {{tau}} ms ; la voiture met environ {{between}} ms entre le moment d’appuyer sur + et celui d’appuyer sur −. Le jeu, ce n’est pas la bobine, c’est la main.",
+        "tau": "La rapidité avec laquelle le courant suit un bouton : au bout d’une constante de temps, il a parcouru environ les deux tiers du chemin vers sa valeur finale.",
+        "gain": "Énergie gagnée en un passage",
+        "late": "Retard de la main sur le bouton −",
+        "reading": "Comment lire la courbe : commuter à temps gagne le plus ; avec 20 ms de retard, on obtient encore environ deux tiers ; avec 30 ms de retard, la voiture n’atteint jamais le sommet ; vers 60 ms de retard, l’attraction qui reste freine la voiture. Ces valeurs valent pour le montage par défaut.",
+        "gain_bound": "Le maximum qu’un passage puisse apporter : attirer la voiture de loin jusqu’au milieu rapporte I·Ψ(0), la repousser vers l’extérieur autant. La tension induite et la résistance au roulement en prennent une partie.",
+        "top_speed": "Si bien que vous appuyiez, il y a une vitesse maximale : là où la tension que la voiture induit égale celle de la batterie, aucun courant ne circule et la bobine ne peut plus pousser."
+      },
+      "figures": {
+        "tau": "Constante de temps",
+        "between": "Entre les boutons",
+        "current": "Courant, bouton maintenu",
+        "coasting": "Courant, en roue libre",
+        "gain": "Meilleur gain par passage",
+        "speed": "Vitesse pour le sommet",
+        "vmax": "Vitesse maximale"
+      },
+      "computed": {
+        "system": "Ensemble, ce sont trois équations différentielles : elles disent à quel rythme évoluent la position de la voiture, sa vitesse et le courant dans la bobine, chacune par l’intermédiaire des autres — k(x) couple la mécanique et le circuit. Le système n’a pas de solution analytique, alors le moteur de calcul le fait avancer dans le temps pas à pas avec la méthode de Runge–Kutta classique (RK4) : toutes les {{step}} ms, soit {{steps}} pas par seconde. Votre navigateur calcule exactement les mêmes pas pendant que vous jouez.",
+        "circuit": "À lui seul, le circuit est le système du premier ordre du cours : après un appui sur un bouton, le courant monte vers U/R avec la constante de temps L/R. Le mouvement de la voiture est un système du second ordre — position et vitesse —, poussé par la bobine et tiré par la pesanteur sur les rampes.",
+        "dot": "un point indique à quelle vitesse la grandeur change dans le temps : ẋ = dx/dt",
+        "fade": "en dessous de {{fade}} mm/s, la résistance au roulement s’établit progressivement, car une voiture à l’arrêt n’a pas de sens de déplacement contre lequel elle pourrait agir",
+        "alpha": "la pente de la piste là où se trouve la voiture : nulle sur le plat, s/R sur une rampe",
+        "kappa": "la courbure de la piste : nulle sur le plat, 1/R sur une rampe — où la courbe plaque la voiture contre la piste de v²/R en plus"
+      }
+    },
+    "sphere": {
+      "at": {
+        "sphere": "Une sphère transparente est suspendue entre une corde vers le plafond et une corde vers le sol, avec une bille à l’intérieur. Les cordes la maintiennent dans un plan horizontal : vous pouvez la pousser à gauche et à droite, en avant et en arrière, ou en cercles.",
+        "push": "Poussez-la en cercles à la bonne cadence et la bille se met elle aussi à tourner, en montant le long de la paroi intérieure jusqu’à parcourir l’équateur, dans ce plan seulement. Pour la faire monter plus haut, il faut tourner plus vite — et retrouver le point idéal."
+      },
+      "play": {
+        "title": "Pousser la sphère",
+        "who": "Qui pousse",
+        "modes": {
+          "hand": "Vous",
+          "circle": "Un cercle régulier",
+          "perfect": "Automatique : synchronisation parfaite"
+        },
+        "hint_hand": "Faites glisser dans la vue de dessus : la sphère suit votre doigt comme le ferait une main. Tournez autour du milieu — lentement d’abord, environ une fois par seconde, puis plus vite à mesure que la bille monte.",
+        "hint_circle": "La sphère est poussée sur un cercle de 2 cm à la cadence que vous réglez. Changez la cadence lentement et la bille suit ; changez-la d’un coup et elle prend du retard.",
+        "hint_perfect": "La sphère est toujours poussée un quart de tour en avance sur la bille et accélère exactement à mesure que la bille monte — la synchronisation bien faite, jusqu’à environ 4 Hz, aussi vite que peut aller un bras.",
+        "pause": "Pause",
+        "run": "Reprendre",
+        "restart": "Recommencer",
+        "tempo": "Cadence",
+        "change": "Changer la cadence",
+        "slowly": "Lentement",
+        "at_once": "D’un coup",
+        "angle": "Bille, montée sur la paroi",
+        "depth": "Sous l’équateur",
+        "your_tempo": "Votre cadence",
+        "needed": "Cadence pour cette hauteur",
+        "lead": "Avance de la sphère sur la bille",
+        "reading": "En dessous de {{f0}} Hz, il n’y a pas de cercle : la bille ne fait que vaciller au fond. Chaque hauteur a sa propre cadence — la ligne du graphique — et plus c’est haut, plus c’est rapide."
+      },
+      "views": {
+        "top": "La sphère vue de dessus : faites glisser pour la pousser",
+        "top_caption": "De dessus — poussez ici",
+        "side": "La sphère vue de côté : à quelle hauteur roule la bille",
+        "side_caption": "De côté"
+      },
+      "chart": {
+        "circle": "En cercle",
+        "swing": "En va-et-vient",
+        "tempo": "Cadence",
+        "angle": "Angle depuis le bas",
+        "you": "Vous"
+      },
+      "change": {
+        "title": "Modifier l’exposition",
+        "hint": "La taille réelle de l’exposition n’est pas publiée ; on suppose une sphère de table. Chaque modification relance la bille.",
+        "shell": "Diamètre de la sphère",
+        "shell_hint": "La taille change la cadence nécessaire en bas — pas la distance sous l’équateur à laquelle la bille roule pour une cadence donnée.",
+        "ball": "Diamètre de la bille",
+        "kind": "Bille",
+        "solid": "Pleine",
+        "hollow": "Creuse",
+        "rolling": "Résistance au roulement"
+      },
+      "model": {
+        "rolling_intro": "Une bille qui roule à l’intérieur d’une sphère déplace son centre exactement comme un pendule au bout d’un fil de longueur ρ — mais sous une pesanteur plus faible.",
+        "rolling": "Une partie de la traction de la pesanteur sert à faire tourner la bille sur elle-même, si bien que son centre ne ressent que g′ : 5/7 de la pesanteur pour une bille pleine, 3/5 pour une bille creuse. C’est exact tant que la bille ne tourne pas autour de la ligne qui la relie à la paroi, et une bille partie du repos n’acquiert jamais une telle rotation.",
+        "push": "Déplacer la sphère, c’est une seconde pesanteur : dans le référentiel de la sphère, son accélération A tire la bille dans l’autre sens — avec le même facteur 5/7.",
+        "orbit": "Une bille qui tourne à la vitesse angulaire Ω roule à cette profondeur sous l’équateur. Les cercles plus rapides roulent plus haut ; l’équateur lui-même demanderait une cadence infinie. La taille de la sphère n’intervient pas.",
+        "lowest": "Le cercle le plus lent qui existe — en dessous, la bille ne fait que vaciller au fond. C’est aussi la vitesse angulaire d’une petite oscillation.",
+        "wobble": "Un cercle légèrement incliné monte et descend à ce rythme : près de l’équateur, une fois par tour — la bille n’est pas encore « dans le plan ».",
+        "swing": "Le va-et-vient, c’est l’inverse : un pendule oscille d’autant plus lentement que son amplitude est grande. En cercle, c’est d’autant plus rapide que la bille roule haut."
+      },
+      "symbols": {
+        "g_share": "la pesanteur que ressent le centre de la bille",
+        "g": "l’accélération de la pesanteur",
+        "k": "la part de la masse de la bille située loin de son centre",
+        "inertia": "le moment d’inertie de la bille",
+        "mass": "la masse de la bille",
+        "ball_radius": "le rayon de la bille",
+        "push": "l’accélération de la sphère, due à votre poussée",
+        "rho": "la distance entre le centre de la bille et celui de la sphère",
+        "shell_radius": "le rayon intérieur de la sphère",
+        "theta": "l’angle de la bille sur la paroi, compté depuis le bas",
+        "omega": "la vitesse angulaire de la bille autour de la sphère (2π fois la cadence)",
+        "depth": "la distance sous l’équateur à laquelle elle roule",
+        "omega0": "la vitesse angulaire du cercle le plus bas",
+        "wobble": "la fréquence à laquelle un cercle incliné monte et descend",
+        "amplitude": "jusqu’où l’oscillation s’écarte de chaque côté",
+        "f0": "la cadence d’une petite oscillation",
+        "elliptic": "l’intégrale elliptique complète de première espèce"
+      },
+      "sweet": {
+        "moves": "La résonance se déplace pendant que vous pompez. La cadence à laquelle vous tournez fixe la hauteur de la bille — pour la faire monter plus haut, il faut donc tourner plus vite, avec la bille, et le point idéal que vous venez de trouver a disparu.",
+        "ahead": "Une poussée travaille le plus un quart de tour en avance sur la bille : la sphère poussée vers l’endroit où va la bille. « Automatique : synchronisation parfaite » fait exactement cela, et fait monter la bille plus vite que n’importe quel balayage régulier.",
+        "too_fast": "Accélérez trop vite et la bille prend du retard et retombe. Le moteur de calcul le montre : un balayage lent de 0.7 à 2.5 Hz en 30 s porte la bille à 81° ; sauter directement à 2.5 Hz la laisse près du fond. Les physiciens appellent cela l’autorésonance. Ces valeurs valent pour le montage par défaut.",
+        "limit": "Y a-t-il une vitesse maximale ? Sur un cercle régulier, la bille fait exactement autant de tours que la sphère, et chaque hauteur a sa propre cadence — l’équateur lui-même en demanderait une infinie. La bille n’accélère donc pas sans fin d’elle-même : laissez la sphère tranquille et la bille ralentit et redescend ; la limite, c’est le bras. À 4 Hz, à peu près aussi vite qu’on peut tourner, elle roule 1.1 cm sous l’équateur, à 86°, son centre à 4.5 m/s, et la paroi la presse avec près de douze fois son poids. Ces valeurs valent pour le montage par défaut.",
+        "figures_note": "Les cadences et les profondeurs sont les orbites du moteur de calcul pour cette sphère ; la poussée nécessaire est ce que la résistance au roulement prend à cette hauteur."
+      },
+      "figures": {
+        "f0": "Cercle le plus bas",
+        "at": "Cadence à {{angle}}°",
+        "depth": "Sous l’équateur à {{angle}}°",
+        "push": "Poussée nécessaire à {{angle}}°",
+        "friction": "Adhérence nécessaire, au plus",
+        "share": "Part de la pesanteur"
+      },
+      "computed": {
+        "system": "Six équations différentielles du premier ordre : la position et la vitesse du centre de la bille en trois dimensions, avec la poussée de votre main sous la forme de A. Elles n’ont pas non plus de solution analytique, alors le moteur de calcul les fait avancer avec RK4 toutes les {{step}} ms et, après chaque pas, ramène le centre sur sa sphère et la vitesse le long de la paroi, dont RK4 s’écarte de sa propre erreur infime. Votre navigateur calcule les mêmes pas, avec la poussée de votre main.",
+        "centripetal": "Le dernier terme maintient la bille contre la paroi : v²/ρ est l’accélération qu’exige un cercle de rayon ρ.",
+        "p": "la position du centre de la bille, comptée depuis le centre de la sphère",
+        "v": "sa vitesse",
+        "along": "la composante le long de la paroi",
+        "normal": "la poussée de la paroi, par kilogramme",
+        "n": "la direction du centre de la sphère vers celui de la bille",
+        "cr": "résistance au roulement, une fraction de N",
+        "fade": "en dessous de {{fade}} mm/s, la résistance au roulement s’établit progressivement, car une bille au repos n’a pas de sens de déplacement contre lequel elle pourrait agir"
+      }
+    },
+    "platform": {
+      "view": "La plateforme vue de dessus, avec le visiteur debout dessus",
+      "at": {
+        "stand": "Une plateforme ronde tourne sur un palier au ras du sol, avec une barre de maintien fixée en travers de son centre. Un visiteur monte dessus, les deux mains sur la barre, et reçoit une poussée. Ses pieds restent où ils sont.",
+        "pull": "Penché en arrière de tout son corps, bras tendus, il tourne lentement ; redressé, de plus en plus vite. Qu’il se penche à nouveau vers l’extérieur, et la rotation ralentit. Personne ne pousse plus fort — la vitesse vient de la position du corps."
+      },
+      "play": {
+        "title": "Sur la plateforme",
+        "hint": "Poussez pour la mettre en rotation, puis penchez-vous vers l’extérieur ou redressez-vous. La plateforme tourne d’autant plus vite que vous vous tenez droit.",
+        "hint_auto": "Le visiteur se penche vers l’extérieur, se redresse, tient la position et se penche à nouveau, encore et encore — regardez la vitesse suivre.",
+        "push": "Pousser",
+        "pause": "Pause",
+        "run": "Reprendre",
+        "restart": "Recommencer",
+        "auto": "Automatique : se pencher et se redresser",
+        "auto_hint": "Trois secondes penché vers l’extérieur, deux et demie redressé, puis retour — avec une poussée si la plateforme est à l’arrêt.",
+        "lean": "Inclinaison vers l’extérieur",
+        "rate": "Tours",
+        "rate_unit": "par s",
+        "inertia": "Moment d’inertie",
+        "momentum": "Moment cinétique",
+        "energy": "Énergie de la rotation",
+        "pull": "Traction sur la barre",
+        "times": "Plus vite que penché vers l’extérieur",
+        "reading": "Chaque poussée apporte {{push}} kg·m²/s de moment cinétique. Entre les poussées, seul le palier en retire un peu — que vous vous penchiez ou non, le moment cinétique reste.",
+        "lean_hint": "De combien le tronc se penche en arrière, loin de l’axe, les mains sur la barre et les pieds à leur place."
+      },
+      "change": {
+        "title": "Modifier l’exposition",
+        "hint": "Les vraies valeurs de l’exposition ne sont pas publiées ; on suppose une plateforme légère et un visiteur de 70 kg. Chaque modification fait tout recommencer.",
+        "mass": "Masse du visiteur",
+        "platform_mass": "Masse de la plateforme",
+        "diameter": "Diamètre de la plateforme",
+        "friction": "Frottement du palier",
+        "friction_hint": "Un couple constant qui s’oppose à la rotation : il retire du moment cinétique à un rythme constant jusqu’à ce que la plateforme s’arrête."
+      },
+      "model": {
+        "intro": "Hormis le palier, rien d’extérieur au visiteur n’agit sur sa rotation. Ce qui décide de la vitesse, c’est donc la façon dont sa masse est répartie autour de l’axe.",
+        "momentum": "Le moment cinétique : le moment d’inertie fois la vitesse angulaire. Sans poussée, seul le frottement du palier le modifie, lentement et régulièrement.",
+        "rate": "La vitesse angulaire est donc le moment cinétique réparti sur le moment d’inertie : moitié moins d’inertie, deux fois plus de vitesse.",
+        "sum": "Le moment d’inertie additionne chaque morceau de masse, chacun compté selon le carré de sa distance à l’axe : la masse loin de l’axe compte beaucoup, celle près de l’axe presque pas.",
+        "disc": "La plateforme elle-même, un disque.",
+        "arm": "Un bras, une tige allant de la main sur la barre jusqu’à l’épaule : le corps droit, il longe la barre ; le corps penché vers l’extérieur, il s’écarte avec l’épaule et compte davantage.",
+        "lean": "Se pencher vers l’extérieur éloigne le tronc de l’axe : sa part propre plus sa masse fois la distance au carré (le théorème de Huygens-Steiner). Les jambes restent sur l’axe."
+      },
+      "symbols": {
+        "momentum": "moment cinétique",
+        "inertia": "moment d’inertie",
+        "omega": "vitesse angulaire (2π fois les tours par seconde)",
+        "friction": "le couple de frottement du palier",
+        "piece": "un morceau de masse",
+        "r": "sa distance à l’axe",
+        "platform_mass": "la masse de la plateforme",
+        "platform_radius": "le rayon de la plateforme",
+        "arm_mass": "la masse d’un bras",
+        "shoulder": "la distance latérale de chaque main et de chaque épaule à l’axe",
+        "lean": "de combien le tronc se penche vers l’extérieur",
+        "own": "le moment d’inertie propre de la partie",
+        "energy": "l’énergie de la rotation",
+        "pull": "ce que les mains retiennent sur la barre : le corps penché, maintenu sur son cercle",
+        "trunk_mass": "la masse du tronc, tête comprise"
+      },
+      "sweet": {
+        "faster": "Redressé, le visiteur tourne {{ratio}} fois plus vite que penché vers l’extérieur — avec le même moment cinétique.",
+        "energy": "L’énergie de la rotation, à moment cinétique égal : moins d’inertie, plus d’énergie. Se replier donne à la rotation plus d’énergie, pas seulement plus de vitesse.",
+        "pull": "Cette énergie doit bien venir de quelque part : des bras. Penché vers l’extérieur, le corps a besoin de cette traction vers l’intérieur pour rester sur son cercle, et les mains la transmettent par la barre — elle croît avec le carré de la vitesse angulaire, et le visiteur la ressent comme si la barre lui tirait les mains.",
+        "paid": "En se redressant depuis la position penchée, les bras fournissent {{work}} J de travail contre cette traction, et l’énergie de la rotation augmente exactement d’autant, de {{from}} J à {{to}} J. Le moteur de calcul le vérifie en additionnant la traction le long du chemin vers l’intérieur.",
+        "replay": "Voici le mode automatique sur seize secondes, après une poussée de {{push}} kg·m²/s : la vitesse bondit chaque fois que le visiteur se redresse et retombe quand il se penche vers l’extérieur, tandis que le moment cinétique ne fait que diminuer, lentement et régulièrement, à cause du palier."
+      },
+      "chart": {
+        "rate": "Tours",
+        "lean": "Inclinaison vers l’extérieur",
+        "time": "Temps"
+      },
+      "figures": {
+        "work": "Travail pour se redresser",
+        "stops": "S’arrête après",
+        "leaning": "Penché vers l’extérieur",
+        "upright": "Redressé",
+        "pull_leaning": "Traction, penché vers l’extérieur"
+      },
+      "computed": {
+        "system": "Ici, il n’y a qu’une seule équation différentielle, et elle a une solution exacte : le moment cinétique décroît en ligne droite jusqu’à zéro — le palier ne fait jamais tourner la plateforme en sens inverse. Rien n’a donc besoin d’être calculé pas à pas : la vitesse angulaire vaut L/I à chaque instant, de l’algèbre pure. C’est l’équation du premier ordre la plus simple qui soit.",
+        "l0": "le moment cinétique juste après la dernière poussée",
+        "t": "le temps écoulé depuis"
+      }
+    },
+    "computed": {
+      "course": "Les fondements, dans le cours sur les équations différentielles :",
+      "links": {
+        "first_order": "Systèmes du premier ordre",
+        "second_order": "Systèmes du second ordre",
+        "numerics": "Résolution numérique"
+      }
+    },
+    "race": {
+      "at": {
+        "tracks": "Plusieurs pistes descendent du même départ jusqu’à la même arrivée, chacune selon une courbe différente. En haut de chacune se trouve une bille ; un seul levier les lâche toutes au même instant.",
+        "which": "La piste droite est la plus courte — et pas la première. La plus rapide plonge sous l’arrivée et remonte jusqu’à elle à la fin. Sur une autre piste, une vallée incurvée, des billes lâchées de hauteurs différentes atteignent toutes le fond au même instant."
+      },
+      "curves": {
+        "line": "Ligne droite",
+        "cycloid": "Cycloïde",
+        "circle": "Arc de cercle",
+        "parabola": "Parabole",
+        "hyperbola": "Départ raide",
+        "hump": "Bosse en chemin"
+      },
+      "balls": {
+        "solid": "Bille pleine",
+        "hollow": "Bille creuse",
+        "sliding": "Bloc glissant"
+      },
+      "play": {
+        "title": "Lâchez-les",
+        "hint": "Lancez la course et regardez où se trouve chaque bille. Les temps à côté des couleurs sont ceux du moteur de calcul, dans l’ordre d’arrivée des billes. Au drapeau, chaque piste s’arrête et la bille s’envole jusque dans une fosse rembourrée, où les six finissent ensemble.",
+        "start": "Démarrer",
+        "pause": "Pause",
+        "run": "Reprendre",
+        "view": "Six pistes d’un même départ à une même arrivée, une bille sur chacune",
+        "auto": "Automatique : course après course",
+        "auto_hint": "La course repart un instant après l’arrivée de la dernière bille.",
+        "speed": "Vitesse",
+        "speeds": {
+          "1": "Temps réel",
+          "0_25": "¼",
+          "0_1": "⅒"
+        }
+      },
+      "motion": {
+        "hint": "La vitesse et l’accélération de chaque bille, en flèches partant d’un même point et en chiffres : x vers la droite, y vers le haut. Sur sa piste, la pesanteur accélère la bille le long de celle-ci et la piste la fait tourner ; dans l’air, chaque bille tombe sous g seul, toutes les flèches identiques ; dans la fosse, chaque choc contre le rembourrage ou une autre bille est une secousse bien au-delà de l’échelle — la moyenne sur 5 ms, dessinée en pointillé, sa valeur dans le tableau.",
+        "velocity": "Vitesse",
+        "acceleration": "Accélération",
+        "velocity_label": "La vitesse de chaque bille, en flèche partant d’un même point",
+        "acceleration_label": "L’accélération de chaque bille, en flèche partant d’un même point",
+        "table": "Le temps, la vitesse et l’accélération de chaque bille, par rang",
+        "track": "Piste",
+        "time": "Temps"
+      },
+      "change": {
+        "title": "Modifier l’exposition",
+        "hint": "La taille réelle de l’exposition n’est pas publiée ; on suppose une piste de table. Chaque modification relance la course.",
+        "drop": "Dénivelé jusqu’à l’arrivée",
+        "run": "Distance horizontale jusqu’à l’arrivée",
+        "run_hint": "Au-delà de π/2 fois le dénivelé, la cycloïde plonge sous l’arrivée. En dessous de 1.1 fois le dénivelé, la bosse projetterait la bille depuis son sommet et l’arc de cercle se recourberait au-dessus de son propre départ ; c’est pourquoi la distance s’arrête là.",
+        "ball": "Ce qui descend"
+      },
+      "valley": {
+        "title": "La vallée où toutes arrivent ensemble",
+        "hint": "Quatre billes lâchées en même temps de hauteurs différentes, dans une vallée cycloïdale et, à côté, dans une cuvette circulaire de même courbure au fond.",
+        "let_go": "Lâcher",
+        "cycloid": "Vallée cycloïdale",
+        "circle": "Cuvette circulaire",
+        "to_bottom": "Jusqu’au fond, de n’importe quelle hauteur",
+        "bowl_from": "Cuvette, depuis {{height}} cm"
+      },
+      "model": {
+        "intro": "Rien d’autre que la pesanteur n’entraîne les billes, et la piste ne fait que les guider. La vitesse en chaque point découle donc de la seule hauteur.",
+        "speed": "La vitesse de la bille à une hauteur h sous le départ : quoi qu’ait fait la piste en chemin. Une bille qui roule ne ressent le long de la piste que g′ de la pesanteur — le reste passe dans sa rotation.",
+        "time": "Le temps d’une piste : sa longueur, morceau par morceau, divisée par la vitesse sur chaque morceau. La piste la plus rapide n’est pas la plus courte, mais celle qui prend de la vitesse tôt.",
+        "cycloid": "La cycloïde, la courbe que trace un point de la jante d’une roue qui roule : passant par le départ et l’arrivée, c’est la piste la plus rapide de toutes (Bernoulli, 1696), et son temps a une expression analytique.",
+        "line": "La droite, pour comparaison : la piste la plus courte, et une piste lente.",
+        "valley": "Dans une vallée cycloïdale, chaque bille atteint le fond au bout du même temps, quelle que soit la hauteur d’où elle part (Huygens, 1659 : la tautochrone). Dans une cuvette circulaire, une bille qui part plus haut arrive plus tard — un pendule oscille d’autant plus lentement que son amplitude est grande."
+      },
+      "symbols": {
+        "v": "la vitesse de la bille",
+        "h": "de combien elle est sous le départ",
+        "g_share": "la pesanteur que ressent une bille qui roule le long de la piste",
+        "k": "la part de la masse de la bille située loin de son centre : 2/5 pleine, 2/3 creuse, 0 en glissement",
+        "time": "le temps de la piste, du départ à l’arrivée",
+        "ds": "un petit morceau de la piste",
+        "r": "le rayon de la roue qui trace la cycloïde",
+        "theta": "de combien cette roue a tourné",
+        "theta_b": "de combien elle a tourné à l’arrivée",
+        "run": "la distance horizontale jusqu’à l’arrivée",
+        "drop": "de combien l’arrivée est sous le départ",
+        "bowl": "le rayon de la cuvette",
+        "phi0": "l’angle d’où part une bille dans la cuvette",
+        "elliptic": "l’intégrale elliptique complète de première espèce"
+      },
+      "computed": {
+        "system": "Ici, le temps n’est pas parcouru pas à pas : la vitesse à chaque hauteur est connue, donc le temps de chaque piste est une seule intégrale le long de celle-ci. Au départ, la vitesse est nulle et la fonction à intégrer tend vers l’infini ; le changement de variable p = u² supprime ce problème, et la méthode des trapèzes sur 1440 pas fait la somme à un dix-millionième près. La même somme, conservée au fil du calcul, donne l’horaire de chaque bille pour l’animation.",
+        "p": "la position le long de la piste, de 0 au départ à 1 à l’arrivée",
+        "r": "le point de la piste en p",
+        "u": "la racine carrée de p, qui adoucit le départ"
+      },
+      "sweet": {
+        "shortest": "La droite est la piste la plus courte et met {{line}} s ; la cycloïde, plus longue, met {{cycloid}} s. Ce qui gagne, c’est la vitesse prise tôt : sur une piste qui descend d’abord en pente raide, la bille va vite sur la plus grande partie du trajet.",
+        "dips": "Pour cette arrivée, la piste la plus rapide descend {{below}} cm sous l’arrivée et remonte sur la dernière partie : la vitesse gagnée en descendant plus bas vaut bien la remontée.",
+        "no_dip": "Pour cette arrivée, la cycloïde n’a pas besoin de plonger sous l’arrivée ; rendez la distance horizontale supérieure à π/2 fois le dénivelé, et elle le fera.",
+        "galileo": "Galilée pensait en 1638 que le cercle était le plus rapide ; il s’en approche, avec {{circle}} s, mais la cycloïde le bat.",
+        "same_speed": "Chaque bille franchit l’arrivée aussi vite que les autres, à {{speed}} m/s : sa vitesse ne dépend que de la hauteur descendue, jamais de la piste. Seule la durée décide de la course.",
+        "throw_up": "Après le drapeau, chaque bille s’envole dans la direction où pointe sa piste à la fin : celle de la cycloïde vers le haut — elle remonte vers l’arrivée par en dessous et allait encore plus vite à son point le plus bas —, celle de la droite vers le bas. Dans la fosse, elles rebondissent, roulent et se heurtent jusqu’à ce que les six reposent ensemble au fond.",
+        "throw_down": "Après le drapeau, chaque bille s’envole dans la direction où pointe sa piste à la fin — pour cette arrivée, même celle de la cycloïde vers le bas, puisqu’elle ne plonge pas sous l’arrivée. Dans la fosse, elles rebondissent, roulent et se heurtent jusqu’à ce que les six reposent ensemble au fond.",
+        "rolling": "Une bille qui roule est plus lente sur chaque piste, du même facteur {{factor}}, qu’un bloc qui glisse sans frottement — l’ordre ne change donc jamais, et la cycloïde est la plus rapide pour toute bille."
+      }
+    },
+    "elephant": {
+      "view": "L’éléphant vu de côté, soufflant vers le haut par sa trompe, avec le ballon en l’air au-dessus",
+      "at": {
+        "blow": "Un éléphant se tient là, la trompe levée, et souffle un courant d’air régulier droit vers le haut. À côté de lui est posé un ballon gonflable d’environ 15 cm de diamètre.",
+        "float": "Posez le ballon au bout de la trompe : il décolle, s’élève d’une largeur de main et reste là, en oscillant un peu. Donnez-lui une petite poussée, et il revient."
+      },
+      "play": {
+        "title": "Au bout de la trompe",
+        "hint": "Le ballon repose sur la trompe jusqu’à ce que l’air le soulève. Changez l’air, inclinez la trompe ou poussez le ballon, et regardez où l’air le maintient, et quand il ne le peut plus.",
+        "hint_auto": "La trompe s’incline de plus en plus, jusqu’à ce que l’air ne puisse plus retenir le ballon ; le ballon est alors reposé sur la trompe.",
+        "pause": "Pause",
+        "run": "Reprendre",
+        "restart": "Recommencer",
+        "push_left": "Pousser à gauche",
+        "push_right": "Pousser à droite",
+        "air": "Air sortant de la trompe",
+        "air_hint": "{{flow}} m³ d’air par heure à travers la trompe",
+        "tilt": "Inclinaison de la trompe",
+        "tilt_hint": "La trompe de l’exposition ne s’incline pas ; ici, elle le fait, pour trouver où le ballon tombe.",
+        "auto": "Automatique : incliner jusqu’à la chute",
+        "auto_hint": "Incline la trompe de {{rate}}° par seconde à partir de la verticale jusqu’à ce que le ballon tombe hors du jet d’air, puis le repose.",
+        "height": "Centre du ballon au-dessus de la trompe",
+        "air_at_ball": "Air au niveau du ballon",
+        "off_axis": "Écart à l’axe du jet",
+        "falls_at": "Tombe à une inclinaison de",
+        "resting": "Sur la trompe : l’air ne peut pas le soulever",
+        "floating": "Flotte",
+        "fallen": "Tombé hors du jet d’air"
+      },
+      "change": {
+        "title": "Modifier l’exposition",
+        "hint": "Les vraies valeurs de l’exposition ne sont pas publiées ; celles-ci correspondent à ce que voit un visiteur : une trompe d’environ 10 cm de diamètre et un ballon d’environ 15 cm, qui flotte à quelque 30 cm de hauteur. Une modification agit aussitôt, sur le ballon en l’air.",
+        "opening": "Ouverture de la trompe",
+        "diameter": "Diamètre du ballon",
+        "mass": "Masse du ballon",
+        "coanda": "Aspiration latérale (modèle)",
+        "coanda_hint": "Le seul nombre supposé du modèle : la part de l’aspiration de l’air qui agit latéralement. Environ 1, c’est ce que donne la forme d’une sphère ; à 0, rien ne retient le ballon dans le jet."
+      },
+      "model": {
+        "intro": "Trois choses agissent sur le ballon : l’air qui le pousse vers le haut, l’air qui l’attire dans le jet, et son poids diminué de la poussée d’Archimède de l’air qu’il déplace.",
+        "jet": "L’air sort de la trompe en un jet qui s’élargit en montant : plus rapide sur son axe, plus lent vers son bord, et environ 12 cm plus large à chaque mètre.",
+        "momentum": "Ce que le jet emporte vers le haut, sa quantité de mouvement, reste ce que la trompe y a mis. En s’élargissant, le jet ralentit donc : la même poussée, répartie plus largement.",
+        "lift": "Le ballon ressent l’air qu’il couvre : la traînée d’une sphère, calculée avec la vitesse de l’air moyennée sur la section du ballon.",
+        "weight": "Vers le bas tire le poids, diminué du poids de l’air que le ballon déplace, ce qui, pour un ballon gonflable, n’est pas rien.",
+        "balance": "Le ballon flotte là où la poussée de l’air vaut exactement cela.",
+        "side": "Hors de l’axe, l’air s’écoule plus vite le long du côté le plus proche du centre, et un air plus rapide presse moins (Bernoulli) : le ballon est ramené vers le centre. La part de cet effet qui agit latéralement est le seul nombre supposé du modèle.",
+        "tilt": "Trompe inclinée, le poids se partage en deux : le long du jet, il est porté par la poussée ; en travers, par l’aspiration. Le ballon s’affaisse vers le côté bas jusqu’à ce que les deux s’équilibrent, ou tombe dès que l’aspiration n’y suffit plus."
+      },
+      "symbols": {
+        "u": "la vitesse de l’air",
+        "r": "la distance à l’axe du jet",
+        "s": "la distance depuis la trompe, le long de l’axe",
+        "b": "la largeur du jet",
+        "uc": "la vitesse sur l’axe",
+        "u0": "la vitesse de l’air à la sortie de la trompe",
+        "d": "l’ouverture de la trompe",
+        "k": "la rapidité avec laquelle le jet s’élargit",
+        "rho": "la masse volumique de l’air",
+        "cd": "le coefficient de traînée d’une sphère",
+        "f": "la poussée de l’air",
+        "area": "la section du ballon",
+        "m": "la masse du ballon",
+        "v": "le volume du ballon",
+        "g": "l’accélération de la pesanteur",
+        "cb": "la part de l’aspiration qui agit latéralement",
+        "phi": "la direction d’un point de la section, comptée depuis le côté le plus proche de l’axe",
+        "beta": "l’inclinaison de la trompe",
+        "fs": "l’attraction latérale",
+        "w": "la vitesse de l’air par rapport au ballon",
+        "p": "la position du ballon",
+        "mean": "la vitesse de l’air au niveau du ballon, moyennée sur sa section",
+        "a": "l’axe du jet",
+        "n": "en travers de l’axe, vers son côté bas",
+        "y": "droit vers le haut"
+      },
+      "computed": {
+        "system": "Quatre équations différentielles, la position et la vitesse du ballon à l’horizontale et à la verticale, résolues par la méthode de Runge–Kutta d’ordre quatre toutes les 2 ms. Les intégrales sur la section du ballon sont des sommes sur 288 points, les mêmes dans les valeurs et dans votre navigateur, si bien que le ballon s’immobilise exactement là où les valeurs l’indiquent.",
+        "inertia": "la masse du ballon, plus la moitié de la masse de l’air qu’il déplace, qui doit se déplacer avec lui"
+      },
+      "sweet": {
+        "height": "Pourquoi il reste à sa hauteur : plus haut, le jet est plus large que le ballon, qui en capte donc moins et descend ; plus bas, il en capte plus et monte. Il flotte là où la poussée croise son poids, à {{height}} cm au-dessus de la trompe, et oscille autour de ce point {{bob}} fois par seconde, tandis que l’air l’amortit.",
+        "middle": "Pourquoi il reste au milieu : écarté sur le côté, le ballon est ramené par l’air plus rapide de son côté intérieur, d’autant plus fort qu’il s’écarte, jusqu’à environ {{offset}} cm de l’axe. Au-delà, il quitte le jet.",
+        "rise": "De la trompe à sa hauteur : le ballon monte au-delà, revient et se stabilise, l’oscillation s’éteignant comme celle d’un ressort amorti. La courbe est la simulation du moteur de calcul pour le montage à l’écran, celle que la page joue plus haut.",
+        "tilt": "Jusqu’où la trompe peut s’incliner : jusqu’à {{limit}}°. Avant cela, le ballon pend plus bas et vers le côté bas ; à {{limit}}°, l’aspiration ne peut plus retenir la part du poids qui tire en travers du jet.",
+        "lift_off": "L’air doit d’abord être assez rapide pour décoller le ballon de la trompe : à partir de {{speed}} m/s.",
+        "buoyancy": "Un ballon gonflable déplace une quantité d’air qui pèse {{share}} % de son propre poids : autant que le jet n’a pas à porter.",
+        "assumed": "Ce qui est supposé : la forme du jet juste à la sortie de la trompe (un vrai jet garde toute sa vitesse sur l’axe sur les premiers diamètres), un coefficient de traînée de 0.47 pour un ballon lisse, et la part latérale de l’aspiration. Les valeurs sont celles du modèle, pas celles de l’exposition au centimètre près.",
+        "none": "Ce ballon ne flotte pas : l’air ne le décolle de la trompe qu’à partir de {{speed}} m/s."
+      },
+      "chart": {
+        "lift": "Poussée de l’air",
+        "weight": "Poids moins poussée d’Archimède",
+        "height": "Centre du ballon au-dessus de la trompe",
+        "side": "Attraction vers l’axe",
+        "offset": "Écart à l’axe",
+        "tilt": "Inclinaison de la trompe",
+        "sag": "Écart du ballon à l’axe",
+        "sink": "Hauteur du ballon au-dessus de la trompe",
+        "force": "Force",
+        "time": "Temps"
+      },
+      "figures": {
+        "height": "Flotte à",
+        "lift_off": "Décolle à partir de",
+        "air": "Air au niveau du ballon",
+        "limit": "Tombe à une inclinaison de",
+        "bob": "Oscille",
+        "flow": "Air à travers la trompe"
+      }
+    },
+    "smoke": {
+      "view": "Le tambour à fumée en coupe, sa peau enfoncée par le cerclage du trou, et l’anneau de fumée qui en sort en s’envolant vers le haut",
+      "at": {
+        "drum": "Un tambour large et plat, de près de deux mètres de diamètre et rempli de fumée, se trouve à hauteur de hanche. Son dessus est une peau tendue percée en son milieu d’un trou de 30 cm, bordé d’un cerclage que l’on enfonce.",
+        "press": "Enfoncez le cerclage et un anneau de fumée s’envole du trou et monte à travers la salle. Appuyez trop fort et la fumée ne fait que tourbillonner et se disperser ; appuyez trop doucement et il ne se passe rien du tout. Environ une demi-seconde, c’est le mieux."
+      },
+      "play": {
+        "title": "Au tambour",
+        "hint": "Faites glisser le cerclage vers le bas et relâchez, vite ou lentement, ou appuyez sur le bouton : c’est la vitesse qui décide si un anneau s’envole.",
+        "hint_auto": "Trois appuis à la suite : un coup sec, une demi-seconde et une poussée lente — une bouffée diffuse, un anneau, et rien.",
+        "press": "Appuyer",
+        "pause": "Pause",
+        "run": "Reprendre",
+        "restart": "Recommencer",
+        "auto": "Automatique : trois appuis",
+        "auto_hint": "Un coup sec de {{fast}} s, un appui de {{best}} s et une poussée lente de {{slow}} s, l’un après l’autre.",
+        "duration": "Durée de l’appui",
+        "depth": "Enfoncement",
+        "drag": "Ou faites glisser le cerclage vers le bas dans le dessin et relâchez.",
+        "last": "Dernier appui",
+        "jet": "Air sortant du trou",
+        "reynolds": "Nombre de Reynolds de l’anneau",
+        "speed": "Vitesse de l’anneau",
+        "force": "Force sur la main",
+        "verdict": {
+          "ring": "Un anneau s’envole",
+          "too_fast": "Trop fort : la fumée tourbillonne et se disperse",
+          "too_slow": "Trop doux : la fumée s’en va à la dérive",
+          "none": "Enfoncez le cerclage"
+        }
+      },
+      "change": {
+        "title": "Modifier l’exposition",
+        "hint": "Les vraies valeurs de l’exposition ne sont pas publiées ; celles-ci correspondent à ce que voit un visiteur : un tambour d’environ 1.9 m, profond de 30 cm, un trou de 30 cm, enfoncé de 8 cm au plus.",
+        "diameter": "Diamètre du tambour",
+        "hole": "Trou",
+        "ring": "Cerclage du trou",
+        "stroke": "Enfoncement maximal",
+        "tension": "Tension de la peau",
+        "tension_hint": "Supposée : la force avec laquelle la peau est tendue. Elle ne change que la force sur la main, pas l’anneau.",
+        "draught": "Courant d’air de la salle (modèle)",
+        "draught_hint": "Un anneau plus lent que l’air de la salle est emporté avant de se former. Réglé de sorte qu’un appui plus lent qu’environ 1.2 s ne produise rien.",
+        "turbulent": "Turbulent à partir de (modèle)",
+        "turbulent_hint": "Au-delà de ce nombre de Reynolds, l’anneau est turbulent et étale sa fumée. Réglé de sorte qu’un appui plus rapide qu’environ 0.2 s ne produise aucun anneau visible."
+      },
+      "model": {
+        "intro": "L’appui chasse de l’air du tambour ; l’air qui sort du trou s’enroule en un anneau ; la vitesse et l’intensité de l’anneau décident s’il s’envole.",
+        "area": "Le cerclage enfonce la peau, et la peau entre le cerclage et le bord prend la forme d’une membrane tendue. Le tambour perd ce volume par centimètre d’enfoncement.",
+        "jet": "Ce volume sort par le trou, onze fois plus petit : l’air sort onze fois plus vite que la main ne descend.",
+        "circulation": "L’air chassé s’enroule en un anneau tourbillonnaire ; sa circulation, l’intensité de sa rotation, vaut la moitié de l’intégrale du carré de la vitesse de l’air.",
+        "formation": "Un anneau n’absorbe pas plus qu’une colonne d’air longue de quatre diamètres de trou ; une plus longue laisse un jet derrière lui. Un appui complet en donne ici trois.",
+        "speed": "Un anneau vole à une vitesse fixée par sa circulation et sa taille, d’autant plus vite qu’il tourbillonne fort.",
+        "reynolds": "Son nombre de Reynolds dit à quel point il est turbulent : au-delà d’un seuil, l’anneau abandonne sa fumée dans son sillage.",
+        "hand": "La main sent le ressort de la peau et la contre-pression de l’air, qui croît avec le carré de la vitesse."
+      },
+      "symbols": {
+        "v": "le volume chassé",
+        "x": "l’enfoncement du cerclage",
+        "aeff": "la surface effective du tambour",
+        "rbig": "le rayon du tambour",
+        "a": "le rayon du cerclage autour du trou",
+        "rh": "le rayon du trou",
+        "u": "la vitesse de l’air sortant du trou",
+        "ah": "la surface du trou",
+        "gamma": "la circulation de l’anneau",
+        "t": "le temps",
+        "l": "la longueur de la colonne d’air chassée",
+        "d": "le diamètre du trou",
+        "uring": "la vitesse de l’anneau",
+        "rring": "le rayon de l’anneau",
+        "core": "le rayon du noyau de l’anneau",
+        "re": "le nombre de Reynolds de l’anneau",
+        "nu": "la viscosité cinématique de l’air",
+        "f": "la force sur la main",
+        "k": "la raideur de la peau",
+        "tension": "la tension de la peau",
+        "rho": "la masse volumique de l’air",
+        "z": "la hauteur de l’anneau au-dessus du trou",
+        "alpha": "la rapidité avec laquelle un anneau turbulent s’élargit"
+      },
+      "computed": {
+        "system": "L’appui lui-même n’a pas besoin d’être calculé pas à pas : la circulation de l’anneau est une somme sur l’appui tel qu’il est échantillonné, y compris quand vous faites glisser le cerclage vous-même. Le vol, ce sont deux équations différentielles, la hauteur et le rayon, résolues par la méthode de Runge–Kutta d’ordre quatre toutes les 10 ms : un anneau laminaire garde sa taille et ne ralentit que parce que la viscosité épaissit son noyau ; un anneau turbulent s’élargit en volant, en conservant son impulsion, et ralentit avec le cube de sa taille.",
+        "a0": "le rayon du noyau au moment où l’anneau se forme"
+      },
+      "sweet": {
+        "window": "Tout est question de vitesse : un appui complet produit un anneau entre {{fastest}} s et {{slowest}} s, le mieux vers {{best}} s.",
+        "fast": "Plus vite, l’anneau tourbillonne si fort qu’il devient turbulent et répand sa fumée dans l’air.",
+        "slow": "Plus lentement, il avance moins vite que l’air même de la salle, qui emporte la bouffée avant qu’elle ne se soit formée.",
+        "both": "Les deux croissent ensemble avec la vitesse de l’appui — l’intensité de l’anneau et sa vitesse —, c’est pourquoi la fenêtre a deux bords.",
+        "force": "Et la main paie pour un appui rapide : la contre-pression de l’air croît avec le carré de la vitesse, {{fast}} N pour un coup sec contre {{slow}} N pour une poussée lente, où seule compte la peau.",
+        "assumed": "Ce qui est supposé : les deux seuils, réglés sur l’exposition (un anneau réussit le mieux à environ une demi-seconde), la taille de l’anneau et de son noyau, telles qu’on les mesure sur de vrais anneaux, et la tension de la peau. La vibration propre de la peau et l’aspiration au relâchement sont laissées de côté.",
+        "none": "Avec ces réglages, aucun appui ne produit d’anneau : la fenêtre s’est refermée."
+      },
+      "chart": {
+        "duration": "Durée de l’appui",
+        "reynolds": "Nombre de Reynolds",
+        "threshold": "Turbulent à partir de",
+        "speed": "Vitesse de l’anneau",
+        "draught": "Courant d’air de la salle",
+        "force": "Force sur la main"
+      },
+      "figures": {
+        "fastest": "Appui le plus rapide",
+        "slowest": "Appui le plus lent",
+        "best": "Meilleur appui",
+        "ratio": "Air sortant, par vitesse de la main",
+        "stroke": "Colonne d’air, en diamètres de trou"
+      }
+    },
+    "cannon": {
+      "view": "La pile vue de près, à l’échelle des balles : le fil, le sol et les balles là où elles en sont de leur chute, enfoncées l’une dans l’autre tant qu’elles se touchent",
+      "climb_view": "Toute la montée : chaque balle comme un point, et une marque là où la balle du dessus a fait demi-tour",
+      "at": {
+        "balls": "Trois balles caoutchouteuses, d’environ 10, 7 et 5 cm de diamètre, sont enfilées sur un fil d’acier dressé verticalement sur le sol, la plus grosse en bas.",
+        "drop": "Soulevez-les ensemble, empilées, et lâchez-les. La grosse balle frappe le sol et la petite du dessus est projetée le long du fil, bien plus haut que la hauteur d’où vous l’avez lâchée."
+      },
+      "play": {
+        "title": "Au pied du fil",
+        "hint": "Faites glisser la pile vers le haut dans le dessin et relâchez, ou réglez la hauteur et appuyez sur « Lâcher » : la montée de la petite balle est marquée à droite, et les forces de l’impact apparaissent en dessous.",
+        "hint_auto": "Une balle, puis deux, puis trois, chaque fois de la même hauteur : regardez la montée de la balle du dessus grandir.",
+        "pause": "Pause",
+        "run": "Reprendre",
+        "restart": "Recommencer",
+        "height": "Hauteur de la balle du bas",
+        "drop": "Lâcher",
+        "drag": "Ou faites glisser la pile vers le haut dans le dessin et relâchez.",
+        "slow": "Ralenti à l’impact",
+        "slow_hint": "Les balles se touchent pendant environ dix millièmes de seconde ; ralenti cent fois, on les voit s’enfoncer l’une dans l’autre.",
+        "auto": "Automatique : une, deux, trois balles",
+        "auto_hint": "Lâche la balle du bas seule, puis les deux du bas, puis les trois, encore et encore.",
+        "launch": "La balle du dessus part à",
+        "apex": "Point le plus haut de la balle du dessus",
+        "times": "Montée rapportée à la chute",
+        "of_one": "Dernière chute : une balle depuis {{height}} m.",
+        "of_other": "Dernière chute : {{count}} balles depuis {{height}} m."
+      },
+      "forces": {
+        "title": "Les forces à l’impact",
+        "contact": "Contact",
+        "peak": "Force maximale",
+        "squash": "Écrasement",
+        "duration": "Durée",
+        "impulse": "Impulsion",
+        "force": "Force",
+        "time": "Temps depuis le premier contact",
+        "floor_contact": "Sol – {{ball}}",
+        "ball_contact": "{{lower}} – {{upper}}"
+      },
+      "change": {
+        "title": "Modifier la pile",
+        "hint": "Les balles de l’exposition font environ 10, 7 et 5 cm de diamètre et sont en élastomère ; leur élasticité et leur raideur sont estimées, et vous pouvez les modifier.",
+        "count": "Nombre de balles",
+        "balls_one": "{{count}} balle",
+        "balls_other": "{{count}} balles",
+        "flip": "Retourner la pile",
+        "ball_0": "Balle du bas",
+        "ball_1": "Balle du milieu",
+        "ball_2": "Balle du dessus",
+        "gap": "Écart entre les balles",
+        "gap_hint": "Quand les balles se touchent, leurs contacts se chevauchent et le canon est faible ; à quelques millimètres d’écart, les chocs se succèdent.",
+        "youngs": "Raideur de l’élastomère (module d’Young)",
+        "youngs_hint": "Valeur supposée : un caoutchouc souple se situe entre 1 et 10 MPa. Ce module fixe la force et la brièveté avec lesquelles les balles se pressent, et ne modifie que peu la montée.",
+        "floor_e": "Rebond sur le sol",
+        "e_hint": "La part de la vitesse de rapprochement qu’un contact restitue : 1 ne perd rien, une balle en élastomère environ 0.85.",
+        "ball_e": "Rebond entre deux balles"
+      },
+      "model": {
+        "intro": "Chaque balle se meut selon la deuxième loi de Newton, toutes en même temps : la pesanteur et l’air la tirent, le contact du dessous la pousse vers le haut et le contact du dessus vers le bas. Les balles ne se touchent que là où elles s’enfoncent l’une dans l’autre.",
+        "motion": "La masse de la balle i fois son accélération, c’est son poids, la traînée de l’air et les deux forces de contact — une équation par balle, résolues ensemble.",
+        "hertz": "Deux balles enfoncées l’une dans l’autre d’une interpénétration δ se repoussent avec la force de Hertz, qui croît comme δ à la puissance un et demi. L’amortissement entre parenthèses retire de l’énergie pendant qu’elles se rapprochent et se séparent, si bien qu’un contact restitue la fraction e de sa vitesse de rapprochement.",
+        "stiffness": "La raideur d’un contact découle du module d’Young et du coefficient de Poisson de l’élastomère ainsi que des deux rayons ; le sol est considéré comme rigide.",
+        "textbook": "Le raccourci des manuels : chaque choc instantané et terminé avant le suivant, aucune perte, et chaque balle bien plus légère que celle du dessous. Chaque balle part alors avec cette vitesse, ce qui donne 3v pour deux balles et 7v pour trois — et une balle qui part à 7v monte à 49 fois la hauteur dont elle est tombée.",
+        "real": "Les vraies balles restent en dessous : leurs masses ne sont pas très différentes, chaque contact perd un peu d’énergie, et des balles écrasées restent en contact pendant des millisecondes, si bien que des balles qui se touchent se pressent toutes en même temps au lieu de l’une après l’autre."
+      },
+      "computed": {
+        "system": "Les équations de toutes les balles en un seul système, la hauteur et la vitesse de chaque balle, calculé pas à pas par Runge–Kutta : toutes les demi-millisecondes tant que les balles volent librement, toutes les 10 microsecondes tant qu’un contact est fermé ou sur le point de se fermer."
+      },
+      "symbols": {
+        "y": "la hauteur de la balle i",
+        "m": "sa masse",
+        "g": "l’accélération de la pesanteur",
+        "rho": "la masse volumique de l’air",
+        "cd": "le coefficient de traînée d’une sphère",
+        "a": "sa section",
+        "f": "la force dans le contact sous la balle i",
+        "delta": "de combien les deux s’enfoncent l’une dans l’autre",
+        "ddelta": "à quelle vitesse elles le font, maintenant et au premier contact",
+        "e": "la part de la vitesse de rapprochement qu’un contact restitue",
+        "k": "la raideur du contact",
+        "young": "le module d’Young de l’élastomère",
+        "nu": "son coefficient de Poisson, 0.5 pour le caoutchouc",
+        "r": "les rayons des deux balles",
+        "v": "la vitesse de la pile au sol",
+        "uk": "la vitesse de départ de la balle k",
+        "n": "le nombre de balles",
+        "hh": "la montée de la balle du dessus, et la hauteur dont la pile est tombée",
+        "u": "la vitesse de la balle i",
+        "kdrag": "l’intensité de la traînée pour une balle de cette taille et de ce poids",
+        "dt": "le pas"
+      },
+      "sweet": {
+        "climb_one": "Lâchée seule de {{height}} m, une balle remonte à {{times}} fois cette hauteur.",
+        "climb_other": "Quand {{count}} balles empilées sont lâchées de {{height}} m, celle du dessus monte à {{times}} fois cette hauteur, jusqu’à {{apex}} m.",
+        "level_one": "{{count}} balle",
+        "level_other": "{{count}} balles",
+        "speeds": "La pile touche le sol à {{impact}} m/s et la balle du dessus part à {{launch}} m/s. Avec des chocs instantanés l’un après l’autre, elle partirait à {{sequential}} m/s ; sans pertes en plus, à {{ideal}} m/s ; si chaque balle était bien plus légère que celle du dessous, à {{textbook}} m/s.",
+        "overlap": "L’écart entre les deux premières valeurs, c’est l’écrasement. Des balles qui se touchent ne s’entrechoquent pas l’une après l’autre : la balle du milieu s’enfonce déjà dans celle du bas pendant que celle-ci s’écrase encore contre le sol, et la balle du dessus appuie sur les deux. Poussée vers le bas par le dessus alors qu’elle cherche à rebondir, la balle du bas transmet moins.",
+        "forces": "Le sol repousse avec jusqu’à {{force}} kN — environ {{weight}} fois le poids de la balle du bas — pendant que la balle s’écrase de {{squash}} mm, durant environ {{duration}} millièmes de seconde.",
+        "gap": "Tenez les balles à quelques millimètres l’une de l’autre et les contacts se succèdent : la montée atteint presque ce que donneraient des chocs instantanés. Essayez l’écart.",
+        "masses": "Le 7v des manuels exige que chaque balle soit bien plus légère que celle du dessous. Celles-ci pèsent {{masses}} g : la balle du milieu pèse un tiers de celle du bas, celle du dessus un tiers de celle du milieu.",
+        "energy": "Pourtant, {{share}} % de l’énergie avec laquelle toute la pile a frappé le sol repart dans la plus petite balle.",
+        "flip": "Retournez la pile, et rien ne s’envole : une balle légère en bas ne peut pas pousser une lourde vers le haut.",
+        "name": "Pourquoi un canon : les livres de physique l’appellent le canon de Galilée, parce que la petite balle est projetée tout droit vers le haut hors de la pile, comme si elle sortait d’un tube. Rien n’y est tiré de côté.",
+        "assumed": "Ce qui est supposé : des balles pleines de 1100 kg/m³, la raideur de l’élastomère et son élasticité, des contacts qui suivent la loi de Hertz avec un amortissement qui restitue une part fixe de la vitesse de rapprochement, et un sol rigide. Le frottement sur le fil et la rotation des balles sont laissés de côté."
+      }
+    }
+  }
+}

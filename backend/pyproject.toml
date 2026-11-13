@@ -1,0 +1,72 @@
+[project]
+name = "staunlabor"
+version = "0.1.0"
+description = "Staunlabor — hands-on exhibits, computed. The exhibits' engine behind a few public routes."
+requires-python = ">=3.14"
+dependencies = [
+    "fastapi>=0.115.0",
+    "uvicorn[standard]>=0.34.0",
+    "pydantic>=2.10.0",
+    "pydantic-settings>=2.7.0",
+    "eifi1-server-kit[fastapi]",
+]
+
+[dependency-groups]
+dev = [
+    "httpx>=0.28.0",
+    "pytest>=8.3.0",
+    "pytest-asyncio>=0.25.0",
+    "pytest-cov>=6.0.0",
+    "pytest-xdist>=3.8.0",
+    "ruff>=0.9.0",
+    "vulture==2.16",
+]
+
+[tool.pytest.ini_options]
+asyncio_mode = "auto"
+asyncio_default_fixture_loop_scope = "function"
+testpaths = ["tests"]
+markers = [
+    "unit: tests/unit/ — the engine, connecting to nothing",
+    "api: tests/api/ — the app over httpx",
+]
+filterwarnings = ["error::DeprecationWarning"]
+
+[tool.coverage.run]
+source = ["staunlabor"]
+omit = ["tests/*"]
+
+[tool.coverage.report]
+# A deliberate few points under the 98.3 % measured on 2026-11-13.
+fail_under = 95
+show_missing = true
+exclude_lines = ["pragma: no cover", "if TYPE_CHECKING:", "^\\s*pass$"]
+
+[tool.ruff]
+target-version = "py314"
+line-length = 120
+
+[tool.ruff.lint]
+select = [
+    "B", "C4", "C90", "E", "F", "I", "N", "RUF", "SIM", "UP", "W",
+    "ASYNC", "DTZ", "ERA", "EXE", "FA", "FIX", "FLY", "G", "ICN", "INT", "ISC", "LOG",
+    "NPY", "PD", "PGH", "PTH", "PYI", "Q", "RET", "RSE", "SLOT", "TID", "YTT",
+]
+ignore = ["E501", "RUF001", "RUF002", "RUF003", "UP042"]
+
+[tool.ruff.lint.flake8-bugbear]
+extend-immutable-calls = ["fastapi.Depends", "fastapi.Query"]
+
+[tool.ruff.lint.mccabe]
+max-complexity = 12
+
+[tool.ruff.lint.per-file-ignores]
+"tests/**" = ["N802", "N817"]
+
+[tool.vulture]
+paths = ["staunlabor"]
+min_confidence = 60
+ignore_decorators = ["@router.*", "@app.*", "@model_validator", "@field_validator"]
+
+[tool.uv.sources]
+eifi1-server-kit = { url = "https://github.com/Eifi1/server-kit/releases/download/v0.26.0/eifi1_server_kit-0.26.0-py3-none-any.whl" }

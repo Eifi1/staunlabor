@@ -1,0 +1,23 @@
+# Local first: everything CI runs — version sync and commit messages, security,
+# dead code, the frontend's format/lint/types/tests/build and the backend's
+# lint/format/suite — passes here before anything leaves the machine, and CI only
+# confirms it. The same `npm run check` CI's jobs call piece by piece.
+# Bypass only in an emergency: `git push --no-verify`.
+#
+# First, the commits themselves (Eifi1/shared-workflows v1.3.1):
+# every commit this push would send must be a Conventional Commit with a header
+# of at most 100 characters, the rule CI's commit check applies to the PR
+# range. `npm run check` checks the branch against main. This checks exactly
+# what git says is leaving, a rebase's rewritten commits and a `--no-verify`
+# commit included. Git hands the hook its refs on stdin. They are read once,
+# here, because nothing after may consume them first.
+pushed=$(cat)
+printf '%s\n' "$pushed" | node scripts/check-pushed-commits.cjs "$1" || exit 1
+#
+# Then Dependabot's half, locally (scripts/check-dependencies.py, since
+# the apps it comes from): an open Dependabot alert blocks the push; newer minor/patch
+# versions are listed, never blocking. It replaces Dependabot's npm and uv
+# version-update PRs. The backend's Python runs it (it reads pyproject.toml with
+# tomllib, which the system's may lack). SKIP_DEPENDENCY_CHECK=1 skips it.
+uv run --directory backend --frozen python -I ../scripts/check-dependencies.py </dev/null || exit 1
+npm run check

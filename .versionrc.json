@@ -1,0 +1,75 @@
+{
+  "bumpFiles": [
+    {
+      "filename": "package.json",
+      "type": "json"
+    },
+    {
+      "filename": "frontend/package.json",
+      "type": "json"
+    },
+    {
+      "filename": "backend/pyproject.toml",
+      "updater": "scripts/bump-pyproject.cjs"
+    },
+    {
+      "filename": "backend/staunlabor/__init__.py",
+      "updater": "scripts/bump-init.cjs"
+    },
+    {
+      "filename": "backend/uv.lock",
+      "updater": "scripts/bump-uvlock.cjs"
+    },
+    {
+      "filename": "package-lock.json",
+      "updater": "scripts/bump-package-lock.cjs"
+    }
+  ],
+  "header": "# Changelog\n\nAll notable changes to Staunlabor are documented in this file, generated from the commit messages by commit-and-tag-version at each release.\n",
+  "types": [
+    {
+      "type": "feat",
+      "section": "Added"
+    },
+    {
+      "type": "fix",
+      "section": "Fixed"
+    },
+    {
+      "type": "perf",
+      "section": "Changed"
+    },
+    {
+      "type": "refactor",
+      "section": "Changed"
+    },
+    {
+      "type": "revert",
+      "section": "Reverted"
+    },
+    {
+      "type": "docs",
+      "hidden": true
+    },
+    {
+      "type": "style",
+      "hidden": true
+    },
+    {
+      "type": "chore",
+      "hidden": true
+    },
+    {
+      "type": "test",
+      "hidden": true
+    },
+    {
+      "type": "build",
+      "hidden": true
+    },
+    {
+      "type": "ci",
+      "hidden": true
+    }
+  ]
+}

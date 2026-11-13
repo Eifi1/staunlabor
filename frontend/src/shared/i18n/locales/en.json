@@ -1,0 +1,984 @@
+{
+  "app": {
+    "name": "Staunlabor",
+    "tagline": "Hands-on exhibits, computed"
+  },
+  "common": {
+    "cancel": "Cancel",
+    "delete": "Delete",
+    "close": "Close",
+    "loading": "Loading…",
+    "reset": "Reset",
+    "open": "Open",
+    "language": "Language",
+    "theme_toggle": "Switch light / dark",
+    "error": "Something went wrong.",
+    "edit": "Edit",
+    "saving": "Saving…"
+  },
+  "site": {
+    "footer": {
+      "label": "Pages",
+      "about": "About Staunlabor",
+      "imprint": "Imprint",
+      "privacy": "Privacy",
+      "source": "Source code",
+      "issues": "Report a problem or an idea",
+      "licence": "Code under MIT, texts and drawings under CC BY 4.0. Independent and non-commercial.",
+      "version": "Version {{version}}"
+    },
+    "about": {
+      "title": "About Staunlabor",
+      "lead": "Hands-on exhibits, computed — free, without an account and without ads.",
+      "what": "Staunlabor takes exhibits of the kind a science centre has — a ball floating on a jet of air, a smoke ring pressed out of a drum, three balls dropped stacked — and lets you play the visitor in each exhibit's twin. Then every page shows what happens: the equations of motion, how they are solved, and the one insight that explains the trick.",
+      "computed": "Every number comes from the site's own engine and is held by its tests. What moves is computed by your browser, with the same steps as the engine; what a slider changes is computed by the server.",
+      "model": "The exhibits are inspired by exhibits at the Swiss Science Center Technorama in Winterthur. Staunlabor is an independent project and is not affiliated with the Technorama; every drawing and text here is its own.",
+      "open": "Staunlabor is free: the code is under the MIT licence, the texts and drawings under CC BY 4.0. You may reuse them with credit, in teaching too.",
+      "feedback": "Something wrong, unclear, or an exhibit you would like to see?",
+      "issues": "Report it on GitHub",
+      "source": "See the source code"
+    }
+  },
+  "legal": {
+    "impressum": {
+      "disclaimer": {
+        "body": "Staunlabor is a private, non-commercial project, offered without warranty. External sites we link to are the responsibility of their respective operators; we have no control over their content."
+      }
+    },
+    "privacy": {
+      "data": {
+        "title": "What data we process",
+        "body": "Staunlabor has no accounts, no database and no forms. When you change an exhibit, your browser sends its values — a ball's diameter, a drop height — to the server, which computes figures and curves from them and sends them back; none of it is stored.\n\nTechnical data: our hosting provider records each request — the time, the address requested, your IP address and browser type — to operate and secure the service. To limit the number of calculations per address, the server holds your IP address in memory for a short while; it is not stored."
+      },
+      "legal_basis": {
+        "site": "There is no tracking, no analytics, no cookies and no advertising."
+      },
+      "third_parties": {
+        "title": "Hosting and processors",
+        "body": "The site runs on Google Cloud in the European Union (europe-west4, the Netherlands). Google acts as a processor on our behalf.\n\nCloudflare runs the DNS for staunlabor.app and forwards email to addresses @staunlabor.app to the operator's mailbox; in doing so it processes the message and the sender's and recipient's addresses. Web traffic does not pass through Cloudflare's network.\n\nThe source code and the feedback are on GitHub. Whoever reports something there does so with their GitHub account and under GitHub's terms."
+      },
+      "browser": {
+        "entries": {
+          "language": "The language you picked",
+          "look": "The light or dark theme",
+          "tried": "Which exhibits you have tried, so the overview can tick them"
+        },
+        "tail": "None of it is used to track you, and none of it is sent to us. All of it disappears when you clear the site's data in your browser."
+      },
+      "transfers": {
+        "title": "Transfers abroad",
+        "body": "The data is processed in the EU (the Netherlands). Google, Cloudflare and GitHub are companies based in the USA; where data may be accessed from outside Switzerland and the EU, the transfer relies on the providers' standard contractual clauses and, where they apply, the EU–US and Swiss–US Data Privacy Frameworks. Switzerland, where the operator is based, is recognised by the EU as providing an adequate level of data protection."
+      },
+      "retention": {
+        "title": "Retention and deletion",
+        "body": "Staunlabor stores no data about you. Our hosting provider deletes its request logs after 30 days. What your browser keeps you can delete at any time in its settings."
+      }
+    }
+  },
+  "experiments": {
+    "title": "Experiments",
+    "area": "The experiments",
+    "failed": "The exhibit could not be computed.",
+    "overview": {
+      "short": "Overview",
+      "lead": "Hands-on exhibits, computed. Play the visitor in the exhibit's twin, then see the computation behind what you felt.",
+      "how": "Each page starts with what stands at the exhibit, lets you try it, then shows what happens and the one insight that explains the trick. Every number comes from the app's own engine and is held by its tests.",
+      "open": "Open the exhibit",
+      "coming": "In preparation",
+      "credit": "Inspired by exhibits at the Swiss Science Center Technorama, Winterthur.",
+      "daily": {
+        "eyebrow": "Experiment of the day",
+        "open": "Try it",
+        "today": "Today"
+      },
+      "history": {
+        "title": "The experiments of the last days",
+        "open": "Earlier days"
+      },
+      "all": "All exhibits",
+      "topics_label": "Filter by topic",
+      "all_topics": "All topics",
+      "tried": {
+        "label": "Tried on this device",
+        "count": "{{tried}} of {{total}}",
+        "mark": "Tried",
+        "forget": "Forget"
+      },
+      "builds_on": "Builds on:"
+    },
+    "topics": {
+      "momentum": "Momentum",
+      "angular_momentum": "Angular momentum",
+      "energy": "Energy",
+      "oscillation": "Oscillation",
+      "flow": "Flow",
+      "induction": "Induction",
+      "perception": "Perception"
+    },
+    "frame": {
+      "eyebrow": "Exhibit",
+      "at_the_exhibit": "At the exhibit",
+      "try_it": "Try it",
+      "what_happens": "What happens",
+      "sweet_spot": "The trick",
+      "computed": "How it is computed"
+    },
+    "exhibits": {
+      "chair": {
+        "short": "The chair",
+        "title": "The chair that is three things",
+        "summary": "Three peepholes, one chair — and behind them a chair, a skewed chair and rods that touch nowhere.",
+        "question": "How can three different things look like the same chair through a peephole?"
+      },
+      "coil": {
+        "short": "Magnet and coil",
+        "title": "The magnet car and the coil",
+        "summary": "Two buttons, one coil, a car carrying a magnet: press at the right moments and it climbs both ramps.",
+        "question": "When do you press so that the car climbs higher with every pass?"
+      },
+      "sphere": {
+        "short": "Ball in the sphere",
+        "title": "The ball in the hanging sphere",
+        "summary": "Push the hanging sphere round in circles until the ball inside runs round its equator.",
+        "question": "How fast must the sphere go round for the ball inside to run round its equator?"
+      },
+      "platform": {
+        "short": "The spinning platform",
+        "title": "The spinning platform",
+        "summary": "Stand on it, get a push, and pull in: the closer to the axis, the faster you spin.",
+        "question": "How much faster do you spin when you stand up straight?"
+      },
+      "race": {
+        "short": "The race",
+        "title": "The race of the curves",
+        "summary": "Six tracks, one start, one finish: which ball arrives first — and the valley where they all arrive together.",
+        "question": "Which of the six tracks wins — and is it the shortest?"
+      },
+      "elephant": {
+        "short": "The Bernoulli elephant",
+        "title": "The Bernoulli elephant",
+        "summary": "Set a light ball on the elephant's trunk: it floats in the air it blows, and stays there even when pushed.",
+        "question": "How far can the jet be tilted before the ball falls?"
+      },
+      "smoke": {
+        "short": "The smoke ring",
+        "title": "The smoke ring",
+        "summary": "Press the skin of a drum full of smoke and a ring flies out of its hole — if you press neither too hard nor too gently.",
+        "question": "Does the ring fly further if you press harder?"
+      },
+      "cannon": {
+        "short": "The ball cannon",
+        "title": "The ball cannon",
+        "summary": "Drop three balls stacked on a wire, and the small one on top shoots up far higher than it fell.",
+        "question": "How high does the small ball fly when the stack falls from one metre?"
+      }
+    },
+    "chair": {
+      "kinds": {
+        "chair": "The chair",
+        "skewed": "The skewed chair",
+        "scattered": "The rods"
+      },
+      "at": {
+        "boxes": "One long box stands on a table, with three peepholes side by side in its front. Look through any of them and you see a chair.",
+        "round": "Then look into the box from the side: behind the first hole stands a chair; behind the second, a chair bent out of shape — legs of different lengths, a seat that is no square; behind the third, rods that hang in the air and touch nowhere."
+      },
+      "model": {
+        "directions": "An eye at a hole sees directions, not distances. Every point P can slide along its line of sight from the eye E, nearer or further, and the picture does not change:",
+        "skewed": "The skewed chair slides every point by a factor that changes smoothly across the chair. That map keeps every line through the eye, so straight rods stay straight and joints stay joined — it is a chair, only not the one you think:",
+        "scattered": "The rods each slide by a factor of their own. Each stays a rod pointing the same way, but two rods that met at a joint now meet only on the line of sight, at two different depths.",
+        "cave": "Plato told of prisoners in a cave who see only shadows on its wall and take them for the things themselves. The peephole is that wall: one picture, and endless objects that could cast it. The view round the box is the step out of the cave."
+      },
+      "sweet": {
+        "question": "How exact must the hole be? Move the eye sideways by δ, and two points that lined up at distances d₁ and d₂ come apart by about",
+        "tolerance": "For these boxes a joint of the rods opens to one minute of arc — what a sharp eye tells apart — after only {{tolerance}} mm. A second eye, {{baseline}} mm to the side, sees the gaps {{binocular}}° wide: hence one hole, and one eye.",
+        "brain": "That the rods still read as a chair through a hole wider than that is the brain's doing: the pupil blurs every point a little, and a blurred gap at the wrong depth is read as a chair, because chairs are what there are. The skewed chair never comes apart at all — moving the eye only bends its shape."
+      },
+      "figures": {
+        "tolerance": "Eye may move",
+        "binocular": "Gap, second eye",
+        "acuity": "Eye resolves",
+        "joints": "Joints"
+      },
+      "equations": {
+        "slide": "Where a point may go without the picture changing: anywhere on the line from the eye through it, nearer or further.",
+        "skew": "One rule for the whole chair: every point slides by a factor that depends on where it is, so straight rods stay straight.",
+        "gap": "How far apart two points that lined up look once the eye has moved: the more their distances differ, the faster they part."
+      },
+      "symbols": {
+        "p": "a point of the chair",
+        "p_moved": "where that point is moved to",
+        "eye": "the eye, at the hole",
+        "lambda": "how far along its line of sight: above 1 further away, below 1 nearer",
+        "w": "a fixed direction that sets how the factor changes across the chair",
+        "dot": "the dot product: how far the point lies along that direction",
+        "gap": "the angle between the two points, as the eye sees them",
+        "delta": "how far the eye has moved sideways",
+        "distances": "the two points' distances from the eye"
+      },
+      "auto": "Auto: once round",
+      "auto_hint": "The view rests at the holes for two seconds, then goes once round the chamber and back. Touch a slider to take over.",
+      "views": {
+        "title": "Inside the chamber",
+        "hint": "Turn and tilt the view: all three move together. At 0° and 0° you look from the very spot of the holes — and the three become one chair.",
+        "view": "{{name}}, seen from the turned viewpoint",
+        "align": "Look through the holes",
+        "aligned": "Through the holes: one chair, three times",
+        "apart": "From here: three different things",
+        "turn": "Turn",
+        "tilt": "Tilt"
+      }
+    },
+    "equation": {
+      "symbols": "What the symbols mean"
+    },
+    "coil": {
+      "at": {
+        "track": "A track of two ramps, left and right, curving up from a flat between them. Round the flat sits a coil of wire, and a small car carries a magnet through it. A digital meter, from −100 to +100 mA, shows what the car induces as it rolls through the coil — and nothing while a button is held.",
+        "buttons": "Two buttons switch the coil on, one each way. Press the first as the car comes into the coil and the second as soon as it is past the middle, and the car climbs higher up the other ramp with every pass, until it reaches the top of each."
+      },
+      "play": {
+        "title": "At the buttons",
+        "hint": "Press and hold + while the car comes into the coil, − as soon as it is past the middle. Too hard at full speed? Slow it down, or let the rule press and watch when it does.",
+        "pause": "Pause",
+        "run": "Run",
+        "restart": "Start again",
+        "plus": "Button +, pulls the car into the coil",
+        "minus": "Button −, pushes the car out of the coil",
+        "plus_caption": "Coming in",
+        "minus_caption": "Going out",
+        "last_peak": "Last turn-around",
+        "goal": "Top of a ramp",
+        "tops": "Tops reached",
+        "time": "Time",
+        "autopilot": "Auto: perfect timing",
+        "autopilot_hint": "Plus from the foot of the ramp to the middle, minus from the middle to the other ramp, switched exactly as the car passes the middle — {{window}} cm each side. The curve under “The trick” shows why.",
+        "speed": "Speed",
+        "speeds": {
+          "1": "Real time",
+          "0_25": "¼",
+          "0_1": "⅒"
+        },
+        "keys": "On a keyboard: hold + or ← for plus, − or → for minus."
+      },
+      "meter": {
+        "label": "The meter, in milliamperes",
+        "caption": "What the car induces",
+        "buttons_label": "The coil's current from the buttons, in milliamperes",
+        "buttons_caption": "What the buttons drive"
+      },
+      "track": {
+        "label": "The track from the side: two ramps, the coil in the middle, the car with its magnet"
+      },
+      "change": {
+        "title": "Change the exhibit",
+        "hint": "The exhibit's real numbers are not published; these are a table-top build that matches what a visitor sees. Every change starts the car again.",
+        "supply": "Battery",
+        "turns": "Turns of wire",
+        "turns_hint": "The same wire: more turns, more resistance, so less current — and yet each pass gains about the same.",
+        "mass": "Car's mass",
+        "rolling": "Rolling resistance",
+        "closed": "The meter stays connected between presses",
+        "closed_hint": "At the exhibit it does: the reading moves as the car rolls through, and that current brakes the car a little.",
+        "radius": "Ramp radius",
+        "radius_hint": "Each ramp is an arc of this radius, starting level at the flat: the smaller, the steeper and higher it rises over the same length."
+      },
+      "model": {
+        "flux_intro": "Everything starts with one curve: how much of the magnet's field passes through the coil's turns, with the car at a given place.",
+        "flux": "The magnet's flux through all the turns: largest with the magnet in the middle of the coil, small far away. The magnet is treated as a point; for this one the error is a few per cent.",
+        "coupling": "How fast that flux changes as the car moves along: positive coming in from the left, zero in the middle, negative going out. This one curve does two jobs.",
+        "induced": "The first job: the voltage the rolling magnet induces in the coil. That is what moves the meter when nobody presses — one swing coming in, the opposite one going out.",
+        "force": "The second job: the push the coil gives the car when a current flows. Because k changes sign in the middle, the current has to change sign there too — that is why there are two buttons, and why “plus coming in, minus going out” works whichever way the car is going.",
+        "circuit": "The coil's circuit: the button's voltage drives the current against the wire's resistance and against the voltage the car itself induces.",
+        "motion": "The car: the coil's push, gravity along the curved track, and rolling resistance — which grows on the curve, where the track also has to push the car round, by v²/R.",
+        "energy": "The battery's energy goes into the car's speed and height, into heat in the wire, into the coil's own field and into rolling resistance. The engine keeps that account, and it closes to a part in a million."
+      },
+      "symbols": {
+        "psi": "flux linkage, the magnet's flux through all the turns",
+        "x": "the car's position, from the coil's middle",
+        "mu0": "the magnetic constant",
+        "moment": "the magnet's strength (its dipole moment)",
+        "turns": "the number of turns",
+        "length": "the coil's length",
+        "radius": "the coil's radius",
+        "k": "coupling: volts per metre per second, and newtons per ampere",
+        "e": "the induced voltage",
+        "v": "the car's speed",
+        "force": "the coil's push on the car",
+        "i": "the current in the coil",
+        "inductance": "the coil's inductance",
+        "u": "the button's voltage: +U, 0 or −U",
+        "resistance": "the wire's resistance",
+        "mass": "the car's mass",
+        "g": "gravity",
+        "alpha": "the track's slope: zero on the flat, s/R up a ramp's arc",
+        "rolling": "rolling resistance, a share of the weight",
+        "tau": "the coil's time constant",
+        "gain": "the most energy one pass can give",
+        "full_current": "the current with a button held",
+        "supply": "the battery's voltage",
+        "top_speed": "the speed past which the coil can no longer push",
+        "arc": "how far up the arc, from the flat's end",
+        "ramp_radius": "the ramps' radius"
+      },
+      "sweet": {
+        "timing": "The coil is fast and your hand is slow. The current follows a button within about {{tau}} ms; the car takes about {{between}} ms from the moment to press + to the moment to press −. The game is not the coil, it is the hand.",
+        "tau": "How quickly the current follows a button: after one time constant it has reached about two thirds of where it is going.",
+        "gain": "Energy gained in one pass",
+        "late": "How late the hand reaches the − button",
+        "reading": "Read the curve: switching on time gains the most; 20 ms late still gives about two thirds; 30 ms late and the car never reaches the top; some 60 ms late the pull that is left brakes the car. These figures hold for the default build.",
+        "gain_bound": "The most one pass can give: pulling in from far away to the middle gains I·Ψ(0), pushing out again the same. The induced voltage and rolling resistance take some of it.",
+        "top_speed": "However well you press, there is a top speed: where the voltage the car induces equals the battery's, no current flows and the coil can no longer push."
+      },
+      "figures": {
+        "tau": "Time constant",
+        "between": "Between the buttons",
+        "current": "Current, button held",
+        "coasting": "Current, coasting",
+        "gain": "Best gain per pass",
+        "speed": "Speed for the top",
+        "vmax": "Top speed"
+      },
+      "computed": {
+        "system": "Together these are three differential equations: they say how fast the car's position, its speed and the coil's current change, each through the others — k(x) couples the mechanics and the circuit. The system has no solution in a closed form, so the engine steps it forward in time with the classical Runge–Kutta method (RK4): every {{step}} ms, {{steps}} steps for each second. Your browser runs exactly the same steps while you play.",
+        "circuit": "On its own, the circuit is the course's first-order system: after a button is pressed, the current rises towards U/R with the time constant L/R. The car's motion is a second-order system — position and speed — pushed by the coil and pulled by gravity on the ramps.",
+        "dot": "a dot means how fast the quantity changes in time: ẋ = dx/dt",
+        "fade": "below {{fade}} mm/s rolling resistance fades in, so a car at rest has no direction to resist",
+        "alpha": "the track's slope where the car is: zero on the flat, s/R up a ramp",
+        "kappa": "the track's curvature: zero on the flat, 1/R on a ramp — where the curve presses the car on the track by v²/R more"
+      }
+    },
+    "sphere": {
+      "at": {
+        "sphere": "A clear sphere hangs between a rope to the ceiling and a rope to the floor, with a ball inside. The ropes keep it moving in a horizontal plane: you can push it left and right, forward and back, or round in circles.",
+        "push": "Push it round in circles at the right tempo and the ball starts to circle too, climbing the inner wall until it runs round the equator, in that plane only. To take it higher you have to circle faster — and find the sweet spot again."
+      },
+      "play": {
+        "title": "Push the sphere",
+        "who": "Who pushes",
+        "modes": {
+          "hand": "You",
+          "circle": "A steady circle",
+          "perfect": "Auto: perfect timing"
+        },
+        "hint_hand": "Drag in the view from above: the sphere follows your finger as a hand would. Circle round the middle — slowly at first, about once a second, then faster as the ball climbs.",
+        "hint_circle": "The sphere is pushed round a 2 cm circle at the tempo you set. Change the tempo slowly and the ball follows; change it at once and it falls behind.",
+        "hint_perfect": "The sphere is always pushed a quarter turn ahead of the ball and speeds up exactly as the ball climbs — the timing done right, up to about 4 Hz, as fast as an arm can go.",
+        "pause": "Pause",
+        "run": "Run",
+        "restart": "Start again",
+        "tempo": "Tempo",
+        "change": "Change the tempo",
+        "slowly": "Slowly",
+        "at_once": "At once",
+        "angle": "Ball, up the wall",
+        "depth": "Below the equator",
+        "your_tempo": "Your tempo",
+        "needed": "Tempo for this height",
+        "lead": "Sphere ahead of the ball",
+        "reading": "Below {{f0}} Hz there is no circle: the ball only wobbles at the bottom. Each height has its own tempo — the line in the chart — and the higher, the faster."
+      },
+      "views": {
+        "top": "The sphere from above: drag to push it",
+        "top_caption": "From above — push here",
+        "side": "The sphere from the side: how high the ball rides",
+        "side_caption": "From the side"
+      },
+      "chart": {
+        "circle": "Round and round",
+        "swing": "Back and forth",
+        "tempo": "Tempo",
+        "angle": "Angle from the bottom",
+        "you": "You"
+      },
+      "change": {
+        "title": "Change the exhibit",
+        "hint": "The exhibit's real size is not published; a table-top sphere is assumed. Every change starts the ball again.",
+        "shell": "Sphere's diameter",
+        "shell_hint": "The size changes the tempo needed low down — not how far below the equator a given tempo rides.",
+        "ball": "Ball's diameter",
+        "kind": "Ball",
+        "solid": "Solid",
+        "hollow": "Hollow",
+        "rolling": "Rolling resistance"
+      },
+      "model": {
+        "rolling_intro": "A ball rolling on the inside of a sphere moves its centre exactly like a pendulum on a string of length ρ — but under less gravity.",
+        "rolling": "Part of gravity's pull goes into spinning the ball up, so its centre feels only g′: 5/7 of gravity for a solid ball, 3/5 for a hollow one. This holds exactly while the ball has no spin about the line to the wall, and a ball that starts at rest never gets any.",
+        "push": "Moving the sphere is a second gravity: in the sphere's frame, its acceleration A pulls the ball the other way — through the same 5/7.",
+        "orbit": "A ball circling at rate Ω rides at this depth below the equator. Faster circles ride higher; the equator itself would take an endless tempo. The size of the sphere does not enter.",
+        "lowest": "The slowest circle there is — below it the ball only wobbles at the bottom. It is also the rate of a small swing.",
+        "wobble": "A circle that is slightly tilted bobs up and down at this rate: near the equator once a revolution — the ball not yet “in the plane”.",
+        "swing": "Back and forth is the opposite: a pendulum swings slower the wider it swings. Round and round, it is faster the higher it rides."
+      },
+      "symbols": {
+        "g_share": "the gravity the ball's centre feels",
+        "g": "gravity",
+        "k": "how much of the ball's mass sits far from its centre",
+        "inertia": "the ball's moment of inertia",
+        "mass": "the ball's mass",
+        "ball_radius": "the ball's radius",
+        "push": "the sphere's acceleration, from your push",
+        "rho": "how far the ball's centre stays from the sphere's",
+        "shell_radius": "the sphere's inner radius",
+        "theta": "the ball's angle up the wall, from the bottom",
+        "omega": "the ball's rate round the sphere (2π times the tempo)",
+        "depth": "how far below the equator it rides",
+        "omega0": "the lowest circle's rate",
+        "wobble": "how often a tilted circle bobs",
+        "amplitude": "how far the swing goes out each side",
+        "f0": "the small-swing tempo",
+        "elliptic": "the complete elliptic integral of the first kind"
+      },
+      "sweet": {
+        "moves": "The resonance moves while you pump. The tempo you circle at sets how high the ball rides — so to take it higher you have to circle faster, with the ball, and the sweet spot you just found is gone.",
+        "ahead": "A push does the most work a quarter turn ahead of the ball: the sphere pushed towards where the ball is going. “Auto: perfect timing” does exactly that, and climbs faster than any steady sweep.",
+        "too_fast": "Speed up too quickly and the ball falls behind and drops back. The engine shows it: a slow sweep from 0.7 to 2.5 Hz over 30 s carries the ball to 81°; jumping straight to 2.5 Hz leaves it near the bottom. Physicists call this autoresonance. These figures hold for the default build.",
+        "limit": "Is there a top speed? On a steady circle the ball goes round exactly as often as the sphere, and every height has its own tempo — the equator itself would take an endless one. So the ball does not keep speeding up on its own: leave the sphere alone and the ball slows and sinks, and the limit is the arm. At 4 Hz, about as fast as one can circle, it rides 1.1 cm below the equator, at 86°, its centre at 4.5 m/s, pressed to the wall with nearly twelve times its weight. These figures hold for the default build.",
+        "figures_note": "Tempos and depths are the engine's orbits for this sphere; the push needed is what rolling resistance takes at that height."
+      },
+      "figures": {
+        "f0": "Lowest circle",
+        "at": "Tempo at {{angle}}°",
+        "depth": "Below equator at {{angle}}°",
+        "push": "Push needed at {{angle}}°",
+        "friction": "Grip needed, at most",
+        "share": "Share of gravity"
+      },
+      "computed": {
+        "system": "Six differential equations of first order: the ball centre's position and velocity in three dimensions, with the push of your hand in them as A. They have no closed-form solution either, so the engine steps them forward with RK4 every {{step}} ms, and after each step puts the centre back on its sphere and its velocity back along the wall, which RK4 drifts off by its own tiny error. Your browser runs the same steps, with your hand's push in them.",
+        "centripetal": "The last term keeps the ball on the wall: v²/ρ is the acceleration a circle of radius ρ asks for.",
+        "p": "the ball centre's position, from the sphere's centre",
+        "v": "its velocity",
+        "along": "the part along the wall",
+        "normal": "the wall's push, per kilogram",
+        "n": "the direction from the sphere's centre to the ball's",
+        "cr": "rolling resistance, a share of N",
+        "fade": "below {{fade}} mm/s rolling resistance fades in, so a ball at rest has no direction to resist"
+      }
+    },
+    "platform": {
+      "view": "The platform from above, with the visitor standing on it",
+      "at": {
+        "stand": "A round platform turns on a bearing at floor level, with a handlebar fixed across its middle. A visitor stands on it, both hands on the bar, and gets a push. The feet stay where they are.",
+        "pull": "Leaning back with the whole body, arms straight, they turn slowly; standing upright, faster and faster. Lean out again and the spin slows down. Nobody pushes harder — the speed comes from where the body is."
+      },
+      "play": {
+        "title": "On the platform",
+        "hint": "Push to get turning, then lean out or stand up. The platform turns faster the more upright you stand.",
+        "hint_auto": "The visitor leans out, stands up, holds, and leans out again, round after round — watch the speed follow.",
+        "push": "Push",
+        "pause": "Pause",
+        "run": "Run",
+        "restart": "Start again",
+        "auto": "Auto: lean out and stand up",
+        "auto_hint": "Leaning out for three seconds, upright for two and a half, and back — with a push if the platform stands.",
+        "lean": "Leaning out",
+        "rate": "Turns",
+        "rate_unit": "per s",
+        "inertia": "Moment of inertia",
+        "momentum": "Angular momentum",
+        "energy": "Energy of the spin",
+        "pull": "Pull on the bar",
+        "times": "Faster than leaning out",
+        "reading": "Each push gives {{push}} kg·m²/s of angular momentum. Between pushes only the bearing takes some away — however you lean, the angular momentum stays.",
+        "lean_hint": "How far the trunk leans back from the axis, the hands on the bar and the feet where they are."
+      },
+      "change": {
+        "title": "Change the exhibit",
+        "hint": "The exhibit's real numbers are not published; a light platform and a 70 kg visitor are assumed. Every change starts again.",
+        "mass": "Visitor's mass",
+        "platform_mass": "Platform's mass",
+        "diameter": "Platform's diameter",
+        "friction": "Bearing friction",
+        "friction_hint": "A steady torque against the turn: it takes angular momentum away at a constant rate until the platform stands."
+      },
+      "model": {
+        "intro": "Nothing outside the visitor turns them but the bearing. So what decides the speed is how the visitor's mass is spread around the axis.",
+        "momentum": "The angular momentum: the moment of inertia times the rate of turning. Without a push only the bearing's friction changes it, slowly and steadily.",
+        "rate": "So the rate is the angular momentum shared out over the moment of inertia: halve the inertia, double the speed.",
+        "sum": "The moment of inertia adds up every piece of mass, each counted by the square of its distance from the axis: far-out mass counts a lot, mass near the axis hardly at all.",
+        "disc": "The platform itself, a disc.",
+        "arm": "An arm, a rod from the hand on the bar to the shoulder: upright it lies along the bar; leaning out, it reaches out with the shoulder and counts for more.",
+        "lean": "Leaning out moves the trunk away from the axis: its own share plus its mass times the distance squared (the parallel-axis rule). The legs stay at the axis."
+      },
+      "symbols": {
+        "momentum": "angular momentum",
+        "inertia": "moment of inertia",
+        "omega": "rate of turning (2π times the turns per second)",
+        "friction": "the bearing's friction torque",
+        "piece": "a piece of mass",
+        "r": "its distance from the axis",
+        "platform_mass": "the platform's mass",
+        "platform_radius": "the platform's radius",
+        "arm_mass": "an arm's mass",
+        "shoulder": "how far each hand and shoulder are from the axis, to the side",
+        "lean": "how far the trunk leans out",
+        "own": "the part's own moment of inertia",
+        "energy": "the energy of the spin",
+        "pull": "what the hands hold on the bar: the leaning body kept on its circle",
+        "trunk_mass": "the trunk's mass, with the head"
+      },
+      "sweet": {
+        "faster": "Upright, the visitor turns {{ratio}} times as fast as leaning out — with the same angular momentum.",
+        "energy": "The energy of the spin, at the same angular momentum: smaller inertia, more energy. Pulling in makes the spin more energetic, not just faster.",
+        "pull": "That energy has to come from somewhere: from the arms. Leaning out, the body needs this pull inwards to stay on its circle, and the hands give it through the bar — it grows with the square of the rate, and the visitor feels it as the bar pulling at the hands.",
+        "paid": "Standing up from leaning out, the arms do {{work}} J of work against that pull, and the spin's energy rises by exactly that, from {{from}} J to {{to}} J. The engine checks it by adding up the pull along the way in.",
+        "replay": "Here is the auto mode over sixteen seconds, from one push of {{push}} kg·m²/s: the speed leaps each time the visitor stands up and drops as they lean out, while the angular momentum only runs down, slowly and steadily, with the bearing."
+      },
+      "chart": {
+        "rate": "Turns",
+        "lean": "Leaning out",
+        "time": "Time"
+      },
+      "figures": {
+        "work": "Work to stand up",
+        "stops": "Stops after",
+        "leaning": "Leaning out",
+        "upright": "Upright",
+        "pull_leaning": "Pull, leaning out"
+      },
+      "computed": {
+        "system": "Here there is one differential equation, and it has an exact solution: the angular momentum falls in a straight line until it reaches zero — the bearing never turns the platform back. So nothing needs stepping: the rate is L/I at every moment, plain algebra. It is the simplest first-order equation there is.",
+        "l0": "the angular momentum just after the last push",
+        "t": "the time since"
+      }
+    },
+    "computed": {
+      "course": "The ground under it, in the differential-equations course:",
+      "links": {
+        "first_order": "First-order systems",
+        "second_order": "Second-order systems",
+        "numerics": "Numerical solution"
+      }
+    },
+    "race": {
+      "at": {
+        "tracks": "Several tracks run from the same start down to the same finish, each a different curve. A ball sits at the top of each; one lever lets them all go at the same moment.",
+        "which": "The straight one is the shortest — and not the first. The fastest dips below the finish and climbs to it at the end. On another track, a curved valley, balls let go from different heights all reach the bottom at the same time."
+      },
+      "curves": {
+        "line": "Straight line",
+        "cycloid": "Cycloid",
+        "circle": "Circular arc",
+        "parabola": "Parabola",
+        "hyperbola": "Steep start",
+        "hump": "Hump on the way"
+      },
+      "balls": {
+        "solid": "Solid ball",
+        "hollow": "Hollow ball",
+        "sliding": "Sliding block"
+      },
+      "play": {
+        "title": "Let them go",
+        "hint": "Start the race and watch where each ball is. The times beside the colours are the engine's, in the order the balls arrive. At the flag each track ends, and the ball flies on into a padded pit, where all six end up together.",
+        "start": "Start",
+        "pause": "Pause",
+        "run": "Run",
+        "view": "Six tracks from one start to one finish, a ball on each",
+        "auto": "Auto: race again and again",
+        "auto_hint": "The race starts again a moment after the last ball arrives.",
+        "speed": "Speed",
+        "speeds": {
+          "1": "Real time",
+          "0_25": "¼",
+          "0_1": "⅒"
+        }
+      },
+      "motion": {
+        "hint": "Each ball's velocity and acceleration, as arrows from one point and as numbers: x to the right, y up. On its track gravity speeds a ball along it and the track turns it; in the air every ball falls with g alone, all the arrows alike; in the pit each knock against the lining or another ball is a jolt far off the scale — the mean over 5 ms, drawn dashed, its size in the table.",
+        "velocity": "Velocity",
+        "acceleration": "Acceleration",
+        "velocity_label": "Every ball's velocity as an arrow from one point",
+        "acceleration_label": "Every ball's acceleration as an arrow from one point",
+        "table": "Every ball's time, speed and acceleration, by rank",
+        "track": "Track",
+        "time": "Time"
+      },
+      "change": {
+        "title": "Change the exhibit",
+        "hint": "The exhibit's real size is not published; a table-top track is assumed. Every change starts the race again.",
+        "drop": "Drop to the finish",
+        "run": "Run to the finish",
+        "run_hint": "Past π/2 times the drop the cycloid dips below the finish. Shorter than 1.1 times the drop, the hump would throw a ball off its crest and the circular arc would curl back over its own start, so the run stops there.",
+        "ball": "What runs"
+      },
+      "valley": {
+        "title": "The valley where everyone arrives together",
+        "hint": "Four balls let go at once from different heights, on a cycloid valley and, beside it, on a circular bowl with the same curvature at the bottom.",
+        "let_go": "Let go",
+        "cycloid": "Cycloid valley",
+        "circle": "Circular bowl",
+        "to_bottom": "To the bottom, from anywhere",
+        "bowl_from": "Bowl, from {{height}} cm"
+      },
+      "model": {
+        "intro": "Nothing but gravity drives the balls, and the track only steers them. So the speed at every point follows from the height alone.",
+        "speed": "How fast the ball is, a height h below the start: whatever the track did on the way. A rolling ball feels only g′ of gravity along the track — the rest goes into its spin.",
+        "time": "A track's time: its length, piece by piece, over the speed on each piece. The fastest track is not the shortest, but the one that gets fast early.",
+        "cycloid": "The cycloid, the curve a point on a rolling wheel's rim draws: through the start and the finish it is the fastest track of all (Bernoulli, 1696), and its time has a closed form.",
+        "line": "The straight line, for comparison: the shortest track, and a slow one.",
+        "valley": "On a cycloid valley every ball reaches the bottom after the same time, whatever height it starts from (Huygens, 1659: the tautochrone). On a circular bowl a ball that starts higher arrives later — a pendulum swings slower the wider it swings."
+      },
+      "symbols": {
+        "v": "the ball's speed",
+        "h": "how far below the start it is",
+        "g_share": "the gravity a rolling ball feels along the track",
+        "k": "how much of the ball's mass sits far from its centre: 2/5 solid, 2/3 hollow, 0 sliding",
+        "time": "the track's time, from start to finish",
+        "ds": "a short piece of the track",
+        "r": "the radius of the wheel that draws the cycloid",
+        "theta": "how far that wheel has turned",
+        "theta_b": "how far it has turned at the finish",
+        "run": "how far along the finish is",
+        "drop": "how far below the start the finish is",
+        "bowl": "the bowl's radius",
+        "phi0": "the angle a ball starts from on the bowl",
+        "elliptic": "the complete elliptic integral of the first kind"
+      },
+      "computed": {
+        "system": "No time is stepped here: the speed at every height is known, so each track's time is one integral along it. At the start the speed is zero and the integrand blows up; writing p = u² takes that out, and the trapezoid rule over 1440 steps sums it to a part in ten million. The same sum, kept as it goes, is each ball's timetable for the animation.",
+        "p": "how far along the track, from 0 at the start to 1 at the finish",
+        "r": "the point of the track at p",
+        "u": "the square root of p, which smooths the start"
+      },
+      "sweet": {
+        "shortest": "The straight line is the shortest track and takes {{line}} s; the cycloid, longer, takes {{cycloid}} s. What wins is speed early: a track that drops steeply at first has the ball fast for most of the way.",
+        "dips": "For this finish the fastest track goes {{below}} cm below the finish and climbs the last part: the speed gained by going lower is worth the climb.",
+        "no_dip": "For this finish the cycloid does not need to dip below the finish; make the run longer than π/2 times the drop and it will.",
+        "galileo": "Galileo thought in 1638 that the circle was the fastest; it is close, at {{circle}} s, but the cycloid beats it.",
+        "same_speed": "Every ball crosses the finish equally fast, {{speed}} m/s: its speed depends only on the height it has fallen, never on the track. The race is decided by the time alone.",
+        "throw_up": "Past the flag each ball flies on the way its track points at the end: the cycloid's upwards — it climbs to the finish from below it, and was faster still at its lowest — the line's downwards. In the pit they bounce, roll and knock into each other until all six lie together at the bottom.",
+        "throw_down": "Past the flag each ball flies on the way its track points at the end — for this finish even the cycloid's downwards, since it does not dip below the finish. In the pit they bounce, roll and knock into each other until all six lie together at the bottom.",
+        "rolling": "A rolling ball is slower on every track by the same factor, {{factor}}, than a block sliding without friction — so the order never changes, and the cycloid is the fastest for any ball."
+      }
+    },
+    "elephant": {
+      "view": "The elephant from the side, blowing up through its trunk, with the ball in the air above it",
+      "at": {
+        "blow": "An elephant stands with its trunk raised, blowing a steady stream of air straight up. Beside it lies an inflatable ball, about 15 cm across.",
+        "float": "Set the ball on the end of the trunk and it lifts off, rises a hand's breadth and stays there, bobbing a little. Nudge it and it comes back."
+      },
+      "play": {
+        "title": "At the trunk",
+        "hint": "The ball sits on the trunk until the air lifts it. Change the air, tilt the trunk or push the ball, and watch where the air holds it, and when it no longer can.",
+        "hint_auto": "The trunk tilts further and further, until the air can no longer hold the ball; then the ball is set back on.",
+        "pause": "Pause",
+        "run": "Run",
+        "restart": "Start again",
+        "push_left": "Push left",
+        "push_right": "Push right",
+        "air": "Air leaving the trunk",
+        "air_hint": "{{flow}} m³ of air an hour through the trunk",
+        "tilt": "Tilt of the trunk",
+        "tilt_hint": "The exhibit's trunk does not tilt; here it does, to find where the ball falls.",
+        "auto": "Auto: tilt until it falls",
+        "auto_hint": "Tilts the trunk {{rate}}° a second from straight up until the ball falls out of the air, then sets it back on.",
+        "height": "Ball's centre above the trunk",
+        "air_at_ball": "Air at the ball",
+        "off_axis": "Off the jet's axis",
+        "falls_at": "Falls at a tilt of",
+        "resting": "On the trunk: the air cannot lift it",
+        "floating": "Floating",
+        "fallen": "Fallen out of the air"
+      },
+      "change": {
+        "title": "Change the exhibit",
+        "hint": "The exhibit's real numbers are not published; these match what a visitor sees: a trunk about 10 cm across and a ball of about 15 cm, floating some 30 cm up. A change acts at once, on the ball in the air.",
+        "opening": "Trunk opening",
+        "diameter": "Ball's diameter",
+        "mass": "Ball's mass",
+        "coanda": "Sideways suction (model)",
+        "coanda_hint": "The model's one assumed number: how much of the air's suction acts sideways. About 1 is what a sphere's shape gives; at 0 nothing holds the ball in the jet."
+      },
+      "model": {
+        "intro": "Three things act on the ball: the air pushing it up, the air pulling it into the jet, and its weight less the buoyancy of the air it pushes aside.",
+        "jet": "The air leaves the trunk as a jet that widens as it rises: fastest on its axis, slower toward its edge, and about 12 cm wider for every metre.",
+        "momentum": "What the jet carries up, its momentum, stays what the trunk put in. So as the jet widens it slows: the same push, spread wider.",
+        "lift": "The ball feels the air it covers: the drag of a sphere, on the air's speed averaged over the ball's cross-section.",
+        "weight": "Pulling down is the weight, less the weight of the air the ball pushes aside, which for an inflatable ball is not nothing.",
+        "balance": "The ball floats where the push of the air is exactly that.",
+        "side": "Off the axis, the air streams faster past the side nearer the middle, and faster air presses less (Bernoulli): the ball is pulled back. How much of that acts sideways is the model's one assumed number.",
+        "tilt": "Tilted, the weight splits in two: along the jet it is carried by the push, across it by the suction. The ball sags to the low side until both balance, or falls once the suction no longer can."
+      },
+      "symbols": {
+        "u": "the air's speed",
+        "r": "the distance from the jet's axis",
+        "s": "the distance along the axis from the trunk",
+        "b": "the jet's width",
+        "uc": "the speed on the axis",
+        "u0": "the air's speed leaving the trunk",
+        "d": "the trunk's opening",
+        "k": "how fast the jet widens",
+        "rho": "the air's density",
+        "cd": "a sphere's drag coefficient",
+        "f": "the push of the air",
+        "area": "the ball's cross-section",
+        "m": "the ball's mass",
+        "v": "the ball's volume",
+        "g": "gravity",
+        "cb": "the share of the suction that acts sideways",
+        "phi": "the direction to a point of the cross-section, from the side nearer the axis",
+        "beta": "the trunk's tilt",
+        "fs": "the sideways pull",
+        "w": "the air's velocity relative to the ball",
+        "p": "the ball's position",
+        "mean": "the air's speed at the ball, averaged over its cross-section",
+        "a": "the jet's axis",
+        "n": "across the axis, toward its low side",
+        "y": "straight up"
+      },
+      "computed": {
+        "system": "Four differential equations, the ball's position and velocity across and up, solved by fourth-order Runge–Kutta every 2 ms. The integrals over the ball's cross-section are sums over 288 points, the same in the figures and in your browser, so the ball settles exactly where the figures say.",
+        "inertia": "the ball's mass, with half the mass of the air it displaces, which has to move with it"
+      },
+      "sweet": {
+        "height": "Why it stays at its height: higher up the jet is wider than the ball, so the ball catches less of it and sinks; lower down it catches more and rises. It floats where the push crosses its weight, {{height}} cm above the trunk, and bobs about that point {{bob}} times a second while the air damps it.",
+        "middle": "Why it stays in the middle: pushed aside, the ball is pulled back by the faster air on its inner side, the harder the farther it strays, up to about {{offset}} cm off the axis. Beyond that it is leaving the jet.",
+        "rise": "From the trunk to its height: the ball shoots up past it, comes back and settles, the bob dying away as a damped spring's does. The curve is the engine's run for the build on screen, the one the page plays above.",
+        "tilt": "How far the trunk can tilt: up to {{limit}}°. Before that, the ball hangs lower and to the low side; at {{limit}}° the suction can no longer hold the share of the weight that pulls across the jet.",
+        "lift_off": "The air must be fast enough to lift the ball off the trunk at all: from {{speed}} m/s on.",
+        "buoyancy": "An inflatable ball pushes aside air weighing {{share}} % of its own weight, which the jet does not have to carry.",
+        "assumed": "What is assumed: the jet's shape right at the trunk (a real jet keeps its full speed on the axis for the first few diameters), a smooth ball's drag coefficient of 0.47, and the sideways share of the suction. The figures are the model's, not the exhibit's to the centimetre.",
+        "none": "This ball does not float: the air lifts it off the trunk only from {{speed}} m/s on."
+      },
+      "chart": {
+        "lift": "Push of the air",
+        "weight": "Weight less buoyancy",
+        "height": "Ball's centre above the trunk",
+        "side": "Pull toward the axis",
+        "offset": "Off the axis",
+        "tilt": "Tilt of the trunk",
+        "sag": "Ball off the axis",
+        "sink": "Ball above the trunk",
+        "force": "Force",
+        "time": "Time"
+      },
+      "figures": {
+        "height": "Floats at",
+        "lift_off": "Lifts off from",
+        "air": "Air at the ball",
+        "limit": "Falls at a tilt of",
+        "bob": "Bobs",
+        "flow": "Air through the trunk"
+      }
+    },
+    "smoke": {
+      "view": "The smoke drum in cross-section, its skin pressed at the ring round the hole, and the smoke ring flying up out of it",
+      "at": {
+        "drum": "A wide, flat drum, nearly two metres across and filled with smoke, stands at hip height. Its top is a stretched skin with a hole of 30 cm in the middle, rimmed by a ring you press down.",
+        "press": "Press the ring and a ring of smoke flies out of the hole and up across the hall. Press too hard and the smoke only swirls apart; press too gently and nothing happens at all. About half a second is best."
+      },
+      "play": {
+        "title": "At the drum",
+        "hint": "Drag the ring down and let go, quickly or slowly, or press the button: the pace decides whether a ring flies.",
+        "hint_auto": "Three presses in turn: a jab, half a second, and a slow push — a smear, a ring, and nothing.",
+        "press": "Press",
+        "pause": "Pause",
+        "run": "Run",
+        "restart": "Start again",
+        "auto": "Auto: three presses",
+        "auto_hint": "A jab of {{fast}} s, a press of {{best}} s and a slow push of {{slow}} s, one after another.",
+        "duration": "How long the press takes",
+        "depth": "How far down",
+        "drag": "Or drag the ring down in the drawing and let go.",
+        "last": "Last press",
+        "jet": "Air out of the hole",
+        "reynolds": "Ring's Reynolds number",
+        "speed": "Ring's speed",
+        "force": "Force on the hand",
+        "verdict": {
+          "ring": "A ring flies",
+          "too_fast": "Too hard: the smoke swirls apart",
+          "too_slow": "Too gentle: the smoke drifts off",
+          "none": "Press the ring"
+        }
+      },
+      "change": {
+        "title": "Change the exhibit",
+        "hint": "The exhibit's real numbers are not published; these are what a visitor sees: a drum of about 1.9 m, 30 cm deep, a hole of 30 cm, pressed at most 8 cm.",
+        "diameter": "Drum's diameter",
+        "hole": "Hole",
+        "ring": "Ring round the hole",
+        "stroke": "Deepest press",
+        "tension": "Skin's tension",
+        "tension_hint": "Assumed: how hard the skin is stretched. It only changes the force on the hand, not the ring.",
+        "draught": "Room's draught (model)",
+        "draught_hint": "A ring slower than the air in the hall is carried off before it forms. Set so that a press slower than about 1.2 s makes nothing.",
+        "turbulent": "Turbulent from (model)",
+        "turbulent_hint": "Past this Reynolds number the ring is turbulent and smears its smoke. Set so that a press faster than about 0.2 s makes no visible ring."
+      },
+      "model": {
+        "intro": "The press squeezes air out of the drum; the air leaving the hole rolls up into a ring; how fast and how strong the ring is decides whether it flies.",
+        "area": "The ring pushes the skin down, and the skin between the ring and the rim takes a stretched membrane's shape. The drum loses this volume for every centimetre of press.",
+        "jet": "That volume leaves through the hole, which is eleven times smaller: the air comes out eleven times faster than the hand goes down.",
+        "circulation": "The air pushed out rolls up into a ring; its circulation, how strongly it swirls, is half the integral of the air speed squared.",
+        "formation": "A ring takes up no more than a slug four hole diameters long; a longer one leaves a trailing jet behind. A full press here is three.",
+        "speed": "A ring flies at a speed set by its circulation and its size, faster the more it swirls.",
+        "reynolds": "Its Reynolds number says how turbulent it is: past a threshold the ring sheds its smoke into its wake.",
+        "hand": "The hand feels the skin's spring and the air's back pressure, which grows with the square of the pace."
+      },
+      "symbols": {
+        "v": "the volume pressed out",
+        "x": "how far the ring is pressed",
+        "aeff": "the drum's effective area",
+        "rbig": "the drum's radius",
+        "a": "the ring's radius round the hole",
+        "rh": "the hole's radius",
+        "u": "the air's speed out of the hole",
+        "ah": "the hole's area",
+        "gamma": "the ring's circulation",
+        "t": "time",
+        "l": "the length of the slug pushed out",
+        "d": "the hole's diameter",
+        "uring": "the ring's speed",
+        "rring": "the ring's radius",
+        "core": "the ring's core radius",
+        "re": "the ring's Reynolds number",
+        "nu": "the air's kinematic viscosity",
+        "f": "the force on the hand",
+        "k": "the skin's stiffness",
+        "tension": "the skin's tension",
+        "rho": "the air's density",
+        "z": "the ring's height above the hole",
+        "alpha": "how fast a turbulent ring widens"
+      },
+      "computed": {
+        "system": "The press itself needs no time stepping: the ring's circulation is a sum over the press as sampled, your own drag included. The flight is two differential equations, height and radius, solved by fourth-order Runge–Kutta every 10 ms: a laminar ring keeps its size and slows only as viscosity thickens its core; a turbulent one widens as it flies, keeping its impulse, and slows with the cube of its size.",
+        "a0": "the core's radius when the ring is made"
+      },
+      "sweet": {
+        "window": "The pace is everything: a full press makes a ring between {{fastest}} s and {{slowest}} s, best at about {{best}} s.",
+        "fast": "Faster, the ring swirls so strongly that it turns turbulent and spreads its smoke into the air.",
+        "slow": "Slower, it moves less fast than the hall's own air, which carries the puff away before it has formed.",
+        "both": "Both grow together with the pace — the ring's strength and its speed — which is why the window has two ends.",
+        "force": "And the hand pays for a fast press: the air's back pressure grows with the square of the pace, {{fast}} N for a jab against {{slow}} N for a slow push, where only the skin pushes back.",
+        "assumed": "What is assumed: the two thresholds, set to the exhibit (a ring is best at about half a second), the ring's size and core, as measured rings have them, and the skin's tension. The skin's own swing and the suction when you let go are left out.",
+        "none": "With these settings no press makes a ring: the window has closed."
+      },
+      "chart": {
+        "duration": "How long the press takes",
+        "reynolds": "Reynolds number",
+        "threshold": "Turbulent from",
+        "speed": "Ring's speed",
+        "draught": "Room's draught",
+        "force": "Force on the hand"
+      },
+      "figures": {
+        "fastest": "Fastest press",
+        "slowest": "Slowest press",
+        "best": "Best press",
+        "ratio": "Air out, per hand speed",
+        "stroke": "Slug, in hole diameters"
+      }
+    },
+    "cannon": {
+      "view": "The stack close up, at the balls' own size: the wire, the floor and the balls where the drop has them, squashed into each other while they touch",
+      "climb_view": "The whole climb: each ball as a dot, and a mark where the top ball turned",
+      "at": {
+        "balls": "Three rubbery balls, about 10, 7 and 5 cm across, are threaded on a steel wire that stands upright from the floor, the biggest at the bottom.",
+        "drop": "Lift them together, stacked, and let go. The big ball hits the floor and the small one on top shoots up the wire, far higher than you dropped it from."
+      },
+      "play": {
+        "title": "At the wire",
+        "hint": "Drag the stack up in the drawing and let go, or set the height and press Drop: the small ball's climb is marked on the right, and the forces of the impact appear below.",
+        "hint_auto": "One ball, then two, then three, each from the same height: watch the top ball's climb grow.",
+        "pause": "Pause",
+        "run": "Run",
+        "restart": "Start again",
+        "height": "Height of the bottom ball",
+        "drop": "Drop",
+        "drag": "Or drag the stack up in the drawing and let go.",
+        "slow": "Slow motion at the impact",
+        "slow_hint": "The balls touch for about ten thousandths of a second; slowed a hundred times, you see them squash into each other.",
+        "auto": "Auto: one, two, three balls",
+        "auto_hint": "Drops the bottom ball alone, then the bottom two, then all three, over and over.",
+        "launch": "Top ball leaves at",
+        "apex": "Top ball's highest point",
+        "times": "Climb over the drop",
+        "of_one": "Last drop: one ball from {{height}} m.",
+        "of_other": "Last drop: {{count}} balls from {{height}} m."
+      },
+      "forces": {
+        "title": "The forces at the impact",
+        "contact": "Contact",
+        "peak": "Highest force",
+        "squash": "Squashed by",
+        "duration": "Lasts",
+        "impulse": "Impulse",
+        "force": "Force",
+        "time": "Time from the first touch",
+        "floor_contact": "Floor – {{ball}}",
+        "ball_contact": "{{lower}} – {{upper}}"
+      },
+      "change": {
+        "title": "Change the stack",
+        "hint": "The exhibit's balls are about 10, 7 and 5 cm across and made of an elastomer; how springy and how stiff they are is a guess, and yours to change.",
+        "count": "How many balls",
+        "balls_one": "{{count}} ball",
+        "balls_other": "{{count}} balls",
+        "flip": "Turn the stack over",
+        "ball_0": "Bottom ball",
+        "ball_1": "Middle ball",
+        "ball_2": "Top ball",
+        "gap": "Gap between the balls",
+        "gap_hint": "Touching, the balls' contacts overlap and the cannon is weak; a few millimetres apart, the hits come one after another.",
+        "youngs": "Stiffness of the elastomer (Young's modulus)",
+        "youngs_hint": "A guess: soft rubber is 1 to 10 MPa. It sets how hard and how briefly the balls press, and changes the climb only a little.",
+        "floor_e": "Bounce on the floor",
+        "e_hint": "The share of the closing speed a contact gives back: 1 loses nothing, an elastomer ball about 0.85.",
+        "ball_e": "Bounce between two balls"
+      },
+      "model": {
+        "intro": "Each ball moves by Newton's second law, all of them at once: gravity and the air pull on it, and the contact below pushes it up while the contact above pushes it down. The balls touch only where they squash into each other.",
+        "motion": "Ball i's mass times its acceleration is its weight, the air's drag and the two contact forces — one equation per ball, solved together.",
+        "hertz": "Two balls pressed into each other by an overlap δ push apart with Hertz's force, which grows with δ to the power one and a half. The damping in the brackets takes energy away while they close and part, so that a contact gives back e of its closing speed.",
+        "stiffness": "How stiff a contact is follows from the elastomer's Young's modulus and Poisson's ratio and from the two radii; the floor counts as rigid.",
+        "textbook": "The textbook's shortcut: each hit instantaneous and over before the next, no losses, and each ball far lighter than the one below. Then each ball leaves at this speed, which gives 3v for two balls and 7v for three — and a ball leaving at 7v climbs 49 times the height it fell.",
+        "real": "Real balls stay below that: their masses are not far apart, every contact loses some energy, and squashed balls touch for milliseconds, so touching balls press on each other all at once rather than one after another."
+      },
+      "computed": {
+        "system": "The equations of all balls as one system, each ball's height and speed, stepped with Runge–Kutta: every half millisecond while the balls fly free, every 10 microseconds while a contact is closed or about to close."
+      },
+      "symbols": {
+        "y": "ball i's height",
+        "m": "its mass",
+        "g": "gravity",
+        "rho": "the air's density",
+        "cd": "a sphere's drag coefficient",
+        "a": "its cross-section",
+        "f": "the force in the contact under ball i",
+        "delta": "how far the two squash into each other",
+        "ddelta": "how fast they do, now and when they first touched",
+        "e": "how much of the closing speed a contact gives back",
+        "k": "the contact's stiffness",
+        "young": "the elastomer's Young's modulus",
+        "nu": "its Poisson's ratio, 0.5 for rubber",
+        "r": "the two balls' radii",
+        "v": "the stack's speed at the floor",
+        "uk": "ball k's speed leaving",
+        "n": "the number of balls",
+        "hh": "the top ball's climb, and the height the stack fell",
+        "u": "ball i's speed",
+        "kdrag": "the drag's strength for a ball of that size and weight",
+        "dt": "the step"
+      },
+      "sweet": {
+        "climb_one": "Dropped alone from {{height}} m, a ball climbs back {{times}} times that.",
+        "climb_other": "Dropped stacked from {{height}} m, the top ball of {{count}} climbs {{times}} times that, to {{apex}} m.",
+        "level_one": "{{count}} ball",
+        "level_other": "{{count}} balls",
+        "speeds": "The stack meets the floor at {{impact}} m/s and the top ball leaves at {{launch}} m/s. With instantaneous hits one after another it would leave at {{sequential}} m/s; without losses as well, at {{ideal}} m/s; with each ball far lighter than the one below, at {{textbook}} m/s.",
+        "overlap": "The difference between the first two is the squash. Touching balls do not hit one after another: the middle ball already presses into the bottom one while that one is still squashing into the floor, and the top ball presses on both. Pushed down from above while it is trying to spring back, the bottom ball hands on less.",
+        "forces": "The floor pushes back with up to {{force}} kN — about {{weight}} times the bottom ball's weight — while the ball squashes by {{squash}} mm, for about {{duration}} thousandths of a second.",
+        "gap": "Hold the balls a few millimetres apart and the contacts come one after another: the climb nearly reaches what instantaneous hits would give. Try the gap.",
+        "masses": "The textbook's 7v needs each ball much lighter than the one below. These weigh {{masses}} g: the middle ball is a third of the bottom one, the top one a third of the middle.",
+        "energy": "Still, {{share}} % of the energy the whole stack hit the floor with leaves in the smallest ball.",
+        "flip": "Turn the stack over and nothing flies: a light ball at the bottom cannot push a heavy one up.",
+        "name": "Why a cannon: physics books call it the Galilean cannon, because the small ball is shot straight up out of the stack as if out of a barrel. Nothing in it is fired sideways.",
+        "assumed": "What is assumed: solid balls of 1100 kg/m³, the elastomer's stiffness and how springy it is, contacts that follow Hertz's law with damping that gives back a fixed share of the closing speed, a rigid floor. The wire's friction and the balls' spin are left out."
+      }
+    }
+  }
+}

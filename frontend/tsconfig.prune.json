@@ -1,0 +1,13 @@
+// What scripts/check-ts-prune.cjs asks about: the app, without its tests.
+//
+// Over tsconfig.json an export only a test imports counts as used, so code the
+// app had stopped calling stayed in it for as long as its tests did —
+// `parsePoints` and `pointsToText` were two re-exports of the kit's lexer kept
+// alive by nine tests of that lexer. The harness in src/test goes too: every
+// export there is for a test, which is what it is for. Nothing builds or
+// type-checks against this file; `tsc -b`, eslint and the editor read
+// tsconfig.json.
+{
+  "extends": "./tsconfig.json",
+  "exclude": ["src/**/*.test.ts", "src/**/*.test.tsx", "src/test"]
+}

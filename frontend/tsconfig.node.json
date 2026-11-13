@@ -1,0 +1,21 @@
+{
+  "compilerOptions": {
+    "composite": true,
+    // In the checkout, beside tsconfig.json's own, not under node_modules: a
+    // second checkout whose node_modules is a link to this one's (a git
+    // worktree) would otherwise share it, and since build mode reads only its
+    // time against vite.config.ts's, one checkout's build could pass the
+    // other's config unchecked. What is emitted can stay in the shared cache —
+    // nothing reads it, and the up-to-date check never looks at it.
+    "tsBuildInfoFile": "./tsconfig.node.tsbuildinfo",
+    "outDir": "./node_modules/.tmp/node-types",
+    "skipLibCheck": true,
+    "target": "ES2022",
+    "lib": ["ES2022"],
+    "module": "ESNext",
+    "moduleResolution": "bundler",
+    "allowSyntheticDefaultImports": true,
+    "strict": true
+  },
+  "include": ["vite.config.ts"]
+}

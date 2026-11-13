@@ -1,0 +1,46 @@
+{
+  "name": "staunlabor",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Staunlabor \u2014 hands-on exhibits, computed.",
+  "license": "MIT",
+  "engines": {
+    "node": ">=26.13.0"
+  },
+  "workspaces": [
+    "frontend"
+  ],
+  "scripts": {
+    "dev": "npm-run-all -p dev:frontend dev:backend",
+    "dev:backend": "cd backend && uv run uvicorn staunlabor.main:app --reload --host 0.0.0.0 --port 8002",
+    "dev:frontend": "cd frontend && npm run dev -- --host",
+    "check": "npm-run-all -s check:versioning check:security check:deadcode check:frontend check:backend",
+    "check:versioning": "node scripts/check-version-sync.cjs && BASE_SHA=$(git merge-base origin/main HEAD 2>/dev/null || true) node scripts/check-commit-range.cjs",
+    "check:security": "npm-run-all -s check:security:backend check:security:frontend",
+    "check:security:backend": "cd backend && uv run --no-sync python -I -m eifi1_server_kit.dependency_audit",
+    "check:security:frontend": "npm audit --audit-level=high",
+    "check:deadcode": "npm-run-all -s check:deadcode:backend check:deadcode:frontend",
+    "check:deadcode:backend": "node scripts/check-vulture.cjs",
+    "check:deadcode:frontend": "node scripts/check-ts-prune.cjs",
+    "check:frontend": "cd frontend && npm run format:check && npm run lint && npm run typecheck && npm run test:coverage && npm run build",
+    "check:backend": "bash scripts/check-backend.sh",
+    "format": "cd frontend && npm run format",
+    "release": "commit-and-tag-version --tag-prefix v",
+    "release:dry": "commit-and-tag-version --tag-prefix v --dry-run",
+    "version:check": "node scripts/check-version-sync.cjs",
+    "prepare": "husky || true"
+  },
+  "devDependencies": {
+    "commit-and-tag-version": "^13.2.1",
+    "husky": "^9.1.7",
+    "minimatch": "^11.0.8",
+    "npm-run-all": "^4.1.5"
+  },
+  "overrides": {
+    "typescript": "~6.0.3",
+    "minimatch@^10.0.0": "^11.0.1"
+  },
+  "allowScripts": {
+    "esbuild": true
+  }
+}

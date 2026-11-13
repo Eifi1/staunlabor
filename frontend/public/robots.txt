@@ -1,0 +1,12 @@
+# Every page of Staunlabor is public and meant to be found: the overview, the
+# eight exhibits and the about page (sitemap.xml lists them). The imprint and
+# the privacy policy are not listed there but are not blocked either.
+#
+# A real file on purpose: without it the web server's SPA fallback answers
+# /robots.txt with index.html.
+
+User-agent: *
+# The same-origin JSON API, proxied to the backend.
+Disallow: /api/
+
+Sitemap: https://staunlabor.app/sitemap.xml
