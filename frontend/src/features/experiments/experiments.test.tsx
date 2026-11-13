@@ -1,7 +1,8 @@
 /**
  * The experiments against a mocked engine whose answer is the real engine's
- * (`test-fixtures.json`, written from `domain/experiments/` through the wire
- * models): the overview offers the built exhibits and says what is coming and
+ * (`test-fixtures.json`, the API's answers to the defaults, written by
+ * `scripts/write-test-fixtures.py` and held to the app by the backend's
+ * `test_page_fixtures.py`): the overview offers the built exhibits and says what is coming and
  * whose exhibits they are; the chair page shows its three holes, its box and
  * the engine's numbers; and the projection the drawings rest on keeps the one
  * promise the exhibit makes — three objects, one picture. The race's balls are

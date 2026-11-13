@@ -1,5 +1,5 @@
 {
-  "_note": "Written from domain/experiments through the wire models (ExperimentsDefaultsOut, CoilAnalysisOut, ChairAnalysisOut, SphereFiguresOut, PlatformFiguresOut, RaceAnalysisOut, ElephantFiguresOut, SmokeFiguresOut, CannonFiguresOut), 2026-11-08 and, for the elephant, the smoke ring and the ball cannon, 2026-11-12; the pages' tests read it as the engine's answers.",
+  "_note": "Written by `cd backend && uv run python ../scripts/write-test-fixtures.py`: what the API answers for each exhibit's defaults; the pages' tests read it as the engine's answers. Do not edit by hand.",
   "defaults": {
     "sphere": {
       "shell_radius_m": 0.2,
@@ -49,8 +49,6 @@
       "run_m": 1.2,
       "ball": "solid"
     },
-    "meter_range_a": 0.1,
-    "settle_s": 0.15,
     "elephant": {
       "jet": {
         "opening_m": 0.1,
@@ -96,7 +94,9 @@
       "floor_restitution": 0.85,
       "ball_restitution": 0.85,
       "youngs_mpa": 3.0
-    }
+    },
+    "meter_range_a": 0.1,
+    "settle_s": 0.15
   },
   "coil": {
     "figures": {

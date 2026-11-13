@@ -54,6 +54,7 @@ Test Task* is `npm run check`; `.vscode/tasks.json` has the rest, and
 cd backend && uv run pytest tests/unit/test_experiments.py -q
 cd frontend && npx vitest run src/features/experiments/daily.test.ts
 cd backend && uv run python ../scripts/write-experiments-cases.py         # after an engine change
+cd backend && uv run python ../scripts/write-test-fixtures.py             # after a change to a route's answer
 ```
 
 Coverage floors: `test.coverage.thresholds` in `frontend/vite.config.ts` and
