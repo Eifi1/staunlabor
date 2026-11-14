@@ -103,6 +103,12 @@ say so stay as they are.
 - **The scope of Kurvenschmiede:** public feedback (comments, votes, the public
   list), passkeys, the data export and account deletion, the mail switches, the
   reviewer role and `/translations`. No teams, no billing, no demo.
+- **What comes first (Marcel, 2026-11-14):** the site stays open to every
+  visitor, exhibits and all, with no account; that matters most. Accounts stay
+  invitation-only, so a visitor gives no feedback unless invited; an open
+  sign-up or an anonymous form would need its own spam protection and is not
+  planned. Feedback is not a priority now: the reviewer's `/translations` comes
+  before it.
 - **Mail through Resend,** in the account the sibling apps send from: its plan
   verifies three domains, and Kastlan, taken offline on 2026-11-13 for the
   time being, gave its place to `staunlabor.app` (region Ireland, sending
