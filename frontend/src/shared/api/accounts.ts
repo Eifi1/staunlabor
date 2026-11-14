@@ -12,7 +12,7 @@ import { api } from "./client";
 export const accounts = createAccountsClient({
   http: api,
   storagePrefix: STORAGE.accounts,
-  publicPaths: [/^\/(?!(?:settings|admin|feedback|translations)(?:\/|$))/],
+  privatePaths: ["/settings", "/admin", "/feedback", "/translations"],
   signInPath: "/login",
   homePath: "/",
 });

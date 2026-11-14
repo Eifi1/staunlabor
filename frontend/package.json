@@ -16,7 +16,7 @@
     "test:watch": "vitest"
   },
   "dependencies": {
-    "@eifi1/ui-kit": "file:../../ui-kit-dist/eifi1-ui-kit-0.64.0-dev.1.tgz",
+    "@eifi1/ui-kit": "file:../../ui-kit-dist/eifi1-ui-kit-0.64.0-dev.2.tgz",
     "@tanstack/react-query": "^5.104.1",
     "axios": "^1.20.0",
     "clsx": "^2.1.1",

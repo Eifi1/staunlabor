@@ -2,7 +2,7 @@ import { Suspense, lazy, type ReactNode } from "react";
 import { Route, Routes } from "react-router";
 import { useTranslation } from "react-i18next";
 import { LoadingState, NotFoundPage } from "@eifi1/ui-kit";
-import { accountRoutes, RequireSession } from "@eifi1/ui-kit/accounts";
+import { accountRouteElements, RequireSession } from "@eifi1/ui-kit/accounts";
 import { AccountFrame } from "@/features/account/account-frame";
 import { ExperimentsLayout } from "@/features/experiments/experiments-layout";
 import { ExperimentsOverviewPage } from "@/features/experiments/overview-page";
@@ -30,7 +30,7 @@ const SettingsPage = lazy(() => import("@/features/account/settings-page").then(
 
 /** The account's signed-out pages (sign-in, sign-up by invitation, the reset, the links),
  *  the kit's, in the site's frame. No terms page: the site has none. */
-const ACCOUNT_PAGES = accountRoutes({ frame: AccountFrame, legal: { privacyHref: "/privacy" } });
+const ACCOUNT_PAGES = accountRouteElements({ frame: AccountFrame, legal: { privacyHref: "/privacy" } });
 
 function Page({ children }: { children: ReactNode }) {
   const { t } = useTranslation();
@@ -130,9 +130,7 @@ export function AppRoutes() {
             </Page>
           }
         />
-        {ACCOUNT_PAGES.map((page) => (
-          <Route key={page.path} path={page.path} element={page.element} />
-        ))}
+        {ACCOUNT_PAGES}
         <Route
           path="settings"
           element={
