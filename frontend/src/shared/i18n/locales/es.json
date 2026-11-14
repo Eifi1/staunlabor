@@ -211,6 +211,12 @@
         "title": "El péndulo interrumpido de Galileo",
         "summary": "Un clavo atrapa el hilo de un péndulo. La bola sigue oscilando en un círculo más pequeño – y aun así sube exactamente tan alto como al otro lado.",
         "question": "Un clavo atrapa el hilo de un péndulo que oscila. ¿Sube después la bola menos, igual o más alto?"
+      },
+      "maxwell": {
+        "short": "Rueda de Maxwell",
+        "title": "La rueda de Maxwell",
+        "summary": "Una rueda pesada baja despacio desenrollándose de dos cintas, da la vuelta abajo y vuelve a enrollarse casi hasta la altura de partida – como un gran yoyó.",
+        "question": "¿Por qué una rueda pesada que se desenrolla de dos cintas cae mucho más despacio que una piedra?"
       }
     },
     "chair": {
@@ -1519,6 +1525,93 @@
       "computed": {
         "system": "Tres movimientos, una ecuación cada uno: el péndulo alrededor de la suspensión, el más corto alrededor del clavo y el vuelo libre mientras el hilo está flojo. El motor avanza con el método de Runge-Kutta de milisegundo en milisegundo y busca cada cambio – el clavo atrapa, el hilo se suelta, se afloja, se tensa – dentro de su paso, partiéndolo por la mitad, para que ocurra exactamente donde corresponde.",
         "gravity": "la gravedad, que actúa sola en el vuelo libre"
+      }
+    },
+    "maxwell": {
+      "at": {
+        "wheel": "Una rueda pesada está montada en un eje delgado, y alrededor del eje hay enrolladas dos cintas que cuelgan desde arriba. Se gira la rueda hacia arriba hasta enrollar las cintas y se suelta.",
+        "climbs": "La rueda baja despacio, da la vuelta abajo con un tirón y vuelve a subir enrollándose, casi hasta donde se soltó. La rueda estándar cae en 3,3 s y sube cada vez al 94 % de la altura anterior."
+      },
+      "refused": "El eje tiene que ser más delgado que la rueda.",
+      "view": "La rueda de Maxwell de frente, colgada de sus dos cintas",
+      "play": {
+        "title": "Soltar la rueda",
+        "hint": "A la cámara más lenta se ve el tirón de abajo: las cintas se estiran unos milímetros y lanzan la rueda de vuelta.",
+        "let_go": "Soltar",
+        "pause": "Pausa",
+        "run": "Seguir",
+        "speed": "Velocidad",
+        "speeds": {
+          "100": "Tiempo real",
+          "25": "Cámara lenta (¼)",
+          "5": "Muy lenta (1/20)"
+        },
+        "phases": {
+          "down": "Se está desenrollando.",
+          "jerk": "Abajo: las cintas se estiran y la lanzan de vuelta.",
+          "up": "Vuelve a enrollarse hacia arriba."
+        },
+        "tension": "Tirón de las cintas",
+        "weight_times": "Veces el peso",
+        "speed_now": "Velocidad del eje",
+        "energy": "Energía del movimiento",
+        "translation": "En la caída y la subida",
+        "rotation": "En el giro",
+        "spin_unit": "r/s"
+      },
+      "change": {
+        "title": "Cambiar el objeto expuesto",
+        "hint": "Un eje más delgado o una rueda más pesada en el borde caen más despacio – y endurecen el tirón de abajo.",
+        "shape": "Rueda",
+        "shapes": {
+          "disc": "Disco macizo",
+          "ring": "Rueda de radios (masa en el aro)"
+        },
+        "axle": "Radio del eje",
+        "axle_hint": "Donde están enrolladas las cintas.",
+        "wheel": "Radio de la rueda",
+        "mass": "Masa de la rueda",
+        "drop": "Longitud de las cintas",
+        "loss": "Rozamiento de las cintas",
+        "loss_hint": "Las cintas se doblan alrededor del eje y rozan: esta parte de su tirón como momento de frenado.",
+        "stiffness": "Rigidez de las cintas",
+        "stiffness_hint": "Con cuánta fuerza tirarían ambas cintas juntas si se estiraran un metro. Más rígidas: un tirón más corto y más duro."
+      },
+      "model": {
+        "intro": "Las cintas se desenrollan del eje sin deslizar: por cada centímetro que cae, la rueda gira un centímetro de la circunferencia del eje. Como el eje es delgado, eso significa mucho giro para poca caída.",
+        "roll": "La rueda cae con aceleración uniforme, pero solo con una pequeña parte de la de la gravedad: k indica cuánto más difícil es poner la rueda a girar que a moverse.",
+        "tension": "Por eso, al desenrollarse, las cintas sostienen casi todo el peso.",
+        "share": "Esta parte de la energía del movimiento está en el giro – el 98,8 % en la rueda estándar."
+      },
+      "symbols": {
+        "a": "la aceleración de la rueda al desenrollarse",
+        "g": "aceleración de la gravedad, 9,81 m/s²",
+        "i": "el momento de inercia de la rueda: ½·M·R² para un disco, M·R² para un aro",
+        "m": "la masa de la rueda",
+        "r": "el radio del eje",
+        "t": "el tirón de ambas cintas",
+        "s": "la rigidez de ambas cintas juntas",
+        "v": "la velocidad de la rueda cuando las cintas se han desenrollado"
+      },
+      "sweet": {
+        "spin": "Casi toda la energía está en el giro – aquí el {{share}} % –, por eso la rueda cae tan despacio: lo que da la altura va al giro, no a la caída.",
+        "jerk": "Abajo, el estiramiento de las cintas frena la caída. Durante {{ms}} ms su tirón sube a {{peak}} N, {{times}} veces el peso. El giro continúa a través del tirón y vuelve a enrollar las cintas por el otro lado.",
+        "climbs": "Cada vez la rueda sube al {{share}} % de la altura anterior: el roce de las cintas con el eje le quita algo al desenrollarse y enrollarse."
+      },
+      "chart": {
+        "height": "Altura",
+        "tension": "Tirón de las cintas",
+        "time": "Tiempo"
+      },
+      "figures": {
+        "fall": "Tiempo de caída",
+        "spin": "Giro abajo",
+        "peak": "Tirón máximo",
+        "stretch": "Estiramiento de las cintas"
+      },
+      "computed": {
+        "system": "Aquí todo tiene solución cerrada; nada se calcula paso a paso: la caída y la subida son uniformemente aceleradas, y en el tirón la rueda hace media oscilación de muelle sobre las cintas estiradas. En cada imagen la página pregunta dónde está la rueda.",
+        "z": "cuánto se estiran las cintas en el tirón"
       }
     }
   }

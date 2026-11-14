@@ -834,6 +834,49 @@ three cases as buttons in the trick. **No route**: the port's
 **Checked by** `tests/unit/test_experiments.py`: the same height, energy kept
 until the jerk, the threshold both sides, the slack height, the jerk's loss.
 
+## Maxwell's wheel (`experiments.maxwell`)
+
+**The exhibit.** A heavy wheel on a thin axle hangs from two strings wound round
+the axle; let go, it unwinds slowly, turns round at the bottom with a jerk and
+winds itself nearly back up — a large yo-yo.
+
+**The model** (`domain/experiments/maxwell.py`), all of it a closed form. The
+strings come off without slipping, so `a = g/(1 + k)`, `k = I/(M·r²)` (`I` ½·M·R²
+for a disc, M·R² for a ring), the strings pull `M·(g − a)`, and `k/(1 + k)` of
+the energy of motion is in the spin. **Losses:** the strings bend round the
+axle and rub, a braking torque of `c·T·r` that opposes the spin both ways: the
+fall at `g/(1 + k/(1 − c))`, the climb slowed at `g/(1 + k/(1 + c))`, each
+climb `a↓/a↑` of the height before. **The turn-round:** a first sketch had the
+centre swing round a half-circle about the strings' ends, the textbook picture
+— but the strings hang straight down and can pull only up, so nothing pushes
+the centre sideways; it was dropped before it was written. Instead, as the plan
+asked, the strings' stretch is the model's parameter: a spring of stiffness `s`
+(both strings) stops the fall and throws the wheel back up at the same speed,
+the spin going on through; it lasts `(2π − 2·atan(v·w/g))/w`, `w = √(s/M)`,
+and peaks at `M·g + s·A`. The jerk itself loses nothing in the model.
+
+**What it shows** (the default: a 0.5 kg disc of 6.5 cm on a 5 mm axle, 60 cm
+of strings, `c` 3 %, `s` 10 kN/m). 98.8 % of the energy of motion is in the
+spin; the fall takes 3.3 s; the jerk 25 ms at 31.2 N, 6.4 times the weight, the
+strings stretched 3.1 mm; each climb reaches 94 % of the height before. A ring
+of the same size puts 99.4 % into its spin.
+
+**The page.** The wheel from the front on its strings, spokes turning, in real
+time, a quarter or a twentieth (where the jerk shows); the strings' pull and
+its multiple of the weight; the energy of motion split between falling and
+spinning; the shape, axle, wheel, mass, strings' length, rubbing and stiffness
+(logarithmic) as controls; the trick's chart, height and pull over two bounces,
+sampled 400 times a second so the jerk's spike shows. **No route**: the port's
+(`simulate/maxwell.ts`).
+
+**Left out, and said:** the axle's own spin, a wobble, the strings' mass, air,
+the strings winding on during the jerk itself.
+
+**Checked by** `tests/unit/test_experiments.py`: the fall's energy, a lossless
+climb back to the start, the same share lost each climb, the jerk against a
+stepped spring (duration, end speed, peak to 10⁻⁹), and the closed form at its
+seams.
+
 ## Checking the mathematics
 
 Before the engine was written each model was checked independently with SciPy

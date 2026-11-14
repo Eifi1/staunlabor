@@ -211,6 +211,12 @@
         "title": "Galileis unterbrochenes Pendel",
         "summary": "Ein Stift fängt den Faden eines Pendels ab. Die Kugel schwingt auf einem kleineren Kreis weiter – und steigt trotzdem genau so hoch wie auf der anderen Seite.",
         "question": "Ein Stift fängt den Faden eines schwingenden Pendels ab. Steigt die Kugel danach weniger hoch, gleich hoch oder höher?"
+      },
+      "maxwell": {
+        "short": "Maxwell-Rad",
+        "title": "Das Maxwell-Rad",
+        "summary": "Ein schweres Rad rollt an zwei Bändern langsam ab, kehrt unten um und wickelt sich fast bis zur Starthöhe wieder hinauf – wie ein grosses Jo-Jo.",
+        "question": "Warum fällt ein schweres Rad, das an zwei Bändern abrollt, so viel langsamer als ein Stein?"
       }
     },
     "chair": {
@@ -1519,6 +1525,93 @@
       "computed": {
         "system": "Drei Bewegungen, je eine Gleichung: das Pendel um die Aufhängung, das kürzere um den Stift, und der freie Flug, solange der Faden schlaff ist. Der Rechenkern schreitet mit dem Runge-Kutta-Verfahren in Schritten von einer Millisekunde voran und sucht jeden Wechsel – Stift fängt, Faden löst sich, wird schlaff, spannt sich – innerhalb seines Schritts durch Halbieren, damit er genau dort geschieht, wo er hingehört.",
         "gravity": "die Schwerkraft, die im freien Flug allein wirkt"
+      }
+    },
+    "maxwell": {
+      "at": {
+        "wheel": "Ein schweres Rad sitzt auf einer dünnen Achse, und um die Achse sind zwei Bänder gewickelt, die von oben herabhängen. Man dreht das Rad hoch, bis die Bänder aufgewickelt sind, und lässt los.",
+        "climbs": "Das Rad rollt sich langsam ab, kehrt unten mit einem Ruck um und wickelt sich wieder hinauf, fast bis dorthin, wo es losgelassen wurde. Das Standard-Rad fällt in 3,3 s und steigt jedes Mal auf 94 % der Höhe davor."
+      },
+      "refused": "Die Achse muss dünner sein als das Rad.",
+      "view": "Das Maxwell-Rad von vorn an seinen zwei Bändern",
+      "play": {
+        "title": "Das Rad loslassen",
+        "hint": "In der langsamsten Zeitlupe sehen Sie den Ruck unten: Die Bänder dehnen sich um wenige Millimeter und werfen das Rad zurück.",
+        "let_go": "Loslassen",
+        "pause": "Anhalten",
+        "run": "Weiter",
+        "speed": "Tempo",
+        "speeds": {
+          "100": "Echtzeit",
+          "25": "Zeitlupe (¼)",
+          "5": "Starke Zeitlupe (1/20)"
+        },
+        "phases": {
+          "down": "Es rollt sich ab.",
+          "jerk": "Unten: Die Bänder dehnen sich und werfen es zurück.",
+          "up": "Es wickelt sich wieder hinauf."
+        },
+        "tension": "Zug der Bänder",
+        "weight_times": "Vielfaches des Gewichts",
+        "speed_now": "Tempo der Achse",
+        "energy": "Energie der Bewegung",
+        "translation": "Im Fallen und Steigen",
+        "rotation": "In der Drehung",
+        "spin_unit": "U/s"
+      },
+      "change": {
+        "title": "Das Exponat verändern",
+        "hint": "Eine dünnere Achse oder ein schwereres Rad aussen lässt es langsamer fallen – und macht den Ruck unten härter.",
+        "shape": "Rad",
+        "shapes": {
+          "disc": "Volle Scheibe",
+          "ring": "Speichenrad (Masse im Ring)"
+        },
+        "axle": "Radius der Achse",
+        "axle_hint": "Wo die Bänder aufgewickelt sind.",
+        "wheel": "Radius des Rads",
+        "mass": "Masse des Rads",
+        "drop": "Länge der Bänder",
+        "loss": "Reibung der Bänder",
+        "loss_hint": "Die Bänder biegen sich um die Achse und reiben: dieser Anteil ihres Zugs als bremsendes Moment.",
+        "stiffness": "Steifigkeit der Bänder",
+        "stiffness_hint": "Wie stark beide Bänder zusammen ziehen, wenn sie um einen Meter gedehnt würden. Steifer: ein kürzerer, härterer Ruck."
+      },
+      "model": {
+        "intro": "Die Bänder wickeln sich ohne zu gleiten von der Achse: Für jeden Zentimeter, den das Rad fällt, dreht es sich um einen Zentimeter Achsumfang weiter. Weil die Achse dünn ist, heisst das: sehr viel Drehung für wenig Fall.",
+        "roll": "Das Rad fällt gleichmässig beschleunigt, aber nur mit einem kleinen Teil der Fallbeschleunigung: k sagt, wie viel schwerer das Rad in Drehung zu bringen ist als in Bewegung.",
+        "tension": "Die Bänder tragen darum beim Abrollen fast das ganze Gewicht.",
+        "share": "Dieser Anteil der Bewegungsenergie steckt in der Drehung – beim Standard-Rad 98,8 %."
+      },
+      "symbols": {
+        "a": "die Beschleunigung des Rads beim Abrollen",
+        "g": "Fallbeschleunigung, 9,81 m/s²",
+        "i": "das Trägheitsmoment des Rads: ½·M·R² für eine Scheibe, M·R² für einen Ring",
+        "m": "die Masse des Rads",
+        "r": "der Radius der Achse",
+        "t": "der Zug beider Bänder",
+        "s": "die Steifigkeit beider Bänder zusammen",
+        "v": "das Tempo des Rads, wenn die Bänder abgewickelt sind"
+      },
+      "sweet": {
+        "spin": "Fast alle Energie steckt in der Drehung – hier {{share}} % –, darum fällt das Rad so langsam: Was die Höhe hergibt, geht in das Drehen, nicht in das Fallen.",
+        "jerk": "Unten fängt die Dehnung der Bänder den Fall auf. Der Zug steigt für {{ms}} ms auf {{peak}} N, das {{times}}-Fache des Gewichts. Die Drehung läuft durch den Ruck hindurch und wickelt die Bänder von der anderen Seite wieder auf.",
+        "climbs": "Jedes Mal steigt das Rad auf {{share}} % der Höhe davor: Die Reibung der Bänder an der Achse nimmt ihm beim Ab- und Aufwickeln etwas weg."
+      },
+      "chart": {
+        "height": "Höhe",
+        "tension": "Zug der Bänder",
+        "time": "Zeit"
+      },
+      "figures": {
+        "fall": "Fallzeit",
+        "spin": "Drehzahl unten",
+        "peak": "Grösster Zug",
+        "stretch": "Dehnung der Bänder"
+      },
+      "computed": {
+        "system": "Hier ist alles geschlossen lösbar, nichts muss Schritt für Schritt gerechnet werden: Fallen und Steigen sind gleichmässig beschleunigt, und im Ruck schwingt das Rad eine halbe Federschwingung auf den gedehnten Bändern. Die Seite fragt für jedes Bild, wo das Rad gerade ist.",
+        "z": "wie weit die Bänder im Ruck gedehnt sind"
       }
     }
   }

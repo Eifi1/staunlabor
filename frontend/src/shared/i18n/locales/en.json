@@ -211,6 +211,12 @@
         "title": "Galileo's interrupted pendulum",
         "summary": "A peg catches a pendulum's string. The bob swings on round a smaller circle – and still rises exactly as high as on the other side.",
         "question": "A peg catches the string of a swinging pendulum. Does the bob then rise less high, as high or higher?"
+      },
+      "maxwell": {
+        "short": "Maxwell's wheel",
+        "title": "Maxwell's wheel",
+        "summary": "A heavy wheel rolls slowly down two strings, turns round at the bottom and winds itself nearly back up to where it started – a large yo-yo.",
+        "question": "Why does a heavy wheel rolling down two strings fall so much more slowly than a stone?"
       }
     },
     "chair": {
@@ -1519,6 +1525,93 @@
       "computed": {
         "system": "Three motions, an equation each: the pendulum round the pivot, the shorter one round the peg, and free flight while the string is slack. The engine steps on with the Runge–Kutta method a millisecond at a time and finds each switch – the peg catching, the string coming off, going slack, jerking taut – within its step by halving, so that it happens exactly where it belongs.",
         "gravity": "gravity, which alone acts in free flight"
+      }
+    },
+    "maxwell": {
+      "at": {
+        "wheel": "A heavy wheel sits on a thin axle, and two strings hanging from above are wound round the axle. The wheel is turned up until the strings are wound on, and let go.",
+        "climbs": "It rolls slowly down, turns round at the bottom with a jerk and winds itself back up, nearly to where it was let go. The default wheel falls in 3.3 s and climbs to 94 % of the height before each time."
+      },
+      "refused": "The axle has to be thinner than the wheel.",
+      "view": "Maxwell's wheel from the front on its two strings",
+      "play": {
+        "title": "Let the wheel go",
+        "hint": "In the slowest motion you see the jerk at the bottom: the strings stretch by a few millimetres and throw the wheel back.",
+        "let_go": "Let go",
+        "pause": "Pause",
+        "run": "Run",
+        "speed": "Speed",
+        "speeds": {
+          "100": "Real time",
+          "25": "Slow motion (¼)",
+          "5": "Very slow (1/20)"
+        },
+        "phases": {
+          "down": "It is rolling down.",
+          "jerk": "At the bottom: the strings stretch and throw it back.",
+          "up": "It is winding itself back up."
+        },
+        "tension": "Pull of the strings",
+        "weight_times": "Times the weight",
+        "speed_now": "Speed of the axle",
+        "energy": "Energy of motion",
+        "translation": "In falling and climbing",
+        "rotation": "In the spin",
+        "spin_unit": "rev/s"
+      },
+      "change": {
+        "title": "Change the exhibit",
+        "hint": "A thinner axle, or a wheel heavier at its rim, falls more slowly – and makes the jerk at the bottom harder.",
+        "shape": "Wheel",
+        "shapes": {
+          "disc": "Solid disc",
+          "ring": "Spoked wheel (mass in the rim)"
+        },
+        "axle": "Radius of the axle",
+        "axle_hint": "Where the strings are wound.",
+        "wheel": "Radius of the wheel",
+        "mass": "Mass of the wheel",
+        "drop": "Length of the strings",
+        "loss": "Rubbing of the strings",
+        "loss_hint": "The strings bend round the axle and rub: this share of their pull as a braking torque.",
+        "stiffness": "Stiffness of the strings",
+        "stiffness_hint": "How hard both strings together would pull if stretched by a metre. Stiffer: a shorter, harder jerk."
+      },
+      "model": {
+        "intro": "The strings come off the axle without slipping: for every centimetre the wheel falls, it turns on by a centimetre of the axle's circumference. Because the axle is thin, that means a great deal of spin for little fall.",
+        "roll": "The wheel falls uniformly accelerated, but with only a small part of gravity's acceleration: k says how much harder the wheel is to set spinning than to set moving.",
+        "tension": "So while it rolls, the strings carry nearly the whole weight.",
+        "share": "This share of the energy of motion is in the spin – 98.8 % for the default wheel."
+      },
+      "symbols": {
+        "a": "the wheel's acceleration as it rolls down",
+        "g": "gravitational acceleration, 9.81 m/s²",
+        "i": "the wheel's moment of inertia: ½·M·R² for a disc, M·R² for a ring",
+        "m": "the wheel's mass",
+        "r": "the axle's radius",
+        "t": "the pull of both strings",
+        "s": "the stiffness of both strings together",
+        "v": "the wheel's speed when the strings have run out"
+      },
+      "sweet": {
+        "spin": "Nearly all the energy is in the spin – {{share}} % here – which is why the wheel falls so slowly: what the height gives goes into turning, not into falling.",
+        "jerk": "At the bottom the strings' stretch catches the fall. For {{ms}} ms their pull rises to {{peak}} N, {{times}} times the weight. The spin goes on through the jerk and winds the strings back on from the other side.",
+        "climbs": "Each time the wheel climbs to {{share}} % of the height before: the strings' rubbing on the axle takes a little as they wind off and on."
+      },
+      "chart": {
+        "height": "Height",
+        "tension": "Pull of the strings",
+        "time": "Time"
+      },
+      "figures": {
+        "fall": "Time to fall",
+        "spin": "Spin at the bottom",
+        "peak": "Highest pull",
+        "stretch": "Stretch of the strings"
+      },
+      "computed": {
+        "system": "Everything here has a closed form; nothing needs stepping: falling and climbing are uniformly accelerated, and in the jerk the wheel makes half a spring's swing on the stretched strings. For every frame the page asks where the wheel is.",
+        "z": "how far the strings are stretched in the jerk"
       }
     }
   }

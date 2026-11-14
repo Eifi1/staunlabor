@@ -65,3 +65,4 @@ so a reviewer knows which wordings are newer than the rest.
 | 2026-11-15 | `experiments.exhibits.parabola.*`, `experiments.parabola.*` | new: the water parabola's page; `de-CH` and `en` written, the other five machine-translated | a new exhibit |
 | 2026-11-15 | `experiments.exhibits.coupled.*`, `experiments.coupled.*` | new: the coupled pendulums' page; `de-CH` and `en` written, the other five machine-translated | a new exhibit |
 | 2026-11-15 | `experiments.exhibits.peg.*`, `experiments.peg.*` | new: Galileo's interrupted pendulum's page; `de-CH` and `en` written, the other five machine-translated | a new exhibit |
+| 2026-11-15 | `experiments.exhibits.maxwell.*`, `experiments.maxwell.*` | new: Maxwell's wheel's page; `de-CH` and `en` written, the other five machine-translated | a new exhibit |

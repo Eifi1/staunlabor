@@ -37,6 +37,7 @@ import { ConePage, verdict } from "./cone-page";
 import { ParabolaPage, wellFilled } from "./parabola-page";
 import { CoupledPage, hangs } from "./coupled-page";
 import { PegPage } from "./peg-page";
+import { MaxwellPage } from "./maxwell-page";
 import { ballState, pitEntries, positionAt, raceLayout, swingAt } from "./race-views";
 import { run as runPit } from "./simulate/pit";
 import { HOLE, cameraAt, frameOf, project } from "./chair-views";
@@ -791,5 +792,24 @@ describe("Galileo's pendulum", () => {
     expect(await screen.findByText(E.peg.play.outcome_over_the_top)).toBeInTheDocument();
     fireEvent.click(screen.getByRole("button", { name: E.peg.sweet.cases.slack }));
     expect(await screen.findByText(E.peg.play.outcome_slack)).toBeInTheDocument();
+  });
+});
+
+describe("Maxwell's wheel", () => {
+  it("shows the wheel on its strings, the pull and the port's bounce", async () => {
+    renderWithProviders(<MaxwellPage />);
+    expect(await screen.findByRole("img", { name: E.maxwell.view })).toBeInTheDocument();
+    expect(screen.getByRole("button", { name: E.maxwell.play.let_go })).toBeInTheDocument();
+    // The default disc: 98.8 % in the spin, a 25 ms jerk at 6.4 times the weight.
+    expect(screen.getByText(/98\.8 % here/)).toBeInTheDocument();
+    expect(screen.getByText(/For 25 ms their pull rises to 31\.2 N, 6\.4 times the weight/)).toBeInTheDocument();
+    expect(screen.getAllByLabelText(E.equation.symbols).length).toBeGreaterThanOrEqual(4);
+  });
+
+  it("puts even more of the energy into the spin of a wheel with its mass in the rim", async () => {
+    renderWithProviders(<MaxwellPage />);
+    await screen.findByRole("img", { name: E.maxwell.view });
+    fireEvent.click(screen.getByRole("radio", { name: E.maxwell.change.shapes.ring }));
+    expect(await screen.findByText(/99\.4 % here/)).toBeInTheDocument();
   });
 });

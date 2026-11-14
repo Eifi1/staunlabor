@@ -211,6 +211,12 @@
         "title": "Le pendule interrompu de Galilée",
         "summary": "Une cheville arrête le fil d'un pendule. La boule continue sur un cercle plus petit – et monte pourtant exactement aussi haut que de l'autre côté.",
         "question": "Une cheville arrête le fil d'un pendule qui oscille. La boule monte-t-elle ensuite moins haut, aussi haut ou plus haut ?"
+      },
+      "maxwell": {
+        "short": "Roue de Maxwell",
+        "title": "La roue de Maxwell",
+        "summary": "Une roue lourde se déroule lentement le long de deux rubans, fait demi-tour en bas et se réenroule presque jusqu'à sa hauteur de départ – comme un grand yo-yo.",
+        "question": "Pourquoi une roue lourde qui se déroule le long de deux rubans tombe-t-elle tellement plus lentement qu'une pierre ?"
       }
     },
     "chair": {
@@ -1519,6 +1525,93 @@
       "computed": {
         "system": "Trois mouvements, une équation chacun : le pendule autour de la suspension, le plus court autour de la cheville, et le vol libre tant que le fil est détendu. Le moteur avance par la méthode de Runge-Kutta, une milliseconde à la fois, et trouve chaque changement – la cheville arrête, le fil se libère, se détend, se tend – à l'intérieur de son pas, par dichotomie, pour qu'il ait lieu exactement là où il doit.",
         "gravity": "la pesanteur, seule à agir pendant le vol libre"
+      }
+    },
+    "maxwell": {
+      "at": {
+        "wheel": "Une roue lourde est montée sur un axe mince, autour duquel sont enroulés deux rubans qui pendent d'en haut. On tourne la roue vers le haut jusqu'à enrouler les rubans, et on la lâche.",
+        "climbs": "La roue se déroule lentement, fait demi-tour en bas avec un à-coup et remonte en s'enroulant, presque jusqu'à son point de départ. La roue standard tombe en 3,3 s et remonte chaque fois à 94 % de la hauteur précédente."
+      },
+      "refused": "L'axe doit être plus mince que la roue.",
+      "view": "La roue de Maxwell de face, suspendue à ses deux rubans",
+      "play": {
+        "title": "Lâcher la roue",
+        "hint": "Au ralenti le plus lent, on voit l'à-coup en bas : les rubans s'allongent de quelques millimètres et relancent la roue.",
+        "let_go": "Lâcher",
+        "pause": "Pause",
+        "run": "Reprendre",
+        "speed": "Vitesse",
+        "speeds": {
+          "100": "Temps réel",
+          "25": "Ralenti (¼)",
+          "5": "Très lent (1/20)"
+        },
+        "phases": {
+          "down": "Elle se déroule.",
+          "jerk": "En bas : les rubans s'allongent et la relancent.",
+          "up": "Elle remonte en s'enroulant."
+        },
+        "tension": "Traction des rubans",
+        "weight_times": "Fois le poids",
+        "speed_now": "Vitesse de l'axe",
+        "energy": "Énergie du mouvement",
+        "translation": "Dans la chute et la montée",
+        "rotation": "Dans la rotation",
+        "spin_unit": "tr/s"
+      },
+      "change": {
+        "title": "Modifier l'objet exposé",
+        "hint": "Un axe plus mince ou une roue plus lourde à sa périphérie tombe plus lentement – et rend l'à-coup du bas plus dur.",
+        "shape": "Roue",
+        "shapes": {
+          "disc": "Disque plein",
+          "ring": "Roue à rayons (masse dans la jante)"
+        },
+        "axle": "Rayon de l'axe",
+        "axle_hint": "Là où les rubans sont enroulés.",
+        "wheel": "Rayon de la roue",
+        "mass": "Masse de la roue",
+        "drop": "Longueur des rubans",
+        "loss": "Frottement des rubans",
+        "loss_hint": "Les rubans se plient autour de l'axe et frottent : cette part de leur traction comme couple de freinage.",
+        "stiffness": "Raideur des rubans",
+        "stiffness_hint": "La force avec laquelle les deux rubans ensemble tireraient s'ils étaient allongés d'un mètre. Plus raides : un à-coup plus court et plus dur."
+      },
+      "model": {
+        "intro": "Les rubans se déroulent de l'axe sans glisser : pour chaque centimètre de chute, la roue tourne d'un centimètre de la circonférence de l'axe. Comme l'axe est mince, cela fait beaucoup de rotation pour peu de chute.",
+        "roll": "La roue tombe avec une accélération uniforme, mais avec seulement une petite part de celle de la pesanteur : k dit combien il est plus difficile de mettre la roue en rotation qu'en mouvement.",
+        "tension": "C'est pourquoi les rubans portent presque tout le poids pendant le déroulement.",
+        "share": "Cette part de l'énergie du mouvement est dans la rotation – 98,8 % pour la roue standard."
+      },
+      "symbols": {
+        "a": "l'accélération de la roue en se déroulant",
+        "g": "accélération de la pesanteur, 9,81 m/s²",
+        "i": "le moment d'inertie de la roue : ½·M·R² pour un disque, M·R² pour un anneau",
+        "m": "la masse de la roue",
+        "r": "le rayon de l'axe",
+        "t": "la traction des deux rubans",
+        "s": "la raideur des deux rubans ensemble",
+        "v": "la vitesse de la roue quand les rubans sont déroulés"
+      },
+      "sweet": {
+        "spin": "Presque toute l'énergie est dans la rotation – ici {{share}} % –, c'est pourquoi la roue tombe si lentement : ce que donne la hauteur va dans la rotation, pas dans la chute.",
+        "jerk": "En bas, l'allongement des rubans arrête la chute. Pendant {{ms}} ms leur traction monte à {{peak}} N, {{times}} fois le poids. La rotation continue à travers l'à-coup et réenroule les rubans de l'autre côté.",
+        "climbs": "Chaque fois, la roue remonte à {{share}} % de la hauteur précédente : le frottement des rubans sur l'axe lui prend un peu en se déroulant et en s'enroulant."
+      },
+      "chart": {
+        "height": "Hauteur",
+        "tension": "Traction des rubans",
+        "time": "Temps"
+      },
+      "figures": {
+        "fall": "Durée de la chute",
+        "spin": "Rotation en bas",
+        "peak": "Traction maximale",
+        "stretch": "Allongement des rubans"
+      },
+      "computed": {
+        "system": "Ici tout a une solution fermée ; rien n'est calculé pas à pas : la chute et la montée sont uniformément accélérées, et pendant l'à-coup la roue fait une demi-oscillation de ressort sur les rubans allongés. À chaque image, la page demande où se trouve la roue.",
+        "z": "l'allongement des rubans pendant l'à-coup"
       }
     }
   }

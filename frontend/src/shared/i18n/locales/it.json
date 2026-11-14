@@ -211,6 +211,12 @@
         "title": "Il pendolo interrotto di Galileo",
         "summary": "Un piolo ferma il filo di un pendolo. La sfera continua su un cerchio più piccolo – e sale comunque esattamente quanto dall'altra parte.",
         "question": "Un piolo ferma il filo di un pendolo che oscilla. La sfera poi sale meno, altrettanto o di più?"
+      },
+      "maxwell": {
+        "short": "Ruota di Maxwell",
+        "title": "La ruota di Maxwell",
+        "summary": "Una ruota pesante scende lentamente srotolandosi da due nastri, si inverte in basso e si riavvolge quasi fino all'altezza di partenza – come un grande yo-yo.",
+        "question": "Perché una ruota pesante che si srotola da due nastri cade tanto più lentamente di un sasso?"
       }
     },
     "chair": {
@@ -1519,6 +1525,93 @@
       "computed": {
         "system": "Tre moti, un'equazione ciascuno: il pendolo attorno alla sospensione, quello più corto attorno al piolo e il volo libero finché il filo è allentato. Il motore avanza con il metodo di Runge-Kutta un millisecondo alla volta e trova ogni cambiamento – il piolo ferma, il filo si stacca, si allenta, si tende – all'interno del suo passo, dimezzandolo, perché avvenga esattamente dove deve.",
         "gravity": "la gravità, che agisce da sola nel volo libero"
+      }
+    },
+    "maxwell": {
+      "at": {
+        "wheel": "Una ruota pesante è montata su un asse sottile, attorno al quale sono avvolti due nastri che pendono dall'alto. Si gira la ruota verso l'alto finché i nastri sono avvolti, e la si lascia andare.",
+        "climbs": "La ruota si srotola lentamente, si inverte in basso con uno strappo e risale riavvolgendosi, quasi fin dove è stata lasciata. La ruota standard cade in 3,3 s e risale ogni volta al 94 % dell'altezza precedente."
+      },
+      "refused": "L'asse deve essere più sottile della ruota.",
+      "view": "La ruota di Maxwell di fronte, appesa ai suoi due nastri",
+      "play": {
+        "title": "Lasciare andare la ruota",
+        "hint": "Al rallentatore più lento si vede lo strappo in basso: i nastri si allungano di pochi millimetri e rilanciano la ruota.",
+        "let_go": "Lasciare",
+        "pause": "Pausa",
+        "run": "Continua",
+        "speed": "Velocità",
+        "speeds": {
+          "100": "Tempo reale",
+          "25": "Rallentatore (¼)",
+          "5": "Molto lento (1/20)"
+        },
+        "phases": {
+          "down": "Si sta srotolando.",
+          "jerk": "In basso: i nastri si allungano e la rilanciano.",
+          "up": "Risale riavvolgendosi."
+        },
+        "tension": "Trazione dei nastri",
+        "weight_times": "Volte il peso",
+        "speed_now": "Velocità dell'asse",
+        "energy": "Energia del moto",
+        "translation": "Nella caduta e nella salita",
+        "rotation": "Nella rotazione",
+        "spin_unit": "giri/s"
+      },
+      "change": {
+        "title": "Modificare l'oggetto esposto",
+        "hint": "Un asse più sottile o una ruota più pesante sul bordo cadono più lentamente – e rendono più duro lo strappo in basso.",
+        "shape": "Ruota",
+        "shapes": {
+          "disc": "Disco pieno",
+          "ring": "Ruota a raggi (massa nel cerchione)"
+        },
+        "axle": "Raggio dell'asse",
+        "axle_hint": "Dove sono avvolti i nastri.",
+        "wheel": "Raggio della ruota",
+        "mass": "Massa della ruota",
+        "drop": "Lunghezza dei nastri",
+        "loss": "Attrito dei nastri",
+        "loss_hint": "I nastri si piegano attorno all'asse e sfregano: questa quota della loro trazione come momento frenante.",
+        "stiffness": "Rigidità dei nastri",
+        "stiffness_hint": "Con quanta forza tirerebbero i due nastri insieme se allungati di un metro. Più rigidi: uno strappo più breve e più duro."
+      },
+      "model": {
+        "intro": "I nastri si srotolano dall'asse senza strisciare: per ogni centimetro di caduta la ruota gira di un centimetro della circonferenza dell'asse. Poiché l'asse è sottile, ciò significa molta rotazione per poca caduta.",
+        "roll": "La ruota cade con accelerazione uniforme, ma solo con una piccola parte di quella di gravità: k dice quanto è più difficile mettere la ruota in rotazione che in moto.",
+        "tension": "Per questo, mentre si srotola, i nastri reggono quasi tutto il peso.",
+        "share": "Questa quota dell'energia del moto è nella rotazione – il 98,8 % per la ruota standard."
+      },
+      "symbols": {
+        "a": "l'accelerazione della ruota mentre si srotola",
+        "g": "accelerazione di gravità, 9,81 m/s²",
+        "i": "il momento d'inerzia della ruota: ½·M·R² per un disco, M·R² per un anello",
+        "m": "la massa della ruota",
+        "r": "il raggio dell'asse",
+        "t": "la trazione dei due nastri",
+        "s": "la rigidità dei due nastri insieme",
+        "v": "la velocità della ruota quando i nastri sono srotolati"
+      },
+      "sweet": {
+        "spin": "Quasi tutta l'energia è nella rotazione – qui il {{share}} % –, per questo la ruota cade così lentamente: ciò che dà l'altezza va nella rotazione, non nella caduta.",
+        "jerk": "In basso l'allungamento dei nastri ferma la caduta. Per {{ms}} ms la loro trazione sale a {{peak}} N, {{times}} volte il peso. La rotazione prosegue attraverso lo strappo e riavvolge i nastri dall'altro lato.",
+        "climbs": "Ogni volta la ruota risale al {{share}} % dell'altezza precedente: l'attrito dei nastri sull'asse le toglie qualcosa a ogni srotolarsi e riavvolgersi."
+      },
+      "chart": {
+        "height": "Altezza",
+        "tension": "Trazione dei nastri",
+        "time": "Tempo"
+      },
+      "figures": {
+        "fall": "Tempo di caduta",
+        "spin": "Rotazione in basso",
+        "peak": "Trazione massima",
+        "stretch": "Allungamento dei nastri"
+      },
+      "computed": {
+        "system": "Qui tutto ha una soluzione chiusa; nulla va calcolato passo dopo passo: caduta e salita sono uniformemente accelerate, e nello strappo la ruota compie mezza oscillazione di molla sui nastri allungati. A ogni immagine la pagina chiede dove si trova la ruota.",
+        "z": "quanto si allungano i nastri nello strappo"
       }
     }
   }

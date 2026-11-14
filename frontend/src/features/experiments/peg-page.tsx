@@ -236,7 +236,9 @@ function PegPlay({
     let last = performance.now();
     const keep = Math.round(TRAIL_S / (STEP_S * TRAIL_EVERY));
     const tick = (now: number) => {
-      const dt = Math.min(0.05, (now - last) / 1000);
+      // A frame's timestamp can lie a little before the effect started: never a
+      // step back in time.
+      const dt = Math.max(0, Math.min(0.05, (now - last) / 1000));
       last = now;
       const m = sim.current;
       m.owed += (dt * speed) / STEP_S;

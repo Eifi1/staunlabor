@@ -159,7 +159,9 @@ function HarmonographPlay({ h, preview = false, paused = false }: { h: Harmonogr
     let last = performance.now();
     let owed = 0;
     const tick = (now: number) => {
-      const dt = Math.min(0.05, (now - last) / 1000);
+      // A frame's timestamp can lie a little before the effect started: never a
+      // step back in time.
+      const dt = Math.max(0, Math.min(0.05, (now - last) / 1000));
       last = now;
       owed += (dt * speed) / STEP_S;
       const steps = Math.floor(owed);

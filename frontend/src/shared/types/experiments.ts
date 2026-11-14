@@ -553,6 +553,19 @@ export interface PegPendulumRequest {
   start_deg: number;
 }
 
+// ── Maxwell's wheel ──────────────────────────────────────────────────────────
+
+/** The engine's `MaxwellWheel`. No route: the page asks the port (`simulate/maxwell.ts`). */
+export interface MaxwellWheelRequest {
+  mass_kg: number;
+  wheel_radius_m: number;
+  axle_radius_m: number;
+  shape: "disc" | "ring";
+  drop_m: number;
+  loss: number;
+  stiffness_n_m: number;
+}
+
 // ── the pages' starting point ────────────────────────────────────────────────
 
 export interface ExperimentsDefaults {
@@ -569,6 +582,7 @@ export interface ExperimentsDefaults {
   parabola: VesselRequest;
   coupled: CoupledPendulumsRequest;
   peg: PegPendulumRequest;
+  maxwell: MaxwellWheelRequest;
   meter_range_a: number;
   settle_s: number;
 }

@@ -211,6 +211,12 @@
         "title": "Galilei megszakított ingája",
         "summary": "Egy pecek elkapja az inga fonalát. A golyó egy kisebb körön leng tovább – és mégis pontosan olyan magasra emelkedik, mint a másik oldalon.",
         "question": "Egy pecek elkapja a lengő inga fonalát. Utána a golyó kevésbé magasra, ugyanolyan magasra vagy magasabbra emelkedik?"
+      },
+      "maxwell": {
+        "short": "Maxwell-kerék",
+        "title": "A Maxwell-kerék",
+        "summary": "Egy nehéz kerék lassan legördül két szalagon, lent megfordul, és majdnem a kiinduló magasságig visszatekeredik – mint egy nagy jojó.",
+        "question": "Miért esik egy két szalagon legördülő nehéz kerék sokkal lassabban, mint egy kő?"
       }
     },
     "chair": {
@@ -1519,6 +1525,93 @@
       "computed": {
         "system": "Három mozgás, mindegyik egy egyenlet: az inga a felfüggesztés körül, a rövidebb a pecek körül, és a szabad repülés, amíg a fonal laza. A számítómag a Runge–Kutta-módszerrel ezredmásodpercenként halad, és minden váltást – a pecek elkap, a fonal leválik, meglazul, megfeszül – a lépésén belül felezéssel keres meg, hogy pontosan ott történjen, ahol kell.",
         "gravity": "a nehézségi erő, amely a szabad repülésben egyedül hat"
+      }
+    },
+    "maxwell": {
+      "at": {
+        "wheel": "Egy nehéz kerék vékony tengelyen ül, a tengely köré két, felülről lelógó szalag van tekerve. A kereket feltekerik, amíg a szalagok fel nem csavarodnak, majd elengedik.",
+        "climbs": "A kerék lassan legördül, lent egy rándulással megfordul, és visszatekeredik felfelé, majdnem addig, ahonnan elengedték. Az alapkerék 3,3 s alatt esik le, és minden alkalommal az előző magasság 94 %-áig emelkedik."
+      },
+      "refused": "A tengely legyen vékonyabb a keréknél.",
+      "view": "A Maxwell-kerék elölről, két szalagján",
+      "play": {
+        "title": "A kerék elengedése",
+        "hint": "A leglassabb lassításban látszik a rándulás lent: a szalagok néhány millimétert nyúlnak, és visszadobják a kereket.",
+        "let_go": "Elengedés",
+        "pause": "Szünet",
+        "run": "Tovább",
+        "speed": "Tempó",
+        "speeds": {
+          "100": "Valós idő",
+          "25": "Lassítva (¼)",
+          "5": "Erősen lassítva (1/20)"
+        },
+        "phases": {
+          "down": "Legördül.",
+          "jerk": "Lent: a szalagok megnyúlnak és visszadobják.",
+          "up": "Visszatekeredik felfelé."
+        },
+        "tension": "A szalagok húzása",
+        "weight_times": "A súly hányszorosa",
+        "speed_now": "A tengely sebessége",
+        "energy": "A mozgás energiája",
+        "translation": "Az esésben és emelkedésben",
+        "rotation": "A forgásban",
+        "spin_unit": "ford./s"
+      },
+      "change": {
+        "title": "A kiállítási tárgy módosítása",
+        "hint": "A vékonyabb tengely vagy a peremén nehezebb kerék lassabban esik – és keményebbé teszi a rándulást lent.",
+        "shape": "Kerék",
+        "shapes": {
+          "disc": "Tömör tárcsa",
+          "ring": "Küllős kerék (tömeg a peremben)"
+        },
+        "axle": "A tengely sugara",
+        "axle_hint": "Ahová a szalagok fel vannak tekerve.",
+        "wheel": "A kerék sugara",
+        "mass": "A kerék tömege",
+        "drop": "A szalagok hossza",
+        "loss": "A szalagok súrlódása",
+        "loss_hint": "A szalagok a tengely körül hajlanak és súrlódnak: húzásuk ekkora része fékező nyomatékként.",
+        "stiffness": "A szalagok merevsége",
+        "stiffness_hint": "Mekkora erővel húzna a két szalag együtt, ha egy méterrel megnyúlnának. Merevebb: rövidebb, keményebb rándulás."
+      },
+      "model": {
+        "intro": "A szalagok csúszás nélkül tekeredik le a tengelyről: minden centiméter esésnél a kerék a tengely kerületének egy centiméterével fordul tovább. Mivel a tengely vékony, ez kevés esésre sok forgást jelent.",
+        "roll": "A kerék egyenletesen gyorsulva esik, de a nehézségi gyorsulásnak csak kis részével: k megmondja, mennyivel nehezebb a kereket forgásba hozni, mint mozgásba.",
+        "tension": "Ezért legördüléskor a szalagok majdnem az egész súlyt tartják.",
+        "share": "A mozgási energia ekkora része van a forgásban – az alapkeréknél 98,8 %."
+      },
+      "symbols": {
+        "a": "a kerék gyorsulása legördüléskor",
+        "g": "nehézségi gyorsulás, 9,81 m/s²",
+        "i": "a kerék tehetetlenségi nyomatéka: tárcsánál ½·M·R², gyűrűnél M·R²",
+        "m": "a kerék tömege",
+        "r": "a tengely sugara",
+        "t": "a két szalag húzása",
+        "s": "a két szalag együttes merevsége",
+        "v": "a kerék sebessége, amikor a szalagok letekeredtek"
+      },
+      "sweet": {
+        "spin": "Szinte az összes energia a forgásban van – itt {{share}} % –, ezért esik a kerék ilyen lassan: amit a magasság ad, az a forgásba megy, nem az esésbe.",
+        "jerk": "Lent a szalagok nyúlása fogja fel az esést. {{ms}} ms-ig a húzásuk {{peak}} N-ra nő, a súly {{times}}-szorosára. A forgás a rándulás alatt is folytatódik, és a másik oldalról visszatekeri a szalagokat.",
+        "climbs": "A kerék minden alkalommal az előző magasság {{share}} %-áig emelkedik: a szalagok súrlódása a tengelyen le- és feltekeredéskor elvesz belőle valamennyit."
+      },
+      "chart": {
+        "height": "Magasság",
+        "tension": "A szalagok húzása",
+        "time": "Idő"
+      },
+      "figures": {
+        "fall": "Esési idő",
+        "spin": "Fordulatszám lent",
+        "peak": "Legnagyobb húzás",
+        "stretch": "A szalagok nyúlása"
+      },
+      "computed": {
+        "system": "Itt minden zárt alakban megoldható, semmit sem kell lépésenként számolni: az esés és az emelkedés egyenletesen gyorsuló, a rándulásban pedig a kerék fél rugólengést végez a megnyúlt szalagokon. Az oldal minden képkockánál megkérdezi, hol van éppen a kerék.",
+        "z": "mennyire nyúlnak meg a szalagok a rándulásban"
       }
     }
   }

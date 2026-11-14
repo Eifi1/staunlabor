@@ -9,6 +9,7 @@ import {
   Check,
   ChevronsUp,
   Diamond,
+  Disc3,
   GlassWater,
   HelpCircle,
   Link2,
@@ -61,6 +62,7 @@ const ICON: Record<Exhibit, LucideIcon> = {
   parabola: GlassWater,
   coupled: Link2,
   peg: Anchor,
+  maxwell: Disc3,
 };
 
 /** Two weeks back, in the dialog: long enough to find the one a friend
