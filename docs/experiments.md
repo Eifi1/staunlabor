@@ -764,6 +764,43 @@ rings at five rates, wet and dry; the equal sink and rise; the dry rate and the
 rim's continuity past it; the mirror's focus; the spill rate both ways; the
 spin-up against `1 − e^(−t/τ)`.
 
+## The coupled pendulums (`experiments.coupled`)
+
+**The exhibit.** Two equal pendulums side by side joined by a soft spring; one
+pushed, the swing wanders to the other and back, again and again.
+
+**The model** (`domain/experiments/coupled.py`). Two plane pendulums from the
+block and a spring of stiffness `k` at the distance `a` below the pivots, taken
+horizontal: `θ₁'' = −(g/L₁)·sin θ₁ + κ₁·(sin θ₂ − sin θ₁)·cos θ₁ − c·θ₁'`
+and its mirror, `κᵢ = k·a²/(mᵢ·Lᵢ²)`, the full sines stepped by Runge–Kutta at
+1 ms, energy kept to 10⁻⁹ of itself. **The modes** for small swings: together
+at `√(g/L)`, against each other at `√(g/L + 2κ)` (equal pendulums; the 2 × 2
+system's roots in general); a push to one is half of each, and the swing
+wanders over and back once in the beat `2π/(ω₂ − ω₁)`. Unequal pendulums hand
+over only `4κ₁κ₂/((a₁ − a₂)² + 4κ₁κ₂)`, `aᵢ = g/Lᵢ + κᵢ` (Rabi's formula).
+
+**What it shows** (the default: 50 cm, 200 g, 1 N/m at 25 cm). Over and back
+in 23 s, all of it reaching the other; let go together, the spring never
+stretches; 50 against 55 cm, 0.56 of it reaches the other, which a two-minute
+run confirms to 1.5 %. The shares on the page are of everything put in, the
+spring's stretch at the start included — pulled aside alone, the left pendulum
+stretches the spring too (6 % of the default push; the first chart had divided
+by the pendulum's energy alone and climbed past 100 %).
+
+**The page.** The pair from the front with the spring, let go one way, both
+alike or against each other, real time or threefold; bars of each pendulum's
+share as it wanders; the two modes' periods, the beat and the share handed
+over. The spring, its height, the right pendulum's length, the mass and the
+damping are sliders. The trick's chart is the two shares over two beats. **No
+route**: the port's (`simulate/coupled.ts`).
+
+**Left out, and said:** the spring's mass, its sag and slant; air beyond one
+linear damping.
+
+**Checked by** `tests/unit/test_experiments.py`: the two modes' rates, the beat,
+the full exchange at half a beat, nothing exchanged together, Rabi's share
+against a run, the energy kept without damping.
+
 ## Checking the mathematics
 
 Before the engine was written each model was checked independently with SciPy

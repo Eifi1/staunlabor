@@ -199,6 +199,12 @@
         "title": "Die Wasserparabel",
         "summary": "Ein Gefäss mit Wasser dreht sich: Die Oberfläche wölbt sich zu einer Mulde – bis die Mitte trocken fällt.",
         "question": "Wenn sich ein Gefäss mit Wasser immer schneller dreht: Sinkt die Mitte so weit, wie der Rand steigt?"
+      },
+      "coupled": {
+        "short": "Gekoppelte Pendel",
+        "title": "Gekoppelte Pendel",
+        "summary": "Zwei Pendel, durch eine weiche Feder verbunden: Stösst man eines an, wandert die Schwingung zum anderen hinüber – und wieder zurück.",
+        "question": "Zwei gleiche Pendel hängen an einer Feder. Wie lange dauert es, bis die Schwingung des einen ganz beim anderen ist?"
       }
     },
     "chair": {
@@ -1357,6 +1363,82 @@
         "tau": "die Anlaufzeit",
         "nu": "die Zähigkeit des Wassers, 10⁻⁶ m²/s",
         "big_omega": "die grössere der beiden Winkelgeschwindigkeiten"
+      }
+    },
+    "coupled": {
+      "at": {
+        "pair": "Zwei gleiche Pendel hängen nebeneinander, unterhalb der Aufhängung durch eine weiche Feder verbunden. Man lenkt eines aus und lässt es los; das andere hängt still.",
+        "wanders": "Bald beginnt das zweite zu schwingen, während das erste zur Ruhe kommt – dann umgekehrt, immer wieder. Beim Standard-Paar wandert die Schwingung in 23 s einmal hinüber und zurück."
+      },
+      "refused": "Die Feder muss an beiden Pendeln zwischen Aufhängung und Kugel sitzen: Das rechte ist zu kurz für diese Höhe der Feder.",
+      "view": "Die beiden Pendel von vorn, die Feder zwischen ihnen",
+      "play": {
+        "title": "Die Pendel anstossen",
+        "hint": "Wählen Sie, wie die Pendel losgelassen werden. Die Balken zeigen, wie viel der Energie gerade in jedem steckt.",
+        "pause": "Anhalten",
+        "run": "Weiter",
+        "let_go": "Loslassen:",
+        "starts": {
+          "one": "Nur das linke",
+          "together": "Beide gleich",
+          "against": "Gegeneinander"
+        },
+        "speed": "Tempo",
+        "speeds": {
+          "1": "Echtzeit",
+          "3": "Dreifach"
+        },
+        "energy": "Energie der beiden Pendel",
+        "left": "Linkes Pendel",
+        "right": "Rechtes Pendel"
+      },
+      "figures": {
+        "together": "Periode im Gleichtakt",
+        "against": "Periode gegeneinander",
+        "beat": "Hinüber und zurück",
+        "share": "Davon kommt hinüber"
+      },
+      "change": {
+        "title": "Das Exponat verändern",
+        "hint": "Eine steifere Feder oder eine tiefer sitzende koppelt stärker: Die Schwingung wandert schneller. Ungleiche Längen lassen sie nur zum Teil hinüber.",
+        "spring": "Federkonstante",
+        "spring_hint": "Wie stark die Feder zieht, wenn sie um einen Meter gedehnt wird.",
+        "spring_at": "Höhe der Feder",
+        "spring_at_hint": "Wie weit unter der Aufhängung die Feder sitzt.",
+        "right_length": "Länge des rechten Pendels",
+        "right_length_hint": "Das linke ist 50 cm lang.",
+        "mass": "Masse jeder Kugel",
+        "damping": "Dämpfung"
+      },
+      "model": {
+        "intro": "Jedes Pendel schwingt unter der Schwerkraft, und die Feder zieht es zum anderen hin, so stark, wie sich die beiden in ihrer Höhe gegeneinander verschoben haben.",
+        "equation": "Die Gleichung des linken Pendels; die des rechten ist gleich gebaut, mit der Feder in der Gegenrichtung.",
+        "modes": "Zwei Bewegungen, bei denen beide im selben Takt schwingen: im Gleichtakt, die Feder ruht, so schnell wie ein Pendel allein; und gegeneinander, die Feder arbeitet mit, schneller. Jede andere Bewegung ist eine Summe dieser beiden.",
+        "beat": "Wird nur ein Pendel angestossen, ist das je zur Hälfte Gleichtakt und Gegentakt. Die beiden laufen langsam auseinander und wieder zusammen: Die Schwingung wandert in dieser Zeit einmal hinüber und zurück."
+      },
+      "symbols": {
+        "theta": "die Ausschläge der beiden Pendel",
+        "length": "die Länge eines Pendels",
+        "g": "Fallbeschleunigung, 9,81 m/s²",
+        "kappa": "die Stärke der Kopplung",
+        "k": "die Federkonstante",
+        "a": "wie weit unter der Aufhängung die Feder sitzt",
+        "m": "die Masse einer Kugel",
+        "omega": "die Kreisfrequenzen im Gleichtakt und gegeneinander",
+        "beat": "die Zeit, in der die Schwingung einmal hinüber und zurück wandert",
+        "kappa_i": "die Kopplung, wie jedes der beiden Pendel sie spürt"
+      },
+      "sweet": {
+        "modes": "Was die Natur hier schwingen lässt, ist nicht ein Pendel und dann das andere, sondern die beiden gemeinsamen Takte. Die wandernde Schwingung ist ihre Summe – darum wandert sie bei «Beide gleich» und «Gegeneinander» nicht.",
+        "beat": "Hier wandert die Schwingung in {{beat}} s einmal hinüber und zurück, und {{share}} % davon kommen beim anderen Pendel an.",
+        "unequal": "Sind die Pendel ungleich, kommt nie alles hinüber: nur dieser Anteil, umso mehr, je ähnlicher die Pendel und je stärker die Feder."
+      },
+      "chart": {
+        "energy": "Anteil der Energie",
+        "time": "Zeit"
+      },
+      "computed": {
+        "system": "Vier Gleichungen erster Ordnung, die Ausschläge und ihre Geschwindigkeiten, mit dem vollen Sinus und der Feder dazwischen. Der Rechenkern löst sie zusammen mit dem Runge-Kutta-Verfahren in Schritten von einer Millisekunde; die Seite tut es mit denselben Schritten, einige Dutzend pro Bild."
       }
     }
   }

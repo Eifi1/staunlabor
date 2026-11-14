@@ -533,6 +533,17 @@ export interface VesselRequest {
   fill_m: number;
 }
 
+// ── the coupled pendulums ────────────────────────────────────────────────────
+
+/** The engine's `CoupledPendulums`. No route: the page asks the port (`simulate/coupled.ts`). */
+export interface CoupledPendulumsRequest {
+  left: { length_m: number; mass_kg: number };
+  right: { length_m: number; mass_kg: number };
+  spring_n_m: number;
+  spring_at_m: number;
+  damping_per_s: number;
+}
+
 // ── the pages' starting point ────────────────────────────────────────────────
 
 export interface ExperimentsDefaults {
@@ -547,6 +558,7 @@ export interface ExperimentsDefaults {
   harmonograph: HarmonographRequest;
   cone: ConeExhibitRequest;
   parabola: VesselRequest;
+  coupled: CoupledPendulumsRequest;
   meter_range_a: number;
   settle_s: number;
 }

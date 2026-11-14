@@ -199,6 +199,12 @@
         "title": "La parábola de agua",
         "summary": "Un recipiente con agua gira: la superficie se hunde formando un cuenco – hasta que el centro queda seco.",
         "question": "Si un recipiente con agua gira cada vez más deprisa, ¿baja el centro tanto como sube el borde?"
+      },
+      "coupled": {
+        "short": "Péndulos acoplados",
+        "title": "Péndulos acoplados",
+        "summary": "Dos péndulos unidos por un muelle blando: si se empuja uno, la oscilación pasa al otro – y vuelve.",
+        "question": "Dos péndulos iguales cuelgan de un muelle. ¿Cuánto tarda la oscilación de uno en pasar por completo al otro?"
       }
     },
     "chair": {
@@ -1357,6 +1363,82 @@
         "tau": "el tiempo de arranque",
         "nu": "la viscosidad del agua, 10⁻⁶ m²/s",
         "big_omega": "la mayor de las dos velocidades angulares"
+      }
+    },
+    "coupled": {
+      "at": {
+        "pair": "Dos péndulos iguales cuelgan uno junto al otro, unidos por debajo de su suspensión por un muelle blando. Se aparta uno y se suelta; el otro cuelga quieto.",
+        "wanders": "Pronto el segundo empieza a oscilar mientras el primero se detiene – luego al revés, una y otra vez. En el par estándar la oscilación va y vuelve una vez en 23 s."
+      },
+      "refused": "El muelle debe estar en ambos péndulos entre la suspensión y la bola: el derecho es demasiado corto para un muelle tan bajo.",
+      "view": "Los dos péndulos de frente, con el muelle entre ellos",
+      "play": {
+        "title": "Empujar los péndulos",
+        "hint": "Elija cómo se sueltan los péndulos. Las barras muestran cuánta energía hay ahora en cada uno.",
+        "pause": "Pausa",
+        "run": "Seguir",
+        "let_go": "Soltar:",
+        "starts": {
+          "one": "Solo el izquierdo",
+          "together": "Los dos igual",
+          "against": "Uno contra otro"
+        },
+        "speed": "Velocidad",
+        "speeds": {
+          "1": "Tiempo real",
+          "3": "Triple"
+        },
+        "energy": "Energía de los dos péndulos",
+        "left": "Péndulo izquierdo",
+        "right": "Péndulo derecho"
+      },
+      "figures": {
+        "together": "Periodo al unísono",
+        "against": "Periodo en contra",
+        "beat": "Ida y vuelta",
+        "share": "De ello llega al otro"
+      },
+      "change": {
+        "title": "Cambiar el objeto expuesto",
+        "hint": "Un muelle más rígido, o colocado más abajo, acopla más: la oscilación pasa más deprisa. Longitudes distintas solo dejan pasar una parte.",
+        "spring": "Constante del muelle",
+        "spring_hint": "Con cuánta fuerza tira el muelle al estirarlo un metro.",
+        "spring_at": "Altura del muelle",
+        "spring_at_hint": "A qué distancia por debajo de la suspensión está el muelle.",
+        "right_length": "Longitud del péndulo derecho",
+        "right_length_hint": "El izquierdo mide 50 cm.",
+        "mass": "Masa de cada bola",
+        "damping": "Amortiguación"
+      },
+      "model": {
+        "intro": "Cada péndulo oscila bajo la gravedad, y el muelle lo tira hacia el otro, tanto como los dos se han separado a su altura.",
+        "equation": "La ecuación del péndulo izquierdo; la del derecho es igual, con el muelle tirando en sentido contrario.",
+        "modes": "Dos movimientos en los que ambos oscilan con el mismo compás: al unísono, con el muelle en reposo, tan rápido como un péndulo solo; y uno contra otro, con el muelle trabajando, más rápido. Cualquier otro movimiento es una suma de estos dos.",
+        "beat": "Empujar solo un péndulo es la mitad de cada uno. Los dos se desfasan lentamente y vuelven a coincidir: la oscilación va y vuelve una vez en este tiempo."
+      },
+      "symbols": {
+        "theta": "las oscilaciones de los dos péndulos",
+        "length": "la longitud de un péndulo",
+        "g": "aceleración de la gravedad, 9,81 m/s²",
+        "kappa": "la intensidad del acoplamiento",
+        "k": "la constante del muelle",
+        "a": "a qué distancia por debajo de la suspensión está el muelle",
+        "m": "la masa de una bola",
+        "omega": "las frecuencias angulares al unísono y uno contra otro",
+        "beat": "el tiempo en que la oscilación va y vuelve",
+        "kappa_i": "el acoplamiento tal como lo siente cada péndulo"
+      },
+      "sweet": {
+        "modes": "Lo que la naturaleza hace oscilar aquí no es un péndulo y luego el otro, sino los dos compases comunes. La oscilación que pasa de uno a otro es su suma – por eso no pasa con «Los dos igual» ni con «Uno contra otro».",
+        "beat": "Aquí la oscilación va y vuelve una vez en {{beat}} s, y el {{share}} % de ella llega al otro péndulo.",
+        "unequal": "Si los péndulos son distintos, nunca pasa todo: solo esta parte, tanto más cuanto más parecidos son los péndulos y más fuerte el muelle."
+      },
+      "chart": {
+        "energy": "Parte de la energía",
+        "time": "Tiempo"
+      },
+      "computed": {
+        "system": "Cuatro ecuaciones de primer orden, las oscilaciones y sus velocidades, con el seno completo y el muelle entre ellos. El motor las resuelve juntas con el método de Runge-Kutta, de milisegundo en milisegundo; la página hace lo mismo con los mismos pasos, unas decenas por imagen."
       }
     }
   }

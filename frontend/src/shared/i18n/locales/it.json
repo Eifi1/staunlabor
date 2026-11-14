@@ -199,6 +199,12 @@
         "title": "La parabola d'acqua",
         "summary": "Un recipiente d'acqua gira: la superficie si incava a conca – finché il centro resta all'asciutto.",
         "question": "Se un recipiente d'acqua gira sempre più veloce, il centro scende quanto sale il bordo?"
+      },
+      "coupled": {
+        "short": "Pendoli accoppiati",
+        "title": "Pendoli accoppiati",
+        "summary": "Due pendoli uniti da una molla morbida: se se ne spinge uno, l'oscillazione passa all'altro – e torna indietro.",
+        "question": "Due pendoli uguali sono uniti da una molla. Quanto tempo ci vuole perché l'oscillazione dell'uno passi interamente all'altro?"
       }
     },
     "chair": {
@@ -1357,6 +1363,82 @@
         "tau": "il tempo di avvio",
         "nu": "la viscosità dell'acqua, 10⁻⁶ m²/s",
         "big_omega": "la maggiore delle due velocità angolari"
+      }
+    },
+    "coupled": {
+      "at": {
+        "pair": "Due pendoli uguali pendono uno accanto all'altro, uniti sotto la sospensione da una molla morbida. Se ne scosta uno e lo si lascia andare; l'altro pende fermo.",
+        "wanders": "Presto il secondo comincia a oscillare mentre il primo si ferma – poi al contrario, ancora e ancora. Per la coppia standard l'oscillazione va e torna una volta in 23 s."
+      },
+      "refused": "La molla deve stare, su entrambi i pendoli, tra la sospensione e la sfera: quello destro è troppo corto per una molla così bassa.",
+      "view": "I due pendoli di fronte, con la molla tra di loro",
+      "play": {
+        "title": "Spingere i pendoli",
+        "hint": "Scelga come vengono lasciati andare i pendoli. Le barre mostrano quanta energia c'è in ciascuno in questo momento.",
+        "pause": "Pausa",
+        "run": "Continua",
+        "let_go": "Lasciare:",
+        "starts": {
+          "one": "Solo il sinistro",
+          "together": "Entrambi uguali",
+          "against": "Uno contro l'altro"
+        },
+        "speed": "Velocità",
+        "speeds": {
+          "1": "Tempo reale",
+          "3": "Tripla"
+        },
+        "energy": "Energia dei due pendoli",
+        "left": "Pendolo sinistro",
+        "right": "Pendolo destro"
+      },
+      "figures": {
+        "together": "Periodo all'unisono",
+        "against": "Periodo in opposizione",
+        "beat": "Andata e ritorno",
+        "share": "Quota che arriva all'altro"
+      },
+      "change": {
+        "title": "Modificare l'oggetto esposto",
+        "hint": "Una molla più rigida, o fissata più in basso, accoppia di più: l'oscillazione passa più in fretta. Lunghezze diverse ne lasciano passare solo una parte.",
+        "spring": "Costante della molla",
+        "spring_hint": "Con quanta forza tira la molla quando la si allunga di un metro.",
+        "spring_at": "Altezza della molla",
+        "spring_at_hint": "A quale distanza sotto la sospensione è fissata la molla.",
+        "right_length": "Lunghezza del pendolo destro",
+        "right_length_hint": "Quello sinistro è lungo 50 cm.",
+        "mass": "Massa di ogni sfera",
+        "damping": "Smorzamento"
+      },
+      "model": {
+        "intro": "Ogni pendolo oscilla sotto la gravità, e la molla lo tira verso l'altro, tanto quanto i due si sono spostati l'uno rispetto all'altro alla sua altezza.",
+        "equation": "L'equazione del pendolo sinistro; quella del destro è costruita allo stesso modo, con la molla che tira nell'altro senso.",
+        "modes": "Due moti in cui entrambi oscillano con lo stesso ritmo: all'unisono, la molla a riposo, veloce come un pendolo da solo; e uno contro l'altro, la molla che lavora, più veloce. Ogni altro moto è una somma di questi due.",
+        "beat": "Spingere un solo pendolo è metà dell'uno e metà dell'altro. I due si sfasano lentamente e tornano a coincidere: l'oscillazione va e torna una volta in questo tempo."
+      },
+      "symbols": {
+        "theta": "le oscillazioni dei due pendoli",
+        "length": "la lunghezza di un pendolo",
+        "g": "accelerazione di gravità, 9,81 m/s²",
+        "kappa": "l'intensità dell'accoppiamento",
+        "k": "la costante della molla",
+        "a": "a quale distanza sotto la sospensione è fissata la molla",
+        "m": "la massa di una sfera",
+        "omega": "le pulsazioni all'unisono e in opposizione",
+        "beat": "il tempo in cui l'oscillazione va e torna",
+        "kappa_i": "l'accoppiamento come lo sente ciascuno dei due pendoli"
+      },
+      "sweet": {
+        "modes": "Ciò che la natura fa oscillare qui non è un pendolo e poi l'altro, ma i due ritmi comuni. L'oscillazione che passa dall'uno all'altro è la loro somma – per questo non passa con «Entrambi uguali» né con «Uno contro l'altro».",
+        "beat": "Qui l'oscillazione va e torna una volta in {{beat}} s, e il {{share}} % arriva all'altro pendolo.",
+        "unequal": "Pendoli diversi non passano mai tutto: solo questa quota, tanto più grande quanto più i pendoli si somigliano e quanto più forte è la molla."
+      },
+      "chart": {
+        "energy": "Quota dell'energia",
+        "time": "Tempo"
+      },
+      "computed": {
+        "system": "Quattro equazioni del primo ordine, le oscillazioni e le loro velocità, con il seno completo e la molla in mezzo. Il motore le risolve insieme con il metodo di Runge-Kutta un millisecondo alla volta; la pagina fa lo stesso con gli stessi passi, qualche decina per immagine."
       }
     }
   }

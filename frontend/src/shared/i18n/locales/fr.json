@@ -199,6 +199,12 @@
         "title": "La parabole d'eau",
         "summary": "Un récipient d'eau tourne : la surface se creuse en cuvette – jusqu'à ce que le centre s'assèche.",
         "question": "Quand un récipient d'eau tourne de plus en plus vite, le centre descend-il autant que le bord monte ?"
+      },
+      "coupled": {
+        "short": "Pendules couplés",
+        "title": "Pendules couplés",
+        "summary": "Deux pendules reliés par un ressort souple : poussez-en un, l'oscillation passe à l'autre – et revient.",
+        "question": "Deux pendules identiques sont reliés par un ressort. Combien de temps faut-il pour que l'oscillation de l'un soit entièrement passée à l'autre ?"
       }
     },
     "chair": {
@@ -1357,6 +1363,82 @@
         "tau": "le temps de mise en rotation",
         "nu": "la viscosité de l'eau, 10⁻⁶ m²/s",
         "big_omega": "la plus grande des deux vitesses angulaires"
+      }
+    },
+    "coupled": {
+      "at": {
+        "pair": "Deux pendules identiques pendent côte à côte, reliés sous leur suspension par un ressort souple. On écarte l'un et on le lâche ; l'autre pend immobile.",
+        "wanders": "Bientôt le second se met à osciller tandis que le premier s'arrête – puis l'inverse, encore et encore. Pour la paire standard, l'oscillation fait l'aller-retour en 23 s."
+      },
+      "refused": "Le ressort doit se trouver, sur les deux pendules, entre la suspension et la boule : le pendule droit est trop court pour un ressort aussi bas.",
+      "view": "Les deux pendules de face, le ressort entre eux",
+      "play": {
+        "title": "Pousser les pendules",
+        "hint": "Choisissez comment les pendules sont lâchés. Les barres montrent quelle part de l'énergie se trouve en ce moment dans chacun.",
+        "pause": "Pause",
+        "run": "Reprendre",
+        "let_go": "Lâcher :",
+        "starts": {
+          "one": "Seulement le gauche",
+          "together": "Les deux pareil",
+          "against": "L'un contre l'autre"
+        },
+        "speed": "Vitesse",
+        "speeds": {
+          "1": "Temps réel",
+          "3": "Triple"
+        },
+        "energy": "Énergie des deux pendules",
+        "left": "Pendule gauche",
+        "right": "Pendule droit"
+      },
+      "figures": {
+        "together": "Période à l'unisson",
+        "against": "Période en opposition",
+        "beat": "Aller-retour",
+        "share": "Part qui passe à l'autre"
+      },
+      "change": {
+        "title": "Modifier l'objet exposé",
+        "hint": "Un ressort plus raide, ou fixé plus bas, couple davantage : l'oscillation passe plus vite. Des longueurs différentes n'en laissent passer qu'une partie.",
+        "spring": "Raideur du ressort",
+        "spring_hint": "La force avec laquelle le ressort tire quand on l'allonge d'un mètre.",
+        "spring_at": "Hauteur du ressort",
+        "spring_at_hint": "À quelle distance sous la suspension le ressort est fixé.",
+        "right_length": "Longueur du pendule droit",
+        "right_length_hint": "Le gauche mesure 50 cm.",
+        "mass": "Masse de chaque boule",
+        "damping": "Amortissement"
+      },
+      "model": {
+        "intro": "Chaque pendule oscille sous la pesanteur, et le ressort le tire vers l'autre, d'autant plus que les deux se sont écartés à sa hauteur.",
+        "equation": "L'équation du pendule gauche ; celle du droit est construite de même, le ressort tirant dans l'autre sens.",
+        "modes": "Deux mouvements où les deux oscillent à la même cadence : à l'unisson, le ressort au repos, aussi vite qu'un pendule seul ; et l'un contre l'autre, le ressort travaillant aussi, plus vite. Tout autre mouvement est une somme de ces deux.",
+        "beat": "Ne pousser qu'un pendule, c'est la moitié de chacun. Les deux se décalent lentement et se retrouvent : l'oscillation fait l'aller-retour une fois en ce temps."
+      },
+      "symbols": {
+        "theta": "les oscillations des deux pendules",
+        "length": "la longueur d'un pendule",
+        "g": "accélération de la pesanteur, 9,81 m/s²",
+        "kappa": "la force du couplage",
+        "k": "la raideur du ressort",
+        "a": "à quelle distance sous la suspension le ressort est fixé",
+        "m": "la masse d'une boule",
+        "omega": "les pulsations à l'unisson et en opposition",
+        "beat": "le temps de l'aller-retour de l'oscillation",
+        "kappa_i": "le couplage tel que chacun des deux pendules le ressent"
+      },
+      "sweet": {
+        "modes": "Ce que la nature fait osciller ici, ce n'est pas un pendule puis l'autre, mais les deux cadences communes. L'oscillation qui passe de l'un à l'autre est leur somme – c'est pourquoi elle ne passe pas avec « Les deux pareil » ni « L'un contre l'autre ».",
+        "beat": "Ici l'oscillation fait l'aller-retour une fois en {{beat}} s, et {{share}} % en parviennent à l'autre pendule.",
+        "unequal": "Des pendules différents ne transmettent jamais tout : seulement cette part, d'autant plus grande que les pendules se ressemblent et que le ressort est fort."
+      },
+      "chart": {
+        "energy": "Part de l'énergie",
+        "time": "Temps"
+      },
+      "computed": {
+        "system": "Quatre équations du premier ordre, les oscillations et leurs vitesses, avec le sinus complet et le ressort entre eux. Le moteur les résout ensemble par la méthode de Runge-Kutta, une milliseconde à la fois ; la page fait de même avec les mêmes pas, quelques dizaines par image."
       }
     }
   }

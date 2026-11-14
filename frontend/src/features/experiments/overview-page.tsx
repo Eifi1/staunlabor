@@ -10,6 +10,7 @@ import {
   Diamond,
   GlassWater,
   HelpCircle,
+  Link2,
   Magnet,
   Orbit,
   PenTool,
@@ -57,6 +58,7 @@ const ICON: Record<Exhibit, LucideIcon> = {
   harmonograph: PenTool,
   cone: Diamond,
   parabola: GlassWater,
+  coupled: Link2,
 };
 
 /** Two weeks back, in the dialog: long enough to find the one a friend

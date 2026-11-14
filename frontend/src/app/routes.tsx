@@ -26,6 +26,7 @@ const ConePage = lazy(() => import("@/features/experiments/cone-page").then((m) 
 const ParabolaPage = lazy(() =>
   import("@/features/experiments/parabola-page").then((m) => ({ default: m.ParabolaPage })),
 );
+const CoupledPage = lazy(() => import("@/features/experiments/coupled-page").then((m) => ({ default: m.CoupledPage })));
 const HarmonographPage = lazy(() =>
   import("@/features/experiments/harmonograph-page").then((m) => ({ default: m.HarmonographPage })),
 );
@@ -136,6 +137,14 @@ export function AppRoutes() {
           element={
             <Page>
               <ParabolaPage />
+            </Page>
+          }
+        />
+        <Route
+          path="coupled"
+          element={
+            <Page>
+              <CoupledPage />
             </Page>
           }
         />

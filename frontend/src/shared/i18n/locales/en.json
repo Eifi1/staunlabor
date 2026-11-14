@@ -199,6 +199,12 @@
         "title": "The water parabola",
         "summary": "A vessel of water spins: its surface hollows into a bowl – until the middle runs dry.",
         "question": "As a vessel of water spins ever faster, does the middle sink as far as the rim rises?"
+      },
+      "coupled": {
+        "short": "Coupled pendulums",
+        "title": "Coupled pendulums",
+        "summary": "Two pendulums joined by a soft spring: push one, and the swing wanders over to the other – and back again.",
+        "question": "Two equal pendulums hang on a spring. How long until the swing of one has wholly moved to the other?"
       }
     },
     "chair": {
@@ -1357,6 +1363,82 @@
         "tau": "the spin-up time",
         "nu": "the water's viscosity, 10⁻⁶ m²/s",
         "big_omega": "the larger of the two angular velocities"
+      }
+    },
+    "coupled": {
+      "at": {
+        "pair": "Two equal pendulums hang side by side, joined below their pivots by a soft spring. One is pulled aside and let go; the other hangs still.",
+        "wanders": "Soon the second starts to swing while the first comes to rest – then the other way round, again and again. For the default pair the swing wanders over and back once in 23 s."
+      },
+      "refused": "The spring has to sit between the pivot and the bob on both pendulums: the right one is too short for the spring this low.",
+      "view": "The two pendulums from the front, the spring between them",
+      "play": {
+        "title": "Push the pendulums",
+        "hint": "Choose how the pendulums are let go. The bars show how much of the energy is in each right now.",
+        "pause": "Pause",
+        "run": "Run",
+        "let_go": "Let go:",
+        "starts": {
+          "one": "The left one only",
+          "together": "Both alike",
+          "against": "Against each other"
+        },
+        "speed": "Speed",
+        "speeds": {
+          "1": "Real time",
+          "3": "Threefold"
+        },
+        "energy": "Energy of the two pendulums",
+        "left": "Left pendulum",
+        "right": "Right pendulum"
+      },
+      "figures": {
+        "together": "Period together",
+        "against": "Period against",
+        "beat": "Over and back",
+        "share": "Of it, reaches the other"
+      },
+      "change": {
+        "title": "Change the exhibit",
+        "hint": "A stiffer spring, or one fixed lower, couples more strongly: the swing wanders faster. Unequal lengths let only part of it over.",
+        "spring": "Spring constant",
+        "spring_hint": "How hard the spring pulls when stretched by a metre.",
+        "spring_at": "Height of the spring",
+        "spring_at_hint": "How far below the pivots the spring is fixed.",
+        "right_length": "Length of the right pendulum",
+        "right_length_hint": "The left one is 50 cm long.",
+        "mass": "Mass of each bob",
+        "damping": "Damping"
+      },
+      "model": {
+        "intro": "Each pendulum swings under gravity, and the spring pulls it towards the other, as hard as the two have moved apart at its height.",
+        "equation": "The left pendulum's equation; the right one's is built alike, with the spring pulling the other way.",
+        "modes": "Two motions in which both swing at one beat: together, the spring idle, as fast as one pendulum alone; and against each other, the spring working too, faster. Every other motion is a sum of these two.",
+        "beat": "Push only one pendulum and that is half of each. The two drift slowly apart and together again: the swing wanders over and back once in this time."
+      },
+      "symbols": {
+        "theta": "the two pendulums' swings",
+        "length": "a pendulum's length",
+        "g": "gravitational acceleration, 9.81 m/s²",
+        "kappa": "how strongly they are coupled",
+        "k": "the spring constant",
+        "a": "how far below the pivots the spring is fixed",
+        "m": "a bob's mass",
+        "omega": "the angular frequencies together and against each other",
+        "beat": "the time the swing takes to wander over and back",
+        "kappa_i": "the coupling as each of the two pendulums feels it"
+      },
+      "sweet": {
+        "modes": "What nature swings here is not one pendulum and then the other, but the two shared beats. The wandering swing is their sum – which is why it does not wander for “Both alike” and “Against each other”.",
+        "beat": "Here the swing wanders over and back once in {{beat}} s, and {{share}} % of it reaches the other pendulum.",
+        "unequal": "Unequal pendulums never hand over all of it: only this share, the more the more alike the pendulums and the stronger the spring."
+      },
+      "chart": {
+        "energy": "Share of the energy",
+        "time": "Time"
+      },
+      "computed": {
+        "system": "Four first-order equations, the swings and their speeds, with the full sine and the spring between them. The engine solves them together with the Runge–Kutta method a millisecond at a time; the page does the same with the same steps, a few dozen a frame."
       }
     }
   }

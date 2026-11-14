@@ -63,3 +63,4 @@ so a reviewer knows which wordings are newer than the rest.
 | 2026-11-14 | `experiments.exhibits.harmonograph.*`, `experiments.harmonograph.*` | new: the harmonograph's page; `de-CH` and `en` written, the other five machine-translated | a new exhibit |
 | 2026-11-15 | `experiments.exhibits.cone.*`, `experiments.cone.*` | new: the double cone's page; `de-CH` and `en` written, the other five machine-translated | a new exhibit |
 | 2026-11-15 | `experiments.exhibits.parabola.*`, `experiments.parabola.*` | new: the water parabola's page; `de-CH` and `en` written, the other five machine-translated | a new exhibit |
+| 2026-11-15 | `experiments.exhibits.coupled.*`, `experiments.coupled.*` | new: the coupled pendulums' page; `de-CH` and `en` written, the other five machine-translated | a new exhibit |

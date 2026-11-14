@@ -35,6 +35,7 @@ import { WavePage } from "./wave-page";
 import { HarmonographPage, boardLength } from "./harmonograph-page";
 import { ConePage, verdict } from "./cone-page";
 import { ParabolaPage, wellFilled } from "./parabola-page";
+import { CoupledPage, hangs } from "./coupled-page";
 import { ballState, pitEntries, positionAt, raceLayout, swingAt } from "./race-views";
 import { run as runPit } from "./simulate/pit";
 import { HOLE, cameraAt, frameOf, project } from "./chair-views";
@@ -745,5 +746,27 @@ describe("the water parabola", () => {
     fireEvent.change(screen.getByRole("slider", { name: E.parabola.change.fill }), { target: { value: "35" } });
     expect(await screen.findByText(E.parabola.refused)).toBeInTheDocument();
     expect(wellFilled({ radius_m: 0.15, height_m: 0.3, fill_m: 0.1 })).toBe(true);
+  });
+});
+
+describe("the coupled pendulums", () => {
+  it("shows the pair, the three ways to let go and the port's beat", async () => {
+    renderWithProviders(<CoupledPage />);
+    expect(await screen.findByRole("img", { name: E.coupled.view })).toBeInTheDocument();
+    for (const how of ["one", "together", "against"] as const) {
+      expect(screen.getByRole("button", { name: E.coupled.play.starts[how] })).toBeInTheDocument();
+    }
+    // The default pair: over and back in 22.9 s, all of it reaching the other.
+    expect(screen.getByText(/wanders over and back once in 22\.9 s, and 100 % of it/)).toBeInTheDocument();
+    expect(screen.getAllByLabelText(E.equation.symbols).length).toBeGreaterThanOrEqual(4);
+  });
+
+  it("refuses a spring fixed below the shorter bob", async () => {
+    renderWithProviders(<CoupledPage />);
+    await screen.findByRole("img", { name: E.coupled.view });
+    fireEvent.change(screen.getByRole("slider", { name: E.coupled.change.right_length }), { target: { value: "30" } });
+    fireEvent.change(screen.getByRole("slider", { name: E.coupled.change.spring_at }), { target: { value: "40" } });
+    expect(await screen.findByText(E.coupled.refused)).toBeInTheDocument();
+    expect(hangs(fixtures.defaults.coupled)).toBe(true);
   });
 });
