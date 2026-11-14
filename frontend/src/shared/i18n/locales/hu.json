@@ -993,6 +993,13 @@
       "ADMIN": "Adminisztrátor",
       "MEMBER": "Tag",
       "REVIEWER": "Lektor"
+    },
+    "admin": "Adminisztráció",
+    "reviewTranslations": "Fordítások lektorálása",
+    "more": "A fiók további oldalai",
+    "areas": {
+      "experiments": "Kiállítási tárgyak",
+      "legal": "Jogi szövegek"
     }
   }
 }

@@ -27,6 +27,10 @@ const AboutPage = lazy(() => import("@/features/site/about-page").then((m) => ({
 const ImprintPage = lazy(() => import("@/features/site/legal-pages").then((m) => ({ default: m.ImprintPage })));
 const PrivacyPage = lazy(() => import("@/features/site/legal-pages").then((m) => ({ default: m.PrivacyPage })));
 const SettingsPage = lazy(() => import("@/features/account/settings-page").then((m) => ({ default: m.SettingsPage })));
+const AdminPage = lazy(() => import("@/features/admin/admin-page").then((m) => ({ default: m.AdminPage })));
+const TranslationsPage = lazy(() =>
+  import("@/features/admin/translations-page").then((m) => ({ default: m.TranslationsPage })),
+);
 
 /** The account's signed-out pages (sign-in, sign-up by invitation, the reset, the links),
  *  the kit's, in the site's frame. No terms page: the site has none. */
@@ -137,6 +141,27 @@ export function AppRoutes() {
             <RequireSession signInPath="/login">
               <Page>
                 <SettingsPage />
+              </Page>
+            </RequireSession>
+          }
+        />
+        {/* The server refuses both to anyone it grants nothing; the pages say so themselves. */}
+        <Route
+          path="admin"
+          element={
+            <RequireSession signInPath="/login">
+              <Page>
+                <AdminPage />
+              </Page>
+            </RequireSession>
+          }
+        />
+        <Route
+          path="translations"
+          element={
+            <RequireSession signInPath="/login">
+              <Page>
+                <TranslationsPage />
               </Page>
             </RequireSession>
           }

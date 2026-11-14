@@ -993,6 +993,13 @@
       "ADMIN": "Administrateur",
       "MEMBER": "Membre",
       "REVIEWER": "Relecteur"
+    },
+    "admin": "Administration",
+    "reviewTranslations": "Relire les traductions",
+    "more": "Autres pages du compte",
+    "areas": {
+      "experiments": "Expositions",
+      "legal": "Mentions légales"
     }
   }
 }

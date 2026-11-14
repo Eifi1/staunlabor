@@ -993,6 +993,13 @@
       "ADMIN": "管理员",
       "MEMBER": "成员",
       "REVIEWER": "审校者"
+    },
+    "admin": "管理",
+    "reviewTranslations": "审校翻译",
+    "more": "账户的更多页面",
+    "areas": {
+      "experiments": "展品",
+      "legal": "法律文本"
     }
   }
 }
