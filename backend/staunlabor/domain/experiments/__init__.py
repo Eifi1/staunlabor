@@ -35,6 +35,8 @@ with SciPy before it was written (``docs/experiments.md``).
   each the other's check.
 * :mod:`harmonograph` — a pen on one pendulum and a board on another: the
   picture two damped swings draw, closed at a simple ratio, turning near one.
+* :mod:`cone` — a double cone on rails that spread and rise: it rolls up them
+  because its centre falls, and the exact contact says by how much.
 * :mod:`wave` — a row of pendulums tuned to swing ``N``, ``N + 1``, … times a
   cycle: waves, groups, and all together again — at the swing it was tuned for.
 
@@ -78,6 +80,20 @@ from staunlabor.domain.experiments.coil import (
 )
 from staunlabor.domain.experiments.coil import analysis as coil_analysis
 from staunlabor.domain.experiments.coil import run as run_coil
+from staunlabor.domain.experiments.cone import (
+    ConeExhibit,
+    ConeRun,
+    DoubleCone,
+    Rails,
+    axis_height_m,
+    axis_slope,
+    contact_factor,
+    contact_radius_m,
+    rail_height_m,
+    roll,
+    start_for,
+    threshold_deg,
+)
 from staunlabor.domain.experiments.elephant import (
     Elephant,
     ElephantFigures,
@@ -233,9 +249,12 @@ __all__ = [
     "CoilExhibit",
     "CoilFigures",
     "CoilRun",
+    "ConeExhibit",
+    "ConeRun",
     "Contact",
     "CurveKind",
     "CurvePoint",
+    "DoubleCone",
     "Drive",
     "DrivePath",
     "Drop",
@@ -282,6 +301,7 @@ __all__ = [
     "RaceBall",
     "RaceRun",
     "RaceTrack",
+    "Rails",
     "Ring",
     "Room",
     "Scripted",
@@ -306,6 +326,8 @@ __all__ = [
     "WaveFigures",
     "WavePendulum",
     "angle_deg",
+    "axis_height_m",
+    "axis_slope",
     "backbone",
     "binocular_gap",
     "cannon_drop",
@@ -314,6 +336,8 @@ __all__ = [
     "chair",
     "chair_analysis",
     "coil_analysis",
+    "contact_factor",
+    "contact_radius_m",
     "coupling",
     "cycloid_through",
     "elephant_figures",
@@ -343,7 +367,9 @@ __all__ = [
     "pull_n",
     "race_entries",
     "race_valley",
+    "rail_height_m",
     "ring_from_push",
+    "roll",
     "run_coil",
     "run_elephant",
     "run_pit",
@@ -361,8 +387,10 @@ __all__ = [
     "sphere_figures",
     "spin",
     "spread_deg",
+    "start_for",
     "swing",
     "swing_hz",
+    "threshold_deg",
     "timing_curve",
     "tolerance",
     "wave_figures",

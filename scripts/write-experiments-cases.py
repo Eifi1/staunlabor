@@ -57,6 +57,7 @@ cannon = importlib.import_module("staunlabor.domain.experiments.cannon")
 pendulum = importlib.import_module("staunlabor.domain.experiments.pendulum")
 wave = importlib.import_module("staunlabor.domain.experiments.wave")
 harmonograph = importlib.import_module("staunlabor.domain.experiments.harmonograph")
+cone = importlib.import_module("staunlabor.domain.experiments.cone")
 
 TARGET = ROOT / "frontend/src/features/experiments/simulate/engine-cases.json"
 #: Points kept per curve: enough to see a curve that went wrong, few enough that
@@ -343,6 +344,28 @@ HARMONOGRAPH_CASES: dict[str, dict[str, Any]] = {
 }
 
 
+#: The double cone: the default, up the rails; steep rails, down them from the
+#: top; rails at the boundary, where it stays; a fat cone on wide short rails at
+#: a coarse step.
+CONE_CASES: dict[str, dict[str, Any]] = {
+    "the default, up the rails": {"ex": cone.ConeExhibit(), "duration_s": 3.0},
+    "steep rails, down them": {"ex": cone.ConeExhibit(rails=cone.Rails(slope_deg=10.0)), "duration_s": 4.0},
+    "at the boundary": {
+        "ex": cone.ConeExhibit(rails=cone.Rails(slope_deg=7.546280442894854)),
+        "duration_s": 0.5,
+        "start_x_m": 0.1,
+    },
+    "a fat cone, wide short rails, a coarse step": {
+        "ex": cone.ConeExhibit(cone.DoubleCone(0.12, 35.0), cone.Rails(30.0, 6.0, 0.05, 0.15)),
+        "duration_s": 2.0,
+        "step_s": 4e-3,
+    },
+}
+
+#: Where the heights and the contact are written out along the rails.
+CONE_POINTS = (0.0, 0.07, 0.15, 0.3)
+
+
 def thin(values: Any) -> Any:
     """A curve as its length and every so many of its points, the last always
     among them; anything else as it is, recursively."""
@@ -404,6 +427,37 @@ def _pendulum_cases(out: dict[str, Any]) -> None:
         )
 
 
+def _cone_cases(out: dict[str, Any]) -> None:
+    for name, case in CONE_CASES.items():
+        ex = case["ex"]
+        start = case.get("start_x_m", cone.start_for(ex))
+        step = case.get("step_s", cone.STEP_S)
+        points = [p for p in CONE_POINTS if p <= ex.rails.length_m]
+        out["cone"].append(
+            {
+                "name": name,
+                "ex": asdict(ex),
+                "duration_s": case["duration_s"],
+                "start_x_m": start,
+                "step_s": step,
+                "slope": cone.axis_slope(ex),
+                "contact_factor": cone.contact_factor(ex),
+                "threshold_deg": cone.threshold_deg(ex),
+                "points": [
+                    {
+                        "x_m": p,
+                        "axis_m": cone.axis_height_m(ex, p),
+                        "rail_m": cone.rail_height_m(ex, p),
+                        "contact_radius_m": cone.contact_radius_m(ex, p),
+                        "acceleration": cone.acceleration(ex, p, 0.4),
+                    }
+                    for p in points
+                ],
+                "run": thin(asdict(cone.roll(ex, start, case["duration_s"], step))),
+            }
+        )
+
+
 def cases() -> dict[str, Any]:
     out: dict[str, Any] = {
         "written_by": "cd backend && uv run python ../scripts/write-experiments-cases.py",
@@ -441,8 +495,10 @@ def cases() -> dict[str, Any]:
         "swing": [],
         "wave": [],
         "harmonograph": [],
+        "cone": [],
     }
     _pendulum_cases(out)
+    _cone_cases(out)
     for name, case in HARMONOGRAPH_CASES.items():
         h = case["h"]
         step = case.get("step_s", harmonograph.STEP_S)

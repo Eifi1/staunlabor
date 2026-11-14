@@ -117,6 +117,18 @@
         "damping_per_s": 0.02
       }
     },
+    "cone": {
+      "cone": {
+        "radius_m": 0.06,
+        "cone_deg": 20.0
+      },
+      "rails": {
+        "spread_deg": 20.0,
+        "slope_deg": 4.0,
+        "start_half_gap_m": 0.03,
+        "length_m": 0.3
+      }
+    },
     "meter_range_a": 0.1,
     "settle_s": 0.15
   },

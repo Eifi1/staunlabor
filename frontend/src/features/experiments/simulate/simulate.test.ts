@@ -17,6 +17,7 @@ import { describe, expect, it } from "vitest";
 import cases from "./engine-cases.json";
 import * as cannon from "./cannon";
 import * as coil from "./coil";
+import * as cone from "./cone";
 import * as elephant from "./elephant";
 import * as harmonograph from "./harmonograph";
 import * as pendulum from "./pendulum";
@@ -544,5 +545,32 @@ describe("the harmonograph's port", () => {
     const h = cases.harmonograph[0].h as harmonograph.Harmonograph;
     expect(() => harmonograph.draw(h, 1000)).toThrow(RangeError);
     expect(() => harmonograph.draw(h, 1, 0.02)).toThrow(RangeError);
+  });
+});
+
+describe("the double cone's port", () => {
+  it.each(cases.cone.map((c) => [c.name, c] as const))("rolls %s as the engine does", (_name, c) => {
+    const ex = c.ex as cone.ConeExhibit;
+    expect(differences(c.slope, cone.axisSlope(ex))).toEqual([]);
+    expect(differences(c.contact_factor, cone.contactFactor(ex))).toEqual([]);
+    expect(differences(c.threshold_deg, cone.thresholdDeg(ex))).toEqual([]);
+    const points = c.points.map((p) => ({
+      x_m: p.x_m,
+      axis_m: cone.axisHeightM(ex, p.x_m),
+      rail_m: cone.railHeightM(ex, p.x_m),
+      contact_radius_m: cone.contactRadiusM(ex, p.x_m),
+      acceleration: cone.acceleration(ex, p.x_m, 0.4),
+    }));
+    expect(differences(c.points, points)).toEqual([]);
+    expect(differences(c.run, cone.roll(ex, c.start_x_m, c.duration_s, c.step_s))).toEqual([]);
+  });
+
+  it("lays the cone where it can roll from, and says when the rails would let it fall through", () => {
+    const ex = cases.cone[0].ex as cone.ConeExhibit;
+    expect(cone.startFor(ex)).toBe(0);
+    expect(cone.startFor({ ...ex, rails: { ...ex.rails, slope_deg: 10 } })).toBe(ex.rails.length_m);
+    expect(cone.refusal(ex)).toBeNull();
+    expect(cone.refusal({ ...ex, rails: { ...ex.rails, length_m: 0.5 } })).toBe("fall_through");
+    expect(() => cone.roll(ex, 0.5, 1)).toThrow(RangeError);
   });
 });

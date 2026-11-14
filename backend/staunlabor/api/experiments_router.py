@@ -35,6 +35,7 @@ from staunlabor.domain.experiments import (
     Body,
     Coil,
     CoilExhibit,
+    ConeExhibit,
     Drum,
     Elephant,
     FloatingBall,
@@ -66,6 +67,7 @@ from staunlabor.domain.schemas.experiments import (
     ChairAnalysisOut,
     CoilAnalysisOut,
     CoilExhibitIn,
+    ConeExhibitIn,
     ElephantFiguresOut,
     ElephantIn,
     ExperimentsDefaultsOut,
@@ -118,6 +120,7 @@ async def defaults() -> ExperimentsDefaultsOut:
         cannon=BallStackIn.model_validate(BallStack()),
         wave=WaveIn.model_validate(PendulumWave()),
         harmonograph=HarmonographIn.model_validate(Harmonograph()),
+        cone=ConeExhibitIn.model_validate(ConeExhibit()),
         meter_range_a=METER_RANGE_A,
         settle_s=PAGE_SETTLE_S,
     )

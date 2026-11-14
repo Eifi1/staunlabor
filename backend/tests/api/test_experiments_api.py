@@ -31,6 +31,7 @@ async def test_the_experiments_need_no_account(client: AsyncClient):
         "cannon",
         "wave",
         "harmonograph",
+        "cone",
         "meter_range_a",
         "settle_s",
     }
@@ -42,6 +43,7 @@ async def test_the_experiments_need_no_account(client: AsyncClient):
     assert body["coil"]["idle"] == "closed"
     assert body["meter_range_a"] == 0.1
     assert body["harmonograph"]["board"]["phase_deg"] == x.Harmonograph().board.phase_deg
+    assert body["cone"]["rails"]["slope_deg"] == x.Rails().slope_deg
 
 
 async def test_the_sphere_answers_its_orbits_and_its_swing(client: AsyncClient):

@@ -127,3 +127,7 @@ def test_the_cases_cross_every_branch_a_page_can_reach(stored: Any):
     phases = {c["h"][p]["phase_deg"] for c in stored["harmonograph"] for p in ("pen", "board")}
     assert any(180 < p < 360 for p in phases), "a pendulum started on its way back"
     assert any(c["figures"]["pen_fades_s"] is None for c in stored["harmonograph"]), "an undamped pair"
+    rolls = {c["name"]: c["run"] for c in stored["cone"]}
+    assert any(r["stopped_at_s"] is not None and r["final_x_m"] > 0 for r in rolls.values()), "up to the top"
+    assert any(r["stopped_at_s"] is not None and r["final_x_m"] == 0 for r in rolls.values()), "down to the bottom"
+    assert any(r["stopped_at_s"] is None for r in rolls.values()), "a cone that stays where it is laid"

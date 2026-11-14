@@ -519,6 +519,28 @@ class HarmonographIn(_In):
     board: HarmonographPendulumIn
 
 
+# ── the double cone ──────────────────────────────────────────────────────────
+# No route either: the page rolls the cone and reads its figures off the port
+# (``simulate/cone.ts``).
+
+
+class DoubleConeIn(_In):
+    radius_m: float = Field(ge=0.01, le=0.3, default=0.06)
+    cone_deg: float = Field(ge=5, le=45, default=20.0)
+
+
+class RailsIn(_In):
+    spread_deg: float = Field(ge=2, le=45, default=20.0)
+    slope_deg: float = Field(ge=0, le=20, default=4.0)
+    start_half_gap_m: float = Field(ge=0, le=1, default=0.03)
+    length_m: float = Field(gt=0, le=3, default=0.30)
+
+
+class ConeExhibitIn(_In):
+    cone: DoubleConeIn
+    rails: RailsIn
+
+
 # ── the pages' starting point ────────────────────────────────────────────────
 
 
@@ -532,6 +554,7 @@ class ExperimentsDefaultsOut(_Out):
     cannon: BallStackIn
     wave: WaveIn
     harmonograph: HarmonographIn
+    cone: ConeExhibitIn
     #: The exhibit's meter: digital, ± this many amperes.
     meter_range_a: float
     #: How long a page waits after the last slider step before asking.

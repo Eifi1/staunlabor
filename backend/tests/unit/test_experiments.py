@@ -1395,3 +1395,79 @@ def test_the_harmonograph_refuses_what_it_cannot_be():
         x.HarmonographPendulum(damping_per_s=-0.1)
     with pytest.raises(ValueError, match="at most"):
         x.harmonograph_draw(x.Harmonograph(), 1000.0)
+
+
+# ── the double cone ──────────────────────────────────────────────────────────
+
+
+def _lowest_axis(ex, xc: float) -> float:
+    """The axis's height found the long way: as low as it can sit with no point
+    of either rail inside the solid cone, by scanning the rail. Nothing of the
+    engine's contact formula is in here."""
+    ta = math.tan(math.radians(ex.cone.cone_deg))
+    tb = math.tan(math.radians(ex.rails.spread_deg))
+    tg = math.tan(math.radians(ex.rails.slope_deg))
+    best = -math.inf
+    for i in range(40001):
+        xr = xc - 0.05 + 0.1 * i / 40000
+        r = ex.cone.radius_m - (ex.rails.start_half_gap_m + xr * tb) * ta
+        if r > abs(xr - xc):
+            best = max(best, xr * tg + math.sqrt(r * r - (xr - xc) ** 2))
+    return best
+
+
+def test_the_cone_sits_where_the_rails_just_graze_it():
+    for ex in (x.ConeExhibit(), x.ConeExhibit(x.DoubleCone(0.08, 30.0), x.Rails(25.0, 9.0, 0.02, 0.15))):
+        for xc in (0.05, 0.1, 0.14):
+            assert x.axis_height_m(ex, xc) == pytest.approx(_lowest_axis(ex, xc), abs=1e-8)
+
+
+def test_the_axis_falls_as_the_rails_rise_and_the_textbook_says_where_that_stops():
+    ex = x.ConeExhibit()
+    assert x.axis_slope(ex) < 0 < x.rail_height_m(ex, 0.3)
+    assert round(x.rail_height_m(ex, 0.3) * 100, 1) == 2.1
+    assert round((x.axis_height_m(ex, 0) - x.axis_height_m(ex, 0.3)) * 100, 1) == 1.9
+    assert round(x.contact_factor(ex), 3) == 1.002
+    # At the textbook's boundary the exact contact is right under the axis.
+    gamma = x.threshold_deg(ex)
+    assert round(gamma, 1) == 7.5
+    at = x.ConeExhibit(rails=x.Rails(slope_deg=gamma))
+    assert x.axis_slope(at) == pytest.approx(0, abs=1e-15)
+    assert x.contact_factor(at) == pytest.approx(1, abs=1e-15)
+    assert x.axis_slope(x.ConeExhibit(rails=x.Rails(slope_deg=gamma + 0.1))) > 0
+
+
+def test_the_cone_rolls_up_to_the_top_without_slipping_and_without_losing_energy():
+    ex = x.ConeExhibit()
+    run = x.roll(ex, 0.0, 10.0)
+    assert run.final_x_m == 0.3
+    assert round(run.stopped_at_s, 1) == 1.5
+    spin = 0.3 * ex.cone.radius_m**2
+    for xs, v in zip(run.x_m[:-1], run.speed_m_s[:-1], strict=True):
+        rho = x.contact_radius_m(ex, xs)
+        energy = 0.5 * (1 + spin / rho**2) * v * v + 9.80665 * (x.axis_height_m(ex, xs) - x.axis_height_m(ex, 0))
+        assert energy == pytest.approx(0, abs=1e-10)
+    # Near the top it spins fast on the thin part and moves slowly.
+    assert round(run.speed_m_s[-2], 2) == 0.17
+    assert round(run.spin_rev_s[-2], 1) == 2.8
+
+
+def test_on_steeper_rails_the_cone_is_laid_at_the_top_and_rolls_down():
+    steep = x.ConeExhibit(rails=x.Rails(slope_deg=10.0))
+    assert x.start_for(steep) == 0.3
+    run = x.roll(steep, x.start_for(steep), 10.0)
+    assert run.final_x_m == 0.0
+    assert x.start_for(x.ConeExhibit()) == 0.0
+    # Laid at the low end of steep rails, it stays.
+    assert x.roll(steep, 0.0, 1.0).final_x_m == 0.0
+
+
+def test_the_double_cone_refuses_what_would_not_roll():
+    with pytest.raises(ValueError, match="fall through"):
+        x.ConeExhibit(rails=x.Rails(length_m=0.5))
+    with pytest.raises(ValueError, match="between 5° and 45°"):
+        x.DoubleCone(cone_deg=60)
+    with pytest.raises(ValueError, match="rise at"):
+        x.Rails(slope_deg=30)
+    with pytest.raises(ValueError, match="laid on the rails"):
+        x.roll(x.ConeExhibit(), 0.5, 1.0)
