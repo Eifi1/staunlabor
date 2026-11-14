@@ -32,6 +32,7 @@ import { ElephantPage } from "./elephant-page";
 import { SmokePage } from "./smoke-page";
 import { CannonPage } from "./cannon-page";
 import { WavePage } from "./wave-page";
+import { HarmonographPage, boardLength } from "./harmonograph-page";
 import { ballState, pitEntries, positionAt, raceLayout, swingAt } from "./race-views";
 import { run as runPit } from "./simulate/pit";
 import { HOLE, cameraAt, frameOf, project } from "./chair-views";
@@ -662,5 +663,31 @@ describe("the pendulum wave", () => {
   it("says how far a textbook row would come back skewed", async () => {
     renderWithProviders(<WavePage />);
     expect(await screen.findByText(/come back 22° skewed at 15°/)).toBeInTheDocument();
+  });
+});
+
+describe("the harmonograph", () => {
+  it("shows the drawing, the pen's controls and the port's figures for the default build", async () => {
+    renderWithProviders(<HarmonographPage />);
+    expect(await screen.findByRole("img", { name: E.harmonograph.views.drawing })).toBeInTheDocument();
+    for (const name of [E.harmonograph.play.finish, E.harmonograph.play.save, E.harmonograph.play.restart]) {
+      expect(screen.getByRole("button", { name })).toBeInTheDocument();
+    }
+    // The default pair is 0.67 % off 2 : 3, and its figure turns once in 90 s.
+    expect(screen.getByText("Near the ratio 2 : 3 (pen : board)")).toBeInTheDocument();
+    expect(screen.getByText(/0\.67 % off 2 : 3: the figure turns once in 90 s/)).toBeInTheDocument();
+    expect(screen.getAllByLabelText(E.equation.symbols).length).toBeGreaterThanOrEqual(5);
+  });
+
+  it("draws to the end at once when asked, and says it is done", async () => {
+    renderWithProviders(<HarmonographPage />);
+    await screen.findByRole("img", { name: E.harmonograph.views.drawing });
+    fireEvent.click(screen.getByRole("button", { name: E.harmonograph.play.finish }));
+    expect(screen.getByRole("button", { name: E.harmonograph.play.finish })).toBeDisabled();
+  });
+
+  it("tunes the board's length to a ratio: a quarter of the length, twice the beat", () => {
+    expect(boardLength(0.8, [1, 2], 0)).toBeCloseTo(0.2, 12);
+    expect(boardLength(0.8, [1, 1], 0.01)).toBeCloseTo(0.8 / 1.01 ** 2, 12);
   });
 });

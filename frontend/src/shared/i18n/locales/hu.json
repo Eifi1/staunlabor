@@ -181,6 +181,12 @@
         "title": "Az ingahullám",
         "summary": "Tizenöt egyszerre elengedett inga szétválik, hullámokat és csoportokat formál – és egy perc múlva ismét egy ütemben leng.",
         "question": "Mikor lengenek ismét mind egy ütemben a különböző hosszúságú, egyszerre elengedett tizenöt inga?"
+      },
+      "harmonograph": {
+        "short": "Harmonográf",
+        "title": "A harmonográf",
+        "summary": "Egy toll az egyik ingán, egy rajztábla a másikon: miközben mindkettő lecseng, rozettát, hurkot vagy csillagot rajzolnak.",
+        "question": "Mit rajzol a toll, ha két inga 2 : 3 arányban leng – és mit, ha csak majdnem 2 : 3?"
       }
     },
     "chair": {
@@ -1081,6 +1087,81 @@
         "cd": "Jacobi cn/dn elliptikus függvénye",
         "omega0": "a kis lengések körfrekvenciája",
         "t": "az elengedés óta eltelt idő"
+      }
+    },
+    "harmonograph": {
+      "at": {
+        "pen": "Két inga lóg egymás mellett. Az egyiken toll van, amely keresztben leng; a másikon rajztábla, amely hosszában leng. Mindkettőt kitérítik és elengedik.",
+        "picture": "A toll azt rajzolja, amit a két lengés együtt kiad. Mivel mindkettő lassan lecseng, az ábra körről körre kisebb lesz: finom vonalakból álló spirál, amely az ingák ütemétől függően rozettává, hurokká vagy csillaggá áll össze."
+      },
+      "play": {
+        "title": "Hagyja rajzolni",
+        "hint": "A toll gyorsítva rajzol. Változtassa meg lent az ingák arányát, és új rajz kezdődik.",
+        "pause": "Szünet",
+        "run": "Tovább",
+        "finish": "Rajz befejezése",
+        "restart": "Újrarajzolás",
+        "save": "Kép mentése",
+        "speed": "Tempó",
+        "speeds": {
+          "1": "Valós idő",
+          "5": "Ötszörös",
+          "20": "Hússzoros"
+        },
+        "time": "Megrajzolva",
+        "ratio": "A {{p}} : {{q}} arány közelében (toll : tábla)",
+        "detune": "Eltérés tőle",
+        "turn": "Az ábra egy fordulata",
+        "fades": "Egy tizedére lecsengett"
+      },
+      "views": {
+        "drawing": "A rajz a táblán, a tollal a mostani helyén",
+        "caption": "A rajztábla felülről"
+      },
+      "change": {
+        "title": "Az ingák beállítása",
+        "hint": "Az arány határozza meg a táblainga hosszát: negyed hossz kétszer olyan gyorsan leng. Minden változtatás új rajzot kezd.",
+        "ratio": "Arány toll : tábla",
+        "detune": "Elhangolás",
+        "detune_hint": "Mennyivel tér el a tábla a pontos aránytól. Már egy százalék is forgatja az ábrát.",
+        "phase": "A tábla indulása",
+        "phase_hint": "Lengésének mely pontján indul a tábla: 0° a szélén, 90° a középen áthaladva.",
+        "pen_amplitude": "A tollinga kitérése",
+        "board_amplitude": "A táblainga kitérése",
+        "damping": "Súrlódás",
+        "damping_hint": "Milyen gyorsan csengenek le a lengések; mindkét ingánál ugyanaz.",
+        "length": "A tollinga hossza",
+        "length_hint": "A hosszabb inga lassabban leng; a táblainga a választott arányban követi."
+      },
+      "model": {
+        "intro": "Két inga, mindegyik a maga útján. A toll az egyikkel keresztben mozog, a tábla a másikkal hosszában; az rajzolódik ki, hol áll a toll a táblán.",
+        "place": "A toll helye a táblán: keresztben a tollinga kitérése, hosszában a táblainga kitérése.",
+        "small": "Kis kitérésnél minden inga koszinuszként leng, amelynek szélessége idővel lecseng. A frekvencia csak a hossztól függ.",
+        "ratio": "A két ütem aránya ezért a hosszak fordított arányának gyöke. Egyszerű aránynál, mint a 2 : 3, az ábra önmagába záródik, és csak zsugorodik."
+      },
+      "symbols": {
+        "xy": "a toll helye a táblán, keresztben és hosszában",
+        "lengths": "a tollinga és a táblainga hossza",
+        "theta": "kitérésük",
+        "theta0": "a kitérés a kezdetkor",
+        "c": "a csillapítás: a szélesség e a −c·t/2-edik hatvány szerint csökken",
+        "f": "a frekvencia, lengés másodpercenként",
+        "phi": "lengésének mely pontján indul az inga",
+        "g": "nehézségi gyorsulás, 9,81 m/s²",
+        "f12": "a tollinga és a táblainga frekvenciája",
+        "turn": "az ábra egy teljes fordulatának ideje",
+        "pq": "az egyszerű arány, amelyhez az ütemek közel vannak"
+      },
+      "sweet": {
+        "near": "Ha az ütemek egy egyszerű p : q arány közelében vannak, de nem pontosan rajta, az ábra megtartja alakját, és lassan tovább fordul – ennyi idő alatt egyszer. Minél közelebb, annál lassabban.",
+        "closed": "Ezek az ingák pontosan {{p}} : {{q}} arányban állnak: az ábra záródik, és csak zsugorodik. Hangolja el a táblát egy százalékkal, és forogni kezd.",
+        "turns": "Ezek az ingák {{detune}} %-kal térnek el a {{p}} : {{q}} aránytól: az ábra {{turn}} s alatt fordul egyet.",
+        "widths": "És pontos aránynál is fordul, ha az ingák különböző szélesen lengenek: a széles lengés kicsit tovább tart, mint a keskeny. Állítsa a tollingát 30°-ra, a táblaingát 5°-ra, és a zárt ábra kinyílik."
+      },
+      "computed": {
+        "system": "Két másodrendű egyenlet, a csillapított ingáé, a teljes szinusszal a kis kitérésekre szóló közelítés helyett. Mivel a csillapítás nem enged zárt megoldást, a számítómag a Runge–Kutta-módszerrel ezredmásodpercenként lépteti őket, és az oldal ugyanezekkel a lépésekkel rajzol – képkockánként néhány százzal.",
+        "theta_dd": "az i-edik inga szöggyorsulása",
+        "theta_d": "a szögsebessége"
       }
     }
   }

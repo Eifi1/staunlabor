@@ -10,6 +10,7 @@ import {
   HelpCircle,
   Magnet,
   Orbit,
+  PenTool,
   RotateCcw,
   RotateCw,
   Timer,
@@ -51,6 +52,7 @@ const ICON: Record<Exhibit, LucideIcon> = {
   smoke: Torus,
   cannon: ChevronsUp,
   wave: Waves,
+  harmonograph: PenTool,
 };
 
 /** Two weeks back, in the dialog: long enough to find the one a friend

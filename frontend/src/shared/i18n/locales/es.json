@@ -181,6 +181,12 @@
         "title": "La onda de péndulos",
         "summary": "Quince péndulos soltados a la vez se separan, forman ondas y grupos – y al cabo de un minuto vuelven a oscilar al unísono.",
         "question": "¿Cuándo vuelven a oscilar al unísono quince péndulos de distinta longitud soltados a la vez?"
+      },
+      "harmonograph": {
+        "short": "Armonógrafo",
+        "title": "El armonógrafo",
+        "summary": "Un lápiz en un péndulo y un tablero de dibujo en otro: mientras ambos se apagan, dibujan una roseta, un lazo o una estrella.",
+        "question": "¿Qué dibuja un lápiz cuando dos péndulos oscilan en proporción 2 : 3 – y qué, cuando es solo casi 2 : 3?"
       }
     },
     "chair": {
@@ -1081,6 +1087,81 @@
         "cd": "la función elíptica de Jacobi cn/dn",
         "omega0": "la frecuencia angular de las oscilaciones pequeñas",
         "t": "el tiempo desde que se soltó"
+      }
+    },
+    "harmonograph": {
+      "at": {
+        "pen": "Dos péndulos cuelgan uno junto al otro. Uno lleva un lápiz que oscila de lado a lado; el otro, un tablero de dibujo que oscila a lo largo. Se apartan ambos y se sueltan.",
+        "picture": "El lápiz dibuja lo que las dos oscilaciones hacen juntas. Como ambas se apagan poco a poco, la figura se hace más pequeña vuelta a vuelta: una espiral de líneas finas que, según el compás de los péndulos, forma una roseta, un lazo o una estrella."
+      },
+      "play": {
+        "title": "Dejar dibujar",
+        "hint": "El lápiz dibuja a cámara rápida. Cambie abajo la proporción de los péndulos y empieza un dibujo nuevo.",
+        "pause": "Pausa",
+        "run": "Seguir",
+        "finish": "Terminar el dibujo",
+        "restart": "Dibujar de nuevo",
+        "save": "Guardar imagen",
+        "speed": "Velocidad",
+        "speeds": {
+          "1": "Tiempo real",
+          "5": "Quíntuple",
+          "20": "Veinte veces"
+        },
+        "time": "Dibujado",
+        "ratio": "Cerca de la proporción {{p}} : {{q}} (lápiz : tablero)",
+        "detune": "Desviación",
+        "turn": "Un giro de la figura",
+        "fades": "Apagado a una décima"
+      },
+      "views": {
+        "drawing": "El dibujo en el tablero, con el lápiz donde está ahora",
+        "caption": "El tablero de dibujo visto desde arriba"
+      },
+      "change": {
+        "title": "Ajustar los péndulos",
+        "hint": "La proporción fija la longitud del péndulo del tablero: un cuarto de la longitud oscila el doble de rápido. Cada cambio empieza un dibujo nuevo.",
+        "ratio": "Proporción lápiz : tablero",
+        "detune": "Desafinación",
+        "detune_hint": "Cuánto se aparta el tablero de la proporción exacta. Un uno por ciento ya hace girar la figura.",
+        "phase": "Dónde empieza el tablero",
+        "phase_hint": "En qué punto de su oscilación empieza el tablero: 0° en el extremo, 90° al pasar por el centro.",
+        "pen_amplitude": "Amplitud del péndulo del lápiz",
+        "board_amplitude": "Amplitud del péndulo del tablero",
+        "damping": "Rozamiento",
+        "damping_hint": "Lo rápido que se apagan las oscilaciones; el mismo para ambos péndulos.",
+        "length": "Longitud del péndulo del lápiz",
+        "length_hint": "Un péndulo más largo oscila más despacio; el del tablero lo sigue en la proporción elegida."
+      },
+      "model": {
+        "intro": "Dos péndulos, cada uno por su cuenta. El lápiz se mueve de lado con uno, el tablero a lo largo con el otro; lo que se dibuja es dónde está el lápiz sobre el tablero.",
+        "place": "El lugar del lápiz sobre el tablero: de lado, cuánto se aparta el péndulo del lápiz; a lo largo, cuánto el del tablero.",
+        "small": "Con amplitudes pequeñas cada péndulo oscila como un coseno cuya amplitud se apaga con el tiempo. La frecuencia depende solo de la longitud.",
+        "ratio": "Por eso la proporción de los dos compases es la raíz de la proporción inversa de las longitudes. Con una proporción sencilla como 2 : 3 la figura se cierra y solo se encoge."
+      },
+      "symbols": {
+        "xy": "el lugar del lápiz sobre el tablero, de lado y a lo largo",
+        "lengths": "las longitudes de los péndulos del lápiz y del tablero",
+        "theta": "sus ángulos de oscilación",
+        "theta0": "la amplitud al empezar",
+        "c": "la amortiguación: la amplitud cae como e elevado a −c·t/2",
+        "f": "la frecuencia, oscilaciones por segundo",
+        "phi": "en qué punto de su oscilación empieza el péndulo",
+        "g": "aceleración de la gravedad, 9,81 m/s²",
+        "f12": "las frecuencias de los péndulos del lápiz y del tablero",
+        "turn": "el tiempo de un giro completo de la figura",
+        "pq": "la proporción sencilla cerca de la que están los compases"
+      },
+      "sweet": {
+        "near": "Si los compases están cerca de una proporción sencilla p : q pero no exactamente en ella, la figura conserva su forma y gira despacio – una vez en este tiempo. Cuanto más cerca, más despacio.",
+        "closed": "Estos péndulos están exactamente en {{p}} : {{q}}: la figura se cierra y solo se encoge. Desafine el tablero un uno por ciento y empezará a girar.",
+        "turns": "Estos péndulos están un {{detune}} % fuera de {{p}} : {{q}}: la figura gira una vez en {{turn}} s.",
+        "widths": "Y gira incluso con una proporción exacta si los péndulos oscilan con amplitudes distintas: una oscilación amplia dura algo más que una estrecha. Ponga el péndulo del lápiz a 30° y el del tablero a 5°, y la figura cerrada se abre."
+      },
+      "computed": {
+        "system": "Dos ecuaciones de segundo orden, las del péndulo amortiguado, con el seno completo en lugar de la aproximación para amplitudes pequeñas. Como la amortiguación no admite solución cerrada, el motor las resuelve con el método de Runge-Kutta en pasos de un milisegundo, y la página dibuja con los mismos pasos – unos cientos por imagen.",
+        "theta_dd": "la aceleración angular del péndulo i",
+        "theta_d": "su velocidad angular"
       }
     }
   }

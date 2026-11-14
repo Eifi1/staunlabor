@@ -181,6 +181,12 @@
         "title": "L'onda di pendoli",
         "summary": "Quindici pendoli lasciati andare insieme si sfasano, formano onde e gruppi – e dopo un minuto oscillano di nuovo all'unisono.",
         "question": "Quando quindici pendoli di lunghezze diverse, lasciati andare insieme, oscillano di nuovo tutti all'unisono?"
+      },
+      "harmonograph": {
+        "short": "Armonografo",
+        "title": "L'armonografo",
+        "summary": "Una penna su un pendolo, una tavola da disegno su un altro: smorzandosi, disegnano una rosetta, un anello o una stella.",
+        "question": "Che cosa disegna una penna quando due pendoli oscillano nel rapporto 2 : 3 – e che cosa quando è solo quasi 2 : 3?"
       }
     },
     "chair": {
@@ -1081,6 +1087,81 @@
         "cd": "la funzione ellittica di Jacobi cn/dn",
         "omega0": "la pulsazione delle piccole oscillazioni",
         "t": "il tempo dal rilascio"
+      }
+    },
+    "harmonograph": {
+      "at": {
+        "pen": "Due pendoli pendono uno accanto all'altro. Uno porta una penna che oscilla di traverso; l'altro una tavola da disegno che oscilla per lungo. Si scostano entrambi e si lasciano andare.",
+        "picture": "La penna disegna ciò che le due oscillazioni fanno insieme. Poiché entrambe si smorzano lentamente, la figura si rimpicciolisce giro dopo giro: una spirale di linee sottili che, secondo il ritmo dei pendoli, diventa una rosetta, un anello o una stella."
+      },
+      "play": {
+        "title": "Lasciare disegnare",
+        "hint": "La penna disegna in accelerato. Cambi qui sotto il rapporto dei pendoli, e comincia un nuovo disegno.",
+        "pause": "Pausa",
+        "run": "Continua",
+        "finish": "Completare il disegno",
+        "restart": "Ridisegnare",
+        "save": "Salvare l'immagine",
+        "speed": "Velocità",
+        "speeds": {
+          "1": "Tempo reale",
+          "5": "Quintupla",
+          "20": "Venti volte"
+        },
+        "time": "Disegnato",
+        "ratio": "Vicino al rapporto {{p}} : {{q}} (penna : tavola)",
+        "detune": "Scarto",
+        "turn": "Un giro della figura",
+        "fades": "Smorzato a un decimo"
+      },
+      "views": {
+        "drawing": "Il disegno sulla tavola, con la penna dove si trova ora",
+        "caption": "La tavola da disegno dall'alto"
+      },
+      "change": {
+        "title": "Regolare i pendoli",
+        "hint": "Il rapporto fissa la lunghezza del pendolo della tavola: un quarto della lunghezza oscilla due volte più veloce. Ogni modifica comincia un nuovo disegno.",
+        "ratio": "Rapporto penna : tavola",
+        "detune": "Scordatura",
+        "detune_hint": "Quanto la tavola si scosta dal rapporto esatto. Già l'uno per cento fa ruotare la figura.",
+        "phase": "Partenza della tavola",
+        "phase_hint": "In quale punto della sua oscillazione parte la tavola: 0° all'estremo, 90° passando per il centro.",
+        "pen_amplitude": "Ampiezza del pendolo della penna",
+        "board_amplitude": "Ampiezza del pendolo della tavola",
+        "damping": "Attrito",
+        "damping_hint": "Quanto rapidamente si smorzano le oscillazioni; lo stesso per entrambi i pendoli.",
+        "length": "Lunghezza del pendolo della penna",
+        "length_hint": "Un pendolo più lungo oscilla più lentamente; quello della tavola lo segue nel rapporto scelto."
+      },
+      "model": {
+        "intro": "Due pendoli, ognuno per conto suo. La penna si muove di traverso con l'uno, la tavola per lungo con l'altro; ciò che si disegna è dove sta la penna sulla tavola.",
+        "place": "Il posto della penna sulla tavola: di traverso, quanto è scostato il pendolo della penna; per lungo, quanto quello della tavola.",
+        "small": "Con piccole ampiezze ogni pendolo oscilla come un coseno la cui ampiezza si smorza nel tempo. La frequenza dipende solo dalla lunghezza.",
+        "ratio": "Il rapporto dei due ritmi è quindi la radice del rapporto inverso delle lunghezze. Con un rapporto semplice come 2 : 3 la figura si chiude su se stessa e si rimpicciolisce soltanto."
+      },
+      "symbols": {
+        "xy": "il posto della penna sulla tavola, di traverso e per lungo",
+        "lengths": "le lunghezze dei pendoli della penna e della tavola",
+        "theta": "i loro angoli di oscillazione",
+        "theta0": "l'ampiezza all'inizio",
+        "c": "lo smorzamento: l'ampiezza cala come e elevato a −c·t/2",
+        "f": "la frequenza, oscillazioni al secondo",
+        "phi": "in quale punto della sua oscillazione parte il pendolo",
+        "g": "accelerazione di gravità, 9,81 m/s²",
+        "f12": "le frequenze dei pendoli della penna e della tavola",
+        "turn": "il tempo di un giro completo della figura",
+        "pq": "il rapporto semplice a cui i ritmi sono vicini"
+      },
+      "sweet": {
+        "near": "Se i ritmi sono vicini a un rapporto semplice p : q ma non esattamente su di esso, la figura mantiene la sua forma e ruota lentamente – un giro in questo tempo. Più vicino, più lento.",
+        "closed": "Questi pendoli sono esattamente a {{p}} : {{q}}: la figura si chiude e si rimpicciolisce soltanto. Scordi la tavola dell'uno per cento, e comincerà a ruotare.",
+        "turns": "Questi pendoli sono a {{detune}} % da {{p}} : {{q}}: la figura fa un giro in {{turn}} s.",
+        "widths": "E ruota perfino a un rapporto esatto quando i pendoli oscillano con ampiezze diverse: un'oscillazione ampia dura un po' più di una stretta. Porti il pendolo della penna a 30° e quello della tavola a 5°, e la figura chiusa si apre."
+      },
+      "computed": {
+        "system": "Due equazioni del secondo ordine, quelle del pendolo smorzato, con il seno completo anziché l'approssimazione per piccole oscillazioni. Poiché lo smorzamento non ammette una soluzione chiusa, il motore le risolve con il metodo di Runge-Kutta un millisecondo alla volta, e la pagina disegna con gli stessi passi – qualche centinaio per immagine.",
+        "theta_dd": "l'accelerazione angolare del pendolo i",
+        "theta_d": "la sua velocità angolare"
       }
     }
   }

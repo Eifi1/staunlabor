@@ -22,6 +22,9 @@ const ElephantPage = lazy(() =>
 const SmokePage = lazy(() => import("@/features/experiments/smoke-page").then((m) => ({ default: m.SmokePage })));
 const CannonPage = lazy(() => import("@/features/experiments/cannon-page").then((m) => ({ default: m.CannonPage })));
 const WavePage = lazy(() => import("@/features/experiments/wave-page").then((m) => ({ default: m.WavePage })));
+const HarmonographPage = lazy(() =>
+  import("@/features/experiments/harmonograph-page").then((m) => ({ default: m.HarmonographPage })),
+);
 const AboutPage = lazy(() => import("@/features/site/about-page").then((m) => ({ default: m.AboutPage })));
 const ImprintPage = lazy(() => import("@/features/site/legal-pages").then((m) => ({ default: m.ImprintPage })));
 const PrivacyPage = lazy(() => import("@/features/site/legal-pages").then((m) => ({ default: m.PrivacyPage })));
@@ -105,6 +108,14 @@ export function AppRoutes() {
           element={
             <Page>
               <WavePage />
+            </Page>
+          }
+        />
+        <Route
+          path="harmonograph"
+          element={
+            <Page>
+              <HarmonographPage />
             </Page>
           }
         />

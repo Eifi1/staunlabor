@@ -181,6 +181,12 @@
         "title": "The pendulum wave",
         "summary": "Fifteen pendulums let go together drift apart, make waves and groups – and after a minute swing in step again.",
         "question": "When do fifteen pendulums of different lengths, let go together, all swing in step again?"
+      },
+      "harmonograph": {
+        "short": "Harmonograph",
+        "title": "The harmonograph",
+        "summary": "A pen on one pendulum, a drawing board on another: as both die away they draw a rosette, a loop or a star.",
+        "question": "What does a pen draw when two pendulums swing at 2 : 3 – and what when it is only nearly 2 : 3?"
       }
     },
     "chair": {
@@ -1081,6 +1087,81 @@
         "cd": "Jacobi's elliptic function cn/dn",
         "omega0": "the angular frequency of small swings",
         "t": "the time since letting go"
+      }
+    },
+    "harmonograph": {
+      "at": {
+        "pen": "Two pendulums hang side by side. One carries a pen that swings across; the other a drawing board that swings along. Both are pulled aside and let go.",
+        "picture": "The pen draws what the two swings make together. As both slowly die away the figure grows smaller round by round: a spiral of fine lines that, depending on the pendulums' beat, comes together as a rosette, a loop or a star."
+      },
+      "play": {
+        "title": "Let it draw",
+        "hint": "The pen draws in fast motion. Change the pendulums' ratio below, and a new drawing begins.",
+        "pause": "Pause",
+        "run": "Run",
+        "finish": "Finish the drawing",
+        "restart": "Draw again",
+        "save": "Save picture",
+        "speed": "Speed",
+        "speeds": {
+          "1": "Real time",
+          "5": "Fivefold",
+          "20": "Twentyfold"
+        },
+        "time": "Drawn",
+        "ratio": "Near the ratio {{p}} : {{q}} (pen : board)",
+        "detune": "Off it by",
+        "turn": "One turn of the figure",
+        "fades": "Died away to a tenth"
+      },
+      "views": {
+        "drawing": "The drawing on the board, with the pen where it is now",
+        "caption": "The drawing board from above"
+      },
+      "change": {
+        "title": "Set the pendulums",
+        "hint": "The ratio sets the board pendulum's length: a quarter of the length swings twice as fast. Every change starts a new drawing.",
+        "ratio": "Ratio pen : board",
+        "detune": "Detune",
+        "detune_hint": "How far the board is off the exact ratio. One per cent already makes the figure turn.",
+        "phase": "Where the board starts",
+        "phase_hint": "Where in its swing the board starts: 0° at its widest, 90° passing through the middle.",
+        "pen_amplitude": "Swing of the pen's pendulum",
+        "board_amplitude": "Swing of the board's pendulum",
+        "damping": "Friction",
+        "damping_hint": "How fast the swings die away; the same for both pendulums.",
+        "length": "Length of the pen's pendulum",
+        "length_hint": "A longer pendulum swings more slowly; the board's follows at the chosen ratio."
+      },
+      "model": {
+        "intro": "Two pendulums, each on its own. The pen moves across with one, the board along with the other; what is drawn is where the pen stands on the board.",
+        "place": "The pen's place on the board: across, how far the pen's pendulum is out; along, how far the board's is.",
+        "small": "For small swings each pendulum swings like a cosine whose width dies away with time. The frequency depends on the length alone.",
+        "ratio": "So the ratio of the two beats is the square root of the lengths' ratio turned round. At a simple ratio such as 2 : 3 the figure closes on itself and only shrinks."
+      },
+      "symbols": {
+        "xy": "the pen's place on the board, across and along",
+        "lengths": "the lengths of the pen's and the board's pendulum",
+        "theta": "their swings",
+        "theta0": "the swing at the start",
+        "c": "the damping: the width falls as e to the −c·t/2",
+        "f": "the frequency, swings per second",
+        "phi": "where in its swing the pendulum starts",
+        "g": "gravitational acceleration, 9.81 m/s²",
+        "f12": "the frequencies of the pen's and the board's pendulum",
+        "turn": "the time for one whole turn of the figure",
+        "pq": "the simple ratio the beats are near"
+      },
+      "sweet": {
+        "near": "When the beats are near a simple ratio p : q but not on it, the figure keeps its shape and slowly turns on – once in this time. The nearer, the slower.",
+        "closed": "These pendulums stand exactly at {{p}} : {{q}}: the figure closes on itself and only shrinks. Detune the board by one per cent, and it starts to turn.",
+        "turns": "These pendulums are {{detune}} % off {{p}} : {{q}}: the figure turns once in {{turn}} s.",
+        "widths": "And it turns even at an exact ratio when the pendulums swing differently wide: a wide swing takes a little longer than a narrow one. Set the pen's pendulum to 30° and the board's to 5°, and the closed figure opens."
+      },
+      "computed": {
+        "system": "Two second-order equations, the damped pendulum's, with the full sine rather than the small swing's approximation. Since the damping allows no closed solution, the engine steps them with the Runge–Kutta method a millisecond at a time, and the page draws with the same steps – a few hundred a frame.",
+        "theta_dd": "the angular acceleration of pendulum i",
+        "theta_d": "its angular velocity"
       }
     }
   }

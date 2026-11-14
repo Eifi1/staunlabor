@@ -181,6 +181,12 @@
         "title": "L'onde de pendules",
         "summary": "Quinze pendules lâchés ensemble se décalent, dessinent des vagues et des groupes – et au bout d'une minute oscillent de nouveau à l'unisson.",
         "question": "Quand quinze pendules de longueurs différentes, lâchés ensemble, oscillent-ils de nouveau tous à l'unisson ?"
+      },
+      "harmonograph": {
+        "short": "Harmonographe",
+        "title": "L'harmonographe",
+        "summary": "Un stylo sur un pendule, une planche à dessin sur un autre : en s'amortissant, ils dessinent une rosace, une boucle ou une étoile.",
+        "question": "Que dessine un stylo quand deux pendules oscillent dans le rapport 2 : 3 – et quand ce n'est que presque 2 : 3 ?"
       }
     },
     "chair": {
@@ -1081,6 +1087,81 @@
         "cd": "la fonction elliptique de Jacobi cn/dn",
         "omega0": "la pulsation des petites oscillations",
         "t": "le temps depuis le lâcher"
+      }
+    },
+    "harmonograph": {
+      "at": {
+        "pen": "Deux pendules pendent côte à côte. L'un porte un stylo qui oscille en travers ; l'autre une planche à dessin qui oscille en long. On les écarte tous deux et on les lâche.",
+        "picture": "Le stylo dessine ce que font les deux oscillations ensemble. Comme elles s'amortissent lentement, la figure rapetisse tour après tour : une spirale de traits fins qui, selon la cadence des pendules, forme une rosace, une boucle ou une étoile."
+      },
+      "play": {
+        "title": "Laisser dessiner",
+        "hint": "Le stylo dessine en accéléré. Changez plus bas le rapport des pendules, et un nouveau dessin commence.",
+        "pause": "Pause",
+        "run": "Reprendre",
+        "finish": "Terminer le dessin",
+        "restart": "Redessiner",
+        "save": "Enregistrer l'image",
+        "speed": "Vitesse",
+        "speeds": {
+          "1": "Temps réel",
+          "5": "Quintuple",
+          "20": "Vingt fois"
+        },
+        "time": "Dessiné",
+        "ratio": "Proche du rapport {{p}} : {{q}} (stylo : planche)",
+        "detune": "Écart",
+        "turn": "Un tour de la figure",
+        "fades": "Amorti à un dixième"
+      },
+      "views": {
+        "drawing": "Le dessin sur la planche, avec le stylo là où il est maintenant",
+        "caption": "La planche à dessin vue d'en haut"
+      },
+      "change": {
+        "title": "Régler les pendules",
+        "hint": "Le rapport fixe la longueur du pendule de la planche : un quart de la longueur oscille deux fois plus vite. Chaque changement commence un nouveau dessin.",
+        "ratio": "Rapport stylo : planche",
+        "detune": "Désaccord",
+        "detune_hint": "De combien la planche s'écarte du rapport exact. Un pour cent suffit déjà à faire tourner la figure.",
+        "phase": "Départ de la planche",
+        "phase_hint": "Où, dans son oscillation, la planche commence : 0° tout à l'extérieur, 90° en passant par le milieu.",
+        "pen_amplitude": "Amplitude du pendule du stylo",
+        "board_amplitude": "Amplitude du pendule de la planche",
+        "damping": "Frottement",
+        "damping_hint": "La vitesse à laquelle les oscillations s'amortissent ; la même pour les deux pendules.",
+        "length": "Longueur du pendule du stylo",
+        "length_hint": "Un pendule plus long oscille plus lentement ; celui de la planche suit au rapport choisi."
+      },
+      "model": {
+        "intro": "Deux pendules, chacun pour soi. Le stylo se déplace en travers avec l'un, la planche en long avec l'autre ; ce qui est dessiné, c'est où le stylo se trouve sur la planche.",
+        "place": "La place du stylo sur la planche : en travers, l'écart du pendule du stylo ; en long, celui du pendule de la planche.",
+        "small": "Pour de petites amplitudes, chaque pendule oscille comme un cosinus dont l'amplitude s'amortit avec le temps. La fréquence ne dépend que de la longueur.",
+        "ratio": "Le rapport des deux cadences est donc la racine du rapport inverse des longueurs. À un rapport simple comme 2 : 3, la figure se referme sur elle-même et ne fait que rapetisser."
+      },
+      "symbols": {
+        "xy": "la place du stylo sur la planche, en travers et en long",
+        "lengths": "les longueurs des pendules du stylo et de la planche",
+        "theta": "leurs angles d'oscillation",
+        "theta0": "l'amplitude au départ",
+        "c": "l'amortissement : l'amplitude décroît comme e puissance −c·t/2",
+        "f": "la fréquence, oscillations par seconde",
+        "phi": "où, dans son oscillation, le pendule commence",
+        "g": "accélération de la pesanteur, 9,81 m/s²",
+        "f12": "les fréquences des pendules du stylo et de la planche",
+        "turn": "le temps d'un tour complet de la figure",
+        "pq": "le rapport simple dont les cadences sont proches"
+      },
+      "sweet": {
+        "near": "Quand les cadences sont proches d'un rapport simple p : q sans y être exactement, la figure garde sa forme et tourne lentement – un tour en ce temps. Plus c'est proche, plus c'est lent.",
+        "closed": "Ces pendules sont exactement au rapport {{p}} : {{q}} : la figure se referme et ne fait que rapetisser. Désaccordez la planche d'un pour cent, et elle se met à tourner.",
+        "turns": "Ces pendules sont à {{detune}} % de {{p}} : {{q}} : la figure fait un tour en {{turn}} s.",
+        "widths": "Et elle tourne même à un rapport exact quand les pendules oscillent avec des amplitudes différentes : une grande oscillation dure un peu plus qu'une petite. Réglez le pendule du stylo sur 30° et celui de la planche sur 5°, et la figure fermée s'ouvre."
+      },
+      "computed": {
+        "system": "Deux équations du second ordre, celles du pendule amorti, avec le sinus complet plutôt que l'approximation des petites oscillations. Comme l'amortissement n'admet pas de solution fermée, le moteur les résout par la méthode de Runge-Kutta, une milliseconde à la fois, et la page dessine avec les mêmes pas – quelques centaines par image.",
+        "theta_dd": "l'accélération angulaire du pendule i",
+        "theta_d": "sa vitesse angulaire"
       }
     }
   }

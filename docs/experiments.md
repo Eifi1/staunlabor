@@ -637,6 +637,47 @@ short ones fall behind the most.
 2026-12-01 as a placeholder: the pendulum exhibits ship with the joint deploy
 (accounts and the kits), and `since` is set to that day when they go out.
 
+## The harmonograph (`experiments.harmonograph`)
+
+**The exhibit.** Two pendulums side by side, a pen on one swinging across, a
+drawing board on the other swinging along; both let go, the pen draws what the
+two swings make together, a spiral that grows smaller as both die away — a
+rosette, a loop or a star depending on their beats.
+
+**The model** (`domain/experiments/harmonograph.py`). Two plane pendulums from
+the block, each with its length, swing, phase and linear damping, stepped
+together by Runge–Kutta at 1 ms (the full `sin θ`, so no closed form); the pen
+at `(L₁·sin θ₁, L₂·sin θ₂)` on the board. A phase starts a pendulum part way
+through its *exact* swing, at the rate its energy leaves it, so a phase never
+widens the swing (the small swing's `θ' = −ω₀θ₀ sin φ` did, by a little, and
+the first closure test caught it: an exact 2:3 missed by 14 µm).
+
+**What it shows.** At a simple ratio, both let go equally wide and undamped,
+the figure closes on itself after two of the pen's swings (to 10⁻⁹ m); let go
+at 30° and 5° it drifts open, the wider swing being the slower one. Near a
+ratio `p:q` it keeps its shape and turns once every `1/|q·f₁ − p·f₂|`: the
+default pair, 0.67 % off 2:3, turns once in 90 s; it fades to a tenth in
+`2·ln 10/c`, 230 s at `c = 0.02/s`.
+
+**The page.** A canvas the pen draws on, a few hundred steps a frame, in real
+time, fivefold or twentyfold; "Finish the drawing" draws the rest at once (to
+300 s); "Save picture" writes a PNG in the browser, nothing sent. The ratio
+(1:1, 1:2, 2:3, 3:4) and its detune set the board's length, `L₂ =
+L₁·(p/(q·(1+d)))²`; the board's phase, both swings, the friction and the pen's
+length are sliders. **No route:** the build comes with `/experiments/defaults`
+and everything shown — the path and the figures — is the port's
+(`simulate/harmonograph.ts`), held to the engine by `engine-cases.json`;
+`write-test-fixtures.py` lists it as `UNROUTED`.
+
+**Left out, and said:** the board's swing in the second direction (a real board
+hangs on a gimbal), the pen's friction on the paper, damping that grows with
+speed.
+
+**Checked by** `tests/unit/test_experiments.py`: the closure and the drift
+above, the fade against `e^(−ct/2)`, the default figures, the nearest simple
+ratio in lowest terms; the port draws frame by frame exactly what it draws in
+one go (`simulate.test.ts`).
+
 ## Checking the mathematics
 
 Before the engine was written each model was checked independently with SciPy

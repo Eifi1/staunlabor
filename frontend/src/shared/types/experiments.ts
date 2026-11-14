@@ -500,6 +500,22 @@ export interface WaveFigures {
   groups: GroupPoint[];
 }
 
+// ── the harmonograph ─────────────────────────────────────────────────────────
+
+/** One of the engine's `HarmonographPendulum`s. No route: the page draws and
+ *  reads its figures off the port (`simulate/harmonograph.ts`). */
+export interface HarmonographPendulumRequest {
+  length_m: number;
+  amplitude_deg: number;
+  phase_deg: number;
+  damping_per_s: number;
+}
+
+export interface HarmonographRequest {
+  pen: HarmonographPendulumRequest;
+  board: HarmonographPendulumRequest;
+}
+
 // ── the pages' starting point ────────────────────────────────────────────────
 
 export interface ExperimentsDefaults {
@@ -511,6 +527,7 @@ export interface ExperimentsDefaults {
   smoke: SmokeExhibitRequest;
   cannon: BallStackRequest;
   wave: WaveRequest;
+  harmonograph: HarmonographRequest;
   meter_range_a: number;
   settle_s: number;
 }

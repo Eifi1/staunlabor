@@ -181,6 +181,12 @@
         "title": "Die Pendelwelle",
         "summary": "Fünfzehn Pendel, zugleich losgelassen, laufen auseinander, bilden Wellen und Gruppen – und schwingen nach einer Minute wieder im Gleichtakt.",
         "question": "Wann schwingen fünfzehn verschieden lange Pendel, gemeinsam losgelassen, wieder alle im Gleichtakt?"
+      },
+      "harmonograph": {
+        "short": "Harmonograph",
+        "title": "Der Harmonograph",
+        "summary": "Ein Stift an einem Pendel, ein Zeichenbrett an einem zweiten: Während beide ausklingen, zeichnen sie eine Rosette, eine Schleife oder einen Stern.",
+        "question": "Was zeichnet ein Stift, wenn zwei Pendel im Verhältnis 2 : 3 schwingen – und was, wenn es nur fast 2 : 3 ist?"
       }
     },
     "chair": {
@@ -1081,6 +1087,81 @@
         "cd": "Jacobis elliptische Funktion cn/dn",
         "omega0": "die Kreisfrequenz kleiner Schwingungen",
         "t": "die Zeit seit dem Loslassen"
+      }
+    },
+    "harmonograph": {
+      "at": {
+        "pen": "Zwei Pendel hängen nebeneinander. Am einen ist ein Stift befestigt, der quer schwingt; am anderen ein Zeichenbrett, das längs schwingt. Man lenkt beide aus und lässt sie los.",
+        "picture": "Der Stift zeichnet, was beide Schwingungen zusammen ergeben. Weil beide langsam ausklingen, wird die Figur Runde um Runde kleiner: eine Spirale aus feinen Linien, die sich je nach Takt der Pendel zu einer Rosette, einer Schleife oder einem Stern fügt."
+      },
+      "play": {
+        "title": "Zeichnen lassen",
+        "hint": "Der Stift zeichnet im Zeitraffer. Ändern Sie unten das Verhältnis der Pendel, und eine neue Zeichnung beginnt.",
+        "pause": "Anhalten",
+        "run": "Weiter",
+        "finish": "Fertig zeichnen",
+        "restart": "Neu zeichnen",
+        "save": "Bild speichern",
+        "speed": "Tempo",
+        "speeds": {
+          "1": "Echtzeit",
+          "5": "Fünffach",
+          "20": "Zwanzigfach"
+        },
+        "time": "Gezeichnet",
+        "ratio": "Nahe am Verhältnis {{p}} : {{q}} (Stift : Brett)",
+        "detune": "Abweichung davon",
+        "turn": "Eine Drehung der Figur",
+        "fades": "Auf ein Zehntel ausgeklungen"
+      },
+      "views": {
+        "drawing": "Die Zeichnung auf dem Brett, mit dem Stift an seiner jetzigen Stelle",
+        "caption": "Das Zeichenbrett von oben"
+      },
+      "change": {
+        "title": "Die Pendel einstellen",
+        "hint": "Das Verhältnis legt die Länge des Brettpendels fest: Ein Viertel der Länge schwingt doppelt so schnell. Jede Änderung beginnt eine neue Zeichnung.",
+        "ratio": "Verhältnis Stift : Brett",
+        "detune": "Verstimmung",
+        "detune_hint": "Wie weit das Brett vom genauen Verhältnis abweicht. Schon ein Prozent lässt die Figur sich drehen.",
+        "phase": "Startpunkt des Bretts",
+        "phase_hint": "Wo in seiner Schwingung das Brett startet: 0° ganz aussen, 90° beim Durchgang durch die Mitte.",
+        "pen_amplitude": "Ausschlag des Stiftpendels",
+        "board_amplitude": "Ausschlag des Brettpendels",
+        "damping": "Reibung",
+        "damping_hint": "Wie schnell die Schwingungen ausklingen; dieselbe für beide Pendel.",
+        "length": "Länge des Stiftpendels",
+        "length_hint": "Ein längeres Pendel schwingt langsamer; das Brettpendel folgt im gewählten Verhältnis."
+      },
+      "model": {
+        "intro": "Zwei Pendel, jedes für sich. Der Stift bewegt sich mit dem einen quer, das Brett mit dem anderen längs; gezeichnet wird, wo der Stift auf dem Brett steht.",
+        "place": "Die Stelle des Stifts auf dem Brett: quer, was das Stiftpendel ausschlägt, längs, was das Brettpendel ausschlägt.",
+        "small": "Bei kleinen Ausschlägen schwingt jedes Pendel wie ein Kosinus, dessen Weite mit der Zeit abklingt. Die Frequenz hängt nur von der Länge ab.",
+        "ratio": "Das Verhältnis der beiden Takte ist darum die Wurzel aus dem umgekehrten Verhältnis der Längen. Bei einem einfachen Verhältnis wie 2 : 3 schliesst sich die Figur und schrumpft nur."
+      },
+      "symbols": {
+        "xy": "die Stelle des Stifts auf dem Brett, quer und längs",
+        "lengths": "die Längen von Stift- und Brettpendel",
+        "theta": "ihre Ausschläge",
+        "theta0": "der Ausschlag zu Beginn",
+        "c": "die Dämpfung: die Weite fällt wie e hoch −c·t/2",
+        "f": "die Frequenz, Schwingungen pro Sekunde",
+        "phi": "wo in seiner Schwingung das Pendel startet",
+        "g": "Fallbeschleunigung, 9,81 m/s²",
+        "f12": "die Frequenzen von Stift- und Brettpendel",
+        "turn": "die Zeit für eine ganze Drehung der Figur",
+        "pq": "das einfache Verhältnis, nahe dem die Takte liegen"
+      },
+      "sweet": {
+        "near": "Liegen die Takte nahe an einem einfachen Verhältnis p : q, aber nicht genau darauf, behält die Figur ihre Form und dreht sich langsam weiter – einmal in dieser Zeit. Je näher, desto langsamer.",
+        "closed": "Diese Pendel stehen genau im Verhältnis {{p}} : {{q}}: Die Figur schliesst sich und schrumpft nur. Verstimmen Sie das Brett um ein Prozent, und sie beginnt sich zu drehen.",
+        "turns": "Diese Pendel liegen {{detune}} % neben {{p}} : {{q}}: Die Figur dreht sich einmal in {{turn}} s.",
+        "widths": "Und sie dreht sich selbst bei einem genauen Verhältnis, wenn die Pendel verschieden weit schwingen: Ein weiter Ausschlag dauert etwas länger als ein enger. Stellen Sie das Stiftpendel auf 30° und das Brettpendel auf 5°, und die geschlossene Figur öffnet sich."
+      },
+      "computed": {
+        "system": "Zwei Gleichungen zweiter Ordnung, die des gedämpften Pendels, mit dem vollen Sinus statt der Näherung für kleine Ausschläge. Weil die Dämpfung keine geschlossene Lösung zulässt, rechnet der Rechenkern sie mit dem Runge-Kutta-Verfahren in Schritten von einer Millisekunde, und die Seite zeichnet mit denselben Schritten – einige Hundert pro Bild.",
+        "theta_dd": "die Winkelbeschleunigung des Pendels i",
+        "theta_d": "seine Winkelgeschwindigkeit"
       }
     }
   }
