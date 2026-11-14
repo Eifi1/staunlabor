@@ -34,6 +34,7 @@ from eifi1_server_kit.feedback.sql import (
     FeedbackReplyColumns,
     FeedbackVoteColumns,
 )
+from eifi1_server_kit.translation_review.sql import TranslationReviewColumns
 from sqlalchemy import CheckConstraint, MetaData
 from sqlalchemy.orm import DeclarativeBase
 
@@ -143,3 +144,10 @@ class FeedbackVote(FeedbackVoteColumns, Base):
 
 class FeedbackAttachment(FeedbackAttachmentColumns, Base):
     __tablename__ = "feedback_attachments"
+
+
+class TranslationReview(TranslationReviewColumns, Base):
+    """One verdict on one string in one language: the review of the seven catalogues
+    (``docs/translations.md``), on server-kit's ``translation_review.sql``."""
+
+    __tablename__ = "translation_reviews"

@@ -147,7 +147,9 @@ Steps, each its own commits:
 3. Feedback and the translation review on the kit's routers. *(feedback on
    `feat/accounts`: server-kit 0.31's `feedback_router` on `feedback.sql`'s
    tables, migration 0002, the kit's contract suites on PostgreSQL; files in a
-   local directory until a bucket; the planned exhibits filed as ideas.)*
+   local directory until a bucket; the planned exhibits filed as ideas. The
+   review too: `translation_review_router` on `translation_review.sql`'s table,
+   migration 0003, an admin every language, a reviewer what an admin granted.)*
 4. The pages: sign-in, settings, admin, feedback, `/translations`.
 5. The texts: the privacy policy, the terms, the about page, in all seven.
    The privacy policy names the 30 days an ended session keeps its address

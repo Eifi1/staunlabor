@@ -23,6 +23,7 @@ from eifi1_server_kit.errors import install_contract_error_handlers
 from eifi1_server_kit.feedback.router import feedback_router
 from eifi1_server_kit.limiter import FeedbackLimiters
 from eifi1_server_kit.settings import secret_problems
+from eifi1_server_kit.translation_review.router import translation_review_router
 from eifi1_server_kit.user_admin.router import user_admin_router
 from fastapi import Depends, FastAPI, Request
 from fastapi.middleware.cors import CORSMiddleware
@@ -35,6 +36,7 @@ from staunlabor.database import Database
 from staunlabor.feedback import feedback_deps
 from staunlabor.security import AccountLimiters, ExperimentsLimiters, limit_account_request
 from staunlabor.settings import Settings, get_settings
+from staunlabor.translations import translation_review_deps
 
 logger = logging.getLogger(__name__)
 
@@ -137,6 +139,11 @@ def create_app() -> FastAPI:
     # Feedback (server-kit 0.31's feedback.sql): the reports, the inbox, the public list,
     # on the account layer's own sign-in.
     app.include_router(feedback_router(feedback_deps(accounts, settings)), prefix=API_PREFIX, dependencies=budget)
+    # The translation review (server-kit 0.31's translation_review.sql): the verdicts on the
+    # seven catalogues, an admin's and the reviewers' an admin granted. Under the budget too.
+    app.include_router(
+        translation_review_router(translation_review_deps(accounts)), prefix=API_PREFIX, dependencies=budget
+    )
     # The kit's refusals — the budget's 429 with its Retry-After — are
     # ValueErrors too; the kit's handlers answer them at their own status,
     # beside the engine's 400 below.
