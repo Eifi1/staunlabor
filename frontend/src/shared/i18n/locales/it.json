@@ -175,6 +175,12 @@
         "title": "Il cannone a palle",
         "summary": "Lasci cadere tre palle impilate su un filo, e quella piccola in cima schizza in alto molto più di quanto sia caduta.",
         "question": "Quanto in alto vola la palla piccola quando la pila cade da un metro?"
+      },
+      "wave": {
+        "short": "Onda di pendoli",
+        "title": "L'onda di pendoli",
+        "summary": "Quindici pendoli lasciati andare insieme si sfasano, formano onde e gruppi – e dopo un minuto oscillano di nuovo all'unisono.",
+        "question": "Quando quindici pendoli di lunghezze diverse, lasciati andare insieme, oscillano di nuovo tutti all'unisono?"
       }
     },
     "chair": {
@@ -982,6 +988,98 @@
         "flip": "Capovolga la pila e non vola niente: una palla leggera in basso non può spingere in alto una pesante.",
         "name": "Perché un cannone: i libri di fisica lo chiamano cannone di Galileo, perché la palla piccola viene sparata dritta verso l'alto fuori dalla pila, come dalla canna di un cannone. Nulla viene sparato di lato.",
         "assumed": "Che cosa si assume: palle piene di 1100 kg/m³, la rigidezza dell'elastomero e quanto è elastico, contatti che seguono la legge di Hertz con uno smorzamento che restituisce una quota fissa della velocità di avvicinamento, e un pavimento rigido. L'attrito sul filo e la rotazione delle palle sono tralasciati."
+      }
+    },
+    "wave": {
+      "at": {
+        "row": "Una fila di pendoli pende da un'asta, il più lungo a un'estremità, ognuno dei successivi un po' più corto. Un'asse li scosta tutti allo stesso modo e li lascia andare insieme.",
+        "pattern": "All'inizio oscillano insieme, poi la fila si apre in un'onda, in serpenti, in un caos apparente, in due, tre, quattro gruppi – e dopo un minuto tutti oscillano di nuovo all'unisono, come se nulla fosse."
+      },
+      "play": {
+        "title": "Lasciare oscillare la fila",
+        "hint": "L'orologio corre. Salti a una frazione del ciclo, oppure cambi da quanto lontano vengono lasciati i pendoli.",
+        "pause": "Pausa",
+        "run": "Continua",
+        "restart": "Dall'inizio",
+        "speed": "Velocità",
+        "speeds": {
+          "1": "Tempo reale",
+          "2": "Doppia",
+          "5": "Quintupla"
+        },
+        "jump": "Salta a:",
+        "jumps": {
+          "2": "½ ciclo",
+          "3": "⅓ ciclo",
+          "4": "¼ ciclo",
+          "1": "Ciclo intero"
+        },
+        "amplitude": "Ampiezza al rilascio",
+        "amplitude_hint": "Le lunghezze sono accordate per {{tuned}}°. Lasciati più o meno lontano, dopo un ciclo i pendoli non si ritrovano più del tutto.",
+        "time": "Tempo",
+        "cycles": "Cicli",
+        "spread": "Sfasamento dopo un ciclo"
+      },
+      "views": {
+        "top": "La fila di pendoli dall'alto: ogni sfera scostata quanto sta oscillando",
+        "side": "La fila di pendoli da un'estremità: tutti pendono uno dietro l'altro dalla stessa asta",
+        "top_caption": "Dall'alto",
+        "side_caption": "Dall'estremità della fila"
+      },
+      "change": {
+        "title": "Modificare l'oggetto esposto",
+        "hint": "Le lunghezze derivano dal ciclo, dalle oscillazioni del pendolo più lungo e dall'ampiezza per cui si accordano. Ogni modifica ricomincia.",
+        "count": "Numero di pendoli",
+        "cycle": "Ciclo Γ",
+        "cycle_hint": "Dopo questo tempo tutti oscillano di nuovo all'unisono.",
+        "swings": "Oscillazioni del pendolo più lungo in Γ",
+        "swings_hint": "Ogni pendolo successivo oscilla una volta in più nello stesso tempo.",
+        "tuned": "Accordato per",
+        "tuned_hint": "L'ampiezza per cui sono calcolate le lunghezze. 0° è la formula dei libri per piccole oscillazioni."
+      },
+      "figures": {
+        "longest": "Pendolo più lungo",
+        "shortest": "Pendolo più corto",
+        "period": "Periodo del più lungo",
+        "spread": "Sfasamento dopo un ciclo",
+        "textbook": "Sfasamento con la formula dei libri"
+      },
+      "model": {
+        "intro": "Nessun pendolo sa degli altri. Ognuno oscilla per conto suo, e tutto il disegno sta nelle lunghezze.",
+        "period": "Il periodo di un pendolo che oscilla poco dipende solo dalla sua lunghezza: quattro volte più lungo, la metà più veloce.",
+        "tuning": "Le lunghezze sono scelte in modo che nel ciclo Γ il pendolo più lungo oscilli esattamente N volte, il successivo N + 1 volte, l'n-esimo N + n volte. Dopo Γ ognuno ha alle spalle un numero intero di oscillazioni, e tutti sono di nuovo dove sono stati lasciati.",
+        "groups": "Dopo un k-esimo del ciclo, l'n-esimo pendolo ha fatto (N + n)/k oscillazioni. Con k = 2 è un numero intero per una metà e mezza oscillazione in più per l'altra: due gruppi, uno di fronte all'altro. Con k = 3 tre gruppi, con k = 4 quattro. Le onde e i serpenti nel mezzo sono la stessa cosa in istanti che dividono Γ in modo meno netto.",
+        "wider": "Ciò che la formula dei libri tralascia: un'oscillazione più ampia dura di più, dell'1,7 % a 30°. Per questo qui la fila è accordata per un'ampiezza con il periodo esatto."
+      },
+      "symbols": {
+        "t0": "periodo di una piccola oscillazione",
+        "length": "lunghezza del pendolo, dal punto di sospensione al centro della sfera",
+        "g": "accelerazione di gravità, 9,81 m/s²",
+        "tn": "periodo dell'n-esimo pendolo",
+        "cycle": "il ciclo: il tempo finché tutti oscillano di nuovo all'unisono",
+        "swings": "oscillazioni del pendolo più lungo in Γ",
+        "index": "il numero del pendolo, contato dal più lungo: 0, 1, 2, …",
+        "k": "la frazione del ciclo: Γ/k",
+        "theta0": "l'ampiezza al rilascio",
+        "k_integral": "l'integrale ellittico completo di prima specie"
+      },
+      "sweet": {
+        "alone": "Il trucco è che non c'è: nessuna molla, nessun filo, nessun ritmo collega i pendoli. Il disegno è solo l'effetto di lunghezze accordate – e quindi esattamente buono quanto questo accordo.",
+        "tuned": "Questa fila è accordata per {{tuned}}°. Se la lascia andare più o meno lontano, ogni pendolo è lento o veloce quasi nella stessa proporzione. Dopo un ciclo questo fa più gradi per i corti, che hanno alle spalle più oscillazioni: la fila torna storta. Lo sfasamento si misura in gradi di un'oscillazione, 360° sono un'oscillazione intera. Accordata con la formula dei libri per piccole oscillazioni, la fila tornerebbe a {{amplitude}}° sfasata di {{textbook}}°."
+      },
+      "chart": {
+        "spread": "Sfasamento dopo un ciclo",
+        "amplitude": "Ampiezza al rilascio",
+        "you": "Lei"
+      },
+      "computed": {
+        "system": "Ogni pendolo è un'unica equazione del secondo ordine, quella del pendolo piano senza attrito, lasciato da fermo.",
+        "theta": "l'angolo dell'oscillazione",
+        "theta_dd": "la sua accelerazione angolare",
+        "exact": "Ha una soluzione esatta con le funzioni ellittiche di Jacobi. A ogni immagine la pagina calcola ogni pendolo direttamente dal tempo, senza arrivarci passo dopo passo – per questo può saltare a qualsiasi momento del ciclo. Per controllo, il motore risolve la stessa equazione passo dopo passo con il metodo di Runge-Kutta; i due concordano fino a un decimilionesimo di grado.",
+        "cd": "la funzione ellittica di Jacobi cn/dn",
+        "omega0": "la pulsazione delle piccole oscillazioni",
+        "t": "il tempo dal rilascio"
       }
     }
   }

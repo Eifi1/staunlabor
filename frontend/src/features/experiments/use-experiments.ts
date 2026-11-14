@@ -9,6 +9,7 @@ import type {
   SmokeExhibitRequest,
   BallStackRequest,
   SphereRequest,
+  WaveRequest,
 } from "@/shared/types";
 
 /** Each exhibit's default build and the page's settle: asked for once per
@@ -131,6 +132,21 @@ export function useCannonFigures(build: BallStackRequest | null) {
   return useQuery({
     queryKey: queryKeys.experiments("cannon", settled),
     queryFn: () => experimentsApi.cannon(settled as BallStackRequest),
+    enabled: settled !== null,
+    placeholderData: (previous) => previous,
+    staleTime: Infinity,
+  });
+}
+
+/** A pendulum wave's lengths and how far apart it comes back, once its sliders
+ *  have held still. */
+export function useWaveFigures(build: WaveRequest | null) {
+  const defaults = useExperimentsDefaults();
+  const settleS = defaults.data?.settle_s ?? FALLBACK_SETTLE_S;
+  const settled = useDebounce(build, settleS * 1000, { key: JSON.stringify(build) });
+  return useQuery({
+    queryKey: queryKeys.experiments("wave", settled),
+    queryFn: () => experimentsApi.wave(settled as WaveRequest),
     enabled: settled !== null,
     placeholderData: (previous) => previous,
     staleTime: Infinity,

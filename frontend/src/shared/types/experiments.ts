@@ -454,6 +454,52 @@ export interface CannonFigures {
   impact: CannonImpact;
 }
 
+// ── the pendulum wave ────────────────────────────────────────────────────────
+
+/** The engine's `PendulumWave` (`simulate/wave.ts` takes the same shape). */
+export interface WaveRequest {
+  count: number;
+  /** Γ: the time after which all swing together again. */
+  cycle_s: number;
+  /** N: the swings the longest makes in Γ; the n-th makes N + n. */
+  longest_swings: number;
+  /** The swing the lengths are tuned for, each side of the bottom. */
+  tuned_deg: number;
+  /** The swing they are let go at. */
+  amplitude_deg: number;
+  spacing_m: number;
+}
+
+export interface WavePendulum {
+  swings: number;
+  length_m: number;
+  small_period_s: number;
+  period_s: number;
+  lag_deg: number;
+}
+
+export interface SpreadPoint {
+  amplitude_deg: number;
+  spread_deg: number;
+}
+
+export interface GroupPoint {
+  fraction: number;
+  time_s: number;
+  groups: number;
+}
+
+export interface WaveFigures {
+  pendulums: WavePendulum[];
+  longest_m: number;
+  shortest_m: number;
+  /** How far apart the row comes back after a cycle, in degrees of swing. */
+  spread_deg: number;
+  spread_curve: SpreadPoint[];
+  textbook_spread_deg: number;
+  groups: GroupPoint[];
+}
+
 // ── the pages' starting point ────────────────────────────────────────────────
 
 export interface ExperimentsDefaults {
@@ -464,6 +510,7 @@ export interface ExperimentsDefaults {
   elephant: ElephantRequest;
   smoke: SmokeExhibitRequest;
   cannon: BallStackRequest;
+  wave: WaveRequest;
   meter_range_a: number;
   settle_s: number;
 }

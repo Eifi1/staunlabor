@@ -175,6 +175,12 @@
         "title": "Le canon à balles",
         "summary": "Lâchez trois balles empilées sur un fil, et la petite du dessus s’élance bien plus haut que sa hauteur de chute.",
         "question": "À quelle hauteur monte la petite balle quand la pile tombe d’un mètre ?"
+      },
+      "wave": {
+        "short": "Onde de pendules",
+        "title": "L'onde de pendules",
+        "summary": "Quinze pendules lâchés ensemble se décalent, dessinent des vagues et des groupes – et au bout d'une minute oscillent de nouveau à l'unisson.",
+        "question": "Quand quinze pendules de longueurs différentes, lâchés ensemble, oscillent-ils de nouveau tous à l'unisson ?"
       }
     },
     "chair": {
@@ -982,6 +988,98 @@
         "flip": "Retournez la pile, et rien ne s’envole : une balle légère en bas ne peut pas pousser une lourde vers le haut.",
         "name": "Pourquoi un canon : les livres de physique l’appellent le canon de Galilée, parce que la petite balle est projetée tout droit vers le haut hors de la pile, comme si elle sortait d’un tube. Rien n’y est tiré de côté.",
         "assumed": "Ce qui est supposé : des balles pleines de 1100 kg/m³, la raideur de l’élastomère et son élasticité, des contacts qui suivent la loi de Hertz avec un amortissement qui restitue une part fixe de la vitesse de rapprochement, et un sol rigide. Le frottement sur le fil et la rotation des balles sont laissés de côté."
+      }
+    },
+    "wave": {
+      "at": {
+        "row": "Une rangée de pendules pend à une barre, le plus long à une extrémité, chacun des suivants un peu plus court. Une planche les écarte tous également et les lâche ensemble.",
+        "pattern": "D'abord ils oscillent ensemble, puis la rangée s'étire en une vague, en serpents, en un apparent désordre, en deux, trois, quatre groupes – et au bout d'une minute tous oscillent de nouveau à l'unisson, comme si de rien n'était."
+      },
+      "play": {
+        "title": "Laisser osciller la rangée",
+        "hint": "L'horloge tourne. Sautez à une fraction du cycle, ou changez l'écart auquel les pendules sont lâchés.",
+        "pause": "Pause",
+        "run": "Reprendre",
+        "restart": "Depuis le début",
+        "speed": "Vitesse",
+        "speeds": {
+          "1": "Temps réel",
+          "2": "Double",
+          "5": "Quintuple"
+        },
+        "jump": "Sauter à :",
+        "jumps": {
+          "2": "½ cycle",
+          "3": "⅓ cycle",
+          "4": "¼ cycle",
+          "1": "Cycle entier"
+        },
+        "amplitude": "Amplitude au lâcher",
+        "amplitude_hint": "Les longueurs sont accordées pour {{tuned}}°. Lâchés plus ou moins loin, les pendules ne se retrouvent plus tout à fait après un cycle.",
+        "time": "Temps",
+        "cycles": "Cycles",
+        "spread": "Décalage après un cycle"
+      },
+      "views": {
+        "top": "La rangée de pendules vue d'en haut : chaque boule écartée autant qu'elle oscille à cet instant",
+        "side": "La rangée de pendules vue depuis son extrémité : tous pendent l'un derrière l'autre à la même barre",
+        "top_caption": "D'en haut",
+        "side_caption": "Depuis l'extrémité de la rangée"
+      },
+      "change": {
+        "title": "Modifier l'objet exposé",
+        "hint": "Les longueurs découlent du cycle, des oscillations du pendule le plus long et de l'amplitude pour laquelle on accorde. Chaque changement recommence.",
+        "count": "Nombre de pendules",
+        "cycle": "Cycle Γ",
+        "cycle_hint": "Après ce temps, tous oscillent de nouveau à l'unisson.",
+        "swings": "Oscillations du pendule le plus long en Γ",
+        "swings_hint": "Chaque pendule suivant oscille une fois de plus dans le même temps.",
+        "tuned": "Accordé pour",
+        "tuned_hint": "L'amplitude pour laquelle les longueurs sont calculées. 0° est la formule des manuels pour les petites oscillations."
+      },
+      "figures": {
+        "longest": "Pendule le plus long",
+        "shortest": "Pendule le plus court",
+        "period": "Période du plus long",
+        "spread": "Décalage après un cycle",
+        "textbook": "Décalage avec la formule des manuels"
+      },
+      "model": {
+        "intro": "Aucun pendule ne sait rien des autres. Chacun oscille pour lui-même, et tout le motif est dans les longueurs.",
+        "period": "La période d'un pendule qui oscille peu ne dépend que de sa longueur : quatre fois plus long, deux fois plus lent.",
+        "tuning": "Les longueurs sont choisies pour que, pendant le cycle Γ, le pendule le plus long oscille exactement N fois, le suivant N + 1 fois, le n-ième N + n fois. Après Γ, chacun a un nombre entier d'oscillations derrière lui, et tous sont là où ils ont été lâchés.",
+        "groups": "Après un k-ième du cycle, le n-ième pendule a fait (N + n)/k oscillations. Pour k = 2, c'est un nombre entier pour une moitié et une demi-oscillation de plus pour l'autre : deux groupes, face à face. Pour k = 3 trois groupes, pour k = 4 quatre. Les vagues et les serpents entre-temps sont la même chose à des instants qui divisent Γ moins nettement.",
+        "wider": "Ce que la formule des manuels omet : une oscillation plus ample dure plus longtemps, de 1,7 % à 30°. C'est pourquoi la rangée est ici accordée pour une amplitude avec la période exacte."
+      },
+      "symbols": {
+        "t0": "période d'une petite oscillation",
+        "length": "longueur du pendule, du point de suspension au centre de la boule",
+        "g": "accélération de la pesanteur, 9,81 m/s²",
+        "tn": "période du n-ième pendule",
+        "cycle": "le cycle : le temps jusqu'à ce que tous oscillent de nouveau à l'unisson",
+        "swings": "oscillations du pendule le plus long en Γ",
+        "index": "le numéro du pendule, compté depuis le plus long : 0, 1, 2, …",
+        "k": "la fraction du cycle : Γ/k",
+        "theta0": "l'amplitude au lâcher",
+        "k_integral": "l'intégrale elliptique complète de première espèce"
+      },
+      "sweet": {
+        "alone": "Le truc, c'est qu'il n'y en a pas : aucun ressort, aucun fil, aucune mesure ne relie les pendules. Le motif n'est que l'effet de longueurs accordées – et donc exactement aussi bon que cet accord.",
+        "tuned": "Cette rangée est accordée pour {{tuned}}°. Lâchez-la plus ou moins loin, et chaque pendule est lent ou rapide presque de la même proportion. Après un cycle, cela fait le plus de degrés pour les courts, qui ont plus d'oscillations derrière eux : la rangée revient de travers. Le décalage se mesure en degrés d'oscillation, 360° faisant une oscillation entière. Accordée avec la formule des manuels pour les petites oscillations, la rangée reviendrait à {{amplitude}}° avec un décalage de {{textbook}}°."
+      },
+      "chart": {
+        "spread": "Décalage après un cycle",
+        "amplitude": "Amplitude au lâcher",
+        "you": "Vous"
+      },
+      "computed": {
+        "system": "Chaque pendule est une seule équation du second ordre, celle du pendule plan sans frottement, lâché au repos.",
+        "theta": "l'angle de l'oscillation",
+        "theta_dd": "son accélération angulaire",
+        "exact": "Elle a une solution exacte avec les fonctions elliptiques de Jacobi. À chaque image, la page calcule chaque pendule directement à partir du temps, sans y aller pas à pas – c'est pourquoi elle peut sauter à n'importe quel moment du cycle. Pour contrôle, le moteur résout la même équation pas à pas avec la méthode de Runge-Kutta ; les deux concordent à un dix-millionième de degré près.",
+        "cd": "la fonction elliptique de Jacobi cn/dn",
+        "omega0": "la pulsation des petites oscillations",
+        "t": "le temps depuis le lâcher"
       }
     }
   }

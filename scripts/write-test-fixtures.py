@@ -43,7 +43,7 @@ API = "/api/v1/experiments"
 #: The file's keys, in the file's order: the defaults, then one exhibit's answer
 #: each — sent its own part of the defaults, or nothing for the chair, whose
 #: route takes no input.
-POSTED = ("coil", "sphere", "platform", "race", "elephant", "smoke", "cannon")
+POSTED = ("coil", "sphere", "platform", "race", "elephant", "smoke", "cannon", "wave")
 
 
 def _answer(response: Response) -> Any:

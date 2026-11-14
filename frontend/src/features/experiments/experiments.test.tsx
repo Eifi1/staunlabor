@@ -14,7 +14,14 @@ import { fireEvent, screen, waitFor, within } from "@testing-library/react";
 import en from "@/shared/i18n/locales/en.json";
 import { mockApi } from "@/test/api-mock";
 import { renderWithProviders } from "@/test/render";
-import type { CannonFigures, ChairAnalysis, ElephantFigures, RaceAnalysis, SmokeFigures } from "@/shared/types";
+import type {
+  CannonFigures,
+  ChairAnalysis,
+  ElephantFigures,
+  RaceAnalysis,
+  SmokeFigures,
+  WaveFigures,
+} from "@/shared/types";
 import { ChairPage, autoView } from "./chair-page";
 import { CoilPage } from "./coil-page";
 import { Equation } from "./equation";
@@ -24,6 +31,7 @@ import { RacePage } from "./race-page";
 import { ElephantPage } from "./elephant-page";
 import { SmokePage } from "./smoke-page";
 import { CannonPage } from "./cannon-page";
+import { WavePage } from "./wave-page";
 import { ballState, pitEntries, positionAt, raceLayout, swingAt } from "./race-views";
 import { run as runPit } from "./simulate/pit";
 import { HOLE, cameraAt, frameOf, project } from "./chair-views";
@@ -41,6 +49,7 @@ const race = fixtures.race as unknown as RaceAnalysis;
 const elephant = fixtures.elephant as unknown as ElephantFigures;
 const smoke = fixtures.smoke as unknown as SmokeFigures;
 const cannon = fixtures.cannon as unknown as CannonFigures;
+const wave = fixtures.wave as unknown as WaveFigures;
 
 beforeEach(() => {
   useTried.getState().forget();
@@ -54,6 +63,7 @@ beforeEach(() => {
     "POST /experiments/elephant": elephant,
     "POST /experiments/smoke": smoke,
     "POST /experiments/cannon": cannon,
+    "POST /experiments/wave": wave,
   });
 });
 
@@ -617,5 +627,40 @@ describe("the ball cannon", () => {
     expect(screen.getByRole("button", { name: E.cannon.change.flip })).toBeEnabled();
     fireEvent.click(screen.getByRole("radio", { name: "1 ball" }));
     expect(screen.getByRole("button", { name: E.cannon.change.flip })).toBeDisabled();
+  });
+});
+
+describe("the pendulum wave", () => {
+  it("shows the row from above and from its end, the moments to jump to and the engine's lengths", async () => {
+    renderWithProviders(<WavePage />);
+    expect(await screen.findByRole("img", { name: E.wave.views.top })).toBeInTheDocument();
+    expect(screen.getByRole("img", { name: E.wave.views.side })).toBeInTheDocument();
+    for (const k of ["2", "3", "4", "1"] as const) {
+      expect(screen.getByRole("button", { name: E.wave.play.jumps[k] })).toBeInTheDocument();
+    }
+    // The default row's longest and shortest pendulum, the engine's 34 and 21 cm.
+    expect(await screen.findByText("34.1")).toBeInTheDocument();
+    expect(screen.getByText("21.0")).toBeInTheDocument();
+    await waitFor(() => expect(screen.getAllByLabelText(E.equation.symbols).length).toBeGreaterThanOrEqual(6));
+  });
+
+  it("stops the clock at half the cycle, where the row stands in two groups", async () => {
+    renderWithProviders(<WavePage />);
+    await screen.findByRole("img", { name: E.wave.views.top });
+    fireEvent.click(screen.getByRole("button", { name: E.wave.play.jumps["2"] }));
+    expect(screen.getByRole("button", { name: E.wave.play.run })).toBeInTheDocument();
+    // The row is at ±15°: the bobs' offsets from the bar take two values only,
+    // one for the even swing counts and one for the odd.
+    const offsets = new Set(
+      [...screen.getByRole("img", { name: E.wave.views.top }).querySelectorAll("circle")].map((c) =>
+        Math.sign(Number(c.getAttribute("cy"))),
+      ),
+    );
+    expect(offsets).toEqual(new Set([1, -1]));
+  });
+
+  it("says how far a textbook row would come back skewed", async () => {
+    renderWithProviders(<WavePage />);
+    expect(await screen.findByText(/come back 22° skewed at 15°/)).toBeInTheDocument();
   });
 });

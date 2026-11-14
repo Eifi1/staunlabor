@@ -10,7 +10,7 @@
  * others are listed so the overview can say what is coming.
  */
 
-export type Exhibit = "chair" | "coil" | "sphere" | "platform" | "race" | "elephant" | "smoke" | "cannon";
+export type Exhibit = "chair" | "coil" | "sphere" | "platform" | "race" | "elephant" | "smoke" | "cannon" | "wave";
 
 /** What an exhibit is about, as a reader would look for it: one word each,
  *  and an exhibit may be about two. */
@@ -91,6 +91,9 @@ export const EXHIBITS: readonly ExhibitEntry[] = [
     lessons: ["second_order", "numerics"],
     since: "2026-11-12",
   },
+  // Ships with the joint deploy; the day is set to that day when it goes out
+  // (`daily.ts`: a past `since` would redraw a round already under way).
+  { exhibit: "wave", path: "/wave", topics: ["oscillation"], lessons: ["second_order"], since: "2026-12-01" },
 ];
 
 export function exhibitEntry(exhibit: Exhibit): ExhibitEntry {

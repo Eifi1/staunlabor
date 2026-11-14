@@ -14,6 +14,7 @@ import {
   RotateCw,
   Timer,
   Torus,
+  Waves,
   Wind,
 } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
@@ -49,6 +50,7 @@ const ICON: Record<Exhibit, LucideIcon> = {
   elephant: Wind,
   smoke: Torus,
   cannon: ChevronsUp,
+  wave: Waves,
 };
 
 /** Two weeks back, in the dialog: long enough to find the one a friend

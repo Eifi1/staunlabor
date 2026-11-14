@@ -3,9 +3,9 @@
 Staunlabor is a site of hands-on exhibits, computed: each page lets the reader
 play the visitor in a simulation of the exhibit, then shows the computation
 behind what they felt, every number from the engine, `domain/experiments/`,
-and asserted in `tests/unit/test_experiments.py`. The eight exhibits are
-inspired by eight at the Swiss Science Center Technorama in Winterthur, which
-Marcel played with there. They were first built from 2026-11-07 as the
+and asserted in `tests/unit/test_experiments.py`. Each exhibit is inspired
+by one at the Swiss Science Center Technorama in Winterthur. The first eight,
+which Marcel played with there, were first built from 2026-11-07 as the
 "Experiments" area of an engineering app, Kurvenschmiede, and moved here on
 2026-11-13 (`docs/plan.md`). The overview credits the museum in one line
 ("inspired by exhibits at the Swiss Science Center Technorama, Winterthur"),
@@ -567,6 +567,75 @@ elastomer's real, speed-dependent damping.
 - the exhibit's forces and launch, the overlap of its contacts, and a gap that
   parts them and nearly reaches the sequential model;
 - the sequential model's closed form, and the stack turned over.
+
+## The pendulum (`experiments.pendulum`), the block the swinging ones stand on
+
+**Why a block** (Marcel, 2026-11-14, choosing the order of the next exhibits:
+all six of the plan's first stage, the shared pendulum first). The pendulum
+wave, the harmonograph, the coupled pendulums and Galileo's interrupted
+pendulum are each a plane pendulum with something added, so the pendulum is
+written once (`domain/experiments/pendulum.py`, ported to
+`simulate/pendulum.ts`) and answered two ways that check each other:
+
+- **exactly**, undamped and let go from rest: `sin(θ/2) = k·cd(ω₀t | k²)`,
+  `k = sin(θ₀/2)`, Jacobi's elliptic functions by the AGM (Abramowitz & Stegun
+  16.4), the argument taken modulo the period so a minute in is as exact as a
+  second; the period `T = T₀·2K(k²)/π`;
+- **stepped**, by classical Runge–Kutta over any system at a fixed step (1 ms),
+  for what has no closed form: damping, a peg, a spring between two pendulums.
+
+**Checked by** `tests/unit/test_experiments.py`: Jacobi's identities, its limits
+(sin and cos at `m = 0`, tanh and sech at `m = 1`) and its slope; `K(½)` from
+A&S's table (a swing to the horizontal takes 18 % longer than a small one) and
+the series `1 + θ₀²/16 + 11θ₀⁴/3072` for small swings; the exact pendulum
+against the stepped one to 10⁻⁷ degrees over ten seconds, at 5°, 60° and 150°;
+a minute in as exact as a second; a damped swing dying away as `e^(−ct/2)`.
+
+## The pendulum wave (`experiments.wave`)
+
+**The exhibit.** A row of pendulums, the longest at one end, each next a little
+shorter, let go together from a board: they swing together, pull apart into a
+wave, snakes, apparent chaos, two, three, four groups — and after a minute all
+swing in step again.
+
+**The model** (`domain/experiments/wave.py`). No pendulum knows of the others;
+the pattern is in the lengths. The `n`-th swings `N + n` times in the cycle `Γ`,
+so its period is `Γ/(N + n)`; after `Γ` all are back, at `Γ/k` they stand in
+`k` groups. The default row is fifteen pendulums, `Γ` a minute, `N = 51`: from
+34 cm to 21 cm.
+
+**What the textbook leaves out**, and the page shows: a wider swing takes
+longer (1.7 % at 30°), so a row is tuned for one swing. Here the lengths are
+the exact ones for `tuned_deg` (15°), and a release wider *or narrower* comes
+back skewed — every pendulum off by nearly the same share, which after a cycle
+is the most degrees for the short ones. The skew after a cycle (the largest lag
+less the smallest, in degrees of a swing) is 22° let go at 0°, nil at 15°, 65°
+at 30°; tuned by the small swing's formula, the default row let go at 15° comes
+back 22° skewed.
+
+**The page.** The row from above (the waves and snakes) and from its end (the
+lengths fanning out), at true scale; a clock in real time, double or fivefold,
+and buttons to stop at ½, ⅓, ¼ and the whole cycle — the exact pendulum is
+answered for any instant, so a jump costs nothing; the release swing in the
+play, the count, cycle, `N` and the tuning in "Change the exhibit"; the skew
+over the release swing as the trick's chart. `POST /experiments/wave` answers
+the lengths, each pendulum's lag and the skew curve; the browser tunes the row
+itself (`simulate/wave.ts`) so a slider moves the drawing at once. The preview
+runs at double speed.
+
+**Left out, and said:** air and the pivots' friction, which in a real row damp
+the swing over minutes and so slowly change its period too; the bobs' size; a
+string that stretches.
+
+**Checked by** `tests/unit/test_experiments.py`: each pendulum swings its whole
+number in a cycle; let go at the tuned swing the row is together after `Γ`
+(to 10⁻⁶ degrees) and at `Γ/2` stands at ±15°, even and odd; at `Γ/3` three
+groups in two angles; the skew curve's numbers above and its two sides; the
+short ones fall behind the most.
+
+**Joins the experiment of the day** on its `since` in `exhibits.ts`, set to
+2026-12-01 as a placeholder: the pendulum exhibits ship with the joint deploy
+(accounts and the kits), and `since` is set to that day when they go out.
 
 ## Checking the mathematics
 

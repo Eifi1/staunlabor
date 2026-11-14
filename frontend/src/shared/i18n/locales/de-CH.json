@@ -175,6 +175,12 @@
         "title": "Die Kugelkanone",
         "summary": "Drei Kugeln, aufeinander auf einen Draht gefädelt, fallen gelassen – und die kleine oben schiesst weit höher hinauf, als sie gefallen ist.",
         "question": "Wie hoch fliegt die kleine Kugel, wenn der Stapel aus einem Meter fällt?"
+      },
+      "wave": {
+        "short": "Pendelwelle",
+        "title": "Die Pendelwelle",
+        "summary": "Fünfzehn Pendel, zugleich losgelassen, laufen auseinander, bilden Wellen und Gruppen – und schwingen nach einer Minute wieder im Gleichtakt.",
+        "question": "Wann schwingen fünfzehn verschieden lange Pendel, gemeinsam losgelassen, wieder alle im Gleichtakt?"
       }
     },
     "chair": {
@@ -982,6 +988,98 @@
         "flip": "Drehen Sie den Stapel um, und nichts fliegt: Eine leichte Kugel unten kann keine schwere nach oben stossen.",
         "name": "Warum Kanone: Physikbücher nennen den Versuch «galileische Kanone», weil die kleine Kugel senkrecht aus dem Stapel geschossen wird wie aus einem Rohr. Seitwärts wird nichts abgefeuert.",
         "assumed": "Angenommen sind: volle Kugeln von 1100 kg/m³, die Steifigkeit des Elastomers und wie elastisch es ist, Kontakte nach Hertz mit einer Dämpfung, die einen festen Anteil der Annäherungsgeschwindigkeit zurückgibt, und ein starrer Boden. Die Reibung am Draht und der Drall der Kugeln sind weggelassen."
+      }
+    },
+    "wave": {
+      "at": {
+        "row": "Eine Reihe von Pendeln hängt an einer Stange, das längste an einem Ende, jedes nächste ein wenig kürzer. Ein Brett lenkt alle gleich weit aus und gibt sie zugleich frei.",
+        "pattern": "Erst schwingen sie gemeinsam, dann zieht sich die Reihe zu einer Welle auseinander, zu Schlangen, zu scheinbarem Durcheinander, zu zwei, drei, vier Gruppen – und nach einer Minute schwingen alle wieder im Gleichtakt, als wäre nichts gewesen."
+      },
+      "play": {
+        "title": "Die Reihe schwingen lassen",
+        "hint": "Die Uhr läuft. Springen Sie zu einem Bruchteil des Zyklus, oder ändern Sie, wie weit die Pendel losgelassen werden.",
+        "pause": "Anhalten",
+        "run": "Weiter",
+        "restart": "Von vorn",
+        "speed": "Tempo",
+        "speeds": {
+          "1": "Echtzeit",
+          "2": "Doppelt",
+          "5": "Fünffach"
+        },
+        "jump": "Springen zu:",
+        "jumps": {
+          "2": "½ Zyklus",
+          "3": "⅓ Zyklus",
+          "4": "¼ Zyklus",
+          "1": "Ganzer Zyklus"
+        },
+        "amplitude": "Ausschlag beim Loslassen",
+        "amplitude_hint": "Die Längen sind auf {{tuned}}° abgestimmt. Weiter oder weniger weit losgelassen, finden die Pendel nach einem Zyklus nicht mehr ganz zusammen.",
+        "time": "Zeit",
+        "cycles": "Zyklen",
+        "spread": "Versatz nach einem Zyklus"
+      },
+      "views": {
+        "top": "Die Pendelreihe von oben: jede Kugel so weit ausgelenkt, wie sie gerade schwingt",
+        "side": "Die Pendelreihe vom Ende her: alle Pendel hängen hintereinander an derselben Stange",
+        "top_caption": "Von oben",
+        "side_caption": "Vom Ende der Reihe"
+      },
+      "change": {
+        "title": "Das Exponat verändern",
+        "hint": "Die Längen folgen aus dem Zyklus, aus den Schwingungen des längsten Pendels und aus dem Ausschlag, auf den abgestimmt wird. Jede Änderung beginnt von vorn.",
+        "count": "Zahl der Pendel",
+        "cycle": "Zyklus Γ",
+        "cycle_hint": "Nach dieser Zeit schwingen alle wieder im Gleichtakt.",
+        "swings": "Schwingungen des längsten Pendels in Γ",
+        "swings_hint": "Jedes nächste Pendel schwingt in derselben Zeit einmal mehr.",
+        "tuned": "Abgestimmt auf",
+        "tuned_hint": "Der Ausschlag, für den die Längen berechnet sind. 0° ist die Lehrbuchformel für kleine Ausschläge."
+      },
+      "figures": {
+        "longest": "Längstes Pendel",
+        "shortest": "Kürzestes Pendel",
+        "period": "Periode des längsten",
+        "spread": "Versatz nach einem Zyklus",
+        "textbook": "Versatz mit der Lehrbuchformel"
+      },
+      "model": {
+        "intro": "Kein Pendel weiss vom anderen. Jedes schwingt für sich, und das ganze Muster steckt in den Längen.",
+        "period": "Die Periode eines Pendels mit kleinem Ausschlag hängt nur von seiner Länge ab: viermal so lang, halb so schnell.",
+        "tuning": "Die Längen sind so gewählt, dass das längste Pendel im Zyklus Γ genau N-mal schwingt, das nächste N + 1-mal, das n-te N + n-mal. Nach Γ hat jedes eine ganze Zahl von Schwingungen hinter sich, und alle stehen wieder dort, wo sie losgelassen wurden.",
+        "groups": "Nach einem k-tel des Zyklus hat das n-te Pendel (N + n)/k Schwingungen gemacht. Bei k = 2 ist das für die eine Hälfte eine ganze Zahl, für die andere eine halbe mehr: zwei Gruppen, einander gegenüber. Bei k = 3 drei Gruppen, bei k = 4 vier. Die Wellen und Schlangen dazwischen sind dasselbe zu Zeiten, die Γ weniger glatt teilen.",
+        "wider": "Was die Lehrbuchformel weglässt: Ein weiterer Ausschlag dauert länger, bei 30° um 1,7 %. Darum ist die Reihe hier mit der genauen Periode auf einen Ausschlag abgestimmt."
+      },
+      "symbols": {
+        "t0": "Periode bei kleinem Ausschlag",
+        "length": "Länge des Pendels, vom Aufhängepunkt bis zur Mitte der Kugel",
+        "g": "Fallbeschleunigung, 9,81 m/s²",
+        "tn": "Periode des n-ten Pendels",
+        "cycle": "der Zyklus: die Zeit, bis alle wieder im Gleichtakt schwingen",
+        "swings": "Schwingungen des längsten Pendels in Γ",
+        "index": "die Nummer des Pendels, vom längsten an gezählt: 0, 1, 2, …",
+        "k": "der Bruchteil des Zyklus: Γ/k",
+        "theta0": "der Ausschlag beim Loslassen",
+        "k_integral": "das vollständige elliptische Integral erster Art"
+      },
+      "sweet": {
+        "alone": "Der Trick ist, dass es keinen gibt: Keine Feder, kein Faden, kein Takt verbindet die Pendel. Das Muster ist nur die Folge abgestimmter Längen – und darum genau so gut wie diese Abstimmung.",
+        "tuned": "Diese Reihe ist auf {{tuned}}° abgestimmt. Lassen Sie sie weiter oder weniger weit los, ist jedes Pendel um fast denselben Anteil zu langsam oder zu schnell. Nach einem Zyklus macht das bei den kurzen, die mehr Schwingungen hinter sich haben, die meisten Grade aus: Die Reihe kommt schief zurück. Gemessen wird der Versatz in Grad einer Schwingung, 360° sind eine ganze. Mit der Lehrbuchformel für kleine Ausschläge abgestimmt, käme die Reihe bei {{amplitude}}° um {{textbook}}° versetzt zurück."
+      },
+      "chart": {
+        "spread": "Versatz nach einem Zyklus",
+        "amplitude": "Ausschlag beim Loslassen",
+        "you": "Sie"
+      },
+      "computed": {
+        "system": "Jedes Pendel ist eine einzige Gleichung zweiter Ordnung, die des ebenen Pendels ohne Reibung, losgelassen aus der Ruhe.",
+        "theta": "der Ausschlag",
+        "theta_dd": "seine Winkelbeschleunigung",
+        "exact": "Sie hat eine exakte Lösung mit Jacobis elliptischen Funktionen. Die Seite rechnet für jedes Bild jedes Pendel direkt aus der Zeit, ohne Schritt für Schritt dorthin zu gehen – darum kann sie zu jedem Moment des Zyklus springen. Zur Kontrolle löst der Rechenkern dieselbe Gleichung Schritt für Schritt mit dem Runge-Kutta-Verfahren; beide stimmen auf ein Zehnmillionstel Grad überein.",
+        "cd": "Jacobis elliptische Funktion cn/dn",
+        "omega0": "die Kreisfrequenz kleiner Schwingungen",
+        "t": "die Zeit seit dem Loslassen"
       }
     }
   }

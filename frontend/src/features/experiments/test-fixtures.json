@@ -95,6 +95,14 @@
       "ball_restitution": 0.85,
       "youngs_mpa": 3.0
     },
+    "wave": {
+      "count": 15,
+      "cycle_s": 60.0,
+      "longest_swings": 51,
+      "tuned_deg": 15.0,
+      "amplitude_deg": 15.0,
+      "spacing_m": 0.05
+    },
     "meter_range_a": 0.1,
     "settle_s": 0.15
   },
@@ -20399,5 +20407,226 @@
         ]
       ]
     }
+  },
+  "wave": {
+    "pendulums": [
+      {
+        "swings": 51,
+        "length_m": 0.3408754004436539,
+        "small_period_s": 1.171432748952036,
+        "period_s": 1.1764705882352942,
+        "lag_deg": 0.0
+      },
+      {
+        "swings": 52,
+        "length_m": 0.3278908715066358,
+        "small_period_s": 1.1489051960875734,
+        "period_s": 1.1538461538461535,
+        "lag_deg": -5.115907697472721e-12
+      },
+      {
+        "swings": 53,
+        "length_m": 0.3156343597557649,
+        "small_period_s": 1.1272277395576196,
+        "period_s": 1.1320754716981132,
+        "lag_deg": 0.0
+      },
+      {
+        "swings": 54,
+        "length_m": 0.3040524405191851,
+        "small_period_s": 1.106353151788034,
+        "period_s": 1.1111111111111112,
+        "lag_deg": 0.0
+      },
+      {
+        "swings": 55,
+        "length_m": 0.29309650134014653,
+        "small_period_s": 1.0862376399373423,
+        "period_s": 1.0909090909090908,
+        "lag_deg": -2.5579538487363607e-12
+      },
+      {
+        "swings": 56,
+        "length_m": 0.2827222310439871,
+        "small_period_s": 1.0668405392241758,
+        "period_s": 1.0714285714285716,
+        "lag_deg": 2.5579538487363607e-12
+      },
+      {
+        "swings": 57,
+        "length_m": 0.27288917099228793,
+        "small_period_s": 1.0481240385360322,
+        "period_s": 1.0526315789473684,
+        "lag_deg": 0.0
+      },
+      {
+        "swings": 58,
+        "length_m": 0.26356032002198093,
+        "small_period_s": 1.030052934423342,
+        "period_s": 1.0344827586206897,
+        "lag_deg": 2.5579538487363607e-12
+      },
+      {
+        "swings": 59,
+        "length_m": 0.25470178585289965,
+        "small_period_s": 1.0125944101110822,
+        "period_s": 1.016949152542373,
+        "lag_deg": 2.5579538487363607e-12
+      },
+      {
+        "swings": 60,
+        "length_m": 0.24628247682053991,
+        "small_period_s": 0.9957178366092306,
+        "period_s": 1.0,
+        "lag_deg": 0.0
+      },
+      {
+        "swings": 61,
+        "length_m": 0.2382738286895844,
+        "small_period_s": 0.9793945933861283,
+        "period_s": 0.983606557377049,
+        "lag_deg": -2.5579538487363607e-12
+      },
+      {
+        "swings": 62,
+        "length_m": 0.23064956205877823,
+        "small_period_s": 0.9635979063960296,
+        "period_s": 0.967741935483871,
+        "lag_deg": 0.0
+      },
+      {
+        "swings": 63,
+        "length_m": 0.223385466503891,
+        "small_period_s": 0.9483027015326004,
+        "period_s": 0.9523809523809523,
+        "lag_deg": 0.0
+      },
+      {
+        "swings": 64,
+        "length_m": 0.21645920814305256,
+        "small_period_s": 0.9334854718211535,
+        "period_s": 0.9374999999999999,
+        "lag_deg": -5.115907697472721e-12
+      },
+      {
+        "swings": 65,
+        "length_m": 0.20985015776424698,
+        "small_period_s": 0.919124156870059,
+        "period_s": 0.9230769230769231,
+        "lag_deg": 0.0
+      }
+    ],
+    "longest_m": 0.3408754004436539,
+    "shortest_m": 0.20985015776424698,
+    "spread_deg": 7.673861546209082e-12,
+    "spread_curve": [
+      {
+        "amplitude_deg": 0.0,
+        "spread_deg": 21.674919034261677
+      },
+      {
+        "amplitude_deg": 2.0,
+        "spread_deg": 21.28945289182866
+      },
+      {
+        "amplitude_deg": 4.0,
+        "spread_deg": 20.133083802490148
+      },
+      {
+        "amplitude_deg": 6.0,
+        "spread_deg": 18.20589967721361
+      },
+      {
+        "amplitude_deg": 8.0,
+        "spread_deg": 15.50804669069123
+      },
+      {
+        "amplitude_deg": 10.0,
+        "spread_deg": 12.039728764505355
+      },
+      {
+        "amplitude_deg": 12.0,
+        "spread_deg": 7.801206840485406
+      },
+      {
+        "amplitude_deg": 14.0,
+        "spread_deg": 2.792797941227718
+      },
+      {
+        "amplitude_deg": 16.0,
+        "spread_deg": 2.985125986189132
+      },
+      {
+        "amplitude_deg": 18.0,
+        "spread_deg": 9.532139448245687
+      },
+      {
+        "amplitude_deg": 20.0,
+        "spread_deg": 16.84776501072946
+      },
+      {
+        "amplitude_deg": 22.0,
+        "spread_deg": 24.93147513909321
+      },
+      {
+        "amplitude_deg": 24.0,
+        "spread_deg": 33.782694281670445
+      },
+      {
+        "amplitude_deg": 26.0,
+        "spread_deg": 43.40080120483918
+      },
+      {
+        "amplitude_deg": 28.0,
+        "spread_deg": 53.785131590787785
+      },
+      {
+        "amplitude_deg": 30.0,
+        "spread_deg": 64.93498090979784
+      },
+      {
+        "amplitude_deg": 32.0,
+        "spread_deg": 76.84960758037107
+      },
+      {
+        "amplitude_deg": 34.0,
+        "spread_deg": 89.5282364322
+      },
+      {
+        "amplitude_deg": 36.0,
+        "spread_deg": 102.97006248876784
+      },
+      {
+        "amplitude_deg": 38.0,
+        "spread_deg": 117.17425508816086
+      },
+      {
+        "amplitude_deg": 40.0,
+        "spread_deg": 132.13996236284652
+      }
+    ],
+    "textbook_spread_deg": 21.58210348947705,
+    "groups": [
+      {
+        "fraction": 2,
+        "time_s": 30.0,
+        "groups": 2
+      },
+      {
+        "fraction": 3,
+        "time_s": 20.0,
+        "groups": 3
+      },
+      {
+        "fraction": 4,
+        "time_s": 15.0,
+        "groups": 4
+      },
+      {
+        "fraction": 5,
+        "time_s": 12.0,
+        "groups": 5
+      }
+    ]
   }
 }

@@ -16,7 +16,7 @@ document it points to.
 
 ## What this is
 
-**Staunlabor** (staunlabor.app): hands-on exhibits, computed. Eight exhibits,
+**Staunlabor** (staunlabor.app): hands-on exhibits, computed. The exhibits,
 each a page in one shape (at the exhibit, try it, what happens, how it is
 computed, the trick), and an overview with the experiment of the day. Free,
 open source (code MIT, texts and drawings CC BY 4.0), **no accounts, no

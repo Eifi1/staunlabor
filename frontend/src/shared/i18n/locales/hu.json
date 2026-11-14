@@ -175,6 +175,12 @@
         "title": "A labdaágyú",
         "summary": "Ejtsen le három, egy huzalon egymásra rakott labdát, és a tetején lévő kicsi sokkal magasabbra repül fel, mint ahonnan leesett.",
         "question": "Milyen magasra repül a kis labda, ha a labdaoszlop egy méter magasból esik le?"
+      },
+      "wave": {
+        "short": "Ingahullám",
+        "title": "Az ingahullám",
+        "summary": "Tizenöt egyszerre elengedett inga szétválik, hullámokat és csoportokat formál – és egy perc múlva ismét egy ütemben leng.",
+        "question": "Mikor lengenek ismét mind egy ütemben a különböző hosszúságú, egyszerre elengedett tizenöt inga?"
       }
     },
     "chair": {
@@ -982,6 +988,98 @@
         "flip": "Fordítsa meg az oszlopot, és semmi sem repül: egy alul lévő könnyű labda nem tud felfelé lökni egy nehezet.",
         "name": "Miért ágyú: a fizikakönyvek Galilei-ágyúnak nevezik, mert a kis labdát az oszlop függőlegesen felfelé lövi ki, mintha egy ágyúcsőből. Oldalra semmit sem lő ki.",
         "assumed": "Amit feltételezünk: tömör, 1100 kg/m³ sűrűségű labdák, az elasztomer merevsége és rugalmassága, Hertz törvényét követő érintkezések olyan csillapítással, amely a közeledési sebesség rögzített hányadát adja vissza, valamint merev padló. A huzalon fellépő súrlódást és a labdák pörgését kihagytuk."
+      }
+    },
+    "wave": {
+      "at": {
+        "row": "Egy rúdon ingák sora lóg, a leghosszabb az egyik végén, a következők mind kicsit rövidebbek. Egy deszka mindet egyformán kitéríti, és egyszerre elengedi.",
+        "pattern": "Először együtt lengenek, aztán a sor hullámmá, kígyókká, látszólagos káosszá, két, három, négy csoporttá húzódik szét – és egy perc múlva ismét mind egy ütemben lengenek, mintha mi sem történt volna."
+      },
+      "play": {
+        "title": "Hagyja lengeni a sort",
+        "hint": "Az óra jár. Ugorjon a ciklus egy törtrészére, vagy változtassa meg, milyen messziről engedik el az ingákat.",
+        "pause": "Szünet",
+        "run": "Tovább",
+        "restart": "Elölről",
+        "speed": "Tempó",
+        "speeds": {
+          "1": "Valós idő",
+          "2": "Kétszeres",
+          "5": "Ötszörös"
+        },
+        "jump": "Ugrás ide:",
+        "jumps": {
+          "2": "½ ciklus",
+          "3": "⅓ ciklus",
+          "4": "¼ ciklus",
+          "1": "Egész ciklus"
+        },
+        "amplitude": "Kitérés elengedéskor",
+        "amplitude_hint": "A hosszak {{tuned}}°-ra vannak hangolva. Ennél messzebbről vagy közelebbről elengedve az ingák egy ciklus után már nem találkoznak egészen.",
+        "time": "Idő",
+        "cycles": "Ciklusok",
+        "spread": "Elcsúszás egy ciklus után"
+      },
+      "views": {
+        "top": "Az ingasor felülről: minden golyó annyira kitérítve, amennyire éppen leng",
+        "side": "Az ingasor a végéről: mind egymás mögött lóg ugyanazon a rúdon",
+        "top_caption": "Felülről",
+        "side_caption": "A sor végéről"
+      },
+      "change": {
+        "title": "A kiállítási tárgy módosítása",
+        "hint": "A hosszak a ciklusból, a leghosszabb inga lengéseinek számából és abból a kitérésből adódnak, amelyre hangolnak. Minden változtatás elölről kezdi.",
+        "count": "Ingák száma",
+        "cycle": "Γ ciklus",
+        "cycle_hint": "Ennyi idő után mind ismét egy ütemben leng.",
+        "swings": "A leghosszabb inga lengései Γ alatt",
+        "swings_hint": "Minden következő inga ugyanannyi idő alatt eggyel többet leng.",
+        "tuned": "Hangolva erre",
+        "tuned_hint": "A kitérés, amelyre a hosszakat számolják. 0° a tankönyvi képlet kis kitérésekre."
+      },
+      "figures": {
+        "longest": "Leghosszabb inga",
+        "shortest": "Legrövidebb inga",
+        "period": "A leghosszabb periódusa",
+        "spread": "Elcsúszás egy ciklus után",
+        "textbook": "Elcsúszás a tankönyvi képlettel"
+      },
+      "model": {
+        "intro": "Egyik inga sem tud a többiről. Mindegyik a maga módján leng, és az egész minta a hosszakban rejlik.",
+        "period": "A kicsit lengő inga periódusa csak a hosszától függ: négyszer olyan hosszú, feleannyira gyors.",
+        "tuning": "A hosszakat úgy választják, hogy a Γ ciklus alatt a leghosszabb inga pontosan N-szer lengjen, a következő N + 1-szer, az n-edik N + n-szer. Γ után mindegyik egész számú lengést tett meg, és mind ott áll, ahol elengedték.",
+        "groups": "A ciklus k-ad része után az n-edik inga (N + n)/k lengést tett meg. k = 2 esetén ez az egyik felüknél egész szám, a másiknál fél lengéssel több: két csoport, egymással szemben. k = 3 esetén három csoport, k = 4 esetén négy. A közbeeső hullámok és kígyók ugyanezek olyan pillanatokban, amelyek Γ-t kevésbé szépen osztják.",
+        "wider": "Amit a tankönyvi képlet kihagy: a szélesebb lengés tovább tart, 30°-nál 1,7 %-kal. Ezért itt a sort a pontos periódussal hangolják egy kitérésre."
+      },
+      "symbols": {
+        "t0": "kis lengés periódusa",
+        "length": "az inga hossza, a felfüggesztési ponttól a golyó közepéig",
+        "g": "nehézségi gyorsulás, 9,81 m/s²",
+        "tn": "az n-edik inga periódusa",
+        "cycle": "a ciklus: az idő, amíg mind ismét egy ütemben leng",
+        "swings": "a leghosszabb inga lengései Γ alatt",
+        "index": "az inga sorszáma a leghosszabbtól számolva: 0, 1, 2, …",
+        "k": "a ciklus törtrésze: Γ/k",
+        "theta0": "a kitérés elengedéskor",
+        "k_integral": "az elsőfajú teljes elliptikus integrál"
+      },
+      "sweet": {
+        "alone": "A trükk az, hogy nincs trükk: semmilyen rugó, fonal vagy ütem nem köti össze az ingákat. A minta csak a hangolt hosszak következménye – és ezért pontosan olyan jó, mint ez a hangolás.",
+        "tuned": "Ez a sor {{tuned}}°-ra van hangolva. Ha messzebbről vagy közelebbről engedi el, minden inga majdnem ugyanolyan arányban lassabb vagy gyorsabb. Egy ciklus után ez a rövideknél teszi ki a legtöbb fokot, mert több lengés van mögöttük: a sor ferdén tér vissza. Az elcsúszást egy lengés fokaiban mérik, 360° egy teljes lengés. A kis kitérésekre szóló tankönyvi képlettel hangolva a sor {{amplitude}}°-nál {{textbook}}°-os elcsúszással térne vissza."
+      },
+      "chart": {
+        "spread": "Elcsúszás egy ciklus után",
+        "amplitude": "Kitérés elengedéskor",
+        "you": "Ön"
+      },
+      "computed": {
+        "system": "Minden inga egyetlen másodrendű egyenlet, a súrlódás nélküli síkinga egyenlete, nyugalomból elengedve.",
+        "theta": "a kitérés szöge",
+        "theta_dd": "a szöggyorsulása",
+        "exact": "Ennek pontos megoldása van Jacobi elliptikus függvényeivel. Az oldal minden képkockánál minden ingát közvetlenül az időből számol, lépésről lépésre haladás nélkül – ezért ugorhat a ciklus bármely pillanatára. Ellenőrzésként a számítómag ugyanezt az egyenletet lépésenként, a Runge–Kutta-módszerrel is megoldja; a kettő egy fok tízmilliomod részéig egyezik.",
+        "cd": "Jacobi cn/dn elliptikus függvénye",
+        "omega0": "a kis lengések körfrekvenciája",
+        "t": "az elengedés óta eltelt idő"
       }
     }
   }

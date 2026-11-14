@@ -17,6 +17,7 @@ export const experimentsApi = {
     api.post<Exp.ElephantFigures>("/experiments/elephant", body).then((r) => r.data),
   smoke: (body: Exp.SmokeExhibitRequest) => api.post<Exp.SmokeFigures>("/experiments/smoke", body).then((r) => r.data),
   cannon: (body: Exp.BallStackRequest) => api.post<Exp.CannonFigures>("/experiments/cannon", body).then((r) => r.data),
+  wave: (body: Exp.WaveRequest) => api.post<Exp.WaveFigures>("/experiments/wave", body).then((r) => r.data),
 };
 
 /** The query keys, one place, so a key and its invalidation cannot drift. */

@@ -175,6 +175,12 @@
         "title": "The ball cannon",
         "summary": "Drop three balls stacked on a wire, and the small one on top shoots up far higher than it fell.",
         "question": "How high does the small ball fly when the stack falls from one metre?"
+      },
+      "wave": {
+        "short": "Pendulum wave",
+        "title": "The pendulum wave",
+        "summary": "Fifteen pendulums let go together drift apart, make waves and groups – and after a minute swing in step again.",
+        "question": "When do fifteen pendulums of different lengths, let go together, all swing in step again?"
       }
     },
     "chair": {
@@ -982,6 +988,98 @@
         "flip": "Turn the stack over and nothing flies: a light ball at the bottom cannot push a heavy one up.",
         "name": "Why a cannon: physics books call it the Galilean cannon, because the small ball is shot straight up out of the stack as if out of a barrel. Nothing in it is fired sideways.",
         "assumed": "What is assumed: solid balls of 1100 kg/m³, the elastomer's stiffness and how springy it is, contacts that follow Hertz's law with damping that gives back a fixed share of the closing speed, a rigid floor. The wire's friction and the balls' spin are left out."
+      }
+    },
+    "wave": {
+      "at": {
+        "row": "A row of pendulums hangs from a bar, the longest at one end, each next one a little shorter. A board holds them all out equally far and lets them go together.",
+        "pattern": "At first they swing together, then the row pulls apart into a wave, into snakes, into apparent chaos, into two, three, four groups – and after a minute they all swing in step again, as if nothing had happened."
+      },
+      "play": {
+        "title": "Let the row swing",
+        "hint": "The clock is running. Jump to a fraction of the cycle, or change how far the pendulums are let go from.",
+        "pause": "Pause",
+        "run": "Run",
+        "restart": "From the start",
+        "speed": "Speed",
+        "speeds": {
+          "1": "Real time",
+          "2": "Double",
+          "5": "Fivefold"
+        },
+        "jump": "Jump to:",
+        "jumps": {
+          "2": "½ cycle",
+          "3": "⅓ cycle",
+          "4": "¼ cycle",
+          "1": "Whole cycle"
+        },
+        "amplitude": "Swing when let go",
+        "amplitude_hint": "The lengths are tuned for {{tuned}}°. Let go wider or narrower, the pendulums no longer quite meet again after a cycle.",
+        "time": "Time",
+        "cycles": "Cycles",
+        "spread": "Skew after one cycle"
+      },
+      "views": {
+        "top": "The row of pendulums from above: each bob as far out as it is swinging",
+        "side": "The row of pendulums from its end: all of them hang one behind the other from the same bar",
+        "top_caption": "From above",
+        "side_caption": "From the end of the row"
+      },
+      "change": {
+        "title": "Change the exhibit",
+        "hint": "The lengths follow from the cycle, from the swings of the longest pendulum and from the swing they are tuned for. Every change starts again.",
+        "count": "Number of pendulums",
+        "cycle": "Cycle Γ",
+        "cycle_hint": "After this time they all swing in step again.",
+        "swings": "Swings of the longest pendulum in Γ",
+        "swings_hint": "Each next pendulum swings once more in the same time.",
+        "tuned": "Tuned for",
+        "tuned_hint": "The swing the lengths are computed for. 0° is the textbook formula for small swings."
+      },
+      "figures": {
+        "longest": "Longest pendulum",
+        "shortest": "Shortest pendulum",
+        "period": "Period of the longest",
+        "spread": "Skew after one cycle",
+        "textbook": "Skew with the textbook formula"
+      },
+      "model": {
+        "intro": "No pendulum knows of the others. Each swings on its own, and the whole pattern is in the lengths.",
+        "period": "The period of a pendulum swinging a little depends on its length alone: four times as long, half as fast.",
+        "tuning": "The lengths are chosen so that in the cycle Γ the longest pendulum swings exactly N times, the next N + 1 times, the n-th N + n times. After Γ each has a whole number of swings behind it, and all stand where they were let go.",
+        "groups": "After a k-th of the cycle the n-th pendulum has made (N + n)/k swings. For k = 2 that is a whole number for one half of them and a half more for the other: two groups, opposite each other. For k = 3 three groups, for k = 4 four. The waves and snakes in between are the same at times that divide Γ less neatly.",
+        "wider": "What the textbook formula leaves out: a wider swing takes longer, by 1.7 % at 30°. So the row here is tuned for one swing with the exact period."
+      },
+      "symbols": {
+        "t0": "period of a small swing",
+        "length": "length of the pendulum, from the pivot to the middle of the bob",
+        "g": "gravitational acceleration, 9.81 m/s²",
+        "tn": "period of the n-th pendulum",
+        "cycle": "the cycle: the time until all swing in step again",
+        "swings": "swings of the longest pendulum in Γ",
+        "index": "the pendulum's number, counted from the longest: 0, 1, 2, …",
+        "k": "the fraction of the cycle: Γ/k",
+        "theta0": "the swing when let go",
+        "k_integral": "the complete elliptic integral of the first kind"
+      },
+      "sweet": {
+        "alone": "The trick is that there is none: no spring, no thread, no beat links the pendulums. The pattern is only what tuned lengths do – and so exactly as good as that tuning.",
+        "tuned": "This row is tuned for {{tuned}}°. Let it go wider or narrower and every pendulum is slow or fast by nearly the same share. After a cycle that comes to the most degrees for the short ones, which have more swings behind them: the row comes back skewed. The skew is measured in degrees of a swing, 360° being a whole one. Tuned by the textbook formula for small swings, the row would come back {{textbook}}° skewed at {{amplitude}}°."
+      },
+      "chart": {
+        "spread": "Skew after one cycle",
+        "amplitude": "Swing when let go",
+        "you": "You"
+      },
+      "computed": {
+        "system": "Each pendulum is one second-order equation, the plane pendulum's without friction, let go from rest.",
+        "theta": "the angle of the swing",
+        "theta_dd": "its angular acceleration",
+        "exact": "It has an exact solution in Jacobi's elliptic functions. For every frame the page computes every pendulum straight from the time, without stepping there – which is why it can jump to any moment of the cycle. As a check the engine solves the same equation step by step with the Runge–Kutta method; the two agree to a ten-millionth of a degree.",
+        "cd": "Jacobi's elliptic function cn/dn",
+        "omega0": "the angular frequency of small swings",
+        "t": "the time since letting go"
       }
     }
   }

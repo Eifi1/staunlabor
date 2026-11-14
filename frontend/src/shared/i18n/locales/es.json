@@ -175,6 +175,12 @@
         "title": "El cañón de pelotas",
         "summary": "Deje caer tres pelotas apiladas en un alambre, y la pequeña de arriba sale disparada mucho más alto de lo que cayó.",
         "question": "¿Qué altura alcanza la pelota pequeña cuando la pila cae desde un metro?"
+      },
+      "wave": {
+        "short": "Onda de péndulos",
+        "title": "La onda de péndulos",
+        "summary": "Quince péndulos soltados a la vez se separan, forman ondas y grupos – y al cabo de un minuto vuelven a oscilar al unísono.",
+        "question": "¿Cuándo vuelven a oscilar al unísono quince péndulos de distinta longitud soltados a la vez?"
       }
     },
     "chair": {
@@ -982,6 +988,98 @@
         "flip": "Dé la vuelta a la pila y nada sale volando: una pelota ligera abajo no puede empujar hacia arriba a una pesada.",
         "name": "Por qué un cañón: los libros de física lo llaman el cañón de Galileo, porque la pelota pequeña sale disparada de la pila en vertical hacia arriba, como de un tubo. Nada sale disparado hacia los lados.",
         "assumed": "Lo que se supone: pelotas macizas de 1100 kg/m³, la rigidez del elastómero y lo elástico que es, contactos que siguen la ley de Hertz con un amortiguamiento que devuelve una fracción fija de la velocidad de aproximación, y un suelo rígido. Se dejan fuera el rozamiento con el alambre y el giro de las pelotas."
+      }
+    },
+    "wave": {
+      "at": {
+        "row": "Una fila de péndulos cuelga de una barra, el más largo en un extremo y cada uno de los siguientes un poco más corto. Una tabla los aparta a todos por igual y los suelta a la vez.",
+        "pattern": "Primero oscilan juntos; luego la fila se abre en una onda, en serpientes, en un aparente caos, en dos, tres, cuatro grupos – y al cabo de un minuto todos vuelven a oscilar al unísono, como si nada hubiera pasado."
+      },
+      "play": {
+        "title": "Deje oscilar la fila",
+        "hint": "El reloj corre. Salte a una fracción del ciclo o cambie desde dónde se sueltan los péndulos.",
+        "pause": "Pausa",
+        "run": "Seguir",
+        "restart": "Desde el principio",
+        "speed": "Velocidad",
+        "speeds": {
+          "1": "Tiempo real",
+          "2": "Doble",
+          "5": "Quíntuple"
+        },
+        "jump": "Saltar a:",
+        "jumps": {
+          "2": "½ ciclo",
+          "3": "⅓ ciclo",
+          "4": "¼ ciclo",
+          "1": "Ciclo entero"
+        },
+        "amplitude": "Amplitud al soltar",
+        "amplitude_hint": "Las longitudes están afinadas para {{tuned}}°. Si se sueltan más o menos lejos, los péndulos ya no vuelven a coincidir del todo tras un ciclo.",
+        "time": "Tiempo",
+        "cycles": "Ciclos",
+        "spread": "Desfase tras un ciclo"
+      },
+      "views": {
+        "top": "La fila de péndulos vista desde arriba: cada bola tan apartada como oscila en este momento",
+        "side": "La fila de péndulos vista desde un extremo: todos cuelgan uno detrás de otro de la misma barra",
+        "top_caption": "Desde arriba",
+        "side_caption": "Desde el extremo de la fila"
+      },
+      "change": {
+        "title": "Cambiar el objeto expuesto",
+        "hint": "Las longitudes resultan del ciclo, de las oscilaciones del péndulo más largo y de la amplitud para la que se afinan. Cada cambio empieza de nuevo.",
+        "count": "Número de péndulos",
+        "cycle": "Ciclo Γ",
+        "cycle_hint": "Tras este tiempo todos vuelven a oscilar al unísono.",
+        "swings": "Oscilaciones del péndulo más largo en Γ",
+        "swings_hint": "Cada péndulo siguiente oscila una vez más en el mismo tiempo.",
+        "tuned": "Afinado para",
+        "tuned_hint": "La amplitud para la que se calculan las longitudes. 0° es la fórmula de los libros para oscilaciones pequeñas."
+      },
+      "figures": {
+        "longest": "Péndulo más largo",
+        "shortest": "Péndulo más corto",
+        "period": "Periodo del más largo",
+        "spread": "Desfase tras un ciclo",
+        "textbook": "Desfase con la fórmula de los libros"
+      },
+      "model": {
+        "intro": "Ningún péndulo sabe de los demás. Cada uno oscila por su cuenta, y todo el patrón está en las longitudes.",
+        "period": "El periodo de un péndulo que oscila poco depende solo de su longitud: cuatro veces más largo, la mitad de rápido.",
+        "tuning": "Las longitudes se eligen de modo que en el ciclo Γ el péndulo más largo oscile exactamente N veces, el siguiente N + 1, el n-ésimo N + n. Tras Γ cada uno lleva un número entero de oscilaciones, y todos están donde se soltaron.",
+        "groups": "Tras una k-ésima parte del ciclo, el n-ésimo péndulo ha hecho (N + n)/k oscilaciones. Con k = 2 es un número entero para una mitad y media oscilación más para la otra: dos grupos, uno frente al otro. Con k = 3 tres grupos, con k = 4 cuatro. Las ondas y serpientes de en medio son lo mismo en momentos que dividen Γ de forma menos limpia.",
+        "wider": "Lo que omite la fórmula de los libros: una oscilación más amplia dura más, un 1,7 % a 30°. Por eso aquí la fila se afina para una amplitud con el periodo exacto."
+      },
+      "symbols": {
+        "t0": "periodo de una oscilación pequeña",
+        "length": "longitud del péndulo, del punto de suspensión al centro de la bola",
+        "g": "aceleración de la gravedad, 9,81 m/s²",
+        "tn": "periodo del n-ésimo péndulo",
+        "cycle": "el ciclo: el tiempo hasta que todos vuelven a oscilar al unísono",
+        "swings": "oscilaciones del péndulo más largo en Γ",
+        "index": "el número del péndulo, contado desde el más largo: 0, 1, 2, …",
+        "k": "la fracción del ciclo: Γ/k",
+        "theta0": "la amplitud al soltar",
+        "k_integral": "la integral elíptica completa de primera especie"
+      },
+      "sweet": {
+        "alone": "El truco es que no lo hay: ningún muelle, ningún hilo, ningún compás une los péndulos. El patrón es solo lo que hacen unas longitudes afinadas – y por eso es exactamente tan bueno como esa afinación.",
+        "tuned": "Esta fila está afinada para {{tuned}}°. Si la suelta más o menos lejos, cada péndulo va lento o rápido casi en la misma proporción. Tras un ciclo eso suma más grados en los cortos, que llevan más oscilaciones: la fila vuelve torcida. El desfase se mide en grados de una oscilación; 360° son una entera. Afinada con la fórmula de los libros para oscilaciones pequeñas, la fila volvería a {{amplitude}}° con un desfase de {{textbook}}°."
+      },
+      "chart": {
+        "spread": "Desfase tras un ciclo",
+        "amplitude": "Amplitud al soltar",
+        "you": "Usted"
+      },
+      "computed": {
+        "system": "Cada péndulo es una única ecuación de segundo orden, la del péndulo plano sin rozamiento, soltado desde el reposo.",
+        "theta": "el ángulo de la oscilación",
+        "theta_dd": "su aceleración angular",
+        "exact": "Tiene una solución exacta con las funciones elípticas de Jacobi. En cada imagen la página calcula cada péndulo directamente a partir del tiempo, sin ir paso a paso – por eso puede saltar a cualquier momento del ciclo. Como control, el motor resuelve la misma ecuación paso a paso con el método de Runge-Kutta; ambos coinciden hasta una diezmillonésima de grado.",
+        "cd": "la función elíptica de Jacobi cn/dn",
+        "omega0": "la frecuencia angular de las oscilaciones pequeñas",
+        "t": "el tiempo desde que se soltó"
       }
     }
   }

@@ -1,6 +1,10 @@
 """Write what the engine answers for the experiments' two simulations, so the
 browser can be held to it: `frontend/src/features/experiments/simulate/engine-cases.json`.
 
+The pendulum (`pendulum.py`, the block the swinging exhibits stand on) and the
+pendulum wave's tuning (`wave.py`) are written here too: Jacobi's functions,
+the exact angle, a stepped swing, the row's lengths and lags.
+
 The ball in the hanging sphere and the magnet car on its ramps answer a hand
 sixty times a second, and the race's balls in their pit are a time loop the
 API's budget has no room for, so they run in the browser

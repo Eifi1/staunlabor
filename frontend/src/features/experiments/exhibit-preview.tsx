@@ -35,6 +35,7 @@ const PREVIEWS: Record<Exhibit, LazyExoticComponent<ComponentType<PreviewProps>>
   elephant: lazy(() => import("./elephant-page").then((m) => ({ default: m.ElephantPreview }))),
   smoke: lazy(() => import("./smoke-page").then((m) => ({ default: m.SmokePreview }))),
   cannon: lazy(() => import("./cannon-page").then((m) => ({ default: m.CannonPreview }))),
+  wave: lazy(() => import("./wave-page").then((m) => ({ default: m.WavePreview }))),
 };
 
 /** Whether the element is on screen (`margin` beyond it counts), and whether
