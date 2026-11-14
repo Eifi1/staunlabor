@@ -3,10 +3,11 @@
 budget, over HTTP against PostgreSQL.
 
 The kit tests every route's rules on its in-memory stores; these test what this
-app chose: who gets in (the allow-list's first admin, then invitations naming one
-of three roles), that a session is a row the tokens name, what a refused bearer
-answers, the languages a profile may hold, the budget in front of every route,
-and that the request's unit of work commits before it answers.
+app chose: who gets in (the allow-list's first admin, then invitations naming a
+member or a reviewer), that a session is a row the tokens name, what a refused
+bearer answers, the languages a sign-up, an invitation and a profile may name,
+the budget in front of every route, and that the request's unit of work commits
+before it answers.
 """
 
 from __future__ import annotations
@@ -135,15 +136,31 @@ async def test_an_invitation_makes_an_account_with_its_role_and_proves_its_addre
     assert code(again) == "invitation_invalid"
 
 
-async def test_an_invitation_names_one_of_the_site_s_three_roles(accounts: AsyncClient):
+async def test_an_invitation_names_a_member_or_a_reviewer_and_never_an_admin(accounts: AsyncClient):
     admin = await first_admin(accounts)
-    for role in ("OWNER", "admin", ""):
+    for role in ("ADMIN", "OWNER", "admin", ""):
         response = await accounts.post(
             f"{API}/admin/invitations",
             json={"email": "x@example.com", "role": role, "locale": "en"},
             headers=bearer(admin["access_token"]),
         )
         assert response.status_code == 422, role
+        # An empty role is no role at all, the body's refusal; any other is the kit's.
+        assert role == "" or code(response) == "role_not_grantable", role
+    assert (await accounts.get(f"{API}/admin/invitations", headers=bearer(admin["access_token"]))).json() == []
+
+
+async def test_a_sign_up_and_an_invitation_name_only_the_site_s_languages(accounts: AsyncClient):
+    assert (await register(accounts, FIRST_ADMIN, locale="pt")).status_code == 422
+    admin = await first_admin(accounts)
+
+    async def invite_in(locale: str) -> Response:
+        body = {"email": "x@example.com", "role": "MEMBER", "locale": locale}
+        return await accounts.post(f"{API}/admin/invitations", json=body, headers=bearer(admin["access_token"]))
+
+    assert (await invite_in("pt")).status_code == 422
+    issued = await invite_in("de_ch")
+    assert issued.status_code == 201 and issued.json()["locale"] == "de-CH"
 
 
 async def test_only_the_admin_reaches_the_invitations(accounts: AsyncClient):

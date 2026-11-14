@@ -14,7 +14,8 @@ what the kit leaves to an app, and nothing more:
   a deployment), Resend once it has verified the domain;
 - the policy: invitation-only. The first account claims an empty database
   through the allow-list and is the ADMIN; everybody after it holds an
-  invitation, which names the role among :class:`~staunlabor.models.Role`'s;
+  invitation, which names a MEMBER or a REVIEWER (:data:`INVITABLE_ROLES`), in
+  one of the site's seven languages (:data:`LANGUAGES`);
 - the passkeys' relying party, the site's own host.
 
 **No hooks.** Nothing is attached at a sign-up, nothing bound per request, and
@@ -45,8 +46,6 @@ from eifi1_server_kit.auth.sql import (
     SqlUserStore,
 )
 from eifi1_server_kit.mail import ConsoleMailer, Mailer, ResendClient
-from eifi1_server_kit.settings import profile_update_model
-from eifi1_server_kit.user_admin import InvitationCreate as KitInvitationCreate
 from eifi1_server_kit.user_admin.deletion import DeletionMode
 
 from staunlabor.database import RequestSession
@@ -54,8 +53,17 @@ from staunlabor.models import AdminAction, Invitation, OneTimeToken, Passkey, Ro
 from staunlabor.security import caller_address
 from staunlabor.settings import Settings
 
-#: The site's languages, in its menu's order (``frontend/src/shared/i18n/languages.ts``).
+#: The site's languages, in its menu's order (``frontend/src/shared/i18n/languages.ts``):
+#: the only ones a sign-up, an invitation or a profile may name (``AuthDeps.offered_locales``).
 LANGUAGES = ("de-CH", "en", "es", "fr", "it", "hu", "zh")
+
+#: The roles an invitation may name; any other is the kit's ``422 role_not_grantable``,
+#: before a row is written. Never the admin: an invitation is a bearer link, mailed (or,
+#: while the console stands in, handed on) and good for fourteen days, and whoever holds
+#: it becomes what it names. An admin is made from an account that is already in, has
+#: proved its address and signs in, by a role change an admin acknowledges, which the log
+#: keeps and which never takes the last admin away.
+INVITABLE_ROLES = (Role.MEMBER, Role.REVIEWER)
 
 
 def mailer_for(settings: Settings) -> Mailer:
@@ -71,14 +79,6 @@ def mailer_for(settings: Settings) -> Mailer:
     # configures this app's log levels (uvicorn sets only its own), so an INFO line
     # would show nowhere.
     return ConsoleMailer(level=logging.WARNING, show_content=not settings.deployed)
-
-
-class InvitationCreate(KitInvitationCreate):
-    """The admin's invitation, its role one of the site's three: the kit takes
-    any role name, and an account made through ``"MEMBR"`` would hold a role no
-    page knows (the database's own CHECK refuses it too, as a 500)."""
-
-    role: Role
 
 
 # ── The stores, each on the request's session ────────────────────────────────
@@ -133,6 +133,7 @@ def account_deps(settings: Settings) -> AuthDeps:
             contact=settings.contact_email,
             admin_role=Role.ADMIN,
             default_role=Role.MEMBER,
+            invitable_roles=INVITABLE_ROLES,
             bootstrap=parse_env_list(settings.registration_allowlist) or None,
             # An operator erases, and the mail promises no date: server-kit 0.29
             # has no erasure, so "erased for good on <date>" would be a promise
@@ -144,7 +145,6 @@ def account_deps(settings: Settings) -> AuthDeps:
             rp_name=settings.webauthn_rp_name,
             origins=(settings.site_origin,),
         ),
-        profile_model=profile_update_model(LANGUAGES),
-        invitation_create_model=InvitationCreate,
+        offered_locales=LANGUAGES,
         client_address=caller_address,
     )
