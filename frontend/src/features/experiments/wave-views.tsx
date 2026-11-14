@@ -33,7 +33,7 @@ export function WaveTopView({
   const { t } = useTranslation();
   const hex = useChartHex();
   const colour = hex[BOB_HUE % hex.length];
-  const bob = spacingM * 0.38;
+  const bob = spacingM * 0.3;
   const row = (lengthsM.length - 1) * spacingM;
   const reach = Math.max(lengthsM[0] * sinDeg(Math.max(reachDeg, 5)), spacingM) + bob * 1.5;
   const margin = spacingM;

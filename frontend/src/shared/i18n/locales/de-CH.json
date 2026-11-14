@@ -1077,6 +1077,7 @@
         "theta": "der Ausschlag",
         "theta_dd": "seine Winkelbeschleunigung",
         "exact": "Sie hat eine exakte Lösung mit Jacobis elliptischen Funktionen. Die Seite rechnet für jedes Bild jedes Pendel direkt aus der Zeit, ohne Schritt für Schritt dorthin zu gehen – darum kann sie zu jedem Moment des Zyklus springen. Zur Kontrolle löst der Rechenkern dieselbe Gleichung Schritt für Schritt mit dem Runge-Kutta-Verfahren; beide stimmen auf ein Zehnmillionstel Grad überein.",
+        "k": "der Modul, festgelegt durch den Ausschlag beim Loslassen",
         "cd": "Jacobis elliptische Funktion cn/dn",
         "omega0": "die Kreisfrequenz kleiner Schwingungen",
         "t": "die Zeit seit dem Loslassen"

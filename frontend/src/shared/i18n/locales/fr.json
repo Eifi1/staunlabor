@@ -1077,6 +1077,7 @@
         "theta": "l'angle de l'oscillation",
         "theta_dd": "son accélération angulaire",
         "exact": "Elle a une solution exacte avec les fonctions elliptiques de Jacobi. À chaque image, la page calcule chaque pendule directement à partir du temps, sans y aller pas à pas – c'est pourquoi elle peut sauter à n'importe quel moment du cycle. Pour contrôle, le moteur résout la même équation pas à pas avec la méthode de Runge-Kutta ; les deux concordent à un dix-millionième de degré près.",
+        "k": "le module, fixé par l'amplitude au lâcher",
         "cd": "la fonction elliptique de Jacobi cn/dn",
         "omega0": "la pulsation des petites oscillations",
         "t": "le temps depuis le lâcher"

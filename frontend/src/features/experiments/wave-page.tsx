@@ -437,11 +437,12 @@ function WaveComputed() {
         ]}
       />
       <Equation
-        tex={String.raw`\sin\frac{\theta}{2} = k\;\mathrm{cd}\!\left(\omega_0 t \,\middle|\, k^2\right), \qquad k = \sin\frac{\theta_0}{2},\ \omega_0 = \sqrt{\frac{g}{L}}`}
+        tex={String.raw`\sin\frac{\theta}{2} = k\;\mathrm{cd}\!\left(\omega_0 t \,\middle|\, k^2\right)`}
         reads={c("exact")}
         symbols={[
           { tex: String.raw`\mathrm{cd}`, meaning: c("cd") },
-          { tex: String.raw`\omega_0`, meaning: c("omega0"), unit: "1/s" },
+          { tex: String.raw`k = \sin\frac{\theta_0}{2}`, meaning: c("k") },
+          { tex: String.raw`\omega_0 = \sqrt{g/L}`, meaning: c("omega0"), unit: "1/s" },
           { tex: "t", meaning: c("t"), unit: "s" },
         ]}
       />

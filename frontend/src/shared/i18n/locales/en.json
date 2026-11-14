@@ -1077,6 +1077,7 @@
         "theta": "the angle of the swing",
         "theta_dd": "its angular acceleration",
         "exact": "It has an exact solution in Jacobi's elliptic functions. For every frame the page computes every pendulum straight from the time, without stepping there – which is why it can jump to any moment of the cycle. As a check the engine solves the same equation step by step with the Runge–Kutta method; the two agree to a ten-millionth of a degree.",
+        "k": "the modulus, set by the swing when let go",
         "cd": "Jacobi's elliptic function cn/dn",
         "omega0": "the angular frequency of small swings",
         "t": "the time since letting go"

@@ -1077,6 +1077,7 @@
         "theta": "a kitérés szöge",
         "theta_dd": "a szöggyorsulása",
         "exact": "Ennek pontos megoldása van Jacobi elliptikus függvényeivel. Az oldal minden képkockánál minden ingát közvetlenül az időből számol, lépésről lépésre haladás nélkül – ezért ugorhat a ciklus bármely pillanatára. Ellenőrzésként a számítómag ugyanezt az egyenletet lépésenként, a Runge–Kutta-módszerrel is megoldja; a kettő egy fok tízmilliomod részéig egyezik.",
+        "k": "a modulus, amelyet az elengedéskori kitérés határoz meg",
         "cd": "Jacobi cn/dn elliptikus függvénye",
         "omega0": "a kis lengések körfrekvenciája",
         "t": "az elengedés óta eltelt idő"

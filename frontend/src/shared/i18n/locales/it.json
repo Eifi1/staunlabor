@@ -1077,6 +1077,7 @@
         "theta": "l'angolo dell'oscillazione",
         "theta_dd": "la sua accelerazione angolare",
         "exact": "Ha una soluzione esatta con le funzioni ellittiche di Jacobi. A ogni immagine la pagina calcola ogni pendolo direttamente dal tempo, senza arrivarci passo dopo passo – per questo può saltare a qualsiasi momento del ciclo. Per controllo, il motore risolve la stessa equazione passo dopo passo con il metodo di Runge-Kutta; i due concordano fino a un decimilionesimo di grado.",
+        "k": "il modulo, fissato dall'ampiezza al rilascio",
         "cd": "la funzione ellittica di Jacobi cn/dn",
         "omega0": "la pulsazione delle piccole oscillazioni",
         "t": "il tempo dal rilascio"

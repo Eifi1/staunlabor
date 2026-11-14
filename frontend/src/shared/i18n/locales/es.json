@@ -1077,6 +1077,7 @@
         "theta": "el ángulo de la oscilación",
         "theta_dd": "su aceleración angular",
         "exact": "Tiene una solución exacta con las funciones elípticas de Jacobi. En cada imagen la página calcula cada péndulo directamente a partir del tiempo, sin ir paso a paso – por eso puede saltar a cualquier momento del ciclo. Como control, el motor resuelve la misma ecuación paso a paso con el método de Runge-Kutta; ambos coinciden hasta una diezmillonésima de grado.",
+        "k": "el módulo, fijado por la amplitud al soltar",
         "cd": "la función elíptica de Jacobi cn/dn",
         "omega0": "la frecuencia angular de las oscilaciones pequeñas",
         "t": "el tiempo desde que se soltó"
