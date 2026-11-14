@@ -110,6 +110,15 @@ class Settings(BaseSettings):
     #: it) and the name an authenticator shows.
     webauthn_rp_id: str = Field(default="localhost")
     webauthn_rp_name: str = Field(default="Staunlabor")
+    #: How long the account rows nobody reads again are kept once they are done
+    #: with, before ``python -m staunlabor.jobs prune`` deletes them: an ended
+    #: session (the address it was signed in from, the browser's description), an
+    #: expired link, an invitation never taken up. Thirty days, the figure the
+    #: privacy policy is to name (plan, step 5): as long as Cloud Logging keeps the
+    #: requests that carried the same address, and long past every link's and invitation's own
+    #: window (an hour to fourteen days), so a late click still hears "expired"
+    #: and an admin still sees an invitation run out before it leaves the list.
+    account_rows_retention_days: int = Field(default=30, ge=1, le=365)
 
     #: Set by Cloud Run in every service's container and every job's.
     cloud_run_service: str | None = Field(default=None, validation_alias="K_SERVICE")

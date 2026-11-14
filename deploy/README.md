@@ -217,6 +217,16 @@ serving the revision before it. Plan, second stage, step 6.
   `staunlabor-db-url-owner`, run by `cloudbuild.yaml` before the backend
   deploys. `Dockerfile.backend` copies `alembic.ini` and `alembic/` for it
   (today it copies `staunlabor/` only).
+* **The prune job, on a schedule**: a Cloud Run job `staunlabor-prune` on the
+  backend's image, `/app/backend/.venv/bin/python -m staunlabor.jobs prune`
+  (the image's working directory is `/app/backend`), with
+  `STAUNLABOR_DATABASE_URL` from `staunlabor-db-url-app` (it only deletes) and
+  the Cloud SQL instance, and a Cloud Scheduler trigger once a day, at night,
+  whose service account may run the job. It deletes ended sessions, expired
+  links, invitations never taken up and spent passkey challenges once they are
+  done with for `STAUNLABOR_ACCOUNT_ROWS_RETENTION_DAYS` (30); until it runs, an
+  ended session keeps its address and device for good, which the privacy
+  policy cannot say. Its log line counts what went.
 * **Mail**: until Resend has verified `staunlabor.app`, `STAUNLABOR_MAIL_BACKEND`
   stays `console`: nothing is sent, and Cloud Logging gets each account mail's
   kind alone, never its link or address (server-kit 0.30; the backend says so at

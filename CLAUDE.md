@@ -60,6 +60,7 @@ cd frontend && npx vitest run src/features/experiments/daily.test.ts
 cd backend && uv run python ../scripts/write-experiments-cases.py         # after an engine change
 cd backend && uv run python ../scripts/write-test-fixtures.py             # after a change to a route's answer
 cd backend && uv run alembic revision -m "…" --rev-id 0002                # a new migration, written by hand
+cd backend && uv run python -m staunlabor.jobs prune                       # the account rows past their retention
 ```
 
 Coverage floors: `test.coverage.thresholds` in `frontend/vite.config.ts` and
@@ -77,6 +78,7 @@ backend/staunlabor/
   accounts.py           server-kit's account and admin routes wired: the stores, the mail,
                         the policy, the admin's scope, roles, languages and review areas
   database.py           the accounts' engine (pool 1 + 1) and the request's unit of work
+  jobs.py               the accounts' housekeeping as a command a scheduled job runs (prune)
   models.py             the accounts' tables: server-kit's [sql] mixins, named here
 backend/alembic/        the migrations, numbered by hand (0001: the account tables)
 frontend/src/
