@@ -47,7 +47,7 @@ from sqlalchemy.ext.asyncio import AsyncSession
 from staunlabor.feedback import POLICY, everybody_signed_in
 from staunlabor.models import Feedback, FeedbackAttachment, FeedbackComment, FeedbackReply, FeedbackVote, User
 from staunlabor.settings import get_settings
-from tests.api.test_accounts_api import API, bearer, first_admin, invite, invite_token, register
+from tests.api.test_accounts_api import API, PASSWORD, bearer, first_admin, invite, invite_token, register
 from tests.conftest import FIRST_ADMIN
 
 pytestmark = pytest.mark.api
@@ -202,3 +202,35 @@ async def test_nobody_but_the_admin_reads_the_inbox_and_nobody_signed_out_files_
     assert refused.json()["code"] == "admin_required"
     anonymous = await site.post(f"{API}/feedback", json=IDEA)
     assert anonymous.status_code == 401
+
+
+async def test_the_admin_s_overview_counts_the_reports_nobody_has_looked_at(site: AsyncClient) -> None:
+    admin, member = await _admin_and_member(site)
+    for title in ("Der Wirbel im Wasserglas", "Die Pendelwelle"):
+        filed = await site.post(f"{API}/feedback", json={**IDEA, "title": title}, headers=bearer(member))
+        assert filed.status_code == 201, filed.text
+    overview = await site.get(f"{API}/admin/attention", headers=bearer(admin))
+    assert overview.json()["feedback_waiting"] == 2
+    # Answered and set to a status past OPEN, a report no longer waits.
+    first = (await site.get(f"{API}/feedback", headers=bearer(admin))).json()[0]
+    triaged = await site.patch(f"{API}/feedback/{first['id']}", json={"status": "POSTPONED"}, headers=bearer(admin))
+    assert triaged.status_code == 200, triaged.text
+    overview = await site.get(f"{API}/admin/attention", headers=bearer(admin))
+    assert overview.json()["feedback_waiting"] == 1
+
+
+async def test_erasing_an_account_keeps_its_ideas_and_takes_its_name_off_them(site: AsyncClient) -> None:
+    admin, member = await _admin_and_member(site)
+    filed = (await site.post(f"{API}/feedback", json=IDEA, headers=bearer(member))).json()
+    me = (await site.get(f"{API}/auth/me", headers=bearer(member))).json()
+    typed = {"confirm_email": me["email"]}
+    asked = await site.post(f"{API}/auth/me/deletion", json={"password": PASSWORD, **typed}, headers=bearer(member))
+    assert asked.status_code == 202, asked.text
+
+    erased = await site.post(f"{API}/admin/users/{me['id']}/erase", json=typed, headers=bearer(admin))
+    assert erased.status_code == 200, erased.text
+    assert erased.json() == {"feedback_anonymised": 1}
+    inbox = (await site.get(f"{API}/feedback", headers=bearer(admin))).json()
+    kept = next(row for row in inbox if row["id"] == filed["id"])
+    assert kept["title"] == IDEA["title"]
+    assert "member@example.org" not in str(kept)

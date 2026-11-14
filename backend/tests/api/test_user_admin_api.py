@@ -366,8 +366,8 @@ async def test_the_overview_counts_the_people_the_new_ones_and_the_open_invitati
     overview = await accounts.get(f"{API}/admin/attention", headers=bearer(admin["access_token"]))
     assert overview.status_code == 200
     assert overview.json() == {
-        # No feedback here yet, so nothing to count; an operator erases, so the requests are.
-        "feedback_waiting": None,
+        # No report filed, so none waits; an operator erases, so the requests are counted.
+        "feedback_waiting": 0,
         "deletion_requests": 0,
         "invitations_pending": 1,
         "users_total": 4,

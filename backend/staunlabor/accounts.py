@@ -63,6 +63,7 @@ from eifi1_server_kit.user_admin.router import UserAdminDeps
 from eifi1_server_kit.user_admin.service import AdminPolicy
 
 from staunlabor.database import Database, RequestSession
+from staunlabor.feedback import admin_hooks, erasing_feedback
 from staunlabor.models import AdminAction, Invitation, OneTimeToken, Passkey, Role, SpentChallenge, User, UserSession
 from staunlabor.security import caller_address
 from staunlabor.settings import Settings
@@ -186,11 +187,14 @@ def admin_deps(accounts: AuthDeps) -> UserAdminDeps:
     reviewer comes with its languages through ``PUT /admin/users/{id}/reviewer``, so
     nobody is a reviewer of nothing. No guard of its own: the router takes the kit's
     ``admin_guard(accounts)``, the one ``invitations_admin_router`` has, so both admin
-    routers refuse alike. No feedback and no hooks yet: an erasure has none of the
-    app's rows to anonymise."""
+    routers refuse alike. Feedback in two places: the overview counts the reports
+    waiting (``admin_hooks``), and ``Erase now`` anonymises what the person wrote
+    (``erasing_feedback``)."""
     return UserAdminDeps(
         auth=accounts,
         roster=roster,
+        hooks=admin_hooks,
+        feedback=erasing_feedback,
         policy=AdminPolicy(
             roles=tuple(role.value for role in Role),
             review_locales=LANGUAGES,
@@ -210,8 +214,8 @@ def jobs_deps(database: Database, settings: Settings) -> AccountJobsDeps:
     invitations never accepted, the spent passkey challenges. Left alone they
     would stay for good, which no privacy policy can promise.
 
-    No erasures: an operator erases (``DeletionMode.OPERATOR``). No upload sweep:
-    no feedback yet."""
+    No erasures: an operator erases (``DeletionMode.OPERATOR``). No upload sweep yet:
+    a file uploaded and never attached to a report stays until one comes."""
 
     async def prune(before: datetime) -> AccountPrune:
         async with database.sessions() as session, session.begin():

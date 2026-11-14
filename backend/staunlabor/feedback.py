@@ -29,8 +29,9 @@ from typing import Annotated, Any
 
 from eifi1_server_kit.auth.accounts import full_name
 from eifi1_server_kit.auth.router import AuthDeps, admin_guard, current_user
-from eifi1_server_kit.feedback import AttachmentUrlPolicy, FeedbackActor
+from eifi1_server_kit.feedback import AttachmentUrlPolicy, FeedbackActor, feedback_attention
 from eifi1_server_kit.feedback.router import FeedbackDeps
+from eifi1_server_kit.feedback.service import FeedbackService
 from eifi1_server_kit.feedback.sql import (
     SqlAttachmentStorage,
     SqlFeedbackCommentStore,
@@ -40,7 +41,9 @@ from eifi1_server_kit.feedback.sql import (
     SqlPeopleLookup,
 )
 from eifi1_server_kit.objects import LocalObjectStore, ObjectStore
+from eifi1_server_kit.user_admin.service import UserAdminHooks
 from fastapi import Depends
+from sqlalchemy.ext.asyncio import AsyncSession
 
 from staunlabor.database import RequestSession
 from staunlabor.models import (
@@ -77,6 +80,56 @@ def objects_for(settings: Settings) -> ObjectStore:
     return LocalObjectStore(settings.feedback_files_dir)
 
 
+def repository_on(session: AsyncSession) -> SqlFeedbackRepository[Feedback]:
+    """The reports on a session: the router's, the erasure's and the counts' alike."""
+    return SqlFeedbackRepository(
+        session,
+        Feedback,
+        accounts=User,
+        policy=POLICY,
+        replies=FeedbackReply,
+        comments=FeedbackComment,
+        votes=FeedbackVote,
+        uploads=FeedbackAttachment,
+    )
+
+
+def replies_on(session: AsyncSession) -> SqlFeedbackReplyStore[FeedbackReply]:
+    return SqlFeedbackReplyStore(session, FeedbackReply, uploads=FeedbackAttachment, policy=POLICY)
+
+
+def comments_on(session: AsyncSession) -> SqlFeedbackCommentStore[FeedbackComment]:
+    return SqlFeedbackCommentStore(session, FeedbackComment, uploads=FeedbackAttachment, policy=POLICY)
+
+
+async def erasing_feedback(session: RequestSession) -> FeedbackService[Feedback]:
+    """The kit's feedback flows on the request's session, for the admin's ``Erase now``
+    (``UserAdminDeps.feedback``): the erasure anonymises what the person wrote — their reports,
+    replies and comments, their name in them, the files they uploaded — through it, in the
+    erasure's own transaction. Without it the rows would stay as written, the account gone."""
+    return FeedbackService(
+        repository_on(session),
+        policy=POLICY,
+        replies=replies_on(session),
+        comments=comments_on(session),
+        votes=SqlFeedbackVoteStore(session, FeedbackVote),
+        people=SqlPeopleLookup(session, User),
+        public_viewer=everybody_signed_in,
+    )
+
+
+async def admin_hooks(session: RequestSession) -> UserAdminHooks[User]:
+    """The admin's hooks on the request's session (``UserAdminDeps.hooks``): the overview's
+    "To triage" tile, the reports nobody has looked at yet (``OPEN``, by the kit's
+    ``feedback_attention``) — the planned exhibits filed as ideas among them."""
+
+    async def attention(_admin: User) -> dict[str, Any]:
+        tiles = feedback_attention(await repository_on(session).count_by_status())
+        return {"feedback_waiting": tiles.to_triage}
+
+    return UserAdminHooks(attention=attention)
+
+
 def feedback_deps(accounts: AuthDeps, settings: Settings) -> FeedbackDeps:
     """Everything ``feedback_router`` is built from, on the account layer's own sign-in."""
     signed_in = current_user(accounts)
@@ -92,16 +145,7 @@ def feedback_deps(accounts: AuthDeps, settings: Settings) -> FeedbackDeps:
         )
 
     async def repository(session: RequestSession) -> SqlFeedbackRepository[Feedback]:
-        return SqlFeedbackRepository(
-            session,
-            Feedback,
-            accounts=User,
-            policy=POLICY,
-            replies=FeedbackReply,
-            comments=FeedbackComment,
-            votes=FeedbackVote,
-            uploads=FeedbackAttachment,
-        )
+        return repository_on(session)
 
     async def storage(session: RequestSession) -> SqlAttachmentStorage[FeedbackAttachment]:
         return SqlAttachmentStorage(
@@ -116,10 +160,10 @@ def feedback_deps(accounts: AuthDeps, settings: Settings) -> FeedbackDeps:
         )
 
     async def replies(session: RequestSession) -> SqlFeedbackReplyStore[FeedbackReply]:
-        return SqlFeedbackReplyStore(session, FeedbackReply, uploads=FeedbackAttachment, policy=POLICY)
+        return replies_on(session)
 
     async def comments(session: RequestSession) -> SqlFeedbackCommentStore[FeedbackComment]:
-        return SqlFeedbackCommentStore(session, FeedbackComment, uploads=FeedbackAttachment, policy=POLICY)
+        return comments_on(session)
 
     async def votes(session: RequestSession) -> SqlFeedbackVoteStore[FeedbackVote]:
         return SqlFeedbackVoteStore(session, FeedbackVote)
