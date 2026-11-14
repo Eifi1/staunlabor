@@ -5,7 +5,7 @@ production the web service proxies ``/api`` on the same origin), and how many
 proxies stand in front with the one secret that proves a request came through
 them, which the address budget reads.
 
-And the accounts (server-kit 0.29's account layer, ``staunlabor.accounts``):
+And the accounts (server-kit's account layer, ``staunlabor.accounts``):
 their database (``staunlabor.database``), the signing key, the mail transport,
 who may claim an empty database as its admin, and the passkeys' relying party.
 The exhibits read none of these and answer with no database at all.
@@ -19,19 +19,20 @@ new connection at once, so a pool must never grow to meet a burst, and a
 request that finds the pool busy fails after ten seconds rather than thirty.
 
 **A deployment is any instance served from an origin that is not this machine,
-or any that Cloud Run runs** (:attr:`Settings.deployed`). Both signals fail
-towards "deployed", so an instance that forgot a variable is still treated as
-the one the internet reaches, and ``main.check_deployment`` refuses it the
-signing key in this repository and an open first sign-up.
+or any that Cloud Run runs** (:attr:`Settings.deployed`; the origin's rule is
+server-kit's ``origin_is_local``). Both signals fail towards "deployed", so an
+instance that forgot a variable is still treated as the one the internet
+reaches, and ``main.check_deployment`` refuses it the signing key in this
+repository and an open first sign-up.
 """
 
 from __future__ import annotations
 
 from functools import lru_cache
-from ipaddress import ip_address
 from typing import Literal
 from urllib.parse import urlsplit
 
+from eifi1_server_kit.dev_switch import origin_is_local
 from pydantic import Field
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
@@ -44,28 +45,6 @@ DEV_DATABASE_URL = "postgresql+asyncpg://staunlabor:staunlabor_dev@127.0.0.1:543
 #: ``check_deployment`` refuses that on a deployment: whoever holds this file
 #: could sign a session for any account.
 DEV_JWT_SECRET = "dev-only-change-me-staunlabor-signing-key"
-
-#: Host names that are somebody's own machine, and suffixes the DNS root does
-#: not answer for: a name under one is a desk or a LAN, never the internet.
-_LOCAL_NAMES = frozenset({"localhost", "0.0.0.0"})
-_LOCAL_SUFFIXES = (".localhost", ".local", ".internal", ".test")
-
-
-def origin_is_local(url: str) -> bool:
-    """Is ``url`` served from this machine or a private network, never the
-    internet? A loopback, private or link-local address, ``localhost``, or a
-    name under a suffix no public DNS answers for. Anything unreadable is not
-    local: the doubt counts as a deployment."""
-    host = (urlsplit(url).hostname or "").lower()
-    if not host:
-        return False
-    if host in _LOCAL_NAMES or host.endswith(_LOCAL_SUFFIXES):
-        return True
-    try:
-        address = ip_address(host)
-    except ValueError:
-        return False
-    return address.is_loopback or address.is_private or address.is_link_local
 
 
 class Settings(BaseSettings):
@@ -145,14 +124,6 @@ class Settings(BaseSettings):
         """The origin a passkey ceremony must come from: the site's own."""
         parts = urlsplit(self.app_base_url)
         return f"{parts.scheme}://{parts.netloc}"
-
-    @property
-    def webauthn_rp_id_fits(self) -> bool:
-        """Is the RP id the site's host, or a suffix of it at a dot? A browser
-        refuses every ceremony otherwise, in the browser and in no log."""
-        host = (urlsplit(self.app_base_url).hostname or "").lower()
-        rp_id = self.webauthn_rp_id.strip().lower()
-        return bool(rp_id) and (host == rp_id or host.endswith("." + rp_id))
 
 
 @lru_cache

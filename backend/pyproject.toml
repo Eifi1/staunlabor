@@ -13,16 +13,13 @@ dependencies = [
     "sqlalchemy[asyncio]>=2.0.0",
     "asyncpg>=0.30.0",
     "alembic>=1.14.0",
-    # The kit builds and checks the claims and signs nothing (its "no JWT
-    # library"): HS256 through PyJWT, as Kurvenschmiede signs.
-    "pyjwt>=2.10",
-    # The kit's PasswordHasher port, bcrypt as in every sibling app.
-    "bcrypt>=4.0.0",
-    # The kit's account layer (0.29): `fastapi` the routers, `sql` the tables and
-    # their stores, `passkeys` py_webauthn for the passkey routes, `mail` the
-    # Resend client the console transport gives way to once the domain is
-    # verified. The wheel and its sha256 are pinned in uv.lock.
-    "eifi1-server-kit[fastapi,mail,passkeys,sql]",
+    # The kit's account layer (0.30): `fastapi` the routers (the accounts' and
+    # the admin's), `sql` the tables and their stores, `passkeys` py_webauthn for
+    # the passkey routes, `mail` the Resend client the console transport gives way
+    # to once the domain is verified, `jwt` and `bcrypt` the ready signer (HS256,
+    # PyJWT) and hasher the kit took over from this app. The wheel and its sha256
+    # are pinned in uv.lock.
+    "eifi1-server-kit[bcrypt,fastapi,jwt,mail,passkeys,sql]",
 ]
 
 [dependency-groups]
@@ -81,9 +78,6 @@ max-complexity = 12
 paths = ["staunlabor"]
 min_confidence = 60
 ignore_decorators = ["@router.*", "@app.*", "@model_validator", "@field_validator"]
-# The methods of server-kit's ports the app implements (`accounts.JwtSigner`,
-# `accounts.BcryptHasher`): the kit calls them, in a package vulture does not read.
-ignore_names = ["sign", "verify", "hash"]
 
 [tool.uv.sources]
-eifi1-server-kit = { url = "https://github.com/Eifi1/server-kit/releases/download/v0.29.0/eifi1_server_kit-0.29.0-py3-none-any.whl" }
+eifi1-server-kit = { url = "https://github.com/Eifi1/server-kit/releases/download/v0.30.0/eifi1_server_kit-0.30.0-py3-none-any.whl" }

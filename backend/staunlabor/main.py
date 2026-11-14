@@ -16,6 +16,7 @@ from contextlib import asynccontextmanager
 from uuid import uuid4
 
 from eifi1_server_kit.auth import AuthLimiters, parse_env_list
+from eifi1_server_kit.auth.passkeys import rp_id_fits
 from eifi1_server_kit.auth.router import auth_router, invitations_admin_router
 from eifi1_server_kit.errors import install_contract_error_handlers
 from eifi1_server_kit.settings import secret_problems
@@ -43,8 +44,10 @@ def check_deployment(settings: Settings) -> None:
       session for any account, the admin's included.
     * **An empty allow-list**: whoever signs up first on an empty database is
       its admin, a stranger who finds the deployment first too.
-    * **A passkey RP id that is not the site's host**: every ceremony fails, in
-      the person's browser and in no log.
+    * **A passkey RP id that is not the site's host** (server-kit's
+      ``rp_id_fits``): every ceremony fails, in the person's browser and in no
+      log. The kit's ``RelyingParty`` only warns about it, so that a dev server
+      opened over the LAN still starts; a deployment must not.
 
     A deployment (``Settings.deployed``) refuses to start on any of them. A
     laptop boots with nothing configured, and hears about the key and the RP id.
@@ -53,7 +56,7 @@ def check_deployment(settings: Settings) -> None:
     every mail's link, a credential while it is unspent.
     """
     problems = secret_problems(settings.jwt_secret, name="STAUNLABOR_JWT_SECRET")
-    if not settings.webauthn_rp_id_fits:
+    if not rp_id_fits(settings.webauthn_rp_id, settings.app_base_url):
         problems.append(
             f"STAUNLABOR_WEBAUTHN_RP_ID ({settings.webauthn_rp_id!r}) is neither the host of STAUNLABOR_APP_BASE_URL"
             f" ({settings.app_base_url}) nor a suffix of it: no browser uses a passkey here"

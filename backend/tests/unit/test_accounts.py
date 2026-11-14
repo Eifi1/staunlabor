@@ -1,66 +1,21 @@
-"""What the app writes beside the kit's account layer: the signer, the hasher,
-the transport, and the boot check that refuses a deployment anybody could take
-over. No database."""
+"""What the app chooses beside the kit's account layer: the transport, and the
+boot check that refuses a deployment anybody could take over. No database. The
+signer and the hasher are server-kit's (0.30), tested there; the routes' tests
+(``tests/api/test_accounts_api.py``) show they are wired with this app's key
+and cost."""
 
 from __future__ import annotations
 
 import logging
-import time
 
-import jwt
 import pytest
 from eifi1_server_kit.mail import ConsoleMailer, ResendClient
 
-from staunlabor.accounts import BcryptHasher, JwtSigner, mailer_for
+from staunlabor.accounts import mailer_for
 from staunlabor.main import check_deployment, create_app
 from staunlabor.settings import DEV_JWT_SECRET, Settings, get_settings
 
 pytestmark = pytest.mark.unit
-
-KEY = "a-signing-key-of-thirty-two-characters-at-least"
-
-
-def _claims(**extra: object) -> dict[str, object]:
-    return {"sub": "1", "type": "access", "iat": time.time(), "exp": int(time.time()) + 60, **extra}
-
-
-def test_a_token_this_app_signed_verifies_to_its_claims():
-    signer = JwtSigner(KEY)
-    claims = _claims(sid="abc")
-    assert signer.verify(signer.sign(claims)) == claims
-
-
-@pytest.mark.parametrize(
-    "token",
-    [
-        jwt.encode(_claims(), "another-app-s-key-of-thirty-two-characters", algorithm="HS256"),
-        jwt.encode(_claims(), key=None, algorithm="none"),
-        jwt.encode({"sub": "1", "type": "access"}, KEY, algorithm="HS256"),
-        jwt.encode(_claims(exp=int(time.time()) - 1), KEY, algorithm="HS256"),
-        "not.a.token",
-        "",
-    ],
-    ids=["another key", "unsigned", "never ends", "expired", "no JWT", "empty"],
-)
-def test_a_token_this_app_did_not_sign_or_that_ended_is_nothing(token: str):
-    assert JwtSigner(KEY).verify(token) is None
-
-
-def test_a_password_verifies_against_its_own_hash_and_nothing_else():
-    hasher = BcryptHasher(4)
-    hashed = hasher.hash("correct horse battery staple")
-    assert hashed.startswith("$2b$04$")
-    assert hasher.verify("correct horse battery staple", hashed)
-    assert not hasher.verify("Correct horse battery staple", hashed)
-
-
-@pytest.mark.parametrize(
-    ("password", "stored"),
-    [("x", "not a bcrypt hash"), ("x" * 100, BcryptHasher(4).hash("x")), ("\ud800", BcryptHasher(4).hash("x"))],
-    ids=["malformed hash", "over 72 bytes", "not encodable"],
-)
-def test_what_bcrypt_refuses_is_no_match_never_an_error(password: str, stored: str):
-    assert BcryptHasher(4).verify(password, stored) is False
 
 
 def test_mail_goes_to_the_log_until_resend_is_chosen(monkeypatch: pytest.MonkeyPatch):

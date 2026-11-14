@@ -1,4 +1,5 @@
-"""What counts as a deployment, and the pool's cap."""
+"""What counts as a deployment, and the pool's cap. Which origin is local is
+server-kit's ``origin_is_local``, tested there; these test the two signals together."""
 
 from __future__ import annotations
 
@@ -6,33 +7,9 @@ import pytest
 from httpx import ASGITransport, AsyncClient
 
 from staunlabor.main import create_app
-from staunlabor.settings import Settings, get_settings, origin_is_local
+from staunlabor.settings import Settings, get_settings
 
 pytestmark = pytest.mark.unit
-
-
-@pytest.mark.parametrize(
-    "url",
-    [
-        "http://localhost:5176",
-        "http://127.0.0.1:8002",
-        "http://[::1]:5176",
-        "http://192.168.1.20:5176",
-        "http://10.0.0.7",
-        "http://staunlabor.local",
-        "http://site.test",
-        "http://0.0.0.0:8002",
-    ],
-)
-def test_a_site_served_from_this_machine_or_a_private_network_is_local(url: str):
-    assert origin_is_local(url)
-
-
-@pytest.mark.parametrize(
-    "url", ["https://staunlabor.app", "http://staunlabor.app", "https://8.8.8.8", "not a url", "http://"]
-)
-def test_a_public_origin_or_one_that_cannot_be_read_is_not_local(url: str):
-    assert not origin_is_local(url)
 
 
 def test_a_laptop_is_no_deployment(monkeypatch: pytest.MonkeyPatch):

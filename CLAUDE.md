@@ -108,8 +108,9 @@ frontend/src/
 * **Reuse the kits before writing anything**: `@eifi1/ui-kit` (npm) for every
   component, the legal pages and the language menu; `eifi1-server-kit` (a wheel
   pinned by URL and sha256 in `uv.lock`) for the limiter, the error handlers
-  and the accounts (routes, tables, stores; `accounts.py` holds only what the
-  kit leaves to an app). What the kit lacks is an ask upstream.
+  and the accounts (routes, tables, stores, the signer and the hasher;
+  `accounts.py` holds only what the kit leaves to an app). What the kit lacks
+  is an ask upstream.
 * **It works on a phone**: a grid says `grid-cols-1` before its breakpoint;
   check a page at 390 px and 360 px. One appearance, light and dark.
 * **Conventional Commits**, headers of at most 100 characters; a release is

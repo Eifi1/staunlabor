@@ -1,4 +1,4 @@
-"""The accounts: server-kit 0.29's account layer on this app's tables.
+"""The accounts: server-kit's account layer (0.30) on this app's tables.
 
 The kit runs every route (``auth_router``: sign-up, sign-in, the refresh, the
 sessions, ``/auth/me`` and its settings, the mailed links, the passkeys;
@@ -8,8 +8,8 @@ what the kit leaves to an app, and nothing more:
 
 - the stores: the kit's ``[sql]`` stores over ``staunlabor.models``, each on
   the request's session (``staunlabor.database``);
-- the two ports the kit keeps no library for: the signer (PyJWT, HS256) and
-  the hasher (bcrypt);
+- the signer and the hasher, the kit's own since 0.30 (``[jwt]``: HS256 pinned,
+  ``exp`` required; ``[bcrypt]`` at the settings' cost), built from the settings;
 - the transport: the console now, Resend once it has verified the domain;
 - the policy: invitation-only. The first account claims an empty database
   through the allow-list and is the ADMIN; everybody after it holds an
@@ -27,12 +27,10 @@ teams, billing.
 from __future__ import annotations
 
 import logging
-from collections.abc import Mapping
-from typing import Any
 
-import bcrypt
-import jwt
 from eifi1_server_kit.auth import parse_env_list
+from eifi1_server_kit.auth.bcrypt_hasher import BcryptHasher
+from eifi1_server_kit.auth.jwt_signer import JwtSigner
 from eifi1_server_kit.auth.passkeys import RelyingParty
 from eifi1_server_kit.auth.router import AuthDeps
 from eifi1_server_kit.auth.service import AccountLinks, AccountPolicy
@@ -57,46 +55,6 @@ from staunlabor.settings import Settings
 
 #: The site's languages, in its menu's order (``frontend/src/shared/i18n/languages.ts``).
 LANGUAGES = ("de-CH", "en", "es", "fr", "it", "hu", "zh")
-
-#: The only algorithm a token is signed or accepted with: a token naming another
-#: (``none``, an asymmetric one) is refused, never tried.
-_ALGORITHM = "HS256"
-
-
-class JwtSigner:
-    """The kit's ``TokenSigner``: its claims, signed with PyJWT."""
-
-    def __init__(self, secret: str) -> None:
-        self._secret = secret
-
-    def sign(self, claims: Mapping[str, Any]) -> str:
-        return jwt.encode(dict(claims), self._secret, algorithm=_ALGORITHM)
-
-    def verify(self, token: str) -> Mapping[str, Any] | None:
-        try:
-            # Every token the kit mints ends; one without `exp` was not this app's.
-            return jwt.decode(token, self._secret, algorithms=[_ALGORITHM], options={"require": ["exp", "sub"]})
-        except jwt.PyJWTError:
-            # A bad signature, an expired token, not a JWT at all: one answer.
-            return None
-
-
-class BcryptHasher:
-    """The kit's ``PasswordHasher``: bcrypt at the settings' cost."""
-
-    def __init__(self, rounds: int) -> None:
-        self._rounds = rounds
-
-    def hash(self, password: str) -> str:
-        return bcrypt.hashpw(password.encode(), bcrypt.gensalt(self._rounds)).decode()
-
-    def verify(self, password: str, password_hash: str) -> bool:
-        try:
-            return bcrypt.checkpw(password.encode(), password_hash.encode())
-        except ValueError:
-            # A malformed hash, or a password bcrypt refuses (over 72 bytes, which
-            # the kit's schemas already turn away): no match, never a 500.
-            return False
 
 
 def mailer_for(settings: Settings) -> Mailer:
