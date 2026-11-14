@@ -20,6 +20,8 @@ from eifi1_server_kit.auth.jobs import account_jobs_router
 from eifi1_server_kit.auth.passkeys import rp_id_fits
 from eifi1_server_kit.auth.router import auth_router, invitations_admin_router
 from eifi1_server_kit.errors import install_contract_error_handlers
+from eifi1_server_kit.feedback.router import feedback_router
+from eifi1_server_kit.limiter import FeedbackLimiters
 from eifi1_server_kit.settings import secret_problems
 from eifi1_server_kit.user_admin.router import user_admin_router
 from fastapi import Depends, FastAPI, Request
@@ -30,6 +32,7 @@ from staunlabor import __version__
 from staunlabor.accounts import account_deps, admin_deps, jobs_deps
 from staunlabor.api.experiments_router import router as experiments_router
 from staunlabor.database import Database
+from staunlabor.feedback import feedback_deps
 from staunlabor.security import AccountLimiters, ExperimentsLimiters, limit_account_request
 from staunlabor.settings import Settings, get_settings
 
@@ -103,6 +106,7 @@ def create_app() -> FastAPI:
     app.state.experiments_limiters = ExperimentsLimiters()
     app.state.account_limiters = AccountLimiters()
     app.state.auth_limiters = AuthLimiters()
+    app.state.feedback_limiters = FeedbackLimiters()
     app.state.database = Database(settings)
     app.add_middleware(
         CORSMiddleware,
@@ -130,6 +134,9 @@ def create_app() -> FastAPI:
     app.include_router(
         account_jobs_router(jobs_deps(app.state.database, settings)), prefix=API_PREFIX, dependencies=budget
     )
+    # Feedback (server-kit 0.31's feedback.sql): the reports, the inbox, the public list,
+    # on the account layer's own sign-in.
+    app.include_router(feedback_router(feedback_deps(accounts, settings)), prefix=API_PREFIX, dependencies=budget)
     # The kit's refusals — the budget's 429 with its Retry-After — are
     # ValueErrors too; the kit's handlers answer them at their own status,
     # beside the engine's 400 below.

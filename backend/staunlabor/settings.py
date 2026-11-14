@@ -29,6 +29,7 @@ repository and an open first sign-up.
 from __future__ import annotations
 
 from functools import lru_cache
+from pathlib import Path
 from typing import Literal
 from urllib.parse import urlsplit
 
@@ -117,6 +118,11 @@ class Settings(BaseSettings):
     #: refuses to start (``main.check_deployment``), because then nothing would ever
     #: delete an ended session's address.
     jobs_token: str = Field(default="", repr=False)
+    #: Where a feedback report's files (screenshots, attachments) are kept: a
+    #: directory on this machine, outside the repository (``.gitignore``), until a
+    #: deployment brings a bucket (deploy/README.md). Relative to the backend's
+    #: working directory.
+    feedback_files_dir: Path = Field(default=Path("var/feedback-files"))
 
     #: Set by Cloud Run in every service's container and every job's.
     cloud_run_service: str | None = Field(default=None, validation_alias="K_SERVICE")

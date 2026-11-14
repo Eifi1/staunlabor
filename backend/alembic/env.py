@@ -16,6 +16,7 @@ from __future__ import annotations
 import asyncio
 from logging.config import fileConfig
 
+from eifi1_server_kit.auth.sql import alembic_render_item
 from sqlalchemy import pool
 from sqlalchemy.engine import Connection
 from sqlalchemy.ext.asyncio import create_async_engine
@@ -34,7 +35,14 @@ target_metadata = Base.metadata
 
 
 def _run(connection: Connection) -> None:
-    context.configure(connection=connection, target_metadata=target_metadata, compare_server_default=True)
+    context.configure(
+        connection=connection,
+        target_metadata=target_metadata,
+        compare_server_default=True,
+        # server-kit's instants are its UtcDateTime; rendered as plain sa.DateTime(timezone=True),
+        # a generated migration names nothing of the kit's.
+        render_item=alembic_render_item,
+    )
     with context.begin_transaction():
         context.run_migrations()
 

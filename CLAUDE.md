@@ -75,11 +75,11 @@ backend/staunlabor/
   api/                  the routes: shapes in, schemas out, no physics
   security.py           the request budgets, per address
   accounts.py           server-kit's account and admin routes wired: the stores, the mail,
-                        the policy, the admin's scope, roles, languages and review areas
+                        the policy, roles, languages and review areas, the daily call's prune
+  feedback.py           server-kit's feedback routes wired: feedback.sql's stores, the files
   database.py           the accounts' engine (pool 1 + 1) and the request's unit of work
-  jobs.py               the accounts' housekeeping as a command a scheduled job runs (prune)
-  models.py             the accounts' tables: server-kit's [sql] mixins, named here
-backend/alembic/        the migrations, numbered by hand (0001: the account tables)
+  models.py             the tables: server-kit's [sql] and feedback.sql mixins, named here
+backend/alembic/        the migrations (0001: the accounts' tables, 0002: the feedback's)
 frontend/src/
   app/                  routes (every page but the overview lazy), router link
   features/experiments/ the pages, the views, the overview, the daily pick,

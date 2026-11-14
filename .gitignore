@@ -12,3 +12,5 @@ __pycache__/
 .coverage
 junit.xml
 *.tsbuildinfo
+# The backend's local feedback files (settings.feedback_files_dir).
+backend/var/

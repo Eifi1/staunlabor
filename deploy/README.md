@@ -226,6 +226,11 @@ serving the revision before it. Plan, second stage, step 6.
   passkey challenges once they are done with for 30 days, in the app's own
   transaction (`accounts.jobs_deps`), and answers what went. Through the site,
   so the scheduler needs no access to the backend's internal ingress.
+* **Feedback's files in a bucket**: on Cloud Run a directory is the instance's
+  own and goes with it, so a report's screenshot or attachment would vanish at
+  the next scale-down. A private bucket in europe-west4 for `staunlabor-run`,
+  server-kit's `GcsObjectStore` (the `gcs` extra) in `feedback.objects_for`, and
+  the bucket's name as a setting, before the feedback routes go live.
 * **Mail**: until Resend has verified `staunlabor.app`, `STAUNLABOR_MAIL_BACKEND`
   stays `console`: nothing is sent, and Cloud Logging gets each account mail's
   kind alone, never its link or address (server-kit 0.30; the backend says so at

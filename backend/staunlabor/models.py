@@ -27,6 +27,13 @@ from eifi1_server_kit.auth.sql import (
     SessionColumns,
     SpentChallengeColumns,
 )
+from eifi1_server_kit.feedback.sql import (
+    FeedbackAttachmentColumns,
+    FeedbackColumns,
+    FeedbackCommentColumns,
+    FeedbackReplyColumns,
+    FeedbackVoteColumns,
+)
 from sqlalchemy import CheckConstraint, MetaData
 from sqlalchemy.orm import DeclarativeBase
 
@@ -34,6 +41,11 @@ __all__ = [
     "NAMING_CONVENTION",
     "AdminAction",
     "Base",
+    "Feedback",
+    "FeedbackAttachment",
+    "FeedbackComment",
+    "FeedbackReply",
+    "FeedbackVote",
     "Invitation",
     "OneTimeToken",
     "Passkey",
@@ -106,3 +118,28 @@ class SpentChallenge(SpentChallengeColumns, Base):
 
 class AdminAction(AdminActionColumns, Base):
     __tablename__ = "admin_actions"
+
+
+# ── Feedback (server-kit 0.31's feedback.sql): the reports, their conversation, the
+# comments and votes of the public list, and who uploaded which file. Every column is the
+# kit's; the keys follow the account table ("users") and the report table ("feedback"). ──
+
+
+class Feedback(FeedbackColumns, Base):
+    __tablename__ = "feedback"
+
+
+class FeedbackReply(FeedbackReplyColumns, Base):
+    __tablename__ = "feedback_replies"
+
+
+class FeedbackComment(FeedbackCommentColumns, Base):
+    __tablename__ = "feedback_comments"
+
+
+class FeedbackVote(FeedbackVoteColumns, Base):
+    __tablename__ = "feedback_votes"
+
+
+class FeedbackAttachment(FeedbackAttachmentColumns, Base):
+    __tablename__ = "feedback_attachments"
