@@ -136,3 +136,6 @@ def test_the_cases_cross_every_branch_a_page_can_reach(stored: Any):
     assert any(s["spills"] for s in surfaces), "water spilling"
     assert any(s["focus_m"] is None for s in surfaces), "water at rest"
     assert any(c["vessel_rate"] == 0 for c in stored["parabola_spins"]), "water spinning down"
+    assert {c["start"] for c in stored["coupled"]} == {"one", "together", "against"}, "every start"
+    assert any(c["beat_s"] is None for c in stored["coupled"]), "no spring"
+    assert any(c["cp"]["damping_per_s"] > 0 for c in stored["coupled"]), "a damped pair"

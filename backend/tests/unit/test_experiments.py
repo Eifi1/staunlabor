@@ -1544,3 +1544,53 @@ def test_the_water_parabola_refuses_what_is_not_a_vessel_of_water():
         x.Vessel(radius_m=0.0)
     with pytest.raises(ValueError, match="positive number"):
         x.surface(x.Vessel(), -1.0)
+
+
+# ── the coupled pendulums ────────────────────────────────────────────────────
+
+
+def test_equal_pendulums_swing_together_at_their_own_rate_and_against_each_other_faster():
+    cp = x.CoupledPendulums()
+    slow, fast = x.mode_rates(cp)
+    kappa = x.couplings(cp)[0]
+    assert slow == pytest.approx(math.sqrt(9.80665 / 0.5), rel=1e-14)
+    assert fast == pytest.approx(math.sqrt(9.80665 / 0.5 + 2 * kappa), rel=1e-14)
+    assert round(x.beat_s(cp)) == 23
+    # Let go together, the spring never stretches and nothing is exchanged.
+    run = x.coupled_swing(cp, x.Start.TOGETHER, 10.0, 20.0)
+    assert max(run.spring_j) == 0
+    assert run.left_j == run.right_j
+
+
+def test_a_push_to_one_has_wandered_to_the_other_after_half_a_beat():
+    cp = x.CoupledPendulums()
+    half = x.beat_s(cp) / 2
+    run = x.coupled_swing(cp, x.Start.ONE, 3.0, half)
+    total = run.left_j[0]
+    assert run.left_j[-1] / total < 0.001
+    assert max(run.right_j[-60:]) / total > 0.99
+    assert x.exchange_share(cp) == 1.0
+
+
+def test_unequal_pendulums_hand_over_only_the_share_rabi_s_formula_gives():
+    cp = x.CoupledPendulums(right=x.Bob(length_m=0.55))
+    share = x.exchange_share(cp)
+    assert round(share, 2) == 0.56
+    run = x.coupled_swing(cp, x.Start.ONE, 2.0, 120.0)
+    assert max(run.right_j) / run.left_j[0] == pytest.approx(share, abs=0.015)
+
+
+def test_the_coupled_pair_keeps_its_energy_without_damping():
+    cp = x.CoupledPendulums(spring_n_m=3.0)
+    run = x.coupled_swing(cp, x.Start.ONE, 40.0, 20.0)
+    totals = [a + b + s for a, b, s in zip(run.left_j, run.right_j, run.spring_j, strict=True)]
+    assert max(totals) - min(totals) < 1e-9 * totals[0]
+
+
+def test_the_coupled_pendulums_refuse_what_cannot_hang():
+    with pytest.raises(ValueError, match="between the pivot and the bob"):
+        x.CoupledPendulums(spring_at_m=0.6)
+    with pytest.raises(ValueError, match="between 5 cm and 5 m"):
+        x.Bob(length_m=10.0)
+    with pytest.raises(ValueError, match="at most 60°"):
+        x.coupled_swing(x.CoupledPendulums(), x.Start.ONE, 80.0, 1.0)

@@ -36,6 +36,7 @@ from staunlabor.domain.experiments import (
     Coil,
     CoilExhibit,
     ConeExhibit,
+    CoupledPendulums,
     Drum,
     Elephant,
     FloatingBall,
@@ -69,6 +70,7 @@ from staunlabor.domain.schemas.experiments import (
     CoilAnalysisOut,
     CoilExhibitIn,
     ConeExhibitIn,
+    CoupledPendulumsIn,
     ElephantFiguresOut,
     ElephantIn,
     ExperimentsDefaultsOut,
@@ -124,6 +126,7 @@ async def defaults() -> ExperimentsDefaultsOut:
         harmonograph=HarmonographIn.model_validate(Harmonograph()),
         cone=ConeExhibitIn.model_validate(ConeExhibit()),
         parabola=VesselIn.model_validate(Vessel()),
+        coupled=CoupledPendulumsIn.model_validate(CoupledPendulums()),
         meter_range_a=METER_RANGE_A,
         settle_s=PAGE_SETTLE_S,
     )

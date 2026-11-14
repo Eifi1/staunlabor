@@ -40,6 +40,8 @@ with SciPy before it was written (``docs/experiments.md``).
 * :mod:`parabola` — water in a spinning vessel: a paraboloid whose middle
   sinks as far as its rim rises, dry in the middle past a rate, a mirror whose
   focus the rate sets, and water that follows the vessel over Ekman's time.
+* :mod:`coupled` — two pendulums and a spring: two modes, and a swing that
+  wanders from one to the other at their beat, all of it only when they match.
 * :mod:`wave` — a row of pendulums tuned to swing ``N``, ``N + 1``, … times a
   cycle: waves, groups, and all together again — at the swing it was tuned for.
 
@@ -97,6 +99,18 @@ from staunlabor.domain.experiments.cone import (
     start_for,
     threshold_deg,
 )
+from staunlabor.domain.experiments.coupled import (
+    Bob,
+    CoupledPendulums,
+    CoupledRun,
+    Start,
+    beat_s,
+    couplings,
+    energies,
+    exchange_share,
+    mode_rates,
+)
+from staunlabor.domain.experiments.coupled import swing as coupled_swing
 from staunlabor.domain.experiments.elephant import (
     Elephant,
     ElephantFigures,
@@ -254,6 +268,7 @@ __all__ = [
     "BallKind",
     "BallStack",
     "Basin",
+    "Bob",
     "Body",
     "Box",
     "CannonFigures",
@@ -267,6 +282,8 @@ __all__ = [
     "ConeExhibit",
     "ConeRun",
     "Contact",
+    "CoupledPendulums",
+    "CoupledRun",
     "CurveKind",
     "CurvePoint",
     "DoubleCone",
@@ -330,6 +347,7 @@ __all__ = [
     "Spin",
     "SpinRun",
     "SpreadPoint",
+    "Start",
     "Surface",
     "SwingPoint",
     "SwingRun",
@@ -347,6 +365,7 @@ __all__ = [
     "axis_height_m",
     "axis_slope",
     "backbone",
+    "beat_s",
     "binocular_gap",
     "cannon_drop",
     "cannon_figures",
@@ -356,11 +375,15 @@ __all__ = [
     "coil_analysis",
     "contact_factor",
     "contact_radius_m",
+    "coupled_swing",
     "coupling",
+    "couplings",
     "cycloid_through",
     "dry_rate",
     "elephant_figures",
     "ellipk",
+    "energies",
+    "exchange_share",
     "exhibit",
     "figures",
     "flux_linkage",
@@ -377,6 +400,7 @@ __all__ = [
     "length_for",
     "lengths_m",
     "lowest_orbit_hz",
+    "mode_rates",
     "nearest_ratio",
     "orbit",
     "orbit_at",

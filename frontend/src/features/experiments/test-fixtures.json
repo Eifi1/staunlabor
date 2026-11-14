@@ -134,6 +134,19 @@
       "height_m": 0.3,
       "fill_m": 0.1
     },
+    "coupled": {
+      "left": {
+        "length_m": 0.5,
+        "mass_kg": 0.2
+      },
+      "right": {
+        "length_m": 0.5,
+        "mass_kg": 0.2
+      },
+      "spring_n_m": 1.0,
+      "spring_at_m": 0.25,
+      "damping_per_s": 0.0
+    },
     "meter_range_a": 0.1,
     "settle_s": 0.15
   },

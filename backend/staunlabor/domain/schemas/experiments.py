@@ -551,6 +551,23 @@ class VesselIn(_In):
     fill_m: float = Field(gt=0, le=4.0, default=0.10)
 
 
+# ── the coupled pendulums ────────────────────────────────────────────────────
+# No route: the page asks the port (``simulate/coupled.ts``).
+
+
+class BobIn(_In):
+    length_m: float = Field(ge=0.05, le=5.0, default=0.5)
+    mass_kg: float = Field(ge=0.01, le=20.0, default=0.2)
+
+
+class CoupledPendulumsIn(_In):
+    left: BobIn
+    right: BobIn
+    spring_n_m: float = Field(ge=0, le=100, default=1.0)
+    spring_at_m: float = Field(gt=0, le=5.0, default=0.25)
+    damping_per_s: float = Field(ge=0, le=1, default=0.0)
+
+
 # ── the pages' starting point ────────────────────────────────────────────────
 
 
@@ -566,6 +583,7 @@ class ExperimentsDefaultsOut(_Out):
     harmonograph: HarmonographIn
     cone: ConeExhibitIn
     parabola: VesselIn
+    coupled: CoupledPendulumsIn
     #: The exhibit's meter: digital, ± this many amperes.
     meter_range_a: float
     #: How long a page waits after the last slider step before asking.

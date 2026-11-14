@@ -18,6 +18,7 @@ import cases from "./engine-cases.json";
 import * as cannon from "./cannon";
 import * as coil from "./coil";
 import * as cone from "./cone";
+import * as coupled from "./coupled";
 import * as elephant from "./elephant";
 import * as harmonograph from "./harmonograph";
 import * as parabola from "./parabola";
@@ -614,5 +615,21 @@ describe("the water parabola's port", () => {
     let rate = 0;
     for (let i = 0; i < 100; i++) rate = parabola.spinStep(v, 10, rate, i * parabola.SPIN_STEP_S);
     expect(rate).toBe(whole.water_rate[whole.water_rate.length - 1]);
+  });
+});
+
+describe("the coupled pendulums' port", () => {
+  it.each(cases.coupled.map((c) => [c.name, c] as const))("swings %s as the engine does", (_name, c) => {
+    const cp = c.cp as coupled.CoupledPendulums;
+    expect(differences(c.mode_rates, coupled.modeRates(cp))).toEqual([]);
+    expect(differences(c.beat_s, coupled.beatS(cp))).toEqual([]);
+    expect(differences(c.exchange_share, coupled.exchangeShare(cp))).toEqual([]);
+    const run = coupled.swing(cp, c.start as coupled.Start, c.amplitude_deg, 4.0, c.step_s);
+    expect(differences(c.run, run)).toEqual([]);
+  });
+
+  it("refuses what the engine refuses", () => {
+    expect(() => coupled.startState("one", 80)).toThrow(RangeError);
+    expect(() => coupled.swing(cases.coupled[0].cp as coupled.CoupledPendulums, "one", 5, 1000)).toThrow(RangeError);
   });
 });

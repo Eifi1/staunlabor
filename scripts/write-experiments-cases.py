@@ -59,6 +59,7 @@ wave = importlib.import_module("staunlabor.domain.experiments.wave")
 harmonograph = importlib.import_module("staunlabor.domain.experiments.harmonograph")
 cone = importlib.import_module("staunlabor.domain.experiments.cone")
 parabola = importlib.import_module("staunlabor.domain.experiments.parabola")
+coupled = importlib.import_module("staunlabor.domain.experiments.coupled")
 
 TARGET = ROOT / "frontend/src/features/experiments/simulate/engine-cases.json"
 #: Points kept per curve: enough to see a curve that went wrong, few enough that
@@ -378,6 +379,30 @@ PARABOLA_SPINS: dict[str, dict[str, Any]] = {
     },
 }
 
+#: The coupled pendulums: one pushed, both together, against each other wide,
+#: unequal and damped, and no spring at all at a coarse step.
+CB = coupled.Bob
+COUPLED_CASES: dict[str, dict[str, Any]] = {
+    "one pushed": {"cp": coupled.CoupledPendulums(), "start": coupled.Start.ONE, "amplitude_deg": 5.0},
+    "both together": {"cp": coupled.CoupledPendulums(), "start": coupled.Start.TOGETHER, "amplitude_deg": 10.0},
+    "against each other, wide": {
+        "cp": coupled.CoupledPendulums(spring_n_m=3.0),
+        "start": coupled.Start.AGAINST,
+        "amplitude_deg": 40.0,
+    },
+    "unequal and damped": {
+        "cp": coupled.CoupledPendulums(right=CB(0.6, 0.3), spring_at_m=0.4, damping_per_s=0.2),
+        "start": coupled.Start.ONE,
+        "amplitude_deg": 15.0,
+    },
+    "no spring, a coarse step": {
+        "cp": coupled.CoupledPendulums(spring_n_m=0.0),
+        "start": coupled.Start.ONE,
+        "amplitude_deg": 20.0,
+        "step_s": 5e-3,
+    },
+}
+
 #: Where the heights and the contact are written out along the rails.
 CONE_POINTS = (0.0, 0.07, 0.15, 0.3)
 
@@ -439,6 +464,25 @@ def _pendulum_cases(out: dict[str, Any]) -> None:
                 "lengths_m": list(wave.lengths_m(row)),
                 "lag_deg": list(wave.lag_deg(row)),
                 "spread_deg": wave.spread_deg(row),
+            }
+        )
+
+
+def _coupled_cases(out: dict[str, Any]) -> None:
+    for name, case in COUPLED_CASES.items():
+        cp = case["cp"]
+        step = case.get("step_s", coupled.STEP_S)
+        out["coupled"].append(
+            {
+                "name": name,
+                "cp": asdict(cp),
+                "start": str(case["start"]),
+                "amplitude_deg": case["amplitude_deg"],
+                "step_s": step,
+                "mode_rates": list(coupled.mode_rates(cp)),
+                "beat_s": coupled.beat_s(cp),
+                "exchange_share": coupled.exchange_share(cp),
+                "run": thin(asdict(coupled.swing(cp, case["start"], case["amplitude_deg"], 4.0, step))),
             }
         )
 
@@ -547,10 +591,12 @@ def cases() -> dict[str, Any]:
         "cone": [],
         "parabola_surfaces": [],
         "parabola_spins": [],
+        "coupled": [],
     }
     _pendulum_cases(out)
     _cone_cases(out)
     _parabola_cases(out)
+    _coupled_cases(out)
     for name, case in HARMONOGRAPH_CASES.items():
         h = case["h"]
         step = case.get("step_s", harmonograph.STEP_S)
