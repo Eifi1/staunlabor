@@ -45,6 +45,10 @@ API = "/api/v1/experiments"
 #: route takes no input.
 POSTED = ("coil", "sphere", "platform", "race", "elephant", "smoke", "cannon", "wave")
 
+#: Exhibits whose build comes with the defaults but which have no route of their
+#: own: the page computes everything it shows in the browser, from the port.
+UNROUTED = ("harmonograph",)
+
 
 def _answer(response: Response) -> Any:
     # A refusal written into the file would be a page test's "engine answer".

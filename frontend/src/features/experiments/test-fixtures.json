@@ -103,6 +103,20 @@
       "amplitude_deg": 15.0,
       "spacing_m": 0.05
     },
+    "harmonograph": {
+      "pen": {
+        "length_m": 0.8,
+        "amplitude_deg": 12.0,
+        "phase_deg": 0.0,
+        "damping_per_s": 0.02
+      },
+      "board": {
+        "length_m": 0.35086180430682873,
+        "amplitude_deg": 12.0,
+        "phase_deg": 90.0,
+        "damping_per_s": 0.02
+      }
+    },
     "meter_range_a": 0.1,
     "settle_s": 0.15
   },

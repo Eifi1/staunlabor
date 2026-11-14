@@ -18,6 +18,7 @@ import cases from "./engine-cases.json";
 import * as cannon from "./cannon";
 import * as coil from "./coil";
 import * as elephant from "./elephant";
+import * as harmonograph from "./harmonograph";
 import * as pendulum from "./pendulum";
 import * as pit from "./pit";
 import * as platform from "./platform";
@@ -513,5 +514,35 @@ describe("the pendulum wave's port", () => {
     expect(differences(c.lengths_m, wave.lengthsM(c.wave))).toEqual([]);
     expect(differences(c.lag_deg, wave.lagDeg(c.wave))).toEqual([]);
     expect(differences(c.spread_deg, wave.spreadDeg(c.wave))).toEqual([]);
+  });
+});
+
+describe("the harmonograph's port", () => {
+  it.each(cases.harmonograph.map((c) => [c.name, c] as const))("draws %s as the engine does", (_name, c) => {
+    const h = c.h as harmonograph.Harmonograph;
+    expect(differences(c.start, [harmonograph.start(h.pen), harmonograph.start(h.board)])).toEqual([]);
+    expect(differences(c.figures, harmonograph.figures(h))).toEqual([]);
+    expect(differences(c.run, harmonograph.draw(h, c.duration_s, c.step_s))).toEqual([]);
+  });
+
+  it("draws frame by frame what it draws in one go", () => {
+    const h = cases.harmonograph[0].h as harmonograph.Harmonograph;
+    const whole = harmonograph.draw(h, 2);
+    const state = harmonograph.startDrawing(h);
+    const points: Array<[number, number]> = [harmonograph.penAt(h, state)];
+    // Frames of uneven length, as a browser's are.
+    for (const steps of [7, 300, 13, 680, 1000]) {
+      harmonograph.advance(h, state, steps, undefined, (s) => {
+        if (s.i % 20 === 0) points.push(harmonograph.penAt(h, s));
+      });
+    }
+    expect(points.map((p) => p[0])).toEqual(whole.x_m);
+    expect(points.map((p) => p[1])).toEqual(whole.y_m);
+  });
+
+  it("refuses what the engine refuses", () => {
+    const h = cases.harmonograph[0].h as harmonograph.Harmonograph;
+    expect(() => harmonograph.draw(h, 1000)).toThrow(RangeError);
+    expect(() => harmonograph.draw(h, 1, 0.02)).toThrow(RangeError);
   });
 });

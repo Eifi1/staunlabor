@@ -33,6 +33,8 @@ with SciPy before it was written (``docs/experiments.md``).
 * :mod:`pendulum` — the block the swinging exhibits stand on: a plane
   pendulum exactly (Jacobi's elliptic functions) and stepped (Runge–Kutta),
   each the other's check.
+* :mod:`harmonograph` — a pen on one pendulum and a board on another: the
+  picture two damped swings draw, closed at a simple ratio, turning near one.
 * :mod:`wave` — a row of pendulums tuned to swing ``N``, ``N + 1``, … times a
   cycle: waves, groups, and all together again — at the swing it was tuned for.
 
@@ -89,6 +91,15 @@ from staunlabor.domain.experiments.elephant import (
 from staunlabor.domain.experiments.elephant import Move as ElephantMove
 from staunlabor.domain.experiments.elephant import figures as elephant_figures
 from staunlabor.domain.experiments.elephant import run as run_elephant
+from staunlabor.domain.experiments.harmonograph import (
+    Harmonograph,
+    HarmonographFigures,
+    HarmonographPendulum,
+    HarmonographRun,
+    nearest_ratio,
+)
+from staunlabor.domain.experiments.harmonograph import draw as harmonograph_draw
+from staunlabor.domain.experiments.harmonograph import figures as harmonograph_figures
 from staunlabor.domain.experiments.pendulum import (
     SwingRun,
     angle_deg,
@@ -240,6 +251,10 @@ __all__ = [
     "Flight",
     "FloatingBall",
     "GroupPoint",
+    "Harmonograph",
+    "HarmonographFigures",
+    "HarmonographPendulum",
+    "HarmonographRun",
     "Idle",
     "Impact",
     "Inertia",
@@ -307,6 +322,8 @@ __all__ = [
     "figures",
     "flux_linkage",
     "groups_at",
+    "harmonograph_draw",
+    "harmonograph_figures",
     "image",
     "inertia",
     "jacobi",
@@ -316,6 +333,7 @@ __all__ = [
     "length_for",
     "lengths_m",
     "lowest_orbit_hz",
+    "nearest_ratio",
     "orbit",
     "orbit_at",
     "peak_coupling",

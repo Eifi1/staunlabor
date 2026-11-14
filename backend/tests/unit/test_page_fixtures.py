@@ -50,7 +50,8 @@ def test_the_pages_fixtures_are_what_the_api_answers_for_the_defaults(writer: An
 
 def test_every_exhibit_s_route_has_its_answer_in_the_fixtures(writer: Any, fresh: Any):
     """A new exhibit's page test needs its answer here; the writer is where it
-    goes, and the defaults name every exhibit that takes a body."""
-    takes_a_body = set(fresh["defaults"]) - {"meter_range_a", "settle_s"}
+    goes, and the defaults name every exhibit that takes a body — or has none to
+    take, its page computing in the browser (``UNROUTED``)."""
+    takes_a_body = set(fresh["defaults"]) - {"meter_range_a", "settle_s", *writer.UNROUTED}
     assert takes_a_body == set(writer.POSTED)
     assert set(fresh) == {"_note", "defaults", "chair", *writer.POSTED}

@@ -502,6 +502,23 @@ class WaveFiguresOut(_Out):
     groups: list[GroupPointOut]
 
 
+# ── the harmonograph ─────────────────────────────────────────────────────────
+# No route: the page draws in the browser and reads its figures off the port
+# (``simulate/harmonograph.ts``); the build comes with the defaults.
+
+
+class HarmonographPendulumIn(_In):
+    length_m: float = Field(ge=0.05, le=5.0, default=0.8)
+    amplitude_deg: float = Field(ge=0, le=45, default=12.0)
+    phase_deg: float = Field(ge=0, le=360, default=0.0)
+    damping_per_s: float = Field(ge=0, le=1, default=0.02)
+
+
+class HarmonographIn(_In):
+    pen: HarmonographPendulumIn
+    board: HarmonographPendulumIn
+
+
 # ── the pages' starting point ────────────────────────────────────────────────
 
 
@@ -514,6 +531,7 @@ class ExperimentsDefaultsOut(_Out):
     smoke: SmokeExhibitIn
     cannon: BallStackIn
     wave: WaveIn
+    harmonograph: HarmonographIn
     #: The exhibit's meter: digital, ± this many amperes.
     meter_range_a: float
     #: How long a page waits after the last slider step before asking.

@@ -56,6 +56,7 @@ smoke = importlib.import_module("staunlabor.domain.experiments.smoke")
 cannon = importlib.import_module("staunlabor.domain.experiments.cannon")
 pendulum = importlib.import_module("staunlabor.domain.experiments.pendulum")
 wave = importlib.import_module("staunlabor.domain.experiments.wave")
+harmonograph = importlib.import_module("staunlabor.domain.experiments.harmonograph")
 
 TARGET = ROOT / "frontend/src/features/experiments/simulate/engine-cases.json"
 #: Points kept per curve: enough to see a curve that went wrong, few enough that
@@ -317,6 +318,31 @@ WAVE_CASES: dict[str, Any] = {
 }
 
 
+#: The harmonograph: the default drawing, an undamped pair let go at different
+#: widths, phases past half a swing, and a near 1:1 at a coarse step.
+HG = harmonograph.HarmonographPendulum
+HARMONOGRAPH_CASES: dict[str, dict[str, Any]] = {
+    "the default drawing": {"h": harmonograph.Harmonograph(), "duration_s": 6.0},
+    "undamped, let go at 30° and 5°": {
+        "h": harmonograph.Harmonograph(
+            pen=HG(amplitude_deg=30.0, damping_per_s=0.0), board=HG(length_m=0.36, amplitude_deg=5.0, damping_per_s=0.0)
+        ),
+        "duration_s": 4.0,
+    },
+    "phases past half a swing, heavily damped": {
+        "h": harmonograph.Harmonograph(
+            pen=HG(phase_deg=250.0, damping_per_s=0.5), board=HG(length_m=0.2, phase_deg=135.0, damping_per_s=0.3)
+        ),
+        "duration_s": 3.0,
+    },
+    "near one to one, a coarse step": {
+        "h": harmonograph.Harmonograph(board=HG(length_m=0.79, phase_deg=90.0)),
+        "duration_s": 5.0,
+        "step_s": 4e-3,
+    },
+}
+
+
 def thin(values: Any) -> Any:
     """A curve as its length and every so many of its points, the last always
     among them; anything else as it is, recursively."""
@@ -414,8 +440,23 @@ def cases() -> dict[str, Any]:
         "pendulum_angles": [],
         "swing": [],
         "wave": [],
+        "harmonograph": [],
     }
     _pendulum_cases(out)
+    for name, case in HARMONOGRAPH_CASES.items():
+        h = case["h"]
+        step = case.get("step_s", harmonograph.STEP_S)
+        out["harmonograph"].append(
+            {
+                "name": name,
+                "h": asdict(h),
+                "duration_s": case["duration_s"],
+                "step_s": step,
+                "start": [list(harmonograph.start(h.pen)), list(harmonograph.start(h.board))],
+                "figures": asdict(harmonograph.figures(h)),
+                "run": thin(asdict(harmonograph.draw(h, case["duration_s"], step))),
+            }
+        )
     out["constants"]["platform"] = {name: getattr(platform, name) for name in ("SAMPLES_PER_S", "MAX_DURATION_S")}
     out["constants"]["elephant"] = {
         name: getattr(elephant, name)

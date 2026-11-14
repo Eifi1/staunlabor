@@ -1322,3 +1322,76 @@ def test_the_pendulum_wave_refuses_what_is_not_a_row():
         x.PendulumWave(longest_swings=0)
     with pytest.raises(ValueError, match="whole number"):
         x.groups_at(x.PendulumWave(), 0)
+
+
+# ── the harmonograph ─────────────────────────────────────────────────────────
+
+
+def _ending_on(duration: float) -> float:
+    """A step that puts the last sample on the drawing's end: 25 steps a sample."""
+    return duration / (25 * round(50 * duration))
+
+
+def _closed(amplitudes=(12.0, 12.0)):
+    """Two undamped pendulums tuned exactly 2:3 by the small swing's formula."""
+    pen = x.HarmonographPendulum(length_m=0.8, amplitude_deg=amplitudes[0], damping_per_s=0.0)
+    board = x.HarmonographPendulum(
+        length_m=0.8 * (2 / 3) ** 2, amplitude_deg=amplitudes[1], phase_deg=90.0, damping_per_s=0.0
+    )
+    return x.Harmonograph(pen=pen, board=board)
+
+
+def test_at_a_simple_ratio_the_undamped_figure_closes_on_itself():
+    h = _closed()
+    # Two of the pen's swings are three of the board's; both let go at 12°, so
+    # both are slowed by the same 1 + θ₀²/16 and the ratio holds exactly.
+    two = 2 * x.period_s(0.8, 12.0)
+    run = x.harmonograph_draw(h, two, step_s=_ending_on(two))
+    assert run.x_m[-1] == pytest.approx(run.x_m[0], abs=1e-9)
+    assert run.y_m[-1] == pytest.approx(run.y_m[0], abs=1e-9)
+    assert x.harmonograph_figures(h).turn_s is None
+
+
+def test_let_go_at_different_widths_an_exact_ratio_drifts_open():
+    # The wider swing is the slower one: the pen at 30° falls behind the board at 5°.
+    h = _closed((30.0, 5.0))
+    two = 2 * x.small_period_s(0.8)
+    run = x.harmonograph_draw(h, two, step_s=_ending_on(two))
+    assert abs(run.x_m[-1] - run.x_m[0]) > 1e-3
+
+
+def test_a_damped_swing_draws_inward_and_fades_to_a_tenth_when_the_figures_say():
+    h = x.Harmonograph()
+    figures = x.harmonograph_figures(h)
+    assert figures.pen_fades_s == pytest.approx(230.26, abs=0.01)
+    run = x.harmonograph_draw(h, 60.0)
+    first = max(abs(v) for v in run.x_m[:100])
+    last = max(abs(v) for v in run.x_m[-100:])
+    # A small swing dies away as e^(−c·t/2): 0.55 after 60 s at c = 0.02.
+    assert last / first == pytest.approx(math.exp(-0.01 * 58), rel=0.02)
+
+
+def test_the_default_drawing_is_near_two_to_three_and_turns_once_in_a_minute_and_a_half():
+    figures = x.harmonograph_figures(x.Harmonograph())
+    assert figures.ratio == (2, 3)
+    assert figures.detune == pytest.approx(0.0067, abs=1e-4)
+    assert round(figures.turn_s) == 90
+    assert round(figures.pen_hz, 2) == 0.56
+
+
+def test_the_nearest_simple_ratio_is_the_one_in_lowest_terms():
+    assert x.nearest_ratio(1.0, 2.01) == (1, 2)
+    assert x.nearest_ratio(1.0, 1.0) == (1, 1)
+    assert x.nearest_ratio(3.0, 4.02) == (3, 4)
+    assert x.nearest_ratio(1.0, 1.24) == (4, 5)
+
+
+def test_the_harmonograph_refuses_what_it_cannot_be():
+    with pytest.raises(ValueError, match="between 5 cm and 5 m"):
+        x.HarmonographPendulum(length_m=0.01)
+    with pytest.raises(ValueError, match="at most 45°"):
+        x.HarmonographPendulum(amplitude_deg=60)
+    with pytest.raises(ValueError, match="damping"):
+        x.HarmonographPendulum(damping_per_s=-0.1)
+    with pytest.raises(ValueError, match="at most"):
+        x.harmonograph_draw(x.Harmonograph(), 1000.0)

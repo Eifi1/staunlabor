@@ -124,3 +124,6 @@ def test_the_cases_cross_every_branch_a_page_can_reach(stored: Any):
     assert any(p["amplitude_deg"] == 0 for p in stored["pendulum_angles"]), "a pendulum let go at rest"
     assert any(c.get("damping_per_s", 0) > 0 for c in stored["swing"]), "a damped swing"
     assert any(c["spread_deg"] > 30 for c in stored["wave"]), "a row that comes back apart"
+    phases = {c["h"][p]["phase_deg"] for c in stored["harmonograph"] for p in ("pen", "board")}
+    assert any(180 < p < 360 for p in phases), "a pendulum started on its way back"
+    assert any(c["figures"]["pen_fades_s"] is None for c in stored["harmonograph"]), "an undamped pair"
