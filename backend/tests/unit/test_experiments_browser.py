@@ -119,3 +119,8 @@ def test_the_cases_cross_every_branch_a_page_can_reach(stored: Any):
     assert any(c["visitor"] and c["visitor"]["kind"] == "scripted" for c in coils)
     gains = [p["gain_j"] for p in stored["timing"]["points"]]
     assert gains[-1] < 0 < max(gains)
+    assert {p["m"] for p in stored["jacobi"]} >= {0.0, 1.0}, "both ends of the parameter"
+    assert any(p["t"] > 4 * p["period_s"] for p in stored["pendulum_angles"]), "an instant many periods in"
+    assert any(p["amplitude_deg"] == 0 for p in stored["pendulum_angles"]), "a pendulum let go at rest"
+    assert any(c.get("damping_per_s", 0) > 0 for c in stored["swing"]), "a damped swing"
+    assert any(c["spread_deg"] > 30 for c in stored["wave"]), "a row that comes back apart"

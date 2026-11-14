@@ -1188,3 +1188,137 @@ def test_the_ball_cannon_refuses_what_it_cannot_be():
         x.BallStack(drop_m=5.0)
     with pytest.raises(ValueError, match="drop lasts"):
         x.cannon_drop(x.BallStack(), 30.0)
+
+
+# ── the pendulum, the block the swinging exhibits stand on ───────────────────
+
+
+def test_jacobi_s_functions_keep_their_identities_and_their_limits():
+    for m in (0.1, 0.5, 0.9, 0.999):
+        for u in (-2.2, 0.3, 1.7, 5.0):
+            sn, cn, dn = x.jacobi(u, m)
+            assert sn * sn + cn * cn == pytest.approx(1, abs=1e-14)
+            assert dn * dn + m * sn * sn == pytest.approx(1, abs=1e-14)
+    assert x.jacobi(0.7, 0.0) == pytest.approx((math.sin(0.7), math.cos(0.7), 1.0))
+    sech = 1 / math.cosh(0.7)
+    assert x.jacobi(0.7, 1.0) == pytest.approx((math.tanh(0.7), sech, sech))
+    # sn reaches 1 at the quarter period K, and its slope is cn·dn.
+    m, u, h = 0.7, 1.1, 1e-6
+    assert x.jacobi(x.ellipk(m), m)[0] == pytest.approx(1, abs=1e-14)
+    slope = (x.jacobi(u + h, m)[0] - x.jacobi(u - h, m)[0]) / (2 * h)
+    sn, cn, dn = x.jacobi(u, m)
+    assert slope == pytest.approx(cn * dn, rel=1e-8)
+
+
+def test_a_wider_swing_takes_longer_by_the_elliptic_integral():
+    # K(1/2) = 1.8540746773013719 (A&S table 17.1): a swing to the horizontal
+    # takes 18 % longer than a small one.
+    assert x.period_factor(90) == pytest.approx(2 * 1.8540746773013719 / math.pi, rel=1e-14)
+    for degrees in (1, 5, 10, 16):
+        a = math.radians(degrees)
+        assert x.period_factor(degrees) == pytest.approx(1 + a**2 / 16 + 11 * a**4 / 3072, rel=2e-6)
+    assert round(x.period_factor(16), 4) == 1.0049
+    assert round(x.period_factor(30), 4) == 1.0174
+    assert x.small_period_s(1.0) == pytest.approx(2.006, abs=1e-3)
+    # A length tuned for a swing gives that swing its period exactly.
+    assert x.period_s(x.length_for(1.5, 40.0), 40.0) == pytest.approx(1.5, rel=1e-14)
+
+
+def test_the_exact_pendulum_is_the_stepped_one():
+    for length, amplitude in ((0.5, 60.0), (0.2, 5.0), (2.0, 150.0)):
+        run = x.swing(length, amplitude, 10.0)
+        worst = max(abs(a - x.angle_deg(length, amplitude, t)) for t, a in zip(run.t, run.angle_deg, strict=True))
+        assert worst < 1e-7
+
+
+def test_the_exact_pendulum_is_as_exact_a_minute_in():
+    length, amplitude = 0.34, 15.0
+    period = x.period_s(length, amplitude)
+    for t in (0.1, 0.7, 1.3):
+        assert x.angle_deg(length, amplitude, t + 51 * period) == pytest.approx(
+            x.angle_deg(length, amplitude, t), abs=1e-9
+        )
+    assert x.angle_deg(length, amplitude, period / 2) == pytest.approx(-amplitude, abs=1e-9)
+    assert x.angle_deg(length, amplitude, period / 4) == pytest.approx(0, abs=1e-9)
+
+
+def test_damping_lets_a_swing_die_away_as_its_exponential():
+    # Small and lightly damped: the amplitude falls as e^(−c·t/2).
+    run = x.swing(1.0, 2.0, 20.0, damping_per_s=0.1)
+    tops = [
+        abs(a)
+        for i, a in enumerate(run.angle_deg[1:-1], 1)
+        if abs(a) >= abs(run.angle_deg[i - 1]) and abs(a) >= abs(run.angle_deg[i + 1])
+    ]
+    assert tops[-1] == pytest.approx(2.0 * math.exp(-0.05 * 20.0), rel=0.05)
+
+
+def test_the_pendulum_refuses_what_is_not_a_pendulum():
+    with pytest.raises(ValueError, match="positive length"):
+        x.small_period_s(0.0)
+    with pytest.raises(ValueError, match="between 0° and 180°"):
+        x.period_factor(180)
+    with pytest.raises(ValueError, match="damping"):
+        x.swing(1.0, 10.0, 1.0, damping_per_s=-1)
+    with pytest.raises(ValueError, match="at most"):
+        x.swing(1.0, 10.0, 1000.0)
+    with pytest.raises(ValueError, match="between 0 and 1"):
+        x.jacobi(1.0, 1.5)
+
+
+# ── the pendulum wave ────────────────────────────────────────────────────────
+
+
+def test_each_pendulum_of_the_wave_swings_its_own_whole_number_in_a_cycle():
+    wave = x.PendulumWave()
+    for swings, length in zip((51 + n for n in range(15)), x.lengths_m(wave), strict=True):
+        assert swings * x.period_s(length, wave.tuned_deg) == pytest.approx(wave.cycle_s, rel=1e-13)
+    figures = x.wave_figures(wave)
+    assert round(figures.longest_m * 100) == 34
+    assert round(figures.shortest_m * 100) == 21
+
+
+def test_let_go_at_the_tuned_swing_the_row_is_together_again_after_a_cycle():
+    wave = x.PendulumWave()
+    for length in x.lengths_m(wave):
+        assert x.angle_deg(length, 15.0, wave.cycle_s) == pytest.approx(15.0, abs=1e-6)
+    assert x.wave_figures(wave).spread_deg < 1e-9
+
+
+def test_half_a_cycle_in_the_row_stands_in_two_groups_a_third_in_three():
+    wave = x.PendulumWave()
+    for swings, length in zip((51 + n for n in range(15)), x.lengths_m(wave), strict=True):
+        expected = 15.0 if swings % 2 == 0 else -15.0
+        assert x.angle_deg(length, 15.0, wave.cycle_s / 2) == pytest.approx(expected, abs=1e-6)
+    thirds = {round(x.angle_deg(length, 15.0, wave.cycle_s / 3), 6) for length in x.lengths_m(wave)}
+    # Phases 0, 1/3 and 2/3 of a swing: the two thirds stand at the same angle,
+    # going opposite ways — three groups, two angles.
+    assert len(thirds) == 2
+    assert [g.groups for g in x.wave_figures(wave).groups] == [2, 3, 4, 5]
+
+
+def test_a_row_let_go_wider_or_narrower_than_its_tuning_comes_back_skewed():
+    wave = x.PendulumWave()
+    curve = {p.amplitude_deg: p.spread_deg for p in x.wave_figures(wave).spread_curve}
+    assert curve[14.0] < curve[10.0] < curve[0.0]
+    assert curve[16.0] < curve[20.0] < curve[30.0]
+    assert round(curve[0.0]) == 22
+    assert round(curve[30.0]) == 65
+    # Tuned by the small swing's formula, as a textbook does, a row let go at
+    # 15° comes back 22° apart.
+    assert round(x.wave_figures(wave).textbook_spread_deg) == 22
+    lags = x.lag_deg(wave, 30.0)
+    assert all(b > a for a, b in itertools.pairwise(lags))  # the short ones fall behind the most
+
+
+def test_the_pendulum_wave_refuses_what_is_not_a_row():
+    with pytest.raises(ValueError, match="between 3 and 30"):
+        x.PendulumWave(count=2)
+    with pytest.raises(ValueError, match="outside"):
+        x.PendulumWave(cycle_s=600.0, longest_swings=1)
+    with pytest.raises(ValueError, match="between 0° and 90°"):
+        x.PendulumWave(amplitude_deg=95)
+    with pytest.raises(ValueError, match="at least once"):
+        x.PendulumWave(longest_swings=0)
+    with pytest.raises(ValueError, match="whole number"):
+        x.groups_at(x.PendulumWave(), 0)

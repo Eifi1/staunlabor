@@ -30,6 +30,11 @@ with SciPy before it was written (``docs/experiments.md``).
 * :mod:`cannon` — balls stacked and dropped: Hertz contacts hand momentum up
   the stack in a few milliseconds, and the small ball on top leaves several
   times as fast as the stack arrived.
+* :mod:`pendulum` — the block the swinging exhibits stand on: a plane
+  pendulum exactly (Jacobi's elliptic functions) and stepped (Runge–Kutta),
+  each the other's check.
+* :mod:`wave` — a row of pendulums tuned to swing ``N``, ``N + 1``, … times a
+  cycle: waves, groups, and all together again — at the swing it was tuned for.
 
 What it is not: a physics engine for games. Each model is the exhibit's, with
 the assumptions its module states.
@@ -84,6 +89,17 @@ from staunlabor.domain.experiments.elephant import (
 from staunlabor.domain.experiments.elephant import Move as ElephantMove
 from staunlabor.domain.experiments.elephant import figures as elephant_figures
 from staunlabor.domain.experiments.elephant import run as run_elephant
+from staunlabor.domain.experiments.pendulum import (
+    SwingRun,
+    angle_deg,
+    ellipk,
+    jacobi,
+    length_for,
+    period_factor,
+    period_s,
+    small_period_s,
+    swing,
+)
 from staunlabor.domain.experiments.perspective import (
     ACUITY_RAD,
     EYE,
@@ -174,6 +190,18 @@ from staunlabor.domain.experiments.sphere import (
 )
 from staunlabor.domain.experiments.sphere import figures as sphere_figures
 from staunlabor.domain.experiments.sphere import run as run_sphere
+from staunlabor.domain.experiments.wave import (
+    GroupPoint,
+    PendulumWave,
+    SpreadPoint,
+    WaveFigures,
+    WavePendulum,
+    groups_at,
+    lag_deg,
+    lengths_m,
+    spread_deg,
+)
+from staunlabor.domain.experiments.wave import figures as wave_figures
 
 __all__ = [
     "ACUITY_RAD",
@@ -211,6 +239,7 @@ __all__ = [
     "FigureKind",
     "Flight",
     "FloatingBall",
+    "GroupPoint",
     "Idle",
     "Impact",
     "Inertia",
@@ -223,6 +252,7 @@ __all__ = [
     "Orbit",
     "Path",
     "Peephole",
+    "PendulumWave",
     "PitBall",
     "PitRun",
     "Platform",
@@ -248,7 +278,9 @@ __all__ = [
     "SphereFigures",
     "SphereRun",
     "Spin",
+    "SpreadPoint",
     "SwingPoint",
+    "SwingRun",
     "TiltPoint",
     "TimingPoint",
     "Track",
@@ -256,6 +288,9 @@ __all__ = [
     "Valley",
     "ValleyStart",
     "Verdict",
+    "WaveFigures",
+    "WavePendulum",
+    "angle_deg",
     "backbone",
     "binocular_gap",
     "cannon_drop",
@@ -267,17 +302,25 @@ __all__ = [
     "coupling",
     "cycloid_through",
     "elephant_figures",
+    "ellipk",
     "exhibit",
     "figures",
     "flux_linkage",
+    "groups_at",
     "image",
     "inertia",
+    "jacobi",
     "joint_gap",
     "joints",
+    "lag_deg",
+    "length_for",
+    "lengths_m",
     "lowest_orbit_hz",
     "orbit",
     "orbit_at",
     "peak_coupling",
+    "period_factor",
+    "period_s",
     "platform_figures",
     "pull_n",
     "race_entries",
@@ -294,12 +337,16 @@ __all__ = [
     "sight_lines",
     "skew",
     "slide",
+    "small_period_s",
     "smoke_figures",
     "smoke_flight",
     "sphere_figures",
     "spin",
+    "spread_deg",
+    "swing",
     "swing_hz",
     "timing_curve",
     "tolerance",
+    "wave_figures",
     "widest_gap",
 ]

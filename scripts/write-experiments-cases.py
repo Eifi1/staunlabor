@@ -50,6 +50,8 @@ pit = importlib.import_module("staunlabor.domain.experiments.pit")
 elephant = importlib.import_module("staunlabor.domain.experiments.elephant")
 smoke = importlib.import_module("staunlabor.domain.experiments.smoke")
 cannon = importlib.import_module("staunlabor.domain.experiments.cannon")
+pendulum = importlib.import_module("staunlabor.domain.experiments.pendulum")
+wave = importlib.import_module("staunlabor.domain.experiments.wave")
 
 TARGET = ROOT / "frontend/src/features/experiments/simulate/engine-cases.json"
 #: Points kept per curve: enough to see a curve that went wrong, few enough that
@@ -273,6 +275,44 @@ CANNON_CASES: dict[str, dict[str, Any]] = {
 }
 
 
+#: Jacobi's functions where the AGM is short and where it is long, on both sides
+#: of zero and past a period, and at the ends of the parameter.
+JACOBI_POINTS: tuple[tuple[float, float], ...] = (
+    (0.3, 0.0),
+    (0.3, 1e-20),
+    (-2.2, 0.1),
+    (1.7, 0.5),
+    (5.0, 0.9),
+    (11.0, 0.999),
+    (0.7, 1.0),
+)
+
+#: The exact pendulum: small, wide, nearly over the top, and a minute in.
+PENDULUM_ANGLES: tuple[tuple[float, float, float], ...] = (
+    (0.34, 15.0, 0.37),
+    (0.34, 15.0, 60.0),
+    (0.21, 2.0, 59.3),
+    (1.0, 90.0, 1.1),
+    (2.0, 170.0, 7.7),
+    (0.5, 0.0, 1.0),
+)
+
+#: The stepped pendulum: free, damped, and at a coarse step.
+SWING_CASES: dict[str, dict[str, Any]] = {
+    "a wide free swing": {"length_m": 0.5, "amplitude_deg": 60.0, "duration_s": 3.0},
+    "a damped swing": {"length_m": 1.0, "amplitude_deg": 20.0, "duration_s": 4.0, "damping_per_s": 0.3},
+    "a coarse step": {"length_m": 0.2, "amplitude_deg": 120.0, "duration_s": 2.0, "step_s": 5e-3},
+}
+
+#: The pendulum wave: the default row, a textbook one let go wide, and a short
+#: row of few swings.
+WAVE_CASES: dict[str, Any] = {
+    "the default row": wave.PendulumWave(),
+    "tuned for small swings, let go at 30°": wave.PendulumWave(tuned_deg=0.0, amplitude_deg=30.0),
+    "five pendulums, a slow cycle": wave.PendulumWave(count=5, cycle_s=90.0, longest_swings=40, amplitude_deg=8.0),
+}
+
+
 def thin(values: Any) -> Any:
     """A curve as its length and every so many of its points, the last always
     among them; anything else as it is, recursively."""
@@ -300,6 +340,38 @@ def _visitor(visitor: Any) -> Any:
     if isinstance(visitor, coil.Scripted):
         return {"kind": "scripted", **asdict(visitor)}
     return {"kind": "rule", **asdict(visitor)}
+
+
+def _pendulum_cases(out: dict[str, Any]) -> None:
+    """The pendulum block and the exhibits on it: Jacobi's functions, the exact
+    angle, the stepped swing, the wave's lengths and lags."""
+    out["constants"]["pendulum"] = {
+        name: getattr(pendulum, name) for name in ("G", "STEP_S", "SAMPLES_PER_S", "MAX_DURATION_S")
+    }
+    for u, m in JACOBI_POINTS:
+        out["jacobi"].append({"u": u, "m": m, "sncndn": list(pendulum.jacobi(u, m))})
+    for length, amplitude, t in PENDULUM_ANGLES:
+        out["pendulum_angles"].append(
+            {
+                "length_m": length,
+                "amplitude_deg": amplitude,
+                "t": t,
+                "angle_deg": pendulum.angle_deg(length, amplitude, t),
+                "period_s": pendulum.period_s(length, amplitude),
+            }
+        )
+    for name, case in SWING_CASES.items():
+        out["swing"].append({"name": name, **case, "run": thin(asdict(pendulum.swing(**case)))})
+    for name, row in WAVE_CASES.items():
+        out["wave"].append(
+            {
+                "name": name,
+                "wave": asdict(row),
+                "lengths_m": list(wave.lengths_m(row)),
+                "lag_deg": list(wave.lag_deg(row)),
+                "spread_deg": wave.spread_deg(row),
+            }
+        )
 
 
 def cases() -> dict[str, Any]:
@@ -334,7 +406,12 @@ def cases() -> dict[str, Any]:
         "elephant_points": [],
         "smoke": [],
         "cannon": [],
+        "jacobi": [],
+        "pendulum_angles": [],
+        "swing": [],
+        "wave": [],
     }
+    _pendulum_cases(out)
     out["constants"]["platform"] = {name: getattr(platform, name) for name in ("SAMPLES_PER_S", "MAX_DURATION_S")}
     out["constants"]["elephant"] = {
         name: getattr(elephant, name)

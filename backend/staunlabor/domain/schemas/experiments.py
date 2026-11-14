@@ -461,6 +461,47 @@ class CannonFiguresOut(_Out):
     impact: ImpactOut
 
 
+# ── the pendulum wave ────────────────────────────────────────────────────────
+
+
+class WaveIn(_In):
+    count: int = Field(ge=3, le=30, default=15)
+    cycle_s: float = Field(ge=5, le=600, default=60.0)
+    longest_swings: int = Field(ge=1, le=500, default=51)
+    tuned_deg: float = Field(ge=0, le=89, default=15.0)
+    amplitude_deg: float = Field(ge=0, le=89, default=15.0)
+    spacing_m: float = Field(ge=0.005, le=1.0, default=0.05)
+
+
+class WavePendulumOut(_Out):
+    swings: int
+    length_m: float
+    small_period_s: float
+    period_s: float
+    lag_deg: float
+
+
+class SpreadPointOut(_Out):
+    amplitude_deg: float
+    spread_deg: float
+
+
+class GroupPointOut(_Out):
+    fraction: int
+    time_s: float
+    groups: int
+
+
+class WaveFiguresOut(_Out):
+    pendulums: list[WavePendulumOut]
+    longest_m: float
+    shortest_m: float
+    spread_deg: float
+    spread_curve: list[SpreadPointOut]
+    textbook_spread_deg: float
+    groups: list[GroupPointOut]
+
+
 # ── the pages' starting point ────────────────────────────────────────────────
 
 
@@ -472,6 +513,7 @@ class ExperimentsDefaultsOut(_Out):
     elephant: ElephantIn
     smoke: SmokeExhibitIn
     cannon: BallStackIn
+    wave: WaveIn
     #: The exhibit's meter: digital, ± this many amperes.
     meter_range_a: float
     #: How long a page waits after the last slider step before asking.

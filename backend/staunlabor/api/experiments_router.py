@@ -13,8 +13,9 @@ a sphere, the flux and its slope for a coil, the three boxes for the chair, the
 spins and the curves of the platform, the six tracks and the valley of the race,
 the float height, the curves and the tilt limit of the elephant's ball, the
 window of the smoke ring, how high the ball cannon's top ball goes for one, two
-and three balls — each a millisecond or a few, the race some twenty, the
-elephant, the smoke ring and the cannon up to two hundred.
+and three balls, the pendulum wave's lengths and how far apart it comes back —
+each a millisecond or a few, the race some twenty, the elephant, the smoke ring
+and the cannon up to two hundred.
 
 The handlers are ``def``: pure Python with nothing to await would stall the
 event loop as ``async``. All but ``defaults``, which builds a few models. Every
@@ -39,6 +40,7 @@ from staunlabor.domain.experiments import (
     FloatingBall,
     Jet,
     Magnet,
+    PendulumWave,
     Platform,
     Race,
     Room,
@@ -54,6 +56,7 @@ from staunlabor.domain.experiments import (
     run_race,
     smoke_figures,
     sphere_figures,
+    wave_figures,
 )
 from staunlabor.domain.schemas.experiments import (
     BallStackIn,
@@ -74,6 +77,8 @@ from staunlabor.domain.schemas.experiments import (
     SmokeFiguresOut,
     SphereFiguresOut,
     SphereIn,
+    WaveFiguresOut,
+    WaveIn,
 )
 from staunlabor.security import PAGE_SETTLE_S, caller_address
 
@@ -109,6 +114,7 @@ async def defaults() -> ExperimentsDefaultsOut:
         elephant=ElephantIn.model_validate(Elephant()),
         smoke=SmokeExhibitIn.model_validate(SmokeExhibit()),
         cannon=BallStackIn.model_validate(BallStack()),
+        wave=WaveIn.model_validate(PendulumWave()),
         meter_range_a=METER_RANGE_A,
         settle_s=PAGE_SETTLE_S,
     )
@@ -169,3 +175,8 @@ def cannon(payload: BallStackIn) -> CannonFiguresOut:
         youngs_mpa=payload.youngs_mpa,
     )
     return CannonFiguresOut.model_validate(cannon_figures(spec))
+
+
+@router.post("/wave", response_model=WaveFiguresOut, dependencies=[Depends(limit_run)])
+def wave(payload: WaveIn) -> WaveFiguresOut:
+    return WaveFiguresOut.model_validate(wave_figures(PendulumWave(**payload.model_dump())))

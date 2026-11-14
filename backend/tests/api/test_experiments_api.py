@@ -29,6 +29,7 @@ async def test_the_experiments_need_no_account(client: AsyncClient):
         "elephant",
         "smoke",
         "cannon",
+        "wave",
         "meter_range_a",
         "settle_s",
     }
@@ -235,3 +236,30 @@ async def test_the_smoke_ring_answers_the_window_a_press_makes_a_ring_in(client:
 async def test_a_turbulence_threshold_below_every_ring_leaves_no_window(client: AsyncClient):
     body = (await client.post(f"{API}/smoke", json={"room": {"turbulent_reynolds": 1000}})).json()
     assert body["best_s"] is None and body["best"] is None
+
+
+async def test_the_pendulum_wave_answers_its_lengths_and_how_far_apart_it_comes_back(client: AsyncClient):
+    response = await client.post(f"{API}/wave", json={})
+    assert response.status_code == 200
+    body = response.json()
+    assert len(body["pendulums"]) == 15
+    assert [p["swings"] for p in body["pendulums"]] == list(range(51, 66))
+    lengths = [p["length_m"] for p in body["pendulums"]]
+    assert lengths == sorted(lengths, reverse=True), "the longest first"
+    assert body["spread_deg"] == pytest.approx(0, abs=1e-9)
+    assert body["textbook_spread_deg"] == pytest.approx(x.wave_figures(x.PendulumWave()).textbook_spread_deg)
+    assert [g["groups"] for g in body["groups"]] == [2, 3, 4, 5]
+
+
+async def test_a_wave_let_go_wider_than_its_tuning_comes_back_apart(client: AsyncClient):
+    body = (await client.post(f"{API}/wave", json={"amplitude_deg": 30})).json()
+    assert round(body["spread_deg"]) == 65
+
+
+async def test_the_pendulum_wave_refuses_what_is_out_of_bounds(client: AsyncClient):
+    for payload in ({"count": 2}, {"count": 31}, {"amplitude_deg": 90}, {"cycle_s": 1}):
+        assert (await client.post(f"{API}/wave", json=payload)).status_code == 422
+    # Within every field's bounds, a row whose lengths are not a pendulum's: the engine's 400.
+    response = await client.post(f"{API}/wave", json={"cycle_s": 600, "longest_swings": 1})
+    assert response.status_code == 400
+    assert "outside" in response.json()["detail"]

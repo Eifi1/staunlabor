@@ -18,10 +18,12 @@ import cases from "./engine-cases.json";
 import * as cannon from "./cannon";
 import * as coil from "./coil";
 import * as elephant from "./elephant";
+import * as pendulum from "./pendulum";
 import * as pit from "./pit";
 import * as platform from "./platform";
 import * as smoke from "./smoke";
 import * as sphere from "./sphere";
+import * as wave from "./wave";
 
 interface Thinned {
   length: number;
@@ -462,5 +464,54 @@ describe("the ball cannon's port", () => {
     expect(() => cannon.drop({ ...stack, drop_m: 5 })).toThrow(/dropped from/);
     expect(() => cannon.drop({ ...stack, youngs_mpa: 1000 })).toThrow(/Young/);
     expect(() => cannon.drop(stack, 30)).toThrow(/drop lasts/);
+  });
+});
+
+describe("the pendulum's port", () => {
+  it("runs on the engine's constants", () => {
+    const c = cases.constants.pendulum;
+    expect([pendulum.G, pendulum.STEP_S, pendulum.SAMPLES_PER_S, pendulum.MAX_DURATION_S]).toEqual([
+      c.G,
+      c.STEP_S,
+      c.SAMPLES_PER_S,
+      c.MAX_DURATION_S,
+    ]);
+  });
+
+  it("computes Jacobi's functions as the engine does", () => {
+    for (const p of cases.jacobi) expect(differences(p.sncndn, pendulum.jacobi(p.u, p.m))).toEqual([]);
+  });
+
+  it("puts the exact pendulum where the engine does, a minute in as well", () => {
+    for (const p of cases.pendulum_angles) {
+      expect(differences(p.angle_deg, pendulum.angleDeg(p.length_m, p.amplitude_deg, p.t))).toEqual([]);
+      expect(differences(p.period_s, pendulum.periodS(p.length_m, p.amplitude_deg))).toEqual([]);
+    }
+  });
+
+  it.each(cases.swing.map((c) => [c.name, c] as const))("steps %s as the engine does", (_name, c) => {
+    const step = "step_s" in c ? c.step_s : undefined;
+    const damping = "damping_per_s" in c ? c.damping_per_s : undefined;
+    const port = pendulum.swing(c.length_m, c.amplitude_deg, c.duration_s, damping, step);
+    expect(differences(c.run, port)).toEqual([]);
+  });
+
+  it("refuses what the engine refuses", () => {
+    expect(() => pendulum.smallPeriodS(0)).toThrow(RangeError);
+    expect(() => pendulum.periodFactor(180)).toThrow(RangeError);
+    expect(() => pendulum.swing(1, 10, 1000)).toThrow(RangeError);
+    expect(() => pendulum.swing(1, 10, 1, -1)).toThrow(RangeError);
+    expect(() => pendulum.jacobi(1, 1.5)).toThrow(RangeError);
+    expect(() => pendulum.ellipk(1)).toThrow(RangeError);
+    expect(() => pendulum.lengthFor(0)).toThrow(RangeError);
+    expect(() => pendulum.agm(0, 1)).toThrow(RangeError);
+  });
+});
+
+describe("the pendulum wave's port", () => {
+  it.each(cases.wave.map((c) => [c.name, c] as const))("tunes and lags %s as the engine does", (_name, c) => {
+    expect(differences(c.lengths_m, wave.lengthsM(c.wave))).toEqual([]);
+    expect(differences(c.lag_deg, wave.lagDeg(c.wave))).toEqual([]);
+    expect(differences(c.spread_deg, wave.spreadDeg(c.wave))).toEqual([]);
   });
 });
