@@ -205,6 +205,12 @@
         "title": "Csatolt ingák",
         "summary": "Két inga, puha rugóval összekötve: ha az egyiket meglökik, a lengés átvándorol a másikhoz – és vissza.",
         "question": "Két egyforma inga rugóval van összekötve. Mennyi idő alatt kerül az egyik lengése teljesen a másikhoz?"
+      },
+      "peg": {
+        "short": "Galilei ingája",
+        "title": "Galilei megszakított ingája",
+        "summary": "Egy pecek elkapja az inga fonalát. A golyó egy kisebb körön leng tovább – és mégis pontosan olyan magasra emelkedik, mint a másik oldalon.",
+        "question": "Egy pecek elkapja a lengő inga fonalát. Utána a golyó kevésbé magasra, ugyanolyan magasra vagy magasabbra emelkedik?"
       }
     },
     "chair": {
@@ -1439,6 +1445,80 @@
       },
       "computed": {
         "system": "Négy elsőrendű egyenlet, a kitérések és sebességeik, a teljes szinusszal és köztük a rugóval. A számítómag együtt oldja meg őket a Runge–Kutta-módszerrel ezredmásodpercenként; az oldal ugyanezekkel a lépésekkel, képkockánként néhány tucattal."
+      }
+    },
+    "peg": {
+      "at": {
+        "peg": "Egy inga leng egy fal előtt. A felfüggesztési pont alatt egy pecek van: valahányszor a fonal áthalad a függőlegesen, a pecek elkapja, és a golyó egy kisebb körön leng tovább a pecek körül.",
+        "height": "Az út más, a magasság nem: a golyó pontosan addig a vonalig emelkedik, ahonnan elengedték. Ha a pecek elég mélyen van, erre már nem képes – átfordul, vagy a fonal meglazul."
+      },
+      "refused": "A pecek a felfüggesztés és a golyó között legyen.",
+      "view": "Az inga, a pecek és szaggatottan az a magasság, ahonnan a golyót elengedték; a pecek ujjal mozgatható",
+      "play": {
+        "title": "Az inga elengedése",
+        "hint": "Húzza a peceket felfelé vagy lefelé, vagy válassza lent a három eset egyikét.",
+        "let_go": "Elengedés",
+        "pause": "Szünet",
+        "run": "Tovább",
+        "speed": "Tempó",
+        "speeds": {
+          "100": "Valós idő",
+          "25": "Lassítva (¼)"
+        },
+        "outcome_same_height": "A pecek mellett a golyó pontosan olyan magasra emelkedik, mint a másik oldalon.",
+        "outcome_slack": "Túl nagy lendület a kis körhöz, túl kicsi az átforduláshoz: a fonal meglazul.",
+        "outcome_over_the_top": "Elég lendület: a golyó átfordul a pecek fölött.",
+        "events": {
+          "caught": "A pecek elkapja a fonalat.",
+          "released": "A fonal leválik a pecekről.",
+          "slack": "A fonal meglazul: a golyó szabadon repül.",
+          "taut": "A fonal egy rándulással megfeszül.",
+          "over_the_top": "Átfordulás: a fonal rátekeredik a pecekre."
+        }
+      },
+      "figures": {
+        "height": "Kezdeti magasság",
+        "radius": "Kis kör",
+        "loop": "Az átforduláshoz kell",
+        "slack": "Meglazul ettől a magasságtól"
+      },
+      "change": {
+        "title": "A kiállítási tárgy módosítása",
+        "hint": "Minden változtatás újra elengedi a golyót.",
+        "start": "Kitérés elengedéskor",
+        "peg": "A pecek mélysége",
+        "peg_hint": "Milyen messze a felfüggesztés alatt van a pecek.",
+        "length": "A fonal hossza"
+      },
+      "model": {
+        "intro": "A fonal mindig a golyó mozgására merőlegesen húz. Eltéríti, de nem végez munkát: a golyó minden mozgását egyedül az eséséből kapja.",
+        "energy": "Ezért a sebessége csak attól függ, mennyivel van a kezdeti magassága alatt – bármelyik körön. Fent, ahol megfordul, újra ezen a magasságon van.",
+        "pull": "A fonal csak húzni tud. A pecek fölött a golyót a körén kell tartania, és ebben a nehézségi erő segít; ha a golyó ott túl lassú, a fonalnak tolnia kellene – meglazul, és a golyó szabadon repül, amíg a fonal újra meg nem feszül."
+      },
+      "symbols": {
+        "v": "a golyó sebessége",
+        "z": "a magassága a legmélyebb pont fölött",
+        "h": "a magasság, ahonnan elengedték",
+        "g": "nehézségi gyorsulás, 9,81 m/s²",
+        "f": "a fonal húzóereje",
+        "r": "a kis kör sugara: a fonal hossza mínusz a pecek mélysége",
+        "phi": "a pecek körüli szög, alulról mérve",
+        "z_slack": "a magasság, ahol a fonal meglazul"
+      },
+      "sweet": {
+        "height": "Az út változik, a magasság nem: az energia emlékszik, honnan jött a golyó. Így mutatta meg Galilei, hogy egy lejtőn legördülő golyó bármely szemközti lejtőn ugyanolyan magasra emelkedik.",
+        "loop": "Átfordul a pecek fölött, ha legalább a kis kör két és fél sugarának magasságából engedték el: fent még elég gyorsnak kell lennie ahhoz, hogy a fonal húzzon.",
+        "slack": "A kettő között a fonal ezen a magasságon lazul meg.",
+        "now": "Itt a golyót {{h}} cm-rel a legmélyebb pont fölött engedték el; az átforduláshoz {{loop}} cm kellene.",
+        "cases": {
+          "same_height": "Azonos magasság",
+          "slack": "Laza fonal",
+          "over_the_top": "Átfordulás"
+        }
+      },
+      "computed": {
+        "system": "Három mozgás, mindegyik egy egyenlet: az inga a felfüggesztés körül, a rövidebb a pecek körül, és a szabad repülés, amíg a fonal laza. A számítómag a Runge–Kutta-módszerrel ezredmásodpercenként halad, és minden váltást – a pecek elkap, a fonal leválik, meglazul, megfeszül – a lépésén belül felezéssel keres meg, hogy pontosan ott történjen, ahol kell.",
+        "gravity": "a nehézségi erő, amely a szabad repülésben egyedül hat"
       }
     }
   }

@@ -205,6 +205,12 @@
         "title": "Coupled pendulums",
         "summary": "Two pendulums joined by a soft spring: push one, and the swing wanders over to the other – and back again.",
         "question": "Two equal pendulums hang on a spring. How long until the swing of one has wholly moved to the other?"
+      },
+      "peg": {
+        "short": "Galileo's pendulum",
+        "title": "Galileo's interrupted pendulum",
+        "summary": "A peg catches a pendulum's string. The bob swings on round a smaller circle – and still rises exactly as high as on the other side.",
+        "question": "A peg catches the string of a swinging pendulum. Does the bob then rise less high, as high or higher?"
       }
     },
     "chair": {
@@ -1439,6 +1445,80 @@
       },
       "computed": {
         "system": "Four first-order equations, the swings and their speeds, with the full sine and the spring between them. The engine solves them together with the Runge–Kutta method a millisecond at a time; the page does the same with the same steps, a few dozen a frame."
+      }
+    },
+    "peg": {
+      "at": {
+        "peg": "A pendulum swings in front of a wall. Below its pivot sits a peg: each time the string swings through the vertical, the peg catches it, and the bob swings on round a smaller circle about the peg.",
+        "height": "The path is different, the height is not: the bob rises exactly to the line it was let go from. Set the peg low enough and it cannot – it swings right over, or the string goes slack."
+      },
+      "refused": "The peg has to sit between the pivot and the bob.",
+      "view": "The pendulum, the peg and, dashed, the height the bob was let go from; the peg can be moved with a finger",
+      "play": {
+        "title": "Let the pendulum go",
+        "hint": "Drag the peg up or down, or pick one of the three cases below.",
+        "let_go": "Let go",
+        "pause": "Pause",
+        "run": "Run",
+        "speed": "Speed",
+        "speeds": {
+          "100": "Real time",
+          "25": "Slow motion (¼)"
+        },
+        "outcome_same_height": "At the peg the bob rises exactly as high as on the other side.",
+        "outcome_slack": "Too much swing for the small circle, too little to go over: the string goes slack.",
+        "outcome_over_the_top": "Swing enough: the bob goes right over the peg.",
+        "events": {
+          "caught": "The peg catches the string.",
+          "released": "The string comes off the peg.",
+          "slack": "The string goes slack: the bob flies free.",
+          "taut": "The string jerks taut.",
+          "over_the_top": "Over the top: the string winds round the peg."
+        }
+      },
+      "figures": {
+        "height": "Height let go from",
+        "radius": "Small circle",
+        "loop": "Needed to go over",
+        "slack": "Slack from a height of"
+      },
+      "change": {
+        "title": "Change the exhibit",
+        "hint": "Every change lets the bob go again.",
+        "start": "Swing when let go",
+        "peg": "Depth of the peg",
+        "peg_hint": "How far below the pivot the peg sits.",
+        "length": "Length of the string"
+      },
+      "model": {
+        "intro": "The string always pulls across the bob's motion. It turns the bob, but does no work: whatever motion the bob has, it has from its fall alone.",
+        "energy": "So its speed depends only on how far it is below the height it was let go from – whichever circle it is on. At the top, where it turns, it is back at that height.",
+        "pull": "A string can only pull. Above the peg it has to hold the bob on its circle, and gravity helps; is the bob too slow there, the string would have to push – it goes slack, and the bob flies free until the string is taut again."
+      },
+      "symbols": {
+        "v": "the bob's speed",
+        "z": "its height above the lowest point",
+        "h": "the height it was let go from",
+        "g": "gravitational acceleration, 9.81 m/s²",
+        "f": "the string's pull",
+        "r": "the small circle's radius: the string's length less the peg's depth",
+        "phi": "the angle round the peg, from below",
+        "z_slack": "the height at which the string goes slack"
+      },
+      "sweet": {
+        "height": "The path changes, the height does not: the energy remembers where the bob came from. That is how Galileo showed that a ball rolling down a ramp rises as high again on any ramp opposite.",
+        "loop": "It goes over the peg when let go from at least two and a half radii of the small circle: at the top it must still be fast enough for the string to pull.",
+        "slack": "In between, the string goes slack at this height.",
+        "now": "Here the bob was let go {{h}} cm above the lowest point; going over would take {{loop}} cm.",
+        "cases": {
+          "same_height": "Same height",
+          "slack": "Slack string",
+          "over_the_top": "Over the top"
+        }
+      },
+      "computed": {
+        "system": "Three motions, an equation each: the pendulum round the pivot, the shorter one round the peg, and free flight while the string is slack. The engine steps on with the Runge–Kutta method a millisecond at a time and finds each switch – the peg catching, the string coming off, going slack, jerking taut – within its step by halving, so that it happens exactly where it belongs.",
+        "gravity": "gravity, which alone acts in free flight"
       }
     }
   }

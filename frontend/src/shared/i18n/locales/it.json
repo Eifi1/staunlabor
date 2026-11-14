@@ -205,6 +205,12 @@
         "title": "Pendoli accoppiati",
         "summary": "Due pendoli uniti da una molla morbida: se se ne spinge uno, l'oscillazione passa all'altro – e torna indietro.",
         "question": "Due pendoli uguali sono uniti da una molla. Quanto tempo ci vuole perché l'oscillazione dell'uno passi interamente all'altro?"
+      },
+      "peg": {
+        "short": "Pendolo di Galileo",
+        "title": "Il pendolo interrotto di Galileo",
+        "summary": "Un piolo ferma il filo di un pendolo. La sfera continua su un cerchio più piccolo – e sale comunque esattamente quanto dall'altra parte.",
+        "question": "Un piolo ferma il filo di un pendolo che oscilla. La sfera poi sale meno, altrettanto o di più?"
       }
     },
     "chair": {
@@ -1439,6 +1445,80 @@
       },
       "computed": {
         "system": "Quattro equazioni del primo ordine, le oscillazioni e le loro velocità, con il seno completo e la molla in mezzo. Il motore le risolve insieme con il metodo di Runge-Kutta un millisecondo alla volta; la pagina fa lo stesso con gli stessi passi, qualche decina per immagine."
+      }
+    },
+    "peg": {
+      "at": {
+        "peg": "Un pendolo oscilla davanti a una parete. Sotto il punto di sospensione c'è un piolo: ogni volta che il filo passa per la verticale, il piolo lo ferma e la sfera continua su un cerchio più piccolo attorno al piolo.",
+        "height": "Il percorso è diverso, l'altezza no: la sfera sale esattamente fino alla linea da cui è stata lasciata. Con il piolo abbastanza in basso non può più – fa il giro completo, oppure il filo si allenta."
+      },
+      "refused": "Il piolo deve stare tra la sospensione e la sfera.",
+      "view": "Il pendolo, il piolo e, tratteggiata, l'altezza da cui è stata lasciata la sfera; il piolo si sposta con il dito",
+      "play": {
+        "title": "Lasciare andare il pendolo",
+        "hint": "Trascini il piolo in su o in giù, oppure scelga qui sotto uno dei tre casi.",
+        "let_go": "Lasciare",
+        "pause": "Pausa",
+        "run": "Continua",
+        "speed": "Velocità",
+        "speeds": {
+          "100": "Tempo reale",
+          "25": "Rallentatore (¼)"
+        },
+        "outcome_same_height": "Al piolo la sfera sale esattamente quanto dall'altra parte.",
+        "outcome_slack": "Troppo slancio per il cerchio piccolo, troppo poco per il giro: il filo si allenta.",
+        "outcome_over_the_top": "Slancio sufficiente: la sfera fa il giro attorno al piolo.",
+        "events": {
+          "caught": "Il piolo ferma il filo.",
+          "released": "Il filo si stacca dal piolo.",
+          "slack": "Il filo si allenta: la sfera vola libera.",
+          "taut": "Il filo si tende con uno strappo.",
+          "over_the_top": "Giro completo: il filo si avvolge attorno al piolo."
+        }
+      },
+      "figures": {
+        "height": "Altezza di partenza",
+        "radius": "Cerchio piccolo",
+        "loop": "Necessaria per il giro",
+        "slack": "Si allenta all'altezza"
+      },
+      "change": {
+        "title": "Modificare l'oggetto esposto",
+        "hint": "Ogni modifica lascia andare di nuovo la sfera.",
+        "start": "Ampiezza al rilascio",
+        "peg": "Profondità del piolo",
+        "peg_hint": "A quale distanza sotto la sospensione si trova il piolo.",
+        "length": "Lunghezza del filo"
+      },
+      "model": {
+        "intro": "Il filo tira sempre di traverso al moto della sfera. La devia, ma non compie lavoro: tutto il moto della sfera viene soltanto dalla sua caduta.",
+        "energy": "Perciò la sua velocità dipende solo da quanto si trova sotto la sua altezza di partenza – su qualunque cerchio. In alto, dove si inverte, è di nuovo a quell'altezza.",
+        "pull": "Un filo può solo tirare. Sopra il piolo deve tenere la sfera sul suo cerchio, e la gravità aiuta; se lì la sfera è troppo lenta, il filo dovrebbe spingere – si allenta e la sfera vola libera finché il filo non si tende di nuovo."
+      },
+      "symbols": {
+        "v": "la velocità della sfera",
+        "z": "la sua altezza sopra il punto più basso",
+        "h": "l'altezza da cui è stata lasciata",
+        "g": "accelerazione di gravità, 9,81 m/s²",
+        "f": "la trazione del filo",
+        "r": "il raggio del cerchio piccolo: la lunghezza del filo meno la profondità del piolo",
+        "phi": "l'angolo attorno al piolo, misurato dal basso",
+        "z_slack": "l'altezza alla quale il filo si allenta"
+      },
+      "sweet": {
+        "height": "Il percorso cambia, l'altezza no: l'energia ricorda da dove è venuta la sfera. Così Galileo mostrò che una sfera che scende lungo una rampa risale alla stessa altezza su qualunque rampa opposta.",
+        "loop": "Passa sopra il piolo se è stata lasciata da almeno due raggi e mezzo del cerchio piccolo: in alto deve essere ancora abbastanza veloce perché il filo tiri.",
+        "slack": "In mezzo, il filo si allenta a questa altezza.",
+        "now": "Qui la sfera è stata lasciata {{h}} cm sopra il punto più basso; per il giro ne servirebbero {{loop}}.",
+        "cases": {
+          "same_height": "Stessa altezza",
+          "slack": "Filo allentato",
+          "over_the_top": "Giro completo"
+        }
+      },
+      "computed": {
+        "system": "Tre moti, un'equazione ciascuno: il pendolo attorno alla sospensione, quello più corto attorno al piolo e il volo libero finché il filo è allentato. Il motore avanza con il metodo di Runge-Kutta un millisecondo alla volta e trova ogni cambiamento – il piolo ferma, il filo si stacca, si allenta, si tende – all'interno del suo passo, dimezzandolo, perché avvenga esattamente dove deve.",
+        "gravity": "la gravità, che agisce da sola nel volo libero"
       }
     }
   }

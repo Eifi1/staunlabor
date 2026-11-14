@@ -36,6 +36,7 @@ import { HarmonographPage, boardLength } from "./harmonograph-page";
 import { ConePage, verdict } from "./cone-page";
 import { ParabolaPage, wellFilled } from "./parabola-page";
 import { CoupledPage, hangs } from "./coupled-page";
+import { PegPage } from "./peg-page";
 import { ballState, pitEntries, positionAt, raceLayout, swingAt } from "./race-views";
 import { run as runPit } from "./simulate/pit";
 import { HOLE, cameraAt, frameOf, project } from "./chair-views";
@@ -768,5 +769,27 @@ describe("the coupled pendulums", () => {
     fireEvent.change(screen.getByRole("slider", { name: E.coupled.change.spring_at }), { target: { value: "40" } });
     expect(await screen.findByText(E.coupled.refused)).toBeInTheDocument();
     expect(hangs(fixtures.defaults.coupled)).toBe(true);
+  });
+});
+
+describe("Galileo's pendulum", () => {
+  it("shows the pendulum and its peg, and says the bob rises as high as it fell from", async () => {
+    renderWithProviders(<PegPage />);
+    expect(await screen.findByRole("img", { name: E.peg.view })).toBeInTheDocument();
+    expect(screen.getByText(E.peg.play.outcome_same_height)).toBeInTheDocument();
+    // Let go at 30° on a metre of string: 13.4 cm up; over the top would take 125 cm.
+    expect(
+      screen.getByText(/let go 13\.4 cm above the lowest point; going over would take 125\.0 cm/),
+    ).toBeInTheDocument();
+    expect(screen.getAllByLabelText(E.equation.symbols).length).toBeGreaterThanOrEqual(4);
+  });
+
+  it("sets the three cases from the trick, and says what each does", async () => {
+    renderWithProviders(<PegPage />);
+    await screen.findByRole("img", { name: E.peg.view });
+    fireEvent.click(screen.getByRole("button", { name: E.peg.sweet.cases.over_the_top }));
+    expect(await screen.findByText(E.peg.play.outcome_over_the_top)).toBeInTheDocument();
+    fireEvent.click(screen.getByRole("button", { name: E.peg.sweet.cases.slack }));
+    expect(await screen.findByText(E.peg.play.outcome_slack)).toBeInTheDocument();
   });
 });

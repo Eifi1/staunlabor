@@ -205,6 +205,12 @@
         "title": "Gekoppelte Pendel",
         "summary": "Zwei Pendel, durch eine weiche Feder verbunden: Stösst man eines an, wandert die Schwingung zum anderen hinüber – und wieder zurück.",
         "question": "Zwei gleiche Pendel hängen an einer Feder. Wie lange dauert es, bis die Schwingung des einen ganz beim anderen ist?"
+      },
+      "peg": {
+        "short": "Galileis Pendel",
+        "title": "Galileis unterbrochenes Pendel",
+        "summary": "Ein Stift fängt den Faden eines Pendels ab. Die Kugel schwingt auf einem kleineren Kreis weiter – und steigt trotzdem genau so hoch wie auf der anderen Seite.",
+        "question": "Ein Stift fängt den Faden eines schwingenden Pendels ab. Steigt die Kugel danach weniger hoch, gleich hoch oder höher?"
       }
     },
     "chair": {
@@ -1439,6 +1445,80 @@
       },
       "computed": {
         "system": "Vier Gleichungen erster Ordnung, die Ausschläge und ihre Geschwindigkeiten, mit dem vollen Sinus und der Feder dazwischen. Der Rechenkern löst sie zusammen mit dem Runge-Kutta-Verfahren in Schritten von einer Millisekunde; die Seite tut es mit denselben Schritten, einige Dutzend pro Bild."
+      }
+    },
+    "peg": {
+      "at": {
+        "peg": "Ein Pendel schwingt vor einer Wand. Unter dem Aufhängepunkt steckt ein Stift: Jedes Mal, wenn der Faden durch die Senkrechte schwingt, fängt der Stift ihn ab, und die Kugel schwingt auf einem kleineren Kreis um den Stift weiter.",
+        "height": "Der Weg ist ein anderer, die Höhe nicht: Die Kugel steigt genau bis zur Linie, von der sie losgelassen wurde. Steckt der Stift tief genug, kann sie das nicht mehr – sie überschlägt sich, oder der Faden wird schlaff."
+      },
+      "refused": "Der Stift muss zwischen Aufhängung und Kugel stecken.",
+      "view": "Das Pendel, der Stift und gestrichelt die Höhe, von der die Kugel losgelassen wurde; der Stift lässt sich mit dem Finger verschieben",
+      "play": {
+        "title": "Das Pendel loslassen",
+        "hint": "Ziehen Sie den Stift nach oben oder unten, oder wählen Sie unten einen der drei Fälle.",
+        "let_go": "Loslassen",
+        "pause": "Anhalten",
+        "run": "Weiter",
+        "speed": "Tempo",
+        "speeds": {
+          "100": "Echtzeit",
+          "25": "Zeitlupe (¼)"
+        },
+        "outcome_same_height": "Die Kugel steigt am Stift genau so hoch wie auf der anderen Seite.",
+        "outcome_slack": "Zu viel Schwung für den kleinen Kreis, zu wenig für den Überschlag: Der Faden wird schlaff.",
+        "outcome_over_the_top": "Genug Schwung: Die Kugel überschlägt sich um den Stift.",
+        "events": {
+          "caught": "Der Stift fängt den Faden ab.",
+          "released": "Der Faden löst sich vom Stift.",
+          "slack": "Der Faden wird schlaff: Die Kugel fliegt frei.",
+          "taut": "Der Faden spannt sich mit einem Ruck.",
+          "over_the_top": "Überschlag: Der Faden wickelt sich um den Stift."
+        }
+      },
+      "figures": {
+        "height": "Starthöhe",
+        "radius": "Kleiner Kreis",
+        "loop": "Für den Überschlag nötig",
+        "slack": "Schlaff ab Höhe"
+      },
+      "change": {
+        "title": "Das Exponat verändern",
+        "hint": "Jede Änderung lässt die Kugel neu los.",
+        "start": "Ausschlag beim Loslassen",
+        "peg": "Tiefe des Stifts",
+        "peg_hint": "Wie weit unter der Aufhängung der Stift steckt.",
+        "length": "Länge des Fadens"
+      },
+      "model": {
+        "intro": "Der Faden zieht immer quer zur Bewegung der Kugel. Er lenkt sie um, aber er leistet keine Arbeit: Was die Kugel an Bewegung hat, hat sie allein aus ihrem Fall.",
+        "energy": "Darum hängt ihr Tempo nur davon ab, wie tief sie unter ihrer Starthöhe ist – egal, auf welchem Kreis. Oben, wo sie umkehrt, ist sie wieder auf der Starthöhe.",
+        "pull": "Ein Faden kann nur ziehen. Oberhalb des Stifts muss er die Kugel auf ihrem Kreis halten, und die Schwerkraft hilft dabei; ist die Kugel dort zu langsam, würde er stossen müssen – er wird schlaff, und die Kugel fliegt frei, bis er sich wieder spannt."
+      },
+      "symbols": {
+        "v": "das Tempo der Kugel",
+        "z": "ihre Höhe über dem tiefsten Punkt",
+        "h": "die Höhe, von der sie losgelassen wurde",
+        "g": "Fallbeschleunigung, 9,81 m/s²",
+        "f": "der Zug des Fadens",
+        "r": "der Radius des kleinen Kreises: Fadenlänge weniger Tiefe des Stifts",
+        "phi": "der Winkel um den Stift, von unten gemessen",
+        "z_slack": "die Höhe, auf der der Faden schlaff wird"
+      },
+      "sweet": {
+        "height": "Der Weg ändert sich, die Höhe nicht: Die Energie merkt sich, woher die Kugel kam. So hat Galilei gezeigt, dass eine Kugel, die eine Rampe hinunterrollt, auf jeder Gegenrampe wieder gleich hoch steigt.",
+        "loop": "Über den Stift schlägt sie, wenn sie von mindestens zweieinhalb Radien des kleinen Kreises losgelassen wurde: Oben muss sie noch so schnell sein, dass der Faden zieht.",
+        "slack": "Dazwischen wird der Faden auf dieser Höhe schlaff.",
+        "now": "Hier wurde die Kugel {{h}} cm über dem tiefsten Punkt losgelassen; für den Überschlag bräuchte es {{loop}} cm.",
+        "cases": {
+          "same_height": "Gleiche Höhe",
+          "slack": "Schlaffer Faden",
+          "over_the_top": "Überschlag"
+        }
+      },
+      "computed": {
+        "system": "Drei Bewegungen, je eine Gleichung: das Pendel um die Aufhängung, das kürzere um den Stift, und der freie Flug, solange der Faden schlaff ist. Der Rechenkern schreitet mit dem Runge-Kutta-Verfahren in Schritten von einer Millisekunde voran und sucht jeden Wechsel – Stift fängt, Faden löst sich, wird schlaff, spannt sich – innerhalb seines Schritts durch Halbieren, damit er genau dort geschieht, wo er hingehört.",
+        "gravity": "die Schwerkraft, die im freien Flug allein wirkt"
       }
     }
   }

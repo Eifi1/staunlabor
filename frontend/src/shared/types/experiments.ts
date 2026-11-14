@@ -544,6 +544,15 @@ export interface CoupledPendulumsRequest {
   damping_per_s: number;
 }
 
+// ── Galileo's interrupted pendulum ───────────────────────────────────────────
+
+/** The engine's `PegPendulum`. No route: the page asks the port (`simulate/peg.ts`). */
+export interface PegPendulumRequest {
+  length_m: number;
+  peg_depth_m: number;
+  start_deg: number;
+}
+
 // ── the pages' starting point ────────────────────────────────────────────────
 
 export interface ExperimentsDefaults {
@@ -559,6 +568,7 @@ export interface ExperimentsDefaults {
   cone: ConeExhibitRequest;
   parabola: VesselRequest;
   coupled: CoupledPendulumsRequest;
+  peg: PegPendulumRequest;
   meter_range_a: number;
   settle_s: number;
 }

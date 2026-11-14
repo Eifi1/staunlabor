@@ -801,6 +801,39 @@ linear damping.
 the full exchange at half a beat, nothing exchanged together, Rabi's share
 against a run, the energy kept without damping.
 
+## Galileo's interrupted pendulum (`experiments.peg`)
+
+**The exhibit.** A pendulum whose string, swinging through the vertical, is
+caught by a peg below the pivot; the bob goes on round a smaller circle and
+still rises to the height it was let go from — or, the peg low enough, swings
+right over it or lets the string go slack.
+
+**The model** (`domain/experiments/peg.py`). Three motions, one at a time:
+round the pivot (`θ'' = −(g/L)·sin θ`), round the peg (`φ'' = −(g/r)·sin φ`,
+`r = L − d`, the speed kept at the catch), free while the string would have to
+push (`r·φ'² + g·cos φ < 0`), until the string round the peg is straight again
+and jerks taut, taking the speed along it — the one place energy is lost. Each
+switch is found within its 1 ms step by bisection on the stepped state (40
+halvings) and the step split there; the port does the same, switch for switch.
+
+**What it shows.** Round the peg the bob rises exactly to its starting height
+(3·10⁻⁸ m in a run sampled every millisecond). It goes over the peg from
+`h ≥ 2.5·r`; between `r` and that, the string goes slack at `(r + 2h)/3`, which
+the engine's slack event meets to 10⁻¹²: let go from the horizontal on a metre,
+over the top with the peg at 61 cm, slack at 59.
+
+**The page.** The pendulum, the peg — dragged with a finger or set by a
+slider — the starting height dashed across both sides and, where it goes slack,
+the slack height; a trail of the last 2.5 s; what just happened in words (the
+peg catches the string, it goes slack, jerks taut, winds round the peg); the
+three cases as buttons in the trick. **No route**: the port's
+(`simulate/peg.ts`).
+
+**Left out, and said:** the peg's thickness, a string that stretches, air.
+
+**Checked by** `tests/unit/test_experiments.py`: the same height, energy kept
+until the jerk, the threshold both sides, the slack height, the jerk's loss.
+
 ## Checking the mathematics
 
 Before the engine was written each model was checked independently with SciPy

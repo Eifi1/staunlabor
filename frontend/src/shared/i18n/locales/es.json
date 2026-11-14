@@ -205,6 +205,12 @@
         "title": "Péndulos acoplados",
         "summary": "Dos péndulos unidos por un muelle blando: si se empuja uno, la oscilación pasa al otro – y vuelve.",
         "question": "Dos péndulos iguales cuelgan de un muelle. ¿Cuánto tarda la oscilación de uno en pasar por completo al otro?"
+      },
+      "peg": {
+        "short": "Péndulo de Galileo",
+        "title": "El péndulo interrumpido de Galileo",
+        "summary": "Un clavo atrapa el hilo de un péndulo. La bola sigue oscilando en un círculo más pequeño – y aun así sube exactamente tan alto como al otro lado.",
+        "question": "Un clavo atrapa el hilo de un péndulo que oscila. ¿Sube después la bola menos, igual o más alto?"
       }
     },
     "chair": {
@@ -1439,6 +1445,80 @@
       },
       "computed": {
         "system": "Cuatro ecuaciones de primer orden, las oscilaciones y sus velocidades, con el seno completo y el muelle entre ellos. El motor las resuelve juntas con el método de Runge-Kutta, de milisegundo en milisegundo; la página hace lo mismo con los mismos pasos, unas decenas por imagen."
+      }
+    },
+    "peg": {
+      "at": {
+        "peg": "Un péndulo oscila delante de una pared. Bajo su punto de suspensión hay un clavo: cada vez que el hilo pasa por la vertical, el clavo lo atrapa y la bola sigue en un círculo más pequeño alrededor del clavo.",
+        "height": "El camino es otro, la altura no: la bola sube exactamente hasta la línea desde la que se soltó. Con el clavo lo bastante bajo ya no puede – da la vuelta completa o el hilo se afloja."
+      },
+      "refused": "El clavo tiene que estar entre la suspensión y la bola.",
+      "view": "El péndulo, el clavo y, en trazos, la altura desde la que se soltó la bola; el clavo se puede mover con el dedo",
+      "play": {
+        "title": "Soltar el péndulo",
+        "hint": "Arrastre el clavo hacia arriba o hacia abajo, o elija abajo uno de los tres casos.",
+        "let_go": "Soltar",
+        "pause": "Pausa",
+        "run": "Seguir",
+        "speed": "Velocidad",
+        "speeds": {
+          "100": "Tiempo real",
+          "25": "Cámara lenta (¼)"
+        },
+        "outcome_same_height": "En el clavo la bola sube exactamente tan alto como al otro lado.",
+        "outcome_slack": "Demasiado impulso para el círculo pequeño, demasiado poco para dar la vuelta: el hilo se afloja.",
+        "outcome_over_the_top": "Impulso suficiente: la bola da la vuelta alrededor del clavo.",
+        "events": {
+          "caught": "El clavo atrapa el hilo.",
+          "released": "El hilo se suelta del clavo.",
+          "slack": "El hilo se afloja: la bola vuela libre.",
+          "taut": "El hilo se tensa de un tirón.",
+          "over_the_top": "Vuelta completa: el hilo se enrolla en el clavo."
+        }
+      },
+      "figures": {
+        "height": "Altura de partida",
+        "radius": "Círculo pequeño",
+        "loop": "Necesario para dar la vuelta",
+        "slack": "Se afloja a la altura"
+      },
+      "change": {
+        "title": "Cambiar el objeto expuesto",
+        "hint": "Cada cambio vuelve a soltar la bola.",
+        "start": "Amplitud al soltar",
+        "peg": "Profundidad del clavo",
+        "peg_hint": "A qué distancia por debajo de la suspensión está el clavo.",
+        "length": "Longitud del hilo"
+      },
+      "model": {
+        "intro": "El hilo siempre tira de través al movimiento de la bola. La desvía, pero no realiza trabajo: todo el movimiento de la bola procede solo de su caída.",
+        "energy": "Por eso su velocidad depende solo de cuánto está por debajo de su altura de partida – sea cual sea el círculo. Arriba, donde da la vuelta, vuelve a estar a esa altura.",
+        "pull": "Un hilo solo puede tirar. Por encima del clavo tiene que mantener la bola en su círculo, y la gravedad ayuda; si allí la bola va demasiado lenta, el hilo tendría que empujar – se afloja y la bola vuela libre hasta que el hilo vuelve a tensarse."
+      },
+      "symbols": {
+        "v": "la velocidad de la bola",
+        "z": "su altura sobre el punto más bajo",
+        "h": "la altura desde la que se soltó",
+        "g": "aceleración de la gravedad, 9,81 m/s²",
+        "f": "el tirón del hilo",
+        "r": "el radio del círculo pequeño: la longitud del hilo menos la profundidad del clavo",
+        "phi": "el ángulo alrededor del clavo, medido desde abajo",
+        "z_slack": "la altura a la que el hilo se afloja"
+      },
+      "sweet": {
+        "height": "El camino cambia, la altura no: la energía recuerda de dónde vino la bola. Así mostró Galileo que una bola que baja por una rampa vuelve a subir igual de alto por cualquier rampa opuesta.",
+        "loop": "Da la vuelta al clavo si se soltó desde al menos dos radios y medio del círculo pequeño: arriba aún debe ir tan rápido que el hilo tire.",
+        "slack": "Entre ambos casos, el hilo se afloja a esta altura.",
+        "now": "Aquí la bola se soltó a {{h}} cm sobre el punto más bajo; para dar la vuelta harían falta {{loop}} cm.",
+        "cases": {
+          "same_height": "Misma altura",
+          "slack": "Hilo flojo",
+          "over_the_top": "Vuelta completa"
+        }
+      },
+      "computed": {
+        "system": "Tres movimientos, una ecuación cada uno: el péndulo alrededor de la suspensión, el más corto alrededor del clavo y el vuelo libre mientras el hilo está flojo. El motor avanza con el método de Runge-Kutta de milisegundo en milisegundo y busca cada cambio – el clavo atrapa, el hilo se suelta, se afloja, se tensa – dentro de su paso, partiéndolo por la mitad, para que ocurra exactamente donde corresponde.",
+        "gravity": "la gravedad, que actúa sola en el vuelo libre"
       }
     }
   }

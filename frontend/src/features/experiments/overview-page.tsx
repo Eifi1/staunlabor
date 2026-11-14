@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Link } from "react-router";
 import { useTranslation } from "react-i18next";
 import {
+  Anchor,
   ArrowRight,
   Armchair,
   CalendarDays,
@@ -59,6 +60,7 @@ const ICON: Record<Exhibit, LucideIcon> = {
   cone: Diamond,
   parabola: GlassWater,
   coupled: Link2,
+  peg: Anchor,
 };
 
 /** Two weeks back, in the dialog: long enough to find the one a friend

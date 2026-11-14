@@ -40,6 +40,7 @@ const PREVIEWS: Record<Exhibit, LazyExoticComponent<ComponentType<PreviewProps>>
   cone: lazy(() => import("./cone-page").then((m) => ({ default: m.ConePreview }))),
   parabola: lazy(() => import("./parabola-page").then((m) => ({ default: m.ParabolaPreview }))),
   coupled: lazy(() => import("./coupled-page").then((m) => ({ default: m.CoupledPreview }))),
+  peg: lazy(() => import("./peg-page").then((m) => ({ default: m.PegPreview }))),
 };
 
 /** Whether the element is on screen (`margin` beyond it counts), and whether

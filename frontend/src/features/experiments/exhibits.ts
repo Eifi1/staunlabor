@@ -23,7 +23,8 @@ export type Exhibit =
   | "harmonograph"
   | "cone"
   | "parabola"
-  | "coupled";
+  | "coupled"
+  | "peg";
 
 /** What an exhibit is about, as a reader would look for it: one word each,
  *  and an exhibit may be about two. */
@@ -129,6 +130,7 @@ export const EXHIBITS: readonly ExhibitEntry[] = [
     lessons: ["second_order", "numerics"],
     since: "2026-12-01",
   },
+  { exhibit: "peg", path: "/peg", topics: ["energy"], lessons: ["second_order", "numerics"], since: "2026-12-01" },
 ];
 
 export function exhibitEntry(exhibit: Exhibit): ExhibitEntry {

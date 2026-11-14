@@ -205,6 +205,12 @@
         "title": "Pendules couplés",
         "summary": "Deux pendules reliés par un ressort souple : poussez-en un, l'oscillation passe à l'autre – et revient.",
         "question": "Deux pendules identiques sont reliés par un ressort. Combien de temps faut-il pour que l'oscillation de l'un soit entièrement passée à l'autre ?"
+      },
+      "peg": {
+        "short": "Pendule de Galilée",
+        "title": "Le pendule interrompu de Galilée",
+        "summary": "Une cheville arrête le fil d'un pendule. La boule continue sur un cercle plus petit – et monte pourtant exactement aussi haut que de l'autre côté.",
+        "question": "Une cheville arrête le fil d'un pendule qui oscille. La boule monte-t-elle ensuite moins haut, aussi haut ou plus haut ?"
       }
     },
     "chair": {
@@ -1439,6 +1445,80 @@
       },
       "computed": {
         "system": "Quatre équations du premier ordre, les oscillations et leurs vitesses, avec le sinus complet et le ressort entre eux. Le moteur les résout ensemble par la méthode de Runge-Kutta, une milliseconde à la fois ; la page fait de même avec les mêmes pas, quelques dizaines par image."
+      }
+    },
+    "peg": {
+      "at": {
+        "peg": "Un pendule oscille devant un mur. Sous son point de suspension se trouve une cheville : chaque fois que le fil passe par la verticale, la cheville l'arrête, et la boule continue sur un cercle plus petit autour de la cheville.",
+        "height": "Le chemin change, la hauteur non : la boule monte exactement jusqu'à la ligne d'où elle a été lâchée. Avec une cheville assez basse, elle ne le peut plus – elle fait un tour complet, ou le fil se détend."
+      },
+      "refused": "La cheville doit se trouver entre la suspension et la boule.",
+      "view": "Le pendule, la cheville et, en pointillé, la hauteur d'où la boule a été lâchée ; la cheville se déplace au doigt",
+      "play": {
+        "title": "Lâcher le pendule",
+        "hint": "Faites glisser la cheville vers le haut ou le bas, ou choisissez plus bas l'un des trois cas.",
+        "let_go": "Lâcher",
+        "pause": "Pause",
+        "run": "Reprendre",
+        "speed": "Vitesse",
+        "speeds": {
+          "100": "Temps réel",
+          "25": "Ralenti (¼)"
+        },
+        "outcome_same_height": "À la cheville, la boule monte exactement aussi haut que de l'autre côté.",
+        "outcome_slack": "Trop d'élan pour le petit cercle, trop peu pour faire le tour : le fil se détend.",
+        "outcome_over_the_top": "Assez d'élan : la boule fait le tour de la cheville.",
+        "events": {
+          "caught": "La cheville arrête le fil.",
+          "released": "Le fil quitte la cheville.",
+          "slack": "Le fil se détend : la boule vole librement.",
+          "taut": "Le fil se tend d'un coup sec.",
+          "over_the_top": "Tour complet : le fil s'enroule autour de la cheville."
+        }
+      },
+      "figures": {
+        "height": "Hauteur de départ",
+        "radius": "Petit cercle",
+        "loop": "Nécessaire pour faire le tour",
+        "slack": "Détendu dès la hauteur"
+      },
+      "change": {
+        "title": "Modifier l'objet exposé",
+        "hint": "Chaque changement relâche la boule.",
+        "start": "Amplitude au lâcher",
+        "peg": "Profondeur de la cheville",
+        "peg_hint": "À quelle distance sous la suspension se trouve la cheville.",
+        "length": "Longueur du fil"
+      },
+      "model": {
+        "intro": "Le fil tire toujours en travers du mouvement de la boule. Il la dévie, mais ne fournit aucun travail : tout le mouvement de la boule vient de sa seule chute.",
+        "energy": "Sa vitesse ne dépend donc que de la distance qui la sépare, vers le bas, de sa hauteur de départ – quel que soit le cercle. En haut, là où elle fait demi-tour, elle est revenue à cette hauteur.",
+        "pull": "Un fil ne peut que tirer. Au-dessus de la cheville, il doit maintenir la boule sur son cercle, et la pesanteur l'y aide ; si la boule y est trop lente, le fil devrait pousser – il se détend, et la boule vole librement jusqu'à ce qu'il se tende à nouveau."
+      },
+      "symbols": {
+        "v": "la vitesse de la boule",
+        "z": "sa hauteur au-dessus du point le plus bas",
+        "h": "la hauteur d'où elle a été lâchée",
+        "g": "accélération de la pesanteur, 9,81 m/s²",
+        "f": "la traction du fil",
+        "r": "le rayon du petit cercle : la longueur du fil moins la profondeur de la cheville",
+        "phi": "l'angle autour de la cheville, mesuré depuis le bas",
+        "z_slack": "la hauteur à laquelle le fil se détend"
+      },
+      "sweet": {
+        "height": "Le chemin change, la hauteur non : l'énergie se souvient d'où vient la boule. C'est ainsi que Galilée a montré qu'une boule descendant une rampe remonte aussi haut sur n'importe quelle rampe opposée.",
+        "loop": "Elle passe par-dessus la cheville si elle a été lâchée d'au moins deux rayons et demi du petit cercle : en haut, elle doit encore aller assez vite pour que le fil tire.",
+        "slack": "Entre les deux, le fil se détend à cette hauteur.",
+        "now": "Ici la boule a été lâchée {{h}} cm au-dessus du point le plus bas ; pour faire le tour, il faudrait {{loop}} cm.",
+        "cases": {
+          "same_height": "Même hauteur",
+          "slack": "Fil détendu",
+          "over_the_top": "Tour complet"
+        }
+      },
+      "computed": {
+        "system": "Trois mouvements, une équation chacun : le pendule autour de la suspension, le plus court autour de la cheville, et le vol libre tant que le fil est détendu. Le moteur avance par la méthode de Runge-Kutta, une milliseconde à la fois, et trouve chaque changement – la cheville arrête, le fil se libère, se détend, se tend – à l'intérieur de son pas, par dichotomie, pour qu'il ait lieu exactement là où il doit.",
+        "gravity": "la pesanteur, seule à agir pendant le vol libre"
       }
     }
   }
