@@ -28,6 +28,12 @@ const ImprintPage = lazy(() => import("@/features/site/legal-pages").then((m) =>
 const PrivacyPage = lazy(() => import("@/features/site/legal-pages").then((m) => ({ default: m.PrivacyPage })));
 const SettingsPage = lazy(() => import("@/features/account/settings-page").then((m) => ({ default: m.SettingsPage })));
 const AdminPage = lazy(() => import("@/features/admin/admin-page").then((m) => ({ default: m.AdminPage })));
+const FeedbackInboxPage = lazy(() =>
+  import("@/features/admin/feedback-pages").then((m) => ({ default: m.FeedbackInboxPage })),
+);
+const MyFeedbackPage = lazy(() =>
+  import("@/features/admin/feedback-pages").then((m) => ({ default: m.MyFeedbackPage })),
+);
 const TranslationsPage = lazy(() =>
   import("@/features/admin/translations-page").then((m) => ({ default: m.TranslationsPage })),
 );
@@ -152,6 +158,26 @@ export function AppRoutes() {
             <RequireSession signInPath="/login">
               <Page>
                 <AdminPage />
+              </Page>
+            </RequireSession>
+          }
+        />
+        <Route
+          path="feedback"
+          element={
+            <RequireSession signInPath="/login">
+              <Page>
+                <FeedbackInboxPage />
+              </Page>
+            </RequireSession>
+          }
+        />
+        <Route
+          path="my-feedback"
+          element={
+            <RequireSession signInPath="/login">
+              <Page>
+                <MyFeedbackPage />
               </Page>
             </RequireSession>
           }

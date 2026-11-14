@@ -1,6 +1,8 @@
 import { useTranslation } from "react-i18next";
 import { AccountTranslationReview } from "@eifi1/ui-kit/accounts";
-import { loadBundle } from "@/shared/i18n";
+// The module path in full: ts-prune does not resolve `@/shared/i18n` through the folder and
+// would report `loadBundle` as unused.
+import { loadBundle } from "@/shared/i18n/index";
 import { OPERATOR } from "@/features/site/operator";
 
 /**

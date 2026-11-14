@@ -26,9 +26,14 @@ export function SettingsPage() {
       {role === "ADMIN" || role === "REVIEWER" ? (
         <nav aria-label={t("account.more")} className="flex flex-wrap gap-x-6 gap-y-2 text-sm">
           {role === "ADMIN" ? (
-            <Link className="underline underline-offset-2" to="/admin">
-              {t("account.admin")}
-            </Link>
+            <>
+              <Link className="underline underline-offset-2" to="/admin">
+                {t("account.admin")}
+              </Link>
+              <Link className="underline underline-offset-2" to="/feedback">
+                {t("account.feedback")}
+              </Link>
+            </>
           ) : null}
           <Link className="underline underline-offset-2" to="/translations">
             {t("account.reviewTranslations")}
