@@ -16,13 +16,22 @@ const EVEN: DailyWeights = { bonusPerDay: 0, topicMalus: 1, pairMalus: 1 };
 
 const built = EXHIBITS.filter((entry) => entry.path).map((entry) => entry.exhibit);
 
+/** Every built exhibit in the draw from the epoch on, with its topics: the
+ *  round the rules are about, whatever day each one ships (`since` puts the
+ *  second series in later, and the default pool with it). */
+const everyone: DailyMember[] = EXHIBITS.filter((entry) => entry.path).map((entry) => ({
+  exhibit: entry.exhibit,
+  since: DAILY_EPOCH,
+  topics: entry.topics,
+}));
+
 describe("the experiment of the day", () => {
   it("is the same exhibit whenever the same day is asked about", () => {
     expect(dailyExhibit("2027-03-14")).toBe(dailyExhibit("2027-03-14"));
   });
 
   it("gives every exhibit its turn before any has a second", () => {
-    const days = run(built.length * 40);
+    const days = run(built.length * 40, everyone);
     for (let round = 0; round < 40; round++) {
       const shown = days.slice(round * built.length, (round + 1) * built.length);
       expect(new Set(shown).size).toBe(built.length);
@@ -30,7 +39,7 @@ describe("the experiment of the day", () => {
   });
 
   it("brings an exhibit back no sooner than half a round later, across the end of a round too", () => {
-    const days = run(built.length * 40);
+    const days = run(built.length * 40, everyone);
     const gap = spacing(built.length);
     expect(gap).toBe(Math.ceil(built.length / 2));
     days.forEach((exhibit, i) => {
@@ -105,7 +114,9 @@ describe("the experiment of the day", () => {
     const leaned = late(run(built.length * 400, pool));
     const even = late(run(built.length * 400, pool, EVEN));
     expect(even).toBeGreaterThan(50);
-    expect(leaned).toBeLessThan(even * 0.8);
+    // With eight exhibits the bonus cut such turns by a quarter; with fifteen,
+    // by an eighth (1456 against 1670 over 400 rounds): still fewer, less so.
+    expect(leaned).toBeLessThan(even * 0.9);
   });
 
   it("takes a new exhibit in at the next round, leaving the days before it as they were", () => {

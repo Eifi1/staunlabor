@@ -104,14 +104,6 @@ def position(p: PegPendulum, s: PegState) -> tuple[float, float]:
     return s.y[0], s.y[1]
 
 
-def speed(p: PegPendulum, s: PegState) -> float:
-    if s.mode is Mode.BIG:
-        return abs(p.length_m * s.y[1])
-    if s.mode is Mode.SMALL:
-        return abs(p.small_radius_m * s.y[1])
-    return math.hypot(s.y[2], s.y[3])
-
-
 def _rhs(p: PegPendulum, mode: Mode) -> Callable[[float, tuple[float, ...]], tuple[float, ...]]:
     if mode is Mode.FREE:
         return lambda _t, y: (y[2], y[3], 0.0, -G)

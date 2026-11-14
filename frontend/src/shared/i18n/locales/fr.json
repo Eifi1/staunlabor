@@ -1116,7 +1116,8 @@
         "k": "le module, fixé par l'amplitude au lâcher",
         "cd": "la fonction elliptique de Jacobi cn/dn",
         "omega0": "la pulsation des petites oscillations",
-        "t": "le temps depuis le lâcher"
+        "t": "le temps depuis le lâcher",
+        "check": "Pour contrôle, calculé ici et maintenant : le pendule le plus long de cette rangée, calculé pas à pas pendant dix secondes, s'écarte au plus de {{apart}} degré de la solution exacte."
       }
     },
     "harmonograph": {
@@ -1355,14 +1356,17 @@
       "sweet": {
         "equal": "À {{rpm}} tours par minute, le centre descend de {{drop}} cm – et le bord monte d'exactement autant. Les deux courbes s'écartent symétriquement jusqu'à ce que le centre atteigne le fond.",
         "dry": "Le centre est sec : à partir de {{rpm}} tours par minute, l'eau ne forme plus qu'un anneau.",
-        "mirror": "Une cuvette tournante de liquide réfléchissant est un miroir de télescope : la lumière qui tombe verticalement se réunit au foyer. La vitesse règle la distance focale – un tour en 8,5 s le place à 9 m de haut."
+        "mirror": "Une cuvette tournante de liquide réfléchissant est un miroir de télescope : la lumière qui tombe verticalement se réunit au foyer. La vitesse règle la distance focale – un tour en 8,5 s le place à 9 m de haut.",
+        "spin_up": "Si l'on met le plateau en marche depuis l'arrêt à cette vitesse, l'eau met environ {{tau}} s à en atteindre les deux tiers :"
       },
       "chart": {
         "rim": "Hauteur au bord",
         "centre": "Hauteur au centre",
         "height": "Hauteur",
         "rate": "Vitesse",
-        "you": "Maintenant"
+        "you": "Maintenant",
+        "vessel": "Plateau tournant",
+        "time": "Temps"
       },
       "figures": {
         "dry": "Sec à partir de",
@@ -1486,7 +1490,8 @@
         "height": "Hauteur de départ",
         "radius": "Petit cercle",
         "loop": "Nécessaire pour faire le tour",
-        "slack": "Détendu dès la hauteur"
+        "slack": "Détendu dès la hauteur",
+        "reached": "Atteinte à la cheville, calculée"
       },
       "change": {
         "title": "Modifier l'objet exposé",

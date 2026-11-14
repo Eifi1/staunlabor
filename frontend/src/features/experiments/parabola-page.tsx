@@ -13,7 +13,16 @@ import { Equation } from "./equation";
 import { ExhibitFrame } from "./exhibit-frame";
 import { ParabolaSideView, ParabolaTopView } from "./parabola-views";
 import { PreviewPending, type PreviewMode, type PreviewProps } from "./preview-mode";
-import { SPIN_STEP_S, dryRate, spillRate, spinStep, spinUpTimeS, surface, type Vessel } from "./simulate/parabola";
+import {
+  SPIN_STEP_S,
+  dryRate,
+  spillRate,
+  spin,
+  spinStep,
+  spinUpTimeS,
+  surface,
+  type Vessel,
+} from "./simulate/parabola";
 import { SIDE } from "./stage";
 import { useExperimentsDefaults } from "./use-experiments";
 
@@ -340,6 +349,14 @@ function ParabolaTrick({ v, rate }: { v: Vessel | null; rate: number }) {
       return { rpm: w / RPM, centre: surf.centre_m * 100, rim: surf.rim_m * 100 };
     });
   }, [v]);
+  // Switched on from rest to the rate on the slider: the water's rate, the
+  // engine's spin-up replayed by the port, over three spin-up times.
+  const spinUp = useMemo(() => {
+    if (!v || rate <= 0) return [];
+    const tau = spinUpTimeS(v, rate) ?? 1;
+    const r = spin(v, rate, Math.min(3 * tau, 300), 0, 0.05);
+    return r.t.map((time, i) => ({ t: time, water: r.water_rate[i] / RPM, vessel: rate / RPM }));
+  }, [v, rate]);
   if (!v) return <LoadingState className="py-6" label={t("common.loading")} />;
   const now = surface(v, rate);
   const drop = (v.fill_m - now.centre_m) * 100;
@@ -405,6 +422,35 @@ function ParabolaTrick({ v, rate }: { v: Vessel | null; rate: number }) {
               ]),
         ]}
       />
+      {spinUp.length > 0 && (
+        <>
+          <p>
+            {t("experiments.parabola.sweet.spin_up", {
+              tau: formatNumber(spinUpTimeS(v, rate) ?? 0, 0, locale),
+            })}
+          </p>
+          <SeriesChart
+            rows={spinUp}
+            series={[
+              { key: "vessel", label: t("experiments.parabola.chart.vessel"), color: hex[6 % hex.length], dash: 1 },
+              { key: "water", label: t("experiments.parabola.play.water"), color: hex[0 % hex.length] },
+            ]}
+            axes={[
+              {
+                id: "y",
+                title: `${t("experiments.parabola.chart.rate")} (${t("experiments.parabola.play.rpm")})`,
+                format: (x) => formatNumber(x, 0, locale),
+                includeZero: true,
+              },
+            ]}
+            x={{
+              key: "t",
+              title: `${t("experiments.parabola.chart.time")} (s)`,
+              format: (x) => formatNumber(x, 0, locale),
+            }}
+          />
+        </>
+      )}
       <Equation
         tex={String.raw`f = \frac{g}{2\,\omega^2}`}
         reads={t("experiments.parabola.sweet.mirror")}

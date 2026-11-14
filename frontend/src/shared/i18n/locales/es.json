@@ -1116,7 +1116,8 @@
         "k": "el módulo, fijado por la amplitud al soltar",
         "cd": "la función elíptica de Jacobi cn/dn",
         "omega0": "la frecuencia angular de las oscilaciones pequeñas",
-        "t": "el tiempo desde que se soltó"
+        "t": "el tiempo desde que se soltó",
+        "check": "Como control, calculado aquí y ahora: el péndulo más largo de esta fila, calculado paso a paso durante diez segundos, se aparta como mucho {{apart}} grados de la solución exacta."
       }
     },
     "harmonograph": {
@@ -1355,14 +1356,17 @@
       "sweet": {
         "equal": "A {{rpm}} vueltas por minuto el centro baja {{drop}} cm – y el borde sube exactamente lo mismo. Las dos líneas se separan simétricamente hasta que el centro llega al fondo.",
         "dry": "El centro está seco: a partir de {{rpm}} vueltas por minuto el agua forma solo un anillo.",
-        "mirror": "Un cuenco giratorio de un líquido que refleja es el espejo de un telescopio: la luz que cae vertical se reúne en el foco. La velocidad fija la distancia focal – una vuelta en 8,5 s lo sitúa a 9 m de altura."
+        "mirror": "Un cuenco giratorio de un líquido que refleja es el espejo de un telescopio: la luz que cae vertical se reúne en el foco. La velocidad fija la distancia focal – una vuelta en 8,5 s lo sitúa a 9 m de altura.",
+        "spin_up": "Si se enciende el plato desde el reposo a esta velocidad, el agua tarda unos {{tau}} s en alcanzar dos tercios de ella:"
       },
       "chart": {
         "rim": "Altura en el borde",
         "centre": "Altura en el centro",
         "height": "Altura",
         "rate": "Velocidad",
-        "you": "Ahora"
+        "you": "Ahora",
+        "vessel": "Plato giratorio",
+        "time": "Tiempo"
       },
       "figures": {
         "dry": "Seco a partir de",
@@ -1486,7 +1490,8 @@
         "height": "Altura de partida",
         "radius": "Círculo pequeño",
         "loop": "Necesario para dar la vuelta",
-        "slack": "Se afloja a la altura"
+        "slack": "Se afloja a la altura",
+        "reached": "Alcanzada en el clavo, calculada"
       },
       "change": {
         "title": "Cambiar el objeto expuesto",

@@ -56,12 +56,6 @@ export function position(p: PegPendulum, s: PegState): [number, number] {
   return [s.y[0], s.y[1]];
 }
 
-export function speed(p: PegPendulum, s: PegState): number {
-  if (s.mode === "big") return Math.abs(p.length_m * s.y[1]);
-  if (s.mode === "small") return Math.abs(smallRadiusM(p) * s.y[1]);
-  return Math.hypot(s.y[2], s.y[3]);
-}
-
 function rhsOf(p: PegPendulum, mode: Mode): Rhs {
   if (mode === "free") return (_t, y) => [y[2], y[3], 0.0, -G];
   const w2 = G / (mode === "big" ? p.length_m : smallRadiusM(p));

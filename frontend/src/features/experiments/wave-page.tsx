@@ -13,7 +13,7 @@ import { Figures, WidgetCard } from "@/shared/ui/widget";
 import { Equation } from "./equation";
 import { ExhibitFrame } from "./exhibit-frame";
 import { PreviewPending, type PreviewMode, type PreviewProps } from "./preview-mode";
-import { angleDeg } from "./simulate/pendulum";
+import { angleDeg, swing } from "./simulate/pendulum";
 import { lengthsM, spreadDeg } from "./simulate/wave";
 import { SIDE } from "./stage";
 import { useExperimentsDefaults, useWaveFigures } from "./use-experiments";
@@ -57,7 +57,7 @@ export function WavePage() {
         </>
       }
       whatHappens={<WaveModel />}
-      computed={<WaveComputed />}
+      computed={<WaveComputed wave={wave} />}
       sweetSpot={<WaveTrick figures={figures.data ?? null} wave={wave} />}
     >
       {defaults.isPending ? (
@@ -424,10 +424,44 @@ function WaveTrick({ figures, wave }: { figures: WaveFigures | null; wave: WaveR
   );
 }
 
-/** How the engine computes the row: one equation per pendulum, solved exactly. */
-function WaveComputed() {
+const SUPERSCRIPT: Record<string, string> = {
+  "-": "⁻",
+  "0": "⁰",
+  "1": "¹",
+  "2": "²",
+  "3": "³",
+  "4": "⁴",
+  "5": "⁵",
+  "6": "⁶",
+  "7": "⁷",
+  "8": "⁸",
+  "9": "⁹",
+};
+
+/** A small number as the reader writes it: `3·10⁻⁹`, the mantissa in their
+ *  locale; zero as zero. */
+function powerOfTen(value: number, locale: string): string {
+  if (value === 0) return formatNumber(0, 0, locale);
+  const exponent = Math.floor(Math.log10(Math.abs(value)));
+  const mantissa = value / 10 ** exponent;
+  const power = [...String(exponent)].map((ch) => SUPERSCRIPT[ch]).join("");
+  return `${formatNumber(mantissa, 1, locale)}·10${power}`;
+}
+
+/** How the engine computes the row: one equation per pendulum, solved exactly —
+ *  and, as a check the reader can see, the longest one stepped beside it. */
+function WaveComputed({ wave }: { wave: WaveRequest | null }) {
   const { t } = useTranslation();
+  const locale = useLocale();
   const c = (key: string) => t(`experiments.wave.computed.${key}`);
+  const apart = useMemo(() => {
+    if (!wave) return null;
+    const length = lengthsM(wave)[0];
+    const stepped = swing(length, wave.amplitude_deg, 10);
+    return Math.max(
+      ...stepped.t.map((time, i) => Math.abs(stepped.angle_deg[i] - angleDeg(length, wave.amplitude_deg, time))),
+    );
+  }, [wave]);
   return (
     <>
       <Equation
@@ -448,6 +482,7 @@ function WaveComputed() {
           { tex: "t", meaning: c("t"), unit: "s" },
         ]}
       />
+      {apart !== null && <p>{t("experiments.wave.computed.check", { apart: powerOfTen(apart, locale) })}</p>}
     </>
   );
 }

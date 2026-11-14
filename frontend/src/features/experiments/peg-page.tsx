@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState, type PointerEvent } from "react";
+import { useEffect, useMemo, useRef, useState, type PointerEvent } from "react";
 import { useTranslation } from "react-i18next";
 import { Hand, Pause, Play } from "lucide-react";
 import { AlertBanner, Button, LoadingState, ToggleGroup } from "@eifi1/ui-kit";
@@ -15,6 +15,7 @@ import {
   outcome,
   position,
   refusal,
+  run,
   slackHeightM,
   smallRadiusM,
   start,
@@ -430,6 +431,9 @@ function PegTrick({ p, onCase }: { p: PegPendulum | null; onCase: (c: keyof type
   const { t } = useTranslation();
   const locale = useLocale();
   const s = (key: string) => t(`experiments.peg.symbols.${key}`);
+  // The highest the bob gets on the peg's side, measured on a run of a few
+  // swings rather than taken from the energy: the sentence's check on itself.
+  const reached = useMemo(() => (p ? run(p, 6).peg_side_top_m : null), [p]);
   return (
     <>
       <p>{t("experiments.peg.sweet.height")}</p>
@@ -450,6 +454,26 @@ function PegTrick({ p, onCase }: { p: PegPendulum | null; onCase: (c: keyof type
             loop: formatNumber(2.5 * smallRadiusM(p) * 100, 1, locale),
           })}
         </p>
+      )}
+      {p && reached !== null && (
+        <Figures
+          tiles={[
+            {
+              key: "start",
+              label: t("experiments.peg.figures.height"),
+              value: startHeightM(p) * 100,
+              digits: 2,
+              unit: "cm",
+            },
+            {
+              key: "reached",
+              label: t("experiments.peg.figures.reached"),
+              value: reached * 100,
+              digits: 2,
+              unit: "cm",
+            },
+          ]}
+        />
       )}
       <div className="flex flex-wrap gap-2">
         {(Object.keys(CASES) as Array<keyof typeof CASES>).map((c) => (

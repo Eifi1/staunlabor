@@ -84,7 +84,11 @@ a hundred to 7.9. A stricter first version — six days apart, a full point of
 bonus a day — turned out a rotation in disguise, repeating triples five times
 as often as a shuffle, and was dropped the same evening. They are weights, so
 "rarer" is not "never": the first two days, the smoke ring and then the
-elephant, are a 3 % draw that came up. The day is Zurich's, so one day has one
+elephant, are a 3 % draw that came up. With the second series (fifteen exhibits,
+2026-11-15) the bonus weighs less: it cuts the turns that come after more than
+a round and two days by an eighth (1456 against 1670 over 400 rounds), where
+with eight it cut them by a quarter; `daily.test.ts` holds it to a tenth.
+Whether to strengthen it for the larger set is Marcel's call. The day is Zurich's, so one day has one
 exhibit whoever asks; the pick needs no server, no table and no admin, and the
 history is the rule run backwards. A new exhibit joins at the first round that starts on or after its
 `since` day, never mid-round, which would redraw days already shown; so

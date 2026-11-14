@@ -1116,7 +1116,8 @@
         "k": "der Modul, festgelegt durch den Ausschlag beim Loslassen",
         "cd": "Jacobis elliptische Funktion cn/dn",
         "omega0": "die Kreisfrequenz kleiner Schwingungen",
-        "t": "die Zeit seit dem Loslassen"
+        "t": "die Zeit seit dem Loslassen",
+        "check": "Zur Kontrolle, hier und jetzt gerechnet: Das längste Pendel dieser Reihe, zehn Sekunden lang Schritt für Schritt gerechnet, weicht höchstens um {{apart}} Grad von der exakten Lösung ab."
       }
     },
     "harmonograph": {
@@ -1355,14 +1356,17 @@
       "sweet": {
         "equal": "Bei {{rpm}} Umdrehungen pro Minute sinkt die Mitte um {{drop}} cm – und der Rand steigt um genau gleich viel. Die beiden Linien laufen symmetrisch auseinander, bis die Mitte den Boden erreicht.",
         "dry": "Die Mitte ist trocken: Ab {{rpm}} Umdrehungen pro Minute steht das Wasser nur noch in einem Ring.",
-        "mirror": "Eine gedrehte Mulde aus spiegelnder Flüssigkeit ist ein Teleskopspiegel: Senkrecht einfallendes Licht trifft sich im Brennpunkt. Die Drehzahl stellt die Brennweite ein – eine Umdrehung in 8,5 s legt ihn 9 m hoch."
+        "mirror": "Eine gedrehte Mulde aus spiegelnder Flüssigkeit ist ein Teleskopspiegel: Senkrecht einfallendes Licht trifft sich im Brennpunkt. Die Drehzahl stellt die Brennweite ein – eine Umdrehung in 8,5 s legt ihn 9 m hoch.",
+        "spin_up": "Schaltet man den Drehteller aus dem Stand auf diese Drehzahl, braucht das Wasser rund {{tau}} s, bis es zwei Drittel davon erreicht hat:"
       },
       "chart": {
         "rim": "Höhe am Rand",
         "centre": "Höhe in der Mitte",
         "height": "Höhe",
         "rate": "Drehzahl",
-        "you": "Jetzt"
+        "you": "Jetzt",
+        "vessel": "Drehteller",
+        "time": "Zeit"
       },
       "figures": {
         "dry": "Trocken ab",
@@ -1486,7 +1490,8 @@
         "height": "Starthöhe",
         "radius": "Kleiner Kreis",
         "loop": "Für den Überschlag nötig",
-        "slack": "Schlaff ab Höhe"
+        "slack": "Schlaff ab Höhe",
+        "reached": "Erreicht am Stift, gerechnet"
       },
       "change": {
         "title": "Das Exponat verändern",

@@ -1116,7 +1116,8 @@
         "k": "il modulo, fissato dall'ampiezza al rilascio",
         "cd": "la funzione ellittica di Jacobi cn/dn",
         "omega0": "la pulsazione delle piccole oscillazioni",
-        "t": "il tempo dal rilascio"
+        "t": "il tempo dal rilascio",
+        "check": "Per controllo, calcolato qui e ora: il pendolo più lungo di questa fila, calcolato passo dopo passo per dieci secondi, si scosta al massimo di {{apart}} gradi dalla soluzione esatta."
       }
     },
     "harmonograph": {
@@ -1355,14 +1356,17 @@
       "sweet": {
         "equal": "A {{rpm}} giri al minuto il centro scende di {{drop}} cm – e il bordo sale esattamente altrettanto. Le due linee si separano simmetricamente finché il centro raggiunge il fondo.",
         "dry": "Il centro è asciutto: da {{rpm}} giri al minuto l'acqua forma solo un anello.",
-        "mirror": "Una conca girevole di liquido riflettente è lo specchio di un telescopio: la luce che cade verticale si riunisce nel fuoco. La velocità regola la distanza focale – un giro in 8,5 s lo pone a 9 m di altezza."
+        "mirror": "Una conca girevole di liquido riflettente è lo specchio di un telescopio: la luce che cade verticale si riunisce nel fuoco. La velocità regola la distanza focale – un giro in 8,5 s lo pone a 9 m di altezza.",
+        "spin_up": "Se si accende il piatto da fermo a questa velocità, l'acqua impiega circa {{tau}} s a raggiungerne due terzi:"
       },
       "chart": {
         "rim": "Altezza al bordo",
         "centre": "Altezza al centro",
         "height": "Altezza",
         "rate": "Velocità",
-        "you": "Ora"
+        "you": "Ora",
+        "vessel": "Piatto girevole",
+        "time": "Tempo"
       },
       "figures": {
         "dry": "Asciutto da",
@@ -1486,7 +1490,8 @@
         "height": "Altezza di partenza",
         "radius": "Cerchio piccolo",
         "loop": "Necessaria per il giro",
-        "slack": "Si allenta all'altezza"
+        "slack": "Si allenta all'altezza",
+        "reached": "Raggiunta al piolo, calcolata"
       },
       "change": {
         "title": "Modificare l'oggetto esposto",

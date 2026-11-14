@@ -1116,7 +1116,8 @@
         "k": "the modulus, set by the swing when let go",
         "cd": "Jacobi's elliptic function cn/dn",
         "omega0": "the angular frequency of small swings",
-        "t": "the time since letting go"
+        "t": "the time since letting go",
+        "check": "As a check, computed here and now: the longest pendulum of this row, stepped for ten seconds, is at most {{apart}} degrees away from the exact solution."
       }
     },
     "harmonograph": {
@@ -1355,14 +1356,17 @@
       "sweet": {
         "equal": "At {{rpm}} turns a minute the middle sinks by {{drop}} cm – and the rim rises by exactly as much. The two lines part symmetrically until the middle reaches the bottom.",
         "dry": "The middle is dry: from {{rpm}} turns a minute the water stands in a ring only.",
-        "mirror": "A turning bowl of a liquid that reflects is a telescope's mirror: light coming straight down meets at the focus. The speed sets the focal length – one turn in 8.5 s puts it 9 m up."
+        "mirror": "A turning bowl of a liquid that reflects is a telescope's mirror: light coming straight down meets at the focus. The speed sets the focal length – one turn in 8.5 s puts it 9 m up.",
+        "spin_up": "Switch the turntable on from rest to this speed, and the water takes about {{tau}} s to reach two thirds of it:"
       },
       "chart": {
         "rim": "Height at the rim",
         "centre": "Height at the middle",
         "height": "Height",
         "rate": "Speed",
-        "you": "Now"
+        "you": "Now",
+        "vessel": "Turntable",
+        "time": "Time"
       },
       "figures": {
         "dry": "Dry from",
@@ -1486,7 +1490,8 @@
         "height": "Height let go from",
         "radius": "Small circle",
         "loop": "Needed to go over",
-        "slack": "Slack from a height of"
+        "slack": "Slack from a height of",
+        "reached": "Reached at the peg, computed"
       },
       "change": {
         "title": "Change the exhibit",

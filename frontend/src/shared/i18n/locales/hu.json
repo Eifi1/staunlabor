@@ -1116,7 +1116,8 @@
         "k": "a modulus, amelyet az elengedéskori kitérés határoz meg",
         "cd": "Jacobi cn/dn elliptikus függvénye",
         "omega0": "a kis lengések körfrekvenciája",
-        "t": "az elengedés óta eltelt idő"
+        "t": "az elengedés óta eltelt idő",
+        "check": "Ellenőrzésként, itt és most számolva: a sor leghosszabb ingája tíz másodpercig lépésenként számolva legfeljebb {{apart}} fokkal tér el a pontos megoldástól."
       }
     },
     "harmonograph": {
@@ -1355,14 +1356,17 @@
       "sweet": {
         "equal": "{{rpm}} fordulat/percnél a közepe {{drop}} cm-t süllyed – és a széle pontosan ugyanennyit emelkedik. A két vonal szimmetrikusan távolodik, amíg a közepe el nem éri az aljat.",
         "dry": "A közepe száraz: {{rpm}} fordulat/perctől a víz már csak gyűrűben áll.",
-        "mirror": "A forgó, tükröző folyadékkal teli teknő távcsőtükör: a függőlegesen beeső fény a fókuszban találkozik. A fordulatszám állítja a fókusztávolságot – egy fordulat 8,5 s alatt 9 m magasra teszi."
+        "mirror": "A forgó, tükröző folyadékkal teli teknő távcsőtükör: a függőlegesen beeső fény a fókuszban találkozik. A fordulatszám állítja a fókusztávolságot – egy fordulat 8,5 s alatt 9 m magasra teszi.",
+        "spin_up": "Ha a forgótányért álló helyzetből erre a fordulatszámra kapcsolják, a víznek nagyjából {{tau}} s kell, hogy ennek kétharmadát elérje:"
       },
       "chart": {
         "rim": "Magasság a peremen",
         "centre": "Magasság középen",
         "height": "Magasság",
         "rate": "Fordulatszám",
-        "you": "Most"
+        "you": "Most",
+        "vessel": "Forgótányér",
+        "time": "Idő"
       },
       "figures": {
         "dry": "Kiszárad ettől",
@@ -1486,7 +1490,8 @@
         "height": "Kezdeti magasság",
         "radius": "Kis kör",
         "loop": "Az átforduláshoz kell",
-        "slack": "Meglazul ettől a magasságtól"
+        "slack": "Meglazul ettől a magasságtól",
+        "reached": "Elért magasság a pecek mellett, számolva"
       },
       "change": {
         "title": "A kiállítási tárgy módosítása",
