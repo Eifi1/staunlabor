@@ -207,10 +207,12 @@ serving the revision before it. Plan, second stage, step 6.
   deploys. `Dockerfile.backend` copies `alembic.ini` and `alembic/` for it
   (today it copies `staunlabor/` only).
 * **Mail**: until Resend has verified `staunlabor.app`, `STAUNLABOR_MAIL_BACKEND`
-  stays `console`, and every account mail is a line in Cloud Logging, its link
-  included, for 30 days (the backend says so at every start); an admin's answer
-  shows an invitation's link once. Then `STAUNLABOR_MAIL_BACKEND=resend` with
-  the key. Replies go to `kontakt@staunlabor.app` (§5), not the kit's `support@`.
+  stays `console`: nothing is sent, and Cloud Logging gets each account mail's
+  kind alone, never its link or address (server-kit 0.30; the backend says so at
+  every start). An admin's answer shows an invitation's or a reset's link once,
+  to be handed on in person; a person's own reset request reaches nobody. Then
+  `STAUNLABOR_MAIL_BACKEND=resend` with the key. Replies go to
+  `kontakt@staunlabor.app` (§5), not the kit's `support@`.
 * **The texts first**: the privacy policy, the about page and this file's
   "no database, no job" (plan, step 5) are untrue from the deploy on.
 

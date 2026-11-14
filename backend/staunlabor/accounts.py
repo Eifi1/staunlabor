@@ -10,7 +10,8 @@ what the kit leaves to an app, and nothing more:
   the request's session (``staunlabor.database``);
 - the signer and the hasher, the kit's own since 0.30 (``[jwt]``: HS256 pinned,
   ``exp`` required; ``[bcrypt]`` at the settings' cost), built from the settings;
-- the transport: the console now, Resend once it has verified the domain;
+- the transport: the console now (the whole mail on a laptop, its kind alone on
+  a deployment), Resend once it has verified the domain;
 - the policy: invitation-only. The first account claims an empty database
   through the allow-list and is the ADMIN; everybody after it holds an
   invitation, which names the role among :class:`~staunlabor.models.Role`'s;
@@ -62,9 +63,14 @@ def mailer_for(settings: Settings) -> Mailer:
         return ResendClient(
             api_key=settings.resend_api_key, from_address=settings.mail_from, reply_to=settings.contact_email
         )
-    # WARNING, not the kit's INFO: nothing configures this app's log levels, so
-    # an INFO line, the one with the link a developer signs in by, would not show.
-    return ConsoleMailer(level=logging.WARNING)
+    # The whole mail, link included, only on a laptop, where a developer signs in by
+    # it. A deployment logs the kind alone, the kit's default since 0.30: its log
+    # stays in Cloud Logging for 30 days, where an unspent link is a credential and
+    # the address is the person's; an admin's answer carries an invitation's or a
+    # reset's link once instead. WARNING, not the kit's INFO, on both: nothing
+    # configures this app's log levels (uvicorn sets only its own), so an INFO line
+    # would show nowhere.
+    return ConsoleMailer(level=logging.WARNING, show_content=not settings.deployed)
 
 
 class InvitationCreate(KitInvitationCreate):

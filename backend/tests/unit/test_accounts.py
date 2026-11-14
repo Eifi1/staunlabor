@@ -9,7 +9,7 @@ from __future__ import annotations
 import logging
 
 import pytest
-from eifi1_server_kit.mail import ConsoleMailer, ResendClient
+from eifi1_server_kit.mail import ConsoleMailer, MailMessage, ResendClient
 
 from staunlabor.accounts import mailer_for
 from staunlabor.main import check_deployment, create_app
@@ -23,6 +23,33 @@ def test_mail_goes_to_the_log_until_resend_is_chosen(monkeypatch: pytest.MonkeyP
     monkeypatch.setenv("STAUNLABOR_MAIL_BACKEND", "resend")
     monkeypatch.setenv("STAUNLABOR_RESEND_API_KEY", "re_test_key")
     assert isinstance(mailer_for(Settings()), ResendClient)
+
+
+LINK = "http://localhost:5176/verify-email?token=the-unspent-token"
+MAIL = MailMessage(subject="Bitte bestätigen Sie Ihre Adresse", text=f"Bestätigen: {LINK}")
+
+
+async def _logged(caplog: pytest.LogCaptureFixture) -> logging.LogRecord:
+    with caplog.at_level(logging.DEBUG, logger="eifi1_server_kit.mail"):
+        assert await mailer_for(Settings()).send("ada@example.com", MAIL, kind="verification") is True
+    [record] = [record for record in caplog.records if record.name == "eifi1_server_kit.mail"]
+    return record
+
+
+async def test_a_laptop_s_console_shows_the_whole_mail_as_a_warning_a_developer_sees(
+    caplog: pytest.LogCaptureFixture,
+):
+    record = await _logged(caplog)
+    assert record.levelno == logging.WARNING
+    assert LINK in record.getMessage() and "ada@example.com" in record.getMessage()
+
+
+async def test_a_deployment_s_console_logs_the_mail_s_kind_and_never_its_link_or_address(
+    deployed: pytest.MonkeyPatch, caplog: pytest.LogCaptureFixture
+):
+    record = await _logged(caplog)
+    assert record.levelno == logging.WARNING and "verification" in record.getMessage()
+    assert "token" not in record.getMessage() and "ada@" not in record.getMessage()
 
 
 # ── The boot check ───────────────────────────────────────────────────────────
@@ -45,9 +72,8 @@ def test_a_deployment_with_its_key_its_list_and_its_host_starts(deployed: pytest
     with caplog.at_level(logging.WARNING, logger="staunlabor.main"):
         check_deployment(Settings())
     # The console stand-in is allowed, and said once.
-    assert [record.message for record in caplog.records] == [
-        "Mail goes to the log (STAUNLABOR_MAIL_BACKEND=console): each line carries the mail's link."
-    ]
+    [said] = [record.message for record in caplog.records]
+    assert said.startswith("Mail is not sent (STAUNLABOR_MAIL_BACKEND=console): the log names each mail's kind alone")
 
 
 @pytest.mark.parametrize(

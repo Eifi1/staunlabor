@@ -88,9 +88,10 @@ class Settings(BaseSettings):
     #: bcrypt's cost: 12, bcrypt's own default and every sibling app's. The suite
     #: sets 4; a hash carries its cost, so a row hashed at 12 still verifies.
     bcrypt_rounds: int = Field(default=12, ge=4, le=16)
-    #: ``console`` logs each mail, link included: development, and a deployment
-    #: until Resend has verified the domain, where an admin's answer shows an
-    #: invitation's link once. ``resend`` sends from :attr:`mail_from`.
+    #: ``console`` sends nothing: a laptop logs each mail, link included; a
+    #: deployment, until Resend has verified the domain, logs its kind alone, and
+    #: an admin's answer shows an invitation's or a reset's link once.
+    #: ``resend`` sends from :attr:`mail_from`.
     mail_backend: Literal["console", "resend"] = Field(default="console")
     #: The sender, on the domain Resend verifies.
     mail_from: str = Field(default="Staunlabor <noreply@staunlabor.app>")

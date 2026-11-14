@@ -52,8 +52,9 @@ def check_deployment(settings: Settings) -> None:
     A deployment (``Settings.deployed``) refuses to start on any of them. A
     laptop boots with nothing configured, and hears about the key and the RP id.
     A console transport on a deployment is the plan's stand-in until Resend has
-    verified the domain, so it is allowed, and said once: its log line carries
-    every mail's link, a credential while it is unspent.
+    verified the domain, so it is allowed, and said once: nothing is sent, and
+    the log names each mail's kind alone (``accounts.mailer_for``), so a link
+    reaches a person only from an admin's answer.
     """
     problems = secret_problems(settings.jwt_secret, name="STAUNLABOR_JWT_SECRET")
     if not rp_id_fits(settings.webauthn_rp_id, settings.app_base_url):
@@ -72,7 +73,10 @@ def check_deployment(settings: Settings) -> None:
     if problems:
         raise RuntimeError("Refusing to start a deployment: " + "; ".join(problems) + ".")
     if settings.mail_backend == "console":
-        logger.warning("Mail goes to the log (STAUNLABOR_MAIL_BACKEND=console): each line carries the mail's link.")
+        logger.warning(
+            "Mail is not sent (STAUNLABOR_MAIL_BACKEND=console): the log names each mail's kind alone,"
+            " and an admin hands an invitation's or a reset's link on from the admin's answer."
+        )
 
 
 @asynccontextmanager
