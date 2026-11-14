@@ -4,9 +4,10 @@ account route.
 Every route is public, so every route's cost is a stranger's to spend. The
 time simulations run in the browser and cost nothing here; the figures a slider
 asks for cost a millisecond to a couple of hundred, and a debounced slider asks
-at most once per :data:`PAGE_SETTLE_S`. The account routes (server-kit's
-``auth_router``) charge the kit's own windows where a route hashes, mails or
-redeems a token (``AuthLimiters``, on ``app.state.auth_limiters``); the rest
+at most once per :data:`PAGE_SETTLE_S`. The account routes and the admin's
+(server-kit's ``auth_router``, ``invitations_admin_router``,
+``user_admin_router``) charge the kit's own windows where a route hashes, mails
+or redeems a token (``AuthLimiters``, on ``app.state.auth_limiters``); the rest
 read a row or two and had none, so :data:`ACCOUNT_REQUESTS` spans them all.
 Every window forgets everything on a restart, which for a limiter is the right
 failure.
@@ -35,7 +36,8 @@ EXPERIMENT_RUNS = Budget(90, 10)
 
 
 #: Every account route, per address: sixty a minute. A person's page asks for
-#: a handful (``/auth/me``, a refresh, the sessions or the invitations); the
+#: a handful (``/auth/me``, a refresh, the sessions; an admin's the roster, the
+#: log, the invitations); the
 #: limit is what a script gets for nothing, each request holding one of the
 #: instance's two connections (``settings.db_pool_size`` + ``db_max_overflow``)
 #: while it runs. Charged before the kit's own windows,

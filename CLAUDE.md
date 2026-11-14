@@ -74,7 +74,8 @@ backend/staunlabor/
   domain/schemas/       pydantic wire shapes with the per-field bounds
   api/                  the routes: shapes in, schemas out, no physics
   security.py           the request budgets, per address
-  accounts.py           server-kit's account routes wired: the stores, signer, hasher, mail, policy
+  accounts.py           server-kit's account and admin routes wired: the stores, the mail,
+                        the policy, the admin's scope, roles, languages and review areas
   database.py           the accounts' engine (pool 1 + 1) and the request's unit of work
   models.py             the accounts' tables: server-kit's [sql] mixins, named here
 backend/alembic/        the migrations, numbered by hand (0001: the account tables)

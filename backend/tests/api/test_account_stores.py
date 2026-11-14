@@ -1,4 +1,5 @@
-"""The app's stores keep server-kit's ports' promises, on PostgreSQL.
+"""The app's stores keep server-kit's ports' promises, on PostgreSQL: the
+account layer's (0.29) and the admin's roster and accepted invitations (0.30).
 
 The stores are the kit's own ``[sql]`` stores, which the kit tests on SQLite;
 the tables are this app's (``staunlabor.models``), with its names, its naming
@@ -19,6 +20,7 @@ from eifi1_server_kit.auth.sql import (
     SqlInvitationStore,
     SqlOneTimeTokenStore,
     SqlPasskeyStore,
+    SqlRosterStore,
     SqlSessionStore,
     SqlUserStore,
 )
@@ -31,6 +33,7 @@ from eifi1_server_kit.auth.testing import (
     check_session_store,
     check_user_store,
 )
+from eifi1_server_kit.user_admin.testing import check_accepted_invitations, check_roster_store
 from sqlalchemy.exc import IntegrityError
 from sqlalchemy.ext.asyncio import AsyncSession
 
@@ -39,7 +42,7 @@ from staunlabor.models import AdminAction, Invitation, OneTimeToken, Passkey, Ro
 pytestmark = pytest.mark.api
 
 
-async def _two_accounts(session: AsyncSession) -> tuple[int, int]:
+async def _accounts(session: AsyncSession, *names: str) -> list[int]:
     store = SqlUserStore(session, User)
     made = [
         await store.add(
@@ -52,9 +55,14 @@ async def _two_accounts(session: AsyncSession) -> tuple[int, int]:
                 role=Role.MEMBER,
             )
         )
-        for name in ("ada", "grace")
+        for name in names
     ]
-    return made[0].id, made[1].id
+    return [row.id for row in made]
+
+
+async def _two_accounts(session: AsyncSession) -> tuple[int, int]:
+    first, second = await _accounts(session, "ada", "grace")
+    return first, second
 
 
 async def test_the_account_store_keeps_the_kit_s_promises(session: AsyncSession):
@@ -88,6 +96,20 @@ async def test_the_admin_log_keeps_the_kit_s_promises(session: AsyncSession):
     actor_id, target_user_id = await _two_accounts(session)
     log = SqlAdminActionLog(session, AdminAction)
     await check_admin_action_log(log, actor_id=actor_id, target_user_id=target_user_id)
+
+
+async def test_the_roster_keeps_the_kit_s_promises(session: AsyncSession):
+    """Its search, filters, sort and paging in PostgreSQL's collation and ILIKE,
+    and the roles the database's CHECK allows."""
+    roster = SqlRosterStore(session, User)
+    users = SqlUserStore(session, User)
+    await check_roster_store(roster, users, admin_role=Role.ADMIN, member_role=Role.MEMBER, reviewer_role=Role.REVIEWER)
+
+
+async def test_the_invitation_store_forgets_what_an_erased_account_accepted(session: AsyncSession):
+    inviter_id, user_id, other_user_id = await _accounts(session, "ada", "grace", "bob")
+    store = SqlInvitationStore(session, Invitation)
+    await check_accepted_invitations(store, inviter_id=inviter_id, user_id=user_id, other_user_id=other_user_id)
 
 
 async def test_the_work_after_the_commit_keeps_the_kit_s_promises(session: AsyncSession):

@@ -1,5 +1,5 @@
-"""The app: the exhibits' routes and the accounts' (server-kit's) under
-``/api/v1``, a health check, and the two answers an error can get.
+"""The app: the exhibits' routes and the accounts' and their admin's (server-kit's)
+under ``/api/v1``, a health check, and the two answers an error can get.
 
 No middleware beyond CORS, which only the development server needs: in
 production the web service proxies ``/api`` on the site's own origin. The
@@ -20,12 +20,13 @@ from eifi1_server_kit.auth.passkeys import rp_id_fits
 from eifi1_server_kit.auth.router import auth_router, invitations_admin_router
 from eifi1_server_kit.errors import install_contract_error_handlers
 from eifi1_server_kit.settings import secret_problems
+from eifi1_server_kit.user_admin.router import user_admin_router
 from fastapi import Depends, FastAPI, Request
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
 
 from staunlabor import __version__
-from staunlabor.accounts import account_deps
+from staunlabor.accounts import account_deps, admin_deps
 from staunlabor.api.experiments_router import router as experiments_router
 from staunlabor.database import Database
 from staunlabor.security import AccountLimiters, ExperimentsLimiters, limit_account_request
@@ -116,7 +117,10 @@ def create_app() -> FastAPI:
     accounts = account_deps(settings)
     budget = [Depends(limit_account_request)]
     app.include_router(auth_router(accounts), prefix=API_PREFIX, dependencies=budget)
+    # The admin's two routers, behind the kit's one admin guard: the invitations
+    # (0.29) and the roster with its actions, the log, the overview and the mail (0.30).
     app.include_router(invitations_admin_router(accounts), prefix=API_PREFIX, dependencies=budget)
+    app.include_router(user_admin_router(admin_deps(accounts)), prefix=API_PREFIX, dependencies=budget)
     # The kit's refusals — the budget's 429 with its Retry-After — are
     # ValueErrors too; the kit's handlers answer them at their own status,
     # beside the engine's 400 below.

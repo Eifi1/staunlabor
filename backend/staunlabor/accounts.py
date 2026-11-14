@@ -2,9 +2,11 @@
 
 The kit runs every route (``auth_router``: sign-up, sign-in, the refresh, the
 sessions, ``/auth/me`` and its settings, the mailed links, the passkeys;
-``invitations_admin_router``: the admin's invitations), every rule, every
-refusal's code, the mails in seven languages and their windows. What is here is
-what the kit leaves to an app, and nothing more:
+``invitations_admin_router``: the admin's invitations; ``user_admin_router``:
+the roster, its four actions, the reviewer scope, the log, the overview, the
+mails and the operator's erasure), every rule, every refusal's code, the mails
+in seven languages and their windows. What is here is what the kit leaves to
+an app, and nothing more:
 
 - the stores: the kit's ``[sql]`` stores over ``staunlabor.models``, each on
   the request's session (``staunlabor.database``);
@@ -16,19 +18,22 @@ what the kit leaves to an app, and nothing more:
   through the allow-list and is the ADMIN; everybody after it holds an
   invitation, which names a MEMBER or a REVIEWER (:data:`INVITABLE_ROLES`), in
   one of the site's seven languages (:data:`LANGUAGES`);
-- the passkeys' relying party, the site's own host.
+- the passkeys' relying party, the site's own host;
+- the admin's vocabulary: the role change's roles (:data:`ROLE_CHANGE_GIVES`),
+  the reviewer's languages and areas (:data:`REVIEW_AREAS`).
 
 **No hooks.** Nothing is attached at a sign-up, nothing bound per request, and
 the app keeps no rows of its own that an export or a deletion must know about
 (feedback and the translation review will bring some).
 
-Not here: user administration (server-kit 0.30), a second factor, a demo,
-teams, billing.
+Not here: a second factor, a demo, teams, billing, and a scheduled erasure (an
+operator erases; the scheduled pruning is ``staunlabor.jobs``).
 """
 
 from __future__ import annotations
 
 import logging
+from typing import Annotated
 
 from eifi1_server_kit.auth import parse_env_list
 from eifi1_server_kit.auth.bcrypt_hasher import BcryptHasher
@@ -42,11 +47,16 @@ from eifi1_server_kit.auth.sql import (
     SqlInvitationStore,
     SqlOneTimeTokenStore,
     SqlPasskeyStore,
+    SqlRosterStore,
     SqlSessionStore,
     SqlUserStore,
 )
 from eifi1_server_kit.mail import ConsoleMailer, Mailer, ResendClient
 from eifi1_server_kit.user_admin.deletion import DeletionMode
+from eifi1_server_kit.user_admin.router import UserAdminDeps
+from eifi1_server_kit.user_admin.scope import GlobalScope
+from eifi1_server_kit.user_admin.service import AdminPolicy
+from fastapi import Depends
 
 from staunlabor.database import RequestSession
 from staunlabor.models import AdminAction, Invitation, OneTimeToken, Passkey, Role, SpentChallenge, User, UserSession
@@ -64,6 +74,24 @@ LANGUAGES = ("de-CH", "en", "es", "fr", "it", "hu", "zh")
 #: proved its address and signs in, by a role change an admin acknowledges, which the log
 #: keeps and which never takes the last admin away.
 INVITABLE_ROLES = (Role.MEMBER, Role.REVIEWER)
+
+#: The roles the roster's role change gives: an admin, or a member again. Not the
+#: reviewer: that role comes with its languages through ``PUT /admin/users/{id}/reviewer``,
+#: so nobody is a reviewer of nothing. Not the invitable roles either, which the kit gives
+#: the role change by default (one source with the invitations) and which would leave no
+#: way to make a second admin: see :func:`admin_scope`.
+ROLE_CHANGE_GIVES = frozenset({Role.ADMIN, Role.MEMBER})
+
+#: The areas a reviewer may be limited to, each a top-level namespace of the site's
+#: catalogues (``frontend/src/shared/i18n/locales/*.json``): ``experiments``, the eight
+#: exhibits' words and their physics (angular momentum, autoresonance, induction), which
+#: want a physics teacher as much as a native reader; ``legal``, the imprint and the
+#: privacy policy (and the kit's shared legal text under ``kit.legal.``), which want a
+#: lawyer, as Kurvenschmiede's one area does. Not ``app``, ``common`` or ``site``: a
+#: handful of the frame's words no specialist is needed for, which a reviewer without an
+#: area limit reads. A closed list, because a scope is a promise about what somebody may
+#: read, and a typo in one should be a 422 rather than a reviewer of nothing.
+REVIEW_AREAS = ("experiments", "legal")
 
 
 def mailer_for(settings: Settings) -> Mailer:
@@ -112,8 +140,32 @@ async def after_commit(session: RequestSession) -> SqlAfterCommit:
     return SqlAfterCommit(session)
 
 
+async def roster(session: RequestSession) -> SqlRosterStore[User]:
+    return SqlRosterStore(session, User)
+
+
+async def admin_scope(
+    accounts: Annotated[SqlUserStore[User], Depends(users)],
+    people: Annotated[SqlRosterStore[User], Depends(roster)],
+) -> GlobalScope[User]:
+    """The kit's global scope (every person on the site, one role each), as
+    ``user_admin_router`` builds it from a roster, but with this site's
+    :data:`ROLE_CHANGE_GIVES`. Server-kit 0.30 gives the role change exactly the
+    invitable roles once an app names them, and refuses an ``AdminPolicy.grantable``
+    that differs from them, so with :data:`INVITABLE_ROLES` no admin could ever be
+    made after the first; the scope takes its own set."""
+    return GlobalScope(
+        users=accounts,
+        roster=people,
+        admin_role=Role.ADMIN,
+        reviewer_role=Role.REVIEWER,
+        grantable=ROLE_CHANGE_GIVES,
+    )
+
+
 def account_deps(settings: Settings) -> AuthDeps:
-    """Everything ``auth_router`` and ``invitations_admin_router`` are built from."""
+    """Everything ``auth_router`` and ``invitations_admin_router`` are built from,
+    and ``user_admin_router`` beside them (:func:`admin_deps`)."""
     return AuthDeps(
         users=users,
         sessions=sessions,
@@ -135,9 +187,10 @@ def account_deps(settings: Settings) -> AuthDeps:
             default_role=Role.MEMBER,
             invitable_roles=INVITABLE_ROLES,
             bootstrap=parse_env_list(settings.registration_allowlist) or None,
-            # An operator erases, and the mail promises no date: server-kit 0.29
-            # has no erasure, so "erased for good on <date>" would be a promise
-            # nothing here keeps.
+            # An operator erases (``POST /admin/users/{id}/erase``, an account that
+            # asked), and the deletion mail promises no date: the kit's erasure on a
+            # date is a scheduled job this deployment does not run, so "erased for
+            # good on <date>" would be a promise nothing here keeps.
             deletion_mode=DeletionMode.OPERATOR,
         ),
         relying_party=RelyingParty(
@@ -147,4 +200,21 @@ def account_deps(settings: Settings) -> AuthDeps:
         ),
         offered_locales=LANGUAGES,
         client_address=caller_address,
+    )
+
+
+def admin_deps(accounts: AuthDeps) -> UserAdminDeps:
+    """Everything ``user_admin_router`` is built from: the account layer's own, the
+    scope (:func:`admin_scope`), and the site's roles, languages and areas. No guard
+    of its own: the router takes the kit's ``admin_guard(accounts)``, the one
+    ``invitations_admin_router`` has, so both admin routers refuse alike. No feedback
+    and no hooks yet: an erasure has none of the app's rows to anonymise."""
+    return UserAdminDeps(
+        auth=accounts,
+        scope=admin_scope,
+        policy=AdminPolicy(
+            roles=tuple(role.value for role in Role),
+            review_locales=LANGUAGES,
+            review_areas=REVIEW_AREAS,
+        ),
     )

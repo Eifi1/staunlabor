@@ -18,10 +18,14 @@ screen. **There is one German, `de-CH`: Swiss spelling (ss for ß), formal
   every other language says so with a link to it.
 * The account mails (the invitation, the address check and change, the reset,
   the deletion, a new passkey) are server-kit's (`eifi1_server_kit.auth.mails`,
-  0.29), in the same seven languages, `de-CH` formal with "ss"; the backend
-  writes none of its own. Each goes in its reader's account language, an
-  invitation in the one the admin picks. A wording a reviewer finds there is an
-  ask upstream.
+  0.29), and so is the admin's test mail (`eifi1_server_kit.mail`, 0.30), in
+  the same seven languages, `de-CH` formal with "ss"; the backend writes none of
+  its own. Each goes in its reader's account language, an invitation in the one
+  the admin picks. A wording a reviewer finds there is an ask upstream.
+* A reviewer is given languages, any of the seven, and may be limited to areas
+  (`accounts.REVIEW_AREAS`): `experiments`, the exhibits' words and their
+  physics, or `legal`, the imprint and the privacy policy. Without an area, a
+  reviewer reads every key of their languages.
 
 ## Who wrote which
 

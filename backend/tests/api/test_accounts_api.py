@@ -294,7 +294,13 @@ async def test_every_account_route_spends_the_address_s_budget_and_the_exhibits_
         (await accounts.post(f"{API}/auth/passkey/login/begin")).status_code for _ in range(ACCOUNT_REQUESTS.max_hits)
     ]
     assert begun == [200] * ACCOUNT_REQUESTS.max_hits
-    for method, path in (("POST", "/auth/passkey/login/begin"), ("GET", "/auth/me"), ("GET", "/admin/invitations")):
+    for method, path in (
+        ("POST", "/auth/passkey/login/begin"),
+        ("GET", "/auth/me"),
+        ("GET", "/admin/invitations"),
+        ("GET", "/admin/users"),
+        ("POST", "/admin/mail/test"),
+    ):
         refused = await accounts.request(method, f"{API}{path}")
         assert refused.status_code == 429, path
         assert "Try again in" in refused.json()["detail"] and int(refused.headers["retry-after"]) > 0
