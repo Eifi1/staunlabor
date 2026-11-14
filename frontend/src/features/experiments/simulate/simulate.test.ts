@@ -21,6 +21,7 @@ import * as cone from "./cone";
 import * as coupled from "./coupled";
 import * as elephant from "./elephant";
 import * as harmonograph from "./harmonograph";
+import * as maxwell from "./maxwell";
 import * as parabola from "./parabola";
 import * as peg from "./peg";
 import * as pendulum from "./pendulum";
@@ -645,5 +646,19 @@ describe("Galileo's pendulum's port", () => {
   it("refuses what the engine refuses", () => {
     expect(peg.refusal({ length_m: 1, peg_depth_m: 1.2, start_deg: 30 })).toBe("peg");
     expect(() => peg.run(cases.peg[0].p, 1000)).toThrow(RangeError);
+  });
+});
+
+describe("Maxwell's wheel's port", () => {
+  it.each(cases.maxwell.map((c) => [c.name, c] as const))("rolls %s as the engine does", (_name, c) => {
+    const w = c.w as maxwell.MaxwellWheel;
+    expect(differences(c.bounces, maxwell.bounces(w, 4))).toEqual([]);
+    expect(differences(c.run, maxwell.run(w, c.duration_s, c.samples))).toEqual([]);
+  });
+
+  it("refuses what the engine refuses", () => {
+    const w = cases.maxwell[0].w as maxwell.MaxwellWheel;
+    expect(maxwell.refusal({ ...w, axle_radius_m: 0.1 })).toBe("axle");
+    expect(() => maxwell.stateAt(w, -1)).toThrow(RangeError);
   });
 });

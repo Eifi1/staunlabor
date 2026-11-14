@@ -16,7 +16,7 @@ from __future__ import annotations
 
 from pydantic import BaseModel, ConfigDict, Field
 
-from staunlabor.domain.experiments import BallKind, CurveKind, FigureKind, Idle, RaceBall, Verdict
+from staunlabor.domain.experiments import BallKind, CurveKind, FigureKind, Idle, RaceBall, Shape, Verdict
 
 
 class _Out(BaseModel):
@@ -578,6 +578,20 @@ class PegPendulumIn(_In):
     start_deg: float = Field(gt=0, le=90, default=30.0)
 
 
+# ── Maxwell's wheel ──────────────────────────────────────────────────────────
+# No route: the page asks the port (``simulate/maxwell.ts``).
+
+
+class MaxwellWheelIn(_In):
+    mass_kg: float = Field(ge=0.01, le=50, default=0.5)
+    wheel_radius_m: float = Field(gt=0, le=1.0, default=0.065)
+    axle_radius_m: float = Field(gt=0, le=1.0, default=0.005)
+    shape: Shape = Shape.DISC
+    drop_m: float = Field(ge=0.05, le=5.0, default=0.6)
+    loss: float = Field(ge=0, lt=0.5, default=0.03)
+    stiffness_n_m: float = Field(ge=10, le=1e7, default=10000.0)
+
+
 # ── the pages' starting point ────────────────────────────────────────────────
 
 
@@ -595,6 +609,7 @@ class ExperimentsDefaultsOut(_Out):
     parabola: VesselIn
     coupled: CoupledPendulumsIn
     peg: PegPendulumIn
+    maxwell: MaxwellWheelIn
     #: The exhibit's meter: digital, ± this many amperes.
     meter_range_a: float
     #: How long a page waits after the last slider step before asking.

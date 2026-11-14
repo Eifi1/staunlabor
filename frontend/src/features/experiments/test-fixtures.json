@@ -152,6 +152,15 @@
       "peg_depth_m": 0.5,
       "start_deg": 30.0
     },
+    "maxwell": {
+      "mass_kg": 0.5,
+      "wheel_radius_m": 0.065,
+      "axle_radius_m": 0.005,
+      "shape": "disc",
+      "drop_m": 0.6,
+      "loss": 0.03,
+      "stiffness_n_m": 10000.0
+    },
     "meter_range_a": 0.1,
     "settle_s": 0.15
   },

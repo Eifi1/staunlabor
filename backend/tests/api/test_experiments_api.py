@@ -35,6 +35,7 @@ async def test_the_experiments_need_no_account(client: AsyncClient):
         "parabola",
         "coupled",
         "peg",
+        "maxwell",
         "meter_range_a",
         "settle_s",
     }
@@ -50,6 +51,7 @@ async def test_the_experiments_need_no_account(client: AsyncClient):
     assert body["parabola"]["fill_m"] == x.Vessel().fill_m
     assert body["coupled"]["spring_n_m"] == x.CoupledPendulums().spring_n_m
     assert body["peg"]["peg_depth_m"] == x.PegPendulum().peg_depth_m
+    assert body["maxwell"]["shape"] == "disc"
 
 
 async def test_the_sphere_answers_its_orbits_and_its_swing(client: AsyncClient):

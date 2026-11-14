@@ -44,6 +44,9 @@ with SciPy before it was written (``docs/experiments.md``).
   wanders from one to the other at their beat, all of it only when they match.
 * :mod:`peg` — Galileo's pendulum caught by a peg: the bob rises to the height
   it fell from, or swings over the peg, or its string goes slack.
+* :mod:`maxwell` — Maxwell's wheel: a slow fall because nearly all its energy
+  goes into its spin, a jerk at the bottom the strings' stretch sets, a climb
+  nearly back.
 * :mod:`wave` — a row of pendulums tuned to swing ``N``, ``N + 1``, … times a
   cycle: waves, groups, and all together again — at the swing it was tuned for.
 
@@ -135,6 +138,21 @@ from staunlabor.domain.experiments.harmonograph import (
 )
 from staunlabor.domain.experiments.harmonograph import draw as harmonograph_draw
 from staunlabor.domain.experiments.harmonograph import figures as harmonograph_figures
+from staunlabor.domain.experiments.maxwell import (
+    Bounce,
+    MaxwellWheel,
+    Shape,
+    WheelRun,
+    WheelState,
+    bounces,
+    climb_deceleration,
+    fall_acceleration,
+    inertia_ratio,
+    rotation_share,
+    state_at,
+)
+from staunlabor.domain.experiments.maxwell import bounce as wheel_bounce
+from staunlabor.domain.experiments.maxwell import run as run_wheel
 from staunlabor.domain.experiments.parabola import (
     SpinRun,
     Surface,
@@ -285,6 +303,7 @@ __all__ = [
     "Basin",
     "Bob",
     "Body",
+    "Bounce",
     "Box",
     "CannonFigures",
     "ChairAnalysis",
@@ -330,6 +349,7 @@ __all__ = [
     "Launch",
     "LiftPoint",
     "Magnet",
+    "MaxwellWheel",
     "Mode",
     "Move",
     "Orbit",
@@ -358,6 +378,7 @@ __all__ = [
     "Room",
     "Scripted",
     "Segment",
+    "Shape",
     "SidePoint",
     "SmokeExhibit",
     "SmokeFigures",
@@ -381,17 +402,21 @@ __all__ = [
     "Vessel",
     "WaveFigures",
     "WavePendulum",
+    "WheelRun",
+    "WheelState",
     "angle_deg",
     "axis_height_m",
     "axis_slope",
     "backbone",
     "beat_s",
     "binocular_gap",
+    "bounces",
     "cannon_drop",
     "cannon_figures",
     "cannon_launch",
     "chair",
     "chair_analysis",
+    "climb_deceleration",
     "coil_analysis",
     "contact_factor",
     "contact_radius_m",
@@ -405,6 +430,7 @@ __all__ = [
     "energies",
     "exchange_share",
     "exhibit",
+    "fall_acceleration",
     "figures",
     "flux_linkage",
     "groups_at",
@@ -413,6 +439,7 @@ __all__ = [
     "height_at",
     "image",
     "inertia",
+    "inertia_ratio",
     "jacobi",
     "joint_gap",
     "joints",
@@ -437,6 +464,7 @@ __all__ = [
     "rail_height_m",
     "ring_from_push",
     "roll",
+    "rotation_share",
     "run_coil",
     "run_elephant",
     "run_peg",
@@ -444,6 +472,7 @@ __all__ = [
     "run_platform",
     "run_race",
     "run_sphere",
+    "run_wheel",
     "scatter",
     "settle_race",
     "sight_lines",
@@ -460,6 +489,7 @@ __all__ = [
     "spread_deg",
     "start_for",
     "start_height_m",
+    "state_at",
     "surface",
     "swing",
     "swing_hz",
@@ -469,5 +499,6 @@ __all__ = [
     "water_profile",
     "water_spin",
     "wave_figures",
+    "wheel_bounce",
     "widest_gap",
 ]

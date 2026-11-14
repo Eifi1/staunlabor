@@ -1661,3 +1661,67 @@ def test_the_peg_pendulum_refuses_what_cannot_hang():
         x.PegPendulum(start_deg=120)
     with pytest.raises(ValueError, match="at most"):
         x.run_peg(x.PegPendulum(), 1000.0)
+
+
+# ── Maxwell's wheel ──────────────────────────────────────────────────────────
+
+
+def test_the_wheel_falls_slowly_because_nearly_all_its_energy_goes_into_its_spin():
+    w = x.MaxwellWheel(loss=0.0)
+    k = x.inertia_ratio(w)
+    assert k == pytest.approx(0.5 * (0.065 / 0.005) ** 2)
+    assert x.fall_acceleration(w) == pytest.approx(9.80665 / (1 + k))
+    assert round(x.rotation_share(w) * 100, 1) == 98.8
+    # Energy, from rest at the top: M·g·h = ½·(M + I/r²)·v².
+    b = x.wheel_bounce(w, 0.6)
+    assert 0.5 * (1 + k) * b.bottom_speed_m_s**2 == pytest.approx(9.80665 * 0.6, rel=1e-14)
+    assert round(x.wheel_bounce(x.MaxwellWheel(), 0.6).fall_s, 1) == 3.3
+
+
+def test_without_losses_it_climbs_back_to_where_it_started():
+    w = x.MaxwellWheel(loss=0.0)
+    assert x.wheel_bounce(w, 0.6).to_m == pytest.approx(0.6, rel=1e-14)
+
+
+def test_the_strings_rubbing_costs_each_climb_the_same_share():
+    w = x.MaxwellWheel()
+    k = x.inertia_ratio(w)
+    share = (1 + k / 1.03) / (1 + k / 0.97)
+    heights = [b.from_m for b in x.bounces(w, 4)]
+    for a, b in itertools.pairwise(heights):
+        assert b / a == pytest.approx(share, rel=1e-12)
+    assert round(share * 100) == 94
+
+
+def test_the_jerk_at_the_bottom_is_a_spring_s_and_pulls_six_times_the_weight():
+    w = x.MaxwellWheel()
+    b = x.wheel_bounce(w, 0.6)
+    s, m, v = w.stiffness_n_m, w.mass_kg, b.bottom_speed_m_s
+
+    def spring(_t, y):
+        return [y[1], -9.80665 - (s / m) * y[0] if y[0] < 0 else -9.80665]
+
+    trace = rk4(spring, [0.0, -v], 1e-6, b.jerk_s)
+    assert trace.states[0][-1] == pytest.approx(0, abs=1e-9)
+    assert trace.states[1][-1] == pytest.approx(v, rel=1e-6)
+    assert max(-s * z for z in trace.states[0]) == pytest.approx(b.peak_tension_n, rel=1e-9)
+    assert round(b.peak_tension_n / (m * 9.80665), 1) == 6.4
+    assert round(b.jerk_s * 1000) == 25
+
+
+def test_the_wheel_is_where_its_closed_form_puts_it():
+    w = x.MaxwellWheel()
+    b = x.wheel_bounce(w, 0.6)
+    assert x.state_at(w, 0).height_m == 0.6
+    assert x.state_at(w, b.fall_s + b.jerk_s / 2).height_m == pytest.approx(-b.stretch_m, rel=1e-9)
+    top = x.state_at(w, b.fall_s + b.jerk_s + b.climb_s - 1e-9)
+    assert top.height_m == pytest.approx(b.to_m, rel=1e-6)
+
+
+def test_maxwell_s_wheel_refuses_what_cannot_hang():
+    with pytest.raises(ValueError, match="thinner than the wheel"):
+        x.MaxwellWheel(axle_radius_m=0.1)
+    with pytest.raises(ValueError, match="rubbing"):
+        x.MaxwellWheel(loss=0.6)
+    with pytest.raises(ValueError, match="let go at t = 0"):
+        x.state_at(x.MaxwellWheel(), -1.0)

@@ -61,6 +61,7 @@ cone = importlib.import_module("staunlabor.domain.experiments.cone")
 parabola = importlib.import_module("staunlabor.domain.experiments.parabola")
 coupled = importlib.import_module("staunlabor.domain.experiments.coupled")
 peg = importlib.import_module("staunlabor.domain.experiments.peg")
+maxwell = importlib.import_module("staunlabor.domain.experiments.maxwell")
 
 TARGET = ROOT / "frontend/src/features/experiments/simulate/engine-cases.json"
 #: Points kept per curve: enough to see a curve that went wrong, few enough that
@@ -417,6 +418,22 @@ PEG_CASES: dict[str, dict[str, Any]] = {
     },
 }
 
+#: Maxwell's wheel: the default disc over two bounces, a lossless ring, and a
+#: heavy wheel on a fat axle with soft strings, sampled finely.
+MAXWELL_CASES: dict[str, dict[str, Any]] = {
+    "the default disc": {"w": maxwell.MaxwellWheel(), "duration_s": 14.0, "samples": 50},
+    "a ring without losses": {
+        "w": maxwell.MaxwellWheel(shape=maxwell.Shape.RING, loss=0.0, drop_m=0.3),
+        "duration_s": 8.0,
+        "samples": 50,
+    },
+    "a heavy wheel, a fat axle, soft strings": {
+        "w": maxwell.MaxwellWheel(mass_kg=3.0, axle_radius_m=0.02, stiffness_n_m=500.0, loss=0.1),
+        "duration_s": 3.0,
+        "samples": 400,
+    },
+}
+
 #: Where the heights and the contact are written out along the rails.
 CONE_POINTS = (0.0, 0.07, 0.15, 0.3)
 
@@ -478,6 +495,21 @@ def _pendulum_cases(out: dict[str, Any]) -> None:
                 "lengths_m": list(wave.lengths_m(row)),
                 "lag_deg": list(wave.lag_deg(row)),
                 "spread_deg": wave.spread_deg(row),
+            }
+        )
+
+
+def _maxwell_cases(out: dict[str, Any]) -> None:
+    for name, case in MAXWELL_CASES.items():
+        w = case["w"]
+        out["maxwell"].append(
+            {
+                "name": name,
+                "w": asdict(w),
+                "duration_s": case["duration_s"],
+                "samples": case["samples"],
+                "bounces": [asdict(b) for b in maxwell.bounces(w, 4)],
+                "run": thin(asdict(maxwell.run(w, case["duration_s"], case["samples"]))),
             }
         )
 
@@ -624,12 +656,14 @@ def cases() -> dict[str, Any]:
         "parabola_spins": [],
         "coupled": [],
         "peg": [],
+        "maxwell": [],
     }
     _pendulum_cases(out)
     _cone_cases(out)
     _parabola_cases(out)
     _coupled_cases(out)
     _peg_cases(out)
+    _maxwell_cases(out)
     for name, case in HARMONOGRAPH_CASES.items():
         h = case["h"]
         step = case.get("step_s", harmonograph.STEP_S)

@@ -43,6 +43,7 @@ from staunlabor.domain.experiments import (
     Harmonograph,
     Jet,
     Magnet,
+    MaxwellWheel,
     PegPendulum,
     PendulumWave,
     Platform,
@@ -76,6 +77,7 @@ from staunlabor.domain.schemas.experiments import (
     ElephantIn,
     ExperimentsDefaultsOut,
     HarmonographIn,
+    MaxwellWheelIn,
     PegPendulumIn,
     PlatformExhibitIn,
     PlatformFiguresOut,
@@ -130,6 +132,7 @@ async def defaults() -> ExperimentsDefaultsOut:
         parabola=VesselIn.model_validate(Vessel()),
         coupled=CoupledPendulumsIn.model_validate(CoupledPendulums()),
         peg=PegPendulumIn.model_validate(PegPendulum()),
+        maxwell=MaxwellWheelIn.model_validate(MaxwellWheel()),
         meter_range_a=METER_RANGE_A,
         settle_s=PAGE_SETTLE_S,
     )
