@@ -25,7 +25,9 @@
       "source": "Source code",
       "issues": "Report a problem or an idea",
       "licence": "Code under MIT, texts and drawings under CC BY 4.0. Independent and non-commercial.",
-      "version": "Version {{version}}"
+      "version": "Version {{version}}",
+      "signIn": "Sign in",
+      "account": "Account"
     },
     "about": {
       "title": "About Staunlabor",
@@ -983,6 +985,14 @@
         "name": "Why a cannon: physics books call it the Galilean cannon, because the small ball is shot straight up out of the stack as if out of a barrel. Nothing in it is fired sideways.",
         "assumed": "What is assumed: solid balls of 1100 kg/m³, the elastomer's stiffness and how springy it is, contacts that follow Hertz's law with damping that gives back a fixed share of the closing speed, a rigid floor. The wire's friction and the balls' spin are left out."
       }
+    }
+  },
+  "account": {
+    "settings": "Account and settings",
+    "roles": {
+      "ADMIN": "Admin",
+      "MEMBER": "Member",
+      "REVIEWER": "Reviewer"
     }
   }
 }

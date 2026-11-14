@@ -25,7 +25,9 @@
       "source": "Codice sorgente",
       "issues": "Segnala un errore o un'idea",
       "licence": "Codice con licenza MIT, testi e disegni con licenza CC BY 4.0. Indipendente e non commerciale.",
-      "version": "Versione {{version}}"
+      "version": "Versione {{version}}",
+      "signIn": "Accedi",
+      "account": "Account"
     },
     "about": {
       "title": "Informazioni su Staunlabor",
@@ -983,6 +985,14 @@
         "name": "Perché un cannone: i libri di fisica lo chiamano cannone di Galileo, perché la palla piccola viene sparata dritta verso l'alto fuori dalla pila, come dalla canna di un cannone. Nulla viene sparato di lato.",
         "assumed": "Che cosa si assume: palle piene di 1100 kg/m³, la rigidezza dell'elastomero e quanto è elastico, contatti che seguono la legge di Hertz con uno smorzamento che restituisce una quota fissa della velocità di avvicinamento, e un pavimento rigido. L'attrito sul filo e la rotazione delle palle sono tralasciati."
       }
+    }
+  },
+  "account": {
+    "settings": "Account e impostazioni",
+    "roles": {
+      "ADMIN": "Amministratore",
+      "MEMBER": "Membro",
+      "REVIEWER": "Revisore"
     }
   }
 }

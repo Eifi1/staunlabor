@@ -103,11 +103,13 @@ describe("the privacy policy", () => {
     expect(screen.getByText(P.legal_basis.site)).toBeInTheDocument();
   });
 
-  it("says nothing of accounts, sign-out or reports waiting to be sent", async () => {
+  // The accounts (plan, second stage) keep a session in the browser, and its line is the
+  // kit's own; the rest of the policy is rewritten for them in step 5, before any deploy.
+  it("names the account's session in the kit's words, and no report waiting to be sent", async () => {
     renderWithProviders(<PrivacyPage />);
     await screen.findByText(P.browser.tail);
     const text = document.body.textContent ?? "";
-    expect(text).not.toMatch(/sign(ing)? out/i);
+    expect(text).toMatch(/sign(ing)? out/i);
     expect(text).not.toMatch(/waiting to be sent/i);
     expect(screen.queryByText(/beta/i)).not.toBeInTheDocument();
   });

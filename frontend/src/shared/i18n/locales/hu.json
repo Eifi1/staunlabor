@@ -25,7 +25,9 @@
       "source": "Forráskód",
       "issues": "Hiba vagy ötlet bejelentése",
       "licence": "A kód MIT-licenc alatt áll, a szövegek és a rajzok CC BY 4.0 licenc alatt. Független és nem kereskedelmi célú.",
-      "version": "Verzió: {{version}}"
+      "version": "Verzió: {{version}}",
+      "signIn": "Bejelentkezés",
+      "account": "Fiók"
     },
     "about": {
       "title": "A Staunlaborról",
@@ -983,6 +985,14 @@
         "name": "Miért ágyú: a fizikakönyvek Galilei-ágyúnak nevezik, mert a kis labdát az oszlop függőlegesen felfelé lövi ki, mintha egy ágyúcsőből. Oldalra semmit sem lő ki.",
         "assumed": "Amit feltételezünk: tömör, 1100 kg/m³ sűrűségű labdák, az elasztomer merevsége és rugalmassága, Hertz törvényét követő érintkezések olyan csillapítással, amely a közeledési sebesség rögzített hányadát adja vissza, valamint merev padló. A huzalon fellépő súrlódást és a labdák pörgését kihagytuk."
       }
+    }
+  },
+  "account": {
+    "settings": "Fiók és beállítások",
+    "roles": {
+      "ADMIN": "Adminisztrátor",
+      "MEMBER": "Tag",
+      "REVIEWER": "Lektor"
     }
   }
 }

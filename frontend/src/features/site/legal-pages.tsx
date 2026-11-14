@@ -1,5 +1,5 @@
 import { useTranslation } from "react-i18next";
-import { LegalKitSection, LegalPage, LegalSection } from "@eifi1/ui-kit";
+import { LegalKitSection, LegalPage, LegalSection, useLegalLabels } from "@eifi1/ui-kit";
 import { changeLanguage } from "@/shared/i18n/index";
 import { CreditsText } from "./credits";
 import { OPERATOR } from "./operator";
@@ -51,6 +51,9 @@ const BROWSER_ENTRIES = ["language", "look", "tried"] as const;
  *  site's own where it is different — no account, no database, no mail. */
 export function PrivacyPage() {
   const { t } = useTranslation();
+  // The account's session (`STORAGE.accounts` + `session`): the kit's own line, in the
+  // kit's seven languages, since the kit's client is what writes it.
+  const session = useLegalLabels().sections.privacy.browser.standardEntries?.session;
   const own = (key: string) => (
     <LegalSection key={key} heading={t(`legal.privacy.${key}.title`)} body={t(`legal.privacy.${key}.body`)} />
   );
@@ -73,7 +76,10 @@ export function PrivacyPage() {
       {own("third_parties")}
       <LegalKitSection
         section="browser"
-        entries={BROWSER_ENTRIES.map((entry) => t(`legal.privacy.browser.entries.${entry}`))}
+        entries={[
+          ...BROWSER_ENTRIES.map((entry) => t(`legal.privacy.browser.entries.${entry}`)),
+          ...(session ? [session] : []),
+        ]}
       />
       {own("transfers")}
       {own("retention")}

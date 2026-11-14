@@ -25,7 +25,9 @@
       "source": "Código fuente",
       "issues": "Informar de un error o proponer una idea",
       "licence": "Código bajo licencia MIT, textos y dibujos bajo CC BY 4.0. Independiente y sin fines comerciales.",
-      "version": "Versión {{version}}"
+      "version": "Versión {{version}}",
+      "signIn": "Iniciar sesión",
+      "account": "Cuenta"
     },
     "about": {
       "title": "Acerca de Staunlabor",
@@ -983,6 +985,14 @@
         "name": "Por qué un cañón: los libros de física lo llaman el cañón de Galileo, porque la pelota pequeña sale disparada de la pila en vertical hacia arriba, como de un tubo. Nada sale disparado hacia los lados.",
         "assumed": "Lo que se supone: pelotas macizas de 1100 kg/m³, la rigidez del elastómero y lo elástico que es, contactos que siguen la ley de Hertz con un amortiguamiento que devuelve una fracción fija de la velocidad de aproximación, y un suelo rígido. Se dejan fuera el rozamiento con el alambre y el giro de las pelotas."
       }
+    }
+  },
+  "account": {
+    "settings": "Cuenta y ajustes",
+    "roles": {
+      "ADMIN": "Administrador",
+      "MEMBER": "Miembro",
+      "REVIEWER": "Revisor"
     }
   }
 }

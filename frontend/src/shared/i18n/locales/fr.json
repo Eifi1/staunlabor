@@ -25,7 +25,9 @@
       "source": "Code source",
       "issues": "Signaler un problème ou proposer une idée",
       "licence": "Code sous licence MIT, textes et dessins sous CC BY 4.0. Indépendant et non commercial.",
-      "version": "Version {{version}}"
+      "version": "Version {{version}}",
+      "signIn": "Se connecter",
+      "account": "Compte"
     },
     "about": {
       "title": "À propos de Staunlabor",
@@ -983,6 +985,14 @@
         "name": "Pourquoi un canon : les livres de physique l’appellent le canon de Galilée, parce que la petite balle est projetée tout droit vers le haut hors de la pile, comme si elle sortait d’un tube. Rien n’y est tiré de côté.",
         "assumed": "Ce qui est supposé : des balles pleines de 1100 kg/m³, la raideur de l’élastomère et son élasticité, des contacts qui suivent la loi de Hertz avec un amortissement qui restitue une part fixe de la vitesse de rapprochement, et un sol rigide. Le frottement sur le fil et la rotation des balles sont laissés de côté."
       }
+    }
+  },
+  "account": {
+    "settings": "Compte et réglages",
+    "roles": {
+      "ADMIN": "Administrateur",
+      "MEMBER": "Membre",
+      "REVIEWER": "Relecteur"
     }
   }
 }

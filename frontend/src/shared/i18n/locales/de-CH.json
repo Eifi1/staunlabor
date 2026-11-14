@@ -25,7 +25,9 @@
       "source": "Quellcode",
       "issues": "Fehler oder Wunsch melden",
       "licence": "Code unter MIT, Texte und Zeichnungen unter CC BY 4.0. Unabhängig und nicht kommerziell.",
-      "version": "Version {{version}}"
+      "version": "Version {{version}}",
+      "signIn": "Anmelden",
+      "account": "Konto"
     },
     "about": {
       "title": "Über Staunlabor",
@@ -983,6 +985,14 @@
         "name": "Warum Kanone: Physikbücher nennen den Versuch «galileische Kanone», weil die kleine Kugel senkrecht aus dem Stapel geschossen wird wie aus einem Rohr. Seitwärts wird nichts abgefeuert.",
         "assumed": "Angenommen sind: volle Kugeln von 1100 kg/m³, die Steifigkeit des Elastomers und wie elastisch es ist, Kontakte nach Hertz mit einer Dämpfung, die einen festen Anteil der Annäherungsgeschwindigkeit zurückgibt, und ein starrer Boden. Die Reibung am Draht und der Drall der Kugeln sind weggelassen."
       }
+    }
+  },
+  "account": {
+    "settings": "Konto und Einstellungen",
+    "roles": {
+      "ADMIN": "Admin",
+      "MEMBER": "Mitglied",
+      "REVIEWER": "Prüfer/in"
     }
   }
 }

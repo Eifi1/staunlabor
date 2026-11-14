@@ -2,6 +2,8 @@ import { Suspense, lazy, type ReactNode } from "react";
 import { Route, Routes } from "react-router";
 import { useTranslation } from "react-i18next";
 import { LoadingState, NotFoundPage } from "@eifi1/ui-kit";
+import { accountRoutes, RequireSession } from "@eifi1/ui-kit/accounts";
+import { AccountFrame } from "@/features/account/account-frame";
 import { ExperimentsLayout } from "@/features/experiments/experiments-layout";
 import { ExperimentsOverviewPage } from "@/features/experiments/overview-page";
 
@@ -24,6 +26,11 @@ const CannonPage = lazy(() => import("@/features/experiments/cannon-page").then(
 const AboutPage = lazy(() => import("@/features/site/about-page").then((m) => ({ default: m.AboutPage })));
 const ImprintPage = lazy(() => import("@/features/site/legal-pages").then((m) => ({ default: m.ImprintPage })));
 const PrivacyPage = lazy(() => import("@/features/site/legal-pages").then((m) => ({ default: m.PrivacyPage })));
+const SettingsPage = lazy(() => import("@/features/account/settings-page").then((m) => ({ default: m.SettingsPage })));
+
+/** The account's signed-out pages (sign-in, sign-up by invitation, the reset, the links),
+ *  the kit's, in the site's frame. No terms page: the site has none. */
+const ACCOUNT_PAGES = accountRoutes({ frame: AccountFrame, legal: { privacyHref: "/privacy" } });
 
 function Page({ children }: { children: ReactNode }) {
   const { t } = useTranslation();
@@ -121,6 +128,19 @@ export function AppRoutes() {
             <Page>
               <PrivacyPage />
             </Page>
+          }
+        />
+        {ACCOUNT_PAGES.map((page) => (
+          <Route key={page.path} path={page.path} element={page.element} />
+        ))}
+        <Route
+          path="settings"
+          element={
+            <RequireSession signInPath="/login">
+              <Page>
+                <SettingsPage />
+              </Page>
+            </RequireSession>
           }
         />
         <Route path="*" element={<NotFoundPage homeHref="/" />} />
