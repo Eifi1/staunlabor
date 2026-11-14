@@ -1471,3 +1471,76 @@ def test_the_double_cone_refuses_what_would_not_roll():
         x.Rails(slope_deg=30)
     with pytest.raises(ValueError, match="laid on the rails"):
         x.roll(x.ConeExhibit(), 0.5, 1.0)
+
+
+# ── the water parabola ───────────────────────────────────────────────────────
+
+
+def _volume(v, rate: float) -> float:
+    """The water under the surface, by the midpoint rule over thin rings: nothing
+    of the engine's volume argument in here."""
+    s = x.surface(v, rate)
+    n = 20000
+    dr = v.radius_m / n
+    return sum(2 * math.pi * (i + 0.5) * dr * x.height_at(s, (i + 0.5) * dr) * dr for i in range(n))
+
+
+def test_the_water_keeps_its_volume_however_fast_it_turns():
+    v = x.Vessel(height_m=1.0)
+    for rate in (0.0, 5.0, 13.0, 20.0, 40.0):
+        assert _volume(v, rate) == pytest.approx(math.pi * v.radius_m**2 * v.fill_m, rel=1e-7)
+
+
+def test_the_middle_sinks_as_far_as_the_rim_rises_until_it_runs_dry():
+    v = x.Vessel()
+    s = x.surface(v, 10.0)
+    assert v.fill_m - s.centre_m == pytest.approx(s.rim_m - v.fill_m, rel=1e-14)
+    dry = x.dry_rate(v)
+    assert dry == pytest.approx(2 * math.sqrt(9.80665 * 0.1) / 0.15)
+    assert round(dry * 60 / (2 * math.pi)) == 126
+    assert x.surface(v, dry).centre_m == pytest.approx(0, abs=1e-15)
+    assert x.surface(v, dry * 0.999).dry_radius_m == 0
+    assert x.surface(v, dry * 1.001).dry_radius_m > 0
+    # The rim goes on smoothly past the moment the middle touches the bottom.
+    assert x.surface(v, dry * (1 + 1e-9)).rim_m == pytest.approx(2 * v.fill_m, rel=1e-6)
+
+
+def test_the_bowl_is_a_mirror_whose_focus_the_rate_sets():
+    v = x.Vessel()
+    s = x.surface(v, 10.0)
+    # z = z₀ + r²/(4f): the paraboloid of a mirror with its focus at f.
+    for r in (0.03, 0.09, 0.15):
+        assert x.height_at(s, r) == pytest.approx(s.centre_m + r * r / (4 * s.focus_m), rel=1e-14)
+    # One turn in 8.5 s puts the focus 9 m up.
+    assert round(x.surface(v, 2 * math.pi / 8.5).focus_m) == 9
+
+
+def test_the_water_spills_once_its_rim_reaches_the_top():
+    v = x.Vessel()
+    spill = x.spill_rate(v)
+    assert x.surface(v, spill).rim_m == pytest.approx(v.height_m, rel=1e-12)
+    assert not x.surface(v, spill * 0.99).spills
+    assert x.surface(v, spill * 1.01).spills
+    # A full vessel spills before its middle runs dry.
+    full = x.Vessel(fill_m=0.25)
+    assert x.spill_rate(full) < x.dry_rate(full)
+
+
+def test_the_water_follows_the_vessel_over_ekman_s_spin_up_time():
+    v = x.Vessel()
+    tau = x.spin_up_time_s(v, 10.0)
+    assert tau == pytest.approx(0.1 / math.sqrt(1e-6 * 10.0))
+    run = x.water_spin(v, 10.0, 2 * tau, step_s=tau / 1000)
+    at = min(range(len(run.t)), key=lambda i: abs(run.t[i] - tau))
+    assert run.water_rate[at] / 10.0 == pytest.approx(1 - math.exp(-run.t[at] / tau), rel=1e-6)
+    assert round(x.spin_up_time_s(v, x.dry_rate(v))) == 28
+    assert x.spin_up_time_s(v, 0.0) is None
+
+
+def test_the_water_parabola_refuses_what_is_not_a_vessel_of_water():
+    with pytest.raises(ValueError, match="below the vessel's top"):
+        x.Vessel(fill_m=0.4)
+    with pytest.raises(ValueError, match="radius"):
+        x.Vessel(radius_m=0.0)
+    with pytest.raises(ValueError, match="positive number"):
+        x.surface(x.Vessel(), -1.0)

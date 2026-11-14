@@ -58,6 +58,7 @@ pendulum = importlib.import_module("staunlabor.domain.experiments.pendulum")
 wave = importlib.import_module("staunlabor.domain.experiments.wave")
 harmonograph = importlib.import_module("staunlabor.domain.experiments.harmonograph")
 cone = importlib.import_module("staunlabor.domain.experiments.cone")
+parabola = importlib.import_module("staunlabor.domain.experiments.parabola")
 
 TARGET = ROOT / "frontend/src/features/experiments/simulate/engine-cases.json"
 #: Points kept per curve: enough to see a curve that went wrong, few enough that
@@ -362,6 +363,21 @@ CONE_CASES: dict[str, dict[str, Any]] = {
     },
 }
 
+#: The water parabola: a surface wet, at the dry rate, dry, spilling, at rest;
+#: and the water spinning up, spinning down, and from one rate to a faster one.
+PARABOLA_RATES = (0.0, 6.0, 13.20380416563516, 15.0, 25.0)
+PARABOLA_SPINS: dict[str, dict[str, Any]] = {
+    "spinning up": {"v": parabola.Vessel(), "vessel_rate": 10.0, "duration_s": 20.0},
+    "spinning down": {"v": parabola.Vessel(), "vessel_rate": 0.0, "duration_s": 20.0, "start_rate": 12.0},
+    "a shallow wide dish, faster, a coarse step": {
+        "v": parabola.Vessel(radius_m=0.5, height_m=0.2, fill_m=0.02),
+        "vessel_rate": 6.0,
+        "duration_s": 10.0,
+        "start_rate": 3.0,
+        "step_s": 0.05,
+    },
+}
+
 #: Where the heights and the contact are written out along the rails.
 CONE_POINTS = (0.0, 0.07, 0.15, 0.3)
 
@@ -423,6 +439,39 @@ def _pendulum_cases(out: dict[str, Any]) -> None:
                 "lengths_m": list(wave.lengths_m(row)),
                 "lag_deg": list(wave.lag_deg(row)),
                 "spread_deg": wave.spread_deg(row),
+            }
+        )
+
+
+def _parabola_cases(out: dict[str, Any]) -> None:
+    for v in (parabola.Vessel(), parabola.Vessel(radius_m=0.08, height_m=0.12, fill_m=0.09)):
+        out["parabola_surfaces"].append(
+            {
+                "v": asdict(v),
+                "dry_rate": parabola.dry_rate(v),
+                "spill_rate": parabola.spill_rate(v),
+                "surfaces": [asdict(parabola.surface(v, r)) for r in PARABOLA_RATES],
+                "profiles": [list(parabola.profile(v, r)) for r in PARABOLA_RATES],
+                "spin_up_s": [parabola.spin_up_time_s(v, r) for r in PARABOLA_RATES],
+            }
+        )
+    for name, case in PARABOLA_SPINS.items():
+        run = parabola.spin(
+            case["v"],
+            case["vessel_rate"],
+            case["duration_s"],
+            case.get("start_rate", 0.0),
+            case.get("step_s", parabola.SPIN_STEP_S),
+        )
+        out["parabola_spins"].append(
+            {
+                "name": name,
+                "v": asdict(case["v"]),
+                "vessel_rate": case["vessel_rate"],
+                "duration_s": case["duration_s"],
+                "start_rate": case.get("start_rate", 0.0),
+                "step_s": case.get("step_s", parabola.SPIN_STEP_S),
+                "run": thin(asdict(run)),
             }
         )
 
@@ -496,9 +545,12 @@ def cases() -> dict[str, Any]:
         "wave": [],
         "harmonograph": [],
         "cone": [],
+        "parabola_surfaces": [],
+        "parabola_spins": [],
     }
     _pendulum_cases(out)
     _cone_cases(out)
+    _parabola_cases(out)
     for name, case in HARMONOGRAPH_CASES.items():
         h = case["h"]
         step = case.get("step_s", harmonograph.STEP_S)

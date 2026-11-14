@@ -20,6 +20,7 @@ import * as coil from "./coil";
 import * as cone from "./cone";
 import * as elephant from "./elephant";
 import * as harmonograph from "./harmonograph";
+import * as parabola from "./parabola";
 import * as pendulum from "./pendulum";
 import * as pit from "./pit";
 import * as platform from "./platform";
@@ -572,5 +573,46 @@ describe("the double cone's port", () => {
     expect(cone.refusal(ex)).toBeNull();
     expect(cone.refusal({ ...ex, rails: { ...ex.rails, length_m: 0.5 } })).toBe("fall_through");
     expect(() => cone.roll(ex, 0.5, 1)).toThrow(RangeError);
+  });
+});
+
+describe("the water parabola's port", () => {
+  it("shapes the surface as the engine does, wet, dry, spilling and at rest", () => {
+    for (const c of cases.parabola_surfaces) {
+      expect(differences(c.dry_rate, parabola.dryRate(c.v))).toEqual([]);
+      expect(differences(c.spill_rate, parabola.spillRate(c.v))).toEqual([]);
+      const rates = c.surfaces.map((s) => s.rate_rad_s);
+      expect(
+        differences(
+          c.surfaces,
+          rates.map((r) => parabola.surface(c.v, r)),
+        ),
+      ).toEqual([]);
+      expect(
+        differences(
+          c.profiles,
+          rates.map((r) => parabola.profile(c.v, r)),
+        ),
+      ).toEqual([]);
+      expect(
+        differences(
+          c.spin_up_s,
+          rates.map((r) => parabola.spinUpTimeS(c.v, r)),
+        ),
+      ).toEqual([]);
+    }
+  });
+
+  it.each(cases.parabola_spins.map((c) => [c.name, c] as const))("lets the water follow, %s", (_name, c) => {
+    const run = parabola.spin(c.v, c.vessel_rate, c.duration_s, c.start_rate, c.step_s);
+    expect(differences(c.run, run)).toEqual([]);
+  });
+
+  it("steps frame by frame as the replay does", () => {
+    const v = cases.parabola_spins[0].v;
+    const whole = parabola.spin(v, 10, 1);
+    let rate = 0;
+    for (let i = 0; i < 100; i++) rate = parabola.spinStep(v, 10, rate, i * parabola.SPIN_STEP_S);
+    expect(rate).toBe(whole.water_rate[whole.water_rate.length - 1]);
   });
 });

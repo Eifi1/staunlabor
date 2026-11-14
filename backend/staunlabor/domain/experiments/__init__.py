@@ -37,6 +37,9 @@ with SciPy before it was written (``docs/experiments.md``).
   picture two damped swings draw, closed at a simple ratio, turning near one.
 * :mod:`cone` — a double cone on rails that spread and rise: it rolls up them
   because its centre falls, and the exact contact says by how much.
+* :mod:`parabola` — water in a spinning vessel: a paraboloid whose middle
+  sinks as far as its rim rises, dry in the middle past a rate, a mirror whose
+  focus the rate sets, and water that follows the vessel over Ekman's time.
 * :mod:`wave` — a row of pendulums tuned to swing ``N``, ``N + 1``, … times a
   cycle: waves, groups, and all together again — at the swing it was tuned for.
 
@@ -116,6 +119,18 @@ from staunlabor.domain.experiments.harmonograph import (
 )
 from staunlabor.domain.experiments.harmonograph import draw as harmonograph_draw
 from staunlabor.domain.experiments.harmonograph import figures as harmonograph_figures
+from staunlabor.domain.experiments.parabola import (
+    SpinRun,
+    Surface,
+    Vessel,
+    dry_rate,
+    height_at,
+    spill_rate,
+    spin_up_time_s,
+    surface,
+)
+from staunlabor.domain.experiments.parabola import profile as water_profile
+from staunlabor.domain.experiments.parabola import spin as water_spin
 from staunlabor.domain.experiments.pendulum import (
     SwingRun,
     angle_deg,
@@ -313,7 +328,9 @@ __all__ = [
     "SphereFigures",
     "SphereRun",
     "Spin",
+    "SpinRun",
     "SpreadPoint",
+    "Surface",
     "SwingPoint",
     "SwingRun",
     "TiltPoint",
@@ -323,6 +340,7 @@ __all__ = [
     "Valley",
     "ValleyStart",
     "Verdict",
+    "Vessel",
     "WaveFigures",
     "WavePendulum",
     "angle_deg",
@@ -340,6 +358,7 @@ __all__ = [
     "contact_radius_m",
     "coupling",
     "cycloid_through",
+    "dry_rate",
     "elephant_figures",
     "ellipk",
     "exhibit",
@@ -348,6 +367,7 @@ __all__ = [
     "groups_at",
     "harmonograph_draw",
     "harmonograph_figures",
+    "height_at",
     "image",
     "inertia",
     "jacobi",
@@ -385,14 +405,19 @@ __all__ = [
     "smoke_figures",
     "smoke_flight",
     "sphere_figures",
+    "spill_rate",
     "spin",
+    "spin_up_time_s",
     "spread_deg",
     "start_for",
+    "surface",
     "swing",
     "swing_hz",
     "threshold_deg",
     "timing_curve",
     "tolerance",
+    "water_profile",
+    "water_spin",
     "wave_figures",
     "widest_gap",
 ]

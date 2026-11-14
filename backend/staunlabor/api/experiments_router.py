@@ -49,6 +49,7 @@ from staunlabor.domain.experiments import (
     SmokeExhibit,
     Sphere,
     Track,
+    Vessel,
     cannon_figures,
     chair_analysis,
     coil_analysis,
@@ -81,6 +82,7 @@ from staunlabor.domain.schemas.experiments import (
     SmokeFiguresOut,
     SphereFiguresOut,
     SphereIn,
+    VesselIn,
     WaveFiguresOut,
     WaveIn,
 )
@@ -121,6 +123,7 @@ async def defaults() -> ExperimentsDefaultsOut:
         wave=WaveIn.model_validate(PendulumWave()),
         harmonograph=HarmonographIn.model_validate(Harmonograph()),
         cone=ConeExhibitIn.model_validate(ConeExhibit()),
+        parabola=VesselIn.model_validate(Vessel()),
         meter_range_a=METER_RANGE_A,
         settle_s=PAGE_SETTLE_S,
     )

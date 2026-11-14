@@ -131,3 +131,8 @@ def test_the_cases_cross_every_branch_a_page_can_reach(stored: Any):
     assert any(r["stopped_at_s"] is not None and r["final_x_m"] > 0 for r in rolls.values()), "up to the top"
     assert any(r["stopped_at_s"] is not None and r["final_x_m"] == 0 for r in rolls.values()), "down to the bottom"
     assert any(r["stopped_at_s"] is None for r in rolls.values()), "a cone that stays where it is laid"
+    surfaces = [s for c in stored["parabola_surfaces"] for s in c["surfaces"]]
+    assert any(s["dry_radius_m"] > 0 for s in surfaces), "a dry middle"
+    assert any(s["spills"] for s in surfaces), "water spilling"
+    assert any(s["focus_m"] is None for s in surfaces), "water at rest"
+    assert any(c["vessel_rate"] == 0 for c in stored["parabola_spins"]), "water spinning down"

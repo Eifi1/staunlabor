@@ -129,6 +129,11 @@
         "length_m": 0.3
       }
     },
+    "parabola": {
+      "radius_m": 0.15,
+      "height_m": 0.3,
+      "fill_m": 0.1
+    },
     "meter_range_a": 0.1,
     "settle_s": 0.15
   },

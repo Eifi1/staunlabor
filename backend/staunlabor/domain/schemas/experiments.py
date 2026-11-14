@@ -541,6 +541,16 @@ class ConeExhibitIn(_In):
     rails: RailsIn
 
 
+# ── the water parabola ───────────────────────────────────────────────────────
+# No route: the page asks the port (``simulate/parabola.ts``).
+
+
+class VesselIn(_In):
+    radius_m: float = Field(ge=0.02, le=2.0, default=0.15)
+    height_m: float = Field(gt=0, le=4.0, default=0.30)
+    fill_m: float = Field(gt=0, le=4.0, default=0.10)
+
+
 # ── the pages' starting point ────────────────────────────────────────────────
 
 
@@ -555,6 +565,7 @@ class ExperimentsDefaultsOut(_Out):
     wave: WaveIn
     harmonograph: HarmonographIn
     cone: ConeExhibitIn
+    parabola: VesselIn
     #: The exhibit's meter: digital, ± this many amperes.
     meter_range_a: float
     #: How long a page waits after the last slider step before asking.
