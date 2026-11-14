@@ -22,6 +22,7 @@ import * as coupled from "./coupled";
 import * as elephant from "./elephant";
 import * as harmonograph from "./harmonograph";
 import * as parabola from "./parabola";
+import * as peg from "./peg";
 import * as pendulum from "./pendulum";
 import * as pit from "./pit";
 import * as platform from "./platform";
@@ -631,5 +632,18 @@ describe("the coupled pendulums' port", () => {
   it("refuses what the engine refuses", () => {
     expect(() => coupled.startState("one", 80)).toThrow(RangeError);
     expect(() => coupled.swing(cases.coupled[0].cp as coupled.CoupledPendulums, "one", 5, 1000)).toThrow(RangeError);
+  });
+});
+
+describe("Galileo's pendulum's port", () => {
+  it.each(cases.peg.map((c) => [c.name, c] as const))("swings %s as the engine does", (_name, c) => {
+    expect(peg.outcome(c.p)).toBe(c.outcome);
+    expect(differences(c.slack_height_m, peg.slackHeightM(c.p))).toEqual([]);
+    expect(differences(c.run, peg.run(c.p, c.duration_s, c.step_s))).toEqual([]);
+  });
+
+  it("refuses what the engine refuses", () => {
+    expect(peg.refusal({ length_m: 1, peg_depth_m: 1.2, start_deg: 30 })).toBe("peg");
+    expect(() => peg.run(cases.peg[0].p, 1000)).toThrow(RangeError);
   });
 });

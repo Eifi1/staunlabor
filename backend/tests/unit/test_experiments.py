@@ -1594,3 +1594,70 @@ def test_the_coupled_pendulums_refuse_what_cannot_hang():
         x.Bob(length_m=10.0)
     with pytest.raises(ValueError, match="at most 60°"):
         x.coupled_swing(x.CoupledPendulums(), x.Start.ONE, 80.0, 1.0)
+
+
+# ── Galileo's interrupted pendulum ───────────────────────────────────────────
+
+
+def test_caught_by_the_peg_the_bob_rises_to_the_height_it_fell_from():
+    p = x.PegPendulum()
+    run = x.run_peg(p, 5.0)
+    assert run.peg_side_top_m == pytest.approx(x.start_height_m(p), abs=1e-6)
+    assert [e[1] for e in run.events[:2]] == ["caught", "released"]
+    # Caught and released with the string straight down, at the bottom.
+    assert all(abs(e[2]) < 1e-9 and e[3] == pytest.approx(-1.0, abs=1e-9) for e in run.events)
+    assert x.outcome(p) == "same_height"
+
+
+def test_the_bob_keeps_its_energy_until_the_string_jerks():
+    p = x.PegPendulum(start_deg=90.0, peg_depth_m=0.58)
+    run = x.run_peg(p, 4.0)
+    h = x.start_height_m(p)
+    taut = next(e[0] for e in run.events if e[1] == "taut")
+    for t, xs, ys, mode in zip(run.t, run.x_m, run.y_m, run.mode, strict=True):
+        if t >= taut:
+            break
+        # The speed from the energy: what the bob has if nothing was lost.
+        assert ys + p.length_m <= h + 1e-9, (t, mode, xs)
+    assert run.went_slack
+
+
+def test_it_goes_over_the_peg_from_two_and_a_half_radii_and_slack_below():
+    # Let go from the horizontal: h = L, so over the top when r ≤ 0.4·L.
+    over = x.PegPendulum(start_deg=90.0, peg_depth_m=0.61)
+    slack = x.PegPendulum(start_deg=90.0, peg_depth_m=0.59)
+    assert x.outcome(over) == "over_the_top"
+    assert x.outcome(slack) == "slack"
+    assert x.run_peg(over, 3.0).over_the_top
+    assert not x.run_peg(slack, 3.0).over_the_top
+
+
+def test_the_string_goes_slack_at_a_third_of_r_plus_twice_the_height():
+    p = x.PegPendulum(start_deg=90.0, peg_depth_m=0.58)
+    run = x.run_peg(p, 4.0)
+    slack = next(e for e in run.events if e[1] == "slack")
+    assert slack[3] + p.length_m == pytest.approx(x.slack_height_m(p), abs=1e-9)
+    assert round(x.slack_height_m(p), 3) == 0.807
+
+
+def test_the_jerk_taut_costs_the_bob_its_speed_along_the_string():
+    p = x.PegPendulum(start_deg=90.0, peg_depth_m=0.58)
+    s = x.PegState(x.Mode.BIG, (math.radians(90.0), 0.0))
+    t, before, after = 0.0, None, None
+    while after is None:
+        state, happened = x.peg_step(p, s, t, 1e-3)
+        for _at, kind, *_ in happened:
+            if kind == "taut":
+                before = 0.5 * (s.y[2] ** 2 + s.y[3] ** 2) + 9.80665 * (s.y[1] + 1.0)
+                after = 0.5 * (p.small_radius_m * state.y[1]) ** 2 + 9.80665 * (x.position(p, state)[1] + 1.0)
+        s, t = state, t + 1e-3
+    assert after < before - 0.1
+
+
+def test_the_peg_pendulum_refuses_what_cannot_hang():
+    with pytest.raises(ValueError, match="below the pivot and above the bob"):
+        x.PegPendulum(peg_depth_m=1.2)
+    with pytest.raises(ValueError, match="at most 90°"):
+        x.PegPendulum(start_deg=120)
+    with pytest.raises(ValueError, match="at most"):
+        x.run_peg(x.PegPendulum(), 1000.0)

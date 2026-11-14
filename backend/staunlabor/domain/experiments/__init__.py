@@ -42,6 +42,8 @@ with SciPy before it was written (``docs/experiments.md``).
   focus the rate sets, and water that follows the vessel over Ekman's time.
 * :mod:`coupled` — two pendulums and a spring: two modes, and a swing that
   wanders from one to the other at their beat, all of it only when they match.
+* :mod:`peg` — Galileo's pendulum caught by a peg: the bob rises to the height
+  it fell from, or swings over the peg, or its string goes slack.
 * :mod:`wave` — a row of pendulums tuned to swing ``N``, ``N + 1``, … times a
   cycle: waves, groups, and all together again — at the swing it was tuned for.
 
@@ -145,6 +147,19 @@ from staunlabor.domain.experiments.parabola import (
 )
 from staunlabor.domain.experiments.parabola import profile as water_profile
 from staunlabor.domain.experiments.parabola import spin as water_spin
+from staunlabor.domain.experiments.peg import (
+    Event,
+    Mode,
+    PegPendulum,
+    PegRun,
+    PegState,
+    outcome,
+    position,
+    slack_height_m,
+    start_height_m,
+)
+from staunlabor.domain.experiments.peg import run as run_peg
+from staunlabor.domain.experiments.peg import step as peg_step
 from staunlabor.domain.experiments.pendulum import (
     SwingRun,
     angle_deg,
@@ -297,6 +312,7 @@ __all__ = [
     "ElephantRun",
     "EnergyAccount",
     "Entry",
+    "Event",
     "Figure",
     "FigureKind",
     "Flight",
@@ -314,10 +330,14 @@ __all__ = [
     "Launch",
     "LiftPoint",
     "Magnet",
+    "Mode",
     "Move",
     "Orbit",
     "Path",
     "Peephole",
+    "PegPendulum",
+    "PegRun",
+    "PegState",
     "PendulumWave",
     "PitBall",
     "PitRun",
@@ -404,10 +424,13 @@ __all__ = [
     "nearest_ratio",
     "orbit",
     "orbit_at",
+    "outcome",
     "peak_coupling",
+    "peg_step",
     "period_factor",
     "period_s",
     "platform_figures",
+    "position",
     "pull_n",
     "race_entries",
     "race_valley",
@@ -416,6 +439,7 @@ __all__ = [
     "roll",
     "run_coil",
     "run_elephant",
+    "run_peg",
     "run_pit",
     "run_platform",
     "run_race",
@@ -424,6 +448,7 @@ __all__ = [
     "settle_race",
     "sight_lines",
     "skew",
+    "slack_height_m",
     "slide",
     "small_period_s",
     "smoke_figures",
@@ -434,6 +459,7 @@ __all__ = [
     "spin_up_time_s",
     "spread_deg",
     "start_for",
+    "start_height_m",
     "surface",
     "swing",
     "swing_hz",

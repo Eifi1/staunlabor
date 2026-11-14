@@ -60,6 +60,7 @@ harmonograph = importlib.import_module("staunlabor.domain.experiments.harmonogra
 cone = importlib.import_module("staunlabor.domain.experiments.cone")
 parabola = importlib.import_module("staunlabor.domain.experiments.parabola")
 coupled = importlib.import_module("staunlabor.domain.experiments.coupled")
+peg = importlib.import_module("staunlabor.domain.experiments.peg")
 
 TARGET = ROOT / "frontend/src/features/experiments/simulate/engine-cases.json"
 #: Points kept per curve: enough to see a curve that went wrong, few enough that
@@ -403,6 +404,19 @@ COUPLED_CASES: dict[str, dict[str, Any]] = {
     },
 }
 
+#: Galileo's pendulum: the same height, over the top, slack and taut again, and
+#: a long string at a coarse step.
+PEG_CASES: dict[str, dict[str, Any]] = {
+    "the same height": {"p": peg.PegPendulum(), "duration_s": 5.0},
+    "over the top": {"p": peg.PegPendulum(start_deg=90.0, peg_depth_m=0.62), "duration_s": 3.0},
+    "slack, then taut": {"p": peg.PegPendulum(start_deg=90.0, peg_depth_m=0.58), "duration_s": 4.0},
+    "a long string, a coarse step": {
+        "p": peg.PegPendulum(length_m=3.0, peg_depth_m=2.0, start_deg=70.0),
+        "duration_s": 6.0,
+        "step_s": 4e-3,
+    },
+}
+
 #: Where the heights and the contact are written out along the rails.
 CONE_POINTS = (0.0, 0.07, 0.15, 0.3)
 
@@ -464,6 +478,23 @@ def _pendulum_cases(out: dict[str, Any]) -> None:
                 "lengths_m": list(wave.lengths_m(row)),
                 "lag_deg": list(wave.lag_deg(row)),
                 "spread_deg": wave.spread_deg(row),
+            }
+        )
+
+
+def _peg_cases(out: dict[str, Any]) -> None:
+    for name, case in PEG_CASES.items():
+        step = case.get("step_s", peg.STEP_S)
+        result = peg.run(case["p"], case["duration_s"], step)
+        out["peg"].append(
+            {
+                "name": name,
+                "p": asdict(case["p"]),
+                "duration_s": case["duration_s"],
+                "step_s": step,
+                "outcome": peg.outcome(case["p"]),
+                "slack_height_m": peg.slack_height_m(case["p"]),
+                "run": {**thin(asdict(result)), "events": [list(e) for e in result.events]},
             }
         )
 
@@ -592,11 +623,13 @@ def cases() -> dict[str, Any]:
         "parabola_surfaces": [],
         "parabola_spins": [],
         "coupled": [],
+        "peg": [],
     }
     _pendulum_cases(out)
     _cone_cases(out)
     _parabola_cases(out)
     _coupled_cases(out)
+    _peg_cases(out)
     for name, case in HARMONOGRAPH_CASES.items():
         h = case["h"]
         step = case.get("step_s", harmonograph.STEP_S)

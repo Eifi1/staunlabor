@@ -147,6 +147,11 @@
       "spring_at_m": 0.25,
       "damping_per_s": 0.0
     },
+    "peg": {
+      "length_m": 1.0,
+      "peg_depth_m": 0.5,
+      "start_deg": 30.0
+    },
     "meter_range_a": 0.1,
     "settle_s": 0.15
   },

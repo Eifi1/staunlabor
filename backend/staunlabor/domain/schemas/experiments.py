@@ -568,6 +568,16 @@ class CoupledPendulumsIn(_In):
     damping_per_s: float = Field(ge=0, le=1, default=0.0)
 
 
+# ── Galileo's interrupted pendulum ───────────────────────────────────────────
+# No route: the page asks the port (``simulate/peg.ts``).
+
+
+class PegPendulumIn(_In):
+    length_m: float = Field(ge=0.1, le=10.0, default=1.0)
+    peg_depth_m: float = Field(gt=0, le=10.0, default=0.5)
+    start_deg: float = Field(gt=0, le=90, default=30.0)
+
+
 # ── the pages' starting point ────────────────────────────────────────────────
 
 
@@ -584,6 +594,7 @@ class ExperimentsDefaultsOut(_Out):
     cone: ConeExhibitIn
     parabola: VesselIn
     coupled: CoupledPendulumsIn
+    peg: PegPendulumIn
     #: The exhibit's meter: digital, ± this many amperes.
     meter_range_a: float
     #: How long a page waits after the last slider step before asking.
