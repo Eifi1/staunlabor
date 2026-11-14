@@ -16,8 +16,9 @@ import { useRoles } from "@/features/account/roles";
  * overview's tiles link to the sections on it.
  *
  * The reviewer's scope is on (the seven languages, the areas `experiments` and `legal`, the
- * server's `REVIEW_AREAS`); "Erase now" is off: the daily call erases an account that asked,
- * after the waiting days. The server refuses all of it to anyone but an admin.
+ * server's `REVIEW_AREAS`), and so is "Erase now": an account that asked to be deleted is
+ * deactivated at once and erased by the admin (`DeletionMode.OPERATOR` in `accounts.py`). The
+ * server refuses all of it to anyone but an admin.
  */
 export function AdminPage() {
   const { t } = useTranslation();
@@ -34,6 +35,7 @@ export function AdminPage() {
       />
       <AccountUserRosterSection
         roles={roles}
+        erase
         reviewer={{
           languages: LANGUAGE_CODES,
           areas: [
