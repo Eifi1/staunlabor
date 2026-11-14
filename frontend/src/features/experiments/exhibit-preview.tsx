@@ -38,6 +38,7 @@ const PREVIEWS: Record<Exhibit, LazyExoticComponent<ComponentType<PreviewProps>>
   wave: lazy(() => import("./wave-page").then((m) => ({ default: m.WavePreview }))),
   harmonograph: lazy(() => import("./harmonograph-page").then((m) => ({ default: m.HarmonographPreview }))),
   cone: lazy(() => import("./cone-page").then((m) => ({ default: m.ConePreview }))),
+  parabola: lazy(() => import("./parabola-page").then((m) => ({ default: m.ParabolaPreview }))),
 };
 
 /** Whether the element is on screen (`margin` beyond it counts), and whether

@@ -193,6 +193,12 @@
         "title": "Der Doppelkegel rollt bergauf",
         "summary": "Zwei Schienen laufen auseinander und steigen dabei an. Ein Doppelkegel, unten aufgelegt, rollt von selbst hinauf.",
         "question": "Rollt ein Doppelkegel auf zwei ansteigenden Schienen hinauf oder hinunter – und was entscheidet es?"
+      },
+      "parabola": {
+        "short": "Wasserparabel",
+        "title": "Die Wasserparabel",
+        "summary": "Ein Gefäss mit Wasser dreht sich: Die Oberfläche wölbt sich zu einer Mulde – bis die Mitte trocken fällt.",
+        "question": "Wenn sich ein Gefäss mit Wasser immer schneller dreht: Sinkt die Mitte so weit, wie der Rand steigt?"
       }
     },
     "chair": {
@@ -1264,6 +1270,93 @@
         "rho": "der Radius, auf dem der Kegel rollt",
         "x_dot": "das Tempo entlang der Schienen",
         "g": "Fallbeschleunigung, 9,81 m/s²"
+      }
+    },
+    "parabola": {
+      "at": {
+        "vessel": "Ein rundes Gefäss mit Wasser steht auf einem Drehteller. Dreht er sich, sinkt das Wasser in der Mitte und steigt am Rand hoch, umso mehr, je schneller er dreht.",
+        "dry": "Beim Standard-Gefäss – 30 cm weit, 10 cm hoch gefüllt – fällt die Mitte bei 126 Umdrehungen pro Minute trocken."
+      },
+      "refused": "Das Wasser muss im Gefäss stehen: Die Füllhöhe muss kleiner sein als das Gefäss hoch ist.",
+      "play": {
+        "title": "Den Drehteller drehen",
+        "hint": "Stellen Sie die Drehzahl ein. Das Gefäss folgt sofort, das Wasser braucht seine Zeit – im Zeitraffer sehen Sie es nachziehen.",
+        "pause": "Anhalten",
+        "run": "Weiter",
+        "stop": "Drehteller abstellen",
+        "frame": "Ansicht von oben",
+        "frames": {
+          "outside": "Von aussen",
+          "turning": "Mitdrehend"
+        },
+        "speed": "Tempo",
+        "speeds": {
+          "1": "Echtzeit",
+          "10": "Zehnfach"
+        },
+        "rate": "Drehzahl des Tellers",
+        "rpm": "U/min",
+        "rate_hint": "Umdrehungen pro Minute.",
+        "spills": "So schnell steigt das Wasser über den Rand: Es läuft über.",
+        "water": "Drehzahl des Wassers",
+        "centre": "Höhe in der Mitte",
+        "rim": "Höhe am Rand",
+        "tau": "Anlaufzeit"
+      },
+      "views": {
+        "side": "Das Gefäss im Schnitt: das Wasser unter seiner gewölbten Oberfläche, gestrichelt der Stand in Ruhe, und der Brennpunkt der Mulde als Spiegel",
+        "top": "Das Gefäss von oben: Marken am Rand drehen mit dem Gefäss, Teilchen im Wasser mit dem Wasser",
+        "side_caption": "Im Schnitt, von der Seite",
+        "top_caption_outside": "Von oben, von aussen gesehen",
+        "top_caption_turning": "Von oben, mit dem Gefäss mitgedreht: Die Teilchen zeigen, wie weit das Wasser noch nachhinkt"
+      },
+      "change": {
+        "title": "Das Exponat verändern",
+        "hint": "Ein weiteres Gefäss oder weniger Wasser fällt früher trocken; ein flaches läuft früher über.",
+        "radius": "Radius des Gefässes",
+        "fill": "Füllhöhe in Ruhe",
+        "height": "Höhe des Gefässes"
+      },
+      "model": {
+        "intro": "Dreht sich das Wasser mit dem Gefäss wie ein fester Körper, steht seine Oberfläche überall senkrecht zur Summe aus Schwerkraft und Fliehkraft. Die Fliehkraft wächst mit dem Abstand von der Achse, also wird die Oberfläche nach aussen immer steiler.",
+        "surface": "Daraus folgt ein Paraboloid: Die Höhe wächst mit dem Quadrat des Abstands von der Achse.",
+        "volume": "Das Wasser bleibt dasselbe. Darum sinkt die Mitte genau um so viel, wie der Rand steigt: um ω²R²/(4g).",
+        "dry": "Ab dieser Drehzahl berührt die Mitte den Boden. Schneller öffnet sich dort ein trockener Fleck, der mit der Drehzahl wächst."
+      },
+      "symbols": {
+        "z": "die Höhe der Oberfläche über dem Boden",
+        "r": "der Abstand von der Achse",
+        "z0": "die Höhe in der Mitte",
+        "omega": "die Winkelgeschwindigkeit: 2π mal die Umdrehungen pro Sekunde",
+        "g": "Fallbeschleunigung, 9,81 m/s²",
+        "h": "die Füllhöhe in Ruhe",
+        "radius": "der Radius des Gefässes",
+        "dry": "die Winkelgeschwindigkeit, bei der die Mitte trocken fällt",
+        "f": "die Brennweite der Mulde als Spiegel"
+      },
+      "sweet": {
+        "equal": "Bei {{rpm}} Umdrehungen pro Minute sinkt die Mitte um {{drop}} cm – und der Rand steigt um genau gleich viel. Die beiden Linien laufen symmetrisch auseinander, bis die Mitte den Boden erreicht.",
+        "dry": "Die Mitte ist trocken: Ab {{rpm}} Umdrehungen pro Minute steht das Wasser nur noch in einem Ring.",
+        "mirror": "Eine gedrehte Mulde aus spiegelnder Flüssigkeit ist ein Teleskopspiegel: Senkrecht einfallendes Licht trifft sich im Brennpunkt. Die Drehzahl stellt die Brennweite ein – eine Umdrehung in 8,5 s legt ihn 9 m hoch."
+      },
+      "chart": {
+        "rim": "Höhe am Rand",
+        "centre": "Höhe in der Mitte",
+        "height": "Höhe",
+        "rate": "Drehzahl",
+        "you": "Jetzt"
+      },
+      "figures": {
+        "dry": "Trocken ab",
+        "spill": "Läuft über ab",
+        "focus": "Brennweite"
+      },
+      "computed": {
+        "system": "Wie lange das Wasser braucht, um dem Gefäss zu folgen: Der Boden zieht es über eine dünne Grenzschicht mit (nach Greenspan und Howard, eine Ekman-Schicht am Boden). Die Seite lässt die Drehzahl des Wassers mit dieser Zeit der des Gefässes nachlaufen, beim Standard-Gefäss rund eine halbe Minute, und zeichnet die Oberfläche, als drehte sich das Wasser als Ganzes. Das ist ein Modell dafür, wie lange es dauert, nicht für die Strömung währenddessen.",
+        "omega_v": "die Winkelgeschwindigkeit des Gefässes",
+        "tau": "die Anlaufzeit",
+        "nu": "die Zähigkeit des Wassers, 10⁻⁶ m²/s",
+        "big_omega": "die grössere der beiden Winkelgeschwindigkeiten"
       }
     }
   }

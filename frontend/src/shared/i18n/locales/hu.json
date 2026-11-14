@@ -193,6 +193,12 @@
         "title": "A kettős kúp felfelé gurul",
         "summary": "Két sín szétválik, és közben emelkedik. A lent ráhelyezett kettős kúp magától felgurul.",
         "question": "Felfelé vagy lefelé gurul a kettős kúp két emelkedő sínen – és mi dönti el?"
+      },
+      "parabola": {
+        "short": "Vízparabola",
+        "title": "A vízparabola",
+        "summary": "Egy vízzel teli edény forog: a felszín teknővé mélyül – amíg a közepe ki nem szárad.",
+        "question": "Ha egy vízzel teli edény egyre gyorsabban forog, annyit süllyed-e a közepe, amennyit a széle emelkedik?"
       }
     },
     "chair": {
@@ -1264,6 +1270,93 @@
         "rho": "a sugár, amelyen a kúp gurul",
         "x_dot": "a sebesség a sínek mentén",
         "g": "nehézségi gyorsulás, 9,81 m/s²"
+      }
+    },
+    "parabola": {
+      "at": {
+        "vessel": "Egy kerek, vízzel teli edény áll egy forgótányéron. Ha forog, a víz középen süllyed, a falon felkúszik, annál jobban, minél gyorsabban forog.",
+        "dry": "Az alapedénynél – 30 cm széles, 10 cm-ig töltve – a közepe 126 fordulat/percnél szárad ki."
+      },
+      "refused": "A víznek az edényben kell állnia: a töltési magasság legyen kisebb, mint az edény magassága.",
+      "play": {
+        "title": "A forgótányér forgatása",
+        "hint": "Állítsa be a fordulatszámot. Az edény azonnal követi, a víznek idő kell – gyorsítva látszik, ahogy utoléri.",
+        "pause": "Szünet",
+        "run": "Tovább",
+        "stop": "A forgótányér leállítása",
+        "frame": "Nézet felülről",
+        "frames": {
+          "outside": "Kívülről",
+          "turning": "Együtt forogva"
+        },
+        "speed": "Tempó",
+        "speeds": {
+          "1": "Valós idő",
+          "10": "Tízszeres"
+        },
+        "rate": "A tányér fordulatszáma",
+        "rpm": "ford./perc",
+        "rate_hint": "Fordulat percenként.",
+        "spills": "Ilyen gyorsan a víz a peremen túl emelkedik: kifolyik.",
+        "water": "A víz fordulatszáma",
+        "centre": "Magasság középen",
+        "rim": "Magasság a peremen",
+        "tau": "Felpörgési idő"
+      },
+      "views": {
+        "side": "Az edény metszetben: a víz a mélyülő felszíne alatt, szaggatottan a nyugalmi szint, és a teknő mint tükör fókusza",
+        "top": "Az edény felülről: a peremen lévő jelek az edénnyel forognak, a vízben lévő részecskék a vízzel",
+        "side_caption": "Metszetben, oldalról",
+        "top_caption_outside": "Felülről, kívülről nézve",
+        "top_caption_turning": "Felülről, az edénnyel együtt forogva: a részecskék mutatják, mennyit késik még a víz"
+      },
+      "change": {
+        "title": "A kiállítási tárgy módosítása",
+        "hint": "A szélesebb edény vagy a kevesebb víz hamarabb kiszárad; az alacsony edény hamarabb kifolyik.",
+        "radius": "Az edény sugara",
+        "fill": "Nyugalmi magasság",
+        "height": "Az edény magassága"
+      },
+      "model": {
+        "intro": "Ha a víz merev testként forog az edénnyel, felszíne mindenütt merőleges a nehézségi erő és a centrifugális erő összegére. A centrifugális erő a tengelytől mért távolsággal nő, ezért a felszín kifelé egyre meredekebb.",
+        "surface": "Ebből paraboloid adódik: a magasság a tengelytől mért távolság négyzetével nő.",
+        "volume": "A víz ugyanannyi marad. Ezért a közepe pontosan annyit süllyed, amennyit a széle emelkedik: ω²R²/(4g)-vel.",
+        "dry": "Ettől a fordulatszámtól a közepe eléri az aljat. Gyorsabban ott száraz folt nyílik, amely a fordulatszámmal nő."
+      },
+      "symbols": {
+        "z": "a felszín magassága az alj fölött",
+        "r": "a tengelytől mért távolság",
+        "z0": "a magasság középen",
+        "omega": "a szögsebesség: 2π szorozva a másodpercenkénti fordulatokkal",
+        "g": "nehézségi gyorsulás, 9,81 m/s²",
+        "h": "a nyugalmi töltési magasság",
+        "radius": "az edény sugara",
+        "dry": "a szögsebesség, amelynél a közepe kiszárad",
+        "f": "a teknő mint tükör fókusztávolsága"
+      },
+      "sweet": {
+        "equal": "{{rpm}} fordulat/percnél a közepe {{drop}} cm-t süllyed – és a széle pontosan ugyanennyit emelkedik. A két vonal szimmetrikusan távolodik, amíg a közepe el nem éri az aljat.",
+        "dry": "A közepe száraz: {{rpm}} fordulat/perctől a víz már csak gyűrűben áll.",
+        "mirror": "A forgó, tükröző folyadékkal teli teknő távcsőtükör: a függőlegesen beeső fény a fókuszban találkozik. A fordulatszám állítja a fókusztávolságot – egy fordulat 8,5 s alatt 9 m magasra teszi."
+      },
+      "chart": {
+        "rim": "Magasság a peremen",
+        "centre": "Magasság középen",
+        "height": "Magasság",
+        "rate": "Fordulatszám",
+        "you": "Most"
+      },
+      "figures": {
+        "dry": "Kiszárad ettől",
+        "spill": "Kifolyik ettől",
+        "focus": "Fókusztávolság"
+      },
+      "computed": {
+        "system": "Mennyi idő kell, hogy a víz kövesse az edényt: az alj egy vékony határrétegen át húzza magával (Greenspan és Howard szerint, egy Ekman-réteg az alján). Az oldal a víz fordulatszámát ezzel az idővel követteti az edényével – az alapedénynél nagyjából fél perc –, és úgy rajzolja a felszínt, mintha a víz egy tömbként forogna. Ez annak modellje, mennyi ideig tart, nem a közbeni áramlásé.",
+        "omega_v": "az edény szögsebessége",
+        "tau": "a felpörgési idő",
+        "nu": "a víz viszkozitása, 10⁻⁶ m²/s",
+        "big_omega": "a két szögsebesség közül a nagyobb"
       }
     }
   }

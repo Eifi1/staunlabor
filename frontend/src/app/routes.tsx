@@ -23,6 +23,9 @@ const SmokePage = lazy(() => import("@/features/experiments/smoke-page").then((m
 const CannonPage = lazy(() => import("@/features/experiments/cannon-page").then((m) => ({ default: m.CannonPage })));
 const WavePage = lazy(() => import("@/features/experiments/wave-page").then((m) => ({ default: m.WavePage })));
 const ConePage = lazy(() => import("@/features/experiments/cone-page").then((m) => ({ default: m.ConePage })));
+const ParabolaPage = lazy(() =>
+  import("@/features/experiments/parabola-page").then((m) => ({ default: m.ParabolaPage })),
+);
 const HarmonographPage = lazy(() =>
   import("@/features/experiments/harmonograph-page").then((m) => ({ default: m.HarmonographPage })),
 );
@@ -125,6 +128,14 @@ export function AppRoutes() {
           element={
             <Page>
               <ConePage />
+            </Page>
+          }
+        />
+        <Route
+          path="parabola"
+          element={
+            <Page>
+              <ParabolaPage />
             </Page>
           }
         />

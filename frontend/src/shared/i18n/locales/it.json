@@ -193,6 +193,12 @@
         "title": "Il doppio cono sale in salita",
         "summary": "Due binari si allargano e salgono. Un doppio cono posato in basso sale da solo.",
         "question": "Un doppio cono su due binari in salita rotola in su o in giù – e che cosa lo decide?"
+      },
+      "parabola": {
+        "short": "Parabola d'acqua",
+        "title": "La parabola d'acqua",
+        "summary": "Un recipiente d'acqua gira: la superficie si incava a conca – finché il centro resta all'asciutto.",
+        "question": "Se un recipiente d'acqua gira sempre più veloce, il centro scende quanto sale il bordo?"
       }
     },
     "chair": {
@@ -1264,6 +1270,93 @@
         "rho": "il raggio su cui rotola il cono",
         "x_dot": "la velocità lungo i binari",
         "g": "accelerazione di gravità, 9,81 m/s²"
+      }
+    },
+    "parabola": {
+      "at": {
+        "vessel": "Un recipiente rotondo pieno d'acqua sta su un piatto girevole. Quando gira, l'acqua scende al centro e sale lungo la parete, tanto più quanto più gira veloce.",
+        "dry": "Nel recipiente standard – largo 30 cm, riempito per 10 cm – il centro resta all'asciutto a 126 giri al minuto."
+      },
+      "refused": "L'acqua deve stare nel recipiente: l'altezza di riempimento deve essere minore dell'altezza del recipiente.",
+      "play": {
+        "title": "Far girare il piatto",
+        "hint": "Imposti la velocità. Il recipiente segue subito, l'acqua ha bisogno del suo tempo – in accelerato la si vede recuperare.",
+        "pause": "Pausa",
+        "run": "Continua",
+        "stop": "Spegnere il piatto",
+        "frame": "Vista dall'alto",
+        "frames": {
+          "outside": "Da fuori",
+          "turning": "Girando insieme"
+        },
+        "speed": "Velocità",
+        "speeds": {
+          "1": "Tempo reale",
+          "10": "Dieci volte"
+        },
+        "rate": "Velocità del piatto",
+        "rpm": "giri/min",
+        "rate_hint": "Giri al minuto.",
+        "spills": "A questa velocità l'acqua sale oltre il bordo: trabocca.",
+        "water": "Velocità dell'acqua",
+        "centre": "Altezza al centro",
+        "rim": "Altezza al bordo",
+        "tau": "Tempo di avvio"
+      },
+      "views": {
+        "side": "Il recipiente in sezione: l'acqua sotto la sua superficie incavata, tratteggiato il livello a riposo, e il fuoco della conca come specchio",
+        "top": "Il recipiente dall'alto: i segni sul bordo girano con il recipiente, le particelle nell'acqua con l'acqua",
+        "side_caption": "In sezione, di lato",
+        "top_caption_outside": "Dall'alto, visto da fuori",
+        "top_caption_turning": "Dall'alto, girando con il recipiente: le particelle mostrano quanto l'acqua è ancora in ritardo"
+      },
+      "change": {
+        "title": "Modificare l'oggetto esposto",
+        "hint": "Un recipiente più largo o meno acqua restano all'asciutto prima; uno basso trabocca prima.",
+        "radius": "Raggio del recipiente",
+        "fill": "Altezza a riposo",
+        "height": "Altezza del recipiente"
+      },
+      "model": {
+        "intro": "Se l'acqua gira con il recipiente come un corpo rigido, la sua superficie è ovunque perpendicolare alla somma di gravità e forza centrifuga. La forza centrifuga cresce con la distanza dall'asse, quindi la superficie diventa sempre più ripida verso l'esterno.",
+        "surface": "Ne risulta un paraboloide: l'altezza cresce con il quadrato della distanza dall'asse.",
+        "volume": "L'acqua resta la stessa. Perciò il centro scende esattamente quanto sale il bordo: di ω²R²/(4g).",
+        "dry": "Da questa velocità il centro tocca il fondo. Più veloce, lì si apre una macchia asciutta che cresce con la velocità."
+      },
+      "symbols": {
+        "z": "l'altezza della superficie sopra il fondo",
+        "r": "la distanza dall'asse",
+        "z0": "l'altezza al centro",
+        "omega": "la velocità angolare: 2π per i giri al secondo",
+        "g": "accelerazione di gravità, 9,81 m/s²",
+        "h": "l'altezza di riempimento a riposo",
+        "radius": "il raggio del recipiente",
+        "dry": "la velocità angolare alla quale il centro resta all'asciutto",
+        "f": "la distanza focale della conca come specchio"
+      },
+      "sweet": {
+        "equal": "A {{rpm}} giri al minuto il centro scende di {{drop}} cm – e il bordo sale esattamente altrettanto. Le due linee si separano simmetricamente finché il centro raggiunge il fondo.",
+        "dry": "Il centro è asciutto: da {{rpm}} giri al minuto l'acqua forma solo un anello.",
+        "mirror": "Una conca girevole di liquido riflettente è lo specchio di un telescopio: la luce che cade verticale si riunisce nel fuoco. La velocità regola la distanza focale – un giro in 8,5 s lo pone a 9 m di altezza."
+      },
+      "chart": {
+        "rim": "Altezza al bordo",
+        "centre": "Altezza al centro",
+        "height": "Altezza",
+        "rate": "Velocità",
+        "you": "Ora"
+      },
+      "figures": {
+        "dry": "Asciutto da",
+        "spill": "Trabocca da",
+        "focus": "Distanza focale"
+      },
+      "computed": {
+        "system": "Quanto tempo impiega l'acqua a seguire il recipiente: il fondo la trascina attraverso un sottile strato limite (secondo Greenspan e Howard, uno strato di Ekman sul fondo). La pagina fa seguire alla velocità dell'acqua quella del recipiente con questo tempo, circa mezzo minuto per il recipiente standard, e disegna la superficie come se l'acqua girasse tutta insieme. È un modello di quanto ci vuole, non del flusso nel frattempo.",
+        "omega_v": "la velocità angolare del recipiente",
+        "tau": "il tempo di avvio",
+        "nu": "la viscosità dell'acqua, 10⁻⁶ m²/s",
+        "big_omega": "la maggiore delle due velocità angolari"
       }
     }
   }

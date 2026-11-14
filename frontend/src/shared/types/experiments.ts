@@ -524,6 +524,15 @@ export interface ConeExhibitRequest {
   rails: { spread_deg: number; slope_deg: number; start_half_gap_m: number; length_m: number };
 }
 
+// ── the water parabola ───────────────────────────────────────────────────────
+
+/** The engine's `Vessel`. No route: the page asks the port (`simulate/parabola.ts`). */
+export interface VesselRequest {
+  radius_m: number;
+  height_m: number;
+  fill_m: number;
+}
+
 // ── the pages' starting point ────────────────────────────────────────────────
 
 export interface ExperimentsDefaults {
@@ -537,6 +546,7 @@ export interface ExperimentsDefaults {
   wave: WaveRequest;
   harmonograph: HarmonographRequest;
   cone: ConeExhibitRequest;
+  parabola: VesselRequest;
   meter_range_a: number;
   settle_s: number;
 }

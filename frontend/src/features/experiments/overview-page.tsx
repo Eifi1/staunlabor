@@ -8,6 +8,7 @@ import {
   Check,
   ChevronsUp,
   Diamond,
+  GlassWater,
   HelpCircle,
   Magnet,
   Orbit,
@@ -55,6 +56,7 @@ const ICON: Record<Exhibit, LucideIcon> = {
   wave: Waves,
   harmonograph: PenTool,
   cone: Diamond,
+  parabola: GlassWater,
 };
 
 /** Two weeks back, in the dialog: long enough to find the one a friend

@@ -725,6 +725,45 @@ a cone laid on askew.
 the heights and the boundary, the roll's energy, time and end speed, and the
 cone laid at the top of steep rails.
 
+## The water parabola (`experiments.parabola`)
+
+**The exhibit.** A round vessel of water on a turntable: as it spins, the water
+sinks in the middle and climbs the wall — until the middle runs dry.
+
+**The model** (`domain/experiments/parabola.py`). Water turning with the
+vessel as one body has a surface square to gravity and the centrifugal pull
+together, the paraboloid `z = z₀ + ω²r²/(2g)`; its volume fixes `z₀ = h −
+ω²R²/(4g)`, so the middle sinks as far as the rim rises. Past `2·√(g·h)/R` the
+middle is dry inside `r₀² = R² − 2R·√(g·h)/ω`, the rim at `R·ω·√(h/g)`; past
+the vessel's top it spills. As a mirror its focus is `g/(2ω²)` above the vertex.
+**Spinning up:** the water follows the vessel over Greenspan and Howard's
+spin-up time `τ = h/√(νΩ)` (one Ekman layer at the bottom, `Ω` the faster
+rate), a relaxation of the water's rate — a model of how long, said as such,
+not of the flow meanwhile; the surface is drawn as rigid rotation at the
+water's rate.
+
+**What it shows** (the default: 30 cm across, 30 cm high, filled 10 cm deep).
+The middle runs dry at 126 turns a minute and the water spills at 189; the
+water takes about half a minute to follow (28 s at the dry rate). One turn in
+8.5 s puts the mirror's focus 9 m up.
+
+**The page.** The vessel cut through (the surface, the level at rest dashed,
+two vertical rays reflected to the focus) and from above, from outside or
+turning along with the vessel — then the vessel's marks stand still and specks
+in the water show how far it lags; a turntable slider in turns a minute, real
+time or tenfold. The page's water turns with the vessel on arrival; the
+overview's preview switches the turntable on and off. The trick's chart is the
+middle's and the rim's height over the speed. **No route**: the port's
+(`simulate/parabola.ts`).
+
+**Left out, and said:** surface tension and the meniscus, the vessel's wobble,
+the swirl after a sudden change.
+
+**Checked by** `tests/unit/test_experiments.py`: the volume against a sum over
+rings at five rates, wet and dry; the equal sink and rise; the dry rate and the
+rim's continuity past it; the mirror's focus; the spill rate both ways; the
+spin-up against `1 − e^(−t/τ)`.
+
 ## Checking the mathematics
 
 Before the engine was written each model was checked independently with SciPy

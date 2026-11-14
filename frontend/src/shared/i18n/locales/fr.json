@@ -193,6 +193,12 @@
         "title": "Le double cône monte la pente",
         "summary": "Deux rails s'écartent en montant. Un double cône posé en bas monte tout seul.",
         "question": "Un double cône sur deux rails qui montent roule-t-il vers le haut ou vers le bas – et qu'est-ce qui en décide ?"
+      },
+      "parabola": {
+        "short": "Parabole d'eau",
+        "title": "La parabole d'eau",
+        "summary": "Un récipient d'eau tourne : la surface se creuse en cuvette – jusqu'à ce que le centre s'assèche.",
+        "question": "Quand un récipient d'eau tourne de plus en plus vite, le centre descend-il autant que le bord monte ?"
       }
     },
     "chair": {
@@ -1264,6 +1270,93 @@
         "rho": "le rayon sur lequel roule le cône",
         "x_dot": "la vitesse le long des rails",
         "g": "accélération de la pesanteur, 9,81 m/s²"
+      }
+    },
+    "parabola": {
+      "at": {
+        "vessel": "Un récipient rond rempli d'eau est posé sur un plateau tournant. Quand il tourne, l'eau baisse au centre et monte le long de la paroi, d'autant plus qu'il tourne vite.",
+        "dry": "Pour le récipient standard – 30 cm de large, rempli sur 10 cm – le centre s'assèche à 126 tours par minute."
+      },
+      "refused": "L'eau doit tenir dans le récipient : la hauteur de remplissage doit être inférieure à sa hauteur.",
+      "play": {
+        "title": "Faire tourner le plateau",
+        "hint": "Réglez la vitesse. Le récipient suit aussitôt, l'eau prend son temps – en accéléré, on la voit rattraper son retard.",
+        "pause": "Pause",
+        "run": "Reprendre",
+        "stop": "Arrêter le plateau",
+        "frame": "Vue d'en haut",
+        "frames": {
+          "outside": "De l'extérieur",
+          "turning": "En tournant avec"
+        },
+        "speed": "Vitesse",
+        "speeds": {
+          "1": "Temps réel",
+          "10": "Dix fois"
+        },
+        "rate": "Vitesse du plateau",
+        "rpm": "tr/min",
+        "rate_hint": "Tours par minute.",
+        "spills": "À cette vitesse, l'eau monte par-dessus le bord : elle déborde.",
+        "water": "Vitesse de l'eau",
+        "centre": "Hauteur au centre",
+        "rim": "Hauteur au bord",
+        "tau": "Temps de mise en rotation"
+      },
+      "views": {
+        "side": "Le récipient en coupe : l'eau sous sa surface creusée, en pointillé son niveau au repos, et le foyer de la cuvette en tant que miroir",
+        "top": "Le récipient vu d'en haut : des repères sur le bord tournent avec le récipient, des particules dans l'eau avec l'eau",
+        "side_caption": "En coupe, de côté",
+        "top_caption_outside": "D'en haut, vu de l'extérieur",
+        "top_caption_turning": "D'en haut, en tournant avec le récipient : les particules montrent le retard de l'eau"
+      },
+      "change": {
+        "title": "Modifier l'objet exposé",
+        "hint": "Un récipient plus large ou moins d'eau s'assèche plus tôt ; un récipient bas déborde plus tôt.",
+        "radius": "Rayon du récipient",
+        "fill": "Hauteur au repos",
+        "height": "Hauteur du récipient"
+      },
+      "model": {
+        "intro": "Quand l'eau tourne avec le récipient comme un corps solide, sa surface est partout perpendiculaire à la somme de la pesanteur et de la force centrifuge. Celle-ci croît avec la distance à l'axe : la surface devient de plus en plus raide vers l'extérieur.",
+        "surface": "Il en résulte un paraboloïde : la hauteur croît avec le carré de la distance à l'axe.",
+        "volume": "L'eau reste la même. Le centre descend donc exactement autant que le bord monte : de ω²R²/(4g).",
+        "dry": "À partir de cette vitesse, le centre touche le fond. Plus vite, une tache sèche s'y ouvre et grandit avec la vitesse."
+      },
+      "symbols": {
+        "z": "la hauteur de la surface au-dessus du fond",
+        "r": "la distance à l'axe",
+        "z0": "la hauteur au centre",
+        "omega": "la vitesse angulaire : 2π fois les tours par seconde",
+        "g": "accélération de la pesanteur, 9,81 m/s²",
+        "h": "la hauteur de remplissage au repos",
+        "radius": "le rayon du récipient",
+        "dry": "la vitesse angulaire à laquelle le centre s'assèche",
+        "f": "la distance focale de la cuvette en tant que miroir"
+      },
+      "sweet": {
+        "equal": "À {{rpm}} tours par minute, le centre descend de {{drop}} cm – et le bord monte d'exactement autant. Les deux courbes s'écartent symétriquement jusqu'à ce que le centre atteigne le fond.",
+        "dry": "Le centre est sec : à partir de {{rpm}} tours par minute, l'eau ne forme plus qu'un anneau.",
+        "mirror": "Une cuvette tournante de liquide réfléchissant est un miroir de télescope : la lumière qui tombe verticalement se réunit au foyer. La vitesse règle la distance focale – un tour en 8,5 s le place à 9 m de haut."
+      },
+      "chart": {
+        "rim": "Hauteur au bord",
+        "centre": "Hauteur au centre",
+        "height": "Hauteur",
+        "rate": "Vitesse",
+        "you": "Maintenant"
+      },
+      "figures": {
+        "dry": "Sec à partir de",
+        "spill": "Déborde à partir de",
+        "focus": "Distance focale"
+      },
+      "computed": {
+        "system": "Le temps que met l'eau à suivre le récipient : le fond l'entraîne à travers une mince couche limite (d'après Greenspan et Howard, une couche d'Ekman au fond). La page fait suivre à la vitesse de l'eau celle du récipient avec ce temps, environ une demi-minute pour le récipient standard, et dessine la surface comme si l'eau tournait d'un bloc. C'est un modèle de la durée, pas de l'écoulement pendant ce temps.",
+        "omega_v": "la vitesse angulaire du récipient",
+        "tau": "le temps de mise en rotation",
+        "nu": "la viscosité de l'eau, 10⁻⁶ m²/s",
+        "big_omega": "la plus grande des deux vitesses angulaires"
       }
     }
   }

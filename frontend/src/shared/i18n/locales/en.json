@@ -193,6 +193,12 @@
         "title": "The double cone rolls uphill",
         "summary": "Two rails spread apart and rise as they go. A double cone laid at the bottom rolls up by itself.",
         "question": "Does a double cone on two rising rails roll up or down – and what decides it?"
+      },
+      "parabola": {
+        "short": "Water parabola",
+        "title": "The water parabola",
+        "summary": "A vessel of water spins: its surface hollows into a bowl – until the middle runs dry.",
+        "question": "As a vessel of water spins ever faster, does the middle sink as far as the rim rises?"
       }
     },
     "chair": {
@@ -1264,6 +1270,93 @@
         "rho": "the radius the cone rolls on",
         "x_dot": "the speed along the rails",
         "g": "gravitational acceleration, 9.81 m/s²"
+      }
+    },
+    "parabola": {
+      "at": {
+        "vessel": "A round vessel of water stands on a turntable. As it turns, the water sinks in the middle and climbs the wall, the more the faster it turns.",
+        "dry": "For the default vessel – 30 cm across, filled 10 cm deep – the middle runs dry at 126 turns a minute."
+      },
+      "refused": "The water has to stand in the vessel: the depth of filling must be less than the vessel is high.",
+      "play": {
+        "title": "Turn the turntable",
+        "hint": "Set the speed. The vessel follows at once, the water takes its time – in fast motion you see it catch up.",
+        "pause": "Pause",
+        "run": "Run",
+        "stop": "Switch the turntable off",
+        "frame": "View from above",
+        "frames": {
+          "outside": "From outside",
+          "turning": "Turning along"
+        },
+        "speed": "Speed",
+        "speeds": {
+          "1": "Real time",
+          "10": "Tenfold"
+        },
+        "rate": "Turntable speed",
+        "rpm": "rpm",
+        "rate_hint": "Turns a minute.",
+        "spills": "This fast the water climbs over the rim: it spills.",
+        "water": "Water's speed",
+        "centre": "Height at the middle",
+        "rim": "Height at the rim",
+        "tau": "Spin-up time"
+      },
+      "views": {
+        "side": "The vessel cut through: the water under its hollowed surface, dashed its level at rest, and the focus of the bowl as a mirror",
+        "top": "The vessel from above: marks on the rim turn with the vessel, specks in the water with the water",
+        "side_caption": "Cut through, from the side",
+        "top_caption_outside": "From above, seen from outside",
+        "top_caption_turning": "From above, turning with the vessel: the specks show how far the water still lags"
+      },
+      "change": {
+        "title": "Change the exhibit",
+        "hint": "A wider vessel or less water runs dry sooner; a shallow one spills sooner.",
+        "radius": "Radius of the vessel",
+        "fill": "Depth at rest",
+        "height": "Height of the vessel"
+      },
+      "model": {
+        "intro": "When the water turns with the vessel as one body, its surface everywhere stands square to gravity and the centrifugal pull together. The centrifugal pull grows with the distance from the axis, so the surface grows steeper outwards.",
+        "surface": "That makes a paraboloid: the height grows with the square of the distance from the axis.",
+        "volume": "The water stays the same. So the middle sinks by exactly as much as the rim rises: by ω²R²/(4g).",
+        "dry": "From this speed on the middle touches the bottom. Faster, a dry patch opens there and grows with the speed."
+      },
+      "symbols": {
+        "z": "the surface's height above the bottom",
+        "r": "the distance from the axis",
+        "z0": "the height at the middle",
+        "omega": "the angular velocity: 2π times the turns a second",
+        "g": "gravitational acceleration, 9.81 m/s²",
+        "h": "the depth at rest",
+        "radius": "the vessel's radius",
+        "dry": "the angular velocity at which the middle runs dry",
+        "f": "the focal length of the bowl as a mirror"
+      },
+      "sweet": {
+        "equal": "At {{rpm}} turns a minute the middle sinks by {{drop}} cm – and the rim rises by exactly as much. The two lines part symmetrically until the middle reaches the bottom.",
+        "dry": "The middle is dry: from {{rpm}} turns a minute the water stands in a ring only.",
+        "mirror": "A turning bowl of a liquid that reflects is a telescope's mirror: light coming straight down meets at the focus. The speed sets the focal length – one turn in 8.5 s puts it 9 m up."
+      },
+      "chart": {
+        "rim": "Height at the rim",
+        "centre": "Height at the middle",
+        "height": "Height",
+        "rate": "Speed",
+        "you": "Now"
+      },
+      "figures": {
+        "dry": "Dry from",
+        "spill": "Spills from",
+        "focus": "Focal length"
+      },
+      "computed": {
+        "system": "How long the water takes to follow the vessel: the bottom drags it along through a thin boundary layer (after Greenspan and Howard, one Ekman layer at the bottom). The page lets the water's speed follow the vessel's over this time, about half a minute for the default vessel, and draws the surface as if the water turned as one body. That is a model of how long it takes, not of the flow meanwhile.",
+        "omega_v": "the vessel's angular velocity",
+        "tau": "the spin-up time",
+        "nu": "the water's viscosity, 10⁻⁶ m²/s",
+        "big_omega": "the larger of the two angular velocities"
       }
     }
   }

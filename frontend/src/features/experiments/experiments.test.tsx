@@ -34,6 +34,7 @@ import { CannonPage } from "./cannon-page";
 import { WavePage } from "./wave-page";
 import { HarmonographPage, boardLength } from "./harmonograph-page";
 import { ConePage, verdict } from "./cone-page";
+import { ParabolaPage, wellFilled } from "./parabola-page";
 import { ballState, pitEntries, positionAt, raceLayout, swingAt } from "./race-views";
 import { run as runPit } from "./simulate/pit";
 import { HOLE, cameraAt, frameOf, project } from "./chair-views";
@@ -123,7 +124,7 @@ describe("the overview", () => {
     await renderOverview();
     const cards = () => screen.getAllByRole("heading", { level: 3 }).map((h) => h.textContent);
     fireEvent.click(screen.getByRole("button", { name: E.topics.flow }));
-    expect(cards()).toEqual([E.exhibits.elephant.title, E.exhibits.smoke.title]);
+    expect(cards()).toEqual([E.exhibits.elephant.title, E.exhibits.smoke.title, E.exhibits.parabola.title]);
     expect(screen.getByRole("button", { name: E.topics.flow })).toHaveAttribute("aria-pressed", "true");
     fireEvent.click(screen.getByRole("button", { name: E.overview.all_topics }));
     expect(cards()).toHaveLength(EXHIBITS.length);
@@ -722,5 +723,27 @@ describe("the double cone", () => {
     expect(verdict(ex)).toBe("up");
     expect(verdict({ ...ex, rails: { ...ex.rails, slope_deg: 10 } })).toBe("down");
     expect(verdict({ ...ex, rails: { ...ex.rails, slope_deg: 7.546280442894854 } })).toBe("stays");
+  });
+});
+
+describe("the water parabola", () => {
+  it("shows the vessel cut through and from above, the turntable and the port's rates", async () => {
+    renderWithProviders(<ParabolaPage />);
+    expect(await screen.findByRole("img", { name: E.parabola.views.side })).toBeInTheDocument();
+    expect(screen.getByRole("img", { name: E.parabola.views.top })).toBeInTheDocument();
+    expect(screen.getByRole("radio", { name: E.parabola.play.frames.turning })).toBeInTheDocument();
+    // The default vessel runs dry at 126 turns a minute and spills at 189.
+    expect(screen.getByText("126")).toBeInTheDocument();
+    expect(screen.getByText("189")).toBeInTheDocument();
+    expect(screen.getByText(/the middle sinks by .* cm – and the rim rises by exactly as much/)).toBeInTheDocument();
+    expect(screen.getAllByLabelText(E.equation.symbols).length).toBeGreaterThanOrEqual(4);
+  });
+
+  it("refuses a vessel filled over its top", async () => {
+    renderWithProviders(<ParabolaPage />);
+    await screen.findByRole("img", { name: E.parabola.views.side });
+    fireEvent.change(screen.getByRole("slider", { name: E.parabola.change.fill }), { target: { value: "35" } });
+    expect(await screen.findByText(E.parabola.refused)).toBeInTheDocument();
+    expect(wellFilled({ radius_m: 0.15, height_m: 0.3, fill_m: 0.1 })).toBe(true);
   });
 });

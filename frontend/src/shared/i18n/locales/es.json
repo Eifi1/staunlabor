@@ -193,6 +193,12 @@
         "title": "El doble cono rueda cuesta arriba",
         "summary": "Dos rieles se separan y suben a la vez. Un doble cono colocado abajo rueda solo hacia arriba.",
         "question": "¿Rueda un doble cono sobre dos rieles que suben hacia arriba o hacia abajo – y qué lo decide?"
+      },
+      "parabola": {
+        "short": "Parábola de agua",
+        "title": "La parábola de agua",
+        "summary": "Un recipiente con agua gira: la superficie se hunde formando un cuenco – hasta que el centro queda seco.",
+        "question": "Si un recipiente con agua gira cada vez más deprisa, ¿baja el centro tanto como sube el borde?"
       }
     },
     "chair": {
@@ -1264,6 +1270,93 @@
         "rho": "el radio sobre el que rueda el cono",
         "x_dot": "la velocidad a lo largo de los rieles",
         "g": "aceleración de la gravedad, 9,81 m/s²"
+      }
+    },
+    "parabola": {
+      "at": {
+        "vessel": "Un recipiente redondo con agua está sobre un plato giratorio. Al girar, el agua baja en el centro y sube por la pared, tanto más cuanto más rápido gira.",
+        "dry": "En el recipiente estándar – 30 cm de ancho, lleno hasta 10 cm – el centro queda seco a 126 vueltas por minuto."
+      },
+      "refused": "El agua tiene que estar dentro del recipiente: la altura de llenado debe ser menor que la del recipiente.",
+      "play": {
+        "title": "Girar el plato",
+        "hint": "Ajuste la velocidad. El recipiente la sigue al instante, el agua necesita su tiempo – a cámara rápida se ve cómo lo alcanza.",
+        "pause": "Pausa",
+        "run": "Seguir",
+        "stop": "Apagar el plato",
+        "frame": "Vista desde arriba",
+        "frames": {
+          "outside": "Desde fuera",
+          "turning": "Girando con él"
+        },
+        "speed": "Velocidad",
+        "speeds": {
+          "1": "Tiempo real",
+          "10": "Diez veces"
+        },
+        "rate": "Velocidad del plato",
+        "rpm": "rpm",
+        "rate_hint": "Vueltas por minuto.",
+        "spills": "A esta velocidad el agua sube por encima del borde: se derrama.",
+        "water": "Velocidad del agua",
+        "centre": "Altura en el centro",
+        "rim": "Altura en el borde",
+        "tau": "Tiempo de arranque"
+      },
+      "views": {
+        "side": "El recipiente en corte: el agua bajo su superficie hundida, en trazos su nivel en reposo, y el foco del cuenco como espejo",
+        "top": "El recipiente desde arriba: las marcas del borde giran con el recipiente, las partículas del agua con el agua",
+        "side_caption": "En corte, de lado",
+        "top_caption_outside": "Desde arriba, visto desde fuera",
+        "top_caption_turning": "Desde arriba, girando con el recipiente: las partículas muestran cuánto se retrasa aún el agua"
+      },
+      "change": {
+        "title": "Cambiar el objeto expuesto",
+        "hint": "Un recipiente más ancho o menos agua quedan secos antes; uno bajo se derrama antes.",
+        "radius": "Radio del recipiente",
+        "fill": "Altura en reposo",
+        "height": "Altura del recipiente"
+      },
+      "model": {
+        "intro": "Si el agua gira con el recipiente como un cuerpo sólido, su superficie queda en todas partes perpendicular a la suma de la gravedad y la fuerza centrífuga. La fuerza centrífuga crece con la distancia al eje, así que la superficie se vuelve cada vez más empinada hacia fuera.",
+        "surface": "De ahí resulta un paraboloide: la altura crece con el cuadrado de la distancia al eje.",
+        "volume": "El agua sigue siendo la misma. Por eso el centro baja exactamente lo que sube el borde: ω²R²/(4g).",
+        "dry": "A partir de esta velocidad el centro toca el fondo. Más rápido, allí se abre una mancha seca que crece con la velocidad."
+      },
+      "symbols": {
+        "z": "la altura de la superficie sobre el fondo",
+        "r": "la distancia al eje",
+        "z0": "la altura en el centro",
+        "omega": "la velocidad angular: 2π por las vueltas por segundo",
+        "g": "aceleración de la gravedad, 9,81 m/s²",
+        "h": "la altura de llenado en reposo",
+        "radius": "el radio del recipiente",
+        "dry": "la velocidad angular a la que el centro queda seco",
+        "f": "la distancia focal del cuenco como espejo"
+      },
+      "sweet": {
+        "equal": "A {{rpm}} vueltas por minuto el centro baja {{drop}} cm – y el borde sube exactamente lo mismo. Las dos líneas se separan simétricamente hasta que el centro llega al fondo.",
+        "dry": "El centro está seco: a partir de {{rpm}} vueltas por minuto el agua forma solo un anillo.",
+        "mirror": "Un cuenco giratorio de un líquido que refleja es el espejo de un telescopio: la luz que cae vertical se reúne en el foco. La velocidad fija la distancia focal – una vuelta en 8,5 s lo sitúa a 9 m de altura."
+      },
+      "chart": {
+        "rim": "Altura en el borde",
+        "centre": "Altura en el centro",
+        "height": "Altura",
+        "rate": "Velocidad",
+        "you": "Ahora"
+      },
+      "figures": {
+        "dry": "Seco a partir de",
+        "spill": "Se derrama a partir de",
+        "focus": "Distancia focal"
+      },
+      "computed": {
+        "system": "Cuánto tarda el agua en seguir al recipiente: el fondo la arrastra a través de una fina capa límite (según Greenspan y Howard, una capa de Ekman en el fondo). La página hace que la velocidad del agua siga la del recipiente con este tiempo, alrededor de medio minuto en el recipiente estándar, y dibuja la superficie como si el agua girara como un todo. Es un modelo de cuánto tarda, no del flujo mientras tanto.",
+        "omega_v": "la velocidad angular del recipiente",
+        "tau": "el tiempo de arranque",
+        "nu": "la viscosidad del agua, 10⁻⁶ m²/s",
+        "big_omega": "la mayor de las dos velocidades angulares"
       }
     }
   }
