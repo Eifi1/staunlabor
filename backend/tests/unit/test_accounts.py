@@ -58,6 +58,7 @@ DEPLOYED = {
     "STAUNLABOR_APP_BASE_URL": "https://staunlabor.app",
     "STAUNLABOR_WEBAUTHN_RP_ID": "staunlabor.app",
     "STAUNLABOR_REGISTRATION_ALLOWLIST": "owner@example.com",
+    "STAUNLABOR_JOBS_TOKEN": "a-jobs-token-long-enough-for-a-deployment-0123",
 }
 
 
@@ -83,6 +84,7 @@ def test_a_deployment_with_its_key_its_list_and_its_host_starts(deployed: pytest
         ("STAUNLABOR_JWT_SECRET", "short", "STAUNLABOR_JWT_SECRET is too short"),
         ("STAUNLABOR_REGISTRATION_ALLOWLIST", " , ", "STAUNLABOR_REGISTRATION_ALLOWLIST is empty"),
         ("STAUNLABOR_WEBAUTHN_RP_ID", "localhost", "STAUNLABOR_WEBAUTHN_RP_ID ('localhost') is neither"),
+        ("STAUNLABOR_JOBS_TOKEN", "short", "STAUNLABOR_JOBS_TOKEN is too short"),
     ],
 )
 def test_a_deployment_anybody_could_take_over_refuses_to_start(

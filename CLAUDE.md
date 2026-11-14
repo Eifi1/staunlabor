@@ -60,7 +60,6 @@ cd frontend && npx vitest run src/features/experiments/daily.test.ts
 cd backend && uv run python ../scripts/write-experiments-cases.py         # after an engine change
 cd backend && uv run python ../scripts/write-test-fixtures.py             # after a change to a route's answer
 cd backend && uv run alembic revision -m "…" --rev-id 0002                # a new migration, written by hand
-cd backend && uv run python -m staunlabor.jobs prune                       # the account rows past their retention
 ```
 
 Coverage floors: `test.coverage.thresholds` in `frontend/vite.config.ts` and

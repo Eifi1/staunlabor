@@ -16,6 +16,7 @@ from contextlib import asynccontextmanager
 from uuid import uuid4
 
 from eifi1_server_kit.auth import AuthLimiters, parse_env_list
+from eifi1_server_kit.auth.jobs import account_jobs_router
 from eifi1_server_kit.auth.passkeys import rp_id_fits
 from eifi1_server_kit.auth.router import auth_router, invitations_admin_router
 from eifi1_server_kit.errors import install_contract_error_handlers
@@ -26,7 +27,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
 
 from staunlabor import __version__
-from staunlabor.accounts import account_deps, admin_deps
+from staunlabor.accounts import account_deps, admin_deps, jobs_deps
 from staunlabor.api.experiments_router import router as experiments_router
 from staunlabor.database import Database
 from staunlabor.security import AccountLimiters, ExperimentsLimiters, limit_account_request
@@ -49,6 +50,8 @@ def check_deployment(settings: Settings) -> None:
       ``rp_id_fits``): every ceremony fails, in the person's browser and in no
       log. The kit's ``RelyingParty`` only warns about it, so that a dev server
       opened over the LAN still starts; a deployment must not.
+    * **A jobs token unset or weak**: the daily call, which deletes an ended
+      session's address after 30 days, would answer nobody, or anybody.
 
     A deployment (``Settings.deployed``) refuses to start on any of them. A
     laptop boots with nothing configured, and hears about the key and the RP id.
@@ -71,6 +74,7 @@ def check_deployment(settings: Settings) -> None:
         problems.append(
             "STAUNLABOR_REGISTRATION_ALLOWLIST is empty: whoever signs up first on an empty database is its admin"
         )
+    problems += secret_problems(settings.jobs_token, name="STAUNLABOR_JOBS_TOKEN")
     if problems:
         raise RuntimeError("Refusing to start a deployment: " + "; ".join(problems) + ".")
     if settings.mail_backend == "console":
@@ -121,6 +125,11 @@ def create_app() -> FastAPI:
     # (0.29) and the roster with its actions, the log, the overview and the mail (0.30).
     app.include_router(invitations_admin_router(accounts), prefix=API_PREFIX, dependencies=budget)
     app.include_router(user_admin_router(admin_deps(accounts)), prefix=API_PREFIX, dependencies=budget)
+    # The daily call (Cloud Scheduler's, with the jobs token): the prune of the
+    # account rows done with for 30 days. Under the budget too: every route is public.
+    app.include_router(
+        account_jobs_router(jobs_deps(app.state.database, settings)), prefix=API_PREFIX, dependencies=budget
+    )
     # The kit's refusals — the budget's 429 with its Retry-After — are
     # ValueErrors too; the kit's handlers answer them at their own status,
     # beside the engine's 400 below.

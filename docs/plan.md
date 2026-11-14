@@ -134,15 +134,15 @@ Steps, each its own commits:
    and the areas `experiments` and `legal`; an operator's erasure of an
    account that asked; passkeys; the console transport, the whole mail on a
    laptop and its kind alone on a deployment; every route under the address
-   budget; the kit's contract checks on PostgreSQL; `python -m staunlabor.jobs
-   prune`, deleting ended sessions, expired links and invitations 30 days
-   after, for a scheduled job, not yet scheduled.)*
+   budget; the kit's contract checks on PostgreSQL. On server-kit 0.31: the
+   kit's daily call, `POST /api/v1/ops/accounts/daily` behind the jobs token,
+   deleting ended sessions, expired links and invitations 30 days after, not
+   yet scheduled.)*
 3. Feedback and the translation review on the kit's routers.
 4. The pages: sign-in, settings, admin, feedback, `/translations`.
 5. The texts: the privacy policy, the terms, the about page, in all seven.
    The privacy policy names the 30 days an ended session keeps its address
-   (`settings.account_rows_retention_days`).
+   (server-kit's `ACCOUNT_ROWS_RETENTION`).
 6. The deploy: the database and its roles on keksdose-db, the secrets, the
-   migrate job, the bucket for feedback files. Only on server-kit 0.31 or
-   later: on 0.30 a reset request's response time tells whether an account
-   exists (`deploy/README.md` §6).
+   migrate job, the bucket for feedback files, the daily call's scheduler job
+   and its token (`deploy/README.md` §6).

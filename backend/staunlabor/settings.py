@@ -110,15 +110,13 @@ class Settings(BaseSettings):
     #: it) and the name an authenticator shows.
     webauthn_rp_id: str = Field(default="localhost")
     webauthn_rp_name: str = Field(default="Staunlabor")
-    #: How long the account rows nobody reads again are kept once they are done
-    #: with, before ``python -m staunlabor.jobs prune`` deletes them: an ended
-    #: session (the address it was signed in from, the browser's description), an
-    #: expired link, an invitation never taken up. Thirty days, the figure the
-    #: privacy policy is to name (plan, step 5): as long as Cloud Logging keeps the
-    #: requests that carried the same address, and long past every link's and invitation's own
-    #: window (an hour to fourteen days), so a late click still hears "expired"
-    #: and an admin still sees an invitation run out before it leaves the list.
-    account_rows_retention_days: int = Field(default=30, ge=1, le=365)
+    #: The token Cloud Scheduler sends as ``X-Jobs-Token`` to the daily call,
+    #: ``POST /api/v1/ops/accounts/daily``, which prunes the account rows done with
+    #: for the kit's 30 days (``accounts.jobs_deps``). A secret: whoever holds it
+    #: starts the prune at will. Empty, the route answers nobody, and a deployment
+    #: refuses to start (``main.check_deployment``), because then nothing would ever
+    #: delete an ended session's address.
+    jobs_token: str = Field(default="", repr=False)
 
     #: Set by Cloud Run in every service's container and every job's.
     cloud_run_service: str | None = Field(default=None, validation_alias="K_SERVICE")

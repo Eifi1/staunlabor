@@ -1,4 +1,4 @@
-"""The accounts: server-kit's account layer (0.30) on this app's tables.
+"""The accounts: server-kit's account layer (0.31) on this app's tables.
 
 The kit runs every route (``auth_router``: sign-up, sign-in, the refresh, the
 sessions, ``/auth/me`` and its settings, the mailed links, the passkeys;
@@ -19,29 +19,34 @@ an app, and nothing more:
   invitation, which names a MEMBER or a REVIEWER (:data:`INVITABLE_ROLES`), in
   one of the site's seven languages (:data:`LANGUAGES`);
 - the passkeys' relying party, the site's own host;
-- the admin's vocabulary: the role change's roles (:data:`ROLE_CHANGE_GIVES`),
-  the reviewer's languages and areas (:data:`REVIEW_AREAS`).
+- the admin's vocabulary: the role change gives every role but the reviewer (the
+  kit's default), the reviewer comes with its languages and areas
+  (:data:`REVIEW_AREAS`);
+- the daily jobs' two halves the kit leaves to the app, because the transactions
+  are its own (:func:`jobs_deps`): the kit's ``account_jobs_router`` prunes the
+  rows done with for 30 days, on Cloud Scheduler's call with the jobs token.
 
 **No hooks.** Nothing is attached at a sign-up, nothing bound per request, and
 the app keeps no rows of its own that an export or a deletion must know about
 (feedback and the translation review will bring some).
 
 Not here: a second factor, a demo, teams, billing, and a scheduled erasure (an
-operator erases; the scheduled pruning is ``staunlabor.jobs``).
+operator erases, so the daily call has no erasures to run).
 """
 
 from __future__ import annotations
 
-import logging
-from typing import Annotated
+from datetime import datetime
 
 from eifi1_server_kit.auth import parse_env_list
 from eifi1_server_kit.auth.bcrypt_hasher import BcryptHasher
+from eifi1_server_kit.auth.jobs import AccountJobsDeps
 from eifi1_server_kit.auth.jwt_signer import JwtSigner
 from eifi1_server_kit.auth.passkeys import RelyingParty
 from eifi1_server_kit.auth.router import AuthDeps
 from eifi1_server_kit.auth.service import AccountLinks, AccountPolicy
 from eifi1_server_kit.auth.sql import (
+    AccountPrune,
     SqlAdminActionLog,
     SqlAfterCommit,
     SqlInvitationStore,
@@ -50,15 +55,14 @@ from eifi1_server_kit.auth.sql import (
     SqlRosterStore,
     SqlSessionStore,
     SqlUserStore,
+    prune_account_rows,
 )
 from eifi1_server_kit.mail import ConsoleMailer, Mailer, ResendClient
 from eifi1_server_kit.user_admin.deletion import DeletionMode
 from eifi1_server_kit.user_admin.router import UserAdminDeps
-from eifi1_server_kit.user_admin.scope import GlobalScope
 from eifi1_server_kit.user_admin.service import AdminPolicy
-from fastapi import Depends
 
-from staunlabor.database import RequestSession
+from staunlabor.database import Database, RequestSession
 from staunlabor.models import AdminAction, Invitation, OneTimeToken, Passkey, Role, SpentChallenge, User, UserSession
 from staunlabor.security import caller_address
 from staunlabor.settings import Settings
@@ -74,13 +78,6 @@ LANGUAGES = ("de-CH", "en", "es", "fr", "it", "hu", "zh")
 #: proved its address and signs in, by a role change an admin acknowledges, which the log
 #: keeps and which never takes the last admin away.
 INVITABLE_ROLES = (Role.MEMBER, Role.REVIEWER)
-
-#: The roles the roster's role change gives: an admin, or a member again. Not the
-#: reviewer: that role comes with its languages through ``PUT /admin/users/{id}/reviewer``,
-#: so nobody is a reviewer of nothing. Not the invitable roles either, which the kit gives
-#: the role change by default (one source with the invitations) and which would leave no
-#: way to make a second admin: see :func:`admin_scope`.
-ROLE_CHANGE_GIVES = frozenset({Role.ADMIN, Role.MEMBER})
 
 #: The areas a reviewer may be limited to, each a top-level namespace of the site's
 #: catalogues (``frontend/src/shared/i18n/locales/*.json``): ``experiments``, the eight
@@ -103,10 +100,8 @@ def mailer_for(settings: Settings) -> Mailer:
     # it. A deployment logs the kind alone, the kit's default since 0.30: its log
     # stays in Cloud Logging for 30 days, where an unspent link is a credential and
     # the address is the person's; an admin's answer carries an invitation's or a
-    # reset's link once instead. WARNING, not the kit's INFO, on both: nothing
-    # configures this app's log levels (uvicorn sets only its own), so an INFO line
-    # would show nowhere.
-    return ConsoleMailer(level=logging.WARNING, show_content=not settings.deployed)
+    # reset's link once instead.
+    return ConsoleMailer(show_content=not settings.deployed)
 
 
 # ── The stores, each on the request's session ────────────────────────────────
@@ -142,25 +137,6 @@ async def after_commit(session: RequestSession) -> SqlAfterCommit:
 
 async def roster(session: RequestSession) -> SqlRosterStore[User]:
     return SqlRosterStore(session, User)
-
-
-async def admin_scope(
-    accounts: Annotated[SqlUserStore[User], Depends(users)],
-    people: Annotated[SqlRosterStore[User], Depends(roster)],
-) -> GlobalScope[User]:
-    """The kit's global scope (every person on the site, one role each), as
-    ``user_admin_router`` builds it from a roster, but with this site's
-    :data:`ROLE_CHANGE_GIVES`. Server-kit 0.30 gives the role change exactly the
-    invitable roles once an app names them, and refuses an ``AdminPolicy.grantable``
-    that differs from them, so with :data:`INVITABLE_ROLES` no admin could ever be
-    made after the first; the scope takes its own set."""
-    return GlobalScope(
-        users=accounts,
-        roster=people,
-        admin_role=Role.ADMIN,
-        reviewer_role=Role.REVIEWER,
-        grantable=ROLE_CHANGE_GIVES,
-    )
 
 
 def account_deps(settings: Settings) -> AuthDeps:
@@ -205,16 +181,46 @@ def account_deps(settings: Settings) -> AuthDeps:
 
 def admin_deps(accounts: AuthDeps) -> UserAdminDeps:
     """Everything ``user_admin_router`` is built from: the account layer's own, the
-    scope (:func:`admin_scope`), and the site's roles, languages and areas. No guard
-    of its own: the router takes the kit's ``admin_guard(accounts)``, the one
-    ``invitations_admin_router`` has, so both admin routers refuse alike. No feedback
-    and no hooks yet: an erasure has none of the app's rows to anonymise."""
+    roster, and the site's roles, languages and areas. The role change gives every
+    role but the reviewer (the kit's default): an admin, or a member again. The
+    reviewer comes with its languages through ``PUT /admin/users/{id}/reviewer``, so
+    nobody is a reviewer of nothing. No guard of its own: the router takes the kit's
+    ``admin_guard(accounts)``, the one ``invitations_admin_router`` has, so both admin
+    routers refuse alike. No feedback and no hooks yet: an erasure has none of the
+    app's rows to anonymise."""
     return UserAdminDeps(
         auth=accounts,
-        scope=admin_scope,
+        roster=roster,
         policy=AdminPolicy(
             roles=tuple(role.value for role in Role),
             review_locales=LANGUAGES,
             review_areas=REVIEW_AREAS,
         ),
     )
+
+
+def jobs_deps(database: Database, settings: Settings) -> AccountJobsDeps:
+    """The daily call's jobs, ``POST /api/v1/ops/accounts/daily`` behind the jobs
+    token (``X-Jobs-Token``), which Cloud Scheduler sends once a day.
+
+    The kit fixes the retention (30 days, as the privacy policy says), the order
+    and the answer; the app hands it the prune, because the transaction is its
+    own: the sessions that ended or expired (each keeps the address it was signed
+    in from and the browser's description), the links past their expiry, the
+    invitations never accepted, the spent passkey challenges. Left alone they
+    would stay for good, which no privacy policy can promise.
+
+    No erasures: an operator erases (``DeletionMode.OPERATOR``). No upload sweep:
+    no feedback yet."""
+
+    async def prune(before: datetime) -> AccountPrune:
+        async with database.sessions() as session, session.begin():
+            return await prune_account_rows(
+                before=before,
+                sessions=SqlSessionStore(session, UserSession),
+                passkeys=SqlPasskeyStore(session, Passkey, SpentChallenge),
+                links=SqlOneTimeTokenStore(session, OneTimeToken),
+                invitations=SqlInvitationStore(session, Invitation),
+            )
+
+    return AccountJobsDeps(token=lambda: settings.jobs_token, prune=prune)
