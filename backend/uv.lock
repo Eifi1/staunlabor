@@ -411,14 +411,14 @@ wheels = [
 
 [[package]]
 name = "eifi1-server-kit"
-version = "0.30.0"
-source = { url = "https://github.com/Eifi1/server-kit/releases/download/v0.30.0/eifi1_server_kit-0.30.0-py3-none-any.whl" }
+version = "0.31.0"
+source = { url = "https://github.com/Eifi1/server-kit/releases/download/v0.31.0/eifi1_server_kit-0.31.0-py3-none-any.whl" }
 dependencies = [
     { name = "pydantic" },
     { name = "starlette" },
 ]
 wheels = [
-    { url = "https://github.com/Eifi1/server-kit/releases/download/v0.30.0/eifi1_server_kit-0.30.0-py3-none-any.whl", hash = "sha256:57c00d8b067515309c2be8b6506b6944d557c472a2bc7d1785ba1e4612707ec4" },
+    { url = "https://github.com/Eifi1/server-kit/releases/download/v0.31.0/eifi1_server_kit-0.31.0-py3-none-any.whl", hash = "sha256:2ebfaaa5e756ada5b4c148e47ec6dcc4174186cd1e01b26cb052337ea1edaec7" },
 ]
 
 [package.optional-dependencies]
@@ -1155,7 +1155,7 @@ dev = [
 requires-dist = [
     { name = "alembic", specifier = ">=1.14.0" },
     { name = "asyncpg", specifier = ">=0.30.0" },
-    { name = "eifi1-server-kit", extras = ["bcrypt", "fastapi", "jwt", "mail", "passkeys", "sql"], url = "https://github.com/Eifi1/server-kit/releases/download/v0.30.0/eifi1_server_kit-0.30.0-py3-none-any.whl" },
+    { name = "eifi1-server-kit", extras = ["bcrypt", "fastapi", "jwt", "mail", "passkeys", "sql"], url = "https://github.com/Eifi1/server-kit/releases/download/v0.31.0/eifi1_server_kit-0.31.0-py3-none-any.whl" },
     { name = "fastapi", specifier = ">=0.115.0" },
     { name = "pydantic", specifier = ">=2.10.0" },
     { name = "pydantic-settings", specifier = ">=2.7.0" },
