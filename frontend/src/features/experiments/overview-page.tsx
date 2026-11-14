@@ -7,6 +7,7 @@ import {
   CalendarDays,
   Check,
   ChevronsUp,
+  Diamond,
   HelpCircle,
   Magnet,
   Orbit,
@@ -53,6 +54,7 @@ const ICON: Record<Exhibit, LucideIcon> = {
   cannon: ChevronsUp,
   wave: Waves,
   harmonograph: PenTool,
+  cone: Diamond,
 };
 
 /** Two weeks back, in the dialog: long enough to find the one a friend

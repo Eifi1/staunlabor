@@ -187,6 +187,12 @@
         "title": "The harmonograph",
         "summary": "A pen on one pendulum, a drawing board on another: as both die away they draw a rosette, a loop or a star.",
         "question": "What does a pen draw when two pendulums swing at 2 : 3 – and what when it is only nearly 2 : 3?"
+      },
+      "cone": {
+        "short": "Double cone",
+        "title": "The double cone rolls uphill",
+        "summary": "Two rails spread apart and rise as they go. A double cone laid at the bottom rolls up by itself.",
+        "question": "Does a double cone on two rising rails roll up or down – and what decides it?"
       }
     },
     "chair": {
@@ -1162,6 +1168,102 @@
         "system": "Two second-order equations, the damped pendulum's, with the full sine rather than the small swing's approximation. Since the damping allows no closed solution, the engine steps them with the Runge–Kutta method a millisecond at a time, and the page draws with the same steps – a few hundred a frame.",
         "theta_dd": "the angular acceleration of pendulum i",
         "theta_d": "its angular velocity"
+      }
+    },
+    "cone": {
+      "at": {
+        "rails": "Two straight rails spread apart in a V from one point and rise as they go. Across them at the narrow, low end lies a double cone: two cones base to base.",
+        "rolls": "Let go, it rolls by itself up to the wide, high end – against gravity, it seems."
+      },
+      "refused": {
+        "fall_through": "Spread this far, the rails reach nearly to the cone's tips: it would fall through. Shorter rails, less spread or a slimmer cone help.",
+        "too_wide": "The rails start further apart than the cone is long: it would not lie on them."
+      },
+      "play": {
+        "title": "Let the cone go",
+        "hint_up": "The cone lies at the low end. Let it go and see where it rolls.",
+        "hint_down": "On these rails the cone rolls down, so it lies at the high end. Let it go.",
+        "hint_stays": "At exactly this slope the axis stays level: the cone stays where it lies.",
+        "let_go": "Let go",
+        "pause": "Pause",
+        "run": "Run",
+        "speed": "Speed",
+        "speeds": {
+          "100": "Real time",
+          "25": "Slow motion (¼)"
+        },
+        "verdict_up": "The rails rise, the cone's axis falls: it rolls up.",
+        "verdict_down": "The rails rise more steeply than the cone sinks: it rolls down.",
+        "verdict_stays": "Axis exactly level: the cone stays where it lies.",
+        "along": "Along the rails",
+        "axis": "Height of the axis",
+        "speed_now": "Speed of the axis",
+        "spin": "Spin",
+        "spin_unit": "per s"
+      },
+      "views": {
+        "side": "The double cone from the side: the rising rails, the cone with the circle it rolls on, and dashed the path of its axis",
+        "front": "The double cone from the front: the rails spread as they climb, and the cone sinks between them",
+        "side_caption": "From the side",
+        "front_caption": "From the front, up the rails"
+      },
+      "change": {
+        "title": "Change the exhibit",
+        "hint": "Three angles decide: how steeply the rails rise, how far they spread and how pointed the cone is.",
+        "slope": "Slope of the rails γ",
+        "slope_hint": "How steeply the rails rise.",
+        "spread": "Spread of the rails β",
+        "spread_hint": "Each rail's angle to the centre line, seen from above.",
+        "cone": "Cone angle α",
+        "cone_hint": "The angle between the cone's surface and its axis: the larger, the faster it thins towards its tips.",
+        "radius": "Radius at the middle",
+        "length": "Length of the rails",
+        "start_gap": "Gap between the rails at the bottom",
+        "start_gap_hint": "How far apart the rails are at the low end."
+      },
+      "model": {
+        "intro": "The cone does what every body does: it rolls to where its centre of mass is lower. The only question is where that is.",
+        "thin": "The double cone is thickest in the middle and thins evenly towards its tips.",
+        "rails": "The rails spread as they go up, and rise.",
+        "axis": "Where the rails are further apart, they hold the cone further out, where it is thinner: it sits lower between them. So the height of its axis is the rails' height plus a radius that shrinks towards the top.",
+        "condition": "Both parts change evenly: the axis runs on a straight line. If it falls while the rails rise, the cone rolls up – exactly when tan γ is smaller than tan α · tan β."
+      },
+      "symbols": {
+        "r": "the cone's radius at a distance y from its middle",
+        "radius": "the radius at the middle",
+        "y": "the distance from the middle, along the axis",
+        "alpha": "the cone angle, between surface and axis",
+        "x": "the place along the rails, from the low end",
+        "d": "each rail's distance from the centre line",
+        "h": "the height of the rails",
+        "beta": "each rail's spread",
+        "gamma": "the slope of the rails",
+        "z": "the height of the cone's axis",
+        "c": "the exact contact's factor, close to 1"
+      },
+      "sweet": {
+        "heights": "Over their whole length the rails rise by {{rise}} cm. The cone's axis {{direction}} by {{fall}} cm meanwhile.",
+        "falls": "falls",
+        "climbs": "climbs",
+        "threshold": "Up to a slope of {{threshold}}° this cone rolls up; the rails here rise at {{slope}}°.",
+        "exact": "Computed exactly, a rail that runs skew and rises touches the cone a little off the point under its axis. The engine finds that point: for the default exhibit the axis stands 1.002 times as high above the rail as the textbook assumes. At the boundary, though, the contact lies right under the axis – there the textbook's condition is exact."
+      },
+      "chart": {
+        "rail": "Height of the rails",
+        "axis": "Height of the cone's axis",
+        "height": "Height",
+        "along": "Along the rails"
+      },
+      "figures": {
+        "threshold": "Boundary slope",
+        "time": "To the end of the rails"
+      },
+      "computed": {
+        "energy": "A single coordinate, the place along the rails. The cone rolls without slipping, so it spins as fast as its axis moves on, divided by the radius it is rolling on – which shrinks towards the top. The energy of motion, spin and height stays the same. Lagrange's method makes a second-order equation of it, which the engine solves with the Runge–Kutta method in steps of a millisecond.",
+        "m": "the slope of the axis's path",
+        "rho": "the radius the cone rolls on",
+        "x_dot": "the speed along the rails",
+        "g": "gravitational acceleration, 9.81 m/s²"
       }
     }
   }

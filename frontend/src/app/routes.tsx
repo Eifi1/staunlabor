@@ -22,6 +22,7 @@ const ElephantPage = lazy(() =>
 const SmokePage = lazy(() => import("@/features/experiments/smoke-page").then((m) => ({ default: m.SmokePage })));
 const CannonPage = lazy(() => import("@/features/experiments/cannon-page").then((m) => ({ default: m.CannonPage })));
 const WavePage = lazy(() => import("@/features/experiments/wave-page").then((m) => ({ default: m.WavePage })));
+const ConePage = lazy(() => import("@/features/experiments/cone-page").then((m) => ({ default: m.ConePage })));
 const HarmonographPage = lazy(() =>
   import("@/features/experiments/harmonograph-page").then((m) => ({ default: m.HarmonographPage })),
 );
@@ -116,6 +117,14 @@ export function AppRoutes() {
           element={
             <Page>
               <HarmonographPage />
+            </Page>
+          }
+        />
+        <Route
+          path="cone"
+          element={
+            <Page>
+              <ConePage />
             </Page>
           }
         />

@@ -11,7 +11,17 @@
  */
 
 export type Exhibit =
-  "chair" | "coil" | "sphere" | "platform" | "race" | "elephant" | "smoke" | "cannon" | "wave" | "harmonograph";
+  | "chair"
+  | "coil"
+  | "sphere"
+  | "platform"
+  | "race"
+  | "elephant"
+  | "smoke"
+  | "cannon"
+  | "wave"
+  | "harmonograph"
+  | "cone";
 
 /** What an exhibit is about, as a reader would look for it: one word each,
  *  and an exhibit may be about two. */
@@ -102,6 +112,7 @@ export const EXHIBITS: readonly ExhibitEntry[] = [
     lessons: ["second_order", "numerics"],
     since: "2026-12-01",
   },
+  { exhibit: "cone", path: "/cone", topics: ["energy"], lessons: ["numerics"], since: "2026-12-01" },
 ];
 
 export function exhibitEntry(exhibit: Exhibit): ExhibitEntry {

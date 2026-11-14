@@ -516,6 +516,14 @@ export interface HarmonographRequest {
   board: HarmonographPendulumRequest;
 }
 
+// ── the double cone ──────────────────────────────────────────────────────────
+
+/** The engine's `ConeExhibit`. No route: the page asks the port (`simulate/cone.ts`). */
+export interface ConeExhibitRequest {
+  cone: { radius_m: number; cone_deg: number };
+  rails: { spread_deg: number; slope_deg: number; start_half_gap_m: number; length_m: number };
+}
+
 // ── the pages' starting point ────────────────────────────────────────────────
 
 export interface ExperimentsDefaults {
@@ -528,6 +536,7 @@ export interface ExperimentsDefaults {
   cannon: BallStackRequest;
   wave: WaveRequest;
   harmonograph: HarmonographRequest;
+  cone: ConeExhibitRequest;
   meter_range_a: number;
   settle_s: number;
 }

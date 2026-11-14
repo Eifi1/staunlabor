@@ -33,6 +33,7 @@ import { SmokePage } from "./smoke-page";
 import { CannonPage } from "./cannon-page";
 import { WavePage } from "./wave-page";
 import { HarmonographPage, boardLength } from "./harmonograph-page";
+import { ConePage, verdict } from "./cone-page";
 import { ballState, pitEntries, positionAt, raceLayout, swingAt } from "./race-views";
 import { run as runPit } from "./simulate/pit";
 import { HOLE, cameraAt, frameOf, project } from "./chair-views";
@@ -689,5 +690,37 @@ describe("the harmonograph", () => {
   it("tunes the board's length to a ratio: a quarter of the length, twice the beat", () => {
     expect(boardLength(0.8, [1, 2], 0)).toBeCloseTo(0.2, 12);
     expect(boardLength(0.8, [1, 1], 0.01)).toBeCloseTo(0.8 / 1.01 ** 2, 12);
+  });
+});
+
+describe("the double cone", () => {
+  it("shows the cone from the side and the front, and says it rolls up these rails", async () => {
+    renderWithProviders(<ConePage />);
+    expect(await screen.findByRole("img", { name: E.cone.views.side })).toBeInTheDocument();
+    expect(screen.getByRole("img", { name: E.cone.views.front })).toBeInTheDocument();
+    expect(screen.getByRole("button", { name: E.cone.play.let_go })).toBeInTheDocument();
+    expect(screen.getByText(E.cone.play.verdict_up)).toBeInTheDocument();
+    // The default rails rise 2.1 cm while the axis falls 1.9; up to 7.5° it rolls up.
+    expect(screen.getByText(/rise by 2\.1 cm\. The cone's axis falls by 1\.9 cm/)).toBeInTheDocument();
+    expect(screen.getByText(/Up to a slope of 7\.5° this cone rolls up/)).toBeInTheDocument();
+    expect(screen.getAllByLabelText(E.equation.symbols).length).toBeGreaterThanOrEqual(4);
+  });
+
+  it("turns round on steeper rails, and refuses rails the cone would fall through", async () => {
+    renderWithProviders(<ConePage />);
+    await screen.findByRole("img", { name: E.cone.views.side });
+    const slope = screen.getByRole("slider", { name: E.cone.change.slope });
+    fireEvent.change(slope, { target: { value: "10" } });
+    expect(await screen.findByText(E.cone.play.verdict_down)).toBeInTheDocument();
+    const length = screen.getByRole("slider", { name: E.cone.change.length });
+    fireEvent.change(length, { target: { value: "50" } });
+    expect(await screen.findByText(E.cone.refused.fall_through)).toBeInTheDocument();
+  });
+
+  it("knows up from down from staying", () => {
+    const ex = fixtures.defaults.cone;
+    expect(verdict(ex)).toBe("up");
+    expect(verdict({ ...ex, rails: { ...ex.rails, slope_deg: 10 } })).toBe("down");
+    expect(verdict({ ...ex, rails: { ...ex.rails, slope_deg: 7.546280442894854 } })).toBe("stays");
   });
 });

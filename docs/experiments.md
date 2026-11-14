@@ -678,6 +678,53 @@ above, the fade against `e^(−ct/2)`, the default figures, the nearest simple
 ratio in lowest terms; the port draws frame by frame exactly what it draws in
 one go (`simulate.test.ts`).
 
+## The double cone (`experiments.cone`)
+
+**The exhibit.** Two straight rails spread apart in a V and rise as they go; a
+double cone laid across them at the narrow, low end rolls by itself up to the
+wide, high end.
+
+**The model** (`domain/experiments/cone.py`). The cone thins by `tan α` per
+metre from its middle (radius `R`); each rail spreads by `tan β` and rises by
+`tan γ` per metre along the centre line. Wider apart, the rails hold the cone
+on a thinner part, so its axis stands at `z(x) = x·tan γ + c·(R − d(x)·tan α)`,
+a straight line of slope `m = tan γ − c·tan α·tan β`: the cone rolls up when
+`m < 0`. **The exact contact:** a sloping rail that runs skew to the cone
+touches it a little off the point under its axis; where the line just grazes
+the solid cone is a quadratic, `c = (√(sec²γ − k²) − k·tan γ)/(1 − k²)`,
+`k = tan α·tan β` — held in the tests to a scan of the rail that knows nothing
+of the formula (10⁻⁸ m). `c` is 1.002 for the default build and exactly 1 where
+`m = 0`, where the contact lies right under the axis: so the textbook's
+`tan γ* = tan α·tan β` is the exact boundary, though its heights are not. The
+contact lies square to the axis's path, so the cone rolls on it without
+slipping (checked in the scratchpad before it was written: `s*/h* = m` to the
+last digit). **The roll:** Lagrange's equation for
+`½(1 + m²)(1 + (3/10)R²/ρ²)ẋ² + g·m·x`, `ρ` the contact radius, which shrinks
+up the rails — so the cone rolls up quickly and slows near the top though it is
+still falling; Runge–Kutta at 1 ms, energy kept to 10⁻¹⁰ J/kg; stops hold it at
+the ends.
+
+**What it shows** (the default: R 6 cm, α 20°, β 20°, γ 4°, rails 30 cm from
+6 cm apart). The rails rise 2.1 cm while the axis falls 1.9 cm; up to 7.5° the
+cone rolls up; it reaches the top in 1.5 s at 0.17 m/s, spinning 2.8 times a
+second on its thin part. At 10° it rolls down, and is laid at the top.
+
+**The page.** The cone from the side (the rails one rising line, the middle
+disc, the circle it rolls on, a turning spoke, and the dashed path of its axis)
+and from the front (the rails spreading as they climb, the rhombus sinking
+between them), in real time or a quarter; "Let go" lays it where it can roll
+from. The three angles, the radius, the rails' length and their gap at the
+bottom are sliders; a build whose rails reach the tips says the cone would fall
+through. The trick's chart: the rails' height and the axis's along the rails.
+**No route**, as the harmonograph: everything is the port's (`simulate/cone.ts`).
+
+**Left out, and said:** rolling resistance, the rails' thickness, the wobble of
+a cone laid on askew.
+
+**Checked by** `tests/unit/test_experiments.py`: the contact against the scan,
+the heights and the boundary, the roll's energy, time and end speed, and the
+cone laid at the top of steep rails.
+
 ## Checking the mathematics
 
 Before the engine was written each model was checked independently with SciPy

@@ -187,6 +187,12 @@
         "title": "Der Harmonograph",
         "summary": "Ein Stift an einem Pendel, ein Zeichenbrett an einem zweiten: Während beide ausklingen, zeichnen sie eine Rosette, eine Schleife oder einen Stern.",
         "question": "Was zeichnet ein Stift, wenn zwei Pendel im Verhältnis 2 : 3 schwingen – und was, wenn es nur fast 2 : 3 ist?"
+      },
+      "cone": {
+        "short": "Doppelkegel",
+        "title": "Der Doppelkegel rollt bergauf",
+        "summary": "Zwei Schienen laufen auseinander und steigen dabei an. Ein Doppelkegel, unten aufgelegt, rollt von selbst hinauf.",
+        "question": "Rollt ein Doppelkegel auf zwei ansteigenden Schienen hinauf oder hinunter – und was entscheidet es?"
       }
     },
     "chair": {
@@ -1162,6 +1168,102 @@
         "system": "Zwei Gleichungen zweiter Ordnung, die des gedämpften Pendels, mit dem vollen Sinus statt der Näherung für kleine Ausschläge. Weil die Dämpfung keine geschlossene Lösung zulässt, rechnet der Rechenkern sie mit dem Runge-Kutta-Verfahren in Schritten von einer Millisekunde, und die Seite zeichnet mit denselben Schritten – einige Hundert pro Bild.",
         "theta_dd": "die Winkelbeschleunigung des Pendels i",
         "theta_d": "seine Winkelgeschwindigkeit"
+      }
+    },
+    "cone": {
+      "at": {
+        "rails": "Zwei gerade Schienen laufen von einem Punkt aus V-förmig auseinander und steigen dabei an. Am engen, tiefen Ende liegt ein Doppelkegel quer darüber: zwei Kegel, Boden an Boden.",
+        "rolls": "Lässt man ihn los, rollt er von selbst hinauf zum weiten, hohen Ende – scheinbar gegen die Schwerkraft."
+      },
+      "refused": {
+        "fall_through": "So weit auseinander reichen die Schienen bis nahe an die Spitzen des Kegels: Er fiele hindurch. Kürzere Schienen, eine kleinere Spreizung oder ein schlankerer Kegel helfen.",
+        "too_wide": "Die Schienen beginnen weiter auseinander, als der Kegel lang ist: Er läge nicht auf ihnen."
+      },
+      "play": {
+        "title": "Den Kegel loslassen",
+        "hint_up": "Der Kegel liegt am tiefen Ende. Lassen Sie ihn los und schauen Sie, wohin er rollt.",
+        "hint_down": "Bei diesen Schienen rollt der Kegel hinunter; er liegt darum am hohen Ende. Lassen Sie ihn los.",
+        "hint_stays": "Bei genau dieser Neigung bleibt die Achse auf gleicher Höhe: Der Kegel bleibt liegen, wo er ist.",
+        "let_go": "Loslassen",
+        "pause": "Anhalten",
+        "run": "Weiter",
+        "speed": "Tempo",
+        "speeds": {
+          "100": "Echtzeit",
+          "25": "Zeitlupe (¼)"
+        },
+        "verdict_up": "Die Schienen steigen, die Achse des Kegels fällt: Er rollt hinauf.",
+        "verdict_down": "Die Schienen steigen steiler, als der Kegel sinkt: Er rollt hinunter.",
+        "verdict_stays": "Achse genau waagrecht: Der Kegel bleibt liegen.",
+        "along": "Entlang der Schienen",
+        "axis": "Höhe der Achse",
+        "speed_now": "Tempo der Achse",
+        "spin": "Drehung",
+        "spin_unit": "pro s"
+      },
+      "views": {
+        "side": "Der Doppelkegel von der Seite: die ansteigenden Schienen, der Kegel mit dem Kreis, auf dem er rollt, und gestrichelt der Weg seiner Achse",
+        "front": "Der Doppelkegel von vorn: die Schienen spreizen sich beim Anstieg, der Kegel sinkt zwischen ihnen ein",
+        "side_caption": "Von der Seite",
+        "front_caption": "Von vorn, die Schienen hinauf"
+      },
+      "change": {
+        "title": "Das Exponat verändern",
+        "hint": "Drei Winkel entscheiden: wie steil die Schienen steigen, wie stark sie sich spreizen und wie spitz der Kegel ist.",
+        "slope": "Steigung der Schienen γ",
+        "slope_hint": "Wie steil die Schienen ansteigen.",
+        "spread": "Spreizung der Schienen β",
+        "spread_hint": "Der Winkel jeder Schiene zur Mittellinie, von oben gesehen.",
+        "cone": "Kegelwinkel α",
+        "cone_hint": "Der Winkel zwischen Mantel und Achse des Kegels: je grösser, desto schneller wird er nach aussen dünner.",
+        "radius": "Radius in der Mitte",
+        "length": "Länge der Schienen",
+        "start_gap": "Abstand der Schienen unten",
+        "start_gap_hint": "Wie weit die Schienen am tiefen Ende auseinander sind."
+      },
+      "model": {
+        "intro": "Der Kegel tut, was jeder Körper tut: Er rollt dorthin, wo sein Schwerpunkt tiefer liegt. Die Frage ist nur, wo das ist.",
+        "thin": "Der Doppelkegel ist in der Mitte am dicksten und wird nach aussen gleichmässig dünner.",
+        "rails": "Die Schienen spreizen sich nach oben und steigen dabei an.",
+        "axis": "Wo die Schienen weiter auseinander sind, tragen sie den Kegel weiter aussen, wo er dünner ist: Er sitzt tiefer zwischen ihnen. Die Höhe seiner Achse ist darum die Höhe der Schienen plus ein Radius, der nach oben kleiner wird.",
+        "condition": "Beide Teile ändern sich gleichmässig: Die Achse läuft auf einer Geraden. Fällt sie, während die Schienen steigen, rollt der Kegel hinauf – genau dann, wenn tan γ kleiner ist als tan α · tan β."
+      },
+      "symbols": {
+        "r": "der Radius des Kegels im Abstand y von seiner Mitte",
+        "radius": "der Radius in der Mitte",
+        "y": "der Abstand von der Mitte, entlang der Achse",
+        "alpha": "der Kegelwinkel, zwischen Mantel und Achse",
+        "x": "die Lage entlang der Schienen, vom tiefen Ende an",
+        "d": "der Abstand jeder Schiene von der Mittellinie",
+        "h": "die Höhe der Schienen",
+        "beta": "die Spreizung jeder Schiene",
+        "gamma": "die Steigung der Schienen",
+        "z": "die Höhe der Kegelachse",
+        "c": "der Faktor der genauen Berührung, nahe bei 1"
+      },
+      "sweet": {
+        "heights": "Die Schienen steigen auf ihrer ganzen Länge um {{rise}} cm. Die Achse des Kegels {{direction}} dabei um {{fall}} cm.",
+        "falls": "fällt",
+        "climbs": "steigt",
+        "threshold": "Bis zu einer Steigung von {{threshold}}° rollt dieser Kegel hinauf; die Schienen hier steigen mit {{slope}}°.",
+        "exact": "Genau gerechnet berührt eine schräg laufende, ansteigende Schiene den Kegel ein wenig neben der Stelle unter der Achse. Der Rechenkern sucht diese Stelle: Die Achse steht beim Standard-Exponat 1,002-mal so hoch über der Schiene, wie das Lehrbuch annimmt. An der Grenze aber liegt die Berührung genau unter der Achse – die Lehrbuchbedingung stimmt dort exakt."
+      },
+      "chart": {
+        "rail": "Höhe der Schienen",
+        "axis": "Höhe der Kegelachse",
+        "height": "Höhe",
+        "along": "Entlang der Schienen"
+      },
+      "figures": {
+        "threshold": "Grenzsteigung",
+        "time": "Bis zum Ende der Schienen"
+      },
+      "computed": {
+        "energy": "Eine einzige Koordinate, die Lage entlang der Schienen. Der Kegel rollt ohne zu gleiten, also dreht er sich so schnell, wie seine Achse vorankommt, geteilt durch den Radius, auf dem er gerade rollt – und der wird nach oben kleiner. Die Energie aus Bewegung, Drehung und Höhe bleibt gleich. Daraus folgt nach Lagrange eine Gleichung zweiter Ordnung, die der Rechenkern mit dem Runge-Kutta-Verfahren in Schritten von einer Millisekunde löst.",
+        "m": "die Neigung der Achsbahn",
+        "rho": "der Radius, auf dem der Kegel rollt",
+        "x_dot": "das Tempo entlang der Schienen",
+        "g": "Fallbeschleunigung, 9,81 m/s²"
       }
     }
   }

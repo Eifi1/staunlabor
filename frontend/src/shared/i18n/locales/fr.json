@@ -187,6 +187,12 @@
         "title": "L'harmonographe",
         "summary": "Un stylo sur un pendule, une planche à dessin sur un autre : en s'amortissant, ils dessinent une rosace, une boucle ou une étoile.",
         "question": "Que dessine un stylo quand deux pendules oscillent dans le rapport 2 : 3 – et quand ce n'est que presque 2 : 3 ?"
+      },
+      "cone": {
+        "short": "Double cône",
+        "title": "Le double cône monte la pente",
+        "summary": "Deux rails s'écartent en montant. Un double cône posé en bas monte tout seul.",
+        "question": "Un double cône sur deux rails qui montent roule-t-il vers le haut ou vers le bas – et qu'est-ce qui en décide ?"
       }
     },
     "chair": {
@@ -1162,6 +1168,102 @@
         "system": "Deux équations du second ordre, celles du pendule amorti, avec le sinus complet plutôt que l'approximation des petites oscillations. Comme l'amortissement n'admet pas de solution fermée, le moteur les résout par la méthode de Runge-Kutta, une milliseconde à la fois, et la page dessine avec les mêmes pas – quelques centaines par image.",
         "theta_dd": "l'accélération angulaire du pendule i",
         "theta_d": "sa vitesse angulaire"
+      }
+    },
+    "cone": {
+      "at": {
+        "rails": "Deux rails droits s'écartent en V à partir d'un point et montent en même temps. À l'extrémité étroite et basse, un double cône repose en travers : deux cônes base contre base.",
+        "rolls": "Lâché, il roule tout seul jusqu'à l'extrémité large et haute – contre la pesanteur, semble-t-il."
+      },
+      "refused": {
+        "fall_through": "Écartés à ce point, les rails vont presque jusqu'aux pointes du cône : il passerait au travers. Des rails plus courts, moins d'écart ou un cône plus effilé aident.",
+        "too_wide": "Les rails commencent plus écartés que le cône n'est long : il ne reposerait pas sur eux."
+      },
+      "play": {
+        "title": "Lâcher le cône",
+        "hint_up": "Le cône est à l'extrémité basse. Lâchez-le et regardez où il roule.",
+        "hint_down": "Sur ces rails le cône descend ; il est donc posé à l'extrémité haute. Lâchez-le.",
+        "hint_stays": "À exactement cette pente, l'axe reste à la même hauteur : le cône reste où il est.",
+        "let_go": "Lâcher",
+        "pause": "Pause",
+        "run": "Reprendre",
+        "speed": "Vitesse",
+        "speeds": {
+          "100": "Temps réel",
+          "25": "Ralenti (¼)"
+        },
+        "verdict_up": "Les rails montent, l'axe du cône descend : il monte.",
+        "verdict_down": "Les rails montent plus que le cône ne s'enfonce : il descend.",
+        "verdict_stays": "Axe exactement horizontal : le cône reste immobile.",
+        "along": "Le long des rails",
+        "axis": "Hauteur de l'axe",
+        "speed_now": "Vitesse de l'axe",
+        "spin": "Rotation",
+        "spin_unit": "par s"
+      },
+      "views": {
+        "side": "Le double cône de côté : les rails qui montent, le cône avec le cercle sur lequel il roule et, en pointillé, le chemin de son axe",
+        "front": "Le double cône de face : les rails s'écartent en montant et le cône s'enfonce entre eux",
+        "side_caption": "De côté",
+        "front_caption": "De face, vers le haut des rails"
+      },
+      "change": {
+        "title": "Modifier l'objet exposé",
+        "hint": "Trois angles décident : la pente des rails, leur écartement et la pointe du cône.",
+        "slope": "Pente des rails γ",
+        "slope_hint": "À quel point les rails montent.",
+        "spread": "Écartement des rails β",
+        "spread_hint": "L'angle de chaque rail avec l'axe central, vu d'en haut.",
+        "cone": "Angle du cône α",
+        "cone_hint": "L'angle entre la surface du cône et son axe : plus il est grand, plus le cône s'amincit vite vers les pointes.",
+        "radius": "Rayon au milieu",
+        "length": "Longueur des rails",
+        "start_gap": "Écart des rails en bas",
+        "start_gap_hint": "La distance entre les rails à l'extrémité basse."
+      },
+      "model": {
+        "intro": "Le cône fait ce que fait tout corps : il roule là où son centre de gravité est plus bas. La seule question est de savoir où c'est.",
+        "thin": "Le double cône est le plus épais au milieu et s'amincit régulièrement vers les pointes.",
+        "rails": "Les rails s'écartent vers le haut et montent.",
+        "axis": "Là où les rails sont plus écartés, ils portent le cône plus à l'extérieur, là où il est plus mince : il se trouve plus bas entre eux. La hauteur de son axe est donc celle des rails plus un rayon qui diminue vers le haut.",
+        "condition": "Les deux parties varient régulièrement : l'axe suit une droite. S'il descend pendant que les rails montent, le cône monte – exactement quand tan γ est plus petit que tan α · tan β."
+      },
+      "symbols": {
+        "r": "le rayon du cône à une distance y de son milieu",
+        "radius": "le rayon au milieu",
+        "y": "la distance au milieu, le long de l'axe",
+        "alpha": "l'angle du cône, entre surface et axe",
+        "x": "la position le long des rails, depuis l'extrémité basse",
+        "d": "la distance de chaque rail à l'axe central",
+        "h": "la hauteur des rails",
+        "beta": "l'écartement de chaque rail",
+        "gamma": "la pente des rails",
+        "z": "la hauteur de l'axe du cône",
+        "c": "le facteur du contact exact, proche de 1"
+      },
+      "sweet": {
+        "heights": "Sur toute leur longueur, les rails montent de {{rise}} cm. L'axe du cône, lui, {{direction}} de {{fall}} cm.",
+        "falls": "descend",
+        "climbs": "monte",
+        "threshold": "Jusqu'à une pente de {{threshold}}°, ce cône monte ; ici les rails montent à {{slope}}°.",
+        "exact": "Calculé exactement, un rail oblique qui monte touche le cône un peu à côté du point situé sous son axe. Le moteur cherche ce point : pour l'objet standard, l'axe se trouve 1,002 fois aussi haut au-dessus du rail que le suppose le manuel. À la limite, en revanche, le contact est juste sous l'axe – là, la condition des manuels est exacte."
+      },
+      "chart": {
+        "rail": "Hauteur des rails",
+        "axis": "Hauteur de l'axe du cône",
+        "height": "Hauteur",
+        "along": "Le long des rails"
+      },
+      "figures": {
+        "threshold": "Pente limite",
+        "time": "Jusqu'au bout des rails"
+      },
+      "computed": {
+        "energy": "Une seule coordonnée, la position le long des rails. Le cône roule sans glisser : il tourne aussi vite que son axe avance, divisé par le rayon sur lequel il roule – qui diminue vers le haut. L'énergie de mouvement, de rotation et de hauteur reste la même. La méthode de Lagrange en tire une équation du second ordre, que le moteur résout par la méthode de Runge-Kutta, par pas d'une milliseconde.",
+        "m": "la pente du chemin de l'axe",
+        "rho": "le rayon sur lequel roule le cône",
+        "x_dot": "la vitesse le long des rails",
+        "g": "accélération de la pesanteur, 9,81 m/s²"
       }
     }
   }

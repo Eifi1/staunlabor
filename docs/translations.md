@@ -61,3 +61,4 @@ so a reviewer knows which wordings are newer than the rest.
 | 2026-11-13 | `legal.impressum.credits.title`, `legal.impressum.credits.body` | new: the imprint credits anyplot.ai's "Imprint", the palette of the charts and drawings, as keksdose's imprint does; `de-CH` and `en` from keksdose's words, the other five machine-translated | the colours are anyplot.ai's |
 | 2026-11-14 | `experiments.exhibits.wave.*`, `experiments.wave.*` | new: the pendulum wave's page; `de-CH` and `en` written, the other five machine-translated | a new exhibit |
 | 2026-11-14 | `experiments.exhibits.harmonograph.*`, `experiments.harmonograph.*` | new: the harmonograph's page; `de-CH` and `en` written, the other five machine-translated | a new exhibit |
+| 2026-11-15 | `experiments.exhibits.cone.*`, `experiments.cone.*` | new: the double cone's page; `de-CH` and `en` written, the other five machine-translated | a new exhibit |

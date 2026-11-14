@@ -187,6 +187,12 @@
         "title": "A harmonográf",
         "summary": "Egy toll az egyik ingán, egy rajztábla a másikon: miközben mindkettő lecseng, rozettát, hurkot vagy csillagot rajzolnak.",
         "question": "Mit rajzol a toll, ha két inga 2 : 3 arányban leng – és mit, ha csak majdnem 2 : 3?"
+      },
+      "cone": {
+        "short": "Kettős kúp",
+        "title": "A kettős kúp felfelé gurul",
+        "summary": "Két sín szétválik, és közben emelkedik. A lent ráhelyezett kettős kúp magától felgurul.",
+        "question": "Felfelé vagy lefelé gurul a kettős kúp két emelkedő sínen – és mi dönti el?"
       }
     },
     "chair": {
@@ -1162,6 +1168,102 @@
         "system": "Két másodrendű egyenlet, a csillapított ingáé, a teljes szinusszal a kis kitérésekre szóló közelítés helyett. Mivel a csillapítás nem enged zárt megoldást, a számítómag a Runge–Kutta-módszerrel ezredmásodpercenként lépteti őket, és az oldal ugyanezekkel a lépésekkel rajzol – képkockánként néhány százzal.",
         "theta_dd": "az i-edik inga szöggyorsulása",
         "theta_d": "a szögsebessége"
+      }
+    },
+    "cone": {
+      "at": {
+        "rails": "Két egyenes sín egy pontból V alakban szétválik, és közben emelkedik. A szűk, alacsony végen keresztben egy kettős kúp fekszik rajtuk: két kúp, alappal egymásnak.",
+        "rolls": "Elengedve magától felgurul a széles, magas végre – látszólag a gravitáció ellenében."
+      },
+      "refused": {
+        "fall_through": "Ennyire szétnyílva a sínek majdnem a kúp csúcsáig érnek: átesne köztük. Rövidebb sínek, kisebb szétnyílás vagy karcsúbb kúp segít.",
+        "too_wide": "A sínek távolabb kezdődnek egymástól, mint amilyen hosszú a kúp: nem feküdne rajtuk."
+      },
+      "play": {
+        "title": "A kúp elengedése",
+        "hint_up": "A kúp az alacsony végen fekszik. Engedje el, és nézze meg, merre gurul.",
+        "hint_down": "Ezeken a síneken a kúp lefelé gurul, ezért a magas végen fekszik. Engedje el.",
+        "hint_stays": "Pontosan ennél a lejtésnél a tengely ugyanazon a magasságon marad: a kúp ott marad, ahol van.",
+        "let_go": "Elengedés",
+        "pause": "Szünet",
+        "run": "Tovább",
+        "speed": "Tempó",
+        "speeds": {
+          "100": "Valós idő",
+          "25": "Lassítva (¼)"
+        },
+        "verdict_up": "A sínek emelkednek, a kúp tengelye süllyed: felgurul.",
+        "verdict_down": "A sínek meredekebben emelkednek, mint ahogy a kúp süllyed: legurul.",
+        "verdict_stays": "A tengely pontosan vízszintes: a kúp nyugalomban marad.",
+        "along": "A sínek mentén",
+        "axis": "A tengely magassága",
+        "speed_now": "A tengely sebessége",
+        "spin": "Forgás",
+        "spin_unit": "/s"
+      },
+      "views": {
+        "side": "A kettős kúp oldalról: az emelkedő sínek, a kúp azzal a körrel, amelyen gurul, és szaggatottan a tengely útja",
+        "front": "A kettős kúp elölről: a sínek emelkedés közben szétnyílnak, a kúp besüllyed közéjük",
+        "side_caption": "Oldalról",
+        "front_caption": "Elölről, a sínek mentén felfelé"
+      },
+      "change": {
+        "title": "A kiállítási tárgy módosítása",
+        "hint": "Három szög dönt: milyen meredeken emelkednek a sínek, mennyire nyílnak szét, és mennyire hegyes a kúp.",
+        "slope": "A sínek emelkedése γ",
+        "slope_hint": "Milyen meredeken emelkednek a sínek.",
+        "spread": "A sínek szétnyílása β",
+        "spread_hint": "Minden sín szöge a középvonalhoz, felülről nézve.",
+        "cone": "Kúpszög α",
+        "cone_hint": "A kúp palástja és tengelye közti szög: minél nagyobb, annál gyorsabban vékonyodik a kúp a csúcsok felé.",
+        "radius": "Sugár középen",
+        "length": "A sínek hossza",
+        "start_gap": "A sínek távolsága lent",
+        "start_gap_hint": "Milyen messze vannak egymástól a sínek az alacsony végen."
+      },
+      "model": {
+        "intro": "A kúp azt teszi, amit minden test: arra gurul, ahol a súlypontja lejjebb kerül. A kérdés csak az, hogy hol van ez.",
+        "thin": "A kettős kúp középen a legvastagabb, és a csúcsok felé egyenletesen vékonyodik.",
+        "rails": "A sínek felfelé szétnyílnak, és emelkednek.",
+        "axis": "Ahol a sínek távolabb vannak egymástól, ott kijjebb tartják a kúpot, ahol az vékonyabb: lejjebb ül közöttük. A tengely magassága ezért a sínek magassága plusz egy felfelé csökkenő sugár.",
+        "condition": "Mindkét rész egyenletesen változik: a tengely egyenes vonalon halad. Ha süllyed, miközben a sínek emelkednek, a kúp felgurul – pontosan akkor, ha tan γ kisebb, mint tan α · tan β."
+      },
+      "symbols": {
+        "r": "a kúp sugara a közepétől y távolságban",
+        "radius": "a sugár középen",
+        "y": "a középtől mért távolság a tengely mentén",
+        "alpha": "a kúpszög, a palást és a tengely között",
+        "x": "a helyzet a sínek mentén, az alacsony végtől",
+        "d": "minden sín távolsága a középvonaltól",
+        "h": "a sínek magassága",
+        "beta": "minden sín szétnyílása",
+        "gamma": "a sínek emelkedése",
+        "z": "a kúp tengelyének magassága",
+        "c": "a pontos érintkezés tényezője, 1 közelében"
+      },
+      "sweet": {
+        "heights": "Teljes hosszukon a sínek {{rise}} cm-t emelkednek. A kúp tengelye közben {{fall}} cm-t {{direction}}.",
+        "falls": "süllyed",
+        "climbs": "emelkedik",
+        "threshold": "{{threshold}}°-os emelkedésig ez a kúp felgurul; itt a sínek {{slope}}°-kal emelkednek.",
+        "exact": "Pontosan számolva a ferdén futó, emelkedő sín kicsit a tengely alatti ponton kívül érinti a kúpot. A számítómag megkeresi ezt a pontot: az alapkiállításnál a tengely 1,002-szer olyan magasan áll a sín fölött, mint amit a tankönyv feltételez. A határon viszont az érintkezés pontosan a tengely alatt van – ott a tankönyvi feltétel pontos."
+      },
+      "chart": {
+        "rail": "A sínek magassága",
+        "axis": "A kúptengely magassága",
+        "height": "Magasság",
+        "along": "A sínek mentén"
+      },
+      "figures": {
+        "threshold": "Határemelkedés",
+        "time": "A sínek végéig"
+      },
+      "computed": {
+        "energy": "Egyetlen koordináta, a helyzet a sínek mentén. A kúp csúszás nélkül gurul, így olyan gyorsan forog, ahogy a tengelye halad, osztva azzal a sugárral, amelyen éppen gurul – és ez felfelé csökken. A mozgási, forgási és helyzeti energia összege állandó. Lagrange módszeréből másodrendű egyenlet adódik, amelyet a számítómag a Runge–Kutta-módszerrel ezredmásodperces lépésekben old meg.",
+        "m": "a tengely pályájának lejtése",
+        "rho": "a sugár, amelyen a kúp gurul",
+        "x_dot": "a sebesség a sínek mentén",
+        "g": "nehézségi gyorsulás, 9,81 m/s²"
       }
     }
   }

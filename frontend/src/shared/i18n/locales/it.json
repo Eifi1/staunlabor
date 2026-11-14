@@ -187,6 +187,12 @@
         "title": "L'armonografo",
         "summary": "Una penna su un pendolo, una tavola da disegno su un altro: smorzandosi, disegnano una rosetta, un anello o una stella.",
         "question": "Che cosa disegna una penna quando due pendoli oscillano nel rapporto 2 : 3 – e che cosa quando è solo quasi 2 : 3?"
+      },
+      "cone": {
+        "short": "Doppio cono",
+        "title": "Il doppio cono sale in salita",
+        "summary": "Due binari si allargano e salgono. Un doppio cono posato in basso sale da solo.",
+        "question": "Un doppio cono su due binari in salita rotola in su o in giù – e che cosa lo decide?"
       }
     },
     "chair": {
@@ -1162,6 +1168,102 @@
         "system": "Due equazioni del secondo ordine, quelle del pendolo smorzato, con il seno completo anziché l'approssimazione per piccole oscillazioni. Poiché lo smorzamento non ammette una soluzione chiusa, il motore le risolve con il metodo di Runge-Kutta un millisecondo alla volta, e la pagina disegna con gli stessi passi – qualche centinaio per immagine.",
         "theta_dd": "l'accelerazione angolare del pendolo i",
         "theta_d": "la sua velocità angolare"
+      }
+    },
+    "cone": {
+      "at": {
+        "rails": "Due binari diritti si aprono a V da un punto e intanto salgono. All'estremità stretta e bassa, un doppio cono vi è posato di traverso: due coni base contro base.",
+        "rolls": "Lasciato andare, rotola da solo fino all'estremità larga e alta – contro la gravità, a quanto pare."
+      },
+      "refused": {
+        "fall_through": "Così divaricati, i binari arrivano quasi alle punte del cono: ci cadrebbe in mezzo. Aiutano binari più corti, meno apertura o un cono più slanciato.",
+        "too_wide": "I binari partono più distanti di quanto sia lungo il cono: non vi poggerebbe."
+      },
+      "play": {
+        "title": "Lasciare andare il cono",
+        "hint_up": "Il cono è all'estremità bassa. Lo lasci andare e guardi dove rotola.",
+        "hint_down": "Su questi binari il cono rotola in giù; per questo è all'estremità alta. Lo lasci andare.",
+        "hint_stays": "Proprio con questa pendenza l'asse resta alla stessa altezza: il cono resta dov'è.",
+        "let_go": "Lasciare",
+        "pause": "Pausa",
+        "run": "Continua",
+        "speed": "Velocità",
+        "speeds": {
+          "100": "Tempo reale",
+          "25": "Rallentatore (¼)"
+        },
+        "verdict_up": "I binari salgono, l'asse del cono scende: rotola in su.",
+        "verdict_down": "I binari salgono più di quanto il cono si abbassi: rotola in giù.",
+        "verdict_stays": "Asse esattamente orizzontale: il cono resta fermo.",
+        "along": "Lungo i binari",
+        "axis": "Altezza dell'asse",
+        "speed_now": "Velocità dell'asse",
+        "spin": "Rotazione",
+        "spin_unit": "al s"
+      },
+      "views": {
+        "side": "Il doppio cono di lato: i binari in salita, il cono con il cerchio su cui rotola e, tratteggiato, il percorso del suo asse",
+        "front": "Il doppio cono di fronte: i binari si allargano salendo e il cono sprofonda tra di essi",
+        "side_caption": "Di lato",
+        "front_caption": "Di fronte, su per i binari"
+      },
+      "change": {
+        "title": "Modificare l'oggetto esposto",
+        "hint": "Decidono tre angoli: quanto salgono i binari, quanto si allargano e quanto è appuntito il cono.",
+        "slope": "Pendenza dei binari γ",
+        "slope_hint": "Quanto salgono i binari.",
+        "spread": "Apertura dei binari β",
+        "spread_hint": "L'angolo di ciascun binario con la linea centrale, visto dall'alto.",
+        "cone": "Angolo del cono α",
+        "cone_hint": "L'angolo tra superficie e asse del cono: più è grande, più rapidamente il cono si assottiglia verso le punte.",
+        "radius": "Raggio al centro",
+        "length": "Lunghezza dei binari",
+        "start_gap": "Distanza dei binari in basso",
+        "start_gap_hint": "Quanto distano i binari all'estremità bassa."
+      },
+      "model": {
+        "intro": "Il cono fa ciò che fa ogni corpo: rotola dove il suo baricentro sta più in basso. L'unica domanda è dove sia.",
+        "thin": "Il doppio cono è più spesso al centro e si assottiglia uniformemente verso le punte.",
+        "rails": "I binari si allargano verso l'alto e salgono.",
+        "axis": "Dove i binari sono più distanti, sostengono il cono più all'esterno, dove è più sottile: sta più in basso tra di essi. L'altezza del suo asse è quindi quella dei binari più un raggio che diminuisce verso l'alto.",
+        "condition": "Entrambe le parti cambiano in modo uniforme: l'asse percorre una retta. Se scende mentre i binari salgono, il cono rotola in su – esattamente quando tan γ è minore di tan α · tan β."
+      },
+      "symbols": {
+        "r": "il raggio del cono a distanza y dal suo centro",
+        "radius": "il raggio al centro",
+        "y": "la distanza dal centro, lungo l'asse",
+        "alpha": "l'angolo del cono, tra superficie e asse",
+        "x": "la posizione lungo i binari, dall'estremità bassa",
+        "d": "la distanza di ciascun binario dalla linea centrale",
+        "h": "l'altezza dei binari",
+        "beta": "l'apertura di ciascun binario",
+        "gamma": "la pendenza dei binari",
+        "z": "l'altezza dell'asse del cono",
+        "c": "il fattore del contatto esatto, vicino a 1"
+      },
+      "sweet": {
+        "heights": "Su tutta la loro lunghezza i binari salgono di {{rise}} cm. L'asse del cono intanto {{direction}} di {{fall}} cm.",
+        "falls": "scende",
+        "climbs": "sale",
+        "threshold": "Fino a una pendenza di {{threshold}}° questo cono rotola in su; qui i binari salgono di {{slope}}°.",
+        "exact": "Calcolato esattamente, un binario obliquo e in salita tocca il cono un po' a lato del punto sotto il suo asse. Il motore cerca quel punto: per l'oggetto standard l'asse sta 1,002 volte più in alto sul binario di quanto supponga il libro. Al limite, invece, il contatto è proprio sotto l'asse – lì la condizione dei libri è esatta."
+      },
+      "chart": {
+        "rail": "Altezza dei binari",
+        "axis": "Altezza dell'asse del cono",
+        "height": "Altezza",
+        "along": "Lungo i binari"
+      },
+      "figures": {
+        "threshold": "Pendenza limite",
+        "time": "Fino alla fine dei binari"
+      },
+      "computed": {
+        "energy": "Una sola coordinata, la posizione lungo i binari. Il cono rotola senza strisciare, quindi gira tanto veloce quanto avanza il suo asse, diviso per il raggio su cui sta rotolando – che diminuisce verso l'alto. L'energia di moto, rotazione e altezza resta la stessa. Con il metodo di Lagrange ne risulta un'equazione del secondo ordine, che il motore risolve con il metodo di Runge-Kutta a passi di un millisecondo.",
+        "m": "la pendenza del percorso dell'asse",
+        "rho": "il raggio su cui rotola il cono",
+        "x_dot": "la velocità lungo i binari",
+        "g": "accelerazione di gravità, 9,81 m/s²"
       }
     }
   }

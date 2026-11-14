@@ -187,6 +187,12 @@
         "title": "El armonógrafo",
         "summary": "Un lápiz en un péndulo y un tablero de dibujo en otro: mientras ambos se apagan, dibujan una roseta, un lazo o una estrella.",
         "question": "¿Qué dibuja un lápiz cuando dos péndulos oscilan en proporción 2 : 3 – y qué, cuando es solo casi 2 : 3?"
+      },
+      "cone": {
+        "short": "Doble cono",
+        "title": "El doble cono rueda cuesta arriba",
+        "summary": "Dos rieles se separan y suben a la vez. Un doble cono colocado abajo rueda solo hacia arriba.",
+        "question": "¿Rueda un doble cono sobre dos rieles que suben hacia arriba o hacia abajo – y qué lo decide?"
       }
     },
     "chair": {
@@ -1162,6 +1168,102 @@
         "system": "Dos ecuaciones de segundo orden, las del péndulo amortiguado, con el seno completo en lugar de la aproximación para amplitudes pequeñas. Como la amortiguación no admite solución cerrada, el motor las resuelve con el método de Runge-Kutta en pasos de un milisegundo, y la página dibuja con los mismos pasos – unos cientos por imagen.",
         "theta_dd": "la aceleración angular del péndulo i",
         "theta_d": "su velocidad angular"
+      }
+    },
+    "cone": {
+      "at": {
+        "rails": "Dos rieles rectos se abren en V desde un punto y suben a la vez. En el extremo estrecho y bajo, un doble cono descansa atravesado sobre ellos: dos conos unidos por la base.",
+        "rolls": "Al soltarlo, rueda solo hasta el extremo ancho y alto – contra la gravedad, al parecer."
+      },
+      "refused": {
+        "fall_through": "Tan separados, los rieles llegan casi a las puntas del cono: se caería entre ellos. Ayudan unos rieles más cortos, menos apertura o un cono más esbelto.",
+        "too_wide": "Los rieles empiezan más separados de lo que mide el cono: no se apoyaría en ellos."
+      },
+      "play": {
+        "title": "Soltar el cono",
+        "hint_up": "El cono está en el extremo bajo. Suéltelo y mire hacia dónde rueda.",
+        "hint_down": "Con estos rieles el cono rueda hacia abajo, por eso está en el extremo alto. Suéltelo.",
+        "hint_stays": "Con exactamente esta pendiente el eje se mantiene a la misma altura: el cono se queda donde está.",
+        "let_go": "Soltar",
+        "pause": "Pausa",
+        "run": "Seguir",
+        "speed": "Velocidad",
+        "speeds": {
+          "100": "Tiempo real",
+          "25": "Cámara lenta (¼)"
+        },
+        "verdict_up": "Los rieles suben, el eje del cono baja: rueda hacia arriba.",
+        "verdict_down": "Los rieles suben más de lo que baja el cono: rueda hacia abajo.",
+        "verdict_stays": "Eje exactamente horizontal: el cono se queda quieto.",
+        "along": "A lo largo de los rieles",
+        "axis": "Altura del eje",
+        "speed_now": "Velocidad del eje",
+        "spin": "Giro",
+        "spin_unit": "por s"
+      },
+      "views": {
+        "side": "El doble cono de lado: los rieles que suben, el cono con el círculo sobre el que rueda y, en trazos, el camino de su eje",
+        "front": "El doble cono de frente: los rieles se abren al subir y el cono se hunde entre ellos",
+        "side_caption": "De lado",
+        "front_caption": "De frente, rieles arriba"
+      },
+      "change": {
+        "title": "Cambiar el objeto expuesto",
+        "hint": "Tres ángulos deciden: cuánto suben los rieles, cuánto se abren y cuán puntiagudo es el cono.",
+        "slope": "Pendiente de los rieles γ",
+        "slope_hint": "Cuánto suben los rieles.",
+        "spread": "Apertura de los rieles β",
+        "spread_hint": "El ángulo de cada riel con la línea central, visto desde arriba.",
+        "cone": "Ángulo del cono α",
+        "cone_hint": "El ángulo entre la superficie del cono y su eje: cuanto mayor, más deprisa adelgaza hacia las puntas.",
+        "radius": "Radio en el centro",
+        "length": "Longitud de los rieles",
+        "start_gap": "Separación de los rieles abajo",
+        "start_gap_hint": "Cuánto distan los rieles en el extremo bajo."
+      },
+      "model": {
+        "intro": "El cono hace lo que hace todo cuerpo: rueda hacia donde su centro de masa queda más bajo. La única pregunta es dónde está eso.",
+        "thin": "El doble cono es más grueso en el centro y adelgaza por igual hacia las puntas.",
+        "rails": "Los rieles se abren hacia arriba y suben.",
+        "axis": "Donde los rieles están más separados, sostienen el cono más afuera, donde es más delgado: queda más bajo entre ellos. Por eso la altura de su eje es la de los rieles más un radio que se achica hacia arriba.",
+        "condition": "Ambas partes cambian de forma uniforme: el eje recorre una recta. Si baja mientras los rieles suben, el cono rueda hacia arriba – exactamente cuando tan γ es menor que tan α · tan β."
+      },
+      "symbols": {
+        "r": "el radio del cono a una distancia y de su centro",
+        "radius": "el radio en el centro",
+        "y": "la distancia al centro, a lo largo del eje",
+        "alpha": "el ángulo del cono, entre superficie y eje",
+        "x": "la posición a lo largo de los rieles, desde el extremo bajo",
+        "d": "la distancia de cada riel a la línea central",
+        "h": "la altura de los rieles",
+        "beta": "la apertura de cada riel",
+        "gamma": "la pendiente de los rieles",
+        "z": "la altura del eje del cono",
+        "c": "el factor del contacto exacto, cercano a 1"
+      },
+      "sweet": {
+        "heights": "En toda su longitud los rieles suben {{rise}} cm. El eje del cono, mientras tanto, {{direction}} {{fall}} cm.",
+        "falls": "baja",
+        "climbs": "sube",
+        "threshold": "Hasta una pendiente de {{threshold}}° este cono rueda hacia arriba; aquí los rieles suben con {{slope}}°.",
+        "exact": "Calculado con exactitud, un riel que corre oblicuo y sube toca el cono un poco al lado del punto bajo su eje. El motor busca ese punto: en el objeto estándar el eje queda 1,002 veces tan alto sobre el riel como supone el libro. En el límite, en cambio, el contacto queda justo bajo el eje – allí la condición de los libros es exacta."
+      },
+      "chart": {
+        "rail": "Altura de los rieles",
+        "axis": "Altura del eje del cono",
+        "height": "Altura",
+        "along": "A lo largo de los rieles"
+      },
+      "figures": {
+        "threshold": "Pendiente límite",
+        "time": "Hasta el final de los rieles"
+      },
+      "computed": {
+        "energy": "Una sola coordenada, la posición a lo largo de los rieles. El cono rueda sin deslizar, así que gira tan rápido como avanza su eje, dividido por el radio sobre el que rueda – que se achica hacia arriba. La energía de movimiento, giro y altura se conserva. Con el método de Lagrange resulta una ecuación de segundo orden, que el motor resuelve con el método de Runge-Kutta en pasos de un milisegundo.",
+        "m": "la pendiente del camino del eje",
+        "rho": "el radio sobre el que rueda el cono",
+        "x_dot": "la velocidad a lo largo de los rieles",
+        "g": "aceleración de la gravedad, 9,81 m/s²"
       }
     }
   }
