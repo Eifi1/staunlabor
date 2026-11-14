@@ -182,6 +182,17 @@ database of its own, and **refuses to start on Cloud Run** (`main.check_deployme
 until the signing key and the allow-list below are set; Cloud Run then keeps
 serving the revision before it. Plan, second stage, step 6.
 
+* **Server-kit 0.31 or later first: the account routes must not go live on
+  0.30** (a blocker; the kit maintainer's G11 / F29). On 0.30 the request's
+  unit of work commits before the answer (`database.request_session`) and
+  server-kit's `SqlAfterCommit` sends the mail from that commit, so a password
+  reset requested for an address with an account answers measurably later than
+  one for an address without: the response time tells whether an account
+  exists. 0.31 gives both the same time and still sends safely, also under
+  Cloud Run's request-based CPU; it waits on the owner's approval of that
+  round. Move the pin (`backend/pyproject.toml`'s URL, then
+  `uv lock --upgrade-package eifi1-server-kit`) and run `npm run check` before
+  anything below goes live.
 * **The database** `staunlabor` on the shared instance
   `keksdose:europe-west4:keksdose-db`, the way Kastlan's is: an owner role
   (`staunlabor_owner`, owns the schema, runs the migrations) and a DML-only app

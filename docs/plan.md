@@ -139,4 +139,6 @@ Steps, each its own commits:
 4. The pages: sign-in, settings, admin, feedback, `/translations`.
 5. The texts: the privacy policy, the terms, the about page, in all seven.
 6. The deploy: the database and its roles on keksdose-db, the secrets, the
-   migrate job, the bucket for feedback files.
+   migrate job, the bucket for feedback files. Only on server-kit 0.31 or
+   later: on 0.30 a reset request's response time tells whether an account
+   exists (`deploy/README.md` §6).
