@@ -33,9 +33,11 @@ an app, and nothing more:
   are its own (:func:`jobs_deps`): the kit's ``account_jobs_router`` prunes the
   rows done with for 30 days, on Cloud Scheduler's call with the jobs token.
 
-**No hooks.** Nothing is attached at a sign-up, nothing bound per request, and
-the app keeps no rows of its own that an export or a deletion must know about
-(feedback and the translation review will bring some).
+**One hook:** an erasure removes the files the person attached to feedback from
+the store, once it has committed (``feedback.erased_files_purge``). Nothing is
+attached at a sign-up and nothing bound per request; the rows feedback and the
+translation review keep are the kit's to anonymise (``admin_deps``) or keep
+without the name (a review's ``reviewer_id`` is ``SET NULL``).
 
 Not here: a demo, teams (Marcel 2026-11-15: no), billing, and a scheduled
 erasure (an operator erases, so the daily call has no erasures to run).
@@ -43,6 +45,7 @@ erasure (an operator erases, so the daily call has no erasures to run).
 
 from __future__ import annotations
 
+from collections.abc import Awaitable, Callable
 from datetime import datetime
 
 from eifi1_server_kit.auth import parse_env_list
@@ -52,7 +55,7 @@ from eifi1_server_kit.auth.jwt_signer import JwtSigner
 from eifi1_server_kit.auth.passkeys import RelyingParty
 from eifi1_server_kit.auth.router import AuthDeps
 from eifi1_server_kit.auth.seal import SecretBox
-from eifi1_server_kit.auth.service import AccountLinks, AccountPolicy
+from eifi1_server_kit.auth.service import AccountLinks, AccountPolicy, AuthHooks
 from eifi1_server_kit.auth.sql import (
     AccountPrune,
     SqlAdminActionLog,
@@ -72,7 +75,7 @@ from eifi1_server_kit.user_admin.router import UserAdminDeps
 from eifi1_server_kit.user_admin.service import AdminPolicy
 
 from staunlabor.database import Database, RequestSession
-from staunlabor.feedback import admin_hooks, erasing_feedback
+from staunlabor.feedback import admin_hooks, erased_files_purge, erasing_feedback
 from staunlabor.models import AdminAction, Invitation, OneTimeToken, Passkey, Role, SpentChallenge, User, UserSession
 from staunlabor.security import caller_address
 from staunlabor.settings import Settings
@@ -153,10 +156,21 @@ async def roster(session: RequestSession) -> SqlRosterStore[User]:
     return SqlRosterStore(session, User)
 
 
+def hooks_for(settings: Settings) -> Callable[[], Awaitable[AuthHooks]]:
+    """The account layer's hooks: the erasure's purge of the person's feedback files."""
+    hooks: AuthHooks = AuthHooks(purge_files=erased_files_purge(settings))
+
+    async def account_hooks() -> AuthHooks:
+        return hooks
+
+    return account_hooks
+
+
 def account_deps(settings: Settings) -> AuthDeps:
     """Everything ``auth_router`` and ``invitations_admin_router`` are built from,
     and ``user_admin_router`` beside them (:func:`admin_deps`)."""
     return AuthDeps(
+        hooks=hooks_for(settings),
         users=users,
         sessions=sessions,
         tokens=links,

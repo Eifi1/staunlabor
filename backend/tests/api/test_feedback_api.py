@@ -9,7 +9,9 @@ answer reaches its author, and that nobody else reads the inbox."""
 
 from __future__ import annotations
 
+import os
 import secrets
+import time
 from collections.abc import AsyncIterator
 from pathlib import Path
 from typing import Any
@@ -234,3 +236,52 @@ async def test_erasing_an_account_keeps_its_ideas_and_takes_its_name_off_them(si
     kept = next(row for row in inbox if row["id"] == filed["id"])
     assert kept["title"] == IDEA["title"]
     assert "member@example.org" not in str(kept)
+
+
+async def test_erasing_an_account_removes_the_files_it_alone_attached(site: AsyncClient, tmp_path: Path) -> None:
+    admin, member = await _admin_and_member(site)
+
+    async def upload(token: str, text: str) -> str:
+        answer = await site.post(
+            f"{API}/feedback/attachments",
+            files={"file": ("note.txt", text.encode(), "text/plain")},
+            headers=bearer(token),
+        )
+        assert answer.status_code == 201, answer.text
+        return answer.json()["url"]
+
+    own = await upload(member, "Nur das Mitglied hat diese Notiz angehängt.\n")
+    # The same bytes from the admin: one file in the store (its name is its content's).
+    shared = await upload(member, "Beide haben diese Notiz angehängt.\n")
+    assert await upload(admin, "Beide haben diese Notiz angehängt.\n") == shared
+    filed = await site.post(f"{API}/feedback", json={**IDEA, "attachment_urls": [own, shared]}, headers=bearer(member))
+    assert filed.status_code == 201, filed.text
+    theirs = await site.post(
+        f"{API}/feedback", json={**IDEA, "title": "Die Pendelwelle", "attachment_urls": [shared]}, headers=bearer(admin)
+    )
+    assert theirs.status_code == 201, theirs.text
+
+    files = tmp_path / "files"
+
+    def stored() -> set[str]:
+        return {path.name for path in files.rglob("*") if path.is_file()}
+
+    def key(url: str) -> str:
+        return url.rsplit("/", 1)[-1]
+
+    assert {key(own), key(shared)} <= stored()
+    # Older than the five minutes the purge spares for an upload of the same bytes.
+    past = time.time() - 600
+    for path in files.rglob("*"):
+        if path.is_file():
+            os.utime(path, (past, past))
+
+    me = (await site.get(f"{API}/auth/me", headers=bearer(member))).json()
+    typed = {"confirm_email": me["email"]}
+    asked = await site.post(f"{API}/auth/me/deletion", json={"password": PASSWORD, **typed}, headers=bearer(member))
+    assert asked.status_code == 202, asked.text
+    erased = await site.post(f"{API}/admin/users/{me['id']}/erase", json=typed, headers=bearer(admin))
+    assert erased.status_code == 200, erased.text
+
+    # The member's own file is gone; the one the admin's report still names stays.
+    assert key(own) not in stored() and key(shared) in stored()

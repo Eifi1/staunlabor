@@ -25,6 +25,7 @@ the planned exhibits are filed here as ideas (plan, second stage).
 # annotation in the module's globals, where `signed_in` is not. Evaluated at definition,
 # the annotation holds the dependency itself.
 
+from collections.abc import Awaitable, Callable, Sequence
 from typing import Annotated, Any
 
 from eifi1_server_kit.auth.accounts import full_name
@@ -33,6 +34,7 @@ from eifi1_server_kit.feedback import AttachmentUrlPolicy, FeedbackActor, feedba
 from eifi1_server_kit.feedback.router import FeedbackDeps
 from eifi1_server_kit.feedback.service import FeedbackService
 from eifi1_server_kit.feedback.sql import (
+    FEEDBACK_OBJECT_PREFIX,
     SqlAttachmentStorage,
     SqlFeedbackCommentStore,
     SqlFeedbackReplyStore,
@@ -40,7 +42,7 @@ from eifi1_server_kit.feedback.sql import (
     SqlFeedbackVoteStore,
     SqlPeopleLookup,
 )
-from eifi1_server_kit.objects import LocalObjectStore, ObjectStore
+from eifi1_server_kit.objects import LocalObjectStore, ObjectStore, purge_objects
 from eifi1_server_kit.user_admin.service import UserAdminHooks
 from fastapi import Depends
 from sqlalchemy.ext.asyncio import AsyncSession
@@ -78,6 +80,29 @@ def no_demo(_scope: str) -> Any:
 def objects_for(settings: Settings) -> ObjectStore:
     """Where the files' bytes go: a directory on this machine."""
     return LocalObjectStore(settings.feedback_files_dir)
+
+
+def erased_files_purge(settings: Settings) -> Callable[[Sequence[str]], Awaitable[None]]:
+    """What an erasure does with the files the person attached (``AuthHooks.purge_files``):
+    removes them from the store after the erasure has committed. The kit hands over the keys
+    no other row names any more, so a file somebody else attached too stays. Without it the
+    rows would lose the files' names and the files would stay in the store for good, which
+    the privacy policy does not say.
+
+    The kit's purge never raises (the database is already emptied) and logs every key it
+    could not remove, to remove by hand. It spares a file written in the last five minutes,
+    which an upload of the same bytes may be about to name."""
+    objects = objects_for(settings)
+
+    async def purge(keys: Sequence[str]) -> None:
+        await purge_objects(
+            objects,
+            keys,
+            reason="an erased account's feedback files",
+            object_key=lambda key: f"{FEEDBACK_OBJECT_PREFIX}{key}",
+        )
+
+    return purge
 
 
 def repository_on(session: AsyncSession) -> SqlFeedbackRepository[Feedback]:

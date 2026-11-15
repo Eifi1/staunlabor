@@ -250,8 +250,10 @@ serving the revision before it. Plan, second stage, step 6.
   to be handed on in person; a person's own reset request reaches nobody. Then
   `STAUNLABOR_MAIL_BACKEND=resend` with the key. Replies go to
   `kontakt@staunlabor.app` (§5), not the kit's `support@`.
-* **The texts first**: the privacy policy, the about page and this file's
-  "no database, no job" (plan, step 5) are untrue from the deploy on.
+* **The texts first**: the privacy policy and the about page are rewritten for
+  the accounts (plan, step 5); set the privacy policy's date
+  (`legal-pages.tsx`, `UPDATED.privacy`) to the deploy's day. This file's "no
+  database, no job" is untrue from the deploy on.
 
 ## Files here
 

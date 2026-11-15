@@ -160,7 +160,11 @@ Steps, each its own commits:
 4. The pages: sign-in, settings, admin, feedback, `/translations`.
 5. The texts: the privacy policy, the terms, the about page, in all seven.
    The privacy policy names the 30 days an ended session keeps its address
-   (server-kit's `ACCOUNT_ROWS_RETENTION`).
+   (server-kit's `ACCOUNT_ROWS_RETENTION`). *(the privacy policy and the about
+   page rewritten on 2026-11-15: the exhibits without an account, what an
+   account keeps, the sealed second factor, Resend, the 30 days, and what an
+   erasure anonymises and deletes — the person's feedback files too, which an
+   erasure now removes from the store. No terms page yet.)*
 6. The deploy: the database and its roles on keksdose-db, the secrets, the
    migrate job, the bucket for feedback files, the daily call's scheduler job
    and its token (`deploy/README.md` §6).

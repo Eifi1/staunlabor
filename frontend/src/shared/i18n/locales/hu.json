@@ -36,6 +36,7 @@
       "computed": "Minden szám az oldal saját számítómotorjából származik, és a tesztjei garantálják. Ami mozog, azt az Ön böngészője számolja ki, ugyanazokkal a lépésekkel, mint a számítómotor; amit egy csúszka megváltoztat, azt a szerver számolja ki.",
       "model": "A kiállítási tárgyakat a winterthuri Swiss Science Center Technorama kiállítási tárgyai ihlették. A Staunlabor független projekt, és nem áll kapcsolatban a Technoramával; minden rajz és szöveg saját készítésű.",
       "open": "A Staunlabor szabad: a kód MIT-licenc alatt áll, a szövegek és a rajzok CC BY 4.0 licenc alatt. A forrás megjelölésével továbbfelhasználhatja őket, az oktatásban is.",
+      "accounts": "A kiállítási tárgyakhoz nem kell fiók. Fiók csak meghívásra létezik: azok számára, akik a fordításokat lektorálják, vagy visszajelzést és ötleteket küldenek új kiállítási tárgyakhoz.",
       "feedback": "Valami hibás vagy nem világos, vagy van egy kiállítási tárgy, amelyet szívesen látna?",
       "issues": "Jelezze a GitHubon",
       "source": "A forráskód megtekintése"
@@ -54,14 +55,14 @@
     "privacy": {
       "data": {
         "title": "Milyen adatokat kezelünk",
-        "body": "A Staunlabornak nincsenek felhasználói fiókjai, nincs adatbázisa és nincsenek űrlapjai. Ha Ön módosít egy kiállítási tárgyat, a böngészője elküldi annak értékeit — például egy labda átmérőjét vagy egy ejtési magasságot — a szervernek, amely ezekből jellemző értékeket és görbéket számol, és visszaküldi őket; ebből semmit sem tárolunk.\n\nMűszaki adatok: tárhelyszolgáltatónk minden kérést naplóz — az időpontot, a kért címet, az Ön IP-címét és böngészőjének típusát — a szolgáltatás működtetése és védelme érdekében. Hogy korlátozza a címenkénti számítások számát, a szerver rövid ideig a memóriájában tartja az Ön IP-címét, de nem menti el."
+        "body": "A kiállítási tárgyakhoz nem kell fiók. Ha Ön módosít egy kiállítási tárgyat, a böngészője elküldi annak értékeit — például egy labda átmérőjét vagy egy ejtési magasságot — a szervernek, amely ezekből jellemző értékeket és görbéket számol, és visszaküldi őket; ebből semmit sem tárolunk.\n\nFiókok: fiók csak meghívásra létezik, azok számára, akik a fordításokat lektorálják vagy visszajelzést küldenek. Ehhez tároljuk az Ön e-mail-címét, vezeték- és keresztnevét, jelszavának hash-értékét (soha nem magát a jelszót), a nyelvét és a szerepkörét, azt, hogy mikor hozta létre a fiókot, mikor erősítette meg a címét és mikor jelentkezett be utoljára, valamint adott esetben azt, hogy mikor kérte a fiók törlését. Minden bejelentkezéshez tárolunk egy munkamenetet: az IP-címet, amelyről bejelentkezett, a böngészője leírását (például „Firefox Linuxon”), valamint azt, hogy mikor kezdődött és mikor volt utoljára aktív. Hozzáférési kulcsaiból a nyilvános kulcsot, a nevet és az utolsó használat idejét tároljuk. Ha bekapcsolja a kétlépcsős azonosítást, a hitelesítő alkalmazás titkos kulcsát titkosítva tároljuk (AES-256-GCM, olyan kulccsal, amely nincs az adatbázisban), a tartalékkódjait pedig csak hash-értékként. Egy meghívóhoz a meghívott címet, a meghívó személyét, a szerepkört és a nyelvet tároljuk, a hivatkozását pedig csak hash-értékként. Amit az adminisztráció egy fiókon módosít, például a szerepkört, azt napló rögzíti.\n\nVisszajelzések és fordítások: egy visszajelzést a címével, a szövegével és a kategóriájával, az Ön fiókjával, a böngészőablak méretével és a böngésző típusával, kívánságára annak az oldalnak a címével, amelyen járt, valamint a csatolt képekkel és fájlokkal együtt tárolunk; emellett a válaszokat, a hozzászólásokat és a szavazatokat. Azokat a visszajelzéseket, amelyeket mások számára láthatónak hagy, minden bejelentkezett fiók elolvashatja: a címet és a szöveget, a válaszokat és a hozzászólásokat, mindegyiket a szerzője keresztnevével. Aki fordításokat lektorál, egy szövegről értékelést ad, kívánság szerint megjegyzéssel és javaslattal; ezt a lektorált szöveggel és a lektor személyével együtt tároljuk, a fióknál pedig azokat a nyelveket és területeket, amelyeket lektorálhat.\n\nMűszaki adatok: tárhelyszolgáltatónk minden kérést naplóz — az időpontot, a kért címet, az Ön IP-címét és böngészőjének típusát — a szolgáltatás működtetése és védelme érdekében. Hogy korlátozza a címenkénti számítások és bejelentkezési kísérletek számát, a szerver rövid ideig a memóriájában tartja az Ön IP-címét, de ehhez nem menti el."
       },
       "legal_basis": {
         "site": "Nincs követés, nincsenek analitikai eszközök, nincsenek sütik és nincs hirdetés."
       },
       "third_parties": {
         "title": "Tárhely és adatfeldolgozók",
-        "body": "Az oldal a Google Cloudon fut az Európai Unióban (europe-west4, Hollandia). A Google a nevünkben adatfeldolgozóként jár el.\n\nA Cloudflare üzemelteti a staunlabor.app DNS-ét, és a @staunlabor.app végű címekre küldött e-maileket továbbítja az üzemeltető postafiókjába; eközben kezeli az üzenetet, valamint a feladó és a címzett címét. A webes forgalom nem halad át a Cloudflare hálózatán.\n\nA forráskód és a visszajelzések a GitHubon találhatók. Aki ott bejelent valamit, azt a saját GitHub-fiókjával és a GitHub feltételei szerint teszi."
+        "body": "Az oldal és adatbázisa a Google Cloudon fut az Európai Unióban (europe-west4, Hollandia); ott, egy privát tárhelyen vannak a visszajelzésekhez csatolt képek és fájlok is. A Google a nevünkben adatfeldolgozóként jár el.\n\nAz e-maileket — meghívót, a címe megerősítésére vagy a jelszava visszaállítására szolgáló hivatkozást, a fiókjával kapcsolatos értesítést — a Resend küldi írországi régiójából. A Resend megkapja a címzett címét és az adott e-mail szövegét.\n\nA Cloudflare üzemelteti a staunlabor.app DNS-ét, és a @staunlabor.app végű címekre küldött e-maileket továbbítja az üzemeltető postafiókjába; eközben kezeli az üzenetet, valamint a feladó és a címzett címét. A webes forgalom nem halad át a Cloudflare hálózatán.\n\nA forráskód a GitHubon található. Aki ott bejelent valamit, azt a saját GitHub-fiókjával és a GitHub feltételei szerint teszi."
       },
       "browser": {
         "entries": {
@@ -69,15 +70,18 @@
           "look": "A világos vagy sötét megjelenés",
           "tried": "Mely kiállítási tárgyakat próbálta ki, hogy az áttekintés kipipálhassa őket"
         },
-        "tail": "Egyiket sem használjuk az Ön követésére, és egyik sem jut el hozzánk. Mindez eltűnik, amikor törli a webhely adatait a böngészőjében."
+        "tail": "Egyiket sem használjuk az Ön követésére. A bejelentkezési tokeneket a böngészője a fiókjához intézett minden kéréssel elküldi; minden más a böngészőjében marad. Kijelentkezéskor a bejelentkezési tokenek törlődnek, és mindez eltűnik, amikor törli a webhely adatait a böngészőjében."
       },
       "transfers": {
         "title": "Adattovábbítás külföldre",
-        "body": "Az adatokat az EU-ban (Hollandiában) kezeljük. A Google, a Cloudflare és a GitHub amerikai székhelyű vállalatok; amennyiben az adatokhoz Svájcon és az EU-n kívülről is hozzá lehet férni, a továbbítás a szolgáltatók által alkalmazott általános adatvédelmi kikötéseken és — ahol alkalmazandók — az EU–US Data Privacy Framework és a Swiss–US Data Privacy Framework adatvédelmi keretrendszereken alapul. Svájcot, ahol az üzemeltető lakóhelye van, az EU megfelelő adatvédelmi szintet biztosító országként ismeri el."
+        "body": "Az adatokat az EU-ban (Hollandiában) tároljuk, az e-maileket az EU-ból (Írországból) küldjük. A Google, a Resend, a Cloudflare és a GitHub amerikai székhelyű vállalatok; amennyiben az adatokhoz Svájcon és az EU-n kívülről is hozzá lehet férni, a továbbítás a szolgáltatók által alkalmazott általános adatvédelmi kikötéseken és — ahol alkalmazandók — az EU–US Data Privacy Framework és a Swiss–US Data Privacy Framework adatvédelmi keretrendszereken alapul. Svájcot, ahol az üzemeltető lakóhelye van, az EU megfelelő adatvédelmi szintet biztosító országként ismeri el."
       },
       "retention": {
         "title": "Megőrzés és törlés",
-        "body": "A Staunlabor nem tárol Önről adatokat. Tárhelyszolgáltatónk a kérésnaplóit 30 nap után törli. Amit a böngészője tárol, azt bármikor törölheti a böngésző beállításaiban."
+        "body": "Egy fiók adatait addig tároljuk, amíg a fiók létezik. A befejezett munkameneteket IP-címükkel és a böngésző leírásával, a lejárt hivatkozásokat, a soha el nem fogadott meghívókat és a felhasznált hozzáférésikulcs-kihívásokat 30 nappal a lejártuk után töröljük.\n\nFiókja törlését a beállításokban kérheti. A fiókot azonnal letiltjuk, és minden munkamenete véget ér; ezután az adminisztráció 30 napon belül véglegesen törli. Visszajelzéseit, válaszait és hozzászólásait anonimizáljuk, szavazatait és a csak Ön által csatolt fájlokat töröljük. A fordításlektorálásban adott értékelései megmaradnak, de az Ön neve nélkül, az adminisztráció naplója pedig megtartja bejegyzéseit, de az Ön címe nélkül.\n\nA visszajelzéseket addig őrizzük meg, amíg kezelésükhöz szükségesek. Tárhelyszolgáltatónk a kérésnaplóit 30 nap után törli. Amit a böngészője tárol, azt bármikor törölheti a böngésző beállításaiban."
+      },
+      "rights": {
+        "site": "Fiókkal a beállításokban fájlként letöltheti a fiók adatait, és ott kérheti a törlését is. Minden egyébhez elég egy üzenet az alábbi címre."
       }
     }
   },

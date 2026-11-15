@@ -36,6 +36,7 @@
       "computed": "Every number comes from the site's own engine and is held by its tests. What moves is computed by your browser, with the same steps as the engine; what a slider changes is computed by the server.",
       "model": "The exhibits are inspired by exhibits at the Swiss Science Center Technorama in Winterthur. Staunlabor is an independent project and is not affiliated with the Technorama; every drawing and text here is its own.",
       "open": "Staunlabor is free: the code is under the MIT licence, the texts and drawings under CC BY 4.0. You may reuse them with credit, in teaching too.",
+      "accounts": "The exhibits need no account. Accounts exist only by invitation: for those who review the translations or send feedback and ideas for new exhibits.",
       "feedback": "Something wrong, unclear, or an exhibit you would like to see?",
       "issues": "Report it on GitHub",
       "source": "See the source code"
@@ -54,14 +55,14 @@
     "privacy": {
       "data": {
         "title": "What data we process",
-        "body": "Staunlabor has no accounts, no database and no forms. When you change an exhibit, your browser sends its values — a ball's diameter, a drop height — to the server, which computes figures and curves from them and sends them back; none of it is stored.\n\nTechnical data: our hosting provider records each request — the time, the address requested, your IP address and browser type — to operate and secure the service. To limit the number of calculations per address, the server holds your IP address in memory for a short while; it is not stored."
+        "body": "The exhibits need no account. When you change an exhibit, your browser sends its values — a ball's diameter, a drop height — to the server, which computes figures and curves from them and sends them back; none of it is stored.\n\nAccounts: an account exists only by invitation, for those who review the translations or give feedback. For it we store your email address, your first and last name, a hash of your password (never the password itself), your language and your role, when you created the account, confirmed your address and last signed in, and, where it applies, when you asked for its deletion. For each sign-in we store a session: the IP address you signed in from, a description of your browser (such as “Firefox on Linux”), and when it began and was last active. Of your passkeys we store the public key, the name and when you last used them. If you turn on two-factor sign-in, we store your authenticator app's secret encrypted (AES-256-GCM, with a key that is not in the database) and your backup codes only as hashes. For an invitation we store the invited address, who invited, the role and the language, and its link only as a hash. What the administration changes on an account, such as its role, is kept in a log.\n\nFeedback and translations: we store a report with its title, text and category, your account, the size of your browser window and your browser type, the page you were on if you choose to include it, and the images and files you attach; and with it the replies, comments and votes. Reports you leave visible to others can be read by every signed-in account: the title and text, the replies and the comments, each with the first name of the person who wrote it. Whoever reviews translations gives a verdict on a text, optionally with a note and a suggestion; it is stored with the wording reviewed and who reviewed it, and the account keeps the languages and areas it may review.\n\nTechnical data: our hosting provider records each request — the time, the address requested, your IP address and browser type — to operate and secure the service. To limit the number of calculations and sign-in attempts per address, the server holds your IP address in memory for a short while; it is not stored for that."
       },
       "legal_basis": {
         "site": "There is no tracking, no analytics, no cookies and no advertising."
       },
       "third_parties": {
         "title": "Hosting and processors",
-        "body": "The site runs on Google Cloud in the European Union (europe-west4, the Netherlands). Google acts as a processor on our behalf.\n\nCloudflare runs the DNS for staunlabor.app and forwards email to addresses @staunlabor.app to the operator's mailbox; in doing so it processes the message and the sender's and recipient's addresses. Web traffic does not pass through Cloudflare's network.\n\nThe source code and the feedback are on GitHub. Whoever reports something there does so with their GitHub account and under GitHub's terms."
+        "body": "The site and its database run on Google Cloud in the European Union (europe-west4, the Netherlands); the images and files attached to feedback are kept there too, in private storage. Google acts as a processor on our behalf.\n\nEmails — an invitation, a link to confirm your address or reset your password, a notice about your account — are sent through Resend from its region in Ireland. Resend receives the recipient's address and the text of that one email.\n\nCloudflare runs the DNS for staunlabor.app and forwards email to addresses @staunlabor.app to the operator's mailbox; in doing so it processes the message and the sender's and recipient's addresses. Web traffic does not pass through Cloudflare's network.\n\nThe source code is on GitHub. Whoever reports something there does so with their GitHub account and under GitHub's terms."
       },
       "browser": {
         "entries": {
@@ -69,15 +70,18 @@
           "look": "The light or dark theme",
           "tried": "Which exhibits you have tried, so the overview can tick them"
         },
-        "tail": "None of it is used to track you, and none of it is sent to us. All of it disappears when you clear the site's data in your browser."
+        "tail": "None of it is used to track you. Your browser sends the sign-in tokens with each request to your account; everything else stays in your browser. Signing out removes the sign-in tokens, and all of it disappears when you clear the site's data in your browser."
       },
       "transfers": {
         "title": "Transfers abroad",
-        "body": "The data is processed in the EU (the Netherlands). Google, Cloudflare and GitHub are companies based in the USA; where data may be accessed from outside Switzerland and the EU, the transfer relies on the providers' standard contractual clauses and, where they apply, the EU–US and Swiss–US Data Privacy Frameworks. Switzerland, where the operator is based, is recognised by the EU as providing an adequate level of data protection."
+        "body": "The data is stored in the EU (the Netherlands), and emails are sent from the EU (Ireland). Google, Resend, Cloudflare and GitHub are companies based in the USA; where data may be accessed from outside Switzerland and the EU, the transfer relies on the providers' standard contractual clauses and, where they apply, the EU–US and Swiss–US Data Privacy Frameworks. Switzerland, where the operator is based, is recognised by the EU as providing an adequate level of data protection."
       },
       "retention": {
         "title": "Retention and deletion",
-        "body": "Staunlabor stores no data about you. Our hosting provider deletes its request logs after 30 days. What your browser keeps you can delete at any time in its settings."
+        "body": "An account's data is kept as long as the account exists. Ended sessions with their IP address and browser description, expired links, invitations never accepted and spent passkey challenges are deleted 30 days after they ended.\n\nYou ask for your account's deletion in the settings. The account is locked at once and every session ends; the administration then deletes it for good within 30 days. Your feedback, replies and comments are anonymised, and your votes and the files only you attached are deleted. Your verdicts in the translation review stay, without your name, and the administration's log keeps its entries without your address.\n\nWe keep feedback as long as it is needed to deal with it. Our hosting provider deletes its request logs after 30 days. What your browser keeps you can delete at any time in its settings."
+      },
+      "rights": {
+        "site": "With an account, you download its data as a file in the settings and ask for its deletion there too. For anything else, a message to the address below is enough."
       }
     }
   },

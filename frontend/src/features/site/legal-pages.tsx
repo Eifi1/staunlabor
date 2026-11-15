@@ -9,7 +9,7 @@ import { OPERATOR } from "./operator";
 /** The day each page's text last changed for its readers: the deploy that put
  *  it live. A change to a page's words moves its date in the release that
  *  ships it. */
-const UPDATED = { impressum: "2026-11-13", privacy: "2026-11-13" } as const;
+const UPDATED = { impressum: "2026-11-13", privacy: "2026-11-15" } as const;
 
 /** "Show the German version": the binding text, one click away. */
 const showGerman = () => void changeLanguage("de-CH", { remember: true });
@@ -50,7 +50,9 @@ export function ImprintPage() {
 const BROWSER_ENTRIES = ["language", "look", "tried"] as const;
 
 /** The privacy policy: the kit's sections where every site says the same, the
- *  site's own where it is different — no account, no database, no mail. */
+ *  site's own where it is different — the exhibits without an account, the
+ *  accounts only by invitation, with feedback and the translation review, and
+ *  what an erasure removes (`backend/staunlabor/accounts.py`). */
 export function PrivacyPage() {
   const { t } = useTranslation();
   // The account's session (`STORAGE.accounts` + `session`): the kit's own lines, in the
@@ -68,8 +70,8 @@ export function PrivacyPage() {
       notice={null}
       footer={null}
       onShowBindingLanguage={showGerman}
-      // The kit's closing line speaks of reports waiting to be sent and of
-      // signing out; the site has neither.
+      // The kit's closing line speaks of reports waiting to be sent, which the
+      // site has none of; its own says what goes to the server and what stays.
       labels={{ sections: { privacy: { browser: { tail: t("legal.privacy.browser.tail") } } } }}
     >
       <LegalKitSection section="controller" />
@@ -85,7 +87,7 @@ export function PrivacyPage() {
       />
       {own("transfers")}
       {own("retention")}
-      <LegalKitSection section="rights" />
+      <LegalKitSection section="rights">{t("legal.privacy.rights.site")}</LegalKitSection>
       <LegalKitSection section="contact" />
     </LegalPage>
   );

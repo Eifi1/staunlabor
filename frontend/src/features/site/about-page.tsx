@@ -3,12 +3,13 @@ import { Card, PageHeader, TextLink, usePageSeo } from "@eifi1/ui-kit";
 import { PAGE_SHELL } from "@/shared/ui/page-shell";
 import { ISSUES_URL, SOURCE_URL } from "./operator";
 
-/** What Staunlabor is, where its exhibits come from, and that it is free and
- *  open: the museum named as the model, in words only. */
+/** What Staunlabor is, where its exhibits come from, that it is free and open,
+ *  and that the exhibits need no account: the museum named as the model, in
+ *  words only. */
 export function AboutPage() {
   const { t } = useTranslation();
   usePageSeo({ canonicalPath: "/about", title: t("site.about.title"), description: t("site.about.lead") });
-  const paragraphs = ["what", "computed", "model", "open"] as const;
+  const paragraphs = ["what", "computed", "model", "open", "accounts"] as const;
   return (
     <div className={PAGE_SHELL}>
       <PageHeader size="sm" title={t("site.about.title")} description={t("site.about.lead")} />
