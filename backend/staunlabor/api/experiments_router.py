@@ -58,6 +58,7 @@ from staunlabor.domain.experiments import (
     Room,
     SmokeExhibit,
     Sphere,
+    StoneArch,
     Track,
     Vessel,
     WaterWheel,
@@ -103,6 +104,7 @@ from staunlabor.domain.schemas.experiments import (
     SmokeFiguresOut,
     SphereFiguresOut,
     SphereIn,
+    StoneArchIn,
     VesselIn,
     WaterWheelIn,
     WaveFiguresOut,
@@ -157,6 +159,7 @@ async def defaults() -> ExperimentsDefaultsOut:
         well=FunnelIn.model_validate(Funnel()),
         resonance=ResonanceRackIn.model_validate(ResonanceRack()),
         gyroscope=GyroWheelIn.model_validate(GyroWheel()),
+        arch=StoneArchIn.model_validate(StoneArch()),
         meter_range_a=METER_RANGE_A,
         settle_s=PAGE_SETTLE_S,
     )

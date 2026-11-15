@@ -18,7 +18,7 @@ from typing import Annotated
 
 from pydantic import BaseModel, ConfigDict, Field
 
-from staunlabor.domain.experiments import BallKind, CurveKind, FigureKind, Idle, RaceBall, Shape, Verdict
+from staunlabor.domain.experiments import ArchShape, BallKind, CurveKind, FigureKind, Idle, RaceBall, Shape, Verdict
 
 
 class _Out(BaseModel):
@@ -686,6 +686,19 @@ class GyroWheelIn(_In):
     rpm: float = Field(ge=0, le=3000, default=200.0)
 
 
+# ── the chain and the arch ───────────────────────────────────────────────────
+# No route: the page asks the port (``simulate/arch.ts``).
+
+
+class StoneArchIn(_In):
+    shape: ArchShape = "semicircle"
+    span_m: float = Field(ge=0.5, le=50, default=2.0)
+    thickness_m: float = Field(gt=0, le=25, default=0.25)
+    blocks: int = Field(ge=4, le=200, multiple_of=2, default=16)
+    density_kg_m3: float = Field(ge=500, le=20000, default=2400.0)
+    depth_m: float = Field(gt=0, le=10, default=0.3)
+
+
 # ── the pages' starting point ────────────────────────────────────────────────
 
 
@@ -712,6 +725,7 @@ class ExperimentsDefaultsOut(_Out):
     well: FunnelIn
     resonance: ResonanceRackIn
     gyroscope: GyroWheelIn
+    arch: StoneArchIn
     #: The exhibit's meter: digital, ± this many amperes.
     meter_range_a: float
     #: How long a page waits after the last slider step before asking.

@@ -2282,3 +2282,67 @@ def test_the_wheel_refuses_what_it_cannot_be():
         x.gyro_precession(x.GyroWheel(rpm=0))
     with pytest.raises(ValueError, match="between 30° and 150°"):
         x.GyroRelease(tilt_deg=10.0)
+
+
+# ── the chain and the arch ───────────────────────────────────────────────────
+
+
+def test_the_upside_down_chain_springs_from_the_ends_and_rises_as_high_as_the_arch():
+    from staunlabor.domain.experiments import arch
+
+    a = arch.catenary_a_for_rise(1.0, 1.0)
+    assert a * (math.cosh(1.0 / a) - 1) == pytest.approx(1.0, rel=1e-12)
+    ends = arch.joints(x.StoneArch(shape="catenary"))
+    assert ends[0].centre[1] == pytest.approx(0.0, abs=1e-12)
+    assert ends[len(ends) // 2].centre[1] == pytest.approx(1.0, rel=1e-12)
+
+
+def test_a_catenary_arch_is_pressed_along_itself_its_thrust_line_at_its_middle():
+    for thickness in (0.05, 0.1, 0.15, 0.25):
+        line = x.arch_thrust(x.StoneArch(shape="catenary", thickness_m=thickness))
+        assert line.stands
+        # Within a hundredth of half the thickness, whatever the thickness.
+        assert line.reach < 0.01
+
+
+def test_a_semicircular_arch_needs_10_75_percent_of_its_radius_milankovitch_s_bound():
+    # Milankovitch (1907) and Ochsendorf: t/R = 0.1075 for radial joints;
+    # Heyman's 0.106 left out the blocks' true centroids.
+    def least(blocks: int) -> float:
+        lo, hi = 0.05, 0.2
+        for _ in range(25):
+            mid = (lo + hi) / 2
+            lo, hi = (lo, mid) if x.arch_thrust(x.StoneArch(thickness_m=mid, blocks=blocks)).stands else (mid, hi)
+        return hi
+
+    assert round(least(100), 4) == 0.1075
+    # The page's sixteen stones: 10.7 %.
+    assert round(least(16), 3) == 0.107
+
+
+def test_at_10_cm_on_a_metre_s_radius_the_semicircle_falls_and_the_pointed_arch_stands():
+    assert not x.arch_thrust(x.StoneArch(thickness_m=0.1)).stands
+    assert x.arch_thrust(x.StoneArch(shape="pointed", thickness_m=0.1)).stands
+
+
+def test_a_load_at_the_quarter_breaks_the_semicircle_at_80_percent_of_its_weight_the_chain_s_arch_at_141():
+    def breaking(shape: str) -> float:
+        stone = x.StoneArch(shape=shape)
+        weight = x.arch_thrust(stone).weight_n
+        lo, hi = 0.0, 4.0
+        for _ in range(16):
+            mid = (lo + hi) / 2
+            line = x.arch_thrust(stone, x.ArchLoad(0.5, mid * weight))
+            lo, hi = (mid, hi) if line.stands else (lo, mid)
+        return lo
+
+    assert x.StoneArch().thickness_m == 0.25
+    assert round(breaking("semicircle"), 2) == 0.80
+    assert round(breaking("catenary"), 2) == 1.41
+
+
+def test_the_arch_refuses_what_it_cannot_be():
+    with pytest.raises(ValueError, match="even number"):
+        x.StoneArch(blocks=15)
+    with pytest.raises(ValueError, match="between its ends"):
+        x.ArchLoad(1.5, 10.0)

@@ -25,6 +25,7 @@ import * as cradle from "./cradle";
 import * as well from "./well";
 import * as resonance from "./resonance";
 import * as gyroscope from "./gyroscope";
+import * as arch from "./arch";
 import * as elephant from "./elephant";
 import * as foucault from "./foucault";
 import * as harmonograph from "./harmonograph";
@@ -893,6 +894,16 @@ describe("the gyroscope wheel's port", () => {
         expect(differences(c.rates, rates)).toEqual([]);
       }
       expect(differences(c.run, gyroscopeRun(c.wheel, c.release, 5.0))).toEqual([]);
+    }
+  });
+});
+
+describe("the arch's port", () => {
+  it("cuts the stones and finds the thrust line as the engine does", () => {
+    for (const c of cases.arch) {
+      expect(differences(c.joints, arch.joints(c.arch))).toEqual([]);
+      expect(differences(c.blocks, arch.blocks(c.arch))).toEqual([]);
+      expect(differences(c.thrust, arch.thrust(c.arch, c.load))).toEqual([]);
     }
   });
 });

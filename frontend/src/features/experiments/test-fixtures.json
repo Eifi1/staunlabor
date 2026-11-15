@@ -218,6 +218,14 @@
       "axle_m": 0.15,
       "rpm": 200.0
     },
+    "arch": {
+      "shape": "semicircle",
+      "span_m": 2.0,
+      "thickness_m": 0.25,
+      "blocks": 16,
+      "density_kg_m3": 2400.0,
+      "depth_m": 0.3
+    },
     "meter_range_a": 0.1,
     "settle_s": 0.15
   },

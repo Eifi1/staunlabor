@@ -37,6 +37,8 @@ with SciPy before it was written (``docs/experiments.md``).
   rolled ball in a circle, seen from outside; both curve away for the riders.
 * :mod:`cradle` — Newton's cradle with Hertz contacts: one in, one out, clean
   with a hair's gap between the balls and nearly so when they touch.
+* :mod:`arch` — a stone arch stands while a thrust line fits in its stones;
+  the hanging chain, upside down, is the shape where it fits best.
 * :mod:`gyroscope` — a spinning wheel on a string turns round it instead of
   falling; the suitcase that tips when turned.
 * :mod:`resonance` — six rods on a trembling table: only the one in step
@@ -70,6 +72,11 @@ What it is not: a physics engine for games. Each model is the exhibit's, with
 the assumptions its module states.
 """
 
+from staunlabor.domain.experiments.arch import Arch as StoneArch
+from staunlabor.domain.experiments.arch import Load as ArchLoad
+from staunlabor.domain.experiments.arch import Shape as ArchShape
+from staunlabor.domain.experiments.arch import Thrust as ArchThrust
+from staunlabor.domain.experiments.arch import thrust as arch_thrust
 from staunlabor.domain.experiments.cannon import (
     Ball,
     BallStack,
@@ -366,6 +373,9 @@ __all__ = [
     "EYE",
     "EYE_BASELINE_M",
     "METER_RANGE_A",
+    "ArchLoad",
+    "ArchShape",
+    "ArchThrust",
     "Ball",
     "BallKind",
     "BallStack",
@@ -473,6 +483,7 @@ __all__ = [
     "SpinRun",
     "SpreadPoint",
     "Start",
+    "StoneArch",
     "Surface",
     "SwingPoint",
     "SwingRun",
@@ -497,6 +508,7 @@ __all__ = [
     "WheelState",
     "WheelTurns",
     "angle_deg",
+    "arch_thrust",
     "axis_height_m",
     "axis_slope",
     "backbone",

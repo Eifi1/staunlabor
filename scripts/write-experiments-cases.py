@@ -70,6 +70,7 @@ cradle = importlib.import_module("staunlabor.domain.experiments.cradle")
 well = importlib.import_module("staunlabor.domain.experiments.well")
 resonance = importlib.import_module("staunlabor.domain.experiments.resonance")
 gyroscope = importlib.import_module("staunlabor.domain.experiments.gyroscope")
+arch = importlib.import_module("staunlabor.domain.experiments.arch")
 
 TARGET = ROOT / "frontend/src/features/experiments/simulate/engine-cases.json"
 #: Points kept per curve: enough to see a curve that went wrong, few enough that
@@ -534,6 +535,17 @@ GYROSCOPE_CASES = (
 )
 
 
+#: The arch: the exhibit's semicircle, a pointed arch loaded off the middle, a
+#: catenary loaded on the other side, one too thin to stand, and a fine one.
+ARCH_CASES = (
+    (arch.Arch(), arch.Load()),
+    (arch.Arch(shape="pointed", thickness_m=0.1), arch.Load(0.5, 500.0)),
+    (arch.Arch(shape="catenary", blocks=12), arch.Load(-0.3, 2000.0)),
+    (arch.Arch(thickness_m=0.08), arch.Load()),
+    (arch.Arch(span_m=5.0, thickness_m=0.4, blocks=40), arch.Load(0.0, 3000.0)),
+)
+
+
 def thin(values: Any) -> Any:
     """A curve as its length and every so many of its points, the last always
     among them; anything else as it is, recursively."""
@@ -656,6 +668,19 @@ def _gyroscope_cases(out: dict[str, Any]) -> None:
                     else []
                 ),
                 "run": thin(asdict(gyroscope.run(w, release, 5.0))),
+            }
+        )
+
+
+def _arch_cases(out: dict[str, Any]) -> None:
+    for stone, load in ARCH_CASES:
+        out["arch"].append(
+            {
+                "arch": asdict(stone),
+                "load": asdict(load),
+                "joints": [asdict(j) for j in arch.joints(stone)],
+                "blocks": [asdict(b) for b in arch.blocks(stone)],
+                "thrust": asdict(arch.thrust(stone, load)),
             }
         )
 
@@ -859,6 +884,7 @@ def _second_series(out: dict[str, Any]) -> None:
     _well_cases(out)
     _resonance_cases(out)
     _gyroscope_cases(out)
+    _arch_cases(out)
 
 
 def cases() -> dict[str, Any]:
@@ -912,6 +938,7 @@ def cases() -> dict[str, Any]:
         "well": [],
         "resonance": [],
         "gyroscope": [],
+        "arch": [],
     }
     _second_series(out)
     for name, case in HARMONOGRAPH_CASES.items():
