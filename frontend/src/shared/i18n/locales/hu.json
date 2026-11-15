@@ -241,6 +241,12 @@
         "title": "A Coriolis-körhinta",
         "summary": "Egy forgó körhintán ketten labdát gurítanak egymásnak – és sosem oda érkezik, ahová céloztak. Kívülről nézve nincs mit megmagyarázni: nincs görbe.",
         "question": "Ketten ülnek egymással szemben egy forgó körhintán. Hová kell célozni, hogy eltalálja a másikat?"
+      },
+      "cradle": {
+        "short": "Newton-inga",
+        "title": "A Newton-inga",
+        "summary": "Egy golyó be, egy ki; kettő be, kettő ki. Az impulzus és az energia más választ nem enged – majdnem.",
+        "question": "Miért repül el a túlsó végen pontosan annyi golyó, ahányat leejtünk?"
       }
     },
     "chair": {
@@ -1901,6 +1907,77 @@
       },
       "computed": {
         "system": "Mindkét pálya zárt alakban megoldható: a korong egyenesen, a labda körön, mindkettő kívülről nézve, és az együtt forgó számára visszaforgatva. Hogy a labda hol éri el újra a peremet, és hová kell célozni a találathoz, azt az oldal felezéssel keresi meg. A teszt a korong visszaforgatott pályáját egy Coriolis- és centrifugális erővel lépésenként számolt megoldással veti össze."
+      }
+    },
+    "cradle": {
+      "at": {
+        "row": "Öt acélgolyó lóg fonalakon egy sorban, épp csak érintve egymást. Az elsőt felemeljük és elengedjük: a túlsó végen az utolsó elrepül, a köztük lévő három pedig mintha állna.",
+        "two": "Ha kettőt ejtünk le, kettő repül el. Egy idő után a középső golyók is lengeni kezdenek."
+      },
+      "view": "A Newton-inga elölről: a rúd, a fonalak és a golyók",
+      "play": {
+        "title": "Felemelni és elengedni",
+        "hint": "Ejtsen le egy golyót, aztán kettőt. Ha 0,1 mm levegő van a golyók között, a számítás pontosan kijön.",
+        "let_go": "Elengedni",
+        "pause": "Megállítás",
+        "run": "Tovább",
+        "lifted": "Felemelt golyók",
+        "spacing": "A golyók között",
+        "spacings": {
+          "touching": "Érintkeznek",
+          "gap": "0,1 mm levegő"
+        },
+        "speed": "Tempó",
+        "speeds": {
+          "100": "Valós idő",
+          "25": "4× lassabban",
+          "10": "10× lassabban"
+        },
+        "angle": "Kitérés",
+        "restitution": "Amit egy ütközés visszaad",
+        "restitution_hint": "A sebességnek az a hányada, amellyel két golyó 1 m/s-os ütközés után szétválik. 1 jelentése: nincs veszteség.",
+        "far": "Energia a túlsó végen",
+        "far_hint": "Az első ütközés után: az energiának az a hányada, amely a túlsó végen annyi golyóban van, ahányat felemeltünk.",
+        "duration": "Az ütközés hossza",
+        "peak": "Legnagyobb erő",
+        "after": "Sebességek az első ütközés után, balról jobbra: {{speeds}} m/s",
+        "ball": "{{n}}. golyó"
+      },
+      "chart": {
+        "widest": "Legnagyobb kitérés",
+        "time": "Idő",
+        "caption": "Másodpercről másodpercre minden golyó legnagyobb kitérése az elengedés óta"
+      },
+      "model": {
+        "intro": "Minden golyó egy inga. Két golyó csak ott nyomja egymást, ahol kissé benyomódnak egymásba – Hertz törvénye szerint, amely annál merevebb, minél mélyebb a benyomódás.",
+        "hertz": "A két golyó közti erő a benyomódás 3/2-edik hatványával nő; a második tényező egy kevés energiát elvesz az ütközéstől.",
+        "brief": "Ha egy 64 g-os golyót 30°-ról ejtünk le, az ütközése mintegy 0,2 ezredmásodpercig tart, és ebben a pillanatban a golyók csaknem 900 N-nal nyomják egymást – annyival, amennyi 90 kg súlya.",
+        "swing": "Minden golyó a fonalain leng, és a szomszédai lökik.",
+        "why": "Ha a golyók egyenként ütköznek, az impulzus és az energia megmarad, és egyforma golyóknál ez azt jelenti: kicserélik a sebességüket. Két golyó fele sebességgel ugyanakkora impulzust vinne, de csak fele annyi energiát."
+      },
+      "symbols": {
+        "f": "a két golyó közti erő",
+        "delta": "mennyire nyomódnak egymásba",
+        "k": "két golyó merevsége Hertz szerint",
+        "e_star": "az acél merevsége: E rugalmassági modulus, ν Poisson-szám",
+        "r_star": "két egyforma, d átmérőjű golyó hatásos sugara",
+        "alpha": "a csillapítás az acélban, e-ből meghatározva 1 m/s-nál",
+        "e": "a sebességnek az a hányada, amelyet egy ütközés visszaad",
+        "theta": "az i-edik golyó szöge",
+        "l": "a hossz a felfüggesztési ponttól a golyó közepéig",
+        "m": "egy golyó tömege",
+        "g": "a nehézségi gyorsulás",
+        "fi": "az i-edik golyó és jobb oldali szomszédja közti erő",
+        "v": "a leeső golyó sebessége lent"
+      },
+      "sweet": {
+        "wave": "A golyók érintkeznek, így nem egymás után ütköznek: az ütközés hullámként fut végig a soron. Mivel a Hertz-féle érintkezés a benyomódással merevebbé válik, a hullám rövid marad, és szinte egészében az utolsó golyóba érkezik – az energia 97 %-a. A maradékot a többiek tartják meg; az első még vissza is pattan egy kicsit.",
+        "gap": "Ha 0,1 mm levegő van a golyók között, ismét egyenként ütköznek, és a számítás kijön: az energia 99,9 %-a az utolsó golyóban.",
+        "two": "Ha kettőt ejtünk le, két hullám fut végig a soron egymás után. Az utolsó golyó 0,70 m/s-mal repül el, az utolsó előtti 0,49 m/s-mal – nem mindkettő azzal a 0,63 m/s-mal, amellyel a kettő érkezett. Együtt mégis az energia 97 %-át viszik.",
+        "together": "Ami a sorban marad, minden ütközéssel nő, ha az ütközések egy kevés energiát elveszítenek: a negyedik másodpercben a középső golyó már 2,5°-ot leng ki. Ha minden ütközés mindent visszaad (e = 1), szinte mozdulatlan marad."
+      },
+      "computed": {
+        "system": "Minden golyót lépésenként számolunk Runge–Kutta-módszerrel: egyszerre egy ezredmásodpercet, amíg mind szabadon leng, egy milliomod másodpercet, amíg kettő érintkezik vagy épp érintkezni fog. Az ütközés adatai a leeső és a lógó golyók első találkozásából származnak. Ha a golyók sokáig nyomják egymást, az oldal nem mindig tud lépést tartani, és egy pillanatra lassabban fut. A teszt a két golyó közti legnagyobb erőt Hertz zárt képletéhez méri, és ellenőrzi, hogy levegővel a golyók között pontosan egy repül el, olyan gyorsan, ahogy az első érkezett."
       }
     }
   }

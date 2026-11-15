@@ -241,6 +241,12 @@
         "title": "El carrusel de Coriolis",
         "summary": "En un carrusel que gira, dos personas se lanzan una pelota rodando – y nunca llega a donde se apuntó. Visto desde fuera, no hay ninguna curva que explicar.",
         "question": "Dos personas se sientan frente a frente en un carrusel que gira. ¿Hacia dónde hay que apuntar para alcanzar al otro?"
+      },
+      "cradle": {
+        "short": "Péndulo de Newton",
+        "title": "El péndulo de Newton",
+        "summary": "Una bola entra, una sale; entran dos, salen dos. El momento y la energía no permiten otra respuesta – casi.",
+        "question": "¿Por qué salen por el otro extremo exactamente tantas bolas como se dejan caer?"
       }
     },
     "chair": {
@@ -1901,6 +1907,77 @@
       },
       "computed": {
         "system": "Ambas trayectorias tienen solución cerrada: el disco en una recta, la pelota en un círculo, ambas vistas desde fuera y giradas de vuelta para quien gira. Dónde la pelota vuelve a llegar al borde, y hacia dónde hay que apuntar para acertar, lo halla la página partiendo por la mitad. La prueba contrasta la trayectoria girada del disco con un cálculo paso a paso con las fuerzas de Coriolis y centrífuga."
+      }
+    },
+    "cradle": {
+      "at": {
+        "row": "Cinco bolas de acero cuelgan de hilos en fila, apenas tocándose. Se levanta la primera y se deja caer: en el otro extremo sale despedida la última, y las tres de en medio parecen quedarse quietas.",
+        "two": "Si se dejan caer dos, salen dos. Al cabo de un rato también las bolas del medio empiezan a oscilar."
+      },
+      "view": "El péndulo de Newton de frente: la barra, los hilos y las bolas",
+      "play": {
+        "title": "Levantar y soltar",
+        "hint": "Deje caer una bola, luego dos. Con 0,1 mm de aire entre las bolas, la cuenta sale exacta.",
+        "let_go": "Soltar",
+        "pause": "Pausa",
+        "run": "Seguir",
+        "lifted": "Bolas levantadas",
+        "spacing": "Entre las bolas",
+        "spacings": {
+          "touching": "Se tocan",
+          "gap": "0,1 mm de aire"
+        },
+        "speed": "Velocidad",
+        "speeds": {
+          "100": "Tiempo real",
+          "25": "4× más lento",
+          "10": "10× más lento"
+        },
+        "angle": "Desviación",
+        "restitution": "Lo que devuelve un choque",
+        "restitution_hint": "La fracción de su velocidad con la que dos bolas se separan tras chocar a 1 m/s. 1 significa: sin pérdida.",
+        "far": "Energía en el otro extremo",
+        "far_hint": "Tras el primer choque: la fracción de la energía en tantas bolas del otro extremo como se levantaron.",
+        "duration": "Duración del choque",
+        "peak": "Fuerza máxima",
+        "after": "Velocidades tras el primer choque, de izquierda a derecha: {{speeds}} m/s",
+        "ball": "Bola {{n}}"
+      },
+      "chart": {
+        "widest": "Mayor desviación",
+        "time": "Tiempo",
+        "caption": "Segundo a segundo, la mayor desviación de cada bola desde que se soltó"
+      },
+      "model": {
+        "intro": "Cada bola es un péndulo. Dos bolas se empujan solo donde se hunden un poco una en la otra – según la ley de Hertz, que se vuelve más rígida cuanto más se hunden.",
+        "hertz": "La fuerza entre dos bolas crece con la deformación elevada a 3/2; el segundo factor le quita un poco de energía al choque.",
+        "brief": "Si una bola de 64 g cae desde 30°, su choque dura unos 0,2 milisegundos, y en ese instante las bolas se aprietan con casi 900 N – tanto como el peso de 90 kg.",
+        "swing": "Cada bola oscila en sus hilos y la empujan sus vecinas.",
+        "why": "Cuando las bolas chocan de una en una, se conservan el momento y la energía, y para bolas iguales eso significa: intercambian su velocidad. Dos bolas a la mitad de velocidad tendrían el mismo momento, pero solo la mitad de energía."
+      },
+      "symbols": {
+        "f": "la fuerza entre dos bolas",
+        "delta": "cuánto se hunden una en la otra",
+        "k": "la rigidez de dos bolas según Hertz",
+        "e_star": "la rigidez del acero: módulo de Young E, coeficiente de Poisson ν",
+        "r_star": "el radio efectivo de dos bolas iguales de diámetro d",
+        "alpha": "la amortiguación en el acero, fijada a partir de e a 1 m/s",
+        "e": "la fracción de la velocidad que devuelve un choque",
+        "theta": "el ángulo de la i-ésima bola",
+        "l": "la longitud desde el punto de suspensión hasta el centro de la bola",
+        "m": "la masa de una bola",
+        "g": "la aceleración de la gravedad",
+        "fi": "la fuerza entre la i-ésima bola y su vecina de la derecha",
+        "v": "la velocidad de la bola que cae, abajo"
+      },
+      "sweet": {
+        "wave": "Las bolas se tocan, así que no chocan una tras otra: el choque recorre la fila como una onda. Como el contacto de Hertz se vuelve más rígido al hundirse, la onda sigue siendo corta y llega casi entera a la última bola – el 97 % de la energía. El resto se lo quedan las demás; la primera incluso rebota un poco.",
+        "gap": "Con 0,1 mm de aire entre las bolas, vuelven a chocar de una en una, y la cuenta sale: el 99,9 % de la energía en la última bola.",
+        "two": "Si se dejan caer dos, recorren la fila dos ondas, una tras otra. La última bola sale a 0,70 m/s, la penúltima a 0,49 m/s – no las dos a los 0,63 m/s con que llegaron. Juntas llevan aun así el 97 % de la energía.",
+        "together": "Lo que queda en la fila crece con cada choque si los choques pierden algo de energía: en el cuarto segundo la bola del medio ya oscila 2,5°. Si cada choque lo devuelve todo (e = 1), se queda casi quieta."
+      },
+      "computed": {
+        "system": "Cada bola se calcula paso a paso con Runge–Kutta: un milisegundo de una vez mientras todas oscilan libres, un microsegundo mientras dos se tocan o están a punto de tocarse. Las cifras del choque salen del primer encuentro de las bolas que caen con las que cuelgan. Cuando las bolas se aprietan durante mucho rato, la página no siempre da abasto y va un momento más lenta. La prueba contrasta la fuerza máxima entre dos bolas con la fórmula cerrada de Hertz, y comprueba que con aire entre las bolas sale exactamente una, tan rápida como llegó la primera."
       }
     }
   }

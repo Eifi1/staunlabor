@@ -46,6 +46,7 @@ const PREVIEWS: Record<Exhibit, LazyExoticComponent<ComponentType<PreviewProps>>
   waterwheel: lazy(() => import("./waterwheel-page").then((m) => ({ default: m.WaterwheelPreview }))),
   foucault: lazy(() => import("./foucault-page").then((m) => ({ default: m.FoucaultPreview }))),
   coriolis: lazy(() => import("./coriolis-page").then((m) => ({ default: m.CoriolisPreview }))),
+  cradle: lazy(() => import("./cradle-page").then((m) => ({ default: m.CradlePreview }))),
 };
 
 /** Whether the element is on screen (`margin` beyond it counts), and whether

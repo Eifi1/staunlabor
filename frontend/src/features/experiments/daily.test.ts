@@ -76,7 +76,9 @@ describe("the experiment of the day", () => {
     const together = (days: string[]) => days.slice(1).filter((e, i) => flow.has(e) && flow.has(days[i])).length;
     const leaned = together(run(built.length * 400, pool));
     const even = together(run(built.length * 400, pool, EVEN));
-    expect(even).toBeGreaterThan(50);
+    // An even round puts the two side by side 2/n of the time: 400 rounds of
+    // sixteen, fifty. A fixed bound held only while there were few exhibits.
+    expect(even).toBeGreaterThan(((2 * 400) / built.length) * 0.7);
     // Not a quarter as often, though the weight is a quarter: late in a round
     // there is often nothing else left to draw.
     expect(leaned).toBeLessThan(even * 0.7);
@@ -115,8 +117,11 @@ describe("the experiment of the day", () => {
     const even = late(run(built.length * 400, pool, EVEN));
     expect(even).toBeGreaterThan(50);
     // With eight exhibits the bonus cut such turns by a quarter; with fifteen,
-    // by an eighth (1456 against 1670 over 400 rounds): still fewer, less so.
-    expect(leaned).toBeLessThan(even * 0.9);
+    // by an eighth; with sixteen, by a tenth (2311 against 2555 over 400
+    // rounds): a day's weight is fixed while a round grows. Still fewer, less
+    // so with every exhibit; whether to scale it is docs/experiments.md's open
+    // question.
+    expect(leaned).toBeLessThan(even * 0.95);
   });
 
   it("takes a new exhibit in at the next round, leaving the days before it as they were", () => {

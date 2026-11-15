@@ -5,8 +5,9 @@
  * microsecond while any two press on each other — held to it by
  * `simulate.test.ts`.
  *
- * The page swings the row as the reader watches, so there is no route. A change
- * to the physics is made in Python first.
+ * The page swings the row as the reader watches, so there is no route. The
+ * engine's `run` is not ported: the page steps the row itself, and the test
+ * samples it the engine's way. A change to the physics is made in Python first.
  */
 
 import { G } from "./pendulum";
@@ -17,8 +18,6 @@ export const POISSON = 0.29;
 export const STEP_S = 1e-3;
 export const CONTACT_STEP_S = 1e-6;
 const SUBSTEPS = roundHalfEven(STEP_S / CONTACT_STEP_S);
-export const SAMPLES_PER_S = 100;
-export const MAX_S = 60.0;
 /** The speed `e` is given at. */
 export const REFERENCE_M_S = 1.0;
 
@@ -38,7 +37,6 @@ export interface Pull {
 }
 
 const TO_RAD = Math.PI / 180.0;
-const TO_DEG = 180.0 / Math.PI;
 
 export const massKg = (cr: Cradle) => ((cr.density_kg_m3 * Math.PI) / 6) * cr.diameter_m ** 3;
 
@@ -126,29 +124,6 @@ export function step(cr: Cradle, th: number[], w: number[]): [number[], number[]
   }
   if (done === SUBSTEPS) return [th, w];
   return rk4(cr, th, w, STEP_S - done * CONTACT_STEP_S);
-}
-
-/** The engine's `CradleRun`. */
-export interface CradleRun {
-  t: number[];
-  angles_deg: number[][];
-}
-
-export function run(cr: Cradle, pull: Pull, durationS: number): CradleRun {
-  if (!(durationS > 0 && durationS <= MAX_S))
-    throw new RangeError(`a run lasts more than nothing and at most ${MAX_S} s`);
-  let [th, w] = start(cr, pull);
-  const steps = roundHalfEven(durationS / STEP_S);
-  const every = Math.max(1, roundHalfEven(1 / (SAMPLES_PER_S * STEP_S)));
-  const out: CradleRun = { t: [], angles_deg: Array.from({ length: cr.count }, () => []) };
-  for (let i = 0; i <= steps; i++) {
-    if (i % every === 0) {
-      out.t.push(i * STEP_S);
-      for (let b = 0; b < cr.count; b++) out.angles_deg[b].push(th[b] * TO_DEG);
-    }
-    if (i < steps) [th, w] = step(cr, th, w);
-  }
-  return out;
 }
 
 /** The engine's `Impact`. */

@@ -742,11 +742,27 @@ describe("the Coriolis carousel's port", () => {
   });
 });
 
+/** The engine's `run`, sampled from the port's steps as the engine samples
+ *  its own: every tenth millisecond, each ball's angle in degrees. */
+function cradleRun(cr: cradle.Cradle, pull: cradle.Pull, durationS: number) {
+  let [th, w] = cradle.start(cr, pull);
+  const steps = Math.round(durationS / cradle.STEP_S);
+  const out = { t: [] as number[], angles_deg: th.map(() => [] as number[]) };
+  for (let i = 0; i <= steps; i++) {
+    if (i % 10 === 0) {
+      out.t.push(i * cradle.STEP_S);
+      th.forEach((a, b) => out.angles_deg[b].push((a * 180) / Math.PI));
+    }
+    if (i < steps) [th, w] = cradle.step(cr, th, w);
+  }
+  return out;
+}
+
 describe("Newton's cradle's port", () => {
   it("meets and swings as the engine does", () => {
     for (const c of cases.cradle) {
       expect(differences(c.impact, cradle.impact(c.cr, c.pull))).toEqual([]);
-      expect(differences(c.run, cradle.run(c.cr, c.pull, 1.0))).toEqual([]);
+      expect(differences(c.run, cradleRun(c.cr, c.pull, 1.0))).toEqual([]);
     }
   });
 });

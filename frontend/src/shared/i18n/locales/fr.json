@@ -241,6 +241,12 @@
         "title": "Le manège de Coriolis",
         "summary": "Sur un manège qui tourne, deux personnes se font rouler une balle – et elle n'arrive jamais là où l'on a visé. Vu de l'extérieur, il n'y a aucune courbe à expliquer.",
         "question": "Deux personnes sont assises face à face sur un manège qui tourne. Où faut-il viser pour atteindre l'autre ?"
+      },
+      "cradle": {
+        "short": "Pendule de Newton",
+        "title": "Le pendule de Newton",
+        "summary": "Une bille entre, une sort ; deux entrent, deux sortent. La quantité de mouvement et l'énergie n'admettent pas d'autre réponse – presque.",
+        "question": "Pourquoi part-il à l'autre bout exactement autant de billes qu'on en laisse tomber ?"
       }
     },
     "chair": {
@@ -1901,6 +1907,77 @@
       },
       "computed": {
         "system": "Les deux trajectoires ont une solution fermée : le palet sur une droite, la balle sur un cercle, toutes deux vues de l'extérieur et ramenées par rotation pour qui tourne avec. Où la balle atteint à nouveau le bord, et où il faut viser pour atteindre, la page le trouve par dichotomie. Le test confronte la trajectoire ramenée du palet à un calcul pas à pas avec les forces de Coriolis et centrifuge."
+      }
+    },
+    "cradle": {
+      "at": {
+        "row": "Cinq billes d'acier pendent à des fils, en rang, juste en contact. On soulève la première et on la lâche : à l'autre bout, la dernière s'envole, et les trois du milieu semblent immobiles.",
+        "two": "Si l'on en lâche deux, deux s'envolent. Au bout d'un moment, les billes du milieu se mettent elles aussi à osciller."
+      },
+      "view": "Le pendule de Newton de face : la barre, les fils et les billes",
+      "play": {
+        "title": "Soulever et lâcher",
+        "hint": "Lâchez une bille, puis deux. Avec 0,1 mm d'air entre les billes, le compte tombe juste.",
+        "let_go": "Lâcher",
+        "pause": "Pause",
+        "run": "Continuer",
+        "lifted": "Billes soulevées",
+        "spacing": "Entre les billes",
+        "spacings": {
+          "touching": "En contact",
+          "gap": "0,1 mm d'air"
+        },
+        "speed": "Vitesse",
+        "speeds": {
+          "100": "Temps réel",
+          "25": "4× plus lent",
+          "10": "10× plus lent"
+        },
+        "angle": "Écart",
+        "restitution": "Ce que rend un choc",
+        "restitution_hint": "La part de leur vitesse avec laquelle deux billes se séparent après un choc à 1 m/s. 1 signifie : aucune perte.",
+        "far": "Énergie à l'autre bout",
+        "far_hint": "Après le premier choc : la part de l'énergie contenue dans autant de billes à l'autre bout qu'on en a soulevé.",
+        "duration": "Durée du choc",
+        "peak": "Force maximale",
+        "after": "Vitesses après le premier choc, de gauche à droite : {{speeds}} m/s",
+        "ball": "Bille {{n}}"
+      },
+      "chart": {
+        "widest": "Plus grand écart",
+        "time": "Temps",
+        "caption": "Seconde après seconde, le plus grand écart de chaque bille depuis qu'on l'a lâchée"
+      },
+      "model": {
+        "intro": "Chaque bille est un pendule. Deux billes ne se poussent que là où elles s'enfoncent un peu l'une dans l'autre – selon la loi de Hertz, qui devient d'autant plus raide que l'enfoncement est profond.",
+        "hertz": "La force entre deux billes croît comme l'enfoncement à la puissance 3/2 ; le second facteur prend au choc un peu d'énergie.",
+        "brief": "Lâchée de 30°, une bille de 64 g frappe pendant environ 0,2 milliseconde, et pendant cet instant les billes se pressent avec près de 900 N – autant que le poids de 90 kg.",
+        "swing": "Chaque bille oscille sur ses fils et est poussée par ses voisines.",
+        "why": "Quand les billes se heurtent une à une, la quantité de mouvement et l'énergie se conservent, et pour des billes égales cela veut dire : elles échangent leur vitesse. Deux billes à mi-vitesse auraient la même quantité de mouvement, mais seulement la moitié de l'énergie."
+      },
+      "symbols": {
+        "f": "la force entre deux billes",
+        "delta": "de combien elles s'enfoncent l'une dans l'autre",
+        "k": "la raideur de deux billes selon Hertz",
+        "e_star": "la raideur de l'acier : module d'Young E, coefficient de Poisson ν",
+        "r_star": "le rayon effectif de deux billes égales de diamètre d",
+        "alpha": "l'amortissement dans l'acier, fixé d'après e à 1 m/s",
+        "e": "la part de la vitesse que rend un choc",
+        "theta": "l'angle de la i-ème bille",
+        "l": "la longueur du point de suspension au centre de la bille",
+        "m": "la masse d'une bille",
+        "g": "l'accélération de la pesanteur",
+        "fi": "la force entre la i-ème bille et sa voisine de droite",
+        "v": "la vitesse de la bille qui tombe, en bas"
+      },
+      "sweet": {
+        "wave": "Les billes se touchent, elles ne se heurtent donc pas l'une après l'autre : le choc parcourt la rangée comme une onde. Comme le contact de Hertz se raidit en s'enfonçant, l'onde reste courte et arrive presque entière dans la dernière bille – 97 % de l'énergie. Les autres gardent le reste ; la première rebondit même un peu.",
+        "gap": "Avec 0,1 mm d'air entre les billes, elles se heurtent de nouveau une à une, et le compte tombe juste : 99,9 % de l'énergie dans la dernière bille.",
+        "two": "Si l'on en lâche deux, deux ondes parcourent la rangée l'une derrière l'autre. La dernière bille part à 0,70 m/s, l'avant-dernière à 0,49 m/s – et non les deux aux 0,63 m/s avec lesquels les deux sont arrivées. Ensemble, elles portent malgré tout 97 % de l'énergie.",
+        "together": "Ce qui reste dans la rangée grandit à chaque choc si les chocs perdent un peu d'énergie : dans la quatrième seconde, la bille du milieu oscille déjà de 2,5°. Si chaque choc rend tout (e = 1), elle reste presque immobile."
+      },
+      "computed": {
+        "system": "Chaque bille est calculée pas à pas par Runge–Kutta : une milliseconde d'un coup tant que toutes oscillent librement, une microseconde tant que deux se touchent ou vont se toucher. Les chiffres du choc viennent de la première rencontre des billes qui tombent avec celles qui pendent. Quand les billes se pressent longtemps, la page ne suit pas toujours et ralentit un instant. Le test confronte la force maximale entre deux billes à la formule fermée de Hertz, et vérifie qu'avec de l'air entre les billes, exactement une s'envole, aussi vite que la première est arrivée."
       }
     }
   }

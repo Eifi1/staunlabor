@@ -26,6 +26,7 @@ import {
   Torus,
   Waves,
   Wind,
+  Ellipsis,
 } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
 import {
@@ -71,6 +72,7 @@ const ICON: Record<Exhibit, LucideIcon> = {
   waterwheel: Droplets,
   foucault: Globe,
   coriolis: RefreshCcw,
+  cradle: Ellipsis,
 };
 
 /** Two weeks back, in the dialog: long enough to find the one a friend

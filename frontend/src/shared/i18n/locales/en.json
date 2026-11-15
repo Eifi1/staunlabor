@@ -241,6 +241,12 @@
         "title": "The Coriolis carousel",
         "summary": "On a turning carousel two people roll a ball to each other – and it never arrives where it was aimed. Seen from outside there is no curve to explain.",
         "question": "Two people sit facing each other on a turning carousel. Where must one aim to hit the other?"
+      },
+      "cradle": {
+        "short": "Newton's cradle",
+        "title": "Newton's cradle",
+        "summary": "One ball in, one ball out; two in, two out. Momentum and energy allow no other answer – almost.",
+        "question": "Why do exactly as many balls fly off at the other end as are let fall?"
       }
     },
     "chair": {
@@ -1901,6 +1907,77 @@
       },
       "computed": {
         "system": "Both paths have closed forms: the puck on a straight line, the ball on a circle, both seen from outside and turned back for the rider. Where the ball reaches the edge again, and where one must aim to hit, the page finds by halving. The test holds the puck's turned-back path to a stepped solution with the Coriolis and the centrifugal force."
+      }
+    },
+    "cradle": {
+      "at": {
+        "row": "Five steel balls hang on strings in a row, just touching. Lift the first and let it fall: at the other end the last one flies off, and the three between seem to stand still.",
+        "two": "Let two fall and two fly off. After a while the balls in the middle begin to swing too."
+      },
+      "view": "Newton's cradle from the front: the beam, the strings and the balls",
+      "play": {
+        "title": "Lift and let go",
+        "hint": "Let one ball fall, then two. With 0.1 mm of air between the balls the sum comes out exactly.",
+        "let_go": "Let go",
+        "pause": "Pause",
+        "run": "Continue",
+        "lifted": "Balls lifted",
+        "spacing": "Between the balls",
+        "spacings": {
+          "touching": "Touching",
+          "gap": "0.1 mm of air"
+        },
+        "speed": "Speed",
+        "speeds": {
+          "100": "Real time",
+          "25": "4× slower",
+          "10": "10× slower"
+        },
+        "angle": "Lifted by",
+        "restitution": "What a collision gives back",
+        "restitution_hint": "The share of their speed at which two balls part after meeting at 1 m/s. 1 means: nothing lost.",
+        "far": "Energy at the other end",
+        "far_hint": "After the first collision: the share of the energy in as many balls at the other end as were lifted.",
+        "duration": "Length of the collision",
+        "peak": "Largest force",
+        "after": "Speeds after the first collision, left to right: {{speeds}} m/s",
+        "ball": "Ball {{n}}"
+      },
+      "chart": {
+        "widest": "Widest swing",
+        "time": "Time",
+        "caption": "Second by second, each ball's widest swing since it was let go"
+      },
+      "model": {
+        "intro": "Each ball is a pendulum. Two balls push on each other only where they dent each other a little – by Hertz's law, which grows stiffer the deeper the dent.",
+        "hertz": "The force between two balls grows as the dent to the power 3/2; the second factor takes a little energy from the collision.",
+        "brief": "Let a 64 g ball fall from 30° and its collision lasts about 0.2 milliseconds; for that moment the balls press on each other with nearly 900 N – as much as the weight of 90 kg.",
+        "swing": "Each ball swings on its strings and is pushed by its neighbours.",
+        "why": "When balls meet one at a time, momentum and energy are kept, and for equal balls that means: they trade speeds. Two balls at half the speed would have the same momentum but only half the energy."
+      },
+      "symbols": {
+        "f": "the force between two balls",
+        "delta": "how far the two dent each other",
+        "k": "the stiffness of two balls by Hertz",
+        "e_star": "the steel's stiffness: Young's modulus E, Poisson's ratio ν",
+        "r_star": "the effective radius of two equal balls of diameter d",
+        "alpha": "the damping in the steel, set from e at 1 m/s",
+        "e": "the share of the speed a collision gives back",
+        "theta": "the angle of the i-th ball",
+        "l": "the length from the hanging point to the middle of the ball",
+        "m": "the mass of one ball",
+        "g": "the acceleration of gravity",
+        "fi": "the force between the i-th ball and its right-hand neighbour",
+        "v": "the falling ball's speed at the bottom"
+      },
+      "sweet": {
+        "wave": "The balls touch, so they do not meet one after another: the collision runs through the row as a wave. Because Hertz's contact grows stiffer as it dents, the wave stays short and arrives almost whole in the last ball – 97 % of the energy. The others keep the rest; the first even bounces back a little.",
+        "gap": "With 0.1 mm of air between the balls they meet one at a time again, and the sum comes out: 99.9 % of the energy in the last ball.",
+        "two": "Let two fall and two waves run through the row one behind the other. The last ball flies off at 0.70 m/s, the one before it at 0.49 m/s – not both at the 0.63 m/s the two came in with. Together they still carry 97 % of the energy.",
+        "together": "What stays in the row grows with every collision if the collisions lose a little energy: in the fourth second the middle ball already swings 2.5° wide. If every collision gives everything back (e = 1), it stays nearly still."
+      },
+      "computed": {
+        "system": "Each ball is stepped by Runge–Kutta: a millisecond at a time while all swing free, a microsecond while two touch or are about to. The collision's figures come from the falling balls' first meeting with the hanging ones. When the balls press on each other for long, the page does not always keep up and runs a little slower for a moment. The test holds the largest force between two balls to Hertz's closed form, and checks that with air between the balls exactly one flies off, as fast as the first came in."
       }
     }
   }

@@ -241,6 +241,12 @@
         "title": "Das Coriolis-Karussell",
         "summary": "Auf einem drehenden Karussell rollt man sich einen Ball zu – und er kommt nie dort an, wohin man zielt. Von aussen gesehen gibt es keine Kurve zu erklären.",
         "question": "Zwei sitzen sich auf einem drehenden Karussell gegenüber. Wohin muss man zielen, um den anderen zu treffen?"
+      },
+      "cradle": {
+        "short": "Kugelstosspendel",
+        "title": "Das Kugelstosspendel",
+        "summary": "Eine Kugel hinein, eine hinaus; zwei hinein, zwei hinaus. Impuls und Energie lassen keine andere Antwort zu – beinahe.",
+        "question": "Warum fliegen am anderen Ende genau so viele Kugeln weg, wie man fallen lässt?"
       }
     },
     "chair": {
@@ -1901,6 +1907,77 @@
       },
       "computed": {
         "system": "Beide Bahnen sind geschlossen lösbar: der Puck auf einer Geraden, der Ball auf einem Kreis, beide von aussen gesehen und für den Mitfahrer zurückgedreht. Wo der Ball den Rand wieder erreicht, und wohin man zielen muss, um zu treffen, findet die Seite durch Halbieren. Der Test prüft die zurückgedrehte Bahn des Pucks gegen eine Schrittrechnung mit Coriolis- und Fliehkraft."
+      }
+    },
+    "cradle": {
+      "at": {
+        "row": "Fünf Stahlkugeln hängen an Fäden in einer Reihe und berühren sich gerade. Hebt man die erste an und lässt sie fallen, fliegt am anderen Ende die letzte weg; die drei dazwischen scheinen stillzustehen.",
+        "two": "Lässt man zwei fallen, fliegen zwei weg. Nach einer Weile beginnen auch die Kugeln in der Mitte zu schwingen."
+      },
+      "view": "Das Kugelstosspendel von vorn: der Balken, die Fäden und die Kugeln",
+      "play": {
+        "title": "Anheben und loslassen",
+        "hint": "Lassen Sie eine Kugel fallen, dann zwei. Mit 0,1 mm Luft zwischen den Kugeln geht die Rechnung genau auf.",
+        "let_go": "Loslassen",
+        "pause": "Anhalten",
+        "run": "Weiter",
+        "lifted": "Angehobene Kugeln",
+        "spacing": "Zwischen den Kugeln",
+        "spacings": {
+          "touching": "Berühren sich",
+          "gap": "0,1 mm Luft"
+        },
+        "speed": "Tempo",
+        "speeds": {
+          "100": "Echtzeit",
+          "25": "4× langsamer",
+          "10": "10× langsamer"
+        },
+        "angle": "Auslenkung",
+        "restitution": "Was ein Stoss zurückgibt",
+        "restitution_hint": "Der Anteil des Tempos, mit dem zwei Kugeln nach einem Stoss mit 1 m/s auseinandergehen. 1 heisst: kein Verlust.",
+        "far": "Energie am anderen Ende",
+        "far_hint": "Nach dem ersten Stoss: der Anteil der Energie, der in so vielen Kugeln am anderen Ende steckt, wie angehoben wurden.",
+        "duration": "Dauer des Stosses",
+        "peak": "Grösste Kraft",
+        "after": "Tempo nach dem ersten Stoss, von links nach rechts: {{speeds}} m/s",
+        "ball": "Kugel {{n}}"
+      },
+      "chart": {
+        "widest": "Weitester Ausschlag",
+        "time": "Zeit",
+        "caption": "Sekunde für Sekunde der weiteste Ausschlag jeder Kugel, seit dem Loslassen"
+      },
+      "model": {
+        "intro": "Jede Kugel ist ein Pendel. Zwei Kugeln drücken nur dort aufeinander, wo sie sich ein wenig eindrücken – nach dem Gesetz von Hertz, das mit der Eindrückung immer steifer wird.",
+        "hertz": "Die Kraft zwischen zwei Kugeln wächst mit der Eindrückung hoch 3/2; der zweite Faktor nimmt dem Stoss ein wenig Energie.",
+        "brief": "Lässt man eine Kugel von 64 g aus 30° fallen, dauert ihr Stoss rund 0,2 Millisekunden, und in diesem Augenblick drücken die Kugeln mit fast 900 N aufeinander – so viel wie das Gewicht von 90 kg.",
+        "swing": "Jede Kugel schwingt an ihren Fäden und wird von ihren Nachbarn gestossen.",
+        "why": "Treffen Kugeln einander einzeln, bleiben Impuls und Energie erhalten, und für gleiche Kugeln heisst das: Sie tauschen ihr Tempo. Zwei Kugeln mit halbem Tempo hätten denselben Impuls, aber nur halb so viel Energie."
+      },
+      "symbols": {
+        "f": "die Kraft zwischen zwei Kugeln",
+        "delta": "wie weit sich die beiden eindrücken",
+        "k": "die Steifigkeit zweier Kugeln nach Hertz",
+        "e_star": "die Steifigkeit des Stahls: Elastizitätsmodul E, Querzahl ν",
+        "r_star": "der wirksame Radius zweier gleicher Kugeln vom Durchmesser d",
+        "alpha": "die Dämpfung im Stahl, bei 1 m/s aus e bestimmt",
+        "e": "der Anteil des Tempos, den ein Stoss zurückgibt",
+        "theta": "der Winkel der i-ten Kugel",
+        "l": "die Länge vom Aufhängepunkt bis zur Mitte der Kugel",
+        "m": "die Masse einer Kugel",
+        "g": "die Erdbeschleunigung",
+        "fi": "die Kraft zwischen der i-ten Kugel und ihrer rechten Nachbarin",
+        "v": "das Tempo der fallenden Kugel unten"
+      },
+      "sweet": {
+        "wave": "Die Kugeln berühren sich, also treffen sie einander nicht eine nach der anderen: Der Stoss läuft als Welle durch die Reihe. Weil der Kontakt nach Hertz mit der Eindrückung steifer wird, bleibt diese Welle kurz und kommt fast ganz in der letzten Kugel an – 97 % der Energie. Den Rest behalten die anderen; die erste prallt sogar ein wenig zurück.",
+        "gap": "Mit 0,1 mm Luft zwischen den Kugeln treffen sie einander wieder einzeln, und die Rechnung geht auf: 99,9 % der Energie in der letzten Kugel.",
+        "two": "Lässt man zwei fallen, laufen zwei Wellen hintereinander durch die Reihe. Die letzte Kugel fliegt mit 0,70 m/s davon, die zweitletzte mit 0,49 m/s – nicht beide mit den 0,63 m/s, mit denen die zwei hereinkamen. Zusammen tragen sie trotzdem 97 % der Energie.",
+        "together": "Was in der Reihe bleibt, wächst mit jedem Stoss, wenn die Stösse etwas Energie verlieren: In der vierten Sekunde schwingt die mittlere Kugel schon 2,5° weit aus. Gibt jeder Stoss alles zurück (e = 1), bleibt sie fast stehen."
+      },
+      "computed": {
+        "system": "Jede Kugel wird schrittweise mit Runge–Kutta gerechnet: eine Millisekunde auf einmal, solange alle frei schwingen, eine Mikrosekunde, solange sich zwei berühren oder gleich berühren. Die Zahlen zum Stoss stammen aus dem ersten Treffen der fallenden Kugeln mit den hängenden. Drücken die Kugeln lange aufeinander, kommt die Seite nicht immer nach und läuft dann kurz langsamer. Der Test prüft die grösste Kraft zwischen zwei Kugeln gegen die geschlossene Formel von Hertz, und dass mit Luft zwischen den Kugeln genau eine hinausfliegt, so schnell, wie die erste hereinkam."
       }
     }
   }

@@ -42,6 +42,7 @@ import { ChaosPage } from "./chaos-page";
 import { WaterwheelPage } from "./waterwheel-page";
 import { FoucaultPage, knocked } from "./foucault-page";
 import { CoriolisPage } from "./coriolis-page";
+import { CradlePage } from "./cradle-page";
 import { ballState, pitEntries, positionAt, raceLayout, swingAt } from "./race-views";
 import { run as runPit } from "./simulate/pit";
 import { HOLE, cameraAt, frameOf, project } from "./chair-views";
@@ -911,5 +912,30 @@ describe("the Coriolis carousel", () => {
     await screen.findByRole("img", { name: E.coriolis.view });
     fireEvent.click(screen.getByRole("button", { name: E.coriolis.play.aim_lead }));
     expect((await screen.findAllByDisplayValue("50.4")).length).toBeGreaterThan(0);
+  });
+});
+
+describe("Newton's cradle", () => {
+  it("shows the row, the balls one may lift and where the first collision sends the energy", async () => {
+    renderWithProviders(<CradlePage />);
+    expect(await screen.findByRole("img", { name: E.cradle.view })).toBeInTheDocument();
+    for (const n of ["1", "2", "3", "4"]) expect(screen.getByRole("radio", { name: n })).toBeInTheDocument();
+    expect(screen.queryByRole("radio", { name: "5" })).not.toBeInTheDocument();
+    expect(await screen.findByText(/0\.09 · 0\.59 m\/s$/)).toBeInTheDocument();
+    expect(screen.getAllByLabelText(E.equation.symbols).length).toBeGreaterThanOrEqual(3);
+  });
+
+  it("with a hair's gap sends the last ball off with nearly all of it", async () => {
+    renderWithProviders(<CradlePage />);
+    await screen.findByRole("img", { name: E.cradle.view });
+    fireEvent.click(screen.getByRole("radio", { name: E.cradle.play.spacings.gap }));
+    expect(await screen.findByText(/0\.01 · 0\.01 · 0\.01 · 0\.01 · 0\.59 m\/s$/)).toBeInTheDocument();
+  });
+
+  it("lets go when asked, and can be paused", async () => {
+    renderWithProviders(<CradlePage />);
+    await screen.findByRole("img", { name: E.cradle.view });
+    fireEvent.click(screen.getByRole("button", { name: E.cradle.play.let_go }));
+    expect(await screen.findByRole("button", { name: E.cradle.play.pause })).toBeInTheDocument();
   });
 });

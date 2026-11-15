@@ -603,6 +603,19 @@ export interface CarouselRequest {
   rpm: number;
 }
 
+// ── Newton's cradle ──────────────────────────────────────────────────────────
+
+/** The engine's `Cradle`. No route: the page asks the port (`simulate/cradle.ts`). */
+export interface CradleRequest {
+  count: number;
+  diameter_m: number;
+  string_m: number;
+  gap_m: number;
+  restitution: number;
+  youngs_gpa: number;
+  density_kg_m3: number;
+}
+
 // ── the pages' starting point ────────────────────────────────────────────────
 
 export interface ExperimentsDefaults {
@@ -624,6 +637,7 @@ export interface ExperimentsDefaults {
   waterwheel: WaterWheelRequest;
   foucault: FoucaultPendulumRequest;
   coriolis: CarouselRequest;
+  cradle: CradleRequest;
   meter_range_a: number;
   settle_s: number;
 }

@@ -84,11 +84,13 @@ a hundred to 7.9. A stricter first version — six days apart, a full point of
 bonus a day — turned out a rotation in disguise, repeating triples five times
 as often as a shuffle, and was dropped the same evening. They are weights, so
 "rarer" is not "never": the first two days, the smoke ring and then the
-elephant, are a 3 % draw that came up. With the second series (fifteen exhibits,
-2026-11-15) the bonus weighs less: it cuts the turns that come after more than
-a round and two days by an eighth (1456 against 1670 over 400 rounds), where
-with eight it cut them by a quarter; `daily.test.ts` holds it to a tenth.
-Whether to strengthen it for the larger set is Marcel's call. The day is Zurich's, so one day has one
+elephant, are a 3 % draw that came up. With the second series the bonus weighs
+less, and less with every exhibit: with eight it cut the turns that come after
+more than a round and two days by a quarter, with fifteen by an eighth (1456
+against 1670 over 400 rounds), with sixteen by a tenth (2311 against 2555);
+`daily.test.ts` now holds it only to a twentieth. Its weight a day is fixed
+while a round grows longer. Whether to scale it with the set is Marcel's call.
+The day is Zurich's, so one day has one
 exhibit whoever asks; the pick needs no server, no table and no admin, and the
 history is the rule run backwards. A new exhibit joins at the first round that starts on or after its
 `since` day, never mid-round, which would redraw days already shown; so
@@ -1019,6 +1021,58 @@ the start), the ball's size, air.
 **Checked by** `tests/unit/test_experiments.py`: the riders' view against the
 stepped equations, the straight puck and the ball's 2/7 turn, the misses and
 the leads.
+
+## Newton's cradle (`experiments.cradle`)
+
+**The exhibit.** Five steel balls on strings, just touching. Let one fall and
+one flies off at the far end; two in, two out; after a while the middle ones
+swing too.
+
+**The model** (`domain/experiments/cradle.py`). Each ball a pendulum along its
+arc, neighbours pushing only where they overlap, by Hertz's law
+`F = K·δ^{3/2}` with `K = (4/3)·E*·√R*` for two equal steel balls, damped
+Hunt and Crossley's way, `(1 + α·δ̇)` with `α = 8(1 − e)/(5e)` per metre a
+second (Flores et al.), so a lone pair meeting at 1 m/s parts with `e` of that
+speed. Not the ball cannon's damping, which divides by the speed a contact
+closed at: the cradle's balls touch at rest, their contacts close at next to
+nothing, and that damping glued the row. Stepped by Runge–Kutta, a
+millisecond while all swing free; while any two press or are closing on each
+other within two milliseconds' travel, a microsecond at a time, and the rest
+of the millisecond in one step once none are (the whole millisecond in
+microseconds cost four times the work for the same swings to a tenth of a
+degree over twenty seconds). **The impact:** swung down free until the first
+pair is near, then followed a microsecond at a time until every contact has
+stayed open for 200 µs.
+
+**What it shows** (25 mm steel balls, 15 cm strings, `e` = 0.95, one lifted
+by 30°). The ball comes in at 0.63 m/s; the contact lasts 0.2 ms at nearly
+900 N; 97 % of the energy leaves in the last ball and the first bounces back
+a little. With 0.1 mm between the balls they meet one pair at a time: 99.9 %.
+Two lifted leave as a train of two waves, the last at 0.70 m/s and the next at
+0.49 m/s, 97 % between them — the solitary waves of a Hertzian chain, which a
+heavier striker sends as a train. With `e` < 1 what stays in the row grows
+until all swing (the middle ball 2.5° wide in the fourth second); with
+`e` = 1 it stays nearly still — the row's coming together is the losses'
+doing.
+
+**The page.** The row from the front, the balls in the chart's colours;
+how many are lifted, touching or 0.1 mm apart, three speeds, the angle and
+`e`; the first collision's far share, length and largest force, and every
+ball's speed after it; a chart, second by second, of each ball's widest
+swing. The loop spends at most 10 ms a frame stepping: a row pressing on
+itself for long stretches is a thousand steps a millisecond, and the clock
+slips a moment rather than the page stutter (said under "How it is
+computed"). **No route**: the port's (`simulate/cradle.ts`); the engine's
+`run` is not ported, the test samples the port's steps the engine's way.
+
+**Left out, and said:** the strings' stretch and the frame's give, the balls
+rolling and twisting, air.
+
+**Checked by** `tests/unit/test_experiments.py`: a gapped row against one in,
+one out exactly; the touching row's momentum and energy kept at `e` = 1 and
+its far share; a lone pair's peak force against Hertz's closed form; the
+page's figures — 97 %, 99.9 %, 0.2 ms, under 900 N, 0.70 and 0.49 m/s, 2.5°
+against nearly nothing.
 
 ## Checking the mathematics
 
