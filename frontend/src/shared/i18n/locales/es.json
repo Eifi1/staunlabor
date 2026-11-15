@@ -223,6 +223,12 @@
         "title": "El péndulo caótico",
         "summary": "Un péndulo colgado de otro: empujado con fuerza se agita y nunca se repite – dos que empiezan casi igual pronto siguen caminos muy distintos.",
         "question": "Dos péndulos dobles empiezan con una milésima de grado de diferencia. ¿Cuánto tiempo siguen oscilando igual?"
+      },
+      "waterwheel": {
+        "short": "Noria caótica",
+        "title": "La noria caótica",
+        "summary": "El agua cae en cubos agujereados de una rueda: gira, se detiene, invierte el sentido – y nunca se repite. Son las mismas ecuaciones que el modelo del tiempo de Lorenz.",
+        "question": "Una rueda de cubos que gotean, con agua entrando por arriba. ¿Hacia dónde gira?"
       }
     },
     "chair": {
@@ -1696,6 +1702,72 @@
         "d0": "la distancia pequeña a la que vuelve el gemelo cada vez",
         "dk": "la distancia tras la k-ésima décima de segundo",
         "t": "todo el tiempo medido"
+      }
+    },
+    "waterwheel": {
+      "at": {
+        "wheel": "Alrededor de una rueda cuelgan cubos con un agujero en el fondo. El agua entra por arriba y gotea por abajo. Al abrir el grifo, el cubo de arriba pesa, la rueda se inclina y empieza a girar.",
+        "never": "A veces gira mucho tiempo en un sentido, se frena, se detiene y gira en el otro – cuándo y cuántas veces no sigue ningún compás. Nunca se repite."
+      },
+      "views": {
+        "wheel": "La noria con sus cubos, arriba el grifo",
+        "butterfly": "El camino de la rueda en el espacio de sus estados: su giro frente a la altura del reparto del agua – la mariposa de Lorenz",
+        "wheel_caption": "La rueda",
+        "butterfly_caption": "La mariposa de Lorenz"
+      },
+      "play": {
+        "title": "Abrir el grifo",
+        "hint": "El grifo decide: poca agua y la rueda se queda quieta; más, y gira de forma regular; más aún, y se vuelve caótica.",
+        "pause": "Pausa",
+        "run": "Seguir",
+        "restart": "Desde el principio",
+        "tap": "Grifo",
+        "tap_hint": "ρ: cuánta agua entra, medida frente a las fugas y el freno.",
+        "brake": "Freno",
+        "brake_hint": "σ: cuánto frena el eje, medido frente a la inercia de la rueda y las fugas.",
+        "speed": "Velocidad",
+        "speeds": {
+          "1": "Tiempo real",
+          "4": "Cuádruple"
+        },
+        "regime_still": "Poca agua: las fugas se la llevan antes de que el cubo de arriba pese lo bastante. La rueda está quieta.",
+        "regime_steady": "La rueda gira de forma regular en un sentido – cuál, lo decide el primer pequeño empujón.",
+        "regime_chaotic": "Caos: ningún giro regular se mantiene. La rueda cambia de sentido sin seguir nunca un patrón.",
+        "rate": "Giro de la rueda",
+        "rpm": "rpm",
+        "hopf": "Caos a partir de un grifo de"
+      },
+      "model": {
+        "intro": "Lo que cuenta es cómo se reparte el agua alrededor de la rueda – más exactamente, a qué distancia queda su centro de masa al lado del eje y por encima o por debajo. Con eso y el giro de la rueda se escriben tres ecuaciones.",
+        "wheel": "El reparto del agua gira con la rueda, el agua entra arriba y se escapa por todas partes; la gravedad hace girar la rueda cuando el agua queda a un lado, y el eje frena.",
+        "lorenz": "Con el tiempo en unidades de las fugas y bien escaladas, son exactamente las ecuaciones de Lorenz, que él obtuvo en 1963 de un modelo del flujo del aire – con b = 1 en lugar de 8/3.",
+        "hopf": "Por encima de este caudal ni siquiera el giro regular es estable: la rueda se vuelve caótica."
+      },
+      "symbols": {
+        "ab": "cómo se reparte el agua: hacia un lado, y arriba frente a abajo",
+        "omega": "el giro de la rueda",
+        "k": "lo rápido que gotean los cubos",
+        "q": "cuánta agua entra por arriba",
+        "nu": "el freno del eje",
+        "i": "el momento de inercia de la rueda",
+        "r": "el radio de la rueda",
+        "x": "el giro en unidades de las fugas",
+        "yz": "dónde queda el centro de masa del agua, escalado",
+        "sigma": "el freno frente a la inercia y las fugas",
+        "rho": "el caudal frente al freno y las fugas"
+      },
+      "sweet": {
+        "lorenz": "El giro de la rueda durante 200 segundos. En 1963 Lorenz buscaba un modelo sencillo del tiempo y halló estas tres ecuaciones – y que diferencias diminutas al principio hacen inútil el pronóstico al poco tiempo. La noria es ese modelo para tocar.",
+        "chaotic": "En 200 segundos la rueda invierte aquí {{reversals}} veces, nunca con el mismo compás.",
+        "steady": "Con este caudal, una vez arrancada, la rueda gira regularmente a {{rpm}} vueltas por minuto.",
+        "still": "Con este caudal la rueda se queda quieta."
+      },
+      "chart": {
+        "time": "Tiempo"
+      },
+      "computed": {
+        "system": "Tres ecuaciones de primer orden, las de Lorenz, con el método de Runge-Kutta en pasos de una centésima del tiempo de fuga. Deshecho el escalado, dan el giro de la rueda y lo lleno que está cada cubo. La prueba calcula las propias ecuaciones de la rueda en segundos y encuentra los mismos números.",
+        "tau": "el tiempo en unidades de las fugas"
       }
     }
   }

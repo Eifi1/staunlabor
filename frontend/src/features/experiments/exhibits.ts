@@ -26,7 +26,8 @@ export type Exhibit =
   | "coupled"
   | "peg"
   | "maxwell"
-  | "chaos";
+  | "chaos"
+  | "waterwheel";
 
 /** What an exhibit is about, as a reader would look for it: one word each,
  *  and an exhibit may be about two. */
@@ -145,6 +146,13 @@ export const EXHIBITS: readonly ExhibitEntry[] = [
     path: "/chaos",
     topics: ["oscillation", "energy"],
     lessons: ["second_order", "numerics"],
+    since: "2026-12-01",
+  },
+  {
+    exhibit: "waterwheel",
+    path: "/waterwheel",
+    topics: ["flow", "angular_momentum"],
+    lessons: ["first_order", "numerics"],
     since: "2026-12-01",
   },
 ];

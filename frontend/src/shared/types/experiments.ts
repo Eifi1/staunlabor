@@ -577,6 +577,15 @@ export interface DoublePendulumRequest {
   damping_per_s: number;
 }
 
+// ── the chaotic waterwheel ───────────────────────────────────────────────────
+
+/** The engine's `WaterWheel`. No route: the page asks the port (`simulate/waterwheel.ts`). */
+export interface WaterWheelRequest {
+  sigma: number;
+  rho: number;
+  leak_per_s: number;
+}
+
 // ── the pages' starting point ────────────────────────────────────────────────
 
 export interface ExperimentsDefaults {
@@ -595,6 +604,7 @@ export interface ExperimentsDefaults {
   peg: PegPendulumRequest;
   maxwell: MaxwellWheelRequest;
   chaos: DoublePendulumRequest;
+  waterwheel: WaterWheelRequest;
   meter_range_a: number;
   settle_s: number;
 }

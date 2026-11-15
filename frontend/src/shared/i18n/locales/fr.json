@@ -223,6 +223,12 @@
         "title": "Le pendule chaotique",
         "summary": "Un pendule accroché à un pendule : poussé fort, il s'agite et ne se répète jamais – deux qui partent presque pareil prennent vite des chemins tout différents.",
         "question": "Deux pendules doubles partent avec un millième de degré d'écart. Combien de temps oscillent-ils encore pareil ?"
+      },
+      "waterwheel": {
+        "short": "Roue à eau chaotique",
+        "title": "La roue à eau chaotique",
+        "summary": "L'eau tombe dans des godets percés sur une roue : elle tourne, cale, repart dans l'autre sens – et ne se répète jamais. Ce sont les mêmes équations que le modèle météo de Lorenz.",
+        "question": "Une roue de godets qui fuient, l'eau coulant en haut. Dans quel sens tourne-t-elle ?"
       }
     },
     "chair": {
@@ -1696,6 +1702,72 @@
         "d0": "le petit écart auquel le jumeau est ramené chaque fois",
         "dk": "l'écart après le k-ième dixième de seconde",
         "t": "toute la durée mesurée"
+      }
+    },
+    "waterwheel": {
+      "at": {
+        "wheel": "Tout autour d'une roue pendent des godets percés au fond. L'eau coule en haut et goutte en bas. On ouvre le robinet : le godet du haut s'alourdit, la roue bascule et se met à tourner.",
+        "never": "Tantôt elle tourne longtemps dans un sens, ralentit, cale, puis tourne dans l'autre – quand et combien de fois, sans aucune cadence. Elle ne se répète jamais."
+      },
+      "views": {
+        "wheel": "La roue à eau et ses godets, le robinet en haut",
+        "butterfly": "Le chemin de la roue dans l'espace de ses états : sa rotation contre la hauteur de la répartition de l'eau – le papillon de Lorenz",
+        "wheel_caption": "La roue",
+        "butterfly_caption": "Le papillon de Lorenz"
+      },
+      "play": {
+        "title": "Ouvrir le robinet",
+        "hint": "Le robinet décide : trop peu d'eau et la roue reste immobile ; davantage, et elle tourne régulièrement ; plus encore, et elle devient chaotique.",
+        "pause": "Pause",
+        "run": "Reprendre",
+        "restart": "Depuis le début",
+        "tap": "Robinet",
+        "tap_hint": "ρ : la quantité d'eau qui arrive, rapportée aux fuites et au frein.",
+        "brake": "Frein",
+        "brake_hint": "σ : la force du frein de l'axe, rapportée à l'inertie de la roue et aux fuites.",
+        "speed": "Vitesse",
+        "speeds": {
+          "1": "Temps réel",
+          "4": "Quadruple"
+        },
+        "regime_still": "Trop peu d'eau : les fuites l'emportent avant que le godet du haut soit assez lourd. La roue reste immobile.",
+        "regime_steady": "La roue tourne régulièrement dans un sens – lequel, c'est la première petite impulsion qui en décide.",
+        "regime_chaotic": "Chaos : aucune rotation régulière ne tient. La roue change de sens sans jamais suivre de motif.",
+        "rate": "Rotation de la roue",
+        "rpm": "tr/min",
+        "hopf": "Chaos dès un robinet de"
+      },
+      "model": {
+        "intro": "Ce qui compte, c'est la répartition de l'eau autour de la roue – plus précisément, à quelle distance son centre de gravité se trouve à côté de l'axe et au-dessus ou au-dessous. Avec cela et la rotation de la roue s'écrivent trois équations.",
+        "wheel": "La répartition de l'eau tourne avec la roue, l'eau arrive en haut et fuit partout ; la pesanteur fait tourner la roue quand l'eau est d'un côté, et l'axe freine.",
+        "lorenz": "Avec le temps en unités des fuites et convenablement mises à l'échelle, ce sont exactement les équations de Lorenz, tirées en 1963 d'un modèle de l'écoulement de l'air – avec b = 1 au lieu de 8/3.",
+        "hopf": "Au-dessus de ce débit, même la rotation régulière n'est plus stable : la roue devient chaotique."
+      },
+      "symbols": {
+        "ab": "la répartition de l'eau : sur le côté, et haut contre bas",
+        "omega": "la rotation de la roue",
+        "k": "la vitesse de fuite des godets",
+        "q": "la quantité d'eau qui arrive en haut",
+        "nu": "le frein de l'axe",
+        "i": "le moment d'inertie de la roue",
+        "r": "le rayon de la roue",
+        "x": "la rotation en unités des fuites",
+        "yz": "la position du centre de gravité de l'eau, mise à l'échelle",
+        "sigma": "le frein rapporté à l'inertie et aux fuites",
+        "rho": "le débit rapporté au frein et aux fuites"
+      },
+      "sweet": {
+        "lorenz": "La rotation de la roue sur 200 secondes. En 1963, Lorenz cherchait un modèle simple du temps qu'il fait et trouva ces trois équations – et que d'infimes différences au départ rendent la prévision sans valeur au bout de peu de temps. La roue à eau est ce modèle à toucher.",
+        "chaotic": "En 200 secondes, la roue change ici {{reversals}} fois de sens, jamais à la même cadence.",
+        "steady": "À ce débit, une fois lancée, la roue tourne régulièrement à {{rpm}} tours par minute.",
+        "still": "À ce débit, la roue reste immobile."
+      },
+      "chart": {
+        "time": "Temps"
+      },
+      "computed": {
+        "system": "Trois équations du premier ordre, celles de Lorenz, par la méthode de Runge-Kutta, par pas d'un centième du temps de fuite. Remises à l'échelle, elles donnent la rotation de la roue et le remplissage de chaque godet. Le test calcule les propres équations de la roue en secondes et retrouve les mêmes nombres.",
+        "tau": "le temps en unités des fuites"
       }
     }
   }

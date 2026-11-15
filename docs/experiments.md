@@ -920,6 +920,40 @@ other numbers.
 return, the energy, the twin's parting wild and not gently, the exponent's
 independence of the gap.
 
+## The chaotic waterwheel (`experiments.waterwheel`)
+
+**The exhibit.** Leaking cups round a wheel, water pouring into the top one:
+the wheel turns, slows, stalls, turns back, and never repeats.
+
+**The model** (`domain/experiments/waterwheel.py`), Malkus's wheel as Strogatz
+writes it (§9.1): the water's spread round the rim by its first harmonic
+`A sin θ + B cos θ`, the wheel's rate `Ω`, inflow `q` at the top, leaks `K`
+everywhere, the axle's brake `ν`. With `τ = K·t`, `x = Ω/K`, `y = c·A`,
+`z = ρ − c·B`, `c = π·g·r/(ν·K)` these are exactly Lorenz's equations with
+`σ = ν/(K·I)`, `ρ = π·g·r·q/(ν·K²)` and `b = 1` — the test integrates the
+wheel's own equations in seconds and finds the engine's `x`, `y`, `z` in them to
+10⁻⁸. Stepped by the block's Runge–Kutta at 0.01 τ, from rest with the water
+heaped at the top and a nudge of 10⁻³.
+
+**What it shows** (σ 10, K 0.2/s). Below ρ = 1 the wheel stands; up to
+`ρ_H = σ(σ + 4)/(σ − 2)` = 17.5 it settles to turning steadily at `√(ρ − 1)`
+(in units of `K`); above, it wanders — at the default ρ 28 twenty-odd reversals
+in 200 s at gaps that range more than threefold.
+
+**The page.** The wheel with eight cups hanging upright, each as full as the
+harmonic says at its place, the stream from the tap, beside Lorenz's butterfly
+(`x` against `z`) drawn as the wheel runs; the tap (ρ) and the brake (σ), real
+time or fourfold, the regime in words and the speed in turns a minute. The
+trick's chart is the speed over 200 s and the number of reversals. **No route**:
+the port's (`simulate/waterwheel.ts`).
+
+**Left out, and said:** the cups themselves (the water is spread smoothly, only
+its first harmonic counts), the wheel's tilt, splashing.
+
+**Checked by** `tests/unit/test_experiments.py`: the wheel's equations against
+Lorenz's, the three regimes and the steady rate, the reversals' spread, the
+cups full at the top at rest.
+
 ## Checking the mathematics
 
 Before the engine was written each model was checked independently with SciPy

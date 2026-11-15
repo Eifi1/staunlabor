@@ -223,6 +223,12 @@
         "title": "Il pendolo caotico",
         "summary": "Un pendolo appeso a un pendolo: spinto forte si agita e non si ripete mai – due che partono quasi uguali prendono presto strade del tutto diverse.",
         "question": "Due pendoli doppi partono con un millesimo di grado di differenza. Per quanto tempo oscillano ancora uguali?"
+      },
+      "waterwheel": {
+        "short": "Ruota idraulica caotica",
+        "title": "La ruota idraulica caotica",
+        "summary": "L'acqua cade in secchielli forati su una ruota: gira, si ferma, inverte – e non si ripete mai. Sono le stesse equazioni del modello meteorologico di Lorenz.",
+        "question": "Una ruota di secchielli che perdono, con l'acqua che entra dall'alto. In che verso gira?"
       }
     },
     "chair": {
@@ -1696,6 +1702,72 @@
         "d0": "la piccola distanza a cui il gemello viene riportato ogni volta",
         "dk": "la distanza dopo il k-esimo decimo di secondo",
         "t": "tutto il tempo misurato"
+      }
+    },
+    "waterwheel": {
+      "at": {
+        "wheel": "Tutto intorno a una ruota pendono secchielli con un foro nel fondo. L'acqua entra in alto e gocciola in basso. Aperto il rubinetto, il secchiello in alto diventa pesante, la ruota si inclina e comincia a girare.",
+        "never": "Ora gira a lungo in un verso, rallenta, si ferma, e gira nell'altro – quando e quante volte non segue alcun ritmo. Non si ripete mai."
+      },
+      "views": {
+        "wheel": "La ruota idraulica con i suoi secchielli, in alto il rubinetto",
+        "butterfly": "Il percorso della ruota nello spazio dei suoi stati: la rotazione contro l'altezza della distribuzione dell'acqua – la farfalla di Lorenz",
+        "wheel_caption": "La ruota",
+        "butterfly_caption": "La farfalla di Lorenz"
+      },
+      "play": {
+        "title": "Aprire il rubinetto",
+        "hint": "Decide il rubinetto: poca acqua e la ruota resta ferma; di più, e gira regolarmente; ancora di più, e diventa caotica.",
+        "pause": "Pausa",
+        "run": "Continua",
+        "restart": "Dall'inizio",
+        "tap": "Rubinetto",
+        "tap_hint": "ρ: quanta acqua entra, misurata rispetto alle perdite e al freno.",
+        "brake": "Freno",
+        "brake_hint": "σ: quanto frena l'asse, misurato rispetto all'inerzia della ruota e alle perdite.",
+        "speed": "Velocità",
+        "speeds": {
+          "1": "Tempo reale",
+          "4": "Quadrupla"
+        },
+        "regime_still": "Troppo poca acqua: le perdite la portano via prima che il secchiello in alto diventi abbastanza pesante. La ruota sta ferma.",
+        "regime_steady": "La ruota gira regolarmente in un verso – quale, lo decide la prima piccola spinta.",
+        "regime_chaotic": "Caos: nessuna rotazione regolare regge. La ruota cambia verso senza mai seguire uno schema.",
+        "rate": "Rotazione della ruota",
+        "rpm": "giri/min",
+        "hopf": "Caos da un rubinetto di"
+      },
+      "model": {
+        "intro": "Ciò che conta è come l'acqua è distribuita attorno alla ruota – più precisamente, quanto il suo baricentro si trova di lato rispetto all'asse e sopra o sotto. Con questo e la rotazione della ruota si scrivono tre equazioni.",
+        "wheel": "La distribuzione dell'acqua gira con la ruota, l'acqua entra in alto e perde ovunque; la gravità fa girare la ruota quando l'acqua sta da un lato, e l'asse frena.",
+        "lorenz": "Con il tempo in unità delle perdite e scalate opportunamente, sono esattamente le equazioni di Lorenz, che egli ricavò nel 1963 da un modello del flusso dell'aria – con b = 1 invece di 8/3.",
+        "hopf": "Sopra questa portata nemmeno la rotazione regolare è più stabile: la ruota diventa caotica."
+      },
+      "symbols": {
+        "ab": "come è distribuita l'acqua: di lato, e sopra contro sotto",
+        "omega": "la rotazione della ruota",
+        "k": "quanto in fretta perdono i secchielli",
+        "q": "quanta acqua entra in alto",
+        "nu": "il freno dell'asse",
+        "i": "il momento d'inerzia della ruota",
+        "r": "il raggio della ruota",
+        "x": "la rotazione in unità delle perdite",
+        "yz": "dove si trova il baricentro dell'acqua, scalato",
+        "sigma": "il freno rispetto a inerzia e perdite",
+        "rho": "la portata rispetto a freno e perdite"
+      },
+      "sweet": {
+        "lorenz": "La rotazione della ruota in 200 secondi. Nel 1963 Lorenz cercava un modello semplice del tempo atmosferico e trovò queste tre equazioni – e che differenze minime all'inizio rendono inutile la previsione dopo poco tempo. La ruota idraulica è quel modello da toccare.",
+        "chaotic": "In 200 secondi la ruota qui inverte il verso {{reversals}} volte, mai con lo stesso ritmo.",
+        "steady": "Con questa portata, una volta avviata, la ruota gira regolarmente a {{rpm}} giri al minuto.",
+        "still": "Con questa portata la ruota resta ferma."
+      },
+      "chart": {
+        "time": "Tempo"
+      },
+      "computed": {
+        "system": "Tre equazioni del primo ordine, quelle di Lorenz, con il metodo di Runge-Kutta a passi di un centesimo del tempo di perdita. Riportate indietro, danno la rotazione della ruota e quanto è pieno ogni secchiello. Il test calcola le equazioni della ruota stessa in secondi e trova gli stessi numeri.",
+        "tau": "il tempo in unità delle perdite"
       }
     }
   }

@@ -223,6 +223,12 @@
         "title": "Das Chaospendel",
         "summary": "Ein Pendel an einem Pendel: Kräftig angestossen schlägt es wild und nie gleich – zwei, die fast gleich starten, gehen bald ganz verschiedene Wege.",
         "question": "Zwei Doppelpendel starten um ein Tausendstelgrad verschieden. Wie lange schwingen sie noch gleich?"
+      },
+      "waterwheel": {
+        "short": "Chaotisches Wasserrad",
+        "title": "Das chaotische Wasserrad",
+        "summary": "Wasser fällt in undichte Becher an einem Rad: Es dreht sich, stockt, kehrt um – und wiederholt sich nie. Es sind dieselben Gleichungen wie Lorenz' Wettermodell.",
+        "question": "Ein Rad mit undichten Bechern, oben läuft Wasser hinein. In welche Richtung dreht es sich?"
       }
     },
     "chair": {
@@ -1696,6 +1702,72 @@
         "d0": "der kleine Abstand, auf den der Zwilling jedes Mal zurückgesetzt wird",
         "dk": "der Abstand nach der k-ten Zehntelsekunde",
         "t": "die ganze Messdauer"
+      }
+    },
+    "waterwheel": {
+      "at": {
+        "wheel": "Ringsum am Rad hängen Becher mit einem Loch im Boden. Oben läuft Wasser hinein, unten tropft es heraus. Dreht man den Hahn auf, wird der obere Becher schwer, das Rad kippt weg und beginnt sich zu drehen.",
+        "never": "Mal dreht es lange in die eine Richtung, wird langsamer, stockt, und dreht dann in die andere – wann und wie oft, folgt keinem Takt. Es wiederholt sich nie."
+      },
+      "views": {
+        "wheel": "Das Wasserrad mit seinen Bechern, oben der Hahn",
+        "butterfly": "Der Weg des Rads im Raum seiner Zustände: Drehrate gegen die Höhe der Wasserverteilung – Lorenz' Schmetterling",
+        "wheel_caption": "Das Rad",
+        "butterfly_caption": "Lorenz' Schmetterling"
+      },
+      "play": {
+        "title": "Den Hahn aufdrehen",
+        "hint": "Der Hahn entscheidet: zu wenig Wasser, und das Rad bleibt stehen; mehr, und es dreht gleichmässig; noch mehr, und es wird chaotisch.",
+        "pause": "Anhalten",
+        "run": "Weiter",
+        "restart": "Von vorn",
+        "tap": "Hahn",
+        "tap_hint": "ρ: wie viel Wasser zuläuft, gemessen an Lecks und Bremse.",
+        "brake": "Bremse",
+        "brake_hint": "σ: wie stark die Achse bremst, gemessen an der Trägheit des Rads und den Lecks.",
+        "speed": "Tempo",
+        "speeds": {
+          "1": "Echtzeit",
+          "4": "Vierfach"
+        },
+        "regime_still": "Zu wenig Wasser: Die Lecks tragen es ab, bevor der obere Becher schwer genug wird. Das Rad steht.",
+        "regime_steady": "Das Rad dreht gleichmässig in eine Richtung – in welche, entscheidet der erste kleine Anstoss.",
+        "regime_chaotic": "Chaos: Kein gleichmässiges Drehen hält. Das Rad wechselt die Richtung, ohne je einem Muster zu folgen.",
+        "rate": "Drehzahl des Rads",
+        "rpm": "U/min",
+        "hopf": "Chaos ab Hahn"
+      },
+      "model": {
+        "intro": "Was zählt, ist, wie das Wasser um das Rad verteilt ist – genauer: wie weit sein Schwerpunkt seitlich und in der Höhe von der Achse liegt. Damit und mit der Drehrate des Rads schreiben sich drei Gleichungen.",
+        "wheel": "Die Verteilung des Wassers dreht sich mit dem Rad, oben läuft Wasser zu, überall leckt es heraus; die Schwerkraft dreht das Rad, wenn das Wasser seitlich liegt, und die Achse bremst.",
+        "lorenz": "Mit der Zeit in Einheiten der Lecks und passend skaliert sind es genau Lorenz' Gleichungen, die er 1963 aus einem Modell der Luftströmung gewann – mit b = 1 statt 8/3.",
+        "hopf": "Oberhalb dieser Zuflussrate ist auch das gleichmässige Drehen nicht mehr stabil: Das Rad wird chaotisch."
+      },
+      "symbols": {
+        "ab": "wie das Wasser verteilt ist: seitlich und oben gegen unten",
+        "omega": "die Drehrate des Rads",
+        "k": "wie schnell die Becher lecken",
+        "q": "wie viel Wasser oben zuläuft",
+        "nu": "die Bremse der Achse",
+        "i": "das Trägheitsmoment des Rads",
+        "r": "der Radius des Rads",
+        "x": "die Drehrate in Einheiten der Lecks",
+        "yz": "die Lage des Wasserschwerpunkts, passend skaliert",
+        "sigma": "die Bremse gegen Trägheit und Lecks",
+        "rho": "der Zufluss gegen Bremse und Lecks"
+      },
+      "sweet": {
+        "lorenz": "Die Drehzahl über 200 Sekunden. Lorenz suchte 1963 ein einfaches Modell für das Wetter und fand diese drei Gleichungen – und dass winzige Unterschiede am Anfang die Vorhersage nach kurzer Zeit wertlos machen. Das Wasserrad ist dieses Modell zum Anfassen.",
+        "chaotic": "In 200 Sekunden kehrt das Rad hier {{reversals}}-mal um, nie im selben Takt.",
+        "steady": "Bei diesem Zufluss dreht das Rad nach dem Anlaufen gleichmässig, mit {{rpm}} Umdrehungen pro Minute.",
+        "still": "Bei diesem Zufluss bleibt das Rad stehen."
+      },
+      "chart": {
+        "time": "Zeit"
+      },
+      "computed": {
+        "system": "Drei Gleichungen erster Ordnung, Lorenz' Gleichungen, mit dem Runge-Kutta-Verfahren in Schritten von einem Hundertstel der Leckzeit. Zurückgerechnet ergeben sie die Drehrate des Rads und wie voll jeder Becher ist. Der Test rechnet die Gleichungen des Rads selbst in Sekunden und findet dieselben Zahlen.",
+        "tau": "die Zeit in Einheiten der Lecks"
       }
     }
   }

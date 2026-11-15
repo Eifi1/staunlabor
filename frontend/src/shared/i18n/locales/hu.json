@@ -223,6 +223,12 @@
         "title": "A kaotikus inga",
         "summary": "Inga az inga végén: erősen meglökve vadul csapkod, és sosem ismétlődik – kettő, amely majdnem egyformán indul, hamar egészen más utakat jár.",
         "question": "Két kettős inga egy ezred fok különbséggel indul. Meddig lengenek még egyformán?"
+      },
+      "waterwheel": {
+        "short": "Kaotikus vízkerék",
+        "title": "A kaotikus vízkerék",
+        "summary": "Víz folyik egy kerék lyukas vödreibe: forog, megáll, visszafordul – és sosem ismétli önmagát. Ugyanazok az egyenletek, mint Lorenz időjárásmodellje.",
+        "question": "Egy kerék szivárgó vödrökkel, felül víz folyik bele. Merre forog?"
       }
     },
     "chair": {
@@ -1696,6 +1702,72 @@
         "d0": "a kis távolság, amelyre az ikret minden alkalommal visszaállítják",
         "dk": "a távolság a k-adik tizedmásodperc után",
         "t": "a teljes mérési idő"
+      }
+    },
+    "waterwheel": {
+      "at": {
+        "wheel": "Egy kerék körül alul lyukas vödrök lógnak. Felül víz folyik beléjük, alul kicsöpög. Ha kinyitják a csapot, a felső vödör elnehezül, a kerék elbillen és forogni kezd.",
+        "never": "Hol sokáig az egyik irányba forog, lassul, megáll, aztán a másikba fordul – hogy mikor és hányszor, annak nincs üteme. Sosem ismétli önmagát."
+      },
+      "views": {
+        "wheel": "A vízkerék a vödreivel, fent a csap",
+        "butterfly": "A kerék útja az állapotai terében: a forgása a víz eloszlásának magassága ellenében – Lorenz pillangója",
+        "wheel_caption": "A kerék",
+        "butterfly_caption": "Lorenz pillangója"
+      },
+      "play": {
+        "title": "A csap kinyitása",
+        "hint": "A csap dönt: túl kevés víz, és a kerék áll; több, és egyenletesen forog; még több, és kaotikussá válik.",
+        "pause": "Szünet",
+        "run": "Tovább",
+        "restart": "Elölről",
+        "tap": "Csap",
+        "tap_hint": "ρ: mennyi víz folyik be, a szivárgáshoz és a fékhez mérve.",
+        "brake": "Fék",
+        "brake_hint": "σ: mennyire fékez a tengely, a kerék tehetetlenségéhez és a szivárgáshoz mérve.",
+        "speed": "Tempó",
+        "speeds": {
+          "1": "Valós idő",
+          "4": "Négyszeres"
+        },
+        "regime_still": "Túl kevés víz: a szivárgás elviszi, mielőtt a felső vödör elég nehéz lenne. A kerék áll.",
+        "regime_steady": "A kerék egyenletesen forog az egyik irányba – hogy melyikbe, az első kis lökés dönti el.",
+        "regime_chaotic": "Káosz: semmilyen egyenletes forgás nem tart ki. A kerék irányt vált, anélkül hogy bármilyen mintát követne.",
+        "rate": "A kerék fordulatszáma",
+        "rpm": "ford./perc",
+        "hopf": "Káosz ettől a csaptól"
+      },
+      "model": {
+        "intro": "Az számít, hogyan oszlik el a víz a kerék körül – pontosabban, milyen messze van a súlypontja oldalt a tengelytől, és fölötte vagy alatta. Ezzel és a kerék forgásával három egyenlet írható fel.",
+        "wheel": "A víz eloszlása a kerékkel együtt forog, felül víz folyik be, mindenhol szivárog; a nehézségi erő forgatja a kereket, ha a víz oldalt van, és a tengely fékez.",
+        "lorenz": "Az időt a szivárgás egységeiben mérve és alkalmasan skálázva ezek pontosan Lorenz egyenletei, amelyeket 1963-ban a levegő áramlásának egy modelljéből kapott – b = 1-gyel 8/3 helyett.",
+        "hopf": "E befolyás fölött már az egyenletes forgás sem stabil: a kerék kaotikussá válik."
+      },
+      "symbols": {
+        "ab": "hogyan oszlik el a víz: oldalra, és fent kontra lent",
+        "omega": "a kerék forgása",
+        "k": "milyen gyorsan szivárognak a vödrök",
+        "q": "mennyi víz folyik be felül",
+        "nu": "a tengely fékje",
+        "i": "a kerék tehetetlenségi nyomatéka",
+        "r": "a kerék sugara",
+        "x": "a forgás a szivárgás egységeiben",
+        "yz": "a víz súlypontjának helye, skálázva",
+        "sigma": "a fék a tehetetlenséghez és a szivárgáshoz mérve",
+        "rho": "a befolyás a fékhez és a szivárgáshoz mérve"
+      },
+      "sweet": {
+        "lorenz": "A kerék forgása 200 másodpercen át. Lorenz 1963-ban egyszerű időjárásmodellt keresett, és megtalálta ezt a három egyenletet – meg azt, hogy az apró kezdeti különbségek rövid idő alatt értéktelenné teszik az előrejelzést. A vízkerék ez a modell, kézzelfoghatóan.",
+        "chaotic": "200 másodperc alatt a kerék itt {{reversals}}-szor fordul vissza, sosem azonos ütemben.",
+        "steady": "Ennél a befolyásnál a kerék beindulás után egyenletesen forog, percenként {{rpm}} fordulattal.",
+        "still": "Ennél a befolyásnál a kerék áll."
+      },
+      "chart": {
+        "time": "Idő"
+      },
+      "computed": {
+        "system": "Három elsőrendű egyenlet, Lorenz egyenletei, a Runge–Kutta-módszerrel a szivárgási idő századrészének lépéseiben. Visszaszámolva megadják a kerék forgását, és hogy mennyire tele van minden vödör. A teszt a kerék saját egyenleteit másodpercekben számolja, és ugyanezeket a számokat kapja.",
+        "tau": "az idő a szivárgás egységeiben"
       }
     }
   }

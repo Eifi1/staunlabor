@@ -10,6 +10,7 @@ import {
   ChevronsUp,
   Diamond,
   Disc3,
+  Droplets,
   GlassWater,
   HelpCircle,
   Link2,
@@ -65,6 +66,7 @@ const ICON: Record<Exhibit, LucideIcon> = {
   peg: Anchor,
   maxwell: Disc3,
   chaos: Shuffle,
+  waterwheel: Droplets,
 };
 
 /** Two weeks back, in the dialog: long enough to find the one a friend

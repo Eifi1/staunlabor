@@ -39,6 +39,7 @@ import { CoupledPage, hangs } from "./coupled-page";
 import { PegPage } from "./peg-page";
 import { MaxwellPage } from "./maxwell-page";
 import { ChaosPage } from "./chaos-page";
+import { WaterwheelPage } from "./waterwheel-page";
 import { ballState, pitEntries, positionAt, raceLayout, swingAt } from "./race-views";
 import { run as runPit } from "./simulate/pit";
 import { HOLE, cameraAt, frameOf, project } from "./chair-views";
@@ -128,7 +129,12 @@ describe("the overview", () => {
     await renderOverview();
     const cards = () => screen.getAllByRole("heading", { level: 3 }).map((h) => h.textContent);
     fireEvent.click(screen.getByRole("button", { name: E.topics.flow }));
-    expect(cards()).toEqual([E.exhibits.elephant.title, E.exhibits.smoke.title, E.exhibits.parabola.title]);
+    // The flows, in the list's order: the elephant and the smoke ring first.
+    const flows = EXHIBITS.filter((entry) => entry.topics.includes("flow")).map(
+      (entry) => E.exhibits[entry.exhibit].title,
+    );
+    expect(flows.slice(0, 2)).toEqual([E.exhibits.elephant.title, E.exhibits.smoke.title]);
+    expect(cards()).toEqual(flows);
     expect(screen.getByRole("button", { name: E.topics.flow })).toHaveAttribute("aria-pressed", "true");
     fireEvent.click(screen.getByRole("button", { name: E.overview.all_topics }));
     expect(cards()).toHaveLength(EXHIBITS.length);
@@ -839,4 +845,24 @@ describe("the chaotic pendulum", () => {
     fireEvent.click(screen.getByRole("button", { name: E.chaos.play.presets.gentle }));
     expect(await screen.findByText(/practically zero/, {}, { timeout: 8000 })).toBeInTheDocument();
   }, 15000);
+});
+
+describe("the chaotic waterwheel", () => {
+  it("shows the wheel and the butterfly, the tap and the wheel's reversals", async () => {
+    renderWithProviders(<WaterwheelPage />);
+    expect(await screen.findByRole("img", { name: E.waterwheel.views.wheel })).toBeInTheDocument();
+    expect(screen.getByRole("img", { name: E.waterwheel.views.butterfly })).toBeInTheDocument();
+    expect(screen.getByText(E.waterwheel.play.regime_chaotic)).toBeInTheDocument();
+    expect(await screen.findByText(/In 200 seconds the wheel here turns back \d+ times/)).toBeInTheDocument();
+    expect(screen.getAllByLabelText(E.equation.symbols).length).toBeGreaterThanOrEqual(3);
+  });
+
+  it("stands still with too little water, and turns steadily with some more", async () => {
+    renderWithProviders(<WaterwheelPage />);
+    await screen.findByRole("img", { name: E.waterwheel.views.wheel });
+    fireEvent.change(screen.getByRole("slider", { name: E.waterwheel.play.tap }), { target: { value: "0.5" } });
+    expect(await screen.findByText(E.waterwheel.play.regime_still)).toBeInTheDocument();
+    fireEvent.change(screen.getByRole("slider", { name: E.waterwheel.play.tap }), { target: { value: "10" } });
+    expect(await screen.findByText(E.waterwheel.play.regime_steady)).toBeInTheDocument();
+  });
 });
