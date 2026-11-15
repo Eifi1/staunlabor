@@ -217,6 +217,12 @@
         "title": "Das Maxwell-Rad",
         "summary": "Ein schweres Rad rollt an zwei Bändern langsam ab, kehrt unten um und wickelt sich fast bis zur Starthöhe wieder hinauf – wie ein grosses Jo-Jo.",
         "question": "Warum fällt ein schweres Rad, das an zwei Bändern abrollt, so viel langsamer als ein Stein?"
+      },
+      "chaos": {
+        "short": "Chaospendel",
+        "title": "Das Chaospendel",
+        "summary": "Ein Pendel an einem Pendel: Kräftig angestossen schlägt es wild und nie gleich – zwei, die fast gleich starten, gehen bald ganz verschiedene Wege.",
+        "question": "Zwei Doppelpendel starten um ein Tausendstelgrad verschieden. Wie lange schwingen sie noch gleich?"
       }
     },
     "chair": {
@@ -1617,6 +1623,79 @@
       "computed": {
         "system": "Hier ist alles geschlossen lösbar, nichts muss Schritt für Schritt gerechnet werden: Fallen und Steigen sind gleichmässig beschleunigt, und im Ruck schwingt das Rad eine halbe Federschwingung auf den gedehnten Bändern. Die Seite fragt für jedes Bild, wo das Rad gerade ist.",
         "z": "wie weit die Bänder im Ruck gedehnt sind"
+      }
+    },
+    "chaos": {
+      "at": {
+        "pendulum": "An einem Pendel hängt ein zweites. Sanft angestossen schwingen beide ruhig hin und her; kräftig angestossen schlägt das untere Glied wild um, überschlägt sich, hält inne und schlägt weiter – nie zweimal gleich.",
+        "twice": "Wer es zweimal «gleich» anstösst, sieht zwei verschiedene Tänze. Hier geht das genauer als von Hand: zwei Pendel, deren Start sich um ein Tausendstelgrad unterscheidet."
+      },
+      "view": "Das Doppelpendel und sein Zwilling, der um einen winzigen Winkel anders gestartet ist, mit der Spur des unteren Gewichts",
+      "play": {
+        "title": "Zwei Pendel loslassen",
+        "hint": "Das kräftige Pendel und sein blasserer Zwilling starten fast gleich. Achten Sie darauf, wann sie sich trennen.",
+        "let_go": "Loslassen",
+        "pause": "Anhalten",
+        "run": "Weiter",
+        "presets_label": "Start:",
+        "presets": {
+          "gentle": "Sanft",
+          "wild": "Wild",
+          "headstand": "Fast im Kopfstand"
+        },
+        "upper": "Oberer Arm beim Start",
+        "lower": "Unterer Arm beim Start",
+        "nudge": "Unterschied des Zwillings",
+        "speed": "Tempo",
+        "speeds": {
+          "100": "Echtzeit",
+          "25": "Zeitlupe (¼)"
+        },
+        "time": "Zeit",
+        "gap": "Abstand der beiden: {{gap}}"
+      },
+      "change": {
+        "title": "Das Exponat verändern",
+        "hint": "Jede Änderung lässt beide neu los.",
+        "length1": "Länge des oberen Arms",
+        "length2": "Länge des unteren Arms",
+        "mass1": "Masse am oberen Arm",
+        "mass2": "Masse am unteren Arm",
+        "damping": "Dämpfung"
+      },
+      "model": {
+        "intro": "Zwei Massen an zwei leichten Stangen, die untere am Ende der oberen. Die Bewegungsgleichungen folgen nach Lagrange aus der Energie; sie sind lang, aber nichts Geheimnisvolles – und sie haben keine geschlossene Lösung.",
+        "energy": "Die Energie des Doppelpendels: Bewegung beider Massen, ihre Kopplung über den Winkel zwischen den Armen, und ihre Höhe. Ohne Dämpfung bleibt sie gleich – das ist die Kontrolle der Rechnung.",
+        "modes": "Bei kleinen Ausschlägen ist alles geordnet: zwei Eigenschwingungen, im Gleichtakt langsam, gegeneinander schnell (hier für gleiche Arme und Massen).",
+        "lyapunov": "Bei grossen Ausschlägen wächst ein winziger Unterschied jede Sekunde um denselben Faktor, bis er so gross ist wie die Bewegung selbst. Die Rate dieses Wachstums ist der Ljapunow-Exponent."
+      },
+      "symbols": {
+        "theta": "die Winkel der beiden Arme zur Senkrechten",
+        "lengths": "die Längen der Arme",
+        "masses": "die beiden Massen",
+        "g": "Fallbeschleunigung, 9,81 m/s²",
+        "omega": "die Kreisfrequenzen der beiden Eigenschwingungen",
+        "d": "der Abstand der beiden Pendel, in Winkeln und Winkelgeschwindigkeiten",
+        "lambda": "der Ljapunow-Exponent"
+      },
+      "sweet": {
+        "gap": "Der Abstand der beiden Pendel über der Zeit, auf logarithmischer Skala: Eine Gerade heisst, er wächst jede Sekunde um denselben Faktor.",
+        "chaotic": "Gemessen für diesen Start: λ = {{lambda}} pro Sekunde. Ein Unterschied verdoppelt sich also alle {{doubling}} s. Wer ihn um das Tausendfache kleiner macht, gewinnt nur zehn Verdopplungen Zeit – darum ist das Pendel nicht vorherzusagen, auch wenn jede Rechnung exakt ist.",
+        "regular": "Gemessen für diesen Start: λ = {{lambda}} pro Sekunde, praktisch null. So sanft geschwungen bleibt der Unterschied klein: Das Pendel ist vorhersagbar."
+      },
+      "chart": {
+        "gap": "Abstand der beiden",
+        "time": "Zeit"
+      },
+      "figures": {
+        "lambda": "Ljapunow-Exponent",
+        "slow": "Langsame Eigenschwingung"
+      },
+      "computed": {
+        "system": "Vier Gleichungen erster Ordnung, beide Winkel und ihre Geschwindigkeiten, mit dem Runge-Kutta-Verfahren in Schritten von einer Millisekunde, für das Pendel und seinen Zwilling. Den Exponenten misst der Rechenkern nach Benettin: Ein Zwilling startet einen Hundertmillionstel daneben, alle Zehntelsekunden wird notiert, wie stark der Abstand gewachsen ist, und der Zwilling wieder auf den kleinen Abstand zurückgesetzt. Der Mittelwert der Logarithmen ist der Exponent – unabhängig davon, wie klein der Abstand gewählt wird.",
+        "d0": "der kleine Abstand, auf den der Zwilling jedes Mal zurückgesetzt wird",
+        "dk": "der Abstand nach der k-ten Zehntelsekunde",
+        "t": "die ganze Messdauer"
       }
     }
   }

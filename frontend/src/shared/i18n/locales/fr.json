@@ -217,6 +217,12 @@
         "title": "La roue de Maxwell",
         "summary": "Une roue lourde se déroule lentement le long de deux rubans, fait demi-tour en bas et se réenroule presque jusqu'à sa hauteur de départ – comme un grand yo-yo.",
         "question": "Pourquoi une roue lourde qui se déroule le long de deux rubans tombe-t-elle tellement plus lentement qu'une pierre ?"
+      },
+      "chaos": {
+        "short": "Pendule chaotique",
+        "title": "Le pendule chaotique",
+        "summary": "Un pendule accroché à un pendule : poussé fort, il s'agite et ne se répète jamais – deux qui partent presque pareil prennent vite des chemins tout différents.",
+        "question": "Deux pendules doubles partent avec un millième de degré d'écart. Combien de temps oscillent-ils encore pareil ?"
       }
     },
     "chair": {
@@ -1617,6 +1623,79 @@
       "computed": {
         "system": "Ici tout a une solution fermée ; rien n'est calculé pas à pas : la chute et la montée sont uniformément accélérées, et pendant l'à-coup la roue fait une demi-oscillation de ressort sur les rubans allongés. À chaque image, la page demande où se trouve la roue.",
         "z": "l'allongement des rubans pendant l'à-coup"
+      }
+    },
+    "chaos": {
+      "at": {
+        "pendulum": "Un second pendule est accroché au bout d'un premier. Poussés doucement, tous deux oscillent calmement ; poussés fort, le bras inférieur s'agite, fait des tours, s'arrête net et repart – jamais deux fois pareil.",
+        "twice": "Qui le pousse deux fois « pareil » voit deux danses différentes. Ici, c'est plus précis qu'à la main : deux pendules dont les départs diffèrent d'un millième de degré."
+      },
+      "view": "Le pendule double et son jumeau, parti d'un angle infime différent, avec la trace du poids inférieur",
+      "play": {
+        "title": "Lâcher deux pendules",
+        "hint": "Le pendule vif et son jumeau plus pâle partent presque pareil. Observez quand ils se séparent.",
+        "let_go": "Lâcher",
+        "pause": "Pause",
+        "run": "Reprendre",
+        "presets_label": "Départ :",
+        "presets": {
+          "gentle": "Doux",
+          "wild": "Sauvage",
+          "headstand": "Presque à l'envers"
+        },
+        "upper": "Bras supérieur au départ",
+        "lower": "Bras inférieur au départ",
+        "nudge": "Écart du jumeau",
+        "speed": "Vitesse",
+        "speeds": {
+          "100": "Temps réel",
+          "25": "Ralenti (¼)"
+        },
+        "time": "Temps",
+        "gap": "Écart entre les deux : {{gap}}"
+      },
+      "change": {
+        "title": "Modifier l'objet exposé",
+        "hint": "Chaque changement relâche les deux.",
+        "length1": "Longueur du bras supérieur",
+        "length2": "Longueur du bras inférieur",
+        "mass1": "Masse au bras supérieur",
+        "mass2": "Masse au bras inférieur",
+        "damping": "Amortissement"
+      },
+      "model": {
+        "intro": "Deux masses sur deux tiges légères, l'inférieure accrochée au bout de la supérieure. Les équations du mouvement découlent de l'énergie par la méthode de Lagrange ; elles sont longues mais sans mystère – et n'ont pas de solution fermée.",
+        "energy": "L'énergie du pendule double : le mouvement des deux masses, leur couplage par l'angle entre les bras, et leur hauteur. Sans amortissement elle se conserve – c'est le contrôle du calcul.",
+        "modes": "Pour de petites oscillations tout est ordonné : deux modes propres, lent à l'unisson et rapide en opposition (ici pour des bras et des masses égaux).",
+        "lyapunov": "Pour de grandes oscillations, un écart infime croît chaque seconde du même facteur jusqu'à devenir aussi grand que le mouvement lui-même. Le taux de cette croissance est l'exposant de Liapounov."
+      },
+      "symbols": {
+        "theta": "les angles des deux bras avec la verticale",
+        "lengths": "les longueurs des bras",
+        "masses": "les deux masses",
+        "g": "accélération de la pesanteur, 9,81 m/s²",
+        "omega": "les pulsations des deux modes propres",
+        "d": "l'écart entre les deux pendules, en angles et en vitesses angulaires",
+        "lambda": "l'exposant de Liapounov"
+      },
+      "sweet": {
+        "gap": "L'écart entre les deux pendules au cours du temps, en échelle logarithmique : une droite signifie qu'il croît du même facteur chaque seconde.",
+        "chaotic": "Mesuré pour ce départ : λ = {{lambda}} par seconde. Un écart double donc toutes les {{doubling}} s. Le rendre mille fois plus petit ne fait gagner que le temps de dix doublements – c'est pourquoi le pendule est imprévisible, bien que chaque calcul soit exact.",
+        "regular": "Mesuré pour ce départ : λ = {{lambda}} par seconde, pratiquement zéro. Avec des oscillations aussi douces l'écart reste petit : le pendule est prévisible."
+      },
+      "chart": {
+        "gap": "Écart entre les deux",
+        "time": "Temps"
+      },
+      "figures": {
+        "lambda": "Exposant de Liapounov",
+        "slow": "Mode lent"
+      },
+      "computed": {
+        "system": "Quatre équations du premier ordre, les deux angles et leurs vitesses, par la méthode de Runge-Kutta, par pas d'une milliseconde, pour le pendule et son jumeau. Le moteur mesure l'exposant à la manière de Benettin : un jumeau part à un cent-millionième, chaque dixième de seconde on note de combien l'écart a crû et on ramène le jumeau au petit écart. La moyenne des logarithmes est l'exposant – quel que soit le petit écart choisi.",
+        "d0": "le petit écart auquel le jumeau est ramené chaque fois",
+        "dk": "l'écart après le k-ième dixième de seconde",
+        "t": "toute la durée mesurée"
       }
     }
   }

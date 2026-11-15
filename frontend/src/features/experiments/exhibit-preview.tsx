@@ -42,6 +42,7 @@ const PREVIEWS: Record<Exhibit, LazyExoticComponent<ComponentType<PreviewProps>>
   coupled: lazy(() => import("./coupled-page").then((m) => ({ default: m.CoupledPreview }))),
   peg: lazy(() => import("./peg-page").then((m) => ({ default: m.PegPreview }))),
   maxwell: lazy(() => import("./maxwell-page").then((m) => ({ default: m.MaxwellPreview }))),
+  chaos: lazy(() => import("./chaos-page").then((m) => ({ default: m.ChaosPreview }))),
 };
 
 /** Whether the element is on screen (`margin` beyond it counts), and whether

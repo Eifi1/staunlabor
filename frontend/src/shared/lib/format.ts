@@ -23,3 +23,30 @@ export function formatNumber(value: number, digits: number, locale: string): str
 export function formatQuantity(value: number, digits: number, unit: string, locale: string): string {
   return kitFormatNumber(value, { digits, unit, locale });
 }
+
+const SUPERSCRIPT: Record<string, string> = {
+  "-": "⁻",
+  "0": "⁰",
+  "1": "¹",
+  "2": "²",
+  "3": "³",
+  "4": "⁴",
+  "5": "⁵",
+  "6": "⁶",
+  "7": "⁷",
+  "8": "⁸",
+  "9": "⁹",
+};
+
+/** A number as a power of ten, as the reader writes it: `3·10⁻⁹`, the
+ *  mantissa in their locale; zero as zero. The exhibits' checks and gaps span
+ *  a dozen orders of magnitude, which fixed digits cannot show. */
+export function formatPowerOfTen(value: number, locale: string): string {
+  if (value === 0) return formatNumber(0, 0, locale);
+  const exponent = Math.floor(Math.log10(Math.abs(value)));
+  const mantissa = value / 10 ** exponent;
+  const power = [...String(exponent)].map((ch) => SUPERSCRIPT[ch]).join("");
+  // A plain power reads as one: 10⁻⁴, not 1.0·10⁻⁴.
+  if (Math.abs(mantissa - 1) < 0.05) return `10${power}`;
+  return `${formatNumber(mantissa, 1, locale)}·10${power}`;
+}

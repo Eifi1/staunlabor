@@ -217,6 +217,12 @@
         "title": "Maxwell's wheel",
         "summary": "A heavy wheel rolls slowly down two strings, turns round at the bottom and winds itself nearly back up to where it started – a large yo-yo.",
         "question": "Why does a heavy wheel rolling down two strings fall so much more slowly than a stone?"
+      },
+      "chaos": {
+        "short": "Chaotic pendulum",
+        "title": "The chaotic pendulum",
+        "summary": "A pendulum on a pendulum: pushed hard it flails and never repeats – two that start almost alike soon go entirely different ways.",
+        "question": "Two double pendulums start a thousandth of a degree apart. For how long do they still swing alike?"
       }
     },
     "chair": {
@@ -1617,6 +1623,79 @@
       "computed": {
         "system": "Everything here has a closed form; nothing needs stepping: falling and climbing are uniformly accelerated, and in the jerk the wheel makes half a spring's swing on the stretched strings. For every frame the page asks where the wheel is.",
         "z": "how far the strings are stretched in the jerk"
+      }
+    },
+    "chaos": {
+      "at": {
+        "pendulum": "A second pendulum hangs from the end of a first. Pushed gently, both swing calmly to and fro; pushed hard, the lower arm flails, goes over the top, stops short and flails on – never the same way twice.",
+        "twice": "Whoever pushes it twice “the same” sees two different dances. Here that is done more precisely than by hand: two pendulums whose starts differ by a thousandth of a degree."
+      },
+      "view": "The double pendulum and its twin, started a tiny angle differently, with the trail of the lower weight",
+      "play": {
+        "title": "Let two pendulums go",
+        "hint": "The strong pendulum and its paler twin start almost alike. Watch when they part.",
+        "let_go": "Let go",
+        "pause": "Pause",
+        "run": "Run",
+        "presets_label": "Start:",
+        "presets": {
+          "gentle": "Gentle",
+          "wild": "Wild",
+          "headstand": "Nearly upside down"
+        },
+        "upper": "Upper arm at the start",
+        "lower": "Lower arm at the start",
+        "nudge": "The twin's difference",
+        "speed": "Speed",
+        "speeds": {
+          "100": "Real time",
+          "25": "Slow motion (¼)"
+        },
+        "time": "Time",
+        "gap": "The two are {{gap}} apart"
+      },
+      "change": {
+        "title": "Change the exhibit",
+        "hint": "Every change lets both go again.",
+        "length1": "Length of the upper arm",
+        "length2": "Length of the lower arm",
+        "mass1": "Mass on the upper arm",
+        "mass2": "Mass on the lower arm",
+        "damping": "Damping"
+      },
+      "model": {
+        "intro": "Two masses on two light rods, the lower hung from the end of the upper. The equations of motion follow from the energy by Lagrange's method; they are long but hold no mystery – and they have no closed solution.",
+        "energy": "The double pendulum's energy: the motion of both masses, their coupling through the angle between the arms, and their height. Without damping it stays the same – that is the computation's check.",
+        "modes": "For small swings everything is orderly: two modes, slow together and fast against each other (here for equal arms and masses).",
+        "lyapunov": "For large swings a tiny difference grows by the same factor every second until it is as large as the motion itself. The rate of that growth is the Lyapunov exponent."
+      },
+      "symbols": {
+        "theta": "the two arms' angles from the vertical",
+        "lengths": "the arms' lengths",
+        "masses": "the two masses",
+        "g": "gravitational acceleration, 9.81 m/s²",
+        "omega": "the angular frequencies of the two modes",
+        "d": "the gap between the two pendulums, in angles and angular velocities",
+        "lambda": "the Lyapunov exponent"
+      },
+      "sweet": {
+        "gap": "The gap between the two pendulums over time, on a logarithmic scale: a straight line means it grows by the same factor every second.",
+        "chaotic": "Measured for this start: λ = {{lambda}} a second. A difference thus doubles every {{doubling}} s. Making it a thousand times smaller buys only ten doublings' time – which is why the pendulum cannot be predicted, though every computation is exact.",
+        "regular": "Measured for this start: λ = {{lambda}} a second, practically zero. Swung this gently the difference stays small: the pendulum is predictable."
+      },
+      "chart": {
+        "gap": "Gap between the two",
+        "time": "Time"
+      },
+      "figures": {
+        "lambda": "Lyapunov exponent",
+        "slow": "Slow mode"
+      },
+      "computed": {
+        "system": "Four first-order equations, both angles and their speeds, with the Runge–Kutta method in steps of a millisecond, for the pendulum and its twin. The engine measures the exponent Benettin's way: a twin starts a hundred-millionth away, every tenth of a second the gap's growth is noted and the twin set back to the small gap. The mean of the logarithms is the exponent – whatever small gap is chosen.",
+        "d0": "the small gap the twin is set back to each time",
+        "dk": "the gap after the k-th tenth of a second",
+        "t": "the whole time measured"
       }
     }
   }

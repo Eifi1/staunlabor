@@ -881,6 +881,45 @@ climb back to the start, the same share lost each climb, the jerk against a
 stepped spring (duration, end speed, peak to 10⁻⁹), and the closed form at its
 seams.
 
+## The chaotic pendulum (`experiments.chaos`)
+
+**The exhibit.** A pendulum hung from the end of another; pushed gently both
+swing calmly, pushed hard the lower arm flails and never repeats, and whoever
+pushes it twice "the same" sees two different dances.
+
+**The model** (`domain/experiments/chaos.py`). Two point masses on light rods,
+Lagrange's equations in their usual closed form, stepped by the block's
+Runge–Kutta at 1 ms; the energy is the check (it drifts by less than 10⁻⁷ of
+itself in twenty wild seconds). For small swings the two modes are
+`ω² = (g/L)(2 ∓ √2)` (equal arms and masses; the general quartic's roots), and
+a start in the slow mode comes back after its period. **Chaos, measured:** the
+page lets go the pendulum and a twin whose upper arm is nudged (1° down to
+10⁻⁵°) and draws the gap between them — angles and rates, each rate over
+`√(g/L₁)` — on a logarithmic scale. The largest Lyapunov exponent is measured
+Benettin's way, a twin a hundred-millionth away whose gap's growth is summed in
+logarithms every tenth of a second before it is set back: from 120°/120° over a
+minute, 2.82 a second whatever the gap (10⁻⁶ to 10⁻¹⁰); gently (5°/7°), under
+0.01. A first version fitted a slope to one pair's gap, which gave 1.9 to 3.8
+with the nudge — one stretch of one path says little — and was dropped. The
+page measures over 30 s, after the sliders settle; the port is held to the
+engine with a twin 10⁻⁴ away, since at 10⁻⁸ the gap's subtraction loses eight
+digits that chaos then magnifies.
+
+**The page.** The pendulum and its paler twin with the lower weight's trail;
+starts gentle, wild or nearly upside down, both arms' starts and the twin's
+nudge as controls; the gap as a power of ten as they part. The trick: the gap
+over twenty seconds, a straight line on the logarithmic scale, the measured
+exponent and the doubling time `ln 2/λ`. **No route**: the port's
+(`simulate/chaos.ts`).
+
+**Left out, and said:** the rods' mass and the bearings' friction (one linear
+damping), air; the exhibit's arms are physical pendulums, the same chaos with
+other numbers.
+
+**Checked by** `tests/unit/test_experiments.py`: the modes, the slow mode's
+return, the energy, the twin's parting wild and not gently, the exponent's
+independence of the gap.
+
 ## Checking the mathematics
 
 Before the engine was written each model was checked independently with SciPy

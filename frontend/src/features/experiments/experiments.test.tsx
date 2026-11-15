@@ -38,6 +38,7 @@ import { ParabolaPage, wellFilled } from "./parabola-page";
 import { CoupledPage, hangs } from "./coupled-page";
 import { PegPage } from "./peg-page";
 import { MaxwellPage } from "./maxwell-page";
+import { ChaosPage } from "./chaos-page";
 import { ballState, pitEntries, positionAt, raceLayout, swingAt } from "./race-views";
 import { run as runPit } from "./simulate/pit";
 import { HOLE, cameraAt, frameOf, project } from "./chair-views";
@@ -812,4 +813,30 @@ describe("Maxwell's wheel", () => {
     fireEvent.click(screen.getByRole("radio", { name: E.maxwell.change.shapes.ring }));
     expect(await screen.findByText(/99\.4 % here/)).toBeInTheDocument();
   });
+});
+
+describe("the chaotic pendulum", () => {
+  it("shows the pendulum and its twin, the starts and the measured exponent", async () => {
+    renderWithProviders(<ChaosPage />);
+    expect(await screen.findByRole("img", { name: E.chaos.view })).toBeInTheDocument();
+    for (const name of ["gentle", "wild", "headstand"] as const) {
+      expect(screen.getByRole("button", { name: E.chaos.play.presets[name] })).toBeInTheDocument();
+    }
+    // Wild, the exponent is measured and the gap doubles in a fraction of a second.
+    expect(
+      await screen.findByText(
+        /Measured for this start: λ = \d\.\d\d a second\. A difference thus doubles/,
+        {},
+        { timeout: 8000 },
+      ),
+    ).toBeInTheDocument();
+    expect(screen.getAllByLabelText(E.equation.symbols).length).toBeGreaterThanOrEqual(4);
+  }, 15000);
+
+  it("calls a gentle start predictable", async () => {
+    renderWithProviders(<ChaosPage />);
+    await screen.findByRole("img", { name: E.chaos.view });
+    fireEvent.click(screen.getByRole("button", { name: E.chaos.play.presets.gentle }));
+    expect(await screen.findByText(/practically zero/, {}, { timeout: 8000 })).toBeInTheDocument();
+  }, 15000);
 });

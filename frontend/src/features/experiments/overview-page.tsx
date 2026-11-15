@@ -18,6 +18,7 @@ import {
   PenTool,
   RotateCcw,
   RotateCw,
+  Shuffle,
   Timer,
   Torus,
   Waves,
@@ -63,6 +64,7 @@ const ICON: Record<Exhibit, LucideIcon> = {
   coupled: Link2,
   peg: Anchor,
   maxwell: Disc3,
+  chaos: Shuffle,
 };
 
 /** Two weeks back, in the dialog: long enough to find the one a friend

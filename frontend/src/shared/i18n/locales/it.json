@@ -217,6 +217,12 @@
         "title": "La ruota di Maxwell",
         "summary": "Una ruota pesante scende lentamente srotolandosi da due nastri, si inverte in basso e si riavvolge quasi fino all'altezza di partenza – come un grande yo-yo.",
         "question": "Perché una ruota pesante che si srotola da due nastri cade tanto più lentamente di un sasso?"
+      },
+      "chaos": {
+        "short": "Pendolo caotico",
+        "title": "Il pendolo caotico",
+        "summary": "Un pendolo appeso a un pendolo: spinto forte si agita e non si ripete mai – due che partono quasi uguali prendono presto strade del tutto diverse.",
+        "question": "Due pendoli doppi partono con un millesimo di grado di differenza. Per quanto tempo oscillano ancora uguali?"
       }
     },
     "chair": {
@@ -1617,6 +1623,79 @@
       "computed": {
         "system": "Qui tutto ha una soluzione chiusa; nulla va calcolato passo dopo passo: caduta e salita sono uniformemente accelerate, e nello strappo la ruota compie mezza oscillazione di molla sui nastri allungati. A ogni immagine la pagina chiede dove si trova la ruota.",
         "z": "quanto si allungano i nastri nello strappo"
+      }
+    },
+    "chaos": {
+      "at": {
+        "pendulum": "All'estremità di un pendolo ne pende un secondo. Spinti piano, entrambi oscillano tranquilli; spinti forte, il braccio inferiore si agita, fa giri completi, si ferma di colpo e riparte – mai due volte uguale.",
+        "twice": "Chi lo spinge due volte «uguale» vede due danze diverse. Qui lo si fa con più precisione che a mano: due pendoli le cui partenze differiscono di un millesimo di grado."
+      },
+      "view": "Il pendolo doppio e il suo gemello, partito con un angolo minimamente diverso, con la traccia del peso inferiore",
+      "play": {
+        "title": "Lasciare andare due pendoli",
+        "hint": "Il pendolo deciso e il suo gemello più pallido partono quasi uguali. Osservi quando si separano.",
+        "let_go": "Lasciare",
+        "pause": "Pausa",
+        "run": "Continua",
+        "presets_label": "Partenza:",
+        "presets": {
+          "gentle": "Dolce",
+          "wild": "Selvaggio",
+          "headstand": "Quasi a testa in giù"
+        },
+        "upper": "Braccio superiore alla partenza",
+        "lower": "Braccio inferiore alla partenza",
+        "nudge": "Differenza del gemello",
+        "speed": "Velocità",
+        "speeds": {
+          "100": "Tempo reale",
+          "25": "Rallentatore (¼)"
+        },
+        "time": "Tempo",
+        "gap": "Distanza tra i due: {{gap}}"
+      },
+      "change": {
+        "title": "Modificare l'oggetto esposto",
+        "hint": "Ogni modifica lascia andare di nuovo entrambi.",
+        "length1": "Lunghezza del braccio superiore",
+        "length2": "Lunghezza del braccio inferiore",
+        "mass1": "Massa sul braccio superiore",
+        "mass2": "Massa sul braccio inferiore",
+        "damping": "Smorzamento"
+      },
+      "model": {
+        "intro": "Due masse su due aste leggere, l'inferiore appesa all'estremità della superiore. Le equazioni del moto seguono dall'energia con il metodo di Lagrange; sono lunghe ma senza misteri – e non hanno una soluzione chiusa.",
+        "energy": "L'energia del pendolo doppio: il moto delle due masse, il loro accoppiamento tramite l'angolo tra i bracci, e la loro altezza. Senza smorzamento resta la stessa – è il controllo del calcolo.",
+        "modes": "Per piccole oscillazioni tutto è ordinato: due modi propri, lento all'unisono e veloce in opposizione (qui per bracci e masse uguali).",
+        "lyapunov": "Per grandi oscillazioni una differenza minima cresce ogni secondo dello stesso fattore finché è grande quanto il moto stesso. Il tasso di questa crescita è l'esponente di Ljapunov."
+      },
+      "symbols": {
+        "theta": "gli angoli dei due bracci rispetto alla verticale",
+        "lengths": "le lunghezze dei bracci",
+        "masses": "le due masse",
+        "g": "accelerazione di gravità, 9,81 m/s²",
+        "omega": "le pulsazioni dei due modi propri",
+        "d": "la distanza tra i due pendoli, in angoli e velocità angolari",
+        "lambda": "l'esponente di Ljapunov"
+      },
+      "sweet": {
+        "gap": "La distanza tra i due pendoli nel tempo, in scala logaritmica: una retta significa che cresce dello stesso fattore ogni secondo.",
+        "chaotic": "Misurato per questa partenza: λ = {{lambda}} al secondo. Una differenza raddoppia quindi ogni {{doubling}} s. Renderla mille volte più piccola fa guadagnare solo il tempo di dieci raddoppi – per questo il pendolo è imprevedibile, anche se ogni calcolo è esatto.",
+        "regular": "Misurato per questa partenza: λ = {{lambda}} al secondo, praticamente zero. Con oscillazioni così dolci la differenza resta piccola: il pendolo è prevedibile."
+      },
+      "chart": {
+        "gap": "Distanza tra i due",
+        "time": "Tempo"
+      },
+      "figures": {
+        "lambda": "Esponente di Ljapunov",
+        "slow": "Modo lento"
+      },
+      "computed": {
+        "system": "Quattro equazioni del primo ordine, i due angoli e le loro velocità, con il metodo di Runge-Kutta a passi di un millisecondo, per il pendolo e il suo gemello. Il motore misura l'esponente alla maniera di Benettin: un gemello parte a un centomilionesimo, ogni decimo di secondo si annota quanto è cresciuta la distanza e il gemello viene riportato alla piccola distanza. La media dei logaritmi è l'esponente – qualunque sia la piccola distanza scelta.",
+        "d0": "la piccola distanza a cui il gemello viene riportato ogni volta",
+        "dk": "la distanza dopo il k-esimo decimo di secondo",
+        "t": "tutto il tempo misurato"
       }
     }
   }

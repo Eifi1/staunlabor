@@ -217,6 +217,12 @@
         "title": "A Maxwell-kerék",
         "summary": "Egy nehéz kerék lassan legördül két szalagon, lent megfordul, és majdnem a kiinduló magasságig visszatekeredik – mint egy nagy jojó.",
         "question": "Miért esik egy két szalagon legördülő nehéz kerék sokkal lassabban, mint egy kő?"
+      },
+      "chaos": {
+        "short": "Kaotikus inga",
+        "title": "A kaotikus inga",
+        "summary": "Inga az inga végén: erősen meglökve vadul csapkod, és sosem ismétlődik – kettő, amely majdnem egyformán indul, hamar egészen más utakat jár.",
+        "question": "Két kettős inga egy ezred fok különbséggel indul. Meddig lengenek még egyformán?"
       }
     },
     "chair": {
@@ -1617,6 +1623,79 @@
       "computed": {
         "system": "Itt minden zárt alakban megoldható, semmit sem kell lépésenként számolni: az esés és az emelkedés egyenletesen gyorsuló, a rándulásban pedig a kerék fél rugólengést végez a megnyúlt szalagokon. Az oldal minden képkockánál megkérdezi, hol van éppen a kerék.",
         "z": "mennyire nyúlnak meg a szalagok a rándulásban"
+      }
+    },
+    "chaos": {
+      "at": {
+        "pendulum": "Egy inga végén egy második lóg. Finoman meglökve mindkettő nyugodtan leng; erősen meglökve az alsó kar vadul csapkod, átfordul, megtorpan és csapkod tovább – soha kétszer ugyanúgy.",
+        "twice": "Aki kétszer „ugyanúgy” löki meg, két különböző táncot lát. Itt ez pontosabb, mint kézzel: két inga, amelyek indulása egy ezred fokkal tér el."
+      },
+      "view": "A kettős inga és ikertestvére, amely parányi szöggel másképp indult, az alsó súly nyomvonalával",
+      "play": {
+        "title": "Két inga elengedése",
+        "hint": "Az élénk inga és halványabb ikre majdnem egyformán indul. Figyelje, mikor válnak el.",
+        "let_go": "Elengedés",
+        "pause": "Szünet",
+        "run": "Tovább",
+        "presets_label": "Indulás:",
+        "presets": {
+          "gentle": "Finom",
+          "wild": "Vad",
+          "headstand": "Majdnem fejjel lefelé"
+        },
+        "upper": "A felső kar induláskor",
+        "lower": "Az alsó kar induláskor",
+        "nudge": "Az iker eltérése",
+        "speed": "Tempó",
+        "speeds": {
+          "100": "Valós idő",
+          "25": "Lassítva (¼)"
+        },
+        "time": "Idő",
+        "gap": "A kettő távolsága: {{gap}}"
+      },
+      "change": {
+        "title": "A kiállítási tárgy módosítása",
+        "hint": "Minden változtatás újra elengedi mindkettőt.",
+        "length1": "A felső kar hossza",
+        "length2": "Az alsó kar hossza",
+        "mass1": "Tömeg a felső karon",
+        "mass2": "Tömeg az alsó karon",
+        "damping": "Csillapítás"
+      },
+      "model": {
+        "intro": "Két tömeg két könnyű rúdon, az alsó a felső végén lóg. A mozgásegyenletek az energiából adódnak Lagrange módszerével; hosszúak, de nincs bennük titok – és nincs zárt megoldásuk.",
+        "energy": "A kettős inga energiája: a két tömeg mozgása, csatolásuk a karok közti szögön át, és a magasságuk. Csillapítás nélkül állandó – ez a számítás ellenőrzése.",
+        "modes": "Kis kitérésnél minden rendezett: két sajátrezgés, együtt lassú, egymás ellen gyors (itt egyforma karokra és tömegekre).",
+        "lyapunov": "Nagy kitérésnél egy parányi különbség másodpercenként ugyanazzal a tényezővel nő, amíg akkora nem lesz, mint maga a mozgás. Ennek a növekedésnek az üteme a Ljapunov-exponens."
+      },
+      "symbols": {
+        "theta": "a két kar szöge a függőlegeshez",
+        "lengths": "a karok hossza",
+        "masses": "a két tömeg",
+        "g": "nehézségi gyorsulás, 9,81 m/s²",
+        "omega": "a két sajátrezgés körfrekvenciái",
+        "d": "a két inga távolsága szögekben és szögsebességekben",
+        "lambda": "a Ljapunov-exponens"
+      },
+      "sweet": {
+        "gap": "A két inga távolsága az idő függvényében, logaritmikus skálán: az egyenes azt jelenti, hogy másodpercenként ugyanazzal a tényezővel nő.",
+        "chaotic": "Erre az indulásra mérve: λ = {{lambda}} másodpercenként. Egy különbség tehát {{doubling}} s-onként megduplázódik. Ezerszer kisebbre véve csak tíz duplázódásnyi időt nyerünk – ezért nem jósolható meg az inga, bár minden számítás pontos.",
+        "regular": "Erre az indulásra mérve: λ = {{lambda}} másodpercenként, gyakorlatilag nulla. Ilyen finom lengésnél a különbség kicsi marad: az inga megjósolható."
+      },
+      "chart": {
+        "gap": "A kettő távolsága",
+        "time": "Idő"
+      },
+      "figures": {
+        "lambda": "Ljapunov-exponens",
+        "slow": "Lassú sajátrezgés"
+      },
+      "computed": {
+        "system": "Négy elsőrendű egyenlet, mindkét szög és sebességeik, a Runge–Kutta-módszerrel ezredmásodperces lépésekben, az ingára és ikrére. Az exponenst a számítómag Benettin módszerével méri: egy iker százmilliomodnyira indul, tizedmásodpercenként feljegyzi, mennyit nőtt a távolság, és az ikret visszaállítja a kis távolságra. A logaritmusok átlaga az exponens – bármilyen kicsi távolságot választunk.",
+        "d0": "a kis távolság, amelyre az ikret minden alkalommal visszaállítják",
+        "dk": "a távolság a k-adik tizedmásodperc után",
+        "t": "a teljes mérési idő"
       }
     }
   }

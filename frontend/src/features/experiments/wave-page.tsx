@@ -5,7 +5,7 @@ import { AlertBanner, Button, LoadingState, ToggleGroup } from "@eifi1/ui-kit";
 import { apiErrorMessage } from "@/shared/api/client";
 import { SeriesChart } from "@/shared/charts/series-chart";
 import { useLocale } from "@/shared/i18n/use-locale";
-import { formatNumber } from "@/shared/lib/format";
+import { formatNumber, formatPowerOfTen } from "@/shared/lib/format";
 import { useChartHex } from "@/shared/state/palette-store";
 import type { WaveFigures, WaveRequest } from "@/shared/types";
 import { SliderField } from "@/shared/ui/slider-field";
@@ -424,30 +424,6 @@ function WaveTrick({ figures, wave }: { figures: WaveFigures | null; wave: WaveR
   );
 }
 
-const SUPERSCRIPT: Record<string, string> = {
-  "-": "⁻",
-  "0": "⁰",
-  "1": "¹",
-  "2": "²",
-  "3": "³",
-  "4": "⁴",
-  "5": "⁵",
-  "6": "⁶",
-  "7": "⁷",
-  "8": "⁸",
-  "9": "⁹",
-};
-
-/** A small number as the reader writes it: `3·10⁻⁹`, the mantissa in their
- *  locale; zero as zero. */
-function powerOfTen(value: number, locale: string): string {
-  if (value === 0) return formatNumber(0, 0, locale);
-  const exponent = Math.floor(Math.log10(Math.abs(value)));
-  const mantissa = value / 10 ** exponent;
-  const power = [...String(exponent)].map((ch) => SUPERSCRIPT[ch]).join("");
-  return `${formatNumber(mantissa, 1, locale)}·10${power}`;
-}
-
 /** How the engine computes the row: one equation per pendulum, solved exactly —
  *  and, as a check the reader can see, the longest one stepped beside it. */
 function WaveComputed({ wave }: { wave: WaveRequest | null }) {
@@ -482,7 +458,7 @@ function WaveComputed({ wave }: { wave: WaveRequest | null }) {
           { tex: "t", meaning: c("t"), unit: "s" },
         ]}
       />
-      {apart !== null && <p>{t("experiments.wave.computed.check", { apart: powerOfTen(apart, locale) })}</p>}
+      {apart !== null && <p>{t("experiments.wave.computed.check", { apart: formatPowerOfTen(apart, locale) })}</p>}
     </>
   );
 }

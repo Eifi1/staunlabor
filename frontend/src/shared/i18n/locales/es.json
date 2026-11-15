@@ -217,6 +217,12 @@
         "title": "La rueda de Maxwell",
         "summary": "Una rueda pesada baja despacio desenrollándose de dos cintas, da la vuelta abajo y vuelve a enrollarse casi hasta la altura de partida – como un gran yoyó.",
         "question": "¿Por qué una rueda pesada que se desenrolla de dos cintas cae mucho más despacio que una piedra?"
+      },
+      "chaos": {
+        "short": "Péndulo caótico",
+        "title": "El péndulo caótico",
+        "summary": "Un péndulo colgado de otro: empujado con fuerza se agita y nunca se repite – dos que empiezan casi igual pronto siguen caminos muy distintos.",
+        "question": "Dos péndulos dobles empiezan con una milésima de grado de diferencia. ¿Cuánto tiempo siguen oscilando igual?"
       }
     },
     "chair": {
@@ -1617,6 +1623,79 @@
       "computed": {
         "system": "Aquí todo tiene solución cerrada; nada se calcula paso a paso: la caída y la subida son uniformemente aceleradas, y en el tirón la rueda hace media oscilación de muelle sobre las cintas estiradas. En cada imagen la página pregunta dónde está la rueda.",
         "z": "cuánto se estiran las cintas en el tirón"
+      }
+    },
+    "chaos": {
+      "at": {
+        "pendulum": "De un péndulo cuelga un segundo. Empujados suavemente, ambos oscilan tranquilos; con fuerza, el brazo inferior se agita, da vueltas, se detiene y sigue agitándose – nunca dos veces igual.",
+        "twice": "Quien lo empuja dos veces «igual» ve dos bailes distintos. Aquí se hace con más precisión que a mano: dos péndulos cuyos comienzos difieren en una milésima de grado."
+      },
+      "view": "El péndulo doble y su gemelo, que empezó con un ángulo diminuto distinto, con la traza del peso inferior",
+      "play": {
+        "title": "Soltar dos péndulos",
+        "hint": "El péndulo intenso y su gemelo más pálido empiezan casi igual. Fíjese en cuándo se separan.",
+        "let_go": "Soltar",
+        "pause": "Pausa",
+        "run": "Seguir",
+        "presets_label": "Inicio:",
+        "presets": {
+          "gentle": "Suave",
+          "wild": "Salvaje",
+          "headstand": "Casi cabeza abajo"
+        },
+        "upper": "Brazo superior al inicio",
+        "lower": "Brazo inferior al inicio",
+        "nudge": "Diferencia del gemelo",
+        "speed": "Velocidad",
+        "speeds": {
+          "100": "Tiempo real",
+          "25": "Cámara lenta (¼)"
+        },
+        "time": "Tiempo",
+        "gap": "Distancia entre los dos: {{gap}}"
+      },
+      "change": {
+        "title": "Cambiar el objeto expuesto",
+        "hint": "Cada cambio vuelve a soltar ambos.",
+        "length1": "Longitud del brazo superior",
+        "length2": "Longitud del brazo inferior",
+        "mass1": "Masa en el brazo superior",
+        "mass2": "Masa en el brazo inferior",
+        "damping": "Amortiguación"
+      },
+      "model": {
+        "intro": "Dos masas en dos varillas ligeras, la inferior colgada del extremo de la superior. Las ecuaciones del movimiento se obtienen de la energía con el método de Lagrange; son largas pero sin misterio – y no tienen solución cerrada.",
+        "energy": "La energía del péndulo doble: el movimiento de ambas masas, su acoplamiento por el ángulo entre los brazos y su altura. Sin amortiguación se conserva – es el control del cálculo.",
+        "modes": "Con oscilaciones pequeñas todo es ordenado: dos modos propios, lento al unísono y rápido uno contra otro (aquí con brazos y masas iguales).",
+        "lyapunov": "Con oscilaciones grandes, una diferencia diminuta crece cada segundo por el mismo factor hasta ser tan grande como el propio movimiento. La tasa de ese crecimiento es el exponente de Liapunov."
+      },
+      "symbols": {
+        "theta": "los ángulos de los dos brazos con la vertical",
+        "lengths": "las longitudes de los brazos",
+        "masses": "las dos masas",
+        "g": "aceleración de la gravedad, 9,81 m/s²",
+        "omega": "las frecuencias angulares de los dos modos",
+        "d": "la distancia entre los dos péndulos, en ángulos y velocidades angulares",
+        "lambda": "el exponente de Liapunov"
+      },
+      "sweet": {
+        "gap": "La distancia entre los dos péndulos con el tiempo, en escala logarítmica: una recta significa que crece por el mismo factor cada segundo.",
+        "chaotic": "Medido para este inicio: λ = {{lambda}} por segundo. Una diferencia se duplica cada {{doubling}} s. Hacerla mil veces menor solo gana el tiempo de diez duplicaciones – por eso el péndulo no se puede predecir, aunque cada cálculo sea exacto.",
+        "regular": "Medido para este inicio: λ = {{lambda}} por segundo, prácticamente cero. Con oscilaciones tan suaves la diferencia sigue pequeña: el péndulo es predecible."
+      },
+      "chart": {
+        "gap": "Distancia entre los dos",
+        "time": "Tiempo"
+      },
+      "figures": {
+        "lambda": "Exponente de Liapunov",
+        "slow": "Modo lento"
+      },
+      "computed": {
+        "system": "Cuatro ecuaciones de primer orden, ambos ángulos y sus velocidades, con el método de Runge-Kutta en pasos de un milisegundo, para el péndulo y su gemelo. El motor mide el exponente a la manera de Benettin: un gemelo empieza a una cienmillonésima, cada décima de segundo se anota cuánto creció la distancia y el gemelo vuelve a la distancia pequeña. La media de los logaritmos es el exponente – sea cual sea la distancia pequeña elegida.",
+        "d0": "la distancia pequeña a la que vuelve el gemelo cada vez",
+        "dk": "la distancia tras la k-ésima décima de segundo",
+        "t": "todo el tiempo medido"
       }
     }
   }

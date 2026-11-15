@@ -566,6 +566,17 @@ export interface MaxwellWheelRequest {
   stiffness_n_m: number;
 }
 
+// ── the chaotic pendulum ─────────────────────────────────────────────────────
+
+/** The engine's `DoublePendulum`. No route: the page asks the port (`simulate/chaos.ts`). */
+export interface DoublePendulumRequest {
+  length1_m: number;
+  length2_m: number;
+  mass1_kg: number;
+  mass2_kg: number;
+  damping_per_s: number;
+}
+
 // ── the pages' starting point ────────────────────────────────────────────────
 
 export interface ExperimentsDefaults {
@@ -583,6 +594,7 @@ export interface ExperimentsDefaults {
   coupled: CoupledPendulumsRequest;
   peg: PegPendulumRequest;
   maxwell: MaxwellWheelRequest;
+  chaos: DoublePendulumRequest;
   meter_range_a: number;
   settle_s: number;
 }

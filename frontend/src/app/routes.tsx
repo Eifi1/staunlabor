@@ -29,6 +29,7 @@ const ParabolaPage = lazy(() =>
 const CoupledPage = lazy(() => import("@/features/experiments/coupled-page").then((m) => ({ default: m.CoupledPage })));
 const PegPage = lazy(() => import("@/features/experiments/peg-page").then((m) => ({ default: m.PegPage })));
 const MaxwellPage = lazy(() => import("@/features/experiments/maxwell-page").then((m) => ({ default: m.MaxwellPage })));
+const ChaosPage = lazy(() => import("@/features/experiments/chaos-page").then((m) => ({ default: m.ChaosPage })));
 const HarmonographPage = lazy(() =>
   import("@/features/experiments/harmonograph-page").then((m) => ({ default: m.HarmonographPage })),
 );
@@ -163,6 +164,14 @@ export function AppRoutes() {
           element={
             <Page>
               <MaxwellPage />
+            </Page>
+          }
+        />
+        <Route
+          path="chaos"
+          element={
+            <Page>
+              <ChaosPage />
             </Page>
           }
         />
