@@ -37,6 +37,8 @@ with SciPy before it was written (``docs/experiments.md``).
   rolled ball in a circle, seen from outside; both curve away for the riders.
 * :mod:`cradle` — Newton's cradle with Hertz contacts: one in, one out, clean
   with a hair's gap between the balls and nearly so when they touch.
+* :mod:`resonance` — six rods on a trembling table: only the one in step
+  swings, and it takes its time.
 * :mod:`well` — the gravity well: a ball rolling round a funnel ``z = −k/r``
   keeps Kepler's third law on every circle and spirals into the hole.
 * :mod:`foucault` — Foucault's pendulum in Winterthur: its plane turns 11.1°
@@ -291,6 +293,11 @@ from staunlabor.domain.experiments.race import entries as race_entries
 from staunlabor.domain.experiments.race import race as run_race
 from staunlabor.domain.experiments.race import settle as settle_race
 from staunlabor.domain.experiments.race import valley as race_valley
+from staunlabor.domain.experiments.resonance import Rack as ResonanceRack
+from staunlabor.domain.experiments.resonance import ShakeRun
+from staunlabor.domain.experiments.resonance import natural_hz as rod_hz
+from staunlabor.domain.experiments.resonance import run as run_resonance
+from staunlabor.domain.experiments.resonance import steady_m as rod_steady_m
 from staunlabor.domain.experiments.smoke import (
     Drum,
     Flight,
@@ -436,10 +443,12 @@ __all__ = [
     "RaceRun",
     "RaceTrack",
     "Rails",
+    "ResonanceRack",
     "Ring",
     "Room",
     "Scripted",
     "Segment",
+    "ShakeRun",
     "Shape",
     "SidePoint",
     "SmokeExhibit",
@@ -550,6 +559,8 @@ __all__ = [
     "rail_height_m",
     "regime",
     "ring_from_push",
+    "rod_hz",
+    "rod_steady_m",
     "roll",
     "rotation_share",
     "run_chaos",
@@ -560,6 +571,7 @@ __all__ = [
     "run_pit",
     "run_platform",
     "run_race",
+    "run_resonance",
     "run_sphere",
     "run_waterwheel",
     "run_well",

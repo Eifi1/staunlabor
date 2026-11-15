@@ -2123,3 +2123,78 @@ def test_the_resistance_brakes_the_ball_and_yet_it_runs_ever_faster():
     # Lap by lap it wobbles a little (the start is not quite a circle with the
     # resistance on); ten laps apart, it is always faster.
     assert all(b > a for a, b in itertools.pairwise(fastest_per_lap[::10]))
+
+
+# ── resonance ────────────────────────────────────────────────────────────────
+
+
+def test_a_clamped_rod_s_first_mode_has_the_textbook_constants():
+    # β₁² = 3.516 and, for the shape 1 at the tip, Γ = 1.566: any table of
+    # cantilever modes.
+    from staunlabor.domain.experiments import resonance
+
+    assert round(resonance.BETA1**2, 3) == 3.516
+    assert round(resonance.GAMMA, 3) == 1.566
+    assert resonance.shape(0.0) == pytest.approx(0.0, abs=1e-12)
+    assert resonance.shape(1.0) == pytest.approx(1.0)
+
+
+def test_the_six_rods_ring_between_1_4_and_5_7_hz():
+    rack = x.ResonanceRack()
+    assert [round(x.rod_hz(rack, length), 2) for length in rack.lengths_m] == [1.41, 1.74, 2.21, 2.88, 3.92, 5.65]
+
+
+def test_in_step_one_rod_swings_78_mm_on_a_table_moving_1_mm_and_its_neighbours_at_most_4():
+    rack = x.ResonanceRack()
+    beat = x.rod_hz(rack, 0.8)
+    swings = [x.rod_steady_m(rack, length, beat) * 1000 for length in rack.lengths_m]
+    assert rack.table_m == 0.001
+    assert round(swings[2]) == 78
+    assert round(max(swings[:2] + swings[3:])) == 4
+    # Three per cent off the beat: a third of it.
+    assert round(x.rod_steady_m(rack, 0.8, beat * 1.03) * 1000) == 26
+
+
+def test_stepped_from_rest_the_rods_settle_on_the_closed_form():
+    rack = x.ResonanceRack()
+    run = x.run_resonance(rack, 2.0, 60.0)
+    for rod, length in enumerate(rack.lengths_m):
+        late = max(abs(q) for q in run.tips_m[rod][-200:])
+        assert late == pytest.approx(x.rod_steady_m(rack, length, 2.0), rel=0.01)
+
+
+def test_in_step_a_swing_grows_to_two_thirds_in_one_over_zeta_omega():
+    from staunlabor.domain.experiments import resonance
+
+    rack = x.ResonanceRack()
+    beat = x.rod_hz(rack, 0.8)
+    tau = 1 / (rack.damping_ratio * 2 * math.pi * beat)
+    assert round(tau, 1) == 7.2
+    s = resonance.start(rack)
+    for _ in range(round(tau / resonance.STEP_S)):
+        s = resonance.step(rack, s, beat)
+    grown = resonance.swing_m(rack, s, 2) / x.rod_steady_m(rack, 0.8, beat)
+    assert grown == pytest.approx(1 - math.exp(-1), abs=0.02)
+
+
+def test_swept_at_a_twentieth_of_a_hertz_a_second_the_rod_reaches_half_its_swing_and_late():
+    from staunlabor.domain.experiments import resonance
+
+    rack = x.ResonanceRack()
+    s = resonance.start(rack)
+    widest, at = 0.0, 0.0
+    for i in range(round(30 / resonance.STEP_S)):
+        drive = 1.5 + 0.05 * i * resonance.STEP_S
+        s = resonance.step(rack, s, drive)
+        swing = resonance.swing_m(rack, s, 2)
+        if swing > widest:
+            widest, at = swing, drive
+    assert round(widest * 1000) == 40
+    assert round(at, 1) == 2.4
+
+
+def test_the_rack_refuses_what_it_cannot_hold():
+    with pytest.raises(ValueError, match="between 10 cm and 2 m"):
+        x.ResonanceRack(lengths_m=(3.0,))
+    with pytest.raises(ValueError, match="between 0 and 50"):
+        x.run_resonance(x.ResonanceRack(), 60.0, 1.0)

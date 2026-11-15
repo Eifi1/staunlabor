@@ -23,6 +23,7 @@ import * as coriolis from "./coriolis";
 import * as coupled from "./coupled";
 import * as cradle from "./cradle";
 import * as well from "./well";
+import * as resonance from "./resonance";
 import * as elephant from "./elephant";
 import * as foucault from "./foucault";
 import * as harmonograph from "./harmonograph";
@@ -799,6 +800,53 @@ describe("the gravity well's port", () => {
       const circular = c.circular.map(([r]: number[]) => [r, well.circularSpeed(c.f, r), well.circularPeriod(c.f, r)]);
       expect(differences(c.circular, circular)).toEqual([]);
       expect(differences(c.run, wellRun(c.f, c.launch, 20.0))).toEqual([]);
+    }
+  });
+});
+
+/** The engine's `run`, sampled from the port's steps as the engine samples its
+ *  own: every twentieth millisecond, the drive moving by the sweep. */
+function resonanceRun(rack: resonance.Rack, driveHz: number, durationS: number, sweep: number) {
+  let s = resonance.start(rack);
+  const steps = Math.round(durationS / resonance.STEP_S);
+  const out = { t: [] as number[], drive_hz: [] as number[], tips_m: rack.lengths_m.map(() => [] as number[]) };
+  for (let i = 0; i <= steps; i++) {
+    const f = driveHz + sweep * i * resonance.STEP_S;
+    if (i % 20 === 0) {
+      out.t.push(s.t);
+      out.drive_hz.push(f);
+      s.q.forEach((q, rod) => out.tips_m[rod].push(q));
+    }
+    if (i < steps) s = resonance.step(rack, s, f);
+  }
+  return out;
+}
+
+describe("the resonance rods' port", () => {
+  it("has the engine's mode, frequencies and swings", () => {
+    const k = cases.resonance_constants;
+    expect(
+      differences(k, {
+        BETA1: resonance.BETA1,
+        GAMMA: resonance.GAMMA,
+        shape: k.shape.map((_: number, i: number) => resonance.shape(i / 10)),
+      }),
+    ).toEqual([]);
+    for (const c of cases.resonance) {
+      const lengths: number[] = c.rack.lengths_m;
+      expect(
+        differences(
+          c.natural_hz,
+          lengths.map((L) => resonance.naturalHz(c.rack, L)),
+        ),
+      ).toEqual([]);
+      expect(
+        differences(
+          c.steady_m,
+          lengths.map((L) => resonance.steadyM(c.rack, L, c.drive_hz)),
+        ),
+      ).toEqual([]);
+      expect(differences(c.run, resonanceRun(c.rack, c.drive_hz, 10.0, c.sweep_hz_per_s))).toEqual([]);
     }
   });
 });

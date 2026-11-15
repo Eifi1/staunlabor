@@ -14,6 +14,8 @@ browser, held to the engine by ``engine-cases.json`` (``docs/experiments.md``).
 
 from __future__ import annotations
 
+from typing import Annotated
+
 from pydantic import BaseModel, ConfigDict, Field
 
 from staunlabor.domain.experiments import BallKind, CurveKind, FigureKind, Idle, RaceBall, Shape, Verdict
@@ -658,6 +660,21 @@ class FunnelIn(_In):
     rolling_resistance: float = Field(ge=0, le=0.05, default=0.002)
 
 
+# ── resonance ────────────────────────────────────────────────────────────────
+# No route: the page asks the port (``simulate/resonance.ts``).
+
+RodLength = Annotated[float, Field(ge=0.1, le=2)]
+
+
+class ResonanceRackIn(_In):
+    lengths_m: list[RodLength] = Field(min_length=1, max_length=8, default=[1.0, 0.9, 0.8, 0.7, 0.6, 0.5])
+    diameter_m: float = Field(ge=0.0005, le=0.02, default=0.002)
+    youngs_gpa: float = Field(ge=1, le=500, default=200.0)
+    density_kg_m3: float = Field(ge=500, le=20000, default=7850.0)
+    damping_ratio: float = Field(ge=0.0005, le=0.5, default=0.01)
+    table_m: float = Field(gt=0, le=0.01, default=0.001)
+
+
 # ── the pages' starting point ────────────────────────────────────────────────
 
 
@@ -682,6 +699,7 @@ class ExperimentsDefaultsOut(_Out):
     coriolis: CarouselIn
     cradle: CradleIn
     well: FunnelIn
+    resonance: ResonanceRackIn
     #: The exhibit's meter: digital, ± this many amperes.
     meter_range_a: float
     #: How long a page waits after the last slider step before asking.

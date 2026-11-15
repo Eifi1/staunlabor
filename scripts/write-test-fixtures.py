@@ -60,6 +60,7 @@ UNROUTED = (
     "coriolis",
     "cradle",
     "well",
+    "resonance",
 )
 
 

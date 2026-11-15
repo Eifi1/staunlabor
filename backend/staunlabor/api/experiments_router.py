@@ -53,6 +53,7 @@ from staunlabor.domain.experiments import (
     PendulumWave,
     Platform,
     Race,
+    ResonanceRack,
     Room,
     SmokeExhibit,
     Sphere,
@@ -95,6 +96,7 @@ from staunlabor.domain.schemas.experiments import (
     PlatformIn,
     RaceAnalysisOut,
     RaceIn,
+    ResonanceRackIn,
     SmokeExhibitIn,
     SmokeFiguresOut,
     SphereFiguresOut,
@@ -151,6 +153,7 @@ async def defaults() -> ExperimentsDefaultsOut:
         coriolis=CarouselIn.model_validate(Carousel()),
         cradle=CradleIn.model_validate(Cradle()),
         well=FunnelIn.model_validate(Funnel()),
+        resonance=ResonanceRackIn.model_validate(ResonanceRack()),
         meter_range_a=METER_RANGE_A,
         settle_s=PAGE_SETTLE_S,
     )

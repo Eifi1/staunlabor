@@ -68,6 +68,7 @@ foucault = importlib.import_module("staunlabor.domain.experiments.foucault")
 coriolis = importlib.import_module("staunlabor.domain.experiments.coriolis")
 cradle = importlib.import_module("staunlabor.domain.experiments.cradle")
 well = importlib.import_module("staunlabor.domain.experiments.well")
+resonance = importlib.import_module("staunlabor.domain.experiments.resonance")
 
 TARGET = ROOT / "frontend/src/features/experiments/simulate/engine-cases.json"
 #: Points kept per curve: enough to see a curve that went wrong, few enough that
@@ -512,6 +513,16 @@ WELL_CASES = (
 )
 
 
+#: Resonance: the exhibit's rack in step with its third rod and between two,
+#: swept, and a stiff, well-damped rack of three.
+RESONANCE_CASES = (
+    (resonance.Rack(), 2.2073, 0.0),
+    (resonance.Rack(), 2.0, 0.0),
+    (resonance.Rack(), 1.5, 0.05),
+    (resonance.Rack(lengths_m=(0.3, 0.25, 0.2), diameter_m=0.004, damping_ratio=0.05, table_m=0.002), 20.0, -0.5),
+)
+
+
 def thin(values: Any) -> Any:
     """A curve as its length and every so many of its points, the last always
     among them; anything else as it is, recursively."""
@@ -596,6 +607,25 @@ def _well_cases(out: dict[str, Any]) -> None:
                     for r in (f.hole_m, f.start_m, f.rim_m)
                 ],
                 "run": thin(asdict(well.run(f, launch, 20.0))),
+            }
+        )
+
+
+def _resonance_cases(out: dict[str, Any]) -> None:
+    out["resonance_constants"] = {
+        "BETA1": resonance.BETA1,
+        "GAMMA": resonance.GAMMA,
+        "shape": [resonance.shape(i / 10) for i in range(11)],
+    }
+    for rack, drive, sweep in RESONANCE_CASES:
+        out["resonance"].append(
+            {
+                "rack": asdict(rack),
+                "drive_hz": drive,
+                "sweep_hz_per_s": sweep,
+                "natural_hz": [resonance.natural_hz(rack, length) for length in rack.lengths_m],
+                "steady_m": [resonance.steady_m(rack, length, drive) for length in rack.lengths_m],
+                "run": thin(asdict(resonance.run(rack, drive, 10.0, sweep))),
             }
         )
 
@@ -797,6 +827,7 @@ def _second_series(out: dict[str, Any]) -> None:
     _coriolis_cases(out)
     _cradle_cases(out)
     _well_cases(out)
+    _resonance_cases(out)
 
 
 def cases() -> dict[str, Any]:
@@ -848,6 +879,7 @@ def cases() -> dict[str, Any]:
         "coriolis": [],
         "cradle": [],
         "well": [],
+        "resonance": [],
     }
     _second_series(out)
     for name, case in HARMONOGRAPH_CASES.items():

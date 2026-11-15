@@ -197,6 +197,21 @@
       "hole_m": 0.03,
       "rolling_resistance": 0.002
     },
+    "resonance": {
+      "lengths_m": [
+        1.0,
+        0.9,
+        0.8,
+        0.7,
+        0.6,
+        0.5
+      ],
+      "diameter_m": 0.002,
+      "youngs_gpa": 200.0,
+      "density_kg_m3": 7850.0,
+      "damping_ratio": 0.01,
+      "table_m": 0.001
+    },
     "meter_range_a": 0.1,
     "settle_s": 0.15
   },
