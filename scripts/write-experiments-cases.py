@@ -76,6 +76,7 @@ circuit = importlib.import_module("staunlabor.domain.experiments.circuit")
 plates = importlib.import_module("staunlabor.domain.experiments.plates")
 bounce = importlib.import_module("staunlabor.domain.experiments.bounce")
 overhang = importlib.import_module("staunlabor.domain.experiments.overhang")
+diver = importlib.import_module("staunlabor.domain.experiments.diver")
 chladni = importlib.import_module("staunlabor.domain.experiments.chladni")
 
 TARGET = ROOT / "frontend/src/features/experiments/simulate/engine-cases.json"
@@ -645,6 +646,27 @@ OVERHANG_STACKS = (
 #: Reaches the fewest blocks are found for, in lengths.
 OVERHANG_REACHES = (0.25, 0.5, 0.75, 1.0, 1.5, 2.0, 2.5, 3.0, 4.0)
 
+#: The Cartesian diver: the exhibit's let go just off its hover depth both
+#: ways, from the surface unsqueezed and squeezed hard; a diver with more air
+#: in a deep bottle; a heavy wide one in a short bottle.
+DIVER_RUNS = (
+    (diver.Diver(), diver.Bottle(), "hover-", 10000.0),
+    (diver.Diver(), diver.Bottle(), "hover+", 10000.0),
+    (diver.Diver(), diver.Bottle(), 0.0, 0.0),
+    (diver.Diver(), diver.Bottle(), 0.0, 20000.0),
+    (diver.Diver(air_m3=2.5e-6), diver.Bottle(depth_m=1.5), 0.4, 30000.0),
+    (
+        diver.Diver(glass_kg=0.02, glass_m3=5e-6, air_m3=1.6e-5, diameter_m=0.03),
+        diver.Bottle(depth_m=0.1),
+        0.05,
+        4000.0,
+    ),
+)
+DIVER_STEPS = 1500
+#: Squeezes the hover depth and depths the bubble and lift are compared at.
+DIVER_SQUEEZES = (0.0, 5000.0, 9000.0, 10883.5, 15000.0)
+DIVER_DEPTHS = (0.0, 0.07, 0.3, 1.2)
+
 
 def thin(values: Any) -> Any:
     """A curve as its length and every so many of its points, the last always
@@ -872,6 +894,28 @@ def _overhang_cases(out: dict[str, Any]) -> None:
     }
 
 
+def _diver_cases(out: dict[str, Any]) -> None:
+    for d, b, start, squeeze in DIVER_RUNS:
+        if isinstance(start, str):
+            start = diver.hover_depth_m(d, squeeze) + (0.005 if start.endswith("+") else -0.005)
+        out["diver"].append(
+            {
+                "diver": asdict(d),
+                "bottle": asdict(b),
+                "start_m": start,
+                "squeeze_pa": squeeze,
+                "run": {
+                    "depth_m": thin([z for z, _ in diver.run(d, b, start, squeeze, DIVER_STEPS)]),
+                    "speed_m_s": thin([v for _, v in diver.run(d, b, start, squeeze, DIVER_STEPS)]),
+                },
+                "hover_m": [diver.hover_depth_m(d, s) for s in DIVER_SQUEEZES],
+                "bubble_m3": [[diver.bubble_m3(d, z, s) for z in DIVER_DEPTHS] for s in DIVER_SQUEEZES],
+                "lift_n": [[diver.lift_n(d, z, s) for z in DIVER_DEPTHS] for s in DIVER_SQUEEZES],
+                "figures": asdict(diver.figures(d, b)),
+            }
+        )
+
+
 def _chladni_cases(out: dict[str, Any]) -> None:
     """The polynomials, three driven modes on a 5 × 5 grid, and the plate's
     answer at its first tones and between them: the port evaluates what the
@@ -1097,6 +1141,7 @@ def _second_series(out: dict[str, Any]) -> None:
     _plates_cases(out)
     _bounce_cases(out)
     _overhang_cases(out)
+    _diver_cases(out)
     _chladni_cases(out)
 
 
@@ -1156,6 +1201,7 @@ def cases() -> dict[str, Any]:
         "circuit": [],
         "plates": [],
         "bounce": [],
+        "diver": [],
     }
     _second_series(out)
     for name, case in HARMONOGRAPH_CASES.items():

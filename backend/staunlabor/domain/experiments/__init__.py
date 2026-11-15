@@ -49,6 +49,8 @@ with SciPy before it was written (``docs/experiments.md``).
   lower and quicker, add up to a finite time.
 * :mod:`overhang` — identical blocks stacked over an edge reach beyond it as
   far as one likes: half the harmonic series, slowly.
+* :mod:`diver` — a Cartesian diver: squeezed, its bubble shrinks and it sinks;
+  it hovers at one depth only, and there unstably.
 * :mod:`levitation` — a spinning top hovers over a ring magnet only in a
   window a few millimetres high and three per cent wide in weight.
 * :mod:`gyroscope` — a spinning wheel on a string turns round it instead of
@@ -190,6 +192,13 @@ from staunlabor.domain.experiments.cradle import Cradle, CradleRun, Pull
 from staunlabor.domain.experiments.cradle import Impact as CradleImpact
 from staunlabor.domain.experiments.cradle import impact as cradle_impact
 from staunlabor.domain.experiments.cradle import run as run_cradle
+from staunlabor.domain.experiments.diver import Bottle, Diver, DiverFigures
+from staunlabor.domain.experiments.diver import bubble_m3 as diver_bubble_m3
+from staunlabor.domain.experiments.diver import figures as diver_figures
+from staunlabor.domain.experiments.diver import hover_depth_m as diver_hover_depth_m
+from staunlabor.domain.experiments.diver import lift_n as diver_lift_n
+from staunlabor.domain.experiments.diver import run as diver_run
+from staunlabor.domain.experiments.diver import step as diver_step
 from staunlabor.domain.experiments.elephant import (
     Elephant,
     ElephantFigures,
@@ -435,6 +444,7 @@ __all__ = [
     "Basin",
     "Bob",
     "Body",
+    "Bottle",
     "Bounce",
     "BounceFigures",
     "Bounces",
@@ -464,6 +474,8 @@ __all__ = [
     "CradleRun",
     "CurveKind",
     "CurvePoint",
+    "Diver",
+    "DiverFigures",
     "DoubleCone",
     "DoublePendulum",
     "Drive",
@@ -607,6 +619,12 @@ __all__ = [
     "cup_level",
     "cycloid_through",
     "degrees_per_hour",
+    "diver_bubble_m3",
+    "diver_figures",
+    "diver_hover_depth_m",
+    "diver_lift_n",
+    "diver_run",
+    "diver_step",
     "double_energy",
     "double_mode_rates",
     "dry_rate",

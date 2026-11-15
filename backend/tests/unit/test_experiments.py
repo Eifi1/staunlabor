@@ -2943,3 +2943,81 @@ def test_the_overhang_refuses_what_it_cannot_be():
         x.harmonic_stack(21)
     with pytest.raises(ValueError, match="five lengths"):
         x.blocks_for_reach(6)
+
+
+# ── the Cartesian diver ──────────────────────────────────────────────────────
+
+
+def test_the_diver_floats_on_a_fifth_of_a_gram_and_sinks_from_eleven_kilopascals():
+    figures = x.diver_figures(x.Diver(), x.Bottle())
+    assert round(figures.reserve_kg * 1000, 2) == 0.19
+    assert round(figures.hover_bubble_m3 * 1e6, 2) == 1.81
+    assert round(figures.sinking_pa / 1000, 1) == 10.9
+    # Under 7.9 kPa it rises even from the bottom of the 30 cm bottle.
+    assert round(figures.bottom_pa / 1000, 1) == 7.9
+    # Each kilopascal of squeeze lifts the hover depth by 10 cm: the water's own pressure, ρ·g, per metre.
+    diver = x.Diver()
+    shift = x.diver_hover_depth_m(diver, 9000) - x.diver_hover_depth_m(diver, 10000)
+    assert round(shift * 100, 1) == 10.2
+    assert (diver.glass_kg, diver.glass_m3, diver.air_m3, x.Bottle().depth_m) == (0.003, 1.2e-6, 2.0e-6, 0.30)
+
+
+def test_the_bubble_keeps_its_pressure_times_volume_and_the_lift_vanishes_at_the_hover_depth():
+    from staunlabor.domain.experiments import diver as d
+
+    diver = x.Diver()
+    for depth, squeeze in ((0.0, 0.0), (0.1, 5000), (0.3, 12000)):
+        pressure = d.SURFACE_PA + squeeze + d.WATER_DENSITY * d.G * depth
+        assert pressure * x.diver_bubble_m3(diver, depth, squeeze) == pytest.approx(d.SURFACE_PA * diver.air_m3)
+    for squeeze in (8500, 9500, 10500):
+        hover = x.diver_hover_depth_m(diver, squeeze)
+        assert abs(x.diver_lift_n(diver, hover, squeeze)) < 1e-12
+        # Above it the bubble is bigger and the diver rises; below, it sinks: unstable.
+        assert x.diver_lift_n(diver, hover - 0.01, squeeze) > 0 > x.diver_lift_n(diver, hover + 0.01, squeeze)
+
+
+def test_half_a_centimetre_off_the_hover_depth_it_goes_all_the_way_up_or_down():
+    diver, bottle = x.Diver(), x.Bottle()
+    for squeeze in (9000, 10000, 10500):
+        hover = x.diver_hover_depth_m(diver, squeeze)
+        above = x.diver_run(diver, bottle, hover - 0.005, squeeze, 5000)
+        below = x.diver_run(diver, bottle, hover + 0.005, squeeze, 5000)
+        assert above[-1] == (0.0, 0.0) and below[-1] == (bottle.depth_m, 0.0)
+    # Without a squeeze it stays at the surface; squeezed hard, it lies on the bottom.
+    assert x.diver_run(diver, bottle, 0.0, 0, 500)[-1] == (0.0, 0.0)
+    assert x.diver_run(diver, bottle, 0.0, 20000, 5000)[-1] == (bottle.depth_m, 0.0)
+
+
+def test_the_diver_s_steps_are_its_equation_stepped_finer():
+    """Weight, buoyancy, drag and the water dragged along, written here, at a
+    twentieth of the page's step."""
+    from staunlabor.domain.experiments import diver as d
+
+    diver, bottle, squeeze = x.Diver(), x.Bottle(), 10000
+
+    def rhs(_t: float, y: list[float]) -> tuple[float, float]:
+        bubble = diver.air_m3 * d.SURFACE_PA / (d.SURFACE_PA + squeeze + d.WATER_DENSITY * d.G * y[0])
+        volume = diver.glass_m3 + bubble
+        area = math.pi * diver.diameter_m**2 / 4
+        drag = 0.5 * d.WATER_DENSITY * d.DRAG_COEFFICIENT * area * y[1] * abs(y[1])
+        force = diver.glass_kg * d.G - d.WATER_DENSITY * d.G * volume - drag
+        return y[1], force / (diver.glass_kg + 0.5 * d.WATER_DENSITY * volume)
+
+    start = x.diver_hover_depth_m(diver, squeeze) + 0.01
+    steps = x.diver_run(diver, bottle, start, squeeze, 1000)
+    fine = rk4(rhs, (start, 0.0), d.STEP_S / 20, 2.0, sample_every=20)
+    for (z, v), fz, fv in zip(steps, *fine.states, strict=True):
+        assert z == pytest.approx(fz, abs=1e-9) and v == pytest.approx(fv, abs=1e-9)
+
+
+def test_the_diver_refuses_what_it_cannot_be():
+    with pytest.raises(ValueError, match="glass weighs"):
+        x.Diver(glass_kg=0)
+    with pytest.raises(ValueError, match="never sinks"):
+        x.Diver(glass_kg=0.001, glass_m3=2e-6)
+    with pytest.raises(ValueError, match="across"):
+        x.Diver(diameter_m=1)
+    with pytest.raises(ValueError, match="bottle"):
+        x.Bottle(depth_m=5)
+    with pytest.raises(ValueError, match="squeezes"):
+        x.diver_step(x.Diver(), x.Bottle(), 0.1, 0.0, -1)

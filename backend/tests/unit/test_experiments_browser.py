@@ -120,6 +120,13 @@ def test_the_cases_cross_every_branch_a_page_can_reach(stored: Any):
     stacks = stored["overhang"]["stacks"]
     assert any(s["holds"] for s in stacks) and any(not s["holds"] for s in stacks), "a stack that holds, one that tips"
     assert any(any(layer["margin"] == -1.0 for layer in s["layers"]) for s in stacks), "a block off its footing"
+    dives = stored["diver"]
+    ends = {
+        (c["run"]["depth_m"]["values"][-1], c["bottle"]["depth_m"])
+        for c in dives
+        if isinstance(c["run"]["depth_m"], dict)
+    }
+    assert any(end == 0.0 for end, _ in ends) and any(end == depth for end, depth in ends), "up to the top and down"
     floats = {c["hover"]["state"] for c in stored["levitation"]}
     assert floats == {"hovers", "lands", "slides"}, "a top that hovers, one that lands, one that slides off"
     spheres = stored["sphere"]

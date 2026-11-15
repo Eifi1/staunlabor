@@ -17,6 +17,7 @@ import { describe, expect, it } from "vitest";
 import cases from "./engine-cases.json";
 import * as cannon from "./cannon";
 import * as chaos from "./chaos";
+import * as diver from "./diver";
 import * as coil from "./coil";
 import * as cone from "./cone";
 import * as coriolis from "./coriolis";
@@ -1053,6 +1054,45 @@ describe("the overhang's port", () => {
       expect(differences(s.overhang, overhang.overhang(s.lefts))).toEqual([]);
     }
     for (const [reach, blocks] of c.blocks_for) expect(overhang.blocksFor(reach)).toBe(blocks);
+  });
+});
+
+describe("the Cartesian diver's port", () => {
+  it("shrinks the bubble, finds the hover depth and steps as the engine does", () => {
+    const squeezes = [0.0, 5000.0, 9000.0, 10883.5, 15000.0];
+    const depths = [0.0, 0.07, 0.3, 1.2];
+    for (const c of cases.diver) {
+      const d = c.diver as diver.Diver;
+      const b = c.bottle as diver.Bottle;
+      // The engine's run: let go at rest, a steady squeeze, every step's depth and speed.
+      const steps: [number, number][] = [[c.start_m, 0]];
+      for (let i = 0; i < 1500; i++) steps.push(diver.step(d, b, ...steps[i], c.squeeze_pa));
+      expect(
+        differences(c.run, {
+          depth_m: steps.map((s) => s[0]),
+          speed_m_s: steps.map((s) => s[1]),
+        }),
+      ).toEqual([]);
+      expect(
+        differences(
+          c.hover_m,
+          squeezes.map((s) => diver.hoverDepthM(d, s)),
+        ),
+      ).toEqual([]);
+      expect(
+        differences(
+          c.bubble_m3,
+          squeezes.map((s) => depths.map((z) => diver.bubbleM3(d, z, s))),
+        ),
+      ).toEqual([]);
+      expect(
+        differences(
+          c.lift_n,
+          squeezes.map((s) => depths.map((z) => diver.liftN(d, z, s))),
+        ),
+      ).toEqual([]);
+      expect(differences(c.figures, diver.figures(d, b))).toEqual([]);
+    }
   });
 });
 
