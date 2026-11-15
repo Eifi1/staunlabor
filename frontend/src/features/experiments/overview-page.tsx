@@ -33,6 +33,7 @@ import {
   Landmark,
   Grid3x3,
   Magnet as MagnetIcon,
+  CircuitBoard,
 } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
 import {
@@ -86,6 +87,7 @@ const ICON: Record<Exhibit, LucideIcon> = {
   arch: Landmark,
   chladni: Grid3x3,
   levitation: MagnetIcon,
+  circuit: CircuitBoard,
 };
 
 /** Two weeks back, in the dialog: long enough to find the one a friend

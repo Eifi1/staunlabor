@@ -291,6 +291,12 @@
         "title": "La trottola fluttuante",
         "summary": "Una trottola con un magnete gira sopra un magnete ad anello e fluttua – ma solo se il suo peso è giusto a pochi decimi di grammo.",
         "question": "Perché la trottola che gira fluttua, e perché atterra quando è un po' troppo pesante?"
+      },
+      "circuit": {
+        "short": "Circuito LC",
+        "title": "Il circuito LC lento",
+        "summary": "Un condensatore si scarica attraverso una grande bobina – e la corrente oscilla avanti e indietro come un pendolo, circa una volta al secondo.",
+        "question": "Un condensatore e una bobina non hanno parti mobili. Perché la corrente oscilla comunque avanti e indietro?"
       }
     },
     "chair": {
@@ -2394,6 +2400,110 @@
       "computed": {
         "system": "Il campo sull'asse è calcolato esattamente, come differenza di due solenoidi, insieme alla sua pendenza e alla sua curvatura; fuori dall'asse segue dall'equazione di Laplace fino al quadrato della distanza. La finestra è cercata su una griglia di un millimetro fino a 30 cm di altezza e i suoi bordi sono determinati dimezzando ripetutamente, così come l'equilibrio. Il calcolo avviene nel Suo browser, con gli stessi passi del motore di calcolo del sito.",
         "left_out": "Tralasciato: la rotazione stessa. Si suppone abbastanza veloce perché il magnete segua il campo, e abbastanza lenta perché l'asse possa ancora seguire i cambi di direzione del campo – questa finestra di velocità la pagina non la calcola. Mancano anche l'aria che frena la trottola, la sua oscillazione e le misure di un giocattolo preciso: l'anello è un esempio in ferrite, largo 10 cm con un foro di 3 cm e alto 1,5 cm, il magnete della trottola 2 cm³ della stessa ferrite."
+      }
+    },
+    "circuit": {
+      "at": {
+        "build": "Sul tavolo ci sono un condensatore, una grande bobina su un nucleo di ferro chiuso, una batteria, un deviatore e un amperometro con lo zero al centro.",
+        "swing": "Con il deviatore sulla batteria, questa carica il condensatore. Spostato sulla bobina, il condensatore si scarica attraverso di essa: l’ago si sposta da una parte, torna passando per lo zero dall’altra e di nuovo indietro, circa una volta al secondo, ogni volta un po’ meno, per una decina di secondi.",
+        "origin": "Un classico delle lezioni di fisica, costruito qui abbastanza grande da poter seguire l’ago con lo sguardo."
+      },
+      "view": "Il circuito LC come schema: batteria, deviatore, condensatore, bobina con nucleo di ferro, resistenza e amperometro",
+      "twin": "La molla che oscilla esattamente allo stesso modo: lo spostamento del blocco mostra la carica del condensatore",
+      "play": {
+        "title": "Caricare e commutare",
+        "hint": "Il condensatore è carico. Sposti il deviatore sulla bobina e osservi l’ago. La molla sotto segue la stessa equazione.",
+        "throw": "Commutare",
+        "pause": "Fermare",
+        "run": "Continuare",
+        "recharge": "Ricaricare",
+        "charged": "Il condensatore è carico a {{voltage}} V; il deviatore è sulla batteria.",
+        "caption": "Sopra il circuito, con un amperometro da ±{{range}} mA; sotto la molla con la massa L, la rigidità 1/C e l’attrito R.",
+        "speed": "Velocità",
+        "speeds": {
+          "real": "Tempo reale",
+          "slow": "Rallentatore (¼)"
+        },
+        "energy": "Dove si trova l’energia",
+        "capacitor": "nel condensatore",
+        "coil": "nella bobina",
+        "heat": "diventata calore",
+        "time": "Tempo",
+        "current": "Corrente",
+        "voltage": "Tensione sul condensatore"
+      },
+      "change": {
+        "title": "Modificare il circuito",
+        "hint": "Cambi la bobina, il condensatore, la resistenza e la batteria. Poi il condensatore è di nuovo carico e il deviatore torna sulla batteria.",
+        "inductance": "Bobina (induttanza)",
+        "inductance_hint": "Più spire e più ferro nel nucleo, più è grande. Quella dell’exhibit: 200 H.",
+        "capacitance": "Condensatore (capacità)",
+        "capacitance_hint": "Quello dell’exhibit: 125 µF. Capacità quadrupla, periodo doppio.",
+        "resistance": "Resistenza nel circuito",
+        "resistance_hint": "Nell’exhibit soprattutto il filo della bobina: 90 Ω. Una resistenza in serie la aumenta.",
+        "voltage": "Batteria",
+        "voltage_hint": "Cambia solo quanto si sposta l’ago, non quanto in fretta oscilla.",
+        "swings": "La corrente oscilla.",
+        "critical": "Caso limite: la corrente smette appena di invertirsi.",
+        "creeps": "Troppa resistenza: la corrente scorre una volta e torna lentamente senza invertirsi."
+      },
+      "figures": {
+        "period": "Periodo",
+        "swings": "Oscillazioni sopra ⅒",
+        "peak": "Corrente massima",
+        "quality": "Fattore di qualità",
+        "critical": "Resistenza critica"
+      },
+      "chart": {
+        "time": "Tempo dopo la commutazione",
+        "current": "Corrente",
+        "energy": "Energia",
+        "capacitor": "nel condensatore",
+        "coil": "nella bobina",
+        "left": "insieme",
+        "energy_hint": "L’energia va e viene tra condensatore e bobina, due volte per periodo; ciò che manca a entrambi è diventato calore nel filo. Per il montaggio scelto sopra."
+      },
+      "model": {
+        "intro": "Il condensatore immagazzina carica: più ne porta, più alta è la sua tensione. La bobina si oppone a ogni variazione della corrente che la attraversa: la trattiene quando cresce e la spinge avanti quando cala. In essa la corrente ha una sorta di inerzia.",
+        "capacitor": "La tensione sul condensatore cresce con la sua carica.",
+        "coil": "La tensione con cui la bobina si oppone a una variazione della corrente (autoinduzione).",
+        "loop": "Lungo il circuito: la tensione del condensatore spinge la corrente contro la bobina e la resistenza. La corrente è la velocità con cui la carica lascia il condensatore.",
+        "twin": "Insieme è l’equazione della molla con attrito: la bobina fa da massa, l’inverso della capacità da rigidità della molla, la resistenza da attrito.",
+        "period": "La durata di un’oscillazione di andata e ritorno, senza e con resistenza.",
+        "critical": "Da questa resistenza in poi non oscilla più nulla: la corrente scorre una volta e torna lentamente."
+      },
+      "symbols": {
+        "uc": "la tensione sul condensatore",
+        "q": "la carica del condensatore",
+        "c": "la capacità del condensatore",
+        "ul": "la tensione sulla bobina",
+        "l": "l’induttanza della bobina",
+        "i": "la corrente nella bobina",
+        "t": "il tempo",
+        "r": "la resistenza dell’intero circuito",
+        "m": "la massa della molla",
+        "b": "il suo attrito",
+        "k": "la rigidità della sua molla",
+        "x": "lo spostamento della massa",
+        "t0": "il periodo senza resistenza",
+        "period": "il periodo con resistenza",
+        "rc": "la resistenza critica"
+      },
+      "sweet": {
+        "inertia": "Il trucco è l’inerzia della corrente. Quando il condensatore è vuoto, la corrente è massima – e la bobina non la lascia semplicemente fermarsi. Continua a scorrere e carica il condensatore al contrario finché si ferma; allora il condensatore la rimanda indietro. Proprio così un pendolo passa per il suo punto più basso, perché la sua massa è in movimento.",
+        "twin": "La molla sotto lo schema non è un semplice paragone, ma lo stesso calcolo: 200 kg su una molla da 8000 N/m con un attrito di 90 N·s/m oscillano esattamente come la bobina da 200 H, il condensatore da 125 µF e i 90 Ω del filo.",
+        "numbers": "Nell’exhibit un periodo dura 0,99 s. L’ago si sposta 21 volte prima che i suoi spostamenti scendano sotto un decimo del primo, dopo circa 10 s; la corrente massima è di 7,5 mA. A ogni oscillazione di andata e ritorno resta il 64 % dell’energia; il resto diventa calore nel filo. Dopo 10 s ne resta l’1 %.",
+        "critical": "Da 2530 Ω nel circuito non oscilla più: la corrente scorre una volta e torna lentamente. Con 300 Ω l’ago si sposta ancora 7 volte, con 1000 Ω 2 volte."
+      },
+      "computed": {
+        "system": "Per il circuito che alla commutazione porta la carica q₀ = C·U₀ e ancora nessuna corrente esiste una soluzione esatta. La pagina la calcola direttamente per ogni istante, senza procedere passo dopo passo.",
+        "exact": "La carica e la corrente finché il circuito oscilla. Sopra la resistenza critica cosh e sinh prendono il posto di cos e sin; esattamente a essa, 1 e t.",
+        "q0": "la carica alla commutazione",
+        "omega0": "la pulsazione senza resistenza",
+        "gamma": "la rapidità con cui le oscillazioni si smorzano",
+        "omega_d": "la pulsazione con resistenza",
+        "check": "I test della pagina confrontano questa soluzione con le equazioni del circuito integrate passo dopo passo (Runge-Kutta) e con il bilancio energetico: ciò che manca nel condensatore e nella bobina è esattamente il calore nella resistenza. Il calcolo avviene nel suo browser, con le stesse formule del motore di calcolo della pagina.",
+        "left_out": "Tralasciati: le perdite nel nucleo di ferro (la sua magnetizzazione è in ritardo e vi circolano correnti parassite) e la sua saturazione; qui la bobina ha un’induttanza fissa. Così pure le perdite dei condensatori. La resistenza dell’amperometro è compresa in quella del circuito. I valori sono un esempio: una bobina da 200 H con 90 Ω di filo su un nucleo di ferro chiuso, 125 µF di condensatori a film (quelli elettrolitici non sopporterebbero l’inversione) e 10 V."
       }
     }
   },

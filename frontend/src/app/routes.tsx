@@ -54,6 +54,7 @@ const ChladniPage = lazy(() => import("@/features/experiments/chladni-page").the
 const LevitationPage = lazy(() =>
   import("@/features/experiments/levitation-page").then((m) => ({ default: m.LevitationPage })),
 );
+const CircuitPage = lazy(() => import("@/features/experiments/circuit-page").then((m) => ({ default: m.CircuitPage })));
 const HarmonographPage = lazy(() =>
   import("@/features/experiments/harmonograph-page").then((m) => ({ default: m.HarmonographPage })),
 );
@@ -291,6 +292,14 @@ export function AppRoutes() {
           element={
             <Page>
               <LevitationPage />
+            </Page>
+          }
+        />
+        <Route
+          path="circuit"
+          element={
+            <Page>
+              <CircuitPage />
             </Page>
           }
         />

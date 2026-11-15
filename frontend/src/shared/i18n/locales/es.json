@@ -291,6 +291,12 @@
         "title": "La peonza flotante",
         "summary": "Una peonza con un imán gira sobre un imán anular y flota, pero solo si su peso es exacto con una precisión de unas décimas de gramo.",
         "question": "¿Por qué flota la peonza que gira, y por qué aterriza cuando pesa un poco de más?"
+      },
+      "circuit": {
+        "short": "Circuito LC",
+        "title": "El circuito LC lento",
+        "summary": "Un condensador se descarga a través de una gran bobina, y la corriente oscila de un lado a otro como un péndulo, más o menos una vez por segundo.",
+        "question": "Un condensador y una bobina no tienen ninguna pieza móvil. ¿Por qué oscila entonces la corriente de un lado a otro?"
       }
     },
     "chair": {
@@ -2394,6 +2400,110 @@
       "computed": {
         "system": "El campo en el eje se calcula de forma exacta, como diferencia de dos solenoides, junto con su pendiente y su curvatura; fuera del eje se obtiene de la ecuación de Laplace hasta el cuadrado de la distancia. La ventana se busca en una retícula de un milímetro hasta 30 cm de altura y sus bordes se determinan dividiendo por la mitad una y otra vez, igual que el equilibrio. Se calcula en su navegador, con los mismos pasos que el motor de cálculo del sitio.",
         "left_out": "Se omite: el propio giro. Se supone lo bastante rápido para que el imán siga al campo y lo bastante lento para que el eje aún pueda seguir los cambios de dirección del campo; esa ventana de velocidad no la calcula la página. También faltan el aire que frena la peonza, su bamboleo y las medidas de un juguete concreto: el anillo es un ejemplo de ferrita, de 10 cm de ancho con un agujero de 3 cm y 1,5 cm de alto, y el imán de la peonza son 2 cm³ de la misma ferrita."
+      }
+    },
+    "circuit": {
+      "at": {
+        "build": "Sobre la mesa hay un condensador, una gran bobina sobre un núcleo de hierro cerrado, una batería, un conmutador y un amperímetro con el cero en el centro.",
+        "swing": "Con el conmutador en la batería, esta carga el condensador. Al pasarlo a la bobina, el condensador se descarga a través de ella: la aguja se desvía hacia un lado, vuelve pasando por cero hacia el otro y regresa, más o menos una vez por segundo, cada vez un poco menos, durante unos diez segundos.",
+        "origin": "Un clásico de la clase de física, construido aquí lo bastante grande para poder seguir la aguja con la vista."
+      },
+      "view": "El circuito LC como esquema: batería, conmutador, condensador, bobina con núcleo de hierro, resistencia y amperímetro",
+      "twin": "El muelle que oscila exactamente igual: lo lejos que está el bloque muestra la carga del condensador",
+      "play": {
+        "title": "Cargar y conmutar",
+        "hint": "El condensador está cargado. Pase el conmutador a la bobina y observe la aguja. El muelle de abajo obedece la misma ecuación.",
+        "throw": "Conmutar",
+        "pause": "Detener",
+        "run": "Seguir",
+        "recharge": "Cargar de nuevo",
+        "charged": "El condensador está cargado a {{voltage}} V; el conmutador está en la batería.",
+        "caption": "Arriba, el circuito, con un amperímetro de ±{{range}} mA; abajo, el muelle con la masa L, la rigidez 1/C y el rozamiento R.",
+        "speed": "Velocidad",
+        "speeds": {
+          "real": "Tiempo real",
+          "slow": "Cámara lenta (¼)"
+        },
+        "energy": "Dónde está la energía",
+        "capacitor": "en el condensador",
+        "coil": "en la bobina",
+        "heat": "convertida en calor",
+        "time": "Tiempo",
+        "current": "Corriente",
+        "voltage": "Tensión en el condensador"
+      },
+      "change": {
+        "title": "Modificar el circuito",
+        "hint": "Cambie la bobina, el condensador, la resistencia y la batería. Después el condensador vuelve a estar cargado y el conmutador en la batería.",
+        "inductance": "Bobina (inductancia)",
+        "inductance_hint": "Cuantas más espiras y más hierro en el núcleo, mayor. La de la exposición: 200 H.",
+        "capacitance": "Condensador (capacidad)",
+        "capacitance_hint": "El de la exposición: 125 µF. Cuatro veces la capacidad, el doble de período.",
+        "resistance": "Resistencia en el circuito",
+        "resistance_hint": "En la exposición, sobre todo el hilo de la bobina: 90 Ω. Una resistencia en serie la aumenta.",
+        "voltage": "Batería",
+        "voltage_hint": "Solo cambia cuánto se desvía la aguja, no lo rápido que oscila.",
+        "swings": "La corriente oscila.",
+        "critical": "Caso límite: la corriente justo deja de invertirse.",
+        "creeps": "Demasiada resistencia: la corriente fluye una vez y vuelve lentamente sin invertirse."
+      },
+      "figures": {
+        "period": "Período",
+        "swings": "Oscilaciones sobre ⅒",
+        "peak": "Corriente máxima",
+        "quality": "Factor de calidad",
+        "critical": "Resistencia crítica"
+      },
+      "chart": {
+        "time": "Tiempo tras conmutar",
+        "current": "Corriente",
+        "energy": "Energía",
+        "capacitor": "en el condensador",
+        "coil": "en la bobina",
+        "left": "juntas",
+        "energy_hint": "La energía va y viene entre el condensador y la bobina, dos veces por período; lo que falta entre ambos se ha convertido en calor en el hilo. Para el montaje elegido arriba."
+      },
+      "model": {
+        "intro": "El condensador almacena carga: cuanta más tiene, mayor es su tensión. La bobina se opone a todo cambio de la corriente que la atraviesa: la frena cuando crece y la impulsa cuando disminuye. En ella, la corriente tiene una especie de inercia.",
+        "capacitor": "La tensión en el condensador crece con su carga.",
+        "coil": "La tensión con la que la bobina se opone a un cambio de la corriente (autoinducción).",
+        "loop": "Alrededor del circuito: la tensión del condensador impulsa la corriente contra la bobina y la resistencia. La corriente es la rapidez con que la carga sale del condensador.",
+        "twin": "Juntas forman la ecuación del muelle con rozamiento: la bobina hace de masa, el inverso de la capacidad de rigidez del muelle, la resistencia de rozamiento.",
+        "period": "La duración de una oscilación de ida y vuelta, sin y con resistencia.",
+        "critical": "A partir de esta resistencia ya nada oscila: la corriente fluye una vez y vuelve lentamente."
+      },
+      "symbols": {
+        "uc": "la tensión en el condensador",
+        "q": "la carga del condensador",
+        "c": "la capacidad del condensador",
+        "ul": "la tensión en la bobina",
+        "l": "la inductancia de la bobina",
+        "i": "la corriente por la bobina",
+        "t": "el tiempo",
+        "r": "la resistencia de todo el circuito",
+        "m": "la masa del muelle",
+        "b": "su rozamiento",
+        "k": "la rigidez de su muelle",
+        "x": "el desplazamiento de la masa",
+        "t0": "el período sin resistencia",
+        "period": "el período con ella",
+        "rc": "la resistencia crítica"
+      },
+      "sweet": {
+        "inertia": "El truco es la inercia de la corriente. Cuando el condensador está vacío, la corriente es máxima, y la bobina no la deja detenerse sin más. Sigue fluyendo y carga el condensador al revés hasta que se para; entonces el condensador la empuja de vuelta. Igual que un péndulo pasa por su punto más bajo porque su masa está en movimiento.",
+        "twin": "El muelle bajo el esquema no es una simple comparación, sino el mismo cálculo: 200 kg en un muelle de 8000 N/m con un rozamiento de 90 N·s/m oscilan exactamente como la bobina de 200 H, el condensador de 125 µF y los 90 Ω del hilo.",
+        "numbers": "En la exposición, un período dura 0,99 s. La aguja se desvía 21 veces antes de que sus desviaciones bajen de una décima de la primera, al cabo de unos 10 s; la corriente máxima es de 7,5 mA. En cada oscilación de ida y vuelta queda el 64 % de la energía; el resto se convierte en calor en el hilo. Tras 10 s queda el 1 %.",
+        "critical": "A partir de 2530 Ω en el circuito ya no oscila: la corriente fluye una vez y vuelve lentamente. Con 300 Ω la aguja aún se desvía 7 veces, con 1000 Ω, 2."
+      },
+      "computed": {
+        "system": "Para el circuito que al conmutar tiene la carga q₀ = C·U₀ y aún ninguna corriente hay una solución exacta. La página la calcula directamente para cada instante, sin avanzar paso a paso.",
+        "exact": "La carga y la corriente mientras el circuito oscila. Por encima de la resistencia crítica, cosh y sinh ocupan el lugar de cos y sin; justo en ella, 1 y t.",
+        "q0": "la carga al conmutar",
+        "omega0": "la frecuencia angular sin resistencia",
+        "gamma": "la rapidez con que se apagan las oscilaciones",
+        "omega_d": "la frecuencia angular con resistencia",
+        "check": "Las pruebas de la página contrastan esta solución con las ecuaciones del circuito integradas paso a paso (Runge-Kutta) y con el balance de energía: lo que falta en el condensador y la bobina es exactamente el calor en la resistencia. Se calcula en su navegador, con las mismas fórmulas que el motor de cálculo de la página.",
+        "left_out": "Se omiten las pérdidas del núcleo de hierro (su magnetización va con retraso y circulan corrientes parásitas en él) y su saturación: aquí la bobina tiene una inductancia fija. También las fugas de los condensadores. La resistencia del amperímetro está incluida en la del circuito. Los valores son un ejemplo: una bobina de 200 H con 90 Ω de hilo sobre un núcleo de hierro cerrado, 125 µF de condensadores de película (los electrolíticos no soportarían la inversión) y 10 V."
       }
     }
   },

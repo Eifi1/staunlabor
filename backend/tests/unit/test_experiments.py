@@ -2513,6 +2513,7 @@ def test_the_slow_circuit_swings_once_a_second_21_times_and_from_2530_ohm_no_mor
     assert figures.swings == 21
     assert round((figures.swings - 1) * figures.period_s / 2 + figures.peak_s) == 10
     assert round(figures.peak_current_a * 1000, 1) == 7.5
+    assert round(figures.peak_s, 2) == 0.24
     assert round(figures.critical_ohm) == 2530
     assert round(figures.quality) == 14
     assert round(figures.decay_s, 1) == 4.4

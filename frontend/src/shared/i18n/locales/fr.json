@@ -291,6 +291,12 @@
         "title": "La toupie flottante",
         "summary": "Une toupie munie d’un aimant tourne au-dessus d’un aimant annulaire et flotte – mais seulement si son poids est juste à quelques dixièmes de gramme près.",
         "question": "Pourquoi la toupie qui tourne flotte-t-elle, et pourquoi se pose-t-elle quand elle est un peu trop lourde ?"
+      },
+      "circuit": {
+        "short": "Circuit LC",
+        "title": "Le circuit LC lent",
+        "summary": "Un condensateur se décharge à travers une grosse bobine – et le courant oscille comme un pendule, environ une fois par seconde.",
+        "question": "Un condensateur et une bobine n’ont aucune pièce mobile. Pourquoi le courant oscille-t-il quand même ?"
       }
     },
     "chair": {
@@ -2394,6 +2400,110 @@
       "computed": {
         "system": "Le champ sur l’axe est calculé exactement, comme différence de deux solénoïdes, avec sa pente et sa courbure ; hors de l’axe, il découle de l’équation de Laplace jusqu’au carré de la distance. La fenêtre est cherchée sur une grille au millimètre jusqu’à 30 cm de hauteur et ses bords sont déterminés par des bissections successives, tout comme l’équilibre. Le calcul se fait dans votre navigateur, avec les mêmes étapes que le moteur de calcul du site.",
         "left_out": "Laissé de côté : la rotation elle-même. On la suppose assez rapide pour que l’aimant suive le champ, et assez lente pour que l’axe puisse encore suivre les changements de direction du champ – cette fenêtre de vitesse, la page ne la calcule pas. Manquent aussi l’air qui freine la toupie, son vacillement et les dimensions d’un jouet précis : l’anneau est un exemple en ferrite, de 10 cm de large avec un trou de 3 cm et 1,5 cm de haut, l’aimant de la toupie 2 cm³ de la même ferrite."
+      }
+    },
+    "circuit": {
+      "at": {
+        "build": "Sur la table : un condensateur, une grosse bobine sur un noyau de fer fermé, une pile, un inverseur et un ampèremètre dont le zéro est au milieu.",
+        "swing": "L’inverseur sur la pile, celle-ci charge le condensateur. Basculé vers la bobine, le condensateur se décharge à travers elle : l’aiguille part d’un côté, revient par zéro de l’autre côté et repart, environ une fois par seconde, chaque fois un peu moins loin, pendant une dizaine de secondes.",
+        "origin": "Un classique des cours de physique, construit ici assez grand pour suivre l’aiguille des yeux."
+      },
+      "view": "Le circuit LC en schéma : pile, inverseur, condensateur, bobine avec son noyau de fer, résistance et ampèremètre",
+      "twin": "Le ressort qui oscille exactement de même : l’écart du bloc montre la charge du condensateur",
+      "play": {
+        "title": "Charger et basculer",
+        "hint": "Le condensateur est chargé. Basculez l’inverseur vers la bobine et regardez l’aiguille. Le ressort en dessous obéit à la même équation.",
+        "throw": "Basculer",
+        "pause": "Arrêter",
+        "run": "Continuer",
+        "recharge": "Recharger",
+        "charged": "Le condensateur est chargé à {{voltage}} V ; l’inverseur est sur la pile.",
+        "caption": "En haut, le circuit et son ampèremètre de ±{{range}} mA ; en bas, le ressort avec la masse L, la raideur 1/C et le frottement R.",
+        "speed": "Vitesse",
+        "speeds": {
+          "real": "Temps réel",
+          "slow": "Ralenti (¼)"
+        },
+        "energy": "Où se trouve l’énergie",
+        "capacitor": "dans le condensateur",
+        "coil": "dans la bobine",
+        "heat": "devenue chaleur",
+        "time": "Temps",
+        "current": "Courant",
+        "voltage": "Tension du condensateur"
+      },
+      "change": {
+        "title": "Modifier le circuit",
+        "hint": "Changez la bobine, le condensateur, la résistance et la pile. Le condensateur est alors rechargé et l’inverseur revient sur la pile.",
+        "inductance": "Bobine (inductance)",
+        "inductance_hint": "Plus il y a de spires et de fer dans le noyau, plus elle est grande. Celle du module : 200 H.",
+        "capacitance": "Condensateur (capacité)",
+        "capacitance_hint": "Celui du module : 125 µF. Quatre fois la capacité, deux fois la période.",
+        "resistance": "Résistance du circuit",
+        "resistance_hint": "Au module, surtout le fil de la bobine : 90 Ω. Une résistance en série l’augmente.",
+        "voltage": "Pile",
+        "voltage_hint": "Elle ne change que l’amplitude de l’aiguille, pas la vitesse de l’oscillation.",
+        "swings": "Le courant oscille.",
+        "critical": "Cas limite : le courant cesse tout juste de s’inverser.",
+        "creeps": "Trop de résistance : le courant passe une fois et revient lentement sans s’inverser."
+      },
+      "figures": {
+        "period": "Période",
+        "swings": "Oscillations au-dessus de ⅒",
+        "peak": "Courant maximal",
+        "quality": "Facteur de qualité",
+        "critical": "Résistance critique"
+      },
+      "chart": {
+        "time": "Temps après le basculement",
+        "current": "Courant",
+        "energy": "Énergie",
+        "capacitor": "dans le condensateur",
+        "coil": "dans la bobine",
+        "left": "ensemble",
+        "energy_hint": "L’énergie va et vient entre le condensateur et la bobine, deux fois par période ; ce qui manque aux deux est devenu chaleur dans le fil. Pour le montage choisi plus haut."
+      },
+      "model": {
+        "intro": "Le condensateur stocke de la charge : plus il en porte, plus sa tension est élevée. La bobine s’oppose à tout changement du courant qui la traverse : elle le retient quand il croît et le pousse quand il faiblit. En elle, le courant a une sorte d’inertie.",
+        "capacitor": "La tension du condensateur croît avec sa charge.",
+        "coil": "La tension par laquelle la bobine s’oppose à un changement du courant (auto-induction).",
+        "loop": "Le long du circuit : la tension du condensateur pousse le courant contre la bobine et la résistance. Le courant, c’est la vitesse à laquelle la charge quitte le condensateur.",
+        "twin": "Ensemble, c’est l’équation du ressort avec frottement : la bobine joue la masse, l’inverse de la capacité la raideur du ressort, la résistance le frottement.",
+        "period": "La durée d’une oscillation aller-retour, sans et avec résistance.",
+        "critical": "À partir de cette résistance, plus rien n’oscille : le courant passe une fois et revient lentement."
+      },
+      "symbols": {
+        "uc": "la tension du condensateur",
+        "q": "la charge du condensateur",
+        "c": "la capacité du condensateur",
+        "ul": "la tension aux bornes de la bobine",
+        "l": "l’inductance de la bobine",
+        "i": "le courant dans la bobine",
+        "t": "le temps",
+        "r": "la résistance de tout le circuit",
+        "m": "la masse du ressort",
+        "b": "son frottement",
+        "k": "la raideur de son ressort",
+        "x": "l’écart de la masse",
+        "t0": "la période sans résistance",
+        "period": "la période avec résistance",
+        "rc": "la résistance critique"
+      },
+      "sweet": {
+        "inertia": "L’astuce, c’est l’inertie du courant. Quand le condensateur est vide, le courant est à son maximum – et la bobine ne le laisse pas s’arrêter comme ça. Il continue et charge le condensateur à l’envers jusqu’à s’arrêter ; alors le condensateur le renvoie. C’est ainsi qu’un pendule passe par son point le plus bas : sa masse est en mouvement.",
+        "twin": "Le ressort sous le schéma n’est pas une simple comparaison, c’est le même calcul : 200 kg sur un ressort de 8000 N/m avec un frottement de 90 N·s/m oscillent exactement comme la bobine de 200 H, le condensateur de 125 µF et les 90 Ω du fil.",
+        "numbers": "Au module, une période dure 0,99 s. L’aiguille part 21 fois avant que ses écarts ne tombent sous le dixième du premier, au bout d’environ 10 s ; le courant maximal est de 7,5 mA. À chaque oscillation aller-retour, 64 % de l’énergie restent ; le reste devient chaleur dans le fil. Après 10 s, il en reste 1 %.",
+        "critical": "À partir de 2530 Ω dans le circuit, il n’oscille plus : le courant passe une fois et revient lentement. Avec 300 Ω, l’aiguille part encore 7 fois, avec 1000 Ω, 2 fois."
+      },
+      "computed": {
+        "system": "Pour le circuit qui porte la charge q₀ = C·U₀ au basculement et pas encore de courant, il existe une solution exacte. La page la calcule directement pour chaque instant, sans avancer pas à pas.",
+        "exact": "La charge et le courant tant que le circuit oscille. Au-dessus de la résistance critique, cosh et sinh prennent la place de cos et sin ; exactement à celle-ci, 1 et t.",
+        "q0": "la charge au basculement",
+        "omega0": "la pulsation sans résistance",
+        "gamma": "la vitesse à laquelle les oscillations s’éteignent",
+        "omega_d": "la pulsation avec résistance",
+        "check": "Les tests de la page confrontent cette solution aux équations du circuit intégrées pas à pas (Runge-Kutta) et au bilan d’énergie : ce qui manque au condensateur et à la bobine est exactement la chaleur dans la résistance. Le calcul se fait dans votre navigateur, avec les mêmes formules que le moteur de calcul de la page.",
+        "left_out": "Laissés de côté : les pertes du noyau de fer (son aimantation est en retard, et des courants de Foucault y circulent) et sa saturation ; la bobine a ici une inductance fixe. De même, les fuites des condensateurs. La résistance de l’ampèremètre est comptée dans celle du circuit. Les valeurs sont un exemple : une bobine de 200 H avec 90 Ω de fil sur un noyau de fer fermé, 125 µF de condensateurs à film (des électrolytiques ne supporteraient pas l’inversion) et 10 V."
       }
     }
   },

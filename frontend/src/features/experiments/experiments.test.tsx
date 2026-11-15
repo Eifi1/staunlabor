@@ -48,6 +48,7 @@ import { ResonancePage } from "./resonance-page";
 import { GyroscopePage } from "./gyroscope-page";
 import { ArchPage } from "./arch-page";
 import { LevitationPage } from "./levitation-page";
+import { CircuitPage } from "./circuit-page";
 import { ChladniPage } from "./chladni-page";
 import { ballState, pitEntries, positionAt, raceLayout, swingAt } from "./race-views";
 import { run as runPit } from "./simulate/pit";
@@ -1077,5 +1078,33 @@ describe("the floating top", () => {
     expect(await screen.findByText(E.levitation.play.hovers)).toBeInTheDocument();
     fireEvent.change(screen.getByRole("slider", { name: E.levitation.play.warming }), { target: { value: "3.5" } });
     expect(await screen.findByText(E.levitation.play.lands)).toBeInTheDocument();
+  });
+});
+
+describe("the slow LC circuit", () => {
+  it("waits charged on the battery, then swings once the switch is thrown, and charges again", async () => {
+    renderWithProviders(<CircuitPage />);
+    expect(await screen.findByRole("img", { name: E.circuit.view })).toBeInTheDocument();
+    expect(screen.getByRole("img", { name: E.circuit.twin })).toBeInTheDocument();
+    expect(screen.getByText(E.circuit.play.charged.replace("{{voltage}}", "10"))).toBeInTheDocument();
+    fireEvent.click(screen.getByRole("button", { name: E.circuit.play.throw }));
+    expect(screen.queryByText(E.circuit.play.charged.replace("{{voltage}}", "10"))).not.toBeInTheDocument();
+    expect(screen.getByRole("button", { name: E.circuit.play.pause })).toBeInTheDocument();
+    fireEvent.click(screen.getByRole("button", { name: E.circuit.play.pause }));
+    expect(screen.getByRole("button", { name: E.circuit.play.run })).toBeInTheDocument();
+    fireEvent.click(screen.getByRole("button", { name: E.circuit.play.recharge }));
+    expect(screen.getByRole("button", { name: E.circuit.play.throw })).toBeInTheDocument();
+    expect(screen.getAllByLabelText(E.equation.symbols).length).toBeGreaterThanOrEqual(6);
+  });
+
+  it("says when too much resistance stops it swinging, and the energy is all in the capacitor before the switch", async () => {
+    renderWithProviders(<CircuitPage />);
+    await screen.findByRole("img", { name: E.circuit.view });
+    expect(screen.getByText(E.circuit.change.swings)).toBeInTheDocument();
+    expect(
+      screen.getByRole("img", { name: new RegExp(`^${E.circuit.play.energy}: ${E.circuit.play.capacitor} 100 %`) }),
+    ).toBeInTheDocument();
+    fireEvent.change(screen.getByRole("slider", { name: E.circuit.change.resistance }), { target: { value: "3000" } });
+    expect(await screen.findByText(E.circuit.change.creeps)).toBeInTheDocument();
   });
 });

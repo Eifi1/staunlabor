@@ -53,6 +53,7 @@ const PREVIEWS: Record<Exhibit, LazyExoticComponent<ComponentType<PreviewProps>>
   arch: lazy(() => import("./arch-page").then((m) => ({ default: m.ArchPreview }))),
   chladni: lazy(() => import("./chladni-page").then((m) => ({ default: m.ChladniPreview }))),
   levitation: lazy(() => import("./levitation-page").then((m) => ({ default: m.LevitationPreview }))),
+  circuit: lazy(() => import("./circuit-page").then((m) => ({ default: m.CircuitPreview }))),
 };
 
 /** Whether the element is on screen (`margin` beyond it counts), and whether

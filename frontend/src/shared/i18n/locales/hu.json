@@ -291,6 +291,12 @@
         "title": "A lebegő pörgettyű",
         "summary": "Egy mágnest tartalmazó pörgettyű forog egy gyűrű alakú mágnes fölött, és lebeg – de csak akkor, ha néhány tized grammra pontosan megfelelő a súlya.",
         "question": "Miért lebeg a forgó pörgettyű, és miért száll le, ha egy kicsit túl nehéz?"
+      },
+      "circuit": {
+        "short": "LC-kör",
+        "title": "A lassú rezgőkör",
+        "summary": "Egy kondenzátor egy nagy tekercsen keresztül sül ki – és az áram ide-oda leng, mint egy inga, nagyjából másodpercenként egyszer.",
+        "question": "A kondenzátornak és a tekercsnek nincs mozgó része. Miért leng mégis ide-oda az áram?"
       }
     },
     "chair": {
@@ -2394,6 +2400,110 @@
       "computed": {
         "system": "A tér a tengelyen pontosan számolódik, két szolenoid különbségeként, meredekségével és görbületével együtt; a tengelyen kívül a Laplace-egyenletből következik a távolság négyzetéig. Az ablakot milliméteres rácson keressük 30 cm magasságig, széleit ismételt felezéssel határozzuk meg, ahogy az egyensúlyt is. A számítás az Ön böngészőjében fut, ugyanazokkal a lépésekkel, mint a webhely számítómotorja.",
         "left_out": "Kihagyva: maga a forgás. Elég gyorsnak tételezzük fel ahhoz, hogy a mágnes kövesse a teret, és elég lassúnak ahhoz, hogy a tengely még kövesse a tér irányváltozásait – ezt a fordulatszám-ablakot az oldal nem számolja. Hiányzik továbbá a pörgettyűt fékező levegő, a billegése és egy konkrét játék méretei: a gyűrű ferritből készült példa, 10 cm széles, 3 cm-es lyukkal és 1,5 cm magas, a pörgettyű mágnese pedig 2 cm³ ugyanabból a ferritből."
+      }
+    },
+    "circuit": {
+      "at": {
+        "build": "Az asztalon egy kondenzátor, egy zárt vasmagon ülő nagy tekercs, egy elem, egy átkapcsoló és egy középnullás árammérő áll.",
+        "swing": "Ha a kapcsoló az elemen áll, az elem feltölti a kondenzátort. Ha átkapcsoljuk a tekercsre, a kondenzátor a tekercsen át kisül: a mutató kilendül az egyik oldalra, a nullán át a másikra, majd vissza, nagyjából másodpercenként egyszer, minden alkalommal kicsit kevésbé, körülbelül tíz másodpercig.",
+        "origin": "A fizikaóra klasszikus kísérlete, itt olyan nagyra építve, hogy a mutatót szemmel lehessen követni."
+      },
+      "view": "A rezgőkör kapcsolási rajza: elem, átkapcsoló, kondenzátor, vasmagos tekercs, ellenállás és árammérő",
+      "twin": "A rugó, amely pontosan ugyanígy leng: a hasáb kitérése a kondenzátor töltését mutatja",
+      "play": {
+        "title": "Feltöltés és átkapcsolás",
+        "hint": "A kondenzátor fel van töltve. Kapcsolja át a kapcsolót a tekercsre, és figyelje a mutatót. Az alatta lévő rugó ugyanazt az egyenletet követi.",
+        "throw": "Átkapcsolás",
+        "pause": "Megállítás",
+        "run": "Tovább",
+        "recharge": "Újratöltés",
+        "charged": "A kondenzátor {{voltage}} V-ra van töltve; a kapcsoló az elemen áll.",
+        "caption": "Fent a rezgőkör ±{{range}} mA méréshatárú árammérővel; lent a rugó L tömeggel, 1/C merevséggel és R súrlódással.",
+        "speed": "Sebesség",
+        "speeds": {
+          "real": "Valós idő",
+          "slow": "Lassítás (¼)"
+        },
+        "energy": "Hol van az energia",
+        "capacitor": "a kondenzátorban",
+        "coil": "a tekercsben",
+        "heat": "hővé alakult",
+        "time": "Idő",
+        "current": "Áram",
+        "voltage": "A kondenzátor feszültsége"
+      },
+      "change": {
+        "title": "A rezgőkör átépítése",
+        "hint": "Változtassa meg a tekercset, a kondenzátort, az ellenállást és az elemet. Ezután a kondenzátor újra fel van töltve, a kapcsoló ismét az elemen áll.",
+        "inductance": "Tekercs (induktivitás)",
+        "inductance_hint": "Minél több menet és minél több vas a magban, annál nagyobb. A kiállítási tárgyé: 200 H.",
+        "capacitance": "Kondenzátor (kapacitás)",
+        "capacitance_hint": "A kiállítási tárgyé: 125 µF. Négyszeres kapacitás, kétszeres rezgésidő.",
+        "resistance": "Ellenállás a körben",
+        "resistance_hint": "A kiállítási tárgyon főleg a tekercs huzalja: 90 Ω. Egy soros ellenállás növeli.",
+        "voltage": "Elem",
+        "voltage_hint": "Csak azt változtatja meg, mennyire leng ki a mutató, azt nem, milyen gyorsan.",
+        "swings": "Az áram leng.",
+        "critical": "Határeset: az áram éppen már nem fordul meg.",
+        "creeps": "Túl nagy ellenállás: az áram egyszer folyik, majd lassan visszakúszik, irányt nem vált."
+      },
+      "figures": {
+        "period": "Rezgésidő",
+        "swings": "Kilengések ⅒ felett",
+        "peak": "Legnagyobb áram",
+        "quality": "Jósági tényező",
+        "critical": "Határellenállás"
+      },
+      "chart": {
+        "time": "Idő az átkapcsolás után",
+        "current": "Áram",
+        "energy": "Energia",
+        "capacitor": "a kondenzátorban",
+        "coil": "a tekercsben",
+        "left": "együtt",
+        "energy_hint": "Az energia ide-oda vándorol a kondenzátor és a tekercs között, rezgésenként kétszer; ami kettejükből együtt hiányzik, hővé vált a huzalban. A fent beállított összeállításra."
+      },
+      "model": {
+        "intro": "A kondenzátor töltést tárol: minél több van rajta, annál nagyobb a feszültsége. A tekercs ellenáll a rajta átfolyó áram minden változásának: visszatartja, amikor nő, és továbbhajtja, amikor gyengül. Benne az áramnak egyfajta tehetetlensége van.",
+        "capacitor": "A kondenzátor feszültsége a töltésével nő.",
+        "coil": "A feszültség, amellyel a tekercs az áram változásának ellenáll (önindukció).",
+        "loop": "A kör mentén: a kondenzátor feszültsége hajtja az áramot a tekercs és az ellenállás ellenében. Az áram az, hogy milyen gyorsan folyik el a töltés a kondenzátorról.",
+        "twin": "Együtt ez a súrlódásos rugó egyenlete: a tekercs játssza a tömeget, a kapacitás reciproka a rugó merevségét, az ellenállás a súrlódást.",
+        "period": "Egy oda-vissza rezgés ideje ellenállás nélkül és ellenállással.",
+        "critical": "Ettől az ellenállástól kezdve semmi sem leng: az áram egyszer folyik, majd lassan visszakúszik."
+      },
+      "symbols": {
+        "uc": "a kondenzátor feszültsége",
+        "q": "a kondenzátor töltése",
+        "c": "a kondenzátor kapacitása",
+        "ul": "a tekercs feszültsége",
+        "l": "a tekercs induktivitása",
+        "i": "a tekercsen átfolyó áram",
+        "t": "az idő",
+        "r": "az egész kör ellenállása",
+        "m": "a rugón lévő tömeg",
+        "b": "a súrlódása",
+        "k": "a rugó merevsége",
+        "x": "a tömeg kitérése",
+        "t0": "a rezgésidő ellenállás nélkül",
+        "period": "a rezgésidő ellenállással",
+        "rc": "a határellenállás"
+      },
+      "sweet": {
+        "inertia": "A trükk az áram tehetetlensége. Amikor a kondenzátor üres, az áram a legerősebb – és a tekercs nem engedi egyszerűen megállni. Tovább folyik, és fordítva tölti fel a kondenzátort, amíg meg nem áll; ekkor a kondenzátor visszahajtja. Pontosan így leng át az inga is a legalsó pontján, mert a tömege mozgásban van.",
+        "twin": "A kapcsolási rajz alatti rugó nem puszta hasonlat, hanem ugyanaz a számítás: 200 kg egy 8000 N/m-es rugón, 90 N·s/m súrlódással pontosan úgy leng, mint a 200 H-s tekercs, a 125 µF-os kondenzátor és a huzal 90 Ω-ja.",
+        "numbers": "A kiállítási tárgyon egy rezgés 0,99 s-ig tart. A mutató 21-szer leng ki, mielőtt a kilengései az első tizede alá esnek, körülbelül 10 s után; a legnagyobb áram 7,5 mA. Minden oda-vissza rezgés után az energia 64 %-a marad meg, a többi hővé válik a huzalban; 10 s után 1 % maradt.",
+        "critical": "2530 Ω-tól kezdve a körben már nem leng: az áram egyszer folyik, majd lassan visszakúszik. 300 Ω-mal a mutató még 7-szer leng ki, 1000 Ω-mal 2-szer."
+      },
+      "computed": {
+        "system": "Arra a körre, amely az átkapcsoláskor q₀ = C·U₀ töltést hordoz, és még nem folyik benne áram, létezik pontos megoldás. Az oldal minden pillanatra közvetlenül kiszámítja, lépésről lépésre haladás nélkül.",
+        "exact": "A töltés és az áram, amíg a kör leng. A határellenállás felett a cos és sin helyére cosh és sinh lép; pontosan a határellenálláson 1 és t.",
+        "q0": "a töltés átkapcsoláskor",
+        "omega0": "a körfrekvencia ellenállás nélkül",
+        "gamma": "milyen gyorsan csillapodnak a kilengések",
+        "omega_d": "a körfrekvencia ellenállással",
+        "check": "Az oldal tesztjei ezt a megoldást a kör lépésről lépésre integrált egyenleteivel (Runge–Kutta) és az energiamérleggel vetik össze: ami a kondenzátorból és a tekercsből hiányzik, az pontosan az ellenállásban keletkezett hő. A számítás az Ön böngészőjében fut, ugyanazokkal a képletekkel, mint az oldal számítómagja.",
+        "left_out": "Kimaradt: a vasmag veszteségei (mágnesezettsége késik, és örvényáramok folynak benne) és telítődése; a tekercs induktivitása itt állandó. Ugyanígy a kondenzátorok szivárgása. Az árammérő ellenállása a kör ellenállásában szerepel. Az értékek példák: egy 200 H-s tekercs 90 Ω-os huzallal zárt vasmagon, 125 µF fóliakondenzátor (elektrolitkondenzátor nem viselné el a polaritásváltást) és 10 V."
       }
     }
   },

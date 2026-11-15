@@ -656,6 +656,16 @@ export interface LevitationRequest {
   top: { moment_a_m2: number; mass_kg: number };
 }
 
+// ── the slow LC circuit ──────────────────────────────────────────────────────
+
+/** The engine's `Circuit`. No route: the page asks the port (`simulate/circuit.ts`). */
+export interface CircuitRequest {
+  inductance_h: number;
+  capacitance_f: number;
+  resistance_ohm: number;
+  voltage_v: number;
+}
+
 // ── the chain and the arch ───────────────────────────────────────────────────
 
 /** The engine's `Arch`. No route: the page asks the port (`simulate/arch.ts`). */
@@ -714,6 +724,7 @@ export interface ExperimentsDefaults {
   arch: StoneArchRequest;
   chladni: ChladniPlateRequest;
   levitation: LevitationRequest;
+  circuit: CircuitRequest;
   meter_range_a: number;
   settle_s: number;
 }

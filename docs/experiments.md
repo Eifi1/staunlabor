@@ -4,7 +4,9 @@ Staunlabor is a site of hands-on exhibits, computed: each page lets the reader
 play the visitor in a simulation of the exhibit, then shows the computation
 behind what they felt, every number from the engine, `domain/experiments/`,
 and asserted in `tests/unit/test_experiments.py`. Each exhibit is inspired
-by one at the Swiss Science Center Technorama in Winterthur. The first eight,
+by one at the Swiss Science Center Technorama in Winterthur, but for the slow
+LC circuit, a classroom classic Marcel asked for (2026-11-15) and its page says
+so. The first eight,
 which Marcel played with there, were first built from 2026-11-07 as the
 "Experiments" area of an engineering app, Kurvenschmiede, and moved here on
 2026-11-13 (`docs/plan.md`). The overview credits the museum in one line
@@ -80,11 +82,12 @@ quarter for one that came right after yesterday's in the round before. Those
 are the second series' maluses (Marcel, 2026-11-15: "Tagesminus sollte weniger
 zählen"); the first series drew with a quarter and a tenth, and its rounds keep
 them, so the days the live site has shown keep their exhibit. Measured over
-400 rounds of all 26 (a plain shuffle, then the old maluses, in brackets):
-repeated pairs 0.44 a round (1.21; 0.28), repeated triples 0.008 (0.070; 0),
-neighbours sharing a topic 26.4 days in a hundred (35.2; 20.8). With
-eleven exhibits about energy and eight each about oscillation and angular
-momentum, the quarter held a topic back on most days.
+400 rounds of all 27 (a plain shuffle, then the old maluses, in brackets):
+repeated pairs 0.46 a round (1.25; 0.31), repeated triples 0.013 (0.058;
+0.008), neighbours sharing a topic 26.9 days in a hundred (35.4; 21.2); with
+26, before the LC circuit, 0.44 and 26.4. With eleven exhibits about energy,
+nine about oscillation and eight about angular momentum, the quarter held a
+topic back on most days.
 They were measured over 2000 rounds against a plain shuffle (`daily.ts` has
 the numbers): pairs of the round before repeated in order fall from 0.9 a round
 to 0.27, triples from 0.12 to 0.01, neighbours about one topic from 14.5 days in
@@ -96,7 +99,8 @@ elephant, are a 3 % draw that came up. With the second series the bonus weighs
 less, and less with every exhibit: with eight it cut the turns that come after
 more than a round and two days by a quarter, with fifteen by an eighth (1456
 against 1670 over 400 rounds), with sixteen by a tenth (2311 against 2555),
-with 26 by a twentieth (10259 against 10834 over 1200 rounds);
+with 26 by a twentieth (10259 against 10834 over 1200 rounds), with 27 the
+same (10513 against 11135);
 `daily.test.ts` now holds it only to a fiftieth. Its weight a day is fixed
 while a round grows longer, and stays so: Marcel weakened the maluses instead
 (2026-11-15).
@@ -1374,6 +1378,67 @@ heights and masses, the 3 %, the exhibit's height and frequencies; the foot as
 the lift's peak; landing and sliding off; the warmings of 3.5 and 4.5 K and the
 0.8 % that leaves the heights; and Earnshaw, no height for a magnet turned with
 the field.
+
+## The slow LC circuit (`experiments.circuit`)
+
+**The exhibit.** A physics room's classic, built large: a capacitor, a coil on
+a closed iron core, a battery, a changeover switch and a meter with its zero in
+the middle. On the battery the switch charges the capacitor; thrown over to
+the coil, the capacitor discharges through it and the needle swings one way,
+back through zero and back again, about once a second, each swing smaller,
+for some ten seconds. Marcel asked for it (2026-11-15, "Ich habe Mal etwas von
+Schwingkreis gehört"); no Technorama exhibit was found for it, so its page says
+it comes from the classroom.
+
+**The model** (`domain/experiments/circuit.py`). Round the loop
+`L·di/dt + R·i = q/C` with `i = −dq/dt`: `L·q̈ + R·q̇ + q/C = 0`, the damped
+spring's equation with `L` the mass, `1/C` the stiffness and `R` the friction.
+Solved exactly from `q₀ = C·U₀` at rest: with `ω₀ = 1/√(LC)` and `γ = R/2L`,
+`q = q₀·e^{−γt}·(cos ω_d t + γ·sin(ω_d t)/ω_d)` and
+`i = q₀·ω₀²·e^{−γt}·sin(ω_d t)/ω_d` while `γ < ω₀`; `cosh`/`sinh` (with
+`β = √(γ² − ω₀²)`) above the critical `R = 2·√(L/C)`, `1` and `t` exactly at
+it. Creeping, the growing exponential is taken out first,
+`e^{(β−γ)t}·(1 ± e^{−2βt})/2`, so `βt` of 10¹⁰ does not overflow, and `expm1`
+keeps `sinh(βt)/β` exact as `β` shrinks to the edge. The swings counted are the
+needle's peaks of at least a tenth of the first, each `e^{−γπ/ω_d}` of the one
+before.
+
+**What it shows** (an illustrative build: 200 H with 90 Ω of wire on a closed
+iron core, 125 µF of film capacitors, 10 V). A period of 0.99 s; 21 swings
+before the needle's peaks fall under a tenth, after some 10 s; at most 7.5 mA,
+0.24 s after the switch. A swing there and back keeps 64 % of the energy, and
+after 10 s 1 % is left. From 2530 Ω it no longer swings (with 300 Ω 7 swings,
+with 1000 Ω 2). Four times the capacitance doubles the period; the battery
+changes only the size. Its twin: 200 kg on a spring of 8000 N/m with a
+friction of 90 N·s/m.
+
+**The page.** The circuit as a diagram — battery, switch, capacitor with its
+charge's signs, the coil and its iron core, the resistance, the meter's
+needle — over the spring that obeys the same equation, its block out as far as
+the capacitor is charged; a throw of the switch, pause and recharge, real time
+or a quarter of it; a bar of where the energy is (capacitor, coil, heat) and
+the time, current and voltage. Rebuilding (the coil 20–400 H, the capacitor
+20–1000 µF, the resistance 10–4000 Ω, the battery 1–20 V) recharges it and
+says whether it swings, with the period, the swings, the strongest current,
+the quality and the critical resistance, and the needle's current over three
+of its slowest decay times. "The trick" has the energy in the capacitor, in
+the coil and both together over time. Topics "oscillation" and "induction",
+lesson `second_order`. **No route**: the port's (`simulate/circuit.ts`), held
+to the engine exactly in all three regimes and a hair either side of the edge.
+
+**Joins the experiment of the day** on `SECOND_SERIES`, with the second series.
+
+**Left out, and said:** the iron core's losses (its magnetisation lags, eddy
+currents) and its saturation (a fixed `L`), the capacitors' leakage; the
+meter's resistance is counted in `R`.
+
+**Checked by** `tests/unit/test_experiments.py`: the exhibit's period, swings,
+current, critical resistance, quality, decay and energy, and its spring twin;
+the closed form against the loop's equations stepped (RK4) swinging, at the
+edge exactly and creeping back; the three solutions meeting at the edge; the
+energy account to 10⁻⁹ (Simpson's heat) and the 64 % and 1 %; four times the
+capacitance, twice the battery; fewer swings with more resistance, no turning
+back over the edge and no overflow far out.
 
 ## The notice: the check still to come
 

@@ -291,6 +291,12 @@
         "title": "Der schwebende Kreisel",
         "summary": "Ein Kreisel mit einem Magneten dreht sich über einem Ringmagneten und schwebt – aber nur, wenn er auf wenige Zehntelgramm genau richtig wiegt.",
         "question": "Warum schwebt der drehende Kreisel, und warum landet er, wenn er ein wenig zu schwer ist?"
+      },
+      "circuit": {
+        "short": "Schwingkreis",
+        "title": "Der langsame Schwingkreis",
+        "summary": "Ein Kondensator entlädt sich über eine grosse Spule – und der Strom schwingt hin und her wie ein Pendel, etwa einmal pro Sekunde.",
+        "question": "Kondensator und Spule haben kein bewegliches Teil. Warum schwingt der Strom trotzdem hin und her?"
       }
     },
     "chair": {
@@ -2394,6 +2400,110 @@
       "computed": {
         "system": "Das Feld auf der Achse wird exakt gerechnet, als Differenz zweier Spulen, samt seiner Steigung und Krümmung; neben der Achse folgt es aus der Laplace-Gleichung bis zum Quadrat des Abstands. Das Fenster wird auf einem Millimeterraster bis 30 cm Höhe gesucht und seine Ränder durch fortgesetztes Halbieren bestimmt, das Gleichgewicht ebenso. Gerechnet wird in Ihrem Browser, mit denselben Schritten wie im Rechenkern der Seite.",
         "left_out": "Weggelassen: die Drehung selbst. Sie wird als schnell genug angenommen, damit der Magnet dem Feld folgt, und als langsam genug, dass die Achse den Richtungswechseln des Feldes noch folgen kann – dieses Drehzahlfenster rechnet die Seite nicht. Ebenso fehlen die Luft, die den Kreisel bremst, sein Taumeln und die Masse eines bestimmten Spielzeugs: Der Ring ist ein Beispiel aus Ferrit, 10 cm breit mit 3 cm Loch und 1,5 cm hoch, der Magnet im Kreisel 2 cm³ desselben Ferrits."
+      }
+    },
+    "circuit": {
+      "at": {
+        "build": "Auf dem Tisch stehen ein Kondensator, eine grosse Spule auf einem geschlossenen Eisenkern, eine Batterie, ein Umschalter und ein Strommesser, dessen Nullpunkt in der Mitte liegt.",
+        "swing": "Steht der Schalter auf der Batterie, lädt sie den Kondensator. Legt man ihn zur Spule um, entlädt sich der Kondensator über sie: Der Zeiger schlägt zur einen Seite aus, kehrt durch null zur anderen und wieder zurück, etwa einmal pro Sekunde, jedes Mal etwas weniger weit, rund zehn Sekunden lang.",
+        "origin": "Ein klassischer Versuch aus dem Physikunterricht, hier so gross gebaut, dass man dem Zeiger zusehen kann."
+      },
+      "view": "Der Schwingkreis als Schaltbild: Batterie, Umschalter, Kondensator, Spule mit Eisenkern, Widerstand und Strommesser",
+      "twin": "Das Federpendel, das genau gleich schwingt: Wie weit der Klotz ausgelenkt ist, zeigt die Ladung des Kondensators",
+      "play": {
+        "title": "Laden und umschalten",
+        "hint": "Der Kondensator ist geladen. Legen Sie den Schalter zur Spule um und sehen Sie dem Zeiger zu. Das Federpendel darunter folgt derselben Gleichung.",
+        "throw": "Umschalten",
+        "pause": "Anhalten",
+        "run": "Weiter",
+        "recharge": "Neu laden",
+        "charged": "Der Kondensator ist auf {{voltage}} V geladen; der Schalter steht auf der Batterie.",
+        "caption": "Oben der Schwingkreis, der Strommesser mit ±{{range}} mA Messbereich; unten das Federpendel mit der Masse L, der Federhärte 1/C und der Reibung R.",
+        "speed": "Tempo",
+        "speeds": {
+          "real": "Echtzeit",
+          "slow": "Zeitlupe (¼)"
+        },
+        "energy": "Wo die Energie steckt",
+        "capacitor": "im Kondensator",
+        "coil": "in der Spule",
+        "heat": "zu Wärme geworden",
+        "time": "Zeit",
+        "current": "Strom",
+        "voltage": "Spannung am Kondensator"
+      },
+      "change": {
+        "title": "Den Schwingkreis umbauen",
+        "hint": "Ändern Sie Spule, Kondensator, Widerstand und Batterie. Danach ist der Kondensator neu geladen und der Schalter steht wieder auf der Batterie.",
+        "inductance": "Spule (Induktivität)",
+        "inductance_hint": "Je mehr Windungen und je mehr Eisen im Kern, desto grösser. Beim Exponat 200 H.",
+        "capacitance": "Kondensator (Kapazität)",
+        "capacitance_hint": "Beim Exponat 125 µF. Vierfache Kapazität, doppelte Schwingungsdauer.",
+        "resistance": "Widerstand im Kreis",
+        "resistance_hint": "Beim Exponat vor allem der Draht der Spule: 90 Ω. Ein Zusatzwiderstand macht ihn grösser.",
+        "voltage": "Batterie",
+        "voltage_hint": "Sie ändert nur, wie weit der Zeiger ausschlägt, nicht wie schnell er schwingt.",
+        "swings": "Der Strom schwingt.",
+        "critical": "Grenzfall: Der Strom kehrt gerade nicht mehr um.",
+        "creeps": "Zu viel Widerstand: Der Strom fliesst einmal und kriecht zurück, ohne umzukehren."
+      },
+      "figures": {
+        "period": "Schwingungsdauer",
+        "swings": "Ausschläge über ⅒",
+        "peak": "Stärkster Strom",
+        "quality": "Güte",
+        "critical": "Grenzwiderstand"
+      },
+      "chart": {
+        "time": "Zeit nach dem Umschalten",
+        "current": "Strom",
+        "energy": "Energie",
+        "capacitor": "im Kondensator",
+        "coil": "in der Spule",
+        "left": "zusammen",
+        "energy_hint": "Die Energie wandert zwischen Kondensator und Spule hin und her, zweimal pro Schwingung; was zusammen fehlt, ist im Draht zu Wärme geworden. Für den Aufbau, den Sie oben eingestellt haben."
+      },
+      "model": {
+        "intro": "Der Kondensator speichert Ladung: Je mehr darauf sitzt, desto höher seine Spannung. Die Spule wehrt sich gegen jede Änderung des Stroms durch sie: Sie hält ihn zurück, wenn er wächst, und treibt ihn weiter, wenn er nachlässt. In ihr hat der Strom eine Art Trägheit.",
+        "capacitor": "Die Spannung am Kondensator wächst mit seiner Ladung.",
+        "coil": "Die Spannung, mit der sich die Spule gegen eine Änderung des Stroms wehrt (Selbstinduktion).",
+        "loop": "Rund um den Kreis: Die Spannung des Kondensators treibt den Strom gegen die Spule und den Widerstand. Der Strom ist, wie schnell die Ladung vom Kondensator abfliesst.",
+        "twin": "Zusammen ist es die Gleichung des Federpendels mit Reibung: Die Spule spielt die Masse, der Kehrwert der Kapazität die Härte der Feder, der Widerstand die Reibung.",
+        "period": "Die Dauer einer Schwingung hin und zurück, ohne und mit Widerstand.",
+        "critical": "Ab diesem Widerstand schwingt nichts mehr: Der Strom fliesst einmal und kriecht zurück."
+      },
+      "symbols": {
+        "uc": "die Spannung am Kondensator",
+        "q": "die Ladung auf dem Kondensator",
+        "c": "die Kapazität des Kondensators",
+        "ul": "die Spannung an der Spule",
+        "l": "die Induktivität der Spule",
+        "i": "der Strom durch die Spule",
+        "t": "die Zeit",
+        "r": "der Widerstand im ganzen Kreis",
+        "m": "die Masse am Federpendel",
+        "b": "seine Reibung",
+        "k": "die Härte seiner Feder",
+        "x": "die Auslenkung der Masse",
+        "t0": "die Schwingungsdauer ohne Widerstand",
+        "period": "die Schwingungsdauer mit Widerstand",
+        "rc": "der Grenzwiderstand"
+      },
+      "sweet": {
+        "inertia": "Der Trick ist die Trägheit des Stroms. Ist der Kondensator leer, fliesst der Strom am stärksten – und die Spule lässt ihn nicht einfach aufhören. Er fliesst weiter und lädt den Kondensator verkehrt herum auf, bis er stillsteht; dann treibt ihn der Kondensator zurück. Genau so schwingt ein Pendel durch seinen tiefsten Punkt hindurch, weil die Masse in Bewegung ist.",
+        "twin": "Das Federpendel unter dem Schaltbild ist kein blosser Vergleich, sondern dieselbe Rechnung: 200 kg an einer Feder von 8000 N/m mit einer Reibung von 90 N·s/m schwingen genau wie die Spule mit 200 H, der Kondensator mit 125 µF und die 90 Ω des Drahts.",
+        "numbers": "Beim Exponat dauert eine Schwingung 0,99 s. Der Zeiger schlägt 21-mal aus, bis seine Ausschläge unter einen Zehntel des ersten fallen, nach rund 10 s; der stärkste Strom ist 7,5 mA. Bei jeder Schwingung hin und zurück bleiben 64 % der Energie, der Rest wird im Draht zu Wärme; nach 10 s ist noch 1 % übrig.",
+        "critical": "Ab 2530 Ω im Kreis schwingt er nicht mehr: Der Strom fliesst einmal und kriecht zurück. Mit 300 Ω schlägt der Zeiger noch 7-mal aus, mit 1000 Ω noch 2-mal."
+      },
+      "computed": {
+        "system": "Für den Kreis, der beim Umschalten die Ladung q₀ = C·U₀ trägt und noch ohne Strom ist, gibt es eine exakte Lösung. Die Seite rechnet sie für jeden Zeitpunkt direkt aus, ohne Schritt für Schritt vorzugehen.",
+        "exact": "Ladung und Strom, solange der Kreis schwingt. Über dem Grenzwiderstand treten cosh und sinh an die Stelle von cos und sin, genau am Grenzwiderstand 1 und t.",
+        "q0": "die Ladung beim Umschalten",
+        "omega0": "die Kreisfrequenz ohne Widerstand",
+        "gamma": "wie rasch die Ausschläge abklingen",
+        "omega_d": "die Kreisfrequenz mit Widerstand",
+        "check": "Die Tests der Seite halten diese Lösung gegen die Gleichungen des Kreises, Schritt für Schritt gerechnet (Runge-Kutta), und gegen die Energiebilanz: Was in Kondensator und Spule fehlt, ist genau die Wärme im Widerstand. Gerechnet wird in Ihrem Browser, mit denselben Formeln wie im Rechenkern der Seite.",
+        "left_out": "Weggelassen: die Verluste im Eisenkern (seine Magnetisierung hinkt nach, und Wirbelströme fliessen darin) und seine Sättigung; die Spule hat hier eine feste Induktivität. Ebenso der Leckstrom der Kondensatoren. Der Widerstand des Strommessers ist im Widerstand des Kreises enthalten. Die Werte sind ein Beispiel: eine Spule mit 200 H und 90 Ω Draht auf geschlossenem Eisenkern, 125 µF aus Folienkondensatoren (Elektrolytkondensatoren vertrügen das Umpolen nicht) und 10 V."
       }
     }
   },

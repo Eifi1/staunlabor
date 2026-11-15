@@ -36,7 +36,8 @@ export type Exhibit =
   | "gyroscope"
   | "arch"
   | "chladni"
-  | "levitation";
+  | "levitation"
+  | "circuit";
 
 /** What an exhibit is about, as a reader would look for it: one word each,
  *  and an exhibit may be about two. */
@@ -235,6 +236,13 @@ export const EXHIBITS: readonly ExhibitEntry[] = [
     path: "/levitation",
     topics: ["equilibrium"],
     lessons: [],
+    since: SECOND_SERIES,
+  },
+  {
+    exhibit: "circuit",
+    path: "/circuit",
+    topics: ["oscillation", "induction"],
+    lessons: ["second_order"],
     since: SECOND_SERIES,
   },
 ];

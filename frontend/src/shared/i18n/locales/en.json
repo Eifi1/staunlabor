@@ -291,6 +291,12 @@
         "title": "The floating top",
         "summary": "A top with a magnet in it spins over a ring magnet and floats – but only if its weight is right to within a few tenths of a gram.",
         "question": "Why does the spinning top float, and why does it land when it is a little too heavy?"
+      },
+      "circuit": {
+        "short": "LC circuit",
+        "title": "The slow LC circuit",
+        "summary": "A capacitor discharges through a big coil – and the current swings back and forth like a pendulum, about once a second.",
+        "question": "A capacitor and a coil have no moving part. Why does the current swing back and forth all the same?"
       }
     },
     "chair": {
@@ -2394,6 +2400,110 @@
       "computed": {
         "system": "The field on the axis is computed exactly, as the difference of two solenoids, with its slope and its curvature; off the axis it follows from Laplace's equation to the square of the distance. The window is searched on a millimetre grid up to 30 cm and its edges are found by halving again and again, and the balance likewise. It is computed in your browser, with the same steps as the site's engine.",
         "left_out": "Left out: the spin itself. It is taken to be fast enough for the magnet to follow the field, and slow enough for the axis still to follow the field's turns – that window in speed the page does not compute. Also left out are the air that slows the top, its wobble, and the sizes of any particular toy: the ring is an example in ferrite, 10 cm across with a 3 cm hole and 1.5 cm high, the top's magnet 2 cm³ of the same ferrite."
+      }
+    },
+    "circuit": {
+      "at": {
+        "build": "On the table stand a capacitor, a big coil on a closed iron core, a battery, a changeover switch and a meter with its zero in the middle.",
+        "swing": "With the switch on the battery, the battery charges the capacitor. Thrown over to the coil, the capacitor discharges through it: the needle swings to one side, back through zero to the other and back again, about once a second, each time a little less far, for some ten seconds.",
+        "origin": "A classic of the physics classroom, built here large enough to watch the needle."
+      },
+      "view": "The LC circuit as a diagram: battery, switch, capacitor, coil with its iron core, resistance and meter",
+      "twin": "The spring that swings exactly alike: how far the block is out shows the capacitor's charge",
+      "play": {
+        "title": "Charge and throw the switch",
+        "hint": "The capacitor is charged. Throw the switch over to the coil and watch the needle. The spring below obeys the same equation.",
+        "throw": "Throw the switch",
+        "pause": "Pause",
+        "run": "Go on",
+        "recharge": "Charge again",
+        "charged": "The capacitor is charged to {{voltage}} V; the switch is on the battery.",
+        "caption": "Above, the circuit, its meter reading ±{{range}} mA; below, the spring with the mass L, the stiffness 1/C and the friction R.",
+        "speed": "Speed",
+        "speeds": {
+          "real": "Real time",
+          "slow": "Slow motion (¼)"
+        },
+        "energy": "Where the energy is",
+        "capacitor": "in the capacitor",
+        "coil": "in the coil",
+        "heat": "turned into heat",
+        "time": "Time",
+        "current": "Current",
+        "voltage": "Voltage on the capacitor"
+      },
+      "change": {
+        "title": "Rebuild the circuit",
+        "hint": "Change the coil, the capacitor, the resistance and the battery. Then the capacitor is charged afresh and the switch is back on the battery.",
+        "inductance": "Coil (inductance)",
+        "inductance_hint": "The more turns and the more iron in its core, the larger. The exhibit's: 200 H.",
+        "capacitance": "Capacitor (capacitance)",
+        "capacitance_hint": "The exhibit's: 125 µF. Four times the capacitance, twice the period.",
+        "resistance": "Resistance in the loop",
+        "resistance_hint": "At the exhibit mostly the coil's wire: 90 Ω. A resistor in series adds to it.",
+        "voltage": "Battery",
+        "voltage_hint": "It changes only how far the needle swings, not how fast.",
+        "swings": "The current swings.",
+        "critical": "The edge: the current only just no longer turns round.",
+        "creeps": "Too much resistance: the current flows once and creeps back without turning round."
+      },
+      "figures": {
+        "period": "Period",
+        "swings": "Swings over ⅒",
+        "peak": "Strongest current",
+        "quality": "Quality",
+        "critical": "Critical resistance"
+      },
+      "chart": {
+        "time": "Time after the switch",
+        "current": "Current",
+        "energy": "Energy",
+        "capacitor": "in the capacitor",
+        "coil": "in the coil",
+        "left": "together",
+        "energy_hint": "The energy goes back and forth between the capacitor and the coil, twice a period; what is missing from both together has turned into heat in the wire. For the build set above."
+      },
+      "model": {
+        "intro": "The capacitor stores charge: the more is on it, the higher its voltage. The coil resists every change in the current through it: it holds the current back as it grows and drives it on as it fades. In it, the current has a kind of inertia.",
+        "capacitor": "The voltage on the capacitor grows with its charge.",
+        "coil": "The voltage with which the coil resists a change in the current (self-induction).",
+        "loop": "Round the loop: the capacitor's voltage drives the current against the coil and the resistance. The current is how fast the charge flows off the capacitor.",
+        "twin": "Together it is the equation of the spring with friction: the coil plays the mass, the reciprocal of the capacitance the spring's stiffness, the resistance the friction.",
+        "period": "The time of one swing there and back, without and with the resistance.",
+        "critical": "From this resistance on nothing swings any more: the current flows once and creeps back."
+      },
+      "symbols": {
+        "uc": "the voltage on the capacitor",
+        "q": "the charge on the capacitor",
+        "c": "the capacitor's capacitance",
+        "ul": "the voltage across the coil",
+        "l": "the coil's inductance",
+        "i": "the current through the coil",
+        "t": "the time",
+        "r": "the resistance of the whole loop",
+        "m": "the mass on the spring",
+        "b": "its friction",
+        "k": "its spring's stiffness",
+        "x": "how far the mass is out",
+        "t0": "the period without resistance",
+        "period": "the period with it",
+        "rc": "the critical resistance"
+      },
+      "sweet": {
+        "inertia": "The trick is the current's inertia. When the capacitor is empty, the current is at its strongest – and the coil will not let it simply stop. It flows on and charges the capacitor the other way round until it stands still; then the capacitor drives it back. Just so a pendulum swings through its lowest point, because its mass is moving.",
+        "twin": "The spring under the diagram is not merely a likeness but the same calculation: 200 kg on a spring of 8000 N/m with a friction of 90 N·s/m swing exactly as the coil of 200 H, the capacitor of 125 µF and the wire's 90 Ω.",
+        "numbers": "At the exhibit, one period takes 0.99 s. The needle swings 21 times before its swings fall under a tenth of the first, after some 10 s; the strongest current is 7.5 mA. Each swing there and back keeps 64 % of the energy, the rest turns into heat in the wire; after 10 s, 1 % is left.",
+        "critical": "From 2530 Ω in the loop on, it no longer swings: the current flows once and creeps back. With 300 Ω the needle still swings 7 times, with 1000 Ω twice."
+      },
+      "computed": {
+        "system": "For the loop that holds the charge q₀ = C·U₀ when the switch is thrown, and no current yet, there is an exact solution. The page computes it directly for every moment, without stepping towards it.",
+        "exact": "The charge and the current while the circuit swings. Above the critical resistance, cosh and sinh take the place of cos and sin; exactly at it, 1 and t.",
+        "q0": "the charge when the switch is thrown",
+        "omega0": "the angular frequency without resistance",
+        "gamma": "how fast the swings die away",
+        "omega_d": "the angular frequency with it",
+        "check": "The page's tests hold this solution to the loop's equations stepped through (Runge–Kutta) and to the energy account: what is missing from the capacitor and the coil is exactly the heat in the resistance. It is computed in your browser, with the same formulas as the page's engine.",
+        "left_out": "Left out: the iron core's losses (its magnetisation lags behind, and eddy currents flow in it) and its saturation; here the coil has a fixed inductance. So is the capacitors' leakage. The meter's own resistance is counted in the loop's. The values are an example: a coil of 200 H with 90 Ω of wire on a closed iron core, 125 µF of film capacitors (electrolytic ones would not bear the reversal) and 10 V."
       }
     }
   },
