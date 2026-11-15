@@ -315,6 +315,12 @@
         "title": "La pila a sbalzo",
         "summary": "Blocchi uguali, impilati senza colla, sporgono da un bordo più di quanto un blocco sia lungo – se li si sposta nel modo giusto.",
         "question": "Quanto può sporgere dal bordo una pila di nove blocchi senza ribaltarsi?"
+      },
+      "diver": {
+        "short": "Diavoletto di Cartesio",
+        "title": "Il diavoletto di Cartesio",
+        "summary": "Una provetta di vetro con una bolla d’aria galleggia in una bottiglia. Stringendo la bottiglia affonda – e c’è esattamente una profondità in cui resterebbe sospesa.",
+        "question": "Perché il diavoletto affonda quando si stringe la bottiglia, e perché non resta mai a metà?"
       }
     },
     "chair": {
@@ -2813,6 +2819,92 @@
         "system": "La pagina controlla a ogni strato se il baricentro dei blocchi da esso in su sta sopra il suo appoggio; per una pila di un blocco per strato non serve altro. La pila più lunga si costruisce dall’alto, ogni blocco 1/(2k) più in fuori.",
         "check": "I test della pagina ricalcolano lo sbalzo con frazioni esatte e cercano alla cieca tra ventimila pile casuali di tre e di quattro blocchi: nessuna che regga sporge più dell’armonica. Il calcolo avviene nel suo browser, con le stesse formule del motore di calcolo della pagina.",
         "left_out": "Tralasciato: pile con più blocchi per strato, alcuni da contrappeso, che arrivano ancora più lontano (Paterson e Zwick); l’attrito, perché qui i blocchi non scivolano mai, si ribaltano soltanto; il legno che cede; la mano che trema. I blocchi sono lunghi 20 cm e alti 4 cm."
+      }
+    },
+    "diver": {
+      "at": {
+        "bottle": "In una bottiglia piena d’acqua galleggia una piccola provetta di vetro, aperta in basso, con in cima una bolla d’aria che la tiene appena a galla.",
+        "squeeze": "Stringendo la bottiglia il diavoletto affonda; lasciando, risale.",
+        "hover": "In mezzo c’è una profondità in cui resterebbe sospeso. Ma lì non si ferma mai: continua ad affondare o risale."
+      },
+      "view": "La bottiglia con l’acqua, il diavoletto e la profondità in cui resterebbe sospeso",
+      "play": {
+        "title": "Stringere la bottiglia",
+        "hint": "Stringa la bottiglia con il cursore. Provi a tenere il diavoletto sospeso a metà.",
+        "pause": "Fermare",
+        "run": "Continuare",
+        "surface": "In superficie",
+        "squeeze": "Pressione della mano",
+        "squeeze_hint": "Di quanto la mano aumenta la pressione nella bottiglia.",
+        "caption": "La bottiglia, {{depth}} cm d’acqua; tratteggiata, la profondità in cui il diavoletto resterebbe sospeso con questa pressione. Il diavoletto è disegnato ingrandito.",
+        "hover_line": "sospeso qui",
+        "motion": {
+          "floats": "Il diavoletto galleggia in alto.",
+          "rises": "Il diavoletto risale.",
+          "hovers": "Il diavoletto è sospeso – per ora.",
+          "sinks": "Il diavoletto affonda.",
+          "bottom": "Il diavoletto è sul fondo."
+        },
+        "depth": "Profondità",
+        "speed": "Velocità di discesa",
+        "bubble": "Bolla",
+        "hover": "Profondità di equilibrio"
+      },
+      "change": {
+        "title": "Modificare il diavoletto",
+        "hint": "Dia al diavoletto più o meno aria e cambi l’altezza dell’acqua.",
+        "air": "Aria nel diavoletto",
+        "air_hint": "La bolla in superficie, senza pressione. Sotto 1,81 cm³ affonderebbe.",
+        "depth": "Altezza dell’acqua",
+        "depth_hint": "Quanto è profonda l’acqua nella bottiglia."
+      },
+      "figures": {
+        "reserve": "Riserva di spinta in superficie",
+        "bubble": "Bolla per restare sospeso",
+        "sinking": "Pressione che lo fa affondare dall’alto",
+        "bottom": "Pressione sotto cui risale dal fondo"
+      },
+      "chart": {
+        "hover_hint": "La profondità in cui il diavoletto resterebbe sospeso, secondo la pressione della mano; tratteggiati, superficie e fondo.",
+        "hover": "Profondità di equilibrio",
+        "surface": "Superficie",
+        "bottom": "Fondo",
+        "depth": "Profondità",
+        "squeeze": "Pressione della mano",
+        "lift_hint": "Spinta meno peso secondo la profondità, per tre pressioni della mano. Dove una linea incrocia lo zero resta sospeso; sopra risale, sotto affonda.",
+        "lift": "Spinta meno peso"
+      },
+      "model": {
+        "intro": "Il diavoletto galleggia perché con il suo vetro e la sua bolla sposta un po’ più acqua di quanto pesi. L’aria si comprime, il vetro no.",
+        "boyle": "La bolla si restringe al crescere della pressione: quella dell’aria, quella della mano e il peso dell’acqua sopra (legge di Boyle-Mariotte).",
+        "lift": "Spinta meno peso: sale finché l’acqua che sposta pesa più di lui.",
+        "hover": "La profondità in cui le due sono uguali. Ogni kilopascal di pressione della mano la alza di 10,2 cm.",
+        "motion": "Il moto: alla massa del vetro si aggiunge l’acqua trascinata, e l’acqua lo frena."
+      },
+      "symbols": {
+        "v": "bolla",
+        "v0": "bolla in superficie senza pressione",
+        "p0": "pressione dell’aria",
+        "dp": "pressione della mano",
+        "rho": "densità dell’acqua",
+        "g": "accelerazione di gravità",
+        "z": "profondità",
+        "f": "spinta meno peso",
+        "vg": "volume del vetro",
+        "m": "massa del vetro",
+        "zs": "profondità di equilibrio",
+        "cd": "coefficiente di resistenza",
+        "a": "sezione del diavoletto"
+      },
+      "sweet": {
+        "unstable": "Il trucco: l’equilibrio è instabile. Poco sotto la profondità di equilibrio l’acqua comprime di più la bolla, il diavoletto diventa più pesante per la sua grandezza e continua ad affondare fino al fondo. Poco sopra, la bolla cresce e risale fino in superficie. Basta mezzo centimetro per fargli fare tutta la strada.",
+        "numbers": "Il diavoletto qui ha 3 g di vetro (1,2 cm³) e 2 cm³ d’aria; in superficie regge 0,19 g più del suo peso. Da 10,9 kPa di pressione affonda dall’alto; sotto 7,9 kPa risale persino dal fondo della bottiglia di 30 cm. Per restare sospeso gli serve una bolla di 1,81 cm³.",
+        "chase": "Chi vuole tenerlo sospeso deve inseguirlo di continuo: allentare quando affonda, stringere quando risale – e più di quanto si pensi, perché la profondità di equilibrio si sposta di 10 cm per kilopascal."
+      },
+      "computed": {
+        "system": "La pagina calcola il moto passo per passo, ogni 2 ms (Runge-Kutta), con la pressione della mano com’è in quell’istante. In superficie il diavoletto galleggia; sul fondo resta fermo.",
+        "check": "I test della pagina confrontano la bolla con la legge di Boyle-Mariotte, mostrano che la spinta si annulla esattamente alla profondità di equilibrio, solleva sopra e tira sotto, e confrontano i passi con la stessa equazione calcolata venti volte più fine. Il calcolo avviene nel suo browser, con le stesse formule del motore di calcolo della pagina.",
+        "left_out": "Tralasciato: che l’acqua deve prima entrare nella provetta perché la bolla si restringa (qui segue subito la pressione); che acqua e bottiglia cedono un poco; l’aria nel collo della bottiglia, la cui pressione qui è direttamente quella della mano; che in superficie il diavoletto sporge un po’; la temperatura. I valori sono un diavoletto supposto: 3 g di vetro (1,2 cm³) e 2 cm³ d’aria, in una bottiglia di 30 cm."
       }
     }
   },

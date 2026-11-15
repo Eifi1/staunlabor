@@ -315,6 +315,12 @@
         "title": "La pile en porte-à-faux",
         "summary": "Des blocs identiques, empilés sans colle, dépassent d’un bord de plus qu’un bloc n’est long – si on les décale comme il faut.",
         "question": "Jusqu’où une pile de neuf blocs peut-elle dépasser du bord sans basculer ?"
+      },
+      "diver": {
+        "short": "Ludion",
+        "title": "Le ludion",
+        "summary": "Un petit tube de verre avec une bulle d’air flotte dans une bouteille. On presse la bouteille, il coule – et il existe une seule profondeur où il resterait en suspens.",
+        "question": "Pourquoi le ludion coule-t-il quand on presse la bouteille, et pourquoi ne reste-t-il jamais au milieu ?"
       }
     },
     "chair": {
@@ -2813,6 +2819,92 @@
         "system": "La page vérifie à chaque étage si le centre de gravité des blocs à partir de lui vers le haut est au-dessus de son appui ; une pile d’un bloc par étage n’en demande pas plus. La pile la plus longue se construit par le haut, chaque bloc 1/(2k) plus loin.",
         "check": "Les tests de la page recalculent le porte-à-faux en fractions exactes et cherchent à l’aveugle parmi vingt mille piles aléatoires de trois et de quatre blocs : aucune qui tient ne dépasse plus loin que l’harmonique. Le calcul se fait dans votre navigateur, avec les mêmes formules que le moteur de calcul de la page.",
         "left_out": "Laissé de côté : les piles à plusieurs blocs par étage, dont certains servent de contrepoids, qui vont encore plus loin (Paterson et Zwick) ; le frottement, les blocs ne glissant jamais ici, ils ne font que basculer ; le bois qui cède ; la main qui tremble. Les blocs mesurent 20 cm de long et 4 cm de haut."
+      }
+    },
+    "diver": {
+      "at": {
+        "bottle": "Dans une bouteille pleine d’eau flotte un petit tube de verre, ouvert en bas, avec en haut une bulle d’air qui le maintient tout juste à flot.",
+        "squeeze": "Si l’on presse la bouteille, le ludion coule ; si l’on relâche, il remonte.",
+        "hover": "Entre les deux, il existe une profondeur où il resterait en suspens. Mais il n’y reste jamais : il continue de couler ou il remonte."
+      },
+      "view": "La bouteille avec son eau, le ludion et la profondeur où il resterait en suspens",
+      "play": {
+        "title": "Presser la bouteille",
+        "hint": "Pressez la bouteille avec le curseur. Essayez de garder le ludion en suspens au milieu.",
+        "pause": "Arrêter",
+        "run": "Continuer",
+        "surface": "À la surface",
+        "squeeze": "Pression de la main",
+        "squeeze_hint": "De combien la main augmente la pression dans la bouteille.",
+        "caption": "La bouteille, {{depth}} cm d’eau ; en pointillé, la profondeur où le ludion resterait en suspens avec cette pression. Le ludion est dessiné agrandi.",
+        "hover_line": "en suspens ici",
+        "motion": {
+          "floats": "Le ludion flotte en haut.",
+          "rises": "Le ludion remonte.",
+          "hovers": "Le ludion est en suspens – pour l’instant.",
+          "sinks": "Le ludion coule.",
+          "bottom": "Le ludion repose au fond."
+        },
+        "depth": "Profondeur",
+        "speed": "Vitesse de descente",
+        "bubble": "Bulle",
+        "hover": "Profondeur d’équilibre"
+      },
+      "change": {
+        "title": "Modifier le ludion",
+        "hint": "Donnez au ludion plus ou moins d’air et changez la hauteur de l’eau.",
+        "air": "Air dans le ludion",
+        "air_hint": "La bulle à la surface, sans pression. Sous 1,81 cm³, il coulerait.",
+        "depth": "Hauteur d’eau",
+        "depth_hint": "La profondeur de l’eau dans la bouteille."
+      },
+      "figures": {
+        "reserve": "Réserve de flottabilité en surface",
+        "bubble": "Bulle pour rester en suspens",
+        "sinking": "Pression qui le fait couler depuis le haut",
+        "bottom": "Pression sous laquelle il remonte du fond"
+      },
+      "chart": {
+        "hover_hint": "La profondeur où le ludion resterait en suspens, selon la pression de la main ; en pointillé, la surface et le fond.",
+        "hover": "Profondeur d’équilibre",
+        "surface": "Surface",
+        "bottom": "Fond",
+        "depth": "Profondeur",
+        "squeeze": "Pression de la main",
+        "lift_hint": "Poussée moins poids selon la profondeur, pour trois pressions de la main. Là où une ligne croise zéro, il est en suspens ; au-dessus il remonte, au-dessous il coule.",
+        "lift": "Poussée moins poids"
+      },
+      "model": {
+        "intro": "Le ludion flotte parce qu’avec son verre et sa bulle il déplace un peu plus d’eau qu’il ne pèse. L’air se comprime, le verre non.",
+        "boyle": "La bulle rétrécit quand la pression augmente : celle de l’air, celle de la main et le poids de l’eau au-dessus (loi de Boyle-Mariotte).",
+        "lift": "Poussée moins poids : il monte tant que l’eau qu’il déplace pèse plus que lui.",
+        "hover": "La profondeur où les deux sont égaux. Chaque kilopascal de pression de la main la remonte de 10,2 cm.",
+        "motion": "Le mouvement : à la masse du verre s’ajoute l’eau entraînée, et l’eau le freine."
+      },
+      "symbols": {
+        "v": "bulle",
+        "v0": "bulle à la surface sans pression",
+        "p0": "pression de l’air",
+        "dp": "pression de la main",
+        "rho": "masse volumique de l’eau",
+        "g": "accélération de la pesanteur",
+        "z": "profondeur",
+        "f": "poussée moins poids",
+        "vg": "volume du verre",
+        "m": "masse du verre",
+        "zs": "profondeur d’équilibre",
+        "cd": "coefficient de traînée",
+        "a": "section du ludion"
+      },
+      "sweet": {
+        "unstable": "L’astuce : l’équilibre est instable. Un peu sous la profondeur d’équilibre, l’eau comprime davantage la bulle, le ludion devient plus lourd pour sa taille et continue de couler jusqu’au fond. Un peu au-dessus, la bulle grossit et il remonte jusqu’à la surface. Un demi-centimètre d’écart suffit pour qu’il fasse tout le chemin.",
+        "numbers": "Le ludion d’ici a 3 g de verre (1,2 cm³) et 2 cm³ d’air ; à la surface, il porte 0,19 g de plus que son poids. À partir de 10,9 kPa de pression il coule depuis le haut ; sous 7,9 kPa il remonte même du fond de la bouteille de 30 cm. Pour rester en suspens, il lui faut une bulle de 1,81 cm³.",
+        "chase": "Pour le garder en suspens, il faut sans cesse le rattraper : relâcher quand il coule, presser quand il monte – et plus qu’on ne le croit, car la profondeur d’équilibre se déplace de 10 cm par kilopascal."
+      },
+      "computed": {
+        "system": "La page calcule le mouvement pas à pas, toutes les 2 ms (Runge-Kutta), avec la pression de la main telle qu’elle est à cet instant. À la surface le ludion flotte ; au fond, il repose.",
+        "check": "Les tests de la page confrontent la bulle à la loi de Boyle-Mariotte, montrent que la poussée s’annule exactement à la profondeur d’équilibre, soulève au-dessus et tire en dessous, et confrontent les pas à la même équation calculée vingt fois plus fin. Le calcul se fait dans votre navigateur, avec les mêmes formules que le moteur de calcul de la page.",
+        "left_out": "Laissé de côté : que l’eau doit d’abord entrer dans le tube avant que la bulle rétrécisse (ici elle suit la pression aussitôt) ; que l’eau et la bouteille cèdent un peu ; l’air du goulot, dont la pression est ici directement celle de la main ; que le ludion dépasse un peu de l’eau en surface ; la température. Les valeurs sont un ludion supposé : 3 g de verre (1,2 cm³) et 2 cm³ d’air, dans une bouteille de 30 cm."
       }
     }
   },

@@ -52,6 +52,7 @@ import { CircuitPage } from "./circuit-page";
 import { PlatesPage } from "./plates-page";
 import { BouncePage } from "./bounce-page";
 import { OverhangPage } from "./overhang-page";
+import { DiverPage } from "./diver-page";
 import { ChladniPage } from "./chladni-page";
 import { ballState, pitEntries, positionAt, raceLayout, swingAt } from "./race-views";
 import { run as runPit } from "./simulate/pit";
@@ -1200,5 +1201,27 @@ describe("the overhang", () => {
     expect(screen.getByText(E.overhang.play.tips_one)).toBeInTheDocument();
     fireEvent.click(screen.getByRole("button", { name: E.overhang.play.flush }));
     expect(screen.queryByText(E.overhang.play.tips_one)).not.toBeInTheDocument();
+  });
+});
+
+describe("the Cartesian diver", () => {
+  it("floats until squeezed, then sinks, pauses and goes back to the surface", async () => {
+    renderWithProviders(<DiverPage />);
+    expect(await screen.findByRole("img", { name: E.diver.view })).toBeInTheDocument();
+    expect(screen.getByText(E.diver.play.motion.floats)).toBeInTheDocument();
+    fireEvent.change(screen.getByRole("slider", { name: E.diver.play.squeeze }), { target: { value: "20" } });
+    expect(await screen.findByText(E.diver.play.motion.sinks, undefined, { timeout: 3000 })).toBeInTheDocument();
+    fireEvent.click(screen.getByRole("button", { name: E.diver.play.pause }));
+    expect(screen.getByRole("button", { name: E.diver.play.run })).toBeInTheDocument();
+    fireEvent.click(screen.getByRole("button", { name: E.diver.play.surface }));
+    expect(screen.getAllByLabelText(E.equation.symbols).length).toBeGreaterThanOrEqual(4);
+  });
+
+  it("names the squeeze that sinks it, 10.9 kPa, and more with more air", async () => {
+    renderWithProviders(<DiverPage />);
+    await screen.findByRole("img", { name: E.diver.view });
+    expect(screen.getByText("10.9")).toBeInTheDocument();
+    fireEvent.change(screen.getByRole("slider", { name: E.diver.change.air }), { target: { value: "2.2" } });
+    expect(await screen.findByText("22.1")).toBeInTheDocument();
   });
 });

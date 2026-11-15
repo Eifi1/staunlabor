@@ -812,6 +812,22 @@ class OverhangIn(_In):
     height_m: float = Field(gt=0, le=1, default=0.04)
 
 
+# ── the Cartesian diver ──────────────────────────────────────────────────────
+# No route: the page asks the port (``simulate/diver.ts``).
+
+
+class DiverIn(_In):
+    glass_kg: float = Field(gt=0, le=0.1, default=0.003)
+    glass_m3: float = Field(gt=0, le=1e-4, default=1.2e-6)
+    air_m3: float = Field(gt=0, le=1e-4, default=2.0e-6)
+    diameter_m: float = Field(ge=0.002, le=0.05, default=0.012)
+
+
+class DiverExhibitIn(_In):
+    diver: DiverIn
+    depth_m: float = Field(ge=0.05, le=2, default=0.30)
+
+
 # ── the pages' starting point ────────────────────────────────────────────────
 
 
@@ -844,6 +860,7 @@ class ExperimentsDefaultsOut(_Out):
     plates: PlatesIn
     bounce: BounceIn
     overhang: OverhangIn
+    diver: DiverExhibitIn
     chladni: ChladniPlateIn
     #: The exhibit's meter: digital, ± this many amperes.
     meter_range_a: float

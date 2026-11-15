@@ -315,6 +315,12 @@
         "title": "Der überhängende Stapel",
         "summary": "Gleiche Klötze, ohne Leim gestapelt, ragen weiter über eine Kante hinaus, als ein Klotz lang ist – wenn man sie richtig verschiebt.",
         "question": "Wie weit kann ein Stapel aus neun Klötzen über die Kante hinausragen, ohne zu kippen?"
+      },
+      "diver": {
+        "short": "Kartesischer Taucher",
+        "title": "Der kartesische Taucher",
+        "summary": "Ein Glasröhrchen mit einer Luftblase schwimmt in einer Flasche. Drückt man die Flasche, sinkt es – und es gibt genau eine Tiefe, in der es schweben würde.",
+        "question": "Warum sinkt der Taucher, wenn man die Flasche drückt, und warum bleibt er nie in der Mitte stehen?"
       }
     },
     "chair": {
@@ -2813,6 +2819,92 @@
         "system": "Die Seite prüft für jede Lage, ob der gemeinsame Schwerpunkt der Klötze von ihr an aufwärts über ihrer Auflage liegt; mehr braucht es für einen Stapel mit einem Klotz pro Lage nicht. Der weiteste Stapel ist von oben her gebaut, jeder Klotz um 1/(2k) hinaus.",
         "check": "Die Tests der Seite rechnen den Überhang mit exakten Brüchen nach und suchen blind unter je zwanzigtausend zufälligen Stapeln aus drei und aus vier Klötzen: Keiner, der hält, ragt weiter hinaus als der harmonische. Gerechnet wird in Ihrem Browser, mit denselben Formeln wie im Rechenkern der Seite.",
         "left_out": "Weggelassen: Stapel mit mehreren Klötzen in einer Lage, bei denen einige als Gegengewicht dienen – damit kommt man noch weiter (Paterson und Zwick); die Reibung, denn die Klötze rutschen hier nie, sie kippen nur; dass Holz nachgibt; das Zittern der Hand. Die Klötze sind 20 cm lang und 4 cm hoch."
+      }
+    },
+    "diver": {
+      "at": {
+        "bottle": "In einer Flasche voll Wasser schwimmt ein kleines Glasröhrchen, unten offen, oben mit einer Luftblase darin, die es gerade noch trägt.",
+        "squeeze": "Drückt man die Flasche zusammen, sinkt der Taucher; lässt man los, steigt er wieder.",
+        "hover": "Dazwischen gibt es eine Tiefe, in der er schweben würde. Doch dort bleibt er nie: Er sinkt weiter oder steigt."
+      },
+      "view": "Die Flasche mit Wasser, dem Taucher und der Tiefe, in der er schweben würde",
+      "play": {
+        "title": "Die Flasche drücken",
+        "hint": "Drücken Sie die Flasche mit dem Regler. Versuchen Sie, den Taucher in der Mitte schweben zu lassen.",
+        "pause": "Anhalten",
+        "run": "Weiter",
+        "surface": "Zur Oberfläche",
+        "squeeze": "Druck der Hand",
+        "squeeze_hint": "Wie stark die Hand den Druck in der Flasche erhöht.",
+        "caption": "Die Flasche, {{depth}} cm Wasser; gestrichelt die Tiefe, in der der Taucher bei diesem Druck schweben würde. Der Taucher ist vergrössert.",
+        "hover_line": "schwebt hier",
+        "motion": {
+          "floats": "Der Taucher schwimmt oben.",
+          "rises": "Der Taucher steigt.",
+          "hovers": "Der Taucher schwebt – noch.",
+          "sinks": "Der Taucher sinkt.",
+          "bottom": "Der Taucher liegt am Grund."
+        },
+        "depth": "Tiefe",
+        "speed": "Sinkgeschwindigkeit",
+        "bubble": "Luftblase",
+        "hover": "Schwebetiefe"
+      },
+      "change": {
+        "title": "Den Taucher umbauen",
+        "hint": "Geben Sie dem Taucher mehr oder weniger Luft und ändern Sie die Höhe des Wassers.",
+        "air": "Luft im Taucher",
+        "air_hint": "Die Luftblase an der Oberfläche, ohne Druck. Unter 1,81 cm³ ginge er unter.",
+        "depth": "Wasserhöhe",
+        "depth_hint": "Wie tief das Wasser in der Flasche ist."
+      },
+      "figures": {
+        "reserve": "Auftriebsreserve an der Oberfläche",
+        "bubble": "Luftblase zum Schweben",
+        "sinking": "Druck, der ihn oben sinken lässt",
+        "bottom": "Druck, unter dem er vom Grund steigt"
+      },
+      "chart": {
+        "hover_hint": "Die Tiefe, in der der Taucher schweben würde, je nach Druck der Hand; gestrichelt Oberfläche und Grund.",
+        "hover": "Schwebetiefe",
+        "surface": "Oberfläche",
+        "bottom": "Grund",
+        "depth": "Tiefe",
+        "squeeze": "Druck der Hand",
+        "lift_hint": "Auftrieb weniger Gewicht, je nach Tiefe, für drei Drücke der Hand. Wo die Linie null kreuzt, schwebt er; darüber steigt er, darunter sinkt er.",
+        "lift": "Auftrieb weniger Gewicht"
+      },
+      "model": {
+        "intro": "Der Taucher schwimmt, weil er mit Glas und Luftblase zusammen etwas mehr Wasser verdrängt, als er wiegt. Die Luft lässt sich zusammendrücken, das Glas nicht.",
+        "boyle": "Die Luftblase wird kleiner, je höher der Druck: der Luftdruck, der Druck der Hand und das Gewicht des Wassers darüber (Boyle-Mariotte).",
+        "lift": "Auftrieb weniger Gewicht: Er steigt, solange die verdrängte Wassermenge mehr wiegt als er.",
+        "hover": "Die Tiefe, in der beides gleich ist. Jedes Kilopascal Druck der Hand hebt sie um 10,2 cm.",
+        "motion": "Die Bewegung: Zur Masse des Glases kommt das mitbewegte Wasser, und das Wasser bremst."
+      },
+      "symbols": {
+        "v": "Luftblase",
+        "v0": "Luftblase an der Oberfläche ohne Druck",
+        "p0": "Luftdruck",
+        "dp": "Druck der Hand",
+        "rho": "Dichte des Wassers",
+        "g": "Erdbeschleunigung",
+        "z": "Tiefe",
+        "f": "Auftrieb weniger Gewicht",
+        "vg": "Volumen des Glases",
+        "m": "Masse des Glases",
+        "zs": "Schwebetiefe",
+        "cd": "Widerstandsbeiwert",
+        "a": "Querschnitt des Tauchers"
+      },
+      "sweet": {
+        "unstable": "Der Trick: Das Gleichgewicht ist labil. Etwas unter der Schwebetiefe drückt das Wasser die Blase stärker zusammen, der Taucher wird schwerer für seine Grösse und sinkt weiter, bis zum Grund. Etwas darüber wird die Blase grösser, und er steigt bis zur Oberfläche. Schon einen halben Zentimeter daneben geht er den ganzen Weg.",
+        "numbers": "Der Taucher hier hat 3 g Glas (1,2 cm³) und 2 cm³ Luft; er trägt an der Oberfläche 0,19 g mehr, als er wiegt. Ab 10,9 kPa Druck sinkt er von oben; unter 7,9 kPa steigt er sogar vom Grund der 30 cm hohen Flasche. Zum Schweben braucht er eine Blase von 1,81 cm³.",
+        "chase": "Wer ihn schweben lassen will, muss ihm darum ständig nachregeln: lockerer, wenn er sinkt, fester, wenn er steigt – und mehr, als man denkt, denn die Schwebetiefe wandert mit jedem Kilopascal um 10 cm."
+      },
+      "computed": {
+        "system": "Die Seite rechnet die Bewegung Schritt für Schritt, alle 2 ms (Runge-Kutta), mit dem Druck der Hand, wie er gerade ist. An der Oberfläche schwimmt der Taucher, am Grund liegt er.",
+        "check": "Die Tests der Seite halten die Luftblase gegen das Gesetz von Boyle-Mariotte, zeigen, dass der Auftrieb in der Schwebetiefe genau verschwindet, darüber hebt und darunter zieht, und halten die Schritte gegen dieselbe Gleichung, zwanzigmal feiner gerechnet. Gerechnet wird in Ihrem Browser, mit denselben Formeln wie im Rechenkern der Seite.",
+        "left_out": "Weggelassen: dass Wasser erst ins Röhrchen fliessen muss, bevor die Blase schrumpft (hier folgt sie dem Druck sofort); dass Wasser und Flasche ein wenig nachgeben; die Luft im Flaschenhals, deren Druck hier direkt der Druck der Hand ist; dass der Taucher an der Oberfläche ein wenig herausragt; die Temperatur. Die Werte sind ein angenommener Taucher: 3 g Glas (1,2 cm³) und 2 cm³ Luft, in einer 30 cm hohen Flasche."
       }
     }
   },

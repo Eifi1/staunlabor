@@ -40,7 +40,8 @@ export type Exhibit =
   | "circuit"
   | "plates"
   | "bounce"
-  | "overhang";
+  | "overhang"
+  | "diver";
 
 /** What an exhibit is about, as a reader would look for it: one word each,
  *  and an exhibit may be about two. */
@@ -267,6 +268,13 @@ export const EXHIBITS: readonly ExhibitEntry[] = [
     path: "/overhang",
     topics: ["equilibrium"],
     lessons: [],
+    since: SECOND_SERIES,
+  },
+  {
+    exhibit: "diver",
+    path: "/diver",
+    topics: ["equilibrium"],
+    lessons: ["second_order"],
     since: SECOND_SERIES,
   },
 ];

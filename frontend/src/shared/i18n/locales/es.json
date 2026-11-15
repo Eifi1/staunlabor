@@ -315,6 +315,12 @@
         "title": "La pila en voladizo",
         "summary": "Bloques iguales, apilados sin cola, sobresalen de un borde más de lo que mide un bloque, si se desplazan bien.",
         "question": "¿Cuánto puede sobresalir del borde una pila de nueve bloques sin volcar?"
+      },
+      "diver": {
+        "short": "Ludión",
+        "title": "El ludión",
+        "summary": "Un tubito de vidrio con una burbuja de aire flota en una botella. Al apretar la botella se hunde, y hay exactamente una profundidad en la que flotaría quieto.",
+        "question": "¿Por qué se hunde el ludión al apretar la botella, y por qué nunca se queda en medio?"
       }
     },
     "chair": {
@@ -2813,6 +2819,92 @@
         "system": "La página comprueba en cada capa si el centro de masa de los bloques de ella hacia arriba está sobre su apoyo; una pila de un bloque por capa no necesita más. La pila más lejana se construye desde arriba, cada bloque 1/(2k) más afuera.",
         "check": "Las pruebas de la página recalculan el voladizo con fracciones exactas y buscan a ciegas entre veinte mil pilas aleatorias de tres y de cuatro bloques: ninguna que aguante sobresale más que la armónica. Se calcula en su navegador, con las mismas fórmulas que el motor de cálculo de la página.",
         "left_out": "Se omite: pilas con varios bloques por capa, algunos de contrapeso, que llegan aún más lejos (Paterson y Zwick); el rozamiento, pues aquí los bloques nunca resbalan, solo vuelcan; que la madera cede; el temblor de la mano. Los bloques miden 20 cm de largo y 4 cm de alto."
+      }
+    },
+    "diver": {
+      "at": {
+        "bottle": "En una botella llena de agua flota un tubito de vidrio, abierto por abajo, con una burbuja de aire arriba que lo mantiene justo a flote.",
+        "squeeze": "Si se aprieta la botella, el ludión se hunde; si se suelta, vuelve a subir.",
+        "hover": "Entre medias hay una profundidad en la que flotaría quieto. Pero nunca se queda allí: sigue hundiéndose o sube."
+      },
+      "view": "La botella con el agua, el ludión y la profundidad en la que flotaría quieto",
+      "play": {
+        "title": "Apretar la botella",
+        "hint": "Apriete la botella con el regulador. Intente que el ludión flote quieto en medio.",
+        "pause": "Detener",
+        "run": "Seguir",
+        "surface": "A la superficie",
+        "squeeze": "Presión de la mano",
+        "squeeze_hint": "Cuánto eleva la mano la presión en la botella.",
+        "caption": "La botella, {{depth}} cm de agua; a trazos, la profundidad en la que el ludión flotaría quieto con esta presión. El ludión está dibujado más grande.",
+        "hover_line": "flota aquí",
+        "motion": {
+          "floats": "El ludión flota arriba.",
+          "rises": "El ludión sube.",
+          "hovers": "El ludión flota quieto, por ahora.",
+          "sinks": "El ludión se hunde.",
+          "bottom": "El ludión está en el fondo."
+        },
+        "depth": "Profundidad",
+        "speed": "Velocidad de hundimiento",
+        "bubble": "Burbuja",
+        "hover": "Profundidad de equilibrio"
+      },
+      "change": {
+        "title": "Modificar el ludión",
+        "hint": "Dé al ludión más o menos aire y cambie la altura del agua.",
+        "air": "Aire en el ludión",
+        "air_hint": "La burbuja en la superficie, sin presión. Por debajo de 1,81 cm³ se hundiría.",
+        "depth": "Altura del agua",
+        "depth_hint": "Qué profundidad tiene el agua en la botella."
+      },
+      "figures": {
+        "reserve": "Reserva de empuje en la superficie",
+        "bubble": "Burbuja para flotar quieto",
+        "sinking": "Presión que lo hunde desde arriba",
+        "bottom": "Presión bajo la cual sube desde el fondo"
+      },
+      "chart": {
+        "hover_hint": "La profundidad en la que el ludión flotaría quieto, según la presión de la mano; a trazos, la superficie y el fondo.",
+        "hover": "Profundidad de equilibrio",
+        "surface": "Superficie",
+        "bottom": "Fondo",
+        "depth": "Profundidad",
+        "squeeze": "Presión de la mano",
+        "lift_hint": "Empuje menos peso según la profundidad, para tres presiones de la mano. Donde una línea cruza el cero flota quieto; por encima sube, por debajo se hunde.",
+        "lift": "Empuje menos peso"
+      },
+      "model": {
+        "intro": "El ludión flota porque, con su vidrio y su burbuja, desplaza un poco más de agua de lo que pesa. El aire se puede comprimir; el vidrio, no.",
+        "boyle": "La burbuja se encoge al crecer la presión: la del aire, la de la mano y el peso del agua de encima (ley de Boyle-Mariotte).",
+        "lift": "Empuje menos peso: sube mientras el agua que desplaza pese más que él.",
+        "hover": "La profundidad en la que ambos son iguales. Cada kilopascal de presión de la mano la sube 10,2 cm.",
+        "motion": "El movimiento: a la masa del vidrio se suma el agua que arrastra, y el agua lo frena."
+      },
+      "symbols": {
+        "v": "burbuja",
+        "v0": "burbuja en la superficie sin presión",
+        "p0": "presión del aire",
+        "dp": "presión de la mano",
+        "rho": "densidad del agua",
+        "g": "aceleración de la gravedad",
+        "z": "profundidad",
+        "f": "empuje menos peso",
+        "vg": "volumen del vidrio",
+        "m": "masa del vidrio",
+        "zs": "profundidad de equilibrio",
+        "cd": "coeficiente de arrastre",
+        "a": "sección del ludión"
+      },
+      "sweet": {
+        "unstable": "El truco: el equilibrio es inestable. Un poco por debajo de la profundidad de equilibrio, el agua comprime más la burbuja, el ludión pesa más para su tamaño y sigue hundiéndose hasta el fondo. Un poco por encima, la burbuja crece y sube hasta la superficie. Basta medio centímetro de diferencia para que recorra todo el camino.",
+        "numbers": "El ludión de aquí tiene 3 g de vidrio (1,2 cm³) y 2 cm³ de aire; en la superficie sostiene 0,19 g más de lo que pesa. A partir de 10,9 kPa de presión se hunde desde arriba; por debajo de 7,9 kPa sube incluso desde el fondo de la botella de 30 cm. Para flotar quieto necesita una burbuja de 1,81 cm³.",
+        "chase": "Quien quiera mantenerlo quieto tiene que corregirlo sin parar: aflojar cuando se hunde, apretar cuando sube, y más de lo que se piensa, porque la profundidad de equilibrio se desplaza 10 cm por cada kilopascal."
+      },
+      "computed": {
+        "system": "La página calcula el movimiento paso a paso, cada 2 ms (Runge-Kutta), con la presión de la mano tal como es en ese momento. En la superficie el ludión flota; en el fondo, se queda.",
+        "check": "Las pruebas de la página contrastan la burbuja con la ley de Boyle-Mariotte, muestran que el empuje se anula justo en la profundidad de equilibrio, que encima eleva y debajo hunde, y contrastan los pasos con la misma ecuación calculada veinte veces más fina. Se calcula en su navegador, con las mismas fórmulas que el motor de cálculo de la página.",
+        "left_out": "Se omite: que el agua tiene que entrar primero en el tubito antes de que la burbuja se encoja (aquí sigue a la presión al instante); que el agua y la botella ceden un poco; el aire del cuello de la botella, cuya presión es aquí directamente la de la mano; que en la superficie el ludión sobresale un poco; la temperatura. Los valores son un ludión supuesto: 3 g de vidrio (1,2 cm³) y 2 cm³ de aire, en una botella de 30 cm."
       }
     }
   },

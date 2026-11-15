@@ -705,6 +705,15 @@ export interface OverhangRequest {
   height_m: number;
 }
 
+// ── the Cartesian diver ──────────────────────────────────────────────────────
+
+/** The engine's `Diver` and its bottle's depth. No route: the page asks the
+ *  port (`simulate/diver.ts`). */
+export interface DiverRequest {
+  diver: { glass_kg: number; glass_m3: number; air_m3: number; diameter_m: number };
+  depth_m: number;
+}
+
 // ── the chain and the arch ───────────────────────────────────────────────────
 
 /** The engine's `Arch`. No route: the page asks the port (`simulate/arch.ts`). */
@@ -767,6 +776,7 @@ export interface ExperimentsDefaults {
   plates: PlatesRequest;
   bounce: BounceRequest;
   overhang: OverhangRequest;
+  diver: DiverRequest;
   meter_range_a: number;
   settle_s: number;
 }

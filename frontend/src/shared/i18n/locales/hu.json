@@ -315,6 +315,12 @@
         "title": "A kinyúló torony",
         "summary": "Egyforma, ragasztó nélkül egymásra rakott hasábok messzebb nyúlnak túl egy élen, mint amilyen hosszú egy hasáb – ha jól toljuk el őket.",
         "question": "Milyen messzire nyúlhat túl az élen kilenc hasáb, anélkül hogy felborulna?"
+      },
+      "diver": {
+        "short": "Cartesius-búvár",
+        "title": "A Cartesius-búvár",
+        "summary": "Egy légbuborékos üvegcső úszik egy palackban. Ha megnyomjuk a palackot, lesüllyed – és pontosan egy mélység van, ahol lebegne.",
+        "question": "Miért süllyed le a búvár, ha megnyomjuk a palackot, és miért nem marad soha középen?"
       }
     },
     "chair": {
@@ -2813,6 +2819,92 @@
         "system": "Az oldal minden rétegnél ellenőrzi, hogy az attól felfelé lévő hasábok közös tömegközéppontja az alátámasztása fölött van-e; rétegenként egy hasábos toronyhoz ennél több nem kell. A legmesszebb nyúló tornyot felülről építjük, minden hasábot 1/(2k)-val kijjebb.",
         "check": "Az oldal tesztjei pontos törtekkel számolják újra a kinyúlást, és vakon keresnek húszezer-húszezer véletlen három- és négyhasábos torony között: egyik sem nyúlik ki messzebb a harmonikusnál, amely megáll. A számítás az Ön böngészőjében fut, ugyanazokkal a képletekkel, mint az oldal számítómagja.",
         "left_out": "Kimaradt: a rétegenként több hasábos tornyok, ahol némelyik ellensúlyként szolgál – azokkal még messzebb lehet jutni (Paterson és Zwick); a súrlódás, mert a hasábok itt sosem csúsznak meg, csak felborulnak; a fa engedése; a kéz remegése. A hasábok 20 cm hosszúak és 4 cm magasak."
+      }
+    },
+    "diver": {
+      "at": {
+        "bottle": "Egy vízzel teli palackban egy kis, alul nyitott üvegcső úszik, tetején egy légbuborékkal, amely épp csak a felszínen tartja.",
+        "squeeze": "Ha összenyomjuk a palackot, a búvár lesüllyed; ha elengedjük, újra feljön.",
+        "hover": "Közben van egy mélység, ahol lebegne. De ott sosem marad: tovább süllyed vagy feljön."
+      },
+      "view": "A palack a vízzel, a búvárral és a mélységgel, ahol lebegne",
+      "play": {
+        "title": "A palack megnyomása",
+        "hint": "Nyomja meg a palackot a csúszkával. Próbálja a búvárt középen lebegtetni.",
+        "pause": "Megállítás",
+        "run": "Tovább",
+        "surface": "Vissza a felszínre",
+        "squeeze": "A kéz nyomása",
+        "squeeze_hint": "Mennyivel növeli a kéz a nyomást a palackban.",
+        "caption": "A palack, {{depth}} cm víz; szaggatottan a mélység, ahol a búvár ennél a nyomásnál lebegne. A búvár nagyítva látszik.",
+        "hover_line": "itt lebeg",
+        "motion": {
+          "floats": "A búvár fent úszik.",
+          "rises": "A búvár emelkedik.",
+          "hovers": "A búvár lebeg – egyelőre.",
+          "sinks": "A búvár süllyed.",
+          "bottom": "A búvár a fenéken fekszik."
+        },
+        "depth": "Mélység",
+        "speed": "Süllyedési sebesség",
+        "bubble": "Buborék",
+        "hover": "Lebegési mélység"
+      },
+      "change": {
+        "title": "A búvár átépítése",
+        "hint": "Adjon a búvárnak több vagy kevesebb levegőt, és változtassa a víz magasságát.",
+        "air": "Levegő a búvárban",
+        "air_hint": "A buborék a felszínen, nyomás nélkül. 1,81 cm³ alatt elsüllyedne.",
+        "depth": "Vízmagasság",
+        "depth_hint": "Milyen mély a víz a palackban."
+      },
+      "figures": {
+        "reserve": "Felhajtóerő-tartalék a felszínen",
+        "bubble": "Buborék a lebegéshez",
+        "sinking": "Nyomás, amely fentről lesüllyeszti",
+        "bottom": "Nyomás, amely alatt a fenékről is feljön"
+      },
+      "chart": {
+        "hover_hint": "A mélység, ahol a búvár lebegne, a kéz nyomása szerint; szaggatottan a felszín és a fenék.",
+        "hover": "Lebegési mélység",
+        "surface": "Felszín",
+        "bottom": "Fenék",
+        "depth": "Mélység",
+        "squeeze": "A kéz nyomása",
+        "lift_hint": "Felhajtóerő mínusz súly a mélység szerint, a kéz három nyomásánál. Ahol egy vonal nullát metsz, ott lebeg; fölötte emelkedik, alatta süllyed.",
+        "lift": "Felhajtóerő mínusz súly"
+      },
+      "model": {
+        "intro": "A búvár azért úszik, mert az üvegével és a buborékjával együtt valamivel több vizet szorít ki, mint amennyi a súlya. A levegő összenyomható, az üveg nem.",
+        "boyle": "A buborék a nyomás növekedésével zsugorodik: a légnyomás, a kéz nyomása és a fölötte lévő víz súlya szerint (Boyle–Mariotte-törvény).",
+        "lift": "Felhajtóerő mínusz súly: addig emelkedik, amíg a kiszorított víz többet nyom nála.",
+        "hover": "A mélység, ahol a kettő egyenlő. A kéz minden kilopascalnyi nyomása 10,2 cm-rel feljebb viszi.",
+        "motion": "A mozgás: az üveg tömegéhez hozzájön a magával vitt víz, és a víz fékez."
+      },
+      "symbols": {
+        "v": "buborék",
+        "v0": "buborék a felszínen nyomás nélkül",
+        "p0": "légnyomás",
+        "dp": "a kéz nyomása",
+        "rho": "a víz sűrűsége",
+        "g": "nehézségi gyorsulás",
+        "z": "mélység",
+        "f": "felhajtóerő mínusz súly",
+        "vg": "az üveg térfogata",
+        "m": "az üveg tömege",
+        "zs": "lebegési mélység",
+        "cd": "ellenállási tényező",
+        "a": "a búvár keresztmetszete"
+      },
+      "sweet": {
+        "unstable": "A trükk: az egyensúly labilis. Kicsivel a lebegési mélység alatt a víz jobban összenyomja a buborékot, a búvár a méretéhez képest nehezebb lesz, és tovább süllyed a fenékig. Kicsivel fölötte a buborék nő, és felemelkedik a felszínig. Fél centiméter eltérés elég, hogy végigmenjen.",
+        "numbers": "Az itteni búvárban 3 g üveg (1,2 cm³) és 2 cm³ levegő van; a felszínen 0,19 g-mal többet tart, mint a súlya. 10,9 kPa nyomástól fentről lesüllyed; 7,9 kPa alatt még a 30 cm-es palack fenekéről is feljön. A lebegéshez 1,81 cm³-es buborék kell neki.",
+        "chase": "Aki lebegtetni akarja, folyton utána kell igazítania: engedni, ha süllyed, nyomni, ha emelkedik – és többet, mint gondolná, mert a lebegési mélység kilopascalonként 10 cm-t vándorol."
+      },
+      "computed": {
+        "system": "Az oldal 2 ms-onként lépésenként számolja a mozgást (Runge–Kutta), a kéz pillanatnyi nyomásával. A felszínen a búvár úszik, a fenéken fekszik.",
+        "check": "Az oldal tesztjei a buborékot a Boyle–Mariotte-törvénnyel vetik össze, megmutatják, hogy a felhajtóerő-többlet pontosan a lebegési mélységben tűnik el, fölötte emel, alatta húz, és a lépéseket ugyanazzal a hússzor finomabban számolt egyenlettel vetik össze. A számítás az Ön böngészőjében fut, ugyanazokkal a képletekkel, mint az oldal számítómagja.",
+        "left_out": "Kimaradt: hogy a víznek előbb be kell folynia a csőbe, mielőtt a buborék zsugorodik (itt azonnal követi a nyomást); hogy a víz és a palack kissé enged; a palack nyakában lévő levegő, amelynek nyomása itt közvetlenül a kéz nyomása; hogy a búvár a felszínen kissé kilóg a vízből; a hőmérséklet. Az értékek egy feltételezett búvárt írnak le: 3 g üveg (1,2 cm³) és 2 cm³ levegő, egy 30 cm-es palackban."
       }
     }
   },

@@ -37,6 +37,7 @@ import {
   ChevronsDown,
   Volleyball,
   Layers,
+  TestTube,
 } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
 import {
@@ -94,6 +95,7 @@ const ICON: Record<Exhibit, LucideIcon> = {
   plates: ChevronsDown,
   bounce: Volleyball,
   overhang: Layers,
+  diver: TestTube,
 };
 
 /** Two weeks back, in the dialog: long enough to find the one a friend

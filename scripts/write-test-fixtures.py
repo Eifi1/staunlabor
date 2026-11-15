@@ -73,6 +73,7 @@ UNROUTED = (
     "plates",
     "bounce",
     "overhang",
+    "diver",
 )
 
 

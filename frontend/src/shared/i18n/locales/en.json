@@ -315,6 +315,12 @@
         "title": "The overhanging stack",
         "summary": "Identical blocks, stacked without glue, reach further out over an edge than a block is long – if they are shifted right.",
         "question": "How far can a stack of nine blocks reach out over the edge without tipping?"
+      },
+      "diver": {
+        "short": "Cartesian diver",
+        "title": "The Cartesian diver",
+        "summary": "A small glass tube with a bubble of air floats in a bottle. Squeeze the bottle and it sinks – and there is exactly one depth where it would hover.",
+        "question": "Why does the diver sink when the bottle is squeezed, and why does it never stay in the middle?"
       }
     },
     "chair": {
@@ -2813,6 +2819,92 @@
         "system": "The page checks at every layer whether the centre of mass of the blocks from it upward lies over its footing; a stack of one block a layer needs nothing more. The furthest stack is built from the top, each block 1/(2k) further out.",
         "check": "The page's tests work the overhang out again in exact fractions and search blindly among twenty thousand random stacks of three and of four blocks each: none that holds reaches further than the harmonic one. The computing happens in your browser, with the same formulas as the site's engine.",
         "left_out": "Left out: stacks with several blocks to a layer, some of them counterweights – which reach further still (Paterson and Zwick); friction, as the blocks here never slide, they only tip; the wood giving way; a shaking hand. The blocks are 20 cm long and 4 cm high."
+      }
+    },
+    "diver": {
+      "at": {
+        "bottle": "In a bottle full of water floats a small glass tube, open at the bottom, with a bubble of air at its top that just keeps it afloat.",
+        "squeeze": "Squeeze the bottle and the diver sinks; let go and it rises again.",
+        "hover": "In between there is a depth where it would hover. But it never stays there: it sinks on or it rises."
+      },
+      "view": "The bottle with its water, the diver and the depth it would hover at",
+      "play": {
+        "title": "Squeeze the bottle",
+        "hint": "Squeeze the bottle with the slider. Try to keep the diver hovering in the middle.",
+        "pause": "Pause",
+        "run": "Go on",
+        "surface": "Back to the surface",
+        "squeeze": "The hand's squeeze",
+        "squeeze_hint": "How much the hand raises the pressure in the bottle.",
+        "caption": "The bottle, {{depth}} cm of water; dashed, the depth the diver would hover at with this squeeze. The diver is drawn larger than it is.",
+        "hover_line": "hovers here",
+        "motion": {
+          "floats": "The diver floats at the top.",
+          "rises": "The diver rises.",
+          "hovers": "The diver hovers – for now.",
+          "sinks": "The diver sinks.",
+          "bottom": "The diver lies on the bottom."
+        },
+        "depth": "Depth",
+        "speed": "Sinking speed",
+        "bubble": "Bubble",
+        "hover": "Hover depth"
+      },
+      "change": {
+        "title": "Rebuild the diver",
+        "hint": "Give the diver more or less air and change the height of the water.",
+        "air": "Air in the diver",
+        "air_hint": "The bubble at the surface, unsqueezed. Under 1.81 cm³ it would go under.",
+        "depth": "Water's height",
+        "depth_hint": "How deep the water in the bottle is."
+      },
+      "figures": {
+        "reserve": "Spare buoyancy at the surface",
+        "bubble": "Bubble it hovers with",
+        "sinking": "Squeeze that sinks it from the top",
+        "bottom": "Squeeze under which it rises from the bottom"
+      },
+      "chart": {
+        "hover_hint": "The depth the diver would hover at, by the hand's squeeze; dashed, the surface and the bottom.",
+        "hover": "Hover depth",
+        "surface": "Surface",
+        "bottom": "Bottom",
+        "depth": "Depth",
+        "squeeze": "The hand's squeeze",
+        "lift_hint": "Buoyancy less weight by depth, for three squeezes of the hand. Where a line crosses zero it hovers; above, it rises, below, it sinks.",
+        "lift": "Buoyancy less weight"
+      },
+      "model": {
+        "intro": "The diver floats because with its glass and its bubble it displaces a little more water than it weighs. The air can be squeezed, the glass cannot.",
+        "boyle": "The bubble shrinks as the pressure grows: the air's pressure, the hand's squeeze and the weight of the water above it (Boyle's law).",
+        "lift": "Buoyancy less weight: it rises while the water it displaces weighs more than it does.",
+        "hover": "The depth where the two are equal. Every kilopascal of the hand's squeeze lifts it by 10.2 cm.",
+        "motion": "The motion: to the glass's mass add the water it drags along, and the water brakes it."
+      },
+      "symbols": {
+        "v": "bubble",
+        "v0": "bubble at the surface, unsqueezed",
+        "p0": "air pressure",
+        "dp": "the hand's squeeze",
+        "rho": "density of water",
+        "g": "acceleration of gravity",
+        "z": "depth",
+        "f": "buoyancy less weight",
+        "vg": "volume of the glass",
+        "m": "mass of the glass",
+        "zs": "hover depth",
+        "cd": "drag coefficient",
+        "a": "cross-section of the diver"
+      },
+      "sweet": {
+        "unstable": "The trick: the balance is unstable. A little below the hover depth the water squeezes the bubble harder, the diver grows heavier for its size and sinks on, to the bottom. A little above, the bubble grows and it rises to the surface. Half a centimetre off is enough for it to go all the way.",
+        "numbers": "The diver here has 3 g of glass (1.2 cm³) and 2 cm³ of air; at the surface it carries 0.19 g more than it weighs. From a squeeze of 10.9 kPa it sinks from the top; under 7.9 kPa it rises even from the bottom of the 30 cm bottle. To hover it needs a bubble of 1.81 cm³.",
+        "chase": "To keep it hovering you must chase it all the time: ease off when it sinks, squeeze when it rises – and more than you think, as the hover depth moves 10 cm with every kilopascal."
+      },
+      "computed": {
+        "system": "The page steps the motion every 2 ms (Runge–Kutta), with the hand's squeeze as it is at that moment. At the surface the diver floats; on the bottom it lies.",
+        "check": "The page's tests hold the bubble to Boyle's law, show the buoyancy vanishing exactly at the hover depth, lifting above it and pulling below, and hold the steps to the same equation stepped twenty times finer. The computing happens in your browser, with the same formulas as the site's engine.",
+        "left_out": "Left out: that water must first run into the tube before the bubble shrinks (here it follows the pressure at once); the water and the bottle giving a little; the air in the bottle's neck, whose pressure here is the hand's squeeze directly; the diver poking out of the water at the surface; temperature. The values are an assumed diver: 3 g of glass (1.2 cm³) and 2 cm³ of air, in a bottle 30 cm deep."
       }
     }
   },

@@ -313,6 +313,15 @@
       "length_m": 0.2,
       "height_m": 0.04
     },
+    "diver": {
+      "diver": {
+        "glass_kg": 0.003,
+        "glass_m3": 1.2e-06,
+        "air_m3": 2e-06,
+        "diameter_m": 0.012
+      },
+      "depth_m": 0.3
+    },
     "chladni": {
       "side_m": 0.24,
       "thickness_m": 0.001,

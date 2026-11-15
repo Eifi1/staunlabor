@@ -84,11 +84,11 @@ quarter for one that came right after yesterday's in the round before. Those
 are the second series' maluses (Marcel, 2026-11-15: "Tagesminus sollte weniger
 zählen"); the first series drew with a quarter and a tenth, and its rounds keep
 them, so the days the live site has shown keep their exhibit. Measured over
-400 rounds of all 30 (a plain shuffle, then the old maluses, in brackets):
-repeated pairs 0.46 a round (1.19; 0.30), repeated triples 0.005 (0.055;
-0.003), neighbours sharing a topic 22.6 days in a hundred (30.1; 16.6); with
-29, before the overhang, 0.46 and 23.9, with 28, before the bouncing ball,
-0.48 and 25.1. With eleven exhibits about energy,
+400 rounds of all 31 (a plain shuffle, then the old maluses, in brackets):
+repeated pairs 0.47 a round (1.21; 0.29), repeated triples 0.003 (0.043;
+0.003), neighbours sharing a topic 20.6 days in a hundred (28.9; 15.0); with
+30, before the Cartesian diver, 0.46 and 22.6, with 29, before the overhang,
+0.46 and 23.9. With eleven exhibits about energy,
 nine about oscillation and eight about angular momentum, the quarter held a
 topic back on most days.
 They were measured over 2000 rounds against a plain shuffle (`daily.ts` has
@@ -103,8 +103,8 @@ less, and less with every exhibit: with eight it cut the turns that come after
 more than a round and two days by a quarter, with fifteen by an eighth (1456
 against 1670 over 400 rounds), with sixteen by a tenth (2311 against 2555),
 with 26 by a twentieth (10259 against 10834 over 1200 rounds), with 27 to
-30 the same (10513 against 11135, 11237 against 11819, 11640 against 12183,
-12332 against 12882);
+31 the same (10513 against 11135, 11237 against 11819, 11640 against 12183,
+12332 against 12882, 12771 against 13269);
 `daily.test.ts` now holds it only to a fiftieth. Its weight a day is fixed
 while a round grows longer, and stays so: Marcel weakened the maluses instead
 (2026-11-15).
@@ -1633,6 +1633,59 @@ step wider; the blocks for one to four lengths; the furthest stack at every
 edge at once and a nudge tipping its layer and all below; a blind search of
 20 000 random stacks of three and of four, none holding past the harmonic; the
 refusals.
+
+## The Cartesian diver (`experiments.diver`)
+
+**The exhibit** (2026-11-16, the fourth of stage 4, local feedback entry #24;
+inspired by "Kartesischer Taucher" at the Technorama). A small glass tube,
+open below, with a bubble of air that just keeps it afloat in a bottle of
+water. Squeezed, the bottle sinks it; let go, it rises; in between there is a
+depth where it would hover, and it never stays there.
+
+**The model** (`domain/experiments/diver.py`). The bubble by Boyle's law,
+`V = V₀·p₀/(p₀ + Δp + ρ·g·z)`, `Δp` the hand's squeeze; buoyancy less weight
+`ρ·g·(V_g + V) − m·g`; the hover depth where it vanishes,
+`z* = (p₀·V₀/(m/ρ − V_g) − p₀ − Δp)/(ρ·g)`, unstable (the lift falls with
+depth). The motion with half its volume of water dragged along and a blunt
+tube's quadratic drag (`c_d = 1`), Runge–Kutta at 2 ms with the squeeze as it
+is at each step; past the surface it floats there, past the bottom it lies.
+
+**What it shows** (an assumed diver: 3 g of glass, 1.2 cm³, 2 cm³ of air,
+12 mm across, in 30 cm of water). It floats on 0.19 g of spare buoyancy and
+hovers with a bubble of 1.81 cm³; a squeeze of 10.9 kPa sinks it from the top,
+and under 7.9 kPa it rises even from the bottom. Each kilopascal of squeeze
+lifts the hover depth 10.2 cm (`1/(ρ·g)`). Half a centimetre off the hover
+depth, at 9, 10 or 10.5 kPa, it goes all the way, up or down, within 10 s.
+
+**The page.** The bottle with its water and the diver (drawn larger, its
+bubble's share of the tube following Boyle), the hand's push as arrows, the
+hover depth dashed while it lies in the bottle; a slider for the squeeze
+(0–25 kPa, keys for fine steps), the motion running all the time, paused or
+sent back to the surface; whether it floats, rises, hovers (for now), sinks
+or lies on the bottom, its depth, speed and bubble. Rebuilding (air
+1.85–2.5 cm³, water 10–100 cm) restarts it, with the spare buoyancy, the
+bubble it hovers with, the squeezes that sink it from the top and lift it from
+the bottom, and the hover depth over the squeeze. "The trick" has buoyancy
+less weight over depth for 9, 10 and 11 kPa, each crossing zero falling. The
+preview's hand squeezes and eases off around 9.4 kPa. Topic "equilibrium",
+lesson `second_order`. **No route**: the port's (`simulate/diver.ts`), held to
+the engine over six runs of 1500 steps (both ways off the hover depth, from the
+surface unsqueezed and squeezed hard, a deep bottle, a heavy wide diver in a
+short one), the bubble, the lift, the hover depths and the figures.
+
+**Joins the experiment of the day** on `SECOND_SERIES`, with the second series.
+
+**Left out, and said:** the water that must run into the tube before the
+bubble shrinks; the water's and the bottle's give; the air in the neck,
+whose pressure is the hand's squeeze here; the diver poking out at the
+surface; temperature.
+
+**Checked by** `tests/unit/test_experiments.py`: the spare buoyancy, the
+hover bubble, the two squeezes and the 10.2 cm a kilopascal; Boyle's
+`p·V` kept; the lift vanishing at the hover depth, lifting above and pulling
+below; all the way up or down from half a centimetre off, floating
+unsqueezed and lying on the bottom squeezed hard; the steps against the same
+equation written in the test and stepped twenty times finer; the refusals.
 
 ## The notice: the check still to come
 
