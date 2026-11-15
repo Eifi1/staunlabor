@@ -592,6 +592,18 @@ class MaxwellWheelIn(_In):
     stiffness_n_m: float = Field(ge=10, le=1e7, default=10000.0)
 
 
+# ── the chaotic pendulum ─────────────────────────────────────────────────────
+# No route: the page asks the port (``simulate/chaos.ts``).
+
+
+class DoublePendulumIn(_In):
+    length1_m: float = Field(ge=0.05, le=3, default=0.3)
+    length2_m: float = Field(ge=0.05, le=3, default=0.3)
+    mass1_kg: float = Field(ge=0.01, le=20, default=0.5)
+    mass2_kg: float = Field(ge=0.01, le=20, default=0.5)
+    damping_per_s: float = Field(ge=0, le=1, default=0.0)
+
+
 # ── the pages' starting point ────────────────────────────────────────────────
 
 
@@ -610,6 +622,7 @@ class ExperimentsDefaultsOut(_Out):
     coupled: CoupledPendulumsIn
     peg: PegPendulumIn
     maxwell: MaxwellWheelIn
+    chaos: DoublePendulumIn
     #: The exhibit's meter: digital, ± this many amperes.
     meter_range_a: float
     #: How long a page waits after the last slider step before asking.

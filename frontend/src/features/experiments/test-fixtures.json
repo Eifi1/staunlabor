@@ -161,6 +161,13 @@
       "loss": 0.03,
       "stiffness_n_m": 10000.0
     },
+    "chaos": {
+      "length1_m": 0.3,
+      "length2_m": 0.3,
+      "mass1_kg": 0.5,
+      "mass2_kg": 0.5,
+      "damping_per_s": 0.0
+    },
     "meter_range_a": 0.1,
     "settle_s": 0.15
   },

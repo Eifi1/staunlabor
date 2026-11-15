@@ -47,6 +47,8 @@ with SciPy before it was written (``docs/experiments.md``).
 * :mod:`maxwell` — Maxwell's wheel: a slow fall because nearly all its energy
   goes into its spin, a jerk at the bottom the strings' stretch sets, a climb
   nearly back.
+* :mod:`chaos` — the double pendulum: two that start a thousandth of a degree
+  apart part company, and the Lyapunov exponent measured Benettin's way.
 * :mod:`wave` — a row of pendulums tuned to swing ``N``, ``N + 1``, … times a
   cycle: waves, groups, and all together again — at the swing it was tuned for.
 
@@ -66,6 +68,10 @@ from staunlabor.domain.experiments.cannon import (
 from staunlabor.domain.experiments.cannon import drop as cannon_drop
 from staunlabor.domain.experiments.cannon import figures as cannon_figures
 from staunlabor.domain.experiments.cannon import launch as cannon_launch
+from staunlabor.domain.experiments.chaos import ChaosRun, DoublePendulum, lyapunov, separation
+from staunlabor.domain.experiments.chaos import energy as double_energy
+from staunlabor.domain.experiments.chaos import mode_rates as double_mode_rates
+from staunlabor.domain.experiments.chaos import run as run_chaos
 from staunlabor.domain.experiments.coil import (
     METER_RANGE_A,
     Coil,
@@ -307,6 +313,7 @@ __all__ = [
     "Box",
     "CannonFigures",
     "ChairAnalysis",
+    "ChaosRun",
     "Coil",
     "CoilAnalysis",
     "CoilCurve",
@@ -321,6 +328,7 @@ __all__ = [
     "CurveKind",
     "CurvePoint",
     "DoubleCone",
+    "DoublePendulum",
     "Drive",
     "DrivePath",
     "Drop",
@@ -424,6 +432,8 @@ __all__ = [
     "coupling",
     "couplings",
     "cycloid_through",
+    "double_energy",
+    "double_mode_rates",
     "dry_rate",
     "elephant_figures",
     "ellipk",
@@ -447,6 +457,7 @@ __all__ = [
     "length_for",
     "lengths_m",
     "lowest_orbit_hz",
+    "lyapunov",
     "mode_rates",
     "nearest_ratio",
     "orbit",
@@ -465,6 +476,7 @@ __all__ = [
     "ring_from_push",
     "roll",
     "rotation_share",
+    "run_chaos",
     "run_coil",
     "run_elephant",
     "run_peg",
@@ -474,6 +486,7 @@ __all__ = [
     "run_sphere",
     "run_wheel",
     "scatter",
+    "separation",
     "settle_race",
     "sight_lines",
     "skew",

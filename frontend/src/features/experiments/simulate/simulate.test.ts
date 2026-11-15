@@ -16,6 +16,7 @@
 import { describe, expect, it } from "vitest";
 import cases from "./engine-cases.json";
 import * as cannon from "./cannon";
+import * as chaos from "./chaos";
 import * as coil from "./coil";
 import * as cone from "./cone";
 import * as coupled from "./coupled";
@@ -660,5 +661,25 @@ describe("Maxwell's wheel's port", () => {
     const w = cases.maxwell[0].w as maxwell.MaxwellWheel;
     expect(maxwell.refusal({ ...w, axle_radius_m: 0.1 })).toBe("axle");
     expect(() => maxwell.stateAt(w, -1)).toThrow(RangeError);
+  });
+});
+
+describe("the chaotic pendulum's port", () => {
+  it.each(cases.chaos.map((c) => [c.name, c] as const))("swings %s as the engine does", (_name, c) => {
+    const dp = c.dp as chaos.DoublePendulum;
+    const [a, b] = c.start;
+    expect(differences(c.mode_rates, chaos.modeRates(dp))).toEqual([]);
+    expect(differences(c.lyapunov, chaos.lyapunov(dp, a, b, 3.0, 1e-4, undefined, c.step_s))).toEqual([]);
+    const port = chaos.run(dp, a, b, c.duration_s, c.nudge_deg, c.step_s);
+    // The drift is a difference of two energies a few hundred millionths apart:
+    // its last digits are rounding, so it is held absolutely, the rest exactly.
+    expect(differences({ ...c.run, energy_drift: 0 }, { ...port, energy_drift: 0 })).toEqual([]);
+    expect(Math.abs(port.energy_drift - c.run.energy_drift)).toBeLessThan(1e-12);
+  });
+
+  it("refuses what the engine refuses", () => {
+    const dp = cases.chaos[0].dp as chaos.DoublePendulum;
+    expect(() => chaos.run(dp, 200, 10, 1)).toThrow(RangeError);
+    expect(() => chaos.run(dp, 10, 10, 1, 0)).toThrow(RangeError);
   });
 });

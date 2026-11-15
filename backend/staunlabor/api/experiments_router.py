@@ -37,6 +37,7 @@ from staunlabor.domain.experiments import (
     CoilExhibit,
     ConeExhibit,
     CoupledPendulums,
+    DoublePendulum,
     Drum,
     Elephant,
     FloatingBall,
@@ -73,6 +74,7 @@ from staunlabor.domain.schemas.experiments import (
     CoilExhibitIn,
     ConeExhibitIn,
     CoupledPendulumsIn,
+    DoublePendulumIn,
     ElephantFiguresOut,
     ElephantIn,
     ExperimentsDefaultsOut,
@@ -133,6 +135,7 @@ async def defaults() -> ExperimentsDefaultsOut:
         coupled=CoupledPendulumsIn.model_validate(CoupledPendulums()),
         peg=PegPendulumIn.model_validate(PegPendulum()),
         maxwell=MaxwellWheelIn.model_validate(MaxwellWheel()),
+        chaos=DoublePendulumIn.model_validate(DoublePendulum()),
         meter_range_a=METER_RANGE_A,
         settle_s=PAGE_SETTLE_S,
     )

@@ -62,6 +62,7 @@ parabola = importlib.import_module("staunlabor.domain.experiments.parabola")
 coupled = importlib.import_module("staunlabor.domain.experiments.coupled")
 peg = importlib.import_module("staunlabor.domain.experiments.peg")
 maxwell = importlib.import_module("staunlabor.domain.experiments.maxwell")
+chaos = importlib.import_module("staunlabor.domain.experiments.chaos")
 
 TARGET = ROOT / "frontend/src/features/experiments/simulate/engine-cases.json"
 #: Points kept per curve: enough to see a curve that went wrong, few enough that
@@ -434,6 +435,20 @@ MAXWELL_CASES: dict[str, dict[str, Any]] = {
     },
 }
 
+#: The double pendulum: wild, gentle, unequal and damped at a coarse step; and
+#: the Lyapunov measurement, short, so both halves of the check stay quick.
+CHAOS_CASES: dict[str, dict[str, Any]] = {
+    "wild": {"dp": chaos.DoublePendulum(), "start": (120.0, 120.0), "duration_s": 4.0},
+    "gentle": {"dp": chaos.DoublePendulum(), "start": (5.0, 7.0), "duration_s": 3.0},
+    "unequal and damped, a coarse step": {
+        "dp": chaos.DoublePendulum(length2_m=0.5, mass2_kg=0.2, damping_per_s=0.1),
+        "start": (-90.0, 170.0),
+        "duration_s": 3.0,
+        "step_s": 4e-3,
+        "nudge_deg": 0.5,
+    },
+}
+
 #: Where the heights and the contact are written out along the rails.
 CONE_POINTS = (0.0, 0.07, 0.15, 0.3)
 
@@ -495,6 +510,28 @@ def _pendulum_cases(out: dict[str, Any]) -> None:
                 "lengths_m": list(wave.lengths_m(row)),
                 "lag_deg": list(wave.lag_deg(row)),
                 "spread_deg": wave.spread_deg(row),
+            }
+        )
+
+
+def _chaos_cases(out: dict[str, Any]) -> None:
+    for name, case in CHAOS_CASES.items():
+        dp, (a, b) = case["dp"], case["start"]
+        step = case.get("step_s", chaos.STEP_S)
+        nudge = case.get("nudge_deg", 0.001)
+        out["chaos"].append(
+            {
+                "name": name,
+                "dp": asdict(dp),
+                "start": [a, b],
+                "duration_s": case["duration_s"],
+                "step_s": step,
+                "nudge_deg": nudge,
+                "mode_rates": list(chaos.mode_rates(dp)),
+                # A twin 10⁻⁴ away: at the measurement's 10⁻⁸ the gap's subtraction
+                # loses eight digits, and the port could not be held to the last ones.
+                "lyapunov": chaos.lyapunov(dp, a, b, 3.0, gap=1e-4, step_s=step),
+                "run": thin(asdict(chaos.run(dp, a, b, case["duration_s"], nudge, step))),
             }
         )
 
@@ -657,6 +694,7 @@ def cases() -> dict[str, Any]:
         "coupled": [],
         "peg": [],
         "maxwell": [],
+        "chaos": [],
     }
     _pendulum_cases(out)
     _cone_cases(out)
@@ -664,6 +702,7 @@ def cases() -> dict[str, Any]:
     _coupled_cases(out)
     _peg_cases(out)
     _maxwell_cases(out)
+    _chaos_cases(out)
     for name, case in HARMONOGRAPH_CASES.items():
         h = case["h"]
         step = case.get("step_s", harmonograph.STEP_S)

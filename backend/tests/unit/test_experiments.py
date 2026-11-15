@@ -1725,3 +1725,49 @@ def test_maxwell_s_wheel_refuses_what_cannot_hang():
         x.MaxwellWheel(loss=0.6)
     with pytest.raises(ValueError, match="let go at t = 0"):
         x.state_at(x.MaxwellWheel(), -1.0)
+
+
+# ── the chaotic pendulum ─────────────────────────────────────────────────────
+
+
+def test_a_gentle_double_pendulum_swings_in_its_two_modes():
+    dp = x.DoublePendulum()
+    slow, fast = x.double_mode_rates(dp)
+    assert slow == pytest.approx(math.sqrt(9.80665 / 0.3 * (2 - math.sqrt(2))), rel=1e-14)
+    assert fast == pytest.approx(math.sqrt(9.80665 / 0.3 * (2 + math.sqrt(2))), rel=1e-14)
+    # Let go in the slow mode — the lower arm √2 times as far out — it is back
+    # after one of its periods.
+    period = 2 * math.pi / slow
+    run = x.run_chaos(dp, 1.0, math.sqrt(2), period, step_s=period / round(period * 1000))
+    assert run.theta1_deg[-1] == pytest.approx(1.0, abs=0.005)
+    assert run.theta2_deg[-1] == pytest.approx(math.sqrt(2), abs=0.005)
+
+
+def test_the_double_pendulum_keeps_its_energy_however_wildly_it_swings():
+    run = x.run_chaos(x.DoublePendulum(), 120.0, 120.0, 20.0)
+    assert run.energy_drift < 1e-7
+
+
+def test_two_wild_pendulums_a_thousandth_of_a_degree_apart_part_company():
+    wild = x.run_chaos(x.DoublePendulum(), 120.0, 120.0, 20.0)
+    gentle = x.run_chaos(x.DoublePendulum(), 5.0, 7.0, 20.0)
+    assert max(wild.separation) > 1
+    assert max(gentle.separation) < 1e-4
+
+
+def test_the_lyapunov_exponent_is_measured_whatever_the_twin_s_distance():
+    dp = x.DoublePendulum()
+    near = x.lyapunov(dp, 120.0, 120.0, 60.0, gap=1e-10)
+    far = x.lyapunov(dp, 120.0, 120.0, 60.0, gap=1e-6)
+    assert near == pytest.approx(far, abs=0.005)
+    assert round(far, 1) == 2.8
+    assert x.lyapunov(dp, 5.0, 7.0, 60.0) < 0.01
+
+
+def test_the_double_pendulum_refuses_what_it_cannot_be():
+    with pytest.raises(ValueError, match="5 cm and 3 m"):
+        x.DoublePendulum(length1_m=5.0)
+    with pytest.raises(ValueError, match="nudge"):
+        x.run_chaos(x.DoublePendulum(), 10.0, 10.0, 1.0, nudge_deg=0.0)
+    with pytest.raises(ValueError, match="−180° and 180°"):
+        x.run_chaos(x.DoublePendulum(), 200.0, 10.0, 1.0)
