@@ -1,6 +1,15 @@
 import { describe, expect, it } from "vitest";
-import { DAILY_EPOCH, dailyExhibit, dailyHistory, dayIn, spacing, type DailyMember, type DailyWeights } from "./daily";
-import { EXHIBITS, type Topic } from "./exhibits";
+import {
+  DAILY_EPOCH,
+  DAILY_WEIGHTS,
+  dailyExhibit,
+  dailyHistory,
+  dayIn,
+  spacing,
+  type DailyMember,
+  type DailyWeights,
+} from "./daily";
+import { EXHIBITS, SECOND_SERIES, type Topic } from "./exhibits";
 
 const DAY_MS = 86_400_000;
 const after = (day: string, n: number) => new Date(Date.parse(day) + n * DAY_MS).toISOString().slice(0, 10);
@@ -122,6 +131,19 @@ describe("the experiment of the day", () => {
     // so with every exhibit; whether to scale it is docs/experiments.md's open
     // question.
     expect(leaned).toBeLessThan(even * 0.95);
+  });
+
+  it("weakens the maluses from the second series on, and keeps every day shown before it", () => {
+    const first: DailyWeights = { bonusPerDay: 0.25, topicMalus: 0.25, pairMalus: 0.1 };
+    const shown = Math.round((Date.parse(SECOND_SERIES) - Date.parse(DAILY_EPOCH)) / DAY_MS);
+    // The days before the second series: drawn with the first series' weights, as shown.
+    expect(dailyHistory(SECOND_SERIES, shown)).toEqual(dailyHistory(SECOND_SERIES, shown, undefined, first));
+    // From it on, the halved maluses (DAILY_WEIGHTS) draw, which the first series' would not.
+    const later = after(SECOND_SERIES, 200);
+    expect(dailyHistory(later, 200)).toEqual(dailyHistory(later, 200, undefined, DAILY_WEIGHTS));
+    expect(dailyHistory(later, 200)).not.toEqual(dailyHistory(later, 200, undefined, first));
+    expect(DAILY_WEIGHTS.topicMalus).toBeGreaterThan(first.topicMalus);
+    expect(DAILY_WEIGHTS.pairMalus).toBeGreaterThan(first.pairMalus);
   });
 
   it("takes a new exhibit in at the next round, leaving the days before it as they were", () => {

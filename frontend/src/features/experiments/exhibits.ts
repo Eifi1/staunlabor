@@ -73,6 +73,15 @@ export interface ExhibitEntry {
 
 export const OVERVIEW_PATH = "/";
 
+/**
+ * The day the second series joins the experiment of the day, and the day the
+ * draw's maluses weaken (`daily.ts`): the day of the joint deploy, set when it
+ * goes out (Marcel, 2026-11-15: the next deploy after the last kit versions are
+ * released). Never a day before the deploy: a past day would redraw a round the
+ * live site has already shown.
+ */
+export const SECOND_SERIES = "2026-12-01";
+
 export const EXHIBITS: readonly ExhibitEntry[] = [
   { exhibit: "chair", path: "/chair", topics: ["perception"], lessons: [], since: "2026-11-12" },
   {
@@ -118,108 +127,107 @@ export const EXHIBITS: readonly ExhibitEntry[] = [
     lessons: ["second_order", "numerics"],
     since: "2026-11-12",
   },
-  // Ships with the joint deploy; the day is set to that day when it goes out
-  // (`daily.ts`: a past `since` would redraw a round already under way).
-  { exhibit: "wave", path: "/wave", topics: ["oscillation"], lessons: ["second_order"], since: "2026-12-01" },
+  // The second series: from SECOND_SERIES on.
+  { exhibit: "wave", path: "/wave", topics: ["oscillation"], lessons: ["second_order"], since: SECOND_SERIES },
   {
     exhibit: "harmonograph",
     path: "/harmonograph",
     topics: ["oscillation"],
     lessons: ["second_order", "numerics"],
-    since: "2026-12-01",
+    since: SECOND_SERIES,
   },
-  { exhibit: "cone", path: "/cone", topics: ["energy"], lessons: ["numerics"], since: "2026-12-01" },
+  { exhibit: "cone", path: "/cone", topics: ["energy"], lessons: ["numerics"], since: SECOND_SERIES },
   {
     exhibit: "parabola",
     path: "/parabola",
     topics: ["angular_momentum", "flow"],
     lessons: ["first_order", "numerics"],
-    since: "2026-12-01",
+    since: SECOND_SERIES,
   },
   {
     exhibit: "coupled",
     path: "/coupled",
     topics: ["oscillation", "energy"],
     lessons: ["second_order", "numerics"],
-    since: "2026-12-01",
+    since: SECOND_SERIES,
   },
-  { exhibit: "peg", path: "/peg", topics: ["energy"], lessons: ["second_order", "numerics"], since: "2026-12-01" },
+  { exhibit: "peg", path: "/peg", topics: ["energy"], lessons: ["second_order", "numerics"], since: SECOND_SERIES },
   {
     exhibit: "maxwell",
     path: "/maxwell",
     topics: ["energy", "angular_momentum"],
     lessons: ["second_order"],
-    since: "2026-12-01",
+    since: SECOND_SERIES,
   },
   {
     exhibit: "chaos",
     path: "/chaos",
     topics: ["oscillation", "energy"],
     lessons: ["second_order", "numerics"],
-    since: "2026-12-01",
+    since: SECOND_SERIES,
   },
   {
     exhibit: "waterwheel",
     path: "/waterwheel",
     topics: ["flow", "angular_momentum"],
     lessons: ["first_order", "numerics"],
-    since: "2026-12-01",
+    since: SECOND_SERIES,
   },
   {
     exhibit: "foucault",
     path: "/foucault",
     topics: ["oscillation", "angular_momentum"],
     lessons: ["second_order"],
-    since: "2026-12-01",
+    since: SECOND_SERIES,
   },
   {
     exhibit: "coriolis",
     path: "/coriolis",
     topics: ["momentum", "angular_momentum"],
     lessons: ["second_order"],
-    since: "2026-12-01",
+    since: SECOND_SERIES,
   },
   {
     exhibit: "cradle",
     path: "/cradle",
     topics: ["momentum", "energy"],
     lessons: ["second_order", "numerics"],
-    since: "2026-12-01",
+    since: SECOND_SERIES,
   },
   {
     exhibit: "well",
     path: "/well",
     topics: ["angular_momentum", "energy"],
     lessons: ["second_order", "numerics"],
-    since: "2026-12-01",
+    since: SECOND_SERIES,
   },
   {
     exhibit: "resonance",
     path: "/resonance",
     topics: ["oscillation", "energy"],
     lessons: ["second_order", "numerics"],
-    since: "2026-12-01",
+    since: SECOND_SERIES,
   },
   {
     exhibit: "gyroscope",
     path: "/gyroscope",
     topics: ["angular_momentum"],
     lessons: ["second_order", "numerics"],
-    since: "2026-12-01",
+    since: SECOND_SERIES,
   },
   {
     exhibit: "arch",
     path: "/arch",
     topics: ["equilibrium"],
     lessons: [],
-    since: "2026-12-01",
+    since: SECOND_SERIES,
   },
   {
     exhibit: "chladni",
     path: "/chladni",
     topics: ["oscillation"],
     lessons: [],
-    since: "2026-12-01",
+    since: SECOND_SERIES,
   },
 ];
 

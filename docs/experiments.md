@@ -75,8 +75,16 @@ and the first week drawn that way showed the chair on a Friday and again on
 the Sunday. Among those, Marcel's **bonus and malus** ("dass es
 unwahrscheinlicher wird, dass gleiche Experimente aufeinander folgen") lean
 the draw (`DAILY_WEIGHTS`): a quarter more weight per day waited beyond the
-spacing, a quarter of the weight for an exhibit about a topic yesterday's was
-about, a tenth for one that came right after yesterday's in the round before.
+spacing, half the weight for an exhibit about a topic yesterday's was about, a
+quarter for one that came right after yesterday's in the round before. Those
+are the second series' maluses (Marcel, 2026-11-15: "Tagesminus sollte weniger
+zählen"); the first series drew with a quarter and a tenth, and its rounds keep
+them, so the days the live site has shown keep their exhibit. Measured over
+400 rounds of all 25 (a plain shuffle, then the old maluses, in brackets):
+repeated pairs 0.44 a round (1.29; 0.27), repeated triples 0.008 (0.078;
+0.005), neighbours sharing a topic 29.3 days in a hundred (37.0; 23.5). With
+eleven exhibits about energy and eight each about oscillation and angular
+momentum, the quarter held a topic back on most days.
 They were measured over 2000 rounds against a plain shuffle (`daily.ts` has
 the numbers): pairs of the round before repeated in order fall from 0.9 a round
 to 0.27, triples from 0.12 to 0.01, neighbours about one topic from 14.5 days in
@@ -89,12 +97,14 @@ less, and less with every exhibit: with eight it cut the turns that come after
 more than a round and two days by a quarter, with fifteen by an eighth (1456
 against 1670 over 400 rounds), with sixteen by a tenth (2311 against 2555);
 `daily.test.ts` now holds it only to a twentieth. Its weight a day is fixed
-while a round grows longer. Whether to scale it with the set is Marcel's call.
+while a round grows longer, and stays so: Marcel weakened the maluses instead
+(2026-11-15).
 The day is Zurich's, so one day has one
 exhibit whoever asks; the pick needs no server, no table and no admin, and the
 history is the rule run backwards. A new exhibit joins at the first round that starts on or after its
 `since` day, never mid-round, which would redraw days already shown; so
-`since` is the day it **ships** — a past date puts it into a round already
+`since` is the day it **ships** (the second series': `SECOND_SERIES` in
+`exhibits.ts`, the day of the joint deploy, which also switches the weights) — a past date puts it into a round already
 under way on the live site.
 
 **The previews are the pages' own auto modes** (`preview-mode.tsx`): each
@@ -639,9 +649,10 @@ number in a cycle; let go at the tuned swing the row is together after `Γ`
 groups in two angles; the skew curve's numbers above and its two sides; the
 short ones fall behind the most.
 
-**Joins the experiment of the day** on its `since` in `exhibits.ts`, set to
-2026-12-01 as a placeholder: the pendulum exhibits ship with the joint deploy
-(accounts and the kits), and `since` is set to that day when they go out.
+**Joins the experiment of the day** on `SECOND_SERIES` in `exhibits.ts`, as
+every exhibit of the second series does: a placeholder (2026-12-01) set to the
+day of the joint deploy, the next deploy after the last kit versions are
+released (Marcel, 2026-11-15).
 
 ## The harmonograph (`experiments.harmonograph`)
 
