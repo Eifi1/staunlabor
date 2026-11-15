@@ -22,6 +22,7 @@ import * as cone from "./cone";
 import * as coriolis from "./coriolis";
 import * as coupled from "./coupled";
 import * as cradle from "./cradle";
+import * as well from "./well";
 import * as elephant from "./elephant";
 import * as foucault from "./foucault";
 import * as harmonograph from "./harmonograph";
@@ -763,6 +764,41 @@ describe("Newton's cradle's port", () => {
     for (const c of cases.cradle) {
       expect(differences(c.impact, cradle.impact(c.cr, c.pull))).toEqual([]);
       expect(differences(c.run, cradleRun(c.cr, c.pull, 1.0))).toEqual([]);
+    }
+  });
+});
+
+/** The engine's `run`, sampled from the port's steps as the engine samples its
+ *  own: every twentieth millisecond, and the moment the ride ends. */
+function wellRun(f: well.Funnel, launch: well.Launch, durationS: number) {
+  let ride = well.begin(f, launch);
+  const steps = Math.round(durationS / well.STEP_S);
+  const out = { t: [] as number[], r_m: [] as number[], phi_rad: [] as number[], laps: [] as well.Lap[] };
+  for (let i = 0; i <= steps; i++) {
+    if (i % 20 === 0) {
+      out.t.push(ride.t);
+      out.r_m.push(ride.y[0]);
+      out.phi_rad.push(ride.y[2]);
+    }
+    if (ride.outcome !== "rolling" || i === steps) break;
+    const [next, lap] = well.advance(f, ride);
+    ride = next;
+    if (lap) out.laps.push(lap);
+  }
+  if (out.t[out.t.length - 1] !== ride.t) {
+    out.t.push(ride.t);
+    out.r_m.push(ride.y[0]);
+    out.phi_rad.push(ride.y[2]);
+  }
+  return { ...out, outcome: ride.outcome, end_s: ride.t };
+}
+
+describe("the gravity well's port", () => {
+  it("rolls, laps and ends as the engine does", () => {
+    for (const c of cases.well) {
+      const circular = c.circular.map(([r]: number[]) => [r, well.circularSpeed(c.f, r), well.circularPeriod(c.f, r)]);
+      expect(differences(c.circular, circular)).toEqual([]);
+      expect(differences(c.run, wellRun(c.f, c.launch, 20.0))).toEqual([]);
     }
   });
 });

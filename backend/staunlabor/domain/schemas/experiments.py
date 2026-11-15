@@ -647,6 +647,17 @@ class CradleIn(_In):
     density_kg_m3: float = Field(ge=500, le=20000, default=7850.0)
 
 
+# ── the gravity well ─────────────────────────────────────────────────────────
+# No route: the page asks the port (``simulate/well.ts``).
+
+
+class FunnelIn(_In):
+    k_m2: float = Field(ge=0.001, le=0.05, default=0.01)
+    rim_m: float = Field(ge=0.1, le=2, default=0.4)
+    hole_m: float = Field(ge=0.005, le=0.5, default=0.03)
+    rolling_resistance: float = Field(ge=0, le=0.05, default=0.002)
+
+
 # ── the pages' starting point ────────────────────────────────────────────────
 
 
@@ -670,6 +681,7 @@ class ExperimentsDefaultsOut(_Out):
     foucault: FoucaultPendulumIn
     coriolis: CarouselIn
     cradle: CradleIn
+    well: FunnelIn
     #: The exhibit's meter: digital, ± this many amperes.
     meter_range_a: float
     #: How long a page waits after the last slider step before asking.

@@ -37,6 +37,8 @@ with SciPy before it was written (``docs/experiments.md``).
   rolled ball in a circle, seen from outside; both curve away for the riders.
 * :mod:`cradle` — Newton's cradle with Hertz contacts: one in, one out, clean
   with a hair's gap between the balls and nearly so when they touch.
+* :mod:`well` — the gravity well: a ball rolling round a funnel ``z = −k/r``
+  keeps Kepler's third law on every circle and spirals into the hole.
 * :mod:`foucault` — Foucault's pendulum in Winterthur: its plane turns 11.1°
   an hour against the floor, the Earth's turn about the local vertical.
 * :mod:`harmonograph` — a pen on one pendulum and a board on another: the
@@ -334,6 +336,13 @@ from staunlabor.domain.experiments.wave import (
     spread_deg,
 )
 from staunlabor.domain.experiments.wave import figures as wave_figures
+from staunlabor.domain.experiments.well import Funnel, WellRun
+from staunlabor.domain.experiments.well import Lap as WellLap
+from staunlabor.domain.experiments.well import Launch as WellLaunch
+from staunlabor.domain.experiments.well import circular_period_s as well_circular_period
+from staunlabor.domain.experiments.well import circular_speed_m_s as well_circular_speed
+from staunlabor.domain.experiments.well import energy_per_kg as well_energy
+from staunlabor.domain.experiments.well import run as run_well
 
 __all__ = [
     "ACUITY_RAD",
@@ -386,6 +395,7 @@ __all__ = [
     "Flight",
     "FloatingBall",
     "FoucaultPendulum",
+    "Funnel",
     "GroupPoint",
     "Harmonograph",
     "HarmonographFigures",
@@ -458,6 +468,9 @@ __all__ = [
     "WaterWheel",
     "WaveFigures",
     "WavePendulum",
+    "WellLap",
+    "WellLaunch",
+    "WellRun",
     "WheelRun",
     "WheelState",
     "WheelTurns",
@@ -549,6 +562,7 @@ __all__ = [
     "run_race",
     "run_sphere",
     "run_waterwheel",
+    "run_well",
     "run_wheel",
     "scatter",
     "separation",
@@ -581,6 +595,9 @@ __all__ = [
     "water_profile",
     "water_spin",
     "wave_figures",
+    "well_circular_period",
+    "well_circular_speed",
+    "well_energy",
     "wheel_bounce",
     "widest_gap",
 ]

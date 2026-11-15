@@ -44,6 +44,7 @@ from staunlabor.domain.experiments import (
     Elephant,
     FloatingBall,
     FoucaultPendulum,
+    Funnel,
     Harmonograph,
     Jet,
     Magnet,
@@ -85,6 +86,7 @@ from staunlabor.domain.schemas.experiments import (
     ElephantIn,
     ExperimentsDefaultsOut,
     FoucaultPendulumIn,
+    FunnelIn,
     HarmonographIn,
     MaxwellWheelIn,
     PegPendulumIn,
@@ -148,6 +150,7 @@ async def defaults() -> ExperimentsDefaultsOut:
         foucault=FoucaultPendulumIn.model_validate(FoucaultPendulum()),
         coriolis=CarouselIn.model_validate(Carousel()),
         cradle=CradleIn.model_validate(Cradle()),
+        well=FunnelIn.model_validate(Funnel()),
         meter_range_a=METER_RANGE_A,
         settle_s=PAGE_SETTLE_S,
     )

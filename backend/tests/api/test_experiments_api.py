@@ -41,6 +41,7 @@ async def test_the_experiments_need_no_account(client: AsyncClient):
         "foucault",
         "coriolis",
         "cradle",
+        "well",
         "meter_range_a",
         "settle_s",
     }
@@ -62,6 +63,7 @@ async def test_the_experiments_need_no_account(client: AsyncClient):
     assert body["foucault"]["latitude_deg"] == 47.5
     assert body["coriolis"]["rpm"] == x.Carousel().rpm
     assert body["cradle"]["count"] == 5
+    assert body["well"]["k_m2"] == x.Funnel().k_m2
 
 
 async def test_the_sphere_answers_its_orbits_and_its_swing(client: AsyncClient):

@@ -2002,3 +2002,98 @@ def test_the_cradle_refuses_what_cannot_hang():
         x.Cradle(count=12)
     with pytest.raises(ValueError, match="left hanging"):
         x.cradle_impact(x.Cradle(count=3), x.Pull(balls=3))
+
+
+# ── the gravity well ─────────────────────────────────────────────────────────
+
+
+def _well_ride(f: x.Funnel, launch: x.WellLaunch, seconds: float) -> list[tuple[float, float, float]]:
+    """(r, φ, t) a millisecond apart, from the engine's own steps."""
+    from staunlabor.domain.experiments import well
+
+    ride = well.begin(f, launch)
+    out = []
+    for _ in range(round(seconds / well.STEP_S)):
+        ride, _lap = well.advance(f, ride)
+        out.append((ride.y[0], ride.y[2], ride.t))
+    return out
+
+
+def test_without_rolling_resistance_the_ball_keeps_its_energy_and_its_angular_momentum():
+    from staunlabor.domain.experiments import well
+
+    f = x.Funnel(rolling_resistance=0.0)
+    ride = well.begin(f, x.WellLaunch(0.3, 10.0))
+    e0, h0 = x.well_energy(f, ride.y), ride.y[0] ** 2 * ride.y[3]
+    for _ in range(30_000):
+        ride, _lap = well.advance(f, ride)
+    assert ride.outcome == "rolling"
+    assert x.well_energy(f, ride.y) == pytest.approx(e0, rel=1e-9)
+    assert ride.y[0] ** 2 * ride.y[3] == pytest.approx(h0, rel=1e-9)
+
+
+def test_a_ball_at_the_circular_speed_stays_on_its_circle_for_kepler_s_period():
+    f = x.Funnel(rolling_resistance=0.0)
+    r0 = f.start_m
+    run = x.run_well(f, x.WellLaunch(x.well_circular_speed(f, r0), 0.0), 30.0)
+    assert max(abs(r - r0) for r in run.r_m) < 1e-6
+    assert all(lap.period_s == pytest.approx(x.well_circular_period(f, r0), abs=1e-3) for lap in run.laps)
+
+
+def test_on_the_circles_the_funnel_keeps_kepler_s_third_law():
+    f = x.Funnel()
+    assert round(x.well_circular_speed(f, f.start_m), 2) == 0.44
+    assert round(x.well_circular_period(f, f.start_m), 1) == 5.1
+    assert round(x.well_circular_period(f, f.hole_m), 2) == 0.12
+    # Twelve times nearer the hole, a lap 12^(3/2) times shorter: 42.
+    assert round(f.start_m / f.hole_m) == 12
+    assert round(x.well_circular_period(f, f.start_m) / x.well_circular_period(f, f.hole_m)) == 42
+
+
+def test_off_the_circle_the_path_does_not_close_but_turns_40_degrees_a_round():
+    ride = _well_ride(x.Funnel(rolling_resistance=0.0), x.WellLaunch(0.3, 0.0), 30.0)
+    nearest = [b for a, b, c in zip(ride, ride[1:], ride[2:], strict=False) if b[0] < a[0] and b[0] < c[0]]
+    turns = [math.degrees(q[1] - p[1]) - 360 for p, q in itertools.pairwise(nearest)]
+    assert len(turns) >= 5
+    assert all(round(turn) == 40 for turn in turns)
+
+
+def test_rolling_resistance_spirals_the_ball_in_lap_by_lap_on_kepler_s_periods():
+    f = x.Funnel()
+    run = x.run_well(f, x.WellLaunch(x.well_circular_speed(f, f.start_m), 0.0), 120.0)
+    assert run.outcome == "hole"
+    assert round(run.end_s) == 46
+    assert len(run.laps) == 75
+    assert sum(1 for lap in run.laps if lap.end_s > run.end_s - 10) == 42
+    assert all(lap.period_s == pytest.approx(x.well_circular_period(f, lap.radius_m), rel=0.03) for lap in run.laps)
+
+
+def test_the_spiral_takes_as_long_as_the_circles_energy_drained_by_the_resistance():
+    # An independent count: on circle r the ball has −g·k/(2r) a kilogram and
+    # loses C·N·v a second, N the weight's share across the wall and the push
+    # that holds it on the circle. Simpson's rule from the hole to the start.
+    from staunlabor.domain.experiments.pendulum import G
+
+    f = x.Funnel()
+    k, c = f.k_m2, f.rolling_resistance
+
+    def seconds_per_metre(r: float) -> float:
+        slope = k / (r * r)
+        normal = G / math.sqrt(1 + slope * slope) * (1 + 5 / 7 * slope * slope)
+        return G * k / (2 * r * r) / (c * normal * x.well_circular_speed(f, r))
+
+    n = 2000
+    h = (f.start_m - f.hole_m) / n
+    weights = [1 if i in (0, n) else 4 if i % 2 else 2 for i in range(n + 1)]
+    expected = h / 3 * sum(w * seconds_per_metre(f.hole_m + i * h) for i, w in enumerate(weights))
+    run = x.run_well(f, x.WellLaunch(x.well_circular_speed(f, f.start_m), 0.0), 120.0)
+    assert run.end_s == pytest.approx(expected, rel=0.01)
+
+
+def test_the_funnel_refuses_what_it_cannot_be():
+    with pytest.raises(ValueError, match="quarter of the rim"):
+        x.Funnel(hole_m=0.2)
+    with pytest.raises(ValueError, match="at most 90°"):
+        x.WellLaunch(0.3, 120.0)
+    with pytest.raises(ValueError, match="at most 300 s"):
+        x.run_well(x.Funnel(), x.WellLaunch(), 400.0)

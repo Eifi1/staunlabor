@@ -191,6 +191,12 @@
       "youngs_gpa": 200.0,
       "density_kg_m3": 7850.0
     },
+    "well": {
+      "k_m2": 0.01,
+      "rim_m": 0.4,
+      "hole_m": 0.03,
+      "rolling_resistance": 0.002
+    },
     "meter_range_a": 0.1,
     "settle_s": 0.15
   },

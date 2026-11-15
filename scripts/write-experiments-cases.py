@@ -67,6 +67,7 @@ waterwheel = importlib.import_module("staunlabor.domain.experiments.waterwheel")
 foucault = importlib.import_module("staunlabor.domain.experiments.foucault")
 coriolis = importlib.import_module("staunlabor.domain.experiments.coriolis")
 cradle = importlib.import_module("staunlabor.domain.experiments.cradle")
+well = importlib.import_module("staunlabor.domain.experiments.well")
 
 TARGET = ROOT / "frontend/src/features/experiments/simulate/engine-cases.json"
 #: Points kept per curve: enough to see a curve that went wrong, few enough that
@@ -501,6 +502,16 @@ CRADLE_CASES = (
 CONE_POINTS = (0.0, 0.07, 0.15, 0.3)
 
 
+#: The gravity well: the exhibit's start, a rosette without resistance, a wide
+#: shallow funnel thrown outward, and a ball sent almost straight at the hole.
+WELL_CASES = (
+    (well.Funnel(), well.Launch()),
+    (well.Funnel(rolling_resistance=0.0), well.Launch(0.3, 10.0)),
+    (well.Funnel(k_m2=0.005, rim_m=0.6, hole_m=0.02, rolling_resistance=0.004), well.Launch(0.6, -15.0)),
+    (well.Funnel(), well.Launch(0.1, 80.0)),
+)
+
+
 def thin(values: Any) -> Any:
     """A curve as its length and every so many of its points, the last always
     among them; anything else as it is, recursively."""
@@ -570,6 +581,21 @@ def _cradle_cases(out: dict[str, Any]) -> None:
                 "pull": asdict(pull),
                 "impact": asdict(cradle.impact(cr, pull)),
                 "run": thin(asdict(cradle.run(cr, pull, 1.0))),
+            }
+        )
+
+
+def _well_cases(out: dict[str, Any]) -> None:
+    for f, launch in WELL_CASES:
+        out["well"].append(
+            {
+                "f": asdict(f),
+                "launch": asdict(launch),
+                "circular": [
+                    [r, well.circular_speed_m_s(f, r), well.circular_period_s(f, r)]
+                    for r in (f.hole_m, f.start_m, f.rim_m)
+                ],
+                "run": thin(asdict(well.run(f, launch, 20.0))),
             }
         )
 
@@ -770,6 +796,7 @@ def _second_series(out: dict[str, Any]) -> None:
     _foucault_cases(out)
     _coriolis_cases(out)
     _cradle_cases(out)
+    _well_cases(out)
 
 
 def cases() -> dict[str, Any]:
@@ -820,6 +847,7 @@ def cases() -> dict[str, Any]:
         "foucault": [],
         "coriolis": [],
         "cradle": [],
+        "well": [],
     }
     _second_series(out)
     for name, case in HARMONOGRAPH_CASES.items():
