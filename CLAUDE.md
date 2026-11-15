@@ -82,7 +82,7 @@ backend/staunlabor/
   models.py             the tables: server-kit's [sql], feedback.sql and translation_review.sql
                         mixins, named here
 backend/alembic/        the migrations (0001: the accounts' tables, 0002: the feedback's,
-                        0003: the translation review's)
+                        0003: the translation review's, 0004: two-factor sign-in's)
 frontend/src/
   app/                  routes (every page but the overview lazy), router link
   features/experiments/ the pages, the views, the overview, the daily pick,
