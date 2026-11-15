@@ -45,6 +45,8 @@ with SciPy before it was written (``docs/experiments.md``).
   coil swings like a damped spring, its current with the coil's inertia.
 * :mod:`plates` — metal plates fall slowly between magnets they are not
   drawn to: eddy currents brake them, and slots cut most of the brake away.
+* :mod:`bounce` — a ball bouncing on a plate: infinitely many bounces, ever
+  lower and quicker, add up to a finite time.
 * :mod:`levitation` — a spinning top hovers over a ring magnet only in a
   window a few millimetres high and three per cent wide in weight.
 * :mod:`gyroscope` — a spinning wheel on a string turns round it instead of
@@ -85,6 +87,17 @@ from staunlabor.domain.experiments.arch import Load as ArchLoad
 from staunlabor.domain.experiments.arch import Shape as ArchShape
 from staunlabor.domain.experiments.arch import Thrust as ArchThrust
 from staunlabor.domain.experiments.arch import thrust as arch_thrust
+from staunlabor.domain.experiments.bounce import (
+    EXHIBIT_HEIGHT_M,
+    STEEL,
+    TABLE_TENNIS,
+    BounceFigures,
+    Bounces,
+    BouncingBall,
+)
+from staunlabor.domain.experiments.bounce import bounces as ball_bounces
+from staunlabor.domain.experiments.bounce import figures as bounce_figures
+from staunlabor.domain.experiments.bounce import state as ball_state
 from staunlabor.domain.experiments.cannon import (
     Ball,
     BallStack,
@@ -394,10 +407,13 @@ from staunlabor.domain.experiments.well import run as run_well
 
 __all__ = [
     "ACUITY_RAD",
+    "EXHIBIT_HEIGHT_M",
     "EXHIBIT_PLATES",
     "EYE",
     "EYE_BASELINE_M",
     "METER_RANGE_A",
+    "STEEL",
+    "TABLE_TENNIS",
     "ArchLoad",
     "ArchShape",
     "ArchThrust",
@@ -408,6 +424,9 @@ __all__ = [
     "Bob",
     "Body",
     "Bounce",
+    "BounceFigures",
+    "Bounces",
+    "BouncingBall",
     "Box",
     "CannonFigures",
     "Carousel",
@@ -547,8 +566,11 @@ __all__ = [
     "axis_height_m",
     "axis_slope",
     "backbone",
+    "ball_bounces",
+    "ball_state",
     "beat_s",
     "binocular_gap",
+    "bounce_figures",
     "bounces",
     "cannon_drop",
     "cannon_figures",

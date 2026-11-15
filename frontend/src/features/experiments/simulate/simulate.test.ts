@@ -26,6 +26,7 @@ import * as well from "./well";
 import * as resonance from "./resonance";
 import * as gyroscope from "./gyroscope";
 import * as arch from "./arch";
+import * as bounce from "./bounce";
 import * as levitation from "./levitation";
 import * as circuit from "./circuit";
 import * as chladni from "./chladni";
@@ -1003,6 +1004,30 @@ describe("the falling plates' port", () => {
   it("holds the plate at the top before it is let go", () => {
     const { column, plate } = cases.plates[0] as { column: plates.MagnetColumn; plate: plates.Plate };
     expect(plates.motion(column, plate, -1)).toEqual([0, 0]);
+  });
+});
+
+describe("the bouncing ball's port", () => {
+  it("strikes, flies and comes to rest as the engine does", () => {
+    const times = [0.0, 0.05, 0.2, 0.26, 0.5, 0.9, 1.7, 3.3, 6.0, 30.0];
+    for (const c of cases.bounce) {
+      const ball = c.ball as bounce.BouncingBall;
+      const run = bounce.bounces(ball, c.height_m);
+      expect(differences(c.terminal_m_s, bounce.terminalSpeed(ball))).toEqual([]);
+      expect(differences(c.run, run)).toEqual([]);
+      expect(
+        differences(
+          c.states,
+          times.map((t) => bounce.state(ball, c.height_m, run, t)),
+        ),
+      ).toEqual([]);
+      expect(differences(c.figures, bounce.figures(ball, c.height_m))).toEqual([]);
+    }
+  });
+
+  it("holds the ball over the plate before it is let go", () => {
+    const { ball, height_m } = cases.bounce[0] as { ball: bounce.BouncingBall; height_m: number };
+    expect(bounce.state(ball, height_m, bounce.bounces(ball, height_m), -1)).toEqual([height_m, 0]);
   });
 });
 

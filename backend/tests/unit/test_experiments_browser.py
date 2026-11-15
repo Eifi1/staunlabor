@@ -111,6 +111,12 @@ def test_the_cases_cross_every_branch_a_page_can_reach(stored: Any):
     assert any(c["figures"]["ripple"] is not None and c["figures"]["ripple"] > 0.01 for c in falls), (
         "a brake that ripples"
     )
+    balls = stored["bounce"]
+    strikes = [c["run"]["impacts_s"] for c in balls]
+    counts = [s["length"] if isinstance(s, dict) else len(s) for s in strikes]
+    assert max(counts) > 500 and min(counts) < 20, "a ball that bounces nearly forever, and a dull one"
+    assert any(c["terminal_m_s"] < 5 for c in balls) and any(c["terminal_m_s"] > 1000 for c in balls), "air and none"
+    assert any(c["states"][-1] == [0.0, 0.0] for c in balls), "a ball that lies still"
     floats = {c["hover"]["state"] for c in stored["levitation"]}
     assert floats == {"hovers", "lands", "slides"}, "a top that hovers, one that lands, one that slides off"
     spheres = stored["sphere"]

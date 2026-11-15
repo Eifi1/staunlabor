@@ -74,6 +74,7 @@ arch = importlib.import_module("staunlabor.domain.experiments.arch")
 levitation = importlib.import_module("staunlabor.domain.experiments.levitation")
 circuit = importlib.import_module("staunlabor.domain.experiments.circuit")
 plates = importlib.import_module("staunlabor.domain.experiments.plates")
+bounce = importlib.import_module("staunlabor.domain.experiments.bounce")
 chladni = importlib.import_module("staunlabor.domain.experiments.chladni")
 
 TARGET = ROOT / "frontend/src/features/experiments/simulate/engine-cases.json"
@@ -611,6 +612,22 @@ PLATE_DEPTHS = (0.0, 0.0137, 0.2)
 PLATE_POINTS = ((0.0, 0.004), (0.02, 0.031), (-0.045, 0.0602), (0.0, 0.0085), (0.049, 0.119))
 PLATE_TERMS = 16
 
+#: The bouncing ball: the exhibit's two from 30 cm, the table-tennis ball by
+#: the rules' 305 mm; a heavy small ball the air cannot touch; a light big one
+#: the air holds back hard, bouncing nearly forever; a dull ball from a
+#: centimetre; a basketball-like one from a metre and a half.
+BOUNCE_CASES = (
+    (bounce.STEEL, 0.30),
+    (bounce.TABLE_TENNIS, 0.30),
+    (bounce.TABLE_TENNIS, 0.305),
+    (bounce.BouncingBall(mass_kg=10, diameter_m=0.005, restitution=0.9), 0.5),
+    (bounce.BouncingBall(mass_kg=0.05, diameter_m=0.3, restitution=0.99), 2.0),
+    (bounce.BouncingBall(mass_kg=0.0027, diameter_m=0.04, restitution=0.5), 0.01),
+    (bounce.BouncingBall(mass_kg=0.6, diameter_m=0.24, restitution=0.8), 1.5),
+)
+#: After the ball is let go, in seconds.
+BOUNCE_TIMES = (0.0, 0.05, 0.2, 0.26, 0.5, 0.9, 1.7, 3.3, 6.0, 30.0)
+
 
 def thin(values: Any) -> Any:
     """A curve as its length and every so many of its points, the last always
@@ -797,6 +814,26 @@ def _plates_cases(out: dict[str, Any]) -> None:
                 "stream": [
                     plates.stream(c, p, s, 0.3, px, py, PLATE_TERMS) for s in PLATE_DEPTHS for px, py in PLATE_POINTS
                 ],
+            }
+        )
+
+
+def _bounce_cases(out: dict[str, Any]) -> None:
+    for ball, height in BOUNCE_CASES:
+        run = bounce.bounces(ball, height)
+        out["bounce"].append(
+            {
+                "ball": asdict(ball),
+                "height_m": height,
+                "terminal_m_s": bounce.terminal_speed(ball),
+                "run": {
+                    "impacts_s": thin(list(run.impacts_s)),
+                    "speeds_m_s": thin(list(run.speeds_m_s)),
+                    "apexes_m": thin(list(run.apexes_m)),
+                    "still_s": run.still_s,
+                },
+                "states": [list(bounce.state(ball, height, run, t)) for t in BOUNCE_TIMES],
+                "figures": asdict(bounce.figures(ball, height)),
             }
         )
 
@@ -1024,6 +1061,7 @@ def _second_series(out: dict[str, Any]) -> None:
     _levitation_cases(out)
     _circuit_cases(out)
     _plates_cases(out)
+    _bounce_cases(out)
     _chladni_cases(out)
 
 
@@ -1082,6 +1120,7 @@ def cases() -> dict[str, Any]:
         "levitation": [],
         "circuit": [],
         "plates": [],
+        "bounce": [],
     }
     _second_series(out)
     for name, case in HARMONOGRAPH_CASES.items():

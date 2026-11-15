@@ -2788,3 +2788,88 @@ def test_the_plates_refuse_what_they_cannot_be():
         x.Plate(tooth_m=0.2)
     with pytest.raises(ValueError, match="let go"):
         x.plate_motion(x.MagnetColumn(), x.Plate(), -1)
+
+
+# ── the bouncing ball ────────────────────────────────────────────────────────
+
+
+def test_the_steel_ball_clicks_75_times_for_nine_and_a_half_seconds_the_table_tennis_ball_44_for_five():
+    steel, tennis = x.bounce_figures(x.STEEL, 0.30), x.bounce_figures(x.TABLE_TENNIS, 0.30)
+    assert round(steel.still_s, 1) == 9.6 and steel.counted == 75
+    assert round(tennis.still_s, 1) == 5.2 and tennis.counted == 44
+    assert round(steel.landing_s, 2) == 0.25 and round(steel.first_apex_m * 100) == 27
+    assert round(tennis.first_apex_m * 100) == 24
+    # The rules of table tennis: from 305 mm a ball must rise to between 230 and 250 mm; this one, 240.
+    assert round(x.bounce_figures(x.TABLE_TENNIS, 0.305).first_apex_m * 1000) == 240
+    # The air hardly touches the steel ball (60 m/s terminal) and holds the light one back (8.6 m/s).
+    assert round(steel.terminal_m_s) == 60 and round(tennis.terminal_m_s, 1) == 8.6
+    # The steel ball's rhythm is its restitution; the table-tennis ball's is less, the air taking its share.
+    assert steel.rhythm == pytest.approx(0.95, abs=0.001)
+    assert round(tennis.rhythm, 2) == 0.89
+    assert (x.STEEL.diameter_m, round(x.STEEL.mass_kg * 1000)) == (0.020, 33)
+
+
+def test_each_flight_is_the_weight_and_the_air_s_drag_stepped():
+    from staunlabor.domain.experiments import bounce
+
+    for ball in (x.STEEL, x.TABLE_TENNIS):
+        run = x.ball_bounces(ball, 0.30)
+        k = bounce.AIR_DENSITY * bounce.DRAG_COEFFICIENT * math.pi * ball.diameter_m**2 / 8 / ball.mass_kg
+        # The drop, then the first three flights, each from the strike that starts it.
+        starts = [(0.0, 0.30, 0.0)] + [(run.impacts_s[i], 0.0, ball.restitution * run.speeds_m_s[i]) for i in range(3)]
+        for t0, y0, v0 in starts:
+            span = (run.impacts_s[0] if t0 == 0 else run.impacts_s[run.impacts_s.index(t0) + 1]) - t0
+            trace = rk4(
+                lambda _t, y, k=k: (y[1], -bounce.G - k * y[1] * abs(y[1])),
+                (y0, v0),
+                1e-5,
+                span * 0.999,
+                sample_every=2000,
+            )
+            for t, y, v in zip(trace.t, *trace.states, strict=True):
+                exact = x.ball_state(ball, 0.30, run, t0 + t)
+                assert exact[0] == pytest.approx(y, abs=1e-9)
+                assert exact[1] == pytest.approx(v, abs=1e-9)
+
+
+def test_infinitely_many_bounces_add_up_to_a_finite_time():
+    """A ball the air cannot touch: ``√(2h/g)·(1 + e)/(1 − e)``, the drop and
+    then twice each rise, a geometric series."""
+    heavy = x.BouncingBall(mass_kg=10, diameter_m=0.005, restitution=0.9)
+    run = x.ball_bounces(heavy, 0.5)
+    drop = math.sqrt(2 * 0.5 / 9.80665)
+    assert run.still_s == pytest.approx(drop * 1.9 / 0.1, rel=1e-6)
+    # Every flight is e times the one before; the strikes come ever closer and never pass the end.
+    flights = [b - a for a, b in itertools.pairwise(run.impacts_s)]
+    assert all(f2 / f1 == pytest.approx(0.9, rel=1e-6) for f1, f2 in itertools.pairwise(flights))
+    assert run.impacts_s[-1] < run.still_s and len(run.impacts_s) > 50
+    # Twice the restitution's distance from one, half the time.
+    for e, factor in ((0.8, 9), (0.95, 39)):
+        ball = x.BouncingBall(mass_kg=10, diameter_m=0.005, restitution=e)
+        # The air's touch on this ball adds up over the flights to a few parts in a million.
+        assert x.ball_bounces(ball, 0.5).still_s == pytest.approx(drop * factor, rel=1e-5)
+
+
+def test_the_ball_turns_round_at_each_strike_keeping_its_restitution_and_then_lies_still():
+    run = x.ball_bounces(x.STEEL, 0.30)
+    for i in (0, 1, 10):
+        t = run.impacts_s[i]
+        before, after = x.ball_state(x.STEEL, 0.30, run, t - 1e-12), x.ball_state(x.STEEL, 0.30, run, t + 1e-12)
+        assert abs(before[0]) < 1e-9 and abs(after[0]) < 1e-9
+        assert before[1] < 0 < after[1] and after[1] == pytest.approx(-0.95 * before[1], rel=1e-6)
+    samples = [x.ball_state(x.STEEL, 0.30, run, k * run.still_s / 997) for k in range(998)]
+    assert all(y >= -1e-12 for y, _ in samples) and max(y for y, _ in samples) <= 0.30
+    assert x.ball_state(x.STEEL, 0.30, run, run.still_s + 1) == (0.0, 0.0)
+
+
+def test_the_bouncing_ball_refuses_what_it_cannot_be():
+    with pytest.raises(ValueError, match="weighs"):
+        x.BouncingBall(mass_kg=0)
+    with pytest.raises(ValueError, match="across"):
+        x.BouncingBall(diameter_m=1)
+    with pytest.raises(ValueError, match="gives back"):
+        x.BouncingBall(restitution=1)
+    with pytest.raises(ValueError, match="dropped"):
+        x.ball_bounces(x.STEEL, 3)
+    with pytest.raises(ValueError, match="let go"):
+        x.ball_state(x.STEEL, 0.3, x.ball_bounces(x.STEEL, 0.3), -1)
