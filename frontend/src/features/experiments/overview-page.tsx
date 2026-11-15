@@ -18,6 +18,7 @@ import {
   Magnet,
   Orbit,
   PenTool,
+  RefreshCcw,
   RotateCcw,
   RotateCw,
   Shuffle,
@@ -69,6 +70,7 @@ const ICON: Record<Exhibit, LucideIcon> = {
   chaos: Shuffle,
   waterwheel: Droplets,
   foucault: Globe,
+  coriolis: RefreshCcw,
 };
 
 /** Two weeks back, in the dialog: long enough to find the one a friend

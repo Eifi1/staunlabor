@@ -235,6 +235,12 @@
         "title": "Foucault's pendulum in Winterthur",
         "summary": "A long pendulum swings for hours, and the plane it swings in turns slowly against the floor: not the pendulum turns, but the Earth under it.",
         "question": "How long does a pendulum's plane of swing take to turn right round in Winterthur?"
+      },
+      "coriolis": {
+        "short": "Coriolis carousel",
+        "title": "The Coriolis carousel",
+        "summary": "On a turning carousel two people roll a ball to each other – and it never arrives where it was aimed. Seen from outside there is no curve to explain.",
+        "question": "Two people sit facing each other on a turning carousel. Where must one aim to hit the other?"
       }
     },
     "chair": {
@@ -1842,6 +1848,59 @@
         "zeta": "the bob's place as a complex number",
         "a": "the swing when let go",
         "omega_p": "the swing's angular frequency in the turning frame"
+      }
+    },
+    "coriolis": {
+      "at": {
+        "seats": "A round platform turns slowly; two people sit opposite each other at its edge and roll a ball across.",
+        "misses": "The ball curves away and misses, though nobody pushes it. At 6 turns a minute a straight throw at 3 m/s misses the other seat by 86°; aiming 50° ahead hits it."
+      },
+      "view": "The carousel from above: the two seats, the aim dashed and the ball's path",
+      "play": {
+        "title": "Aim and throw",
+        "hint": "Throw straight at the other seat once, then switch to “From outside”: there the puck flies straight.",
+        "throw": "Throw",
+        "aim_lead": "Aim ahead",
+        "frame": "View",
+        "frames": {
+          "riding": "Riding along",
+          "outside": "From outside"
+        },
+        "body": "What is thrown",
+        "bodies": {
+          "puck": "Sliding puck",
+          "ball": "Rolling ball"
+        },
+        "aim": "Aim",
+        "aim_hint": "How far beside the other seat it is aimed, anticlockwise positive.",
+        "speed": "Speed of the throw",
+        "rpm": "Carousel's speed",
+        "rpm_unit": "rpm",
+        "rpm_hint": "Positive: anticlockwise, seen from above.",
+        "miss": "Missed by",
+        "flight": "On its way",
+        "no_lead": "At this speed no throw reaches the other seat: it turns away too fast.",
+        "lead": "Aiming {{lead}}° ahead hits it."
+      },
+      "model": {
+        "intro": "Seen from outside, there is no force pushing the puck aside. When it leaves the hand it has two velocities: the throw, and the speed at which the thrower is carried round at the edge.",
+        "puck": "So seen from outside it flies straight – just not to where the thrower aimed.",
+        "riding": "Whoever rides along sees the same path curved, and explains it with two forces that appear only in the turning frame: the Coriolis force across the motion and the centrifugal force outward.",
+        "ball": "A rolling ball is stranger still: the platform keeps turning under it, and the friction that keeps it rolling turns its velocity steadily along – at 2/7 of the platform's rate. Seen from outside, it runs on a circle."
+      },
+      "symbols": {
+        "r0": "where the ball is let go",
+        "u": "the throw, measured on the carousel",
+        "omega": "the carousel's turn",
+        "primed": "acceleration, velocity and place as a rider measures them",
+        "k": "how hard the ball is to set spinning: 2/5 for a solid ball"
+      },
+      "sweet": {
+        "nobody": "Nobody pushes the ball aside. The curve comes from turning along oneself: while the ball is on its way, the other seat moves on. The same “force” on the turning Earth steers the winds into low-pressure areas and makes them circle there.",
+        "ball": "And a rolled ball is not straight even from outside: rolling on the turning platform, it runs on a circle at 2/7 of the carousel's rate."
+      },
+      "computed": {
+        "system": "Both paths have closed forms: the puck on a straight line, the ball on a circle, both seen from outside and turned back for the rider. Where the ball reaches the edge again, and where one must aim to hit, the page finds by halving. The test holds the puck's turned-back path to a stepped solution with the Coriolis and the centrifugal force."
       }
     }
   }

@@ -595,6 +595,14 @@ export interface FoucaultPendulumRequest {
   latitude_deg: number;
 }
 
+// ── the Coriolis carousel ────────────────────────────────────────────────────
+
+/** The engine's `Carousel`. No route: the page asks the port (`simulate/coriolis.ts`). */
+export interface CarouselRequest {
+  radius_m: number;
+  rpm: number;
+}
+
 // ── the pages' starting point ────────────────────────────────────────────────
 
 export interface ExperimentsDefaults {
@@ -615,6 +623,7 @@ export interface ExperimentsDefaults {
   chaos: DoublePendulumRequest;
   waterwheel: WaterWheelRequest;
   foucault: FoucaultPendulumRequest;
+  coriolis: CarouselRequest;
   meter_range_a: number;
   settle_s: number;
 }

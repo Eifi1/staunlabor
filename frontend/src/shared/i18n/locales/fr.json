@@ -235,6 +235,12 @@
         "title": "Le pendule de Foucault à Winterthour",
         "summary": "Un long pendule oscille pendant des heures, et son plan d'oscillation tourne lentement par rapport au sol : ce n'est pas le pendule qui tourne, mais la Terre sous lui.",
         "question": "Combien de temps le plan d'oscillation d'un pendule met-il pour faire un tour complet à Winterthour ?"
+      },
+      "coriolis": {
+        "short": "Manège de Coriolis",
+        "title": "Le manège de Coriolis",
+        "summary": "Sur un manège qui tourne, deux personnes se font rouler une balle – et elle n'arrive jamais là où l'on a visé. Vu de l'extérieur, il n'y a aucune courbe à expliquer.",
+        "question": "Deux personnes sont assises face à face sur un manège qui tourne. Où faut-il viser pour atteindre l'autre ?"
       }
     },
     "chair": {
@@ -1842,6 +1848,59 @@
         "zeta": "la position de la boule sous forme de nombre complexe",
         "a": "l'amplitude au lâcher",
         "omega_p": "la pulsation de l'oscillation dans le référentiel tournant"
+      }
+    },
+    "coriolis": {
+      "at": {
+        "seats": "Une plateforme ronde tourne lentement ; deux personnes sont assises face à face au bord et se font rouler une balle.",
+        "misses": "La balle dévie et manque l'autre, sans que personne la pousse. À 6 tours par minute, un lancer droit à 3 m/s manque l'autre siège de 86° ; qui vise 50° en avant atteint."
+      },
+      "view": "Le manège vu d'en haut : les deux sièges, la direction du lancer en pointillé et la trajectoire de la balle",
+      "play": {
+        "title": "Viser et lancer",
+        "hint": "Lancez une fois droit vers l'autre siège, puis passez à « De l'extérieur » : là, le palet va tout droit.",
+        "throw": "Lancer",
+        "aim_lead": "Viser en avant",
+        "frame": "Vue",
+        "frames": {
+          "riding": "En tournant avec",
+          "outside": "De l'extérieur"
+        },
+        "body": "Ce qu'on lance",
+        "bodies": {
+          "puck": "Palet qui glisse",
+          "ball": "Balle qui roule"
+        },
+        "aim": "Viser",
+        "aim_hint": "De combien on vise à côté de l'autre siège, positif dans le sens antihoraire.",
+        "speed": "Vitesse du lancer",
+        "rpm": "Rotation du manège",
+        "rpm_unit": "tr/min",
+        "rpm_hint": "Positif : sens antihoraire, vu d'en haut.",
+        "miss": "Manqué de",
+        "flight": "En route",
+        "no_lead": "À cette vitesse, aucun lancer n'atteint l'autre siège : il s'éloigne trop vite en tournant.",
+        "lead": "Viser {{lead}}° en avant atteint."
+      },
+      "model": {
+        "intro": "Vu de l'extérieur, aucune force ne pousse le palet de côté. En quittant la main il a deux vitesses : le lancer, et la vitesse à laquelle le lanceur lui-même est emporté au bord.",
+        "puck": "C'est pourquoi, vu de l'extérieur, il va tout droit – seulement pas là où le lanceur a visé.",
+        "riding": "Qui tourne avec le manège voit la même trajectoire courbée et l'explique par deux forces qui n'apparaissent que dans le référentiel tournant : la force de Coriolis, en travers du mouvement, et la force centrifuge, vers l'extérieur.",
+        "ball": "Une balle qui roule est plus étrange encore : la plateforme continue de tourner sous elle, et le frottement qui la fait rouler tourne sa vitesse continûment – à 2/7 de la rotation du manège. Vue de l'extérieur, elle décrit un cercle."
+      },
+      "symbols": {
+        "r0": "où la balle est lâchée",
+        "u": "le lancer, mesuré sur le manège",
+        "omega": "la rotation du manège",
+        "primed": "accélération, vitesse et position telles que les mesure qui tourne avec",
+        "k": "la difficulté à mettre la balle en rotation : 2/5 pour une boule pleine"
+      },
+      "sweet": {
+        "nobody": "Personne ne pousse la balle de côté. La courbe vient de ce qu'on tourne soi-même : pendant que la balle est en route, l'autre siège avance. La même « force » sur la Terre qui tourne dévie les vents vers les dépressions et les y fait tourner.",
+        "ball": "Et une balle qui roule n'est pas droite même vue de l'extérieur : roulant sur la plateforme qui tourne, elle décrit un cercle à 2/7 de la rotation du manège."
+      },
+      "computed": {
+        "system": "Les deux trajectoires ont une solution fermée : le palet sur une droite, la balle sur un cercle, toutes deux vues de l'extérieur et ramenées par rotation pour qui tourne avec. Où la balle atteint à nouveau le bord, et où il faut viser pour atteindre, la page le trouve par dichotomie. Le test confronte la trajectoire ramenée du palet à un calcul pas à pas avec les forces de Coriolis et centrifuge."
       }
     }
   }

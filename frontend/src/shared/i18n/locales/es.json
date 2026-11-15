@@ -235,6 +235,12 @@
         "title": "El péndulo de Foucault en Winterthur",
         "summary": "Un péndulo largo oscila durante horas, y su plano de oscilación gira despacio respecto al suelo: no gira el péndulo, sino la Tierra bajo él.",
         "question": "¿Cuánto tarda el plano de oscilación de un péndulo en dar una vuelta completa en Winterthur?"
+      },
+      "coriolis": {
+        "short": "Carrusel de Coriolis",
+        "title": "El carrusel de Coriolis",
+        "summary": "En un carrusel que gira, dos personas se lanzan una pelota rodando – y nunca llega a donde se apuntó. Visto desde fuera, no hay ninguna curva que explicar.",
+        "question": "Dos personas se sientan frente a frente en un carrusel que gira. ¿Hacia dónde hay que apuntar para alcanzar al otro?"
       }
     },
     "chair": {
@@ -1842,6 +1848,59 @@
         "zeta": "la posición de la bola como número complejo",
         "a": "la amplitud al soltar",
         "omega_p": "la frecuencia angular de la oscilación en el sistema que gira"
+      }
+    },
+    "coriolis": {
+      "at": {
+        "seats": "Una plataforma redonda gira despacio; dos personas se sientan enfrentadas en el borde y se pasan una pelota rodando.",
+        "misses": "La pelota se desvía y falla, aunque nadie la empuja. A 6 vueltas por minuto, un lanzamiento recto a 3 m/s falla el otro asiento por 86°; quien apunta 50° por delante acierta."
+      },
+      "view": "El carrusel visto desde arriba: los dos asientos, la dirección de tiro en trazos y la trayectoria de la pelota",
+      "play": {
+        "title": "Apuntar y lanzar",
+        "hint": "Lance una vez recto al otro asiento y cambie a «Desde fuera»: allí el disco va en línea recta.",
+        "throw": "Lanzar",
+        "aim_lead": "Apuntar por delante",
+        "frame": "Vista",
+        "frames": {
+          "riding": "Girando con él",
+          "outside": "Desde fuera"
+        },
+        "body": "Qué se lanza",
+        "bodies": {
+          "puck": "Disco deslizante",
+          "ball": "Pelota que rueda"
+        },
+        "aim": "Apuntar",
+        "aim_hint": "Cuánto se apunta al lado del otro asiento, positivo en sentido antihorario.",
+        "speed": "Velocidad del lanzamiento",
+        "rpm": "Giro del carrusel",
+        "rpm_unit": "rpm",
+        "rpm_hint": "Positivo: antihorario, visto desde arriba.",
+        "miss": "Fallo de",
+        "flight": "En camino",
+        "no_lead": "A esta velocidad ningún lanzamiento alcanza el otro asiento: se aleja girando demasiado deprisa.",
+        "lead": "Apuntar {{lead}}° por delante acierta."
+      },
+      "model": {
+        "intro": "Visto desde fuera, ninguna fuerza empuja el disco de lado. Al soltarlo tiene dos velocidades: el lanzamiento y la velocidad con la que el lanzador mismo gira en el borde.",
+        "puck": "Por eso, visto desde fuera, va en línea recta – solo que no hacia donde apuntó el lanzador.",
+        "riding": "Quien gira con el carrusel ve la misma trayectoria curvada y la explica con dos fuerzas que solo aparecen en el sistema que gira: la fuerza de Coriolis, de través al movimiento, y la fuerza centrífuga, hacia fuera.",
+        "ball": "Una pelota que rueda es aún más extraña: la plataforma sigue girando bajo ella, y el rozamiento que la hace rodar gira su velocidad de forma constante – a 2/7 del giro del carrusel. Desde fuera, recorre un círculo."
+      },
+      "symbols": {
+        "r0": "dónde se suelta la pelota",
+        "u": "el lanzamiento, medido sobre el carrusel",
+        "omega": "el giro del carrusel",
+        "primed": "aceleración, velocidad y posición tal como las mide quien gira",
+        "k": "lo difícil que es hacer girar la pelota: 2/5 para una esfera maciza"
+      },
+      "sweet": {
+        "nobody": "Nadie empuja la pelota de lado. La curva surge porque uno mismo gira: mientras la pelota va de camino, el otro asiento sigue avanzando. La misma «fuerza» en la Tierra que gira desvía los vientos hacia las borrascas y los hace girar allí.",
+        "ball": "Y una pelota que rueda no va recta ni siquiera vista desde fuera: al rodar sobre la plataforma que gira, recorre un círculo a 2/7 del giro del carrusel."
+      },
+      "computed": {
+        "system": "Ambas trayectorias tienen solución cerrada: el disco en una recta, la pelota en un círculo, ambas vistas desde fuera y giradas de vuelta para quien gira. Dónde la pelota vuelve a llegar al borde, y hacia dónde hay que apuntar para acertar, lo halla la página partiendo por la mitad. La prueba contrasta la trayectoria girada del disco con un cálculo paso a paso con las fuerzas de Coriolis y centrífuga."
       }
     }
   }

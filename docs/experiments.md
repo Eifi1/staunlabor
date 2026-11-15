@@ -984,6 +984,42 @@ swing.
 stepped equations, the turn in Winterthur and its direction, the pole, the
 equator and the south.
 
+## The Coriolis carousel (`experiments.coriolis`)
+
+**The exhibit.** Two people opposite each other at the edge of a turning
+platform roll a ball across; it curves away and misses, though nobody pushes
+it. Seen from outside there is no curve to explain.
+
+**The model** (`domain/experiments/coriolis.py`), two things to throw, both in
+closed form. A sliding puck keeps its velocity — the throw plus the seat's own
+`Ω × r` — and goes straight seen from outside. A rolled ball must keep up with
+the turning surface under it; the friction that keeps it rolling turns its
+velocity at `(k/(1+k))·Ω`, 2/7 of the platform's rate for a solid ball, so seen
+from outside it runs on a circle (checked against the closed form's own
+derivative). Turned back by `−Ω·t` either is what a rider sees; the puck's
+turned-back path is held to the stepped Coriolis and centrifugal equations to
+10⁻⁹ m. **The lead:** where the ball leaves the edge (by bisection on the
+distance) against the other seat; the aim that hits it, found by scanning the
+aim a degree apart for a true change of the miss's sign — not its jump from
++180° to −180° where the ball leaves past the thrower's own seat, which a
+plain bisection had first taken for a hit — then bisecting.
+
+**What it shows** (2 m radius, 6 rpm, a 3 m/s throw). A straight throw misses
+the other seat by 86° clockwise as the riders see it; aiming 50° ahead hits
+(a rolled ball, 43°). Too fast a platform for too slow a throw: no aim does.
+
+**The page.** The carousel from above riding along or from outside, the seats
+and the aim, the path drawn as the throw replays; a puck or a ball; aim, speed
+and the platform's turns a minute; the miss, the flight's time, and "Aim
+ahead" setting the lead. **No route**: the port's (`simulate/coriolis.ts`).
+
+**Left out, and said:** rolling resistance and slipping (the ball rolls from
+the start), the ball's size, air.
+
+**Checked by** `tests/unit/test_experiments.py`: the riders' view against the
+stepped equations, the straight puck and the ball's 2/7 turn, the misses and
+the leads.
+
 ## Checking the mathematics
 
 Before the engine was written each model was checked independently with SciPy

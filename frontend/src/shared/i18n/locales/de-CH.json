@@ -235,6 +235,12 @@
         "title": "Das Foucault-Pendel in Winterthur",
         "summary": "Ein langes Pendel schwingt stundenlang, und seine Schwingebene dreht sich langsam gegen den Boden: Nicht das Pendel dreht sich, sondern die Erde unter ihm.",
         "question": "Wie lange braucht die Schwingebene eines Pendels in Winterthur für eine ganze Runde?"
+      },
+      "coriolis": {
+        "short": "Coriolis-Karussell",
+        "title": "Das Coriolis-Karussell",
+        "summary": "Auf einem drehenden Karussell rollt man sich einen Ball zu – und er kommt nie dort an, wohin man zielt. Von aussen gesehen gibt es keine Kurve zu erklären.",
+        "question": "Zwei sitzen sich auf einem drehenden Karussell gegenüber. Wohin muss man zielen, um den anderen zu treffen?"
       }
     },
     "chair": {
@@ -1842,6 +1848,59 @@
         "zeta": "die Lage der Kugel als komplexe Zahl",
         "a": "der Ausschlag beim Loslassen",
         "omega_p": "die Kreisfrequenz der Schwingung im drehenden System"
+      }
+    },
+    "coriolis": {
+      "at": {
+        "seats": "Eine runde Plattform dreht sich langsam; zwei sitzen am Rand einander gegenüber und rollen sich einen Ball zu.",
+        "misses": "Der Ball biegt ab und verfehlt den anderen, obwohl ihn niemand anstösst. Bei 6 Umdrehungen pro Minute verfehlt ein gerader Wurf mit 3 m/s den anderen Sitz um 86°; wer 50° vorhält, trifft."
+      },
+      "view": "Das Karussell von oben: die beiden Sitze, die Wurfrichtung gestrichelt und die Bahn des Balls",
+      "play": {
+        "title": "Zielen und werfen",
+        "hint": "Werfen Sie einmal gerade auf den anderen Sitz, dann schalten Sie auf «Von aussen»: Dort fliegt der Puck geradeaus.",
+        "throw": "Werfen",
+        "aim_lead": "Vorhalt einstellen",
+        "frame": "Ansicht",
+        "frames": {
+          "riding": "Mitfahrend",
+          "outside": "Von aussen"
+        },
+        "body": "Was geworfen wird",
+        "bodies": {
+          "puck": "Gleitender Puck",
+          "ball": "Rollender Ball"
+        },
+        "aim": "Zielen",
+        "aim_hint": "Wie weit neben den anderen Sitz gezielt wird, im Gegenuhrzeigersinn positiv.",
+        "speed": "Tempo des Wurfs",
+        "rpm": "Drehzahl des Karussells",
+        "rpm_unit": "U/min",
+        "rpm_hint": "Positiv: im Gegenuhrzeigersinn, von oben gesehen.",
+        "miss": "Verfehlt um",
+        "flight": "Unterwegs",
+        "no_lead": "Mit diesem Tempo trifft kein Wurf den anderen Sitz: Er dreht sich zu schnell davon.",
+        "lead": "Vorhalten um {{lead}}° trifft."
+      },
+      "model": {
+        "intro": "Von aussen gesehen gibt es keine Kraft, die den Puck zur Seite drückt. Er hat beim Loslassen zweierlei Geschwindigkeit: den Wurf und das Tempo, mit dem der Werfer selbst am Rand mitfährt.",
+        "puck": "Darum fliegt er von aussen gesehen geradeaus – nur nicht dorthin, wohin der Werfer gezielt hat.",
+        "riding": "Wer mitfährt, sieht dieselbe Bahn gekrümmt. Er erklärt sie mit zwei Kräften, die nur im drehenden System auftreten: der Corioliskraft quer zur Bewegung und der Fliehkraft nach aussen.",
+        "ball": "Ein rollender Ball ist noch seltsamer: Die Scheibe dreht sich unter ihm weiter, und die Reibung, die ihn rollen lässt, dreht seine Geschwindigkeit stetig mit – mit 2/7 der Drehrate. Von aussen fährt er einen Kreis."
+      },
+      "symbols": {
+        "r0": "wo der Ball losgelassen wird",
+        "u": "der Wurf, gemessen auf dem Karussell",
+        "omega": "die Drehung des Karussells",
+        "primed": "Beschleunigung, Geschwindigkeit und Ort, wie sie ein Mitfahrer misst",
+        "k": "wie schwer der Ball in Drehung zu bringen ist: 2/5 für eine volle Kugel"
+      },
+      "sweet": {
+        "nobody": "Niemand stösst den Ball zur Seite. Die Kurve entsteht, weil man sich selbst mitdreht: Während der Ball unterwegs ist, fährt der andere Sitz weiter. Dieselbe «Kraft» lenkt auf der drehenden Erde die Winde in Tiefdruckgebiete hinein und lässt sie dort kreisen.",
+        "ball": "Und ein gerollter Ball ist auch von aussen nicht gerade: Weil er auf der drehenden Scheibe rollt, fährt er einen Kreis, mit 2/7 der Drehrate des Karussells."
+      },
+      "computed": {
+        "system": "Beide Bahnen sind geschlossen lösbar: der Puck auf einer Geraden, der Ball auf einem Kreis, beide von aussen gesehen und für den Mitfahrer zurückgedreht. Wo der Ball den Rand wieder erreicht, und wohin man zielen muss, um zu treffen, findet die Seite durch Halbieren. Der Test prüft die zurückgedrehte Bahn des Pucks gegen eine Schrittrechnung mit Coriolis- und Fliehkraft."
       }
     }
   }

@@ -41,6 +41,7 @@ import { MaxwellPage } from "./maxwell-page";
 import { ChaosPage } from "./chaos-page";
 import { WaterwheelPage } from "./waterwheel-page";
 import { FoucaultPage, knocked } from "./foucault-page";
+import { CoriolisPage } from "./coriolis-page";
 import { ballState, pitEntries, positionAt, raceLayout, swingAt } from "./race-views";
 import { run as runPit } from "./simulate/pit";
 import { HOLE, cameraAt, frameOf, project } from "./chair-views";
@@ -893,5 +894,22 @@ describe("Foucault's pendulum", () => {
     expect(knocked(170, -12)).toBe(true);
     expect(knocked(10, -12)).toBe(false);
     expect(knocked(10, 12)).toBe(true);
+  });
+});
+
+describe("the Coriolis carousel", () => {
+  it("shows the carousel, both views and the lead a throw needs", async () => {
+    renderWithProviders(<CoriolisPage />);
+    expect(await screen.findByRole("img", { name: E.coriolis.view })).toBeInTheDocument();
+    expect(screen.getByRole("radio", { name: E.coriolis.play.frames.outside })).toBeInTheDocument();
+    expect(screen.getByText("Aiming 50.4° ahead hits it.")).toBeInTheDocument();
+    expect(screen.getAllByLabelText(E.equation.symbols).length).toBeGreaterThanOrEqual(3);
+  });
+
+  it("aims ahead when asked, and then misses by nothing", async () => {
+    renderWithProviders(<CoriolisPage />);
+    await screen.findByRole("img", { name: E.coriolis.view });
+    fireEvent.click(screen.getByRole("button", { name: E.coriolis.play.aim_lead }));
+    expect((await screen.findAllByDisplayValue("50.4")).length).toBeGreaterThan(0);
   });
 });

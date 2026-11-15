@@ -1914,7 +1914,8 @@ def test_seen_from_outside_the_puck_goes_straight_and_the_rolled_ball_in_a_circl
 def test_to_hit_the_other_seat_a_rider_aims_well_ahead_of_it():
     c = x.Carousel()
     straight = x.miss_deg(c, x.Throw())
-    assert straight < -45
+    # Clockwise, to the right as the riders see it: the platform turns anticlockwise.
+    assert round(straight) == -86
     puck = x.lead_deg(c, 3.0, x.ThrownBody.PUCK)
     ball = x.lead_deg(c, 3.0, x.ThrownBody.BALL)
     assert round(puck) == 50

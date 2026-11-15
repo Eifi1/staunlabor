@@ -235,6 +235,12 @@
         "title": "Il pendolo di Foucault a Winterthur",
         "summary": "Un lungo pendolo oscilla per ore, e il suo piano di oscillazione ruota lentamente rispetto al pavimento: non ruota il pendolo, ma la Terra sotto di esso.",
         "question": "Quanto impiega il piano di oscillazione di un pendolo a fare un giro completo a Winterthur?"
+      },
+      "coriolis": {
+        "short": "Giostra di Coriolis",
+        "title": "La giostra di Coriolis",
+        "summary": "Su una giostra che gira, due persone si fanno rotolare una palla – e non arriva mai dove si è mirato. Vista da fuori, non c'è alcuna curva da spiegare.",
+        "question": "Due persone siedono una di fronte all'altra su una giostra che gira. Dove bisogna mirare per colpire l'altro?"
       }
     },
     "chair": {
@@ -1842,6 +1848,59 @@
         "zeta": "la posizione della sfera come numero complesso",
         "a": "l'ampiezza al rilascio",
         "omega_p": "la pulsazione dell'oscillazione nel sistema rotante"
+      }
+    },
+    "coriolis": {
+      "at": {
+        "seats": "Una piattaforma rotonda gira lentamente; due persone siedono una di fronte all'altra sul bordo e si fanno rotolare una palla.",
+        "misses": "La palla devia e manca l'altro, anche se nessuno la spinge. A 6 giri al minuto un tiro dritto a 3 m/s manca l'altro sedile di 86°; chi mira 50° avanti colpisce."
+      },
+      "view": "La giostra dall'alto: i due sedili, la direzione del tiro tratteggiata e la traiettoria della palla",
+      "play": {
+        "title": "Mirare e tirare",
+        "hint": "Tiri una volta dritto verso l'altro sedile, poi passi a «Da fuori»: lì il disco va dritto.",
+        "throw": "Tirare",
+        "aim_lead": "Mirare avanti",
+        "frame": "Vista",
+        "frames": {
+          "riding": "Girando insieme",
+          "outside": "Da fuori"
+        },
+        "body": "Che cosa si tira",
+        "bodies": {
+          "puck": "Disco che scivola",
+          "ball": "Palla che rotola"
+        },
+        "aim": "Mirare",
+        "aim_hint": "Quanto si mira accanto all'altro sedile, positivo in senso antiorario.",
+        "speed": "Velocità del tiro",
+        "rpm": "Rotazione della giostra",
+        "rpm_unit": "giri/min",
+        "rpm_hint": "Positivo: antiorario, visto dall'alto.",
+        "miss": "Mancato di",
+        "flight": "In volo",
+        "no_lead": "A questa velocità nessun tiro raggiunge l'altro sedile: si allontana girando troppo in fretta.",
+        "lead": "Mirare {{lead}}° avanti colpisce."
+      },
+      "model": {
+        "intro": "Visto da fuori, nessuna forza spinge il disco di lato. Lasciando la mano ha due velocità: il tiro e la velocità con cui il tiratore stesso viene portato in giro sul bordo.",
+        "puck": "Per questo, visto da fuori, va dritto – solo non dove il tiratore ha mirato.",
+        "riding": "Chi gira con la giostra vede la stessa traiettoria curva e la spiega con due forze che compaiono solo nel sistema rotante: la forza di Coriolis, di traverso al moto, e la forza centrifuga, verso l'esterno.",
+        "ball": "Una palla che rotola è ancora più strana: la piattaforma continua a girarle sotto, e l'attrito che la fa rotolare ne ruota la velocità di continuo – a 2/7 della rotazione della giostra. Vista da fuori, percorre un cerchio."
+      },
+      "symbols": {
+        "r0": "dove viene lasciata la palla",
+        "u": "il tiro, misurato sulla giostra",
+        "omega": "la rotazione della giostra",
+        "primed": "accelerazione, velocità e posizione come le misura chi gira",
+        "k": "quanto è difficile mettere in rotazione la palla: 2/5 per una sfera piena"
+      },
+      "sweet": {
+        "nobody": "Nessuno spinge la palla di lato. La curva nasce perché si gira insieme: mentre la palla è in viaggio, l'altro sedile va avanti. La stessa «forza» sulla Terra che ruota devia i venti verso le zone di bassa pressione e li fa girare lì.",
+        "ball": "E una palla che rotola non va dritta nemmeno vista da fuori: rotolando sulla piattaforma che gira, percorre un cerchio a 2/7 della rotazione della giostra."
+      },
+      "computed": {
+        "system": "Entrambe le traiettorie hanno una soluzione chiusa: il disco su una retta, la palla su un cerchio, entrambe viste da fuori e riportate indietro per chi gira. Dove la palla raggiunge di nuovo il bordo, e dove bisogna mirare per colpire, la pagina lo trova dimezzando. Il test confronta la traiettoria riportata del disco con un calcolo passo dopo passo con la forza di Coriolis e quella centrifuga."
       }
     }
   }

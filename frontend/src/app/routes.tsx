@@ -36,6 +36,9 @@ const WaterwheelPage = lazy(() =>
 const FoucaultPage = lazy(() =>
   import("@/features/experiments/foucault-page").then((m) => ({ default: m.FoucaultPage })),
 );
+const CoriolisPage = lazy(() =>
+  import("@/features/experiments/coriolis-page").then((m) => ({ default: m.CoriolisPage })),
+);
 const HarmonographPage = lazy(() =>
   import("@/features/experiments/harmonograph-page").then((m) => ({ default: m.HarmonographPage })),
 );
@@ -194,6 +197,14 @@ export function AppRoutes() {
           element={
             <Page>
               <FoucaultPage />
+            </Page>
+          }
+        />
+        <Route
+          path="coriolis"
+          element={
+            <Page>
+              <CoriolisPage />
             </Page>
           }
         />
