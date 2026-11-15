@@ -14,7 +14,14 @@ import { fireEvent, screen, waitFor, within } from "@testing-library/react";
 import en from "@/shared/i18n/locales/en.json";
 import { mockApi } from "@/test/api-mock";
 import { renderWithProviders } from "@/test/render";
-import type { CannonFigures, ChairAnalysis, ElephantFigures, RaceAnalysis, SmokeFigures } from "@/shared/types";
+import type {
+  CannonFigures,
+  ChairAnalysis,
+  ElephantFigures,
+  RaceAnalysis,
+  SmokeFigures,
+  WaveFigures,
+} from "@/shared/types";
 import { ChairPage, autoView } from "./chair-page";
 import { CoilPage } from "./coil-page";
 import { Equation } from "./equation";
@@ -24,6 +31,24 @@ import { RacePage } from "./race-page";
 import { ElephantPage } from "./elephant-page";
 import { SmokePage } from "./smoke-page";
 import { CannonPage } from "./cannon-page";
+import { WavePage } from "./wave-page";
+import { HarmonographPage, boardLength } from "./harmonograph-page";
+import { ConePage, verdict } from "./cone-page";
+import { ParabolaPage, wellFilled } from "./parabola-page";
+import { CoupledPage, hangs } from "./coupled-page";
+import { PegPage } from "./peg-page";
+import { MaxwellPage } from "./maxwell-page";
+import { ChaosPage } from "./chaos-page";
+import { WaterwheelPage } from "./waterwheel-page";
+import { FoucaultPage, knocked } from "./foucault-page";
+import { CoriolisPage } from "./coriolis-page";
+import { CradlePage } from "./cradle-page";
+import { WellPage } from "./well-page";
+import { ResonancePage } from "./resonance-page";
+import { GyroscopePage } from "./gyroscope-page";
+import { ArchPage } from "./arch-page";
+import { LevitationPage } from "./levitation-page";
+import { ChladniPage } from "./chladni-page";
 import { ballState, pitEntries, positionAt, raceLayout, swingAt } from "./race-views";
 import { run as runPit } from "./simulate/pit";
 import { HOLE, cameraAt, frameOf, project } from "./chair-views";
@@ -41,11 +66,13 @@ const race = fixtures.race as unknown as RaceAnalysis;
 const elephant = fixtures.elephant as unknown as ElephantFigures;
 const smoke = fixtures.smoke as unknown as SmokeFigures;
 const cannon = fixtures.cannon as unknown as CannonFigures;
+const wave = fixtures.wave as unknown as WaveFigures;
 
 beforeEach(() => {
   useTried.getState().forget();
   mockApi({
     "GET /experiments/chair": chair,
+    "GET /experiments/chladni": fixtures.chladni,
     "GET /experiments/defaults": fixtures.defaults,
     "POST /experiments/coil": fixtures.coil,
     "POST /experiments/sphere": fixtures.sphere,
@@ -54,6 +81,7 @@ beforeEach(() => {
     "POST /experiments/elephant": elephant,
     "POST /experiments/smoke": smoke,
     "POST /experiments/cannon": cannon,
+    "POST /experiments/wave": wave,
   });
 });
 
@@ -111,7 +139,12 @@ describe("the overview", () => {
     await renderOverview();
     const cards = () => screen.getAllByRole("heading", { level: 3 }).map((h) => h.textContent);
     fireEvent.click(screen.getByRole("button", { name: E.topics.flow }));
-    expect(cards()).toEqual([E.exhibits.elephant.title, E.exhibits.smoke.title]);
+    // The flows, in the list's order: the elephant and the smoke ring first.
+    const flows = EXHIBITS.filter((entry) => entry.topics.includes("flow")).map(
+      (entry) => E.exhibits[entry.exhibit].title,
+    );
+    expect(flows.slice(0, 2)).toEqual([E.exhibits.elephant.title, E.exhibits.smoke.title]);
+    expect(cards()).toEqual(flows);
     expect(screen.getByRole("button", { name: E.topics.flow })).toHaveAttribute("aria-pressed", "true");
     fireEvent.click(screen.getByRole("button", { name: E.overview.all_topics }));
     expect(cards()).toHaveLength(EXHIBITS.length);
@@ -171,7 +204,8 @@ describe("a preview", () => {
   it.each(EXHIBITS.map((entry) => entry.exhibit))("draws the %s", async (exhibit) => {
     const { container } = renderWithProviders(<ExhibitPreview exhibit={exhibit} />);
     await waitFor(() => expect(container.querySelector("[aria-busy='true']")).toBeNull());
-    expect(container.querySelector("svg")).not.toBeNull();
+    // A drawing: an SVG, or a canvas where thousands of grains are drawn.
+    expect(container.querySelector("svg, canvas")).not.toBeNull();
     expect(screen.queryByRole("button")).toBeNull();
   });
 });
@@ -617,5 +651,431 @@ describe("the ball cannon", () => {
     expect(screen.getByRole("button", { name: E.cannon.change.flip })).toBeEnabled();
     fireEvent.click(screen.getByRole("radio", { name: "1 ball" }));
     expect(screen.getByRole("button", { name: E.cannon.change.flip })).toBeDisabled();
+  });
+});
+
+describe("the pendulum wave", () => {
+  it("shows the row from above and from its end, the moments to jump to and the engine's lengths", async () => {
+    renderWithProviders(<WavePage />);
+    expect(await screen.findByRole("img", { name: E.wave.views.top })).toBeInTheDocument();
+    expect(screen.getByRole("img", { name: E.wave.views.side })).toBeInTheDocument();
+    for (const k of ["2", "3", "4", "1"] as const) {
+      expect(screen.getByRole("button", { name: E.wave.play.jumps[k] })).toBeInTheDocument();
+    }
+    // The default row's longest and shortest pendulum, the engine's 34 and 21 cm.
+    expect(await screen.findByText("34.1")).toBeInTheDocument();
+    expect(screen.getByText("21.0")).toBeInTheDocument();
+    await waitFor(() => expect(screen.getAllByLabelText(E.equation.symbols).length).toBeGreaterThanOrEqual(6));
+  });
+
+  it("stops the clock at half the cycle, where the row stands in two groups", async () => {
+    renderWithProviders(<WavePage />);
+    await screen.findByRole("img", { name: E.wave.views.top });
+    fireEvent.click(screen.getByRole("button", { name: E.wave.play.jumps["2"] }));
+    expect(screen.getByRole("button", { name: E.wave.play.run })).toBeInTheDocument();
+    // The row is at ±15°: the bobs' offsets from the bar take two values only,
+    // one for the even swing counts and one for the odd.
+    const offsets = new Set(
+      [...screen.getByRole("img", { name: E.wave.views.top }).querySelectorAll("circle")].map((c) =>
+        Math.sign(Number(c.getAttribute("cy"))),
+      ),
+    );
+    expect(offsets).toEqual(new Set([1, -1]));
+  });
+
+  it("says how far a textbook row would come back skewed", async () => {
+    renderWithProviders(<WavePage />);
+    expect(await screen.findByText(/come back 22° skewed at 15°/)).toBeInTheDocument();
+  });
+});
+
+describe("the harmonograph", () => {
+  it("shows the drawing, the pen's controls and the port's figures for the default build", async () => {
+    renderWithProviders(<HarmonographPage />);
+    expect(await screen.findByRole("img", { name: E.harmonograph.views.drawing })).toBeInTheDocument();
+    for (const name of [E.harmonograph.play.finish, E.harmonograph.play.save, E.harmonograph.play.restart]) {
+      expect(screen.getByRole("button", { name })).toBeInTheDocument();
+    }
+    // The default pair is 0.67 % off 2 : 3, and its figure turns once in 90 s.
+    expect(screen.getByText("Near the ratio 2 : 3 (pen : board)")).toBeInTheDocument();
+    expect(screen.getByText(/0\.67 % off 2 : 3: the figure turns once in 90 s/)).toBeInTheDocument();
+    expect(screen.getAllByLabelText(E.equation.symbols).length).toBeGreaterThanOrEqual(5);
+  });
+
+  it("draws to the end at once when asked, and says it is done", async () => {
+    renderWithProviders(<HarmonographPage />);
+    await screen.findByRole("img", { name: E.harmonograph.views.drawing });
+    fireEvent.click(screen.getByRole("button", { name: E.harmonograph.play.finish }));
+    expect(screen.getByRole("button", { name: E.harmonograph.play.finish })).toBeDisabled();
+  });
+
+  it("tunes the board's length to a ratio: a quarter of the length, twice the beat", () => {
+    expect(boardLength(0.8, [1, 2], 0)).toBeCloseTo(0.2, 12);
+    expect(boardLength(0.8, [1, 1], 0.01)).toBeCloseTo(0.8 / 1.01 ** 2, 12);
+  });
+});
+
+describe("the double cone", () => {
+  it("shows the cone from the side and the front, and says it rolls up these rails", async () => {
+    renderWithProviders(<ConePage />);
+    expect(await screen.findByRole("img", { name: E.cone.views.side })).toBeInTheDocument();
+    expect(screen.getByRole("img", { name: E.cone.views.front })).toBeInTheDocument();
+    expect(screen.getByRole("button", { name: E.cone.play.let_go })).toBeInTheDocument();
+    expect(screen.getByText(E.cone.play.verdict_up)).toBeInTheDocument();
+    // The default rails rise 2.1 cm while the axis falls 1.9; up to 7.5° it rolls up.
+    expect(screen.getByText(/rise by 2\.1 cm\. The cone's axis falls by 1\.9 cm/)).toBeInTheDocument();
+    expect(screen.getByText(/Up to a slope of 7\.5° this cone rolls up/)).toBeInTheDocument();
+    expect(screen.getAllByLabelText(E.equation.symbols).length).toBeGreaterThanOrEqual(4);
+  });
+
+  it("turns round on steeper rails, and refuses rails the cone would fall through", async () => {
+    renderWithProviders(<ConePage />);
+    await screen.findByRole("img", { name: E.cone.views.side });
+    const slope = screen.getByRole("slider", { name: E.cone.change.slope });
+    fireEvent.change(slope, { target: { value: "10" } });
+    expect(await screen.findByText(E.cone.play.verdict_down)).toBeInTheDocument();
+    const length = screen.getByRole("slider", { name: E.cone.change.length });
+    fireEvent.change(length, { target: { value: "50" } });
+    expect(await screen.findByText(E.cone.refused.fall_through)).toBeInTheDocument();
+  });
+
+  it("knows up from down from staying", () => {
+    const ex = fixtures.defaults.cone;
+    expect(verdict(ex)).toBe("up");
+    expect(verdict({ ...ex, rails: { ...ex.rails, slope_deg: 10 } })).toBe("down");
+    expect(verdict({ ...ex, rails: { ...ex.rails, slope_deg: 7.546280442894854 } })).toBe("stays");
+  });
+});
+
+describe("the water parabola", () => {
+  it("shows the vessel cut through and from above, the turntable and the port's rates", async () => {
+    renderWithProviders(<ParabolaPage />);
+    expect(await screen.findByRole("img", { name: E.parabola.views.side })).toBeInTheDocument();
+    expect(screen.getByRole("img", { name: E.parabola.views.top })).toBeInTheDocument();
+    expect(screen.getByRole("radio", { name: E.parabola.play.frames.turning })).toBeInTheDocument();
+    // The default vessel runs dry at 126 turns a minute and spills at 189.
+    expect(screen.getByText("126")).toBeInTheDocument();
+    expect(screen.getByText("189")).toBeInTheDocument();
+    expect(screen.getByText(/the middle sinks by .* cm – and the rim rises by exactly as much/)).toBeInTheDocument();
+    expect(screen.getAllByLabelText(E.equation.symbols).length).toBeGreaterThanOrEqual(4);
+  });
+
+  it("refuses a vessel filled over its top", async () => {
+    renderWithProviders(<ParabolaPage />);
+    await screen.findByRole("img", { name: E.parabola.views.side });
+    fireEvent.change(screen.getByRole("slider", { name: E.parabola.change.fill }), { target: { value: "35" } });
+    expect(await screen.findByText(E.parabola.refused)).toBeInTheDocument();
+    expect(wellFilled({ radius_m: 0.15, height_m: 0.3, fill_m: 0.1 })).toBe(true);
+  });
+});
+
+describe("the coupled pendulums", () => {
+  it("shows the pair, the three ways to let go and the port's beat", async () => {
+    renderWithProviders(<CoupledPage />);
+    expect(await screen.findByRole("img", { name: E.coupled.view })).toBeInTheDocument();
+    for (const how of ["one", "together", "against"] as const) {
+      expect(screen.getByRole("button", { name: E.coupled.play.starts[how] })).toBeInTheDocument();
+    }
+    // The default pair: over and back in 22.9 s, all of it reaching the other.
+    expect(screen.getByText(/wanders over and back once in 22\.9 s, and 100 % of it/)).toBeInTheDocument();
+    expect(screen.getAllByLabelText(E.equation.symbols).length).toBeGreaterThanOrEqual(4);
+  });
+
+  it("refuses a spring fixed below the shorter bob", async () => {
+    renderWithProviders(<CoupledPage />);
+    await screen.findByRole("img", { name: E.coupled.view });
+    fireEvent.change(screen.getByRole("slider", { name: E.coupled.change.right_length }), { target: { value: "30" } });
+    fireEvent.change(screen.getByRole("slider", { name: E.coupled.change.spring_at }), { target: { value: "40" } });
+    expect(await screen.findByText(E.coupled.refused)).toBeInTheDocument();
+    expect(hangs(fixtures.defaults.coupled)).toBe(true);
+  });
+});
+
+describe("Galileo's pendulum", () => {
+  it("shows the pendulum and its peg, and says the bob rises as high as it fell from", async () => {
+    renderWithProviders(<PegPage />);
+    expect(await screen.findByRole("img", { name: E.peg.view })).toBeInTheDocument();
+    expect(screen.getByText(E.peg.play.outcome_same_height)).toBeInTheDocument();
+    // Let go at 30° on a metre of string: 13.4 cm up; over the top would take 125 cm.
+    expect(
+      screen.getByText(/let go 13\.4 cm above the lowest point; going over would take 125\.0 cm/),
+    ).toBeInTheDocument();
+    expect(screen.getAllByLabelText(E.equation.symbols).length).toBeGreaterThanOrEqual(4);
+  });
+
+  it("sets the three cases from the trick, and says what each does", async () => {
+    renderWithProviders(<PegPage />);
+    await screen.findByRole("img", { name: E.peg.view });
+    fireEvent.click(screen.getByRole("button", { name: E.peg.sweet.cases.over_the_top }));
+    expect(await screen.findByText(E.peg.play.outcome_over_the_top)).toBeInTheDocument();
+    fireEvent.click(screen.getByRole("button", { name: E.peg.sweet.cases.slack }));
+    expect(await screen.findByText(E.peg.play.outcome_slack)).toBeInTheDocument();
+  });
+});
+
+describe("Maxwell's wheel", () => {
+  it("shows the wheel on its strings, the pull and the port's bounce", async () => {
+    renderWithProviders(<MaxwellPage />);
+    expect(await screen.findByRole("img", { name: E.maxwell.view })).toBeInTheDocument();
+    expect(screen.getByRole("button", { name: E.maxwell.play.let_go })).toBeInTheDocument();
+    // The default disc: 98.8 % in the spin, a 25 ms jerk at 6.4 times the weight.
+    expect(screen.getByText(/98\.8 % here/)).toBeInTheDocument();
+    expect(screen.getByText(/For 25 ms their pull rises to 31\.2 N, 6\.4 times the weight/)).toBeInTheDocument();
+    expect(screen.getAllByLabelText(E.equation.symbols).length).toBeGreaterThanOrEqual(4);
+  });
+
+  it("puts even more of the energy into the spin of a wheel with its mass in the rim", async () => {
+    renderWithProviders(<MaxwellPage />);
+    await screen.findByRole("img", { name: E.maxwell.view });
+    fireEvent.click(screen.getByRole("radio", { name: E.maxwell.change.shapes.ring }));
+    expect(await screen.findByText(/99\.4 % here/)).toBeInTheDocument();
+  });
+});
+
+describe("the chaotic pendulum", () => {
+  it("shows the pendulum and its twin, the starts and the measured exponent", async () => {
+    renderWithProviders(<ChaosPage />);
+    expect(await screen.findByRole("img", { name: E.chaos.view })).toBeInTheDocument();
+    for (const name of ["gentle", "wild", "headstand"] as const) {
+      expect(screen.getByRole("button", { name: E.chaos.play.presets[name] })).toBeInTheDocument();
+    }
+    // Wild, the exponent is measured and the gap doubles in a fraction of a second.
+    expect(
+      await screen.findByText(
+        /Measured for this start: λ = \d\.\d\d a second\. A difference thus doubles/,
+        {},
+        { timeout: 8000 },
+      ),
+    ).toBeInTheDocument();
+    expect(screen.getAllByLabelText(E.equation.symbols).length).toBeGreaterThanOrEqual(4);
+  }, 15000);
+
+  it("calls a gentle start predictable", async () => {
+    renderWithProviders(<ChaosPage />);
+    await screen.findByRole("img", { name: E.chaos.view });
+    fireEvent.click(screen.getByRole("button", { name: E.chaos.play.presets.gentle }));
+    expect(await screen.findByText(/practically zero/, {}, { timeout: 8000 })).toBeInTheDocument();
+  }, 15000);
+});
+
+describe("the chaotic waterwheel", () => {
+  it("shows the wheel and the butterfly, the tap and the wheel's reversals", async () => {
+    renderWithProviders(<WaterwheelPage />);
+    expect(await screen.findByRole("img", { name: E.waterwheel.views.wheel })).toBeInTheDocument();
+    expect(screen.getByRole("img", { name: E.waterwheel.views.butterfly })).toBeInTheDocument();
+    expect(screen.getByText(E.waterwheel.play.regime_chaotic)).toBeInTheDocument();
+    expect(await screen.findByText(/In 200 seconds the wheel here turns back \d+ times/)).toBeInTheDocument();
+    expect(screen.getAllByLabelText(E.equation.symbols).length).toBeGreaterThanOrEqual(3);
+  });
+
+  it("stands still with too little water, and turns steadily with some more", async () => {
+    renderWithProviders(<WaterwheelPage />);
+    await screen.findByRole("img", { name: E.waterwheel.views.wheel });
+    fireEvent.change(screen.getByRole("slider", { name: E.waterwheel.play.tap }), { target: { value: "0.5" } });
+    expect(await screen.findByText(E.waterwheel.play.regime_still)).toBeInTheDocument();
+    fireEvent.change(screen.getByRole("slider", { name: E.waterwheel.play.tap }), { target: { value: "10" } });
+    expect(await screen.findByText(E.waterwheel.play.regime_steady)).toBeInTheDocument();
+  });
+});
+
+describe("Foucault's pendulum", () => {
+  it("shows the pendulum from above, the places and Winterthur's turn", async () => {
+    renderWithProviders(<FoucaultPage />);
+    expect(await screen.findByRole("img", { name: E.foucault.view })).toBeInTheDocument();
+    for (const place of ["winterthur", "pole", "equator", "sydney"] as const) {
+      expect(screen.getByRole("button", { name: E.foucault.play.places[place] })).toBeInTheDocument();
+    }
+    expect(screen.getByText("Turning right round takes 32.5 hours here.")).toBeInTheDocument();
+    expect(screen.getAllByLabelText(E.equation.symbols).length).toBeGreaterThanOrEqual(3);
+  });
+
+  it("does not turn at the equator", async () => {
+    renderWithProviders(<FoucaultPage />);
+    await screen.findByRole("img", { name: E.foucault.view });
+    fireEvent.click(screen.getByRole("button", { name: E.foucault.play.places.equator }));
+    expect(await screen.findByText(E.foucault.play.never)).toBeInTheDocument();
+  });
+
+  it("knocks a pin over once either end of the plane reaches it", () => {
+    // Clockwise in the north: the plane's angle falls.
+    expect(knocked(350, -5)).toBe(false);
+    expect(knocked(350, -12)).toBe(true);
+    expect(knocked(170, -12)).toBe(true);
+    expect(knocked(10, -12)).toBe(false);
+    expect(knocked(10, 12)).toBe(true);
+  });
+});
+
+describe("the Coriolis carousel", () => {
+  it("shows the carousel, both views and the lead a throw needs", async () => {
+    renderWithProviders(<CoriolisPage />);
+    expect(await screen.findByRole("img", { name: E.coriolis.view })).toBeInTheDocument();
+    expect(screen.getByRole("radio", { name: E.coriolis.play.frames.outside })).toBeInTheDocument();
+    expect(screen.getByText("Aiming 50.4° ahead hits it.")).toBeInTheDocument();
+    expect(screen.getAllByLabelText(E.equation.symbols).length).toBeGreaterThanOrEqual(3);
+  });
+
+  it("aims ahead when asked, and then misses by nothing", async () => {
+    renderWithProviders(<CoriolisPage />);
+    await screen.findByRole("img", { name: E.coriolis.view });
+    fireEvent.click(screen.getByRole("button", { name: E.coriolis.play.aim_lead }));
+    expect((await screen.findAllByDisplayValue("50.4")).length).toBeGreaterThan(0);
+  });
+});
+
+describe("Newton's cradle", () => {
+  it("shows the row, the balls one may lift and where the first collision sends the energy", async () => {
+    renderWithProviders(<CradlePage />);
+    expect(await screen.findByRole("img", { name: E.cradle.view })).toBeInTheDocument();
+    for (const n of ["1", "2", "3", "4"]) expect(screen.getByRole("radio", { name: n })).toBeInTheDocument();
+    expect(screen.queryByRole("radio", { name: "5" })).not.toBeInTheDocument();
+    expect(await screen.findByText(/0\.09 · 0\.59 m\/s$/)).toBeInTheDocument();
+    expect(screen.getAllByLabelText(E.equation.symbols).length).toBeGreaterThanOrEqual(3);
+  });
+
+  it("with a hair's gap sends the last ball off with nearly all of it", async () => {
+    renderWithProviders(<CradlePage />);
+    await screen.findByRole("img", { name: E.cradle.view });
+    fireEvent.click(screen.getByRole("radio", { name: E.cradle.play.spacings.gap }));
+    expect(await screen.findByText(/0\.01 · 0\.01 · 0\.01 · 0\.01 · 0\.59 m\/s$/)).toBeInTheDocument();
+  });
+
+  it("lets go when asked, and can be paused", async () => {
+    renderWithProviders(<CradlePage />);
+    await screen.findByRole("img", { name: E.cradle.view });
+    fireEvent.click(screen.getByRole("button", { name: E.cradle.play.let_go }));
+    expect(await screen.findByRole("button", { name: E.cradle.play.pause })).toBeInTheDocument();
+  });
+});
+
+describe("the gravity well", () => {
+  it("shows the funnel from above and from the side, ready on the circle", async () => {
+    renderWithProviders(<WellPage />);
+    expect(await screen.findByRole("img", { name: E.well.view_top })).toBeInTheDocument();
+    expect(screen.getByRole("img", { name: E.well.view_side })).toBeInTheDocument();
+    // The circle at the start: the speed that keeps it there without friction.
+    expect((await screen.findAllByDisplayValue("0.44")).length).toBeGreaterThan(0);
+    expect(screen.getAllByLabelText(E.equation.symbols).length).toBeGreaterThanOrEqual(4);
+  });
+
+  it("pushes off when asked, and can be paused", async () => {
+    renderWithProviders(<WellPage />);
+    await screen.findByRole("img", { name: E.well.view_top });
+    fireEvent.click(screen.getByRole("button", { name: E.well.play.launch }));
+    expect(await screen.findByRole("button", { name: E.well.play.pause })).toBeInTheDocument();
+  });
+});
+
+describe("the resonance rods", () => {
+  it("shows six rods with their frequencies, the table in step with the third, and the sound off", async () => {
+    renderWithProviders(<ResonancePage />);
+    expect(await screen.findByRole("img", { name: E.resonance.view })).toBeInTheDocument();
+    for (const hz of ["1.41 Hz", "2.21 Hz", "5.65 Hz"]) expect(screen.getByText(hz)).toBeInTheDocument();
+    expect((await screen.findAllByDisplayValue("2.21")).length).toBeGreaterThan(0);
+    // No Web Audio in the test runner: the switch is off, and says why it cannot turn on.
+    expect(screen.getByRole("switch", { name: E.resonance.play.sound })).not.toBeChecked();
+    expect(screen.getByText(E.resonance.play.no_sound)).toBeInTheDocument();
+    expect(screen.getAllByLabelText(E.equation.symbols).length).toBeGreaterThanOrEqual(3);
+  });
+
+  it("shakes when asked, and sweeps from 1 Hz", async () => {
+    renderWithProviders(<ResonancePage />);
+    await screen.findByRole("img", { name: E.resonance.view });
+    fireEvent.click(screen.getByRole("button", { name: E.resonance.play.shake }));
+    expect(await screen.findByRole("button", { name: E.resonance.play.stop })).toBeInTheDocument();
+    fireEvent.click(screen.getByRole("button", { name: E.resonance.play.sweep }));
+    // The beat drops to the sweep's start and climbs from there.
+    expect((await screen.findAllByDisplayValue(/^1\.0\d$/)).length).toBeGreaterThan(0);
+  });
+});
+
+describe("the gyroscope wheel", () => {
+  it("shows the wheel on its string, its round in 8.1 s and the suitcase's 5.9 N·m", async () => {
+    renderWithProviders(<GyroscopePage />);
+    expect(await screen.findByRole("img", { name: E.gyroscope.view })).toBeInTheDocument();
+    expect(screen.getByRole("img", { name: E.gyroscope.trace })).toBeInTheDocument();
+    expect(screen.getByText("8.1")).toBeInTheDocument();
+    expect(screen.getByText("5.9")).toBeInTheDocument();
+    expect(screen.getAllByLabelText(E.equation.symbols).length).toBeGreaterThanOrEqual(4);
+  });
+
+  it("lets go when asked, and can be paused", async () => {
+    renderWithProviders(<GyroscopePage />);
+    await screen.findByRole("img", { name: E.gyroscope.view });
+    fireEvent.click(screen.getByRole("button", { name: E.gyroscope.play.let_go }));
+    expect(await screen.findByRole("button", { name: E.gyroscope.play.pause })).toBeInTheDocument();
+  });
+});
+
+describe("the chain and the arch", () => {
+  it("shows the semicircle standing with its thrust line, and the three shapes", async () => {
+    renderWithProviders(<ArchPage />);
+    expect(await screen.findByRole("img", { name: E.arch.view })).toBeInTheDocument();
+    expect(await screen.findByText(E.arch.play.stands)).toBeInTheDocument();
+    for (const shape of ["semicircle", "pointed", "catenary"] as const)
+      expect(screen.getByRole("radio", { name: E.arch.play.shapes[shape] })).toBeInTheDocument();
+    expect(screen.getAllByLabelText(E.equation.symbols).length).toBeGreaterThanOrEqual(3);
+  });
+
+  it("breaks when the stones are made too thin, and stands again as the chain's arch", async () => {
+    renderWithProviders(<ArchPage />);
+    await screen.findByRole("img", { name: E.arch.view });
+    fireEvent.change(screen.getByRole("slider", { name: E.arch.play.thickness }), { target: { value: "8" } });
+    expect(await screen.findByText(E.arch.play.falls)).toBeInTheDocument();
+    fireEvent.click(screen.getByRole("radio", { name: E.arch.play.shapes.catenary }));
+    expect(await screen.findByText(E.arch.play.stands)).toBeInTheDocument();
+  });
+});
+
+describe("the Chladni figures", () => {
+  it("shows the plate, its first tones at 102, 269 and 517 Hz, and the sound off", async () => {
+    renderWithProviders(<ChladniPage />);
+    expect(await screen.findByRole("img", { name: E.chladni.view })).toBeInTheDocument();
+    for (const hz of ["102 Hz", "269 Hz", "517 Hz"])
+      expect(screen.getByRole("button", { name: hz })).toBeInTheDocument();
+    expect(screen.getByRole("switch", { name: E.chladni.play.sound })).not.toBeChecked();
+    expect(screen.getAllByLabelText(E.equation.symbols).length).toBeGreaterThanOrEqual(3);
+  });
+
+  it("rings at a tone when it is chosen", async () => {
+    renderWithProviders(<ChladniPage />);
+    await screen.findByRole("img", { name: E.chladni.view });
+    fireEvent.click(screen.getByRole("button", { name: "517 Hz" }));
+    expect((await screen.findAllByDisplayValue("517")).length).toBeGreaterThan(0);
+  });
+});
+
+describe("the notice that the calculations await their check", () => {
+  it("stands on the overview", async () => {
+    renderWithProviders(<ExperimentsOverviewPage />);
+    expect(await screen.findByText(E.unchecked)).toBeInTheDocument();
+  });
+
+  it("stands on an exhibit's page, above trying it", async () => {
+    renderWithProviders(<CradlePage />);
+    expect(await screen.findByText(E.unchecked)).toBeInTheDocument();
+  });
+});
+
+describe("the floating top", () => {
+  it("shows the tuned top floating in its window, with the field's equations", async () => {
+    renderWithProviders(<LevitationPage />);
+    expect(await screen.findByRole("img", { name: E.levitation.view })).toBeInTheDocument();
+    expect(await screen.findByText(E.levitation.play.hovers)).toBeInTheDocument();
+    expect(screen.getAllByLabelText(E.equation.symbols).length).toBeGreaterThanOrEqual(5);
+  });
+
+  it("lands too heavy, slides off too light, and lands again when the room warms", async () => {
+    renderWithProviders(<LevitationPage />);
+    await screen.findByRole("img", { name: E.levitation.view });
+    const mass = screen.getByRole("slider", { name: E.levitation.play.mass });
+    fireEvent.change(mass, { target: { value: "24" } });
+    expect(await screen.findByText(E.levitation.play.lands)).toBeInTheDocument();
+    fireEvent.change(mass, { target: { value: "23" } });
+    expect(await screen.findByText(E.levitation.play.slides)).toBeInTheDocument();
+    fireEvent.change(mass, { target: { value: "23.5" } });
+    expect(await screen.findByText(E.levitation.play.hovers)).toBeInTheDocument();
+    fireEvent.change(screen.getByRole("slider", { name: E.levitation.play.warming }), { target: { value: "3.5" } });
+    expect(await screen.findByText(E.levitation.play.lands)).toBeInTheDocument();
   });
 });

@@ -13,8 +13,11 @@ a sphere, the flux and its slope for a coil, the three boxes for the chair, the
 spins and the curves of the platform, the six tracks and the valley of the race,
 the float height, the curves and the tilt limit of the elephant's ball, the
 window of the smoke ring, how high the ball cannon's top ball goes for one, two
-and three balls — each a millisecond or a few, the race some twenty, the
-elephant, the smoke ring and the cannon up to two hundred.
+and three balls, the pendulum wave's lengths and how far apart it comes back,
+and the Chladni plate's driven modes, the same for every plate and computed
+once a process (two seconds the first time) —
+each a millisecond or a few, the race some twenty, the elephant, the smoke ring
+and the cannon up to two hundred.
 
 The handlers are ``def``: pure Python with nothing to await would stall the
 event loop as ``async``. All but ``defaults``, which builds a few models. Every
@@ -24,6 +27,8 @@ address; a 429 says the seconds in its body.
 
 from __future__ import annotations
 
+from dataclasses import asdict
+
 from eifi1_server_kit.limiter import charge
 from fastapi import APIRouter, Depends, Request
 
@@ -32,21 +37,41 @@ from staunlabor.domain.experiments import (
     Ball,
     BallStack,
     Body,
+    Carousel,
+    ChladniPlate,
     Coil,
     CoilExhibit,
+    ConeExhibit,
+    CoupledPendulums,
+    Cradle,
+    DoublePendulum,
     Drum,
     Elephant,
     FloatingBall,
+    FoucaultPendulum,
+    Funnel,
+    GyroWheel,
+    Harmonograph,
     Jet,
+    LevitationBase,
+    LevitationTop,
     Magnet,
+    MaxwellWheel,
+    PegPendulum,
+    PendulumWave,
     Platform,
     Race,
+    ResonanceRack,
     Room,
     SmokeExhibit,
     Sphere,
+    StoneArch,
     Track,
+    Vessel,
+    WaterWheel,
     cannon_figures,
     chair_analysis,
+    chladni_driven_modes,
     coil_analysis,
     elephant_figures,
     platform_figures,
@@ -54,26 +79,49 @@ from staunlabor.domain.experiments import (
     run_race,
     smoke_figures,
     sphere_figures,
+    wave_figures,
 )
+from staunlabor.domain.experiments.chladni import DEGREE as CHLADNI_DEGREE
 from staunlabor.domain.schemas.experiments import (
     BallStackIn,
     BodyIn,
     CannonFiguresOut,
+    CarouselIn,
     ChairAnalysisOut,
+    ChladniModeOut,
+    ChladniModesOut,
+    ChladniPlateIn,
     CoilAnalysisOut,
     CoilExhibitIn,
+    ConeExhibitIn,
+    CoupledPendulumsIn,
+    CradleIn,
+    DoublePendulumIn,
     ElephantFiguresOut,
     ElephantIn,
     ExperimentsDefaultsOut,
+    FoucaultPendulumIn,
+    FunnelIn,
+    GyroWheelIn,
+    HarmonographIn,
+    LevitationIn,
+    MaxwellWheelIn,
+    PegPendulumIn,
     PlatformExhibitIn,
     PlatformFiguresOut,
     PlatformIn,
     RaceAnalysisOut,
     RaceIn,
+    ResonanceRackIn,
     SmokeExhibitIn,
     SmokeFiguresOut,
     SphereFiguresOut,
     SphereIn,
+    StoneArchIn,
+    VesselIn,
+    WaterWheelIn,
+    WaveFiguresOut,
+    WaveIn,
 )
 from staunlabor.security import PAGE_SETTLE_S, caller_address
 
@@ -109,6 +157,24 @@ async def defaults() -> ExperimentsDefaultsOut:
         elephant=ElephantIn.model_validate(Elephant()),
         smoke=SmokeExhibitIn.model_validate(SmokeExhibit()),
         cannon=BallStackIn.model_validate(BallStack()),
+        wave=WaveIn.model_validate(PendulumWave()),
+        harmonograph=HarmonographIn.model_validate(Harmonograph()),
+        cone=ConeExhibitIn.model_validate(ConeExhibit()),
+        parabola=VesselIn.model_validate(Vessel()),
+        coupled=CoupledPendulumsIn.model_validate(CoupledPendulums()),
+        peg=PegPendulumIn.model_validate(PegPendulum()),
+        maxwell=MaxwellWheelIn.model_validate(MaxwellWheel()),
+        chaos=DoublePendulumIn.model_validate(DoublePendulum()),
+        waterwheel=WaterWheelIn.model_validate(WaterWheel()),
+        foucault=FoucaultPendulumIn.model_validate(FoucaultPendulum()),
+        coriolis=CarouselIn.model_validate(Carousel()),
+        cradle=CradleIn.model_validate(Cradle()),
+        well=FunnelIn.model_validate(Funnel()),
+        resonance=ResonanceRackIn.model_validate(ResonanceRack()),
+        gyroscope=GyroWheelIn.model_validate(GyroWheel()),
+        arch=StoneArchIn.model_validate(StoneArch()),
+        levitation=LevitationIn.model_validate({"base": asdict(LevitationBase()), "top": asdict(LevitationTop())}),
+        chladni=ChladniPlateIn.model_validate(ChladniPlate()),
         meter_range_a=METER_RANGE_A,
         settle_s=PAGE_SETTLE_S,
     )
@@ -127,6 +193,26 @@ def coil(payload: CoilExhibitIn) -> CoilAnalysisOut:
 @router.get("/chair", response_model=ChairAnalysisOut, dependencies=[Depends(limit_run)])
 def chair() -> ChairAnalysisOut:
     return ChairAnalysisOut.model_validate(chair_analysis())
+
+
+@router.get("/chladni", response_model=ChladniModesOut, dependencies=[Depends(limit_run)])
+def chladni() -> ChladniModesOut:
+    """The plate's driven modes: the same for every plate (its size and steel
+    only scale the tones), computed once a process — two seconds the first
+    time, nothing after."""
+    driven = chladni_driven_modes()
+    return ChladniModesOut(
+        degree=CHLADNI_DEGREE,
+        modes=[
+            ChladniModeOut(
+                lam=mode.lam,
+                m=[m for m, _, _ in mode.terms],
+                n=[n for _, n, _ in mode.terms],
+                c=[c for _, _, c in mode.terms],
+            )
+            for mode in driven
+        ],
+    )
 
 
 @router.post("/platform", response_model=PlatformFiguresOut, dependencies=[Depends(limit_run)])
@@ -169,3 +255,8 @@ def cannon(payload: BallStackIn) -> CannonFiguresOut:
         youngs_mpa=payload.youngs_mpa,
     )
     return CannonFiguresOut.model_validate(cannon_figures(spec))
+
+
+@router.post("/wave", response_model=WaveFiguresOut, dependencies=[Depends(limit_run)])
+def wave(payload: WaveIn) -> WaveFiguresOut:
+    return WaveFiguresOut.model_validate(wave_figures(PendulumWave(**payload.model_dump())))

@@ -121,6 +121,7 @@
       "angular_momentum": "Momento angular",
       "energy": "Energía",
       "oscillation": "Oscilación",
+      "equilibrium": "Equilibrio",
       "flow": "Fluidos",
       "induction": "Inducción",
       "perception": "Percepción"
@@ -133,6 +134,7 @@
       "sweet_spot": "El truco",
       "computed": "Cómo se calcula"
     },
+    "unchecked": "La revisión de los cálculos aún está pendiente: las cifras y los dibujos de estas páginas aún pueden cambiar.",
     "exhibits": {
       "chair": {
         "short": "La silla",
@@ -181,6 +183,114 @@
         "title": "El cañón de pelotas",
         "summary": "Deje caer tres pelotas apiladas en un alambre, y la pequeña de arriba sale disparada mucho más alto de lo que cayó.",
         "question": "¿Qué altura alcanza la pelota pequeña cuando la pila cae desde un metro?"
+      },
+      "wave": {
+        "short": "Onda de péndulos",
+        "title": "La onda de péndulos",
+        "summary": "Quince péndulos soltados a la vez se separan, forman ondas y grupos – y al cabo de un minuto vuelven a oscilar al unísono.",
+        "question": "¿Cuándo vuelven a oscilar al unísono quince péndulos de distinta longitud soltados a la vez?"
+      },
+      "harmonograph": {
+        "short": "Armonógrafo",
+        "title": "El armonógrafo",
+        "summary": "Un lápiz en un péndulo y un tablero de dibujo en otro: mientras ambos se apagan, dibujan una roseta, un lazo o una estrella.",
+        "question": "¿Qué dibuja un lápiz cuando dos péndulos oscilan en proporción 2 : 3 – y qué, cuando es solo casi 2 : 3?"
+      },
+      "cone": {
+        "short": "Doble cono",
+        "title": "El doble cono rueda cuesta arriba",
+        "summary": "Dos rieles se separan y suben a la vez. Un doble cono colocado abajo rueda solo hacia arriba.",
+        "question": "¿Rueda un doble cono sobre dos rieles que suben hacia arriba o hacia abajo – y qué lo decide?"
+      },
+      "parabola": {
+        "short": "Parábola de agua",
+        "title": "La parábola de agua",
+        "summary": "Un recipiente con agua gira: la superficie se hunde formando un cuenco – hasta que el centro queda seco.",
+        "question": "Si un recipiente con agua gira cada vez más deprisa, ¿baja el centro tanto como sube el borde?"
+      },
+      "coupled": {
+        "short": "Péndulos acoplados",
+        "title": "Péndulos acoplados",
+        "summary": "Dos péndulos unidos por un muelle blando: si se empuja uno, la oscilación pasa al otro – y vuelve.",
+        "question": "Dos péndulos iguales cuelgan de un muelle. ¿Cuánto tarda la oscilación de uno en pasar por completo al otro?"
+      },
+      "peg": {
+        "short": "Péndulo de Galileo",
+        "title": "El péndulo interrumpido de Galileo",
+        "summary": "Un clavo atrapa el hilo de un péndulo. La bola sigue oscilando en un círculo más pequeño – y aun así sube exactamente tan alto como al otro lado.",
+        "question": "Un clavo atrapa el hilo de un péndulo que oscila. ¿Sube después la bola menos, igual o más alto?"
+      },
+      "maxwell": {
+        "short": "Rueda de Maxwell",
+        "title": "La rueda de Maxwell",
+        "summary": "Una rueda pesada baja despacio desenrollándose de dos cintas, da la vuelta abajo y vuelve a enrollarse casi hasta la altura de partida – como un gran yoyó.",
+        "question": "¿Por qué una rueda pesada que se desenrolla de dos cintas cae mucho más despacio que una piedra?"
+      },
+      "chaos": {
+        "short": "Péndulo caótico",
+        "title": "El péndulo caótico",
+        "summary": "Un péndulo colgado de otro: empujado con fuerza se agita y nunca se repite – dos que empiezan casi igual pronto siguen caminos muy distintos.",
+        "question": "Dos péndulos dobles empiezan con una milésima de grado de diferencia. ¿Cuánto tiempo siguen oscilando igual?"
+      },
+      "waterwheel": {
+        "short": "Noria caótica",
+        "title": "La noria caótica",
+        "summary": "El agua cae en cubos agujereados de una rueda: gira, se detiene, invierte el sentido – y nunca se repite. Son las mismas ecuaciones que el modelo del tiempo de Lorenz.",
+        "question": "Una rueda de cubos que gotean, con agua entrando por arriba. ¿Hacia dónde gira?"
+      },
+      "foucault": {
+        "short": "Péndulo de Foucault",
+        "title": "El péndulo de Foucault en Winterthur",
+        "summary": "Un péndulo largo oscila durante horas, y su plano de oscilación gira despacio respecto al suelo: no gira el péndulo, sino la Tierra bajo él.",
+        "question": "¿Cuánto tarda el plano de oscilación de un péndulo en dar una vuelta completa en Winterthur?"
+      },
+      "coriolis": {
+        "short": "Carrusel de Coriolis",
+        "title": "El carrusel de Coriolis",
+        "summary": "En un carrusel que gira, dos personas se lanzan una pelota rodando – y nunca llega a donde se apuntó. Visto desde fuera, no hay ninguna curva que explicar.",
+        "question": "Dos personas se sientan frente a frente en un carrusel que gira. ¿Hacia dónde hay que apuntar para alcanzar al otro?"
+      },
+      "cradle": {
+        "short": "Péndulo de Newton",
+        "title": "El péndulo de Newton",
+        "summary": "Una bola entra, una sale; entran dos, salen dos. El momento y la energía no permiten otra respuesta – casi.",
+        "question": "¿Por qué salen por el otro extremo exactamente tantas bolas como se dejan caer?"
+      },
+      "well": {
+        "short": "Embudo gravitatorio",
+        "title": "El embudo gravitatorio",
+        "summary": "Una bola gira en un embudo alrededor del agujero, cada vez más abajo y más deprisa – y cumple la tercera ley de Kepler como un planeta.",
+        "question": "¿Por qué la bola va más deprisa, si la fricción la frena?"
+      },
+      "resonance": {
+        "short": "Varillas resonantes",
+        "title": "Las varillas resonantes",
+        "summary": "Seis varillas sobre una mesa que apenas tiembla – y aun así una oscila con amplitud cuando el ritmo es el justo. Las demás casi no se mueven.",
+        "question": "¿Cómo consigue una mesa que se mueve un solo milímetro que una varilla oscile ocho centímetros?"
+      },
+      "gyroscope": {
+        "short": "Rueda giroscópica",
+        "title": "La rueda giroscópica",
+        "summary": "Una rueda pesada cuelga de un hilo por un extremo de su eje. Quieta, cae; girando, se mantiene arriba y da vueltas despacio en círculo.",
+        "question": "¿Por qué una rueda que gira no se cae, sino que se desvía hacia un lado?"
+      },
+      "arch": {
+        "short": "Cadena y arco",
+        "title": "La cadena y el arco",
+        "summary": "Un arco de piedras sueltas se sostiene sin mortero – si tiene la forma justa. Una cadena colgante la muestra, del revés.",
+        "question": "¿Por qué se sostiene un arco de piedras sueltas, y por qué se cae uno demasiado delgado?"
+      },
+      "chladni": {
+        "short": "Figuras de Chladni",
+        "title": "Las figuras de Chladni",
+        "summary": "Arena sobre una placa de metal. Cuando la placa suena, la arena se junta en líneas – con cada tono, en otro dibujo.",
+        "question": "¿Por qué la arena se junta en líneas, y en otras distintas con cada tono?"
+      },
+      "levitation": {
+        "short": "Peonza flotante",
+        "title": "La peonza flotante",
+        "summary": "Una peonza con un imán gira sobre un imán anular y flota, pero solo si su peso es exacto con una precisión de unas décimas de gramo.",
+        "question": "¿Por qué flota la peonza que gira, y por qué aterriza cuando pesa un poco de más?"
       }
     },
     "chair": {
@@ -988,6 +1098,1302 @@
         "flip": "Dé la vuelta a la pila y nada sale volando: una pelota ligera abajo no puede empujar hacia arriba a una pesada.",
         "name": "Por qué un cañón: los libros de física lo llaman el cañón de Galileo, porque la pelota pequeña sale disparada de la pila en vertical hacia arriba, como de un tubo. Nada sale disparado hacia los lados.",
         "assumed": "Lo que se supone: pelotas macizas de 1100 kg/m³, la rigidez del elastómero y lo elástico que es, contactos que siguen la ley de Hertz con un amortiguamiento que devuelve una fracción fija de la velocidad de aproximación, y un suelo rígido. Se dejan fuera el rozamiento con el alambre y el giro de las pelotas."
+      }
+    },
+    "wave": {
+      "at": {
+        "row": "Una fila de péndulos cuelga de una barra, el más largo en un extremo y cada uno de los siguientes un poco más corto. Una tabla los aparta a todos por igual y los suelta a la vez.",
+        "pattern": "Primero oscilan juntos; luego la fila se abre en una onda, en serpientes, en un aparente caos, en dos, tres, cuatro grupos – y al cabo de un minuto todos vuelven a oscilar al unísono, como si nada hubiera pasado."
+      },
+      "play": {
+        "title": "Deje oscilar la fila",
+        "hint": "El reloj corre. Salte a una fracción del ciclo o cambie desde dónde se sueltan los péndulos.",
+        "pause": "Pausa",
+        "run": "Seguir",
+        "restart": "Desde el principio",
+        "speed": "Velocidad",
+        "speeds": {
+          "1": "Tiempo real",
+          "2": "Doble",
+          "5": "Quíntuple"
+        },
+        "jump": "Saltar a:",
+        "jumps": {
+          "2": "½ ciclo",
+          "3": "⅓ ciclo",
+          "4": "¼ ciclo",
+          "1": "Ciclo entero"
+        },
+        "amplitude": "Amplitud al soltar",
+        "amplitude_hint": "Las longitudes están afinadas para {{tuned}}°. Si se sueltan más o menos lejos, los péndulos ya no vuelven a coincidir del todo tras un ciclo.",
+        "time": "Tiempo",
+        "cycles": "Ciclos",
+        "spread": "Desfase tras un ciclo"
+      },
+      "views": {
+        "top": "La fila de péndulos vista desde arriba: cada bola tan apartada como oscila en este momento",
+        "side": "La fila de péndulos vista desde un extremo: todos cuelgan uno detrás de otro de la misma barra",
+        "top_caption": "Desde arriba",
+        "side_caption": "Desde el extremo de la fila"
+      },
+      "change": {
+        "title": "Cambiar el objeto expuesto",
+        "hint": "Las longitudes resultan del ciclo, de las oscilaciones del péndulo más largo y de la amplitud para la que se afinan. Cada cambio empieza de nuevo.",
+        "count": "Número de péndulos",
+        "cycle": "Ciclo Γ",
+        "cycle_hint": "Tras este tiempo todos vuelven a oscilar al unísono.",
+        "swings": "Oscilaciones del péndulo más largo en Γ",
+        "swings_hint": "Cada péndulo siguiente oscila una vez más en el mismo tiempo.",
+        "tuned": "Afinado para",
+        "tuned_hint": "La amplitud para la que se calculan las longitudes. 0° es la fórmula de los libros para oscilaciones pequeñas."
+      },
+      "figures": {
+        "longest": "Péndulo más largo",
+        "shortest": "Péndulo más corto",
+        "period": "Periodo del más largo",
+        "spread": "Desfase tras un ciclo",
+        "textbook": "Desfase con la fórmula de los libros"
+      },
+      "model": {
+        "intro": "Ningún péndulo sabe de los demás. Cada uno oscila por su cuenta, y todo el patrón está en las longitudes.",
+        "period": "El periodo de un péndulo que oscila poco depende solo de su longitud: cuatro veces más largo, la mitad de rápido.",
+        "tuning": "Las longitudes se eligen de modo que en el ciclo Γ el péndulo más largo oscile exactamente N veces, el siguiente N + 1, el n-ésimo N + n. Tras Γ cada uno lleva un número entero de oscilaciones, y todos están donde se soltaron.",
+        "groups": "Tras una k-ésima parte del ciclo, el n-ésimo péndulo ha hecho (N + n)/k oscilaciones. Con k = 2 es un número entero para una mitad y media oscilación más para la otra: dos grupos, uno frente al otro. Con k = 3 tres grupos, con k = 4 cuatro. Las ondas y serpientes de en medio son lo mismo en momentos que dividen Γ de forma menos limpia.",
+        "wider": "Lo que omite la fórmula de los libros: una oscilación más amplia dura más, un 1,7 % a 30°. Por eso aquí la fila se afina para una amplitud con el periodo exacto."
+      },
+      "symbols": {
+        "t0": "periodo de una oscilación pequeña",
+        "length": "longitud del péndulo, del punto de suspensión al centro de la bola",
+        "g": "aceleración de la gravedad, 9,81 m/s²",
+        "tn": "periodo del n-ésimo péndulo",
+        "cycle": "el ciclo: el tiempo hasta que todos vuelven a oscilar al unísono",
+        "swings": "oscilaciones del péndulo más largo en Γ",
+        "index": "el número del péndulo, contado desde el más largo: 0, 1, 2, …",
+        "k": "la fracción del ciclo: Γ/k",
+        "theta0": "la amplitud al soltar",
+        "k_integral": "la integral elíptica completa de primera especie"
+      },
+      "sweet": {
+        "alone": "El truco es que no lo hay: ningún muelle, ningún hilo, ningún compás une los péndulos. El patrón es solo lo que hacen unas longitudes afinadas – y por eso es exactamente tan bueno como esa afinación.",
+        "tuned": "Esta fila está afinada para {{tuned}}°. Si la suelta más o menos lejos, cada péndulo va lento o rápido casi en la misma proporción. Tras un ciclo eso suma más grados en los cortos, que llevan más oscilaciones: la fila vuelve torcida. El desfase se mide en grados de una oscilación; 360° son una entera. Afinada con la fórmula de los libros para oscilaciones pequeñas, la fila volvería a {{amplitude}}° con un desfase de {{textbook}}°."
+      },
+      "chart": {
+        "spread": "Desfase tras un ciclo",
+        "amplitude": "Amplitud al soltar",
+        "you": "Usted"
+      },
+      "computed": {
+        "system": "Cada péndulo es una única ecuación de segundo orden, la del péndulo plano sin rozamiento, soltado desde el reposo.",
+        "theta": "el ángulo de la oscilación",
+        "theta_dd": "su aceleración angular",
+        "exact": "Tiene una solución exacta con las funciones elípticas de Jacobi. En cada imagen la página calcula cada péndulo directamente a partir del tiempo, sin ir paso a paso – por eso puede saltar a cualquier momento del ciclo. Como control, el motor resuelve la misma ecuación paso a paso con el método de Runge-Kutta; ambos coinciden hasta una diezmillonésima de grado.",
+        "k": "el módulo, fijado por la amplitud al soltar",
+        "cd": "la función elíptica de Jacobi cn/dn",
+        "omega0": "la frecuencia angular de las oscilaciones pequeñas",
+        "t": "el tiempo desde que se soltó",
+        "check": "Como control, calculado aquí y ahora: el péndulo más largo de esta fila, calculado paso a paso durante diez segundos, se aparta como mucho {{apart}} grados de la solución exacta."
+      }
+    },
+    "harmonograph": {
+      "at": {
+        "pen": "Dos péndulos cuelgan uno junto al otro. Uno lleva un lápiz que oscila de lado a lado; el otro, un tablero de dibujo que oscila a lo largo. Se apartan ambos y se sueltan.",
+        "picture": "El lápiz dibuja lo que las dos oscilaciones hacen juntas. Como ambas se apagan poco a poco, la figura se hace más pequeña vuelta a vuelta: una espiral de líneas finas que, según el compás de los péndulos, forma una roseta, un lazo o una estrella."
+      },
+      "play": {
+        "title": "Dejar dibujar",
+        "hint": "El lápiz dibuja a cámara rápida. Cambie abajo la proporción de los péndulos y empieza un dibujo nuevo.",
+        "pause": "Pausa",
+        "run": "Seguir",
+        "finish": "Terminar el dibujo",
+        "restart": "Dibujar de nuevo",
+        "save": "Guardar imagen",
+        "speed": "Velocidad",
+        "speeds": {
+          "1": "Tiempo real",
+          "5": "Quíntuple",
+          "20": "Veinte veces"
+        },
+        "time": "Dibujado",
+        "ratio": "Cerca de la proporción {{p}} : {{q}} (lápiz : tablero)",
+        "detune": "Desviación",
+        "turn": "Un giro de la figura",
+        "fades": "Apagado a una décima"
+      },
+      "views": {
+        "drawing": "El dibujo en el tablero, con el lápiz donde está ahora",
+        "caption": "El tablero de dibujo visto desde arriba"
+      },
+      "change": {
+        "title": "Ajustar los péndulos",
+        "hint": "La proporción fija la longitud del péndulo del tablero: un cuarto de la longitud oscila el doble de rápido. Cada cambio empieza un dibujo nuevo.",
+        "ratio": "Proporción lápiz : tablero",
+        "detune": "Desafinación",
+        "detune_hint": "Cuánto se aparta el tablero de la proporción exacta. Un uno por ciento ya hace girar la figura.",
+        "phase": "Dónde empieza el tablero",
+        "phase_hint": "En qué punto de su oscilación empieza el tablero: 0° en el extremo, 90° al pasar por el centro.",
+        "pen_amplitude": "Amplitud del péndulo del lápiz",
+        "board_amplitude": "Amplitud del péndulo del tablero",
+        "damping": "Rozamiento",
+        "damping_hint": "Lo rápido que se apagan las oscilaciones; el mismo para ambos péndulos.",
+        "length": "Longitud del péndulo del lápiz",
+        "length_hint": "Un péndulo más largo oscila más despacio; el del tablero lo sigue en la proporción elegida."
+      },
+      "model": {
+        "intro": "Dos péndulos, cada uno por su cuenta. El lápiz se mueve de lado con uno, el tablero a lo largo con el otro; lo que se dibuja es dónde está el lápiz sobre el tablero.",
+        "place": "El lugar del lápiz sobre el tablero: de lado, cuánto se aparta el péndulo del lápiz; a lo largo, cuánto el del tablero.",
+        "small": "Con amplitudes pequeñas cada péndulo oscila como un coseno cuya amplitud se apaga con el tiempo. La frecuencia depende solo de la longitud.",
+        "ratio": "Por eso la proporción de los dos compases es la raíz de la proporción inversa de las longitudes. Con una proporción sencilla como 2 : 3 la figura se cierra y solo se encoge."
+      },
+      "symbols": {
+        "xy": "el lugar del lápiz sobre el tablero, de lado y a lo largo",
+        "lengths": "las longitudes de los péndulos del lápiz y del tablero",
+        "theta": "sus ángulos de oscilación",
+        "theta0": "la amplitud al empezar",
+        "c": "la amortiguación: la amplitud cae como e elevado a −c·t/2",
+        "f": "la frecuencia, oscilaciones por segundo",
+        "phi": "en qué punto de su oscilación empieza el péndulo",
+        "g": "aceleración de la gravedad, 9,81 m/s²",
+        "f12": "las frecuencias de los péndulos del lápiz y del tablero",
+        "turn": "el tiempo de un giro completo de la figura",
+        "pq": "la proporción sencilla cerca de la que están los compases"
+      },
+      "sweet": {
+        "near": "Si los compases están cerca de una proporción sencilla p : q pero no exactamente en ella, la figura conserva su forma y gira despacio – una vez en este tiempo. Cuanto más cerca, más despacio.",
+        "closed": "Estos péndulos están exactamente en {{p}} : {{q}}: la figura se cierra y solo se encoge. Desafine el tablero un uno por ciento y empezará a girar.",
+        "turns": "Estos péndulos están un {{detune}} % fuera de {{p}} : {{q}}: la figura gira una vez en {{turn}} s.",
+        "widths": "Y gira incluso con una proporción exacta si los péndulos oscilan con amplitudes distintas: una oscilación amplia dura algo más que una estrecha. Ponga el péndulo del lápiz a 30° y el del tablero a 5°, y la figura cerrada se abre."
+      },
+      "computed": {
+        "system": "Dos ecuaciones de segundo orden, las del péndulo amortiguado, con el seno completo en lugar de la aproximación para amplitudes pequeñas. Como la amortiguación no admite solución cerrada, el motor las resuelve con el método de Runge-Kutta en pasos de un milisegundo, y la página dibuja con los mismos pasos – unos cientos por imagen.",
+        "theta_dd": "la aceleración angular del péndulo i",
+        "theta_d": "su velocidad angular"
+      }
+    },
+    "cone": {
+      "at": {
+        "rails": "Dos rieles rectos se abren en V desde un punto y suben a la vez. En el extremo estrecho y bajo, un doble cono descansa atravesado sobre ellos: dos conos unidos por la base.",
+        "rolls": "Al soltarlo, rueda solo hasta el extremo ancho y alto – contra la gravedad, al parecer."
+      },
+      "refused": {
+        "fall_through": "Tan separados, los rieles llegan casi a las puntas del cono: se caería entre ellos. Ayudan unos rieles más cortos, menos apertura o un cono más esbelto.",
+        "too_wide": "Los rieles empiezan más separados de lo que mide el cono: no se apoyaría en ellos."
+      },
+      "play": {
+        "title": "Soltar el cono",
+        "hint_up": "El cono está en el extremo bajo. Suéltelo y mire hacia dónde rueda.",
+        "hint_down": "Con estos rieles el cono rueda hacia abajo, por eso está en el extremo alto. Suéltelo.",
+        "hint_stays": "Con exactamente esta pendiente el eje se mantiene a la misma altura: el cono se queda donde está.",
+        "let_go": "Soltar",
+        "pause": "Pausa",
+        "run": "Seguir",
+        "speed": "Velocidad",
+        "speeds": {
+          "100": "Tiempo real",
+          "25": "Cámara lenta (¼)"
+        },
+        "verdict_up": "Los rieles suben, el eje del cono baja: rueda hacia arriba.",
+        "verdict_down": "Los rieles suben más de lo que baja el cono: rueda hacia abajo.",
+        "verdict_stays": "Eje exactamente horizontal: el cono se queda quieto.",
+        "along": "A lo largo de los rieles",
+        "axis": "Altura del eje",
+        "speed_now": "Velocidad del eje",
+        "spin": "Giro",
+        "spin_unit": "por s"
+      },
+      "views": {
+        "side": "El doble cono de lado: los rieles que suben, el cono con el círculo sobre el que rueda y, en trazos, el camino de su eje",
+        "front": "El doble cono de frente: los rieles se abren al subir y el cono se hunde entre ellos",
+        "side_caption": "De lado",
+        "front_caption": "De frente, rieles arriba"
+      },
+      "change": {
+        "title": "Cambiar el objeto expuesto",
+        "hint": "Tres ángulos deciden: cuánto suben los rieles, cuánto se abren y cuán puntiagudo es el cono.",
+        "slope": "Pendiente de los rieles γ",
+        "slope_hint": "Cuánto suben los rieles.",
+        "spread": "Apertura de los rieles β",
+        "spread_hint": "El ángulo de cada riel con la línea central, visto desde arriba.",
+        "cone": "Ángulo del cono α",
+        "cone_hint": "El ángulo entre la superficie del cono y su eje: cuanto mayor, más deprisa adelgaza hacia las puntas.",
+        "radius": "Radio en el centro",
+        "length": "Longitud de los rieles",
+        "start_gap": "Separación de los rieles abajo",
+        "start_gap_hint": "Cuánto distan los rieles en el extremo bajo."
+      },
+      "model": {
+        "intro": "El cono hace lo que hace todo cuerpo: rueda hacia donde su centro de masa queda más bajo. La única pregunta es dónde está eso.",
+        "thin": "El doble cono es más grueso en el centro y adelgaza por igual hacia las puntas.",
+        "rails": "Los rieles se abren hacia arriba y suben.",
+        "axis": "Donde los rieles están más separados, sostienen el cono más afuera, donde es más delgado: queda más bajo entre ellos. Por eso la altura de su eje es la de los rieles más un radio que se achica hacia arriba.",
+        "condition": "Ambas partes cambian de forma uniforme: el eje recorre una recta. Si baja mientras los rieles suben, el cono rueda hacia arriba – exactamente cuando tan γ es menor que tan α · tan β."
+      },
+      "symbols": {
+        "r": "el radio del cono a una distancia y de su centro",
+        "radius": "el radio en el centro",
+        "y": "la distancia al centro, a lo largo del eje",
+        "alpha": "el ángulo del cono, entre superficie y eje",
+        "x": "la posición a lo largo de los rieles, desde el extremo bajo",
+        "d": "la distancia de cada riel a la línea central",
+        "h": "la altura de los rieles",
+        "beta": "la apertura de cada riel",
+        "gamma": "la pendiente de los rieles",
+        "z": "la altura del eje del cono",
+        "c": "el factor del contacto exacto, cercano a 1"
+      },
+      "sweet": {
+        "heights": "En toda su longitud los rieles suben {{rise}} cm. El eje del cono, mientras tanto, {{direction}} {{fall}} cm.",
+        "falls": "baja",
+        "climbs": "sube",
+        "threshold": "Hasta una pendiente de {{threshold}}° este cono rueda hacia arriba; aquí los rieles suben con {{slope}}°.",
+        "exact": "Calculado con exactitud, un riel que corre oblicuo y sube toca el cono un poco al lado del punto bajo su eje. El motor busca ese punto: en el objeto estándar el eje queda 1,002 veces tan alto sobre el riel como supone el libro. En el límite, en cambio, el contacto queda justo bajo el eje – allí la condición de los libros es exacta."
+      },
+      "chart": {
+        "rail": "Altura de los rieles",
+        "axis": "Altura del eje del cono",
+        "height": "Altura",
+        "along": "A lo largo de los rieles"
+      },
+      "figures": {
+        "threshold": "Pendiente límite",
+        "time": "Hasta el final de los rieles"
+      },
+      "computed": {
+        "energy": "Una sola coordenada, la posición a lo largo de los rieles. El cono rueda sin deslizar, así que gira tan rápido como avanza su eje, dividido por el radio sobre el que rueda – que se achica hacia arriba. La energía de movimiento, giro y altura se conserva. Con el método de Lagrange resulta una ecuación de segundo orden, que el motor resuelve con el método de Runge-Kutta en pasos de un milisegundo.",
+        "m": "la pendiente del camino del eje",
+        "rho": "el radio sobre el que rueda el cono",
+        "x_dot": "la velocidad a lo largo de los rieles",
+        "g": "aceleración de la gravedad, 9,81 m/s²"
+      }
+    },
+    "parabola": {
+      "at": {
+        "vessel": "Un recipiente redondo con agua está sobre un plato giratorio. Al girar, el agua baja en el centro y sube por la pared, tanto más cuanto más rápido gira.",
+        "dry": "En el recipiente estándar – 30 cm de ancho, lleno hasta 10 cm – el centro queda seco a 126 vueltas por minuto."
+      },
+      "refused": "El agua tiene que estar dentro del recipiente: la altura de llenado debe ser menor que la del recipiente.",
+      "play": {
+        "title": "Girar el plato",
+        "hint": "Ajuste la velocidad. El recipiente la sigue al instante, el agua necesita su tiempo – a cámara rápida se ve cómo lo alcanza.",
+        "pause": "Pausa",
+        "run": "Seguir",
+        "stop": "Apagar el plato",
+        "frame": "Vista desde arriba",
+        "frames": {
+          "outside": "Desde fuera",
+          "turning": "Girando con él"
+        },
+        "speed": "Velocidad",
+        "speeds": {
+          "1": "Tiempo real",
+          "10": "Diez veces"
+        },
+        "rate": "Velocidad del plato",
+        "rpm": "rpm",
+        "rate_hint": "Vueltas por minuto.",
+        "spills": "A esta velocidad el agua sube por encima del borde: se derrama.",
+        "water": "Velocidad del agua",
+        "centre": "Altura en el centro",
+        "rim": "Altura en el borde",
+        "tau": "Tiempo de arranque"
+      },
+      "views": {
+        "side": "El recipiente en corte: el agua bajo su superficie hundida, en trazos su nivel en reposo, y el foco del cuenco como espejo",
+        "top": "El recipiente desde arriba: las marcas del borde giran con el recipiente, las partículas del agua con el agua",
+        "side_caption": "En corte, de lado",
+        "top_caption_outside": "Desde arriba, visto desde fuera",
+        "top_caption_turning": "Desde arriba, girando con el recipiente: las partículas muestran cuánto se retrasa aún el agua"
+      },
+      "change": {
+        "title": "Cambiar el objeto expuesto",
+        "hint": "Un recipiente más ancho o menos agua quedan secos antes; uno bajo se derrama antes.",
+        "radius": "Radio del recipiente",
+        "fill": "Altura en reposo",
+        "height": "Altura del recipiente"
+      },
+      "model": {
+        "intro": "Si el agua gira con el recipiente como un cuerpo sólido, su superficie queda en todas partes perpendicular a la suma de la gravedad y la fuerza centrífuga. La fuerza centrífuga crece con la distancia al eje, así que la superficie se vuelve cada vez más empinada hacia fuera.",
+        "surface": "De ahí resulta un paraboloide: la altura crece con el cuadrado de la distancia al eje.",
+        "volume": "El agua sigue siendo la misma. Por eso el centro baja exactamente lo que sube el borde: ω²R²/(4g).",
+        "dry": "A partir de esta velocidad el centro toca el fondo. Más rápido, allí se abre una mancha seca que crece con la velocidad."
+      },
+      "symbols": {
+        "z": "la altura de la superficie sobre el fondo",
+        "r": "la distancia al eje",
+        "z0": "la altura en el centro",
+        "omega": "la velocidad angular: 2π por las vueltas por segundo",
+        "g": "aceleración de la gravedad, 9,81 m/s²",
+        "h": "la altura de llenado en reposo",
+        "radius": "el radio del recipiente",
+        "dry": "la velocidad angular a la que el centro queda seco",
+        "f": "la distancia focal del cuenco como espejo"
+      },
+      "sweet": {
+        "equal": "A {{rpm}} vueltas por minuto el centro baja {{drop}} cm – y el borde sube exactamente lo mismo. Las dos líneas se separan simétricamente hasta que el centro llega al fondo.",
+        "dry": "El centro está seco: a partir de {{rpm}} vueltas por minuto el agua forma solo un anillo.",
+        "mirror": "Un cuenco giratorio de un líquido que refleja es el espejo de un telescopio: la luz que cae vertical se reúne en el foco. La velocidad fija la distancia focal – una vuelta en 8,5 s lo sitúa a 9 m de altura.",
+        "spin_up": "Si se enciende el plato desde el reposo a esta velocidad, el agua tarda unos {{tau}} s en alcanzar dos tercios de ella:"
+      },
+      "chart": {
+        "rim": "Altura en el borde",
+        "centre": "Altura en el centro",
+        "height": "Altura",
+        "rate": "Velocidad",
+        "you": "Ahora",
+        "vessel": "Plato giratorio",
+        "time": "Tiempo"
+      },
+      "figures": {
+        "dry": "Seco a partir de",
+        "spill": "Se derrama a partir de",
+        "focus": "Distancia focal"
+      },
+      "computed": {
+        "system": "Cuánto tarda el agua en seguir al recipiente: el fondo la arrastra a través de una fina capa límite (según Greenspan y Howard, una capa de Ekman en el fondo). La página hace que la velocidad del agua siga la del recipiente con este tiempo, alrededor de medio minuto en el recipiente estándar, y dibuja la superficie como si el agua girara como un todo. Es un modelo de cuánto tarda, no del flujo mientras tanto.",
+        "omega_v": "la velocidad angular del recipiente",
+        "tau": "el tiempo de arranque",
+        "nu": "la viscosidad del agua, 10⁻⁶ m²/s",
+        "big_omega": "la mayor de las dos velocidades angulares"
+      }
+    },
+    "coupled": {
+      "at": {
+        "pair": "Dos péndulos iguales cuelgan uno junto al otro, unidos por debajo de su suspensión por un muelle blando. Se aparta uno y se suelta; el otro cuelga quieto.",
+        "wanders": "Pronto el segundo empieza a oscilar mientras el primero se detiene – luego al revés, una y otra vez. En el par estándar la oscilación va y vuelve una vez en 23 s."
+      },
+      "refused": "El muelle debe estar en ambos péndulos entre la suspensión y la bola: el derecho es demasiado corto para un muelle tan bajo.",
+      "view": "Los dos péndulos de frente, con el muelle entre ellos",
+      "play": {
+        "title": "Empujar los péndulos",
+        "hint": "Elija cómo se sueltan los péndulos. Las barras muestran cuánta energía hay ahora en cada uno.",
+        "pause": "Pausa",
+        "run": "Seguir",
+        "let_go": "Soltar:",
+        "starts": {
+          "one": "Solo el izquierdo",
+          "together": "Los dos igual",
+          "against": "Uno contra otro"
+        },
+        "speed": "Velocidad",
+        "speeds": {
+          "1": "Tiempo real",
+          "3": "Triple"
+        },
+        "energy": "Energía de los dos péndulos",
+        "left": "Péndulo izquierdo",
+        "right": "Péndulo derecho"
+      },
+      "figures": {
+        "together": "Periodo al unísono",
+        "against": "Periodo en contra",
+        "beat": "Ida y vuelta",
+        "share": "De ello llega al otro"
+      },
+      "change": {
+        "title": "Cambiar el objeto expuesto",
+        "hint": "Un muelle más rígido, o colocado más abajo, acopla más: la oscilación pasa más deprisa. Longitudes distintas solo dejan pasar una parte.",
+        "spring": "Constante del muelle",
+        "spring_hint": "Con cuánta fuerza tira el muelle al estirarlo un metro.",
+        "spring_at": "Altura del muelle",
+        "spring_at_hint": "A qué distancia por debajo de la suspensión está el muelle.",
+        "right_length": "Longitud del péndulo derecho",
+        "right_length_hint": "El izquierdo mide 50 cm.",
+        "mass": "Masa de cada bola",
+        "damping": "Amortiguación"
+      },
+      "model": {
+        "intro": "Cada péndulo oscila bajo la gravedad, y el muelle lo tira hacia el otro, tanto como los dos se han separado a su altura.",
+        "equation": "La ecuación del péndulo izquierdo; la del derecho es igual, con el muelle tirando en sentido contrario.",
+        "modes": "Dos movimientos en los que ambos oscilan con el mismo compás: al unísono, con el muelle en reposo, tan rápido como un péndulo solo; y uno contra otro, con el muelle trabajando, más rápido. Cualquier otro movimiento es una suma de estos dos.",
+        "beat": "Empujar solo un péndulo es la mitad de cada uno. Los dos se desfasan lentamente y vuelven a coincidir: la oscilación va y vuelve una vez en este tiempo."
+      },
+      "symbols": {
+        "theta": "las oscilaciones de los dos péndulos",
+        "length": "la longitud de un péndulo",
+        "g": "aceleración de la gravedad, 9,81 m/s²",
+        "kappa": "la intensidad del acoplamiento",
+        "k": "la constante del muelle",
+        "a": "a qué distancia por debajo de la suspensión está el muelle",
+        "m": "la masa de una bola",
+        "omega": "las frecuencias angulares al unísono y uno contra otro",
+        "beat": "el tiempo en que la oscilación va y vuelve",
+        "kappa_i": "el acoplamiento tal como lo siente cada péndulo"
+      },
+      "sweet": {
+        "modes": "Lo que la naturaleza hace oscilar aquí no es un péndulo y luego el otro, sino los dos compases comunes. La oscilación que pasa de uno a otro es su suma – por eso no pasa con «Los dos igual» ni con «Uno contra otro».",
+        "beat": "Aquí la oscilación va y vuelve una vez en {{beat}} s, y el {{share}} % de ella llega al otro péndulo.",
+        "unequal": "Si los péndulos son distintos, nunca pasa todo: solo esta parte, tanto más cuanto más parecidos son los péndulos y más fuerte el muelle."
+      },
+      "chart": {
+        "energy": "Parte de la energía",
+        "time": "Tiempo"
+      },
+      "computed": {
+        "system": "Cuatro ecuaciones de primer orden, las oscilaciones y sus velocidades, con el seno completo y el muelle entre ellos. El motor las resuelve juntas con el método de Runge-Kutta, de milisegundo en milisegundo; la página hace lo mismo con los mismos pasos, unas decenas por imagen."
+      }
+    },
+    "peg": {
+      "at": {
+        "peg": "Un péndulo oscila delante de una pared. Bajo su punto de suspensión hay un clavo: cada vez que el hilo pasa por la vertical, el clavo lo atrapa y la bola sigue en un círculo más pequeño alrededor del clavo.",
+        "height": "El camino es otro, la altura no: la bola sube exactamente hasta la línea desde la que se soltó. Con el clavo lo bastante bajo ya no puede – da la vuelta completa o el hilo se afloja."
+      },
+      "refused": "El clavo tiene que estar entre la suspensión y la bola.",
+      "view": "El péndulo, el clavo y, en trazos, la altura desde la que se soltó la bola; el clavo se puede mover con el dedo",
+      "play": {
+        "title": "Soltar el péndulo",
+        "hint": "Arrastre el clavo hacia arriba o hacia abajo, o elija abajo uno de los tres casos.",
+        "let_go": "Soltar",
+        "pause": "Pausa",
+        "run": "Seguir",
+        "speed": "Velocidad",
+        "speeds": {
+          "100": "Tiempo real",
+          "25": "Cámara lenta (¼)"
+        },
+        "outcome_same_height": "En el clavo la bola sube exactamente tan alto como al otro lado.",
+        "outcome_slack": "Demasiado impulso para el círculo pequeño, demasiado poco para dar la vuelta: el hilo se afloja.",
+        "outcome_over_the_top": "Impulso suficiente: la bola da la vuelta alrededor del clavo.",
+        "events": {
+          "caught": "El clavo atrapa el hilo.",
+          "released": "El hilo se suelta del clavo.",
+          "slack": "El hilo se afloja: la bola vuela libre.",
+          "taut": "El hilo se tensa de un tirón.",
+          "over_the_top": "Vuelta completa: el hilo se enrolla en el clavo."
+        }
+      },
+      "figures": {
+        "height": "Altura de partida",
+        "radius": "Círculo pequeño",
+        "loop": "Necesario para dar la vuelta",
+        "slack": "Se afloja a la altura",
+        "reached": "Alcanzada en el clavo, calculada"
+      },
+      "change": {
+        "title": "Cambiar el objeto expuesto",
+        "hint": "Cada cambio vuelve a soltar la bola.",
+        "start": "Amplitud al soltar",
+        "peg": "Profundidad del clavo",
+        "peg_hint": "A qué distancia por debajo de la suspensión está el clavo.",
+        "length": "Longitud del hilo"
+      },
+      "model": {
+        "intro": "El hilo siempre tira de través al movimiento de la bola. La desvía, pero no realiza trabajo: todo el movimiento de la bola procede solo de su caída.",
+        "energy": "Por eso su velocidad depende solo de cuánto está por debajo de su altura de partida – sea cual sea el círculo. Arriba, donde da la vuelta, vuelve a estar a esa altura.",
+        "pull": "Un hilo solo puede tirar. Por encima del clavo tiene que mantener la bola en su círculo, y la gravedad ayuda; si allí la bola va demasiado lenta, el hilo tendría que empujar – se afloja y la bola vuela libre hasta que el hilo vuelve a tensarse."
+      },
+      "symbols": {
+        "v": "la velocidad de la bola",
+        "z": "su altura sobre el punto más bajo",
+        "h": "la altura desde la que se soltó",
+        "g": "aceleración de la gravedad, 9,81 m/s²",
+        "f": "el tirón del hilo",
+        "r": "el radio del círculo pequeño: la longitud del hilo menos la profundidad del clavo",
+        "phi": "el ángulo alrededor del clavo, medido desde abajo",
+        "z_slack": "la altura a la que el hilo se afloja"
+      },
+      "sweet": {
+        "height": "El camino cambia, la altura no: la energía recuerda de dónde vino la bola. Así mostró Galileo que una bola que baja por una rampa vuelve a subir igual de alto por cualquier rampa opuesta.",
+        "loop": "Da la vuelta al clavo si se soltó desde al menos dos radios y medio del círculo pequeño: arriba aún debe ir tan rápido que el hilo tire.",
+        "slack": "Entre ambos casos, el hilo se afloja a esta altura.",
+        "now": "Aquí la bola se soltó a {{h}} cm sobre el punto más bajo; para dar la vuelta harían falta {{loop}} cm.",
+        "cases": {
+          "same_height": "Misma altura",
+          "slack": "Hilo flojo",
+          "over_the_top": "Vuelta completa"
+        }
+      },
+      "computed": {
+        "system": "Tres movimientos, una ecuación cada uno: el péndulo alrededor de la suspensión, el más corto alrededor del clavo y el vuelo libre mientras el hilo está flojo. El motor avanza con el método de Runge-Kutta de milisegundo en milisegundo y busca cada cambio – el clavo atrapa, el hilo se suelta, se afloja, se tensa – dentro de su paso, partiéndolo por la mitad, para que ocurra exactamente donde corresponde.",
+        "gravity": "la gravedad, que actúa sola en el vuelo libre"
+      }
+    },
+    "maxwell": {
+      "at": {
+        "wheel": "Una rueda pesada está montada en un eje delgado, y alrededor del eje hay enrolladas dos cintas que cuelgan desde arriba. Se gira la rueda hacia arriba hasta enrollar las cintas y se suelta.",
+        "climbs": "La rueda baja despacio, da la vuelta abajo con un tirón y vuelve a subir enrollándose, casi hasta donde se soltó. La rueda estándar cae en 3,3 s y sube cada vez al 94 % de la altura anterior."
+      },
+      "refused": "El eje tiene que ser más delgado que la rueda.",
+      "view": "La rueda de Maxwell de frente, colgada de sus dos cintas",
+      "play": {
+        "title": "Soltar la rueda",
+        "hint": "A la cámara más lenta se ve el tirón de abajo: las cintas se estiran unos milímetros y lanzan la rueda de vuelta.",
+        "let_go": "Soltar",
+        "pause": "Pausa",
+        "run": "Seguir",
+        "speed": "Velocidad",
+        "speeds": {
+          "100": "Tiempo real",
+          "25": "Cámara lenta (¼)",
+          "5": "Muy lenta (1/20)"
+        },
+        "phases": {
+          "down": "Se está desenrollando.",
+          "jerk": "Abajo: las cintas se estiran y la lanzan de vuelta.",
+          "up": "Vuelve a enrollarse hacia arriba."
+        },
+        "tension": "Tirón de las cintas",
+        "weight_times": "Veces el peso",
+        "speed_now": "Velocidad del eje",
+        "energy": "Energía del movimiento",
+        "translation": "En la caída y la subida",
+        "rotation": "En el giro",
+        "spin_unit": "r/s"
+      },
+      "change": {
+        "title": "Cambiar el objeto expuesto",
+        "hint": "Un eje más delgado o una rueda más pesada en el borde caen más despacio – y endurecen el tirón de abajo.",
+        "shape": "Rueda",
+        "shapes": {
+          "disc": "Disco macizo",
+          "ring": "Rueda de radios (masa en el aro)"
+        },
+        "axle": "Radio del eje",
+        "axle_hint": "Donde están enrolladas las cintas.",
+        "wheel": "Radio de la rueda",
+        "mass": "Masa de la rueda",
+        "drop": "Longitud de las cintas",
+        "loss": "Rozamiento de las cintas",
+        "loss_hint": "Las cintas se doblan alrededor del eje y rozan: esta parte de su tirón como momento de frenado.",
+        "stiffness": "Rigidez de las cintas",
+        "stiffness_hint": "Con cuánta fuerza tirarían ambas cintas juntas si se estiraran un metro. Más rígidas: un tirón más corto y más duro."
+      },
+      "model": {
+        "intro": "Las cintas se desenrollan del eje sin deslizar: por cada centímetro que cae, la rueda gira un centímetro de la circunferencia del eje. Como el eje es delgado, eso significa mucho giro para poca caída.",
+        "roll": "La rueda cae con aceleración uniforme, pero solo con una pequeña parte de la de la gravedad: k indica cuánto más difícil es poner la rueda a girar que a moverse.",
+        "tension": "Por eso, al desenrollarse, las cintas sostienen casi todo el peso.",
+        "share": "Esta parte de la energía del movimiento está en el giro – el 98,8 % en la rueda estándar."
+      },
+      "symbols": {
+        "a": "la aceleración de la rueda al desenrollarse",
+        "g": "aceleración de la gravedad, 9,81 m/s²",
+        "i": "el momento de inercia de la rueda: ½·M·R² para un disco, M·R² para un aro",
+        "m": "la masa de la rueda",
+        "r": "el radio del eje",
+        "t": "el tirón de ambas cintas",
+        "s": "la rigidez de ambas cintas juntas",
+        "v": "la velocidad de la rueda cuando las cintas se han desenrollado"
+      },
+      "sweet": {
+        "spin": "Casi toda la energía está en el giro – aquí el {{share}} % –, por eso la rueda cae tan despacio: lo que da la altura va al giro, no a la caída.",
+        "jerk": "Abajo, el estiramiento de las cintas frena la caída. Durante {{ms}} ms su tirón sube a {{peak}} N, {{times}} veces el peso. El giro continúa a través del tirón y vuelve a enrollar las cintas por el otro lado.",
+        "climbs": "Cada vez la rueda sube al {{share}} % de la altura anterior: el roce de las cintas con el eje le quita algo al desenrollarse y enrollarse."
+      },
+      "chart": {
+        "height": "Altura",
+        "tension": "Tirón de las cintas",
+        "time": "Tiempo"
+      },
+      "figures": {
+        "fall": "Tiempo de caída",
+        "spin": "Giro abajo",
+        "peak": "Tirón máximo",
+        "stretch": "Estiramiento de las cintas"
+      },
+      "computed": {
+        "system": "Aquí todo tiene solución cerrada; nada se calcula paso a paso: la caída y la subida son uniformemente aceleradas, y en el tirón la rueda hace media oscilación de muelle sobre las cintas estiradas. En cada imagen la página pregunta dónde está la rueda.",
+        "z": "cuánto se estiran las cintas en el tirón"
+      }
+    },
+    "chaos": {
+      "at": {
+        "pendulum": "De un péndulo cuelga un segundo. Empujados suavemente, ambos oscilan tranquilos; con fuerza, el brazo inferior se agita, da vueltas, se detiene y sigue agitándose – nunca dos veces igual.",
+        "twice": "Quien lo empuja dos veces «igual» ve dos bailes distintos. Aquí se hace con más precisión que a mano: dos péndulos cuyos comienzos difieren en una milésima de grado."
+      },
+      "view": "El péndulo doble y su gemelo, que empezó con un ángulo diminuto distinto, con la traza del peso inferior",
+      "play": {
+        "title": "Soltar dos péndulos",
+        "hint": "El péndulo intenso y su gemelo más pálido empiezan casi igual. Fíjese en cuándo se separan.",
+        "let_go": "Soltar",
+        "pause": "Pausa",
+        "run": "Seguir",
+        "presets_label": "Inicio:",
+        "presets": {
+          "gentle": "Suave",
+          "wild": "Salvaje",
+          "headstand": "Casi cabeza abajo"
+        },
+        "upper": "Brazo superior al inicio",
+        "lower": "Brazo inferior al inicio",
+        "nudge": "Diferencia del gemelo",
+        "speed": "Velocidad",
+        "speeds": {
+          "100": "Tiempo real",
+          "25": "Cámara lenta (¼)"
+        },
+        "time": "Tiempo",
+        "gap": "Distancia entre los dos: {{gap}}"
+      },
+      "change": {
+        "title": "Cambiar el objeto expuesto",
+        "hint": "Cada cambio vuelve a soltar ambos.",
+        "length1": "Longitud del brazo superior",
+        "length2": "Longitud del brazo inferior",
+        "mass1": "Masa en el brazo superior",
+        "mass2": "Masa en el brazo inferior",
+        "damping": "Amortiguación"
+      },
+      "model": {
+        "intro": "Dos masas en dos varillas ligeras, la inferior colgada del extremo de la superior. Las ecuaciones del movimiento se obtienen de la energía con el método de Lagrange; son largas pero sin misterio – y no tienen solución cerrada.",
+        "energy": "La energía del péndulo doble: el movimiento de ambas masas, su acoplamiento por el ángulo entre los brazos y su altura. Sin amortiguación se conserva – es el control del cálculo.",
+        "modes": "Con oscilaciones pequeñas todo es ordenado: dos modos propios, lento al unísono y rápido uno contra otro (aquí con brazos y masas iguales).",
+        "lyapunov": "Con oscilaciones grandes, una diferencia diminuta crece cada segundo por el mismo factor hasta ser tan grande como el propio movimiento. La tasa de ese crecimiento es el exponente de Liapunov."
+      },
+      "symbols": {
+        "theta": "los ángulos de los dos brazos con la vertical",
+        "lengths": "las longitudes de los brazos",
+        "masses": "las dos masas",
+        "g": "aceleración de la gravedad, 9,81 m/s²",
+        "omega": "las frecuencias angulares de los dos modos",
+        "d": "la distancia entre los dos péndulos, en ángulos y velocidades angulares",
+        "lambda": "el exponente de Liapunov"
+      },
+      "sweet": {
+        "gap": "La distancia entre los dos péndulos con el tiempo, en escala logarítmica: una recta significa que crece por el mismo factor cada segundo.",
+        "chaotic": "Medido para este inicio: λ = {{lambda}} por segundo. Una diferencia se duplica cada {{doubling}} s. Hacerla mil veces menor solo gana el tiempo de diez duplicaciones – por eso el péndulo no se puede predecir, aunque cada cálculo sea exacto.",
+        "regular": "Medido para este inicio: λ = {{lambda}} por segundo, prácticamente cero. Con oscilaciones tan suaves la diferencia sigue pequeña: el péndulo es predecible."
+      },
+      "chart": {
+        "gap": "Distancia entre los dos",
+        "time": "Tiempo"
+      },
+      "figures": {
+        "lambda": "Exponente de Liapunov",
+        "slow": "Modo lento"
+      },
+      "computed": {
+        "system": "Cuatro ecuaciones de primer orden, ambos ángulos y sus velocidades, con el método de Runge-Kutta en pasos de un milisegundo, para el péndulo y su gemelo. El motor mide el exponente a la manera de Benettin: un gemelo empieza a una cienmillonésima, cada décima de segundo se anota cuánto creció la distancia y el gemelo vuelve a la distancia pequeña. La media de los logaritmos es el exponente – sea cual sea la distancia pequeña elegida.",
+        "d0": "la distancia pequeña a la que vuelve el gemelo cada vez",
+        "dk": "la distancia tras la k-ésima décima de segundo",
+        "t": "todo el tiempo medido"
+      }
+    },
+    "waterwheel": {
+      "at": {
+        "wheel": "Alrededor de una rueda cuelgan cubos con un agujero en el fondo. El agua entra por arriba y gotea por abajo. Al abrir el grifo, el cubo de arriba pesa, la rueda se inclina y empieza a girar.",
+        "never": "A veces gira mucho tiempo en un sentido, se frena, se detiene y gira en el otro – cuándo y cuántas veces no sigue ningún compás. Nunca se repite."
+      },
+      "views": {
+        "wheel": "La noria con sus cubos, arriba el grifo",
+        "butterfly": "El camino de la rueda en el espacio de sus estados: su giro frente a la altura del reparto del agua – la mariposa de Lorenz",
+        "wheel_caption": "La rueda",
+        "butterfly_caption": "La mariposa de Lorenz"
+      },
+      "play": {
+        "title": "Abrir el grifo",
+        "hint": "El grifo decide: poca agua y la rueda se queda quieta; más, y gira de forma regular; más aún, y se vuelve caótica.",
+        "pause": "Pausa",
+        "run": "Seguir",
+        "restart": "Desde el principio",
+        "tap": "Grifo",
+        "tap_hint": "ρ: cuánta agua entra, medida frente a las fugas y el freno.",
+        "brake": "Freno",
+        "brake_hint": "σ: cuánto frena el eje, medido frente a la inercia de la rueda y las fugas.",
+        "speed": "Velocidad",
+        "speeds": {
+          "1": "Tiempo real",
+          "4": "Cuádruple"
+        },
+        "regime_still": "Poca agua: las fugas se la llevan antes de que el cubo de arriba pese lo bastante. La rueda está quieta.",
+        "regime_steady": "La rueda gira de forma regular en un sentido – cuál, lo decide el primer pequeño empujón.",
+        "regime_chaotic": "Caos: ningún giro regular se mantiene. La rueda cambia de sentido sin seguir nunca un patrón.",
+        "rate": "Giro de la rueda",
+        "rpm": "rpm",
+        "hopf": "Caos a partir de un grifo de"
+      },
+      "model": {
+        "intro": "Lo que cuenta es cómo se reparte el agua alrededor de la rueda – más exactamente, a qué distancia queda su centro de masa al lado del eje y por encima o por debajo. Con eso y el giro de la rueda se escriben tres ecuaciones.",
+        "wheel": "El reparto del agua gira con la rueda, el agua entra arriba y se escapa por todas partes; la gravedad hace girar la rueda cuando el agua queda a un lado, y el eje frena.",
+        "lorenz": "Con el tiempo en unidades de las fugas y bien escaladas, son exactamente las ecuaciones de Lorenz, que él obtuvo en 1963 de un modelo del flujo del aire – con b = 1 en lugar de 8/3.",
+        "hopf": "Por encima de este caudal ni siquiera el giro regular es estable: la rueda se vuelve caótica."
+      },
+      "symbols": {
+        "ab": "cómo se reparte el agua: hacia un lado, y arriba frente a abajo",
+        "omega": "el giro de la rueda",
+        "k": "lo rápido que gotean los cubos",
+        "q": "cuánta agua entra por arriba",
+        "nu": "el freno del eje",
+        "i": "el momento de inercia de la rueda",
+        "r": "el radio de la rueda",
+        "x": "el giro en unidades de las fugas",
+        "yz": "dónde queda el centro de masa del agua, escalado",
+        "sigma": "el freno frente a la inercia y las fugas",
+        "rho": "el caudal frente al freno y las fugas"
+      },
+      "sweet": {
+        "lorenz": "El giro de la rueda durante 200 segundos. En 1963 Lorenz buscaba un modelo sencillo del tiempo y halló estas tres ecuaciones – y que diferencias diminutas al principio hacen inútil el pronóstico al poco tiempo. La noria es ese modelo para tocar.",
+        "chaotic": "En 200 segundos la rueda invierte aquí {{reversals}} veces, nunca con el mismo compás.",
+        "steady": "Con este caudal, una vez arrancada, la rueda gira regularmente a {{rpm}} vueltas por minuto.",
+        "still": "Con este caudal la rueda se queda quieta."
+      },
+      "chart": {
+        "time": "Tiempo"
+      },
+      "computed": {
+        "system": "Tres ecuaciones de primer orden, las de Lorenz, con el método de Runge-Kutta en pasos de una centésima del tiempo de fuga. Deshecho el escalado, dan el giro de la rueda y lo lleno que está cada cubo. La prueba calcula las propias ecuaciones de la rueda en segundos y encuentra los mismos números.",
+        "tau": "el tiempo en unidades de las fugas"
+      }
+    },
+    "foucault": {
+      "at": {
+        "swing": "Un péndulo pesado colgado de un cable largo oscila tranquilo durante horas. Nada lo empuja de lado – y sin embargo, al cabo de una hora, su plano de oscilación apunta en otra dirección.",
+        "pins": "En el suelo hay un círculo de bolos; caen uno tras otro cuando el plano pasa por ellos. En Winterthur gira 11,1° por hora, en sentido horario: una vuelta completa en 32,5 horas."
+      },
+      "view": "El péndulo visto desde arriba: el plano de oscilación en trazos, la traza de la bola y el círculo de bolos",
+      "play": {
+        "title": "Dejar girar la Tierra",
+        "hint": "A cámara rápida se ve cómo avanza el plano y caen los bolos. Elija otro lugar y el ritmo cambia.",
+        "pause": "Pausa",
+        "run": "Seguir",
+        "restart": "Desde el principio",
+        "places_label": "Lugar:",
+        "places": {
+          "winterthur": "Winterthur",
+          "pole": "Polo Norte",
+          "equator": "Ecuador",
+          "sydney": "Sídney"
+        },
+        "speed": "Cámara rápida",
+        "speeds": {
+          "1": "Tiempo real",
+          "60": "1 min por s",
+          "600": "10 min por s",
+          "3600": "1 h por s"
+        },
+        "latitude": "Latitud",
+        "latitude_hint": "Positiva en el norte, negativa en el sur.",
+        "hours": "Transcurrido",
+        "turned": "Plano girado",
+        "rate": "Por hora",
+        "never": "En el ecuador el plano no gira.",
+        "full_turn": "Aquí una vuelta completa tarda {{hours}} horas."
+      },
+      "change": {
+        "title": "Cambiar el objeto expuesto",
+        "hint": "La longitud y la amplitud cambian el compás de la oscilación, no lo rápido que gira el plano.",
+        "length": "Longitud del péndulo",
+        "amplitude": "Amplitud"
+      },
+      "model": {
+        "intro": "El suelo gira con la Tierra. Quien está sobre él ve por eso el péndulo desviado por una fuerza que solo aparece en el sistema que gira: la fuerza de Coriolis.",
+        "coriolis": "La bola es atraída de vuelta al centro y desviada por la fuerza de Coriolis de través a su movimiento – hacia la derecha en el norte.",
+        "latitude": "Lo rápido que gira el suelo bajo el péndulo depende de la latitud: en el polo con todo el giro de la Tierra, en el ecuador nada."
+      },
+      "symbols": {
+        "xy": "dónde está la bola sobre el suelo",
+        "omega0": "la frecuencia angular de la oscilación",
+        "omega_z": "lo rápido que gira el suelo bajo el péndulo",
+        "omega": "el giro de la Tierra, una vez por día sidéreo",
+        "phi": "la latitud"
+      },
+      "sweet": {
+        "floor": "El péndulo mantiene su plano en el espacio y el suelo gira debajo. En Winterthur a {{rate}}° por hora: así mostró Foucault en París en 1851 que la Tierra gira, sin mirar al cielo.",
+        "period": "Aquí una oscilación dura {{period}} s; el plano gira sin que eso importe. Un péndulo más corto muestra lo mismo, siempre que siga oscilando lo suficiente."
+      },
+      "chart": {
+        "rate": "Giro por hora",
+        "latitude": "Latitud",
+        "here": "Aquí"
+      },
+      "computed": {
+        "system": "Para amplitudes pequeñas la ecuación es lineal y tiene solución cerrada: una oscilación cuyo plano gira con el suelo. Con ella la página muestra cualquier hora al instante, sin ir paso a paso; la prueba la contrasta con un cálculo paso a paso durante cien oscilaciones.",
+        "zeta": "la posición de la bola como número complejo",
+        "a": "la amplitud al soltar",
+        "omega_p": "la frecuencia angular de la oscilación en el sistema que gira"
+      }
+    },
+    "coriolis": {
+      "at": {
+        "seats": "Una plataforma redonda gira despacio; dos personas se sientan enfrentadas en el borde y se pasan una pelota rodando.",
+        "misses": "La pelota se desvía y falla, aunque nadie la empuja. A 6 vueltas por minuto, un lanzamiento recto a 3 m/s falla el otro asiento por 86°; quien apunta 50° por delante acierta."
+      },
+      "view": "El carrusel visto desde arriba: los dos asientos, la dirección de tiro en trazos y la trayectoria de la pelota",
+      "play": {
+        "title": "Apuntar y lanzar",
+        "hint": "Lance una vez recto al otro asiento y cambie a «Desde fuera»: allí el disco va en línea recta.",
+        "throw": "Lanzar",
+        "aim_lead": "Apuntar por delante",
+        "frame": "Vista",
+        "frames": {
+          "riding": "Girando con él",
+          "outside": "Desde fuera"
+        },
+        "body": "Qué se lanza",
+        "bodies": {
+          "puck": "Disco deslizante",
+          "ball": "Pelota que rueda"
+        },
+        "aim": "Apuntar",
+        "aim_hint": "Cuánto se apunta al lado del otro asiento, positivo en sentido antihorario.",
+        "speed": "Velocidad del lanzamiento",
+        "rpm": "Giro del carrusel",
+        "rpm_unit": "rpm",
+        "rpm_hint": "Positivo: antihorario, visto desde arriba.",
+        "miss": "Fallo de",
+        "flight": "En camino",
+        "no_lead": "A esta velocidad ningún lanzamiento alcanza el otro asiento: se aleja girando demasiado deprisa.",
+        "lead": "Apuntar {{lead}}° por delante acierta."
+      },
+      "model": {
+        "intro": "Visto desde fuera, ninguna fuerza empuja el disco de lado. Al soltarlo tiene dos velocidades: el lanzamiento y la velocidad con la que el lanzador mismo gira en el borde.",
+        "puck": "Por eso, visto desde fuera, va en línea recta – solo que no hacia donde apuntó el lanzador.",
+        "riding": "Quien gira con el carrusel ve la misma trayectoria curvada y la explica con dos fuerzas que solo aparecen en el sistema que gira: la fuerza de Coriolis, de través al movimiento, y la fuerza centrífuga, hacia fuera.",
+        "ball": "Una pelota que rueda es aún más extraña: la plataforma sigue girando bajo ella, y el rozamiento que la hace rodar gira su velocidad de forma constante – a 2/7 del giro del carrusel. Desde fuera, recorre un círculo."
+      },
+      "symbols": {
+        "r0": "dónde se suelta la pelota",
+        "u": "el lanzamiento, medido sobre el carrusel",
+        "omega": "el giro del carrusel",
+        "primed": "aceleración, velocidad y posición tal como las mide quien gira",
+        "k": "lo difícil que es hacer girar la pelota: 2/5 para una esfera maciza"
+      },
+      "sweet": {
+        "nobody": "Nadie empuja la pelota de lado. La curva surge porque uno mismo gira: mientras la pelota va de camino, el otro asiento sigue avanzando. La misma «fuerza» en la Tierra que gira desvía los vientos hacia las borrascas y los hace girar allí.",
+        "ball": "Y una pelota que rueda no va recta ni siquiera vista desde fuera: al rodar sobre la plataforma que gira, recorre un círculo a 2/7 del giro del carrusel."
+      },
+      "computed": {
+        "system": "Ambas trayectorias tienen solución cerrada: el disco en una recta, la pelota en un círculo, ambas vistas desde fuera y giradas de vuelta para quien gira. Dónde la pelota vuelve a llegar al borde, y hacia dónde hay que apuntar para acertar, lo halla la página partiendo por la mitad. La prueba contrasta la trayectoria girada del disco con un cálculo paso a paso con las fuerzas de Coriolis y centrífuga."
+      }
+    },
+    "cradle": {
+      "at": {
+        "row": "Cinco bolas de acero cuelgan de hilos en fila, apenas tocándose. Se levanta la primera y se deja caer: en el otro extremo sale despedida la última, y las tres de en medio parecen quedarse quietas.",
+        "two": "Si se dejan caer dos, salen dos. Al cabo de un rato también las bolas del medio empiezan a oscilar."
+      },
+      "view": "El péndulo de Newton de frente: la barra, los hilos y las bolas",
+      "play": {
+        "title": "Levantar y soltar",
+        "hint": "Deje caer una bola, luego dos. Con 0,1 mm de aire entre las bolas, la cuenta sale exacta.",
+        "let_go": "Soltar",
+        "pause": "Pausa",
+        "run": "Seguir",
+        "lifted": "Bolas levantadas",
+        "spacing": "Entre las bolas",
+        "spacings": {
+          "touching": "Se tocan",
+          "gap": "0,1 mm de aire"
+        },
+        "speed": "Velocidad",
+        "speeds": {
+          "100": "Tiempo real",
+          "25": "4× más lento",
+          "10": "10× más lento"
+        },
+        "angle": "Desviación",
+        "restitution": "Lo que devuelve un choque",
+        "restitution_hint": "La fracción de su velocidad con la que dos bolas se separan tras chocar a 1 m/s. 1 significa: sin pérdida.",
+        "far": "Energía en el otro extremo",
+        "far_hint": "Tras el primer choque: la fracción de la energía en tantas bolas del otro extremo como se levantaron.",
+        "duration": "Duración del choque",
+        "peak": "Fuerza máxima",
+        "after": "Velocidades tras el primer choque, de izquierda a derecha: {{speeds}} m/s",
+        "ball": "Bola {{n}}"
+      },
+      "chart": {
+        "widest": "Mayor desviación",
+        "time": "Tiempo",
+        "caption": "Segundo a segundo, la mayor desviación de cada bola desde que se soltó"
+      },
+      "model": {
+        "intro": "Cada bola es un péndulo. Dos bolas se empujan solo donde se hunden un poco una en la otra – según la ley de Hertz, que se vuelve más rígida cuanto más se hunden.",
+        "hertz": "La fuerza entre dos bolas crece con la deformación elevada a 3/2; el segundo factor le quita un poco de energía al choque.",
+        "brief": "Si una bola de 64 g cae desde 30°, su choque dura unos 0,2 milisegundos, y en ese instante las bolas se aprietan con casi 900 N – tanto como el peso de 90 kg.",
+        "swing": "Cada bola oscila en sus hilos y la empujan sus vecinas.",
+        "why": "Cuando las bolas chocan de una en una, se conservan el momento y la energía, y para bolas iguales eso significa: intercambian su velocidad. Dos bolas a la mitad de velocidad tendrían el mismo momento, pero solo la mitad de energía."
+      },
+      "symbols": {
+        "f": "la fuerza entre dos bolas",
+        "delta": "cuánto se hunden una en la otra",
+        "k": "la rigidez de dos bolas según Hertz",
+        "e_star": "la rigidez del acero: módulo de Young E, coeficiente de Poisson ν",
+        "r_star": "el radio efectivo de dos bolas iguales de diámetro d",
+        "alpha": "la amortiguación en el acero, fijada a partir de e a 1 m/s",
+        "e": "la fracción de la velocidad que devuelve un choque",
+        "theta": "el ángulo de la i-ésima bola",
+        "l": "la longitud desde el punto de suspensión hasta el centro de la bola",
+        "m": "la masa de una bola",
+        "g": "la aceleración de la gravedad",
+        "fi": "la fuerza entre la i-ésima bola y su vecina de la derecha",
+        "v": "la velocidad de la bola que cae, abajo"
+      },
+      "sweet": {
+        "wave": "Las bolas se tocan, así que no chocan una tras otra: el choque recorre la fila como una onda. Como el contacto de Hertz se vuelve más rígido al hundirse, la onda sigue siendo corta y llega casi entera a la última bola – el 97 % de la energía. El resto se lo quedan las demás; la primera incluso rebota un poco.",
+        "gap": "Con 0,1 mm de aire entre las bolas, vuelven a chocar de una en una, y la cuenta sale: el 99,9 % de la energía en la última bola.",
+        "two": "Si se dejan caer dos, recorren la fila dos ondas, una tras otra. La última bola sale a 0,70 m/s, la penúltima a 0,49 m/s – no las dos a los 0,63 m/s con que llegaron. Juntas llevan aun así el 97 % de la energía.",
+        "together": "Lo que queda en la fila crece con cada choque si los choques pierden algo de energía: en el cuarto segundo la bola del medio ya oscila 2,5°. Si cada choque lo devuelve todo (e = 1), se queda casi quieta."
+      },
+      "computed": {
+        "system": "Cada bola se calcula paso a paso con Runge–Kutta: un milisegundo de una vez mientras todas oscilan libres, un microsegundo mientras dos se tocan o están a punto de tocarse. Las cifras del choque salen del primer encuentro de las bolas que caen con las que cuelgan. Cuando las bolas se aprietan durante mucho rato, la página no siempre da abasto y va un momento más lenta. La prueba contrasta la fuerza máxima entre dos bolas con la fórmula cerrada de Hertz, y comprueba que con aire entre las bolas sale exactamente una, tan rápida como llegó la primera."
+      }
+    },
+    "well": {
+      "at": {
+        "funnel": "Un embudo ancho, casi plano en el borde y cada vez más empinado hacia el centro. Una bola lanzada en el borde gira mucho rato alrededor del agujero del centro.",
+        "faster": "Con cada vuelta gira más abajo y más deprisa, al final en un remolino, hasta que cae dentro."
+      },
+      "view_top": "El embudo desde arriba: curvas de nivel cada 2 cm, el agujero, la bola y su rastro",
+      "view_side": "El embudo cortado de lado, con la bola a su altura",
+      "play": {
+        "title": "Lanzar y dejar girar",
+        "hint": "«Círculo» lanza la bola justo a la velocidad que la mantendría en un círculo sin fricción. Con fricción baja vuelta a vuelta; el gráfico compara cada vuelta con Kepler.",
+        "launch": "Lanzar",
+        "circle": "Círculo",
+        "pause": "Pausa",
+        "run": "Seguir",
+        "speed": "Velocidad",
+        "speeds": {
+          "1": "Tiempo real",
+          "4": "4× más rápido"
+        },
+        "push": "Velocidad del lanzamiento",
+        "aim": "Dirección",
+        "aim_hint": "Respecto a la dirección del borde, positiva hacia el agujero.",
+        "resistance": "Resistencia a la rodadura",
+        "resistance_hint": "La fracción del empuje de la pared que frena la bola. 0 significa: sin fricción.",
+        "laps": "Vueltas",
+        "last_lap": "Última vuelta",
+        "distance": "Distancia al centro",
+        "speed_now": "Velocidad",
+        "dropped": "Cayó en el agujero tras {{t}} s y {{laps}} vueltas.",
+        "out": "Salió por encima del borde: lanzada demasiado deprisa o demasiado hacia fuera."
+      },
+      "chart": {
+        "lap": "Vuelta de la bola",
+        "kepler": "Círculo según Kepler",
+        "period": "Tiempo de vuelta",
+        "radius": "Distancia media de la vuelta",
+        "caption": "Cada vuelta de la bola junto al tiempo de vuelta de un círculo a esa distancia"
+      },
+      "model": {
+        "intro": "La bola rueda sobre la pared del embudo. Como en un planeta, lo que cuenta es con qué fuerza la atrae el centro – aquí, la pendiente de la pared.",
+        "wall": "La pared del embudo: cuanto más cerca del centro, más honda, y su pendiente disminuye hacia fuera como 1/r².",
+        "circle": "En un círculo la pendiente aporta la fuerza hacia el centro – como 1/r², igual que la gravedad del Sol. El 5/7 viene de rodar: parte de cada empuje hace girar la bola.",
+        "kepler": "De ahí sale la tercera ley de Kepler: el cuadrado del tiempo de vuelta crece con el cubo de la distancia.",
+        "resistance": "La resistencia a la rodadura frena la bola con una pequeña parte de la fuerza con que la pared la empuja."
+      },
+      "symbols": {
+        "z": "la altura de la pared, medida desde la altura a la que se acerca hacia fuera",
+        "r": "la distancia al centro",
+        "k": "la forma del embudo",
+        "v": "la velocidad de la bola",
+        "g": "la aceleración de la gravedad",
+        "t": "el tiempo de vuelta",
+        "f": "la fuerza que frena",
+        "c": "la resistencia a la rodadura",
+        "n": "la fuerza con que la pared empuja la bola"
+      },
+      "sweet": {
+        "kepler": "Cuanto más abajo, más deprisa – como Mercurio frente a Neptuno. En el inicio, doce veces más lejos del centro que el borde del agujero, una vuelta dura 5,1 s; en el agujero solo 0,12 s, 42 veces menos. Es la tercera ley de Kepler, y el embudo la cumple porque su pendiente disminuye hacia fuera como la gravedad del Sol: cada vuelta de la bola coincide con el tiempo de su círculo con un 3 % de margen.",
+        "faster": "La fricción frena la bola – y aun así va más deprisa. Pierde energía, baja a un círculo más hondo, y allí la velocidad del círculo es mayor. Desde el círculo inicial cae en el agujero tras 46 s y 75 vueltas, 42 de ellas en los últimos 10 segundos, al final a más del triple de la velocidad inicial. También un satélite frenado por el aire tenue baja y se acelera.",
+        "rosette": "Aquí termina la comparación. Sin fricción y lanzada no justo en círculo – a 0,30 m/s en lugar de 0,44 m/s – la trayectoria no se cierra en una elipse como la de un planeta: su punto más cercano al centro avanza 40° en cada vuelta. La pared empinada y su curvatura también cuentan."
+      },
+      "computed": {
+        "system": "La bola rueda sin deslizar; su giro cuenta como 2/5 más de inercia, de modo que cada empuje a lo largo de la pared la mueve en 5/7. Las ecuaciones del movimiento sobre la superficie, en distancia y ángulo, se resuelven con Runge–Kutta en pasos de un milisegundo. La resistencia a la rodadura actúa contra todo el empuje de la pared, también contra la parte que mantiene la bola en su trayectoria curva. La prueba comprueba la energía y el momento angular sin fricción, el círculo y el tiempo hasta el agujero frente a un cálculo independiente a partir de la energía de los círculos.",
+        "left_out": "Se deja fuera: el giro de la bola alrededor de la normal a la pared, su tamaño frente a la curvatura de la pared, el aire. Una moneda, que rueda sobre su canto y se inclina, es otro problema."
+      }
+    },
+    "resonance": {
+      "at": {
+        "rods": "Seis varillas de acero de distinta longitud están sujetas a una mesa que un motor sacude un poco de lado a lado.",
+        "one": "Con cierto ritmo, una sola varilla oscila con fuerza mientras las demás casi no se mueven. Un poco más rápido, y otra toma el relevo."
+      },
+      "view": "Las varillas de frente sobre su mesa, cada una con su frecuencia propia debajo",
+      "play": {
+        "title": "Buscar el ritmo",
+        "hint": "Sacuda la mesa y mueva el ritmo despacio. «Barrer» lo sube solo y registra cuánto oscila cada varilla mientras tanto.",
+        "shake": "Sacudir",
+        "stop": "Parar",
+        "sweep": "Barrer",
+        "calm": "Calmar",
+        "speed": "Velocidad",
+        "speeds": {
+          "1": "Tiempo real",
+          "4": "4× más rápido"
+        },
+        "beat": "Ritmo de la mesa",
+        "beat_hint": "Cuántas veces por segundo va y viene la mesa.",
+        "sweeping": "El ritmo sube 0,05 Hz por segundo; mueva el regulador para detenerlo.",
+        "damping": "Amortiguación",
+        "damping_hint": "Lo rápido que una varilla se detiene sola: la fracción de la amortiguación con la que ya no oscilaría.",
+        "sound": "Sonido",
+        "sound_hint": "Cada varilla suena con su frecuencia propia, siete octavas más alta, tan fuerte como oscila.",
+        "no_sound": "Este navegador no puede producir sonidos.",
+        "widest": "Mayor oscilación",
+        "table": "La mesa, de ida y vuelta",
+        "rod": "Varilla {{n}} ({{hz}} Hz)"
+      },
+      "chart": {
+        "swing": "Oscilación de la punta",
+        "beat": "Ritmo de la mesa",
+        "swept": "Varilla {{n}}, al barrer",
+        "caption": "Cuánto oscila cada varilla cuando la mesa mantiene el mismo ritmo el tiempo suficiente; en trazos, lo que llega de ello al barrer"
+      },
+      "model": {
+        "intro": "Cada varilla está sujeta abajo y libre arriba. De sus formas de vibrar aquí solo cuenta la primera: toda la varilla se dobla hacia un lado.",
+        "frequency": "Su frecuencia propia: cuanto más larga la varilla, más grave – con el cuadrado de la longitud.",
+        "motion": "La mesa se sacude, y su aceleración empuja cada varilla, ponderada con Γ = 1,566 para la forma de la primera vibración. La amortiguación le quita impulso.",
+        "steady": "Sacudida con el mismo ritmo el tiempo suficiente, la punta oscila esta amplitud. Al compás (r = 1) es Γ·Y/(2ζ)."
+      },
+      "symbols": {
+        "beta": "la primera solución de cosh β · cos β = −1: 1,8751",
+        "l": "la longitud de la varilla",
+        "e": "el módulo de Young del acero",
+        "i": "el momento de inercia de la sección de una varilla redonda de diámetro d",
+        "rho": "la densidad del acero",
+        "a": "la sección",
+        "q": "cuánto se desvía la punta respecto a la mesa",
+        "omega": "la frecuencia propia, como frecuencia angular",
+        "zeta": "la amortiguación, como fracción de aquella con la que la varilla ya no oscilaría",
+        "gamma": "con qué fuerza la sacudida empuja la forma de la primera vibración",
+        "yb": "dónde está la mesa",
+        "r": "el ritmo de la mesa dividido por la frecuencia propia",
+        "y": "cuánto va y viene la mesa"
+      },
+      "sweet": {
+        "step": "Un pequeño empujón al ritmo justo mueve más que uno grande al ritmo equivocado. La mesa va y viene solo 1 mm; al compás de la varilla de 80 cm, a 2,21 Hz, su punta oscila 78 mm, sus vecinas como mucho 4 mm. Un tres por ciento fuera del ritmo, solo 26 mm.",
+        "patience": "La resonancia requiere paciencia: a 2,21 Hz la oscilación crece en 7,2 s hasta algo menos de dos tercios. Quien barre más deprisa se la pierde: a 0,05 Hz por segundo la misma varilla oscila como mucho 40 mm, la mitad, y solo a 2,4 Hz.",
+        "everywhere": "El mismo ir al compás hace estallar un vaso con la nota justa, balancea un puente bajo pasos de marcha y deja que una cuerda recoja la nota de un instrumento."
+      },
+      "computed": {
+        "system": "Cada varilla se calcula como una sola vibración: su primera forma con su frecuencia propia, empujada por la sacudida de la mesa, con Runge–Kutta en pasos de un milisegundo. Al barrer, el ritmo sube entre los pasos. La prueba contrasta las constantes de la primera forma con los valores de cualquier tabla (β₁² = 3,516, Γ = 1,566) y el cálculo paso a paso con la fórmula cerrada.",
+        "sound": "El sonido se genera en el navegador y está apagado hasta que usted lo enciende; nada de ello se guarda ni se envía.",
+        "left_out": "Se deja fuera: las formas de vibración superiores (la segunda está 6,27 veces más alta), el endurecimiento de la varilla con oscilaciones amplias, la flexibilidad de la mesa."
+      }
+    },
+    "gyroscope": {
+      "at": {
+        "wheel": "Una rueda pesada en un eje cuelga de un hilo por un extremo del eje. Si se suelta quieta, cae enseguida. Si gira deprisa, el eje se mantiene casi horizontal y la rueda da vueltas despacio alrededor del hilo.",
+        "suitcase": "Al lado hay una maleta en la que gira una rueda así. Quien la lleva y quiere doblar una esquina siente que se inclina de lado."
+      },
+      "view": "La rueda en su hilo, vista un poco desde arriba, un radio en color",
+      "trace": "El rastro del eje: cuánto baja respecto a su altura inicial, en la última vuelta alrededor del hilo",
+      "trace_caption": "El rastro del eje en la última vuelta alrededor del hilo: cuánto baja respecto a su altura inicial",
+      "play": {
+        "title": "Girar y soltar",
+        "hint": "Suelte la rueda una vez quieta, luego a 200 rpm. Mostrado cuatro veces más lento, se ve cabecear el eje.",
+        "let_go": "Soltar",
+        "pause": "Pausa",
+        "run": "Seguir",
+        "start": "Al soltar",
+        "starts": {
+          "rest": "En reposo",
+          "steady": "Ya girando en círculo"
+        },
+        "speed": "Velocidad",
+        "speeds": {
+          "100": "Tiempo real",
+          "25": "4× más lento"
+        },
+        "rpm": "Giro de la rueda",
+        "rpm_unit": "rpm",
+        "tilt": "Inclinación del eje",
+        "tilt_hint": "Respecto a la vertical hacia arriba: 90° es horizontal.",
+        "round": "Una vuelta al hilo",
+        "nods": "Cabeceos por segundo",
+        "dip": "El eje baja",
+        "suitcase": "Girar la maleta",
+        "suitcase_hint": "Quien gira la maleta con esta rueda un cuarto de vuelta por segundo en una esquina debe aplicar este par de través.",
+        "dropped": "Sin giro la rueda cae: tras {{t}} s cuelga casi vertical."
+      },
+      "model": {
+        "intro": "Una rueda que gira tiene momento angular a lo largo de su eje. La gravedad tira de la rueda, el hilo sujeta el extremo del eje: eso da un par de través al eje, horizontal.",
+        "torque": "Un par cambia el momento angular en su propia dirección – y esa es horizontal, de través al eje. Así que el eje gira hacia un lado en lugar de caer.",
+        "precession": "Lo rápido que el eje da vueltas alrededor del hilo: cuanto más deprisa gira la rueda, más despacio.",
+        "lagrange": "Lo que calcula la página: la inclinación del eje según Lagrange, para un trompo con un punto fijo. El momento angular alrededor del eje y el del hilo se conservan.",
+        "suitcase": "Quien gira el eje debe aplicar este par de través; si falta, la maleta se inclina."
+      },
+      "symbols": {
+        "l": "el momento angular de la rueda",
+        "m": "el par",
+        "omega_p": "lo rápido que el eje da vueltas alrededor del hilo",
+        "mass": "la masa de la rueda",
+        "d": "la distancia del hilo al centro de la rueda",
+        "i3": "el momento de inercia alrededor del eje: un aro de radio r",
+        "omega3": "lo rápido que gira la rueda sobre su eje",
+        "theta": "la inclinación del eje respecto a la vertical",
+        "phi": "cuánto ha girado el eje alrededor del hilo",
+        "i1": "el momento de inercia de través al eje, respecto a su extremo",
+        "turn": "lo rápido que se gira la maleta"
+      },
+      "sweet": {
+        "sideways": "La rueda no cede en la dirección en que se tira de ella, sino de través. Sin giro, a los 0,37 s cuelga casi vertical; a 200 vueltas por minuto el eje se mantiene arriba y da una vuelta al hilo en 8,1 s. Girando el doble de rápido, la da a la mitad de velocidad.",
+        "nod": "Pero no del todo sin caer: al soltarla, el eje baja primero 3,2°, se pasa del giro uniforme y vuelve – cabecea, algo más de cuatro veces por segundo, y su rastro dibuja arcos con puntas. Tan hondo como permiten la energía y los dos momentos angulares conservados, y no más.",
+        "suitcase": "Por eso la maleta se inclina: girarla con esta rueda un cuarto de vuelta por segundo en una esquina exige 5,9 N·m de través – tanto como 600 g en el extremo de un metro."
+      },
+      "computed": {
+        "system": "La rueda es un trompo simétrico con un punto fijo, el extremo del eje en el hilo; su masa está en el aro. Según Lagrange se conservan dos momentos angulares, alrededor del eje y alrededor del hilo; solo se calcula paso a paso la inclinación, con Runge–Kutta en pasos de un milisegundo. La prueba comprueba la energía, el giro uniforme y cuánto baja el eje frente al cálculo a partir de las magnitudes conservadas.",
+        "left_out": "Se deja fuera: que el propio hilo oscila y se estira (su extremo es el punto fijo), la fricción en el cojinete y en el hilo, el aire. Radios y buje no cuentan junto al aro."
+      }
+    },
+    "arch": {
+      "at": {
+        "stones": "Con piedras sueltas, sin mortero, se construye un arco. Una vez colocada la última piedra en el centro, el arco se sostiene solo y además lleva una carga.",
+        "chain": "Al lado cuelga una cadena entre dos ganchos. Puesta del revés, su forma es la mejor forma para un arco."
+      },
+      "view": "El arco de frente: las piedras, la línea de presiones, las juntas por donde se abriría primero y la carga",
+      "play": {
+        "title": "Construir un arco",
+        "hint": "Haga el semicírculo más delgado hasta que se rompa y cambie luego al arco de cadena. Ponga una carga encima y desplácela.",
+        "shape": "Forma",
+        "shapes": {
+          "semicircle": "Semicírculo",
+          "pointed": "Ojival",
+          "catenary": "Arco de cadena"
+        },
+        "thickness": "Grosor de las piedras",
+        "thickness_hint": "Del interior al exterior del arco; la luz es de 2 m.",
+        "stones": "Número de piedras",
+        "load": "Carga",
+        "load_hint": "Medida respecto al peso del propio arco.",
+        "at": "Posición de la carga",
+        "at_hint": "Desde el centro: −100 % en el pie izquierdo, 100 % en el derecho.",
+        "chain": "Mostrar la cadena",
+        "chain_hint": "La cadena colgante, del revés, por los dos pies y tan alta como el arco.",
+        "safety": "Seguridad",
+        "thrust": "Empuje en el pie",
+        "weight": "Peso del arco",
+        "stands": "El arco se sostiene: la línea de presiones queda dentro de la piedra en todas partes.",
+        "falls": "El arco se rompe: ninguna línea de presiones queda dentro de la piedra en todas partes. Se abre en las juntas rojas."
+      },
+      "model": {
+        "intro": "Una piedra empuja, no tira. Por eso un arco de piedras sueltas se sostiene mientras cada junta esté comprimida y la línea por la que corre la presión – la línea de presiones – cruce cada junta dentro de la piedra.",
+        "chain": "La cadena colgante, del revés: solo se tira de ella a lo largo de sí misma. Un arco de esta forma solo se comprime a lo largo de sí mismo.",
+        "joint": "Dónde cruza la línea de presiones la junta j: el momento de todas las fuerzas a la izquierda de la junta respecto a su centro, dividido por la fuerza a través de la junta. Ambos dependen del empuje en el pie, que la página busca para que la línea quede lo más centrada posible.",
+        "stands": "El arco se sostiene si alguna línea cruza cada junta dentro de la piedra. El menor λ para el que existe tal línea dice por cuán poco: 1/λ es la seguridad."
+      },
+      "symbols": {
+        "x": "la distancia al centro",
+        "h": "la altura del arco sobre sus pies",
+        "a": "el parámetro de la catenaria",
+        "e": "a qué distancia de su centro cruza la línea de presiones la junta",
+        "m": "el momento de todas las fuerzas a la izquierda de la junta respecto a su centro",
+        "n": "la fuerza a través de la junta",
+        "t": "el grosor de las piedras",
+        "lambda": "cuánto se aparta como mucho la línea del centro, como fracción de medio grosor"
+      },
+      "sweet": {
+        "chain": "La mejor forma para un arco es una cadena colgante del revés – Robert Hooke lo anotó en 1675, y Antoni Gaudí diseñó con cadenas colgantes. En el arco de cadena, la línea de presiones bajo su propio peso queda en el centro de las piedras, a menos de una centésima de medio grosor, sea cual sea el grosor.",
+        "semicircle": "El semicírculo no tiene esa forma. Solo se sostiene si sus piedras tienen al menos un 10,75 % del grosor de su radio – un 10,7 % con dieciséis piedras. Con 10 cm para un metro se rompe; un arco ojival de la misma luz y grosor se sostiene.",
+        "load": "Una carga desplaza la línea de presiones. Colocada en el punto del cuarto, rompe el semicírculo de 25 cm ya con el 80 % de su propio peso; el arco de cadena de la misma altura, solo con el 141 %."
+      },
+      "computed": {
+        "system": "El arco se corta en piedras de igual longitud, con las juntas transversales a la línea media; cada piedra pesa lo que su cuadrilátero y empuja en su centroide. En cada junta, la compresión y el momento dependen linealmente del empuje, de la reacción vertical y del momento en el apoyo; la página recorta de todos los valores posibles los que cruzan cada junta dentro de la piedra, y busca por bisección el menor λ. La prueba encuentra para el semicírculo el grosor mínimo del 10,75 % del radio que Milankovitch calculó en 1907.",
+        "left_out": "Se deja fuera: el deslizamiento de las piedras (el rozamiento aguanta), su aplastamiento (son lo bastante fuertes), la cesión de los estribos. La página muestra dónde se abre un arco, no cómo cae."
+      }
+    },
+    "chladni": {
+      "at": {
+        "plate": "Una placa cuadrada de metal está fijada por el centro sobre un vibrador, con arena esparcida encima. El vibrador se excita con un tono que sube despacio.",
+        "sand": "Con ciertos tonos la placa suena fuerte, y la arena corre a formar líneas y se queda quieta en ellas – con cada uno de esos tonos, un dibujo distinto."
+      },
+      "view": "La placa vista desde arriba con la arena encima",
+      "play": {
+        "title": "Elegir el tono",
+        "hint": "Elija uno de los tonos de la placa o recorra despacio con el regulador. Entre los tonos la arena apenas salta y no se forma ningún dibujo.",
+        "restrew": "Esparcir arena de nuevo",
+        "tones": "Los tonos con los que suena la placa",
+        "drive": "Tono del vibrador",
+        "drive_hint": "Logarítmico: cada paso igual es un intervalo musical igual.",
+        "sound": "Sonido",
+        "sound_hint": "El tono del vibrador, fuerte cuando la placa suena, suave entre medias.",
+        "no_sound": "Este navegador no puede producir sonidos.",
+        "nearest": "Tono más cercano de la placa",
+        "swing": "Vibración en el centro",
+        "swing_hint": "Con qué fuerza vibra el centro de la placa, comparado con su vibración en el tono más grave."
+      },
+      "model": {
+        "intro": "Una placa delgada se dobla y su rigidez se resiste. Como en una cuerda, hay tonos con los que sigue vibrando sola; a cada uno le corresponde una forma con líneas que se quedan quietas.",
+        "plate": "La ecuación de la placa delgada: su rigidez a la flexión equilibra su inercia. Los bordes están libres.",
+        "tones": "Los tonos: λ solo depende de la forma; el tamaño y el material de la placa fijan la altura del tono.",
+        "driven": "Sacudida por el centro, la placa responde con la suma de sus formas, cada una tanto más cuanto más cerca está su tono del tono del vibrador, y solo si se mueve en el centro."
+      },
+      "symbols": {
+        "w": "cuánto se dobla la placa desde el reposo",
+        "d": "la rigidez a la flexión de la placa",
+        "rho": "la densidad del acero",
+        "h": "el grosor de la placa",
+        "omega": "la frecuencia angular de un tono",
+        "e": "el módulo de Young",
+        "nu": "el coeficiente de Poisson, aquí 0,3",
+        "f": "la altura del tono",
+        "lambda": "la cifra de una forma, igual para toda placa cuadrada",
+        "a": "el lado de la placa",
+        "phi": "la k-ésima forma de la placa",
+        "big_omega": "la frecuencia angular del vibrador",
+        "zeta": "la amortiguación de cada forma"
+      },
+      "sweet": {
+        "still": "La arena se junta donde la placa no vibra en absoluto: en las líneas nodales. En cualquier otro sitio salta hasta caer sobre una, y allí se queda.",
+        "tones": "Los tonos de una placa no son armónicos. Una placa de acero de 24 cm de lado y 1 mm de grosor, sacudida por el centro, suena a 102, 269 y 517 Hz – 2,62 y 5,05 veces el más grave, no el doble y el triple como una cuerda.",
+        "middle": "Sacudida por el centro, la placa solo muestra las formas que se mueven allí. Su tono más grave de todos, en el que se retuerce, tiene un nodo en el centro y se queda mudo.",
+        "history": "Ernst Chladni mostró las figuras en 1787. Sophie Germain encontró la ecuación de la placa y por ella ganó en 1816 el premio de la Academia de París; Gustav Kirchhoff corrigió en 1850 las condiciones de los bordes libres."
+      },
+      "computed": {
+        "system": "La flexión se escribe como suma de productos de polinomios de Legendre hasta el grado 20; según Ritz, las formas son aquellas en las que la energía es estacionaria. El servidor encuentra sus valores propios con las rotaciones de Jacobi, una vez, y envía las formas; la página las suma para cada tono. La prueba contrasta los primeros valores con la tabla de Leissa (13,468 · 19,596 · 24,270 · 34,801 · 63,686). La arena es una regla de dibujo: los granos saltan donde la placa vibra y se deslizan hacia donde está quieta.",
+        "left_out": "Se deja fuera: la sujeción del vibrador en el centro (su masa y rigidez desplazan un poco los tonos), el grosor de la placa frente a su tamaño, y cómo salta de verdad la arena."
+      }
+    },
+    "levitation": {
+      "at": {
+        "top": "Sobre una placa colocada encima de una base con un imán anular se hace girar una pequeña peonza que lleva un imán en su disco. Si se levanta la placa despacio, la peonza se separa de ella y flota, girando, a unos centímetros sobre la base.",
+        "weight": "Para conseguirlo, debe pesar exactamente lo justo: unas pequeñas arandelas en el eje la ajustan. Si pesa demasiado, se posa sobre la placa; si pesa demasiado poco, se desliza hacia un lado."
+      },
+      "view": "La peonza sobre el imán anular, en corte: la ventana en la que puede flotar, y dónde está",
+      "play": {
+        "title": "Ajustar la peonza",
+        "hint": "Cambie el peso de la peonza en centésimas de gramo hasta que aterrice o se deslice. Después haga la sala más cálida o más fría.",
+        "mass": "Peso de la peonza",
+        "mass_hint": "En el juguete: arandelas en el eje. El imán de la peonza es de 2 cm³ de ferrita.",
+        "warming": "Más cálido o más frío",
+        "warming_hint": "Tantos grados más cálido (o más frío) que al ajustarla. La ferrita pierde alrededor de un 0,2 % de su imanación por kelvin, tanto en la base como en la peonza.",
+        "hovers": "La peonza flota: su peso y la sustentación se equilibran dentro de la ventana.",
+        "lands": "Demasiado pesada: ni siquiera al pie de la ventana, donde la sustentación es máxima, el campo puede sostenerla. Aterriza sobre la placa.",
+        "slides": "Demasiado ligera: solo encontraría su equilibrio por encima de la ventana, donde el campo ya no la sujeta de lado. Se desliza.",
+        "height": "Altura de flotación",
+        "lightest": "La más ligera",
+        "heaviest": "La más pesada",
+        "bob": "Arriba y abajo",
+        "drift": "De lado"
+      },
+      "chart": {
+        "title": "Sustentación y peso",
+        "hint": "La sustentación del campo sobre el anillo, expresada como la masa que sostiene. Donde la curva cruza el peso está el equilibrio; solo es estable entre las dos líneas de la ventana.",
+        "height": "Altura sobre el anillo",
+        "lift": "Sustentación",
+        "weight": "Peso",
+        "window": "Ventana"
+      },
+      "model": {
+        "intro": "Si se sujeta un imán sobre otro y se suelta, se da la vuelta o se desliza: ninguna disposición de imanes fijos mantiene un imán flotando de forma estable (Earnshaw). La peonza que gira no puede darse la vuelta. Su giro mantiene su imán orientado contra el campo en el que se encuentra; si el campo cambia de dirección, el imán gira lentamente con él. Entonces para la peonza solo cuenta la intensidad del campo, no su dirección, y un punto donde el campo es mínimo sí lo permite el espacio libre.",
+        "energy": "La energía de la peonza: su altura en el campo gravitatorio y la intensidad del campo contra el que apunta su imán. Es empujada hacia donde el campo es más débil.",
+        "field": "El campo en el eje del anillo: un anillo imanado uniformemente actúa como un solenoide exterior menos uno interior.",
+        "solenoid": "La aportación de un solenoide de radio a, entre la cara inferior del anillo (z + t) y su cara superior (z), desde la que se mide la altura.",
+        "balance": "La peonza flota donde su peso iguala la sustentación: el campo se debilita hacia arriba y la empuja con más fuerza cuanto más deprisa se debilita.",
+        "window": "El equilibrio solo es estable si el campo la devuelve desde arriba y desde abajo (izquierda) y desde el lado (derecha; fuera del eje, a partir de la ecuación de Laplace hasta el cuadrado de la distancia). Ambas condiciones se cumplen solo en una ventana de pocos milímetros.",
+        "bob": "En la ventana, la peonza oscila arriba y abajo con esta frecuencia; de lado oscila más despacio alrededor del eje."
+      },
+      "symbols": {
+        "u": "la energía de la peonza",
+        "m": "su masa",
+        "g": "la aceleración de la gravedad",
+        "z": "la altura sobre la cara superior del anillo",
+        "mu": "el momento magnético de la peonza",
+        "b": "la intensidad del campo",
+        "mu0": "la constante magnética",
+        "magnetisation": "la imanación del anillo",
+        "radii": "el radio interior y el exterior del anillo",
+        "t": "la altura del anillo",
+        "a": "el radio del solenoide",
+        "slope": "lo deprisa que el campo se debilita hacia arriba",
+        "bend": "cuánto se frena ese debilitamiento hacia arriba",
+        "fz": "la frecuencia de la oscilación"
+      },
+      "sweet": {
+        "window": "La ventana es estrecha: sobre este anillo la peonza solo flota entre 4,36 y 4,81 cm, y solo si pesa entre 23,11 y 23,81 g, un margen del 3 %. Al pie de la ventana la sustentación es máxima; no puede pesar más. La peonza ajustada de 23,5 g flota a 4,6 cm, sube y baja 1,5 veces por segundo y oscila de lado 0,6 veces por segundo.",
+        "warmth": "Por eso el calor es su enemigo. La ferrita se debilita con cada grado: dos grados más, y la ventana se desplaza un 0,8 % hacia peonzas más ligeras. Con tres grados y medio más que al ajustarla, la peonza aterriza; con cuatro grados y medio menos, se desliza. Las alturas de la ventana se quedan donde están.",
+        "earnshaw": "Sin giro no hay manera: un imán que puede orientarse según el campo no encuentra apoyo a ninguna altura; se da la vuelta y se pega al anillo."
+      },
+      "computed": {
+        "system": "El campo en el eje se calcula de forma exacta, como diferencia de dos solenoides, junto con su pendiente y su curvatura; fuera del eje se obtiene de la ecuación de Laplace hasta el cuadrado de la distancia. La ventana se busca en una retícula de un milímetro hasta 30 cm de altura y sus bordes se determinan dividiendo por la mitad una y otra vez, igual que el equilibrio. Se calcula en su navegador, con los mismos pasos que el motor de cálculo del sitio.",
+        "left_out": "Se omite: el propio giro. Se supone lo bastante rápido para que el imán siga al campo y lo bastante lento para que el eje aún pueda seguir los cambios de dirección del campo; esa ventana de velocidad no la calcula la página. También faltan el aire que frena la peonza, su bamboleo y las medidas de un juguete concreto: el anillo es un ejemplo de ferrita, de 10 cm de ancho con un agujero de 3 cm y 1,5 cm de alto, y el imán de la peonza son 2 cm³ de la misma ferrita."
       }
     }
   },

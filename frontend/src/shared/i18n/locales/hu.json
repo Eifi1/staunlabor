@@ -121,6 +121,7 @@
       "angular_momentum": "Perdület",
       "energy": "Energia",
       "oscillation": "Lengés",
+      "equilibrium": "Egyensúly",
       "flow": "Áramlás",
       "induction": "Indukció",
       "perception": "Észlelés"
@@ -133,6 +134,7 @@
       "sweet_spot": "A trükk",
       "computed": "Hogyan számoljuk ki"
     },
+    "unchecked": "A számítások ellenőrzése még hátravan: az oldalakon szereplő számok és ábrák még változhatnak.",
     "exhibits": {
       "chair": {
         "short": "A szék",
@@ -181,6 +183,114 @@
         "title": "A labdaágyú",
         "summary": "Ejtsen le három, egy huzalon egymásra rakott labdát, és a tetején lévő kicsi sokkal magasabbra repül fel, mint ahonnan leesett.",
         "question": "Milyen magasra repül a kis labda, ha a labdaoszlop egy méter magasból esik le?"
+      },
+      "wave": {
+        "short": "Ingahullám",
+        "title": "Az ingahullám",
+        "summary": "Tizenöt egyszerre elengedett inga szétválik, hullámokat és csoportokat formál – és egy perc múlva ismét egy ütemben leng.",
+        "question": "Mikor lengenek ismét mind egy ütemben a különböző hosszúságú, egyszerre elengedett tizenöt inga?"
+      },
+      "harmonograph": {
+        "short": "Harmonográf",
+        "title": "A harmonográf",
+        "summary": "Egy toll az egyik ingán, egy rajztábla a másikon: miközben mindkettő lecseng, rozettát, hurkot vagy csillagot rajzolnak.",
+        "question": "Mit rajzol a toll, ha két inga 2 : 3 arányban leng – és mit, ha csak majdnem 2 : 3?"
+      },
+      "cone": {
+        "short": "Kettős kúp",
+        "title": "A kettős kúp felfelé gurul",
+        "summary": "Két sín szétválik, és közben emelkedik. A lent ráhelyezett kettős kúp magától felgurul.",
+        "question": "Felfelé vagy lefelé gurul a kettős kúp két emelkedő sínen – és mi dönti el?"
+      },
+      "parabola": {
+        "short": "Vízparabola",
+        "title": "A vízparabola",
+        "summary": "Egy vízzel teli edény forog: a felszín teknővé mélyül – amíg a közepe ki nem szárad.",
+        "question": "Ha egy vízzel teli edény egyre gyorsabban forog, annyit süllyed-e a közepe, amennyit a széle emelkedik?"
+      },
+      "coupled": {
+        "short": "Csatolt ingák",
+        "title": "Csatolt ingák",
+        "summary": "Két inga, puha rugóval összekötve: ha az egyiket meglökik, a lengés átvándorol a másikhoz – és vissza.",
+        "question": "Két egyforma inga rugóval van összekötve. Mennyi idő alatt kerül az egyik lengése teljesen a másikhoz?"
+      },
+      "peg": {
+        "short": "Galilei ingája",
+        "title": "Galilei megszakított ingája",
+        "summary": "Egy pecek elkapja az inga fonalát. A golyó egy kisebb körön leng tovább – és mégis pontosan olyan magasra emelkedik, mint a másik oldalon.",
+        "question": "Egy pecek elkapja a lengő inga fonalát. Utána a golyó kevésbé magasra, ugyanolyan magasra vagy magasabbra emelkedik?"
+      },
+      "maxwell": {
+        "short": "Maxwell-kerék",
+        "title": "A Maxwell-kerék",
+        "summary": "Egy nehéz kerék lassan legördül két szalagon, lent megfordul, és majdnem a kiinduló magasságig visszatekeredik – mint egy nagy jojó.",
+        "question": "Miért esik egy két szalagon legördülő nehéz kerék sokkal lassabban, mint egy kő?"
+      },
+      "chaos": {
+        "short": "Kaotikus inga",
+        "title": "A kaotikus inga",
+        "summary": "Inga az inga végén: erősen meglökve vadul csapkod, és sosem ismétlődik – kettő, amely majdnem egyformán indul, hamar egészen más utakat jár.",
+        "question": "Két kettős inga egy ezred fok különbséggel indul. Meddig lengenek még egyformán?"
+      },
+      "waterwheel": {
+        "short": "Kaotikus vízkerék",
+        "title": "A kaotikus vízkerék",
+        "summary": "Víz folyik egy kerék lyukas vödreibe: forog, megáll, visszafordul – és sosem ismétli önmagát. Ugyanazok az egyenletek, mint Lorenz időjárásmodellje.",
+        "question": "Egy kerék szivárgó vödrökkel, felül víz folyik bele. Merre forog?"
+      },
+      "foucault": {
+        "short": "Foucault-inga",
+        "title": "A Foucault-inga Winterthurban",
+        "summary": "Egy hosszú inga órákon át leng, és lengési síkja lassan elfordul a padlóhoz képest: nem az inga fordul el, hanem alatta a Föld.",
+        "question": "Mennyi idő alatt fordul körbe egy inga lengési síkja Winterthurban?"
+      },
+      "coriolis": {
+        "short": "Coriolis-körhinta",
+        "title": "A Coriolis-körhinta",
+        "summary": "Egy forgó körhintán ketten labdát gurítanak egymásnak – és sosem oda érkezik, ahová céloztak. Kívülről nézve nincs mit megmagyarázni: nincs görbe.",
+        "question": "Ketten ülnek egymással szemben egy forgó körhintán. Hová kell célozni, hogy eltalálja a másikat?"
+      },
+      "cradle": {
+        "short": "Newton-inga",
+        "title": "A Newton-inga",
+        "summary": "Egy golyó be, egy ki; kettő be, kettő ki. Az impulzus és az energia más választ nem enged – majdnem.",
+        "question": "Miért repül el a túlsó végen pontosan annyi golyó, ahányat leejtünk?"
+      },
+      "well": {
+        "short": "Gravitációs tölcsér",
+        "title": "A gravitációs tölcsér",
+        "summary": "Egy golyó egy tölcsérben kering a lyuk körül, egyre mélyebben és egyre gyorsabban – és közben betartja Kepler harmadik törvényét, mint egy bolygó.",
+        "question": "Miért gyorsul a golyó, holott a súrlódás fékezi?"
+      },
+      "resonance": {
+        "short": "Rezonáló pálcák",
+        "title": "A rezonáló pálcák",
+        "summary": "Hat pálca egy alig remegő asztalon – mégis az egyik nagyot leng, ha stimmel az ütem. A többi szinte mozdulatlan marad.",
+        "question": "Hogyan tud egy csupán egy millimétert mozduló asztal nyolc centiméteres lengésbe hozni egy pálcát?"
+      },
+      "gyroscope": {
+        "short": "Pörgettyűkerék",
+        "title": "A pörgettyűkerék",
+        "summary": "Egy nehéz kerék tengelyének egyik végénél fogva egy fonálon lóg. Állva leesik; forogva fent marad, és lassan körbevándorol.",
+        "question": "Miért nem esik le a forgó kerék, hanem oldalra tér ki?"
+      },
+      "arch": {
+        "short": "Lánc és ív",
+        "title": "A lánc és az ív",
+        "summary": "A laza kövekből rakott ív habarcs nélkül is megáll – ha jó az alakja. Egy lelógó lánc megmutatja, fejjel lefelé.",
+        "question": "Miért áll meg egy laza kövekből rakott ív, és miért dől össze a túl vékony?"
+      },
+      "chladni": {
+        "short": "Chladni-ábrák",
+        "title": "A Chladni-ábrák",
+        "summary": "Homok egy fémlemezen. Ha a lemez megszólal, a homok vonalakba gyűlik – minden hangnál más mintába.",
+        "question": "Miért gyűlik a homok vonalakba, és miért minden hangnál másokba?"
+      },
+      "levitation": {
+        "short": "Lebegő pörgettyű",
+        "title": "A lebegő pörgettyű",
+        "summary": "Egy mágnest tartalmazó pörgettyű forog egy gyűrű alakú mágnes fölött, és lebeg – de csak akkor, ha néhány tized grammra pontosan megfelelő a súlya.",
+        "question": "Miért lebeg a forgó pörgettyű, és miért száll le, ha egy kicsit túl nehéz?"
       }
     },
     "chair": {
@@ -988,6 +1098,1302 @@
         "flip": "Fordítsa meg az oszlopot, és semmi sem repül: egy alul lévő könnyű labda nem tud felfelé lökni egy nehezet.",
         "name": "Miért ágyú: a fizikakönyvek Galilei-ágyúnak nevezik, mert a kis labdát az oszlop függőlegesen felfelé lövi ki, mintha egy ágyúcsőből. Oldalra semmit sem lő ki.",
         "assumed": "Amit feltételezünk: tömör, 1100 kg/m³ sűrűségű labdák, az elasztomer merevsége és rugalmassága, Hertz törvényét követő érintkezések olyan csillapítással, amely a közeledési sebesség rögzített hányadát adja vissza, valamint merev padló. A huzalon fellépő súrlódást és a labdák pörgését kihagytuk."
+      }
+    },
+    "wave": {
+      "at": {
+        "row": "Egy rúdon ingák sora lóg, a leghosszabb az egyik végén, a következők mind kicsit rövidebbek. Egy deszka mindet egyformán kitéríti, és egyszerre elengedi.",
+        "pattern": "Először együtt lengenek, aztán a sor hullámmá, kígyókká, látszólagos káosszá, két, három, négy csoporttá húzódik szét – és egy perc múlva ismét mind egy ütemben lengenek, mintha mi sem történt volna."
+      },
+      "play": {
+        "title": "Hagyja lengeni a sort",
+        "hint": "Az óra jár. Ugorjon a ciklus egy törtrészére, vagy változtassa meg, milyen messziről engedik el az ingákat.",
+        "pause": "Szünet",
+        "run": "Tovább",
+        "restart": "Elölről",
+        "speed": "Tempó",
+        "speeds": {
+          "1": "Valós idő",
+          "2": "Kétszeres",
+          "5": "Ötszörös"
+        },
+        "jump": "Ugrás ide:",
+        "jumps": {
+          "2": "½ ciklus",
+          "3": "⅓ ciklus",
+          "4": "¼ ciklus",
+          "1": "Egész ciklus"
+        },
+        "amplitude": "Kitérés elengedéskor",
+        "amplitude_hint": "A hosszak {{tuned}}°-ra vannak hangolva. Ennél messzebbről vagy közelebbről elengedve az ingák egy ciklus után már nem találkoznak egészen.",
+        "time": "Idő",
+        "cycles": "Ciklusok",
+        "spread": "Elcsúszás egy ciklus után"
+      },
+      "views": {
+        "top": "Az ingasor felülről: minden golyó annyira kitérítve, amennyire éppen leng",
+        "side": "Az ingasor a végéről: mind egymás mögött lóg ugyanazon a rúdon",
+        "top_caption": "Felülről",
+        "side_caption": "A sor végéről"
+      },
+      "change": {
+        "title": "A kiállítási tárgy módosítása",
+        "hint": "A hosszak a ciklusból, a leghosszabb inga lengéseinek számából és abból a kitérésből adódnak, amelyre hangolnak. Minden változtatás elölről kezdi.",
+        "count": "Ingák száma",
+        "cycle": "Γ ciklus",
+        "cycle_hint": "Ennyi idő után mind ismét egy ütemben leng.",
+        "swings": "A leghosszabb inga lengései Γ alatt",
+        "swings_hint": "Minden következő inga ugyanannyi idő alatt eggyel többet leng.",
+        "tuned": "Hangolva erre",
+        "tuned_hint": "A kitérés, amelyre a hosszakat számolják. 0° a tankönyvi képlet kis kitérésekre."
+      },
+      "figures": {
+        "longest": "Leghosszabb inga",
+        "shortest": "Legrövidebb inga",
+        "period": "A leghosszabb periódusa",
+        "spread": "Elcsúszás egy ciklus után",
+        "textbook": "Elcsúszás a tankönyvi képlettel"
+      },
+      "model": {
+        "intro": "Egyik inga sem tud a többiről. Mindegyik a maga módján leng, és az egész minta a hosszakban rejlik.",
+        "period": "A kicsit lengő inga periódusa csak a hosszától függ: négyszer olyan hosszú, feleannyira gyors.",
+        "tuning": "A hosszakat úgy választják, hogy a Γ ciklus alatt a leghosszabb inga pontosan N-szer lengjen, a következő N + 1-szer, az n-edik N + n-szer. Γ után mindegyik egész számú lengést tett meg, és mind ott áll, ahol elengedték.",
+        "groups": "A ciklus k-ad része után az n-edik inga (N + n)/k lengést tett meg. k = 2 esetén ez az egyik felüknél egész szám, a másiknál fél lengéssel több: két csoport, egymással szemben. k = 3 esetén három csoport, k = 4 esetén négy. A közbeeső hullámok és kígyók ugyanezek olyan pillanatokban, amelyek Γ-t kevésbé szépen osztják.",
+        "wider": "Amit a tankönyvi képlet kihagy: a szélesebb lengés tovább tart, 30°-nál 1,7 %-kal. Ezért itt a sort a pontos periódussal hangolják egy kitérésre."
+      },
+      "symbols": {
+        "t0": "kis lengés periódusa",
+        "length": "az inga hossza, a felfüggesztési ponttól a golyó közepéig",
+        "g": "nehézségi gyorsulás, 9,81 m/s²",
+        "tn": "az n-edik inga periódusa",
+        "cycle": "a ciklus: az idő, amíg mind ismét egy ütemben leng",
+        "swings": "a leghosszabb inga lengései Γ alatt",
+        "index": "az inga sorszáma a leghosszabbtól számolva: 0, 1, 2, …",
+        "k": "a ciklus törtrésze: Γ/k",
+        "theta0": "a kitérés elengedéskor",
+        "k_integral": "az elsőfajú teljes elliptikus integrál"
+      },
+      "sweet": {
+        "alone": "A trükk az, hogy nincs trükk: semmilyen rugó, fonal vagy ütem nem köti össze az ingákat. A minta csak a hangolt hosszak következménye – és ezért pontosan olyan jó, mint ez a hangolás.",
+        "tuned": "Ez a sor {{tuned}}°-ra van hangolva. Ha messzebbről vagy közelebbről engedi el, minden inga majdnem ugyanolyan arányban lassabb vagy gyorsabb. Egy ciklus után ez a rövideknél teszi ki a legtöbb fokot, mert több lengés van mögöttük: a sor ferdén tér vissza. Az elcsúszást egy lengés fokaiban mérik, 360° egy teljes lengés. A kis kitérésekre szóló tankönyvi képlettel hangolva a sor {{amplitude}}°-nál {{textbook}}°-os elcsúszással térne vissza."
+      },
+      "chart": {
+        "spread": "Elcsúszás egy ciklus után",
+        "amplitude": "Kitérés elengedéskor",
+        "you": "Ön"
+      },
+      "computed": {
+        "system": "Minden inga egyetlen másodrendű egyenlet, a súrlódás nélküli síkinga egyenlete, nyugalomból elengedve.",
+        "theta": "a kitérés szöge",
+        "theta_dd": "a szöggyorsulása",
+        "exact": "Ennek pontos megoldása van Jacobi elliptikus függvényeivel. Az oldal minden képkockánál minden ingát közvetlenül az időből számol, lépésről lépésre haladás nélkül – ezért ugorhat a ciklus bármely pillanatára. Ellenőrzésként a számítómag ugyanezt az egyenletet lépésenként, a Runge–Kutta-módszerrel is megoldja; a kettő egy fok tízmilliomod részéig egyezik.",
+        "k": "a modulus, amelyet az elengedéskori kitérés határoz meg",
+        "cd": "Jacobi cn/dn elliptikus függvénye",
+        "omega0": "a kis lengések körfrekvenciája",
+        "t": "az elengedés óta eltelt idő",
+        "check": "Ellenőrzésként, itt és most számolva: a sor leghosszabb ingája tíz másodpercig lépésenként számolva legfeljebb {{apart}} fokkal tér el a pontos megoldástól."
+      }
+    },
+    "harmonograph": {
+      "at": {
+        "pen": "Két inga lóg egymás mellett. Az egyiken toll van, amely keresztben leng; a másikon rajztábla, amely hosszában leng. Mindkettőt kitérítik és elengedik.",
+        "picture": "A toll azt rajzolja, amit a két lengés együtt kiad. Mivel mindkettő lassan lecseng, az ábra körről körre kisebb lesz: finom vonalakból álló spirál, amely az ingák ütemétől függően rozettává, hurokká vagy csillaggá áll össze."
+      },
+      "play": {
+        "title": "Hagyja rajzolni",
+        "hint": "A toll gyorsítva rajzol. Változtassa meg lent az ingák arányát, és új rajz kezdődik.",
+        "pause": "Szünet",
+        "run": "Tovább",
+        "finish": "Rajz befejezése",
+        "restart": "Újrarajzolás",
+        "save": "Kép mentése",
+        "speed": "Tempó",
+        "speeds": {
+          "1": "Valós idő",
+          "5": "Ötszörös",
+          "20": "Hússzoros"
+        },
+        "time": "Megrajzolva",
+        "ratio": "A {{p}} : {{q}} arány közelében (toll : tábla)",
+        "detune": "Eltérés tőle",
+        "turn": "Az ábra egy fordulata",
+        "fades": "Egy tizedére lecsengett"
+      },
+      "views": {
+        "drawing": "A rajz a táblán, a tollal a mostani helyén",
+        "caption": "A rajztábla felülről"
+      },
+      "change": {
+        "title": "Az ingák beállítása",
+        "hint": "Az arány határozza meg a táblainga hosszát: negyed hossz kétszer olyan gyorsan leng. Minden változtatás új rajzot kezd.",
+        "ratio": "Arány toll : tábla",
+        "detune": "Elhangolás",
+        "detune_hint": "Mennyivel tér el a tábla a pontos aránytól. Már egy százalék is forgatja az ábrát.",
+        "phase": "A tábla indulása",
+        "phase_hint": "Lengésének mely pontján indul a tábla: 0° a szélén, 90° a középen áthaladva.",
+        "pen_amplitude": "A tollinga kitérése",
+        "board_amplitude": "A táblainga kitérése",
+        "damping": "Súrlódás",
+        "damping_hint": "Milyen gyorsan csengenek le a lengések; mindkét ingánál ugyanaz.",
+        "length": "A tollinga hossza",
+        "length_hint": "A hosszabb inga lassabban leng; a táblainga a választott arányban követi."
+      },
+      "model": {
+        "intro": "Két inga, mindegyik a maga útján. A toll az egyikkel keresztben mozog, a tábla a másikkal hosszában; az rajzolódik ki, hol áll a toll a táblán.",
+        "place": "A toll helye a táblán: keresztben a tollinga kitérése, hosszában a táblainga kitérése.",
+        "small": "Kis kitérésnél minden inga koszinuszként leng, amelynek szélessége idővel lecseng. A frekvencia csak a hossztól függ.",
+        "ratio": "A két ütem aránya ezért a hosszak fordított arányának gyöke. Egyszerű aránynál, mint a 2 : 3, az ábra önmagába záródik, és csak zsugorodik."
+      },
+      "symbols": {
+        "xy": "a toll helye a táblán, keresztben és hosszában",
+        "lengths": "a tollinga és a táblainga hossza",
+        "theta": "kitérésük",
+        "theta0": "a kitérés a kezdetkor",
+        "c": "a csillapítás: a szélesség e a −c·t/2-edik hatvány szerint csökken",
+        "f": "a frekvencia, lengés másodpercenként",
+        "phi": "lengésének mely pontján indul az inga",
+        "g": "nehézségi gyorsulás, 9,81 m/s²",
+        "f12": "a tollinga és a táblainga frekvenciája",
+        "turn": "az ábra egy teljes fordulatának ideje",
+        "pq": "az egyszerű arány, amelyhez az ütemek közel vannak"
+      },
+      "sweet": {
+        "near": "Ha az ütemek egy egyszerű p : q arány közelében vannak, de nem pontosan rajta, az ábra megtartja alakját, és lassan tovább fordul – ennyi idő alatt egyszer. Minél közelebb, annál lassabban.",
+        "closed": "Ezek az ingák pontosan {{p}} : {{q}} arányban állnak: az ábra záródik, és csak zsugorodik. Hangolja el a táblát egy százalékkal, és forogni kezd.",
+        "turns": "Ezek az ingák {{detune}} %-kal térnek el a {{p}} : {{q}} aránytól: az ábra {{turn}} s alatt fordul egyet.",
+        "widths": "És pontos aránynál is fordul, ha az ingák különböző szélesen lengenek: a széles lengés kicsit tovább tart, mint a keskeny. Állítsa a tollingát 30°-ra, a táblaingát 5°-ra, és a zárt ábra kinyílik."
+      },
+      "computed": {
+        "system": "Két másodrendű egyenlet, a csillapított ingáé, a teljes szinusszal a kis kitérésekre szóló közelítés helyett. Mivel a csillapítás nem enged zárt megoldást, a számítómag a Runge–Kutta-módszerrel ezredmásodpercenként lépteti őket, és az oldal ugyanezekkel a lépésekkel rajzol – képkockánként néhány százzal.",
+        "theta_dd": "az i-edik inga szöggyorsulása",
+        "theta_d": "a szögsebessége"
+      }
+    },
+    "cone": {
+      "at": {
+        "rails": "Két egyenes sín egy pontból V alakban szétválik, és közben emelkedik. A szűk, alacsony végen keresztben egy kettős kúp fekszik rajtuk: két kúp, alappal egymásnak.",
+        "rolls": "Elengedve magától felgurul a széles, magas végre – látszólag a gravitáció ellenében."
+      },
+      "refused": {
+        "fall_through": "Ennyire szétnyílva a sínek majdnem a kúp csúcsáig érnek: átesne köztük. Rövidebb sínek, kisebb szétnyílás vagy karcsúbb kúp segít.",
+        "too_wide": "A sínek távolabb kezdődnek egymástól, mint amilyen hosszú a kúp: nem feküdne rajtuk."
+      },
+      "play": {
+        "title": "A kúp elengedése",
+        "hint_up": "A kúp az alacsony végen fekszik. Engedje el, és nézze meg, merre gurul.",
+        "hint_down": "Ezeken a síneken a kúp lefelé gurul, ezért a magas végen fekszik. Engedje el.",
+        "hint_stays": "Pontosan ennél a lejtésnél a tengely ugyanazon a magasságon marad: a kúp ott marad, ahol van.",
+        "let_go": "Elengedés",
+        "pause": "Szünet",
+        "run": "Tovább",
+        "speed": "Tempó",
+        "speeds": {
+          "100": "Valós idő",
+          "25": "Lassítva (¼)"
+        },
+        "verdict_up": "A sínek emelkednek, a kúp tengelye süllyed: felgurul.",
+        "verdict_down": "A sínek meredekebben emelkednek, mint ahogy a kúp süllyed: legurul.",
+        "verdict_stays": "A tengely pontosan vízszintes: a kúp nyugalomban marad.",
+        "along": "A sínek mentén",
+        "axis": "A tengely magassága",
+        "speed_now": "A tengely sebessége",
+        "spin": "Forgás",
+        "spin_unit": "/s"
+      },
+      "views": {
+        "side": "A kettős kúp oldalról: az emelkedő sínek, a kúp azzal a körrel, amelyen gurul, és szaggatottan a tengely útja",
+        "front": "A kettős kúp elölről: a sínek emelkedés közben szétnyílnak, a kúp besüllyed közéjük",
+        "side_caption": "Oldalról",
+        "front_caption": "Elölről, a sínek mentén felfelé"
+      },
+      "change": {
+        "title": "A kiállítási tárgy módosítása",
+        "hint": "Három szög dönt: milyen meredeken emelkednek a sínek, mennyire nyílnak szét, és mennyire hegyes a kúp.",
+        "slope": "A sínek emelkedése γ",
+        "slope_hint": "Milyen meredeken emelkednek a sínek.",
+        "spread": "A sínek szétnyílása β",
+        "spread_hint": "Minden sín szöge a középvonalhoz, felülről nézve.",
+        "cone": "Kúpszög α",
+        "cone_hint": "A kúp palástja és tengelye közti szög: minél nagyobb, annál gyorsabban vékonyodik a kúp a csúcsok felé.",
+        "radius": "Sugár középen",
+        "length": "A sínek hossza",
+        "start_gap": "A sínek távolsága lent",
+        "start_gap_hint": "Milyen messze vannak egymástól a sínek az alacsony végen."
+      },
+      "model": {
+        "intro": "A kúp azt teszi, amit minden test: arra gurul, ahol a súlypontja lejjebb kerül. A kérdés csak az, hogy hol van ez.",
+        "thin": "A kettős kúp középen a legvastagabb, és a csúcsok felé egyenletesen vékonyodik.",
+        "rails": "A sínek felfelé szétnyílnak, és emelkednek.",
+        "axis": "Ahol a sínek távolabb vannak egymástól, ott kijjebb tartják a kúpot, ahol az vékonyabb: lejjebb ül közöttük. A tengely magassága ezért a sínek magassága plusz egy felfelé csökkenő sugár.",
+        "condition": "Mindkét rész egyenletesen változik: a tengely egyenes vonalon halad. Ha süllyed, miközben a sínek emelkednek, a kúp felgurul – pontosan akkor, ha tan γ kisebb, mint tan α · tan β."
+      },
+      "symbols": {
+        "r": "a kúp sugara a közepétől y távolságban",
+        "radius": "a sugár középen",
+        "y": "a középtől mért távolság a tengely mentén",
+        "alpha": "a kúpszög, a palást és a tengely között",
+        "x": "a helyzet a sínek mentén, az alacsony végtől",
+        "d": "minden sín távolsága a középvonaltól",
+        "h": "a sínek magassága",
+        "beta": "minden sín szétnyílása",
+        "gamma": "a sínek emelkedése",
+        "z": "a kúp tengelyének magassága",
+        "c": "a pontos érintkezés tényezője, 1 közelében"
+      },
+      "sweet": {
+        "heights": "Teljes hosszukon a sínek {{rise}} cm-t emelkednek. A kúp tengelye közben {{fall}} cm-t {{direction}}.",
+        "falls": "süllyed",
+        "climbs": "emelkedik",
+        "threshold": "{{threshold}}°-os emelkedésig ez a kúp felgurul; itt a sínek {{slope}}°-kal emelkednek.",
+        "exact": "Pontosan számolva a ferdén futó, emelkedő sín kicsit a tengely alatti ponton kívül érinti a kúpot. A számítómag megkeresi ezt a pontot: az alapkiállításnál a tengely 1,002-szer olyan magasan áll a sín fölött, mint amit a tankönyv feltételez. A határon viszont az érintkezés pontosan a tengely alatt van – ott a tankönyvi feltétel pontos."
+      },
+      "chart": {
+        "rail": "A sínek magassága",
+        "axis": "A kúptengely magassága",
+        "height": "Magasság",
+        "along": "A sínek mentén"
+      },
+      "figures": {
+        "threshold": "Határemelkedés",
+        "time": "A sínek végéig"
+      },
+      "computed": {
+        "energy": "Egyetlen koordináta, a helyzet a sínek mentén. A kúp csúszás nélkül gurul, így olyan gyorsan forog, ahogy a tengelye halad, osztva azzal a sugárral, amelyen éppen gurul – és ez felfelé csökken. A mozgási, forgási és helyzeti energia összege állandó. Lagrange módszeréből másodrendű egyenlet adódik, amelyet a számítómag a Runge–Kutta-módszerrel ezredmásodperces lépésekben old meg.",
+        "m": "a tengely pályájának lejtése",
+        "rho": "a sugár, amelyen a kúp gurul",
+        "x_dot": "a sebesség a sínek mentén",
+        "g": "nehézségi gyorsulás, 9,81 m/s²"
+      }
+    },
+    "parabola": {
+      "at": {
+        "vessel": "Egy kerek, vízzel teli edény áll egy forgótányéron. Ha forog, a víz középen süllyed, a falon felkúszik, annál jobban, minél gyorsabban forog.",
+        "dry": "Az alapedénynél – 30 cm széles, 10 cm-ig töltve – a közepe 126 fordulat/percnél szárad ki."
+      },
+      "refused": "A víznek az edényben kell állnia: a töltési magasság legyen kisebb, mint az edény magassága.",
+      "play": {
+        "title": "A forgótányér forgatása",
+        "hint": "Állítsa be a fordulatszámot. Az edény azonnal követi, a víznek idő kell – gyorsítva látszik, ahogy utoléri.",
+        "pause": "Szünet",
+        "run": "Tovább",
+        "stop": "A forgótányér leállítása",
+        "frame": "Nézet felülről",
+        "frames": {
+          "outside": "Kívülről",
+          "turning": "Együtt forogva"
+        },
+        "speed": "Tempó",
+        "speeds": {
+          "1": "Valós idő",
+          "10": "Tízszeres"
+        },
+        "rate": "A tányér fordulatszáma",
+        "rpm": "ford./perc",
+        "rate_hint": "Fordulat percenként.",
+        "spills": "Ilyen gyorsan a víz a peremen túl emelkedik: kifolyik.",
+        "water": "A víz fordulatszáma",
+        "centre": "Magasság középen",
+        "rim": "Magasság a peremen",
+        "tau": "Felpörgési idő"
+      },
+      "views": {
+        "side": "Az edény metszetben: a víz a mélyülő felszíne alatt, szaggatottan a nyugalmi szint, és a teknő mint tükör fókusza",
+        "top": "Az edény felülről: a peremen lévő jelek az edénnyel forognak, a vízben lévő részecskék a vízzel",
+        "side_caption": "Metszetben, oldalról",
+        "top_caption_outside": "Felülről, kívülről nézve",
+        "top_caption_turning": "Felülről, az edénnyel együtt forogva: a részecskék mutatják, mennyit késik még a víz"
+      },
+      "change": {
+        "title": "A kiállítási tárgy módosítása",
+        "hint": "A szélesebb edény vagy a kevesebb víz hamarabb kiszárad; az alacsony edény hamarabb kifolyik.",
+        "radius": "Az edény sugara",
+        "fill": "Nyugalmi magasság",
+        "height": "Az edény magassága"
+      },
+      "model": {
+        "intro": "Ha a víz merev testként forog az edénnyel, felszíne mindenütt merőleges a nehézségi erő és a centrifugális erő összegére. A centrifugális erő a tengelytől mért távolsággal nő, ezért a felszín kifelé egyre meredekebb.",
+        "surface": "Ebből paraboloid adódik: a magasság a tengelytől mért távolság négyzetével nő.",
+        "volume": "A víz ugyanannyi marad. Ezért a közepe pontosan annyit süllyed, amennyit a széle emelkedik: ω²R²/(4g)-vel.",
+        "dry": "Ettől a fordulatszámtól a közepe eléri az aljat. Gyorsabban ott száraz folt nyílik, amely a fordulatszámmal nő."
+      },
+      "symbols": {
+        "z": "a felszín magassága az alj fölött",
+        "r": "a tengelytől mért távolság",
+        "z0": "a magasság középen",
+        "omega": "a szögsebesség: 2π szorozva a másodpercenkénti fordulatokkal",
+        "g": "nehézségi gyorsulás, 9,81 m/s²",
+        "h": "a nyugalmi töltési magasság",
+        "radius": "az edény sugara",
+        "dry": "a szögsebesség, amelynél a közepe kiszárad",
+        "f": "a teknő mint tükör fókusztávolsága"
+      },
+      "sweet": {
+        "equal": "{{rpm}} fordulat/percnél a közepe {{drop}} cm-t süllyed – és a széle pontosan ugyanennyit emelkedik. A két vonal szimmetrikusan távolodik, amíg a közepe el nem éri az aljat.",
+        "dry": "A közepe száraz: {{rpm}} fordulat/perctől a víz már csak gyűrűben áll.",
+        "mirror": "A forgó, tükröző folyadékkal teli teknő távcsőtükör: a függőlegesen beeső fény a fókuszban találkozik. A fordulatszám állítja a fókusztávolságot – egy fordulat 8,5 s alatt 9 m magasra teszi.",
+        "spin_up": "Ha a forgótányért álló helyzetből erre a fordulatszámra kapcsolják, a víznek nagyjából {{tau}} s kell, hogy ennek kétharmadát elérje:"
+      },
+      "chart": {
+        "rim": "Magasság a peremen",
+        "centre": "Magasság középen",
+        "height": "Magasság",
+        "rate": "Fordulatszám",
+        "you": "Most",
+        "vessel": "Forgótányér",
+        "time": "Idő"
+      },
+      "figures": {
+        "dry": "Kiszárad ettől",
+        "spill": "Kifolyik ettől",
+        "focus": "Fókusztávolság"
+      },
+      "computed": {
+        "system": "Mennyi idő kell, hogy a víz kövesse az edényt: az alj egy vékony határrétegen át húzza magával (Greenspan és Howard szerint, egy Ekman-réteg az alján). Az oldal a víz fordulatszámát ezzel az idővel követteti az edényével – az alapedénynél nagyjából fél perc –, és úgy rajzolja a felszínt, mintha a víz egy tömbként forogna. Ez annak modellje, mennyi ideig tart, nem a közbeni áramlásé.",
+        "omega_v": "az edény szögsebessége",
+        "tau": "a felpörgési idő",
+        "nu": "a víz viszkozitása, 10⁻⁶ m²/s",
+        "big_omega": "a két szögsebesség közül a nagyobb"
+      }
+    },
+    "coupled": {
+      "at": {
+        "pair": "Két egyforma inga lóg egymás mellett, a felfüggesztés alatt puha rugóval összekötve. Az egyiket kitérítik és elengedik; a másik nyugodtan lóg.",
+        "wanders": "Hamarosan a második lengeni kezd, miközben az első megáll – aztán fordítva, újra és újra. Az alappárnál a lengés 23 s alatt vándorol át és vissza."
+      },
+      "refused": "A rugónak mindkét ingán a felfüggesztés és a golyó között kell lennie: a jobb inga túl rövid ilyen mélyen ülő rugóhoz.",
+      "view": "A két inga elölről, köztük a rugó",
+      "play": {
+        "title": "Az ingák meglökése",
+        "hint": "Válassza ki, hogyan engedik el az ingákat. A sávok mutatják, mennyi energia van éppen mindegyikben.",
+        "pause": "Szünet",
+        "run": "Tovább",
+        "let_go": "Elengedés:",
+        "starts": {
+          "one": "Csak a bal",
+          "together": "Mindkettő egyformán",
+          "against": "Egymás ellen"
+        },
+        "speed": "Tempó",
+        "speeds": {
+          "1": "Valós idő",
+          "3": "Háromszoros"
+        },
+        "energy": "A két inga energiája",
+        "left": "Bal inga",
+        "right": "Jobb inga"
+      },
+      "figures": {
+        "together": "Periódus együtt",
+        "against": "Periódus egymás ellen",
+        "beat": "Át és vissza",
+        "share": "Ebből átjut"
+      },
+      "change": {
+        "title": "A kiállítási tárgy módosítása",
+        "hint": "A merevebb vagy lejjebb rögzített rugó erősebben csatol: a lengés gyorsabban vándorol. Különböző hosszaknál csak egy része jut át.",
+        "spring": "Rugóállandó",
+        "spring_hint": "Mekkora erővel húz a rugó, ha egy méterrel megnyújtják.",
+        "spring_at": "A rugó magassága",
+        "spring_at_hint": "Milyen messze a felfüggesztés alatt ül a rugó.",
+        "right_length": "A jobb inga hossza",
+        "right_length_hint": "A bal 50 cm hosszú.",
+        "mass": "Minden golyó tömege",
+        "damping": "Csillapítás"
+      },
+      "model": {
+        "intro": "Minden inga a nehézségi erő hatására leng, és a rugó a másik felé húzza, annyira, amennyire a kettő a rugó magasságában elmozdult egymáshoz képest.",
+        "equation": "A bal inga egyenlete; a jobbé ugyanígy épül fel, a rugó ellenkező irányú húzásával.",
+        "modes": "Két mozgás, amelyben mindkettő ugyanabban az ütemben leng: együtt, a rugó nyugalomban, olyan gyorsan, mint egy inga egyedül; és egymás ellen, a rugó is dolgozik, gyorsabban. Minden más mozgás e kettő összege.",
+        "beat": "Ha csak egy ingát löknek meg, az fele-fele arányban mindkettő. A kettő lassan szétcsúszik, majd újra összetalál: a lengés ennyi idő alatt vándorol át és vissza."
+      },
+      "symbols": {
+        "theta": "a két inga kitérése",
+        "length": "egy inga hossza",
+        "g": "nehézségi gyorsulás, 9,81 m/s²",
+        "kappa": "a csatolás erőssége",
+        "k": "a rugóállandó",
+        "a": "milyen messze a felfüggesztés alatt ül a rugó",
+        "m": "egy golyó tömege",
+        "omega": "a körfrekvenciák együtt és egymás ellen",
+        "beat": "az idő, amely alatt a lengés átvándorol és vissza",
+        "kappa_i": "a csatolás, ahogyan a két inga mindegyike érzi"
+      },
+      "sweet": {
+        "modes": "Amit a természet itt lengetni hagy, az nem az egyik inga, majd a másik, hanem a két közös ütem. A vándorló lengés ezek összege – ezért nem vándorol „Mindkettő egyformán” és „Egymás ellen” esetén.",
+        "beat": "Itt a lengés {{beat}} s alatt vándorol át és vissza, és {{share}} %-a jut el a másik ingához.",
+        "unequal": "Különböző ingák soha nem adnak át mindent: csak ezt a részt, annál többet, minél hasonlóbbak az ingák és minél erősebb a rugó."
+      },
+      "chart": {
+        "energy": "Az energia része",
+        "time": "Idő"
+      },
+      "computed": {
+        "system": "Négy elsőrendű egyenlet, a kitérések és sebességeik, a teljes szinusszal és köztük a rugóval. A számítómag együtt oldja meg őket a Runge–Kutta-módszerrel ezredmásodpercenként; az oldal ugyanezekkel a lépésekkel, képkockánként néhány tucattal."
+      }
+    },
+    "peg": {
+      "at": {
+        "peg": "Egy inga leng egy fal előtt. A felfüggesztési pont alatt egy pecek van: valahányszor a fonal áthalad a függőlegesen, a pecek elkapja, és a golyó egy kisebb körön leng tovább a pecek körül.",
+        "height": "Az út más, a magasság nem: a golyó pontosan addig a vonalig emelkedik, ahonnan elengedték. Ha a pecek elég mélyen van, erre már nem képes – átfordul, vagy a fonal meglazul."
+      },
+      "refused": "A pecek a felfüggesztés és a golyó között legyen.",
+      "view": "Az inga, a pecek és szaggatottan az a magasság, ahonnan a golyót elengedték; a pecek ujjal mozgatható",
+      "play": {
+        "title": "Az inga elengedése",
+        "hint": "Húzza a peceket felfelé vagy lefelé, vagy válassza lent a három eset egyikét.",
+        "let_go": "Elengedés",
+        "pause": "Szünet",
+        "run": "Tovább",
+        "speed": "Tempó",
+        "speeds": {
+          "100": "Valós idő",
+          "25": "Lassítva (¼)"
+        },
+        "outcome_same_height": "A pecek mellett a golyó pontosan olyan magasra emelkedik, mint a másik oldalon.",
+        "outcome_slack": "Túl nagy lendület a kis körhöz, túl kicsi az átforduláshoz: a fonal meglazul.",
+        "outcome_over_the_top": "Elég lendület: a golyó átfordul a pecek fölött.",
+        "events": {
+          "caught": "A pecek elkapja a fonalat.",
+          "released": "A fonal leválik a pecekről.",
+          "slack": "A fonal meglazul: a golyó szabadon repül.",
+          "taut": "A fonal egy rándulással megfeszül.",
+          "over_the_top": "Átfordulás: a fonal rátekeredik a pecekre."
+        }
+      },
+      "figures": {
+        "height": "Kezdeti magasság",
+        "radius": "Kis kör",
+        "loop": "Az átforduláshoz kell",
+        "slack": "Meglazul ettől a magasságtól",
+        "reached": "Elért magasság a pecek mellett, számolva"
+      },
+      "change": {
+        "title": "A kiállítási tárgy módosítása",
+        "hint": "Minden változtatás újra elengedi a golyót.",
+        "start": "Kitérés elengedéskor",
+        "peg": "A pecek mélysége",
+        "peg_hint": "Milyen messze a felfüggesztés alatt van a pecek.",
+        "length": "A fonal hossza"
+      },
+      "model": {
+        "intro": "A fonal mindig a golyó mozgására merőlegesen húz. Eltéríti, de nem végez munkát: a golyó minden mozgását egyedül az eséséből kapja.",
+        "energy": "Ezért a sebessége csak attól függ, mennyivel van a kezdeti magassága alatt – bármelyik körön. Fent, ahol megfordul, újra ezen a magasságon van.",
+        "pull": "A fonal csak húzni tud. A pecek fölött a golyót a körén kell tartania, és ebben a nehézségi erő segít; ha a golyó ott túl lassú, a fonalnak tolnia kellene – meglazul, és a golyó szabadon repül, amíg a fonal újra meg nem feszül."
+      },
+      "symbols": {
+        "v": "a golyó sebessége",
+        "z": "a magassága a legmélyebb pont fölött",
+        "h": "a magasság, ahonnan elengedték",
+        "g": "nehézségi gyorsulás, 9,81 m/s²",
+        "f": "a fonal húzóereje",
+        "r": "a kis kör sugara: a fonal hossza mínusz a pecek mélysége",
+        "phi": "a pecek körüli szög, alulról mérve",
+        "z_slack": "a magasság, ahol a fonal meglazul"
+      },
+      "sweet": {
+        "height": "Az út változik, a magasság nem: az energia emlékszik, honnan jött a golyó. Így mutatta meg Galilei, hogy egy lejtőn legördülő golyó bármely szemközti lejtőn ugyanolyan magasra emelkedik.",
+        "loop": "Átfordul a pecek fölött, ha legalább a kis kör két és fél sugarának magasságából engedték el: fent még elég gyorsnak kell lennie ahhoz, hogy a fonal húzzon.",
+        "slack": "A kettő között a fonal ezen a magasságon lazul meg.",
+        "now": "Itt a golyót {{h}} cm-rel a legmélyebb pont fölött engedték el; az átforduláshoz {{loop}} cm kellene.",
+        "cases": {
+          "same_height": "Azonos magasság",
+          "slack": "Laza fonal",
+          "over_the_top": "Átfordulás"
+        }
+      },
+      "computed": {
+        "system": "Három mozgás, mindegyik egy egyenlet: az inga a felfüggesztés körül, a rövidebb a pecek körül, és a szabad repülés, amíg a fonal laza. A számítómag a Runge–Kutta-módszerrel ezredmásodpercenként halad, és minden váltást – a pecek elkap, a fonal leválik, meglazul, megfeszül – a lépésén belül felezéssel keres meg, hogy pontosan ott történjen, ahol kell.",
+        "gravity": "a nehézségi erő, amely a szabad repülésben egyedül hat"
+      }
+    },
+    "maxwell": {
+      "at": {
+        "wheel": "Egy nehéz kerék vékony tengelyen ül, a tengely köré két, felülről lelógó szalag van tekerve. A kereket feltekerik, amíg a szalagok fel nem csavarodnak, majd elengedik.",
+        "climbs": "A kerék lassan legördül, lent egy rándulással megfordul, és visszatekeredik felfelé, majdnem addig, ahonnan elengedték. Az alapkerék 3,3 s alatt esik le, és minden alkalommal az előző magasság 94 %-áig emelkedik."
+      },
+      "refused": "A tengely legyen vékonyabb a keréknél.",
+      "view": "A Maxwell-kerék elölről, két szalagján",
+      "play": {
+        "title": "A kerék elengedése",
+        "hint": "A leglassabb lassításban látszik a rándulás lent: a szalagok néhány millimétert nyúlnak, és visszadobják a kereket.",
+        "let_go": "Elengedés",
+        "pause": "Szünet",
+        "run": "Tovább",
+        "speed": "Tempó",
+        "speeds": {
+          "100": "Valós idő",
+          "25": "Lassítva (¼)",
+          "5": "Erősen lassítva (1/20)"
+        },
+        "phases": {
+          "down": "Legördül.",
+          "jerk": "Lent: a szalagok megnyúlnak és visszadobják.",
+          "up": "Visszatekeredik felfelé."
+        },
+        "tension": "A szalagok húzása",
+        "weight_times": "A súly hányszorosa",
+        "speed_now": "A tengely sebessége",
+        "energy": "A mozgás energiája",
+        "translation": "Az esésben és emelkedésben",
+        "rotation": "A forgásban",
+        "spin_unit": "ford./s"
+      },
+      "change": {
+        "title": "A kiállítási tárgy módosítása",
+        "hint": "A vékonyabb tengely vagy a peremén nehezebb kerék lassabban esik – és keményebbé teszi a rándulást lent.",
+        "shape": "Kerék",
+        "shapes": {
+          "disc": "Tömör tárcsa",
+          "ring": "Küllős kerék (tömeg a peremben)"
+        },
+        "axle": "A tengely sugara",
+        "axle_hint": "Ahová a szalagok fel vannak tekerve.",
+        "wheel": "A kerék sugara",
+        "mass": "A kerék tömege",
+        "drop": "A szalagok hossza",
+        "loss": "A szalagok súrlódása",
+        "loss_hint": "A szalagok a tengely körül hajlanak és súrlódnak: húzásuk ekkora része fékező nyomatékként.",
+        "stiffness": "A szalagok merevsége",
+        "stiffness_hint": "Mekkora erővel húzna a két szalag együtt, ha egy méterrel megnyúlnának. Merevebb: rövidebb, keményebb rándulás."
+      },
+      "model": {
+        "intro": "A szalagok csúszás nélkül tekeredik le a tengelyről: minden centiméter esésnél a kerék a tengely kerületének egy centiméterével fordul tovább. Mivel a tengely vékony, ez kevés esésre sok forgást jelent.",
+        "roll": "A kerék egyenletesen gyorsulva esik, de a nehézségi gyorsulásnak csak kis részével: k megmondja, mennyivel nehezebb a kereket forgásba hozni, mint mozgásba.",
+        "tension": "Ezért legördüléskor a szalagok majdnem az egész súlyt tartják.",
+        "share": "A mozgási energia ekkora része van a forgásban – az alapkeréknél 98,8 %."
+      },
+      "symbols": {
+        "a": "a kerék gyorsulása legördüléskor",
+        "g": "nehézségi gyorsulás, 9,81 m/s²",
+        "i": "a kerék tehetetlenségi nyomatéka: tárcsánál ½·M·R², gyűrűnél M·R²",
+        "m": "a kerék tömege",
+        "r": "a tengely sugara",
+        "t": "a két szalag húzása",
+        "s": "a két szalag együttes merevsége",
+        "v": "a kerék sebessége, amikor a szalagok letekeredtek"
+      },
+      "sweet": {
+        "spin": "Szinte az összes energia a forgásban van – itt {{share}} % –, ezért esik a kerék ilyen lassan: amit a magasság ad, az a forgásba megy, nem az esésbe.",
+        "jerk": "Lent a szalagok nyúlása fogja fel az esést. {{ms}} ms-ig a húzásuk {{peak}} N-ra nő, a súly {{times}}-szorosára. A forgás a rándulás alatt is folytatódik, és a másik oldalról visszatekeri a szalagokat.",
+        "climbs": "A kerék minden alkalommal az előző magasság {{share}} %-áig emelkedik: a szalagok súrlódása a tengelyen le- és feltekeredéskor elvesz belőle valamennyit."
+      },
+      "chart": {
+        "height": "Magasság",
+        "tension": "A szalagok húzása",
+        "time": "Idő"
+      },
+      "figures": {
+        "fall": "Esési idő",
+        "spin": "Fordulatszám lent",
+        "peak": "Legnagyobb húzás",
+        "stretch": "A szalagok nyúlása"
+      },
+      "computed": {
+        "system": "Itt minden zárt alakban megoldható, semmit sem kell lépésenként számolni: az esés és az emelkedés egyenletesen gyorsuló, a rándulásban pedig a kerék fél rugólengést végez a megnyúlt szalagokon. Az oldal minden képkockánál megkérdezi, hol van éppen a kerék.",
+        "z": "mennyire nyúlnak meg a szalagok a rándulásban"
+      }
+    },
+    "chaos": {
+      "at": {
+        "pendulum": "Egy inga végén egy második lóg. Finoman meglökve mindkettő nyugodtan leng; erősen meglökve az alsó kar vadul csapkod, átfordul, megtorpan és csapkod tovább – soha kétszer ugyanúgy.",
+        "twice": "Aki kétszer „ugyanúgy” löki meg, két különböző táncot lát. Itt ez pontosabb, mint kézzel: két inga, amelyek indulása egy ezred fokkal tér el."
+      },
+      "view": "A kettős inga és ikertestvére, amely parányi szöggel másképp indult, az alsó súly nyomvonalával",
+      "play": {
+        "title": "Két inga elengedése",
+        "hint": "Az élénk inga és halványabb ikre majdnem egyformán indul. Figyelje, mikor válnak el.",
+        "let_go": "Elengedés",
+        "pause": "Szünet",
+        "run": "Tovább",
+        "presets_label": "Indulás:",
+        "presets": {
+          "gentle": "Finom",
+          "wild": "Vad",
+          "headstand": "Majdnem fejjel lefelé"
+        },
+        "upper": "A felső kar induláskor",
+        "lower": "Az alsó kar induláskor",
+        "nudge": "Az iker eltérése",
+        "speed": "Tempó",
+        "speeds": {
+          "100": "Valós idő",
+          "25": "Lassítva (¼)"
+        },
+        "time": "Idő",
+        "gap": "A kettő távolsága: {{gap}}"
+      },
+      "change": {
+        "title": "A kiállítási tárgy módosítása",
+        "hint": "Minden változtatás újra elengedi mindkettőt.",
+        "length1": "A felső kar hossza",
+        "length2": "Az alsó kar hossza",
+        "mass1": "Tömeg a felső karon",
+        "mass2": "Tömeg az alsó karon",
+        "damping": "Csillapítás"
+      },
+      "model": {
+        "intro": "Két tömeg két könnyű rúdon, az alsó a felső végén lóg. A mozgásegyenletek az energiából adódnak Lagrange módszerével; hosszúak, de nincs bennük titok – és nincs zárt megoldásuk.",
+        "energy": "A kettős inga energiája: a két tömeg mozgása, csatolásuk a karok közti szögön át, és a magasságuk. Csillapítás nélkül állandó – ez a számítás ellenőrzése.",
+        "modes": "Kis kitérésnél minden rendezett: két sajátrezgés, együtt lassú, egymás ellen gyors (itt egyforma karokra és tömegekre).",
+        "lyapunov": "Nagy kitérésnél egy parányi különbség másodpercenként ugyanazzal a tényezővel nő, amíg akkora nem lesz, mint maga a mozgás. Ennek a növekedésnek az üteme a Ljapunov-exponens."
+      },
+      "symbols": {
+        "theta": "a két kar szöge a függőlegeshez",
+        "lengths": "a karok hossza",
+        "masses": "a két tömeg",
+        "g": "nehézségi gyorsulás, 9,81 m/s²",
+        "omega": "a két sajátrezgés körfrekvenciái",
+        "d": "a két inga távolsága szögekben és szögsebességekben",
+        "lambda": "a Ljapunov-exponens"
+      },
+      "sweet": {
+        "gap": "A két inga távolsága az idő függvényében, logaritmikus skálán: az egyenes azt jelenti, hogy másodpercenként ugyanazzal a tényezővel nő.",
+        "chaotic": "Erre az indulásra mérve: λ = {{lambda}} másodpercenként. Egy különbség tehát {{doubling}} s-onként megduplázódik. Ezerszer kisebbre véve csak tíz duplázódásnyi időt nyerünk – ezért nem jósolható meg az inga, bár minden számítás pontos.",
+        "regular": "Erre az indulásra mérve: λ = {{lambda}} másodpercenként, gyakorlatilag nulla. Ilyen finom lengésnél a különbség kicsi marad: az inga megjósolható."
+      },
+      "chart": {
+        "gap": "A kettő távolsága",
+        "time": "Idő"
+      },
+      "figures": {
+        "lambda": "Ljapunov-exponens",
+        "slow": "Lassú sajátrezgés"
+      },
+      "computed": {
+        "system": "Négy elsőrendű egyenlet, mindkét szög és sebességeik, a Runge–Kutta-módszerrel ezredmásodperces lépésekben, az ingára és ikrére. Az exponenst a számítómag Benettin módszerével méri: egy iker százmilliomodnyira indul, tizedmásodpercenként feljegyzi, mennyit nőtt a távolság, és az ikret visszaállítja a kis távolságra. A logaritmusok átlaga az exponens – bármilyen kicsi távolságot választunk.",
+        "d0": "a kis távolság, amelyre az ikret minden alkalommal visszaállítják",
+        "dk": "a távolság a k-adik tizedmásodperc után",
+        "t": "a teljes mérési idő"
+      }
+    },
+    "waterwheel": {
+      "at": {
+        "wheel": "Egy kerék körül alul lyukas vödrök lógnak. Felül víz folyik beléjük, alul kicsöpög. Ha kinyitják a csapot, a felső vödör elnehezül, a kerék elbillen és forogni kezd.",
+        "never": "Hol sokáig az egyik irányba forog, lassul, megáll, aztán a másikba fordul – hogy mikor és hányszor, annak nincs üteme. Sosem ismétli önmagát."
+      },
+      "views": {
+        "wheel": "A vízkerék a vödreivel, fent a csap",
+        "butterfly": "A kerék útja az állapotai terében: a forgása a víz eloszlásának magassága ellenében – Lorenz pillangója",
+        "wheel_caption": "A kerék",
+        "butterfly_caption": "Lorenz pillangója"
+      },
+      "play": {
+        "title": "A csap kinyitása",
+        "hint": "A csap dönt: túl kevés víz, és a kerék áll; több, és egyenletesen forog; még több, és kaotikussá válik.",
+        "pause": "Szünet",
+        "run": "Tovább",
+        "restart": "Elölről",
+        "tap": "Csap",
+        "tap_hint": "ρ: mennyi víz folyik be, a szivárgáshoz és a fékhez mérve.",
+        "brake": "Fék",
+        "brake_hint": "σ: mennyire fékez a tengely, a kerék tehetetlenségéhez és a szivárgáshoz mérve.",
+        "speed": "Tempó",
+        "speeds": {
+          "1": "Valós idő",
+          "4": "Négyszeres"
+        },
+        "regime_still": "Túl kevés víz: a szivárgás elviszi, mielőtt a felső vödör elég nehéz lenne. A kerék áll.",
+        "regime_steady": "A kerék egyenletesen forog az egyik irányba – hogy melyikbe, az első kis lökés dönti el.",
+        "regime_chaotic": "Káosz: semmilyen egyenletes forgás nem tart ki. A kerék irányt vált, anélkül hogy bármilyen mintát követne.",
+        "rate": "A kerék fordulatszáma",
+        "rpm": "ford./perc",
+        "hopf": "Káosz ettől a csaptól"
+      },
+      "model": {
+        "intro": "Az számít, hogyan oszlik el a víz a kerék körül – pontosabban, milyen messze van a súlypontja oldalt a tengelytől, és fölötte vagy alatta. Ezzel és a kerék forgásával három egyenlet írható fel.",
+        "wheel": "A víz eloszlása a kerékkel együtt forog, felül víz folyik be, mindenhol szivárog; a nehézségi erő forgatja a kereket, ha a víz oldalt van, és a tengely fékez.",
+        "lorenz": "Az időt a szivárgás egységeiben mérve és alkalmasan skálázva ezek pontosan Lorenz egyenletei, amelyeket 1963-ban a levegő áramlásának egy modelljéből kapott – b = 1-gyel 8/3 helyett.",
+        "hopf": "E befolyás fölött már az egyenletes forgás sem stabil: a kerék kaotikussá válik."
+      },
+      "symbols": {
+        "ab": "hogyan oszlik el a víz: oldalra, és fent kontra lent",
+        "omega": "a kerék forgása",
+        "k": "milyen gyorsan szivárognak a vödrök",
+        "q": "mennyi víz folyik be felül",
+        "nu": "a tengely fékje",
+        "i": "a kerék tehetetlenségi nyomatéka",
+        "r": "a kerék sugara",
+        "x": "a forgás a szivárgás egységeiben",
+        "yz": "a víz súlypontjának helye, skálázva",
+        "sigma": "a fék a tehetetlenséghez és a szivárgáshoz mérve",
+        "rho": "a befolyás a fékhez és a szivárgáshoz mérve"
+      },
+      "sweet": {
+        "lorenz": "A kerék forgása 200 másodpercen át. Lorenz 1963-ban egyszerű időjárásmodellt keresett, és megtalálta ezt a három egyenletet – meg azt, hogy az apró kezdeti különbségek rövid idő alatt értéktelenné teszik az előrejelzést. A vízkerék ez a modell, kézzelfoghatóan.",
+        "chaotic": "200 másodperc alatt a kerék itt {{reversals}}-szor fordul vissza, sosem azonos ütemben.",
+        "steady": "Ennél a befolyásnál a kerék beindulás után egyenletesen forog, percenként {{rpm}} fordulattal.",
+        "still": "Ennél a befolyásnál a kerék áll."
+      },
+      "chart": {
+        "time": "Idő"
+      },
+      "computed": {
+        "system": "Három elsőrendű egyenlet, Lorenz egyenletei, a Runge–Kutta-módszerrel a szivárgási idő századrészének lépéseiben. Visszaszámolva megadják a kerék forgását, és hogy mennyire tele van minden vödör. A teszt a kerék saját egyenleteit másodpercekben számolja, és ugyanezeket a számokat kapja.",
+        "tau": "az idő a szivárgás egységeiben"
+      }
+    },
+    "foucault": {
+      "at": {
+        "swing": "Egy nehéz inga hosszú kötélen órákon át nyugodtan leng ide-oda. Semmi sem löki oldalra – mégis egy óra múlva a lengési síkja más irányba mutat.",
+        "pins": "A padlón bábukból álló koszorú áll; egymás után dőlnek el, ahogy a sík elsöpör mellettük. Winterthurban óránként 11,1°-kal fordul, az óramutató járásával egyezően: egy teljes kör 32,5 óra."
+      },
+      "view": "Az inga felülről: szaggatottan a lengési sík, a golyó nyomvonala és a bábuk koszorúja",
+      "play": {
+        "title": "Hagyja forogni a Földet",
+        "hint": "Gyorsítva látszik, ahogy a sík vándorol és a bábuk eldőlnek. Válasszon más helyet, és a tempó megváltozik.",
+        "pause": "Szünet",
+        "run": "Tovább",
+        "restart": "Elölről",
+        "places_label": "Hely:",
+        "places": {
+          "winterthur": "Winterthur",
+          "pole": "Északi-sark",
+          "equator": "Egyenlítő",
+          "sydney": "Sydney"
+        },
+        "speed": "Gyorsítás",
+        "speeds": {
+          "1": "Valós idő",
+          "60": "1 perc/s",
+          "600": "10 perc/s",
+          "3600": "1 óra/s"
+        },
+        "latitude": "Földrajzi szélesség",
+        "latitude_hint": "Északon pozitív, délen negatív.",
+        "hours": "Eltelt",
+        "turned": "A sík elfordult",
+        "rate": "Óránként",
+        "never": "Az Egyenlítőn a sík nem fordul el.",
+        "full_turn": "Itt egy teljes kör {{hours}} óráig tart."
+      },
+      "change": {
+        "title": "A kiállítási tárgy módosítása",
+        "hint": "A hossz és a kitérés a lengés ütemét változtatja, nem azt, milyen gyorsan fordul a sík.",
+        "length": "Az inga hossza",
+        "amplitude": "Kitérés"
+      },
+      "model": {
+        "intro": "A padló a Földdel együtt forog. Aki rajta áll, ezért úgy látja, hogy az ingát egy erő téríti el, amely csak a forgó vonatkoztatási rendszerben lép fel: a Coriolis-erő.",
+        "coriolis": "A golyót visszahúzza a középpont, a Coriolis-erő pedig mozgására merőlegesen téríti el – északon jobbra.",
+        "latitude": "Hogy milyen gyorsan fordul a padló az inga alatt, az a szélességtől függ: a sarkon a Föld teljes forgásával, az Egyenlítőn egyáltalán nem."
+      },
+      "symbols": {
+        "xy": "a golyó helye a padló fölött",
+        "omega0": "a lengés körfrekvenciája",
+        "omega_z": "milyen gyorsan fordul a padló az inga alatt",
+        "omega": "a Föld forgása, csillagnaponként egyszer",
+        "phi": "a földrajzi szélesség"
+      },
+      "sweet": {
+        "floor": "Az inga megtartja síkját a térben, alatta elfordul a padló. Winterthurban óránként {{rate}}°-kal: így mutatta meg Foucault 1851-ben Párizsban, hogy a Föld forog, anélkül hogy az égre nézett volna.",
+        "period": "Egy lengés itt {{period}} s; a sík ettől függetlenül fordul. Egy rövidebb inga ugyanezt mutatja, ha elég sokáig leng."
+      },
+      "chart": {
+        "rate": "Elfordulás óránként",
+        "latitude": "Földrajzi szélesség",
+        "here": "Itt"
+      },
+      "computed": {
+        "system": "Kis kitérésnél az egyenlet lineáris, és zárt megoldása van: egy lengés, amelynek síkja a padlóval együtt fordul. Ezzel az oldal bármely órát azonnal megmutat, lépésenkénti számolás nélkül; a teszt száz lengésen át egy lépésenkénti számítással veti össze.",
+        "zeta": "a golyó helye komplex számként",
+        "a": "a kitérés elengedéskor",
+        "omega_p": "a lengés körfrekvenciája a forgó rendszerben"
+      }
+    },
+    "coriolis": {
+      "at": {
+        "seats": "Egy kerek platform lassan forog; a szélén ketten ülnek egymással szemben, és labdát gurítanak egymásnak.",
+        "misses": "A labda elkanyarodik és elkerüli a másikat, pedig senki sem lökte meg. Percenként 6 fordulatnál egy 3 m/s-os egyenes dobás 86°-kal kerüli el a másik ülést; aki 50°-kal előre céloz, eltalálja."
+      },
+      "view": "A körhinta felülről: a két ülés, szaggatottan a dobás iránya és a labda pályája",
+      "play": {
+        "title": "Célzás és dobás",
+        "hint": "Dobjon egyszer egyenesen a másik ülés felé, aztán váltson a „Kívülről” nézetre: ott a korong egyenesen halad.",
+        "throw": "Dobás",
+        "aim_lead": "Előre célzás",
+        "frame": "Nézet",
+        "frames": {
+          "riding": "Együtt forogva",
+          "outside": "Kívülről"
+        },
+        "body": "Mit dobnak",
+        "bodies": {
+          "puck": "Csúszó korong",
+          "ball": "Guruló labda"
+        },
+        "aim": "Célzás",
+        "aim_hint": "Mennyivel céloznak a másik ülés mellé, az óramutatóval ellentétesen pozitív.",
+        "speed": "A dobás sebessége",
+        "rpm": "A körhinta fordulatszáma",
+        "rpm_unit": "ford./perc",
+        "rpm_hint": "Pozitív: az óramutatóval ellentétes, felülről nézve.",
+        "miss": "Eltérés",
+        "flight": "Úton",
+        "no_lead": "Ezzel a sebességgel egyetlen dobás sem éri el a másik ülést: az túl gyorsan fordul el.",
+        "lead": "{{lead}}°-kal előre célozva talál."
+      },
+      "model": {
+        "intro": "Kívülről nézve semmilyen erő nem tolja oldalra a korongot. Elengedéskor kétféle sebessége van: a dobás, és az a sebesség, amellyel a dobó maga is körbe megy a peremen.",
+        "puck": "Ezért kívülről nézve egyenesen halad – csak nem oda, ahová a dobó célzott.",
+        "riding": "Aki együtt forog, ugyanazt a pályát görbének látja, és két erővel magyarázza, amelyek csak a forgó rendszerben lépnek fel: a mozgásra merőleges Coriolis-erővel és a kifelé ható centrifugális erővel.",
+        "ball": "A guruló labda még különösebb: a platform tovább forog alatta, és a súrlódás, amely gurulni hagyja, folyamatosan elforgatja a sebességét – a körhinta forgásának 2/7-ével. Kívülről nézve kört ír le."
+      },
+      "symbols": {
+        "r0": "ahol a labdát elengedik",
+        "u": "a dobás, a körhintán mérve",
+        "omega": "a körhinta forgása",
+        "primed": "gyorsulás, sebesség és hely, ahogyan az együtt forgó méri",
+        "k": "mennyire nehéz a labdát forgásba hozni: tömör golyónál 2/5"
+      },
+      "sweet": {
+        "nobody": "Senki sem löki oldalra a labdát. A görbe abból adódik, hogy az ember maga is forog: amíg a labda úton van, a másik ülés továbbhalad. Ugyanez az „erő” a forgó Földön az alacsony nyomású területek felé téríti a szeleket, és ott körbe forgatja őket.",
+        "ball": "A gurított labda pedig kívülről nézve sem egyenes: a forgó platformon gurulva kört ír le a körhinta forgásának 2/7-ével."
+      },
+      "computed": {
+        "system": "Mindkét pálya zárt alakban megoldható: a korong egyenesen, a labda körön, mindkettő kívülről nézve, és az együtt forgó számára visszaforgatva. Hogy a labda hol éri el újra a peremet, és hová kell célozni a találathoz, azt az oldal felezéssel keresi meg. A teszt a korong visszaforgatott pályáját egy Coriolis- és centrifugális erővel lépésenként számolt megoldással veti össze."
+      }
+    },
+    "cradle": {
+      "at": {
+        "row": "Öt acélgolyó lóg fonalakon egy sorban, épp csak érintve egymást. Az elsőt felemeljük és elengedjük: a túlsó végen az utolsó elrepül, a köztük lévő három pedig mintha állna.",
+        "two": "Ha kettőt ejtünk le, kettő repül el. Egy idő után a középső golyók is lengeni kezdenek."
+      },
+      "view": "A Newton-inga elölről: a rúd, a fonalak és a golyók",
+      "play": {
+        "title": "Felemelni és elengedni",
+        "hint": "Ejtsen le egy golyót, aztán kettőt. Ha 0,1 mm levegő van a golyók között, a számítás pontosan kijön.",
+        "let_go": "Elengedni",
+        "pause": "Megállítás",
+        "run": "Tovább",
+        "lifted": "Felemelt golyók",
+        "spacing": "A golyók között",
+        "spacings": {
+          "touching": "Érintkeznek",
+          "gap": "0,1 mm levegő"
+        },
+        "speed": "Tempó",
+        "speeds": {
+          "100": "Valós idő",
+          "25": "4× lassabban",
+          "10": "10× lassabban"
+        },
+        "angle": "Kitérés",
+        "restitution": "Amit egy ütközés visszaad",
+        "restitution_hint": "A sebességnek az a hányada, amellyel két golyó 1 m/s-os ütközés után szétválik. 1 jelentése: nincs veszteség.",
+        "far": "Energia a túlsó végen",
+        "far_hint": "Az első ütközés után: az energiának az a hányada, amely a túlsó végen annyi golyóban van, ahányat felemeltünk.",
+        "duration": "Az ütközés hossza",
+        "peak": "Legnagyobb erő",
+        "after": "Sebességek az első ütközés után, balról jobbra: {{speeds}} m/s",
+        "ball": "{{n}}. golyó"
+      },
+      "chart": {
+        "widest": "Legnagyobb kitérés",
+        "time": "Idő",
+        "caption": "Másodpercről másodpercre minden golyó legnagyobb kitérése az elengedés óta"
+      },
+      "model": {
+        "intro": "Minden golyó egy inga. Két golyó csak ott nyomja egymást, ahol kissé benyomódnak egymásba – Hertz törvénye szerint, amely annál merevebb, minél mélyebb a benyomódás.",
+        "hertz": "A két golyó közti erő a benyomódás 3/2-edik hatványával nő; a második tényező egy kevés energiát elvesz az ütközéstől.",
+        "brief": "Ha egy 64 g-os golyót 30°-ról ejtünk le, az ütközése mintegy 0,2 ezredmásodpercig tart, és ebben a pillanatban a golyók csaknem 900 N-nal nyomják egymást – annyival, amennyi 90 kg súlya.",
+        "swing": "Minden golyó a fonalain leng, és a szomszédai lökik.",
+        "why": "Ha a golyók egyenként ütköznek, az impulzus és az energia megmarad, és egyforma golyóknál ez azt jelenti: kicserélik a sebességüket. Két golyó fele sebességgel ugyanakkora impulzust vinne, de csak fele annyi energiát."
+      },
+      "symbols": {
+        "f": "a két golyó közti erő",
+        "delta": "mennyire nyomódnak egymásba",
+        "k": "két golyó merevsége Hertz szerint",
+        "e_star": "az acél merevsége: E rugalmassági modulus, ν Poisson-szám",
+        "r_star": "két egyforma, d átmérőjű golyó hatásos sugara",
+        "alpha": "a csillapítás az acélban, e-ből meghatározva 1 m/s-nál",
+        "e": "a sebességnek az a hányada, amelyet egy ütközés visszaad",
+        "theta": "az i-edik golyó szöge",
+        "l": "a hossz a felfüggesztési ponttól a golyó közepéig",
+        "m": "egy golyó tömege",
+        "g": "a nehézségi gyorsulás",
+        "fi": "az i-edik golyó és jobb oldali szomszédja közti erő",
+        "v": "a leeső golyó sebessége lent"
+      },
+      "sweet": {
+        "wave": "A golyók érintkeznek, így nem egymás után ütköznek: az ütközés hullámként fut végig a soron. Mivel a Hertz-féle érintkezés a benyomódással merevebbé válik, a hullám rövid marad, és szinte egészében az utolsó golyóba érkezik – az energia 97 %-a. A maradékot a többiek tartják meg; az első még vissza is pattan egy kicsit.",
+        "gap": "Ha 0,1 mm levegő van a golyók között, ismét egyenként ütköznek, és a számítás kijön: az energia 99,9 %-a az utolsó golyóban.",
+        "two": "Ha kettőt ejtünk le, két hullám fut végig a soron egymás után. Az utolsó golyó 0,70 m/s-mal repül el, az utolsó előtti 0,49 m/s-mal – nem mindkettő azzal a 0,63 m/s-mal, amellyel a kettő érkezett. Együtt mégis az energia 97 %-át viszik.",
+        "together": "Ami a sorban marad, minden ütközéssel nő, ha az ütközések egy kevés energiát elveszítenek: a negyedik másodpercben a középső golyó már 2,5°-ot leng ki. Ha minden ütközés mindent visszaad (e = 1), szinte mozdulatlan marad."
+      },
+      "computed": {
+        "system": "Minden golyót lépésenként számolunk Runge–Kutta-módszerrel: egyszerre egy ezredmásodpercet, amíg mind szabadon leng, egy milliomod másodpercet, amíg kettő érintkezik vagy épp érintkezni fog. Az ütközés adatai a leeső és a lógó golyók első találkozásából származnak. Ha a golyók sokáig nyomják egymást, az oldal nem mindig tud lépést tartani, és egy pillanatra lassabban fut. A teszt a két golyó közti legnagyobb erőt Hertz zárt képletéhez méri, és ellenőrzi, hogy levegővel a golyók között pontosan egy repül el, olyan gyorsan, ahogy az első érkezett."
+      }
+    },
+    "well": {
+      "at": {
+        "funnel": "Egy széles tölcsér, a szélén majdnem lapos, a közepe felé egyre meredekebb. A peremen meglökött golyó sokáig kering a középső lyuk körül.",
+        "faster": "Minden körrel mélyebben és gyorsabban kering, végül örvényben, míg bele nem esik."
+      },
+      "view_top": "A tölcsér felülről: szintvonalak 2 cm-enként, a lyuk, a golyó és a nyoma",
+      "view_side": "A tölcsér metszete oldalról, a golyóval a magasságában",
+      "play": {
+        "title": "Meglökni és keringeni hagyni",
+        "hint": "A «Körpálya» pontosan olyan gyorsan löki meg a golyót, hogy súrlódás nélkül körön maradna. Súrlódással körről körre süllyed; a grafikon minden kört Keplerhez mér.",
+        "launch": "Meglökni",
+        "circle": "Körpálya",
+        "pause": "Megállítás",
+        "run": "Tovább",
+        "speed": "Tempó",
+        "speeds": {
+          "1": "Valós idő",
+          "4": "4× gyorsabban"
+        },
+        "push": "A lökés sebessége",
+        "aim": "Irány",
+        "aim_hint": "A perem irányához képest, a lyuk felé pozitív.",
+        "resistance": "Gördülési ellenállás",
+        "resistance_hint": "A fal nyomóerejének az a hányada, amely a golyót fékezi. 0 jelentése: nincs súrlódás.",
+        "laps": "Körök",
+        "last_lap": "Utolsó kör",
+        "distance": "Távolság a középtől",
+        "speed_now": "Sebesség",
+        "dropped": "{{t}} s és {{laps}} kör után a lyukba esett.",
+        "out": "Kigurult a peremen túl: túl gyorsan vagy túlságosan kifelé lökték meg."
+      },
+      "chart": {
+        "lap": "A golyó köre",
+        "kepler": "Körpálya Kepler szerint",
+        "period": "Keringési idő",
+        "radius": "A kör átlagos távolsága",
+        "caption": "A golyó minden köre az ugyanilyen távolságú körpálya keringési ideje mellett"
+      },
+      "model": {
+        "intro": "A golyó a tölcsér falán gurul. Mint egy bolygónál, az számít, mennyire húzza a közép felé – itt a fal lejtése.",
+        "wall": "A tölcsér fala: minél közelebb a középhez, annál mélyebb, és lejtése kifelé 1/r² szerint csökken.",
+        "circle": "Körpályán a lejtés adja a közép felé mutató erőt – 1/r² szerint, mint a Nap gravitációja. Az 5/7 a gördülésből jön: minden lökés egy része forgásba hozza a golyót.",
+        "kepler": "Ebből következik Kepler harmadik törvénye: a keringési idő négyzete a távolság köbével nő.",
+        "resistance": "A gördülési ellenállás annak az erőnek egy kis részével fékezi a golyót, amellyel a fal nyomja."
+      },
+      "symbols": {
+        "z": "a fal magassága, attól a magasságtól mérve, amelyhez kifelé közelít",
+        "r": "a távolság a középtől",
+        "k": "a tölcsér alakja",
+        "v": "a golyó sebessége",
+        "g": "a nehézségi gyorsulás",
+        "t": "a keringési idő",
+        "f": "a fékező erő",
+        "c": "a gördülési ellenállás",
+        "n": "az erő, amellyel a fal a golyót nyomja"
+      },
+      "sweet": {
+        "kepler": "Minél mélyebben, annál gyorsabban – mint a Merkúr a Neptunuszhoz képest. A kezdésnél, tizenkétszer olyan messze a középtől, mint a lyuk pereme, egy kör 5,1 s; a lyuknál csak 0,12 s, 42-szer kevesebb. Ez Kepler harmadik törvénye, és a tölcsér azért tartja be, mert lejtése kifelé úgy csökken, mint a Nap gravitációja: a golyó minden köre 3 %-on belül eltalálja a körpályája keringési idejét.",
+        "faster": "A súrlódás fékezi a golyót – mégis gyorsul. Energiát veszít, mélyebb körre süllyed, és ott nagyobb a körpálya sebessége. A kezdő körpályáról 46 s és 75 kör után esik a lyukba, ebből 42 kört az utolsó 10 másodpercben tesz meg, végül több mint háromszor olyan gyorsan, mint az elején. A ritka levegő által fékezett műhold is süllyed és gyorsul.",
+        "rosette": "Itt ér véget a hasonlat. Súrlódás nélkül, és nem pontosan körpályára lökve – 0,44 m/s helyett 0,30 m/s-mal – a pálya nem záródik ellipszissé, mint egy bolygóé: a középhez legközelebbi pontja minden körben 40°-kal továbbvándorol. A meredek fal és a görbülete is beleszól."
+      },
+      "computed": {
+        "system": "A golyó csúszás nélkül gurul; forgása 2/5-nyi többlet tehetetlenségnek számít, így minden, a fal mentén ható lökés 5/7 részben mozgatja. A felületen érvényes mozgásegyenleteket távolságban és szögben Runge–Kutta-módszerrel, egy ezredmásodperces lépésekben oldjuk meg. A gördülési ellenállás a fal teljes nyomóereje ellen hat, annak a résznek is, amely a golyót görbe pályáján tartja. A teszt ellenőrzi az energiát és a perdületet súrlódás nélkül, a körpályát, valamint a lyukig eltelt időt a körök energiájából számolt független eredménnyel szemben.",
+        "left_out": "Kimaradt: a golyó forgása a fal normálisa körül, mérete a fal görbületéhez képest, a levegő. Egy érme, amely az élén gurul és megdől, másik probléma."
+      }
+    },
+    "resonance": {
+      "at": {
+        "rods": "Hat különböző hosszúságú acélpálca áll befogva egy asztalban, amelyet egy motor kissé ide-oda ráz.",
+        "one": "Egy bizonyos ütemnél egyetlen pálca leng ki nagyon, a többi szinte mozdulatlan. Kicsit gyorsabban, és egy másik veszi át."
+      },
+      "view": "A pálcák elölről az asztalukon, mindegyik alatt a saját frekvenciája",
+      "play": {
+        "title": "Megkeresni az ütemet",
+        "hint": "Rázza az asztalt, és lassan változtassa az ütemet. A «Végigfutás» magától emeli, és közben rögzíti, mennyire leng ki minden egyes pálca.",
+        "shake": "Rázás",
+        "stop": "Megállítás",
+        "sweep": "Végigfutás",
+        "calm": "Nyugalom",
+        "speed": "Tempó",
+        "speeds": {
+          "1": "Valós idő",
+          "4": "4× gyorsabban"
+        },
+        "beat": "Az asztal üteme",
+        "beat_hint": "Másodpercenként hányszor megy ide-oda az asztal.",
+        "sweeping": "Az ütem másodpercenként 0,05 Hz-cel nő; a megállításhoz húzza meg a csúszkát.",
+        "damping": "Csillapítás",
+        "damping_hint": "Milyen gyorsan nyugszik meg magától egy pálca: annak a csillapításnak a hányada, amelynél már egyáltalán nem lengene.",
+        "sound": "Hang",
+        "sound_hint": "Minden pálca a saját frekvenciáján szól, hét oktávval feljebb, olyan hangosan, amennyire leng.",
+        "no_sound": "Ez a böngésző nem tud hangot előállítani.",
+        "widest": "Legnagyobb kitérés",
+        "table": "Az asztal, ide-oda",
+        "rod": "{{n}}. pálca ({{hz}} Hz)"
+      },
+      "chart": {
+        "swing": "A csúcs kitérése",
+        "beat": "Az asztal üteme",
+        "swept": "{{n}}. pálca, végigfutáskor",
+        "caption": "Mennyire leng ki minden pálca, ha az asztal elég sokáig ugyanabban az ütemben ráz; szaggatottan, amennyi ebből végigfutáskor megvalósul"
+      },
+      "model": {
+        "intro": "Minden pálca alul be van fogva, felül szabad. Rezgési módjai közül itt csak az első számít: az egész pálca egy oldalra hajlik.",
+        "frequency": "A saját frekvenciája: minél hosszabb a pálca, annál mélyebb – a hossz négyzetével.",
+        "motion": "Az asztal ráz, és gyorsulása minden pálcát meglök, az első rezgési alakra vonatkozó Γ = 1,566 súllyal. A csillapítás lendületet vesz el tőle.",
+        "steady": "Elég sokáig ugyanabban az ütemben rázva a csúcs ennyire leng ki. Ütemre (r = 1) ez Γ·Y/(2ζ)."
+      },
+      "symbols": {
+        "beta": "a cosh β · cos β = −1 első megoldása: 1,8751",
+        "l": "a pálca hossza",
+        "e": "az acél rugalmassági modulusa",
+        "i": "a d átmérőjű kör keresztmetszetű pálca másodrendű nyomatéka",
+        "rho": "az acél sűrűsége",
+        "a": "a keresztmetszet",
+        "q": "mennyire tér ki a csúcs az asztalhoz képest",
+        "omega": "a saját frekvencia körfrekvenciaként",
+        "zeta": "a csillapítás, annak a hányadaként, amelynél a pálca már egyáltalán nem lengene",
+        "gamma": "mennyire löki meg a rázás az első rezgési alakot",
+        "yb": "hol van éppen az asztal",
+        "r": "az asztal üteme osztva a saját frekvenciával",
+        "y": "mennyire megy ide-oda az asztal"
+      },
+      "sweet": {
+        "step": "Egy kis lökés a jó ütemben többet mozdít, mint egy nagy a rosszban. Az asztal csak 1 mm-t megy ide-oda; a 80 cm-es pálcával ütemben, 2,21 Hz-en, annak csúcsa 78 mm-t leng ki, a szomszédai legfeljebb 4 mm-t. Három százalékkal az ütem mellett már csak 26 mm-t.",
+        "patience": "A rezonancia türelmet kíván: 2,21 Hz-en a kitérés 7,2 s alatt is csak alig kétharmadáig nő. Aki gyorsabban fut végig, lemarad róla: másodpercenként 0,05 Hz-cel ugyanez a pálca legfeljebb 40 mm-t leng ki, feleannyit, és csak 2,4 Hz-nél.",
+        "everywhere": "Ugyanez az ütemtartás töri szét a poharat a megfelelő hangra, lengeti meg a hidat a menetelő léptek alatt, és engedi, hogy egy húr átvegye egy hangszer hangját."
+      },
+      "computed": {
+        "system": "Minden pálcát egyetlen rezgésként számolunk: első rezgési alakja a saját frekvenciáján, amelyet az asztal rázása lök meg, Runge–Kutta-módszerrel, egy ezredmásodperces lépésekben. Végigfutáskor az ütem a lépések között nő. A teszt az első rezgési alak állandóit bármely táblázat értékeihez méri (β₁² = 3,516, Γ = 1,566), a lépésenkénti számítást pedig a zárt képlethez.",
+        "sound": "A hang a böngészőben keletkezik, és ki van kapcsolva, amíg be nem kapcsolja; semmi sem kerül mentésre vagy elküldésre.",
+        "left_out": "Kimaradt: a magasabb rezgési alakok (a második 6,27-szer magasabban van), a pálca merevedése nagy kitéréseknél, az asztal engedékenysége."
+      }
+    },
+    "gyroscope": {
+      "at": {
+        "wheel": "Egy tengelyen ülő nehéz kerék a tengely egyik végénél fogva egy fonálon lóg. Állva elengedve azonnal leesik. Ha gyorsan forog, a tengely csaknem vízszintes marad, és a kerék lassan körbevándorol a fonál körül.",
+        "suitcase": "Mellette áll egy bőrönd, amelyben egy ilyen kerék forog. Aki viszi, és be akar fordulni egy sarkon, érzi, hogy oldalra billen."
+      },
+      "view": "A kerék a fonalán, kissé felülről, egy küllő színes",
+      "trace": "A tengely nyoma: mennyivel süllyed a kezdő magassága alá, a fonál körüli utolsó körben",
+      "trace_caption": "A tengely nyoma a fonál körüli utolsó körben: mennyivel süllyed a kezdő magassága alá",
+      "play": {
+        "title": "Megforgatni és elengedni",
+        "hint": "Engedje el a kereket egyszer állva, aztán 200 fordulat/perccel. Négyszer lassabban mutatva látszik, ahogy a tengely bólogat.",
+        "let_go": "Elengedni",
+        "pause": "Megállítás",
+        "run": "Tovább",
+        "start": "Elengedéskor",
+        "starts": {
+          "rest": "Nyugalomban",
+          "steady": "Már körben"
+        },
+        "speed": "Tempó",
+        "speeds": {
+          "100": "Valós idő",
+          "25": "4× lassabban"
+        },
+        "rpm": "A kerék fordulatszáma",
+        "rpm_unit": "1/perc",
+        "tilt": "A tengely dőlése",
+        "tilt_hint": "A felfelé mutató függőlegeshez képest: 90° vízszintest jelent.",
+        "round": "Egyszer a fonál körül",
+        "nods": "Bólintás másodpercenként",
+        "dip": "A tengely süllyedése",
+        "suitcase": "A bőrönd fordítása",
+        "suitcase_hint": "Aki ezzel a kerékkel a bőröndöt másodpercenként negyed fordulattal fordítja be egy sarkon, annak keresztben ekkora forgatónyomatékot kell kifejtenie.",
+        "dropped": "Forgás nélkül a kerék leesik: {{t}} s után szinte függőlegesen lóg."
+      },
+      "model": {
+        "intro": "A forgó keréknek a tengelye mentén perdülete van. A gravitáció húzza a kereket, a fonál tartja a tengely végét: ebből a tengelyre merőleges, vízszintes forgatónyomaték lesz.",
+        "torque": "A forgatónyomaték a perdületet a saját irányába változtatja – ez pedig vízszintes, a tengelyre merőleges. Így a tengely oldalra fordul, ahelyett hogy leesne.",
+        "precession": "Milyen gyorsan vándorol a tengely a fonál körül: minél gyorsabban forog a kerék, annál lassabban.",
+        "lagrange": "Amit az oldal számol: a tengely dőlése Lagrange szerint, egy rögzített pontú pörgettyűre. A tengely körüli és a fonál körüli perdület közben megmarad.",
+        "suitcase": "Aki a tengelyt fordítja, annak keresztben ekkora forgatónyomatékot kell kifejtenie; ha ez hiányzik, a bőrönd billen."
+      },
+      "symbols": {
+        "l": "a kerék perdülete",
+        "m": "a forgatónyomaték",
+        "omega_p": "milyen gyorsan vándorol a tengely a fonál körül",
+        "mass": "a kerék tömege",
+        "d": "a fonál és a kerék közepe közti távolság",
+        "i3": "a tengely körüli tehetetlenségi nyomaték: egy r sugarú abroncs",
+        "omega3": "milyen gyorsan forog a kerék a tengelyén",
+        "theta": "a tengely dőlése a függőlegeshez képest",
+        "phi": "mennyit vándorolt a tengely a fonál körül",
+        "i1": "a tengelyre merőleges tehetetlenségi nyomaték a tengely végére",
+        "turn": "milyen gyorsan fordítják a bőröndöt"
+      },
+      "sweet": {
+        "sideways": "A kerék nem abba az irányba tér ki, amerre húzzák, hanem arra merőlegesen. Forgás nélkül 0,37 s után szinte függőlegesen lóg; percenként 200 fordulattal a tengely fent marad, és 8,1 s alatt kerüli meg egyszer a fonalat. Kétszer olyan gyorsan forgatva feleolyan gyorsan vándorol.",
+        "nod": "Egészen esés nélkül azonban nem megy: elengedve a tengely előbb 3,2°-ot süllyed, túllendül az egyenletes vándorláson, és visszatér – bólogat, valamivel több mint négyszer másodpercenként, és nyoma csúcsos íveket rajzol. Olyan mélyre, amennyit az energia és a két megmaradó perdület enged, és nem mélyebbre.",
+        "suitcase": "Ezért billen a bőrönd: ezzel a kerékkel másodpercenként negyed fordulattal befordítani egy sarkon keresztben 5,9 N·m-t kíván – annyit, mint 600 g egy mérővessző végén."
+      },
+      "computed": {
+        "system": "A kerék rögzített pontú szimmetrikus pörgettyű, a pont a tengely fonálon lógó vége; tömege az abroncsban van. Lagrange szerint két perdület marad meg, a tengely körüli és a fonál körüli; lépésenként csak a dőlést számoljuk, Runge–Kutta-módszerrel, egy ezredmásodperces lépésekben. A teszt ellenőrzi az energiát, az egyenletes vándorlást, és hogy a tengely olyan mélyre süllyed-e, mint amennyit pusztán a megmaradó mennyiségekből számolunk.",
+        "left_out": "Kimaradt: hogy maga a fonál is leng és nyúlik (vége a rögzített pont), a súrlódás a csapágyban és a fonálnál, a levegő. Küllők és agy az abroncs mellett nem számítanak."
+      }
+    },
+    "arch": {
+      "at": {
+        "stones": "Laza kövekből, habarcs nélkül ívet építenek. Ha az utolsó kő is a helyén van középen, az ív megtartja önmagát, és még egy terhet is.",
+        "chain": "Mellette egy lánc lóg két kampó között. Fejjel lefelé fordítva az alakja a legjobb alak egy ívhez."
+      },
+      "view": "Az ív elölről: a kövek, a nyomásvonal, a hézagok, ahol először nyílna szét, és a teher",
+      "play": {
+        "title": "Ívet építeni",
+        "hint": "Vékonyítsa a félkört, amíg el nem törik, aztán váltson láncívre. Tegyen rá terhet, és tologassa ide-oda.",
+        "shape": "Alak",
+        "shapes": {
+          "semicircle": "Félkör",
+          "pointed": "Csúcsív",
+          "catenary": "Láncív"
+        },
+        "thickness": "A kövek vastagsága",
+        "thickness_hint": "Az ív belső oldalától a külsőig; a fesztáv 2 m.",
+        "stones": "A kövek száma",
+        "load": "Teher",
+        "load_hint": "Az ív saját súlyához mérve.",
+        "at": "A teher helye",
+        "at_hint": "A közepétől: −100 % a bal lábnál, 100 % a jobbnál.",
+        "chain": "A lánc mutatása",
+        "chain_hint": "A lelógó lánc fejjel lefelé, a két lábon át, olyan magasan, mint az ív.",
+        "safety": "Biztonság",
+        "thrust": "Oldalnyomás a lábnál",
+        "weight": "Az ív súlya",
+        "stands": "Az ív áll: a nyomásvonal mindenütt a kőben marad.",
+        "falls": "Az ív eltörik: egyetlen nyomásvonal sem marad mindenütt a kőben. A piros hézagoknál nyílik szét."
+      },
+      "model": {
+        "intro": "A kő nyom, de nem húz. Ezért a laza kövekből rakott ív addig áll, amíg minden hézag össze van nyomva, és a vonal, amely mentén a nyomás fut – a nyomásvonal –, minden hézagot a kövön belül metsz.",
+        "chain": "A lelógó lánc fejjel lefelé: csak önmaga mentén húzzák. Az ilyen alakú ívet csak önmaga mentén nyomják.",
+        "joint": "Hol metszi a nyomásvonal a j-edik hézagot: a hézagtól balra ható összes erő nyomatéka a hézag közepére, osztva a hézagon átmenő erővel. Mindkettő a lábnál ható oldalnyomástól függ, amelyet az oldal úgy keres, hogy a vonal a lehető legközelebb maradjon a középhez.",
+        "stands": "Az ív áll, ha van olyan vonal, amely minden hézagot a kövön belül metsz. A legkisebb λ, amelyre ilyen vonal létezik, megmondja, milyen szorosan: 1/λ a biztonság."
+      },
+      "symbols": {
+        "x": "a középtől mért távolság",
+        "h": "az ív magassága a lábai felett",
+        "a": "a láncgörbe paramétere",
+        "e": "a hézag közepétől milyen messze metszi a nyomásvonal a hézagot",
+        "m": "a hézagtól balra ható összes erő nyomatéka a hézag közepére",
+        "n": "a hézagon átmenő erő",
+        "t": "a kövek vastagsága",
+        "lambda": "legfeljebb mennyire tér el a vonal a középtől, a fél vastagság hányadaként"
+      },
+      "sweet": {
+        "chain": "Egy ív legjobb alakja a fejjel lefelé fordított lelógó lánc – Robert Hooke 1675-ben jegyezte fel, és Antoni Gaudí lelógó láncokkal tervezett. A láncívben a nyomásvonal a saját súly alatt a kövek közepén marad, a fél vastagság századánál kisebb eltéréssel, akármilyen vastagok is a kövek.",
+        "semicircle": "A félkörnek nincs ilyen alakja. Csak akkor áll, ha kövei legalább a sugara 10,75 %-ának megfelelő vastagságúak – tizenhat kővel 10,7 %. Egy méterre 10 cm-rel eltörik; az ugyanakkora fesztávú és vastagságú csúcsív megáll.",
+        "load": "A teher elmozdítja a nyomásvonalat. A negyedpontra téve a 25 cm-es félkört már saját súlyának 80 %-ánál eltöri, az ugyanolyan magas láncívet csak 141 %-nál."
+      },
+      "computed": {
+        "system": "Az ívet egyenlő hosszú kövekre vágjuk, a hézagok merőlegesek a középvonalra; minden kő annyit nyom, amennyi a négyszöge, és a súlypontjában nyom. Minden hézagnál a nyomás és a nyomaték lineárisan függ az oldalnyomástól, a függőleges reakciótól és a támasz nyomatékától; az oldal az összes lehetséges értékből kivágja azokat, amelyek minden hézagot a kövön belül metszenek, és felezéssel keresi a legkisebb λ-t. A teszt a félkörre megtalálja a sugár 10,75 %-ának megfelelő legkisebb vastagságot, amelyet Milankovitch 1907-ben számolt ki.",
+        "left_out": "Kimaradt: a kövek elcsúszása (a súrlódás tart), összezúzódásuk (elég erősek), a hídfők engedése. Az oldal azt mutatja, hol nyílik szét az ív, nem azt, hogyan dől össze."
+      }
+    },
+    "chladni": {
+      "at": {
+        "plate": "Egy négyzet alakú fémlemez a közepén egy rázóra van rögzítve, rajta homok. A rázót lassan emelkedő hang hajtja.",
+        "sand": "Bizonyos hangoknál a lemez hangosan szól, a homok vonalakba fut össze, és ott nyugton marad – mindegyik ilyen hangnál más mintában."
+      },
+      "view": "A lemez felülről, rajta a homokkal",
+      "play": {
+        "title": "A hang kiválasztása",
+        "hint": "Válassza ki a lemez egyik hangját, vagy fusson végig lassan a csúszkával. A hangok között a homok alig ugrál, és nem alakul ki minta.",
+        "restrew": "Homok újraszórása",
+        "tones": "A hangok, amelyeken a lemez megszólal",
+        "drive": "A rázó hangja",
+        "drive_hint": "Logaritmikus: minden egyenlő lépés egyenlő hangköz.",
+        "sound": "Hang",
+        "sound_hint": "A rázó hangja: hangos, ha a lemez szól, halk közöttük.",
+        "no_sound": "Ez a böngésző nem tud hangot előállítani.",
+        "nearest": "A lemez legközelebbi hangja",
+        "swing": "Rezgés a közepén",
+        "swing_hint": "Mennyire erősen rezeg a lemez közepe, a legmélyebb hangnál mért rezgéséhez képest."
+      },
+      "model": {
+        "intro": "A vékony lemez hajlik, merevsége ellenáll. Mint egy húrnál, vannak hangok, amelyeken magától tovább rezeg; mindegyikhez tartozik egy alak, nyugalomban maradó vonalakkal.",
+        "plate": "A vékony lemez egyenlete: hajlítómerevsége egyensúlyt tart a tehetetlenségével. A szélek szabadok.",
+        "tones": "A hangok: λ csak az alaktól függ; a lemez mérete és anyaga adja a hangmagasságot.",
+        "driven": "A közepén rázva a lemez alakjainak összegével válaszol, mindegyikkel annál erősebben, minél közelebb van a hangja a rázóéhoz, és csak ha a közepén mozog."
+      },
+      "symbols": {
+        "w": "mennyire hajlik ki a lemez nyugalmi helyzetéből",
+        "d": "a lemez hajlítómerevsége",
+        "rho": "az acél sűrűsége",
+        "h": "a lemez vastagsága",
+        "omega": "egy hang körfrekvenciája",
+        "e": "a rugalmassági modulus",
+        "nu": "a Poisson-szám, itt 0,3",
+        "f": "a hangmagasság",
+        "lambda": "egy alak jellemző száma, minden négyzetes lemeznél azonos",
+        "a": "a lemez oldalhossza",
+        "phi": "a lemez k-adik alakja",
+        "big_omega": "a rázó körfrekvenciája",
+        "zeta": "az egyes alakok csillapítása"
+      },
+      "sweet": {
+        "still": "A homok ott gyűlik össze, ahol a lemez egyáltalán nem rezeg: a csomóvonalakon. Mindenhol máshol feldobódik, amíg egy ilyenre nem esik, és ott marad.",
+        "tones": "A lemez hangjai nem felhangok. Egy 24 cm oldalú, 1 mm vastag acéllemez a közepén rázva 102, 269 és 517 Hz-en szól – a legmélyebb 2,62- és 5,05-szörösén, nem a kétszeresén és háromszorosán, mint egy húr.",
+        "middle": "A közepén rázva a lemez csak azokat az alakokat mutatja, amelyek ott mozognak. Legmélyebb hangjának, amelynél elcsavarodik, a közepén csomópontja van, ezért néma marad.",
+        "history": "Ernst Chladni 1787-ben mutatta be az ábrákat. A lemez egyenletét Sophie Germain találta meg, és 1816-ban elnyerte érte a Párizsi Akadémia díját; a szabad szélek feltételeit Gustav Kirchhoff tette rendbe 1850-ben."
+      },
+      "computed": {
+        "system": "A behajlást Legendre-polinomok szorzatainak összegeként írjuk fel a 20. fokig; Ritz szerint az alakok azok, amelyeknél az energia stacionárius. Sajátértékeiket a szerver Jacobi-forgatásokkal egyszer kiszámolja, és elküldi az alakokat; az oldal minden hanghoz összegzi őket. A teszt az első értékeket Leissa táblázatához méri (13,468 · 19,596 · 24,270 · 34,801 · 63,686). A homok rajzolási szabály: a szemcsék feldobódnak, ahol a lemez rezeg, és odacsúsznak, ahol nyugton van.",
+        "left_out": "Kimaradt: a rázó rögzítése a közepén (tömege és merevsége kissé eltolja a hangokat), a lemez vastagsága a méretéhez képest, és hogyan ugrál valójában a homok."
+      }
+    },
+    "levitation": {
+      "at": {
+        "top": "Egy gyűrű alakú mágnest tartalmazó talp fölötti lapon megpörgetnek egy kis pörgettyűt, amelynek korongjában mágnes van. Ha a lapot lassan felemelik, a pörgettyű elválik tőle, és forogva lebeg néhány centiméterrel a talp fölött.",
+        "weight": "Ehhez pontosan megfelelő súlyúnak kell lennie: a tengelyére tett apró alátétekkel hangolják. Ha túl nehéz, leereszkedik a lapra; ha túl könnyű, oldalra elcsúszik."
+      },
+      "view": "A pörgettyű a gyűrűs mágnes fölött, metszetben: az ablak, amelyben lebeghet, és hogy hol van",
+      "play": {
+        "title": "A pörgettyű hangolása",
+        "hint": "Változtassa a pörgettyű súlyát század grammonként, amíg leszáll vagy elcsúszik. Aztán tegye a szobát melegebbé vagy hidegebbé.",
+        "mass": "A pörgettyű súlya",
+        "mass_hint": "A játékon: alátétek a tengelyen. A pörgettyű mágnese 2 cm³ ferritből áll.",
+        "warming": "Melegebb vagy hidegebb",
+        "warming_hint": "Ennyivel melegebb (vagy hidegebb), mint a hangoláskor. A ferrit kelvinenként mágnesezettségének kb. 0,2 %-át veszíti el, a talpban és a pörgettyűben egyaránt.",
+        "hovers": "A pörgettyű lebeg: súlya és a felhajtóerő az ablakon belül egyensúlyban van.",
+        "lands": "Túl nehéz: még az ablak alján sem, ahol a felhajtóerő a legnagyobb, bírja el a tér. Leszáll a lapra.",
+        "slides": "Túl könnyű: egyensúlyát csak az ablak fölött találná meg, ahol a tér oldalról már nem tartja. Elcsúszik.",
+        "height": "Lebegési magasság",
+        "lightest": "Legkönnyebb",
+        "heaviest": "Legnehezebb",
+        "bob": "Fel és le",
+        "drift": "Oldalra"
+      },
+      "chart": {
+        "title": "Felhajtóerő és súly",
+        "hint": "A tér felhajtóereje a gyűrű fölött, az általa megtartott tömegként kifejezve. Ahol a görbe metszi a súlyt, ott van az egyensúly; ez csak az ablak két vonala között stabil.",
+        "height": "Magasság a gyűrű fölött",
+        "lift": "Felhajtóerő",
+        "weight": "Súly",
+        "window": "Ablak"
+      },
+      "model": {
+        "intro": "Ha egy mágnest egy másik fölött tartunk, majd elengedjük, megfordul vagy elcsúszik: rögzített mágnesek semmilyen elrendezése nem tart egy mágnest stabilan lebegésben (Earnshaw). A forgó pörgettyű nem tud megfordulni. Forgása a mágnesét a környező térrel szemben tartja; ha a tér iránya változik, a mágnes lassan vele fordul. Így a pörgettyű számára csak a tér erőssége számít, nem az iránya – és olyan pontot, ahol a tér a leggyengébb, a szabad tér megenged.",
+        "energy": "A pörgettyű energiája: magassága a nehézségi erőtérben és annak a térnek az erőssége, amellyel szemben a mágnese mutat. Arra tolódik, amerre a tér gyengébb.",
+        "field": "A tér a gyűrű tengelyén: az egyenletesen mágnesezett gyűrű úgy viselkedik, mint egy külső szolenoid mínusz egy belső.",
+        "solenoid": "Egy a sugarú szolenoid hozzájárulása a gyűrű alsó lapja (z + t) és felső lapja (z) között; a magasságot a felső laptól mérjük.",
+        "balance": "A pörgettyű ott lebeg, ahol súlya egyenlő a felhajtóerővel: a tér felfelé gyengül, és annál erősebben nyomja, minél gyorsabban gyengül.",
+        "window": "Az egyensúly csak akkor stabil, ha a tér felülről és alulról (balra) és oldalról (jobbra; a tengelyen kívül a Laplace-egyenletből a távolság négyzetéig) is visszahúzza. Mindkettő csak néhány milliméteres ablakban teljesül.",
+        "bob": "Az ablakban a pörgettyű ezzel a frekvenciával mozog fel és le; oldalra lassabban leng a tengely körül."
+      },
+      "symbols": {
+        "u": "a pörgettyű energiája",
+        "m": "a tömege",
+        "g": "a nehézségi gyorsulás",
+        "z": "a magasság a gyűrű felső lapja fölött",
+        "mu": "a pörgettyű mágneses momentuma",
+        "b": "a tér erőssége",
+        "mu0": "a vákuum permeabilitása",
+        "magnetisation": "a gyűrű mágnesezettsége",
+        "radii": "a gyűrű belső és külső sugara",
+        "t": "a gyűrű magassága",
+        "a": "a szolenoid sugara",
+        "slope": "milyen gyorsan gyengül a tér felfelé",
+        "bend": "mennyire lassul ez a gyengülés felfelé",
+        "fz": "a fel-le mozgás frekvenciája"
+      },
+      "sweet": {
+        "window": "Az ablak keskeny: e gyűrű fölött a pörgettyű csak 4,36 és 4,81 cm között lebeg, és csak akkor, ha 23,11 és 23,81 g között van a súlya – ez 3 %-os mozgástér. Az ablak alján a legnagyobb a felhajtóerő; ennél nehezebb nem lehet. A 23,5 g-ra hangolt pörgettyű 4,6 cm magasan lebeg, másodpercenként 1,5-szer mozog fel és le, és 0,6-szor leng oldalra.",
+        "warmth": "Ezért a meleg az ellensége. A ferrit minden fokkal gyengül: két fokkal melegebb, és az ablak 0,8 %-kal a könnyebb pörgettyűk felé tolódik. Három és fél fokkal melegebb, mint a hangoláskor, és a pörgettyű leszáll; négy és fél fokkal hidegebb, és elcsúszik. Az ablak magasságai közben a helyükön maradnak.",
+        "earnshaw": "Forgás nélkül egyáltalán nem megy: a térrel szabadon beálló mágnes semmilyen magasságban nem talál támaszt – megfordul, és a gyűrűhöz csapódik."
+      },
+      "computed": {
+        "system": "A tér a tengelyen pontosan számolódik, két szolenoid különbségeként, meredekségével és görbületével együtt; a tengelyen kívül a Laplace-egyenletből következik a távolság négyzetéig. Az ablakot milliméteres rácson keressük 30 cm magasságig, széleit ismételt felezéssel határozzuk meg, ahogy az egyensúlyt is. A számítás az Ön böngészőjében fut, ugyanazokkal a lépésekkel, mint a webhely számítómotorja.",
+        "left_out": "Kihagyva: maga a forgás. Elég gyorsnak tételezzük fel ahhoz, hogy a mágnes kövesse a teret, és elég lassúnak ahhoz, hogy a tengely még kövesse a tér irányváltozásait – ezt a fordulatszám-ablakot az oldal nem számolja. Hiányzik továbbá a pörgettyűt fékező levegő, a billegése és egy konkrét játék méretei: a gyűrű ferritből készült példa, 10 cm széles, 3 cm-es lyukkal és 1,5 cm magas, a pörgettyű mágnese pedig 2 cm³ ugyanabból a ferritből."
       }
     }
   },

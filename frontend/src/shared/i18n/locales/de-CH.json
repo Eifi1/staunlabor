@@ -121,6 +121,7 @@
       "angular_momentum": "Drehimpuls",
       "energy": "Energie",
       "oscillation": "Schwingung",
+      "equilibrium": "Gleichgewicht",
       "flow": "Strömung",
       "induction": "Induktion",
       "perception": "Wahrnehmung"
@@ -133,6 +134,7 @@
       "sweet_spot": "Der Trick",
       "computed": "Wie es gerechnet wird"
     },
+    "unchecked": "Die Prüfung der Berechnungen steht noch aus: Zahlen und Darstellungen auf diesen Seiten können sich noch ändern.",
     "exhibits": {
       "chair": {
         "short": "Der Stuhl",
@@ -181,6 +183,114 @@
         "title": "Die Kugelkanone",
         "summary": "Drei Kugeln, aufeinander auf einen Draht gefädelt, fallen gelassen – und die kleine oben schiesst weit höher hinauf, als sie gefallen ist.",
         "question": "Wie hoch fliegt die kleine Kugel, wenn der Stapel aus einem Meter fällt?"
+      },
+      "wave": {
+        "short": "Pendelwelle",
+        "title": "Die Pendelwelle",
+        "summary": "Fünfzehn Pendel, zugleich losgelassen, laufen auseinander, bilden Wellen und Gruppen – und schwingen nach einer Minute wieder im Gleichtakt.",
+        "question": "Wann schwingen fünfzehn verschieden lange Pendel, gemeinsam losgelassen, wieder alle im Gleichtakt?"
+      },
+      "harmonograph": {
+        "short": "Harmonograph",
+        "title": "Der Harmonograph",
+        "summary": "Ein Stift an einem Pendel, ein Zeichenbrett an einem zweiten: Während beide ausklingen, zeichnen sie eine Rosette, eine Schleife oder einen Stern.",
+        "question": "Was zeichnet ein Stift, wenn zwei Pendel im Verhältnis 2 : 3 schwingen – und was, wenn es nur fast 2 : 3 ist?"
+      },
+      "cone": {
+        "short": "Doppelkegel",
+        "title": "Der Doppelkegel rollt bergauf",
+        "summary": "Zwei Schienen laufen auseinander und steigen dabei an. Ein Doppelkegel, unten aufgelegt, rollt von selbst hinauf.",
+        "question": "Rollt ein Doppelkegel auf zwei ansteigenden Schienen hinauf oder hinunter – und was entscheidet es?"
+      },
+      "parabola": {
+        "short": "Wasserparabel",
+        "title": "Die Wasserparabel",
+        "summary": "Ein Gefäss mit Wasser dreht sich: Die Oberfläche wölbt sich zu einer Mulde – bis die Mitte trocken fällt.",
+        "question": "Wenn sich ein Gefäss mit Wasser immer schneller dreht: Sinkt die Mitte so weit, wie der Rand steigt?"
+      },
+      "coupled": {
+        "short": "Gekoppelte Pendel",
+        "title": "Gekoppelte Pendel",
+        "summary": "Zwei Pendel, durch eine weiche Feder verbunden: Stösst man eines an, wandert die Schwingung zum anderen hinüber – und wieder zurück.",
+        "question": "Zwei gleiche Pendel hängen an einer Feder. Wie lange dauert es, bis die Schwingung des einen ganz beim anderen ist?"
+      },
+      "peg": {
+        "short": "Galileis Pendel",
+        "title": "Galileis unterbrochenes Pendel",
+        "summary": "Ein Stift fängt den Faden eines Pendels ab. Die Kugel schwingt auf einem kleineren Kreis weiter – und steigt trotzdem genau so hoch wie auf der anderen Seite.",
+        "question": "Ein Stift fängt den Faden eines schwingenden Pendels ab. Steigt die Kugel danach weniger hoch, gleich hoch oder höher?"
+      },
+      "maxwell": {
+        "short": "Maxwell-Rad",
+        "title": "Das Maxwell-Rad",
+        "summary": "Ein schweres Rad rollt an zwei Bändern langsam ab, kehrt unten um und wickelt sich fast bis zur Starthöhe wieder hinauf – wie ein grosses Jo-Jo.",
+        "question": "Warum fällt ein schweres Rad, das an zwei Bändern abrollt, so viel langsamer als ein Stein?"
+      },
+      "chaos": {
+        "short": "Chaospendel",
+        "title": "Das Chaospendel",
+        "summary": "Ein Pendel an einem Pendel: Kräftig angestossen schlägt es wild und nie gleich – zwei, die fast gleich starten, gehen bald ganz verschiedene Wege.",
+        "question": "Zwei Doppelpendel starten um ein Tausendstelgrad verschieden. Wie lange schwingen sie noch gleich?"
+      },
+      "waterwheel": {
+        "short": "Chaotisches Wasserrad",
+        "title": "Das chaotische Wasserrad",
+        "summary": "Wasser fällt in undichte Becher an einem Rad: Es dreht sich, stockt, kehrt um – und wiederholt sich nie. Es sind dieselben Gleichungen wie Lorenz' Wettermodell.",
+        "question": "Ein Rad mit undichten Bechern, oben läuft Wasser hinein. In welche Richtung dreht es sich?"
+      },
+      "foucault": {
+        "short": "Foucault-Pendel",
+        "title": "Das Foucault-Pendel in Winterthur",
+        "summary": "Ein langes Pendel schwingt stundenlang, und seine Schwingebene dreht sich langsam gegen den Boden: Nicht das Pendel dreht sich, sondern die Erde unter ihm.",
+        "question": "Wie lange braucht die Schwingebene eines Pendels in Winterthur für eine ganze Runde?"
+      },
+      "coriolis": {
+        "short": "Coriolis-Karussell",
+        "title": "Das Coriolis-Karussell",
+        "summary": "Auf einem drehenden Karussell rollt man sich einen Ball zu – und er kommt nie dort an, wohin man zielt. Von aussen gesehen gibt es keine Kurve zu erklären.",
+        "question": "Zwei sitzen sich auf einem drehenden Karussell gegenüber. Wohin muss man zielen, um den anderen zu treffen?"
+      },
+      "cradle": {
+        "short": "Kugelstosspendel",
+        "title": "Das Kugelstosspendel",
+        "summary": "Eine Kugel hinein, eine hinaus; zwei hinein, zwei hinaus. Impuls und Energie lassen keine andere Antwort zu – beinahe.",
+        "question": "Warum fliegen am anderen Ende genau so viele Kugeln weg, wie man fallen lässt?"
+      },
+      "well": {
+        "short": "Gravitationstrichter",
+        "title": "Der Gravitationstrichter",
+        "summary": "Eine Kugel kreist in einem Trichter um das Loch, immer tiefer und immer schneller – und hält dabei Keplers drittes Gesetz ein wie ein Planet.",
+        "question": "Warum wird die Kugel schneller, obwohl die Reibung sie bremst?"
+      },
+      "resonance": {
+        "short": "Resonanzstäbe",
+        "title": "Die Resonanzstäbe",
+        "summary": "Sechs Stäbe auf einem Tisch, der kaum zittert – und doch schwingt einer weit aus, wenn der Takt stimmt. Die anderen bleiben fast ruhig.",
+        "question": "Wie bringt ein Tisch, der sich nur einen Millimeter bewegt, einen Stab dazu, acht Zentimeter weit zu schwingen?"
+      },
+      "gyroscope": {
+        "short": "Kreiselrad",
+        "title": "Das Kreiselrad",
+        "summary": "Ein schweres Rad hängt an einem Ende seiner Achse an einem Faden. Steht es still, fällt es; dreht es sich, bleibt es oben und wandert langsam im Kreis.",
+        "question": "Warum fällt ein drehendes Rad nicht herunter, sondern weicht zur Seite aus?"
+      },
+      "arch": {
+        "short": "Kette und Bogen",
+        "title": "Die Kette und der Bogen",
+        "summary": "Ein Bogen aus losen Steinen hält ohne Mörtel – wenn er die richtige Form hat. Eine hängende Kette zeigt sie, auf den Kopf gestellt.",
+        "question": "Warum steht ein Bogen aus losen Steinen, und warum fällt ein zu dünner ein?"
+      },
+      "chladni": {
+        "short": "Chladni-Figuren",
+        "title": "Die Chladni-Figuren",
+        "summary": "Sand auf einer Metallplatte. Klingt die Platte, wandert der Sand zu Linien – bei jedem Ton zu einem anderen Muster.",
+        "question": "Warum sammelt sich der Sand zu Linien, und warum bei jedem Ton zu anderen?"
+      },
+      "levitation": {
+        "short": "Schwebender Kreisel",
+        "title": "Der schwebende Kreisel",
+        "summary": "Ein Kreisel mit einem Magneten dreht sich über einem Ringmagneten und schwebt – aber nur, wenn er auf wenige Zehntelgramm genau richtig wiegt.",
+        "question": "Warum schwebt der drehende Kreisel, und warum landet er, wenn er ein wenig zu schwer ist?"
       }
     },
     "chair": {
@@ -988,6 +1098,1302 @@
         "flip": "Drehen Sie den Stapel um, und nichts fliegt: Eine leichte Kugel unten kann keine schwere nach oben stossen.",
         "name": "Warum Kanone: Physikbücher nennen den Versuch «galileische Kanone», weil die kleine Kugel senkrecht aus dem Stapel geschossen wird wie aus einem Rohr. Seitwärts wird nichts abgefeuert.",
         "assumed": "Angenommen sind: volle Kugeln von 1100 kg/m³, die Steifigkeit des Elastomers und wie elastisch es ist, Kontakte nach Hertz mit einer Dämpfung, die einen festen Anteil der Annäherungsgeschwindigkeit zurückgibt, und ein starrer Boden. Die Reibung am Draht und der Drall der Kugeln sind weggelassen."
+      }
+    },
+    "wave": {
+      "at": {
+        "row": "Eine Reihe von Pendeln hängt an einer Stange, das längste an einem Ende, jedes nächste ein wenig kürzer. Ein Brett lenkt alle gleich weit aus und gibt sie zugleich frei.",
+        "pattern": "Erst schwingen sie gemeinsam, dann zieht sich die Reihe zu einer Welle auseinander, zu Schlangen, zu scheinbarem Durcheinander, zu zwei, drei, vier Gruppen – und nach einer Minute schwingen alle wieder im Gleichtakt, als wäre nichts gewesen."
+      },
+      "play": {
+        "title": "Die Reihe schwingen lassen",
+        "hint": "Die Uhr läuft. Springen Sie zu einem Bruchteil des Zyklus, oder ändern Sie, wie weit die Pendel losgelassen werden.",
+        "pause": "Anhalten",
+        "run": "Weiter",
+        "restart": "Von vorn",
+        "speed": "Tempo",
+        "speeds": {
+          "1": "Echtzeit",
+          "2": "Doppelt",
+          "5": "Fünffach"
+        },
+        "jump": "Springen zu:",
+        "jumps": {
+          "2": "½ Zyklus",
+          "3": "⅓ Zyklus",
+          "4": "¼ Zyklus",
+          "1": "Ganzer Zyklus"
+        },
+        "amplitude": "Ausschlag beim Loslassen",
+        "amplitude_hint": "Die Längen sind auf {{tuned}}° abgestimmt. Weiter oder weniger weit losgelassen, finden die Pendel nach einem Zyklus nicht mehr ganz zusammen.",
+        "time": "Zeit",
+        "cycles": "Zyklen",
+        "spread": "Versatz nach einem Zyklus"
+      },
+      "views": {
+        "top": "Die Pendelreihe von oben: jede Kugel so weit ausgelenkt, wie sie gerade schwingt",
+        "side": "Die Pendelreihe vom Ende her: alle Pendel hängen hintereinander an derselben Stange",
+        "top_caption": "Von oben",
+        "side_caption": "Vom Ende der Reihe"
+      },
+      "change": {
+        "title": "Das Exponat verändern",
+        "hint": "Die Längen folgen aus dem Zyklus, aus den Schwingungen des längsten Pendels und aus dem Ausschlag, auf den abgestimmt wird. Jede Änderung beginnt von vorn.",
+        "count": "Zahl der Pendel",
+        "cycle": "Zyklus Γ",
+        "cycle_hint": "Nach dieser Zeit schwingen alle wieder im Gleichtakt.",
+        "swings": "Schwingungen des längsten Pendels in Γ",
+        "swings_hint": "Jedes nächste Pendel schwingt in derselben Zeit einmal mehr.",
+        "tuned": "Abgestimmt auf",
+        "tuned_hint": "Der Ausschlag, für den die Längen berechnet sind. 0° ist die Lehrbuchformel für kleine Ausschläge."
+      },
+      "figures": {
+        "longest": "Längstes Pendel",
+        "shortest": "Kürzestes Pendel",
+        "period": "Periode des längsten",
+        "spread": "Versatz nach einem Zyklus",
+        "textbook": "Versatz mit der Lehrbuchformel"
+      },
+      "model": {
+        "intro": "Kein Pendel weiss vom anderen. Jedes schwingt für sich, und das ganze Muster steckt in den Längen.",
+        "period": "Die Periode eines Pendels mit kleinem Ausschlag hängt nur von seiner Länge ab: viermal so lang, halb so schnell.",
+        "tuning": "Die Längen sind so gewählt, dass das längste Pendel im Zyklus Γ genau N-mal schwingt, das nächste N + 1-mal, das n-te N + n-mal. Nach Γ hat jedes eine ganze Zahl von Schwingungen hinter sich, und alle stehen wieder dort, wo sie losgelassen wurden.",
+        "groups": "Nach einem k-tel des Zyklus hat das n-te Pendel (N + n)/k Schwingungen gemacht. Bei k = 2 ist das für die eine Hälfte eine ganze Zahl, für die andere eine halbe mehr: zwei Gruppen, einander gegenüber. Bei k = 3 drei Gruppen, bei k = 4 vier. Die Wellen und Schlangen dazwischen sind dasselbe zu Zeiten, die Γ weniger glatt teilen.",
+        "wider": "Was die Lehrbuchformel weglässt: Ein weiterer Ausschlag dauert länger, bei 30° um 1,7 %. Darum ist die Reihe hier mit der genauen Periode auf einen Ausschlag abgestimmt."
+      },
+      "symbols": {
+        "t0": "Periode bei kleinem Ausschlag",
+        "length": "Länge des Pendels, vom Aufhängepunkt bis zur Mitte der Kugel",
+        "g": "Fallbeschleunigung, 9,81 m/s²",
+        "tn": "Periode des n-ten Pendels",
+        "cycle": "der Zyklus: die Zeit, bis alle wieder im Gleichtakt schwingen",
+        "swings": "Schwingungen des längsten Pendels in Γ",
+        "index": "die Nummer des Pendels, vom längsten an gezählt: 0, 1, 2, …",
+        "k": "der Bruchteil des Zyklus: Γ/k",
+        "theta0": "der Ausschlag beim Loslassen",
+        "k_integral": "das vollständige elliptische Integral erster Art"
+      },
+      "sweet": {
+        "alone": "Der Trick ist, dass es keinen gibt: Keine Feder, kein Faden, kein Takt verbindet die Pendel. Das Muster ist nur die Folge abgestimmter Längen – und darum genau so gut wie diese Abstimmung.",
+        "tuned": "Diese Reihe ist auf {{tuned}}° abgestimmt. Lassen Sie sie weiter oder weniger weit los, ist jedes Pendel um fast denselben Anteil zu langsam oder zu schnell. Nach einem Zyklus macht das bei den kurzen, die mehr Schwingungen hinter sich haben, die meisten Grade aus: Die Reihe kommt schief zurück. Gemessen wird der Versatz in Grad einer Schwingung, 360° sind eine ganze. Mit der Lehrbuchformel für kleine Ausschläge abgestimmt, käme die Reihe bei {{amplitude}}° um {{textbook}}° versetzt zurück."
+      },
+      "chart": {
+        "spread": "Versatz nach einem Zyklus",
+        "amplitude": "Ausschlag beim Loslassen",
+        "you": "Sie"
+      },
+      "computed": {
+        "system": "Jedes Pendel ist eine einzige Gleichung zweiter Ordnung, die des ebenen Pendels ohne Reibung, losgelassen aus der Ruhe.",
+        "theta": "der Ausschlag",
+        "theta_dd": "seine Winkelbeschleunigung",
+        "exact": "Sie hat eine exakte Lösung mit Jacobis elliptischen Funktionen. Die Seite rechnet für jedes Bild jedes Pendel direkt aus der Zeit, ohne Schritt für Schritt dorthin zu gehen – darum kann sie zu jedem Moment des Zyklus springen. Zur Kontrolle löst der Rechenkern dieselbe Gleichung Schritt für Schritt mit dem Runge-Kutta-Verfahren; beide stimmen auf ein Zehnmillionstel Grad überein.",
+        "k": "der Modul, festgelegt durch den Ausschlag beim Loslassen",
+        "cd": "Jacobis elliptische Funktion cn/dn",
+        "omega0": "die Kreisfrequenz kleiner Schwingungen",
+        "t": "die Zeit seit dem Loslassen",
+        "check": "Zur Kontrolle, hier und jetzt gerechnet: Das längste Pendel dieser Reihe, zehn Sekunden lang Schritt für Schritt gerechnet, weicht höchstens um {{apart}} Grad von der exakten Lösung ab."
+      }
+    },
+    "harmonograph": {
+      "at": {
+        "pen": "Zwei Pendel hängen nebeneinander. Am einen ist ein Stift befestigt, der quer schwingt; am anderen ein Zeichenbrett, das längs schwingt. Man lenkt beide aus und lässt sie los.",
+        "picture": "Der Stift zeichnet, was beide Schwingungen zusammen ergeben. Weil beide langsam ausklingen, wird die Figur Runde um Runde kleiner: eine Spirale aus feinen Linien, die sich je nach Takt der Pendel zu einer Rosette, einer Schleife oder einem Stern fügt."
+      },
+      "play": {
+        "title": "Zeichnen lassen",
+        "hint": "Der Stift zeichnet im Zeitraffer. Ändern Sie unten das Verhältnis der Pendel, und eine neue Zeichnung beginnt.",
+        "pause": "Anhalten",
+        "run": "Weiter",
+        "finish": "Fertig zeichnen",
+        "restart": "Neu zeichnen",
+        "save": "Bild speichern",
+        "speed": "Tempo",
+        "speeds": {
+          "1": "Echtzeit",
+          "5": "Fünffach",
+          "20": "Zwanzigfach"
+        },
+        "time": "Gezeichnet",
+        "ratio": "Nahe am Verhältnis {{p}} : {{q}} (Stift : Brett)",
+        "detune": "Abweichung davon",
+        "turn": "Eine Drehung der Figur",
+        "fades": "Auf ein Zehntel ausgeklungen"
+      },
+      "views": {
+        "drawing": "Die Zeichnung auf dem Brett, mit dem Stift an seiner jetzigen Stelle",
+        "caption": "Das Zeichenbrett von oben"
+      },
+      "change": {
+        "title": "Die Pendel einstellen",
+        "hint": "Das Verhältnis legt die Länge des Brettpendels fest: Ein Viertel der Länge schwingt doppelt so schnell. Jede Änderung beginnt eine neue Zeichnung.",
+        "ratio": "Verhältnis Stift : Brett",
+        "detune": "Verstimmung",
+        "detune_hint": "Wie weit das Brett vom genauen Verhältnis abweicht. Schon ein Prozent lässt die Figur sich drehen.",
+        "phase": "Startpunkt des Bretts",
+        "phase_hint": "Wo in seiner Schwingung das Brett startet: 0° ganz aussen, 90° beim Durchgang durch die Mitte.",
+        "pen_amplitude": "Ausschlag des Stiftpendels",
+        "board_amplitude": "Ausschlag des Brettpendels",
+        "damping": "Reibung",
+        "damping_hint": "Wie schnell die Schwingungen ausklingen; dieselbe für beide Pendel.",
+        "length": "Länge des Stiftpendels",
+        "length_hint": "Ein längeres Pendel schwingt langsamer; das Brettpendel folgt im gewählten Verhältnis."
+      },
+      "model": {
+        "intro": "Zwei Pendel, jedes für sich. Der Stift bewegt sich mit dem einen quer, das Brett mit dem anderen längs; gezeichnet wird, wo der Stift auf dem Brett steht.",
+        "place": "Die Stelle des Stifts auf dem Brett: quer, was das Stiftpendel ausschlägt, längs, was das Brettpendel ausschlägt.",
+        "small": "Bei kleinen Ausschlägen schwingt jedes Pendel wie ein Kosinus, dessen Weite mit der Zeit abklingt. Die Frequenz hängt nur von der Länge ab.",
+        "ratio": "Das Verhältnis der beiden Takte ist darum die Wurzel aus dem umgekehrten Verhältnis der Längen. Bei einem einfachen Verhältnis wie 2 : 3 schliesst sich die Figur und schrumpft nur."
+      },
+      "symbols": {
+        "xy": "die Stelle des Stifts auf dem Brett, quer und längs",
+        "lengths": "die Längen von Stift- und Brettpendel",
+        "theta": "ihre Ausschläge",
+        "theta0": "der Ausschlag zu Beginn",
+        "c": "die Dämpfung: die Weite fällt wie e hoch −c·t/2",
+        "f": "die Frequenz, Schwingungen pro Sekunde",
+        "phi": "wo in seiner Schwingung das Pendel startet",
+        "g": "Fallbeschleunigung, 9,81 m/s²",
+        "f12": "die Frequenzen von Stift- und Brettpendel",
+        "turn": "die Zeit für eine ganze Drehung der Figur",
+        "pq": "das einfache Verhältnis, nahe dem die Takte liegen"
+      },
+      "sweet": {
+        "near": "Liegen die Takte nahe an einem einfachen Verhältnis p : q, aber nicht genau darauf, behält die Figur ihre Form und dreht sich langsam weiter – einmal in dieser Zeit. Je näher, desto langsamer.",
+        "closed": "Diese Pendel stehen genau im Verhältnis {{p}} : {{q}}: Die Figur schliesst sich und schrumpft nur. Verstimmen Sie das Brett um ein Prozent, und sie beginnt sich zu drehen.",
+        "turns": "Diese Pendel liegen {{detune}} % neben {{p}} : {{q}}: Die Figur dreht sich einmal in {{turn}} s.",
+        "widths": "Und sie dreht sich selbst bei einem genauen Verhältnis, wenn die Pendel verschieden weit schwingen: Ein weiter Ausschlag dauert etwas länger als ein enger. Stellen Sie das Stiftpendel auf 30° und das Brettpendel auf 5°, und die geschlossene Figur öffnet sich."
+      },
+      "computed": {
+        "system": "Zwei Gleichungen zweiter Ordnung, die des gedämpften Pendels, mit dem vollen Sinus statt der Näherung für kleine Ausschläge. Weil die Dämpfung keine geschlossene Lösung zulässt, rechnet der Rechenkern sie mit dem Runge-Kutta-Verfahren in Schritten von einer Millisekunde, und die Seite zeichnet mit denselben Schritten – einige Hundert pro Bild.",
+        "theta_dd": "die Winkelbeschleunigung des Pendels i",
+        "theta_d": "seine Winkelgeschwindigkeit"
+      }
+    },
+    "cone": {
+      "at": {
+        "rails": "Zwei gerade Schienen laufen von einem Punkt aus V-förmig auseinander und steigen dabei an. Am engen, tiefen Ende liegt ein Doppelkegel quer darüber: zwei Kegel, Boden an Boden.",
+        "rolls": "Lässt man ihn los, rollt er von selbst hinauf zum weiten, hohen Ende – scheinbar gegen die Schwerkraft."
+      },
+      "refused": {
+        "fall_through": "So weit auseinander reichen die Schienen bis nahe an die Spitzen des Kegels: Er fiele hindurch. Kürzere Schienen, eine kleinere Spreizung oder ein schlankerer Kegel helfen.",
+        "too_wide": "Die Schienen beginnen weiter auseinander, als der Kegel lang ist: Er läge nicht auf ihnen."
+      },
+      "play": {
+        "title": "Den Kegel loslassen",
+        "hint_up": "Der Kegel liegt am tiefen Ende. Lassen Sie ihn los und schauen Sie, wohin er rollt.",
+        "hint_down": "Bei diesen Schienen rollt der Kegel hinunter; er liegt darum am hohen Ende. Lassen Sie ihn los.",
+        "hint_stays": "Bei genau dieser Neigung bleibt die Achse auf gleicher Höhe: Der Kegel bleibt liegen, wo er ist.",
+        "let_go": "Loslassen",
+        "pause": "Anhalten",
+        "run": "Weiter",
+        "speed": "Tempo",
+        "speeds": {
+          "100": "Echtzeit",
+          "25": "Zeitlupe (¼)"
+        },
+        "verdict_up": "Die Schienen steigen, die Achse des Kegels fällt: Er rollt hinauf.",
+        "verdict_down": "Die Schienen steigen steiler, als der Kegel sinkt: Er rollt hinunter.",
+        "verdict_stays": "Achse genau waagrecht: Der Kegel bleibt liegen.",
+        "along": "Entlang der Schienen",
+        "axis": "Höhe der Achse",
+        "speed_now": "Tempo der Achse",
+        "spin": "Drehung",
+        "spin_unit": "pro s"
+      },
+      "views": {
+        "side": "Der Doppelkegel von der Seite: die ansteigenden Schienen, der Kegel mit dem Kreis, auf dem er rollt, und gestrichelt der Weg seiner Achse",
+        "front": "Der Doppelkegel von vorn: die Schienen spreizen sich beim Anstieg, der Kegel sinkt zwischen ihnen ein",
+        "side_caption": "Von der Seite",
+        "front_caption": "Von vorn, die Schienen hinauf"
+      },
+      "change": {
+        "title": "Das Exponat verändern",
+        "hint": "Drei Winkel entscheiden: wie steil die Schienen steigen, wie stark sie sich spreizen und wie spitz der Kegel ist.",
+        "slope": "Steigung der Schienen γ",
+        "slope_hint": "Wie steil die Schienen ansteigen.",
+        "spread": "Spreizung der Schienen β",
+        "spread_hint": "Der Winkel jeder Schiene zur Mittellinie, von oben gesehen.",
+        "cone": "Kegelwinkel α",
+        "cone_hint": "Der Winkel zwischen Mantel und Achse des Kegels: je grösser, desto schneller wird er nach aussen dünner.",
+        "radius": "Radius in der Mitte",
+        "length": "Länge der Schienen",
+        "start_gap": "Abstand der Schienen unten",
+        "start_gap_hint": "Wie weit die Schienen am tiefen Ende auseinander sind."
+      },
+      "model": {
+        "intro": "Der Kegel tut, was jeder Körper tut: Er rollt dorthin, wo sein Schwerpunkt tiefer liegt. Die Frage ist nur, wo das ist.",
+        "thin": "Der Doppelkegel ist in der Mitte am dicksten und wird nach aussen gleichmässig dünner.",
+        "rails": "Die Schienen spreizen sich nach oben und steigen dabei an.",
+        "axis": "Wo die Schienen weiter auseinander sind, tragen sie den Kegel weiter aussen, wo er dünner ist: Er sitzt tiefer zwischen ihnen. Die Höhe seiner Achse ist darum die Höhe der Schienen plus ein Radius, der nach oben kleiner wird.",
+        "condition": "Beide Teile ändern sich gleichmässig: Die Achse läuft auf einer Geraden. Fällt sie, während die Schienen steigen, rollt der Kegel hinauf – genau dann, wenn tan γ kleiner ist als tan α · tan β."
+      },
+      "symbols": {
+        "r": "der Radius des Kegels im Abstand y von seiner Mitte",
+        "radius": "der Radius in der Mitte",
+        "y": "der Abstand von der Mitte, entlang der Achse",
+        "alpha": "der Kegelwinkel, zwischen Mantel und Achse",
+        "x": "die Lage entlang der Schienen, vom tiefen Ende an",
+        "d": "der Abstand jeder Schiene von der Mittellinie",
+        "h": "die Höhe der Schienen",
+        "beta": "die Spreizung jeder Schiene",
+        "gamma": "die Steigung der Schienen",
+        "z": "die Höhe der Kegelachse",
+        "c": "der Faktor der genauen Berührung, nahe bei 1"
+      },
+      "sweet": {
+        "heights": "Die Schienen steigen auf ihrer ganzen Länge um {{rise}} cm. Die Achse des Kegels {{direction}} dabei um {{fall}} cm.",
+        "falls": "fällt",
+        "climbs": "steigt",
+        "threshold": "Bis zu einer Steigung von {{threshold}}° rollt dieser Kegel hinauf; die Schienen hier steigen mit {{slope}}°.",
+        "exact": "Genau gerechnet berührt eine schräg laufende, ansteigende Schiene den Kegel ein wenig neben der Stelle unter der Achse. Der Rechenkern sucht diese Stelle: Die Achse steht beim Standard-Exponat 1,002-mal so hoch über der Schiene, wie das Lehrbuch annimmt. An der Grenze aber liegt die Berührung genau unter der Achse – die Lehrbuchbedingung stimmt dort exakt."
+      },
+      "chart": {
+        "rail": "Höhe der Schienen",
+        "axis": "Höhe der Kegelachse",
+        "height": "Höhe",
+        "along": "Entlang der Schienen"
+      },
+      "figures": {
+        "threshold": "Grenzsteigung",
+        "time": "Bis zum Ende der Schienen"
+      },
+      "computed": {
+        "energy": "Eine einzige Koordinate, die Lage entlang der Schienen. Der Kegel rollt ohne zu gleiten, also dreht er sich so schnell, wie seine Achse vorankommt, geteilt durch den Radius, auf dem er gerade rollt – und der wird nach oben kleiner. Die Energie aus Bewegung, Drehung und Höhe bleibt gleich. Daraus folgt nach Lagrange eine Gleichung zweiter Ordnung, die der Rechenkern mit dem Runge-Kutta-Verfahren in Schritten von einer Millisekunde löst.",
+        "m": "die Neigung der Achsbahn",
+        "rho": "der Radius, auf dem der Kegel rollt",
+        "x_dot": "das Tempo entlang der Schienen",
+        "g": "Fallbeschleunigung, 9,81 m/s²"
+      }
+    },
+    "parabola": {
+      "at": {
+        "vessel": "Ein rundes Gefäss mit Wasser steht auf einem Drehteller. Dreht er sich, sinkt das Wasser in der Mitte und steigt am Rand hoch, umso mehr, je schneller er dreht.",
+        "dry": "Beim Standard-Gefäss – 30 cm weit, 10 cm hoch gefüllt – fällt die Mitte bei 126 Umdrehungen pro Minute trocken."
+      },
+      "refused": "Das Wasser muss im Gefäss stehen: Die Füllhöhe muss kleiner sein als das Gefäss hoch ist.",
+      "play": {
+        "title": "Den Drehteller drehen",
+        "hint": "Stellen Sie die Drehzahl ein. Das Gefäss folgt sofort, das Wasser braucht seine Zeit – im Zeitraffer sehen Sie es nachziehen.",
+        "pause": "Anhalten",
+        "run": "Weiter",
+        "stop": "Drehteller abstellen",
+        "frame": "Ansicht von oben",
+        "frames": {
+          "outside": "Von aussen",
+          "turning": "Mitdrehend"
+        },
+        "speed": "Tempo",
+        "speeds": {
+          "1": "Echtzeit",
+          "10": "Zehnfach"
+        },
+        "rate": "Drehzahl des Tellers",
+        "rpm": "U/min",
+        "rate_hint": "Umdrehungen pro Minute.",
+        "spills": "So schnell steigt das Wasser über den Rand: Es läuft über.",
+        "water": "Drehzahl des Wassers",
+        "centre": "Höhe in der Mitte",
+        "rim": "Höhe am Rand",
+        "tau": "Anlaufzeit"
+      },
+      "views": {
+        "side": "Das Gefäss im Schnitt: das Wasser unter seiner gewölbten Oberfläche, gestrichelt der Stand in Ruhe, und der Brennpunkt der Mulde als Spiegel",
+        "top": "Das Gefäss von oben: Marken am Rand drehen mit dem Gefäss, Teilchen im Wasser mit dem Wasser",
+        "side_caption": "Im Schnitt, von der Seite",
+        "top_caption_outside": "Von oben, von aussen gesehen",
+        "top_caption_turning": "Von oben, mit dem Gefäss mitgedreht: Die Teilchen zeigen, wie weit das Wasser noch nachhinkt"
+      },
+      "change": {
+        "title": "Das Exponat verändern",
+        "hint": "Ein weiteres Gefäss oder weniger Wasser fällt früher trocken; ein flaches läuft früher über.",
+        "radius": "Radius des Gefässes",
+        "fill": "Füllhöhe in Ruhe",
+        "height": "Höhe des Gefässes"
+      },
+      "model": {
+        "intro": "Dreht sich das Wasser mit dem Gefäss wie ein fester Körper, steht seine Oberfläche überall senkrecht zur Summe aus Schwerkraft und Fliehkraft. Die Fliehkraft wächst mit dem Abstand von der Achse, also wird die Oberfläche nach aussen immer steiler.",
+        "surface": "Daraus folgt ein Paraboloid: Die Höhe wächst mit dem Quadrat des Abstands von der Achse.",
+        "volume": "Das Wasser bleibt dasselbe. Darum sinkt die Mitte genau um so viel, wie der Rand steigt: um ω²R²/(4g).",
+        "dry": "Ab dieser Drehzahl berührt die Mitte den Boden. Schneller öffnet sich dort ein trockener Fleck, der mit der Drehzahl wächst."
+      },
+      "symbols": {
+        "z": "die Höhe der Oberfläche über dem Boden",
+        "r": "der Abstand von der Achse",
+        "z0": "die Höhe in der Mitte",
+        "omega": "die Winkelgeschwindigkeit: 2π mal die Umdrehungen pro Sekunde",
+        "g": "Fallbeschleunigung, 9,81 m/s²",
+        "h": "die Füllhöhe in Ruhe",
+        "radius": "der Radius des Gefässes",
+        "dry": "die Winkelgeschwindigkeit, bei der die Mitte trocken fällt",
+        "f": "die Brennweite der Mulde als Spiegel"
+      },
+      "sweet": {
+        "equal": "Bei {{rpm}} Umdrehungen pro Minute sinkt die Mitte um {{drop}} cm – und der Rand steigt um genau gleich viel. Die beiden Linien laufen symmetrisch auseinander, bis die Mitte den Boden erreicht.",
+        "dry": "Die Mitte ist trocken: Ab {{rpm}} Umdrehungen pro Minute steht das Wasser nur noch in einem Ring.",
+        "mirror": "Eine gedrehte Mulde aus spiegelnder Flüssigkeit ist ein Teleskopspiegel: Senkrecht einfallendes Licht trifft sich im Brennpunkt. Die Drehzahl stellt die Brennweite ein – eine Umdrehung in 8,5 s legt ihn 9 m hoch.",
+        "spin_up": "Schaltet man den Drehteller aus dem Stand auf diese Drehzahl, braucht das Wasser rund {{tau}} s, bis es zwei Drittel davon erreicht hat:"
+      },
+      "chart": {
+        "rim": "Höhe am Rand",
+        "centre": "Höhe in der Mitte",
+        "height": "Höhe",
+        "rate": "Drehzahl",
+        "you": "Jetzt",
+        "vessel": "Drehteller",
+        "time": "Zeit"
+      },
+      "figures": {
+        "dry": "Trocken ab",
+        "spill": "Läuft über ab",
+        "focus": "Brennweite"
+      },
+      "computed": {
+        "system": "Wie lange das Wasser braucht, um dem Gefäss zu folgen: Der Boden zieht es über eine dünne Grenzschicht mit (nach Greenspan und Howard, eine Ekman-Schicht am Boden). Die Seite lässt die Drehzahl des Wassers mit dieser Zeit der des Gefässes nachlaufen, beim Standard-Gefäss rund eine halbe Minute, und zeichnet die Oberfläche, als drehte sich das Wasser als Ganzes. Das ist ein Modell dafür, wie lange es dauert, nicht für die Strömung währenddessen.",
+        "omega_v": "die Winkelgeschwindigkeit des Gefässes",
+        "tau": "die Anlaufzeit",
+        "nu": "die Zähigkeit des Wassers, 10⁻⁶ m²/s",
+        "big_omega": "die grössere der beiden Winkelgeschwindigkeiten"
+      }
+    },
+    "coupled": {
+      "at": {
+        "pair": "Zwei gleiche Pendel hängen nebeneinander, unterhalb der Aufhängung durch eine weiche Feder verbunden. Man lenkt eines aus und lässt es los; das andere hängt still.",
+        "wanders": "Bald beginnt das zweite zu schwingen, während das erste zur Ruhe kommt – dann umgekehrt, immer wieder. Beim Standard-Paar wandert die Schwingung in 23 s einmal hinüber und zurück."
+      },
+      "refused": "Die Feder muss an beiden Pendeln zwischen Aufhängung und Kugel sitzen: Das rechte ist zu kurz für diese Höhe der Feder.",
+      "view": "Die beiden Pendel von vorn, die Feder zwischen ihnen",
+      "play": {
+        "title": "Die Pendel anstossen",
+        "hint": "Wählen Sie, wie die Pendel losgelassen werden. Die Balken zeigen, wie viel der Energie gerade in jedem steckt.",
+        "pause": "Anhalten",
+        "run": "Weiter",
+        "let_go": "Loslassen:",
+        "starts": {
+          "one": "Nur das linke",
+          "together": "Beide gleich",
+          "against": "Gegeneinander"
+        },
+        "speed": "Tempo",
+        "speeds": {
+          "1": "Echtzeit",
+          "3": "Dreifach"
+        },
+        "energy": "Energie der beiden Pendel",
+        "left": "Linkes Pendel",
+        "right": "Rechtes Pendel"
+      },
+      "figures": {
+        "together": "Periode im Gleichtakt",
+        "against": "Periode gegeneinander",
+        "beat": "Hinüber und zurück",
+        "share": "Davon kommt hinüber"
+      },
+      "change": {
+        "title": "Das Exponat verändern",
+        "hint": "Eine steifere Feder oder eine tiefer sitzende koppelt stärker: Die Schwingung wandert schneller. Ungleiche Längen lassen sie nur zum Teil hinüber.",
+        "spring": "Federkonstante",
+        "spring_hint": "Wie stark die Feder zieht, wenn sie um einen Meter gedehnt wird.",
+        "spring_at": "Höhe der Feder",
+        "spring_at_hint": "Wie weit unter der Aufhängung die Feder sitzt.",
+        "right_length": "Länge des rechten Pendels",
+        "right_length_hint": "Das linke ist 50 cm lang.",
+        "mass": "Masse jeder Kugel",
+        "damping": "Dämpfung"
+      },
+      "model": {
+        "intro": "Jedes Pendel schwingt unter der Schwerkraft, und die Feder zieht es zum anderen hin, so stark, wie sich die beiden in ihrer Höhe gegeneinander verschoben haben.",
+        "equation": "Die Gleichung des linken Pendels; die des rechten ist gleich gebaut, mit der Feder in der Gegenrichtung.",
+        "modes": "Zwei Bewegungen, bei denen beide im selben Takt schwingen: im Gleichtakt, die Feder ruht, so schnell wie ein Pendel allein; und gegeneinander, die Feder arbeitet mit, schneller. Jede andere Bewegung ist eine Summe dieser beiden.",
+        "beat": "Wird nur ein Pendel angestossen, ist das je zur Hälfte Gleichtakt und Gegentakt. Die beiden laufen langsam auseinander und wieder zusammen: Die Schwingung wandert in dieser Zeit einmal hinüber und zurück."
+      },
+      "symbols": {
+        "theta": "die Ausschläge der beiden Pendel",
+        "length": "die Länge eines Pendels",
+        "g": "Fallbeschleunigung, 9,81 m/s²",
+        "kappa": "die Stärke der Kopplung",
+        "k": "die Federkonstante",
+        "a": "wie weit unter der Aufhängung die Feder sitzt",
+        "m": "die Masse einer Kugel",
+        "omega": "die Kreisfrequenzen im Gleichtakt und gegeneinander",
+        "beat": "die Zeit, in der die Schwingung einmal hinüber und zurück wandert",
+        "kappa_i": "die Kopplung, wie jedes der beiden Pendel sie spürt"
+      },
+      "sweet": {
+        "modes": "Was die Natur hier schwingen lässt, ist nicht ein Pendel und dann das andere, sondern die beiden gemeinsamen Takte. Die wandernde Schwingung ist ihre Summe – darum wandert sie bei «Beide gleich» und «Gegeneinander» nicht.",
+        "beat": "Hier wandert die Schwingung in {{beat}} s einmal hinüber und zurück, und {{share}} % davon kommen beim anderen Pendel an.",
+        "unequal": "Sind die Pendel ungleich, kommt nie alles hinüber: nur dieser Anteil, umso mehr, je ähnlicher die Pendel und je stärker die Feder."
+      },
+      "chart": {
+        "energy": "Anteil der Energie",
+        "time": "Zeit"
+      },
+      "computed": {
+        "system": "Vier Gleichungen erster Ordnung, die Ausschläge und ihre Geschwindigkeiten, mit dem vollen Sinus und der Feder dazwischen. Der Rechenkern löst sie zusammen mit dem Runge-Kutta-Verfahren in Schritten von einer Millisekunde; die Seite tut es mit denselben Schritten, einige Dutzend pro Bild."
+      }
+    },
+    "peg": {
+      "at": {
+        "peg": "Ein Pendel schwingt vor einer Wand. Unter dem Aufhängepunkt steckt ein Stift: Jedes Mal, wenn der Faden durch die Senkrechte schwingt, fängt der Stift ihn ab, und die Kugel schwingt auf einem kleineren Kreis um den Stift weiter.",
+        "height": "Der Weg ist ein anderer, die Höhe nicht: Die Kugel steigt genau bis zur Linie, von der sie losgelassen wurde. Steckt der Stift tief genug, kann sie das nicht mehr – sie überschlägt sich, oder der Faden wird schlaff."
+      },
+      "refused": "Der Stift muss zwischen Aufhängung und Kugel stecken.",
+      "view": "Das Pendel, der Stift und gestrichelt die Höhe, von der die Kugel losgelassen wurde; der Stift lässt sich mit dem Finger verschieben",
+      "play": {
+        "title": "Das Pendel loslassen",
+        "hint": "Ziehen Sie den Stift nach oben oder unten, oder wählen Sie unten einen der drei Fälle.",
+        "let_go": "Loslassen",
+        "pause": "Anhalten",
+        "run": "Weiter",
+        "speed": "Tempo",
+        "speeds": {
+          "100": "Echtzeit",
+          "25": "Zeitlupe (¼)"
+        },
+        "outcome_same_height": "Die Kugel steigt am Stift genau so hoch wie auf der anderen Seite.",
+        "outcome_slack": "Zu viel Schwung für den kleinen Kreis, zu wenig für den Überschlag: Der Faden wird schlaff.",
+        "outcome_over_the_top": "Genug Schwung: Die Kugel überschlägt sich um den Stift.",
+        "events": {
+          "caught": "Der Stift fängt den Faden ab.",
+          "released": "Der Faden löst sich vom Stift.",
+          "slack": "Der Faden wird schlaff: Die Kugel fliegt frei.",
+          "taut": "Der Faden spannt sich mit einem Ruck.",
+          "over_the_top": "Überschlag: Der Faden wickelt sich um den Stift."
+        }
+      },
+      "figures": {
+        "height": "Starthöhe",
+        "radius": "Kleiner Kreis",
+        "loop": "Für den Überschlag nötig",
+        "slack": "Schlaff ab Höhe",
+        "reached": "Erreicht am Stift, gerechnet"
+      },
+      "change": {
+        "title": "Das Exponat verändern",
+        "hint": "Jede Änderung lässt die Kugel neu los.",
+        "start": "Ausschlag beim Loslassen",
+        "peg": "Tiefe des Stifts",
+        "peg_hint": "Wie weit unter der Aufhängung der Stift steckt.",
+        "length": "Länge des Fadens"
+      },
+      "model": {
+        "intro": "Der Faden zieht immer quer zur Bewegung der Kugel. Er lenkt sie um, aber er leistet keine Arbeit: Was die Kugel an Bewegung hat, hat sie allein aus ihrem Fall.",
+        "energy": "Darum hängt ihr Tempo nur davon ab, wie tief sie unter ihrer Starthöhe ist – egal, auf welchem Kreis. Oben, wo sie umkehrt, ist sie wieder auf der Starthöhe.",
+        "pull": "Ein Faden kann nur ziehen. Oberhalb des Stifts muss er die Kugel auf ihrem Kreis halten, und die Schwerkraft hilft dabei; ist die Kugel dort zu langsam, würde er stossen müssen – er wird schlaff, und die Kugel fliegt frei, bis er sich wieder spannt."
+      },
+      "symbols": {
+        "v": "das Tempo der Kugel",
+        "z": "ihre Höhe über dem tiefsten Punkt",
+        "h": "die Höhe, von der sie losgelassen wurde",
+        "g": "Fallbeschleunigung, 9,81 m/s²",
+        "f": "der Zug des Fadens",
+        "r": "der Radius des kleinen Kreises: Fadenlänge weniger Tiefe des Stifts",
+        "phi": "der Winkel um den Stift, von unten gemessen",
+        "z_slack": "die Höhe, auf der der Faden schlaff wird"
+      },
+      "sweet": {
+        "height": "Der Weg ändert sich, die Höhe nicht: Die Energie merkt sich, woher die Kugel kam. So hat Galilei gezeigt, dass eine Kugel, die eine Rampe hinunterrollt, auf jeder Gegenrampe wieder gleich hoch steigt.",
+        "loop": "Über den Stift schlägt sie, wenn sie von mindestens zweieinhalb Radien des kleinen Kreises losgelassen wurde: Oben muss sie noch so schnell sein, dass der Faden zieht.",
+        "slack": "Dazwischen wird der Faden auf dieser Höhe schlaff.",
+        "now": "Hier wurde die Kugel {{h}} cm über dem tiefsten Punkt losgelassen; für den Überschlag bräuchte es {{loop}} cm.",
+        "cases": {
+          "same_height": "Gleiche Höhe",
+          "slack": "Schlaffer Faden",
+          "over_the_top": "Überschlag"
+        }
+      },
+      "computed": {
+        "system": "Drei Bewegungen, je eine Gleichung: das Pendel um die Aufhängung, das kürzere um den Stift, und der freie Flug, solange der Faden schlaff ist. Der Rechenkern schreitet mit dem Runge-Kutta-Verfahren in Schritten von einer Millisekunde voran und sucht jeden Wechsel – Stift fängt, Faden löst sich, wird schlaff, spannt sich – innerhalb seines Schritts durch Halbieren, damit er genau dort geschieht, wo er hingehört.",
+        "gravity": "die Schwerkraft, die im freien Flug allein wirkt"
+      }
+    },
+    "maxwell": {
+      "at": {
+        "wheel": "Ein schweres Rad sitzt auf einer dünnen Achse, und um die Achse sind zwei Bänder gewickelt, die von oben herabhängen. Man dreht das Rad hoch, bis die Bänder aufgewickelt sind, und lässt los.",
+        "climbs": "Das Rad rollt sich langsam ab, kehrt unten mit einem Ruck um und wickelt sich wieder hinauf, fast bis dorthin, wo es losgelassen wurde. Das Standard-Rad fällt in 3,3 s und steigt jedes Mal auf 94 % der Höhe davor."
+      },
+      "refused": "Die Achse muss dünner sein als das Rad.",
+      "view": "Das Maxwell-Rad von vorn an seinen zwei Bändern",
+      "play": {
+        "title": "Das Rad loslassen",
+        "hint": "In der langsamsten Zeitlupe sehen Sie den Ruck unten: Die Bänder dehnen sich um wenige Millimeter und werfen das Rad zurück.",
+        "let_go": "Loslassen",
+        "pause": "Anhalten",
+        "run": "Weiter",
+        "speed": "Tempo",
+        "speeds": {
+          "100": "Echtzeit",
+          "25": "Zeitlupe (¼)",
+          "5": "Starke Zeitlupe (1/20)"
+        },
+        "phases": {
+          "down": "Es rollt sich ab.",
+          "jerk": "Unten: Die Bänder dehnen sich und werfen es zurück.",
+          "up": "Es wickelt sich wieder hinauf."
+        },
+        "tension": "Zug der Bänder",
+        "weight_times": "Vielfaches des Gewichts",
+        "speed_now": "Tempo der Achse",
+        "energy": "Energie der Bewegung",
+        "translation": "Im Fallen und Steigen",
+        "rotation": "In der Drehung",
+        "spin_unit": "U/s"
+      },
+      "change": {
+        "title": "Das Exponat verändern",
+        "hint": "Eine dünnere Achse oder ein schwereres Rad aussen lässt es langsamer fallen – und macht den Ruck unten härter.",
+        "shape": "Rad",
+        "shapes": {
+          "disc": "Volle Scheibe",
+          "ring": "Speichenrad (Masse im Ring)"
+        },
+        "axle": "Radius der Achse",
+        "axle_hint": "Wo die Bänder aufgewickelt sind.",
+        "wheel": "Radius des Rads",
+        "mass": "Masse des Rads",
+        "drop": "Länge der Bänder",
+        "loss": "Reibung der Bänder",
+        "loss_hint": "Die Bänder biegen sich um die Achse und reiben: dieser Anteil ihres Zugs als bremsendes Moment.",
+        "stiffness": "Steifigkeit der Bänder",
+        "stiffness_hint": "Wie stark beide Bänder zusammen ziehen, wenn sie um einen Meter gedehnt würden. Steifer: ein kürzerer, härterer Ruck."
+      },
+      "model": {
+        "intro": "Die Bänder wickeln sich ohne zu gleiten von der Achse: Für jeden Zentimeter, den das Rad fällt, dreht es sich um einen Zentimeter Achsumfang weiter. Weil die Achse dünn ist, heisst das: sehr viel Drehung für wenig Fall.",
+        "roll": "Das Rad fällt gleichmässig beschleunigt, aber nur mit einem kleinen Teil der Fallbeschleunigung: k sagt, wie viel schwerer das Rad in Drehung zu bringen ist als in Bewegung.",
+        "tension": "Die Bänder tragen darum beim Abrollen fast das ganze Gewicht.",
+        "share": "Dieser Anteil der Bewegungsenergie steckt in der Drehung – beim Standard-Rad 98,8 %."
+      },
+      "symbols": {
+        "a": "die Beschleunigung des Rads beim Abrollen",
+        "g": "Fallbeschleunigung, 9,81 m/s²",
+        "i": "das Trägheitsmoment des Rads: ½·M·R² für eine Scheibe, M·R² für einen Ring",
+        "m": "die Masse des Rads",
+        "r": "der Radius der Achse",
+        "t": "der Zug beider Bänder",
+        "s": "die Steifigkeit beider Bänder zusammen",
+        "v": "das Tempo des Rads, wenn die Bänder abgewickelt sind"
+      },
+      "sweet": {
+        "spin": "Fast alle Energie steckt in der Drehung – hier {{share}} % –, darum fällt das Rad so langsam: Was die Höhe hergibt, geht in das Drehen, nicht in das Fallen.",
+        "jerk": "Unten fängt die Dehnung der Bänder den Fall auf. Der Zug steigt für {{ms}} ms auf {{peak}} N, das {{times}}-Fache des Gewichts. Die Drehung läuft durch den Ruck hindurch und wickelt die Bänder von der anderen Seite wieder auf.",
+        "climbs": "Jedes Mal steigt das Rad auf {{share}} % der Höhe davor: Die Reibung der Bänder an der Achse nimmt ihm beim Ab- und Aufwickeln etwas weg."
+      },
+      "chart": {
+        "height": "Höhe",
+        "tension": "Zug der Bänder",
+        "time": "Zeit"
+      },
+      "figures": {
+        "fall": "Fallzeit",
+        "spin": "Drehzahl unten",
+        "peak": "Grösster Zug",
+        "stretch": "Dehnung der Bänder"
+      },
+      "computed": {
+        "system": "Hier ist alles geschlossen lösbar, nichts muss Schritt für Schritt gerechnet werden: Fallen und Steigen sind gleichmässig beschleunigt, und im Ruck schwingt das Rad eine halbe Federschwingung auf den gedehnten Bändern. Die Seite fragt für jedes Bild, wo das Rad gerade ist.",
+        "z": "wie weit die Bänder im Ruck gedehnt sind"
+      }
+    },
+    "chaos": {
+      "at": {
+        "pendulum": "An einem Pendel hängt ein zweites. Sanft angestossen schwingen beide ruhig hin und her; kräftig angestossen schlägt das untere Glied wild um, überschlägt sich, hält inne und schlägt weiter – nie zweimal gleich.",
+        "twice": "Wer es zweimal «gleich» anstösst, sieht zwei verschiedene Tänze. Hier geht das genauer als von Hand: zwei Pendel, deren Start sich um ein Tausendstelgrad unterscheidet."
+      },
+      "view": "Das Doppelpendel und sein Zwilling, der um einen winzigen Winkel anders gestartet ist, mit der Spur des unteren Gewichts",
+      "play": {
+        "title": "Zwei Pendel loslassen",
+        "hint": "Das kräftige Pendel und sein blasserer Zwilling starten fast gleich. Achten Sie darauf, wann sie sich trennen.",
+        "let_go": "Loslassen",
+        "pause": "Anhalten",
+        "run": "Weiter",
+        "presets_label": "Start:",
+        "presets": {
+          "gentle": "Sanft",
+          "wild": "Wild",
+          "headstand": "Fast im Kopfstand"
+        },
+        "upper": "Oberer Arm beim Start",
+        "lower": "Unterer Arm beim Start",
+        "nudge": "Unterschied des Zwillings",
+        "speed": "Tempo",
+        "speeds": {
+          "100": "Echtzeit",
+          "25": "Zeitlupe (¼)"
+        },
+        "time": "Zeit",
+        "gap": "Abstand der beiden: {{gap}}"
+      },
+      "change": {
+        "title": "Das Exponat verändern",
+        "hint": "Jede Änderung lässt beide neu los.",
+        "length1": "Länge des oberen Arms",
+        "length2": "Länge des unteren Arms",
+        "mass1": "Masse am oberen Arm",
+        "mass2": "Masse am unteren Arm",
+        "damping": "Dämpfung"
+      },
+      "model": {
+        "intro": "Zwei Massen an zwei leichten Stangen, die untere am Ende der oberen. Die Bewegungsgleichungen folgen nach Lagrange aus der Energie; sie sind lang, aber nichts Geheimnisvolles – und sie haben keine geschlossene Lösung.",
+        "energy": "Die Energie des Doppelpendels: Bewegung beider Massen, ihre Kopplung über den Winkel zwischen den Armen, und ihre Höhe. Ohne Dämpfung bleibt sie gleich – das ist die Kontrolle der Rechnung.",
+        "modes": "Bei kleinen Ausschlägen ist alles geordnet: zwei Eigenschwingungen, im Gleichtakt langsam, gegeneinander schnell (hier für gleiche Arme und Massen).",
+        "lyapunov": "Bei grossen Ausschlägen wächst ein winziger Unterschied jede Sekunde um denselben Faktor, bis er so gross ist wie die Bewegung selbst. Die Rate dieses Wachstums ist der Ljapunow-Exponent."
+      },
+      "symbols": {
+        "theta": "die Winkel der beiden Arme zur Senkrechten",
+        "lengths": "die Längen der Arme",
+        "masses": "die beiden Massen",
+        "g": "Fallbeschleunigung, 9,81 m/s²",
+        "omega": "die Kreisfrequenzen der beiden Eigenschwingungen",
+        "d": "der Abstand der beiden Pendel, in Winkeln und Winkelgeschwindigkeiten",
+        "lambda": "der Ljapunow-Exponent"
+      },
+      "sweet": {
+        "gap": "Der Abstand der beiden Pendel über der Zeit, auf logarithmischer Skala: Eine Gerade heisst, er wächst jede Sekunde um denselben Faktor.",
+        "chaotic": "Gemessen für diesen Start: λ = {{lambda}} pro Sekunde. Ein Unterschied verdoppelt sich also alle {{doubling}} s. Wer ihn um das Tausendfache kleiner macht, gewinnt nur zehn Verdopplungen Zeit – darum ist das Pendel nicht vorherzusagen, auch wenn jede Rechnung exakt ist.",
+        "regular": "Gemessen für diesen Start: λ = {{lambda}} pro Sekunde, praktisch null. So sanft geschwungen bleibt der Unterschied klein: Das Pendel ist vorhersagbar."
+      },
+      "chart": {
+        "gap": "Abstand der beiden",
+        "time": "Zeit"
+      },
+      "figures": {
+        "lambda": "Ljapunow-Exponent",
+        "slow": "Langsame Eigenschwingung"
+      },
+      "computed": {
+        "system": "Vier Gleichungen erster Ordnung, beide Winkel und ihre Geschwindigkeiten, mit dem Runge-Kutta-Verfahren in Schritten von einer Millisekunde, für das Pendel und seinen Zwilling. Den Exponenten misst der Rechenkern nach Benettin: Ein Zwilling startet einen Hundertmillionstel daneben, alle Zehntelsekunden wird notiert, wie stark der Abstand gewachsen ist, und der Zwilling wieder auf den kleinen Abstand zurückgesetzt. Der Mittelwert der Logarithmen ist der Exponent – unabhängig davon, wie klein der Abstand gewählt wird.",
+        "d0": "der kleine Abstand, auf den der Zwilling jedes Mal zurückgesetzt wird",
+        "dk": "der Abstand nach der k-ten Zehntelsekunde",
+        "t": "die ganze Messdauer"
+      }
+    },
+    "waterwheel": {
+      "at": {
+        "wheel": "Ringsum am Rad hängen Becher mit einem Loch im Boden. Oben läuft Wasser hinein, unten tropft es heraus. Dreht man den Hahn auf, wird der obere Becher schwer, das Rad kippt weg und beginnt sich zu drehen.",
+        "never": "Mal dreht es lange in die eine Richtung, wird langsamer, stockt, und dreht dann in die andere – wann und wie oft, folgt keinem Takt. Es wiederholt sich nie."
+      },
+      "views": {
+        "wheel": "Das Wasserrad mit seinen Bechern, oben der Hahn",
+        "butterfly": "Der Weg des Rads im Raum seiner Zustände: Drehrate gegen die Höhe der Wasserverteilung – Lorenz' Schmetterling",
+        "wheel_caption": "Das Rad",
+        "butterfly_caption": "Lorenz' Schmetterling"
+      },
+      "play": {
+        "title": "Den Hahn aufdrehen",
+        "hint": "Der Hahn entscheidet: zu wenig Wasser, und das Rad bleibt stehen; mehr, und es dreht gleichmässig; noch mehr, und es wird chaotisch.",
+        "pause": "Anhalten",
+        "run": "Weiter",
+        "restart": "Von vorn",
+        "tap": "Hahn",
+        "tap_hint": "ρ: wie viel Wasser zuläuft, gemessen an Lecks und Bremse.",
+        "brake": "Bremse",
+        "brake_hint": "σ: wie stark die Achse bremst, gemessen an der Trägheit des Rads und den Lecks.",
+        "speed": "Tempo",
+        "speeds": {
+          "1": "Echtzeit",
+          "4": "Vierfach"
+        },
+        "regime_still": "Zu wenig Wasser: Die Lecks tragen es ab, bevor der obere Becher schwer genug wird. Das Rad steht.",
+        "regime_steady": "Das Rad dreht gleichmässig in eine Richtung – in welche, entscheidet der erste kleine Anstoss.",
+        "regime_chaotic": "Chaos: Kein gleichmässiges Drehen hält. Das Rad wechselt die Richtung, ohne je einem Muster zu folgen.",
+        "rate": "Drehzahl des Rads",
+        "rpm": "U/min",
+        "hopf": "Chaos ab Hahn"
+      },
+      "model": {
+        "intro": "Was zählt, ist, wie das Wasser um das Rad verteilt ist – genauer: wie weit sein Schwerpunkt seitlich und in der Höhe von der Achse liegt. Damit und mit der Drehrate des Rads schreiben sich drei Gleichungen.",
+        "wheel": "Die Verteilung des Wassers dreht sich mit dem Rad, oben läuft Wasser zu, überall leckt es heraus; die Schwerkraft dreht das Rad, wenn das Wasser seitlich liegt, und die Achse bremst.",
+        "lorenz": "Mit der Zeit in Einheiten der Lecks und passend skaliert sind es genau Lorenz' Gleichungen, die er 1963 aus einem Modell der Luftströmung gewann – mit b = 1 statt 8/3.",
+        "hopf": "Oberhalb dieser Zuflussrate ist auch das gleichmässige Drehen nicht mehr stabil: Das Rad wird chaotisch."
+      },
+      "symbols": {
+        "ab": "wie das Wasser verteilt ist: seitlich und oben gegen unten",
+        "omega": "die Drehrate des Rads",
+        "k": "wie schnell die Becher lecken",
+        "q": "wie viel Wasser oben zuläuft",
+        "nu": "die Bremse der Achse",
+        "i": "das Trägheitsmoment des Rads",
+        "r": "der Radius des Rads",
+        "x": "die Drehrate in Einheiten der Lecks",
+        "yz": "die Lage des Wasserschwerpunkts, passend skaliert",
+        "sigma": "die Bremse gegen Trägheit und Lecks",
+        "rho": "der Zufluss gegen Bremse und Lecks"
+      },
+      "sweet": {
+        "lorenz": "Die Drehzahl über 200 Sekunden. Lorenz suchte 1963 ein einfaches Modell für das Wetter und fand diese drei Gleichungen – und dass winzige Unterschiede am Anfang die Vorhersage nach kurzer Zeit wertlos machen. Das Wasserrad ist dieses Modell zum Anfassen.",
+        "chaotic": "In 200 Sekunden kehrt das Rad hier {{reversals}}-mal um, nie im selben Takt.",
+        "steady": "Bei diesem Zufluss dreht das Rad nach dem Anlaufen gleichmässig, mit {{rpm}} Umdrehungen pro Minute.",
+        "still": "Bei diesem Zufluss bleibt das Rad stehen."
+      },
+      "chart": {
+        "time": "Zeit"
+      },
+      "computed": {
+        "system": "Drei Gleichungen erster Ordnung, Lorenz' Gleichungen, mit dem Runge-Kutta-Verfahren in Schritten von einem Hundertstel der Leckzeit. Zurückgerechnet ergeben sie die Drehrate des Rads und wie voll jeder Becher ist. Der Test rechnet die Gleichungen des Rads selbst in Sekunden und findet dieselben Zahlen.",
+        "tau": "die Zeit in Einheiten der Lecks"
+      }
+    },
+    "foucault": {
+      "at": {
+        "swing": "Ein schweres Pendel an einem langen Seil schwingt ruhig hin und her, stundenlang. Nichts stösst es seitlich an – und doch zeigt seine Schwingebene nach einer Stunde in eine andere Richtung.",
+        "pins": "Ein Kranz von Kegeln steht am Boden; einer nach dem anderen fällt um, wenn die Ebene an ihm vorbeistreicht. In Winterthur dreht sie sich um 11,1° pro Stunde, im Uhrzeigersinn: eine ganze Runde in 32,5 Stunden."
+      },
+      "view": "Das Pendel von oben: die Schwingebene gestrichelt, die Spur der Kugel und der Kranz von Kegeln",
+      "play": {
+        "title": "Die Erde drehen lassen",
+        "hint": "Im Zeitraffer sehen Sie, wie die Ebene wandert und die Kegel fallen. Wählen Sie einen anderen Ort, und das Tempo ändert sich.",
+        "pause": "Anhalten",
+        "run": "Weiter",
+        "restart": "Von vorn",
+        "places_label": "Ort:",
+        "places": {
+          "winterthur": "Winterthur",
+          "pole": "Nordpol",
+          "equator": "Äquator",
+          "sydney": "Sydney"
+        },
+        "speed": "Zeitraffer",
+        "speeds": {
+          "1": "Echtzeit",
+          "60": "1 min pro s",
+          "600": "10 min pro s",
+          "3600": "1 h pro s"
+        },
+        "latitude": "Geografische Breite",
+        "latitude_hint": "Positiv im Norden, negativ im Süden.",
+        "hours": "Vergangen",
+        "turned": "Ebene gedreht",
+        "rate": "Pro Stunde",
+        "never": "Am Äquator dreht sich die Ebene nicht.",
+        "full_turn": "Eine ganze Runde dauert hier {{hours}} Stunden."
+      },
+      "change": {
+        "title": "Das Exponat verändern",
+        "hint": "Länge und Ausschlag ändern den Takt der Schwingung, nicht wie schnell sich die Ebene dreht.",
+        "length": "Länge des Pendels",
+        "amplitude": "Ausschlag"
+      },
+      "model": {
+        "intro": "Der Boden dreht sich mit der Erde. Wer auf ihm steht, sieht das Pendel darum von einer Kraft abgelenkt, die nur im drehenden Bezugssystem auftritt: der Corioliskraft.",
+        "coriolis": "Die Kugel wird zur Mitte zurückgezogen und von der Corioliskraft quer zu ihrer Bewegung abgelenkt – im Norden nach rechts.",
+        "latitude": "Wie schnell sich der Boden unter dem Pendel dreht, hängt von der Breite ab: am Pol mit der vollen Erddrehung, am Äquator gar nicht."
+      },
+      "symbols": {
+        "xy": "die Lage der Kugel über dem Boden",
+        "omega0": "die Kreisfrequenz der Schwingung",
+        "omega_z": "wie schnell sich der Boden unter dem Pendel dreht",
+        "omega": "die Drehung der Erde, einmal pro Sterntag",
+        "phi": "die geografische Breite"
+      },
+      "sweet": {
+        "floor": "Das Pendel hält seine Ebene im Raum, der Boden dreht sich darunter weg. In Winterthur mit {{rate}}° pro Stunde: Foucault hat 1851 so in Paris gezeigt, dass sich die Erde dreht, ohne in den Himmel zu schauen.",
+        "period": "Eine Schwingung dauert hier {{period}} s; die Ebene dreht sich davon unberührt. Ein kürzeres Pendel zeigt dasselbe, solange es lange genug weiterschwingt."
+      },
+      "chart": {
+        "rate": "Drehung pro Stunde",
+        "latitude": "Geografische Breite",
+        "here": "Hier"
+      },
+      "computed": {
+        "system": "Für kleine Ausschläge ist die Gleichung linear und hat eine geschlossene Lösung: eine Schwingung, deren Ebene sich mit dem Boden dreht. Die Seite kann damit jede Stunde sofort zeigen, ohne Schritt für Schritt dorthin zu rechnen; der Test prüft sie gegen eine Schrittrechnung über hundert Schwingungen.",
+        "zeta": "die Lage der Kugel als komplexe Zahl",
+        "a": "der Ausschlag beim Loslassen",
+        "omega_p": "die Kreisfrequenz der Schwingung im drehenden System"
+      }
+    },
+    "coriolis": {
+      "at": {
+        "seats": "Eine runde Plattform dreht sich langsam; zwei sitzen am Rand einander gegenüber und rollen sich einen Ball zu.",
+        "misses": "Der Ball biegt ab und verfehlt den anderen, obwohl ihn niemand anstösst. Bei 6 Umdrehungen pro Minute verfehlt ein gerader Wurf mit 3 m/s den anderen Sitz um 86°; wer 50° vorhält, trifft."
+      },
+      "view": "Das Karussell von oben: die beiden Sitze, die Wurfrichtung gestrichelt und die Bahn des Balls",
+      "play": {
+        "title": "Zielen und werfen",
+        "hint": "Werfen Sie einmal gerade auf den anderen Sitz, dann schalten Sie auf «Von aussen»: Dort fliegt der Puck geradeaus.",
+        "throw": "Werfen",
+        "aim_lead": "Vorhalt einstellen",
+        "frame": "Ansicht",
+        "frames": {
+          "riding": "Mitfahrend",
+          "outside": "Von aussen"
+        },
+        "body": "Was geworfen wird",
+        "bodies": {
+          "puck": "Gleitender Puck",
+          "ball": "Rollender Ball"
+        },
+        "aim": "Zielen",
+        "aim_hint": "Wie weit neben den anderen Sitz gezielt wird, im Gegenuhrzeigersinn positiv.",
+        "speed": "Tempo des Wurfs",
+        "rpm": "Drehzahl des Karussells",
+        "rpm_unit": "U/min",
+        "rpm_hint": "Positiv: im Gegenuhrzeigersinn, von oben gesehen.",
+        "miss": "Verfehlt um",
+        "flight": "Unterwegs",
+        "no_lead": "Mit diesem Tempo trifft kein Wurf den anderen Sitz: Er dreht sich zu schnell davon.",
+        "lead": "Vorhalten um {{lead}}° trifft."
+      },
+      "model": {
+        "intro": "Von aussen gesehen gibt es keine Kraft, die den Puck zur Seite drückt. Er hat beim Loslassen zweierlei Geschwindigkeit: den Wurf und das Tempo, mit dem der Werfer selbst am Rand mitfährt.",
+        "puck": "Darum fliegt er von aussen gesehen geradeaus – nur nicht dorthin, wohin der Werfer gezielt hat.",
+        "riding": "Wer mitfährt, sieht dieselbe Bahn gekrümmt. Er erklärt sie mit zwei Kräften, die nur im drehenden System auftreten: der Corioliskraft quer zur Bewegung und der Fliehkraft nach aussen.",
+        "ball": "Ein rollender Ball ist noch seltsamer: Die Scheibe dreht sich unter ihm weiter, und die Reibung, die ihn rollen lässt, dreht seine Geschwindigkeit stetig mit – mit 2/7 der Drehrate. Von aussen fährt er einen Kreis."
+      },
+      "symbols": {
+        "r0": "wo der Ball losgelassen wird",
+        "u": "der Wurf, gemessen auf dem Karussell",
+        "omega": "die Drehung des Karussells",
+        "primed": "Beschleunigung, Geschwindigkeit und Ort, wie sie ein Mitfahrer misst",
+        "k": "wie schwer der Ball in Drehung zu bringen ist: 2/5 für eine volle Kugel"
+      },
+      "sweet": {
+        "nobody": "Niemand stösst den Ball zur Seite. Die Kurve entsteht, weil man sich selbst mitdreht: Während der Ball unterwegs ist, fährt der andere Sitz weiter. Dieselbe «Kraft» lenkt auf der drehenden Erde die Winde in Tiefdruckgebiete hinein und lässt sie dort kreisen.",
+        "ball": "Und ein gerollter Ball ist auch von aussen nicht gerade: Weil er auf der drehenden Scheibe rollt, fährt er einen Kreis, mit 2/7 der Drehrate des Karussells."
+      },
+      "computed": {
+        "system": "Beide Bahnen sind geschlossen lösbar: der Puck auf einer Geraden, der Ball auf einem Kreis, beide von aussen gesehen und für den Mitfahrer zurückgedreht. Wo der Ball den Rand wieder erreicht, und wohin man zielen muss, um zu treffen, findet die Seite durch Halbieren. Der Test prüft die zurückgedrehte Bahn des Pucks gegen eine Schrittrechnung mit Coriolis- und Fliehkraft."
+      }
+    },
+    "cradle": {
+      "at": {
+        "row": "Fünf Stahlkugeln hängen an Fäden in einer Reihe und berühren sich gerade. Hebt man die erste an und lässt sie fallen, fliegt am anderen Ende die letzte weg; die drei dazwischen scheinen stillzustehen.",
+        "two": "Lässt man zwei fallen, fliegen zwei weg. Nach einer Weile beginnen auch die Kugeln in der Mitte zu schwingen."
+      },
+      "view": "Das Kugelstosspendel von vorn: der Balken, die Fäden und die Kugeln",
+      "play": {
+        "title": "Anheben und loslassen",
+        "hint": "Lassen Sie eine Kugel fallen, dann zwei. Mit 0,1 mm Luft zwischen den Kugeln geht die Rechnung genau auf.",
+        "let_go": "Loslassen",
+        "pause": "Anhalten",
+        "run": "Weiter",
+        "lifted": "Angehobene Kugeln",
+        "spacing": "Zwischen den Kugeln",
+        "spacings": {
+          "touching": "Berühren sich",
+          "gap": "0,1 mm Luft"
+        },
+        "speed": "Tempo",
+        "speeds": {
+          "100": "Echtzeit",
+          "25": "4× langsamer",
+          "10": "10× langsamer"
+        },
+        "angle": "Auslenkung",
+        "restitution": "Was ein Stoss zurückgibt",
+        "restitution_hint": "Der Anteil des Tempos, mit dem zwei Kugeln nach einem Stoss mit 1 m/s auseinandergehen. 1 heisst: kein Verlust.",
+        "far": "Energie am anderen Ende",
+        "far_hint": "Nach dem ersten Stoss: der Anteil der Energie, der in so vielen Kugeln am anderen Ende steckt, wie angehoben wurden.",
+        "duration": "Dauer des Stosses",
+        "peak": "Grösste Kraft",
+        "after": "Tempo nach dem ersten Stoss, von links nach rechts: {{speeds}} m/s",
+        "ball": "Kugel {{n}}"
+      },
+      "chart": {
+        "widest": "Weitester Ausschlag",
+        "time": "Zeit",
+        "caption": "Sekunde für Sekunde der weiteste Ausschlag jeder Kugel, seit dem Loslassen"
+      },
+      "model": {
+        "intro": "Jede Kugel ist ein Pendel. Zwei Kugeln drücken nur dort aufeinander, wo sie sich ein wenig eindrücken – nach dem Gesetz von Hertz, das mit der Eindrückung immer steifer wird.",
+        "hertz": "Die Kraft zwischen zwei Kugeln wächst mit der Eindrückung hoch 3/2; der zweite Faktor nimmt dem Stoss ein wenig Energie.",
+        "brief": "Lässt man eine Kugel von 64 g aus 30° fallen, dauert ihr Stoss rund 0,2 Millisekunden, und in diesem Augenblick drücken die Kugeln mit fast 900 N aufeinander – so viel wie das Gewicht von 90 kg.",
+        "swing": "Jede Kugel schwingt an ihren Fäden und wird von ihren Nachbarn gestossen.",
+        "why": "Treffen Kugeln einander einzeln, bleiben Impuls und Energie erhalten, und für gleiche Kugeln heisst das: Sie tauschen ihr Tempo. Zwei Kugeln mit halbem Tempo hätten denselben Impuls, aber nur halb so viel Energie."
+      },
+      "symbols": {
+        "f": "die Kraft zwischen zwei Kugeln",
+        "delta": "wie weit sich die beiden eindrücken",
+        "k": "die Steifigkeit zweier Kugeln nach Hertz",
+        "e_star": "die Steifigkeit des Stahls: Elastizitätsmodul E, Querzahl ν",
+        "r_star": "der wirksame Radius zweier gleicher Kugeln vom Durchmesser d",
+        "alpha": "die Dämpfung im Stahl, bei 1 m/s aus e bestimmt",
+        "e": "der Anteil des Tempos, den ein Stoss zurückgibt",
+        "theta": "der Winkel der i-ten Kugel",
+        "l": "die Länge vom Aufhängepunkt bis zur Mitte der Kugel",
+        "m": "die Masse einer Kugel",
+        "g": "die Erdbeschleunigung",
+        "fi": "die Kraft zwischen der i-ten Kugel und ihrer rechten Nachbarin",
+        "v": "das Tempo der fallenden Kugel unten"
+      },
+      "sweet": {
+        "wave": "Die Kugeln berühren sich, also treffen sie einander nicht eine nach der anderen: Der Stoss läuft als Welle durch die Reihe. Weil der Kontakt nach Hertz mit der Eindrückung steifer wird, bleibt diese Welle kurz und kommt fast ganz in der letzten Kugel an – 97 % der Energie. Den Rest behalten die anderen; die erste prallt sogar ein wenig zurück.",
+        "gap": "Mit 0,1 mm Luft zwischen den Kugeln treffen sie einander wieder einzeln, und die Rechnung geht auf: 99,9 % der Energie in der letzten Kugel.",
+        "two": "Lässt man zwei fallen, laufen zwei Wellen hintereinander durch die Reihe. Die letzte Kugel fliegt mit 0,70 m/s davon, die zweitletzte mit 0,49 m/s – nicht beide mit den 0,63 m/s, mit denen die zwei hereinkamen. Zusammen tragen sie trotzdem 97 % der Energie.",
+        "together": "Was in der Reihe bleibt, wächst mit jedem Stoss, wenn die Stösse etwas Energie verlieren: In der vierten Sekunde schwingt die mittlere Kugel schon 2,5° weit aus. Gibt jeder Stoss alles zurück (e = 1), bleibt sie fast stehen."
+      },
+      "computed": {
+        "system": "Jede Kugel wird schrittweise mit Runge–Kutta gerechnet: eine Millisekunde auf einmal, solange alle frei schwingen, eine Mikrosekunde, solange sich zwei berühren oder gleich berühren. Die Zahlen zum Stoss stammen aus dem ersten Treffen der fallenden Kugeln mit den hängenden. Drücken die Kugeln lange aufeinander, kommt die Seite nicht immer nach und läuft dann kurz langsamer. Der Test prüft die grösste Kraft zwischen zwei Kugeln gegen die geschlossene Formel von Hertz, und dass mit Luft zwischen den Kugeln genau eine hinausfliegt, so schnell, wie die erste hereinkam."
+      }
+    },
+    "well": {
+      "at": {
+        "funnel": "Ein weiter Trichter, aussen fast flach, gegen die Mitte immer steiler. Eine Kugel, am Rand angestossen, kreist lange um das Loch in der Mitte.",
+        "faster": "Mit jeder Runde kreist sie tiefer und schneller, zuletzt in einem Wirbel, bis sie hineinfällt."
+      },
+      "view_top": "Der Trichter von oben: Höhenlinien alle 2 cm, das Loch, die Kugel und ihre Spur",
+      "view_side": "Der Trichter im Schnitt von der Seite, mit der Kugel auf ihrer Höhe",
+      "play": {
+        "title": "Anstossen und kreisen lassen",
+        "hint": "«Kreisbahn» stösst die Kugel genau so schnell an, dass sie ohne Reibung im Kreis bliebe. Mit Reibung sinkt sie Runde für Runde; das Diagramm vergleicht jede Runde mit Kepler.",
+        "launch": "Anstossen",
+        "circle": "Kreisbahn",
+        "pause": "Anhalten",
+        "run": "Weiter",
+        "speed": "Tempo",
+        "speeds": {
+          "1": "Echtzeit",
+          "4": "4× schneller"
+        },
+        "push": "Tempo des Anstosses",
+        "aim": "Richtung",
+        "aim_hint": "Gegen die Richtung des Rands, positiv zum Loch hin.",
+        "resistance": "Rollwiderstand",
+        "resistance_hint": "Der Anteil der Kraft, mit der die Wand drückt, der die Kugel bremst. 0 heisst: keine Reibung.",
+        "laps": "Runden",
+        "last_lap": "Letzte Runde",
+        "distance": "Abstand zur Mitte",
+        "speed_now": "Tempo",
+        "dropped": "Ins Loch gefallen, nach {{t}} s und {{laps}} Runden.",
+        "out": "Über den Rand hinausgerollt: zu schnell oder zu steil nach aussen angestossen."
+      },
+      "chart": {
+        "lap": "Runde der Kugel",
+        "kepler": "Kreisbahn nach Kepler",
+        "period": "Umlaufzeit",
+        "radius": "Mittlerer Abstand der Runde",
+        "caption": "Jede Runde der Kugel neben der Umlaufzeit eines Kreises in diesem Abstand"
+      },
+      "model": {
+        "intro": "Die Kugel rollt auf der Wand des Trichters. Wie bei einem Planeten zählt, wie stark es sie zur Mitte zieht – hier ist es die Neigung der Wand.",
+        "wall": "Die Wand des Trichters: je näher an der Mitte, desto tiefer, und ihre Neigung nimmt nach aussen mit 1/r² ab.",
+        "circle": "Auf einem Kreis liefert die Neigung die Kraft zur Mitte – mit 1/r², wie die Schwerkraft der Sonne. Das 5/7 kommt vom Rollen: Ein Teil jedes Schubs bringt die Kugel ins Drehen.",
+        "kepler": "Daraus folgt Keplers drittes Gesetz: Das Quadrat der Umlaufzeit wächst mit der dritten Potenz des Abstands.",
+        "resistance": "Der Rollwiderstand bremst die Kugel mit einem kleinen Teil der Kraft, mit der die Wand gegen sie drückt."
+      },
+      "symbols": {
+        "z": "die Höhe der Wand, gemessen von der Höhe, der sie sich nach aussen nähert",
+        "r": "der Abstand von der Mitte",
+        "k": "die Form des Trichters",
+        "v": "das Tempo der Kugel",
+        "g": "die Erdbeschleunigung",
+        "t": "die Umlaufzeit",
+        "f": "die bremsende Kraft",
+        "c": "der Rollwiderstand",
+        "n": "die Kraft, mit der die Wand gegen die Kugel drückt"
+      },
+      "sweet": {
+        "kepler": "Je tiefer, desto schneller – wie Merkur gegenüber Neptun. Am Start, zwölfmal so weit von der Mitte wie der Rand des Lochs, dauert eine Runde 5,1 s, am Loch nur 0,12 s: 42-mal weniger. Das ist Keplers drittes Gesetz, und der Trichter hält es ein, weil seine Neigung nach aussen abnimmt wie die Schwerkraft der Sonne: Jede Runde der Kugel trifft die Umlaufzeit ihres Kreises auf 3 % genau.",
+        "faster": "Die Reibung bremst die Kugel – und doch wird sie schneller. Sie verliert Energie, sinkt auf einen tieferen Kreis, und dort ist das Kreistempo höher. Vom Kreis am Start fällt sie nach 46 s und 75 Runden ins Loch, 42 davon in den letzten 10 Sekunden, zuletzt mehr als dreimal so schnell wie am Start. Auch ein Satellit, den die dünne Luft bremst, sinkt und wird dabei schneller.",
+        "rosette": "Hier hört der Vergleich auf. Ohne Reibung und nicht genau im Kreis angestossen – mit 0,30 m/s statt 0,44 m/s – schliesst sich die Bahn nicht zu einer Ellipse wie die eines Planeten: Ihr nächster Punkt zur Mitte wandert jede Runde um 40° weiter. Die steile Wand und ihre Krümmung reden mit."
+      },
+      "computed": {
+        "system": "Die Kugel rollt, ohne zu gleiten; ihr Drehen zählt als 2/5 zusätzliche Trägheit, so dass jeder Schub entlang der Wand sie zu 5/7 bewegt. Die Bewegungsgleichungen auf der Fläche, in Abstand und Winkel, werden mit Runge–Kutta in Schritten von einer Millisekunde gelöst. Der Rollwiderstand wirkt gegen die ganze Kraft, mit der die Wand drückt, auch gegen den Teil, der die Kugel auf ihrer gekrümmten Bahn hält. Der Test prüft Energie und Drehimpuls ohne Reibung, die Kreisbahn und die Zeit bis zum Loch gegen eine unabhängige Rechnung aus der Energie der Kreise.",
+        "left_out": "Weggelassen: das Drehen der Kugel um die Senkrechte zur Wand, ihre Grösse gegenüber der Krümmung der Wand, die Luft. Eine Münze, die auf ihrem Rand rollt und sich neigt, ist ein anderes Problem."
+      }
+    },
+    "resonance": {
+      "at": {
+        "rods": "Sechs Stahlstäbe verschiedener Länge stehen eingespannt in einem Tisch, den ein Motor ein wenig hin und her rüttelt.",
+        "one": "Bei einem bestimmten Takt schwingt ein einziger Stab weit aus, die anderen bleiben fast ruhig. Etwas schneller, und ein anderer übernimmt."
+      },
+      "view": "Die Stäbe von vorn auf ihrem Tisch, unter jedem seine Eigenfrequenz",
+      "play": {
+        "title": "Den Takt suchen",
+        "hint": "Rütteln Sie den Tisch und verschieben Sie den Takt langsam. «Durchfahren» steigert ihn von selbst und zeichnet auf, wie weit jeder Stab dabei schwingt.",
+        "shake": "Rütteln",
+        "stop": "Anhalten",
+        "sweep": "Durchfahren",
+        "calm": "Zur Ruhe",
+        "speed": "Tempo",
+        "speeds": {
+          "1": "Echtzeit",
+          "4": "4× schneller"
+        },
+        "beat": "Takt des Tisches",
+        "beat_hint": "Wie oft der Tisch in der Sekunde hin und her geht.",
+        "sweeping": "Der Takt steigt um 0,05 Hz pro Sekunde; ziehen Sie den Regler, um anzuhalten.",
+        "damping": "Dämpfung",
+        "damping_hint": "Wie schnell ein Stab von selbst zur Ruhe kommt: der Anteil der Dämpfung, bei der er gar nicht mehr schwingen würde.",
+        "sound": "Ton",
+        "sound_hint": "Jeder Stab klingt mit seiner Eigenfrequenz, sieben Oktaven höher, und so laut, wie er schwingt.",
+        "no_sound": "Dieser Browser kann keine Töne erzeugen.",
+        "widest": "Weitester Ausschlag",
+        "table": "Der Tisch, hin und her",
+        "rod": "Stab {{n}} ({{hz}} Hz)"
+      },
+      "chart": {
+        "swing": "Ausschlag der Spitze",
+        "beat": "Takt des Tisches",
+        "swept": "Stab {{n}}, beim Durchfahren",
+        "caption": "Wie weit jeder Stab schwingt, wenn der Tisch lange genug im selben Takt rüttelt; gestrichelt, was beim Durchfahren davon ankommt"
+      },
+      "model": {
+        "intro": "Jeder Stab ist unten eingespannt und oben frei. Von seinen Schwingungsformen zählt hier nur die erste: der ganze Stab biegt sich nach einer Seite.",
+        "frequency": "Seine Eigenfrequenz: je länger der Stab, desto tiefer – mit dem Quadrat der Länge.",
+        "motion": "Der Tisch rüttelt, und seine Beschleunigung schiebt jeden Stab an, gewichtet mit Γ = 1,566 für die Form der ersten Schwingung. Die Dämpfung nimmt ihm dabei Schwung.",
+        "steady": "Lange genug im selben Takt gerüttelt, schwingt die Spitze so weit. Im Gleichschritt (r = 1) ist das Γ·Y/(2ζ)."
+      },
+      "symbols": {
+        "beta": "die erste Lösung von cosh β · cos β = −1: 1,8751",
+        "l": "die Länge des Stabs",
+        "e": "der Elastizitätsmodul des Stahls",
+        "i": "das Flächenmoment des runden Stabs vom Durchmesser d",
+        "rho": "die Dichte des Stahls",
+        "a": "der Querschnitt",
+        "q": "wie weit die Spitze gegenüber dem Tisch ausschlägt",
+        "omega": "die Eigenfrequenz als Kreisfrequenz",
+        "zeta": "die Dämpfung, als Anteil der Dämpfung, bei der der Stab gar nicht mehr schwingen würde",
+        "gamma": "wie stark das Rütteln die Form der ersten Schwingung anschiebt",
+        "yb": "wo der Tisch gerade ist",
+        "r": "der Takt des Tisches, geteilt durch die Eigenfrequenz",
+        "y": "wie weit der Tisch hin und her geht"
+      },
+      "sweet": {
+        "step": "Ein kleiner Anstoss im richtigen Takt bewegt mehr als ein grosser im falschen. Der Tisch geht nur 1 mm hin und her; im Gleichschritt mit dem 80 cm langen Stab, bei 2,21 Hz, schwingt dessen Spitze 78 mm weit, seine Nachbarn höchstens 4 mm. Drei Prozent neben dem Takt sind es nur noch 26 mm.",
+        "patience": "Resonanz braucht Geduld: Bei 2,21 Hz wächst der Ausschlag in 7,2 s erst auf knapp zwei Drittel. Wer schneller durchfährt, verpasst sie: Mit 0,05 Hz pro Sekunde schwingt derselbe Stab höchstens 40 mm weit, halb so weit, und erst bei 2,4 Hz.",
+        "everywhere": "Derselbe Gleichschritt lässt ein Glas unter dem richtigen Ton zerspringen, eine Brücke unter Marschschritten schwingen und eine Saite den Ton eines Instruments aufnehmen."
+      },
+      "computed": {
+        "system": "Jeder Stab wird als eine einzige Schwingung gerechnet: seine erste Form mit ihrer Eigenfrequenz, angeschoben vom Rütteln des Tisches, mit Runge–Kutta in Schritten von einer Millisekunde. Beim Durchfahren steigt der Takt zwischen den Schritten. Der Test hält die Konstanten der ersten Form an die Werte jeder Tabelle (β₁² = 3,516, Γ = 1,566) und die schrittweise Rechnung an die geschlossene Formel.",
+        "sound": "Der Ton entsteht im Browser und ist aus, bis Sie ihn einschalten; nichts davon wird gespeichert oder gesendet.",
+        "left_out": "Weggelassen: die höheren Schwingungsformen (die zweite liegt 6,27-mal höher), die Versteifung des Stabs bei weiten Ausschlägen, das Nachgeben des Tisches."
+      }
+    },
+    "gyroscope": {
+      "at": {
+        "wheel": "Ein schweres Rad auf einer Achse hängt an einem Ende der Achse an einem Faden. Lässt man es stillstehend los, fällt es sofort herunter. Dreht es sich schnell, bleibt die Achse fast waagrecht, und das Rad wandert langsam im Kreis um den Faden.",
+        "suitcase": "Daneben steht ein Koffer, in dem ein solches Rad dreht. Wer ihn trägt und um eine Ecke drehen will, spürt ihn seitlich kippen."
+      },
+      "view": "Das Rad am Faden, schräg von oben, eine Speiche farbig",
+      "trace": "Die Spur der Achse: wie weit sie unter ihre Starthöhe sinkt, über die letzte Runde um den Faden",
+      "trace_caption": "Die Spur der Achse über die letzte Runde um den Faden: wie weit sie unter die Starthöhe sinkt",
+      "play": {
+        "title": "Drehen und loslassen",
+        "hint": "Lassen Sie das Rad einmal still los, dann mit 200 U/min. Viermal langsamer gezeigt, sieht man die Achse nicken.",
+        "let_go": "Loslassen",
+        "pause": "Anhalten",
+        "run": "Weiter",
+        "start": "Beim Loslassen",
+        "starts": {
+          "rest": "In Ruhe",
+          "steady": "Schon im Kreis"
+        },
+        "speed": "Tempo",
+        "speeds": {
+          "100": "Echtzeit",
+          "25": "4× langsamer"
+        },
+        "rpm": "Drehzahl des Rads",
+        "rpm_unit": "U/min",
+        "tilt": "Neigung der Achse",
+        "tilt_hint": "Gegen die Senkrechte nach oben: 90° heisst waagrecht.",
+        "round": "Einmal um den Faden",
+        "nods": "Nicken pro Sekunde",
+        "dip": "Achse sinkt um",
+        "suitcase": "Koffer drehen",
+        "suitcase_hint": "Wer den Koffer mit diesem Rad eine Vierteldrehung pro Sekunde um die Ecke dreht, muss quer dazu dieses Drehmoment aufbringen.",
+        "dropped": "Ohne Drehung fällt das Rad: Nach {{t}} s hängt es fast senkrecht."
+      },
+      "model": {
+        "intro": "Ein drehendes Rad hat einen Drehimpuls entlang seiner Achse. Die Schwerkraft zieht am Rad, der Faden hält das Ende der Achse: Das ergibt ein Drehmoment quer zur Achse, waagrecht.",
+        "torque": "Ein Drehmoment ändert den Drehimpuls in seine eigene Richtung – und die ist waagrecht, quer zur Achse. Also dreht sich die Achse zur Seite, statt zu fallen.",
+        "precession": "Wie schnell die Achse um den Faden wandert: je schneller das Rad dreht, desto langsamer.",
+        "lagrange": "Was die Seite rechnet: die Neigung der Achse nach Lagrange, für einen Kreisel mit einem festen Punkt. Der Drehimpuls um die Achse und der um den Faden bleiben dabei erhalten.",
+        "suitcase": "Wer die Achse dreht, muss quer dazu dieses Drehmoment aufbringen; fehlt es, kippt der Koffer."
+      },
+      "symbols": {
+        "l": "der Drehimpuls des Rads",
+        "m": "das Drehmoment",
+        "omega_p": "wie schnell die Achse um den Faden wandert",
+        "mass": "die Masse des Rads",
+        "d": "der Abstand vom Faden bis zur Mitte des Rads",
+        "i3": "das Trägheitsmoment um die Achse: ein Reifen vom Radius r",
+        "omega3": "wie schnell das Rad auf seiner Achse dreht",
+        "theta": "die Neigung der Achse gegen die Senkrechte",
+        "phi": "wie weit die Achse um den Faden gewandert ist",
+        "i1": "das Trägheitsmoment quer zur Achse, um ihr Ende",
+        "turn": "wie schnell der Koffer gedreht wird"
+      },
+      "sweet": {
+        "sideways": "Das Rad weicht nicht in die Richtung aus, in die es gezogen wird, sondern quer dazu. Ohne Drehung hängt es nach 0,37 s fast senkrecht; mit 200 Umdrehungen pro Minute bleibt die Achse oben und wandert in 8,1 s einmal um den Faden. Doppelt so schnell gedreht, wandert sie halb so schnell.",
+        "nod": "Ganz ohne Fallen geht es aber nicht: Losgelassen sinkt die Achse zuerst um 3,2°, schiesst über die gleichmässige Wanderung hinaus und kommt zurück – sie nickt, gut viermal pro Sekunde, und ihre Spur zeichnet Bögen mit Spitzen. So tief, wie Energie und die beiden erhaltenen Drehimpulse es erlauben, und nicht tiefer.",
+        "suitcase": "Darum kippt der Koffer: Ihn mit diesem Rad eine Vierteldrehung pro Sekunde um die Ecke zu drehen, verlangt quer dazu 5,9 N·m – so viel wie 600 g am Ende eines Meterstabs."
+      },
+      "computed": {
+        "system": "Das Rad ist ein symmetrischer Kreisel mit festem Punkt, dem Ende der Achse am Faden; seine Masse sitzt im Reifen. Nach Lagrange bleiben zwei Drehimpulse erhalten, der um die Achse und der um den Faden; schrittweise gerechnet wird nur die Neigung, mit Runge–Kutta in Schritten von einer Millisekunde. Der Test prüft die Energie, die gleichmässige Wanderung und wie tief die Achse sinkt, gegen die Rechnung aus den Erhaltungsgrössen allein.",
+        "left_out": "Weggelassen: dass der Faden selbst pendelt und sich dehnt (sein Ende ist der feste Punkt), die Reibung im Lager und am Faden, die Luft. Speichen und Nabe zählen neben dem Reifen nicht."
+      }
+    },
+    "arch": {
+      "at": {
+        "stones": "Aus losen Steinen, ohne Mörtel, wird ein Bogen gebaut. Steht der letzte Stein in der Mitte, trägt sich der Bogen selbst und dazu noch eine Last.",
+        "chain": "Daneben hängt eine Kette zwischen zwei Haken. Auf den Kopf gestellt, ist ihre Form die beste Form für einen Bogen."
+      },
+      "view": "Der Bogen von vorn: die Steine, die Stützlinie, die Fugen, an denen er sich zuerst öffnen würde, und die Last",
+      "play": {
+        "title": "Einen Bogen bauen",
+        "hint": "Machen Sie den Halbkreis dünner, bis er bricht, und wechseln Sie dann zum Kettenbogen. Stellen Sie eine Last darauf und schieben Sie sie hin und her.",
+        "shape": "Form",
+        "shapes": {
+          "semicircle": "Halbkreis",
+          "pointed": "Spitzbogen",
+          "catenary": "Kettenbogen"
+        },
+        "thickness": "Dicke der Steine",
+        "thickness_hint": "Von der Innen- zur Aussenseite des Bogens; die Spannweite beträgt 2 m.",
+        "stones": "Anzahl Steine",
+        "load": "Last",
+        "load_hint": "Gemessen am Gewicht des Bogens selbst.",
+        "at": "Lage der Last",
+        "at_hint": "Von der Mitte aus: −100 % am linken, 100 % am rechten Fuss.",
+        "chain": "Kette zeigen",
+        "chain_hint": "Die hängende Kette, auf den Kopf gestellt, durch die beiden Füsse und so hoch wie der Bogen.",
+        "safety": "Sicherheit",
+        "thrust": "Schub am Fuss",
+        "weight": "Gewicht des Bogens",
+        "stands": "Der Bogen steht: Die Stützlinie bleibt überall im Stein.",
+        "falls": "Der Bogen bricht: Keine Stützlinie bleibt überall im Stein. An den roten Fugen öffnet er sich."
+      },
+      "model": {
+        "intro": "Ein Stein drückt nur, er zieht nicht. Ein Bogen aus losen Steinen steht darum, solange jede Fuge zusammengedrückt wird und die Linie, entlang der der Druck läuft – die Stützlinie –, jede Fuge innerhalb des Steins kreuzt.",
+        "chain": "Die hängende Kette, auf den Kopf gestellt: Sie wird nur entlang ihrer selbst gezogen. Ein Bogen dieser Form wird nur entlang seiner selbst gedrückt.",
+        "joint": "Wo die Stützlinie die Fuge j kreuzt: das Drehmoment aller Kräfte links der Fuge um ihre Mitte, geteilt durch die Kraft quer durch die Fuge. Beides hängt vom Schub am Fuss ab, und den sucht die Seite so, dass die Linie möglichst in der Mitte bleibt.",
+        "stands": "Der Bogen steht, wenn eine Linie jede Fuge innerhalb des Steins kreuzt. Das kleinste λ, für das es eine solche Linie gibt, sagt, wie knapp: 1/λ ist die Sicherheit."
+      },
+      "symbols": {
+        "x": "der Abstand von der Mitte",
+        "h": "die Höhe des Bogens über seinen Füssen",
+        "a": "der Parameter der Kettenlinie",
+        "e": "wie weit die Stützlinie die Fuge neben ihrer Mitte kreuzt",
+        "m": "das Drehmoment aller Kräfte links der Fuge um ihre Mitte",
+        "n": "die Kraft quer durch die Fuge",
+        "t": "die Dicke der Steine",
+        "lambda": "wie weit die Linie höchstens von der Mitte abweicht, als Anteil der halben Dicke"
+      },
+      "sweet": {
+        "chain": "Die beste Form eines Bogens ist eine hängende Kette, umgedreht – so hat Robert Hooke es 1675 notiert, und Antoni Gaudí hat mit hängenden Ketten entworfen. Im Kettenbogen bleibt die Stützlinie unter dem eigenen Gewicht in der Mitte der Steine, um weniger als ein Hundertstel der halben Dicke daneben, wie dick die Steine auch sind.",
+        "semicircle": "Der Halbkreis hat diese Form nicht. Er steht nur, wenn seine Steine mindestens 10,75 % so dick sind wie sein Radius – 10,7 % bei sechzehn Steinen. Mit 10 cm auf einen Meter bricht er; ein Spitzbogen gleicher Spannweite und Dicke steht.",
+        "load": "Eine Last verschiebt die Stützlinie. Steht sie am Viertelpunkt, bricht der Halbkreis mit 25 cm Dicke schon bei 80 % seines eigenen Gewichts, der Kettenbogen gleicher Höhe erst bei 141 %."
+      },
+      "computed": {
+        "system": "Der Bogen wird in gleich lange Steine geschnitten, die Fugen quer zur Mittellinie; jeder Stein wiegt so viel wie sein Viereck und drückt in dessen Schwerpunkt. Für jede Fuge hängen Druck und Drehmoment linear vom Schub, vom Auflager und von dessen Drehmoment ab; die Seite schneidet aus allen möglichen Werten jene heraus, die jede Fuge im Stein kreuzen, und sucht durch Halbieren das kleinste λ. Der Test findet für den Halbkreis die kleinste Dicke von 10,75 % des Radius, die Milankovitch 1907 berechnet hat.",
+        "left_out": "Weggelassen: das Rutschen der Steine (die Reibung hält), ihr Zerdrücken (sie sind fest genug), das Nachgeben der Widerlager. Die Seite zeigt, wo ein Bogen aufbricht, nicht, wie er fällt."
+      }
+    },
+    "chladni": {
+      "at": {
+        "plate": "Eine quadratische Metallplatte ist in der Mitte auf einem Rüttler befestigt, Sand ist darauf gestreut. Der Rüttler wird mit einem langsam steigenden Ton angetrieben.",
+        "sand": "Bei bestimmten Tönen klingt die Platte laut, und der Sand läuft zu Linien zusammen und bleibt dort liegen – bei jedem dieser Töne ein anderes Muster."
+      },
+      "view": "Die Platte von oben mit dem Sand darauf",
+      "play": {
+        "title": "Den Ton wählen",
+        "hint": "Wählen Sie einen der Töne der Platte, oder fahren Sie mit dem Regler langsam durch. Zwischen den Tönen springt der Sand nur wenig, und kein Muster entsteht.",
+        "restrew": "Sand neu streuen",
+        "tones": "Die Töne, bei denen die Platte klingt",
+        "drive": "Ton des Rüttlers",
+        "drive_hint": "Logarithmisch: jeder gleiche Schritt ist ein gleiches Tonintervall.",
+        "sound": "Ton",
+        "sound_hint": "Der Ton des Rüttlers, laut, wenn die Platte klingt, leise dazwischen.",
+        "no_sound": "Dieser Browser kann keine Töne erzeugen.",
+        "nearest": "Nächster Ton der Platte",
+        "swing": "Schwingung in der Mitte",
+        "swing_hint": "Wie stark die Mitte der Platte schwingt, gemessen an ihrem Schwingen beim tiefsten Ton."
+      },
+      "model": {
+        "intro": "Eine dünne Platte biegt sich, und ihre Steifigkeit wehrt sich dagegen. Wie bei einer Saite gibt es Töne, bei denen sie von selbst weiterschwingt; zu jedem gehört eine Form mit Linien, die stillstehen.",
+        "plate": "Die Gleichung der dünnen Platte: Ihre Biegesteifigkeit hält ihrer Trägheit die Waage. Die Ränder sind frei.",
+        "tones": "Die Töne: λ hängt nur von der Form ab, die Grösse und das Material der Platte setzen die Tonhöhe.",
+        "driven": "In der Mitte gerüttelt, antwortet die Platte mit der Summe ihrer Formen, jede umso stärker, je näher ihr Ton am Ton des Rüttlers liegt, und nur, wenn sie sich in der Mitte bewegt."
+      },
+      "symbols": {
+        "w": "wie weit sich die Platte aus der Ruhe biegt",
+        "d": "die Biegesteifigkeit der Platte",
+        "rho": "die Dichte des Stahls",
+        "h": "die Dicke der Platte",
+        "omega": "die Kreisfrequenz eines Tons",
+        "e": "der Elastizitätsmodul",
+        "nu": "die Querzahl, hier 0,3",
+        "f": "die Tonhöhe",
+        "lambda": "die Kennzahl einer Form, für alle quadratischen Platten gleich",
+        "a": "die Seitenlänge der Platte",
+        "phi": "die k-te Form der Platte",
+        "big_omega": "die Kreisfrequenz des Rüttlers",
+        "zeta": "die Dämpfung jeder Form"
+      },
+      "sweet": {
+        "still": "Der Sand sammelt sich dort, wo die Platte gar nicht schwingt: auf den Knotenlinien. Überall sonst wird er hochgeworfen, bis er auf eine fällt, und dort bleibt er liegen.",
+        "tones": "Die Töne einer Platte sind keine Obertöne. Eine Stahlplatte von 24 cm Seitenlänge und 1 mm Dicke, in der Mitte gerüttelt, klingt bei 102, 269 und 517 Hz – dem 2,62- und dem 5,05-Fachen des tiefsten, nicht dem Doppelten und Dreifachen wie eine Saite.",
+        "middle": "Gerüttelt in der Mitte, zeigt die Platte nur die Formen, die sich dort bewegen. Ihr tiefster Ton überhaupt, bei dem sie sich verdrillt, hat in der Mitte einen Knoten und bleibt stumm.",
+        "history": "Ernst Chladni zeigte die Figuren 1787. Die Gleichung der Platte fand Sophie Germain, die dafür 1816 den Preis der Pariser Akademie erhielt; die Bedingungen der freien Ränder brachte Gustav Kirchhoff 1850 in Ordnung."
+      },
+      "computed": {
+        "system": "Die Durchbiegung wird als Summe von Produkten von Legendre-Polynomen bis zum Grad 20 geschrieben; nach Ritz sind die Formen jene, bei denen die Energie stillsteht. Ihre Eigenwerte findet der Server mit Jacobis Drehungen, einmal, und schickt die Formen; die Seite summiert sie für jeden Ton. Der Test hält die ersten Werte an Leissas Tabelle (13,468 · 19,596 · 24,270 · 34,801 · 63,686). Der Sand ist eine Zeichenregel: Körner werden hochgeworfen, wo die Platte schwingt, und rutschen dorthin, wo sie stillsteht.",
+        "left_out": "Weggelassen: der Halt des Rüttlers in der Mitte (seine Masse und Steifigkeit verschieben die Töne etwas), die Dicke der Platte neben ihrer Grösse, und wie Sand wirklich springt."
+      }
+    },
+    "levitation": {
+      "at": {
+        "top": "Auf einer Platte über einem Sockel mit einem Ringmagneten wird ein kleiner Kreisel angedreht, in dessen Teller ein Magnet steckt. Hebt man die Platte langsam an, löst sich der Kreisel und schwebt drehend einige Zentimeter über dem Sockel.",
+        "weight": "Damit es gelingt, muss er genau richtig wiegen: Mit kleinen Unterlegscheiben auf der Spindel wird er abgestimmt. Ist er zu schwer, sinkt er auf die Platte; ist er zu leicht, rutscht er zur Seite weg."
+      },
+      "view": "Der Kreisel über dem Ringmagneten, im Schnitt: das Fenster, in dem er schweben kann, und wo er steht",
+      "play": {
+        "title": "Den Kreisel abstimmen",
+        "hint": "Ändern Sie das Gewicht des Kreisels in Hundertstelgramm, bis er landet oder wegrutscht. Dann machen Sie den Raum wärmer oder kälter.",
+        "mass": "Gewicht des Kreisels",
+        "mass_hint": "Beim Spielzeug: Unterlegscheiben auf der Spindel. Der Magnet im Kreisel besteht aus 2 cm³ Ferrit.",
+        "warming": "Wärmer oder kälter",
+        "warming_hint": "Um so viel wärmer (oder kälter) als beim Abstimmen. Ferrit verliert pro Grad etwa 0,2 % seiner Magnetisierung, im Sockel wie im Kreisel.",
+        "hovers": "Der Kreisel schwebt: Sein Gewicht und der Auftrieb gleichen sich innerhalb des Fensters aus.",
+        "lands": "Zu schwer: Selbst am Fuss des Fensters, wo der Auftrieb am grössten ist, trägt ihn das Feld nicht. Er landet auf der Platte.",
+        "slides": "Zu leicht: Er fände sein Gleichgewicht erst über dem Fenster, wo ihn das Feld seitlich nicht mehr hält. Er rutscht weg.",
+        "height": "Schwebehöhe",
+        "lightest": "Leichtester",
+        "heaviest": "Schwerster",
+        "bob": "Auf und ab",
+        "drift": "Seitlich"
+      },
+      "chart": {
+        "title": "Auftrieb und Gewicht",
+        "hint": "Der Auftrieb des Feldes über dem Ring, ausgedrückt als die Masse, die er trägt. Wo die Kurve das Gewicht kreuzt, liegt das Gleichgewicht; stabil ist es nur zwischen den beiden Linien des Fensters.",
+        "height": "Höhe über dem Ring",
+        "lift": "Auftrieb",
+        "weight": "Gewicht",
+        "window": "Fenster"
+      },
+      "model": {
+        "intro": "Ein Magnet, den man über einem anderen festhält und loslässt, kippt um oder rutscht weg: Keine Anordnung fester Magnete hält einen Magneten stabil in der Schwebe (Earnshaw). Der drehende Kreisel kann nicht kippen. Seine Drehung hält seinen Magneten gegen das Feld gerichtet, in dem er sich befindet; ändert das Feld seine Richtung, dreht er sich langsam mit. Dann zählt für ihn nur die Stärke des Feldes, nicht seine Richtung – und eine schwächste Stelle des Feldes erlaubt der freie Raum.",
+        "energy": "Die Energie des Kreisels: seine Höhe im Schwerefeld und die Stärke des Feldes, gegen das sein Magnet zeigt. Er wird dorthin gedrückt, wo das Feld schwächer ist.",
+        "field": "Das Feld auf der Achse des Rings: Ein gleichmässig magnetisierter Ring wirkt wie eine äussere Spule minus eine innere.",
+        "solenoid": "Der Beitrag einer Spule vom Radius a, zwischen der Unterseite des Rings (z + t) und seiner Oberseite (z), von der aus gemessen wird.",
+        "balance": "Der Kreisel schwebt, wo sein Gewicht dem Auftrieb gleicht: Das Feld wird nach oben schwächer, und es drückt ihn umso stärker, je rascher es abnimmt.",
+        "window": "Stabil ist das Gleichgewicht nur, wenn das Feld ihn nach oben und unten zurückholt (links) und von der Seite her (rechts; neben der Achse aus der Laplace-Gleichung bis zum Quadrat des Abstands). Beides gilt nur in einem Fenster von wenigen Millimetern.",
+        "bob": "Im Fenster wippt der Kreisel mit dieser Frequenz auf und ab; seitlich pendelt er langsamer um die Achse."
+      },
+      "symbols": {
+        "u": "die Energie des Kreisels",
+        "m": "seine Masse",
+        "g": "die Fallbeschleunigung",
+        "z": "die Höhe über der Oberseite des Rings",
+        "mu": "das magnetische Moment des Kreisels",
+        "b": "die Stärke des Feldes",
+        "mu0": "die magnetische Feldkonstante",
+        "magnetisation": "die Magnetisierung des Rings",
+        "radii": "der innere und der äussere Radius des Rings",
+        "t": "die Höhe des Rings",
+        "a": "der Radius der Spule",
+        "slope": "wie rasch das Feld nach oben abnimmt",
+        "bend": "wie stark sich diese Abnahme nach oben verlangsamt",
+        "fz": "die Frequenz des Wippens"
+      },
+      "sweet": {
+        "window": "Das Fenster ist schmal: Über diesem Ring schwebt der Kreisel nur zwischen 4,36 und 4,81 cm, und nur, wenn er zwischen 23,11 und 23,81 g wiegt – ein Spielraum von 3 %. Am Fuss des Fensters ist der Auftrieb am grössten; schwerer darf er nicht sein. Der abgestimmte Kreisel von 23,5 g schwebt auf 4,6 cm, wippt 1,5-mal pro Sekunde auf und ab und pendelt 0,6-mal pro Sekunde zur Seite.",
+        "warmth": "Darum ist die Wärme sein Feind. Ferrit wird mit jedem Grad schwächer: Zwei Grad wärmer, und das Fenster rückt um 0,8 % zu leichteren Kreiseln. Dreieinhalb Grad wärmer als beim Abstimmen, und der Kreisel landet; viereinhalb Grad kälter, und er rutscht weg. Die Höhen des Fensters bleiben dabei, wo sie sind.",
+        "earnshaw": "Ohne Drehung geht es gar nicht: Ein Magnet, der sich nach dem Feld ausrichten darf, findet in keiner Höhe Halt – er kippt und schnappt an den Ring."
+      },
+      "computed": {
+        "system": "Das Feld auf der Achse wird exakt gerechnet, als Differenz zweier Spulen, samt seiner Steigung und Krümmung; neben der Achse folgt es aus der Laplace-Gleichung bis zum Quadrat des Abstands. Das Fenster wird auf einem Millimeterraster bis 30 cm Höhe gesucht und seine Ränder durch fortgesetztes Halbieren bestimmt, das Gleichgewicht ebenso. Gerechnet wird in Ihrem Browser, mit denselben Schritten wie im Rechenkern der Seite.",
+        "left_out": "Weggelassen: die Drehung selbst. Sie wird als schnell genug angenommen, damit der Magnet dem Feld folgt, und als langsam genug, dass die Achse den Richtungswechseln des Feldes noch folgen kann – dieses Drehzahlfenster rechnet die Seite nicht. Ebenso fehlen die Luft, die den Kreisel bremst, sein Taumeln und die Masse eines bestimmten Spielzeugs: Der Ring ist ein Beispiel aus Ferrit, 10 cm breit mit 3 cm Loch und 1,5 cm hoch, der Magnet im Kreisel 2 cm³ desselben Ferrits."
       }
     }
   },

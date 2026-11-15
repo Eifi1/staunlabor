@@ -16,22 +16,28 @@
  *   days later, and the overview's week showed it twice (seen on the page);
  * - **a bonus and two maluses** among those, so that like exhibits are less
  *   likely to follow each other ({@link DAILY_WEIGHTS}): a little more chance for
- *   every day an exhibit has waited beyond the spacing; a quarter of it for
- *   one about a topic yesterday's was about too (the elephant after the smoke
- *   ring, both flow); a tenth for one that followed yesterday's in the round
+ *   every day an exhibit has waited beyond the spacing; half of it for one
+ *   about a topic yesterday's was about too (the elephant after the smoke
+ *   ring, both flow); a quarter for one that followed yesterday's in the round
  *   before, so that the same two do not come in the same order round after
  *   round. Weights, not rules: the round and the spacing are the guarantees,
- *   and these only lean the draw within them.
+ *   and these only lean the draw within them. The first series' rounds were
+ *   drawn with a quarter and a tenth, and keep them, so the days the live site
+ *   has shown keep their exhibit; the halved maluses draw from
+ *   {@link SECOND_SERIES} on (Marcel, 2026-11-15: they should count less).
  *
- *   **Measured, not guessed** (8 × 2000 days of the eight exhibits; a plain
- *   shuffle per round in brackets): a pair of the round before again in the
- *   same order 0.27 times a round (0.90), a triple 0.01 (0.12), two neighbours
- *   about one topic 7.9 days in a hundred (14.5), an exhibit back within three
- *   days never (9 % of turns), a wait of twelve days or more 7.7 % (15 %). The
- *   first version spaced turns by six days with a full bonus per day, and
- *   that is a rotation in disguise: it repeated triples 0.65 times a round,
- *   five times as often as a shuffle — the history showed the chair, the
- *   platform and the cannon in that order two rounds running;
+ *   **Measured, not guessed** (400 rounds of all 26 exhibits; a plain shuffle
+ *   per round, then the first series' weights, in brackets): a pair of the
+ *   round before again in the same order 0.44 times a round (1.21; 0.28), a
+ *   triple 0.008 (0.070; 0), two neighbours sharing a topic 26.4 days in a
+ *   hundred (35.2; 20.8), a wait of more than a round and two days 32.2 % of
+ *   turns (34.6 %; 32.1 %). With the first eight the first series' weights cut
+ *   the repeated pairs from 0.90 a round to 0.27 and the topic neighbours from
+ *   14.5 days in a hundred to 7.9. The very first version spaced turns by six
+ *   days with a full bonus per day, and that is a rotation in disguise: it
+ *   repeated triples 0.65 times a round, five times as often as a shuffle —
+ *   the history showed the chair, the platform and the cannon in that order
+ *   two rounds running;
  * - **the history is the rule run backwards**, so it needs no record either,
  *   and the overview can show the past days without having kept them.
  *
@@ -51,7 +57,7 @@
  * to two people.
  */
 
-import { EXHIBITS, type Exhibit, type Topic } from "./exhibits";
+import { EXHIBITS, SECOND_SERIES, type Exhibit, type Topic } from "./exhibits";
 
 /** The first day of the first round. Nothing before it has an exhibit. */
 export const DAILY_EPOCH = "2026-11-12";
@@ -81,7 +87,21 @@ export interface DailyWeights {
   pairMalus: number;
 }
 
-export const DAILY_WEIGHTS: DailyWeights = { bonusPerDay: 0.25, topicMalus: 0.25, pairMalus: 0.1 };
+/** The first series' weights, which drew every round before {@link SECOND_SERIES}:
+ *  kept for those rounds, so the days the live site has shown keep their exhibit. */
+const FIRST_WEIGHTS: DailyWeights = { bonusPerDay: 0.25, topicMalus: 0.25, pairMalus: 0.1 };
+
+/** From the second series on, the maluses at half their strength (Marcel,
+ *  2026-11-15: "Tagesminus sollte weniger zählen"): a half for a shared topic,
+ *  a quarter for yesterday's follower. With 26 exhibits, eleven of them about
+ *  energy and eight each about oscillation and angular momentum, the quarter
+ *  held a topic back on most days. */
+export const DAILY_WEIGHTS: DailyWeights = { bonusPerDay: 0.25, topicMalus: 0.5, pairMalus: 0.25 };
+
+/** The weights that draw the round starting on day `start` (a day number). */
+function scheduled(start: number): DailyWeights {
+  return start < dayNumber(SECOND_SERIES) ? FIRST_WEIGHTS : DAILY_WEIGHTS;
+}
 
 /** A day and the exhibit it had. */
 export interface DailyPick {
@@ -190,7 +210,7 @@ function ordered(
 /** The exhibits of the days `first` to `last` (day numbers, both included),
  *  walking the rounds from the epoch: a few hundred draws of eight for a
  *  decade, so nothing is cached. */
-function picks(first: number, last: number, pool: readonly DailyMember[], weights: DailyWeights): Exhibit[] {
+function picks(first: number, last: number, pool: readonly DailyMember[], weights?: DailyWeights): Exhibit[] {
   const topicsOf = new Map(pool.map((m) => [m.exhibit, m.topics ?? []]));
   const out: Exhibit[] = [];
   let start = dayNumber(DAILY_EPOCH);
@@ -201,7 +221,13 @@ function picks(first: number, last: number, pool: readonly DailyMember[], weight
       start += 1;
       continue;
     }
-    const order = ordered(members, previous, topicsOf, weights, generator(Math.imul(start, 0x9e3779b1)));
+    const order = ordered(
+      members,
+      previous,
+      topicsOf,
+      weights ?? scheduled(start),
+      generator(Math.imul(start, 0x9e3779b1)),
+    );
     order.forEach((exhibit, i) => {
       if (start + i >= first && start + i <= last) out.push(exhibit);
     });
@@ -212,23 +238,20 @@ function picks(first: number, last: number, pool: readonly DailyMember[], weight
 }
 
 /** The exhibit of `day` (`YYYY-MM-DD`); a day before the epoch has the
- *  epoch's. */
-export function dailyExhibit(
-  day: string,
-  pool: readonly DailyMember[] = POOL,
-  weights: DailyWeights = DAILY_WEIGHTS,
-): Exhibit {
+ *  epoch's. `weights` for every round, or left out for the site's: the first
+ *  series' before {@link SECOND_SERIES}, {@link DAILY_WEIGHTS} from it on. */
+export function dailyExhibit(day: string, pool: readonly DailyMember[] = POOL, weights?: DailyWeights): Exhibit {
   const n = Math.max(dayNumber(day), dayNumber(DAILY_EPOCH));
   return picks(n, n, pool, weights)[0];
 }
 
 /** The `count` days before `day`, the most recent first, none before the
- *  epoch. */
+ *  epoch; `weights` as for {@link dailyExhibit}. */
 export function dailyHistory(
   day: string,
   count: number,
   pool: readonly DailyMember[] = POOL,
-  weights: DailyWeights = DAILY_WEIGHTS,
+  weights?: DailyWeights,
 ): DailyPick[] {
   const last = dayNumber(day) - 1;
   const first = Math.max(last - count + 1, dayNumber(DAILY_EPOCH));

@@ -14,9 +14,11 @@ browser, held to the engine by ``engine-cases.json`` (``docs/experiments.md``).
 
 from __future__ import annotations
 
+from typing import Annotated
+
 from pydantic import BaseModel, ConfigDict, Field
 
-from staunlabor.domain.experiments import BallKind, CurveKind, FigureKind, Idle, RaceBall, Verdict
+from staunlabor.domain.experiments import ArchShape, BallKind, CurveKind, FigureKind, Idle, RaceBall, Shape, Verdict
 
 
 class _Out(BaseModel):
@@ -461,6 +463,292 @@ class CannonFiguresOut(_Out):
     impact: ImpactOut
 
 
+# ── the pendulum wave ────────────────────────────────────────────────────────
+
+
+class WaveIn(_In):
+    count: int = Field(ge=3, le=30, default=15)
+    cycle_s: float = Field(ge=5, le=600, default=60.0)
+    longest_swings: int = Field(ge=1, le=500, default=51)
+    tuned_deg: float = Field(ge=0, le=89, default=15.0)
+    amplitude_deg: float = Field(ge=0, le=89, default=15.0)
+    spacing_m: float = Field(ge=0.005, le=1.0, default=0.05)
+
+
+class WavePendulumOut(_Out):
+    swings: int
+    length_m: float
+    small_period_s: float
+    period_s: float
+    lag_deg: float
+
+
+class SpreadPointOut(_Out):
+    amplitude_deg: float
+    spread_deg: float
+
+
+class GroupPointOut(_Out):
+    fraction: int
+    time_s: float
+    groups: int
+
+
+class WaveFiguresOut(_Out):
+    pendulums: list[WavePendulumOut]
+    longest_m: float
+    shortest_m: float
+    spread_deg: float
+    spread_curve: list[SpreadPointOut]
+    textbook_spread_deg: float
+    groups: list[GroupPointOut]
+
+
+# ── the harmonograph ─────────────────────────────────────────────────────────
+# No route: the page draws in the browser and reads its figures off the port
+# (``simulate/harmonograph.ts``); the build comes with the defaults.
+
+
+class HarmonographPendulumIn(_In):
+    length_m: float = Field(ge=0.05, le=5.0, default=0.8)
+    amplitude_deg: float = Field(ge=0, le=45, default=12.0)
+    phase_deg: float = Field(ge=0, le=360, default=0.0)
+    damping_per_s: float = Field(ge=0, le=1, default=0.02)
+
+
+class HarmonographIn(_In):
+    pen: HarmonographPendulumIn
+    board: HarmonographPendulumIn
+
+
+# ── the double cone ──────────────────────────────────────────────────────────
+# No route either: the page rolls the cone and reads its figures off the port
+# (``simulate/cone.ts``).
+
+
+class DoubleConeIn(_In):
+    radius_m: float = Field(ge=0.01, le=0.3, default=0.06)
+    cone_deg: float = Field(ge=5, le=45, default=20.0)
+
+
+class RailsIn(_In):
+    spread_deg: float = Field(ge=2, le=45, default=20.0)
+    slope_deg: float = Field(ge=0, le=20, default=4.0)
+    start_half_gap_m: float = Field(ge=0, le=1, default=0.03)
+    length_m: float = Field(gt=0, le=3, default=0.30)
+
+
+class ConeExhibitIn(_In):
+    cone: DoubleConeIn
+    rails: RailsIn
+
+
+# ── the water parabola ───────────────────────────────────────────────────────
+# No route: the page asks the port (``simulate/parabola.ts``).
+
+
+class VesselIn(_In):
+    radius_m: float = Field(ge=0.02, le=2.0, default=0.15)
+    height_m: float = Field(gt=0, le=4.0, default=0.30)
+    fill_m: float = Field(gt=0, le=4.0, default=0.10)
+
+
+# ── the coupled pendulums ────────────────────────────────────────────────────
+# No route: the page asks the port (``simulate/coupled.ts``).
+
+
+class BobIn(_In):
+    length_m: float = Field(ge=0.05, le=5.0, default=0.5)
+    mass_kg: float = Field(ge=0.01, le=20.0, default=0.2)
+
+
+class CoupledPendulumsIn(_In):
+    left: BobIn
+    right: BobIn
+    spring_n_m: float = Field(ge=0, le=100, default=1.0)
+    spring_at_m: float = Field(gt=0, le=5.0, default=0.25)
+    damping_per_s: float = Field(ge=0, le=1, default=0.0)
+
+
+# ── Galileo's interrupted pendulum ───────────────────────────────────────────
+# No route: the page asks the port (``simulate/peg.ts``).
+
+
+class PegPendulumIn(_In):
+    length_m: float = Field(ge=0.1, le=10.0, default=1.0)
+    peg_depth_m: float = Field(gt=0, le=10.0, default=0.5)
+    start_deg: float = Field(gt=0, le=90, default=30.0)
+
+
+# ── Maxwell's wheel ──────────────────────────────────────────────────────────
+# No route: the page asks the port (``simulate/maxwell.ts``).
+
+
+class MaxwellWheelIn(_In):
+    mass_kg: float = Field(ge=0.01, le=50, default=0.5)
+    wheel_radius_m: float = Field(gt=0, le=1.0, default=0.065)
+    axle_radius_m: float = Field(gt=0, le=1.0, default=0.005)
+    shape: Shape = Shape.DISC
+    drop_m: float = Field(ge=0.05, le=5.0, default=0.6)
+    loss: float = Field(ge=0, lt=0.5, default=0.03)
+    stiffness_n_m: float = Field(ge=10, le=1e7, default=10000.0)
+
+
+# ── the chaotic pendulum ─────────────────────────────────────────────────────
+# No route: the page asks the port (``simulate/chaos.ts``).
+
+
+class DoublePendulumIn(_In):
+    length1_m: float = Field(ge=0.05, le=3, default=0.3)
+    length2_m: float = Field(ge=0.05, le=3, default=0.3)
+    mass1_kg: float = Field(ge=0.01, le=20, default=0.5)
+    mass2_kg: float = Field(ge=0.01, le=20, default=0.5)
+    damping_per_s: float = Field(ge=0, le=1, default=0.0)
+
+
+# ── the chaotic waterwheel ───────────────────────────────────────────────────
+# No route: the page asks the port (``simulate/waterwheel.ts``).
+
+
+class WaterWheelIn(_In):
+    sigma: float = Field(ge=2.5, le=50, default=10.0)
+    rho: float = Field(ge=0, le=200, default=28.0)
+    leak_per_s: float = Field(ge=0.01, le=10, default=0.2)
+
+
+# ── Foucault's pendulum ──────────────────────────────────────────────────────
+# No route: the page asks the port (``simulate/foucault.ts``).
+
+
+class FoucaultPendulumIn(_In):
+    length_m: float = Field(ge=1, le=100, default=12.0)
+    amplitude_m: float = Field(gt=0, le=10, default=0.5)
+    latitude_deg: float = Field(ge=-90, le=90, default=47.5)
+
+
+# ── the Coriolis carousel ────────────────────────────────────────────────────
+# No route: the page asks the port (``simulate/coriolis.ts``).
+
+
+class CarouselIn(_In):
+    radius_m: float = Field(ge=0.5, le=10, default=2.0)
+    rpm: float = Field(ge=-60, le=60, default=6.0)
+
+
+# ── Newton's cradle ──────────────────────────────────────────────────────────
+# No route: the page asks the port (``simulate/cradle.ts``).
+
+
+class CradleIn(_In):
+    count: int = Field(ge=2, le=9, default=5)
+    diameter_m: float = Field(ge=0.005, le=0.1, default=0.025)
+    string_m: float = Field(ge=0.05, le=1.0, default=0.15)
+    gap_m: float = Field(ge=0, le=0.005, default=0.0)
+    restitution: float = Field(ge=0.5, le=1, default=0.95)
+    youngs_gpa: float = Field(ge=1, le=500, default=200.0)
+    density_kg_m3: float = Field(ge=500, le=20000, default=7850.0)
+
+
+# ── the gravity well ─────────────────────────────────────────────────────────
+# No route: the page asks the port (``simulate/well.ts``).
+
+
+class FunnelIn(_In):
+    k_m2: float = Field(ge=0.001, le=0.05, default=0.01)
+    rim_m: float = Field(ge=0.1, le=2, default=0.4)
+    hole_m: float = Field(ge=0.005, le=0.5, default=0.03)
+    rolling_resistance: float = Field(ge=0, le=0.05, default=0.002)
+
+
+# ── resonance ────────────────────────────────────────────────────────────────
+# No route: the page asks the port (``simulate/resonance.ts``).
+
+RodLength = Annotated[float, Field(ge=0.1, le=2)]
+
+
+class ResonanceRackIn(_In):
+    lengths_m: list[RodLength] = Field(min_length=1, max_length=8, default=[1.0, 0.9, 0.8, 0.7, 0.6, 0.5])
+    diameter_m: float = Field(ge=0.0005, le=0.02, default=0.002)
+    youngs_gpa: float = Field(ge=1, le=500, default=200.0)
+    density_kg_m3: float = Field(ge=500, le=20000, default=7850.0)
+    damping_ratio: float = Field(ge=0.0005, le=0.5, default=0.01)
+    table_m: float = Field(gt=0, le=0.01, default=0.001)
+
+
+# ── the gyroscope wheel ──────────────────────────────────────────────────────
+# No route: the page asks the port (``simulate/gyroscope.ts``).
+
+
+class GyroWheelIn(_In):
+    mass_kg: float = Field(ge=0.1, le=20, default=2.0)
+    radius_m: float = Field(ge=0.05, le=1, default=0.3)
+    axle_m: float = Field(ge=0.02, le=1, default=0.15)
+    rpm: float = Field(ge=0, le=3000, default=200.0)
+
+
+# ── the chain and the arch ───────────────────────────────────────────────────
+# No route: the page asks the port (``simulate/arch.ts``).
+
+
+class StoneArchIn(_In):
+    shape: ArchShape = "semicircle"
+    span_m: float = Field(ge=0.5, le=50, default=2.0)
+    thickness_m: float = Field(gt=0, le=25, default=0.25)
+    blocks: int = Field(ge=4, le=200, multiple_of=2, default=16)
+    density_kg_m3: float = Field(ge=500, le=20000, default=2400.0)
+    depth_m: float = Field(gt=0, le=10, default=0.3)
+
+
+# ── Chladni figures ──────────────────────────────────────────────────────────
+
+
+class ChladniPlateIn(_In):
+    side_m: float = Field(ge=0.05, le=2, default=0.24)
+    thickness_m: float = Field(ge=0.0002, le=0.1, default=0.001)
+    youngs_gpa: float = Field(ge=1, le=500, default=200.0)
+    density_kg_m3: float = Field(ge=500, le=20000, default=7850.0)
+    damping_ratio: float = Field(ge=0.0001, le=0.1, default=0.002)
+
+
+class ChladniModeOut(_Out):
+    #: λ = ω·a²·√(ρh/D).
+    lam: float
+    #: The deflection as Σ c·p_m(ξ)·p_n(η), p the normalised Legendre
+    #: polynomials, scaled to 1 at its largest.
+    m: list[int]
+    n: list[int]
+    c: list[float]
+
+
+class ChladniModesOut(_Out):
+    """The modes a shaker at the plate's middle drives, lowest first; the
+    page scales them to its plate and sums them for the sand."""
+
+    degree: int
+    modes: list[ChladniModeOut]
+
+
+# ── the floating top ─────────────────────────────────────────────────────────
+# No route: the page asks the port (``simulate/levitation.ts``).
+
+
+class LevitationBaseIn(_In):
+    inner_radius_m: float = Field(ge=0, le=0.5, default=0.015)
+    outer_radius_m: float = Field(gt=0, le=0.5, default=0.05)
+    height_m: float = Field(gt=0, le=0.2, default=0.015)
+    magnetisation_a_m: float = Field(gt=0, le=2e6, default=3.2e5)
+
+
+class LevitationTopIn(_In):
+    moment_a_m2: float = Field(gt=0, le=50, default=0.64)
+    mass_kg: float = Field(gt=0, le=1, default=0.0235)
+
+
+class LevitationIn(_In):
+    base: LevitationBaseIn
+    top: LevitationTopIn
+
+
 # ── the pages' starting point ────────────────────────────────────────────────
 
 
@@ -472,6 +760,24 @@ class ExperimentsDefaultsOut(_Out):
     elephant: ElephantIn
     smoke: SmokeExhibitIn
     cannon: BallStackIn
+    wave: WaveIn
+    harmonograph: HarmonographIn
+    cone: ConeExhibitIn
+    parabola: VesselIn
+    coupled: CoupledPendulumsIn
+    peg: PegPendulumIn
+    maxwell: MaxwellWheelIn
+    chaos: DoublePendulumIn
+    waterwheel: WaterWheelIn
+    foucault: FoucaultPendulumIn
+    coriolis: CarouselIn
+    cradle: CradleIn
+    well: FunnelIn
+    resonance: ResonanceRackIn
+    gyroscope: GyroWheelIn
+    arch: StoneArchIn
+    levitation: LevitationIn
+    chladni: ChladniPlateIn
     #: The exhibit's meter: digital, ± this many amperes.
     meter_range_a: float
     #: How long a page waits after the last slider step before asking.

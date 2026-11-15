@@ -1188,3 +1188,1318 @@ def test_the_ball_cannon_refuses_what_it_cannot_be():
         x.BallStack(drop_m=5.0)
     with pytest.raises(ValueError, match="drop lasts"):
         x.cannon_drop(x.BallStack(), 30.0)
+
+
+# ── the pendulum, the block the swinging exhibits stand on ───────────────────
+
+
+def test_jacobi_s_functions_keep_their_identities_and_their_limits():
+    for m in (0.1, 0.5, 0.9, 0.999):
+        for u in (-2.2, 0.3, 1.7, 5.0):
+            sn, cn, dn = x.jacobi(u, m)
+            assert sn * sn + cn * cn == pytest.approx(1, abs=1e-14)
+            assert dn * dn + m * sn * sn == pytest.approx(1, abs=1e-14)
+    assert x.jacobi(0.7, 0.0) == pytest.approx((math.sin(0.7), math.cos(0.7), 1.0))
+    sech = 1 / math.cosh(0.7)
+    assert x.jacobi(0.7, 1.0) == pytest.approx((math.tanh(0.7), sech, sech))
+    # sn reaches 1 at the quarter period K, and its slope is cn·dn.
+    m, u, h = 0.7, 1.1, 1e-6
+    assert x.jacobi(x.ellipk(m), m)[0] == pytest.approx(1, abs=1e-14)
+    slope = (x.jacobi(u + h, m)[0] - x.jacobi(u - h, m)[0]) / (2 * h)
+    sn, cn, dn = x.jacobi(u, m)
+    assert slope == pytest.approx(cn * dn, rel=1e-8)
+
+
+def test_a_wider_swing_takes_longer_by_the_elliptic_integral():
+    # K(1/2) = 1.8540746773013719 (A&S table 17.1): a swing to the horizontal
+    # takes 18 % longer than a small one.
+    assert x.period_factor(90) == pytest.approx(2 * 1.8540746773013719 / math.pi, rel=1e-14)
+    for degrees in (1, 5, 10, 16):
+        a = math.radians(degrees)
+        assert x.period_factor(degrees) == pytest.approx(1 + a**2 / 16 + 11 * a**4 / 3072, rel=2e-6)
+    assert round(x.period_factor(16), 4) == 1.0049
+    assert round(x.period_factor(30), 4) == 1.0174
+    assert x.small_period_s(1.0) == pytest.approx(2.006, abs=1e-3)
+    # A length tuned for a swing gives that swing its period exactly.
+    assert x.period_s(x.length_for(1.5, 40.0), 40.0) == pytest.approx(1.5, rel=1e-14)
+
+
+def test_the_exact_pendulum_is_the_stepped_one():
+    for length, amplitude in ((0.5, 60.0), (0.2, 5.0), (2.0, 150.0)):
+        run = x.swing(length, amplitude, 10.0)
+        worst = max(abs(a - x.angle_deg(length, amplitude, t)) for t, a in zip(run.t, run.angle_deg, strict=True))
+        assert worst < 1e-7
+
+
+def test_the_exact_pendulum_is_as_exact_a_minute_in():
+    length, amplitude = 0.34, 15.0
+    period = x.period_s(length, amplitude)
+    for t in (0.1, 0.7, 1.3):
+        assert x.angle_deg(length, amplitude, t + 51 * period) == pytest.approx(
+            x.angle_deg(length, amplitude, t), abs=1e-9
+        )
+    assert x.angle_deg(length, amplitude, period / 2) == pytest.approx(-amplitude, abs=1e-9)
+    assert x.angle_deg(length, amplitude, period / 4) == pytest.approx(0, abs=1e-9)
+
+
+def test_damping_lets_a_swing_die_away_as_its_exponential():
+    # Small and lightly damped: the amplitude falls as e^(−c·t/2).
+    run = x.swing(1.0, 2.0, 20.0, damping_per_s=0.1)
+    tops = [
+        abs(a)
+        for i, a in enumerate(run.angle_deg[1:-1], 1)
+        if abs(a) >= abs(run.angle_deg[i - 1]) and abs(a) >= abs(run.angle_deg[i + 1])
+    ]
+    assert tops[-1] == pytest.approx(2.0 * math.exp(-0.05 * 20.0), rel=0.05)
+
+
+def test_the_pendulum_refuses_what_is_not_a_pendulum():
+    with pytest.raises(ValueError, match="positive length"):
+        x.small_period_s(0.0)
+    with pytest.raises(ValueError, match="between 0° and 180°"):
+        x.period_factor(180)
+    with pytest.raises(ValueError, match="damping"):
+        x.swing(1.0, 10.0, 1.0, damping_per_s=-1)
+    with pytest.raises(ValueError, match="at most"):
+        x.swing(1.0, 10.0, 1000.0)
+    with pytest.raises(ValueError, match="between 0 and 1"):
+        x.jacobi(1.0, 1.5)
+
+
+# ── the pendulum wave ────────────────────────────────────────────────────────
+
+
+def test_each_pendulum_of_the_wave_swings_its_own_whole_number_in_a_cycle():
+    wave = x.PendulumWave()
+    for swings, length in zip((51 + n for n in range(15)), x.lengths_m(wave), strict=True):
+        assert swings * x.period_s(length, wave.tuned_deg) == pytest.approx(wave.cycle_s, rel=1e-13)
+    figures = x.wave_figures(wave)
+    assert round(figures.longest_m * 100) == 34
+    assert round(figures.shortest_m * 100) == 21
+
+
+def test_let_go_at_the_tuned_swing_the_row_is_together_again_after_a_cycle():
+    wave = x.PendulumWave()
+    for length in x.lengths_m(wave):
+        assert x.angle_deg(length, 15.0, wave.cycle_s) == pytest.approx(15.0, abs=1e-6)
+    assert x.wave_figures(wave).spread_deg < 1e-9
+
+
+def test_half_a_cycle_in_the_row_stands_in_two_groups_a_third_in_three():
+    wave = x.PendulumWave()
+    for swings, length in zip((51 + n for n in range(15)), x.lengths_m(wave), strict=True):
+        expected = 15.0 if swings % 2 == 0 else -15.0
+        assert x.angle_deg(length, 15.0, wave.cycle_s / 2) == pytest.approx(expected, abs=1e-6)
+    thirds = {round(x.angle_deg(length, 15.0, wave.cycle_s / 3), 6) for length in x.lengths_m(wave)}
+    # Phases 0, 1/3 and 2/3 of a swing: the two thirds stand at the same angle,
+    # going opposite ways — three groups, two angles.
+    assert len(thirds) == 2
+    assert [g.groups for g in x.wave_figures(wave).groups] == [2, 3, 4, 5]
+
+
+def test_a_row_let_go_wider_or_narrower_than_its_tuning_comes_back_skewed():
+    wave = x.PendulumWave()
+    curve = {p.amplitude_deg: p.spread_deg for p in x.wave_figures(wave).spread_curve}
+    assert curve[14.0] < curve[10.0] < curve[0.0]
+    assert curve[16.0] < curve[20.0] < curve[30.0]
+    assert round(curve[0.0]) == 22
+    assert round(curve[30.0]) == 65
+    # Tuned by the small swing's formula, as a textbook does, a row let go at
+    # 15° comes back 22° apart.
+    assert round(x.wave_figures(wave).textbook_spread_deg) == 22
+    lags = x.lag_deg(wave, 30.0)
+    assert all(b > a for a, b in itertools.pairwise(lags))  # the short ones fall behind the most
+
+
+def test_the_pendulum_wave_refuses_what_is_not_a_row():
+    with pytest.raises(ValueError, match="between 3 and 30"):
+        x.PendulumWave(count=2)
+    with pytest.raises(ValueError, match="outside"):
+        x.PendulumWave(cycle_s=600.0, longest_swings=1)
+    with pytest.raises(ValueError, match="between 0° and 90°"):
+        x.PendulumWave(amplitude_deg=95)
+    with pytest.raises(ValueError, match="at least once"):
+        x.PendulumWave(longest_swings=0)
+    with pytest.raises(ValueError, match="whole number"):
+        x.groups_at(x.PendulumWave(), 0)
+
+
+# ── the harmonograph ─────────────────────────────────────────────────────────
+
+
+def _ending_on(duration: float) -> float:
+    """A step that puts the last sample on the drawing's end: 25 steps a sample."""
+    return duration / (25 * round(50 * duration))
+
+
+def _closed(amplitudes=(12.0, 12.0)):
+    """Two undamped pendulums tuned exactly 2:3 by the small swing's formula."""
+    pen = x.HarmonographPendulum(length_m=0.8, amplitude_deg=amplitudes[0], damping_per_s=0.0)
+    board = x.HarmonographPendulum(
+        length_m=0.8 * (2 / 3) ** 2, amplitude_deg=amplitudes[1], phase_deg=90.0, damping_per_s=0.0
+    )
+    return x.Harmonograph(pen=pen, board=board)
+
+
+def test_at_a_simple_ratio_the_undamped_figure_closes_on_itself():
+    h = _closed()
+    # Two of the pen's swings are three of the board's; both let go at 12°, so
+    # both are slowed by the same 1 + θ₀²/16 and the ratio holds exactly.
+    two = 2 * x.period_s(0.8, 12.0)
+    run = x.harmonograph_draw(h, two, step_s=_ending_on(two))
+    assert run.x_m[-1] == pytest.approx(run.x_m[0], abs=1e-9)
+    assert run.y_m[-1] == pytest.approx(run.y_m[0], abs=1e-9)
+    assert x.harmonograph_figures(h).turn_s is None
+
+
+def test_let_go_at_different_widths_an_exact_ratio_drifts_open():
+    # The wider swing is the slower one: the pen at 30° falls behind the board at 5°.
+    h = _closed((30.0, 5.0))
+    two = 2 * x.small_period_s(0.8)
+    run = x.harmonograph_draw(h, two, step_s=_ending_on(two))
+    assert abs(run.x_m[-1] - run.x_m[0]) > 1e-3
+
+
+def test_a_damped_swing_draws_inward_and_fades_to_a_tenth_when_the_figures_say():
+    h = x.Harmonograph()
+    figures = x.harmonograph_figures(h)
+    assert figures.pen_fades_s == pytest.approx(230.26, abs=0.01)
+    run = x.harmonograph_draw(h, 60.0)
+    first = max(abs(v) for v in run.x_m[:100])
+    last = max(abs(v) for v in run.x_m[-100:])
+    # A small swing dies away as e^(−c·t/2): 0.55 after 60 s at c = 0.02.
+    assert last / first == pytest.approx(math.exp(-0.01 * 58), rel=0.02)
+
+
+def test_the_default_drawing_is_near_two_to_three_and_turns_once_in_a_minute_and_a_half():
+    figures = x.harmonograph_figures(x.Harmonograph())
+    assert figures.ratio == (2, 3)
+    assert figures.detune == pytest.approx(0.0067, abs=1e-4)
+    assert round(figures.turn_s) == 90
+    assert round(figures.pen_hz, 2) == 0.56
+
+
+def test_the_nearest_simple_ratio_is_the_one_in_lowest_terms():
+    assert x.nearest_ratio(1.0, 2.01) == (1, 2)
+    assert x.nearest_ratio(1.0, 1.0) == (1, 1)
+    assert x.nearest_ratio(3.0, 4.02) == (3, 4)
+    assert x.nearest_ratio(1.0, 1.24) == (4, 5)
+
+
+def test_the_harmonograph_refuses_what_it_cannot_be():
+    with pytest.raises(ValueError, match="between 5 cm and 5 m"):
+        x.HarmonographPendulum(length_m=0.01)
+    with pytest.raises(ValueError, match="at most 45°"):
+        x.HarmonographPendulum(amplitude_deg=60)
+    with pytest.raises(ValueError, match="damping"):
+        x.HarmonographPendulum(damping_per_s=-0.1)
+    with pytest.raises(ValueError, match="at most"):
+        x.harmonograph_draw(x.Harmonograph(), 1000.0)
+
+
+# ── the double cone ──────────────────────────────────────────────────────────
+
+
+def _lowest_axis(ex, xc: float) -> float:
+    """The axis's height found the long way: as low as it can sit with no point
+    of either rail inside the solid cone, by scanning the rail. Nothing of the
+    engine's contact formula is in here."""
+    ta = math.tan(math.radians(ex.cone.cone_deg))
+    tb = math.tan(math.radians(ex.rails.spread_deg))
+    tg = math.tan(math.radians(ex.rails.slope_deg))
+    best = -math.inf
+    for i in range(40001):
+        xr = xc - 0.05 + 0.1 * i / 40000
+        r = ex.cone.radius_m - (ex.rails.start_half_gap_m + xr * tb) * ta
+        if r > abs(xr - xc):
+            best = max(best, xr * tg + math.sqrt(r * r - (xr - xc) ** 2))
+    return best
+
+
+def test_the_cone_sits_where_the_rails_just_graze_it():
+    for ex in (x.ConeExhibit(), x.ConeExhibit(x.DoubleCone(0.08, 30.0), x.Rails(25.0, 9.0, 0.02, 0.15))):
+        for xc in (0.05, 0.1, 0.14):
+            assert x.axis_height_m(ex, xc) == pytest.approx(_lowest_axis(ex, xc), abs=1e-8)
+
+
+def test_the_axis_falls_as_the_rails_rise_and_the_textbook_says_where_that_stops():
+    ex = x.ConeExhibit()
+    assert x.axis_slope(ex) < 0 < x.rail_height_m(ex, 0.3)
+    assert round(x.rail_height_m(ex, 0.3) * 100, 1) == 2.1
+    assert round((x.axis_height_m(ex, 0) - x.axis_height_m(ex, 0.3)) * 100, 1) == 1.9
+    assert round(x.contact_factor(ex), 3) == 1.002
+    # At the textbook's boundary the exact contact is right under the axis.
+    gamma = x.threshold_deg(ex)
+    assert round(gamma, 1) == 7.5
+    at = x.ConeExhibit(rails=x.Rails(slope_deg=gamma))
+    assert x.axis_slope(at) == pytest.approx(0, abs=1e-15)
+    assert x.contact_factor(at) == pytest.approx(1, abs=1e-15)
+    assert x.axis_slope(x.ConeExhibit(rails=x.Rails(slope_deg=gamma + 0.1))) > 0
+
+
+def test_the_cone_rolls_up_to_the_top_without_slipping_and_without_losing_energy():
+    ex = x.ConeExhibit()
+    run = x.roll(ex, 0.0, 10.0)
+    assert run.final_x_m == 0.3
+    assert round(run.stopped_at_s, 1) == 1.5
+    spin = 0.3 * ex.cone.radius_m**2
+    for xs, v in zip(run.x_m[:-1], run.speed_m_s[:-1], strict=True):
+        rho = x.contact_radius_m(ex, xs)
+        energy = 0.5 * (1 + spin / rho**2) * v * v + 9.80665 * (x.axis_height_m(ex, xs) - x.axis_height_m(ex, 0))
+        assert energy == pytest.approx(0, abs=1e-10)
+    # Near the top it spins fast on the thin part and moves slowly.
+    assert round(run.speed_m_s[-2], 2) == 0.17
+    assert round(run.spin_rev_s[-2], 1) == 2.8
+
+
+def test_on_steeper_rails_the_cone_is_laid_at_the_top_and_rolls_down():
+    steep = x.ConeExhibit(rails=x.Rails(slope_deg=10.0))
+    assert x.start_for(steep) == 0.3
+    run = x.roll(steep, x.start_for(steep), 10.0)
+    assert run.final_x_m == 0.0
+    assert x.start_for(x.ConeExhibit()) == 0.0
+    # Laid at the low end of steep rails, it stays.
+    assert x.roll(steep, 0.0, 1.0).final_x_m == 0.0
+
+
+def test_the_double_cone_refuses_what_would_not_roll():
+    with pytest.raises(ValueError, match="fall through"):
+        x.ConeExhibit(rails=x.Rails(length_m=0.5))
+    with pytest.raises(ValueError, match="between 5° and 45°"):
+        x.DoubleCone(cone_deg=60)
+    with pytest.raises(ValueError, match="rise at"):
+        x.Rails(slope_deg=30)
+    with pytest.raises(ValueError, match="laid on the rails"):
+        x.roll(x.ConeExhibit(), 0.5, 1.0)
+
+
+# ── the water parabola ───────────────────────────────────────────────────────
+
+
+def _volume(v, rate: float) -> float:
+    """The water under the surface, by the midpoint rule over thin rings: nothing
+    of the engine's volume argument in here."""
+    s = x.surface(v, rate)
+    n = 20000
+    dr = v.radius_m / n
+    return sum(2 * math.pi * (i + 0.5) * dr * x.height_at(s, (i + 0.5) * dr) * dr for i in range(n))
+
+
+def test_the_water_keeps_its_volume_however_fast_it_turns():
+    v = x.Vessel(height_m=1.0)
+    for rate in (0.0, 5.0, 13.0, 20.0, 40.0):
+        assert _volume(v, rate) == pytest.approx(math.pi * v.radius_m**2 * v.fill_m, rel=1e-7)
+
+
+def test_the_middle_sinks_as_far_as_the_rim_rises_until_it_runs_dry():
+    v = x.Vessel()
+    s = x.surface(v, 10.0)
+    assert v.fill_m - s.centre_m == pytest.approx(s.rim_m - v.fill_m, rel=1e-14)
+    dry = x.dry_rate(v)
+    assert dry == pytest.approx(2 * math.sqrt(9.80665 * 0.1) / 0.15)
+    assert round(dry * 60 / (2 * math.pi)) == 126
+    assert x.surface(v, dry).centre_m == pytest.approx(0, abs=1e-15)
+    assert x.surface(v, dry * 0.999).dry_radius_m == 0
+    assert x.surface(v, dry * 1.001).dry_radius_m > 0
+    # The rim goes on smoothly past the moment the middle touches the bottom.
+    assert x.surface(v, dry * (1 + 1e-9)).rim_m == pytest.approx(2 * v.fill_m, rel=1e-6)
+
+
+def test_the_bowl_is_a_mirror_whose_focus_the_rate_sets():
+    v = x.Vessel()
+    s = x.surface(v, 10.0)
+    # z = z₀ + r²/(4f): the paraboloid of a mirror with its focus at f.
+    for r in (0.03, 0.09, 0.15):
+        assert x.height_at(s, r) == pytest.approx(s.centre_m + r * r / (4 * s.focus_m), rel=1e-14)
+    # One turn in 8.5 s puts the focus 9 m up.
+    assert round(x.surface(v, 2 * math.pi / 8.5).focus_m) == 9
+
+
+def test_the_water_spills_once_its_rim_reaches_the_top():
+    v = x.Vessel()
+    spill = x.spill_rate(v)
+    assert x.surface(v, spill).rim_m == pytest.approx(v.height_m, rel=1e-12)
+    assert not x.surface(v, spill * 0.99).spills
+    assert x.surface(v, spill * 1.01).spills
+    # A full vessel spills before its middle runs dry.
+    full = x.Vessel(fill_m=0.25)
+    assert x.spill_rate(full) < x.dry_rate(full)
+
+
+def test_the_water_follows_the_vessel_over_ekman_s_spin_up_time():
+    v = x.Vessel()
+    tau = x.spin_up_time_s(v, 10.0)
+    assert tau == pytest.approx(0.1 / math.sqrt(1e-6 * 10.0))
+    run = x.water_spin(v, 10.0, 2 * tau, step_s=tau / 1000)
+    at = min(range(len(run.t)), key=lambda i: abs(run.t[i] - tau))
+    assert run.water_rate[at] / 10.0 == pytest.approx(1 - math.exp(-run.t[at] / tau), rel=1e-6)
+    assert round(x.spin_up_time_s(v, x.dry_rate(v))) == 28
+    assert x.spin_up_time_s(v, 0.0) is None
+
+
+def test_the_water_parabola_refuses_what_is_not_a_vessel_of_water():
+    with pytest.raises(ValueError, match="below the vessel's top"):
+        x.Vessel(fill_m=0.4)
+    with pytest.raises(ValueError, match="radius"):
+        x.Vessel(radius_m=0.0)
+    with pytest.raises(ValueError, match="positive number"):
+        x.surface(x.Vessel(), -1.0)
+
+
+# ── the coupled pendulums ────────────────────────────────────────────────────
+
+
+def test_equal_pendulums_swing_together_at_their_own_rate_and_against_each_other_faster():
+    cp = x.CoupledPendulums()
+    slow, fast = x.mode_rates(cp)
+    kappa = x.couplings(cp)[0]
+    assert slow == pytest.approx(math.sqrt(9.80665 / 0.5), rel=1e-14)
+    assert fast == pytest.approx(math.sqrt(9.80665 / 0.5 + 2 * kappa), rel=1e-14)
+    assert round(x.beat_s(cp)) == 23
+    # Let go together, the spring never stretches and nothing is exchanged.
+    run = x.coupled_swing(cp, x.Start.TOGETHER, 10.0, 20.0)
+    assert max(run.spring_j) == 0
+    assert run.left_j == run.right_j
+
+
+def test_a_push_to_one_has_wandered_to_the_other_after_half_a_beat():
+    cp = x.CoupledPendulums()
+    half = x.beat_s(cp) / 2
+    run = x.coupled_swing(cp, x.Start.ONE, 3.0, half)
+    total = run.left_j[0]
+    assert run.left_j[-1] / total < 0.001
+    assert max(run.right_j[-60:]) / total > 0.99
+    assert x.exchange_share(cp) == 1.0
+
+
+def test_unequal_pendulums_hand_over_only_the_share_rabi_s_formula_gives():
+    cp = x.CoupledPendulums(right=x.Bob(length_m=0.55))
+    share = x.exchange_share(cp)
+    assert round(share, 2) == 0.56
+    run = x.coupled_swing(cp, x.Start.ONE, 2.0, 120.0)
+    assert max(run.right_j) / run.left_j[0] == pytest.approx(share, abs=0.015)
+
+
+def test_the_coupled_pair_keeps_its_energy_without_damping():
+    cp = x.CoupledPendulums(spring_n_m=3.0)
+    run = x.coupled_swing(cp, x.Start.ONE, 40.0, 20.0)
+    totals = [a + b + s for a, b, s in zip(run.left_j, run.right_j, run.spring_j, strict=True)]
+    assert max(totals) - min(totals) < 1e-9 * totals[0]
+
+
+def test_the_coupled_pendulums_refuse_what_cannot_hang():
+    with pytest.raises(ValueError, match="between the pivot and the bob"):
+        x.CoupledPendulums(spring_at_m=0.6)
+    with pytest.raises(ValueError, match="between 5 cm and 5 m"):
+        x.Bob(length_m=10.0)
+    with pytest.raises(ValueError, match="at most 60°"):
+        x.coupled_swing(x.CoupledPendulums(), x.Start.ONE, 80.0, 1.0)
+
+
+# ── Galileo's interrupted pendulum ───────────────────────────────────────────
+
+
+def test_caught_by_the_peg_the_bob_rises_to_the_height_it_fell_from():
+    p = x.PegPendulum()
+    run = x.run_peg(p, 5.0)
+    assert run.peg_side_top_m == pytest.approx(x.start_height_m(p), abs=1e-6)
+    assert [e[1] for e in run.events[:2]] == ["caught", "released"]
+    # Caught and released with the string straight down, at the bottom.
+    assert all(abs(e[2]) < 1e-9 and e[3] == pytest.approx(-1.0, abs=1e-9) for e in run.events)
+    assert x.outcome(p) == "same_height"
+
+
+def test_the_bob_keeps_its_energy_until_the_string_jerks():
+    p = x.PegPendulum(start_deg=90.0, peg_depth_m=0.58)
+    run = x.run_peg(p, 4.0)
+    h = x.start_height_m(p)
+    taut = next(e[0] for e in run.events if e[1] == "taut")
+    for t, xs, ys, mode in zip(run.t, run.x_m, run.y_m, run.mode, strict=True):
+        if t >= taut:
+            break
+        # The speed from the energy: what the bob has if nothing was lost.
+        assert ys + p.length_m <= h + 1e-9, (t, mode, xs)
+    assert run.went_slack
+
+
+def test_it_goes_over_the_peg_from_two_and_a_half_radii_and_slack_below():
+    # Let go from the horizontal: h = L, so over the top when r ≤ 0.4·L.
+    over = x.PegPendulum(start_deg=90.0, peg_depth_m=0.61)
+    slack = x.PegPendulum(start_deg=90.0, peg_depth_m=0.59)
+    assert x.outcome(over) == "over_the_top"
+    assert x.outcome(slack) == "slack"
+    assert x.run_peg(over, 3.0).over_the_top
+    assert not x.run_peg(slack, 3.0).over_the_top
+
+
+def test_the_string_goes_slack_at_a_third_of_r_plus_twice_the_height():
+    p = x.PegPendulum(start_deg=90.0, peg_depth_m=0.58)
+    run = x.run_peg(p, 4.0)
+    slack = next(e for e in run.events if e[1] == "slack")
+    assert slack[3] + p.length_m == pytest.approx(x.slack_height_m(p), abs=1e-9)
+    assert round(x.slack_height_m(p), 3) == 0.807
+
+
+def test_the_jerk_taut_costs_the_bob_its_speed_along_the_string():
+    p = x.PegPendulum(start_deg=90.0, peg_depth_m=0.58)
+    s = x.PegState(x.Mode.BIG, (math.radians(90.0), 0.0))
+    t, before, after = 0.0, None, None
+    while after is None:
+        state, happened = x.peg_step(p, s, t, 1e-3)
+        for _at, kind, *_ in happened:
+            if kind == "taut":
+                before = 0.5 * (s.y[2] ** 2 + s.y[3] ** 2) + 9.80665 * (s.y[1] + 1.0)
+                after = 0.5 * (p.small_radius_m * state.y[1]) ** 2 + 9.80665 * (x.position(p, state)[1] + 1.0)
+        s, t = state, t + 1e-3
+    assert after < before - 0.1
+
+
+def test_the_peg_pendulum_refuses_what_cannot_hang():
+    with pytest.raises(ValueError, match="below the pivot and above the bob"):
+        x.PegPendulum(peg_depth_m=1.2)
+    with pytest.raises(ValueError, match="at most 90°"):
+        x.PegPendulum(start_deg=120)
+    with pytest.raises(ValueError, match="at most"):
+        x.run_peg(x.PegPendulum(), 1000.0)
+
+
+# ── Maxwell's wheel ──────────────────────────────────────────────────────────
+
+
+def test_the_wheel_falls_slowly_because_nearly_all_its_energy_goes_into_its_spin():
+    w = x.MaxwellWheel(loss=0.0)
+    k = x.inertia_ratio(w)
+    assert k == pytest.approx(0.5 * (0.065 / 0.005) ** 2)
+    assert x.fall_acceleration(w) == pytest.approx(9.80665 / (1 + k))
+    assert round(x.rotation_share(w) * 100, 1) == 98.8
+    # Energy, from rest at the top: M·g·h = ½·(M + I/r²)·v².
+    b = x.wheel_bounce(w, 0.6)
+    assert 0.5 * (1 + k) * b.bottom_speed_m_s**2 == pytest.approx(9.80665 * 0.6, rel=1e-14)
+    assert round(x.wheel_bounce(x.MaxwellWheel(), 0.6).fall_s, 1) == 3.3
+
+
+def test_without_losses_it_climbs_back_to_where_it_started():
+    w = x.MaxwellWheel(loss=0.0)
+    assert x.wheel_bounce(w, 0.6).to_m == pytest.approx(0.6, rel=1e-14)
+
+
+def test_the_strings_rubbing_costs_each_climb_the_same_share():
+    w = x.MaxwellWheel()
+    k = x.inertia_ratio(w)
+    share = (1 + k / 1.03) / (1 + k / 0.97)
+    heights = [b.from_m for b in x.bounces(w, 4)]
+    for a, b in itertools.pairwise(heights):
+        assert b / a == pytest.approx(share, rel=1e-12)
+    assert round(share * 100) == 94
+
+
+def test_the_jerk_at_the_bottom_is_a_spring_s_and_pulls_six_times_the_weight():
+    w = x.MaxwellWheel()
+    b = x.wheel_bounce(w, 0.6)
+    s, m, v = w.stiffness_n_m, w.mass_kg, b.bottom_speed_m_s
+
+    def spring(_t, y):
+        return [y[1], -9.80665 - (s / m) * y[0] if y[0] < 0 else -9.80665]
+
+    trace = rk4(spring, [0.0, -v], 1e-6, b.jerk_s)
+    assert trace.states[0][-1] == pytest.approx(0, abs=1e-9)
+    assert trace.states[1][-1] == pytest.approx(v, rel=1e-6)
+    assert max(-s * z for z in trace.states[0]) == pytest.approx(b.peak_tension_n, rel=1e-9)
+    assert round(b.peak_tension_n / (m * 9.80665), 1) == 6.4
+    assert round(b.jerk_s * 1000) == 25
+
+
+def test_the_wheel_is_where_its_closed_form_puts_it():
+    w = x.MaxwellWheel()
+    b = x.wheel_bounce(w, 0.6)
+    assert x.state_at(w, 0).height_m == 0.6
+    assert x.state_at(w, b.fall_s + b.jerk_s / 2).height_m == pytest.approx(-b.stretch_m, rel=1e-9)
+    top = x.state_at(w, b.fall_s + b.jerk_s + b.climb_s - 1e-9)
+    assert top.height_m == pytest.approx(b.to_m, rel=1e-6)
+
+
+def test_maxwell_s_wheel_refuses_what_cannot_hang():
+    with pytest.raises(ValueError, match="thinner than the wheel"):
+        x.MaxwellWheel(axle_radius_m=0.1)
+    with pytest.raises(ValueError, match="rubbing"):
+        x.MaxwellWheel(loss=0.6)
+    with pytest.raises(ValueError, match="let go at t = 0"):
+        x.state_at(x.MaxwellWheel(), -1.0)
+
+
+# ── the chaotic pendulum ─────────────────────────────────────────────────────
+
+
+def test_a_gentle_double_pendulum_swings_in_its_two_modes():
+    dp = x.DoublePendulum()
+    slow, fast = x.double_mode_rates(dp)
+    assert slow == pytest.approx(math.sqrt(9.80665 / 0.3 * (2 - math.sqrt(2))), rel=1e-14)
+    assert fast == pytest.approx(math.sqrt(9.80665 / 0.3 * (2 + math.sqrt(2))), rel=1e-14)
+    # Let go in the slow mode — the lower arm √2 times as far out — it is back
+    # after one of its periods.
+    period = 2 * math.pi / slow
+    run = x.run_chaos(dp, 1.0, math.sqrt(2), period, step_s=period / round(period * 1000))
+    assert run.theta1_deg[-1] == pytest.approx(1.0, abs=0.005)
+    assert run.theta2_deg[-1] == pytest.approx(math.sqrt(2), abs=0.005)
+
+
+def test_the_double_pendulum_keeps_its_energy_however_wildly_it_swings():
+    run = x.run_chaos(x.DoublePendulum(), 120.0, 120.0, 20.0)
+    assert run.energy_drift < 1e-7
+
+
+def test_two_wild_pendulums_a_thousandth_of_a_degree_apart_part_company():
+    wild = x.run_chaos(x.DoublePendulum(), 120.0, 120.0, 20.0)
+    gentle = x.run_chaos(x.DoublePendulum(), 5.0, 7.0, 20.0)
+    assert max(wild.separation) > 1
+    assert max(gentle.separation) < 1e-4
+
+
+def test_the_lyapunov_exponent_is_measured_whatever_the_twin_s_distance():
+    dp = x.DoublePendulum()
+    near = x.lyapunov(dp, 120.0, 120.0, 60.0, gap=1e-10)
+    far = x.lyapunov(dp, 120.0, 120.0, 60.0, gap=1e-6)
+    assert near == pytest.approx(far, abs=0.005)
+    assert round(far, 1) == 2.8
+    assert x.lyapunov(dp, 5.0, 7.0, 60.0) < 0.01
+
+
+def test_the_double_pendulum_refuses_what_it_cannot_be():
+    with pytest.raises(ValueError, match="5 cm and 3 m"):
+        x.DoublePendulum(length1_m=5.0)
+    with pytest.raises(ValueError, match="nudge"):
+        x.run_chaos(x.DoublePendulum(), 10.0, 10.0, 1.0, nudge_deg=0.0)
+    with pytest.raises(ValueError, match="−180° and 180°"):
+        x.run_chaos(x.DoublePendulum(), 200.0, 10.0, 1.0)
+
+
+# ── the chaotic waterwheel ───────────────────────────────────────────────────
+
+
+def test_malkus_s_waterwheel_is_lorenz_s_equations():
+    """The wheel's own equations — mass, rate, a leak and a tap — integrated in
+    seconds, against the engine's Lorenz variables turned back into the wheel."""
+    w = x.WaterWheel()
+    g, r, nu, k = 9.80665, 0.5, 1.0, w.leak_per_s
+    inertia = nu / (k * w.sigma)
+    q = w.rho * nu * k * k / (math.pi * g * r)
+    c = math.pi * g * r / (nu * k)
+
+    def malkus(_t, s):
+        a, b, om = s
+        return [om * b - k * a, -om * a + q - k * b, (-nu * om + math.pi * g * r * a) / inertia]
+
+    trace = rk4(malkus, [0.0, q / k, k * 1e-3], 0.01 / k, 5.0, sample_every=10)
+    run = x.run_waterwheel(w, 5.0)
+    for i, t in enumerate(trace.t):
+        j = round(t * k * 20)
+        assert run.x[j] == pytest.approx(trace.states[2][i] / k, abs=1e-9)
+        assert run.y[j] == pytest.approx(c * trace.states[0][i], abs=1e-9)
+        assert run.z[j] == pytest.approx(w.rho - c * trace.states[1][i], abs=1e-8)
+
+
+def test_the_tap_decides_whether_the_wheel_stands_turns_or_wanders():
+    still = x.WaterWheel(rho=0.5)
+    steady = x.WaterWheel(rho=10.0)
+    wild = x.WaterWheel()
+    assert x.hopf_rho(wild) == pytest.approx(17.5)
+    assert [x.regime(w) for w in (still, steady, wild)] == ["still", "steady", "chaotic"]
+    assert abs(x.run_waterwheel(still, 200.0).x[-1]) < 1e-6
+    assert abs(x.run_waterwheel(steady, 200.0).x[-1]) == pytest.approx(x.steady_x(steady), abs=1e-3)
+    reversals = x.run_waterwheel(wild, 200.0).reversals_s
+    assert len(reversals) > 10
+    # Not to a beat: the gaps between reversals range widely.
+    gaps = [b - a for a, b in itertools.pairwise(reversals)]
+    assert max(gaps) > 3 * min(gaps)
+
+
+def test_the_cups_are_full_at_the_top_while_the_wheel_stands():
+    w = x.WaterWheel()
+    assert x.cup_level(w, 0.0, 0.0, 0.0) == pytest.approx(0.95)
+    assert x.cup_level(w, 0.0, 0.0, math.pi) == pytest.approx(0.05)
+
+
+def test_the_waterwheel_refuses_what_it_cannot_be():
+    with pytest.raises(ValueError, match="σ"):
+        x.WaterWheel(sigma=1.0)
+    with pytest.raises(ValueError, match="at most"):
+        x.run_waterwheel(x.WaterWheel(), 1000.0)
+
+
+# ── Foucault's pendulum ──────────────────────────────────────────────────────
+
+
+def test_the_closed_foucault_swing_is_the_stepped_one():
+    p = x.FoucaultPendulum()
+    wz = x.vertical_rate(p)
+    w2 = 9.80665 / p.length_m
+
+    def coriolis(_t, s):
+        return [s[2], s[3], -w2 * s[0] + 2 * wz * s[3], -w2 * s[1] - 2 * wz * s[2]]
+
+    trace = rk4(coriolis, [p.amplitude_m, 0.0, 0.0, 0.0], 1e-3, 600.0, sample_every=7000)
+    for t, xs, ys in zip(trace.t, trace.states[0], trace.states[1], strict=True):
+        cx, cy = x.foucault_position(p, t)
+        assert cx == pytest.approx(xs, abs=1e-9)
+        assert cy == pytest.approx(ys, abs=1e-9)
+
+
+def test_in_winterthur_the_plane_turns_eleven_degrees_an_hour():
+    p = x.FoucaultPendulum()
+    assert round(x.degrees_per_hour(p), 1) == 11.1
+    assert round(x.full_turn_h(p), 1) == 32.5
+    # Clockwise seen from above in the north: the plane's angle falls.
+    assert x.plane_deg(p, 3600) == pytest.approx(-x.degrees_per_hour(p))
+    # A swing's turning points lie along the turning plane.
+    half = x.foucault_period_s(p) * round(1800 / x.foucault_period_s(p))
+    px, py = x.foucault_position(p, half)
+    assert math.degrees(math.atan2(py, px)) == pytest.approx(x.plane_deg(p, half), abs=0.01)
+
+
+def test_at_the_pole_once_a_sidereal_day_at_the_equator_never_in_the_south_the_other_way():
+    pole = x.FoucaultPendulum(latitude_deg=90.0)
+    assert round(x.full_turn_h(pole), 2) == 23.93
+    assert x.full_turn_h(x.FoucaultPendulum(latitude_deg=0.0)) is None
+    assert x.degrees_per_hour(x.FoucaultPendulum(latitude_deg=-33.9)) < 0
+    curve = x.latitude_curve(x.FoucaultPendulum())
+    assert len(curve) == 37
+    assert curve[0].degrees_per_hour == pytest.approx(-curve[-1].degrees_per_hour)
+
+
+def test_foucault_s_pendulum_refuses_what_it_cannot_be():
+    with pytest.raises(ValueError, match="latitude"):
+        x.FoucaultPendulum(latitude_deg=100.0)
+    with pytest.raises(ValueError, match="tenth"):
+        x.FoucaultPendulum(amplitude_m=5.0)
+
+
+# ── the Coriolis carousel ────────────────────────────────────────────────────
+
+
+def test_a_rider_sees_the_puck_pushed_by_the_coriolis_and_the_centrifugal_force():
+    c = x.Carousel()
+    throw = x.Throw()
+    w = c.rate
+    ux, uy = -throw.speed_m_s, 0.0
+
+    def turning_frame(_t, s):
+        # a′ = −2Ω × v′ − Ω × (Ω × r′), Ω along z: (2Ω·vy + Ω²x, −2Ω·vx + Ω²y).
+        return [s[2], s[3], 2 * w * s[3] + w * w * s[0], -2 * w * s[2] + w * w * s[1]]
+
+    trace = rk4(turning_frame, [c.radius_m, 0.0, ux, uy], 1e-4, 1.0, sample_every=1000)
+    for t, xs, ys in zip(trace.t, trace.states[0], trace.states[1], strict=True):
+        px, py = x.turning(c, throw, t)
+        assert px == pytest.approx(xs, abs=1e-9)
+        assert py == pytest.approx(ys, abs=1e-9)
+
+
+def test_seen_from_outside_the_puck_goes_straight_and_the_rolled_ball_in_a_circle():
+    c = x.Carousel()
+    puck = [x.outside(c, x.Throw(), t) for t in (0.0, 0.4, 0.8)]
+    (ax, ay), (bx, by), (cx, cy) = puck
+    assert (bx - ax) * (cy - ay) - (by - ay) * (cx - ax) == pytest.approx(0, abs=1e-12)
+    ball = x.Throw(body=x.ThrownBody.BALL)
+    h = 1e-5
+
+    def velocity(t):
+        (x1, y1), (x2, y2) = x.outside(c, ball, t - h), x.outside(c, ball, t + h)
+        return (x2 - x1) / (2 * h), (y2 - y1) / (2 * h)
+
+    v0, v1 = velocity(0.1), velocity(1.1)
+    turned = math.atan2(v1[1], v1[0]) - math.atan2(v0[1], v0[0])
+    assert turned == pytest.approx(2 / 7 * c.rate, rel=1e-6)
+    assert math.hypot(*v1) == pytest.approx(math.hypot(*v0), rel=1e-8)
+
+
+def test_to_hit_the_other_seat_a_rider_aims_well_ahead_of_it():
+    c = x.Carousel()
+    straight = x.miss_deg(c, x.Throw())
+    # Clockwise, to the right as the riders see it: the platform turns anticlockwise.
+    assert round(straight) == -86
+    puck = x.lead_deg(c, 3.0, x.ThrownBody.PUCK)
+    ball = x.lead_deg(c, 3.0, x.ThrownBody.BALL)
+    assert round(puck) == 50
+    assert round(ball) == 43
+    assert x.miss_deg(c, x.Throw(3.0, puck)) == pytest.approx(0, abs=1e-6)
+    assert x.lead_deg(x.Carousel(rpm=0), 3.0, x.ThrownBody.PUCK) == pytest.approx(0, abs=1e-9)
+    # Too fast a platform for too slow a throw: no aim reaches the other seat.
+    assert x.lead_deg(x.Carousel(rpm=20), 1.0, x.ThrownBody.PUCK) is None
+
+
+def test_the_carousel_refuses_what_it_cannot_be():
+    with pytest.raises(ValueError, match="60 times a minute"):
+        x.Carousel(rpm=100)
+    with pytest.raises(ValueError, match="89°"):
+        x.Throw(aim_deg=95)
+
+
+# ── Newton's cradle ──────────────────────────────────────────────────────────
+
+
+def test_with_a_hair_s_gap_one_ball_in_sends_exactly_one_out():
+    cr = x.Cradle(gap_m=1e-4, restitution=1.0)
+    im = x.cradle_impact(cr, x.Pull())
+    assert im.after_m_s[-1] == pytest.approx(im.before_m_s[0], rel=1e-4)
+    assert all(abs(v) < 1e-3 for v in im.after_m_s[:-1])
+    two = x.cradle_impact(cr, x.Pull(balls=2))
+    assert two.far_share == pytest.approx(1, abs=1e-4)
+
+
+def test_touching_balls_keep_momentum_and_energy_but_send_out_not_quite_all():
+    cr = x.Cradle(restitution=1.0)
+    im = x.cradle_impact(cr, x.Pull())
+    assert sum(im.after_m_s) == pytest.approx(im.before_m_s[0], rel=1e-4)
+    assert sum(v * v for v in im.after_m_s) == pytest.approx(im.before_m_s[0] ** 2, rel=1e-3)
+    assert round(im.far_share, 3) == 0.978
+    assert min(im.after_m_s[:-1]) < -0.01
+
+
+def test_a_lone_pair_s_peak_force_is_hertz_s():
+    cr = x.Cradle(count=2, gap_m=1e-4, restitution=1.0)
+    im = x.cradle_impact(cr, x.Pull())
+    v, m, k = im.before_m_s[0], cr.mass_kg, cr.stiffness
+    deepest = (5 * (m / 2) * v * v / (4 * k)) ** 0.4
+    assert im.peak_n == pytest.approx(k * deepest**1.5, rel=0.01)
+
+
+def test_the_exhibit_s_one_ball_sends_97_percent_out_and_a_hair_s_gap_99_9():
+    im = x.cradle_impact(x.Cradle(), x.Pull())
+    assert round(im.far_share, 2) == 0.97
+    assert im.after_m_s[0] < 0
+    assert round(x.cradle_impact(x.Cradle(gap_m=1e-4), x.Pull()).far_share, 3) == 0.999
+
+
+def test_a_steel_contact_lasts_0_2_ms_and_presses_with_nearly_900_n():
+    cr = x.Cradle()
+    im = x.cradle_impact(cr, x.Pull())
+    assert round(cr.mass_kg, 3) == 0.064
+    assert round(im.duration_s * 1e3, 1) == 0.2
+    assert round(im.peak_n, -2) == 900
+    assert im.peak_n < 900
+
+
+def test_two_in_come_out_as_two_but_not_at_the_same_speed():
+    im = x.cradle_impact(x.Cradle(), x.Pull(balls=2))
+    assert round(im.before_m_s[0], 2) == 0.63
+    assert round(im.after_m_s[-1], 2) == 0.70
+    assert round(im.after_m_s[-2], 2) == 0.49
+    assert round(im.far_share, 2) == 0.97
+
+
+def test_with_lossy_contacts_the_middle_ball_comes_to_swing_and_without_it_stays_nearly_still():
+    # The fourth second's widest swing of the middle ball: what the page's chart
+    # draws, and what its "after three seconds" says.
+    def middle(cr: x.Cradle) -> float:
+        run = x.run_cradle(cr, x.Pull(), 4.0)
+        return max(abs(a) for a in run.angles_deg[2][300:])
+
+    assert round(middle(x.Cradle()), 1) == 2.5
+    assert middle(x.Cradle(restitution=1.0)) < 0.2
+
+
+def test_the_cradle_refuses_what_cannot_hang():
+    with pytest.raises(ValueError, match="between 2 and 9"):
+        x.Cradle(count=12)
+    with pytest.raises(ValueError, match="left hanging"):
+        x.cradle_impact(x.Cradle(count=3), x.Pull(balls=3))
+
+
+# ── the gravity well ─────────────────────────────────────────────────────────
+
+
+def _well_ride(f: x.Funnel, launch: x.WellLaunch, seconds: float) -> list[tuple[float, float, float]]:
+    """(r, φ, t) a millisecond apart, from the engine's own steps."""
+    from staunlabor.domain.experiments import well
+
+    ride = well.begin(f, launch)
+    out = []
+    for _ in range(round(seconds / well.STEP_S)):
+        ride, _lap = well.advance(f, ride)
+        out.append((ride.y[0], ride.y[2], ride.t))
+    return out
+
+
+def test_without_rolling_resistance_the_ball_keeps_its_energy_and_its_angular_momentum():
+    from staunlabor.domain.experiments import well
+
+    f = x.Funnel(rolling_resistance=0.0)
+    ride = well.begin(f, x.WellLaunch(0.3, 10.0))
+    e0, h0 = x.well_energy(f, ride.y), ride.y[0] ** 2 * ride.y[3]
+    for _ in range(30_000):
+        ride, _lap = well.advance(f, ride)
+    assert ride.outcome == "rolling"
+    assert x.well_energy(f, ride.y) == pytest.approx(e0, rel=1e-9)
+    assert ride.y[0] ** 2 * ride.y[3] == pytest.approx(h0, rel=1e-9)
+
+
+def test_a_ball_at_the_circular_speed_stays_on_its_circle_for_kepler_s_period():
+    f = x.Funnel(rolling_resistance=0.0)
+    r0 = f.start_m
+    run = x.run_well(f, x.WellLaunch(x.well_circular_speed(f, r0), 0.0), 30.0)
+    assert max(abs(r - r0) for r in run.r_m) < 1e-6
+    assert all(lap.period_s == pytest.approx(x.well_circular_period(f, r0), abs=1e-3) for lap in run.laps)
+
+
+def test_on_the_circles_the_funnel_keeps_kepler_s_third_law():
+    f = x.Funnel()
+    assert round(x.well_circular_speed(f, f.start_m), 2) == 0.44
+    assert round(x.well_circular_period(f, f.start_m), 1) == 5.1
+    assert round(x.well_circular_period(f, f.hole_m), 2) == 0.12
+    # Twelve times nearer the hole, a lap 12^(3/2) times shorter: 42.
+    assert round(f.start_m / f.hole_m) == 12
+    assert round(x.well_circular_period(f, f.start_m) / x.well_circular_period(f, f.hole_m)) == 42
+
+
+def test_off_the_circle_the_path_does_not_close_but_turns_40_degrees_a_round():
+    ride = _well_ride(x.Funnel(rolling_resistance=0.0), x.WellLaunch(0.3, 0.0), 30.0)
+    nearest = [b for a, b, c in zip(ride, ride[1:], ride[2:], strict=False) if b[0] < a[0] and b[0] < c[0]]
+    turns = [math.degrees(q[1] - p[1]) - 360 for p, q in itertools.pairwise(nearest)]
+    assert len(turns) >= 5
+    assert all(round(turn) == 40 for turn in turns)
+
+
+def test_rolling_resistance_spirals_the_ball_in_lap_by_lap_on_kepler_s_periods():
+    f = x.Funnel()
+    run = x.run_well(f, x.WellLaunch(x.well_circular_speed(f, f.start_m), 0.0), 120.0)
+    assert run.outcome == "hole"
+    assert round(run.end_s) == 46
+    assert len(run.laps) == 75
+    assert sum(1 for lap in run.laps if lap.end_s > run.end_s - 10) == 42
+    assert all(lap.period_s == pytest.approx(x.well_circular_period(f, lap.radius_m), rel=0.03) for lap in run.laps)
+
+
+def test_the_spiral_takes_as_long_as_the_circles_energy_drained_by_the_resistance():
+    # An independent count: on circle r the ball has −g·k/(2r) a kilogram and
+    # loses C·N·v a second, N the weight's share across the wall and the push
+    # that holds it on the circle. Simpson's rule from the hole to the start.
+    from staunlabor.domain.experiments.pendulum import G
+
+    f = x.Funnel()
+    k, c = f.k_m2, f.rolling_resistance
+
+    def seconds_per_metre(r: float) -> float:
+        slope = k / (r * r)
+        normal = G / math.sqrt(1 + slope * slope) * (1 + 5 / 7 * slope * slope)
+        return G * k / (2 * r * r) / (c * normal * x.well_circular_speed(f, r))
+
+    n = 2000
+    h = (f.start_m - f.hole_m) / n
+    weights = [1 if i in (0, n) else 4 if i % 2 else 2 for i in range(n + 1)]
+    expected = h / 3 * sum(w * seconds_per_metre(f.hole_m + i * h) for i, w in enumerate(weights))
+    run = x.run_well(f, x.WellLaunch(x.well_circular_speed(f, f.start_m), 0.0), 120.0)
+    assert run.end_s == pytest.approx(expected, rel=0.01)
+
+
+def test_the_funnel_refuses_what_it_cannot_be():
+    with pytest.raises(ValueError, match="quarter of the rim"):
+        x.Funnel(hole_m=0.2)
+    with pytest.raises(ValueError, match="at most 90°"):
+        x.WellLaunch(0.3, 120.0)
+    with pytest.raises(ValueError, match="at most 300 s"):
+        x.run_well(x.Funnel(), x.WellLaunch(), 400.0)
+
+
+def test_the_resistance_brakes_the_ball_and_yet_it_runs_ever_faster():
+    from staunlabor.domain.experiments import well
+
+    f = x.Funnel()
+    ride = well.begin(f, x.WellLaunch(x.well_circular_speed(f, f.start_m), 0.0))
+
+    def speed(y: tuple[float, float, float, float]) -> float:
+        slope = f.k_m2 / (y[0] * y[0])
+        return math.sqrt((1 + slope * slope) * y[1] ** 2 + (y[0] * y[3]) ** 2)
+
+    first = speed(ride.y)
+    fastest_per_lap = []
+    fastest = 0.0
+    while ride.outcome == "rolling":
+        ride, lap = well.advance(f, ride)
+        fastest = max(fastest, speed(ride.y))
+        if lap is not None:
+            fastest_per_lap.append(fastest)
+            fastest = 0.0
+    # More than three times as fast in its last lap as at the start.
+    assert fastest_per_lap[-1] > 3 * first
+    # Lap by lap it wobbles a little (the start is not quite a circle with the
+    # resistance on); ten laps apart, it is always faster.
+    assert all(b > a for a, b in itertools.pairwise(fastest_per_lap[::10]))
+
+
+# ── resonance ────────────────────────────────────────────────────────────────
+
+
+def test_a_clamped_rod_s_first_mode_has_the_textbook_constants():
+    # β₁² = 3.516 and, for the shape 1 at the tip, Γ = 1.566: any table of
+    # cantilever modes.
+    from staunlabor.domain.experiments import resonance
+
+    assert round(resonance.BETA1, 4) == 1.8751
+    assert round(resonance.BETA1**2, 3) == 3.516
+    assert round(resonance.GAMMA, 3) == 1.566
+    assert resonance.shape(0.0) == pytest.approx(0.0, abs=1e-12)
+    assert resonance.shape(1.0) == pytest.approx(1.0)
+
+
+def test_a_rod_s_second_mode_lies_6_27_times_higher_and_is_left_out():
+    # The second root of cosh β·cos β = −1, found here independently.
+    from staunlabor.domain.experiments import resonance
+
+    def gap(b: float) -> float:
+        return math.cosh(b) * math.cos(b) + 1
+
+    lo, hi = 4.0, 5.0
+    for _ in range(80):
+        mid = (lo + hi) / 2
+        lo, hi = (lo, mid) if gap(lo) * gap(mid) <= 0 else (mid, hi)
+    assert round((lo / resonance.BETA1) ** 2, 2) == 6.27
+
+
+def test_the_six_rods_ring_between_1_4_and_5_7_hz():
+    rack = x.ResonanceRack()
+    assert [round(x.rod_hz(rack, length), 2) for length in rack.lengths_m] == [1.41, 1.74, 2.21, 2.88, 3.92, 5.65]
+
+
+def test_in_step_one_rod_swings_78_mm_on_a_table_moving_1_mm_and_its_neighbours_at_most_4():
+    rack = x.ResonanceRack()
+    beat = x.rod_hz(rack, 0.8)
+    swings = [x.rod_steady_m(rack, length, beat) * 1000 for length in rack.lengths_m]
+    assert rack.table_m == 0.001
+    assert round(swings[2]) == 78
+    assert round(max(swings[:2] + swings[3:])) == 4
+    # Three per cent off the beat: a third of it.
+    assert round(x.rod_steady_m(rack, 0.8, beat * 1.03) * 1000) == 26
+
+
+def test_stepped_from_rest_the_rods_settle_on_the_closed_form():
+    rack = x.ResonanceRack()
+    run = x.run_resonance(rack, 2.0, 60.0)
+    for rod, length in enumerate(rack.lengths_m):
+        late = max(abs(q) for q in run.tips_m[rod][-200:])
+        assert late == pytest.approx(x.rod_steady_m(rack, length, 2.0), rel=0.01)
+
+
+def test_in_step_a_swing_grows_to_two_thirds_in_one_over_zeta_omega():
+    from staunlabor.domain.experiments import resonance
+
+    rack = x.ResonanceRack()
+    beat = x.rod_hz(rack, 0.8)
+    tau = 1 / (rack.damping_ratio * 2 * math.pi * beat)
+    assert round(tau, 1) == 7.2
+    s = resonance.start(rack)
+    for _ in range(round(tau / resonance.STEP_S)):
+        s = resonance.step(rack, s, beat)
+    grown = resonance.swing_m(rack, s, 2) / x.rod_steady_m(rack, 0.8, beat)
+    assert grown == pytest.approx(1 - math.exp(-1), abs=0.02)
+
+
+def test_swept_at_a_twentieth_of_a_hertz_a_second_the_rod_reaches_half_its_swing_and_late():
+    from staunlabor.domain.experiments import resonance
+
+    rack = x.ResonanceRack()
+    s = resonance.start(rack)
+    widest, at = 0.0, 0.0
+    # The page's sweep: from 1 Hz, 0.05 Hz a second.
+    for i in range(round(30 / resonance.STEP_S)):
+        drive = 1.0 + 0.05 * i * resonance.STEP_S
+        s = resonance.step(rack, s, drive)
+        swing = resonance.swing_m(rack, s, 2)
+        if swing > widest:
+            widest, at = swing, drive
+    assert round(widest * 1000) == 40
+    assert round(at, 1) == 2.4
+
+
+def test_the_rack_refuses_what_it_cannot_hold():
+    with pytest.raises(ValueError, match="between 10 cm and 2 m"):
+        x.ResonanceRack(lengths_m=(3.0,))
+    with pytest.raises(ValueError, match="between 0 and 50"):
+        x.run_resonance(x.ResonanceRack(), 60.0, 1.0)
+
+
+# ── the gyroscope wheel ──────────────────────────────────────────────────────
+
+
+def test_a_still_wheel_drops_in_0_37_s_and_a_spun_one_stays_up():
+    still = x.run_gyroscope(x.GyroWheel(rpm=0), x.GyroRelease(), 5.0)
+    assert still.dropped_s is not None
+    assert round(still.dropped_s, 2) == 0.37
+    spun = x.run_gyroscope(x.GyroWheel(), x.GyroRelease(), 20.0)
+    assert spun.dropped_s is None
+    assert max(spun.tilt_deg) < 95
+
+
+def test_the_wheel_keeps_its_energy_and_let_go_turning_steadily_keeps_its_tilt():
+    from staunlabor.domain.experiments import gyroscope
+
+    w = x.GyroWheel()
+    y, m = gyroscope.start(w, x.GyroRelease(tilt_deg=70.0))
+    e0 = gyroscope.energy_j(w, m, y)
+    for _ in range(20_000):
+        y = gyroscope.step(w, m, y)
+    assert gyroscope.energy_j(w, m, y) == pytest.approx(e0, rel=1e-8)
+    steady = x.run_gyroscope(w, x.GyroRelease(tilt_deg=70.0, steady=True), 20.0)
+    assert max(abs(t - 70.0) for t in steady.tilt_deg) < 1e-6
+
+
+def test_at_200_rpm_it_turns_round_the_string_in_8_1_s_and_twice_as_fast_spun_half_as_fast():
+    w = x.GyroWheel()
+    assert w.rpm == 200
+    period = 2 * math.pi / x.gyro_precession(w)
+    assert round(period, 1) == 8.1
+    assert 2 * math.pi / x.gyro_precession(x.GyroWheel(rpm=400)) == pytest.approx(2 * period)
+    # Let go from rest it keeps that pace on average, to half a per cent.
+    run = x.run_gyroscope(w, x.GyroRelease(), 20.0)
+    assert math.radians(run.turn_deg[-1]) / 20.0 == pytest.approx(x.gyro_precession(w), rel=0.005)
+
+
+def test_let_go_from_rest_the_axle_dips_3_2_degrees_as_the_kept_momenta_say_and_nods_4_times_a_second():
+    # The lowest tilt from energy and the two kept momenta alone: with u = cos θ
+    # at the turning point, 2·I₁·m·g·d·u² − (I₃ω₃)²·u − 2·I₁·m·g·d = 0.
+    w = x.GyroWheel()
+    a = 2 * w.i1 * w.torque_n_m
+    l3 = w.i3 * w.spin_rad_s
+    u = (l3 * l3 - math.sqrt(l3**4 + 4 * a * a)) / (2 * a)
+    lowest = math.degrees(math.acos(u))
+    run = x.run_gyroscope(w, x.GyroRelease(), 5.0)
+    dense = max(run.tilt_deg)
+    assert dense == pytest.approx(lowest, abs=0.02)
+    assert round(lowest - 90, 1) == 3.2
+    assert round(x.gyro_nutation(w) / (2 * math.pi), 1) == 4.4
+
+
+def test_turning_the_suitcase_a_quarter_turn_a_second_takes_5_9_n_m():
+    w = x.GyroWheel()
+    torque = x.gyro_suitcase_torque(w, 90.0)
+    assert round(torque, 1) == 5.9
+    # As much as 600 g at the end of a metre-long lever.
+    assert round(torque / 9.80665, 1) == 0.6
+
+
+def test_the_wheel_refuses_what_it_cannot_be():
+    with pytest.raises(ValueError, match="3000 times"):
+        x.GyroWheel(rpm=5000)
+    with pytest.raises(ValueError, match="it falls"):
+        x.gyro_precession(x.GyroWheel(rpm=0))
+    with pytest.raises(ValueError, match="between 30° and 150°"):
+        x.GyroRelease(tilt_deg=10.0)
+
+
+# ── the chain and the arch ───────────────────────────────────────────────────
+
+
+def test_the_upside_down_chain_springs_from_the_ends_and_rises_as_high_as_the_arch():
+    from staunlabor.domain.experiments import arch
+
+    a = arch.catenary_a_for_rise(1.0, 1.0)
+    assert a * (math.cosh(1.0 / a) - 1) == pytest.approx(1.0, rel=1e-12)
+    ends = arch.joints(x.StoneArch(shape="catenary"))
+    assert ends[0].centre[1] == pytest.approx(0.0, abs=1e-12)
+    assert ends[len(ends) // 2].centre[1] == pytest.approx(1.0, rel=1e-12)
+
+
+def test_a_catenary_arch_is_pressed_along_itself_its_thrust_line_at_its_middle():
+    for thickness in (0.05, 0.1, 0.15, 0.25):
+        line = x.arch_thrust(x.StoneArch(shape="catenary", thickness_m=thickness))
+        assert line.stands
+        # Within a hundredth of half the thickness, whatever the thickness.
+        assert line.reach < 0.01
+
+
+def test_a_semicircular_arch_needs_10_75_percent_of_its_radius_milankovitch_s_bound():
+    # Milankovitch (1907) and Ochsendorf: t/R = 0.1075 for radial joints;
+    # Heyman's 0.106 left out the blocks' true centroids.
+    def least(blocks: int) -> float:
+        lo, hi = 0.05, 0.2
+        for _ in range(25):
+            mid = (lo + hi) / 2
+            lo, hi = (lo, mid) if x.arch_thrust(x.StoneArch(thickness_m=mid, blocks=blocks)).stands else (mid, hi)
+        return hi
+
+    assert round(least(100), 4) == 0.1075
+    # The page's sixteen stones: 10.7 %.
+    assert round(least(16), 3) == 0.107
+
+
+def test_at_10_cm_on_a_metre_s_radius_the_semicircle_falls_and_the_pointed_arch_stands():
+    assert not x.arch_thrust(x.StoneArch(thickness_m=0.1)).stands
+    assert x.arch_thrust(x.StoneArch(shape="pointed", thickness_m=0.1)).stands
+
+
+def test_a_load_at_the_quarter_breaks_the_semicircle_at_80_percent_of_its_weight_the_chain_s_arch_at_141():
+    def breaking(shape: str) -> float:
+        stone = x.StoneArch(shape=shape)
+        weight = x.arch_thrust(stone).weight_n
+        lo, hi = 0.0, 4.0
+        for _ in range(16):
+            mid = (lo + hi) / 2
+            line = x.arch_thrust(stone, x.ArchLoad(0.5, mid * weight))
+            lo, hi = (mid, hi) if line.stands else (lo, mid)
+        return lo
+
+    assert x.StoneArch().thickness_m == 0.25
+    assert round(breaking("semicircle"), 2) == 0.80
+    assert round(breaking("catenary"), 2) == 1.41
+
+
+def test_the_arch_refuses_what_it_cannot_be():
+    with pytest.raises(ValueError, match="even number"):
+        x.StoneArch(blocks=15)
+    with pytest.raises(ValueError, match="between its ends"):
+        x.ArchLoad(1.5, 10.0)
+
+
+# ── Chladni figures ──────────────────────────────────────────────────────────
+
+
+def test_the_free_square_plate_rings_at_leissa_s_tones():
+    # Leissa, Vibration of Plates (1969), the free square plate at ν = 0.3:
+    # λ = ω·a²·√(ρh/D) = 13.468, 19.596, 24.270, 34.801, 63.686 (and 61.093).
+    from staunlabor.domain.experiments import chladni
+
+    lowest = {
+        (1, 1, 1): 13.468,
+        (0, 0, -1): 19.596,
+        (0, 0, 1): 24.270,
+        (1, 0, 0): 34.801,
+    }
+    for kind, lam in lowest.items():
+        assert round(chladni.modes(kind, 1)[0].lam, 3) == lam
+    assert round(chladni.modes((0, 0, 1), 2)[1].lam, 3) == 63.686
+    assert round(chladni.modes((1, 0, 0), 2)[1].lam, 3) == 61.093
+
+
+def test_only_modes_that_move_the_middle_are_driven_there():
+    from staunlabor.domain.experiments import chladni
+
+    for mode in chladni.driven_modes():
+        assert abs(chladni.value(mode, 0.0, 0.0)) > 0.05
+    for kind in ((1, 1, 1), (0, 0, -1), (1, 0, 0), (1, 1, -1)):
+        for mode in chladni.modes(kind, 3):
+            assert abs(chladni.value(mode, 0.0, 0.0)) < 1e-12
+
+
+def test_a_24_cm_steel_plate_shaken_at_its_middle_rings_at_102_269_and_517_hz_no_harmonics():
+    from staunlabor.domain.experiments import chladni
+
+    plate = x.ChladniPlate()
+    tones = [chladni.frequency_hz(plate, mode.lam) for mode in chladni.driven_modes()]
+    assert (plate.side_m, plate.thickness_m) == (0.24, 0.001)
+    assert [round(f) for f in tones[:3]] == [102, 269, 517]
+    # 2.62 and 5.05 times the lowest: no string's 2 and 3.
+    assert round(tones[1] / tones[0], 2) == 2.62
+    assert round(tones[2] / tones[0], 2) == 5.05
+
+
+def test_the_sand_s_lines_are_where_the_driven_plate_stands_still():
+    # Shaken at its lowest driven tone, the plate's swing on its nodal ring is
+    # a small share of the swing at its middle and corners.
+    from staunlabor.domain.experiments import chladni
+
+    plate = x.ChladniPlate()
+    ring = chladni.driven_modes()[0]
+    f = chladni.frequency_hz(plate, ring.lam)
+    middle = chladni.response(plate, chladni.driven_modes(), f, 0.0, 0.0)
+    # Along the line y = 0 the ring mode changes sign once between the middle
+    # and the edge: the node, found by bisection.
+    lo, hi = 0.0, 1.0
+    for _ in range(50):
+        mid = (lo + hi) / 2
+        if chladni.value(ring, mid, 0.0) > 0:
+            lo = mid
+        else:
+            hi = mid
+    assert chladni.response(plate, chladni.driven_modes(), f, lo, 0.0) < 0.02 * middle
+
+
+def test_the_plate_refuses_what_it_cannot_be():
+    with pytest.raises(ValueError, match="thin beside its side"):
+        x.ChladniPlate(thickness_m=0.05)
+
+
+# ── the floating top ─────────────────────────────────────────────────────────
+
+
+def test_the_ring_s_field_on_its_axis_is_a_dipole_s_far_away_and_its_slopes_are_exact():
+    from staunlabor.domain.experiments import levitation as lv
+
+    base = x.LevitationBase()
+    # Far up the axis, a dipole of the ring's moment M·π(r₂² − r₁²)·t at its middle.
+    moment = base.magnetisation_a_m * math.pi * (base.outer_radius_m**2 - base.inner_radius_m**2) * base.height_m
+    z = 3.0
+    dipole = lv.MU0 * moment / (2 * math.pi * (z + base.height_m / 2) ** 3)
+    assert lv.axis_field(base, z)[0] == pytest.approx(dipole, rel=1e-3)
+    # The slope and the curvature are the field's own, by central differences.
+    h = 1e-6
+    for z in (0.01, 0.045, 0.1):
+        _, b1, b2 = lv.axis_field(base, z)
+        up, down = lv.axis_field(base, z + h), lv.axis_field(base, z - h)
+        assert b1 == pytest.approx((up[0] - down[0]) / (2 * h), rel=1e-6)
+        assert b2 == pytest.approx((up[1] - down[1]) / (2 * h), rel=1e-5)
+
+
+def test_the_top_hovers_between_4_36_and_4_81_cm_weighing_23_11_to_23_81_g():
+    hover = x.levitation_hover(x.LevitationBase(), x.LevitationTop())
+    assert hover.state == "hovers"
+    assert round(hover.foot_m * 100, 2) == 4.36
+    assert round(hover.head_m * 100, 2) == 4.81
+    assert round(hover.lightest_kg * 1000, 2) == 23.11
+    assert round(hover.heaviest_kg * 1000, 2) == 23.81
+    # A window of 3 % in weight, and the exhibit's top of 23.5 g floats at 4.6 cm,
+    # bobbing at 1.5 Hz and drifting round at 0.6 Hz.
+    assert round((hover.heaviest_kg - hover.lightest_kg) / hover.heaviest_kg * 100) == 3
+    assert hover.height_m is not None and round(hover.height_m * 100, 1) == 4.6
+    assert hover.bob_hz is not None and round(hover.bob_hz, 1) == 1.5
+    assert hover.drift_hz is not None and round(hover.drift_hz, 1) == 0.6
+
+
+def test_the_window_s_foot_is_where_the_lift_peaks():
+    from staunlabor.domain.experiments import levitation as lv
+
+    base, top = x.LevitationBase(), x.LevitationTop()
+    foot, _ = lv.window(base)
+    peak = lv.lift_kg(base, top, foot)
+    for dz in (-2e-3, -5e-4, 5e-4, 2e-3):
+        assert lv.lift_kg(base, top, foot + dz) < peak
+
+
+def test_a_heavier_top_lands_and_a_lighter_one_slides_off():
+    base = x.LevitationBase()
+    assert x.levitation_hover(base, x.LevitationTop(mass_kg=0.02382)).state == "lands"
+    slides = x.levitation_hover(base, x.LevitationTop(mass_kg=0.02311))
+    # Held up and down above the window, but not sideways.
+    assert slides.state == "slides" and slides.height_m is not None and slides.height_m > slides.head_m
+
+
+def test_three_and_a_half_degrees_warmer_the_top_lands_four_and_a_half_colder_it_slides_off():
+    base, top = x.LevitationBase(), x.LevitationTop()
+    assert x.levitation_hover(base, top, 3.0).state == "hovers"
+    assert x.levitation_hover(base, top, 3.5).state == "lands"
+    assert x.levitation_hover(base, top, -4.0).state == "hovers"
+    assert x.levitation_hover(base, top, -4.5).state == "slides"
+    # Warmth moves the window's masses, never its heights.
+    warm, cool = x.levitation_hover(base, top, 2.0), x.levitation_hover(base, top)
+    assert warm.foot_m == cool.foot_m and warm.head_m == cool.head_m
+    assert round((1 - warm.heaviest_kg / cool.heaviest_kg) * 100, 1) == 0.8
+
+
+def test_held_still_against_the_field_no_height_holds_a_magnet_earnshaw():
+    # A magnet that turned with the field (energy m·g·z − μ·|B|) would need
+    # B″ < 0 up and down and B′² < 2·B·B″ sideways: never both, where B > 0.
+    from staunlabor.domain.experiments import levitation as lv
+
+    base = x.LevitationBase()
+    for i in range(1, 300):
+        b, b1, b2 = lv.axis_field(base, i * 1e-3)
+        assert not (b > 0 and b2 < 0 and b1 * b1 < 2 * b * b2)
+
+
+def test_the_floating_top_refuses_what_it_cannot_be():
+    with pytest.raises(ValueError, match="hole is smaller"):
+        x.LevitationBase(inner_radius_m=0.06)
+    with pytest.raises(ValueError, match="weighs more than nothing"):
+        x.LevitationTop(mass_kg=0)
+    with pytest.raises(ValueError, match="warming"):
+        x.levitation_hover(x.LevitationBase(), x.LevitationTop(), 50)
+    with pytest.raises(ValueError, match="holds no top"):
+        # A ring a metre across with a hole of 60 cm bends right only far above it.
+        x.levitation_hover(x.LevitationBase(inner_radius_m=0.3, outer_radius_m=0.5), x.LevitationTop())

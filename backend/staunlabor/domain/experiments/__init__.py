@@ -30,11 +30,57 @@ with SciPy before it was written (``docs/experiments.md``).
 * :mod:`cannon` — balls stacked and dropped: Hertz contacts hand momentum up
   the stack in a few milliseconds, and the small ball on top leaves several
   times as fast as the stack arrived.
+* :mod:`pendulum` — the block the swinging exhibits stand on: a plane
+  pendulum exactly (Jacobi's elliptic functions) and stepped (Runge–Kutta),
+  each the other's check.
+* :mod:`coriolis` — the Coriolis carousel: a thrown puck goes straight and a
+  rolled ball in a circle, seen from outside; both curve away for the riders.
+* :mod:`cradle` — Newton's cradle with Hertz contacts: one in, one out, clean
+  with a hair's gap between the balls and nearly so when they touch.
+* :mod:`arch` — a stone arch stands while a thrust line fits in its stones;
+  the hanging chain, upside down, is the shape where it fits best.
+* :mod:`chladni` — the free square plate's modes by Ritz and Legendre: where
+  a plate shaken at its middle stands still, the sand lies.
+* :mod:`levitation` — a spinning top hovers over a ring magnet only in a
+  window a few millimetres high and three per cent wide in weight.
+* :mod:`gyroscope` — a spinning wheel on a string turns round it instead of
+  falling; the suitcase that tips when turned.
+* :mod:`resonance` — six rods on a trembling table: only the one in step
+  swings, and it takes its time.
+* :mod:`well` — the gravity well: a ball rolling round a funnel ``z = −k/r``
+  keeps Kepler's third law on every circle and spirals into the hole.
+* :mod:`foucault` — Foucault's pendulum in Winterthur: its plane turns 11.1°
+  an hour against the floor, the Earth's turn about the local vertical.
+* :mod:`harmonograph` — a pen on one pendulum and a board on another: the
+  picture two damped swings draw, closed at a simple ratio, turning near one.
+* :mod:`cone` — a double cone on rails that spread and rise: it rolls up them
+  because its centre falls, and the exact contact says by how much.
+* :mod:`parabola` — water in a spinning vessel: a paraboloid whose middle
+  sinks as far as its rim rises, dry in the middle past a rate, a mirror whose
+  focus the rate sets, and water that follows the vessel over Ekman's time.
+* :mod:`coupled` — two pendulums and a spring: two modes, and a swing that
+  wanders from one to the other at their beat, all of it only when they match.
+* :mod:`peg` — Galileo's pendulum caught by a peg: the bob rises to the height
+  it fell from, or swings over the peg, or its string goes slack.
+* :mod:`maxwell` — Maxwell's wheel: a slow fall because nearly all its energy
+  goes into its spin, a jerk at the bottom the strings' stretch sets, a climb
+  nearly back.
+* :mod:`chaos` — the double pendulum: two that start a thousandth of a degree
+  apart part company, and the Lyapunov exponent measured Benettin's way.
+* :mod:`waterwheel` — Malkus's leaking waterwheel, which is Lorenz's equations:
+  still, steady, or turning back and forth without ever repeating.
+* :mod:`wave` — a row of pendulums tuned to swing ``N``, ``N + 1``, … times a
+  cycle: waves, groups, and all together again — at the swing it was tuned for.
 
 What it is not: a physics engine for games. Each model is the exhibit's, with
 the assumptions its module states.
 """
 
+from staunlabor.domain.experiments.arch import Arch as StoneArch
+from staunlabor.domain.experiments.arch import Load as ArchLoad
+from staunlabor.domain.experiments.arch import Shape as ArchShape
+from staunlabor.domain.experiments.arch import Thrust as ArchThrust
+from staunlabor.domain.experiments.arch import thrust as arch_thrust
 from staunlabor.domain.experiments.cannon import (
     Ball,
     BallStack,
@@ -47,6 +93,14 @@ from staunlabor.domain.experiments.cannon import (
 from staunlabor.domain.experiments.cannon import drop as cannon_drop
 from staunlabor.domain.experiments.cannon import figures as cannon_figures
 from staunlabor.domain.experiments.cannon import launch as cannon_launch
+from staunlabor.domain.experiments.chaos import ChaosRun, DoublePendulum, lyapunov, separation
+from staunlabor.domain.experiments.chaos import energy as double_energy
+from staunlabor.domain.experiments.chaos import mode_rates as double_mode_rates
+from staunlabor.domain.experiments.chaos import run as run_chaos
+from staunlabor.domain.experiments.chladni import Mode as ChladniMode
+from staunlabor.domain.experiments.chladni import Plate as ChladniPlate
+from staunlabor.domain.experiments.chladni import driven_modes as chladni_driven_modes
+from staunlabor.domain.experiments.chladni import response as chladni_response
 from staunlabor.domain.experiments.coil import (
     METER_RANGE_A,
     Coil,
@@ -71,6 +125,48 @@ from staunlabor.domain.experiments.coil import (
 )
 from staunlabor.domain.experiments.coil import analysis as coil_analysis
 from staunlabor.domain.experiments.coil import run as run_coil
+from staunlabor.domain.experiments.cone import (
+    ConeExhibit,
+    ConeRun,
+    DoubleCone,
+    Rails,
+    axis_height_m,
+    axis_slope,
+    contact_factor,
+    contact_radius_m,
+    rail_height_m,
+    roll,
+    start_for,
+    threshold_deg,
+)
+from staunlabor.domain.experiments.coriolis import Body as ThrownBody
+from staunlabor.domain.experiments.coriolis import (
+    Carousel,
+    Throw,
+    ThrowPath,
+    lead_deg,
+    leaves_s,
+    miss_deg,
+    outside,
+    turning,
+)
+from staunlabor.domain.experiments.coriolis import path as throw_path
+from staunlabor.domain.experiments.coupled import (
+    Bob,
+    CoupledPendulums,
+    CoupledRun,
+    Start,
+    beat_s,
+    couplings,
+    energies,
+    exchange_share,
+    mode_rates,
+)
+from staunlabor.domain.experiments.coupled import swing as coupled_swing
+from staunlabor.domain.experiments.cradle import Cradle, CradleRun, Pull
+from staunlabor.domain.experiments.cradle import Impact as CradleImpact
+from staunlabor.domain.experiments.cradle import impact as cradle_impact
+from staunlabor.domain.experiments.cradle import run as run_cradle
 from staunlabor.domain.experiments.elephant import (
     Elephant,
     ElephantFigures,
@@ -84,6 +180,88 @@ from staunlabor.domain.experiments.elephant import (
 from staunlabor.domain.experiments.elephant import Move as ElephantMove
 from staunlabor.domain.experiments.elephant import figures as elephant_figures
 from staunlabor.domain.experiments.elephant import run as run_elephant
+from staunlabor.domain.experiments.foucault import (
+    FoucaultPendulum,
+    LatitudePoint,
+    degrees_per_hour,
+    full_turn_h,
+    latitude_curve,
+    plane_deg,
+    vertical_rate,
+)
+from staunlabor.domain.experiments.foucault import period_s as foucault_period_s
+from staunlabor.domain.experiments.foucault import position as foucault_position
+from staunlabor.domain.experiments.gyroscope import GyroRun
+from staunlabor.domain.experiments.gyroscope import Release as GyroRelease
+from staunlabor.domain.experiments.gyroscope import Wheel as GyroWheel
+from staunlabor.domain.experiments.gyroscope import nutation_rad_s as gyro_nutation
+from staunlabor.domain.experiments.gyroscope import precession_rad_s as gyro_precession
+from staunlabor.domain.experiments.gyroscope import run as run_gyroscope
+from staunlabor.domain.experiments.gyroscope import suitcase_torque_n_m as gyro_suitcase_torque
+from staunlabor.domain.experiments.harmonograph import (
+    Harmonograph,
+    HarmonographFigures,
+    HarmonographPendulum,
+    HarmonographRun,
+    nearest_ratio,
+)
+from staunlabor.domain.experiments.harmonograph import draw as harmonograph_draw
+from staunlabor.domain.experiments.harmonograph import figures as harmonograph_figures
+from staunlabor.domain.experiments.levitation import Base as LevitationBase
+from staunlabor.domain.experiments.levitation import Hover as LevitationHover
+from staunlabor.domain.experiments.levitation import Top as LevitationTop
+from staunlabor.domain.experiments.levitation import hover as levitation_hover
+from staunlabor.domain.experiments.maxwell import (
+    Bounce,
+    MaxwellWheel,
+    Shape,
+    WheelRun,
+    WheelState,
+    bounces,
+    climb_deceleration,
+    fall_acceleration,
+    inertia_ratio,
+    rotation_share,
+    state_at,
+)
+from staunlabor.domain.experiments.maxwell import bounce as wheel_bounce
+from staunlabor.domain.experiments.maxwell import run as run_wheel
+from staunlabor.domain.experiments.parabola import (
+    SpinRun,
+    Surface,
+    Vessel,
+    dry_rate,
+    height_at,
+    spill_rate,
+    spin_up_time_s,
+    surface,
+)
+from staunlabor.domain.experiments.parabola import profile as water_profile
+from staunlabor.domain.experiments.parabola import spin as water_spin
+from staunlabor.domain.experiments.peg import (
+    Event,
+    Mode,
+    PegPendulum,
+    PegRun,
+    PegState,
+    outcome,
+    position,
+    slack_height_m,
+    start_height_m,
+)
+from staunlabor.domain.experiments.peg import run as run_peg
+from staunlabor.domain.experiments.peg import step as peg_step
+from staunlabor.domain.experiments.pendulum import (
+    SwingRun,
+    angle_deg,
+    ellipk,
+    jacobi,
+    length_for,
+    period_factor,
+    period_s,
+    small_period_s,
+    swing,
+)
 from staunlabor.domain.experiments.perspective import (
     ACUITY_RAD,
     EYE,
@@ -143,6 +321,12 @@ from staunlabor.domain.experiments.race import entries as race_entries
 from staunlabor.domain.experiments.race import race as run_race
 from staunlabor.domain.experiments.race import settle as settle_race
 from staunlabor.domain.experiments.race import valley as race_valley
+from staunlabor.domain.experiments.resonance import Rack as ResonanceRack
+from staunlabor.domain.experiments.resonance import ShakeRun
+from staunlabor.domain.experiments.resonance import natural_hz as rod_hz
+from staunlabor.domain.experiments.resonance import run as run_resonance
+from staunlabor.domain.experiments.resonance import steady_m as rod_steady_m
+from staunlabor.domain.experiments.resonance import swing_m as rod_swing_m
 from staunlabor.domain.experiments.smoke import (
     Drum,
     Flight,
@@ -174,29 +358,68 @@ from staunlabor.domain.experiments.sphere import (
 )
 from staunlabor.domain.experiments.sphere import figures as sphere_figures
 from staunlabor.domain.experiments.sphere import run as run_sphere
+from staunlabor.domain.experiments.waterwheel import WaterWheel, WheelTurns, cup_level, hopf_rho, regime, steady_x
+from staunlabor.domain.experiments.waterwheel import run as run_waterwheel
+from staunlabor.domain.experiments.wave import (
+    GroupPoint,
+    PendulumWave,
+    SpreadPoint,
+    WaveFigures,
+    WavePendulum,
+    groups_at,
+    lag_deg,
+    lengths_m,
+    spread_deg,
+)
+from staunlabor.domain.experiments.wave import figures as wave_figures
+from staunlabor.domain.experiments.well import Funnel, WellRun
+from staunlabor.domain.experiments.well import Lap as WellLap
+from staunlabor.domain.experiments.well import Launch as WellLaunch
+from staunlabor.domain.experiments.well import circular_period_s as well_circular_period
+from staunlabor.domain.experiments.well import circular_speed_m_s as well_circular_speed
+from staunlabor.domain.experiments.well import energy_per_kg as well_energy
+from staunlabor.domain.experiments.well import run as run_well
 
 __all__ = [
     "ACUITY_RAD",
     "EYE",
     "EYE_BASELINE_M",
     "METER_RANGE_A",
+    "ArchLoad",
+    "ArchShape",
+    "ArchThrust",
     "Ball",
     "BallKind",
     "BallStack",
     "Basin",
+    "Bob",
     "Body",
+    "Bounce",
     "Box",
     "CannonFigures",
+    "Carousel",
     "ChairAnalysis",
+    "ChaosRun",
+    "ChladniMode",
+    "ChladniPlate",
     "Coil",
     "CoilAnalysis",
     "CoilCurve",
     "CoilExhibit",
     "CoilFigures",
     "CoilRun",
+    "ConeExhibit",
+    "ConeRun",
     "Contact",
+    "CoupledPendulums",
+    "CoupledRun",
+    "Cradle",
+    "CradleImpact",
+    "CradleRun",
     "CurveKind",
     "CurvePoint",
+    "DoubleCone",
+    "DoublePendulum",
     "Drive",
     "DrivePath",
     "Drop",
@@ -207,22 +430,43 @@ __all__ = [
     "ElephantRun",
     "EnergyAccount",
     "Entry",
+    "Event",
     "Figure",
     "FigureKind",
     "Flight",
     "FloatingBall",
+    "FoucaultPendulum",
+    "Funnel",
+    "GroupPoint",
+    "GyroRelease",
+    "GyroRun",
+    "GyroWheel",
+    "Harmonograph",
+    "HarmonographFigures",
+    "HarmonographPendulum",
+    "HarmonographRun",
     "Idle",
     "Impact",
     "Inertia",
     "Jet",
     "Joint",
+    "LatitudePoint",
     "Launch",
+    "LevitationBase",
+    "LevitationHover",
+    "LevitationTop",
     "LiftPoint",
     "Magnet",
+    "MaxwellWheel",
+    "Mode",
     "Move",
     "Orbit",
     "Path",
     "Peephole",
+    "PegPendulum",
+    "PegRun",
+    "PegState",
+    "PendulumWave",
     "PitBall",
     "PitRun",
     "Platform",
@@ -232,15 +476,20 @@ __all__ = [
     "Press",
     "PressPoint",
     "PressRule",
+    "Pull",
     "Push",
     "Race",
     "RaceBall",
     "RaceRun",
     "RaceTrack",
+    "Rails",
+    "ResonanceRack",
     "Ring",
     "Room",
     "Scripted",
     "Segment",
+    "ShakeRun",
+    "Shape",
     "SidePoint",
     "SmokeExhibit",
     "SmokeFigures",
@@ -248,7 +497,16 @@ __all__ = [
     "SphereFigures",
     "SphereRun",
     "Spin",
+    "SpinRun",
+    "SpreadPoint",
+    "Start",
+    "StoneArch",
+    "Surface",
     "SwingPoint",
+    "SwingRun",
+    "Throw",
+    "ThrowPath",
+    "ThrownBody",
     "TiltPoint",
     "TimingPoint",
     "Track",
@@ -256,50 +514,152 @@ __all__ = [
     "Valley",
     "ValleyStart",
     "Verdict",
+    "Vessel",
+    "WaterWheel",
+    "WaveFigures",
+    "WavePendulum",
+    "WellLap",
+    "WellLaunch",
+    "WellRun",
+    "WheelRun",
+    "WheelState",
+    "WheelTurns",
+    "angle_deg",
+    "arch_thrust",
+    "axis_height_m",
+    "axis_slope",
     "backbone",
+    "beat_s",
     "binocular_gap",
+    "bounces",
     "cannon_drop",
     "cannon_figures",
     "cannon_launch",
     "chair",
     "chair_analysis",
+    "chladni_driven_modes",
+    "chladni_response",
+    "climb_deceleration",
     "coil_analysis",
+    "contact_factor",
+    "contact_radius_m",
+    "coupled_swing",
     "coupling",
+    "couplings",
+    "cradle_impact",
+    "cup_level",
     "cycloid_through",
+    "degrees_per_hour",
+    "double_energy",
+    "double_mode_rates",
+    "dry_rate",
     "elephant_figures",
+    "ellipk",
+    "energies",
+    "exchange_share",
     "exhibit",
+    "fall_acceleration",
     "figures",
     "flux_linkage",
+    "foucault_period_s",
+    "foucault_position",
+    "full_turn_h",
+    "groups_at",
+    "gyro_nutation",
+    "gyro_precession",
+    "gyro_suitcase_torque",
+    "harmonograph_draw",
+    "harmonograph_figures",
+    "height_at",
+    "hopf_rho",
     "image",
     "inertia",
+    "inertia_ratio",
+    "jacobi",
     "joint_gap",
     "joints",
+    "lag_deg",
+    "latitude_curve",
+    "lead_deg",
+    "leaves_s",
+    "length_for",
+    "lengths_m",
+    "levitation_hover",
     "lowest_orbit_hz",
+    "lyapunov",
+    "miss_deg",
+    "mode_rates",
+    "nearest_ratio",
     "orbit",
     "orbit_at",
+    "outcome",
+    "outside",
     "peak_coupling",
+    "peg_step",
+    "period_factor",
+    "period_s",
+    "plane_deg",
     "platform_figures",
+    "position",
     "pull_n",
     "race_entries",
     "race_valley",
+    "rail_height_m",
+    "regime",
     "ring_from_push",
+    "rod_hz",
+    "rod_steady_m",
+    "rod_swing_m",
+    "roll",
+    "rotation_share",
+    "run_chaos",
     "run_coil",
+    "run_cradle",
     "run_elephant",
+    "run_gyroscope",
+    "run_peg",
     "run_pit",
     "run_platform",
     "run_race",
+    "run_resonance",
     "run_sphere",
+    "run_waterwheel",
+    "run_well",
+    "run_wheel",
     "scatter",
+    "separation",
     "settle_race",
     "sight_lines",
     "skew",
+    "slack_height_m",
     "slide",
+    "small_period_s",
     "smoke_figures",
     "smoke_flight",
     "sphere_figures",
+    "spill_rate",
     "spin",
+    "spin_up_time_s",
+    "spread_deg",
+    "start_for",
+    "start_height_m",
+    "state_at",
+    "steady_x",
+    "surface",
+    "swing",
     "swing_hz",
+    "threshold_deg",
+    "throw_path",
     "timing_curve",
     "tolerance",
+    "turning",
+    "vertical_rate",
+    "water_profile",
+    "water_spin",
+    "wave_figures",
+    "well_circular_period",
+    "well_circular_speed",
+    "well_energy",
+    "wheel_bounce",
     "widest_gap",
 ]
