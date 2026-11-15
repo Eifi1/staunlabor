@@ -686,6 +686,15 @@ export interface PlateRequest {
   slot_m: number;
 }
 
+// ── the bouncing ball ────────────────────────────────────────────────────────
+
+/** The engine's two balls and the height they are let go from. No route: the
+ *  page asks the port (`simulate/bounce.ts`). */
+export interface BounceRequest {
+  balls: Array<{ mass_kg: number; diameter_m: number; restitution: number }>;
+  height_m: number;
+}
+
 // ── the chain and the arch ───────────────────────────────────────────────────
 
 /** The engine's `Arch`. No route: the page asks the port (`simulate/arch.ts`). */
@@ -746,6 +755,7 @@ export interface ExperimentsDefaults {
   levitation: LevitationRequest;
   circuit: CircuitRequest;
   plates: PlatesRequest;
+  bounce: BounceRequest;
   meter_range_a: number;
   settle_s: number;
 }

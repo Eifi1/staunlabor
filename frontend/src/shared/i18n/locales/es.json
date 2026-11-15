@@ -303,6 +303,12 @@
         "title": "Las placas que caen",
         "summary": "Placas de cobre y de aluminio bajan despacio entre imanes, como si cayeran por miel, aunque ninguna de ellas es magnética.",
         "question": "Los imanes no atraen a ninguna de las placas. ¿Por qué caen entonces tan despacio?"
+      },
+      "bounce": {
+        "short": "Bola que bota",
+        "title": "La bola de acero que bota",
+        "summary": "Una bola de acero y una pelota de tenis de mesa botan sobre una placa, cada vez más bajo y más deprisa: infinitos botes, y sin embargo quedan quietas en pocos segundos.",
+        "question": "¿Cómo caben infinitos botes en unos pocos segundos?"
       }
     },
     "chair": {
@@ -2642,6 +2648,100 @@
         "s": "distancia recorrida",
         "check": "Las pruebas de la página suman el calor que producen las corrientes, punto por punto sobre la placa: es exactamente la potencia de frenado. Contrastan la caída con la ecuación del movimiento calculada paso a paso (Runge-Kutta), también con el freno tal como es en cada profundidad: en una placa entera varía un 5 %, lo que cambia el tiempo de caída en menos de una milésima. Se calcula en su navegador, con las mismas fórmulas que el motor de cálculo de la página.",
         "left_out": "Se omite: la forma real del campo (aquí un coseno, igual a lo ancho, con una intensidad supuesta) y cómo se deshilacha en los extremos de la columna; el propio campo de las corrientes de Foucault; el nervio que mantiene unidos los dientes de una placa ranurada, que aquí se cuenta también como cortado; el aire, de modo que la placa de plástico cae libremente; el rozamiento con las guías. Los valores son una construcción supuesta: imanes de 20 mm de alto con 0,15 T en la ranura, 90 cm de caída, placas de 10 × 12 cm y 3 mm de grosor, de los metales puros."
+      }
+    },
+    "bounce": {
+      "at": {
+        "plate": "Sobre una placa dura cuelgan una bola de acero y una pelota de tenis de mesa. Al soltarlas, vuelven a subir, cada vez algo menos.",
+        "rhythm": "Se oye en el clic: los golpes llegan cada vez más deprisa, hasta fundirse en un zumbido y callar.",
+        "steel": "La bola de acero suena mucho más tiempo que la pelota de tenis de mesa."
+      },
+      "view": "La placa con la bola de acero y la pelota de tenis de mesa encima",
+      "strip": "Cada golpe de las dos bolas sobre un eje de tiempo",
+      "short": {
+        "steel": "Bola de acero",
+        "tennis": "Pelota de tenis de mesa"
+      },
+      "play": {
+        "title": "Dejarlas caer",
+        "hint": "Las dos bolas cuelgan sobre la placa. Suéltelas y escuche: con el sonido activado, cada golpe hace clic. Debajo, cada golpe sobre un eje de tiempo.",
+        "drop": "Soltar",
+        "pause": "Detener",
+        "run": "Seguir",
+        "top": "Volver a subirlas",
+        "speed": "Velocidad",
+        "speeds": {
+          "real": "Tiempo real",
+          "slow": "Cámara lenta (¼)"
+        },
+        "sound": "Sonido",
+        "sound_hint": "Un clic en cada golpe, tan fuerte como el golpe. En silencio hasta que lo active.",
+        "no_sound": "Su navegador no puede producir sonido aquí.",
+        "waiting": "Las bolas cuelgan sobre la placa y esperan.",
+        "caption": "Las bolas a tamaño real sobre la placa, desde {{height}} cm; debajo, cada golpe en el eje de tiempo, hasta que ambas quedan quietas.",
+        "time": "Tiempo",
+        "strikes": "Golpes: {{ball}}"
+      },
+      "change": {
+        "title": "Una bola propia",
+        "hint": "Elija una bola, cambie su coeficiente de restitución y la altura de caída. La altura vale también para las dos bolas de arriba.",
+        "kind": "Bola",
+        "restitution": "Coeficiente de restitución",
+        "restitution_hint": "La parte de la velocidad que devuelve un golpe.",
+        "height": "Altura de caída",
+        "height_hint": "A qué altura sobre la placa se suelta la bola.",
+        "status": "Su bola queda quieta tras {{time}} s; {{count}} de sus botes duran más de una centésima de segundo."
+      },
+      "figures": {
+        "still": "Hasta quedar quieta",
+        "counted": "Botes de más de 0,01 s",
+        "apex": "Primer bote, altura",
+        "flight": "Primer bote, duración",
+        "rhythm": "Segundo bote entre el primero",
+        "terminal": "Velocidad límite en el aire"
+      },
+      "chart": {
+        "height": "Altura",
+        "time": "Tiempo",
+        "still": "Hasta quedar quieta",
+        "restitution": "Coeficiente de restitución",
+        "still_hint": "Cuánto botan las dos bolas según su coeficiente de restitución, desde la altura elegida; a trazos, sin aire. Cerca de 1 el tiempo crece sin límite.",
+        "no_air": "sin aire"
+      },
+      "model": {
+        "intro": "En cada golpe la bola pierde una parte fija de su velocidad: ella y la placa se deforman un poco, y el movimiento se convierte en calor y sonido. Lo que queda lo dice el coeficiente de restitución.",
+        "bounce": "Un golpe devuelve la parte e de la velocidad; por eso la bola sube hasta e² de la altura anterior.",
+        "series": "Sin aire, cada bote dura e veces lo que el anterior.",
+        "sum": "La duración de todos los botes juntos es una serie geométrica: infinitos términos, pero una suma finita.",
+        "air": "El aire frena con el cuadrado de la velocidad. Para la pesada bola de acero es casi nada; para la ligera pelota de tenis de mesa, se nota."
+      },
+      "symbols": {
+        "e": "coeficiente de restitución",
+        "v": "velocidad en el golpe",
+        "h": "altura del bote n",
+        "tn": "duración del bote n",
+        "still": "tiempo hasta que la bola queda quieta",
+        "t0": "duración de la caída hasta el primer golpe",
+        "m": "masa de la bola",
+        "g": "aceleración de la gravedad",
+        "rho": "densidad del aire",
+        "cd": "coeficiente de arrastre de una esfera",
+        "a": "sección de la bola",
+        "vt": "velocidad límite en el aire"
+      },
+      "sweet": {
+        "zeno": "El truco: los botes no solo se hacen más bajos, sino también más cortos, cada uno en la misma proporción. Así caben infinitos botes en un tiempo finito, como en la paradoja de Zenón de Aquiles y la tortuga.",
+        "steel": "Desde 30 cm, la bola de acero, con coeficiente 0,95, queda quieta tras 9,6 s, con 75 botes de más de una centésima de segundo; la pelota de tenis de mesa, con 0,92, tras 5,2 s, con 44. La pequeña diferencia de coeficiente pesa mucho, pues el tiempo crece con 1/(1 − e).",
+        "rhythm": "El coeficiente se puede oír en el ritmo: el segundo bote de la bola de acero dura 0,95 veces el primero, exactamente su coeficiente. En la pelota de tenis de mesa es 0,89 en vez de 0,92, porque también la frena el aire, que ya la sostiene entera a 8,6 m/s; a la bola de acero, solo a 60 m/s.",
+        "rules": "Las reglas del tenis de mesa exigen que una pelota soltada desde 305 mm rebote hasta entre 230 y 250 mm. Con un coeficiente de 0,92 y el aire, esta rebota hasta 240 mm."
+      },
+      "computed": {
+        "system": "Entre dos golpes la bola vuela en vertical, solo con su peso y la resistencia del aire. Para ello hay una solución exacta: hacia arriba con la tangente, hacia abajo con la tangente hiperbólica. La página calcula vuelo tras vuelo; cuando los vuelos duran menos de una décima de milisegundo, el resto de la serie se suma en forma cerrada, donde el aire ya no importa.",
+        "exact": "Lanzada hacia arriba con v₀: la velocidad y la altura de la cumbre; hacia abajo, la velocidad al cabo de un tiempo t de caída.",
+        "v0": "velocidad tras el golpe",
+        "top": "altura de la cumbre",
+        "check": "Las pruebas de la página contrastan cada vuelo con la ecuación del movimiento con aire calculada paso a paso (Runge-Kutta), y la suma para una bola que el aire apenas toca con la serie geométrica √(2h/g)·(1 + e)/(1 − e). Se calcula en su navegador, con las mismas fórmulas que el motor de cálculo de la página.",
+        "left_out": "Se omite: que el coeficiente de restitución depende de la velocidad (aquí es fijo); el tiempo que la bola pasa sobre la placa en cada golpe, menos de una diezmilésima de segundo, que en realidad termina la serie con un zumbido antes de su suma; el giro; la cesión de la placa. Los valores: una bola de acero de 20 mm (33 g) con coeficiente 0,95 sobre acero templado, una suposición; una pelota de tenis de mesa reglamentaria (2,7 g, 40 mm) con 0,92."
       }
     }
   },

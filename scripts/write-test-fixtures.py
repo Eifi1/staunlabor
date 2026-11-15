@@ -71,6 +71,7 @@ UNROUTED = (
     "levitation",
     "circuit",
     "plates",
+    "bounce",
 )
 
 

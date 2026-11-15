@@ -84,11 +84,11 @@ quarter for one that came right after yesterday's in the round before. Those
 are the second series' maluses (Marcel, 2026-11-15: "Tagesminus sollte weniger
 zählen"); the first series drew with a quarter and a tenth, and its rounds keep
 them, so the days the live site has shown keep their exhibit. Measured over
-400 rounds of all 28 (a plain shuffle, then the old maluses, in brackets):
-repeated pairs 0.48 a round (1.24; 0.28), repeated triples 0.030 (0.078;
-0.003), neighbours sharing a topic 25.1 days in a hundred (33.6; 19.3); with
-27, before the falling plates, 0.46 and 26.9, with 26, before the LC circuit,
-0.44 and 26.4. With eleven exhibits about energy,
+400 rounds of all 29 (a plain shuffle, then the old maluses, in brackets):
+repeated pairs 0.46 a round (1.38; 0.31), repeated triples 0.008 (0.090;
+0.008), neighbours sharing a topic 23.9 days in a hundred (32.6; 18.7); with
+28, before the bouncing ball, 0.48 and 25.1, with 27, before the falling
+plates, 0.46 and 26.9. With eleven exhibits about energy,
 nine about oscillation and eight about angular momentum, the quarter held a
 topic back on most days.
 They were measured over 2000 rounds against a plain shuffle (`daily.ts` has
@@ -102,8 +102,8 @@ elephant, are a 3 % draw that came up. With the second series the bonus weighs
 less, and less with every exhibit: with eight it cut the turns that come after
 more than a round and two days by a quarter, with fifteen by an eighth (1456
 against 1670 over 400 rounds), with sixteen by a tenth (2311 against 2555),
-with 26 by a twentieth (10259 against 10834 over 1200 rounds), with 27 and
-28 the same (10513 against 11135, 11237 against 11819);
+with 26 by a twentieth (10259 against 10834 over 1200 rounds), with 27 to
+29 the same (10513 against 11135, 11237 against 11819, 11640 against 12183);
 `daily.test.ts` now holds it only to a fiftieth. Its weight a day is fixed
 while a round grows longer, and stays so: Marcel weakened the maluses instead
 (2026-11-15).
@@ -1522,6 +1522,67 @@ written in the test; the fall against Newton's law stepped (RK4), and with the
 rippling brake at every depth the same fall time to a thousandth; the
 thickness, the width, finer slots and brass; the currents never crossing a
 slot or an edge, and none in plastic; the refusals.
+
+## The bouncing ball (`experiments.bounce`)
+
+**The exhibit** (2026-11-16, the second of stage 4, local feedback entry #22;
+inspired by "Hüpfende Stahlkugel" at the Technorama). A steel ball and a
+table-tennis ball over a hard plate; dropped, each clicks on it ever faster
+until the clicks run together and stop. The steel ball clicks much longer.
+
+**The model** (`domain/experiments/bounce.py`). A strike keeps the share `e`
+of the speed (the restitution, constant). Between strikes the ball flies
+straight up and down with its weight and the air's quadratic drag, solved
+exactly: up `v = v_T·tan(atan(v₀/v_T) − g·t/v_T)` to
+`v_T²/(2g)·ln(1 + v₀²/v_T²)`, down `v = −v_T·tanh(g·t/v_T)`, written with
+`log1p`, `expm1` and `ln cosh u = log1p(2·sinh²(u/2))` so that the last tiny
+hops do not cancel. Flight after flight until one is shorter than 0.1 ms; the
+rest of the series, `2u/(g·(1 − e))` for a ball thrown back at `u`, in closed
+form, the air long negligible there. At a strike's own moment the state is the
+one leaving it.
+
+**What it shows** (from 30 cm: a steel ball of 20 mm, 33 g, `e = 0.95` on
+hardened steel, an assumption; a regulation table-tennis ball, 2.7 g, 40 mm,
+`e = 0.92`, which with the air rises from 305 mm to 240 mm, the middle of the
+230–250 mm the rules of table tennis demand). The steel ball lands after
+0.25 s, rises to 27 cm and lies still after 9.6 s, 75 of its bounces longer
+than a hundredth of a second; the table-tennis ball rises to 24 cm and is
+still after 5.2 s, with 44. The air carries the table-tennis ball whole at
+8.6 m/s and the steel one at 60 m/s: the steel ball's second flight over its
+first is its restitution, 0.95; the table-tennis ball's is 0.89, not 0.92.
+
+**The page.** The plate with the two balls at true scale (never smaller than
+a dot) and, below, a strip with every strike on a time line, lit as it comes;
+let go together, real time or a quarter, a count of strikes each. **Sound**,
+off until switched on (`shared/lib/use-clicks.ts`, the tones' rules: no audio
+graph while off, the context closed when turned off, nothing stored): a
+knock at each strike, as loud as the strike was hard, the steel one at
+2800 Hz, the hollow one at 1100 Hz; the quickest strikes, many to a frame,
+knock once. Rebuilding: one of the two balls with its restitution 0.5–0.98 and
+the height 5–100 cm (the height moves the race too), the time until still,
+the bounces over 0.01 s, the first rise and flight, the rhythm and the
+terminal speed, and the ball's height over time. "The trick" has the time
+until still over the restitution for both, and without air
+(`√(2h/g)·(1 + e)/(1 − e)`). Topic "momentum". **No route**: the port's
+(`simulate/bounce.ts`), held to the engine to 10⁻⁹ over seven balls and
+heights, from a dull one with 10 strikes before the closed-form rest to one with
+723.
+
+**Joins the experiment of the day** on `SECOND_SERIES`, with the second series.
+
+**Left out, and said:** the restitution's dependence on the speed; the time on
+the plate at each strike (under 0.1 ms), which in reality ends the series with
+a buzz before its sum; spin; the plate giving way.
+
+**Checked by** `tests/unit/test_experiments.py`: the two balls' times, counts,
+rises, terminal speeds and rhythms, and the rules' 240 mm; every flight
+against the weight and the air's drag stepped (RK4), the drop and the first
+three; a ball the air cannot touch against the geometric series, its flights
+each `e` times the last; the turn at each strike keeping `e` of the speed, the
+ball never below the plate, and still after the sum; the refusals.
+`shared/lib/use-clicks.test.ts`: silent while off, a knock per click at its
+pitch and level, the context closed when turned off, and said where there is
+no Web Audio.
 
 ## The notice: the check still to come
 

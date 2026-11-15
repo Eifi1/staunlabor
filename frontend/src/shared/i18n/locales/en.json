@@ -303,6 +303,12 @@
         "title": "The falling plates",
         "summary": "Plates of copper and aluminium sink slowly between magnets, as if through honey – though none of them is magnetic.",
         "question": "The magnets do not pull on any of the plates. Why do they fall so slowly all the same?"
+      },
+      "bounce": {
+        "short": "Bouncing ball",
+        "title": "The bouncing steel ball",
+        "summary": "A steel ball and a table-tennis ball bounce on a plate, ever lower and ever faster – infinitely many bounces, and yet they lie still after a few seconds.",
+        "question": "How do infinitely many bounces fit into a few seconds?"
       }
     },
     "chair": {
@@ -2642,6 +2648,100 @@
         "s": "distance fallen",
         "check": "The page's tests add up the heat the currents make, point by point over the plate: it is exactly the braking power. They hold the fall to the equation of motion stepped through (Runge–Kutta), also with the brake as it really is at each depth: for a whole plate it varies by 5 %, which changes the time to fall by less than a thousandth. The computing happens in your browser, with the same formulas as the site's engine.",
         "left_out": "Left out: the field's true shape (here a cosine, the same across the width, its strength an assumption) and how it frays at the column's ends; the eddy currents' own field; the spine that holds a slotted plate's teeth together, counted here as cut through too; the air, so the plastic plate falls freely; the friction on the guides. The values are an assumed build: magnets 20 mm high with 0.15 T in the gap, a fall of 90 cm, plates of 10 × 12 cm and 3 mm thick, of the pure metals."
+      }
+    },
+    "bounce": {
+      "at": {
+        "plate": "A steel ball and a table-tennis ball hang over a hard plate. Dropped, they bounce up again, each time a little less high.",
+        "rhythm": "You hear it in the clicking: the strikes come ever faster, until they run together into a buzz and fall silent.",
+        "steel": "The steel ball clicks for much longer than the table-tennis ball."
+      },
+      "view": "The plate with the steel ball and the table-tennis ball over it",
+      "strip": "Every strike of the two balls on a time line",
+      "short": {
+        "steel": "Steel ball",
+        "tennis": "Table-tennis ball"
+      },
+      "play": {
+        "title": "Let them fall",
+        "hint": "Both balls hang over the plate. Let them go and listen: with the sound on, every strike clicks. Below, every strike on a time line.",
+        "drop": "Let go",
+        "pause": "Pause",
+        "run": "Go on",
+        "top": "Lift them again",
+        "speed": "Speed",
+        "speeds": {
+          "real": "Real time",
+          "slow": "Slow motion (¼)"
+        },
+        "sound": "Sound",
+        "sound_hint": "A click at every strike, as loud as the strike. Silent until you turn it on.",
+        "no_sound": "Your browser cannot make sound here.",
+        "waiting": "The balls hang over the plate, waiting.",
+        "caption": "The balls at true size over the plate, from {{height}} cm; below, every strike on the time line, until both lie still.",
+        "time": "Time",
+        "strikes": "Strikes: {{ball}}"
+      },
+      "change": {
+        "title": "A ball of your own",
+        "hint": "Choose a ball, change its restitution and the height it falls from. The height applies to the two balls above too.",
+        "kind": "Ball",
+        "restitution": "Restitution",
+        "restitution_hint": "The share of its speed a strike gives back.",
+        "height": "Height",
+        "height_hint": "How high over the plate the ball is let go.",
+        "status": "Your ball lies still after {{time}} s; {{count}} of its bounces last longer than a hundredth of a second."
+      },
+      "figures": {
+        "still": "Until it lies still",
+        "counted": "Bounces over 0.01 s",
+        "apex": "First bounce, height",
+        "flight": "First bounce, time",
+        "rhythm": "Second bounce over first",
+        "terminal": "Terminal speed in air"
+      },
+      "chart": {
+        "height": "Height",
+        "time": "Time",
+        "still": "Until it lies still",
+        "restitution": "Restitution",
+        "still_hint": "How long the two balls bounce, by their restitution, from the height set; dashed, without air. Near 1 the time grows without bound.",
+        "no_air": "without air"
+      },
+      "model": {
+        "intro": "At every strike the ball loses a fixed share of its speed: it and the plate give a little, and motion turns into heat and sound. What is left, the restitution says.",
+        "bounce": "A strike gives back the share e of the speed; so the ball rises to e² of the height before.",
+        "series": "Without air every bounce lasts e times as long as the one before.",
+        "sum": "All the bounces' times together are a geometric series: infinitely many terms, but a finite sum.",
+        "air": "The air brakes with the square of the speed. For the heavy steel ball that is almost nothing, for the light table-tennis ball it shows."
+      },
+      "symbols": {
+        "e": "restitution",
+        "v": "speed at the strike",
+        "h": "height of the n-th bounce",
+        "tn": "time of the n-th bounce",
+        "still": "time until the ball lies still",
+        "t0": "time of the fall to the first strike",
+        "m": "mass of the ball",
+        "g": "acceleration of gravity",
+        "rho": "density of the air",
+        "cd": "drag coefficient of a sphere",
+        "a": "cross-section of the ball",
+        "vt": "terminal speed in air"
+      },
+      "sweet": {
+        "zeno": "The trick: the bounces grow not only lower but shorter too, each by the same share. So infinitely many bounces fit into a finite time, as in Zeno's riddle of Achilles and the tortoise.",
+        "steel": "From 30 cm the steel ball, restitution 0.95, lies still after 9.6 s, with 75 bounces that last longer than a hundredth of a second; the table-tennis ball, 0.92, after 5.2 s, with 44. The small difference in restitution counts for a lot, as the time grows with 1/(1 − e).",
+        "rhythm": "You can hear the restitution in the rhythm: the steel ball's second bounce lasts 0.95 times as long as its first, its restitution exactly. For the table-tennis ball it is 0.89 rather than 0.92, as the air brakes it too, the air that carries it whole at 8.6 m/s; the steel ball only at 60 m/s.",
+        "rules": "The rules of table tennis demand that a ball dropped from 305 mm bounce back to between 230 and 250 mm. With a restitution of 0.92 and the air, this one bounces to 240 mm."
+      },
+      "computed": {
+        "system": "Between two strikes the ball flies straight up and down, with only its weight and the air's drag. That has an exact solution, upward with the tangent, downward with the hyperbolic tangent. The page computes flight after flight; once the flights are shorter than a tenth of a millisecond, the rest of the series is added in closed form, the air long negligible there.",
+        "exact": "Thrown up at v₀: the speed and the height of the top; coming down, the speed a time t into the fall.",
+        "v0": "speed after the strike",
+        "top": "height of the top",
+        "check": "The page's tests hold every flight to the equation of motion with air, stepped through (Runge–Kutta), and the sum for a ball the air hardly touches to the geometric series √(2h/g)·(1 + e)/(1 − e). The computing happens in your browser, with the same formulas as the site's engine.",
+        "left_out": "Left out: that the restitution depends on the speed (here it is fixed); the time the ball spends on the plate at each strike, less than a ten-thousandth of a second, which in reality ends the series with a buzz before its sum; spin; the plate giving way. The values: a steel ball of 20 mm (33 g) with a restitution of 0.95 on hardened steel, an assumption; a regulation table-tennis ball (2.7 g, 40 mm) with 0.92."
       }
     }
   },

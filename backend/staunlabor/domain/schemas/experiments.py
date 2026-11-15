@@ -786,6 +786,22 @@ class PlatesIn(_In):
     plate: PlateIn
 
 
+# ── the bouncing ball ────────────────────────────────────────────────────────
+# No route: the page asks the port (``simulate/bounce.ts``).
+
+
+class BouncingBallIn(_In):
+    mass_kg: float = Field(gt=0, le=10, default=0.0329)
+    diameter_m: float = Field(ge=0.005, le=0.3, default=0.020)
+    restitution: float = Field(ge=0.1, le=0.99, default=0.95)
+
+
+class BounceIn(_In):
+    #: The exhibit's two, steel first.
+    balls: list[BouncingBallIn]
+    height_m: float = Field(ge=0.01, le=2, default=0.30)
+
+
 # ── the pages' starting point ────────────────────────────────────────────────
 
 
@@ -816,6 +832,7 @@ class ExperimentsDefaultsOut(_Out):
     levitation: LevitationIn
     circuit: CircuitIn
     plates: PlatesIn
+    bounce: BounceIn
     chladni: ChladniPlateIn
     #: The exhibit's meter: digital, ± this many amperes.
     meter_range_a: float

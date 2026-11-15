@@ -38,7 +38,8 @@ export type Exhibit =
   | "chladni"
   | "levitation"
   | "circuit"
-  | "plates";
+  | "plates"
+  | "bounce";
 
 /** What an exhibit is about, as a reader would look for it: one word each,
  *  and an exhibit may be about two. */
@@ -251,6 +252,13 @@ export const EXHIBITS: readonly ExhibitEntry[] = [
     path: "/plates",
     topics: ["induction"],
     lessons: ["first_order"],
+    since: SECOND_SERIES,
+  },
+  {
+    exhibit: "bounce",
+    path: "/bounce",
+    topics: ["momentum"],
+    lessons: [],
     since: SECOND_SERIES,
   },
 ];

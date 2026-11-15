@@ -35,6 +35,7 @@ import {
   Magnet as MagnetIcon,
   CircuitBoard,
   ChevronsDown,
+  Volleyball,
 } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
 import {
@@ -90,6 +91,7 @@ const ICON: Record<Exhibit, LucideIcon> = {
   levitation: MagnetIcon,
   circuit: CircuitBoard,
   plates: ChevronsDown,
+  bounce: Volleyball,
 };
 
 /** Two weeks back, in the dialog: long enough to find the one a friend

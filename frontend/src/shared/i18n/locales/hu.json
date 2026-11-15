@@ -303,6 +303,12 @@
         "title": "Az eső lemezek",
         "summary": "Réz- és alumíniumlemezek lassan süllyednek le mágnesek között, mintha mézben esnének – pedig egyikük sem mágneses.",
         "question": "A mágnesek egyik lemezt sem vonzzák. Miért esnek mégis ilyen lassan?"
+      },
+      "bounce": {
+        "short": "Pattogó golyó",
+        "title": "A pattogó acélgolyó",
+        "summary": "Egy acélgolyó és egy pingponglabda pattog egy lapon, egyre alacsonyabban és egyre gyorsabban – végtelen sok pattanás, mégis néhány másodperc múlva nyugalomban vannak.",
+        "question": "Hogyan fér el végtelen sok pattanás néhány másodpercben?"
       }
     },
     "chair": {
@@ -2642,6 +2648,100 @@
         "s": "megtett út",
         "check": "Az oldal tesztjei pontról pontra összeadják az áramok által termelt hőt a lemezen: ez pontosan a fékteljesítmény. Az esést a lépésenként számolt mozgásegyenlettel (Runge–Kutta) vetik össze, a fékkel is, ahogy az egyes mélységekben valóban hat: egész lemeznél 5 %-kal ingadozik, ami az esési időt kevesebb mint egy ezreddel változtatja. A számítás az Ön böngészőjében fut, ugyanazokkal a képletekkel, mint az oldal számítómagja.",
         "left_out": "Kimaradt: a tér valódi alakja (itt koszinusz, a szélesség mentén egyforma, erőssége feltételezés) és kirojtosodása az oszlop végein; az örvényáramok saját tere; a bevágott lemez fogait összetartó gerinc, amelyet itt szintén átvágottnak tekintünk; a levegő, így a műanyag lemez szabadon esik; a súrlódás a vezetőkön. Az értékek feltételezett építést írnak le: 20 mm magas mágnesek 0,15 T-val a résben, 90 cm esés, 10 × 12 cm-es, 3 mm vastag lemezek tiszta fémekből."
+      }
+    },
+    "bounce": {
+      "at": {
+        "plate": "Egy kemény lap fölött egy acélgolyó és egy pingponglabda lóg. Elengedve visszapattannak, minden alkalommal valamivel alacsonyabbra.",
+        "rhythm": "A kattogásból hallani: az ütések egyre sűrűbben jönnek, míg zümmögéssé olvadnak és elhallgatnak.",
+        "steel": "Az acélgolyó sokkal tovább kattog, mint a pingponglabda."
+      },
+      "view": "A lap, fölötte az acélgolyóval és a pingponglabdával",
+      "strip": "A két golyó minden ütése egy időtengelyen",
+      "short": {
+        "steel": "Acélgolyó",
+        "tennis": "Pingponglabda"
+      },
+      "play": {
+        "title": "Elengedni",
+        "hint": "Mindkét golyó a lap fölött lóg. Engedje el őket és hallgassa: bekapcsolt hanggal minden ütés kattan. Alatta minden ütés egy időtengelyen.",
+        "drop": "Elengedés",
+        "pause": "Megállítás",
+        "run": "Tovább",
+        "top": "Újra felemelni",
+        "speed": "Sebesség",
+        "speeds": {
+          "real": "Valós idő",
+          "slow": "Lassítás (¼)"
+        },
+        "sound": "Hang",
+        "sound_hint": "Minden ütésnél egy kattanás, olyan hangos, mint az ütés. Néma, amíg be nem kapcsolja.",
+        "no_sound": "Az Ön böngészője itt nem tud hangot adni.",
+        "waiting": "A golyók a lap fölött lógnak, és várnak.",
+        "caption": "A golyók valódi méretben a lap fölött, {{height}} cm-ről; alattuk minden ütés az időtengelyen, amíg mindkettő meg nem nyugszik.",
+        "time": "Idő",
+        "strikes": "Ütések: {{ball}}"
+      },
+      "change": {
+        "title": "Saját golyó",
+        "hint": "Válasszon golyót, változtassa meg az ütközési számát és az esési magasságot. A magasság a fenti két golyóra is érvényes.",
+        "kind": "Golyó",
+        "restitution": "Ütközési szám",
+        "restitution_hint": "A sebességnek az a hányada, amelyet egy ütés visszaad.",
+        "height": "Esési magasság",
+        "height_hint": "Milyen magasan a lap fölött engedjük el a golyót.",
+        "status": "Az Ön golyója {{time}} s után nyugszik meg; {{count}} pattanása tart tovább egy századmásodpercnél."
+      },
+      "figures": {
+        "still": "A megnyugvásig",
+        "counted": "0,01 s-nál hosszabb pattanások",
+        "apex": "Első pattanás, magasság",
+        "flight": "Első pattanás, időtartam",
+        "rhythm": "Második pattanás per első",
+        "terminal": "Határsebesség levegőben"
+      },
+      "chart": {
+        "height": "Magasság",
+        "time": "Idő",
+        "still": "A megnyugvásig",
+        "restitution": "Ütközési szám",
+        "still_hint": "Meddig pattog a két golyó az ütközési szám szerint, a beállított magasságból; szaggatottan levegő nélkül. 1 közelében az idő határ nélkül nő.",
+        "no_air": "levegő nélkül"
+      },
+      "model": {
+        "intro": "Minden ütésnél a golyó sebességének egy rögzített hányadát elveszíti: ő és a lap kissé deformálódik, és a mozgás hővé és hanggá válik. Ami megmarad, azt az ütközési szám adja meg.",
+        "bounce": "Egy ütés a sebesség e hányadát adja vissza; ezért a golyó az előző magasság e²-szeresére emelkedik.",
+        "series": "Levegő nélkül minden pattanás e-szer olyan hosszú, mint az előző.",
+        "sum": "Az összes pattanás időtartama együtt mértani sor: végtelen sok tag, de véges összeg.",
+        "air": "A levegő a sebesség négyzetével fékez. A nehéz acélgolyónál ez szinte semmi, a könnyű pingponglabdánál érezhető."
+      },
+      "symbols": {
+        "e": "ütközési szám",
+        "v": "sebesség az ütésnél",
+        "h": "az n-edik pattanás magassága",
+        "tn": "az n-edik pattanás időtartama",
+        "still": "idő, amíg a golyó megnyugszik",
+        "t0": "az esés időtartama az első ütésig",
+        "m": "a golyó tömege",
+        "g": "nehézségi gyorsulás",
+        "rho": "a levegő sűrűsége",
+        "cd": "a gömb ellenállási tényezője",
+        "a": "a golyó keresztmetszete",
+        "vt": "határsebesség levegőben"
+      },
+      "sweet": {
+        "zeno": "A trükk: a pattanások nemcsak alacsonyabbak, hanem rövidebbek is lesznek, mindegyik ugyanazzal a hányaddal. Így fér el végtelen sok pattanás véges időben, mint Zénón paradoxonában Akhilleuszról és a teknősről.",
+        "steel": "30 cm-ről a 0,95-ös ütközési számú acélgolyó 9,6 s után nyugszik meg, 75 olyan pattanással, amely egy századmásodpercnél tovább tart; a 0,92-es pingponglabda 5,2 s után, 44-gyel. Az ütközési szám kis különbsége sokat számít, mert az idő 1/(1 − e)-vel nő.",
+        "rhythm": "Az ütközési szám a ritmusból hallható: az acélgolyó második pattanása 0,95-ször olyan hosszú, mint az első, pontosan az ütközési száma. A pingponglabdánál 0,89 a 0,92 helyett, mert a levegő is fékezi, amely már 8,6 m/s-nál egészen megtartja; az acélgolyót csak 60 m/s-nál.",
+        "rules": "Az asztalitenisz szabályai szerint a 305 mm-ről ejtett labdának 230 és 250 mm közé kell visszapattannia. 0,92-es ütközési számmal és a levegővel ez 240 mm-re pattan."
+      },
+      "computed": {
+        "system": "Két ütés között a golyó függőlegesen repül, csak a súlyával és a légellenállással. Erre pontos megoldás van: felfelé a tangenssel, lefelé a hiperbolikus tangenssel. Az oldal repülésről repülésre számol; ha a repülések egy tized ezredmásodpercnél rövidebbek, a sor maradékát zárt alakban adja össze, ahol a levegő már rég nem számít.",
+        "exact": "v₀-lal felfelé dobva: a sebesség és a csúcsmagasság; lefelé a sebesség t idővel az esés kezdete után.",
+        "v0": "sebesség az ütés után",
+        "top": "csúcsmagasság",
+        "check": "Az oldal tesztjei minden repülést a levegős mozgásegyenlettel vetnek össze lépésenként számolva (Runge–Kutta), az összeget pedig egy olyan golyónál, amelyet a levegő alig érint, a √(2h/g)·(1 + e)/(1 − e) mértani sorral. A számítás az Ön böngészőjében fut, ugyanazokkal a képletekkel, mint az oldal számítómagja.",
+        "left_out": "Kimaradt: hogy az ütközési szám függ a sebességtől (itt rögzített); az idő, amelyet a golyó minden ütésnél a lapon tölt, kevesebb mint egy tízezred másodperc, amely a valóságban zümmögéssel zárja le a sort az összege előtt; a pörgés; a lap engedése. Az értékek: egy 20 mm-es (33 g) acélgolyó 0,95-ös ütközési számmal edzett acélon, feltételezés; egy szabályos pingponglabda (2,7 g, 40 mm) 0,92-vel."
       }
     }
   },

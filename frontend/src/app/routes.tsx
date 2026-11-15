@@ -56,6 +56,7 @@ const LevitationPage = lazy(() =>
 );
 const CircuitPage = lazy(() => import("@/features/experiments/circuit-page").then((m) => ({ default: m.CircuitPage })));
 const PlatesPage = lazy(() => import("@/features/experiments/plates-page").then((m) => ({ default: m.PlatesPage })));
+const BouncePage = lazy(() => import("@/features/experiments/bounce-page").then((m) => ({ default: m.BouncePage })));
 const HarmonographPage = lazy(() =>
   import("@/features/experiments/harmonograph-page").then((m) => ({ default: m.HarmonographPage })),
 );
@@ -309,6 +310,14 @@ export function AppRoutes() {
           element={
             <Page>
               <PlatesPage />
+            </Page>
+          }
+        />
+        <Route
+          path="bounce"
+          element={
+            <Page>
+              <BouncePage />
             </Page>
           }
         />

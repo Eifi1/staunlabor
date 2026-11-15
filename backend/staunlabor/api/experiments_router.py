@@ -33,8 +33,11 @@ from eifi1_server_kit.limiter import charge
 from fastapi import APIRouter, Depends, Request
 
 from staunlabor.domain.experiments import (
+    EXHIBIT_HEIGHT_M,
     EXHIBIT_PLATES,
     METER_RANGE_A,
+    STEEL,
+    TABLE_TENNIS,
     Ball,
     BallStack,
     Body,
@@ -89,6 +92,7 @@ from staunlabor.domain.experiments.chladni import DEGREE as CHLADNI_DEGREE
 from staunlabor.domain.schemas.experiments import (
     BallStackIn,
     BodyIn,
+    BounceIn,
     CannonFiguresOut,
     CarouselIn,
     ChairAnalysisOut,
@@ -184,6 +188,7 @@ async def defaults() -> ExperimentsDefaultsOut:
         plates=PlatesIn.model_validate(
             {"column": asdict(MagnetColumn()), "exhibit": [asdict(p) for p in EXHIBIT_PLATES], "plate": asdict(Plate())}
         ),
+        bounce=BounceIn.model_validate({"balls": [asdict(STEEL), asdict(TABLE_TENNIS)], "height_m": EXHIBIT_HEIGHT_M}),
         chladni=ChladniPlateIn.model_validate(ChladniPlate()),
         meter_range_a=METER_RANGE_A,
         settle_s=PAGE_SETTLE_S,

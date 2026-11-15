@@ -303,6 +303,12 @@
         "title": "Les plaques qui tombent",
         "summary": "Des plaques de cuivre et d’aluminium descendent lentement entre des aimants, comme à travers du miel – alors qu’aucune n’est magnétique.",
         "question": "Les aimants n’attirent aucune des plaques. Pourquoi tombent-elles pourtant si lentement ?"
+      },
+      "bounce": {
+        "short": "Bille qui rebondit",
+        "title": "La bille d’acier qui rebondit",
+        "summary": "Une bille d’acier et une balle de tennis de table rebondissent sur une plaque, toujours plus bas et toujours plus vite – une infinité de rebonds, et pourtant elles s’immobilisent en quelques secondes.",
+        "question": "Comment une infinité de rebonds tient-elle en quelques secondes ?"
       }
     },
     "chair": {
@@ -2642,6 +2648,100 @@
         "s": "distance parcourue",
         "check": "Les tests de la page additionnent la chaleur que produisent les courants, point par point sur la plaque : c’est exactement la puissance de freinage. Ils confrontent la chute à l’équation du mouvement calculée pas à pas (Runge-Kutta), y compris avec le frein tel qu’il est à chaque profondeur : pour une plaque entière il varie de 5 %, ce qui change le temps de chute de moins d’un millième. Le calcul se fait dans votre navigateur, avec les mêmes formules que le moteur de calcul de la page.",
         "left_out": "Laissé de côté : la vraie forme du champ (ici un cosinus, le même sur la largeur, d’intensité supposée) et son effilochage aux extrémités de la colonne ; le champ propre des courants de Foucault ; la nervure qui tient ensemble les dents d’une plaque entaillée, comptée ici comme coupée elle aussi ; l’air, si bien que la plaque de plastique tombe librement ; le frottement sur les guides. Les valeurs sont une construction supposée : aimants de 20 mm de haut avec 0,15 T dans la fente, 90 cm de chute, plaques de 10 × 12 cm et 3 mm d’épaisseur, en métaux purs."
+      }
+    },
+    "bounce": {
+      "at": {
+        "plate": "Au-dessus d’une plaque dure sont suspendues une bille d’acier et une balle de tennis de table. Lâchées, elles remontent, chaque fois un peu moins haut.",
+        "rhythm": "On l’entend aux clics : les chocs arrivent de plus en plus vite, jusqu’à se fondre en un grésillement et se taire.",
+        "steel": "La bille d’acier claque bien plus longtemps que la balle de tennis de table."
+      },
+      "view": "La plaque avec la bille d’acier et la balle de tennis de table au-dessus",
+      "strip": "Chaque choc des deux balles sur un axe du temps",
+      "short": {
+        "steel": "Bille d’acier",
+        "tennis": "Balle de tennis de table"
+      },
+      "play": {
+        "title": "Les laisser tomber",
+        "hint": "Les deux balles sont suspendues au-dessus de la plaque. Lâchez-les et écoutez : avec le son, chaque choc fait un clic. Dessous, chaque choc sur un axe du temps.",
+        "drop": "Lâcher",
+        "pause": "Arrêter",
+        "run": "Continuer",
+        "top": "Les remonter",
+        "speed": "Vitesse",
+        "speeds": {
+          "real": "Temps réel",
+          "slow": "Ralenti (¼)"
+        },
+        "sound": "Son",
+        "sound_hint": "Un clic à chaque choc, aussi fort que le choc. Muet tant que vous ne l’activez pas.",
+        "no_sound": "Votre navigateur ne peut pas produire de son ici.",
+        "waiting": "Les balles sont suspendues au-dessus de la plaque et attendent.",
+        "caption": "Les balles en vraie grandeur au-dessus de la plaque, depuis {{height}} cm ; dessous, chaque choc sur l’axe du temps, jusqu’à ce que les deux s’immobilisent.",
+        "time": "Temps",
+        "strikes": "Chocs : {{ball}}"
+      },
+      "change": {
+        "title": "Une balle à vous",
+        "hint": "Choisissez une balle, changez son coefficient de restitution et la hauteur de chute. La hauteur vaut aussi pour les deux balles ci-dessus.",
+        "kind": "Balle",
+        "restitution": "Coefficient de restitution",
+        "restitution_hint": "La part de sa vitesse que rend un choc.",
+        "height": "Hauteur de chute",
+        "height_hint": "À quelle hauteur au-dessus de la plaque la balle est lâchée.",
+        "status": "Votre balle s’immobilise après {{time}} s ; {{count}} de ses rebonds durent plus d’un centième de seconde."
+      },
+      "figures": {
+        "still": "Jusqu’à l’arrêt",
+        "counted": "Rebonds de plus de 0,01 s",
+        "apex": "Premier rebond, hauteur",
+        "flight": "Premier rebond, durée",
+        "rhythm": "Deuxième rebond sur premier",
+        "terminal": "Vitesse limite dans l’air"
+      },
+      "chart": {
+        "height": "Hauteur",
+        "time": "Temps",
+        "still": "Jusqu’à l’arrêt",
+        "restitution": "Coefficient de restitution",
+        "still_hint": "Combien de temps les deux balles rebondissent, selon leur coefficient de restitution, depuis la hauteur choisie ; en pointillé, sans air. Près de 1, le temps croît sans limite.",
+        "no_air": "sans air"
+      },
+      "model": {
+        "intro": "À chaque choc la balle perd une part fixe de sa vitesse : elle et la plaque se déforment un peu, et le mouvement devient chaleur et son. Ce qui reste, le coefficient de restitution le dit.",
+        "bounce": "Un choc rend la part e de la vitesse ; la balle remonte donc à e² de la hauteur précédente.",
+        "series": "Sans air, chaque rebond dure e fois le précédent.",
+        "sum": "La durée de tous les rebonds ensemble est une série géométrique : une infinité de termes, mais une somme finie.",
+        "air": "L’air freine avec le carré de la vitesse. Pour la lourde bille d’acier, c’est presque rien ; pour la légère balle de tennis de table, cela se voit."
+      },
+      "symbols": {
+        "e": "coefficient de restitution",
+        "v": "vitesse au choc",
+        "h": "hauteur du n-ième rebond",
+        "tn": "durée du n-ième rebond",
+        "still": "temps jusqu’à l’arrêt de la balle",
+        "t0": "durée de la chute jusqu’au premier choc",
+        "m": "masse de la balle",
+        "g": "accélération de la pesanteur",
+        "rho": "masse volumique de l’air",
+        "cd": "coefficient de traînée d’une sphère",
+        "a": "section de la balle",
+        "vt": "vitesse limite dans l’air"
+      },
+      "sweet": {
+        "zeno": "L’astuce : les rebonds deviennent non seulement plus bas, mais aussi plus courts, chacun dans la même proportion. Une infinité de rebonds tient ainsi dans un temps fini, comme dans le paradoxe de Zénon, Achille et la tortue.",
+        "steel": "Depuis 30 cm, la bille d’acier, coefficient 0,95, s’immobilise après 9,6 s, avec 75 rebonds de plus d’un centième de seconde ; la balle de tennis de table, 0,92, après 5,2 s, avec 44. La petite différence de coefficient pèse lourd, car le temps croît comme 1/(1 − e).",
+        "rhythm": "On peut entendre le coefficient dans le rythme : le deuxième rebond de la bille d’acier dure 0,95 fois le premier, exactement son coefficient. Pour la balle de tennis de table, c’est 0,89 au lieu de 0,92, car l’air la freine aussi, l’air qui la porte entière dès 8,6 m/s ; la bille d’acier seulement à 60 m/s.",
+        "rules": "Les règles du tennis de table exigent qu’une balle lâchée de 305 mm rebondisse entre 230 et 250 mm. Avec un coefficient de 0,92 et l’air, celle-ci rebondit à 240 mm."
+      },
+      "computed": {
+        "system": "Entre deux chocs la balle vole à la verticale, avec seulement son poids et la résistance de l’air. Il y a une solution exacte : vers le haut avec la tangente, vers le bas avec la tangente hyperbolique. La page calcule vol après vol ; quand les vols durent moins d’un dixième de milliseconde, le reste de la série s’ajoute sous forme fermée, l’air n’y comptant plus depuis longtemps.",
+        "exact": "Lancée vers le haut à v₀ : la vitesse et la hauteur du sommet ; vers le bas, la vitesse après un temps t de chute.",
+        "v0": "vitesse après le choc",
+        "top": "hauteur du sommet",
+        "check": "Les tests de la page confrontent chaque vol à l’équation du mouvement avec air calculée pas à pas (Runge-Kutta), et la somme, pour une balle que l’air touche à peine, à la série géométrique √(2h/g)·(1 + e)/(1 − e). Le calcul se fait dans votre navigateur, avec les mêmes formules que le moteur de calcul de la page.",
+        "left_out": "Laissé de côté : que le coefficient de restitution dépend de la vitesse (ici il est fixe) ; le temps que la balle passe sur la plaque à chaque choc, moins d’un dix-millième de seconde, qui en réalité termine la série par un grésillement avant sa somme ; la rotation ; la plaque qui cède. Les valeurs : une bille d’acier de 20 mm (33 g) de coefficient 0,95 sur acier trempé, une hypothèse ; une balle de tennis de table réglementaire (2,7 g, 40 mm) de coefficient 0,92."
       }
     }
   },

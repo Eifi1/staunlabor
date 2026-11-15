@@ -24,7 +24,9 @@ const GLIDE_S = 0.05;
 
 type AudioContextClass = typeof AudioContext;
 
-function audioContextClass(): AudioContextClass | null {
+/** The browser's Web Audio context, or null where there is none (an old
+ *  browser, the test runner). */
+export function audioContextClass(): AudioContextClass | null {
   if (typeof window === "undefined") return null;
   const w = window as unknown as { AudioContext?: AudioContextClass; webkitAudioContext?: AudioContextClass };
   return w.AudioContext ?? w.webkitAudioContext ?? null;

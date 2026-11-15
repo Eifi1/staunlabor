@@ -303,6 +303,12 @@
         "title": "Die fallenden Platten",
         "summary": "Platten aus Kupfer und Aluminium sinken zwischen Magneten langsam hinunter, als fielen sie durch Honig – obwohl keine von ihnen magnetisch ist.",
         "question": "Keine der Platten wird von den Magneten angezogen. Warum fallen sie trotzdem so langsam?"
+      },
+      "bounce": {
+        "short": "Hüpfende Kugel",
+        "title": "Die hüpfende Stahlkugel",
+        "summary": "Eine Stahlkugel und ein Tischtennisball hüpfen auf einer Platte, immer niedriger und immer schneller – unendlich viele Sprünge, und doch liegen sie nach wenigen Sekunden still.",
+        "question": "Wie passen unendlich viele Sprünge in ein paar Sekunden?"
       }
     },
     "chair": {
@@ -2642,6 +2648,100 @@
         "s": "Fallweg",
         "check": "Die Tests der Seite rechnen die Wärme, die die Ströme machen, Punkt für Punkt über die Platte: Sie ist genau die Bremsleistung. Den Fall halten sie gegen die Bewegungsgleichung, Schritt für Schritt gerechnet (Runge-Kutta), auch mit der Bremse, wie sie an jeder Stelle wirklich ist: Bei einer ganzen Platte schwankt sie um 5 %, die Fallzeit ändert das um weniger als ein Tausendstel. Gerechnet wird in Ihrem Browser, mit denselben Formeln wie im Rechenkern der Seite.",
         "left_out": "Weggelassen: die wahre Form des Felds (hier ein Kosinus, über die Breite gleich, seine Stärke eine Annahme) und sein Ausfransen an den Enden der Säule; das eigene Feld der Wirbelströme; der Steg, der die Zähne einer geschlitzten Platte zusammenhält und hier als durchgeschnitten gilt; die Luft, sodass die Kunststoffplatte frei fällt; die Reibung an den Führungen. Die Werte sind ein angenommener Nachbau: Magnete von 20 mm Höhe mit 0,15 T im Spalt, 90 cm Fallweg, Platten von 10 × 12 cm und 3 mm Dicke aus den reinen Metallen."
+      }
+    },
+    "bounce": {
+      "at": {
+        "plate": "Über einer harten Platte hängen eine Stahlkugel und ein Tischtennisball. Lässt man sie fallen, springen sie wieder hoch, jedes Mal etwas weniger hoch.",
+        "rhythm": "Man hört es am Klicken: Die Schläge kommen immer schneller, bis sie zu einem Schnarren verschmelzen und verstummen.",
+        "steel": "Die Stahlkugel klickt viel länger als der Tischtennisball."
+      },
+      "view": "Die Platte mit der Stahlkugel und dem Tischtennisball darüber",
+      "strip": "Jeder Schlag der beiden Kugeln auf einer Zeitachse",
+      "short": {
+        "steel": "Stahlkugel",
+        "tennis": "Tischtennisball"
+      },
+      "play": {
+        "title": "Fallen lassen",
+        "hint": "Beide Kugeln hängen über der Platte. Lassen Sie sie los und hören Sie zu: Mit eingeschaltetem Ton klickt jeder Schlag. Darunter steht jeder Schlag auf einer Zeitachse.",
+        "drop": "Loslassen",
+        "pause": "Anhalten",
+        "run": "Weiter",
+        "top": "Wieder hochheben",
+        "speed": "Tempo",
+        "speeds": {
+          "real": "Echtzeit",
+          "slow": "Zeitlupe (¼)"
+        },
+        "sound": "Ton",
+        "sound_hint": "Ein Klick bei jedem Schlag, so laut wie der Schlag. Stumm, bis Sie ihn einschalten.",
+        "no_sound": "Ihr Browser kann hier keinen Ton erzeugen.",
+        "waiting": "Die Kugeln hängen über der Platte und warten.",
+        "caption": "Die Kugeln in wahrer Grösse über der Platte, aus {{height}} cm; darunter jeder Schlag auf der Zeitachse, bis beide stillliegen.",
+        "time": "Zeit",
+        "strikes": "Schläge: {{ball}}"
+      },
+      "change": {
+        "title": "Eine eigene Kugel",
+        "hint": "Wählen Sie eine Kugel, ändern Sie ihre Stosszahl und die Fallhöhe. Die Höhe gilt auch für die beiden Kugeln oben.",
+        "kind": "Kugel",
+        "restitution": "Stosszahl",
+        "restitution_hint": "Der Anteil der Geschwindigkeit, den ein Schlag zurückgibt.",
+        "height": "Fallhöhe",
+        "height_hint": "Wie hoch über der Platte die Kugel losgelassen wird.",
+        "status": "Ihre Kugel liegt nach {{time}} s still; {{count}} ihrer Sprünge dauern länger als eine Hundertstelsekunde."
+      },
+      "figures": {
+        "still": "Bis sie stillliegt",
+        "counted": "Sprünge über 0,01 s",
+        "apex": "Erster Sprung, Höhe",
+        "flight": "Erster Sprung, Dauer",
+        "rhythm": "Zweiter durch ersten Sprung",
+        "terminal": "Endgeschwindigkeit in Luft"
+      },
+      "chart": {
+        "height": "Höhe",
+        "time": "Zeit",
+        "still": "Bis sie stillliegt",
+        "restitution": "Stosszahl",
+        "still_hint": "Wie lange die beiden Kugeln hüpfen, je nach Stosszahl, aus der eingestellten Höhe; gestrichelt ohne Luft. Nahe bei 1 wächst die Zeit ohne Grenze.",
+        "no_air": "ohne Luft"
+      },
+      "model": {
+        "intro": "Bei jedem Schlag verliert die Kugel einen festen Anteil ihrer Geschwindigkeit: Sie und die Platte verformen sich ein wenig, und dabei wird Bewegung zu Wärme und Schall. Was bleibt, gibt die Stosszahl an.",
+        "bounce": "Ein Schlag gibt den Anteil e der Geschwindigkeit zurück; die Kugel steigt deshalb auf e² der vorherigen Höhe.",
+        "series": "Ohne Luft dauert jeder Sprung e-mal so lang wie der vorige.",
+        "sum": "Die Dauer aller Sprünge zusammen ist eine geometrische Reihe: unendlich viele Glieder, aber eine endliche Summe.",
+        "air": "Die Luft bremst mit dem Quadrat der Geschwindigkeit. Für die schwere Stahlkugel ist das fast nichts, für den leichten Tischtennisball spürbar."
+      },
+      "symbols": {
+        "e": "Stosszahl",
+        "v": "Geschwindigkeit beim Schlag",
+        "h": "Höhe des n-ten Sprungs",
+        "tn": "Dauer des n-ten Sprungs",
+        "still": "Zeit, bis die Kugel stillliegt",
+        "t0": "Dauer des Falls bis zum ersten Schlag",
+        "m": "Masse der Kugel",
+        "g": "Erdbeschleunigung",
+        "rho": "Dichte der Luft",
+        "cd": "Widerstandsbeiwert einer Kugel",
+        "a": "Querschnittsfläche der Kugel",
+        "vt": "Endgeschwindigkeit in Luft"
+      },
+      "sweet": {
+        "zeno": "Der Trick: Die Sprünge werden nicht nur niedriger, sondern auch kürzer, jeder um denselben Anteil. So passen unendlich viele Sprünge in eine endliche Zeit, wie in Zenons Rätsel von Achilles und der Schildkröte.",
+        "steel": "Aus 30 cm liegt die Stahlkugel mit der Stosszahl 0,95 nach 9,6 s still, mit 75 Sprüngen, die länger als eine Hundertstelsekunde dauern; der Tischtennisball mit 0,92 nach 5,2 s, mit 44. Der kleine Unterschied der Stosszahl macht viel aus, denn die Zeit wächst mit 1/(1 − e).",
+        "rhythm": "Aus dem Rhythmus lässt sich die Stosszahl hören: Der zweite Sprung der Stahlkugel dauert 0,95-mal so lang wie der erste, genau ihre Stosszahl. Beim Tischtennisball sind es 0,89 statt 0,92, denn ihn bremst auch die Luft, die ihn schon bei 8,6 m/s ganz trägt; die Stahlkugel erst bei 60 m/s.",
+        "rules": "Die Regeln des Tischtennis verlangen, dass ein Ball aus 305 mm Höhe auf 230 bis 250 mm zurückspringt. Mit der Stosszahl 0,92 und der Luft springt dieser auf 240 mm."
+      },
+      "computed": {
+        "system": "Zwischen zwei Schlägen fliegt die Kugel senkrecht, nur mit ihrem Gewicht und dem Luftwiderstand. Dafür gibt es eine exakte Lösung, aufwärts mit dem Tangens, abwärts mit dem Tangens hyperbolicus. Die Seite rechnet Flug um Flug; sind die Flüge kürzer als eine Zehntelmillisekunde, wird der Rest der Reihe in geschlossener Form addiert, die Luft dort längst bedeutungslos.",
+        "exact": "Aufwärts geworfen mit v₀: die Geschwindigkeit und die Gipfelhöhe; abwärts die Geschwindigkeit nach der Zeit t im Fall.",
+        "v0": "Geschwindigkeit nach dem Schlag",
+        "top": "Gipfelhöhe",
+        "check": "Die Tests der Seite halten jeden Flug gegen die Bewegungsgleichung mit Luft, Schritt für Schritt gerechnet (Runge-Kutta), und die Summe für eine Kugel, die die Luft kaum spürt, gegen die geometrische Reihe √(2h/g)·(1 + e)/(1 − e). Gerechnet wird in Ihrem Browser, mit denselben Formeln wie im Rechenkern der Seite.",
+        "left_out": "Weggelassen: dass die Stosszahl von der Geschwindigkeit abhängt (hier ist sie fest); die Zeit, die die Kugel bei jedem Schlag auf der Platte verbringt, weniger als eine Zehntausendstelsekunde, die die Reihe in Wirklichkeit mit einem Schnarren vor ihrer Summe enden lässt; Drall; das Nachgeben der Platte. Die Werte: eine Stahlkugel von 20 mm (33 g) mit der Stosszahl 0,95 auf gehärtetem Stahl, eine Annahme; ein Tischtennisball nach den Regeln (2,7 g, 40 mm) mit 0,92."
       }
     }
   },

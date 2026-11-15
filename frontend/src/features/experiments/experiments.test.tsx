@@ -50,6 +50,7 @@ import { ArchPage } from "./arch-page";
 import { LevitationPage } from "./levitation-page";
 import { CircuitPage } from "./circuit-page";
 import { PlatesPage } from "./plates-page";
+import { BouncePage } from "./bounce-page";
 import { ChladniPage } from "./chladni-page";
 import { ballState, pitEntries, positionAt, raceLayout, swingAt } from "./race-views";
 import { run as runPit } from "./simulate/pit";
@@ -1142,5 +1143,34 @@ describe("the falling plates", () => {
     fireEvent.click(within(material).getByRole("radio", { name: E.plates.materials.plastic }));
     expect(await screen.findByText(E.plates.change.free.replace("{{time}}", "0.43"))).toBeInTheDocument();
     expect(screen.getByText(E.plates.chart.plastic)).toBeInTheDocument();
+  });
+});
+
+describe("the bouncing ball", () => {
+  it("holds the balls up, lets them bounce, and lifts them again, silent until asked", async () => {
+    renderWithProviders(<BouncePage />);
+    expect(await screen.findByRole("img", { name: E.bounce.view })).toBeInTheDocument();
+    expect(screen.getByRole("img", { name: E.bounce.strip })).toBeInTheDocument();
+    expect(screen.getByText(E.bounce.play.waiting)).toBeInTheDocument();
+    // No Web Audio in the test runner: the switch says so and stays off.
+    expect(screen.getByText(E.bounce.play.no_sound)).toBeInTheDocument();
+    fireEvent.click(screen.getByRole("button", { name: E.bounce.play.drop }));
+    expect(screen.queryByText(E.bounce.play.waiting)).not.toBeInTheDocument();
+    fireEvent.click(screen.getByRole("button", { name: E.bounce.play.pause }));
+    expect(screen.getByRole("button", { name: E.bounce.play.run })).toBeInTheDocument();
+    fireEvent.click(screen.getByRole("button", { name: E.bounce.play.top }));
+    expect(screen.getByRole("button", { name: E.bounce.play.drop })).toBeInTheDocument();
+    expect(screen.getAllByLabelText(E.equation.symbols).length).toBeGreaterThanOrEqual(4);
+  });
+
+  it("times the reader's own ball: the steel one still after 9.6 s, the table-tennis one sooner", async () => {
+    renderWithProviders(<BouncePage />);
+    await screen.findByRole("img", { name: E.bounce.view });
+    const status = (time: string, count: number) =>
+      E.bounce.change.status.replace("{{time}}", time).replace("{{count}}", String(count));
+    expect(screen.getByText(status("9.6", 75))).toBeInTheDocument();
+    const kind = screen.getByRole("radiogroup", { name: E.bounce.change.kind });
+    fireEvent.click(within(kind).getByRole("radio", { name: E.bounce.short.tennis }));
+    expect(await screen.findByText(status("5.2", 44))).toBeInTheDocument();
   });
 });

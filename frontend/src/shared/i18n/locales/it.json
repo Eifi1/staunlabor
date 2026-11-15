@@ -303,6 +303,12 @@
         "title": "Le piastre che cadono",
         "summary": "Piastre di rame e di alluminio scendono lente tra i magneti, come attraverso il miele – benché nessuna sia magnetica.",
         "question": "I magneti non attirano nessuna delle piastre. Perché allora cadono così lentamente?"
+      },
+      "bounce": {
+        "short": "Sfera che rimbalza",
+        "title": "La sfera d’acciaio che rimbalza",
+        "summary": "Una sfera d’acciaio e una pallina da ping-pong rimbalzano su una piastra, sempre più basse e sempre più veloci: infiniti rimbalzi, eppure dopo pochi secondi sono ferme.",
+        "question": "Come fanno infiniti rimbalzi a stare in pochi secondi?"
       }
     },
     "chair": {
@@ -2642,6 +2648,100 @@
         "s": "spazio percorso",
         "check": "I test della pagina sommano il calore prodotto dalle correnti, punto per punto sulla piastra: è esattamente la potenza frenante. Confrontano la caduta con l’equazione del moto calcolata passo per passo (Runge-Kutta), anche con la frenata com’è davvero a ogni profondità: per una piastra intera varia del 5 %, e il tempo di caduta cambia di meno di un millesimo. Il calcolo avviene nel suo browser, con le stesse formule del motore di calcolo della pagina.",
         "left_out": "Tralasciato: la vera forma del campo (qui un coseno, uguale sulla larghezza, d’intensità supposta) e come si sfrangia alle estremità della colonna; il campo proprio delle correnti parassite; la costola che tiene insieme i denti di una piastra con fenditure, considerata qui anch’essa tagliata; l’aria, così la piastra di plastica cade libera; l’attrito sulle guide. I valori sono una costruzione supposta: magneti alti 20 mm con 0,15 T nella fessura, 90 cm di caduta, piastre di 10 × 12 cm e 3 mm di spessore, dei metalli puri."
+      }
+    },
+    "bounce": {
+      "at": {
+        "plate": "Sopra una piastra dura pendono una sfera d’acciaio e una pallina da ping-pong. Lasciate cadere, risalgono, ogni volta un po’ meno in alto.",
+        "rhythm": "Lo si sente dai clic: i colpi arrivano sempre più rapidi, finché si fondono in un ronzio e tacciono.",
+        "steel": "La sfera d’acciaio ticchetta molto più a lungo della pallina da ping-pong."
+      },
+      "view": "La piastra con sopra la sfera d’acciaio e la pallina da ping-pong",
+      "strip": "Ogni colpo delle due palle su un asse del tempo",
+      "short": {
+        "steel": "Sfera d’acciaio",
+        "tennis": "Pallina da ping-pong"
+      },
+      "play": {
+        "title": "Lasciarle cadere",
+        "hint": "Le due palle pendono sopra la piastra. Le lasci andare e ascolti: con il suono acceso, ogni colpo fa clic. Sotto, ogni colpo su un asse del tempo.",
+        "drop": "Lasciare",
+        "pause": "Fermare",
+        "run": "Continuare",
+        "top": "Sollevarle di nuovo",
+        "speed": "Velocità",
+        "speeds": {
+          "real": "Tempo reale",
+          "slow": "Rallentatore (¼)"
+        },
+        "sound": "Suono",
+        "sound_hint": "Un clic a ogni colpo, forte quanto il colpo. Muto finché non lo accende.",
+        "no_sound": "Il suo browser non può produrre suoni qui.",
+        "waiting": "Le palle pendono sopra la piastra e aspettano.",
+        "caption": "Le palle in grandezza reale sopra la piastra, da {{height}} cm; sotto, ogni colpo sull’asse del tempo, finché entrambe sono ferme.",
+        "time": "Tempo",
+        "strikes": "Colpi: {{ball}}"
+      },
+      "change": {
+        "title": "Una palla sua",
+        "hint": "Scelga una palla, cambi il suo coefficiente di restituzione e l’altezza di caduta. L’altezza vale anche per le due palle sopra.",
+        "kind": "Palla",
+        "restitution": "Coefficiente di restituzione",
+        "restitution_hint": "La parte della velocità che un colpo restituisce.",
+        "height": "Altezza di caduta",
+        "height_hint": "A che altezza sopra la piastra si lascia andare la palla.",
+        "status": "La sua palla si ferma dopo {{time}} s; {{count}} dei suoi rimbalzi durano più di un centesimo di secondo."
+      },
+      "figures": {
+        "still": "Finché è ferma",
+        "counted": "Rimbalzi oltre 0,01 s",
+        "apex": "Primo rimbalzo, altezza",
+        "flight": "Primo rimbalzo, durata",
+        "rhythm": "Secondo rimbalzo sul primo",
+        "terminal": "Velocità limite in aria"
+      },
+      "chart": {
+        "height": "Altezza",
+        "time": "Tempo",
+        "still": "Finché è ferma",
+        "restitution": "Coefficiente di restituzione",
+        "still_hint": "Quanto rimbalzano le due palle, secondo il loro coefficiente di restituzione, dall’altezza scelta; tratteggiato, senz’aria. Vicino a 1 il tempo cresce senza limite.",
+        "no_air": "senz’aria"
+      },
+      "model": {
+        "intro": "A ogni colpo la palla perde una parte fissa della sua velocità: lei e la piastra si deformano un poco, e il moto diventa calore e suono. Ciò che resta lo dice il coefficiente di restituzione.",
+        "bounce": "Un colpo restituisce la parte e della velocità; perciò la palla risale a e² dell’altezza precedente.",
+        "series": "Senz’aria ogni rimbalzo dura e volte il precedente.",
+        "sum": "La durata di tutti i rimbalzi insieme è una serie geometrica: infiniti termini, ma una somma finita.",
+        "air": "L’aria frena con il quadrato della velocità. Per la pesante sfera d’acciaio è quasi niente, per la leggera pallina da ping-pong si nota."
+      },
+      "symbols": {
+        "e": "coefficiente di restituzione",
+        "v": "velocità al colpo",
+        "h": "altezza dell’n-esimo rimbalzo",
+        "tn": "durata dell’n-esimo rimbalzo",
+        "still": "tempo finché la palla è ferma",
+        "t0": "durata della caduta fino al primo colpo",
+        "m": "massa della palla",
+        "g": "accelerazione di gravità",
+        "rho": "densità dell’aria",
+        "cd": "coefficiente di resistenza di una sfera",
+        "a": "sezione della palla",
+        "vt": "velocità limite in aria"
+      },
+      "sweet": {
+        "zeno": "Il trucco: i rimbalzi diventano non solo più bassi, ma anche più brevi, ognuno della stessa parte. Così infiniti rimbalzi stanno in un tempo finito, come nel paradosso di Zenone di Achille e la tartaruga.",
+        "steel": "Da 30 cm la sfera d’acciaio, coefficiente 0,95, si ferma dopo 9,6 s, con 75 rimbalzi più lunghi di un centesimo di secondo; la pallina da ping-pong, 0,92, dopo 5,2 s, con 44. La piccola differenza di coefficiente conta molto, perché il tempo cresce con 1/(1 − e).",
+        "rhythm": "Il coefficiente si può sentire nel ritmo: il secondo rimbalzo della sfera d’acciaio dura 0,95 volte il primo, esattamente il suo coefficiente. Per la pallina da ping-pong è 0,89 invece di 0,92, perché la frena anche l’aria, che la regge del tutto già a 8,6 m/s; la sfera d’acciaio solo a 60 m/s.",
+        "rules": "Le regole del tennistavolo esigono che una pallina lasciata cadere da 305 mm rimbalzi tra 230 e 250 mm. Con un coefficiente di 0,92 e l’aria, questa rimbalza a 240 mm."
+      },
+      "computed": {
+        "system": "Tra due colpi la palla vola in verticale, solo con il suo peso e la resistenza dell’aria. Per questo c’è una soluzione esatta: in salita con la tangente, in discesa con la tangente iperbolica. La pagina calcola volo dopo volo; quando i voli durano meno di un decimo di millisecondo, il resto della serie si somma in forma chiusa, dove l’aria non conta più da tempo.",
+        "exact": "Lanciata in alto a v₀: la velocità e l’altezza della cima; in discesa, la velocità dopo un tempo t di caduta.",
+        "v0": "velocità dopo il colpo",
+        "top": "altezza della cima",
+        "check": "I test della pagina confrontano ogni volo con l’equazione del moto con l’aria calcolata passo per passo (Runge-Kutta), e la somma, per una palla che l’aria tocca appena, con la serie geometrica √(2h/g)·(1 + e)/(1 − e). Il calcolo avviene nel suo browser, con le stesse formule del motore di calcolo della pagina.",
+        "left_out": "Tralasciato: che il coefficiente di restituzione dipende dalla velocità (qui è fisso); il tempo che la palla passa sulla piastra a ogni colpo, meno di un decimillesimo di secondo, che nella realtà chiude la serie con un ronzio prima della sua somma; la rotazione; il cedere della piastra. I valori: una sfera d’acciaio di 20 mm (33 g) con coefficiente 0,95 su acciaio temprato, un’ipotesi; una pallina da ping-pong regolamentare (2,7 g, 40 mm) con 0,92."
       }
     }
   },
