@@ -105,6 +105,12 @@ def test_the_cases_cross_every_branch_a_page_can_reach(stored: Any):
     assert any(c["inertia"] > 0.5 for c in pits), "a hollow ball"
     regimes = {c["regime"] for c in stored["circuit"]}
     assert regimes == {"swings", "critical", "creeps"}, "a circuit that swings, one at the edge, one that creeps back"
+    falls = stored["plates"]
+    assert any(c["figures"]["terminal_m_s"] is None for c in falls), "a plate that falls freely"
+    assert any(c["teeth"] == [12, 0.008] and c["plate"]["height_m"] == 0.118 for c in falls), "teeth that fit exactly"
+    assert any(c["figures"]["ripple"] is not None and c["figures"]["ripple"] > 0.01 for c in falls), (
+        "a brake that ripples"
+    )
     floats = {c["hover"]["state"] for c in stored["levitation"]}
     assert floats == {"hovers", "lands", "slides"}, "a top that hovers, one that lands, one that slides off"
     spheres = stored["sphere"]

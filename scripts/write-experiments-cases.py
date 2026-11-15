@@ -73,6 +73,7 @@ gyroscope = importlib.import_module("staunlabor.domain.experiments.gyroscope")
 arch = importlib.import_module("staunlabor.domain.experiments.arch")
 levitation = importlib.import_module("staunlabor.domain.experiments.levitation")
 circuit = importlib.import_module("staunlabor.domain.experiments.circuit")
+plates = importlib.import_module("staunlabor.domain.experiments.plates")
 chladni = importlib.import_module("staunlabor.domain.experiments.chladni")
 
 TARGET = ROOT / "frontend/src/features/experiments/simulate/engine-cases.json"
@@ -584,6 +585,33 @@ CIRCUIT_CASES = (
 CIRCUIT_TIMES = (0.0, 0.05, 0.2429, 0.5, 1.0, 2.5, 7.0, 15.0)
 
 
+#: The falling plates: the exhibit's column; a strong one of short magnets; a
+#: weak one of long magnets, tall. Each with the exhibit's four plates, and the
+#: exhibit's column also with brass, a narrow tall strip, teeth that fit the
+#: plate exactly (so the count's floor is a whole number), the finest teeth and
+#: a thick slotted copper plate.
+PLATE_COLUMNS = (
+    plates.MagnetColumn(),
+    plates.MagnetColumn(field_t=0.4, pitch_m=0.01, drop_m=0.3),
+    plates.MagnetColumn(field_t=0.05, pitch_m=0.2, drop_m=2.0),
+)
+PLATE_EXTRAS = (
+    plates.Plate("brass"),
+    plates.Plate("copper", width_m=0.01, height_m=0.5),
+    plates.Plate("aluminium", height_m=0.118, tooth_m=0.008),
+    plates.Plate("aluminium", tooth_m=0.001),
+    plates.Plate("copper", thickness_m=0.05, tooth_m=0.03),
+)
+#: After the plate is let go, in seconds; and how far its top edge has fallen,
+#: in metres, where the brake and the currents are compared.
+PLATE_TIMES = (0.0, 0.003, 0.02, 0.1, 0.5, 2.0, 9.0)
+PLATE_DEPTHS = (0.0, 0.0137, 0.2)
+#: Points on the plate the stream function is compared at: ``(x, y)`` from the
+#: middle and up from the lower edge, in metres; and the loops summed.
+PLATE_POINTS = ((0.0, 0.004), (0.02, 0.031), (-0.045, 0.0602), (0.0, 0.0085), (0.049, 0.119))
+PLATE_TERMS = 16
+
+
 def thin(values: Any) -> Any:
     """A curve as its length and every so many of its points, the last always
     among them; anything else as it is, recursively."""
@@ -748,6 +776,27 @@ def _circuit_cases(out: dict[str, Any]) -> None:
                 "states": [list(circuit.state(c, t)) for t in CIRCUIT_TIMES],
                 "energies": [list(circuit.energies(c, t)) for t in CIRCUIT_TIMES],
                 "figures": asdict(circuit.figures(c)),
+            }
+        )
+
+
+def _plates_cases(out: dict[str, Any]) -> None:
+    pairs = [(c, p) for c in PLATE_COLUMNS for p in plates.EXHIBIT_PLATES]
+    pairs += [(PLATE_COLUMNS[0], p) for p in PLATE_EXTRAS]
+    for c, p in pairs:
+        out["plates"].append(
+            {
+                "column": asdict(c),
+                "plate": asdict(p),
+                "teeth": list(plates.teeth(p)),
+                "mass_kg": plates.mass_kg(p),
+                "brake": plates.brake(c, p),
+                "brake_at": [plates.brake_at(c, p, s) for s in PLATE_DEPTHS],
+                "motion": [list(plates.motion(c, p, t)) for t in PLATE_TIMES],
+                "figures": asdict(plates.figures(c, p)),
+                "stream": [
+                    plates.stream(c, p, s, 0.3, px, py, PLATE_TERMS) for s in PLATE_DEPTHS for px, py in PLATE_POINTS
+                ],
             }
         )
 
@@ -974,6 +1023,7 @@ def _second_series(out: dict[str, Any]) -> None:
     _arch_cases(out)
     _levitation_cases(out)
     _circuit_cases(out)
+    _plates_cases(out)
     _chladni_cases(out)
 
 
@@ -1031,6 +1081,7 @@ def cases() -> dict[str, Any]:
         "arch": [],
         "levitation": [],
         "circuit": [],
+        "plates": [],
     }
     _second_series(out)
     for name, case in HARMONOGRAPH_CASES.items():

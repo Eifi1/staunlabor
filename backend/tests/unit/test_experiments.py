@@ -2624,3 +2624,167 @@ def test_the_circuit_refuses_what_it_cannot_be():
         x.Circuit(voltage_v=-1)
     with pytest.raises(ValueError, match="switch is thrown"):
         x.circuit_state(x.Circuit(), -1)
+
+
+# ── the falling plates ──────────────────────────────────────────────────────
+
+
+def test_copper_takes_six_seconds_aluminium_twelve_the_slotted_plate_under_two_and_plastic_falls():
+    from staunlabor.domain.experiments import plates
+
+    column = x.MagnetColumn()
+    copper, aluminium, slotted, plastic = (x.plate_figures(column, p) for p in plates.EXHIBIT_PLATES)
+    assert round(copper.fall_time_s, 1) == 5.9 and round(aluminium.fall_time_s, 1) == 12.3
+    assert round(slotted.fall_time_s, 1) == 1.8 and round(plastic.fall_time_s, 2) == 0.43
+    assert copper.terminal_m_s is not None and round(copper.terminal_m_s * 100) == 15
+    assert aluminium.terminal_m_s is not None and round(aluminium.terminal_m_s * 100, 1) == 7.3
+    assert slotted.terminal_m_s is not None and round(slotted.terminal_m_s * 100) == 53
+    # Copper conducts 1.6 times as well and is 3.3 times as heavy: aluminium falls at half its speed.
+    assert round(plates.MATERIALS["copper"][0] / plates.MATERIALS["aluminium"][0], 1) == 1.6
+    assert round(plates.MATERIALS["copper"][1] / plates.MATERIALS["aluminium"][1], 1) == 3.3
+    assert round(aluminium.terminal_m_s / copper.terminal_m_s, 2) == 0.48
+    # The slots leave a seventh of the brake; the slotted plate falls seven times as fast.
+    assert slotted.share is not None and aluminium.share is not None
+    assert round(aluminium.share, 2) == 0.85 and round(slotted.share, 2) == 0.12
+    assert round(aluminium.share / slotted.share) == 7 and round(slotted.terminal_m_s / aluminium.terminal_m_s) == 7
+    # Each is at its speed within a few hundredths of a second; the currents' own field stays small.
+    for f in (copper, aluminium, slotted):
+        assert f.time_constant_s is not None and f.time_constant_s < 0.06
+        assert f.reaction is not None and f.reaction < 0.04
+        assert f.heat_w == pytest.approx(f.mass_kg * plates.G * f.terminal_m_s)
+    assert plastic.terminal_m_s is None and plastic.brake_n_s_per_m == 0 and plastic.share is None
+    assert plastic.fall_time_s == pytest.approx(math.sqrt(2 * 0.9 / plates.G))
+    # Not quite half a watt of heat in the copper; the build the pages state.
+    assert copper.heat_w is not None and round(copper.heat_w, 2) == 0.49
+    assert (column.field_t, column.pitch_m / 2, column.drop_m) == (0.15, 0.02, 0.9)
+    assert all((p.width_m, p.height_m, p.thickness_m) == (0.10, 0.12, 0.003) for p in plates.EXHIBIT_PLATES)
+
+
+def test_the_brake_ripples_five_in_a_hundred_for_a_whole_plate_and_not_at_all_for_the_slotted_one():
+    from staunlabor.domain.experiments import plates
+
+    column = x.MagnetColumn()
+    copper, _, slotted, _ = (x.plate_figures(column, p) for p in plates.EXHIBIT_PLATES)
+    assert copper.ripple is not None and round(copper.ripple, 2) == 0.05
+    # Its twelve teeth sit a quarter period apart: what one loses, the next gains.
+    assert slotted.ripple is not None and slotted.ripple < 1e-9
+    # The mean is the brake's over a period, sampled or exact.
+    plate = x.Plate("copper")
+    samples = [plates.brake_at(column, plate, column.pitch_m * j / 16) for j in range(16)]
+    assert sum(samples) / 16 == pytest.approx(plates.brake(column, plate), rel=1e-12)
+
+
+def test_the_brake_is_the_heat_the_currents_make():
+    """The currents from the stream function, ``J = (∂ψ/∂y, −∂ψ/∂x)``, summed
+    as heat over the plate on a grid: ``∫J²/σ·d dA = c·v²``."""
+    from staunlabor.domain.experiments import plates
+
+    column, plate = x.MagnetColumn(), x.Plate("copper")
+    sigma = plates.MATERIALS["copper"][0]
+    nx, ny, e = 60, 72, 1e-7
+    dx, dy = plate.width_m / nx, plate.height_m / ny
+    heat = 0.0
+    for i in range(nx):
+        cx = -plate.width_m / 2 + (i + 0.5) * dx
+        for j in range(ny):
+            cy = (j + 0.5) * dy
+
+            def psi(px: float, py: float) -> float:
+                return plates.stream(column, plate, 0.013, 1.0, px, py, 40)
+
+            jx = (psi(cx, cy + e) - psi(cx, cy - e)) / (2 * e)
+            jy = -(psi(cx + e, cy) - psi(cx - e, cy)) / (2 * e)
+            heat += (jx * jx + jy * jy) / sigma * plate.thickness_m * dx * dy
+    assert heat == pytest.approx(plates.brake_at(column, plate, 0.013), rel=2e-3)
+
+
+def test_an_endless_strip_keeps_one_minus_sinc_squared_of_an_endless_sheet_s_brake():
+    """Teeth ``h`` high, as wide as can be: the field's mean over each drives
+    nothing, the rest drives currents, ``1 − (sin(kh/2)/(kh/2))²`` of it."""
+    column = x.MagnetColumn()
+    k = 2 * math.pi / column.pitch_m
+    for h in (0.002, 0.008, 0.02, 0.04, 0.06):
+        share = x.plate_figures(column, x.Plate("copper", width_m=0.5, tooth_m=h)).share
+        endless = 1 - (math.sin(k * h / 2) / (k * h / 2)) ** 2
+        # The teeth's ends are half a metre apart: they cost each about h/W of its brake.
+        assert share is not None and share == pytest.approx(endless, rel=0.05) and share < endless
+
+
+def test_the_fall_is_newton_s_law_stepped_and_the_ripple_hardly_changes_it():
+    from staunlabor.domain.experiments import plates
+
+    column = x.MagnetColumn()
+    for plate in plates.EXHIBIT_PLATES:
+        c, m = plates.brake(column, plate), plates.mass_kg(plate)
+        trace = rk4(lambda _t, y, c=c, m=m: (y[1], plates.G - c * y[1] / m), (0.0, 0.0), 1e-4, 2.0, sample_every=500)
+        for t, s, v in zip(trace.t, *trace.states, strict=True):
+            exact = x.plate_motion(column, plate, t)
+            assert exact[0] == pytest.approx(s, rel=1e-9, abs=1e-12)
+            assert exact[1] == pytest.approx(v, rel=1e-9, abs=1e-12)
+        assert x.plate_motion(column, plate, plates.fall_time_s(column, plate))[0] == pytest.approx(column.drop_m)
+    # The copper plate with its brake as it is at each depth, rippling: the same fall time to a thousandth.
+    copper = x.Plate("copper")
+    m = plates.mass_kg(copper)
+    trace = rk4(
+        lambda _t, y: (y[1], plates.G - plates.brake_at(column, copper, y[0]) * y[1] / m), (0.0, 0.0), 1e-3, 6.5
+    )
+    ts, depths = trace.t, trace.states[0]
+    k = next(i for i, s in enumerate(depths) if s >= column.drop_m)
+    crossing = ts[k - 1] + (column.drop_m - depths[k - 1]) / (depths[k] - depths[k - 1]) * (ts[k] - ts[k - 1])
+    assert crossing == pytest.approx(plates.fall_time_s(column, copper), rel=1e-3)
+
+
+def test_thickness_does_not_matter_size_a_little_and_finer_slots_take_more_of_the_brake():
+    from staunlabor.domain.experiments import plates
+
+    column = x.MagnetColumn()
+    speeds = [x.plate_figures(column, x.Plate("copper", thickness_m=d)).terminal_m_s for d in (0.001, 0.003, 0.01)]
+    assert speeds[0] == pytest.approx(speeds[1], rel=1e-12) and speeds[2] == pytest.approx(speeds[1], rel=1e-12)
+    # A plate twice as wide loses less to its edges and falls a little slower; half as wide, faster.
+    whole = x.plate_figures(column, x.Plate("copper")).terminal_m_s
+    wide = x.plate_figures(column, x.Plate("copper", width_m=0.2)).terminal_m_s
+    narrow = x.plate_figures(column, x.Plate("copper", width_m=0.05)).terminal_m_s
+    assert whole is not None and wide is not None and narrow is not None
+    assert 0.9 < wide / whole < 1 < narrow / whole < 1.2
+    shares = [x.plate_figures(column, x.Plate(tooth_m=t)).share for t in (0.002, 0.004, 0.008, 0.02)]
+    assert all(s is not None for s in shares) and shares == sorted(shares)  # type: ignore[type-var]
+    assert shares[0] is not None and shares[0] < 0.01
+    # Brass conducts a quarter of copper's and weighs nearly as much: it falls 3.8 times as fast.
+    brass = x.plate_figures(column, x.Plate("brass")).terminal_m_s
+    assert brass is not None and round(brass / whole, 1) == 3.8
+    assert round(plates.MATERIALS["brass"][0] / plates.MATERIALS["copper"][0], 2) == 0.25
+    assert 0.9 < plates.MATERIALS["brass"][1] / plates.MATERIALS["copper"][1] < 1
+
+
+def test_the_currents_turn_inside_each_tooth_and_never_cross_a_slot_or_an_edge():
+    from staunlabor.domain.experiments import plates
+
+    column, slotted = x.MagnetColumn(), plates.EXHIBIT_PLATES[2]
+    for y in (0.0, 0.008, 0.009, 0.010, 0.1182, 0.12):
+        assert plates.stream(column, slotted, 0.2, 0.5, 0.01, y, 16) == pytest.approx(0, abs=1e-12)
+    for xs in (-0.05, 0.05):
+        assert plates.stream(column, slotted, 0.2, 0.5, xs, 0.004, 16) == pytest.approx(0, abs=1e-9)
+    inside = [plates.stream(column, x.Plate("copper"), 0.2, 0.15, 0.0, y / 100, 16) for y in range(1, 12)]
+    assert min(inside) < 0 < max(inside), "loops both ways, one each side of a pole"
+    assert plates.stream(column, x.Plate("plastic"), 0.2, 4.0, 0.0, 0.06, 16) == 0
+
+
+def test_the_plates_refuse_what_they_cannot_be():
+    with pytest.raises(ValueError, match="field"):
+        x.MagnetColumn(field_t=0)
+    with pytest.raises(ValueError, match="magnets"):
+        x.MagnetColumn(pitch_m=1)
+    with pytest.raises(ValueError, match="column"):
+        x.MagnetColumn(drop_m=0)
+    with pytest.raises(ValueError, match="copper"):
+        x.Plate("iron")  # type: ignore[arg-type]
+    with pytest.raises(ValueError, match="thick"):
+        x.Plate(thickness_m=0)
+    with pytest.raises(ValueError, match="wide"):
+        x.Plate(width_m=0.001)
+    with pytest.raises(ValueError, match="slot"):
+        x.Plate(slot_m=0)
+    with pytest.raises(ValueError, match="tooth"):
+        x.Plate(tooth_m=0.2)
+    with pytest.raises(ValueError, match="let go"):
+        x.plate_motion(x.MagnetColumn(), x.Plate(), -1)

@@ -38,6 +38,7 @@ import * as peg from "./peg";
 import * as pendulum from "./pendulum";
 import * as pit from "./pit";
 import * as platform from "./platform";
+import * as plates from "./plates";
 import * as smoke from "./smoke";
 import * as sphere from "./sphere";
 import * as waterwheel from "./waterwheel";
@@ -957,6 +958,51 @@ describe("the slow LC circuit's port", () => {
     const build = cases.circuit[0].circuit;
     expect(circuit.state(build, -1)).toEqual(circuit.state(build, 0));
     expect(circuit.state(build, 0)[1]).toBe(0);
+  });
+});
+
+describe("the falling plates' port", () => {
+  it("brakes, falls and draws the currents as the engine does", () => {
+    const times = [0.0, 0.003, 0.02, 0.1, 0.5, 2.0, 9.0];
+    const depths = [0.0, 0.0137, 0.2];
+    const points = [
+      [0.0, 0.004],
+      [0.02, 0.031],
+      [-0.045, 0.0602],
+      [0.0, 0.0085],
+      [0.049, 0.119],
+    ];
+    for (const c of cases.plates) {
+      const column = c.column as plates.MagnetColumn;
+      const plate = c.plate as plates.Plate;
+      expect(differences(c.teeth, plates.teeth(plate))).toEqual([]);
+      expect(differences(c.mass_kg, plates.massKg(plate))).toEqual([]);
+      expect(differences(c.brake, plates.brake(column, plate))).toEqual([]);
+      expect(
+        differences(
+          c.brake_at,
+          depths.map((s) => plates.brakeAt(column, plate, s)),
+        ),
+      ).toEqual([]);
+      expect(
+        differences(
+          c.motion,
+          times.map((t) => plates.motion(column, plate, t)),
+        ),
+      ).toEqual([]);
+      expect(differences(c.figures, plates.figures(column, plate))).toEqual([]);
+      expect(
+        differences(
+          c.stream,
+          depths.flatMap((s) => points.map(([x, y]) => plates.stream(column, plate, s, 0.3, x, y, 16))),
+        ),
+      ).toEqual([]);
+    }
+  });
+
+  it("holds the plate at the top before it is let go", () => {
+    const { column, plate } = cases.plates[0] as { column: plates.MagnetColumn; plate: plates.Plate };
+    expect(plates.motion(column, plate, -1)).toEqual([0, 0]);
   });
 });
 

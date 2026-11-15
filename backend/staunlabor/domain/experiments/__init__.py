@@ -43,6 +43,8 @@ with SciPy before it was written (``docs/experiments.md``).
   a plate shaken at its middle stands still, the sand lies.
 * :mod:`circuit` — the slow LC circuit: a capacitor discharged through a big
   coil swings like a damped spring, its current with the coil's inertia.
+* :mod:`plates` — metal plates fall slowly between magnets they are not
+  drawn to: eddy currents brake them, and slots cut most of the brake away.
 * :mod:`levitation` — a spinning top hovers over a ring magnet only in a
   window a few millimetres high and three per cent wide in weight.
 * :mod:`gyroscope` — a spinning wheel on a string turns round it instead of
@@ -295,6 +297,10 @@ from staunlabor.domain.experiments.perspective import (
 from staunlabor.domain.experiments.perspective import analysis as chair_analysis
 from staunlabor.domain.experiments.pit import Basin, Entry, PitBall, PitRun
 from staunlabor.domain.experiments.pit import run as run_pit
+from staunlabor.domain.experiments.plates import EXHIBIT_PLATES, MagnetColumn, Plate, PlateFigures
+from staunlabor.domain.experiments.plates import figures as plate_figures
+from staunlabor.domain.experiments.plates import motion as plate_motion
+from staunlabor.domain.experiments.plates import stream as plate_stream
 from staunlabor.domain.experiments.platform import (
     Body,
     CurvePoint,
@@ -388,6 +394,7 @@ from staunlabor.domain.experiments.well import run as run_well
 
 __all__ = [
     "ACUITY_RAD",
+    "EXHIBIT_PLATES",
     "EYE",
     "EYE_BASELINE_M",
     "METER_RANGE_A",
@@ -465,6 +472,7 @@ __all__ = [
     "LevitationTop",
     "LiftPoint",
     "Magnet",
+    "MagnetColumn",
     "MaxwellWheel",
     "Mode",
     "Move",
@@ -477,6 +485,8 @@ __all__ = [
     "PendulumWave",
     "PitBall",
     "PitRun",
+    "Plate",
+    "PlateFigures",
     "Platform",
     "PlatformFigures",
     "PlatformRun",
@@ -610,6 +620,9 @@ __all__ = [
     "period_factor",
     "period_s",
     "plane_deg",
+    "plate_figures",
+    "plate_motion",
+    "plate_stream",
     "platform_figures",
     "position",
     "pull_n",
