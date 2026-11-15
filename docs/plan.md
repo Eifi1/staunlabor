@@ -102,7 +102,13 @@ say so stay as they are.
   parts. Visitors still need none to use the exhibits.
 - **The scope of Kurvenschmiede:** public feedback (comments, votes, the public
   list), passkeys, the data export and account deletion, the mail switches, the
-  reviewer role and `/translations`. No teams, no billing, no demo.
+  reviewer role and `/translations`. No teams (Marcel confirmed it again on
+  2026-11-15), no billing, no demo.
+- **Two-factor sign-in as an option (Marcel, 2026-11-15):** every account may
+  switch it on in its settings, none has to; server-kit 0.32's authenticator
+  codes, ten backup codes, and an admin's reset for a lost authenticator. Its
+  secrets are sealed under a key of the deployment's own
+  (`STAUNLABOR_TOTP_KEYS`).
 - **What comes first (Marcel, 2026-11-14):** the site stays open to every
   visitor, exhibits and all, with no account; that matters most. Accounts stay
   invitation-only, so a visitor gives no feedback unless invited; an open
@@ -143,7 +149,8 @@ Steps, each its own commits:
    budget; the kit's contract checks on PostgreSQL. On server-kit 0.31: the
    kit's daily call, `POST /api/v1/ops/accounts/daily` behind the jobs token,
    deleting ended sessions, expired links and invitations 30 days after, not
-   yet scheduled.)*
+   yet scheduled. On server-kit 0.32: two-factor sign-in, offered and never
+   required, on the account's row, migration 0004.)*
 3. Feedback and the translation review on the kit's routers. *(feedback on
    `feat/accounts`: server-kit 0.31's `feedback_router` on `feedback.sql`'s
    tables, migration 0002, the kit's contract suites on PostgreSQL; files in a

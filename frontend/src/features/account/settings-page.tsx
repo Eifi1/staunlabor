@@ -8,13 +8,15 @@ import {
   AccountPasswordSection,
   AccountProfileSection,
   AccountSessionsSection,
+  AccountTwoFactorSection,
   useCurrentUser,
 } from "@eifi1/ui-kit/accounts";
 import { useRoles } from "./roles";
 
-/** The account's settings: the kit's sections, wired to server-kit's routes. An admin is
- *  pointed to the admin page, an admin or a reviewer to the translation review: the server
- *  refuses both to everybody else anyway. */
+/** The account's settings: the kit's sections, wired to server-kit's routes. The second
+ *  factor is offered to every account and never required: the person switches it on here.
+ *  An admin is pointed to the admin page, an admin or a reviewer to the translation review:
+ *  the server refuses both to everybody else anyway. */
 export function SettingsPage() {
   const { t } = useTranslation();
   const me = useCurrentUser();
@@ -45,6 +47,7 @@ export function SettingsPage() {
       />
       <AccountEmailSection />
       <AccountPasswordSection />
+      <AccountTwoFactorSection />
       <AccountPasskeysSection />
       <AccountSessionsSection />
       <AccountExportSection />

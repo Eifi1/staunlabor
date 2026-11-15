@@ -203,15 +203,27 @@ serving the revision before it. Plan, second stage, step 6.
   `staunlabor-run`): `staunlabor-db-url-app` and `staunlabor-db-url-owner`
   (`postgresql+asyncpg://<role>:<password>@/staunlabor?host=/cloudsql/keksdose:europe-west4:keksdose-db`),
   `staunlabor-jwt-secret` (`openssl rand -hex 32`), `staunlabor-jobs-token` (the same),
-  later `staunlabor-resend-api-key`.
+  `staunlabor-totp-keys` (the same; Marcel creates it at the deploy), later
+  `staunlabor-resend-api-key`.
 * **Cloud SQL access**: `roles/cloudsql.client` for `staunlabor-run` (and for
   `staunlabor-build`, which deploys the job) **in the project `keksdose`**, and
   `--add-cloudsql-instances=keksdose:europe-west4:keksdose-db` on the backend.
 * **The backend's variables**: `STAUNLABOR_DATABASE_URL` from
   `staunlabor-db-url-app`, `STAUNLABOR_JWT_SECRET` from `staunlabor-jwt-secret`,
   `STAUNLABOR_JOBS_TOKEN` from `staunlabor-jobs-token`,
+  `STAUNLABOR_TOTP_KEYS` from `staunlabor-totp-keys`,
   `STAUNLABOR_REGISTRATION_ALLOWLIST` (the address that claims the empty
   database as its admin), `STAUNLABOR_WEBAUTHN_RP_ID=staunlabor.app`.
+* **The second factor's key** (server-kit 0.32): `STAUNLABOR_TOTP_KEYS` seals
+  every account's authenticator secret (AES-256-GCM, each value bound to its
+  row); a deployment refuses to start without a strong one. Keep it like the
+  database: a lost key leaves every account with two-factor sign-in on unable
+  to sign in by code (a passkey still works, and the person can switch it off by
+  the password alone). To rotate, put a new key in front, separated by a comma
+  (`new,old`): the newest seals, every one opens. Nothing re-seals by itself: a
+  secret stays under the key it was sealed with until its account sets up
+  again, so the old key stays in the list while any account set up under it
+  still has the second factor on.
 * **The migrate job**: a Cloud Run job `staunlabor-migrate` on the backend's
   image, `alembic upgrade head` with `STAUNLABOR_DATABASE_URL` from
   `staunlabor-db-url-owner`, run by `cloudbuild.yaml` before the backend

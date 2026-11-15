@@ -6,6 +6,7 @@
  */
 import { afterEach, describe, expect, it } from "vitest";
 import { screen } from "@testing-library/react";
+import userEvent from "@testing-library/user-event";
 import { Route, Routes, useLocation } from "react-router";
 import en from "@/shared/i18n/locales/en.json";
 import { renderSignedIn } from "@/test/accounts";
@@ -104,6 +105,58 @@ describe("the admin page", () => {
     expect(screen.getByRole("heading", { level: 1, name: en.account.admin })).toBeInTheDocument();
     // The ideas waiting, as the overview's "To triage" tile.
     expect(await screen.findByText("19")).toBeInTheDocument();
+  });
+});
+
+describe("the roster", () => {
+  it("offers to reset another account's two-factor sign-in, and only where it is on", async () => {
+    const row = (user: Record<string, unknown>, totp: boolean) => ({
+      ...user,
+      is_active: true,
+      email_verified: true,
+      totp_enabled: totp,
+      translation_review_locales: [],
+      translation_review_areas: null,
+    });
+    const user = userEvent.setup();
+    renderSignedIn(<AdminPage />, {
+      user: admin,
+      routes: {
+        "get /admin/attention": {
+          feedback_waiting: 0,
+          deletion_requests: 0,
+          invitations_pending: 0,
+          users_total: 3,
+          users_new_7d: 2,
+          extra: {},
+        },
+        "get /admin/users": {
+          users: [
+            row(admin, true),
+            row(member, true),
+            row({ ...member, id: 8, email: "cy@example.com", first_name: "Cy" }, false),
+          ],
+          total: 3,
+          mail_backend: "console",
+          summary: { active_admins: 1 },
+          levels: { two_factor_reset: "acknowledge" },
+        },
+        "get /admin/invitations": [],
+        "get /admin/actions": { actions: [], total: 0 },
+        "get /admin/mail": { mail_backend: "console" },
+      },
+    });
+    const reset = { name: "Reset two-factor sign-in" };
+    await screen.findByRole("button", { name: /Actions for Ben Example/ });
+    expect(screen.queryByRole("button", reset)).not.toBeInTheDocument();
+    // Off for Cy, and never the admin's own: they switch it off in their settings.
+    for (const name of [/Actions for Cy Example/, /Actions for Staunlabor Planung/]) {
+      await user.click(screen.getByRole("button", { name }));
+      expect(screen.queryByRole("button", reset)).not.toBeInTheDocument();
+      await user.keyboard("{Escape}");
+    }
+    await user.click(screen.getByRole("button", { name: /Actions for Ben Example/ }));
+    expect(await screen.findByRole("button", reset)).toBeInTheDocument();
   });
 });
 

@@ -7,7 +7,8 @@ them, which the address budget reads.
 
 And the accounts (server-kit's account layer, ``staunlabor.accounts``):
 their database (``staunlabor.database``), the signing key, the mail transport,
-who may claim an empty database as its admin, and the passkeys' relying party.
+who may claim an empty database as its admin, the passkeys' relying party, and
+the keys the second factor's secrets are sealed with.
 The exhibits read none of these and answer with no database at all.
 
 **The pool is one connection and one more, waiting ten seconds at most**
@@ -46,6 +47,12 @@ DEV_DATABASE_URL = "postgresql+asyncpg://staunlabor:staunlabor_dev@127.0.0.1:543
 #: ``check_deployment`` refuses that on a deployment: whoever holds this file
 #: could sign a session for any account.
 DEV_JWT_SECRET = "dev-only-change-me-staunlabor-signing-key"
+
+#: The key a laptop seals the second factor's secrets with: in this repository,
+#: so no secret, and a placeholder by its "change-me", which ``check_deployment``
+#: refuses on a deployment. Without any key the kit refuses a setup (``503
+#: two_factor_unavailable``), so a laptop gets one to try the second factor with.
+DEV_TOTP_KEYS = "dev-only-change-me-staunlabor-totp-seal-key"
 
 
 class Settings(BaseSettings):
@@ -86,6 +93,15 @@ class Settings(BaseSettings):
     #: The HS256 key the session tokens are signed with: 32 characters or more,
     #: never the repository's (``check_deployment``).
     jwt_secret: str = Field(default=DEV_JWT_SECRET, repr=False)
+    #: The keys the second factor's secrets are sealed with (server-kit's
+    #: ``SecretBox``, AES-256-GCM, each value bound to its account's row), newest
+    #: first, separated by commas or spaces: the newest seals, every one opens. A
+    #: rotation puts the new key in front and drops the old one once every secret
+    #: has been sealed again. A lost key leaves every account with the second
+    #: factor on unable to sign in by code (``503 two_factor_unavailable``; a
+    #: passkey still works, and switching it off takes the password alone).
+    #: 32 characters or more, never the repository's (``check_deployment``).
+    totp_keys: str = Field(default=DEV_TOTP_KEYS, repr=False)
     #: bcrypt's cost: 12, bcrypt's own default and every sibling app's. The suite
     #: sets 4; a hash carries its cost, so a row hashed at 12 still verifies.
     bcrypt_rounds: int = Field(default=12, ge=4, le=16)

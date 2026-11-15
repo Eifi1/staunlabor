@@ -13,7 +13,7 @@ from eifi1_server_kit.mail import ConsoleMailer, MailMessage, ResendClient
 
 from staunlabor.accounts import mailer_for
 from staunlabor.main import check_deployment, create_app
-from staunlabor.settings import DEV_JWT_SECRET, Settings, get_settings
+from staunlabor.settings import DEV_JWT_SECRET, DEV_TOTP_KEYS, Settings, get_settings
 
 pytestmark = pytest.mark.unit
 
@@ -59,6 +59,7 @@ DEPLOYED = {
     "STAUNLABOR_WEBAUTHN_RP_ID": "staunlabor.app",
     "STAUNLABOR_REGISTRATION_ALLOWLIST": "owner@example.com",
     "STAUNLABOR_JOBS_TOKEN": "a-jobs-token-long-enough-for-a-deployment-0123",
+    "STAUNLABOR_TOTP_KEYS": "a-seal-key-long-enough-for-a-deployment-4567",
 }
 
 
@@ -85,6 +86,8 @@ def test_a_deployment_with_its_key_its_list_and_its_host_starts(deployed: pytest
         ("STAUNLABOR_REGISTRATION_ALLOWLIST", " , ", "STAUNLABOR_REGISTRATION_ALLOWLIST is empty"),
         ("STAUNLABOR_WEBAUTHN_RP_ID", "localhost", "STAUNLABOR_WEBAUTHN_RP_ID ('localhost') is neither"),
         ("STAUNLABOR_JOBS_TOKEN", "short", "STAUNLABOR_JOBS_TOKEN is too short"),
+        ("STAUNLABOR_TOTP_KEYS", DEV_TOTP_KEYS, "STAUNLABOR_TOTP_KEYS is a placeholder"),
+        ("STAUNLABOR_TOTP_KEYS", " ", "STAUNLABOR_TOTP_KEYS is not set"),
     ],
 )
 def test_a_deployment_anybody_could_take_over_refuses_to_start(

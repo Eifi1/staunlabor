@@ -1,10 +1,11 @@
-"""The accounts: server-kit's account layer (0.31) on this app's tables.
+"""The accounts: server-kit's account layer (0.32) on this app's tables.
 
 The kit runs every route (``auth_router``: sign-up, sign-in, the refresh, the
-sessions, ``/auth/me`` and its settings, the mailed links, the passkeys;
+sessions, ``/auth/me`` and its settings, the mailed links, the passkeys, the second
+factor;
 ``invitations_admin_router``: the admin's invitations; ``user_admin_router``:
 the roster, its four actions, the reviewer scope, the log, the overview, the
-mails and the operator's erasure), every rule, every refusal's code, the mails
+mails, the second factor's reset and the operator's erasure), every rule, every refusal's code, the mails
 in seven languages and their windows. What is here is what the kit leaves to
 an app, and nothing more:
 
@@ -19,6 +20,12 @@ an app, and nothing more:
   invitation, which names a MEMBER or a REVIEWER (:data:`INVITABLE_ROLES`), in
   one of the site's seven languages (:data:`LANGUAGES`);
 - the passkeys' relying party, the site's own host;
+- the second factor (0.32): offered to every account, switched on by the person
+  in the settings and never required; its secrets sealed by the kit's
+  ``SecretBox`` under the deployment's keys (``Settings.totp_keys``), on the
+  account's own row (``TwoFactorColumns``). With the store, ``user_admin_router``
+  mounts the admin's reset for an account that lost its authenticator and its
+  backup codes;
 - the admin's vocabulary: the role change gives every role but the reviewer (the
   kit's default), the reviewer comes with its languages and areas
   (:data:`REVIEW_AREAS`);
@@ -30,8 +37,8 @@ an app, and nothing more:
 the app keeps no rows of its own that an export or a deletion must know about
 (feedback and the translation review will bring some).
 
-Not here: a second factor, a demo, teams, billing, and a scheduled erasure (an
-operator erases, so the daily call has no erasures to run).
+Not here: a demo, teams (Marcel 2026-11-15: no), billing, and a scheduled
+erasure (an operator erases, so the daily call has no erasures to run).
 """
 
 from __future__ import annotations
@@ -44,6 +51,7 @@ from eifi1_server_kit.auth.jobs import AccountJobsDeps
 from eifi1_server_kit.auth.jwt_signer import JwtSigner
 from eifi1_server_kit.auth.passkeys import RelyingParty
 from eifi1_server_kit.auth.router import AuthDeps
+from eifi1_server_kit.auth.seal import SecretBox
 from eifi1_server_kit.auth.service import AccountLinks, AccountPolicy
 from eifi1_server_kit.auth.sql import (
     AccountPrune,
@@ -54,6 +62,7 @@ from eifi1_server_kit.auth.sql import (
     SqlPasskeyStore,
     SqlRosterStore,
     SqlSessionStore,
+    SqlTwoFactorStore,
     SqlUserStore,
     prune_account_rows,
 )
@@ -128,6 +137,10 @@ async def passkeys(session: RequestSession) -> SqlPasskeyStore[Passkey, SpentCha
     return SqlPasskeyStore(session, Passkey, SpentChallenge)
 
 
+async def two_factor(session: RequestSession) -> SqlTwoFactorStore[User]:
+    return SqlTwoFactorStore(session, User)
+
+
 async def admin_log(session: RequestSession) -> SqlAdminActionLog[AdminAction]:
     return SqlAdminActionLog(session, AdminAction)
 
@@ -151,6 +164,8 @@ def account_deps(settings: Settings) -> AuthDeps:
         log=admin_log,
         after_commit=after_commit,
         passkeys=passkeys,
+        two_factor=two_factor,
+        secret_seal=SecretBox(settings.totp_keys),
         signer=JwtSigner(settings.jwt_secret),
         hasher=BcryptHasher(settings.bcrypt_rounds),
         mailer=mailer_for(settings),

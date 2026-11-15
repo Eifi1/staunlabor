@@ -1,7 +1,7 @@
 """The accounts' tables: server-kit's ``[sql]`` mixins (0.29), named and constrained here.
 
-Every column is the kit's (``eifi1_server_kit.auth.sql``): the account, its
-sessions, the mailed links, the invitations, the passkeys and the challenges
+Every column is the kit's (``eifi1_server_kit.auth.sql``): the account and its
+second factor, its sessions, the mailed links, the invitations, the passkeys and the challenges
 they answered, and the admin log. What this module adds is what the kit leaves
 to the app: the tables' names, the declarative base and its naming convention
 (so the models and migration 0001 name every constraint alike), and the one
@@ -26,6 +26,7 @@ from eifi1_server_kit.auth.sql import (
     PasskeyColumns,
     SessionColumns,
     SpentChallengeColumns,
+    TwoFactorColumns,
 )
 from eifi1_server_kit.feedback.sql import (
     FeedbackAttachmentColumns,
@@ -90,7 +91,11 @@ def _roles(column: str, *, nullable: bool = False) -> CheckConstraint:
     return CheckConstraint(f"{column} IS NULL OR {condition}" if nullable else condition, name="role")
 
 
-class User(AccountColumns, Base):
+class User(AccountColumns, TwoFactorColumns, Base):
+    """An account, with its second factor beside it (server-kit 0.32's
+    ``TwoFactorColumns``, migration 0004): off until the person switches it on in
+    the settings; the secrets sealed (``Settings.totp_keys``), never in the clear."""
+
     __tablename__ = "users"
     __table_args__ = (_roles("role"),)
 

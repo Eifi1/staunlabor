@@ -17,8 +17,10 @@ import { useRoles } from "@/features/account/roles";
  *
  * The reviewer's scope is on (the seven languages, the areas `experiments` and `legal`, the
  * server's `REVIEW_AREAS`), and so is "Erase now": an account that asked to be deleted is
- * deactivated at once and erased by the admin (`DeletionMode.OPERATOR` in `accounts.py`). The
- * server refuses all of it to anyone but an admin.
+ * deactivated at once and erased by the admin (`DeletionMode.OPERATOR` in `accounts.py`). So
+ * is "Reset two-factor sign-in", for a person who lost the authenticator and the backup codes
+ * (server-kit 0.32 mounts the route because the site's account layer has the second factor).
+ * The server refuses all of it to anyone but an admin.
  */
 export function AdminPage() {
   const { t } = useTranslation();
@@ -36,6 +38,7 @@ export function AdminPage() {
       <AccountUserRosterSection
         roles={roles}
         erase
+        twoFactorReset
         reviewer={{
           languages: LANGUAGE_CODES,
           areas: [

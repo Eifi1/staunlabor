@@ -22,6 +22,7 @@ from eifi1_server_kit.auth.sql import (
     SqlPasskeyStore,
     SqlRosterStore,
     SqlSessionStore,
+    SqlTwoFactorStore,
     SqlUserStore,
 )
 from eifi1_server_kit.auth.testing import (
@@ -31,6 +32,7 @@ from eifi1_server_kit.auth.testing import (
     check_one_time_token_store,
     check_passkey_store,
     check_session_store,
+    check_two_factor_store,
     check_user_store,
 )
 from eifi1_server_kit.user_admin.testing import check_accepted_invitations, check_roster_store
@@ -90,6 +92,11 @@ async def test_the_passkey_store_keeps_the_kit_s_promises(session: AsyncSession)
     user_id, other_user_id = await _two_accounts(session)
     store = SqlPasskeyStore(session, Passkey, SpentChallenge)
     await check_passkey_store(store, user_id=user_id, other_user_id=other_user_id)
+
+
+async def test_the_second_factor_s_store_keeps_the_kit_s_promises(session: AsyncSession):
+    user_id, other_user_id = await _two_accounts(session)
+    await check_two_factor_store(SqlTwoFactorStore(session, User), user_id=user_id, other_user_id=other_user_id)
 
 
 async def test_the_admin_log_keeps_the_kit_s_promises(session: AsyncSession):

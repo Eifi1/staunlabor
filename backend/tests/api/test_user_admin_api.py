@@ -6,8 +6,9 @@ The kit tests every rule on its in-memory stores; these test what this site chos
 what only its database shows: the roster's paging and search on PostgreSQL, a role change
 that makes an admin (never a reviewer, who comes with languages), the reviewer's seven
 languages and two areas, a deactivation, a forced password change and the two mails
-reaching the person, the operator's erasure leaving no address behind, the log, the
-overview and the test mail, and that nobody else reaches any of it.
+reaching the person, the second factor's reset for a lost authenticator, the operator's
+erasure leaving no address behind, the log, the overview and the test mail, and that
+nobody else reaches any of it.
 
 Not reachable here, so not tested: ``last_admin`` on a role change or a deactivation. In
 the global scope the acting admin is an active admin besides the target, so the target is
@@ -37,6 +38,7 @@ from tests.api.test_accounts_api import (
     invite_token,
     register,
     sign_in,
+    switch_on_two_factor,
 )
 from tests.conftest import FIRST_ADMIN
 
@@ -249,6 +251,34 @@ async def test_a_forced_password_change_ends_the_sessions_and_the_next_sign_in_s
         "password_change_withdraw",
         "password_change_require",
     ]
+
+
+# ── The second factor's reset ────────────────────────────────────────────────
+
+
+async def test_the_admin_switches_off_a_lost_second_factor_acknowledged_logged_and_never_their_own(
+    accounts: AsyncClient,
+):
+    admin, people = await staffed(accounts)
+    token, bob = admin["access_token"], uid(people["bob"])
+    await switch_on_two_factor(accounts, people["bob"]["access_token"])
+    assert (await sign_in(accounts, "bob@example.com")).json()["requires_2fa"] is True
+    roster = await accounts.get(f"{API}/admin/users", params={"q": "Babbage"}, headers=bearer(token))
+    assert [row["totp_enabled"] for row in roster.json()["users"]] == [True]
+
+    path = f"{API}/admin/users/{bob}/two-factor-reset"
+    dropped = await accounts.post(path, headers=bearer(token))
+    assert dropped.status_code == 409 and code(dropped) == "confirmation_required"
+    reset = await accounts.post(path, json={"acknowledged": True}, headers=bearer(token))
+    assert reset.status_code == 200 and reset.json()["totp_enabled"] is False
+    # Bob signs in by his password alone again, and may switch it on anew.
+    assert "access_token" in (await sign_in(accounts, "bob@example.com")).json()
+    assert [action for action, _ in await actions_on(accounts, token, bob)] == ["two_factor_reset"]
+
+    own = await accounts.post(
+        f"{API}/admin/users/{uid(admin)}/two-factor-reset", json={"acknowledged": True}, headers=bearer(token)
+    )
+    assert own.status_code == 409 and code(own) == "self_action"
 
 
 # ── The two mails ────────────────────────────────────────────────────────────

@@ -57,6 +57,10 @@ def check_deployment(settings: Settings) -> None:
       opened over the LAN still starts; a deployment must not.
     * **A jobs token unset or weak**: the daily call, which deletes an ended
       session's address after 30 days, would answer nobody, or anybody.
+    * **The second factor's keys unset, the repository's, or under 32
+      characters**: unset, nobody could switch it on (``503``); the
+      repository's, whoever reads this file opens every sealed secret and makes
+      the codes of every account that has it on.
 
     A deployment (``Settings.deployed``) refuses to start on any of them. A
     laptop boots with nothing configured, and hears about the key and the RP id.
@@ -80,6 +84,7 @@ def check_deployment(settings: Settings) -> None:
             "STAUNLABOR_REGISTRATION_ALLOWLIST is empty: whoever signs up first on an empty database is its admin"
         )
     problems += secret_problems(settings.jobs_token, name="STAUNLABOR_JOBS_TOKEN")
+    problems += secret_problems(settings.totp_keys, name="STAUNLABOR_TOTP_KEYS")
     if problems:
         raise RuntimeError("Refusing to start a deployment: " + "; ".join(problems) + ".")
     if settings.mail_backend == "console":

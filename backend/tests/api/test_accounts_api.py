@@ -12,12 +12,13 @@ before it answers.
 
 from __future__ import annotations
 
+from datetime import UTC, datetime, timedelta
 from typing import Any
 from urllib.parse import parse_qs, urlsplit
 
 import jwt
 import pytest
-from eifi1_server_kit.auth.testing import SoftAuthenticator
+from eifi1_server_kit.auth.testing import SoftAuthenticator, totp_code
 from httpx import ASGITransport, AsyncClient, Response
 from sqlalchemy import func, select
 from sqlalchemy.ext.asyncio import AsyncSession
@@ -282,6 +283,101 @@ async def test_a_passkey_made_on_the_site_signs_in_without_a_password(accounts: 
     )
     assert signed_in.status_code == 200, signed_in.text
     assert signed_in.json()["user"]["email"] == FIRST_ADMIN
+
+
+# ── The second factor: offered to everybody, switched on by the person ───────
+
+
+async def switch_on_two_factor(client: AsyncClient, token: str) -> tuple[str, list[str]]:
+    """The settings' three steps: the password, the secret for the authenticator,
+    a code from it. Answers the secret and the ten backup codes."""
+    set_up = await client.post(f"{API}/auth/me/2fa/setup", json={"password": PASSWORD}, headers=bearer(token))
+    assert set_up.status_code == 200, set_up.text
+    secret = set_up.json()["secret"]
+    enabled = await client.post(
+        f"{API}/auth/me/2fa/enable",
+        json={"code": totp_code(secret, now=datetime.now(UTC))},
+        headers=bearer(token),
+    )
+    assert enabled.status_code == 200, enabled.text
+    return secret, enabled.json()["backup_codes"]
+
+
+async def test_the_second_factor_is_off_until_the_person_switches_it_on_and_its_secret_is_sealed(
+    accounts: AsyncClient, session: AsyncSession
+):
+    admin = await first_admin(accounts)
+    token = admin["access_token"]
+    me = await accounts.get(f"{API}/auth/me", headers=bearer(token))
+    assert me.json()["totp_enabled"] is False
+    # Off, a sign-in is a session at once, as before.
+    assert "access_token" in (await sign_in(accounts)).json()
+
+    set_up = await accounts.post(f"{API}/auth/me/2fa/setup", json={"password": PASSWORD}, headers=bearer(token))
+    assert set_up.status_code == 200
+    secret, url = set_up.json()["secret"], set_up.json()["otpauth_url"]
+    assert url.startswith("otpauth://totp/Staunlabor:") and "issuer=Staunlabor" in url
+    # Set up but not confirmed: nothing signs in differently yet.
+    assert "access_token" in (await sign_in(accounts)).json()
+
+    secret, backup_codes = await switch_on_two_factor(accounts, token)
+    assert len(backup_codes) == 10
+    state = await accounts.get(f"{API}/auth/me/2fa", headers=bearer(token))
+    assert state.json() == {"enabled": True, "backup_codes_left": 10}
+    # The row holds the secret sealed under the deployment's key, never as the
+    # authenticator shows it, and the backup codes as digests.
+    stored = await session.scalar(select(User).where(User.email == FIRST_ADMIN))
+    assert stored is not None and stored.totp_enabled
+    assert stored.totp_secret is not None and stored.totp_secret.startswith("enc:v1:")
+    assert secret not in stored.totp_secret
+    assert not set(backup_codes) & set(stored.totp_backup_codes or [])
+
+
+async def test_with_the_second_factor_on_a_sign_in_asks_for_a_code_good_once(accounts: AsyncClient):
+    admin = await first_admin(accounts)
+    secret, backup_codes = await switch_on_two_factor(accounts, admin["access_token"])
+
+    asked = (await sign_in(accounts)).json()
+    assert asked["requires_2fa"] is True and "access_token" not in asked
+    # The enabling code's step is spent: the next one signs in.
+    later = totp_code(secret, now=datetime.now(UTC) + timedelta(seconds=30))
+    signed_in = await accounts.post(
+        f"{API}/auth/login/2fa", json={"challenge_token": asked["challenge_token"], "code": later}
+    )
+    assert signed_in.status_code == 200, signed_in.text
+    assert signed_in.json()["user"]["email"] == FIRST_ADMIN
+
+    # The same code again, on a new challenge: replayed, refused as a wrong one is.
+    again = (await sign_in(accounts)).json()
+    for wrong in (later, "000000"):
+        refused = await accounts.post(
+            f"{API}/auth/login/2fa", json={"challenge_token": again["challenge_token"], "code": wrong}
+        )
+        assert refused.status_code == 400 and code(refused) == "two_factor_invalid"
+    # A backup code stands in for a lost phone, once.
+    rescued = await accounts.post(
+        f"{API}/auth/login/2fa", json={"challenge_token": again["challenge_token"], "code": backup_codes[0]}
+    )
+    assert rescued.status_code == 200, rescued.text
+    left = await accounts.get(f"{API}/auth/me/2fa", headers=bearer(rescued.json()["access_token"]))
+    assert left.json()["backup_codes_left"] == 9
+
+
+async def test_switching_the_second_factor_off_takes_the_password_and_a_code(accounts: AsyncClient):
+    admin = await first_admin(accounts)
+    token = admin["access_token"]
+    secret, _ = await switch_on_two_factor(accounts, token)
+    later = totp_code(secret, now=datetime.now(UTC) + timedelta(seconds=30))
+    refused = await accounts.post(
+        f"{API}/auth/me/2fa/disable", json={"password": "wrong password", "code": later}, headers=bearer(token)
+    )
+    # A wrong password is a 400, never a 401: the session is fine, the check is not.
+    assert refused.status_code == 400 and code(refused) == "password_incorrect"
+    off = await accounts.post(
+        f"{API}/auth/me/2fa/disable", json={"password": PASSWORD, "code": later}, headers=bearer(token)
+    )
+    assert off.status_code == 204, off.text
+    assert "access_token" in (await sign_in(accounts)).json()
 
 
 # ── The budget and the unit of work ──────────────────────────────────────────

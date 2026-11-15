@@ -17,9 +17,10 @@ dependencies = [
     # the admin's), `sql` the tables and their stores, `passkeys` py_webauthn for
     # the passkey routes, `mail` the Resend client the console transport gives way
     # to once the domain is verified, `jwt` and `bcrypt` the ready signer (HS256,
-    # PyJWT) and hasher the kit took over from this app. The wheel and its sha256
-    # are pinned in uv.lock.
-    "eifi1-server-kit[bcrypt,fastapi,jwt,mail,passkeys,sql]",
+    # PyJWT) and hasher the kit took over from this app, `seal` (0.32) the
+    # AES-GCM box the second factor's secrets are stored in. The wheel and its
+    # sha256 are pinned in uv.lock.
+    "eifi1-server-kit[bcrypt,fastapi,jwt,mail,passkeys,seal,sql]",
 ]
 
 [dependency-groups]
@@ -80,4 +81,6 @@ min_confidence = 60
 ignore_decorators = ["@router.*", "@app.*", "@model_validator", "@field_validator"]
 
 [tool.uv.sources]
-eifi1-server-kit = { url = "https://github.com/Eifi1/server-kit/releases/download/v0.31.0/eifi1_server_kit-0.31.0-py3-none-any.whl" }
+# LOCAL ONLY: server-kit 0.32.0.dev4 from the kits' local build, until 0.32.0 is
+# released (the two-factor sign-in). Never pushed: the release's URL replaces it.
+eifi1-server-kit = { path = "/home/marcel/ui-kit-dist/eifi1_server_kit-0.32.0.dev4-py3-none-any.whl" }
