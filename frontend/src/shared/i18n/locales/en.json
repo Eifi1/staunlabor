@@ -272,6 +272,12 @@
         "title": "The chain and the arch",
         "summary": "An arch of loose stones stands without mortar – if its shape is right. A hanging chain shows the shape, upside down.",
         "question": "Why does an arch of loose stones stand, and why does one too thin fall?"
+      },
+      "chladni": {
+        "short": "Chladni figures",
+        "title": "The Chladni figures",
+        "summary": "Sand on a metal plate. When the plate rings, the sand runs into lines – a different pattern at every tone.",
+        "question": "Why does the sand gather into lines, and into different ones at every tone?"
       }
     },
     "chair": {
@@ -2258,6 +2264,58 @@
       "computed": {
         "system": "The arch is cut into stones of equal length, the joints across the centre line; each stone weighs as much as its quadrilateral and presses at its centroid. At every joint the pressing and the torque depend linearly on the push, the lift and the turning at the support; the page cuts from all possible values those that cross every joint inside the stone, and seeks the smallest λ by halving. The test finds for the semicircle the least thickness of 10.75 % of its radius that Milankovitch computed in 1907.",
         "left_out": "Left out: the stones sliding (friction holds), their crushing (they are strong enough), the abutments giving way. The page shows where an arch breaks open, not how it falls."
+      }
+    },
+    "chladni": {
+      "at": {
+        "plate": "A square metal plate is fixed at its middle on a shaker, sand strewn on it. The shaker is driven by a slowly rising tone.",
+        "sand": "At certain tones the plate rings loudly, and the sand runs together into lines and lies still there – a different pattern at each of these tones."
+      },
+      "view": "The plate from above with the sand on it",
+      "play": {
+        "title": "Choose the tone",
+        "hint": "Choose one of the plate's tones, or sweep slowly with the slider. Between the tones the sand hardly jumps, and no pattern forms.",
+        "restrew": "Strew the sand again",
+        "tones": "The tones at which the plate rings",
+        "drive": "The shaker's tone",
+        "drive_hint": "Logarithmic: every equal step is an equal musical interval.",
+        "sound": "Sound",
+        "sound_hint": "The shaker's tone, loud when the plate rings, soft between.",
+        "no_sound": "This browser cannot make sounds.",
+        "nearest": "The plate's nearest tone",
+        "swing": "Swing at the middle",
+        "swing_hint": "How hard the plate's middle swings, measured against its swing at the lowest tone."
+      },
+      "model": {
+        "intro": "A thin plate bends, and its stiffness resists. As with a string there are tones at which it keeps swinging by itself; to each belongs a shape with lines that stand still.",
+        "plate": "The thin plate's equation: its bending stiffness balances its inertia. The edges are free.",
+        "tones": "The tones: λ depends only on the shape; the plate's size and material set the pitch.",
+        "driven": "Shaken at its middle, the plate answers with the sum of its shapes, each the more strongly the nearer its tone to the shaker's, and only if it moves at the middle."
+      },
+      "symbols": {
+        "w": "how far the plate bends from rest",
+        "d": "the plate's bending stiffness",
+        "rho": "the steel's density",
+        "h": "the plate's thickness",
+        "omega": "a tone's angular frequency",
+        "e": "Young's modulus",
+        "nu": "Poisson's ratio, here 0.3",
+        "f": "the pitch",
+        "lambda": "a shape's figure, the same for every square plate",
+        "a": "the plate's side",
+        "phi": "the plate's k-th shape",
+        "big_omega": "the shaker's angular frequency",
+        "zeta": "each shape's damping"
+      },
+      "sweet": {
+        "still": "The sand gathers where the plate does not swing at all: on the nodal lines. Everywhere else it is thrown up until it lands on one, and there it stays.",
+        "tones": "A plate's tones are not overtones. A steel plate 24 cm square and 1 mm thick, shaken at its middle, rings at 102, 269 and 517 Hz – 2.62 and 5.05 times the lowest, not twice and three times as a string does.",
+        "middle": "Shaken at its middle, the plate shows only the shapes that move there. Its lowest tone of all, at which it twists, has a node at the middle and stays silent.",
+        "history": "Ernst Chladni showed the figures in 1787. Sophie Germain found the plate's equation and won the Paris Academy's prize for it in 1816; Gustav Kirchhoff put the free edges' conditions right in 1850."
+      },
+      "computed": {
+        "system": "The deflection is written as a sum of products of Legendre polynomials up to degree 20; by Ritz, the shapes are those at which the energy stands still. The server finds their eigenvalues by Jacobi's rotations, once, and sends the shapes; the page sums them for every tone. The test holds the first values to Leissa's table (13.468 · 19.596 · 24.270 · 34.801 · 63.686). The sand is a drawing rule: grains are thrown up where the plate swings and slide to where it stands still.",
+        "left_out": "Left out: the shaker's hold at the middle (its mass and stiffness shift the tones a little), the plate's thickness beside its size, and how sand really jumps."
       }
     }
   }

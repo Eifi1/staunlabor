@@ -272,6 +272,12 @@
         "title": "Die Kette und der Bogen",
         "summary": "Ein Bogen aus losen Steinen hält ohne Mörtel – wenn er die richtige Form hat. Eine hängende Kette zeigt sie, auf den Kopf gestellt.",
         "question": "Warum steht ein Bogen aus losen Steinen, und warum fällt ein zu dünner ein?"
+      },
+      "chladni": {
+        "short": "Chladni-Figuren",
+        "title": "Die Chladni-Figuren",
+        "summary": "Sand auf einer Metallplatte. Klingt die Platte, wandert der Sand zu Linien – bei jedem Ton zu einem anderen Muster.",
+        "question": "Warum sammelt sich der Sand zu Linien, und warum bei jedem Ton zu anderen?"
       }
     },
     "chair": {
@@ -2258,6 +2264,58 @@
       "computed": {
         "system": "Der Bogen wird in gleich lange Steine geschnitten, die Fugen quer zur Mittellinie; jeder Stein wiegt so viel wie sein Viereck und drückt in dessen Schwerpunkt. Für jede Fuge hängen Druck und Drehmoment linear vom Schub, vom Auflager und von dessen Drehmoment ab; die Seite schneidet aus allen möglichen Werten jene heraus, die jede Fuge im Stein kreuzen, und sucht durch Halbieren das kleinste λ. Der Test findet für den Halbkreis die kleinste Dicke von 10,75 % des Radius, die Milankovitch 1907 berechnet hat.",
         "left_out": "Weggelassen: das Rutschen der Steine (die Reibung hält), ihr Zerdrücken (sie sind fest genug), das Nachgeben der Widerlager. Die Seite zeigt, wo ein Bogen aufbricht, nicht, wie er fällt."
+      }
+    },
+    "chladni": {
+      "at": {
+        "plate": "Eine quadratische Metallplatte ist in der Mitte auf einem Rüttler befestigt, Sand ist darauf gestreut. Der Rüttler wird mit einem langsam steigenden Ton angetrieben.",
+        "sand": "Bei bestimmten Tönen klingt die Platte laut, und der Sand läuft zu Linien zusammen und bleibt dort liegen – bei jedem dieser Töne ein anderes Muster."
+      },
+      "view": "Die Platte von oben mit dem Sand darauf",
+      "play": {
+        "title": "Den Ton wählen",
+        "hint": "Wählen Sie einen der Töne der Platte, oder fahren Sie mit dem Regler langsam durch. Zwischen den Tönen springt der Sand nur wenig, und kein Muster entsteht.",
+        "restrew": "Sand neu streuen",
+        "tones": "Die Töne, bei denen die Platte klingt",
+        "drive": "Ton des Rüttlers",
+        "drive_hint": "Logarithmisch: jeder gleiche Schritt ist ein gleiches Tonintervall.",
+        "sound": "Ton",
+        "sound_hint": "Der Ton des Rüttlers, laut, wenn die Platte klingt, leise dazwischen.",
+        "no_sound": "Dieser Browser kann keine Töne erzeugen.",
+        "nearest": "Nächster Ton der Platte",
+        "swing": "Schwingung in der Mitte",
+        "swing_hint": "Wie stark die Mitte der Platte schwingt, gemessen an ihrem Schwingen beim tiefsten Ton."
+      },
+      "model": {
+        "intro": "Eine dünne Platte biegt sich, und ihre Steifigkeit wehrt sich dagegen. Wie bei einer Saite gibt es Töne, bei denen sie von selbst weiterschwingt; zu jedem gehört eine Form mit Linien, die stillstehen.",
+        "plate": "Die Gleichung der dünnen Platte: Ihre Biegesteifigkeit hält ihrer Trägheit die Waage. Die Ränder sind frei.",
+        "tones": "Die Töne: λ hängt nur von der Form ab, die Grösse und das Material der Platte setzen die Tonhöhe.",
+        "driven": "In der Mitte gerüttelt, antwortet die Platte mit der Summe ihrer Formen, jede umso stärker, je näher ihr Ton am Ton des Rüttlers liegt, und nur, wenn sie sich in der Mitte bewegt."
+      },
+      "symbols": {
+        "w": "wie weit sich die Platte aus der Ruhe biegt",
+        "d": "die Biegesteifigkeit der Platte",
+        "rho": "die Dichte des Stahls",
+        "h": "die Dicke der Platte",
+        "omega": "die Kreisfrequenz eines Tons",
+        "e": "der Elastizitätsmodul",
+        "nu": "die Querzahl, hier 0,3",
+        "f": "die Tonhöhe",
+        "lambda": "die Kennzahl einer Form, für alle quadratischen Platten gleich",
+        "a": "die Seitenlänge der Platte",
+        "phi": "die k-te Form der Platte",
+        "big_omega": "die Kreisfrequenz des Rüttlers",
+        "zeta": "die Dämpfung jeder Form"
+      },
+      "sweet": {
+        "still": "Der Sand sammelt sich dort, wo die Platte gar nicht schwingt: auf den Knotenlinien. Überall sonst wird er hochgeworfen, bis er auf eine fällt, und dort bleibt er liegen.",
+        "tones": "Die Töne einer Platte sind keine Obertöne. Eine Stahlplatte von 24 cm Seitenlänge und 1 mm Dicke, in der Mitte gerüttelt, klingt bei 102, 269 und 517 Hz – dem 2,62- und dem 5,05-Fachen des tiefsten, nicht dem Doppelten und Dreifachen wie eine Saite.",
+        "middle": "Gerüttelt in der Mitte, zeigt die Platte nur die Formen, die sich dort bewegen. Ihr tiefster Ton überhaupt, bei dem sie sich verdrillt, hat in der Mitte einen Knoten und bleibt stumm.",
+        "history": "Ernst Chladni zeigte die Figuren 1787. Die Gleichung der Platte fand Sophie Germain, die dafür 1816 den Preis der Pariser Akademie erhielt; die Bedingungen der freien Ränder brachte Gustav Kirchhoff 1850 in Ordnung."
+      },
+      "computed": {
+        "system": "Die Durchbiegung wird als Summe von Produkten von Legendre-Polynomen bis zum Grad 20 geschrieben; nach Ritz sind die Formen jene, bei denen die Energie stillsteht. Ihre Eigenwerte findet der Server mit Jacobis Drehungen, einmal, und schickt die Formen; die Seite summiert sie für jeden Ton. Der Test hält die ersten Werte an Leissas Tabelle (13,468 · 19,596 · 24,270 · 34,801 · 63,686). Der Sand ist eine Zeichenregel: Körner werden hochgeworfen, wo die Platte schwingt, und rutschen dorthin, wo sie stillsteht.",
+        "left_out": "Weggelassen: der Halt des Rüttlers in der Mitte (seine Masse und Steifigkeit verschieben die Töne etwas), die Dicke der Platte neben ihrer Grösse, und wie Sand wirklich springt."
       }
     }
   }

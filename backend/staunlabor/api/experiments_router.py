@@ -13,7 +13,9 @@ a sphere, the flux and its slope for a coil, the three boxes for the chair, the
 spins and the curves of the platform, the six tracks and the valley of the race,
 the float height, the curves and the tilt limit of the elephant's ball, the
 window of the smoke ring, how high the ball cannon's top ball goes for one, two
-and three balls, the pendulum wave's lengths and how far apart it comes back —
+and three balls, the pendulum wave's lengths and how far apart it comes back,
+and the Chladni plate's driven modes, the same for every plate and computed
+once a process (two seconds the first time) —
 each a millisecond or a few, the race some twenty, the elephant, the smoke ring
 and the cannon up to two hundred.
 

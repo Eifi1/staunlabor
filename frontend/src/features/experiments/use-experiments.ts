@@ -31,6 +31,16 @@ export function useChair() {
   });
 }
 
+/** The Chladni plate's driven modes: the same for every plate, so asked for
+ *  once. */
+export function useChladniModes() {
+  return useQuery({
+    queryKey: queryKeys.experimentsChladni,
+    queryFn: experimentsApi.chladni,
+    staleTime: Infinity,
+  });
+}
+
 /** How long a slider holds still before a page asks again, until the server
  *  has said: the same 0.15 s it serves. */
 const FALLBACK_SETTLE_S = 0.15;

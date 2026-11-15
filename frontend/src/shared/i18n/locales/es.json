@@ -272,6 +272,12 @@
         "title": "La cadena y el arco",
         "summary": "Un arco de piedras sueltas se sostiene sin mortero – si tiene la forma justa. Una cadena colgante la muestra, del revés.",
         "question": "¿Por qué se sostiene un arco de piedras sueltas, y por qué se cae uno demasiado delgado?"
+      },
+      "chladni": {
+        "short": "Figuras de Chladni",
+        "title": "Las figuras de Chladni",
+        "summary": "Arena sobre una placa de metal. Cuando la placa suena, la arena se junta en líneas – con cada tono, en otro dibujo.",
+        "question": "¿Por qué la arena se junta en líneas, y en otras distintas con cada tono?"
       }
     },
     "chair": {
@@ -2258,6 +2264,58 @@
       "computed": {
         "system": "El arco se corta en piedras de igual longitud, con las juntas transversales a la línea media; cada piedra pesa lo que su cuadrilátero y empuja en su centroide. En cada junta, la compresión y el momento dependen linealmente del empuje, de la reacción vertical y del momento en el apoyo; la página recorta de todos los valores posibles los que cruzan cada junta dentro de la piedra, y busca por bisección el menor λ. La prueba encuentra para el semicírculo el grosor mínimo del 10,75 % del radio que Milankovitch calculó en 1907.",
         "left_out": "Se deja fuera: el deslizamiento de las piedras (el rozamiento aguanta), su aplastamiento (son lo bastante fuertes), la cesión de los estribos. La página muestra dónde se abre un arco, no cómo cae."
+      }
+    },
+    "chladni": {
+      "at": {
+        "plate": "Una placa cuadrada de metal está fijada por el centro sobre un vibrador, con arena esparcida encima. El vibrador se excita con un tono que sube despacio.",
+        "sand": "Con ciertos tonos la placa suena fuerte, y la arena corre a formar líneas y se queda quieta en ellas – con cada uno de esos tonos, un dibujo distinto."
+      },
+      "view": "La placa vista desde arriba con la arena encima",
+      "play": {
+        "title": "Elegir el tono",
+        "hint": "Elija uno de los tonos de la placa o recorra despacio con el regulador. Entre los tonos la arena apenas salta y no se forma ningún dibujo.",
+        "restrew": "Esparcir arena de nuevo",
+        "tones": "Los tonos con los que suena la placa",
+        "drive": "Tono del vibrador",
+        "drive_hint": "Logarítmico: cada paso igual es un intervalo musical igual.",
+        "sound": "Sonido",
+        "sound_hint": "El tono del vibrador, fuerte cuando la placa suena, suave entre medias.",
+        "no_sound": "Este navegador no puede producir sonidos.",
+        "nearest": "Tono más cercano de la placa",
+        "swing": "Vibración en el centro",
+        "swing_hint": "Con qué fuerza vibra el centro de la placa, comparado con su vibración en el tono más grave."
+      },
+      "model": {
+        "intro": "Una placa delgada se dobla y su rigidez se resiste. Como en una cuerda, hay tonos con los que sigue vibrando sola; a cada uno le corresponde una forma con líneas que se quedan quietas.",
+        "plate": "La ecuación de la placa delgada: su rigidez a la flexión equilibra su inercia. Los bordes están libres.",
+        "tones": "Los tonos: λ solo depende de la forma; el tamaño y el material de la placa fijan la altura del tono.",
+        "driven": "Sacudida por el centro, la placa responde con la suma de sus formas, cada una tanto más cuanto más cerca está su tono del tono del vibrador, y solo si se mueve en el centro."
+      },
+      "symbols": {
+        "w": "cuánto se dobla la placa desde el reposo",
+        "d": "la rigidez a la flexión de la placa",
+        "rho": "la densidad del acero",
+        "h": "el grosor de la placa",
+        "omega": "la frecuencia angular de un tono",
+        "e": "el módulo de Young",
+        "nu": "el coeficiente de Poisson, aquí 0,3",
+        "f": "la altura del tono",
+        "lambda": "la cifra de una forma, igual para toda placa cuadrada",
+        "a": "el lado de la placa",
+        "phi": "la k-ésima forma de la placa",
+        "big_omega": "la frecuencia angular del vibrador",
+        "zeta": "la amortiguación de cada forma"
+      },
+      "sweet": {
+        "still": "La arena se junta donde la placa no vibra en absoluto: en las líneas nodales. En cualquier otro sitio salta hasta caer sobre una, y allí se queda.",
+        "tones": "Los tonos de una placa no son armónicos. Una placa de acero de 24 cm de lado y 1 mm de grosor, sacudida por el centro, suena a 102, 269 y 517 Hz – 2,62 y 5,05 veces el más grave, no el doble y el triple como una cuerda.",
+        "middle": "Sacudida por el centro, la placa solo muestra las formas que se mueven allí. Su tono más grave de todos, en el que se retuerce, tiene un nodo en el centro y se queda mudo.",
+        "history": "Ernst Chladni mostró las figuras en 1787. Sophie Germain encontró la ecuación de la placa y por ella ganó en 1816 el premio de la Academia de París; Gustav Kirchhoff corrigió en 1850 las condiciones de los bordes libres."
+      },
+      "computed": {
+        "system": "La flexión se escribe como suma de productos de polinomios de Legendre hasta el grado 20; según Ritz, las formas son aquellas en las que la energía es estacionaria. El servidor encuentra sus valores propios con las rotaciones de Jacobi, una vez, y envía las formas; la página las suma para cada tono. La prueba contrasta los primeros valores con la tabla de Leissa (13,468 · 19,596 · 24,270 · 34,801 · 63,686). La arena es una regla de dibujo: los granos saltan donde la placa vibra y se deslizan hacia donde está quieta.",
+        "left_out": "Se deja fuera: la sujeción del vibrador en el centro (su masa y rigidez desplazan un poco los tonos), el grosor de la placa frente a su tamaño, y cómo salta de verdad la arena."
       }
     }
   }

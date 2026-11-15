@@ -1255,6 +1255,56 @@ the catenary arch's line within 1 % at four thicknesses; Milankovitch's
 0.1075 and the 16 stones' 0.107; the semicircle falling and the pointed arch
 standing at 10 cm; the quarter-point loads, 80 % and 141 %.
 
+## The Chladni figures (`experiments.chladni`)
+
+**The exhibit.** A square metal plate fixed at its middle on a shaker, sand on
+it, the shaker's tone rising slowly; at certain tones the plate rings and the
+sand runs into lines, a different pattern each time.
+
+**The model** (`domain/experiments/chladni.py`). Kirchhoff's thin plate with
+free edges, ν = 0.3. Ritz's method on products of normalised Legendre
+polynomials up to degree 20 on `[−1, 1]²` (a free edge's conditions are the
+energy's own, so any complete basis serves); the 1D integrals by
+Gauss–Legendre, exact; the stiffness matrix per symmetry kind — even or odd
+across each middle line, and for equal parities kept or changed by the swap
+of x and y — and its eigenpairs by cyclic Jacobi rotations (the mass matrix
+is the identity in this basis). Rigid motions (κ ≈ 0) are dropped by κ > 1,
+the lowest true κ being about 11. λ = 4√κ. Each mode is scaled to 1 at its
+largest on a 41-point grid and signed positive at the middle. Shaken at its
+middle, only the doubly even, swap-kept modes move there and are driven; the
+answer is `|Σ φ_k·φ_k(0)/(ω_k² − Ω² + 2iζω_kΩ)|`, ζ = 0.002.
+
+**What it shows.** Leissa's free square plate: 13.468, 19.596, 24.270,
+34.801, 61.093, 63.686 to the third place. The driven modes of a 24 cm, 1 mm
+steel plate ring at 102, 269, 517, 711, 1186, 1266, 1455, 1973, 2346 and
+2529 Hz — 2.62 and 5.05 times the lowest, no harmonics. The lowest tone of all
+(13.468, the twist) has a still middle and is not driven. Ten driven modes at
+degree 20 agree with degree 24 to 0.1 in λ.
+
+**The route.** `GET /experiments/chladni` (under the budget) sends the driven
+modes as Legendre coefficients, the same for every plate: its size and steel
+only scale the tones, which the page does. Computed once a process (about two
+seconds), cached after. `write-test-fixtures.py` calls it with the chair (its
+`FETCHED`), and `test_page_fixtures.py` knows that the plate's build comes
+with the defaults while its modes come from the route.
+
+**The page.** The plate from above with 2500 grains on a canvas; the tones as
+buttons, the shaker's tone on a logarithmic slider, the sand strewn again; a
+sound switch (off by default, `use-tones.ts`, one voice at the shaker's tone,
+loud at a resonance); the plate's nearest tone and the middle's swing against
+its swing at the lowest tone. **The sand is a drawing rule**, said so on the
+page: a grain drifts down the swing's slope and is tossed in proportion to the
+swing where it lies; the swing is worked out on an 81-point grid and read
+between. The preview is a canvas, so the preview test accepts one.
+
+**Left out, and said:** the shaker's hold (its mass and stiffness shift the
+tones), the plate's thickness beside its size, and how sand really jumps.
+
+**Checked by** `tests/unit/test_experiments.py`: Leissa's six values; driven
+modes moving the middle and every other kind still there; the three tones and
+their ratios; the swing on the ring mode's node under 2 % of the middle's.
+`tests/api`: the route's modes lowest first, 24.270 at the bottom.
+
 ## Checking the mathematics
 
 Before the engine was written each model was checked independently with SciPy

@@ -47,6 +47,7 @@ import { WellPage } from "./well-page";
 import { ResonancePage } from "./resonance-page";
 import { GyroscopePage } from "./gyroscope-page";
 import { ArchPage } from "./arch-page";
+import { ChladniPage } from "./chladni-page";
 import { ballState, pitEntries, positionAt, raceLayout, swingAt } from "./race-views";
 import { run as runPit } from "./simulate/pit";
 import { HOLE, cameraAt, frameOf, project } from "./chair-views";
@@ -70,6 +71,7 @@ beforeEach(() => {
   useTried.getState().forget();
   mockApi({
     "GET /experiments/chair": chair,
+    "GET /experiments/chladni": fixtures.chladni,
     "GET /experiments/defaults": fixtures.defaults,
     "POST /experiments/coil": fixtures.coil,
     "POST /experiments/sphere": fixtures.sphere,
@@ -201,7 +203,8 @@ describe("a preview", () => {
   it.each(EXHIBITS.map((entry) => entry.exhibit))("draws the %s", async (exhibit) => {
     const { container } = renderWithProviders(<ExhibitPreview exhibit={exhibit} />);
     await waitFor(() => expect(container.querySelector("[aria-busy='true']")).toBeNull());
-    expect(container.querySelector("svg")).not.toBeNull();
+    // A drawing: an SVG, or a canvas where thousands of grains are drawn.
+    expect(container.querySelector("svg, canvas")).not.toBeNull();
     expect(screen.queryByRole("button")).toBeNull();
   });
 });
@@ -1020,5 +1023,23 @@ describe("the chain and the arch", () => {
     expect(await screen.findByText(E.arch.play.falls)).toBeInTheDocument();
     fireEvent.click(screen.getByRole("radio", { name: E.arch.play.shapes.catenary }));
     expect(await screen.findByText(E.arch.play.stands)).toBeInTheDocument();
+  });
+});
+
+describe("the Chladni figures", () => {
+  it("shows the plate, its first tones at 102, 269 and 517 Hz, and the sound off", async () => {
+    renderWithProviders(<ChladniPage />);
+    expect(await screen.findByRole("img", { name: E.chladni.view })).toBeInTheDocument();
+    for (const hz of ["102 Hz", "269 Hz", "517 Hz"])
+      expect(screen.getByRole("button", { name: hz })).toBeInTheDocument();
+    expect(screen.getByRole("switch", { name: E.chladni.play.sound })).not.toBeChecked();
+    expect(screen.getAllByLabelText(E.equation.symbols).length).toBeGreaterThanOrEqual(3);
+  });
+
+  it("rings at a tone when it is chosen", async () => {
+    renderWithProviders(<ChladniPage />);
+    await screen.findByRole("img", { name: E.chladni.view });
+    fireEvent.click(screen.getByRole("button", { name: "517 Hz" }));
+    expect((await screen.findAllByDisplayValue("517")).length).toBeGreaterThan(0);
   });
 });

@@ -98,6 +98,7 @@ from staunlabor.domain.experiments.chaos import run as run_chaos
 from staunlabor.domain.experiments.chladni import Mode as ChladniMode
 from staunlabor.domain.experiments.chladni import Plate as ChladniPlate
 from staunlabor.domain.experiments.chladni import driven_modes as chladni_driven_modes
+from staunlabor.domain.experiments.chladni import response as chladni_response
 from staunlabor.domain.experiments.coil import (
     METER_RANGE_A,
     Coil,
@@ -528,6 +529,7 @@ __all__ = [
     "chair",
     "chair_analysis",
     "chladni_driven_modes",
+    "chladni_response",
     "climb_deceleration",
     "coil_analysis",
     "contact_factor",

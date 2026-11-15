@@ -272,6 +272,12 @@
         "title": "A lánc és az ív",
         "summary": "A laza kövekből rakott ív habarcs nélkül is megáll – ha jó az alakja. Egy lelógó lánc megmutatja, fejjel lefelé.",
         "question": "Miért áll meg egy laza kövekből rakott ív, és miért dől össze a túl vékony?"
+      },
+      "chladni": {
+        "short": "Chladni-ábrák",
+        "title": "A Chladni-ábrák",
+        "summary": "Homok egy fémlemezen. Ha a lemez megszólal, a homok vonalakba gyűlik – minden hangnál más mintába.",
+        "question": "Miért gyűlik a homok vonalakba, és miért minden hangnál másokba?"
       }
     },
     "chair": {
@@ -2258,6 +2264,58 @@
       "computed": {
         "system": "Az ívet egyenlő hosszú kövekre vágjuk, a hézagok merőlegesek a középvonalra; minden kő annyit nyom, amennyi a négyszöge, és a súlypontjában nyom. Minden hézagnál a nyomás és a nyomaték lineárisan függ az oldalnyomástól, a függőleges reakciótól és a támasz nyomatékától; az oldal az összes lehetséges értékből kivágja azokat, amelyek minden hézagot a kövön belül metszenek, és felezéssel keresi a legkisebb λ-t. A teszt a félkörre megtalálja a sugár 10,75 %-ának megfelelő legkisebb vastagságot, amelyet Milankovitch 1907-ben számolt ki.",
         "left_out": "Kimaradt: a kövek elcsúszása (a súrlódás tart), összezúzódásuk (elég erősek), a hídfők engedése. Az oldal azt mutatja, hol nyílik szét az ív, nem azt, hogyan dől össze."
+      }
+    },
+    "chladni": {
+      "at": {
+        "plate": "Egy négyzet alakú fémlemez a közepén egy rázóra van rögzítve, rajta homok. A rázót lassan emelkedő hang hajtja.",
+        "sand": "Bizonyos hangoknál a lemez hangosan szól, a homok vonalakba fut össze, és ott nyugton marad – mindegyik ilyen hangnál más mintában."
+      },
+      "view": "A lemez felülről, rajta a homokkal",
+      "play": {
+        "title": "A hang kiválasztása",
+        "hint": "Válassza ki a lemez egyik hangját, vagy fusson végig lassan a csúszkával. A hangok között a homok alig ugrál, és nem alakul ki minta.",
+        "restrew": "Homok újraszórása",
+        "tones": "A hangok, amelyeken a lemez megszólal",
+        "drive": "A rázó hangja",
+        "drive_hint": "Logaritmikus: minden egyenlő lépés egyenlő hangköz.",
+        "sound": "Hang",
+        "sound_hint": "A rázó hangja: hangos, ha a lemez szól, halk közöttük.",
+        "no_sound": "Ez a böngésző nem tud hangot előállítani.",
+        "nearest": "A lemez legközelebbi hangja",
+        "swing": "Rezgés a közepén",
+        "swing_hint": "Mennyire erősen rezeg a lemez közepe, a legmélyebb hangnál mért rezgéséhez képest."
+      },
+      "model": {
+        "intro": "A vékony lemez hajlik, merevsége ellenáll. Mint egy húrnál, vannak hangok, amelyeken magától tovább rezeg; mindegyikhez tartozik egy alak, nyugalomban maradó vonalakkal.",
+        "plate": "A vékony lemez egyenlete: hajlítómerevsége egyensúlyt tart a tehetetlenségével. A szélek szabadok.",
+        "tones": "A hangok: λ csak az alaktól függ; a lemez mérete és anyaga adja a hangmagasságot.",
+        "driven": "A közepén rázva a lemez alakjainak összegével válaszol, mindegyikkel annál erősebben, minél közelebb van a hangja a rázóéhoz, és csak ha a közepén mozog."
+      },
+      "symbols": {
+        "w": "mennyire hajlik ki a lemez nyugalmi helyzetéből",
+        "d": "a lemez hajlítómerevsége",
+        "rho": "az acél sűrűsége",
+        "h": "a lemez vastagsága",
+        "omega": "egy hang körfrekvenciája",
+        "e": "a rugalmassági modulus",
+        "nu": "a Poisson-szám, itt 0,3",
+        "f": "a hangmagasság",
+        "lambda": "egy alak jellemző száma, minden négyzetes lemeznél azonos",
+        "a": "a lemez oldalhossza",
+        "phi": "a lemez k-adik alakja",
+        "big_omega": "a rázó körfrekvenciája",
+        "zeta": "az egyes alakok csillapítása"
+      },
+      "sweet": {
+        "still": "A homok ott gyűlik össze, ahol a lemez egyáltalán nem rezeg: a csomóvonalakon. Mindenhol máshol feldobódik, amíg egy ilyenre nem esik, és ott marad.",
+        "tones": "A lemez hangjai nem felhangok. Egy 24 cm oldalú, 1 mm vastag acéllemez a közepén rázva 102, 269 és 517 Hz-en szól – a legmélyebb 2,62- és 5,05-szörösén, nem a kétszeresén és háromszorosán, mint egy húr.",
+        "middle": "A közepén rázva a lemez csak azokat az alakokat mutatja, amelyek ott mozognak. Legmélyebb hangjának, amelynél elcsavarodik, a közepén csomópontja van, ezért néma marad.",
+        "history": "Ernst Chladni 1787-ben mutatta be az ábrákat. A lemez egyenletét Sophie Germain találta meg, és 1816-ban elnyerte érte a Párizsi Akadémia díját; a szabad szélek feltételeit Gustav Kirchhoff tette rendbe 1850-ben."
+      },
+      "computed": {
+        "system": "A behajlást Legendre-polinomok szorzatainak összegeként írjuk fel a 20. fokig; Ritz szerint az alakok azok, amelyeknél az energia stacionárius. Sajátértékeiket a szerver Jacobi-forgatásokkal egyszer kiszámolja, és elküldi az alakokat; az oldal minden hanghoz összegzi őket. A teszt az első értékeket Leissa táblázatához méri (13,468 · 19,596 · 24,270 · 34,801 · 63,686). A homok rajzolási szabály: a szemcsék feldobódnak, ahol a lemez rezeg, és odacsúsznak, ahol nyugton van.",
+        "left_out": "Kimaradt: a rázó rögzítése a közepén (tömege és merevsége kissé eltolja a hangokat), a lemez vastagsága a méretéhez képest, és hogyan ugrál valójában a homok."
       }
     }
   }

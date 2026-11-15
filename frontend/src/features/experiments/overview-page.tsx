@@ -31,6 +31,7 @@ import {
   AudioWaveform,
   LifeBuoy,
   Landmark,
+  Grid3x3,
 } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
 import {
@@ -81,6 +82,7 @@ const ICON: Record<Exhibit, LucideIcon> = {
   resonance: AudioWaveform,
   gyroscope: LifeBuoy,
   arch: Landmark,
+  chladni: Grid3x3,
 };
 
 /** Two weeks back, in the dialog: long enough to find the one a friend

@@ -660,6 +660,24 @@ export interface StoneArchRequest {
   depth_m: number;
 }
 
+// ── Chladni figures ──────────────────────────────────────────────────────────
+
+/** The engine's `Plate`: its size and steel, which scale the tones. */
+export interface ChladniPlateRequest {
+  side_m: number;
+  thickness_m: number;
+  youngs_gpa: number;
+  density_kg_m3: number;
+  damping_ratio: number;
+}
+
+/** `GET /experiments/chladni`: the modes a shaker at the middle drives,
+ *  lowest first, each as Σ c·p_m(ξ)·p_n(η). */
+export interface ChladniModes {
+  degree: number;
+  modes: Array<{ lam: number; m: number[]; n: number[]; c: number[] }>;
+}
+
 // ── the pages' starting point ────────────────────────────────────────────────
 
 export interface ExperimentsDefaults {
@@ -686,6 +704,7 @@ export interface ExperimentsDefaults {
   resonance: ResonanceRackRequest;
   gyroscope: GyroWheelRequest;
   arch: StoneArchRequest;
+  chladni: ChladniPlateRequest;
   meter_range_a: number;
   settle_s: number;
 }

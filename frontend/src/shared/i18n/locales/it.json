@@ -272,6 +272,12 @@
         "title": "La catena e l'arco",
         "summary": "Un arco di pietre sciolte sta in piedi senza malta – se ha la forma giusta. Una catena appesa la mostra, capovolta.",
         "question": "Perché sta in piedi un arco di pietre sciolte, e perché uno troppo sottile crolla?"
+      },
+      "chladni": {
+        "short": "Figure di Chladni",
+        "title": "Le figure di Chladni",
+        "summary": "Sabbia su una lastra di metallo. Quando la lastra suona, la sabbia si raccoglie in linee – a ogni suono in un altro disegno.",
+        "question": "Perché la sabbia si raccoglie in linee, e in linee diverse a ogni suono?"
       }
     },
     "chair": {
@@ -2258,6 +2264,58 @@
       "computed": {
         "system": "L'arco è tagliato in pietre di uguale lunghezza, con i giunti di traverso alla linea mediana; ogni pietra pesa quanto il suo quadrilatero e preme nel suo baricentro. In ogni giunto la compressione e il momento dipendono linearmente dalla spinta, dalla reazione verticale e dal momento all'appoggio; la pagina ritaglia fra tutti i valori possibili quelli che attraversano ogni giunto dentro la pietra, e cerca per bisezione il λ più piccolo. Il test trova per il semicerchio lo spessore minimo del 10,75 % del raggio che Milankovitch calcolò nel 1907.",
         "left_out": "Tralasciati: lo scivolamento delle pietre (l'attrito tiene), il loro schiacciamento (sono abbastanza resistenti), il cedimento delle spalle. La pagina mostra dove un arco si apre, non come cade."
+      }
+    },
+    "chladni": {
+      "at": {
+        "plate": "Una lastra quadrata di metallo è fissata al centro su un vibratore, con sabbia sparsa sopra. Il vibratore è eccitato da un suono che sale lentamente.",
+        "sand": "A certi suoni la lastra suona forte, e la sabbia corre a raccogliersi in linee e lì resta ferma – a ognuno di questi suoni un disegno diverso."
+      },
+      "view": "La lastra vista dall'alto con la sabbia sopra",
+      "play": {
+        "title": "Scegliere il suono",
+        "hint": "Scelga uno dei suoni della lastra, o scorra lentamente con il cursore. Tra i suoni la sabbia salta appena e non si forma nessun disegno.",
+        "restrew": "Spargere di nuovo la sabbia",
+        "tones": "I suoni a cui la lastra suona",
+        "drive": "Suono del vibratore",
+        "drive_hint": "Logaritmico: ogni passo uguale è un uguale intervallo musicale.",
+        "sound": "Suono",
+        "sound_hint": "Il suono del vibratore, forte quando la lastra suona, piano tra un suono e l'altro.",
+        "no_sound": "Questo browser non può produrre suoni.",
+        "nearest": "Suono più vicino della lastra",
+        "swing": "Vibrazione al centro",
+        "swing_hint": "Quanto forte vibra il centro della lastra, rispetto alla sua vibrazione al suono più grave."
+      },
+      "model": {
+        "intro": "Una lastra sottile si piega, e la sua rigidezza resiste. Come in una corda ci sono suoni a cui continua a vibrare da sola; a ognuno appartiene una forma con linee che restano ferme.",
+        "plate": "L'equazione della lastra sottile: la sua rigidezza flessionale bilancia la sua inerzia. I bordi sono liberi.",
+        "tones": "I suoni: λ dipende solo dalla forma; dimensioni e materiale della lastra fissano l'altezza.",
+        "driven": "Scossa al centro, la lastra risponde con la somma delle sue forme, ognuna tanto più forte quanto più il suo suono è vicino a quello del vibratore, e solo se si muove al centro."
+      },
+      "symbols": {
+        "w": "di quanto la lastra si piega dalla quiete",
+        "d": "la rigidezza flessionale della lastra",
+        "rho": "la densità dell'acciaio",
+        "h": "lo spessore della lastra",
+        "omega": "la pulsazione di un suono",
+        "e": "il modulo di Young",
+        "nu": "il coefficiente di Poisson, qui 0,3",
+        "f": "l'altezza del suono",
+        "lambda": "il numero caratteristico di una forma, uguale per ogni lastra quadrata",
+        "a": "il lato della lastra",
+        "phi": "la k-esima forma della lastra",
+        "big_omega": "la pulsazione del vibratore",
+        "zeta": "lo smorzamento di ogni forma"
+      },
+      "sweet": {
+        "still": "La sabbia si raccoglie dove la lastra non vibra affatto: sulle linee nodali. Altrove viene lanciata in alto finché ricade su una di esse, e lì resta.",
+        "tones": "I suoni di una lastra non sono armonici. Una lastra d'acciaio di 24 cm di lato e 1 mm di spessore, scossa al centro, suona a 102, 269 e 517 Hz – 2,62 e 5,05 volte il più grave, non il doppio e il triplo come una corda.",
+        "middle": "Scossa al centro, la lastra mostra solo le forme che si muovono lì. Il suo suono più grave in assoluto, in cui si torce, ha un nodo al centro e resta muto.",
+        "history": "Ernst Chladni mostrò le figure nel 1787. Sophie Germain trovò l'equazione della lastra e per essa vinse nel 1816 il premio dell'Accademia di Parigi; Gustav Kirchhoff sistemò nel 1850 le condizioni dei bordi liberi."
+      },
+      "computed": {
+        "system": "La flessione si scrive come somma di prodotti di polinomi di Legendre fino al grado 20; secondo Ritz, le forme sono quelle in cui l'energia è stazionaria. Il server trova i loro autovalori con le rotazioni di Jacobi, una volta, e invia le forme; la pagina le somma per ogni suono. Il test confronta i primi valori con la tabella di Leissa (13,468 · 19,596 · 24,270 · 34,801 · 63,686). La sabbia è una regola di disegno: i granelli vengono lanciati dove la lastra vibra e scivolano dove è ferma.",
+        "left_out": "Tralasciati: l'attacco del vibratore al centro (massa e rigidezza spostano un poco i suoni), lo spessore della lastra rispetto alle dimensioni, e come salta davvero la sabbia."
       }
     }
   }

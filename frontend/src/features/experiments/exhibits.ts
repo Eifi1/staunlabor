@@ -34,7 +34,8 @@ export type Exhibit =
   | "well"
   | "resonance"
   | "gyroscope"
-  | "arch";
+  | "arch"
+  | "chladni";
 
 /** What an exhibit is about, as a reader would look for it: one word each,
  *  and an exhibit may be about two. */
@@ -210,6 +211,13 @@ export const EXHIBITS: readonly ExhibitEntry[] = [
     exhibit: "arch",
     path: "/arch",
     topics: ["equilibrium"],
+    lessons: [],
+    since: "2026-12-01",
+  },
+  {
+    exhibit: "chladni",
+    path: "/chladni",
+    topics: ["oscillation"],
     lessons: [],
     since: "2026-12-01",
   },

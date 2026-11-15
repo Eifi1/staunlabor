@@ -272,6 +272,12 @@
         "title": "La chaîne et l'arc",
         "summary": "Un arc de pierres sèches tient sans mortier – s'il a la bonne forme. Une chaîne suspendue la montre, à l'envers.",
         "question": "Pourquoi un arc de pierres sèches tient-il, et pourquoi un arc trop mince s'effondre-t-il ?"
+      },
+      "chladni": {
+        "short": "Figures de Chladni",
+        "title": "Les figures de Chladni",
+        "summary": "Du sable sur une plaque de métal. Quand la plaque sonne, le sable se rassemble en lignes – un autre dessin à chaque son.",
+        "question": "Pourquoi le sable se rassemble-t-il en lignes, et en d'autres à chaque son ?"
       }
     },
     "chair": {
@@ -2258,6 +2264,58 @@
       "computed": {
         "system": "L'arc est découpé en pierres de même longueur, les joints en travers de la ligne médiane ; chaque pierre pèse autant que son quadrilatère et presse en son centre de gravité. À chaque joint, la compression et le moment dépendent linéairement de la poussée, de la réaction verticale et du moment à l'appui ; la page découpe parmi toutes les valeurs possibles celles qui traversent chaque joint dans la pierre, et cherche par dichotomie le plus petit λ. Le test retrouve pour le demi-cercle l'épaisseur minimale de 10,75 % du rayon que Milankovitch a calculée en 1907.",
         "left_out": "Laissé de côté : le glissement des pierres (le frottement tient), leur écrasement (elles sont assez solides), le cédage des culées. La page montre où un arc s'ouvre, pas comment il tombe."
+      }
+    },
+    "chladni": {
+      "at": {
+        "plate": "Une plaque carrée de métal est fixée en son milieu sur un vibreur, du sable répandu dessus. Le vibreur est excité par un son qui monte lentement.",
+        "sand": "À certains sons, la plaque sonne fort, et le sable court se rassembler en lignes et y reste immobile – un dessin différent à chacun de ces sons."
+      },
+      "view": "La plaque vue d'en haut avec le sable dessus",
+      "play": {
+        "title": "Choisir le son",
+        "hint": "Choisissez l'un des sons de la plaque, ou balayez lentement avec le curseur. Entre les sons, le sable saute à peine et aucun dessin ne se forme.",
+        "restrew": "Répandre à nouveau le sable",
+        "tones": "Les sons auxquels la plaque sonne",
+        "drive": "Son du vibreur",
+        "drive_hint": "Logarithmique : chaque pas égal est un même intervalle musical.",
+        "sound": "Son",
+        "sound_hint": "Le son du vibreur, fort quand la plaque sonne, doux entre deux.",
+        "no_sound": "Ce navigateur ne peut pas produire de sons.",
+        "nearest": "Son le plus proche de la plaque",
+        "swing": "Vibration au milieu",
+        "swing_hint": "La force avec laquelle le milieu de la plaque vibre, comparée à sa vibration au son le plus grave."
+      },
+      "model": {
+        "intro": "Une plaque mince se plie, et sa rigidité résiste. Comme pour une corde, il y a des sons auxquels elle continue de vibrer d'elle-même ; à chacun correspond une forme avec des lignes immobiles.",
+        "plate": "L'équation de la plaque mince : sa rigidité en flexion équilibre son inertie. Les bords sont libres.",
+        "tones": "Les sons : λ ne dépend que de la forme ; la taille et le matériau de la plaque fixent la hauteur.",
+        "driven": "Secouée en son milieu, la plaque répond par la somme de ses formes, chacune d'autant plus forte que son son est proche de celui du vibreur, et seulement si elle bouge au milieu."
+      },
+      "symbols": {
+        "w": "de combien la plaque se plie à partir du repos",
+        "d": "la rigidité en flexion de la plaque",
+        "rho": "la masse volumique de l'acier",
+        "h": "l'épaisseur de la plaque",
+        "omega": "la pulsation d'un son",
+        "e": "le module d'Young",
+        "nu": "le coefficient de Poisson, ici 0,3",
+        "f": "la hauteur du son",
+        "lambda": "le nombre caractéristique d'une forme, le même pour toute plaque carrée",
+        "a": "le côté de la plaque",
+        "phi": "la k-ième forme de la plaque",
+        "big_omega": "la pulsation du vibreur",
+        "zeta": "l'amortissement de chaque forme"
+      },
+      "sweet": {
+        "still": "Le sable se rassemble là où la plaque ne vibre pas du tout : sur les lignes nodales. Partout ailleurs, il est projeté jusqu'à retomber sur l'une d'elles, et il y reste.",
+        "tones": "Les sons d'une plaque ne sont pas des harmoniques. Une plaque d'acier de 24 cm de côté et 1 mm d'épaisseur, secouée en son milieu, sonne à 102, 269 et 517 Hz – 2,62 et 5,05 fois le plus grave, et non le double et le triple comme une corde.",
+        "middle": "Secouée en son milieu, la plaque ne montre que les formes qui bougent là. Son son le plus grave de tous, où elle se tord, a un nœud au milieu et reste muet.",
+        "history": "Ernst Chladni a montré les figures en 1787. Sophie Germain a trouvé l'équation de la plaque et reçu pour elle le prix de l'Académie de Paris en 1816 ; Gustav Kirchhoff a corrigé en 1850 les conditions des bords libres."
+      },
+      "computed": {
+        "system": "La flexion s'écrit comme une somme de produits de polynômes de Legendre jusqu'au degré 20 ; selon Ritz, les formes sont celles où l'énergie est stationnaire. Le serveur trouve leurs valeurs propres par les rotations de Jacobi, une fois, et envoie les formes ; la page les additionne pour chaque son. Le test confronte les premières valeurs à la table de Leissa (13,468 · 19,596 · 24,270 · 34,801 · 63,686). Le sable est une règle de dessin : les grains sont projetés là où la plaque vibre et glissent là où elle est immobile.",
+        "left_out": "Laissé de côté : la fixation du vibreur au milieu (sa masse et sa rigidité décalent un peu les sons), l'épaisseur de la plaque à côté de sa taille, et la façon dont le sable saute vraiment."
       }
     }
   }
