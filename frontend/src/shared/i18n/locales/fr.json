@@ -309,6 +309,12 @@
         "title": "La bille d’acier qui rebondit",
         "summary": "Une bille d’acier et une balle de tennis de table rebondissent sur une plaque, toujours plus bas et toujours plus vite – une infinité de rebonds, et pourtant elles s’immobilisent en quelques secondes.",
         "question": "Comment une infinité de rebonds tient-elle en quelques secondes ?"
+      },
+      "overhang": {
+        "short": "Porte-à-faux",
+        "title": "La pile en porte-à-faux",
+        "summary": "Des blocs identiques, empilés sans colle, dépassent d’un bord de plus qu’un bloc n’est long – si on les décale comme il faut.",
+        "question": "Jusqu’où une pile de neuf blocs peut-elle dépasser du bord sans basculer ?"
       }
     },
     "chair": {
@@ -2742,6 +2748,71 @@
         "top": "hauteur du sommet",
         "check": "Les tests de la page confrontent chaque vol à l’équation du mouvement avec air calculée pas à pas (Runge-Kutta), et la somme, pour une balle que l’air touche à peine, à la série géométrique √(2h/g)·(1 + e)/(1 − e). Le calcul se fait dans votre navigateur, avec les mêmes formules que le moteur de calcul de la page.",
         "left_out": "Laissé de côté : que le coefficient de restitution dépend de la vitesse (ici il est fixe) ; le temps que la balle passe sur la plaque à chaque choc, moins d’un dix-millième de seconde, qui en réalité termine la série par un grésillement avant sa somme ; la rotation ; la plaque qui cède. Les valeurs : une bille d’acier de 20 mm (33 g) de coefficient 0,95 sur acier trempé, une hypothèse ; une balle de tennis de table réglementaire (2,7 g, 40 mm) de coefficient 0,92."
+      }
+    },
+    "overhang": {
+      "at": {
+        "blocks": "Neuf blocs de bois identiques sont prêts, et le bord d’une table. Sans colle ni clous : jusqu’où le bloc du haut dépasse-t-il du bord ?",
+        "most": "La plupart construisent un escalier à marches égales et n’atteignent pas tout à fait la longueur d’un bloc.",
+        "further": "Pourtant quatre blocs bien décalés dépassent déjà de plus d’une longueur entière, et neuf d’une longueur et deux cinquièmes."
+      },
+      "view": "Le bord de la table avec la pile ; les blocs se tirent ou se déplacent avec les flèches",
+      "play": {
+        "title": "Empiler",
+        "hint": "Tirez les blocs à droite ou à gauche, ou choisissez-en un avec la touche Tab et déplacez-le avec les flèches, à grands pas avec Maj. Les points sont des centres de gravité : verts là où la pile tient, rouges là où elle bascule.",
+        "flush": "Alignés",
+        "even": "Marches égales",
+        "furthest": "Le plus loin",
+        "block": "Bloc {{n}} depuis le haut",
+        "count": "Blocs",
+        "count_hint": "Combien de blocs compte la pile.",
+        "caption": "Blocs de {{length}} × {{height}} cm, schématiques de face ; en pointillé, le bord de la table. Chaque point est le centre de gravité d’un bloc et de tous ceux au-dessus, là où il repose sur le bloc du dessous.",
+        "holds": "La pile tient. Elle dépasse du bord de {{cm}} cm, {{lengths}} longueurs de bloc.",
+        "tips_one": "La pile bascule : le centre de gravité du bloc du haut est à côté du bloc du dessous.",
+        "tips_other": "La pile bascule : le centre de gravité des {{count}} blocs du haut est à côté de leur appui."
+      },
+      "figures": {
+        "reach": "Porte-à-faux",
+        "best": "Le plus loin possible",
+        "even": "En marches égales"
+      },
+      "model": {
+        "intro": "Un bloc reste en place tant que son centre de gravité est au-dessus du bloc du dessous – le centre de gravité de lui et de tout ce qu’il porte. Toutes les longueurs sont en longueurs de bloc L.",
+        "holds": "La pile tient si, à chaque étage, le centre de gravité de tous les blocs à partir de lui vers le haut est au-dessus de son appui : au-dessus de la partie où il touche le bloc du dessous, pour le plus bas au-dessus de la table.",
+        "step": "Construite par le haut, chaque bloc aussi loin que ceux du dessus le permettent : le k-ième bloc depuis le haut dépasse de 1/(2k) le suivant.",
+        "harmonic": "Ensemble, c’est la moitié de la série harmonique.",
+        "even": "En marches égales, le centre de gravité de toute la pile atteint le bord en premier : n blocs dépassent de n/(n + 1), jamais d’une longueur entière."
+      },
+      "symbols": {
+        "centre": "centre de gravité des blocs à partir de l’étage k",
+        "footing": "extrémités de l’appui de l’étage k",
+        "x": "extrémité gauche du bloc j",
+        "n": "nombre de blocs",
+        "d": "de combien le k-ième bloc depuis le haut dépasse le suivant",
+        "k": "rang depuis le haut",
+        "reach": "porte-à-faux de toute la pile",
+        "h": "nombre harmonique",
+        "even": "porte-à-faux en marches égales"
+      },
+      "sweet": {
+        "steps": "L’astuce : on construit par le haut, pas par le bas. Le bloc du haut peut dépasser d’une demi-longueur, les deux du haut ensemble d’un quart sur le troisième, les trois du haut d’un sixième : les marches rapetissent vers le bas. Neuf blocs dépassent ainsi de 1,41 longueur, 28 cm avec des blocs de 20 cm ; en marches égales, de 0,9 seulement.",
+        "endless": "La série harmonique n’a pas de fin : avec assez de blocs, la pile dépasse aussi loin qu’on veut. Mais lentement, comme un logarithme. Il faut tant de blocs :",
+        "reach_one": "pour {{count}} longueur",
+        "reach_other": "pour {{count}} longueurs",
+        "knife": "Une pile ainsi construite est sur le fil du rasoir : chaque étage repose exactement au bout de son appui. Un bloc à peine plus loin, et toute la pile bascule par-dessus le bord de la table. Une vraie pile se construit donc un peu plus courte."
+      },
+      "chart": {
+        "hint": "Jusqu’où une pile peut dépasser au plus, selon le nombre de blocs : décalée le plus loin et en marches égales.",
+        "furthest": "le plus loin",
+        "even": "en marches égales",
+        "reach": "Porte-à-faux",
+        "lengths": "longueurs de bloc",
+        "blocks": "Blocs"
+      },
+      "computed": {
+        "system": "La page vérifie à chaque étage si le centre de gravité des blocs à partir de lui vers le haut est au-dessus de son appui ; une pile d’un bloc par étage n’en demande pas plus. La pile la plus longue se construit par le haut, chaque bloc 1/(2k) plus loin.",
+        "check": "Les tests de la page recalculent le porte-à-faux en fractions exactes et cherchent à l’aveugle parmi vingt mille piles aléatoires de trois et de quatre blocs : aucune qui tient ne dépasse plus loin que l’harmonique. Le calcul se fait dans votre navigateur, avec les mêmes formules que le moteur de calcul de la page.",
+        "left_out": "Laissé de côté : les piles à plusieurs blocs par étage, dont certains servent de contrepoids, qui vont encore plus loin (Paterson et Zwick) ; le frottement, les blocs ne glissant jamais ici, ils ne font que basculer ; le bois qui cède ; la main qui tremble. Les blocs mesurent 20 cm de long et 4 cm de haut."
       }
     }
   },

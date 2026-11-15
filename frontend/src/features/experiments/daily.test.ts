@@ -83,15 +83,15 @@ describe("the experiment of the day", () => {
     }));
     const flow = new Set<string>(built.slice(0, 2));
     const together = (days: string[]) => days.slice(1).filter((e, i) => flow.has(e) && flow.has(days[i])).length;
-    // 1200 rounds: with 29 exhibits the two meet some 25 times in 400, too few
+    // 1200 rounds: with 30 exhibits the two meet some 25 times in 400, too few
     // to tell a half from a whole.
     const leaned = together(run(built.length * 1200, pool));
     const even = together(run(built.length * 1200, pool, EVEN));
     // An even round puts the two side by side 2/n of the time: 1200 rounds of
-    // 29, about eighty-three. A fixed bound held only while there were few exhibits.
+    // 30, about eighty. A fixed bound held only while there were few exhibits.
     expect(even).toBeGreaterThan(((2 * 1200) / built.length) * 0.7);
-    // The second series' malus is a half (the first series' a quarter): 46
-    // against 92 with 29 exhibits (55 against 69 with 28), not half as often,
+    // The second series' malus is a half (the first series' a quarter): 44
+    // against 66 with 30 exhibits (46 against 92 with 29), not half as often,
     // since late in a round there is often nothing else left to draw.
     expect(leaned).toBeLessThan(even * 0.85);
   });
@@ -129,8 +129,8 @@ describe("the experiment of the day", () => {
     const even = late(run(built.length * 1200, pool, EVEN));
     expect(even).toBeGreaterThan(50);
     // With eight exhibits the bonus cut such turns by a quarter; with fifteen,
-    // by an eighth; with sixteen, by a tenth; with 29, by a twentieth (11640
-    // against 12183 over 1200 rounds): a day's weight is fixed while a round
+    // by an eighth; with sixteen, by a tenth; with 30, by a twentieth (12332
+    // against 12882 over 1200 rounds): a day's weight is fixed while a round
     // grows, and stays so (Marcel weakened the maluses instead, 2026-11-15).
     // Still fewer.
     expect(leaned).toBeLessThan(even * 0.98);

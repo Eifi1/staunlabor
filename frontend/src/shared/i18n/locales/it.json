@@ -309,6 +309,12 @@
         "title": "La sfera d’acciaio che rimbalza",
         "summary": "Una sfera d’acciaio e una pallina da ping-pong rimbalzano su una piastra, sempre più basse e sempre più veloci: infiniti rimbalzi, eppure dopo pochi secondi sono ferme.",
         "question": "Come fanno infiniti rimbalzi a stare in pochi secondi?"
+      },
+      "overhang": {
+        "short": "Sbalzo",
+        "title": "La pila a sbalzo",
+        "summary": "Blocchi uguali, impilati senza colla, sporgono da un bordo più di quanto un blocco sia lungo – se li si sposta nel modo giusto.",
+        "question": "Quanto può sporgere dal bordo una pila di nove blocchi senza ribaltarsi?"
       }
     },
     "chair": {
@@ -2742,6 +2748,71 @@
         "top": "altezza della cima",
         "check": "I test della pagina confrontano ogni volo con l’equazione del moto con l’aria calcolata passo per passo (Runge-Kutta), e la somma, per una palla che l’aria tocca appena, con la serie geometrica √(2h/g)·(1 + e)/(1 − e). Il calcolo avviene nel suo browser, con le stesse formule del motore di calcolo della pagina.",
         "left_out": "Tralasciato: che il coefficiente di restituzione dipende dalla velocità (qui è fisso); il tempo che la palla passa sulla piastra a ogni colpo, meno di un decimillesimo di secondo, che nella realtà chiude la serie con un ronzio prima della sua somma; la rotazione; il cedere della piastra. I valori: una sfera d’acciaio di 20 mm (33 g) con coefficiente 0,95 su acciaio temprato, un’ipotesi; una pallina da ping-pong regolamentare (2,7 g, 40 mm) con 0,92."
+      }
+    },
+    "overhang": {
+      "at": {
+        "blocks": "Ci sono nove blocchi di legno uguali e il bordo di un tavolo. Senza colla né chiodi: quanto sporge dal bordo il blocco più in alto?",
+        "most": "Quasi tutti costruiscono una scala a gradini uguali e non arrivano del tutto alla lunghezza di un blocco.",
+        "further": "Eppure quattro blocchi, spostati nel modo giusto, sporgono già più di una lunghezza intera, e nove una lunghezza e due quinti."
+      },
+      "view": "Il bordo del tavolo con la pila; i blocchi si possono trascinare o spostare con i tasti freccia",
+      "play": {
+        "title": "Impilare",
+        "hint": "Trascini i blocchi a destra o a sinistra, oppure ne scelga uno con il tasto Tab e lo sposti con le frecce, a passi grandi con Maiusc. I punti sono baricentri: verdi dove la pila regge, rossi dove si ribalta.",
+        "flush": "Allineati",
+        "even": "Gradini uguali",
+        "furthest": "Il più lontano",
+        "block": "Blocco {{n}} dall’alto",
+        "count": "Blocchi",
+        "count_hint": "Quanti blocchi ha la pila.",
+        "caption": "Blocchi di {{length}} × {{height}} cm, schematici di fronte; tratteggiato, il bordo del tavolo. Ogni punto è il baricentro di un blocco e di tutti quelli sopra, dove poggia sul blocco sotto.",
+        "holds": "La pila regge. Sporge dal bordo di {{cm}} cm, {{lengths}} lunghezze di blocco.",
+        "tips_one": "La pila si ribalta: il baricentro del blocco in cima è fuori dal blocco sotto.",
+        "tips_other": "La pila si ribalta: il baricentro dei {{count}} blocchi in cima è fuori dal loro appoggio."
+      },
+      "figures": {
+        "reach": "Sbalzo",
+        "best": "Il più lontano possibile",
+        "even": "A gradini uguali"
+      },
+      "model": {
+        "intro": "Un blocco resta fermo finché il suo baricentro sta sopra il blocco sotto – il baricentro suo e di tutto ciò che vi poggia. Tutte le lunghezze sono in lunghezze di blocco L.",
+        "holds": "La pila regge se a ogni strato il baricentro di tutti i blocchi da esso in su sta sopra il suo appoggio: sopra il tratto in cui tocca il blocco sotto, per il più basso sopra il tavolo.",
+        "step": "Costruita dall’alto, ogni blocco tanto in fuori quanto permettono quelli sopra: il k-esimo blocco dall’alto sporge di 1/(2k) sul successivo.",
+        "harmonic": "Insieme fa metà della serie armonica.",
+        "even": "A gradini uguali il baricentro dell’intera pila raggiunge per primo il bordo: n blocchi sporgono di n/(n + 1), mai una lunghezza intera."
+      },
+      "symbols": {
+        "centre": "baricentro dei blocchi dallo strato k in su",
+        "footing": "estremi dell’appoggio dello strato k",
+        "x": "estremo sinistro del blocco j",
+        "n": "numero di blocchi",
+        "d": "di quanto il k-esimo blocco dall’alto sporge sul successivo",
+        "k": "posto dall’alto",
+        "reach": "sbalzo dell’intera pila",
+        "h": "numero armonico",
+        "even": "sbalzo a gradini uguali"
+      },
+      "sweet": {
+        "steps": "Il trucco: si costruisce dall’alto, non dal basso. Il blocco in cima può sporgere di mezza lunghezza, i due in cima insieme di un quarto sul terzo, i tre in cima di un sesto: i gradini rimpiccioliscono verso il basso. Nove blocchi sporgono così di 1,41 lunghezze, 28 cm con blocchi di 20 cm; a gradini uguali solo 0,9.",
+        "endless": "La serie armonica non ha fine: con abbastanza blocchi la pila sporge quanto si vuole. Ma lentamente, come un logaritmo. Servono tanti blocchi:",
+        "reach_one": "per {{count}} lunghezza",
+        "reach_other": "per {{count}} lunghezze",
+        "knife": "Una pila costruita così sta sul filo del rasoio: ogni strato poggia esattamente all’estremo del suo appoggio. Un blocco appena più in fuori e tutta la pila si ribalta oltre il bordo del tavolo. Una pila vera si costruisce perciò un po’ più corta."
+      },
+      "chart": {
+        "hint": "Quanto può sporgere al massimo una pila, secondo il numero di blocchi: spostata il più lontano possibile e a gradini uguali.",
+        "furthest": "il più lontano",
+        "even": "a gradini uguali",
+        "reach": "Sbalzo",
+        "lengths": "lunghezze di blocco",
+        "blocks": "Blocchi"
+      },
+      "computed": {
+        "system": "La pagina controlla a ogni strato se il baricentro dei blocchi da esso in su sta sopra il suo appoggio; per una pila di un blocco per strato non serve altro. La pila più lunga si costruisce dall’alto, ogni blocco 1/(2k) più in fuori.",
+        "check": "I test della pagina ricalcolano lo sbalzo con frazioni esatte e cercano alla cieca tra ventimila pile casuali di tre e di quattro blocchi: nessuna che regga sporge più dell’armonica. Il calcolo avviene nel suo browser, con le stesse formule del motore di calcolo della pagina.",
+        "left_out": "Tralasciato: pile con più blocchi per strato, alcuni da contrappeso, che arrivano ancora più lontano (Paterson e Zwick); l’attrito, perché qui i blocchi non scivolano mai, si ribaltano soltanto; il legno che cede; la mano che trema. I blocchi sono lunghi 20 cm e alti 4 cm."
       }
     }
   },

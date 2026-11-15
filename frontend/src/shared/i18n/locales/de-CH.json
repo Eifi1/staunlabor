@@ -309,6 +309,12 @@
         "title": "Die hüpfende Stahlkugel",
         "summary": "Eine Stahlkugel und ein Tischtennisball hüpfen auf einer Platte, immer niedriger und immer schneller – unendlich viele Sprünge, und doch liegen sie nach wenigen Sekunden still.",
         "question": "Wie passen unendlich viele Sprünge in ein paar Sekunden?"
+      },
+      "overhang": {
+        "short": "Überhang",
+        "title": "Der überhängende Stapel",
+        "summary": "Gleiche Klötze, ohne Leim gestapelt, ragen weiter über eine Kante hinaus, als ein Klotz lang ist – wenn man sie richtig verschiebt.",
+        "question": "Wie weit kann ein Stapel aus neun Klötzen über die Kante hinausragen, ohne zu kippen?"
       }
     },
     "chair": {
@@ -2742,6 +2748,71 @@
         "top": "Gipfelhöhe",
         "check": "Die Tests der Seite halten jeden Flug gegen die Bewegungsgleichung mit Luft, Schritt für Schritt gerechnet (Runge-Kutta), und die Summe für eine Kugel, die die Luft kaum spürt, gegen die geometrische Reihe √(2h/g)·(1 + e)/(1 − e). Gerechnet wird in Ihrem Browser, mit denselben Formeln wie im Rechenkern der Seite.",
         "left_out": "Weggelassen: dass die Stosszahl von der Geschwindigkeit abhängt (hier ist sie fest); die Zeit, die die Kugel bei jedem Schlag auf der Platte verbringt, weniger als eine Zehntausendstelsekunde, die die Reihe in Wirklichkeit mit einem Schnarren vor ihrer Summe enden lässt; Drall; das Nachgeben der Platte. Die Werte: eine Stahlkugel von 20 mm (33 g) mit der Stosszahl 0,95 auf gehärtetem Stahl, eine Annahme; ein Tischtennisball nach den Regeln (2,7 g, 40 mm) mit 0,92."
+      }
+    },
+    "overhang": {
+      "at": {
+        "blocks": "Neun gleiche Holzklötze liegen bereit, dazu eine Tischkante. Ohne Leim und ohne Nägel: Wie weit ragt der oberste Klotz über die Kante hinaus?",
+        "most": "Die meisten bauen eine Treppe in gleichen Stufen und kommen nicht ganz eine Klotzlänge weit.",
+        "further": "Dabei ragen schon vier Klötze, richtig verschoben, mehr als eine ganze Länge hinaus, neun eine Länge und zwei Fünftel."
+      },
+      "view": "Die Tischkante mit dem Stapel; die Klötze lassen sich ziehen oder mit den Pfeiltasten verschieben",
+      "play": {
+        "title": "Stapeln",
+        "hint": "Ziehen Sie die Klötze nach rechts oder links, oder wählen Sie einen mit der Tabulatortaste und verschieben Sie ihn mit den Pfeiltasten, mit der Umschalttaste in grossen Schritten. Die Punkte sind Schwerpunkte: grün, wo der Stapel hält, rot, wo er kippt.",
+        "flush": "Bündig",
+        "even": "Gleiche Stufen",
+        "furthest": "Am weitesten",
+        "block": "Klotz {{n}} von oben",
+        "count": "Klötze",
+        "count_hint": "Wie viele Klötze der Stapel hat.",
+        "caption": "Klötze von {{length}} × {{height}} cm, schematisch von vorn, gestrichelt die Tischkante. Jeder Punkt ist der gemeinsame Schwerpunkt eines Klotzes und aller darüber, dort, wo er auf dem Klotz darunter aufliegt.",
+        "holds": "Der Stapel hält. Er ragt {{cm}} cm über die Kante hinaus, {{lengths}} Klotzlängen.",
+        "tips_one": "Der Stapel kippt: Der Schwerpunkt des obersten Klotzes liegt neben dem Klotz darunter.",
+        "tips_other": "Der Stapel kippt: Der gemeinsame Schwerpunkt der obersten {{count}} Klötze liegt neben ihrer Auflage."
+      },
+      "figures": {
+        "reach": "Überhang",
+        "best": "Am weitesten möglich",
+        "even": "In gleichen Stufen"
+      },
+      "model": {
+        "intro": "Ein Klotz bleibt liegen, solange sein Schwerpunkt über dem Klotz darunter liegt – und zwar der gemeinsame Schwerpunkt von ihm und allem, was auf ihm liegt. Alle Längen sind in Klotzlängen L gemessen.",
+        "holds": "Der Stapel hält, wenn in jeder Lage der Schwerpunkt aller Klötze von ihr an aufwärts über ihrer Auflage liegt: über dem Stück, auf dem sie den Klotz darunter berührt, bei der untersten über dem Tisch.",
+        "step": "Von oben gebaut, jeder Klotz so weit hinaus, wie die darüber es erlauben: Der k-te Klotz von oben ragt um 1/(2k) über den nächsten.",
+        "harmonic": "Zusammen ist das die Hälfte der harmonischen Reihe.",
+        "even": "In gleichen Stufen erreicht der Schwerpunkt des ganzen Stapels zuerst die Kante: n Klötze ragen n/(n + 1) hinaus, nie eine ganze Länge."
+      },
+      "symbols": {
+        "centre": "Schwerpunkt der Klötze ab Lage k aufwärts",
+        "footing": "Enden der Auflage von Lage k",
+        "x": "linkes Ende des Klotzes j",
+        "n": "Zahl der Klötze",
+        "d": "Überstand des k-ten Klotzes von oben über den nächsten",
+        "k": "Platz von oben",
+        "reach": "Überhang des ganzen Stapels",
+        "h": "harmonische Zahl",
+        "even": "Überhang in gleichen Stufen"
+      },
+      "sweet": {
+        "steps": "Der Trick: Man baut nicht von unten, sondern von oben. Der oberste Klotz darf eine halbe Länge überstehen, die obersten zwei zusammen eine Viertellänge über dem dritten, die obersten drei ein Sechstel: Die Stufen werden nach unten immer kleiner. Neun Klötze ragen so 1,41 Längen hinaus, bei Klötzen von 20 cm 28 cm; in gleichen Stufen nur 0,9.",
+        "endless": "Die harmonische Reihe hat kein Ende: Mit genug Klötzen ragt der Stapel so weit hinaus, wie man will. Aber langsam, wie ein Logarithmus. So viele Klötze braucht es:",
+        "reach_one": "für {{count}} Länge",
+        "reach_other": "für {{count}} Längen",
+        "knife": "Ein so gebauter Stapel steht auf Messers Schneide: Jede Lage liegt genau an der Kante ihrer Auflage. Ein Klotz nur einen Hauch weiter hinaus, und der ganze Stapel kippt über die Tischkante. Ein echter Stapel wird darum ein wenig kürzer gebaut."
+      },
+      "chart": {
+        "hint": "Wie weit ein Stapel höchstens hinausragt, je nach Zahl der Klötze: am weitesten verschoben und in gleichen Stufen.",
+        "furthest": "am weitesten",
+        "even": "in gleichen Stufen",
+        "reach": "Überhang",
+        "lengths": "Klotzlängen",
+        "blocks": "Klötze"
+      },
+      "computed": {
+        "system": "Die Seite prüft für jede Lage, ob der gemeinsame Schwerpunkt der Klötze von ihr an aufwärts über ihrer Auflage liegt; mehr braucht es für einen Stapel mit einem Klotz pro Lage nicht. Der weiteste Stapel ist von oben her gebaut, jeder Klotz um 1/(2k) hinaus.",
+        "check": "Die Tests der Seite rechnen den Überhang mit exakten Brüchen nach und suchen blind unter je zwanzigtausend zufälligen Stapeln aus drei und aus vier Klötzen: Keiner, der hält, ragt weiter hinaus als der harmonische. Gerechnet wird in Ihrem Browser, mit denselben Formeln wie im Rechenkern der Seite.",
+        "left_out": "Weggelassen: Stapel mit mehreren Klötzen in einer Lage, bei denen einige als Gegengewicht dienen – damit kommt man noch weiter (Paterson und Zwick); die Reibung, denn die Klötze rutschen hier nie, sie kippen nur; dass Holz nachgibt; das Zittern der Hand. Die Klötze sind 20 cm lang und 4 cm hoch."
       }
     }
   },

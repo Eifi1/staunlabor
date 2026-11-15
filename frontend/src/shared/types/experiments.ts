@@ -695,6 +695,16 @@ export interface BounceRequest {
   height_m: number;
 }
 
+// ── the overhang ─────────────────────────────────────────────────────────────
+
+/** The exhibit's block count and the blocks' size. No route: the page asks
+ *  the port (`simulate/overhang.ts`). */
+export interface OverhangRequest {
+  blocks: number;
+  length_m: number;
+  height_m: number;
+}
+
 // ── the chain and the arch ───────────────────────────────────────────────────
 
 /** The engine's `Arch`. No route: the page asks the port (`simulate/arch.ts`). */
@@ -756,6 +766,7 @@ export interface ExperimentsDefaults {
   circuit: CircuitRequest;
   plates: PlatesRequest;
   bounce: BounceRequest;
+  overhang: OverhangRequest;
   meter_range_a: number;
   settle_s: number;
 }

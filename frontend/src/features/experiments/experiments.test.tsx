@@ -51,6 +51,7 @@ import { LevitationPage } from "./levitation-page";
 import { CircuitPage } from "./circuit-page";
 import { PlatesPage } from "./plates-page";
 import { BouncePage } from "./bounce-page";
+import { OverhangPage } from "./overhang-page";
 import { ChladniPage } from "./chladni-page";
 import { ballState, pitEntries, positionAt, raceLayout, swingAt } from "./race-views";
 import { run as runPit } from "./simulate/pit";
@@ -1172,5 +1173,32 @@ describe("the bouncing ball", () => {
     const kind = screen.getByRole("radiogroup", { name: E.bounce.change.kind });
     fireEvent.click(within(kind).getByRole("radio", { name: E.bounce.short.tennis }));
     expect(await screen.findByText(status("5.2", 44))).toBeInTheDocument();
+  });
+});
+
+describe("the overhang", () => {
+  it("starts flush, and the furthest stack of nine reaches 28.3 cm where even steps reach 18", async () => {
+    renderWithProviders(<OverhangPage />);
+    expect(await screen.findByRole("group", { name: E.overhang.view })).toBeInTheDocument();
+    const holds = (cm: string, lengths: string) =>
+      E.overhang.play.holds.replace("{{cm}}", cm).replace("{{lengths}}", lengths);
+    expect(screen.getByText(holds("0.0", "0.00"))).toBeInTheDocument();
+    fireEvent.click(screen.getByRole("button", { name: E.overhang.play.furthest }));
+    expect(screen.getByText(holds("28.3", "1.41"))).toBeInTheDocument();
+    fireEvent.click(screen.getByRole("button", { name: E.overhang.play.even }));
+    expect(screen.getByText(holds("18.0", "0.90"))).toBeInTheDocument();
+    expect(screen.getAllByLabelText(E.equation.symbols).length).toBeGreaterThanOrEqual(4);
+  });
+
+  it("moves a block with the arrow keys and says when the stack tips", async () => {
+    renderWithProviders(<OverhangPage />);
+    const top = await screen.findByRole("slider", { name: E.overhang.play.block.replace("{{n}}", "1") });
+    for (let i = 0; i < 9; i++) fireEvent.keyDown(top, { key: "ArrowRight", shiftKey: true });
+    expect(screen.getByText(new RegExp(`^${E.overhang.play.holds.split("{{cm}}")[0]}9[.,]0 cm`))).toBeInTheDocument();
+    fireEvent.keyDown(top, { key: "ArrowRight", shiftKey: true });
+    fireEvent.keyDown(top, { key: "ArrowRight", shiftKey: true });
+    expect(screen.getByText(E.overhang.play.tips_one)).toBeInTheDocument();
+    fireEvent.click(screen.getByRole("button", { name: E.overhang.play.flush }));
+    expect(screen.queryByText(E.overhang.play.tips_one)).not.toBeInTheDocument();
   });
 });

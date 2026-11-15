@@ -309,6 +309,12 @@
         "title": "La bola de acero que bota",
         "summary": "Una bola de acero y una pelota de tenis de mesa botan sobre una placa, cada vez más bajo y más deprisa: infinitos botes, y sin embargo quedan quietas en pocos segundos.",
         "question": "¿Cómo caben infinitos botes en unos pocos segundos?"
+      },
+      "overhang": {
+        "short": "Voladizo",
+        "title": "La pila en voladizo",
+        "summary": "Bloques iguales, apilados sin cola, sobresalen de un borde más de lo que mide un bloque, si se desplazan bien.",
+        "question": "¿Cuánto puede sobresalir del borde una pila de nueve bloques sin volcar?"
       }
     },
     "chair": {
@@ -2742,6 +2748,71 @@
         "top": "altura de la cumbre",
         "check": "Las pruebas de la página contrastan cada vuelo con la ecuación del movimiento con aire calculada paso a paso (Runge-Kutta), y la suma para una bola que el aire apenas toca con la serie geométrica √(2h/g)·(1 + e)/(1 − e). Se calcula en su navegador, con las mismas fórmulas que el motor de cálculo de la página.",
         "left_out": "Se omite: que el coeficiente de restitución depende de la velocidad (aquí es fijo); el tiempo que la bola pasa sobre la placa en cada golpe, menos de una diezmilésima de segundo, que en realidad termina la serie con un zumbido antes de su suma; el giro; la cesión de la placa. Los valores: una bola de acero de 20 mm (33 g) con coeficiente 0,95 sobre acero templado, una suposición; una pelota de tenis de mesa reglamentaria (2,7 g, 40 mm) con 0,92."
+      }
+    },
+    "overhang": {
+      "at": {
+        "blocks": "Hay nueve bloques de madera iguales y el borde de una mesa. Sin cola ni clavos: ¿cuánto sobresale del borde el bloque de arriba?",
+        "most": "La mayoría construye una escalera de peldaños iguales y no llega del todo a la longitud de un bloque.",
+        "further": "Y sin embargo cuatro bloques bien desplazados ya sobresalen más de una longitud entera, y nueve una longitud y dos quintos."
+      },
+      "view": "El borde de la mesa con la pila; los bloques se pueden arrastrar o mover con las teclas de flecha",
+      "play": {
+        "title": "Apilar",
+        "hint": "Arrastre los bloques a derecha o izquierda, o elija uno con la tecla Tab y muévalo con las flechas, a pasos grandes con Mayúsculas. Los puntos son centros de masa: verdes donde la pila aguanta, rojos donde vuelca.",
+        "flush": "Alineados",
+        "even": "Peldaños iguales",
+        "furthest": "Lo más lejos",
+        "block": "Bloque {{n}} desde arriba",
+        "count": "Bloques",
+        "count_hint": "Cuántos bloques tiene la pila.",
+        "caption": "Bloques de {{length}} × {{height}} cm, esquemáticos de frente; a trazos, el borde de la mesa. Cada punto es el centro de masa de un bloque y de todos los de encima, donde se apoya en el bloque de abajo.",
+        "holds": "La pila aguanta. Sobresale {{cm}} cm del borde, {{lengths}} longitudes de bloque.",
+        "tips_one": "La pila vuelca: el centro de masa del bloque de arriba queda fuera del bloque de abajo.",
+        "tips_other": "La pila vuelca: el centro de masa de los {{count}} bloques de arriba queda fuera de su apoyo."
+      },
+      "figures": {
+        "reach": "Voladizo",
+        "best": "Lo más lejos posible",
+        "even": "En peldaños iguales"
+      },
+      "model": {
+        "intro": "Un bloque se queda quieto mientras su centro de masa esté sobre el bloque de abajo: el centro de masa de él y de todo lo que tiene encima. Todas las longitudes se miden en longitudes de bloque L.",
+        "holds": "La pila aguanta si en cada capa el centro de masa de todos los bloques de ella hacia arriba está sobre su apoyo: sobre el tramo en que toca el bloque de abajo, y la más baja sobre la mesa.",
+        "step": "Construida desde arriba, cada bloque tan lejos como permiten los de encima: el bloque k desde arriba sobresale 1/(2k) del siguiente.",
+        "harmonic": "Juntos, es la mitad de la serie armónica.",
+        "even": "En peldaños iguales, el centro de masa de toda la pila llega primero al borde: n bloques sobresalen n/(n + 1), nunca una longitud entera."
+      },
+      "symbols": {
+        "centre": "centro de masa de los bloques de la capa k hacia arriba",
+        "footing": "extremos del apoyo de la capa k",
+        "x": "extremo izquierdo del bloque j",
+        "n": "número de bloques",
+        "d": "cuánto sobresale el bloque k desde arriba sobre el siguiente",
+        "k": "puesto desde arriba",
+        "reach": "voladizo de toda la pila",
+        "h": "número armónico",
+        "even": "voladizo en peldaños iguales"
+      },
+      "sweet": {
+        "steps": "El truco: se construye desde arriba, no desde abajo. El bloque de arriba puede sobresalir media longitud, los dos de arriba juntos un cuarto sobre el tercero, los tres de arriba un sexto: los peldaños se hacen más pequeños hacia abajo. Así nueve bloques sobresalen 1,41 longitudes, 28 cm con bloques de 20 cm; en peldaños iguales, solo 0,9.",
+        "endless": "La serie armónica no tiene fin: con bloques suficientes la pila sobresale tanto como se quiera. Pero despacio, como un logaritmo. Hacen falta tantos bloques:",
+        "reach_one": "para {{count}} longitud",
+        "reach_other": "para {{count}} longitudes",
+        "knife": "Una pila así está en el filo de la navaja: cada capa queda justo en el extremo de su apoyo. Un bloque apenas un poco más afuera, y toda la pila vuelca sobre el borde de la mesa. Por eso una pila real se construye algo más corta."
+      },
+      "chart": {
+        "hint": "Cuánto puede sobresalir como mucho una pila, según el número de bloques: desplazada lo más lejos y en peldaños iguales.",
+        "furthest": "lo más lejos",
+        "even": "en peldaños iguales",
+        "reach": "Voladizo",
+        "lengths": "longitudes de bloque",
+        "blocks": "Bloques"
+      },
+      "computed": {
+        "system": "La página comprueba en cada capa si el centro de masa de los bloques de ella hacia arriba está sobre su apoyo; una pila de un bloque por capa no necesita más. La pila más lejana se construye desde arriba, cada bloque 1/(2k) más afuera.",
+        "check": "Las pruebas de la página recalculan el voladizo con fracciones exactas y buscan a ciegas entre veinte mil pilas aleatorias de tres y de cuatro bloques: ninguna que aguante sobresale más que la armónica. Se calcula en su navegador, con las mismas fórmulas que el motor de cálculo de la página.",
+        "left_out": "Se omite: pilas con varios bloques por capa, algunos de contrapeso, que llegan aún más lejos (Paterson y Zwick); el rozamiento, pues aquí los bloques nunca resbalan, solo vuelcan; que la madera cede; el temblor de la mano. Los bloques miden 20 cm de largo y 4 cm de alto."
       }
     }
   },

@@ -84,11 +84,11 @@ quarter for one that came right after yesterday's in the round before. Those
 are the second series' maluses (Marcel, 2026-11-15: "Tagesminus sollte weniger
 zählen"); the first series drew with a quarter and a tenth, and its rounds keep
 them, so the days the live site has shown keep their exhibit. Measured over
-400 rounds of all 29 (a plain shuffle, then the old maluses, in brackets):
-repeated pairs 0.46 a round (1.38; 0.31), repeated triples 0.008 (0.090;
-0.008), neighbours sharing a topic 23.9 days in a hundred (32.6; 18.7); with
-28, before the bouncing ball, 0.48 and 25.1, with 27, before the falling
-plates, 0.46 and 26.9. With eleven exhibits about energy,
+400 rounds of all 30 (a plain shuffle, then the old maluses, in brackets):
+repeated pairs 0.46 a round (1.19; 0.30), repeated triples 0.005 (0.055;
+0.003), neighbours sharing a topic 22.6 days in a hundred (30.1; 16.6); with
+29, before the overhang, 0.46 and 23.9, with 28, before the bouncing ball,
+0.48 and 25.1. With eleven exhibits about energy,
 nine about oscillation and eight about angular momentum, the quarter held a
 topic back on most days.
 They were measured over 2000 rounds against a plain shuffle (`daily.ts` has
@@ -103,7 +103,8 @@ less, and less with every exhibit: with eight it cut the turns that come after
 more than a round and two days by a quarter, with fifteen by an eighth (1456
 against 1670 over 400 rounds), with sixteen by a tenth (2311 against 2555),
 with 26 by a twentieth (10259 against 10834 over 1200 rounds), with 27 to
-29 the same (10513 against 11135, 11237 against 11819, 11640 against 12183);
+30 the same (10513 against 11135, 11237 against 11819, 11640 against 12183,
+12332 against 12882);
 `daily.test.ts` now holds it only to a fiftieth. Its weight a day is fixed
 while a round grows longer, and stays so: Marcel weakened the maluses instead
 (2026-11-15).
@@ -1583,6 +1584,55 @@ ball never below the plate, and still after the sum; the refusals.
 `shared/lib/use-clicks.test.ts`: silent while off, a knock per click at its
 pitch and level, the context closed when turned off, and said where there is
 no Web Audio.
+
+## The overhang (`experiments.overhang`)
+
+**The exhibit** (2026-11-16, the third of stage 4, local feedback entry #23;
+inspired by "Ausladungen – wer kommt am weitesten raus" at the Technorama).
+Nine identical wooden blocks and an edge, no glue: how far out can the top one
+reach? Most build even steps and stay short of a block's length.
+
+**The model** (`domain/experiments/overhang.py`). Rigid blocks of one length,
+one to a layer; a layer holds while the centre of mass of it and all above lies
+over its footing (where it overlaps the block below; the table's top, edge at
+zero, for the lowest), its ends included. The furthest stack is built from the
+top, the `k`-th block from the top `1/(2k)` over the next: `H_n/2`. Even steps
+`1/(n + 1)` put the whole stack's centre on the edge first and reach
+`n/(n + 1)`. In lengths; the blocks are 20 × 4 cm only to draw and measure.
+
+**What it shows.** Nine blocks reach 1.41 lengths, 28.3 cm; four already more
+than one (1.04); even steps 0.9 with nine, never a whole length. One length
+takes 4 blocks, two 31, three 227, four 1674. The furthest stack stands at
+every edge at once: a block pushed a breath further out tips its own layer and
+every one below it, so the whole stack goes over the table's edge.
+
+**The page.** The stack from the front over the table, each block dragged
+(pointer) or moved with the arrow keys (a millimetre, a centimetre with
+Shift; each block a slider for a screen reader, its overhang in cm), 1 to 20
+blocks; each layer's centre of mass a dot on its footing, green where it
+holds, red where it tips, and the part from the lowest failing layer up drawn
+turned 9° about the end of the footing it passed; the overhang in cm; flush,
+even steps and furthest at a press. "The trick" has the blocks one, two,
+three and four lengths take, and the furthest and the even reach over the
+number of blocks. Topic "equilibrium". **No route**: the port's
+(`simulate/overhang.ts`), held to the engine over the furthest and even
+stacks of 1 to 20, eight stacks that hold or tip, one a block off its footing,
+and nine reaches. The preview pushes the nine out to the furthest and back,
+every stack on the way holding (each condition is linear along it).
+
+**Joins the experiment of the day** on `SECOND_SERIES`, with the second series.
+
+**Left out, and said:** stacks with several blocks to a layer, some as
+counterweights, which reach further (Paterson and Zwick); friction (the blocks
+only tip); the wood giving way; a shaking hand.
+
+**Checked by** `tests/unit/test_experiments.py`: the furthest stacks of 1 to
+20 against `H_n/2` in exact fractions, nine at 1.41 (28 cm), three short of a
+length and four past it; even steps at `n/(n + 1)`, holding, and tipping a
+step wider; the blocks for one to four lengths; the furthest stack at every
+edge at once and a nudge tipping its layer and all below; a blind search of
+20 000 random stacks of three and of four, none holding past the harmonic; the
+refusals.
 
 ## The notice: the check still to come
 

@@ -49,6 +49,7 @@ async def test_the_experiments_need_no_account(client: AsyncClient):
         "circuit",
         "plates",
         "bounce",
+        "overhang",
         "chladni",
         "meter_range_a",
         "settle_s",
@@ -86,6 +87,7 @@ async def test_the_experiments_need_no_account(client: AsyncClient):
     assert body["plates"]["plate"]["material"] == x.Plate().material
     assert [b["restitution"] for b in body["bounce"]["balls"]] == [0.95, 0.92]
     assert body["bounce"]["height_m"] == x.EXHIBIT_HEIGHT_M
+    assert body["overhang"] == {"blocks": 9, "length_m": x.BLOCK_LENGTH_M, "height_m": x.BLOCK_HEIGHT_M}
 
 
 async def test_the_sphere_answers_its_orbits_and_its_swing(client: AsyncClient):

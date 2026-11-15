@@ -309,6 +309,12 @@
         "title": "A pattogó acélgolyó",
         "summary": "Egy acélgolyó és egy pingponglabda pattog egy lapon, egyre alacsonyabban és egyre gyorsabban – végtelen sok pattanás, mégis néhány másodperc múlva nyugalomban vannak.",
         "question": "Hogyan fér el végtelen sok pattanás néhány másodpercben?"
+      },
+      "overhang": {
+        "short": "Kinyúlás",
+        "title": "A kinyúló torony",
+        "summary": "Egyforma, ragasztó nélkül egymásra rakott hasábok messzebb nyúlnak túl egy élen, mint amilyen hosszú egy hasáb – ha jól toljuk el őket.",
+        "question": "Milyen messzire nyúlhat túl az élen kilenc hasáb, anélkül hogy felborulna?"
       }
     },
     "chair": {
@@ -2742,6 +2748,71 @@
         "top": "csúcsmagasság",
         "check": "Az oldal tesztjei minden repülést a levegős mozgásegyenlettel vetnek össze lépésenként számolva (Runge–Kutta), az összeget pedig egy olyan golyónál, amelyet a levegő alig érint, a √(2h/g)·(1 + e)/(1 − e) mértani sorral. A számítás az Ön böngészőjében fut, ugyanazokkal a képletekkel, mint az oldal számítómagja.",
         "left_out": "Kimaradt: hogy az ütközési szám függ a sebességtől (itt rögzített); az idő, amelyet a golyó minden ütésnél a lapon tölt, kevesebb mint egy tízezred másodperc, amely a valóságban zümmögéssel zárja le a sort az összege előtt; a pörgés; a lap engedése. Az értékek: egy 20 mm-es (33 g) acélgolyó 0,95-ös ütközési számmal edzett acélon, feltételezés; egy szabályos pingponglabda (2,7 g, 40 mm) 0,92-vel."
+      }
+    },
+    "overhang": {
+      "at": {
+        "blocks": "Kilenc egyforma fahasáb van előkészítve, és egy asztal éle. Ragasztó és szög nélkül: milyen messze nyúlik túl a legfelső hasáb az élen?",
+        "most": "A legtöbben egyenlő lépcsőket építenek, és nem érik el egészen egy hasáb hosszát.",
+        "further": "Pedig négy jól eltolt hasáb már több mint egy teljes hosszal kinyúlik, kilenc pedig egy és kétötöd hosszal."
+      },
+      "view": "Az asztal éle a toronnyal; a hasábok húzhatók vagy a nyílbillentyűkkel mozgathatók",
+      "play": {
+        "title": "Egymásra rakni",
+        "hint": "Húzza a hasábokat jobbra vagy balra, vagy válasszon egyet a Tab billentyűvel, és mozgassa a nyilakkal, Shifttel nagy lépésekben. A pontok tömegközéppontok: zöldek, ahol a torony megáll, pirosak, ahol felborul.",
+        "flush": "Egymás felett",
+        "even": "Egyenlő lépcsők",
+        "furthest": "A legmesszebb",
+        "block": "{{n}}. hasáb felülről",
+        "count": "Hasábok",
+        "count_hint": "Hány hasábból áll a torony.",
+        "caption": "{{length}} × {{height}} cm-es hasábok, vázlatosan elölről; szaggatottan az asztal éle. Minden pont egy hasáb és a rajta lévők közös tömegközéppontja, ott, ahol az alatta lévő hasábon fekszik.",
+        "holds": "A torony megáll. {{cm}} cm-rel nyúlik túl az élen, {{lengths}} hasábhosszal.",
+        "tips_one": "A torony felborul: a legfelső hasáb tömegközéppontja az alatta lévő hasábon kívül esik.",
+        "tips_other": "A torony felborul: a legfelső {{count}} hasáb közös tömegközéppontja az alátámasztásukon kívül esik."
+      },
+      "figures": {
+        "reach": "Kinyúlás",
+        "best": "A lehető legmesszebb",
+        "even": "Egyenlő lépcsőkben"
+      },
+      "model": {
+        "intro": "Egy hasáb addig marad a helyén, amíg a tömegközéppontja az alatta lévő hasáb fölött van – a saját és a rajta lévők közös tömegközéppontja. Minden hosszt L hasábhosszban mérünk.",
+        "holds": "A torony megáll, ha minden rétegben az attól felfelé lévő összes hasáb tömegközéppontja az alátámasztása fölött van: azon a szakaszon, ahol az alatta lévő hasábot érinti, a legalsónál az asztal fölött.",
+        "step": "Felülről építve, minden hasáb annyira kint, amennyire a fölötte lévők engedik: a felülről k-adik hasáb 1/(2k)-val nyúlik túl a következőn.",
+        "harmonic": "Együtt ez a harmonikus sor fele.",
+        "even": "Egyenlő lépcsőkben az egész torony tömegközéppontja éri el először az élt: n hasáb n/(n + 1)-gyel nyúlik ki, soha egy teljes hosszal."
+      },
+      "symbols": {
+        "centre": "a k-adik rétegtől felfelé lévő hasábok tömegközéppontja",
+        "footing": "a k-adik réteg alátámasztásának végei",
+        "x": "a j-edik hasáb bal vége",
+        "n": "a hasábok száma",
+        "d": "a felülről k-adik hasáb túlnyúlása a következőn",
+        "k": "hely felülről",
+        "reach": "az egész torony kinyúlása",
+        "h": "harmonikus szám",
+        "even": "kinyúlás egyenlő lépcsőkben"
+      },
+      "sweet": {
+        "steps": "A trükk: nem alulról, hanem felülről építünk. A legfelső hasáb fél hosszal nyúlhat ki, a felső kettő együtt negyed hosszal a harmadik fölött, a felső három egyhatoddal: a lépcsők lefelé egyre kisebbek. Kilenc hasáb így 1,41 hosszal nyúlik ki, 20 cm-es hasáboknál 28 cm-rel; egyenlő lépcsőkben csak 0,9-del.",
+        "endless": "A harmonikus sornak nincs vége: elég hasábbal a torony olyan messzire nyúlik ki, amennyire csak akarjuk. De lassan, mint egy logaritmus. Ennyi hasáb kell:",
+        "reach_one": "{{count}} hosszhoz",
+        "reach_other": "{{count}} hosszhoz",
+        "knife": "Egy így épített torony borotvaélen áll: minden réteg pontosan az alátámasztása szélén fekszik. Egyetlen hasáb egy hajszállal kijjebb, és az egész torony átbillen az asztal élén. Egy valódi tornyot ezért kicsit rövidebbre építenek."
+      },
+      "chart": {
+        "hint": "Legfeljebb milyen messzire nyúlik ki egy torony a hasábok száma szerint: a legmesszebbre tolva és egyenlő lépcsőkben.",
+        "furthest": "a legmesszebb",
+        "even": "egyenlő lépcsőkben",
+        "reach": "Kinyúlás",
+        "lengths": "hasábhossz",
+        "blocks": "Hasábok"
+      },
+      "computed": {
+        "system": "Az oldal minden rétegnél ellenőrzi, hogy az attól felfelé lévő hasábok közös tömegközéppontja az alátámasztása fölött van-e; rétegenként egy hasábos toronyhoz ennél több nem kell. A legmesszebb nyúló tornyot felülről építjük, minden hasábot 1/(2k)-val kijjebb.",
+        "check": "Az oldal tesztjei pontos törtekkel számolják újra a kinyúlást, és vakon keresnek húszezer-húszezer véletlen három- és négyhasábos torony között: egyik sem nyúlik ki messzebb a harmonikusnál, amely megáll. A számítás az Ön böngészőjében fut, ugyanazokkal a képletekkel, mint az oldal számítómagja.",
+        "left_out": "Kimaradt: a rétegenként több hasábos tornyok, ahol némelyik ellensúlyként szolgál – azokkal még messzebb lehet jutni (Paterson és Zwick); a súrlódás, mert a hasábok itt sosem csúsznak meg, csak felborulnak; a fa engedése; a kéz remegése. A hasábok 20 cm hosszúak és 4 cm magasak."
       }
     }
   },

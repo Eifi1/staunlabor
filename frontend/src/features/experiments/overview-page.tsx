@@ -36,6 +36,7 @@ import {
   CircuitBoard,
   ChevronsDown,
   Volleyball,
+  Layers,
 } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
 import {
@@ -92,6 +93,7 @@ const ICON: Record<Exhibit, LucideIcon> = {
   circuit: CircuitBoard,
   plates: ChevronsDown,
   bounce: Volleyball,
+  overhang: Layers,
 };
 
 /** Two weeks back, in the dialog: long enough to find the one a friend

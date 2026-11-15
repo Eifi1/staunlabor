@@ -56,6 +56,7 @@ const PREVIEWS: Record<Exhibit, LazyExoticComponent<ComponentType<PreviewProps>>
   circuit: lazy(() => import("./circuit-page").then((m) => ({ default: m.CircuitPreview }))),
   plates: lazy(() => import("./plates-page").then((m) => ({ default: m.PlatesPreview }))),
   bounce: lazy(() => import("./bounce-page").then((m) => ({ default: m.BouncePreview }))),
+  overhang: lazy(() => import("./overhang-page").then((m) => ({ default: m.OverhangPreview }))),
 };
 
 /** Whether the element is on screen (`margin` beyond it counts), and whether

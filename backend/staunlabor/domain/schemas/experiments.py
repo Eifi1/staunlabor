@@ -802,6 +802,16 @@ class BounceIn(_In):
     height_m: float = Field(ge=0.01, le=2, default=0.30)
 
 
+# ── the overhang ─────────────────────────────────────────────────────────────
+# No route: the page asks the port (``simulate/overhang.ts``).
+
+
+class OverhangIn(_In):
+    blocks: int = Field(ge=1, le=20, default=9)
+    length_m: float = Field(gt=0, le=1, default=0.20)
+    height_m: float = Field(gt=0, le=1, default=0.04)
+
+
 # ── the pages' starting point ────────────────────────────────────────────────
 
 
@@ -833,6 +843,7 @@ class ExperimentsDefaultsOut(_Out):
     circuit: CircuitIn
     plates: PlatesIn
     bounce: BounceIn
+    overhang: OverhangIn
     chladni: ChladniPlateIn
     #: The exhibit's meter: digital, ± this many amperes.
     meter_range_a: float

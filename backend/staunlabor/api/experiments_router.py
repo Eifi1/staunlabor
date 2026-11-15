@@ -33,6 +33,9 @@ from eifi1_server_kit.limiter import charge
 from fastapi import APIRouter, Depends, Request
 
 from staunlabor.domain.experiments import (
+    BLOCK_HEIGHT_M,
+    BLOCK_LENGTH_M,
+    EXHIBIT_BLOCKS,
     EXHIBIT_HEIGHT_M,
     EXHIBIT_PLATES,
     METER_RANGE_A,
@@ -115,6 +118,7 @@ from staunlabor.domain.schemas.experiments import (
     HarmonographIn,
     LevitationIn,
     MaxwellWheelIn,
+    OverhangIn,
     PegPendulumIn,
     PlatesIn,
     PlatformExhibitIn,
@@ -189,6 +193,7 @@ async def defaults() -> ExperimentsDefaultsOut:
             {"column": asdict(MagnetColumn()), "exhibit": [asdict(p) for p in EXHIBIT_PLATES], "plate": asdict(Plate())}
         ),
         bounce=BounceIn.model_validate({"balls": [asdict(STEEL), asdict(TABLE_TENNIS)], "height_m": EXHIBIT_HEIGHT_M}),
+        overhang=OverhangIn(blocks=EXHIBIT_BLOCKS, length_m=BLOCK_LENGTH_M, height_m=BLOCK_HEIGHT_M),
         chladni=ChladniPlateIn.model_validate(ChladniPlate()),
         meter_range_a=METER_RANGE_A,
         settle_s=PAGE_SETTLE_S,

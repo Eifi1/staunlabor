@@ -309,6 +309,12 @@
         "title": "The bouncing steel ball",
         "summary": "A steel ball and a table-tennis ball bounce on a plate, ever lower and ever faster – infinitely many bounces, and yet they lie still after a few seconds.",
         "question": "How do infinitely many bounces fit into a few seconds?"
+      },
+      "overhang": {
+        "short": "Overhang",
+        "title": "The overhanging stack",
+        "summary": "Identical blocks, stacked without glue, reach further out over an edge than a block is long – if they are shifted right.",
+        "question": "How far can a stack of nine blocks reach out over the edge without tipping?"
       }
     },
     "chair": {
@@ -2742,6 +2748,71 @@
         "top": "height of the top",
         "check": "The page's tests hold every flight to the equation of motion with air, stepped through (Runge–Kutta), and the sum for a ball the air hardly touches to the geometric series √(2h/g)·(1 + e)/(1 − e). The computing happens in your browser, with the same formulas as the site's engine.",
         "left_out": "Left out: that the restitution depends on the speed (here it is fixed); the time the ball spends on the plate at each strike, less than a ten-thousandth of a second, which in reality ends the series with a buzz before its sum; spin; the plate giving way. The values: a steel ball of 20 mm (33 g) with a restitution of 0.95 on hardened steel, an assumption; a regulation table-tennis ball (2.7 g, 40 mm) with 0.92."
+      }
+    },
+    "overhang": {
+      "at": {
+        "blocks": "Nine identical wooden blocks lie ready, and the edge of a table. No glue, no nails: how far does the top block reach out over the edge?",
+        "most": "Most people build a staircase in even steps and do not quite reach one block's length.",
+        "further": "Yet four blocks, shifted right, already reach more than a whole length out, and nine a length and two fifths."
+      },
+      "view": "The table's edge with the stack; the blocks can be dragged or moved with the arrow keys",
+      "play": {
+        "title": "Stack them",
+        "hint": "Drag the blocks right or left, or pick one with the Tab key and move it with the arrow keys, in big steps with Shift. The dots are centres of mass: green where the stack holds, red where it tips.",
+        "flush": "Flush",
+        "even": "Even steps",
+        "furthest": "Furthest",
+        "block": "Block {{n}} from the top",
+        "count": "Blocks",
+        "count_hint": "How many blocks the stack has.",
+        "caption": "Blocks of {{length}} × {{height}} cm, schematic from the front, the table's edge dashed. Each dot is the centre of mass of a block and all above it, where it rests on the block below.",
+        "holds": "The stack holds. It reaches {{cm}} cm out over the edge, {{lengths}} block lengths.",
+        "tips_one": "The stack tips: the top block's centre of mass lies beside the block below.",
+        "tips_other": "The stack tips: the centre of mass of the top {{count}} blocks lies beside their footing."
+      },
+      "figures": {
+        "reach": "Overhang",
+        "best": "Furthest possible",
+        "even": "In even steps"
+      },
+      "model": {
+        "intro": "A block stays put as long as its centre of mass lies over the block below – the centre of mass of it and of everything on it. All lengths are in block lengths L.",
+        "holds": "The stack holds if at every layer the centre of mass of all the blocks from it upward lies over its footing: over the stretch where it touches the block below, for the lowest over the table.",
+        "step": "Built from the top, each block as far out as the ones above allow: the k-th block from the top juts 1/(2k) out over the next.",
+        "harmonic": "Together that is half the harmonic series.",
+        "even": "In even steps the whole stack's centre of mass reaches the edge first: n blocks reach n/(n + 1) out, never a whole length."
+      },
+      "symbols": {
+        "centre": "centre of mass of the blocks from layer k up",
+        "footing": "ends of layer k's footing",
+        "x": "left end of block j",
+        "n": "number of blocks",
+        "d": "how far the k-th block from the top juts over the next",
+        "k": "place from the top",
+        "reach": "overhang of the whole stack",
+        "h": "harmonic number",
+        "even": "overhang in even steps"
+      },
+      "sweet": {
+        "steps": "The trick: build from the top, not from the bottom. The top block may jut half a length out, the top two together a quarter over the third, the top three a sixth: the steps grow smaller downward. Nine blocks then reach 1.41 lengths out, 28 cm with blocks of 20 cm; in even steps only 0.9.",
+        "endless": "The harmonic series has no end: with enough blocks the stack reaches as far out as you like. But slowly, like a logarithm. This many blocks it takes:",
+        "reach_one": "for {{count}} length",
+        "reach_other": "for {{count}} lengths",
+        "knife": "A stack built so stands on a knife's edge: every layer lies exactly at the end of its footing. One block a breath further out and the whole stack tips over the table's edge. A real one is therefore built a little short."
+      },
+      "chart": {
+        "hint": "How far a stack can reach out at most, by the number of blocks: shifted furthest and in even steps.",
+        "furthest": "furthest",
+        "even": "in even steps",
+        "reach": "Overhang",
+        "lengths": "block lengths",
+        "blocks": "Blocks"
+      },
+      "computed": {
+        "system": "The page checks at every layer whether the centre of mass of the blocks from it upward lies over its footing; a stack of one block a layer needs nothing more. The furthest stack is built from the top, each block 1/(2k) further out.",
+        "check": "The page's tests work the overhang out again in exact fractions and search blindly among twenty thousand random stacks of three and of four blocks each: none that holds reaches further than the harmonic one. The computing happens in your browser, with the same formulas as the site's engine.",
+        "left_out": "Left out: stacks with several blocks to a layer, some of them counterweights – which reach further still (Paterson and Zwick); friction, as the blocks here never slide, they only tip; the wood giving way; a shaking hand. The blocks are 20 cm long and 4 cm high."
       }
     }
   },

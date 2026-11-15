@@ -308,6 +308,11 @@
       ],
       "height_m": 0.3
     },
+    "overhang": {
+      "blocks": 9,
+      "length_m": 0.2,
+      "height_m": 0.04
+    },
     "chladni": {
       "side_m": 0.24,
       "thickness_m": 0.001,
