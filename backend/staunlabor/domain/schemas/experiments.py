@@ -728,6 +728,27 @@ class ChladniModesOut(_Out):
     modes: list[ChladniModeOut]
 
 
+# ── the floating top ─────────────────────────────────────────────────────────
+# No route: the page asks the port (``simulate/levitation.ts``).
+
+
+class LevitationBaseIn(_In):
+    inner_radius_m: float = Field(ge=0, le=0.5, default=0.015)
+    outer_radius_m: float = Field(gt=0, le=0.5, default=0.05)
+    height_m: float = Field(gt=0, le=0.2, default=0.015)
+    magnetisation_a_m: float = Field(gt=0, le=2e6, default=3.2e5)
+
+
+class LevitationTopIn(_In):
+    moment_a_m2: float = Field(gt=0, le=50, default=0.64)
+    mass_kg: float = Field(gt=0, le=1, default=0.0235)
+
+
+class LevitationIn(_In):
+    base: LevitationBaseIn
+    top: LevitationTopIn
+
+
 # ── the pages' starting point ────────────────────────────────────────────────
 
 
@@ -755,6 +776,7 @@ class ExperimentsDefaultsOut(_Out):
     resonance: ResonanceRackIn
     gyroscope: GyroWheelIn
     arch: StoneArchIn
+    levitation: LevitationIn
     chladni: ChladniPlateIn
     #: The exhibit's meter: digital, ± this many amperes.
     meter_range_a: float

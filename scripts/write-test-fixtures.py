@@ -68,6 +68,7 @@ UNROUTED = (
     "resonance",
     "gyroscope",
     "arch",
+    "levitation",
 )
 
 

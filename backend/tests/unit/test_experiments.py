@@ -2414,3 +2414,92 @@ def test_the_sand_s_lines_are_where_the_driven_plate_stands_still():
 def test_the_plate_refuses_what_it_cannot_be():
     with pytest.raises(ValueError, match="thin beside its side"):
         x.ChladniPlate(thickness_m=0.05)
+
+
+# ── the floating top ─────────────────────────────────────────────────────────
+
+
+def test_the_ring_s_field_on_its_axis_is_a_dipole_s_far_away_and_its_slopes_are_exact():
+    from staunlabor.domain.experiments import levitation as lv
+
+    base = x.LevitationBase()
+    # Far up the axis, a dipole of the ring's moment M·π(r₂² − r₁²)·t at its middle.
+    moment = base.magnetisation_a_m * math.pi * (base.outer_radius_m**2 - base.inner_radius_m**2) * base.height_m
+    z = 3.0
+    dipole = lv.MU0 * moment / (2 * math.pi * (z + base.height_m / 2) ** 3)
+    assert lv.axis_field(base, z)[0] == pytest.approx(dipole, rel=1e-3)
+    # The slope and the curvature are the field's own, by central differences.
+    h = 1e-6
+    for z in (0.01, 0.045, 0.1):
+        _, b1, b2 = lv.axis_field(base, z)
+        up, down = lv.axis_field(base, z + h), lv.axis_field(base, z - h)
+        assert b1 == pytest.approx((up[0] - down[0]) / (2 * h), rel=1e-6)
+        assert b2 == pytest.approx((up[1] - down[1]) / (2 * h), rel=1e-5)
+
+
+def test_the_top_hovers_between_4_36_and_4_81_cm_weighing_23_11_to_23_81_g():
+    hover = x.levitation_hover(x.LevitationBase(), x.LevitationTop())
+    assert hover.state == "hovers"
+    assert round(hover.foot_m * 100, 2) == 4.36
+    assert round(hover.head_m * 100, 2) == 4.81
+    assert round(hover.lightest_kg * 1000, 2) == 23.11
+    assert round(hover.heaviest_kg * 1000, 2) == 23.81
+    # A window of 3 % in weight, and the exhibit's top of 23.5 g floats at 4.6 cm,
+    # bobbing at 1.5 Hz and drifting round at 0.6 Hz.
+    assert round((hover.heaviest_kg - hover.lightest_kg) / hover.heaviest_kg * 100) == 3
+    assert hover.height_m is not None and round(hover.height_m * 100, 1) == 4.6
+    assert hover.bob_hz is not None and round(hover.bob_hz, 1) == 1.5
+    assert hover.drift_hz is not None and round(hover.drift_hz, 1) == 0.6
+
+
+def test_the_window_s_foot_is_where_the_lift_peaks():
+    from staunlabor.domain.experiments import levitation as lv
+
+    base, top = x.LevitationBase(), x.LevitationTop()
+    foot, _ = lv.window(base)
+    peak = lv.lift_kg(base, top, foot)
+    for dz in (-2e-3, -5e-4, 5e-4, 2e-3):
+        assert lv.lift_kg(base, top, foot + dz) < peak
+
+
+def test_a_heavier_top_lands_and_a_lighter_one_slides_off():
+    base = x.LevitationBase()
+    assert x.levitation_hover(base, x.LevitationTop(mass_kg=0.02382)).state == "lands"
+    slides = x.levitation_hover(base, x.LevitationTop(mass_kg=0.02311))
+    # Held up and down above the window, but not sideways.
+    assert slides.state == "slides" and slides.height_m is not None and slides.height_m > slides.head_m
+
+
+def test_three_and_a_half_degrees_warmer_the_top_lands_four_and_a_half_colder_it_slides_off():
+    base, top = x.LevitationBase(), x.LevitationTop()
+    assert x.levitation_hover(base, top, 3.0).state == "hovers"
+    assert x.levitation_hover(base, top, 3.5).state == "lands"
+    assert x.levitation_hover(base, top, -4.0).state == "hovers"
+    assert x.levitation_hover(base, top, -4.5).state == "slides"
+    # Warmth moves the window's masses, never its heights.
+    warm, cool = x.levitation_hover(base, top, 2.0), x.levitation_hover(base, top)
+    assert warm.foot_m == cool.foot_m and warm.head_m == cool.head_m
+    assert round((1 - warm.heaviest_kg / cool.heaviest_kg) * 100, 1) == 0.8
+
+
+def test_held_still_against_the_field_no_height_holds_a_magnet_earnshaw():
+    # A magnet that turned with the field (energy m·g·z − μ·|B|) would need
+    # B″ < 0 up and down and B′² < 2·B·B″ sideways: never both, where B > 0.
+    from staunlabor.domain.experiments import levitation as lv
+
+    base = x.LevitationBase()
+    for i in range(1, 300):
+        b, b1, b2 = lv.axis_field(base, i * 1e-3)
+        assert not (b > 0 and b2 < 0 and b1 * b1 < 2 * b * b2)
+
+
+def test_the_floating_top_refuses_what_it_cannot_be():
+    with pytest.raises(ValueError, match="hole is smaller"):
+        x.LevitationBase(inner_radius_m=0.06)
+    with pytest.raises(ValueError, match="weighs more than nothing"):
+        x.LevitationTop(mass_kg=0)
+    with pytest.raises(ValueError, match="warming"):
+        x.levitation_hover(x.LevitationBase(), x.LevitationTop(), 50)
+    with pytest.raises(ValueError, match="holds no top"):
+        # A ring a metre across with a hole of 60 cm bends right only far above it.
+        x.levitation_hover(x.LevitationBase(inner_radius_m=0.3, outer_radius_m=0.5), x.LevitationTop())

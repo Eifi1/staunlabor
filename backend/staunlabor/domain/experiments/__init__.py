@@ -41,6 +41,8 @@ with SciPy before it was written (``docs/experiments.md``).
   the hanging chain, upside down, is the shape where it fits best.
 * :mod:`chladni` — the free square plate's modes by Ritz and Legendre: where
   a plate shaken at its middle stands still, the sand lies.
+* :mod:`levitation` — a spinning top hovers over a ring magnet only in a
+  window a few millimetres high and three per cent wide in weight.
 * :mod:`gyroscope` — a spinning wheel on a string turns round it instead of
   falling; the suitcase that tips when turned.
 * :mod:`resonance` — six rods on a trembling table: only the one in step
@@ -205,6 +207,10 @@ from staunlabor.domain.experiments.harmonograph import (
 )
 from staunlabor.domain.experiments.harmonograph import draw as harmonograph_draw
 from staunlabor.domain.experiments.harmonograph import figures as harmonograph_figures
+from staunlabor.domain.experiments.levitation import Base as LevitationBase
+from staunlabor.domain.experiments.levitation import Hover as LevitationHover
+from staunlabor.domain.experiments.levitation import Top as LevitationTop
+from staunlabor.domain.experiments.levitation import hover as levitation_hover
 from staunlabor.domain.experiments.maxwell import (
     Bounce,
     MaxwellWheel,
@@ -446,6 +452,9 @@ __all__ = [
     "Joint",
     "LatitudePoint",
     "Launch",
+    "LevitationBase",
+    "LevitationHover",
+    "LevitationTop",
     "LiftPoint",
     "Magnet",
     "MaxwellWheel",
@@ -575,6 +584,7 @@ __all__ = [
     "leaves_s",
     "length_for",
     "lengths_m",
+    "levitation_hover",
     "lowest_orbit_hz",
     "lyapunov",
     "miss_deg",

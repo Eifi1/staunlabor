@@ -226,6 +226,18 @@
       "density_kg_m3": 2400.0,
       "depth_m": 0.3
     },
+    "levitation": {
+      "base": {
+        "inner_radius_m": 0.015,
+        "outer_radius_m": 0.05,
+        "height_m": 0.015,
+        "magnetisation_a_m": 320000.0
+      },
+      "top": {
+        "moment_a_m2": 0.64,
+        "mass_kg": 0.0235
+      }
+    },
     "chladni": {
       "side_m": 0.24,
       "thickness_m": 0.001,

@@ -71,6 +71,7 @@ well = importlib.import_module("staunlabor.domain.experiments.well")
 resonance = importlib.import_module("staunlabor.domain.experiments.resonance")
 gyroscope = importlib.import_module("staunlabor.domain.experiments.gyroscope")
 arch = importlib.import_module("staunlabor.domain.experiments.arch")
+levitation = importlib.import_module("staunlabor.domain.experiments.levitation")
 chladni = importlib.import_module("staunlabor.domain.experiments.chladni")
 
 TARGET = ROOT / "frontend/src/features/experiments/simulate/engine-cases.json"
@@ -547,6 +548,23 @@ ARCH_CASES = (
 )
 
 
+#: The floating top: the exhibit's, one too heavy and one too light, the exhibit's
+#: warmed until it lands and cooled until it slides, a solid disc and a ring
+#: half again as strong with a stronger top.
+LEVITATION_CASES = (
+    (levitation.Base(), levitation.Top(), 0.0),
+    (levitation.Base(), levitation.Top(mass_kg=0.0239), 0.0),
+    (levitation.Base(), levitation.Top(mass_kg=0.0230), 0.0),
+    (levitation.Base(), levitation.Top(), 3.5),
+    (levitation.Base(), levitation.Top(), -4.5),
+    (levitation.Base(inner_radius_m=0.0), levitation.Top(mass_kg=0.01), 1.0),
+    (levitation.Base(magnetisation_a_m=4.8e5), levitation.Top(moment_a_m2=0.9, mass_kg=0.05), -2.0),
+)
+
+#: Heights the field and the lift are compared at, in metres.
+LEVITATION_HEIGHTS = (0.0, 0.004, 0.02, 0.0436, 0.046, 0.0481, 0.07, 0.15)
+
+
 def thin(values: Any) -> Any:
     """A curve as its length and every so many of its points, the last always
     among them; anything else as it is, recursively."""
@@ -682,6 +700,21 @@ def _arch_cases(out: dict[str, Any]) -> None:
                 "joints": [asdict(j) for j in arch.joints(stone)],
                 "blocks": [asdict(b) for b in arch.blocks(stone)],
                 "thrust": asdict(arch.thrust(stone, load)),
+            }
+        )
+
+
+def _levitation_cases(out: dict[str, Any]) -> None:
+    for base, top, warming in LEVITATION_CASES:
+        out["levitation"].append(
+            {
+                "base": asdict(base),
+                "top": asdict(top),
+                "warming_k": warming,
+                "field": [list(levitation.axis_field(base, z)) for z in LEVITATION_HEIGHTS],
+                "lift_kg": [levitation.lift_kg(base, top, z, warming) for z in LEVITATION_HEIGHTS],
+                "holds": [levitation.holds(base, z) for z in LEVITATION_HEIGHTS],
+                "hover": asdict(levitation.hover(base, top, warming)),
             }
         )
 
@@ -906,6 +939,7 @@ def _second_series(out: dict[str, Any]) -> None:
     _resonance_cases(out)
     _gyroscope_cases(out)
     _arch_cases(out)
+    _levitation_cases(out)
     _chladni_cases(out)
 
 
@@ -961,6 +995,7 @@ def cases() -> dict[str, Any]:
         "resonance": [],
         "gyroscope": [],
         "arch": [],
+        "levitation": [],
     }
     _second_series(out)
     for name, case in HARMONOGRAPH_CASES.items():

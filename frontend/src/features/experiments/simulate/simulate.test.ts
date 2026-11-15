@@ -26,6 +26,7 @@ import * as well from "./well";
 import * as resonance from "./resonance";
 import * as gyroscope from "./gyroscope";
 import * as arch from "./arch";
+import * as levitation from "./levitation";
 import * as chladni from "./chladni";
 import * as elephant from "./elephant";
 import * as foucault from "./foucault";
@@ -896,6 +897,35 @@ describe("the gyroscope wheel's port", () => {
       }
       expect(differences(c.run, gyroscopeRun(c.wheel, c.release, 5.0))).toEqual([]);
     }
+  });
+});
+
+describe("the floating top's port", () => {
+  it("finds the field, the window and the balance as the engine does", () => {
+    const heights = [0.0, 0.004, 0.02, 0.0436, 0.046, 0.0481, 0.07, 0.15];
+    for (const c of cases.levitation) {
+      expect(
+        differences(
+          c.field,
+          heights.map((z) => levitation.axisField(c.base, z)),
+        ),
+      ).toEqual([]);
+      expect(
+        differences(
+          c.lift_kg,
+          heights.map((z) => levitation.liftKg(c.base, c.top, z, c.warming_k)),
+        ),
+      ).toEqual([]);
+      expect(heights.map((z) => levitation.holds(c.base, z))).toEqual(c.holds);
+      expect(differences(c.hover, levitation.hover(c.base, c.top, c.warming_k))).toEqual([]);
+    }
+    expect(new Set(cases.levitation.map((c) => c.hover.state))).toEqual(new Set(["hovers", "lands", "slides"]));
+  });
+
+  it("finds no window over a ring that holds no top, as the engine refuses it", () => {
+    expect(() =>
+      levitation.window({ inner_radius_m: 0.3, outer_radius_m: 0.5, height_m: 0.015, magnetisation_a_m: 3.2e5 }),
+    ).toThrow(RangeError);
   });
 });
 

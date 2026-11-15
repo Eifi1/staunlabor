@@ -27,6 +27,8 @@ address; a 429 says the seconds in its body.
 
 from __future__ import annotations
 
+from dataclasses import asdict
+
 from eifi1_server_kit.limiter import charge
 from fastapi import APIRouter, Depends, Request
 
@@ -51,6 +53,8 @@ from staunlabor.domain.experiments import (
     GyroWheel,
     Harmonograph,
     Jet,
+    LevitationBase,
+    LevitationTop,
     Magnet,
     MaxwellWheel,
     PegPendulum,
@@ -100,6 +104,7 @@ from staunlabor.domain.schemas.experiments import (
     FunnelIn,
     GyroWheelIn,
     HarmonographIn,
+    LevitationIn,
     MaxwellWheelIn,
     PegPendulumIn,
     PlatformExhibitIn,
@@ -168,6 +173,7 @@ async def defaults() -> ExperimentsDefaultsOut:
         resonance=ResonanceRackIn.model_validate(ResonanceRack()),
         gyroscope=GyroWheelIn.model_validate(GyroWheel()),
         arch=StoneArchIn.model_validate(StoneArch()),
+        levitation=LevitationIn.model_validate({"base": asdict(LevitationBase()), "top": asdict(LevitationTop())}),
         chladni=ChladniPlateIn.model_validate(ChladniPlate()),
         meter_range_a=METER_RANGE_A,
         settle_s=PAGE_SETTLE_S,
