@@ -182,6 +182,15 @@
       "radius_m": 2.0,
       "rpm": 6.0
     },
+    "cradle": {
+      "count": 5,
+      "diameter_m": 0.025,
+      "string_m": 0.15,
+      "gap_m": 0.0,
+      "restitution": 0.95,
+      "youngs_gpa": 200.0,
+      "density_kg_m3": 7850.0
+    },
     "meter_range_a": 0.1,
     "settle_s": 0.15
   },

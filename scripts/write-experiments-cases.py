@@ -66,6 +66,7 @@ chaos = importlib.import_module("staunlabor.domain.experiments.chaos")
 waterwheel = importlib.import_module("staunlabor.domain.experiments.waterwheel")
 foucault = importlib.import_module("staunlabor.domain.experiments.foucault")
 coriolis = importlib.import_module("staunlabor.domain.experiments.coriolis")
+cradle = importlib.import_module("staunlabor.domain.experiments.cradle")
 
 TARGET = ROOT / "frontend/src/features/experiments/simulate/engine-cases.json"
 #: Points kept per curve: enough to see a curve that went wrong, few enough that
@@ -487,6 +488,15 @@ CORIOLIS_CASES = (
     (CC(rpm=30.0), CT(speed_m_s=0.5, aim_deg=80.0, body=coriolis.Body.BALL)),
 )
 
+#: Newton's cradle: touching and gapped, elastic and damped, two lifted, a
+#: short row of big balls; each impact, and a short run through one.
+CRADLE_CASES = (
+    (cradle.Cradle(), cradle.Pull()),
+    (cradle.Cradle(gap_m=1e-4, restitution=1.0), cradle.Pull()),
+    (cradle.Cradle(), cradle.Pull(balls=2, angle_deg=20.0)),
+    (cradle.Cradle(count=3, diameter_m=0.05, string_m=0.3, restitution=0.8), cradle.Pull(angle_deg=45.0)),
+)
+
 #: Where the heights and the contact are written out along the rails.
 CONE_POINTS = (0.0, 0.07, 0.15, 0.3)
 
@@ -548,6 +558,18 @@ def _pendulum_cases(out: dict[str, Any]) -> None:
                 "lengths_m": list(wave.lengths_m(row)),
                 "lag_deg": list(wave.lag_deg(row)),
                 "spread_deg": wave.spread_deg(row),
+            }
+        )
+
+
+def _cradle_cases(out: dict[str, Any]) -> None:
+    for cr, pull in CRADLE_CASES:
+        out["cradle"].append(
+            {
+                "cr": asdict(cr),
+                "pull": asdict(pull),
+                "impact": asdict(cradle.impact(cr, pull)),
+                "run": thin(asdict(cradle.run(cr, pull, 1.0))),
             }
         )
 
@@ -747,6 +769,7 @@ def _second_series(out: dict[str, Any]) -> None:
     _waterwheel_cases(out)
     _foucault_cases(out)
     _coriolis_cases(out)
+    _cradle_cases(out)
 
 
 def cases() -> dict[str, Any]:
@@ -796,6 +819,7 @@ def cases() -> dict[str, Any]:
         "waterwheel": [],
         "foucault": [],
         "coriolis": [],
+        "cradle": [],
     }
     _second_series(out)
     for name, case in HARMONOGRAPH_CASES.items():

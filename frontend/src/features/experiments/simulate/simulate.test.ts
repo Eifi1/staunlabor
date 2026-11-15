@@ -21,6 +21,7 @@ import * as coil from "./coil";
 import * as cone from "./cone";
 import * as coriolis from "./coriolis";
 import * as coupled from "./coupled";
+import * as cradle from "./cradle";
 import * as elephant from "./elephant";
 import * as foucault from "./foucault";
 import * as harmonograph from "./harmonograph";
@@ -737,6 +738,15 @@ describe("the Coriolis carousel's port", () => {
       const th = c.throw as coriolis.Throw;
       expect(differences(c.lead_deg, coriolis.leadDeg(c.c, th.speed_m_s, th.body))).toEqual([]);
       expect(differences(c.path, coriolis.path(c.c, th))).toEqual([]);
+    }
+  });
+});
+
+describe("Newton's cradle's port", () => {
+  it("meets and swings as the engine does", () => {
+    for (const c of cases.cradle) {
+      expect(differences(c.impact, cradle.impact(c.cr, c.pull))).toEqual([]);
+      expect(differences(c.run, cradle.run(c.cr, c.pull, 1.0))).toEqual([]);
     }
   });
 });

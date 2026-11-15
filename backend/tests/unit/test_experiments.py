@@ -1931,3 +1931,39 @@ def test_the_carousel_refuses_what_it_cannot_be():
         x.Carousel(rpm=100)
     with pytest.raises(ValueError, match="89°"):
         x.Throw(aim_deg=95)
+
+
+# ── Newton's cradle ──────────────────────────────────────────────────────────
+
+
+def test_with_a_hair_s_gap_one_ball_in_sends_exactly_one_out():
+    cr = x.Cradle(gap_m=1e-4, restitution=1.0)
+    im = x.cradle_impact(cr, x.Pull())
+    assert im.after_m_s[-1] == pytest.approx(im.before_m_s[0], rel=1e-4)
+    assert all(abs(v) < 1e-3 for v in im.after_m_s[:-1])
+    two = x.cradle_impact(cr, x.Pull(balls=2))
+    assert two.far_share == pytest.approx(1, abs=1e-4)
+
+
+def test_touching_balls_keep_momentum_and_energy_but_send_out_not_quite_all():
+    cr = x.Cradle(restitution=1.0)
+    im = x.cradle_impact(cr, x.Pull())
+    assert sum(im.after_m_s) == pytest.approx(im.before_m_s[0], rel=1e-4)
+    assert sum(v * v for v in im.after_m_s) == pytest.approx(im.before_m_s[0] ** 2, rel=1e-3)
+    assert round(im.far_share, 3) == 0.978
+    assert min(im.after_m_s[:-1]) < -0.01
+
+
+def test_a_lone_pair_s_peak_force_is_hertz_s():
+    cr = x.Cradle(count=2, gap_m=1e-4, restitution=1.0)
+    im = x.cradle_impact(cr, x.Pull())
+    v, m, k = im.before_m_s[0], cr.mass_kg, cr.stiffness
+    deepest = (5 * (m / 2) * v * v / (4 * k)) ** 0.4
+    assert im.peak_n == pytest.approx(k * deepest**1.5, rel=0.01)
+
+
+def test_the_cradle_refuses_what_cannot_hang():
+    with pytest.raises(ValueError, match="between 2 and 9"):
+        x.Cradle(count=12)
+    with pytest.raises(ValueError, match="left hanging"):
+        x.cradle_impact(x.Cradle(count=3), x.Pull(balls=3))

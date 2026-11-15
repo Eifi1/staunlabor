@@ -35,6 +35,8 @@ with SciPy before it was written (``docs/experiments.md``).
   each the other's check.
 * :mod:`coriolis` — the Coriolis carousel: a thrown puck goes straight and a
   rolled ball in a circle, seen from outside; both curve away for the riders.
+* :mod:`cradle` — Newton's cradle with Hertz contacts: one in, one out, clean
+  with a hair's gap between the balls and nearly so when they touch.
 * :mod:`foucault` — Foucault's pendulum in Winterthur: its plane turns 11.1°
   an hour against the floor, the Earth's turn about the local vertical.
 * :mod:`harmonograph` — a pen on one pendulum and a board on another: the
@@ -140,6 +142,10 @@ from staunlabor.domain.experiments.coupled import (
     mode_rates,
 )
 from staunlabor.domain.experiments.coupled import swing as coupled_swing
+from staunlabor.domain.experiments.cradle import Cradle, CradleRun, Pull
+from staunlabor.domain.experiments.cradle import Impact as CradleImpact
+from staunlabor.domain.experiments.cradle import impact as cradle_impact
+from staunlabor.domain.experiments.cradle import run as run_cradle
 from staunlabor.domain.experiments.elephant import (
     Elephant,
     ElephantFigures,
@@ -357,6 +363,9 @@ __all__ = [
     "Contact",
     "CoupledPendulums",
     "CoupledRun",
+    "Cradle",
+    "CradleImpact",
+    "CradleRun",
     "CurveKind",
     "CurvePoint",
     "DoubleCone",
@@ -410,6 +419,7 @@ __all__ = [
     "Press",
     "PressPoint",
     "PressRule",
+    "Pull",
     "Push",
     "Race",
     "RaceBall",
@@ -470,6 +480,7 @@ __all__ = [
     "coupled_swing",
     "coupling",
     "couplings",
+    "cradle_impact",
     "cup_level",
     "cycloid_through",
     "degrees_per_hour",
@@ -530,6 +541,7 @@ __all__ = [
     "rotation_share",
     "run_chaos",
     "run_coil",
+    "run_cradle",
     "run_elephant",
     "run_peg",
     "run_pit",

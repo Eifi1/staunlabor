@@ -633,6 +633,20 @@ class CarouselIn(_In):
     rpm: float = Field(ge=-60, le=60, default=6.0)
 
 
+# ── Newton's cradle ──────────────────────────────────────────────────────────
+# No route: the page asks the port (``simulate/cradle.ts``).
+
+
+class CradleIn(_In):
+    count: int = Field(ge=2, le=9, default=5)
+    diameter_m: float = Field(ge=0.005, le=0.1, default=0.025)
+    string_m: float = Field(ge=0.05, le=1.0, default=0.15)
+    gap_m: float = Field(ge=0, le=0.005, default=0.0)
+    restitution: float = Field(ge=0.5, le=1, default=0.95)
+    youngs_gpa: float = Field(ge=1, le=500, default=200.0)
+    density_kg_m3: float = Field(ge=500, le=20000, default=7850.0)
+
+
 # ── the pages' starting point ────────────────────────────────────────────────
 
 
@@ -655,6 +669,7 @@ class ExperimentsDefaultsOut(_Out):
     waterwheel: WaterWheelIn
     foucault: FoucaultPendulumIn
     coriolis: CarouselIn
+    cradle: CradleIn
     #: The exhibit's meter: digital, ± this many amperes.
     meter_range_a: float
     #: How long a page waits after the last slider step before asking.

@@ -40,6 +40,7 @@ async def test_the_experiments_need_no_account(client: AsyncClient):
         "waterwheel",
         "foucault",
         "coriolis",
+        "cradle",
         "meter_range_a",
         "settle_s",
     }
@@ -60,6 +61,7 @@ async def test_the_experiments_need_no_account(client: AsyncClient):
     assert body["waterwheel"]["rho"] == x.WaterWheel().rho
     assert body["foucault"]["latitude_deg"] == 47.5
     assert body["coriolis"]["rpm"] == x.Carousel().rpm
+    assert body["cradle"]["count"] == 5
 
 
 async def test_the_sphere_answers_its_orbits_and_its_swing(client: AsyncClient):

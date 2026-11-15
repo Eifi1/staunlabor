@@ -38,6 +38,7 @@ from staunlabor.domain.experiments import (
     CoilExhibit,
     ConeExhibit,
     CoupledPendulums,
+    Cradle,
     DoublePendulum,
     Drum,
     Elephant,
@@ -78,6 +79,7 @@ from staunlabor.domain.schemas.experiments import (
     CoilExhibitIn,
     ConeExhibitIn,
     CoupledPendulumsIn,
+    CradleIn,
     DoublePendulumIn,
     ElephantFiguresOut,
     ElephantIn,
@@ -145,6 +147,7 @@ async def defaults() -> ExperimentsDefaultsOut:
         waterwheel=WaterWheelIn.model_validate(WaterWheel()),
         foucault=FoucaultPendulumIn.model_validate(FoucaultPendulum()),
         coriolis=CarouselIn.model_validate(Carousel()),
+        cradle=CradleIn.model_validate(Cradle()),
         meter_range_a=METER_RANGE_A,
         settle_s=PAGE_SETTLE_S,
     )
