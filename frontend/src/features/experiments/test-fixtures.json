@@ -173,6 +173,11 @@
       "rho": 28.0,
       "leak_per_s": 0.2
     },
+    "foucault": {
+      "length_m": 12.0,
+      "amplitude_m": 0.5,
+      "latitude_deg": 47.5
+    },
     "meter_range_a": 0.1,
     "settle_s": 0.15
   },

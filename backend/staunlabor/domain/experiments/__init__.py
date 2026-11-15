@@ -33,6 +33,8 @@ with SciPy before it was written (``docs/experiments.md``).
 * :mod:`pendulum` — the block the swinging exhibits stand on: a plane
   pendulum exactly (Jacobi's elliptic functions) and stepped (Runge–Kutta),
   each the other's check.
+* :mod:`foucault` — Foucault's pendulum in Winterthur: its plane turns 11.1°
+  an hour against the floor, the Earth's turn about the local vertical.
 * :mod:`harmonograph` — a pen on one pendulum and a board on another: the
   picture two damped swings draw, closed at a simple ratio, turning near one.
 * :mod:`cone` — a double cone on rails that spread and rise: it rolls up them
@@ -137,6 +139,17 @@ from staunlabor.domain.experiments.elephant import (
 from staunlabor.domain.experiments.elephant import Move as ElephantMove
 from staunlabor.domain.experiments.elephant import figures as elephant_figures
 from staunlabor.domain.experiments.elephant import run as run_elephant
+from staunlabor.domain.experiments.foucault import (
+    FoucaultPendulum,
+    LatitudePoint,
+    degrees_per_hour,
+    full_turn_h,
+    latitude_curve,
+    plane_deg,
+    vertical_rate,
+)
+from staunlabor.domain.experiments.foucault import period_s as foucault_period_s
+from staunlabor.domain.experiments.foucault import position as foucault_position
 from staunlabor.domain.experiments.harmonograph import (
     Harmonograph,
     HarmonographFigures,
@@ -348,6 +361,7 @@ __all__ = [
     "FigureKind",
     "Flight",
     "FloatingBall",
+    "FoucaultPendulum",
     "GroupPoint",
     "Harmonograph",
     "HarmonographFigures",
@@ -358,6 +372,7 @@ __all__ = [
     "Inertia",
     "Jet",
     "Joint",
+    "LatitudePoint",
     "Launch",
     "LiftPoint",
     "Magnet",
@@ -439,6 +454,7 @@ __all__ = [
     "couplings",
     "cup_level",
     "cycloid_through",
+    "degrees_per_hour",
     "double_energy",
     "double_mode_rates",
     "dry_rate",
@@ -450,6 +466,9 @@ __all__ = [
     "fall_acceleration",
     "figures",
     "flux_linkage",
+    "foucault_period_s",
+    "foucault_position",
+    "full_turn_h",
     "groups_at",
     "harmonograph_draw",
     "harmonograph_figures",
@@ -462,6 +481,7 @@ __all__ = [
     "joint_gap",
     "joints",
     "lag_deg",
+    "latitude_curve",
     "length_for",
     "lengths_m",
     "lowest_orbit_hz",
@@ -475,6 +495,7 @@ __all__ = [
     "peg_step",
     "period_factor",
     "period_s",
+    "plane_deg",
     "platform_figures",
     "position",
     "pull_n",
@@ -520,6 +541,7 @@ __all__ = [
     "threshold_deg",
     "timing_curve",
     "tolerance",
+    "vertical_rate",
     "water_profile",
     "water_spin",
     "wave_figures",

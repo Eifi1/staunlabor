@@ -21,6 +21,7 @@ import * as coil from "./coil";
 import * as cone from "./cone";
 import * as coupled from "./coupled";
 import * as elephant from "./elephant";
+import * as foucault from "./foucault";
 import * as harmonograph from "./harmonograph";
 import * as maxwell from "./maxwell";
 import * as parabola from "./parabola";
@@ -702,5 +703,29 @@ describe("the waterwheel's port", () => {
     for (let i = 0; i < Math.round((5 * w.leak_per_s) / waterwheel.STEP_TAU); i++) waterwheel.stepWheel(w, state);
     expect(state.y[0]).toBe(whole.x[whole.x.length - 1]);
     expect(state.angle / (2 * Math.PI)).toBe(whole.turns[whole.turns.length - 1]);
+  });
+});
+
+describe("Foucault's pendulum's port", () => {
+  it("swings and turns as the engine does, from the pole to the south", () => {
+    const times = [0.0, 1.3, 3600.0, 86400.0];
+    for (const c of cases.foucault) {
+      expect(differences(c.degrees_per_hour, foucault.degreesPerHour(c.p))).toEqual([]);
+      expect(differences(c.full_turn_h, foucault.fullTurnH(c.p))).toEqual([]);
+      expect(differences(c.period_s, foucault.periodS(c.p))).toEqual([]);
+      // A day in, the angle's last digits are rounding; held a part in 10⁸.
+      times.forEach((t, i) => {
+        const [x, y] = foucault.position(c.p, t);
+        expect(Math.abs(x - c.positions[i][0])).toBeLessThan(1e-8 * c.p.amplitude_m);
+        expect(Math.abs(y - c.positions[i][1])).toBeLessThan(1e-8 * c.p.amplitude_m);
+      });
+      expect(
+        differences(
+          c.planes,
+          times.map((t) => foucault.planeDeg(c.p, t)),
+        ),
+      ).toEqual([]);
+      expect(differences(c.curve, foucault.latitudeCurve(c.p))).toEqual([]);
+    }
   });
 });

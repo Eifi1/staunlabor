@@ -64,6 +64,7 @@ peg = importlib.import_module("staunlabor.domain.experiments.peg")
 maxwell = importlib.import_module("staunlabor.domain.experiments.maxwell")
 chaos = importlib.import_module("staunlabor.domain.experiments.chaos")
 waterwheel = importlib.import_module("staunlabor.domain.experiments.waterwheel")
+foucault = importlib.import_module("staunlabor.domain.experiments.foucault")
 
 TARGET = ROOT / "frontend/src/features/experiments/simulate/engine-cases.json"
 #: Points kept per curve: enough to see a curve that went wrong, few enough that
@@ -463,6 +464,16 @@ WATERWHEEL_CASES: dict[str, dict[str, Any]] = {
     },
 }
 
+#: Foucault's pendulum: Winterthur, the pole, the equator, the south; the bob's
+#: place a second, an hour and a day in.
+FOUCAULT_CASES = (
+    foucault.FoucaultPendulum(),
+    foucault.FoucaultPendulum(length_m=67.0, amplitude_m=3.0, latitude_deg=90.0),
+    foucault.FoucaultPendulum(latitude_deg=0.0),
+    foucault.FoucaultPendulum(length_m=5.0, amplitude_m=0.2, latitude_deg=-33.9),
+)
+FOUCAULT_TIMES = (0.0, 1.3, 3600.0, 86400.0)
+
 #: Where the heights and the contact are written out along the rails.
 CONE_POINTS = (0.0, 0.07, 0.15, 0.3)
 
@@ -524,6 +535,21 @@ def _pendulum_cases(out: dict[str, Any]) -> None:
                 "lengths_m": list(wave.lengths_m(row)),
                 "lag_deg": list(wave.lag_deg(row)),
                 "spread_deg": wave.spread_deg(row),
+            }
+        )
+
+
+def _foucault_cases(out: dict[str, Any]) -> None:
+    for p in FOUCAULT_CASES:
+        out["foucault"].append(
+            {
+                "p": asdict(p),
+                "degrees_per_hour": foucault.degrees_per_hour(p),
+                "full_turn_h": foucault.full_turn_h(p),
+                "period_s": foucault.period_s(p),
+                "positions": [list(foucault.position(p, t)) for t in FOUCAULT_TIMES],
+                "planes": [foucault.plane_deg(p, t) for t in FOUCAULT_TIMES],
+                "curve": [asdict(c) for c in foucault.latitude_curve(p)],
             }
         )
 
@@ -694,6 +720,7 @@ def _second_series(out: dict[str, Any]) -> None:
     _maxwell_cases(out)
     _chaos_cases(out)
     _waterwheel_cases(out)
+    _foucault_cases(out)
 
 
 def cases() -> dict[str, Any]:
@@ -741,6 +768,7 @@ def cases() -> dict[str, Any]:
         "maxwell": [],
         "chaos": [],
         "waterwheel": [],
+        "foucault": [],
     }
     _second_series(out)
     for name, case in HARMONOGRAPH_CASES.items():

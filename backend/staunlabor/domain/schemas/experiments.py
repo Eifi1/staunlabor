@@ -614,6 +614,16 @@ class WaterWheelIn(_In):
     leak_per_s: float = Field(ge=0.01, le=10, default=0.2)
 
 
+# ── Foucault's pendulum ──────────────────────────────────────────────────────
+# No route: the page asks the port (``simulate/foucault.ts``).
+
+
+class FoucaultPendulumIn(_In):
+    length_m: float = Field(ge=1, le=100, default=12.0)
+    amplitude_m: float = Field(gt=0, le=10, default=0.5)
+    latitude_deg: float = Field(ge=-90, le=90, default=47.5)
+
+
 # ── the pages' starting point ────────────────────────────────────────────────
 
 
@@ -634,6 +644,7 @@ class ExperimentsDefaultsOut(_Out):
     maxwell: MaxwellWheelIn
     chaos: DoublePendulumIn
     waterwheel: WaterWheelIn
+    foucault: FoucaultPendulumIn
     #: The exhibit's meter: digital, ± this many amperes.
     meter_range_a: float
     #: How long a page waits after the last slider step before asking.

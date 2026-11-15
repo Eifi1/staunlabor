@@ -1824,3 +1824,50 @@ def test_the_waterwheel_refuses_what_it_cannot_be():
         x.WaterWheel(sigma=1.0)
     with pytest.raises(ValueError, match="at most"):
         x.run_waterwheel(x.WaterWheel(), 1000.0)
+
+
+# ── Foucault's pendulum ──────────────────────────────────────────────────────
+
+
+def test_the_closed_foucault_swing_is_the_stepped_one():
+    p = x.FoucaultPendulum()
+    wz = x.vertical_rate(p)
+    w2 = 9.80665 / p.length_m
+
+    def coriolis(_t, s):
+        return [s[2], s[3], -w2 * s[0] + 2 * wz * s[3], -w2 * s[1] - 2 * wz * s[2]]
+
+    trace = rk4(coriolis, [p.amplitude_m, 0.0, 0.0, 0.0], 1e-3, 600.0, sample_every=7000)
+    for t, xs, ys in zip(trace.t, trace.states[0], trace.states[1], strict=True):
+        cx, cy = x.foucault_position(p, t)
+        assert cx == pytest.approx(xs, abs=1e-9)
+        assert cy == pytest.approx(ys, abs=1e-9)
+
+
+def test_in_winterthur_the_plane_turns_eleven_degrees_an_hour():
+    p = x.FoucaultPendulum()
+    assert round(x.degrees_per_hour(p), 1) == 11.1
+    assert round(x.full_turn_h(p), 1) == 32.5
+    # Clockwise seen from above in the north: the plane's angle falls.
+    assert x.plane_deg(p, 3600) == pytest.approx(-x.degrees_per_hour(p))
+    # A swing's turning points lie along the turning plane.
+    half = x.foucault_period_s(p) * round(1800 / x.foucault_period_s(p))
+    px, py = x.foucault_position(p, half)
+    assert math.degrees(math.atan2(py, px)) == pytest.approx(x.plane_deg(p, half), abs=0.01)
+
+
+def test_at_the_pole_once_a_sidereal_day_at_the_equator_never_in_the_south_the_other_way():
+    pole = x.FoucaultPendulum(latitude_deg=90.0)
+    assert round(x.full_turn_h(pole), 2) == 23.93
+    assert x.full_turn_h(x.FoucaultPendulum(latitude_deg=0.0)) is None
+    assert x.degrees_per_hour(x.FoucaultPendulum(latitude_deg=-33.9)) < 0
+    curve = x.latitude_curve(x.FoucaultPendulum())
+    assert len(curve) == 37
+    assert curve[0].degrees_per_hour == pytest.approx(-curve[-1].degrees_per_hour)
+
+
+def test_foucault_s_pendulum_refuses_what_it_cannot_be():
+    with pytest.raises(ValueError, match="latitude"):
+        x.FoucaultPendulum(latitude_deg=100.0)
+    with pytest.raises(ValueError, match="tenth"):
+        x.FoucaultPendulum(amplitude_m=5.0)

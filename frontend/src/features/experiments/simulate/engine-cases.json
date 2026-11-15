@@ -41393,5 +41393,743 @@
     ]
    }
   }
+ ],
+ "foucault": [
+  {
+   "p": {
+    "length_m": 12.0,
+    "amplitude_m": 0.5,
+    "latitude_deg": 47.5
+   },
+   "degrees_per_hour": 11.089437729168507,
+   "full_turn_h": 32.463323100060634,
+   "period_s": 6.950405671085095,
+   "positions": [
+    [
+     0.5,
+     0.0
+    ],
+    [
+     0.192677661015151,
+     1.397293643701866e-05
+    ],
+    [
+     0.4715050136161094,
+     -0.09242372781097889
+    ],
+    [
+     -0.030311004872378654,
+     0.4501908359733457
+    ]
+   ],
+   "planes": [
+    -0.0,
+    -0.004004519179977517,
+    -11.089437729168507,
+    -266.1465055000442
+   ],
+   "curve": [
+    {
+     "latitude_deg": -90.0,
+     "degrees_per_hour": -15.04106687606545
+    },
+    {
+     "latitude_deg": -85.0,
+     "degrees_per_hour": -14.983831075579777
+    },
+    {
+     "latitude_deg": -80.0,
+     "degrees_per_hour": -14.81255927312437
+    },
+    {
+     "latitude_deg": -75.0,
+     "degrees_per_hour": -14.528554950532657
+    },
+    {
+     "latitude_deg": -70.0,
+     "degrees_per_hour": -14.133979552186059
+    },
+    {
+     "latitude_deg": -65.0,
+     "degrees_per_hour": -13.631836035117137
+    },
+    {
+     "latitude_deg": -60.0,
+     "degrees_per_hour": -13.025946014693327
+    },
+    {
+     "latitude_deg": -55.0,
+     "degrees_per_hour": -12.320920679816453
+    },
+    {
+     "latitude_deg": -50.0,
+     "degrees_per_hour": -11.522125698990864
+    },
+    {
+     "latitude_deg": -45.0,
+     "degrees_per_hour": -10.63564038434624
+    },
+    {
+     "latitude_deg": -40.0,
+     "degrees_per_hour": -9.668211424401495
+    },
+    {
+     "latitude_deg": -35.0,
+     "degrees_per_hour": -8.627201537691382
+    },
+    {
+     "latitude_deg": -30.0,
+     "degrees_per_hour": -7.520533438032724
+    },
+    {
+     "latitude_deg": -25.0,
+     "degrees_per_hour": -6.356629537888392
+    },
+    {
+     "latitude_deg": -20.0,
+     "degrees_per_hour": -5.144347848722873
+    },
+    {
+     "latitude_deg": -15.0,
+     "degrees_per_hour": -3.892914566186415
+    },
+    {
+     "latitude_deg": -10.0,
+     "degrees_per_hour": -2.6118538531951945
+    },
+    {
+     "latitude_deg": -5.0,
+     "degrees_per_hour": -1.310915355300683
+    },
+    {
+     "latitude_deg": 0.0,
+     "degrees_per_hour": 0.0
+    },
+    {
+     "latitude_deg": 5.0,
+     "degrees_per_hour": 1.310915355300683
+    },
+    {
+     "latitude_deg": 10.0,
+     "degrees_per_hour": 2.6118538531951945
+    },
+    {
+     "latitude_deg": 15.0,
+     "degrees_per_hour": 3.892914566186415
+    },
+    {
+     "latitude_deg": 20.0,
+     "degrees_per_hour": 5.144347848722873
+    },
+    {
+     "latitude_deg": 25.0,
+     "degrees_per_hour": 6.356629537888392
+    },
+    {
+     "latitude_deg": 30.0,
+     "degrees_per_hour": 7.520533438032724
+    },
+    {
+     "latitude_deg": 35.0,
+     "degrees_per_hour": 8.627201537691382
+    },
+    {
+     "latitude_deg": 40.0,
+     "degrees_per_hour": 9.668211424401495
+    },
+    {
+     "latitude_deg": 45.0,
+     "degrees_per_hour": 10.63564038434624
+    },
+    {
+     "latitude_deg": 50.0,
+     "degrees_per_hour": 11.522125698990864
+    },
+    {
+     "latitude_deg": 55.0,
+     "degrees_per_hour": 12.320920679816453
+    },
+    {
+     "latitude_deg": 60.0,
+     "degrees_per_hour": 13.025946014693327
+    },
+    {
+     "latitude_deg": 65.0,
+     "degrees_per_hour": 13.631836035117137
+    },
+    {
+     "latitude_deg": 70.0,
+     "degrees_per_hour": 14.133979552186059
+    },
+    {
+     "latitude_deg": 75.0,
+     "degrees_per_hour": 14.528554950532657
+    },
+    {
+     "latitude_deg": 80.0,
+     "degrees_per_hour": 14.81255927312437
+    },
+    {
+     "latitude_deg": 85.0,
+     "degrees_per_hour": 14.983831075579777
+    },
+    {
+     "latitude_deg": 90.0,
+     "degrees_per_hour": 15.04106687606545
+    }
+   ]
+  },
+  {
+   "p": {
+    "length_m": 67.0,
+    "amplitude_m": 3.0,
+    "latitude_deg": 90.0
+   },
+   "degrees_per_hour": 15.04106687606545,
+   "full_turn_h": 23.93447239921929,
+   "period_s": 16.423167864604345,
+   "positions": [
+    [
+     3.0,
+     0.0
+    ],
+    [
+     2.636543041754198,
+     2.2874331463344997e-05
+    ],
+    [
+     0.8513934990912444,
+     -0.2282184163532893
+    ],
+    [
+     1.9249292071197095,
+     -0.0335545989561502
+    ]
+   ],
+   "planes": [
+    -0.0,
+    -0.005431496371912524,
+    -15.041066876065452,
+    -360.9856050255708
+   ],
+   "curve": [
+    {
+     "latitude_deg": -90.0,
+     "degrees_per_hour": -15.04106687606545
+    },
+    {
+     "latitude_deg": -85.0,
+     "degrees_per_hour": -14.983831075579777
+    },
+    {
+     "latitude_deg": -80.0,
+     "degrees_per_hour": -14.81255927312437
+    },
+    {
+     "latitude_deg": -75.0,
+     "degrees_per_hour": -14.528554950532657
+    },
+    {
+     "latitude_deg": -70.0,
+     "degrees_per_hour": -14.133979552186059
+    },
+    {
+     "latitude_deg": -65.0,
+     "degrees_per_hour": -13.631836035117137
+    },
+    {
+     "latitude_deg": -60.0,
+     "degrees_per_hour": -13.025946014693327
+    },
+    {
+     "latitude_deg": -55.0,
+     "degrees_per_hour": -12.320920679816453
+    },
+    {
+     "latitude_deg": -50.0,
+     "degrees_per_hour": -11.522125698990864
+    },
+    {
+     "latitude_deg": -45.0,
+     "degrees_per_hour": -10.63564038434624
+    },
+    {
+     "latitude_deg": -40.0,
+     "degrees_per_hour": -9.668211424401495
+    },
+    {
+     "latitude_deg": -35.0,
+     "degrees_per_hour": -8.627201537691382
+    },
+    {
+     "latitude_deg": -30.0,
+     "degrees_per_hour": -7.520533438032724
+    },
+    {
+     "latitude_deg": -25.0,
+     "degrees_per_hour": -6.356629537888392
+    },
+    {
+     "latitude_deg": -20.0,
+     "degrees_per_hour": -5.144347848722873
+    },
+    {
+     "latitude_deg": -15.0,
+     "degrees_per_hour": -3.892914566186415
+    },
+    {
+     "latitude_deg": -10.0,
+     "degrees_per_hour": -2.6118538531951945
+    },
+    {
+     "latitude_deg": -5.0,
+     "degrees_per_hour": -1.310915355300683
+    },
+    {
+     "latitude_deg": 0.0,
+     "degrees_per_hour": 0.0
+    },
+    {
+     "latitude_deg": 5.0,
+     "degrees_per_hour": 1.310915355300683
+    },
+    {
+     "latitude_deg": 10.0,
+     "degrees_per_hour": 2.6118538531951945
+    },
+    {
+     "latitude_deg": 15.0,
+     "degrees_per_hour": 3.892914566186415
+    },
+    {
+     "latitude_deg": 20.0,
+     "degrees_per_hour": 5.144347848722873
+    },
+    {
+     "latitude_deg": 25.0,
+     "degrees_per_hour": 6.356629537888392
+    },
+    {
+     "latitude_deg": 30.0,
+     "degrees_per_hour": 7.520533438032724
+    },
+    {
+     "latitude_deg": 35.0,
+     "degrees_per_hour": 8.627201537691382
+    },
+    {
+     "latitude_deg": 40.0,
+     "degrees_per_hour": 9.668211424401495
+    },
+    {
+     "latitude_deg": 45.0,
+     "degrees_per_hour": 10.63564038434624
+    },
+    {
+     "latitude_deg": 50.0,
+     "degrees_per_hour": 11.522125698990864
+    },
+    {
+     "latitude_deg": 55.0,
+     "degrees_per_hour": 12.320920679816453
+    },
+    {
+     "latitude_deg": 60.0,
+     "degrees_per_hour": 13.025946014693327
+    },
+    {
+     "latitude_deg": 65.0,
+     "degrees_per_hour": 13.631836035117137
+    },
+    {
+     "latitude_deg": 70.0,
+     "degrees_per_hour": 14.133979552186059
+    },
+    {
+     "latitude_deg": 75.0,
+     "degrees_per_hour": 14.528554950532657
+    },
+    {
+     "latitude_deg": 80.0,
+     "degrees_per_hour": 14.81255927312437
+    },
+    {
+     "latitude_deg": 85.0,
+     "degrees_per_hour": 14.983831075579777
+    },
+    {
+     "latitude_deg": 90.0,
+     "degrees_per_hour": 15.04106687606545
+    }
+   ]
+  },
+  {
+   "p": {
+    "length_m": 12.0,
+    "amplitude_m": 0.5,
+    "latitude_deg": 0.0
+   },
+   "degrees_per_hour": 0.0,
+   "full_turn_h": null,
+   "period_s": 6.950405671085095,
+   "positions": [
+    [
+     0.5,
+     0.0
+    ],
+    [
+     0.19267766052685248,
+     0.0
+    ],
+    [
+     0.48047721911276264,
+     -0.0
+    ],
+    [
+     0.45118032927466245,
+     -0.0
+    ]
+   ],
+   "planes": [
+    -0.0,
+    -0.0,
+    -0.0,
+    -0.0
+   ],
+   "curve": [
+    {
+     "latitude_deg": -90.0,
+     "degrees_per_hour": -15.04106687606545
+    },
+    {
+     "latitude_deg": -85.0,
+     "degrees_per_hour": -14.983831075579777
+    },
+    {
+     "latitude_deg": -80.0,
+     "degrees_per_hour": -14.81255927312437
+    },
+    {
+     "latitude_deg": -75.0,
+     "degrees_per_hour": -14.528554950532657
+    },
+    {
+     "latitude_deg": -70.0,
+     "degrees_per_hour": -14.133979552186059
+    },
+    {
+     "latitude_deg": -65.0,
+     "degrees_per_hour": -13.631836035117137
+    },
+    {
+     "latitude_deg": -60.0,
+     "degrees_per_hour": -13.025946014693327
+    },
+    {
+     "latitude_deg": -55.0,
+     "degrees_per_hour": -12.320920679816453
+    },
+    {
+     "latitude_deg": -50.0,
+     "degrees_per_hour": -11.522125698990864
+    },
+    {
+     "latitude_deg": -45.0,
+     "degrees_per_hour": -10.63564038434624
+    },
+    {
+     "latitude_deg": -40.0,
+     "degrees_per_hour": -9.668211424401495
+    },
+    {
+     "latitude_deg": -35.0,
+     "degrees_per_hour": -8.627201537691382
+    },
+    {
+     "latitude_deg": -30.0,
+     "degrees_per_hour": -7.520533438032724
+    },
+    {
+     "latitude_deg": -25.0,
+     "degrees_per_hour": -6.356629537888392
+    },
+    {
+     "latitude_deg": -20.0,
+     "degrees_per_hour": -5.144347848722873
+    },
+    {
+     "latitude_deg": -15.0,
+     "degrees_per_hour": -3.892914566186415
+    },
+    {
+     "latitude_deg": -10.0,
+     "degrees_per_hour": -2.6118538531951945
+    },
+    {
+     "latitude_deg": -5.0,
+     "degrees_per_hour": -1.310915355300683
+    },
+    {
+     "latitude_deg": 0.0,
+     "degrees_per_hour": 0.0
+    },
+    {
+     "latitude_deg": 5.0,
+     "degrees_per_hour": 1.310915355300683
+    },
+    {
+     "latitude_deg": 10.0,
+     "degrees_per_hour": 2.6118538531951945
+    },
+    {
+     "latitude_deg": 15.0,
+     "degrees_per_hour": 3.892914566186415
+    },
+    {
+     "latitude_deg": 20.0,
+     "degrees_per_hour": 5.144347848722873
+    },
+    {
+     "latitude_deg": 25.0,
+     "degrees_per_hour": 6.356629537888392
+    },
+    {
+     "latitude_deg": 30.0,
+     "degrees_per_hour": 7.520533438032724
+    },
+    {
+     "latitude_deg": 35.0,
+     "degrees_per_hour": 8.627201537691382
+    },
+    {
+     "latitude_deg": 40.0,
+     "degrees_per_hour": 9.668211424401495
+    },
+    {
+     "latitude_deg": 45.0,
+     "degrees_per_hour": 10.63564038434624
+    },
+    {
+     "latitude_deg": 50.0,
+     "degrees_per_hour": 11.522125698990864
+    },
+    {
+     "latitude_deg": 55.0,
+     "degrees_per_hour": 12.320920679816453
+    },
+    {
+     "latitude_deg": 60.0,
+     "degrees_per_hour": 13.025946014693327
+    },
+    {
+     "latitude_deg": 65.0,
+     "degrees_per_hour": 13.631836035117137
+    },
+    {
+     "latitude_deg": 70.0,
+     "degrees_per_hour": 14.133979552186059
+    },
+    {
+     "latitude_deg": 75.0,
+     "degrees_per_hour": 14.528554950532657
+    },
+    {
+     "latitude_deg": 80.0,
+     "degrees_per_hour": 14.81255927312437
+    },
+    {
+     "latitude_deg": 85.0,
+     "degrees_per_hour": 14.983831075579777
+    },
+    {
+     "latitude_deg": 90.0,
+     "degrees_per_hour": 15.04106687606545
+    }
+   ]
+  },
+  {
+   "p": {
+    "length_m": 5.0,
+    "amplitude_m": 0.2,
+    "latitude_deg": -33.9
+   },
+   "degrees_per_hour": -8.389081483961931,
+   "full_turn_h": 42.91292207475161,
+   "period_s": 4.48646756891636,
+   "positions": [
+    [
+     0.2,
+     0.0
+    ],
+    [
+     -0.04944611704781473,
+     -8.2422815636337e-06
+    ],
+    [
+     -0.16904134113444902,
+     -0.024931989983787636
+    ],
+    [
+     -0.15885912630963062,
+     -0.06206110668591252
+    ]
+   ],
+   "planes": [
+    0.0,
+    0.0030293905358751423,
+    8.389081483961933,
+    201.33795561508634
+   ],
+   "curve": [
+    {
+     "latitude_deg": -90.0,
+     "degrees_per_hour": -15.04106687606545
+    },
+    {
+     "latitude_deg": -85.0,
+     "degrees_per_hour": -14.983831075579777
+    },
+    {
+     "latitude_deg": -80.0,
+     "degrees_per_hour": -14.81255927312437
+    },
+    {
+     "latitude_deg": -75.0,
+     "degrees_per_hour": -14.528554950532657
+    },
+    {
+     "latitude_deg": -70.0,
+     "degrees_per_hour": -14.133979552186059
+    },
+    {
+     "latitude_deg": -65.0,
+     "degrees_per_hour": -13.631836035117137
+    },
+    {
+     "latitude_deg": -60.0,
+     "degrees_per_hour": -13.025946014693327
+    },
+    {
+     "latitude_deg": -55.0,
+     "degrees_per_hour": -12.320920679816453
+    },
+    {
+     "latitude_deg": -50.0,
+     "degrees_per_hour": -11.522125698990864
+    },
+    {
+     "latitude_deg": -45.0,
+     "degrees_per_hour": -10.63564038434624
+    },
+    {
+     "latitude_deg": -40.0,
+     "degrees_per_hour": -9.668211424401495
+    },
+    {
+     "latitude_deg": -35.0,
+     "degrees_per_hour": -8.627201537691382
+    },
+    {
+     "latitude_deg": -30.0,
+     "degrees_per_hour": -7.520533438032724
+    },
+    {
+     "latitude_deg": -25.0,
+     "degrees_per_hour": -6.356629537888392
+    },
+    {
+     "latitude_deg": -20.0,
+     "degrees_per_hour": -5.144347848722873
+    },
+    {
+     "latitude_deg": -15.0,
+     "degrees_per_hour": -3.892914566186415
+    },
+    {
+     "latitude_deg": -10.0,
+     "degrees_per_hour": -2.6118538531951945
+    },
+    {
+     "latitude_deg": -5.0,
+     "degrees_per_hour": -1.310915355300683
+    },
+    {
+     "latitude_deg": 0.0,
+     "degrees_per_hour": 0.0
+    },
+    {
+     "latitude_deg": 5.0,
+     "degrees_per_hour": 1.310915355300683
+    },
+    {
+     "latitude_deg": 10.0,
+     "degrees_per_hour": 2.6118538531951945
+    },
+    {
+     "latitude_deg": 15.0,
+     "degrees_per_hour": 3.892914566186415
+    },
+    {
+     "latitude_deg": 20.0,
+     "degrees_per_hour": 5.144347848722873
+    },
+    {
+     "latitude_deg": 25.0,
+     "degrees_per_hour": 6.356629537888392
+    },
+    {
+     "latitude_deg": 30.0,
+     "degrees_per_hour": 7.520533438032724
+    },
+    {
+     "latitude_deg": 35.0,
+     "degrees_per_hour": 8.627201537691382
+    },
+    {
+     "latitude_deg": 40.0,
+     "degrees_per_hour": 9.668211424401495
+    },
+    {
+     "latitude_deg": 45.0,
+     "degrees_per_hour": 10.63564038434624
+    },
+    {
+     "latitude_deg": 50.0,
+     "degrees_per_hour": 11.522125698990864
+    },
+    {
+     "latitude_deg": 55.0,
+     "degrees_per_hour": 12.320920679816453
+    },
+    {
+     "latitude_deg": 60.0,
+     "degrees_per_hour": 13.025946014693327
+    },
+    {
+     "latitude_deg": 65.0,
+     "degrees_per_hour": 13.631836035117137
+    },
+    {
+     "latitude_deg": 70.0,
+     "degrees_per_hour": 14.133979552186059
+    },
+    {
+     "latitude_deg": 75.0,
+     "degrees_per_hour": 14.528554950532657
+    },
+    {
+     "latitude_deg": 80.0,
+     "degrees_per_hour": 14.81255927312437
+    },
+    {
+     "latitude_deg": 85.0,
+     "degrees_per_hour": 14.983831075579777
+    },
+    {
+     "latitude_deg": 90.0,
+     "degrees_per_hour": 15.04106687606545
+    }
+   ]
+  }
  ]
 }
