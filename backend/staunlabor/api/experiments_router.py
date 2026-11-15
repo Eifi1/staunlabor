@@ -54,6 +54,7 @@ from staunlabor.domain.experiments import (
     Sphere,
     Track,
     Vessel,
+    WaterWheel,
     cannon_figures,
     chair_analysis,
     coil_analysis,
@@ -91,6 +92,7 @@ from staunlabor.domain.schemas.experiments import (
     SphereFiguresOut,
     SphereIn,
     VesselIn,
+    WaterWheelIn,
     WaveFiguresOut,
     WaveIn,
 )
@@ -136,6 +138,7 @@ async def defaults() -> ExperimentsDefaultsOut:
         peg=PegPendulumIn.model_validate(PegPendulum()),
         maxwell=MaxwellWheelIn.model_validate(MaxwellWheel()),
         chaos=DoublePendulumIn.model_validate(DoublePendulum()),
+        waterwheel=WaterWheelIn.model_validate(WaterWheel()),
         meter_range_a=METER_RANGE_A,
         settle_s=PAGE_SETTLE_S,
     )

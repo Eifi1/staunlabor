@@ -604,6 +604,16 @@ class DoublePendulumIn(_In):
     damping_per_s: float = Field(ge=0, le=1, default=0.0)
 
 
+# ── the chaotic waterwheel ───────────────────────────────────────────────────
+# No route: the page asks the port (``simulate/waterwheel.ts``).
+
+
+class WaterWheelIn(_In):
+    sigma: float = Field(ge=2.5, le=50, default=10.0)
+    rho: float = Field(ge=0, le=200, default=28.0)
+    leak_per_s: float = Field(ge=0.01, le=10, default=0.2)
+
+
 # ── the pages' starting point ────────────────────────────────────────────────
 
 
@@ -623,6 +633,7 @@ class ExperimentsDefaultsOut(_Out):
     peg: PegPendulumIn
     maxwell: MaxwellWheelIn
     chaos: DoublePendulumIn
+    waterwheel: WaterWheelIn
     #: The exhibit's meter: digital, ± this many amperes.
     meter_range_a: float
     #: How long a page waits after the last slider step before asking.

@@ -30,6 +30,7 @@ import * as pit from "./pit";
 import * as platform from "./platform";
 import * as smoke from "./smoke";
 import * as sphere from "./sphere";
+import * as waterwheel from "./waterwheel";
 import * as wave from "./wave";
 
 interface Thinned {
@@ -681,5 +682,25 @@ describe("the chaotic pendulum's port", () => {
     const dp = cases.chaos[0].dp as chaos.DoublePendulum;
     expect(() => chaos.run(dp, 200, 10, 1)).toThrow(RangeError);
     expect(() => chaos.run(dp, 10, 10, 1, 0)).toThrow(RangeError);
+  });
+});
+
+describe("the waterwheel's port", () => {
+  it.each(cases.waterwheel.map((c) => [c.name, c] as const))("turns %s as the engine does", (_name, c) => {
+    const w = c.w as waterwheel.WaterWheel;
+    expect(waterwheel.regime(w)).toBe(c.regime);
+    expect(differences(c.hopf_rho, waterwheel.hopfRho(w))).toEqual([]);
+    const levels = Array.from({ length: 8 }, (_, k) => waterwheel.cupLevel(w, 3.0, 20.0, k * 0.785));
+    expect(differences(c.levels, levels)).toEqual([]);
+    expect(differences(c.run, waterwheel.run(w, c.duration_s, c.step_tau))).toEqual([]);
+  });
+
+  it("steps frame by frame as the replay does", () => {
+    const w = cases.waterwheel[2].w as waterwheel.WaterWheel;
+    const whole = waterwheel.run(w, 5);
+    const state = waterwheel.startWheel();
+    for (let i = 0; i < Math.round((5 * w.leak_per_s) / waterwheel.STEP_TAU); i++) waterwheel.stepWheel(w, state);
+    expect(state.y[0]).toBe(whole.x[whole.x.length - 1]);
+    expect(state.angle / (2 * Math.PI)).toBe(whole.turns[whole.turns.length - 1]);
   });
 });

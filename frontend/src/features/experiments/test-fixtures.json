@@ -168,6 +168,11 @@
       "mass2_kg": 0.5,
       "damping_per_s": 0.0
     },
+    "waterwheel": {
+      "sigma": 10.0,
+      "rho": 28.0,
+      "leak_per_s": 0.2
+    },
     "meter_range_a": 0.1,
     "settle_s": 0.15
   },

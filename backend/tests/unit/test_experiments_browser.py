@@ -144,3 +144,4 @@ def test_the_cases_cross_every_branch_a_page_can_reach(stored: Any):
     assert any(c["w"]["loss"] == 0 for c in stored["maxwell"]), "a wheel that climbs all the way back"
     assert any(c["samples"] > 100 for c in stored["maxwell"]), "a jerk sampled inside"
     assert any(c["dp"]["damping_per_s"] > 0 for c in stored["chaos"]), "a damped double pendulum"
+    assert {c["regime"] for c in stored["waterwheel"]} == {"still", "steady", "chaotic"}, "every regime of the wheel"

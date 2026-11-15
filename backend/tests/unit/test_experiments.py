@@ -1771,3 +1771,56 @@ def test_the_double_pendulum_refuses_what_it_cannot_be():
         x.run_chaos(x.DoublePendulum(), 10.0, 10.0, 1.0, nudge_deg=0.0)
     with pytest.raises(ValueError, match="−180° and 180°"):
         x.run_chaos(x.DoublePendulum(), 200.0, 10.0, 1.0)
+
+
+# ── the chaotic waterwheel ───────────────────────────────────────────────────
+
+
+def test_malkus_s_waterwheel_is_lorenz_s_equations():
+    """The wheel's own equations — mass, rate, a leak and a tap — integrated in
+    seconds, against the engine's Lorenz variables turned back into the wheel."""
+    w = x.WaterWheel()
+    g, r, nu, k = 9.80665, 0.5, 1.0, w.leak_per_s
+    inertia = nu / (k * w.sigma)
+    q = w.rho * nu * k * k / (math.pi * g * r)
+    c = math.pi * g * r / (nu * k)
+
+    def malkus(_t, s):
+        a, b, om = s
+        return [om * b - k * a, -om * a + q - k * b, (-nu * om + math.pi * g * r * a) / inertia]
+
+    trace = rk4(malkus, [0.0, q / k, k * 1e-3], 0.01 / k, 5.0, sample_every=10)
+    run = x.run_waterwheel(w, 5.0)
+    for i, t in enumerate(trace.t):
+        j = round(t * k * 20)
+        assert run.x[j] == pytest.approx(trace.states[2][i] / k, abs=1e-9)
+        assert run.y[j] == pytest.approx(c * trace.states[0][i], abs=1e-9)
+        assert run.z[j] == pytest.approx(w.rho - c * trace.states[1][i], abs=1e-8)
+
+
+def test_the_tap_decides_whether_the_wheel_stands_turns_or_wanders():
+    still = x.WaterWheel(rho=0.5)
+    steady = x.WaterWheel(rho=10.0)
+    wild = x.WaterWheel()
+    assert x.hopf_rho(wild) == pytest.approx(17.5)
+    assert [x.regime(w) for w in (still, steady, wild)] == ["still", "steady", "chaotic"]
+    assert abs(x.run_waterwheel(still, 200.0).x[-1]) < 1e-6
+    assert abs(x.run_waterwheel(steady, 200.0).x[-1]) == pytest.approx(x.steady_x(steady), abs=1e-3)
+    reversals = x.run_waterwheel(wild, 200.0).reversals_s
+    assert len(reversals) > 10
+    # Not to a beat: the gaps between reversals range widely.
+    gaps = [b - a for a, b in itertools.pairwise(reversals)]
+    assert max(gaps) > 3 * min(gaps)
+
+
+def test_the_cups_are_full_at_the_top_while_the_wheel_stands():
+    w = x.WaterWheel()
+    assert x.cup_level(w, 0.0, 0.0, 0.0) == pytest.approx(0.95)
+    assert x.cup_level(w, 0.0, 0.0, math.pi) == pytest.approx(0.05)
+
+
+def test_the_waterwheel_refuses_what_it_cannot_be():
+    with pytest.raises(ValueError, match="σ"):
+        x.WaterWheel(sigma=1.0)
+    with pytest.raises(ValueError, match="at most"):
+        x.run_waterwheel(x.WaterWheel(), 1000.0)

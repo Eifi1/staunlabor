@@ -49,6 +49,8 @@ with SciPy before it was written (``docs/experiments.md``).
   nearly back.
 * :mod:`chaos` — the double pendulum: two that start a thousandth of a degree
   apart part company, and the Lyapunov exponent measured Benettin's way.
+* :mod:`waterwheel` — Malkus's leaking waterwheel, which is Lorenz's equations:
+  still, steady, or turning back and forth without ever repeating.
 * :mod:`wave` — a row of pendulums tuned to swing ``N``, ``N + 1``, … times a
   cycle: waves, groups, and all together again — at the swing it was tuned for.
 
@@ -285,6 +287,8 @@ from staunlabor.domain.experiments.sphere import (
 )
 from staunlabor.domain.experiments.sphere import figures as sphere_figures
 from staunlabor.domain.experiments.sphere import run as run_sphere
+from staunlabor.domain.experiments.waterwheel import WaterWheel, WheelTurns, cup_level, hopf_rho, regime, steady_x
+from staunlabor.domain.experiments.waterwheel import run as run_waterwheel
 from staunlabor.domain.experiments.wave import (
     GroupPoint,
     PendulumWave,
@@ -408,10 +412,12 @@ __all__ = [
     "ValleyStart",
     "Verdict",
     "Vessel",
+    "WaterWheel",
     "WaveFigures",
     "WavePendulum",
     "WheelRun",
     "WheelState",
+    "WheelTurns",
     "angle_deg",
     "axis_height_m",
     "axis_slope",
@@ -431,6 +437,7 @@ __all__ = [
     "coupled_swing",
     "coupling",
     "couplings",
+    "cup_level",
     "cycloid_through",
     "double_energy",
     "double_mode_rates",
@@ -447,6 +454,7 @@ __all__ = [
     "harmonograph_draw",
     "harmonograph_figures",
     "height_at",
+    "hopf_rho",
     "image",
     "inertia",
     "inertia_ratio",
@@ -473,6 +481,7 @@ __all__ = [
     "race_entries",
     "race_valley",
     "rail_height_m",
+    "regime",
     "ring_from_push",
     "roll",
     "rotation_share",
@@ -484,6 +493,7 @@ __all__ = [
     "run_platform",
     "run_race",
     "run_sphere",
+    "run_waterwheel",
     "run_wheel",
     "scatter",
     "separation",
@@ -503,6 +513,7 @@ __all__ = [
     "start_for",
     "start_height_m",
     "state_at",
+    "steady_x",
     "surface",
     "swing",
     "swing_hz",

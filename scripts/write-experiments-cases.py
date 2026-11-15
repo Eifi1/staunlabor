@@ -63,6 +63,7 @@ coupled = importlib.import_module("staunlabor.domain.experiments.coupled")
 peg = importlib.import_module("staunlabor.domain.experiments.peg")
 maxwell = importlib.import_module("staunlabor.domain.experiments.maxwell")
 chaos = importlib.import_module("staunlabor.domain.experiments.chaos")
+waterwheel = importlib.import_module("staunlabor.domain.experiments.waterwheel")
 
 TARGET = ROOT / "frontend/src/features/experiments/simulate/engine-cases.json"
 #: Points kept per curve: enough to see a curve that went wrong, few enough that
@@ -449,6 +450,19 @@ CHAOS_CASES: dict[str, dict[str, Any]] = {
     },
 }
 
+#: The waterwheel: still, steady after one reversal, chaotic, and a strong brake
+#: at a coarse step.
+WATERWHEEL_CASES: dict[str, dict[str, Any]] = {
+    "still": {"w": waterwheel.WaterWheel(rho=0.5), "duration_s": 20.0},
+    "steady": {"w": waterwheel.WaterWheel(rho=10.0), "duration_s": 30.0},
+    "chaotic": {"w": waterwheel.WaterWheel(), "duration_s": 30.0},
+    "a strong brake, a coarse step": {
+        "w": waterwheel.WaterWheel(sigma=30.0, rho=60.0, leak_per_s=1.0),
+        "duration_s": 5.0,
+        "step_tau": 0.04,
+    },
+}
+
 #: Where the heights and the contact are written out along the rails.
 CONE_POINTS = (0.0, 0.07, 0.15, 0.3)
 
@@ -510,6 +524,25 @@ def _pendulum_cases(out: dict[str, Any]) -> None:
                 "lengths_m": list(wave.lengths_m(row)),
                 "lag_deg": list(wave.lag_deg(row)),
                 "spread_deg": wave.spread_deg(row),
+            }
+        )
+
+
+def _waterwheel_cases(out: dict[str, Any]) -> None:
+    for name, case in WATERWHEEL_CASES.items():
+        w = case["w"]
+        step = case.get("step_tau", waterwheel.STEP_TAU)
+        result = waterwheel.run(w, case["duration_s"], step)
+        out["waterwheel"].append(
+            {
+                "name": name,
+                "w": asdict(w),
+                "duration_s": case["duration_s"],
+                "step_tau": step,
+                "regime": waterwheel.regime(w),
+                "hopf_rho": waterwheel.hopf_rho(w),
+                "levels": [waterwheel.cup_level(w, 3.0, 20.0, k * 0.785) for k in range(8)],
+                "run": {**thin(asdict(result)), "reversals_s": list(result.reversals_s)},
             }
         )
 
@@ -651,6 +684,18 @@ def _cone_cases(out: dict[str, Any]) -> None:
         )
 
 
+def _second_series(out: dict[str, Any]) -> None:
+    """The exhibits built from 2026-11-14 on, each its own writer."""
+    _pendulum_cases(out)
+    _cone_cases(out)
+    _parabola_cases(out)
+    _coupled_cases(out)
+    _peg_cases(out)
+    _maxwell_cases(out)
+    _chaos_cases(out)
+    _waterwheel_cases(out)
+
+
 def cases() -> dict[str, Any]:
     out: dict[str, Any] = {
         "written_by": "cd backend && uv run python ../scripts/write-experiments-cases.py",
@@ -695,14 +740,9 @@ def cases() -> dict[str, Any]:
         "peg": [],
         "maxwell": [],
         "chaos": [],
+        "waterwheel": [],
     }
-    _pendulum_cases(out)
-    _cone_cases(out)
-    _parabola_cases(out)
-    _coupled_cases(out)
-    _peg_cases(out)
-    _maxwell_cases(out)
-    _chaos_cases(out)
+    _second_series(out)
     for name, case in HARMONOGRAPH_CASES.items():
         h = case["h"]
         step = case.get("step_s", harmonograph.STEP_S)
