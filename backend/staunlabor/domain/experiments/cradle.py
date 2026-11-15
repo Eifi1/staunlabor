@@ -43,6 +43,7 @@ POISSON = 0.29
 #: The step while every ball swings free, and while any two touch.
 STEP_S = 1e-3
 CONTACT_STEP_S = 1e-6
+SUBSTEPS = round(STEP_S / CONTACT_STEP_S)
 
 #: Samples a run returns per second.
 SAMPLES_PER_S = 100
@@ -175,12 +176,17 @@ def _near(cr: Cradle, th: list[float], w: list[float]) -> bool:
 
 
 def step(cr: Cradle, th: list[float], w: list[float]) -> tuple[list[float], list[float]]:
-    """One free step, or a thousand contact steps where the balls are close."""
-    if not _near(cr, th, w):
-        return _rk4(cr, th, w, STEP_S)
-    for _ in range(round(STEP_S / CONTACT_STEP_S)):
+    """One millisecond: a microsecond at a time while any two balls are near,
+    the rest of it in one go once none are. A contact lasts a few hundred
+    microseconds; stepping out the whole millisecond in microseconds made every
+    frame with a meeting in it four times dearer, and the page stuttered."""
+    done = 0
+    while done < SUBSTEPS and _near(cr, th, w):
         th, w = _rk4(cr, th, w, CONTACT_STEP_S)
-    return th, w
+        done += 1
+    if done == SUBSTEPS:
+        return th, w
+    return _rk4(cr, th, w, STEP_S - done * CONTACT_STEP_S)
 
 
 @dataclass(frozen=True)

@@ -16,6 +16,7 @@ import { roundHalfEven } from "./sphere";
 export const POISSON = 0.29;
 export const STEP_S = 1e-3;
 export const CONTACT_STEP_S = 1e-6;
+const SUBSTEPS = roundHalfEven(STEP_S / CONTACT_STEP_S);
 export const SAMPLES_PER_S = 100;
 export const MAX_S = 60.0;
 /** The speed `e` is given at. */
@@ -116,12 +117,15 @@ function near(cr: Cradle, th: number[], w: number[]): boolean {
   return false;
 }
 
-/** One free step, or a thousand contact steps where the balls are close. */
+/** One millisecond: a microsecond at a time while any two balls are near, the rest of it in one go once none are. */
 export function step(cr: Cradle, th: number[], w: number[]): [number[], number[]] {
-  if (!near(cr, th, w)) return rk4(cr, th, w, STEP_S);
-  let state: [number[], number[]] = [th, w];
-  for (let i = 0; i < roundHalfEven(STEP_S / CONTACT_STEP_S); i++) state = rk4(cr, state[0], state[1], CONTACT_STEP_S);
-  return state;
+  let done = 0;
+  while (done < SUBSTEPS && near(cr, th, w)) {
+    [th, w] = rk4(cr, th, w, CONTACT_STEP_S);
+    done += 1;
+  }
+  if (done === SUBSTEPS) return [th, w];
+  return rk4(cr, th, w, STEP_S - done * CONTACT_STEP_S);
 }
 
 /** The engine's `CradleRun`. */

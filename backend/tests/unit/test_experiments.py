@@ -1962,6 +1962,41 @@ def test_a_lone_pair_s_peak_force_is_hertz_s():
     assert im.peak_n == pytest.approx(k * deepest**1.5, rel=0.01)
 
 
+def test_the_exhibit_s_one_ball_sends_97_percent_out_and_a_hair_s_gap_99_9():
+    im = x.cradle_impact(x.Cradle(), x.Pull())
+    assert round(im.far_share, 2) == 0.97
+    assert im.after_m_s[0] < 0
+    assert round(x.cradle_impact(x.Cradle(gap_m=1e-4), x.Pull()).far_share, 3) == 0.999
+
+
+def test_a_steel_contact_lasts_0_2_ms_and_presses_with_nearly_900_n():
+    cr = x.Cradle()
+    im = x.cradle_impact(cr, x.Pull())
+    assert round(cr.mass_kg, 3) == 0.064
+    assert round(im.duration_s * 1e3, 1) == 0.2
+    assert round(im.peak_n, -2) == 900
+    assert im.peak_n < 900
+
+
+def test_two_in_come_out_as_two_but_not_at_the_same_speed():
+    im = x.cradle_impact(x.Cradle(), x.Pull(balls=2))
+    assert round(im.before_m_s[0], 2) == 0.63
+    assert round(im.after_m_s[-1], 2) == 0.70
+    assert round(im.after_m_s[-2], 2) == 0.49
+    assert round(im.far_share, 2) == 0.97
+
+
+def test_with_lossy_contacts_the_middle_ball_comes_to_swing_and_without_it_stays_nearly_still():
+    # The fourth second's widest swing of the middle ball: what the page's chart
+    # draws, and what its "after three seconds" says.
+    def middle(cr: x.Cradle) -> float:
+        run = x.run_cradle(cr, x.Pull(), 4.0)
+        return max(abs(a) for a in run.angles_deg[2][300:])
+
+    assert round(middle(x.Cradle()), 1) == 2.5
+    assert middle(x.Cradle(restitution=1.0)) < 0.2
+
+
 def test_the_cradle_refuses_what_cannot_hang():
     with pytest.raises(ValueError, match="between 2 and 9"):
         x.Cradle(count=12)
