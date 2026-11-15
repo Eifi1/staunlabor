@@ -83,4 +83,4 @@ ignore_decorators = ["@router.*", "@app.*", "@model_validator", "@field_validato
 [tool.uv.sources]
 # LOCAL ONLY: server-kit 0.32.0.dev6 from the kits' local build, until 0.32.0 is
 # released (the two-factor sign-in). Never pushed: the release's URL replaces it.
-eifi1-server-kit = { path = "/home/marcel/ui-kit-dist/eifi1_server_kit-0.32.0.dev6-py3-none-any.whl" }
+eifi1-server-kit = { path = "/home/marcel/ui-kit-dist/eifi1_server_kit-0.32.0.dev7-py3-none-any.whl" }
