@@ -68,3 +68,4 @@ so a reviewer knows which wordings are newer than the rest.
 | 2026-11-15 | `experiments.exhibits.maxwell.*`, `experiments.maxwell.*` | new: Maxwell's wheel's page; `de-CH` and `en` written, the other five machine-translated | a new exhibit |
 | 2026-11-15 | `experiments.exhibits.chaos.*`, `experiments.chaos.*` | new: the chaotic pendulum's page; `de-CH` and `en` written, the other five machine-translated | a new exhibit |
 | 2026-11-15 | `experiments.exhibits.waterwheel.*`, `experiments.waterwheel.*` | new: the chaotic waterwheel's page; `de-CH` and `en` written, the other five machine-translated | a new exhibit |
+| 2026-11-15 | `experiments.exhibits.foucault.*`, `experiments.foucault.*` | new: Foucault's pendulum's page; `de-CH` and `en` written, the other five machine-translated | a new exhibit |

@@ -33,6 +33,9 @@ const ChaosPage = lazy(() => import("@/features/experiments/chaos-page").then((m
 const WaterwheelPage = lazy(() =>
   import("@/features/experiments/waterwheel-page").then((m) => ({ default: m.WaterwheelPage })),
 );
+const FoucaultPage = lazy(() =>
+  import("@/features/experiments/foucault-page").then((m) => ({ default: m.FoucaultPage })),
+);
 const HarmonographPage = lazy(() =>
   import("@/features/experiments/harmonograph-page").then((m) => ({ default: m.HarmonographPage })),
 );
@@ -183,6 +186,14 @@ export function AppRoutes() {
           element={
             <Page>
               <WaterwheelPage />
+            </Page>
+          }
+        />
+        <Route
+          path="foucault"
+          element={
+            <Page>
+              <FoucaultPage />
             </Page>
           }
         />

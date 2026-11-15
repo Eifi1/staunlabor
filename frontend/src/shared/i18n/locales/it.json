@@ -229,6 +229,12 @@
         "title": "La ruota idraulica caotica",
         "summary": "L'acqua cade in secchielli forati su una ruota: gira, si ferma, inverte – e non si ripete mai. Sono le stesse equazioni del modello meteorologico di Lorenz.",
         "question": "Una ruota di secchielli che perdono, con l'acqua che entra dall'alto. In che verso gira?"
+      },
+      "foucault": {
+        "short": "Pendolo di Foucault",
+        "title": "Il pendolo di Foucault a Winterthur",
+        "summary": "Un lungo pendolo oscilla per ore, e il suo piano di oscillazione ruota lentamente rispetto al pavimento: non ruota il pendolo, ma la Terra sotto di esso.",
+        "question": "Quanto impiega il piano di oscillazione di un pendolo a fare un giro completo a Winterthur?"
       }
     },
     "chair": {
@@ -1768,6 +1774,74 @@
       "computed": {
         "system": "Tre equazioni del primo ordine, quelle di Lorenz, con il metodo di Runge-Kutta a passi di un centesimo del tempo di perdita. Riportate indietro, danno la rotazione della ruota e quanto è pieno ogni secchiello. Il test calcola le equazioni della ruota stessa in secondi e trova gli stessi numeri.",
         "tau": "il tempo in unità delle perdite"
+      }
+    },
+    "foucault": {
+      "at": {
+        "swing": "Un pendolo pesante appeso a un lungo cavo oscilla tranquillo per ore. Nulla lo spinge di lato – eppure dopo un'ora il suo piano di oscillazione punta in un'altra direzione.",
+        "pins": "Sul pavimento c'è una corona di birilli; cadono uno dopo l'altro quando il piano passa su di loro. A Winterthur ruota di 11,1° all'ora, in senso orario: un giro completo in 32,5 ore."
+      },
+      "view": "Il pendolo visto dall'alto: il piano di oscillazione tratteggiato, la traccia della sfera e la corona di birilli",
+      "play": {
+        "title": "Lasciar girare la Terra",
+        "hint": "In accelerato si vede il piano avanzare e i birilli cadere. Scelga un altro luogo, e il ritmo cambia.",
+        "pause": "Pausa",
+        "run": "Continua",
+        "restart": "Dall'inizio",
+        "places_label": "Luogo:",
+        "places": {
+          "winterthur": "Winterthur",
+          "pole": "Polo Nord",
+          "equator": "Equatore",
+          "sydney": "Sydney"
+        },
+        "speed": "Accelerato",
+        "speeds": {
+          "1": "Tempo reale",
+          "60": "1 min al s",
+          "600": "10 min al s",
+          "3600": "1 h al s"
+        },
+        "latitude": "Latitudine",
+        "latitude_hint": "Positiva a nord, negativa a sud.",
+        "hours": "Trascorso",
+        "turned": "Piano ruotato",
+        "rate": "All'ora",
+        "never": "All'equatore il piano non ruota.",
+        "full_turn": "Qui un giro completo dura {{hours}} ore."
+      },
+      "change": {
+        "title": "Modificare l'oggetto esposto",
+        "hint": "Lunghezza e ampiezza cambiano il ritmo dell'oscillazione, non quanto veloce ruota il piano.",
+        "length": "Lunghezza del pendolo",
+        "amplitude": "Ampiezza"
+      },
+      "model": {
+        "intro": "Il pavimento ruota con la Terra. Chi vi sta sopra vede quindi il pendolo deviato da una forza che compare solo nel sistema rotante: la forza di Coriolis.",
+        "coriolis": "La sfera viene richiamata verso il centro e deviata dalla forza di Coriolis di traverso al suo moto – verso destra a nord.",
+        "latitude": "Quanto velocemente ruota il pavimento sotto il pendolo dipende dalla latitudine: al polo con l'intera rotazione terrestre, all'equatore per niente."
+      },
+      "symbols": {
+        "xy": "dove si trova la sfera sopra il pavimento",
+        "omega0": "la pulsazione dell'oscillazione",
+        "omega_z": "quanto velocemente ruota il pavimento sotto il pendolo",
+        "omega": "la rotazione della Terra, una volta per giorno siderale",
+        "phi": "la latitudine"
+      },
+      "sweet": {
+        "floor": "Il pendolo mantiene il suo piano nello spazio; il pavimento ruota sotto di esso. A Winterthur a {{rate}}° all'ora: così Foucault mostrò a Parigi nel 1851 che la Terra ruota, senza guardare il cielo.",
+        "period": "Qui un'oscillazione dura {{period}} s; il piano ruota indipendentemente da ciò. Un pendolo più corto mostra lo stesso, purché continui a oscillare abbastanza a lungo."
+      },
+      "chart": {
+        "rate": "Rotazione all'ora",
+        "latitude": "Latitudine",
+        "here": "Qui"
+      },
+      "computed": {
+        "system": "Per piccole ampiezze l'equazione è lineare e ha una soluzione chiusa: un'oscillazione il cui piano ruota con il pavimento. Così la pagina mostra subito qualsiasi ora, senza calcolare passo dopo passo; il test la confronta con un calcolo passo dopo passo su cento oscillazioni.",
+        "zeta": "la posizione della sfera come numero complesso",
+        "a": "l'ampiezza al rilascio",
+        "omega_p": "la pulsazione dell'oscillazione nel sistema rotante"
       }
     }
   }

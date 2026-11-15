@@ -229,6 +229,12 @@
         "title": "A kaotikus vízkerék",
         "summary": "Víz folyik egy kerék lyukas vödreibe: forog, megáll, visszafordul – és sosem ismétli önmagát. Ugyanazok az egyenletek, mint Lorenz időjárásmodellje.",
         "question": "Egy kerék szivárgó vödrökkel, felül víz folyik bele. Merre forog?"
+      },
+      "foucault": {
+        "short": "Foucault-inga",
+        "title": "A Foucault-inga Winterthurban",
+        "summary": "Egy hosszú inga órákon át leng, és lengési síkja lassan elfordul a padlóhoz képest: nem az inga fordul el, hanem alatta a Föld.",
+        "question": "Mennyi idő alatt fordul körbe egy inga lengési síkja Winterthurban?"
       }
     },
     "chair": {
@@ -1768,6 +1774,74 @@
       "computed": {
         "system": "Három elsőrendű egyenlet, Lorenz egyenletei, a Runge–Kutta-módszerrel a szivárgási idő századrészének lépéseiben. Visszaszámolva megadják a kerék forgását, és hogy mennyire tele van minden vödör. A teszt a kerék saját egyenleteit másodpercekben számolja, és ugyanezeket a számokat kapja.",
         "tau": "az idő a szivárgás egységeiben"
+      }
+    },
+    "foucault": {
+      "at": {
+        "swing": "Egy nehéz inga hosszú kötélen órákon át nyugodtan leng ide-oda. Semmi sem löki oldalra – mégis egy óra múlva a lengési síkja más irányba mutat.",
+        "pins": "A padlón bábukból álló koszorú áll; egymás után dőlnek el, ahogy a sík elsöpör mellettük. Winterthurban óránként 11,1°-kal fordul, az óramutató járásával egyezően: egy teljes kör 32,5 óra."
+      },
+      "view": "Az inga felülről: szaggatottan a lengési sík, a golyó nyomvonala és a bábuk koszorúja",
+      "play": {
+        "title": "Hagyja forogni a Földet",
+        "hint": "Gyorsítva látszik, ahogy a sík vándorol és a bábuk eldőlnek. Válasszon más helyet, és a tempó megváltozik.",
+        "pause": "Szünet",
+        "run": "Tovább",
+        "restart": "Elölről",
+        "places_label": "Hely:",
+        "places": {
+          "winterthur": "Winterthur",
+          "pole": "Északi-sark",
+          "equator": "Egyenlítő",
+          "sydney": "Sydney"
+        },
+        "speed": "Gyorsítás",
+        "speeds": {
+          "1": "Valós idő",
+          "60": "1 perc/s",
+          "600": "10 perc/s",
+          "3600": "1 óra/s"
+        },
+        "latitude": "Földrajzi szélesség",
+        "latitude_hint": "Északon pozitív, délen negatív.",
+        "hours": "Eltelt",
+        "turned": "A sík elfordult",
+        "rate": "Óránként",
+        "never": "Az Egyenlítőn a sík nem fordul el.",
+        "full_turn": "Itt egy teljes kör {{hours}} óráig tart."
+      },
+      "change": {
+        "title": "A kiállítási tárgy módosítása",
+        "hint": "A hossz és a kitérés a lengés ütemét változtatja, nem azt, milyen gyorsan fordul a sík.",
+        "length": "Az inga hossza",
+        "amplitude": "Kitérés"
+      },
+      "model": {
+        "intro": "A padló a Földdel együtt forog. Aki rajta áll, ezért úgy látja, hogy az ingát egy erő téríti el, amely csak a forgó vonatkoztatási rendszerben lép fel: a Coriolis-erő.",
+        "coriolis": "A golyót visszahúzza a középpont, a Coriolis-erő pedig mozgására merőlegesen téríti el – északon jobbra.",
+        "latitude": "Hogy milyen gyorsan fordul a padló az inga alatt, az a szélességtől függ: a sarkon a Föld teljes forgásával, az Egyenlítőn egyáltalán nem."
+      },
+      "symbols": {
+        "xy": "a golyó helye a padló fölött",
+        "omega0": "a lengés körfrekvenciája",
+        "omega_z": "milyen gyorsan fordul a padló az inga alatt",
+        "omega": "a Föld forgása, csillagnaponként egyszer",
+        "phi": "a földrajzi szélesség"
+      },
+      "sweet": {
+        "floor": "Az inga megtartja síkját a térben, alatta elfordul a padló. Winterthurban óránként {{rate}}°-kal: így mutatta meg Foucault 1851-ben Párizsban, hogy a Föld forog, anélkül hogy az égre nézett volna.",
+        "period": "Egy lengés itt {{period}} s; a sík ettől függetlenül fordul. Egy rövidebb inga ugyanezt mutatja, ha elég sokáig leng."
+      },
+      "chart": {
+        "rate": "Elfordulás óránként",
+        "latitude": "Földrajzi szélesség",
+        "here": "Itt"
+      },
+      "computed": {
+        "system": "Kis kitérésnél az egyenlet lineáris, és zárt megoldása van: egy lengés, amelynek síkja a padlóval együtt fordul. Ezzel az oldal bármely órát azonnal megmutat, lépésenkénti számolás nélkül; a teszt száz lengésen át egy lépésenkénti számítással veti össze.",
+        "zeta": "a golyó helye komplex számként",
+        "a": "a kitérés elengedéskor",
+        "omega_p": "a lengés körfrekvenciája a forgó rendszerben"
       }
     }
   }

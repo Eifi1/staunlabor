@@ -40,6 +40,7 @@ import { PegPage } from "./peg-page";
 import { MaxwellPage } from "./maxwell-page";
 import { ChaosPage } from "./chaos-page";
 import { WaterwheelPage } from "./waterwheel-page";
+import { FoucaultPage, knocked } from "./foucault-page";
 import { ballState, pitEntries, positionAt, raceLayout, swingAt } from "./race-views";
 import { run as runPit } from "./simulate/pit";
 import { HOLE, cameraAt, frameOf, project } from "./chair-views";
@@ -864,5 +865,33 @@ describe("the chaotic waterwheel", () => {
     expect(await screen.findByText(E.waterwheel.play.regime_still)).toBeInTheDocument();
     fireEvent.change(screen.getByRole("slider", { name: E.waterwheel.play.tap }), { target: { value: "10" } });
     expect(await screen.findByText(E.waterwheel.play.regime_steady)).toBeInTheDocument();
+  });
+});
+
+describe("Foucault's pendulum", () => {
+  it("shows the pendulum from above, the places and Winterthur's turn", async () => {
+    renderWithProviders(<FoucaultPage />);
+    expect(await screen.findByRole("img", { name: E.foucault.view })).toBeInTheDocument();
+    for (const place of ["winterthur", "pole", "equator", "sydney"] as const) {
+      expect(screen.getByRole("button", { name: E.foucault.play.places[place] })).toBeInTheDocument();
+    }
+    expect(screen.getByText("Turning right round takes 32.5 hours here.")).toBeInTheDocument();
+    expect(screen.getAllByLabelText(E.equation.symbols).length).toBeGreaterThanOrEqual(3);
+  });
+
+  it("does not turn at the equator", async () => {
+    renderWithProviders(<FoucaultPage />);
+    await screen.findByRole("img", { name: E.foucault.view });
+    fireEvent.click(screen.getByRole("button", { name: E.foucault.play.places.equator }));
+    expect(await screen.findByText(E.foucault.play.never)).toBeInTheDocument();
+  });
+
+  it("knocks a pin over once either end of the plane reaches it", () => {
+    // Clockwise in the north: the plane's angle falls.
+    expect(knocked(350, -5)).toBe(false);
+    expect(knocked(350, -12)).toBe(true);
+    expect(knocked(170, -12)).toBe(true);
+    expect(knocked(10, -12)).toBe(false);
+    expect(knocked(10, 12)).toBe(true);
   });
 });

@@ -954,6 +954,36 @@ its first harmonic counts), the wheel's tilt, splashing.
 Lorenz's, the three regimes and the steady rate, the reversals' spread, the
 cups full at the top at rest.
 
+## Foucault's pendulum (`experiments.foucault`)
+
+**The exhibit.** A long pendulum swinging for hours whose plane turns against
+the floor, knocking over a ring of pins: the floor turns under it with the
+Earth.
+
+**The model** (`domain/experiments/foucault.py`). The linear swing on the
+turning Earth, `x'' = −ω₀²x + 2Ω_z y'`, `y'' = −ω₀²y − 2Ω_z x'`,
+`Ω_z = Ω·sin φ`, `Ω` once a sidereal day; let go from rest it has the closed form
+`ζ = A·e^(−iΩ_z t)(cos ω′t + i(Ω_z/ω′) sin ω′t)`, `ω′ = √(ω₀² + Ω_z²)` — held to
+the stepped equations to 10⁻⁹ m over a hundred swings, so the page shows any
+hour without stepping. **What it shows:** in Winterthur (47.5°N) 11.1° an hour
+clockwise, once round in 32.5 hours; at the pole once a sidereal day (23.93 h),
+at the equator never, in the south the other way.
+
+**The page.** The pendulum from above (12 m, 50 cm swing), the plane dashed,
+the bob's trail, a ring of 24 pins that fall as either end of the plane reaches
+them; real time, a minute, ten minutes or an hour a second; Winterthur, the
+North Pole, the equator and Sydney, or any latitude; hours gone by, the plane's
+turn and the full turn's hours. The trick's chart is the turn an hour against
+the latitude, a sine. **No route**: the port's (`simulate/foucault.ts`).
+
+**Left out, and said:** air, which stops a real swing within hours unless it
+is kept going; the ellipse of a careless release; Airy's extra turn of a wide
+swing.
+
+**Checked by** `tests/unit/test_experiments.py`: the closed form against the
+stepped equations, the turn in Winterthur and its direction, the pole, the
+equator and the south.
+
 ## Checking the mathematics
 
 Before the engine was written each model was checked independently with SciPy

@@ -229,6 +229,12 @@
         "title": "Das chaotische Wasserrad",
         "summary": "Wasser fällt in undichte Becher an einem Rad: Es dreht sich, stockt, kehrt um – und wiederholt sich nie. Es sind dieselben Gleichungen wie Lorenz' Wettermodell.",
         "question": "Ein Rad mit undichten Bechern, oben läuft Wasser hinein. In welche Richtung dreht es sich?"
+      },
+      "foucault": {
+        "short": "Foucault-Pendel",
+        "title": "Das Foucault-Pendel in Winterthur",
+        "summary": "Ein langes Pendel schwingt stundenlang, und seine Schwingebene dreht sich langsam gegen den Boden: Nicht das Pendel dreht sich, sondern die Erde unter ihm.",
+        "question": "Wie lange braucht die Schwingebene eines Pendels in Winterthur für eine ganze Runde?"
       }
     },
     "chair": {
@@ -1768,6 +1774,74 @@
       "computed": {
         "system": "Drei Gleichungen erster Ordnung, Lorenz' Gleichungen, mit dem Runge-Kutta-Verfahren in Schritten von einem Hundertstel der Leckzeit. Zurückgerechnet ergeben sie die Drehrate des Rads und wie voll jeder Becher ist. Der Test rechnet die Gleichungen des Rads selbst in Sekunden und findet dieselben Zahlen.",
         "tau": "die Zeit in Einheiten der Lecks"
+      }
+    },
+    "foucault": {
+      "at": {
+        "swing": "Ein schweres Pendel an einem langen Seil schwingt ruhig hin und her, stundenlang. Nichts stösst es seitlich an – und doch zeigt seine Schwingebene nach einer Stunde in eine andere Richtung.",
+        "pins": "Ein Kranz von Kegeln steht am Boden; einer nach dem anderen fällt um, wenn die Ebene an ihm vorbeistreicht. In Winterthur dreht sie sich um 11,1° pro Stunde, im Uhrzeigersinn: eine ganze Runde in 32,5 Stunden."
+      },
+      "view": "Das Pendel von oben: die Schwingebene gestrichelt, die Spur der Kugel und der Kranz von Kegeln",
+      "play": {
+        "title": "Die Erde drehen lassen",
+        "hint": "Im Zeitraffer sehen Sie, wie die Ebene wandert und die Kegel fallen. Wählen Sie einen anderen Ort, und das Tempo ändert sich.",
+        "pause": "Anhalten",
+        "run": "Weiter",
+        "restart": "Von vorn",
+        "places_label": "Ort:",
+        "places": {
+          "winterthur": "Winterthur",
+          "pole": "Nordpol",
+          "equator": "Äquator",
+          "sydney": "Sydney"
+        },
+        "speed": "Zeitraffer",
+        "speeds": {
+          "1": "Echtzeit",
+          "60": "1 min pro s",
+          "600": "10 min pro s",
+          "3600": "1 h pro s"
+        },
+        "latitude": "Geografische Breite",
+        "latitude_hint": "Positiv im Norden, negativ im Süden.",
+        "hours": "Vergangen",
+        "turned": "Ebene gedreht",
+        "rate": "Pro Stunde",
+        "never": "Am Äquator dreht sich die Ebene nicht.",
+        "full_turn": "Eine ganze Runde dauert hier {{hours}} Stunden."
+      },
+      "change": {
+        "title": "Das Exponat verändern",
+        "hint": "Länge und Ausschlag ändern den Takt der Schwingung, nicht wie schnell sich die Ebene dreht.",
+        "length": "Länge des Pendels",
+        "amplitude": "Ausschlag"
+      },
+      "model": {
+        "intro": "Der Boden dreht sich mit der Erde. Wer auf ihm steht, sieht das Pendel darum von einer Kraft abgelenkt, die nur im drehenden Bezugssystem auftritt: der Corioliskraft.",
+        "coriolis": "Die Kugel wird zur Mitte zurückgezogen und von der Corioliskraft quer zu ihrer Bewegung abgelenkt – im Norden nach rechts.",
+        "latitude": "Wie schnell sich der Boden unter dem Pendel dreht, hängt von der Breite ab: am Pol mit der vollen Erddrehung, am Äquator gar nicht."
+      },
+      "symbols": {
+        "xy": "die Lage der Kugel über dem Boden",
+        "omega0": "die Kreisfrequenz der Schwingung",
+        "omega_z": "wie schnell sich der Boden unter dem Pendel dreht",
+        "omega": "die Drehung der Erde, einmal pro Sterntag",
+        "phi": "die geografische Breite"
+      },
+      "sweet": {
+        "floor": "Das Pendel hält seine Ebene im Raum, der Boden dreht sich darunter weg. In Winterthur mit {{rate}}° pro Stunde: Foucault hat 1851 so in Paris gezeigt, dass sich die Erde dreht, ohne in den Himmel zu schauen.",
+        "period": "Eine Schwingung dauert hier {{period}} s; die Ebene dreht sich davon unberührt. Ein kürzeres Pendel zeigt dasselbe, solange es lange genug weiterschwingt."
+      },
+      "chart": {
+        "rate": "Drehung pro Stunde",
+        "latitude": "Geografische Breite",
+        "here": "Hier"
+      },
+      "computed": {
+        "system": "Für kleine Ausschläge ist die Gleichung linear und hat eine geschlossene Lösung: eine Schwingung, deren Ebene sich mit dem Boden dreht. Die Seite kann damit jede Stunde sofort zeigen, ohne Schritt für Schritt dorthin zu rechnen; der Test prüft sie gegen eine Schrittrechnung über hundert Schwingungen.",
+        "zeta": "die Lage der Kugel als komplexe Zahl",
+        "a": "der Ausschlag beim Loslassen",
+        "omega_p": "die Kreisfrequenz der Schwingung im drehenden System"
       }
     }
   }

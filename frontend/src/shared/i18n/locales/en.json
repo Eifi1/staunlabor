@@ -229,6 +229,12 @@
         "title": "The chaotic waterwheel",
         "summary": "Water falls into leaking cups on a wheel: it turns, stalls, turns back – and never repeats. They are the same equations as Lorenz's weather model.",
         "question": "A wheel of leaking cups, water pouring in at the top. Which way does it turn?"
+      },
+      "foucault": {
+        "short": "Foucault pendulum",
+        "title": "Foucault's pendulum in Winterthur",
+        "summary": "A long pendulum swings for hours, and the plane it swings in turns slowly against the floor: not the pendulum turns, but the Earth under it.",
+        "question": "How long does a pendulum's plane of swing take to turn right round in Winterthur?"
       }
     },
     "chair": {
@@ -1768,6 +1774,74 @@
       "computed": {
         "system": "Three first-order equations, Lorenz's, with the Runge–Kutta method in steps of a hundredth of the leaks' time. Turned back, they give the wheel's rate and how full each cup is. The test computes the wheel's own equations in seconds and finds the same numbers.",
         "tau": "time in units of the leaks"
+      }
+    },
+    "foucault": {
+      "at": {
+        "swing": "A heavy pendulum on a long cable swings calmly to and fro, for hours. Nothing pushes it sideways – and yet after an hour its plane of swing points another way.",
+        "pins": "A ring of pins stands on the floor; one after another falls as the plane sweeps past it. In Winterthur it turns by 11.1° an hour, clockwise: right round in 32.5 hours."
+      },
+      "view": "The pendulum from above: its plane of swing dashed, the bob's trail and the ring of pins",
+      "play": {
+        "title": "Let the Earth turn",
+        "hint": "In fast motion you see the plane wander and the pins fall. Choose another place and the pace changes.",
+        "pause": "Pause",
+        "run": "Run",
+        "restart": "From the start",
+        "places_label": "Place:",
+        "places": {
+          "winterthur": "Winterthur",
+          "pole": "North Pole",
+          "equator": "Equator",
+          "sydney": "Sydney"
+        },
+        "speed": "Fast motion",
+        "speeds": {
+          "1": "Real time",
+          "60": "1 min a second",
+          "600": "10 min a second",
+          "3600": "1 h a second"
+        },
+        "latitude": "Latitude",
+        "latitude_hint": "Positive in the north, negative in the south.",
+        "hours": "Gone by",
+        "turned": "Plane turned",
+        "rate": "An hour",
+        "never": "At the equator the plane does not turn.",
+        "full_turn": "Turning right round takes {{hours}} hours here."
+      },
+      "change": {
+        "title": "Change the exhibit",
+        "hint": "Length and swing change the swing's beat, not how fast the plane turns.",
+        "length": "Length of the pendulum",
+        "amplitude": "Swing"
+      },
+      "model": {
+        "intro": "The floor turns with the Earth. Someone standing on it therefore sees the pendulum pushed aside by a force that appears only in the turning frame: the Coriolis force.",
+        "coriolis": "The bob is pulled back to the middle and pushed across its motion by the Coriolis force – to the right in the north.",
+        "latitude": "How fast the floor turns under the pendulum depends on the latitude: at the pole with the Earth's whole turn, at the equator not at all."
+      },
+      "symbols": {
+        "xy": "where the bob is above the floor",
+        "omega0": "the swing's angular frequency",
+        "omega_z": "how fast the floor turns under the pendulum",
+        "omega": "the Earth's turn, once a sidereal day",
+        "phi": "the latitude"
+      },
+      "sweet": {
+        "floor": "The pendulum keeps its plane in space; the floor turns away beneath it. In Winterthur at {{rate}}° an hour: so Foucault showed in Paris in 1851 that the Earth turns, without looking at the sky.",
+        "period": "One swing takes {{period}} s here; the plane turns regardless. A shorter pendulum shows the same, as long as it keeps swinging long enough."
+      },
+      "chart": {
+        "rate": "Turn an hour",
+        "latitude": "Latitude",
+        "here": "Here"
+      },
+      "computed": {
+        "system": "For small swings the equation is linear and has a closed solution: a swing whose plane turns with the floor. With it the page shows any hour at once, without stepping there; the test holds it to a stepped solution over a hundred swings.",
+        "zeta": "the bob's place as a complex number",
+        "a": "the swing when let go",
+        "omega_p": "the swing's angular frequency in the turning frame"
       }
     }
   }

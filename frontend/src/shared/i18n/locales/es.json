@@ -229,6 +229,12 @@
         "title": "La noria caótica",
         "summary": "El agua cae en cubos agujereados de una rueda: gira, se detiene, invierte el sentido – y nunca se repite. Son las mismas ecuaciones que el modelo del tiempo de Lorenz.",
         "question": "Una rueda de cubos que gotean, con agua entrando por arriba. ¿Hacia dónde gira?"
+      },
+      "foucault": {
+        "short": "Péndulo de Foucault",
+        "title": "El péndulo de Foucault en Winterthur",
+        "summary": "Un péndulo largo oscila durante horas, y su plano de oscilación gira despacio respecto al suelo: no gira el péndulo, sino la Tierra bajo él.",
+        "question": "¿Cuánto tarda el plano de oscilación de un péndulo en dar una vuelta completa en Winterthur?"
       }
     },
     "chair": {
@@ -1768,6 +1774,74 @@
       "computed": {
         "system": "Tres ecuaciones de primer orden, las de Lorenz, con el método de Runge-Kutta en pasos de una centésima del tiempo de fuga. Deshecho el escalado, dan el giro de la rueda y lo lleno que está cada cubo. La prueba calcula las propias ecuaciones de la rueda en segundos y encuentra los mismos números.",
         "tau": "el tiempo en unidades de las fugas"
+      }
+    },
+    "foucault": {
+      "at": {
+        "swing": "Un péndulo pesado colgado de un cable largo oscila tranquilo durante horas. Nada lo empuja de lado – y sin embargo, al cabo de una hora, su plano de oscilación apunta en otra dirección.",
+        "pins": "En el suelo hay un círculo de bolos; caen uno tras otro cuando el plano pasa por ellos. En Winterthur gira 11,1° por hora, en sentido horario: una vuelta completa en 32,5 horas."
+      },
+      "view": "El péndulo visto desde arriba: el plano de oscilación en trazos, la traza de la bola y el círculo de bolos",
+      "play": {
+        "title": "Dejar girar la Tierra",
+        "hint": "A cámara rápida se ve cómo avanza el plano y caen los bolos. Elija otro lugar y el ritmo cambia.",
+        "pause": "Pausa",
+        "run": "Seguir",
+        "restart": "Desde el principio",
+        "places_label": "Lugar:",
+        "places": {
+          "winterthur": "Winterthur",
+          "pole": "Polo Norte",
+          "equator": "Ecuador",
+          "sydney": "Sídney"
+        },
+        "speed": "Cámara rápida",
+        "speeds": {
+          "1": "Tiempo real",
+          "60": "1 min por s",
+          "600": "10 min por s",
+          "3600": "1 h por s"
+        },
+        "latitude": "Latitud",
+        "latitude_hint": "Positiva en el norte, negativa en el sur.",
+        "hours": "Transcurrido",
+        "turned": "Plano girado",
+        "rate": "Por hora",
+        "never": "En el ecuador el plano no gira.",
+        "full_turn": "Aquí una vuelta completa tarda {{hours}} horas."
+      },
+      "change": {
+        "title": "Cambiar el objeto expuesto",
+        "hint": "La longitud y la amplitud cambian el compás de la oscilación, no lo rápido que gira el plano.",
+        "length": "Longitud del péndulo",
+        "amplitude": "Amplitud"
+      },
+      "model": {
+        "intro": "El suelo gira con la Tierra. Quien está sobre él ve por eso el péndulo desviado por una fuerza que solo aparece en el sistema que gira: la fuerza de Coriolis.",
+        "coriolis": "La bola es atraída de vuelta al centro y desviada por la fuerza de Coriolis de través a su movimiento – hacia la derecha en el norte.",
+        "latitude": "Lo rápido que gira el suelo bajo el péndulo depende de la latitud: en el polo con todo el giro de la Tierra, en el ecuador nada."
+      },
+      "symbols": {
+        "xy": "dónde está la bola sobre el suelo",
+        "omega0": "la frecuencia angular de la oscilación",
+        "omega_z": "lo rápido que gira el suelo bajo el péndulo",
+        "omega": "el giro de la Tierra, una vez por día sidéreo",
+        "phi": "la latitud"
+      },
+      "sweet": {
+        "floor": "El péndulo mantiene su plano en el espacio y el suelo gira debajo. En Winterthur a {{rate}}° por hora: así mostró Foucault en París en 1851 que la Tierra gira, sin mirar al cielo.",
+        "period": "Aquí una oscilación dura {{period}} s; el plano gira sin que eso importe. Un péndulo más corto muestra lo mismo, siempre que siga oscilando lo suficiente."
+      },
+      "chart": {
+        "rate": "Giro por hora",
+        "latitude": "Latitud",
+        "here": "Aquí"
+      },
+      "computed": {
+        "system": "Para amplitudes pequeñas la ecuación es lineal y tiene solución cerrada: una oscilación cuyo plano gira con el suelo. Con ella la página muestra cualquier hora al instante, sin ir paso a paso; la prueba la contrasta con un cálculo paso a paso durante cien oscilaciones.",
+        "zeta": "la posición de la bola como número complejo",
+        "a": "la amplitud al soltar",
+        "omega_p": "la frecuencia angular de la oscilación en el sistema que gira"
       }
     }
   }

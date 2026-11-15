@@ -229,6 +229,12 @@
         "title": "La roue à eau chaotique",
         "summary": "L'eau tombe dans des godets percés sur une roue : elle tourne, cale, repart dans l'autre sens – et ne se répète jamais. Ce sont les mêmes équations que le modèle météo de Lorenz.",
         "question": "Une roue de godets qui fuient, l'eau coulant en haut. Dans quel sens tourne-t-elle ?"
+      },
+      "foucault": {
+        "short": "Pendule de Foucault",
+        "title": "Le pendule de Foucault à Winterthour",
+        "summary": "Un long pendule oscille pendant des heures, et son plan d'oscillation tourne lentement par rapport au sol : ce n'est pas le pendule qui tourne, mais la Terre sous lui.",
+        "question": "Combien de temps le plan d'oscillation d'un pendule met-il pour faire un tour complet à Winterthour ?"
       }
     },
     "chair": {
@@ -1768,6 +1774,74 @@
       "computed": {
         "system": "Trois équations du premier ordre, celles de Lorenz, par la méthode de Runge-Kutta, par pas d'un centième du temps de fuite. Remises à l'échelle, elles donnent la rotation de la roue et le remplissage de chaque godet. Le test calcule les propres équations de la roue en secondes et retrouve les mêmes nombres.",
         "tau": "le temps en unités des fuites"
+      }
+    },
+    "foucault": {
+      "at": {
+        "swing": "Un pendule lourd au bout d'un long câble oscille calmement pendant des heures. Rien ne le pousse de côté – et pourtant, au bout d'une heure, son plan d'oscillation pointe dans une autre direction.",
+        "pins": "Une couronne de quilles se tient au sol ; elles tombent l'une après l'autre quand le plan passe. À Winterthour, il tourne de 11,1° par heure, dans le sens horaire : un tour complet en 32,5 heures."
+      },
+      "view": "Le pendule vu d'en haut : le plan d'oscillation en pointillé, la trace de la boule et la couronne de quilles",
+      "play": {
+        "title": "Laisser tourner la Terre",
+        "hint": "En accéléré, on voit le plan avancer et les quilles tomber. Choisissez un autre lieu, et le rythme change.",
+        "pause": "Pause",
+        "run": "Reprendre",
+        "restart": "Depuis le début",
+        "places_label": "Lieu :",
+        "places": {
+          "winterthur": "Winterthour",
+          "pole": "Pôle Nord",
+          "equator": "Équateur",
+          "sydney": "Sydney"
+        },
+        "speed": "Accéléré",
+        "speeds": {
+          "1": "Temps réel",
+          "60": "1 min par s",
+          "600": "10 min par s",
+          "3600": "1 h par s"
+        },
+        "latitude": "Latitude",
+        "latitude_hint": "Positive au nord, négative au sud.",
+        "hours": "Écoulé",
+        "turned": "Plan tourné",
+        "rate": "Par heure",
+        "never": "À l'équateur, le plan ne tourne pas.",
+        "full_turn": "Ici, un tour complet dure {{hours}} heures."
+      },
+      "change": {
+        "title": "Modifier l'objet exposé",
+        "hint": "La longueur et l'amplitude changent la cadence de l'oscillation, pas la vitesse à laquelle le plan tourne.",
+        "length": "Longueur du pendule",
+        "amplitude": "Amplitude"
+      },
+      "model": {
+        "intro": "Le sol tourne avec la Terre. Qui s'y tient voit donc le pendule dévié par une force qui n'apparaît que dans le référentiel tournant : la force de Coriolis.",
+        "coriolis": "La boule est ramenée vers le centre et déviée par la force de Coriolis en travers de son mouvement – vers la droite au nord.",
+        "latitude": "La vitesse à laquelle le sol tourne sous le pendule dépend de la latitude : au pôle avec toute la rotation de la Terre, à l'équateur pas du tout."
+      },
+      "symbols": {
+        "xy": "la position de la boule au-dessus du sol",
+        "omega0": "la pulsation de l'oscillation",
+        "omega_z": "la vitesse à laquelle le sol tourne sous le pendule",
+        "omega": "la rotation de la Terre, un tour par jour sidéral",
+        "phi": "la latitude"
+      },
+      "sweet": {
+        "floor": "Le pendule garde son plan dans l'espace ; le sol tourne en dessous. À Winterthour à {{rate}}° par heure : c'est ainsi que Foucault montra à Paris en 1851 que la Terre tourne, sans regarder le ciel.",
+        "period": "Une oscillation dure ici {{period}} s ; le plan tourne sans s'en soucier. Un pendule plus court montre la même chose, pourvu qu'il oscille assez longtemps."
+      },
+      "chart": {
+        "rate": "Rotation par heure",
+        "latitude": "Latitude",
+        "here": "Ici"
+      },
+      "computed": {
+        "system": "Pour de petites amplitudes, l'équation est linéaire et a une solution fermée : une oscillation dont le plan tourne avec le sol. La page peut ainsi montrer n'importe quelle heure tout de suite, sans calculer pas à pas ; le test la confronte à un calcul pas à pas sur cent oscillations.",
+        "zeta": "la position de la boule sous forme de nombre complexe",
+        "a": "l'amplitude au lâcher",
+        "omega_p": "la pulsation de l'oscillation dans le référentiel tournant"
       }
     }
   }

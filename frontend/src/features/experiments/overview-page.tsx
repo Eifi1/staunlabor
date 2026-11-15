@@ -12,6 +12,7 @@ import {
   Disc3,
   Droplets,
   GlassWater,
+  Globe,
   HelpCircle,
   Link2,
   Magnet,
@@ -67,6 +68,7 @@ const ICON: Record<Exhibit, LucideIcon> = {
   maxwell: Disc3,
   chaos: Shuffle,
   waterwheel: Droplets,
+  foucault: Globe,
 };
 
 /** Two weeks back, in the dialog: long enough to find the one a friend

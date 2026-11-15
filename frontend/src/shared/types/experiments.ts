@@ -586,6 +586,15 @@ export interface WaterWheelRequest {
   leak_per_s: number;
 }
 
+// ── Foucault's pendulum ──────────────────────────────────────────────────────
+
+/** The engine's `FoucaultPendulum`. No route: the page asks the port (`simulate/foucault.ts`). */
+export interface FoucaultPendulumRequest {
+  length_m: number;
+  amplitude_m: number;
+  latitude_deg: number;
+}
+
 // ── the pages' starting point ────────────────────────────────────────────────
 
 export interface ExperimentsDefaults {
@@ -605,6 +614,7 @@ export interface ExperimentsDefaults {
   maxwell: MaxwellWheelRequest;
   chaos: DoublePendulumRequest;
   waterwheel: WaterWheelRequest;
+  foucault: FoucaultPendulumRequest;
   meter_range_a: number;
   settle_s: number;
 }
