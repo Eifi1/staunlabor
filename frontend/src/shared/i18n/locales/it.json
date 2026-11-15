@@ -259,6 +259,12 @@
         "title": "Le aste risonanti",
         "summary": "Sei aste su un tavolo che trema appena – eppure una oscilla ampiamente quando il ritmo è giusto. Le altre restano quasi ferme.",
         "question": "Come fa un tavolo che si muove di un solo millimetro a far oscillare un'asta di otto centimetri?"
+      },
+      "gyroscope": {
+        "short": "Ruota giroscopica",
+        "title": "La ruota giroscopica",
+        "summary": "Una ruota pesante è appesa a un filo per un'estremità del suo asse. Ferma, cade; in rotazione, resta su e gira lentamente in cerchio.",
+        "question": "Perché una ruota che gira non cade, ma si sposta di lato?"
       }
     },
     "chair": {
@@ -2124,6 +2130,71 @@
         "system": "Ogni asta è calcolata come una sola vibrazione: il suo primo modo alla sua frequenza propria, spinto dallo scuotimento del tavolo, con Runge–Kutta a passi di un millisecondo. Scorrendo, il ritmo sale tra un passo e l'altro. Il test confronta le costanti del primo modo con i valori di ogni tabella (β₁² = 3,516, Γ = 1,566) e il calcolo passo a passo con la formula chiusa.",
         "sound": "Il suono nasce nel browser ed è spento finché non lo accende; nulla viene salvato o inviato.",
         "left_out": "Tralasciati: i modi superiori (il secondo è 6,27 volte più alto), l'irrigidimento dell'asta nelle oscillazioni ampie, la cedevolezza del tavolo."
+      }
+    },
+    "gyroscope": {
+      "at": {
+        "wheel": "Una ruota pesante su un asse è appesa a un filo per un'estremità dell'asse. Lasciata andare ferma, cade subito. Se gira veloce, l'asse resta quasi orizzontale e la ruota gira lentamente attorno al filo.",
+        "suitcase": "Accanto c'è una valigia in cui gira una ruota simile. Chi la porta e vuole girare un angolo la sente inclinarsi di lato."
+      },
+      "view": "La ruota sul suo filo, vista un po' dall'alto, un raggio colorato",
+      "trace": "La traccia dell'asse: quanto scende sotto la sua altezza iniziale, nell'ultimo giro attorno al filo",
+      "trace_caption": "La traccia dell'asse nell'ultimo giro attorno al filo: quanto scende sotto l'altezza iniziale",
+      "play": {
+        "title": "Far girare e lasciare",
+        "hint": "Lasci andare la ruota una volta ferma, poi a 200 giri/min. Mostrato quattro volte più lento, si vede l'asse annuire.",
+        "let_go": "Lasciare",
+        "pause": "Pausa",
+        "run": "Continuare",
+        "start": "Al rilascio",
+        "starts": {
+          "rest": "Ferma",
+          "steady": "Già in cerchio"
+        },
+        "speed": "Velocità",
+        "speeds": {
+          "100": "Tempo reale",
+          "25": "4× più lento"
+        },
+        "rpm": "Rotazione della ruota",
+        "rpm_unit": "giri/min",
+        "tilt": "Inclinazione dell'asse",
+        "tilt_hint": "Rispetto alla verticale verso l'alto: 90° vuol dire orizzontale.",
+        "round": "Un giro attorno al filo",
+        "nods": "Cenni al secondo",
+        "dip": "L'asse scende di",
+        "suitcase": "Girare la valigia",
+        "suitcase_hint": "Chi gira la valigia con questa ruota di un quarto di giro al secondo a un angolo deve applicare questa coppia di traverso.",
+        "dropped": "Senza rotazione la ruota cade: dopo {{t}} s pende quasi verticale."
+      },
+      "model": {
+        "intro": "Una ruota che gira ha un momento angolare lungo il suo asse. La gravità tira la ruota, il filo trattiene l'estremità dell'asse: ne nasce una coppia di traverso all'asse, orizzontale.",
+        "torque": "Una coppia cambia il momento angolare nella propria direzione – e quella è orizzontale, di traverso all'asse. Così l'asse gira di lato invece di cadere.",
+        "precession": "Quanto in fretta l'asse gira attorno al filo: più veloce gira la ruota, più lentamente.",
+        "lagrange": "Ciò che la pagina calcola: l'inclinazione dell'asse secondo Lagrange, per una trottola con un punto fisso. Il momento angolare attorno all'asse e quello attorno al filo si conservano.",
+        "suitcase": "Chi gira l'asse deve applicare questa coppia di traverso; se manca, la valigia si inclina."
+      },
+      "symbols": {
+        "l": "il momento angolare della ruota",
+        "m": "la coppia",
+        "omega_p": "quanto in fretta l'asse gira attorno al filo",
+        "mass": "la massa della ruota",
+        "d": "la distanza dal filo al centro della ruota",
+        "i3": "il momento d'inerzia attorno all'asse: un cerchione di raggio r",
+        "omega3": "quanto in fretta la ruota gira sul suo asse",
+        "theta": "l'inclinazione dell'asse rispetto alla verticale",
+        "phi": "di quanto l'asse ha girato attorno al filo",
+        "i1": "il momento d'inerzia di traverso all'asse, attorno alla sua estremità",
+        "turn": "quanto in fretta si gira la valigia"
+      },
+      "sweet": {
+        "sideways": "La ruota non cede nella direzione in cui è tirata, ma di traverso. Senza rotazione, dopo 0,37 s pende quasi verticale; a 200 giri al minuto l'asse resta su e fa il giro del filo in 8,1 s. Se la ruota gira due volte più in fretta, il giro attorno al filo dura il doppio.",
+        "nod": "Ma non del tutto senza cadere: lasciato andare, l'asse scende prima di 3,2°, supera il giro uniforme e torna indietro – annuisce, poco più di quattro volte al secondo, e la sua traccia disegna archi con punte. Tanto in basso quanto l'energia e i due momenti angolari conservati permettono, e non di più.",
+        "suitcase": "Per questo la valigia si inclina: girarla con questa ruota di un quarto di giro al secondo a un angolo richiede 5,9 N·m di traverso – quanto 600 g all'estremità di un metro."
+      },
+      "computed": {
+        "system": "La ruota è una trottola simmetrica con un punto fisso, l'estremità dell'asse al filo; la sua massa sta nel cerchione. Secondo Lagrange si conservano due momenti angolari, attorno all'asse e attorno al filo; si calcola passo dopo passo solo l'inclinazione, con Runge–Kutta a passi di un millisecondo. Il test verifica l'energia, il giro uniforme e quanto scende l'asse rispetto al calcolo dalle sole grandezze conservate.",
+        "left_out": "Tralasciati: che il filo stesso oscilli e si allunghi (la sua estremità è il punto fisso), l'attrito nel cuscinetto e al filo, l'aria. Raggi e mozzo non contano accanto al cerchione."
       }
     }
   }

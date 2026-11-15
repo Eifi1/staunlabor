@@ -259,6 +259,12 @@
         "title": "A rezonáló pálcák",
         "summary": "Hat pálca egy alig remegő asztalon – mégis az egyik nagyot leng, ha stimmel az ütem. A többi szinte mozdulatlan marad.",
         "question": "Hogyan tud egy csupán egy millimétert mozduló asztal nyolc centiméteres lengésbe hozni egy pálcát?"
+      },
+      "gyroscope": {
+        "short": "Pörgettyűkerék",
+        "title": "A pörgettyűkerék",
+        "summary": "Egy nehéz kerék tengelyének egyik végénél fogva egy fonálon lóg. Állva leesik; forogva fent marad, és lassan körbevándorol.",
+        "question": "Miért nem esik le a forgó kerék, hanem oldalra tér ki?"
       }
     },
     "chair": {
@@ -2124,6 +2130,71 @@
         "system": "Minden pálcát egyetlen rezgésként számolunk: első rezgési alakja a saját frekvenciáján, amelyet az asztal rázása lök meg, Runge–Kutta-módszerrel, egy ezredmásodperces lépésekben. Végigfutáskor az ütem a lépések között nő. A teszt az első rezgési alak állandóit bármely táblázat értékeihez méri (β₁² = 3,516, Γ = 1,566), a lépésenkénti számítást pedig a zárt képlethez.",
         "sound": "A hang a böngészőben keletkezik, és ki van kapcsolva, amíg be nem kapcsolja; semmi sem kerül mentésre vagy elküldésre.",
         "left_out": "Kimaradt: a magasabb rezgési alakok (a második 6,27-szer magasabban van), a pálca merevedése nagy kitéréseknél, az asztal engedékenysége."
+      }
+    },
+    "gyroscope": {
+      "at": {
+        "wheel": "Egy tengelyen ülő nehéz kerék a tengely egyik végénél fogva egy fonálon lóg. Állva elengedve azonnal leesik. Ha gyorsan forog, a tengely csaknem vízszintes marad, és a kerék lassan körbevándorol a fonál körül.",
+        "suitcase": "Mellette áll egy bőrönd, amelyben egy ilyen kerék forog. Aki viszi, és be akar fordulni egy sarkon, érzi, hogy oldalra billen."
+      },
+      "view": "A kerék a fonalán, kissé felülről, egy küllő színes",
+      "trace": "A tengely nyoma: mennyivel süllyed a kezdő magassága alá, a fonál körüli utolsó körben",
+      "trace_caption": "A tengely nyoma a fonál körüli utolsó körben: mennyivel süllyed a kezdő magassága alá",
+      "play": {
+        "title": "Megforgatni és elengedni",
+        "hint": "Engedje el a kereket egyszer állva, aztán 200 fordulat/perccel. Négyszer lassabban mutatva látszik, ahogy a tengely bólogat.",
+        "let_go": "Elengedni",
+        "pause": "Megállítás",
+        "run": "Tovább",
+        "start": "Elengedéskor",
+        "starts": {
+          "rest": "Nyugalomban",
+          "steady": "Már körben"
+        },
+        "speed": "Tempó",
+        "speeds": {
+          "100": "Valós idő",
+          "25": "4× lassabban"
+        },
+        "rpm": "A kerék fordulatszáma",
+        "rpm_unit": "1/perc",
+        "tilt": "A tengely dőlése",
+        "tilt_hint": "A felfelé mutató függőlegeshez képest: 90° vízszintest jelent.",
+        "round": "Egyszer a fonál körül",
+        "nods": "Bólintás másodpercenként",
+        "dip": "A tengely süllyedése",
+        "suitcase": "A bőrönd fordítása",
+        "suitcase_hint": "Aki ezzel a kerékkel a bőröndöt másodpercenként negyed fordulattal fordítja be egy sarkon, annak keresztben ekkora forgatónyomatékot kell kifejtenie.",
+        "dropped": "Forgás nélkül a kerék leesik: {{t}} s után szinte függőlegesen lóg."
+      },
+      "model": {
+        "intro": "A forgó keréknek a tengelye mentén perdülete van. A gravitáció húzza a kereket, a fonál tartja a tengely végét: ebből a tengelyre merőleges, vízszintes forgatónyomaték lesz.",
+        "torque": "A forgatónyomaték a perdületet a saját irányába változtatja – ez pedig vízszintes, a tengelyre merőleges. Így a tengely oldalra fordul, ahelyett hogy leesne.",
+        "precession": "Milyen gyorsan vándorol a tengely a fonál körül: minél gyorsabban forog a kerék, annál lassabban.",
+        "lagrange": "Amit az oldal számol: a tengely dőlése Lagrange szerint, egy rögzített pontú pörgettyűre. A tengely körüli és a fonál körüli perdület közben megmarad.",
+        "suitcase": "Aki a tengelyt fordítja, annak keresztben ekkora forgatónyomatékot kell kifejtenie; ha ez hiányzik, a bőrönd billen."
+      },
+      "symbols": {
+        "l": "a kerék perdülete",
+        "m": "a forgatónyomaték",
+        "omega_p": "milyen gyorsan vándorol a tengely a fonál körül",
+        "mass": "a kerék tömege",
+        "d": "a fonál és a kerék közepe közti távolság",
+        "i3": "a tengely körüli tehetetlenségi nyomaték: egy r sugarú abroncs",
+        "omega3": "milyen gyorsan forog a kerék a tengelyén",
+        "theta": "a tengely dőlése a függőlegeshez képest",
+        "phi": "mennyit vándorolt a tengely a fonál körül",
+        "i1": "a tengelyre merőleges tehetetlenségi nyomaték a tengely végére",
+        "turn": "milyen gyorsan fordítják a bőröndöt"
+      },
+      "sweet": {
+        "sideways": "A kerék nem abba az irányba tér ki, amerre húzzák, hanem arra merőlegesen. Forgás nélkül 0,37 s után szinte függőlegesen lóg; percenként 200 fordulattal a tengely fent marad, és 8,1 s alatt kerüli meg egyszer a fonalat. Kétszer olyan gyorsan forgatva feleolyan gyorsan vándorol.",
+        "nod": "Egészen esés nélkül azonban nem megy: elengedve a tengely előbb 3,2°-ot süllyed, túllendül az egyenletes vándorláson, és visszatér – bólogat, valamivel több mint négyszer másodpercenként, és nyoma csúcsos íveket rajzol. Olyan mélyre, amennyit az energia és a két megmaradó perdület enged, és nem mélyebbre.",
+        "suitcase": "Ezért billen a bőrönd: ezzel a kerékkel másodpercenként negyed fordulattal befordítani egy sarkon keresztben 5,9 N·m-t kíván – annyit, mint 600 g egy mérővessző végén."
+      },
+      "computed": {
+        "system": "A kerék rögzített pontú szimmetrikus pörgettyű, a pont a tengely fonálon lógó vége; tömege az abroncsban van. Lagrange szerint két perdület marad meg, a tengely körüli és a fonál körüli; lépésenként csak a dőlést számoljuk, Runge–Kutta-módszerrel, egy ezredmásodperces lépésekben. A teszt ellenőrzi az energiát, az egyenletes vándorlást, és hogy a tengely olyan mélyre süllyed-e, mint amennyit pusztán a megmaradó mennyiségekből számolunk.",
+        "left_out": "Kimaradt: hogy maga a fonál is leng és nyúlik (vége a rögzített pont), a súrlódás a csapágyban és a fonálnál, a levegő. Küllők és agy az abroncs mellett nem számítanak."
       }
     }
   }

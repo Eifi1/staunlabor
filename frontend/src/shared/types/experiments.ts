@@ -638,6 +638,16 @@ export interface ResonanceRackRequest {
   table_m: number;
 }
 
+// ── the gyroscope wheel ──────────────────────────────────────────────────────
+
+/** The engine's `Wheel`. No route: the page asks the port (`simulate/gyroscope.ts`). */
+export interface GyroWheelRequest {
+  mass_kg: number;
+  radius_m: number;
+  axle_m: number;
+  rpm: number;
+}
+
 // ── the pages' starting point ────────────────────────────────────────────────
 
 export interface ExperimentsDefaults {
@@ -662,6 +672,7 @@ export interface ExperimentsDefaults {
   cradle: CradleRequest;
   well: FunnelRequest;
   resonance: ResonanceRackRequest;
+  gyroscope: GyroWheelRequest;
   meter_range_a: number;
   settle_s: number;
 }

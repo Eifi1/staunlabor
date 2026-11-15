@@ -29,6 +29,7 @@ import {
   Ellipsis,
   Target,
   AudioWaveform,
+  LifeBuoy,
 } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
 import {
@@ -77,6 +78,7 @@ const ICON: Record<Exhibit, LucideIcon> = {
   cradle: Ellipsis,
   well: Target,
   resonance: AudioWaveform,
+  gyroscope: LifeBuoy,
 };
 
 /** Two weeks back, in the dialog: long enough to find the one a friend

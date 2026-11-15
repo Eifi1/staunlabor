@@ -259,6 +259,12 @@
         "title": "Les tiges résonantes",
         "summary": "Six tiges sur une table qui tremble à peine – et pourtant l'une oscille largement quand le rythme est juste. Les autres restent presque immobiles.",
         "question": "Comment une table qui ne bouge que d'un millimètre fait-elle osciller une tige de huit centimètres ?"
+      },
+      "gyroscope": {
+        "short": "Roue gyroscopique",
+        "title": "La roue gyroscopique",
+        "summary": "Une lourde roue pend à un fil par une extrémité de son axe. Immobile, elle tombe ; en rotation, elle reste en haut et tourne lentement en rond.",
+        "question": "Pourquoi une roue qui tourne ne tombe-t-elle pas, mais s'écarte-t-elle sur le côté ?"
       }
     },
     "chair": {
@@ -2124,6 +2130,71 @@
         "system": "Chaque tige est calculée comme une seule vibration : son premier mode à sa fréquence propre, poussé par la secousse de la table, par Runge–Kutta par pas d'une milliseconde. Pendant un balayage, le rythme monte entre les pas. Le test confronte les constantes du premier mode aux valeurs de toute table (β₁² = 3,516, Γ = 1,566) et le calcul pas à pas à la formule fermée.",
         "sound": "Le son est produit dans le navigateur et reste coupé jusqu'à ce que vous l'activiez ; rien n'en est enregistré ni envoyé.",
         "left_out": "Laissé de côté : les modes supérieurs (le deuxième est 6,27 fois plus haut), le raidissement de la tige aux grandes oscillations, la souplesse de la table."
+      }
+    },
+    "gyroscope": {
+      "at": {
+        "wheel": "Une lourde roue sur un axe pend à un fil par une extrémité de l'axe. Lâchée immobile, elle tombe aussitôt. Tournant vite, l'axe reste presque horizontal et la roue tourne lentement autour du fil.",
+        "suitcase": "À côté se trouve une valise dans laquelle tourne une telle roue. Qui la porte et veut tourner à un coin la sent basculer sur le côté."
+      },
+      "view": "La roue au bout de son fil, vue un peu d'en haut, un rayon en couleur",
+      "trace": "La trace de l'axe : de combien il descend sous sa hauteur de départ, sur le dernier tour autour du fil",
+      "trace_caption": "La trace de l'axe sur le dernier tour autour du fil : de combien il descend sous sa hauteur de départ",
+      "play": {
+        "title": "Lancer et lâcher",
+        "hint": "Lâchez la roue une fois immobile, puis à 200 tr/min. Montré quatre fois plus lentement, on voit l'axe hocher.",
+        "let_go": "Lâcher",
+        "pause": "Pause",
+        "run": "Continuer",
+        "start": "Au lâcher",
+        "starts": {
+          "rest": "Au repos",
+          "steady": "Déjà en rond"
+        },
+        "speed": "Vitesse",
+        "speeds": {
+          "100": "Temps réel",
+          "25": "4× plus lent"
+        },
+        "rpm": "Rotation de la roue",
+        "rpm_unit": "tr/min",
+        "tilt": "Inclinaison de l'axe",
+        "tilt_hint": "Par rapport à la verticale vers le haut : 90° signifie horizontal.",
+        "round": "Un tour du fil",
+        "nods": "Hochements par seconde",
+        "dip": "L'axe descend de",
+        "suitcase": "Tourner la valise",
+        "suitcase_hint": "Qui tourne la valise avec cette roue d'un quart de tour par seconde à un coin doit fournir ce couple en travers.",
+        "dropped": "Sans rotation, la roue tombe : après {{t}} s, elle pend presque à la verticale."
+      },
+      "model": {
+        "intro": "Une roue qui tourne a un moment cinétique le long de son axe. La pesanteur tire sur la roue, le fil retient l'extrémité de l'axe : cela donne un couple en travers de l'axe, horizontal.",
+        "torque": "Un couple change le moment cinétique dans sa propre direction – et celle-ci est horizontale, en travers de l'axe. Donc l'axe tourne sur le côté au lieu de tomber.",
+        "precession": "La vitesse à laquelle l'axe tourne autour du fil : plus la roue tourne vite, plus c'est lent.",
+        "lagrange": "Ce que calcule la page : l'inclinaison de l'axe selon Lagrange, pour une toupie à point fixe. Le moment cinétique autour de l'axe et celui autour du fil se conservent.",
+        "suitcase": "Qui tourne l'axe doit fournir ce couple en travers ; sans lui, la valise bascule."
+      },
+      "symbols": {
+        "l": "le moment cinétique de la roue",
+        "m": "le couple",
+        "omega_p": "la vitesse à laquelle l'axe tourne autour du fil",
+        "mass": "la masse de la roue",
+        "d": "la distance du fil au centre de la roue",
+        "i3": "le moment d'inertie autour de l'axe : un cerceau de rayon r",
+        "omega3": "la vitesse de rotation de la roue sur son axe",
+        "theta": "l'inclinaison de l'axe par rapport à la verticale",
+        "phi": "de combien l'axe a tourné autour du fil",
+        "i1": "le moment d'inertie en travers de l'axe, autour de son extrémité",
+        "turn": "la vitesse à laquelle on tourne la valise"
+      },
+      "sweet": {
+        "sideways": "La roue ne cède pas dans la direction où on la tire, mais en travers. Sans rotation, elle pend presque à la verticale après 0,37 s ; à 200 tours par minute, l'axe reste en haut et fait le tour du fil en 8,1 s. Tournée deux fois plus vite, elle tourne deux fois plus lentement.",
+        "nod": "Mais pas tout à fait sans tomber : lâché, l'axe descend d'abord de 3,2°, dépasse la rotation régulière et revient – il hoche, un peu plus de quatre fois par seconde, et sa trace dessine des arcs à pointes. Aussi bas que l'énergie et les deux moments cinétiques conservés le permettent, et pas plus.",
+        "suitcase": "Voilà pourquoi la valise bascule : la tourner avec cette roue d'un quart de tour par seconde à un coin demande 5,9 N·m en travers – autant que 600 g au bout d'un mètre."
+      },
+      "computed": {
+        "system": "La roue est une toupie symétrique à point fixe, l'extrémité de l'axe au fil ; sa masse est dans le cerceau. Selon Lagrange, deux moments cinétiques se conservent, autour de l'axe et autour du fil ; seule l'inclinaison est calculée pas à pas, par Runge–Kutta par pas d'une milliseconde. Le test vérifie l'énergie, la rotation régulière, et la profondeur de descente de l'axe par rapport au calcul à partir des seules grandeurs conservées.",
+        "left_out": "Laissé de côté : que le fil lui-même oscille et s'étire (son extrémité est le point fixe), le frottement dans le palier et au fil, l'air. Rayons et moyeu ne comptent pas à côté du cerceau."
       }
     }
   }

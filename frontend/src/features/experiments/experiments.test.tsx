@@ -45,6 +45,7 @@ import { CoriolisPage } from "./coriolis-page";
 import { CradlePage } from "./cradle-page";
 import { WellPage } from "./well-page";
 import { ResonancePage } from "./resonance-page";
+import { GyroscopePage } from "./gyroscope-page";
 import { ballState, pitEntries, positionAt, raceLayout, swingAt } from "./race-views";
 import { run as runPit } from "./simulate/pit";
 import { HOLE, cameraAt, frameOf, project } from "./chair-views";
@@ -980,5 +981,23 @@ describe("the resonance rods", () => {
     fireEvent.click(screen.getByRole("button", { name: E.resonance.play.sweep }));
     // The beat drops to the sweep's start and climbs from there.
     expect((await screen.findAllByDisplayValue(/^1\.0\d$/)).length).toBeGreaterThan(0);
+  });
+});
+
+describe("the gyroscope wheel", () => {
+  it("shows the wheel on its string, its round in 8.1 s and the suitcase's 5.9 N·m", async () => {
+    renderWithProviders(<GyroscopePage />);
+    expect(await screen.findByRole("img", { name: E.gyroscope.view })).toBeInTheDocument();
+    expect(screen.getByRole("img", { name: E.gyroscope.trace })).toBeInTheDocument();
+    expect(screen.getByText("8.1")).toBeInTheDocument();
+    expect(screen.getByText("5.9")).toBeInTheDocument();
+    expect(screen.getAllByLabelText(E.equation.symbols).length).toBeGreaterThanOrEqual(4);
+  });
+
+  it("lets go when asked, and can be paused", async () => {
+    renderWithProviders(<GyroscopePage />);
+    await screen.findByRole("img", { name: E.gyroscope.view });
+    fireEvent.click(screen.getByRole("button", { name: E.gyroscope.play.let_go }));
+    expect(await screen.findByRole("button", { name: E.gyroscope.play.pause })).toBeInTheDocument();
   });
 });

@@ -1166,6 +1166,47 @@ tables; the second mode's ratio found independently; the six frequencies; the
 78, 4 and 26 mm; the stepped swings settling on the closed form within 1 %;
 the build-up to 1 − 1/e in 7.2 s; the sweep's 40 mm at 2.4 Hz.
 
+## The gyroscope wheel (`experiments.gyroscope`)
+
+**The exhibit.** A heavy wheel hung on a string by one end of its axle: still,
+it drops; spun, it stays up and wanders slowly round the string. Beside it a
+suitcase hiding such a wheel tips sideways when carried round a corner.
+
+**The model** (`domain/experiments/gyroscope.py`). Lagrange's heavy symmetric
+top with the axle's end as the fixed point; the wheel a hoop (`I₃ = m·r²`,
+`I₁ = m·r²/2 + m·d²` about the pivot). Euler's angles; `ω₃` and `p_φ` kept,
+so `φ̇` follows from `θ`, and only `θ` (with `ψ` beside it for the drawing) is
+stepped by Runge–Kutta, a millisecond at a time. The steady turn at a tilt is
+the slow root of the quadratic; level, `m·g·d/(I₃·ω₃)`. A run stops where the
+axle hangs within 10° of straight down: the equations hold there, the string
+would long have swung.
+
+**What it shows** (2 kg hoop of 30 cm on a 15 cm axle, 200 rpm, level). Still,
+it hangs nearly straight down after 0.37 s. Spun, it turns once round the
+string in 8.1 s, and twice as slowly spun twice as fast; let go from rest it
+keeps that pace on average to half a per cent, dipping 3.2° — the turning
+point of energy and the two kept momenta, `2I₁mgd·u² − L₃²·u − 2I₁mgd = 0`,
+`u = cos θ` — and nodding 4.4 times a second, its track arches with points
+at the starting height. The suitcase turned a quarter turn a second: 5.9 N·m
+across, 600 g at the end of a metre rule.
+
+**The page.** The wheel on its string seen a little from above, one spoke
+coloured so the spin shows; under it the axle's dip against its turn over the
+last round; the spin, the tilt at release, released at rest or already
+circling, real time or four times slower; the round's time, the nods a
+second, the dip, the suitcase's torque. **No route**: the port's
+(`simulate/gyroscope.ts`); the engine's `run` and `energy_j` are not ported
+(the page shows neither; the energy is held in Python), the test samples the
+port's steps the engine's way.
+
+**Left out, and said:** the string's swing and stretch, friction in the
+bearing and at the string, air; spokes and hub beside the hoop.
+
+**Checked by** `tests/unit/test_experiments.py`: the drop in 0.37 s; energy
+to 10⁻⁸ over 20 s and a steady release keeping its tilt to 10⁻⁶ degrees; the
+8.1 s round, its halving, the mean pace; the dip against the kept quantities'
+quadratic to 0.02°; the 4.4 nods a second; the 5.9 N·m.
+
 ## Checking the mathematics
 
 Before the engine was written each model was checked independently with SciPy

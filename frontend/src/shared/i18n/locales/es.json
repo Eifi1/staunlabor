@@ -259,6 +259,12 @@
         "title": "Las varillas resonantes",
         "summary": "Seis varillas sobre una mesa que apenas tiembla – y aun así una oscila con amplitud cuando el ritmo es el justo. Las demás casi no se mueven.",
         "question": "¿Cómo consigue una mesa que se mueve un solo milímetro que una varilla oscile ocho centímetros?"
+      },
+      "gyroscope": {
+        "short": "Rueda giroscópica",
+        "title": "La rueda giroscópica",
+        "summary": "Una rueda pesada cuelga de un hilo por un extremo de su eje. Quieta, cae; girando, se mantiene arriba y da vueltas despacio en círculo.",
+        "question": "¿Por qué una rueda que gira no se cae, sino que se desvía hacia un lado?"
       }
     },
     "chair": {
@@ -2124,6 +2130,71 @@
         "system": "Cada varilla se calcula como una sola vibración: su primera forma con su frecuencia propia, empujada por la sacudida de la mesa, con Runge–Kutta en pasos de un milisegundo. Al barrer, el ritmo sube entre los pasos. La prueba contrasta las constantes de la primera forma con los valores de cualquier tabla (β₁² = 3,516, Γ = 1,566) y el cálculo paso a paso con la fórmula cerrada.",
         "sound": "El sonido se genera en el navegador y está apagado hasta que usted lo enciende; nada de ello se guarda ni se envía.",
         "left_out": "Se deja fuera: las formas de vibración superiores (la segunda está 6,27 veces más alta), el endurecimiento de la varilla con oscilaciones amplias, la flexibilidad de la mesa."
+      }
+    },
+    "gyroscope": {
+      "at": {
+        "wheel": "Una rueda pesada en un eje cuelga de un hilo por un extremo del eje. Si se suelta quieta, cae enseguida. Si gira deprisa, el eje se mantiene casi horizontal y la rueda da vueltas despacio alrededor del hilo.",
+        "suitcase": "Al lado hay una maleta en la que gira una rueda así. Quien la lleva y quiere doblar una esquina siente que se inclina de lado."
+      },
+      "view": "La rueda en su hilo, vista un poco desde arriba, un radio en color",
+      "trace": "El rastro del eje: cuánto baja respecto a su altura inicial, en la última vuelta alrededor del hilo",
+      "trace_caption": "El rastro del eje en la última vuelta alrededor del hilo: cuánto baja respecto a su altura inicial",
+      "play": {
+        "title": "Girar y soltar",
+        "hint": "Suelte la rueda una vez quieta, luego a 200 rpm. Mostrado cuatro veces más lento, se ve cabecear el eje.",
+        "let_go": "Soltar",
+        "pause": "Pausa",
+        "run": "Seguir",
+        "start": "Al soltar",
+        "starts": {
+          "rest": "En reposo",
+          "steady": "Ya girando en círculo"
+        },
+        "speed": "Velocidad",
+        "speeds": {
+          "100": "Tiempo real",
+          "25": "4× más lento"
+        },
+        "rpm": "Giro de la rueda",
+        "rpm_unit": "rpm",
+        "tilt": "Inclinación del eje",
+        "tilt_hint": "Respecto a la vertical hacia arriba: 90° es horizontal.",
+        "round": "Una vuelta al hilo",
+        "nods": "Cabeceos por segundo",
+        "dip": "El eje baja",
+        "suitcase": "Girar la maleta",
+        "suitcase_hint": "Quien gira la maleta con esta rueda un cuarto de vuelta por segundo en una esquina debe aplicar este par de través.",
+        "dropped": "Sin giro la rueda cae: tras {{t}} s cuelga casi vertical."
+      },
+      "model": {
+        "intro": "Una rueda que gira tiene momento angular a lo largo de su eje. La gravedad tira de la rueda, el hilo sujeta el extremo del eje: eso da un par de través al eje, horizontal.",
+        "torque": "Un par cambia el momento angular en su propia dirección – y esa es horizontal, de través al eje. Así que el eje gira hacia un lado en lugar de caer.",
+        "precession": "Lo rápido que el eje da vueltas alrededor del hilo: cuanto más deprisa gira la rueda, más despacio.",
+        "lagrange": "Lo que calcula la página: la inclinación del eje según Lagrange, para un trompo con un punto fijo. El momento angular alrededor del eje y el del hilo se conservan.",
+        "suitcase": "Quien gira el eje debe aplicar este par de través; si falta, la maleta se inclina."
+      },
+      "symbols": {
+        "l": "el momento angular de la rueda",
+        "m": "el par",
+        "omega_p": "lo rápido que el eje da vueltas alrededor del hilo",
+        "mass": "la masa de la rueda",
+        "d": "la distancia del hilo al centro de la rueda",
+        "i3": "el momento de inercia alrededor del eje: un aro de radio r",
+        "omega3": "lo rápido que gira la rueda sobre su eje",
+        "theta": "la inclinación del eje respecto a la vertical",
+        "phi": "cuánto ha girado el eje alrededor del hilo",
+        "i1": "el momento de inercia de través al eje, respecto a su extremo",
+        "turn": "lo rápido que se gira la maleta"
+      },
+      "sweet": {
+        "sideways": "La rueda no cede en la dirección en que se tira de ella, sino de través. Sin giro, a los 0,37 s cuelga casi vertical; a 200 vueltas por minuto el eje se mantiene arriba y da una vuelta al hilo en 8,1 s. Girando el doble de rápido, la da a la mitad de velocidad.",
+        "nod": "Pero no del todo sin caer: al soltarla, el eje baja primero 3,2°, se pasa del giro uniforme y vuelve – cabecea, algo más de cuatro veces por segundo, y su rastro dibuja arcos con puntas. Tan hondo como permiten la energía y los dos momentos angulares conservados, y no más.",
+        "suitcase": "Por eso la maleta se inclina: girarla con esta rueda un cuarto de vuelta por segundo en una esquina exige 5,9 N·m de través – tanto como 600 g en el extremo de un metro."
+      },
+      "computed": {
+        "system": "La rueda es un trompo simétrico con un punto fijo, el extremo del eje en el hilo; su masa está en el aro. Según Lagrange se conservan dos momentos angulares, alrededor del eje y alrededor del hilo; solo se calcula paso a paso la inclinación, con Runge–Kutta en pasos de un milisegundo. La prueba comprueba la energía, el giro uniforme y cuánto baja el eje frente al cálculo a partir de las magnitudes conservadas.",
+        "left_out": "Se deja fuera: que el propio hilo oscila y se estira (su extremo es el punto fijo), la fricción en el cojinete y en el hilo, el aire. Radios y buje no cuentan junto al aro."
       }
     }
   }

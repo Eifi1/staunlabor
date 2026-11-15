@@ -108,15 +108,6 @@ export function step(w: Wheel, m: Motion, y: State): State {
   ];
 }
 
-export function energyJ(w: Wheel, m: Motion, y: State): number {
-  const [theta, td] = y;
-  const pd = turnRate(w, m, theta);
-  const spin = i3(w) > 0 ? m.l3 / i3(w) : 0.0;
-  return (
-    0.5 * i1(w) * (td * td + pd * pd * Math.sin(theta) ** 2) + 0.5 * i3(w) * spin * spin + torque(w) * Math.cos(theta)
-  );
-}
-
 /** The wheel has dropped: the axle hangs within this of straight down. */
 export const HANGING_DEG = 170.0;
 

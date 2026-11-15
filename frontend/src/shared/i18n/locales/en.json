@@ -259,6 +259,12 @@
         "title": "The resonant rods",
         "summary": "Six rods on a table that hardly trembles – and yet one swings wide when the beat is right. The others stay almost still.",
         "question": "How does a table that moves a single millimetre make a rod swing eight centimetres?"
+      },
+      "gyroscope": {
+        "short": "Gyroscope wheel",
+        "title": "The gyroscope wheel",
+        "summary": "A heavy wheel hangs on a string by one end of its axle. Still, it falls; spinning, it stays up and wanders slowly round in a circle.",
+        "question": "Why does a spinning wheel not fall, but move sideways?"
       }
     },
     "chair": {
@@ -2124,6 +2130,71 @@
         "system": "Each rod is computed as a single vibration: its first mode at its own frequency, pushed by the table's shaking, by Runge–Kutta in steps of a millisecond. During a sweep the beat rises between the steps. The test holds the first mode's constants to every table's values (β₁² = 3.516, Γ = 1.566) and the stepped solution to the closed form.",
         "sound": "The sound is made in the browser and stays off until you turn it on; nothing of it is stored or sent.",
         "left_out": "Left out: the higher modes (the second lies 6.27 times higher), the rod's stiffening at wide swings, the table's give."
+      }
+    },
+    "gyroscope": {
+      "at": {
+        "wheel": "A heavy wheel on an axle hangs on a string by one end of the axle. Let go still, it drops at once. Spinning fast, the axle stays nearly level and the wheel wanders slowly round the string.",
+        "suitcase": "Next to it stands a suitcase in which such a wheel spins. Whoever carries it and turns a corner feels it tip sideways."
+      },
+      "view": "The wheel on its string, seen from a little above, one spoke coloured",
+      "trace": "The axle's track: how far it sinks below its starting height, over the last turn round the string",
+      "trace_caption": "The axle's track over the last turn round the string: how far it sinks below its starting height",
+      "play": {
+        "title": "Spin and let go",
+        "hint": "Let the wheel go still once, then at 200 rpm. Shown four times slower, the axle can be seen nodding.",
+        "let_go": "Let go",
+        "pause": "Pause",
+        "run": "Continue",
+        "start": "When let go",
+        "starts": {
+          "rest": "At rest",
+          "steady": "Already circling"
+        },
+        "speed": "Speed",
+        "speeds": {
+          "100": "Real time",
+          "25": "4× slower"
+        },
+        "rpm": "The wheel's spin",
+        "rpm_unit": "rpm",
+        "tilt": "The axle's tilt",
+        "tilt_hint": "From the upward vertical: 90° means level.",
+        "round": "Once round the string",
+        "nods": "Nods a second",
+        "dip": "The axle sinks by",
+        "suitcase": "Turning the suitcase",
+        "suitcase_hint": "Whoever turns the suitcase with this wheel a quarter turn a second round a corner must supply this torque across it.",
+        "dropped": "Without spin the wheel falls: after {{t}} s it hangs almost straight down."
+      },
+      "model": {
+        "intro": "A spinning wheel has angular momentum along its axle. Gravity pulls on the wheel, the string holds the axle's end: that makes a torque across the axle, level.",
+        "torque": "A torque changes the angular momentum in its own direction – and that is level, across the axle. So the axle turns sideways instead of falling.",
+        "precession": "How fast the axle wanders round the string: the faster the wheel spins, the slower.",
+        "lagrange": "What the page computes: the axle's tilt by Lagrange, for a top with one fixed point. The angular momentum about the axle and that about the string are kept meanwhile.",
+        "suitcase": "Whoever turns the axle must supply this torque across it; without it the suitcase tips."
+      },
+      "symbols": {
+        "l": "the wheel's angular momentum",
+        "m": "the torque",
+        "omega_p": "how fast the axle wanders round the string",
+        "mass": "the wheel's mass",
+        "d": "the distance from the string to the wheel's middle",
+        "i3": "the moment of inertia about the axle: a hoop of radius r",
+        "omega3": "how fast the wheel spins on its axle",
+        "theta": "the axle's tilt from the vertical",
+        "phi": "how far the axle has wandered round the string",
+        "i1": "the moment of inertia across the axle, about its end",
+        "turn": "how fast the suitcase is turned"
+      },
+      "sweet": {
+        "sideways": "The wheel does not give way in the direction it is pulled, but across it. Without spin it hangs almost straight down after 0.37 s; at 200 turns a minute the axle stays up and wanders once round the string in 8.1 s. Spun twice as fast, it wanders half as fast.",
+        "nod": "It does not quite go without falling, though: let go, the axle first sinks by 3.2°, overshoots the steady wandering and comes back – it nods, a little over four times a second, and its track draws arches with points. As deep as energy and the two kept angular momenta allow, and no deeper.",
+        "suitcase": "That is why the suitcase tips: turning it with this wheel a quarter turn a second round a corner takes 5.9 N·m across – as much as 600 g at the end of a metre rule."
+      },
+      "computed": {
+        "system": "The wheel is a symmetric top with a fixed point, the axle's end on the string; its mass sits in the hoop. By Lagrange two angular momenta are kept, about the axle and about the string; only the tilt is stepped, by Runge–Kutta in steps of a millisecond. The test checks the energy, the steady wandering, and how deep the axle sinks against the count from the kept quantities alone.",
+        "left_out": "Left out: that the string itself swings and stretches (its end is the fixed point), friction in the bearing and at the string, air. Spokes and hub count for nothing beside the hoop."
       }
     }
   }

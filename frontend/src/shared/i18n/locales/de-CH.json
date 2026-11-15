@@ -259,6 +259,12 @@
         "title": "Die Resonanzstäbe",
         "summary": "Sechs Stäbe auf einem Tisch, der kaum zittert – und doch schwingt einer weit aus, wenn der Takt stimmt. Die anderen bleiben fast ruhig.",
         "question": "Wie bringt ein Tisch, der sich nur einen Millimeter bewegt, einen Stab dazu, acht Zentimeter weit zu schwingen?"
+      },
+      "gyroscope": {
+        "short": "Kreiselrad",
+        "title": "Das Kreiselrad",
+        "summary": "Ein schweres Rad hängt an einem Ende seiner Achse an einem Faden. Steht es still, fällt es; dreht es sich, bleibt es oben und wandert langsam im Kreis.",
+        "question": "Warum fällt ein drehendes Rad nicht herunter, sondern weicht zur Seite aus?"
       }
     },
     "chair": {
@@ -2124,6 +2130,71 @@
         "system": "Jeder Stab wird als eine einzige Schwingung gerechnet: seine erste Form mit ihrer Eigenfrequenz, angeschoben vom Rütteln des Tisches, mit Runge–Kutta in Schritten von einer Millisekunde. Beim Durchfahren steigt der Takt zwischen den Schritten. Der Test hält die Konstanten der ersten Form an die Werte jeder Tabelle (β₁² = 3,516, Γ = 1,566) und die schrittweise Rechnung an die geschlossene Formel.",
         "sound": "Der Ton entsteht im Browser und ist aus, bis Sie ihn einschalten; nichts davon wird gespeichert oder gesendet.",
         "left_out": "Weggelassen: die höheren Schwingungsformen (die zweite liegt 6,27-mal höher), die Versteifung des Stabs bei weiten Ausschlägen, das Nachgeben des Tisches."
+      }
+    },
+    "gyroscope": {
+      "at": {
+        "wheel": "Ein schweres Rad auf einer Achse hängt an einem Ende der Achse an einem Faden. Lässt man es stillstehend los, fällt es sofort herunter. Dreht es sich schnell, bleibt die Achse fast waagrecht, und das Rad wandert langsam im Kreis um den Faden.",
+        "suitcase": "Daneben steht ein Koffer, in dem ein solches Rad dreht. Wer ihn trägt und um eine Ecke drehen will, spürt ihn seitlich kippen."
+      },
+      "view": "Das Rad am Faden, schräg von oben, eine Speiche farbig",
+      "trace": "Die Spur der Achse: wie weit sie unter ihre Starthöhe sinkt, über die letzte Runde um den Faden",
+      "trace_caption": "Die Spur der Achse über die letzte Runde um den Faden: wie weit sie unter die Starthöhe sinkt",
+      "play": {
+        "title": "Drehen und loslassen",
+        "hint": "Lassen Sie das Rad einmal still los, dann mit 200 U/min. Viermal langsamer gezeigt, sieht man die Achse nicken.",
+        "let_go": "Loslassen",
+        "pause": "Anhalten",
+        "run": "Weiter",
+        "start": "Beim Loslassen",
+        "starts": {
+          "rest": "In Ruhe",
+          "steady": "Schon im Kreis"
+        },
+        "speed": "Tempo",
+        "speeds": {
+          "100": "Echtzeit",
+          "25": "4× langsamer"
+        },
+        "rpm": "Drehzahl des Rads",
+        "rpm_unit": "U/min",
+        "tilt": "Neigung der Achse",
+        "tilt_hint": "Gegen die Senkrechte nach oben: 90° heisst waagrecht.",
+        "round": "Einmal um den Faden",
+        "nods": "Nicken pro Sekunde",
+        "dip": "Achse sinkt um",
+        "suitcase": "Koffer drehen",
+        "suitcase_hint": "Wer den Koffer mit diesem Rad eine Vierteldrehung pro Sekunde um die Ecke dreht, muss quer dazu dieses Drehmoment aufbringen.",
+        "dropped": "Ohne Drehung fällt das Rad: Nach {{t}} s hängt es fast senkrecht."
+      },
+      "model": {
+        "intro": "Ein drehendes Rad hat einen Drehimpuls entlang seiner Achse. Die Schwerkraft zieht am Rad, der Faden hält das Ende der Achse: Das ergibt ein Drehmoment quer zur Achse, waagrecht.",
+        "torque": "Ein Drehmoment ändert den Drehimpuls in seine eigene Richtung – und die ist waagrecht, quer zur Achse. Also dreht sich die Achse zur Seite, statt zu fallen.",
+        "precession": "Wie schnell die Achse um den Faden wandert: je schneller das Rad dreht, desto langsamer.",
+        "lagrange": "Was die Seite rechnet: die Neigung der Achse nach Lagrange, für einen Kreisel mit einem festen Punkt. Der Drehimpuls um die Achse und der um den Faden bleiben dabei erhalten.",
+        "suitcase": "Wer die Achse dreht, muss quer dazu dieses Drehmoment aufbringen; fehlt es, kippt der Koffer."
+      },
+      "symbols": {
+        "l": "der Drehimpuls des Rads",
+        "m": "das Drehmoment",
+        "omega_p": "wie schnell die Achse um den Faden wandert",
+        "mass": "die Masse des Rads",
+        "d": "der Abstand vom Faden bis zur Mitte des Rads",
+        "i3": "das Trägheitsmoment um die Achse: ein Reifen vom Radius r",
+        "omega3": "wie schnell das Rad auf seiner Achse dreht",
+        "theta": "die Neigung der Achse gegen die Senkrechte",
+        "phi": "wie weit die Achse um den Faden gewandert ist",
+        "i1": "das Trägheitsmoment quer zur Achse, um ihr Ende",
+        "turn": "wie schnell der Koffer gedreht wird"
+      },
+      "sweet": {
+        "sideways": "Das Rad weicht nicht in die Richtung aus, in die es gezogen wird, sondern quer dazu. Ohne Drehung hängt es nach 0,37 s fast senkrecht; mit 200 Umdrehungen pro Minute bleibt die Achse oben und wandert in 8,1 s einmal um den Faden. Doppelt so schnell gedreht, wandert sie halb so schnell.",
+        "nod": "Ganz ohne Fallen geht es aber nicht: Losgelassen sinkt die Achse zuerst um 3,2°, schiesst über die gleichmässige Wanderung hinaus und kommt zurück – sie nickt, gut viermal pro Sekunde, und ihre Spur zeichnet Bögen mit Spitzen. So tief, wie Energie und die beiden erhaltenen Drehimpulse es erlauben, und nicht tiefer.",
+        "suitcase": "Darum kippt der Koffer: Ihn mit diesem Rad eine Vierteldrehung pro Sekunde um die Ecke zu drehen, verlangt quer dazu 5,9 N·m – so viel wie 600 g am Ende eines Meterstabs."
+      },
+      "computed": {
+        "system": "Das Rad ist ein symmetrischer Kreisel mit festem Punkt, dem Ende der Achse am Faden; seine Masse sitzt im Reifen. Nach Lagrange bleiben zwei Drehimpulse erhalten, der um die Achse und der um den Faden; schrittweise gerechnet wird nur die Neigung, mit Runge–Kutta in Schritten von einer Millisekunde. Der Test prüft die Energie, die gleichmässige Wanderung und wie tief die Achse sinkt, gegen die Rechnung aus den Erhaltungsgrössen allein.",
+        "left_out": "Weggelassen: dass der Faden selbst pendelt und sich dehnt (sein Ende ist der feste Punkt), die Reibung im Lager und am Faden, die Luft. Speichen und Nabe zählen neben dem Reifen nicht."
       }
     }
   }

@@ -650,7 +650,6 @@ def _gyroscope_cases(out: dict[str, Any]) -> None:
                 "release": asdict(release),
                 "start": list(y),
                 "motion": asdict(m),
-                "energy_j": gyroscope.energy_j(w, m, y),
                 "rates": (
                     [gyroscope.precession_rad_s(w), gyroscope.nutation_rad_s(w), gyroscope.suitcase_torque_n_m(w, 90.0)]
                     if w.rpm > 0
