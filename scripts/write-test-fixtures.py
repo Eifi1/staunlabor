@@ -41,9 +41,14 @@ TARGET = ROOT / "frontend/src/features/experiments/test-fixtures.json"
 API = "/api/v1/experiments"
 
 #: The file's keys, in the file's order: the defaults, then one exhibit's answer
-#: each — sent its own part of the defaults, or nothing for the chair, whose
-#: route takes no input.
+#: each — sent its own part of the defaults, or nothing for the chair and the
+#: Chladni plate, whose routes take no input.
 POSTED = ("coil", "sphere", "platform", "race", "elephant", "smoke", "cannon", "wave")
+
+#: Exhibits whose build comes with the defaults and whose page fetches the rest
+#: with a GET, sending nothing: the Chladni plate's modes are the same for every
+#: plate, its size and steel only scaling the tones.
+FETCHED = ("chladni",)
 
 #: Exhibits whose build comes with the defaults but which have no route of their
 #: own: the page computes everything it shows in the browser, from the port.
@@ -77,18 +82,19 @@ def _answer(response: Response) -> Any:
     return response.json()
 
 
-async def _ask() -> tuple[Any, dict[str, Any], Any]:
+async def _ask() -> tuple[Any, dict[str, Any], Any, dict[str, Any]]:
     # The suite's own client (tests/conftest.py): starlette's TestClient warns
     # that its httpx is deprecated.
     async with AsyncClient(transport=ASGITransport(app=create_app()), base_url="http://test") as client:
         defaults = _answer(await client.get(f"{API}/defaults"))
         answers = {name: _answer(await client.post(f"{API}/{name}", json=defaults[name])) for name in POSTED}
         chair = _answer(await client.get(f"{API}/chair"))
-    return defaults, answers, chair
+        fetched = {name: _answer(await client.get(f"{API}/{name}")) for name in FETCHED}
+    return defaults, answers, chair, fetched
 
 
 def fixtures() -> dict[str, Any]:
-    defaults, answers, chair = asyncio.run(_ask())
+    defaults, answers, chair, fetched = asyncio.run(_ask())
     return {
         "_note": (
             "Written by `cd backend && uv run python ../scripts/write-test-fixtures.py`: what the API answers "
@@ -97,6 +103,7 @@ def fixtures() -> dict[str, Any]:
         "defaults": defaults,
         "coil": answers["coil"],
         "chair": chair,
+        **fetched,
         **{name: answers[name] for name in POSTED if name != "coil"},
     }
 

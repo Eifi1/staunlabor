@@ -45,6 +45,7 @@ async def test_the_experiments_need_no_account(client: AsyncClient):
         "resonance",
         "gyroscope",
         "arch",
+        "chladni",
         "meter_range_a",
         "settle_s",
     }
@@ -70,6 +71,7 @@ async def test_the_experiments_need_no_account(client: AsyncClient):
     assert body["resonance"]["lengths_m"] == list(x.ResonanceRack().lengths_m)
     assert body["gyroscope"]["rpm"] == x.GyroWheel().rpm
     assert body["arch"]["shape"] == "semicircle"
+    assert body["chladni"]["side_m"] == x.ChladniPlate().side_m
 
 
 async def test_the_sphere_answers_its_orbits_and_its_swing(client: AsyncClient):
@@ -108,6 +110,17 @@ async def test_the_coil_answers_its_figures_and_its_curve(client: AsyncClient):
 async def test_a_changed_build_changes_the_answer(client: AsyncClient):
     half = await client.post(f"{API}/coil", json={"supply_v": 4.5})
     assert half.json()["figures"]["full_current_a"] == pytest.approx(4.5 / 94.0)
+
+
+async def test_the_plate_s_modes_come_lowest_first_each_moving_the_middle(client: AsyncClient):
+    response = await client.get(f"{API}/chladni")
+    assert response.status_code == 200
+    body = response.json()
+    lams = [mode["lam"] for mode in body["modes"]]
+    assert lams == sorted(lams)
+    assert round(lams[0], 3) == 24.270
+    first = body["modes"][0]
+    assert len(first["m"]) == len(first["n"]) == len(first["c"])
 
 
 async def test_the_chair_answers_three_boxes_with_one_picture(client: AsyncClient):

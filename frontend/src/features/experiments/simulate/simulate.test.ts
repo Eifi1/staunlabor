@@ -26,6 +26,7 @@ import * as well from "./well";
 import * as resonance from "./resonance";
 import * as gyroscope from "./gyroscope";
 import * as arch from "./arch";
+import * as chladni from "./chladni";
 import * as elephant from "./elephant";
 import * as foucault from "./foucault";
 import * as harmonograph from "./harmonograph";
@@ -906,5 +907,44 @@ describe("the arch's port", () => {
       expect(differences(c.blocks, arch.blocks(stone))).toEqual([]);
       expect(differences(c.thrust, arch.thrust(stone, c.load))).toEqual([]);
     }
+  });
+});
+
+describe("the Chladni plate's port", () => {
+  it("evaluates the route's modes, the tones and the plate's answer as the engine does", () => {
+    const c = cases.chladni;
+    const points = [-1.0, -0.6, 0.0, 0.35, 1.0];
+    const modes: chladni.Mode[] = c.modes.map((mode: { lam: number; terms: number[][] }) => ({
+      lam: mode.lam,
+      m: mode.terms.map((t) => t[0]),
+      n: mode.terms.map((t) => t[1]),
+      c: mode.terms.map((t) => t[2]),
+    }));
+    expect(
+      differences(
+        c.legendre,
+        points.map((x) => chladni.legendre(c.degree, x)),
+      ),
+    ).toEqual([]);
+    const values = modes
+      .slice(0, 3)
+      .map((mode) => points.map((x) => points.map((y) => chladni.modeValue(mode, c.degree, x, y))));
+    expect(differences(c.values, values)).toEqual([]);
+    expect(
+      differences(
+        c.frequencies_hz,
+        modes.map((mode) => chladni.frequencyHz(c.plate, mode.lam)),
+      ),
+    ).toEqual([]);
+    const responses = [101.0, 102.4, 180.0, 517.0].map((f) =>
+      points.map((x) => chladni.response(c.plate, modes, c.degree, f, x, 0.2)),
+    );
+    expect(differences(c.responses, responses)).toEqual([]);
+    // The grid is the same sum, its polynomials worked out once a line.
+    const grid = chladni.modeGrids(modes.slice(0, 1), c.degree, 5)[0];
+    const across = [-1, -0.5, 0, 0.5, 1];
+    across.forEach((x, i) =>
+      across.forEach((y, j) => expect(grid[i * 5 + j]).toBeCloseTo(chladni.modeValue(modes[0], c.degree, x, y), 12)),
+    );
   });
 });

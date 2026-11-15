@@ -2346,3 +2346,71 @@ def test_the_arch_refuses_what_it_cannot_be():
         x.StoneArch(blocks=15)
     with pytest.raises(ValueError, match="between its ends"):
         x.ArchLoad(1.5, 10.0)
+
+
+# ── Chladni figures ──────────────────────────────────────────────────────────
+
+
+def test_the_free_square_plate_rings_at_leissa_s_tones():
+    # Leissa, Vibration of Plates (1969), the free square plate at ν = 0.3:
+    # λ = ω·a²·√(ρh/D) = 13.468, 19.596, 24.270, 34.801, 63.686 (and 61.093).
+    from staunlabor.domain.experiments import chladni
+
+    lowest = {
+        (1, 1, 1): 13.468,
+        (0, 0, -1): 19.596,
+        (0, 0, 1): 24.270,
+        (1, 0, 0): 34.801,
+    }
+    for kind, lam in lowest.items():
+        assert round(chladni.modes(kind, 1)[0].lam, 3) == lam
+    assert round(chladni.modes((0, 0, 1), 2)[1].lam, 3) == 63.686
+    assert round(chladni.modes((1, 0, 0), 2)[1].lam, 3) == 61.093
+
+
+def test_only_modes_that_move_the_middle_are_driven_there():
+    from staunlabor.domain.experiments import chladni
+
+    for mode in chladni.driven_modes():
+        assert abs(chladni.value(mode, 0.0, 0.0)) > 0.05
+    for kind in ((1, 1, 1), (0, 0, -1), (1, 0, 0), (1, 1, -1)):
+        for mode in chladni.modes(kind, 3):
+            assert abs(chladni.value(mode, 0.0, 0.0)) < 1e-12
+
+
+def test_a_24_cm_steel_plate_shaken_at_its_middle_rings_at_102_269_and_517_hz_no_harmonics():
+    from staunlabor.domain.experiments import chladni
+
+    plate = x.ChladniPlate()
+    tones = [chladni.frequency_hz(plate, mode.lam) for mode in chladni.driven_modes()]
+    assert (plate.side_m, plate.thickness_m) == (0.24, 0.001)
+    assert [round(f) for f in tones[:3]] == [102, 269, 517]
+    # 2.62 and 5.05 times the lowest: no string's 2 and 3.
+    assert round(tones[1] / tones[0], 2) == 2.62
+    assert round(tones[2] / tones[0], 2) == 5.05
+
+
+def test_the_sand_s_lines_are_where_the_driven_plate_stands_still():
+    # Shaken at its lowest driven tone, the plate's swing on its nodal ring is
+    # a small share of the swing at its middle and corners.
+    from staunlabor.domain.experiments import chladni
+
+    plate = x.ChladniPlate()
+    ring = chladni.driven_modes()[0]
+    f = chladni.frequency_hz(plate, ring.lam)
+    middle = chladni.response(plate, chladni.driven_modes(), f, 0.0, 0.0)
+    # Along the line y = 0 the ring mode changes sign once between the middle
+    # and the edge: the node, found by bisection.
+    lo, hi = 0.0, 1.0
+    for _ in range(50):
+        mid = (lo + hi) / 2
+        if chladni.value(ring, mid, 0.0) > 0:
+            lo = mid
+        else:
+            hi = mid
+    assert chladni.response(plate, chladni.driven_modes(), f, lo, 0.0) < 0.02 * middle
+
+
+def test_the_plate_refuses_what_it_cannot_be():
+    with pytest.raises(ValueError, match="thin beside its side"):
+        x.ChladniPlate(thickness_m=0.05)

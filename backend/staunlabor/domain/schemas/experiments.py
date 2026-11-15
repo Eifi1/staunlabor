@@ -699,6 +699,35 @@ class StoneArchIn(_In):
     depth_m: float = Field(gt=0, le=10, default=0.3)
 
 
+# ── Chladni figures ──────────────────────────────────────────────────────────
+
+
+class ChladniPlateIn(_In):
+    side_m: float = Field(ge=0.05, le=2, default=0.24)
+    thickness_m: float = Field(ge=0.0002, le=0.1, default=0.001)
+    youngs_gpa: float = Field(ge=1, le=500, default=200.0)
+    density_kg_m3: float = Field(ge=500, le=20000, default=7850.0)
+    damping_ratio: float = Field(ge=0.0001, le=0.1, default=0.002)
+
+
+class ChladniModeOut(_Out):
+    #: λ = ω·a²·√(ρh/D).
+    lam: float
+    #: The deflection as Σ c·p_m(ξ)·p_n(η), p the normalised Legendre
+    #: polynomials, scaled to 1 at its largest.
+    m: list[int]
+    n: list[int]
+    c: list[float]
+
+
+class ChladniModesOut(_Out):
+    """The modes a shaker at the plate's middle drives, lowest first; the
+    page scales them to its plate and sums them for the sand."""
+
+    degree: int
+    modes: list[ChladniModeOut]
+
+
 # ── the pages' starting point ────────────────────────────────────────────────
 
 
@@ -726,6 +755,7 @@ class ExperimentsDefaultsOut(_Out):
     resonance: ResonanceRackIn
     gyroscope: GyroWheelIn
     arch: StoneArchIn
+    chladni: ChladniPlateIn
     #: The exhibit's meter: digital, ± this many amperes.
     meter_range_a: float
     #: How long a page waits after the last slider step before asking.

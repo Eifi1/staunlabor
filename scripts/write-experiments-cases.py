@@ -71,6 +71,7 @@ well = importlib.import_module("staunlabor.domain.experiments.well")
 resonance = importlib.import_module("staunlabor.domain.experiments.resonance")
 gyroscope = importlib.import_module("staunlabor.domain.experiments.gyroscope")
 arch = importlib.import_module("staunlabor.domain.experiments.arch")
+chladni = importlib.import_module("staunlabor.domain.experiments.chladni")
 
 TARGET = ROOT / "frontend/src/features/experiments/simulate/engine-cases.json"
 #: Points kept per curve: enough to see a curve that went wrong, few enough that
@@ -685,6 +686,26 @@ def _arch_cases(out: dict[str, Any]) -> None:
         )
 
 
+def _chladni_cases(out: dict[str, Any]) -> None:
+    """The polynomials, three driven modes on a 5 × 5 grid, and the plate's
+    answer at its first tones and between them: the port evaluates what the
+    route sends, and must agree on it."""
+    points = [-1.0, -0.6, 0.0, 0.35, 1.0]
+    plate = chladni.Plate()
+    driven = chladni.driven_modes()
+    out["chladni"] = {
+        "plate": asdict(plate),
+        "degree": chladni.DEGREE,
+        "legendre": [chladni.legendre(chladni.DEGREE, x)[0] for x in points],
+        "modes": [{"lam": m.lam, "terms": [list(t) for t in m.terms]} for m in driven],
+        "values": [[[chladni.value(m, x, y) for y in points] for x in points] for m in driven[:3]],
+        "frequencies_hz": [chladni.frequency_hz(plate, m.lam) for m in driven],
+        "responses": [
+            [chladni.response(plate, driven, f, x, 0.2) for x in points] for f in (101.0, 102.4, 180.0, 517.0)
+        ],
+    }
+
+
 def _coriolis_cases(out: dict[str, Any]) -> None:
     for c, throw in CORIOLIS_CASES:
         out["coriolis"].append(
@@ -885,6 +906,7 @@ def _second_series(out: dict[str, Any]) -> None:
     _resonance_cases(out)
     _gyroscope_cases(out)
     _arch_cases(out)
+    _chladni_cases(out)
 
 
 def cases() -> dict[str, Any]:

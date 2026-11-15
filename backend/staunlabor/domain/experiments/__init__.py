@@ -39,6 +39,8 @@ with SciPy before it was written (``docs/experiments.md``).
   with a hair's gap between the balls and nearly so when they touch.
 * :mod:`arch` — a stone arch stands while a thrust line fits in its stones;
   the hanging chain, upside down, is the shape where it fits best.
+* :mod:`chladni` — the free square plate's modes by Ritz and Legendre: where
+  a plate shaken at its middle stands still, the sand lies.
 * :mod:`gyroscope` — a spinning wheel on a string turns round it instead of
   falling; the suitcase that tips when turned.
 * :mod:`resonance` — six rods on a trembling table: only the one in step
@@ -93,6 +95,9 @@ from staunlabor.domain.experiments.chaos import ChaosRun, DoublePendulum, lyapun
 from staunlabor.domain.experiments.chaos import energy as double_energy
 from staunlabor.domain.experiments.chaos import mode_rates as double_mode_rates
 from staunlabor.domain.experiments.chaos import run as run_chaos
+from staunlabor.domain.experiments.chladni import Mode as ChladniMode
+from staunlabor.domain.experiments.chladni import Plate as ChladniPlate
+from staunlabor.domain.experiments.chladni import driven_modes as chladni_driven_modes
 from staunlabor.domain.experiments.coil import (
     METER_RANGE_A,
     Coil,
@@ -388,6 +393,8 @@ __all__ = [
     "Carousel",
     "ChairAnalysis",
     "ChaosRun",
+    "ChladniMode",
+    "ChladniPlate",
     "Coil",
     "CoilAnalysis",
     "CoilCurve",
@@ -520,6 +527,7 @@ __all__ = [
     "cannon_launch",
     "chair",
     "chair_analysis",
+    "chladni_driven_modes",
     "climb_deceleration",
     "coil_analysis",
     "contact_factor",

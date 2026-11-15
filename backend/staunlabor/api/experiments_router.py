@@ -34,6 +34,7 @@ from staunlabor.domain.experiments import (
     BallStack,
     Body,
     Carousel,
+    ChladniPlate,
     Coil,
     CoilExhibit,
     ConeExhibit,
@@ -64,6 +65,7 @@ from staunlabor.domain.experiments import (
     WaterWheel,
     cannon_figures,
     chair_analysis,
+    chladni_driven_modes,
     coil_analysis,
     elephant_figures,
     platform_figures,
@@ -73,12 +75,16 @@ from staunlabor.domain.experiments import (
     sphere_figures,
     wave_figures,
 )
+from staunlabor.domain.experiments.chladni import DEGREE as CHLADNI_DEGREE
 from staunlabor.domain.schemas.experiments import (
     BallStackIn,
     BodyIn,
     CannonFiguresOut,
     CarouselIn,
     ChairAnalysisOut,
+    ChladniModeOut,
+    ChladniModesOut,
+    ChladniPlateIn,
     CoilAnalysisOut,
     CoilExhibitIn,
     ConeExhibitIn,
@@ -160,6 +166,7 @@ async def defaults() -> ExperimentsDefaultsOut:
         resonance=ResonanceRackIn.model_validate(ResonanceRack()),
         gyroscope=GyroWheelIn.model_validate(GyroWheel()),
         arch=StoneArchIn.model_validate(StoneArch()),
+        chladni=ChladniPlateIn.model_validate(ChladniPlate()),
         meter_range_a=METER_RANGE_A,
         settle_s=PAGE_SETTLE_S,
     )
@@ -178,6 +185,26 @@ def coil(payload: CoilExhibitIn) -> CoilAnalysisOut:
 @router.get("/chair", response_model=ChairAnalysisOut, dependencies=[Depends(limit_run)])
 def chair() -> ChairAnalysisOut:
     return ChairAnalysisOut.model_validate(chair_analysis())
+
+
+@router.get("/chladni", response_model=ChladniModesOut, dependencies=[Depends(limit_run)])
+def chladni() -> ChladniModesOut:
+    """The plate's driven modes: the same for every plate (its size and steel
+    only scale the tones), computed once a process — two seconds the first
+    time, nothing after."""
+    driven = chladni_driven_modes()
+    return ChladniModesOut(
+        degree=CHLADNI_DEGREE,
+        modes=[
+            ChladniModeOut(
+                lam=mode.lam,
+                m=[m for m, _, _ in mode.terms],
+                n=[n for _, n, _ in mode.terms],
+                c=[c for _, _, c in mode.terms],
+            )
+            for mode in driven
+        ],
+    )
 
 
 @router.post("/platform", response_model=PlatformFiguresOut, dependencies=[Depends(limit_run)])
