@@ -279,6 +279,12 @@
         "title": "Le figure di Chladni",
         "summary": "Sabbia su una lastra di metallo. Quando la lastra suona, la sabbia si raccoglie in linee – a ogni suono in un altro disegno.",
         "question": "Perché la sabbia si raccoglie in linee, e in linee diverse a ogni suono?"
+      },
+      "levitation": {
+        "short": "Trottola fluttuante",
+        "title": "La trottola fluttuante",
+        "summary": "Una trottola con un magnete gira sopra un magnete ad anello e fluttua – ma solo se il suo peso è giusto a pochi decimi di grammo.",
+        "question": "Perché la trottola che gira fluttua, e perché atterra quando è un po' troppo pesante?"
       }
     },
     "chair": {
@@ -2317,6 +2323,71 @@
       "computed": {
         "system": "La flessione si scrive come somma di prodotti di polinomi di Legendre fino al grado 20; secondo Ritz, le forme sono quelle in cui l'energia è stazionaria. Il server trova i loro autovalori con le rotazioni di Jacobi, una volta, e invia le forme; la pagina le somma per ogni suono. Il test confronta i primi valori con la tabella di Leissa (13,468 · 19,596 · 24,270 · 34,801 · 63,686). La sabbia è una regola di disegno: i granelli vengono lanciati dove la lastra vibra e scivolano dove è ferma.",
         "left_out": "Tralasciati: l'attacco del vibratore al centro (massa e rigidezza spostano un poco i suoni), lo spessore della lastra rispetto alle dimensioni, e come salta davvero la sabbia."
+      }
+    },
+    "levitation": {
+      "at": {
+        "top": "Su una piastra posta sopra una base con un magnete ad anello si fa girare una piccola trottola che ha un magnete nel disco. Sollevando lentamente la piastra, la trottola si stacca e fluttua girando, qualche centimetro sopra la base.",
+        "weight": "Perché riesca, deve pesare esattamente il giusto: piccole rondelle sul perno servono a regolarla. Se è troppo pesante, si posa sulla piastra; se è troppo leggera, scivola via di lato."
+      },
+      "view": "La trottola sopra il magnete ad anello, in sezione: la finestra in cui può fluttuare, e dove si trova",
+      "play": {
+        "title": "Regolare la trottola",
+        "hint": "Cambi il peso della trottola di centesimi di grammo finché atterra o scivola via. Poi renda la stanza più calda o più fredda.",
+        "mass": "Peso della trottola",
+        "mass_hint": "Nel giocattolo: rondelle sul perno. Il magnete della trottola è di 2 cm³ di ferrite.",
+        "warming": "Più caldo o più freddo",
+        "warming_hint": "Di quanto fa più caldo (o più freddo) rispetto a quando è stata regolata. La ferrite perde circa lo 0,2 % della sua magnetizzazione per kelvin, nella base come nella trottola.",
+        "hovers": "La trottola fluttua: il suo peso e la spinta si equilibrano all'interno della finestra.",
+        "lands": "Troppo pesante: nemmeno ai piedi della finestra, dove la spinta è massima, il campo la sostiene. Atterra sulla piastra.",
+        "slides": "Troppo leggera: troverebbe il suo equilibrio solo sopra la finestra, dove il campo non la trattiene più di lato. Scivola via.",
+        "height": "Altezza di fluttuazione",
+        "lightest": "La più leggera",
+        "heaviest": "La più pesante",
+        "bob": "Su e giù",
+        "drift": "Di lato"
+      },
+      "chart": {
+        "title": "Spinta e peso",
+        "hint": "La spinta del campo sopra l'anello, espressa come la massa che sostiene. Dove la curva incrocia il peso c'è l'equilibrio; è stabile solo tra le due linee della finestra.",
+        "height": "Altezza sopra l'anello",
+        "lift": "Spinta",
+        "weight": "Peso",
+        "window": "Finestra"
+      },
+      "model": {
+        "intro": "Se si tiene un magnete sopra un altro e lo si lascia andare, si capovolge o scivola via: nessuna disposizione di magneti fissi tiene un magnete sospeso in modo stabile (Earnshaw). La trottola che gira non può capovolgersi. La sua rotazione tiene il suo magnete rivolto contro il campo in cui si trova; se il campo cambia direzione, il magnete ruota lentamente con esso. Così per la trottola conta solo l'intensità del campo, non la sua direzione – e un punto in cui il campo è più debole lo spazio libero lo consente.",
+        "energy": "L'energia della trottola: la sua altezza nel campo gravitazionale e l'intensità del campo contro cui punta il suo magnete. Viene spinta verso dove il campo è più debole.",
+        "field": "Il campo sull'asse dell'anello: un anello magnetizzato in modo uniforme agisce come un solenoide esterno meno uno interno.",
+        "solenoid": "Il contributo di un solenoide di raggio a, tra la faccia inferiore dell'anello (z + t) e quella superiore (z), da cui si misura l'altezza.",
+        "balance": "La trottola fluttua dove il suo peso eguaglia la spinta: il campo si indebolisce verso l'alto e la spinge tanto più forte quanto più rapidamente si indebolisce.",
+        "window": "L'equilibrio è stabile solo se il campo la riporta indietro dall'alto e dal basso (a sinistra) e di lato (a destra; fuori dall'asse, dall'equazione di Laplace fino al quadrato della distanza). Entrambe le condizioni valgono solo in una finestra di pochi millimetri.",
+        "bob": "Nella finestra la trottola oscilla su e giù con questa frequenza; di lato oscilla più lentamente intorno all'asse."
+      },
+      "symbols": {
+        "u": "l'energia della trottola",
+        "m": "la sua massa",
+        "g": "l'accelerazione di gravità",
+        "z": "l'altezza sopra la faccia superiore dell'anello",
+        "mu": "il momento magnetico della trottola",
+        "b": "l'intensità del campo",
+        "mu0": "la costante magnetica",
+        "magnetisation": "la magnetizzazione dell'anello",
+        "radii": "il raggio interno ed esterno dell'anello",
+        "t": "l'altezza dell'anello",
+        "a": "il raggio del solenoide",
+        "slope": "quanto rapidamente il campo si indebolisce verso l'alto",
+        "bend": "quanto questo indebolimento rallenta verso l'alto",
+        "fz": "la frequenza dell'oscillazione"
+      },
+      "sweet": {
+        "window": "La finestra è stretta: sopra questo anello la trottola fluttua solo tra 4,36 e 4,81 cm, e solo se pesa tra 23,11 e 23,81 g – un margine del 3 %. Ai piedi della finestra la spinta è massima; non può pesare di più. La trottola regolata di 23,5 g fluttua a 4,6 cm, sale e scende 1,5 volte al secondo e oscilla di lato 0,6 volte al secondo.",
+        "warmth": "Per questo il calore è suo nemico. La ferrite si indebolisce a ogni grado: due gradi in più, e la finestra si sposta dello 0,8 % verso trottole più leggere. Tre gradi e mezzo in più rispetto alla regolazione, e la trottola atterra; quattro gradi e mezzo in meno, e scivola via. Le altezze della finestra restano dove sono.",
+        "earnshaw": "Senza rotazione non c'è modo: un magnete libero di orientarsi secondo il campo non trova appoggio a nessuna altezza – si capovolge e si attacca all'anello."
+      },
+      "computed": {
+        "system": "Il campo sull'asse è calcolato esattamente, come differenza di due solenoidi, insieme alla sua pendenza e alla sua curvatura; fuori dall'asse segue dall'equazione di Laplace fino al quadrato della distanza. La finestra è cercata su una griglia di un millimetro fino a 30 cm di altezza e i suoi bordi sono determinati dimezzando ripetutamente, così come l'equilibrio. Il calcolo avviene nel Suo browser, con gli stessi passi del motore di calcolo del sito.",
+        "left_out": "Tralasciato: la rotazione stessa. Si suppone abbastanza veloce perché il magnete segua il campo, e abbastanza lenta perché l'asse possa ancora seguire i cambi di direzione del campo – questa finestra di velocità la pagina non la calcola. Mancano anche l'aria che frena la trottola, la sua oscillazione e le misure di un giocattolo preciso: l'anello è un esempio in ferrite, largo 10 cm con un foro di 3 cm e alto 1,5 cm, il magnete della trottola 2 cm³ della stessa ferrite."
       }
     }
   }

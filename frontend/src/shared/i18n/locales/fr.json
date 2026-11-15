@@ -279,6 +279,12 @@
         "title": "Les figures de Chladni",
         "summary": "Du sable sur une plaque de métal. Quand la plaque sonne, le sable se rassemble en lignes – un autre dessin à chaque son.",
         "question": "Pourquoi le sable se rassemble-t-il en lignes, et en d'autres à chaque son ?"
+      },
+      "levitation": {
+        "short": "Toupie flottante",
+        "title": "La toupie flottante",
+        "summary": "Une toupie munie d’un aimant tourne au-dessus d’un aimant annulaire et flotte – mais seulement si son poids est juste à quelques dixièmes de gramme près.",
+        "question": "Pourquoi la toupie qui tourne flotte-t-elle, et pourquoi se pose-t-elle quand elle est un peu trop lourde ?"
       }
     },
     "chair": {
@@ -2317,6 +2323,71 @@
       "computed": {
         "system": "La flexion s'écrit comme une somme de produits de polynômes de Legendre jusqu'au degré 20 ; selon Ritz, les formes sont celles où l'énergie est stationnaire. Le serveur trouve leurs valeurs propres par les rotations de Jacobi, une fois, et envoie les formes ; la page les additionne pour chaque son. Le test confronte les premières valeurs à la table de Leissa (13,468 · 19,596 · 24,270 · 34,801 · 63,686). Le sable est une règle de dessin : les grains sont projetés là où la plaque vibre et glissent là où elle est immobile.",
         "left_out": "Laissé de côté : la fixation du vibreur au milieu (sa masse et sa rigidité décalent un peu les sons), l'épaisseur de la plaque à côté de sa taille, et la façon dont le sable saute vraiment."
+      }
+    },
+    "levitation": {
+      "at": {
+        "top": "Sur une plaque posée au-dessus d’un socle contenant un aimant annulaire, on lance une petite toupie dont le disque renferme un aimant. Si l’on soulève lentement la plaque, la toupie s’en détache et flotte en tournant, à quelques centimètres au-dessus du socle.",
+        "weight": "Pour y parvenir, elle doit peser exactement ce qu’il faut : de petites rondelles sur son axe permettent de l’ajuster. Trop lourde, elle se pose sur la plaque ; trop légère, elle glisse sur le côté."
+      },
+      "view": "La toupie au-dessus de l’aimant annulaire, en coupe : la fenêtre dans laquelle elle peut flotter, et où elle se trouve",
+      "play": {
+        "title": "Ajuster la toupie",
+        "hint": "Modifiez le poids de la toupie au centième de gramme près jusqu’à ce qu’elle se pose ou glisse. Puis rendez la pièce plus chaude ou plus froide.",
+        "mass": "Poids de la toupie",
+        "mass_hint": "Sur le jouet : des rondelles sur l’axe. L’aimant de la toupie est fait de 2 cm³ de ferrite.",
+        "warming": "Plus chaud ou plus froid",
+        "warming_hint": "De combien il fait plus chaud (ou plus froid) qu’au moment du réglage. La ferrite perd environ 0,2 % de son aimantation par kelvin, dans le socle comme dans la toupie.",
+        "hovers": "La toupie flotte : son poids et la portance s’équilibrent à l’intérieur de la fenêtre.",
+        "lands": "Trop lourde : même au pied de la fenêtre, là où la portance est la plus grande, le champ ne la porte pas. Elle se pose sur la plaque.",
+        "slides": "Trop légère : elle ne trouverait son équilibre qu’au-dessus de la fenêtre, où le champ ne la retient plus sur le côté. Elle glisse.",
+        "height": "Hauteur de flottement",
+        "lightest": "La plus légère",
+        "heaviest": "La plus lourde",
+        "bob": "De haut en bas",
+        "drift": "Sur le côté"
+      },
+      "chart": {
+        "title": "Portance et poids",
+        "hint": "La portance du champ au-dessus de l’anneau, exprimée comme la masse qu’elle porte. Là où la courbe croise le poids se trouve l’équilibre ; il n’est stable qu’entre les deux lignes de la fenêtre.",
+        "height": "Hauteur au-dessus de l’anneau",
+        "lift": "Portance",
+        "weight": "Poids",
+        "window": "Fenêtre"
+      },
+      "model": {
+        "intro": "Tenez un aimant au-dessus d’un autre et lâchez-le : il se retourne ou glisse. Aucun arrangement d’aimants fixes ne maintient un aimant en lévitation stable (Earnshaw). La toupie qui tourne ne peut pas se retourner. Sa rotation garde son aimant orienté contre le champ dans lequel elle se trouve ; quand le champ change de direction, l’aimant tourne lentement avec lui. Dès lors, seule compte pour la toupie l’intensité du champ, non sa direction – et un point où le champ est le plus faible, l’espace libre le permet.",
+        "energy": "L’énergie de la toupie : sa hauteur dans la pesanteur et l’intensité du champ contre lequel pointe son aimant. Elle est poussée vers là où le champ est plus faible.",
+        "field": "Le champ sur l’axe de l’anneau : un anneau aimanté uniformément agit comme un solénoïde extérieur moins un solénoïde intérieur.",
+        "solenoid": "La part d’un solénoïde de rayon a, entre la face inférieure de l’anneau (z + t) et sa face supérieure (z), à partir de laquelle on mesure la hauteur.",
+        "balance": "La toupie flotte là où son poids égale la portance : le champ faiblit vers le haut, et la pousse d’autant plus fort qu’il faiblit vite.",
+        "window": "L’équilibre n’est stable que si le champ ramène la toupie d’en haut et d’en bas (à gauche) et depuis le côté (à droite ; hors de l’axe, d’après l’équation de Laplace jusqu’au carré de la distance). Les deux ne sont réunis que dans une fenêtre de quelques millimètres.",
+        "bob": "Dans la fenêtre, la toupie oscille de haut en bas à cette fréquence ; sur le côté, elle oscille plus lentement autour de l’axe."
+      },
+      "symbols": {
+        "u": "l’énergie de la toupie",
+        "m": "sa masse",
+        "g": "l’accélération de la pesanteur",
+        "z": "la hauteur au-dessus de la face supérieure de l’anneau",
+        "mu": "le moment magnétique de la toupie",
+        "b": "l’intensité du champ",
+        "mu0": "la constante magnétique",
+        "magnetisation": "l’aimantation de l’anneau",
+        "radii": "le rayon intérieur et le rayon extérieur de l’anneau",
+        "t": "la hauteur de l’anneau",
+        "a": "le rayon du solénoïde",
+        "slope": "la vitesse à laquelle le champ faiblit vers le haut",
+        "bend": "combien cet affaiblissement ralentit vers le haut",
+        "fz": "la fréquence de l’oscillation"
+      },
+      "sweet": {
+        "window": "La fenêtre est étroite : au-dessus de cet anneau, la toupie ne flotte qu’entre 4,36 et 4,81 cm, et seulement si elle pèse entre 23,11 et 23,81 g – une marge de 3 %. Au pied de la fenêtre, la portance est la plus grande ; la toupie ne peut pas être plus lourde. La toupie réglée de 23,5 g flotte à 4,6 cm, monte et descend 1,5 fois par seconde et oscille sur le côté 0,6 fois par seconde.",
+        "warmth": "C’est pourquoi la chaleur est son ennemie. La ferrite faiblit à chaque degré : deux degrés de plus, et la fenêtre se déplace de 0,8 % vers des toupies plus légères. Trois degrés et demi de plus qu’au réglage, et la toupie se pose ; quatre degrés et demi de moins, et elle glisse. Les hauteurs de la fenêtre restent où elles sont.",
+        "earnshaw": "Sans rotation, rien ne flotte : un aimant libre de s’orienter selon le champ ne trouve d’appui à aucune hauteur – il se retourne et se colle à l’anneau."
+      },
+      "computed": {
+        "system": "Le champ sur l’axe est calculé exactement, comme différence de deux solénoïdes, avec sa pente et sa courbure ; hors de l’axe, il découle de l’équation de Laplace jusqu’au carré de la distance. La fenêtre est cherchée sur une grille au millimètre jusqu’à 30 cm de hauteur et ses bords sont déterminés par des bissections successives, tout comme l’équilibre. Le calcul se fait dans votre navigateur, avec les mêmes étapes que le moteur de calcul du site.",
+        "left_out": "Laissé de côté : la rotation elle-même. On la suppose assez rapide pour que l’aimant suive le champ, et assez lente pour que l’axe puisse encore suivre les changements de direction du champ – cette fenêtre de vitesse, la page ne la calcule pas. Manquent aussi l’air qui freine la toupie, son vacillement et les dimensions d’un jouet précis : l’anneau est un exemple en ferrite, de 10 cm de large avec un trou de 3 cm et 1,5 cm de haut, l’aimant de la toupie 2 cm³ de la même ferrite."
       }
     }
   }

@@ -80,9 +80,9 @@ quarter for one that came right after yesterday's in the round before. Those
 are the second series' maluses (Marcel, 2026-11-15: "Tagesminus sollte weniger
 zählen"); the first series drew with a quarter and a tenth, and its rounds keep
 them, so the days the live site has shown keep their exhibit. Measured over
-400 rounds of all 25 (a plain shuffle, then the old maluses, in brackets):
-repeated pairs 0.44 a round (1.29; 0.27), repeated triples 0.008 (0.078;
-0.005), neighbours sharing a topic 29.3 days in a hundred (37.0; 23.5). With
+400 rounds of all 26 (a plain shuffle, then the old maluses, in brackets):
+repeated pairs 0.44 a round (1.21; 0.28), repeated triples 0.008 (0.070; 0),
+neighbours sharing a topic 26.4 days in a hundred (35.2; 20.8). With
 eleven exhibits about energy and eight each about oscillation and angular
 momentum, the quarter held a topic back on most days.
 They were measured over 2000 rounds against a plain shuffle (`daily.ts` has
@@ -95,8 +95,9 @@ as often as a shuffle, and was dropped the same evening. They are weights, so
 elephant, are a 3 % draw that came up. With the second series the bonus weighs
 less, and less with every exhibit: with eight it cut the turns that come after
 more than a round and two days by a quarter, with fifteen by an eighth (1456
-against 1670 over 400 rounds), with sixteen by a tenth (2311 against 2555);
-`daily.test.ts` now holds it only to a twentieth. Its weight a day is fixed
+against 1670 over 400 rounds), with sixteen by a tenth (2311 against 2555),
+with 26 by a twentieth (10259 against 10834 over 1200 rounds);
+`daily.test.ts` now holds it only to a fiftieth. Its weight a day is fixed
 while a round grows longer, and stays so: Marcel weakened the maluses instead
 (2026-11-15).
 The day is Zurich's, so one day has one
@@ -1315,6 +1316,64 @@ tones), the plate's thickness beside its size, and how sand really jumps.
 modes moving the middle and every other kind still there; the three tones and
 their ratios; the swing on the ring mode's node under 2 % of the middle's.
 `tests/api`: the route's modes lowest first, 24.270 at the bottom.
+
+## The floating top (`experiments.levitation`)
+
+**The exhibit.** A small top with a magnet in its disc, spun on a plate over a
+base with a ring magnet in it; lifted slowly with the plate, it leaves it and
+floats, spinning, a few centimetres up. Only a top of the right weight does:
+the toy is tuned with washers on the spindle, and a warm room undoes it.
+
+**The model** (`domain/experiments/levitation.py`; Berry 1996, Simon,
+Heflinger and Ridgway 1997). A still magnet over fixed ones flips or slides
+(Earnshaw). The spinning top's magnet stays against the field it sits in and
+turns slowly with it (the adiabatic approximation), so its energy is
+`U = m·g·z + μ·|B|`: it is pushed towards a weaker field, whose minimum free
+space allows. The ring's field on its axis is exact, an outer solenoid minus
+an inner one, `B = μ₀M/2·[F_r₂ − F_r₁]`, `F_a = f_a(z + t) − f_a(z)`,
+`f_a(u) = u/√(u² + a²)`, with its slope and curvature in closed form; off the
+axis Laplace's equation gives `|B| = B + r²·(B′²/B − 2B″)/8` to second order.
+The balance is `m·g = −μ·B′`; it holds up and down where `B″ > 0` and sideways
+where `B′² > 2·B·B″`, both only in a window found on a millimetre grid to
+30 cm and bisected 60 times at each edge; the balance is bisected likewise
+above the window's foot, where the lift only falls. It bobs at
+`√(μB″/m)/2π` and drifts round at `√(μ(B′²/(4B) − B″/2)/m)/2π`. Ferrite loses
+0.2 % of its magnetisation a kelvin, the base's and the top's alike, so a
+warming scales the lift by `(1 − 0.002·ΔT)²`.
+
+**What it shows** (an illustrative ferrite ring 10 cm across, a 3 cm hole,
+1.5 cm high, M = 320 kA/m; the top's magnet 2 cm³ of it, μ = 0.64 A·m²). The
+window runs from 4.36 to 4.81 cm and holds a top of 23.11 to 23.81 g, a margin
+of 3 %. Its foot is the lift's peak, so a heavier top lands; a lighter one
+balances only above the window, held upright but not sideways, and slides
+off. The exhibit's top of 23.5 g floats at 4.6 cm, bobs at 1.5 Hz and drifts
+round at 0.6 Hz. Two kelvin warmer move the window 0.8 % towards lighter tops
+and never its heights; three and a half kelvin warmer the top lands, four and
+a half colder it slides off. Turned with the field instead (a still magnet),
+no height holds it.
+
+**The page.** The top over the ring, cut through its axis, with the window's
+band and the top where it is: floating, lying on the ring, or slid past the
+rim; the top's weight in hundredths of a gram and the room's warming; the
+floating height, the lightest and the heaviest top, the bobbing and the
+drifting; a chart of the lift against the height with the top's weight, the
+window's two edges and the balance. Topic "equilibrium". **No route**: the
+port's (`simulate/levitation.ts`), held to the engine exactly, the grid and
+the bisections included.
+
+**Joins the experiment of the day** on `SECOND_SERIES`, with the second series.
+
+**Left out, and said:** the spin itself (taken fast enough for the magnet to
+follow the field and slow enough for the axis to follow its turns; that speed
+window is the paper's, not computed), the air, the top's wobble, and any
+particular toy's magnets.
+
+**Checked by** `tests/unit/test_experiments.py`: the axis field against a
+dipole's far up and its slope and curvature against differences; the window's
+heights and masses, the 3 %, the exhibit's height and frequencies; the foot as
+the lift's peak; landing and sliding off; the warmings of 3.5 and 4.5 K and the
+0.8 % that leaves the heights; and Earnshaw, no height for a magnet turned with
+the field.
 
 ## The notice: the check still to come
 

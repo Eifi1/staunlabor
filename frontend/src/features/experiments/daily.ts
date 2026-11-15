@@ -26,12 +26,12 @@
  *   has shown keep their exhibit; the halved maluses draw from
  *   {@link SECOND_SERIES} on (Marcel, 2026-11-15: they should count less).
  *
- *   **Measured, not guessed** (400 rounds of all 25 exhibits; a plain shuffle
+ *   **Measured, not guessed** (400 rounds of all 26 exhibits; a plain shuffle
  *   per round, then the first series' weights, in brackets): a pair of the
- *   round before again in the same order 0.44 times a round (1.29; 0.27), a
- *   triple 0.008 (0.078; 0.005), two neighbours sharing a topic 29.3 days in a
- *   hundred (37.0; 23.5), a wait of more than a round and two days 31.1 % of
- *   turns (33.8 %; 31.6 %). With the first eight the first series' weights cut
+ *   round before again in the same order 0.44 times a round (1.21; 0.28), a
+ *   triple 0.008 (0.070; 0), two neighbours sharing a topic 26.4 days in a
+ *   hundred (35.2; 20.8), a wait of more than a round and two days 32.2 % of
+ *   turns (34.6 %; 32.1 %). With the first eight the first series' weights cut
  *   the repeated pairs from 0.90 a round to 0.27 and the topic neighbours from
  *   14.5 days in a hundred to 7.9. The very first version spaced turns by six
  *   days with a full bonus per day, and that is a rotation in disguise: it
@@ -93,7 +93,7 @@ const FIRST_WEIGHTS: DailyWeights = { bonusPerDay: 0.25, topicMalus: 0.25, pairM
 
 /** From the second series on, the maluses at half their strength (Marcel,
  *  2026-11-15: "Tagesminus sollte weniger zählen"): a half for a shared topic,
- *  a quarter for yesterday's follower. With 25 exhibits, eleven of them about
+ *  a quarter for yesterday's follower. With 26 exhibits, eleven of them about
  *  energy and eight each about oscillation and angular momentum, the quarter
  *  held a topic back on most days. */
 export const DAILY_WEIGHTS: DailyWeights = { bonusPerDay: 0.25, topicMalus: 0.5, pairMalus: 0.25 };

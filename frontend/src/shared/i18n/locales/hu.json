@@ -279,6 +279,12 @@
         "title": "A Chladni-ábrák",
         "summary": "Homok egy fémlemezen. Ha a lemez megszólal, a homok vonalakba gyűlik – minden hangnál más mintába.",
         "question": "Miért gyűlik a homok vonalakba, és miért minden hangnál másokba?"
+      },
+      "levitation": {
+        "short": "Lebegő pörgettyű",
+        "title": "A lebegő pörgettyű",
+        "summary": "Egy mágnest tartalmazó pörgettyű forog egy gyűrű alakú mágnes fölött, és lebeg – de csak akkor, ha néhány tized grammra pontosan megfelelő a súlya.",
+        "question": "Miért lebeg a forgó pörgettyű, és miért száll le, ha egy kicsit túl nehéz?"
       }
     },
     "chair": {
@@ -2317,6 +2323,71 @@
       "computed": {
         "system": "A behajlást Legendre-polinomok szorzatainak összegeként írjuk fel a 20. fokig; Ritz szerint az alakok azok, amelyeknél az energia stacionárius. Sajátértékeiket a szerver Jacobi-forgatásokkal egyszer kiszámolja, és elküldi az alakokat; az oldal minden hanghoz összegzi őket. A teszt az első értékeket Leissa táblázatához méri (13,468 · 19,596 · 24,270 · 34,801 · 63,686). A homok rajzolási szabály: a szemcsék feldobódnak, ahol a lemez rezeg, és odacsúsznak, ahol nyugton van.",
         "left_out": "Kimaradt: a rázó rögzítése a közepén (tömege és merevsége kissé eltolja a hangokat), a lemez vastagsága a méretéhez képest, és hogyan ugrál valójában a homok."
+      }
+    },
+    "levitation": {
+      "at": {
+        "top": "Egy gyűrű alakú mágnest tartalmazó talp fölötti lapon megpörgetnek egy kis pörgettyűt, amelynek korongjában mágnes van. Ha a lapot lassan felemelik, a pörgettyű elválik tőle, és forogva lebeg néhány centiméterrel a talp fölött.",
+        "weight": "Ehhez pontosan megfelelő súlyúnak kell lennie: a tengelyére tett apró alátétekkel hangolják. Ha túl nehéz, leereszkedik a lapra; ha túl könnyű, oldalra elcsúszik."
+      },
+      "view": "A pörgettyű a gyűrűs mágnes fölött, metszetben: az ablak, amelyben lebeghet, és hogy hol van",
+      "play": {
+        "title": "A pörgettyű hangolása",
+        "hint": "Változtassa a pörgettyű súlyát század grammonként, amíg leszáll vagy elcsúszik. Aztán tegye a szobát melegebbé vagy hidegebbé.",
+        "mass": "A pörgettyű súlya",
+        "mass_hint": "A játékon: alátétek a tengelyen. A pörgettyű mágnese 2 cm³ ferritből áll.",
+        "warming": "Melegebb vagy hidegebb",
+        "warming_hint": "Ennyivel melegebb (vagy hidegebb), mint a hangoláskor. A ferrit kelvinenként mágnesezettségének kb. 0,2 %-át veszíti el, a talpban és a pörgettyűben egyaránt.",
+        "hovers": "A pörgettyű lebeg: súlya és a felhajtóerő az ablakon belül egyensúlyban van.",
+        "lands": "Túl nehéz: még az ablak alján sem, ahol a felhajtóerő a legnagyobb, bírja el a tér. Leszáll a lapra.",
+        "slides": "Túl könnyű: egyensúlyát csak az ablak fölött találná meg, ahol a tér oldalról már nem tartja. Elcsúszik.",
+        "height": "Lebegési magasság",
+        "lightest": "Legkönnyebb",
+        "heaviest": "Legnehezebb",
+        "bob": "Fel és le",
+        "drift": "Oldalra"
+      },
+      "chart": {
+        "title": "Felhajtóerő és súly",
+        "hint": "A tér felhajtóereje a gyűrű fölött, az általa megtartott tömegként kifejezve. Ahol a görbe metszi a súlyt, ott van az egyensúly; ez csak az ablak két vonala között stabil.",
+        "height": "Magasság a gyűrű fölött",
+        "lift": "Felhajtóerő",
+        "weight": "Súly",
+        "window": "Ablak"
+      },
+      "model": {
+        "intro": "Ha egy mágnest egy másik fölött tartunk, majd elengedjük, megfordul vagy elcsúszik: rögzített mágnesek semmilyen elrendezése nem tart egy mágnest stabilan lebegésben (Earnshaw). A forgó pörgettyű nem tud megfordulni. Forgása a mágnesét a környező térrel szemben tartja; ha a tér iránya változik, a mágnes lassan vele fordul. Így a pörgettyű számára csak a tér erőssége számít, nem az iránya – és olyan pontot, ahol a tér a leggyengébb, a szabad tér megenged.",
+        "energy": "A pörgettyű energiája: magassága a nehézségi erőtérben és annak a térnek az erőssége, amellyel szemben a mágnese mutat. Arra tolódik, amerre a tér gyengébb.",
+        "field": "A tér a gyűrű tengelyén: az egyenletesen mágnesezett gyűrű úgy viselkedik, mint egy külső szolenoid mínusz egy belső.",
+        "solenoid": "Egy a sugarú szolenoid hozzájárulása a gyűrű alsó lapja (z + t) és felső lapja (z) között; a magasságot a felső laptól mérjük.",
+        "balance": "A pörgettyű ott lebeg, ahol súlya egyenlő a felhajtóerővel: a tér felfelé gyengül, és annál erősebben nyomja, minél gyorsabban gyengül.",
+        "window": "Az egyensúly csak akkor stabil, ha a tér felülről és alulról (balra) és oldalról (jobbra; a tengelyen kívül a Laplace-egyenletből a távolság négyzetéig) is visszahúzza. Mindkettő csak néhány milliméteres ablakban teljesül.",
+        "bob": "Az ablakban a pörgettyű ezzel a frekvenciával mozog fel és le; oldalra lassabban leng a tengely körül."
+      },
+      "symbols": {
+        "u": "a pörgettyű energiája",
+        "m": "a tömege",
+        "g": "a nehézségi gyorsulás",
+        "z": "a magasság a gyűrű felső lapja fölött",
+        "mu": "a pörgettyű mágneses momentuma",
+        "b": "a tér erőssége",
+        "mu0": "a vákuum permeabilitása",
+        "magnetisation": "a gyűrű mágnesezettsége",
+        "radii": "a gyűrű belső és külső sugara",
+        "t": "a gyűrű magassága",
+        "a": "a szolenoid sugara",
+        "slope": "milyen gyorsan gyengül a tér felfelé",
+        "bend": "mennyire lassul ez a gyengülés felfelé",
+        "fz": "a fel-le mozgás frekvenciája"
+      },
+      "sweet": {
+        "window": "Az ablak keskeny: e gyűrű fölött a pörgettyű csak 4,36 és 4,81 cm között lebeg, és csak akkor, ha 23,11 és 23,81 g között van a súlya – ez 3 %-os mozgástér. Az ablak alján a legnagyobb a felhajtóerő; ennél nehezebb nem lehet. A 23,5 g-ra hangolt pörgettyű 4,6 cm magasan lebeg, másodpercenként 1,5-szer mozog fel és le, és 0,6-szor leng oldalra.",
+        "warmth": "Ezért a meleg az ellensége. A ferrit minden fokkal gyengül: két fokkal melegebb, és az ablak 0,8 %-kal a könnyebb pörgettyűk felé tolódik. Három és fél fokkal melegebb, mint a hangoláskor, és a pörgettyű leszáll; négy és fél fokkal hidegebb, és elcsúszik. Az ablak magasságai közben a helyükön maradnak.",
+        "earnshaw": "Forgás nélkül egyáltalán nem megy: a térrel szabadon beálló mágnes semmilyen magasságban nem talál támaszt – megfordul, és a gyűrűhöz csapódik."
+      },
+      "computed": {
+        "system": "A tér a tengelyen pontosan számolódik, két szolenoid különbségeként, meredekségével és görbületével együtt; a tengelyen kívül a Laplace-egyenletből következik a távolság négyzetéig. Az ablakot milliméteres rácson keressük 30 cm magasságig, széleit ismételt felezéssel határozzuk meg, ahogy az egyensúlyt is. A számítás az Ön böngészőjében fut, ugyanazokkal a lépésekkel, mint a webhely számítómotorja.",
+        "left_out": "Kihagyva: maga a forgás. Elég gyorsnak tételezzük fel ahhoz, hogy a mágnes kövesse a teret, és elég lassúnak ahhoz, hogy a tengely még kövesse a tér irányváltozásait – ezt a fordulatszám-ablakot az oldal nem számolja. Hiányzik továbbá a pörgettyűt fékező levegő, a billegése és egy konkrét játék méretei: a gyűrű ferritből készült példa, 10 cm széles, 3 cm-es lyukkal és 1,5 cm magas, a pörgettyű mágnese pedig 2 cm³ ugyanabból a ferritből."
       }
     }
   }

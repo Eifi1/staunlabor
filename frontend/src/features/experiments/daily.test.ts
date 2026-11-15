@@ -83,14 +83,17 @@ describe("the experiment of the day", () => {
     }));
     const flow = new Set<string>(built.slice(0, 2));
     const together = (days: string[]) => days.slice(1).filter((e, i) => flow.has(e) && flow.has(days[i])).length;
-    const leaned = together(run(built.length * 400, pool));
-    const even = together(run(built.length * 400, pool, EVEN));
-    // An even round puts the two side by side 2/n of the time: 400 rounds of
-    // sixteen, fifty. A fixed bound held only while there were few exhibits.
-    expect(even).toBeGreaterThan(((2 * 400) / built.length) * 0.7);
-    // Not a quarter as often, though the weight is a quarter: late in a round
+    // 1200 rounds: with 26 exhibits the two meet some 26 times in 400, too few
+    // to tell a half from a whole.
+    const leaned = together(run(built.length * 1200, pool));
+    const even = together(run(built.length * 1200, pool, EVEN));
+    // An even round puts the two side by side 2/n of the time: 1200 rounds of
+    // 26, about ninety. A fixed bound held only while there were few exhibits.
+    expect(even).toBeGreaterThan(((2 * 1200) / built.length) * 0.7);
+    // The second series' malus is a half (the first series' a quarter): 69
+    // against 97 with 26 exhibits, not half as often, since late in a round
     // there is often nothing else left to draw.
-    expect(leaned).toBeLessThan(even * 0.7);
+    expect(leaned).toBeLessThan(even * 0.85);
   });
 
   it("rarely repeats the round before's order, two by two (the other malus)", () => {
@@ -122,15 +125,15 @@ describe("the experiment of the day", () => {
         const before = i > 0 ? days.lastIndexOf(exhibit, i - 1) : -1;
         return before !== -1 && i - before > built.length + 2;
       }).length;
-    const leaned = late(run(built.length * 400, pool));
-    const even = late(run(built.length * 400, pool, EVEN));
+    const leaned = late(run(built.length * 1200, pool));
+    const even = late(run(built.length * 1200, pool, EVEN));
     expect(even).toBeGreaterThan(50);
     // With eight exhibits the bonus cut such turns by a quarter; with fifteen,
-    // by an eighth; with sixteen, by a tenth (2311 against 2555 over 400
-    // rounds): a day's weight is fixed while a round grows. Still fewer, less
-    // so with every exhibit; whether to scale it is docs/experiments.md's open
-    // question.
-    expect(leaned).toBeLessThan(even * 0.95);
+    // by an eighth; with sixteen, by a tenth; with 26, by a twentieth (10259
+    // against 10834 over 1200 rounds): a day's weight is fixed while a round
+    // grows, and stays so (Marcel weakened the maluses instead, 2026-11-15).
+    // Still fewer.
+    expect(leaned).toBeLessThan(even * 0.98);
   });
 
   it("weakens the maluses from the second series on, and keeps every day shown before it", () => {

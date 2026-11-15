@@ -47,6 +47,7 @@ import { WellPage } from "./well-page";
 import { ResonancePage } from "./resonance-page";
 import { GyroscopePage } from "./gyroscope-page";
 import { ArchPage } from "./arch-page";
+import { LevitationPage } from "./levitation-page";
 import { ChladniPage } from "./chladni-page";
 import { ballState, pitEntries, positionAt, raceLayout, swingAt } from "./race-views";
 import { run as runPit } from "./simulate/pit";
@@ -1053,5 +1054,28 @@ describe("the notice that the calculations await their check", () => {
   it("stands on an exhibit's page, above trying it", async () => {
     renderWithProviders(<CradlePage />);
     expect(await screen.findByText(E.unchecked)).toBeInTheDocument();
+  });
+});
+
+describe("the floating top", () => {
+  it("shows the tuned top floating in its window, with the field's equations", async () => {
+    renderWithProviders(<LevitationPage />);
+    expect(await screen.findByRole("img", { name: E.levitation.view })).toBeInTheDocument();
+    expect(await screen.findByText(E.levitation.play.hovers)).toBeInTheDocument();
+    expect(screen.getAllByLabelText(E.equation.symbols).length).toBeGreaterThanOrEqual(5);
+  });
+
+  it("lands too heavy, slides off too light, and lands again when the room warms", async () => {
+    renderWithProviders(<LevitationPage />);
+    await screen.findByRole("img", { name: E.levitation.view });
+    const mass = screen.getByRole("slider", { name: E.levitation.play.mass });
+    fireEvent.change(mass, { target: { value: "24" } });
+    expect(await screen.findByText(E.levitation.play.lands)).toBeInTheDocument();
+    fireEvent.change(mass, { target: { value: "23" } });
+    expect(await screen.findByText(E.levitation.play.slides)).toBeInTheDocument();
+    fireEvent.change(mass, { target: { value: "23.5" } });
+    expect(await screen.findByText(E.levitation.play.hovers)).toBeInTheDocument();
+    fireEvent.change(screen.getByRole("slider", { name: E.levitation.play.warming }), { target: { value: "3.5" } });
+    expect(await screen.findByText(E.levitation.play.lands)).toBeInTheDocument();
   });
 });

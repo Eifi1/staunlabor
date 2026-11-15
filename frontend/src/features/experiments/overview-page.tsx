@@ -32,6 +32,7 @@ import {
   LifeBuoy,
   Landmark,
   Grid3x3,
+  Magnet as MagnetIcon,
 } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
 import {
@@ -84,6 +85,7 @@ const ICON: Record<Exhibit, LucideIcon> = {
   gyroscope: LifeBuoy,
   arch: Landmark,
   chladni: Grid3x3,
+  levitation: MagnetIcon,
 };
 
 /** Two weeks back, in the dialog: long enough to find the one a friend

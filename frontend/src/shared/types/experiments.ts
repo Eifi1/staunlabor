@@ -648,6 +648,14 @@ export interface GyroWheelRequest {
   rpm: number;
 }
 
+// ── the floating top ─────────────────────────────────────────────────────────
+
+/** The engine's `Base` and `Top`. No route: the page asks the port (`simulate/levitation.ts`). */
+export interface LevitationRequest {
+  base: { inner_radius_m: number; outer_radius_m: number; height_m: number; magnetisation_a_m: number };
+  top: { moment_a_m2: number; mass_kg: number };
+}
+
 // ── the chain and the arch ───────────────────────────────────────────────────
 
 /** The engine's `Arch`. No route: the page asks the port (`simulate/arch.ts`). */
@@ -705,6 +713,7 @@ export interface ExperimentsDefaults {
   gyroscope: GyroWheelRequest;
   arch: StoneArchRequest;
   chladni: ChladniPlateRequest;
+  levitation: LevitationRequest;
   meter_range_a: number;
   settle_s: number;
 }

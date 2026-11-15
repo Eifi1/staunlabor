@@ -279,6 +279,12 @@
         "title": "The Chladni figures",
         "summary": "Sand on a metal plate. When the plate rings, the sand runs into lines – a different pattern at every tone.",
         "question": "Why does the sand gather into lines, and into different ones at every tone?"
+      },
+      "levitation": {
+        "short": "Floating top",
+        "title": "The floating top",
+        "summary": "A top with a magnet in it spins over a ring magnet and floats – but only if its weight is right to within a few tenths of a gram.",
+        "question": "Why does the spinning top float, and why does it land when it is a little too heavy?"
       }
     },
     "chair": {
@@ -2317,6 +2323,71 @@
       "computed": {
         "system": "The deflection is written as a sum of products of Legendre polynomials up to degree 20; by Ritz, the shapes are those at which the energy stands still. The server finds their eigenvalues by Jacobi's rotations, once, and sends the shapes; the page sums them for every tone. The test holds the first values to Leissa's table (13.468 · 19.596 · 24.270 · 34.801 · 63.686). The sand is a drawing rule: grains are thrown up where the plate swings and slide to where it stands still.",
         "left_out": "Left out: the shaker's hold at the middle (its mass and stiffness shift the tones a little), the plate's thickness beside its size, and how sand really jumps."
+      }
+    },
+    "levitation": {
+      "at": {
+        "top": "On a plate over a base with a ring magnet in it, a small top with a magnet in its disc is spun. Lift the plate slowly, and the top leaves it and floats, spinning, a few centimetres over the base.",
+        "weight": "For that it has to weigh just right: small washers on its spindle tune it. Too heavy, and it sinks onto the plate; too light, and it slides off sideways."
+      },
+      "view": "The top over the ring magnet, cut through: the window it can float in, and where it is",
+      "play": {
+        "title": "Tune the top",
+        "hint": "Change the top's weight by hundredths of a gram until it lands or slides off. Then make the room warmer or colder.",
+        "mass": "Weight of the top",
+        "mass_hint": "On the toy: washers on the spindle. The magnet in the top is 2 cm³ of ferrite.",
+        "warming": "Warmer or colder",
+        "warming_hint": "This much warmer (or colder) than when it was tuned. Ferrite loses about 0.2 % of its magnetisation per kelvin, in the base and in the top alike.",
+        "hovers": "The top floats: its weight and the lift balance inside the window.",
+        "lands": "Too heavy: even at the window's foot, where the lift is greatest, the field cannot carry it. It lands on the plate.",
+        "slides": "Too light: it would find its balance only above the window, where the field no longer holds it sideways. It slides off.",
+        "height": "Floating height",
+        "lightest": "Lightest",
+        "heaviest": "Heaviest",
+        "bob": "Up and down",
+        "drift": "Sideways"
+      },
+      "chart": {
+        "title": "Lift and weight",
+        "hint": "The field's lift over the ring, as the mass it carries. Where the curve crosses the weight, the top balances; the balance holds only between the window's two lines.",
+        "height": "Height over the ring",
+        "lift": "Lift",
+        "weight": "Weight",
+        "window": "Window"
+      },
+      "model": {
+        "intro": "Hold one magnet over another and let go, and it flips over or slides away: no arrangement of fixed magnets holds a magnet floating stably (Earnshaw). The spinning top cannot flip. Its spin keeps its magnet pointing against the field it is in; where the field turns, the magnet slowly turns with it. Then only the field's strength counts for the top, not its direction – and a place where the field is weakest is something free space allows.",
+        "energy": "The top's energy: its height in gravity and the strength of the field its magnet points against. It is pushed towards where the field is weaker.",
+        "field": "The field on the ring's axis: a ring magnetised evenly acts as an outer solenoid minus an inner one.",
+        "solenoid": "One solenoid's share, radius a, between the ring's underside (z + t) and its top face (z), from which heights are measured.",
+        "balance": "The top floats where its weight equals the lift: the field weakens upwards, and pushes it the harder the faster it weakens.",
+        "window": "The balance holds only if the field brings the top back from above and below (left) and from the side (right; off the axis from Laplace's equation, to the square of the distance). Both hold only in a window a few millimetres high.",
+        "bob": "In the window the top bobs up and down at this frequency; sideways it swings round the axis more slowly."
+      },
+      "symbols": {
+        "u": "the top's energy",
+        "m": "its mass",
+        "g": "the acceleration of gravity",
+        "z": "the height over the ring's top face",
+        "mu": "the top's magnetic moment",
+        "b": "the field's strength",
+        "mu0": "the magnetic constant",
+        "magnetisation": "the ring's magnetisation",
+        "radii": "the ring's inner and outer radius",
+        "t": "the ring's height",
+        "a": "the solenoid's radius",
+        "slope": "how fast the field weakens upwards",
+        "bend": "how much that weakening slows upwards",
+        "fz": "the frequency of the bobbing"
+      },
+      "sweet": {
+        "window": "The window is narrow: over this ring the top floats only between 4.36 and 4.81 cm, and only if it weighs between 23.11 and 23.81 g – a margin of 3 %. At the window's foot the lift is greatest; it may not be heavier than that. The tuned top of 23.5 g floats at 4.6 cm, bobs 1.5 times a second and swings sideways 0.6 times a second.",
+        "warmth": "That is why warmth is its enemy. Ferrite weakens with every degree: two degrees warmer, and the window moves 0.8 % towards lighter tops. Three and a half degrees warmer than when it was tuned, and the top lands; four and a half colder, and it slides off. The window's heights stay where they are.",
+        "earnshaw": "Without the spin there is no floating at all: a magnet free to turn with the field finds a hold at no height – it flips and snaps onto the ring."
+      },
+      "computed": {
+        "system": "The field on the axis is computed exactly, as the difference of two solenoids, with its slope and its curvature; off the axis it follows from Laplace's equation to the square of the distance. The window is searched on a millimetre grid up to 30 cm and its edges are found by halving again and again, and the balance likewise. It is computed in your browser, with the same steps as the site's engine.",
+        "left_out": "Left out: the spin itself. It is taken to be fast enough for the magnet to follow the field, and slow enough for the axis still to follow the field's turns – that window in speed the page does not compute. Also left out are the air that slows the top, its wobble, and the sizes of any particular toy: the ring is an example in ferrite, 10 cm across with a 3 cm hole and 1.5 cm high, the top's magnet 2 cm³ of the same ferrite."
       }
     }
   }

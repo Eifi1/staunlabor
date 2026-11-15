@@ -279,6 +279,12 @@
         "title": "Die Chladni-Figuren",
         "summary": "Sand auf einer Metallplatte. Klingt die Platte, wandert der Sand zu Linien – bei jedem Ton zu einem anderen Muster.",
         "question": "Warum sammelt sich der Sand zu Linien, und warum bei jedem Ton zu anderen?"
+      },
+      "levitation": {
+        "short": "Schwebender Kreisel",
+        "title": "Der schwebende Kreisel",
+        "summary": "Ein Kreisel mit einem Magneten dreht sich über einem Ringmagneten und schwebt – aber nur, wenn er auf wenige Zehntelgramm genau richtig wiegt.",
+        "question": "Warum schwebt der drehende Kreisel, und warum landet er, wenn er ein wenig zu schwer ist?"
       }
     },
     "chair": {
@@ -2317,6 +2323,71 @@
       "computed": {
         "system": "Die Durchbiegung wird als Summe von Produkten von Legendre-Polynomen bis zum Grad 20 geschrieben; nach Ritz sind die Formen jene, bei denen die Energie stillsteht. Ihre Eigenwerte findet der Server mit Jacobis Drehungen, einmal, und schickt die Formen; die Seite summiert sie für jeden Ton. Der Test hält die ersten Werte an Leissas Tabelle (13,468 · 19,596 · 24,270 · 34,801 · 63,686). Der Sand ist eine Zeichenregel: Körner werden hochgeworfen, wo die Platte schwingt, und rutschen dorthin, wo sie stillsteht.",
         "left_out": "Weggelassen: der Halt des Rüttlers in der Mitte (seine Masse und Steifigkeit verschieben die Töne etwas), die Dicke der Platte neben ihrer Grösse, und wie Sand wirklich springt."
+      }
+    },
+    "levitation": {
+      "at": {
+        "top": "Auf einer Platte über einem Sockel mit einem Ringmagneten wird ein kleiner Kreisel angedreht, in dessen Teller ein Magnet steckt. Hebt man die Platte langsam an, löst sich der Kreisel und schwebt drehend einige Zentimeter über dem Sockel.",
+        "weight": "Damit es gelingt, muss er genau richtig wiegen: Mit kleinen Unterlegscheiben auf der Spindel wird er abgestimmt. Ist er zu schwer, sinkt er auf die Platte; ist er zu leicht, rutscht er zur Seite weg."
+      },
+      "view": "Der Kreisel über dem Ringmagneten, im Schnitt: das Fenster, in dem er schweben kann, und wo er steht",
+      "play": {
+        "title": "Den Kreisel abstimmen",
+        "hint": "Ändern Sie das Gewicht des Kreisels in Hundertstelgramm, bis er landet oder wegrutscht. Dann machen Sie den Raum wärmer oder kälter.",
+        "mass": "Gewicht des Kreisels",
+        "mass_hint": "Beim Spielzeug: Unterlegscheiben auf der Spindel. Der Magnet im Kreisel besteht aus 2 cm³ Ferrit.",
+        "warming": "Wärmer oder kälter",
+        "warming_hint": "Um so viel wärmer (oder kälter) als beim Abstimmen. Ferrit verliert pro Grad etwa 0,2 % seiner Magnetisierung, im Sockel wie im Kreisel.",
+        "hovers": "Der Kreisel schwebt: Sein Gewicht und der Auftrieb gleichen sich innerhalb des Fensters aus.",
+        "lands": "Zu schwer: Selbst am Fuss des Fensters, wo der Auftrieb am grössten ist, trägt ihn das Feld nicht. Er landet auf der Platte.",
+        "slides": "Zu leicht: Er fände sein Gleichgewicht erst über dem Fenster, wo ihn das Feld seitlich nicht mehr hält. Er rutscht weg.",
+        "height": "Schwebehöhe",
+        "lightest": "Leichtester",
+        "heaviest": "Schwerster",
+        "bob": "Auf und ab",
+        "drift": "Seitlich"
+      },
+      "chart": {
+        "title": "Auftrieb und Gewicht",
+        "hint": "Der Auftrieb des Feldes über dem Ring, ausgedrückt als die Masse, die er trägt. Wo die Kurve das Gewicht kreuzt, liegt das Gleichgewicht; stabil ist es nur zwischen den beiden Linien des Fensters.",
+        "height": "Höhe über dem Ring",
+        "lift": "Auftrieb",
+        "weight": "Gewicht",
+        "window": "Fenster"
+      },
+      "model": {
+        "intro": "Ein Magnet, den man über einem anderen festhält und loslässt, kippt um oder rutscht weg: Keine Anordnung fester Magnete hält einen Magneten stabil in der Schwebe (Earnshaw). Der drehende Kreisel kann nicht kippen. Seine Drehung hält seinen Magneten gegen das Feld gerichtet, in dem er sich befindet; ändert das Feld seine Richtung, dreht er sich langsam mit. Dann zählt für ihn nur die Stärke des Feldes, nicht seine Richtung – und eine schwächste Stelle des Feldes erlaubt der freie Raum.",
+        "energy": "Die Energie des Kreisels: seine Höhe im Schwerefeld und die Stärke des Feldes, gegen das sein Magnet zeigt. Er wird dorthin gedrückt, wo das Feld schwächer ist.",
+        "field": "Das Feld auf der Achse des Rings: Ein gleichmässig magnetisierter Ring wirkt wie eine äussere Spule minus eine innere.",
+        "solenoid": "Der Beitrag einer Spule vom Radius a, zwischen der Unterseite des Rings (z + t) und seiner Oberseite (z), von der aus gemessen wird.",
+        "balance": "Der Kreisel schwebt, wo sein Gewicht dem Auftrieb gleicht: Das Feld wird nach oben schwächer, und es drückt ihn umso stärker, je rascher es abnimmt.",
+        "window": "Stabil ist das Gleichgewicht nur, wenn das Feld ihn nach oben und unten zurückholt (links) und von der Seite her (rechts; neben der Achse aus der Laplace-Gleichung bis zum Quadrat des Abstands). Beides gilt nur in einem Fenster von wenigen Millimetern.",
+        "bob": "Im Fenster wippt der Kreisel mit dieser Frequenz auf und ab; seitlich pendelt er langsamer um die Achse."
+      },
+      "symbols": {
+        "u": "die Energie des Kreisels",
+        "m": "seine Masse",
+        "g": "die Fallbeschleunigung",
+        "z": "die Höhe über der Oberseite des Rings",
+        "mu": "das magnetische Moment des Kreisels",
+        "b": "die Stärke des Feldes",
+        "mu0": "die magnetische Feldkonstante",
+        "magnetisation": "die Magnetisierung des Rings",
+        "radii": "der innere und der äussere Radius des Rings",
+        "t": "die Höhe des Rings",
+        "a": "der Radius der Spule",
+        "slope": "wie rasch das Feld nach oben abnimmt",
+        "bend": "wie stark sich diese Abnahme nach oben verlangsamt",
+        "fz": "die Frequenz des Wippens"
+      },
+      "sweet": {
+        "window": "Das Fenster ist schmal: Über diesem Ring schwebt der Kreisel nur zwischen 4,36 und 4,81 cm, und nur, wenn er zwischen 23,11 und 23,81 g wiegt – ein Spielraum von 3 %. Am Fuss des Fensters ist der Auftrieb am grössten; schwerer darf er nicht sein. Der abgestimmte Kreisel von 23,5 g schwebt auf 4,6 cm, wippt 1,5-mal pro Sekunde auf und ab und pendelt 0,6-mal pro Sekunde zur Seite.",
+        "warmth": "Darum ist die Wärme sein Feind. Ferrit wird mit jedem Grad schwächer: Zwei Grad wärmer, und das Fenster rückt um 0,8 % zu leichteren Kreiseln. Dreieinhalb Grad wärmer als beim Abstimmen, und der Kreisel landet; viereinhalb Grad kälter, und er rutscht weg. Die Höhen des Fensters bleiben dabei, wo sie sind.",
+        "earnshaw": "Ohne Drehung geht es gar nicht: Ein Magnet, der sich nach dem Feld ausrichten darf, findet in keiner Höhe Halt – er kippt und schnappt an den Ring."
+      },
+      "computed": {
+        "system": "Das Feld auf der Achse wird exakt gerechnet, als Differenz zweier Spulen, samt seiner Steigung und Krümmung; neben der Achse folgt es aus der Laplace-Gleichung bis zum Quadrat des Abstands. Das Fenster wird auf einem Millimeterraster bis 30 cm Höhe gesucht und seine Ränder durch fortgesetztes Halbieren bestimmt, das Gleichgewicht ebenso. Gerechnet wird in Ihrem Browser, mit denselben Schritten wie im Rechenkern der Seite.",
+        "left_out": "Weggelassen: die Drehung selbst. Sie wird als schnell genug angenommen, damit der Magnet dem Feld folgt, und als langsam genug, dass die Achse den Richtungswechseln des Feldes noch folgen kann – dieses Drehzahlfenster rechnet die Seite nicht. Ebenso fehlen die Luft, die den Kreisel bremst, sein Taumeln und die Masse eines bestimmten Spielzeugs: Der Ring ist ein Beispiel aus Ferrit, 10 cm breit mit 3 cm Loch und 1,5 cm hoch, der Magnet im Kreisel 2 cm³ desselben Ferrits."
       }
     }
   }

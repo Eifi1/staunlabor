@@ -279,6 +279,12 @@
         "title": "Las figuras de Chladni",
         "summary": "Arena sobre una placa de metal. Cuando la placa suena, la arena se junta en líneas – con cada tono, en otro dibujo.",
         "question": "¿Por qué la arena se junta en líneas, y en otras distintas con cada tono?"
+      },
+      "levitation": {
+        "short": "Peonza flotante",
+        "title": "La peonza flotante",
+        "summary": "Una peonza con un imán gira sobre un imán anular y flota, pero solo si su peso es exacto con una precisión de unas décimas de gramo.",
+        "question": "¿Por qué flota la peonza que gira, y por qué aterriza cuando pesa un poco de más?"
       }
     },
     "chair": {
@@ -2317,6 +2323,71 @@
       "computed": {
         "system": "La flexión se escribe como suma de productos de polinomios de Legendre hasta el grado 20; según Ritz, las formas son aquellas en las que la energía es estacionaria. El servidor encuentra sus valores propios con las rotaciones de Jacobi, una vez, y envía las formas; la página las suma para cada tono. La prueba contrasta los primeros valores con la tabla de Leissa (13,468 · 19,596 · 24,270 · 34,801 · 63,686). La arena es una regla de dibujo: los granos saltan donde la placa vibra y se deslizan hacia donde está quieta.",
         "left_out": "Se deja fuera: la sujeción del vibrador en el centro (su masa y rigidez desplazan un poco los tonos), el grosor de la placa frente a su tamaño, y cómo salta de verdad la arena."
+      }
+    },
+    "levitation": {
+      "at": {
+        "top": "Sobre una placa colocada encima de una base con un imán anular se hace girar una pequeña peonza que lleva un imán en su disco. Si se levanta la placa despacio, la peonza se separa de ella y flota, girando, a unos centímetros sobre la base.",
+        "weight": "Para conseguirlo, debe pesar exactamente lo justo: unas pequeñas arandelas en el eje la ajustan. Si pesa demasiado, se posa sobre la placa; si pesa demasiado poco, se desliza hacia un lado."
+      },
+      "view": "La peonza sobre el imán anular, en corte: la ventana en la que puede flotar, y dónde está",
+      "play": {
+        "title": "Ajustar la peonza",
+        "hint": "Cambie el peso de la peonza en centésimas de gramo hasta que aterrice o se deslice. Después haga la sala más cálida o más fría.",
+        "mass": "Peso de la peonza",
+        "mass_hint": "En el juguete: arandelas en el eje. El imán de la peonza es de 2 cm³ de ferrita.",
+        "warming": "Más cálido o más frío",
+        "warming_hint": "Tantos grados más cálido (o más frío) que al ajustarla. La ferrita pierde alrededor de un 0,2 % de su imanación por kelvin, tanto en la base como en la peonza.",
+        "hovers": "La peonza flota: su peso y la sustentación se equilibran dentro de la ventana.",
+        "lands": "Demasiado pesada: ni siquiera al pie de la ventana, donde la sustentación es máxima, el campo puede sostenerla. Aterriza sobre la placa.",
+        "slides": "Demasiado ligera: solo encontraría su equilibrio por encima de la ventana, donde el campo ya no la sujeta de lado. Se desliza.",
+        "height": "Altura de flotación",
+        "lightest": "La más ligera",
+        "heaviest": "La más pesada",
+        "bob": "Arriba y abajo",
+        "drift": "De lado"
+      },
+      "chart": {
+        "title": "Sustentación y peso",
+        "hint": "La sustentación del campo sobre el anillo, expresada como la masa que sostiene. Donde la curva cruza el peso está el equilibrio; solo es estable entre las dos líneas de la ventana.",
+        "height": "Altura sobre el anillo",
+        "lift": "Sustentación",
+        "weight": "Peso",
+        "window": "Ventana"
+      },
+      "model": {
+        "intro": "Si se sujeta un imán sobre otro y se suelta, se da la vuelta o se desliza: ninguna disposición de imanes fijos mantiene un imán flotando de forma estable (Earnshaw). La peonza que gira no puede darse la vuelta. Su giro mantiene su imán orientado contra el campo en el que se encuentra; si el campo cambia de dirección, el imán gira lentamente con él. Entonces para la peonza solo cuenta la intensidad del campo, no su dirección, y un punto donde el campo es mínimo sí lo permite el espacio libre.",
+        "energy": "La energía de la peonza: su altura en el campo gravitatorio y la intensidad del campo contra el que apunta su imán. Es empujada hacia donde el campo es más débil.",
+        "field": "El campo en el eje del anillo: un anillo imanado uniformemente actúa como un solenoide exterior menos uno interior.",
+        "solenoid": "La aportación de un solenoide de radio a, entre la cara inferior del anillo (z + t) y su cara superior (z), desde la que se mide la altura.",
+        "balance": "La peonza flota donde su peso iguala la sustentación: el campo se debilita hacia arriba y la empuja con más fuerza cuanto más deprisa se debilita.",
+        "window": "El equilibrio solo es estable si el campo la devuelve desde arriba y desde abajo (izquierda) y desde el lado (derecha; fuera del eje, a partir de la ecuación de Laplace hasta el cuadrado de la distancia). Ambas condiciones se cumplen solo en una ventana de pocos milímetros.",
+        "bob": "En la ventana, la peonza oscila arriba y abajo con esta frecuencia; de lado oscila más despacio alrededor del eje."
+      },
+      "symbols": {
+        "u": "la energía de la peonza",
+        "m": "su masa",
+        "g": "la aceleración de la gravedad",
+        "z": "la altura sobre la cara superior del anillo",
+        "mu": "el momento magnético de la peonza",
+        "b": "la intensidad del campo",
+        "mu0": "la constante magnética",
+        "magnetisation": "la imanación del anillo",
+        "radii": "el radio interior y el exterior del anillo",
+        "t": "la altura del anillo",
+        "a": "el radio del solenoide",
+        "slope": "lo deprisa que el campo se debilita hacia arriba",
+        "bend": "cuánto se frena ese debilitamiento hacia arriba",
+        "fz": "la frecuencia de la oscilación"
+      },
+      "sweet": {
+        "window": "La ventana es estrecha: sobre este anillo la peonza solo flota entre 4,36 y 4,81 cm, y solo si pesa entre 23,11 y 23,81 g, un margen del 3 %. Al pie de la ventana la sustentación es máxima; no puede pesar más. La peonza ajustada de 23,5 g flota a 4,6 cm, sube y baja 1,5 veces por segundo y oscila de lado 0,6 veces por segundo.",
+        "warmth": "Por eso el calor es su enemigo. La ferrita se debilita con cada grado: dos grados más, y la ventana se desplaza un 0,8 % hacia peonzas más ligeras. Con tres grados y medio más que al ajustarla, la peonza aterriza; con cuatro grados y medio menos, se desliza. Las alturas de la ventana se quedan donde están.",
+        "earnshaw": "Sin giro no hay manera: un imán que puede orientarse según el campo no encuentra apoyo a ninguna altura; se da la vuelta y se pega al anillo."
+      },
+      "computed": {
+        "system": "El campo en el eje se calcula de forma exacta, como diferencia de dos solenoides, junto con su pendiente y su curvatura; fuera del eje se obtiene de la ecuación de Laplace hasta el cuadrado de la distancia. La ventana se busca en una retícula de un milímetro hasta 30 cm de altura y sus bordes se determinan dividiendo por la mitad una y otra vez, igual que el equilibrio. Se calcula en su navegador, con los mismos pasos que el motor de cálculo del sitio.",
+        "left_out": "Se omite: el propio giro. Se supone lo bastante rápido para que el imán siga al campo y lo bastante lento para que el eje aún pueda seguir los cambios de dirección del campo; esa ventana de velocidad no la calcula la página. También faltan el aire que frena la peonza, su bamboleo y las medidas de un juguete concreto: el anillo es un ejemplo de ferrita, de 10 cm de ancho con un agujero de 3 cm y 1,5 cm de alto, y el imán de la peonza son 2 cm³ de la misma ferrita."
       }
     }
   }
