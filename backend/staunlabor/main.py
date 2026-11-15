@@ -129,17 +129,18 @@ def create_app() -> FastAPI:
     app.include_router(experiments_router, prefix=API_PREFIX)
     # Every account route spends the address's budget first, the kit's own
     # windows after it (security.ACCOUNT_REQUESTS).
-    accounts = account_deps(settings)
+    accounts = account_deps(app.state.database, settings)
     budget = [Depends(limit_account_request)]
     app.include_router(auth_router(accounts), prefix=API_PREFIX, dependencies=budget)
     # The admin's two routers, behind the kit's one admin guard: the invitations
     # (0.29) and the roster with its actions, the log, the overview and the mail (0.30).
     app.include_router(invitations_admin_router(accounts), prefix=API_PREFIX, dependencies=budget)
     app.include_router(user_admin_router(admin_deps(accounts)), prefix=API_PREFIX, dependencies=budget)
-    # The daily call (Cloud Scheduler's, with the jobs token): the prune of the
-    # account rows done with for 30 days. Under the budget too: every route is public.
+    # The daily call (Cloud Scheduler's, with the jobs token): the erasures due 30 days
+    # after a deletion request, the prune of the account rows done with for 30 days, the
+    # sweep of uploads no report names. Under the budget too: every route is public.
     app.include_router(
-        account_jobs_router(jobs_deps(app.state.database, settings)), prefix=API_PREFIX, dependencies=budget
+        account_jobs_router(jobs_deps(app.state.database, settings, accounts)), prefix=API_PREFIX, dependencies=budget
     )
     # Feedback (server-kit 0.31's feedback.sql): the reports, the inbox, the public list,
     # on the account layer's own sign-in.

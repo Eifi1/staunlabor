@@ -164,7 +164,10 @@ Steps, each its own commits:
    page rewritten on 2026-11-15: the exhibits without an account, what an
    account keeps, the sealed second factor, Resend, the 30 days, and what an
    erasure anonymises and deletes — the person's feedback files too, which an
-   erasure now removes from the store. No terms page yet.)*
+   erasure now removes from the store. Marcel, the same day: the erasure runs
+   by itself, 30 days after the request, in the daily call; no terms page, but
+   one sentence under the translation review and the feedback pages that a
+   contribution is sent under CC BY 4.0.)*
 6. The deploy: the database and its roles on keksdose-db, the secrets, the
    migrate job, the bucket for feedback files, the daily call's scheduler job
    and its token (`deploy/README.md` §6).

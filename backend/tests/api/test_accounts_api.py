@@ -20,12 +20,12 @@ import jwt
 import pytest
 from eifi1_server_kit.auth.testing import SoftAuthenticator, totp_code
 from httpx import ASGITransport, AsyncClient, Response
-from sqlalchemy import func, select
+from sqlalchemy import func, select, update
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from staunlabor.models import Invitation, User, UserSession
 from staunlabor.security import ACCOUNT_REQUESTS
-from tests.conftest import FIRST_ADMIN
+from tests.conftest import FIRST_ADMIN, JOBS_TOKEN
 
 pytestmark = pytest.mark.api
 
@@ -76,6 +76,24 @@ async def invited(client: AsyncClient, email: str, role: str = "MEMBER") -> dict
 
 async def sign_in(client: AsyncClient, email: str = FIRST_ADMIN, password: str = PASSWORD) -> Response:
     return await client.post(f"{API}/auth/login", json={"email": email, "password": password})
+
+
+async def erase_due(client: AsyncClient, session: AsyncSession, *user_ids: int) -> dict[str, Any]:
+    """The daily call's erasure, as if the 30 days since each of ``user_ids`` asked had
+    passed: a request still standing moved 31 days back and its day to yesterday (a
+    cancelled one stays cancelled), then ``POST /ops/accounts/erase-due``."""
+    now = datetime.now(UTC)
+    for user_id in user_ids:
+        await session.execute(
+            update(User)
+            .where(User.id == user_id, User.deletion_requested_at.is_not(None))
+            .values(deletion_requested_at=now - timedelta(days=31), deletion_scheduled_at=now - timedelta(days=1))
+        )
+    await session.commit()
+    run = await client.post(f"{API}/ops/accounts/erase-due", headers={"X-Jobs-Token": JOBS_TOKEN})
+    assert run.status_code == 200, run.text
+    session.expunge_all()
+    return run.json()
 
 
 # ── Who gets in ──────────────────────────────────────────────────────────────

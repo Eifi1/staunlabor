@@ -78,7 +78,7 @@
       },
       "retention": {
         "title": "Conservazione e cancellazione",
-        "body": "I dati di un account restano salvati finché l'account esiste. Le sessioni terminate con il loro indirizzo IP e la descrizione del browser, i link scaduti, gli inviti mai accettati e le richieste di passkey già usate vengono cancellati 30 giorni dopo la loro fine.\n\nLa cancellazione del Suo account la chiede nelle impostazioni. L'account viene bloccato subito e ogni sessione termina; poi l'amministrazione lo cancella definitivamente entro 30 giorni. I Suoi riscontri, le Sue risposte e i Suoi commenti vengono resi anonimi, e i Suoi voti e i file allegati solo da Lei vengono cancellati. I Suoi giudizi nella revisione delle traduzioni restano, senza il Suo nome, e il registro dell'amministrazione conserva le sue voci senza il Suo indirizzo.\n\nConserviamo i riscontri finché servono per gestirli. Il nostro fornitore di hosting elimina i propri registri delle richieste dopo 30 giorni. Ciò che il Suo browser salva può cancellarlo in qualsiasi momento nelle sue impostazioni."
+        "body": "I dati di un account restano salvati finché l'account esiste. Le sessioni terminate con il loro indirizzo IP e la descrizione del browser, i link scaduti, gli inviti mai accettati e le richieste di passkey già usate vengono cancellati 30 giorni dopo la loro fine.\n\nLa cancellazione del Suo account la chiede nelle impostazioni. L'account viene bloccato subito e ogni sessione termina; 30 giorni dopo la richiesta viene cancellato definitivamente in modo automatico; fino ad allora l'amministrazione può riattivarlo su Sua richiesta. I Suoi riscontri, le Sue risposte e i Suoi commenti vengono resi anonimi, e i Suoi voti e i file allegati solo da Lei vengono cancellati. I Suoi giudizi nella revisione delle traduzioni restano, senza il Suo nome, e il registro dell'amministrazione conserva le sue voci senza il Suo indirizzo. Le copie di sicurezza del database conservano i dati cancellati ancora per 7 giorni al massimo.\n\nConserviamo i riscontri finché servono per gestirli. Il nostro fornitore di hosting elimina i propri registri delle richieste dopo 30 giorni. Ciò che il Suo browser salva può cancellarlo in qualsiasi momento nelle sue impostazioni."
       },
       "rights": {
         "site": "Con un account, ne scarica i dati come file nelle impostazioni e lì ne chiede anche la cancellazione. Per tutto il resto basta un messaggio all'indirizzo qui sotto."
@@ -1005,6 +1005,10 @@
       "experiments": "Exhibit",
       "legal": "Testi legali"
     },
-    "feedback": "Riscontri e idee"
+    "feedback": "Riscontri e idee",
+    "contributions": {
+      "translations": "Inviando una proposta, la mette sotto CC BY 4.0, la licenza di tutti i testi di Staunlabor, affinché possa essere ripresa.",
+      "feedback": "Inviando un riscontro, lo mette sotto CC BY 4.0, la licenza di tutti i testi di Staunlabor, affinché idee e formulazioni possano esserne riprese."
+    }
   }
 }

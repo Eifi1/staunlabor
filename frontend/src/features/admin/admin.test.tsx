@@ -52,6 +52,12 @@ describe("the feedback inbox", () => {
     expect(screen.getAllByText("Doppelkegel").length).toBeGreaterThan(0);
   });
 
+  it("says under its title that feedback is sent under CC BY 4.0", async () => {
+    renderSignedIn(<MyFeedbackPage />, { user: member, routes: { "get /feedback/my": [] } });
+    expect(await screen.findByText(en.account.contributions.feedback)).toBeInTheDocument();
+    expect(en.account.contributions.feedback).toMatch(/CC BY 4\.0/);
+  });
+
   it("sends a member to their own reports", async () => {
     renderSignedIn(
       <Routes>
@@ -169,5 +175,8 @@ describe("the translation review", () => {
     });
     expect(await screen.findByText("Administration", {}, { timeout: 5000 })).toBeInTheDocument();
     expect(screen.getByText("Verwaltung")).toBeInTheDocument();
+    // Under the kit's lead, the site's sentence: a suggestion is sent under CC BY 4.0.
+    const escaped = en.account.contributions.translations.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+    expect(screen.getByText(new RegExp(escaped))).toBeInTheDocument();
   });
 });

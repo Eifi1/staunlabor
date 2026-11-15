@@ -234,9 +234,13 @@ serving the revision before it. Plan, second stage, step 6.
   with the header `X-Jobs-Token` from the secret `staunlabor-jobs-token` (32
   random bytes, `STAUNLABOR_JOBS_TOKEN` on the backend; a deployment refuses to
   start without a strong one). Server-kit's `account_jobs_router` runs it: it
-  deletes ended sessions, expired links, invitations never taken up and spent
-  passkey challenges once they are done with for 30 days, in the app's own
-  transaction (`accounts.jobs_deps`), and answers what went. Through the site,
+  erases the accounts whose deletion was asked 30 days ago (their feedback
+  anonymised, their files removed), deletes ended sessions, expired links,
+  invitations never taken up and spent passkey challenges once they are done
+  with for 30 days, and sweeps the uploads no report named for a day, each in
+  the app's own transaction (`accounts.jobs_deps`), and answers what went. The
+  privacy policy promises the erasure on its day, so the job must run daily
+  from the first deploy of the account routes. Through the site,
   so the scheduler needs no access to the backend's internal ingress.
 * **Feedback's files in a bucket**: on Cloud Run a directory is the instance's
   own and goes with it, so a report's screenshot or attachment would vanish at

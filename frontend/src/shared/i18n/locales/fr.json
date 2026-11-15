@@ -78,7 +78,7 @@
       },
       "retention": {
         "title": "Conservation et suppression",
-        "body": "Les données d’un compte sont conservées tant que le compte existe. Les sessions terminées avec leur adresse IP et la description du navigateur, les liens expirés, les invitations jamais acceptées et les défis de clé d’accès utilisés sont supprimés 30 jours après leur fin.\n\nVous demandez la suppression de votre compte dans les paramètres. Le compte est aussitôt bloqué et chaque session prend fin ; l’administration le supprime ensuite définitivement dans les 30 jours. Vos retours, réponses et commentaires sont anonymisés, et vos votes ainsi que les fichiers joints uniquement par vous sont supprimés. Vos avis dans la relecture des traductions restent, sans votre nom, et le journal de l’administration conserve ses entrées sans votre adresse.\n\nNous conservons les retours aussi longtemps que nécessaire pour les traiter. Notre hébergeur supprime ses journaux de requêtes après 30 jours. Ce que votre navigateur enregistre, vous pouvez l’effacer à tout moment dans ses paramètres."
+        "body": "Les données d’un compte sont conservées tant que le compte existe. Les sessions terminées avec leur adresse IP et la description du navigateur, les liens expirés, les invitations jamais acceptées et les défis de clé d’accès utilisés sont supprimés 30 jours après leur fin.\n\nVous demandez la suppression de votre compte dans les paramètres. Le compte est aussitôt bloqué et chaque session prend fin ; 30 jours après la demande, il est supprimé définitivement et automatiquement ; d’ici là, l’administration peut le réactiver à votre demande. Vos retours, réponses et commentaires sont anonymisés, et vos votes ainsi que les fichiers joints uniquement par vous sont supprimés. Vos avis dans la relecture des traductions restent, sans votre nom, et le journal de l’administration conserve ses entrées sans votre adresse. Les sauvegardes de la base de données contiennent encore les données supprimées pendant 7 jours au plus.\n\nNous conservons les retours aussi longtemps que nécessaire pour les traiter. Notre hébergeur supprime ses journaux de requêtes après 30 jours. Ce que votre navigateur enregistre, vous pouvez l’effacer à tout moment dans ses paramètres."
       },
       "rights": {
         "site": "Avec un compte, vous en téléchargez les données sous forme de fichier dans les paramètres et y demandez aussi sa suppression. Pour tout le reste, un message à l’adresse ci-dessous suffit."
@@ -1005,6 +1005,10 @@
       "experiments": "Expositions",
       "legal": "Mentions légales"
     },
-    "feedback": "Retours et idées"
+    "feedback": "Retours et idées",
+    "contributions": {
+      "translations": "En envoyant une proposition, vous la placez sous CC BY 4.0, la licence de tous les textes de Staunlabor, afin qu’elle puisse être reprise.",
+      "feedback": "En envoyant un retour, vous le placez sous CC BY 4.0, la licence de tous les textes de Staunlabor, afin que des idées et des formulations puissent en être reprises."
+    }
   }
 }

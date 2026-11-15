@@ -13,6 +13,7 @@ import os
 import secrets
 import time
 from collections.abc import AsyncIterator
+from datetime import UTC, datetime, timedelta
 from pathlib import Path
 from typing import Any
 
@@ -44,13 +45,23 @@ from eifi1_server_kit.feedback.testing import (
 from eifi1_server_kit.objects import LocalObjectStore
 from eifi1_server_kit.uploads import check_upload
 from httpx import ASGITransport, AsyncClient
+from sqlalchemy import update
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from staunlabor.feedback import POLICY, everybody_signed_in
 from staunlabor.models import Feedback, FeedbackAttachment, FeedbackComment, FeedbackReply, FeedbackVote, User
 from staunlabor.settings import get_settings
-from tests.api.test_accounts_api import API, PASSWORD, bearer, first_admin, invite, invite_token, register
-from tests.conftest import FIRST_ADMIN
+from tests.api.test_accounts_api import (
+    API,
+    PASSWORD,
+    bearer,
+    erase_due,
+    first_admin,
+    invite,
+    invite_token,
+    register,
+)
+from tests.conftest import FIRST_ADMIN, JOBS_TOKEN
 
 pytestmark = pytest.mark.api
 
@@ -159,6 +170,7 @@ async def site(database: str, monkeypatch: pytest.MonkeyPatch, tmp_path: Path) -
 
     monkeypatch.setenv("STAUNLABOR_REGISTRATION_ALLOWLIST", FIRST_ADMIN)
     monkeypatch.setenv("STAUNLABOR_FEEDBACK_FILES_DIR", str(tmp_path / "files"))
+    monkeypatch.setenv("STAUNLABOR_JOBS_TOKEN", JOBS_TOKEN)
     get_settings.cache_clear()
     app = create_app()
     async with AsyncClient(transport=ASGITransport(app=app), base_url="http://test") as client:
@@ -221,7 +233,9 @@ async def test_the_admin_s_overview_counts_the_reports_nobody_has_looked_at(site
     assert overview.json()["feedback_waiting"] == 1
 
 
-async def test_erasing_an_account_keeps_its_ideas_and_takes_its_name_off_them(site: AsyncClient) -> None:
+async def test_erasing_an_account_keeps_its_ideas_and_takes_its_name_off_them(
+    site: AsyncClient, session: AsyncSession
+) -> None:
     admin, member = await _admin_and_member(site)
     filed = (await site.post(f"{API}/feedback", json=IDEA, headers=bearer(member))).json()
     me = (await site.get(f"{API}/auth/me", headers=bearer(member))).json()
@@ -229,16 +243,16 @@ async def test_erasing_an_account_keeps_its_ideas_and_takes_its_name_off_them(si
     asked = await site.post(f"{API}/auth/me/deletion", json={"password": PASSWORD, **typed}, headers=bearer(member))
     assert asked.status_code == 202, asked.text
 
-    erased = await site.post(f"{API}/admin/users/{me['id']}/erase", json=typed, headers=bearer(admin))
-    assert erased.status_code == 200, erased.text
-    assert erased.json() == {"feedback_anonymised": 1}
+    assert (await erase_due(site, session, me["id"]))["erased"] == [me["id"]]
     inbox = (await site.get(f"{API}/feedback", headers=bearer(admin))).json()
     kept = next(row for row in inbox if row["id"] == filed["id"])
     assert kept["title"] == IDEA["title"]
     assert "member@example.org" not in str(kept)
 
 
-async def test_erasing_an_account_removes_the_files_it_alone_attached(site: AsyncClient, tmp_path: Path) -> None:
+async def test_erasing_an_account_removes_the_files_it_alone_holds(
+    site: AsyncClient, session: AsyncSession, tmp_path: Path
+) -> None:
     admin, member = await _admin_and_member(site)
 
     async def upload(token: str, text: str) -> str:
@@ -254,7 +268,13 @@ async def test_erasing_an_account_removes_the_files_it_alone_attached(site: Asyn
     # The same bytes from the admin: one file in the store (its name is its content's).
     shared = await upload(member, "Beide haben diese Notiz angehängt.\n")
     assert await upload(admin, "Beide haben diese Notiz angehängt.\n") == shared
-    filed = await site.post(f"{API}/feedback", json={**IDEA, "attachment_urls": [own, shared]}, headers=bearer(member))
+    # The same bytes again, which the admin uploaded and has not filed yet (an upload
+    # waits a day for its report): no report of theirs names it, their upload holds it.
+    unfiled = await upload(member, "Die Administration reicht diese Notiz noch ein.\n")
+    assert await upload(admin, "Die Administration reicht diese Notiz noch ein.\n") == unfiled
+    filed = await site.post(
+        f"{API}/feedback", json={**IDEA, "attachment_urls": [own, shared, unfiled]}, headers=bearer(member)
+    )
     assert filed.status_code == 201, filed.text
     theirs = await site.post(
         f"{API}/feedback", json={**IDEA, "title": "Die Pendelwelle", "attachment_urls": [shared]}, headers=bearer(admin)
@@ -269,7 +289,7 @@ async def test_erasing_an_account_removes_the_files_it_alone_attached(site: Asyn
     def key(url: str) -> str:
         return url.rsplit("/", 1)[-1]
 
-    assert {key(own), key(shared)} <= stored()
+    assert {key(own), key(shared), key(unfiled)} <= stored()
     # Older than the five minutes the purge spares for an upload of the same bytes.
     past = time.time() - 600
     for path in files.rglob("*"):
@@ -280,8 +300,34 @@ async def test_erasing_an_account_removes_the_files_it_alone_attached(site: Asyn
     typed = {"confirm_email": me["email"]}
     asked = await site.post(f"{API}/auth/me/deletion", json={"password": PASSWORD, **typed}, headers=bearer(member))
     assert asked.status_code == 202, asked.text
-    erased = await site.post(f"{API}/admin/users/{me['id']}/erase", json=typed, headers=bearer(admin))
-    assert erased.status_code == 200, erased.text
+    assert (await erase_due(site, session, me["id"]))["erased"] == [me["id"]]
 
-    # The member's own file is gone; the one the admin's report still names stays.
-    assert key(own) not in stored() and key(shared) in stored()
+    # The member's own file is gone; the one the admin's report still names stays, and so
+    # does the one the admin's upload still holds for a report not filed yet.
+    assert key(own) not in stored()
+    assert {key(shared), key(unfiled)} <= stored()
+
+
+async def test_the_daily_call_sweeps_an_upload_no_report_named_for_a_day(
+    site: AsyncClient, session: AsyncSession, tmp_path: Path
+) -> None:
+    _, member = await _admin_and_member(site)
+    answer = await site.post(
+        f"{API}/feedback/attachments",
+        files={"file": ("note.txt", b"Nie eingereicht.\n", "text/plain")},
+        headers=bearer(member),
+    )
+    assert answer.status_code == 201, answer.text
+    key = answer.json()["url"].rsplit("/", 1)[-1]
+    files = tmp_path / "files"
+    [stored] = [path for path in files.rglob("*") if path.is_file()]
+    assert stored.name == key
+    # Two days on, and older than the minutes a purge spares.
+    await session.execute(update(FeedbackAttachment).values(created_at=datetime.now(UTC) - timedelta(days=2)))
+    await session.commit()
+    past = time.time() - 2 * 86400
+    os.utime(stored, (past, past))
+
+    run = await site.post(f"{API}/ops/accounts/daily", headers={"X-Jobs-Token": JOBS_TOKEN})
+    assert run.status_code == 200, run.text
+    assert not stored.exists()

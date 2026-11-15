@@ -230,6 +230,8 @@ async def database(worker_database_url: str, monkeypatch: pytest.MonkeyPatch) ->
 
 #: The address that may claim the suite's empty database as its first admin.
 FIRST_ADMIN = "ada@example.com"
+#: The daily call's token in the account tests' app, so a test can run the job's erasure.
+JOBS_TOKEN = "a-jobs-token-for-the-tests-only-0123456789"
 
 
 @pytest.fixture
@@ -238,6 +240,7 @@ async def accounts(database: str, monkeypatch: pytest.MonkeyPatch) -> AsyncItera
     from staunlabor.main import create_app
 
     monkeypatch.setenv("STAUNLABOR_REGISTRATION_ALLOWLIST", FIRST_ADMIN)
+    monkeypatch.setenv("STAUNLABOR_JOBS_TOKEN", JOBS_TOKEN)
     get_settings.cache_clear()
     app = create_app()
     async with AsyncClient(transport=ASGITransport(app=app), base_url="http://test") as client:

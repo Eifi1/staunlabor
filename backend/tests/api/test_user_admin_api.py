@@ -6,9 +6,10 @@ The kit tests every rule on its in-memory stores; these test what this site chos
 what only its database shows: the roster's paging and search on PostgreSQL, a role change
 that makes an admin (never a reviewer, who comes with languages), the reviewer's seven
 languages and two areas, a deactivation, a forced password change and the two mails
-reaching the person, the second factor's reset for a lost authenticator, the operator's
-erasure leaving no address behind, the log, the overview and the test mail, and that
-nobody else reaches any of it.
+reaching the person, the second factor's reset for a lost authenticator, the daily call's
+erasure 30 days after a request leaving no address behind (and an admin's reactivation
+keeping the account), the log, the overview and the test mail, and that nobody else
+reaches any of it.
 
 Not reachable here, so not tested: ``last_admin`` on a role change or a deactivation. In
 the global scope the acting admin is an active admin besides the target, so the target is
@@ -33,6 +34,7 @@ from tests.api.test_accounts_api import (
     PASSWORD,
     bearer,
     code,
+    erase_due,
     first_admin,
     invite,
     invite_token,
@@ -102,8 +104,8 @@ async def test_the_roster_pages_searches_and_filters_the_people(accounts: AsyncC
     assert emails == [FIRST_ADMIN, "bob@example.com", "cy@example.com", "grace@example.com"]
     assert first["total"] == second["total"] == 4
     assert first["mail_backend"] == "console" and first["summary"] == {"active_admins": 1}
-    # The levels the page asks before it sends, the operator's erasure among them.
-    assert first["levels"]["deactivate"] == first["levels"]["erase"] == "type_email"
+    # The levels the page asks before it sends; no erasure among them, the job erases.
+    assert first["levels"]["deactivate"] == "type_email" and "erase" not in first["levels"]
     assert first["levels"]["role"] == "acknowledge"
     assert all("device_timezone" not in row for row in first["users"])
 
@@ -324,43 +326,45 @@ async def test_the_admin_s_two_mails_carry_their_link_once_while_mail_goes_to_th
 # ── The erasure ──────────────────────────────────────────────────────────────
 
 
-async def test_an_erasure_takes_the_account_its_accepted_invitation_and_its_address_from_the_log(
+async def test_the_daily_call_erases_an_account_thirty_days_after_it_asked_unless_an_admin_kept_it(
     accounts: AsyncClient, session: AsyncSession
 ):
     admin, people = await staffed(accounts)
-    token, me, bob = admin["access_token"], uid(admin), uid(people["bob"])
-    path = f"{API}/admin/users/{bob}/erase"
-    typed = {"confirm_email": "bob@example.com"}
-
-    # Deactivating somebody is not asking for their data to go.
-    not_asked = await accounts.post(path, json=typed, headers=bearer(token))
-    assert not_asked.status_code == 409 and code(not_asked) == "deletion_not_requested"
-    asked = await accounts.post(
-        f"{API}/auth/me/deletion", json={"password": PASSWORD, **typed}, headers=bearer(people["bob"]["access_token"])
+    token, bob, cy = admin["access_token"], uid(people["bob"]), uid(people["cy"])
+    for who, email in (("bob", "bob@example.com"), ("cy", "cy@example.com")):
+        asked = await accounts.post(
+            f"{API}/auth/me/deletion",
+            json={"password": PASSWORD, "confirm_email": email},
+            headers=bearer(people[who]["access_token"]),
+        )
+        assert asked.status_code == 202, asked.text
+    # Deactivated at once, its day 30 days on; no admin erases by hand.
+    row = await session.get(User, bob)
+    assert row is not None and not row.is_active and row.deletion_scheduled_at is not None
+    assert (row.deletion_scheduled_at - row.deletion_requested_at).days == 30
+    by_hand = await accounts.post(
+        f"{API}/admin/users/{bob}/erase", json={"confirm_email": "bob@example.com"}, headers=bearer(token)
     )
-    assert asked.status_code == 202, asked.text
-    overview = await accounts.get(f"{API}/admin/attention", headers=bearer(token))
-    assert overview.json()["deletion_requests"] == 1
-    unconfirmed = await accounts.post(path, headers=bearer(token))
-    assert unconfirmed.status_code == 409 and code(unconfirmed) == "confirmation_required"
-    yourself = await accounts.post(
-        f"{API}/admin/users/{me}/erase", json={"confirm_email": FIRST_ADMIN}, headers=bearer(token)
-    )
-    assert yourself.status_code == 409 and code(yourself) == "self_action"
+    assert by_hand.status_code in (404, 405)
+    # Cy changed her mind, and the admin reactivated her before the day.
+    kept = await accounts.post(f"{API}/admin/users/{cy}/active", json={"active": True}, headers=bearer(token))
+    assert kept.status_code == 200, kept.text
+    session.expunge_all()
 
-    erased = await accounts.post(path, json=typed, headers=bearer(token))
-    assert erased.status_code == 200 and erased.json() == {"feedback_anonymised": 0}
+    run = await erase_due(accounts, session, bob, cy)
+    assert run["erased"] == [bob] and run["failed"] == []
     assert await session.get(User, bob) is None
+    assert await session.get(User, cy) is not None
     assert await session.scalar(select(func.count()).select_from(UserSession).where(UserSession.user_id == bob)) == 0
     # The invitation Bob accepted is gone with him; the two others' stay.
     invited = await session.scalars(select(Invitation.email).order_by(Invitation.email))
     assert list(invited) == ["cy@example.com", "grace@example.com"]
-    # The log keeps its rows and no trace of the address, and says who erased.
+    # The log keeps its rows and no trace of the address; the job erased, nobody by hand.
     rows = list(await session.scalars(select(AdminAction).order_by(AdminAction.id)))
     assert all("bob@" not in json.dumps([row.target_email, row.detail]) for row in rows)
-    assert [(row.action, row.actor_id, row.target_user_id) for row in rows][-1] == ("erase", me, None)
-    gone = await accounts.post(path, json=typed, headers=bearer(token))
-    assert gone.status_code == 404 and code(gone) == "user_not_found"
+    assert [(row.action, row.actor_id, row.target_user_id) for row in rows][-1] == ("erase", None, None)
+    # Run again, nothing more is due.
+    assert (await erase_due(accounts, session))["erased"] == []
 
 
 # ── The log, the overview, the mail ──────────────────────────────────────────
@@ -396,9 +400,9 @@ async def test_the_overview_counts_the_people_the_new_ones_and_the_open_invitati
     overview = await accounts.get(f"{API}/admin/attention", headers=bearer(admin["access_token"]))
     assert overview.status_code == 200
     assert overview.json() == {
-        # No report filed, so none waits; an operator erases, so the requests are counted.
+        # No report filed, so none waits; the job erases, so the kit counts no requests.
         "feedback_waiting": 0,
-        "deletion_requests": 0,
+        "deletion_requests": None,
         "invitations_pending": 1,
         "users_total": 4,
         "users_new_7d": 4,
@@ -428,7 +432,6 @@ ADMIN_ROUTES = (
     ("DELETE", "/admin/users/1/password-change"),
     ("POST", "/admin/users/1/mail"),
     ("PUT", "/admin/users/1/reviewer"),
-    ("POST", "/admin/users/1/erase"),
     ("GET", "/admin/actions"),
     ("GET", "/admin/attention"),
     ("GET", "/admin/mail"),

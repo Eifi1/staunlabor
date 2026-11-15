@@ -78,7 +78,7 @@
       },
       "retention": {
         "title": "Conservación y supresión",
-        "body": "Los datos de una cuenta se conservan mientras la cuenta exista. Las sesiones terminadas con su dirección IP y la descripción del navegador, los enlaces caducados, las invitaciones nunca aceptadas y los desafíos de llave de acceso ya usados se eliminan 30 días después de su fin.\n\nLa eliminación de su cuenta la solicita en los ajustes. La cuenta se bloquea de inmediato y se cierra cada sesión; después, la administración la elimina definitivamente en un plazo de 30 días. Sus aportaciones, respuestas y comentarios se anonimizan, y se eliminan sus votos y los archivos que solo usted adjuntó. Sus veredictos en la revisión de traducciones se mantienen, sin su nombre, y el registro de la administración conserva sus entradas sin su dirección.\n\nConservamos las aportaciones mientras sean necesarias para tramitarlas. Nuestro proveedor de alojamiento elimina sus registros de solicitudes al cabo de 30 días. Lo que guarda su navegador puede borrarlo en cualquier momento en su configuración."
+        "body": "Los datos de una cuenta se conservan mientras la cuenta exista. Las sesiones terminadas con su dirección IP y la descripción del navegador, los enlaces caducados, las invitaciones nunca aceptadas y los desafíos de llave de acceso ya usados se eliminan 30 días después de su fin.\n\nLa eliminación de su cuenta la solicita en los ajustes. La cuenta se bloquea de inmediato y se cierra cada sesión; 30 días después de la solicitud se elimina definitivamente de forma automática; hasta entonces, la administración puede reactivarla si usted lo desea. Sus aportaciones, respuestas y comentarios se anonimizan, y se eliminan sus votos y los archivos que solo usted adjuntó. Sus veredictos en la revisión de traducciones se mantienen, sin su nombre, y el registro de la administración conserva sus entradas sin su dirección. Las copias de seguridad de la base de datos conservan los datos eliminados hasta 7 días más.\n\nConservamos las aportaciones mientras sean necesarias para tramitarlas. Nuestro proveedor de alojamiento elimina sus registros de solicitudes al cabo de 30 días. Lo que guarda su navegador puede borrarlo en cualquier momento en su configuración."
       },
       "rights": {
         "site": "Con una cuenta, descarga sus datos como archivo en los ajustes y allí también solicita su eliminación. Para todo lo demás basta un mensaje a la dirección indicada abajo."
@@ -1005,6 +1005,10 @@
       "experiments": "Exposiciones",
       "legal": "Textos legales"
     },
-    "feedback": "Comentarios e ideas"
+    "feedback": "Comentarios e ideas",
+    "contributions": {
+      "translations": "Al enviar una propuesta, la pone bajo CC BY 4.0, la licencia de todos los textos de Staunlabor, para que pueda adoptarse.",
+      "feedback": "Al enviar una aportación, la pone bajo CC BY 4.0, la licencia de todos los textos de Staunlabor, para que puedan adoptarse ideas y formulaciones de ella."
+    }
   }
 }

@@ -123,6 +123,10 @@ describe("the privacy policy", () => {
     expect(P.transfers.body).toMatch(/Resend/);
     expect(P.retention.body).toMatch(/deleted 30 days after they ended/);
     expect(P.retention.body).toMatch(/anonymised.*files only you attached are deleted/);
+    // The daily call erases 30 days after the request (DeletionMode.AFTER_DAYS), and the
+    // shared instance's backups keep a copy for seven days (server-kit's BACKUP_RETENTION_DAYS).
+    expect(P.retention.body).toMatch(/30 days after the request it is deleted for good, automatically/);
+    expect(P.retention.body).toMatch(/Backups of the database still hold the deleted data for up to 7 days/);
     expect(P.data.body).not.toMatch(/no accounts|no database/);
   });
 

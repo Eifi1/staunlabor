@@ -78,7 +78,7 @@
       },
       "retention": {
         "title": "Megőrzés és törlés",
-        "body": "Egy fiók adatait addig tároljuk, amíg a fiók létezik. A befejezett munkameneteket IP-címükkel és a böngésző leírásával, a lejárt hivatkozásokat, a soha el nem fogadott meghívókat és a felhasznált hozzáférésikulcs-kihívásokat 30 nappal a lejártuk után töröljük.\n\nFiókja törlését a beállításokban kérheti. A fiókot azonnal letiltjuk, és minden munkamenete véget ér; ezután az adminisztráció 30 napon belül véglegesen törli. Visszajelzéseit, válaszait és hozzászólásait anonimizáljuk, szavazatait és a csak Ön által csatolt fájlokat töröljük. A fordításlektorálásban adott értékelései megmaradnak, de az Ön neve nélkül, az adminisztráció naplója pedig megtartja bejegyzéseit, de az Ön címe nélkül.\n\nA visszajelzéseket addig őrizzük meg, amíg kezelésükhöz szükségesek. Tárhelyszolgáltatónk a kérésnaplóit 30 nap után törli. Amit a böngészője tárol, azt bármikor törölheti a böngésző beállításaiban."
+        "body": "Egy fiók adatait addig tároljuk, amíg a fiók létezik. A befejezett munkameneteket IP-címükkel és a böngésző leírásával, a lejárt hivatkozásokat, a soha el nem fogadott meghívókat és a felhasznált hozzáférésikulcs-kihívásokat 30 nappal a lejártuk után töröljük.\n\nFiókja törlését a beállításokban kérheti. A fiókot azonnal letiltjuk, és minden munkamenete véget ér; a kérés után 30 nappal automatikusan véglegesen törlődik; addig az adminisztráció kérésére újra aktiválhatja. Visszajelzéseit, válaszait és hozzászólásait anonimizáljuk, szavazatait és a csak Ön által csatolt fájlokat töröljük. A fordításlektorálásban adott értékelései megmaradnak, de az Ön neve nélkül, az adminisztráció naplója pedig megtartja bejegyzéseit, de az Ön címe nélkül. Az adatbázis biztonsági másolatai a törölt adatokat még legfeljebb 7 napig tartalmazzák.\n\nA visszajelzéseket addig őrizzük meg, amíg kezelésükhöz szükségesek. Tárhelyszolgáltatónk a kérésnaplóit 30 nap után törli. Amit a böngészője tárol, azt bármikor törölheti a böngésző beállításaiban."
       },
       "rights": {
         "site": "Fiókkal a beállításokban fájlként letöltheti a fiók adatait, és ott kérheti a törlését is. Minden egyébhez elég egy üzenet az alábbi címre."
@@ -1005,6 +1005,10 @@
       "experiments": "Kiállítási tárgyak",
       "legal": "Jogi szövegek"
     },
-    "feedback": "Visszajelzések és ötletek"
+    "feedback": "Visszajelzések és ötletek",
+    "contributions": {
+      "translations": "A javaslat elküldésével azt CC BY 4.0 licenc alá helyezi – ez a Staunlabor összes szövegének licence –, hogy átvehető legyen.",
+      "feedback": "A visszajelzés elküldésével azt CC BY 4.0 licenc alá helyezi – ez a Staunlabor összes szövegének licence –, hogy ötletek és megfogalmazások átvehetők legyenek belőle."
+    }
   }
 }

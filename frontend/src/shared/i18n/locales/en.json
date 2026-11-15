@@ -78,7 +78,7 @@
       },
       "retention": {
         "title": "Retention and deletion",
-        "body": "An account's data is kept as long as the account exists. Ended sessions with their IP address and browser description, expired links, invitations never accepted and spent passkey challenges are deleted 30 days after they ended.\n\nYou ask for your account's deletion in the settings. The account is locked at once and every session ends; the administration then deletes it for good within 30 days. Your feedback, replies and comments are anonymised, and your votes and the files only you attached are deleted. Your verdicts in the translation review stay, without your name, and the administration's log keeps its entries without your address.\n\nWe keep feedback as long as it is needed to deal with it. Our hosting provider deletes its request logs after 30 days. What your browser keeps you can delete at any time in its settings."
+        "body": "An account's data is kept as long as the account exists. Ended sessions with their IP address and browser description, expired links, invitations never accepted and spent passkey challenges are deleted 30 days after they ended.\n\nYou ask for your account's deletion in the settings. The account is locked at once and every session ends; 30 days after the request it is deleted for good, automatically; until then the administration can unlock it again at your wish. Your feedback, replies and comments are anonymised, and your votes and the files only you attached are deleted. Your verdicts in the translation review stay, without your name, and the administration's log keeps its entries without your address. Backups of the database still hold the deleted data for up to 7 days.\n\nWe keep feedback as long as it is needed to deal with it. Our hosting provider deletes its request logs after 30 days. What your browser keeps you can delete at any time in its settings."
       },
       "rights": {
         "site": "With an account, you download its data as a file in the settings and ask for its deletion there too. For anything else, a message to the address below is enough."
@@ -1005,6 +1005,10 @@
       "experiments": "Exhibits",
       "legal": "Legal"
     },
-    "feedback": "Feedback and ideas"
+    "feedback": "Feedback and ideas",
+    "contributions": {
+      "translations": "By submitting a suggestion you license it under CC BY 4.0, the licence of all of Staunlabor's texts, so that it may be taken over.",
+      "feedback": "By submitting feedback you license it under CC BY 4.0, the licence of all of Staunlabor's texts, so that ideas and wording from it may be taken over."
+    }
   }
 }

@@ -78,7 +78,7 @@
       },
       "retention": {
         "title": "Aufbewahrung und Löschung",
-        "body": "Die Daten eines Kontos bleiben gespeichert, solange das Konto besteht. Beendete Sitzungen mit ihrer IP-Adresse und Browserbeschreibung, abgelaufene Links, nie angenommene Einladungen und verbrauchte Passkey-Anfragen werden 30 Tage nach ihrem Ende gelöscht.\n\nDie Löschung Ihres Kontos beantragen Sie in den Einstellungen. Das Konto wird sofort gesperrt und jede Sitzung beendet; die Administration löscht es danach innert 30 Tagen endgültig. Dabei werden Ihre Rückmeldungen, Antworten und Kommentare anonymisiert und Ihre Stimmen sowie die Dateien gelöscht, die nur Sie angehängt haben. Ihre Urteile in der Übersetzungsprüfung bleiben ohne Ihren Namen stehen, und das Protokoll der Administration behält seine Einträge ohne Ihre Adresse.\n\nRückmeldungen bewahren wir auf, solange sie für ihre Bearbeitung nötig sind. Unser Hosting-Anbieter löscht seine Anfrageprotokolle nach 30 Tagen. Was Ihr Browser speichert, können Sie jederzeit in dessen Einstellungen löschen."
+        "body": "Die Daten eines Kontos bleiben gespeichert, solange das Konto besteht. Beendete Sitzungen mit ihrer IP-Adresse und Browserbeschreibung, abgelaufene Links, nie angenommene Einladungen und verbrauchte Passkey-Anfragen werden 30 Tage nach ihrem Ende gelöscht.\n\nDie Löschung Ihres Kontos beantragen Sie in den Einstellungen. Das Konto wird sofort gesperrt und jede Sitzung beendet; 30 Tage nach dem Antrag wird es automatisch endgültig gelöscht; bis dahin kann die Administration es auf Ihren Wunsch wieder freischalten. Dabei werden Ihre Rückmeldungen, Antworten und Kommentare anonymisiert und Ihre Stimmen sowie die Dateien gelöscht, die nur Sie angehängt haben. Ihre Urteile in der Übersetzungsprüfung bleiben ohne Ihren Namen stehen, und das Protokoll der Administration behält seine Einträge ohne Ihre Adresse. Sicherungskopien der Datenbank enthalten die gelöschten Daten noch bis zu 7 Tage.\n\nRückmeldungen bewahren wir auf, solange sie für ihre Bearbeitung nötig sind. Unser Hosting-Anbieter löscht seine Anfrageprotokolle nach 30 Tagen. Was Ihr Browser speichert, können Sie jederzeit in dessen Einstellungen löschen."
       },
       "rights": {
         "site": "Mit einem Konto laden Sie dessen Daten in den Einstellungen als Datei herunter und beantragen dort auch seine Löschung. Für alles Weitere genügt eine Nachricht an die untenstehende Adresse."
@@ -1005,6 +1005,10 @@
       "experiments": "Exponate",
       "legal": "Rechtliches"
     },
-    "feedback": "Rückmeldungen und Ideen"
+    "feedback": "Rückmeldungen und Ideen",
+    "contributions": {
+      "translations": "Mit dem Absenden stellen Sie Ihren Vorschlag unter CC BY 4.0, die Lizenz aller Texte von Staunlabor, damit er übernommen werden darf.",
+      "feedback": "Mit dem Absenden stellen Sie Ihre Rückmeldung unter CC BY 4.0, die Lizenz aller Texte von Staunlabor, damit Ideen und Formulierungen daraus übernommen werden dürfen."
+    }
   }
 }

@@ -34,7 +34,6 @@ from eifi1_server_kit.feedback import AttachmentUrlPolicy, FeedbackActor, feedba
 from eifi1_server_kit.feedback.router import FeedbackDeps
 from eifi1_server_kit.feedback.service import FeedbackService
 from eifi1_server_kit.feedback.sql import (
-    FEEDBACK_OBJECT_PREFIX,
     SqlAttachmentStorage,
     SqlFeedbackCommentStore,
     SqlFeedbackReplyStore,
@@ -47,7 +46,7 @@ from eifi1_server_kit.user_admin.service import UserAdminHooks
 from fastapi import Depends
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from staunlabor.database import RequestSession
+from staunlabor.database import Database, RequestSession
 from staunlabor.models import (
     Feedback,
     FeedbackAttachment,
@@ -82,12 +81,33 @@ def objects_for(settings: Settings) -> ObjectStore:
     return LocalObjectStore(settings.feedback_files_dir)
 
 
-def erased_files_purge(settings: Settings) -> Callable[[Sequence[str]], Awaitable[None]]:
+def attachment_storage_on(session: AsyncSession, objects: ObjectStore) -> SqlAttachmentStorage[FeedbackAttachment]:
+    """The files and who uploaded which, on a session: the routes', the erasure's purge's
+    and the daily sweep's alike, so all three read the reports, entries and comments that
+    name a file the same way."""
+    return SqlAttachmentStorage(
+        session,
+        FeedbackAttachment,
+        objects=objects,
+        reports=Feedback,
+        replies=FeedbackReply,
+        comments=FeedbackComment,
+        policy=POLICY,
+        public_viewer=everybody_signed_in,
+    )
+
+
+def erased_files_purge(database: Database, settings: Settings) -> Callable[[Sequence[str]], Awaitable[None]]:
     """What an erasure does with the files the person attached (``AuthHooks.purge_files``):
-    removes them from the store after the erasure has committed. The kit hands over the keys
-    no other row names any more, so a file somebody else attached too stays. Without it the
-    rows would lose the files' names and the files would stay in the store for good, which
-    the privacy policy does not say.
+    removes them from the store after the erasure has committed. Without it the rows would
+    lose the files' names and the files would stay in the store for good, which the privacy
+    policy does not say.
+
+    The kit hands over the keys no report, entry or comment names any more; but a file's key
+    is its content's, so the same bytes somebody else uploaded and has not filed yet (an
+    upload waits a day for its report) are the same object. So the keys an upload of a
+    living account still holds are kept (server-kit's ``keys_in_use``, asked on a session of
+    its own, since the hook runs after the erasure's commit).
 
     The kit's purge never raises (the database is already emptied) and logs every key it
     could not remove, to remove by hand. It spares a file written in the last five minutes,
@@ -95,11 +115,13 @@ def erased_files_purge(settings: Settings) -> Callable[[Sequence[str]], Awaitabl
     objects = objects_for(settings)
 
     async def purge(keys: Sequence[str]) -> None:
+        async with database.sessions() as session:
+            storage = attachment_storage_on(session, objects)
+            held = await storage.keys_in_use(keys)
         await purge_objects(
             objects,
-            keys,
+            [storage.object_key(key) for key in keys if key not in held],
             reason="an erased account's feedback files",
-            object_key=lambda key: f"{FEEDBACK_OBJECT_PREFIX}{key}",
         )
 
     return purge
@@ -173,16 +195,7 @@ def feedback_deps(accounts: AuthDeps, settings: Settings) -> FeedbackDeps:
         return repository_on(session)
 
     async def storage(session: RequestSession) -> SqlAttachmentStorage[FeedbackAttachment]:
-        return SqlAttachmentStorage(
-            session,
-            FeedbackAttachment,
-            objects=objects,
-            reports=Feedback,
-            replies=FeedbackReply,
-            comments=FeedbackComment,
-            policy=POLICY,
-            public_viewer=everybody_signed_in,
-        )
+        return attachment_storage_on(session, objects)
 
     async def replies(session: RequestSession) -> SqlFeedbackReplyStore[FeedbackReply]:
         return replies_on(session)
