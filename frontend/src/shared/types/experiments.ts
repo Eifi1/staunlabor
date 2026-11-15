@@ -626,6 +626,18 @@ export interface FunnelRequest {
   rolling_resistance: number;
 }
 
+// ── resonance ────────────────────────────────────────────────────────────────
+
+/** The engine's `Rack`. No route: the page asks the port (`simulate/resonance.ts`). */
+export interface ResonanceRackRequest {
+  lengths_m: number[];
+  diameter_m: number;
+  youngs_gpa: number;
+  density_kg_m3: number;
+  damping_ratio: number;
+  table_m: number;
+}
+
 // ── the pages' starting point ────────────────────────────────────────────────
 
 export interface ExperimentsDefaults {
@@ -649,6 +661,7 @@ export interface ExperimentsDefaults {
   coriolis: CarouselRequest;
   cradle: CradleRequest;
   well: FunnelRequest;
+  resonance: ResonanceRackRequest;
   meter_range_a: number;
   settle_s: number;
 }

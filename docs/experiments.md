@@ -1123,6 +1123,49 @@ the 40° rosette; the spiral's laps against Kepler; its time to the hole
 against an independent Simpson count of the circles' energy drained by
 `C·N·v` (46.09 s against the engine's 45.90 s); the speed-up ten laps apart.
 
+## The resonant rods (`experiments.resonance`)
+
+**The exhibit.** Steel rods of different lengths clamped upright in a table a
+motor shakes a little; at one beat one rod swings wide and the others hardly
+stir.
+
+**The model** (`domain/experiments/resonance.py`). Each rod a clamped-free
+beam, only its first mode kept: `β₁` found by bisection on
+`cosh β·cos β = −1` (1.8751), the shape 1 at the tip, its participation
+`Γ = ∫φ/∫φ²` by Simpson (1.566), both held to the textbook; `f₁ =
+β₁²/(2πL²)·(d/4)·√(E/ρ)` for a round rod. The table `Y·sin θ`, `θ̇ = Ω`; per
+rod `q̈ + 2ζω·q̇ + ω²·q = −Γ·ÿ_b`, stepped by Runge–Kutta a millisecond at a
+time with the drive held through each step (a sweep moves it between steps;
+the neglected `Ω̇` term is a few thousandths at 0.05 Hz/s). The steady swing
+in closed form; the live swing `√(q² + (v/ω)²)`.
+
+**What it shows** (six 2 mm steel rods, 1.0 to 0.5 m, ζ = 0.01, the table
+1 mm each way). They ring at 1.41, 1.74, 2.21, 2.88, 3.92 and 5.65 Hz. In step
+with the 80 cm rod its tip swings 78 mm, the neighbours at most 4; 3 % off,
+26 mm. From rest a swing grows to 1 − 1/e in `1/(ζω)`, 7.2 s at 2.21 Hz. A
+sweep from 1 Hz at 0.05 Hz/s gives the same rod only 40 mm, and at 2.4 Hz.
+
+**The page.** The rods on their table (the table's millimetre true to scale,
+which is the point), each rod's frequency under it; the table's beat, a sweep
+from 1 to 6.5 Hz that records every rod's swing, "Settle", real time or four
+times faster, the damping; the widest swing; the steady curves of all rods
+with the sweep's record dashed over them and a line at the beat. The chart is
+redrawn every half second of the run, not every frame: its points made the
+page stutter. **Sound**, muted until switched on (Marcel's call, 2026-11-15):
+`shared/lib/use-tones.ts`, one sine per rod at its frequency seven octaves up
+(181 to 723 Hz), as loud as it swings; no audio graph exists while off, the
+context is closed when switched off, nothing is stored. **No route**: the
+port's (`simulate/resonance.ts`); the engine's `run` is not ported, the test
+samples the port's steps the engine's way.
+
+**Left out, and said:** the higher modes (the second at 6.27 times the
+first), the rod's stiffening at wide swings, the table's give.
+
+**Checked by** `tests/unit/test_experiments.py`: β₁, β₁² and Γ against the
+tables; the second mode's ratio found independently; the six frequencies; the
+78, 4 and 26 mm; the stepped swings settling on the closed form within 1 %;
+the build-up to 1 − 1/e in 7.2 s; the sweep's 40 mm at 2.4 Hz.
+
 ## Checking the mathematics
 
 Before the engine was written each model was checked independently with SciPy

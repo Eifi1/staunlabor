@@ -253,6 +253,12 @@
         "title": "L'imbuto gravitazionale",
         "summary": "Una pallina gira in un imbuto attorno al buco, sempre più in basso e sempre più veloce – e rispetta la terza legge di Keplero come un pianeta.",
         "question": "Perché la pallina accelera, anche se l'attrito la frena?"
+      },
+      "resonance": {
+        "short": "Aste risonanti",
+        "title": "Le aste risonanti",
+        "summary": "Sei aste su un tavolo che trema appena – eppure una oscilla ampiamente quando il ritmo è giusto. Le altre restano quasi ferme.",
+        "question": "Come fa un tavolo che si muove di un solo millimetro a far oscillare un'asta di otto centimetri?"
       }
     },
     "chair": {
@@ -2050,6 +2056,74 @@
       "computed": {
         "system": "La pallina rotola senza strisciare; la sua rotazione conta come 2/5 di inerzia in più, così ogni spinta lungo la parete la muove per 5/7. Le equazioni del moto sulla superficie, in distanza e angolo, sono risolte con Runge–Kutta a passi di un millisecondo. La resistenza al rotolamento agisce contro tutta la spinta della parete, anche contro la parte che tiene la pallina sulla sua traiettoria curva. Il test verifica energia e momento angolare senza attrito, il cerchio e il tempo fino al buco rispetto a un calcolo indipendente dall'energia dei cerchi.",
         "left_out": "Tralasciati: la rotazione della pallina attorno alla normale alla parete, le sue dimensioni rispetto alla curvatura della parete, l'aria. Una moneta, che rotola sul bordo e si inclina, è un altro problema."
+      }
+    },
+    "resonance": {
+      "at": {
+        "rods": "Sei aste d'acciaio di lunghezze diverse sono fissate in un tavolo che un motore scuote un poco di lato.",
+        "one": "A un certo ritmo una sola asta oscilla ampiamente mentre le altre restano quasi ferme. Un po' più veloce, e ne subentra un'altra."
+      },
+      "view": "Le aste viste di fronte sul loro tavolo, ognuna con la sua frequenza propria sotto",
+      "play": {
+        "title": "Cercare il ritmo",
+        "hint": "Scuota il tavolo e sposti lentamente il ritmo. «Scorrere» lo aumenta da sé e registra quanto oscilla intanto ogni asta.",
+        "shake": "Scuotere",
+        "stop": "Fermare",
+        "sweep": "Scorrere",
+        "calm": "A riposo",
+        "speed": "Velocità",
+        "speeds": {
+          "1": "Tempo reale",
+          "4": "4× più veloce"
+        },
+        "beat": "Ritmo del tavolo",
+        "beat_hint": "Quante volte al secondo il tavolo va avanti e indietro.",
+        "sweeping": "Il ritmo sale di 0,05 Hz al secondo; sposti il cursore per fermarlo.",
+        "damping": "Smorzamento",
+        "damping_hint": "Quanto in fretta un'asta torna da sola a riposo: la frazione dello smorzamento a cui non oscillerebbe più.",
+        "sound": "Suono",
+        "sound_hint": "Ogni asta suona alla sua frequenza propria, sette ottave più in alto, tanto forte quanto oscilla.",
+        "no_sound": "Questo browser non può produrre suoni.",
+        "widest": "Oscillazione massima",
+        "table": "Il tavolo, avanti e indietro",
+        "rod": "Asta {{n}} ({{hz}} Hz)"
+      },
+      "chart": {
+        "swing": "Oscillazione della punta",
+        "beat": "Ritmo del tavolo",
+        "swept": "Asta {{n}}, scorrendo",
+        "caption": "Quanto oscilla ogni asta quando il tavolo tiene abbastanza a lungo lo stesso ritmo; tratteggiato, quanto ne arriva scorrendo"
+      },
+      "model": {
+        "intro": "Ogni asta è fissata in basso e libera in alto. Dei suoi modi di vibrare qui conta solo il primo: tutta l'asta si piega da un lato.",
+        "frequency": "La sua frequenza propria: più l'asta è lunga, più è bassa – con il quadrato della lunghezza.",
+        "motion": "Il tavolo scuote, e la sua accelerazione spinge ogni asta, pesata con Γ = 1,566 per la forma del primo modo. Lo smorzamento le toglie slancio.",
+        "steady": "Scossa abbastanza a lungo allo stesso ritmo, la punta oscilla di tanto. Al passo (r = 1) è Γ·Y/(2ζ)."
+      },
+      "symbols": {
+        "beta": "la prima soluzione di cosh β · cos β = −1: 1,8751",
+        "l": "la lunghezza dell'asta",
+        "e": "il modulo di Young dell'acciaio",
+        "i": "il momento d'inerzia della sezione di un'asta tonda di diametro d",
+        "rho": "la densità dell'acciaio",
+        "a": "la sezione",
+        "q": "di quanto la punta si sposta rispetto al tavolo",
+        "omega": "la frequenza propria, come pulsazione",
+        "zeta": "lo smorzamento, come frazione di quello a cui l'asta non oscillerebbe più",
+        "gamma": "quanto forte lo scuotimento spinge la forma del primo modo",
+        "yb": "dove si trova il tavolo",
+        "r": "il ritmo del tavolo diviso per la frequenza propria",
+        "y": "di quanto il tavolo va avanti e indietro"
+      },
+      "sweet": {
+        "step": "Una piccola spinta al ritmo giusto muove più di una grande al ritmo sbagliato. Il tavolo va avanti e indietro di solo 1 mm; al passo con l'asta di 80 cm, a 2,21 Hz, la sua punta oscilla di 78 mm, le vicine al massimo di 4 mm. Al tre per cento dal ritmo, solo 26 mm.",
+        "patience": "La risonanza vuole pazienza: a 2,21 Hz l'oscillazione cresce in 7,2 s solo fino a poco meno di due terzi. Chi scorre più in fretta la perde: a 0,05 Hz al secondo la stessa asta oscilla al massimo di 40 mm, la metà, e solo a 2,4 Hz.",
+        "everywhere": "Lo stesso andare al passo fa scoppiare un bicchiere alla nota giusta, fa oscillare un ponte sotto passi di marcia e lascia che una corda raccolga la nota di uno strumento."
+      },
+      "computed": {
+        "system": "Ogni asta è calcolata come una sola vibrazione: il suo primo modo alla sua frequenza propria, spinto dallo scuotimento del tavolo, con Runge–Kutta a passi di un millisecondo. Scorrendo, il ritmo sale tra un passo e l'altro. Il test confronta le costanti del primo modo con i valori di ogni tabella (β₁² = 3,516, Γ = 1,566) e il calcolo passo a passo con la formula chiusa.",
+        "sound": "Il suono nasce nel browser ed è spento finché non lo accende; nulla viene salvato o inviato.",
+        "left_out": "Tralasciati: i modi superiori (il secondo è 6,27 volte più alto), l'irrigidimento dell'asta nelle oscillazioni ampie, la cedevolezza del tavolo."
       }
     }
   }

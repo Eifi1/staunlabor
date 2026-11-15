@@ -31,7 +31,8 @@ export type Exhibit =
   | "foucault"
   | "coriolis"
   | "cradle"
-  | "well";
+  | "well"
+  | "resonance";
 
 /** What an exhibit is about, as a reader would look for it: one word each,
  *  and an exhibit may be about two. */
@@ -184,6 +185,13 @@ export const EXHIBITS: readonly ExhibitEntry[] = [
     exhibit: "well",
     path: "/well",
     topics: ["angular_momentum", "energy"],
+    lessons: ["second_order", "numerics"],
+    since: "2026-12-01",
+  },
+  {
+    exhibit: "resonance",
+    path: "/resonance",
+    topics: ["oscillation", "energy"],
     lessons: ["second_order", "numerics"],
     since: "2026-12-01",
   },

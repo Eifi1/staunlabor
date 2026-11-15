@@ -72,3 +72,4 @@ so a reviewer knows which wordings are newer than the rest.
 | 2026-11-15 | `experiments.exhibits.coriolis.*`, `experiments.coriolis.*` | new: the Coriolis carousel's page; `de-CH` and `en` written, the other five machine-translated | a new exhibit |
 | 2026-11-15 | `experiments.exhibits.cradle.*`, `experiments.cradle.*` | new: Newton's cradle's page (`de-CH` "Kugelstosspendel"); `de-CH` and `en` written, the other five machine-translated | a new exhibit |
 | 2026-11-15 | `experiments.exhibits.well.*`, `experiments.well.*` | new: the gravity well's page (`de-CH` "Gravitationstrichter"); `de-CH` and `en` written, the other five machine-translated | a new exhibit |
+| 2026-11-15 | `experiments.exhibits.resonance.*`, `experiments.resonance.*` | new: the resonant rods' page (`de-CH` "Resonanzstäbe"), with the first sound switch (off by default); `de-CH` and `en` written, the other five machine-translated | a new exhibit |

@@ -253,6 +253,12 @@
         "title": "Der Gravitationstrichter",
         "summary": "Eine Kugel kreist in einem Trichter um das Loch, immer tiefer und immer schneller – und hält dabei Keplers drittes Gesetz ein wie ein Planet.",
         "question": "Warum wird die Kugel schneller, obwohl die Reibung sie bremst?"
+      },
+      "resonance": {
+        "short": "Resonanzstäbe",
+        "title": "Die Resonanzstäbe",
+        "summary": "Sechs Stäbe auf einem Tisch, der kaum zittert – und doch schwingt einer weit aus, wenn der Takt stimmt. Die anderen bleiben fast ruhig.",
+        "question": "Wie bringt ein Tisch, der sich nur einen Millimeter bewegt, einen Stab dazu, acht Zentimeter weit zu schwingen?"
       }
     },
     "chair": {
@@ -2050,6 +2056,74 @@
       "computed": {
         "system": "Die Kugel rollt, ohne zu gleiten; ihr Drehen zählt als 2/5 zusätzliche Trägheit, so dass jeder Schub entlang der Wand sie zu 5/7 bewegt. Die Bewegungsgleichungen auf der Fläche, in Abstand und Winkel, werden mit Runge–Kutta in Schritten von einer Millisekunde gelöst. Der Rollwiderstand wirkt gegen die ganze Kraft, mit der die Wand drückt, auch gegen den Teil, der die Kugel auf ihrer gekrümmten Bahn hält. Der Test prüft Energie und Drehimpuls ohne Reibung, die Kreisbahn und die Zeit bis zum Loch gegen eine unabhängige Rechnung aus der Energie der Kreise.",
         "left_out": "Weggelassen: das Drehen der Kugel um die Senkrechte zur Wand, ihre Grösse gegenüber der Krümmung der Wand, die Luft. Eine Münze, die auf ihrem Rand rollt und sich neigt, ist ein anderes Problem."
+      }
+    },
+    "resonance": {
+      "at": {
+        "rods": "Sechs Stahlstäbe verschiedener Länge stehen eingespannt in einem Tisch, den ein Motor ein wenig hin und her rüttelt.",
+        "one": "Bei einem bestimmten Takt schwingt ein einziger Stab weit aus, die anderen bleiben fast ruhig. Etwas schneller, und ein anderer übernimmt."
+      },
+      "view": "Die Stäbe von vorn auf ihrem Tisch, unter jedem seine Eigenfrequenz",
+      "play": {
+        "title": "Den Takt suchen",
+        "hint": "Rütteln Sie den Tisch und verschieben Sie den Takt langsam. «Durchfahren» steigert ihn von selbst und zeichnet auf, wie weit jeder Stab dabei schwingt.",
+        "shake": "Rütteln",
+        "stop": "Anhalten",
+        "sweep": "Durchfahren",
+        "calm": "Zur Ruhe",
+        "speed": "Tempo",
+        "speeds": {
+          "1": "Echtzeit",
+          "4": "4× schneller"
+        },
+        "beat": "Takt des Tisches",
+        "beat_hint": "Wie oft der Tisch in der Sekunde hin und her geht.",
+        "sweeping": "Der Takt steigt um 0,05 Hz pro Sekunde; ziehen Sie den Regler, um anzuhalten.",
+        "damping": "Dämpfung",
+        "damping_hint": "Wie schnell ein Stab von selbst zur Ruhe kommt: der Anteil der Dämpfung, bei der er gar nicht mehr schwingen würde.",
+        "sound": "Ton",
+        "sound_hint": "Jeder Stab klingt mit seiner Eigenfrequenz, sieben Oktaven höher, und so laut, wie er schwingt.",
+        "no_sound": "Dieser Browser kann keine Töne erzeugen.",
+        "widest": "Weitester Ausschlag",
+        "table": "Der Tisch, hin und her",
+        "rod": "Stab {{n}} ({{hz}} Hz)"
+      },
+      "chart": {
+        "swing": "Ausschlag der Spitze",
+        "beat": "Takt des Tisches",
+        "swept": "Stab {{n}}, beim Durchfahren",
+        "caption": "Wie weit jeder Stab schwingt, wenn der Tisch lange genug im selben Takt rüttelt; gestrichelt, was beim Durchfahren davon ankommt"
+      },
+      "model": {
+        "intro": "Jeder Stab ist unten eingespannt und oben frei. Von seinen Schwingungsformen zählt hier nur die erste: der ganze Stab biegt sich nach einer Seite.",
+        "frequency": "Seine Eigenfrequenz: je länger der Stab, desto tiefer – mit dem Quadrat der Länge.",
+        "motion": "Der Tisch rüttelt, und seine Beschleunigung schiebt jeden Stab an, gewichtet mit Γ = 1,566 für die Form der ersten Schwingung. Die Dämpfung nimmt ihm dabei Schwung.",
+        "steady": "Lange genug im selben Takt gerüttelt, schwingt die Spitze so weit. Im Gleichschritt (r = 1) ist das Γ·Y/(2ζ)."
+      },
+      "symbols": {
+        "beta": "die erste Lösung von cosh β · cos β = −1: 1,8751",
+        "l": "die Länge des Stabs",
+        "e": "der Elastizitätsmodul des Stahls",
+        "i": "das Flächenmoment des runden Stabs vom Durchmesser d",
+        "rho": "die Dichte des Stahls",
+        "a": "der Querschnitt",
+        "q": "wie weit die Spitze gegenüber dem Tisch ausschlägt",
+        "omega": "die Eigenfrequenz als Kreisfrequenz",
+        "zeta": "die Dämpfung, als Anteil der Dämpfung, bei der der Stab gar nicht mehr schwingen würde",
+        "gamma": "wie stark das Rütteln die Form der ersten Schwingung anschiebt",
+        "yb": "wo der Tisch gerade ist",
+        "r": "der Takt des Tisches, geteilt durch die Eigenfrequenz",
+        "y": "wie weit der Tisch hin und her geht"
+      },
+      "sweet": {
+        "step": "Ein kleiner Anstoss im richtigen Takt bewegt mehr als ein grosser im falschen. Der Tisch geht nur 1 mm hin und her; im Gleichschritt mit dem 80 cm langen Stab, bei 2,21 Hz, schwingt dessen Spitze 78 mm weit, seine Nachbarn höchstens 4 mm. Drei Prozent neben dem Takt sind es nur noch 26 mm.",
+        "patience": "Resonanz braucht Geduld: Bei 2,21 Hz wächst der Ausschlag in 7,2 s erst auf knapp zwei Drittel. Wer schneller durchfährt, verpasst sie: Mit 0,05 Hz pro Sekunde schwingt derselbe Stab höchstens 40 mm weit, halb so weit, und erst bei 2,4 Hz.",
+        "everywhere": "Derselbe Gleichschritt lässt ein Glas unter dem richtigen Ton zerspringen, eine Brücke unter Marschschritten schwingen und eine Saite den Ton eines Instruments aufnehmen."
+      },
+      "computed": {
+        "system": "Jeder Stab wird als eine einzige Schwingung gerechnet: seine erste Form mit ihrer Eigenfrequenz, angeschoben vom Rütteln des Tisches, mit Runge–Kutta in Schritten von einer Millisekunde. Beim Durchfahren steigt der Takt zwischen den Schritten. Der Test hält die Konstanten der ersten Form an die Werte jeder Tabelle (β₁² = 3,516, Γ = 1,566) und die schrittweise Rechnung an die geschlossene Formel.",
+        "sound": "Der Ton entsteht im Browser und ist aus, bis Sie ihn einschalten; nichts davon wird gespeichert oder gesendet.",
+        "left_out": "Weggelassen: die höheren Schwingungsformen (die zweite liegt 6,27-mal höher), die Versteifung des Stabs bei weiten Ausschlägen, das Nachgeben des Tisches."
       }
     }
   }

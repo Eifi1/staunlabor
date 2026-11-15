@@ -253,6 +253,12 @@
         "title": "The gravity well",
         "summary": "A ball circles the hole of a funnel, ever lower and ever faster – and keeps Kepler's third law as it goes, like a planet.",
         "question": "Why does the ball get faster, though friction brakes it?"
+      },
+      "resonance": {
+        "short": "Resonant rods",
+        "title": "The resonant rods",
+        "summary": "Six rods on a table that hardly trembles – and yet one swings wide when the beat is right. The others stay almost still.",
+        "question": "How does a table that moves a single millimetre make a rod swing eight centimetres?"
       }
     },
     "chair": {
@@ -2050,6 +2056,74 @@
       "computed": {
         "system": "The ball rolls without slipping; its spin counts as 2/5 more inertia, so every push along the wall moves it at 5/7. The equations of motion on the surface, in distance and angle, are solved by Runge–Kutta in steps of a millisecond. Rolling resistance acts against the wall's whole push, including the part that holds the ball on its curved path. The test checks energy and angular momentum without friction, the circle, and the time to the hole against an independent count from the circles' energy.",
         "left_out": "Left out: the ball's spin about the wall's normal, its size beside the wall's curvature, air. A coin, which rolls on its edge and leans, is another problem."
+      }
+    },
+    "resonance": {
+      "at": {
+        "rods": "Six steel rods of different lengths stand clamped in a table that a motor shakes a little from side to side.",
+        "one": "At one beat a single rod swings wide while the others stay almost still. A little faster, and another takes over."
+      },
+      "view": "The rods from the front on their table, each with its own frequency below it",
+      "play": {
+        "title": "Find the beat",
+        "hint": "Shake the table and move the beat slowly. “Sweep” raises it by itself and records how far each rod swings meanwhile.",
+        "shake": "Shake",
+        "stop": "Stop",
+        "sweep": "Sweep",
+        "calm": "Settle",
+        "speed": "Speed",
+        "speeds": {
+          "1": "Real time",
+          "4": "4× faster"
+        },
+        "beat": "The table's beat",
+        "beat_hint": "How many times a second the table goes to and fro.",
+        "sweeping": "The beat rises by 0.05 Hz a second; move the slider to stop it.",
+        "damping": "Damping",
+        "damping_hint": "How fast a rod comes to rest by itself: the share of the damping at which it would not swing at all.",
+        "sound": "Sound",
+        "sound_hint": "Each rod sounds at its own frequency, seven octaves up, as loud as it swings.",
+        "no_sound": "This browser cannot make sounds.",
+        "widest": "Widest swing",
+        "table": "The table, to and fro",
+        "rod": "Rod {{n}} ({{hz}} Hz)"
+      },
+      "chart": {
+        "swing": "The tip's swing",
+        "beat": "The table's beat",
+        "swept": "Rod {{n}}, swept",
+        "caption": "How far each rod swings when the table keeps one beat long enough; dashed, what of it arrives during a sweep"
+      },
+      "model": {
+        "intro": "Each rod is clamped at the bottom and free at the top. Of its ways to vibrate only the first counts here: the whole rod bending to one side.",
+        "frequency": "Its own frequency: the longer the rod, the lower – as the square of its length.",
+        "motion": "The table shakes, and its acceleration pushes each rod, weighted by Γ = 1.566 for the first mode's shape. The damping takes swing away.",
+        "steady": "Shaken at one beat long enough, the tip swings this far. In step (r = 1) that is Γ·Y/(2ζ)."
+      },
+      "symbols": {
+        "beta": "the first solution of cosh β · cos β = −1: 1.8751",
+        "l": "the rod's length",
+        "e": "the steel's Young's modulus",
+        "i": "the second moment of area of a round rod of diameter d",
+        "rho": "the steel's density",
+        "a": "the cross-section",
+        "q": "how far the tip swings against the table",
+        "omega": "the rod's own frequency, as an angular frequency",
+        "zeta": "the damping, as a share of the damping at which the rod would not swing at all",
+        "gamma": "how hard the shaking pushes the first mode's shape",
+        "yb": "where the table is",
+        "r": "the table's beat divided by the rod's own frequency",
+        "y": "how far the table goes to and fro"
+      },
+      "sweet": {
+        "step": "A small push at the right beat moves more than a big one at the wrong. The table goes only 1 mm to and fro; in step with the 80 cm rod, at 2.21 Hz, its tip swings 78 mm, its neighbours at most 4 mm. Three per cent off the beat, only 26 mm.",
+        "patience": "Resonance needs patience: at 2.21 Hz the swing grows in 7.2 s to just under two thirds. Sweep faster and you miss it: at 0.05 Hz a second the same rod swings at most 40 mm, half as far, and only at 2.4 Hz.",
+        "everywhere": "The same keeping in step shatters a glass at the right note, sets a bridge swinging under marching feet and lets a string take up an instrument's note."
+      },
+      "computed": {
+        "system": "Each rod is computed as a single vibration: its first mode at its own frequency, pushed by the table's shaking, by Runge–Kutta in steps of a millisecond. During a sweep the beat rises between the steps. The test holds the first mode's constants to every table's values (β₁² = 3.516, Γ = 1.566) and the stepped solution to the closed form.",
+        "sound": "The sound is made in the browser and stays off until you turn it on; nothing of it is stored or sent.",
+        "left_out": "Left out: the higher modes (the second lies 6.27 times higher), the rod's stiffening at wide swings, the table's give."
       }
     }
   }

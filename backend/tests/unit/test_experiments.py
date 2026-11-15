@@ -2133,10 +2133,25 @@ def test_a_clamped_rod_s_first_mode_has_the_textbook_constants():
     # cantilever modes.
     from staunlabor.domain.experiments import resonance
 
+    assert round(resonance.BETA1, 4) == 1.8751
     assert round(resonance.BETA1**2, 3) == 3.516
     assert round(resonance.GAMMA, 3) == 1.566
     assert resonance.shape(0.0) == pytest.approx(0.0, abs=1e-12)
     assert resonance.shape(1.0) == pytest.approx(1.0)
+
+
+def test_a_rod_s_second_mode_lies_6_27_times_higher_and_is_left_out():
+    # The second root of cosh β·cos β = −1, found here independently.
+    from staunlabor.domain.experiments import resonance
+
+    def gap(b: float) -> float:
+        return math.cosh(b) * math.cos(b) + 1
+
+    lo, hi = 4.0, 5.0
+    for _ in range(80):
+        mid = (lo + hi) / 2
+        lo, hi = (lo, mid) if gap(lo) * gap(mid) <= 0 else (mid, hi)
+    assert round((lo / resonance.BETA1) ** 2, 2) == 6.27
 
 
 def test_the_six_rods_ring_between_1_4_and_5_7_hz():
@@ -2183,8 +2198,9 @@ def test_swept_at_a_twentieth_of_a_hertz_a_second_the_rod_reaches_half_its_swing
     rack = x.ResonanceRack()
     s = resonance.start(rack)
     widest, at = 0.0, 0.0
+    # The page's sweep: from 1 Hz, 0.05 Hz a second.
     for i in range(round(30 / resonance.STEP_S)):
-        drive = 1.5 + 0.05 * i * resonance.STEP_S
+        drive = 1.0 + 0.05 * i * resonance.STEP_S
         s = resonance.step(rack, s, drive)
         swing = resonance.swing_m(rack, s, 2)
         if swing > widest:

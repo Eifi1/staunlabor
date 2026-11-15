@@ -253,6 +253,12 @@
         "title": "L'entonnoir gravitationnel",
         "summary": "Une bille tourne dans un entonnoir autour du trou, toujours plus bas et toujours plus vite – et respecte la troisième loi de Kepler comme une planète.",
         "question": "Pourquoi la bille accélère-t-elle, alors que le frottement la freine ?"
+      },
+      "resonance": {
+        "short": "Tiges résonantes",
+        "title": "Les tiges résonantes",
+        "summary": "Six tiges sur une table qui tremble à peine – et pourtant l'une oscille largement quand le rythme est juste. Les autres restent presque immobiles.",
+        "question": "Comment une table qui ne bouge que d'un millimètre fait-elle osciller une tige de huit centimètres ?"
       }
     },
     "chair": {
@@ -2050,6 +2056,74 @@
       "computed": {
         "system": "La bille roule sans glisser ; sa rotation compte comme 2/5 d'inertie en plus, si bien que chaque poussée le long de la paroi la déplace à 5/7. Les équations du mouvement sur la surface, en distance et en angle, sont résolues par Runge–Kutta par pas d'une milliseconde. La résistance au roulement s'oppose à toute la poussée de la paroi, y compris la part qui maintient la bille sur sa trajectoire courbe. Le test vérifie l'énergie et le moment cinétique sans frottement, le cercle, et la durée jusqu'au trou par rapport à un calcul indépendant tiré de l'énergie des cercles.",
         "left_out": "Laissé de côté : la rotation de la bille autour de la normale à la paroi, sa taille face à la courbure de la paroi, l'air. Une pièce, qui roule sur sa tranche et se penche, est un autre problème."
+      }
+    },
+    "resonance": {
+      "at": {
+        "rods": "Six tiges d'acier de longueurs différentes sont fixées dans une table qu'un moteur secoue un peu de côté.",
+        "one": "À un certain rythme, une seule tige oscille largement tandis que les autres restent presque immobiles. Un peu plus vite, et une autre prend le relais."
+      },
+      "view": "Les tiges vues de face sur leur table, chacune avec sa fréquence propre en dessous",
+      "play": {
+        "title": "Trouver le rythme",
+        "hint": "Secouez la table et déplacez lentement le rythme. « Balayer » l'augmente tout seul et enregistre l'oscillation de chaque tige pendant ce temps.",
+        "shake": "Secouer",
+        "stop": "Arrêter",
+        "sweep": "Balayer",
+        "calm": "Au repos",
+        "speed": "Vitesse",
+        "speeds": {
+          "1": "Temps réel",
+          "4": "4× plus vite"
+        },
+        "beat": "Rythme de la table",
+        "beat_hint": "Combien de fois par seconde la table fait l'aller-retour.",
+        "sweeping": "Le rythme monte de 0,05 Hz par seconde ; déplacez le curseur pour l'arrêter.",
+        "damping": "Amortissement",
+        "damping_hint": "La vitesse à laquelle une tige revient d'elle-même au repos : la part de l'amortissement auquel elle n'oscillerait plus du tout.",
+        "sound": "Son",
+        "sound_hint": "Chaque tige sonne à sa fréquence propre, sept octaves plus haut, aussi fort qu'elle oscille.",
+        "no_sound": "Ce navigateur ne peut pas produire de sons.",
+        "widest": "Plus grande oscillation",
+        "table": "La table, aller-retour",
+        "rod": "Tige {{n}} ({{hz}} Hz)"
+      },
+      "chart": {
+        "swing": "Oscillation de la pointe",
+        "beat": "Rythme de la table",
+        "swept": "Tige {{n}}, en balayant",
+        "caption": "Jusqu'où chaque tige oscille quand la table garde assez longtemps le même rythme ; en tirets, ce qui en arrive pendant un balayage"
+      },
+      "model": {
+        "intro": "Chaque tige est fixée en bas et libre en haut. De ses façons de vibrer, seule la première compte ici : toute la tige se plie d'un côté.",
+        "frequency": "Sa fréquence propre : plus la tige est longue, plus elle est basse – comme le carré de la longueur.",
+        "motion": "La table secoue, et son accélération pousse chaque tige, pondérée par Γ = 1,566 pour la forme du premier mode. L'amortissement lui retire de l'élan.",
+        "steady": "Secouée assez longtemps au même rythme, la pointe oscille de tant. En phase (r = 1), c'est Γ·Y/(2ζ)."
+      },
+      "symbols": {
+        "beta": "la première solution de cosh β · cos β = −1 : 1,8751",
+        "l": "la longueur de la tige",
+        "e": "le module d'Young de l'acier",
+        "i": "le moment quadratique d'une tige ronde de diamètre d",
+        "rho": "la masse volumique de l'acier",
+        "a": "la section",
+        "q": "de combien la pointe s'écarte par rapport à la table",
+        "omega": "la fréquence propre, en pulsation",
+        "zeta": "l'amortissement, en part de celui auquel la tige n'oscillerait plus du tout",
+        "gamma": "la force avec laquelle la secousse pousse la forme du premier mode",
+        "yb": "où se trouve la table",
+        "r": "le rythme de la table divisé par la fréquence propre",
+        "y": "de combien la table va et vient"
+      },
+      "sweet": {
+        "step": "Une petite poussée au bon rythme fait plus qu'une grande au mauvais. La table ne va et vient que de 1 mm ; en phase avec la tige de 80 cm, à 2,21 Hz, sa pointe oscille de 78 mm, ses voisines de 4 mm au plus. À trois pour cent du rythme, il ne reste que 26 mm.",
+        "patience": "La résonance demande de la patience : à 2,21 Hz, l'oscillation n'atteint en 7,2 s qu'un peu moins des deux tiers. Qui balaie plus vite la manque : à 0,05 Hz par seconde, la même tige oscille de 40 mm au plus, moitié moins, et seulement à 2,4 Hz.",
+        "everywhere": "Ce même accord fait éclater un verre à la bonne note, balancer un pont sous des pas cadencés et permet à une corde de reprendre la note d'un instrument."
+      },
+      "computed": {
+        "system": "Chaque tige est calculée comme une seule vibration : son premier mode à sa fréquence propre, poussé par la secousse de la table, par Runge–Kutta par pas d'une milliseconde. Pendant un balayage, le rythme monte entre les pas. Le test confronte les constantes du premier mode aux valeurs de toute table (β₁² = 3,516, Γ = 1,566) et le calcul pas à pas à la formule fermée.",
+        "sound": "Le son est produit dans le navigateur et reste coupé jusqu'à ce que vous l'activiez ; rien n'en est enregistré ni envoyé.",
+        "left_out": "Laissé de côté : les modes supérieurs (le deuxième est 6,27 fois plus haut), le raidissement de la tige aux grandes oscillations, la souplesse de la table."
       }
     }
   }

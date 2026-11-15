@@ -298,6 +298,7 @@ from staunlabor.domain.experiments.resonance import ShakeRun
 from staunlabor.domain.experiments.resonance import natural_hz as rod_hz
 from staunlabor.domain.experiments.resonance import run as run_resonance
 from staunlabor.domain.experiments.resonance import steady_m as rod_steady_m
+from staunlabor.domain.experiments.resonance import swing_m as rod_swing_m
 from staunlabor.domain.experiments.smoke import (
     Drum,
     Flight,
@@ -561,6 +562,7 @@ __all__ = [
     "ring_from_push",
     "rod_hz",
     "rod_steady_m",
+    "rod_swing_m",
     "roll",
     "rotation_share",
     "run_chaos",

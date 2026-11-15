@@ -253,6 +253,12 @@
         "title": "A gravitációs tölcsér",
         "summary": "Egy golyó egy tölcsérben kering a lyuk körül, egyre mélyebben és egyre gyorsabban – és közben betartja Kepler harmadik törvényét, mint egy bolygó.",
         "question": "Miért gyorsul a golyó, holott a súrlódás fékezi?"
+      },
+      "resonance": {
+        "short": "Rezonáló pálcák",
+        "title": "A rezonáló pálcák",
+        "summary": "Hat pálca egy alig remegő asztalon – mégis az egyik nagyot leng, ha stimmel az ütem. A többi szinte mozdulatlan marad.",
+        "question": "Hogyan tud egy csupán egy millimétert mozduló asztal nyolc centiméteres lengésbe hozni egy pálcát?"
       }
     },
     "chair": {
@@ -2050,6 +2056,74 @@
       "computed": {
         "system": "A golyó csúszás nélkül gurul; forgása 2/5-nyi többlet tehetetlenségnek számít, így minden, a fal mentén ható lökés 5/7 részben mozgatja. A felületen érvényes mozgásegyenleteket távolságban és szögben Runge–Kutta-módszerrel, egy ezredmásodperces lépésekben oldjuk meg. A gördülési ellenállás a fal teljes nyomóereje ellen hat, annak a résznek is, amely a golyót görbe pályáján tartja. A teszt ellenőrzi az energiát és a perdületet súrlódás nélkül, a körpályát, valamint a lyukig eltelt időt a körök energiájából számolt független eredménnyel szemben.",
         "left_out": "Kimaradt: a golyó forgása a fal normálisa körül, mérete a fal görbületéhez képest, a levegő. Egy érme, amely az élén gurul és megdől, másik probléma."
+      }
+    },
+    "resonance": {
+      "at": {
+        "rods": "Hat különböző hosszúságú acélpálca áll befogva egy asztalban, amelyet egy motor kissé ide-oda ráz.",
+        "one": "Egy bizonyos ütemnél egyetlen pálca leng ki nagyon, a többi szinte mozdulatlan. Kicsit gyorsabban, és egy másik veszi át."
+      },
+      "view": "A pálcák elölről az asztalukon, mindegyik alatt a saját frekvenciája",
+      "play": {
+        "title": "Megkeresni az ütemet",
+        "hint": "Rázza az asztalt, és lassan változtassa az ütemet. A «Végigfutás» magától emeli, és közben rögzíti, mennyire leng ki minden egyes pálca.",
+        "shake": "Rázás",
+        "stop": "Megállítás",
+        "sweep": "Végigfutás",
+        "calm": "Nyugalom",
+        "speed": "Tempó",
+        "speeds": {
+          "1": "Valós idő",
+          "4": "4× gyorsabban"
+        },
+        "beat": "Az asztal üteme",
+        "beat_hint": "Másodpercenként hányszor megy ide-oda az asztal.",
+        "sweeping": "Az ütem másodpercenként 0,05 Hz-cel nő; a megállításhoz húzza meg a csúszkát.",
+        "damping": "Csillapítás",
+        "damping_hint": "Milyen gyorsan nyugszik meg magától egy pálca: annak a csillapításnak a hányada, amelynél már egyáltalán nem lengene.",
+        "sound": "Hang",
+        "sound_hint": "Minden pálca a saját frekvenciáján szól, hét oktávval feljebb, olyan hangosan, amennyire leng.",
+        "no_sound": "Ez a böngésző nem tud hangot előállítani.",
+        "widest": "Legnagyobb kitérés",
+        "table": "Az asztal, ide-oda",
+        "rod": "{{n}}. pálca ({{hz}} Hz)"
+      },
+      "chart": {
+        "swing": "A csúcs kitérése",
+        "beat": "Az asztal üteme",
+        "swept": "{{n}}. pálca, végigfutáskor",
+        "caption": "Mennyire leng ki minden pálca, ha az asztal elég sokáig ugyanabban az ütemben ráz; szaggatottan, amennyi ebből végigfutáskor megvalósul"
+      },
+      "model": {
+        "intro": "Minden pálca alul be van fogva, felül szabad. Rezgési módjai közül itt csak az első számít: az egész pálca egy oldalra hajlik.",
+        "frequency": "A saját frekvenciája: minél hosszabb a pálca, annál mélyebb – a hossz négyzetével.",
+        "motion": "Az asztal ráz, és gyorsulása minden pálcát meglök, az első rezgési alakra vonatkozó Γ = 1,566 súllyal. A csillapítás lendületet vesz el tőle.",
+        "steady": "Elég sokáig ugyanabban az ütemben rázva a csúcs ennyire leng ki. Ütemre (r = 1) ez Γ·Y/(2ζ)."
+      },
+      "symbols": {
+        "beta": "a cosh β · cos β = −1 első megoldása: 1,8751",
+        "l": "a pálca hossza",
+        "e": "az acél rugalmassági modulusa",
+        "i": "a d átmérőjű kör keresztmetszetű pálca másodrendű nyomatéka",
+        "rho": "az acél sűrűsége",
+        "a": "a keresztmetszet",
+        "q": "mennyire tér ki a csúcs az asztalhoz képest",
+        "omega": "a saját frekvencia körfrekvenciaként",
+        "zeta": "a csillapítás, annak a hányadaként, amelynél a pálca már egyáltalán nem lengene",
+        "gamma": "mennyire löki meg a rázás az első rezgési alakot",
+        "yb": "hol van éppen az asztal",
+        "r": "az asztal üteme osztva a saját frekvenciával",
+        "y": "mennyire megy ide-oda az asztal"
+      },
+      "sweet": {
+        "step": "Egy kis lökés a jó ütemben többet mozdít, mint egy nagy a rosszban. Az asztal csak 1 mm-t megy ide-oda; a 80 cm-es pálcával ütemben, 2,21 Hz-en, annak csúcsa 78 mm-t leng ki, a szomszédai legfeljebb 4 mm-t. Három százalékkal az ütem mellett már csak 26 mm-t.",
+        "patience": "A rezonancia türelmet kíván: 2,21 Hz-en a kitérés 7,2 s alatt is csak alig kétharmadáig nő. Aki gyorsabban fut végig, lemarad róla: másodpercenként 0,05 Hz-cel ugyanez a pálca legfeljebb 40 mm-t leng ki, feleannyit, és csak 2,4 Hz-nél.",
+        "everywhere": "Ugyanez az ütemtartás töri szét a poharat a megfelelő hangra, lengeti meg a hidat a menetelő léptek alatt, és engedi, hogy egy húr átvegye egy hangszer hangját."
+      },
+      "computed": {
+        "system": "Minden pálcát egyetlen rezgésként számolunk: első rezgési alakja a saját frekvenciáján, amelyet az asztal rázása lök meg, Runge–Kutta-módszerrel, egy ezredmásodperces lépésekben. Végigfutáskor az ütem a lépések között nő. A teszt az első rezgési alak állandóit bármely táblázat értékeihez méri (β₁² = 3,516, Γ = 1,566), a lépésenkénti számítást pedig a zárt képlethez.",
+        "sound": "A hang a böngészőben keletkezik, és ki van kapcsolva, amíg be nem kapcsolja; semmi sem kerül mentésre vagy elküldésre.",
+        "left_out": "Kimaradt: a magasabb rezgési alakok (a második 6,27-szer magasabban van), a pálca merevedése nagy kitéréseknél, az asztal engedékenysége."
       }
     }
   }

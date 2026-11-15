@@ -253,6 +253,12 @@
         "title": "El embudo gravitatorio",
         "summary": "Una bola gira en un embudo alrededor del agujero, cada vez más abajo y más deprisa – y cumple la tercera ley de Kepler como un planeta.",
         "question": "¿Por qué la bola va más deprisa, si la fricción la frena?"
+      },
+      "resonance": {
+        "short": "Varillas resonantes",
+        "title": "Las varillas resonantes",
+        "summary": "Seis varillas sobre una mesa que apenas tiembla – y aun así una oscila con amplitud cuando el ritmo es el justo. Las demás casi no se mueven.",
+        "question": "¿Cómo consigue una mesa que se mueve un solo milímetro que una varilla oscile ocho centímetros?"
       }
     },
     "chair": {
@@ -2050,6 +2056,74 @@
       "computed": {
         "system": "La bola rueda sin deslizar; su giro cuenta como 2/5 más de inercia, de modo que cada empuje a lo largo de la pared la mueve en 5/7. Las ecuaciones del movimiento sobre la superficie, en distancia y ángulo, se resuelven con Runge–Kutta en pasos de un milisegundo. La resistencia a la rodadura actúa contra todo el empuje de la pared, también contra la parte que mantiene la bola en su trayectoria curva. La prueba comprueba la energía y el momento angular sin fricción, el círculo y el tiempo hasta el agujero frente a un cálculo independiente a partir de la energía de los círculos.",
         "left_out": "Se deja fuera: el giro de la bola alrededor de la normal a la pared, su tamaño frente a la curvatura de la pared, el aire. Una moneda, que rueda sobre su canto y se inclina, es otro problema."
+      }
+    },
+    "resonance": {
+      "at": {
+        "rods": "Seis varillas de acero de distinta longitud están sujetas a una mesa que un motor sacude un poco de lado a lado.",
+        "one": "Con cierto ritmo, una sola varilla oscila con fuerza mientras las demás casi no se mueven. Un poco más rápido, y otra toma el relevo."
+      },
+      "view": "Las varillas de frente sobre su mesa, cada una con su frecuencia propia debajo",
+      "play": {
+        "title": "Buscar el ritmo",
+        "hint": "Sacuda la mesa y mueva el ritmo despacio. «Barrer» lo sube solo y registra cuánto oscila cada varilla mientras tanto.",
+        "shake": "Sacudir",
+        "stop": "Parar",
+        "sweep": "Barrer",
+        "calm": "Calmar",
+        "speed": "Velocidad",
+        "speeds": {
+          "1": "Tiempo real",
+          "4": "4× más rápido"
+        },
+        "beat": "Ritmo de la mesa",
+        "beat_hint": "Cuántas veces por segundo va y viene la mesa.",
+        "sweeping": "El ritmo sube 0,05 Hz por segundo; mueva el regulador para detenerlo.",
+        "damping": "Amortiguación",
+        "damping_hint": "Lo rápido que una varilla se detiene sola: la fracción de la amortiguación con la que ya no oscilaría.",
+        "sound": "Sonido",
+        "sound_hint": "Cada varilla suena con su frecuencia propia, siete octavas más alta, tan fuerte como oscila.",
+        "no_sound": "Este navegador no puede producir sonidos.",
+        "widest": "Mayor oscilación",
+        "table": "La mesa, de ida y vuelta",
+        "rod": "Varilla {{n}} ({{hz}} Hz)"
+      },
+      "chart": {
+        "swing": "Oscilación de la punta",
+        "beat": "Ritmo de la mesa",
+        "swept": "Varilla {{n}}, al barrer",
+        "caption": "Cuánto oscila cada varilla cuando la mesa mantiene el mismo ritmo el tiempo suficiente; en trazos, lo que llega de ello al barrer"
+      },
+      "model": {
+        "intro": "Cada varilla está sujeta abajo y libre arriba. De sus formas de vibrar aquí solo cuenta la primera: toda la varilla se dobla hacia un lado.",
+        "frequency": "Su frecuencia propia: cuanto más larga la varilla, más grave – con el cuadrado de la longitud.",
+        "motion": "La mesa se sacude, y su aceleración empuja cada varilla, ponderada con Γ = 1,566 para la forma de la primera vibración. La amortiguación le quita impulso.",
+        "steady": "Sacudida con el mismo ritmo el tiempo suficiente, la punta oscila esta amplitud. Al compás (r = 1) es Γ·Y/(2ζ)."
+      },
+      "symbols": {
+        "beta": "la primera solución de cosh β · cos β = −1: 1,8751",
+        "l": "la longitud de la varilla",
+        "e": "el módulo de Young del acero",
+        "i": "el momento de inercia de la sección de una varilla redonda de diámetro d",
+        "rho": "la densidad del acero",
+        "a": "la sección",
+        "q": "cuánto se desvía la punta respecto a la mesa",
+        "omega": "la frecuencia propia, como frecuencia angular",
+        "zeta": "la amortiguación, como fracción de aquella con la que la varilla ya no oscilaría",
+        "gamma": "con qué fuerza la sacudida empuja la forma de la primera vibración",
+        "yb": "dónde está la mesa",
+        "r": "el ritmo de la mesa dividido por la frecuencia propia",
+        "y": "cuánto va y viene la mesa"
+      },
+      "sweet": {
+        "step": "Un pequeño empujón al ritmo justo mueve más que uno grande al ritmo equivocado. La mesa va y viene solo 1 mm; al compás de la varilla de 80 cm, a 2,21 Hz, su punta oscila 78 mm, sus vecinas como mucho 4 mm. Un tres por ciento fuera del ritmo, solo 26 mm.",
+        "patience": "La resonancia requiere paciencia: a 2,21 Hz la oscilación crece en 7,2 s hasta algo menos de dos tercios. Quien barre más deprisa se la pierde: a 0,05 Hz por segundo la misma varilla oscila como mucho 40 mm, la mitad, y solo a 2,4 Hz.",
+        "everywhere": "El mismo ir al compás hace estallar un vaso con la nota justa, balancea un puente bajo pasos de marcha y deja que una cuerda recoja la nota de un instrumento."
+      },
+      "computed": {
+        "system": "Cada varilla se calcula como una sola vibración: su primera forma con su frecuencia propia, empujada por la sacudida de la mesa, con Runge–Kutta en pasos de un milisegundo. Al barrer, el ritmo sube entre los pasos. La prueba contrasta las constantes de la primera forma con los valores de cualquier tabla (β₁² = 3,516, Γ = 1,566) y el cálculo paso a paso con la fórmula cerrada.",
+        "sound": "El sonido se genera en el navegador y está apagado hasta que usted lo enciende; nada de ello se guarda ni se envía.",
+        "left_out": "Se deja fuera: las formas de vibración superiores (la segunda está 6,27 veces más alta), el endurecimiento de la varilla con oscilaciones amplias, la flexibilidad de la mesa."
       }
     }
   }

@@ -44,6 +44,7 @@ import { FoucaultPage, knocked } from "./foucault-page";
 import { CoriolisPage } from "./coriolis-page";
 import { CradlePage } from "./cradle-page";
 import { WellPage } from "./well-page";
+import { ResonancePage } from "./resonance-page";
 import { ballState, pitEntries, positionAt, raceLayout, swingAt } from "./race-views";
 import { run as runPit } from "./simulate/pit";
 import { HOLE, cameraAt, frameOf, project } from "./chair-views";
@@ -956,5 +957,28 @@ describe("the gravity well", () => {
     await screen.findByRole("img", { name: E.well.view_top });
     fireEvent.click(screen.getByRole("button", { name: E.well.play.launch }));
     expect(await screen.findByRole("button", { name: E.well.play.pause })).toBeInTheDocument();
+  });
+});
+
+describe("the resonance rods", () => {
+  it("shows six rods with their frequencies, the table in step with the third, and the sound off", async () => {
+    renderWithProviders(<ResonancePage />);
+    expect(await screen.findByRole("img", { name: E.resonance.view })).toBeInTheDocument();
+    for (const hz of ["1.41 Hz", "2.21 Hz", "5.65 Hz"]) expect(screen.getByText(hz)).toBeInTheDocument();
+    expect((await screen.findAllByDisplayValue("2.21")).length).toBeGreaterThan(0);
+    // No Web Audio in the test runner: the switch is off, and says why it cannot turn on.
+    expect(screen.getByRole("switch", { name: E.resonance.play.sound })).not.toBeChecked();
+    expect(screen.getByText(E.resonance.play.no_sound)).toBeInTheDocument();
+    expect(screen.getAllByLabelText(E.equation.symbols).length).toBeGreaterThanOrEqual(3);
+  });
+
+  it("shakes when asked, and sweeps from 1 Hz", async () => {
+    renderWithProviders(<ResonancePage />);
+    await screen.findByRole("img", { name: E.resonance.view });
+    fireEvent.click(screen.getByRole("button", { name: E.resonance.play.shake }));
+    expect(await screen.findByRole("button", { name: E.resonance.play.stop })).toBeInTheDocument();
+    fireEvent.click(screen.getByRole("button", { name: E.resonance.play.sweep }));
+    // The beat drops to the sweep's start and climbs from there.
+    expect((await screen.findAllByDisplayValue(/^1\.0\d$/)).length).toBeGreaterThan(0);
   });
 });
