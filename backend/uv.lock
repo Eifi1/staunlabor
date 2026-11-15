@@ -411,14 +411,14 @@ wheels = [
 
 [[package]]
 name = "eifi1-server-kit"
-version = "0.32.0.dev7"
-source = { path = "/home/marcel/ui-kit-dist/eifi1_server_kit-0.32.0.dev7-py3-none-any.whl" }
+version = "0.32.0.dev9"
+source = { path = "/home/marcel/ui-kit-dist/eifi1_server_kit-0.32.0.dev9-py3-none-any.whl" }
 dependencies = [
     { name = "pydantic" },
     { name = "starlette" },
 ]
 wheels = [
-    { filename = "eifi1_server_kit-0.32.0.dev7-py3-none-any.whl", hash = "sha256:69b2b9d718ebe9458833e768c9383a5785930fa67f06bafbb290056f8c33dd6c" },
+    { filename = "eifi1_server_kit-0.32.0.dev9-py3-none-any.whl", hash = "sha256:f6cbee3fece21b4ba94695c9b58d7acccb242b57d8818c41ef58ca70b08c0c1e" },
 ]
 
 [package.optional-dependencies]
@@ -1159,7 +1159,7 @@ dev = [
 requires-dist = [
     { name = "alembic", specifier = ">=1.14.0" },
     { name = "asyncpg", specifier = ">=0.30.0" },
-    { name = "eifi1-server-kit", extras = ["bcrypt", "fastapi", "jwt", "mail", "passkeys", "seal", "sql"], path = "/home/marcel/ui-kit-dist/eifi1_server_kit-0.32.0.dev7-py3-none-any.whl" },
+    { name = "eifi1-server-kit", extras = ["bcrypt", "fastapi", "jwt", "mail", "passkeys", "seal", "sql"], path = "/home/marcel/ui-kit-dist/eifi1_server_kit-0.32.0.dev9-py3-none-any.whl" },
     { name = "fastapi", specifier = ">=0.115.0" },
     { name = "pydantic", specifier = ">=2.10.0" },
     { name = "pydantic-settings", specifier = ">=2.7.0" },
