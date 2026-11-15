@@ -34,7 +34,7 @@
       "lead": "Exhibit interattivi, calcolati — gratuiti, senza registrazione e senza pubblicità.",
       "what": "Staunlabor prende exhibit come quelli che si trovano in un science center — una palla sospesa su un getto d'aria, un anello di fumo che esce da un tamburo, tre palle impilate lasciate cadere — e Le permette di fare il visitatore davanti al gemello di ogni exhibit. Poi ogni pagina mostra che cosa accade: le equazioni del moto, come si risolvono e l'idea che spiega il trucco.",
       "computed": "Ogni numero viene dal motore di calcolo proprio del sito ed è garantito dai suoi test. Ciò che si muove lo calcola il Suo browser, con gli stessi passi del motore di calcolo; ciò che cambia un cursore lo calcola il server.",
-      "model": "Gli exhibit sono ispirati agli exhibit dello Swiss Science Center Technorama di Winterthur. Staunlabor è un progetto indipendente e non è affiliato al Technorama; tutti i disegni e i testi sono originali.",
+      "model": "La maggior parte degli exhibit è ispirata agli exhibit dello Swiss Science Center Technorama di Winterthur. Staunlabor è un progetto indipendente e non è affiliato al Technorama; tutti i disegni e i testi sono originali.",
       "open": "Staunlabor è libero: il codice è distribuito con licenza MIT, i testi e i disegni con licenza CC BY 4.0. Può riutilizzarli citando la fonte, anche nell'insegnamento.",
       "accounts": "Gli exhibit non richiedono alcun account. Gli account esistono solo su invito: per chi rivede le traduzioni o invia riscontri e idee per nuovi exhibit.",
       "feedback": "Qualcosa di sbagliato o poco chiaro, o un exhibit che vorrebbe vedere?",
@@ -95,7 +95,7 @@
       "how": "Ogni pagina comincia da ciò che si trova all'exhibit, Le permette di provarlo e poi mostra che cosa accade e l'idea che spiega il trucco. Ogni numero viene dal motore di calcolo dell'app ed è garantito dai suoi test.",
       "open": "Apri l'exhibit",
       "coming": "In preparazione",
-      "credit": "Ispirato agli exhibit dello Swiss Science Center Technorama, Winterthur.",
+      "credit": "La maggior parte degli exhibit è ispirata agli exhibit dello Swiss Science Center Technorama, Winterthur.",
       "daily": {
         "eyebrow": "Esperimento del giorno",
         "open": "Lo provi",

@@ -34,7 +34,7 @@
       "lead": "Exponate zum Anfassen, nachgerechnet – frei, ohne Anmeldung und ohne Werbung.",
       "what": "Staunlabor nimmt Exponate, wie sie in einem Science Center stehen – einen Ball, der auf einem Luftstrahl schwebt, einen Rauchring aus einer Trommel, drei aufeinander fallen gelassene Kugeln –, und lässt Sie am Zwilling jedes Exponats den Besucher spielen. Danach zeigt jede Seite, was geschieht: die Bewegungsgleichungen, wie sie gelöst werden, und die eine Einsicht, die den Trick erklärt.",
       "computed": "Jede Zahl stammt aus dem eigenen Rechenkern der Seite und ist durch dessen Tests abgesichert. Was sich bewegt, rechnet Ihr Browser, mit denselben Schritten wie der Rechenkern; was ein Regler verändert, rechnet der Server.",
-      "model": "Die Exponate sind inspiriert von Exponaten im Swiss Science Center Technorama in Winterthur. Staunlabor ist ein unabhängiges Projekt und mit dem Technorama nicht verbunden; alle Zeichnungen und Texte sind eigene.",
+      "model": "Die meisten Exponate sind inspiriert von Exponaten im Swiss Science Center Technorama in Winterthur. Staunlabor ist ein unabhängiges Projekt und mit dem Technorama nicht verbunden; alle Zeichnungen und Texte sind eigene.",
       "open": "Staunlabor ist frei: Der Code steht unter der MIT-Lizenz, Texte und Zeichnungen stehen unter CC BY 4.0. Sie dürfen sie mit Nennung weiterverwenden, auch im Unterricht.",
       "accounts": "Für die Exponate braucht es kein Konto. Konten gibt es nur auf Einladung: für alle, die die Übersetzungen prüfen oder Rückmeldungen und Ideen für neue Exponate geben.",
       "feedback": "Etwas falsch, unklar oder ein Exponat, das Sie sich wünschen?",
@@ -95,7 +95,7 @@
       "how": "Jede Seite beginnt mit dem, was am Exponat steht, lässt Sie es ausprobieren und zeigt dann, was geschieht, und die eine Einsicht, die den Trick erklärt. Jede Zahl stammt aus dem Rechenkern der App und ist durch dessen Tests abgesichert.",
       "open": "Exponat öffnen",
       "coming": "In Vorbereitung",
-      "credit": "Inspiriert von Exponaten im Swiss Science Center Technorama, Winterthur.",
+      "credit": "Die meisten Exponate sind inspiriert von Exponaten im Swiss Science Center Technorama, Winterthur.",
       "daily": {
         "eyebrow": "Experiment des Tages",
         "open": "Ausprobieren",

@@ -34,7 +34,7 @@
       "lead": "Hands-on exhibits, computed — free, without an account and without ads.",
       "what": "Staunlabor takes exhibits of the kind a science centre has — a ball floating on a jet of air, a smoke ring pressed out of a drum, three balls dropped stacked — and lets you play the visitor in each exhibit's twin. Then every page shows what happens: the equations of motion, how they are solved, and the one insight that explains the trick.",
       "computed": "Every number comes from the site's own engine and is held by its tests. What moves is computed by your browser, with the same steps as the engine; what a slider changes is computed by the server.",
-      "model": "The exhibits are inspired by exhibits at the Swiss Science Center Technorama in Winterthur. Staunlabor is an independent project and is not affiliated with the Technorama; every drawing and text here is its own.",
+      "model": "Most of the exhibits are inspired by exhibits at the Swiss Science Center Technorama in Winterthur. Staunlabor is an independent project and is not affiliated with the Technorama; every drawing and text here is its own.",
       "open": "Staunlabor is free: the code is under the MIT licence, the texts and drawings under CC BY 4.0. You may reuse them with credit, in teaching too.",
       "accounts": "The exhibits need no account. Accounts exist only by invitation: for those who review the translations or send feedback and ideas for new exhibits.",
       "feedback": "Something wrong, unclear, or an exhibit you would like to see?",
@@ -95,7 +95,7 @@
       "how": "Each page starts with what stands at the exhibit, lets you try it, then shows what happens and the one insight that explains the trick. Every number comes from the app's own engine and is held by its tests.",
       "open": "Open the exhibit",
       "coming": "In preparation",
-      "credit": "Inspired by exhibits at the Swiss Science Center Technorama, Winterthur.",
+      "credit": "Most exhibits are inspired by exhibits at the Swiss Science Center Technorama, Winterthur.",
       "daily": {
         "eyebrow": "Experiment of the day",
         "open": "Try it",

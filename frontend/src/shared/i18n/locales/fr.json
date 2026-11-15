@@ -34,7 +34,7 @@
       "lead": "Des expositions interactives, calculées — gratuites, sans inscription et sans publicité.",
       "what": "Staunlabor reprend des expositions telles qu’on en trouve dans un centre de sciences — un ballon qui flotte sur un jet d’air, un anneau de fumée sorti d’un tambour, trois balles lâchées empilées — et vous laisse jouer le visiteur devant le jumeau de chaque exposition. Ensuite, chaque page montre ce qui se passe : les équations du mouvement, la façon de les résoudre et l’idée qui explique le tour.",
       "computed": "Chaque nombre provient du moteur de calcul propre au site et est garanti par ses tests. Ce qui bouge est calculé par votre navigateur, selon les mêmes étapes que le moteur de calcul ; ce que modifie un curseur est calculé par le serveur.",
-      "model": "Les expositions s’inspirent d’expositions du Swiss Science Center Technorama, à Winterthour. Staunlabor est un projet indépendant, sans lien avec le Technorama ; tous les dessins et tous les textes lui sont propres.",
+      "model": "La plupart des expositions s’inspirent d’expositions du Swiss Science Center Technorama, à Winterthour. Staunlabor est un projet indépendant, sans lien avec le Technorama ; tous les dessins et tous les textes lui sont propres.",
       "open": "Staunlabor est libre : le code est sous licence MIT, les textes et les dessins sous CC BY 4.0. Vous pouvez les réutiliser en citant la source, y compris dans l’enseignement.",
       "accounts": "Les expositions ne nécessitent aucun compte. Les comptes n’existent que sur invitation : pour les personnes qui relisent les traductions ou envoient des retours et des idées de nouvelles expositions.",
       "feedback": "Une erreur, un point peu clair, ou une exposition que vous aimeriez voir ?",
@@ -95,7 +95,7 @@
       "how": "Chaque page commence par ce qui se trouve à l’exposition, vous laisse l’essayer, puis montre ce qui se passe et l’idée qui explique le tour. Chaque nombre vient du moteur de calcul de l’application et est garanti par ses tests.",
       "open": "Ouvrir l’exposition",
       "coming": "En préparation",
-      "credit": "Inspiré d’expositions du Swiss Science Center Technorama, Winterthour.",
+      "credit": "La plupart des expositions s’inspirent d’expositions du Swiss Science Center Technorama, Winterthour.",
       "daily": {
         "eyebrow": "Expérience du jour",
         "open": "Essayez",

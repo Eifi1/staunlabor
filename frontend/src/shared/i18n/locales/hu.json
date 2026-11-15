@@ -34,7 +34,7 @@
       "lead": "Kézbe vehető kiállítási tárgyak, kiszámolva — ingyenesen, regisztráció és hirdetések nélkül.",
       "what": "A Staunlabor olyan kiállítási tárgyakat vesz alapul, amilyenek egy tudományos élményközpontban állnak — egy légsugáron lebegő labdát, egy dobból kilökött füstkarikát, három egymásra rakva leejtett labdát —, és lehetővé teszi, hogy minden tárgy ikerpárjánál Ön legyen a látogató. Ezután minden oldal megmutatja, mi történik: a mozgásegyenleteket, azt, hogyan oldjuk meg őket, és azt az egy felismerést, amely a trükköt megmagyarázza.",
       "computed": "Minden szám az oldal saját számítómotorjából származik, és a tesztjei garantálják. Ami mozog, azt az Ön böngészője számolja ki, ugyanazokkal a lépésekkel, mint a számítómotor; amit egy csúszka megváltoztat, azt a szerver számolja ki.",
-      "model": "A kiállítási tárgyakat a winterthuri Swiss Science Center Technorama kiállítási tárgyai ihlették. A Staunlabor független projekt, és nem áll kapcsolatban a Technoramával; minden rajz és szöveg saját készítésű.",
+      "model": "A kiállítási tárgyak többségét a winterthuri Swiss Science Center Technorama kiállítási tárgyai ihlették. A Staunlabor független projekt, és nem áll kapcsolatban a Technoramával; minden rajz és szöveg saját készítésű.",
       "open": "A Staunlabor szabad: a kód MIT-licenc alatt áll, a szövegek és a rajzok CC BY 4.0 licenc alatt. A forrás megjelölésével továbbfelhasználhatja őket, az oktatásban is.",
       "accounts": "A kiállítási tárgyakhoz nem kell fiók. Fiók csak meghívásra létezik: azok számára, akik a fordításokat lektorálják, vagy visszajelzést és ötleteket küldenek új kiállítási tárgyakhoz.",
       "feedback": "Valami hibás vagy nem világos, vagy van egy kiállítási tárgy, amelyet szívesen látna?",
@@ -95,7 +95,7 @@
       "how": "Minden oldal azzal kezdődik, ami a kiállításon áll, kipróbálhatja, majd megmutatja, mi történik, és azt az egy felismerést, amely a trükköt megmagyarázza. Minden szám az alkalmazás saját számítómotorjából származik, és a tesztjei garantálják.",
       "open": "A tárgy megnyitása",
       "coming": "Előkészületben",
-      "credit": "A winterthuri Swiss Science Center Technorama kiállítási tárgyai ihlették.",
+      "credit": "A kiállítási tárgyak többségét a winterthuri Swiss Science Center Technorama kiállítási tárgyai ihlették.",
       "daily": {
         "eyebrow": "A nap kísérlete",
         "open": "Próbálja ki",

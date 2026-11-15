@@ -28,9 +28,9 @@ It began as the "Experiments" area of Kurvenschmiede (`../kurvenschmiede`),
 whose differential-equations course the pages still link to at
 `https://kurvenschmiede.app/dynamics/...`.
 
-**The museum is the model, never the source.** The exhibits are *inspired by*
-exhibits at the Swiss Science Center Technorama; the site says so in one line
-("inspired by"), never "from the Technorama" or "aus dem Technorama", uses no
+**The museum is the model, never the source.** Most exhibits are *inspired
+by* exhibits at the Swiss Science Center Technorama; the site says so in one
+line ("most … inspired by"), never "from the Technorama" or "aus dem Technorama", uses no
 logo, photo or text of theirs, and every drawing is its own.
 `catalogues.test.ts` holds the German credit to it.
 

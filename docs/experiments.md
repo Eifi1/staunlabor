@@ -10,8 +10,10 @@ so. The first eight,
 which Marcel played with there, were first built from 2026-11-07 as the
 "Experiments" area of an engineering app, Kurvenschmiede, and moved here on
 2026-11-13 (`docs/plan.md`). The overview credits the museum in one line
-("inspired by exhibits at the Swiss Science Center Technorama, Winterthur"),
-with no logo and no photo: every drawing and text is the site's own.
+("most exhibits are inspired by exhibits at the Swiss Science Center
+Technorama, Winterthur"; "most" since the LC circuit, Marcel's word of
+2026-11-15), with no logo and no photo: every drawing and text is the site's
+own.
 
 This document says what each exhibit is, how it is modelled, what checking the
 models found before the engine was written, and what is left to build.
