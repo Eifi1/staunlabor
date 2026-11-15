@@ -47,6 +47,8 @@ with SciPy before it was written (``docs/experiments.md``).
   drawn to: eddy currents brake them, and slots cut most of the brake away.
 * :mod:`bounce` — a ball bouncing on a plate: infinitely many bounces, ever
   lower and quicker, add up to a finite time.
+* :mod:`overhang` — identical blocks stacked over an edge reach beyond it as
+  far as one likes: half the harmonic series, slowly.
 * :mod:`levitation` — a spinning top hovers over a ring magnet only in a
   window a few millimetres high and three per cent wide in weight.
 * :mod:`gyroscope` — a spinning wheel on a string turns round it instead of
@@ -247,6 +249,13 @@ from staunlabor.domain.experiments.maxwell import (
 )
 from staunlabor.domain.experiments.maxwell import bounce as wheel_bounce
 from staunlabor.domain.experiments.maxwell import run as run_wheel
+from staunlabor.domain.experiments.overhang import BLOCK_HEIGHT_M, BLOCK_LENGTH_M, EXHIBIT_BLOCKS, StackLayer
+from staunlabor.domain.experiments.overhang import blocks_for as blocks_for_reach
+from staunlabor.domain.experiments.overhang import even as even_stack
+from staunlabor.domain.experiments.overhang import harmonic as harmonic_stack
+from staunlabor.domain.experiments.overhang import holds as stack_holds
+from staunlabor.domain.experiments.overhang import layers as stack_layers
+from staunlabor.domain.experiments.overhang import overhang as stack_overhang
 from staunlabor.domain.experiments.parabola import (
     SpinRun,
     Surface,
@@ -407,6 +416,9 @@ from staunlabor.domain.experiments.well import run as run_well
 
 __all__ = [
     "ACUITY_RAD",
+    "BLOCK_HEIGHT_M",
+    "BLOCK_LENGTH_M",
+    "EXHIBIT_BLOCKS",
     "EXHIBIT_HEIGHT_M",
     "EXHIBIT_PLATES",
     "EYE",
@@ -536,6 +548,7 @@ __all__ = [
     "Spin",
     "SpinRun",
     "SpreadPoint",
+    "StackLayer",
     "Start",
     "StoneArch",
     "Surface",
@@ -570,6 +583,7 @@ __all__ = [
     "ball_state",
     "beat_s",
     "binocular_gap",
+    "blocks_for_reach",
     "bounce_figures",
     "bounces",
     "cannon_drop",
@@ -599,6 +613,7 @@ __all__ = [
     "elephant_figures",
     "ellipk",
     "energies",
+    "even_stack",
     "exchange_share",
     "exhibit",
     "fall_acceleration",
@@ -611,6 +626,7 @@ __all__ = [
     "gyro_nutation",
     "gyro_precession",
     "gyro_suitcase_torque",
+    "harmonic_stack",
     "harmonograph_draw",
     "harmonograph_figures",
     "height_at",
@@ -687,6 +703,9 @@ __all__ = [
     "spin",
     "spin_up_time_s",
     "spread_deg",
+    "stack_holds",
+    "stack_layers",
+    "stack_overhang",
     "start_for",
     "start_height_m",
     "state_at",

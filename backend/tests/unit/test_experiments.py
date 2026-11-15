@@ -2873,3 +2873,73 @@ def test_the_bouncing_ball_refuses_what_it_cannot_be():
         x.ball_bounces(x.STEEL, 3)
     with pytest.raises(ValueError, match="let go"):
         x.ball_state(x.STEEL, 0.3, x.ball_bounces(x.STEEL, 0.3), -1)
+
+
+# ── the overhang ─────────────────────────────────────────────────────────────
+
+
+def test_nine_blocks_reach_a_length_and_two_fifths_and_four_already_more_than_one():
+    from fractions import Fraction
+
+    def half_harmonic(n: int) -> float:
+        return float(sum(Fraction(1, k) for k in range(1, n + 1)) / 2)
+
+    for n in range(1, 21):
+        assert x.stack_overhang(x.harmonic_stack(n)) == pytest.approx(half_harmonic(n), rel=1e-12)
+    assert round(x.stack_overhang(x.harmonic_stack(9)), 2) == 1.41
+    assert x.stack_overhang(x.harmonic_stack(3)) < 1 < x.stack_overhang(x.harmonic_stack(4))
+    # In 20 cm blocks: 28 cm past the edge with the exhibit's nine.
+    assert round(x.stack_overhang(x.harmonic_stack(x.EXHIBIT_BLOCKS)) * x.BLOCK_LENGTH_M * 100) == 28
+
+
+def test_even_steps_never_reach_a_whole_length():
+    for n in range(1, 21):
+        stack = x.even_stack(n)
+        assert x.stack_holds(stack)
+        assert x.stack_overhang(stack) == pytest.approx(n / (n + 1), rel=1e-12)
+        # A step wider and the whole stack's centre passes the edge.
+        wider = tuple(left + (i + 1) * 1e-6 for i, left in enumerate(stack))
+        assert not x.stack_holds(wider)
+    assert round(x.stack_overhang(x.even_stack(9)), 1) == 0.9
+
+
+def test_one_length_takes_4_blocks_two_31_three_227_four_1674():
+    assert [x.blocks_for_reach(d) for d in (1, 2, 3, 4)] == [4, 31, 227, 1674]
+    assert x.blocks_for_reach(0.5) == 1 and x.blocks_for_reach(1.5) == 11
+
+
+def test_the_harmonic_stack_stands_at_every_edge_at_once_and_a_nudge_tips_it():
+    stack = x.harmonic_stack(9)
+    assert all(abs(layer.margin) < 1e-12 for layer in x.stack_layers(stack))
+    for i in range(9):
+        nudged = tuple(left + (1e-6 if j == i else 0) for j, left in enumerate(stack))
+        tipped = [k for k, layer in enumerate(x.stack_layers(nudged)) if layer.margin < -1e-12]
+        # A block pushed further out tips at its own footing, and at every one below it.
+        assert tipped == list(range(i + 1))
+
+
+def test_no_stack_of_one_block_a_layer_that_holds_reaches_further_than_the_harmonic():
+    """A blind search: random stacks of three and four, kept where they hold,
+    and none reaches past half the harmonic number."""
+    import random
+
+    rng = random.Random(20261116)
+    for n in (3, 4):
+        best = 0.0
+        for _ in range(20000):
+            stack = tuple(rng.uniform(-1, 0.6) for _ in range(n))
+            if x.stack_holds(stack):
+                best = max(best, x.stack_overhang(stack))
+        limit = x.stack_overhang(x.harmonic_stack(n))
+        assert best <= limit + 1e-12 and best > 0.5 * limit
+
+
+def test_the_overhang_refuses_what_it_cannot_be():
+    with pytest.raises(ValueError, match="1 to 20 blocks"):
+        x.stack_layers(())
+    with pytest.raises(ValueError, match="two lengths"):
+        x.stack_layers((3.0,))
+    with pytest.raises(ValueError, match="1 to 20 blocks"):
+        x.harmonic_stack(21)
+    with pytest.raises(ValueError, match="five lengths"):
+        x.blocks_for_reach(6)

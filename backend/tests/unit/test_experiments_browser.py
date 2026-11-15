@@ -117,6 +117,9 @@ def test_the_cases_cross_every_branch_a_page_can_reach(stored: Any):
     assert max(counts) > 500 and min(counts) < 20, "a ball that bounces nearly forever, and a dull one"
     assert any(c["terminal_m_s"] < 5 for c in balls) and any(c["terminal_m_s"] > 1000 for c in balls), "air and none"
     assert any(c["states"][-1] == [0.0, 0.0] for c in balls), "a ball that lies still"
+    stacks = stored["overhang"]["stacks"]
+    assert any(s["holds"] for s in stacks) and any(not s["holds"] for s in stacks), "a stack that holds, one that tips"
+    assert any(any(layer["margin"] == -1.0 for layer in s["layers"]) for s in stacks), "a block off its footing"
     floats = {c["hover"]["state"] for c in stored["levitation"]}
     assert floats == {"hovers", "lands", "slides"}, "a top that hovers, one that lands, one that slides off"
     spheres = stored["sphere"]

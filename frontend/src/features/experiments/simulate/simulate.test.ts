@@ -34,6 +34,7 @@ import * as elephant from "./elephant";
 import * as foucault from "./foucault";
 import * as harmonograph from "./harmonograph";
 import * as maxwell from "./maxwell";
+import * as overhang from "./overhang";
 import * as parabola from "./parabola";
 import * as peg from "./peg";
 import * as pendulum from "./pendulum";
@@ -1028,6 +1029,30 @@ describe("the bouncing ball's port", () => {
   it("holds the ball over the plate before it is let go", () => {
     const { ball, height_m } = cases.bounce[0] as { ball: bounce.BouncingBall; height_m: number };
     expect(bounce.state(ball, height_m, bounce.bounces(ball, height_m), -1)).toEqual([height_m, 0]);
+  });
+});
+
+describe("the overhang's port", () => {
+  it("finds each layer's footing, the furthest and the even stacks and the blocks a reach takes as the engine does", () => {
+    const c = cases.overhang;
+    expect(
+      differences(
+        c.harmonic,
+        c.harmonic.map((_, i) => overhang.harmonic(i + 1)),
+      ),
+    ).toEqual([]);
+    expect(
+      differences(
+        c.even,
+        c.even.map((_, i) => overhang.even(i + 1)),
+      ),
+    ).toEqual([]);
+    for (const s of c.stacks) {
+      expect(differences(s.layers, overhang.layers(s.lefts))).toEqual([]);
+      expect(overhang.holds(s.lefts)).toBe(s.holds);
+      expect(differences(s.overhang, overhang.overhang(s.lefts))).toEqual([]);
+    }
+    for (const [reach, blocks] of c.blocks_for) expect(overhang.blocksFor(reach)).toBe(blocks);
   });
 });
 

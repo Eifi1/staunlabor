@@ -75,6 +75,7 @@ levitation = importlib.import_module("staunlabor.domain.experiments.levitation")
 circuit = importlib.import_module("staunlabor.domain.experiments.circuit")
 plates = importlib.import_module("staunlabor.domain.experiments.plates")
 bounce = importlib.import_module("staunlabor.domain.experiments.bounce")
+overhang = importlib.import_module("staunlabor.domain.experiments.overhang")
 chladni = importlib.import_module("staunlabor.domain.experiments.chladni")
 
 TARGET = ROOT / "frontend/src/features/experiments/simulate/engine-cases.json"
@@ -628,6 +629,22 @@ BOUNCE_CASES = (
 #: After the ball is let go, in seconds.
 BOUNCE_TIMES = (0.0, 0.05, 0.2, 0.26, 0.5, 0.9, 1.7, 3.3, 6.0, 30.0)
 
+#: The overhang: stacks that hold, at the edge exactly and short of it, and
+#: stacks that tip at the bottom, in the middle and at the top; one block, and
+#: blocks sitting off their footing altogether.
+OVERHANG_STACKS = (
+    (-1.0,),
+    (-0.4,),
+    (-0.6, -0.3, 0.1),
+    (-0.9, -0.7, -0.5, -0.3),
+    (-0.5, -0.2, 0.3, 0.2, 0.25),
+    (-1.0, -1.0, -1.0, -1.0, 0.1),
+    (-0.2, 0.9, -0.5),
+    (-1.9, 1.5),
+)
+#: Reaches the fewest blocks are found for, in lengths.
+OVERHANG_REACHES = (0.25, 0.5, 0.75, 1.0, 1.5, 2.0, 2.5, 3.0, 4.0)
+
 
 def thin(values: Any) -> Any:
     """A curve as its length and every so many of its points, the last always
@@ -836,6 +853,23 @@ def _bounce_cases(out: dict[str, Any]) -> None:
                 "figures": asdict(bounce.figures(ball, height)),
             }
         )
+
+
+def _overhang_cases(out: dict[str, Any]) -> None:
+    out["overhang"] = {
+        "harmonic": [list(overhang.harmonic(n)) for n in range(1, overhang.MOST_BLOCKS + 1)],
+        "even": [list(overhang.even(n)) for n in range(1, overhang.MOST_BLOCKS + 1)],
+        "stacks": [
+            {
+                "lefts": list(s),
+                "layers": [asdict(layer) for layer in overhang.layers(s)],
+                "holds": overhang.holds(s),
+                "overhang": overhang.overhang(s),
+            }
+            for s in OVERHANG_STACKS
+        ],
+        "blocks_for": [[r, overhang.blocks_for(r)] for r in OVERHANG_REACHES],
+    }
 
 
 def _chladni_cases(out: dict[str, Any]) -> None:
@@ -1062,6 +1096,7 @@ def _second_series(out: dict[str, Any]) -> None:
     _circuit_cases(out)
     _plates_cases(out)
     _bounce_cases(out)
+    _overhang_cases(out)
     _chladni_cases(out)
 
 
