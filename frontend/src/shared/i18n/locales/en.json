@@ -247,6 +247,12 @@
         "title": "Newton's cradle",
         "summary": "One ball in, one ball out; two in, two out. Momentum and energy allow no other answer – almost.",
         "question": "Why do exactly as many balls fly off at the other end as are let fall?"
+      },
+      "well": {
+        "short": "Gravity well",
+        "title": "The gravity well",
+        "summary": "A ball circles the hole of a funnel, ever lower and ever faster – and keeps Kepler's third law as it goes, like a planet.",
+        "question": "Why does the ball get faster, though friction brakes it?"
       }
     },
     "chair": {
@@ -1978,6 +1984,72 @@
       },
       "computed": {
         "system": "Each ball is stepped by Runge–Kutta: a millisecond at a time while all swing free, a microsecond while two touch or are about to. The collision's figures come from the falling balls' first meeting with the hanging ones. When the balls press on each other for long, the page does not always keep up and runs a little slower for a moment. The test holds the largest force between two balls to Hertz's closed form, and checks that with air between the balls exactly one flies off, as fast as the first came in."
+      }
+    },
+    "well": {
+      "at": {
+        "funnel": "A wide funnel, almost flat at the edge and ever steeper towards the middle. A ball pushed off at the rim circles the hole in the middle for a long time.",
+        "faster": "With every lap it circles lower and faster, at last in a whirl, until it drops in."
+      },
+      "view_top": "The funnel from above: contour lines every 2 cm, the hole, the ball and its track",
+      "view_side": "The funnel cut through from the side, with the ball at its height",
+      "play": {
+        "title": "Push off and let it circle",
+        "hint": "“Circle” pushes the ball off exactly as fast as keeps it on a circle without friction. With friction it sinks lap by lap; the chart holds every lap against Kepler.",
+        "launch": "Push off",
+        "circle": "Circle",
+        "pause": "Pause",
+        "run": "Continue",
+        "speed": "Speed",
+        "speeds": {
+          "1": "Real time",
+          "4": "4× faster"
+        },
+        "push": "Speed of the push",
+        "aim": "Direction",
+        "aim_hint": "Against the rim's direction, positive towards the hole.",
+        "resistance": "Rolling resistance",
+        "resistance_hint": "The share of the wall's push that brakes the ball. 0 means: no friction.",
+        "laps": "Laps",
+        "last_lap": "Last lap",
+        "distance": "Distance from the middle",
+        "speed_now": "Speed",
+        "dropped": "Dropped into the hole after {{t}} s and {{laps}} laps.",
+        "out": "Rolled out over the rim: pushed too fast, or too steeply outward."
+      },
+      "chart": {
+        "lap": "The ball's lap",
+        "kepler": "Circle by Kepler",
+        "period": "Lap time",
+        "radius": "The lap's mean distance",
+        "caption": "Every lap of the ball beside the lap time of a circle at that distance"
+      },
+      "model": {
+        "intro": "The ball rolls on the funnel's wall. As for a planet, what counts is how hard it is pulled towards the middle – here, by the wall's slope.",
+        "wall": "The funnel's wall: the nearer the middle, the deeper, and its slope falls off outward as 1/r².",
+        "circle": "On a circle the slope supplies the pull to the middle – as 1/r², like the Sun's gravity. The 5/7 comes from rolling: part of every push sets the ball spinning.",
+        "kepler": "Kepler's third law follows: the square of the lap time grows as the cube of the distance.",
+        "resistance": "Rolling resistance brakes the ball with a small part of the force with which the wall pushes on it."
+      },
+      "symbols": {
+        "z": "the wall's height, measured from the height it nears far outward",
+        "r": "the distance from the middle",
+        "k": "the funnel's shape",
+        "v": "the ball's speed",
+        "g": "the acceleration of gravity",
+        "t": "the lap time",
+        "f": "the braking force",
+        "c": "the rolling resistance",
+        "n": "the force with which the wall pushes on the ball"
+      },
+      "sweet": {
+        "kepler": "The lower, the faster – like Mercury against Neptune. At the start, twelve times as far from the middle as the hole's edge, a lap takes 5.1 s; at the hole only 0.12 s, 42 times less. That is Kepler's third law, and the funnel keeps it because its slope falls off outward as the Sun's gravity does: every lap of the ball meets the lap time of its circle to 3 %.",
+        "faster": "Friction brakes the ball – and yet it gets faster. It loses energy, sinks to a lower circle, and there the circle's speed is higher. From the circle at the start it drops in after 46 s and 75 laps, 42 of them in the last 10 seconds, at last more than three times as fast as at the start. A satellite braked by thin air also sinks and speeds up.",
+        "rosette": "Here the likeness ends. Without friction and not pushed exactly on a circle – at 0.30 m/s instead of 0.44 m/s – the path does not close into an ellipse as a planet's does: its point nearest the middle moves on by 40° every lap. The steep wall and its curvature have their say."
+      },
+      "computed": {
+        "system": "The ball rolls without slipping; its spin counts as 2/5 more inertia, so every push along the wall moves it at 5/7. The equations of motion on the surface, in distance and angle, are solved by Runge–Kutta in steps of a millisecond. Rolling resistance acts against the wall's whole push, including the part that holds the ball on its curved path. The test checks energy and angular momentum without friction, the circle, and the time to the hole against an independent count from the circles' energy.",
+        "left_out": "Left out: the ball's spin about the wall's normal, its size beside the wall's curvature, air. A coin, which rolls on its edge and leans, is another problem."
       }
     }
   }

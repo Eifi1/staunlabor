@@ -27,6 +27,7 @@ import {
   Waves,
   Wind,
   Ellipsis,
+  Target,
 } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
 import {
@@ -73,6 +74,7 @@ const ICON: Record<Exhibit, LucideIcon> = {
   foucault: Globe,
   coriolis: RefreshCcw,
   cradle: Ellipsis,
+  well: Target,
 };
 
 /** Two weeks back, in the dialog: long enough to find the one a friend

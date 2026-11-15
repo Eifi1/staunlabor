@@ -247,6 +247,12 @@
         "title": "Il pendolo di Newton",
         "summary": "Una sfera entra, una esce; ne entrano due, ne escono due. Quantità di moto ed energia non ammettono altra risposta – quasi.",
         "question": "Perché dall'altra parte volano via esattamente tante sfere quante se ne lasciano cadere?"
+      },
+      "well": {
+        "short": "Imbuto gravitazionale",
+        "title": "L'imbuto gravitazionale",
+        "summary": "Una pallina gira in un imbuto attorno al buco, sempre più in basso e sempre più veloce – e rispetta la terza legge di Keplero come un pianeta.",
+        "question": "Perché la pallina accelera, anche se l'attrito la frena?"
       }
     },
     "chair": {
@@ -1978,6 +1984,72 @@
       },
       "computed": {
         "system": "Ogni sfera è calcolata passo dopo passo con Runge–Kutta: un millisecondo alla volta finché tutte oscillano libere, un microsecondo finché due si toccano o stanno per toccarsi. Le cifre dell'urto vengono dal primo incontro delle sfere che cadono con quelle appese. Quando le sfere restano premute a lungo, la pagina non sempre tiene il passo e per un momento va più lenta. Il test confronta la forza massima tra due sfere con la formula chiusa di Hertz, e verifica che con aria tra le sfere ne voli via esattamente una, veloce quanto è arrivata la prima."
+      }
+    },
+    "well": {
+      "at": {
+        "funnel": "Un ampio imbuto, quasi piatto sul bordo e sempre più ripido verso il centro. Una pallina lanciata dal bordo gira a lungo attorno al buco centrale.",
+        "faster": "A ogni giro scende e accelera, alla fine in un vortice, finché non ci cade dentro."
+      },
+      "view_top": "L'imbuto dall'alto: curve di livello ogni 2 cm, il buco, la pallina e la sua traccia",
+      "view_side": "L'imbuto in sezione visto di lato, con la pallina alla sua altezza",
+      "play": {
+        "title": "Lanciare e lasciar girare",
+        "hint": "«Cerchio» lancia la pallina esattamente alla velocità che la terrebbe su un cerchio senza attrito. Con l'attrito scende giro dopo giro; il grafico confronta ogni giro con Keplero.",
+        "launch": "Lanciare",
+        "circle": "Cerchio",
+        "pause": "Pausa",
+        "run": "Continuare",
+        "speed": "Velocità",
+        "speeds": {
+          "1": "Tempo reale",
+          "4": "4× più veloce"
+        },
+        "push": "Velocità del lancio",
+        "aim": "Direzione",
+        "aim_hint": "Rispetto alla direzione del bordo, positiva verso il buco.",
+        "resistance": "Resistenza al rotolamento",
+        "resistance_hint": "La frazione della spinta della parete che frena la pallina. 0 significa: nessun attrito.",
+        "laps": "Giri",
+        "last_lap": "Ultimo giro",
+        "distance": "Distanza dal centro",
+        "speed_now": "Velocità",
+        "dropped": "Caduta nel buco dopo {{t}} s e {{laps}} giri.",
+        "out": "Uscita oltre il bordo: lanciata troppo veloce o troppo verso l'esterno."
+      },
+      "chart": {
+        "lap": "Giro della pallina",
+        "kepler": "Cerchio secondo Keplero",
+        "period": "Durata del giro",
+        "radius": "Distanza media del giro",
+        "caption": "Ogni giro della pallina accanto alla durata del giro di un cerchio a quella distanza"
+      },
+      "model": {
+        "intro": "La pallina rotola sulla parete dell'imbuto. Come per un pianeta, conta quanto forte la attira il centro – qui, la pendenza della parete.",
+        "wall": "La parete dell'imbuto: più vicino al centro, più profonda, e la sua pendenza diminuisce verso l'esterno come 1/r².",
+        "circle": "Su un cerchio la pendenza fornisce la forza verso il centro – come 1/r², come la gravità del Sole. Il 5/7 viene dal rotolamento: una parte di ogni spinta fa girare la pallina.",
+        "kepler": "Ne segue la terza legge di Keplero: il quadrato della durata del giro cresce con il cubo della distanza.",
+        "resistance": "La resistenza al rotolamento frena la pallina con una piccola parte della forza con cui la parete la spinge."
+      },
+      "symbols": {
+        "z": "l'altezza della parete, misurata dall'altezza a cui si avvicina verso l'esterno",
+        "r": "la distanza dal centro",
+        "k": "la forma dell'imbuto",
+        "v": "la velocità della pallina",
+        "g": "l'accelerazione di gravità",
+        "t": "la durata del giro",
+        "f": "la forza frenante",
+        "c": "la resistenza al rotolamento",
+        "n": "la forza con cui la parete spinge la pallina"
+      },
+      "sweet": {
+        "kepler": "Più in basso, più veloce – come Mercurio rispetto a Nettuno. All'inizio, dodici volte più lontano dal centro del bordo del buco, un giro dura 5,1 s; al buco solo 0,12 s, 42 volte meno. È la terza legge di Keplero, e l'imbuto la rispetta perché la sua pendenza diminuisce verso l'esterno come la gravità del Sole: ogni giro della pallina coincide con la durata del suo cerchio entro il 3 %.",
+        "faster": "L'attrito frena la pallina – eppure accelera. Perde energia, scende su un cerchio più basso, e lì la velocità del cerchio è maggiore. Dal cerchio iniziale cade nel buco dopo 46 s e 75 giri, 42 dei quali negli ultimi 10 secondi, alla fine a più del triplo della velocità iniziale. Anche un satellite frenato dall'aria rarefatta scende e accelera.",
+        "rosette": "Qui il confronto finisce. Senza attrito e lanciata non esattamente in cerchio – a 0,30 m/s invece di 0,44 m/s – la traiettoria non si chiude in un'ellisse come quella di un pianeta: il suo punto più vicino al centro avanza di 40° a ogni giro. La parete ripida e la sua curvatura dicono la loro."
+      },
+      "computed": {
+        "system": "La pallina rotola senza strisciare; la sua rotazione conta come 2/5 di inerzia in più, così ogni spinta lungo la parete la muove per 5/7. Le equazioni del moto sulla superficie, in distanza e angolo, sono risolte con Runge–Kutta a passi di un millisecondo. La resistenza al rotolamento agisce contro tutta la spinta della parete, anche contro la parte che tiene la pallina sulla sua traiettoria curva. Il test verifica energia e momento angolare senza attrito, il cerchio e il tempo fino al buco rispetto a un calcolo indipendente dall'energia dei cerchi.",
+        "left_out": "Tralasciati: la rotazione della pallina attorno alla normale alla parete, le sue dimensioni rispetto alla curvatura della parete, l'aria. Una moneta, che rotola sul bordo e si inclina, è un altro problema."
       }
     }
   }

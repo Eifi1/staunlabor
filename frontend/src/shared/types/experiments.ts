@@ -616,6 +616,16 @@ export interface CradleRequest {
   density_kg_m3: number;
 }
 
+// ── the gravity well ─────────────────────────────────────────────────────────
+
+/** The engine's `Funnel`. No route: the page asks the port (`simulate/well.ts`). */
+export interface FunnelRequest {
+  k_m2: number;
+  rim_m: number;
+  hole_m: number;
+  rolling_resistance: number;
+}
+
 // ── the pages' starting point ────────────────────────────────────────────────
 
 export interface ExperimentsDefaults {
@@ -638,6 +648,7 @@ export interface ExperimentsDefaults {
   foucault: FoucaultPendulumRequest;
   coriolis: CarouselRequest;
   cradle: CradleRequest;
+  well: FunnelRequest;
   meter_range_a: number;
   settle_s: number;
 }

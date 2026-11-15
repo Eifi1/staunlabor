@@ -2097,3 +2097,29 @@ def test_the_funnel_refuses_what_it_cannot_be():
         x.WellLaunch(0.3, 120.0)
     with pytest.raises(ValueError, match="at most 300 s"):
         x.run_well(x.Funnel(), x.WellLaunch(), 400.0)
+
+
+def test_the_resistance_brakes_the_ball_and_yet_it_runs_ever_faster():
+    from staunlabor.domain.experiments import well
+
+    f = x.Funnel()
+    ride = well.begin(f, x.WellLaunch(x.well_circular_speed(f, f.start_m), 0.0))
+
+    def speed(y: tuple[float, float, float, float]) -> float:
+        slope = f.k_m2 / (y[0] * y[0])
+        return math.sqrt((1 + slope * slope) * y[1] ** 2 + (y[0] * y[3]) ** 2)
+
+    first = speed(ride.y)
+    fastest_per_lap = []
+    fastest = 0.0
+    while ride.outcome == "rolling":
+        ride, lap = well.advance(f, ride)
+        fastest = max(fastest, speed(ride.y))
+        if lap is not None:
+            fastest_per_lap.append(fastest)
+            fastest = 0.0
+    # More than three times as fast in its last lap as at the start.
+    assert fastest_per_lap[-1] > 3 * first
+    # Lap by lap it wobbles a little (the start is not quite a circle with the
+    # resistance on); ten laps apart, it is always faster.
+    assert all(b > a for a, b in itertools.pairwise(fastest_per_lap[::10]))

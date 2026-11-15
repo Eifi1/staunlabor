@@ -247,6 +247,12 @@
         "title": "El péndulo de Newton",
         "summary": "Una bola entra, una sale; entran dos, salen dos. El momento y la energía no permiten otra respuesta – casi.",
         "question": "¿Por qué salen por el otro extremo exactamente tantas bolas como se dejan caer?"
+      },
+      "well": {
+        "short": "Embudo gravitatorio",
+        "title": "El embudo gravitatorio",
+        "summary": "Una bola gira en un embudo alrededor del agujero, cada vez más abajo y más deprisa – y cumple la tercera ley de Kepler como un planeta.",
+        "question": "¿Por qué la bola va más deprisa, si la fricción la frena?"
       }
     },
     "chair": {
@@ -1978,6 +1984,72 @@
       },
       "computed": {
         "system": "Cada bola se calcula paso a paso con Runge–Kutta: un milisegundo de una vez mientras todas oscilan libres, un microsegundo mientras dos se tocan o están a punto de tocarse. Las cifras del choque salen del primer encuentro de las bolas que caen con las que cuelgan. Cuando las bolas se aprietan durante mucho rato, la página no siempre da abasto y va un momento más lenta. La prueba contrasta la fuerza máxima entre dos bolas con la fórmula cerrada de Hertz, y comprueba que con aire entre las bolas sale exactamente una, tan rápida como llegó la primera."
+      }
+    },
+    "well": {
+      "at": {
+        "funnel": "Un embudo ancho, casi plano en el borde y cada vez más empinado hacia el centro. Una bola lanzada en el borde gira mucho rato alrededor del agujero del centro.",
+        "faster": "Con cada vuelta gira más abajo y más deprisa, al final en un remolino, hasta que cae dentro."
+      },
+      "view_top": "El embudo desde arriba: curvas de nivel cada 2 cm, el agujero, la bola y su rastro",
+      "view_side": "El embudo cortado de lado, con la bola a su altura",
+      "play": {
+        "title": "Lanzar y dejar girar",
+        "hint": "«Círculo» lanza la bola justo a la velocidad que la mantendría en un círculo sin fricción. Con fricción baja vuelta a vuelta; el gráfico compara cada vuelta con Kepler.",
+        "launch": "Lanzar",
+        "circle": "Círculo",
+        "pause": "Pausa",
+        "run": "Seguir",
+        "speed": "Velocidad",
+        "speeds": {
+          "1": "Tiempo real",
+          "4": "4× más rápido"
+        },
+        "push": "Velocidad del lanzamiento",
+        "aim": "Dirección",
+        "aim_hint": "Respecto a la dirección del borde, positiva hacia el agujero.",
+        "resistance": "Resistencia a la rodadura",
+        "resistance_hint": "La fracción del empuje de la pared que frena la bola. 0 significa: sin fricción.",
+        "laps": "Vueltas",
+        "last_lap": "Última vuelta",
+        "distance": "Distancia al centro",
+        "speed_now": "Velocidad",
+        "dropped": "Cayó en el agujero tras {{t}} s y {{laps}} vueltas.",
+        "out": "Salió por encima del borde: lanzada demasiado deprisa o demasiado hacia fuera."
+      },
+      "chart": {
+        "lap": "Vuelta de la bola",
+        "kepler": "Círculo según Kepler",
+        "period": "Tiempo de vuelta",
+        "radius": "Distancia media de la vuelta",
+        "caption": "Cada vuelta de la bola junto al tiempo de vuelta de un círculo a esa distancia"
+      },
+      "model": {
+        "intro": "La bola rueda sobre la pared del embudo. Como en un planeta, lo que cuenta es con qué fuerza la atrae el centro – aquí, la pendiente de la pared.",
+        "wall": "La pared del embudo: cuanto más cerca del centro, más honda, y su pendiente disminuye hacia fuera como 1/r².",
+        "circle": "En un círculo la pendiente aporta la fuerza hacia el centro – como 1/r², igual que la gravedad del Sol. El 5/7 viene de rodar: parte de cada empuje hace girar la bola.",
+        "kepler": "De ahí sale la tercera ley de Kepler: el cuadrado del tiempo de vuelta crece con el cubo de la distancia.",
+        "resistance": "La resistencia a la rodadura frena la bola con una pequeña parte de la fuerza con que la pared la empuja."
+      },
+      "symbols": {
+        "z": "la altura de la pared, medida desde la altura a la que se acerca hacia fuera",
+        "r": "la distancia al centro",
+        "k": "la forma del embudo",
+        "v": "la velocidad de la bola",
+        "g": "la aceleración de la gravedad",
+        "t": "el tiempo de vuelta",
+        "f": "la fuerza que frena",
+        "c": "la resistencia a la rodadura",
+        "n": "la fuerza con que la pared empuja la bola"
+      },
+      "sweet": {
+        "kepler": "Cuanto más abajo, más deprisa – como Mercurio frente a Neptuno. En el inicio, doce veces más lejos del centro que el borde del agujero, una vuelta dura 5,1 s; en el agujero solo 0,12 s, 42 veces menos. Es la tercera ley de Kepler, y el embudo la cumple porque su pendiente disminuye hacia fuera como la gravedad del Sol: cada vuelta de la bola coincide con el tiempo de su círculo con un 3 % de margen.",
+        "faster": "La fricción frena la bola – y aun así va más deprisa. Pierde energía, baja a un círculo más hondo, y allí la velocidad del círculo es mayor. Desde el círculo inicial cae en el agujero tras 46 s y 75 vueltas, 42 de ellas en los últimos 10 segundos, al final a más del triple de la velocidad inicial. También un satélite frenado por el aire tenue baja y se acelera.",
+        "rosette": "Aquí termina la comparación. Sin fricción y lanzada no justo en círculo – a 0,30 m/s en lugar de 0,44 m/s – la trayectoria no se cierra en una elipse como la de un planeta: su punto más cercano al centro avanza 40° en cada vuelta. La pared empinada y su curvatura también cuentan."
+      },
+      "computed": {
+        "system": "La bola rueda sin deslizar; su giro cuenta como 2/5 más de inercia, de modo que cada empuje a lo largo de la pared la mueve en 5/7. Las ecuaciones del movimiento sobre la superficie, en distancia y ángulo, se resuelven con Runge–Kutta en pasos de un milisegundo. La resistencia a la rodadura actúa contra todo el empuje de la pared, también contra la parte que mantiene la bola en su trayectoria curva. La prueba comprueba la energía y el momento angular sin fricción, el círculo y el tiempo hasta el agujero frente a un cálculo independiente a partir de la energía de los círculos.",
+        "left_out": "Se deja fuera: el giro de la bola alrededor de la normal a la pared, su tamaño frente a la curvatura de la pared, el aire. Una moneda, que rueda sobre su canto y se inclina, es otro problema."
       }
     }
   }

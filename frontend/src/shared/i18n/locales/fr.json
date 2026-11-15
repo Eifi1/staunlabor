@@ -247,6 +247,12 @@
         "title": "Le pendule de Newton",
         "summary": "Une bille entre, une sort ; deux entrent, deux sortent. La quantité de mouvement et l'énergie n'admettent pas d'autre réponse – presque.",
         "question": "Pourquoi part-il à l'autre bout exactement autant de billes qu'on en laisse tomber ?"
+      },
+      "well": {
+        "short": "Entonnoir gravitationnel",
+        "title": "L'entonnoir gravitationnel",
+        "summary": "Une bille tourne dans un entonnoir autour du trou, toujours plus bas et toujours plus vite – et respecte la troisième loi de Kepler comme une planète.",
+        "question": "Pourquoi la bille accélère-t-elle, alors que le frottement la freine ?"
       }
     },
     "chair": {
@@ -1978,6 +1984,72 @@
       },
       "computed": {
         "system": "Chaque bille est calculée pas à pas par Runge–Kutta : une milliseconde d'un coup tant que toutes oscillent librement, une microseconde tant que deux se touchent ou vont se toucher. Les chiffres du choc viennent de la première rencontre des billes qui tombent avec celles qui pendent. Quand les billes se pressent longtemps, la page ne suit pas toujours et ralentit un instant. Le test confronte la force maximale entre deux billes à la formule fermée de Hertz, et vérifie qu'avec de l'air entre les billes, exactement une s'envole, aussi vite que la première est arrivée."
+      }
+    },
+    "well": {
+      "at": {
+        "funnel": "Un large entonnoir, presque plat au bord et de plus en plus raide vers le centre. Une bille lancée au bord tourne longtemps autour du trou du milieu.",
+        "faster": "À chaque tour, elle tourne plus bas et plus vite, enfin dans un tourbillon, jusqu'à tomber dedans."
+      },
+      "view_top": "L'entonnoir vu d'en haut : courbes de niveau tous les 2 cm, le trou, la bille et sa trace",
+      "view_side": "L'entonnoir en coupe vu de côté, avec la bille à sa hauteur",
+      "play": {
+        "title": "Lancer et laisser tourner",
+        "hint": "« Cercle » lance la bille exactement à la vitesse qui la garderait sur un cercle sans frottement. Avec frottement, elle descend tour après tour ; le graphique compare chaque tour à Kepler.",
+        "launch": "Lancer",
+        "circle": "Cercle",
+        "pause": "Pause",
+        "run": "Continuer",
+        "speed": "Vitesse",
+        "speeds": {
+          "1": "Temps réel",
+          "4": "4× plus vite"
+        },
+        "push": "Vitesse du lancer",
+        "aim": "Direction",
+        "aim_hint": "Par rapport à la direction du bord, positive vers le trou.",
+        "resistance": "Résistance au roulement",
+        "resistance_hint": "La part de la poussée de la paroi qui freine la bille. 0 signifie : aucun frottement.",
+        "laps": "Tours",
+        "last_lap": "Dernier tour",
+        "distance": "Distance au centre",
+        "speed_now": "Vitesse",
+        "dropped": "Tombée dans le trou après {{t}} s et {{laps}} tours.",
+        "out": "Sortie par-dessus le bord : lancée trop vite ou trop vers l'extérieur."
+      },
+      "chart": {
+        "lap": "Tour de la bille",
+        "kepler": "Cercle selon Kepler",
+        "period": "Durée du tour",
+        "radius": "Distance moyenne du tour",
+        "caption": "Chaque tour de la bille à côté de la durée du tour d'un cercle à cette distance"
+      },
+      "model": {
+        "intro": "La bille roule sur la paroi de l'entonnoir. Comme pour une planète, ce qui compte est la force qui la tire vers le centre – ici, la pente de la paroi.",
+        "wall": "La paroi de l'entonnoir : plus on est près du centre, plus elle est profonde, et sa pente décroît vers l'extérieur en 1/r².",
+        "circle": "Sur un cercle, la pente fournit la force vers le centre – en 1/r², comme la gravité du Soleil. Le 5/7 vient du roulement : une partie de chaque poussée fait tourner la bille.",
+        "kepler": "D'où la troisième loi de Kepler : le carré de la durée du tour croît comme le cube de la distance.",
+        "resistance": "La résistance au roulement freine la bille avec une petite partie de la force dont la paroi la pousse."
+      },
+      "symbols": {
+        "z": "la hauteur de la paroi, mesurée depuis la hauteur dont elle s'approche vers l'extérieur",
+        "r": "la distance au centre",
+        "k": "la forme de l'entonnoir",
+        "v": "la vitesse de la bille",
+        "g": "l'accélération de la pesanteur",
+        "t": "la durée du tour",
+        "f": "la force qui freine",
+        "c": "la résistance au roulement",
+        "n": "la force dont la paroi pousse la bille"
+      },
+      "sweet": {
+        "kepler": "Plus c'est bas, plus c'est rapide – comme Mercure face à Neptune. Au départ, douze fois plus loin du centre que le bord du trou, un tour dure 5,1 s ; au trou, 0,12 s seulement, 42 fois moins. C'est la troisième loi de Kepler, et l'entonnoir la respecte parce que sa pente décroît vers l'extérieur comme la gravité du Soleil : chaque tour de la bille retrouve la durée de son cercle à 3 % près.",
+        "faster": "Le frottement freine la bille – et pourtant elle accélère. Elle perd de l'énergie, descend sur un cercle plus bas, et là la vitesse du cercle est plus grande. Depuis le cercle de départ, elle tombe dans le trou après 46 s et 75 tours, dont 42 dans les 10 dernières secondes, enfin plus de trois fois plus vite qu'au départ. Un satellite freiné par l'air ténu descend lui aussi et accélère.",
+        "rosette": "Ici, la comparaison s'arrête. Sans frottement et lancée pas tout à fait sur un cercle – à 0,30 m/s au lieu de 0,44 m/s – la trajectoire ne se referme pas en ellipse comme celle d'une planète : son point le plus proche du centre avance de 40° à chaque tour. La paroi raide et sa courbure ont leur mot à dire."
+      },
+      "computed": {
+        "system": "La bille roule sans glisser ; sa rotation compte comme 2/5 d'inertie en plus, si bien que chaque poussée le long de la paroi la déplace à 5/7. Les équations du mouvement sur la surface, en distance et en angle, sont résolues par Runge–Kutta par pas d'une milliseconde. La résistance au roulement s'oppose à toute la poussée de la paroi, y compris la part qui maintient la bille sur sa trajectoire courbe. Le test vérifie l'énergie et le moment cinétique sans frottement, le cercle, et la durée jusqu'au trou par rapport à un calcul indépendant tiré de l'énergie des cercles.",
+        "left_out": "Laissé de côté : la rotation de la bille autour de la normale à la paroi, sa taille face à la courbure de la paroi, l'air. Une pièce, qui roule sur sa tranche et se penche, est un autre problème."
       }
     }
   }

@@ -40,6 +40,7 @@ const CoriolisPage = lazy(() =>
   import("@/features/experiments/coriolis-page").then((m) => ({ default: m.CoriolisPage })),
 );
 const CradlePage = lazy(() => import("@/features/experiments/cradle-page").then((m) => ({ default: m.CradlePage })));
+const WellPage = lazy(() => import("@/features/experiments/well-page").then((m) => ({ default: m.WellPage })));
 const HarmonographPage = lazy(() =>
   import("@/features/experiments/harmonograph-page").then((m) => ({ default: m.HarmonographPage })),
 );
@@ -214,6 +215,14 @@ export function AppRoutes() {
           element={
             <Page>
               <CradlePage />
+            </Page>
+          }
+        />
+        <Route
+          path="well"
+          element={
+            <Page>
+              <WellPage />
             </Page>
           }
         />

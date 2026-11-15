@@ -43,6 +43,7 @@ import { WaterwheelPage } from "./waterwheel-page";
 import { FoucaultPage, knocked } from "./foucault-page";
 import { CoriolisPage } from "./coriolis-page";
 import { CradlePage } from "./cradle-page";
+import { WellPage } from "./well-page";
 import { ballState, pitEntries, positionAt, raceLayout, swingAt } from "./race-views";
 import { run as runPit } from "./simulate/pit";
 import { HOLE, cameraAt, frameOf, project } from "./chair-views";
@@ -937,5 +938,23 @@ describe("Newton's cradle", () => {
     await screen.findByRole("img", { name: E.cradle.view });
     fireEvent.click(screen.getByRole("button", { name: E.cradle.play.let_go }));
     expect(await screen.findByRole("button", { name: E.cradle.play.pause })).toBeInTheDocument();
+  });
+});
+
+describe("the gravity well", () => {
+  it("shows the funnel from above and from the side, ready on the circle", async () => {
+    renderWithProviders(<WellPage />);
+    expect(await screen.findByRole("img", { name: E.well.view_top })).toBeInTheDocument();
+    expect(screen.getByRole("img", { name: E.well.view_side })).toBeInTheDocument();
+    // The circle at the start: the speed that keeps it there without friction.
+    expect((await screen.findAllByDisplayValue("0.44")).length).toBeGreaterThan(0);
+    expect(screen.getAllByLabelText(E.equation.symbols).length).toBeGreaterThanOrEqual(4);
+  });
+
+  it("pushes off when asked, and can be paused", async () => {
+    renderWithProviders(<WellPage />);
+    await screen.findByRole("img", { name: E.well.view_top });
+    fireEvent.click(screen.getByRole("button", { name: E.well.play.launch }));
+    expect(await screen.findByRole("button", { name: E.well.play.pause })).toBeInTheDocument();
   });
 });

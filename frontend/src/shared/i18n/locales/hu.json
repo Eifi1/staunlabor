@@ -247,6 +247,12 @@
         "title": "A Newton-inga",
         "summary": "Egy golyó be, egy ki; kettő be, kettő ki. Az impulzus és az energia más választ nem enged – majdnem.",
         "question": "Miért repül el a túlsó végen pontosan annyi golyó, ahányat leejtünk?"
+      },
+      "well": {
+        "short": "Gravitációs tölcsér",
+        "title": "A gravitációs tölcsér",
+        "summary": "Egy golyó egy tölcsérben kering a lyuk körül, egyre mélyebben és egyre gyorsabban – és közben betartja Kepler harmadik törvényét, mint egy bolygó.",
+        "question": "Miért gyorsul a golyó, holott a súrlódás fékezi?"
       }
     },
     "chair": {
@@ -1978,6 +1984,72 @@
       },
       "computed": {
         "system": "Minden golyót lépésenként számolunk Runge–Kutta-módszerrel: egyszerre egy ezredmásodpercet, amíg mind szabadon leng, egy milliomod másodpercet, amíg kettő érintkezik vagy épp érintkezni fog. Az ütközés adatai a leeső és a lógó golyók első találkozásából származnak. Ha a golyók sokáig nyomják egymást, az oldal nem mindig tud lépést tartani, és egy pillanatra lassabban fut. A teszt a két golyó közti legnagyobb erőt Hertz zárt képletéhez méri, és ellenőrzi, hogy levegővel a golyók között pontosan egy repül el, olyan gyorsan, ahogy az első érkezett."
+      }
+    },
+    "well": {
+      "at": {
+        "funnel": "Egy széles tölcsér, a szélén majdnem lapos, a közepe felé egyre meredekebb. A peremen meglökött golyó sokáig kering a középső lyuk körül.",
+        "faster": "Minden körrel mélyebben és gyorsabban kering, végül örvényben, míg bele nem esik."
+      },
+      "view_top": "A tölcsér felülről: szintvonalak 2 cm-enként, a lyuk, a golyó és a nyoma",
+      "view_side": "A tölcsér metszete oldalról, a golyóval a magasságában",
+      "play": {
+        "title": "Meglökni és keringeni hagyni",
+        "hint": "A «Körpálya» pontosan olyan gyorsan löki meg a golyót, hogy súrlódás nélkül körön maradna. Súrlódással körről körre süllyed; a grafikon minden kört Keplerhez mér.",
+        "launch": "Meglökni",
+        "circle": "Körpálya",
+        "pause": "Megállítás",
+        "run": "Tovább",
+        "speed": "Tempó",
+        "speeds": {
+          "1": "Valós idő",
+          "4": "4× gyorsabban"
+        },
+        "push": "A lökés sebessége",
+        "aim": "Irány",
+        "aim_hint": "A perem irányához képest, a lyuk felé pozitív.",
+        "resistance": "Gördülési ellenállás",
+        "resistance_hint": "A fal nyomóerejének az a hányada, amely a golyót fékezi. 0 jelentése: nincs súrlódás.",
+        "laps": "Körök",
+        "last_lap": "Utolsó kör",
+        "distance": "Távolság a középtől",
+        "speed_now": "Sebesség",
+        "dropped": "{{t}} s és {{laps}} kör után a lyukba esett.",
+        "out": "Kigurult a peremen túl: túl gyorsan vagy túlságosan kifelé lökték meg."
+      },
+      "chart": {
+        "lap": "A golyó köre",
+        "kepler": "Körpálya Kepler szerint",
+        "period": "Keringési idő",
+        "radius": "A kör átlagos távolsága",
+        "caption": "A golyó minden köre az ugyanilyen távolságú körpálya keringési ideje mellett"
+      },
+      "model": {
+        "intro": "A golyó a tölcsér falán gurul. Mint egy bolygónál, az számít, mennyire húzza a közép felé – itt a fal lejtése.",
+        "wall": "A tölcsér fala: minél közelebb a középhez, annál mélyebb, és lejtése kifelé 1/r² szerint csökken.",
+        "circle": "Körpályán a lejtés adja a közép felé mutató erőt – 1/r² szerint, mint a Nap gravitációja. Az 5/7 a gördülésből jön: minden lökés egy része forgásba hozza a golyót.",
+        "kepler": "Ebből következik Kepler harmadik törvénye: a keringési idő négyzete a távolság köbével nő.",
+        "resistance": "A gördülési ellenállás annak az erőnek egy kis részével fékezi a golyót, amellyel a fal nyomja."
+      },
+      "symbols": {
+        "z": "a fal magassága, attól a magasságtól mérve, amelyhez kifelé közelít",
+        "r": "a távolság a középtől",
+        "k": "a tölcsér alakja",
+        "v": "a golyó sebessége",
+        "g": "a nehézségi gyorsulás",
+        "t": "a keringési idő",
+        "f": "a fékező erő",
+        "c": "a gördülési ellenállás",
+        "n": "az erő, amellyel a fal a golyót nyomja"
+      },
+      "sweet": {
+        "kepler": "Minél mélyebben, annál gyorsabban – mint a Merkúr a Neptunuszhoz képest. A kezdésnél, tizenkétszer olyan messze a középtől, mint a lyuk pereme, egy kör 5,1 s; a lyuknál csak 0,12 s, 42-szer kevesebb. Ez Kepler harmadik törvénye, és a tölcsér azért tartja be, mert lejtése kifelé úgy csökken, mint a Nap gravitációja: a golyó minden köre 3 %-on belül eltalálja a körpályája keringési idejét.",
+        "faster": "A súrlódás fékezi a golyót – mégis gyorsul. Energiát veszít, mélyebb körre süllyed, és ott nagyobb a körpálya sebessége. A kezdő körpályáról 46 s és 75 kör után esik a lyukba, ebből 42 kört az utolsó 10 másodpercben tesz meg, végül több mint háromszor olyan gyorsan, mint az elején. A ritka levegő által fékezett műhold is süllyed és gyorsul.",
+        "rosette": "Itt ér véget a hasonlat. Súrlódás nélkül, és nem pontosan körpályára lökve – 0,44 m/s helyett 0,30 m/s-mal – a pálya nem záródik ellipszissé, mint egy bolygóé: a középhez legközelebbi pontja minden körben 40°-kal továbbvándorol. A meredek fal és a görbülete is beleszól."
+      },
+      "computed": {
+        "system": "A golyó csúszás nélkül gurul; forgása 2/5-nyi többlet tehetetlenségnek számít, így minden, a fal mentén ható lökés 5/7 részben mozgatja. A felületen érvényes mozgásegyenleteket távolságban és szögben Runge–Kutta-módszerrel, egy ezredmásodperces lépésekben oldjuk meg. A gördülési ellenállás a fal teljes nyomóereje ellen hat, annak a résznek is, amely a golyót görbe pályáján tartja. A teszt ellenőrzi az energiát és a perdületet súrlódás nélkül, a körpályát, valamint a lyukig eltelt időt a körök energiájából számolt független eredménnyel szemben.",
+        "left_out": "Kimaradt: a golyó forgása a fal normálisa körül, mérete a fal görbületéhez képest, a levegő. Egy érme, amely az élén gurul és megdől, másik probléma."
       }
     }
   }

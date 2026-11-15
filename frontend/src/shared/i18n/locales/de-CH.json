@@ -247,6 +247,12 @@
         "title": "Das Kugelstosspendel",
         "summary": "Eine Kugel hinein, eine hinaus; zwei hinein, zwei hinaus. Impuls und Energie lassen keine andere Antwort zu – beinahe.",
         "question": "Warum fliegen am anderen Ende genau so viele Kugeln weg, wie man fallen lässt?"
+      },
+      "well": {
+        "short": "Gravitationstrichter",
+        "title": "Der Gravitationstrichter",
+        "summary": "Eine Kugel kreist in einem Trichter um das Loch, immer tiefer und immer schneller – und hält dabei Keplers drittes Gesetz ein wie ein Planet.",
+        "question": "Warum wird die Kugel schneller, obwohl die Reibung sie bremst?"
       }
     },
     "chair": {
@@ -1978,6 +1984,72 @@
       },
       "computed": {
         "system": "Jede Kugel wird schrittweise mit Runge–Kutta gerechnet: eine Millisekunde auf einmal, solange alle frei schwingen, eine Mikrosekunde, solange sich zwei berühren oder gleich berühren. Die Zahlen zum Stoss stammen aus dem ersten Treffen der fallenden Kugeln mit den hängenden. Drücken die Kugeln lange aufeinander, kommt die Seite nicht immer nach und läuft dann kurz langsamer. Der Test prüft die grösste Kraft zwischen zwei Kugeln gegen die geschlossene Formel von Hertz, und dass mit Luft zwischen den Kugeln genau eine hinausfliegt, so schnell, wie die erste hereinkam."
+      }
+    },
+    "well": {
+      "at": {
+        "funnel": "Ein weiter Trichter, aussen fast flach, gegen die Mitte immer steiler. Eine Kugel, am Rand angestossen, kreist lange um das Loch in der Mitte.",
+        "faster": "Mit jeder Runde kreist sie tiefer und schneller, zuletzt in einem Wirbel, bis sie hineinfällt."
+      },
+      "view_top": "Der Trichter von oben: Höhenlinien alle 2 cm, das Loch, die Kugel und ihre Spur",
+      "view_side": "Der Trichter im Schnitt von der Seite, mit der Kugel auf ihrer Höhe",
+      "play": {
+        "title": "Anstossen und kreisen lassen",
+        "hint": "«Kreisbahn» stösst die Kugel genau so schnell an, dass sie ohne Reibung im Kreis bliebe. Mit Reibung sinkt sie Runde für Runde; das Diagramm vergleicht jede Runde mit Kepler.",
+        "launch": "Anstossen",
+        "circle": "Kreisbahn",
+        "pause": "Anhalten",
+        "run": "Weiter",
+        "speed": "Tempo",
+        "speeds": {
+          "1": "Echtzeit",
+          "4": "4× schneller"
+        },
+        "push": "Tempo des Anstosses",
+        "aim": "Richtung",
+        "aim_hint": "Gegen die Richtung des Rands, positiv zum Loch hin.",
+        "resistance": "Rollwiderstand",
+        "resistance_hint": "Der Anteil der Kraft, mit der die Wand drückt, der die Kugel bremst. 0 heisst: keine Reibung.",
+        "laps": "Runden",
+        "last_lap": "Letzte Runde",
+        "distance": "Abstand zur Mitte",
+        "speed_now": "Tempo",
+        "dropped": "Ins Loch gefallen, nach {{t}} s und {{laps}} Runden.",
+        "out": "Über den Rand hinausgerollt: zu schnell oder zu steil nach aussen angestossen."
+      },
+      "chart": {
+        "lap": "Runde der Kugel",
+        "kepler": "Kreisbahn nach Kepler",
+        "period": "Umlaufzeit",
+        "radius": "Mittlerer Abstand der Runde",
+        "caption": "Jede Runde der Kugel neben der Umlaufzeit eines Kreises in diesem Abstand"
+      },
+      "model": {
+        "intro": "Die Kugel rollt auf der Wand des Trichters. Wie bei einem Planeten zählt, wie stark es sie zur Mitte zieht – hier ist es die Neigung der Wand.",
+        "wall": "Die Wand des Trichters: je näher an der Mitte, desto tiefer, und ihre Neigung nimmt nach aussen mit 1/r² ab.",
+        "circle": "Auf einem Kreis liefert die Neigung die Kraft zur Mitte – mit 1/r², wie die Schwerkraft der Sonne. Das 5/7 kommt vom Rollen: Ein Teil jedes Schubs bringt die Kugel ins Drehen.",
+        "kepler": "Daraus folgt Keplers drittes Gesetz: Das Quadrat der Umlaufzeit wächst mit der dritten Potenz des Abstands.",
+        "resistance": "Der Rollwiderstand bremst die Kugel mit einem kleinen Teil der Kraft, mit der die Wand gegen sie drückt."
+      },
+      "symbols": {
+        "z": "die Höhe der Wand, gemessen von der Höhe, der sie sich nach aussen nähert",
+        "r": "der Abstand von der Mitte",
+        "k": "die Form des Trichters",
+        "v": "das Tempo der Kugel",
+        "g": "die Erdbeschleunigung",
+        "t": "die Umlaufzeit",
+        "f": "die bremsende Kraft",
+        "c": "der Rollwiderstand",
+        "n": "die Kraft, mit der die Wand gegen die Kugel drückt"
+      },
+      "sweet": {
+        "kepler": "Je tiefer, desto schneller – wie Merkur gegenüber Neptun. Am Start, zwölfmal so weit von der Mitte wie der Rand des Lochs, dauert eine Runde 5,1 s, am Loch nur 0,12 s: 42-mal weniger. Das ist Keplers drittes Gesetz, und der Trichter hält es ein, weil seine Neigung nach aussen abnimmt wie die Schwerkraft der Sonne: Jede Runde der Kugel trifft die Umlaufzeit ihres Kreises auf 3 % genau.",
+        "faster": "Die Reibung bremst die Kugel – und doch wird sie schneller. Sie verliert Energie, sinkt auf einen tieferen Kreis, und dort ist das Kreistempo höher. Vom Kreis am Start fällt sie nach 46 s und 75 Runden ins Loch, 42 davon in den letzten 10 Sekunden, zuletzt mehr als dreimal so schnell wie am Start. Auch ein Satellit, den die dünne Luft bremst, sinkt und wird dabei schneller.",
+        "rosette": "Hier hört der Vergleich auf. Ohne Reibung und nicht genau im Kreis angestossen – mit 0,30 m/s statt 0,44 m/s – schliesst sich die Bahn nicht zu einer Ellipse wie die eines Planeten: Ihr nächster Punkt zur Mitte wandert jede Runde um 40° weiter. Die steile Wand und ihre Krümmung reden mit."
+      },
+      "computed": {
+        "system": "Die Kugel rollt, ohne zu gleiten; ihr Drehen zählt als 2/5 zusätzliche Trägheit, so dass jeder Schub entlang der Wand sie zu 5/7 bewegt. Die Bewegungsgleichungen auf der Fläche, in Abstand und Winkel, werden mit Runge–Kutta in Schritten von einer Millisekunde gelöst. Der Rollwiderstand wirkt gegen die ganze Kraft, mit der die Wand drückt, auch gegen den Teil, der die Kugel auf ihrer gekrümmten Bahn hält. Der Test prüft Energie und Drehimpuls ohne Reibung, die Kreisbahn und die Zeit bis zum Loch gegen eine unabhängige Rechnung aus der Energie der Kreise.",
+        "left_out": "Weggelassen: das Drehen der Kugel um die Senkrechte zur Wand, ihre Grösse gegenüber der Krümmung der Wand, die Luft. Eine Münze, die auf ihrem Rand rollt und sich neigt, ist ein anderes Problem."
       }
     }
   }

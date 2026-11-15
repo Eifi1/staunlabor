@@ -1074,6 +1074,55 @@ its far share; a lone pair's peak force against Hertz's closed form; the
 page's figures — 97 %, 99.9 %, 0.2 ms, under 900 N, 0.70 and 0.49 m/s, 2.5°
 against nearly nothing.
 
+## The gravity well (`experiments.well`)
+
+**The exhibit.** A wide funnel, almost flat at the rim and ever steeper
+towards the hole; a ball pushed off at the rim circles for a long time, ever
+lower and faster, and drops in.
+
+**The model** (`domain/experiments/well.py`). The wall `z = −k/r`; a small
+ball rolling without slipping, its spin 2/5 more inertia (`T = (7/10)·m·v²`,
+the sphere exhibit's way, every push along the wall moving it at 5/7);
+Lagrange's equations in `(r, φ)` on the surface, stepped by Runge–Kutta a
+millisecond at a time. Rolling resistance `C·N` against the motion, `N` the
+wall's whole push: the weight's share across it and what holds the ball on its
+curved path (meridian convex, parallel concave), faded below 1 mm/s as on the
+sphere. A lap is counted where φ crosses a whole turn, interpolated within the
+step; its radius is the time-mean over the lap. **Why Kepler:** on a circle
+`r·φ̇² = (5/7)·g·k/r²`, an inverse square, so `T² = 28π²r³/(5gk)` exactly.
+Off the circle the steepness `1 + z′²` and the wall's curvature enter, and
+the path is a turning rosette, not an ellipse.
+
+**What it shows** (k = 0.01 m², rim 40 cm, hole 3 cm, `C` = 0.002, started
+at 0.9 of the rim). The circle at the start takes 0.44 m/s and 5.1 s a lap;
+at the hole 0.12 s, 42 times less for twelve times nearer. From that circle
+the ball drops in after 46 s and 75 laps, 42 of them in the last 10 s, every
+lap within 3 % of Kepler's period for its mean radius, and its top speed more
+than three times the start's: braked, it runs faster (a satellite's drag
+paradox). Without resistance, pushed at 0.30 m/s, the nearest point turns 40°
+a lap. The defaults were picked from a sweep: at `C` = 0.003 and
+k = 0.005 m² the first lap already fell a fifth of the way in, and laps
+strayed 10 % from Kepler; the chosen pair spirals for 46 s.
+
+**The page.** The funnel from above (rings 2 cm of height apart, crowding
+where it is steep) with the whole track, and cut through from the side;
+the push's speed and direction, the rolling resistance, real time or four
+times faster; "Circle" pushes off at the circle's speed; laps, the last lap's
+time, the distance and speed; a chart of every lap's time against its mean
+distance beside Kepler's circle. **No route**: the port's (`simulate/well.ts`);
+the engine's `run` is not ported, the test samples the port's steps the
+engine's way.
+
+**Left out, and said:** the ball's spin about the wall's normal and every term
+of its radius over the wall's curvature, air; a coin, which rolls on its edge
+and leans.
+
+**Checked by** `tests/unit/test_experiments.py`: energy and angular momentum
+without resistance to 10⁻⁹ over 30 s; the circle held to 1 µm and its period;
+the 40° rosette; the spiral's laps against Kepler; its time to the hole
+against an independent Simpson count of the circles' energy drained by
+`C·N·v` (46.09 s against the engine's 45.90 s); the speed-up ten laps apart.
+
 ## Checking the mathematics
 
 Before the engine was written each model was checked independently with SciPy
