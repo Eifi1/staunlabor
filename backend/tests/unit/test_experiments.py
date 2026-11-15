@@ -2503,3 +2503,123 @@ def test_the_floating_top_refuses_what_it_cannot_be():
     with pytest.raises(ValueError, match="holds no top"):
         # A ring a metre across with a hole of 60 cm bends right only far above it.
         x.levitation_hover(x.LevitationBase(inner_radius_m=0.3, outer_radius_m=0.5), x.LevitationTop())
+
+
+def test_the_slow_circuit_swings_once_a_second_21_times_and_from_2530_ohm_no_more():
+    figures = x.circuit_figures(x.Circuit())
+    assert figures.regime == "swings"
+    assert figures.period_s is not None and round(figures.period_s, 2) == 0.99
+    # 21 swings before the needle's peaks fall under a tenth of the first, in about ten seconds.
+    assert figures.swings == 21
+    assert round((figures.swings - 1) * figures.period_s / 2 + figures.peak_s) == 10
+    assert round(figures.peak_current_a * 1000, 1) == 7.5
+    assert round(figures.critical_ohm) == 2530
+    assert round(figures.quality) == 14
+    assert round(figures.decay_s, 1) == 4.4
+    assert figures.energy_j == pytest.approx(6.25e-3)
+    # Its twin: 200 kg on a spring of 8000 N/m, with a friction of 90 N·s/m.
+    circuit = x.Circuit()
+    assert circuit.inductance_h == 200 and round(1 / circuit.capacitance_f) == 8000 and circuit.resistance_ohm == 90
+    assert 2 * math.pi * math.sqrt(200 / 8000) == pytest.approx(figures.natural_period_s)
+
+
+def _loop(circuit: Any) -> Any:
+    """The loop's equations as they stand: ``q̇ = −i``, ``L·i̇ = q/C − R·i``."""
+    return lambda _t, y: (-y[1], (y[0] / circuit.capacitance_f - circuit.resistance_ohm * y[1]) / circuit.inductance_h)
+
+
+def test_the_exact_charge_and_current_are_the_loop_s_equations_stepped_swinging_creeping_or_between():
+    from staunlabor.domain.experiments import circuit as lc
+
+    # The exhibit's; critical exactly (ω₀ = γ = 5/s); and creeping back.
+    for circuit, kind in (
+        (x.Circuit(), "swings"),
+        (x.Circuit(inductance_h=4, capacitance_f=0.01, resistance_ohm=40), "critical"),
+        (x.Circuit(resistance_ohm=4000), "creeps"),
+    ):
+        assert lc.regime(circuit) == kind
+        trace = rk4(_loop(circuit), (circuit.capacitance_f * circuit.voltage_v, 0.0), 1e-4, 5.0, sample_every=500)
+        scale = circuit.capacitance_f * circuit.voltage_v
+        for t, q, i in zip(trace.t, *trace.states, strict=True):
+            exact_q, exact_i = x.circuit_state(circuit, t)
+            assert exact_q == pytest.approx(q, abs=1e-9 * scale)
+            assert exact_i == pytest.approx(i, abs=1e-9 * scale * lc.rates(circuit)[0])
+
+
+def test_the_three_solutions_join_at_the_critical_resistance():
+    critical = x.Circuit(inductance_h=4, capacitance_f=0.01, resistance_ohm=40)
+    for t in (0.0, 0.1, 0.5, 2.0):
+        at = x.circuit_state(critical, t)
+        for r in (40 * (1 - 1e-9), 40 * (1 + 1e-9)):
+            near = x.circuit_state(x.Circuit(inductance_h=4, capacitance_f=0.01, resistance_ohm=r), t)
+            assert near[0] == pytest.approx(at[0], rel=1e-7, abs=1e-15)
+            assert near[1] == pytest.approx(at[1], rel=1e-7, abs=1e-15)
+
+
+def test_the_energy_goes_from_capacitor_to_coil_and_back_and_the_rest_is_heat():
+    from staunlabor.domain.experiments import circuit as lc
+
+    circuit = x.Circuit()
+    figures = x.circuit_figures(circuit)
+    assert figures.period_s is not None
+    quarter, half = x.circuit_energies(circuit, figures.period_s / 4), x.circuit_energies(circuit, figures.period_s / 2)
+    assert quarter[1] > 0.99 * sum(quarter) and half[0] > 0.999 * sum(half)
+    assert x.circuit_state(circuit, figures.period_s / 2)[0] < 0, (
+        "a swing later the capacitor is charged the other way round"
+    )
+    # What is missing is what the resistance turned into heat, ∫R·i² dt (Simpson).
+    n, end = 4000, 3.0
+    h = end / n
+    heat = sum(
+        (1 if k in (0, n) else 4 if k % 2 else 2) * circuit.resistance_ohm * x.circuit_state(circuit, k * h)[1] ** 2
+        for k in range(n + 1)
+    ) * (h / 3)
+    assert sum(x.circuit_energies(circuit, end)) + heat == pytest.approx(figures.energy_j, rel=1e-9)
+    # A swing there and back keeps 64 % of the energy; after ten seconds 1 % is left.
+    assert round(sum(x.circuit_energies(circuit, figures.period_s)) / figures.energy_j * 100) == 64
+    assert round(sum(x.circuit_energies(circuit, 10.0)) / figures.energy_j * 100) == 1
+    # The current is strongest where it stops growing.
+    peak = lc.first_peak_s(circuit)
+    for dt in (-1e-3, 1e-3):
+        assert x.circuit_state(circuit, peak + dt)[1] < figures.peak_current_a
+
+
+def test_four_times_the_capacitor_doubles_the_swing_and_the_battery_changes_only_its_size():
+    one, four = x.circuit_figures(x.Circuit()), x.circuit_figures(x.Circuit(capacitance_f=500e-6))
+    assert four.natural_period_s == pytest.approx(2 * one.natural_period_s)
+    assert four.swings == 11
+    twice = x.circuit_figures(x.Circuit(voltage_v=20))
+    assert twice.period_s == one.period_s and twice.swings == one.swings
+    assert twice.peak_current_a == pytest.approx(2 * one.peak_current_a)
+
+
+def test_more_resistance_fewer_swings_and_over_the_critical_one_it_creeps_back():
+    from staunlabor.domain.experiments import circuit as lc
+
+    assert [x.circuit_figures(x.Circuit(resistance_ohm=r)).swings for r in (90, 300, 1000, 2000)] == [21, 7, 2, 1]
+    assert x.circuit_figures(x.Circuit(resistance_ohm=2529)).regime == "swings"
+    creeps = x.circuit_figures(x.Circuit(resistance_ohm=2531))
+    assert creeps.regime == "creeps" and creeps.period_s is None and creeps.swings == 1
+    # Creeping back, the current never turns round, and the charge never crosses zero.
+    circuit = x.Circuit(resistance_ohm=4000)
+    assert all(x.circuit_state(circuit, k * 0.05)[1] >= 0 for k in range(200))
+    assert all(x.circuit_state(circuit, k * 0.05)[0] > 0 for k in range(200))
+    # Far out, it is still a number: cosh(βt) alone would overflow at βt = 5·10¹⁰.
+    far = x.circuit_state(x.Circuit(inductance_h=0.001, resistance_ohm=1e5), 1e3)
+    assert all(math.isfinite(v) and 0 <= v < 1e-30 for v in far)
+    peak = lc.first_peak_s(circuit)
+    for dt in (-1e-3, 1e-3):
+        assert x.circuit_state(circuit, peak + dt)[1] < x.circuit_state(circuit, peak)[1]
+
+
+def test_the_circuit_refuses_what_it_cannot_be():
+    with pytest.raises(ValueError, match="coil"):
+        x.Circuit(inductance_h=0)
+    with pytest.raises(ValueError, match="capacitor"):
+        x.Circuit(capacitance_f=1)
+    with pytest.raises(ValueError, match="resistance"):
+        x.Circuit(resistance_ohm=0)
+    with pytest.raises(ValueError, match="battery"):
+        x.Circuit(voltage_v=-1)
+    with pytest.raises(ValueError, match="switch is thrown"):
+        x.circuit_state(x.Circuit(), -1)

@@ -238,6 +238,12 @@
         "mass_kg": 0.0235
       }
     },
+    "circuit": {
+      "inductance_h": 200.0,
+      "capacitance_f": 0.000125,
+      "resistance_ohm": 90.0,
+      "voltage_v": 10.0
+    },
     "chladni": {
       "side_m": 0.24,
       "thickness_m": 0.001,

@@ -72,6 +72,7 @@ resonance = importlib.import_module("staunlabor.domain.experiments.resonance")
 gyroscope = importlib.import_module("staunlabor.domain.experiments.gyroscope")
 arch = importlib.import_module("staunlabor.domain.experiments.arch")
 levitation = importlib.import_module("staunlabor.domain.experiments.levitation")
+circuit = importlib.import_module("staunlabor.domain.experiments.circuit")
 chladni = importlib.import_module("staunlabor.domain.experiments.chladni")
 
 TARGET = ROOT / "frontend/src/features/experiments/simulate/engine-cases.json"
@@ -565,6 +566,24 @@ LEVITATION_CASES = (
 LEVITATION_HEIGHTS = (0.0, 0.004, 0.02, 0.0436, 0.046, 0.0481, 0.07, 0.15)
 
 
+#: The slow LC circuit: the exhibit's; more resistance, and nearly too much; the
+#: critical case exactly (ω₀ = γ = 5/s) and a hair either side of it, where the
+#: three solutions meet; creeping back; a quick one on a higher battery.
+CIRCUIT_CASES = (
+    circuit.Circuit(),
+    circuit.Circuit(resistance_ohm=300.0),
+    circuit.Circuit(resistance_ohm=2000.0),
+    circuit.Circuit(inductance_h=4.0, capacitance_f=0.01, resistance_ohm=40.0),
+    circuit.Circuit(inductance_h=4.0, capacitance_f=0.01, resistance_ohm=40.0 * (1 - 1e-6)),
+    circuit.Circuit(inductance_h=4.0, capacitance_f=0.01, resistance_ohm=40.0 * (1 + 1e-6)),
+    circuit.Circuit(resistance_ohm=4000.0),
+    circuit.Circuit(inductance_h=20.0, capacitance_f=20e-6, resistance_ohm=10.0, voltage_v=20.0),
+)
+
+#: When after the switch the cases are compared, in seconds.
+CIRCUIT_TIMES = (0.0, 0.05, 0.2429, 0.5, 1.0, 2.5, 7.0, 15.0)
+
+
 def thin(values: Any) -> Any:
     """A curve as its length and every so many of its points, the last always
     among them; anything else as it is, recursively."""
@@ -715,6 +734,20 @@ def _levitation_cases(out: dict[str, Any]) -> None:
                 "lift_kg": [levitation.lift_kg(base, top, z, warming) for z in LEVITATION_HEIGHTS],
                 "holds": [levitation.holds(base, z) for z in LEVITATION_HEIGHTS],
                 "hover": asdict(levitation.hover(base, top, warming)),
+            }
+        )
+
+
+def _circuit_cases(out: dict[str, Any]) -> None:
+    for c in CIRCUIT_CASES:
+        out["circuit"].append(
+            {
+                "circuit": asdict(c),
+                "regime": circuit.regime(c),
+                "rates": list(circuit.rates(c)),
+                "states": [list(circuit.state(c, t)) for t in CIRCUIT_TIMES],
+                "energies": [list(circuit.energies(c, t)) for t in CIRCUIT_TIMES],
+                "figures": asdict(circuit.figures(c)),
             }
         )
 
@@ -940,6 +973,7 @@ def _second_series(out: dict[str, Any]) -> None:
     _gyroscope_cases(out)
     _arch_cases(out)
     _levitation_cases(out)
+    _circuit_cases(out)
     _chladni_cases(out)
 
 
@@ -996,6 +1030,7 @@ def cases() -> dict[str, Any]:
         "gyroscope": [],
         "arch": [],
         "levitation": [],
+        "circuit": [],
     }
     _second_series(out)
     for name, case in HARMONOGRAPH_CASES.items():

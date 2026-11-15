@@ -41,6 +41,8 @@ with SciPy before it was written (``docs/experiments.md``).
   the hanging chain, upside down, is the shape where it fits best.
 * :mod:`chladni` — the free square plate's modes by Ritz and Legendre: where
   a plate shaken at its middle stands still, the sand lies.
+* :mod:`circuit` — the slow LC circuit: a capacitor discharged through a big
+  coil swings like a damped spring, its current with the coil's inertia.
 * :mod:`levitation` — a spinning top hovers over a ring magnet only in a
   window a few millimetres high and three per cent wide in weight.
 * :mod:`gyroscope` — a spinning wheel on a string turns round it instead of
@@ -101,6 +103,10 @@ from staunlabor.domain.experiments.chladni import Mode as ChladniMode
 from staunlabor.domain.experiments.chladni import Plate as ChladniPlate
 from staunlabor.domain.experiments.chladni import driven_modes as chladni_driven_modes
 from staunlabor.domain.experiments.chladni import response as chladni_response
+from staunlabor.domain.experiments.circuit import Circuit, CircuitFigures
+from staunlabor.domain.experiments.circuit import energies as circuit_energies
+from staunlabor.domain.experiments.circuit import figures as circuit_figures
+from staunlabor.domain.experiments.circuit import state as circuit_state
 from staunlabor.domain.experiments.coil import (
     METER_RANGE_A,
     Coil,
@@ -402,6 +408,8 @@ __all__ = [
     "ChaosRun",
     "ChladniMode",
     "ChladniPlate",
+    "Circuit",
+    "CircuitFigures",
     "Coil",
     "CoilAnalysis",
     "CoilCurve",
@@ -539,6 +547,9 @@ __all__ = [
     "chair_analysis",
     "chladni_driven_modes",
     "chladni_response",
+    "circuit_energies",
+    "circuit_figures",
+    "circuit_state",
     "climb_deceleration",
     "coil_analysis",
     "contact_factor",

@@ -69,6 +69,7 @@ UNROUTED = (
     "gyroscope",
     "arch",
     "levitation",
+    "circuit",
 )
 
 

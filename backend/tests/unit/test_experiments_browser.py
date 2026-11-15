@@ -103,6 +103,8 @@ def test_the_cases_cross_every_branch_a_page_can_reach(stored: Any):
     assert all(c["run"]["still"] for c in pits), "every pit case runs until the balls lie still"
     assert any(c["inertia"] == 0 for c in pits), "a block that slides, which does not turn"
     assert any(c["inertia"] > 0.5 for c in pits), "a hollow ball"
+    regimes = {c["regime"] for c in stored["circuit"]}
+    assert regimes == {"swings", "critical", "creeps"}, "a circuit that swings, one at the edge, one that creeps back"
     floats = {c["hover"]["state"] for c in stored["levitation"]}
     assert floats == {"hovers", "lands", "slides"}, "a top that hovers, one that lands, one that slides off"
     spheres = stored["sphere"]

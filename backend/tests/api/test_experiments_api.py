@@ -46,6 +46,7 @@ async def test_the_experiments_need_no_account(client: AsyncClient):
         "gyroscope",
         "arch",
         "levitation",
+        "circuit",
         "chladni",
         "meter_range_a",
         "settle_s",
@@ -75,6 +76,8 @@ async def test_the_experiments_need_no_account(client: AsyncClient):
     assert body["chladni"]["side_m"] == x.ChladniPlate().side_m
     assert body["levitation"]["top"]["mass_kg"] == x.LevitationTop().mass_kg
     assert body["levitation"]["base"]["outer_radius_m"] == x.LevitationBase().outer_radius_m
+    assert body["circuit"]["inductance_h"] == x.Circuit().inductance_h
+    assert body["circuit"]["capacitance_f"] == x.Circuit().capacitance_f
 
 
 async def test_the_sphere_answers_its_orbits_and_its_swing(client: AsyncClient):

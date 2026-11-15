@@ -27,6 +27,7 @@ import * as resonance from "./resonance";
 import * as gyroscope from "./gyroscope";
 import * as arch from "./arch";
 import * as levitation from "./levitation";
+import * as circuit from "./circuit";
 import * as chladni from "./chladni";
 import * as elephant from "./elephant";
 import * as foucault from "./foucault";
@@ -926,6 +927,36 @@ describe("the floating top's port", () => {
     expect(() =>
       levitation.window({ inner_radius_m: 0.3, outer_radius_m: 0.5, height_m: 0.015, magnetisation_a_m: 3.2e5 }),
     ).toThrow(RangeError);
+  });
+});
+
+describe("the slow LC circuit's port", () => {
+  it("swings, creeps or stands between as the engine does, charge, current, energies and figures", () => {
+    const times = [0.0, 0.05, 0.2429, 0.5, 1.0, 2.5, 7.0, 15.0];
+    for (const c of cases.circuit) {
+      expect(circuit.regime(c.circuit)).toBe(c.regime);
+      expect(differences(c.rates, circuit.rates(c.circuit))).toEqual([]);
+      expect(
+        differences(
+          c.states,
+          times.map((t) => circuit.state(c.circuit, t)),
+        ),
+      ).toEqual([]);
+      expect(
+        differences(
+          c.energies,
+          times.map((t) => circuit.energies(c.circuit, t)),
+        ),
+      ).toEqual([]);
+      expect(differences(c.figures, circuit.figures(c.circuit))).toEqual([]);
+    }
+    expect(new Set(cases.circuit.map((c) => c.regime))).toEqual(new Set(["swings", "critical", "creeps"]));
+  });
+
+  it("holds the charged capacitor before the switch is thrown", () => {
+    const build = cases.circuit[0].circuit;
+    expect(circuit.state(build, -1)).toEqual(circuit.state(build, 0));
+    expect(circuit.state(build, 0)[1]).toBe(0);
   });
 });
 

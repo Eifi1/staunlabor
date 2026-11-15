@@ -749,6 +749,17 @@ class LevitationIn(_In):
     top: LevitationTopIn
 
 
+# ── the slow LC circuit ──────────────────────────────────────────────────────
+# No route: the page asks the port (``simulate/circuit.ts``).
+
+
+class CircuitIn(_In):
+    inductance_h: float = Field(gt=0, le=1000, default=200.0)
+    capacitance_f: float = Field(gt=0, le=0.1, default=125e-6)
+    resistance_ohm: float = Field(gt=0, le=1e5, default=90.0)
+    voltage_v: float = Field(gt=0, le=1000, default=10.0)
+
+
 # ── the pages' starting point ────────────────────────────────────────────────
 
 
@@ -777,6 +788,7 @@ class ExperimentsDefaultsOut(_Out):
     gyroscope: GyroWheelIn
     arch: StoneArchIn
     levitation: LevitationIn
+    circuit: CircuitIn
     chladni: ChladniPlateIn
     #: The exhibit's meter: digital, ± this many amperes.
     meter_range_a: float
