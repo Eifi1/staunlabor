@@ -115,6 +115,7 @@
       "angular_momentum": "Moment cinétique",
       "energy": "Énergie",
       "oscillation": "Oscillation",
+      "equilibrium": "Équilibre",
       "flow": "Écoulement",
       "induction": "Induction",
       "perception": "Perception"
@@ -265,6 +266,12 @@
         "title": "La roue gyroscopique",
         "summary": "Une lourde roue pend à un fil par une extrémité de son axe. Immobile, elle tombe ; en rotation, elle reste en haut et tourne lentement en rond.",
         "question": "Pourquoi une roue qui tourne ne tombe-t-elle pas, mais s'écarte-t-elle sur le côté ?"
+      },
+      "arch": {
+        "short": "Chaîne et arc",
+        "title": "La chaîne et l'arc",
+        "summary": "Un arc de pierres sèches tient sans mortier – s'il a la bonne forme. Une chaîne suspendue la montre, à l'envers.",
+        "question": "Pourquoi un arc de pierres sèches tient-il, et pourquoi un arc trop mince s'effondre-t-il ?"
       }
     },
     "chair": {
@@ -2195,6 +2202,62 @@
       "computed": {
         "system": "La roue est une toupie symétrique à point fixe, l'extrémité de l'axe au fil ; sa masse est dans le cerceau. Selon Lagrange, deux moments cinétiques se conservent, autour de l'axe et autour du fil ; seule l'inclinaison est calculée pas à pas, par Runge–Kutta par pas d'une milliseconde. Le test vérifie l'énergie, la rotation régulière, et la profondeur de descente de l'axe par rapport au calcul à partir des seules grandeurs conservées.",
         "left_out": "Laissé de côté : que le fil lui-même oscille et s'étire (son extrémité est le point fixe), le frottement dans le palier et au fil, l'air. Rayons et moyeu ne comptent pas à côté du cerceau."
+      }
+    },
+    "arch": {
+      "at": {
+        "stones": "On construit un arc de pierres sèches, sans mortier. Une fois la dernière pierre posée au milieu, l'arc se porte lui-même et porte encore une charge.",
+        "chain": "À côté pend une chaîne entre deux crochets. Retournée, sa forme est la meilleure forme pour un arc."
+      },
+      "view": "L'arc de face : les pierres, la ligne de pression, les joints où il s'ouvrirait d'abord, et la charge",
+      "play": {
+        "title": "Construire un arc",
+        "hint": "Amincissez le demi-cercle jusqu'à ce qu'il casse, puis passez à l'arc de chaînette. Posez une charge dessus et faites-la glisser.",
+        "shape": "Forme",
+        "shapes": {
+          "semicircle": "Demi-cercle",
+          "pointed": "Ogive",
+          "catenary": "Arc de chaînette"
+        },
+        "thickness": "Épaisseur des pierres",
+        "thickness_hint": "De l'intérieur à l'extérieur de l'arc ; la portée est de 2 m.",
+        "stones": "Nombre de pierres",
+        "load": "Charge",
+        "load_hint": "Mesurée par rapport au poids de l'arc lui-même.",
+        "at": "Position de la charge",
+        "at_hint": "Depuis le milieu : −100 % au pied gauche, 100 % au pied droit.",
+        "chain": "Montrer la chaîne",
+        "chain_hint": "La chaîne suspendue, retournée, passant par les deux pieds et aussi haute que l'arc.",
+        "safety": "Sécurité",
+        "thrust": "Poussée au pied",
+        "weight": "Poids de l'arc",
+        "stands": "L'arc tient : la ligne de pression reste partout dans la pierre.",
+        "falls": "L'arc casse : aucune ligne de pression ne reste partout dans la pierre. Il s'ouvre aux joints rouges."
+      },
+      "model": {
+        "intro": "Une pierre pousse, elle ne tire pas. Un arc de pierres sèches tient donc tant que chaque joint est comprimé et que la ligne le long de laquelle court la pression – la ligne de pression – traverse chaque joint à l'intérieur de la pierre.",
+        "chain": "La chaîne suspendue, retournée : elle n'est tirée que le long d'elle-même. Un arc de cette forme n'est comprimé que le long de lui-même.",
+        "joint": "Où la ligne de pression traverse le joint j : le moment de toutes les forces à gauche du joint autour de son milieu, divisé par la force à travers le joint. Les deux dépendent de la poussée au pied, que la page cherche pour que la ligne reste aussi près du milieu que possible.",
+        "stands": "L'arc tient si une ligne traverse chaque joint à l'intérieur de la pierre. Le plus petit λ pour lequel une telle ligne existe dit de combien : 1/λ est la sécurité."
+      },
+      "symbols": {
+        "x": "la distance au milieu",
+        "h": "la hauteur de l'arc au-dessus de ses pieds",
+        "a": "le paramètre de la chaînette",
+        "e": "à quelle distance de son milieu la ligne de pression traverse le joint",
+        "m": "le moment de toutes les forces à gauche du joint autour de son milieu",
+        "n": "la force à travers le joint",
+        "t": "l'épaisseur des pierres",
+        "lambda": "de combien la ligne s'écarte au plus du milieu, en part de la demi-épaisseur"
+      },
+      "sweet": {
+        "chain": "La meilleure forme pour un arc est une chaîne suspendue, retournée – Robert Hooke l'a noté en 1675, et Antoni Gaudí a conçu avec des chaînes suspendues. Dans l'arc de chaînette, la ligne de pression sous son propre poids reste au milieu des pierres, à moins d'un centième de la demi-épaisseur, quelle que soit l'épaisseur.",
+        "semicircle": "Le demi-cercle n'a pas cette forme. Il ne tient que si ses pierres sont épaisses d'au moins 10,75 % de son rayon – 10,7 % avec seize pierres. Avec 10 cm pour un mètre, il casse ; une ogive de même portée et de même épaisseur tient.",
+        "load": "Une charge déplace la ligne de pression. Posée au quart de la portée, elle casse le demi-cercle de 25 cm déjà à 80 % de son propre poids, l'arc de chaînette de même hauteur seulement à 141 %."
+      },
+      "computed": {
+        "system": "L'arc est découpé en pierres de même longueur, les joints en travers de la ligne médiane ; chaque pierre pèse autant que son quadrilatère et presse en son centre de gravité. À chaque joint, la compression et le moment dépendent linéairement de la poussée, de la réaction verticale et du moment à l'appui ; la page découpe parmi toutes les valeurs possibles celles qui traversent chaque joint dans la pierre, et cherche par dichotomie le plus petit λ. Le test retrouve pour le demi-cercle l'épaisseur minimale de 10,75 % du rayon que Milankovitch a calculée en 1907.",
+        "left_out": "Laissé de côté : le glissement des pierres (le frottement tient), leur écrasement (elles sont assez solides), le cédage des culées. La page montre où un arc s'ouvre, pas comment il tombe."
       }
     }
   }

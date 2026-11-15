@@ -648,6 +648,18 @@ export interface GyroWheelRequest {
   rpm: number;
 }
 
+// ── the chain and the arch ───────────────────────────────────────────────────
+
+/** The engine's `Arch`. No route: the page asks the port (`simulate/arch.ts`). */
+export interface StoneArchRequest {
+  shape: "semicircle" | "pointed" | "catenary";
+  span_m: number;
+  thickness_m: number;
+  blocks: number;
+  density_kg_m3: number;
+  depth_m: number;
+}
+
 // ── the pages' starting point ────────────────────────────────────────────────
 
 export interface ExperimentsDefaults {
@@ -673,6 +685,7 @@ export interface ExperimentsDefaults {
   well: FunnelRequest;
   resonance: ResonanceRackRequest;
   gyroscope: GyroWheelRequest;
+  arch: StoneArchRequest;
   meter_range_a: number;
   settle_s: number;
 }

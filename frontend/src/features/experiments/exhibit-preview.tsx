@@ -50,6 +50,7 @@ const PREVIEWS: Record<Exhibit, LazyExoticComponent<ComponentType<PreviewProps>>
   well: lazy(() => import("./well-page").then((m) => ({ default: m.WellPreview }))),
   resonance: lazy(() => import("./resonance-page").then((m) => ({ default: m.ResonancePreview }))),
   gyroscope: lazy(() => import("./gyroscope-page").then((m) => ({ default: m.GyroscopePreview }))),
+  arch: lazy(() => import("./arch-page").then((m) => ({ default: m.ArchPreview }))),
 };
 
 /** Whether the element is on screen (`margin` beyond it counts), and whether

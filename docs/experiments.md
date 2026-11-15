@@ -1207,6 +1207,54 @@ to 10⁻⁸ over 20 s and a steady release keeping its tilt to 10⁻⁶ degrees;
 8.1 s round, its halving, the mean pace; the dip against the kept quantities'
 quadratic to 0.02°; the 4.4 nods a second; the 5.9 N·m.
 
+## The chain and the arch (`experiments.arch`)
+
+**The exhibit.** An arch of loose stones, no mortar, that carries itself and a
+load once the keystone is in; beside it a chain hanging between two hooks,
+whose shape, upside down, is the best shape for an arch.
+
+**The model** (`domain/experiments/arch.py`), Heyman's: masonry takes no
+tension, friction holds, the stones do not crush. The centre line
+(semicircle, pointed — two arcs of the span's radius — or the upside-down
+chain `y = h − a·(cosh(x/a) − 1)` through the springings and as high as the
+semicircle) is cut into equal stones by joints across it; a stone's weight is
+its quadrilateral's, at its centroid; a load stands on the extrados. Left of
+joint `j`, the support's `(H, V)` and its moment `M` about the first joint,
+with the weights, give `e_j = −M̄_j/N_j`, all linear in `(H, V, M)`. The arch
+stands if some `(H, V, M)` keeps `|e_j| ≤ t/2` everywhere; the least `λ` that
+keeps `|e_j| ≤ λ·t/2` is found exactly: for a fixed `V`, a polygon in `(H, M)`
+cut from a box by every joint's two half-planes, `λ` bisected 40 times; `V`
+is half the load when the load is symmetric and otherwise found by 40 golden
+steps (the least `λ` over `V` is quasi-convex, the feasible set convex). The
+drawn line crosses the joints at the polygon's centroid's `e_j`; joints within
+2 % of the widest reach are marked (amber standing, red breaking), from a
+reach of half the thickness up.
+
+**What it shows** (2 m span to the centre line, 25 cm stones, 16 of them).
+A semicircle needs `t/R` ≥ 0.1075 (Milankovitch 1907; 0.10746 in 100 stones,
+0.107 in 16): at 10 cm on its metre it breaks, where a pointed arch stands.
+A catenary arch keeps its line within a hundredth of half the thickness,
+however thick. A load at the quarter point breaks the semicircle at 80 % of
+its own weight, the catenary arch at 141 %; at the crown the catenary arch
+has no limit in this model (the thrust line fits as two straight struts).
+
+**The page.** The arch from the front with its stones, abutments, the thrust
+line, the marked joints and the load's arrow; the shape, the thickness, the
+stones, the load (to twice the arch's weight) and where it stands, the
+upside-down chain on demand; the safety `1/λ`, the push at the foot as a
+share of the weight, the arch's weight. A new topic, "equilibrium", for the
+overview's filter. **No route**: the port's (`simulate/arch.ts`), held to the
+engine exactly, the bisection and the golden section included.
+
+**Left out, and said:** sliding, crushing, the abutments' give, and what
+happens after the hinges form: the page shows where an arch opens, not how it
+falls.
+
+**Checked by** `tests/unit/test_experiments.py`: the chain's rise and ends;
+the catenary arch's line within 1 % at four thicknesses; Milankovitch's
+0.1075 and the 16 stones' 0.107; the semicircle falling and the pointed arch
+standing at 10 cm; the quarter-point loads, 80 % and 141 %.
+
 ## Checking the mathematics
 
 Before the engine was written each model was checked independently with SciPy

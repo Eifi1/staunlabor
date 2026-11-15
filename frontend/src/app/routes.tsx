@@ -47,6 +47,7 @@ const ResonancePage = lazy(() =>
 const GyroscopePage = lazy(() =>
   import("@/features/experiments/gyroscope-page").then((m) => ({ default: m.GyroscopePage })),
 );
+const ArchPage = lazy(() => import("@/features/experiments/arch-page").then((m) => ({ default: m.ArchPage })));
 const HarmonographPage = lazy(() =>
   import("@/features/experiments/harmonograph-page").then((m) => ({ default: m.HarmonographPage })),
 );
@@ -245,6 +246,14 @@ export function AppRoutes() {
           element={
             <Page>
               <GyroscopePage />
+            </Page>
+          }
+        />
+        <Route
+          path="arch"
+          element={
+            <Page>
+              <ArchPage />
             </Page>
           }
         />

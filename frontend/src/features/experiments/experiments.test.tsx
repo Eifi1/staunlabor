@@ -46,6 +46,7 @@ import { CradlePage } from "./cradle-page";
 import { WellPage } from "./well-page";
 import { ResonancePage } from "./resonance-page";
 import { GyroscopePage } from "./gyroscope-page";
+import { ArchPage } from "./arch-page";
 import { ballState, pitEntries, positionAt, raceLayout, swingAt } from "./race-views";
 import { run as runPit } from "./simulate/pit";
 import { HOLE, cameraAt, frameOf, project } from "./chair-views";
@@ -999,5 +1000,25 @@ describe("the gyroscope wheel", () => {
     await screen.findByRole("img", { name: E.gyroscope.view });
     fireEvent.click(screen.getByRole("button", { name: E.gyroscope.play.let_go }));
     expect(await screen.findByRole("button", { name: E.gyroscope.play.pause })).toBeInTheDocument();
+  });
+});
+
+describe("the chain and the arch", () => {
+  it("shows the semicircle standing with its thrust line, and the three shapes", async () => {
+    renderWithProviders(<ArchPage />);
+    expect(await screen.findByRole("img", { name: E.arch.view })).toBeInTheDocument();
+    expect(await screen.findByText(E.arch.play.stands)).toBeInTheDocument();
+    for (const shape of ["semicircle", "pointed", "catenary"] as const)
+      expect(screen.getByRole("radio", { name: E.arch.play.shapes[shape] })).toBeInTheDocument();
+    expect(screen.getAllByLabelText(E.equation.symbols).length).toBeGreaterThanOrEqual(3);
+  });
+
+  it("breaks when the stones are made too thin, and stands again as the chain's arch", async () => {
+    renderWithProviders(<ArchPage />);
+    await screen.findByRole("img", { name: E.arch.view });
+    fireEvent.change(screen.getByRole("slider", { name: E.arch.play.thickness }), { target: { value: "8" } });
+    expect(await screen.findByText(E.arch.play.falls)).toBeInTheDocument();
+    fireEvent.click(screen.getByRole("radio", { name: E.arch.play.shapes.catenary }));
+    expect(await screen.findByText(E.arch.play.stands)).toBeInTheDocument();
   });
 });

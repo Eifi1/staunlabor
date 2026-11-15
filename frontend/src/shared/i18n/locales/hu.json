@@ -115,6 +115,7 @@
       "angular_momentum": "Perdület",
       "energy": "Energia",
       "oscillation": "Lengés",
+      "equilibrium": "Egyensúly",
       "flow": "Áramlás",
       "induction": "Indukció",
       "perception": "Észlelés"
@@ -265,6 +266,12 @@
         "title": "A pörgettyűkerék",
         "summary": "Egy nehéz kerék tengelyének egyik végénél fogva egy fonálon lóg. Állva leesik; forogva fent marad, és lassan körbevándorol.",
         "question": "Miért nem esik le a forgó kerék, hanem oldalra tér ki?"
+      },
+      "arch": {
+        "short": "Lánc és ív",
+        "title": "A lánc és az ív",
+        "summary": "A laza kövekből rakott ív habarcs nélkül is megáll – ha jó az alakja. Egy lelógó lánc megmutatja, fejjel lefelé.",
+        "question": "Miért áll meg egy laza kövekből rakott ív, és miért dől össze a túl vékony?"
       }
     },
     "chair": {
@@ -2195,6 +2202,62 @@
       "computed": {
         "system": "A kerék rögzített pontú szimmetrikus pörgettyű, a pont a tengely fonálon lógó vége; tömege az abroncsban van. Lagrange szerint két perdület marad meg, a tengely körüli és a fonál körüli; lépésenként csak a dőlést számoljuk, Runge–Kutta-módszerrel, egy ezredmásodperces lépésekben. A teszt ellenőrzi az energiát, az egyenletes vándorlást, és hogy a tengely olyan mélyre süllyed-e, mint amennyit pusztán a megmaradó mennyiségekből számolunk.",
         "left_out": "Kimaradt: hogy maga a fonál is leng és nyúlik (vége a rögzített pont), a súrlódás a csapágyban és a fonálnál, a levegő. Küllők és agy az abroncs mellett nem számítanak."
+      }
+    },
+    "arch": {
+      "at": {
+        "stones": "Laza kövekből, habarcs nélkül ívet építenek. Ha az utolsó kő is a helyén van középen, az ív megtartja önmagát, és még egy terhet is.",
+        "chain": "Mellette egy lánc lóg két kampó között. Fejjel lefelé fordítva az alakja a legjobb alak egy ívhez."
+      },
+      "view": "Az ív elölről: a kövek, a nyomásvonal, a hézagok, ahol először nyílna szét, és a teher",
+      "play": {
+        "title": "Ívet építeni",
+        "hint": "Vékonyítsa a félkört, amíg el nem törik, aztán váltson láncívre. Tegyen rá terhet, és tologassa ide-oda.",
+        "shape": "Alak",
+        "shapes": {
+          "semicircle": "Félkör",
+          "pointed": "Csúcsív",
+          "catenary": "Láncív"
+        },
+        "thickness": "A kövek vastagsága",
+        "thickness_hint": "Az ív belső oldalától a külsőig; a fesztáv 2 m.",
+        "stones": "A kövek száma",
+        "load": "Teher",
+        "load_hint": "Az ív saját súlyához mérve.",
+        "at": "A teher helye",
+        "at_hint": "A közepétől: −100 % a bal lábnál, 100 % a jobbnál.",
+        "chain": "A lánc mutatása",
+        "chain_hint": "A lelógó lánc fejjel lefelé, a két lábon át, olyan magasan, mint az ív.",
+        "safety": "Biztonság",
+        "thrust": "Oldalnyomás a lábnál",
+        "weight": "Az ív súlya",
+        "stands": "Az ív áll: a nyomásvonal mindenütt a kőben marad.",
+        "falls": "Az ív eltörik: egyetlen nyomásvonal sem marad mindenütt a kőben. A piros hézagoknál nyílik szét."
+      },
+      "model": {
+        "intro": "A kő nyom, de nem húz. Ezért a laza kövekből rakott ív addig áll, amíg minden hézag össze van nyomva, és a vonal, amely mentén a nyomás fut – a nyomásvonal –, minden hézagot a kövön belül metsz.",
+        "chain": "A lelógó lánc fejjel lefelé: csak önmaga mentén húzzák. Az ilyen alakú ívet csak önmaga mentén nyomják.",
+        "joint": "Hol metszi a nyomásvonal a j-edik hézagot: a hézagtól balra ható összes erő nyomatéka a hézag közepére, osztva a hézagon átmenő erővel. Mindkettő a lábnál ható oldalnyomástól függ, amelyet az oldal úgy keres, hogy a vonal a lehető legközelebb maradjon a középhez.",
+        "stands": "Az ív áll, ha van olyan vonal, amely minden hézagot a kövön belül metsz. A legkisebb λ, amelyre ilyen vonal létezik, megmondja, milyen szorosan: 1/λ a biztonság."
+      },
+      "symbols": {
+        "x": "a középtől mért távolság",
+        "h": "az ív magassága a lábai felett",
+        "a": "a láncgörbe paramétere",
+        "e": "a hézag közepétől milyen messze metszi a nyomásvonal a hézagot",
+        "m": "a hézagtól balra ható összes erő nyomatéka a hézag közepére",
+        "n": "a hézagon átmenő erő",
+        "t": "a kövek vastagsága",
+        "lambda": "legfeljebb mennyire tér el a vonal a középtől, a fél vastagság hányadaként"
+      },
+      "sweet": {
+        "chain": "Egy ív legjobb alakja a fejjel lefelé fordított lelógó lánc – Robert Hooke 1675-ben jegyezte fel, és Antoni Gaudí lelógó láncokkal tervezett. A láncívben a nyomásvonal a saját súly alatt a kövek közepén marad, a fél vastagság századánál kisebb eltéréssel, akármilyen vastagok is a kövek.",
+        "semicircle": "A félkörnek nincs ilyen alakja. Csak akkor áll, ha kövei legalább a sugara 10,75 %-ának megfelelő vastagságúak – tizenhat kővel 10,7 %. Egy méterre 10 cm-rel eltörik; az ugyanakkora fesztávú és vastagságú csúcsív megáll.",
+        "load": "A teher elmozdítja a nyomásvonalat. A negyedpontra téve a 25 cm-es félkört már saját súlyának 80 %-ánál eltöri, az ugyanolyan magas láncívet csak 141 %-nál."
+      },
+      "computed": {
+        "system": "Az ívet egyenlő hosszú kövekre vágjuk, a hézagok merőlegesek a középvonalra; minden kő annyit nyom, amennyi a négyszöge, és a súlypontjában nyom. Minden hézagnál a nyomás és a nyomaték lineárisan függ az oldalnyomástól, a függőleges reakciótól és a támasz nyomatékától; az oldal az összes lehetséges értékből kivágja azokat, amelyek minden hézagot a kövön belül metszenek, és felezéssel keresi a legkisebb λ-t. A teszt a félkörre megtalálja a sugár 10,75 %-ának megfelelő legkisebb vastagságot, amelyet Milankovitch 1907-ben számolt ki.",
+        "left_out": "Kimaradt: a kövek elcsúszása (a súrlódás tart), összezúzódásuk (elég erősek), a hídfők engedése. Az oldal azt mutatja, hol nyílik szét az ív, nem azt, hogyan dől össze."
       }
     }
   }

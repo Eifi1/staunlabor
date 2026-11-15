@@ -115,6 +115,7 @@
       "angular_momentum": "Momento angolare",
       "energy": "Energia",
       "oscillation": "Oscillazione",
+      "equilibrium": "Equilibrio",
       "flow": "Fluidi",
       "induction": "Induzione",
       "perception": "Percezione"
@@ -265,6 +266,12 @@
         "title": "La ruota giroscopica",
         "summary": "Una ruota pesante è appesa a un filo per un'estremità del suo asse. Ferma, cade; in rotazione, resta su e gira lentamente in cerchio.",
         "question": "Perché una ruota che gira non cade, ma si sposta di lato?"
+      },
+      "arch": {
+        "short": "Catena e arco",
+        "title": "La catena e l'arco",
+        "summary": "Un arco di pietre sciolte sta in piedi senza malta – se ha la forma giusta. Una catena appesa la mostra, capovolta.",
+        "question": "Perché sta in piedi un arco di pietre sciolte, e perché uno troppo sottile crolla?"
       }
     },
     "chair": {
@@ -2195,6 +2202,62 @@
       "computed": {
         "system": "La ruota è una trottola simmetrica con un punto fisso, l'estremità dell'asse al filo; la sua massa sta nel cerchione. Secondo Lagrange si conservano due momenti angolari, attorno all'asse e attorno al filo; si calcola passo dopo passo solo l'inclinazione, con Runge–Kutta a passi di un millisecondo. Il test verifica l'energia, il giro uniforme e quanto scende l'asse rispetto al calcolo dalle sole grandezze conservate.",
         "left_out": "Tralasciati: che il filo stesso oscilli e si allunghi (la sua estremità è il punto fisso), l'attrito nel cuscinetto e al filo, l'aria. Raggi e mozzo non contano accanto al cerchione."
+      }
+    },
+    "arch": {
+      "at": {
+        "stones": "Con pietre sciolte, senza malta, si costruisce un arco. Posata l'ultima pietra al centro, l'arco regge se stesso e in più un carico.",
+        "chain": "Accanto pende una catena tra due ganci. Capovolta, la sua forma è la forma migliore per un arco."
+      },
+      "view": "L'arco visto di fronte: le pietre, la linea delle pressioni, i giunti dove si aprirebbe per primi e il carico",
+      "play": {
+        "title": "Costruire un arco",
+        "hint": "Renda il semicerchio più sottile finché si rompe, poi passi all'arco a catenaria. Ci metta sopra un carico e lo sposti avanti e indietro.",
+        "shape": "Forma",
+        "shapes": {
+          "semicircle": "Semicerchio",
+          "pointed": "Ogiva",
+          "catenary": "Arco a catenaria"
+        },
+        "thickness": "Spessore delle pietre",
+        "thickness_hint": "Dall'interno all'esterno dell'arco; la luce è di 2 m.",
+        "stones": "Numero di pietre",
+        "load": "Carico",
+        "load_hint": "Misurato rispetto al peso dell'arco stesso.",
+        "at": "Posizione del carico",
+        "at_hint": "Dal centro: −100 % al piede sinistro, 100 % al destro.",
+        "chain": "Mostrare la catena",
+        "chain_hint": "La catena appesa, capovolta, attraverso i due piedi e alta quanto l'arco.",
+        "safety": "Sicurezza",
+        "thrust": "Spinta al piede",
+        "weight": "Peso dell'arco",
+        "stands": "L'arco sta in piedi: la linea delle pressioni resta ovunque dentro la pietra.",
+        "falls": "L'arco si rompe: nessuna linea delle pressioni resta ovunque dentro la pietra. Si apre nei giunti rossi."
+      },
+      "model": {
+        "intro": "Una pietra spinge, non tira. Perciò un arco di pietre sciolte sta in piedi finché ogni giunto è compresso e la linea lungo cui corre la pressione – la linea delle pressioni – attraversa ogni giunto dentro la pietra.",
+        "chain": "La catena appesa, capovolta: è tirata solo lungo se stessa. Un arco di questa forma è compresso solo lungo se stesso.",
+        "joint": "Dove la linea delle pressioni attraversa il giunto j: il momento di tutte le forze a sinistra del giunto rispetto al suo centro, diviso per la forza attraverso il giunto. Entrambi dipendono dalla spinta al piede, che la pagina cerca perché la linea resti il più possibile al centro.",
+        "stands": "L'arco sta in piedi se una linea attraversa ogni giunto dentro la pietra. Il più piccolo λ per cui esiste una tale linea dice di quanto: 1/λ è la sicurezza."
+      },
+      "symbols": {
+        "x": "la distanza dal centro",
+        "h": "l'altezza dell'arco sopra i suoi piedi",
+        "a": "il parametro della catenaria",
+        "e": "a che distanza dal suo centro la linea delle pressioni attraversa il giunto",
+        "m": "il momento di tutte le forze a sinistra del giunto rispetto al suo centro",
+        "n": "la forza attraverso il giunto",
+        "t": "lo spessore delle pietre",
+        "lambda": "di quanto la linea si scosta al massimo dal centro, come frazione del mezzo spessore"
+      },
+      "sweet": {
+        "chain": "La forma migliore per un arco è una catena appesa, capovolta – Robert Hooke lo annotò nel 1675, e Antoni Gaudí progettò con catene appese. Nell'arco a catenaria la linea delle pressioni sotto il proprio peso resta al centro delle pietre, a meno di un centesimo del mezzo spessore, qualunque sia lo spessore.",
+        "semicircle": "Il semicerchio non ha quella forma. Sta in piedi solo se le sue pietre sono spesse almeno il 10,75 % del suo raggio – il 10,7 % con sedici pietre. Con 10 cm su un metro si rompe; un'ogiva della stessa luce e spessore sta in piedi.",
+        "load": "Un carico sposta la linea delle pressioni. Posto al quarto della luce, rompe il semicerchio di 25 cm già all'80 % del suo stesso peso, l'arco a catenaria della stessa altezza solo al 141 %."
+      },
+      "computed": {
+        "system": "L'arco è tagliato in pietre di uguale lunghezza, con i giunti di traverso alla linea mediana; ogni pietra pesa quanto il suo quadrilatero e preme nel suo baricentro. In ogni giunto la compressione e il momento dipendono linearmente dalla spinta, dalla reazione verticale e dal momento all'appoggio; la pagina ritaglia fra tutti i valori possibili quelli che attraversano ogni giunto dentro la pietra, e cerca per bisezione il λ più piccolo. Il test trova per il semicerchio lo spessore minimo del 10,75 % del raggio che Milankovitch calcolò nel 1907.",
+        "left_out": "Tralasciati: lo scivolamento delle pietre (l'attrito tiene), il loro schiacciamento (sono abbastanza resistenti), il cedimento delle spalle. La pagina mostra dove un arco si apre, non come cade."
       }
     }
   }

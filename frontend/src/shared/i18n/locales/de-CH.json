@@ -115,6 +115,7 @@
       "angular_momentum": "Drehimpuls",
       "energy": "Energie",
       "oscillation": "Schwingung",
+      "equilibrium": "Gleichgewicht",
       "flow": "Strömung",
       "induction": "Induktion",
       "perception": "Wahrnehmung"
@@ -265,6 +266,12 @@
         "title": "Das Kreiselrad",
         "summary": "Ein schweres Rad hängt an einem Ende seiner Achse an einem Faden. Steht es still, fällt es; dreht es sich, bleibt es oben und wandert langsam im Kreis.",
         "question": "Warum fällt ein drehendes Rad nicht herunter, sondern weicht zur Seite aus?"
+      },
+      "arch": {
+        "short": "Kette und Bogen",
+        "title": "Die Kette und der Bogen",
+        "summary": "Ein Bogen aus losen Steinen hält ohne Mörtel – wenn er die richtige Form hat. Eine hängende Kette zeigt sie, auf den Kopf gestellt.",
+        "question": "Warum steht ein Bogen aus losen Steinen, und warum fällt ein zu dünner ein?"
       }
     },
     "chair": {
@@ -2195,6 +2202,62 @@
       "computed": {
         "system": "Das Rad ist ein symmetrischer Kreisel mit festem Punkt, dem Ende der Achse am Faden; seine Masse sitzt im Reifen. Nach Lagrange bleiben zwei Drehimpulse erhalten, der um die Achse und der um den Faden; schrittweise gerechnet wird nur die Neigung, mit Runge–Kutta in Schritten von einer Millisekunde. Der Test prüft die Energie, die gleichmässige Wanderung und wie tief die Achse sinkt, gegen die Rechnung aus den Erhaltungsgrössen allein.",
         "left_out": "Weggelassen: dass der Faden selbst pendelt und sich dehnt (sein Ende ist der feste Punkt), die Reibung im Lager und am Faden, die Luft. Speichen und Nabe zählen neben dem Reifen nicht."
+      }
+    },
+    "arch": {
+      "at": {
+        "stones": "Aus losen Steinen, ohne Mörtel, wird ein Bogen gebaut. Steht der letzte Stein in der Mitte, trägt sich der Bogen selbst und dazu noch eine Last.",
+        "chain": "Daneben hängt eine Kette zwischen zwei Haken. Auf den Kopf gestellt, ist ihre Form die beste Form für einen Bogen."
+      },
+      "view": "Der Bogen von vorn: die Steine, die Stützlinie, die Fugen, an denen er sich zuerst öffnen würde, und die Last",
+      "play": {
+        "title": "Einen Bogen bauen",
+        "hint": "Machen Sie den Halbkreis dünner, bis er bricht, und wechseln Sie dann zum Kettenbogen. Stellen Sie eine Last darauf und schieben Sie sie hin und her.",
+        "shape": "Form",
+        "shapes": {
+          "semicircle": "Halbkreis",
+          "pointed": "Spitzbogen",
+          "catenary": "Kettenbogen"
+        },
+        "thickness": "Dicke der Steine",
+        "thickness_hint": "Von der Innen- zur Aussenseite des Bogens; die Spannweite beträgt 2 m.",
+        "stones": "Anzahl Steine",
+        "load": "Last",
+        "load_hint": "Gemessen am Gewicht des Bogens selbst.",
+        "at": "Lage der Last",
+        "at_hint": "Von der Mitte aus: −100 % am linken, 100 % am rechten Fuss.",
+        "chain": "Kette zeigen",
+        "chain_hint": "Die hängende Kette, auf den Kopf gestellt, durch die beiden Füsse und so hoch wie der Bogen.",
+        "safety": "Sicherheit",
+        "thrust": "Schub am Fuss",
+        "weight": "Gewicht des Bogens",
+        "stands": "Der Bogen steht: Die Stützlinie bleibt überall im Stein.",
+        "falls": "Der Bogen bricht: Keine Stützlinie bleibt überall im Stein. An den roten Fugen öffnet er sich."
+      },
+      "model": {
+        "intro": "Ein Stein drückt nur, er zieht nicht. Ein Bogen aus losen Steinen steht darum, solange jede Fuge zusammengedrückt wird und die Linie, entlang der der Druck läuft – die Stützlinie –, jede Fuge innerhalb des Steins kreuzt.",
+        "chain": "Die hängende Kette, auf den Kopf gestellt: Sie wird nur entlang ihrer selbst gezogen. Ein Bogen dieser Form wird nur entlang seiner selbst gedrückt.",
+        "joint": "Wo die Stützlinie die Fuge j kreuzt: das Drehmoment aller Kräfte links der Fuge um ihre Mitte, geteilt durch die Kraft quer durch die Fuge. Beides hängt vom Schub am Fuss ab, und den sucht die Seite so, dass die Linie möglichst in der Mitte bleibt.",
+        "stands": "Der Bogen steht, wenn eine Linie jede Fuge innerhalb des Steins kreuzt. Das kleinste λ, für das es eine solche Linie gibt, sagt, wie knapp: 1/λ ist die Sicherheit."
+      },
+      "symbols": {
+        "x": "der Abstand von der Mitte",
+        "h": "die Höhe des Bogens über seinen Füssen",
+        "a": "der Parameter der Kettenlinie",
+        "e": "wie weit die Stützlinie die Fuge neben ihrer Mitte kreuzt",
+        "m": "das Drehmoment aller Kräfte links der Fuge um ihre Mitte",
+        "n": "die Kraft quer durch die Fuge",
+        "t": "die Dicke der Steine",
+        "lambda": "wie weit die Linie höchstens von der Mitte abweicht, als Anteil der halben Dicke"
+      },
+      "sweet": {
+        "chain": "Die beste Form eines Bogens ist eine hängende Kette, umgedreht – so hat Robert Hooke es 1675 notiert, und Antoni Gaudí hat mit hängenden Ketten entworfen. Im Kettenbogen bleibt die Stützlinie unter dem eigenen Gewicht in der Mitte der Steine, um weniger als ein Hundertstel der halben Dicke daneben, wie dick die Steine auch sind.",
+        "semicircle": "Der Halbkreis hat diese Form nicht. Er steht nur, wenn seine Steine mindestens 10,75 % so dick sind wie sein Radius – 10,7 % bei sechzehn Steinen. Mit 10 cm auf einen Meter bricht er; ein Spitzbogen gleicher Spannweite und Dicke steht.",
+        "load": "Eine Last verschiebt die Stützlinie. Steht sie am Viertelpunkt, bricht der Halbkreis mit 25 cm Dicke schon bei 80 % seines eigenen Gewichts, der Kettenbogen gleicher Höhe erst bei 141 %."
+      },
+      "computed": {
+        "system": "Der Bogen wird in gleich lange Steine geschnitten, die Fugen quer zur Mittellinie; jeder Stein wiegt so viel wie sein Viereck und drückt in dessen Schwerpunkt. Für jede Fuge hängen Druck und Drehmoment linear vom Schub, vom Auflager und von dessen Drehmoment ab; die Seite schneidet aus allen möglichen Werten jene heraus, die jede Fuge im Stein kreuzen, und sucht durch Halbieren das kleinste λ. Der Test findet für den Halbkreis die kleinste Dicke von 10,75 % des Radius, die Milankovitch 1907 berechnet hat.",
+        "left_out": "Weggelassen: das Rutschen der Steine (die Reibung hält), ihr Zerdrücken (sie sind fest genug), das Nachgeben der Widerlager. Die Seite zeigt, wo ein Bogen aufbricht, nicht, wie er fällt."
       }
     }
   }

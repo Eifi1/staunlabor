@@ -901,9 +901,10 @@ describe("the gyroscope wheel's port", () => {
 describe("the arch's port", () => {
   it("cuts the stones and finds the thrust line as the engine does", () => {
     for (const c of cases.arch) {
-      expect(differences(c.joints, arch.joints(c.arch))).toEqual([]);
-      expect(differences(c.blocks, arch.blocks(c.arch))).toEqual([]);
-      expect(differences(c.thrust, arch.thrust(c.arch, c.load))).toEqual([]);
+      const stone = c.arch as arch.Arch;
+      expect(differences(c.joints, arch.joints(stone))).toEqual([]);
+      expect(differences(c.blocks, arch.blocks(stone))).toEqual([]);
+      expect(differences(c.thrust, arch.thrust(stone, c.load))).toEqual([]);
     }
   });
 });

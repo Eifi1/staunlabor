@@ -115,6 +115,7 @@
       "angular_momentum": "Momento angular",
       "energy": "Energía",
       "oscillation": "Oscilación",
+      "equilibrium": "Equilibrio",
       "flow": "Fluidos",
       "induction": "Inducción",
       "perception": "Percepción"
@@ -265,6 +266,12 @@
         "title": "La rueda giroscópica",
         "summary": "Una rueda pesada cuelga de un hilo por un extremo de su eje. Quieta, cae; girando, se mantiene arriba y da vueltas despacio en círculo.",
         "question": "¿Por qué una rueda que gira no se cae, sino que se desvía hacia un lado?"
+      },
+      "arch": {
+        "short": "Cadena y arco",
+        "title": "La cadena y el arco",
+        "summary": "Un arco de piedras sueltas se sostiene sin mortero – si tiene la forma justa. Una cadena colgante la muestra, del revés.",
+        "question": "¿Por qué se sostiene un arco de piedras sueltas, y por qué se cae uno demasiado delgado?"
       }
     },
     "chair": {
@@ -2195,6 +2202,62 @@
       "computed": {
         "system": "La rueda es un trompo simétrico con un punto fijo, el extremo del eje en el hilo; su masa está en el aro. Según Lagrange se conservan dos momentos angulares, alrededor del eje y alrededor del hilo; solo se calcula paso a paso la inclinación, con Runge–Kutta en pasos de un milisegundo. La prueba comprueba la energía, el giro uniforme y cuánto baja el eje frente al cálculo a partir de las magnitudes conservadas.",
         "left_out": "Se deja fuera: que el propio hilo oscila y se estira (su extremo es el punto fijo), la fricción en el cojinete y en el hilo, el aire. Radios y buje no cuentan junto al aro."
+      }
+    },
+    "arch": {
+      "at": {
+        "stones": "Con piedras sueltas, sin mortero, se construye un arco. Una vez colocada la última piedra en el centro, el arco se sostiene solo y además lleva una carga.",
+        "chain": "Al lado cuelga una cadena entre dos ganchos. Puesta del revés, su forma es la mejor forma para un arco."
+      },
+      "view": "El arco de frente: las piedras, la línea de presiones, las juntas por donde se abriría primero y la carga",
+      "play": {
+        "title": "Construir un arco",
+        "hint": "Haga el semicírculo más delgado hasta que se rompa y cambie luego al arco de cadena. Ponga una carga encima y desplácela.",
+        "shape": "Forma",
+        "shapes": {
+          "semicircle": "Semicírculo",
+          "pointed": "Ojival",
+          "catenary": "Arco de cadena"
+        },
+        "thickness": "Grosor de las piedras",
+        "thickness_hint": "Del interior al exterior del arco; la luz es de 2 m.",
+        "stones": "Número de piedras",
+        "load": "Carga",
+        "load_hint": "Medida respecto al peso del propio arco.",
+        "at": "Posición de la carga",
+        "at_hint": "Desde el centro: −100 % en el pie izquierdo, 100 % en el derecho.",
+        "chain": "Mostrar la cadena",
+        "chain_hint": "La cadena colgante, del revés, por los dos pies y tan alta como el arco.",
+        "safety": "Seguridad",
+        "thrust": "Empuje en el pie",
+        "weight": "Peso del arco",
+        "stands": "El arco se sostiene: la línea de presiones queda dentro de la piedra en todas partes.",
+        "falls": "El arco se rompe: ninguna línea de presiones queda dentro de la piedra en todas partes. Se abre en las juntas rojas."
+      },
+      "model": {
+        "intro": "Una piedra empuja, no tira. Por eso un arco de piedras sueltas se sostiene mientras cada junta esté comprimida y la línea por la que corre la presión – la línea de presiones – cruce cada junta dentro de la piedra.",
+        "chain": "La cadena colgante, del revés: solo se tira de ella a lo largo de sí misma. Un arco de esta forma solo se comprime a lo largo de sí mismo.",
+        "joint": "Dónde cruza la línea de presiones la junta j: el momento de todas las fuerzas a la izquierda de la junta respecto a su centro, dividido por la fuerza a través de la junta. Ambos dependen del empuje en el pie, que la página busca para que la línea quede lo más centrada posible.",
+        "stands": "El arco se sostiene si alguna línea cruza cada junta dentro de la piedra. El menor λ para el que existe tal línea dice por cuán poco: 1/λ es la seguridad."
+      },
+      "symbols": {
+        "x": "la distancia al centro",
+        "h": "la altura del arco sobre sus pies",
+        "a": "el parámetro de la catenaria",
+        "e": "a qué distancia de su centro cruza la línea de presiones la junta",
+        "m": "el momento de todas las fuerzas a la izquierda de la junta respecto a su centro",
+        "n": "la fuerza a través de la junta",
+        "t": "el grosor de las piedras",
+        "lambda": "cuánto se aparta como mucho la línea del centro, como fracción de medio grosor"
+      },
+      "sweet": {
+        "chain": "La mejor forma para un arco es una cadena colgante del revés – Robert Hooke lo anotó en 1675, y Antoni Gaudí diseñó con cadenas colgantes. En el arco de cadena, la línea de presiones bajo su propio peso queda en el centro de las piedras, a menos de una centésima de medio grosor, sea cual sea el grosor.",
+        "semicircle": "El semicírculo no tiene esa forma. Solo se sostiene si sus piedras tienen al menos un 10,75 % del grosor de su radio – un 10,7 % con dieciséis piedras. Con 10 cm para un metro se rompe; un arco ojival de la misma luz y grosor se sostiene.",
+        "load": "Una carga desplaza la línea de presiones. Colocada en el punto del cuarto, rompe el semicírculo de 25 cm ya con el 80 % de su propio peso; el arco de cadena de la misma altura, solo con el 141 %."
+      },
+      "computed": {
+        "system": "El arco se corta en piedras de igual longitud, con las juntas transversales a la línea media; cada piedra pesa lo que su cuadrilátero y empuja en su centroide. En cada junta, la compresión y el momento dependen linealmente del empuje, de la reacción vertical y del momento en el apoyo; la página recorta de todos los valores posibles los que cruzan cada junta dentro de la piedra, y busca por bisección el menor λ. La prueba encuentra para el semicírculo el grosor mínimo del 10,75 % del radio que Milankovitch calculó en 1907.",
+        "left_out": "Se deja fuera: el deslizamiento de las piedras (el rozamiento aguanta), su aplastamiento (son lo bastante fuertes), la cesión de los estribos. La página muestra dónde se abre un arco, no cómo cae."
       }
     }
   }

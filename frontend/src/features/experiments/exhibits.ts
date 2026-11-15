@@ -33,11 +33,13 @@ export type Exhibit =
   | "cradle"
   | "well"
   | "resonance"
-  | "gyroscope";
+  | "gyroscope"
+  | "arch";
 
 /** What an exhibit is about, as a reader would look for it: one word each,
  *  and an exhibit may be about two. */
-export type Topic = "momentum" | "angular_momentum" | "energy" | "oscillation" | "flow" | "induction" | "perception";
+export type Topic =
+  "momentum" | "angular_momentum" | "energy" | "oscillation" | "equilibrium" | "flow" | "induction" | "perception";
 
 /** The order the overview's chips stand in: the mechanics first, then the rest. */
 export const TOPICS: readonly Topic[] = [
@@ -45,6 +47,7 @@ export const TOPICS: readonly Topic[] = [
   "angular_momentum",
   "energy",
   "oscillation",
+  "equilibrium",
   "flow",
   "induction",
   "perception",
@@ -201,6 +204,13 @@ export const EXHIBITS: readonly ExhibitEntry[] = [
     path: "/gyroscope",
     topics: ["angular_momentum"],
     lessons: ["second_order", "numerics"],
+    since: "2026-12-01",
+  },
+  {
+    exhibit: "arch",
+    path: "/arch",
+    topics: ["equilibrium"],
+    lessons: [],
     since: "2026-12-01",
   },
 ];

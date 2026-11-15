@@ -115,6 +115,7 @@
       "angular_momentum": "Angular momentum",
       "energy": "Energy",
       "oscillation": "Oscillation",
+      "equilibrium": "Equilibrium",
       "flow": "Flow",
       "induction": "Induction",
       "perception": "Perception"
@@ -265,6 +266,12 @@
         "title": "The gyroscope wheel",
         "summary": "A heavy wheel hangs on a string by one end of its axle. Still, it falls; spinning, it stays up and wanders slowly round in a circle.",
         "question": "Why does a spinning wheel not fall, but move sideways?"
+      },
+      "arch": {
+        "short": "Chain and arch",
+        "title": "The chain and the arch",
+        "summary": "An arch of loose stones stands without mortar – if its shape is right. A hanging chain shows the shape, upside down.",
+        "question": "Why does an arch of loose stones stand, and why does one too thin fall?"
       }
     },
     "chair": {
@@ -2195,6 +2202,62 @@
       "computed": {
         "system": "The wheel is a symmetric top with a fixed point, the axle's end on the string; its mass sits in the hoop. By Lagrange two angular momenta are kept, about the axle and about the string; only the tilt is stepped, by Runge–Kutta in steps of a millisecond. The test checks the energy, the steady wandering, and how deep the axle sinks against the count from the kept quantities alone.",
         "left_out": "Left out: that the string itself swings and stretches (its end is the fixed point), friction in the bearing and at the string, air. Spokes and hub count for nothing beside the hoop."
+      }
+    },
+    "arch": {
+      "at": {
+        "stones": "An arch is built of loose stones, without mortar. Once the last stone is set in the middle, the arch carries itself and a load besides.",
+        "chain": "Next to it a chain hangs between two hooks. Turned upside down, its shape is the best shape for an arch."
+      },
+      "view": "The arch from the front: the stones, the thrust line, the joints where it would open first, and the load",
+      "play": {
+        "title": "Build an arch",
+        "hint": "Make the semicircle thinner until it breaks, then switch to the chain's arch. Put a load on it and slide it to and fro.",
+        "shape": "Shape",
+        "shapes": {
+          "semicircle": "Semicircle",
+          "pointed": "Pointed",
+          "catenary": "Chain's arch"
+        },
+        "thickness": "The stones' thickness",
+        "thickness_hint": "From the inside of the arch to its outside; the span is 2 m.",
+        "stones": "Number of stones",
+        "load": "Load",
+        "load_hint": "Measured against the arch's own weight.",
+        "at": "Where the load stands",
+        "at_hint": "From the middle: −100 % at the left foot, 100 % at the right.",
+        "chain": "Show the chain",
+        "chain_hint": "The hanging chain, upside down, through both feet and as high as the arch.",
+        "safety": "Safety",
+        "thrust": "Push at the foot",
+        "weight": "The arch's weight",
+        "stands": "The arch stands: the thrust line stays in the stone everywhere.",
+        "falls": "The arch breaks: no thrust line stays in the stone everywhere. It opens at the red joints."
+      },
+      "model": {
+        "intro": "A stone pushes, it does not pull. So an arch of loose stones stands as long as every joint is pressed together and the line along which the pressing runs – the thrust line – crosses every joint inside the stone.",
+        "chain": "The hanging chain, upside down: it is pulled only along itself. An arch of this shape is pressed only along itself.",
+        "joint": "Where the thrust line crosses joint j: the torque of all forces left of the joint about its middle, divided by the force across the joint. Both depend on the push at the foot, which the page seeks so that the line stays as near the middle as it can.",
+        "stands": "The arch stands if some line crosses every joint inside the stone. The smallest λ for which such a line exists says how narrowly: 1/λ is the safety."
+      },
+      "symbols": {
+        "x": "the distance from the middle",
+        "h": "the arch's height above its feet",
+        "a": "the catenary's parameter",
+        "e": "how far beside its middle the thrust line crosses the joint",
+        "m": "the torque of all forces left of the joint about its middle",
+        "n": "the force across the joint",
+        "t": "the stones' thickness",
+        "lambda": "how far the line strays from the middle at most, as a share of half the thickness"
+      },
+      "sweet": {
+        "chain": "The best shape for an arch is a hanging chain, upside down – Robert Hooke noted it in 1675, and Antoni Gaudí designed with hanging chains. In the chain's arch the thrust line under its own weight stays in the middle of the stones, less than a hundredth of half the thickness off, however thick the stones.",
+        "semicircle": "The semicircle does not have that shape. It stands only if its stones are at least 10.75 % as thick as its radius – 10.7 % with sixteen stones. At 10 cm on a metre it breaks; a pointed arch of the same span and thickness stands.",
+        "load": "A load shifts the thrust line. Standing at the quarter point, it breaks the 25 cm semicircle at only 80 % of its own weight, the chain's arch of the same height not until 141 %."
+      },
+      "computed": {
+        "system": "The arch is cut into stones of equal length, the joints across the centre line; each stone weighs as much as its quadrilateral and presses at its centroid. At every joint the pressing and the torque depend linearly on the push, the lift and the turning at the support; the page cuts from all possible values those that cross every joint inside the stone, and seeks the smallest λ by halving. The test finds for the semicircle the least thickness of 10.75 % of its radius that Milankovitch computed in 1907.",
+        "left_out": "Left out: the stones sliding (friction holds), their crushing (they are strong enough), the abutments giving way. The page shows where an arch breaks open, not how it falls."
       }
     }
   }
