@@ -33,6 +33,7 @@ from eifi1_server_kit.limiter import charge
 from fastapi import APIRouter, Depends, Request
 
 from staunlabor.domain.experiments import (
+    EXHIBIT_PLATES,
     METER_RANGE_A,
     Ball,
     BallStack,
@@ -57,9 +58,11 @@ from staunlabor.domain.experiments import (
     LevitationBase,
     LevitationTop,
     Magnet,
+    MagnetColumn,
     MaxwellWheel,
     PegPendulum,
     PendulumWave,
+    Plate,
     Platform,
     Race,
     ResonanceRack,
@@ -109,6 +112,7 @@ from staunlabor.domain.schemas.experiments import (
     LevitationIn,
     MaxwellWheelIn,
     PegPendulumIn,
+    PlatesIn,
     PlatformExhibitIn,
     PlatformFiguresOut,
     PlatformIn,
@@ -177,6 +181,9 @@ async def defaults() -> ExperimentsDefaultsOut:
         arch=StoneArchIn.model_validate(StoneArch()),
         levitation=LevitationIn.model_validate({"base": asdict(LevitationBase()), "top": asdict(LevitationTop())}),
         circuit=CircuitIn.model_validate(Circuit()),
+        plates=PlatesIn.model_validate(
+            {"column": asdict(MagnetColumn()), "exhibit": [asdict(p) for p in EXHIBIT_PLATES], "plate": asdict(Plate())}
+        ),
         chladni=ChladniPlateIn.model_validate(ChladniPlate()),
         meter_range_a=METER_RANGE_A,
         settle_s=PAGE_SETTLE_S,

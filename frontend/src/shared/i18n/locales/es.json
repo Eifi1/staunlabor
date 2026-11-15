@@ -297,6 +297,12 @@
         "title": "El circuito LC lento",
         "summary": "Un condensador se descarga a través de una gran bobina, y la corriente oscila de un lado a otro como un péndulo, más o menos una vez por segundo.",
         "question": "Un condensador y una bobina no tienen ninguna pieza móvil. ¿Por qué oscila entonces la corriente de un lado a otro?"
+      },
+      "plates": {
+        "short": "Placas que caen",
+        "title": "Las placas que caen",
+        "summary": "Placas de cobre y de aluminio bajan despacio entre imanes, como si cayeran por miel, aunque ninguna de ellas es magnética.",
+        "question": "Los imanes no atraen a ninguna de las placas. ¿Por qué caen entonces tan despacio?"
       }
     },
     "chair": {
@@ -2504,6 +2510,138 @@
         "omega_d": "la frecuencia angular con resistencia",
         "check": "Las pruebas de la página contrastan esta solución con las ecuaciones del circuito integradas paso a paso (Runge-Kutta) y con el balance de energía: lo que falta en el condensador y la bobina es exactamente el calor en la resistencia. Se calcula en su navegador, con las mismas fórmulas que el motor de cálculo de la página.",
         "left_out": "Se omiten las pérdidas del núcleo de hierro (su magnetización va con retraso y circulan corrientes parásitas en él) y su saturación: aquí la bobina tiene una inductancia fija. También las fugas de los condensadores. La resistencia del amperímetro está incluida en la del circuito. Los valores son un ejemplo: una bobina de 200 H con 90 Ω de hilo sobre un núcleo de hierro cerrado, 125 µF de condensadores de película (los electrolíticos no soportarían la inversión) y 10 V."
+      }
+    },
+    "plates": {
+      "at": {
+        "build": "Una alta columna de imanes en dos filas, norte y sur alternándose, con una ranura estrecha entre ellas. Al lado hay placas de cobre y de aluminio, una de ellas con ranuras cortadas.",
+        "drop": "Si se deja caer una placa en la ranura por arriba, baja con calma, como si cayera por miel. Y ninguna de las placas es magnética: si se acercan a los imanes, no son atraídas ni repelidas.",
+        "slots": "La placa ranurada pasa mucho más deprisa. Y el cobre, pesado, cae más deprisa que el aluminio, ligero."
+      },
+      "view": "La columna de imanes con cuatro ranuras y las cuatro placas dentro",
+      "closeup": "La placa «{{plate}}» de cerca, con sus corrientes de Foucault",
+      "short": {
+        "copper": "Cobre",
+        "aluminium": "Aluminio",
+        "slotted": "Alu ranurado",
+        "plastic": "Plástico"
+      },
+      "materials": {
+        "copper": "Cobre",
+        "aluminium": "Aluminio",
+        "brass": "Latón",
+        "plastic": "Plástico"
+      },
+      "play": {
+        "title": "Dejarlas caer",
+        "hint": "Las cuatro placas cuelgan arriba en sus ranuras. Suéltelas a la vez y observe cuál llega primero abajo. Al lado ve una placa de cerca, con sus corrientes de Foucault.",
+        "drop": "Soltar",
+        "pause": "Detener",
+        "run": "Seguir",
+        "top": "Volver arriba",
+        "speed": "Velocidad",
+        "speeds": {
+          "real": "Tiempo real",
+          "slow": "Cámara lenta (¼)"
+        },
+        "look": "De cerca",
+        "caption": "La columna de frente, esquemática: los imanes junto a cada ranura, norte y sur alternándose; {{drop}} cm de caída, {{field}} T en la ranura.",
+        "closeup_caption": "Viajando con la placa: detrás de ella pasan norte y sur, y en ella circulan las corrientes de Foucault.",
+        "none": "El plástico no conduce: no circula corriente y nada frena.",
+        "waiting": "Las placas cuelgan arriba en sus ranuras y esperan.",
+        "watch": "Cronómetro",
+        "legend": {
+          "north": "Polo norte",
+          "south": "Polo sur",
+          "anticlockwise": "Corriente en sentido antihorario",
+          "clockwise": "Corriente en sentido horario"
+        }
+      },
+      "change": {
+        "title": "Modificar la columna",
+        "hint": "Cambie los imanes y construya una placa propia. El campo y los imanes valen también para las cuatro placas de arriba.",
+        "field": "Campo en la ranura",
+        "field_hint": "La intensidad de los imanes en la ranura, donde es mayor.",
+        "magnet": "Altura de un imán",
+        "magnet_hint": "Un imán norte y uno sur juntos forman un periodo del campo.",
+        "thickness": "Grosor de la placa",
+        "thickness_hint": "Pruébelo: el grosor no cambia nada.",
+        "tooth": "Altura de un diente",
+        "tooth_hint": "La altura de cada franja entre dos ranuras.",
+        "material": "Material",
+        "slots": "Ranuras",
+        "cut": {
+          "whole": "sin",
+          "slotted": "con"
+        },
+        "status": "Su placa tarda {{time}} s en atravesar la columna: {{times}} veces más que sin imanes.",
+        "free": "Su placa cae libremente: {{time}} s a través de la columna.",
+        "reaction": "A esta velocidad el propio campo de las corrientes de Foucault ya no es pequeño: {{share}} % del de los imanes. El cálculo lo omite."
+      },
+      "figures": {
+        "fall": "Tiempo de caída",
+        "terminal": "Velocidad límite",
+        "share": "Del freno de una placa sin fin",
+        "mass": "Masa",
+        "heat": "Calor a velocidad límite",
+        "tau": "Constante de tiempo"
+      },
+      "chart": {
+        "teeth_hint": "Lo que tarda su placa en atravesar la columna cuando las ranuras la dividen en dientes, según la altura de un diente; a trazos, la placa entera y una placa sin imanes.",
+        "slotted": "con ranuras",
+        "whole": "placa entera",
+        "tooth": "Altura de un diente",
+        "plastic": "El plástico no se frena; no hay diagrama para él.",
+        "field_hint": "Lo que tardan las cuatro placas en atravesar la columna, según el campo en la ranura. El orden nunca cambia.",
+        "fall": "Tiempo de caída",
+        "field": "Campo en la ranura",
+        "free": "sin imanes"
+      },
+      "model": {
+        "intro": "Ninguna de las placas es magnética. Pero los metales conducen, y en un conductor que se mueve por un campo magnético aparece una tensión. Como norte y sur se alternan a lo largo de la columna, el campo en la placa cambia sin cesar y las corrientes circulan en bucles: corrientes de Foucault. Los imanes empujan sobre esas corrientes, siempre contra el movimiento.",
+        "current": "La corriente en la placa, impulsada por su movimiento a través del campo y por las cargas que se acumulan en sus bordes.",
+        "brake": "La fuerza de frenado crece con la velocidad. Depende de la conductividad, el grosor y la superficie de la placa y del cuadrado del campo; η es la parte que dejan los bordes y las ranuras.",
+        "newton": "El peso tira, el freno lo contiene.",
+        "terminal": "La placa acelera hasta que el freno sostiene su peso; entonces cae de forma uniforme. La masa y el freno crecen ambos con el grosor, que se anula. τ dice lo pronto que la placa alcanza su velocidad límite.",
+        "slots": "Una franja de altura h, infinitamente ancha: la media del campo sobre ella no impulsa corriente, solo lo que oscila en torno a ella. Si la franja es estrecha frente al periodo λ, casi no queda nada."
+      },
+      "symbols": {
+        "j": "densidad de corriente en la placa",
+        "sigma": "conductividad eléctrica",
+        "e": "campo eléctrico de las cargas de los bordes",
+        "v": "velocidad de la placa",
+        "b": "campo magnético",
+        "f": "fuerza de frenado",
+        "c": "constante media de frenado",
+        "d": "grosor de la placa",
+        "a": "superficie de la placa",
+        "b0": "campo en la ranura, donde es más fuerte",
+        "eta": "parte del freno de una placa sin fin",
+        "m": "masa de la placa",
+        "g": "aceleración de la gravedad",
+        "t": "tiempo",
+        "ve": "velocidad límite",
+        "rho": "densidad",
+        "tau": "constante de tiempo",
+        "h": "altura de una franja",
+        "lambda": "periodo del campo: un imán norte y uno sur"
+      },
+      "sweet": {
+        "aluminium": "El truco: el aluminio cae más despacio que el cobre, aunque el cobre conduce 1,6 veces mejor. Pero el cobre pesa 3,3 veces más, y el freno tiene que sostener el peso. En la exposición, el cobre tarda 5,9 s en los 90 cm y el aluminio 12,3 s: cae a 7,3 cm/s, algo menos de la mitad que el cobre con 15 cm/s.",
+        "thickness": "El grosor no importa: una placa el doble de gruesa pesa el doble, pero también se frena el doble. Tampoco el tamaño cuenta mucho; una placa más ancha pierde algo menos en sus bordes y cae un poco más despacio. El latón conduce una cuarta parte que el cobre y pesa casi lo mismo: cae 3,8 veces más deprisa.",
+        "slots": "Las ranuras cortan los caminos por los que las corrientes tendrían que dar la vuelta. Del freno de una placa sin fin, la placa entera conserva el 85 % y la ranurada solo el 12 %: cae 7 veces más deprisa, en 1,8 s. El plástico no conduce nada y cae libremente, en 0,43 s.",
+        "heat": "¿Adónde va la energía? Al calor: mientras la placa cae uniformemente, todo el trabajo de su peso se convierte en calor en ella, algo menos de medio vatio en el cobre. Alcanza su velocidad límite en pocas centésimas de segundo."
+      },
+      "computed": {
+        "system": "La placa es delgada y lenta: sus corrientes circulan en su plano y su propio campo es pequeño frente al de los imanes, menos del 4 % en la exposición. El campo de los imanes es un coseno a lo largo de la columna e igual a lo ancho. Para una pieza rectangular de metal las corrientes se conocen entonces exactamente, con sus cuatro bordes: el campo sobre la pieza se escribe como serie de cosenos, y cada término impulsa un bucle de corriente de intensidad conocida.",
+        "piece": "El freno de una pieza, promediado sobre su posición frente a los polos. La media del campo sobre la pieza falta en la suma: no impulsa corriente, solo carga los bordes. Una placa ranurada es la suma de sus dientes.",
+        "bm": "términos de la serie de cosenos del campo sobre la pieza",
+        "w": "anchura de la placa",
+        "q": "número de onda del término m",
+        "fall": "Con el freno medio la caída se conoce exactamente: la placa se acerca a su velocidad límite como una exponencial.",
+        "s": "distancia recorrida",
+        "check": "Las pruebas de la página suman el calor que producen las corrientes, punto por punto sobre la placa: es exactamente la potencia de frenado. Contrastan la caída con la ecuación del movimiento calculada paso a paso (Runge-Kutta), también con el freno tal como es en cada profundidad: en una placa entera varía un 5 %, lo que cambia el tiempo de caída en menos de una milésima. Se calcula en su navegador, con las mismas fórmulas que el motor de cálculo de la página.",
+        "left_out": "Se omite: la forma real del campo (aquí un coseno, igual a lo ancho, con una intensidad supuesta) y cómo se deshilacha en los extremos de la columna; el propio campo de las corrientes de Foucault; el nervio que mantiene unidos los dientes de una placa ranurada, que aquí se cuenta también como cortado; el aire, de modo que la placa de plástico cae libremente; el rozamiento con las guías. Los valores son una construcción supuesta: imanes de 20 mm de alto con 0,15 T en la ranura, 90 cm de caída, placas de 10 × 12 cm y 3 mm de grosor, de los metales puros."
       }
     }
   },

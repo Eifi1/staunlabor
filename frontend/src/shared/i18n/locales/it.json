@@ -297,6 +297,12 @@
         "title": "Il circuito LC lento",
         "summary": "Un condensatore si scarica attraverso una grande bobina – e la corrente oscilla avanti e indietro come un pendolo, circa una volta al secondo.",
         "question": "Un condensatore e una bobina non hanno parti mobili. Perché la corrente oscilla comunque avanti e indietro?"
+      },
+      "plates": {
+        "short": "Piastre che cadono",
+        "title": "Le piastre che cadono",
+        "summary": "Piastre di rame e di alluminio scendono lente tra i magneti, come attraverso il miele – benché nessuna sia magnetica.",
+        "question": "I magneti non attirano nessuna delle piastre. Perché allora cadono così lentamente?"
       }
     },
     "chair": {
@@ -2504,6 +2510,138 @@
         "omega_d": "la pulsazione con resistenza",
         "check": "I test della pagina confrontano questa soluzione con le equazioni del circuito integrate passo dopo passo (Runge-Kutta) e con il bilancio energetico: ciò che manca nel condensatore e nella bobina è esattamente il calore nella resistenza. Il calcolo avviene nel suo browser, con le stesse formule del motore di calcolo della pagina.",
         "left_out": "Tralasciati: le perdite nel nucleo di ferro (la sua magnetizzazione è in ritardo e vi circolano correnti parassite) e la sua saturazione; qui la bobina ha un’induttanza fissa. Così pure le perdite dei condensatori. La resistenza dell’amperometro è compresa in quella del circuito. I valori sono un esempio: una bobina da 200 H con 90 Ω di filo su un nucleo di ferro chiuso, 125 µF di condensatori a film (quelli elettrolitici non sopporterebbero l’inversione) e 10 V."
+      }
+    },
+    "plates": {
+      "at": {
+        "build": "Un’alta colonna di magneti in due file, nord e sud alternati, con una fessura stretta in mezzo. Accanto ci sono piastre di rame e di alluminio, una con delle fenditure.",
+        "drop": "Lasciata cadere nella fessura dall’alto, una piastra scende con calma, come attraverso il miele. Eppure nessuna piastra è magnetica: avvicinate ai magneti, non vengono né attratte né respinte.",
+        "slots": "La piastra con le fenditure passa molto più in fretta. E il rame, pesante, cade più in fretta dell’alluminio, leggero."
+      },
+      "view": "La colonna di magneti con quattro fessure e le quattro piastre dentro",
+      "closeup": "La piastra «{{plate}}» da vicino, con le sue correnti parassite",
+      "short": {
+        "copper": "Rame",
+        "aluminium": "Alluminio",
+        "slotted": "Alu con fenditure",
+        "plastic": "Plastica"
+      },
+      "materials": {
+        "copper": "Rame",
+        "aluminium": "Alluminio",
+        "brass": "Ottone",
+        "plastic": "Plastica"
+      },
+      "play": {
+        "title": "Lasciarle cadere",
+        "hint": "Le quattro piastre sono appese in cima alle fessure. Le lasci andare insieme e guardi quale arriva prima in fondo. Accanto vede una piastra da vicino, con le sue correnti parassite.",
+        "drop": "Lasciare",
+        "pause": "Fermare",
+        "run": "Continuare",
+        "top": "Di nuovo in cima",
+        "speed": "Velocità",
+        "speeds": {
+          "real": "Tempo reale",
+          "slow": "Rallentatore (¼)"
+        },
+        "look": "Da vicino",
+        "caption": "La colonna di fronte, schematica: i magneti accanto a ogni fessura, nord e sud alternati; {{drop}} cm di caduta, {{field}} T nella fessura.",
+        "closeup_caption": "Viaggiando con la piastra: dietro di lei passano nord e sud, dentro di lei girano le correnti parassite.",
+        "none": "La plastica non conduce: non passa corrente e niente frena.",
+        "waiting": "Le piastre sono appese in cima alle fessure e aspettano.",
+        "watch": "Cronometro",
+        "legend": {
+          "north": "Polo nord",
+          "south": "Polo sud",
+          "anticlockwise": "Corrente in senso antiorario",
+          "clockwise": "Corrente in senso orario"
+        }
+      },
+      "change": {
+        "title": "Modificare la colonna",
+        "hint": "Cambi i magneti e costruisca una piastra sua. Il campo e i magneti valgono anche per le quattro piastre sopra.",
+        "field": "Campo nella fessura",
+        "field_hint": "L’intensità dei magneti nella fessura, dove è massima.",
+        "magnet": "Altezza di un magnete",
+        "magnet_hint": "Un magnete nord e uno sud insieme formano un periodo del campo.",
+        "thickness": "Spessore della piastra",
+        "thickness_hint": "Provi: lo spessore non cambia niente.",
+        "tooth": "Altezza di un dente",
+        "tooth_hint": "Quanto è alta ogni striscia tra due fenditure.",
+        "material": "Materiale",
+        "slots": "Fenditure",
+        "cut": {
+          "whole": "senza",
+          "slotted": "con"
+        },
+        "status": "La sua piastra impiega {{time}} s ad attraversare la colonna – {{times}} volte più che senza magneti.",
+        "free": "La sua piastra cade libera: {{time}} s attraverso la colonna.",
+        "reaction": "A questa velocità il campo proprio delle correnti parassite non è più piccolo: {{share}} % di quello dei magneti. Il calcolo lo tralascia."
+      },
+      "figures": {
+        "fall": "Tempo di caduta",
+        "terminal": "Velocità limite",
+        "share": "Della frenata di una lastra infinita",
+        "mass": "Massa",
+        "heat": "Calore a velocità limite",
+        "tau": "Costante di tempo"
+      },
+      "chart": {
+        "teeth_hint": "Quanto impiega la sua piastra ad attraversare la colonna quando le fenditure la dividono in denti, secondo l’altezza di un dente; tratteggiate, la piastra intera e una piastra senza magneti.",
+        "slotted": "con fenditure",
+        "whole": "piastra intera",
+        "tooth": "Altezza di un dente",
+        "plastic": "La plastica non viene frenata; per lei non c’è diagramma.",
+        "field_hint": "Quanto impiegano le quattro piastre ad attraversare la colonna, secondo il campo nella fessura. L’ordine non cambia mai.",
+        "fall": "Tempo di caduta",
+        "field": "Campo nella fessura",
+        "free": "senza magneti"
+      },
+      "model": {
+        "intro": "Nessuna piastra è magnetica. Ma i metalli conducono, e in un conduttore che si muove in un campo magnetico nasce una tensione. Poiché nord e sud si alternano lungo la colonna, il campo nella piastra cambia di continuo e le correnti girano ad anello: le correnti parassite. I magneti spingono su queste correnti, sempre contro il moto.",
+        "current": "La corrente nella piastra, spinta dal suo moto attraverso il campo e dalle cariche che si raccolgono sui suoi bordi.",
+        "brake": "La forza frenante cresce con la velocità. Dipende da conducibilità, spessore e superficie della piastra e dal quadrato del campo; η è la parte che lasciano i bordi e le fenditure.",
+        "newton": "Il peso tira, il freno trattiene.",
+        "terminal": "La piastra accelera finché il freno ne regge il peso; poi cade in modo uniforme. Massa e freno crescono entrambi con lo spessore, che si elide. τ dice quanto presto la piastra raggiunge la velocità limite.",
+        "slots": "Una striscia alta h, infinitamente larga: la media del campo su di essa non spinge corrente, solo ciò che varia intorno. Se la striscia è stretta rispetto al periodo λ, non resta quasi niente."
+      },
+      "symbols": {
+        "j": "densità di corrente nella piastra",
+        "sigma": "conducibilità elettrica",
+        "e": "campo elettrico delle cariche sui bordi",
+        "v": "velocità della piastra",
+        "b": "campo magnetico",
+        "f": "forza frenante",
+        "c": "costante di frenata media",
+        "d": "spessore della piastra",
+        "a": "superficie della piastra",
+        "b0": "campo nella fessura, dove è più forte",
+        "eta": "parte della frenata di una lastra infinita",
+        "m": "massa della piastra",
+        "g": "accelerazione di gravità",
+        "t": "tempo",
+        "ve": "velocità limite",
+        "rho": "densità",
+        "tau": "costante di tempo",
+        "h": "altezza di una striscia",
+        "lambda": "periodo del campo: un magnete nord e uno sud"
+      },
+      "sweet": {
+        "aluminium": "Il trucco: l’alluminio cade più lentamente del rame, benché il rame conduca 1,6 volte meglio. Ma il rame pesa 3,3 volte tanto, e il freno deve reggere il peso. Nell’exhibit il rame impiega 5,9 s per i 90 cm, l’alluminio 12,3 s: cade a 7,3 cm/s, poco meno della metà del rame a 15 cm/s.",
+        "thickness": "Lo spessore non conta: una piastra spessa il doppio pesa il doppio, ma viene anche frenata il doppio. Nemmeno la grandezza conta molto; una piastra più larga perde un po’ meno ai bordi e cade un po’ più lentamente. L’ottone conduce un quarto del rame e pesa quasi altrettanto: cade 3,8 volte più in fretta.",
+        "slots": "Le fenditure tagliano alle correnti le vie per cui dovrebbero invertire il giro. Della frenata di una lastra infinita la piastra intera conserva l’85 %, quella con le fenditure solo il 12 %: cade 7 volte più in fretta, in 1,8 s. La plastica non conduce affatto e cade libera, in 0,43 s.",
+        "heat": "Dove va l’energia? In calore: finché la piastra cade in modo uniforme, tutto il lavoro del suo peso diventa calore in lei, poco meno di mezzo watt per il rame. Raggiunge la velocità limite in pochi centesimi di secondo."
+      },
+      "computed": {
+        "system": "La piastra è sottile e lenta: le sue correnti scorrono nel suo piano e il loro campo è piccolo rispetto a quello dei magneti, meno del 4 % nell’exhibit. Il campo dei magneti è un coseno lungo la colonna e uguale sulla larghezza. Per un pezzo rettangolare di metallo le correnti sono allora note esattamente, con tutti e quattro i bordi: il campo sul pezzo si scrive come serie di coseni, e ogni termine spinge un anello di corrente di intensità nota.",
+        "piece": "La frenata di un pezzo, mediata sulla sua posizione rispetto ai poli. La media del campo sul pezzo manca nella somma: non spinge corrente, carica solo i bordi. Una piastra con fenditure è la somma dei suoi denti.",
+        "bm": "termini della serie di coseni del campo sul pezzo",
+        "w": "larghezza della piastra",
+        "q": "numero d’onda del termine m",
+        "fall": "Con la frenata media la caduta è nota esattamente: la piastra si avvicina alla velocità limite come un’esponenziale.",
+        "s": "spazio percorso",
+        "check": "I test della pagina sommano il calore prodotto dalle correnti, punto per punto sulla piastra: è esattamente la potenza frenante. Confrontano la caduta con l’equazione del moto calcolata passo per passo (Runge-Kutta), anche con la frenata com’è davvero a ogni profondità: per una piastra intera varia del 5 %, e il tempo di caduta cambia di meno di un millesimo. Il calcolo avviene nel suo browser, con le stesse formule del motore di calcolo della pagina.",
+        "left_out": "Tralasciato: la vera forma del campo (qui un coseno, uguale sulla larghezza, d’intensità supposta) e come si sfrangia alle estremità della colonna; il campo proprio delle correnti parassite; la costola che tiene insieme i denti di una piastra con fenditure, considerata qui anch’essa tagliata; l’aria, così la piastra di plastica cade libera; l’attrito sulle guide. I valori sono una costruzione supposta: magneti alti 20 mm con 0,15 T nella fessura, 90 cm di caduta, piastre di 10 × 12 cm e 3 mm di spessore, dei metalli puri."
       }
     }
   },

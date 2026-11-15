@@ -297,6 +297,12 @@
         "title": "Le circuit LC lent",
         "summary": "Un condensateur se décharge à travers une grosse bobine – et le courant oscille comme un pendule, environ une fois par seconde.",
         "question": "Un condensateur et une bobine n’ont aucune pièce mobile. Pourquoi le courant oscille-t-il quand même ?"
+      },
+      "plates": {
+        "short": "Plaques qui tombent",
+        "title": "Les plaques qui tombent",
+        "summary": "Des plaques de cuivre et d’aluminium descendent lentement entre des aimants, comme à travers du miel – alors qu’aucune n’est magnétique.",
+        "question": "Les aimants n’attirent aucune des plaques. Pourquoi tombent-elles pourtant si lentement ?"
       }
     },
     "chair": {
@@ -2504,6 +2510,138 @@
         "omega_d": "la pulsation avec résistance",
         "check": "Les tests de la page confrontent cette solution aux équations du circuit intégrées pas à pas (Runge-Kutta) et au bilan d’énergie : ce qui manque au condensateur et à la bobine est exactement la chaleur dans la résistance. Le calcul se fait dans votre navigateur, avec les mêmes formules que le moteur de calcul de la page.",
         "left_out": "Laissés de côté : les pertes du noyau de fer (son aimantation est en retard, et des courants de Foucault y circulent) et sa saturation ; la bobine a ici une inductance fixe. De même, les fuites des condensateurs. La résistance de l’ampèremètre est comptée dans celle du circuit. Les valeurs sont un exemple : une bobine de 200 H avec 90 Ω de fil sur un noyau de fer fermé, 125 µF de condensateurs à film (des électrolytiques ne supporteraient pas l’inversion) et 10 V."
+      }
+    },
+    "plates": {
+      "at": {
+        "build": "Une haute colonne d’aimants en deux rangées, nord et sud en alternance, séparées par une fente étroite. À côté, des plaques de cuivre et d’aluminium, dont une entaillée de fentes.",
+        "drop": "Lâchée dans la fente par le haut, une plaque descend tranquillement, comme à travers du miel. Pourtant aucune plaque n’est magnétique : approchées des aimants, elles ne sont ni attirées ni repoussées.",
+        "slots": "La plaque entaillée passe bien plus vite. Et le cuivre, lourd, tombe plus vite que l’aluminium, léger."
+      },
+      "view": "La colonne d’aimants avec quatre fentes et les quatre plaques dedans",
+      "closeup": "La plaque « {{plate}} » de près, avec ses courants de Foucault",
+      "short": {
+        "copper": "Cuivre",
+        "aluminium": "Aluminium",
+        "slotted": "Alu entaillé",
+        "plastic": "Plastique"
+      },
+      "materials": {
+        "copper": "Cuivre",
+        "aluminium": "Aluminium",
+        "brass": "Laiton",
+        "plastic": "Plastique"
+      },
+      "play": {
+        "title": "Les laisser tomber",
+        "hint": "Les quatre plaques sont suspendues en haut de leur fente. Lâchez-les ensemble et regardez laquelle arrive la première en bas. À côté, une plaque vue de près, avec ses courants de Foucault.",
+        "drop": "Lâcher",
+        "pause": "Arrêter",
+        "run": "Continuer",
+        "top": "Remonter",
+        "speed": "Vitesse",
+        "speeds": {
+          "real": "Temps réel",
+          "slow": "Ralenti (¼)"
+        },
+        "look": "De près",
+        "caption": "La colonne de face, schématique : les aimants à côté de chaque fente, nord et sud en alternance ; {{drop}} cm de chute, {{field}} T dans la fente.",
+        "closeup_caption": "En voyageant avec la plaque : derrière elle défilent nord et sud, en elle tournent les courants de Foucault.",
+        "none": "Le plastique ne conduit pas : aucun courant ne passe, rien ne freine.",
+        "waiting": "Les plaques sont suspendues en haut de leur fente et attendent.",
+        "watch": "Chronomètre",
+        "legend": {
+          "north": "Pôle nord",
+          "south": "Pôle sud",
+          "anticlockwise": "Courant dans le sens antihoraire",
+          "clockwise": "Courant dans le sens horaire"
+        }
+      },
+      "change": {
+        "title": "Modifier la colonne",
+        "hint": "Changez les aimants et construisez votre propre plaque. Le champ et les aimants valent aussi pour les quatre plaques ci-dessus.",
+        "field": "Champ dans la fente",
+        "field_hint": "L’intensité des aimants dans la fente, là où elle est la plus grande.",
+        "magnet": "Hauteur d’un aimant",
+        "magnet_hint": "Un aimant nord et un aimant sud forment ensemble une période du champ.",
+        "thickness": "Épaisseur de la plaque",
+        "thickness_hint": "Essayez : l’épaisseur ne change rien.",
+        "tooth": "Hauteur d’une dent",
+        "tooth_hint": "La hauteur de chaque bande entre deux fentes.",
+        "material": "Matériau",
+        "slots": "Fentes",
+        "cut": {
+          "whole": "sans",
+          "slotted": "avec"
+        },
+        "status": "Votre plaque met {{time}} s à traverser la colonne – {{times}} fois plus que sans aimants.",
+        "free": "Votre plaque tombe librement : {{time}} s à travers la colonne.",
+        "reaction": "À cette vitesse, le champ propre des courants de Foucault n’est plus petit : {{share}} % de celui des aimants. Le calcul le laisse de côté."
+      },
+      "figures": {
+        "fall": "Temps de chute",
+        "terminal": "Vitesse limite",
+        "share": "Du freinage d’une plaque infinie",
+        "mass": "Masse",
+        "heat": "Chaleur à vitesse limite",
+        "tau": "Constante de temps"
+      },
+      "chart": {
+        "teeth_hint": "Le temps que met votre plaque à traverser la colonne quand des fentes la découpent en dents, selon la hauteur d’une dent ; en pointillé, la plaque entière et une plaque sans aimants.",
+        "slotted": "avec fentes",
+        "whole": "plaque entière",
+        "tooth": "Hauteur d’une dent",
+        "plastic": "Le plastique n’est pas freiné ; il n’y a pas de diagramme pour lui.",
+        "field_hint": "Le temps que mettent les quatre plaques à traverser la colonne, selon le champ dans la fente. L’ordre ne change jamais.",
+        "fall": "Temps de chute",
+        "field": "Champ dans la fente",
+        "free": "sans aimants"
+      },
+      "model": {
+        "intro": "Aucune plaque n’est magnétique. Mais les métaux conduisent, et dans un conducteur qui se déplace dans un champ magnétique naît une tension. Comme nord et sud alternent le long de la colonne, le champ dans la plaque change sans cesse, et les courants tournent en boucles : les courants de Foucault. Les aimants poussent sur ces courants, toujours contre le mouvement.",
+        "current": "Le courant dans la plaque, poussé par son mouvement dans le champ et par les charges qui s’accumulent sur ses bords.",
+        "brake": "La force de freinage croît avec la vitesse. Elle dépend de la conductivité, de l’épaisseur et de la surface de la plaque, et du carré du champ ; η est la part que laissent les bords et les fentes.",
+        "newton": "Le poids tire, le frein retient.",
+        "terminal": "La plaque accélère jusqu’à ce que le frein porte son poids ; elle tombe alors régulièrement. La masse et le frein croissent tous deux avec l’épaisseur, qui s’annule. τ dit en combien de temps la plaque atteint sa vitesse limite.",
+        "slots": "Une bande de hauteur h, infiniment large : la moyenne du champ sur elle ne pousse aucun courant, seulement ce qui varie autour. Si la bande est étroite devant la période λ, il ne reste presque rien."
+      },
+      "symbols": {
+        "j": "densité de courant dans la plaque",
+        "sigma": "conductivité électrique",
+        "e": "champ électrique des charges des bords",
+        "v": "vitesse de la plaque",
+        "b": "champ magnétique",
+        "f": "force de freinage",
+        "c": "constante de freinage moyenne",
+        "d": "épaisseur de la plaque",
+        "a": "surface de la plaque",
+        "b0": "champ dans la fente, là où il est le plus fort",
+        "eta": "part du freinage d’une plaque infinie",
+        "m": "masse de la plaque",
+        "g": "accélération de la pesanteur",
+        "t": "temps",
+        "ve": "vitesse limite",
+        "rho": "masse volumique",
+        "tau": "constante de temps",
+        "h": "hauteur d’une bande",
+        "lambda": "période du champ : un aimant nord et un aimant sud"
+      },
+      "sweet": {
+        "aluminium": "L’astuce : l’aluminium tombe plus lentement que le cuivre, alors que le cuivre conduit 1,6 fois mieux. Mais le cuivre est 3,3 fois plus lourd, et le frein doit porter le poids. À l’exposition, le cuivre met 5,9 s pour les 90 cm, l’aluminium 12,3 s : il tombe à 7,3 cm/s, un peu moins de la moitié de la vitesse du cuivre, 15 cm/s.",
+        "thickness": "L’épaisseur ne compte pas : une plaque deux fois plus épaisse est deux fois plus lourde, mais aussi deux fois plus freinée. La taille ne compte guère non plus ; une plaque plus large perd un peu moins sur ses bords et tombe un peu plus lentement. Le laiton conduit quatre fois moins bien que le cuivre et pèse presque autant : il tombe 3,8 fois plus vite.",
+        "slots": "Les fentes coupent aux courants les chemins par lesquels ils devraient faire demi-tour. Du freinage d’une plaque infinie, la plaque entière garde 85 %, la plaque entaillée seulement 12 % : elle tombe 7 fois plus vite, en 1,8 s. Le plastique ne conduit pas du tout et tombe librement, en 0,43 s.",
+        "heat": "Où va l’énergie ? En chaleur : tant que la plaque tombe régulièrement, tout le travail de son poids devient chaleur en elle, un peu moins d’un demi-watt pour le cuivre. Elle atteint sa vitesse limite en quelques centièmes de seconde."
+      },
+      "computed": {
+        "system": "La plaque est mince et lente : ses courants circulent dans son plan, et leur propre champ est petit devant celui des aimants, moins de 4 % à l’exposition. Le champ des aimants est un cosinus le long de la colonne et le même sur la largeur. Pour une pièce rectangulaire de métal, les courants sont alors connus exactement, avec ses quatre bords : le champ sur la pièce s’écrit comme une série de cosinus, et chaque terme pousse une boucle de courant d’intensité connue.",
+        "piece": "Le freinage d’une pièce, moyenné sur sa position face aux pôles. La moyenne du champ sur la pièce manque dans la somme : elle ne pousse aucun courant, elle ne fait que charger les bords. Une plaque entaillée est la somme de ses dents.",
+        "bm": "termes de la série de cosinus du champ sur la pièce",
+        "w": "largeur de la plaque",
+        "q": "nombre d’onde du m-ième terme",
+        "fall": "Avec le frein moyen, la chute est connue exactement : la plaque s’approche de sa vitesse limite comme une exponentielle.",
+        "s": "distance parcourue",
+        "check": "Les tests de la page additionnent la chaleur que produisent les courants, point par point sur la plaque : c’est exactement la puissance de freinage. Ils confrontent la chute à l’équation du mouvement calculée pas à pas (Runge-Kutta), y compris avec le frein tel qu’il est à chaque profondeur : pour une plaque entière il varie de 5 %, ce qui change le temps de chute de moins d’un millième. Le calcul se fait dans votre navigateur, avec les mêmes formules que le moteur de calcul de la page.",
+        "left_out": "Laissé de côté : la vraie forme du champ (ici un cosinus, le même sur la largeur, d’intensité supposée) et son effilochage aux extrémités de la colonne ; le champ propre des courants de Foucault ; la nervure qui tient ensemble les dents d’une plaque entaillée, comptée ici comme coupée elle aussi ; l’air, si bien que la plaque de plastique tombe librement ; le frottement sur les guides. Les valeurs sont une construction supposée : aimants de 20 mm de haut avec 0,15 T dans la fente, 90 cm de chute, plaques de 10 × 12 cm et 3 mm d’épaisseur, en métaux purs."
       }
     }
   },

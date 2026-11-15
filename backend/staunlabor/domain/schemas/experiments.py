@@ -14,7 +14,7 @@ browser, held to the engine by ``engine-cases.json`` (``docs/experiments.md``).
 
 from __future__ import annotations
 
-from typing import Annotated
+from typing import Annotated, Literal
 
 from pydantic import BaseModel, ConfigDict, Field
 
@@ -760,6 +760,32 @@ class CircuitIn(_In):
     voltage_v: float = Field(gt=0, le=1000, default=10.0)
 
 
+# ── the falling plates ───────────────────────────────────────────────────────
+# No route: the page asks the port (``simulate/plates.ts``).
+
+
+class PlateColumnIn(_In):
+    field_t: float = Field(gt=0, le=1.5, default=0.15)
+    pitch_m: float = Field(ge=0.005, le=0.5, default=0.04)
+    drop_m: float = Field(ge=0.05, le=5, default=0.9)
+
+
+class PlateIn(_In):
+    material: Literal["copper", "aluminium", "brass", "plastic"] = "aluminium"
+    thickness_m: float = Field(gt=0, le=0.05, default=0.003)
+    tooth_m: float = Field(ge=0, le=0.5, default=0.0)
+    width_m: float = Field(ge=0.005, le=0.5, default=0.10)
+    height_m: float = Field(ge=0.005, le=0.5, default=0.12)
+    slot_m: float = Field(gt=0, le=0.02, default=0.002)
+
+
+class PlatesIn(_In):
+    column: PlateColumnIn
+    #: The four the exhibit has, in its order, and the one the page lets the reader build.
+    exhibit: list[PlateIn]
+    plate: PlateIn
+
+
 # ── the pages' starting point ────────────────────────────────────────────────
 
 
@@ -789,6 +815,7 @@ class ExperimentsDefaultsOut(_Out):
     arch: StoneArchIn
     levitation: LevitationIn
     circuit: CircuitIn
+    plates: PlatesIn
     chladni: ChladniPlateIn
     #: The exhibit's meter: digital, ± this many amperes.
     meter_range_a: float

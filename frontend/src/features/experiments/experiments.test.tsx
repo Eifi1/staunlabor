@@ -49,6 +49,7 @@ import { GyroscopePage } from "./gyroscope-page";
 import { ArchPage } from "./arch-page";
 import { LevitationPage } from "./levitation-page";
 import { CircuitPage } from "./circuit-page";
+import { PlatesPage } from "./plates-page";
 import { ChladniPage } from "./chladni-page";
 import { ballState, pitEntries, positionAt, raceLayout, swingAt } from "./race-views";
 import { run as runPit } from "./simulate/pit";
@@ -1106,5 +1107,40 @@ describe("the slow LC circuit", () => {
     ).toBeInTheDocument();
     fireEvent.change(screen.getByRole("slider", { name: E.circuit.change.resistance }), { target: { value: "3000" } });
     expect(await screen.findByText(E.circuit.change.creeps)).toBeInTheDocument();
+  });
+});
+
+describe("the falling plates", () => {
+  it("holds the plates at the top, lets them fall, and brings them back", async () => {
+    renderWithProviders(<PlatesPage />);
+    expect(await screen.findByRole("img", { name: E.plates.view })).toBeInTheDocument();
+    expect(
+      screen.getByRole("img", { name: E.plates.closeup.replace("{{plate}}", E.plates.short.copper) }),
+    ).toBeInTheDocument();
+    expect(screen.getByText(E.plates.play.waiting)).toBeInTheDocument();
+    fireEvent.click(screen.getByRole("button", { name: E.plates.play.drop }));
+    expect(screen.queryByText(E.plates.play.waiting)).not.toBeInTheDocument();
+    fireEvent.click(screen.getByRole("button", { name: E.plates.play.pause }));
+    expect(screen.getByRole("button", { name: E.plates.play.run })).toBeInTheDocument();
+    fireEvent.click(screen.getByRole("button", { name: E.plates.play.top }));
+    expect(screen.getByRole("button", { name: E.plates.play.drop })).toBeInTheDocument();
+    const look = screen.getByRole("radiogroup", { name: E.plates.play.look });
+    fireEvent.click(within(look).getByRole("radio", { name: E.plates.short.plastic }));
+    expect(screen.getByText(E.plates.play.none)).toBeInTheDocument();
+    expect(screen.getAllByLabelText(E.equation.symbols).length).toBeGreaterThanOrEqual(5);
+  });
+
+  it("times the reader's own plate, and a plastic one falls freely", async () => {
+    renderWithProviders(<PlatesPage />);
+    await screen.findByRole("img", { name: E.plates.view });
+    // The build starts as the exhibit's aluminium: 12.3 s through the column.
+    expect(
+      screen.getByText(new RegExp(`^${E.plates.change.status.split("{{time}}")[0]}12[.,]3 s`)),
+    ).toBeInTheDocument();
+    const material = screen.getByRole("radiogroup", { name: E.plates.change.material });
+    fireEvent.click(within(material).getByRole("radio", { name: E.plates.materials.brass }));
+    fireEvent.click(within(material).getByRole("radio", { name: E.plates.materials.plastic }));
+    expect(await screen.findByText(E.plates.change.free.replace("{{time}}", "0.43"))).toBeInTheDocument();
+    expect(screen.getByText(E.plates.chart.plastic)).toBeInTheDocument();
   });
 });

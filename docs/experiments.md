@@ -84,10 +84,11 @@ quarter for one that came right after yesterday's in the round before. Those
 are the second series' maluses (Marcel, 2026-11-15: "Tagesminus sollte weniger
 zählen"); the first series drew with a quarter and a tenth, and its rounds keep
 them, so the days the live site has shown keep their exhibit. Measured over
-400 rounds of all 27 (a plain shuffle, then the old maluses, in brackets):
-repeated pairs 0.46 a round (1.25; 0.31), repeated triples 0.013 (0.058;
-0.008), neighbours sharing a topic 26.9 days in a hundred (35.4; 21.2); with
-26, before the LC circuit, 0.44 and 26.4. With eleven exhibits about energy,
+400 rounds of all 28 (a plain shuffle, then the old maluses, in brackets):
+repeated pairs 0.48 a round (1.24; 0.28), repeated triples 0.030 (0.078;
+0.003), neighbours sharing a topic 25.1 days in a hundred (33.6; 19.3); with
+27, before the falling plates, 0.46 and 26.9, with 26, before the LC circuit,
+0.44 and 26.4. With eleven exhibits about energy,
 nine about oscillation and eight about angular momentum, the quarter held a
 topic back on most days.
 They were measured over 2000 rounds against a plain shuffle (`daily.ts` has
@@ -101,8 +102,8 @@ elephant, are a 3 % draw that came up. With the second series the bonus weighs
 less, and less with every exhibit: with eight it cut the turns that come after
 more than a round and two days by a quarter, with fifteen by an eighth (1456
 against 1670 over 400 rounds), with sixteen by a tenth (2311 against 2555),
-with 26 by a twentieth (10259 against 10834 over 1200 rounds), with 27 the
-same (10513 against 11135);
+with 26 by a twentieth (10259 against 10834 over 1200 rounds), with 27 and
+28 the same (10513 against 11135, 11237 against 11819);
 `daily.test.ts` now holds it only to a fiftieth. Its weight a day is fixed
 while a round grows longer, and stays so: Marcel weakened the maluses instead
 (2026-11-15).
@@ -1441,6 +1442,86 @@ edge exactly and creeping back; the three solutions meeting at the edge; the
 energy account to 10⁻⁹ (Simpson's heat) and the 64 % and 1 %; four times the
 capacitance, twice the battery; fewer swings with more resistance, no turning
 back over the edge and no overflow far out.
+
+## The falling plates (`experiments.plates`)
+
+**The exhibit** (2026-11-15, the first of stage 4, local feedback entries
+#20–28; inspired by "Fallende Platten" at the Technorama). A tall column of
+magnets in two rows, north and south taking turns, a narrow gap between them;
+plates of copper, of aluminium and of aluminium cut with slots dropped into
+the gap sink through it slowly, though none of them is magnetic; the slotted
+one falls much faster.
+
+**The model** (`domain/experiments/plates.py`). The plate thin and slow, its
+currents in its plane, their own field left out; the magnets' field
+`B₀·cos(k·z)` along the fall and the same across the plate. In a rectangular
+piece `W × h` the currents are then exact, all four edges included: the
+charge `φ` solves Laplace's equation with no current through the edges, and
+with the field over the piece written as a cosine series
+`b₀ + Σ b_m·cos(mπy/h)` the mean `b₀` drives nothing and each other term a
+loop known in closed form (`cosh`, `sinh` across the width). The brake is the
+heat over the speed: `c = σ·d·[W·(∫B² − h·b₀²) − Σ h·b_m²·tanh(q_m·W/2)/q_m]`,
+`q_m = mπ/h` — the endless sheet's part exactly, the edges' as a series whose
+terms fall as the fifth power of their number; `_edge_terms` takes forty
+times as many as reach the field's own wavenumber and the width's, and 400
+more, so the rest changes the brake by under 10⁻⁸ anywhere in the bounds
+(2.4·10⁻¹⁰ at worst, measured against 20 000 more). A whole plate is one
+piece; slots leave teeth, each a piece (the spine is counted as cut). The fall
+uses the brake's mean over the poles, `⟨b_m²⟩ = (2B₀/h)²·(C_m² + S_m²)/2` in
+closed form, and `m·v̇ = m·g − c̄·v` then has the exact solution; the fall
+time is Newton's from past the root, where the fall's convexity brings it
+down without overshooting. The page draws the currents from the stream
+function, `J = (∂ψ/∂y, −∂ψ/∂x)`, zero on every edge and in the slots.
+
+**What it shows** (an assumed build: magnets 20 mm high, 0.15 T in the gap,
+90 cm of fall, plates 10 × 12 cm and 3 mm, the pure metals). Copper through
+in 5.9 s at 15 cm/s, aluminium in 12.3 s at 7.3 cm/s — 0.48 of copper's
+speed, as copper conducts 1.6 times as well but is 3.3 times as heavy — the
+slotted aluminium in 1.8 s at 53 cm/s, plastic freely in 0.43 s. The whole
+plates keep 85 % of an endless sheet's brake, the slotted one 12 %: a seventh,
+and it falls 7 times as fast. The thickness cancels exactly; a wider plate
+falls a little slower (half as wide, faster, by under a fifth). Brass, a
+quarter of copper's conductivity at nearly its weight, falls 3.8 times as fast.
+Each plate is at its speed within a few hundredths of a second; the copper
+turns not quite half a watt (0.49 W) into heat; the currents' own field stays
+under 4 % of the magnets'. The brake ripples by 5 % as a whole plate passes
+the poles and not at all for the slotted one, whose twelve teeth sit a
+quarter period apart.
+
+**The page.** The column from the front, schematic: four gaps with their
+magnets in the chart's red and green, the four plates let go at once, a
+stopwatch each, real time or a quarter; beside it one plate up close, riding
+along with it, the field passing behind it in bands and its eddy currents in
+front, coloured by the way they turn (a canvas, the stream function on a
+4-pixel grid from twelve loops). Rebuilding (the field 0.05–0.4 T, a magnet
+10–50 mm high, a plate of copper, aluminium, brass or plastic 1–10 mm thick,
+whole or cut into teeth 2–60 mm high) moves the column for the race too and
+times the reader's own plate, with its terminal speed, its share of the
+brake, mass, heat and time constant, and a chart of its time through the
+column over the height of a tooth, between the whole plate and no magnets at
+all (the time, not the terminal speed: fine teeth would reach theirs only far
+below the column's end). Where the currents' own field passes a tenth of the
+magnets' — fine teeth, fast — the page says so, as the model leaves it out. "The trick" has the four
+plates' times over the field. Topic "induction", lesson `first_order`. **No
+route**: the port's (`simulate/plates.ts`), held to the engine to 10⁻⁹ over
+three columns and eight plates, the currents' stream function included.
+
+**Joins the experiment of the day** on `SECOND_SERIES`, with the second series.
+
+**Left out, and said:** the field's true shape and its fraying at the column's
+ends (its strength is an assumption), the currents' own field, the spine of
+the slotted plate, the air (the plastic plate falls freely), the guides'
+friction.
+
+**Checked by** `tests/unit/test_experiments.py`: the four plates' times and
+speeds, the ratios the page states and the heat; the ripple, and the mean
+against a sampled period; the brake against the heat the currents make,
+summed over the plate on a grid from the stream function (to 2·10⁻³); teeth
+as wide as can be against `1 − sinc²(kh/2)`, the endless strip's closed form,
+written in the test; the fall against Newton's law stepped (RK4), and with the
+rippling brake at every depth the same fall time to a thousandth; the
+thickness, the width, finer slots and brass; the currents never crossing a
+slot or an edge, and none in plastic; the refusals.
 
 ## The notice: the check still to come
 

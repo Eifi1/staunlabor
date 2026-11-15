@@ -297,6 +297,12 @@
         "title": "A lassú rezgőkör",
         "summary": "Egy kondenzátor egy nagy tekercsen keresztül sül ki – és az áram ide-oda leng, mint egy inga, nagyjából másodpercenként egyszer.",
         "question": "A kondenzátornak és a tekercsnek nincs mozgó része. Miért leng mégis ide-oda az áram?"
+      },
+      "plates": {
+        "short": "Eső lemezek",
+        "title": "Az eső lemezek",
+        "summary": "Réz- és alumíniumlemezek lassan süllyednek le mágnesek között, mintha mézben esnének – pedig egyikük sem mágneses.",
+        "question": "A mágnesek egyik lemezt sem vonzzák. Miért esnek mégis ilyen lassan?"
       }
     },
     "chair": {
@@ -2504,6 +2510,138 @@
         "omega_d": "a körfrekvencia ellenállással",
         "check": "Az oldal tesztjei ezt a megoldást a kör lépésről lépésre integrált egyenleteivel (Runge–Kutta) és az energiamérleggel vetik össze: ami a kondenzátorból és a tekercsből hiányzik, az pontosan az ellenállásban keletkezett hő. A számítás az Ön böngészőjében fut, ugyanazokkal a képletekkel, mint az oldal számítómagja.",
         "left_out": "Kimaradt: a vasmag veszteségei (mágnesezettsége késik, és örvényáramok folynak benne) és telítődése; a tekercs induktivitása itt állandó. Ugyanígy a kondenzátorok szivárgása. Az árammérő ellenállása a kör ellenállásában szerepel. Az értékek példák: egy 200 H-s tekercs 90 Ω-os huzallal zárt vasmagon, 125 µF fóliakondenzátor (elektrolitkondenzátor nem viselné el a polaritásváltást) és 10 V."
+      }
+    },
+    "plates": {
+      "at": {
+        "build": "Magas oszlop két sor mágnesből, váltakozó északi és déli pólussal, köztük keskeny réssel. Mellette réz- és alumíniumlemezek, az egyik bevágásokkal.",
+        "drop": "Ha egy lemezt felül a résbe ejtünk, komótosan süllyed le, mintha mézben esne. Pedig egyik lemez sem mágneses: a mágnesekhez tartva sem vonzást, sem taszítást nem érezni.",
+        "slots": "A bevágott lemez sokkal gyorsabban csúszik át. És a nehéz réz gyorsabban esik, mint a könnyű alumínium."
+      },
+      "view": "A mágnesoszlop négy réssel és bennük a négy lemezzel",
+      "closeup": "A(z) „{{plate}}” lemez közelről, az örvényáramaival",
+      "short": {
+        "copper": "Réz",
+        "aluminium": "Alumínium",
+        "slotted": "Bevágott alu",
+        "plastic": "Műanyag"
+      },
+      "materials": {
+        "copper": "Réz",
+        "aluminium": "Alumínium",
+        "brass": "Sárgaréz",
+        "plastic": "Műanyag"
+      },
+      "play": {
+        "title": "Elengedni",
+        "hint": "A négy lemez fent lóg a résekben. Engedje el őket egyszerre, és figyelje, melyik ér le elsőként. Mellettük egy lemez közelről, az örvényáramaival.",
+        "drop": "Elengedés",
+        "pause": "Megállítás",
+        "run": "Tovább",
+        "top": "Vissza fel",
+        "speed": "Sebesség",
+        "speeds": {
+          "real": "Valós idő",
+          "slow": "Lassítás (¼)"
+        },
+        "look": "Közelről",
+        "caption": "Az oszlop elölről, vázlatosan: minden rés mellett a mágnesek, váltakozó északi és déli pólussal; {{drop}} cm esés, {{field}} T a résben.",
+        "closeup_caption": "A lemezzel együtt haladva: mögötte elvonul az északi és a déli pólus, benne körbe járnak az örvényáramok.",
+        "none": "A műanyag nem vezet: nem folyik áram, és semmi sem fékez.",
+        "waiting": "A lemezek fent lógnak a résekben, és várnak.",
+        "watch": "Stopperóra",
+        "legend": {
+          "north": "Északi pólus",
+          "south": "Déli pólus",
+          "anticlockwise": "Áram az óramutatóval ellentétesen",
+          "clockwise": "Áram az óramutató járásával"
+        }
+      },
+      "change": {
+        "title": "Az oszlop átépítése",
+        "hint": "Változtassa meg a mágneseket, és építsen saját lemezt. A tér és a mágnesek a fenti négy lemezre is érvényesek.",
+        "field": "Tér a résben",
+        "field_hint": "A mágnesek erőssége a résben, ott, ahol a legnagyobb.",
+        "magnet": "Egy mágnes magassága",
+        "magnet_hint": "Egy északi és egy déli mágnes együtt a tér egy periódusa.",
+        "thickness": "A lemez vastagsága",
+        "thickness_hint": "Próbálja ki: a vastagság semmit sem változtat.",
+        "tooth": "Egy fog magassága",
+        "tooth_hint": "Milyen magas a két bevágás közti csík.",
+        "material": "Anyag",
+        "slots": "Bevágások",
+        "cut": {
+          "whole": "nélkül",
+          "slotted": "vele"
+        },
+        "status": "Az Ön lemeze {{time}} s alatt ér át az oszlopon – {{times}}-szer annyi idő, mint mágnesek nélkül.",
+        "free": "Az Ön lemeze szabadon esik: {{time}} s az oszlopon át.",
+        "reaction": "Ennél a sebességnél az örvényáramok saját tere már nem kicsi: a mágnesek terének {{share}} %-a. A számítás ezt elhanyagolja."
+      },
+      "figures": {
+        "fall": "Esési idő",
+        "terminal": "Határsebesség",
+        "share": "Egy végtelen lemez fékjéből",
+        "mass": "Tömeg",
+        "heat": "Hő határsebességnél",
+        "tau": "Időállandó"
+      },
+      "chart": {
+        "teeth_hint": "Mennyi idő alatt ér át az Ön lemeze az oszlopon, ha bevágások fogakra bontják, a fog magassága szerint; szaggatottan az egész lemez és egy lemez mágnesek nélkül.",
+        "slotted": "bevágásokkal",
+        "whole": "egész lemez",
+        "tooth": "Egy fog magassága",
+        "plastic": "A műanyagot semmi sem fékezi; ehhez nincs diagram.",
+        "field_hint": "Mennyi idő alatt érnek át a négy lemez az oszlopon, a résben lévő tér szerint. A sorrend sosem változik.",
+        "fall": "Esési idő",
+        "field": "Tér a résben",
+        "free": "mágnesek nélkül"
+      },
+      "model": {
+        "intro": "Egyik lemez sem mágneses. A fémek azonban vezetik az áramot, és a mágneses térben mozgó vezetőben feszültség keletkezik. Mivel az oszlop mentén váltakozik az északi és a déli pólus, a tér a lemezben folyton változik, és az áramok hurkokban keringenek: ezek az örvényáramok. A mágnesek ezekre az áramokra hatnak, mindig a mozgással szemben.",
+        "current": "Az áram a lemezben, amelyet a lemez térben való mozgása és a szélein összegyűlő töltések hajtanak.",
+        "brake": "A fékezőerő a sebességgel nő. Függ a lemez vezetőképességétől, vastagságától és felületétől, valamint a tér négyzetétől; η az a hányad, amelyet a szélek és a bevágások meghagynak.",
+        "newton": "A súly húz, a fék visszatart.",
+        "terminal": "A lemez addig gyorsul, amíg a fék el nem bírja a súlyát; akkor egyenletesen esik. A tömeg és a fék is a vastagsággal nő, így az kiesik. τ megmondja, milyen hamar éri el a lemez a határsebességét.",
+        "slots": "Egy h magas, végtelenül széles csík: a tér rajta vett átlaga nem hajt áramot, csak ami körülötte ingadozik. Ha a csík keskeny a λ periódushoz képest, szinte semmi sem marad."
+      },
+      "symbols": {
+        "j": "áramsűrűség a lemezben",
+        "sigma": "elektromos vezetőképesség",
+        "e": "a széleken lévő töltések elektromos tere",
+        "v": "a lemez sebessége",
+        "b": "mágneses tér",
+        "f": "fékezőerő",
+        "c": "átlagos fékállandó",
+        "d": "a lemez vastagsága",
+        "a": "a lemez felülete",
+        "b0": "a tér a résben, ahol a legerősebb",
+        "eta": "egy végtelen lemez fékjének hányada",
+        "m": "a lemez tömege",
+        "g": "nehézségi gyorsulás",
+        "t": "idő",
+        "ve": "határsebesség",
+        "rho": "sűrűség",
+        "tau": "időállandó",
+        "h": "egy csík magassága",
+        "lambda": "a tér periódusa: egy északi és egy déli mágnes"
+      },
+      "sweet": {
+        "aluminium": "A trükk: az alumínium lassabban esik, mint a réz, pedig a réz 1,6-szor jobban vezet. A réz viszont 3,3-szer olyan nehéz, és a féknek a súlyt kell megtartania. A kiállításon a réz 5,9 s alatt teszi meg a 90 cm-t, az alumínium 12,3 s alatt: 7,3 cm/s-mal esik, alig a felével a réz 15 cm/s-ának.",
+        "thickness": "A vastagság nem számít: a kétszer olyan vastag lemez kétszer olyan nehéz, de kétszer olyan erősen is fékeződik. A méret is alig számít; a szélesebb lemez valamivel kevesebbet veszít a szélein, és valamivel lassabban esik. A sárgaréz negyedannyira vezet, mint a réz, és majdnem olyan nehéz: 3,8-szor olyan gyorsan esik.",
+        "slots": "A bevágások elvágják az áramok útját, amelyen vissza kellene fordulniuk. Egy végtelen lemez fékjéből az egész lemez 85 %-ot tart meg, a bevágott csak 12 %-ot: 7-szer olyan gyorsan esik, 1,8 s alatt. A műanyag egyáltalán nem vezet, és szabadon esik, 0,43 s alatt.",
+        "heat": "Hová lesz az energia? Hővé: amíg a lemez egyenletesen esik, súlyának teljes munkája hővé válik benne, a réznél alig fél watt. A határsebességét néhány századmásodperc alatt éri el."
+      },
+      "computed": {
+        "system": "A lemez vékony és lassú: áramai a síkjában folynak, és saját terük kicsi a mágnesekéhez képest, a kiállításon 4 % alatt. A mágnesek tere az oszlop mentén koszinusz, és a szélesség mentén egyforma. Egy téglalap alakú fémdarabban ekkor az áramok pontosan ismertek, mind a négy szélével együtt: a darab feletti tér koszinuszsorként írható, és minden tag ismert erősségű áramhurkot hajt.",
+        "piece": "Egy darab fékje, a pólusokhoz viszonyított helyzetére átlagolva. A darab feletti tér átlaga hiányzik az összegből: nem hajt áramot, csak a széleket tölti fel. A bevágott lemez a fogai összege.",
+        "bm": "a darab feletti tér koszinuszsorának tagjai",
+        "w": "a lemez szélessége",
+        "q": "az m-edik tag hullámszáma",
+        "fall": "Az átlagos fékkel az esés pontosan ismert: a lemez exponenciálisan közelít a határsebességéhez.",
+        "s": "megtett út",
+        "check": "Az oldal tesztjei pontról pontra összeadják az áramok által termelt hőt a lemezen: ez pontosan a fékteljesítmény. Az esést a lépésenként számolt mozgásegyenlettel (Runge–Kutta) vetik össze, a fékkel is, ahogy az egyes mélységekben valóban hat: egész lemeznél 5 %-kal ingadozik, ami az esési időt kevesebb mint egy ezreddel változtatja. A számítás az Ön böngészőjében fut, ugyanazokkal a képletekkel, mint az oldal számítómagja.",
+        "left_out": "Kimaradt: a tér valódi alakja (itt koszinusz, a szélesség mentén egyforma, erőssége feltételezés) és kirojtosodása az oszlop végein; az örvényáramok saját tere; a bevágott lemez fogait összetartó gerinc, amelyet itt szintén átvágottnak tekintünk; a levegő, így a műanyag lemez szabadon esik; a súrlódás a vezetőkön. Az értékek feltételezett építést írnak le: 20 mm magas mágnesek 0,15 T-val a résben, 90 cm esés, 10 × 12 cm-es, 3 mm vastag lemezek tiszta fémekből."
       }
     }
   },

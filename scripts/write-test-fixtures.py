@@ -70,6 +70,7 @@ UNROUTED = (
     "arch",
     "levitation",
     "circuit",
+    "plates",
 )
 
 

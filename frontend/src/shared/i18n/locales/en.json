@@ -297,6 +297,12 @@
         "title": "The slow LC circuit",
         "summary": "A capacitor discharges through a big coil – and the current swings back and forth like a pendulum, about once a second.",
         "question": "A capacitor and a coil have no moving part. Why does the current swing back and forth all the same?"
+      },
+      "plates": {
+        "short": "Falling plates",
+        "title": "The falling plates",
+        "summary": "Plates of copper and aluminium sink slowly between magnets, as if through honey – though none of them is magnetic.",
+        "question": "The magnets do not pull on any of the plates. Why do they fall so slowly all the same?"
       }
     },
     "chair": {
@@ -2504,6 +2510,138 @@
         "omega_d": "the angular frequency with it",
         "check": "The page's tests hold this solution to the loop's equations stepped through (Runge–Kutta) and to the energy account: what is missing from the capacitor and the coil is exactly the heat in the resistance. It is computed in your browser, with the same formulas as the page's engine.",
         "left_out": "Left out: the iron core's losses (its magnetisation lags behind, and eddy currents flow in it) and its saturation; here the coil has a fixed inductance. So is the capacitors' leakage. The meter's own resistance is counted in the loop's. The values are an example: a coil of 200 H with 90 Ω of wire on a closed iron core, 125 µF of film capacitors (electrolytic ones would not bear the reversal) and 10 V."
+      }
+    },
+    "plates": {
+      "at": {
+        "build": "A tall column of magnets in two rows, north and south taking turns, with a narrow gap between them. Beside it lie plates of copper and of aluminium, one of them cut with slots.",
+        "drop": "Drop a plate into the gap at the top and it sinks gently down, as if through honey. Yet none of the plates is magnetic: held against the magnets, they are neither pulled nor pushed.",
+        "slots": "The slotted plate slips through much faster. And the heavy copper falls faster than the light aluminium."
+      },
+      "view": "The column of magnets with four gaps and the four plates in them",
+      "closeup": "The plate “{{plate}}” up close, with its eddy currents",
+      "short": {
+        "copper": "Copper",
+        "aluminium": "Aluminium",
+        "slotted": "Slotted alu",
+        "plastic": "Plastic"
+      },
+      "materials": {
+        "copper": "Copper",
+        "aluminium": "Aluminium",
+        "brass": "Brass",
+        "plastic": "Plastic"
+      },
+      "play": {
+        "title": "Let them fall",
+        "hint": "The four plates hang at the top of their gaps. Let them all go at once and watch which reaches the bottom first. Beside them, one plate up close, with its eddy currents.",
+        "drop": "Let go",
+        "pause": "Pause",
+        "run": "Go on",
+        "top": "Back to the top",
+        "speed": "Speed",
+        "speeds": {
+          "real": "Real time",
+          "slow": "Slow motion (¼)"
+        },
+        "look": "Up close",
+        "caption": "The column from the front, schematic: the magnets beside each gap, north and south in turn; a fall of {{drop}} cm, {{field}} T in the gap.",
+        "closeup_caption": "Riding along with the plate: north and south pass behind it, and the eddy currents circle in it.",
+        "none": "Plastic does not conduct: no current flows, and nothing brakes.",
+        "waiting": "The plates hang at the top of their gaps, waiting.",
+        "watch": "Stopwatch",
+        "legend": {
+          "north": "North pole",
+          "south": "South pole",
+          "anticlockwise": "Current anticlockwise",
+          "clockwise": "Current clockwise"
+        }
+      },
+      "change": {
+        "title": "Rebuild the column",
+        "hint": "Change the magnets and build a plate of your own. The field and the magnets apply to the four plates above too.",
+        "field": "Field in the gap",
+        "field_hint": "How strong the magnets are in the gap, where they are strongest.",
+        "magnet": "Height of one magnet",
+        "magnet_hint": "A north and a south magnet together make one period of the field.",
+        "thickness": "Thickness of the plate",
+        "thickness_hint": "Try it: the thickness changes nothing.",
+        "tooth": "Height of a tooth",
+        "tooth_hint": "How high each strip between two slots is.",
+        "material": "Material",
+        "slots": "Slots",
+        "cut": {
+          "whole": "none",
+          "slotted": "cut"
+        },
+        "status": "Your plate takes {{time}} s through the column – {{times}} times as long as without magnets.",
+        "free": "Your plate falls freely: {{time}} s through the column.",
+        "reaction": "At this speed the eddy currents' own field is no longer small: {{share}} % of the magnets'. The computation leaves it out."
+      },
+      "figures": {
+        "fall": "Time to fall",
+        "terminal": "Terminal speed",
+        "share": "Of an endless sheet's brake",
+        "mass": "Mass",
+        "heat": "Heat at terminal speed",
+        "tau": "Time constant"
+      },
+      "chart": {
+        "teeth_hint": "How long your plate takes through the column when slots cut it into teeth, by the height of a tooth; dashed, the whole plate and a plate without magnets.",
+        "slotted": "with slots",
+        "whole": "whole plate",
+        "tooth": "Height of a tooth",
+        "plastic": "Plastic is not braked; there is no chart for it.",
+        "field_hint": "How long the four plates take through the column, by the field in the gap. Their order never changes.",
+        "fall": "Time to fall",
+        "field": "Field in the gap",
+        "free": "without magnets"
+      },
+      "model": {
+        "intro": "None of the plates is magnetic. But metals conduct, and a conductor moving through a magnetic field has a voltage driven in it. Because north and south take turns along the column, the field in the plate keeps changing, and the currents circle in loops: eddy currents. The magnets push on these currents, always against the motion.",
+        "current": "The current in the plate, driven by its motion through the field and by the charges that gather at its edges.",
+        "brake": "The braking force grows with the speed. It depends on the plate's conductivity, thickness and area, and on the square of the field; η is the share the edges and slots leave.",
+        "newton": "The weight pulls, the brake holds against it.",
+        "terminal": "The plate speeds up until the brake carries its weight; then it falls steadily. Mass and brake both grow with the thickness, so it cancels. τ says how soon the plate reaches its terminal speed.",
+        "slots": "A strip h high, endlessly wide: the field's mean over it drives no current, only what varies about it. If the strip is narrow beside the period λ, almost nothing is left."
+      },
+      "symbols": {
+        "j": "current density in the plate",
+        "sigma": "electrical conductivity",
+        "e": "electric field of the charges at the edges",
+        "v": "speed of the plate",
+        "b": "magnetic field",
+        "f": "braking force",
+        "c": "mean braking constant",
+        "d": "thickness of the plate",
+        "a": "area of the plate",
+        "b0": "field in the gap, where it is strongest",
+        "eta": "share of an endless sheet's brake",
+        "m": "mass of the plate",
+        "g": "acceleration of gravity",
+        "t": "time",
+        "ve": "terminal speed",
+        "rho": "density",
+        "tau": "time constant",
+        "h": "height of a strip",
+        "lambda": "period of the field: one north and one south magnet"
+      },
+      "sweet": {
+        "aluminium": "The trick: aluminium falls more slowly than copper, though copper conducts 1.6 times as well. But copper is 3.3 times as heavy, and the brake has to carry the weight. At the exhibit, copper takes 5.9 s for the 90 cm and aluminium 12.3 s: it falls at 7.3 cm/s, not quite half the speed of copper at 15 cm/s.",
+        "thickness": "The thickness does not matter: a plate twice as thick is twice as heavy, but it is braked twice as hard too. Its size hardly counts either; a wider plate loses a little less at its edges and falls a little more slowly. Brass conducts a quarter as well as copper and is nearly as heavy: it falls 3.8 times as fast.",
+        "slots": "The slots cut the paths the currents would need to turn round. Of an endless sheet's brake the whole plate keeps 85 %, the slotted one only 12 %: it falls 7 times as fast, in 1.8 s. Plastic does not conduct at all and falls freely, in 0.43 s.",
+        "heat": "Where does the energy go? Into heat: while the plate falls steadily, all the work its weight does turns into heat in it, not quite half a watt for the copper. It reaches its terminal speed within a few hundredths of a second."
+      },
+      "computed": {
+        "system": "The plate is thin and slow: its currents flow in its plane, and their own field is small beside the magnets', under 4 % at the exhibit. The magnets' field is a cosine along the column and the same across its width. For a rectangular piece of metal the currents are then known exactly, all four edges included: the field over the piece is written as a cosine series, and each term drives a loop of current of known strength.",
+        "piece": "A piece's brake, averaged over where it stands against the poles. The field's mean over the piece is missing from the sum: it drives no current, it only charges the edges. A slotted plate is the sum of its teeth.",
+        "bm": "terms of the field's cosine series over the piece",
+        "w": "width of the plate",
+        "q": "wavenumber of the m-th term",
+        "fall": "With the mean brake the fall is known exactly: the plate approaches its terminal speed like an exponential.",
+        "s": "distance fallen",
+        "check": "The page's tests add up the heat the currents make, point by point over the plate: it is exactly the braking power. They hold the fall to the equation of motion stepped through (Runge–Kutta), also with the brake as it really is at each depth: for a whole plate it varies by 5 %, which changes the time to fall by less than a thousandth. The computing happens in your browser, with the same formulas as the site's engine.",
+        "left_out": "Left out: the field's true shape (here a cosine, the same across the width, its strength an assumption) and how it frays at the column's ends; the eddy currents' own field; the spine that holds a slotted plate's teeth together, counted here as cut through too; the air, so the plastic plate falls freely; the friction on the guides. The values are an assumed build: magnets 20 mm high with 0.15 T in the gap, a fall of 90 cm, plates of 10 × 12 cm and 3 mm thick, of the pure metals."
       }
     }
   },

@@ -244,6 +244,55 @@
       "resistance_ohm": 90.0,
       "voltage_v": 10.0
     },
+    "plates": {
+      "column": {
+        "field_t": 0.15,
+        "pitch_m": 0.04,
+        "drop_m": 0.9
+      },
+      "exhibit": [
+        {
+          "material": "copper",
+          "thickness_m": 0.003,
+          "tooth_m": 0.0,
+          "width_m": 0.1,
+          "height_m": 0.12,
+          "slot_m": 0.002
+        },
+        {
+          "material": "aluminium",
+          "thickness_m": 0.003,
+          "tooth_m": 0.0,
+          "width_m": 0.1,
+          "height_m": 0.12,
+          "slot_m": 0.002
+        },
+        {
+          "material": "aluminium",
+          "thickness_m": 0.003,
+          "tooth_m": 0.008,
+          "width_m": 0.1,
+          "height_m": 0.12,
+          "slot_m": 0.002
+        },
+        {
+          "material": "plastic",
+          "thickness_m": 0.003,
+          "tooth_m": 0.0,
+          "width_m": 0.1,
+          "height_m": 0.12,
+          "slot_m": 0.002
+        }
+      ],
+      "plate": {
+        "material": "aluminium",
+        "thickness_m": 0.003,
+        "tooth_m": 0.0,
+        "width_m": 0.1,
+        "height_m": 0.12,
+        "slot_m": 0.002
+      }
+    },
     "chladni": {
       "side_m": 0.24,
       "thickness_m": 0.001,

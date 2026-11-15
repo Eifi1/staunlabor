@@ -34,6 +34,7 @@ import {
   Grid3x3,
   Magnet as MagnetIcon,
   CircuitBoard,
+  ChevronsDown,
 } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
 import {
@@ -88,6 +89,7 @@ const ICON: Record<Exhibit, LucideIcon> = {
   chladni: Grid3x3,
   levitation: MagnetIcon,
   circuit: CircuitBoard,
+  plates: ChevronsDown,
 };
 
 /** Two weeks back, in the dialog: long enough to find the one a friend

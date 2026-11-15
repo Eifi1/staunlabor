@@ -297,6 +297,12 @@
         "title": "Der langsame Schwingkreis",
         "summary": "Ein Kondensator entlädt sich über eine grosse Spule – und der Strom schwingt hin und her wie ein Pendel, etwa einmal pro Sekunde.",
         "question": "Kondensator und Spule haben kein bewegliches Teil. Warum schwingt der Strom trotzdem hin und her?"
+      },
+      "plates": {
+        "short": "Fallende Platten",
+        "title": "Die fallenden Platten",
+        "summary": "Platten aus Kupfer und Aluminium sinken zwischen Magneten langsam hinunter, als fielen sie durch Honig – obwohl keine von ihnen magnetisch ist.",
+        "question": "Keine der Platten wird von den Magneten angezogen. Warum fallen sie trotzdem so langsam?"
       }
     },
     "chair": {
@@ -2504,6 +2510,138 @@
         "omega_d": "die Kreisfrequenz mit Widerstand",
         "check": "Die Tests der Seite halten diese Lösung gegen die Gleichungen des Kreises, Schritt für Schritt gerechnet (Runge-Kutta), und gegen die Energiebilanz: Was in Kondensator und Spule fehlt, ist genau die Wärme im Widerstand. Gerechnet wird in Ihrem Browser, mit denselben Formeln wie im Rechenkern der Seite.",
         "left_out": "Weggelassen: die Verluste im Eisenkern (seine Magnetisierung hinkt nach, und Wirbelströme fliessen darin) und seine Sättigung; die Spule hat hier eine feste Induktivität. Ebenso der Leckstrom der Kondensatoren. Der Widerstand des Strommessers ist im Widerstand des Kreises enthalten. Die Werte sind ein Beispiel: eine Spule mit 200 H und 90 Ω Draht auf geschlossenem Eisenkern, 125 µF aus Folienkondensatoren (Elektrolytkondensatoren vertrügen das Umpolen nicht) und 10 V."
+      }
+    },
+    "plates": {
+      "at": {
+        "build": "Eine hohe Säule aus Magneten in zwei Reihen, Nord und Süd im Wechsel, mit einem schmalen Spalt dazwischen. Daneben liegen Platten aus Kupfer und aus Aluminium, eine davon mit Schlitzen.",
+        "drop": "Lässt man eine Platte oben in den Spalt fallen, sinkt sie gemächlich hinunter, als fiele sie durch Honig. Dabei ist keine der Platten magnetisch: Hält man sie an die Magnete, werden sie weder angezogen noch abgestossen.",
+        "slots": "Die geschlitzte Platte rutscht viel schneller hindurch. Und das schwere Kupfer fällt schneller als das leichte Aluminium."
+      },
+      "view": "Die Magnetsäule mit vier Spalten und den vier Platten darin",
+      "closeup": "Die Platte «{{plate}}» aus der Nähe, mit ihren Wirbelströmen",
+      "short": {
+        "copper": "Kupfer",
+        "aluminium": "Aluminium",
+        "slotted": "Alu geschlitzt",
+        "plastic": "Kunststoff"
+      },
+      "materials": {
+        "copper": "Kupfer",
+        "aluminium": "Aluminium",
+        "brass": "Messing",
+        "plastic": "Kunststoff"
+      },
+      "play": {
+        "title": "Fallen lassen",
+        "hint": "Die vier Platten hängen oben im Spalt. Lassen Sie sie gleichzeitig los und sehen Sie zu, welche zuerst unten ist. Daneben sehen Sie eine Platte aus der Nähe, mit ihren Wirbelströmen.",
+        "drop": "Loslassen",
+        "pause": "Anhalten",
+        "run": "Weiter",
+        "top": "Wieder nach oben",
+        "speed": "Tempo",
+        "speeds": {
+          "real": "Echtzeit",
+          "slow": "Zeitlupe (¼)"
+        },
+        "look": "Aus der Nähe",
+        "caption": "Die Säule von vorn, schematisch: die Magnete neben jedem Spalt, Nord und Süd im Wechsel; {{drop}} cm Fallweg, {{field}} T im Spalt.",
+        "closeup_caption": "Mit der Platte mitfahrend: Hinter ihr ziehen Nord und Süd vorbei, in ihr kreisen die Wirbelströme.",
+        "none": "Kunststoff leitet nicht: Es fliesst kein Strom, und nichts bremst.",
+        "waiting": "Die Platten hängen oben im Spalt und warten.",
+        "watch": "Stoppuhr",
+        "legend": {
+          "north": "Nordpol",
+          "south": "Südpol",
+          "anticlockwise": "Strom im Gegenuhrzeigersinn",
+          "clockwise": "Strom im Uhrzeigersinn"
+        }
+      },
+      "change": {
+        "title": "Die Säule umbauen",
+        "hint": "Ändern Sie die Magnete und bauen Sie eine eigene Platte. Feld und Magnete gelten auch für die vier Platten oben.",
+        "field": "Feld im Spalt",
+        "field_hint": "Die Stärke der Magnete im Spalt, dort, wo sie am grössten ist.",
+        "magnet": "Höhe eines Magneten",
+        "magnet_hint": "Ein Nord- und ein Südmagnet zusammen sind eine Periode des Felds.",
+        "thickness": "Dicke der Platte",
+        "thickness_hint": "Probieren Sie es aus: Die Dicke ändert nichts.",
+        "tooth": "Höhe eines Zahns",
+        "tooth_hint": "Wie hoch jeder Streifen zwischen zwei Schlitzen ist.",
+        "material": "Material",
+        "slots": "Schlitze",
+        "cut": {
+          "whole": "ohne",
+          "slotted": "mit"
+        },
+        "status": "Ihre Platte braucht {{time}} s durch die Säule – {{times}}-mal so lange wie ohne Magnete.",
+        "free": "Ihre Platte fällt frei: {{time}} s durch die Säule.",
+        "reaction": "Bei dieser Geschwindigkeit ist das eigene Feld der Wirbelströme nicht mehr klein: {{share}} % des Felds der Magnete. Die Rechnung lässt es weg."
+      },
+      "figures": {
+        "fall": "Fallzeit",
+        "terminal": "Endgeschwindigkeit",
+        "share": "Bremse einer endlosen Platte",
+        "mass": "Masse",
+        "heat": "Wärme bei Endgeschwindigkeit",
+        "tau": "Zeitkonstante"
+      },
+      "chart": {
+        "teeth_hint": "Wie lange Ihre Platte durch die Säule braucht, wenn Schlitze sie in Zähne zerlegen, je nach Höhe eines Zahns; gestrichelt die ganze Platte und eine Platte ohne Magnete.",
+        "slotted": "mit Schlitzen",
+        "whole": "ganze Platte",
+        "tooth": "Höhe eines Zahns",
+        "plastic": "Kunststoff wird nicht gebremst; dafür gibt es kein Diagramm.",
+        "field_hint": "Wie lange die vier Platten durch die Säule brauchen, je nach Feld im Spalt. Die Reihenfolge bleibt immer dieselbe.",
+        "fall": "Fallzeit",
+        "field": "Feld im Spalt",
+        "free": "ohne Magnete"
+      },
+      "model": {
+        "intro": "Keine der Platten ist magnetisch. Aber Metalle leiten Strom, und in einem Leiter, der sich durch ein Magnetfeld bewegt, entsteht eine Spannung. Weil Nord und Süd sich entlang der Säule abwechseln, ändert sich das Feld in der Platte ständig, und die Ströme kreisen in Schleifen: Wirbelströme. Die Magnete drücken auf diese Ströme, immer gegen die Bewegung.",
+        "current": "Der Strom in der Platte, getrieben von ihrer Bewegung durch das Feld und von den Ladungen, die sich an ihren Rändern sammeln.",
+        "brake": "Die Bremskraft wächst mit der Geschwindigkeit. Sie hängt von Leitfähigkeit, Dicke und Fläche der Platte ab und vom Quadrat des Felds; η ist der Anteil, den Ränder und Schlitze übrig lassen.",
+        "newton": "Das Gewicht zieht, die Bremse hält dagegen.",
+        "terminal": "Die Platte wird schneller, bis die Bremse ihr Gewicht trägt; dann fällt sie gleichmässig. Masse und Bremse wachsen beide mit der Dicke, sie kürzt sich weg. τ sagt, wie rasch die Platte ihre Endgeschwindigkeit erreicht.",
+        "slots": "Ein Streifen der Höhe h, unendlich breit: Der Mittelwert des Felds über ihm treibt keinen Strom, nur was darum herum schwankt. Ist der Streifen schmal gegen die Periode λ, bleibt fast nichts übrig."
+      },
+      "symbols": {
+        "j": "Stromdichte in der Platte",
+        "sigma": "elektrische Leitfähigkeit",
+        "e": "elektrisches Feld der Ladungen an den Rändern",
+        "v": "Geschwindigkeit der Platte",
+        "b": "Magnetfeld",
+        "f": "Bremskraft",
+        "c": "mittlere Bremskonstante",
+        "d": "Dicke der Platte",
+        "a": "Fläche der Platte",
+        "b0": "Feld im Spalt, wo es am stärksten ist",
+        "eta": "Anteil an der Bremse einer endlosen Platte",
+        "m": "Masse der Platte",
+        "g": "Erdbeschleunigung",
+        "t": "Zeit",
+        "ve": "Endgeschwindigkeit",
+        "rho": "Dichte",
+        "tau": "Zeitkonstante",
+        "h": "Höhe eines Streifens",
+        "lambda": "Periode des Felds: ein Nord- und ein Südmagnet"
+      },
+      "sweet": {
+        "aluminium": "Der Trick: Aluminium fällt langsamer als Kupfer, obwohl Kupfer 1,6-mal besser leitet. Kupfer ist aber 3,3-mal so schwer, und die Bremse muss das Gewicht tragen. Beim Exponat braucht Kupfer 5,9 s für die 90 cm, Aluminium 12,3 s: Es fällt mit 7,3 cm/s, knapp halb so schnell wie Kupfer mit 15 cm/s.",
+        "thickness": "Die Dicke spielt keine Rolle: Eine doppelt so dicke Platte ist doppelt so schwer, wird aber auch doppelt so stark gebremst. Auch die Grösse zählt kaum; eine breitere Platte verliert an ihren Rändern etwas weniger und fällt ein wenig langsamer. Messing leitet ein Viertel so gut wie Kupfer und ist fast so schwer: Es fällt 3,8-mal so schnell.",
+        "slots": "Die Schlitze schneiden den Strömen die Wege ab, auf denen sie umkehren müssten. Von der Bremse einer endlosen Platte behält die ganze Platte 85 %, die geschlitzte nur 12 %: Sie fällt 7-mal so schnell, in 1,8 s. Kunststoff leitet gar nicht und fällt frei, in 0,43 s.",
+        "heat": "Wohin geht die Energie? In Wärme: Fällt die Platte gleichmässig, wird die ganze Arbeit ihres Gewichts in ihr zu Wärme, beim Kupfer knapp ein halbes Watt. Ihre Endgeschwindigkeit erreicht sie nach wenigen Hundertstelsekunden."
+      },
+      "computed": {
+        "system": "Die Platte ist dünn und langsam: Ihre Ströme fliessen in ihrer Ebene, und ihr eigenes Feld ist klein gegen das der Magnete, beim Exponat unter 4 %. Das Feld der Magnete ist entlang der Säule ein Kosinus und über die Breite gleich. Für ein rechteckiges Stück Metall sind die Ströme dann exakt bekannt, mit allen vier Rändern: Das Feld über dem Stück wird als Kosinusreihe geschrieben, und jedes Glied treibt eine Stromschleife bekannter Stärke.",
+        "piece": "Die Bremse eines Stücks, gemittelt über seine Lage zu den Polen. Der Mittelwert des Felds über dem Stück fehlt in der Summe: Er treibt keinen Strom, er lädt nur die Ränder. Eine geschlitzte Platte ist die Summe ihrer Zähne.",
+        "bm": "Glieder der Kosinusreihe des Felds über dem Stück",
+        "w": "Breite der Platte",
+        "q": "Wellenzahl des m-ten Glieds",
+        "fall": "Mit der mittleren Bremse ist der Fall exakt bekannt: Die Platte nähert sich ihrer Endgeschwindigkeit wie eine Exponentialfunktion.",
+        "s": "Fallweg",
+        "check": "Die Tests der Seite rechnen die Wärme, die die Ströme machen, Punkt für Punkt über die Platte: Sie ist genau die Bremsleistung. Den Fall halten sie gegen die Bewegungsgleichung, Schritt für Schritt gerechnet (Runge-Kutta), auch mit der Bremse, wie sie an jeder Stelle wirklich ist: Bei einer ganzen Platte schwankt sie um 5 %, die Fallzeit ändert das um weniger als ein Tausendstel. Gerechnet wird in Ihrem Browser, mit denselben Formeln wie im Rechenkern der Seite.",
+        "left_out": "Weggelassen: die wahre Form des Felds (hier ein Kosinus, über die Breite gleich, seine Stärke eine Annahme) und sein Ausfransen an den Enden der Säule; das eigene Feld der Wirbelströme; der Steg, der die Zähne einer geschlitzten Platte zusammenhält und hier als durchgeschnitten gilt; die Luft, sodass die Kunststoffplatte frei fällt; die Reibung an den Führungen. Die Werte sind ein angenommener Nachbau: Magnete von 20 mm Höhe mit 0,15 T im Spalt, 90 cm Fallweg, Platten von 10 × 12 cm und 3 mm Dicke aus den reinen Metallen."
       }
     }
   },

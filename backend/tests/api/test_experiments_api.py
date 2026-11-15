@@ -47,6 +47,7 @@ async def test_the_experiments_need_no_account(client: AsyncClient):
         "arch",
         "levitation",
         "circuit",
+        "plates",
         "chladni",
         "meter_range_a",
         "settle_s",
@@ -78,6 +79,10 @@ async def test_the_experiments_need_no_account(client: AsyncClient):
     assert body["levitation"]["base"]["outer_radius_m"] == x.LevitationBase().outer_radius_m
     assert body["circuit"]["inductance_h"] == x.Circuit().inductance_h
     assert body["circuit"]["capacitance_f"] == x.Circuit().capacitance_f
+    assert body["plates"]["column"]["field_t"] == x.MagnetColumn().field_t
+    assert [p["material"] for p in body["plates"]["exhibit"]] == ["copper", "aluminium", "aluminium", "plastic"]
+    assert [p["tooth_m"] for p in body["plates"]["exhibit"]] == [0, 0, 0.008, 0]
+    assert body["plates"]["plate"]["material"] == x.Plate().material
 
 
 async def test_the_sphere_answers_its_orbits_and_its_swing(client: AsyncClient):

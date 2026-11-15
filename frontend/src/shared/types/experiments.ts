@@ -666,6 +666,26 @@ export interface CircuitRequest {
   voltage_v: number;
 }
 
+// ── the falling plates ───────────────────────────────────────────────────────
+
+/** The engine's `MagnetColumn`, its four plates and the one the reader builds.
+ *  No route: the page asks the port (`simulate/plates.ts`). */
+export interface PlatesRequest {
+  column: { field_t: number; pitch_m: number; drop_m: number };
+  exhibit: PlateRequest[];
+  plate: PlateRequest;
+}
+
+/** The engine's `Plate`. */
+export interface PlateRequest {
+  material: "copper" | "aluminium" | "brass" | "plastic";
+  thickness_m: number;
+  tooth_m: number;
+  width_m: number;
+  height_m: number;
+  slot_m: number;
+}
+
 // ── the chain and the arch ───────────────────────────────────────────────────
 
 /** The engine's `Arch`. No route: the page asks the port (`simulate/arch.ts`). */
@@ -725,6 +745,7 @@ export interface ExperimentsDefaults {
   chladni: ChladniPlateRequest;
   levitation: LevitationRequest;
   circuit: CircuitRequest;
+  plates: PlatesRequest;
   meter_range_a: number;
   settle_s: number;
 }
