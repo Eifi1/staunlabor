@@ -43,6 +43,7 @@ async def test_the_experiments_need_no_account(client: AsyncClient):
         "cradle",
         "well",
         "resonance",
+        "gyroscope",
         "meter_range_a",
         "settle_s",
     }
@@ -66,6 +67,7 @@ async def test_the_experiments_need_no_account(client: AsyncClient):
     assert body["cradle"]["count"] == 5
     assert body["well"]["k_m2"] == x.Funnel().k_m2
     assert body["resonance"]["lengths_m"] == list(x.ResonanceRack().lengths_m)
+    assert body["gyroscope"]["rpm"] == x.GyroWheel().rpm
 
 
 async def test_the_sphere_answers_its_orbits_and_its_swing(client: AsyncClient):

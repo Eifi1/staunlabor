@@ -37,6 +37,8 @@ with SciPy before it was written (``docs/experiments.md``).
   rolled ball in a circle, seen from outside; both curve away for the riders.
 * :mod:`cradle` — Newton's cradle with Hertz contacts: one in, one out, clean
   with a hair's gap between the balls and nearly so when they touch.
+* :mod:`gyroscope` — a spinning wheel on a string turns round it instead of
+  falling; the suitcase that tips when turned.
 * :mod:`resonance` — six rods on a trembling table: only the one in step
   swings, and it takes its time.
 * :mod:`well` — the gravity well: a ball rolling round a funnel ``z = −k/r``
@@ -174,6 +176,13 @@ from staunlabor.domain.experiments.foucault import (
 )
 from staunlabor.domain.experiments.foucault import period_s as foucault_period_s
 from staunlabor.domain.experiments.foucault import position as foucault_position
+from staunlabor.domain.experiments.gyroscope import GyroRun
+from staunlabor.domain.experiments.gyroscope import Release as GyroRelease
+from staunlabor.domain.experiments.gyroscope import Wheel as GyroWheel
+from staunlabor.domain.experiments.gyroscope import nutation_rad_s as gyro_nutation
+from staunlabor.domain.experiments.gyroscope import precession_rad_s as gyro_precession
+from staunlabor.domain.experiments.gyroscope import run as run_gyroscope
+from staunlabor.domain.experiments.gyroscope import suitcase_torque_n_m as gyro_suitcase_torque
 from staunlabor.domain.experiments.harmonograph import (
     Harmonograph,
     HarmonographFigures,
@@ -405,6 +414,9 @@ __all__ = [
     "FoucaultPendulum",
     "Funnel",
     "GroupPoint",
+    "GyroRelease",
+    "GyroRun",
+    "GyroWheel",
     "Harmonograph",
     "HarmonographFigures",
     "HarmonographPendulum",
@@ -522,6 +534,9 @@ __all__ = [
     "foucault_position",
     "full_turn_h",
     "groups_at",
+    "gyro_nutation",
+    "gyro_precession",
+    "gyro_suitcase_torque",
     "harmonograph_draw",
     "harmonograph_figures",
     "height_at",
@@ -569,6 +584,7 @@ __all__ = [
     "run_coil",
     "run_cradle",
     "run_elephant",
+    "run_gyroscope",
     "run_peg",
     "run_pit",
     "run_platform",

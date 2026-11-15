@@ -45,6 +45,7 @@ from staunlabor.domain.experiments import (
     FloatingBall,
     FoucaultPendulum,
     Funnel,
+    GyroWheel,
     Harmonograph,
     Jet,
     Magnet,
@@ -88,6 +89,7 @@ from staunlabor.domain.schemas.experiments import (
     ExperimentsDefaultsOut,
     FoucaultPendulumIn,
     FunnelIn,
+    GyroWheelIn,
     HarmonographIn,
     MaxwellWheelIn,
     PegPendulumIn,
@@ -154,6 +156,7 @@ async def defaults() -> ExperimentsDefaultsOut:
         cradle=CradleIn.model_validate(Cradle()),
         well=FunnelIn.model_validate(Funnel()),
         resonance=ResonanceRackIn.model_validate(ResonanceRack()),
+        gyroscope=GyroWheelIn.model_validate(GyroWheel()),
         meter_range_a=METER_RANGE_A,
         settle_s=PAGE_SETTLE_S,
     )

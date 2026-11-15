@@ -212,6 +212,12 @@
       "damping_ratio": 0.01,
       "table_m": 0.001
     },
+    "gyroscope": {
+      "mass_kg": 2.0,
+      "radius_m": 0.3,
+      "axle_m": 0.15,
+      "rpm": 200.0
+    },
     "meter_range_a": 0.1,
     "settle_s": 0.15
   },

@@ -2214,3 +2214,71 @@ def test_the_rack_refuses_what_it_cannot_hold():
         x.ResonanceRack(lengths_m=(3.0,))
     with pytest.raises(ValueError, match="between 0 and 50"):
         x.run_resonance(x.ResonanceRack(), 60.0, 1.0)
+
+
+# ── the gyroscope wheel ──────────────────────────────────────────────────────
+
+
+def test_a_still_wheel_drops_in_0_37_s_and_a_spun_one_stays_up():
+    still = x.run_gyroscope(x.GyroWheel(rpm=0), x.GyroRelease(), 5.0)
+    assert still.dropped_s is not None
+    assert round(still.dropped_s, 2) == 0.37
+    spun = x.run_gyroscope(x.GyroWheel(), x.GyroRelease(), 20.0)
+    assert spun.dropped_s is None
+    assert max(spun.tilt_deg) < 95
+
+
+def test_the_wheel_keeps_its_energy_and_let_go_turning_steadily_keeps_its_tilt():
+    from staunlabor.domain.experiments import gyroscope
+
+    w = x.GyroWheel()
+    y, m = gyroscope.start(w, x.GyroRelease(tilt_deg=70.0))
+    e0 = gyroscope.energy_j(w, m, y)
+    for _ in range(20_000):
+        y = gyroscope.step(w, m, y)
+    assert gyroscope.energy_j(w, m, y) == pytest.approx(e0, rel=1e-8)
+    steady = x.run_gyroscope(w, x.GyroRelease(tilt_deg=70.0, steady=True), 20.0)
+    assert max(abs(t - 70.0) for t in steady.tilt_deg) < 1e-6
+
+
+def test_at_200_rpm_it_turns_round_the_string_in_8_1_s_and_twice_as_fast_spun_half_as_fast():
+    w = x.GyroWheel()
+    assert w.rpm == 200
+    period = 2 * math.pi / x.gyro_precession(w)
+    assert round(period, 1) == 8.1
+    assert 2 * math.pi / x.gyro_precession(x.GyroWheel(rpm=400)) == pytest.approx(2 * period)
+    # Let go from rest it keeps that pace on average, to half a per cent.
+    run = x.run_gyroscope(w, x.GyroRelease(), 20.0)
+    assert math.radians(run.turn_deg[-1]) / 20.0 == pytest.approx(x.gyro_precession(w), rel=0.005)
+
+
+def test_let_go_from_rest_the_axle_dips_3_2_degrees_as_the_kept_momenta_say_and_nods_4_times_a_second():
+    # The lowest tilt from energy and the two kept momenta alone: with u = cos θ
+    # at the turning point, 2·I₁·m·g·d·u² − (I₃ω₃)²·u − 2·I₁·m·g·d = 0.
+    w = x.GyroWheel()
+    a = 2 * w.i1 * w.torque_n_m
+    l3 = w.i3 * w.spin_rad_s
+    u = (l3 * l3 - math.sqrt(l3**4 + 4 * a * a)) / (2 * a)
+    lowest = math.degrees(math.acos(u))
+    run = x.run_gyroscope(w, x.GyroRelease(), 5.0)
+    dense = max(run.tilt_deg)
+    assert dense == pytest.approx(lowest, abs=0.02)
+    assert round(lowest - 90, 1) == 3.2
+    assert round(x.gyro_nutation(w) / (2 * math.pi), 1) == 4.4
+
+
+def test_turning_the_suitcase_a_quarter_turn_a_second_takes_5_9_n_m():
+    w = x.GyroWheel()
+    torque = x.gyro_suitcase_torque(w, 90.0)
+    assert round(torque, 1) == 5.9
+    # As much as 600 g at the end of a metre-long lever.
+    assert round(torque / 9.80665, 1) == 0.6
+
+
+def test_the_wheel_refuses_what_it_cannot_be():
+    with pytest.raises(ValueError, match="3000 times"):
+        x.GyroWheel(rpm=5000)
+    with pytest.raises(ValueError, match="it falls"):
+        x.gyro_precession(x.GyroWheel(rpm=0))
+    with pytest.raises(ValueError, match="between 30° and 150°"):
+        x.GyroRelease(tilt_deg=10.0)

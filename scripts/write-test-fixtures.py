@@ -61,6 +61,7 @@ UNROUTED = (
     "cradle",
     "well",
     "resonance",
+    "gyroscope",
 )
 
 

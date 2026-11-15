@@ -675,6 +675,17 @@ class ResonanceRackIn(_In):
     table_m: float = Field(gt=0, le=0.01, default=0.001)
 
 
+# ── the gyroscope wheel ──────────────────────────────────────────────────────
+# No route: the page asks the port (``simulate/gyroscope.ts``).
+
+
+class GyroWheelIn(_In):
+    mass_kg: float = Field(ge=0.1, le=20, default=2.0)
+    radius_m: float = Field(ge=0.05, le=1, default=0.3)
+    axle_m: float = Field(ge=0.02, le=1, default=0.15)
+    rpm: float = Field(ge=0, le=3000, default=200.0)
+
+
 # ── the pages' starting point ────────────────────────────────────────────────
 
 
@@ -700,6 +711,7 @@ class ExperimentsDefaultsOut(_Out):
     cradle: CradleIn
     well: FunnelIn
     resonance: ResonanceRackIn
+    gyroscope: GyroWheelIn
     #: The exhibit's meter: digital, ± this many amperes.
     meter_range_a: float
     #: How long a page waits after the last slider step before asking.

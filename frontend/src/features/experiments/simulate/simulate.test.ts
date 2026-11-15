@@ -24,6 +24,7 @@ import * as coupled from "./coupled";
 import * as cradle from "./cradle";
 import * as well from "./well";
 import * as resonance from "./resonance";
+import * as gyroscope from "./gyroscope";
 import * as elephant from "./elephant";
 import * as foucault from "./foucault";
 import * as harmonograph from "./harmonograph";
@@ -847,6 +848,56 @@ describe("the resonance rods' port", () => {
         ),
       ).toEqual([]);
       expect(differences(c.run, resonanceRun(c.rack, c.drive_hz, 10.0, c.sweep_hz_per_s))).toEqual([]);
+    }
+  });
+});
+
+/** The engine's `run`, sampled from the port's steps as the engine samples its
+ *  own: every twentieth millisecond, stopping where the axle hangs down. */
+function gyroscopeRun(w: gyroscope.Wheel, release: gyroscope.Release, durationS: number) {
+  let [y] = gyroscope.start(w, release);
+  const [, m] = gyroscope.start(w, release);
+  const steps = Math.round(durationS / gyroscope.STEP_S);
+  const out = {
+    t: [] as number[],
+    tilt_deg: [] as number[],
+    turn_deg: [] as number[],
+    dropped_s: null as number | null,
+  };
+  for (let i = 0; i <= steps; i++) {
+    if (i % 20 === 0) {
+      out.t.push(i * gyroscope.STEP_S);
+      out.tilt_deg.push(gyroscope.tiltDeg(y));
+      out.turn_deg.push((y[2] * 180) / Math.PI);
+    }
+    if (gyroscope.tiltDeg(y) >= gyroscope.HANGING_DEG) {
+      out.dropped_s = i * gyroscope.STEP_S;
+      break;
+    }
+    if (i < steps) y = gyroscope.step(w, m, y);
+  }
+  return out;
+}
+
+describe("the gyroscope wheel's port", () => {
+  it("starts, turns, nods and drops as the engine does", () => {
+    for (const c of cases.gyroscope) {
+      const [y, m] = gyroscope.start(c.wheel, c.release);
+      expect(
+        differences(
+          { start: c.start, motion: c.motion, energy_j: c.energy_j },
+          { start: y, motion: m, energy_j: gyroscope.energyJ(c.wheel, m, y) },
+        ),
+      ).toEqual([]);
+      if (c.rates.length) {
+        const rates = [
+          gyroscope.precessionRadS(c.wheel),
+          gyroscope.nutationRadS(c.wheel),
+          gyroscope.suitcaseTorqueNM(c.wheel, 90.0),
+        ];
+        expect(differences(c.rates, rates)).toEqual([]);
+      }
+      expect(differences(c.run, gyroscopeRun(c.wheel, c.release, 5.0))).toEqual([]);
     }
   });
 });

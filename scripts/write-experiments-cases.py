@@ -69,6 +69,7 @@ coriolis = importlib.import_module("staunlabor.domain.experiments.coriolis")
 cradle = importlib.import_module("staunlabor.domain.experiments.cradle")
 well = importlib.import_module("staunlabor.domain.experiments.well")
 resonance = importlib.import_module("staunlabor.domain.experiments.resonance")
+gyroscope = importlib.import_module("staunlabor.domain.experiments.gyroscope")
 
 TARGET = ROOT / "frontend/src/features/experiments/simulate/engine-cases.json"
 #: Points kept per curve: enough to see a curve that went wrong, few enough that
@@ -523,6 +524,16 @@ RESONANCE_CASES = (
 )
 
 
+#: The gyroscope wheel: let go from rest and turning steadily, tilted up, slow
+#: enough to nod widely, and still (it drops).
+GYROSCOPE_CASES = (
+    (gyroscope.Wheel(), gyroscope.Release()),
+    (gyroscope.Wheel(), gyroscope.Release(tilt_deg=70.0, steady=True)),
+    (gyroscope.Wheel(mass_kg=1.0, radius_m=0.2, axle_m=0.25, rpm=60.0), gyroscope.Release(tilt_deg=110.0)),
+    (gyroscope.Wheel(rpm=0.0), gyroscope.Release()),
+)
+
+
 def thin(values: Any) -> Any:
     """A curve as its length and every so many of its points, the last always
     among them; anything else as it is, recursively."""
@@ -626,6 +637,26 @@ def _resonance_cases(out: dict[str, Any]) -> None:
                 "natural_hz": [resonance.natural_hz(rack, length) for length in rack.lengths_m],
                 "steady_m": [resonance.steady_m(rack, length, drive) for length in rack.lengths_m],
                 "run": thin(asdict(resonance.run(rack, drive, 10.0, sweep))),
+            }
+        )
+
+
+def _gyroscope_cases(out: dict[str, Any]) -> None:
+    for w, release in GYROSCOPE_CASES:
+        y, m = gyroscope.start(w, release)
+        out["gyroscope"].append(
+            {
+                "wheel": asdict(w),
+                "release": asdict(release),
+                "start": list(y),
+                "motion": asdict(m),
+                "energy_j": gyroscope.energy_j(w, m, y),
+                "rates": (
+                    [gyroscope.precession_rad_s(w), gyroscope.nutation_rad_s(w), gyroscope.suitcase_torque_n_m(w, 90.0)]
+                    if w.rpm > 0
+                    else []
+                ),
+                "run": thin(asdict(gyroscope.run(w, release, 5.0))),
             }
         )
 
@@ -828,6 +859,7 @@ def _second_series(out: dict[str, Any]) -> None:
     _cradle_cases(out)
     _well_cases(out)
     _resonance_cases(out)
+    _gyroscope_cases(out)
 
 
 def cases() -> dict[str, Any]:
@@ -880,6 +912,7 @@ def cases() -> dict[str, Any]:
         "cradle": [],
         "well": [],
         "resonance": [],
+        "gyroscope": [],
     }
     _second_series(out)
     for name, case in HARMONOGRAPH_CASES.items():
