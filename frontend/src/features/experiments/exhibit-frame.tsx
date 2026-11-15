@@ -15,6 +15,7 @@ import { Button, Card, CardHeader, CardTitle, PageHeader, SectionLabel } from "@
 import { PAGE_SHELL } from "@/shared/ui/page-shell";
 import { exhibitEntry, type CourseLesson, type Exhibit } from "./exhibits";
 import { useTried } from "./tried";
+import { UncheckedNotice } from "./unchecked-notice";
 
 /** The course these computations stand on lives in Kurvenschmiede, the
  *  engineering app the exhibits were first built in, public and free: its
@@ -63,6 +64,8 @@ export function ExhibitFrame({
         title={t(`experiments.exhibits.${exhibit}.title`)}
         description={t(`experiments.exhibits.${exhibit}.summary`)}
       />
+
+      <UncheckedNotice />
 
       <Card padding="md" density="compact" className="border-l-4 border-l-brand">
         <div className="flex gap-3">

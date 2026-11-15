@@ -128,6 +128,7 @@
       "sweet_spot": "The trick",
       "computed": "How it is computed"
     },
+    "unchecked": "The calculations have not been checked yet: figures and drawings on these pages may still change.",
     "exhibits": {
       "chair": {
         "short": "The chair",

@@ -128,6 +128,7 @@
       "sweet_spot": "Le tour",
       "computed": "Comment c’est calculé"
     },
+    "unchecked": "La vérification des calculs est encore en attente : les chiffres et les dessins de ces pages peuvent encore changer.",
     "exhibits": {
       "chair": {
         "short": "La chaise",

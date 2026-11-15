@@ -1043,3 +1043,15 @@ describe("the Chladni figures", () => {
     expect((await screen.findAllByDisplayValue("517")).length).toBeGreaterThan(0);
   });
 });
+
+describe("the notice that the calculations await their check", () => {
+  it("stands on the overview", async () => {
+    renderWithProviders(<ExperimentsOverviewPage />);
+    expect(await screen.findByText(E.unchecked)).toBeInTheDocument();
+  });
+
+  it("stands on an exhibit's page, above trying it", async () => {
+    renderWithProviders(<CradlePage />);
+    expect(await screen.findByText(E.unchecked)).toBeInTheDocument();
+  });
+});

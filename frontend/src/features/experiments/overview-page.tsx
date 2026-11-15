@@ -51,6 +51,7 @@ import {
 } from "@eifi1/ui-kit";
 import { useLocale } from "@/shared/i18n/use-locale";
 import { PAGE_SHELL } from "@/shared/ui/page-shell";
+import { UncheckedNotice } from "./unchecked-notice";
 import { dailyExhibit, dailyHistory, dayIn, type DailyPick } from "./daily";
 import { ExhibitPreview } from "./exhibit-preview";
 import { lessonPath } from "./exhibit-frame";
@@ -128,6 +129,7 @@ export function ExperimentsOverviewPage() {
   return (
     <div className={PAGE_SHELL}>
       <PageHeader size="sm" title={t("app.name")} description={t("experiments.overview.lead")} />
+      <UncheckedNotice />
       <DailyCard entry={daily} today={today} />
       <AllExhibits daily={daily.exhibit} />
       <p className="text-sm text-secondary">{t("experiments.overview.how")}</p>

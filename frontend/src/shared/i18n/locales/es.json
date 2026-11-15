@@ -128,6 +128,7 @@
       "sweet_spot": "El truco",
       "computed": "Cómo se calcula"
     },
+    "unchecked": "La revisión de los cálculos aún está pendiente: las cifras y los dibujos de estas páginas aún pueden cambiar.",
     "exhibits": {
       "chair": {
         "short": "La silla",

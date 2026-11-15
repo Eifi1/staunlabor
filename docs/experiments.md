@@ -1305,6 +1305,17 @@ modes moving the middle and every other kind still there; the three tones and
 their ratios; the swing on the ring mode's node under 2 % of the middle's.
 `tests/api`: the route's modes lowest first, 24.270 at the bottom.
 
+## The notice: the check still to come
+
+On Marcel's word (2026-11-15) the overview and every exhibit's page carry a
+warning banner under their heading: the calculations still await their check,
+and figures and drawings may change (`experiments.unchecked`,
+`features/experiments/unchecked-notice.tsx`, placed by `ExhibitFrame` and the
+overview). Every figure is tested against the engine and the engine against
+independent counts, but no one outside has gone through the models. One
+component in two places: removing it once the check is done is one edit, and
+the two page tests that look for it go with it.
+
 ## Checking the mathematics
 
 Before the engine was written each model was checked independently with SciPy
