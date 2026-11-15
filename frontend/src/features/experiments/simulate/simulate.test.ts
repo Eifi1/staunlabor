@@ -19,6 +19,7 @@ import * as cannon from "./cannon";
 import * as chaos from "./chaos";
 import * as coil from "./coil";
 import * as cone from "./cone";
+import * as coriolis from "./coriolis";
 import * as coupled from "./coupled";
 import * as elephant from "./elephant";
 import * as foucault from "./foucault";
@@ -726,6 +727,16 @@ describe("Foucault's pendulum's port", () => {
         ),
       ).toEqual([]);
       expect(differences(c.curve, foucault.latitudeCurve(c.p))).toEqual([]);
+    }
+  });
+});
+
+describe("the Coriolis carousel's port", () => {
+  it("throws, turns and finds the lead as the engine does", () => {
+    for (const c of cases.coriolis) {
+      const th = c.throw as coriolis.Throw;
+      expect(differences(c.lead_deg, coriolis.leadDeg(c.c, th.speed_m_s, th.body))).toEqual([]);
+      expect(differences(c.path, coriolis.path(c.c, th))).toEqual([]);
     }
   });
 });

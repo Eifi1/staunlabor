@@ -1871,3 +1871,62 @@ def test_foucault_s_pendulum_refuses_what_it_cannot_be():
         x.FoucaultPendulum(latitude_deg=100.0)
     with pytest.raises(ValueError, match="tenth"):
         x.FoucaultPendulum(amplitude_m=5.0)
+
+
+# ── the Coriolis carousel ────────────────────────────────────────────────────
+
+
+def test_a_rider_sees_the_puck_pushed_by_the_coriolis_and_the_centrifugal_force():
+    c = x.Carousel()
+    throw = x.Throw()
+    w = c.rate
+    ux, uy = -throw.speed_m_s, 0.0
+
+    def turning_frame(_t, s):
+        # a′ = −2Ω × v′ − Ω × (Ω × r′), Ω along z: (2Ω·vy + Ω²x, −2Ω·vx + Ω²y).
+        return [s[2], s[3], 2 * w * s[3] + w * w * s[0], -2 * w * s[2] + w * w * s[1]]
+
+    trace = rk4(turning_frame, [c.radius_m, 0.0, ux, uy], 1e-4, 1.0, sample_every=1000)
+    for t, xs, ys in zip(trace.t, trace.states[0], trace.states[1], strict=True):
+        px, py = x.turning(c, throw, t)
+        assert px == pytest.approx(xs, abs=1e-9)
+        assert py == pytest.approx(ys, abs=1e-9)
+
+
+def test_seen_from_outside_the_puck_goes_straight_and_the_rolled_ball_in_a_circle():
+    c = x.Carousel()
+    puck = [x.outside(c, x.Throw(), t) for t in (0.0, 0.4, 0.8)]
+    (ax, ay), (bx, by), (cx, cy) = puck
+    assert (bx - ax) * (cy - ay) - (by - ay) * (cx - ax) == pytest.approx(0, abs=1e-12)
+    ball = x.Throw(body=x.ThrownBody.BALL)
+    h = 1e-5
+
+    def velocity(t):
+        (x1, y1), (x2, y2) = x.outside(c, ball, t - h), x.outside(c, ball, t + h)
+        return (x2 - x1) / (2 * h), (y2 - y1) / (2 * h)
+
+    v0, v1 = velocity(0.1), velocity(1.1)
+    turned = math.atan2(v1[1], v1[0]) - math.atan2(v0[1], v0[0])
+    assert turned == pytest.approx(2 / 7 * c.rate, rel=1e-6)
+    assert math.hypot(*v1) == pytest.approx(math.hypot(*v0), rel=1e-8)
+
+
+def test_to_hit_the_other_seat_a_rider_aims_well_ahead_of_it():
+    c = x.Carousel()
+    straight = x.miss_deg(c, x.Throw())
+    assert straight < -45
+    puck = x.lead_deg(c, 3.0, x.ThrownBody.PUCK)
+    ball = x.lead_deg(c, 3.0, x.ThrownBody.BALL)
+    assert round(puck) == 50
+    assert round(ball) == 43
+    assert x.miss_deg(c, x.Throw(3.0, puck)) == pytest.approx(0, abs=1e-6)
+    assert x.lead_deg(x.Carousel(rpm=0), 3.0, x.ThrownBody.PUCK) == pytest.approx(0, abs=1e-9)
+    # Too fast a platform for too slow a throw: no aim reaches the other seat.
+    assert x.lead_deg(x.Carousel(rpm=20), 1.0, x.ThrownBody.PUCK) is None
+
+
+def test_the_carousel_refuses_what_it_cannot_be():
+    with pytest.raises(ValueError, match="60 times a minute"):
+        x.Carousel(rpm=100)
+    with pytest.raises(ValueError, match="89°"):
+        x.Throw(aim_deg=95)

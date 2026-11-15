@@ -65,6 +65,7 @@ maxwell = importlib.import_module("staunlabor.domain.experiments.maxwell")
 chaos = importlib.import_module("staunlabor.domain.experiments.chaos")
 waterwheel = importlib.import_module("staunlabor.domain.experiments.waterwheel")
 foucault = importlib.import_module("staunlabor.domain.experiments.foucault")
+coriolis = importlib.import_module("staunlabor.domain.experiments.coriolis")
 
 TARGET = ROOT / "frontend/src/features/experiments/simulate/engine-cases.json"
 #: Points kept per curve: enough to see a curve that went wrong, few enough that
@@ -474,6 +475,18 @@ FOUCAULT_CASES = (
 )
 FOUCAULT_TIMES = (0.0, 1.3, 3600.0, 86400.0)
 
+#: The carousel: a puck and a ball thrown straight and aimed ahead, clockwise
+#: and still platforms, a ball that never leaves.
+CC = coriolis.Carousel
+CT = coriolis.Throw
+CORIOLIS_CASES = (
+    (CC(), CT()),
+    (CC(), CT(aim_deg=40.0, body=coriolis.Body.BALL)),
+    (CC(radius_m=4.0, rpm=-12.0), CT(speed_m_s=6.0, aim_deg=-30.0)),
+    (CC(rpm=0.0), CT(speed_m_s=1.0, aim_deg=20.0, body=coriolis.Body.BALL)),
+    (CC(rpm=30.0), CT(speed_m_s=0.5, aim_deg=80.0, body=coriolis.Body.BALL)),
+)
+
 #: Where the heights and the contact are written out along the rails.
 CONE_POINTS = (0.0, 0.07, 0.15, 0.3)
 
@@ -535,6 +548,18 @@ def _pendulum_cases(out: dict[str, Any]) -> None:
                 "lengths_m": list(wave.lengths_m(row)),
                 "lag_deg": list(wave.lag_deg(row)),
                 "spread_deg": wave.spread_deg(row),
+            }
+        )
+
+
+def _coriolis_cases(out: dict[str, Any]) -> None:
+    for c, throw in CORIOLIS_CASES:
+        out["coriolis"].append(
+            {
+                "c": asdict(c),
+                "throw": asdict(throw),
+                "lead_deg": coriolis.lead_deg(c, throw.speed_m_s, throw.body),
+                "path": thin(asdict(coriolis.path(c, throw))),
             }
         )
 
@@ -721,6 +746,7 @@ def _second_series(out: dict[str, Any]) -> None:
     _chaos_cases(out)
     _waterwheel_cases(out)
     _foucault_cases(out)
+    _coriolis_cases(out)
 
 
 def cases() -> dict[str, Any]:
@@ -769,6 +795,7 @@ def cases() -> dict[str, Any]:
         "chaos": [],
         "waterwheel": [],
         "foucault": [],
+        "coriolis": [],
     }
     _second_series(out)
     for name, case in HARMONOGRAPH_CASES.items():

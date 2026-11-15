@@ -624,6 +624,15 @@ class FoucaultPendulumIn(_In):
     latitude_deg: float = Field(ge=-90, le=90, default=47.5)
 
 
+# ── the Coriolis carousel ────────────────────────────────────────────────────
+# No route: the page asks the port (``simulate/coriolis.ts``).
+
+
+class CarouselIn(_In):
+    radius_m: float = Field(ge=0.5, le=10, default=2.0)
+    rpm: float = Field(ge=-60, le=60, default=6.0)
+
+
 # ── the pages' starting point ────────────────────────────────────────────────
 
 
@@ -645,6 +654,7 @@ class ExperimentsDefaultsOut(_Out):
     chaos: DoublePendulumIn
     waterwheel: WaterWheelIn
     foucault: FoucaultPendulumIn
+    coriolis: CarouselIn
     #: The exhibit's meter: digital, ± this many amperes.
     meter_range_a: float
     #: How long a page waits after the last slider step before asking.

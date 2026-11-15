@@ -33,6 +33,8 @@ with SciPy before it was written (``docs/experiments.md``).
 * :mod:`pendulum` — the block the swinging exhibits stand on: a plane
   pendulum exactly (Jacobi's elliptic functions) and stepped (Runge–Kutta),
   each the other's check.
+* :mod:`coriolis` — the Coriolis carousel: a thrown puck goes straight and a
+  rolled ball in a circle, seen from outside; both curve away for the riders.
 * :mod:`foucault` — Foucault's pendulum in Winterthur: its plane turns 11.1°
   an hour against the floor, the Earth's turn about the local vertical.
 * :mod:`harmonograph` — a pen on one pendulum and a board on another: the
@@ -114,6 +116,18 @@ from staunlabor.domain.experiments.cone import (
     start_for,
     threshold_deg,
 )
+from staunlabor.domain.experiments.coriolis import Body as ThrownBody
+from staunlabor.domain.experiments.coriolis import (
+    Carousel,
+    Throw,
+    ThrowPath,
+    lead_deg,
+    leaves_s,
+    miss_deg,
+    outside,
+    turning,
+)
+from staunlabor.domain.experiments.coriolis import path as throw_path
 from staunlabor.domain.experiments.coupled import (
     Bob,
     CoupledPendulums,
@@ -329,6 +343,7 @@ __all__ = [
     "Bounce",
     "Box",
     "CannonFigures",
+    "Carousel",
     "ChairAnalysis",
     "ChaosRun",
     "Coil",
@@ -419,6 +434,9 @@ __all__ = [
     "Surface",
     "SwingPoint",
     "SwingRun",
+    "Throw",
+    "ThrowPath",
+    "ThrownBody",
     "TiltPoint",
     "TimingPoint",
     "Track",
@@ -482,15 +500,19 @@ __all__ = [
     "joints",
     "lag_deg",
     "latitude_curve",
+    "lead_deg",
+    "leaves_s",
     "length_for",
     "lengths_m",
     "lowest_orbit_hz",
     "lyapunov",
+    "miss_deg",
     "mode_rates",
     "nearest_ratio",
     "orbit",
     "orbit_at",
     "outcome",
+    "outside",
     "peak_coupling",
     "peg_step",
     "period_factor",
@@ -539,8 +561,10 @@ __all__ = [
     "swing",
     "swing_hz",
     "threshold_deg",
+    "throw_path",
     "timing_curve",
     "tolerance",
+    "turning",
     "vertical_rate",
     "water_profile",
     "water_spin",

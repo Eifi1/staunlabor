@@ -178,6 +178,10 @@
       "amplitude_m": 0.5,
       "latitude_deg": 47.5
     },
+    "coriolis": {
+      "radius_m": 2.0,
+      "rpm": 6.0
+    },
     "meter_range_a": 0.1,
     "settle_s": 0.15
   },

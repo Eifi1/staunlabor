@@ -33,6 +33,7 @@ from staunlabor.domain.experiments import (
     Ball,
     BallStack,
     Body,
+    Carousel,
     Coil,
     CoilExhibit,
     ConeExhibit,
@@ -71,6 +72,7 @@ from staunlabor.domain.schemas.experiments import (
     BallStackIn,
     BodyIn,
     CannonFiguresOut,
+    CarouselIn,
     ChairAnalysisOut,
     CoilAnalysisOut,
     CoilExhibitIn,
@@ -142,6 +144,7 @@ async def defaults() -> ExperimentsDefaultsOut:
         chaos=DoublePendulumIn.model_validate(DoublePendulum()),
         waterwheel=WaterWheelIn.model_validate(WaterWheel()),
         foucault=FoucaultPendulumIn.model_validate(FoucaultPendulum()),
+        coriolis=CarouselIn.model_validate(Carousel()),
         meter_range_a=METER_RANGE_A,
         settle_s=PAGE_SETTLE_S,
     )

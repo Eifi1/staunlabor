@@ -47,7 +47,18 @@ POSTED = ("coil", "sphere", "platform", "race", "elephant", "smoke", "cannon", "
 
 #: Exhibits whose build comes with the defaults but which have no route of their
 #: own: the page computes everything it shows in the browser, from the port.
-UNROUTED = ("harmonograph", "cone", "parabola", "coupled", "peg", "maxwell", "chaos", "waterwheel", "foucault")
+UNROUTED = (
+    "harmonograph",
+    "cone",
+    "parabola",
+    "coupled",
+    "peg",
+    "maxwell",
+    "chaos",
+    "waterwheel",
+    "foucault",
+    "coriolis",
+)
 
 
 def _answer(response: Response) -> Any:
