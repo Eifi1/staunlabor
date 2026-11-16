@@ -9,7 +9,7 @@ import { OPERATOR } from "./operator";
 /** The day each page's text last changed for its readers: the deploy that put
  *  it live. A change to a page's words moves its date in the release that
  *  ships it. */
-const UPDATED = { impressum: "2026-11-13", privacy: "2026-11-15" } as const;
+const UPDATED = { impressum: "2026-11-13", privacy: "2026-11-16" } as const;
 
 /** "Show the German version": the binding text, one click away. */
 const showGerman = () => void changeLanguage("de-CH", { remember: true });

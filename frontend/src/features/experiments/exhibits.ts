@@ -99,7 +99,7 @@ export const OVERVIEW_PATH = "/";
  * released). Never a day before the deploy: a past day would redraw a round the
  * live site has already shown.
  */
-export const SECOND_SERIES = "2026-12-01";
+export const SECOND_SERIES = "2026-11-16";
 
 export const EXHIBITS: readonly ExhibitEntry[] = [
   { exhibit: "chair", path: "/chair", topics: ["perception"], lessons: [], since: "2026-11-12" },
