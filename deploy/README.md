@@ -239,7 +239,9 @@ keys and the feedback bucket; Cloud Run then keeps serving the revision before.
      report named for a day (`accounts.jobs_deps`). The privacy policy promises
      the erasure on its day, so the job runs from the first deploy of the
      account routes. A changed token needs the job deleted and the script run
-     again.
+     again. Made before the first deploy of the account routes, it is paused
+     (`gcloud scheduler jobs pause`) until that deploy, so that it calls no
+     route the live site does not have yet; the verification below resumes it.
 3. **Marcel: `bash deploy/apply-roles.sh`**, which runs `deploy/roles.sql` as the
    instance's `postgres` user (it asks for the password, nothing else) through a
    local `cloud-sql-proxy`: the database, an owner role `staunlabor_owner` (owns
@@ -286,6 +288,7 @@ database makes it the admin, and everybody after comes by invitation.
 
 ```bash
 gcloud run jobs executions list --job=staunlabor-migrate --project=staunlabor --region=europe-west4 --limit=1
+gcloud scheduler jobs resume staunlabor-accounts-daily --project=staunlabor --location=europe-west4   # the first time
 gcloud scheduler jobs run staunlabor-accounts-daily --project=staunlabor --location=europe-west4
 gcloud logging read 'resource.labels.service_name="staunlabor-backend" AND textPayload:"ops/accounts/daily"' \
   --project=staunlabor --limit=3 --freshness=10m       # one 200
