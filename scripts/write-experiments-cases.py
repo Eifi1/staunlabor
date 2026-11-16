@@ -81,6 +81,7 @@ diver = importlib.import_module("staunlabor.domain.experiments.diver")
 chladni = importlib.import_module("staunlabor.domain.experiments.chladni")
 colour = importlib.import_module("staunlabor.domain.experiments.colour")
 rainbow = importlib.import_module("staunlabor.domain.experiments.rainbow")
+sky = importlib.import_module("staunlabor.domain.experiments.sky")
 
 TARGET = ROOT / "frontend/src/features/experiments/simulate/engine-cases.json"
 #: Points kept per curve: enough to see a curve that went wrong, few enough that
@@ -690,6 +691,17 @@ RAINBOW_BEADS = (
 RAINBOW_IMPACTS = (0.0, 0.2, 0.5, 0.75, 0.9, 0.99)
 RAINBOW_WAVELENGTHS = (400.0, 589.3, 700.0)
 
+#: Why the sky is blue: the exhibit's tube, a long cloudy one, a short clear
+#: wide one; the sun from the horizon to overhead; the light scattered down at
+#: and near one air.
+SKY_TUBES = (
+    sky.Tube(),
+    sky.Tube(length_m=2.5, cloudiness_per_m=3.0),
+    sky.Tube(length_m=0.3, radius_m=0.1, cloudiness_per_m=0.2),
+)
+SKY_HEIGHTS = (0.0, 2.0, 5.0, 10.0, 30.0, 60.0, 88.61, 90.0)
+SKY_DOWN = ((0.05, 1.0), (0.2, 1.0 + 1e-9), (0.2, 1.5), (1.0, 38.0))
+
 
 def thin(values: Any) -> Any:
     """A curve as its length and every so many of its points, the last always
@@ -982,6 +994,36 @@ def _rainbow_cases(out: dict[str, Any]) -> None:
         )
 
 
+def _sky_cases(out: dict[str, Any]) -> None:
+    lamp, sun = colour.lamp(sky.LAMP_K), colour.lamp(sky.SUN_K)
+    for tube in SKY_TUBES:
+        places = [0.0, tube.length_m / 4, tube.length_m / 2, tube.length_m]
+        out["sky"]["tubes"].append(
+            {
+                "tube": asdict(tube),
+                "side": [thin(sky.side_light(tube, at)) for at in places],
+                "side_hue": [list(sky.hue(lamp, sky.side_light(tube, at))) for at in places],
+                "side_brightness": [sky.brightness(lamp, sky.side_light(tube, at)) for at in places],
+                "end": thin(sky.end_light(tube)),
+                "end_hue": list(sky.hue(lamp, sky.end_light(tube))),
+                "figures": asdict(sky.figures(tube)),
+            }
+        )
+    for h in SKY_HEIGHTS:
+        out["sky"]["sun"].append(
+            {
+                "height_deg": h,
+                "air_mass": sky.air_mass(h),
+                "sun": thin(sky.sun_light(h)),
+                "sun_hue": list(sky.hue(sun, sky.sun_light(h))),
+                "sun_brightness": sky.brightness(sun, sky.sun_light(h)),
+                "sky": thin(sky.sky_light(h)),
+                "sky_hue": list(sky.hue(sun, sky.sky_light(h))),
+            }
+        )
+    out["sky"]["down"] = [{"tau": tau, "m": m, "light": sky.scattered_down(tau, m)} for tau, m in SKY_DOWN]
+
+
 def _chladni_cases(out: dict[str, Any]) -> None:
     """The polynomials, three driven modes on a 5 × 5 grid, and the plate's
     answer at its first tones and between them: the port evaluates what the
@@ -1210,6 +1252,7 @@ def _second_series(out: dict[str, Any]) -> None:
     _diver_cases(out)
     _colour_cases(out)
     _rainbow_cases(out)
+    _sky_cases(out)
     _chladni_cases(out)
 
 
@@ -1271,6 +1314,7 @@ def cases() -> dict[str, Any]:
         "bounce": [],
         "diver": [],
         "rainbow": [],
+        "sky": {"tubes": [], "sun": []},
     }
     _second_series(out)
     for name, case in HARMONOGRAPH_CASES.items():

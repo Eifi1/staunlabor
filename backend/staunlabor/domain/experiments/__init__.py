@@ -55,6 +55,8 @@ with SciPy before it was written (``docs/experiments.md``).
   light exhibits' one step from wavelengths to red, green and blue.
 * :mod:`rainbow` — glass beads make a rainbow round the shadow of one's head,
   half the size of the sky's: the angle one reflection inside turns light by.
+* :mod:`sky` — white light through a cloudy tube is blue from the side and
+  orange at the end: Rayleigh's ``1/λ⁴``, the blue sky and the red sunset.
 * :mod:`levitation` — a spinning top hovers over a ring magnet only in a
   window a few millimetres high and three per cent wide in weight.
 * :mod:`gyroscope` — a spinning wheel on a string turns round it instead of
@@ -391,6 +393,19 @@ from staunlabor.domain.experiments.resonance import natural_hz as rod_hz
 from staunlabor.domain.experiments.resonance import run as run_resonance
 from staunlabor.domain.experiments.resonance import steady_m as rod_steady_m
 from staunlabor.domain.experiments.resonance import swing_m as rod_swing_m
+from staunlabor.domain.experiments.sky import SkyFigures
+from staunlabor.domain.experiments.sky import Tube as SkyTube
+from staunlabor.domain.experiments.sky import air_mass as sky_air_mass
+from staunlabor.domain.experiments.sky import brightness as sky_brightness
+from staunlabor.domain.experiments.sky import end_light as sky_end_light
+from staunlabor.domain.experiments.sky import figures as sky_figures
+from staunlabor.domain.experiments.sky import hue as sky_hue
+from staunlabor.domain.experiments.sky import scattered_down as sky_scattered_down
+from staunlabor.domain.experiments.sky import scattering as sky_scattering
+from staunlabor.domain.experiments.sky import side_at as sky_side_at
+from staunlabor.domain.experiments.sky import side_light as sky_side_light
+from staunlabor.domain.experiments.sky import sky_light as sky_overhead_light
+from staunlabor.domain.experiments.sky import sun_light as sky_sun_light
 from staunlabor.domain.experiments.smoke import (
     Drum,
     Flight,
@@ -579,6 +594,8 @@ __all__ = [
     "ShakeRun",
     "Shape",
     "SidePoint",
+    "SkyFigures",
+    "SkyTube",
     "SmokeExhibit",
     "SmokeFigures",
     "Sphere",
@@ -753,6 +770,17 @@ __all__ = [
     "settle_race",
     "sight_lines",
     "skew",
+    "sky_air_mass",
+    "sky_brightness",
+    "sky_end_light",
+    "sky_figures",
+    "sky_hue",
+    "sky_overhead_light",
+    "sky_scattered_down",
+    "sky_scattering",
+    "sky_side_at",
+    "sky_side_light",
+    "sky_sun_light",
     "slack_height_m",
     "slide",
     "small_period_s",

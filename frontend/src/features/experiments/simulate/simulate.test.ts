@@ -20,6 +20,7 @@ import * as chaos from "./chaos";
 import * as diver from "./diver";
 import * as colour from "./colour";
 import * as rainbow from "./rainbow";
+import * as sky from "./sky";
 import * as coil from "./coil";
 import * as cone from "./cone";
 import * as coriolis from "./coriolis";
@@ -1152,6 +1153,43 @@ describe("the glass-bead rainbow's port", () => {
         }),
       ).toEqual([]);
     }
+  });
+});
+
+describe("the blue sky's port", () => {
+  it("scatters the lamp's light along the tube and the sun's through the air as the engine does", () => {
+    const lamp = colour.lamp(sky.LAMP_K);
+    const sun = colour.lamp(sky.SUN_K);
+    for (const c of cases.sky.tubes) {
+      const tube = c.tube as sky.Tube;
+      const places = [0.0, tube.length_m / 4, tube.length_m / 2, tube.length_m];
+      expect(
+        differences(c, {
+          tube: c.tube,
+          side: places.map((at) => sky.sideLight(tube, at)),
+          side_hue: places.map((at) => sky.hue(lamp, sky.sideLight(tube, at))),
+          side_brightness: places.map((at) => sky.brightness(lamp, sky.sideLight(tube, at))),
+          end: sky.endLight(tube),
+          end_hue: sky.hue(lamp, sky.endLight(tube)),
+          figures: sky.figures(tube),
+        }),
+      ).toEqual([]);
+    }
+    for (const c of cases.sky.sun) {
+      const h = c.height_deg;
+      expect(
+        differences(c, {
+          height_deg: h,
+          air_mass: sky.airMass(h),
+          sun: sky.sunLight(h),
+          sun_hue: sky.hue(sun, sky.sunLight(h)),
+          sun_brightness: sky.brightness(sun, sky.sunLight(h)),
+          sky: sky.skyLight(h),
+          sky_hue: sky.hue(sun, sky.skyLight(h)),
+        }),
+      ).toEqual([]);
+    }
+    for (const c of cases.sky.down) expect(differences(c.light, sky.scatteredDown(c.tau, c.m))).toEqual([]);
   });
 });
 

@@ -3195,3 +3195,101 @@ def test_the_bead_refuses_what_it_cannot_be():
         x.rainbow_impact(2.4)
     with pytest.raises(ValueError, match="rim"):
         x.rainbow_trace(1.5, 1.0)
+
+
+# ── why the sky is blue ──────────────────────────────────────────────────────
+
+
+def test_blue_scatters_four_times_as_strongly_and_is_gone_first():
+    figures = x.sky_figures(x.SkyTube())
+    # (650/450)⁴: Rayleigh's 1/λ⁴ between red and blue.
+    assert figures.blue_over_red == pytest.approx((650 / 450) ** 4) and round(figures.blue_over_red, 1) == 4.4
+    # Half the blue gone after 21 cm; past 54 cm the side light holds more red than blue.
+    assert round(figures.blue_half_m * 100) == 21 and round(figures.red_wins_m * 100) == 54
+    # At the end of the 1 m tube: 28 % as bright, 3.5 % of the blue, 46 % of the red.
+    assert round(figures.end_brightness * 100) == 28
+    assert round(figures.end_blue * 100, 1) == 3.5 and round(figures.end_red * 100) == 46
+    tube = x.SkyTube()
+    assert (tube.length_m, tube.radius_m, tube.cloudiness_per_m) == (1.0, 0.03, 1.5)
+
+
+def test_what_leaves_by_the_side_and_at_the_end_is_all_the_lamp_s_light():
+    """Beer–Lambert, checked by Simpson's rule: the light scattered out along
+    the tube (before it crosses the radius to the wall) and the light at its
+    end add up to all of it, at every wavelength."""
+    tube = x.SkyTube(length_m=2.0, cloudiness_per_m=2.5)
+    for k, nm in enumerate(x.WAVELENGTHS_NM):
+        if k % 10:
+            continue
+        undo = math.exp(x.sky_scattering(tube.cloudiness_per_m, nm) * tube.radius_m)
+        m = 2000
+        h = tube.length_m / m
+        out = sum(
+            (1 if j in (0, m) else 4 if j % 2 else 2) * x.sky_side_at(tube, j * h, nm) * tube.cloudiness_per_m * undo
+            for j in range(m + 1)
+        ) * (h / 3)
+        assert out + x.sky_end_light(tube)[k] == pytest.approx(1.0, rel=1e-9)
+
+
+def test_the_tube_is_blue_by_the_lamp_and_orange_at_its_end():
+    from staunlabor.domain.experiments import sky as s
+
+    lamp = x.colour_lamp(s.LAMP_K)
+    tube = x.SkyTube()
+    near = x.sky_hue(lamp, x.sky_side_light(tube, 0.0))
+    far = x.sky_hue(lamp, x.sky_side_light(tube, tube.length_m))
+    end = x.sky_hue(lamp, x.sky_end_light(tube))
+    assert near[2] == pytest.approx(1.0) and near[0] < near[1] < near[2]
+    assert far[0] == pytest.approx(1.0) and far[2] < far[1]
+    assert end[0] == pytest.approx(1.0) and end[2] == 0 and end[1] < far[1]
+    # Cloudier, the end goes redder; the side by the lamp stays blue.
+    cloudier = x.SkyTube(cloudiness_per_m=3.0)
+    assert x.sky_hue(lamp, x.sky_end_light(cloudier))[1] < end[1]
+    assert x.sky_hue(lamp, x.sky_side_light(cloudier, 0.0))[2] == pytest.approx(1.0)
+    # The side light fades along the tube.
+    shine = [x.sky_brightness(lamp, x.sky_side_light(tube, d / 4)) for d in range(5)]
+    assert shine == sorted(shine, reverse=True)
+    assert x.sky_hue(lamp, [0.0] * 81) == (0.0, 0.0, 0.0)
+
+
+def test_the_sun_shines_through_38_airs_at_the_horizon_and_sets_red():
+    from staunlabor.domain.experiments import sky as s
+
+    assert round(x.sky_air_mass(0), 1) == 37.9 and abs(x.sky_air_mass(90) - 1) < 1e-3
+    # High up, the air is a flat layer: 1/sin h.
+    assert x.sky_air_mass(60) == pytest.approx(1 / math.sin(math.radians(60)), abs=2e-3)
+    sun = x.colour_lamp(s.SUN_K)
+    noon, setting = x.sky_hue(sun, x.sky_sun_light(90)), x.sky_hue(sun, x.sky_sun_light(0))
+    assert min(noon) > 0.9
+    assert setting[0] == pytest.approx(1.0) and setting[1] < 0.5 and setting[2] == 0
+    # At the horizon 4 % of the sunlight is left (air alone, no haze).
+    assert round(x.sky_brightness(sun, x.sky_sun_light(0)) * 100) == 4
+
+
+def test_the_sky_overhead_is_light_scattered_once_on_its_way_down():
+    """``∫₀^τ e^{−m·t}·e^{−(τ − t)} dt``, by Simpson's rule, at m = 1 too."""
+    for tau in (0.05, 0.2, 1.0):
+        for m in (1.0, 1.0 + 1e-9, 1.5, 10.0, 38.0):
+            n = 2000
+            h = tau / n
+            simpson = sum(
+                (1 if j in (0, n) else 4 if j % 2 else 2) * math.exp(-m * j * h - (tau - j * h)) for j in range(n + 1)
+            ) * (h / 3)
+            assert x.sky_scattered_down(tau, m) == pytest.approx(simpson, rel=1e-8)
+    from staunlabor.domain.experiments import sky as s
+
+    noon = x.sky_hue(x.colour_lamp(s.SUN_K), x.sky_overhead_light(60))
+    assert noon[2] == pytest.approx(1.0) and noon[0] < 0.6
+
+
+def test_the_tube_and_the_sun_refuse_what_they_cannot_be():
+    with pytest.raises(ValueError, match="long"):
+        x.SkyTube(length_m=10)
+    with pytest.raises(ValueError, match="wide"):
+        x.SkyTube(radius_m=1)
+    with pytest.raises(ValueError, match="cloudiness"):
+        x.SkyTube(cloudiness_per_m=0)
+    with pytest.raises(ValueError, match="between its ends"):
+        x.sky_side_at(x.SkyTube(), 2.0, 550)
+    with pytest.raises(ValueError, match="horizon"):
+        x.sky_air_mass(-1)
