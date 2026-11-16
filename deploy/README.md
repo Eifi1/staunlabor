@@ -177,8 +177,9 @@ not change the hop count.
 
 The imprint names `kontakt@staunlabor.app`. Cloudflare → Email Routing: onboard
 `staunlabor.app` (it writes three MX records, an SPF TXT and a DKIM TXT), and
-forward `kontakt@` to the operator's inbox; no catch-all. The site sends no
-mail, so there is nothing else.
+forward `kontakt@` to the operator's inbox; no catch-all. What the site sends
+goes through Resend from its own subdomains (§6), which leave the root's SPF to
+Email Routing.
 
 ## 6. The account layer
 
@@ -248,7 +249,9 @@ keys and the feedback bucket; Cloud Run then keeps serving the revision before.
    the schema, runs the migrations; `CONNECTION LIMIT 2`) and the app role
    `staunlabor_app` (`SELECT, INSERT, UPDATE, DELETE` and the sequences, the
    same by default privileges for what the owner makes later;
-   `CONNECTION LIMIT 6`, the pool's 1 + 1 at three instances). Only these two
+   `CONNECTION LIMIT 12`: the pool draws 1 + 1 at three instances, six, and a
+   rollout runs the old revision beside the new one, so the cap is twice
+   that; a cap, not a reservation). Only these two
    may connect to `staunlabor`. Nothing else on the instance is touched. Safe
    to run again: it sets the passwords to the secrets' again.
 
@@ -269,16 +272,22 @@ succeeded deploys the backend with the instance, the secrets and:
 | `STAUNLABOR_MAIL_BACKEND` | `_MAIL_BACKEND` |
 | `STAUNLABOR_FEEDBACK_BUCKET` | `_FEEDBACK_BUCKET` |
 
-**Mail.** Until Resend has verified `staunlabor.app`, `_MAIL_BACKEND` stays
-`console`: nothing is sent, and Cloud Logging gets each account mail's kind
-alone, never its link or address (the backend says so at every start). An
-admin's answer shows an invitation's or a reset's link once, to be handed on
-in person; a person's own reset request reaches nobody. Signing in needs no
-verified address, so the first admin gets in without mail. Then: Resend's
-records for `staunlabor.app` at Cloudflare (beside §5's routing records; Resend
-sends from its own subdomain), the key as `staunlabor-resend-api-key`, the
-script again (it grants the key), and `_MAIL_BACKEND=resend`. Replies go to
-`kontakt@staunlabor.app` (§5), not the kit's `support@`.
+**Mail through Resend** (`_MAIL_BACKEND: resend`), in the Resend account the
+sibling apps send from: `staunlabor.app` in region **Ireland (eu-west-1)**, as
+the privacy policy says, its records at Cloudflare DNS-only beside §5's routing
+records (CNAME `send` → `send.forge.rmta.net`, CNAME `rsend` →
+`rsend-euw1.forge.rmta.net`, the DKIM TXT under `resend._domainkey`; checked
+2026-11-16). Click and open tracking stay off: they would route the one-time
+links through a redirect. The key, "Sending access" for this domain only, is
+`staunlabor-resend-api-key`, stored without reaching the shell history
+(`read -rs KEY && printf '%s' "$KEY" | gcloud secrets create staunlabor-resend-api-key --project=staunlabor --replication-policy=user-managed --locations=europe-west4 --data-file=-; unset KEY`),
+then the script again, which grants it to `staunlabor-run`. It must exist
+before a deploy that mounts it. Replies go to `kontakt@staunlabor.app` (§5),
+not the kit's `support@`. Should Resend ever be dropped, `_MAIL_BACKEND:
+console` sends nothing and logs each account mail's kind alone, never its link
+or address; an admin's answer then shows an invitation's or a reset's link
+once, and a person's own reset request reaches nobody. Signing in needs no
+verified address, so the first admin gets in either way.
 
 **The first admin.** After the first deploy, register at
 `https://staunlabor.app/register` with the allow-listed address: the empty

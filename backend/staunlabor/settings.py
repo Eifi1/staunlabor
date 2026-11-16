@@ -14,8 +14,8 @@ The exhibits read none of these and answer with no database at all.
 **The pool is one connection and one more, waiting ten seconds at most**
 (``db_pool_size``, ``db_max_overflow``, ``db_pool_timeout_s``; the owner's
 decision of 2026-11-13). The database is one of its own on the shared Cloud
-SQL instance keksdose-db, a db-f1-micro with about 22 usable connections for
-every app on it, and every app gets the same cap. A full instance refuses a
+SQL instance keksdose-db, a db-g1-small since 2026-11-14 with about 50
+connections for every app on it, and every app gets the same cap. A full instance refuses a
 new connection at once, so a pool must never grow to meet a burst, and a
 request that finds the pool busy fails after ten seconds rather than thirty.
 
@@ -78,8 +78,8 @@ class Settings(BaseSettings):
     #: asyncpg's URL. On Cloud Run the app role's, from Secret Manager, with the
     #: Cloud SQL socket in it (``…@/staunlabor?host=/cloudsql/…``).
     database_url: str = Field(default=DEV_DATABASE_URL, repr=False)
-    #: One connection kept per instance: keksdose-db (a db-f1-micro) has about 22
-    #: usable connections for every app on it, and every app gets this cap.
+    #: One connection kept per instance: keksdose-db (a db-g1-small) has about 50
+    #: connections for every app on it, and every app gets this cap.
     db_pool_size: int = Field(default=1, ge=1, le=5)
     #: One more under load, closed again after, and never a third: a full
     #: instance refuses a new connection at once, the other apps' included.

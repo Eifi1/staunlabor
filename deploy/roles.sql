@@ -23,16 +23,19 @@
 -- ── 1) The roles ────────────────────────────────────────────────────────────
 -- The owner owns the schema and runs the migrations (the staunlabor-migrate
 -- job); the app role, which the backend connects as, may read and write rows
--- and nothing else. CONNECTION LIMIT holds the pool's promise whatever the code
--- says: 1 + 1 a process, three instances, so six for the app; the migrate job
--- holds one at a time, an operator's psql the second.
+-- and nothing else. CONNECTION LIMIT is a cap, not a reservation: what the app
+-- draws is the pool's, 1 + 1 a process at three instances, six. The cap is
+-- twice that because a rollout runs two revisions at once (the old instances
+-- keep their idle connection while the new ones open theirs), and at six the
+-- new revision's account routes would be refused until the old one has gone.
+-- The migrate job holds one at a time, an operator's psql the second.
 SELECT 'CREATE ROLE staunlabor_owner NOSUPERUSER NOBYPASSRLS NOCREATEDB NOCREATEROLE'
 WHERE NOT EXISTS (SELECT 1 FROM pg_roles WHERE rolname = 'staunlabor_owner') \gexec
 SELECT 'CREATE ROLE staunlabor_app NOSUPERUSER NOBYPASSRLS NOCREATEDB NOCREATEROLE'
 WHERE NOT EXISTS (SELECT 1 FROM pg_roles WHERE rolname = 'staunlabor_app') \gexec
 
 ALTER ROLE staunlabor_owner LOGIN PASSWORD :'owner_pw' CONNECTION LIMIT 2;
-ALTER ROLE staunlabor_app LOGIN PASSWORD :'app_pw' CONNECTION LIMIT 6;
+ALTER ROLE staunlabor_app LOGIN PASSWORD :'app_pw' CONNECTION LIMIT 12;
 
 -- On Cloud SQL `postgres` is no true superuser: to make a database owned by a
 -- role it must be a member of it.

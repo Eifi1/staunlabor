@@ -32,11 +32,12 @@ substitutions:
   # Empty, the backend refuses to start: the first stranger to sign up would be
   # its admin.
   _REGISTRATION_ALLOWLIST: kontakt@staunlabor.app
-  # `console` until Resend has verified staunlabor.app: nothing is sent, the log
-  # names each mail's kind alone, and an admin hands an invitation's or a reset's
-  # link on from the admin's answer. `resend` mounts staunlabor-resend-api-key,
-  # which must exist by then.
-  _MAIL_BACKEND: console
+  # `resend` sends through Resend (staunlabor.app verified there, region
+  # Ireland, as the privacy policy says) with staunlabor-resend-api-key, which
+  # must exist before a deploy that mounts it. `console` is the fallback: nothing
+  # is sent, the log names each mail's kind alone, and an admin hands an
+  # invitation's or a reset's link on from the admin's answer.
+  _MAIL_BACKEND: resend
   _TAG: latest                                      # the deploy workflow passes the short SHA
 
 # The build runs as an account of its own, with only what this file does: push
@@ -134,10 +135,11 @@ steps:
   # secret only staunlabor-run reads; the RP id is the site's host. A deployment
   # missing any of them refuses to start (main.check_deployment), and Cloud Run
   # keeps the revision before. The pool is 1 + 1 a process (settings.py), so
-  # three instances hold six connections at most, which the role's CONNECTION
-  # LIMIT enforces whatever the code says. The Resend key is mounted only with
-  # _MAIL_BACKEND=resend: a mounted secret that does not exist refuses the
-  # revision.
+  # three instances hold six connections at most; the role's CONNECTION LIMIT
+  # (12, roles.sql) leaves room for the old revision beside the new one during
+  # a rollout, and caps a runaway whatever the code says. The Resend key is
+  # mounted only with _MAIL_BACKEND=resend: a mounted secret that does not
+  # exist refuses the revision.
   #
   # Twice the CPU while an instance starts (--cpu-boost) and shortly after, billed
   # only then: a scale-to-zero backend's first request waits on Python loading the
