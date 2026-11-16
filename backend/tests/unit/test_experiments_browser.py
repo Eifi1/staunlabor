@@ -135,6 +135,8 @@ def test_the_cases_cross_every_branch_a_page_can_reach(stored: Any):
     assert any(c["m"] == 1 for c in downs) and any(c["m"] != 1 for c in downs), "one air exactly, and more"
     pairs = stored["slits"]
     assert len({f["stripes"] for c in pairs for f in c["figures"]}) >= 3, "middle bands of several widths"
+    tuned = [r["figures"]["beat_s"] for f in stored["beats"]["forks"] for r in f["riders"]]
+    assert None in tuned and any(b is not None for b in tuned), "a fork in tune, and beating ones"
     floats = {c["hover"]["state"] for c in stored["levitation"]}
     assert floats == {"hovers", "lands", "slides"}, "a top that hovers, one that lands, one that slides off"
     spheres = stored["sphere"]

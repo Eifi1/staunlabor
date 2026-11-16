@@ -59,6 +59,8 @@ with SciPy before it was written (``docs/experiments.md``).
   orange at the end: Rayleigh's ``1/λ⁴``, the blue sky and the red sunset.
 * :mod:`slits` — the double slit: two slits make stripes, and where they make
   it dark, one slit alone would light the wall.
+* :mod:`beats` — two tuning forks a little apart swell and fade together:
+  ``|f₁ − f₂|`` beats a second, and a rider on a prong sets them.
 * :mod:`levitation` — a spinning top hovers over a ring magnet only in a
   window a few millimetres high and three per cent wide in weight.
 * :mod:`gyroscope` — a spinning wheel on a string turns round it instead of
@@ -99,6 +101,12 @@ from staunlabor.domain.experiments.arch import Load as ArchLoad
 from staunlabor.domain.experiments.arch import Shape as ArchShape
 from staunlabor.domain.experiments.arch import Thrust as ArchThrust
 from staunlabor.domain.experiments.arch import thrust as arch_thrust
+from staunlabor.domain.experiments.beats import MODE_ROOT, BeatsFigures, Fork, Rider
+from staunlabor.domain.experiments.beats import figures as beats_figures
+from staunlabor.domain.experiments.beats import frequency_hz as fork_frequency_hz
+from staunlabor.domain.experiments.beats import loudness as beats_loudness
+from staunlabor.domain.experiments.beats import mode_shape as prong_mode_shape
+from staunlabor.domain.experiments.beats import sound as beats_sound
 from staunlabor.domain.experiments.bounce import (
     EXHIBIT_HEIGHT_M,
     STEEL,
@@ -485,6 +493,7 @@ __all__ = [
     "GLASS_BEAD",
     "LASER_NM",
     "METER_RANGE_A",
+    "MODE_ROOT",
     "STEEL",
     "TABLE_TENNIS",
     "WATER_DROP",
@@ -497,6 +506,7 @@ __all__ = [
     "BallStack",
     "Basin",
     "Bead",
+    "BeatsFigures",
     "Bob",
     "Body",
     "Bottle",
@@ -548,6 +558,7 @@ __all__ = [
     "FigureKind",
     "Flight",
     "FloatingBall",
+    "Fork",
     "FoucaultPendulum",
     "Funnel",
     "GroupPoint",
@@ -602,6 +613,7 @@ __all__ = [
     "RainbowFigures",
     "RayPath",
     "ResonanceRack",
+    "Rider",
     "Ring",
     "Room",
     "Scripted",
@@ -655,6 +667,9 @@ __all__ = [
     "ball_bounces",
     "ball_state",
     "beat_s",
+    "beats_figures",
+    "beats_loudness",
+    "beats_sound",
     "binocular_gap",
     "blocks_for_reach",
     "bounce_figures",
@@ -704,6 +719,7 @@ __all__ = [
     "fall_acceleration",
     "figures",
     "flux_linkage",
+    "fork_frequency_hz",
     "foucault_period_s",
     "foucault_position",
     "full_turn_h",
@@ -750,6 +766,7 @@ __all__ = [
     "plate_stream",
     "platform_figures",
     "position",
+    "prong_mode_shape",
     "pull_n",
     "race_entries",
     "race_valley",

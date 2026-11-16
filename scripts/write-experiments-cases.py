@@ -83,6 +83,7 @@ colour = importlib.import_module("staunlabor.domain.experiments.colour")
 rainbow = importlib.import_module("staunlabor.domain.experiments.rainbow")
 sky = importlib.import_module("staunlabor.domain.experiments.sky")
 slits = importlib.import_module("staunlabor.domain.experiments.slits")
+beats = importlib.import_module("staunlabor.domain.experiments.beats")
 
 TARGET = ROOT / "frontend/src/features/experiments/simulate/engine-cases.json"
 #: Points kept per curve: enough to see a curve that went wrong, few enough that
@@ -715,6 +716,23 @@ SLITS = (
 SLITS_NM = (405.0, 532.0, 650.0)
 SLITS_POINTS = 81
 
+#: Beats: the exhibit's fork, a low heavy one ringing long, a high light one
+#: ringing short; riders from none to the heaviest at the tip; the sound over
+#: five seconds, finely enough to follow a 1000 Hz fork.
+BEATS_FORKS = (
+    beats.Fork(),
+    beats.Fork(frequency_hz=256.0, prong_kg=0.05, decay_s=10.0),
+    beats.Fork(frequency_hz=1000.0, prong_kg=0.005, decay_s=2.0),
+)
+BEATS_RIDERS = (
+    beats.Rider(mass_kg=0.0, position=0.0),
+    beats.Rider(),
+    beats.Rider(mass_kg=0.002, position=0.5),
+    beats.Rider(mass_kg=0.005, position=1.0),
+    beats.Rider(mass_kg=0.0003, position=0.15),
+)
+BEATS_TIMES = tuple(5.0 * k / 20000 for k in range(20001))
+
 
 def thin(values: Any) -> Any:
     """A curve as its length and every so many of its points, the last always
@@ -1065,6 +1083,34 @@ def _slits_cases(out: dict[str, Any]) -> None:
         )
 
 
+def _beats_cases(out: dict[str, Any]) -> None:
+    out["beats"] = {
+        "shape": [beats.mode_shape(k / 10) for k in range(11)],
+        "forks": [
+            {
+                "fork": asdict(f),
+                "riders": [
+                    {"rider": asdict(r), "hz": beats.frequency_hz(f, r), "figures": asdict(beats.figures(f, r))}
+                    for r in BEATS_RIDERS
+                ],
+                "loudness": thin(
+                    [
+                        beats.loudness(f.frequency_hz, beats.frequency_hz(f, BEATS_RIDERS[2]), f.decay_s, t)
+                        for t in BEATS_TIMES
+                    ]
+                ),
+                "sound": thin(
+                    [
+                        beats.sound(f.frequency_hz, beats.frequency_hz(f, BEATS_RIDERS[2]), f.decay_s, t)
+                        for t in BEATS_TIMES
+                    ]
+                ),
+            }
+            for f in BEATS_FORKS
+        ],
+    }
+
+
 def _chladni_cases(out: dict[str, Any]) -> None:
     """The polynomials, three driven modes on a 5 × 5 grid, and the plate's
     answer at its first tones and between them: the port evaluates what the
@@ -1295,6 +1341,7 @@ def _second_series(out: dict[str, Any]) -> None:
     _rainbow_cases(out)
     _sky_cases(out)
     _slits_cases(out)
+    _beats_cases(out)
     _chladni_cases(out)
 
 

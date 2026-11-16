@@ -22,6 +22,7 @@ import * as colour from "./colour";
 import * as rainbow from "./rainbow";
 import * as sky from "./sky";
 import * as slits from "./slits";
+import * as beats from "./beats";
 import * as coil from "./coil";
 import * as cone from "./cone";
 import * as coriolis from "./coriolis";
@@ -1218,6 +1219,35 @@ describe("the double slit's port", () => {
           white_both: channels(slits.whitePattern(s, ys)),
           white_one: channels(slits.whitePattern(s, ys, false)),
           figures: nms.map((nm) => slits.figures(s, nm)),
+        }),
+      ).toEqual([]);
+    }
+  });
+});
+
+describe("the beats' port", () => {
+  it("detunes a fork with its rider and sounds the pair as the engine does", () => {
+    const c = cases.beats;
+    expect(
+      differences(
+        c.shape,
+        Array.from({ length: 11 }, (_, k) => beats.modeShape(k / 10)),
+      ),
+    ).toEqual([]);
+    const times = Array.from({ length: 20001 }, (_, k) => (5.0 * k) / 20000);
+    for (const f of c.forks) {
+      const fork = f.fork as beats.Fork;
+      const second = beats.frequencyHz(fork, f.riders[2].rider as beats.Rider);
+      expect(
+        differences(f, {
+          fork: f.fork,
+          riders: f.riders.map((r) => ({
+            rider: r.rider,
+            hz: beats.frequencyHz(fork, r.rider as beats.Rider),
+            figures: beats.figures(fork, r.rider as beats.Rider),
+          })),
+          loudness: times.map((t) => beats.loudness(fork.frequency_hz, second, fork.decay_s, t)),
+          sound: times.map((t) => beats.sound(fork.frequency_hz, second, fork.decay_s, t)),
         }),
       ).toEqual([]);
     }

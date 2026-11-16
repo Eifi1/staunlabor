@@ -3388,3 +3388,86 @@ def test_the_slits_refuse_what_they_cannot_be():
         x.Slits(distance_m=50)
     with pytest.raises(ValueError, match="visible"):
         x.slits_intensity(x.Slits(), 1000, 0.0)
+
+
+# ── beats ────────────────────────────────────────────────────────────────────
+
+
+def test_a_gram_on_the_prong_a_third_up_makes_a_beat_every_one_and_a_quarter_seconds():
+    figures = x.beats_figures(x.Fork(), x.Rider())
+    assert round(figures.detuned_hz, 2) == 439.18 and round(figures.beat_hz, 2) == 0.82
+    assert figures.beat_s is not None and round(figures.beat_s, 2) == 1.22
+    assert round(figures.cents, 1) == 3.2
+    # While the sound falls to a hundredth (6 s · ln 100 = 27.6 s): 23 beats.
+    assert round(figures.beats_heard) == 23
+    assert (x.Fork().frequency_hz, x.Fork().prong_kg, x.Fork().decay_s) == (440.0, 0.020, 6.0)
+    assert (x.Rider().mass_kg, x.Rider().position) == (0.001, 0.3)
+
+
+def test_the_prong_swings_in_a_clamped_beam_s_first_mode_and_weighs_a_quarter_at_its_tip():
+    assert abs(1 + math.cos(x.MODE_ROOT) * math.cosh(x.MODE_ROOT)) < 1e-12
+    assert x.prong_mode_shape(0.0) == 0 and x.prong_mode_shape(1.0) == pytest.approx(1.0)
+    n = 4000
+    quarter = sum((1 if k in (0, n) else 4 if k % 2 else 2) * x.prong_mode_shape(k / n) ** 2 for k in range(n + 1)) / (
+        3 * n
+    )
+    assert quarter == pytest.approx(0.25, abs=1e-12)
+
+
+def test_rayleigh_s_rider_is_a_hair_above_the_exact_beam_with_a_mass_at_its_tip():
+    """The exact frequency equation of a clamped beam with a mass ``μ·m_prong``
+    at its end, ``1 + cos x·cosh x + μ·x·(cos x·sinh x − sin x·cosh x) = 0``,
+    solved here by bisection."""
+    fork = x.Fork()
+
+    def exact(mu: float) -> float:
+        def g(z: float) -> float:
+            return 1 + math.cos(z) * math.cosh(z) + mu * z * (math.cos(z) * math.sinh(z) - math.sin(z) * math.cosh(z))
+
+        lo, hi = 1.0, x.MODE_ROOT
+        for _ in range(200):
+            mid = (lo + hi) / 2
+            lo, hi = (mid, hi) if g(lo) * g(mid) > 0 else (lo, mid)
+        return fork.frequency_hz * (lo / x.MODE_ROOT) ** 2
+
+    for grams, bound in ((1, 0.001), (5, 0.004)):
+        rayleigh = x.fork_frequency_hz(fork, x.Rider(mass_kg=grams / 1000, position=1.0))
+        assert 0 < rayleigh / exact(grams / 1000 / fork.prong_kg) - 1 < bound
+
+
+def test_the_sum_is_the_mean_tone_swelling_and_fading_at_the_difference():
+    f1, f2, tau = 440.0, 437.5, 6.0
+    for k in range(200):
+        t = k * 0.0137
+        mean = math.sin(math.pi * (f1 + f2) * t)
+        assert x.beats_sound(f1, f2, tau, t) == pytest.approx(
+            math.exp(-t / tau) * math.cos(math.pi * (f1 - f2) * t) * mean, abs=1e-12
+        )
+        assert abs(x.beats_sound(f1, f2, tau, t)) <= x.beats_loudness(f1, f2, tau, t) + 1e-15
+    # The loudness peaks once a beat: 2.5 beats a second, over 4 s ten silences.
+    ts = [k * 1e-3 for k in range(4001)]
+    quiet = [t for a, t, b in zip(ts, ts[1:], ts[2:], strict=False) if x.beats_loudness(f1, f2, tau, t) < 1e-3]
+    assert len({round(t * 2.5 - 0.5) for t in quiet}) == 10
+
+
+def test_a_rider_at_the_root_or_of_no_mass_leaves_the_fork_in_tune():
+    fork = x.Fork()
+    assert x.fork_frequency_hz(fork, x.Rider(position=0.0)) == fork.frequency_hz
+    tuned = x.beats_figures(fork, x.Rider(mass_kg=0.0))
+    assert tuned.beat_hz == 0 and tuned.beat_s is None and tuned.beats_heard == 0
+    # Further out, more: the pitch falls all the way along the prong.
+    pitches = [x.fork_frequency_hz(fork, x.Rider(position=p / 10)) for p in range(11)]
+    assert pitches == sorted(pitches, reverse=True)
+
+
+def test_the_forks_refuse_what_they_cannot_be():
+    with pytest.raises(ValueError, match="sounds"):
+        x.Fork(frequency_hz=50)
+    with pytest.raises(ValueError, match="prong"):
+        x.Fork(prong_kg=5)
+    with pytest.raises(ValueError, match="rings"):
+        x.Fork(decay_s=0.1)
+    with pytest.raises(ValueError, match="rider weighs"):
+        x.Rider(mass_kg=0.01)
+    with pytest.raises(ValueError, match="root to its tip"):
+        x.Rider(position=1.5)
