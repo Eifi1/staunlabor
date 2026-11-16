@@ -84,11 +84,11 @@ quarter for one that came right after yesterday's in the round before. Those
 are the second series' maluses (Marcel, 2026-11-15: "Tagesminus sollte weniger
 zählen"); the first series drew with a quarter and a tenth, and its rounds keep
 them, so the days the live site has shown keep their exhibit. Measured over
-400 rounds of all 32 (a plain shuffle, then the old maluses, in brackets):
-repeated pairs 0.39 a round (1.26; 0.27), repeated triples 0.005 (0.050;
-0.005), neighbours sharing a topic 19.7 days in a hundred (27.3; 14.7); with
-31, before the glass-bead rainbow, 0.47 and 20.6, with 30, before the
-Cartesian diver, 0.46 and 22.6. With eleven exhibits about energy,
+400 rounds of all 33 (a plain shuffle, then the old maluses, in brackets):
+repeated pairs 0.39 a round (1.28; 0.25), repeated triples 0.003 (0.060;
+0.005), neighbours sharing a topic 18.1 days in a hundred (25.8; 12.9); with
+32, before the blue sky, 0.39 and 19.7, with 31, before the glass-bead
+rainbow, 0.47 and 20.6. With eleven exhibits about energy,
 nine about oscillation and eight about angular momentum, the quarter held a
 topic back on most days.
 They were measured over 2000 rounds against a plain shuffle (`daily.ts` has
@@ -105,7 +105,7 @@ against 1670 over 400 rounds), with sixteen by a tenth (2311 against 2555),
 with 26 by a twentieth (10259 against 10834 over 1200 rounds), with 27 to
 31 the same (10513 against 11135, 11237 against 11819, 11640 against 12183,
 12332 against 12882, 12771 against 13269), with 32 by a fortieth (13523
-against 13858);
+against 13858), with 33 by a thirtieth (13847 against 14261);
 `daily.test.ts` now holds it only to a fiftieth. Its weight a day is fixed
 while a round grows longer, and stays so: Marcel weakened the maluses instead
 (2026-11-15).
@@ -1775,6 +1775,74 @@ the traced ray against Snell's law and `4r − 2i`; Fresnel's 4 % straight on;
 the profile's light against Simpson's rule over the face, dark past the red
 edge, brightest at the rainbow angle; the ring red outside, blue inside and
 whitish within; the refusals.
+
+## Why the sky is blue (`experiments.sky`)
+
+**The exhibit** (2026-11-16, the sixth of stage 4, local feedback entry #26;
+inspired by "Warum ist der Himmel blau" at the Technorama). A long tube of
+water made faintly cloudy with particles far smaller than the wavelength, a
+white lamp shining in at one end: from the side the tube is bluish by the
+lamp and white, yellow and orange further along; seen through the far end the
+lamp is orange. The blue sky and the red setting sun for the same reason.
+
+**The model** (`domain/experiments/sky.py`, colours by `colour.py`). Rayleigh
+scattering `β(λ) = β₅₅₀·(550 nm/λ)⁴`, the cloudiness given as `β₅₅₀` per
+metre; the light going on `S(λ)·e^{−β(λ)·x}` (Beer–Lambert); the side light at
+`x` what is scattered there, `(550/λ)⁴·e^{−β(λ)·(x + a)}` relative to `β₅₅₀`,
+`a` the tube's half-width it still crosses to the wall; the end light
+`e^{−β(λ)·L}`. The lamp a 3000 K glow, each colour relative to its white. The
+sky: the air's optical depth straight up 0.097 at 550 nm, scaled as `1/λ⁴`;
+the sun at height `h` through Kasten and Young's air mass `m` (37.9 at the
+horizon), its light `S·e^{−m·τ}`; the sky straight overhead as sunlight
+scattered once at every height on its way down, `(e^{−τ} − e^{−m·τ})/(m − 1)`
+for an air whose density falls alike for every wavelength, written with
+`expm1` so that it holds at `m = 1` (`τ·e^{−τ}`). The sun a 5778 K glow above
+the air, taken as white.
+
+**What it shows** (an assumed tube: 1 m long, 6 cm across, `β₅₅₀` 1.5 per
+metre). Blue (450 nm) scatters 4.4 times as strongly as red (650 nm); half the
+blue is gone after 21 cm, past 54 cm the side light holds more red than blue;
+the end lets through 28 % as bright as the lamp, 3.5 % of its blue and 46 % of
+its red. The side light fades along the tube; cloudier, the end goes redder
+while the side by the lamp stays blue. The sun at the horizon keeps 4 % of its
+light, orange; overhead it is near white. The sky overhead at noon is sky blue,
+more green in it than red (the sun's spectrum and the eye's, not violet);
+without ozone it is almost white at sunset.
+
+**The page.** The tube in a dark room: the lamp, the side as a gradient from
+65 places, each place's colour as bright as the screen allows (the caption
+says the tube darkens in reality), the window at the end in the colour that
+comes through, and marks where half the blue is gone and where red wins while
+they lie in the tube. A slider for the cloudiness (0.1–4 per metre), the
+figures beside it. Lengthening the tube (0.2–3 m) with the side light along
+it for blue, green and red, crossing where it turns yellowish. "In the sky":
+the sun's height (0–90°) with the sky overhead in its colour, as bright as
+against the sky with the sun overhead, and the sun's disc in its own; the air
+mass and how much of the sun's light, its blue and its red reach the ground.
+"The trick" has the sun's blue and red at the ground over its height. The
+preview's tube clouds over and clears again. Topic "light", lesson
+`first_order` (Beer–Lambert is the first-order decay). **No route**: the port's
+(`simulate/sky.ts`), held to the engine over three tubes (the exhibit's, a long
+cloudy one, a short clear wide one) at four places each, eight heights of the
+sun (one where the air mass is within a hair of 1) and the light scattered
+down at exactly one air and near it.
+
+**Joins the experiment of the day** on `SECOND_SERIES`, with the second series.
+
+**Left out, and said:** light scattered more than once (it whitens a very
+cloudy tube and the horizon); larger particles that scatter every colour
+alike (milk); the direction of scattering, which changes only the brightness;
+for the sky, ozone (which keeps the twilight sky blue), dust and haze (which
+redden the sunset further).
+
+**Checked by** `tests/unit/test_experiments.py`: the 4.4, the 21 cm and the
+54 cm, the light at the end; the side light along the tube and the end light
+adding up to all the lamp's, by Simpson's rule, at every tenth wavelength; the
+tube blue by the lamp and orange at the end, redder when cloudier, fading
+along; the air mass at the horizon, overhead and against `1/sin h` high up;
+the sun near white overhead and orange at the horizon with 4 % left; the sky
+overhead against its integral over the heights, at one air exactly too; sky
+blue at noon and almost white at sunset; the refusals.
 
 ## The notice: the check still to come
 

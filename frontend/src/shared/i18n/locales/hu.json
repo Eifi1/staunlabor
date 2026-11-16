@@ -328,6 +328,12 @@
         "title": "Az üveggyöngy-szivárvány",
         "summary": "Apró üveggyöngyökkel borított fal, amelyet egy lámpa világít meg a feje mellől: a feje árnyéka körül színes gyűrű jelenik meg – feleakkora, mint a szivárvány az égen.",
         "question": "Miért világít színes gyűrű a fej árnyéka körül, és miért kisebb, mint az égi szivárvány?"
+      },
+      "sky": {
+        "short": "Kék ég",
+        "title": "Miért kék az ég?",
+        "summary": "Fehér fény egy enyhén zavaros csövön át: oldalról kéken világít, a végén narancssárgán jön ki – a kék ég és a vörös esti nap kicsiben.",
+        "question": "Miért kék ugyanaz a fény oldalról, és narancssárga a cső végén?"
       }
     },
     "chair": {
@@ -2999,6 +3005,91 @@
         "colours": "A színek: 81 hullámhosszra 380 és 780 nm között, a szem színérzékenységével súlyozva (CIE 1931), és a képernyő színeire átszámítva (sRGB). A lámpa fehérje fehérnek látszik, ahogy a szem látja; a spektrumszínek, amelyeket a képernyő nem tud megmutatni, kissé halványabbak.",
         "check": "Az oldal tesztjei a megrajzolt sugarat a törés törvényéhez és a θ = 4r − 2i képlethez tartják, a szivárványszöget vakon keresik meg az egész gyöngyön, és a visszavert fényt a Simpson-szabállyal számolják újra: az üveggyöngyre eső fény 5,5 %-a jön vissza egy visszaverődés után, ennek 24 %-a a szivárványszög előtti utolsó fokban. A számítás az Ön böngészőjében fut, ugyanazokkal a képletekkel, mint az oldal számítómagja.",
         "left_out": "Kimaradt: a gyöngyök mérete (nagyon kicsi gyöngyökben a fényhullámok kiszélesítik a gyűrűt, és belül halvány gyűrűket adnak hozzá); a belül kétszer vagy többször visszaverődő fény (egy második, halványabb gyűrű, üvegnél messze a látótéren kívül) vagy a vissza sem verődő (a gyöngyök fehér fénye); a gyöngyök mögötti fal. Feltételezve: 1,52-es törésmutatójú nátronmészüveg."
+      }
+    },
+    "sky": {
+      "at": {
+        "tube": "Egy hosszú, vízzel teli cső, amelyet a fény hullámhosszánál jóval kisebb részecskék enyhén zavarossá tesznek. Egy fehér lámpa világít bele az egyik végén.",
+        "side": "Oldalról a cső a lámpa közelében kékesen világít, távolabb fehéren, sárgán és végül narancssárgán.",
+        "end": "Ha a másik végén nézünk bele, a fehér lámpa narancssárgának látszik – mint az esti nap."
+      },
+      "tube_view": "A zavaros cső a lámpával balra, oldala a saját színeiben, jobbra a csőbe nézve látott fény",
+      "sky_view": "Az ég közvetlenül felettünk a saját színében, és a nap a magasságában",
+      "play": {
+        "title": "Fény a zavaros csövön át",
+        "hint": "Tegye a vizet zavarosabbá vagy tisztábbá, és nézze meg, hogyan tolódnak el a színek a cső mentén.",
+        "cloudiness": "Zavarosság",
+        "cloudiness_hint": "A zöld fény (550 nm) mekkora része szóródik oldalra méterenként.",
+        "caption": "A cső minden helye a saját színében, mind egyformán világosnak rajzolva: a valóságban a cső a vége felé sötétebb. A színek a képernyőn csak közelítők.",
+        "end": "Belenézve a csőbe",
+        "side": "Oldalról",
+        "half_mark": "a kék fele elfogyott",
+        "red_mark": "több piros, mint kék"
+      },
+      "figures": {
+        "blue_over_red": "Kék szórása a piroshoz képest",
+        "blue_half": "A kék fele elfogy ennyi után",
+        "red_wins": "Oldalt több a piros, mint a kék, innen",
+        "end_brightness": "A végén: világosság a lámpához képest",
+        "end_blue": "A végén: megmaradt kék",
+        "end_red": "A végén: megmaradt piros"
+      },
+      "change": {
+        "title": "A cső meghosszabbítása",
+        "hint": "A hosszabb cső olyan, mint hosszabb út a levegőn át.",
+        "length": "A cső hossza",
+        "length_hint": "Milyen messzire jut a fény a zavaros vízben."
+      },
+      "chart": {
+        "side_hint": "A cső oldalán kilépő fény kékre, zöldre és pirosra. A kék a legerősebben indul, de a leggyorsabban fogy el; ahol a görbék keresztezik egymást, az oldal sárgássá válik.",
+        "blue": "Kék (450 nm)",
+        "green": "Zöld (550 nm)",
+        "red": "Piros (650 nm)",
+        "side": "Oldalfény (relatív)",
+        "along": "Hely a csőben",
+        "sun_hint": "A kék és a piros napfény mekkora része éri el a talajt, a nap magassága szerint.",
+        "sun": "Napfény a talajon",
+        "height": "A nap magassága"
+      },
+      "air": {
+        "title": "Az égen",
+        "hint": "Emelje vagy süllyessze a napot. A levegő ilyen zavaros cső: minél alacsonyabban áll a nap, annál hosszabb az útja a levegőn át.",
+        "height": "A nap magassága",
+        "height_hint": "Milyen magasan áll a nap a horizont felett.",
+        "caption": "Fent az ég közvetlenül Ön felett, olyan világosan, mint a zenitben álló nap melletti éghez képest, a saját színében; a nap a sajátjában, teljes fényerővel rajzolva. A színek csak közelítők.",
+        "air_mass": "Út a levegőn át (légtömeg)",
+        "brightness": "Napfény a talajon",
+        "blue": "ebből kék",
+        "red": "ebből piros"
+      },
+      "model": {
+        "intro": "A hullámhossznál jóval kisebb részecskék annál erősebben szórják a fényt, minél rövidebb a hullámhossza.",
+        "rayleigh": "A szórás a frekvencia negyedik hatványával nő (Rayleigh): a kék fény (450 nm) 4,4-szer erősebben szóródik, mint a piros (650 nm).",
+        "beer": "Ami szóródik, az hiányzik a továbbhaladó fényből: a cső mentén exponenciálisan csökken, a kék a leggyorsabban (Beer–Lambert-törvény).",
+        "side": "Oldalról azt látjuk, ami azon a helyen szóródik, levonva azt, ami a cső faláig vezető úton még elvész.",
+        "sky": "Az ég közvetlenül felettünk: napfény, amely minden magasságban egyszer szóródik, majd lejut a talajra. A nap m légtömegnyire alacsonyan áll."
+      },
+      "symbols": {
+        "beta": "Szórási együttható",
+        "beta0": "Zavarosság: szórási együttható 550 nm-en",
+        "lambda": "Hullámhossz",
+        "i": "Fény a csőben, a lámpa fényének hányadaként",
+        "s": "A lámpa spektruma",
+        "x": "Hely a csőben",
+        "a": "A cső szélességének fele",
+        "tau": "A levegő optikai vastagsága függőlegesen (550 nm-en 0,097)",
+        "m": "Légtömeg: mennyi levegőn halad át a napfény, a függőleges úthoz képest"
+      },
+      "sweet": {
+        "same": "A trükk: a cső az ég kicsiben. A levegő molekulái jóval kisebbek a hullámhossznál, és a kéket 4,4-szer erősebben szórják, mint a pirosat. Bárhová nézünk a naptól távol, szórt fényt látunk – és az kék.",
+        "sunset": "Este a nap alacsonyan áll, és fénye 38-szor annyi levegőn halad át, mint a függőlegesen érkező fény. Útközben a kéket szinte teljesen elszórja: a napfénynek csak 4 %-a érkezik meg, és az narancssárga – mint a lámpa a cső végén.",
+        "not_violet": "Az ibolya még erősebben szóródik, mint a kék. Hogy az ég mégis kéknek és nem ibolyának látszik, az a napon múlik, amely kevesebb ibolyát bocsát ki, és a szemen, amely kevéssé érzékeny rá – az oldal színszámítása mindkettőt mutatja."
+      },
+      "computed": {
+        "system": "Az oldal 81 hullámhossz mindegyikére kiszámítja, mennyi fény marad a cső minden helyén, és abból mennyi szóródik oldalra. Az éghez a levegő optikai vastagságát veszi, 550 nm-en 0,097-et, és a Kasten–Young-féle légtömeget, a horizonton 37,9-et.",
+        "colours": "A színek, mint az üveggyöngy-szivárványnál: a szem színérzékenységével súlyozva (CIE 1931), és a képernyő színeire átszámítva (sRGB). A lámpa fehérje – az égnél a nap fehérje a levegő felett – fehérnek látszik. Minden szín olyan világosnak van rajzolva, amennyire a képernyő engedi; hogy valójában mennyire világos, azt a számok mondják meg.",
+        "check": "Az oldal tesztjei ellenőrzik, hogy az oldalra szórt és a végére érkező fény együtt pontosan a lámpa fényét adja (Simpson-szabály), és a felettünk lévő eget ugyanahhoz az összes magasságra vett összeghez tartják. A számítás az Ön böngészőjében fut, ugyanazokkal a képletekkel, mint az oldal számítómagja.",
+        "left_out": "Kimaradt: a többször szóródó fény (egy nagyon zavaros csövet és az eget a horizontnál fehérebbé tesz); a nagyobb részecskék, amelyek minden színt egyformán szórnak (ezért fehér a tej); a szórás iránya, amely csak a világosságot változtatja; az égnél az ózon, amely alkonyatkor kéken tartja az eget (nélküle itt a felettünk lévő ég este szinte fehér lesz), valamint a por és a pára, amelyek még vörösebbé teszik a naplementét. Feltételezve: 1 m hosszú, 6 cm átmérőjű cső."
       }
     }
   },

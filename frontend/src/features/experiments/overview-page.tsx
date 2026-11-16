@@ -39,6 +39,7 @@ import {
   Layers,
   TestTube,
   Rainbow,
+  CloudSun,
 } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
 import {
@@ -98,6 +99,7 @@ const ICON: Record<Exhibit, LucideIcon> = {
   overhang: Layers,
   diver: TestTube,
   rainbow: Rainbow,
+  sky: CloudSun,
 };
 
 /** Two weeks back, in the dialog: long enough to find the one a friend

@@ -328,6 +328,12 @@
         "title": "L’arcobaleno delle perline di vetro",
         "summary": "Una parete coperta di minuscole perline di vetro, illuminata da una lampada accanto alla sua testa: attorno all’ombra della sua testa compare un anello colorato, grande la metà dell’arcobaleno nel cielo.",
         "question": "Perché attorno all’ombra della testa brilla un anello colorato, e perché è più piccolo dell’arcobaleno nel cielo?"
+      },
+      "sky": {
+        "short": "Cielo blu",
+        "title": "Perché il cielo è blu?",
+        "summary": "Luce bianca attraverso un tubo leggermente torbido: di lato brilla blu, in fondo esce arancione – il cielo blu e il sole rosso della sera in piccolo.",
+        "question": "Perché la stessa luce è blu di lato e arancione in fondo?"
       }
     },
     "chair": {
@@ -2999,6 +3005,91 @@
         "colours": "I colori: per 81 lunghezze d’onda da 380 a 780 nm, pesate con la sensibilità dell’occhio ai colori (CIE 1931) e convertite nei colori dello schermo (sRGB). Il bianco della lampada appare bianco, come lo vede l’occhio; i colori spettrali che uno schermo non può mostrare appaiono un po’ più pallidi.",
         "check": "I test della pagina confrontano il raggio disegnato con la legge della rifrazione e con la formula θ = 4r − 2i, cercano l’angolo dell’arcobaleno alla cieca su tutta la perlina e ricontano la luce rimandata con la regola di Simpson: della luce che colpisce una perlina di vetro, il 5,5 % torna dopo una riflessione, e il 24 % di questa nell’ultimo grado prima dell’angolo dell’arcobaleno. Il calcolo avviene nel suo browser, con le stesse formule del motore di calcolo della pagina.",
         "left_out": "Tralasciato: la grandezza delle perline (in perline molto piccole le onde luminose allargano l’anello e aggiungono deboli anelli all’interno); la luce riflessa dentro due o più volte (un secondo anello, più debole, nel vetro lontano dalla vista) o mai (la lucentezza bianca delle perline); la parete dietro le perline. Si assume vetro sodico-calcico d’indice 1,52."
+      }
+    },
+    "sky": {
+      "at": {
+        "tube": "Un lungo tubo pieno d’acqua, resa leggermente torbida da particelle molto più piccole della lunghezza d’onda della luce. Una lampada bianca illumina da un’estremità.",
+        "side": "Di lato il tubo brilla azzurrino vicino alla lampada, più in là bianco, giallo e infine arancione.",
+        "end": "Guardando dentro dall’altra estremità, la lampada bianca appare arancione, come il sole di sera."
+      },
+      "tube_view": "Il tubo torbido con la lampada a sinistra, il suo lato nei suoi colori e a destra la vista nel tubo",
+      "sky_view": "Il cielo proprio sopra di sé nel suo colore, e il sole alla sua altezza",
+      "play": {
+        "title": "Luce attraverso il tubo torbido",
+        "hint": "Renda l’acqua più torbida o più limpida e veda come i colori si spostano lungo il tubo.",
+        "cloudiness": "Torbidità",
+        "cloudiness_hint": "Quale parte della luce verde (550 nm) viene diffusa di lato per metro.",
+        "caption": "Ogni punto del tubo nel suo colore, tutti disegnati ugualmente chiari: in realtà il tubo si scurisce verso la fine. I colori sullo schermo sono solo approssimati.",
+        "end": "Vista nel tubo",
+        "side": "Di lato",
+        "half_mark": "metà del blu persa",
+        "red_mark": "più rosso che blu"
+      },
+      "figures": {
+        "blue_over_red": "Blu diffuso, rispetto al rosso",
+        "blue_half": "Metà del blu persa dopo",
+        "red_wins": "Più rosso che blu di lato da",
+        "end_brightness": "In fondo: luminosità rispetto alla lampada",
+        "end_blue": "In fondo: blu rimasto",
+        "end_red": "In fondo: rosso rimasto"
+      },
+      "change": {
+        "title": "Allungare il tubo",
+        "hint": "Un tubo più lungo è come un cammino più lungo attraverso l’aria.",
+        "length": "Lunghezza del tubo",
+        "length_hint": "Fin dove la luce attraversa l’acqua torbida."
+      },
+      "chart": {
+        "side_hint": "La luce che esce dal lato del tubo, per blu, verde e rosso. Il blu parte più forte ma si esaurisce più in fretta; dove le curve si incrociano, il lato diventa giallastro.",
+        "blue": "Blu (450 nm)",
+        "green": "Verde (550 nm)",
+        "red": "Rosso (650 nm)",
+        "side": "Luce laterale (relativa)",
+        "along": "Punto nel tubo",
+        "sun_hint": "Quanta luce solare blu e rossa raggiunge il suolo, secondo l’altezza del sole.",
+        "sun": "Luce del sole al suolo",
+        "height": "Altezza del sole"
+      },
+      "air": {
+        "title": "In cielo",
+        "hint": "Alzi o abbassi il sole. L’aria è un tubo torbido così: più il sole è basso, più lungo è il suo cammino attraverso l’aria.",
+        "height": "Altezza del sole",
+        "height_hint": "Quanto in alto sta il sole sopra l’orizzonte.",
+        "caption": "In alto il cielo proprio sopra di lei, chiaro quanto rispetto al cielo con il sole allo zenit, e nel suo colore; il sole nel suo, disegnato in piena luminosità. I colori sono solo approssimati.",
+        "air_mass": "Cammino attraverso l’aria (masse d’aria)",
+        "brightness": "Luce del sole al suolo",
+        "blue": "di cui blu",
+        "red": "di cui rosso"
+      },
+      "model": {
+        "intro": "Le particelle molto più piccole della lunghezza d’onda diffondono la luce tanto più fortemente quanto più corta è la sua lunghezza d’onda.",
+        "rayleigh": "La diffusione cresce con la quarta potenza della frequenza (Rayleigh): la luce blu (450 nm) viene diffusa 4,4 volte più della rossa (650 nm).",
+        "beer": "Ciò che viene diffuso manca alla luce che prosegue: diminuisce esponenzialmente lungo il tubo, il blu più in fretta (Beer-Lambert).",
+        "side": "Di lato si vede ciò che viene diffuso in quel punto, meno ciò che si perde ancora sulla via fino alla parete del tubo.",
+        "sky": "Il cielo proprio sopra di sé: luce solare diffusa una volta a ogni altezza e poi scesa al suolo. Il sole sta basso di m masse d’aria."
+      },
+      "symbols": {
+        "beta": "Coefficiente di diffusione",
+        "beta0": "Torbidità: coefficiente di diffusione a 550 nm",
+        "lambda": "Lunghezza d’onda",
+        "i": "Luce nel tubo, come parte di quella della lampada",
+        "s": "Spettro della lampada",
+        "x": "Punto nel tubo",
+        "a": "Metà della larghezza del tubo",
+        "tau": "Spessore ottico dell’aria in verticale (0,097 a 550 nm)",
+        "m": "Massa d’aria: quanta aria attraversa la luce del sole, rispetto al cammino verticale"
+      },
+      "sweet": {
+        "same": "Il trucco: il tubo è il cielo in piccolo. Le molecole dell’aria sono molto più piccole della lunghezza d’onda e diffondono il blu 4,4 volte più del rosso. Ovunque si guardi lontano dal sole, si vede luce diffusa – ed è blu.",
+        "sunset": "La sera il sole è basso e la sua luce attraversa 38 volte più aria della luce che arriva in verticale. Lungo la strada il blu le viene quasi tutto tolto per diffusione: arriva solo il 4 % della luce del sole, ed è arancione, come la lampada in fondo al tubo.",
+        "not_violet": "Il viola viene diffuso ancora più del blu. Che il cielo sembri comunque blu e non viola dipende dal sole, che emette meno viola, e dall’occhio, poco sensibile a esso – il calcolo dei colori della pagina mostra entrambe le cose."
+      },
+      "computed": {
+        "system": "Per ciascuna di 81 lunghezze d’onda la pagina calcola quanta luce resta in ogni punto del tubo e quanta ne viene diffusa di lato. Per il cielo prende lo spessore ottico dell’aria, 0,097 a 550 nm, e la massa d’aria secondo Kasten e Young, 37,9 all’orizzonte.",
+        "colours": "I colori come per l’arcobaleno delle perline di vetro: pesati con la sensibilità dell’occhio ai colori (CIE 1931) e convertiti nei colori dello schermo (sRGB). Il bianco della lampada – per il cielo, quello del sole sopra l’aria – appare bianco. Ogni colore è disegnato chiaro quanto lo schermo consente; quanto sia chiaro davvero, lo dicono le cifre.",
+        "check": "I test della pagina verificano che la luce diffusa di lato e quella che arriva in fondo diano insieme esattamente la luce della lampada (regola di Simpson), e confrontano il cielo sopra di sé con la stessa somma su tutte le altezze. Il calcolo avviene nel suo browser, con le stesse formule del motore di calcolo della pagina.",
+        "left_out": "Tralasciato: la luce diffusa più volte (rende più bianchi un tubo molto torbido e il cielo all’orizzonte); le particelle più grandi, che diffondono tutti i colori allo stesso modo (per questo il latte è bianco); la direzione della diffusione, che cambia solo la luminosità; per il cielo l’ozono, che mantiene blu il cielo al crepuscolo (senza di esso il cielo sopra di sé qui diventa quasi bianco la sera), e la polvere e la foschia, che rendono il tramonto ancora più rosso. Si assume un tubo lungo 1 m e largo 6 cm."
       }
     }
   },

@@ -52,6 +52,7 @@ async def test_the_experiments_need_no_account(client: AsyncClient):
         "overhang",
         "diver",
         "rainbow",
+        "sky",
         "chladni",
         "meter_range_a",
         "settle_s",
@@ -95,6 +96,7 @@ async def test_the_experiments_need_no_account(client: AsyncClient):
         "glass": {"index": 1.52, "dispersion_nm2": 4200.0},
         "water": {"index": 1.333, "dispersion_nm2": 3140.0},
     }
+    assert body["sky"] == {"length_m": 1.0, "radius_m": 0.03, "cloudiness_per_m": 1.5}
 
 
 async def test_the_sphere_answers_its_orbits_and_its_swing(client: AsyncClient):

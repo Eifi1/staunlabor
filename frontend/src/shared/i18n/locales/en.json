@@ -328,6 +328,12 @@
         "title": "The glass-bead rainbow",
         "summary": "A wall of tiny glass beads, lit by a lamp beside your head: round the shadow of your head a coloured ring appears – half the size of the rainbow in the sky.",
         "question": "Why does a coloured ring glow round the shadow of your head, and why is it smaller than the rainbow in the sky?"
+      },
+      "sky": {
+        "short": "Blue sky",
+        "title": "Why is the sky blue?",
+        "summary": "White light through a faintly cloudy tube: from the side it glows blue, at the end it comes out orange – the blue sky and the red evening sun in small.",
+        "question": "Why is the same light blue from the side and orange at the end?"
       }
     },
     "chair": {
@@ -2999,6 +3005,91 @@
         "colours": "The colours: for 81 wavelengths from 380 to 780 nm, weighted by the eye's sensitivity to colour (CIE 1931) and converted into the screen's colours (sRGB). The lamp's white appears white, as the eye sees it; spectral colours that a screen cannot show appear somewhat paler.",
         "check": "The page's tests hold the drawn ray to the law of refraction and to the formula θ = 4r − 2i, search for the rainbow angle blindly across the whole bead, and count the light sent back by Simpson's rule: of the light meeting a glass bead, 5.5 % comes back after one reflection, 24 % of that in the last degree before the rainbow angle. The computing happens in your browser, with the same formulas as the site's engine.",
         "left_out": "Left out: the size of the beads (in very small beads the light's waves widen the ring and add faint rings inside it); light reflected twice or more inside (a second, fainter ring, for glass far out of sight) or not at all (the beads' white sheen); the wall behind the beads. Assumed: soda-lime glass of refractive index 1.52."
+      }
+    },
+    "sky": {
+      "at": {
+        "tube": "A long tube of water, made faintly cloudy with particles much smaller than the wavelength of light. A white lamp shines in at one end.",
+        "side": "From the side the tube glows bluish near the lamp, and further along white, yellow and finally orange.",
+        "end": "Looking in at the other end, the white lamp appears orange – like the sun in the evening."
+      },
+      "tube_view": "The cloudy tube with the lamp on the left, its side in its colours, and on the right the view into the tube",
+      "sky_view": "The sky straight overhead in its colour, and the sun at its height",
+      "play": {
+        "title": "Light through the cloudy tube",
+        "hint": "Make the water cloudier or clearer and watch the colours shift along the tube.",
+        "cloudiness": "Cloudiness",
+        "cloudiness_hint": "What share of the green light (550 nm) is scattered to the side per metre.",
+        "caption": "Each place of the tube in its colour, all drawn equally bright: in reality the tube gets darker towards its end. The colours on the screen are only approximate.",
+        "end": "Into the tube",
+        "side": "From the side",
+        "half_mark": "half the blue gone",
+        "red_mark": "more red than blue"
+      },
+      "figures": {
+        "blue_over_red": "Blue scattered, against red",
+        "blue_half": "Half the blue gone after",
+        "red_wins": "More red than blue at the side from",
+        "end_brightness": "At the end: as bright as the lamp",
+        "end_blue": "At the end: blue left",
+        "end_red": "At the end: red left"
+      },
+      "change": {
+        "title": "Lengthen the tube",
+        "hint": "A longer tube is like a longer way through the air.",
+        "length": "Length of the tube",
+        "length_hint": "How far the light goes through the cloudy water."
+      },
+      "chart": {
+        "side_hint": "The light coming out of the side of the tube, for blue, green and red. Blue starts strongest but is used up fastest; where the curves cross, the side turns yellowish.",
+        "blue": "Blue (450 nm)",
+        "green": "Green (550 nm)",
+        "red": "Red (650 nm)",
+        "side": "Side light (relative)",
+        "along": "Place in the tube",
+        "sun_hint": "How much of the blue and of the red sunlight reaches the ground, by the sun's height.",
+        "sun": "Sunlight at the ground",
+        "height": "Sun's height"
+      },
+      "air": {
+        "title": "In the sky",
+        "hint": "Raise or lower the sun. The air is such a cloudy tube: the lower the sun, the longer its way through the air.",
+        "height": "Sun's height",
+        "height_hint": "How high the sun stands above the horizon.",
+        "caption": "Above, the sky straight overhead, as bright as against the sky with the sun overhead, and in its colour; the sun in its own, drawn at full brightness. The colours are only approximate.",
+        "air_mass": "Way through the air (air masses)",
+        "brightness": "Sunlight at the ground",
+        "blue": "of it blue",
+        "red": "of it red"
+      },
+      "model": {
+        "intro": "Particles much smaller than the wavelength scatter light the more strongly, the shorter its wavelength.",
+        "rayleigh": "Scattering grows with the fourth power of the frequency (Rayleigh): blue light (450 nm) is scattered 4.4 times as strongly as red (650 nm).",
+        "beer": "What is scattered is missing from the light going on: it falls exponentially along the tube, blue fastest (Beer–Lambert).",
+        "side": "From the side one sees what is scattered at that place, less what is still lost on the way to the tube's wall.",
+        "sky": "The sky straight overhead: sunlight scattered once at every height and then going down to the ground. The sun stands m air masses low."
+      },
+      "symbols": {
+        "beta": "Scattering coefficient",
+        "beta0": "Cloudiness: the scattering coefficient at 550 nm",
+        "lambda": "Wavelength",
+        "i": "Light in the tube, as a share of the lamp's",
+        "s": "The lamp's spectrum",
+        "x": "Place in the tube",
+        "a": "Half the tube's width",
+        "tau": "Optical depth of the air straight up (0.097 at 550 nm)",
+        "m": "Air mass: how much air the sunlight crosses, against the way straight down"
+      },
+      "sweet": {
+        "same": "The trick: the tube is the sky in small. The molecules of the air are much smaller than the wavelength and scatter blue 4.4 times as strongly as red. Wherever one looks away from the sun, one sees scattered light – and it is blue.",
+        "sunset": "In the evening the sun stands low, and its light crosses 38 times as much air as light coming straight down. On the way the blue is scattered almost entirely away: only 4 % of the sunlight arrives, and it is orange – like the lamp at the end of the tube.",
+        "not_violet": "Violet is scattered even more strongly than blue. That the sky still looks blue and not violet is down to the sun, which sends out less violet, and to the eye, which is little sensitive to it – the page's colour computation shows both."
+      },
+      "computed": {
+        "system": "For each of 81 wavelengths the page computes how much light is still there at each place of the tube and how much of it is scattered to the side. For the sky it takes the air's optical depth, 0.097 at 550 nm, and the air mass by Kasten and Young, 37.9 at the horizon.",
+        "colours": "The colours as for the glass-bead rainbow: weighted by the eye's sensitivity to colour (CIE 1931) and converted into the screen's colours (sRGB). The lamp's white – for the sky, the sun's above the air – appears white. Each colour is drawn as bright as the screen allows for it; how bright it really is, the figures say.",
+        "check": "The page's tests count that the light scattered to the side and the light arriving at the end add up to exactly the lamp's light (Simpson's rule), and hold the sky overhead against the same sum over all heights. The computing happens in your browser, with the same formulas as the site's engine.",
+        "left_out": "Left out: light scattered more than once (it makes a very cloudy tube and the sky at the horizon whiter); larger particles, which scatter all colours alike (that is why milk is white); the direction of scattering, which changes only the brightness; for the sky, ozone, which keeps the sky blue at dusk (without it the sky overhead here turns almost white in the evening), and dust and haze, which make the sunset redder still. Assumed: a tube 1 m long and 6 cm across."
       }
     }
   },

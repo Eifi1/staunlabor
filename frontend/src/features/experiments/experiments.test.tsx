@@ -54,6 +54,7 @@ import { BouncePage } from "./bounce-page";
 import { OverhangPage } from "./overhang-page";
 import { DiverPage } from "./diver-page";
 import { RainbowPage } from "./rainbow-page";
+import { SkyPage } from "./sky-page";
 import { ChladniPage } from "./chladni-page";
 import { ballState, pitEntries, positionAt, raceLayout, swingAt } from "./race-views";
 import { run as runPit } from "./simulate/pit";
@@ -1253,5 +1254,33 @@ describe("the glass-bead rainbow", () => {
     fireEvent.click(within(kind).getByRole("radio", { name: E.rainbow.change.kinds.water }));
     expect((await screen.findAllByText("42.1")).length).toBeGreaterThanOrEqual(2);
     expect(screen.getByText("1.90")).toBeInTheDocument();
+  });
+});
+
+describe("why the sky is blue", () => {
+  it("shows the cloudy tube, its figures, and the sun through the air", async () => {
+    renderWithProviders(<SkyPage />);
+    expect(await screen.findByRole("img", { name: E.sky.tube_view })).toBeInTheDocument();
+    expect(screen.getByRole("img", { name: E.sky.sky_view })).toBeInTheDocument();
+    // Blue scatters 4.4 times as strongly as red; half of it is gone after 21 cm, past 54 cm red wins.
+    expect(screen.getByText("4.4")).toBeInTheDocument();
+    expect(screen.getByText("21")).toBeInTheDocument();
+    expect(screen.getByText("54")).toBeInTheDocument();
+    fireEvent.change(screen.getByRole("slider", { name: E.sky.air.height }), { target: { value: "0" } });
+    expect(await screen.findByText("37.9")).toBeInTheDocument();
+    expect(screen.getAllByLabelText(E.equation.symbols).length).toBeGreaterThanOrEqual(4);
+  });
+
+  it("marks where red wins only inside the tube, and cloudier water moves it towards the lamp", async () => {
+    renderWithProviders(<SkyPage />);
+    await screen.findByRole("img", { name: E.sky.tube_view });
+    expect(screen.getByText(E.sky.play.red_mark)).toBeInTheDocument();
+    // In a 40 cm tube the red never wins: it would, past 54 cm.
+    fireEvent.change(screen.getByRole("slider", { name: E.sky.change.length }), { target: { value: "0.4" } });
+    expect(screen.queryByText(E.sky.play.red_mark)).not.toBeInTheDocument();
+    // At 3 per metre half the blue is gone after 10 cm, and red wins after 25 cm.
+    fireEvent.change(screen.getByRole("slider", { name: E.sky.play.cloudiness }), { target: { value: "3" } });
+    expect(await screen.findByText("10")).toBeInTheDocument();
+    expect(screen.getByText(E.sky.play.red_mark)).toBeInTheDocument();
   });
 });

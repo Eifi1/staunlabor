@@ -75,6 +75,7 @@ UNROUTED = (
     "overhang",
     "diver",
     "rainbow",
+    "sky",
 )
 
 

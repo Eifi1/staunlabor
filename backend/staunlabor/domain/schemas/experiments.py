@@ -842,6 +842,16 @@ class RainbowIn(_In):
     water: BeadIn
 
 
+# ── why the sky is blue ──────────────────────────────────────────────────────
+# No route: the page asks the port (``simulate/sky.ts``).
+
+
+class SkyTubeIn(_In):
+    length_m: float = Field(ge=0.1, le=5, default=1.0)
+    radius_m: float = Field(ge=0.005, le=0.2, default=0.03)
+    cloudiness_per_m: float = Field(gt=0, le=10, default=1.5)
+
+
 # ── the pages' starting point ────────────────────────────────────────────────
 
 
@@ -876,6 +886,7 @@ class ExperimentsDefaultsOut(_Out):
     overhang: OverhangIn
     diver: DiverExhibitIn
     rainbow: RainbowIn
+    sky: SkyTubeIn
     chladni: ChladniPlateIn
     #: The exhibit's meter: digital, ± this many amperes.
     meter_range_a: float

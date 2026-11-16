@@ -62,6 +62,7 @@ const OverhangPage = lazy(() =>
 );
 const DiverPage = lazy(() => import("@/features/experiments/diver-page").then((m) => ({ default: m.DiverPage })));
 const RainbowPage = lazy(() => import("@/features/experiments/rainbow-page").then((m) => ({ default: m.RainbowPage })));
+const SkyPage = lazy(() => import("@/features/experiments/sky-page").then((m) => ({ default: m.SkyPage })));
 const HarmonographPage = lazy(() =>
   import("@/features/experiments/harmonograph-page").then((m) => ({ default: m.HarmonographPage })),
 );
@@ -347,6 +348,14 @@ export function AppRoutes() {
           element={
             <Page>
               <RainbowPage />
+            </Page>
+          }
+        />
+        <Route
+          path="sky"
+          element={
+            <Page>
+              <SkyPage />
             </Page>
           }
         />

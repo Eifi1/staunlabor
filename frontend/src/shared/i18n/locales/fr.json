@@ -328,6 +328,12 @@
         "title": "L’arc-en-ciel des billes de verre",
         "summary": "Un mur couvert de minuscules billes de verre, éclairé par une lampe à côté de votre tête : autour de l’ombre de votre tête apparaît un anneau coloré – deux fois plus petit que l’arc-en-ciel dans le ciel.",
         "question": "Pourquoi un anneau coloré brille-t-il autour de l’ombre de la tête, et pourquoi est-il plus petit que l’arc-en-ciel dans le ciel ?"
+      },
+      "sky": {
+        "short": "Ciel bleu",
+        "title": "Pourquoi le ciel est-il bleu ?",
+        "summary": "De la lumière blanche à travers un tube légèrement trouble : de côté il brille en bleu, au bout elle sort orange – le ciel bleu et le soleil rouge du soir en petit.",
+        "question": "Pourquoi la même lumière est-elle bleue de côté et orange au bout ?"
       }
     },
     "chair": {
@@ -2999,6 +3005,91 @@
         "colours": "Les couleurs : pour 81 longueurs d’onde de 380 à 780 nm, pondérées par la sensibilité de l’œil aux couleurs (CIE 1931) et converties dans les couleurs de l’écran (sRGB). Le blanc de la lampe apparaît blanc, comme l’œil le voit ; les couleurs spectrales qu’un écran ne peut pas montrer apparaissent un peu plus pâles.",
         "check": "Les tests de la page confrontent le rayon dessiné à la loi de la réfraction et à la formule θ = 4r − 2i, cherchent l’angle de l’arc-en-ciel à l’aveugle sur toute la bille et recomptent la lumière renvoyée avec la règle de Simpson : de la lumière qui touche une bille de verre, 5,5 % revient après une réflexion, dont 24 % dans le dernier degré avant l’angle de l’arc-en-ciel. Le calcul se fait dans votre navigateur, avec les mêmes formules que le moteur de calcul de la page.",
         "left_out": "Laissé de côté : la taille des billes (dans de très petites billes, les ondes lumineuses élargissent l’anneau et ajoutent de faibles anneaux à l’intérieur) ; la lumière réfléchie deux fois ou plus à l’intérieur (un second anneau, plus faible, pour le verre loin hors de vue) ou pas du tout (l’éclat blanc des billes) ; le mur derrière les billes. On suppose un verre sodocalcique d’indice 1,52."
+      }
+    },
+    "sky": {
+      "at": {
+        "tube": "Un long tube rempli d’eau, rendue légèrement trouble par des particules bien plus petites que la longueur d’onde de la lumière. Une lampe blanche éclaire l’une de ses extrémités.",
+        "side": "De côté, le tube brille en bleuté près de la lampe, puis plus loin en blanc, en jaune et enfin en orange.",
+        "end": "En regardant par l’autre bout, la lampe blanche paraît orange – comme le soleil le soir."
+      },
+      "tube_view": "Le tube trouble avec la lampe à gauche, son côté dans ses couleurs et, à droite, la vue dans le tube",
+      "sky_view": "Le ciel juste au-dessus de soi dans sa couleur, et le soleil à sa hauteur",
+      "play": {
+        "title": "La lumière à travers le tube trouble",
+        "hint": "Rendez l’eau plus trouble ou plus claire et voyez comment les couleurs se déplacent le long du tube.",
+        "cloudiness": "Turbidité",
+        "cloudiness_hint": "Quelle part de la lumière verte (550 nm) est diffusée sur le côté par mètre.",
+        "caption": "Chaque endroit du tube dans sa couleur, tous dessinés aussi clairs : en réalité le tube s’assombrit vers son extrémité. Les couleurs à l’écran ne sont qu’approchées.",
+        "end": "Vue dans le tube",
+        "side": "De côté",
+        "half_mark": "moitié du bleu partie",
+        "red_mark": "plus de rouge que de bleu"
+      },
+      "figures": {
+        "blue_over_red": "Bleu diffusé, par rapport au rouge",
+        "blue_half": "Moitié du bleu partie après",
+        "red_wins": "Plus de rouge que de bleu sur le côté dès",
+        "end_brightness": "Au bout : clarté par rapport à la lampe",
+        "end_blue": "Au bout : bleu restant",
+        "end_red": "Au bout : rouge restant"
+      },
+      "change": {
+        "title": "Allonger le tube",
+        "hint": "Un tube plus long, c’est comme un chemin plus long à travers l’air.",
+        "length": "Longueur du tube",
+        "length_hint": "Jusqu’où la lumière traverse l’eau trouble."
+      },
+      "chart": {
+        "side_hint": "La lumière qui sort du côté du tube, pour le bleu, le vert et le rouge. Le bleu commence le plus fort mais s’épuise le plus vite ; là où les courbes se croisent, le côté devient jaunâtre.",
+        "blue": "Bleu (450 nm)",
+        "green": "Vert (550 nm)",
+        "red": "Rouge (650 nm)",
+        "side": "Lumière latérale (relative)",
+        "along": "Position dans le tube",
+        "sun_hint": "Quelle part de la lumière bleue et de la lumière rouge du soleil atteint le sol, selon la hauteur du soleil.",
+        "sun": "Lumière du soleil au sol",
+        "height": "Hauteur du soleil"
+      },
+      "air": {
+        "title": "Dans le ciel",
+        "hint": "Montez ou descendez le soleil. L’air est un tel tube trouble : plus le soleil est bas, plus son chemin à travers l’air est long.",
+        "height": "Hauteur du soleil",
+        "height_hint": "À quelle hauteur le soleil se trouve au-dessus de l’horizon.",
+        "caption": "En haut, le ciel juste au-dessus de vous, aussi clair que par rapport au ciel avec le soleil au zénith, et dans sa couleur ; le soleil dans la sienne, dessiné à pleine clarté. Les couleurs ne sont qu’approchées.",
+        "air_mass": "Chemin à travers l’air (masses d’air)",
+        "brightness": "Lumière du soleil au sol",
+        "blue": "dont bleu",
+        "red": "dont rouge"
+      },
+      "model": {
+        "intro": "Des particules bien plus petites que la longueur d’onde diffusent la lumière d’autant plus fortement que sa longueur d’onde est courte.",
+        "rayleigh": "La diffusion croît comme la puissance quatrième de la fréquence (Rayleigh) : la lumière bleue (450 nm) est diffusée 4,4 fois plus que la rouge (650 nm).",
+        "beer": "Ce qui est diffusé manque à la lumière qui continue : elle décroît exponentiellement le long du tube, le bleu le plus vite (Beer-Lambert).",
+        "side": "De côté, on voit ce qui est diffusé à cet endroit, moins ce qui se perd encore en chemin jusqu’à la paroi du tube.",
+        "sky": "Le ciel juste au-dessus de soi : la lumière du soleil diffusée une fois à chaque altitude, puis descendant jusqu’au sol. Le soleil est bas de m masses d’air."
+      },
+      "symbols": {
+        "beta": "Coefficient de diffusion",
+        "beta0": "Turbidité : coefficient de diffusion à 550 nm",
+        "lambda": "Longueur d’onde",
+        "i": "Lumière dans le tube, en part de celle de la lampe",
+        "s": "Spectre de la lampe",
+        "x": "Position dans le tube",
+        "a": "Demi-largeur du tube",
+        "tau": "Épaisseur optique de l’air à la verticale (0,097 à 550 nm)",
+        "m": "Masse d’air : quantité d’air traversée par la lumière du soleil, rapportée au chemin vertical"
+      },
+      "sweet": {
+        "same": "L’astuce : le tube est le ciel en petit. Les molécules de l’air sont bien plus petites que la longueur d’onde et diffusent le bleu 4,4 fois plus que le rouge. Où que l’on regarde à l’écart du soleil, on voit de la lumière diffusée – et elle est bleue.",
+        "sunset": "Le soir, le soleil est bas et sa lumière traverse 38 fois plus d’air que la lumière venant à la verticale. En chemin, le bleu lui est presque entièrement enlevé par diffusion : seulement 4 % de la lumière du soleil arrive, et elle est orange – comme la lampe au bout du tube.",
+        "not_violet": "Le violet est diffusé encore plus fortement que le bleu. Si le ciel paraît pourtant bleu et non violet, c’est que le soleil émet moins de violet et que l’œil y est peu sensible – le calcul des couleurs de la page montre les deux."
+      },
+      "computed": {
+        "system": "Pour chacune de 81 longueurs d’onde, la page calcule combien de lumière reste à chaque endroit du tube et combien en est diffusée sur le côté. Pour le ciel, elle prend l’épaisseur optique de l’air, 0,097 à 550 nm, et la masse d’air selon Kasten et Young, 37,9 à l’horizon.",
+        "colours": "Les couleurs comme pour l’arc-en-ciel des billes de verre : pondérées par la sensibilité de l’œil aux couleurs (CIE 1931) et converties dans les couleurs de l’écran (sRGB). Le blanc de la lampe – pour le ciel, celui du soleil au-dessus de l’air – apparaît blanc. Chaque couleur est dessinée aussi claire que l’écran le permet ; les chiffres disent sa clarté réelle.",
+        "check": "Les tests de la page vérifient que la lumière diffusée sur le côté et celle qui arrive au bout donnent ensemble exactement la lumière de la lampe (règle de Simpson), et confrontent le ciel au-dessus de soi à la même somme sur toutes les altitudes. Le calcul se fait dans votre navigateur, avec les mêmes formules que le moteur de calcul de la page.",
+        "left_out": "Laissé de côté : la lumière diffusée plusieurs fois (elle rend un tube très trouble et le ciel à l’horizon plus blancs) ; les particules plus grosses, qui diffusent toutes les couleurs de la même façon (c’est pourquoi le lait est blanc) ; la direction de la diffusion, qui ne change que la clarté ; pour le ciel, l’ozone, qui garde le ciel bleu au crépuscule (sans lui, le ciel au-dessus de soi devient ici presque blanc le soir), ainsi que la poussière et la brume, qui rendent le coucher de soleil plus rouge encore. On suppose un tube de 1 m de long et de 6 cm de diamètre."
       }
     }
   },

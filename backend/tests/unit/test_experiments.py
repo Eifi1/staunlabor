@@ -3278,8 +3278,13 @@ def test_the_sky_overhead_is_light_scattered_once_on_its_way_down():
             assert x.sky_scattered_down(tau, m) == pytest.approx(simpson, rel=1e-8)
     from staunlabor.domain.experiments import sky as s
 
-    noon = x.sky_hue(x.colour_lamp(s.SUN_K), x.sky_overhead_light(60))
-    assert noon[2] == pytest.approx(1.0) and noon[0] < 0.6
+    sun = x.colour_lamp(s.SUN_K)
+    noon = x.sky_hue(sun, x.sky_overhead_light(60))
+    # Sky blue, not violet: more green in it than red (the sun's spectrum and the eye's).
+    assert noon[2] == pytest.approx(1.0) and noon[0] < 0.6 and noon[1] > noon[0]
+    # Without ozone, the sky overhead at sunset is almost white.
+    assert min(x.sky_hue(sun, x.sky_overhead_light(0))) > 0.9
+    assert s.AIR_DEPTH == 0.097
 
 
 def test_the_tube_and_the_sun_refuse_what_they_cannot_be():

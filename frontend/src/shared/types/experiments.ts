@@ -723,6 +723,15 @@ export interface RainbowRequest {
   water: { index: number; dispersion_nm2: number };
 }
 
+// ── why the sky is blue ──────────────────────────────────────────────────────
+
+/** The engine's `Tube`. No route: the page asks the port (`simulate/sky.ts`). */
+export interface SkyRequest {
+  length_m: number;
+  radius_m: number;
+  cloudiness_per_m: number;
+}
+
 // ── the chain and the arch ───────────────────────────────────────────────────
 
 /** The engine's `Arch`. No route: the page asks the port (`simulate/arch.ts`). */
@@ -787,6 +796,7 @@ export interface ExperimentsDefaults {
   overhang: OverhangRequest;
   diver: DiverRequest;
   rainbow: RainbowRequest;
+  sky: SkyRequest;
   meter_range_a: number;
   settle_s: number;
 }

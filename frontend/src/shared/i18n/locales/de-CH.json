@@ -328,6 +328,12 @@
         "title": "Der Glasperlen-Regenbogen",
         "summary": "Eine Wand voller winziger Glasperlen, beleuchtet von einer Lampe neben Ihrem Kopf: Um den Schatten Ihres Kopfes erscheint ein farbiger Ring – halb so gross wie der Regenbogen am Himmel.",
         "question": "Warum leuchtet um den Schatten des Kopfes ein farbiger Ring, und warum ist er kleiner als der Regenbogen am Himmel?"
+      },
+      "sky": {
+        "short": "Himmel blau",
+        "title": "Warum ist der Himmel blau?",
+        "summary": "Weisses Licht durch ein leicht trübes Rohr: Von der Seite leuchtet es blau, am Ende kommt es orange heraus – der blaue Himmel und die rote Abendsonne im Kleinen.",
+        "question": "Warum ist dasselbe Licht seitlich blau und am Ende orange?"
       }
     },
     "chair": {
@@ -2999,6 +3005,91 @@
         "colours": "Die Farben: für 81 Wellenlängen von 380 bis 780 nm, gewichtet mit der Farbempfindlichkeit des Auges (CIE 1931) und umgerechnet in die Farben des Bildschirms (sRGB). Das Weiss der Lampe erscheint weiss, wie das Auge es sieht; Spektralfarben, die ein Bildschirm nicht zeigen kann, erscheinen etwas blasser.",
         "check": "Die Tests der Seite halten den gezeichneten Strahl an das Brechungsgesetz und an die Formel θ = 4r − 2i, suchen den Regenbogenwinkel blind über die ganze Perle und zählen das zurückgeworfene Licht mit der Simpson-Regel nach: Von dem Licht, das eine Glasperle trifft, kommen 5,5 % nach einer Spiegelung zurück, 24 % davon im letzten Grad vor dem Regenbogenwinkel. Gerechnet wird in Ihrem Browser, mit denselben Formeln wie im Rechenkern der Seite.",
         "left_out": "Weggelassen: die Grösse der Perlen (in sehr kleinen Perlen verbreitern die Lichtwellen den Ring und fügen innen schwache Ringe hinzu); Licht, das innen zweimal oder öfter gespiegelt wird (ein zweiter, schwächerer Ring, bei Glas weit ausser Sicht) oder gar nicht (der weisse Glanz der Perlen); die Wand hinter den Perlen. Angenommen ist Kalk-Natron-Glas mit der Brechzahl 1,52."
+      }
+    },
+    "sky": {
+      "at": {
+        "tube": "Ein langes Rohr voll Wasser, leicht getrübt mit Teilchen, die viel kleiner sind als die Wellenlänge des Lichts. Eine weisse Lampe leuchtet an einem Ende hinein.",
+        "side": "Von der Seite leuchtet das Rohr nahe der Lampe bläulich, weiter hinten weiss, gelb und schliesslich orange.",
+        "end": "Schaut man am anderen Ende hinein, erscheint die weisse Lampe orange – wie die Sonne am Abend."
+      },
+      "tube_view": "Das trübe Rohr mit der Lampe links, seitlich in seinen Farben, und rechts der Blick ins Rohr",
+      "sky_view": "Der Himmel senkrecht über einem in seiner Farbe, und die Sonne in ihrer Höhe",
+      "play": {
+        "title": "Licht durch das trübe Rohr",
+        "hint": "Machen Sie das Wasser trüber oder klarer und sehen Sie, wie sich die Farben entlang des Rohrs verschieben.",
+        "cloudiness": "Trübung",
+        "cloudiness_hint": "Welcher Anteil des grünen Lichts (550 nm) pro Meter zur Seite gestreut wird.",
+        "caption": "Jede Stelle des Rohrs in ihrer Farbe, alle gleich hell gezeichnet: In Wirklichkeit wird das Rohr nach hinten dunkler. Die Farben am Bildschirm sind nur angenähert.",
+        "end": "Blick ins Rohr",
+        "side": "Von der Seite",
+        "half_mark": "Blau halb weg",
+        "red_mark": "mehr Rot als Blau"
+      },
+      "figures": {
+        "blue_over_red": "Blau gestreut, gegenüber Rot",
+        "blue_half": "Hälfte des Blaus weg nach",
+        "red_wins": "Seitlich mehr Rot als Blau ab",
+        "end_brightness": "Am Ende: so hell wie die Lampe",
+        "end_blue": "Am Ende: Blau übrig",
+        "end_red": "Am Ende: Rot übrig"
+      },
+      "change": {
+        "title": "Das Rohr verlängern",
+        "hint": "Ein längeres Rohr ist wie ein längerer Weg durch die Luft.",
+        "length": "Länge des Rohrs",
+        "length_hint": "Wie weit das Licht durch das trübe Wasser geht."
+      },
+      "chart": {
+        "side_hint": "Das Licht, das seitlich aus dem Rohr kommt, für Blau, Grün und Rot. Blau beginnt am stärksten, ist aber am schnellsten aufgebraucht; wo die Kurven sich kreuzen, wird die Seite gelblich.",
+        "blue": "Blau (450 nm)",
+        "green": "Grün (550 nm)",
+        "red": "Rot (650 nm)",
+        "side": "Seitenlicht (relativ)",
+        "along": "Ort im Rohr",
+        "sun_hint": "Wie viel vom blauen und vom roten Sonnenlicht den Boden erreicht, je nach Sonnenhöhe.",
+        "sun": "Sonnenlicht am Boden",
+        "height": "Sonnenhöhe"
+      },
+      "air": {
+        "title": "Am Himmel",
+        "hint": "Stellen Sie die Sonne höher oder tiefer. Die Luft ist ein solches trübes Rohr: Je tiefer die Sonne, desto länger ihr Weg durch die Luft.",
+        "height": "Sonnenhöhe",
+        "height_hint": "Wie hoch die Sonne über dem Horizont steht.",
+        "caption": "Oben der Himmel senkrecht über Ihnen, so hell wie gegenüber dem Himmel mit der Sonne im Zenit, und in seiner Farbe; die Sonne in ihrer Farbe, voll hell gezeichnet. Die Farben sind nur angenähert.",
+        "air_mass": "Weg durch die Luft (Luftmassen)",
+        "brightness": "Sonnenlicht am Boden",
+        "blue": "davon Blau",
+        "red": "davon Rot"
+      },
+      "model": {
+        "intro": "Teilchen, die viel kleiner sind als die Wellenlänge, streuen Licht umso stärker, je kürzer seine Wellenlänge ist.",
+        "rayleigh": "Die Streuung wächst mit der vierten Potenz der Frequenz (Rayleigh): Blaues Licht (450 nm) wird 4,4-mal so stark gestreut wie rotes (650 nm).",
+        "beer": "Was gestreut wird, fehlt dem weitergehenden Licht: Es nimmt entlang des Rohrs exponentiell ab, Blau am schnellsten (Lambert-Beer).",
+        "side": "Von der Seite sieht man, was an dieser Stelle gestreut wird, abzüglich dessen, was auf dem Weg zur Wand des Rohrs noch verloren geht.",
+        "sky": "Der Himmel senkrecht über einem: Sonnenlicht, das auf jeder Höhe einmal gestreut wird und dann zum Boden geht. Die Sonne steht m Luftmassen tief."
+      },
+      "symbols": {
+        "beta": "Streukoeffizient",
+        "beta0": "Trübung: Streukoeffizient bei 550 nm",
+        "lambda": "Wellenlänge",
+        "i": "Licht im Rohr, als Anteil des Lichts der Lampe",
+        "s": "Spektrum der Lampe",
+        "x": "Ort im Rohr",
+        "a": "Halbe Breite des Rohrs",
+        "tau": "Optische Dicke der Luft senkrecht nach oben (0,097 bei 550 nm)",
+        "m": "Luftmasse: wie viel Luft das Sonnenlicht durchquert, gemessen am Weg senkrecht von oben"
+      },
+      "sweet": {
+        "same": "Der Trick: Das Rohr ist der Himmel im Kleinen. Die Moleküle der Luft sind viel kleiner als die Wellenlänge und streuen Blau 4,4-mal so stark wie Rot. Wohin man auch schaut, abseits der Sonne sieht man gestreutes Licht – und das ist blau.",
+        "sunset": "Am Abend steht die Sonne tief, und ihr Licht durchquert 38-mal so viel Luft wie Licht, das senkrecht von oben kommt. Unterwegs wird ihm das Blau fast ganz weggestreut: Nur 4 % des Sonnenlichts kommen an, und es ist orange – wie die Lampe am Ende des Rohrs.",
+        "not_violet": "Violett wird noch stärker gestreut als Blau. Dass der Himmel trotzdem blau aussieht und nicht violett, liegt an der Sonne, die weniger Violett aussendet, und am Auge, das dafür wenig empfindlich ist – die Farbrechnung der Seite zeigt beides."
+      },
+      "computed": {
+        "system": "Die Seite rechnet für jede von 81 Wellenlängen, wie viel Licht an jeder Stelle des Rohrs noch da ist und wie viel davon zur Seite gestreut wird. Für den Himmel nimmt sie die optische Dicke der Luft, 0,097 bei 550 nm, und die Luftmasse nach Kasten und Young, 37,9 am Horizont.",
+        "colours": "Die Farben wie beim Glasperlen-Regenbogen: gewichtet mit der Farbempfindlichkeit des Auges (CIE 1931) und umgerechnet in die Farben des Bildschirms (sRGB). Das Weiss der Lampe – beim Himmel das der Sonne über der Luft – erscheint weiss. Jede Farbe ist so hell gezeichnet, wie der Bildschirm es für sie zulässt; wie hell es wirklich ist, sagen die Zahlen.",
+        "check": "Die Tests der Seite zählen nach, dass das seitlich gestreute und das am Ende ankommende Licht zusammen genau das Licht der Lampe ergeben (Simpson-Regel), und halten den Himmel über einem gegen dieselbe Summe über alle Höhen. Gerechnet wird in Ihrem Browser, mit denselben Formeln wie im Rechenkern der Seite.",
+        "left_out": "Weggelassen: Licht, das mehrfach gestreut wird (es macht ein sehr trübes Rohr und den Himmel am Horizont weisslicher); grössere Teilchen, die alle Farben gleich streuen (darum ist Milch weiss); die Richtung der Streuung, die nur die Helligkeit ändert; für den Himmel das Ozon, das den Himmel in der Dämmerung blau hält (ohne es wird er hier am Abend fast weiss), sowie Staub und Dunst, die den Sonnenuntergang noch röter machen. Angenommen ist ein Rohr von 1 m Länge und 6 cm Durchmesser."
       }
     }
   },

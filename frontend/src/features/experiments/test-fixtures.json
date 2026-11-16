@@ -332,6 +332,11 @@
         "dispersion_nm2": 3140.0
       }
     },
+    "sky": {
+      "length_m": 1.0,
+      "radius_m": 0.03,
+      "cloudiness_per_m": 1.5
+    },
     "chladni": {
       "side_m": 0.24,
       "thickness_m": 0.001,

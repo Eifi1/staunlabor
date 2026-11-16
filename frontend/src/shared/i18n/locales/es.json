@@ -328,6 +328,12 @@
         "title": "El arcoíris de perlas de vidrio",
         "summary": "Una pared cubierta de diminutas perlas de vidrio, iluminada por una lámpara junto a su cabeza: alrededor de la sombra de su cabeza aparece un anillo de colores, de la mitad del tamaño del arcoíris en el cielo.",
         "question": "¿Por qué brilla un anillo de colores alrededor de la sombra de la cabeza, y por qué es más pequeño que el arcoíris en el cielo?"
+      },
+      "sky": {
+        "short": "Cielo azul",
+        "title": "¿Por qué el cielo es azul?",
+        "summary": "Luz blanca a través de un tubo ligeramente turbio: de lado brilla azul, al final sale naranja; el cielo azul y el sol rojo del atardecer en pequeño.",
+        "question": "¿Por qué la misma luz es azul de lado y naranja al final?"
       }
     },
     "chair": {
@@ -2999,6 +3005,91 @@
         "colours": "Los colores: para 81 longitudes de onda de 380 a 780 nm, ponderadas con la sensibilidad del ojo al color (CIE 1931) y convertidas a los colores de la pantalla (sRGB). El blanco de la lámpara aparece blanco, como lo ve el ojo; los colores espectrales que una pantalla no puede mostrar aparecen algo más pálidos.",
         "check": "Las pruebas de la página contrastan el rayo dibujado con la ley de la refracción y con la fórmula θ = 4r − 2i, buscan el ángulo del arcoíris a ciegas en toda la perla y recuentan la luz devuelta con la regla de Simpson: de la luz que toca una perla de vidrio, el 5,5 % vuelve tras una reflexión, y el 24 % de ella en el último grado antes del ángulo del arcoíris. Se calcula en su navegador, con las mismas fórmulas que el motor de cálculo de la página.",
         "left_out": "Se omite: el tamaño de las perlas (en perlas muy pequeñas las ondas de luz ensanchan el anillo y añaden anillos débiles por dentro); la luz que se refleja dentro dos o más veces (un segundo anillo, más débil, en el vidrio muy fuera de la vista) o ninguna (el brillo blanco de las perlas); la pared detrás de las perlas. Se supone vidrio sodocálcico de índice 1,52."
+      }
+    },
+    "sky": {
+      "at": {
+        "tube": "Un tubo largo lleno de agua, ligeramente enturbiada con partículas mucho más pequeñas que la longitud de onda de la luz. Una lámpara blanca ilumina por un extremo.",
+        "side": "De lado, el tubo brilla azulado cerca de la lámpara y, más adelante, blanco, amarillo y finalmente naranja.",
+        "end": "Si se mira por el otro extremo, la lámpara blanca aparece naranja, como el sol al atardecer."
+      },
+      "tube_view": "El tubo turbio con la lámpara a la izquierda, su lado en sus colores y, a la derecha, la vista dentro del tubo",
+      "sky_view": "El cielo justo encima de uno en su color, y el sol a su altura",
+      "play": {
+        "title": "Luz a través del tubo turbio",
+        "hint": "Enturbie el agua o aclárela y vea cómo se desplazan los colores a lo largo del tubo.",
+        "cloudiness": "Turbidez",
+        "cloudiness_hint": "Qué parte de la luz verde (550 nm) se dispersa hacia el lado por metro.",
+        "caption": "Cada lugar del tubo en su color, todos dibujados igual de claros: en realidad el tubo se oscurece hacia el final. Los colores en la pantalla son solo aproximados.",
+        "end": "Vista dentro del tubo",
+        "side": "De lado",
+        "half_mark": "mitad del azul perdida",
+        "red_mark": "más rojo que azul"
+      },
+      "figures": {
+        "blue_over_red": "Azul dispersado, frente al rojo",
+        "blue_half": "Mitad del azul perdida tras",
+        "red_wins": "Más rojo que azul de lado desde",
+        "end_brightness": "Al final: claridad frente a la lámpara",
+        "end_blue": "Al final: azul restante",
+        "end_red": "Al final: rojo restante"
+      },
+      "change": {
+        "title": "Alargar el tubo",
+        "hint": "Un tubo más largo es como un camino más largo a través del aire.",
+        "length": "Longitud del tubo",
+        "length_hint": "Hasta dónde recorre la luz el agua turbia."
+      },
+      "chart": {
+        "side_hint": "La luz que sale por el lado del tubo, para azul, verde y rojo. El azul empieza más fuerte pero se agota más rápido; donde las curvas se cruzan, el lado se vuelve amarillento.",
+        "blue": "Azul (450 nm)",
+        "green": "Verde (550 nm)",
+        "red": "Rojo (650 nm)",
+        "side": "Luz lateral (relativa)",
+        "along": "Lugar en el tubo",
+        "sun_hint": "Cuánta luz solar azul y roja llega al suelo, según la altura del sol.",
+        "sun": "Luz solar en el suelo",
+        "height": "Altura del sol"
+      },
+      "air": {
+        "title": "En el cielo",
+        "hint": "Suba o baje el sol. El aire es un tubo turbio así: cuanto más bajo el sol, más largo su camino a través del aire.",
+        "height": "Altura del sol",
+        "height_hint": "A qué altura está el sol sobre el horizonte.",
+        "caption": "Arriba, el cielo justo encima de usted, tan claro como frente al cielo con el sol en el cenit, y en su color; el sol en el suyo, dibujado con toda su claridad. Los colores son solo aproximados.",
+        "air_mass": "Camino a través del aire (masas de aire)",
+        "brightness": "Luz solar en el suelo",
+        "blue": "de ella, azul",
+        "red": "de ella, rojo"
+      },
+      "model": {
+        "intro": "Las partículas mucho más pequeñas que la longitud de onda dispersan la luz con tanta más fuerza cuanto más corta es su longitud de onda.",
+        "rayleigh": "La dispersión crece con la cuarta potencia de la frecuencia (Rayleigh): la luz azul (450 nm) se dispersa 4,4 veces más que la roja (650 nm).",
+        "beer": "Lo que se dispersa le falta a la luz que sigue: disminuye exponencialmente a lo largo del tubo, el azul más rápido (Beer-Lambert).",
+        "side": "De lado se ve lo que se dispersa en ese lugar, menos lo que aún se pierde en el camino hasta la pared del tubo.",
+        "sky": "El cielo justo encima de uno: luz solar dispersada una vez a cada altura y que luego baja al suelo. El sol está m masas de aire bajo."
+      },
+      "symbols": {
+        "beta": "Coeficiente de dispersión",
+        "beta0": "Turbidez: coeficiente de dispersión a 550 nm",
+        "lambda": "Longitud de onda",
+        "i": "Luz en el tubo, como parte de la de la lámpara",
+        "s": "Espectro de la lámpara",
+        "x": "Lugar en el tubo",
+        "a": "Mitad de la anchura del tubo",
+        "tau": "Espesor óptico del aire en vertical (0,097 a 550 nm)",
+        "m": "Masa de aire: cuánto aire atraviesa la luz del sol, respecto al camino vertical"
+      },
+      "sweet": {
+        "same": "El truco: el tubo es el cielo en pequeño. Las moléculas del aire son mucho más pequeñas que la longitud de onda y dispersan el azul 4,4 veces más que el rojo. Mire donde mire, lejos del sol se ve luz dispersada, y es azul.",
+        "sunset": "Al atardecer el sol está bajo y su luz atraviesa 38 veces más aire que la luz que llega en vertical. Por el camino se le dispersa casi todo el azul: solo llega el 4 % de la luz solar, y es naranja, como la lámpara al final del tubo.",
+        "not_violet": "El violeta se dispersa aún más que el azul. Que el cielo se vea azul y no violeta se debe al sol, que emite menos violeta, y al ojo, poco sensible a él; el cálculo de colores de la página muestra ambas cosas."
+      },
+      "computed": {
+        "system": "Para cada una de 81 longitudes de onda, la página calcula cuánta luz queda en cada lugar del tubo y cuánta se dispersa hacia el lado. Para el cielo toma el espesor óptico del aire, 0,097 a 550 nm, y la masa de aire según Kasten y Young, 37,9 en el horizonte.",
+        "colours": "Los colores como en el arcoíris de perlas de vidrio: ponderados con la sensibilidad del ojo al color (CIE 1931) y convertidos a los colores de la pantalla (sRGB). El blanco de la lámpara (en el cielo, el del sol por encima del aire) aparece blanco. Cada color se dibuja tan claro como la pantalla lo permite; las cifras dicen lo claro que es en realidad.",
+        "check": "Las pruebas de la página comprueban que la luz dispersada hacia el lado y la que llega al final suman exactamente la luz de la lámpara (regla de Simpson), y contrastan el cielo encima de uno con la misma suma sobre todas las alturas. Se calcula en su navegador, con las mismas fórmulas que el motor de cálculo de la página.",
+        "left_out": "Se omite: la luz dispersada más de una vez (vuelve más blancos un tubo muy turbio y el cielo en el horizonte); las partículas más grandes, que dispersan todos los colores por igual (por eso la leche es blanca); la dirección de la dispersión, que solo cambia la claridad; en el cielo, el ozono, que mantiene azul el cielo al anochecer (sin él, el cielo encima de uno se vuelve aquí casi blanco al atardecer), y el polvo y la bruma, que enrojecen aún más la puesta de sol. Se supone un tubo de 1 m de largo y 6 cm de diámetro."
       }
     }
   },
