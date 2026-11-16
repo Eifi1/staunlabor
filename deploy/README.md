@@ -254,6 +254,19 @@ keys and the feedback bucket; Cloud Run then keeps serving the revision before.
    that; a cap, not a reservation). Only these two
    may connect to `staunlabor`. Nothing else on the instance is touched. Safe
    to run again: it sets the passwords to the secrets' again.
+4. **Marcel: `bash deploy/bootstrap-admin.sh`**, the first admin before the
+   site opens. The account layer makes the first account to register the admin
+   if its address is on the allow-list, and nothing proves the address is the
+   registrant's (signing in needs no verified one); the list is no secret
+   (`cloudbuild.yaml`, the imprint). So the script builds the schema as the
+   owner (`alembic upgrade head`, which the deploy's job then finds done) and
+   makes the operator's account as the admin, as the app's role
+   (`python -m staunlabor.bootstrap`): it asks for the address, the name and
+   the password (twice, not echoed), with the registration form's rules and
+   the deployment's twelve bcrypt rounds. With one account in the database the
+   first-admin path is closed for good, and everybody after comes by
+   invitation. It changes nothing once any account exists. The address stays
+   unconfirmed until the settings' mail confirms it.
 
 **Every deploy** (`cloudbuild.yaml`) then builds the images, upserts and runs
 the job `staunlabor-migrate` (`alembic upgrade head` as the owner;
@@ -289,9 +302,9 @@ or address; an admin's answer then shows an invitation's or a reset's link
 once, and a person's own reset request reaches nobody. Signing in needs no
 verified address, so the first admin gets in either way.
 
-**The first admin.** After the first deploy, register at
-`https://staunlabor.app/register` with the allow-listed address: the empty
-database makes it the admin, and everybody after comes by invitation.
+**The first admin** is made before the first deploy (step 4); after it, sign in
+at `https://staunlabor.app/login`. The allow-list (`_REGISTRATION_ALLOWLIST`)
+then grants nothing, but the backend still refuses to start without one.
 
 **Verify** after the deploy, besides §4:
 
@@ -314,3 +327,4 @@ gcloud logging read 'resource.labels.service_name="staunlabor-backend" AND textP
 | `setup-gcp.sh` | §1, the one-time setup |
 | `setup-accounts.sh` | §6, what the account layer needs of GCP |
 | `apply-roles.sh`, `roles.sql` | §6, the database and its two roles on the shared instance |
+| `bootstrap-admin.sh` | §6, the schema and the first admin, before the site opens |

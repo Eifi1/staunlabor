@@ -30,7 +30,9 @@ substitutions:
   # nothing after that, since everybody else comes by invitation; more than one
   # separated by spaces or commas (the backend's --set-env-vars splits on `@`).
   # Empty, the backend refuses to start: the first stranger to sign up would be
-  # its admin.
+  # its admin. The database is not empty when the site opens: the admin is made
+  # beforehand (bootstrap-admin.sh, README §6), since nothing proves a typed
+  # address is the registrant's and this one is public.
   _REGISTRATION_ALLOWLIST: kontakt@staunlabor.app
   # `resend` sends through Resend (staunlabor.app verified there, region
   # Ireland, as the privacy policy says) with staunlabor-resend-api-key, which
