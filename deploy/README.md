@@ -3,9 +3,11 @@
 Two Cloud Run services behind one custom domain, **staunlabor.app**.
 `staunlabor-web` (Caddy and the built site) serves the frontend and proxies
 `/api/*` to `staunlabor-backend` (FastAPI), so the browser sees one origin and
-CORS has nothing to allow. There is no database, no job and no schedule, and
-one secret, the edge token (§4); both services scale to zero, so the site costs
-nothing while nobody looks at it.
+CORS has nothing to allow. The account layer keeps its rows in the database
+`staunlabor` on keksdose's shared Cloud SQL instance, its feedback files in a
+bucket, and runs one job a deploy (the migrations) and one call a day (§6);
+both services scale to zero, so the site costs nothing while nobody looks at
+it.
 
 ```
         https://staunlabor.app   (Cloud Run domain mapping, TLS by Cloud Run;
@@ -17,6 +19,8 @@ nothing while nobody looks at it.
                 │   Direct VPC egress, all traffic → default network,
                 │   europe-west4 subnet with Private Google Access
         staunlabor-backend (FastAPI)           ingress internal, 512 MB, 0–3
+          ├─ database staunlabor on keksdose-db (Cloud SQL, shared; §6)
+          └─ bucket staunlabor-feedback-files   (feedback's files; §6)
 ```
 
 The backend's run.app URL answers only what arrives through the project's
@@ -44,9 +48,11 @@ bash deploy/setup-gcp.sh            # the alert mails go to the project's owner,
     Run (`run.admin`) as `staunlabor-run` (`serviceAccountUser` on it alone),
     pushes images (`artifactregistry.writer` on the repository), writes its log,
     reads its source (`objectViewer` on the source bucket).
-  * `staunlabor-run`, which both services run as: **one grant**, reading the
-    secret `staunlabor-edge-token`, and nothing else of GCP. Without it a
-    service runs as the Compute default account.
+  * `staunlabor-run`, which both services ran as until §6: **one grant**,
+    reading the secret `staunlabor-edge-token`, and nothing else of GCP.
+    Without it a service runs as the Compute default account. Since §6 it is
+    the backend's and the migrate job's alone, with the database's secrets, the
+    instance and the bucket; the web service runs as `staunlabor-web`.
   * `github-deployer`, which GitHub signs in as: starts a build
     (`cloudbuild.builds.editor`, `serviceUsageConsumer`) as `staunlabor-build`
     (`serviceAccountUser` on it alone) and uploads its source (`storage.admin`;
@@ -65,8 +71,9 @@ bash deploy/setup-gcp.sh            # the alert mails go to the project's owner,
   The web service leaves through it (`--vpc-egress=all-traffic`), so its
   requests to the backend count as internal. The network holds no machine and
   costs nothing.
-* **The edge token**, the one secret: `staunlabor-edge-token`, 32 random bytes
-  made by the script and never printed, readable by `staunlabor-run` alone.
+* **The edge token**: `staunlabor-edge-token`, 32 random bytes made by the
+  script and never printed, readable by `staunlabor-run` and, since §6, by
+  `staunlabor-web`, the web service's own account.
   Caddy sends it to the backend, which trusts its proxies only with it (§4). To
   change it, add a version (`gcloud secrets versions add`) and deploy: both
   services read `latest` at start.
@@ -173,98 +180,125 @@ The imprint names `kontakt@staunlabor.app`. Cloudflare → Email Routing: onboar
 forward `kontakt@` to the operator's inbox; no catch-all. The site sends no
 mail, so there is nothing else.
 
-## 6. To do before the accounts deploy
+## 6. The account layer
 
-Nothing below is done yet, and nothing in `cloudbuild.yaml` or the Dockerfiles
-knows about a database: everything above describes the site as it runs today.
-The backend on `feat/accounts` mounts server-kit's account routes on a
-database of its own, and **refuses to start on Cloud Run** (`main.check_deployment`)
-until the signing key and the allow-list below are set; Cloud Run then keeps
-serving the revision before it. Plan, second stage, step 6.
+The backend mounts server-kit's account routes, feedback and the translation
+review on a database of its own, `staunlabor` on keksdose's shared instance
+`keksdose:europe-west4:keksdose-db` (PostgreSQL 16), as Kurvenschmiede's and
+Kastlan's are. It **refuses to start on Cloud Run** (`main.check_deployment`)
+without the signing key, the allow-list, the jobs token, the second factor's
+keys and the feedback bucket; Cloud Run then keeps serving the revision before.
 
-* **The daily call and the 30 days in the privacy policy first** (server-kit
-  0.31's two conditions for the account routes going live). Server-kit 0.31
-  answers a password-reset request in the same time whether the address has an
-  account or not (on 0.30 the response time told), and it prunes the account
-  rows only when it is asked to: until the daily call runs, an ended session
-  keeps its address and its browser for good, which no privacy policy can say.
-  So, before the first deploy of the account routes: the secret and the
-  scheduler job below, and the privacy policy naming the 30 days in all seven
-  languages (plan, second stage, step 5).
-* **The database** `staunlabor` on the shared instance
-  `keksdose:europe-west4:keksdose-db`, the way Kastlan's is: an owner role
-  (`staunlabor_owner`, owns the schema, runs the migrations) and a DML-only app
-  role (`staunlabor_app`: `SELECT, INSERT, UPDATE, DELETE` on the tables, `USAGE`
-  on the sequences, and the same by `ALTER DEFAULT PRIVILEGES` for what the
-  owner creates later). The pool is 1 + 1 per instance (`settings.py`), so the
-  service's three instances hold six connections at most; a `CONNECTION LIMIT`
-  on each role keeps it so whatever the code says.
-* **The secrets** (Secret Manager, project `staunlabor`, readable by
-  `staunlabor-run`): `staunlabor-db-url-app` and `staunlabor-db-url-owner`
-  (`postgresql+asyncpg://<role>:<password>@/staunlabor?host=/cloudsql/keksdose:europe-west4:keksdose-db`),
-  `staunlabor-jwt-secret` (`openssl rand -hex 32`), `staunlabor-jobs-token` (the same),
-  `staunlabor-totp-keys` (the same; Marcel creates it at the deploy), later
-  `staunlabor-resend-api-key`.
-* **Cloud SQL access**: `roles/cloudsql.client` for `staunlabor-run` (and for
-  `staunlabor-build`, which deploys the job) **in the project `keksdose`**, and
-  `--add-cloudsql-instances=keksdose:europe-west4:keksdose-db` on the backend.
-* **The backend's variables**: `STAUNLABOR_DATABASE_URL` from
-  `staunlabor-db-url-app`, `STAUNLABOR_JWT_SECRET` from `staunlabor-jwt-secret`,
-  `STAUNLABOR_JOBS_TOKEN` from `staunlabor-jobs-token`,
-  `STAUNLABOR_TOTP_KEYS` from `staunlabor-totp-keys`,
-  `STAUNLABOR_REGISTRATION_ALLOWLIST` (the address that claims the empty
-  database as its admin), `STAUNLABOR_WEBAUTHN_RP_ID=staunlabor.app`.
-* **The second factor's key** (server-kit 0.32): `STAUNLABOR_TOTP_KEYS` seals
-  every account's authenticator secret (AES-256-GCM, each value bound to its
-  row); a deployment refuses to start without a strong one. Keep it like the
-  database: a lost key leaves every account with two-factor sign-in on unable
-  to sign in by code (a passkey still works, and the person can switch it off by
-  the password alone). To rotate, put a new key in front, separated by a comma
-  (`new,old`): the newest seals, every one opens. Nothing re-seals by itself: a
-  secret stays under the key it was sealed with until its account sets up
-  again, so the old key stays in the list while any account set up under it
-  still has the second factor on.
-* **The migrate job**: a Cloud Run job `staunlabor-migrate` on the backend's
-  image, `alembic upgrade head` with `STAUNLABOR_DATABASE_URL` from
-  `staunlabor-db-url-owner`, run by `cloudbuild.yaml` before the backend
-  deploys. `Dockerfile.backend` copies `alembic.ini` and `alembic/` for it
-  (today it copies `staunlabor/` only).
-* **The daily call, on a schedule**: one Cloud Scheduler HTTP job, once a day
-  (03:30 Europe/Zurich), `POST https://staunlabor.app/api/v1/ops/accounts/daily`
-  with the header `X-Jobs-Token` from the secret `staunlabor-jobs-token` (32
-  random bytes, `STAUNLABOR_JOBS_TOKEN` on the backend; a deployment refuses to
-  start without a strong one). Server-kit's `account_jobs_router` runs it: it
-  erases the accounts whose deletion was asked 30 days ago (their feedback
-  anonymised, their files removed), deletes ended sessions, expired links,
-  invitations never taken up and spent passkey challenges once they are done
-  with for 30 days, and sweeps the uploads no report named for a day, each in
-  the app's own transaction (`accounts.jobs_deps`), and answers what went. The
-  privacy policy promises the erasure on its day, so the job must run daily
-  from the first deploy of the account routes. Through the site,
-  so the scheduler needs no access to the backend's internal ingress.
-* **Feedback's files in a bucket**: on Cloud Run a directory is the instance's
-  own and goes with it, so a report's screenshot or attachment would vanish at
-  the next scale-down. A private bucket in europe-west4 for `staunlabor-run`,
-  server-kit's `GcsObjectStore` (the `gcs` extra) in `feedback.objects_for`, and
-  the bucket's name as a setting, before the feedback routes go live.
-* **Mail**: until Resend has verified `staunlabor.app`, `STAUNLABOR_MAIL_BACKEND`
-  stays `console`: nothing is sent, and Cloud Logging gets each account mail's
-  kind alone, never its link or address (server-kit 0.30; the backend says so at
-  every start). An admin's answer shows an invitation's or a reset's link once,
-  to be handed on in person; a person's own reset request reaches nobody. Then
-  `STAUNLABOR_MAIL_BACKEND=resend` with the key. Replies go to
-  `kontakt@staunlabor.app` (§5), not the kit's `support@`.
-* **The texts first**: the privacy policy and the about page are rewritten for
-  the accounts (plan, step 5); set the privacy policy's date
-  (`legal-pages.tsx`, `UPDATED.privacy`) to the deploy's day. This file's "no
-  database, no job" is untrue from the deploy on.
+**Once, before the first deploy of the account routes, in this order:**
+
+1. **Marcel: the second factor's key**, which seals every account's
+   authenticator secret (AES-256-GCM, each value bound to its row):
+
+   ```bash
+   python3 -c "import secrets; print(secrets.token_hex(32), end='')" \
+     | gcloud secrets create staunlabor-totp-keys --project=staunlabor \
+         --replication-policy=user-managed --locations=europe-west4 --data-file=-
+   ```
+
+   Keep it like the database: a lost key leaves every account with two-factor
+   sign-in on unable to sign in by code (a passkey still works, and the person
+   can switch it off by the password alone). To rotate, put a new key in
+   front, separated by a comma (`new,old`): the newest seals, every one opens.
+   Nothing re-seals by itself, so the old key stays while any account set up
+   under it still has the second factor on.
+2. **`bash deploy/setup-accounts.sh`**, safe to run again. It turns on the Cloud
+   SQL Admin and Cloud Scheduler APIs and makes:
+   * **the web service's own account** `staunlabor-web`, which reads the edge
+     token and nothing else; `staunlabor-run` is the backend's and the migrate
+     job's alone from now on;
+   * **the secrets**, from random bytes, never printed: `staunlabor-db-url-app`
+     and `staunlabor-db-url-owner`
+     (`postgresql+asyncpg://<role>:<password>@/staunlabor?host=/cloudsql/keksdose:europe-west4:keksdose-db`),
+     `staunlabor-jwt-secret` and `staunlabor-jobs-token`, each readable by
+     `staunlabor-run` alone, as are `staunlabor-totp-keys` and, once it exists,
+     `staunlabor-resend-api-key`;
+   * **`roles/cloudsql.client` in the project `keksdose`** for `staunlabor-run`
+     (the backend and the job connect as it) and `staunlabor-build`;
+   * **the bucket** `staunlabor-feedback-files` (europe-west4, private, uniform
+     access, seven days' soft delete): on Cloud Run a directory goes with the
+     instance, and a report's screenshot with it. `staunlabor-run` has
+     `roles/storage.objectUser` on it alone; the editor and viewer bindings a
+     new bucket gets are removed, and `github-deployer`'s `storage.admin`, which
+     the build's source upload needs, carries a condition that leaves this
+     bucket out (Kurvenschmiede's "The uploads bucket"). Whoever decides what
+     code runs as the app still reads what the app reads: the protection is who
+     may change the code and run the deploy;
+   * **the daily call**: the Cloud Scheduler job `staunlabor-accounts-daily`,
+     03:30 Europe/Zurich, `POST https://staunlabor.app/api/v1/ops/accounts/daily`
+     with `X-Jobs-Token` from `staunlabor-jobs-token`, through the site, so it
+     needs no way past the backend's internal ingress. Server-kit's
+     `account_jobs_router` erases the accounts whose deletion was asked 30 days
+     ago (their feedback anonymised, their files removed), deletes ended
+     sessions, expired links, invitations never taken up and spent passkey
+     challenges once they are 30 days done with, and sweeps the uploads no
+     report named for a day (`accounts.jobs_deps`). The privacy policy promises
+     the erasure on its day, so the job runs from the first deploy of the
+     account routes. A changed token needs the job deleted and the script run
+     again.
+3. **Marcel: `bash deploy/apply-roles.sh`**, which runs `deploy/roles.sql` as the
+   instance's `postgres` user (it asks for the password, nothing else) through a
+   local `cloud-sql-proxy`: the database, an owner role `staunlabor_owner` (owns
+   the schema, runs the migrations; `CONNECTION LIMIT 2`) and the app role
+   `staunlabor_app` (`SELECT, INSERT, UPDATE, DELETE` and the sequences, the
+   same by default privileges for what the owner makes later;
+   `CONNECTION LIMIT 6`, the pool's 1 + 1 at three instances). Only these two
+   may connect to `staunlabor`. Nothing else on the instance is touched. Safe
+   to run again: it sets the passwords to the secrets' again.
+
+**Every deploy** (`cloudbuild.yaml`) then builds the images, upserts and runs
+the job `staunlabor-migrate` (`alembic upgrade head` as the owner;
+`Dockerfile.backend` copies `alembic.ini` and `alembic/`), and only when it
+succeeded deploys the backend with the instance, the secrets and:
+
+| Variable | From |
+| --- | --- |
+| `STAUNLABOR_DATABASE_URL` | `staunlabor-db-url-app` |
+| `STAUNLABOR_JWT_SECRET` | `staunlabor-jwt-secret` |
+| `STAUNLABOR_JOBS_TOKEN` | `staunlabor-jobs-token` |
+| `STAUNLABOR_TOTP_KEYS` | `staunlabor-totp-keys` |
+| `STAUNLABOR_RESEND_API_KEY` | `staunlabor-resend-api-key`, with `_MAIL_BACKEND=resend` only |
+| `STAUNLABOR_REGISTRATION_ALLOWLIST` | `_REGISTRATION_ALLOWLIST`: who may claim the empty database as its admin |
+| `STAUNLABOR_WEBAUTHN_RP_ID` | `staunlabor.app` |
+| `STAUNLABOR_MAIL_BACKEND` | `_MAIL_BACKEND` |
+| `STAUNLABOR_FEEDBACK_BUCKET` | `_FEEDBACK_BUCKET` |
+
+**Mail.** Until Resend has verified `staunlabor.app`, `_MAIL_BACKEND` stays
+`console`: nothing is sent, and Cloud Logging gets each account mail's kind
+alone, never its link or address (the backend says so at every start). An
+admin's answer shows an invitation's or a reset's link once, to be handed on
+in person; a person's own reset request reaches nobody. Signing in needs no
+verified address, so the first admin gets in without mail. Then: Resend's
+records for `staunlabor.app` at Cloudflare (beside §5's routing records; Resend
+sends from its own subdomain), the key as `staunlabor-resend-api-key`, the
+script again (it grants the key), and `_MAIL_BACKEND=resend`. Replies go to
+`kontakt@staunlabor.app` (§5), not the kit's `support@`.
+
+**The first admin.** After the first deploy, register at
+`https://staunlabor.app/register` with the allow-listed address: the empty
+database makes it the admin, and everybody after comes by invitation.
+
+**Verify** after the deploy, besides §4:
+
+```bash
+gcloud run jobs executions list --job=staunlabor-migrate --project=staunlabor --region=europe-west4 --limit=1
+gcloud scheduler jobs run staunlabor-accounts-daily --project=staunlabor --location=europe-west4
+gcloud logging read 'resource.labels.service_name="staunlabor-backend" AND textPayload:"ops/accounts/daily"' \
+  --project=staunlabor --limit=3 --freshness=10m       # one 200
+```
 
 ## Files here
 
 | File | What it is |
 | --- | --- |
-| `cloudbuild.yaml` | The pipeline: two images, the backend, the web service |
-| `Dockerfile.backend` | Python 3.14 with the locked environment, uvicorn on :8080, not root |
+| `cloudbuild.yaml` | The pipeline: two images, the migrations, the backend, the web service |
+| `Dockerfile.backend` | Python 3.14 with the locked environment and the migrations, uvicorn on :8080, not root |
 | `Dockerfile.web` | The site built with Node, then served by Caddy |
 | `Caddyfile` | The site, `/api` proxied, caching and the headers |
 | `setup-gcp.sh` | §1, the one-time setup |
+| `setup-accounts.sh` | §6, what the account layer needs of GCP |
+| `apply-roles.sh`, `roles.sql` | §6, the database and its two roles on the shared instance |

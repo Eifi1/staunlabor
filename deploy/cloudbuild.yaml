@@ -1,24 +1,47 @@
 # Cloud Build pipeline for Staunlabor on Cloud Run, GCP project `staunlabor`:
-# two images, then the backend, then the web service, which finds the backend's
-# host and proxies /api to it. Nothing else: no database to migrate, no job, no
-# schedule, and one secret, the edge token. Both services scale to zero.
+# two images, the migrations (a job), then the backend, then the web service,
+# which finds the backend's host and proxies /api to it. The account layer's
+# database is `staunlabor` on keksdose's shared Cloud SQL instance, as
+# Kurvenschmiede's and Kastlan's are; both services scale to zero. One thing
+# runs on a schedule and is no service of its own: the daily call (README §6).
 #
-# One-time prerequisites are deploy/README.md §1.
+# One-time prerequisites are deploy/README.md §1 and §6 (setup-accounts.sh,
+# apply-roles.sh): every secret mounted below must exist, or Cloud Run refuses
+# the revision and keeps serving the one before.
 
 substitutions:
   _REGION: europe-west4
   _AR_REPO: staunlabor                              # Artifact Registry repo name
-  # Both services run as this account, whose one grant is reading the secret
-  # staunlabor-edge-token (setup-gcp.sh §8): the backend computes and answers,
-  # Caddy serves files and proxies /api, and neither needs anything else of
-  # GCP. Without it a service runs as the Compute default account, which a
-  # project gives roles/editor.
+  # The backend and the migrate job run as this account: it reads the edge
+  # token, the database's, the signing key's and the account layer's secrets,
+  # connects to the shared instance and uses the feedback bucket's objects
+  # (setup-gcp.sh §8, setup-accounts.sh). Without it a service runs as the
+  # Compute default account, which a project gives roles/editor.
   _RUN_SA: staunlabor-run@staunlabor.iam.gserviceaccount.com
+  # The web service's own account, which reads the edge token and nothing else:
+  # Caddy serves files and proxies /api, and must not hold what the backend holds.
+  _WEB_SA: staunlabor-web@staunlabor.iam.gserviceaccount.com
   _APP_BASE_URL: https://staunlabor.app             # == the custom domain
+  _INSTANCE: keksdose:europe-west4:keksdose-db      # SHARED Cloud SQL instance
+  # Feedback's files (screenshots, attachments): on Cloud Run a directory goes
+  # with the instance, so the backend refuses to start without a bucket.
+  _FEEDBACK_BUCKET: staunlabor-feedback-files
+  # Who may claim the empty database as its first account, the admin; it grants
+  # nothing after that, since everybody else comes by invitation; more than one
+  # separated by spaces or commas (the backend's --set-env-vars splits on `@`).
+  # Empty, the backend refuses to start: the first stranger to sign up would be
+  # its admin.
+  _REGISTRATION_ALLOWLIST: kontakt@staunlabor.app
+  # `console` until Resend has verified staunlabor.app: nothing is sent, the log
+  # names each mail's kind alone, and an admin hands an invitation's or a reset's
+  # link on from the admin's answer. `resend` mounts staunlabor-resend-api-key,
+  # which must exist by then.
+  _MAIL_BACKEND: console
   _TAG: latest                                      # the deploy workflow passes the short SHA
 
 # The build runs as an account of its own, with only what this file does: push
-# the images, deploy Cloud Run as _RUN_SA, write its log, read its source.
+# the images, deploy Cloud Run as _RUN_SA and _WEB_SA, write its log, read its
+# source.
 serviceAccount: projects/staunlabor/serviceAccounts/staunlabor-build@staunlabor.iam.gserviceaccount.com
 
 options:
@@ -55,6 +78,36 @@ steps:
     name: gcr.io/cloud-builders/docker
     args: [push, '${_REGION}-docker.pkg.dev/$PROJECT_ID/${_AR_REPO}/staunlabor-web:${_TAG}']
 
+  # ── migrations: upsert the job, run it, wait ────────────────────────────
+  # As staunlabor_owner, the one role allowed DDL (deploy/roles.sql); the service
+  # connects as the DML-only staunlabor_app. The image's command is the server,
+  # so the job names alembic itself. A migration that fails fails the build
+  # here, before the backend is touched: the running revision stays, on the
+  # schema it knows.
+  - id: migrate-deploy
+    name: gcr.io/google.com/cloudsdktool/cloud-sdk
+    entrypoint: gcloud
+    args:
+      - run
+      - jobs
+      - deploy
+      - staunlabor-migrate
+      - --image=${_REGION}-docker.pkg.dev/$PROJECT_ID/${_AR_REPO}/staunlabor-backend:${_TAG}
+      - --region=${_REGION}
+      - --service-account=${_RUN_SA}
+      - --set-cloudsql-instances=${_INSTANCE}
+      - --set-secrets=STAUNLABOR_DATABASE_URL=staunlabor-db-url-owner:latest
+      - --max-retries=0
+      - --task-timeout=300
+      - --memory=512Mi
+      - --command=/app/backend/.venv/bin/alembic
+      - --args=upgrade,head
+
+  - id: migrate-run
+    name: gcr.io/google.com/cloudsdktool/cloud-sdk
+    entrypoint: gcloud
+    args: [run, jobs, execute, staunlabor-migrate, '--region=${_REGION}', --wait]
+
   # ── backend ─────────────────────────────────────────────────────────────
   # STAUNLABOR_TRUSTED_PROXY_HOPS=3: the request budget reads the caller's
   # address three entries from the RIGHT of X-Forwarded-For (the web service's
@@ -75,33 +128,42 @@ steps:
   # counts one hop, not three (server-kit's vouched_hops). It holds even if the
   # backend's ingress is ever opened again; the internal ingress is the second
   # line, the token the one every sibling app shares.
+  #
+  # The account layer (README §6): the database as the DML-only role, the
+  # signing key, the daily call's token and the second factor's keys, each a
+  # secret only staunlabor-run reads; the RP id is the site's host. A deployment
+  # missing any of them refuses to start (main.check_deployment), and Cloud Run
+  # keeps the revision before. The pool is 1 + 1 a process (settings.py), so
+  # three instances hold six connections at most, which the role's CONNECTION
+  # LIMIT enforces whatever the code says. The Resend key is mounted only with
+  # _MAIL_BACKEND=resend: a mounted secret that does not exist refuses the
+  # revision.
+  #
+  # Twice the CPU while an instance starts (--cpu-boost) and shortly after, billed
+  # only then: a scale-to-zero backend's first request waits on Python loading the
+  # app (4.4 s on 2026-11-13). On already, as Cloud Run's default for a new
+  # service; said here so a changed default cannot switch it off unnoticed.
   - id: deploy-backend
     name: gcr.io/google.com/cloudsdktool/cloud-sdk
-    entrypoint: gcloud
+    entrypoint: bash
     args:
-      - run
-      - deploy
-      - staunlabor-backend
-      - --image=${_REGION}-docker.pkg.dev/$PROJECT_ID/${_AR_REPO}/staunlabor-backend:${_TAG}
-      - --region=${_REGION}
-      - --platform=managed
-      - --port=8080
-      - --allow-unauthenticated
-      - --ingress=internal
-      - --service-account=${_RUN_SA}
-      - --min-instances=0
-      - --max-instances=3
-      - --concurrency=20
-      - --memory=512Mi
-      - --cpu=1
-      # Twice the CPU while an instance starts and shortly after, billed only then: a
-      # scale-to-zero backend's first request waits on Python loading the app (4.4 s
-      # on 2026-11-13). On already, as Cloud Run's default for a new service; said
-      # here so a changed default cannot switch it off unnoticed.
-      - --cpu-boost
-      - --timeout=60
-      - --set-env-vars=STAUNLABOR_APP_BASE_URL=${_APP_BASE_URL},STAUNLABOR_TRUSTED_PROXY_HOPS=3
-      - --set-secrets=STAUNLABOR_EDGE_TOKEN=staunlabor-edge-token:latest
+      - -c
+      - |
+        set -e
+        MAIL_SECRET=""
+        if [ "${_MAIL_BACKEND}" = "resend" ]; then
+          MAIL_SECRET=",STAUNLABOR_RESEND_API_KEY=staunlabor-resend-api-key:latest"
+        fi
+        gcloud run deploy staunlabor-backend \
+          --image=${_REGION}-docker.pkg.dev/$PROJECT_ID/${_AR_REPO}/staunlabor-backend:${_TAG} \
+          --region=${_REGION} --platform=managed --port=8080 \
+          --allow-unauthenticated --ingress=internal \
+          --service-account=${_RUN_SA} \
+          --set-cloudsql-instances=${_INSTANCE} \
+          --min-instances=0 --max-instances=3 --concurrency=20 \
+          --memory=512Mi --cpu=1 --cpu-boost --timeout=60 \
+          --set-env-vars="^@^STAUNLABOR_APP_BASE_URL=${_APP_BASE_URL}@STAUNLABOR_TRUSTED_PROXY_HOPS=3@STAUNLABOR_WEBAUTHN_RP_ID=staunlabor.app@STAUNLABOR_REGISTRATION_ALLOWLIST=${_REGISTRATION_ALLOWLIST}@STAUNLABOR_MAIL_BACKEND=${_MAIL_BACKEND}@STAUNLABOR_FEEDBACK_BUCKET=${_FEEDBACK_BUCKET}" \
+          --set-secrets="STAUNLABOR_EDGE_TOKEN=staunlabor-edge-token:latest,STAUNLABOR_DATABASE_URL=staunlabor-db-url-app:latest,STAUNLABOR_JWT_SECRET=staunlabor-jwt-secret:latest,STAUNLABOR_JOBS_TOKEN=staunlabor-jobs-token:latest,STAUNLABOR_TOTP_KEYS=staunlabor-totp-keys:latest$$MAIL_SECRET"
 
   # ── web (public; finds the backend host and proxies /api to it) ─────────
   # Direct VPC egress for ALL traffic, so Caddy's requests to the backend's
@@ -127,7 +189,7 @@ steps:
           --region=${_REGION} --platform=managed --port=8080 \
           --allow-unauthenticated \
           --network=default --subnet=default --vpc-egress=all-traffic \
-          --service-account=${_RUN_SA} \
+          --service-account=${_WEB_SA} \
           --min-instances=0 --max-instances=3 --memory=256Mi --cpu=1 \
           --set-env-vars=BACKEND_HOST=$$BACKEND_HOST \
           --set-secrets=EDGE_TOKEN=staunlabor-edge-token:latest
