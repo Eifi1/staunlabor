@@ -57,6 +57,8 @@ with SciPy before it was written (``docs/experiments.md``).
   half the size of the sky's: the angle one reflection inside turns light by.
 * :mod:`sky` — white light through a cloudy tube is blue from the side and
   orange at the end: Rayleigh's ``1/λ⁴``, the blue sky and the red sunset.
+* :mod:`slits` — the double slit: two slits make stripes, and where they make
+  it dark, one slit alone would light the wall.
 * :mod:`levitation` — a spinning top hovers over a ring magnet only in a
   window a few millimetres high and three per cent wide in weight.
 * :mod:`gyroscope` — a spinning wheel on a string turns round it instead of
@@ -406,6 +408,18 @@ from staunlabor.domain.experiments.sky import side_at as sky_side_at
 from staunlabor.domain.experiments.sky import side_light as sky_side_light
 from staunlabor.domain.experiments.sky import sky_light as sky_overhead_light
 from staunlabor.domain.experiments.sky import sun_light as sky_sun_light
+from staunlabor.domain.experiments.slits import (
+    LASER_NM,
+    Slits,
+    SlitsFigures,
+    laser_colour,
+    laser_pattern,
+    white_pattern,
+)
+from staunlabor.domain.experiments.slits import bright_m as slits_bright_m
+from staunlabor.domain.experiments.slits import dark_m as slits_dark_m
+from staunlabor.domain.experiments.slits import figures as slits_figures
+from staunlabor.domain.experiments.slits import intensity as slits_intensity
 from staunlabor.domain.experiments.smoke import (
     Drum,
     Flight,
@@ -469,6 +483,7 @@ __all__ = [
     "EYE",
     "EYE_BASELINE_M",
     "GLASS_BEAD",
+    "LASER_NM",
     "METER_RANGE_A",
     "STEEL",
     "TABLE_TENNIS",
@@ -596,6 +611,8 @@ __all__ = [
     "SidePoint",
     "SkyFigures",
     "SkyTube",
+    "Slits",
+    "SlitsFigures",
     "SmokeExhibit",
     "SmokeFigures",
     "Sphere",
@@ -706,6 +723,8 @@ __all__ = [
     "joint_gap",
     "joints",
     "lag_deg",
+    "laser_colour",
+    "laser_pattern",
     "latitude_curve",
     "lead_deg",
     "leaves_s",
@@ -783,6 +802,10 @@ __all__ = [
     "sky_sun_light",
     "slack_height_m",
     "slide",
+    "slits_bright_m",
+    "slits_dark_m",
+    "slits_figures",
+    "slits_intensity",
     "small_period_s",
     "smoke_figures",
     "smoke_flight",
@@ -814,5 +837,6 @@ __all__ = [
     "well_circular_speed",
     "well_energy",
     "wheel_bounce",
+    "white_pattern",
     "widest_gap",
 ]

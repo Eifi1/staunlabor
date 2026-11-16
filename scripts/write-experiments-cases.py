@@ -82,6 +82,7 @@ chladni = importlib.import_module("staunlabor.domain.experiments.chladni")
 colour = importlib.import_module("staunlabor.domain.experiments.colour")
 rainbow = importlib.import_module("staunlabor.domain.experiments.rainbow")
 sky = importlib.import_module("staunlabor.domain.experiments.sky")
+slits = importlib.import_module("staunlabor.domain.experiments.slits")
 
 TARGET = ROOT / "frontend/src/features/experiments/simulate/engine-cases.json"
 #: Points kept per curve: enough to see a curve that went wrong, few enough that
@@ -702,6 +703,18 @@ SKY_TUBES = (
 SKY_HEIGHTS = (0.0, 2.0, 5.0, 10.0, 30.0, 60.0, 88.61, 90.0)
 SKY_DOWN = ((0.05, 1.0), (0.2, 1.0 + 1e-9), (0.2, 1.5), (1.0, 38.0))
 
+#: The double slit: the exhibit's, a wide pair close to the wall, a far one, a
+#: pair barely wider apart than a slit; violet, green and red lasers; the wall
+#: across the middle band and a half again (the page's span), 81 points.
+SLITS = (
+    slits.Slits(),
+    slits.Slits(spacing_m=0.3e-3, width_m=0.08e-3, distance_m=1.5),
+    slits.Slits(spacing_m=1e-3, width_m=0.2e-3, distance_m=5.0),
+    slits.Slits(spacing_m=0.12e-3, width_m=0.1e-3, distance_m=0.5),
+)
+SLITS_NM = (405.0, 532.0, 650.0)
+SLITS_POINTS = 81
+
 
 def thin(values: Any) -> Any:
     """A curve as its length and every so many of its points, the last always
@@ -1024,6 +1037,35 @@ def _sky_cases(out: dict[str, Any]) -> None:
     out["sky"]["down"] = [{"tau": tau, "m": m, "light": sky.scattered_down(tau, m)} for tau, m in SKY_DOWN]
 
 
+def _slits_ys(s: Any) -> list[float]:
+    span = 1.5 * 700e-9 * s.distance_m / s.width_m
+    return [span * (2 * k / (SLITS_POINTS - 1) - 1) for k in range(SLITS_POINTS)]
+
+
+def _slits_cases(out: dict[str, Any]) -> None:
+    for s in SLITS:
+        ys = _slits_ys(s)
+
+        def channels(pattern: list[tuple[float, float, float]]) -> dict[str, Any]:
+            return {key: thin([c[k] for c in pattern]) for k, key in enumerate(("r", "g", "b"))}
+
+        out["slits"].append(
+            {
+                "slits": asdict(s),
+                "both": [thin([slits.intensity(s, nm, y) for y in ys]) for nm in SLITS_NM],
+                "one": [thin([slits.intensity(s, nm, y, both=False) for y in ys]) for nm in SLITS_NM],
+                "bright": [[slits.bright_m(s, nm, k) for k in range(4)] for nm in SLITS_NM],
+                "dark": [[slits.dark_m(s, nm, k) for k in range(4)] for nm in SLITS_NM],
+                "laser": [list(slits.laser_colour(nm)) for nm in SLITS_NM],
+                "laser_both": channels(slits.laser_pattern(s, 532.0, ys)),
+                "laser_one": channels(slits.laser_pattern(s, 650.0, ys, both=False)),
+                "white_both": channels(slits.white_pattern(s, ys)),
+                "white_one": channels(slits.white_pattern(s, ys, both=False)),
+                "figures": [asdict(slits.figures(s, nm)) for nm in SLITS_NM],
+            }
+        )
+
+
 def _chladni_cases(out: dict[str, Any]) -> None:
     """The polynomials, three driven modes on a 5 × 5 grid, and the plate's
     answer at its first tones and between them: the port evaluates what the
@@ -1253,6 +1295,7 @@ def _second_series(out: dict[str, Any]) -> None:
     _colour_cases(out)
     _rainbow_cases(out)
     _sky_cases(out)
+    _slits_cases(out)
     _chladni_cases(out)
 
 
@@ -1315,6 +1358,7 @@ def cases() -> dict[str, Any]:
         "diver": [],
         "rainbow": [],
         "sky": {"tubes": [], "sun": []},
+        "slits": [],
     }
     _second_series(out)
     for name, case in HARMONOGRAPH_CASES.items():

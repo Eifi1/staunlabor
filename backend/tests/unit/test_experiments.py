@@ -3298,3 +3298,89 @@ def test_the_tube_and_the_sun_refuse_what_they_cannot_be():
         x.sky_side_at(x.SkyTube(), 2.0, 550)
     with pytest.raises(ValueError, match="horizon"):
         x.sky_air_mass(-1)
+
+
+# ── the double slit ──────────────────────────────────────────────────────────
+
+
+def test_a_red_laser_makes_stripes_five_millimetres_apart_and_nine_in_the_middle_band():
+    figures = x.slits_figures(x.Slits(), x.LASER_NM)
+    # λ·L/d: 650 nm, 2 m, 0.25 mm.
+    assert round(figures.spacing_m * 1000, 1) == 5.2 and round(figures.first_dark_m * 1000, 1) == 2.6
+    # One slit's middle band reaches λ·L/a = 26 mm; nine of the pair's stripes lie within it.
+    assert round(figures.envelope_m * 1000) == 26 and figures.stripes == 9
+    # Where the two make the first dark stripe, one slit alone gives 97 % of its own middle.
+    assert round(figures.one_slit_there * 100) == 97
+    assert (x.Slits().spacing_m, x.Slits().width_m, x.Slits().distance_m, x.LASER_NM) == (0.25e-3, 0.05e-3, 2.0, 650.0)
+
+
+def test_the_pattern_is_the_two_slits_waves_added_point_by_point():
+    """Huygens, summed here: each slit cut into 400 strips, each a wave with
+    its own path to the point on the wall, added as phasors and squared."""
+    import cmath
+
+    slits = x.Slits(spacing_m=0.3e-3, width_m=0.08e-3, distance_m=1.5)
+    nm = 532.0
+
+    def summed(y: float, both: bool) -> float:
+        s = y / math.hypot(y, slits.distance_m)
+        k = 2 * math.pi / (nm * 1e-9)
+        centres = (-slits.spacing_m / 2, slits.spacing_m / 2) if both else (-slits.spacing_m / 2,)
+        n = 400
+        field = sum(
+            cmath.exp(1j * k * s * (c - slits.width_m / 2 + (j + 0.5) * slits.width_m / n))
+            for c in centres
+            for j in range(n)
+        )
+        return abs(field) ** 2 / (2 * n) ** 2
+
+    for y in (0.0, 0.7e-3, 1.33e-3, 2.66e-3, 4.1e-3, 9.9e-3, 15e-3):
+        assert x.slits_intensity(slits, nm, y) == pytest.approx(summed(y, True), abs=1e-5)
+        assert x.slits_intensity(slits, nm, y, both=False) == pytest.approx(summed(y, False), abs=1e-5)
+
+
+def test_light_plus_light_gives_dark_where_one_slit_alone_lights_the_wall():
+    slits = x.Slits()
+    for k in range(3):
+        dark = x.slits_dark_m(slits, 650, k)
+        assert x.slits_intensity(slits, 650, dark) < 1e-20
+        # One slit alone lights each of them with at least 40 % of its own middle.
+        assert 4 * x.slits_intensity(slits, 650, dark, both=False) > 0.4
+        bright = x.slits_bright_m(slits, 650, k)
+        # On a bright stripe the two add in step: four times one slit's light.
+        assert x.slits_intensity(slits, 650, bright) == pytest.approx(4 * x.slits_intensity(slits, 650, bright, False))
+    # The stripes λ·L/d apart, near the middle.
+    assert x.slits_bright_m(slits, 650, 1) == pytest.approx(650e-9 * 2.0 / 0.25e-3, rel=1e-5)
+
+
+def test_a_stripe_that_falls_on_one_slit_s_dark_goes_missing():
+    for spacing, stripes in ((0.25e-3, 9), (0.225e-3, 9), (0.15e-3, 5)):
+        slits = x.Slits(spacing_m=spacing)
+        assert x.slits_figures(slits, 650).stripes == stripes
+    slits = x.Slits()
+    # d = 5·a: the fifth bright stripe lies on the single slit's first dark.
+    assert x.slits_intensity(slits, 650, x.slits_bright_m(slits, 650, 5)) < 1e-20
+
+
+def test_the_laser_is_its_colour_and_white_light_makes_a_white_middle_and_coloured_stripes():
+    assert x.laser_colour(650)[0] == 1.0 and max(x.laser_colour(650)[1:]) <= 0
+    assert x.laser_colour(532)[1] == 1.0 and x.laser_colour(532)[0] < 0
+    slits = x.Slits()
+    middle, red_dark = x.white_pattern(slits, [0.0, x.slits_dark_m(slits, 650, 0)])
+    assert middle == pytest.approx((1.0, 1.0, 1.0))
+    # Where red cancels, blue still shines: the first dark of red is blue.
+    assert red_dark[0] == 0 and red_dark[2] > red_dark[1] > 0
+    laser = x.laser_pattern(slits, 650, [0.0, x.slits_dark_m(slits, 650, 0)])
+    assert laser[0] == pytest.approx((1.0, 0.0, 0.0)) and laser[1] == pytest.approx((0.0, 0.0, 0.0), abs=1e-12)
+    assert max(x.laser_pattern(slits, 650, [0.0], both=False)[0]) < 0.6
+
+
+def test_the_slits_refuse_what_they_cannot_be():
+    with pytest.raises(ValueError, match="wide"):
+        x.Slits(width_m=1e-3)
+    with pytest.raises(ValueError, match="further apart"):
+        x.Slits(spacing_m=0.04e-3)
+    with pytest.raises(ValueError, match="wall"):
+        x.Slits(distance_m=50)
+    with pytest.raises(ValueError, match="visible"):
+        x.slits_intensity(x.Slits(), 1000, 0.0)

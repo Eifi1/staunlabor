@@ -21,6 +21,7 @@ import * as diver from "./diver";
 import * as colour from "./colour";
 import * as rainbow from "./rainbow";
 import * as sky from "./sky";
+import * as slits from "./slits";
 import * as coil from "./coil";
 import * as cone from "./cone";
 import * as coriolis from "./coriolis";
@@ -1190,6 +1191,37 @@ describe("the blue sky's port", () => {
       ).toEqual([]);
     }
     for (const c of cases.sky.down) expect(differences(c.light, sky.scatteredDown(c.tau, c.m))).toEqual([]);
+  });
+});
+
+describe("the double slit's port", () => {
+  it("lights the wall behind two slits, and one, under a laser and white light as the engine does", () => {
+    const nms = [405.0, 532.0, 650.0];
+    for (const c of cases.slits) {
+      const s = c.slits as slits.Slits;
+      const span = (1.5 * 700e-9 * s.distance_m) / s.width_m;
+      const ys = Array.from({ length: 81 }, (_, k) => span * ((2 * k) / 80 - 1));
+      const channels = (pattern: number[][]) => ({
+        r: pattern.map((p) => p[0]),
+        g: pattern.map((p) => p[1]),
+        b: pattern.map((p) => p[2]),
+      });
+      expect(
+        differences(c, {
+          slits: c.slits,
+          both: nms.map((nm) => ys.map((y) => slits.intensity(s, nm, y))),
+          one: nms.map((nm) => ys.map((y) => slits.intensity(s, nm, y, false))),
+          bright: nms.map((nm) => [0, 1, 2, 3].map((k) => slits.brightM(s, nm, k))),
+          dark: nms.map((nm) => [0, 1, 2, 3].map((k) => slits.darkM(s, nm, k))),
+          laser: nms.map((nm) => slits.laserColour(nm)),
+          laser_both: channels(slits.laserPattern(s, 532.0, ys)),
+          laser_one: channels(slits.laserPattern(s, 650.0, ys, false)),
+          white_both: channels(slits.whitePattern(s, ys)),
+          white_one: channels(slits.whitePattern(s, ys, false)),
+          figures: nms.map((nm) => slits.figures(s, nm)),
+        }),
+      ).toEqual([]);
+    }
   });
 });
 
