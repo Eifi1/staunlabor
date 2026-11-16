@@ -35,6 +35,7 @@ from __future__ import annotations
 
 import importlib
 import json
+import math
 import sys
 from dataclasses import asdict
 from pathlib import Path
@@ -78,6 +79,8 @@ bounce = importlib.import_module("staunlabor.domain.experiments.bounce")
 overhang = importlib.import_module("staunlabor.domain.experiments.overhang")
 diver = importlib.import_module("staunlabor.domain.experiments.diver")
 chladni = importlib.import_module("staunlabor.domain.experiments.chladni")
+colour = importlib.import_module("staunlabor.domain.experiments.colour")
+rainbow = importlib.import_module("staunlabor.domain.experiments.rainbow")
 
 TARGET = ROOT / "frontend/src/features/experiments/simulate/engine-cases.json"
 #: Points kept per curve: enough to see a curve that went wrong, few enough that
@@ -668,6 +671,26 @@ DIVER_SQUEEZES = (0.0, 5000.0, 9000.0, 10883.5, 15000.0)
 DIVER_DEPTHS = (0.0, 0.07, 0.3, 1.2)
 
 
+#: Light: the observer at the fit's bell centres and the ends of the range;
+#: lamps from a candle's glow to a blue sky's; colours inside the screen's
+#: range, below it, above it and dark.
+COLOUR_WAVELENGTHS = (380.0, 437.0, 442.0, 501.1, 555.0, 568.8, 599.8, 700.0, 780.0)
+COLOUR_LAMPS = (1500.0, 3000.0, 5800.0, 6500.0, 15000.0)
+COLOUR_SCREEN = ((0.18, 0.18, 0.18), (-0.1, 0.5, 0.2), (2.0, -1.0, 0.5), (0.002, 0.5, 1.0), (-0.2, 0.0, -0.1))
+
+#: The glass-bead rainbow: the exhibit's glass, a raindrop, a dense bead
+#: that rings close to the head's shadow, and a weak one without dispersion;
+#: rays from the centre to the rim, through the rainbow ray.
+RAINBOW_BEADS = (
+    rainbow.GLASS,
+    rainbow.WATER,
+    rainbow.Bead(index=1.9, dispersion_nm2=8000.0),
+    rainbow.Bead(index=1.3, dispersion_nm2=0.0),
+)
+RAINBOW_IMPACTS = (0.0, 0.2, 0.5, 0.75, 0.9, 0.99)
+RAINBOW_WAVELENGTHS = (400.0, 589.3, 700.0)
+
+
 def thin(values: Any) -> Any:
     """A curve as its length and every so many of its points, the last always
     among them; anything else as it is, recursively."""
@@ -916,6 +939,49 @@ def _diver_cases(out: dict[str, Any]) -> None:
         )
 
 
+def _colour_cases(out: dict[str, Any]) -> None:
+    """The observer, lamps, what a lamp looks like through a filter, and the
+    screen's mapping: what the light exhibits colour their drawings with."""
+    filters = {
+        "red": [1 / (1 + math.exp(-(nm - 600) / 15)) for nm in colour.WAVELENGTHS_NM],
+        "rayleigh": [(450 / nm) ** 4 for nm in colour.WAVELENGTHS_NM],
+        "line": [1.0 if nm == 520 else 0.0 for nm in colour.WAVELENGTHS_NM],
+    }
+    out["colour"] = {
+        "matching": [list(colour.matching(nm)) for nm in COLOUR_WAVELENGTHS],
+        "lamps": [
+            {
+                "kelvin": k,
+                "spectrum": thin(colour.lamp(k)),
+                "xyz": list(colour.tristimulus(colour.lamp(k))),
+                "rgb": list(colour.linear_rgb(colour.tristimulus(colour.lamp(k)))),
+                "seen": {name: list(colour.seen(colour.lamp(k), f)) for name, f in filters.items()},
+            }
+            for k in COLOUR_LAMPS
+        ],
+        "screen": [{"rgb": list(c), "shown": list(colour.on_screen(c))} for c in COLOUR_SCREEN],
+    }
+
+
+def _rainbow_cases(out: dict[str, Any]) -> None:
+    for bead in RAINBOW_BEADS:
+        n = rainbow.index_at(bead, rainbow.SODIUM_NM)
+        ring = rainbow.ring(bead)
+        out["rainbow"].append(
+            {
+                "bead": asdict(bead),
+                "index": [rainbow.index_at(bead, nm) for nm in RAINBOW_WAVELENGTHS],
+                "exit": [rainbow.exit_angle(n, b) for b in RAINBOW_IMPACTS],
+                "share": [rainbow.ray_share(n, b) for b in RAINBOW_IMPACTS],
+                "paths": [asdict(rainbow.trace(n, b)) for b in RAINBOW_IMPACTS],
+                "rainbow": [rainbow.rainbow_impact(n), rainbow.rainbow_angle(n)],
+                "profiles": [thin(rainbow.profile(bead, nm)) for nm in RAINBOW_WAVELENGTHS],
+                "ring": {key: thin([c[k] for c in ring]) for k, key in enumerate(("r", "g", "b"))},
+                "figures": asdict(rainbow.figures(bead)),
+            }
+        )
+
+
 def _chladni_cases(out: dict[str, Any]) -> None:
     """The polynomials, three driven modes on a 5 × 5 grid, and the plate's
     answer at its first tones and between them: the port evaluates what the
@@ -1142,6 +1208,8 @@ def _second_series(out: dict[str, Any]) -> None:
     _bounce_cases(out)
     _overhang_cases(out)
     _diver_cases(out)
+    _colour_cases(out)
+    _rainbow_cases(out)
     _chladni_cases(out)
 
 
@@ -1202,6 +1270,7 @@ def cases() -> dict[str, Any]:
         "plates": [],
         "bounce": [],
         "diver": [],
+        "rainbow": [],
     }
     _second_series(out)
     for name, case in HARMONOGRAPH_CASES.items():

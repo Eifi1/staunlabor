@@ -18,6 +18,8 @@ import cases from "./engine-cases.json";
 import * as cannon from "./cannon";
 import * as chaos from "./chaos";
 import * as diver from "./diver";
+import * as colour from "./colour";
+import * as rainbow from "./rainbow";
 import * as coil from "./coil";
 import * as cone from "./cone";
 import * as coriolis from "./coriolis";
@@ -1092,6 +1094,63 @@ describe("the Cartesian diver's port", () => {
         ),
       ).toEqual([]);
       expect(differences(c.figures, diver.figures(d, b))).toEqual([]);
+    }
+  });
+});
+
+describe("the colour port", () => {
+  it("weighs a spectrum by the observer and shows it as the engine does", () => {
+    const c = cases.colour;
+    const wavelengths = [380.0, 437.0, 442.0, 501.1, 555.0, 568.8, 599.8, 700.0, 780.0];
+    expect(
+      differences(
+        c.matching,
+        wavelengths.map((nm) => colour.matching(nm)),
+      ),
+    ).toEqual([]);
+    const filters: Record<string, number[]> = {
+      red: colour.WAVELENGTHS_NM.map((nm) => 1 / (1 + Math.exp(-(nm - 600) / 15))),
+      rayleigh: colour.WAVELENGTHS_NM.map((nm) => (450 / nm) ** 4),
+      line: colour.WAVELENGTHS_NM.map((nm) => (nm === 520 ? 1.0 : 0.0)),
+    };
+    for (const l of c.lamps) {
+      const spectrum = colour.lamp(l.kelvin);
+      const xyz = colour.tristimulus(spectrum);
+      expect(
+        differences(l, {
+          kelvin: l.kelvin,
+          spectrum,
+          xyz,
+          rgb: colour.linearRgb(xyz),
+          seen: Object.fromEntries(Object.entries(filters).map(([name, f]) => [name, colour.seen(spectrum, f)])),
+        }),
+      ).toEqual([]);
+    }
+    for (const s of c.screen) expect(differences(s.shown, colour.onScreen(s.rgb))).toEqual([]);
+  });
+});
+
+describe("the glass-bead rainbow's port", () => {
+  it("traces the rays, spreads their light and colours the ring as the engine does", () => {
+    const impacts = [0.0, 0.2, 0.5, 0.75, 0.9, 0.99];
+    const wavelengths = [400.0, 589.3, 700.0];
+    for (const c of cases.rainbow) {
+      const bead = c.bead as rainbow.Bead;
+      const n = rainbow.indexAt(bead, rainbow.SODIUM_NM);
+      const ring = rainbow.ring(bead);
+      expect(
+        differences(c, {
+          bead: c.bead,
+          index: wavelengths.map((nm) => rainbow.indexAt(bead, nm)),
+          exit: impacts.map((b) => rainbow.exitAngle(n, b)),
+          share: impacts.map((b) => rainbow.rayShare(n, b)),
+          paths: impacts.map((b) => rainbow.trace(n, b)),
+          rainbow: [rainbow.rainbowImpact(n), rainbow.rainbowAngle(n)],
+          profiles: wavelengths.map((nm) => rainbow.profile(bead, nm)),
+          ring: { r: ring.map((x) => x[0]), g: ring.map((x) => x[1]), b: ring.map((x) => x[2]) },
+          figures: rainbow.figures(bead),
+        }),
+      ).toEqual([]);
     }
   });
 });

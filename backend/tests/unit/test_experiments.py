@@ -3021,3 +3021,177 @@ def test_the_diver_refuses_what_it_cannot_be():
         x.Bottle(depth_m=5)
     with pytest.raises(ValueError, match="squeezes"):
         x.diver_step(x.Diver(), x.Bottle(), 0.1, 0.0, -1)
+
+
+# ── light: the colour of a spectrum ──────────────────────────────────────────
+
+
+def _chromaticity(xyz: tuple[float, float, float]) -> tuple[float, float]:
+    return xyz[0] / sum(xyz), xyz[1] / sum(xyz)
+
+
+def test_the_eye_s_fit_peaks_at_555_nm_and_sums_as_the_standard_s_table():
+    from staunlabor.domain.experiments import colour as c
+
+    peak = max(range(380, 781), key=lambda nm: x.colour_matching(nm)[1])
+    assert abs(peak - 555) <= 1 and x.colour_matching(peak)[1] == pytest.approx(1.0, abs=0.005)
+    # The CIE's ȳ, summed nanometre by nanometre: 106.857.
+    assert sum(x.colour_matching(nm)[1] for nm in range(360, 831)) == pytest.approx(106.857, rel=0.002)
+    assert c.WAVELENGTHS_NM[0] == 380 and c.WAVELENGTHS_NM[-1] == 780 and len(c.WAVELENGTHS_NM) == 81
+
+
+def test_white_lights_land_on_the_standard_s_white_points():
+    """Equal energy at a third each; a lamp at 2856 K on the CIE's illuminant A
+    (0.4476, 0.4074); a glowing body at 6500 K on its point of the Planckian
+    locus (0.3135, 0.3236) — all within 0.002."""
+    flat = x.colour_tristimulus([1.0] * len(x.WAVELENGTHS_NM))
+    for got, want in (
+        (_chromaticity(flat), (1 / 3, 1 / 3)),
+        (_chromaticity(x.colour_tristimulus(x.colour_lamp(2856))), (0.4476, 0.4074)),
+        (_chromaticity(x.colour_tristimulus(x.colour_lamp(6500))), (0.3135, 0.3236)),
+    ):
+        assert got == pytest.approx(want, abs=0.002)
+
+
+def test_the_lamp_s_own_light_is_white_and_a_spectral_red_is_shown_as_red():
+    source = x.colour_lamp(3000)
+    assert x.colour_seen(source, [1.0] * 81) == pytest.approx((1.0, 1.0, 1.0))
+    assert x.colour_seen(source, [0.25] * 81) == pytest.approx((0.25, 0.25, 0.25))
+    assert x.colour_on_screen((1.0, 1.0, 1.0)) == pytest.approx((1.0, 1.0, 1.0))
+    # sRGB's own curve: 18 % grey is written 0.4614.
+    assert x.colour_on_screen((0.18, 0.18, 0.18))[0] == pytest.approx(0.46135, abs=1e-5)
+    only_red = [1.0 if nm == 650 else 0.0 for nm in x.WAVELENGTHS_NM]
+    r, g, b = x.colour_on_screen([10 * c for c in x.colour_seen(source, only_red)])
+    assert r > 0.5 and g < 0.4 * r and b < 0.1 * r
+
+
+def test_a_colour_the_screen_cannot_show_loses_its_negative_channel_and_a_bright_one_is_dimmed():
+    def decode(c: float) -> float:
+        return c / 12.92 if c <= 0.04045 else ((c + 0.055) / 1.055) ** 2.4
+
+    shown = [decode(c) for c in x.colour_on_screen((-0.1, 0.5, 0.2))]
+    assert shown == pytest.approx([0.0, 0.5, 0.2])
+    # Brighter than white: dimmed as a whole, its proportions kept.
+    shown = [decode(c) for c in x.colour_on_screen((2.0, -1.0, 0.5))]
+    assert shown == pytest.approx([1.0, 0.0, 0.25])
+    assert x.colour_on_screen((-0.2, 0.0, -0.1)) == (0.0, 0.0, 0.0)
+
+
+def test_the_colour_refuses_what_it_cannot_take():
+    with pytest.raises(ValueError, match="glows"):
+        x.colour_lamp(500)
+    with pytest.raises(ValueError, match="one power per wavelength"):
+        x.colour_tristimulus([1.0, 2.0])
+    with pytest.raises(ValueError, match="one factor"):
+        x.colour_seen([1.0] * 81, [1.0])
+
+
+# ── the glass-bead rainbow ───────────────────────────────────────────────────
+
+
+def test_glass_beads_ring_at_21_degrees_half_the_sky_s_42():
+    glass, water = x.rainbow_figures(x.GLASS_BEAD), x.rainbow_figures(x.WATER_DROP)
+    assert round(glass.angle_deg, 1) == 21.1 and round(water.angle_deg, 1) == 42.1
+    assert 0.49 < glass.angle_deg / water.angle_deg < 0.51
+    # Red outside, violet inside, a ring a degree and a half wide.
+    assert (round(glass.violet_deg, 1), round(glass.red_deg, 1), round(glass.width_deg, 1)) == (19.9, 21.4, 1.5)
+    assert round(water.width_deg, 1) == 1.9
+    # The rainbow ray meets the bead three quarters out; one reflection inside
+    # sends back 5.5 % of the light, and a quarter of that leaves within a
+    # degree of the rainbow angle.
+    assert round(glass.impact, 2) == 0.75
+    assert round(glass.reflected * 100, 1) == 5.5 and round(glass.near * 100) == 24
+    assert (x.GLASS_BEAD.index, x.WATER_DROP.index) == (1.52, 1.333)
+
+
+def test_the_ring_shrinks_to_nothing_as_the_index_reaches_two():
+    angles = [math.degrees(x.rainbow_angle(n)) for n in (1.33, 1.5, 1.7, 1.9, 1.99)]
+    assert angles == sorted(angles, reverse=True)
+    assert round(angles[0], 1) == 42.5 and angles[-1] < 0.1
+    # Near the centre θ ≈ (4/n − 2)·b, and at n = 2 that vanishes: the ray comes
+    # straight back, off by only a term in b³.
+    assert math.degrees(x.rainbow_exit_angle(1.9, 0.01)) == pytest.approx(math.degrees((4 / 1.9 - 2) * 0.01), rel=1e-3)
+    assert abs(math.degrees(x.rainbow_exit_angle(2.0, 0.01))) < 1e-4
+
+
+def test_the_rainbow_angle_is_the_largest_any_ray_leaves_at():
+    """Searched over the bead's face, not taken from ``cos² i = (n² − 1)/3``."""
+    for n in (1.333, 1.52, 1.8):
+        bs = [k / 20000 for k in range(20000)]
+        best = max(bs, key=lambda b: x.rainbow_exit_angle(n, b))
+        assert best == pytest.approx(x.rainbow_impact(n), abs=1e-4)
+        # The grid's points lie up to 2.5e-5 off the top; the curve is flat there.
+        assert x.rainbow_exit_angle(n, best) == pytest.approx(x.rainbow_angle(n), abs=1e-8)
+        assert x.rainbow_exit_angle(n, best) <= x.rainbow_angle(n)
+
+
+def test_the_traced_ray_obeys_snell_and_reflection_and_leaves_at_four_r_minus_two_i():
+    for n, b in ((1.333, 0.3), (1.52, 0.75), (1.52, 0.98), (1.9, 0.5), (1.5, 0.0)):
+        path = x.rainbow_trace(n, b)
+        for point in (path.entry, path.back, path.exit):
+            assert math.hypot(*point) == pytest.approx(1.0)
+        inside = (path.back[0] - path.entry[0], path.back[1] - path.entry[1])
+        length = math.hypot(*inside) or 1.0
+        # Snell at the entry: sin i = n·sin r, the sines from the cross products with the normal.
+        sin_r = abs(path.entry[0] * inside[1] - path.entry[1] * inside[0]) / length
+        assert b == pytest.approx(n * sin_r, abs=1e-12)
+        # The way out, measured from the way back to the lamp.
+        leaves = math.atan2(-path.out[1], -path.out[0])
+        assert leaves == pytest.approx(x.rainbow_exit_angle(n, b), abs=1e-12)
+        assert math.hypot(*path.out) == pytest.approx(1.0)
+
+
+def test_one_reflection_keeps_what_fresnel_lets_through_and_reflects():
+    # Straight on, glass reflects ((n − 1)/(n + 1))² = 4 %: 0.96 · 0.04 · 0.96.
+    assert x.rainbow_ray_share(1.5, 0.0) == pytest.approx(0.96**2 * 0.04)
+    assert x.rainbow_ray_share(1.5, 1 - 1e-12) == pytest.approx(0.0, abs=1e-5)
+
+
+def test_the_profile_keeps_the_light_and_is_dark_outside_the_ring():
+    from staunlabor.domain.experiments import rainbow as r
+
+    step = math.radians(r.PROFILE_STEP_DEG)
+    for bead in (x.GLASS_BEAD, x.WATER_DROP):
+        for nm in (400.0, 589.3, 700.0):
+            n = x.rainbow_index_at(bead, nm)
+            prof = x.rainbow_profile(bead, nm)
+            light = sum(p * 2 * math.pi * (math.cos(j * step) - math.cos((j + 1) * step)) for j, p in enumerate(prof))
+            # All the light that leaves after one reflection, by Simpson's rule over the face.
+            m = 20000
+            simpson = sum(
+                (1 if k in (0, m) else 4 if k % 2 else 2) * x.rainbow_ray_share(n, min(k / m, 1 - 1e-15)) * 2 * k / m
+                for k in range(m + 1)
+            ) / (3 * m)
+            assert light == pytest.approx(simpson, rel=1e-3)
+            edge = math.degrees(x.rainbow_angle(n)) + r.LAMP_RADIUS_DEG + r.PROFILE_STEP_DEG
+            assert all(p == 0 for p in prof[int(edge / r.PROFILE_STEP_DEG) + 1 :])
+            # The brightest bin past the head's shadow lies at the rainbow angle.
+            j = max(range(50, len(prof)), key=prof.__getitem__)
+            assert abs(j * r.PROFILE_STEP_DEG - math.degrees(x.rainbow_angle(n))) < 0.3
+
+
+def test_the_ring_is_red_outside_blue_inside_and_whitish_within():
+    from staunlabor.domain.experiments import rainbow as r
+
+    colours = x.rainbow_ring(x.GLASS_BEAD)
+    figures = x.rainbow_figures(x.GLASS_BEAD)
+
+    def at(deg: float) -> tuple[float, float, float]:
+        return colours[int(deg / r.PROFILE_STEP_DEG)]
+
+    red, blue, inside, outside = at(figures.red_deg - 0.2), at(figures.violet_deg + 0.2), at(10), at(25)
+    assert red[0] > 0.8 and red[2] == 0
+    assert blue[2] == pytest.approx(1.0) and blue[0] < 0.75
+    assert max(inside) - min(inside) < 0.05 and 0.4 < inside[1] < 0.7
+    assert outside == (0.0, 0.0, 0.0)
+
+
+def test_the_bead_refuses_what_it_cannot_be():
+    with pytest.raises(ValueError, match="index"):
+        x.Bead(index=2.4)
+    with pytest.raises(ValueError, match="dispersion"):
+        x.Bead(dispersion_nm2=-1)
+    with pytest.raises(ValueError, match="above 1 and below 2"):
+        x.rainbow_impact(2.4)
+    with pytest.raises(ValueError, match="rim"):
+        x.rainbow_trace(1.5, 1.0)

@@ -51,6 +51,10 @@ with SciPy before it was written (``docs/experiments.md``).
   far as one likes: half the harmonic series, slowly.
 * :mod:`diver` — a Cartesian diver: squeezed, its bubble shrinks and it sinks;
   it hovers at one depth only, and there unstably.
+* :mod:`colour` — a spectrum as the eye sees it and a screen shows it: the
+  light exhibits' one step from wavelengths to red, green and blue.
+* :mod:`rainbow` — glass beads make a rainbow round the shadow of one's head,
+  half the size of the sky's: the angle one reflection inside turns light by.
 * :mod:`levitation` — a spinning top hovers over a ring magnet only in a
   window a few millimetres high and three per cent wide in weight.
 * :mod:`gyroscope` — a spinning wheel on a string turns round it instead of
@@ -150,6 +154,13 @@ from staunlabor.domain.experiments.coil import (
 )
 from staunlabor.domain.experiments.coil import analysis as coil_analysis
 from staunlabor.domain.experiments.coil import run as run_coil
+from staunlabor.domain.experiments.colour import WAVELENGTHS_NM
+from staunlabor.domain.experiments.colour import lamp as colour_lamp
+from staunlabor.domain.experiments.colour import linear_rgb as colour_linear_rgb
+from staunlabor.domain.experiments.colour import matching as colour_matching
+from staunlabor.domain.experiments.colour import on_screen as colour_on_screen
+from staunlabor.domain.experiments.colour import seen as colour_seen
+from staunlabor.domain.experiments.colour import tristimulus as colour_tristimulus
 from staunlabor.domain.experiments.cone import (
     ConeExhibit,
     ConeRun,
@@ -364,6 +375,16 @@ from staunlabor.domain.experiments.race import entries as race_entries
 from staunlabor.domain.experiments.race import race as run_race
 from staunlabor.domain.experiments.race import settle as settle_race
 from staunlabor.domain.experiments.race import valley as race_valley
+from staunlabor.domain.experiments.rainbow import GLASS as GLASS_BEAD
+from staunlabor.domain.experiments.rainbow import WATER as WATER_DROP
+from staunlabor.domain.experiments.rainbow import Bead, RainbowFigures, RayPath, rainbow_angle, rainbow_impact
+from staunlabor.domain.experiments.rainbow import exit_angle as rainbow_exit_angle
+from staunlabor.domain.experiments.rainbow import figures as rainbow_figures
+from staunlabor.domain.experiments.rainbow import index_at as rainbow_index_at
+from staunlabor.domain.experiments.rainbow import profile as rainbow_profile
+from staunlabor.domain.experiments.rainbow import ray_share as rainbow_ray_share
+from staunlabor.domain.experiments.rainbow import ring as rainbow_ring
+from staunlabor.domain.experiments.rainbow import trace as rainbow_trace
 from staunlabor.domain.experiments.resonance import Rack as ResonanceRack
 from staunlabor.domain.experiments.resonance import ShakeRun
 from staunlabor.domain.experiments.resonance import natural_hz as rod_hz
@@ -432,9 +453,12 @@ __all__ = [
     "EXHIBIT_PLATES",
     "EYE",
     "EYE_BASELINE_M",
+    "GLASS_BEAD",
     "METER_RANGE_A",
     "STEEL",
     "TABLE_TENNIS",
+    "WATER_DROP",
+    "WAVELENGTHS_NM",
     "ArchLoad",
     "ArchShape",
     "ArchThrust",
@@ -442,6 +466,7 @@ __all__ = [
     "BallKind",
     "BallStack",
     "Basin",
+    "Bead",
     "Bob",
     "Body",
     "Bottle",
@@ -544,6 +569,8 @@ __all__ = [
     "RaceRun",
     "RaceTrack",
     "Rails",
+    "RainbowFigures",
+    "RayPath",
     "ResonanceRack",
     "Ring",
     "Room",
@@ -610,6 +637,12 @@ __all__ = [
     "circuit_state",
     "climb_deceleration",
     "coil_analysis",
+    "colour_lamp",
+    "colour_linear_rgb",
+    "colour_matching",
+    "colour_on_screen",
+    "colour_seen",
+    "colour_tristimulus",
     "contact_factor",
     "contact_radius_m",
     "coupled_swing",
@@ -685,6 +718,15 @@ __all__ = [
     "race_entries",
     "race_valley",
     "rail_height_m",
+    "rainbow_angle",
+    "rainbow_exit_angle",
+    "rainbow_figures",
+    "rainbow_impact",
+    "rainbow_index_at",
+    "rainbow_profile",
+    "rainbow_ray_share",
+    "rainbow_ring",
+    "rainbow_trace",
     "regime",
     "ring_from_push",
     "rod_hz",
