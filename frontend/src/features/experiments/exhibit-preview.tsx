@@ -61,6 +61,7 @@ const PREVIEWS: Record<Exhibit, LazyExoticComponent<ComponentType<PreviewProps>>
   rainbow: lazy(() => import("./rainbow-page").then((m) => ({ default: m.RainbowPreview }))),
   sky: lazy(() => import("./sky-page").then((m) => ({ default: m.SkyPreview }))),
   slits: lazy(() => import("./slits-page").then((m) => ({ default: m.SlitsPreview }))),
+  beats: lazy(() => import("./beats-page").then((m) => ({ default: m.BeatsPreview }))),
 };
 
 /** Whether the element is on screen (`margin` beyond it counts), and whether

@@ -41,6 +41,7 @@ import {
   Rainbow,
   CloudSun,
   Columns3,
+  BellRing,
 } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
 import {
@@ -102,6 +103,7 @@ const ICON: Record<Exhibit, LucideIcon> = {
   rainbow: Rainbow,
   sky: CloudSun,
   slits: Columns3,
+  beats: BellRing,
 };
 
 /** Two weeks back, in the dialog: long enough to find the one a friend

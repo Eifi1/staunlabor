@@ -340,6 +340,12 @@
         "title": "La doppia fenditura",
         "summary": "La luce di un laser attraversa due fenditure strette: sulla parete compaiono frange chiare e scure – e dove è buio, una fenditura da sola getterebbe luce.",
         "question": "Come può luce più luce dare buio?"
+      },
+      "beats": {
+        "short": "Battimenti",
+        "title": "I battimenti",
+        "summary": "Due diapason quasi accordati suonano insieme come un unico suono che cresce e svanisce lentamente. Un piccolo cavaliere su uno dei due decide quanto in fretta.",
+        "question": "Perché il suono di due diapason quasi uguali cresce e svanisce?"
       }
     },
     "chair": {
@@ -3175,6 +3181,82 @@
         "colours": "Il colore del laser è quello della sua lunghezza d’onda, saturo quanto lo schermo può mostrarlo e chiaro quanto la luce lì. Luce bianca: per 81 lunghezze d’onda ciascuna con la propria figura, pesate con la sensibilità dell’occhio ai colori (CIE 1931) e convertite nei colori dello schermo (sRGB).",
         "check": "I test della pagina dividono ogni fenditura in 400 strisce sottili, sommano le onde di tutte le strisce in ogni punto della parete (Huygens) e confrontano il risultato con la formula. Verificano che le frange scure siano esattamente buie dove una fenditura da sola dà luce, e che la luce bianca sia blu dove il rosso si annulla. Il calcolo avviene nel suo browser, con le stesse formule del motore di calcolo della pagina.",
         "left_out": "Tralasciato: che la parete non è infinitamente lontana (la formula vale appena è molto più lontana di d²/λ, qui circa un decimo di metro); la larghezza e l’apertura del fascio laser, che fanno sfumare le frange in alto e in basso; i bordi e lo spessore delle fenditure; la polarizzazione della luce."
+      }
+    },
+    "beats": {
+      "at": {
+        "forks": "Due diapason sulle loro casse di risonanza, accordati uguali – salvo un piccolo cavaliere fissato ai rebbi di uno dei due.",
+        "swell": "Colpendoli entrambi si sente un unico suono che lentamente diventa più forte e più debole, di continuo.",
+        "rider": "Spostando il cavaliere più in fuori il suono cresce più in fretta; verso il gambo, più lentamente."
+      },
+      "view": "I due diapason con le loro altezze, il secondo con il cavaliere, e sotto il suono al rallentatore",
+      "loudness_view": "L’intensità dal colpo, i due diapason insieme e uno solo",
+      "play": {
+        "title": "Colpire i diapason",
+        "hint": "Colpisca entrambi i diapason e veda – o senta – il suono crescere e svanire.",
+        "strike": "Colpire",
+        "sound": "Suono",
+        "sound_hint": "Riproduce i due diapason; il suo orecchio sente da solo i battimenti.",
+        "no_sound": "Il suo browser non può produrre suoni qui.",
+        "caption": "In alto i diapason e il loro suono insieme al rallentatore; in basso l’intensità dal colpo: continua i due insieme, tratteggiata uno solo.",
+        "slow": "Il suono adesso, {{ms}} ms al rallentatore",
+        "waiting": "I diapason tacciono. Li colpisca.",
+        "silent": "I diapason si sono spenti.",
+        "ringing": "Da {{time}} s: intensità {{loud}} % del colpo.",
+        "f1": "Primo diapason",
+        "f2": "Secondo diapason, con cavaliere"
+      },
+      "figures": {
+        "beat": "Battimenti",
+        "period": "Tempo da un battimento al successivo",
+        "detuned": "Secondo diapason",
+        "cents": "Distanza tra i suoni",
+        "heard": "Battimenti fino allo spegnimento"
+      },
+      "change": {
+        "title": "Spostare il cavaliere",
+        "hint": "Renda il cavaliere più pesante o lo faccia scorrere lungo i rebbi.",
+        "mass": "Massa del cavaliere",
+        "mass_hint": "Un cavaliere di questa massa su ogni rebbio.",
+        "position": "Posizione del cavaliere",
+        "position_hint": "Dal gambo (0 %) alla punta del rebbio (100 %)."
+      },
+      "chart": {
+        "loudness_hint": "L’intensità in dieci secondi: i due insieme crescono e svaniscono, uno solo si spegne semplicemente.",
+        "sum": "Entrambi i diapason",
+        "one": "Un diapason",
+        "loudness": "Intensità",
+        "time": "Tempo",
+        "rider_hint": "Quanti battimenti al secondo produce il cavaliere secondo la sua posizione, per tre masse.",
+        "beat": "Battimenti",
+        "position": "Posizione del cavaliere"
+      },
+      "model": {
+        "intro": "Ogni diapason oscilla alla sua frequenza e si spegne lentamente. Al suo orecchio le due oscillazioni si sommano.",
+        "sum": "La somma è un suono della frequenza media la cui forza varia lentamente: ora i diapason oscillano in fase, ora l’uno contro l’altro.",
+        "beat": "L’intensità ha i suoi picchi tante volte al secondo quanto differiscono le frequenze.",
+        "rider": "Il cavaliere frena il rebbio come una massa aggiunta (Rayleigh): quasi per niente vicino al gambo, dove il rebbio oscilla appena, in pieno sulla punta. Sulla punta il rebbio agisce come un quarto della sua massa."
+      },
+      "symbols": {
+        "x": "Oscillazione dell’aria, i due diapason insieme",
+        "f": "Frequenze dei due diapason",
+        "t": "Tempo dal colpo",
+        "tau": "Tempo di smorzamento di un diapason",
+        "fb": "Frequenza dei battimenti",
+        "m": "Massa del cavaliere su ogni rebbio",
+        "phi": "Forma del modo del rebbio, 1 sulla punta",
+        "s": "Posizione del cavaliere lungo il rebbio",
+        "mz": "Massa di un rebbio"
+      },
+      "sweet": {
+        "closer": "Il trucco: più i due suoni sono vicini, più lenti sono i battimenti. Qui distano solo 0,82 Hz, 3,2 cent – eppure si sente chiaramente un battimento ogni 1,22 s, 23 fino allo spegnimento.",
+        "tuning": "Così si accordano gli strumenti: si suonano due note insieme e si regola finché i battimenti rallentano e infine scompaiono.",
+        "rider": "Il cavaliere agisce appena vicino al gambo e in pieno sulla punta: 1 g al 30 % del rebbio scorda il diapason di 0,82 Hz, sulla punta di 38 Hz."
+      },
+      "computed": {
+        "system": "La pagina calcola la frequenza del secondo diapason con il metodo di Rayleigh dalla forma del modo di un rebbio incastrato (βL = 1,875) e somma le due oscillazioni smorzate. Si assume un diapason da 440 Hz, rebbi da 20 g e un tempo di smorzamento di 6 s.",
+        "check": "I test della pagina confrontano la forma del modo con la sua equazione, verificano che il rebbio agisca sulla punta come un quarto della sua massa, e confrontano la stima di Rayleigh con la frequenza esatta di un rebbio con una massa sulla punta: per 1 g risulta alta di meno dello 0,1 %. Il calcolo avviene nel suo browser, con le stesse formule del motore di calcolo della pagina.",
+        "left_out": "Tralasciato: le casse di risonanza e la sala; che il cavaliere stesso modifica un po’ la forma del modo; l’accoppiamento dei due rebbi e il gambo; l’orecchio, che non sente più i battimenti rapidi come un crescere e svanire, ma come ruvidità e infine come due suoni."
       }
     }
   },

@@ -84,12 +84,12 @@ quarter for one that came right after yesterday's in the round before. Those
 are the second series' maluses (Marcel, 2026-11-15: "Tagesminus sollte weniger
 zählen"); the first series drew with a quarter and a tenth, and its rounds keep
 them, so the days the live site has shown keep their exhibit. Measured over
-400 rounds of all 34 (a plain shuffle, then the old maluses, in brackets):
-repeated pairs 0.43 a round (1.21; 0.27), repeated triples 0.003 (0.025;
-0.003), neighbours sharing a topic 17.2 days in a hundred (24.3; 12.1); with
-33, before the double slit, 0.39 and 18.1, with 32, before the blue sky, 0.39
-and 19.7. With eleven exhibits about energy,
-nine about oscillation and eight about angular momentum, the quarter held a
+400 rounds of all 35 (a plain shuffle, then the old maluses, in brackets):
+repeated pairs 0.44 a round (1.18; 0.27), repeated triples 0.008 (0.033;
+0.013), neighbours sharing a topic 17.5 days in a hundred (24.5; 12.8); with
+34, before the beats, 0.43 and 17.2, with 33, before the double slit, 0.39
+and 18.1. With eleven exhibits about energy,
+ten about oscillation and eight about angular momentum, the quarter held a
 topic back on most days.
 They were measured over 2000 rounds against a plain shuffle (`daily.ts` has
 the numbers): pairs of the round before repeated in order fall from 0.9 a round
@@ -106,7 +106,8 @@ with 26 by a twentieth (10259 against 10834 over 1200 rounds), with 27 to
 31 the same (10513 against 11135, 11237 against 11819, 11640 against 12183,
 12332 against 12882, 12771 against 13269), with 32 by a fortieth (13523
 against 13858), with 33 by a thirtieth (13847 against 14261), with 34 by a
-forty-fifth (14480 against 14809);
+forty-fifth (14480 against 14809), with 35 by a thirty-sixth (14894 against
+15315);
 `daily.test.ts` now holds it only to a fiftieth. Its weight a day is fixed
 while a round grows longer, and stays so: Marcel weakened the maluses instead
 (2026-11-15).
@@ -1903,6 +1904,61 @@ a slit) for two slits and one; dark stripes dark where one slit lights the
 wall with at least 40 % of its middle, bright stripes four times one slit; the
 missing stripe; the laser's colour, white light's white middle and blue at
 red's dark; the refusals.
+
+## Beats (`experiments.beats`)
+
+**The exhibit** (2026-11-16, the eighth and last of stage 4, local feedback
+entry #28; inspired by "Schwebung" at the Technorama). Two tuning forks on
+their sounding boxes, alike but for a small rider clamped to one fork's
+prongs: struck together they sound as one tone that slowly swells and fades;
+slide the rider and the swelling quickens or slows.
+
+**The model** (`domain/experiments/beats.py`). Each fork rings down as
+`e^{−t/τ}`, both struck alike, so the sum is `½·e^{−t/τ}·(sin 2πf₁t +
+sin 2πf₂t) = e^{−t/τ}·cos(π·(f₁ − f₂)·t)·sin(π·(f₁ + f₂)·t)`, its loudness
+`e^{−t/τ}·|cos(π·(f₁ − f₂)·t)|`, peaking `|f₁ − f₂|` times a second. The prong
+a clamped beam in its first mode, `1 + cos βL·cosh βL = 0`, `βL = 1.8751`, its
+shape `φ` scaled to 1 at the tip, where the prong weighs a quarter of its mass
+(`∫φ² = ¼`); a rider `m` on each prong at `s` along it slows the fork by
+Rayleigh's estimate with the mode kept, `f₂ = f₁/√(1 + m·φ(s)²/(m_prong/4))`.
+
+**What it shows** (an assumed fork: 440 Hz, prongs of 20 g, ringing down in
+6 s; a 1 g rider 30 % up the prongs). The second fork at 439.18 Hz: 0.82
+beats a second, one every 1.22 s, 3.2 cents apart, 23 beats while the sound
+falls to a hundredth; the same gram at the tip, 38 Hz down. Rayleigh comes
+out 0.04 % above the exact frequency of a beam with a mass at its end for 1 g
+at the tip, under 0.4 % for 5 g.
+
+**The page.** The two forks (their prongs blurred as wide as they swing, the
+rider drawn on the second), their pitches, and under them the sum around now
+over 12 ms, a slow motion of a few swings; under that the loudness over ten
+seconds since the strike, both together and one alone dashed, now marked. A
+button to strike, a switch for the sound (off at first; `useTones` plays the
+two forks and the ear makes the beats), whether they wait, ring or have died
+away, the two pitches, the beats and the time between them. Moving the rider
+(0–2 g, from the stem to the tip) gives the second fork, the beats, the time
+between them, the cents and the beats heard, and the loudness over ten
+seconds. "The trick" has the beats over the rider's place for 0.5, 1 and 2 g.
+The preview strikes again every nine seconds, silent. Topics "oscillation" and
+"perception", lesson `second_order` (each fork a damped oscillator). **No
+route**: the port's (`simulate/beats.ts`), held to the engine over the mode's
+shape, three forks (the exhibit's, a low heavy one ringing long, a high light
+one ringing short) with five riders each, and the loudness and the sound over
+five seconds.
+
+**Joins the experiment of the day** on `SECOND_SERIES`, with the second series.
+
+**Left out, and said:** the sounding boxes and the room; the rider's own pull
+on the mode's shape; the prongs' coupling and the stem; the ear, which hears
+fast beats as roughness and then as two tones.
+
+**Checked by** `tests/unit/test_experiments.py`: the 439.18 Hz, 0.82 Hz,
+1.22 s, 3.2 cents and 23 beats, and the 38 Hz at the tip; the mode's root and
+its quarter by Simpson's rule; Rayleigh against the exact beam with a mass at
+its end, solved by bisection in the test; the sum against the mean tone times
+the beating envelope, and ten silences in four seconds at 2.5 beats; a rider
+at the stem or of no mass in tune, the pitch falling along the prong; the
+refusals.
 
 ## The notice: the check still to come
 

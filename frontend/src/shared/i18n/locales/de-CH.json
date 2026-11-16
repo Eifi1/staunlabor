@@ -340,6 +340,12 @@
         "title": "Der Doppelspalt",
         "summary": "Laserlicht fällt durch zwei schmale Spalte: An der Wand erscheinen helle und dunkle Streifen – und wo es dunkel ist, würde ein Spalt allein Licht hinwerfen.",
         "question": "Wie kann Licht plus Licht Dunkelheit ergeben?"
+      },
+      "beats": {
+        "short": "Schwebung",
+        "title": "Die Schwebung",
+        "summary": "Zwei Stimmgabeln, fast gleich gestimmt, klingen zusammen wie ein Ton, der langsam an- und abschwillt. Ein kleiner Reiter auf einer Gabel bestimmt, wie schnell.",
+        "question": "Warum schwillt der Ton zweier fast gleicher Stimmgabeln an und ab?"
       }
     },
     "chair": {
@@ -3175,6 +3181,82 @@
         "colours": "Die Farbe des Lasers ist die seiner Wellenlänge, so gesättigt, wie der Bildschirm sie zeigen kann, und so hell, wie das Licht dort ist. Weisses Licht: für 81 Wellenlängen je das eigene Muster, gewichtet mit der Farbempfindlichkeit des Auges (CIE 1931) und umgerechnet in die Farben des Bildschirms (sRGB).",
         "check": "Die Tests der Seite zerlegen jeden Spalt in 400 schmale Streifen, addieren die Wellen aller Streifen an jedem Punkt der Wand (Huygens) und vergleichen das Ergebnis mit der Formel. Sie prüfen, dass es an den dunklen Streifen genau dunkel ist, wo ein Spalt allein Licht gibt, und dass weisses Licht dort blau ist, wo Rot sich auslöscht. Gerechnet wird in Ihrem Browser, mit denselben Formeln wie im Rechenkern der Seite.",
         "left_out": "Weggelassen: dass die Wand nicht unendlich weit weg ist (die Formel gilt, sobald sie viel weiter weg ist als d²/λ, hier etwa ein Zehntelmeter); die Breite und Aufweitung des Laserstrahls, die die Streifen nach oben und unten auslaufen lässt; Kanten und Dicke der Spalte; die Polarisation des Lichts."
+      }
+    },
+    "beats": {
+      "at": {
+        "forks": "Zwei Stimmgabeln auf ihren Resonanzkästen, gleich gestimmt – bis auf einen kleinen Reiter, der auf die Zinken der einen geklemmt ist.",
+        "swell": "Schlägt man beide an, hört man einen einzigen Ton, der langsam lauter und leiser wird, immer wieder.",
+        "rider": "Schiebt man den Reiter weiter hinaus, schwillt der Ton schneller; schiebt man ihn zum Stiel, langsamer."
+      },
+      "view": "Die zwei Stimmgabeln mit ihren Tonhöhen, die zweite mit dem Reiter, darunter der Klang in Zeitlupe",
+      "loudness_view": "Die Lautstärke seit dem Anschlag, beide Gabeln zusammen und eine allein",
+      "play": {
+        "title": "Die Gabeln anschlagen",
+        "hint": "Schlagen Sie beide Gabeln an und sehen – oder hören – Sie, wie der Ton an- und abschwillt.",
+        "strike": "Anschlagen",
+        "sound": "Ton",
+        "sound_hint": "Spielt die beiden Gabeln ab; Ihr Ohr hört die Schwebung selbst.",
+        "no_sound": "Ihr Browser kann hier keinen Ton erzeugen.",
+        "caption": "Oben die Gabeln und ihr gemeinsamer Klang in Zeitlupe; unten die Lautstärke seit dem Anschlag: durchgezogen beide zusammen, gestrichelt eine allein.",
+        "slow": "Der Klang jetzt, {{ms}} ms in Zeitlupe",
+        "waiting": "Die Gabeln schweigen. Schlagen Sie sie an.",
+        "silent": "Die Gabeln sind verklungen.",
+        "ringing": "Seit {{time}} s: Lautstärke {{loud}} % des Anschlags.",
+        "f1": "Erste Gabel",
+        "f2": "Zweite Gabel, mit Reiter"
+      },
+      "figures": {
+        "beat": "Schwebung",
+        "period": "Zeit von Schwebung zu Schwebung",
+        "detuned": "Zweite Gabel",
+        "cents": "Abstand der Töne",
+        "heard": "Schwebungen bis zum Verklingen"
+      },
+      "change": {
+        "title": "Den Reiter verschieben",
+        "hint": "Machen Sie den Reiter schwerer oder schieben Sie ihn entlang der Zinken.",
+        "mass": "Masse des Reiters",
+        "mass_hint": "Auf jeder Zinke ein Reiter dieser Masse.",
+        "position": "Ort des Reiters",
+        "position_hint": "Vom Stiel (0 %) bis zur Spitze der Zinke (100 %)."
+      },
+      "chart": {
+        "loudness_hint": "Die Lautstärke über zehn Sekunden: Beide zusammen schwellen an und ab, eine allein klingt einfach aus.",
+        "sum": "Beide Gabeln",
+        "one": "Eine Gabel",
+        "loudness": "Lautstärke",
+        "time": "Zeit",
+        "rider_hint": "Wie viele Schwebungen pro Sekunde der Reiter macht, je nach seinem Ort, für drei Massen.",
+        "beat": "Schwebung",
+        "position": "Ort des Reiters"
+      },
+      "model": {
+        "intro": "Jede Gabel schwingt mit ihrer Frequenz und klingt langsam aus. An Ihrem Ohr addieren sich die beiden Schwingungen.",
+        "sum": "Die Summe ist ein Ton der mittleren Frequenz, dessen Stärke langsam schwankt: Mal schwingen die Gabeln im Gleichtakt, mal gegeneinander.",
+        "beat": "Die Lautstärke hat ihre Spitzen so oft pro Sekunde, wie sich die Frequenzen unterscheiden.",
+        "rider": "Der Reiter bremst die Zinke wie eine zusätzliche Masse (Rayleigh): fast nicht nahe beim Stiel, wo die Zinke kaum schwingt, voll an der Spitze. Die Zinke wirkt an ihrer Spitze wie ein Viertel ihrer Masse."
+      },
+      "symbols": {
+        "x": "Schwingung der Luft, beide Gabeln zusammen",
+        "f": "Frequenzen der beiden Gabeln",
+        "t": "Zeit seit dem Anschlag",
+        "tau": "Abklingzeit einer Gabel",
+        "fb": "Schwebungsfrequenz",
+        "m": "Masse des Reiters auf jeder Zinke",
+        "phi": "Schwingungsform der Zinke, 1 an der Spitze",
+        "s": "Ort des Reiters entlang der Zinke",
+        "mz": "Masse einer Zinke"
+      },
+      "sweet": {
+        "closer": "Der Trick: Je näher die beiden Töne beieinander liegen, desto langsamer die Schwebung. Hier liegen sie nur 0,82 Hz auseinander, 3,2 Cent – und doch hört man deutlich eine Schwebung alle 1,22 s, 23 bis zum Verklingen.",
+        "tuning": "So stimmt man Instrumente: Man spielt zwei Töne zusammen und verstellt, bis die Schwebung langsamer wird und schliesslich verschwindet.",
+        "rider": "Der Reiter wirkt nahe dem Stiel kaum, an der Spitze voll: 1 g auf 30 % der Zinke verstimmt die Gabel um 0,82 Hz, an der Spitze um 38 Hz."
+      },
+      "computed": {
+        "system": "Die Seite rechnet die Frequenz der zweiten Gabel mit dem Verfahren von Rayleigh aus der Schwingungsform einer eingespannten Zinke (βL = 1,875) und addiert die beiden ausklingenden Schwingungen. Angenommen ist eine Gabel mit 440 Hz, Zinken von 20 g und einer Abklingzeit von 6 s.",
+        "check": "Die Tests der Seite halten die Schwingungsform an ihre Gleichung, prüfen, dass die Zinke an der Spitze wie ein Viertel ihrer Masse wirkt, und vergleichen Rayleighs Schätzung mit der exakten Frequenz einer Zinke mit einer Masse an der Spitze: Für 1 g liegt sie weniger als 0,1 % zu hoch. Gerechnet wird in Ihrem Browser, mit denselben Formeln wie im Rechenkern der Seite.",
+        "left_out": "Weggelassen: die Resonanzkästen und der Raum; dass der Reiter die Schwingungsform selbst ein wenig verändert; die Kopplung der beiden Zinken und der Stiel; das Ohr, das schnelle Schwebungen nicht mehr als An- und Abschwellen hört, sondern als Rauheit und schliesslich als zwei Töne."
       }
     }
   },

@@ -340,6 +340,12 @@
         "title": "The double slit",
         "summary": "Laser light falls through two narrow slits: on the wall bright and dark stripes appear – and where it is dark, one slit alone would throw light.",
         "question": "How can light plus light make darkness?"
+      },
+      "beats": {
+        "short": "Beats",
+        "title": "Beats",
+        "summary": "Two tuning forks, nearly in tune, sound together like one tone that slowly swells and fades. A small rider on one fork sets how fast.",
+        "question": "Why does the tone of two nearly equal tuning forks swell and fade?"
       }
     },
     "chair": {
@@ -3175,6 +3181,82 @@
         "colours": "The laser's colour is its wavelength's, as saturated as the screen can show it and as bright as the light is there. White light: for 81 wavelengths each its own pattern, weighted by the eye's sensitivity to colour (CIE 1931) and converted into the screen's colours (sRGB).",
         "check": "The page's tests cut each slit into 400 narrow strips, add up the waves of all the strips at each point of the wall (Huygens) and compare the result with the formula. They check that the dark stripes are exactly dark where one slit alone gives light, and that white light is blue where red cancels. The computing happens in your browser, with the same formulas as the site's engine.",
         "left_out": "Left out: that the wall is not infinitely far away (the formula holds once it is much further away than d²/λ, here about a tenth of a metre); the laser beam's width and spread, which make the stripes fade out up and down; the slits' edges and thickness; the light's polarisation."
+      }
+    },
+    "beats": {
+      "at": {
+        "forks": "Two tuning forks on their sounding boxes, tuned alike – but for a small rider clamped to the prongs of one.",
+        "swell": "Strike both and you hear a single tone that slowly grows louder and softer, again and again.",
+        "rider": "Slide the rider further out and the tone swells faster; slide it towards the stem, slower."
+      },
+      "view": "The two tuning forks with their pitches, the second with the rider, and below them the sound in slow motion",
+      "loudness_view": "The loudness since the strike, both forks together and one alone",
+      "play": {
+        "title": "Strike the forks",
+        "hint": "Strike both forks and watch – or hear – the tone swell and fade.",
+        "strike": "Strike",
+        "sound": "Sound",
+        "sound_hint": "Plays the two forks; your ear hears the beats by itself.",
+        "no_sound": "Your browser cannot make a sound here.",
+        "caption": "Above, the forks and their sound together in slow motion; below, the loudness since the strike: solid both together, dashed one alone.",
+        "slow": "The sound now, {{ms}} ms in slow motion",
+        "waiting": "The forks are silent. Strike them.",
+        "silent": "The forks have died away.",
+        "ringing": "For {{time}} s: loudness {{loud}} % of the strike.",
+        "f1": "First fork",
+        "f2": "Second fork, with rider"
+      },
+      "figures": {
+        "beat": "Beats",
+        "period": "Time from beat to beat",
+        "detuned": "Second fork",
+        "cents": "Distance between the tones",
+        "heard": "Beats until it dies away"
+      },
+      "change": {
+        "title": "Slide the rider",
+        "hint": "Make the rider heavier or slide it along the prongs.",
+        "mass": "Rider's mass",
+        "mass_hint": "A rider of this mass on each prong.",
+        "position": "Rider's place",
+        "position_hint": "From the stem (0 %) to the prong's tip (100 %)."
+      },
+      "chart": {
+        "loudness_hint": "The loudness over ten seconds: both together swell and fade, one alone simply dies away.",
+        "sum": "Both forks",
+        "one": "One fork",
+        "loudness": "Loudness",
+        "time": "Time",
+        "rider_hint": "How many beats a second the rider makes, by its place, for three masses.",
+        "beat": "Beats",
+        "position": "Rider's place"
+      },
+      "model": {
+        "intro": "Each fork swings at its frequency and slowly dies away. At your ear the two swings add up.",
+        "sum": "The sum is a tone of the mean frequency whose strength slowly rises and falls: now the forks swing in step, now against each other.",
+        "beat": "The loudness peaks as many times a second as the frequencies differ.",
+        "rider": "The rider slows the prong like an added mass (Rayleigh): hardly at all near the stem, where the prong barely swings, fully at the tip. At its tip the prong acts like a quarter of its mass."
+      },
+      "symbols": {
+        "x": "The air's swing, both forks together",
+        "f": "The two forks' frequencies",
+        "t": "Time since the strike",
+        "tau": "A fork's decay time",
+        "fb": "Beat frequency",
+        "m": "Rider's mass on each prong",
+        "phi": "The prong's mode shape, 1 at the tip",
+        "s": "Rider's place along the prong",
+        "mz": "Mass of one prong"
+      },
+      "sweet": {
+        "closer": "The trick: the closer the two tones, the slower the beats. Here they are only 0.82 Hz apart, 3.2 cents – and yet one clearly hears a beat every 1.22 s, 23 until it dies away.",
+        "tuning": "That is how instruments are tuned: play two tones together and adjust until the beats slow down and finally vanish.",
+        "rider": "The rider hardly matters near the stem and fully at the tip: 1 g at 30 % of the prong detunes the fork by 0.82 Hz, at the tip by 38 Hz."
+      },
+      "computed": {
+        "system": "The page computes the second fork's frequency by Rayleigh's method from the mode shape of a clamped prong (βL = 1.875) and adds the two dying swings. Assumed: a fork of 440 Hz, prongs of 20 g, a decay time of 6 s.",
+        "check": "The page's tests hold the mode shape to its equation, check that the prong acts at its tip like a quarter of its mass, and compare Rayleigh's estimate with the exact frequency of a prong with a mass at its tip: for 1 g it is less than 0.1 % high. The computing happens in your browser, with the same formulas as the site's engine.",
+        "left_out": "Left out: the sounding boxes and the room; that the rider itself changes the mode shape a little; the coupling of the two prongs, and the stem; the ear, which hears fast beats no longer as swelling and fading but as roughness and finally as two tones."
       }
     }
   },

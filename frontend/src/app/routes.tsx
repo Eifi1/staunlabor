@@ -64,6 +64,7 @@ const DiverPage = lazy(() => import("@/features/experiments/diver-page").then((m
 const RainbowPage = lazy(() => import("@/features/experiments/rainbow-page").then((m) => ({ default: m.RainbowPage })));
 const SkyPage = lazy(() => import("@/features/experiments/sky-page").then((m) => ({ default: m.SkyPage })));
 const SlitsPage = lazy(() => import("@/features/experiments/slits-page").then((m) => ({ default: m.SlitsPage })));
+const BeatsPage = lazy(() => import("@/features/experiments/beats-page").then((m) => ({ default: m.BeatsPage })));
 const HarmonographPage = lazy(() =>
   import("@/features/experiments/harmonograph-page").then((m) => ({ default: m.HarmonographPage })),
 );
@@ -365,6 +366,14 @@ export function AppRoutes() {
           element={
             <Page>
               <SlitsPage />
+            </Page>
+          }
+        />
+        <Route
+          path="beats"
+          element={
+            <Page>
+              <BeatsPage />
             </Page>
           }
         />

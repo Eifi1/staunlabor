@@ -340,6 +340,12 @@
         "title": "La doble rendija",
         "summary": "La luz de un láser atraviesa dos rendijas estrechas: en la pared aparecen franjas claras y oscuras, y donde está oscuro, una sola rendija arrojaría luz.",
         "question": "¿Cómo puede luz más luz dar oscuridad?"
+      },
+      "beats": {
+        "short": "Batido",
+        "title": "El batido",
+        "summary": "Dos diapasones casi afinados suenan juntos como un solo tono que crece y se desvanece lentamente. Un pequeño jinete sobre uno de ellos fija la rapidez.",
+        "question": "¿Por qué el tono de dos diapasones casi iguales crece y se desvanece?"
       }
     },
     "chair": {
@@ -3175,6 +3181,82 @@
         "colours": "El color del láser es el de su longitud de onda, tan saturado como la pantalla pueda mostrarlo y tan claro como sea la luz allí. Luz blanca: para 81 longitudes de onda, cada una con su propio patrón, ponderadas con la sensibilidad del ojo al color (CIE 1931) y convertidas a los colores de la pantalla (sRGB).",
         "check": "Las pruebas de la página dividen cada rendija en 400 franjas estrechas, suman las ondas de todas ellas en cada punto de la pared (Huygens) y comparan el resultado con la fórmula. Comprueban que las franjas oscuras son exactamente oscuras donde una sola rendija da luz, y que la luz blanca es azul donde el rojo se anula. Se calcula en su navegador, con las mismas fórmulas que el motor de cálculo de la página.",
         "left_out": "Se omite: que la pared no está infinitamente lejos (la fórmula vale en cuanto está mucho más lejos que d²/λ, aquí una décima de metro aproximadamente); la anchura y la apertura del haz láser, que hacen que las franjas se desvanezcan hacia arriba y hacia abajo; los bordes y el grosor de las rendijas; la polarización de la luz."
+      }
+    },
+    "beats": {
+      "at": {
+        "forks": "Dos diapasones sobre sus cajas de resonancia, afinados igual, salvo por un pequeño jinete sujeto a las ramas de uno de ellos.",
+        "swell": "Si se golpean ambos, se oye un solo tono que lentamente se hace más fuerte y más débil, una y otra vez.",
+        "rider": "Si se desliza el jinete más afuera, el tono crece más rápido; hacia el mango, más despacio."
+      },
+      "view": "Los dos diapasones con sus tonos, el segundo con el jinete, y debajo el sonido a cámara lenta",
+      "loudness_view": "La intensidad desde el golpe, los dos diapasones juntos y uno solo",
+      "play": {
+        "title": "Golpear los diapasones",
+        "hint": "Golpee ambos diapasones y vea, u oiga, cómo el tono crece y se desvanece.",
+        "strike": "Golpear",
+        "sound": "Sonido",
+        "sound_hint": "Reproduce los dos diapasones; su oído oye el batido por sí mismo.",
+        "no_sound": "Su navegador no puede producir sonido aquí.",
+        "caption": "Arriba, los diapasones y su sonido conjunto a cámara lenta; abajo, la intensidad desde el golpe: continua, los dos juntos; a trazos, uno solo.",
+        "slow": "El sonido ahora, {{ms}} ms a cámara lenta",
+        "waiting": "Los diapasones callan. Golpéelos.",
+        "silent": "Los diapasones se han apagado.",
+        "ringing": "Desde hace {{time}} s: intensidad {{loud}} % del golpe.",
+        "f1": "Primer diapasón",
+        "f2": "Segundo diapasón, con jinete"
+      },
+      "figures": {
+        "beat": "Batido",
+        "period": "Tiempo de un batido al siguiente",
+        "detuned": "Segundo diapasón",
+        "cents": "Distancia entre los tonos",
+        "heard": "Batidos hasta apagarse"
+      },
+      "change": {
+        "title": "Deslizar el jinete",
+        "hint": "Haga el jinete más pesado o deslícelo a lo largo de las ramas.",
+        "mass": "Masa del jinete",
+        "mass_hint": "Un jinete de esta masa en cada rama.",
+        "position": "Lugar del jinete",
+        "position_hint": "Desde el mango (0 %) hasta la punta de la rama (100 %)."
+      },
+      "chart": {
+        "loudness_hint": "La intensidad durante diez segundos: los dos juntos crecen y se desvanecen; uno solo simplemente se apaga.",
+        "sum": "Ambos diapasones",
+        "one": "Un diapasón",
+        "loudness": "Intensidad",
+        "time": "Tiempo",
+        "rider_hint": "Cuántos batidos por segundo produce el jinete según su lugar, para tres masas.",
+        "beat": "Batido",
+        "position": "Lugar del jinete"
+      },
+      "model": {
+        "intro": "Cada diapasón oscila con su frecuencia y se apaga lentamente. En su oído las dos oscilaciones se suman.",
+        "sum": "La suma es un tono de la frecuencia media cuya fuerza varía lentamente: unas veces los diapasones oscilan en fase, otras en contra.",
+        "beat": "La intensidad tiene sus máximos tantas veces por segundo como difieren las frecuencias.",
+        "rider": "El jinete frena la rama como una masa añadida (Rayleigh): casi nada cerca del mango, donde la rama apenas oscila, y plenamente en la punta. En su punta, la rama actúa como una cuarta parte de su masa."
+      },
+      "symbols": {
+        "x": "Oscilación del aire, los dos diapasones juntos",
+        "f": "Frecuencias de los dos diapasones",
+        "t": "Tiempo desde el golpe",
+        "tau": "Tiempo de amortiguamiento de un diapasón",
+        "fb": "Frecuencia del batido",
+        "m": "Masa del jinete en cada rama",
+        "phi": "Forma del modo de la rama, 1 en la punta",
+        "s": "Lugar del jinete a lo largo de la rama",
+        "mz": "Masa de una rama"
+      },
+      "sweet": {
+        "closer": "El truco: cuanto más cerca están los dos tonos, más lento es el batido. Aquí solo distan 0,82 Hz, 3,2 cents, y aun así se oye claramente un batido cada 1,22 s, 23 hasta que se apagan.",
+        "tuning": "Así se afinan los instrumentos: se tocan dos tonos juntos y se ajusta hasta que el batido se hace más lento y finalmente desaparece.",
+        "rider": "El jinete apenas actúa cerca del mango y plenamente en la punta: 1 g al 30 % de la rama desafina el diapasón 0,82 Hz; en la punta, 38 Hz."
+      },
+      "computed": {
+        "system": "La página calcula la frecuencia del segundo diapasón con el método de Rayleigh a partir de la forma del modo de una rama empotrada (βL = 1,875) y suma las dos oscilaciones amortiguadas. Se supone un diapasón de 440 Hz, ramas de 20 g y un tiempo de amortiguamiento de 6 s.",
+        "check": "Las pruebas de la página contrastan la forma del modo con su ecuación, comprueban que la rama actúa en su punta como una cuarta parte de su masa, y comparan la estimación de Rayleigh con la frecuencia exacta de una rama con una masa en la punta: para 1 g queda menos de un 0,1 % alta. Se calcula en su navegador, con las mismas fórmulas que el motor de cálculo de la página.",
+        "left_out": "Se omite: las cajas de resonancia y la sala; que el propio jinete cambia un poco la forma del modo; el acoplamiento de las dos ramas y el mango; el oído, que ya no oye los batidos rápidos como un crecer y desvanecerse, sino como aspereza y al final como dos tonos."
       }
     }
   },

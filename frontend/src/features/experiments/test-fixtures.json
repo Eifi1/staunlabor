@@ -342,6 +342,17 @@
       "width_m": 5e-05,
       "distance_m": 2.0
     },
+    "beats": {
+      "fork": {
+        "frequency_hz": 440.0,
+        "prong_kg": 0.02,
+        "decay_s": 6.0
+      },
+      "rider": {
+        "mass_kg": 0.001,
+        "position": 0.3
+      }
+    },
     "chladni": {
       "side_m": 0.24,
       "thickness_m": 0.001,

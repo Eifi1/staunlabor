@@ -3402,10 +3402,13 @@ def test_a_gram_on_the_prong_a_third_up_makes_a_beat_every_one_and_a_quarter_sec
     assert round(figures.beats_heard) == 23
     assert (x.Fork().frequency_hz, x.Fork().prong_kg, x.Fork().decay_s) == (440.0, 0.020, 6.0)
     assert (x.Rider().mass_kg, x.Rider().position) == (0.001, 0.3)
+    # The same gram at the tip: 38 Hz down.
+    assert round(x.Fork().frequency_hz - x.fork_frequency_hz(x.Fork(), x.Rider(position=1.0))) == 38
 
 
 def test_the_prong_swings_in_a_clamped_beam_s_first_mode_and_weighs_a_quarter_at_its_tip():
     assert abs(1 + math.cos(x.MODE_ROOT) * math.cosh(x.MODE_ROOT)) < 1e-12
+    assert round(x.MODE_ROOT, 3) == 1.875
     assert x.prong_mode_shape(0.0) == 0 and x.prong_mode_shape(1.0) == pytest.approx(1.0)
     n = 4000
     quarter = sum((1 if k in (0, n) else 4 if k % 2 else 2) * x.prong_mode_shape(k / n) ** 2 for k in range(n + 1)) / (

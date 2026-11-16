@@ -60,6 +60,7 @@ from staunlabor.domain.experiments import (
     Drum,
     Elephant,
     FloatingBall,
+    Fork,
     FoucaultPendulum,
     Funnel,
     GyroWheel,
@@ -76,6 +77,7 @@ from staunlabor.domain.experiments import (
     Platform,
     Race,
     ResonanceRack,
+    Rider,
     Room,
     SkyTube,
     Slits,
@@ -100,6 +102,7 @@ from staunlabor.domain.experiments import (
 from staunlabor.domain.experiments.chladni import DEGREE as CHLADNI_DEGREE
 from staunlabor.domain.schemas.experiments import (
     BallStackIn,
+    BeatsIn,
     BodyIn,
     BounceIn,
     CannonFiguresOut,
@@ -208,6 +211,7 @@ async def defaults() -> ExperimentsDefaultsOut:
         rainbow=RainbowIn.model_validate({"glass": asdict(GLASS_BEAD), "water": asdict(WATER_DROP)}),
         sky=SkyTubeIn.model_validate(asdict(SkyTube())),
         slits=SlitsIn.model_validate(asdict(Slits())),
+        beats=BeatsIn.model_validate({"fork": asdict(Fork()), "rider": asdict(Rider())}),
         chladni=ChladniPlateIn.model_validate(ChladniPlate()),
         meter_range_a=METER_RANGE_A,
         settle_s=PAGE_SETTLE_S,

@@ -862,6 +862,26 @@ class SlitsIn(_In):
     distance_m: float = Field(ge=0.2, le=10, default=2.0)
 
 
+# ── beats ────────────────────────────────────────────────────────────────────
+# No route: the page asks the port (``simulate/beats.ts``).
+
+
+class ForkIn(_In):
+    frequency_hz: float = Field(ge=100, le=2000, default=440.0)
+    prong_kg: float = Field(ge=0.002, le=1, default=0.020)
+    decay_s: float = Field(ge=0.5, le=60, default=6.0)
+
+
+class RiderIn(_In):
+    mass_kg: float = Field(ge=0, le=0.005, default=0.001)
+    position: float = Field(ge=0, le=1, default=0.3)
+
+
+class BeatsIn(_In):
+    fork: ForkIn
+    rider: RiderIn
+
+
 # ── the pages' starting point ────────────────────────────────────────────────
 
 
@@ -898,6 +918,7 @@ class ExperimentsDefaultsOut(_Out):
     rainbow: RainbowIn
     sky: SkyTubeIn
     slits: SlitsIn
+    beats: BeatsIn
     chladni: ChladniPlateIn
     #: The exhibit's meter: digital, ± this many amperes.
     meter_range_a: float

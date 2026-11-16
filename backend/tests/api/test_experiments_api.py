@@ -54,6 +54,7 @@ async def test_the_experiments_need_no_account(client: AsyncClient):
         "rainbow",
         "sky",
         "slits",
+        "beats",
         "chladni",
         "meter_range_a",
         "settle_s",
@@ -99,6 +100,10 @@ async def test_the_experiments_need_no_account(client: AsyncClient):
     }
     assert body["sky"] == {"length_m": 1.0, "radius_m": 0.03, "cloudiness_per_m": 1.5}
     assert body["slits"] == {"spacing_m": 0.25e-3, "width_m": 0.05e-3, "distance_m": 2.0}
+    assert body["beats"] == {
+        "fork": {"frequency_hz": 440.0, "prong_kg": 0.02, "decay_s": 6.0},
+        "rider": {"mass_kg": 0.001, "position": 0.3},
+    }
 
 
 async def test_the_sphere_answers_its_orbits_and_its_swing(client: AsyncClient):

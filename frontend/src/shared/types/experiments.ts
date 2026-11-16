@@ -741,6 +741,14 @@ export interface SlitsRequest {
   distance_m: number;
 }
 
+// ── beats ────────────────────────────────────────────────────────────────────
+
+/** The engine's `Fork` and `Rider`. No route: the page asks the port (`simulate/beats.ts`). */
+export interface BeatsRequest {
+  fork: { frequency_hz: number; prong_kg: number; decay_s: number };
+  rider: { mass_kg: number; position: number };
+}
+
 // ── the chain and the arch ───────────────────────────────────────────────────
 
 /** The engine's `Arch`. No route: the page asks the port (`simulate/arch.ts`). */
@@ -807,6 +815,7 @@ export interface ExperimentsDefaults {
   rainbow: RainbowRequest;
   sky: SkyRequest;
   slits: SlitsRequest;
+  beats: BeatsRequest;
   meter_range_a: number;
   settle_s: number;
 }

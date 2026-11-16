@@ -77,6 +77,7 @@ UNROUTED = (
     "rainbow",
     "sky",
     "slits",
+    "beats",
 )
 
 

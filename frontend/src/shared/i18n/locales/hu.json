@@ -340,6 +340,12 @@
         "title": "A kettős rés",
         "summary": "Lézerfény halad át két keskeny résen: a falon világos és sötét csíkok jelennek meg – és ahol sötét van, oda egyetlen rés fényt vetne.",
         "question": "Hogyan adhat fény meg fény sötétséget?"
+      },
+      "beats": {
+        "short": "Lebegés",
+        "title": "A lebegés",
+        "summary": "Két majdnem azonosra hangolt hangvilla együtt úgy szól, mint egyetlen hang, amely lassan felerősödik és elhalkul. Az egyik villán egy kis lovas szabja meg, milyen gyorsan.",
+        "question": "Miért erősödik és halkul két majdnem egyforma hangvilla hangja?"
       }
     },
     "chair": {
@@ -3175,6 +3181,82 @@
         "colours": "A lézer színe a hullámhosszáé, olyan telített, amennyire a képernyő meg tudja mutatni, és olyan világos, amilyen ott a fény. Fehér fény: 81 hullámhosszra mindegyik a saját mintázatával, a szem színérzékenységével súlyozva (CIE 1931), és a képernyő színeire átszámítva (sRGB).",
         "check": "Az oldal tesztjei minden rést 400 keskeny sávra bontanak, a fal minden pontjában összeadják az összes sáv hullámát (Huygens), és az eredményt a képlettel vetik össze. Ellenőrzik, hogy a sötét csíkok pontosan sötétek ott, ahol egyetlen rés fényt ad, és hogy a fehér fény kék ott, ahol a piros kioltódik. A számítás az Ön böngészőjében fut, ugyanazokkal a képletekkel, mint az oldal számítómagja.",
         "left_out": "Kimaradt: hogy a fal nincs végtelen messze (a képlet akkor érvényes, ha sokkal messzebb van, mint d²/λ, itt nagyjából egy tized méter); a lézernyaláb szélessége és széttartása, amely miatt a csíkok fölfelé és lefelé elhalványulnak; a rések éle és vastagsága; a fény polarizációja."
+      }
+    },
+    "beats": {
+      "at": {
+        "forks": "Két hangvilla a rezonanciaszekrényén, egyformán hangolva – csak az egyik ágaira egy kis lovas van szorítva.",
+        "swell": "Ha mindkettőt megütjük, egyetlen hangot hallunk, amely lassan hangosabb és halkabb lesz, újra meg újra.",
+        "rider": "Ha a lovast kijjebb toljuk, a hang gyorsabban lebeg; a nyél felé tolva lassabban."
+      },
+      "view": "A két hangvilla a hangmagasságával, a második a lovassal, alattuk a hang lassítva",
+      "loudness_view": "A hangerő a megütés óta, a két villa együtt és egy egyedül",
+      "play": {
+        "title": "A villák megütése",
+        "hint": "Üsse meg mindkét villát, és nézze – vagy hallgassa –, hogyan erősödik és halkul a hang.",
+        "strike": "Megütés",
+        "sound": "Hang",
+        "sound_hint": "Lejátssza a két villát; a füle magától hallja a lebegést.",
+        "no_sound": "Az Ön böngészője itt nem tud hangot előállítani.",
+        "caption": "Fent a villák és közös hangjuk lassítva; lent a hangerő a megütés óta: folytonos vonallal a kettő együtt, szaggatottal egy egyedül.",
+        "slow": "A hang most, {{ms}} ms lassítva",
+        "waiting": "A villák hallgatnak. Üsse meg őket.",
+        "silent": "A villák elhallgattak.",
+        "ringing": "{{time}} s óta: a hangerő a megütésének {{loud}} %-a.",
+        "f1": "Első villa",
+        "f2": "Második villa, lovassal"
+      },
+      "figures": {
+        "beat": "Lebegés",
+        "period": "Idő két lebegés között",
+        "detuned": "Második villa",
+        "cents": "A hangok távolsága",
+        "heard": "Lebegések az elhalásig"
+      },
+      "change": {
+        "title": "A lovas eltolása",
+        "hint": "Tegye nehezebbé a lovast, vagy tolja el az ágak mentén.",
+        "mass": "A lovas tömege",
+        "mass_hint": "Minden ágon egy ekkora tömegű lovas.",
+        "position": "A lovas helye",
+        "position_hint": "A nyéltől (0 %) az ág csúcsáig (100 %)."
+      },
+      "chart": {
+        "loudness_hint": "A hangerő tíz másodpercen át: a kettő együtt lebeg, egy egyedül egyszerűen elhal.",
+        "sum": "Mindkét villa",
+        "one": "Egy villa",
+        "loudness": "Hangerő",
+        "time": "Idő",
+        "rider_hint": "Hány lebegést okoz másodpercenként a lovas a helye szerint, három tömegre.",
+        "beat": "Lebegés",
+        "position": "A lovas helye"
+      },
+      "model": {
+        "intro": "Minden villa a saját frekvenciáján rezeg, és lassan elhal. A fülénél a két rezgés összeadódik.",
+        "sum": "Az összeg egy átlagos frekvenciájú hang, amelynek erőssége lassan ingadozik: hol egy ütemben rezegnek a villák, hol egymás ellen.",
+        "beat": "A hangerő annyiszor ér csúcsot másodpercenként, amennyivel a frekvenciák eltérnek.",
+        "rider": "A lovas úgy fékezi az ágat, mint egy hozzáadott tömeg (Rayleigh): a nyél közelében, ahol az ág alig rezeg, szinte sehogy, a csúcson teljesen. A csúcsán az ág a tömege negyedeként hat."
+      },
+      "symbols": {
+        "x": "A levegő rezgése, a két villa együtt",
+        "f": "A két villa frekvenciája",
+        "t": "Idő a megütés óta",
+        "tau": "Egy villa lecsengési ideje",
+        "fb": "Lebegési frekvencia",
+        "m": "A lovas tömege minden ágon",
+        "phi": "Az ág rezgésalakja, a csúcson 1",
+        "s": "A lovas helye az ág mentén",
+        "mz": "Egy ág tömege"
+      },
+      "sweet": {
+        "closer": "A trükk: minél közelebb van egymáshoz a két hang, annál lassabb a lebegés. Itt csak 0,82 Hz-cel térnek el, 3,2 centtel – mégis jól hallható egy lebegés minden 1,22 s-ban, 23 az elhalásig.",
+        "tuning": "Így hangolják a hangszereket: két hangot együtt szólaltatnak meg, és addig állítanak, amíg a lebegés lelassul, majd eltűnik.",
+        "rider": "A lovas a nyél közelében alig hat, a csúcson teljesen: 1 g az ág 30 %-ánál 0,82 Hz-cel hangolja el a villát, a csúcson 38 Hz-cel."
+      },
+      "computed": {
+        "system": "Az oldal a második villa frekvenciáját Rayleigh módszerével számolja egy befogott ág rezgésalakjából (βL = 1,875), és összeadja a két lecsengő rezgést. Feltételezve: 440 Hz-es villa, 20 g-os ágak, 6 s lecsengési idő.",
+        "check": "Az oldal tesztjei a rezgésalakot az egyenletéhez tartják, ellenőrzik, hogy az ág a csúcsán a tömege negyedeként hat, és Rayleigh becslését összevetik egy csúcsán tömeget hordozó ág pontos frekvenciájával: 1 g-ra kevesebb mint 0,1 %-kal magasabb. A számítás az Ön böngészőjében fut, ugyanazokkal a képletekkel, mint az oldal számítómagja.",
+        "left_out": "Kimaradt: a rezonanciaszekrények és a terem; hogy maga a lovas is kissé megváltoztatja a rezgésalakot; a két ág csatolása és a nyél; a fül, amely a gyors lebegést már nem erősödésként és halkulásként hallja, hanem érdességként, végül két hangként."
       }
     }
   },

@@ -56,6 +56,7 @@ import { DiverPage } from "./diver-page";
 import { RainbowPage } from "./rainbow-page";
 import { SkyPage } from "./sky-page";
 import { SlitsPage } from "./slits-page";
+import { BeatsPage } from "./beats-page";
 import { ChladniPage } from "./chladni-page";
 import { ballState, pitEntries, positionAt, raceLayout, swingAt } from "./race-views";
 import { run as runPit } from "./simulate/pit";
@@ -1308,5 +1309,28 @@ describe("the double slit", () => {
     expect(await screen.findByText(E.slits.play.status_both.replace("{{spacing}}", "4.3"))).toBeInTheDocument();
     fireEvent.change(screen.getByRole("slider", { name: E.slits.change.spacing }), { target: { value: "0.5" } });
     expect(await screen.findByText(E.slits.play.status_both.replace("{{spacing}}", "2.1"))).toBeInTheDocument();
+  });
+});
+
+describe("the beats", () => {
+  it("waits, rings when struck, and has its sound muted with no Web Audio here", async () => {
+    renderWithProviders(<BeatsPage />);
+    expect(await screen.findByRole("img", { name: E.beats.view })).toBeInTheDocument();
+    expect(screen.getByRole("img", { name: E.beats.loudness_view })).toBeInTheDocument();
+    expect(screen.getByText(E.beats.play.waiting)).toBeInTheDocument();
+    expect(screen.getByText(E.beats.play.no_sound)).toBeInTheDocument();
+    fireEvent.click(screen.getByRole("button", { name: E.beats.play.strike }));
+    expect(screen.queryByText(E.beats.play.waiting)).not.toBeInTheDocument();
+    expect(screen.getAllByLabelText(E.equation.symbols).length).toBeGreaterThanOrEqual(3);
+  });
+
+  it("beats 0.82 times a second with a gram a third up, and stops with the rider at the stem", async () => {
+    renderWithProviders(<BeatsPage />);
+    await screen.findByRole("img", { name: E.beats.view });
+    expect(screen.getAllByText("0.82").length).toBeGreaterThanOrEqual(2);
+    expect(screen.getAllByText("1.22").length).toBeGreaterThanOrEqual(2);
+    expect(screen.getByText("23")).toBeInTheDocument();
+    fireEvent.change(screen.getByRole("slider", { name: E.beats.change.position }), { target: { value: "0" } });
+    expect((await screen.findAllByText("0.00")).length).toBeGreaterThanOrEqual(2);
   });
 });
