@@ -143,6 +143,11 @@ steps:
   # mounted only with _MAIL_BACKEND=resend: a mounted secret that does not
   # exist refuses the revision.
   #
+  # The env list's delimiter is `|` (gcloud's ^|^), not the comma, which a
+  # longer allow-list holds, nor `@`, which every address holds: with ^@^ the
+  # allow-list's kontakt@staunlabor.app split into a pair without a `=`, and the
+  # deploy of 2026-11-16 stopped at this step.
+  #
   # Twice the CPU while an instance starts (--cpu-boost) and shortly after, billed
   # only then: a scale-to-zero backend's first request waits on Python loading the
   # app (4.4 s on 2026-11-13). On already, as Cloud Run's default for a new
@@ -166,7 +171,7 @@ steps:
           --set-cloudsql-instances=${_INSTANCE} \
           --min-instances=0 --max-instances=3 --concurrency=20 \
           --memory=512Mi --cpu=1 --cpu-boost --timeout=60 \
-          --set-env-vars="^@^STAUNLABOR_APP_BASE_URL=${_APP_BASE_URL}@STAUNLABOR_TRUSTED_PROXY_HOPS=3@STAUNLABOR_WEBAUTHN_RP_ID=staunlabor.app@STAUNLABOR_REGISTRATION_ALLOWLIST=${_REGISTRATION_ALLOWLIST}@STAUNLABOR_MAIL_BACKEND=${_MAIL_BACKEND}@STAUNLABOR_FEEDBACK_BUCKET=${_FEEDBACK_BUCKET}" \
+          --set-env-vars="^|^STAUNLABOR_APP_BASE_URL=${_APP_BASE_URL}|STAUNLABOR_TRUSTED_PROXY_HOPS=3|STAUNLABOR_WEBAUTHN_RP_ID=staunlabor.app|STAUNLABOR_REGISTRATION_ALLOWLIST=${_REGISTRATION_ALLOWLIST}|STAUNLABOR_MAIL_BACKEND=${_MAIL_BACKEND}|STAUNLABOR_FEEDBACK_BUCKET=${_FEEDBACK_BUCKET}" \
           --set-secrets="STAUNLABOR_EDGE_TOKEN=staunlabor-edge-token:latest,STAUNLABOR_DATABASE_URL=staunlabor-db-url-app:latest,STAUNLABOR_JWT_SECRET=staunlabor-jwt-secret:latest,STAUNLABOR_JOBS_TOKEN=staunlabor-jobs-token:latest,STAUNLABOR_TOTP_KEYS=staunlabor-totp-keys:latest$$MAIL_SECRET"
 
   # ── web (public; finds the backend host and proxies /api to it) ─────────
