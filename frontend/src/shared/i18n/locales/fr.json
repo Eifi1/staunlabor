@@ -334,6 +334,12 @@
         "title": "Pourquoi le ciel est-il bleu ?",
         "summary": "De la lumière blanche à travers un tube légèrement trouble : de côté il brille en bleu, au bout elle sort orange – le ciel bleu et le soleil rouge du soir en petit.",
         "question": "Pourquoi la même lumière est-elle bleue de côté et orange au bout ?"
+      },
+      "slits": {
+        "short": "Double fente",
+        "title": "La double fente",
+        "summary": "La lumière d’un laser traverse deux fentes étroites : sur le mur apparaissent des franges claires et sombres – et là où il fait sombre, une seule fente enverrait de la lumière.",
+        "question": "Comment de la lumière plus de la lumière peut-elle donner de l’obscurité ?"
       }
     },
     "chair": {
@@ -3090,6 +3096,85 @@
         "colours": "Les couleurs comme pour l’arc-en-ciel des billes de verre : pondérées par la sensibilité de l’œil aux couleurs (CIE 1931) et converties dans les couleurs de l’écran (sRGB). Le blanc de la lampe – pour le ciel, celui du soleil au-dessus de l’air – apparaît blanc. Chaque couleur est dessinée aussi claire que l’écran le permet ; les chiffres disent sa clarté réelle.",
         "check": "Les tests de la page vérifient que la lumière diffusée sur le côté et celle qui arrive au bout donnent ensemble exactement la lumière de la lampe (règle de Simpson), et confrontent le ciel au-dessus de soi à la même somme sur toutes les altitudes. Le calcul se fait dans votre navigateur, avec les mêmes formules que le moteur de calcul de la page.",
         "left_out": "Laissé de côté : la lumière diffusée plusieurs fois (elle rend un tube très trouble et le ciel à l’horizon plus blancs) ; les particules plus grosses, qui diffusent toutes les couleurs de la même façon (c’est pourquoi le lait est blanc) ; la direction de la diffusion, qui ne change que la clarté ; pour le ciel, l’ozone, qui garde le ciel bleu au crépuscule (sans lui, le ciel au-dessus de soi devient ici presque blanc le soir), ainsi que la poussière et la brume, qui rendent le coucher de soleil plus rouge encore. On suppose un tube de 1 m de long et de 6 cm de diamètre."
+      }
+    },
+    "slits": {
+      "at": {
+        "laser": "Un laser éclaire une plaque percée de deux fentes étroites, larges et espacées de quelques fractions de millimètre.",
+        "stripes": "Sur le mur derrière apparaît une rangée de franges claires et sombres – et non deux traits lumineux.",
+        "cover": "Si l’on cache une fente, les franges disparaissent : il reste une large tache claire, même là où il faisait sombre l’instant d’avant."
+      },
+      "setup_view": "Le laser, la plaque avec les deux fentes et le mur",
+      "wall_view": "Le mur derrière les fentes avec sa figure",
+      "play": {
+        "title": "La lumière à travers deux fentes",
+        "hint": "Choisissez le laser ou la lumière blanche, changez la couleur du laser et cachez une fente.",
+        "light": "Lumière",
+        "lights": {
+          "laser": "Laser",
+          "white": "Lumière blanche"
+        },
+        "wavelength": "Longueur d’onde du laser",
+        "wavelength_hint": "Du violet (400 nm) au rouge (700 nm).",
+        "cover": "Cacher une fente",
+        "cover_hint": "Une seule fente laisse passer la lumière.",
+        "caption": "En haut, le dispositif ; en dessous, le mur tel que vous le voyez : toute la bande centrale d’une fente et un peu au-delà. Les couleurs à l’écran ne sont qu’approchées.",
+        "plate": "Fentes",
+        "wall": "Mur",
+        "status_both": "Deux fentes : des franges espacées de {{spacing}} mm.",
+        "status_one": "Une fente : une large tache claire, sans franges – et au milieu quatre fois moins claire."
+      },
+      "figures": {
+        "spacing": "Espacement des franges",
+        "first_dark": "Première frange sombre à",
+        "stripes": "Franges claires dans la bande centrale",
+        "one_slit_there": "Une seule fente sur la première frange sombre"
+      },
+      "change": {
+        "title": "Changer les fentes",
+        "hint": "Rapprochez les fentes, élargissez-les ou éloignez le mur.",
+        "spacing": "Espacement des fentes",
+        "spacing_hint": "Du milieu de l’une au milieu de l’autre.",
+        "width": "Largeur d’une fente",
+        "width_hint": "Plus elle est étroite, plus la bande centrale est large.",
+        "distance": "Distance au mur",
+        "distance_hint": "À quelle distance derrière les fentes se trouve le mur."
+      },
+      "chart": {
+        "hint": "La clarté sur le mur à {{nm}} nm, avec deux fentes et avec une ; 1 est le milieu avec deux fentes.",
+        "both": "Deux fentes",
+        "one": "Une fente",
+        "light": "Clarté",
+        "along": "Position sur le mur"
+      },
+      "model": {
+        "intro": "La lumière est une onde. De chaque fente part une onde vers chaque point du mur ; là, les deux s’additionnent.",
+        "path": "La différence de chemin des deux ondes. Si c’est un nombre entier de longueurs d’onde, elles arrivent en phase : clair. Si c’est une demi-longueur d’onde de plus, elles s’annulent : sombre.",
+        "intensity": "La clarté sur le mur (Fraunhofer) : chaque fente seule donne la large bande centrale (sin β/β)², les deux ensemble les franges à l’intérieur (cos² α).",
+        "stripes": "L’espacement des franges sur le mur : plus la longueur d’onde est grande et le mur loin, plus il est grand ; plus les fentes sont écartées, plus il est petit."
+      },
+      "symbols": {
+        "ds": "Différence de chemin",
+        "d": "Espacement des fentes",
+        "theta": "Angle par rapport à la direction tout droit",
+        "i": "Clarté",
+        "i0": "Clarté au milieu, avec deux fentes",
+        "a": "Largeur d’une fente",
+        "lambda": "Longueur d’onde",
+        "dy": "Espacement des franges sur le mur",
+        "l": "Distance au mur"
+      },
+      "sweet": {
+        "dark": "L’astuce : sur la première frange sombre, une seule fente donne 97 % de la clarté de son milieu. Ouvrez la seconde fente : il arrive plus de lumière – et c’est justement là qu’il fait sombre. Les deux ondes arrivent décalées d’une demi-longueur d’onde et s’annulent. Lumière plus lumière donne de l’obscurité.",
+        "colours": "En lumière blanche, chaque couleur a ses propres franges, les rouges plus espacées que les bleues. Seul le milieu est clair pour toutes : il reste blanc, à côté les franges se colorent. Là où le rouge s’annule, le bleu brille encore.",
+        "one_label": "Une fente ouverte",
+        "two_label": "Deux fentes ouvertes, dessinées avec la même clarté"
+      },
+      "computed": {
+        "system": "La page calcule la clarté en chaque point du mur avec la formule pour un mur éloigné (Fraunhofer). Le laser est rouge, 650 nm ; les fentes sont espacées de 0,25 mm et larges de 0,05 mm chacune, le mur est à 2 m derrière. Les franges sont alors espacées de 5,2 mm, la première sombre à 2,6 mm du milieu, et 9 franges claires tiennent dans la bande centrale d’une fente, large de 26 mm.",
+        "colours": "La couleur du laser est celle de sa longueur d’onde, aussi saturée que l’écran peut la montrer et aussi claire que la lumière l’est à cet endroit. Lumière blanche : pour 81 longueurs d’onde, chacune sa propre figure, pondérée par la sensibilité de l’œil aux couleurs (CIE 1931) et convertie dans les couleurs de l’écran (sRGB).",
+        "check": "Les tests de la page découpent chaque fente en 400 bandes étroites, additionnent les ondes de toutes les bandes en chaque point du mur (Huygens) et comparent le résultat à la formule. Ils vérifient que les franges sombres sont exactement sombres là où une seule fente donne de la lumière, et que la lumière blanche est bleue là où le rouge s’annule. Le calcul se fait dans votre navigateur, avec les mêmes formules que le moteur de calcul de la page.",
+        "left_out": "Laissé de côté : que le mur n’est pas infiniment loin (la formule vaut dès qu’il est bien plus loin que d²/λ, ici environ un dixième de mètre) ; la largeur et l’ouverture du faisceau laser, qui font s’estomper les franges vers le haut et le bas ; les bords et l’épaisseur des fentes ; la polarisation de la lumière."
       }
     }
   },

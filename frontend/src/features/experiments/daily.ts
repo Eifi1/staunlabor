@@ -26,14 +26,14 @@
  *   has shown keep their exhibit; the halved maluses draw from
  *   {@link SECOND_SERIES} on (Marcel, 2026-11-15: they should count less).
  *
- *   **Measured, not guessed** (400 rounds of all 33 exhibits; a plain shuffle
+ *   **Measured, not guessed** (400 rounds of all 34 exhibits; a plain shuffle
  *   per round, then the first series' weights, in brackets): a pair of the
- *   round before again in the same order 0.39 times a round (1.28; 0.25), a
- *   triple 0.003 (0.060; 0.005), two neighbours sharing a topic 18.1 days in a
- *   hundred (25.8; 12.9), a wait of more than a round and two days 34.7 % of
- *   turns (35.9 %; 35.3 %); with 32, before the blue sky, they were 0.39, 19.7
- *   and 35.1 %, with 31, before the glass-bead rainbow, 0.47, 20.6 and
- *   34.3 %. With the first eight the first series' weights cut
+ *   round before again in the same order 0.43 times a round (1.21; 0.27), a
+ *   triple 0.003 (0.025; 0.003), two neighbours sharing a topic 17.2 days in a
+ *   hundred (24.3; 12.1), a wait of more than a round and two days 35.5 % of
+ *   turns (36.4 %; 35.5 %); with 33, before the double slit, they were 0.39,
+ *   18.1 and 34.7 %, with 32, before the blue sky, 0.39, 19.7 and 35.1 %.
+ *   With the first eight the first series' weights cut
  *   the repeated pairs from 0.90 a round to 0.27 and the topic neighbours from
  *   14.5 days in a hundred to 7.9. The very first version spaced turns by six
  *   days with a full bonus per day, and that is a rotation in disguise: it
@@ -95,7 +95,7 @@ const FIRST_WEIGHTS: DailyWeights = { bonusPerDay: 0.25, topicMalus: 0.25, pairM
 
 /** From the second series on, the maluses at half their strength (Marcel,
  *  2026-11-15: "Tagesminus sollte weniger zählen"): a half for a shared topic,
- *  a quarter for yesterday's follower. With 33 exhibits, eleven of them about
+ *  a quarter for yesterday's follower. With 34 exhibits, eleven of them about
  *  energy, nine about oscillation and eight about angular momentum, the
  *  quarter held a topic back on most days. */
 export const DAILY_WEIGHTS: DailyWeights = { bonusPerDay: 0.25, topicMalus: 0.5, pairMalus: 0.25 };

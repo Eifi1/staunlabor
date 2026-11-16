@@ -55,6 +55,7 @@ import { OverhangPage } from "./overhang-page";
 import { DiverPage } from "./diver-page";
 import { RainbowPage } from "./rainbow-page";
 import { SkyPage } from "./sky-page";
+import { SlitsPage } from "./slits-page";
 import { ChladniPage } from "./chladni-page";
 import { ballState, pitEntries, positionAt, raceLayout, swingAt } from "./race-views";
 import { run as runPit } from "./simulate/pit";
@@ -1282,5 +1283,30 @@ describe("why the sky is blue", () => {
     fireEvent.change(screen.getByRole("slider", { name: E.sky.play.cloudiness }), { target: { value: "3" } });
     expect(await screen.findByText("10")).toBeInTheDocument();
     expect(screen.getByText(E.sky.play.red_mark)).toBeInTheDocument();
+  });
+});
+
+describe("the double slit", () => {
+  it("lights the wall in stripes 5.2 mm apart, and covers a slit to leave a broad patch", async () => {
+    renderWithProviders(<SlitsPage />);
+    expect(await screen.findByRole("img", { name: E.slits.wall_view })).toBeInTheDocument();
+    expect(screen.getByRole("img", { name: E.slits.setup_view })).toBeInTheDocument();
+    expect(screen.getByText(E.slits.play.status_both.replace("{{spacing}}", "5.2"))).toBeInTheDocument();
+    expect(screen.getByText("97")).toBeInTheDocument();
+    fireEvent.click(screen.getByRole("switch", { name: E.slits.play.cover }));
+    expect(screen.getByText(E.slits.play.status_one)).toBeInTheDocument();
+    const light = screen.getByRole("radiogroup", { name: E.slits.play.light });
+    fireEvent.click(within(light).getByRole("radio", { name: E.slits.play.lights.white }));
+    expect(screen.queryByRole("slider", { name: E.slits.play.wavelength })).not.toBeInTheDocument();
+    expect(screen.getAllByLabelText(E.equation.symbols).length).toBeGreaterThanOrEqual(3);
+  });
+
+  it("widens the stripes with green light gone red and closes them with the slits further apart", async () => {
+    renderWithProviders(<SlitsPage />);
+    await screen.findByRole("img", { name: E.slits.wall_view });
+    fireEvent.change(screen.getByRole("slider", { name: E.slits.play.wavelength }), { target: { value: "532" } });
+    expect(await screen.findByText(E.slits.play.status_both.replace("{{spacing}}", "4.3"))).toBeInTheDocument();
+    fireEvent.change(screen.getByRole("slider", { name: E.slits.change.spacing }), { target: { value: "0.5" } });
+    expect(await screen.findByText(E.slits.play.status_both.replace("{{spacing}}", "2.1"))).toBeInTheDocument();
   });
 });

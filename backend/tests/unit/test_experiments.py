@@ -3312,6 +3312,10 @@ def test_a_red_laser_makes_stripes_five_millimetres_apart_and_nine_in_the_middle
     # Where the two make the first dark stripe, one slit alone gives 97 % of its own middle.
     assert round(figures.one_slit_there * 100) == 97
     assert (x.Slits().spacing_m, x.Slits().width_m, x.Slits().distance_m, x.LASER_NM) == (0.25e-3, 0.05e-3, 2.0, 650.0)
+    # One slit alone lights the middle a quarter as brightly as two.
+    assert x.slits_intensity(x.Slits(), 650, 0.0, both=False) == 0.25
+    # Fraunhofer's wall is far against d²/λ: here about a tenth of a metre.
+    assert round(x.Slits().spacing_m ** 2 / (x.LASER_NM * 1e-9), 1) == 0.1
 
 
 def test_the_pattern_is_the_two_slits_waves_added_point_by_point():

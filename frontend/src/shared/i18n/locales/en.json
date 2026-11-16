@@ -334,6 +334,12 @@
         "title": "Why is the sky blue?",
         "summary": "White light through a faintly cloudy tube: from the side it glows blue, at the end it comes out orange – the blue sky and the red evening sun in small.",
         "question": "Why is the same light blue from the side and orange at the end?"
+      },
+      "slits": {
+        "short": "Double slit",
+        "title": "The double slit",
+        "summary": "Laser light falls through two narrow slits: on the wall bright and dark stripes appear – and where it is dark, one slit alone would throw light.",
+        "question": "How can light plus light make darkness?"
       }
     },
     "chair": {
@@ -3090,6 +3096,85 @@
         "colours": "The colours as for the glass-bead rainbow: weighted by the eye's sensitivity to colour (CIE 1931) and converted into the screen's colours (sRGB). The lamp's white – for the sky, the sun's above the air – appears white. Each colour is drawn as bright as the screen allows for it; how bright it really is, the figures say.",
         "check": "The page's tests count that the light scattered to the side and the light arriving at the end add up to exactly the lamp's light (Simpson's rule), and hold the sky overhead against the same sum over all heights. The computing happens in your browser, with the same formulas as the site's engine.",
         "left_out": "Left out: light scattered more than once (it makes a very cloudy tube and the sky at the horizon whiter); larger particles, which scatter all colours alike (that is why milk is white); the direction of scattering, which changes only the brightness; for the sky, ozone, which keeps the sky blue at dusk (without it the sky overhead here turns almost white in the evening), and dust and haze, which make the sunset redder still. Assumed: a tube 1 m long and 6 cm across."
+      }
+    },
+    "slits": {
+      "at": {
+        "laser": "A laser shines on a plate with two narrow slits, only fractions of a millimetre wide and apart.",
+        "stripes": "On the wall behind it a row of bright and dark stripes appears – not two bright lines.",
+        "cover": "Cover one slit and the stripes vanish: a broad bright patch is left, even where it was dark a moment ago."
+      },
+      "setup_view": "The laser, the plate with the two slits, and the wall",
+      "wall_view": "The wall behind the slits with its pattern",
+      "play": {
+        "title": "Light through two slits",
+        "hint": "Choose laser or white light, change the laser's colour and cover one slit.",
+        "light": "Light",
+        "lights": {
+          "laser": "Laser",
+          "white": "White light"
+        },
+        "wavelength": "Laser's wavelength",
+        "wavelength_hint": "From violet (400 nm) to red (700 nm).",
+        "cover": "Cover one slit",
+        "cover_hint": "Only one slit lets light through.",
+        "caption": "Above, the setup; below, the wall as you see it: one slit's whole middle band and a little beyond. The colours on the screen are only approximate.",
+        "plate": "Slits",
+        "wall": "Wall",
+        "status_both": "Two slits: stripes, {{spacing}} mm apart.",
+        "status_one": "One slit: a broad bright patch, no stripes – and only a quarter as bright in the middle."
+      },
+      "figures": {
+        "spacing": "Spacing of the stripes",
+        "first_dark": "First dark stripe at",
+        "stripes": "Bright stripes in the middle band",
+        "one_slit_there": "One slit alone at the first dark stripe"
+      },
+      "change": {
+        "title": "Change the slits",
+        "hint": "Move the slits closer, make them wider or put the wall further away.",
+        "spacing": "Spacing of the slits",
+        "spacing_hint": "From the middle of one to the middle of the other.",
+        "width": "Width of a slit",
+        "width_hint": "The narrower, the wider the middle band.",
+        "distance": "Distance to the wall",
+        "distance_hint": "How far behind the slits the wall stands."
+      },
+      "chart": {
+        "hint": "The brightness on the wall at {{nm}} nm, with two slits and with one; 1 is the middle with two slits.",
+        "both": "Two slits",
+        "one": "One slit",
+        "light": "Brightness",
+        "along": "Place on the wall"
+      },
+      "model": {
+        "intro": "Light is a wave. From each slit a wave goes to every point of the wall; there the two add up.",
+        "path": "The two waves' difference in path. Is it a whole number of wavelengths, they arrive in step: bright. Is it half a wavelength more, they cancel: dark.",
+        "intensity": "The brightness on the wall (Fraunhofer): each slit alone gives the broad middle band (sin β/β)², the two together the stripes within it (cos² α).",
+        "stripes": "The spacing of the stripes on the wall: the longer the wavelength and the further the wall, the wider; the further apart the slits, the narrower."
+      },
+      "symbols": {
+        "ds": "Difference in path",
+        "d": "Spacing of the slits",
+        "theta": "Angle from straight on",
+        "i": "Brightness",
+        "i0": "Brightness in the middle, with two slits",
+        "a": "Width of a slit",
+        "lambda": "Wavelength",
+        "dy": "Spacing of the stripes on the wall",
+        "l": "Distance to the wall"
+      },
+      "sweet": {
+        "dark": "The trick: at the first dark stripe one slit alone gives 97 % of the brightness of its middle. Open the second slit and more light comes – and just there it goes dark. The two waves arrive half a wavelength apart and cancel. Light plus light makes dark.",
+        "colours": "With white light each colour has its own stripes, red ones further apart than blue. Only the middle is bright for all of them: it stays white, beside it the stripes turn coloured. Where red cancels, blue still shines.",
+        "one_label": "One slit open",
+        "two_label": "Two slits open, drawn at the same brightness"
+      },
+      "computed": {
+        "system": "The page computes the brightness at each point of the wall with the formula for a distant wall (Fraunhofer). The laser is red, 650 nm; the slits are 0.25 mm apart and 0.05 mm wide each, the wall 2 m behind them. Then the stripes lie 5.2 mm apart, the first dark one 2.6 mm beside the middle, and 9 bright stripes fit into one slit's middle band, 26 mm wide.",
+        "colours": "The laser's colour is its wavelength's, as saturated as the screen can show it and as bright as the light is there. White light: for 81 wavelengths each its own pattern, weighted by the eye's sensitivity to colour (CIE 1931) and converted into the screen's colours (sRGB).",
+        "check": "The page's tests cut each slit into 400 narrow strips, add up the waves of all the strips at each point of the wall (Huygens) and compare the result with the formula. They check that the dark stripes are exactly dark where one slit alone gives light, and that white light is blue where red cancels. The computing happens in your browser, with the same formulas as the site's engine.",
+        "left_out": "Left out: that the wall is not infinitely far away (the formula holds once it is much further away than d²/λ, here about a tenth of a metre); the laser beam's width and spread, which make the stripes fade out up and down; the slits' edges and thickness; the light's polarisation."
       }
     }
   },

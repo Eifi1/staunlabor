@@ -1054,7 +1054,6 @@ def _slits_cases(out: dict[str, Any]) -> None:
                 "slits": asdict(s),
                 "both": [thin([slits.intensity(s, nm, y) for y in ys]) for nm in SLITS_NM],
                 "one": [thin([slits.intensity(s, nm, y, both=False) for y in ys]) for nm in SLITS_NM],
-                "bright": [[slits.bright_m(s, nm, k) for k in range(4)] for nm in SLITS_NM],
                 "dark": [[slits.dark_m(s, nm, k) for k in range(4)] for nm in SLITS_NM],
                 "laser": [list(slits.laser_colour(nm)) for nm in SLITS_NM],
                 "laser_both": channels(slits.laser_pattern(s, 532.0, ys)),

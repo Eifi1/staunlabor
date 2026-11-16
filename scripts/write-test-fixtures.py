@@ -76,6 +76,7 @@ UNROUTED = (
     "diver",
     "rainbow",
     "sky",
+    "slits",
 )
 
 

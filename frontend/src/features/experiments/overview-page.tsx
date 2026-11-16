@@ -40,6 +40,7 @@ import {
   TestTube,
   Rainbow,
   CloudSun,
+  Columns3,
 } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
 import {
@@ -100,6 +101,7 @@ const ICON: Record<Exhibit, LucideIcon> = {
   diver: TestTube,
   rainbow: Rainbow,
   sky: CloudSun,
+  slits: Columns3,
 };
 
 /** Two weeks back, in the dialog: long enough to find the one a friend

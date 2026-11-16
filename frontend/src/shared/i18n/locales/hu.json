@@ -334,6 +334,12 @@
         "title": "Miért kék az ég?",
         "summary": "Fehér fény egy enyhén zavaros csövön át: oldalról kéken világít, a végén narancssárgán jön ki – a kék ég és a vörös esti nap kicsiben.",
         "question": "Miért kék ugyanaz a fény oldalról, és narancssárga a cső végén?"
+      },
+      "slits": {
+        "short": "Kettős rés",
+        "title": "A kettős rés",
+        "summary": "Lézerfény halad át két keskeny résen: a falon világos és sötét csíkok jelennek meg – és ahol sötét van, oda egyetlen rés fényt vetne.",
+        "question": "Hogyan adhat fény meg fény sötétséget?"
       }
     },
     "chair": {
@@ -3090,6 +3096,85 @@
         "colours": "A színek, mint az üveggyöngy-szivárványnál: a szem színérzékenységével súlyozva (CIE 1931), és a képernyő színeire átszámítva (sRGB). A lámpa fehérje – az égnél a nap fehérje a levegő felett – fehérnek látszik. Minden szín olyan világosnak van rajzolva, amennyire a képernyő engedi; hogy valójában mennyire világos, azt a számok mondják meg.",
         "check": "Az oldal tesztjei ellenőrzik, hogy az oldalra szórt és a végére érkező fény együtt pontosan a lámpa fényét adja (Simpson-szabály), és a felettünk lévő eget ugyanahhoz az összes magasságra vett összeghez tartják. A számítás az Ön böngészőjében fut, ugyanazokkal a képletekkel, mint az oldal számítómagja.",
         "left_out": "Kimaradt: a többször szóródó fény (egy nagyon zavaros csövet és az eget a horizontnál fehérebbé tesz); a nagyobb részecskék, amelyek minden színt egyformán szórnak (ezért fehér a tej); a szórás iránya, amely csak a világosságot változtatja; az égnél az ózon, amely alkonyatkor kéken tartja az eget (nélküle itt a felettünk lévő ég este szinte fehér lesz), valamint a por és a pára, amelyek még vörösebbé teszik a naplementét. Feltételezve: 1 m hosszú, 6 cm átmérőjű cső."
+      }
+    },
+    "slits": {
+      "at": {
+        "laser": "Egy lézer egy lapra világít, amelyen két keskeny rés van, szélességük és távolságuk is csak a milliméter töredéke.",
+        "stripes": "A mögötte lévő falon világos és sötét csíkok sora jelenik meg – nem két világos vonal.",
+        "cover": "Ha az egyik rést letakarjuk, a csíkok eltűnnek: egy széles világos folt marad, ott is, ahol az imént még sötét volt."
+      },
+      "setup_view": "A lézer, a lap a két réssel és a fal",
+      "wall_view": "A rések mögötti fal a mintázatával",
+      "play": {
+        "title": "Fény két résen át",
+        "hint": "Válasszon lézert vagy fehér fényt, változtassa meg a lézer színét, és takarja le az egyik rést.",
+        "light": "Fény",
+        "lights": {
+          "laser": "Lézer",
+          "white": "Fehér fény"
+        },
+        "wavelength": "A lézer hullámhossza",
+        "wavelength_hint": "Ibolyától (400 nm) pirosig (700 nm).",
+        "cover": "Egy rés letakarása",
+        "cover_hint": "Csak egy rés engedi át a fényt.",
+        "caption": "Fent az elrendezés, alatta a fal, ahogy Ön látja: egy rés teljes középső sávja és még egy kicsit azon túl. A színek a képernyőn csak közelítők.",
+        "plate": "Rések",
+        "wall": "Fal",
+        "status_both": "Két rés: csíkok, {{spacing}} mm-re egymástól.",
+        "status_one": "Egy rés: széles világos folt, csíkok nélkül – és középen csak negyed olyan világos."
+      },
+      "figures": {
+        "spacing": "A csíkok távolsága",
+        "first_dark": "Az első sötét csík helye",
+        "stripes": "Világos csíkok a középső sávban",
+        "one_slit_there": "Egyetlen rés az első sötét csíknál"
+      },
+      "change": {
+        "title": "A rések megváltoztatása",
+        "hint": "Tolja közelebb a réseket, tegye szélesebbé őket, vagy vigye távolabb a falat.",
+        "spacing": "A rések távolsága",
+        "spacing_hint": "Az egyik közepétől a másik közepéig.",
+        "width": "Egy rés szélessége",
+        "width_hint": "Minél keskenyebb, annál szélesebb a középső sáv.",
+        "distance": "Távolság a falig",
+        "distance_hint": "Milyen messze áll a fal a rések mögött."
+      },
+      "chart": {
+        "hint": "A fal világossága {{nm}} nm-nél, két réssel és eggyel; az 1 a közép két réssel.",
+        "both": "Két rés",
+        "one": "Egy rés",
+        "light": "Világosság",
+        "along": "Hely a falon"
+      },
+      "model": {
+        "intro": "A fény hullám. Minden résből egy hullám indul a fal minden pontjához; ott a kettő összeadódik.",
+        "path": "A két hullám útkülönbsége. Ha ez a hullámhossz egész számú többszöröse, egy ütemben érkeznek: világos. Ha fél hullámhosszal több, kioltják egymást: sötét.",
+        "intensity": "A fal világossága (Fraunhofer): minden rés egyedül a széles középső sávot adja (sin β/β)², a kettő együtt a benne lévő csíkokat (cos² α).",
+        "stripes": "A csíkok távolsága a falon: minél nagyobb a hullámhossz és minél messzebb a fal, annál nagyobb; minél távolabb vannak a rések, annál kisebb."
+      },
+      "symbols": {
+        "ds": "Útkülönbség",
+        "d": "A rések távolsága",
+        "theta": "Szög az egyenes irányhoz képest",
+        "i": "Világosság",
+        "i0": "Világosság középen, két réssel",
+        "a": "Egy rés szélessége",
+        "lambda": "Hullámhossz",
+        "dy": "A csíkok távolsága a falon",
+        "l": "Távolság a falig"
+      },
+      "sweet": {
+        "dark": "A trükk: az első sötét csíknál egyetlen rés a saját közepe világosságának 97 %-át adja. Ha kinyitjuk a második rést, több fény jön – és éppen ott lesz sötét. A két hullám fél hullámhossznyi eltolással érkezik, és kioltja egymást. Fény meg fény sötétséget ad.",
+        "colours": "Fehér fénynél minden színnek saját csíkjai vannak, a pirosak messzebb egymástól, mint a kékek. Csak a közép világos mindegyiknek: fehér marad, mellette a csíkok színesek lesznek. Ahol a piros kioltódik, a kék még világít.",
+        "one_label": "Egy rés nyitva",
+        "two_label": "Két rés nyitva, ugyanazzal a világossággal rajzolva"
+      },
+      "computed": {
+        "system": "Az oldal a fal minden pontjának világosságát a távoli falra érvényes képlettel számolja (Fraunhofer). A lézer piros, 650 nm; a rések 0,25 mm-re vannak egymástól, egyenként 0,05 mm szélesek, a fal 2 m-re áll mögöttük. Ekkor a csíkok 5,2 mm-re vannak egymástól, az első sötét 2,6 mm-re a középtől, és 9 világos csík fér el egy rés 26 mm széles középső sávjában.",
+        "colours": "A lézer színe a hullámhosszáé, olyan telített, amennyire a képernyő meg tudja mutatni, és olyan világos, amilyen ott a fény. Fehér fény: 81 hullámhosszra mindegyik a saját mintázatával, a szem színérzékenységével súlyozva (CIE 1931), és a képernyő színeire átszámítva (sRGB).",
+        "check": "Az oldal tesztjei minden rést 400 keskeny sávra bontanak, a fal minden pontjában összeadják az összes sáv hullámát (Huygens), és az eredményt a képlettel vetik össze. Ellenőrzik, hogy a sötét csíkok pontosan sötétek ott, ahol egyetlen rés fényt ad, és hogy a fehér fény kék ott, ahol a piros kioltódik. A számítás az Ön böngészőjében fut, ugyanazokkal a képletekkel, mint az oldal számítómagja.",
+        "left_out": "Kimaradt: hogy a fal nincs végtelen messze (a képlet akkor érvényes, ha sokkal messzebb van, mint d²/λ, itt nagyjából egy tized méter); a lézernyaláb szélessége és széttartása, amely miatt a csíkok fölfelé és lefelé elhalványulnak; a rések éle és vastagsága; a fény polarizációja."
       }
     }
   },

@@ -852,6 +852,16 @@ class SkyTubeIn(_In):
     cloudiness_per_m: float = Field(gt=0, le=10, default=1.5)
 
 
+# ── the double slit ──────────────────────────────────────────────────────────
+# No route: the page asks the port (``simulate/slits.ts``).
+
+
+class SlitsIn(_In):
+    spacing_m: float = Field(gt=0, le=2e-3, default=0.25e-3)
+    width_m: float = Field(ge=0.02e-3, le=0.5e-3, default=0.05e-3)
+    distance_m: float = Field(ge=0.2, le=10, default=2.0)
+
+
 # ── the pages' starting point ────────────────────────────────────────────────
 
 
@@ -887,6 +897,7 @@ class ExperimentsDefaultsOut(_Out):
     diver: DiverExhibitIn
     rainbow: RainbowIn
     sky: SkyTubeIn
+    slits: SlitsIn
     chladni: ChladniPlateIn
     #: The exhibit's meter: digital, ± this many amperes.
     meter_range_a: float

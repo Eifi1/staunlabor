@@ -334,6 +334,12 @@
         "title": "Warum ist der Himmel blau?",
         "summary": "Weisses Licht durch ein leicht trübes Rohr: Von der Seite leuchtet es blau, am Ende kommt es orange heraus – der blaue Himmel und die rote Abendsonne im Kleinen.",
         "question": "Warum ist dasselbe Licht seitlich blau und am Ende orange?"
+      },
+      "slits": {
+        "short": "Doppelspalt",
+        "title": "Der Doppelspalt",
+        "summary": "Laserlicht fällt durch zwei schmale Spalte: An der Wand erscheinen helle und dunkle Streifen – und wo es dunkel ist, würde ein Spalt allein Licht hinwerfen.",
+        "question": "Wie kann Licht plus Licht Dunkelheit ergeben?"
       }
     },
     "chair": {
@@ -3090,6 +3096,85 @@
         "colours": "Die Farben wie beim Glasperlen-Regenbogen: gewichtet mit der Farbempfindlichkeit des Auges (CIE 1931) und umgerechnet in die Farben des Bildschirms (sRGB). Das Weiss der Lampe – beim Himmel das der Sonne über der Luft – erscheint weiss. Jede Farbe ist so hell gezeichnet, wie der Bildschirm es für sie zulässt; wie hell es wirklich ist, sagen die Zahlen.",
         "check": "Die Tests der Seite zählen nach, dass das seitlich gestreute und das am Ende ankommende Licht zusammen genau das Licht der Lampe ergeben (Simpson-Regel), und halten den Himmel über einem gegen dieselbe Summe über alle Höhen. Gerechnet wird in Ihrem Browser, mit denselben Formeln wie im Rechenkern der Seite.",
         "left_out": "Weggelassen: Licht, das mehrfach gestreut wird (es macht ein sehr trübes Rohr und den Himmel am Horizont weisslicher); grössere Teilchen, die alle Farben gleich streuen (darum ist Milch weiss); die Richtung der Streuung, die nur die Helligkeit ändert; für den Himmel das Ozon, das den Himmel in der Dämmerung blau hält (ohne es wird er hier am Abend fast weiss), sowie Staub und Dunst, die den Sonnenuntergang noch röter machen. Angenommen ist ein Rohr von 1 m Länge und 6 cm Durchmesser."
+      }
+    },
+    "slits": {
+      "at": {
+        "laser": "Ein Laser leuchtet auf eine Platte mit zwei schmalen Spalten, nur Bruchteile eines Millimeters breit und voneinander entfernt.",
+        "stripes": "Auf der Wand dahinter erscheint eine Reihe heller und dunkler Streifen – nicht zwei helle Striche.",
+        "cover": "Deckt man einen Spalt zu, verschwinden die Streifen: Ein breiter heller Fleck bleibt, auch dort, wo es eben noch dunkel war."
+      },
+      "setup_view": "Der Laser, die Platte mit den zwei Spalten und die Wand",
+      "wall_view": "Die Wand hinter den Spalten mit ihrem Muster",
+      "play": {
+        "title": "Licht durch zwei Spalte",
+        "hint": "Wählen Sie Laser oder weisses Licht, ändern Sie die Farbe des Lasers und decken Sie einen Spalt zu.",
+        "light": "Licht",
+        "lights": {
+          "laser": "Laser",
+          "white": "Weisses Licht"
+        },
+        "wavelength": "Wellenlänge des Lasers",
+        "wavelength_hint": "Von Violett (400 nm) bis Rot (700 nm).",
+        "cover": "Einen Spalt zudecken",
+        "cover_hint": "Nur noch ein Spalt lässt Licht durch.",
+        "caption": "Oben die Anordnung, darunter die Wand, wie Sie sie sehen: das ganze Mittelband eines Spalts und ein Stück darüber hinaus. Die Farben am Bildschirm sind nur angenähert.",
+        "plate": "Spalte",
+        "wall": "Wand",
+        "status_both": "Zwei Spalte: Streifen, {{spacing}} mm auseinander.",
+        "status_one": "Ein Spalt: ein breiter heller Fleck, keine Streifen – und in der Mitte nur ein Viertel so hell."
+      },
+      "figures": {
+        "spacing": "Abstand der Streifen",
+        "first_dark": "Erster dunkler Streifen bei",
+        "stripes": "Helle Streifen im Mittelband",
+        "one_slit_there": "Ein Spalt allein am ersten dunklen Streifen"
+      },
+      "change": {
+        "title": "Die Spalte ändern",
+        "hint": "Rücken Sie die Spalte zusammen, machen Sie sie breiter oder stellen Sie die Wand weiter weg.",
+        "spacing": "Abstand der Spalte",
+        "spacing_hint": "Von der Mitte des einen zur Mitte des anderen.",
+        "width": "Breite eines Spalts",
+        "width_hint": "Je schmaler, desto breiter das Mittelband.",
+        "distance": "Abstand zur Wand",
+        "distance_hint": "Wie weit die Wand hinter den Spalten steht."
+      },
+      "chart": {
+        "hint": "Die Helligkeit an der Wand bei {{nm}} nm, mit zwei Spalten und mit einem; 1 ist die Mitte mit zwei Spalten.",
+        "both": "Zwei Spalte",
+        "one": "Ein Spalt",
+        "light": "Helligkeit",
+        "along": "Ort an der Wand"
+      },
+      "model": {
+        "intro": "Licht ist eine Welle. Von jedem Spalt geht eine Welle zu jedem Punkt der Wand; dort addieren sich die beiden.",
+        "path": "Der Wegunterschied der beiden Wellen. Ist er ein Vielfaches der Wellenlänge, kommen sie im Gleichtakt an: hell. Ist er eine halbe Wellenlänge mehr, löschen sie sich aus: dunkel.",
+        "intensity": "Die Helligkeit an der Wand (Fraunhofer): Jeder Spalt allein gibt das breite Mittelband (sin β/β)², die zwei zusammen die Streifen darin (cos² α).",
+        "stripes": "Der Abstand der Streifen an der Wand: je grösser die Wellenlänge und je weiter weg die Wand, desto weiter; je weiter die Spalte auseinander, desto enger."
+      },
+      "symbols": {
+        "ds": "Wegunterschied",
+        "d": "Abstand der Spalte",
+        "theta": "Winkel zur Richtung geradeaus",
+        "i": "Helligkeit",
+        "i0": "Helligkeit in der Mitte, mit zwei Spalten",
+        "a": "Breite eines Spalts",
+        "lambda": "Wellenlänge",
+        "dy": "Abstand der Streifen an der Wand",
+        "l": "Abstand zur Wand"
+      },
+      "sweet": {
+        "dark": "Der Trick: Am ersten dunklen Streifen gibt ein Spalt allein 97 % der Helligkeit seiner Mitte. Öffnet man den zweiten Spalt, kommt mehr Licht – und genau dort wird es dunkel. Die beiden Wellen kommen um eine halbe Wellenlänge versetzt an und löschen sich aus. Licht plus Licht gibt Dunkel.",
+        "colours": "Mit weissem Licht hat jede Farbe ihre eigenen Streifen, rote weiter auseinander als blaue. Nur die Mitte ist für alle hell: Sie bleibt weiss, daneben werden die Streifen farbig. Wo Rot sich auslöscht, leuchtet Blau noch.",
+        "one_label": "Ein Spalt offen",
+        "two_label": "Zwei Spalte offen, in derselben Helligkeit gezeichnet"
+      },
+      "computed": {
+        "system": "Die Seite rechnet die Helligkeit an jedem Punkt der Wand mit der Formel für eine weit entfernte Wand (Fraunhofer). Der Laser ist rot, 650 nm; die Spalte sind 0,25 mm voneinander entfernt und je 0,05 mm breit, die Wand steht 2 m dahinter. Dann liegen die Streifen 5,2 mm auseinander, der erste dunkle 2,6 mm neben der Mitte, und 9 helle Streifen passen ins 26 mm breite Mittelband eines Spalts.",
+        "colours": "Die Farbe des Lasers ist die seiner Wellenlänge, so gesättigt, wie der Bildschirm sie zeigen kann, und so hell, wie das Licht dort ist. Weisses Licht: für 81 Wellenlängen je das eigene Muster, gewichtet mit der Farbempfindlichkeit des Auges (CIE 1931) und umgerechnet in die Farben des Bildschirms (sRGB).",
+        "check": "Die Tests der Seite zerlegen jeden Spalt in 400 schmale Streifen, addieren die Wellen aller Streifen an jedem Punkt der Wand (Huygens) und vergleichen das Ergebnis mit der Formel. Sie prüfen, dass es an den dunklen Streifen genau dunkel ist, wo ein Spalt allein Licht gibt, und dass weisses Licht dort blau ist, wo Rot sich auslöscht. Gerechnet wird in Ihrem Browser, mit denselben Formeln wie im Rechenkern der Seite.",
+        "left_out": "Weggelassen: dass die Wand nicht unendlich weit weg ist (die Formel gilt, sobald sie viel weiter weg ist als d²/λ, hier etwa ein Zehntelmeter); die Breite und Aufweitung des Laserstrahls, die die Streifen nach oben und unten auslaufen lässt; Kanten und Dicke der Spalte; die Polarisation des Lichts."
       }
     }
   },

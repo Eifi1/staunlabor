@@ -31,11 +31,6 @@ export function intensity(slits: Slits, nm: number, y: number, both = true): num
   return envelope * Math.cos((Math.PI * slits.spacing_m * s) / lam) ** 2;
 }
 
-export function brightM(slits: Slits, nm: number, k: number): number {
-  const s = (k * nm * 1e-9) / slits.spacing_m;
-  return (slits.distance_m * s) / Math.sqrt(1 - s * s);
-}
-
 export function darkM(slits: Slits, nm: number, k: number): number {
   const s = ((k + 0.5) * nm * 1e-9) / slits.spacing_m;
   return (slits.distance_m * s) / Math.sqrt(1 - s * s);

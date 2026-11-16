@@ -334,6 +334,12 @@
         "title": "Perché il cielo è blu?",
         "summary": "Luce bianca attraverso un tubo leggermente torbido: di lato brilla blu, in fondo esce arancione – il cielo blu e il sole rosso della sera in piccolo.",
         "question": "Perché la stessa luce è blu di lato e arancione in fondo?"
+      },
+      "slits": {
+        "short": "Doppia fenditura",
+        "title": "La doppia fenditura",
+        "summary": "La luce di un laser attraversa due fenditure strette: sulla parete compaiono frange chiare e scure – e dove è buio, una fenditura da sola getterebbe luce.",
+        "question": "Come può luce più luce dare buio?"
       }
     },
     "chair": {
@@ -3090,6 +3096,85 @@
         "colours": "I colori come per l’arcobaleno delle perline di vetro: pesati con la sensibilità dell’occhio ai colori (CIE 1931) e convertiti nei colori dello schermo (sRGB). Il bianco della lampada – per il cielo, quello del sole sopra l’aria – appare bianco. Ogni colore è disegnato chiaro quanto lo schermo consente; quanto sia chiaro davvero, lo dicono le cifre.",
         "check": "I test della pagina verificano che la luce diffusa di lato e quella che arriva in fondo diano insieme esattamente la luce della lampada (regola di Simpson), e confrontano il cielo sopra di sé con la stessa somma su tutte le altezze. Il calcolo avviene nel suo browser, con le stesse formule del motore di calcolo della pagina.",
         "left_out": "Tralasciato: la luce diffusa più volte (rende più bianchi un tubo molto torbido e il cielo all’orizzonte); le particelle più grandi, che diffondono tutti i colori allo stesso modo (per questo il latte è bianco); la direzione della diffusione, che cambia solo la luminosità; per il cielo l’ozono, che mantiene blu il cielo al crepuscolo (senza di esso il cielo sopra di sé qui diventa quasi bianco la sera), e la polvere e la foschia, che rendono il tramonto ancora più rosso. Si assume un tubo lungo 1 m e largo 6 cm."
+      }
+    },
+    "slits": {
+      "at": {
+        "laser": "Un laser illumina una lastra con due fenditure strette, larghe e distanti solo frazioni di millimetro.",
+        "stripes": "Sulla parete dietro compare una fila di frange chiare e scure – non due strisce luminose.",
+        "cover": "Se si copre una fenditura, le frange spariscono: resta una larga macchia chiara, anche dove un attimo prima era buio."
+      },
+      "setup_view": "Il laser, la lastra con le due fenditure e la parete",
+      "wall_view": "La parete dietro le fenditure con la sua figura",
+      "play": {
+        "title": "Luce attraverso due fenditure",
+        "hint": "Scelga il laser o la luce bianca, cambi il colore del laser e copra una fenditura.",
+        "light": "Luce",
+        "lights": {
+          "laser": "Laser",
+          "white": "Luce bianca"
+        },
+        "wavelength": "Lunghezza d’onda del laser",
+        "wavelength_hint": "Dal viola (400 nm) al rosso (700 nm).",
+        "cover": "Coprire una fenditura",
+        "cover_hint": "Solo una fenditura lascia passare la luce.",
+        "caption": "In alto il dispositivo, sotto la parete come la vede lei: tutta la banda centrale di una fenditura e un po’ oltre. I colori sullo schermo sono solo approssimati.",
+        "plate": "Fenditure",
+        "wall": "Parete",
+        "status_both": "Due fenditure: frange distanti {{spacing}} mm.",
+        "status_one": "Una fenditura: una larga macchia chiara, senza frange – e al centro chiara solo un quarto."
+      },
+      "figures": {
+        "spacing": "Distanza delle frange",
+        "first_dark": "Prima frangia scura a",
+        "stripes": "Frange chiare nella banda centrale",
+        "one_slit_there": "Una fenditura da sola sulla prima frangia scura"
+      },
+      "change": {
+        "title": "Cambiare le fenditure",
+        "hint": "Avvicini le fenditure, le allarghi o allontani la parete.",
+        "spacing": "Distanza delle fenditure",
+        "spacing_hint": "Dal centro dell’una al centro dell’altra.",
+        "width": "Larghezza di una fenditura",
+        "width_hint": "Più è stretta, più è larga la banda centrale.",
+        "distance": "Distanza dalla parete",
+        "distance_hint": "Quanto dietro le fenditure sta la parete."
+      },
+      "chart": {
+        "hint": "La luminosità sulla parete a {{nm}} nm, con due fenditure e con una; 1 è il centro con due fenditure.",
+        "both": "Due fenditure",
+        "one": "Una fenditura",
+        "light": "Luminosità",
+        "along": "Punto sulla parete"
+      },
+      "model": {
+        "intro": "La luce è un’onda. Da ogni fenditura parte un’onda verso ogni punto della parete; lì le due si sommano.",
+        "path": "La differenza di cammino delle due onde. Se è un numero intero di lunghezze d’onda, arrivano in fase: chiaro. Se è mezza lunghezza d’onda in più, si annullano: buio.",
+        "intensity": "La luminosità sulla parete (Fraunhofer): ogni fenditura da sola dà l’ampia banda centrale (sin β/β)², le due insieme le frange al suo interno (cos² α).",
+        "stripes": "La distanza delle frange sulla parete: più grande la lunghezza d’onda e più lontana la parete, più è grande; più distanti le fenditure, più è piccola."
+      },
+      "symbols": {
+        "ds": "Differenza di cammino",
+        "d": "Distanza delle fenditure",
+        "theta": "Angolo rispetto alla direzione diritta",
+        "i": "Luminosità",
+        "i0": "Luminosità al centro, con due fenditure",
+        "a": "Larghezza di una fenditura",
+        "lambda": "Lunghezza d’onda",
+        "dy": "Distanza delle frange sulla parete",
+        "l": "Distanza dalla parete"
+      },
+      "sweet": {
+        "dark": "Il trucco: sulla prima frangia scura una fenditura da sola dà il 97 % della luminosità del suo centro. Aprendo la seconda fenditura arriva più luce – e proprio lì diventa buio. Le due onde arrivano sfasate di mezza lunghezza d’onda e si annullano. Luce più luce dà buio.",
+        "colours": "Con la luce bianca ogni colore ha le sue frange, quelle rosse più distanti di quelle blu. Solo il centro è chiaro per tutti: resta bianco, accanto le frange si colorano. Dove il rosso si annulla, il blu brilla ancora.",
+        "one_label": "Una fenditura aperta",
+        "two_label": "Due fenditure aperte, disegnate con la stessa luminosità"
+      },
+      "computed": {
+        "system": "La pagina calcola la luminosità in ogni punto della parete con la formula per una parete lontana (Fraunhofer). Il laser è rosso, 650 nm; le fenditure distano 0,25 mm e sono larghe 0,05 mm ciascuna, la parete sta 2 m dietro. Allora le frange distano 5,2 mm, la prima scura è a 2,6 mm dal centro, e 9 frange chiare stanno nella banda centrale di una fenditura, larga 26 mm.",
+        "colours": "Il colore del laser è quello della sua lunghezza d’onda, saturo quanto lo schermo può mostrarlo e chiaro quanto la luce lì. Luce bianca: per 81 lunghezze d’onda ciascuna con la propria figura, pesate con la sensibilità dell’occhio ai colori (CIE 1931) e convertite nei colori dello schermo (sRGB).",
+        "check": "I test della pagina dividono ogni fenditura in 400 strisce sottili, sommano le onde di tutte le strisce in ogni punto della parete (Huygens) e confrontano il risultato con la formula. Verificano che le frange scure siano esattamente buie dove una fenditura da sola dà luce, e che la luce bianca sia blu dove il rosso si annulla. Il calcolo avviene nel suo browser, con le stesse formule del motore di calcolo della pagina.",
+        "left_out": "Tralasciato: che la parete non è infinitamente lontana (la formula vale appena è molto più lontana di d²/λ, qui circa un decimo di metro); la larghezza e l’apertura del fascio laser, che fanno sfumare le frange in alto e in basso; i bordi e lo spessore delle fenditure; la polarizzazione della luce."
       }
     }
   },

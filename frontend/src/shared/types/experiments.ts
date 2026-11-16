@@ -732,6 +732,15 @@ export interface SkyRequest {
   cloudiness_per_m: number;
 }
 
+// ── the double slit ──────────────────────────────────────────────────────────
+
+/** The engine's `Slits`. No route: the page asks the port (`simulate/slits.ts`). */
+export interface SlitsRequest {
+  spacing_m: number;
+  width_m: number;
+  distance_m: number;
+}
+
 // ── the chain and the arch ───────────────────────────────────────────────────
 
 /** The engine's `Arch`. No route: the page asks the port (`simulate/arch.ts`). */
@@ -797,6 +806,7 @@ export interface ExperimentsDefaults {
   diver: DiverRequest;
   rainbow: RainbowRequest;
   sky: SkyRequest;
+  slits: SlitsRequest;
   meter_range_a: number;
   settle_s: number;
 }

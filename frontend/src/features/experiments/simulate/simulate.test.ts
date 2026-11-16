@@ -1211,7 +1211,6 @@ describe("the double slit's port", () => {
           slits: c.slits,
           both: nms.map((nm) => ys.map((y) => slits.intensity(s, nm, y))),
           one: nms.map((nm) => ys.map((y) => slits.intensity(s, nm, y, false))),
-          bright: nms.map((nm) => [0, 1, 2, 3].map((k) => slits.brightM(s, nm, k))),
           dark: nms.map((nm) => [0, 1, 2, 3].map((k) => slits.darkM(s, nm, k))),
           laser: nms.map((nm) => slits.laserColour(nm)),
           laser_both: channels(slits.laserPattern(s, 532.0, ys)),

@@ -43,7 +43,8 @@ export type Exhibit =
   | "overhang"
   | "diver"
   | "rainbow"
-  | "sky";
+  | "sky"
+  | "slits";
 
 /** What an exhibit is about, as a reader would look for it: one word each,
  *  and an exhibit may be about two. */
@@ -300,6 +301,13 @@ export const EXHIBITS: readonly ExhibitEntry[] = [
     path: "/sky",
     topics: ["light"],
     lessons: ["first_order"],
+    since: SECOND_SERIES,
+  },
+  {
+    exhibit: "slits",
+    path: "/slits",
+    topics: ["light"],
+    lessons: [],
     since: SECOND_SERIES,
   },
 ];

@@ -84,11 +84,11 @@ quarter for one that came right after yesterday's in the round before. Those
 are the second series' maluses (Marcel, 2026-11-15: "Tagesminus sollte weniger
 zählen"); the first series drew with a quarter and a tenth, and its rounds keep
 them, so the days the live site has shown keep their exhibit. Measured over
-400 rounds of all 33 (a plain shuffle, then the old maluses, in brackets):
-repeated pairs 0.39 a round (1.28; 0.25), repeated triples 0.003 (0.060;
-0.005), neighbours sharing a topic 18.1 days in a hundred (25.8; 12.9); with
-32, before the blue sky, 0.39 and 19.7, with 31, before the glass-bead
-rainbow, 0.47 and 20.6. With eleven exhibits about energy,
+400 rounds of all 34 (a plain shuffle, then the old maluses, in brackets):
+repeated pairs 0.43 a round (1.21; 0.27), repeated triples 0.003 (0.025;
+0.003), neighbours sharing a topic 17.2 days in a hundred (24.3; 12.1); with
+33, before the double slit, 0.39 and 18.1, with 32, before the blue sky, 0.39
+and 19.7. With eleven exhibits about energy,
 nine about oscillation and eight about angular momentum, the quarter held a
 topic back on most days.
 They were measured over 2000 rounds against a plain shuffle (`daily.ts` has
@@ -105,7 +105,8 @@ against 1670 over 400 rounds), with sixteen by a tenth (2311 against 2555),
 with 26 by a twentieth (10259 against 10834 over 1200 rounds), with 27 to
 31 the same (10513 against 11135, 11237 against 11819, 11640 against 12183,
 12332 against 12882, 12771 against 13269), with 32 by a fortieth (13523
-against 13858), with 33 by a thirtieth (13847 against 14261);
+against 13858), with 33 by a thirtieth (13847 against 14261), with 34 by a
+forty-fifth (14480 against 14809);
 `daily.test.ts` now holds it only to a fiftieth. Its weight a day is fixed
 while a round grows longer, and stays so: Marcel weakened the maluses instead
 (2026-11-15).
@@ -1843,6 +1844,65 @@ along; the air mass at the horizon, overhead and against `1/sin h` high up;
 the sun near white overhead and orange at the horizon with 4 % left; the sky
 overhead against its integral over the heights, at one air exactly too; sky
 blue at noon and almost white at sunset; the refusals.
+
+## The double slit (`experiments.slits`)
+
+**The exhibit** (2026-11-16, the seventh of stage 4, local feedback entry #27;
+inspired by "Doppelspalt-Experiment" at the Technorama). A laser on a plate
+with two narrow slits and a wall behind: a row of bright and dark stripes, not
+two bright lines. Cover one slit and the stripes go, a broad patch is left —
+bright where the two made it dark.
+
+**The model** (`domain/experiments/slits.py`, colours by `colour.py`).
+Fraunhofer, the wall far away: each slit of width `a` sends `sinc(β)`,
+`β = π·a·sin θ/λ`, the pair `2·sinc(β)·cos(α)`, `α = π·d·sin θ/λ`; the
+intensity the square, relative to the middle of the pair's pattern,
+`sinc²(β)·cos²(α)`, and one slit covered `sinc²(β)/4`; a point `y` on the wall
+at `L` at `sin θ = y/√(y² + L²)`. Bright stripes at `sin θ = k·λ/d`, dark at
+`(k + ½)·λ/d`. The laser's colour is its wavelength's (`colour.matching`), its
+brightest channel full, scaled by the intensity; white light is a 3000 K
+lamp's spectrum with every wavelength its own pattern, by `colour.seen`, so
+the middle is the lamp's white.
+
+**What it shows** (a red laser, 650 nm, slits 0.25 mm apart and 0.05 mm wide,
+the wall 2 m behind). Stripes 5.2 mm apart, the first dark 2.6 mm beside the
+middle; one slit's middle band 26 mm to its first dark, nine bright stripes
+within it, the fifth lying on that dark and missing; at the pair's first dark
+stripe one slit alone gives 97 % of its own middle; one slit lights the middle
+a quarter as brightly as two. With white light the middle is white and the
+red's first dark blue. Fraunhofer holds as the wall is far against `d²/λ`,
+about a tenth of a metre.
+
+**The page.** The setup, small, in a dark room (the beam in the laser's
+colour, the second slit shown covered when it is), and under it the wall as
+one sees it: a canvas strip, a column per place, across one slit's middle
+band and a half again at the reddest light (`1.5·λ·L/a` at 700 nm, so a
+colour change shows the stripes widen while the frame stays), its scale in
+millimetres. Laser or white light, the laser's wavelength 400–700 nm, a
+switch to cover one slit; whether stripes show and how far apart, the figures
+beside. Changing the slits (spacing 0.1–1 mm, width 0.02–0.2 mm, each slider
+stopping short of the other, the wall 0.5–5 m) with the brightness along the
+wall for two slits and one. "The trick" has one slit open and two side by
+side at the same brightness. The preview's laser runs through the colours.
+Topic "light", no lesson (a pattern, not a motion). **No route**: the port's
+(`simulate/slits.ts`), held to the engine over four pairs of slits (the
+exhibit's, a wide pair near the wall, a far one, one barely wider apart than a
+slit) and three lasers: intensities, stripes, colours, both patterns and the
+figures.
+
+**Joins the experiment of the day** on `SECOND_SERIES`, with the second series.
+
+**Left out, and said:** the wall's nearness; the laser beam's width and
+spread, which make the stripes fade up and down; the slits' edges and
+thickness; polarisation.
+
+**Checked by** `tests/unit/test_experiments.py`: the 5.2 and 2.6 mm, the 26 mm
+band and its nine stripes, the 97 %, the quarter in the middle and the tenth
+of a metre; the pattern against Huygens' waves summed strip by strip (400 to
+a slit) for two slits and one; dark stripes dark where one slit lights the
+wall with at least 40 % of its middle, bright stripes four times one slit; the
+missing stripe; the laser's colour, white light's white middle and blue at
+red's dark; the refusals.
 
 ## The notice: the check still to come
 

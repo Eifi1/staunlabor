@@ -334,6 +334,12 @@
         "title": "¿Por qué el cielo es azul?",
         "summary": "Luz blanca a través de un tubo ligeramente turbio: de lado brilla azul, al final sale naranja; el cielo azul y el sol rojo del atardecer en pequeño.",
         "question": "¿Por qué la misma luz es azul de lado y naranja al final?"
+      },
+      "slits": {
+        "short": "Doble rendija",
+        "title": "La doble rendija",
+        "summary": "La luz de un láser atraviesa dos rendijas estrechas: en la pared aparecen franjas claras y oscuras, y donde está oscuro, una sola rendija arrojaría luz.",
+        "question": "¿Cómo puede luz más luz dar oscuridad?"
       }
     },
     "chair": {
@@ -3090,6 +3096,85 @@
         "colours": "Los colores como en el arcoíris de perlas de vidrio: ponderados con la sensibilidad del ojo al color (CIE 1931) y convertidos a los colores de la pantalla (sRGB). El blanco de la lámpara (en el cielo, el del sol por encima del aire) aparece blanco. Cada color se dibuja tan claro como la pantalla lo permite; las cifras dicen lo claro que es en realidad.",
         "check": "Las pruebas de la página comprueban que la luz dispersada hacia el lado y la que llega al final suman exactamente la luz de la lámpara (regla de Simpson), y contrastan el cielo encima de uno con la misma suma sobre todas las alturas. Se calcula en su navegador, con las mismas fórmulas que el motor de cálculo de la página.",
         "left_out": "Se omite: la luz dispersada más de una vez (vuelve más blancos un tubo muy turbio y el cielo en el horizonte); las partículas más grandes, que dispersan todos los colores por igual (por eso la leche es blanca); la dirección de la dispersión, que solo cambia la claridad; en el cielo, el ozono, que mantiene azul el cielo al anochecer (sin él, el cielo encima de uno se vuelve aquí casi blanco al atardecer), y el polvo y la bruma, que enrojecen aún más la puesta de sol. Se supone un tubo de 1 m de largo y 6 cm de diámetro."
+      }
+    },
+    "slits": {
+      "at": {
+        "laser": "Un láser ilumina una placa con dos rendijas estrechas, de solo fracciones de milímetro de anchura y de separación.",
+        "stripes": "En la pared de detrás aparece una fila de franjas claras y oscuras, no dos rayas brillantes.",
+        "cover": "Si se tapa una rendija, las franjas desaparecen: queda una mancha clara y ancha, incluso donde hace un momento estaba oscuro."
+      },
+      "setup_view": "El láser, la placa con las dos rendijas y la pared",
+      "wall_view": "La pared detrás de las rendijas con su patrón",
+      "play": {
+        "title": "Luz a través de dos rendijas",
+        "hint": "Elija láser o luz blanca, cambie el color del láser y tape una rendija.",
+        "light": "Luz",
+        "lights": {
+          "laser": "Láser",
+          "white": "Luz blanca"
+        },
+        "wavelength": "Longitud de onda del láser",
+        "wavelength_hint": "Del violeta (400 nm) al rojo (700 nm).",
+        "cover": "Tapar una rendija",
+        "cover_hint": "Solo una rendija deja pasar la luz.",
+        "caption": "Arriba, el montaje; debajo, la pared tal como usted la ve: toda la banda central de una rendija y algo más allá. Los colores en la pantalla son solo aproximados.",
+        "plate": "Rendijas",
+        "wall": "Pared",
+        "status_both": "Dos rendijas: franjas separadas {{spacing}} mm.",
+        "status_one": "Una rendija: una mancha clara y ancha, sin franjas, y en el centro solo una cuarta parte de clara."
+      },
+      "figures": {
+        "spacing": "Separación de las franjas",
+        "first_dark": "Primera franja oscura a",
+        "stripes": "Franjas claras en la banda central",
+        "one_slit_there": "Una sola rendija en la primera franja oscura"
+      },
+      "change": {
+        "title": "Cambiar las rendijas",
+        "hint": "Acerque las rendijas, ensánchelas o aleje la pared.",
+        "spacing": "Separación de las rendijas",
+        "spacing_hint": "Del centro de una al centro de la otra.",
+        "width": "Anchura de una rendija",
+        "width_hint": "Cuanto más estrecha, más ancha la banda central.",
+        "distance": "Distancia a la pared",
+        "distance_hint": "A qué distancia detrás de las rendijas está la pared."
+      },
+      "chart": {
+        "hint": "La claridad en la pared a {{nm}} nm, con dos rendijas y con una; 1 es el centro con dos rendijas.",
+        "both": "Dos rendijas",
+        "one": "Una rendija",
+        "light": "Claridad",
+        "along": "Lugar en la pared"
+      },
+      "model": {
+        "intro": "La luz es una onda. De cada rendija sale una onda hacia cada punto de la pared; allí las dos se suman.",
+        "path": "La diferencia de camino de las dos ondas. Si es un número entero de longitudes de onda, llegan en fase: claro. Si es media longitud de onda más, se anulan: oscuro.",
+        "intensity": "La claridad en la pared (Fraunhofer): cada rendija sola da la ancha banda central (sin β/β)², las dos juntas las franjas dentro de ella (cos² α).",
+        "stripes": "La separación de las franjas en la pared: cuanto mayor la longitud de onda y más lejos la pared, mayor; cuanto más separadas las rendijas, menor."
+      },
+      "symbols": {
+        "ds": "Diferencia de camino",
+        "d": "Separación de las rendijas",
+        "theta": "Ángulo respecto a la dirección recta",
+        "i": "Claridad",
+        "i0": "Claridad en el centro, con dos rendijas",
+        "a": "Anchura de una rendija",
+        "lambda": "Longitud de onda",
+        "dy": "Separación de las franjas en la pared",
+        "l": "Distancia a la pared"
+      },
+      "sweet": {
+        "dark": "El truco: en la primera franja oscura, una sola rendija da el 97 % de la claridad de su centro. Si se abre la segunda rendija llega más luz, y justo ahí se hace oscuro. Las dos ondas llegan desfasadas media longitud de onda y se anulan. Luz más luz da oscuridad.",
+        "colours": "Con luz blanca cada color tiene sus propias franjas, las rojas más separadas que las azules. Solo el centro es claro para todos: sigue blanco, y a los lados las franjas se colorean. Donde el rojo se anula, el azul aún brilla.",
+        "one_label": "Una rendija abierta",
+        "two_label": "Dos rendijas abiertas, dibujadas con la misma claridad"
+      },
+      "computed": {
+        "system": "La página calcula la claridad en cada punto de la pared con la fórmula para una pared lejana (Fraunhofer). El láser es rojo, 650 nm; las rendijas están separadas 0,25 mm y miden 0,05 mm de ancho cada una; la pared está a 2 m detrás. Entonces las franjas quedan a 5,2 mm unas de otras, la primera oscura a 2,6 mm del centro, y 9 franjas claras caben en la banda central de una rendija, de 26 mm de ancho.",
+        "colours": "El color del láser es el de su longitud de onda, tan saturado como la pantalla pueda mostrarlo y tan claro como sea la luz allí. Luz blanca: para 81 longitudes de onda, cada una con su propio patrón, ponderadas con la sensibilidad del ojo al color (CIE 1931) y convertidas a los colores de la pantalla (sRGB).",
+        "check": "Las pruebas de la página dividen cada rendija en 400 franjas estrechas, suman las ondas de todas ellas en cada punto de la pared (Huygens) y comparan el resultado con la fórmula. Comprueban que las franjas oscuras son exactamente oscuras donde una sola rendija da luz, y que la luz blanca es azul donde el rojo se anula. Se calcula en su navegador, con las mismas fórmulas que el motor de cálculo de la página.",
+        "left_out": "Se omite: que la pared no está infinitamente lejos (la fórmula vale en cuanto está mucho más lejos que d²/λ, aquí una décima de metro aproximadamente); la anchura y la apertura del haz láser, que hacen que las franjas se desvanezcan hacia arriba y hacia abajo; los bordes y el grosor de las rendijas; la polarización de la luz."
       }
     }
   },
