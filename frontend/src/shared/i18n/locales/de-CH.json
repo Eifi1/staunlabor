@@ -124,6 +124,7 @@
       "equilibrium": "Gleichgewicht",
       "flow": "Strömung",
       "induction": "Induktion",
+      "light": "Licht",
       "perception": "Wahrnehmung"
     },
     "frame": {
@@ -321,6 +322,12 @@
         "title": "Der kartesische Taucher",
         "summary": "Ein Glasröhrchen mit einer Luftblase schwimmt in einer Flasche. Drückt man die Flasche, sinkt es – und es gibt genau eine Tiefe, in der es schweben würde.",
         "question": "Warum sinkt der Taucher, wenn man die Flasche drückt, und warum bleibt er nie in der Mitte stehen?"
+      },
+      "rainbow": {
+        "short": "Glasperlen-Regenbogen",
+        "title": "Der Glasperlen-Regenbogen",
+        "summary": "Eine Wand voller winziger Glasperlen, beleuchtet von einer Lampe neben Ihrem Kopf: Um den Schatten Ihres Kopfes erscheint ein farbiger Ring – halb so gross wie der Regenbogen am Himmel.",
+        "question": "Warum leuchtet um den Schatten des Kopfes ein farbiger Ring, und warum ist er kleiner als der Regenbogen am Himmel?"
       }
     },
     "chair": {
@@ -2905,6 +2912,93 @@
         "system": "Die Seite rechnet die Bewegung Schritt für Schritt, alle 2 ms (Runge-Kutta), mit dem Druck der Hand, wie er gerade ist. An der Oberfläche schwimmt der Taucher, am Grund liegt er.",
         "check": "Die Tests der Seite halten die Luftblase gegen das Gesetz von Boyle-Mariotte, zeigen, dass der Auftrieb in der Schwebetiefe genau verschwindet, darüber hebt und darunter zieht, und halten die Schritte gegen dieselbe Gleichung, zwanzigmal feiner gerechnet. Gerechnet wird in Ihrem Browser, mit denselben Formeln wie im Rechenkern der Seite.",
         "left_out": "Weggelassen: dass Wasser erst ins Röhrchen fliessen muss, bevor die Blase schrumpft (hier folgt sie dem Druck sofort); dass Wasser und Flasche ein wenig nachgeben; die Luft im Flaschenhals, deren Druck hier direkt der Druck der Hand ist; dass der Taucher an der Oberfläche ein wenig herausragt; die Temperatur. Die Werte sind ein angenommener Taucher: 3 g Glas (1,2 cm³) und 2 cm³ Luft, in einer 30 cm hohen Flasche."
+      }
+    },
+    "rainbow": {
+      "at": {
+        "wall": "Eine Wand ist mit winzigen Glasperlen beschichtet, jede kleiner als ein Millimeter. Eine Lampe neben Ihrem Kopf beleuchtet sie.",
+        "ring": "Um den Schatten Ihres Kopfes leuchtet ein farbiger Ring: aussen rot, innen blau, und innerhalb des Rings ist die Wand heller als ausserhalb.",
+        "smaller": "Es ist ein Regenbogen – aber nur halb so gross wie der am Himmel. Und wer neben Ihnen steht, sieht einen anderen Ring, um den eigenen Kopf."
+      },
+      "bead_view": "Eine Glasperle mit dem Licht der Lampe von links, einem Fächer von Strahlen und dem gewählten Strahl",
+      "wall_view": "Die Wand voller Glasperlen mit dem farbigen Ring um den Schatten des Kopfes",
+      "play": {
+        "title": "Einen Strahl durch die Perle schicken",
+        "hint": "Wählen Sie, wo der Strahl die Perle trifft, und sehen Sie, unter welchem Winkel er zurückkommt.",
+        "lamp": "Licht der Lampe →",
+        "to_bow": "Zum Regenbogenstrahl",
+        "impact": "Auftreffpunkt",
+        "impact_hint": "Wie weit von der Mitte der Perle der Strahl auftrifft, in Prozent ihres Radius.",
+        "bead_caption": "Eine Perle, stark vergrössert. Gestrichelt der Regenbogenstrahl; θ ist der Winkel zwischen dem austretenden Strahl und dem Weg zurück zur Lampe.",
+        "wall_caption": "Die Wand, wie Sie sie sehen; in der Mitte der Schatten Ihres Kopfes, die Zahl ist der Radius des Rings. Die Farben am Bildschirm sind nur angenähert.",
+        "at_bow": "Das ist der Regenbogenstrahl: Er und seine Nachbarn kommen fast unter demselben Winkel zurück – dort ist der Ring hell.",
+        "inside": "Dieser Strahl kommt unter {{angle}}° zurück, innerhalb des Rings bei {{bow}}°.",
+        "across": "Dieser Strahl kreuzt den Weg zurück zur Lampe und kommt auf der anderen Seite unter {{angle}}° zurück, ebenfalls innerhalb des Rings.",
+        "split": "Farben aufteilen",
+        "split_hint": "Zeigt den Strahl in sieben Farben, von Violett bis Rot.",
+        "incidence": "Einfallswinkel",
+        "refraction": "Brechungswinkel",
+        "leaves": "Austrittswinkel θ",
+        "bow": "Regenbogenwinkel"
+      },
+      "change": {
+        "title": "Das Material ändern",
+        "hint": "Wählen Sie Glas oder Wasser und ändern Sie die Brechzahl.",
+        "kind": "Material",
+        "kinds": {
+          "water": "Wassertropfen",
+          "glass": "Glasperle"
+        },
+        "index": "Brechzahl",
+        "index_hint": "Wie stark das Material das Licht bricht, bei gelbem Licht. Wie stark es die Farben auffächert, bleibt beim Material."
+      },
+      "figures": {
+        "angle": "Regenbogenwinkel (gelb)",
+        "red": "Rand rot (700 nm)",
+        "violet": "Rand violett (400 nm)",
+        "width": "Breite des Rings",
+        "impact": "Auftreffpunkt des Regenbogenstrahls",
+        "reflected": "Licht zurück nach einer Spiegelung",
+        "near": "Davon im letzten Grad vor dem Regenbogenwinkel"
+      },
+      "chart": {
+        "exit_hint": "Der Austrittswinkel je nach Auftreffpunkt, für violettes und rotes Licht. Wo die Kurve oben flach ist, kommen viele Strahlen unter fast demselben Winkel zurück: der Ring.",
+        "violet": "Violett (400 nm)",
+        "red": "Rot (700 nm)",
+        "leaves": "Austrittswinkel",
+        "impact": "Auftreffpunkt",
+        "angle_hint": "Der Regenbogenwinkel je nach Brechzahl.",
+        "angle": "Regenbogenwinkel",
+        "index": "Brechzahl"
+      },
+      "model": {
+        "intro": "Ein Lichtstrahl tritt in die Perle ein, wird an ihrer Rückseite einmal gespiegelt und tritt wieder aus – zurück in Richtung Lampe, aber um einen Winkel daneben.",
+        "snell": "Beim Ein- und Austritt wird der Strahl gebrochen (Snellius).",
+        "leaves": "Der Winkel zwischen dem austretenden Strahl und dem Weg zurück zur Lampe. Ein Strahl mitten auf die Perle kommt genau zurück.",
+        "bow": "Der grösste Austrittswinkel, der Regenbogenwinkel: Dort ändert sich θ kaum, wenn der Strahl etwas weiter aussen trifft, und viele Strahlen kommen gemeinsam zurück. Er hängt nur von der Brechzahl ab.",
+        "dispersion": "Blaues Licht wird etwas stärker gebrochen als rotes (Cauchy). Darum hat jede Farbe ihren eigenen Ring; der rote ist der grösste."
+      },
+      "symbols": {
+        "i": "Einfallswinkel",
+        "r": "Brechungswinkel",
+        "n": "Brechzahl",
+        "theta": "Austrittswinkel, gegen den Weg zurück zur Lampe",
+        "ir": "Einfallswinkel des Regenbogenstrahls",
+        "lambda": "Wellenlänge",
+        "nd": "Brechzahl bei gelbem Licht (Natriumlinie)",
+        "b": "Auffächerung der Farben (Cauchy-Koeffizient)",
+        "lambda_d": "Wellenlänge der Natriumlinie, 589,3"
+      },
+      "sweet": {
+        "index": "Der Trick: Der Ring hängt nur vom Material ab, nicht von der Grösse der Perle. Wassertropfen werfen das Licht unter 42° zurück, Glas mit der Brechzahl 1,52 unter 21° – halb so weit. Darum ist der Glasperlen-Ring halb so gross wie der Regenbogen am Himmel.",
+        "two": "Je stärker das Material bricht, desto kleiner der Ring. Bei der Brechzahl 2 schrumpft er auf null: Dann kommt alles Licht nahe der Mitte genau dorthin zurück, woher es kam.",
+        "own": "Weil jede Perle das Licht unter demselben Winkel zurückwirft, sieht man den Ring in allen Perlen, die unter diesem Winkel vom Schatten des eigenen Kopfes liegen – ein Kreis um ihn. Wer neben Ihnen steht, sieht einen anderen Ring, um den eigenen Kopf."
+      },
+      "computed": {
+        "system": "Die Seite folgt jedem Strahl durch die Perle mit dem Brechungs- und dem Spiegelungsgesetz. Für das Bild der Wand teilt sie die Perle in 2000 Ringe gleicher Fläche und verteilt das Licht jedes Rings auf die Winkel, unter denen es zurückkommt – abzüglich dessen, was die Oberfläche durchlässt oder spiegelt (Fresnel). Die Lampe ist so gross wie die Sonne am Himmel und verwischt den Ring entsprechend.",
+        "colours": "Die Farben: für 81 Wellenlängen von 380 bis 780 nm, gewichtet mit der Farbempfindlichkeit des Auges (CIE 1931) und umgerechnet in die Farben des Bildschirms (sRGB). Das Weiss der Lampe erscheint weiss, wie das Auge es sieht; Spektralfarben, die ein Bildschirm nicht zeigen kann, erscheinen etwas blasser.",
+        "check": "Die Tests der Seite halten den gezeichneten Strahl an das Brechungsgesetz und an die Formel θ = 4r − 2i, suchen den Regenbogenwinkel blind über die ganze Perle und zählen das zurückgeworfene Licht mit der Simpson-Regel nach: Von dem Licht, das eine Glasperle trifft, kommen 5,5 % nach einer Spiegelung zurück, 24 % davon im letzten Grad vor dem Regenbogenwinkel. Gerechnet wird in Ihrem Browser, mit denselben Formeln wie im Rechenkern der Seite.",
+        "left_out": "Weggelassen: die Grösse der Perlen (in sehr kleinen Perlen verbreitern die Lichtwellen den Ring und fügen innen schwache Ringe hinzu); Licht, das innen zweimal oder öfter gespiegelt wird (ein zweiter, schwächerer Ring, bei Glas weit ausser Sicht) oder gar nicht (der weisse Glanz der Perlen); die Wand hinter den Perlen. Angenommen ist Kalk-Natron-Glas mit der Brechzahl 1,52."
       }
     }
   },

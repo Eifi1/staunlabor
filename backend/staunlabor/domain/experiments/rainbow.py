@@ -32,7 +32,7 @@ size; the colour per angle is ``colour.seen`` of the lamp's spectrum by it.
 **What it leaves out.** The bead's size (with geometric optics it does not
 enter; in beads under a tenth of a millimetre or so, the waves widen the ring
 and add faint ones inside it); light reflected twice or more inside (a second
-ring, for glass at 87°, out of sight) or not at all (the beads' sheen, white);
+ring, for glass far out of sight) or not at all (the beads' white sheen);
 the wall behind the beads; beads touching each other; and the fact that a
 screen shows these colours only roughly (``colour``).
 """

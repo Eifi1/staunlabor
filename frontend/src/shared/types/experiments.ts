@@ -714,6 +714,15 @@ export interface DiverRequest {
   depth_m: number;
 }
 
+// ── the glass-bead rainbow ───────────────────────────────────────────────────
+
+/** The engine's `Bead`, the exhibit's glass and a raindrop. No route: the
+ *  page asks the port (`simulate/rainbow.ts`). */
+export interface RainbowRequest {
+  glass: { index: number; dispersion_nm2: number };
+  water: { index: number; dispersion_nm2: number };
+}
+
 // ── the chain and the arch ───────────────────────────────────────────────────
 
 /** The engine's `Arch`. No route: the page asks the port (`simulate/arch.ts`). */
@@ -777,6 +786,7 @@ export interface ExperimentsDefaults {
   bounce: BounceRequest;
   overhang: OverhangRequest;
   diver: DiverRequest;
+  rainbow: RainbowRequest;
   meter_range_a: number;
   settle_s: number;
 }

@@ -124,6 +124,7 @@
       "equilibrium": "Equilibrio",
       "flow": "Fluidi",
       "induction": "Induzione",
+      "light": "Luce",
       "perception": "Percezione"
     },
     "frame": {
@@ -321,6 +322,12 @@
         "title": "Il diavoletto di Cartesio",
         "summary": "Una provetta di vetro con una bolla d’aria galleggia in una bottiglia. Stringendo la bottiglia affonda – e c’è esattamente una profondità in cui resterebbe sospesa.",
         "question": "Perché il diavoletto affonda quando si stringe la bottiglia, e perché non resta mai a metà?"
+      },
+      "rainbow": {
+        "short": "Arcobaleno di perline di vetro",
+        "title": "L’arcobaleno delle perline di vetro",
+        "summary": "Una parete coperta di minuscole perline di vetro, illuminata da una lampada accanto alla sua testa: attorno all’ombra della sua testa compare un anello colorato, grande la metà dell’arcobaleno nel cielo.",
+        "question": "Perché attorno all’ombra della testa brilla un anello colorato, e perché è più piccolo dell’arcobaleno nel cielo?"
       }
     },
     "chair": {
@@ -2905,6 +2912,93 @@
         "system": "La pagina calcola il moto passo per passo, ogni 2 ms (Runge-Kutta), con la pressione della mano com’è in quell’istante. In superficie il diavoletto galleggia; sul fondo resta fermo.",
         "check": "I test della pagina confrontano la bolla con la legge di Boyle-Mariotte, mostrano che la spinta si annulla esattamente alla profondità di equilibrio, solleva sopra e tira sotto, e confrontano i passi con la stessa equazione calcolata venti volte più fine. Il calcolo avviene nel suo browser, con le stesse formule del motore di calcolo della pagina.",
         "left_out": "Tralasciato: che l’acqua deve prima entrare nella provetta perché la bolla si restringa (qui segue subito la pressione); che acqua e bottiglia cedono un poco; l’aria nel collo della bottiglia, la cui pressione qui è direttamente quella della mano; che in superficie il diavoletto sporge un po’; la temperatura. I valori sono un diavoletto supposto: 3 g di vetro (1,2 cm³) e 2 cm³ d’aria, in una bottiglia di 30 cm."
+      }
+    },
+    "rainbow": {
+      "at": {
+        "wall": "Una parete è ricoperta di minuscole perline di vetro, ognuna più piccola di un millimetro. Una lampada accanto alla sua testa la illumina.",
+        "ring": "Attorno all’ombra della sua testa brilla un anello colorato: rosso fuori, blu dentro, e dentro l’anello la parete è più chiara che fuori.",
+        "smaller": "È un arcobaleno, ma grande solo la metà di quello nel cielo. E chi le sta accanto vede un altro anello, attorno alla propria testa."
+      },
+      "bead_view": "Una perlina di vetro con la luce della lampada da sinistra, un ventaglio di raggi e il raggio scelto",
+      "wall_view": "La parete di perline di vetro con l’anello colorato attorno all’ombra della testa",
+      "play": {
+        "title": "Mandare un raggio nella perlina",
+        "hint": "Scelga dove il raggio colpisce la perlina e veda con quale angolo torna indietro.",
+        "lamp": "Luce della lampada →",
+        "to_bow": "Al raggio dell’arcobaleno",
+        "impact": "Punto d’impatto",
+        "impact_hint": "A che distanza dal centro della perlina il raggio la colpisce, in percentuale del suo raggio.",
+        "bead_caption": "Una perlina, molto ingrandita. Tratteggiato il raggio dell’arcobaleno; θ è l’angolo tra il raggio uscente e la via di ritorno verso la lampada.",
+        "wall_caption": "La parete come la vede lei; al centro l’ombra della sua testa, il numero è il raggio dell’anello. I colori sullo schermo sono solo approssimati.",
+        "at_bow": "Questo è il raggio dell’arcobaleno: lui e i suoi vicini tornano quasi con lo stesso angolo, ed è lì che l’anello è luminoso.",
+        "inside": "Questo raggio torna con {{angle}}°, dentro l’anello a {{bow}}°.",
+        "across": "Questo raggio incrocia la via di ritorno verso la lampada e torna dall’altra parte con {{angle}}°, anch’esso dentro l’anello.",
+        "split": "Separare i colori",
+        "split_hint": "Mostra il raggio in sette colori, dal viola al rosso.",
+        "incidence": "Angolo d’incidenza",
+        "refraction": "Angolo di rifrazione",
+        "leaves": "Angolo d’uscita θ",
+        "bow": "Angolo dell’arcobaleno"
+      },
+      "change": {
+        "title": "Cambiare il materiale",
+        "hint": "Scelga vetro o acqua e cambi l’indice di rifrazione.",
+        "kind": "Materiale",
+        "kinds": {
+          "water": "Goccia d’acqua",
+          "glass": "Perlina di vetro"
+        },
+        "index": "Indice di rifrazione",
+        "index_hint": "Quanto il materiale devia la luce, per la luce gialla. Quanto separa i colori resta quello del materiale."
+      },
+      "figures": {
+        "angle": "Angolo dell’arcobaleno (giallo)",
+        "red": "Bordo rosso (700 nm)",
+        "violet": "Bordo viola (400 nm)",
+        "width": "Larghezza dell’anello",
+        "impact": "Punto d’impatto del raggio dell’arcobaleno",
+        "reflected": "Luce tornata dopo una riflessione",
+        "near": "Di questa, nell’ultimo grado prima dell’angolo dell’arcobaleno"
+      },
+      "chart": {
+        "exit_hint": "L’angolo d’uscita secondo il punto d’impatto, per luce viola e rossa. Dove la curva è piatta in alto, molti raggi tornano quasi con lo stesso angolo: l’anello.",
+        "violet": "Viola (400 nm)",
+        "red": "Rosso (700 nm)",
+        "leaves": "Angolo d’uscita",
+        "impact": "Punto d’impatto",
+        "angle_hint": "L’angolo dell’arcobaleno secondo l’indice di rifrazione.",
+        "angle": "Angolo dell’arcobaleno",
+        "index": "Indice di rifrazione"
+      },
+      "model": {
+        "intro": "Un raggio di luce entra nella perlina, viene riflesso una volta sul suo retro ed esce di nuovo: indietro verso la lampada, ma spostato di un angolo.",
+        "snell": "Entrando e uscendo, il raggio viene rifratto (legge di Snell).",
+        "leaves": "L’angolo tra il raggio uscente e la via di ritorno verso la lampada. Un raggio al centro della perlina torna esattamente indietro.",
+        "bow": "Il più grande angolo d’uscita, l’angolo dell’arcobaleno: lì θ cambia appena quando il raggio colpisce un po’ più in fuori, e molti raggi tornano insieme. Dipende solo dall’indice di rifrazione.",
+        "dispersion": "La luce blu viene rifratta un po’ più della rossa (Cauchy). Perciò ogni colore ha il suo anello; quello del rosso è il più grande."
+      },
+      "symbols": {
+        "i": "Angolo d’incidenza",
+        "r": "Angolo di rifrazione",
+        "n": "Indice di rifrazione",
+        "theta": "Angolo d’uscita, rispetto alla via di ritorno verso la lampada",
+        "ir": "Angolo d’incidenza del raggio dell’arcobaleno",
+        "lambda": "Lunghezza d’onda",
+        "nd": "Indice di rifrazione per la luce gialla (riga del sodio)",
+        "b": "Separazione dei colori (coefficiente di Cauchy)",
+        "lambda_d": "Lunghezza d’onda della riga del sodio, 589,3"
+      },
+      "sweet": {
+        "index": "Il trucco: l’anello dipende solo dal materiale, non dalla grandezza della perlina. Le gocce d’acqua rimandano la luce a 42°, il vetro d’indice 1,52 a 21°, la metà. Per questo l’anello delle perline di vetro è grande la metà dell’arcobaleno nel cielo.",
+        "two": "Più il materiale rifrange, più piccolo è l’anello. Con indice 2 si riduce a niente: allora tutta la luce vicina al centro torna esattamente da dove è venuta.",
+        "own": "Poiché ogni perlina rimanda la luce con lo stesso angolo, si vede l’anello in tutte le perline che si trovano a quell’angolo dall’ombra della propria testa: un cerchio attorno a essa. Chi le sta accanto vede un altro anello, attorno alla propria testa."
+      },
+      "computed": {
+        "system": "La pagina segue ogni raggio nella perlina con le leggi della rifrazione e della riflessione. Per l’immagine della parete divide la faccia della perlina in 2000 anelli di uguale area e distribuisce la luce di ciascuno sugli angoli con cui torna, meno ciò che la superficie lascia passare o riflette (Fresnel). La lampada è grande quanto il sole nel cielo e sfuma l’anello di altrettanto.",
+        "colours": "I colori: per 81 lunghezze d’onda da 380 a 780 nm, pesate con la sensibilità dell’occhio ai colori (CIE 1931) e convertite nei colori dello schermo (sRGB). Il bianco della lampada appare bianco, come lo vede l’occhio; i colori spettrali che uno schermo non può mostrare appaiono un po’ più pallidi.",
+        "check": "I test della pagina confrontano il raggio disegnato con la legge della rifrazione e con la formula θ = 4r − 2i, cercano l’angolo dell’arcobaleno alla cieca su tutta la perlina e ricontano la luce rimandata con la regola di Simpson: della luce che colpisce una perlina di vetro, il 5,5 % torna dopo una riflessione, e il 24 % di questa nell’ultimo grado prima dell’angolo dell’arcobaleno. Il calcolo avviene nel suo browser, con le stesse formule del motore di calcolo della pagina.",
+        "left_out": "Tralasciato: la grandezza delle perline (in perline molto piccole le onde luminose allargano l’anello e aggiungono deboli anelli all’interno); la luce riflessa dentro due o più volte (un secondo anello, più debole, nel vetro lontano dalla vista) o mai (la lucentezza bianca delle perline); la parete dietro le perline. Si assume vetro sodico-calcico d’indice 1,52."
       }
     }
   },

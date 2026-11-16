@@ -124,6 +124,7 @@
       "equilibrium": "Egyensúly",
       "flow": "Áramlás",
       "induction": "Indukció",
+      "light": "Fény",
       "perception": "Észlelés"
     },
     "frame": {
@@ -321,6 +322,12 @@
         "title": "A Cartesius-búvár",
         "summary": "Egy légbuborékos üvegcső úszik egy palackban. Ha megnyomjuk a palackot, lesüllyed – és pontosan egy mélység van, ahol lebegne.",
         "question": "Miért süllyed le a búvár, ha megnyomjuk a palackot, és miért nem marad soha középen?"
+      },
+      "rainbow": {
+        "short": "Üveggyöngy-szivárvány",
+        "title": "Az üveggyöngy-szivárvány",
+        "summary": "Apró üveggyöngyökkel borított fal, amelyet egy lámpa világít meg a feje mellől: a feje árnyéka körül színes gyűrű jelenik meg – feleakkora, mint a szivárvány az égen.",
+        "question": "Miért világít színes gyűrű a fej árnyéka körül, és miért kisebb, mint az égi szivárvány?"
       }
     },
     "chair": {
@@ -2905,6 +2912,93 @@
         "system": "Az oldal 2 ms-onként lépésenként számolja a mozgást (Runge–Kutta), a kéz pillanatnyi nyomásával. A felszínen a búvár úszik, a fenéken fekszik.",
         "check": "Az oldal tesztjei a buborékot a Boyle–Mariotte-törvénnyel vetik össze, megmutatják, hogy a felhajtóerő-többlet pontosan a lebegési mélységben tűnik el, fölötte emel, alatta húz, és a lépéseket ugyanazzal a hússzor finomabban számolt egyenlettel vetik össze. A számítás az Ön böngészőjében fut, ugyanazokkal a képletekkel, mint az oldal számítómagja.",
         "left_out": "Kimaradt: hogy a víznek előbb be kell folynia a csőbe, mielőtt a buborék zsugorodik (itt azonnal követi a nyomást); hogy a víz és a palack kissé enged; a palack nyakában lévő levegő, amelynek nyomása itt közvetlenül a kéz nyomása; hogy a búvár a felszínen kissé kilóg a vízből; a hőmérséklet. Az értékek egy feltételezett búvárt írnak le: 3 g üveg (1,2 cm³) és 2 cm³ levegő, egy 30 cm-es palackban."
+      }
+    },
+    "rainbow": {
+      "at": {
+        "wall": "Egy falat apró, egyenként egy milliméternél kisebb üveggyöngyök borítanak. Egy lámpa a feje mellől világítja meg.",
+        "ring": "A feje árnyéka körül színes gyűrű világít: kívül piros, belül kék, és a gyűrűn belül a fal világosabb, mint kívül.",
+        "smaller": "Ez szivárvány – de csak feleakkora, mint az égen. Aki Ön mellett áll, másik gyűrűt lát, a saját feje körül."
+      },
+      "bead_view": "Egy üveggyöngy a lámpa balról érkező fényével, sugarak legyezőjével és a választott sugárral",
+      "wall_view": "Az üveggyöngyös fal a fej árnyéka körüli színes gyűrűvel",
+      "play": {
+        "title": "Sugár küldése a gyöngyön át",
+        "hint": "Válassza ki, hol éri a sugár a gyöngyöt, és nézze meg, milyen szögben jön vissza.",
+        "lamp": "A lámpa fénye →",
+        "to_bow": "A szivárványsugárhoz",
+        "impact": "Beesési pont",
+        "impact_hint": "Milyen messze a gyöngy közepétől éri a sugár, a sugara százalékában.",
+        "bead_caption": "Egy gyöngy, erősen nagyítva. Szaggatottan a szivárványsugár; θ a kilépő sugár és a lámpához visszavezető út szöge.",
+        "wall_caption": "A fal, ahogy Ön látja; középen a feje árnyéka, a szám a gyűrű sugara. A színek a képernyőn csak közelítők.",
+        "at_bow": "Ez a szivárványsugár: ő és a szomszédai csaknem ugyanabban a szögben jönnek vissza – ott fényes a gyűrű.",
+        "inside": "Ez a sugár {{angle}}°-ban jön vissza, a {{bow}}°-os gyűrűn belül.",
+        "across": "Ez a sugár keresztezi a lámpához visszavezető utat, és a másik oldalon {{angle}}°-ban jön vissza, szintén a gyűrűn belül.",
+        "split": "Színek szétválasztása",
+        "split_hint": "Hét színben mutatja a sugarat, az ibolyától a pirosig.",
+        "incidence": "Beesési szög",
+        "refraction": "Törési szög",
+        "leaves": "Kilépési szög θ",
+        "bow": "Szivárványszög"
+      },
+      "change": {
+        "title": "Az anyag megváltoztatása",
+        "hint": "Válasszon üveget vagy vizet, és változtassa meg a törésmutatót.",
+        "kind": "Anyag",
+        "kinds": {
+          "water": "Vízcsepp",
+          "glass": "Üveggyöngy"
+        },
+        "index": "Törésmutató",
+        "index_hint": "Mennyire töri meg az anyag a fényt, sárga fényre. Hogy mennyire bontja szét a színeket, az anyagé marad."
+      },
+      "figures": {
+        "angle": "Szivárványszög (sárga)",
+        "red": "Piros szél (700 nm)",
+        "violet": "Ibolya szél (400 nm)",
+        "width": "A gyűrű szélessége",
+        "impact": "A szivárványsugár beesési pontja",
+        "reflected": "Egy visszaverődés után visszatérő fény",
+        "near": "Ebből a szivárványszög előtti utolsó fokban"
+      },
+      "chart": {
+        "exit_hint": "A kilépési szög a beesési pont szerint, ibolya és piros fényre. Ahol a görbe teteje lapos, sok sugár csaknem ugyanabban a szögben jön vissza: a gyűrű.",
+        "violet": "Ibolya (400 nm)",
+        "red": "Piros (700 nm)",
+        "leaves": "Kilépési szög",
+        "impact": "Beesési pont",
+        "angle_hint": "A szivárványszög a törésmutató szerint.",
+        "angle": "Szivárványszög",
+        "index": "Törésmutató"
+      },
+      "model": {
+        "intro": "Egy fénysugár belép a gyöngybe, a hátoldalán egyszer visszaverődik, és újra kilép – vissza a lámpa felé, de egy szöggel mellette.",
+        "snell": "Belépéskor és kilépéskor a sugár megtörik (Snellius–Descartes-törvény).",
+        "leaves": "A kilépő sugár és a lámpához visszavezető út szöge. A gyöngy közepére eső sugár pontosan visszajön.",
+        "bow": "A legnagyobb kilépési szög, a szivárványszög: ott θ alig változik, ha a sugár kicsit kijjebb éri a gyöngyöt, és sok sugár együtt jön vissza. Csak a törésmutatótól függ.",
+        "dispersion": "A kék fény kicsit jobban megtörik, mint a piros (Cauchy). Ezért minden színnek saját gyűrűje van; a pirosé a legnagyobb."
+      },
+      "symbols": {
+        "i": "Beesési szög",
+        "r": "Törési szög",
+        "n": "Törésmutató",
+        "theta": "Kilépési szög a lámpához visszavezető úthoz képest",
+        "ir": "A szivárványsugár beesési szöge",
+        "lambda": "Hullámhossz",
+        "nd": "Törésmutató sárga fényre (nátriumvonal)",
+        "b": "A színek szétválása (Cauchy-együttható)",
+        "lambda_d": "A nátriumvonal hullámhossza, 589,3"
+      },
+      "sweet": {
+        "index": "A trükk: a gyűrű csak az anyagtól függ, a gyöngy méretétől nem. A vízcseppek 42°-ban vetik vissza a fényt, az 1,52-es törésmutatójú üveg 21°-ban – feleannyira. Ezért feleakkora az üveggyöngy-gyűrű, mint a szivárvány az égen.",
+        "two": "Minél jobban töri az anyag a fényt, annál kisebb a gyűrű. 2-es törésmutatónál a semmibe zsugorodik: ekkor a közép közelébe eső fény pontosan oda jön vissza, ahonnan jött.",
+        "own": "Mivel minden gyöngy ugyanabban a szögben veti vissza a fényt, a gyűrűt mindazokban a gyöngyökben látjuk, amelyek ebben a szögben vannak a saját fejünk árnyékától – egy kör körülötte. Aki Ön mellett áll, másik gyűrűt lát, a saját feje körül."
+      },
+      "computed": {
+        "system": "Az oldal minden sugarat a törés és a visszaverődés törvényével követ a gyöngyön át. A fal képéhez a gyöngy felületét 2000 egyenlő területű gyűrűre bontja, és minden gyűrű fényét elosztja azokra a szögekre, amelyekben visszajön – levonva, amit a felület átenged vagy visszaver (Fresnel). A lámpa akkora, mint a nap az égen, és ennyivel el is mossa a gyűrűt.",
+        "colours": "A színek: 81 hullámhosszra 380 és 780 nm között, a szem színérzékenységével súlyozva (CIE 1931), és a képernyő színeire átszámítva (sRGB). A lámpa fehérje fehérnek látszik, ahogy a szem látja; a spektrumszínek, amelyeket a képernyő nem tud megmutatni, kissé halványabbak.",
+        "check": "Az oldal tesztjei a megrajzolt sugarat a törés törvényéhez és a θ = 4r − 2i képlethez tartják, a szivárványszöget vakon keresik meg az egész gyöngyön, és a visszavert fényt a Simpson-szabállyal számolják újra: az üveggyöngyre eső fény 5,5 %-a jön vissza egy visszaverődés után, ennek 24 %-a a szivárványszög előtti utolsó fokban. A számítás az Ön böngészőjében fut, ugyanazokkal a képletekkel, mint az oldal számítómagja.",
+        "left_out": "Kimaradt: a gyöngyök mérete (nagyon kicsi gyöngyökben a fényhullámok kiszélesítik a gyűrűt, és belül halvány gyűrűket adnak hozzá); a belül kétszer vagy többször visszaverődő fény (egy második, halványabb gyűrű, üvegnél messze a látótéren kívül) vagy a vissza sem verődő (a gyöngyök fehér fénye); a gyöngyök mögötti fal. Feltételezve: 1,52-es törésmutatójú nátronmészüveg."
       }
     }
   },

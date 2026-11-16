@@ -828,6 +828,20 @@ class DiverExhibitIn(_In):
     depth_m: float = Field(ge=0.05, le=2, default=0.30)
 
 
+# ── the glass-bead rainbow ───────────────────────────────────────────────────
+# No route: the page asks the port (``simulate/rainbow.ts``).
+
+
+class BeadIn(_In):
+    index: float = Field(ge=1.3, le=1.95, default=1.52)
+    dispersion_nm2: float = Field(ge=0, le=10000, default=4200.0)
+
+
+class RainbowIn(_In):
+    glass: BeadIn
+    water: BeadIn
+
+
 # ── the pages' starting point ────────────────────────────────────────────────
 
 
@@ -861,6 +875,7 @@ class ExperimentsDefaultsOut(_Out):
     bounce: BounceIn
     overhang: OverhangIn
     diver: DiverExhibitIn
+    rainbow: RainbowIn
     chladni: ChladniPlateIn
     #: The exhibit's meter: digital, ± this many amperes.
     meter_range_a: float

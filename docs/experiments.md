@@ -84,11 +84,11 @@ quarter for one that came right after yesterday's in the round before. Those
 are the second series' maluses (Marcel, 2026-11-15: "Tagesminus sollte weniger
 zählen"); the first series drew with a quarter and a tenth, and its rounds keep
 them, so the days the live site has shown keep their exhibit. Measured over
-400 rounds of all 31 (a plain shuffle, then the old maluses, in brackets):
-repeated pairs 0.47 a round (1.21; 0.29), repeated triples 0.003 (0.043;
-0.003), neighbours sharing a topic 20.6 days in a hundred (28.9; 15.0); with
-30, before the Cartesian diver, 0.46 and 22.6, with 29, before the overhang,
-0.46 and 23.9. With eleven exhibits about energy,
+400 rounds of all 32 (a plain shuffle, then the old maluses, in brackets):
+repeated pairs 0.39 a round (1.26; 0.27), repeated triples 0.005 (0.050;
+0.005), neighbours sharing a topic 19.7 days in a hundred (27.3; 14.7); with
+31, before the glass-bead rainbow, 0.47 and 20.6, with 30, before the
+Cartesian diver, 0.46 and 22.6. With eleven exhibits about energy,
 nine about oscillation and eight about angular momentum, the quarter held a
 topic back on most days.
 They were measured over 2000 rounds against a plain shuffle (`daily.ts` has
@@ -104,7 +104,8 @@ more than a round and two days by a quarter, with fifteen by an eighth (1456
 against 1670 over 400 rounds), with sixteen by a tenth (2311 against 2555),
 with 26 by a twentieth (10259 against 10834 over 1200 rounds), with 27 to
 31 the same (10513 against 11135, 11237 against 11819, 11640 against 12183,
-12332 against 12882, 12771 against 13269);
+12332 against 12882, 12771 against 13269), with 32 by a fortieth (13523
+against 13858);
 `daily.test.ts` now holds it only to a fiftieth. Its weight a day is fixed
 while a round grows longer, and stays so: Marcel weakened the maluses instead
 (2026-11-15).
@@ -1686,6 +1687,94 @@ hover bubble, the two squeezes and the 10.2 cm a kilopascal; Boyle's
 below; all the way up or down from half a centimetre off, floating
 unsqueezed and lying on the bottom squeezed hard; the steps against the same
 equation written in the test and stepped twenty times finer; the refusals.
+
+## The glass-bead rainbow (`experiments.rainbow`)
+
+**The exhibit** (2026-11-16, the fifth of stage 4, local feedback entry #25;
+inspired by "Glasperlen-Regenbogen" at the Technorama). A wall coated with
+tiny glass beads, lit by a lamp beside one's head: round the shadow of one's
+head a coloured ring, red outside and blue inside, brighter within — a
+rainbow half the size of the sky's. The first exhibit about light, and with it
+the topic "light".
+
+**Colour, for every light exhibit** (`domain/experiments/colour.py`). A
+spectrum at 81 wavelengths (380–780 nm, 5 nm) becomes the eye's `X, Y, Z` by
+the CIE 1931 observer, taken as the multi-lobe fit of Wyman, Sloan and
+Shirley (2013) rather than a table; then the screen's linear red, green and
+blue by the sRGB matrix, relative to the lamp's own white (each channel
+divided by the lamp's: the eye takes its lamp as white), a channel below zero
+shown as zero, a colour brighter than white dimmed as a whole, and sRGB's
+curve. Lamps are Planck's glowing bodies by their temperature. Mixing an
+out-of-gamut colour with grey of its own brightness was tried first and
+dropped: it keeps the brightness exactly but makes a spectral red a dull
+crimson.
+
+**The model** (`domain/experiments/rainbow.py`). A ray meeting a bead of
+index `n` at `b` of its radius off centre goes in at `sin i = b`, on at
+`sin r = b/n`, is reflected once at the back and leaves `θ = 4r − 2i` from the
+straight way back to the lamp (below zero: across that way, to the other
+side). The largest `θ`, at `cos² i = (n² − 1)/3`, is the rainbow angle; it
+exists for `1 < n < 2` and closes to nothing at `n = 2`. The index by Cauchy,
+`n(λ) = n_D + B·(1/λ² − 1/λ_D²)`, `λ_D` the sodium line. The ring as seen: the
+bead's face in 2000 rings of equal area, each ring's light (Fresnel's
+reflectance `R` for both polarisations, `(1 − R)²·R` each, averaged; inside,
+the ray meets the surface at `r`, where it reflects what it does at `i`
+outside) spread evenly over the angles between its edges' rays, in bins of
+0.1°; blurred by a lamp of 0.25° radius (the sun's), light blurred below zero
+folded back; over each bin's solid angle; and per bin the colour of the lamp's
+light (3000 K) by every wavelength's profile, exposed so that the ring's
+brightest bin is the screen's brightest.
+
+**What it shows** (soda-lime glass, `n_D = 1.52`, `B = 4200 nm²`; water
+1.333 and 3140 nm²). The glass ring at 21.1°, from violet at 19.9° to red at
+21.4°, 1.5° wide; water's at 42.1°, 1.9° wide: the glass ring is half the
+sky's (the ratio 0.50). The rainbow ray meets a glass bead 75 % out; of the
+light meeting the bead 5.5 % leaves after one reflection, and 24 % of that
+within a degree of the rainbow angle. The angle falls with the index: 42.5° at
+1.33, under 0.1° at 1.99; at `n = 2` a ray near the centre comes straight
+back, off only by a term in `b³`.
+
+**The page.** One bead, much enlarged, in a dark room (both themes alike):
+the lamp's light from the left, a fan of 19 rays through it bunching where
+they leave, the rainbow ray dashed, the chosen ray bright or split into seven
+colours, and the angle it leaves at from the way back. Beside it the wall as
+one sees it, a canvas coloured from the ring's bins round the shadow of one's
+head and shoulders, at a fixed 50° to its edge so that the ring visibly
+shrinks and grows, its radius written on it. A slider for where the ray meets
+the bead (0–99 % of the radius), a button to the rainbow ray, whether the ray
+comes back inside the ring, at it, or across the way back; the angles in, on,
+out and the rainbow angle. Changing the material (water drop or glass bead,
+which set the index and the dispersion; the index 1.30–1.95, keeping the
+dispersion) gives the ring's radius, its two edges and width, where the
+rainbow ray meets the bead, the light back after one reflection and the share
+near the rainbow angle, and the angle out over where the ray meets the bead for
+violet and red. The ring is recoloured from 81 wavelengths (about 50 ms) on a
+deferred value, so the slider never waits for it. "The trick" has the rainbow
+angle over the index from 1.30 to 1.99. The preview sweeps a ray across a
+glass bead's face. Topic "light", no lesson (geometry, not a motion). **No
+route**: the ports' (`simulate/colour.ts`, `simulate/rainbow.ts`), held to the
+engine over the observer, five lamps through three filters, the screen's
+mapping, and four beads (glass, water, a dense one at 1.9, one without
+dispersion at 1.3): angles, shares, traced paths, profiles, the ring's colours
+and the figures.
+
+**Joins the experiment of the day** on `SECOND_SERIES`, with the second series.
+
+**Left out, and said:** the beads' size (in very small beads the waves widen
+the ring and add faint rings inside it); light reflected twice or more inside
+or not at all; the wall behind the beads; the screen's own deviations from
+sRGB, so the colours are close, not exact.
+
+**Checked by** `tests/unit/test_experiments.py`: the observer's peak at 555 nm
+and its sum against the CIE's table; equal energy, illuminant A and the
+Planckian locus at 6500 K within 0.002; the lamp's own light white and a
+spectral red shown red; a negative channel to zero and a bright colour dimmed
+whole; the glass and water rings, their edges, widths and the half; the ring
+shrinking to nothing at 2; the rainbow angle against a search over the face;
+the traced ray against Snell's law and `4r − 2i`; Fresnel's 4 % straight on;
+the profile's light against Simpson's rule over the face, dark past the red
+edge, brightest at the rainbow angle; the ring red outside, blue inside and
+whitish within; the refusals.
 
 ## The notice: the check still to come
 

@@ -58,6 +58,7 @@ const PREVIEWS: Record<Exhibit, LazyExoticComponent<ComponentType<PreviewProps>>
   bounce: lazy(() => import("./bounce-page").then((m) => ({ default: m.BouncePreview }))),
   overhang: lazy(() => import("./overhang-page").then((m) => ({ default: m.OverhangPreview }))),
   diver: lazy(() => import("./diver-page").then((m) => ({ default: m.DiverPreview }))),
+  rainbow: lazy(() => import("./rainbow-page").then((m) => ({ default: m.RainbowPreview }))),
 };
 
 /** Whether the element is on screen (`margin` beyond it counts), and whether

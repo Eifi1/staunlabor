@@ -51,6 +51,7 @@ async def test_the_experiments_need_no_account(client: AsyncClient):
         "bounce",
         "overhang",
         "diver",
+        "rainbow",
         "chladni",
         "meter_range_a",
         "settle_s",
@@ -90,6 +91,10 @@ async def test_the_experiments_need_no_account(client: AsyncClient):
     assert body["bounce"]["height_m"] == x.EXHIBIT_HEIGHT_M
     assert body["overhang"] == {"blocks": 9, "length_m": x.BLOCK_LENGTH_M, "height_m": x.BLOCK_HEIGHT_M}
     assert body["diver"]["diver"]["air_m3"] == x.Diver().air_m3 and body["diver"]["depth_m"] == x.Bottle().depth_m
+    assert body["rainbow"] == {
+        "glass": {"index": 1.52, "dispersion_nm2": 4200.0},
+        "water": {"index": 1.333, "dispersion_nm2": 3140.0},
+    }
 
 
 async def test_the_sphere_answers_its_orbits_and_its_swing(client: AsyncClient):

@@ -41,12 +41,21 @@ export type Exhibit =
   | "plates"
   | "bounce"
   | "overhang"
-  | "diver";
+  | "diver"
+  | "rainbow";
 
 /** What an exhibit is about, as a reader would look for it: one word each,
  *  and an exhibit may be about two. */
 export type Topic =
-  "momentum" | "angular_momentum" | "energy" | "oscillation" | "equilibrium" | "flow" | "induction" | "perception";
+  | "momentum"
+  | "angular_momentum"
+  | "energy"
+  | "oscillation"
+  | "equilibrium"
+  | "flow"
+  | "induction"
+  | "light"
+  | "perception";
 
 /** The order the overview's chips stand in: the mechanics first, then the rest. */
 export const TOPICS: readonly Topic[] = [
@@ -57,6 +66,7 @@ export const TOPICS: readonly Topic[] = [
   "equilibrium",
   "flow",
   "induction",
+  "light",
   "perception",
 ];
 
@@ -275,6 +285,13 @@ export const EXHIBITS: readonly ExhibitEntry[] = [
     path: "/diver",
     topics: ["equilibrium"],
     lessons: ["second_order"],
+    since: SECOND_SERIES,
+  },
+  {
+    exhibit: "rainbow",
+    path: "/rainbow",
+    topics: ["light"],
+    lessons: [],
     since: SECOND_SERIES,
   },
 ];

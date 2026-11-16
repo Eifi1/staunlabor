@@ -74,6 +74,7 @@ UNROUTED = (
     "bounce",
     "overhang",
     "diver",
+    "rainbow",
 )
 
 

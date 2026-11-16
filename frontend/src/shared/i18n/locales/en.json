@@ -124,6 +124,7 @@
       "equilibrium": "Equilibrium",
       "flow": "Flow",
       "induction": "Induction",
+      "light": "Light",
       "perception": "Perception"
     },
     "frame": {
@@ -321,6 +322,12 @@
         "title": "The Cartesian diver",
         "summary": "A small glass tube with a bubble of air floats in a bottle. Squeeze the bottle and it sinks – and there is exactly one depth where it would hover.",
         "question": "Why does the diver sink when the bottle is squeezed, and why does it never stay in the middle?"
+      },
+      "rainbow": {
+        "short": "Glass-bead rainbow",
+        "title": "The glass-bead rainbow",
+        "summary": "A wall of tiny glass beads, lit by a lamp beside your head: round the shadow of your head a coloured ring appears – half the size of the rainbow in the sky.",
+        "question": "Why does a coloured ring glow round the shadow of your head, and why is it smaller than the rainbow in the sky?"
       }
     },
     "chair": {
@@ -2905,6 +2912,93 @@
         "system": "The page steps the motion every 2 ms (Runge–Kutta), with the hand's squeeze as it is at that moment. At the surface the diver floats; on the bottom it lies.",
         "check": "The page's tests hold the bubble to Boyle's law, show the buoyancy vanishing exactly at the hover depth, lifting above it and pulling below, and hold the steps to the same equation stepped twenty times finer. The computing happens in your browser, with the same formulas as the site's engine.",
         "left_out": "Left out: that water must first run into the tube before the bubble shrinks (here it follows the pressure at once); the water and the bottle giving a little; the air in the bottle's neck, whose pressure here is the hand's squeeze directly; the diver poking out of the water at the surface; temperature. The values are an assumed diver: 3 g of glass (1.2 cm³) and 2 cm³ of air, in a bottle 30 cm deep."
+      }
+    },
+    "rainbow": {
+      "at": {
+        "wall": "A wall is coated with tiny glass beads, each smaller than a millimetre. A lamp beside your head lights it.",
+        "ring": "Round the shadow of your head a coloured ring glows: red outside, blue inside, and within the ring the wall is brighter than outside it.",
+        "smaller": "It is a rainbow – but only half the size of the one in the sky. And whoever stands next to you sees a different ring, round their own head."
+      },
+      "bead_view": "A glass bead with the lamp's light from the left, a fan of rays and the chosen ray",
+      "wall_view": "The wall of glass beads with the coloured ring round the shadow of the head",
+      "play": {
+        "title": "Send a ray through the bead",
+        "hint": "Choose where the ray meets the bead and see at what angle it comes back.",
+        "lamp": "Lamp's light →",
+        "to_bow": "To the rainbow ray",
+        "impact": "Where it meets the bead",
+        "impact_hint": "How far from the bead's centre the ray meets it, in per cent of its radius.",
+        "bead_caption": "One bead, much enlarged. Dashed: the rainbow ray; θ is the angle between the ray leaving and the way back to the lamp.",
+        "wall_caption": "The wall as you see it; in the middle the shadow of your head, the number is the ring's radius. The colours on the screen are only approximate.",
+        "at_bow": "This is the rainbow ray: it and its neighbours come back at almost the same angle – that is where the ring is bright.",
+        "inside": "This ray comes back at {{angle}}°, inside the ring at {{bow}}°.",
+        "across": "This ray crosses the way back to the lamp and comes back on the other side at {{angle}}°, inside the ring too.",
+        "split": "Split the colours",
+        "split_hint": "Shows the ray in seven colours, from violet to red.",
+        "incidence": "Angle of incidence",
+        "refraction": "Angle of refraction",
+        "leaves": "Angle out θ",
+        "bow": "Rainbow angle"
+      },
+      "change": {
+        "title": "Change the material",
+        "hint": "Choose glass or water and change the refractive index.",
+        "kind": "Material",
+        "kinds": {
+          "water": "Water drop",
+          "glass": "Glass bead"
+        },
+        "index": "Refractive index",
+        "index_hint": "How strongly the material bends light, for yellow light. How widely it fans the colours out stays the material's."
+      },
+      "figures": {
+        "angle": "Rainbow angle (yellow)",
+        "red": "Red edge (700 nm)",
+        "violet": "Violet edge (400 nm)",
+        "width": "Width of the ring",
+        "impact": "Where the rainbow ray meets the bead",
+        "reflected": "Light back after one reflection",
+        "near": "Of it, in the last degree before the rainbow angle"
+      },
+      "chart": {
+        "exit_hint": "The angle out against where the ray meets the bead, for violet and red light. Where the curve is flat at its top, many rays come back at almost the same angle: the ring.",
+        "violet": "Violet (400 nm)",
+        "red": "Red (700 nm)",
+        "leaves": "Angle out",
+        "impact": "Where it meets the bead",
+        "angle_hint": "The rainbow angle against the refractive index.",
+        "angle": "Rainbow angle",
+        "index": "Refractive index"
+      },
+      "model": {
+        "intro": "A ray of light enters the bead, is reflected once at its back and leaves again – back towards the lamp, but off by an angle.",
+        "snell": "Going in and coming out, the ray is bent (Snell's law).",
+        "leaves": "The angle between the ray leaving and the way back to the lamp. A ray at the bead's centre comes straight back.",
+        "bow": "The largest angle out, the rainbow angle: there θ hardly changes as the ray meets the bead a little further out, and many rays come back together. It depends only on the refractive index.",
+        "dispersion": "Blue light is bent a little more than red (Cauchy). So each colour has its own ring; red's is the largest."
+      },
+      "symbols": {
+        "i": "Angle of incidence",
+        "r": "Angle of refraction",
+        "n": "Refractive index",
+        "theta": "Angle out, from the way back to the lamp",
+        "ir": "Angle of incidence of the rainbow ray",
+        "lambda": "Wavelength",
+        "nd": "Refractive index for yellow light (the sodium line)",
+        "b": "How widely the colours fan out (Cauchy's coefficient)",
+        "lambda_d": "Wavelength of the sodium line, 589.3"
+      },
+      "sweet": {
+        "index": "The trick: the ring depends only on the material, not on the size of the bead. Water drops send the light back at 42°, glass of index 1.52 at 21° – half as far. That is why the glass-bead ring is half the size of the rainbow in the sky.",
+        "two": "The more strongly the material bends light, the smaller the ring. At index 2 it shrinks to nothing: then all the light near the centre comes straight back to where it came from.",
+        "own": "Because every bead sends the light back at the same angle, you see the ring in all the beads that lie at that angle from the shadow of your own head – a circle round it. Whoever stands next to you sees a different ring, round their own head."
+      },
+      "computed": {
+        "system": "The page follows each ray through the bead by the laws of refraction and reflection. For the picture of the wall it cuts the bead's face into 2000 rings of equal area and spreads each ring's light over the angles it comes back at – less what the surface lets through or reflects (Fresnel). The lamp is as large as the sun in the sky and blurs the ring by as much.",
+        "colours": "The colours: for 81 wavelengths from 380 to 780 nm, weighted by the eye's sensitivity to colour (CIE 1931) and converted into the screen's colours (sRGB). The lamp's white appears white, as the eye sees it; spectral colours that a screen cannot show appear somewhat paler.",
+        "check": "The page's tests hold the drawn ray to the law of refraction and to the formula θ = 4r − 2i, search for the rainbow angle blindly across the whole bead, and count the light sent back by Simpson's rule: of the light meeting a glass bead, 5.5 % comes back after one reflection, 24 % of that in the last degree before the rainbow angle. The computing happens in your browser, with the same formulas as the site's engine.",
+        "left_out": "Left out: the size of the beads (in very small beads the light's waves widen the ring and add faint rings inside it); light reflected twice or more inside (a second, fainter ring, for glass far out of sight) or not at all (the beads' white sheen); the wall behind the beads. Assumed: soda-lime glass of refractive index 1.52."
       }
     }
   },

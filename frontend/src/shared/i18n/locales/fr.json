@@ -124,6 +124,7 @@
       "equilibrium": "Équilibre",
       "flow": "Écoulement",
       "induction": "Induction",
+      "light": "Lumière",
       "perception": "Perception"
     },
     "frame": {
@@ -321,6 +322,12 @@
         "title": "Le ludion",
         "summary": "Un petit tube de verre avec une bulle d’air flotte dans une bouteille. On presse la bouteille, il coule – et il existe une seule profondeur où il resterait en suspens.",
         "question": "Pourquoi le ludion coule-t-il quand on presse la bouteille, et pourquoi ne reste-t-il jamais au milieu ?"
+      },
+      "rainbow": {
+        "short": "Arc-en-ciel de billes de verre",
+        "title": "L’arc-en-ciel des billes de verre",
+        "summary": "Un mur couvert de minuscules billes de verre, éclairé par une lampe à côté de votre tête : autour de l’ombre de votre tête apparaît un anneau coloré – deux fois plus petit que l’arc-en-ciel dans le ciel.",
+        "question": "Pourquoi un anneau coloré brille-t-il autour de l’ombre de la tête, et pourquoi est-il plus petit que l’arc-en-ciel dans le ciel ?"
       }
     },
     "chair": {
@@ -2905,6 +2912,93 @@
         "system": "La page calcule le mouvement pas à pas, toutes les 2 ms (Runge-Kutta), avec la pression de la main telle qu’elle est à cet instant. À la surface le ludion flotte ; au fond, il repose.",
         "check": "Les tests de la page confrontent la bulle à la loi de Boyle-Mariotte, montrent que la poussée s’annule exactement à la profondeur d’équilibre, soulève au-dessus et tire en dessous, et confrontent les pas à la même équation calculée vingt fois plus fin. Le calcul se fait dans votre navigateur, avec les mêmes formules que le moteur de calcul de la page.",
         "left_out": "Laissé de côté : que l’eau doit d’abord entrer dans le tube avant que la bulle rétrécisse (ici elle suit la pression aussitôt) ; que l’eau et la bouteille cèdent un peu ; l’air du goulot, dont la pression est ici directement celle de la main ; que le ludion dépasse un peu de l’eau en surface ; la température. Les valeurs sont un ludion supposé : 3 g de verre (1,2 cm³) et 2 cm³ d’air, dans une bouteille de 30 cm."
+      }
+    },
+    "rainbow": {
+      "at": {
+        "wall": "Un mur est recouvert de minuscules billes de verre, chacune plus petite qu’un millimètre. Une lampe à côté de votre tête l’éclaire.",
+        "ring": "Autour de l’ombre de votre tête brille un anneau coloré : rouge à l’extérieur, bleu à l’intérieur, et à l’intérieur de l’anneau le mur est plus clair qu’à l’extérieur.",
+        "smaller": "C’est un arc-en-ciel – mais deux fois plus petit que celui du ciel. Et la personne à côté de vous voit un autre anneau, autour de sa propre tête."
+      },
+      "bead_view": "Une bille de verre avec la lumière de la lampe venant de la gauche, un éventail de rayons et le rayon choisi",
+      "wall_view": "Le mur de billes de verre avec l’anneau coloré autour de l’ombre de la tête",
+      "play": {
+        "title": "Envoyer un rayon dans la bille",
+        "hint": "Choisissez où le rayon touche la bille et voyez sous quel angle il revient.",
+        "lamp": "Lumière de la lampe →",
+        "to_bow": "Vers le rayon de l’arc-en-ciel",
+        "impact": "Point d’impact",
+        "impact_hint": "À quelle distance du centre de la bille le rayon la touche, en pour cent de son rayon.",
+        "bead_caption": "Une bille, fortement agrandie. En tirets, le rayon de l’arc-en-ciel ; θ est l’angle entre le rayon sortant et le chemin de retour vers la lampe.",
+        "wall_caption": "Le mur tel que vous le voyez ; au milieu l’ombre de votre tête, le nombre est le rayon de l’anneau. Les couleurs à l’écran ne sont qu’approchées.",
+        "at_bow": "C’est le rayon de l’arc-en-ciel : lui et ses voisins reviennent presque sous le même angle – c’est là que l’anneau est lumineux.",
+        "inside": "Ce rayon revient sous {{angle}}°, à l’intérieur de l’anneau situé à {{bow}}°.",
+        "across": "Ce rayon croise le chemin de retour vers la lampe et revient de l’autre côté sous {{angle}}°, lui aussi à l’intérieur de l’anneau.",
+        "split": "Séparer les couleurs",
+        "split_hint": "Montre le rayon en sept couleurs, du violet au rouge.",
+        "incidence": "Angle d’incidence",
+        "refraction": "Angle de réfraction",
+        "leaves": "Angle de sortie θ",
+        "bow": "Angle de l’arc-en-ciel"
+      },
+      "change": {
+        "title": "Changer le matériau",
+        "hint": "Choisissez le verre ou l’eau et modifiez l’indice de réfraction.",
+        "kind": "Matériau",
+        "kinds": {
+          "water": "Goutte d’eau",
+          "glass": "Bille de verre"
+        },
+        "index": "Indice de réfraction",
+        "index_hint": "À quel point le matériau dévie la lumière, pour la lumière jaune. L’étalement des couleurs reste celui du matériau."
+      },
+      "figures": {
+        "angle": "Angle de l’arc-en-ciel (jaune)",
+        "red": "Bord rouge (700 nm)",
+        "violet": "Bord violet (400 nm)",
+        "width": "Largeur de l’anneau",
+        "impact": "Point d’impact du rayon de l’arc-en-ciel",
+        "reflected": "Lumière revenue après une réflexion",
+        "near": "Dont dans le dernier degré avant l’angle de l’arc-en-ciel"
+      },
+      "chart": {
+        "exit_hint": "L’angle de sortie selon le point d’impact, pour la lumière violette et rouge. Là où la courbe est plate en haut, beaucoup de rayons reviennent presque sous le même angle : l’anneau.",
+        "violet": "Violet (400 nm)",
+        "red": "Rouge (700 nm)",
+        "leaves": "Angle de sortie",
+        "impact": "Point d’impact",
+        "angle_hint": "L’angle de l’arc-en-ciel selon l’indice de réfraction.",
+        "angle": "Angle de l’arc-en-ciel",
+        "index": "Indice de réfraction"
+      },
+      "model": {
+        "intro": "Un rayon de lumière entre dans la bille, se réfléchit une fois sur sa face arrière et ressort – en direction de la lampe, mais décalé d’un angle.",
+        "snell": "À l’entrée et à la sortie, le rayon est réfracté (loi de Snell-Descartes).",
+        "leaves": "L’angle entre le rayon sortant et le chemin de retour vers la lampe. Un rayon au centre de la bille revient exactement.",
+        "bow": "Le plus grand angle de sortie, l’angle de l’arc-en-ciel : là, θ ne change presque pas quand le rayon touche un peu plus loin du centre, et beaucoup de rayons reviennent ensemble. Il ne dépend que de l’indice de réfraction.",
+        "dispersion": "La lumière bleue est un peu plus réfractée que la rouge (Cauchy). Chaque couleur a donc son propre anneau ; celui du rouge est le plus grand."
+      },
+      "symbols": {
+        "i": "Angle d’incidence",
+        "r": "Angle de réfraction",
+        "n": "Indice de réfraction",
+        "theta": "Angle de sortie, par rapport au chemin de retour vers la lampe",
+        "ir": "Angle d’incidence du rayon de l’arc-en-ciel",
+        "lambda": "Longueur d’onde",
+        "nd": "Indice de réfraction pour la lumière jaune (raie du sodium)",
+        "b": "Étalement des couleurs (coefficient de Cauchy)",
+        "lambda_d": "Longueur d’onde de la raie du sodium, 589,3"
+      },
+      "sweet": {
+        "index": "L’astuce : l’anneau ne dépend que du matériau, pas de la taille de la bille. Les gouttes d’eau renvoient la lumière sous 42°, le verre d’indice 1,52 sous 21° – deux fois moins loin. C’est pourquoi l’anneau des billes de verre est deux fois plus petit que l’arc-en-ciel dans le ciel.",
+        "two": "Plus le matériau réfracte, plus l’anneau est petit. À l’indice 2, il se réduit à rien : toute la lumière proche du centre revient alors exactement d’où elle vient.",
+        "own": "Comme chaque bille renvoie la lumière sous le même angle, on voit l’anneau dans toutes les billes situées à cet angle de l’ombre de sa propre tête – un cercle autour d’elle. La personne à côté de vous voit un autre anneau, autour de sa propre tête."
+      },
+      "computed": {
+        "system": "La page suit chaque rayon dans la bille avec les lois de la réfraction et de la réflexion. Pour l’image du mur, elle découpe la face de la bille en 2000 anneaux de même surface et répartit la lumière de chacun sur les angles sous lesquels elle revient – moins ce que la surface laisse passer ou réfléchit (Fresnel). La lampe est aussi grande que le soleil dans le ciel et estompe l’anneau d’autant.",
+        "colours": "Les couleurs : pour 81 longueurs d’onde de 380 à 780 nm, pondérées par la sensibilité de l’œil aux couleurs (CIE 1931) et converties dans les couleurs de l’écran (sRGB). Le blanc de la lampe apparaît blanc, comme l’œil le voit ; les couleurs spectrales qu’un écran ne peut pas montrer apparaissent un peu plus pâles.",
+        "check": "Les tests de la page confrontent le rayon dessiné à la loi de la réfraction et à la formule θ = 4r − 2i, cherchent l’angle de l’arc-en-ciel à l’aveugle sur toute la bille et recomptent la lumière renvoyée avec la règle de Simpson : de la lumière qui touche une bille de verre, 5,5 % revient après une réflexion, dont 24 % dans le dernier degré avant l’angle de l’arc-en-ciel. Le calcul se fait dans votre navigateur, avec les mêmes formules que le moteur de calcul de la page.",
+        "left_out": "Laissé de côté : la taille des billes (dans de très petites billes, les ondes lumineuses élargissent l’anneau et ajoutent de faibles anneaux à l’intérieur) ; la lumière réfléchie deux fois ou plus à l’intérieur (un second anneau, plus faible, pour le verre loin hors de vue) ou pas du tout (l’éclat blanc des billes) ; le mur derrière les billes. On suppose un verre sodocalcique d’indice 1,52."
       }
     }
   },

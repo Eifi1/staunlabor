@@ -38,6 +38,7 @@ import {
   Volleyball,
   Layers,
   TestTube,
+  Rainbow,
 } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
 import {
@@ -96,6 +97,7 @@ const ICON: Record<Exhibit, LucideIcon> = {
   bounce: Volleyball,
   overhang: Layers,
   diver: TestTube,
+  rainbow: Rainbow,
 };
 
 /** Two weeks back, in the dialog: long enough to find the one a friend

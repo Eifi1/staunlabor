@@ -53,6 +53,7 @@ import { PlatesPage } from "./plates-page";
 import { BouncePage } from "./bounce-page";
 import { OverhangPage } from "./overhang-page";
 import { DiverPage } from "./diver-page";
+import { RainbowPage } from "./rainbow-page";
 import { ChladniPage } from "./chladni-page";
 import { ballState, pitEntries, positionAt, raceLayout, swingAt } from "./race-views";
 import { run as runPit } from "./simulate/pit";
@@ -1223,5 +1224,34 @@ describe("the Cartesian diver", () => {
     expect(screen.getByText("10.9")).toBeInTheDocument();
     fireEvent.change(screen.getByRole("slider", { name: E.diver.change.air }), { target: { value: "2.2" } });
     expect(await screen.findByText("22.1")).toBeInTheDocument();
+  });
+});
+
+describe("the glass-bead rainbow", () => {
+  it("sends a ray through the bead, to the rainbow ray, across the way back and in colours", async () => {
+    renderWithProviders(<RainbowPage />);
+    expect(await screen.findByRole("img", { name: E.rainbow.bead_view })).toBeInTheDocument();
+    expect(screen.getByRole("img", { name: E.rainbow.wall_view })).toBeInTheDocument();
+    // Halfway out on a glass bead the ray leaves at 4r - 2i = 16.8°, inside the ring at 21.1°.
+    expect(
+      screen.getByText(E.rainbow.play.inside.replace("{{angle}}", "16.8").replace("{{bow}}", "21.1")),
+    ).toBeInTheDocument();
+    fireEvent.click(screen.getByRole("button", { name: E.rainbow.play.to_bow }));
+    expect(screen.getByText(E.rainbow.play.at_bow)).toBeInTheDocument();
+    fireEvent.change(screen.getByRole("slider", { name: E.rainbow.play.impact }), { target: { value: "99" } });
+    expect(screen.getByText(new RegExp(E.rainbow.play.across.split("{{angle}}")[0]))).toBeInTheDocument();
+    fireEvent.click(screen.getByRole("switch", { name: E.rainbow.play.split }));
+    expect(screen.getByRole("switch", { name: E.rainbow.play.split })).toBeChecked();
+    expect(screen.getAllByLabelText(E.equation.symbols).length).toBeGreaterThanOrEqual(4);
+  });
+
+  it("rings at 21.1° for glass and 42.1° for a water drop", async () => {
+    renderWithProviders(<RainbowPage />);
+    await screen.findByRole("img", { name: E.rainbow.bead_view });
+    expect(screen.getAllByText("21.1").length).toBeGreaterThanOrEqual(2);
+    const kind = screen.getByRole("radiogroup", { name: E.rainbow.change.kind });
+    fireEvent.click(within(kind).getByRole("radio", { name: E.rainbow.change.kinds.water }));
+    expect((await screen.findAllByText("42.1")).length).toBeGreaterThanOrEqual(2);
+    expect(screen.getByText("1.90")).toBeInTheDocument();
   });
 });

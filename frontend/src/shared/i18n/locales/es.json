@@ -124,6 +124,7 @@
       "equilibrium": "Equilibrio",
       "flow": "Fluidos",
       "induction": "Inducción",
+      "light": "Luz",
       "perception": "Percepción"
     },
     "frame": {
@@ -321,6 +322,12 @@
         "title": "El ludión",
         "summary": "Un tubito de vidrio con una burbuja de aire flota en una botella. Al apretar la botella se hunde, y hay exactamente una profundidad en la que flotaría quieto.",
         "question": "¿Por qué se hunde el ludión al apretar la botella, y por qué nunca se queda en medio?"
+      },
+      "rainbow": {
+        "short": "Arcoíris de perlas de vidrio",
+        "title": "El arcoíris de perlas de vidrio",
+        "summary": "Una pared cubierta de diminutas perlas de vidrio, iluminada por una lámpara junto a su cabeza: alrededor de la sombra de su cabeza aparece un anillo de colores, de la mitad del tamaño del arcoíris en el cielo.",
+        "question": "¿Por qué brilla un anillo de colores alrededor de la sombra de la cabeza, y por qué es más pequeño que el arcoíris en el cielo?"
       }
     },
     "chair": {
@@ -2905,6 +2912,93 @@
         "system": "La página calcula el movimiento paso a paso, cada 2 ms (Runge-Kutta), con la presión de la mano tal como es en ese momento. En la superficie el ludión flota; en el fondo, se queda.",
         "check": "Las pruebas de la página contrastan la burbuja con la ley de Boyle-Mariotte, muestran que el empuje se anula justo en la profundidad de equilibrio, que encima eleva y debajo hunde, y contrastan los pasos con la misma ecuación calculada veinte veces más fina. Se calcula en su navegador, con las mismas fórmulas que el motor de cálculo de la página.",
         "left_out": "Se omite: que el agua tiene que entrar primero en el tubito antes de que la burbuja se encoja (aquí sigue a la presión al instante); que el agua y la botella ceden un poco; el aire del cuello de la botella, cuya presión es aquí directamente la de la mano; que en la superficie el ludión sobresale un poco; la temperatura. Los valores son un ludión supuesto: 3 g de vidrio (1,2 cm³) y 2 cm³ de aire, en una botella de 30 cm."
+      }
+    },
+    "rainbow": {
+      "at": {
+        "wall": "Una pared está recubierta de diminutas perlas de vidrio, cada una de menos de un milímetro. Una lámpara junto a su cabeza la ilumina.",
+        "ring": "Alrededor de la sombra de su cabeza brilla un anillo de colores: rojo por fuera, azul por dentro, y dentro del anillo la pared está más clara que fuera.",
+        "smaller": "Es un arcoíris, pero solo de la mitad del tamaño del que se ve en el cielo. Y quien está a su lado ve otro anillo, alrededor de su propia cabeza."
+      },
+      "bead_view": "Una perla de vidrio con la luz de la lámpara desde la izquierda, un abanico de rayos y el rayo elegido",
+      "wall_view": "La pared de perlas de vidrio con el anillo de colores alrededor de la sombra de la cabeza",
+      "play": {
+        "title": "Enviar un rayo a través de la perla",
+        "hint": "Elija dónde el rayo toca la perla y vea con qué ángulo vuelve.",
+        "lamp": "Luz de la lámpara →",
+        "to_bow": "Al rayo del arcoíris",
+        "impact": "Punto de impacto",
+        "impact_hint": "A qué distancia del centro de la perla la toca el rayo, en porcentaje de su radio.",
+        "bead_caption": "Una perla, muy ampliada. A trazos, el rayo del arcoíris; θ es el ángulo entre el rayo que sale y el camino de vuelta a la lámpara.",
+        "wall_caption": "La pared tal como usted la ve; en el centro, la sombra de su cabeza; el número es el radio del anillo. Los colores en la pantalla son solo aproximados.",
+        "at_bow": "Este es el rayo del arcoíris: él y sus vecinos vuelven casi con el mismo ángulo; ahí el anillo es brillante.",
+        "inside": "Este rayo vuelve con {{angle}}°, dentro del anillo situado a {{bow}}°.",
+        "across": "Este rayo cruza el camino de vuelta a la lámpara y vuelve por el otro lado con {{angle}}°, también dentro del anillo.",
+        "split": "Separar los colores",
+        "split_hint": "Muestra el rayo en siete colores, del violeta al rojo.",
+        "incidence": "Ángulo de incidencia",
+        "refraction": "Ángulo de refracción",
+        "leaves": "Ángulo de salida θ",
+        "bow": "Ángulo del arcoíris"
+      },
+      "change": {
+        "title": "Cambiar el material",
+        "hint": "Elija vidrio o agua y cambie el índice de refracción.",
+        "kind": "Material",
+        "kinds": {
+          "water": "Gota de agua",
+          "glass": "Perla de vidrio"
+        },
+        "index": "Índice de refracción",
+        "index_hint": "Cuánto desvía el material la luz, para luz amarilla. Cuánto separa los colores sigue siendo propio del material."
+      },
+      "figures": {
+        "angle": "Ángulo del arcoíris (amarillo)",
+        "red": "Borde rojo (700 nm)",
+        "violet": "Borde violeta (400 nm)",
+        "width": "Anchura del anillo",
+        "impact": "Punto de impacto del rayo del arcoíris",
+        "reflected": "Luz devuelta tras una reflexión",
+        "near": "De ella, en el último grado antes del ángulo del arcoíris"
+      },
+      "chart": {
+        "exit_hint": "El ángulo de salida según el punto de impacto, para luz violeta y roja. Donde la curva es plana arriba, muchos rayos vuelven casi con el mismo ángulo: el anillo.",
+        "violet": "Violeta (400 nm)",
+        "red": "Rojo (700 nm)",
+        "leaves": "Ángulo de salida",
+        "impact": "Punto de impacto",
+        "angle_hint": "El ángulo del arcoíris según el índice de refracción.",
+        "angle": "Ángulo del arcoíris",
+        "index": "Índice de refracción"
+      },
+      "model": {
+        "intro": "Un rayo de luz entra en la perla, se refleja una vez en su parte trasera y vuelve a salir: de vuelta hacia la lámpara, pero desviado un ángulo.",
+        "snell": "Al entrar y al salir, el rayo se refracta (ley de Snell).",
+        "leaves": "El ángulo entre el rayo que sale y el camino de vuelta a la lámpara. Un rayo en el centro de la perla vuelve exactamente.",
+        "bow": "El mayor ángulo de salida, el ángulo del arcoíris: ahí θ apenas cambia cuando el rayo toca la perla un poco más afuera, y muchos rayos vuelven juntos. Solo depende del índice de refracción.",
+        "dispersion": "La luz azul se refracta un poco más que la roja (Cauchy). Por eso cada color tiene su propio anillo; el del rojo es el mayor."
+      },
+      "symbols": {
+        "i": "Ángulo de incidencia",
+        "r": "Ángulo de refracción",
+        "n": "Índice de refracción",
+        "theta": "Ángulo de salida, respecto al camino de vuelta a la lámpara",
+        "ir": "Ángulo de incidencia del rayo del arcoíris",
+        "lambda": "Longitud de onda",
+        "nd": "Índice de refracción para luz amarilla (línea del sodio)",
+        "b": "Separación de los colores (coeficiente de Cauchy)",
+        "lambda_d": "Longitud de onda de la línea del sodio, 589,3"
+      },
+      "sweet": {
+        "index": "El truco: el anillo solo depende del material, no del tamaño de la perla. Las gotas de agua devuelven la luz con 42°, el vidrio de índice 1,52 con 21°, la mitad. Por eso el anillo de las perlas de vidrio tiene la mitad del tamaño del arcoíris en el cielo.",
+        "two": "Cuanto más refracta el material, más pequeño es el anillo. Con índice 2 se reduce a nada: entonces toda la luz cerca del centro vuelve exactamente al lugar de donde vino.",
+        "own": "Como cada perla devuelve la luz con el mismo ángulo, se ve el anillo en todas las perlas que están a ese ángulo de la sombra de la propia cabeza: un círculo alrededor de ella. Quien está a su lado ve otro anillo, alrededor de su propia cabeza."
+      },
+      "computed": {
+        "system": "La página sigue cada rayo a través de la perla con las leyes de la refracción y de la reflexión. Para la imagen de la pared divide la cara de la perla en 2000 anillos de igual área y reparte la luz de cada uno entre los ángulos con los que vuelve, menos lo que la superficie deja pasar o refleja (Fresnel). La lámpara es tan grande como el sol en el cielo y difumina el anillo en la misma medida.",
+        "colours": "Los colores: para 81 longitudes de onda de 380 a 780 nm, ponderadas con la sensibilidad del ojo al color (CIE 1931) y convertidas a los colores de la pantalla (sRGB). El blanco de la lámpara aparece blanco, como lo ve el ojo; los colores espectrales que una pantalla no puede mostrar aparecen algo más pálidos.",
+        "check": "Las pruebas de la página contrastan el rayo dibujado con la ley de la refracción y con la fórmula θ = 4r − 2i, buscan el ángulo del arcoíris a ciegas en toda la perla y recuentan la luz devuelta con la regla de Simpson: de la luz que toca una perla de vidrio, el 5,5 % vuelve tras una reflexión, y el 24 % de ella en el último grado antes del ángulo del arcoíris. Se calcula en su navegador, con las mismas fórmulas que el motor de cálculo de la página.",
+        "left_out": "Se omite: el tamaño de las perlas (en perlas muy pequeñas las ondas de luz ensanchan el anillo y añaden anillos débiles por dentro); la luz que se refleja dentro dos o más veces (un segundo anillo, más débil, en el vidrio muy fuera de la vista) o ninguna (el brillo blanco de las perlas); la pared detrás de las perlas. Se supone vidrio sodocálcico de índice 1,52."
       }
     }
   },

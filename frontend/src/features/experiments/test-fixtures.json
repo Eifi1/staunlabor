@@ -322,6 +322,16 @@
       },
       "depth_m": 0.3
     },
+    "rainbow": {
+      "glass": {
+        "index": 1.52,
+        "dispersion_nm2": 4200.0
+      },
+      "water": {
+        "index": 1.333,
+        "dispersion_nm2": 3140.0
+      }
+    },
     "chladni": {
       "side_m": 0.24,
       "thickness_m": 0.001,
