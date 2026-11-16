@@ -25,6 +25,16 @@
 }
 
 :{$PORT} {
+	# www.staunlabor.app reaches this service through a second domain mapping
+	# (README §3) and is sent on to the bare domain, path and query kept. The
+	# site has one origin: the passkeys' RP id, the backend's allowed origin
+	# and the address people share are all staunlabor.app, and a sign-in or a
+	# passkey on www would be refused. Here and not at Cloudflare, whose
+	# redirect would need a proxied record: the privacy policy says no web
+	# traffic passes through Cloudflare's network.
+	@www host www.staunlabor.app
+	redir @www https://staunlabor.app{uri} permanent
+
 	encode zstd gzip
 
 	header {
@@ -83,9 +93,15 @@
 			}
 
 			# A single-page app: an unknown path is a client route, and the
-			# shell names the hashed bundles, so it is always re-fetched.
-			try_files {path} /index.html
-			header /index.html Cache-Control "no-cache"
+			# shell names the hashed bundles, so it is always re-fetched. An
+			# exhibit's route has its own copy of the shell, `/sky` → sky.html,
+			# the same page with the exhibit's link-preview tags in its head
+			# (frontend/link-pages.ts): WhatsApp and the rest read those from the
+			# HTML and run no script. Every copy is a shell, so every .html goes
+			# out with `no-cache`.
+			try_files {path} {path}.html /index.html
+			@shell path *.html
+			header @shell Cache-Control "no-cache"
 			file_server
 		}
 	}

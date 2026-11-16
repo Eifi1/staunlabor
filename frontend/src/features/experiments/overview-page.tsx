@@ -64,6 +64,7 @@ import { PAGE_SHELL } from "@/shared/ui/page-shell";
 import { UncheckedNotice } from "./unchecked-notice";
 import { dailyExhibit, dailyHistory, dayIn, type DailyPick } from "./daily";
 import { ExhibitPreview } from "./exhibit-preview";
+import { FittedPreview } from "./fitted-preview";
 import { lessonPath } from "./exhibit-frame";
 import { EXHIBITS, TOPICS, exhibitEntry, type Exhibit, type ExhibitEntry, type Topic } from "./exhibits";
 import { useTried } from "./tried";
@@ -310,11 +311,37 @@ function AllExhibits({ daily }: { daily: Exhibit }) {
   );
 }
 
+/** How tall a card's drawing is: one height for the row, the upright ones
+ *  (the elephant, the diver) scaled down to it rather than making their card
+ *  the longest in the grid. */
+const CARD_PREVIEW_HEIGHT = 200;
+
+/** An exhibit in the list: its drawing, held still and playing while the card
+ *  is pointed at or something in it has the focus, as the history's cards do;
+ *  then what it is and the way in. A preview mounts only once it scrolls near
+ *  (`ExhibitPreview`), so the list costs nothing below the fold. */
 function ExhibitCard({ entry, today, tried }: { entry: ExhibitEntry; today: boolean; tried: boolean }) {
   const { t } = useTranslation();
   const Icon = ICON[entry.exhibit];
+  const [live, setLive] = useState(false);
   return (
-    <Card padding="md" density="compact" className="flex flex-col gap-3">
+    <Card
+      padding="md"
+      density="compact"
+      className="flex flex-col gap-3"
+      onPointerEnter={() => setLive(true)}
+      onPointerLeave={() => setLive(false)}
+      onFocus={() => setLive(true)}
+      onBlur={() => setLive(false)}
+    >
+      {entry.path && (
+        <FittedPreview
+          exhibit={entry.exhibit}
+          still={!live}
+          height={CARD_PREVIEW_HEIGHT}
+          box="rounded-lg bg-surface-2"
+        />
+      )}
       <CardHeader>
         <div className="flex items-start gap-2">
           <Icon className="mt-0.5 size-5 shrink-0 text-brand" aria-hidden />

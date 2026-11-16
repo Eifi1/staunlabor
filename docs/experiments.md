@@ -67,7 +67,14 @@ einige Experimente". Top to bottom (`overview-page.tsx`):
   device" and a "Forget", and on each card its topics, a
   tick once tried, "Today" on the day's, and "Builds on:" with links to the
   course's lessons at kurvenschmiede.app — the list the page's "How it is computed" links to, kept
-  in `exhibits.ts` beside the topics since both read it.
+  in `exhibits.ts` beside the topics since both read it. Since 2026-11-16
+  each built exhibit's card opens with its drawing (Marcel: the pictures
+  under the experiment of the day): its preview held still, playing while the
+  card is pointed at or has the focus, as the history's cards do, and fitted to
+  one height (`fitted-preview.tsx`), so the upright ones do not make their row
+  the longest. The live preview and not the link-preview picture: it draws in
+  the reader's language and appearance, and its code is about 5 kB a page
+  against 20–80 kB a picture; it mounts only once it scrolls near.
 
 **The pick: random, with a memory** (`daily.ts`; Marcel chose it over a fixed
 rotation and over an admin's choice). From the epoch, 2026-11-12, the days are
@@ -1977,6 +1984,36 @@ its end, solved by bisection in the test; the sum against the mean tone times
 the beating envelope, and ten silences in four seconds at 2.5 beats; a rider
 at the stem or of no mass in tune, the pitch falling along the prong; the
 refusals.
+
+## The link previews
+
+A link to the site or to an exhibit, shared in WhatsApp, Signal, Mastodon or
+the like, shows a picture with it (Marcel, 2026-11-16: one per exhibit). Those
+readers take the title, the text and the picture from the HTML as it is sent
+and run no script, so each exhibit's route has its own copy of the page:
+
+* **The pictures**, `frontend/public/previews/<exhibit>.jpg` and
+  `overview.jpg`, 1200 × 630 (Open Graph's large card), JPEG under 300 kB so
+  WhatsApp shows them large. Each is a card (`preview-card.tsx`) with the
+  exhibit's own preview, the overview's still, beside its title, its question
+  and its address; the overview's card has the site's line beside four
+  previews. The still is the page's preview mode, played for a moment and held,
+  so the picture cannot drift from the exhibit; a tall one is scaled down to
+  fit. `scripts/write-previews.mjs` photographs the cards in a headless
+  Chromium (Playwright) from a dev server of its own, and the pictures are
+  committed: a deploy never needs a browser. Run it after a new exhibit or a
+  changed drawing; `link-pages.test.ts` fails while an exhibit has no picture,
+  or one of the wrong size or weight.
+* **The pages**, written by the build (`frontend/link-pages.ts`, the plugin in
+  `vite.config.ts`): the built `index.html` once per exhibit, `dist/sky.html`
+  and so on, with the exhibit's title, summary, address and picture in place
+  of the overview's tags and nothing else changed. Caddy serves `/sky` from
+  `sky.html` and falls back to `index.html` for every other route
+  (`deploy/Caddyfile`).
+
+German only: a link preview's request names no language, and de-CH is the
+site's fallback. The pictures cost nothing to serve to speak of: a few
+megabytes in the web image, fetched when a link is shared.
 
 ## The notice: the check still to come
 

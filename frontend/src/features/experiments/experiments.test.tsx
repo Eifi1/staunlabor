@@ -122,6 +122,19 @@ describe("the overview", () => {
     expect(screen.getByText(E.overview.credit)).toBeInTheDocument();
   });
 
+  it("shows every built exhibit in the list with its own drawing, held still until the card is pointed at", async () => {
+    await renderOverview();
+    for (const entry of EXHIBITS.filter((e) => e.path)) {
+      const heading = screen.getByRole("heading", { level: 3, name: E.exhibits[entry.exhibit].title });
+      const drawing = document.querySelector(`[data-still="${entry.exhibit}"]`);
+      expect(drawing?.querySelector("svg, canvas"), entry.exhibit).not.toBeNull();
+      // In the exhibit's own card: the smallest box holding both holds no other title.
+      let card = heading.parentElement;
+      while (card && !card.contains(drawing)) card = card.parentElement;
+      expect(card?.querySelectorAll("h3"), entry.exhibit).toHaveLength(1);
+    }
+  });
+
   it("shows the day's exhibit with its question, and the days before it only when asked", async () => {
     const view = await renderOverview();
     const today = dailyExhibit(DAY);

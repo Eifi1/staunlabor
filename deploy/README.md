@@ -119,11 +119,27 @@ Once, after the first deploy:
    privacy policy also says web traffic does not pass through Cloudflare.
    `.app` is HSTS-preloaded, so nothing works over plain HTTP even while the
    certificate is pending (a few minutes to an hour).
+4. **www**, sent on to the bare domain (missing until 2026-11-16: the name did
+   not resolve at all). A second mapping of the same service,
+
+   ```bash
+   gcloud beta run domain-mappings create --project=staunlabor \
+     --service=staunlabor-web --domain=www.staunlabor.app --region=europe-west4
+   ```
+
+   and at Cloudflare a **CNAME** `www` → `ghs.googlehosted.com`, **DNS only**
+   as well. The Caddyfile answers every request for www with a 301 to
+   `https://staunlabor.app`, path and query kept: the site has one origin (the
+   passkeys' RP id and the backend's allowed origin are the bare domain). Not a
+   Cloudflare redirect rule, which needs a proxied record and so would send the
+   traffic through Cloudflare. Check:
+   `curl -sI https://www.staunlabor.app/sky?x=1` → `301`, `location: https://staunlabor.app/sky?x=1`.
 
 ## 4. Verify
 
 ```bash
 curl -s https://staunlabor.app/api/v1/health      # {"status":"ok","version":"…"}
+curl -s https://staunlabor.app/sky | grep og:image  # the exhibit's own picture (link-pages.ts)
 ```
 
 **The caller's address.** The request budget (90 computations per ten seconds per
@@ -323,7 +339,7 @@ gcloud logging read 'resource.labels.service_name="staunlabor-backend" AND textP
 | `cloudbuild.yaml` | The pipeline: two images, the migrations, the backend, the web service |
 | `Dockerfile.backend` | Python 3.14 with the locked environment and the migrations, uvicorn on :8080, not root |
 | `Dockerfile.web` | The site built with Node, then served by Caddy |
-| `Caddyfile` | The site, `/api` proxied, caching and the headers |
+| `Caddyfile` | The site, `/api` proxied, the exhibits' link-preview pages, caching and the headers |
 | `setup-gcp.sh` | §1, the one-time setup |
 | `setup-accounts.sh` | §6, what the account layer needs of GCP |
 | `apply-roles.sh`, `roles.sql` | §6, the database and its two roles on the shared instance |
