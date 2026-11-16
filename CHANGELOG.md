@@ -2,6 +2,13 @@
 
 All notable changes to Staunlabor are documented in this file, generated from the commit messages by commit-and-tag-version at each release.
 
+## [0.1.7](https://github.com/Eifi1/staunlabor/compare/v0.1.6...v0.1.7) (2026-11-16)
+
+### Fixed
+
+* **deploy:** the backend's env list split on a pipe, not on the @ every address holds ([ccc0d24](https://github.com/Eifi1/staunlabor/commit/ccc0d24c83d494b084bc5156277f60a55fc1326d))
+* **deploy:** the backend's env list split on a pipe, not on the @ every address holds ([#2](https://github.com/Eifi1/staunlabor/issues/2)) ([cbfcb64](https://github.com/Eifi1/staunlabor/commit/cbfcb6411721dd9faeb20e008964b4156ff28805))
+
 ## [0.1.6](https://github.com/Eifi1/staunlabor/compare/v0.1.5...v0.1.6) (2026-11-16)
 
 ### Added
