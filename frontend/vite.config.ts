@@ -1,8 +1,12 @@
 import { defineConfig } from "vitest/config";
+import type { Plugin } from "vite";
 import react from "@vitejs/plugin-react";
 import tailwindcss from "@tailwindcss/vite";
 import path from "node:path";
-import { readFileSync } from "node:fs";
+import { readFileSync, writeFileSync } from "node:fs";
+import { EXHIBITS } from "./src/features/experiments/exhibits";
+import de from "./src/shared/i18n/locales/de-CH.json";
+import { exhibitPages, linkPages } from "./link-pages";
 
 /** The dev server's port and the API's: off the sibling apps' (Keksdose's
  *  5174/8000, Kurvenschmiede's 5175/8001), so all of them can run at once. */
@@ -13,6 +17,26 @@ const API_TARGET = "http://localhost:8002";
 const APP_VERSION = (JSON.parse(readFileSync(path.resolve(__dirname, "package.json"), "utf8")) as { version: string })
   .version;
 
+/** One page per exhibit for the link previews (`link-pages.ts`), written beside
+ *  the built index.html once the bundle is on disk: the page each one copies
+ *  must name the bundle's hashed files. */
+function linkPagesPlugin(): Plugin {
+  let outDir = "";
+  return {
+    name: "staunlabor:link-pages",
+    apply: "build",
+    configResolved(config) {
+      outDir = path.resolve(config.root, config.build.outDir);
+    },
+    closeBundle() {
+      const index = readFileSync(path.join(outDir, "index.html"), "utf8");
+      for (const page of linkPages(index, exhibitPages(EXHIBITS, de.experiments.exhibits))) {
+        writeFileSync(path.join(outDir, page.file), page.html);
+      }
+    },
+  };
+}
+
 export default defineConfig({
   define: { __APP_VERSION__: JSON.stringify(APP_VERSION) },
   resolve: {
@@ -21,7 +45,7 @@ export default defineConfig({
     // "invalid hook call" with nothing naming the cause.
     dedupe: ["react", "react-dom", "zustand", "recharts", "sonner", "react-router"],
   },
-  plugins: [react(), tailwindcss()],
+  plugins: [react(), tailwindcss(), linkPagesPlugin()],
   build: {
     rollupOptions: {
       output: {
@@ -66,7 +90,9 @@ export default defineConfig({
       provider: "v8",
       reporter: ["text-summary", "html"],
       include: ["src/**"],
-      exclude: ["src/test/**", "src/**/*.test.*", "src/main.tsx", "src/vite-env.d.ts"],
+      // preview-card.tsx is, like main.tsx, an entry that only mounts: the
+      // dev-only page scripts/write-previews.mjs photographs.
+      exclude: ["src/test/**", "src/**/*.test.*", "src/main.tsx", "src/preview-card.tsx", "src/vite-env.d.ts"],
       // A point under what the suite measured on 2026-11-13 (86.0 / 76.9 /
       // 78.2 / 87.3): the animations' branches are covered a tenth or two
       // differently from run to run, and a floor at the measure failed CI's

@@ -15,7 +15,16 @@
     "module": "ESNext",
     "moduleResolution": "bundler",
     "allowSyntheticDefaultImports": true,
+    "resolveJsonModule": true,
     "strict": true
   },
-  "include": ["vite.config.ts"]
+  // The config's own imports too: a composite project must list every file it
+  // compiles, and the link pages' plugin reads the exhibits and their German
+  // texts (link-pages.ts).
+  "include": [
+    "vite.config.ts",
+    "link-pages.ts",
+    "src/features/experiments/exhibits.ts",
+    "src/shared/i18n/locales/de-CH.json"
+  ]
 }
