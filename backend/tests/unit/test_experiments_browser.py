@@ -133,6 +133,7 @@ def test_the_cases_cross_every_branch_a_page_can_reach(stored: Any):
     assert any(min(c["rgb"]) < 0 for c in shown) and any(max(c["rgb"]) > 1 for c in shown), "below and above"
     downs = stored["sky"]["down"]
     assert any(c["m"] == 1 for c in downs) and any(c["m"] != 1 for c in downs), "one air exactly, and more"
+    assert {c["ozone"] for c in stored["sky"]["sun"]} == {True, False}, "the sky with its ozone and without"
     pairs = stored["slits"]
     assert len({f["stripes"] for c in pairs for f in c["figures"]}) >= 3, "middle bands of several widths"
     tuned = [r["figures"]["beat_s"] for f in stored["beats"]["forks"] for r in f["riders"]]

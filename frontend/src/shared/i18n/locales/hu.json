@@ -3068,6 +3068,9 @@
         "hint": "Emelje vagy süllyessze a napot. A levegő ilyen zavaros cső: minél alacsonyabban áll a nap, annál hosszabb az útja a levegőn át.",
         "height": "A nap magassága",
         "height_hint": "Milyen magasan áll a nap a horizont felett.",
+        "ozone": "Ózonréteg",
+        "ozone_hint": "Főleg a narancssárga fényt nyeli el. Kapcsolja ki, hogy lássa az eget nélküle.",
+        "ozone_takes": "A narancsból (600 nm) az ózon elnyel",
         "caption": "Fent az ég közvetlenül Ön felett, olyan világosan, mint a zenitben álló nap melletti éghez képest, a saját színében; a nap a sajátjában, teljes fényerővel rajzolva. A színek csak közelítők.",
         "air_mass": "Út a levegőn át (légtömeg)",
         "brightness": "Napfény a talajon",
@@ -3079,7 +3082,9 @@
         "rayleigh": "A szórás a frekvencia negyedik hatványával nő (Rayleigh): a kék fény (450 nm) 4,4-szer erősebben szóródik, mint a piros (650 nm).",
         "beer": "Ami szóródik, az hiányzik a továbbhaladó fényből: a cső mentén exponenciálisan csökken, a kék a leggyorsabban (Beer–Lambert-törvény).",
         "side": "Oldalról azt látjuk, ami azon a helyen szóródik, levonva azt, ami a cső faláig vezető úton még elvész.",
-        "sky": "Az ég közvetlenül felettünk: napfény, amely minden magasságban egyszer szóródik, majd lejut a talajra. A nap m légtömegnyire alacsonyan áll."
+        "sky": "Az ég közvetlenül felettünk: napfény, amely minden magasságban egyszer szóródik, majd lejut a talajra. A nap m légtömegnyire alacsonyan áll.",
+        "ozone": "Az ózonréteg, mintegy 22 km magasan, nem szórja a fényt, hanem elnyeli – leginkább a narancssárgát (600 nm). Függőlegesen az optikai vastagsága ott csak 0,041, kevés a levegőéhez képest.",
+        "ozone_mass": "A napfény vékony héjként halad át rajta: m₃-szor annyi ózonon, mint függőlegesen, a horizonton 12-szer annyin – ott a narancs 39 %-át nyeli el. Mivel szinte az egész levegő felett fekszik, a lejjebb szórt égbolt fénye is ugyanezt a tényezőt hordozza."
       },
       "symbols": {
         "beta": "Szórási együttható",
@@ -3090,18 +3095,26 @@
         "x": "Hely a csőben",
         "a": "A cső szélességének fele",
         "tau": "A levegő optikai vastagsága függőlegesen (550 nm-en 0,097)",
-        "m": "Légtömeg: mennyi levegőn halad át a napfény, a függőleges úthoz képest"
+        "m": "Légtömeg: mennyi levegőn halad át a napfény, a függőleges úthoz képest",
+        "t3": "Amit az ózonréteg átenged a napfényből",
+        "sigma": "Egy ózonmolekula abszorpciós hatáskeresztmetszete, mérve (Serdyuchenko és mtsai, 2014)",
+        "n": "Ózonmolekulák a talaj minden négyzetcentimétere felett: 300 Dobson-egység",
+        "m3": "Ózon-légtömeg: mennyi ózonon halad át a napfény, a függőleges úthoz képest",
+        "r": "A Föld sugara",
+        "hh": "Az ózonréteg magassága (22 km)",
+        "h": "A nap magassága"
       },
       "sweet": {
         "same": "A trükk: a cső az ég kicsiben. A levegő molekulái jóval kisebbek a hullámhossznál, és a kéket 4,4-szer erősebben szórják, mint a pirosat. Bárhová nézünk a naptól távol, szórt fényt látunk – és az kék.",
-        "sunset": "Este a nap alacsonyan áll, és fénye 38-szor annyi levegőn halad át, mint a függőlegesen érkező fény. Útközben a kéket szinte teljesen elszórja: a napfénynek csak 4 %-a érkezik meg, és az narancssárga – mint a lámpa a cső végén.",
-        "not_violet": "Az ibolya még erősebben szóródik, mint a kék. Hogy az ég mégis kéknek és nem ibolyának látszik, az a napon múlik, amely kevesebb ibolyát bocsát ki, és a szemen, amely kevéssé érzékeny rá – az oldal színszámítása mindkettőt mutatja."
+        "sunset": "Este a nap alacsonyan áll, és fénye 38-szor annyi levegőn halad át, mint a függőlegesen érkező fény. Útközben a kéket szinte teljesen elszórja: a napfénynek csak 3 %-a érkezik meg (ózonréteg nélkül 4 %-a), és az narancssárga – mint a lámpa a cső végén.",
+        "not_violet": "Az ibolya még erősebben szóródik, mint a kék. Hogy az ég mégis kéknek és nem ibolyának látszik, az a napon múlik, amely kevesebb ibolyát bocsát ki, és a szemen, amely kevéssé érzékeny rá – az oldal színszámítása mindkettőt mutatja.",
+        "ozone": "És miért kék még napnyugtakor az ég Ön felett, ha a napfény útközben elvesztette a kékjét? Amit a levegő lefelé szór belőle, szinte fehér lenne. Ám ezen a hosszú, lapos úton az ózonréteg főleg a narancsot nyeli el, és a kék megmarad. Kapcsolja ki fent az ózont, és állítsa a napot a horizontra."
       },
       "computed": {
-        "system": "Az oldal 81 hullámhossz mindegyikére kiszámítja, mennyi fény marad a cső minden helyén, és abból mennyi szóródik oldalra. Az éghez a levegő optikai vastagságát veszi, 550 nm-en 0,097-et, és a Kasten–Young-féle légtömeget, a horizonton 37,9-et.",
+        "system": "Az oldal 81 hullámhossz mindegyikére kiszámítja, mennyi fény marad a cső minden helyén, és abból mennyi szóródik oldalra. Az éghez a levegő optikai vastagságát veszi, 550 nm-en 0,097-et, és a Kasten–Young-féle légtömeget, a horizonton 37,9-et. Az ózonhoz a mért hatáskeresztmetszetet veszi (Serdyuchenko és mtsai, 2014, 5 nm-enként átlagolva), 300 Dobson-egységet és egy vékony réteget 22 km magasan.",
         "colours": "A színek, mint az üveggyöngy-szivárványnál: a szem színérzékenységével súlyozva (CIE 1931), és a képernyő színeire átszámítva (sRGB). A lámpa fehérje – az égnél a nap fehérje a levegő felett – fehérnek látszik. Minden szín olyan világosnak van rajzolva, amennyire a képernyő engedi; hogy valójában mennyire világos, azt a számok mondják meg.",
         "check": "Az oldal tesztjei ellenőrzik, hogy az oldalra szórt és a végére érkező fény együtt pontosan a lámpa fényét adja (Simpson-szabály), és a felettünk lévő eget ugyanahhoz az összes magasságra vett összeghez tartják. A számítás az Ön böngészőjében fut, ugyanazokkal a képletekkel, mint az oldal számítómagja.",
-        "left_out": "Kimaradt: a többször szóródó fény (egy nagyon zavaros csövet és az eget a horizontnál fehérebbé tesz); a nagyobb részecskék, amelyek minden színt egyformán szórnak (ezért fehér a tej); a szórás iránya, amely csak a világosságot változtatja; az égnél az ózon, amely alkonyatkor kéken tartja az eget (nélküle itt a felettünk lévő ég este szinte fehér lesz), valamint a por és a pára, amelyek még vörösebbé teszik a naplementét. Feltételezve: 1 m hosszú, 6 cm átmérőjű cső."
+        "left_out": "Kimaradt: a többször szóródó fény (egy nagyon zavaros csövet és az eget a horizontnál fehérebbé tesz); a nagyobb részecskék, amelyek minden színt egyformán szórnak (ezért fehér a tej); a szórás iránya, amely csak a világosságot változtatja; az égnél a por és a pára, amelyek még vörösebbé teszik a naplementét, a horizont alatti nap (ekkor a felettünk lévő eget már csak magasan éri fény, még több ózonon át), és hogy mennyi ózon van – ez évszakonként és helyenként változik. Feltételezve: 1 m hosszú, 6 cm átmérőjű cső."
       }
     },
     "slits": {

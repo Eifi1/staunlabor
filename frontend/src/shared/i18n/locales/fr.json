@@ -3068,6 +3068,9 @@
         "hint": "Montez ou descendez le soleil. L’air est un tel tube trouble : plus le soleil est bas, plus son chemin à travers l’air est long.",
         "height": "Hauteur du soleil",
         "height_hint": "À quelle hauteur le soleil se trouve au-dessus de l’horizon.",
+        "ozone": "Couche d’ozone",
+        "ozone_hint": "Elle absorbe surtout la lumière orange. Désactivez-la pour voir le ciel sans elle.",
+        "ozone_takes": "De l’orange (600 nm), l’ozone absorbe",
         "caption": "En haut, le ciel juste au-dessus de vous, aussi clair que par rapport au ciel avec le soleil au zénith, et dans sa couleur ; le soleil dans la sienne, dessiné à pleine clarté. Les couleurs ne sont qu’approchées.",
         "air_mass": "Chemin à travers l’air (masses d’air)",
         "brightness": "Lumière du soleil au sol",
@@ -3079,7 +3082,9 @@
         "rayleigh": "La diffusion croît comme la puissance quatrième de la fréquence (Rayleigh) : la lumière bleue (450 nm) est diffusée 4,4 fois plus que la rouge (650 nm).",
         "beer": "Ce qui est diffusé manque à la lumière qui continue : elle décroît exponentiellement le long du tube, le bleu le plus vite (Beer-Lambert).",
         "side": "De côté, on voit ce qui est diffusé à cet endroit, moins ce qui se perd encore en chemin jusqu’à la paroi du tube.",
-        "sky": "Le ciel juste au-dessus de soi : la lumière du soleil diffusée une fois à chaque altitude, puis descendant jusqu’au sol. Le soleil est bas de m masses d’air."
+        "sky": "Le ciel juste au-dessus de soi : la lumière du soleil diffusée une fois à chaque altitude, puis descendant jusqu’au sol. Le soleil est bas de m masses d’air.",
+        "ozone": "La couche d’ozone, vers 22 km d’altitude, ne diffuse pas la lumière, elle l’absorbe – surtout l’orange (600 nm). À la verticale, son épaisseur optique n’y est que de 0,041, peu à côté de celle de l’air.",
+        "ozone_mass": "La lumière du soleil la traverse comme une coquille mince : m₃ fois autant d’ozone qu’à la verticale, 12 fois à l’horizon – où elle absorbe 39 % de l’orange. Comme elle se trouve au-dessus de presque tout l’air, la lumière du ciel, diffusée plus bas, porte le même facteur."
       },
       "symbols": {
         "beta": "Coefficient de diffusion",
@@ -3090,18 +3095,26 @@
         "x": "Position dans le tube",
         "a": "Demi-largeur du tube",
         "tau": "Épaisseur optique de l’air à la verticale (0,097 à 550 nm)",
-        "m": "Masse d’air : quantité d’air traversée par la lumière du soleil, rapportée au chemin vertical"
+        "m": "Masse d’air : quantité d’air traversée par la lumière du soleil, rapportée au chemin vertical",
+        "t3": "Ce que la couche d’ozone laisse passer de la lumière du soleil",
+        "sigma": "Section efficace d’absorption d’une molécule d’ozone, mesurée (Serdyuchenko et al. 2014)",
+        "n": "Molécules d’ozone au-dessus de chaque centimètre carré de sol : 300 unités Dobson",
+        "m3": "Masse d’ozone : quantité d’ozone traversée par la lumière du soleil, rapportée au chemin vertical",
+        "r": "Rayon de la Terre",
+        "hh": "Altitude de la couche d’ozone (22 km)",
+        "h": "Hauteur du soleil"
       },
       "sweet": {
         "same": "L’astuce : le tube est le ciel en petit. Les molécules de l’air sont bien plus petites que la longueur d’onde et diffusent le bleu 4,4 fois plus que le rouge. Où que l’on regarde à l’écart du soleil, on voit de la lumière diffusée – et elle est bleue.",
-        "sunset": "Le soir, le soleil est bas et sa lumière traverse 38 fois plus d’air que la lumière venant à la verticale. En chemin, le bleu lui est presque entièrement enlevé par diffusion : seulement 4 % de la lumière du soleil arrive, et elle est orange – comme la lampe au bout du tube.",
-        "not_violet": "Le violet est diffusé encore plus fortement que le bleu. Si le ciel paraît pourtant bleu et non violet, c’est que le soleil émet moins de violet et que l’œil y est peu sensible – le calcul des couleurs de la page montre les deux."
+        "sunset": "Le soir, le soleil est bas et sa lumière traverse 38 fois plus d’air que la lumière venant à la verticale. En chemin, le bleu lui est presque entièrement enlevé par diffusion : seulement 3 % de la lumière du soleil arrive (4 % sans la couche d’ozone), et elle est orange – comme la lampe au bout du tube.",
+        "not_violet": "Le violet est diffusé encore plus fortement que le bleu. Si le ciel paraît pourtant bleu et non violet, c’est que le soleil émet moins de violet et que l’œil y est peu sensible – le calcul des couleurs de la page montre les deux.",
+        "ozone": "Et pourquoi le ciel au-dessus de vous reste-t-il bleu au coucher du soleil, alors que la lumière du soleil a perdu son bleu en chemin ? Ce que l’air en diffuse vers le bas serait presque blanc. Mais sur ce long chemin rasant, la couche d’ozone absorbe surtout l’orange, et le bleu reste. Désactivez l’ozone ci-dessus et placez le soleil à l’horizon."
       },
       "computed": {
-        "system": "Pour chacune de 81 longueurs d’onde, la page calcule combien de lumière reste à chaque endroit du tube et combien en est diffusée sur le côté. Pour le ciel, elle prend l’épaisseur optique de l’air, 0,097 à 550 nm, et la masse d’air selon Kasten et Young, 37,9 à l’horizon.",
+        "system": "Pour chacune de 81 longueurs d’onde, la page calcule combien de lumière reste à chaque endroit du tube et combien en est diffusée sur le côté. Pour le ciel, elle prend l’épaisseur optique de l’air, 0,097 à 550 nm, et la masse d’air selon Kasten et Young, 37,9 à l’horizon. Pour l’ozone, elle prend la section efficace mesurée (Serdyuchenko et al. 2014, moyennée sur chaque 5 nm), 300 unités Dobson et une couche mince à 22 km d’altitude.",
         "colours": "Les couleurs comme pour l’arc-en-ciel des billes de verre : pondérées par la sensibilité de l’œil aux couleurs (CIE 1931) et converties dans les couleurs de l’écran (sRGB). Le blanc de la lampe – pour le ciel, celui du soleil au-dessus de l’air – apparaît blanc. Chaque couleur est dessinée aussi claire que l’écran le permet ; les chiffres disent sa clarté réelle.",
         "check": "Les tests de la page vérifient que la lumière diffusée sur le côté et celle qui arrive au bout donnent ensemble exactement la lumière de la lampe (règle de Simpson), et confrontent le ciel au-dessus de soi à la même somme sur toutes les altitudes. Le calcul se fait dans votre navigateur, avec les mêmes formules que le moteur de calcul de la page.",
-        "left_out": "Laissé de côté : la lumière diffusée plusieurs fois (elle rend un tube très trouble et le ciel à l’horizon plus blancs) ; les particules plus grosses, qui diffusent toutes les couleurs de la même façon (c’est pourquoi le lait est blanc) ; la direction de la diffusion, qui ne change que la clarté ; pour le ciel, l’ozone, qui garde le ciel bleu au crépuscule (sans lui, le ciel au-dessus de soi devient ici presque blanc le soir), ainsi que la poussière et la brume, qui rendent le coucher de soleil plus rouge encore. On suppose un tube de 1 m de long et de 6 cm de diamètre."
+        "left_out": "Laissé de côté : la lumière diffusée plusieurs fois (elle rend un tube très trouble et le ciel à l’horizon plus blancs) ; les particules plus grosses, qui diffusent toutes les couleurs de la même façon (c’est pourquoi le lait est blanc) ; la direction de la diffusion, qui ne change que la clarté ; pour le ciel, la poussière et la brume, qui rendent le coucher de soleil plus rouge encore, le soleil sous l’horizon (le ciel au-dessus de soi n’est alors éclairé que très haut, à travers plus d’ozone encore) et la quantité d’ozone, qui change avec la saison et le lieu. On suppose un tube de 1 m de long et de 6 cm de diamètre."
       }
     },
     "slits": {

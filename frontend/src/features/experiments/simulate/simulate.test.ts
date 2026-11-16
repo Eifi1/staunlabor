@@ -1159,7 +1159,7 @@ describe("the glass-bead rainbow's port", () => {
 });
 
 describe("the blue sky's port", () => {
-  it("scatters the lamp's light along the tube and the sun's through the air as the engine does", () => {
+  it("scatters the lamp's light along the tube and the sun's through the air and its ozone as the engine does", () => {
     const lamp = colour.lamp(sky.LAMP_K);
     const sun = colour.lamp(sky.SUN_K);
     for (const c of cases.sky.tubes) {
@@ -1179,18 +1179,23 @@ describe("the blue sky's port", () => {
     }
     for (const c of cases.sky.sun) {
       const h = c.height_deg;
+      const ozone = c.ozone;
       expect(
         differences(c, {
           height_deg: h,
+          ozone,
           air_mass: sky.airMass(h),
-          sun: sky.sunLight(h),
-          sun_hue: sky.hue(sun, sky.sunLight(h)),
-          sun_brightness: sky.brightness(sun, sky.sunLight(h)),
-          sky: sky.skyLight(h),
-          sky_hue: sky.hue(sun, sky.skyLight(h)),
+          ozone_light: sky.ozoneLight(h),
+          sun: sky.sunLight(h, ozone),
+          sun_hue: sky.hue(sun, sky.sunLight(h, ozone)),
+          sun_brightness: sky.brightness(sun, sky.sunLight(h, ozone)),
+          sky: sky.skyLight(h, ozone),
+          sky_hue: sky.hue(sun, sky.skyLight(h, ozone)),
         }),
       ).toEqual([]);
     }
+    // Without the argument, the sky has its ozone, as in the engine.
+    expect(sky.skyLight(0)).toEqual(sky.skyLight(0, true));
     for (const c of cases.sky.down) expect(differences(c.light, sky.scatteredDown(c.tau, c.m))).toEqual([]);
   });
 });

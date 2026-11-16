@@ -1799,17 +1799,29 @@ horizon), its light `S·e^{−m·τ}`; the sky straight overhead as sunlight
 scattered once at every height on its way down, `(e^{−τ} − e^{−m·τ})/(m − 1)`
 for an air whose density falls alike for every wavelength, written with
 `expm1` so that it holds at `m = 1` (`τ·e^{−τ}`). The sun a 5778 K glow above
-the air, taken as white.
+the air, taken as white. **Ozone** (added the same day, Marcel's "Ja" after a
+side agent found the sky overhead at sunset nearly white without it): the
+layer absorbs rather than scatters, most in the orange (the Chappuis band,
+strongest at 600 nm), `T₃ = e^{−m₃·σ(λ)·N}`. `σ` is measured, Serdyuchenko et
+al. (Atmos. Meas. Tech. 7, 2014) at 223 K, the layer's cold, from the MPI-Mainz
+UV/VIS Spectral Atlas, averaged over each 5 nm around the engine's 81
+wavelengths (`OZONE_CROSS_SECTION_E21_CM2`); `N` 300 Dobson units. The layer is
+a thin shell 22 km up, `m₃ = 1/√(1 − (R/(R + H))²·cos² h)`; it lies above
+nearly all the air, so the sun's light and the sky's, which is that light
+scattered further down, both carry `T₃`. A switch on the page takes it out.
 
 **What it shows** (an assumed tube: 1 m long, 6 cm across, `β₅₅₀` 1.5 per
 metre). Blue (450 nm) scatters 4.4 times as strongly as red (650 nm); half the
 blue is gone after 21 cm, past 54 cm the side light holds more red than blue;
 the end lets through 28 % as bright as the lamp, 3.5 % of its blue and 46 % of
 its red. The side light fades along the tube; cloudier, the end goes redder
-while the side by the lamp stays blue. The sun at the horizon keeps 4 % of its
-light, orange; overhead it is near white. The sky overhead at noon is sky blue,
-more green in it than red (the sun's spectrum and the eye's, not violet);
-without ozone it is almost white at sunset.
+while the side by the lamp stays blue. The sun at the horizon keeps 3 % of its
+light (4 % without the ozone), orange; overhead it is near white. The sky
+overhead at noon is sky blue, more green in it than red (the sun's spectrum and
+the eye's, not violet). Ozone's optical depth straight up is 0.041 at 600 nm;
+the sun's light crosses 12 times as much of it at the horizon, where it takes
+39 % of the orange: with it the sky overhead at sunset stays blue, without it
+it is almost white.
 
 **The page.** The tube in a dark room: the lamp, the side as a gradient from
 65 places, each place's colour as bright as the screen allows (the caption
@@ -1820,31 +1832,37 @@ figures beside it. Lengthening the tube (0.2–3 m) with the side light along
 it for blue, green and red, crossing where it turns yellowish. "In the sky":
 the sun's height (0–90°) with the sky overhead in its colour, as bright as
 against the sky with the sun overhead, and the sun's disc in its own; the air
-mass and how much of the sun's light, its blue and its red reach the ground.
+mass and how much of the sun's light, its blue and its red reach the ground,
+and a switch for the ozone layer with how much of the orange it takes.
 "The trick" has the sun's blue and red at the ground over its height. The
 preview's tube clouds over and clears again. Topic "light", lesson
 `first_order` (Beer–Lambert is the first-order decay). **No route**: the port's
 (`simulate/sky.ts`), held to the engine over three tubes (the exhibit's, a long
 cloudy one, a short clear wide one) at four places each, eight heights of the
-sun (one where the air mass is within a hair of 1) and the light scattered
-down at exactly one air and near it.
+sun (one where the air mass is within a hair of 1) with the ozone and without,
+and the light scattered down at exactly one air and near it.
 
 **Joins the experiment of the day** on `SECOND_SERIES`, with the second series.
 
 **Left out, and said:** light scattered more than once (it whitens a very
 cloudy tube and the horizon); larger particles that scatter every colour
 alike (milk); the direction of scattering, which changes only the brightness;
-for the sky, ozone (which keeps the twilight sky blue), dust and haze (which
-redden the sunset further).
+for the sky, dust and haze (which redden the sunset further), the sun below the
+horizon (the sky overhead then lit only high up, through more ozone still),
+and how much ozone there is, which changes with the season and the place.
 
 **Checked by** `tests/unit/test_experiments.py`: the 4.4, the 21 cm and the
 54 cm, the light at the end; the side light along the tube and the end light
 adding up to all the lamp's, by Simpson's rule, at every tenth wavelength; the
 tube blue by the lamp and orange at the end, redder when cloudier, fading
 along; the air mass at the horizon, overhead and against `1/sin h` high up;
-the sun near white overhead and orange at the horizon with 4 % left; the sky
-overhead against its integral over the heights, at one air exactly too; sky
-blue at noon and almost white at sunset; the refusals.
+the sun near white overhead and orange at the horizon with 3 % left, 4 %
+without the ozone; the sky overhead against its integral over the heights, at
+one air exactly too; sky blue at noon and almost white at sunset without the
+ozone; the ozone band strongest at 600 nm, its 0.041 straight up, its shell
+once overhead, against `1/sin h` high up and 12 times at the horizon, its 39 %
+of the orange there, the sun's and the sky's light both carrying it, and the
+sunset sky blue with it; the refusals.
 
 ## The double slit (`experiments.slits`)
 

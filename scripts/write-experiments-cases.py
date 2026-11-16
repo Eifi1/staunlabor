@@ -1041,17 +1041,20 @@ def _sky_cases(out: dict[str, Any]) -> None:
             }
         )
     for h in SKY_HEIGHTS:
-        out["sky"]["sun"].append(
-            {
-                "height_deg": h,
-                "air_mass": sky.air_mass(h),
-                "sun": thin(sky.sun_light(h)),
-                "sun_hue": list(sky.hue(sun, sky.sun_light(h))),
-                "sun_brightness": sky.brightness(sun, sky.sun_light(h)),
-                "sky": thin(sky.sky_light(h)),
-                "sky_hue": list(sky.hue(sun, sky.sky_light(h))),
-            }
-        )
+        for ozone in (True, False):
+            out["sky"]["sun"].append(
+                {
+                    "height_deg": h,
+                    "ozone": ozone,
+                    "air_mass": sky.air_mass(h),
+                    "ozone_light": thin(sky.ozone_light(h)),
+                    "sun": thin(sky.sun_light(h, ozone=ozone)),
+                    "sun_hue": list(sky.hue(sun, sky.sun_light(h, ozone=ozone))),
+                    "sun_brightness": sky.brightness(sun, sky.sun_light(h, ozone=ozone)),
+                    "sky": thin(sky.sky_light(h, ozone=ozone)),
+                    "sky_hue": list(sky.hue(sun, sky.sky_light(h, ozone=ozone))),
+                }
+            )
     out["sky"]["down"] = [{"tau": tau, "m": m, "light": sky.scattered_down(tau, m)} for tau, m in SKY_DOWN]
 
 

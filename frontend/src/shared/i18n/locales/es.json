@@ -3068,6 +3068,9 @@
         "hint": "Suba o baje el sol. El aire es un tubo turbio así: cuanto más bajo el sol, más largo su camino a través del aire.",
         "height": "Altura del sol",
         "height_hint": "A qué altura está el sol sobre el horizonte.",
+        "ozone": "Capa de ozono",
+        "ozone_hint": "Absorbe sobre todo la luz naranja. Desactívela para ver el cielo sin ella.",
+        "ozone_takes": "Del naranja (600 nm), el ozono absorbe",
         "caption": "Arriba, el cielo justo encima de usted, tan claro como frente al cielo con el sol en el cenit, y en su color; el sol en el suyo, dibujado con toda su claridad. Los colores son solo aproximados.",
         "air_mass": "Camino a través del aire (masas de aire)",
         "brightness": "Luz solar en el suelo",
@@ -3079,7 +3082,9 @@
         "rayleigh": "La dispersión crece con la cuarta potencia de la frecuencia (Rayleigh): la luz azul (450 nm) se dispersa 4,4 veces más que la roja (650 nm).",
         "beer": "Lo que se dispersa le falta a la luz que sigue: disminuye exponencialmente a lo largo del tubo, el azul más rápido (Beer-Lambert).",
         "side": "De lado se ve lo que se dispersa en ese lugar, menos lo que aún se pierde en el camino hasta la pared del tubo.",
-        "sky": "El cielo justo encima de uno: luz solar dispersada una vez a cada altura y que luego baja al suelo. El sol está m masas de aire bajo."
+        "sky": "El cielo justo encima de uno: luz solar dispersada una vez a cada altura y que luego baja al suelo. El sol está m masas de aire bajo.",
+        "ozone": "La capa de ozono, a unos 22 km de altura, no dispersa la luz: la absorbe, sobre todo la naranja (600 nm). En vertical, su espesor óptico allí es solo 0,041, poco al lado del del aire.",
+        "ozone_mass": "La luz del sol la atraviesa como una capa delgada: m₃ veces tanto ozono como en vertical, 12 veces en el horizonte, donde absorbe el 39 % del naranja. Como está por encima de casi todo el aire, la luz del cielo, dispersada más abajo, lleva el mismo factor."
       },
       "symbols": {
         "beta": "Coeficiente de dispersión",
@@ -3090,18 +3095,26 @@
         "x": "Lugar en el tubo",
         "a": "Mitad de la anchura del tubo",
         "tau": "Espesor óptico del aire en vertical (0,097 a 550 nm)",
-        "m": "Masa de aire: cuánto aire atraviesa la luz del sol, respecto al camino vertical"
+        "m": "Masa de aire: cuánto aire atraviesa la luz del sol, respecto al camino vertical",
+        "t3": "Lo que la capa de ozono deja pasar de la luz del sol",
+        "sigma": "Sección eficaz de absorción de una molécula de ozono, medida (Serdyuchenko et al. 2014)",
+        "n": "Moléculas de ozono sobre cada centímetro cuadrado de suelo: 300 unidades Dobson",
+        "m3": "Masa de ozono: cuánto ozono atraviesa la luz del sol, respecto al camino vertical",
+        "r": "Radio de la Tierra",
+        "hh": "Altura de la capa de ozono (22 km)",
+        "h": "Altura del sol"
       },
       "sweet": {
         "same": "El truco: el tubo es el cielo en pequeño. Las moléculas del aire son mucho más pequeñas que la longitud de onda y dispersan el azul 4,4 veces más que el rojo. Mire donde mire, lejos del sol se ve luz dispersada, y es azul.",
-        "sunset": "Al atardecer el sol está bajo y su luz atraviesa 38 veces más aire que la luz que llega en vertical. Por el camino se le dispersa casi todo el azul: solo llega el 4 % de la luz solar, y es naranja, como la lámpara al final del tubo.",
-        "not_violet": "El violeta se dispersa aún más que el azul. Que el cielo se vea azul y no violeta se debe al sol, que emite menos violeta, y al ojo, poco sensible a él; el cálculo de colores de la página muestra ambas cosas."
+        "sunset": "Al atardecer el sol está bajo y su luz atraviesa 38 veces más aire que la luz que llega en vertical. Por el camino se le dispersa casi todo el azul: solo llega el 3 % de la luz solar (sin la capa de ozono, el 4 %), y es naranja, como la lámpara al final del tubo.",
+        "not_violet": "El violeta se dispersa aún más que el azul. Que el cielo se vea azul y no violeta se debe al sol, que emite menos violeta, y al ojo, poco sensible a él; el cálculo de colores de la página muestra ambas cosas.",
+        "ozone": "¿Y por qué el cielo encima de usted sigue azul a la puesta de sol, si la luz del sol ha perdido su azul por el camino? Lo que el aire dispersa de ella hacia abajo sería casi blanco. Pero en ese largo camino rasante la capa de ozono absorbe sobre todo el naranja, y el azul se queda. Desactive arriba el ozono y ponga el sol en el horizonte."
       },
       "computed": {
-        "system": "Para cada una de 81 longitudes de onda, la página calcula cuánta luz queda en cada lugar del tubo y cuánta se dispersa hacia el lado. Para el cielo toma el espesor óptico del aire, 0,097 a 550 nm, y la masa de aire según Kasten y Young, 37,9 en el horizonte.",
+        "system": "Para cada una de 81 longitudes de onda, la página calcula cuánta luz queda en cada lugar del tubo y cuánta se dispersa hacia el lado. Para el cielo toma el espesor óptico del aire, 0,097 a 550 nm, y la masa de aire según Kasten y Young, 37,9 en el horizonte. Para el ozono toma la sección eficaz medida (Serdyuchenko et al. 2014, promediada cada 5 nm), 300 unidades Dobson y una capa delgada a 22 km de altura.",
         "colours": "Los colores como en el arcoíris de perlas de vidrio: ponderados con la sensibilidad del ojo al color (CIE 1931) y convertidos a los colores de la pantalla (sRGB). El blanco de la lámpara (en el cielo, el del sol por encima del aire) aparece blanco. Cada color se dibuja tan claro como la pantalla lo permite; las cifras dicen lo claro que es en realidad.",
         "check": "Las pruebas de la página comprueban que la luz dispersada hacia el lado y la que llega al final suman exactamente la luz de la lámpara (regla de Simpson), y contrastan el cielo encima de uno con la misma suma sobre todas las alturas. Se calcula en su navegador, con las mismas fórmulas que el motor de cálculo de la página.",
-        "left_out": "Se omite: la luz dispersada más de una vez (vuelve más blancos un tubo muy turbio y el cielo en el horizonte); las partículas más grandes, que dispersan todos los colores por igual (por eso la leche es blanca); la dirección de la dispersión, que solo cambia la claridad; en el cielo, el ozono, que mantiene azul el cielo al anochecer (sin él, el cielo encima de uno se vuelve aquí casi blanco al atardecer), y el polvo y la bruma, que enrojecen aún más la puesta de sol. Se supone un tubo de 1 m de largo y 6 cm de diámetro."
+        "left_out": "Se omite: la luz dispersada más de una vez (vuelve más blancos un tubo muy turbio y el cielo en el horizonte); las partículas más grandes, que dispersan todos los colores por igual (por eso la leche es blanca); la dirección de la dispersión, que solo cambia la claridad; en el cielo, el polvo y la bruma, que enrojecen aún más la puesta de sol, el sol bajo el horizonte (entonces el cielo encima de uno solo está iluminado muy arriba, a través de aún más ozono) y la cantidad de ozono, que cambia con la estación y el lugar. Se supone un tubo de 1 m de largo y 6 cm de diámetro."
       }
     },
     "slits": {

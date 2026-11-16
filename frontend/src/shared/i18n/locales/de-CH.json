@@ -3068,6 +3068,9 @@
         "hint": "Stellen Sie die Sonne höher oder tiefer. Die Luft ist ein solches trübes Rohr: Je tiefer die Sonne, desto länger ihr Weg durch die Luft.",
         "height": "Sonnenhöhe",
         "height_hint": "Wie hoch die Sonne über dem Horizont steht.",
+        "ozone": "Ozonschicht",
+        "ozone_hint": "Sie schluckt vor allem oranges Licht. Schalten Sie sie aus, um den Himmel ohne sie zu sehen.",
+        "ozone_takes": "Vom Orange (600 nm) schluckt das Ozon",
         "caption": "Oben der Himmel senkrecht über Ihnen, so hell wie gegenüber dem Himmel mit der Sonne im Zenit, und in seiner Farbe; die Sonne in ihrer Farbe, voll hell gezeichnet. Die Farben sind nur angenähert.",
         "air_mass": "Weg durch die Luft (Luftmassen)",
         "brightness": "Sonnenlicht am Boden",
@@ -3079,7 +3082,9 @@
         "rayleigh": "Die Streuung wächst mit der vierten Potenz der Frequenz (Rayleigh): Blaues Licht (450 nm) wird 4,4-mal so stark gestreut wie rotes (650 nm).",
         "beer": "Was gestreut wird, fehlt dem weitergehenden Licht: Es nimmt entlang des Rohrs exponentiell ab, Blau am schnellsten (Lambert-Beer).",
         "side": "Von der Seite sieht man, was an dieser Stelle gestreut wird, abzüglich dessen, was auf dem Weg zur Wand des Rohrs noch verloren geht.",
-        "sky": "Der Himmel senkrecht über einem: Sonnenlicht, das auf jeder Höhe einmal gestreut wird und dann zum Boden geht. Die Sonne steht m Luftmassen tief."
+        "sky": "Der Himmel senkrecht über einem: Sonnenlicht, das auf jeder Höhe einmal gestreut wird und dann zum Boden geht. Die Sonne steht m Luftmassen tief.",
+        "ozone": "Die Ozonschicht, rund 22 km hoch, streut das Licht nicht, sie schluckt es – am meisten Orange (600 nm). Senkrecht von oben ist ihre optische Dicke dort nur 0,041, wenig neben der Luft.",
+        "ozone_mass": "Das Sonnenlicht durchquert sie als dünne Schale: m₃-mal so viel Ozon wie senkrecht von oben, am Horizont 12-mal – dort schluckt sie 39 % des Orange. Weil sie über fast aller Luft liegt, trägt auch das Himmelslicht, das weiter unten gestreut wird, diesen Faktor."
       },
       "symbols": {
         "beta": "Streukoeffizient",
@@ -3090,18 +3095,26 @@
         "x": "Ort im Rohr",
         "a": "Halbe Breite des Rohrs",
         "tau": "Optische Dicke der Luft senkrecht nach oben (0,097 bei 550 nm)",
-        "m": "Luftmasse: wie viel Luft das Sonnenlicht durchquert, gemessen am Weg senkrecht von oben"
+        "m": "Luftmasse: wie viel Luft das Sonnenlicht durchquert, gemessen am Weg senkrecht von oben",
+        "t3": "Was die Ozonschicht vom Sonnenlicht durchlässt",
+        "sigma": "Wirkungsquerschnitt eines Ozonmoleküls, gemessen (Serdyuchenko u. a. 2014)",
+        "n": "Ozonmoleküle über jedem Quadratzentimeter Boden: 300 Dobson-Einheiten",
+        "m3": "Ozon-Luftmasse: wie viel Ozon das Sonnenlicht durchquert, gemessen am Weg senkrecht von oben",
+        "r": "Erdradius",
+        "hh": "Höhe der Ozonschicht (22 km)",
+        "h": "Sonnenhöhe"
       },
       "sweet": {
         "same": "Der Trick: Das Rohr ist der Himmel im Kleinen. Die Moleküle der Luft sind viel kleiner als die Wellenlänge und streuen Blau 4,4-mal so stark wie Rot. Wohin man auch schaut, abseits der Sonne sieht man gestreutes Licht – und das ist blau.",
-        "sunset": "Am Abend steht die Sonne tief, und ihr Licht durchquert 38-mal so viel Luft wie Licht, das senkrecht von oben kommt. Unterwegs wird ihm das Blau fast ganz weggestreut: Nur 4 % des Sonnenlichts kommen an, und es ist orange – wie die Lampe am Ende des Rohrs.",
-        "not_violet": "Violett wird noch stärker gestreut als Blau. Dass der Himmel trotzdem blau aussieht und nicht violett, liegt an der Sonne, die weniger Violett aussendet, und am Auge, das dafür wenig empfindlich ist – die Farbrechnung der Seite zeigt beides."
+        "sunset": "Am Abend steht die Sonne tief, und ihr Licht durchquert 38-mal so viel Luft wie Licht, das senkrecht von oben kommt. Unterwegs wird ihm das Blau fast ganz weggestreut: Nur 3 % des Sonnenlichts kommen an (ohne die Ozonschicht 4 %), und es ist orange – wie die Lampe am Ende des Rohrs.",
+        "not_violet": "Violett wird noch stärker gestreut als Blau. Dass der Himmel trotzdem blau aussieht und nicht violett, liegt an der Sonne, die weniger Violett aussendet, und am Auge, das dafür wenig empfindlich ist – die Farbrechnung der Seite zeigt beides.",
+        "ozone": "Und warum ist der Himmel über einem bei Sonnenuntergang noch blau, wenn das Sonnenlicht sein Blau unterwegs verloren hat? Was die Luft davon herunterstreut, wäre fast weiss. Doch die Ozonschicht schluckt auf dem langen, flachen Weg vor allem Orange, und das Blau bleibt. Schalten Sie oben das Ozon aus und stellen Sie die Sonne an den Horizont."
       },
       "computed": {
-        "system": "Die Seite rechnet für jede von 81 Wellenlängen, wie viel Licht an jeder Stelle des Rohrs noch da ist und wie viel davon zur Seite gestreut wird. Für den Himmel nimmt sie die optische Dicke der Luft, 0,097 bei 550 nm, und die Luftmasse nach Kasten und Young, 37,9 am Horizont.",
+        "system": "Die Seite rechnet für jede von 81 Wellenlängen, wie viel Licht an jeder Stelle des Rohrs noch da ist und wie viel davon zur Seite gestreut wird. Für den Himmel nimmt sie die optische Dicke der Luft, 0,097 bei 550 nm, und die Luftmasse nach Kasten und Young, 37,9 am Horizont. Für das Ozon nimmt sie den gemessenen Wirkungsquerschnitt (Serdyuchenko u. a. 2014, gemittelt über je 5 nm), 300 Dobson-Einheiten und eine dünne Schicht in 22 km Höhe.",
         "colours": "Die Farben wie beim Glasperlen-Regenbogen: gewichtet mit der Farbempfindlichkeit des Auges (CIE 1931) und umgerechnet in die Farben des Bildschirms (sRGB). Das Weiss der Lampe – beim Himmel das der Sonne über der Luft – erscheint weiss. Jede Farbe ist so hell gezeichnet, wie der Bildschirm es für sie zulässt; wie hell es wirklich ist, sagen die Zahlen.",
         "check": "Die Tests der Seite zählen nach, dass das seitlich gestreute und das am Ende ankommende Licht zusammen genau das Licht der Lampe ergeben (Simpson-Regel), und halten den Himmel über einem gegen dieselbe Summe über alle Höhen. Gerechnet wird in Ihrem Browser, mit denselben Formeln wie im Rechenkern der Seite.",
-        "left_out": "Weggelassen: Licht, das mehrfach gestreut wird (es macht ein sehr trübes Rohr und den Himmel am Horizont weisslicher); grössere Teilchen, die alle Farben gleich streuen (darum ist Milch weiss); die Richtung der Streuung, die nur die Helligkeit ändert; für den Himmel das Ozon, das den Himmel in der Dämmerung blau hält (ohne es wird er hier am Abend fast weiss), sowie Staub und Dunst, die den Sonnenuntergang noch röter machen. Angenommen ist ein Rohr von 1 m Länge und 6 cm Durchmesser."
+        "left_out": "Weggelassen: Licht, das mehrfach gestreut wird (es macht ein sehr trübes Rohr und den Himmel am Horizont weisslicher); grössere Teilchen, die alle Farben gleich streuen (darum ist Milch weiss); die Richtung der Streuung, die nur die Helligkeit ändert; für den Himmel Staub und Dunst, die den Sonnenuntergang noch röter machen, die Sonne unter dem Horizont (dann ist der Himmel über einem nur noch hoch oben beleuchtet, durch noch mehr Ozon) und wie viel Ozon es gibt – das ändert sich mit Jahreszeit und Ort. Angenommen ist ein Rohr von 1 m Länge und 6 cm Durchmesser."
       }
     },
     "slits": {

@@ -3262,8 +3262,9 @@ def test_the_sun_shines_through_38_airs_at_the_horizon_and_sets_red():
     noon, setting = x.sky_hue(sun, x.sky_sun_light(90)), x.sky_hue(sun, x.sky_sun_light(0))
     assert min(noon) > 0.9
     assert setting[0] == pytest.approx(1.0) and setting[1] < 0.5 and setting[2] == 0
-    # At the horizon 4 % of the sunlight is left (air alone, no haze).
-    assert round(x.sky_brightness(sun, x.sky_sun_light(0)) * 100) == 4
+    # At the horizon 3 % of the sunlight is left, 4 % of it without the ozone (no haze).
+    assert round(x.sky_brightness(sun, x.sky_sun_light(0)) * 100) == 3
+    assert round(x.sky_brightness(sun, x.sky_sun_light(0, ozone=False)) * 100) == 4
 
 
 def test_the_sky_overhead_is_light_scattered_once_on_its_way_down():
@@ -3283,8 +3284,37 @@ def test_the_sky_overhead_is_light_scattered_once_on_its_way_down():
     # Sky blue, not violet: more green in it than red (the sun's spectrum and the eye's).
     assert noon[2] == pytest.approx(1.0) and noon[0] < 0.6 and noon[1] > noon[0]
     # Without ozone, the sky overhead at sunset is almost white.
-    assert min(x.sky_hue(sun, x.sky_overhead_light(0))) > 0.9
+    assert min(x.sky_hue(sun, x.sky_overhead_light(0, ozone=False))) > 0.9
     assert s.AIR_DEPTH == 0.097
+
+
+def test_ozone_takes_the_orange_and_keeps_the_sky_overhead_blue_at_sunset():
+    from staunlabor.domain.experiments import sky as s
+
+    orange = s.WAVELENGTHS_NM.index(600.0)
+    # The measured band is strongest at 600 nm: 0.041 straight up through 300 Dobson units.
+    assert max(range(81), key=lambda k: s.OZONE_CROSS_SECTION_E21_CM2[k]) == orange
+    assert s.OZONE_COLUMN_DU == 300 and s.OZONE_HEIGHT_KM == 22
+    assert round(x.sky_ozone_depth()[orange], 3) == 0.041
+    # A thin shell: once straight up, 1/sin h while the sun is high, 12 times at the horizon.
+    assert x.sky_ozone_air_mass(90) == 1.0 and round(x.sky_ozone_air_mass(0)) == 12
+    assert x.sky_ozone_air_mass(60) == pytest.approx(1 / math.sin(math.radians(60)), rel=2e-3)
+    # At the horizon it takes 39 % of the orange.
+    assert round((1 - x.sky_ozone_light(0)[orange]) * 100) == 39
+    # The sun's light and the sky's both carry it.
+    for h in (0.0, 10.0, 90.0):
+        through = x.sky_ozone_light(h)
+        for with_it, without in (
+            (x.sky_sun_light(h), x.sky_sun_light(h, ozone=False)),
+            (x.sky_overhead_light(h), x.sky_overhead_light(h, ozone=False)),
+        ):
+            assert with_it == pytest.approx([a * o for a, o in zip(without, through, strict=True)], rel=1e-12)
+    # With the sun on the horizon the sky overhead stays blue: more blue than red, by far.
+    sun = x.colour_lamp(s.SUN_K)
+    sunset = x.sky_hue(sun, x.sky_overhead_light(0))
+    assert sunset[2] == pytest.approx(1.0) and sunset[0] < 0.85
+    with pytest.raises(ValueError, match="horizon"):
+        x.sky_ozone_air_mass(91)
 
 
 def test_the_tube_and_the_sun_refuse_what_they_cannot_be():

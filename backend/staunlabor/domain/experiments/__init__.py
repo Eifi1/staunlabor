@@ -56,7 +56,8 @@ with SciPy before it was written (``docs/experiments.md``).
 * :mod:`rainbow` — glass beads make a rainbow round the shadow of one's head,
   half the size of the sky's: the angle one reflection inside turns light by.
 * :mod:`sky` — white light through a cloudy tube is blue from the side and
-  orange at the end: Rayleigh's ``1/λ⁴``, the blue sky and the red sunset.
+  orange at the end: Rayleigh's ``1/λ⁴``, the blue sky and the red sunset, and
+  the ozone that keeps the sky overhead blue at sunset.
 * :mod:`slits` — the double slit: two slits make stripes, and where they make
   it dark, one slit alone would light the wall.
 * :mod:`beats` — two tuning forks a little apart swell and fade together:
@@ -410,6 +411,9 @@ from staunlabor.domain.experiments.sky import brightness as sky_brightness
 from staunlabor.domain.experiments.sky import end_light as sky_end_light
 from staunlabor.domain.experiments.sky import figures as sky_figures
 from staunlabor.domain.experiments.sky import hue as sky_hue
+from staunlabor.domain.experiments.sky import ozone_air_mass as sky_ozone_air_mass
+from staunlabor.domain.experiments.sky import ozone_depth as sky_ozone_depth
+from staunlabor.domain.experiments.sky import ozone_light as sky_ozone_light
 from staunlabor.domain.experiments.sky import scattered_down as sky_scattered_down
 from staunlabor.domain.experiments.sky import scattering as sky_scattering
 from staunlabor.domain.experiments.sky import side_at as sky_side_at
@@ -812,6 +816,9 @@ __all__ = [
     "sky_figures",
     "sky_hue",
     "sky_overhead_light",
+    "sky_ozone_air_mass",
+    "sky_ozone_depth",
+    "sky_ozone_light",
     "sky_scattered_down",
     "sky_scattering",
     "sky_side_at",

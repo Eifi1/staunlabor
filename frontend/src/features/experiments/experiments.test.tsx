@@ -1285,6 +1285,17 @@ describe("why the sky is blue", () => {
     expect(await screen.findByText("10")).toBeInTheDocument();
     expect(screen.getByText(E.sky.play.red_mark)).toBeInTheDocument();
   });
+
+  it("has the ozone take 39 % of the orange with the sun on the horizon, and nothing once it is off", async () => {
+    renderWithProviders(<SkyPage />);
+    await screen.findByRole("img", { name: E.sky.sky_view });
+    fireEvent.change(screen.getByRole("slider", { name: E.sky.air.height }), { target: { value: "0" } });
+    expect(await screen.findByText(E.sky.air.ozone_takes)).toBeInTheDocument();
+    expect(screen.getByText("39")).toBeInTheDocument();
+    fireEvent.click(screen.getByRole("switch", { name: E.sky.air.ozone }));
+    expect(screen.queryByText(E.sky.air.ozone_takes)).not.toBeInTheDocument();
+    expect(screen.queryByText("39")).not.toBeInTheDocument();
+  });
 });
 
 describe("the double slit", () => {

@@ -1,6 +1,6 @@
 import { useEffect, useId, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { AlertBanner, LoadingState } from "@eifi1/ui-kit";
+import { AlertBanner, LoadingState, Switch } from "@eifi1/ui-kit";
 import { apiErrorMessage } from "@/shared/api/client";
 import { SeriesChart } from "@/shared/charts/series-chart";
 import { useLocale } from "@/shared/i18n/use-locale";
@@ -22,6 +22,7 @@ import {
   endLight,
   figures,
   hue,
+  ozoneLight,
   sideAt,
   sideLight,
   skyLight,
@@ -44,6 +45,8 @@ const PREVIEW_CYCLE_S = 12;
 /** The sun's height the sky starts at, degrees. */
 const START_HEIGHT_DEG = 30;
 const GREEN_NM = 550;
+/** Ozone's band is strongest here (its Chappuis band). */
+const ORANGE_NM = 600;
 const ROOM = "#0b0d12";
 const INK = "#c9ced8";
 const CHART_POINTS = 121;
@@ -53,7 +56,10 @@ const RED_HUE = 4;
 
 const sunSpectrum = lamp(SUN_K);
 const lampSpectrum = lamp(LAMP_K);
-/** The sky is drawn as bright as it is against the sky with the sun overhead, whose brightest channel is full. */
+/**
+ * The sky is drawn as bright as it is against the sky with the sun overhead (with
+ * ozone), whose brightest channel is full: one exposure with ozone and without.
+ */
 const NOON_SKY = Math.max(...seen(sunSpectrum, skyLight(90)));
 /** A spectrum's share at one of the engine's wavelengths. */
 const at = (spectrum: readonly number[], nm: number) => spectrum[WAVELENGTHS_NM.indexOf(nm)];
@@ -347,12 +353,12 @@ function TubeBuild({ tube, onChange }: { tube: Tube; onChange: (next: Tube) => v
 }
 
 /** The sky overhead in its colour, the ground, and the sun at its height in its own. */
-function SkyView({ heightDeg }: { heightDeg: number }) {
+function SkyView({ heightDeg, ozone }: { heightDeg: number; ozone: boolean }) {
   const { t } = useTranslation();
   const rad = (heightDeg * Math.PI) / 180;
   const sunX = SKY.cx - SKY.arc * Math.cos(rad);
   const sunY = SKY.horizon - SKY.arc * Math.sin(rad);
-  const sunFill = css(hue(sunSpectrum, sunLight(heightDeg)));
+  const sunFill = css(hue(sunSpectrum, sunLight(heightDeg, ozone)));
   return (
     <svg
       viewBox={`0 0 ${SKY.width} ${SKY.height}`}
@@ -364,7 +370,7 @@ function SkyView({ heightDeg }: { heightDeg: number }) {
       <rect
         width={SKY.width}
         height={SKY.horizon}
-        fill={css(onScreen(seen(sunSpectrum, skyLight(heightDeg)).map((c) => c / NOON_SKY)))}
+        fill={css(onScreen(seen(sunSpectrum, skyLight(heightDeg, ozone)).map((c) => c / NOON_SKY)))}
       />
       <circle cx={sunX} cy={sunY} r={SKY.sun * 1.9} fill={sunFill} fillOpacity={0.3} />
       <circle cx={sunX} cy={sunY} r={SKY.sun} fill={sunFill} />
@@ -376,7 +382,8 @@ function SkyView({ heightDeg }: { heightDeg: number }) {
 function SunPlay() {
   const { t } = useTranslation();
   const [height, setHeight] = useState(START_HEIGHT_DEG);
-  const sun = sunLight(height);
+  const [ozone, setOzone] = useState(true);
+  const sun = sunLight(height, ozone);
   return (
     <WidgetCard title={t("experiments.sky.air.title")} hint={t("experiments.sky.air.hint")}>
       <div className={SIDE.grid}>
@@ -392,10 +399,16 @@ function SunPlay() {
             hint={t("experiments.sky.air.height_hint")}
             onChange={setHeight}
           />
+          <Switch
+            label={t("experiments.sky.air.ozone")}
+            description={t("experiments.sky.air.ozone_hint")}
+            checked={ozone}
+            onCheckedChange={setOzone}
+          />
         </div>
         <div className={`${SIDE.views} mx-auto w-full max-w-xl`}>
           <figure className="space-y-1">
-            <SkyView heightDeg={height} />
+            <SkyView heightDeg={height} ozone={ozone} />
             <figcaption className="text-center text-caption text-muted">{t("experiments.sky.air.caption")}</figcaption>
           </figure>
         </div>
@@ -418,6 +431,17 @@ function SunPlay() {
                 unit: "%",
               },
               { key: "red", label: t("experiments.sky.air.red"), value: at(sun, RED_NM) * 100, digits: 0, unit: "%" },
+              ...(ozone
+                ? [
+                    {
+                      key: "ozone",
+                      label: t("experiments.sky.air.ozone_takes"),
+                      value: (1 - at(ozoneLight(height), ORANGE_NM)) * 100,
+                      digits: 0,
+                      unit: "%",
+                    },
+                  ]
+                : []),
             ]}
           />
         </div>
@@ -463,6 +487,25 @@ function SkyModel() {
           { tex: "m", meaning: s("m"), unit: "1" },
         ]}
       />
+      <Equation
+        tex={String.raw`T_3(\lambda) = e^{-m_3\,\sigma(\lambda)\,N}`}
+        reads={t("experiments.sky.model.ozone")}
+        symbols={[
+          { tex: "T_3", meaning: s("t3"), unit: "1" },
+          { tex: String.raw`\sigma`, meaning: s("sigma"), unit: "cm²" },
+          { tex: "N", meaning: s("n"), unit: "1/cm²" },
+        ]}
+      />
+      <Equation
+        tex={String.raw`m_3 = \frac{1}{\sqrt{1 - \left(\frac{R}{R + H}\right)^2 \cos^2 h}}`}
+        reads={t("experiments.sky.model.ozone_mass")}
+        symbols={[
+          { tex: "m_3", meaning: s("m3"), unit: "1" },
+          { tex: "R", meaning: s("r"), unit: "km" },
+          { tex: "H", meaning: s("hh"), unit: "km" },
+          { tex: "h", meaning: s("h"), unit: "°" },
+        ]}
+      />
     </>
   );
 }
@@ -485,6 +528,7 @@ function SkyTrick() {
       <p>{t("experiments.sky.sweet.same")}</p>
       <p>{t("experiments.sky.sweet.sunset")}</p>
       <p>{t("experiments.sky.sweet.not_violet")}</p>
+      <p>{t("experiments.sky.sweet.ozone")}</p>
       <p className="text-sm text-secondary">{t("experiments.sky.chart.sun_hint")}</p>
       <SeriesChart
         rows={rows}
