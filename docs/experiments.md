@@ -67,7 +67,14 @@ einige Experimente". Top to bottom (`overview-page.tsx`):
   device" and a "Forget", and on each card its topics, a
   tick once tried, "Today" on the day's, and "Builds on:" with links to the
   course's lessons at kurvenschmiede.app — the list the page's "How it is computed" links to, kept
-  in `exhibits.ts` beside the topics since both read it.
+  in `exhibits.ts` beside the topics since both read it. Since 2026-11-16
+  each built exhibit's card opens with its drawing (Marcel: the pictures
+  under the experiment of the day): its preview held still, playing while the
+  card is pointed at or has the focus, as the history's cards do, and fitted to
+  one height (`fitted-preview.tsx`), so the upright ones do not make their row
+  the longest. The live preview and not the link-preview picture: it draws in
+  the reader's language and appearance, and its code is about 5 kB a page
+  against 20–80 kB a picture; it mounts only once it scrolls near.
 
 **The pick: random, with a memory** (`daily.ts`; Marcel chose it over a fixed
 rotation and over an admin's choice). From the epoch, 2026-11-12, the days are
