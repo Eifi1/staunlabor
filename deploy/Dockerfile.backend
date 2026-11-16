@@ -1,6 +1,8 @@
 # The FastAPI backend for Cloud Run: the exhibits' engine behind a few public
-# routes. No database, no migrations, no secrets, so no entrypoint either: the
-# container starts the server and nothing else.
+# routes, and the account layer on its database. No entrypoint: the service
+# starts the server and nothing else, and the migrations are a Cloud Run job of
+# their own on this same image (cloudbuild.yaml, `staunlabor-migrate`), as the
+# database's owner role, which the service never holds.
 #
 #     docker build -f deploy/Dockerfile.backend -t <img> .     # from the repo root
 FROM python:3.14-slim
@@ -22,11 +24,13 @@ WORKDIR /app/backend
 COPY backend/pyproject.toml backend/uv.lock backend/.python-version ./
 RUN uv sync --frozen --no-dev --no-install-project
 
-# 2) The app itself.
+# 2) The app itself, and the migrations the job runs.
 COPY backend/staunlabor ./staunlabor
+COPY backend/alembic.ini ./
+COPY backend/alembic ./alembic
 RUN uv sync --frozen --no-dev
 
-# Not root: the process needs to write nothing.
+# Not root: the process needs to write nothing (feedback's files go to a bucket).
 RUN useradd --system --no-create-home staunlabor
 USER staunlabor
 

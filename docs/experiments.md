@@ -3,13 +3,17 @@
 Staunlabor is a site of hands-on exhibits, computed: each page lets the reader
 play the visitor in a simulation of the exhibit, then shows the computation
 behind what they felt, every number from the engine, `domain/experiments/`,
-and asserted in `tests/unit/test_experiments.py`. The eight exhibits are
-inspired by eight at the Swiss Science Center Technorama in Winterthur, which
-Marcel played with there. They were first built from 2026-11-07 as the
+and asserted in `tests/unit/test_experiments.py`. Each exhibit is inspired
+by one at the Swiss Science Center Technorama in Winterthur, but for the slow
+LC circuit, a classroom classic Marcel asked for (2026-11-15) and its page says
+so. The first eight,
+which Marcel played with there, were first built from 2026-11-07 as the
 "Experiments" area of an engineering app, Kurvenschmiede, and moved here on
 2026-11-13 (`docs/plan.md`). The overview credits the museum in one line
-("inspired by exhibits at the Swiss Science Center Technorama, Winterthur"),
-with no logo and no photo: every drawing and text is the site's own.
+("most exhibits are inspired by exhibits at the Swiss Science Center
+Technorama, Winterthur"; "most" since the LC circuit, Marcel's word of
+2026-11-15), with no logo and no photo: every drawing and text is the site's
+own.
 
 This document says what each exhibit is, how it is modelled, what checking the
 models found before the engine was written, and what is left to build.
@@ -75,8 +79,18 @@ and the first week drawn that way showed the chair on a Friday and again on
 the Sunday. Among those, Marcel's **bonus and malus** ("dass es
 unwahrscheinlicher wird, dass gleiche Experimente aufeinander folgen") lean
 the draw (`DAILY_WEIGHTS`): a quarter more weight per day waited beyond the
-spacing, a quarter of the weight for an exhibit about a topic yesterday's was
-about, a tenth for one that came right after yesterday's in the round before.
+spacing, half the weight for an exhibit about a topic yesterday's was about, a
+quarter for one that came right after yesterday's in the round before. Those
+are the second series' maluses (Marcel, 2026-11-15: "Tagesminus sollte weniger
+zählen"); the first series drew with a quarter and a tenth, and its rounds keep
+them, so the days the live site has shown keep their exhibit. Measured over
+400 rounds of all 35 (a plain shuffle, then the old maluses, in brackets):
+repeated pairs 0.44 a round (1.18; 0.27), repeated triples 0.008 (0.033;
+0.013), neighbours sharing a topic 17.5 days in a hundred (24.5; 12.8); with
+34, before the beats, 0.43 and 17.2, with 33, before the double slit, 0.39
+and 18.1. With eleven exhibits about energy,
+ten about oscillation and eight about angular momentum, the quarter held a
+topic back on most days.
 They were measured over 2000 rounds against a plain shuffle (`daily.ts` has
 the numbers): pairs of the round before repeated in order fall from 0.9 a round
 to 0.27, triples from 0.12 to 0.01, neighbours about one topic from 14.5 days in
@@ -84,11 +98,25 @@ a hundred to 7.9. A stricter first version — six days apart, a full point of
 bonus a day — turned out a rotation in disguise, repeating triples five times
 as often as a shuffle, and was dropped the same evening. They are weights, so
 "rarer" is not "never": the first two days, the smoke ring and then the
-elephant, are a 3 % draw that came up. The day is Zurich's, so one day has one
+elephant, are a 3 % draw that came up. With the second series the bonus weighs
+less, and less with every exhibit: with eight it cut the turns that come after
+more than a round and two days by a quarter, with fifteen by an eighth (1456
+against 1670 over 400 rounds), with sixteen by a tenth (2311 against 2555),
+with 26 by a twentieth (10259 against 10834 over 1200 rounds), with 27 to
+31 the same (10513 against 11135, 11237 against 11819, 11640 against 12183,
+12332 against 12882, 12771 against 13269), with 32 by a fortieth (13523
+against 13858), with 33 by a thirtieth (13847 against 14261), with 34 by a
+forty-fifth (14480 against 14809), with 35 by a thirty-sixth (14894 against
+15315);
+`daily.test.ts` now holds it only to a fiftieth. Its weight a day is fixed
+while a round grows longer, and stays so: Marcel weakened the maluses instead
+(2026-11-15).
+The day is Zurich's, so one day has one
 exhibit whoever asks; the pick needs no server, no table and no admin, and the
 history is the rule run backwards. A new exhibit joins at the first round that starts on or after its
 `since` day, never mid-round, which would redraw days already shown; so
-`since` is the day it **ships** — a past date puts it into a round already
+`since` is the day it **ships** (the second series': `SECOND_SERIES` in
+`exhibits.ts`, the day of the joint deploy, which also switches the weights) — a past date puts it into a round already
 under way on the live site.
 
 **The previews are the pages' own auto modes** (`preview-mode.tsx`): each
@@ -567,6 +595,1399 @@ elastomer's real, speed-dependent damping.
 - the exhibit's forces and launch, the overlap of its contacts, and a gap that
   parts them and nearly reaches the sequential model;
 - the sequential model's closed form, and the stack turned over.
+
+## The pendulum (`experiments.pendulum`), the block the swinging ones stand on
+
+**Why a block** (Marcel, 2026-11-14, choosing the order of the next exhibits:
+all six of the plan's first stage, the shared pendulum first). The pendulum
+wave, the harmonograph, the coupled pendulums and Galileo's interrupted
+pendulum are each a plane pendulum with something added, so the pendulum is
+written once (`domain/experiments/pendulum.py`, ported to
+`simulate/pendulum.ts`) and answered two ways that check each other:
+
+- **exactly**, undamped and let go from rest: `sin(θ/2) = k·cd(ω₀t | k²)`,
+  `k = sin(θ₀/2)`, Jacobi's elliptic functions by the AGM (Abramowitz & Stegun
+  16.4), the argument taken modulo the period so a minute in is as exact as a
+  second; the period `T = T₀·2K(k²)/π`;
+- **stepped**, by classical Runge–Kutta over any system at a fixed step (1 ms),
+  for what has no closed form: damping, a peg, a spring between two pendulums.
+
+**Checked by** `tests/unit/test_experiments.py`: Jacobi's identities, its limits
+(sin and cos at `m = 0`, tanh and sech at `m = 1`) and its slope; `K(½)` from
+A&S's table (a swing to the horizontal takes 18 % longer than a small one) and
+the series `1 + θ₀²/16 + 11θ₀⁴/3072` for small swings; the exact pendulum
+against the stepped one to 10⁻⁷ degrees over ten seconds, at 5°, 60° and 150°;
+a minute in as exact as a second; a damped swing dying away as `e^(−ct/2)`.
+
+## The pendulum wave (`experiments.wave`)
+
+**The exhibit.** A row of pendulums, the longest at one end, each next a little
+shorter, let go together from a board: they swing together, pull apart into a
+wave, snakes, apparent chaos, two, three, four groups — and after a minute all
+swing in step again.
+
+**The model** (`domain/experiments/wave.py`). No pendulum knows of the others;
+the pattern is in the lengths. The `n`-th swings `N + n` times in the cycle `Γ`,
+so its period is `Γ/(N + n)`; after `Γ` all are back, at `Γ/k` they stand in
+`k` groups. The default row is fifteen pendulums, `Γ` a minute, `N = 51`: from
+34 cm to 21 cm.
+
+**What the textbook leaves out**, and the page shows: a wider swing takes
+longer (1.7 % at 30°), so a row is tuned for one swing. Here the lengths are
+the exact ones for `tuned_deg` (15°), and a release wider *or narrower* comes
+back skewed — every pendulum off by nearly the same share, which after a cycle
+is the most degrees for the short ones. The skew after a cycle (the largest lag
+less the smallest, in degrees of a swing) is 22° let go at 0°, nil at 15°, 65°
+at 30°; tuned by the small swing's formula, the default row let go at 15° comes
+back 22° skewed.
+
+**The page.** The row from above (the waves and snakes) and from its end (the
+lengths fanning out), at true scale; a clock in real time, double or fivefold,
+and buttons to stop at ½, ⅓, ¼ and the whole cycle — the exact pendulum is
+answered for any instant, so a jump costs nothing; the release swing in the
+play, the count, cycle, `N` and the tuning in "Change the exhibit"; the skew
+over the release swing as the trick's chart. `POST /experiments/wave` answers
+the lengths, each pendulum's lag and the skew curve; the browser tunes the row
+itself (`simulate/wave.ts`) so a slider moves the drawing at once. The preview
+runs at double speed.
+
+**Left out, and said:** air and the pivots' friction, which in a real row damp
+the swing over minutes and so slowly change its period too; the bobs' size; a
+string that stretches.
+
+**Checked by** `tests/unit/test_experiments.py`: each pendulum swings its whole
+number in a cycle; let go at the tuned swing the row is together after `Γ`
+(to 10⁻⁶ degrees) and at `Γ/2` stands at ±15°, even and odd; at `Γ/3` three
+groups in two angles; the skew curve's numbers above and its two sides; the
+short ones fall behind the most.
+
+**Joins the experiment of the day** on `SECOND_SERIES` in `exhibits.ts`, as
+every exhibit of the second series does: a placeholder (2026-12-01) set to the
+day of the joint deploy, the next deploy after the last kit versions are
+released (Marcel, 2026-11-15).
+
+## The harmonograph (`experiments.harmonograph`)
+
+**The exhibit.** Two pendulums side by side, a pen on one swinging across, a
+drawing board on the other swinging along; both let go, the pen draws what the
+two swings make together, a spiral that grows smaller as both die away — a
+rosette, a loop or a star depending on their beats.
+
+**The model** (`domain/experiments/harmonograph.py`). Two plane pendulums from
+the block, each with its length, swing, phase and linear damping, stepped
+together by Runge–Kutta at 1 ms (the full `sin θ`, so no closed form); the pen
+at `(L₁·sin θ₁, L₂·sin θ₂)` on the board. A phase starts a pendulum part way
+through its *exact* swing, at the rate its energy leaves it, so a phase never
+widens the swing (the small swing's `θ' = −ω₀θ₀ sin φ` did, by a little, and
+the first closure test caught it: an exact 2:3 missed by 14 µm).
+
+**What it shows.** At a simple ratio, both let go equally wide and undamped,
+the figure closes on itself after two of the pen's swings (to 10⁻⁹ m); let go
+at 30° and 5° it drifts open, the wider swing being the slower one. Near a
+ratio `p:q` it keeps its shape and turns once every `1/|q·f₁ − p·f₂|`: the
+default pair, 0.67 % off 2:3, turns once in 90 s; it fades to a tenth in
+`2·ln 10/c`, 230 s at `c = 0.02/s`.
+
+**The page.** A canvas the pen draws on, a few hundred steps a frame, in real
+time, fivefold or twentyfold; "Finish the drawing" draws the rest at once (to
+300 s); "Save picture" writes a PNG in the browser, nothing sent. The ratio
+(1:1, 1:2, 2:3, 3:4) and its detune set the board's length, `L₂ =
+L₁·(p/(q·(1+d)))²`; the board's phase, both swings, the friction and the pen's
+length are sliders. **No route:** the build comes with `/experiments/defaults`
+and everything shown — the path and the figures — is the port's
+(`simulate/harmonograph.ts`), held to the engine by `engine-cases.json`;
+`write-test-fixtures.py` lists it as `UNROUTED`.
+
+**Left out, and said:** the board's swing in the second direction (a real board
+hangs on a gimbal), the pen's friction on the paper, damping that grows with
+speed.
+
+**Checked by** `tests/unit/test_experiments.py`: the closure and the drift
+above, the fade against `e^(−ct/2)`, the default figures, the nearest simple
+ratio in lowest terms; the port draws frame by frame exactly what it draws in
+one go (`simulate.test.ts`).
+
+## The double cone (`experiments.cone`)
+
+**The exhibit.** Two straight rails spread apart in a V and rise as they go; a
+double cone laid across them at the narrow, low end rolls by itself up to the
+wide, high end.
+
+**The model** (`domain/experiments/cone.py`). The cone thins by `tan α` per
+metre from its middle (radius `R`); each rail spreads by `tan β` and rises by
+`tan γ` per metre along the centre line. Wider apart, the rails hold the cone
+on a thinner part, so its axis stands at `z(x) = x·tan γ + c·(R − d(x)·tan α)`,
+a straight line of slope `m = tan γ − c·tan α·tan β`: the cone rolls up when
+`m < 0`. **The exact contact:** a sloping rail that runs skew to the cone
+touches it a little off the point under its axis; where the line just grazes
+the solid cone is a quadratic, `c = (√(sec²γ − k²) − k·tan γ)/(1 − k²)`,
+`k = tan α·tan β` — held in the tests to a scan of the rail that knows nothing
+of the formula (10⁻⁸ m). `c` is 1.002 for the default build and exactly 1 where
+`m = 0`, where the contact lies right under the axis: so the textbook's
+`tan γ* = tan α·tan β` is the exact boundary, though its heights are not. The
+contact lies square to the axis's path, so the cone rolls on it without
+slipping (checked in the scratchpad before it was written: `s*/h* = m` to the
+last digit). **The roll:** Lagrange's equation for
+`½(1 + m²)(1 + (3/10)R²/ρ²)ẋ² + g·m·x`, `ρ` the contact radius, which shrinks
+up the rails — so the cone rolls up quickly and slows near the top though it is
+still falling; Runge–Kutta at 1 ms, energy kept to 10⁻¹⁰ J/kg; stops hold it at
+the ends.
+
+**What it shows** (the default: R 6 cm, α 20°, β 20°, γ 4°, rails 30 cm from
+6 cm apart). The rails rise 2.1 cm while the axis falls 1.9 cm; up to 7.5° the
+cone rolls up; it reaches the top in 1.5 s at 0.17 m/s, spinning 2.8 times a
+second on its thin part. At 10° it rolls down, and is laid at the top.
+
+**The page.** The cone from the side (the rails one rising line, the middle
+disc, the circle it rolls on, a turning spoke, and the dashed path of its axis)
+and from the front (the rails spreading as they climb, the rhombus sinking
+between them), in real time or a quarter; "Let go" lays it where it can roll
+from. The three angles, the radius, the rails' length and their gap at the
+bottom are sliders; a build whose rails reach the tips says the cone would fall
+through. The trick's chart: the rails' height and the axis's along the rails.
+**No route**, as the harmonograph: everything is the port's (`simulate/cone.ts`).
+
+**Left out, and said:** rolling resistance, the rails' thickness, the wobble of
+a cone laid on askew.
+
+**Checked by** `tests/unit/test_experiments.py`: the contact against the scan,
+the heights and the boundary, the roll's energy, time and end speed, and the
+cone laid at the top of steep rails.
+
+## The water parabola (`experiments.parabola`)
+
+**The exhibit.** A round vessel of water on a turntable: as it spins, the water
+sinks in the middle and climbs the wall — until the middle runs dry.
+
+**The model** (`domain/experiments/parabola.py`). Water turning with the
+vessel as one body has a surface square to gravity and the centrifugal pull
+together, the paraboloid `z = z₀ + ω²r²/(2g)`; its volume fixes `z₀ = h −
+ω²R²/(4g)`, so the middle sinks as far as the rim rises. Past `2·√(g·h)/R` the
+middle is dry inside `r₀² = R² − 2R·√(g·h)/ω`, the rim at `R·ω·√(h/g)`; past
+the vessel's top it spills. As a mirror its focus is `g/(2ω²)` above the vertex.
+**Spinning up:** the water follows the vessel over Greenspan and Howard's
+spin-up time `τ = h/√(νΩ)` (one Ekman layer at the bottom, `Ω` the faster
+rate), a relaxation of the water's rate — a model of how long, said as such,
+not of the flow meanwhile; the surface is drawn as rigid rotation at the
+water's rate.
+
+**What it shows** (the default: 30 cm across, 30 cm high, filled 10 cm deep).
+The middle runs dry at 126 turns a minute and the water spills at 189; the
+water takes about half a minute to follow (28 s at the dry rate). One turn in
+8.5 s puts the mirror's focus 9 m up.
+
+**The page.** The vessel cut through (the surface, the level at rest dashed,
+two vertical rays reflected to the focus) and from above, from outside or
+turning along with the vessel — then the vessel's marks stand still and specks
+in the water show how far it lags; a turntable slider in turns a minute, real
+time or tenfold. The page's water turns with the vessel on arrival; the
+overview's preview switches the turntable on and off. The trick's chart is the
+middle's and the rim's height over the speed. **No route**: the port's
+(`simulate/parabola.ts`).
+
+**Left out, and said:** surface tension and the meniscus, the vessel's wobble,
+the swirl after a sudden change.
+
+**Checked by** `tests/unit/test_experiments.py`: the volume against a sum over
+rings at five rates, wet and dry; the equal sink and rise; the dry rate and the
+rim's continuity past it; the mirror's focus; the spill rate both ways; the
+spin-up against `1 − e^(−t/τ)`.
+
+## The coupled pendulums (`experiments.coupled`)
+
+**The exhibit.** Two equal pendulums side by side joined by a soft spring; one
+pushed, the swing wanders to the other and back, again and again.
+
+**The model** (`domain/experiments/coupled.py`). Two plane pendulums from the
+block and a spring of stiffness `k` at the distance `a` below the pivots, taken
+horizontal: `θ₁'' = −(g/L₁)·sin θ₁ + κ₁·(sin θ₂ − sin θ₁)·cos θ₁ − c·θ₁'`
+and its mirror, `κᵢ = k·a²/(mᵢ·Lᵢ²)`, the full sines stepped by Runge–Kutta at
+1 ms, energy kept to 10⁻⁹ of itself. **The modes** for small swings: together
+at `√(g/L)`, against each other at `√(g/L + 2κ)` (equal pendulums; the 2 × 2
+system's roots in general); a push to one is half of each, and the swing
+wanders over and back once in the beat `2π/(ω₂ − ω₁)`. Unequal pendulums hand
+over only `4κ₁κ₂/((a₁ − a₂)² + 4κ₁κ₂)`, `aᵢ = g/Lᵢ + κᵢ` (Rabi's formula).
+
+**What it shows** (the default: 50 cm, 200 g, 1 N/m at 25 cm). Over and back
+in 23 s, all of it reaching the other; let go together, the spring never
+stretches; 50 against 55 cm, 0.56 of it reaches the other, which a two-minute
+run confirms to 1.5 %. The shares on the page are of everything put in, the
+spring's stretch at the start included — pulled aside alone, the left pendulum
+stretches the spring too (6 % of the default push; the first chart had divided
+by the pendulum's energy alone and climbed past 100 %).
+
+**The page.** The pair from the front with the spring, let go one way, both
+alike or against each other, real time or threefold; bars of each pendulum's
+share as it wanders; the two modes' periods, the beat and the share handed
+over. The spring, its height, the right pendulum's length, the mass and the
+damping are sliders. The trick's chart is the two shares over two beats. **No
+route**: the port's (`simulate/coupled.ts`).
+
+**Left out, and said:** the spring's mass, its sag and slant; air beyond one
+linear damping.
+
+**Checked by** `tests/unit/test_experiments.py`: the two modes' rates, the beat,
+the full exchange at half a beat, nothing exchanged together, Rabi's share
+against a run, the energy kept without damping.
+
+## Galileo's interrupted pendulum (`experiments.peg`)
+
+**The exhibit.** A pendulum whose string, swinging through the vertical, is
+caught by a peg below the pivot; the bob goes on round a smaller circle and
+still rises to the height it was let go from — or, the peg low enough, swings
+right over it or lets the string go slack.
+
+**The model** (`domain/experiments/peg.py`). Three motions, one at a time:
+round the pivot (`θ'' = −(g/L)·sin θ`), round the peg (`φ'' = −(g/r)·sin φ`,
+`r = L − d`, the speed kept at the catch), free while the string would have to
+push (`r·φ'² + g·cos φ < 0`), until the string round the peg is straight again
+and jerks taut, taking the speed along it — the one place energy is lost. Each
+switch is found within its 1 ms step by bisection on the stepped state (40
+halvings) and the step split there; the port does the same, switch for switch.
+
+**What it shows.** Round the peg the bob rises exactly to its starting height
+(3·10⁻⁸ m in a run sampled every millisecond). It goes over the peg from
+`h ≥ 2.5·r`; between `r` and that, the string goes slack at `(r + 2h)/3`, which
+the engine's slack event meets to 10⁻¹²: let go from the horizontal on a metre,
+over the top with the peg at 61 cm, slack at 59.
+
+**The page.** The pendulum, the peg — dragged with a finger or set by a
+slider — the starting height dashed across both sides and, where it goes slack,
+the slack height; a trail of the last 2.5 s; what just happened in words (the
+peg catches the string, it goes slack, jerks taut, winds round the peg); the
+three cases as buttons in the trick. **No route**: the port's
+(`simulate/peg.ts`).
+
+**Left out, and said:** the peg's thickness, a string that stretches, air.
+
+**Checked by** `tests/unit/test_experiments.py`: the same height, energy kept
+until the jerk, the threshold both sides, the slack height, the jerk's loss.
+
+## Maxwell's wheel (`experiments.maxwell`)
+
+**The exhibit.** A heavy wheel on a thin axle hangs from two strings wound round
+the axle; let go, it unwinds slowly, turns round at the bottom with a jerk and
+winds itself nearly back up — a large yo-yo.
+
+**The model** (`domain/experiments/maxwell.py`), all of it a closed form. The
+strings come off without slipping, so `a = g/(1 + k)`, `k = I/(M·r²)` (`I` ½·M·R²
+for a disc, M·R² for a ring), the strings pull `M·(g − a)`, and `k/(1 + k)` of
+the energy of motion is in the spin. **Losses:** the strings bend round the
+axle and rub, a braking torque of `c·T·r` that opposes the spin both ways: the
+fall at `g/(1 + k/(1 − c))`, the climb slowed at `g/(1 + k/(1 + c))`, each
+climb `a↓/a↑` of the height before. **The turn-round:** a first sketch had the
+centre swing round a half-circle about the strings' ends, the textbook picture
+— but the strings hang straight down and can pull only up, so nothing pushes
+the centre sideways; it was dropped before it was written. Instead, as the plan
+asked, the strings' stretch is the model's parameter: a spring of stiffness `s`
+(both strings) stops the fall and throws the wheel back up at the same speed,
+the spin going on through; it lasts `(2π − 2·atan(v·w/g))/w`, `w = √(s/M)`,
+and peaks at `M·g + s·A`. The jerk itself loses nothing in the model.
+
+**What it shows** (the default: a 0.5 kg disc of 6.5 cm on a 5 mm axle, 60 cm
+of strings, `c` 3 %, `s` 10 kN/m). 98.8 % of the energy of motion is in the
+spin; the fall takes 3.3 s; the jerk 25 ms at 31.2 N, 6.4 times the weight, the
+strings stretched 3.1 mm; each climb reaches 94 % of the height before. A ring
+of the same size puts 99.4 % into its spin.
+
+**The page.** The wheel from the front on its strings, spokes turning, in real
+time, a quarter or a twentieth (where the jerk shows); the strings' pull and
+its multiple of the weight; the energy of motion split between falling and
+spinning; the shape, axle, wheel, mass, strings' length, rubbing and stiffness
+(logarithmic) as controls; the trick's chart, height and pull over two bounces,
+sampled 400 times a second so the jerk's spike shows. **No route**: the port's
+(`simulate/maxwell.ts`).
+
+**Left out, and said:** the axle's own spin, a wobble, the strings' mass, air,
+the strings winding on during the jerk itself.
+
+**Checked by** `tests/unit/test_experiments.py`: the fall's energy, a lossless
+climb back to the start, the same share lost each climb, the jerk against a
+stepped spring (duration, end speed, peak to 10⁻⁹), and the closed form at its
+seams.
+
+## The chaotic pendulum (`experiments.chaos`)
+
+**The exhibit.** A pendulum hung from the end of another; pushed gently both
+swing calmly, pushed hard the lower arm flails and never repeats, and whoever
+pushes it twice "the same" sees two different dances.
+
+**The model** (`domain/experiments/chaos.py`). Two point masses on light rods,
+Lagrange's equations in their usual closed form, stepped by the block's
+Runge–Kutta at 1 ms; the energy is the check (it drifts by less than 10⁻⁷ of
+itself in twenty wild seconds). For small swings the two modes are
+`ω² = (g/L)(2 ∓ √2)` (equal arms and masses; the general quartic's roots), and
+a start in the slow mode comes back after its period. **Chaos, measured:** the
+page lets go the pendulum and a twin whose upper arm is nudged (1° down to
+10⁻⁵°) and draws the gap between them — angles and rates, each rate over
+`√(g/L₁)` — on a logarithmic scale. The largest Lyapunov exponent is measured
+Benettin's way, a twin a hundred-millionth away whose gap's growth is summed in
+logarithms every tenth of a second before it is set back: from 120°/120° over a
+minute, 2.82 a second whatever the gap (10⁻⁶ to 10⁻¹⁰); gently (5°/7°), under
+0.01. A first version fitted a slope to one pair's gap, which gave 1.9 to 3.8
+with the nudge — one stretch of one path says little — and was dropped. The
+page measures over 30 s, after the sliders settle; the port is held to the
+engine with a twin 10⁻⁴ away, since at 10⁻⁸ the gap's subtraction loses eight
+digits that chaos then magnifies.
+
+**The page.** The pendulum and its paler twin with the lower weight's trail;
+starts gentle, wild or nearly upside down, both arms' starts and the twin's
+nudge as controls; the gap as a power of ten as they part. The trick: the gap
+over twenty seconds, a straight line on the logarithmic scale, the measured
+exponent and the doubling time `ln 2/λ`. **No route**: the port's
+(`simulate/chaos.ts`).
+
+**Left out, and said:** the rods' mass and the bearings' friction (one linear
+damping), air; the exhibit's arms are physical pendulums, the same chaos with
+other numbers.
+
+**Checked by** `tests/unit/test_experiments.py`: the modes, the slow mode's
+return, the energy, the twin's parting wild and not gently, the exponent's
+independence of the gap.
+
+## The chaotic waterwheel (`experiments.waterwheel`)
+
+**The exhibit.** Leaking cups round a wheel, water pouring into the top one:
+the wheel turns, slows, stalls, turns back, and never repeats.
+
+**The model** (`domain/experiments/waterwheel.py`), Malkus's wheel as Strogatz
+writes it (§9.1): the water's spread round the rim by its first harmonic
+`A sin θ + B cos θ`, the wheel's rate `Ω`, inflow `q` at the top, leaks `K`
+everywhere, the axle's brake `ν`. With `τ = K·t`, `x = Ω/K`, `y = c·A`,
+`z = ρ − c·B`, `c = π·g·r/(ν·K)` these are exactly Lorenz's equations with
+`σ = ν/(K·I)`, `ρ = π·g·r·q/(ν·K²)` and `b = 1` — the test integrates the
+wheel's own equations in seconds and finds the engine's `x`, `y`, `z` in them to
+10⁻⁸. Stepped by the block's Runge–Kutta at 0.01 τ, from rest with the water
+heaped at the top and a nudge of 10⁻³.
+
+**What it shows** (σ 10, K 0.2/s). Below ρ = 1 the wheel stands; up to
+`ρ_H = σ(σ + 4)/(σ − 2)` = 17.5 it settles to turning steadily at `√(ρ − 1)`
+(in units of `K`); above, it wanders — at the default ρ 28 twenty-odd reversals
+in 200 s at gaps that range more than threefold.
+
+**The page.** The wheel with eight cups hanging upright, each as full as the
+harmonic says at its place, the stream from the tap, beside Lorenz's butterfly
+(`x` against `z`) drawn as the wheel runs; the tap (ρ) and the brake (σ), real
+time or fourfold, the regime in words and the speed in turns a minute. The
+trick's chart is the speed over 200 s and the number of reversals. **No route**:
+the port's (`simulate/waterwheel.ts`).
+
+**Left out, and said:** the cups themselves (the water is spread smoothly, only
+its first harmonic counts), the wheel's tilt, splashing.
+
+**Checked by** `tests/unit/test_experiments.py`: the wheel's equations against
+Lorenz's, the three regimes and the steady rate, the reversals' spread, the
+cups full at the top at rest.
+
+## Foucault's pendulum (`experiments.foucault`)
+
+**The exhibit.** A long pendulum swinging for hours whose plane turns against
+the floor, knocking over a ring of pins: the floor turns under it with the
+Earth.
+
+**The model** (`domain/experiments/foucault.py`). The linear swing on the
+turning Earth, `x'' = −ω₀²x + 2Ω_z y'`, `y'' = −ω₀²y − 2Ω_z x'`,
+`Ω_z = Ω·sin φ`, `Ω` once a sidereal day; let go from rest it has the closed form
+`ζ = A·e^(−iΩ_z t)(cos ω′t + i(Ω_z/ω′) sin ω′t)`, `ω′ = √(ω₀² + Ω_z²)` — held to
+the stepped equations to 10⁻⁹ m over a hundred swings, so the page shows any
+hour without stepping. **What it shows:** in Winterthur (47.5°N) 11.1° an hour
+clockwise, once round in 32.5 hours; at the pole once a sidereal day (23.93 h),
+at the equator never, in the south the other way.
+
+**The page.** The pendulum from above (12 m, 50 cm swing), the plane dashed,
+the bob's trail, a ring of 24 pins that fall as either end of the plane reaches
+them; real time, a minute, ten minutes or an hour a second; Winterthur, the
+North Pole, the equator and Sydney, or any latitude; hours gone by, the plane's
+turn and the full turn's hours. The trick's chart is the turn an hour against
+the latitude, a sine. **No route**: the port's (`simulate/foucault.ts`).
+
+**Left out, and said:** air, which stops a real swing within hours unless it
+is kept going; the ellipse of a careless release; Airy's extra turn of a wide
+swing.
+
+**Checked by** `tests/unit/test_experiments.py`: the closed form against the
+stepped equations, the turn in Winterthur and its direction, the pole, the
+equator and the south.
+
+## The Coriolis carousel (`experiments.coriolis`)
+
+**The exhibit.** Two people opposite each other at the edge of a turning
+platform roll a ball across; it curves away and misses, though nobody pushes
+it. Seen from outside there is no curve to explain.
+
+**The model** (`domain/experiments/coriolis.py`), two things to throw, both in
+closed form. A sliding puck keeps its velocity — the throw plus the seat's own
+`Ω × r` — and goes straight seen from outside. A rolled ball must keep up with
+the turning surface under it; the friction that keeps it rolling turns its
+velocity at `(k/(1+k))·Ω`, 2/7 of the platform's rate for a solid ball, so seen
+from outside it runs on a circle (checked against the closed form's own
+derivative). Turned back by `−Ω·t` either is what a rider sees; the puck's
+turned-back path is held to the stepped Coriolis and centrifugal equations to
+10⁻⁹ m. **The lead:** where the ball leaves the edge (by bisection on the
+distance) against the other seat; the aim that hits it, found by scanning the
+aim a degree apart for a true change of the miss's sign — not its jump from
++180° to −180° where the ball leaves past the thrower's own seat, which a
+plain bisection had first taken for a hit — then bisecting.
+
+**What it shows** (2 m radius, 6 rpm, a 3 m/s throw). A straight throw misses
+the other seat by 86° clockwise as the riders see it; aiming 50° ahead hits
+(a rolled ball, 43°). Too fast a platform for too slow a throw: no aim does.
+
+**The page.** The carousel from above riding along or from outside, the seats
+and the aim, the path drawn as the throw replays; a puck or a ball; aim, speed
+and the platform's turns a minute; the miss, the flight's time, and "Aim
+ahead" setting the lead. **No route**: the port's (`simulate/coriolis.ts`).
+
+**Left out, and said:** rolling resistance and slipping (the ball rolls from
+the start), the ball's size, air.
+
+**Checked by** `tests/unit/test_experiments.py`: the riders' view against the
+stepped equations, the straight puck and the ball's 2/7 turn, the misses and
+the leads.
+
+## Newton's cradle (`experiments.cradle`)
+
+**The exhibit.** Five steel balls on strings, just touching. Let one fall and
+one flies off at the far end; two in, two out; after a while the middle ones
+swing too.
+
+**The model** (`domain/experiments/cradle.py`). Each ball a pendulum along its
+arc, neighbours pushing only where they overlap, by Hertz's law
+`F = K·δ^{3/2}` with `K = (4/3)·E*·√R*` for two equal steel balls, damped
+Hunt and Crossley's way, `(1 + α·δ̇)` with `α = 8(1 − e)/(5e)` per metre a
+second (Flores et al.), so a lone pair meeting at 1 m/s parts with `e` of that
+speed. Not the ball cannon's damping, which divides by the speed a contact
+closed at: the cradle's balls touch at rest, their contacts close at next to
+nothing, and that damping glued the row. Stepped by Runge–Kutta, a
+millisecond while all swing free; while any two press or are closing on each
+other within two milliseconds' travel, a microsecond at a time, and the rest
+of the millisecond in one step once none are (the whole millisecond in
+microseconds cost four times the work for the same swings to a tenth of a
+degree over twenty seconds). **The impact:** swung down free until the first
+pair is near, then followed a microsecond at a time until every contact has
+stayed open for 200 µs.
+
+**What it shows** (25 mm steel balls, 15 cm strings, `e` = 0.95, one lifted
+by 30°). The ball comes in at 0.63 m/s; the contact lasts 0.2 ms at nearly
+900 N; 97 % of the energy leaves in the last ball and the first bounces back
+a little. With 0.1 mm between the balls they meet one pair at a time: 99.9 %.
+Two lifted leave as a train of two waves, the last at 0.70 m/s and the next at
+0.49 m/s, 97 % between them — the solitary waves of a Hertzian chain, which a
+heavier striker sends as a train. With `e` < 1 what stays in the row grows
+until all swing (the middle ball 2.5° wide in the fourth second); with
+`e` = 1 it stays nearly still — the row's coming together is the losses'
+doing.
+
+**The page.** The row from the front, the balls in the chart's colours;
+how many are lifted, touching or 0.1 mm apart, three speeds, the angle and
+`e`; the first collision's far share, length and largest force, and every
+ball's speed after it; a chart, second by second, of each ball's widest
+swing. The loop spends at most 10 ms a frame stepping: a row pressing on
+itself for long stretches is a thousand steps a millisecond, and the clock
+slips a moment rather than the page stutter (said under "How it is
+computed"). **No route**: the port's (`simulate/cradle.ts`); the engine's
+`run` is not ported, the test samples the port's steps the engine's way.
+
+**Left out, and said:** the strings' stretch and the frame's give, the balls
+rolling and twisting, air.
+
+**Checked by** `tests/unit/test_experiments.py`: a gapped row against one in,
+one out exactly; the touching row's momentum and energy kept at `e` = 1 and
+its far share; a lone pair's peak force against Hertz's closed form; the
+page's figures — 97 %, 99.9 %, 0.2 ms, under 900 N, 0.70 and 0.49 m/s, 2.5°
+against nearly nothing.
+
+## The gravity well (`experiments.well`)
+
+**The exhibit.** A wide funnel, almost flat at the rim and ever steeper
+towards the hole; a ball pushed off at the rim circles for a long time, ever
+lower and faster, and drops in.
+
+**The model** (`domain/experiments/well.py`). The wall `z = −k/r`; a small
+ball rolling without slipping, its spin 2/5 more inertia (`T = (7/10)·m·v²`,
+the sphere exhibit's way, every push along the wall moving it at 5/7);
+Lagrange's equations in `(r, φ)` on the surface, stepped by Runge–Kutta a
+millisecond at a time. Rolling resistance `C·N` against the motion, `N` the
+wall's whole push: the weight's share across it and what holds the ball on its
+curved path (meridian convex, parallel concave), faded below 1 mm/s as on the
+sphere. A lap is counted where φ crosses a whole turn, interpolated within the
+step; its radius is the time-mean over the lap. **Why Kepler:** on a circle
+`r·φ̇² = (5/7)·g·k/r²`, an inverse square, so `T² = 28π²r³/(5gk)` exactly.
+Off the circle the steepness `1 + z′²` and the wall's curvature enter, and
+the path is a turning rosette, not an ellipse.
+
+**What it shows** (k = 0.01 m², rim 40 cm, hole 3 cm, `C` = 0.002, started
+at 0.9 of the rim). The circle at the start takes 0.44 m/s and 5.1 s a lap;
+at the hole 0.12 s, 42 times less for twelve times nearer. From that circle
+the ball drops in after 46 s and 75 laps, 42 of them in the last 10 s, every
+lap within 3 % of Kepler's period for its mean radius, and its top speed more
+than three times the start's: braked, it runs faster (a satellite's drag
+paradox). Without resistance, pushed at 0.30 m/s, the nearest point turns 40°
+a lap. The defaults were picked from a sweep: at `C` = 0.003 and
+k = 0.005 m² the first lap already fell a fifth of the way in, and laps
+strayed 10 % from Kepler; the chosen pair spirals for 46 s.
+
+**The page.** The funnel from above (rings 2 cm of height apart, crowding
+where it is steep) with the whole track, and cut through from the side;
+the push's speed and direction, the rolling resistance, real time or four
+times faster; "Circle" pushes off at the circle's speed; laps, the last lap's
+time, the distance and speed; a chart of every lap's time against its mean
+distance beside Kepler's circle. **No route**: the port's (`simulate/well.ts`);
+the engine's `run` is not ported, the test samples the port's steps the
+engine's way.
+
+**Left out, and said:** the ball's spin about the wall's normal and every term
+of its radius over the wall's curvature, air; a coin, which rolls on its edge
+and leans.
+
+**Checked by** `tests/unit/test_experiments.py`: energy and angular momentum
+without resistance to 10⁻⁹ over 30 s; the circle held to 1 µm and its period;
+the 40° rosette; the spiral's laps against Kepler; its time to the hole
+against an independent Simpson count of the circles' energy drained by
+`C·N·v` (46.09 s against the engine's 45.90 s); the speed-up ten laps apart.
+
+## The resonant rods (`experiments.resonance`)
+
+**The exhibit.** Steel rods of different lengths clamped upright in a table a
+motor shakes a little; at one beat one rod swings wide and the others hardly
+stir.
+
+**The model** (`domain/experiments/resonance.py`). Each rod a clamped-free
+beam, only its first mode kept: `β₁` found by bisection on
+`cosh β·cos β = −1` (1.8751), the shape 1 at the tip, its participation
+`Γ = ∫φ/∫φ²` by Simpson (1.566), both held to the textbook; `f₁ =
+β₁²/(2πL²)·(d/4)·√(E/ρ)` for a round rod. The table `Y·sin θ`, `θ̇ = Ω`; per
+rod `q̈ + 2ζω·q̇ + ω²·q = −Γ·ÿ_b`, stepped by Runge–Kutta a millisecond at a
+time with the drive held through each step (a sweep moves it between steps;
+the neglected `Ω̇` term is a few thousandths at 0.05 Hz/s). The steady swing
+in closed form; the live swing `√(q² + (v/ω)²)`.
+
+**What it shows** (six 2 mm steel rods, 1.0 to 0.5 m, ζ = 0.01, the table
+1 mm each way). They ring at 1.41, 1.74, 2.21, 2.88, 3.92 and 5.65 Hz. In step
+with the 80 cm rod its tip swings 78 mm, the neighbours at most 4; 3 % off,
+26 mm. From rest a swing grows to 1 − 1/e in `1/(ζω)`, 7.2 s at 2.21 Hz. A
+sweep from 1 Hz at 0.05 Hz/s gives the same rod only 40 mm, and at 2.4 Hz.
+
+**The page.** The rods on their table (the table's millimetre true to scale,
+which is the point), each rod's frequency under it; the table's beat, a sweep
+from 1 to 6.5 Hz that records every rod's swing, "Settle", real time or four
+times faster, the damping; the widest swing; the steady curves of all rods
+with the sweep's record dashed over them and a line at the beat. The chart is
+redrawn every half second of the run, not every frame: its points made the
+page stutter. **Sound**, muted until switched on (Marcel's call, 2026-11-15):
+`shared/lib/use-tones.ts`, one sine per rod at its frequency seven octaves up
+(181 to 723 Hz), as loud as it swings; no audio graph exists while off, the
+context is closed when switched off, nothing is stored. **No route**: the
+port's (`simulate/resonance.ts`); the engine's `run` is not ported, the test
+samples the port's steps the engine's way.
+
+**Left out, and said:** the higher modes (the second at 6.27 times the
+first), the rod's stiffening at wide swings, the table's give.
+
+**Checked by** `tests/unit/test_experiments.py`: β₁, β₁² and Γ against the
+tables; the second mode's ratio found independently; the six frequencies; the
+78, 4 and 26 mm; the stepped swings settling on the closed form within 1 %;
+the build-up to 1 − 1/e in 7.2 s; the sweep's 40 mm at 2.4 Hz.
+
+## The gyroscope wheel (`experiments.gyroscope`)
+
+**The exhibit.** A heavy wheel hung on a string by one end of its axle: still,
+it drops; spun, it stays up and wanders slowly round the string. Beside it a
+suitcase hiding such a wheel tips sideways when carried round a corner.
+
+**The model** (`domain/experiments/gyroscope.py`). Lagrange's heavy symmetric
+top with the axle's end as the fixed point; the wheel a hoop (`I₃ = m·r²`,
+`I₁ = m·r²/2 + m·d²` about the pivot). Euler's angles; `ω₃` and `p_φ` kept,
+so `φ̇` follows from `θ`, and only `θ` (with `ψ` beside it for the drawing) is
+stepped by Runge–Kutta, a millisecond at a time. The steady turn at a tilt is
+the slow root of the quadratic; level, `m·g·d/(I₃·ω₃)`. A run stops where the
+axle hangs within 10° of straight down: the equations hold there, the string
+would long have swung.
+
+**What it shows** (2 kg hoop of 30 cm on a 15 cm axle, 200 rpm, level). Still,
+it hangs nearly straight down after 0.37 s. Spun, it turns once round the
+string in 8.1 s, and twice as slowly spun twice as fast; let go from rest it
+keeps that pace on average to half a per cent, dipping 3.2° — the turning
+point of energy and the two kept momenta, `2I₁mgd·u² − L₃²·u − 2I₁mgd = 0`,
+`u = cos θ` — and nodding 4.4 times a second, its track arches with points
+at the starting height. The suitcase turned a quarter turn a second: 5.9 N·m
+across, 600 g at the end of a metre rule.
+
+**The page.** The wheel on its string seen a little from above, one spoke
+coloured so the spin shows; under it the axle's dip against its turn over the
+last round; the spin, the tilt at release, released at rest or already
+circling, real time or four times slower; the round's time, the nods a
+second, the dip, the suitcase's torque. **No route**: the port's
+(`simulate/gyroscope.ts`); the engine's `run` and `energy_j` are not ported
+(the page shows neither; the energy is held in Python), the test samples the
+port's steps the engine's way.
+
+**Left out, and said:** the string's swing and stretch, friction in the
+bearing and at the string, air; spokes and hub beside the hoop.
+
+**Checked by** `tests/unit/test_experiments.py`: the drop in 0.37 s; energy
+to 10⁻⁸ over 20 s and a steady release keeping its tilt to 10⁻⁶ degrees; the
+8.1 s round, its halving, the mean pace; the dip against the kept quantities'
+quadratic to 0.02°; the 4.4 nods a second; the 5.9 N·m.
+
+## The chain and the arch (`experiments.arch`)
+
+**The exhibit.** An arch of loose stones, no mortar, that carries itself and a
+load once the keystone is in; beside it a chain hanging between two hooks,
+whose shape, upside down, is the best shape for an arch.
+
+**The model** (`domain/experiments/arch.py`), Heyman's: masonry takes no
+tension, friction holds, the stones do not crush. The centre line
+(semicircle, pointed — two arcs of the span's radius — or the upside-down
+chain `y = h − a·(cosh(x/a) − 1)` through the springings and as high as the
+semicircle) is cut into equal stones by joints across it; a stone's weight is
+its quadrilateral's, at its centroid; a load stands on the extrados. Left of
+joint `j`, the support's `(H, V)` and its moment `M` about the first joint,
+with the weights, give `e_j = −M̄_j/N_j`, all linear in `(H, V, M)`. The arch
+stands if some `(H, V, M)` keeps `|e_j| ≤ t/2` everywhere; the least `λ` that
+keeps `|e_j| ≤ λ·t/2` is found exactly: for a fixed `V`, a polygon in `(H, M)`
+cut from a box by every joint's two half-planes, `λ` bisected 40 times; `V`
+is half the load when the load is symmetric and otherwise found by 40 golden
+steps (the least `λ` over `V` is quasi-convex, the feasible set convex). The
+drawn line crosses the joints at the polygon's centroid's `e_j`; joints within
+2 % of the widest reach are marked (amber standing, red breaking), from a
+reach of half the thickness up.
+
+**What it shows** (2 m span to the centre line, 25 cm stones, 16 of them).
+A semicircle needs `t/R` ≥ 0.1075 (Milankovitch 1907; 0.10746 in 100 stones,
+0.107 in 16): at 10 cm on its metre it breaks, where a pointed arch stands.
+A catenary arch keeps its line within a hundredth of half the thickness,
+however thick. A load at the quarter point breaks the semicircle at 80 % of
+its own weight, the catenary arch at 141 %; at the crown the catenary arch
+has no limit in this model (the thrust line fits as two straight struts).
+
+**The page.** The arch from the front with its stones, abutments, the thrust
+line, the marked joints and the load's arrow; the shape, the thickness, the
+stones, the load (to twice the arch's weight) and where it stands, the
+upside-down chain on demand; the safety `1/λ`, the push at the foot as a
+share of the weight, the arch's weight. A new topic, "equilibrium", for the
+overview's filter. **No route**: the port's (`simulate/arch.ts`), held to the
+engine exactly, the bisection and the golden section included.
+
+**Left out, and said:** sliding, crushing, the abutments' give, and what
+happens after the hinges form: the page shows where an arch opens, not how it
+falls.
+
+**Checked by** `tests/unit/test_experiments.py`: the chain's rise and ends;
+the catenary arch's line within 1 % at four thicknesses; Milankovitch's
+0.1075 and the 16 stones' 0.107; the semicircle falling and the pointed arch
+standing at 10 cm; the quarter-point loads, 80 % and 141 %.
+
+## The Chladni figures (`experiments.chladni`)
+
+**The exhibit.** A square metal plate fixed at its middle on a shaker, sand on
+it, the shaker's tone rising slowly; at certain tones the plate rings and the
+sand runs into lines, a different pattern each time.
+
+**The model** (`domain/experiments/chladni.py`). Kirchhoff's thin plate with
+free edges, ν = 0.3. Ritz's method on products of normalised Legendre
+polynomials up to degree 20 on `[−1, 1]²` (a free edge's conditions are the
+energy's own, so any complete basis serves); the 1D integrals by
+Gauss–Legendre, exact; the stiffness matrix per symmetry kind — even or odd
+across each middle line, and for equal parities kept or changed by the swap
+of x and y — and its eigenpairs by cyclic Jacobi rotations (the mass matrix
+is the identity in this basis). Rigid motions (κ ≈ 0) are dropped by κ > 1,
+the lowest true κ being about 11. λ = 4√κ. Each mode is scaled to 1 at its
+largest on a 41-point grid and signed positive at the middle. Shaken at its
+middle, only the doubly even, swap-kept modes move there and are driven; the
+answer is `|Σ φ_k·φ_k(0)/(ω_k² − Ω² + 2iζω_kΩ)|`, ζ = 0.002.
+
+**What it shows.** Leissa's free square plate: 13.468, 19.596, 24.270,
+34.801, 61.093, 63.686 to the third place. The driven modes of a 24 cm, 1 mm
+steel plate ring at 102, 269, 517, 711, 1186, 1266, 1455, 1973, 2346 and
+2529 Hz — 2.62 and 5.05 times the lowest, no harmonics. The lowest tone of all
+(13.468, the twist) has a still middle and is not driven. Ten driven modes at
+degree 20 agree with degree 24 to 0.1 in λ.
+
+**The route.** `GET /experiments/chladni` (under the budget) sends the driven
+modes as Legendre coefficients, the same for every plate: its size and steel
+only scale the tones, which the page does. Computed once a process (about two
+seconds), cached after. `write-test-fixtures.py` calls it with the chair (its
+`FETCHED`), and `test_page_fixtures.py` knows that the plate's build comes
+with the defaults while its modes come from the route.
+
+**The page.** The plate from above with 2500 grains on a canvas; the tones as
+buttons, the shaker's tone on a logarithmic slider, the sand strewn again; a
+sound switch (off by default, `use-tones.ts`, one voice at the shaker's tone,
+loud at a resonance); the plate's nearest tone and the middle's swing against
+its swing at the lowest tone. **The sand is a drawing rule**, said so on the
+page: a grain drifts down the swing's slope and is tossed in proportion to the
+swing where it lies; the swing is worked out on an 81-point grid and read
+between. The preview is a canvas, so the preview test accepts one.
+
+**Left out, and said:** the shaker's hold (its mass and stiffness shift the
+tones), the plate's thickness beside its size, and how sand really jumps.
+
+**Checked by** `tests/unit/test_experiments.py`: Leissa's six values; driven
+modes moving the middle and every other kind still there; the three tones and
+their ratios; the swing on the ring mode's node under 2 % of the middle's.
+`tests/api`: the route's modes lowest first, 24.270 at the bottom.
+
+## The floating top (`experiments.levitation`)
+
+**The exhibit.** A small top with a magnet in its disc, spun on a plate over a
+base with a ring magnet in it; lifted slowly with the plate, it leaves it and
+floats, spinning, a few centimetres up. Only a top of the right weight does:
+the toy is tuned with washers on the spindle, and a warm room undoes it.
+
+**The model** (`domain/experiments/levitation.py`; Berry 1996, Simon,
+Heflinger and Ridgway 1997). A still magnet over fixed ones flips or slides
+(Earnshaw). The spinning top's magnet stays against the field it sits in and
+turns slowly with it (the adiabatic approximation), so its energy is
+`U = m·g·z + μ·|B|`: it is pushed towards a weaker field, whose minimum free
+space allows. The ring's field on its axis is exact, an outer solenoid minus
+an inner one, `B = μ₀M/2·[F_r₂ − F_r₁]`, `F_a = f_a(z + t) − f_a(z)`,
+`f_a(u) = u/√(u² + a²)`, with its slope and curvature in closed form; off the
+axis Laplace's equation gives `|B| = B + r²·(B′²/B − 2B″)/8` to second order.
+The balance is `m·g = −μ·B′`; it holds up and down where `B″ > 0` and sideways
+where `B′² > 2·B·B″`, both only in a window found on a millimetre grid to
+30 cm and bisected 60 times at each edge; the balance is bisected likewise
+above the window's foot, where the lift only falls. It bobs at
+`√(μB″/m)/2π` and drifts round at `√(μ(B′²/(4B) − B″/2)/m)/2π`. Ferrite loses
+0.2 % of its magnetisation a kelvin, the base's and the top's alike, so a
+warming scales the lift by `(1 − 0.002·ΔT)²`.
+
+**What it shows** (an illustrative ferrite ring 10 cm across, a 3 cm hole,
+1.5 cm high, M = 320 kA/m; the top's magnet 2 cm³ of it, μ = 0.64 A·m²). The
+window runs from 4.36 to 4.81 cm and holds a top of 23.11 to 23.81 g, a margin
+of 3 %. Its foot is the lift's peak, so a heavier top lands; a lighter one
+balances only above the window, held upright but not sideways, and slides
+off. The exhibit's top of 23.5 g floats at 4.6 cm, bobs at 1.5 Hz and drifts
+round at 0.6 Hz. Two kelvin warmer move the window 0.8 % towards lighter tops
+and never its heights; three and a half kelvin warmer the top lands, four and
+a half colder it slides off. Turned with the field instead (a still magnet),
+no height holds it.
+
+**The page.** The top over the ring, cut through its axis, with the window's
+band and the top where it is: floating, lying on the ring, or slid past the
+rim; the top's weight in hundredths of a gram and the room's warming; the
+floating height, the lightest and the heaviest top, the bobbing and the
+drifting; a chart of the lift against the height with the top's weight, the
+window's two edges and the balance. Topic "equilibrium". **No route**: the
+port's (`simulate/levitation.ts`), held to the engine exactly, the grid and
+the bisections included.
+
+**Joins the experiment of the day** on `SECOND_SERIES`, with the second series.
+
+**Left out, and said:** the spin itself (taken fast enough for the magnet to
+follow the field and slow enough for the axis to follow its turns; that speed
+window is the paper's, not computed), the air, the top's wobble, and any
+particular toy's magnets.
+
+**Checked by** `tests/unit/test_experiments.py`: the axis field against a
+dipole's far up and its slope and curvature against differences; the window's
+heights and masses, the 3 %, the exhibit's height and frequencies; the foot as
+the lift's peak; landing and sliding off; the warmings of 3.5 and 4.5 K and the
+0.8 % that leaves the heights; and Earnshaw, no height for a magnet turned with
+the field.
+
+## The slow LC circuit (`experiments.circuit`)
+
+**The exhibit.** A physics room's classic, built large: a capacitor, a coil on
+a closed iron core, a battery, a changeover switch and a meter with its zero in
+the middle. On the battery the switch charges the capacitor; thrown over to
+the coil, the capacitor discharges through it and the needle swings one way,
+back through zero and back again, about once a second, each swing smaller,
+for some ten seconds. Marcel asked for it (2026-11-15, "Ich habe Mal etwas von
+Schwingkreis gehört"); no Technorama exhibit was found for it, so its page says
+it comes from the classroom.
+
+**The model** (`domain/experiments/circuit.py`). Round the loop
+`L·di/dt + R·i = q/C` with `i = −dq/dt`: `L·q̈ + R·q̇ + q/C = 0`, the damped
+spring's equation with `L` the mass, `1/C` the stiffness and `R` the friction.
+Solved exactly from `q₀ = C·U₀` at rest: with `ω₀ = 1/√(LC)` and `γ = R/2L`,
+`q = q₀·e^{−γt}·(cos ω_d t + γ·sin(ω_d t)/ω_d)` and
+`i = q₀·ω₀²·e^{−γt}·sin(ω_d t)/ω_d` while `γ < ω₀`; `cosh`/`sinh` (with
+`β = √(γ² − ω₀²)`) above the critical `R = 2·√(L/C)`, `1` and `t` exactly at
+it. Creeping, the growing exponential is taken out first,
+`e^{(β−γ)t}·(1 ± e^{−2βt})/2`, so `βt` of 10¹⁰ does not overflow, and `expm1`
+keeps `sinh(βt)/β` exact as `β` shrinks to the edge. The swings counted are the
+needle's peaks of at least a tenth of the first, each `e^{−γπ/ω_d}` of the one
+before.
+
+**What it shows** (an illustrative build: 200 H with 90 Ω of wire on a closed
+iron core, 125 µF of film capacitors, 10 V). A period of 0.99 s; 21 swings
+before the needle's peaks fall under a tenth, after some 10 s; at most 7.5 mA,
+0.24 s after the switch. A swing there and back keeps 64 % of the energy, and
+after 10 s 1 % is left. From 2530 Ω it no longer swings (with 300 Ω 7 swings,
+with 1000 Ω 2). Four times the capacitance doubles the period; the battery
+changes only the size. Its twin: 200 kg on a spring of 8000 N/m with a
+friction of 90 N·s/m.
+
+**The page.** The circuit as a diagram — battery, switch, capacitor with its
+charge's signs, the coil and its iron core, the resistance, the meter's
+needle — over the spring that obeys the same equation, its block out as far as
+the capacitor is charged; a throw of the switch, pause and recharge, real time
+or a quarter of it; a bar of where the energy is (capacitor, coil, heat) and
+the time, current and voltage. Rebuilding (the coil 20–400 H, the capacitor
+20–1000 µF, the resistance 10–4000 Ω, the battery 1–20 V) recharges it and
+says whether it swings, with the period, the swings, the strongest current,
+the quality and the critical resistance, and the needle's current over three
+of its slowest decay times. "The trick" has the energy in the capacitor, in
+the coil and both together over time. Topics "oscillation" and "induction",
+lesson `second_order`. **No route**: the port's (`simulate/circuit.ts`), held
+to the engine exactly in all three regimes and a hair either side of the edge.
+
+**Joins the experiment of the day** on `SECOND_SERIES`, with the second series.
+
+**Left out, and said:** the iron core's losses (its magnetisation lags, eddy
+currents) and its saturation (a fixed `L`), the capacitors' leakage; the
+meter's resistance is counted in `R`.
+
+**Checked by** `tests/unit/test_experiments.py`: the exhibit's period, swings,
+current, critical resistance, quality, decay and energy, and its spring twin;
+the closed form against the loop's equations stepped (RK4) swinging, at the
+edge exactly and creeping back; the three solutions meeting at the edge; the
+energy account to 10⁻⁹ (Simpson's heat) and the 64 % and 1 %; four times the
+capacitance, twice the battery; fewer swings with more resistance, no turning
+back over the edge and no overflow far out.
+
+## The falling plates (`experiments.plates`)
+
+**The exhibit** (2026-11-15, the first of stage 4, local feedback entries
+#20–28; inspired by "Fallende Platten" at the Technorama). A tall column of
+magnets in two rows, north and south taking turns, a narrow gap between them;
+plates of copper, of aluminium and of aluminium cut with slots dropped into
+the gap sink through it slowly, though none of them is magnetic; the slotted
+one falls much faster.
+
+**The model** (`domain/experiments/plates.py`). The plate thin and slow, its
+currents in its plane, their own field left out; the magnets' field
+`B₀·cos(k·z)` along the fall and the same across the plate. In a rectangular
+piece `W × h` the currents are then exact, all four edges included: the
+charge `φ` solves Laplace's equation with no current through the edges, and
+with the field over the piece written as a cosine series
+`b₀ + Σ b_m·cos(mπy/h)` the mean `b₀` drives nothing and each other term a
+loop known in closed form (`cosh`, `sinh` across the width). The brake is the
+heat over the speed: `c = σ·d·[W·(∫B² − h·b₀²) − Σ h·b_m²·tanh(q_m·W/2)/q_m]`,
+`q_m = mπ/h` — the endless sheet's part exactly, the edges' as a series whose
+terms fall as the fifth power of their number; `_edge_terms` takes forty
+times as many as reach the field's own wavenumber and the width's, and 400
+more, so the rest changes the brake by under 10⁻⁸ anywhere in the bounds
+(2.4·10⁻¹⁰ at worst, measured against 20 000 more). A whole plate is one
+piece; slots leave teeth, each a piece (the spine is counted as cut). The fall
+uses the brake's mean over the poles, `⟨b_m²⟩ = (2B₀/h)²·(C_m² + S_m²)/2` in
+closed form, and `m·v̇ = m·g − c̄·v` then has the exact solution; the fall
+time is Newton's from past the root, where the fall's convexity brings it
+down without overshooting. The page draws the currents from the stream
+function, `J = (∂ψ/∂y, −∂ψ/∂x)`, zero on every edge and in the slots.
+
+**What it shows** (an assumed build: magnets 20 mm high, 0.15 T in the gap,
+90 cm of fall, plates 10 × 12 cm and 3 mm, the pure metals). Copper through
+in 5.9 s at 15 cm/s, aluminium in 12.3 s at 7.3 cm/s — 0.48 of copper's
+speed, as copper conducts 1.6 times as well but is 3.3 times as heavy — the
+slotted aluminium in 1.8 s at 53 cm/s, plastic freely in 0.43 s. The whole
+plates keep 85 % of an endless sheet's brake, the slotted one 12 %: a seventh,
+and it falls 7 times as fast. The thickness cancels exactly; a wider plate
+falls a little slower (half as wide, faster, by under a fifth). Brass, a
+quarter of copper's conductivity at nearly its weight, falls 3.8 times as fast.
+Each plate is at its speed within a few hundredths of a second; the copper
+turns not quite half a watt (0.49 W) into heat; the currents' own field stays
+under 4 % of the magnets'. The brake ripples by 5 % as a whole plate passes
+the poles and not at all for the slotted one, whose twelve teeth sit a
+quarter period apart.
+
+**The page.** The column from the front, schematic: four gaps with their
+magnets in the chart's red and green, the four plates let go at once, a
+stopwatch each, real time or a quarter; beside it one plate up close, riding
+along with it, the field passing behind it in bands and its eddy currents in
+front, coloured by the way they turn (a canvas, the stream function on a
+4-pixel grid from twelve loops). Rebuilding (the field 0.05–0.4 T, a magnet
+10–50 mm high, a plate of copper, aluminium, brass or plastic 1–10 mm thick,
+whole or cut into teeth 2–60 mm high) moves the column for the race too and
+times the reader's own plate, with its terminal speed, its share of the
+brake, mass, heat and time constant, and a chart of its time through the
+column over the height of a tooth, between the whole plate and no magnets at
+all (the time, not the terminal speed: fine teeth would reach theirs only far
+below the column's end). Where the currents' own field passes a tenth of the
+magnets' — fine teeth, fast — the page says so, as the model leaves it out. "The trick" has the four
+plates' times over the field. Topic "induction", lesson `first_order`. **No
+route**: the port's (`simulate/plates.ts`), held to the engine to 10⁻⁹ over
+three columns and eight plates, the currents' stream function included.
+
+**Joins the experiment of the day** on `SECOND_SERIES`, with the second series.
+
+**Left out, and said:** the field's true shape and its fraying at the column's
+ends (its strength is an assumption), the currents' own field, the spine of
+the slotted plate, the air (the plastic plate falls freely), the guides'
+friction.
+
+**Checked by** `tests/unit/test_experiments.py`: the four plates' times and
+speeds, the ratios the page states and the heat; the ripple, and the mean
+against a sampled period; the brake against the heat the currents make,
+summed over the plate on a grid from the stream function (to 2·10⁻³); teeth
+as wide as can be against `1 − sinc²(kh/2)`, the endless strip's closed form,
+written in the test; the fall against Newton's law stepped (RK4), and with the
+rippling brake at every depth the same fall time to a thousandth; the
+thickness, the width, finer slots and brass; the currents never crossing a
+slot or an edge, and none in plastic; the refusals.
+
+## The bouncing ball (`experiments.bounce`)
+
+**The exhibit** (2026-11-16, the second of stage 4, local feedback entry #22;
+inspired by "Hüpfende Stahlkugel" at the Technorama). A steel ball and a
+table-tennis ball over a hard plate; dropped, each clicks on it ever faster
+until the clicks run together and stop. The steel ball clicks much longer.
+
+**The model** (`domain/experiments/bounce.py`). A strike keeps the share `e`
+of the speed (the restitution, constant). Between strikes the ball flies
+straight up and down with its weight and the air's quadratic drag, solved
+exactly: up `v = v_T·tan(atan(v₀/v_T) − g·t/v_T)` to
+`v_T²/(2g)·ln(1 + v₀²/v_T²)`, down `v = −v_T·tanh(g·t/v_T)`, written with
+`log1p`, `expm1` and `ln cosh u = log1p(2·sinh²(u/2))` so that the last tiny
+hops do not cancel. Flight after flight until one is shorter than 0.1 ms; the
+rest of the series, `2u/(g·(1 − e))` for a ball thrown back at `u`, in closed
+form, the air long negligible there. At a strike's own moment the state is the
+one leaving it.
+
+**What it shows** (from 30 cm: a steel ball of 20 mm, 33 g, `e = 0.95` on
+hardened steel, an assumption; a regulation table-tennis ball, 2.7 g, 40 mm,
+`e = 0.92`, which with the air rises from 305 mm to 240 mm, the middle of the
+230–250 mm the rules of table tennis demand). The steel ball lands after
+0.25 s, rises to 27 cm and lies still after 9.6 s, 75 of its bounces longer
+than a hundredth of a second; the table-tennis ball rises to 24 cm and is
+still after 5.2 s, with 44. The air carries the table-tennis ball whole at
+8.6 m/s and the steel one at 60 m/s: the steel ball's second flight over its
+first is its restitution, 0.95; the table-tennis ball's is 0.89, not 0.92.
+
+**The page.** The plate with the two balls at true scale (never smaller than
+a dot) and, below, a strip with every strike on a time line, lit as it comes;
+let go together, real time or a quarter, a count of strikes each. **Sound**,
+off until switched on (`shared/lib/use-clicks.ts`, the tones' rules: no audio
+graph while off, the context closed when turned off, nothing stored): a
+knock at each strike, as loud as the strike was hard, the steel one at
+2800 Hz, the hollow one at 1100 Hz; the quickest strikes, many to a frame,
+knock once. Rebuilding: one of the two balls with its restitution 0.5–0.98 and
+the height 5–100 cm (the height moves the race too), the time until still,
+the bounces over 0.01 s, the first rise and flight, the rhythm and the
+terminal speed, and the ball's height over time. "The trick" has the time
+until still over the restitution for both, and without air
+(`√(2h/g)·(1 + e)/(1 − e)`). Topic "momentum". **No route**: the port's
+(`simulate/bounce.ts`), held to the engine to 10⁻⁹ over seven balls and
+heights, from a dull one with 10 strikes before the closed-form rest to one with
+723.
+
+**Joins the experiment of the day** on `SECOND_SERIES`, with the second series.
+
+**Left out, and said:** the restitution's dependence on the speed; the time on
+the plate at each strike (under 0.1 ms), which in reality ends the series with
+a buzz before its sum; spin; the plate giving way.
+
+**Checked by** `tests/unit/test_experiments.py`: the two balls' times, counts,
+rises, terminal speeds and rhythms, and the rules' 240 mm; every flight
+against the weight and the air's drag stepped (RK4), the drop and the first
+three; a ball the air cannot touch against the geometric series, its flights
+each `e` times the last; the turn at each strike keeping `e` of the speed, the
+ball never below the plate, and still after the sum; the refusals.
+`shared/lib/use-clicks.test.ts`: silent while off, a knock per click at its
+pitch and level, the context closed when turned off, and said where there is
+no Web Audio.
+
+## The overhang (`experiments.overhang`)
+
+**The exhibit** (2026-11-16, the third of stage 4, local feedback entry #23;
+inspired by "Ausladungen – wer kommt am weitesten raus" at the Technorama).
+Nine identical wooden blocks and an edge, no glue: how far out can the top one
+reach? Most build even steps and stay short of a block's length.
+
+**The model** (`domain/experiments/overhang.py`). Rigid blocks of one length,
+one to a layer; a layer holds while the centre of mass of it and all above lies
+over its footing (where it overlaps the block below; the table's top, edge at
+zero, for the lowest), its ends included. The furthest stack is built from the
+top, the `k`-th block from the top `1/(2k)` over the next: `H_n/2`. Even steps
+`1/(n + 1)` put the whole stack's centre on the edge first and reach
+`n/(n + 1)`. In lengths; the blocks are 20 × 4 cm only to draw and measure.
+
+**What it shows.** Nine blocks reach 1.41 lengths, 28.3 cm; four already more
+than one (1.04); even steps 0.9 with nine, never a whole length. One length
+takes 4 blocks, two 31, three 227, four 1674. The furthest stack stands at
+every edge at once: a block pushed a breath further out tips its own layer and
+every one below it, so the whole stack goes over the table's edge.
+
+**The page.** The stack from the front over the table, each block dragged
+(pointer) or moved with the arrow keys (a millimetre, a centimetre with
+Shift; each block a slider for a screen reader, its overhang in cm), 1 to 20
+blocks; each layer's centre of mass a dot on its footing, green where it
+holds, red where it tips, and the part from the lowest failing layer up drawn
+turned 9° about the end of the footing it passed; the overhang in cm; flush,
+even steps and furthest at a press. "The trick" has the blocks one, two,
+three and four lengths take, and the furthest and the even reach over the
+number of blocks. Topic "equilibrium". **No route**: the port's
+(`simulate/overhang.ts`), held to the engine over the furthest and even
+stacks of 1 to 20, eight stacks that hold or tip, one a block off its footing,
+and nine reaches. The preview pushes the nine out to the furthest and back,
+every stack on the way holding (each condition is linear along it).
+
+**Joins the experiment of the day** on `SECOND_SERIES`, with the second series.
+
+**Left out, and said:** stacks with several blocks to a layer, some as
+counterweights, which reach further (Paterson and Zwick); friction (the blocks
+only tip); the wood giving way; a shaking hand.
+
+**Checked by** `tests/unit/test_experiments.py`: the furthest stacks of 1 to
+20 against `H_n/2` in exact fractions, nine at 1.41 (28 cm), three short of a
+length and four past it; even steps at `n/(n + 1)`, holding, and tipping a
+step wider; the blocks for one to four lengths; the furthest stack at every
+edge at once and a nudge tipping its layer and all below; a blind search of
+20 000 random stacks of three and of four, none holding past the harmonic; the
+refusals.
+
+## The Cartesian diver (`experiments.diver`)
+
+**The exhibit** (2026-11-16, the fourth of stage 4, local feedback entry #24;
+inspired by "Kartesischer Taucher" at the Technorama). A small glass tube,
+open below, with a bubble of air that just keeps it afloat in a bottle of
+water. Squeezed, the bottle sinks it; let go, it rises; in between there is a
+depth where it would hover, and it never stays there.
+
+**The model** (`domain/experiments/diver.py`). The bubble by Boyle's law,
+`V = V₀·p₀/(p₀ + Δp + ρ·g·z)`, `Δp` the hand's squeeze; buoyancy less weight
+`ρ·g·(V_g + V) − m·g`; the hover depth where it vanishes,
+`z* = (p₀·V₀/(m/ρ − V_g) − p₀ − Δp)/(ρ·g)`, unstable (the lift falls with
+depth). The motion with half its volume of water dragged along and a blunt
+tube's quadratic drag (`c_d = 1`), Runge–Kutta at 2 ms with the squeeze as it
+is at each step; past the surface it floats there, past the bottom it lies.
+
+**What it shows** (an assumed diver: 3 g of glass, 1.2 cm³, 2 cm³ of air,
+12 mm across, in 30 cm of water). It floats on 0.19 g of spare buoyancy and
+hovers with a bubble of 1.81 cm³; a squeeze of 10.9 kPa sinks it from the top,
+and under 7.9 kPa it rises even from the bottom. Each kilopascal of squeeze
+lifts the hover depth 10.2 cm (`1/(ρ·g)`). Half a centimetre off the hover
+depth, at 9, 10 or 10.5 kPa, it goes all the way, up or down, within 10 s.
+
+**The page.** The bottle with its water and the diver (drawn larger, its
+bubble's share of the tube following Boyle), the hand's push as arrows, the
+hover depth dashed while it lies in the bottle; a slider for the squeeze
+(0–25 kPa, keys for fine steps), the motion running all the time, paused or
+sent back to the surface; whether it floats, rises, hovers (for now), sinks
+or lies on the bottom, its depth, speed and bubble. Rebuilding (air
+1.85–2.5 cm³, water 10–100 cm) restarts it, with the spare buoyancy, the
+bubble it hovers with, the squeezes that sink it from the top and lift it from
+the bottom, and the hover depth over the squeeze. "The trick" has buoyancy
+less weight over depth for 9, 10 and 11 kPa, each crossing zero falling. The
+preview's hand squeezes and eases off around 9.4 kPa. Topic "equilibrium",
+lesson `second_order`. **No route**: the port's (`simulate/diver.ts`), held to
+the engine over six runs of 1500 steps (both ways off the hover depth, from the
+surface unsqueezed and squeezed hard, a deep bottle, a heavy wide diver in a
+short one), the bubble, the lift, the hover depths and the figures.
+
+**Joins the experiment of the day** on `SECOND_SERIES`, with the second series.
+
+**Left out, and said:** the water that must run into the tube before the
+bubble shrinks; the water's and the bottle's give; the air in the neck,
+whose pressure is the hand's squeeze here; the diver poking out at the
+surface; temperature.
+
+**Checked by** `tests/unit/test_experiments.py`: the spare buoyancy, the
+hover bubble, the two squeezes and the 10.2 cm a kilopascal; Boyle's
+`p·V` kept; the lift vanishing at the hover depth, lifting above and pulling
+below; all the way up or down from half a centimetre off, floating
+unsqueezed and lying on the bottom squeezed hard; the steps against the same
+equation written in the test and stepped twenty times finer; the refusals.
+
+## The glass-bead rainbow (`experiments.rainbow`)
+
+**The exhibit** (2026-11-16, the fifth of stage 4, local feedback entry #25;
+inspired by "Glasperlen-Regenbogen" at the Technorama). A wall coated with
+tiny glass beads, lit by a lamp beside one's head: round the shadow of one's
+head a coloured ring, red outside and blue inside, brighter within — a
+rainbow half the size of the sky's. The first exhibit about light, and with it
+the topic "light".
+
+**Colour, for every light exhibit** (`domain/experiments/colour.py`). A
+spectrum at 81 wavelengths (380–780 nm, 5 nm) becomes the eye's `X, Y, Z` by
+the CIE 1931 observer, taken as the multi-lobe fit of Wyman, Sloan and
+Shirley (2013) rather than a table; then the screen's linear red, green and
+blue by the sRGB matrix, relative to the lamp's own white (each channel
+divided by the lamp's: the eye takes its lamp as white), a channel below zero
+shown as zero, a colour brighter than white dimmed as a whole, and sRGB's
+curve. Lamps are Planck's glowing bodies by their temperature. Mixing an
+out-of-gamut colour with grey of its own brightness was tried first and
+dropped: it keeps the brightness exactly but makes a spectral red a dull
+crimson.
+
+**The model** (`domain/experiments/rainbow.py`). A ray meeting a bead of
+index `n` at `b` of its radius off centre goes in at `sin i = b`, on at
+`sin r = b/n`, is reflected once at the back and leaves `θ = 4r − 2i` from the
+straight way back to the lamp (below zero: across that way, to the other
+side). The largest `θ`, at `cos² i = (n² − 1)/3`, is the rainbow angle; it
+exists for `1 < n < 2` and closes to nothing at `n = 2`. The index by Cauchy,
+`n(λ) = n_D + B·(1/λ² − 1/λ_D²)`, `λ_D` the sodium line. The ring as seen: the
+bead's face in 2000 rings of equal area, each ring's light (Fresnel's
+reflectance `R` for both polarisations, `(1 − R)²·R` each, averaged; inside,
+the ray meets the surface at `r`, where it reflects what it does at `i`
+outside) spread evenly over the angles between its edges' rays, in bins of
+0.1°; blurred by a lamp of 0.25° radius (the sun's), light blurred below zero
+folded back; over each bin's solid angle; and per bin the colour of the lamp's
+light (3000 K) by every wavelength's profile, exposed so that the ring's
+brightest bin is the screen's brightest.
+
+**What it shows** (soda-lime glass, `n_D = 1.52`, `B = 4200 nm²`; water
+1.333 and 3140 nm²). The glass ring at 21.1°, from violet at 19.9° to red at
+21.4°, 1.5° wide; water's at 42.1°, 1.9° wide: the glass ring is half the
+sky's (the ratio 0.50). The rainbow ray meets a glass bead 75 % out; of the
+light meeting the bead 5.5 % leaves after one reflection, and 24 % of that
+within a degree of the rainbow angle. The angle falls with the index: 42.5° at
+1.33, under 0.1° at 1.99; at `n = 2` a ray near the centre comes straight
+back, off only by a term in `b³`.
+
+**The page.** One bead, much enlarged, in a dark room (both themes alike):
+the lamp's light from the left, a fan of 19 rays through it bunching where
+they leave, the rainbow ray dashed, the chosen ray bright or split into seven
+colours, and the angle it leaves at from the way back. Beside it the wall as
+one sees it, a canvas coloured from the ring's bins round the shadow of one's
+head and shoulders, at a fixed 50° to its edge so that the ring visibly
+shrinks and grows, its radius written on it. A slider for where the ray meets
+the bead (0–99 % of the radius), a button to the rainbow ray, whether the ray
+comes back inside the ring, at it, or across the way back; the angles in, on,
+out and the rainbow angle. Changing the material (water drop or glass bead,
+which set the index and the dispersion; the index 1.30–1.95, keeping the
+dispersion) gives the ring's radius, its two edges and width, where the
+rainbow ray meets the bead, the light back after one reflection and the share
+near the rainbow angle, and the angle out over where the ray meets the bead for
+violet and red. The ring is recoloured from 81 wavelengths (about 50 ms) on a
+deferred value, so the slider never waits for it. "The trick" has the rainbow
+angle over the index from 1.30 to 1.99. The preview sweeps a ray across a
+glass bead's face. Topic "light", no lesson (geometry, not a motion). **No
+route**: the ports' (`simulate/colour.ts`, `simulate/rainbow.ts`), held to the
+engine over the observer, five lamps through three filters, the screen's
+mapping, and four beads (glass, water, a dense one at 1.9, one without
+dispersion at 1.3): angles, shares, traced paths, profiles, the ring's colours
+and the figures.
+
+**Joins the experiment of the day** on `SECOND_SERIES`, with the second series.
+
+**Left out, and said:** the beads' size (in very small beads the waves widen
+the ring and add faint rings inside it); light reflected twice or more inside
+or not at all; the wall behind the beads; the screen's own deviations from
+sRGB, so the colours are close, not exact.
+
+**Checked by** `tests/unit/test_experiments.py`: the observer's peak at 555 nm
+and its sum against the CIE's table; equal energy, illuminant A and the
+Planckian locus at 6500 K within 0.002; the lamp's own light white and a
+spectral red shown red; a negative channel to zero and a bright colour dimmed
+whole; the glass and water rings, their edges, widths and the half; the ring
+shrinking to nothing at 2; the rainbow angle against a search over the face;
+the traced ray against Snell's law and `4r − 2i`; Fresnel's 4 % straight on;
+the profile's light against Simpson's rule over the face, dark past the red
+edge, brightest at the rainbow angle; the ring red outside, blue inside and
+whitish within; the refusals.
+
+## Why the sky is blue (`experiments.sky`)
+
+**The exhibit** (2026-11-16, the sixth of stage 4, local feedback entry #26;
+inspired by "Warum ist der Himmel blau" at the Technorama). A long tube of
+water made faintly cloudy with particles far smaller than the wavelength, a
+white lamp shining in at one end: from the side the tube is bluish by the
+lamp and white, yellow and orange further along; seen through the far end the
+lamp is orange. The blue sky and the red setting sun for the same reason.
+
+**The model** (`domain/experiments/sky.py`, colours by `colour.py`). Rayleigh
+scattering `β(λ) = β₅₅₀·(550 nm/λ)⁴`, the cloudiness given as `β₅₅₀` per
+metre; the light going on `S(λ)·e^{−β(λ)·x}` (Beer–Lambert); the side light at
+`x` what is scattered there, `(550/λ)⁴·e^{−β(λ)·(x + a)}` relative to `β₅₅₀`,
+`a` the tube's half-width it still crosses to the wall; the end light
+`e^{−β(λ)·L}`. The lamp a 3000 K glow, each colour relative to its white. The
+sky: the air's optical depth straight up 0.097 at 550 nm, scaled as `1/λ⁴`;
+the sun at height `h` through Kasten and Young's air mass `m` (37.9 at the
+horizon), its light `S·e^{−m·τ}`; the sky straight overhead as sunlight
+scattered once at every height on its way down, `(e^{−τ} − e^{−m·τ})/(m − 1)`
+for an air whose density falls alike for every wavelength, written with
+`expm1` so that it holds at `m = 1` (`τ·e^{−τ}`). The sun a 5778 K glow above
+the air, taken as white. **Ozone** (added the same day, Marcel's "Ja" after a
+side agent found the sky overhead at sunset nearly white without it): the
+layer absorbs rather than scatters, most in the orange (the Chappuis band,
+strongest at 600 nm), `T₃ = e^{−m₃·σ(λ)·N}`. `σ` is measured, Serdyuchenko et
+al. (Atmos. Meas. Tech. 7, 2014) at 223 K, the layer's cold, from the MPI-Mainz
+UV/VIS Spectral Atlas, averaged over each 5 nm around the engine's 81
+wavelengths (`OZONE_CROSS_SECTION_E21_CM2`); `N` 300 Dobson units. The layer is
+a thin shell 22 km up, `m₃ = 1/√(1 − (R/(R + H))²·cos² h)`; it lies above
+nearly all the air, so the sun's light and the sky's, which is that light
+scattered further down, both carry `T₃`. A switch on the page takes it out.
+
+**What it shows** (an assumed tube: 1 m long, 6 cm across, `β₅₅₀` 1.5 per
+metre). Blue (450 nm) scatters 4.4 times as strongly as red (650 nm); half the
+blue is gone after 21 cm, past 54 cm the side light holds more red than blue;
+the end lets through 28 % as bright as the lamp, 3.5 % of its blue and 46 % of
+its red. The side light fades along the tube; cloudier, the end goes redder
+while the side by the lamp stays blue. The sun at the horizon keeps 3 % of its
+light (4 % without the ozone), orange; overhead it is near white. The sky
+overhead at noon is sky blue, more green in it than red (the sun's spectrum and
+the eye's, not violet). Ozone's optical depth straight up is 0.041 at 600 nm;
+the sun's light crosses 12 times as much of it at the horizon, where it takes
+39 % of the orange: with it the sky overhead at sunset stays blue, without it
+it is almost white.
+
+**The page.** The tube in a dark room: the lamp, the side as a gradient from
+65 places, each place's colour as bright as the screen allows (the caption
+says the tube darkens in reality), the window at the end in the colour that
+comes through, and marks where half the blue is gone and where red wins while
+they lie in the tube. A slider for the cloudiness (0.1–4 per metre), the
+figures beside it. Lengthening the tube (0.2–3 m) with the side light along
+it for blue, green and red, crossing where it turns yellowish. "In the sky":
+the sun's height (0–90°) with the sky overhead in its colour, as bright as
+against the sky with the sun overhead, and the sun's disc in its own; the air
+mass and how much of the sun's light, its blue and its red reach the ground,
+and a switch for the ozone layer with how much of the orange it takes.
+"The trick" has the sun's blue and red at the ground over its height. The
+preview's tube clouds over and clears again. Topic "light", lesson
+`first_order` (Beer–Lambert is the first-order decay). **No route**: the port's
+(`simulate/sky.ts`), held to the engine over three tubes (the exhibit's, a long
+cloudy one, a short clear wide one) at four places each, eight heights of the
+sun (one where the air mass is within a hair of 1) with the ozone and without,
+and the light scattered down at exactly one air and near it.
+
+**Joins the experiment of the day** on `SECOND_SERIES`, with the second series.
+
+**Left out, and said:** light scattered more than once (it whitens a very
+cloudy tube and the horizon); larger particles that scatter every colour
+alike (milk); the direction of scattering, which changes only the brightness;
+for the sky, dust and haze (which redden the sunset further), the sun below the
+horizon (the sky overhead then lit only high up, through more ozone still),
+and how much ozone there is, which changes with the season and the place.
+
+**Checked by** `tests/unit/test_experiments.py`: the 4.4, the 21 cm and the
+54 cm, the light at the end; the side light along the tube and the end light
+adding up to all the lamp's, by Simpson's rule, at every tenth wavelength; the
+tube blue by the lamp and orange at the end, redder when cloudier, fading
+along; the air mass at the horizon, overhead and against `1/sin h` high up;
+the sun near white overhead and orange at the horizon with 3 % left, 4 %
+without the ozone; the sky overhead against its integral over the heights, at
+one air exactly too; sky blue at noon and almost white at sunset without the
+ozone; the ozone band strongest at 600 nm, its 0.041 straight up, its shell
+once overhead, against `1/sin h` high up and 12 times at the horizon, its 39 %
+of the orange there, the sun's and the sky's light both carrying it, and the
+sunset sky blue with it; the refusals.
+
+## The double slit (`experiments.slits`)
+
+**The exhibit** (2026-11-16, the seventh of stage 4, local feedback entry #27;
+inspired by "Doppelspalt-Experiment" at the Technorama). A laser on a plate
+with two narrow slits and a wall behind: a row of bright and dark stripes, not
+two bright lines. Cover one slit and the stripes go, a broad patch is left —
+bright where the two made it dark.
+
+**The model** (`domain/experiments/slits.py`, colours by `colour.py`).
+Fraunhofer, the wall far away: each slit of width `a` sends `sinc(β)`,
+`β = π·a·sin θ/λ`, the pair `2·sinc(β)·cos(α)`, `α = π·d·sin θ/λ`; the
+intensity the square, relative to the middle of the pair's pattern,
+`sinc²(β)·cos²(α)`, and one slit covered `sinc²(β)/4`; a point `y` on the wall
+at `L` at `sin θ = y/√(y² + L²)`. Bright stripes at `sin θ = k·λ/d`, dark at
+`(k + ½)·λ/d`. The laser's colour is its wavelength's (`colour.matching`), its
+brightest channel full, scaled by the intensity; white light is a 3000 K
+lamp's spectrum with every wavelength its own pattern, by `colour.seen`, so
+the middle is the lamp's white.
+
+**What it shows** (a red laser, 650 nm, slits 0.25 mm apart and 0.05 mm wide,
+the wall 2 m behind). Stripes 5.2 mm apart, the first dark 2.6 mm beside the
+middle; one slit's middle band 26 mm to its first dark, nine bright stripes
+within it, the fifth lying on that dark and missing; at the pair's first dark
+stripe one slit alone gives 97 % of its own middle; one slit lights the middle
+a quarter as brightly as two. With white light the middle is white and the
+red's first dark blue. Fraunhofer holds as the wall is far against `d²/λ`,
+about a tenth of a metre.
+
+**The page.** The setup, small, in a dark room (the beam in the laser's
+colour, the second slit shown covered when it is), and under it the wall as
+one sees it: a canvas strip, a column per place, across one slit's middle
+band and a half again at the reddest light (`1.5·λ·L/a` at 700 nm, so a
+colour change shows the stripes widen while the frame stays), its scale in
+millimetres. Laser or white light, the laser's wavelength 400–700 nm, a
+switch to cover one slit; whether stripes show and how far apart, the figures
+beside. Changing the slits (spacing 0.1–1 mm, width 0.02–0.2 mm, each slider
+stopping short of the other, the wall 0.5–5 m) with the brightness along the
+wall for two slits and one. "The trick" has one slit open and two side by
+side at the same brightness. The preview's laser runs through the colours.
+Topic "light", no lesson (a pattern, not a motion). **No route**: the port's
+(`simulate/slits.ts`), held to the engine over four pairs of slits (the
+exhibit's, a wide pair near the wall, a far one, one barely wider apart than a
+slit) and three lasers: intensities, stripes, colours, both patterns and the
+figures.
+
+**Joins the experiment of the day** on `SECOND_SERIES`, with the second series.
+
+**Left out, and said:** the wall's nearness; the laser beam's width and
+spread, which make the stripes fade up and down; the slits' edges and
+thickness; polarisation.
+
+**Checked by** `tests/unit/test_experiments.py`: the 5.2 and 2.6 mm, the 26 mm
+band and its nine stripes, the 97 %, the quarter in the middle and the tenth
+of a metre; the pattern against Huygens' waves summed strip by strip (400 to
+a slit) for two slits and one; dark stripes dark where one slit lights the
+wall with at least 40 % of its middle, bright stripes four times one slit; the
+missing stripe; the laser's colour, white light's white middle and blue at
+red's dark; the refusals.
+
+## Beats (`experiments.beats`)
+
+**The exhibit** (2026-11-16, the eighth and last of stage 4, local feedback
+entry #28; inspired by "Schwebung" at the Technorama). Two tuning forks on
+their sounding boxes, alike but for a small rider clamped to one fork's
+prongs: struck together they sound as one tone that slowly swells and fades;
+slide the rider and the swelling quickens or slows.
+
+**The model** (`domain/experiments/beats.py`). Each fork rings down as
+`e^{−t/τ}`, both struck alike, so the sum is `½·e^{−t/τ}·(sin 2πf₁t +
+sin 2πf₂t) = e^{−t/τ}·cos(π·(f₁ − f₂)·t)·sin(π·(f₁ + f₂)·t)`, its loudness
+`e^{−t/τ}·|cos(π·(f₁ − f₂)·t)|`, peaking `|f₁ − f₂|` times a second. The prong
+a clamped beam in its first mode, `1 + cos βL·cosh βL = 0`, `βL = 1.8751`, its
+shape `φ` scaled to 1 at the tip, where the prong weighs a quarter of its mass
+(`∫φ² = ¼`); a rider `m` on each prong at `s` along it slows the fork by
+Rayleigh's estimate with the mode kept, `f₂ = f₁/√(1 + m·φ(s)²/(m_prong/4))`.
+
+**What it shows** (an assumed fork: 440 Hz, prongs of 20 g, ringing down in
+6 s; a 1 g rider 30 % up the prongs). The second fork at 439.18 Hz: 0.82
+beats a second, one every 1.22 s, 3.2 cents apart, 23 beats while the sound
+falls to a hundredth; the same gram at the tip, 38 Hz down. Rayleigh comes
+out 0.04 % above the exact frequency of a beam with a mass at its end for 1 g
+at the tip, under 0.4 % for 5 g.
+
+**The page.** The two forks (their prongs blurred as wide as they swing, the
+rider drawn on the second), their pitches, and under them the sum around now
+over 12 ms, a slow motion of a few swings; under that the loudness over ten
+seconds since the strike, both together and one alone dashed, now marked. A
+button to strike, a switch for the sound (off at first; `useTones` plays the
+two forks and the ear makes the beats), whether they wait, ring or have died
+away, the two pitches, the beats and the time between them. Moving the rider
+(0–2 g, from the stem to the tip) gives the second fork, the beats, the time
+between them, the cents and the beats heard, and the loudness over ten
+seconds. "The trick" has the beats over the rider's place for 0.5, 1 and 2 g.
+The preview strikes again every nine seconds, silent. Topics "oscillation" and
+"perception", lesson `second_order` (each fork a damped oscillator). **No
+route**: the port's (`simulate/beats.ts`), held to the engine over the mode's
+shape, three forks (the exhibit's, a low heavy one ringing long, a high light
+one ringing short) with five riders each, and the loudness and the sound over
+five seconds.
+
+**Joins the experiment of the day** on `SECOND_SERIES`, with the second series.
+
+**Left out, and said:** the sounding boxes and the room; the rider's own pull
+on the mode's shape; the prongs' coupling and the stem; the ear, which hears
+fast beats as roughness and then as two tones.
+
+**Checked by** `tests/unit/test_experiments.py`: the 439.18 Hz, 0.82 Hz,
+1.22 s, 3.2 cents and 23 beats, and the 38 Hz at the tip; the mode's root and
+its quarter by Simpson's rule; Rayleigh against the exact beam with a mass at
+its end, solved by bisection in the test; the sum against the mean tone times
+the beating envelope, and ten silences in four seconds at 2.5 beats; a rider
+at the stem or of no mass in tune, the pitch falling along the prong; the
+refusals.
+
+## The notice: the check still to come
+
+On Marcel's word (2026-11-15) the overview and every exhibit's page carry a
+warning banner under their heading: the calculations still await their check,
+and figures and drawings may change (`experiments.unchecked`,
+`features/experiments/unchecked-notice.tsx`, placed by `ExhibitFrame` and the
+overview). Every figure is tested against the engine and the engine against
+independent counts, but no one outside has gone through the models. One
+component in two places: removing it once the check is done is one edit, and
+the two page tests that look for it go with it.
 
 ## Checking the mathematics
 

@@ -13,4 +13,8 @@ export const STORAGE = {
   experimentsTried: "staunlabor.experimentsTried",
   /** A prefix: a kit table's sort and page size, should a page ever show one. */
   tables: "staunlabor-table:",
+  /** A prefix: the account's session, as `@eifi1/ui-kit/accounts` keeps it
+   *  (`accountStorageEntries`: `staunlabor.session`), in the tab's storage on a
+   *  computer marked shared, else on the device. */
+  accounts: "staunlabor.",
 } as const;

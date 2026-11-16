@@ -13,7 +13,10 @@ import { EXHIBITS, OVERVIEW_PATH, exhibitAt } from "./exhibits";
  * exhibits, the language and the light or dark theme, and the footer.
  *
  * On a phone the strip is a select naming the page the reader is on; from `md`
- * up it is the names in a row.
+ * up it is the names in one row that scrolls sideways where they do not fit,
+ * the current one scrolled into view. With the second series of exhibits the
+ * names no longer fit a wide screen either, and a strip that wrapped pushed the
+ * language and the theme onto a line of their own.
  */
 export function ExperimentsLayout() {
   const { t } = useTranslation();
@@ -56,9 +59,16 @@ export function ExperimentsLayout() {
             ))}
           </Select>
         ) : (
-          <NavPills aria-label={t("experiments.area")} size="sm" items={items} current={current} />
+          <NavPills
+            aria-label={t("experiments.area")}
+            size="sm"
+            layout="scroll"
+            items={items}
+            current={current}
+            className="min-w-0 flex-1"
+          />
         )}
-        <div className="ml-auto flex items-center gap-1">
+        <div className="ml-auto flex shrink-0 items-center gap-1">
           <LanguageMenu
             options={[...LANGUAGES]}
             current={language}

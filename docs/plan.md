@@ -95,13 +95,26 @@ say so stay as they are.
   SQL instance `keksdose:europe-west4:keksdose-db`, the way Kastlan does it:
   an owner role for the migrations, a DML-only app role for the service, the
   URLs in Secret Manager, migrations as a Cloud Run job. The instance is a
-  db-f1-micro of about 25 connections shared by four apps, so the pool is small
-  (2 + 2 per instance).
+  db-f1-micro of about 22 usable connections shared by every app on it, and
+  every app gets the same cap: one connection and one more per instance, a
+  request waiting at most 10 s for one (the owner, 2026-11-13; it was 2 + 2).
 - **Accounts as in Keksdose, Kastlan and Kurvenschmiede,** on the same kit
   parts. Visitors still need none to use the exhibits.
 - **The scope of Kurvenschmiede:** public feedback (comments, votes, the public
   list), passkeys, the data export and account deletion, the mail switches, the
-  reviewer role and `/translations`. No teams, no billing, no demo.
+  reviewer role and `/translations`. No teams (Marcel confirmed it again on
+  2026-11-15), no billing, no demo.
+- **Two-factor sign-in as an option (Marcel, 2026-11-15):** every account may
+  switch it on in its settings, none has to; server-kit 0.32's authenticator
+  codes, ten backup codes, and an admin's reset for a lost authenticator. Its
+  secrets are sealed under a key of the deployment's own
+  (`STAUNLABOR_TOTP_KEYS`).
+- **What comes first (Marcel, 2026-11-14):** the site stays open to every
+  visitor, exhibits and all, with no account; that matters most. Accounts stay
+  invitation-only, so a visitor gives no feedback unless invited; an open
+  sign-up or an anonymous form would need its own spam protection and is not
+  planned. Feedback is not a priority now: the reviewer's `/translations` comes
+  before it.
 - **Mail through Resend,** in the account the sibling apps send from: its plan
   verifies three domains, and Kastlan, taken offline on 2026-11-13 for the
   time being, gave its place to `staunlabor.app` (region Ireland, sending
@@ -120,10 +133,41 @@ say so stay as they are.
 Steps, each its own commits:
 
 1. The database's ground: the engine, Alembic, a Postgres database per test
-   worker, `npm run db:setup`, CI's Postgres.
-2. Accounts and user administration on the kit's Layer 2.
-3. Feedback and the translation review on the kit's routers.
+   worker, `npm run db:setup`, CI's Postgres. *(on `feat/accounts`: the engine
+   and the request's unit of work, the kit's `[sql]` tables, migration 0001 and
+   its check against the models, a database per test worker, `npm run
+   db:migrate`, a Postgres service in CI's backend job, not yet run on GitHub)*
+2. Accounts and user administration on the kit's Layer 2. *(on
+   `feat/accounts`: server-kit 0.30's `auth_router`,
+   `invitations_admin_router` and `user_admin_router` behind one admin guard,
+   with the kit's signer and hasher; invitation-only with the first admin
+   through the allow-list, an invitation naming a MEMBER or a REVIEWER and an
+   admin made by a role change in the roster; the reviewer's seven languages
+   and the areas `experiments` and `legal`; an operator's erasure of an
+   account that asked; passkeys; the console transport, the whole mail on a
+   laptop and its kind alone on a deployment; every route under the address
+   budget; the kit's contract checks on PostgreSQL. On server-kit 0.31: the
+   kit's daily call, `POST /api/v1/ops/accounts/daily` behind the jobs token,
+   deleting ended sessions, expired links and invitations 30 days after, not
+   yet scheduled. On server-kit 0.32: two-factor sign-in, offered and never
+   required, on the account's row, migration 0004.)*
+3. Feedback and the translation review on the kit's routers. *(feedback on
+   `feat/accounts`: server-kit 0.31's `feedback_router` on `feedback.sql`'s
+   tables, migration 0002, the kit's contract suites on PostgreSQL; files in a
+   local directory until a bucket; the planned exhibits filed as ideas. The
+   review too: `translation_review_router` on `translation_review.sql`'s table,
+   migration 0003, an admin every language, a reviewer what an admin granted.)*
 4. The pages: sign-in, settings, admin, feedback, `/translations`.
 5. The texts: the privacy policy, the terms, the about page, in all seven.
+   The privacy policy names the 30 days an ended session keeps its address
+   (server-kit's `ACCOUNT_ROWS_RETENTION`). *(the privacy policy and the about
+   page rewritten on 2026-11-15: the exhibits without an account, what an
+   account keeps, the sealed second factor, Resend, the 30 days, and what an
+   erasure anonymises and deletes — the person's feedback files too, which an
+   erasure now removes from the store. Marcel, the same day: the erasure runs
+   by itself, 30 days after the request, in the daily call; no terms page, but
+   one sentence under the translation review and the feedback pages that a
+   contribution is sent under CC BY 4.0.)*
 6. The deploy: the database and its roles on keksdose-db, the secrets, the
-   migrate job, the bucket for feedback files.
+   migrate job, the bucket for feedback files, the daily call's scheduler job
+   and its token (`deploy/README.md` §6).

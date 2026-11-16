@@ -3,7 +3,8 @@
  * Swiss German one has and no other, no string is empty, and each keeps the
  * placeholders of the German one — a translation that dropped `{{version}}`
  * would print the braces. The credit to the museum says "inspired by" and
- * never "from": the exhibits are this site's own.
+ * never "from": the exhibits are this site's own. It says "most": the slow LC
+ * circuit is a classroom classic, not one of the museum's.
  */
 import { describe, expect, it } from "vitest";
 import deCH from "./locales/de-CH.json";
@@ -53,7 +54,8 @@ describe("the catalogues", () => {
   }
 
   it("credit the museum as the model, never as the source", () => {
-    expect(german.get("experiments.overview.credit")).toMatch(/^Inspiriert von/);
+    expect(german.get("experiments.overview.credit")).toMatch(/^Die meisten Exponate sind inspiriert von/);
+    expect(german.get("site.about.model")).toMatch(/^Die meisten Exponate sind inspiriert von/);
     for (const text of german.values()) expect(text).not.toMatch(/aus dem (Swiss Science Center )?Technorama/);
   });
 });

@@ -1,6 +1,15 @@
 import { describe, expect, it } from "vitest";
-import { DAILY_EPOCH, dailyExhibit, dailyHistory, dayIn, spacing, type DailyMember, type DailyWeights } from "./daily";
-import { EXHIBITS, type Topic } from "./exhibits";
+import {
+  DAILY_EPOCH,
+  DAILY_WEIGHTS,
+  dailyExhibit,
+  dailyHistory,
+  dayIn,
+  spacing,
+  type DailyMember,
+  type DailyWeights,
+} from "./daily";
+import { EXHIBITS, SECOND_SERIES, type Topic } from "./exhibits";
 
 const DAY_MS = 86_400_000;
 const after = (day: string, n: number) => new Date(Date.parse(day) + n * DAY_MS).toISOString().slice(0, 10);
@@ -16,13 +25,22 @@ const EVEN: DailyWeights = { bonusPerDay: 0, topicMalus: 1, pairMalus: 1 };
 
 const built = EXHIBITS.filter((entry) => entry.path).map((entry) => entry.exhibit);
 
+/** Every built exhibit in the draw from the epoch on, with its topics: the
+ *  round the rules are about, whatever day each one ships (`since` puts the
+ *  second series in later, and the default pool with it). */
+const everyone: DailyMember[] = EXHIBITS.filter((entry) => entry.path).map((entry) => ({
+  exhibit: entry.exhibit,
+  since: DAILY_EPOCH,
+  topics: entry.topics,
+}));
+
 describe("the experiment of the day", () => {
   it("is the same exhibit whenever the same day is asked about", () => {
     expect(dailyExhibit("2027-03-14")).toBe(dailyExhibit("2027-03-14"));
   });
 
   it("gives every exhibit its turn before any has a second", () => {
-    const days = run(built.length * 40);
+    const days = run(built.length * 40, everyone);
     for (let round = 0; round < 40; round++) {
       const shown = days.slice(round * built.length, (round + 1) * built.length);
       expect(new Set(shown).size).toBe(built.length);
@@ -30,7 +48,7 @@ describe("the experiment of the day", () => {
   });
 
   it("brings an exhibit back no sooner than half a round later, across the end of a round too", () => {
-    const days = run(built.length * 40);
+    const days = run(built.length * 40, everyone);
     const gap = spacing(built.length);
     expect(gap).toBe(Math.ceil(built.length / 2));
     days.forEach((exhibit, i) => {
@@ -65,12 +83,17 @@ describe("the experiment of the day", () => {
     }));
     const flow = new Set<string>(built.slice(0, 2));
     const together = (days: string[]) => days.slice(1).filter((e, i) => flow.has(e) && flow.has(days[i])).length;
-    const leaned = together(run(built.length * 400, pool));
-    const even = together(run(built.length * 400, pool, EVEN));
-    expect(even).toBeGreaterThan(50);
-    // Not a quarter as often, though the weight is a quarter: late in a round
-    // there is often nothing else left to draw.
-    expect(leaned).toBeLessThan(even * 0.7);
+    // 1200 rounds: with 35 exhibits the two meet some 25 times in 400, too few
+    // to tell a half from a whole.
+    const leaned = together(run(built.length * 1200, pool));
+    const even = together(run(built.length * 1200, pool, EVEN));
+    // An even round puts the two side by side 2/n of the time: 1200 rounds of
+    // 35, about sixty-nine. A fixed bound held only while there were few exhibits.
+    expect(even).toBeGreaterThan(((2 * 1200) / built.length) * 0.7);
+    // The second series' malus is a half (the first series' a quarter): 29
+    // against 74 with 35 exhibits (40 against 73 with 34), not half as often,
+    // since late in a round there is often nothing else left to draw.
+    expect(leaned).toBeLessThan(even * 0.85);
   });
 
   it("rarely repeats the round before's order, two by two (the other malus)", () => {
@@ -102,10 +125,28 @@ describe("the experiment of the day", () => {
         const before = i > 0 ? days.lastIndexOf(exhibit, i - 1) : -1;
         return before !== -1 && i - before > built.length + 2;
       }).length;
-    const leaned = late(run(built.length * 400, pool));
-    const even = late(run(built.length * 400, pool, EVEN));
+    const leaned = late(run(built.length * 1200, pool));
+    const even = late(run(built.length * 1200, pool, EVEN));
     expect(even).toBeGreaterThan(50);
-    expect(leaned).toBeLessThan(even * 0.8);
+    // With eight exhibits the bonus cut such turns by a quarter; with fifteen,
+    // by an eighth; with sixteen, by a tenth; with 35, by a thirty-sixth (14894
+    // against 15315 over 1200 rounds): a day's weight is fixed while a round
+    // grows, and stays so (Marcel weakened the maluses instead, 2026-11-15).
+    // Still fewer.
+    expect(leaned).toBeLessThan(even * 0.98);
+  });
+
+  it("weakens the maluses from the second series on, and keeps every day shown before it", () => {
+    const first: DailyWeights = { bonusPerDay: 0.25, topicMalus: 0.25, pairMalus: 0.1 };
+    const shown = Math.round((Date.parse(SECOND_SERIES) - Date.parse(DAILY_EPOCH)) / DAY_MS);
+    // The days before the second series: drawn with the first series' weights, as shown.
+    expect(dailyHistory(SECOND_SERIES, shown)).toEqual(dailyHistory(SECOND_SERIES, shown, undefined, first));
+    // From it on, the halved maluses (DAILY_WEIGHTS) draw, which the first series' would not.
+    const later = after(SECOND_SERIES, 200);
+    expect(dailyHistory(later, 200)).toEqual(dailyHistory(later, 200, undefined, DAILY_WEIGHTS));
+    expect(dailyHistory(later, 200)).not.toEqual(dailyHistory(later, 200, undefined, first));
+    expect(DAILY_WEIGHTS.topicMalus).toBeGreaterThan(first.topicMalus);
+    expect(DAILY_WEIGHTS.pairMalus).toBeGreaterThan(first.pairMalus);
   });
 
   it("takes a new exhibit in at the next round, leaving the days before it as they were", () => {

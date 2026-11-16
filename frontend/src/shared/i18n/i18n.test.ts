@@ -8,7 +8,7 @@ import { afterEach, describe, expect, it, vi } from "vitest";
 import i18n from "i18next";
 import { readStored, writeStored } from "@eifi1/ui-kit";
 import { STORAGE } from "@/shared/lib/storage-keys";
-import { changeLanguage, initI18n, readerLanguage } from "./index";
+import { changeLanguage, initI18n, loadBundle, readerLanguage } from "./index";
 import { tagOf } from "./languages";
 
 function browserLanguages(languages: string[]) {
@@ -56,5 +56,14 @@ describe("a switch", () => {
     expect(i18n.t("site.footer.imprint")).not.toBe("site.footer.imprint");
     expect(document.documentElement.lang).toBe(tagOf("hu"));
     expect(readStored(STORAGE.language)).toBe("hu");
+  });
+});
+
+describe("a catalogue for the translation review", () => {
+  it("is the one the site ships: German from the first load, every other one as its own chunk", async () => {
+    const [de, fr] = await Promise.all([loadBundle("de-CH"), loadBundle("fr")]);
+    expect((de.account as Record<string, unknown>).admin).toBe("Verwaltung");
+    expect((fr.account as Record<string, unknown>).admin).toBe("Administration");
+    expect(await loadBundle("pt")).toEqual({});
   });
 });

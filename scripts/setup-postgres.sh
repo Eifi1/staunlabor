@@ -81,3 +81,5 @@ echo
 echo "Done. The defaults point here, so nothing needs to go in backend/.env unless"
 echo "you changed the password:"
 echo "  STAUNLABOR_DATABASE_URL=postgresql+asyncpg://$DB_USER:$DB_PASSWORD@127.0.0.1:5432/staunlabor"
+echo
+echo "Then build the schema:  npm run db:migrate"

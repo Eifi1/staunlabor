@@ -2,8 +2,9 @@
  * The site's own pages: the footer every page ends in, the about page with the
  * one line that names the museum as the model, the imprint and the privacy
  * policy on the kit's legal page, and the 404 for every address that is not a
- * page. The legal pages say only what is true of a site without accounts —
- * no beta notice, no terms, no sign-out.
+ * page. The legal pages say only what is true of the site: the exhibits without
+ * an account, accounts only by invitation and what they keep — no beta notice,
+ * no terms.
  */
 import { describe, expect, it } from "vitest";
 import { screen, within } from "@testing-library/react";
@@ -41,6 +42,12 @@ describe("the about page", () => {
     expect(screen.getByText(S.about.model)).toBeInTheDocument();
     expect(S.about.model).toMatch(/inspired by/);
     expect(S.about.model).toMatch(/not affiliated/);
+  });
+
+  it("says the exhibits need no account, and accounts come by invitation", () => {
+    renderWithProviders(<AboutPage />);
+    expect(screen.getByText(S.about.accounts)).toBeInTheDocument();
+    expect(S.about.accounts).toMatch(/^The exhibits need no account\..*only by invitation/);
   });
 
   it("sends feedback to the repository's issues", () => {
@@ -94,20 +101,40 @@ describe("the privacy policy", () => {
     expect(screen.getByText(P.browser.tail)).toBeInTheDocument();
   });
 
-  it("says what the site processes, who hosts it, and how long the logs are kept", async () => {
+  it("says what the site processes, who hosts it, how long it is kept, and how an account is taken away", async () => {
     renderWithProviders(<PrivacyPage />);
     for (const key of ["data", "third_parties", "transfers", "retention"] as const) {
       // The kit numbers a page's sections: "2. What data we process".
       expect(await screen.findByRole("heading", { name: new RegExp(`${P[key].title}$`) })).toBeInTheDocument();
     }
     expect(screen.getByText(P.legal_basis.site)).toBeInTheDocument();
+    expect(screen.getByText(P.rights.site)).toBeInTheDocument();
   });
 
-  it("says nothing of accounts, sign-out or reports waiting to be sent", async () => {
+  // The accounts (plan, second stage): what the policy must say about them, each a promise
+  // the backend keeps — the exhibits without one, the sealed second factor, the mail's
+  // processor, the 30 days the daily call prunes after, the erasure that anonymises
+  // feedback and removes its files (accounts.py, feedback.py).
+  it("says the exhibits need no account and what an account keeps, for how long", () => {
+    expect(P.data.body).toMatch(/^The exhibits need no account\./);
+    expect(P.data.body).toMatch(/only by invitation/);
+    expect(P.data.body).toMatch(/two-factor sign-in.*encrypted.*not in the database/);
+    expect(P.third_parties.body).toMatch(/Resend/);
+    expect(P.transfers.body).toMatch(/Resend/);
+    expect(P.retention.body).toMatch(/deleted 30 days after they ended/);
+    expect(P.retention.body).toMatch(/anonymised.*files only you attached are deleted/);
+    // The daily call erases 30 days after the request (DeletionMode.AFTER_DAYS), and the
+    // shared instance's backups keep a copy for seven days (server-kit's BACKUP_RETENTION_DAYS).
+    expect(P.retention.body).toMatch(/30 days after the request it is deleted for good, automatically/);
+    expect(P.retention.body).toMatch(/Backups of the database still hold the deleted data for up to 7 days/);
+    expect(P.data.body).not.toMatch(/no accounts|no database/);
+  });
+
+  it("names the account's session in the kit's words, and no report waiting to be sent", async () => {
     renderWithProviders(<PrivacyPage />);
     await screen.findByText(P.browser.tail);
     const text = document.body.textContent ?? "";
-    expect(text).not.toMatch(/sign(ing)? out/i);
+    expect(text).toMatch(/sign(ing)? out/i);
     expect(text).not.toMatch(/waiting to be sent/i);
     expect(screen.queryByText(/beta/i)).not.toBeInTheDocument();
   });

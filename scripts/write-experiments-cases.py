@@ -1,6 +1,10 @@
 """Write what the engine answers for the experiments' two simulations, so the
 browser can be held to it: `frontend/src/features/experiments/simulate/engine-cases.json`.
 
+The pendulum (`pendulum.py`, the block the swinging exhibits stand on) and the
+pendulum wave's tuning (`wave.py`) are written here too: Jacobi's functions,
+the exact angle, a stepped swing, the row's lengths and lags.
+
 The ball in the hanging sphere and the magnet car on its ramps answer a hand
 sixty times a second, and the race's balls in their pit are a time loop the
 API's budget has no room for, so they run in the browser
@@ -31,6 +35,7 @@ from __future__ import annotations
 
 import importlib
 import json
+import math
 import sys
 from dataclasses import asdict
 from pathlib import Path
@@ -50,6 +55,35 @@ pit = importlib.import_module("staunlabor.domain.experiments.pit")
 elephant = importlib.import_module("staunlabor.domain.experiments.elephant")
 smoke = importlib.import_module("staunlabor.domain.experiments.smoke")
 cannon = importlib.import_module("staunlabor.domain.experiments.cannon")
+pendulum = importlib.import_module("staunlabor.domain.experiments.pendulum")
+wave = importlib.import_module("staunlabor.domain.experiments.wave")
+harmonograph = importlib.import_module("staunlabor.domain.experiments.harmonograph")
+cone = importlib.import_module("staunlabor.domain.experiments.cone")
+parabola = importlib.import_module("staunlabor.domain.experiments.parabola")
+coupled = importlib.import_module("staunlabor.domain.experiments.coupled")
+peg = importlib.import_module("staunlabor.domain.experiments.peg")
+maxwell = importlib.import_module("staunlabor.domain.experiments.maxwell")
+chaos = importlib.import_module("staunlabor.domain.experiments.chaos")
+waterwheel = importlib.import_module("staunlabor.domain.experiments.waterwheel")
+foucault = importlib.import_module("staunlabor.domain.experiments.foucault")
+coriolis = importlib.import_module("staunlabor.domain.experiments.coriolis")
+cradle = importlib.import_module("staunlabor.domain.experiments.cradle")
+well = importlib.import_module("staunlabor.domain.experiments.well")
+resonance = importlib.import_module("staunlabor.domain.experiments.resonance")
+gyroscope = importlib.import_module("staunlabor.domain.experiments.gyroscope")
+arch = importlib.import_module("staunlabor.domain.experiments.arch")
+levitation = importlib.import_module("staunlabor.domain.experiments.levitation")
+circuit = importlib.import_module("staunlabor.domain.experiments.circuit")
+plates = importlib.import_module("staunlabor.domain.experiments.plates")
+bounce = importlib.import_module("staunlabor.domain.experiments.bounce")
+overhang = importlib.import_module("staunlabor.domain.experiments.overhang")
+diver = importlib.import_module("staunlabor.domain.experiments.diver")
+chladni = importlib.import_module("staunlabor.domain.experiments.chladni")
+colour = importlib.import_module("staunlabor.domain.experiments.colour")
+rainbow = importlib.import_module("staunlabor.domain.experiments.rainbow")
+sky = importlib.import_module("staunlabor.domain.experiments.sky")
+slits = importlib.import_module("staunlabor.domain.experiments.slits")
+beats = importlib.import_module("staunlabor.domain.experiments.beats")
 
 TARGET = ROOT / "frontend/src/features/experiments/simulate/engine-cases.json"
 #: Points kept per curve: enough to see a curve that went wrong, few enough that
@@ -273,6 +307,433 @@ CANNON_CASES: dict[str, dict[str, Any]] = {
 }
 
 
+#: Jacobi's functions where the AGM is short and where it is long, on both sides
+#: of zero and past a period, and at the ends of the parameter.
+JACOBI_POINTS: tuple[tuple[float, float], ...] = (
+    (0.3, 0.0),
+    (0.3, 1e-20),
+    (-2.2, 0.1),
+    (1.7, 0.5),
+    (5.0, 0.9),
+    (11.0, 0.999),
+    (0.7, 1.0),
+)
+
+#: The exact pendulum: small, wide, nearly over the top, and a minute in.
+PENDULUM_ANGLES: tuple[tuple[float, float, float], ...] = (
+    (0.34, 15.0, 0.37),
+    (0.34, 15.0, 60.0),
+    (0.21, 2.0, 59.3),
+    (1.0, 90.0, 1.1),
+    (2.0, 170.0, 7.7),
+    (0.5, 0.0, 1.0),
+)
+
+#: The stepped pendulum: free, damped, and at a coarse step.
+SWING_CASES: dict[str, dict[str, Any]] = {
+    "a wide free swing": {"length_m": 0.5, "amplitude_deg": 60.0, "duration_s": 3.0},
+    "a damped swing": {"length_m": 1.0, "amplitude_deg": 20.0, "duration_s": 4.0, "damping_per_s": 0.3},
+    "a coarse step": {"length_m": 0.2, "amplitude_deg": 120.0, "duration_s": 2.0, "step_s": 5e-3},
+}
+
+#: The pendulum wave: the default row, a textbook one let go wide, and a short
+#: row of few swings.
+WAVE_CASES: dict[str, Any] = {
+    "the default row": wave.PendulumWave(),
+    "tuned for small swings, let go at 30°": wave.PendulumWave(tuned_deg=0.0, amplitude_deg=30.0),
+    "five pendulums, a slow cycle": wave.PendulumWave(count=5, cycle_s=90.0, longest_swings=40, amplitude_deg=8.0),
+}
+
+
+#: The harmonograph: the default drawing, an undamped pair let go at different
+#: widths, phases past half a swing, and a near 1:1 at a coarse step.
+HG = harmonograph.HarmonographPendulum
+HARMONOGRAPH_CASES: dict[str, dict[str, Any]] = {
+    "the default drawing": {"h": harmonograph.Harmonograph(), "duration_s": 6.0},
+    "undamped, let go at 30° and 5°": {
+        "h": harmonograph.Harmonograph(
+            pen=HG(amplitude_deg=30.0, damping_per_s=0.0), board=HG(length_m=0.36, amplitude_deg=5.0, damping_per_s=0.0)
+        ),
+        "duration_s": 4.0,
+    },
+    "phases past half a swing, heavily damped": {
+        "h": harmonograph.Harmonograph(
+            pen=HG(phase_deg=250.0, damping_per_s=0.5), board=HG(length_m=0.2, phase_deg=135.0, damping_per_s=0.3)
+        ),
+        "duration_s": 3.0,
+    },
+    "near one to one, a coarse step": {
+        "h": harmonograph.Harmonograph(board=HG(length_m=0.79, phase_deg=90.0)),
+        "duration_s": 5.0,
+        "step_s": 4e-3,
+    },
+}
+
+
+#: The double cone: the default, up the rails; steep rails, down them from the
+#: top; rails at the boundary, where it stays; a fat cone on wide short rails at
+#: a coarse step.
+CONE_CASES: dict[str, dict[str, Any]] = {
+    "the default, up the rails": {"ex": cone.ConeExhibit(), "duration_s": 3.0},
+    "steep rails, down them": {"ex": cone.ConeExhibit(rails=cone.Rails(slope_deg=10.0)), "duration_s": 4.0},
+    "at the boundary": {
+        "ex": cone.ConeExhibit(rails=cone.Rails(slope_deg=7.546280442894854)),
+        "duration_s": 0.5,
+        "start_x_m": 0.1,
+    },
+    "a fat cone, wide short rails, a coarse step": {
+        "ex": cone.ConeExhibit(cone.DoubleCone(0.12, 35.0), cone.Rails(30.0, 6.0, 0.05, 0.15)),
+        "duration_s": 2.0,
+        "step_s": 4e-3,
+    },
+}
+
+#: The water parabola: a surface wet, at the dry rate, dry, spilling, at rest;
+#: and the water spinning up, spinning down, and from one rate to a faster one.
+PARABOLA_RATES = (0.0, 6.0, 13.20380416563516, 15.0, 25.0)
+PARABOLA_SPINS: dict[str, dict[str, Any]] = {
+    "spinning up": {"v": parabola.Vessel(), "vessel_rate": 10.0, "duration_s": 20.0},
+    "spinning down": {"v": parabola.Vessel(), "vessel_rate": 0.0, "duration_s": 20.0, "start_rate": 12.0},
+    "a shallow wide dish, faster, a coarse step": {
+        "v": parabola.Vessel(radius_m=0.5, height_m=0.2, fill_m=0.02),
+        "vessel_rate": 6.0,
+        "duration_s": 10.0,
+        "start_rate": 3.0,
+        "step_s": 0.05,
+    },
+}
+
+#: The coupled pendulums: one pushed, both together, against each other wide,
+#: unequal and damped, and no spring at all at a coarse step.
+CB = coupled.Bob
+COUPLED_CASES: dict[str, dict[str, Any]] = {
+    "one pushed": {"cp": coupled.CoupledPendulums(), "start": coupled.Start.ONE, "amplitude_deg": 5.0},
+    "both together": {"cp": coupled.CoupledPendulums(), "start": coupled.Start.TOGETHER, "amplitude_deg": 10.0},
+    "against each other, wide": {
+        "cp": coupled.CoupledPendulums(spring_n_m=3.0),
+        "start": coupled.Start.AGAINST,
+        "amplitude_deg": 40.0,
+    },
+    "unequal and damped": {
+        "cp": coupled.CoupledPendulums(right=CB(0.6, 0.3), spring_at_m=0.4, damping_per_s=0.2),
+        "start": coupled.Start.ONE,
+        "amplitude_deg": 15.0,
+    },
+    "no spring, a coarse step": {
+        "cp": coupled.CoupledPendulums(spring_n_m=0.0),
+        "start": coupled.Start.ONE,
+        "amplitude_deg": 20.0,
+        "step_s": 5e-3,
+    },
+}
+
+#: Galileo's pendulum: the same height, over the top, slack and taut again, and
+#: a long string at a coarse step.
+PEG_CASES: dict[str, dict[str, Any]] = {
+    "the same height": {"p": peg.PegPendulum(), "duration_s": 5.0},
+    "over the top": {"p": peg.PegPendulum(start_deg=90.0, peg_depth_m=0.62), "duration_s": 3.0},
+    "slack, then taut": {"p": peg.PegPendulum(start_deg=90.0, peg_depth_m=0.58), "duration_s": 4.0},
+    "a long string, a coarse step": {
+        "p": peg.PegPendulum(length_m=3.0, peg_depth_m=2.0, start_deg=70.0),
+        "duration_s": 6.0,
+        "step_s": 4e-3,
+    },
+}
+
+#: Maxwell's wheel: the default disc over two bounces, a lossless ring, and a
+#: heavy wheel on a fat axle with soft strings, sampled finely.
+MAXWELL_CASES: dict[str, dict[str, Any]] = {
+    "the default disc": {"w": maxwell.MaxwellWheel(), "duration_s": 14.0, "samples": 50},
+    "a ring without losses": {
+        "w": maxwell.MaxwellWheel(shape=maxwell.Shape.RING, loss=0.0, drop_m=0.3),
+        "duration_s": 8.0,
+        "samples": 50,
+    },
+    "a heavy wheel, a fat axle, soft strings": {
+        "w": maxwell.MaxwellWheel(mass_kg=3.0, axle_radius_m=0.02, stiffness_n_m=500.0, loss=0.1),
+        "duration_s": 3.0,
+        "samples": 400,
+    },
+}
+
+#: The double pendulum: wild, gentle, unequal and damped at a coarse step; and
+#: the Lyapunov measurement, short, so both halves of the check stay quick.
+CHAOS_CASES: dict[str, dict[str, Any]] = {
+    "wild": {"dp": chaos.DoublePendulum(), "start": (120.0, 120.0), "duration_s": 4.0},
+    "gentle": {"dp": chaos.DoublePendulum(), "start": (5.0, 7.0), "duration_s": 3.0},
+    "unequal and damped, a coarse step": {
+        "dp": chaos.DoublePendulum(length2_m=0.5, mass2_kg=0.2, damping_per_s=0.1),
+        "start": (-90.0, 170.0),
+        "duration_s": 3.0,
+        "step_s": 4e-3,
+        "nudge_deg": 0.5,
+    },
+}
+
+#: The waterwheel: still, steady after one reversal, chaotic, and a strong brake
+#: at a coarse step.
+WATERWHEEL_CASES: dict[str, dict[str, Any]] = {
+    "still": {"w": waterwheel.WaterWheel(rho=0.5), "duration_s": 20.0},
+    "steady": {"w": waterwheel.WaterWheel(rho=10.0), "duration_s": 30.0},
+    "chaotic": {"w": waterwheel.WaterWheel(), "duration_s": 30.0},
+    "a strong brake, a coarse step": {
+        "w": waterwheel.WaterWheel(sigma=30.0, rho=60.0, leak_per_s=1.0),
+        "duration_s": 5.0,
+        "step_tau": 0.04,
+    },
+}
+
+#: Foucault's pendulum: Winterthur, the pole, the equator, the south; the bob's
+#: place a second, an hour and a day in.
+FOUCAULT_CASES = (
+    foucault.FoucaultPendulum(),
+    foucault.FoucaultPendulum(length_m=67.0, amplitude_m=3.0, latitude_deg=90.0),
+    foucault.FoucaultPendulum(latitude_deg=0.0),
+    foucault.FoucaultPendulum(length_m=5.0, amplitude_m=0.2, latitude_deg=-33.9),
+)
+FOUCAULT_TIMES = (0.0, 1.3, 3600.0, 86400.0)
+
+#: The carousel: a puck and a ball thrown straight and aimed ahead, clockwise
+#: and still platforms, a ball that never leaves.
+CC = coriolis.Carousel
+CT = coriolis.Throw
+CORIOLIS_CASES = (
+    (CC(), CT()),
+    (CC(), CT(aim_deg=40.0, body=coriolis.Body.BALL)),
+    (CC(radius_m=4.0, rpm=-12.0), CT(speed_m_s=6.0, aim_deg=-30.0)),
+    (CC(rpm=0.0), CT(speed_m_s=1.0, aim_deg=20.0, body=coriolis.Body.BALL)),
+    (CC(rpm=30.0), CT(speed_m_s=0.5, aim_deg=80.0, body=coriolis.Body.BALL)),
+)
+
+#: Newton's cradle: touching and gapped, elastic and damped, two lifted, a
+#: short row of big balls; each impact, and a short run through one.
+CRADLE_CASES = (
+    (cradle.Cradle(), cradle.Pull()),
+    (cradle.Cradle(gap_m=1e-4, restitution=1.0), cradle.Pull()),
+    (cradle.Cradle(), cradle.Pull(balls=2, angle_deg=20.0)),
+    (cradle.Cradle(count=3, diameter_m=0.05, string_m=0.3, restitution=0.8), cradle.Pull(angle_deg=45.0)),
+)
+
+#: Where the heights and the contact are written out along the rails.
+CONE_POINTS = (0.0, 0.07, 0.15, 0.3)
+
+
+#: The gravity well: the exhibit's start, a rosette without resistance, a wide
+#: shallow funnel thrown outward, and a ball sent almost straight at the hole.
+WELL_CASES = (
+    (well.Funnel(), well.Launch()),
+    (well.Funnel(rolling_resistance=0.0), well.Launch(0.3, 10.0)),
+    (well.Funnel(k_m2=0.005, rim_m=0.6, hole_m=0.02, rolling_resistance=0.004), well.Launch(0.6, -15.0)),
+    (well.Funnel(), well.Launch(0.1, 80.0)),
+)
+
+
+#: Resonance: the exhibit's rack in step with its third rod and between two,
+#: swept, and a stiff, well-damped rack of three.
+RESONANCE_CASES = (
+    (resonance.Rack(), 2.2073, 0.0),
+    (resonance.Rack(), 2.0, 0.0),
+    (resonance.Rack(), 1.5, 0.05),
+    (resonance.Rack(lengths_m=(0.3, 0.25, 0.2), diameter_m=0.004, damping_ratio=0.05, table_m=0.002), 20.0, -0.5),
+)
+
+
+#: The gyroscope wheel: let go from rest and turning steadily, tilted up, slow
+#: enough to nod widely, and still (it drops).
+GYROSCOPE_CASES = (
+    (gyroscope.Wheel(), gyroscope.Release()),
+    (gyroscope.Wheel(), gyroscope.Release(tilt_deg=70.0, steady=True)),
+    (gyroscope.Wheel(mass_kg=1.0, radius_m=0.2, axle_m=0.25, rpm=60.0), gyroscope.Release(tilt_deg=110.0)),
+    (gyroscope.Wheel(rpm=0.0), gyroscope.Release()),
+)
+
+
+#: The arch: the exhibit's semicircle, a pointed arch loaded off the middle, a
+#: catenary loaded on the other side, one too thin to stand, and a fine one.
+ARCH_CASES = (
+    (arch.Arch(), arch.Load()),
+    (arch.Arch(shape="pointed", thickness_m=0.1), arch.Load(0.5, 500.0)),
+    (arch.Arch(shape="catenary", blocks=12), arch.Load(-0.3, 2000.0)),
+    (arch.Arch(thickness_m=0.08), arch.Load()),
+    (arch.Arch(span_m=5.0, thickness_m=0.4, blocks=40), arch.Load(0.0, 3000.0)),
+)
+
+
+#: The floating top: the exhibit's, one too heavy and one too light, the exhibit's
+#: warmed until it lands and cooled until it slides, a solid disc and a ring
+#: half again as strong with a stronger top.
+LEVITATION_CASES = (
+    (levitation.Base(), levitation.Top(), 0.0),
+    (levitation.Base(), levitation.Top(mass_kg=0.0239), 0.0),
+    (levitation.Base(), levitation.Top(mass_kg=0.0230), 0.0),
+    (levitation.Base(), levitation.Top(), 3.5),
+    (levitation.Base(), levitation.Top(), -4.5),
+    (levitation.Base(inner_radius_m=0.0), levitation.Top(mass_kg=0.01), 1.0),
+    (levitation.Base(magnetisation_a_m=4.8e5), levitation.Top(moment_a_m2=0.9, mass_kg=0.05), -2.0),
+)
+
+#: Heights the field and the lift are compared at, in metres.
+LEVITATION_HEIGHTS = (0.0, 0.004, 0.02, 0.0436, 0.046, 0.0481, 0.07, 0.15)
+
+
+#: The slow LC circuit: the exhibit's; more resistance, and nearly too much; the
+#: critical case exactly (ω₀ = γ = 5/s) and a hair either side of it, where the
+#: three solutions meet; creeping back; a quick one on a higher battery.
+CIRCUIT_CASES = (
+    circuit.Circuit(),
+    circuit.Circuit(resistance_ohm=300.0),
+    circuit.Circuit(resistance_ohm=2000.0),
+    circuit.Circuit(inductance_h=4.0, capacitance_f=0.01, resistance_ohm=40.0),
+    circuit.Circuit(inductance_h=4.0, capacitance_f=0.01, resistance_ohm=40.0 * (1 - 1e-6)),
+    circuit.Circuit(inductance_h=4.0, capacitance_f=0.01, resistance_ohm=40.0 * (1 + 1e-6)),
+    circuit.Circuit(resistance_ohm=4000.0),
+    circuit.Circuit(inductance_h=20.0, capacitance_f=20e-6, resistance_ohm=10.0, voltage_v=20.0),
+)
+
+#: When after the switch the cases are compared, in seconds.
+CIRCUIT_TIMES = (0.0, 0.05, 0.2429, 0.5, 1.0, 2.5, 7.0, 15.0)
+
+
+#: The falling plates: the exhibit's column; a strong one of short magnets; a
+#: weak one of long magnets, tall. Each with the exhibit's four plates, and the
+#: exhibit's column also with brass, a narrow tall strip, teeth that fit the
+#: plate exactly (so the count's floor is a whole number), the finest teeth and
+#: a thick slotted copper plate.
+PLATE_COLUMNS = (
+    plates.MagnetColumn(),
+    plates.MagnetColumn(field_t=0.4, pitch_m=0.01, drop_m=0.3),
+    plates.MagnetColumn(field_t=0.05, pitch_m=0.2, drop_m=2.0),
+)
+PLATE_EXTRAS = (
+    plates.Plate("brass"),
+    plates.Plate("copper", width_m=0.01, height_m=0.5),
+    plates.Plate("aluminium", height_m=0.118, tooth_m=0.008),
+    plates.Plate("aluminium", tooth_m=0.001),
+    plates.Plate("copper", thickness_m=0.05, tooth_m=0.03),
+)
+#: After the plate is let go, in seconds; and how far its top edge has fallen,
+#: in metres, where the brake and the currents are compared.
+PLATE_TIMES = (0.0, 0.003, 0.02, 0.1, 0.5, 2.0, 9.0)
+PLATE_DEPTHS = (0.0, 0.0137, 0.2)
+#: Points on the plate the stream function is compared at: ``(x, y)`` from the
+#: middle and up from the lower edge, in metres; and the loops summed.
+PLATE_POINTS = ((0.0, 0.004), (0.02, 0.031), (-0.045, 0.0602), (0.0, 0.0085), (0.049, 0.119))
+PLATE_TERMS = 16
+
+#: The bouncing ball: the exhibit's two from 30 cm, the table-tennis ball by
+#: the rules' 305 mm; a heavy small ball the air cannot touch; a light big one
+#: the air holds back hard, bouncing nearly forever; a dull ball from a
+#: centimetre; a basketball-like one from a metre and a half.
+BOUNCE_CASES = (
+    (bounce.STEEL, 0.30),
+    (bounce.TABLE_TENNIS, 0.30),
+    (bounce.TABLE_TENNIS, 0.305),
+    (bounce.BouncingBall(mass_kg=10, diameter_m=0.005, restitution=0.9), 0.5),
+    (bounce.BouncingBall(mass_kg=0.05, diameter_m=0.3, restitution=0.99), 2.0),
+    (bounce.BouncingBall(mass_kg=0.0027, diameter_m=0.04, restitution=0.5), 0.01),
+    (bounce.BouncingBall(mass_kg=0.6, diameter_m=0.24, restitution=0.8), 1.5),
+)
+#: After the ball is let go, in seconds.
+BOUNCE_TIMES = (0.0, 0.05, 0.2, 0.26, 0.5, 0.9, 1.7, 3.3, 6.0, 30.0)
+
+#: The overhang: stacks that hold, at the edge exactly and short of it, and
+#: stacks that tip at the bottom, in the middle and at the top; one block, and
+#: blocks sitting off their footing altogether.
+OVERHANG_STACKS = (
+    (-1.0,),
+    (-0.4,),
+    (-0.6, -0.3, 0.1),
+    (-0.9, -0.7, -0.5, -0.3),
+    (-0.5, -0.2, 0.3, 0.2, 0.25),
+    (-1.0, -1.0, -1.0, -1.0, 0.1),
+    (-0.2, 0.9, -0.5),
+    (-1.9, 1.5),
+)
+#: Reaches the fewest blocks are found for, in lengths.
+OVERHANG_REACHES = (0.25, 0.5, 0.75, 1.0, 1.5, 2.0, 2.5, 3.0, 4.0)
+
+#: The Cartesian diver: the exhibit's let go just off its hover depth both
+#: ways, from the surface unsqueezed and squeezed hard; a diver with more air
+#: in a deep bottle; a heavy wide one in a short bottle.
+DIVER_RUNS = (
+    (diver.Diver(), diver.Bottle(), "hover-", 10000.0),
+    (diver.Diver(), diver.Bottle(), "hover+", 10000.0),
+    (diver.Diver(), diver.Bottle(), 0.0, 0.0),
+    (diver.Diver(), diver.Bottle(), 0.0, 20000.0),
+    (diver.Diver(air_m3=2.5e-6), diver.Bottle(depth_m=1.5), 0.4, 30000.0),
+    (
+        diver.Diver(glass_kg=0.02, glass_m3=5e-6, air_m3=1.6e-5, diameter_m=0.03),
+        diver.Bottle(depth_m=0.1),
+        0.05,
+        4000.0,
+    ),
+)
+DIVER_STEPS = 1500
+#: Squeezes the hover depth and depths the bubble and lift are compared at.
+DIVER_SQUEEZES = (0.0, 5000.0, 9000.0, 10883.5, 15000.0)
+DIVER_DEPTHS = (0.0, 0.07, 0.3, 1.2)
+
+
+#: Light: the observer at the fit's bell centres and the ends of the range;
+#: lamps from a candle's glow to a blue sky's; colours inside the screen's
+#: range, below it, above it and dark.
+COLOUR_WAVELENGTHS = (380.0, 437.0, 442.0, 501.1, 555.0, 568.8, 599.8, 700.0, 780.0)
+COLOUR_LAMPS = (1500.0, 3000.0, 5800.0, 6500.0, 15000.0)
+COLOUR_SCREEN = ((0.18, 0.18, 0.18), (-0.1, 0.5, 0.2), (2.0, -1.0, 0.5), (0.002, 0.5, 1.0), (-0.2, 0.0, -0.1))
+
+#: The glass-bead rainbow: the exhibit's glass, a raindrop, a dense bead
+#: that rings close to the head's shadow, and a weak one without dispersion;
+#: rays from the centre to the rim, through the rainbow ray.
+RAINBOW_BEADS = (
+    rainbow.GLASS,
+    rainbow.WATER,
+    rainbow.Bead(index=1.9, dispersion_nm2=8000.0),
+    rainbow.Bead(index=1.3, dispersion_nm2=0.0),
+)
+RAINBOW_IMPACTS = (0.0, 0.2, 0.5, 0.75, 0.9, 0.99)
+RAINBOW_WAVELENGTHS = (400.0, 589.3, 700.0)
+
+#: Why the sky is blue: the exhibit's tube, a long cloudy one, a short clear
+#: wide one; the sun from the horizon to overhead; the light scattered down at
+#: and near one air.
+SKY_TUBES = (
+    sky.Tube(),
+    sky.Tube(length_m=2.5, cloudiness_per_m=3.0),
+    sky.Tube(length_m=0.3, radius_m=0.1, cloudiness_per_m=0.2),
+)
+SKY_HEIGHTS = (0.0, 2.0, 5.0, 10.0, 30.0, 60.0, 88.61, 90.0)
+SKY_DOWN = ((0.05, 1.0), (0.2, 1.0 + 1e-9), (0.2, 1.5), (1.0, 38.0))
+
+#: The double slit: the exhibit's, a wide pair close to the wall, a far one, a
+#: pair barely wider apart than a slit; violet, green and red lasers; the wall
+#: across the middle band and a half again (the page's span), 81 points.
+SLITS = (
+    slits.Slits(),
+    slits.Slits(spacing_m=0.3e-3, width_m=0.08e-3, distance_m=1.5),
+    slits.Slits(spacing_m=1e-3, width_m=0.2e-3, distance_m=5.0),
+    slits.Slits(spacing_m=0.12e-3, width_m=0.1e-3, distance_m=0.5),
+)
+SLITS_NM = (405.0, 532.0, 650.0)
+SLITS_POINTS = 81
+
+#: Beats: the exhibit's fork, a low heavy one ringing long, a high light one
+#: ringing short; riders from none to the heaviest at the tip; the sound over
+#: five seconds, finely enough to follow a 1000 Hz fork.
+BEATS_FORKS = (
+    beats.Fork(),
+    beats.Fork(frequency_hz=256.0, prong_kg=0.05, decay_s=10.0),
+    beats.Fork(frequency_hz=1000.0, prong_kg=0.005, decay_s=2.0),
+)
+BEATS_RIDERS = (
+    beats.Rider(mass_kg=0.0, position=0.0),
+    beats.Rider(),
+    beats.Rider(mass_kg=0.002, position=0.5),
+    beats.Rider(mass_kg=0.005, position=1.0),
+    beats.Rider(mass_kg=0.0003, position=0.15),
+)
+BEATS_TIMES = tuple(5.0 * k / 20000 for k in range(20001))
+
+
 def thin(values: Any) -> Any:
     """A curve as its length and every so many of its points, the last always
     among them; anything else as it is, recursively."""
@@ -300,6 +761,591 @@ def _visitor(visitor: Any) -> Any:
     if isinstance(visitor, coil.Scripted):
         return {"kind": "scripted", **asdict(visitor)}
     return {"kind": "rule", **asdict(visitor)}
+
+
+def _pendulum_cases(out: dict[str, Any]) -> None:
+    """The pendulum block and the exhibits on it: Jacobi's functions, the exact
+    angle, the stepped swing, the wave's lengths and lags."""
+    out["constants"]["pendulum"] = {
+        name: getattr(pendulum, name) for name in ("G", "STEP_S", "SAMPLES_PER_S", "MAX_DURATION_S")
+    }
+    for u, m in JACOBI_POINTS:
+        out["jacobi"].append({"u": u, "m": m, "sncndn": list(pendulum.jacobi(u, m))})
+    for length, amplitude, t in PENDULUM_ANGLES:
+        out["pendulum_angles"].append(
+            {
+                "length_m": length,
+                "amplitude_deg": amplitude,
+                "t": t,
+                "angle_deg": pendulum.angle_deg(length, amplitude, t),
+                "period_s": pendulum.period_s(length, amplitude),
+            }
+        )
+    for name, case in SWING_CASES.items():
+        out["swing"].append({"name": name, **case, "run": thin(asdict(pendulum.swing(**case)))})
+    for name, row in WAVE_CASES.items():
+        out["wave"].append(
+            {
+                "name": name,
+                "wave": asdict(row),
+                "lengths_m": list(wave.lengths_m(row)),
+                "lag_deg": list(wave.lag_deg(row)),
+                "spread_deg": wave.spread_deg(row),
+            }
+        )
+
+
+def _cradle_cases(out: dict[str, Any]) -> None:
+    for cr, pull in CRADLE_CASES:
+        out["cradle"].append(
+            {
+                "cr": asdict(cr),
+                "pull": asdict(pull),
+                "impact": asdict(cradle.impact(cr, pull)),
+                "run": thin(asdict(cradle.run(cr, pull, 1.0))),
+            }
+        )
+
+
+def _well_cases(out: dict[str, Any]) -> None:
+    for f, launch in WELL_CASES:
+        out["well"].append(
+            {
+                "f": asdict(f),
+                "launch": asdict(launch),
+                "circular": [
+                    [r, well.circular_speed_m_s(f, r), well.circular_period_s(f, r)]
+                    for r in (f.hole_m, f.start_m, f.rim_m)
+                ],
+                "run": thin(asdict(well.run(f, launch, 20.0))),
+            }
+        )
+
+
+def _resonance_cases(out: dict[str, Any]) -> None:
+    out["resonance_constants"] = {
+        "BETA1": resonance.BETA1,
+        "GAMMA": resonance.GAMMA,
+        "shape": [resonance.shape(i / 10) for i in range(11)],
+    }
+    for rack, drive, sweep in RESONANCE_CASES:
+        out["resonance"].append(
+            {
+                "rack": asdict(rack),
+                "drive_hz": drive,
+                "sweep_hz_per_s": sweep,
+                "natural_hz": [resonance.natural_hz(rack, length) for length in rack.lengths_m],
+                "steady_m": [resonance.steady_m(rack, length, drive) for length in rack.lengths_m],
+                "run": thin(asdict(resonance.run(rack, drive, 10.0, sweep))),
+            }
+        )
+
+
+def _gyroscope_cases(out: dict[str, Any]) -> None:
+    for w, release in GYROSCOPE_CASES:
+        y, m = gyroscope.start(w, release)
+        out["gyroscope"].append(
+            {
+                "wheel": asdict(w),
+                "release": asdict(release),
+                "start": list(y),
+                "motion": asdict(m),
+                "rates": (
+                    [gyroscope.precession_rad_s(w), gyroscope.nutation_rad_s(w), gyroscope.suitcase_torque_n_m(w, 90.0)]
+                    if w.rpm > 0
+                    else []
+                ),
+                "run": thin(asdict(gyroscope.run(w, release, 5.0))),
+            }
+        )
+
+
+def _arch_cases(out: dict[str, Any]) -> None:
+    for stone, load in ARCH_CASES:
+        out["arch"].append(
+            {
+                "arch": asdict(stone),
+                "load": asdict(load),
+                "joints": [asdict(j) for j in arch.joints(stone)],
+                "blocks": [asdict(b) for b in arch.blocks(stone)],
+                "thrust": asdict(arch.thrust(stone, load)),
+            }
+        )
+
+
+def _levitation_cases(out: dict[str, Any]) -> None:
+    for base, top, warming in LEVITATION_CASES:
+        out["levitation"].append(
+            {
+                "base": asdict(base),
+                "top": asdict(top),
+                "warming_k": warming,
+                "field": [list(levitation.axis_field(base, z)) for z in LEVITATION_HEIGHTS],
+                "lift_kg": [levitation.lift_kg(base, top, z, warming) for z in LEVITATION_HEIGHTS],
+                "holds": [levitation.holds(base, z) for z in LEVITATION_HEIGHTS],
+                "hover": asdict(levitation.hover(base, top, warming)),
+            }
+        )
+
+
+def _circuit_cases(out: dict[str, Any]) -> None:
+    for c in CIRCUIT_CASES:
+        out["circuit"].append(
+            {
+                "circuit": asdict(c),
+                "regime": circuit.regime(c),
+                "rates": list(circuit.rates(c)),
+                "states": [list(circuit.state(c, t)) for t in CIRCUIT_TIMES],
+                "energies": [list(circuit.energies(c, t)) for t in CIRCUIT_TIMES],
+                "figures": asdict(circuit.figures(c)),
+            }
+        )
+
+
+def _plates_cases(out: dict[str, Any]) -> None:
+    pairs = [(c, p) for c in PLATE_COLUMNS for p in plates.EXHIBIT_PLATES]
+    pairs += [(PLATE_COLUMNS[0], p) for p in PLATE_EXTRAS]
+    for c, p in pairs:
+        out["plates"].append(
+            {
+                "column": asdict(c),
+                "plate": asdict(p),
+                "teeth": list(plates.teeth(p)),
+                "mass_kg": plates.mass_kg(p),
+                "brake": plates.brake(c, p),
+                "brake_at": [plates.brake_at(c, p, s) for s in PLATE_DEPTHS],
+                "motion": [list(plates.motion(c, p, t)) for t in PLATE_TIMES],
+                "figures": asdict(plates.figures(c, p)),
+                "stream": [
+                    plates.stream(c, p, s, 0.3, px, py, PLATE_TERMS) for s in PLATE_DEPTHS for px, py in PLATE_POINTS
+                ],
+            }
+        )
+
+
+def _bounce_cases(out: dict[str, Any]) -> None:
+    for ball, height in BOUNCE_CASES:
+        run = bounce.bounces(ball, height)
+        out["bounce"].append(
+            {
+                "ball": asdict(ball),
+                "height_m": height,
+                "terminal_m_s": bounce.terminal_speed(ball),
+                "run": {
+                    "impacts_s": thin(list(run.impacts_s)),
+                    "speeds_m_s": thin(list(run.speeds_m_s)),
+                    "apexes_m": thin(list(run.apexes_m)),
+                    "still_s": run.still_s,
+                },
+                "states": [list(bounce.state(ball, height, run, t)) for t in BOUNCE_TIMES],
+                "figures": asdict(bounce.figures(ball, height)),
+            }
+        )
+
+
+def _overhang_cases(out: dict[str, Any]) -> None:
+    out["overhang"] = {
+        "harmonic": [list(overhang.harmonic(n)) for n in range(1, overhang.MOST_BLOCKS + 1)],
+        "even": [list(overhang.even(n)) for n in range(1, overhang.MOST_BLOCKS + 1)],
+        "stacks": [
+            {
+                "lefts": list(s),
+                "layers": [asdict(layer) for layer in overhang.layers(s)],
+                "holds": overhang.holds(s),
+                "overhang": overhang.overhang(s),
+            }
+            for s in OVERHANG_STACKS
+        ],
+        "blocks_for": [[r, overhang.blocks_for(r)] for r in OVERHANG_REACHES],
+    }
+
+
+def _diver_cases(out: dict[str, Any]) -> None:
+    for d, b, start, squeeze in DIVER_RUNS:
+        if isinstance(start, str):
+            start = diver.hover_depth_m(d, squeeze) + (0.005 if start.endswith("+") else -0.005)
+        out["diver"].append(
+            {
+                "diver": asdict(d),
+                "bottle": asdict(b),
+                "start_m": start,
+                "squeeze_pa": squeeze,
+                "run": {
+                    "depth_m": thin([z for z, _ in diver.run(d, b, start, squeeze, DIVER_STEPS)]),
+                    "speed_m_s": thin([v for _, v in diver.run(d, b, start, squeeze, DIVER_STEPS)]),
+                },
+                "hover_m": [diver.hover_depth_m(d, s) for s in DIVER_SQUEEZES],
+                "bubble_m3": [[diver.bubble_m3(d, z, s) for z in DIVER_DEPTHS] for s in DIVER_SQUEEZES],
+                "lift_n": [[diver.lift_n(d, z, s) for z in DIVER_DEPTHS] for s in DIVER_SQUEEZES],
+                "figures": asdict(diver.figures(d, b)),
+            }
+        )
+
+
+def _colour_cases(out: dict[str, Any]) -> None:
+    """The observer, lamps, what a lamp looks like through a filter, and the
+    screen's mapping: what the light exhibits colour their drawings with."""
+    filters = {
+        "red": [1 / (1 + math.exp(-(nm - 600) / 15)) for nm in colour.WAVELENGTHS_NM],
+        "rayleigh": [(450 / nm) ** 4 for nm in colour.WAVELENGTHS_NM],
+        "line": [1.0 if nm == 520 else 0.0 for nm in colour.WAVELENGTHS_NM],
+    }
+    out["colour"] = {
+        "matching": [list(colour.matching(nm)) for nm in COLOUR_WAVELENGTHS],
+        "lamps": [
+            {
+                "kelvin": k,
+                "spectrum": thin(colour.lamp(k)),
+                "xyz": list(colour.tristimulus(colour.lamp(k))),
+                "rgb": list(colour.linear_rgb(colour.tristimulus(colour.lamp(k)))),
+                "seen": {name: list(colour.seen(colour.lamp(k), f)) for name, f in filters.items()},
+            }
+            for k in COLOUR_LAMPS
+        ],
+        "screen": [{"rgb": list(c), "shown": list(colour.on_screen(c))} for c in COLOUR_SCREEN],
+    }
+
+
+def _rainbow_cases(out: dict[str, Any]) -> None:
+    for bead in RAINBOW_BEADS:
+        n = rainbow.index_at(bead, rainbow.SODIUM_NM)
+        ring = rainbow.ring(bead)
+        out["rainbow"].append(
+            {
+                "bead": asdict(bead),
+                "index": [rainbow.index_at(bead, nm) for nm in RAINBOW_WAVELENGTHS],
+                "exit": [rainbow.exit_angle(n, b) for b in RAINBOW_IMPACTS],
+                "share": [rainbow.ray_share(n, b) for b in RAINBOW_IMPACTS],
+                "paths": [asdict(rainbow.trace(n, b)) for b in RAINBOW_IMPACTS],
+                "rainbow": [rainbow.rainbow_impact(n), rainbow.rainbow_angle(n)],
+                "profiles": [thin(rainbow.profile(bead, nm)) for nm in RAINBOW_WAVELENGTHS],
+                "ring": {key: thin([c[k] for c in ring]) for k, key in enumerate(("r", "g", "b"))},
+                "figures": asdict(rainbow.figures(bead)),
+            }
+        )
+
+
+def _sky_cases(out: dict[str, Any]) -> None:
+    lamp, sun = colour.lamp(sky.LAMP_K), colour.lamp(sky.SUN_K)
+    for tube in SKY_TUBES:
+        places = [0.0, tube.length_m / 4, tube.length_m / 2, tube.length_m]
+        out["sky"]["tubes"].append(
+            {
+                "tube": asdict(tube),
+                "side": [thin(sky.side_light(tube, at)) for at in places],
+                "side_hue": [list(sky.hue(lamp, sky.side_light(tube, at))) for at in places],
+                "side_brightness": [sky.brightness(lamp, sky.side_light(tube, at)) for at in places],
+                "end": thin(sky.end_light(tube)),
+                "end_hue": list(sky.hue(lamp, sky.end_light(tube))),
+                "figures": asdict(sky.figures(tube)),
+            }
+        )
+    for h in SKY_HEIGHTS:
+        for ozone in (True, False):
+            out["sky"]["sun"].append(
+                {
+                    "height_deg": h,
+                    "ozone": ozone,
+                    "air_mass": sky.air_mass(h),
+                    "ozone_light": thin(sky.ozone_light(h)),
+                    "sun": thin(sky.sun_light(h, ozone=ozone)),
+                    "sun_hue": list(sky.hue(sun, sky.sun_light(h, ozone=ozone))),
+                    "sun_brightness": sky.brightness(sun, sky.sun_light(h, ozone=ozone)),
+                    "sky": thin(sky.sky_light(h, ozone=ozone)),
+                    "sky_hue": list(sky.hue(sun, sky.sky_light(h, ozone=ozone))),
+                }
+            )
+    out["sky"]["down"] = [{"tau": tau, "m": m, "light": sky.scattered_down(tau, m)} for tau, m in SKY_DOWN]
+
+
+def _slits_ys(s: Any) -> list[float]:
+    span = 1.5 * 700e-9 * s.distance_m / s.width_m
+    return [span * (2 * k / (SLITS_POINTS - 1) - 1) for k in range(SLITS_POINTS)]
+
+
+def _slits_cases(out: dict[str, Any]) -> None:
+    for s in SLITS:
+        ys = _slits_ys(s)
+
+        def channels(pattern: list[tuple[float, float, float]]) -> dict[str, Any]:
+            return {key: thin([c[k] for c in pattern]) for k, key in enumerate(("r", "g", "b"))}
+
+        out["slits"].append(
+            {
+                "slits": asdict(s),
+                "both": [thin([slits.intensity(s, nm, y) for y in ys]) for nm in SLITS_NM],
+                "one": [thin([slits.intensity(s, nm, y, both=False) for y in ys]) for nm in SLITS_NM],
+                "dark": [[slits.dark_m(s, nm, k) for k in range(4)] for nm in SLITS_NM],
+                "laser": [list(slits.laser_colour(nm)) for nm in SLITS_NM],
+                "laser_both": channels(slits.laser_pattern(s, 532.0, ys)),
+                "laser_one": channels(slits.laser_pattern(s, 650.0, ys, both=False)),
+                "white_both": channels(slits.white_pattern(s, ys)),
+                "white_one": channels(slits.white_pattern(s, ys, both=False)),
+                "figures": [asdict(slits.figures(s, nm)) for nm in SLITS_NM],
+            }
+        )
+
+
+def _beats_cases(out: dict[str, Any]) -> None:
+    out["beats"] = {
+        "shape": [beats.mode_shape(k / 10) for k in range(11)],
+        "forks": [
+            {
+                "fork": asdict(f),
+                "riders": [
+                    {"rider": asdict(r), "hz": beats.frequency_hz(f, r), "figures": asdict(beats.figures(f, r))}
+                    for r in BEATS_RIDERS
+                ],
+                "loudness": thin(
+                    [
+                        beats.loudness(f.frequency_hz, beats.frequency_hz(f, BEATS_RIDERS[2]), f.decay_s, t)
+                        for t in BEATS_TIMES
+                    ]
+                ),
+                "sound": thin(
+                    [
+                        beats.sound(f.frequency_hz, beats.frequency_hz(f, BEATS_RIDERS[2]), f.decay_s, t)
+                        for t in BEATS_TIMES
+                    ]
+                ),
+            }
+            for f in BEATS_FORKS
+        ],
+    }
+
+
+def _chladni_cases(out: dict[str, Any]) -> None:
+    """The polynomials, three driven modes on a 5 × 5 grid, and the plate's
+    answer at its first tones and between them: the port evaluates what the
+    route sends, and must agree on it."""
+    points = [-1.0, -0.6, 0.0, 0.35, 1.0]
+    plate = chladni.Plate()
+    driven = chladni.driven_modes()
+    out["chladni"] = {
+        "plate": asdict(plate),
+        "degree": chladni.DEGREE,
+        "legendre": [chladni.legendre(chladni.DEGREE, x)[0] for x in points],
+        "modes": [{"lam": m.lam, "terms": [list(t) for t in m.terms]} for m in driven],
+        "values": [[[chladni.value(m, x, y) for y in points] for x in points] for m in driven[:3]],
+        "frequencies_hz": [chladni.frequency_hz(plate, m.lam) for m in driven],
+        "responses": [
+            [chladni.response(plate, driven, f, x, 0.2) for x in points] for f in (101.0, 102.4, 180.0, 517.0)
+        ],
+    }
+
+
+def _coriolis_cases(out: dict[str, Any]) -> None:
+    for c, throw in CORIOLIS_CASES:
+        out["coriolis"].append(
+            {
+                "c": asdict(c),
+                "throw": asdict(throw),
+                "lead_deg": coriolis.lead_deg(c, throw.speed_m_s, throw.body),
+                "path": thin(asdict(coriolis.path(c, throw))),
+            }
+        )
+
+
+def _foucault_cases(out: dict[str, Any]) -> None:
+    for p in FOUCAULT_CASES:
+        out["foucault"].append(
+            {
+                "p": asdict(p),
+                "degrees_per_hour": foucault.degrees_per_hour(p),
+                "full_turn_h": foucault.full_turn_h(p),
+                "period_s": foucault.period_s(p),
+                "positions": [list(foucault.position(p, t)) for t in FOUCAULT_TIMES],
+                "planes": [foucault.plane_deg(p, t) for t in FOUCAULT_TIMES],
+                "curve": [asdict(c) for c in foucault.latitude_curve(p)],
+            }
+        )
+
+
+def _waterwheel_cases(out: dict[str, Any]) -> None:
+    for name, case in WATERWHEEL_CASES.items():
+        w = case["w"]
+        step = case.get("step_tau", waterwheel.STEP_TAU)
+        result = waterwheel.run(w, case["duration_s"], step)
+        out["waterwheel"].append(
+            {
+                "name": name,
+                "w": asdict(w),
+                "duration_s": case["duration_s"],
+                "step_tau": step,
+                "regime": waterwheel.regime(w),
+                "hopf_rho": waterwheel.hopf_rho(w),
+                "levels": [waterwheel.cup_level(w, 3.0, 20.0, k * 0.785) for k in range(8)],
+                "run": {**thin(asdict(result)), "reversals_s": list(result.reversals_s)},
+            }
+        )
+
+
+def _chaos_cases(out: dict[str, Any]) -> None:
+    for name, case in CHAOS_CASES.items():
+        dp, (a, b) = case["dp"], case["start"]
+        step = case.get("step_s", chaos.STEP_S)
+        nudge = case.get("nudge_deg", 0.001)
+        out["chaos"].append(
+            {
+                "name": name,
+                "dp": asdict(dp),
+                "start": [a, b],
+                "duration_s": case["duration_s"],
+                "step_s": step,
+                "nudge_deg": nudge,
+                "mode_rates": list(chaos.mode_rates(dp)),
+                # A twin 10⁻⁴ away: at the measurement's 10⁻⁸ the gap's subtraction
+                # loses eight digits, and the port could not be held to the last ones.
+                "lyapunov": chaos.lyapunov(dp, a, b, 3.0, gap=1e-4, step_s=step),
+                "run": thin(asdict(chaos.run(dp, a, b, case["duration_s"], nudge, step))),
+            }
+        )
+
+
+def _maxwell_cases(out: dict[str, Any]) -> None:
+    for name, case in MAXWELL_CASES.items():
+        w = case["w"]
+        out["maxwell"].append(
+            {
+                "name": name,
+                "w": asdict(w),
+                "duration_s": case["duration_s"],
+                "samples": case["samples"],
+                "bounces": [asdict(b) for b in maxwell.bounces(w, 4)],
+                "run": thin(asdict(maxwell.run(w, case["duration_s"], case["samples"]))),
+            }
+        )
+
+
+def _peg_cases(out: dict[str, Any]) -> None:
+    for name, case in PEG_CASES.items():
+        step = case.get("step_s", peg.STEP_S)
+        result = peg.run(case["p"], case["duration_s"], step)
+        out["peg"].append(
+            {
+                "name": name,
+                "p": asdict(case["p"]),
+                "duration_s": case["duration_s"],
+                "step_s": step,
+                "outcome": peg.outcome(case["p"]),
+                "slack_height_m": peg.slack_height_m(case["p"]),
+                "run": {**thin(asdict(result)), "events": [list(e) for e in result.events]},
+            }
+        )
+
+
+def _coupled_cases(out: dict[str, Any]) -> None:
+    for name, case in COUPLED_CASES.items():
+        cp = case["cp"]
+        step = case.get("step_s", coupled.STEP_S)
+        out["coupled"].append(
+            {
+                "name": name,
+                "cp": asdict(cp),
+                "start": str(case["start"]),
+                "amplitude_deg": case["amplitude_deg"],
+                "step_s": step,
+                "mode_rates": list(coupled.mode_rates(cp)),
+                "beat_s": coupled.beat_s(cp),
+                "exchange_share": coupled.exchange_share(cp),
+                "run": thin(asdict(coupled.swing(cp, case["start"], case["amplitude_deg"], 4.0, step))),
+            }
+        )
+
+
+def _parabola_cases(out: dict[str, Any]) -> None:
+    for v in (parabola.Vessel(), parabola.Vessel(radius_m=0.08, height_m=0.12, fill_m=0.09)):
+        out["parabola_surfaces"].append(
+            {
+                "v": asdict(v),
+                "dry_rate": parabola.dry_rate(v),
+                "spill_rate": parabola.spill_rate(v),
+                "surfaces": [asdict(parabola.surface(v, r)) for r in PARABOLA_RATES],
+                "profiles": [list(parabola.profile(v, r)) for r in PARABOLA_RATES],
+                "spin_up_s": [parabola.spin_up_time_s(v, r) for r in PARABOLA_RATES],
+            }
+        )
+    for name, case in PARABOLA_SPINS.items():
+        run = parabola.spin(
+            case["v"],
+            case["vessel_rate"],
+            case["duration_s"],
+            case.get("start_rate", 0.0),
+            case.get("step_s", parabola.SPIN_STEP_S),
+        )
+        out["parabola_spins"].append(
+            {
+                "name": name,
+                "v": asdict(case["v"]),
+                "vessel_rate": case["vessel_rate"],
+                "duration_s": case["duration_s"],
+                "start_rate": case.get("start_rate", 0.0),
+                "step_s": case.get("step_s", parabola.SPIN_STEP_S),
+                "run": thin(asdict(run)),
+            }
+        )
+
+
+def _cone_cases(out: dict[str, Any]) -> None:
+    for name, case in CONE_CASES.items():
+        ex = case["ex"]
+        start = case.get("start_x_m", cone.start_for(ex))
+        step = case.get("step_s", cone.STEP_S)
+        points = [p for p in CONE_POINTS if p <= ex.rails.length_m]
+        out["cone"].append(
+            {
+                "name": name,
+                "ex": asdict(ex),
+                "duration_s": case["duration_s"],
+                "start_x_m": start,
+                "step_s": step,
+                "slope": cone.axis_slope(ex),
+                "contact_factor": cone.contact_factor(ex),
+                "threshold_deg": cone.threshold_deg(ex),
+                "points": [
+                    {
+                        "x_m": p,
+                        "axis_m": cone.axis_height_m(ex, p),
+                        "rail_m": cone.rail_height_m(ex, p),
+                        "contact_radius_m": cone.contact_radius_m(ex, p),
+                        "acceleration": cone.acceleration(ex, p, 0.4),
+                    }
+                    for p in points
+                ],
+                "run": thin(asdict(cone.roll(ex, start, case["duration_s"], step))),
+            }
+        )
+
+
+def _second_series(out: dict[str, Any]) -> None:
+    """The exhibits built from 2026-11-14 on, each its own writer."""
+    _pendulum_cases(out)
+    _cone_cases(out)
+    _parabola_cases(out)
+    _coupled_cases(out)
+    _peg_cases(out)
+    _maxwell_cases(out)
+    _chaos_cases(out)
+    _waterwheel_cases(out)
+    _foucault_cases(out)
+    _coriolis_cases(out)
+    _cradle_cases(out)
+    _well_cases(out)
+    _resonance_cases(out)
+    _gyroscope_cases(out)
+    _arch_cases(out)
+    _levitation_cases(out)
+    _circuit_cases(out)
+    _plates_cases(out)
+    _bounce_cases(out)
+    _overhang_cases(out)
+    _diver_cases(out)
+    _colour_cases(out)
+    _rainbow_cases(out)
+    _sky_cases(out)
+    _slits_cases(out)
+    _beats_cases(out)
+    _chladni_cases(out)
 
 
 def cases() -> dict[str, Any]:
@@ -334,7 +1380,50 @@ def cases() -> dict[str, Any]:
         "elephant_points": [],
         "smoke": [],
         "cannon": [],
+        "jacobi": [],
+        "pendulum_angles": [],
+        "swing": [],
+        "wave": [],
+        "harmonograph": [],
+        "cone": [],
+        "parabola_surfaces": [],
+        "parabola_spins": [],
+        "coupled": [],
+        "peg": [],
+        "maxwell": [],
+        "chaos": [],
+        "waterwheel": [],
+        "foucault": [],
+        "coriolis": [],
+        "cradle": [],
+        "well": [],
+        "resonance": [],
+        "gyroscope": [],
+        "arch": [],
+        "levitation": [],
+        "circuit": [],
+        "plates": [],
+        "bounce": [],
+        "diver": [],
+        "rainbow": [],
+        "sky": {"tubes": [], "sun": []},
+        "slits": [],
     }
+    _second_series(out)
+    for name, case in HARMONOGRAPH_CASES.items():
+        h = case["h"]
+        step = case.get("step_s", harmonograph.STEP_S)
+        out["harmonograph"].append(
+            {
+                "name": name,
+                "h": asdict(h),
+                "duration_s": case["duration_s"],
+                "step_s": step,
+                "start": [list(harmonograph.start(h.pen)), list(harmonograph.start(h.board))],
+                "figures": asdict(harmonograph.figures(h)),
+                "run": thin(asdict(harmonograph.draw(h, case["duration_s"], step))),
+            }
+        )
     out["constants"]["platform"] = {name: getattr(platform, name) for name in ("SAMPLES_PER_S", "MAX_DURATION_S")}
     out["constants"]["elephant"] = {
         name: getattr(elephant, name)

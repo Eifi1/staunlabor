@@ -103,6 +103,43 @@ def test_the_cases_cross_every_branch_a_page_can_reach(stored: Any):
     assert all(c["run"]["still"] for c in pits), "every pit case runs until the balls lie still"
     assert any(c["inertia"] == 0 for c in pits), "a block that slides, which does not turn"
     assert any(c["inertia"] > 0.5 for c in pits), "a hollow ball"
+    regimes = {c["regime"] for c in stored["circuit"]}
+    assert regimes == {"swings", "critical", "creeps"}, "a circuit that swings, one at the edge, one that creeps back"
+    falls = stored["plates"]
+    assert any(c["figures"]["terminal_m_s"] is None for c in falls), "a plate that falls freely"
+    assert any(c["teeth"] == [12, 0.008] and c["plate"]["height_m"] == 0.118 for c in falls), "teeth that fit exactly"
+    assert any(c["figures"]["ripple"] is not None and c["figures"]["ripple"] > 0.01 for c in falls), (
+        "a brake that ripples"
+    )
+    balls = stored["bounce"]
+    strikes = [c["run"]["impacts_s"] for c in balls]
+    counts = [s["length"] if isinstance(s, dict) else len(s) for s in strikes]
+    assert max(counts) > 500 and min(counts) < 20, "a ball that bounces nearly forever, and a dull one"
+    assert any(c["terminal_m_s"] < 5 for c in balls) and any(c["terminal_m_s"] > 1000 for c in balls), "air and none"
+    assert any(c["states"][-1] == [0.0, 0.0] for c in balls), "a ball that lies still"
+    stacks = stored["overhang"]["stacks"]
+    assert any(s["holds"] for s in stacks) and any(not s["holds"] for s in stacks), "a stack that holds, one that tips"
+    assert any(any(layer["margin"] == -1.0 for layer in s["layers"]) for s in stacks), "a block off its footing"
+    dives = stored["diver"]
+    ends = {
+        (c["run"]["depth_m"]["values"][-1], c["bottle"]["depth_m"])
+        for c in dives
+        if isinstance(c["run"]["depth_m"], dict)
+    }
+    assert any(end == 0.0 for end, _ in ends) and any(end == depth for end, depth in ends), "up to the top and down"
+    beads = stored["rainbow"]
+    assert any(c["exit"][-1] < 0 for c in beads) and any(c["exit"][-1] > 0 for c in beads), "rays out on both sides"
+    shown = stored["colour"]["screen"]
+    assert any(min(c["rgb"]) < 0 for c in shown) and any(max(c["rgb"]) > 1 for c in shown), "below and above"
+    downs = stored["sky"]["down"]
+    assert any(c["m"] == 1 for c in downs) and any(c["m"] != 1 for c in downs), "one air exactly, and more"
+    assert {c["ozone"] for c in stored["sky"]["sun"]} == {True, False}, "the sky with its ozone and without"
+    pairs = stored["slits"]
+    assert len({f["stripes"] for c in pairs for f in c["figures"]}) >= 3, "middle bands of several widths"
+    tuned = [r["figures"]["beat_s"] for f in stored["beats"]["forks"] for r in f["riders"]]
+    assert None in tuned and any(b is not None for b in tuned), "a fork in tune, and beating ones"
+    floats = {c["hover"]["state"] for c in stored["levitation"]}
+    assert floats == {"hovers", "lands", "slides"}, "a top that hovers, one that lands, one that slides off"
     spheres = stored["sphere"]
     assert any(c["run"]["final_angle_deg"] > 70 for c in spheres)
     assert any(c["drive"]["sweep_s"] == 0 and c["run"]["highest_angle_deg"] < 25 for c in spheres)
@@ -119,3 +156,29 @@ def test_the_cases_cross_every_branch_a_page_can_reach(stored: Any):
     assert any(c["visitor"] and c["visitor"]["kind"] == "scripted" for c in coils)
     gains = [p["gain_j"] for p in stored["timing"]["points"]]
     assert gains[-1] < 0 < max(gains)
+    assert {p["m"] for p in stored["jacobi"]} >= {0.0, 1.0}, "both ends of the parameter"
+    assert any(p["t"] > 4 * p["period_s"] for p in stored["pendulum_angles"]), "an instant many periods in"
+    assert any(p["amplitude_deg"] == 0 for p in stored["pendulum_angles"]), "a pendulum let go at rest"
+    assert any(c.get("damping_per_s", 0) > 0 for c in stored["swing"]), "a damped swing"
+    assert any(c["spread_deg"] > 30 for c in stored["wave"]), "a row that comes back apart"
+    phases = {c["h"][p]["phase_deg"] for c in stored["harmonograph"] for p in ("pen", "board")}
+    assert any(180 < p < 360 for p in phases), "a pendulum started on its way back"
+    assert any(c["figures"]["pen_fades_s"] is None for c in stored["harmonograph"]), "an undamped pair"
+    rolls = {c["name"]: c["run"] for c in stored["cone"]}
+    assert any(r["stopped_at_s"] is not None and r["final_x_m"] > 0 for r in rolls.values()), "up to the top"
+    assert any(r["stopped_at_s"] is not None and r["final_x_m"] == 0 for r in rolls.values()), "down to the bottom"
+    assert any(r["stopped_at_s"] is None for r in rolls.values()), "a cone that stays where it is laid"
+    surfaces = [s for c in stored["parabola_surfaces"] for s in c["surfaces"]]
+    assert any(s["dry_radius_m"] > 0 for s in surfaces), "a dry middle"
+    assert any(s["spills"] for s in surfaces), "water spilling"
+    assert any(s["focus_m"] is None for s in surfaces), "water at rest"
+    assert any(c["vessel_rate"] == 0 for c in stored["parabola_spins"]), "water spinning down"
+    assert {c["start"] for c in stored["coupled"]} == {"one", "together", "against"}, "every start"
+    assert any(c["beat_s"] is None for c in stored["coupled"]), "no spring"
+    assert any(c["cp"]["damping_per_s"] > 0 for c in stored["coupled"]), "a damped pair"
+    kinds = {e[1] for c in stored["peg"] for e in c["run"]["events"]}
+    assert kinds == {"caught", "released", "slack", "taut", "over_the_top"}, "every switch of the peg's string"
+    assert any(c["w"]["loss"] == 0 for c in stored["maxwell"]), "a wheel that climbs all the way back"
+    assert any(c["samples"] > 100 for c in stored["maxwell"]), "a jerk sampled inside"
+    assert any(c["dp"]["damping_per_s"] > 0 for c in stored["chaos"]), "a damped double pendulum"
+    assert {c["regime"] for c in stored["waterwheel"]} == {"still", "steady", "chaotic"}, "every regime of the wheel"

@@ -8,7 +8,20 @@ dependencies = [
     "uvicorn[standard]>=0.34.0",
     "pydantic>=2.10.0",
     "pydantic-settings>=2.7.0",
-    "eifi1-server-kit[fastapi]",
+    # The accounts' rows, on PostgreSQL in development, in the suite and in
+    # production; asyncpg is the only driver. The exhibits never touch it.
+    "sqlalchemy[asyncio]>=2.0.0",
+    "asyncpg>=0.30.0",
+    "alembic>=1.14.0",
+    # The kit's account layer (0.30): `fastapi` the routers (the accounts' and
+    # the admin's), `sql` the tables and their stores, `passkeys` py_webauthn for
+    # the passkey routes, `mail` the Resend client the console transport gives way
+    # to once the domain is verified, `jwt` and `bcrypt` the ready signer (HS256,
+    # PyJWT) and hasher the kit took over from this app, `seal` (0.32) the
+    # AES-GCM box the second factor's secrets are stored in, `gcs` the Cloud
+    # Storage client feedback's files go to on a deployment. The wheel and its
+    # sha256 are pinned in uv.lock.
+    "eifi1-server-kit[bcrypt,fastapi,gcs,jwt,mail,passkeys,seal,sql]",
 ]
 
 [dependency-groups]
@@ -69,4 +82,4 @@ min_confidence = 60
 ignore_decorators = ["@router.*", "@app.*", "@model_validator", "@field_validator"]
 
 [tool.uv.sources]
-eifi1-server-kit = { url = "https://github.com/Eifi1/server-kit/releases/download/v0.28.0/eifi1_server_kit-0.28.0-py3-none-any.whl" }
+eifi1-server-kit = { url = "https://github.com/Eifi1/server-kit/releases/download/v0.32.0/eifi1_server_kit-0.32.0-py3-none-any.whl" }

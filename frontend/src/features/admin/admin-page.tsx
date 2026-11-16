@@ -1,0 +1,57 @@
+import { useTranslation } from "react-i18next";
+import {
+  AccountAdminLogSection,
+  AccountAdminOverviewSection,
+  AccountInvitationsSection,
+  AccountMailTestSection,
+  AccountUserRosterSection,
+} from "@eifi1/ui-kit/accounts";
+import { LANGUAGE_CODES } from "@/shared/i18n/languages";
+import { useRoles } from "@/features/account/roles";
+
+/**
+ * The admin's page: the kit's admin sections on server-kit's `user_admin_router`, one under the
+ * other — the counts, the accounts with what an admin may do to each, the invitations, the
+ * log, and the test mail. One page, since the site has few accounts and one admin; the
+ * overview's tiles link to the sections on it.
+ *
+ * The reviewer's scope is on (the seven languages, the areas `experiments` and `legal`, the
+ * server's `REVIEW_AREAS`). "Erase now" is not: an account that asked to be deleted is
+ * deactivated at once and erased by the daily call 30 days later (`DeletionMode.AFTER_DAYS`
+ * in `accounts.py`), so the server has no erasure route; until then the roster's
+ * reactivation keeps the account. "Reset two-factor sign-in" is on, for a person who lost the
+ * authenticator and the backup codes (server-kit 0.32 mounts the route because the site's
+ * account layer has the second factor). The server refuses all of it to anyone but an admin.
+ */
+export function AdminPage() {
+  const { t } = useTranslation();
+  const roles = useRoles();
+  return (
+    <div className="mx-auto flex w-full max-w-5xl flex-col gap-8 px-4 py-8">
+      <h1 className="text-2xl font-semibold">{t("account.admin")}</h1>
+      <AccountAdminOverviewSection
+        hrefs={{
+          users_total: "#users",
+          invitations_pending: "#invitations",
+          deletion_requests: "?state=deletion_requested#users",
+        }}
+      />
+      <AccountUserRosterSection
+        roles={roles}
+        twoFactorReset
+        reviewer={{
+          languages: LANGUAGE_CODES,
+          areas: [
+            { value: "experiments", label: t("account.areas.experiments") },
+            { value: "legal", label: t("account.areas.legal") },
+          ],
+        }}
+      />
+      <section id="invitations">
+        <AccountInvitationsSection roles={roles} invitableRoles={["MEMBER", "REVIEWER"]} languages={LANGUAGE_CODES} />
+      </section>
+      <AccountAdminLogSection roleLabel={(role) => (role in roles ? roles[role as keyof typeof roles].label : role)} />
+      <AccountMailTestSection />
+    </div>
+  );
+}

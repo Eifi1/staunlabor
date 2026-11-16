@@ -454,6 +454,331 @@ export interface CannonFigures {
   impact: CannonImpact;
 }
 
+// ── the pendulum wave ────────────────────────────────────────────────────────
+
+/** The engine's `PendulumWave` (`simulate/wave.ts` takes the same shape). */
+export interface WaveRequest {
+  count: number;
+  /** Γ: the time after which all swing together again. */
+  cycle_s: number;
+  /** N: the swings the longest makes in Γ; the n-th makes N + n. */
+  longest_swings: number;
+  /** The swing the lengths are tuned for, each side of the bottom. */
+  tuned_deg: number;
+  /** The swing they are let go at. */
+  amplitude_deg: number;
+  spacing_m: number;
+}
+
+export interface WavePendulum {
+  swings: number;
+  length_m: number;
+  small_period_s: number;
+  period_s: number;
+  lag_deg: number;
+}
+
+export interface SpreadPoint {
+  amplitude_deg: number;
+  spread_deg: number;
+}
+
+export interface GroupPoint {
+  fraction: number;
+  time_s: number;
+  groups: number;
+}
+
+export interface WaveFigures {
+  pendulums: WavePendulum[];
+  longest_m: number;
+  shortest_m: number;
+  /** How far apart the row comes back after a cycle, in degrees of swing. */
+  spread_deg: number;
+  spread_curve: SpreadPoint[];
+  textbook_spread_deg: number;
+  groups: GroupPoint[];
+}
+
+// ── the harmonograph ─────────────────────────────────────────────────────────
+
+/** One of the engine's `HarmonographPendulum`s. No route: the page draws and
+ *  reads its figures off the port (`simulate/harmonograph.ts`). */
+export interface HarmonographPendulumRequest {
+  length_m: number;
+  amplitude_deg: number;
+  phase_deg: number;
+  damping_per_s: number;
+}
+
+export interface HarmonographRequest {
+  pen: HarmonographPendulumRequest;
+  board: HarmonographPendulumRequest;
+}
+
+// ── the double cone ──────────────────────────────────────────────────────────
+
+/** The engine's `ConeExhibit`. No route: the page asks the port (`simulate/cone.ts`). */
+export interface ConeExhibitRequest {
+  cone: { radius_m: number; cone_deg: number };
+  rails: { spread_deg: number; slope_deg: number; start_half_gap_m: number; length_m: number };
+}
+
+// ── the water parabola ───────────────────────────────────────────────────────
+
+/** The engine's `Vessel`. No route: the page asks the port (`simulate/parabola.ts`). */
+export interface VesselRequest {
+  radius_m: number;
+  height_m: number;
+  fill_m: number;
+}
+
+// ── the coupled pendulums ────────────────────────────────────────────────────
+
+/** The engine's `CoupledPendulums`. No route: the page asks the port (`simulate/coupled.ts`). */
+export interface CoupledPendulumsRequest {
+  left: { length_m: number; mass_kg: number };
+  right: { length_m: number; mass_kg: number };
+  spring_n_m: number;
+  spring_at_m: number;
+  damping_per_s: number;
+}
+
+// ── Galileo's interrupted pendulum ───────────────────────────────────────────
+
+/** The engine's `PegPendulum`. No route: the page asks the port (`simulate/peg.ts`). */
+export interface PegPendulumRequest {
+  length_m: number;
+  peg_depth_m: number;
+  start_deg: number;
+}
+
+// ── Maxwell's wheel ──────────────────────────────────────────────────────────
+
+/** The engine's `MaxwellWheel`. No route: the page asks the port (`simulate/maxwell.ts`). */
+export interface MaxwellWheelRequest {
+  mass_kg: number;
+  wheel_radius_m: number;
+  axle_radius_m: number;
+  shape: "disc" | "ring";
+  drop_m: number;
+  loss: number;
+  stiffness_n_m: number;
+}
+
+// ── the chaotic pendulum ─────────────────────────────────────────────────────
+
+/** The engine's `DoublePendulum`. No route: the page asks the port (`simulate/chaos.ts`). */
+export interface DoublePendulumRequest {
+  length1_m: number;
+  length2_m: number;
+  mass1_kg: number;
+  mass2_kg: number;
+  damping_per_s: number;
+}
+
+// ── the chaotic waterwheel ───────────────────────────────────────────────────
+
+/** The engine's `WaterWheel`. No route: the page asks the port (`simulate/waterwheel.ts`). */
+export interface WaterWheelRequest {
+  sigma: number;
+  rho: number;
+  leak_per_s: number;
+}
+
+// ── Foucault's pendulum ──────────────────────────────────────────────────────
+
+/** The engine's `FoucaultPendulum`. No route: the page asks the port (`simulate/foucault.ts`). */
+export interface FoucaultPendulumRequest {
+  length_m: number;
+  amplitude_m: number;
+  latitude_deg: number;
+}
+
+// ── the Coriolis carousel ────────────────────────────────────────────────────
+
+/** The engine's `Carousel`. No route: the page asks the port (`simulate/coriolis.ts`). */
+export interface CarouselRequest {
+  radius_m: number;
+  rpm: number;
+}
+
+// ── Newton's cradle ──────────────────────────────────────────────────────────
+
+/** The engine's `Cradle`. No route: the page asks the port (`simulate/cradle.ts`). */
+export interface CradleRequest {
+  count: number;
+  diameter_m: number;
+  string_m: number;
+  gap_m: number;
+  restitution: number;
+  youngs_gpa: number;
+  density_kg_m3: number;
+}
+
+// ── the gravity well ─────────────────────────────────────────────────────────
+
+/** The engine's `Funnel`. No route: the page asks the port (`simulate/well.ts`). */
+export interface FunnelRequest {
+  k_m2: number;
+  rim_m: number;
+  hole_m: number;
+  rolling_resistance: number;
+}
+
+// ── resonance ────────────────────────────────────────────────────────────────
+
+/** The engine's `Rack`. No route: the page asks the port (`simulate/resonance.ts`). */
+export interface ResonanceRackRequest {
+  lengths_m: number[];
+  diameter_m: number;
+  youngs_gpa: number;
+  density_kg_m3: number;
+  damping_ratio: number;
+  table_m: number;
+}
+
+// ── the gyroscope wheel ──────────────────────────────────────────────────────
+
+/** The engine's `Wheel`. No route: the page asks the port (`simulate/gyroscope.ts`). */
+export interface GyroWheelRequest {
+  mass_kg: number;
+  radius_m: number;
+  axle_m: number;
+  rpm: number;
+}
+
+// ── the floating top ─────────────────────────────────────────────────────────
+
+/** The engine's `Base` and `Top`. No route: the page asks the port (`simulate/levitation.ts`). */
+export interface LevitationRequest {
+  base: { inner_radius_m: number; outer_radius_m: number; height_m: number; magnetisation_a_m: number };
+  top: { moment_a_m2: number; mass_kg: number };
+}
+
+// ── the slow LC circuit ──────────────────────────────────────────────────────
+
+/** The engine's `Circuit`. No route: the page asks the port (`simulate/circuit.ts`). */
+export interface CircuitRequest {
+  inductance_h: number;
+  capacitance_f: number;
+  resistance_ohm: number;
+  voltage_v: number;
+}
+
+// ── the falling plates ───────────────────────────────────────────────────────
+
+/** The engine's `MagnetColumn`, its four plates and the one the reader builds.
+ *  No route: the page asks the port (`simulate/plates.ts`). */
+export interface PlatesRequest {
+  column: { field_t: number; pitch_m: number; drop_m: number };
+  exhibit: PlateRequest[];
+  plate: PlateRequest;
+}
+
+/** The engine's `Plate`. */
+export interface PlateRequest {
+  material: "copper" | "aluminium" | "brass" | "plastic";
+  thickness_m: number;
+  tooth_m: number;
+  width_m: number;
+  height_m: number;
+  slot_m: number;
+}
+
+// ── the bouncing ball ────────────────────────────────────────────────────────
+
+/** The engine's two balls and the height they are let go from. No route: the
+ *  page asks the port (`simulate/bounce.ts`). */
+export interface BounceRequest {
+  balls: Array<{ mass_kg: number; diameter_m: number; restitution: number }>;
+  height_m: number;
+}
+
+// ── the overhang ─────────────────────────────────────────────────────────────
+
+/** The exhibit's block count and the blocks' size. No route: the page asks
+ *  the port (`simulate/overhang.ts`). */
+export interface OverhangRequest {
+  blocks: number;
+  length_m: number;
+  height_m: number;
+}
+
+// ── the Cartesian diver ──────────────────────────────────────────────────────
+
+/** The engine's `Diver` and its bottle's depth. No route: the page asks the
+ *  port (`simulate/diver.ts`). */
+export interface DiverRequest {
+  diver: { glass_kg: number; glass_m3: number; air_m3: number; diameter_m: number };
+  depth_m: number;
+}
+
+// ── the glass-bead rainbow ───────────────────────────────────────────────────
+
+/** The engine's `Bead`, the exhibit's glass and a raindrop. No route: the
+ *  page asks the port (`simulate/rainbow.ts`). */
+export interface RainbowRequest {
+  glass: { index: number; dispersion_nm2: number };
+  water: { index: number; dispersion_nm2: number };
+}
+
+// ── why the sky is blue ──────────────────────────────────────────────────────
+
+/** The engine's `Tube`. No route: the page asks the port (`simulate/sky.ts`). */
+export interface SkyRequest {
+  length_m: number;
+  radius_m: number;
+  cloudiness_per_m: number;
+}
+
+// ── the double slit ──────────────────────────────────────────────────────────
+
+/** The engine's `Slits`. No route: the page asks the port (`simulate/slits.ts`). */
+export interface SlitsRequest {
+  spacing_m: number;
+  width_m: number;
+  distance_m: number;
+}
+
+// ── beats ────────────────────────────────────────────────────────────────────
+
+/** The engine's `Fork` and `Rider`. No route: the page asks the port (`simulate/beats.ts`). */
+export interface BeatsRequest {
+  fork: { frequency_hz: number; prong_kg: number; decay_s: number };
+  rider: { mass_kg: number; position: number };
+}
+
+// ── the chain and the arch ───────────────────────────────────────────────────
+
+/** The engine's `Arch`. No route: the page asks the port (`simulate/arch.ts`). */
+export interface StoneArchRequest {
+  shape: "semicircle" | "pointed" | "catenary";
+  span_m: number;
+  thickness_m: number;
+  blocks: number;
+  density_kg_m3: number;
+  depth_m: number;
+}
+
+// ── Chladni figures ──────────────────────────────────────────────────────────
+
+/** The engine's `Plate`: its size and steel, which scale the tones. */
+export interface ChladniPlateRequest {
+  side_m: number;
+  thickness_m: number;
+  youngs_gpa: number;
+  density_kg_m3: number;
+  damping_ratio: number;
+}
+
+/** `GET /experiments/chladni`: the modes a shaker at the middle drives,
+ *  lowest first, each as Σ c·p_m(ξ)·p_n(η). */
+export interface ChladniModes {
+  degree: number;
+  modes: Array<{ lam: number; m: number[]; n: number[]; c: number[] }>;
+}
+
 // ── the pages' starting point ────────────────────────────────────────────────
 
 export interface ExperimentsDefaults {
@@ -464,6 +789,33 @@ export interface ExperimentsDefaults {
   elephant: ElephantRequest;
   smoke: SmokeExhibitRequest;
   cannon: BallStackRequest;
+  wave: WaveRequest;
+  harmonograph: HarmonographRequest;
+  cone: ConeExhibitRequest;
+  parabola: VesselRequest;
+  coupled: CoupledPendulumsRequest;
+  peg: PegPendulumRequest;
+  maxwell: MaxwellWheelRequest;
+  chaos: DoublePendulumRequest;
+  waterwheel: WaterWheelRequest;
+  foucault: FoucaultPendulumRequest;
+  coriolis: CarouselRequest;
+  cradle: CradleRequest;
+  well: FunnelRequest;
+  resonance: ResonanceRackRequest;
+  gyroscope: GyroWheelRequest;
+  arch: StoneArchRequest;
+  chladni: ChladniPlateRequest;
+  levitation: LevitationRequest;
+  circuit: CircuitRequest;
+  plates: PlatesRequest;
+  bounce: BounceRequest;
+  overhang: OverhangRequest;
+  diver: DiverRequest;
+  rainbow: RainbowRequest;
+  sky: SkyRequest;
+  slits: SlitsRequest;
+  beats: BeatsRequest;
   meter_range_a: number;
   settle_s: number;
 }

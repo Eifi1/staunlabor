@@ -45,6 +45,24 @@ jobs:
   backend:
     name: Backend (lint · format · tests · security · dead code)
     runs-on: ubuntu-latest
+    # The accounts' tests run on PostgreSQL, as development and production do
+    # (backend/tests/conftest.py); without it they fail, they never skip. The
+    # exhibits' tests need none. Kurvenschmiede's service, on the same instance.
+    services:
+      postgres:
+        image: postgres:16
+        env:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
+          POSTGRES_DB: postgres
+        ports:
+          - 5432:5432
+        # Don't start the suite against a socket that isn't accepting connections yet.
+        options: >-
+          --health-cmd "pg_isready -U postgres"
+          --health-interval 5s
+          --health-timeout 5s
+          --health-retries 10
     steps:
       - uses: actions/checkout@v4
       - uses: astral-sh/setup-uv@v5
@@ -57,7 +75,18 @@ jobs:
           enable-cache: true
       - run: uv sync --frozen
         working-directory: backend
-      # No database and no secrets: the engine is pure and the API tests run
+      - name: Create the test role and its maintenance database
+        # What `npm run db:setup` builds on a laptop, so the suite's defaults
+        # point here. CREATEDB is the part that matters: every xdist worker
+        # creates a `staunlabor_test_<worker>_p<pid>` of its own.
+        env:
+          PGPASSWORD: postgres
+        run: |
+          psql -h 127.0.0.1 -U postgres -d postgres -v ON_ERROR_STOP=1 <<'SQL'
+          CREATE ROLE staunlabor LOGIN PASSWORD 'staunlabor_dev' NOSUPERUSER CREATEDB;
+          CREATE DATABASE staunlabor_test OWNER staunlabor;
+          SQL
+      # No secrets: the suite sets its own signing key, and the API tests run
       # the real app in-process. The coverage floor is `fail_under` in
       # pyproject.toml, so this fails the job on its own.
       - name: Lint, format, tests (scripts/check-backend.sh)

@@ -16,12 +16,41 @@
 import { describe, expect, it } from "vitest";
 import cases from "./engine-cases.json";
 import * as cannon from "./cannon";
+import * as chaos from "./chaos";
+import * as diver from "./diver";
+import * as colour from "./colour";
+import * as rainbow from "./rainbow";
+import * as sky from "./sky";
+import * as slits from "./slits";
+import * as beats from "./beats";
 import * as coil from "./coil";
+import * as cone from "./cone";
+import * as coriolis from "./coriolis";
+import * as coupled from "./coupled";
+import * as cradle from "./cradle";
+import * as well from "./well";
+import * as resonance from "./resonance";
+import * as gyroscope from "./gyroscope";
+import * as arch from "./arch";
+import * as bounce from "./bounce";
+import * as levitation from "./levitation";
+import * as circuit from "./circuit";
+import * as chladni from "./chladni";
 import * as elephant from "./elephant";
+import * as foucault from "./foucault";
+import * as harmonograph from "./harmonograph";
+import * as maxwell from "./maxwell";
+import * as overhang from "./overhang";
+import * as parabola from "./parabola";
+import * as peg from "./peg";
+import * as pendulum from "./pendulum";
 import * as pit from "./pit";
 import * as platform from "./platform";
+import * as plates from "./plates";
 import * as smoke from "./smoke";
 import * as sphere from "./sphere";
+import * as waterwheel from "./waterwheel";
+import * as wave from "./wave";
 
 interface Thinned {
   length: number;
@@ -462,5 +491,820 @@ describe("the ball cannon's port", () => {
     expect(() => cannon.drop({ ...stack, drop_m: 5 })).toThrow(/dropped from/);
     expect(() => cannon.drop({ ...stack, youngs_mpa: 1000 })).toThrow(/Young/);
     expect(() => cannon.drop(stack, 30)).toThrow(/drop lasts/);
+  });
+});
+
+describe("the pendulum's port", () => {
+  it("runs on the engine's constants", () => {
+    const c = cases.constants.pendulum;
+    expect([pendulum.G, pendulum.STEP_S, pendulum.SAMPLES_PER_S, pendulum.MAX_DURATION_S]).toEqual([
+      c.G,
+      c.STEP_S,
+      c.SAMPLES_PER_S,
+      c.MAX_DURATION_S,
+    ]);
+  });
+
+  it("computes Jacobi's functions as the engine does", () => {
+    for (const p of cases.jacobi) expect(differences(p.sncndn, pendulum.jacobi(p.u, p.m))).toEqual([]);
+  });
+
+  it("puts the exact pendulum where the engine does, a minute in as well", () => {
+    for (const p of cases.pendulum_angles) {
+      expect(differences(p.angle_deg, pendulum.angleDeg(p.length_m, p.amplitude_deg, p.t))).toEqual([]);
+      expect(differences(p.period_s, pendulum.periodS(p.length_m, p.amplitude_deg))).toEqual([]);
+    }
+  });
+
+  it.each(cases.swing.map((c) => [c.name, c] as const))("steps %s as the engine does", (_name, c) => {
+    const step = "step_s" in c ? c.step_s : undefined;
+    const damping = "damping_per_s" in c ? c.damping_per_s : undefined;
+    const port = pendulum.swing(c.length_m, c.amplitude_deg, c.duration_s, damping, step);
+    expect(differences(c.run, port)).toEqual([]);
+  });
+
+  it("refuses what the engine refuses", () => {
+    expect(() => pendulum.smallPeriodS(0)).toThrow(RangeError);
+    expect(() => pendulum.periodFactor(180)).toThrow(RangeError);
+    expect(() => pendulum.swing(1, 10, 1000)).toThrow(RangeError);
+    expect(() => pendulum.swing(1, 10, 1, -1)).toThrow(RangeError);
+    expect(() => pendulum.jacobi(1, 1.5)).toThrow(RangeError);
+    expect(() => pendulum.ellipk(1)).toThrow(RangeError);
+    expect(() => pendulum.lengthFor(0)).toThrow(RangeError);
+    expect(() => pendulum.agm(0, 1)).toThrow(RangeError);
+  });
+});
+
+describe("the pendulum wave's port", () => {
+  it.each(cases.wave.map((c) => [c.name, c] as const))("tunes and lags %s as the engine does", (_name, c) => {
+    expect(differences(c.lengths_m, wave.lengthsM(c.wave))).toEqual([]);
+    expect(differences(c.lag_deg, wave.lagDeg(c.wave))).toEqual([]);
+    expect(differences(c.spread_deg, wave.spreadDeg(c.wave))).toEqual([]);
+  });
+});
+
+describe("the harmonograph's port", () => {
+  it.each(cases.harmonograph.map((c) => [c.name, c] as const))("draws %s as the engine does", (_name, c) => {
+    const h = c.h as harmonograph.Harmonograph;
+    expect(differences(c.start, [harmonograph.start(h.pen), harmonograph.start(h.board)])).toEqual([]);
+    expect(differences(c.figures, harmonograph.figures(h))).toEqual([]);
+    expect(differences(c.run, harmonograph.draw(h, c.duration_s, c.step_s))).toEqual([]);
+  });
+
+  it("draws frame by frame what it draws in one go", () => {
+    const h = cases.harmonograph[0].h as harmonograph.Harmonograph;
+    const whole = harmonograph.draw(h, 2);
+    const state = harmonograph.startDrawing(h);
+    const points: Array<[number, number]> = [harmonograph.penAt(h, state)];
+    // Frames of uneven length, as a browser's are.
+    for (const steps of [7, 300, 13, 680, 1000]) {
+      harmonograph.advance(h, state, steps, undefined, (s) => {
+        if (s.i % 20 === 0) points.push(harmonograph.penAt(h, s));
+      });
+    }
+    expect(points.map((p) => p[0])).toEqual(whole.x_m);
+    expect(points.map((p) => p[1])).toEqual(whole.y_m);
+  });
+
+  it("refuses what the engine refuses", () => {
+    const h = cases.harmonograph[0].h as harmonograph.Harmonograph;
+    expect(() => harmonograph.draw(h, 1000)).toThrow(RangeError);
+    expect(() => harmonograph.draw(h, 1, 0.02)).toThrow(RangeError);
+  });
+});
+
+describe("the double cone's port", () => {
+  it.each(cases.cone.map((c) => [c.name, c] as const))("rolls %s as the engine does", (_name, c) => {
+    const ex = c.ex as cone.ConeExhibit;
+    expect(differences(c.slope, cone.axisSlope(ex))).toEqual([]);
+    expect(differences(c.contact_factor, cone.contactFactor(ex))).toEqual([]);
+    expect(differences(c.threshold_deg, cone.thresholdDeg(ex))).toEqual([]);
+    const points = c.points.map((p) => ({
+      x_m: p.x_m,
+      axis_m: cone.axisHeightM(ex, p.x_m),
+      rail_m: cone.railHeightM(ex, p.x_m),
+      contact_radius_m: cone.contactRadiusM(ex, p.x_m),
+      acceleration: cone.acceleration(ex, p.x_m, 0.4),
+    }));
+    expect(differences(c.points, points)).toEqual([]);
+    expect(differences(c.run, cone.roll(ex, c.start_x_m, c.duration_s, c.step_s))).toEqual([]);
+  });
+
+  it("lays the cone where it can roll from, and says when the rails would let it fall through", () => {
+    const ex = cases.cone[0].ex as cone.ConeExhibit;
+    expect(cone.startFor(ex)).toBe(0);
+    expect(cone.startFor({ ...ex, rails: { ...ex.rails, slope_deg: 10 } })).toBe(ex.rails.length_m);
+    expect(cone.refusal(ex)).toBeNull();
+    expect(cone.refusal({ ...ex, rails: { ...ex.rails, length_m: 0.5 } })).toBe("fall_through");
+    expect(() => cone.roll(ex, 0.5, 1)).toThrow(RangeError);
+  });
+});
+
+describe("the water parabola's port", () => {
+  it("shapes the surface as the engine does, wet, dry, spilling and at rest", () => {
+    for (const c of cases.parabola_surfaces) {
+      expect(differences(c.dry_rate, parabola.dryRate(c.v))).toEqual([]);
+      expect(differences(c.spill_rate, parabola.spillRate(c.v))).toEqual([]);
+      const rates = c.surfaces.map((s) => s.rate_rad_s);
+      expect(
+        differences(
+          c.surfaces,
+          rates.map((r) => parabola.surface(c.v, r)),
+        ),
+      ).toEqual([]);
+      expect(
+        differences(
+          c.profiles,
+          rates.map((r) => parabola.profile(c.v, r)),
+        ),
+      ).toEqual([]);
+      expect(
+        differences(
+          c.spin_up_s,
+          rates.map((r) => parabola.spinUpTimeS(c.v, r)),
+        ),
+      ).toEqual([]);
+    }
+  });
+
+  it.each(cases.parabola_spins.map((c) => [c.name, c] as const))("lets the water follow, %s", (_name, c) => {
+    const run = parabola.spin(c.v, c.vessel_rate, c.duration_s, c.start_rate, c.step_s);
+    expect(differences(c.run, run)).toEqual([]);
+  });
+
+  it("steps frame by frame as the replay does", () => {
+    const v = cases.parabola_spins[0].v;
+    const whole = parabola.spin(v, 10, 1);
+    let rate = 0;
+    for (let i = 0; i < 100; i++) rate = parabola.spinStep(v, 10, rate, i * parabola.SPIN_STEP_S);
+    expect(rate).toBe(whole.water_rate[whole.water_rate.length - 1]);
+  });
+});
+
+describe("the coupled pendulums' port", () => {
+  it.each(cases.coupled.map((c) => [c.name, c] as const))("swings %s as the engine does", (_name, c) => {
+    const cp = c.cp as coupled.CoupledPendulums;
+    expect(differences(c.mode_rates, coupled.modeRates(cp))).toEqual([]);
+    expect(differences(c.beat_s, coupled.beatS(cp))).toEqual([]);
+    expect(differences(c.exchange_share, coupled.exchangeShare(cp))).toEqual([]);
+    const run = coupled.swing(cp, c.start as coupled.Start, c.amplitude_deg, 4.0, c.step_s);
+    expect(differences(c.run, run)).toEqual([]);
+  });
+
+  it("refuses what the engine refuses", () => {
+    expect(() => coupled.startState("one", 80)).toThrow(RangeError);
+    expect(() => coupled.swing(cases.coupled[0].cp as coupled.CoupledPendulums, "one", 5, 1000)).toThrow(RangeError);
+  });
+});
+
+describe("Galileo's pendulum's port", () => {
+  it.each(cases.peg.map((c) => [c.name, c] as const))("swings %s as the engine does", (_name, c) => {
+    expect(peg.outcome(c.p)).toBe(c.outcome);
+    expect(differences(c.slack_height_m, peg.slackHeightM(c.p))).toEqual([]);
+    expect(differences(c.run, peg.run(c.p, c.duration_s, c.step_s))).toEqual([]);
+  });
+
+  it("refuses what the engine refuses", () => {
+    expect(peg.refusal({ length_m: 1, peg_depth_m: 1.2, start_deg: 30 })).toBe("peg");
+    expect(() => peg.run(cases.peg[0].p, 1000)).toThrow(RangeError);
+  });
+});
+
+describe("Maxwell's wheel's port", () => {
+  it.each(cases.maxwell.map((c) => [c.name, c] as const))("rolls %s as the engine does", (_name, c) => {
+    const w = c.w as maxwell.MaxwellWheel;
+    expect(differences(c.bounces, maxwell.bounces(w, 4))).toEqual([]);
+    expect(differences(c.run, maxwell.run(w, c.duration_s, c.samples))).toEqual([]);
+  });
+
+  it("refuses what the engine refuses", () => {
+    const w = cases.maxwell[0].w as maxwell.MaxwellWheel;
+    expect(maxwell.refusal({ ...w, axle_radius_m: 0.1 })).toBe("axle");
+    expect(() => maxwell.stateAt(w, -1)).toThrow(RangeError);
+  });
+});
+
+describe("the chaotic pendulum's port", () => {
+  it.each(cases.chaos.map((c) => [c.name, c] as const))("swings %s as the engine does", (_name, c) => {
+    const dp = c.dp as chaos.DoublePendulum;
+    const [a, b] = c.start;
+    expect(differences(c.mode_rates, chaos.modeRates(dp))).toEqual([]);
+    expect(differences(c.lyapunov, chaos.lyapunov(dp, a, b, 3.0, 1e-4, undefined, c.step_s))).toEqual([]);
+    const port = chaos.run(dp, a, b, c.duration_s, c.nudge_deg, c.step_s);
+    // The drift is a difference of two energies a few hundred millionths apart:
+    // its last digits are rounding, so it is held absolutely, the rest exactly.
+    expect(differences({ ...c.run, energy_drift: 0 }, { ...port, energy_drift: 0 })).toEqual([]);
+    expect(Math.abs(port.energy_drift - c.run.energy_drift)).toBeLessThan(1e-12);
+  });
+
+  it("refuses what the engine refuses", () => {
+    const dp = cases.chaos[0].dp as chaos.DoublePendulum;
+    expect(() => chaos.run(dp, 200, 10, 1)).toThrow(RangeError);
+    expect(() => chaos.run(dp, 10, 10, 1, 0)).toThrow(RangeError);
+  });
+});
+
+describe("the waterwheel's port", () => {
+  it.each(cases.waterwheel.map((c) => [c.name, c] as const))("turns %s as the engine does", (_name, c) => {
+    const w = c.w as waterwheel.WaterWheel;
+    expect(waterwheel.regime(w)).toBe(c.regime);
+    expect(differences(c.hopf_rho, waterwheel.hopfRho(w))).toEqual([]);
+    const levels = Array.from({ length: 8 }, (_, k) => waterwheel.cupLevel(w, 3.0, 20.0, k * 0.785));
+    expect(differences(c.levels, levels)).toEqual([]);
+    expect(differences(c.run, waterwheel.run(w, c.duration_s, c.step_tau))).toEqual([]);
+  });
+
+  it("steps frame by frame as the replay does", () => {
+    const w = cases.waterwheel[2].w as waterwheel.WaterWheel;
+    const whole = waterwheel.run(w, 5);
+    const state = waterwheel.startWheel();
+    for (let i = 0; i < Math.round((5 * w.leak_per_s) / waterwheel.STEP_TAU); i++) waterwheel.stepWheel(w, state);
+    expect(state.y[0]).toBe(whole.x[whole.x.length - 1]);
+    expect(state.angle / (2 * Math.PI)).toBe(whole.turns[whole.turns.length - 1]);
+  });
+});
+
+describe("Foucault's pendulum's port", () => {
+  it("swings and turns as the engine does, from the pole to the south", () => {
+    const times = [0.0, 1.3, 3600.0, 86400.0];
+    for (const c of cases.foucault) {
+      expect(differences(c.degrees_per_hour, foucault.degreesPerHour(c.p))).toEqual([]);
+      expect(differences(c.full_turn_h, foucault.fullTurnH(c.p))).toEqual([]);
+      expect(differences(c.period_s, foucault.periodS(c.p))).toEqual([]);
+      // A day in, the angle's last digits are rounding; held a part in 10⁸.
+      times.forEach((t, i) => {
+        const [x, y] = foucault.position(c.p, t);
+        expect(Math.abs(x - c.positions[i][0])).toBeLessThan(1e-8 * c.p.amplitude_m);
+        expect(Math.abs(y - c.positions[i][1])).toBeLessThan(1e-8 * c.p.amplitude_m);
+      });
+      expect(
+        differences(
+          c.planes,
+          times.map((t) => foucault.planeDeg(c.p, t)),
+        ),
+      ).toEqual([]);
+      expect(differences(c.curve, foucault.latitudeCurve(c.p))).toEqual([]);
+    }
+  });
+});
+
+describe("the Coriolis carousel's port", () => {
+  it("throws, turns and finds the lead as the engine does", () => {
+    for (const c of cases.coriolis) {
+      const th = c.throw as coriolis.Throw;
+      expect(differences(c.lead_deg, coriolis.leadDeg(c.c, th.speed_m_s, th.body))).toEqual([]);
+      expect(differences(c.path, coriolis.path(c.c, th))).toEqual([]);
+    }
+  });
+});
+
+/** The engine's `run`, sampled from the port's steps as the engine samples
+ *  its own: every tenth millisecond, each ball's angle in degrees. */
+function cradleRun(cr: cradle.Cradle, pull: cradle.Pull, durationS: number) {
+  let [th, w] = cradle.start(cr, pull);
+  const steps = Math.round(durationS / cradle.STEP_S);
+  const out = { t: [] as number[], angles_deg: th.map(() => [] as number[]) };
+  for (let i = 0; i <= steps; i++) {
+    if (i % 10 === 0) {
+      out.t.push(i * cradle.STEP_S);
+      th.forEach((a, b) => out.angles_deg[b].push((a * 180) / Math.PI));
+    }
+    if (i < steps) [th, w] = cradle.step(cr, th, w);
+  }
+  return out;
+}
+
+describe("Newton's cradle's port", () => {
+  it("meets and swings as the engine does", () => {
+    for (const c of cases.cradle) {
+      expect(differences(c.impact, cradle.impact(c.cr, c.pull))).toEqual([]);
+      expect(differences(c.run, cradleRun(c.cr, c.pull, 1.0))).toEqual([]);
+    }
+  });
+});
+
+/** The engine's `run`, sampled from the port's steps as the engine samples its
+ *  own: every twentieth millisecond, and the moment the ride ends. */
+function wellRun(f: well.Funnel, launch: well.Launch, durationS: number) {
+  let ride = well.begin(f, launch);
+  const steps = Math.round(durationS / well.STEP_S);
+  const out = { t: [] as number[], r_m: [] as number[], phi_rad: [] as number[], laps: [] as well.Lap[] };
+  for (let i = 0; i <= steps; i++) {
+    if (i % 20 === 0) {
+      out.t.push(ride.t);
+      out.r_m.push(ride.y[0]);
+      out.phi_rad.push(ride.y[2]);
+    }
+    if (ride.outcome !== "rolling" || i === steps) break;
+    const [next, lap] = well.advance(f, ride);
+    ride = next;
+    if (lap) out.laps.push(lap);
+  }
+  if (out.t[out.t.length - 1] !== ride.t) {
+    out.t.push(ride.t);
+    out.r_m.push(ride.y[0]);
+    out.phi_rad.push(ride.y[2]);
+  }
+  return { ...out, outcome: ride.outcome, end_s: ride.t };
+}
+
+describe("the gravity well's port", () => {
+  it("rolls, laps and ends as the engine does", () => {
+    for (const c of cases.well) {
+      const circular = c.circular.map(([r]: number[]) => [r, well.circularSpeed(c.f, r), well.circularPeriod(c.f, r)]);
+      expect(differences(c.circular, circular)).toEqual([]);
+      expect(differences(c.run, wellRun(c.f, c.launch, 20.0))).toEqual([]);
+    }
+  });
+});
+
+/** The engine's `run`, sampled from the port's steps as the engine samples its
+ *  own: every twentieth millisecond, the drive moving by the sweep. */
+function resonanceRun(rack: resonance.Rack, driveHz: number, durationS: number, sweep: number) {
+  let s = resonance.start(rack);
+  const steps = Math.round(durationS / resonance.STEP_S);
+  const out = { t: [] as number[], drive_hz: [] as number[], tips_m: rack.lengths_m.map(() => [] as number[]) };
+  for (let i = 0; i <= steps; i++) {
+    const f = driveHz + sweep * i * resonance.STEP_S;
+    if (i % 20 === 0) {
+      out.t.push(s.t);
+      out.drive_hz.push(f);
+      s.q.forEach((q, rod) => out.tips_m[rod].push(q));
+    }
+    if (i < steps) s = resonance.step(rack, s, f);
+  }
+  return out;
+}
+
+describe("the resonance rods' port", () => {
+  it("has the engine's mode, frequencies and swings", () => {
+    const k = cases.resonance_constants;
+    expect(
+      differences(k, {
+        BETA1: resonance.BETA1,
+        GAMMA: resonance.GAMMA,
+        shape: k.shape.map((_: number, i: number) => resonance.shape(i / 10)),
+      }),
+    ).toEqual([]);
+    for (const c of cases.resonance) {
+      const lengths: number[] = c.rack.lengths_m;
+      expect(
+        differences(
+          c.natural_hz,
+          lengths.map((L) => resonance.naturalHz(c.rack, L)),
+        ),
+      ).toEqual([]);
+      expect(
+        differences(
+          c.steady_m,
+          lengths.map((L) => resonance.steadyM(c.rack, L, c.drive_hz)),
+        ),
+      ).toEqual([]);
+      expect(differences(c.run, resonanceRun(c.rack, c.drive_hz, 10.0, c.sweep_hz_per_s))).toEqual([]);
+    }
+  });
+});
+
+/** The engine's `run`, sampled from the port's steps as the engine samples its
+ *  own: every twentieth millisecond, stopping where the axle hangs down. */
+function gyroscopeRun(w: gyroscope.Wheel, release: gyroscope.Release, durationS: number) {
+  let [y] = gyroscope.start(w, release);
+  const [, m] = gyroscope.start(w, release);
+  const steps = Math.round(durationS / gyroscope.STEP_S);
+  const out = {
+    t: [] as number[],
+    tilt_deg: [] as number[],
+    turn_deg: [] as number[],
+    dropped_s: null as number | null,
+  };
+  for (let i = 0; i <= steps; i++) {
+    if (i % 20 === 0) {
+      out.t.push(i * gyroscope.STEP_S);
+      out.tilt_deg.push(gyroscope.tiltDeg(y));
+      out.turn_deg.push((y[2] * 180) / Math.PI);
+    }
+    if (gyroscope.tiltDeg(y) >= gyroscope.HANGING_DEG) {
+      out.dropped_s = i * gyroscope.STEP_S;
+      break;
+    }
+    if (i < steps) y = gyroscope.step(w, m, y);
+  }
+  return out;
+}
+
+describe("the gyroscope wheel's port", () => {
+  it("starts, turns, nods and drops as the engine does", () => {
+    for (const c of cases.gyroscope) {
+      const [y, m] = gyroscope.start(c.wheel, c.release);
+      expect(differences({ start: c.start, motion: c.motion }, { start: y, motion: m })).toEqual([]);
+      if (c.rates.length) {
+        const rates = [
+          gyroscope.precessionRadS(c.wheel),
+          gyroscope.nutationRadS(c.wheel),
+          gyroscope.suitcaseTorqueNM(c.wheel, 90.0),
+        ];
+        expect(differences(c.rates, rates)).toEqual([]);
+      }
+      expect(differences(c.run, gyroscopeRun(c.wheel, c.release, 5.0))).toEqual([]);
+    }
+  });
+});
+
+describe("the floating top's port", () => {
+  it("finds the field, the window and the balance as the engine does", () => {
+    const heights = [0.0, 0.004, 0.02, 0.0436, 0.046, 0.0481, 0.07, 0.15];
+    for (const c of cases.levitation) {
+      expect(
+        differences(
+          c.field,
+          heights.map((z) => levitation.axisField(c.base, z)),
+        ),
+      ).toEqual([]);
+      expect(
+        differences(
+          c.lift_kg,
+          heights.map((z) => levitation.liftKg(c.base, c.top, z, c.warming_k)),
+        ),
+      ).toEqual([]);
+      expect(heights.map((z) => levitation.holds(c.base, z))).toEqual(c.holds);
+      expect(differences(c.hover, levitation.hover(c.base, c.top, c.warming_k))).toEqual([]);
+    }
+    expect(new Set(cases.levitation.map((c) => c.hover.state))).toEqual(new Set(["hovers", "lands", "slides"]));
+  });
+
+  it("finds no window over a ring that holds no top, as the engine refuses it", () => {
+    expect(() =>
+      levitation.window({ inner_radius_m: 0.3, outer_radius_m: 0.5, height_m: 0.015, magnetisation_a_m: 3.2e5 }),
+    ).toThrow(RangeError);
+  });
+});
+
+describe("the slow LC circuit's port", () => {
+  it("swings, creeps or stands between as the engine does, charge, current, energies and figures", () => {
+    const times = [0.0, 0.05, 0.2429, 0.5, 1.0, 2.5, 7.0, 15.0];
+    for (const c of cases.circuit) {
+      expect(circuit.regime(c.circuit)).toBe(c.regime);
+      expect(differences(c.rates, circuit.rates(c.circuit))).toEqual([]);
+      expect(
+        differences(
+          c.states,
+          times.map((t) => circuit.state(c.circuit, t)),
+        ),
+      ).toEqual([]);
+      expect(
+        differences(
+          c.energies,
+          times.map((t) => circuit.energies(c.circuit, t)),
+        ),
+      ).toEqual([]);
+      expect(differences(c.figures, circuit.figures(c.circuit))).toEqual([]);
+    }
+    expect(new Set(cases.circuit.map((c) => c.regime))).toEqual(new Set(["swings", "critical", "creeps"]));
+  });
+
+  it("holds the charged capacitor before the switch is thrown", () => {
+    const build = cases.circuit[0].circuit;
+    expect(circuit.state(build, -1)).toEqual(circuit.state(build, 0));
+    expect(circuit.state(build, 0)[1]).toBe(0);
+  });
+});
+
+describe("the falling plates' port", () => {
+  it("brakes, falls and draws the currents as the engine does", () => {
+    const times = [0.0, 0.003, 0.02, 0.1, 0.5, 2.0, 9.0];
+    const depths = [0.0, 0.0137, 0.2];
+    const points = [
+      [0.0, 0.004],
+      [0.02, 0.031],
+      [-0.045, 0.0602],
+      [0.0, 0.0085],
+      [0.049, 0.119],
+    ];
+    for (const c of cases.plates) {
+      const column = c.column as plates.MagnetColumn;
+      const plate = c.plate as plates.Plate;
+      expect(differences(c.teeth, plates.teeth(plate))).toEqual([]);
+      expect(differences(c.mass_kg, plates.massKg(plate))).toEqual([]);
+      expect(differences(c.brake, plates.brake(column, plate))).toEqual([]);
+      expect(
+        differences(
+          c.brake_at,
+          depths.map((s) => plates.brakeAt(column, plate, s)),
+        ),
+      ).toEqual([]);
+      expect(
+        differences(
+          c.motion,
+          times.map((t) => plates.motion(column, plate, t)),
+        ),
+      ).toEqual([]);
+      expect(differences(c.figures, plates.figures(column, plate))).toEqual([]);
+      expect(
+        differences(
+          c.stream,
+          depths.flatMap((s) => points.map(([x, y]) => plates.stream(column, plate, s, 0.3, x, y, 16))),
+        ),
+      ).toEqual([]);
+    }
+  });
+
+  it("holds the plate at the top before it is let go", () => {
+    const { column, plate } = cases.plates[0] as { column: plates.MagnetColumn; plate: plates.Plate };
+    expect(plates.motion(column, plate, -1)).toEqual([0, 0]);
+  });
+});
+
+describe("the bouncing ball's port", () => {
+  it("strikes, flies and comes to rest as the engine does", () => {
+    const times = [0.0, 0.05, 0.2, 0.26, 0.5, 0.9, 1.7, 3.3, 6.0, 30.0];
+    for (const c of cases.bounce) {
+      const ball = c.ball as bounce.BouncingBall;
+      const run = bounce.bounces(ball, c.height_m);
+      expect(differences(c.terminal_m_s, bounce.terminalSpeed(ball))).toEqual([]);
+      expect(differences(c.run, run)).toEqual([]);
+      expect(
+        differences(
+          c.states,
+          times.map((t) => bounce.state(ball, c.height_m, run, t)),
+        ),
+      ).toEqual([]);
+      expect(differences(c.figures, bounce.figures(ball, c.height_m))).toEqual([]);
+    }
+  });
+
+  it("holds the ball over the plate before it is let go", () => {
+    const { ball, height_m } = cases.bounce[0] as { ball: bounce.BouncingBall; height_m: number };
+    expect(bounce.state(ball, height_m, bounce.bounces(ball, height_m), -1)).toEqual([height_m, 0]);
+  });
+});
+
+describe("the overhang's port", () => {
+  it("finds each layer's footing, the furthest and the even stacks and the blocks a reach takes as the engine does", () => {
+    const c = cases.overhang;
+    expect(
+      differences(
+        c.harmonic,
+        c.harmonic.map((_, i) => overhang.harmonic(i + 1)),
+      ),
+    ).toEqual([]);
+    expect(
+      differences(
+        c.even,
+        c.even.map((_, i) => overhang.even(i + 1)),
+      ),
+    ).toEqual([]);
+    for (const s of c.stacks) {
+      expect(differences(s.layers, overhang.layers(s.lefts))).toEqual([]);
+      expect(overhang.holds(s.lefts)).toBe(s.holds);
+      expect(differences(s.overhang, overhang.overhang(s.lefts))).toEqual([]);
+    }
+    for (const [reach, blocks] of c.blocks_for) expect(overhang.blocksFor(reach)).toBe(blocks);
+  });
+});
+
+describe("the Cartesian diver's port", () => {
+  it("shrinks the bubble, finds the hover depth and steps as the engine does", () => {
+    const squeezes = [0.0, 5000.0, 9000.0, 10883.5, 15000.0];
+    const depths = [0.0, 0.07, 0.3, 1.2];
+    for (const c of cases.diver) {
+      const d = c.diver as diver.Diver;
+      const b = c.bottle as diver.Bottle;
+      // The engine's run: let go at rest, a steady squeeze, every step's depth and speed.
+      const steps: [number, number][] = [[c.start_m, 0]];
+      for (let i = 0; i < 1500; i++) steps.push(diver.step(d, b, ...steps[i], c.squeeze_pa));
+      expect(
+        differences(c.run, {
+          depth_m: steps.map((s) => s[0]),
+          speed_m_s: steps.map((s) => s[1]),
+        }),
+      ).toEqual([]);
+      expect(
+        differences(
+          c.hover_m,
+          squeezes.map((s) => diver.hoverDepthM(d, s)),
+        ),
+      ).toEqual([]);
+      expect(
+        differences(
+          c.bubble_m3,
+          squeezes.map((s) => depths.map((z) => diver.bubbleM3(d, z, s))),
+        ),
+      ).toEqual([]);
+      expect(
+        differences(
+          c.lift_n,
+          squeezes.map((s) => depths.map((z) => diver.liftN(d, z, s))),
+        ),
+      ).toEqual([]);
+      expect(differences(c.figures, diver.figures(d, b))).toEqual([]);
+    }
+  });
+});
+
+describe("the colour port", () => {
+  it("weighs a spectrum by the observer and shows it as the engine does", () => {
+    const c = cases.colour;
+    const wavelengths = [380.0, 437.0, 442.0, 501.1, 555.0, 568.8, 599.8, 700.0, 780.0];
+    expect(
+      differences(
+        c.matching,
+        wavelengths.map((nm) => colour.matching(nm)),
+      ),
+    ).toEqual([]);
+    const filters: Record<string, number[]> = {
+      red: colour.WAVELENGTHS_NM.map((nm) => 1 / (1 + Math.exp(-(nm - 600) / 15))),
+      rayleigh: colour.WAVELENGTHS_NM.map((nm) => (450 / nm) ** 4),
+      line: colour.WAVELENGTHS_NM.map((nm) => (nm === 520 ? 1.0 : 0.0)),
+    };
+    for (const l of c.lamps) {
+      const spectrum = colour.lamp(l.kelvin);
+      const xyz = colour.tristimulus(spectrum);
+      expect(
+        differences(l, {
+          kelvin: l.kelvin,
+          spectrum,
+          xyz,
+          rgb: colour.linearRgb(xyz),
+          seen: Object.fromEntries(Object.entries(filters).map(([name, f]) => [name, colour.seen(spectrum, f)])),
+        }),
+      ).toEqual([]);
+    }
+    for (const s of c.screen) expect(differences(s.shown, colour.onScreen(s.rgb))).toEqual([]);
+  });
+});
+
+describe("the glass-bead rainbow's port", () => {
+  it("traces the rays, spreads their light and colours the ring as the engine does", () => {
+    const impacts = [0.0, 0.2, 0.5, 0.75, 0.9, 0.99];
+    const wavelengths = [400.0, 589.3, 700.0];
+    for (const c of cases.rainbow) {
+      const bead = c.bead as rainbow.Bead;
+      const n = rainbow.indexAt(bead, rainbow.SODIUM_NM);
+      const ring = rainbow.ring(bead);
+      expect(
+        differences(c, {
+          bead: c.bead,
+          index: wavelengths.map((nm) => rainbow.indexAt(bead, nm)),
+          exit: impacts.map((b) => rainbow.exitAngle(n, b)),
+          share: impacts.map((b) => rainbow.rayShare(n, b)),
+          paths: impacts.map((b) => rainbow.trace(n, b)),
+          rainbow: [rainbow.rainbowImpact(n), rainbow.rainbowAngle(n)],
+          profiles: wavelengths.map((nm) => rainbow.profile(bead, nm)),
+          ring: { r: ring.map((x) => x[0]), g: ring.map((x) => x[1]), b: ring.map((x) => x[2]) },
+          figures: rainbow.figures(bead),
+        }),
+      ).toEqual([]);
+    }
+  });
+});
+
+describe("the blue sky's port", () => {
+  it("scatters the lamp's light along the tube and the sun's through the air and its ozone as the engine does", () => {
+    const lamp = colour.lamp(sky.LAMP_K);
+    const sun = colour.lamp(sky.SUN_K);
+    for (const c of cases.sky.tubes) {
+      const tube = c.tube as sky.Tube;
+      const places = [0.0, tube.length_m / 4, tube.length_m / 2, tube.length_m];
+      expect(
+        differences(c, {
+          tube: c.tube,
+          side: places.map((at) => sky.sideLight(tube, at)),
+          side_hue: places.map((at) => sky.hue(lamp, sky.sideLight(tube, at))),
+          side_brightness: places.map((at) => sky.brightness(lamp, sky.sideLight(tube, at))),
+          end: sky.endLight(tube),
+          end_hue: sky.hue(lamp, sky.endLight(tube)),
+          figures: sky.figures(tube),
+        }),
+      ).toEqual([]);
+    }
+    for (const c of cases.sky.sun) {
+      const h = c.height_deg;
+      const ozone = c.ozone;
+      expect(
+        differences(c, {
+          height_deg: h,
+          ozone,
+          air_mass: sky.airMass(h),
+          ozone_light: sky.ozoneLight(h),
+          sun: sky.sunLight(h, ozone),
+          sun_hue: sky.hue(sun, sky.sunLight(h, ozone)),
+          sun_brightness: sky.brightness(sun, sky.sunLight(h, ozone)),
+          sky: sky.skyLight(h, ozone),
+          sky_hue: sky.hue(sun, sky.skyLight(h, ozone)),
+        }),
+      ).toEqual([]);
+    }
+    // Without the argument, the sky has its ozone, as in the engine.
+    expect(sky.skyLight(0)).toEqual(sky.skyLight(0, true));
+    for (const c of cases.sky.down) expect(differences(c.light, sky.scatteredDown(c.tau, c.m))).toEqual([]);
+  });
+});
+
+describe("the double slit's port", () => {
+  it("lights the wall behind two slits, and one, under a laser and white light as the engine does", () => {
+    const nms = [405.0, 532.0, 650.0];
+    for (const c of cases.slits) {
+      const s = c.slits as slits.Slits;
+      const span = (1.5 * 700e-9 * s.distance_m) / s.width_m;
+      const ys = Array.from({ length: 81 }, (_, k) => span * ((2 * k) / 80 - 1));
+      const channels = (pattern: number[][]) => ({
+        r: pattern.map((p) => p[0]),
+        g: pattern.map((p) => p[1]),
+        b: pattern.map((p) => p[2]),
+      });
+      expect(
+        differences(c, {
+          slits: c.slits,
+          both: nms.map((nm) => ys.map((y) => slits.intensity(s, nm, y))),
+          one: nms.map((nm) => ys.map((y) => slits.intensity(s, nm, y, false))),
+          dark: nms.map((nm) => [0, 1, 2, 3].map((k) => slits.darkM(s, nm, k))),
+          laser: nms.map((nm) => slits.laserColour(nm)),
+          laser_both: channels(slits.laserPattern(s, 532.0, ys)),
+          laser_one: channels(slits.laserPattern(s, 650.0, ys, false)),
+          white_both: channels(slits.whitePattern(s, ys)),
+          white_one: channels(slits.whitePattern(s, ys, false)),
+          figures: nms.map((nm) => slits.figures(s, nm)),
+        }),
+      ).toEqual([]);
+    }
+  });
+});
+
+describe("the beats' port", () => {
+  it("detunes a fork with its rider and sounds the pair as the engine does", () => {
+    const c = cases.beats;
+    expect(
+      differences(
+        c.shape,
+        Array.from({ length: 11 }, (_, k) => beats.modeShape(k / 10)),
+      ),
+    ).toEqual([]);
+    const times = Array.from({ length: 20001 }, (_, k) => (5.0 * k) / 20000);
+    for (const f of c.forks) {
+      const fork = f.fork as beats.Fork;
+      const second = beats.frequencyHz(fork, f.riders[2].rider as beats.Rider);
+      expect(
+        differences(f, {
+          fork: f.fork,
+          riders: f.riders.map((r) => ({
+            rider: r.rider,
+            hz: beats.frequencyHz(fork, r.rider as beats.Rider),
+            figures: beats.figures(fork, r.rider as beats.Rider),
+          })),
+          loudness: times.map((t) => beats.loudness(fork.frequency_hz, second, fork.decay_s, t)),
+          sound: times.map((t) => beats.sound(fork.frequency_hz, second, fork.decay_s, t)),
+        }),
+      ).toEqual([]);
+    }
+  });
+});
+
+describe("the arch's port", () => {
+  it("cuts the stones and finds the thrust line as the engine does", () => {
+    for (const c of cases.arch) {
+      const stone = c.arch as arch.Arch;
+      expect(differences(c.joints, arch.joints(stone))).toEqual([]);
+      expect(differences(c.blocks, arch.blocks(stone))).toEqual([]);
+      expect(differences(c.thrust, arch.thrust(stone, c.load))).toEqual([]);
+    }
+  });
+});
+
+describe("the Chladni plate's port", () => {
+  it("evaluates the route's modes, the tones and the plate's answer as the engine does", () => {
+    const c = cases.chladni;
+    const points = [-1.0, -0.6, 0.0, 0.35, 1.0];
+    const modes: chladni.Mode[] = c.modes.map((mode: { lam: number; terms: number[][] }) => ({
+      lam: mode.lam,
+      m: mode.terms.map((t) => t[0]),
+      n: mode.terms.map((t) => t[1]),
+      c: mode.terms.map((t) => t[2]),
+    }));
+    expect(
+      differences(
+        c.legendre,
+        points.map((x) => chladni.legendre(c.degree, x)),
+      ),
+    ).toEqual([]);
+    const values = modes
+      .slice(0, 3)
+      .map((mode) => points.map((x) => points.map((y) => chladni.modeValue(mode, c.degree, x, y))));
+    expect(differences(c.values, values)).toEqual([]);
+    expect(
+      differences(
+        c.frequencies_hz,
+        modes.map((mode) => chladni.frequencyHz(c.plate, mode.lam)),
+      ),
+    ).toEqual([]);
+    const responses = [101.0, 102.4, 180.0, 517.0].map((f) =>
+      points.map((x) => chladni.response(c.plate, modes, c.degree, f, x, 0.2)),
+    );
+    expect(differences(c.responses, responses)).toEqual([]);
+    // The grid is the same sum, its polynomials worked out once a line.
+    const grid = chladni.modeGrids(modes.slice(0, 1), c.degree, 5)[0];
+    const across = [-1, -0.5, 0, 0.5, 1];
+    across.forEach((x, i) =>
+      across.forEach((y, j) => expect(grid[i * 5 + j]).toBeCloseTo(chladni.modeValue(modes[0], c.degree, x, y), 12)),
+    );
   });
 });

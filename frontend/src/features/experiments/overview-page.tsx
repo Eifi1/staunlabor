@@ -2,19 +2,46 @@ import { useState } from "react";
 import { Link } from "react-router";
 import { useTranslation } from "react-i18next";
 import {
+  Anchor,
   ArrowRight,
   Armchair,
   CalendarDays,
   Check,
   ChevronsUp,
+  Diamond,
+  Disc3,
+  Droplets,
+  GlassWater,
+  Globe,
   HelpCircle,
+  Link2,
   Magnet,
   Orbit,
+  PenTool,
+  RefreshCcw,
   RotateCcw,
   RotateCw,
+  Shuffle,
   Timer,
   Torus,
+  Waves,
   Wind,
+  Ellipsis,
+  Target,
+  AudioWaveform,
+  LifeBuoy,
+  Landmark,
+  Grid3x3,
+  Magnet as MagnetIcon,
+  CircuitBoard,
+  ChevronsDown,
+  Volleyball,
+  Layers,
+  TestTube,
+  Rainbow,
+  CloudSun,
+  Columns3,
+  BellRing,
 } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
 import {
@@ -34,6 +61,7 @@ import {
 } from "@eifi1/ui-kit";
 import { useLocale } from "@/shared/i18n/use-locale";
 import { PAGE_SHELL } from "@/shared/ui/page-shell";
+import { UncheckedNotice } from "./unchecked-notice";
 import { dailyExhibit, dailyHistory, dayIn, type DailyPick } from "./daily";
 import { ExhibitPreview } from "./exhibit-preview";
 import { lessonPath } from "./exhibit-frame";
@@ -49,6 +77,33 @@ const ICON: Record<Exhibit, LucideIcon> = {
   elephant: Wind,
   smoke: Torus,
   cannon: ChevronsUp,
+  wave: Waves,
+  harmonograph: PenTool,
+  cone: Diamond,
+  parabola: GlassWater,
+  coupled: Link2,
+  peg: Anchor,
+  maxwell: Disc3,
+  chaos: Shuffle,
+  waterwheel: Droplets,
+  foucault: Globe,
+  coriolis: RefreshCcw,
+  cradle: Ellipsis,
+  well: Target,
+  resonance: AudioWaveform,
+  gyroscope: LifeBuoy,
+  arch: Landmark,
+  chladni: Grid3x3,
+  levitation: MagnetIcon,
+  circuit: CircuitBoard,
+  plates: ChevronsDown,
+  bounce: Volleyball,
+  overhang: Layers,
+  diver: TestTube,
+  rainbow: Rainbow,
+  sky: CloudSun,
+  slits: Columns3,
+  beats: BellRing,
 };
 
 /** Two weeks back, in the dialog: long enough to find the one a friend
@@ -94,6 +149,7 @@ export function ExperimentsOverviewPage() {
   return (
     <div className={PAGE_SHELL}>
       <PageHeader size="sm" title={t("app.name")} description={t("experiments.overview.lead")} />
+      <UncheckedNotice />
       <DailyCard entry={daily} today={today} />
       <AllExhibits daily={daily.exhibit} />
       <p className="text-sm text-secondary">{t("experiments.overview.how")}</p>

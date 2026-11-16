@@ -25,15 +25,18 @@
       "source": "Source code",
       "issues": "Report a problem or an idea",
       "licence": "Code under MIT, texts and drawings under CC BY 4.0. Independent and non-commercial.",
-      "version": "Version {{version}}"
+      "version": "Version {{version}}",
+      "signIn": "Sign in",
+      "account": "Account"
     },
     "about": {
       "title": "About Staunlabor",
       "lead": "Hands-on exhibits, computed — free, without an account and without ads.",
       "what": "Staunlabor takes exhibits of the kind a science centre has — a ball floating on a jet of air, a smoke ring pressed out of a drum, three balls dropped stacked — and lets you play the visitor in each exhibit's twin. Then every page shows what happens: the equations of motion, how they are solved, and the one insight that explains the trick.",
       "computed": "Every number comes from the site's own engine and is held by its tests. What moves is computed by your browser, with the same steps as the engine; what a slider changes is computed by the server.",
-      "model": "The exhibits are inspired by exhibits at the Swiss Science Center Technorama in Winterthur. Staunlabor is an independent project and is not affiliated with the Technorama; every drawing and text here is its own.",
+      "model": "Most of the exhibits are inspired by exhibits at the Swiss Science Center Technorama in Winterthur. Staunlabor is an independent project and is not affiliated with the Technorama; every drawing and text here is its own.",
       "open": "Staunlabor is free: the code is under the MIT licence, the texts and drawings under CC BY 4.0. You may reuse them with credit, in teaching too.",
+      "accounts": "The exhibits need no account. Accounts exist only by invitation: for those who review the translations or send feedback and ideas for new exhibits.",
       "feedback": "Something wrong, unclear, or an exhibit you would like to see?",
       "issues": "Report it on GitHub",
       "source": "See the source code"
@@ -52,14 +55,14 @@
     "privacy": {
       "data": {
         "title": "What data we process",
-        "body": "Staunlabor has no accounts, no database and no forms. When you change an exhibit, your browser sends its values — a ball's diameter, a drop height — to the server, which computes figures and curves from them and sends them back; none of it is stored.\n\nTechnical data: our hosting provider records each request — the time, the address requested, your IP address and browser type — to operate and secure the service. To limit the number of calculations per address, the server holds your IP address in memory for a short while; it is not stored."
+        "body": "The exhibits need no account. When you change an exhibit, your browser sends its values — a ball's diameter, a drop height — to the server, which computes figures and curves from them and sends them back; none of it is stored.\n\nAccounts: an account exists only by invitation, for those who review the translations or give feedback. For it we store your email address, your first and last name, a hash of your password (never the password itself), your language and your role, when you created the account, confirmed your address and last signed in, and, where it applies, when you asked for its deletion. For each sign-in we store a session: the IP address you signed in from, a description of your browser (such as “Firefox on Linux”), and when it began and was last active. Of your passkeys we store the public key, the name and when you last used them. If you turn on two-factor sign-in, we store your authenticator app's secret encrypted (AES-256-GCM, with a key that is not in the database) and your backup codes only as hashes. For an invitation we store the invited address, who invited, the role and the language, and its link only as a hash. What the administration changes on an account, such as its role, is kept in a log.\n\nFeedback and translations: we store a report with its title, text and category, your account, the size of your browser window and your browser type, the page you were on if you choose to include it, and the images and files you attach; and with it the replies, comments and votes. Reports you leave visible to others can be read by every signed-in account: the title and text, the replies and the comments, each with the first name of the person who wrote it. Whoever reviews translations gives a verdict on a text, optionally with a note and a suggestion; it is stored with the wording reviewed and who reviewed it, and the account keeps the languages and areas it may review.\n\nTechnical data: our hosting provider records each request — the time, the address requested, your IP address and browser type — to operate and secure the service. To limit the number of calculations and sign-in attempts per address, the server holds your IP address in memory for a short while; it is not stored for that."
       },
       "legal_basis": {
         "site": "There is no tracking, no analytics, no cookies and no advertising."
       },
       "third_parties": {
         "title": "Hosting and processors",
-        "body": "The site runs on Google Cloud in the European Union (europe-west4, the Netherlands). Google acts as a processor on our behalf.\n\nCloudflare runs the DNS for staunlabor.app and forwards email to addresses @staunlabor.app to the operator's mailbox; in doing so it processes the message and the sender's and recipient's addresses. Web traffic does not pass through Cloudflare's network.\n\nThe source code and the feedback are on GitHub. Whoever reports something there does so with their GitHub account and under GitHub's terms."
+        "body": "The site and its database run on Google Cloud in the European Union (europe-west4, the Netherlands); the images and files attached to feedback are kept there too, in private storage. Google acts as a processor on our behalf.\n\nEmails — an invitation, a link to confirm your address or reset your password, a notice about your account — are sent through Resend from its region in Ireland. Resend receives the recipient's address and the text of that one email.\n\nCloudflare runs the DNS for staunlabor.app and forwards email to addresses @staunlabor.app to the operator's mailbox; in doing so it processes the message and the sender's and recipient's addresses. Web traffic does not pass through Cloudflare's network.\n\nThe source code is on GitHub. Whoever reports something there does so with their GitHub account and under GitHub's terms."
       },
       "browser": {
         "entries": {
@@ -67,15 +70,18 @@
           "look": "The light or dark theme",
           "tried": "Which exhibits you have tried, so the overview can tick them"
         },
-        "tail": "None of it is used to track you, and none of it is sent to us. All of it disappears when you clear the site's data in your browser."
+        "tail": "None of it is used to track you. Your browser sends the sign-in tokens with each request to your account; everything else stays in your browser. Signing out removes the sign-in tokens, and all of it disappears when you clear the site's data in your browser."
       },
       "transfers": {
         "title": "Transfers abroad",
-        "body": "The data is processed in the EU (the Netherlands). Google, Cloudflare and GitHub are companies based in the USA; where data may be accessed from outside Switzerland and the EU, the transfer relies on the providers' standard contractual clauses and, where they apply, the EU–US and Swiss–US Data Privacy Frameworks. Switzerland, where the operator is based, is recognised by the EU as providing an adequate level of data protection."
+        "body": "The data is stored in the EU (the Netherlands), and emails are sent from the EU (Ireland). Google, Resend, Cloudflare and GitHub are companies based in the USA; where data may be accessed from outside Switzerland and the EU, the transfer relies on the providers' standard contractual clauses and, where they apply, the EU–US and Swiss–US Data Privacy Frameworks. Switzerland, where the operator is based, is recognised by the EU as providing an adequate level of data protection."
       },
       "retention": {
         "title": "Retention and deletion",
-        "body": "Staunlabor stores no data about you. Our hosting provider deletes its request logs after 30 days. What your browser keeps you can delete at any time in its settings."
+        "body": "An account's data is kept as long as the account exists. Ended sessions with their IP address and browser description, expired links, invitations never accepted and spent passkey challenges are deleted 30 days after they ended.\n\nYou ask for your account's deletion in the settings. The account is locked at once and every session ends; 30 days after the request it is deleted for good, automatically; until then the administration can unlock it again at your wish. Your feedback, replies and comments are anonymised, and your votes and the files only you attached are deleted. Your verdicts in the translation review stay, without your name, and the administration's log keeps its entries without your address. Backups of the database still hold the deleted data for up to 7 days.\n\nWe keep feedback as long as it is needed to deal with it. Our hosting provider deletes its request logs after 30 days. What your browser keeps you can delete at any time in its settings."
+      },
+      "rights": {
+        "site": "With an account, you download its data as a file in the settings and ask for its deletion there too. For anything else, a message to the address below is enough."
       }
     }
   },
@@ -89,7 +95,7 @@
       "how": "Each page starts with what stands at the exhibit, lets you try it, then shows what happens and the one insight that explains the trick. Every number comes from the app's own engine and is held by its tests.",
       "open": "Open the exhibit",
       "coming": "In preparation",
-      "credit": "Inspired by exhibits at the Swiss Science Center Technorama, Winterthur.",
+      "credit": "Most exhibits are inspired by exhibits at the Swiss Science Center Technorama, Winterthur.",
       "daily": {
         "eyebrow": "Experiment of the day",
         "open": "Try it",
@@ -115,8 +121,10 @@
       "angular_momentum": "Angular momentum",
       "energy": "Energy",
       "oscillation": "Oscillation",
+      "equilibrium": "Equilibrium",
       "flow": "Flow",
       "induction": "Induction",
+      "light": "Light",
       "perception": "Perception"
     },
     "frame": {
@@ -127,6 +135,7 @@
       "sweet_spot": "The trick",
       "computed": "How it is computed"
     },
+    "unchecked": "The calculations have not been checked yet: figures and drawings on these pages may still change.",
     "exhibits": {
       "chair": {
         "short": "The chair",
@@ -175,6 +184,168 @@
         "title": "The ball cannon",
         "summary": "Drop three balls stacked on a wire, and the small one on top shoots up far higher than it fell.",
         "question": "How high does the small ball fly when the stack falls from one metre?"
+      },
+      "wave": {
+        "short": "Pendulum wave",
+        "title": "The pendulum wave",
+        "summary": "Fifteen pendulums let go together drift apart, make waves and groups – and after a minute swing in step again.",
+        "question": "When do fifteen pendulums of different lengths, let go together, all swing in step again?"
+      },
+      "harmonograph": {
+        "short": "Harmonograph",
+        "title": "The harmonograph",
+        "summary": "A pen on one pendulum, a drawing board on another: as both die away they draw a rosette, a loop or a star.",
+        "question": "What does a pen draw when two pendulums swing at 2 : 3 – and what when it is only nearly 2 : 3?"
+      },
+      "cone": {
+        "short": "Double cone",
+        "title": "The double cone rolls uphill",
+        "summary": "Two rails spread apart and rise as they go. A double cone laid at the bottom rolls up by itself.",
+        "question": "Does a double cone on two rising rails roll up or down – and what decides it?"
+      },
+      "parabola": {
+        "short": "Water parabola",
+        "title": "The water parabola",
+        "summary": "A vessel of water spins: its surface hollows into a bowl – until the middle runs dry.",
+        "question": "As a vessel of water spins ever faster, does the middle sink as far as the rim rises?"
+      },
+      "coupled": {
+        "short": "Coupled pendulums",
+        "title": "Coupled pendulums",
+        "summary": "Two pendulums joined by a soft spring: push one, and the swing wanders over to the other – and back again.",
+        "question": "Two equal pendulums hang on a spring. How long until the swing of one has wholly moved to the other?"
+      },
+      "peg": {
+        "short": "Galileo's pendulum",
+        "title": "Galileo's interrupted pendulum",
+        "summary": "A peg catches a pendulum's string. The bob swings on round a smaller circle – and still rises exactly as high as on the other side.",
+        "question": "A peg catches the string of a swinging pendulum. Does the bob then rise less high, as high or higher?"
+      },
+      "maxwell": {
+        "short": "Maxwell's wheel",
+        "title": "Maxwell's wheel",
+        "summary": "A heavy wheel rolls slowly down two strings, turns round at the bottom and winds itself nearly back up to where it started – a large yo-yo.",
+        "question": "Why does a heavy wheel rolling down two strings fall so much more slowly than a stone?"
+      },
+      "chaos": {
+        "short": "Chaotic pendulum",
+        "title": "The chaotic pendulum",
+        "summary": "A pendulum on a pendulum: pushed hard it flails and never repeats – two that start almost alike soon go entirely different ways.",
+        "question": "Two double pendulums start a thousandth of a degree apart. For how long do they still swing alike?"
+      },
+      "waterwheel": {
+        "short": "Chaotic waterwheel",
+        "title": "The chaotic waterwheel",
+        "summary": "Water falls into leaking cups on a wheel: it turns, stalls, turns back – and never repeats. They are the same equations as Lorenz's weather model.",
+        "question": "A wheel of leaking cups, water pouring in at the top. Which way does it turn?"
+      },
+      "foucault": {
+        "short": "Foucault pendulum",
+        "title": "Foucault's pendulum in Winterthur",
+        "summary": "A long pendulum swings for hours, and the plane it swings in turns slowly against the floor: not the pendulum turns, but the Earth under it.",
+        "question": "How long does a pendulum's plane of swing take to turn right round in Winterthur?"
+      },
+      "coriolis": {
+        "short": "Coriolis carousel",
+        "title": "The Coriolis carousel",
+        "summary": "On a turning carousel two people roll a ball to each other – and it never arrives where it was aimed. Seen from outside there is no curve to explain.",
+        "question": "Two people sit facing each other on a turning carousel. Where must one aim to hit the other?"
+      },
+      "cradle": {
+        "short": "Newton's cradle",
+        "title": "Newton's cradle",
+        "summary": "One ball in, one ball out; two in, two out. Momentum and energy allow no other answer – almost.",
+        "question": "Why do exactly as many balls fly off at the other end as are let fall?"
+      },
+      "well": {
+        "short": "Gravity well",
+        "title": "The gravity well",
+        "summary": "A ball circles the hole of a funnel, ever lower and ever faster – and keeps Kepler's third law as it goes, like a planet.",
+        "question": "Why does the ball get faster, though friction brakes it?"
+      },
+      "resonance": {
+        "short": "Resonant rods",
+        "title": "The resonant rods",
+        "summary": "Six rods on a table that hardly trembles – and yet one swings wide when the beat is right. The others stay almost still.",
+        "question": "How does a table that moves a single millimetre make a rod swing eight centimetres?"
+      },
+      "gyroscope": {
+        "short": "Gyroscope wheel",
+        "title": "The gyroscope wheel",
+        "summary": "A heavy wheel hangs on a string by one end of its axle. Still, it falls; spinning, it stays up and wanders slowly round in a circle.",
+        "question": "Why does a spinning wheel not fall, but move sideways?"
+      },
+      "arch": {
+        "short": "Chain and arch",
+        "title": "The chain and the arch",
+        "summary": "An arch of loose stones stands without mortar – if its shape is right. A hanging chain shows the shape, upside down.",
+        "question": "Why does an arch of loose stones stand, and why does one too thin fall?"
+      },
+      "chladni": {
+        "short": "Chladni figures",
+        "title": "The Chladni figures",
+        "summary": "Sand on a metal plate. When the plate rings, the sand runs into lines – a different pattern at every tone.",
+        "question": "Why does the sand gather into lines, and into different ones at every tone?"
+      },
+      "levitation": {
+        "short": "Floating top",
+        "title": "The floating top",
+        "summary": "A top with a magnet in it spins over a ring magnet and floats – but only if its weight is right to within a few tenths of a gram.",
+        "question": "Why does the spinning top float, and why does it land when it is a little too heavy?"
+      },
+      "circuit": {
+        "short": "LC circuit",
+        "title": "The slow LC circuit",
+        "summary": "A capacitor discharges through a big coil – and the current swings back and forth like a pendulum, about once a second.",
+        "question": "A capacitor and a coil have no moving part. Why does the current swing back and forth all the same?"
+      },
+      "plates": {
+        "short": "Falling plates",
+        "title": "The falling plates",
+        "summary": "Plates of copper and aluminium sink slowly between magnets, as if through honey – though none of them is magnetic.",
+        "question": "The magnets do not pull on any of the plates. Why do they fall so slowly all the same?"
+      },
+      "bounce": {
+        "short": "Bouncing ball",
+        "title": "The bouncing steel ball",
+        "summary": "A steel ball and a table-tennis ball bounce on a plate, ever lower and ever faster – infinitely many bounces, and yet they lie still after a few seconds.",
+        "question": "How do infinitely many bounces fit into a few seconds?"
+      },
+      "overhang": {
+        "short": "Overhang",
+        "title": "The overhanging stack",
+        "summary": "Identical blocks, stacked without glue, reach further out over an edge than a block is long – if they are shifted right.",
+        "question": "How far can a stack of nine blocks reach out over the edge without tipping?"
+      },
+      "diver": {
+        "short": "Cartesian diver",
+        "title": "The Cartesian diver",
+        "summary": "A small glass tube with a bubble of air floats in a bottle. Squeeze the bottle and it sinks – and there is exactly one depth where it would hover.",
+        "question": "Why does the diver sink when the bottle is squeezed, and why does it never stay in the middle?"
+      },
+      "rainbow": {
+        "short": "Glass-bead rainbow",
+        "title": "The glass-bead rainbow",
+        "summary": "A wall of tiny glass beads, lit by a lamp beside your head: round the shadow of your head a coloured ring appears – half the size of the rainbow in the sky.",
+        "question": "Why does a coloured ring glow round the shadow of your head, and why is it smaller than the rainbow in the sky?"
+      },
+      "sky": {
+        "short": "Blue sky",
+        "title": "Why is the sky blue?",
+        "summary": "White light through a faintly cloudy tube: from the side it glows blue, at the end it comes out orange – the blue sky and the red evening sun in small.",
+        "question": "Why is the same light blue from the side and orange at the end?"
+      },
+      "slits": {
+        "short": "Double slit",
+        "title": "The double slit",
+        "summary": "Laser light falls through two narrow slits: on the wall bright and dark stripes appear – and where it is dark, one slit alone would throw light.",
+        "question": "How can light plus light make darkness?"
+      },
+      "beats": {
+        "short": "Beats",
+        "title": "Beats",
+        "summary": "Two tuning forks, nearly in tune, sound together like one tone that slowly swells and fades. A small rider on one fork sets how fast.",
+        "question": "Why does the tone of two nearly equal tuning forks swell and fade?"
       }
     },
     "chair": {
@@ -983,6 +1154,2143 @@
         "name": "Why a cannon: physics books call it the Galilean cannon, because the small ball is shot straight up out of the stack as if out of a barrel. Nothing in it is fired sideways.",
         "assumed": "What is assumed: solid balls of 1100 kg/m³, the elastomer's stiffness and how springy it is, contacts that follow Hertz's law with damping that gives back a fixed share of the closing speed, a rigid floor. The wire's friction and the balls' spin are left out."
       }
+    },
+    "wave": {
+      "at": {
+        "row": "A row of pendulums hangs from a bar, the longest at one end, each next one a little shorter. A board holds them all out equally far and lets them go together.",
+        "pattern": "At first they swing together, then the row pulls apart into a wave, into snakes, into apparent chaos, into two, three, four groups – and after a minute they all swing in step again, as if nothing had happened."
+      },
+      "play": {
+        "title": "Let the row swing",
+        "hint": "The clock is running. Jump to a fraction of the cycle, or change how far the pendulums are let go from.",
+        "pause": "Pause",
+        "run": "Run",
+        "restart": "From the start",
+        "speed": "Speed",
+        "speeds": {
+          "1": "Real time",
+          "2": "Double",
+          "5": "Fivefold"
+        },
+        "jump": "Jump to:",
+        "jumps": {
+          "2": "½ cycle",
+          "3": "⅓ cycle",
+          "4": "¼ cycle",
+          "1": "Whole cycle"
+        },
+        "amplitude": "Swing when let go",
+        "amplitude_hint": "The lengths are tuned for {{tuned}}°. Let go wider or narrower, the pendulums no longer quite meet again after a cycle.",
+        "time": "Time",
+        "cycles": "Cycles",
+        "spread": "Skew after one cycle"
+      },
+      "views": {
+        "top": "The row of pendulums from above: each bob as far out as it is swinging",
+        "side": "The row of pendulums from its end: all of them hang one behind the other from the same bar",
+        "top_caption": "From above",
+        "side_caption": "From the end of the row"
+      },
+      "change": {
+        "title": "Change the exhibit",
+        "hint": "The lengths follow from the cycle, from the swings of the longest pendulum and from the swing they are tuned for. Every change starts again.",
+        "count": "Number of pendulums",
+        "cycle": "Cycle Γ",
+        "cycle_hint": "After this time they all swing in step again.",
+        "swings": "Swings of the longest pendulum in Γ",
+        "swings_hint": "Each next pendulum swings once more in the same time.",
+        "tuned": "Tuned for",
+        "tuned_hint": "The swing the lengths are computed for. 0° is the textbook formula for small swings."
+      },
+      "figures": {
+        "longest": "Longest pendulum",
+        "shortest": "Shortest pendulum",
+        "period": "Period of the longest",
+        "spread": "Skew after one cycle",
+        "textbook": "Skew with the textbook formula"
+      },
+      "model": {
+        "intro": "No pendulum knows of the others. Each swings on its own, and the whole pattern is in the lengths.",
+        "period": "The period of a pendulum swinging a little depends on its length alone: four times as long, half as fast.",
+        "tuning": "The lengths are chosen so that in the cycle Γ the longest pendulum swings exactly N times, the next N + 1 times, the n-th N + n times. After Γ each has a whole number of swings behind it, and all stand where they were let go.",
+        "groups": "After a k-th of the cycle the n-th pendulum has made (N + n)/k swings. For k = 2 that is a whole number for one half of them and a half more for the other: two groups, opposite each other. For k = 3 three groups, for k = 4 four. The waves and snakes in between are the same at times that divide Γ less neatly.",
+        "wider": "What the textbook formula leaves out: a wider swing takes longer, by 1.7 % at 30°. So the row here is tuned for one swing with the exact period."
+      },
+      "symbols": {
+        "t0": "period of a small swing",
+        "length": "length of the pendulum, from the pivot to the middle of the bob",
+        "g": "gravitational acceleration, 9.81 m/s²",
+        "tn": "period of the n-th pendulum",
+        "cycle": "the cycle: the time until all swing in step again",
+        "swings": "swings of the longest pendulum in Γ",
+        "index": "the pendulum's number, counted from the longest: 0, 1, 2, …",
+        "k": "the fraction of the cycle: Γ/k",
+        "theta0": "the swing when let go",
+        "k_integral": "the complete elliptic integral of the first kind"
+      },
+      "sweet": {
+        "alone": "The trick is that there is none: no spring, no thread, no beat links the pendulums. The pattern is only what tuned lengths do – and so exactly as good as that tuning.",
+        "tuned": "This row is tuned for {{tuned}}°. Let it go wider or narrower and every pendulum is slow or fast by nearly the same share. After a cycle that comes to the most degrees for the short ones, which have more swings behind them: the row comes back skewed. The skew is measured in degrees of a swing, 360° being a whole one. Tuned by the textbook formula for small swings, the row would come back {{textbook}}° skewed at {{amplitude}}°."
+      },
+      "chart": {
+        "spread": "Skew after one cycle",
+        "amplitude": "Swing when let go",
+        "you": "You"
+      },
+      "computed": {
+        "system": "Each pendulum is one second-order equation, the plane pendulum's without friction, let go from rest.",
+        "theta": "the angle of the swing",
+        "theta_dd": "its angular acceleration",
+        "exact": "It has an exact solution in Jacobi's elliptic functions. For every frame the page computes every pendulum straight from the time, without stepping there – which is why it can jump to any moment of the cycle. As a check the engine solves the same equation step by step with the Runge–Kutta method; the two agree to a ten-millionth of a degree.",
+        "k": "the modulus, set by the swing when let go",
+        "cd": "Jacobi's elliptic function cn/dn",
+        "omega0": "the angular frequency of small swings",
+        "t": "the time since letting go",
+        "check": "As a check, computed here and now: the longest pendulum of this row, stepped for ten seconds, is at most {{apart}} degrees away from the exact solution."
+      }
+    },
+    "harmonograph": {
+      "at": {
+        "pen": "Two pendulums hang side by side. One carries a pen that swings across; the other a drawing board that swings along. Both are pulled aside and let go.",
+        "picture": "The pen draws what the two swings make together. As both slowly die away the figure grows smaller round by round: a spiral of fine lines that, depending on the pendulums' beat, comes together as a rosette, a loop or a star."
+      },
+      "play": {
+        "title": "Let it draw",
+        "hint": "The pen draws in fast motion. Change the pendulums' ratio below, and a new drawing begins.",
+        "pause": "Pause",
+        "run": "Run",
+        "finish": "Finish the drawing",
+        "restart": "Draw again",
+        "save": "Save picture",
+        "speed": "Speed",
+        "speeds": {
+          "1": "Real time",
+          "5": "Fivefold",
+          "20": "Twentyfold"
+        },
+        "time": "Drawn",
+        "ratio": "Near the ratio {{p}} : {{q}} (pen : board)",
+        "detune": "Off it by",
+        "turn": "One turn of the figure",
+        "fades": "Died away to a tenth"
+      },
+      "views": {
+        "drawing": "The drawing on the board, with the pen where it is now",
+        "caption": "The drawing board from above"
+      },
+      "change": {
+        "title": "Set the pendulums",
+        "hint": "The ratio sets the board pendulum's length: a quarter of the length swings twice as fast. Every change starts a new drawing.",
+        "ratio": "Ratio pen : board",
+        "detune": "Detune",
+        "detune_hint": "How far the board is off the exact ratio. One per cent already makes the figure turn.",
+        "phase": "Where the board starts",
+        "phase_hint": "Where in its swing the board starts: 0° at its widest, 90° passing through the middle.",
+        "pen_amplitude": "Swing of the pen's pendulum",
+        "board_amplitude": "Swing of the board's pendulum",
+        "damping": "Friction",
+        "damping_hint": "How fast the swings die away; the same for both pendulums.",
+        "length": "Length of the pen's pendulum",
+        "length_hint": "A longer pendulum swings more slowly; the board's follows at the chosen ratio."
+      },
+      "model": {
+        "intro": "Two pendulums, each on its own. The pen moves across with one, the board along with the other; what is drawn is where the pen stands on the board.",
+        "place": "The pen's place on the board: across, how far the pen's pendulum is out; along, how far the board's is.",
+        "small": "For small swings each pendulum swings like a cosine whose width dies away with time. The frequency depends on the length alone.",
+        "ratio": "So the ratio of the two beats is the square root of the lengths' ratio turned round. At a simple ratio such as 2 : 3 the figure closes on itself and only shrinks."
+      },
+      "symbols": {
+        "xy": "the pen's place on the board, across and along",
+        "lengths": "the lengths of the pen's and the board's pendulum",
+        "theta": "their swings",
+        "theta0": "the swing at the start",
+        "c": "the damping: the width falls as e to the −c·t/2",
+        "f": "the frequency, swings per second",
+        "phi": "where in its swing the pendulum starts",
+        "g": "gravitational acceleration, 9.81 m/s²",
+        "f12": "the frequencies of the pen's and the board's pendulum",
+        "turn": "the time for one whole turn of the figure",
+        "pq": "the simple ratio the beats are near"
+      },
+      "sweet": {
+        "near": "When the beats are near a simple ratio p : q but not on it, the figure keeps its shape and slowly turns on – once in this time. The nearer, the slower.",
+        "closed": "These pendulums stand exactly at {{p}} : {{q}}: the figure closes on itself and only shrinks. Detune the board by one per cent, and it starts to turn.",
+        "turns": "These pendulums are {{detune}} % off {{p}} : {{q}}: the figure turns once in {{turn}} s.",
+        "widths": "And it turns even at an exact ratio when the pendulums swing differently wide: a wide swing takes a little longer than a narrow one. Set the pen's pendulum to 30° and the board's to 5°, and the closed figure opens."
+      },
+      "computed": {
+        "system": "Two second-order equations, the damped pendulum's, with the full sine rather than the small swing's approximation. Since the damping allows no closed solution, the engine steps them with the Runge–Kutta method a millisecond at a time, and the page draws with the same steps – a few hundred a frame.",
+        "theta_dd": "the angular acceleration of pendulum i",
+        "theta_d": "its angular velocity"
+      }
+    },
+    "cone": {
+      "at": {
+        "rails": "Two straight rails spread apart in a V from one point and rise as they go. Across them at the narrow, low end lies a double cone: two cones base to base.",
+        "rolls": "Let go, it rolls by itself up to the wide, high end – against gravity, it seems."
+      },
+      "refused": {
+        "fall_through": "Spread this far, the rails reach nearly to the cone's tips: it would fall through. Shorter rails, less spread or a slimmer cone help.",
+        "too_wide": "The rails start further apart than the cone is long: it would not lie on them."
+      },
+      "play": {
+        "title": "Let the cone go",
+        "hint_up": "The cone lies at the low end. Let it go and see where it rolls.",
+        "hint_down": "On these rails the cone rolls down, so it lies at the high end. Let it go.",
+        "hint_stays": "At exactly this slope the axis stays level: the cone stays where it lies.",
+        "let_go": "Let go",
+        "pause": "Pause",
+        "run": "Run",
+        "speed": "Speed",
+        "speeds": {
+          "100": "Real time",
+          "25": "Slow motion (¼)"
+        },
+        "verdict_up": "The rails rise, the cone's axis falls: it rolls up.",
+        "verdict_down": "The rails rise more steeply than the cone sinks: it rolls down.",
+        "verdict_stays": "Axis exactly level: the cone stays where it lies.",
+        "along": "Along the rails",
+        "axis": "Height of the axis",
+        "speed_now": "Speed of the axis",
+        "spin": "Spin",
+        "spin_unit": "per s"
+      },
+      "views": {
+        "side": "The double cone from the side: the rising rails, the cone with the circle it rolls on, and dashed the path of its axis",
+        "front": "The double cone from the front: the rails spread as they climb, and the cone sinks between them",
+        "side_caption": "From the side",
+        "front_caption": "From the front, up the rails"
+      },
+      "change": {
+        "title": "Change the exhibit",
+        "hint": "Three angles decide: how steeply the rails rise, how far they spread and how pointed the cone is.",
+        "slope": "Slope of the rails γ",
+        "slope_hint": "How steeply the rails rise.",
+        "spread": "Spread of the rails β",
+        "spread_hint": "Each rail's angle to the centre line, seen from above.",
+        "cone": "Cone angle α",
+        "cone_hint": "The angle between the cone's surface and its axis: the larger, the faster it thins towards its tips.",
+        "radius": "Radius at the middle",
+        "length": "Length of the rails",
+        "start_gap": "Gap between the rails at the bottom",
+        "start_gap_hint": "How far apart the rails are at the low end."
+      },
+      "model": {
+        "intro": "The cone does what every body does: it rolls to where its centre of mass is lower. The only question is where that is.",
+        "thin": "The double cone is thickest in the middle and thins evenly towards its tips.",
+        "rails": "The rails spread as they go up, and rise.",
+        "axis": "Where the rails are further apart, they hold the cone further out, where it is thinner: it sits lower between them. So the height of its axis is the rails' height plus a radius that shrinks towards the top.",
+        "condition": "Both parts change evenly: the axis runs on a straight line. If it falls while the rails rise, the cone rolls up – exactly when tan γ is smaller than tan α · tan β."
+      },
+      "symbols": {
+        "r": "the cone's radius at a distance y from its middle",
+        "radius": "the radius at the middle",
+        "y": "the distance from the middle, along the axis",
+        "alpha": "the cone angle, between surface and axis",
+        "x": "the place along the rails, from the low end",
+        "d": "each rail's distance from the centre line",
+        "h": "the height of the rails",
+        "beta": "each rail's spread",
+        "gamma": "the slope of the rails",
+        "z": "the height of the cone's axis",
+        "c": "the exact contact's factor, close to 1"
+      },
+      "sweet": {
+        "heights": "Over their whole length the rails rise by {{rise}} cm. The cone's axis {{direction}} by {{fall}} cm meanwhile.",
+        "falls": "falls",
+        "climbs": "climbs",
+        "threshold": "Up to a slope of {{threshold}}° this cone rolls up; the rails here rise at {{slope}}°.",
+        "exact": "Computed exactly, a rail that runs skew and rises touches the cone a little off the point under its axis. The engine finds that point: for the default exhibit the axis stands 1.002 times as high above the rail as the textbook assumes. At the boundary, though, the contact lies right under the axis – there the textbook's condition is exact."
+      },
+      "chart": {
+        "rail": "Height of the rails",
+        "axis": "Height of the cone's axis",
+        "height": "Height",
+        "along": "Along the rails"
+      },
+      "figures": {
+        "threshold": "Boundary slope",
+        "time": "To the end of the rails"
+      },
+      "computed": {
+        "energy": "A single coordinate, the place along the rails. The cone rolls without slipping, so it spins as fast as its axis moves on, divided by the radius it is rolling on – which shrinks towards the top. The energy of motion, spin and height stays the same. Lagrange's method makes a second-order equation of it, which the engine solves with the Runge–Kutta method in steps of a millisecond.",
+        "m": "the slope of the axis's path",
+        "rho": "the radius the cone rolls on",
+        "x_dot": "the speed along the rails",
+        "g": "gravitational acceleration, 9.81 m/s²"
+      }
+    },
+    "parabola": {
+      "at": {
+        "vessel": "A round vessel of water stands on a turntable. As it turns, the water sinks in the middle and climbs the wall, the more the faster it turns.",
+        "dry": "For the default vessel – 30 cm across, filled 10 cm deep – the middle runs dry at 126 turns a minute."
+      },
+      "refused": "The water has to stand in the vessel: the depth of filling must be less than the vessel is high.",
+      "play": {
+        "title": "Turn the turntable",
+        "hint": "Set the speed. The vessel follows at once, the water takes its time – in fast motion you see it catch up.",
+        "pause": "Pause",
+        "run": "Run",
+        "stop": "Switch the turntable off",
+        "frame": "View from above",
+        "frames": {
+          "outside": "From outside",
+          "turning": "Turning along"
+        },
+        "speed": "Speed",
+        "speeds": {
+          "1": "Real time",
+          "10": "Tenfold"
+        },
+        "rate": "Turntable speed",
+        "rpm": "rpm",
+        "rate_hint": "Turns a minute.",
+        "spills": "This fast the water climbs over the rim: it spills.",
+        "water": "Water's speed",
+        "centre": "Height at the middle",
+        "rim": "Height at the rim",
+        "tau": "Spin-up time"
+      },
+      "views": {
+        "side": "The vessel cut through: the water under its hollowed surface, dashed its level at rest, and the focus of the bowl as a mirror",
+        "top": "The vessel from above: marks on the rim turn with the vessel, specks in the water with the water",
+        "side_caption": "Cut through, from the side",
+        "top_caption_outside": "From above, seen from outside",
+        "top_caption_turning": "From above, turning with the vessel: the specks show how far the water still lags"
+      },
+      "change": {
+        "title": "Change the exhibit",
+        "hint": "A wider vessel or less water runs dry sooner; a shallow one spills sooner.",
+        "radius": "Radius of the vessel",
+        "fill": "Depth at rest",
+        "height": "Height of the vessel"
+      },
+      "model": {
+        "intro": "When the water turns with the vessel as one body, its surface everywhere stands square to gravity and the centrifugal pull together. The centrifugal pull grows with the distance from the axis, so the surface grows steeper outwards.",
+        "surface": "That makes a paraboloid: the height grows with the square of the distance from the axis.",
+        "volume": "The water stays the same. So the middle sinks by exactly as much as the rim rises: by ω²R²/(4g).",
+        "dry": "From this speed on the middle touches the bottom. Faster, a dry patch opens there and grows with the speed."
+      },
+      "symbols": {
+        "z": "the surface's height above the bottom",
+        "r": "the distance from the axis",
+        "z0": "the height at the middle",
+        "omega": "the angular velocity: 2π times the turns a second",
+        "g": "gravitational acceleration, 9.81 m/s²",
+        "h": "the depth at rest",
+        "radius": "the vessel's radius",
+        "dry": "the angular velocity at which the middle runs dry",
+        "f": "the focal length of the bowl as a mirror"
+      },
+      "sweet": {
+        "equal": "At {{rpm}} turns a minute the middle sinks by {{drop}} cm – and the rim rises by exactly as much. The two lines part symmetrically until the middle reaches the bottom.",
+        "dry": "The middle is dry: from {{rpm}} turns a minute the water stands in a ring only.",
+        "mirror": "A turning bowl of a liquid that reflects is a telescope's mirror: light coming straight down meets at the focus. The speed sets the focal length – one turn in 8.5 s puts it 9 m up.",
+        "spin_up": "Switch the turntable on from rest to this speed, and the water takes about {{tau}} s to reach two thirds of it:"
+      },
+      "chart": {
+        "rim": "Height at the rim",
+        "centre": "Height at the middle",
+        "height": "Height",
+        "rate": "Speed",
+        "you": "Now",
+        "vessel": "Turntable",
+        "time": "Time"
+      },
+      "figures": {
+        "dry": "Dry from",
+        "spill": "Spills from",
+        "focus": "Focal length"
+      },
+      "computed": {
+        "system": "How long the water takes to follow the vessel: the bottom drags it along through a thin boundary layer (after Greenspan and Howard, one Ekman layer at the bottom). The page lets the water's speed follow the vessel's over this time, about half a minute for the default vessel, and draws the surface as if the water turned as one body. That is a model of how long it takes, not of the flow meanwhile.",
+        "omega_v": "the vessel's angular velocity",
+        "tau": "the spin-up time",
+        "nu": "the water's viscosity, 10⁻⁶ m²/s",
+        "big_omega": "the larger of the two angular velocities"
+      }
+    },
+    "coupled": {
+      "at": {
+        "pair": "Two equal pendulums hang side by side, joined below their pivots by a soft spring. One is pulled aside and let go; the other hangs still.",
+        "wanders": "Soon the second starts to swing while the first comes to rest – then the other way round, again and again. For the default pair the swing wanders over and back once in 23 s."
+      },
+      "refused": "The spring has to sit between the pivot and the bob on both pendulums: the right one is too short for the spring this low.",
+      "view": "The two pendulums from the front, the spring between them",
+      "play": {
+        "title": "Push the pendulums",
+        "hint": "Choose how the pendulums are let go. The bars show how much of the energy is in each right now.",
+        "pause": "Pause",
+        "run": "Run",
+        "let_go": "Let go:",
+        "starts": {
+          "one": "The left one only",
+          "together": "Both alike",
+          "against": "Against each other"
+        },
+        "speed": "Speed",
+        "speeds": {
+          "1": "Real time",
+          "3": "Threefold"
+        },
+        "energy": "Energy of the two pendulums",
+        "left": "Left pendulum",
+        "right": "Right pendulum"
+      },
+      "figures": {
+        "together": "Period together",
+        "against": "Period against",
+        "beat": "Over and back",
+        "share": "Of it, reaches the other"
+      },
+      "change": {
+        "title": "Change the exhibit",
+        "hint": "A stiffer spring, or one fixed lower, couples more strongly: the swing wanders faster. Unequal lengths let only part of it over.",
+        "spring": "Spring constant",
+        "spring_hint": "How hard the spring pulls when stretched by a metre.",
+        "spring_at": "Height of the spring",
+        "spring_at_hint": "How far below the pivots the spring is fixed.",
+        "right_length": "Length of the right pendulum",
+        "right_length_hint": "The left one is 50 cm long.",
+        "mass": "Mass of each bob",
+        "damping": "Damping"
+      },
+      "model": {
+        "intro": "Each pendulum swings under gravity, and the spring pulls it towards the other, as hard as the two have moved apart at its height.",
+        "equation": "The left pendulum's equation; the right one's is built alike, with the spring pulling the other way.",
+        "modes": "Two motions in which both swing at one beat: together, the spring idle, as fast as one pendulum alone; and against each other, the spring working too, faster. Every other motion is a sum of these two.",
+        "beat": "Push only one pendulum and that is half of each. The two drift slowly apart and together again: the swing wanders over and back once in this time."
+      },
+      "symbols": {
+        "theta": "the two pendulums' swings",
+        "length": "a pendulum's length",
+        "g": "gravitational acceleration, 9.81 m/s²",
+        "kappa": "how strongly they are coupled",
+        "k": "the spring constant",
+        "a": "how far below the pivots the spring is fixed",
+        "m": "a bob's mass",
+        "omega": "the angular frequencies together and against each other",
+        "beat": "the time the swing takes to wander over and back",
+        "kappa_i": "the coupling as each of the two pendulums feels it"
+      },
+      "sweet": {
+        "modes": "What nature swings here is not one pendulum and then the other, but the two shared beats. The wandering swing is their sum – which is why it does not wander for “Both alike” and “Against each other”.",
+        "beat": "Here the swing wanders over and back once in {{beat}} s, and {{share}} % of it reaches the other pendulum.",
+        "unequal": "Unequal pendulums never hand over all of it: only this share, the more the more alike the pendulums and the stronger the spring."
+      },
+      "chart": {
+        "energy": "Share of the energy",
+        "time": "Time"
+      },
+      "computed": {
+        "system": "Four first-order equations, the swings and their speeds, with the full sine and the spring between them. The engine solves them together with the Runge–Kutta method a millisecond at a time; the page does the same with the same steps, a few dozen a frame."
+      }
+    },
+    "peg": {
+      "at": {
+        "peg": "A pendulum swings in front of a wall. Below its pivot sits a peg: each time the string swings through the vertical, the peg catches it, and the bob swings on round a smaller circle about the peg.",
+        "height": "The path is different, the height is not: the bob rises exactly to the line it was let go from. Set the peg low enough and it cannot – it swings right over, or the string goes slack."
+      },
+      "refused": "The peg has to sit between the pivot and the bob.",
+      "view": "The pendulum, the peg and, dashed, the height the bob was let go from; the peg can be moved with a finger",
+      "play": {
+        "title": "Let the pendulum go",
+        "hint": "Drag the peg up or down, or pick one of the three cases below.",
+        "let_go": "Let go",
+        "pause": "Pause",
+        "run": "Run",
+        "speed": "Speed",
+        "speeds": {
+          "100": "Real time",
+          "25": "Slow motion (¼)"
+        },
+        "outcome_same_height": "At the peg the bob rises exactly as high as on the other side.",
+        "outcome_slack": "Too much swing for the small circle, too little to go over: the string goes slack.",
+        "outcome_over_the_top": "Swing enough: the bob goes right over the peg.",
+        "events": {
+          "caught": "The peg catches the string.",
+          "released": "The string comes off the peg.",
+          "slack": "The string goes slack: the bob flies free.",
+          "taut": "The string jerks taut.",
+          "over_the_top": "Over the top: the string winds round the peg."
+        }
+      },
+      "figures": {
+        "height": "Height let go from",
+        "radius": "Small circle",
+        "loop": "Needed to go over",
+        "slack": "Slack from a height of",
+        "reached": "Reached at the peg, computed"
+      },
+      "change": {
+        "title": "Change the exhibit",
+        "hint": "Every change lets the bob go again.",
+        "start": "Swing when let go",
+        "peg": "Depth of the peg",
+        "peg_hint": "How far below the pivot the peg sits.",
+        "length": "Length of the string"
+      },
+      "model": {
+        "intro": "The string always pulls across the bob's motion. It turns the bob, but does no work: whatever motion the bob has, it has from its fall alone.",
+        "energy": "So its speed depends only on how far it is below the height it was let go from – whichever circle it is on. At the top, where it turns, it is back at that height.",
+        "pull": "A string can only pull. Above the peg it has to hold the bob on its circle, and gravity helps; is the bob too slow there, the string would have to push – it goes slack, and the bob flies free until the string is taut again."
+      },
+      "symbols": {
+        "v": "the bob's speed",
+        "z": "its height above the lowest point",
+        "h": "the height it was let go from",
+        "g": "gravitational acceleration, 9.81 m/s²",
+        "f": "the string's pull",
+        "r": "the small circle's radius: the string's length less the peg's depth",
+        "phi": "the angle round the peg, from below",
+        "z_slack": "the height at which the string goes slack"
+      },
+      "sweet": {
+        "height": "The path changes, the height does not: the energy remembers where the bob came from. That is how Galileo showed that a ball rolling down a ramp rises as high again on any ramp opposite.",
+        "loop": "It goes over the peg when let go from at least two and a half radii of the small circle: at the top it must still be fast enough for the string to pull.",
+        "slack": "In between, the string goes slack at this height.",
+        "now": "Here the bob was let go {{h}} cm above the lowest point; going over would take {{loop}} cm.",
+        "cases": {
+          "same_height": "Same height",
+          "slack": "Slack string",
+          "over_the_top": "Over the top"
+        }
+      },
+      "computed": {
+        "system": "Three motions, an equation each: the pendulum round the pivot, the shorter one round the peg, and free flight while the string is slack. The engine steps on with the Runge–Kutta method a millisecond at a time and finds each switch – the peg catching, the string coming off, going slack, jerking taut – within its step by halving, so that it happens exactly where it belongs.",
+        "gravity": "gravity, which alone acts in free flight"
+      }
+    },
+    "maxwell": {
+      "at": {
+        "wheel": "A heavy wheel sits on a thin axle, and two strings hanging from above are wound round the axle. The wheel is turned up until the strings are wound on, and let go.",
+        "climbs": "It rolls slowly down, turns round at the bottom with a jerk and winds itself back up, nearly to where it was let go. The default wheel falls in 3.3 s and climbs to 94 % of the height before each time."
+      },
+      "refused": "The axle has to be thinner than the wheel.",
+      "view": "Maxwell's wheel from the front on its two strings",
+      "play": {
+        "title": "Let the wheel go",
+        "hint": "In the slowest motion you see the jerk at the bottom: the strings stretch by a few millimetres and throw the wheel back.",
+        "let_go": "Let go",
+        "pause": "Pause",
+        "run": "Run",
+        "speed": "Speed",
+        "speeds": {
+          "100": "Real time",
+          "25": "Slow motion (¼)",
+          "5": "Very slow (1/20)"
+        },
+        "phases": {
+          "down": "It is rolling down.",
+          "jerk": "At the bottom: the strings stretch and throw it back.",
+          "up": "It is winding itself back up."
+        },
+        "tension": "Pull of the strings",
+        "weight_times": "Times the weight",
+        "speed_now": "Speed of the axle",
+        "energy": "Energy of motion",
+        "translation": "In falling and climbing",
+        "rotation": "In the spin",
+        "spin_unit": "rev/s"
+      },
+      "change": {
+        "title": "Change the exhibit",
+        "hint": "A thinner axle, or a wheel heavier at its rim, falls more slowly – and makes the jerk at the bottom harder.",
+        "shape": "Wheel",
+        "shapes": {
+          "disc": "Solid disc",
+          "ring": "Spoked wheel (mass in the rim)"
+        },
+        "axle": "Radius of the axle",
+        "axle_hint": "Where the strings are wound.",
+        "wheel": "Radius of the wheel",
+        "mass": "Mass of the wheel",
+        "drop": "Length of the strings",
+        "loss": "Rubbing of the strings",
+        "loss_hint": "The strings bend round the axle and rub: this share of their pull as a braking torque.",
+        "stiffness": "Stiffness of the strings",
+        "stiffness_hint": "How hard both strings together would pull if stretched by a metre. Stiffer: a shorter, harder jerk."
+      },
+      "model": {
+        "intro": "The strings come off the axle without slipping: for every centimetre the wheel falls, it turns on by a centimetre of the axle's circumference. Because the axle is thin, that means a great deal of spin for little fall.",
+        "roll": "The wheel falls uniformly accelerated, but with only a small part of gravity's acceleration: k says how much harder the wheel is to set spinning than to set moving.",
+        "tension": "So while it rolls, the strings carry nearly the whole weight.",
+        "share": "This share of the energy of motion is in the spin – 98.8 % for the default wheel."
+      },
+      "symbols": {
+        "a": "the wheel's acceleration as it rolls down",
+        "g": "gravitational acceleration, 9.81 m/s²",
+        "i": "the wheel's moment of inertia: ½·M·R² for a disc, M·R² for a ring",
+        "m": "the wheel's mass",
+        "r": "the axle's radius",
+        "t": "the pull of both strings",
+        "s": "the stiffness of both strings together",
+        "v": "the wheel's speed when the strings have run out"
+      },
+      "sweet": {
+        "spin": "Nearly all the energy is in the spin – {{share}} % here – which is why the wheel falls so slowly: what the height gives goes into turning, not into falling.",
+        "jerk": "At the bottom the strings' stretch catches the fall. For {{ms}} ms their pull rises to {{peak}} N, {{times}} times the weight. The spin goes on through the jerk and winds the strings back on from the other side.",
+        "climbs": "Each time the wheel climbs to {{share}} % of the height before: the strings' rubbing on the axle takes a little as they wind off and on."
+      },
+      "chart": {
+        "height": "Height",
+        "tension": "Pull of the strings",
+        "time": "Time"
+      },
+      "figures": {
+        "fall": "Time to fall",
+        "spin": "Spin at the bottom",
+        "peak": "Highest pull",
+        "stretch": "Stretch of the strings"
+      },
+      "computed": {
+        "system": "Everything here has a closed form; nothing needs stepping: falling and climbing are uniformly accelerated, and in the jerk the wheel makes half a spring's swing on the stretched strings. For every frame the page asks where the wheel is.",
+        "z": "how far the strings are stretched in the jerk"
+      }
+    },
+    "chaos": {
+      "at": {
+        "pendulum": "A second pendulum hangs from the end of a first. Pushed gently, both swing calmly to and fro; pushed hard, the lower arm flails, goes over the top, stops short and flails on – never the same way twice.",
+        "twice": "Whoever pushes it twice “the same” sees two different dances. Here that is done more precisely than by hand: two pendulums whose starts differ by a thousandth of a degree."
+      },
+      "view": "The double pendulum and its twin, started a tiny angle differently, with the trail of the lower weight",
+      "play": {
+        "title": "Let two pendulums go",
+        "hint": "The strong pendulum and its paler twin start almost alike. Watch when they part.",
+        "let_go": "Let go",
+        "pause": "Pause",
+        "run": "Run",
+        "presets_label": "Start:",
+        "presets": {
+          "gentle": "Gentle",
+          "wild": "Wild",
+          "headstand": "Nearly upside down"
+        },
+        "upper": "Upper arm at the start",
+        "lower": "Lower arm at the start",
+        "nudge": "The twin's difference",
+        "speed": "Speed",
+        "speeds": {
+          "100": "Real time",
+          "25": "Slow motion (¼)"
+        },
+        "time": "Time",
+        "gap": "The two are {{gap}} apart"
+      },
+      "change": {
+        "title": "Change the exhibit",
+        "hint": "Every change lets both go again.",
+        "length1": "Length of the upper arm",
+        "length2": "Length of the lower arm",
+        "mass1": "Mass on the upper arm",
+        "mass2": "Mass on the lower arm",
+        "damping": "Damping"
+      },
+      "model": {
+        "intro": "Two masses on two light rods, the lower hung from the end of the upper. The equations of motion follow from the energy by Lagrange's method; they are long but hold no mystery – and they have no closed solution.",
+        "energy": "The double pendulum's energy: the motion of both masses, their coupling through the angle between the arms, and their height. Without damping it stays the same – that is the computation's check.",
+        "modes": "For small swings everything is orderly: two modes, slow together and fast against each other (here for equal arms and masses).",
+        "lyapunov": "For large swings a tiny difference grows by the same factor every second until it is as large as the motion itself. The rate of that growth is the Lyapunov exponent."
+      },
+      "symbols": {
+        "theta": "the two arms' angles from the vertical",
+        "lengths": "the arms' lengths",
+        "masses": "the two masses",
+        "g": "gravitational acceleration, 9.81 m/s²",
+        "omega": "the angular frequencies of the two modes",
+        "d": "the gap between the two pendulums, in angles and angular velocities",
+        "lambda": "the Lyapunov exponent"
+      },
+      "sweet": {
+        "gap": "The gap between the two pendulums over time, on a logarithmic scale: a straight line means it grows by the same factor every second.",
+        "chaotic": "Measured for this start: λ = {{lambda}} a second. A difference thus doubles every {{doubling}} s. Making it a thousand times smaller buys only ten doublings' time – which is why the pendulum cannot be predicted, though every computation is exact.",
+        "regular": "Measured for this start: λ = {{lambda}} a second, practically zero. Swung this gently the difference stays small: the pendulum is predictable."
+      },
+      "chart": {
+        "gap": "Gap between the two",
+        "time": "Time"
+      },
+      "figures": {
+        "lambda": "Lyapunov exponent",
+        "slow": "Slow mode"
+      },
+      "computed": {
+        "system": "Four first-order equations, both angles and their speeds, with the Runge–Kutta method in steps of a millisecond, for the pendulum and its twin. The engine measures the exponent Benettin's way: a twin starts a hundred-millionth away, every tenth of a second the gap's growth is noted and the twin set back to the small gap. The mean of the logarithms is the exponent – whatever small gap is chosen.",
+        "d0": "the small gap the twin is set back to each time",
+        "dk": "the gap after the k-th tenth of a second",
+        "t": "the whole time measured"
+      }
+    },
+    "waterwheel": {
+      "at": {
+        "wheel": "Cups with a hole in the bottom hang all round a wheel. Water pours in at the top and drips out below. Turn the tap on and the top cup grows heavy, the wheel tips away and starts to turn.",
+        "never": "Now it turns one way for a long time, slows, stalls, and turns the other way – when, and how often, keeps no beat. It never repeats."
+      },
+      "views": {
+        "wheel": "The waterwheel with its cups, the tap above",
+        "butterfly": "The wheel's path through the space of its states: its rate against the height of the water's spread – Lorenz's butterfly",
+        "wheel_caption": "The wheel",
+        "butterfly_caption": "Lorenz's butterfly"
+      },
+      "play": {
+        "title": "Turn the tap on",
+        "hint": "The tap decides: too little water and the wheel stands still; more, and it turns steadily; more still, and it turns chaotic.",
+        "pause": "Pause",
+        "run": "Run",
+        "restart": "From the start",
+        "tap": "Tap",
+        "tap_hint": "ρ: how much water flows in, measured against the leaks and the brake.",
+        "brake": "Brake",
+        "brake_hint": "σ: how hard the axle brakes, measured against the wheel's inertia and the leaks.",
+        "speed": "Speed",
+        "speeds": {
+          "1": "Real time",
+          "4": "Fourfold"
+        },
+        "regime_still": "Too little water: the leaks carry it off before the top cup grows heavy enough. The wheel stands.",
+        "regime_steady": "The wheel turns steadily one way – which way, the first small nudge decides.",
+        "regime_chaotic": "Chaos: no steady turning holds. The wheel changes direction without ever following a pattern.",
+        "rate": "Wheel's speed",
+        "rpm": "rpm",
+        "hopf": "Chaos from a tap of"
+      },
+      "model": {
+        "intro": "What counts is how the water is spread round the wheel – more precisely, how far its centre of mass lies to the side of the axle and above or below it. With that and the wheel's rate three equations can be written.",
+        "wheel": "The water's spread turns with the wheel, water flows in at the top and leaks out everywhere; gravity turns the wheel when the water lies to one side, and the axle brakes.",
+        "lorenz": "With time in units of the leaks and suitably scaled they are exactly Lorenz's equations, which he drew from a model of the air's flow in 1963 – with b = 1 instead of 8/3.",
+        "hopf": "Above this inflow even steady turning is no longer stable: the wheel turns chaotic."
+      },
+      "symbols": {
+        "ab": "how the water is spread: to the side, and top against bottom",
+        "omega": "the wheel's rate",
+        "k": "how fast the cups leak",
+        "q": "how much water flows in at the top",
+        "nu": "the axle's brake",
+        "i": "the wheel's moment of inertia",
+        "r": "the wheel's radius",
+        "x": "the rate in units of the leaks",
+        "yz": "where the water's centre of mass lies, suitably scaled",
+        "sigma": "the brake against inertia and leaks",
+        "rho": "the inflow against brake and leaks"
+      },
+      "sweet": {
+        "lorenz": "The wheel's speed over 200 seconds. In 1963 Lorenz looked for a simple model of the weather and found these three equations – and that tiny differences at the start make the forecast worthless after a short while. The waterwheel is that model to touch.",
+        "chaotic": "In 200 seconds the wheel here turns back {{reversals}} times, never to the same beat.",
+        "steady": "At this inflow the wheel, once started, turns steadily at {{rpm}} turns a minute.",
+        "still": "At this inflow the wheel stands still."
+      },
+      "chart": {
+        "time": "Time"
+      },
+      "computed": {
+        "system": "Three first-order equations, Lorenz's, with the Runge–Kutta method in steps of a hundredth of the leaks' time. Turned back, they give the wheel's rate and how full each cup is. The test computes the wheel's own equations in seconds and finds the same numbers.",
+        "tau": "time in units of the leaks"
+      }
+    },
+    "foucault": {
+      "at": {
+        "swing": "A heavy pendulum on a long cable swings calmly to and fro, for hours. Nothing pushes it sideways – and yet after an hour its plane of swing points another way.",
+        "pins": "A ring of pins stands on the floor; one after another falls as the plane sweeps past it. In Winterthur it turns by 11.1° an hour, clockwise: right round in 32.5 hours."
+      },
+      "view": "The pendulum from above: its plane of swing dashed, the bob's trail and the ring of pins",
+      "play": {
+        "title": "Let the Earth turn",
+        "hint": "In fast motion you see the plane wander and the pins fall. Choose another place and the pace changes.",
+        "pause": "Pause",
+        "run": "Run",
+        "restart": "From the start",
+        "places_label": "Place:",
+        "places": {
+          "winterthur": "Winterthur",
+          "pole": "North Pole",
+          "equator": "Equator",
+          "sydney": "Sydney"
+        },
+        "speed": "Fast motion",
+        "speeds": {
+          "1": "Real time",
+          "60": "1 min a second",
+          "600": "10 min a second",
+          "3600": "1 h a second"
+        },
+        "latitude": "Latitude",
+        "latitude_hint": "Positive in the north, negative in the south.",
+        "hours": "Gone by",
+        "turned": "Plane turned",
+        "rate": "An hour",
+        "never": "At the equator the plane does not turn.",
+        "full_turn": "Turning right round takes {{hours}} hours here."
+      },
+      "change": {
+        "title": "Change the exhibit",
+        "hint": "Length and swing change the swing's beat, not how fast the plane turns.",
+        "length": "Length of the pendulum",
+        "amplitude": "Swing"
+      },
+      "model": {
+        "intro": "The floor turns with the Earth. Someone standing on it therefore sees the pendulum pushed aside by a force that appears only in the turning frame: the Coriolis force.",
+        "coriolis": "The bob is pulled back to the middle and pushed across its motion by the Coriolis force – to the right in the north.",
+        "latitude": "How fast the floor turns under the pendulum depends on the latitude: at the pole with the Earth's whole turn, at the equator not at all."
+      },
+      "symbols": {
+        "xy": "where the bob is above the floor",
+        "omega0": "the swing's angular frequency",
+        "omega_z": "how fast the floor turns under the pendulum",
+        "omega": "the Earth's turn, once a sidereal day",
+        "phi": "the latitude"
+      },
+      "sweet": {
+        "floor": "The pendulum keeps its plane in space; the floor turns away beneath it. In Winterthur at {{rate}}° an hour: so Foucault showed in Paris in 1851 that the Earth turns, without looking at the sky.",
+        "period": "One swing takes {{period}} s here; the plane turns regardless. A shorter pendulum shows the same, as long as it keeps swinging long enough."
+      },
+      "chart": {
+        "rate": "Turn an hour",
+        "latitude": "Latitude",
+        "here": "Here"
+      },
+      "computed": {
+        "system": "For small swings the equation is linear and has a closed solution: a swing whose plane turns with the floor. With it the page shows any hour at once, without stepping there; the test holds it to a stepped solution over a hundred swings.",
+        "zeta": "the bob's place as a complex number",
+        "a": "the swing when let go",
+        "omega_p": "the swing's angular frequency in the turning frame"
+      }
+    },
+    "coriolis": {
+      "at": {
+        "seats": "A round platform turns slowly; two people sit opposite each other at its edge and roll a ball across.",
+        "misses": "The ball curves away and misses, though nobody pushes it. At 6 turns a minute a straight throw at 3 m/s misses the other seat by 86°; aiming 50° ahead hits it."
+      },
+      "view": "The carousel from above: the two seats, the aim dashed and the ball's path",
+      "play": {
+        "title": "Aim and throw",
+        "hint": "Throw straight at the other seat once, then switch to “From outside”: there the puck flies straight.",
+        "throw": "Throw",
+        "aim_lead": "Aim ahead",
+        "frame": "View",
+        "frames": {
+          "riding": "Riding along",
+          "outside": "From outside"
+        },
+        "body": "What is thrown",
+        "bodies": {
+          "puck": "Sliding puck",
+          "ball": "Rolling ball"
+        },
+        "aim": "Aim",
+        "aim_hint": "How far beside the other seat it is aimed, anticlockwise positive.",
+        "speed": "Speed of the throw",
+        "rpm": "Carousel's speed",
+        "rpm_unit": "rpm",
+        "rpm_hint": "Positive: anticlockwise, seen from above.",
+        "miss": "Missed by",
+        "flight": "On its way",
+        "no_lead": "At this speed no throw reaches the other seat: it turns away too fast.",
+        "lead": "Aiming {{lead}}° ahead hits it."
+      },
+      "model": {
+        "intro": "Seen from outside, there is no force pushing the puck aside. When it leaves the hand it has two velocities: the throw, and the speed at which the thrower is carried round at the edge.",
+        "puck": "So seen from outside it flies straight – just not to where the thrower aimed.",
+        "riding": "Whoever rides along sees the same path curved, and explains it with two forces that appear only in the turning frame: the Coriolis force across the motion and the centrifugal force outward.",
+        "ball": "A rolling ball is stranger still: the platform keeps turning under it, and the friction that keeps it rolling turns its velocity steadily along – at 2/7 of the platform's rate. Seen from outside, it runs on a circle."
+      },
+      "symbols": {
+        "r0": "where the ball is let go",
+        "u": "the throw, measured on the carousel",
+        "omega": "the carousel's turn",
+        "primed": "acceleration, velocity and place as a rider measures them",
+        "k": "how hard the ball is to set spinning: 2/5 for a solid ball"
+      },
+      "sweet": {
+        "nobody": "Nobody pushes the ball aside. The curve comes from turning along oneself: while the ball is on its way, the other seat moves on. The same “force” on the turning Earth steers the winds into low-pressure areas and makes them circle there.",
+        "ball": "And a rolled ball is not straight even from outside: rolling on the turning platform, it runs on a circle at 2/7 of the carousel's rate."
+      },
+      "computed": {
+        "system": "Both paths have closed forms: the puck on a straight line, the ball on a circle, both seen from outside and turned back for the rider. Where the ball reaches the edge again, and where one must aim to hit, the page finds by halving. The test holds the puck's turned-back path to a stepped solution with the Coriolis and the centrifugal force."
+      }
+    },
+    "cradle": {
+      "at": {
+        "row": "Five steel balls hang on strings in a row, just touching. Lift the first and let it fall: at the other end the last one flies off, and the three between seem to stand still.",
+        "two": "Let two fall and two fly off. After a while the balls in the middle begin to swing too."
+      },
+      "view": "Newton's cradle from the front: the beam, the strings and the balls",
+      "play": {
+        "title": "Lift and let go",
+        "hint": "Let one ball fall, then two. With 0.1 mm of air between the balls the sum comes out exactly.",
+        "let_go": "Let go",
+        "pause": "Pause",
+        "run": "Continue",
+        "lifted": "Balls lifted",
+        "spacing": "Between the balls",
+        "spacings": {
+          "touching": "Touching",
+          "gap": "0.1 mm of air"
+        },
+        "speed": "Speed",
+        "speeds": {
+          "100": "Real time",
+          "25": "4× slower",
+          "10": "10× slower"
+        },
+        "angle": "Lifted by",
+        "restitution": "What a collision gives back",
+        "restitution_hint": "The share of their speed at which two balls part after meeting at 1 m/s. 1 means: nothing lost.",
+        "far": "Energy at the other end",
+        "far_hint": "After the first collision: the share of the energy in as many balls at the other end as were lifted.",
+        "duration": "Length of the collision",
+        "peak": "Largest force",
+        "after": "Speeds after the first collision, left to right: {{speeds}} m/s",
+        "ball": "Ball {{n}}"
+      },
+      "chart": {
+        "widest": "Widest swing",
+        "time": "Time",
+        "caption": "Second by second, each ball's widest swing since it was let go"
+      },
+      "model": {
+        "intro": "Each ball is a pendulum. Two balls push on each other only where they dent each other a little – by Hertz's law, which grows stiffer the deeper the dent.",
+        "hertz": "The force between two balls grows as the dent to the power 3/2; the second factor takes a little energy from the collision.",
+        "brief": "Let a 64 g ball fall from 30° and its collision lasts about 0.2 milliseconds; for that moment the balls press on each other with nearly 900 N – as much as the weight of 90 kg.",
+        "swing": "Each ball swings on its strings and is pushed by its neighbours.",
+        "why": "When balls meet one at a time, momentum and energy are kept, and for equal balls that means: they trade speeds. Two balls at half the speed would have the same momentum but only half the energy."
+      },
+      "symbols": {
+        "f": "the force between two balls",
+        "delta": "how far the two dent each other",
+        "k": "the stiffness of two balls by Hertz",
+        "e_star": "the steel's stiffness: Young's modulus E, Poisson's ratio ν",
+        "r_star": "the effective radius of two equal balls of diameter d",
+        "alpha": "the damping in the steel, set from e at 1 m/s",
+        "e": "the share of the speed a collision gives back",
+        "theta": "the angle of the i-th ball",
+        "l": "the length from the hanging point to the middle of the ball",
+        "m": "the mass of one ball",
+        "g": "the acceleration of gravity",
+        "fi": "the force between the i-th ball and its right-hand neighbour",
+        "v": "the falling ball's speed at the bottom"
+      },
+      "sweet": {
+        "wave": "The balls touch, so they do not meet one after another: the collision runs through the row as a wave. Because Hertz's contact grows stiffer as it dents, the wave stays short and arrives almost whole in the last ball – 97 % of the energy. The others keep the rest; the first even bounces back a little.",
+        "gap": "With 0.1 mm of air between the balls they meet one at a time again, and the sum comes out: 99.9 % of the energy in the last ball.",
+        "two": "Let two fall and two waves run through the row one behind the other. The last ball flies off at 0.70 m/s, the one before it at 0.49 m/s – not both at the 0.63 m/s the two came in with. Together they still carry 97 % of the energy.",
+        "together": "What stays in the row grows with every collision if the collisions lose a little energy: in the fourth second the middle ball already swings 2.5° wide. If every collision gives everything back (e = 1), it stays nearly still."
+      },
+      "computed": {
+        "system": "Each ball is stepped by Runge–Kutta: a millisecond at a time while all swing free, a microsecond while two touch or are about to. The collision's figures come from the falling balls' first meeting with the hanging ones. When the balls press on each other for long, the page does not always keep up and runs a little slower for a moment. The test holds the largest force between two balls to Hertz's closed form, and checks that with air between the balls exactly one flies off, as fast as the first came in."
+      }
+    },
+    "well": {
+      "at": {
+        "funnel": "A wide funnel, almost flat at the edge and ever steeper towards the middle. A ball pushed off at the rim circles the hole in the middle for a long time.",
+        "faster": "With every lap it circles lower and faster, at last in a whirl, until it drops in."
+      },
+      "view_top": "The funnel from above: contour lines every 2 cm, the hole, the ball and its track",
+      "view_side": "The funnel cut through from the side, with the ball at its height",
+      "play": {
+        "title": "Push off and let it circle",
+        "hint": "“Circle” pushes the ball off exactly as fast as keeps it on a circle without friction. With friction it sinks lap by lap; the chart holds every lap against Kepler.",
+        "launch": "Push off",
+        "circle": "Circle",
+        "pause": "Pause",
+        "run": "Continue",
+        "speed": "Speed",
+        "speeds": {
+          "1": "Real time",
+          "4": "4× faster"
+        },
+        "push": "Speed of the push",
+        "aim": "Direction",
+        "aim_hint": "Against the rim's direction, positive towards the hole.",
+        "resistance": "Rolling resistance",
+        "resistance_hint": "The share of the wall's push that brakes the ball. 0 means: no friction.",
+        "laps": "Laps",
+        "last_lap": "Last lap",
+        "distance": "Distance from the middle",
+        "speed_now": "Speed",
+        "dropped": "Dropped into the hole after {{t}} s and {{laps}} laps.",
+        "out": "Rolled out over the rim: pushed too fast, or too steeply outward."
+      },
+      "chart": {
+        "lap": "The ball's lap",
+        "kepler": "Circle by Kepler",
+        "period": "Lap time",
+        "radius": "The lap's mean distance",
+        "caption": "Every lap of the ball beside the lap time of a circle at that distance"
+      },
+      "model": {
+        "intro": "The ball rolls on the funnel's wall. As for a planet, what counts is how hard it is pulled towards the middle – here, by the wall's slope.",
+        "wall": "The funnel's wall: the nearer the middle, the deeper, and its slope falls off outward as 1/r².",
+        "circle": "On a circle the slope supplies the pull to the middle – as 1/r², like the Sun's gravity. The 5/7 comes from rolling: part of every push sets the ball spinning.",
+        "kepler": "Kepler's third law follows: the square of the lap time grows as the cube of the distance.",
+        "resistance": "Rolling resistance brakes the ball with a small part of the force with which the wall pushes on it."
+      },
+      "symbols": {
+        "z": "the wall's height, measured from the height it nears far outward",
+        "r": "the distance from the middle",
+        "k": "the funnel's shape",
+        "v": "the ball's speed",
+        "g": "the acceleration of gravity",
+        "t": "the lap time",
+        "f": "the braking force",
+        "c": "the rolling resistance",
+        "n": "the force with which the wall pushes on the ball"
+      },
+      "sweet": {
+        "kepler": "The lower, the faster – like Mercury against Neptune. At the start, twelve times as far from the middle as the hole's edge, a lap takes 5.1 s; at the hole only 0.12 s, 42 times less. That is Kepler's third law, and the funnel keeps it because its slope falls off outward as the Sun's gravity does: every lap of the ball meets the lap time of its circle to 3 %.",
+        "faster": "Friction brakes the ball – and yet it gets faster. It loses energy, sinks to a lower circle, and there the circle's speed is higher. From the circle at the start it drops in after 46 s and 75 laps, 42 of them in the last 10 seconds, at last more than three times as fast as at the start. A satellite braked by thin air also sinks and speeds up.",
+        "rosette": "Here the likeness ends. Without friction and not pushed exactly on a circle – at 0.30 m/s instead of 0.44 m/s – the path does not close into an ellipse as a planet's does: its point nearest the middle moves on by 40° every lap. The steep wall and its curvature have their say."
+      },
+      "computed": {
+        "system": "The ball rolls without slipping; its spin counts as 2/5 more inertia, so every push along the wall moves it at 5/7. The equations of motion on the surface, in distance and angle, are solved by Runge–Kutta in steps of a millisecond. Rolling resistance acts against the wall's whole push, including the part that holds the ball on its curved path. The test checks energy and angular momentum without friction, the circle, and the time to the hole against an independent count from the circles' energy.",
+        "left_out": "Left out: the ball's spin about the wall's normal, its size beside the wall's curvature, air. A coin, which rolls on its edge and leans, is another problem."
+      }
+    },
+    "resonance": {
+      "at": {
+        "rods": "Six steel rods of different lengths stand clamped in a table that a motor shakes a little from side to side.",
+        "one": "At one beat a single rod swings wide while the others stay almost still. A little faster, and another takes over."
+      },
+      "view": "The rods from the front on their table, each with its own frequency below it",
+      "play": {
+        "title": "Find the beat",
+        "hint": "Shake the table and move the beat slowly. “Sweep” raises it by itself and records how far each rod swings meanwhile.",
+        "shake": "Shake",
+        "stop": "Stop",
+        "sweep": "Sweep",
+        "calm": "Settle",
+        "speed": "Speed",
+        "speeds": {
+          "1": "Real time",
+          "4": "4× faster"
+        },
+        "beat": "The table's beat",
+        "beat_hint": "How many times a second the table goes to and fro.",
+        "sweeping": "The beat rises by 0.05 Hz a second; move the slider to stop it.",
+        "damping": "Damping",
+        "damping_hint": "How fast a rod comes to rest by itself: the share of the damping at which it would not swing at all.",
+        "sound": "Sound",
+        "sound_hint": "Each rod sounds at its own frequency, seven octaves up, as loud as it swings.",
+        "no_sound": "This browser cannot make sounds.",
+        "widest": "Widest swing",
+        "table": "The table, to and fro",
+        "rod": "Rod {{n}} ({{hz}} Hz)"
+      },
+      "chart": {
+        "swing": "The tip's swing",
+        "beat": "The table's beat",
+        "swept": "Rod {{n}}, swept",
+        "caption": "How far each rod swings when the table keeps one beat long enough; dashed, what of it arrives during a sweep"
+      },
+      "model": {
+        "intro": "Each rod is clamped at the bottom and free at the top. Of its ways to vibrate only the first counts here: the whole rod bending to one side.",
+        "frequency": "Its own frequency: the longer the rod, the lower – as the square of its length.",
+        "motion": "The table shakes, and its acceleration pushes each rod, weighted by Γ = 1.566 for the first mode's shape. The damping takes swing away.",
+        "steady": "Shaken at one beat long enough, the tip swings this far. In step (r = 1) that is Γ·Y/(2ζ)."
+      },
+      "symbols": {
+        "beta": "the first solution of cosh β · cos β = −1: 1.8751",
+        "l": "the rod's length",
+        "e": "the steel's Young's modulus",
+        "i": "the second moment of area of a round rod of diameter d",
+        "rho": "the steel's density",
+        "a": "the cross-section",
+        "q": "how far the tip swings against the table",
+        "omega": "the rod's own frequency, as an angular frequency",
+        "zeta": "the damping, as a share of the damping at which the rod would not swing at all",
+        "gamma": "how hard the shaking pushes the first mode's shape",
+        "yb": "where the table is",
+        "r": "the table's beat divided by the rod's own frequency",
+        "y": "how far the table goes to and fro"
+      },
+      "sweet": {
+        "step": "A small push at the right beat moves more than a big one at the wrong. The table goes only 1 mm to and fro; in step with the 80 cm rod, at 2.21 Hz, its tip swings 78 mm, its neighbours at most 4 mm. Three per cent off the beat, only 26 mm.",
+        "patience": "Resonance needs patience: at 2.21 Hz the swing grows in 7.2 s to just under two thirds. Sweep faster and you miss it: at 0.05 Hz a second the same rod swings at most 40 mm, half as far, and only at 2.4 Hz.",
+        "everywhere": "The same keeping in step shatters a glass at the right note, sets a bridge swinging under marching feet and lets a string take up an instrument's note."
+      },
+      "computed": {
+        "system": "Each rod is computed as a single vibration: its first mode at its own frequency, pushed by the table's shaking, by Runge–Kutta in steps of a millisecond. During a sweep the beat rises between the steps. The test holds the first mode's constants to every table's values (β₁² = 3.516, Γ = 1.566) and the stepped solution to the closed form.",
+        "sound": "The sound is made in the browser and stays off until you turn it on; nothing of it is stored or sent.",
+        "left_out": "Left out: the higher modes (the second lies 6.27 times higher), the rod's stiffening at wide swings, the table's give."
+      }
+    },
+    "gyroscope": {
+      "at": {
+        "wheel": "A heavy wheel on an axle hangs on a string by one end of the axle. Let go still, it drops at once. Spinning fast, the axle stays nearly level and the wheel wanders slowly round the string.",
+        "suitcase": "Next to it stands a suitcase in which such a wheel spins. Whoever carries it and turns a corner feels it tip sideways."
+      },
+      "view": "The wheel on its string, seen from a little above, one spoke coloured",
+      "trace": "The axle's track: how far it sinks below its starting height, over the last turn round the string",
+      "trace_caption": "The axle's track over the last turn round the string: how far it sinks below its starting height",
+      "play": {
+        "title": "Spin and let go",
+        "hint": "Let the wheel go still once, then at 200 rpm. Shown four times slower, the axle can be seen nodding.",
+        "let_go": "Let go",
+        "pause": "Pause",
+        "run": "Continue",
+        "start": "When let go",
+        "starts": {
+          "rest": "At rest",
+          "steady": "Already circling"
+        },
+        "speed": "Speed",
+        "speeds": {
+          "100": "Real time",
+          "25": "4× slower"
+        },
+        "rpm": "The wheel's spin",
+        "rpm_unit": "rpm",
+        "tilt": "The axle's tilt",
+        "tilt_hint": "From the upward vertical: 90° means level.",
+        "round": "Once round the string",
+        "nods": "Nods a second",
+        "dip": "The axle sinks by",
+        "suitcase": "Turning the suitcase",
+        "suitcase_hint": "Whoever turns the suitcase with this wheel a quarter turn a second round a corner must supply this torque across it.",
+        "dropped": "Without spin the wheel falls: after {{t}} s it hangs almost straight down."
+      },
+      "model": {
+        "intro": "A spinning wheel has angular momentum along its axle. Gravity pulls on the wheel, the string holds the axle's end: that makes a torque across the axle, level.",
+        "torque": "A torque changes the angular momentum in its own direction – and that is level, across the axle. So the axle turns sideways instead of falling.",
+        "precession": "How fast the axle wanders round the string: the faster the wheel spins, the slower.",
+        "lagrange": "What the page computes: the axle's tilt by Lagrange, for a top with one fixed point. The angular momentum about the axle and that about the string are kept meanwhile.",
+        "suitcase": "Whoever turns the axle must supply this torque across it; without it the suitcase tips."
+      },
+      "symbols": {
+        "l": "the wheel's angular momentum",
+        "m": "the torque",
+        "omega_p": "how fast the axle wanders round the string",
+        "mass": "the wheel's mass",
+        "d": "the distance from the string to the wheel's middle",
+        "i3": "the moment of inertia about the axle: a hoop of radius r",
+        "omega3": "how fast the wheel spins on its axle",
+        "theta": "the axle's tilt from the vertical",
+        "phi": "how far the axle has wandered round the string",
+        "i1": "the moment of inertia across the axle, about its end",
+        "turn": "how fast the suitcase is turned"
+      },
+      "sweet": {
+        "sideways": "The wheel does not give way in the direction it is pulled, but across it. Without spin it hangs almost straight down after 0.37 s; at 200 turns a minute the axle stays up and wanders once round the string in 8.1 s. Spun twice as fast, it wanders half as fast.",
+        "nod": "It does not quite go without falling, though: let go, the axle first sinks by 3.2°, overshoots the steady wandering and comes back – it nods, a little over four times a second, and its track draws arches with points. As deep as energy and the two kept angular momenta allow, and no deeper.",
+        "suitcase": "That is why the suitcase tips: turning it with this wheel a quarter turn a second round a corner takes 5.9 N·m across – as much as 600 g at the end of a metre rule."
+      },
+      "computed": {
+        "system": "The wheel is a symmetric top with a fixed point, the axle's end on the string; its mass sits in the hoop. By Lagrange two angular momenta are kept, about the axle and about the string; only the tilt is stepped, by Runge–Kutta in steps of a millisecond. The test checks the energy, the steady wandering, and how deep the axle sinks against the count from the kept quantities alone.",
+        "left_out": "Left out: that the string itself swings and stretches (its end is the fixed point), friction in the bearing and at the string, air. Spokes and hub count for nothing beside the hoop."
+      }
+    },
+    "arch": {
+      "at": {
+        "stones": "An arch is built of loose stones, without mortar. Once the last stone is set in the middle, the arch carries itself and a load besides.",
+        "chain": "Next to it a chain hangs between two hooks. Turned upside down, its shape is the best shape for an arch."
+      },
+      "view": "The arch from the front: the stones, the thrust line, the joints where it would open first, and the load",
+      "play": {
+        "title": "Build an arch",
+        "hint": "Make the semicircle thinner until it breaks, then switch to the chain's arch. Put a load on it and slide it to and fro.",
+        "shape": "Shape",
+        "shapes": {
+          "semicircle": "Semicircle",
+          "pointed": "Pointed",
+          "catenary": "Chain's arch"
+        },
+        "thickness": "The stones' thickness",
+        "thickness_hint": "From the inside of the arch to its outside; the span is 2 m.",
+        "stones": "Number of stones",
+        "load": "Load",
+        "load_hint": "Measured against the arch's own weight.",
+        "at": "Where the load stands",
+        "at_hint": "From the middle: −100 % at the left foot, 100 % at the right.",
+        "chain": "Show the chain",
+        "chain_hint": "The hanging chain, upside down, through both feet and as high as the arch.",
+        "safety": "Safety",
+        "thrust": "Push at the foot",
+        "weight": "The arch's weight",
+        "stands": "The arch stands: the thrust line stays in the stone everywhere.",
+        "falls": "The arch breaks: no thrust line stays in the stone everywhere. It opens at the red joints."
+      },
+      "model": {
+        "intro": "A stone pushes, it does not pull. So an arch of loose stones stands as long as every joint is pressed together and the line along which the pressing runs – the thrust line – crosses every joint inside the stone.",
+        "chain": "The hanging chain, upside down: it is pulled only along itself. An arch of this shape is pressed only along itself.",
+        "joint": "Where the thrust line crosses joint j: the torque of all forces left of the joint about its middle, divided by the force across the joint. Both depend on the push at the foot, which the page seeks so that the line stays as near the middle as it can.",
+        "stands": "The arch stands if some line crosses every joint inside the stone. The smallest λ for which such a line exists says how narrowly: 1/λ is the safety."
+      },
+      "symbols": {
+        "x": "the distance from the middle",
+        "h": "the arch's height above its feet",
+        "a": "the catenary's parameter",
+        "e": "how far beside its middle the thrust line crosses the joint",
+        "m": "the torque of all forces left of the joint about its middle",
+        "n": "the force across the joint",
+        "t": "the stones' thickness",
+        "lambda": "how far the line strays from the middle at most, as a share of half the thickness"
+      },
+      "sweet": {
+        "chain": "The best shape for an arch is a hanging chain, upside down – Robert Hooke noted it in 1675, and Antoni Gaudí designed with hanging chains. In the chain's arch the thrust line under its own weight stays in the middle of the stones, less than a hundredth of half the thickness off, however thick the stones.",
+        "semicircle": "The semicircle does not have that shape. It stands only if its stones are at least 10.75 % as thick as its radius – 10.7 % with sixteen stones. At 10 cm on a metre it breaks; a pointed arch of the same span and thickness stands.",
+        "load": "A load shifts the thrust line. Standing at the quarter point, it breaks the 25 cm semicircle at only 80 % of its own weight, the chain's arch of the same height not until 141 %."
+      },
+      "computed": {
+        "system": "The arch is cut into stones of equal length, the joints across the centre line; each stone weighs as much as its quadrilateral and presses at its centroid. At every joint the pressing and the torque depend linearly on the push, the lift and the turning at the support; the page cuts from all possible values those that cross every joint inside the stone, and seeks the smallest λ by halving. The test finds for the semicircle the least thickness of 10.75 % of its radius that Milankovitch computed in 1907.",
+        "left_out": "Left out: the stones sliding (friction holds), their crushing (they are strong enough), the abutments giving way. The page shows where an arch breaks open, not how it falls."
+      }
+    },
+    "chladni": {
+      "at": {
+        "plate": "A square metal plate is fixed at its middle on a shaker, sand strewn on it. The shaker is driven by a slowly rising tone.",
+        "sand": "At certain tones the plate rings loudly, and the sand runs together into lines and lies still there – a different pattern at each of these tones."
+      },
+      "view": "The plate from above with the sand on it",
+      "play": {
+        "title": "Choose the tone",
+        "hint": "Choose one of the plate's tones, or sweep slowly with the slider. Between the tones the sand hardly jumps, and no pattern forms.",
+        "restrew": "Strew the sand again",
+        "tones": "The tones at which the plate rings",
+        "drive": "The shaker's tone",
+        "drive_hint": "Logarithmic: every equal step is an equal musical interval.",
+        "sound": "Sound",
+        "sound_hint": "The shaker's tone, loud when the plate rings, soft between.",
+        "no_sound": "This browser cannot make sounds.",
+        "nearest": "The plate's nearest tone",
+        "swing": "Swing at the middle",
+        "swing_hint": "How hard the plate's middle swings, measured against its swing at the lowest tone."
+      },
+      "model": {
+        "intro": "A thin plate bends, and its stiffness resists. As with a string there are tones at which it keeps swinging by itself; to each belongs a shape with lines that stand still.",
+        "plate": "The thin plate's equation: its bending stiffness balances its inertia. The edges are free.",
+        "tones": "The tones: λ depends only on the shape; the plate's size and material set the pitch.",
+        "driven": "Shaken at its middle, the plate answers with the sum of its shapes, each the more strongly the nearer its tone to the shaker's, and only if it moves at the middle."
+      },
+      "symbols": {
+        "w": "how far the plate bends from rest",
+        "d": "the plate's bending stiffness",
+        "rho": "the steel's density",
+        "h": "the plate's thickness",
+        "omega": "a tone's angular frequency",
+        "e": "Young's modulus",
+        "nu": "Poisson's ratio, here 0.3",
+        "f": "the pitch",
+        "lambda": "a shape's figure, the same for every square plate",
+        "a": "the plate's side",
+        "phi": "the plate's k-th shape",
+        "big_omega": "the shaker's angular frequency",
+        "zeta": "each shape's damping"
+      },
+      "sweet": {
+        "still": "The sand gathers where the plate does not swing at all: on the nodal lines. Everywhere else it is thrown up until it lands on one, and there it stays.",
+        "tones": "A plate's tones are not overtones. A steel plate 24 cm square and 1 mm thick, shaken at its middle, rings at 102, 269 and 517 Hz – 2.62 and 5.05 times the lowest, not twice and three times as a string does.",
+        "middle": "Shaken at its middle, the plate shows only the shapes that move there. Its lowest tone of all, at which it twists, has a node at the middle and stays silent.",
+        "history": "Ernst Chladni showed the figures in 1787. Sophie Germain found the plate's equation and won the Paris Academy's prize for it in 1816; Gustav Kirchhoff put the free edges' conditions right in 1850."
+      },
+      "computed": {
+        "system": "The deflection is written as a sum of products of Legendre polynomials up to degree 20; by Ritz, the shapes are those at which the energy stands still. The server finds their eigenvalues by Jacobi's rotations, once, and sends the shapes; the page sums them for every tone. The test holds the first values to Leissa's table (13.468 · 19.596 · 24.270 · 34.801 · 63.686). The sand is a drawing rule: grains are thrown up where the plate swings and slide to where it stands still.",
+        "left_out": "Left out: the shaker's hold at the middle (its mass and stiffness shift the tones a little), the plate's thickness beside its size, and how sand really jumps."
+      }
+    },
+    "levitation": {
+      "at": {
+        "top": "On a plate over a base with a ring magnet in it, a small top with a magnet in its disc is spun. Lift the plate slowly, and the top leaves it and floats, spinning, a few centimetres over the base.",
+        "weight": "For that it has to weigh just right: small washers on its spindle tune it. Too heavy, and it sinks onto the plate; too light, and it slides off sideways."
+      },
+      "view": "The top over the ring magnet, cut through: the window it can float in, and where it is",
+      "play": {
+        "title": "Tune the top",
+        "hint": "Change the top's weight by hundredths of a gram until it lands or slides off. Then make the room warmer or colder.",
+        "mass": "Weight of the top",
+        "mass_hint": "On the toy: washers on the spindle. The magnet in the top is 2 cm³ of ferrite.",
+        "warming": "Warmer or colder",
+        "warming_hint": "This much warmer (or colder) than when it was tuned. Ferrite loses about 0.2 % of its magnetisation per kelvin, in the base and in the top alike.",
+        "hovers": "The top floats: its weight and the lift balance inside the window.",
+        "lands": "Too heavy: even at the window's foot, where the lift is greatest, the field cannot carry it. It lands on the plate.",
+        "slides": "Too light: it would find its balance only above the window, where the field no longer holds it sideways. It slides off.",
+        "height": "Floating height",
+        "lightest": "Lightest",
+        "heaviest": "Heaviest",
+        "bob": "Up and down",
+        "drift": "Sideways"
+      },
+      "chart": {
+        "title": "Lift and weight",
+        "hint": "The field's lift over the ring, as the mass it carries. Where the curve crosses the weight, the top balances; the balance holds only between the window's two lines.",
+        "height": "Height over the ring",
+        "lift": "Lift",
+        "weight": "Weight",
+        "window": "Window"
+      },
+      "model": {
+        "intro": "Hold one magnet over another and let go, and it flips over or slides away: no arrangement of fixed magnets holds a magnet floating stably (Earnshaw). The spinning top cannot flip. Its spin keeps its magnet pointing against the field it is in; where the field turns, the magnet slowly turns with it. Then only the field's strength counts for the top, not its direction – and a place where the field is weakest is something free space allows.",
+        "energy": "The top's energy: its height in gravity and the strength of the field its magnet points against. It is pushed towards where the field is weaker.",
+        "field": "The field on the ring's axis: a ring magnetised evenly acts as an outer solenoid minus an inner one.",
+        "solenoid": "One solenoid's share, radius a, between the ring's underside (z + t) and its top face (z), from which heights are measured.",
+        "balance": "The top floats where its weight equals the lift: the field weakens upwards, and pushes it the harder the faster it weakens.",
+        "window": "The balance holds only if the field brings the top back from above and below (left) and from the side (right; off the axis from Laplace's equation, to the square of the distance). Both hold only in a window a few millimetres high.",
+        "bob": "In the window the top bobs up and down at this frequency; sideways it swings round the axis more slowly."
+      },
+      "symbols": {
+        "u": "the top's energy",
+        "m": "its mass",
+        "g": "the acceleration of gravity",
+        "z": "the height over the ring's top face",
+        "mu": "the top's magnetic moment",
+        "b": "the field's strength",
+        "mu0": "the magnetic constant",
+        "magnetisation": "the ring's magnetisation",
+        "radii": "the ring's inner and outer radius",
+        "t": "the ring's height",
+        "a": "the solenoid's radius",
+        "slope": "how fast the field weakens upwards",
+        "bend": "how much that weakening slows upwards",
+        "fz": "the frequency of the bobbing"
+      },
+      "sweet": {
+        "window": "The window is narrow: over this ring the top floats only between 4.36 and 4.81 cm, and only if it weighs between 23.11 and 23.81 g – a margin of 3 %. At the window's foot the lift is greatest; it may not be heavier than that. The tuned top of 23.5 g floats at 4.6 cm, bobs 1.5 times a second and swings sideways 0.6 times a second.",
+        "warmth": "That is why warmth is its enemy. Ferrite weakens with every degree: two degrees warmer, and the window moves 0.8 % towards lighter tops. Three and a half degrees warmer than when it was tuned, and the top lands; four and a half colder, and it slides off. The window's heights stay where they are.",
+        "earnshaw": "Without the spin there is no floating at all: a magnet free to turn with the field finds a hold at no height – it flips and snaps onto the ring."
+      },
+      "computed": {
+        "system": "The field on the axis is computed exactly, as the difference of two solenoids, with its slope and its curvature; off the axis it follows from Laplace's equation to the square of the distance. The window is searched on a millimetre grid up to 30 cm and its edges are found by halving again and again, and the balance likewise. It is computed in your browser, with the same steps as the site's engine.",
+        "left_out": "Left out: the spin itself. It is taken to be fast enough for the magnet to follow the field, and slow enough for the axis still to follow the field's turns – that window in speed the page does not compute. Also left out are the air that slows the top, its wobble, and the sizes of any particular toy: the ring is an example in ferrite, 10 cm across with a 3 cm hole and 1.5 cm high, the top's magnet 2 cm³ of the same ferrite."
+      }
+    },
+    "circuit": {
+      "at": {
+        "build": "On the table stand a capacitor, a big coil on a closed iron core, a battery, a changeover switch and a meter with its zero in the middle.",
+        "swing": "With the switch on the battery, the battery charges the capacitor. Thrown over to the coil, the capacitor discharges through it: the needle swings to one side, back through zero to the other and back again, about once a second, each time a little less far, for some ten seconds.",
+        "origin": "A classic of the physics classroom, built here large enough to watch the needle."
+      },
+      "view": "The LC circuit as a diagram: battery, switch, capacitor, coil with its iron core, resistance and meter",
+      "twin": "The spring that swings exactly alike: how far the block is out shows the capacitor's charge",
+      "play": {
+        "title": "Charge and throw the switch",
+        "hint": "The capacitor is charged. Throw the switch over to the coil and watch the needle. The spring below obeys the same equation.",
+        "throw": "Throw the switch",
+        "pause": "Pause",
+        "run": "Go on",
+        "recharge": "Charge again",
+        "charged": "The capacitor is charged to {{voltage}} V; the switch is on the battery.",
+        "caption": "Above, the circuit, its meter reading ±{{range}} mA; below, the spring with the mass L, the stiffness 1/C and the friction R.",
+        "speed": "Speed",
+        "speeds": {
+          "real": "Real time",
+          "slow": "Slow motion (¼)"
+        },
+        "energy": "Where the energy is",
+        "capacitor": "in the capacitor",
+        "coil": "in the coil",
+        "heat": "turned into heat",
+        "time": "Time",
+        "current": "Current",
+        "voltage": "Voltage on the capacitor"
+      },
+      "change": {
+        "title": "Rebuild the circuit",
+        "hint": "Change the coil, the capacitor, the resistance and the battery. Then the capacitor is charged afresh and the switch is back on the battery.",
+        "inductance": "Coil (inductance)",
+        "inductance_hint": "The more turns and the more iron in its core, the larger. The exhibit's: 200 H.",
+        "capacitance": "Capacitor (capacitance)",
+        "capacitance_hint": "The exhibit's: 125 µF. Four times the capacitance, twice the period.",
+        "resistance": "Resistance in the loop",
+        "resistance_hint": "At the exhibit mostly the coil's wire: 90 Ω. A resistor in series adds to it.",
+        "voltage": "Battery",
+        "voltage_hint": "It changes only how far the needle swings, not how fast.",
+        "swings": "The current swings.",
+        "critical": "The edge: the current only just no longer turns round.",
+        "creeps": "Too much resistance: the current flows once and creeps back without turning round."
+      },
+      "figures": {
+        "period": "Period",
+        "swings": "Swings over ⅒",
+        "peak": "Strongest current",
+        "quality": "Quality",
+        "critical": "Critical resistance"
+      },
+      "chart": {
+        "time": "Time after the switch",
+        "current": "Current",
+        "energy": "Energy",
+        "capacitor": "in the capacitor",
+        "coil": "in the coil",
+        "left": "together",
+        "energy_hint": "The energy goes back and forth between the capacitor and the coil, twice a period; what is missing from both together has turned into heat in the wire. For the build set above."
+      },
+      "model": {
+        "intro": "The capacitor stores charge: the more is on it, the higher its voltage. The coil resists every change in the current through it: it holds the current back as it grows and drives it on as it fades. In it, the current has a kind of inertia.",
+        "capacitor": "The voltage on the capacitor grows with its charge.",
+        "coil": "The voltage with which the coil resists a change in the current (self-induction).",
+        "loop": "Round the loop: the capacitor's voltage drives the current against the coil and the resistance. The current is how fast the charge flows off the capacitor.",
+        "twin": "Together it is the equation of the spring with friction: the coil plays the mass, the reciprocal of the capacitance the spring's stiffness, the resistance the friction.",
+        "period": "The time of one swing there and back, without and with the resistance.",
+        "critical": "From this resistance on nothing swings any more: the current flows once and creeps back."
+      },
+      "symbols": {
+        "uc": "the voltage on the capacitor",
+        "q": "the charge on the capacitor",
+        "c": "the capacitor's capacitance",
+        "ul": "the voltage across the coil",
+        "l": "the coil's inductance",
+        "i": "the current through the coil",
+        "t": "the time",
+        "r": "the resistance of the whole loop",
+        "m": "the mass on the spring",
+        "b": "its friction",
+        "k": "its spring's stiffness",
+        "x": "how far the mass is out",
+        "t0": "the period without resistance",
+        "period": "the period with it",
+        "rc": "the critical resistance"
+      },
+      "sweet": {
+        "inertia": "The trick is the current's inertia. When the capacitor is empty, the current is at its strongest – and the coil will not let it simply stop. It flows on and charges the capacitor the other way round until it stands still; then the capacitor drives it back. Just so a pendulum swings through its lowest point, because its mass is moving.",
+        "twin": "The spring under the diagram is not merely a likeness but the same calculation: 200 kg on a spring of 8000 N/m with a friction of 90 N·s/m swing exactly as the coil of 200 H, the capacitor of 125 µF and the wire's 90 Ω.",
+        "numbers": "At the exhibit, one period takes 0.99 s. The needle swings 21 times before its swings fall under a tenth of the first, after some 10 s; the strongest current is 7.5 mA. Each swing there and back keeps 64 % of the energy, the rest turns into heat in the wire; after 10 s, 1 % is left.",
+        "critical": "From 2530 Ω in the loop on, it no longer swings: the current flows once and creeps back. With 300 Ω the needle still swings 7 times, with 1000 Ω twice."
+      },
+      "computed": {
+        "system": "For the loop that holds the charge q₀ = C·U₀ when the switch is thrown, and no current yet, there is an exact solution. The page computes it directly for every moment, without stepping towards it.",
+        "exact": "The charge and the current while the circuit swings. Above the critical resistance, cosh and sinh take the place of cos and sin; exactly at it, 1 and t.",
+        "q0": "the charge when the switch is thrown",
+        "omega0": "the angular frequency without resistance",
+        "gamma": "how fast the swings die away",
+        "omega_d": "the angular frequency with it",
+        "check": "The page's tests hold this solution to the loop's equations stepped through (Runge–Kutta) and to the energy account: what is missing from the capacitor and the coil is exactly the heat in the resistance. It is computed in your browser, with the same formulas as the page's engine.",
+        "left_out": "Left out: the iron core's losses (its magnetisation lags behind, and eddy currents flow in it) and its saturation; here the coil has a fixed inductance. So is the capacitors' leakage. The meter's own resistance is counted in the loop's. The values are an example: a coil of 200 H with 90 Ω of wire on a closed iron core, 125 µF of film capacitors (electrolytic ones would not bear the reversal) and 10 V."
+      }
+    },
+    "plates": {
+      "at": {
+        "build": "A tall column of magnets in two rows, north and south taking turns, with a narrow gap between them. Beside it lie plates of copper and of aluminium, one of them cut with slots.",
+        "drop": "Drop a plate into the gap at the top and it sinks gently down, as if through honey. Yet none of the plates is magnetic: held against the magnets, they are neither pulled nor pushed.",
+        "slots": "The slotted plate slips through much faster. And the heavy copper falls faster than the light aluminium."
+      },
+      "view": "The column of magnets with four gaps and the four plates in them",
+      "closeup": "The plate “{{plate}}” up close, with its eddy currents",
+      "short": {
+        "copper": "Copper",
+        "aluminium": "Aluminium",
+        "slotted": "Slotted alu",
+        "plastic": "Plastic"
+      },
+      "materials": {
+        "copper": "Copper",
+        "aluminium": "Aluminium",
+        "brass": "Brass",
+        "plastic": "Plastic"
+      },
+      "play": {
+        "title": "Let them fall",
+        "hint": "The four plates hang at the top of their gaps. Let them all go at once and watch which reaches the bottom first. Beside them, one plate up close, with its eddy currents.",
+        "drop": "Let go",
+        "pause": "Pause",
+        "run": "Go on",
+        "top": "Back to the top",
+        "speed": "Speed",
+        "speeds": {
+          "real": "Real time",
+          "slow": "Slow motion (¼)"
+        },
+        "look": "Up close",
+        "caption": "The column from the front, schematic: the magnets beside each gap, north and south in turn; a fall of {{drop}} cm, {{field}} T in the gap.",
+        "closeup_caption": "Riding along with the plate: north and south pass behind it, and the eddy currents circle in it.",
+        "none": "Plastic does not conduct: no current flows, and nothing brakes.",
+        "waiting": "The plates hang at the top of their gaps, waiting.",
+        "watch": "Stopwatch",
+        "legend": {
+          "north": "North pole",
+          "south": "South pole",
+          "anticlockwise": "Current anticlockwise",
+          "clockwise": "Current clockwise"
+        }
+      },
+      "change": {
+        "title": "Rebuild the column",
+        "hint": "Change the magnets and build a plate of your own. The field and the magnets apply to the four plates above too.",
+        "field": "Field in the gap",
+        "field_hint": "How strong the magnets are in the gap, where they are strongest.",
+        "magnet": "Height of one magnet",
+        "magnet_hint": "A north and a south magnet together make one period of the field.",
+        "thickness": "Thickness of the plate",
+        "thickness_hint": "Try it: the thickness changes nothing.",
+        "tooth": "Height of a tooth",
+        "tooth_hint": "How high each strip between two slots is.",
+        "material": "Material",
+        "slots": "Slots",
+        "cut": {
+          "whole": "none",
+          "slotted": "cut"
+        },
+        "status": "Your plate takes {{time}} s through the column – {{times}} times as long as without magnets.",
+        "free": "Your plate falls freely: {{time}} s through the column.",
+        "reaction": "At this speed the eddy currents' own field is no longer small: {{share}} % of the magnets'. The computation leaves it out."
+      },
+      "figures": {
+        "fall": "Time to fall",
+        "terminal": "Terminal speed",
+        "share": "Of an endless sheet's brake",
+        "mass": "Mass",
+        "heat": "Heat at terminal speed",
+        "tau": "Time constant"
+      },
+      "chart": {
+        "teeth_hint": "How long your plate takes through the column when slots cut it into teeth, by the height of a tooth; dashed, the whole plate and a plate without magnets.",
+        "slotted": "with slots",
+        "whole": "whole plate",
+        "tooth": "Height of a tooth",
+        "plastic": "Plastic is not braked; there is no chart for it.",
+        "field_hint": "How long the four plates take through the column, by the field in the gap. Their order never changes.",
+        "fall": "Time to fall",
+        "field": "Field in the gap",
+        "free": "without magnets"
+      },
+      "model": {
+        "intro": "None of the plates is magnetic. But metals conduct, and a conductor moving through a magnetic field has a voltage driven in it. Because north and south take turns along the column, the field in the plate keeps changing, and the currents circle in loops: eddy currents. The magnets push on these currents, always against the motion.",
+        "current": "The current in the plate, driven by its motion through the field and by the charges that gather at its edges.",
+        "brake": "The braking force grows with the speed. It depends on the plate's conductivity, thickness and area, and on the square of the field; η is the share the edges and slots leave.",
+        "newton": "The weight pulls, the brake holds against it.",
+        "terminal": "The plate speeds up until the brake carries its weight; then it falls steadily. Mass and brake both grow with the thickness, so it cancels. τ says how soon the plate reaches its terminal speed.",
+        "slots": "A strip h high, endlessly wide: the field's mean over it drives no current, only what varies about it. If the strip is narrow beside the period λ, almost nothing is left."
+      },
+      "symbols": {
+        "j": "current density in the plate",
+        "sigma": "electrical conductivity",
+        "e": "electric field of the charges at the edges",
+        "v": "speed of the plate",
+        "b": "magnetic field",
+        "f": "braking force",
+        "c": "mean braking constant",
+        "d": "thickness of the plate",
+        "a": "area of the plate",
+        "b0": "field in the gap, where it is strongest",
+        "eta": "share of an endless sheet's brake",
+        "m": "mass of the plate",
+        "g": "acceleration of gravity",
+        "t": "time",
+        "ve": "terminal speed",
+        "rho": "density",
+        "tau": "time constant",
+        "h": "height of a strip",
+        "lambda": "period of the field: one north and one south magnet"
+      },
+      "sweet": {
+        "aluminium": "The trick: aluminium falls more slowly than copper, though copper conducts 1.6 times as well. But copper is 3.3 times as heavy, and the brake has to carry the weight. At the exhibit, copper takes 5.9 s for the 90 cm and aluminium 12.3 s: it falls at 7.3 cm/s, not quite half the speed of copper at 15 cm/s.",
+        "thickness": "The thickness does not matter: a plate twice as thick is twice as heavy, but it is braked twice as hard too. Its size hardly counts either; a wider plate loses a little less at its edges and falls a little more slowly. Brass conducts a quarter as well as copper and is nearly as heavy: it falls 3.8 times as fast.",
+        "slots": "The slots cut the paths the currents would need to turn round. Of an endless sheet's brake the whole plate keeps 85 %, the slotted one only 12 %: it falls 7 times as fast, in 1.8 s. Plastic does not conduct at all and falls freely, in 0.43 s.",
+        "heat": "Where does the energy go? Into heat: while the plate falls steadily, all the work its weight does turns into heat in it, not quite half a watt for the copper. It reaches its terminal speed within a few hundredths of a second."
+      },
+      "computed": {
+        "system": "The plate is thin and slow: its currents flow in its plane, and their own field is small beside the magnets', under 4 % at the exhibit. The magnets' field is a cosine along the column and the same across its width. For a rectangular piece of metal the currents are then known exactly, all four edges included: the field over the piece is written as a cosine series, and each term drives a loop of current of known strength.",
+        "piece": "A piece's brake, averaged over where it stands against the poles. The field's mean over the piece is missing from the sum: it drives no current, it only charges the edges. A slotted plate is the sum of its teeth.",
+        "bm": "terms of the field's cosine series over the piece",
+        "w": "width of the plate",
+        "q": "wavenumber of the m-th term",
+        "fall": "With the mean brake the fall is known exactly: the plate approaches its terminal speed like an exponential.",
+        "s": "distance fallen",
+        "check": "The page's tests add up the heat the currents make, point by point over the plate: it is exactly the braking power. They hold the fall to the equation of motion stepped through (Runge–Kutta), also with the brake as it really is at each depth: for a whole plate it varies by 5 %, which changes the time to fall by less than a thousandth. The computing happens in your browser, with the same formulas as the site's engine.",
+        "left_out": "Left out: the field's true shape (here a cosine, the same across the width, its strength an assumption) and how it frays at the column's ends; the eddy currents' own field; the spine that holds a slotted plate's teeth together, counted here as cut through too; the air, so the plastic plate falls freely; the friction on the guides. The values are an assumed build: magnets 20 mm high with 0.15 T in the gap, a fall of 90 cm, plates of 10 × 12 cm and 3 mm thick, of the pure metals."
+      }
+    },
+    "bounce": {
+      "at": {
+        "plate": "A steel ball and a table-tennis ball hang over a hard plate. Dropped, they bounce up again, each time a little less high.",
+        "rhythm": "You hear it in the clicking: the strikes come ever faster, until they run together into a buzz and fall silent.",
+        "steel": "The steel ball clicks for much longer than the table-tennis ball."
+      },
+      "view": "The plate with the steel ball and the table-tennis ball over it",
+      "strip": "Every strike of the two balls on a time line",
+      "short": {
+        "steel": "Steel ball",
+        "tennis": "Table-tennis ball"
+      },
+      "play": {
+        "title": "Let them fall",
+        "hint": "Both balls hang over the plate. Let them go and listen: with the sound on, every strike clicks. Below, every strike on a time line.",
+        "drop": "Let go",
+        "pause": "Pause",
+        "run": "Go on",
+        "top": "Lift them again",
+        "speed": "Speed",
+        "speeds": {
+          "real": "Real time",
+          "slow": "Slow motion (¼)"
+        },
+        "sound": "Sound",
+        "sound_hint": "A click at every strike, as loud as the strike. Silent until you turn it on.",
+        "no_sound": "Your browser cannot make sound here.",
+        "waiting": "The balls hang over the plate, waiting.",
+        "caption": "The balls at true size over the plate, from {{height}} cm; below, every strike on the time line, until both lie still.",
+        "time": "Time",
+        "strikes": "Strikes: {{ball}}"
+      },
+      "change": {
+        "title": "A ball of your own",
+        "hint": "Choose a ball, change its restitution and the height it falls from. The height applies to the two balls above too.",
+        "kind": "Ball",
+        "restitution": "Restitution",
+        "restitution_hint": "The share of its speed a strike gives back.",
+        "height": "Height",
+        "height_hint": "How high over the plate the ball is let go.",
+        "status": "Your ball lies still after {{time}} s; {{count}} of its bounces last longer than a hundredth of a second."
+      },
+      "figures": {
+        "still": "Until it lies still",
+        "counted": "Bounces over 0.01 s",
+        "apex": "First bounce, height",
+        "flight": "First bounce, time",
+        "rhythm": "Second bounce over first",
+        "terminal": "Terminal speed in air"
+      },
+      "chart": {
+        "height": "Height",
+        "time": "Time",
+        "still": "Until it lies still",
+        "restitution": "Restitution",
+        "still_hint": "How long the two balls bounce, by their restitution, from the height set; dashed, without air. Near 1 the time grows without bound.",
+        "no_air": "without air"
+      },
+      "model": {
+        "intro": "At every strike the ball loses a fixed share of its speed: it and the plate give a little, and motion turns into heat and sound. What is left, the restitution says.",
+        "bounce": "A strike gives back the share e of the speed; so the ball rises to e² of the height before.",
+        "series": "Without air every bounce lasts e times as long as the one before.",
+        "sum": "All the bounces' times together are a geometric series: infinitely many terms, but a finite sum.",
+        "air": "The air brakes with the square of the speed. For the heavy steel ball that is almost nothing, for the light table-tennis ball it shows."
+      },
+      "symbols": {
+        "e": "restitution",
+        "v": "speed at the strike",
+        "h": "height of the n-th bounce",
+        "tn": "time of the n-th bounce",
+        "still": "time until the ball lies still",
+        "t0": "time of the fall to the first strike",
+        "m": "mass of the ball",
+        "g": "acceleration of gravity",
+        "rho": "density of the air",
+        "cd": "drag coefficient of a sphere",
+        "a": "cross-section of the ball",
+        "vt": "terminal speed in air"
+      },
+      "sweet": {
+        "zeno": "The trick: the bounces grow not only lower but shorter too, each by the same share. So infinitely many bounces fit into a finite time, as in Zeno's riddle of Achilles and the tortoise.",
+        "steel": "From 30 cm the steel ball, restitution 0.95, lies still after 9.6 s, with 75 bounces that last longer than a hundredth of a second; the table-tennis ball, 0.92, after 5.2 s, with 44. The small difference in restitution counts for a lot, as the time grows with 1/(1 − e).",
+        "rhythm": "You can hear the restitution in the rhythm: the steel ball's second bounce lasts 0.95 times as long as its first, its restitution exactly. For the table-tennis ball it is 0.89 rather than 0.92, as the air brakes it too, the air that carries it whole at 8.6 m/s; the steel ball only at 60 m/s.",
+        "rules": "The rules of table tennis demand that a ball dropped from 305 mm bounce back to between 230 and 250 mm. With a restitution of 0.92 and the air, this one bounces to 240 mm."
+      },
+      "computed": {
+        "system": "Between two strikes the ball flies straight up and down, with only its weight and the air's drag. That has an exact solution, upward with the tangent, downward with the hyperbolic tangent. The page computes flight after flight; once the flights are shorter than a tenth of a millisecond, the rest of the series is added in closed form, the air long negligible there.",
+        "exact": "Thrown up at v₀: the speed and the height of the top; coming down, the speed a time t into the fall.",
+        "v0": "speed after the strike",
+        "top": "height of the top",
+        "check": "The page's tests hold every flight to the equation of motion with air, stepped through (Runge–Kutta), and the sum for a ball the air hardly touches to the geometric series √(2h/g)·(1 + e)/(1 − e). The computing happens in your browser, with the same formulas as the site's engine.",
+        "left_out": "Left out: that the restitution depends on the speed (here it is fixed); the time the ball spends on the plate at each strike, less than a ten-thousandth of a second, which in reality ends the series with a buzz before its sum; spin; the plate giving way. The values: a steel ball of 20 mm (33 g) with a restitution of 0.95 on hardened steel, an assumption; a regulation table-tennis ball (2.7 g, 40 mm) with 0.92."
+      }
+    },
+    "overhang": {
+      "at": {
+        "blocks": "Nine identical wooden blocks lie ready, and the edge of a table. No glue, no nails: how far does the top block reach out over the edge?",
+        "most": "Most people build a staircase in even steps and do not quite reach one block's length.",
+        "further": "Yet four blocks, shifted right, already reach more than a whole length out, and nine a length and two fifths."
+      },
+      "view": "The table's edge with the stack; the blocks can be dragged or moved with the arrow keys",
+      "play": {
+        "title": "Stack them",
+        "hint": "Drag the blocks right or left, or pick one with the Tab key and move it with the arrow keys, in big steps with Shift. The dots are centres of mass: green where the stack holds, red where it tips.",
+        "flush": "Flush",
+        "even": "Even steps",
+        "furthest": "Furthest",
+        "block": "Block {{n}} from the top",
+        "count": "Blocks",
+        "count_hint": "How many blocks the stack has.",
+        "caption": "Blocks of {{length}} × {{height}} cm, schematic from the front, the table's edge dashed. Each dot is the centre of mass of a block and all above it, where it rests on the block below.",
+        "holds": "The stack holds. It reaches {{cm}} cm out over the edge, {{lengths}} block lengths.",
+        "tips_one": "The stack tips: the top block's centre of mass lies beside the block below.",
+        "tips_other": "The stack tips: the centre of mass of the top {{count}} blocks lies beside their footing."
+      },
+      "figures": {
+        "reach": "Overhang",
+        "best": "Furthest possible",
+        "even": "In even steps"
+      },
+      "model": {
+        "intro": "A block stays put as long as its centre of mass lies over the block below – the centre of mass of it and of everything on it. All lengths are in block lengths L.",
+        "holds": "The stack holds if at every layer the centre of mass of all the blocks from it upward lies over its footing: over the stretch where it touches the block below, for the lowest over the table.",
+        "step": "Built from the top, each block as far out as the ones above allow: the k-th block from the top juts 1/(2k) out over the next.",
+        "harmonic": "Together that is half the harmonic series.",
+        "even": "In even steps the whole stack's centre of mass reaches the edge first: n blocks reach n/(n + 1) out, never a whole length."
+      },
+      "symbols": {
+        "centre": "centre of mass of the blocks from layer k up",
+        "footing": "ends of layer k's footing",
+        "x": "left end of block j",
+        "n": "number of blocks",
+        "d": "how far the k-th block from the top juts over the next",
+        "k": "place from the top",
+        "reach": "overhang of the whole stack",
+        "h": "harmonic number",
+        "even": "overhang in even steps"
+      },
+      "sweet": {
+        "steps": "The trick: build from the top, not from the bottom. The top block may jut half a length out, the top two together a quarter over the third, the top three a sixth: the steps grow smaller downward. Nine blocks then reach 1.41 lengths out, 28 cm with blocks of 20 cm; in even steps only 0.9.",
+        "endless": "The harmonic series has no end: with enough blocks the stack reaches as far out as you like. But slowly, like a logarithm. This many blocks it takes:",
+        "reach_one": "for {{count}} length",
+        "reach_other": "for {{count}} lengths",
+        "knife": "A stack built so stands on a knife's edge: every layer lies exactly at the end of its footing. One block a breath further out and the whole stack tips over the table's edge. A real one is therefore built a little short."
+      },
+      "chart": {
+        "hint": "How far a stack can reach out at most, by the number of blocks: shifted furthest and in even steps.",
+        "furthest": "furthest",
+        "even": "in even steps",
+        "reach": "Overhang",
+        "lengths": "block lengths",
+        "blocks": "Blocks"
+      },
+      "computed": {
+        "system": "The page checks at every layer whether the centre of mass of the blocks from it upward lies over its footing; a stack of one block a layer needs nothing more. The furthest stack is built from the top, each block 1/(2k) further out.",
+        "check": "The page's tests work the overhang out again in exact fractions and search blindly among twenty thousand random stacks of three and of four blocks each: none that holds reaches further than the harmonic one. The computing happens in your browser, with the same formulas as the site's engine.",
+        "left_out": "Left out: stacks with several blocks to a layer, some of them counterweights – which reach further still (Paterson and Zwick); friction, as the blocks here never slide, they only tip; the wood giving way; a shaking hand. The blocks are 20 cm long and 4 cm high."
+      }
+    },
+    "diver": {
+      "at": {
+        "bottle": "In a bottle full of water floats a small glass tube, open at the bottom, with a bubble of air at its top that just keeps it afloat.",
+        "squeeze": "Squeeze the bottle and the diver sinks; let go and it rises again.",
+        "hover": "In between there is a depth where it would hover. But it never stays there: it sinks on or it rises."
+      },
+      "view": "The bottle with its water, the diver and the depth it would hover at",
+      "play": {
+        "title": "Squeeze the bottle",
+        "hint": "Squeeze the bottle with the slider. Try to keep the diver hovering in the middle.",
+        "pause": "Pause",
+        "run": "Go on",
+        "surface": "Back to the surface",
+        "squeeze": "The hand's squeeze",
+        "squeeze_hint": "How much the hand raises the pressure in the bottle.",
+        "caption": "The bottle, {{depth}} cm of water; dashed, the depth the diver would hover at with this squeeze. The diver is drawn larger than it is.",
+        "hover_line": "hovers here",
+        "motion": {
+          "floats": "The diver floats at the top.",
+          "rises": "The diver rises.",
+          "hovers": "The diver hovers – for now.",
+          "sinks": "The diver sinks.",
+          "bottom": "The diver lies on the bottom."
+        },
+        "depth": "Depth",
+        "speed": "Sinking speed",
+        "bubble": "Bubble",
+        "hover": "Hover depth"
+      },
+      "change": {
+        "title": "Rebuild the diver",
+        "hint": "Give the diver more or less air and change the height of the water.",
+        "air": "Air in the diver",
+        "air_hint": "The bubble at the surface, unsqueezed. Under 1.81 cm³ it would go under.",
+        "depth": "Water's height",
+        "depth_hint": "How deep the water in the bottle is."
+      },
+      "figures": {
+        "reserve": "Spare buoyancy at the surface",
+        "bubble": "Bubble it hovers with",
+        "sinking": "Squeeze that sinks it from the top",
+        "bottom": "Squeeze under which it rises from the bottom"
+      },
+      "chart": {
+        "hover_hint": "The depth the diver would hover at, by the hand's squeeze; dashed, the surface and the bottom.",
+        "hover": "Hover depth",
+        "surface": "Surface",
+        "bottom": "Bottom",
+        "depth": "Depth",
+        "squeeze": "The hand's squeeze",
+        "lift_hint": "Buoyancy less weight by depth, for three squeezes of the hand. Where a line crosses zero it hovers; above, it rises, below, it sinks.",
+        "lift": "Buoyancy less weight"
+      },
+      "model": {
+        "intro": "The diver floats because with its glass and its bubble it displaces a little more water than it weighs. The air can be squeezed, the glass cannot.",
+        "boyle": "The bubble shrinks as the pressure grows: the air's pressure, the hand's squeeze and the weight of the water above it (Boyle's law).",
+        "lift": "Buoyancy less weight: it rises while the water it displaces weighs more than it does.",
+        "hover": "The depth where the two are equal. Every kilopascal of the hand's squeeze lifts it by 10.2 cm.",
+        "motion": "The motion: to the glass's mass add the water it drags along, and the water brakes it."
+      },
+      "symbols": {
+        "v": "bubble",
+        "v0": "bubble at the surface, unsqueezed",
+        "p0": "air pressure",
+        "dp": "the hand's squeeze",
+        "rho": "density of water",
+        "g": "acceleration of gravity",
+        "z": "depth",
+        "f": "buoyancy less weight",
+        "vg": "volume of the glass",
+        "m": "mass of the glass",
+        "zs": "hover depth",
+        "cd": "drag coefficient",
+        "a": "cross-section of the diver"
+      },
+      "sweet": {
+        "unstable": "The trick: the balance is unstable. A little below the hover depth the water squeezes the bubble harder, the diver grows heavier for its size and sinks on, to the bottom. A little above, the bubble grows and it rises to the surface. Half a centimetre off is enough for it to go all the way.",
+        "numbers": "The diver here has 3 g of glass (1.2 cm³) and 2 cm³ of air; at the surface it carries 0.19 g more than it weighs. From a squeeze of 10.9 kPa it sinks from the top; under 7.9 kPa it rises even from the bottom of the 30 cm bottle. To hover it needs a bubble of 1.81 cm³.",
+        "chase": "To keep it hovering you must chase it all the time: ease off when it sinks, squeeze when it rises – and more than you think, as the hover depth moves 10 cm with every kilopascal."
+      },
+      "computed": {
+        "system": "The page steps the motion every 2 ms (Runge–Kutta), with the hand's squeeze as it is at that moment. At the surface the diver floats; on the bottom it lies.",
+        "check": "The page's tests hold the bubble to Boyle's law, show the buoyancy vanishing exactly at the hover depth, lifting above it and pulling below, and hold the steps to the same equation stepped twenty times finer. The computing happens in your browser, with the same formulas as the site's engine.",
+        "left_out": "Left out: that water must first run into the tube before the bubble shrinks (here it follows the pressure at once); the water and the bottle giving a little; the air in the bottle's neck, whose pressure here is the hand's squeeze directly; the diver poking out of the water at the surface; temperature. The values are an assumed diver: 3 g of glass (1.2 cm³) and 2 cm³ of air, in a bottle 30 cm deep."
+      }
+    },
+    "rainbow": {
+      "at": {
+        "wall": "A wall is coated with tiny glass beads, each smaller than a millimetre. A lamp beside your head lights it.",
+        "ring": "Round the shadow of your head a coloured ring glows: red outside, blue inside, and within the ring the wall is brighter than outside it.",
+        "smaller": "It is a rainbow – but only half the size of the one in the sky. And whoever stands next to you sees a different ring, round their own head."
+      },
+      "bead_view": "A glass bead with the lamp's light from the left, a fan of rays and the chosen ray",
+      "wall_view": "The wall of glass beads with the coloured ring round the shadow of the head",
+      "play": {
+        "title": "Send a ray through the bead",
+        "hint": "Choose where the ray meets the bead and see at what angle it comes back.",
+        "lamp": "Lamp's light →",
+        "to_bow": "To the rainbow ray",
+        "impact": "Where it meets the bead",
+        "impact_hint": "How far from the bead's centre the ray meets it, in per cent of its radius.",
+        "bead_caption": "One bead, much enlarged. Dashed: the rainbow ray; θ is the angle between the ray leaving and the way back to the lamp.",
+        "wall_caption": "The wall as you see it; in the middle the shadow of your head, the number is the ring's radius. The colours on the screen are only approximate.",
+        "at_bow": "This is the rainbow ray: it and its neighbours come back at almost the same angle – that is where the ring is bright.",
+        "inside": "This ray comes back at {{angle}}°, inside the ring at {{bow}}°.",
+        "across": "This ray crosses the way back to the lamp and comes back on the other side at {{angle}}°, inside the ring too.",
+        "split": "Split the colours",
+        "split_hint": "Shows the ray in seven colours, from violet to red.",
+        "incidence": "Angle of incidence",
+        "refraction": "Angle of refraction",
+        "leaves": "Angle out θ",
+        "bow": "Rainbow angle"
+      },
+      "change": {
+        "title": "Change the material",
+        "hint": "Choose glass or water and change the refractive index.",
+        "kind": "Material",
+        "kinds": {
+          "water": "Water drop",
+          "glass": "Glass bead"
+        },
+        "index": "Refractive index",
+        "index_hint": "How strongly the material bends light, for yellow light. How widely it fans the colours out stays the material's."
+      },
+      "figures": {
+        "angle": "Rainbow angle (yellow)",
+        "red": "Red edge (700 nm)",
+        "violet": "Violet edge (400 nm)",
+        "width": "Width of the ring",
+        "impact": "Where the rainbow ray meets the bead",
+        "reflected": "Light back after one reflection",
+        "near": "Of it, in the last degree before the rainbow angle"
+      },
+      "chart": {
+        "exit_hint": "The angle out against where the ray meets the bead, for violet and red light. Where the curve is flat at its top, many rays come back at almost the same angle: the ring.",
+        "violet": "Violet (400 nm)",
+        "red": "Red (700 nm)",
+        "leaves": "Angle out",
+        "impact": "Where it meets the bead",
+        "angle_hint": "The rainbow angle against the refractive index.",
+        "angle": "Rainbow angle",
+        "index": "Refractive index"
+      },
+      "model": {
+        "intro": "A ray of light enters the bead, is reflected once at its back and leaves again – back towards the lamp, but off by an angle.",
+        "snell": "Going in and coming out, the ray is bent (Snell's law).",
+        "leaves": "The angle between the ray leaving and the way back to the lamp. A ray at the bead's centre comes straight back.",
+        "bow": "The largest angle out, the rainbow angle: there θ hardly changes as the ray meets the bead a little further out, and many rays come back together. It depends only on the refractive index.",
+        "dispersion": "Blue light is bent a little more than red (Cauchy). So each colour has its own ring; red's is the largest."
+      },
+      "symbols": {
+        "i": "Angle of incidence",
+        "r": "Angle of refraction",
+        "n": "Refractive index",
+        "theta": "Angle out, from the way back to the lamp",
+        "ir": "Angle of incidence of the rainbow ray",
+        "lambda": "Wavelength",
+        "nd": "Refractive index for yellow light (the sodium line)",
+        "b": "How widely the colours fan out (Cauchy's coefficient)",
+        "lambda_d": "Wavelength of the sodium line, 589.3"
+      },
+      "sweet": {
+        "index": "The trick: the ring depends only on the material, not on the size of the bead. Water drops send the light back at 42°, glass of index 1.52 at 21° – half as far. That is why the glass-bead ring is half the size of the rainbow in the sky.",
+        "two": "The more strongly the material bends light, the smaller the ring. At index 2 it shrinks to nothing: then all the light near the centre comes straight back to where it came from.",
+        "own": "Because every bead sends the light back at the same angle, you see the ring in all the beads that lie at that angle from the shadow of your own head – a circle round it. Whoever stands next to you sees a different ring, round their own head."
+      },
+      "computed": {
+        "system": "The page follows each ray through the bead by the laws of refraction and reflection. For the picture of the wall it cuts the bead's face into 2000 rings of equal area and spreads each ring's light over the angles it comes back at – less what the surface lets through or reflects (Fresnel). The lamp is as large as the sun in the sky and blurs the ring by as much.",
+        "colours": "The colours: for 81 wavelengths from 380 to 780 nm, weighted by the eye's sensitivity to colour (CIE 1931) and converted into the screen's colours (sRGB). The lamp's white appears white, as the eye sees it; spectral colours that a screen cannot show appear somewhat paler.",
+        "check": "The page's tests hold the drawn ray to the law of refraction and to the formula θ = 4r − 2i, search for the rainbow angle blindly across the whole bead, and count the light sent back by Simpson's rule: of the light meeting a glass bead, 5.5 % comes back after one reflection, 24 % of that in the last degree before the rainbow angle. The computing happens in your browser, with the same formulas as the site's engine.",
+        "left_out": "Left out: the size of the beads (in very small beads the light's waves widen the ring and add faint rings inside it); light reflected twice or more inside (a second, fainter ring, for glass far out of sight) or not at all (the beads' white sheen); the wall behind the beads. Assumed: soda-lime glass of refractive index 1.52."
+      }
+    },
+    "sky": {
+      "at": {
+        "tube": "A long tube of water, made faintly cloudy with particles much smaller than the wavelength of light. A white lamp shines in at one end.",
+        "side": "From the side the tube glows bluish near the lamp, and further along white, yellow and finally orange.",
+        "end": "Looking in at the other end, the white lamp appears orange – like the sun in the evening."
+      },
+      "tube_view": "The cloudy tube with the lamp on the left, its side in its colours, and on the right the view into the tube",
+      "sky_view": "The sky straight overhead in its colour, and the sun at its height",
+      "play": {
+        "title": "Light through the cloudy tube",
+        "hint": "Make the water cloudier or clearer and watch the colours shift along the tube.",
+        "cloudiness": "Cloudiness",
+        "cloudiness_hint": "What share of the green light (550 nm) is scattered to the side per metre.",
+        "caption": "Each place of the tube in its colour, all drawn equally bright: in reality the tube gets darker towards its end. The colours on the screen are only approximate.",
+        "end": "Into the tube",
+        "side": "From the side",
+        "half_mark": "half the blue gone",
+        "red_mark": "more red than blue"
+      },
+      "figures": {
+        "blue_over_red": "Blue scattered, against red",
+        "blue_half": "Half the blue gone after",
+        "red_wins": "More red than blue at the side from",
+        "end_brightness": "At the end: as bright as the lamp",
+        "end_blue": "At the end: blue left",
+        "end_red": "At the end: red left"
+      },
+      "change": {
+        "title": "Lengthen the tube",
+        "hint": "A longer tube is like a longer way through the air.",
+        "length": "Length of the tube",
+        "length_hint": "How far the light goes through the cloudy water."
+      },
+      "chart": {
+        "side_hint": "The light coming out of the side of the tube, for blue, green and red. Blue starts strongest but is used up fastest; where the curves cross, the side turns yellowish.",
+        "blue": "Blue (450 nm)",
+        "green": "Green (550 nm)",
+        "red": "Red (650 nm)",
+        "side": "Side light (relative)",
+        "along": "Place in the tube",
+        "sun_hint": "How much of the blue and of the red sunlight reaches the ground, by the sun's height.",
+        "sun": "Sunlight at the ground",
+        "height": "Sun's height"
+      },
+      "air": {
+        "title": "In the sky",
+        "hint": "Raise or lower the sun. The air is such a cloudy tube: the lower the sun, the longer its way through the air.",
+        "height": "Sun's height",
+        "height_hint": "How high the sun stands above the horizon.",
+        "ozone": "Ozone layer",
+        "ozone_hint": "It absorbs mostly orange light. Switch it off to see the sky without it.",
+        "ozone_takes": "Of the orange (600 nm), ozone absorbs",
+        "caption": "Above, the sky straight overhead, as bright as against the sky with the sun overhead, and in its colour; the sun in its own, drawn at full brightness. The colours are only approximate.",
+        "air_mass": "Way through the air (air masses)",
+        "brightness": "Sunlight at the ground",
+        "blue": "of it blue",
+        "red": "of it red"
+      },
+      "model": {
+        "intro": "Particles much smaller than the wavelength scatter light the more strongly, the shorter its wavelength.",
+        "rayleigh": "Scattering grows with the fourth power of the frequency (Rayleigh): blue light (450 nm) is scattered 4.4 times as strongly as red (650 nm).",
+        "beer": "What is scattered is missing from the light going on: it falls exponentially along the tube, blue fastest (Beer–Lambert).",
+        "side": "From the side one sees what is scattered at that place, less what is still lost on the way to the tube's wall.",
+        "sky": "The sky straight overhead: sunlight scattered once at every height and then going down to the ground. The sun stands m air masses low.",
+        "ozone": "The ozone layer, some 22 km up, does not scatter light, it absorbs it – most of all orange (600 nm). Straight up its optical depth there is only 0.041, little beside the air's.",
+        "ozone_mass": "Sunlight crosses it as a thin shell: m₃ times as much ozone as straight down, 12 times at the horizon – where it absorbs 39 % of the orange. Since it lies above nearly all the air, the sky's light, scattered further down, carries the same factor."
+      },
+      "symbols": {
+        "beta": "Scattering coefficient",
+        "beta0": "Cloudiness: the scattering coefficient at 550 nm",
+        "lambda": "Wavelength",
+        "i": "Light in the tube, as a share of the lamp's",
+        "s": "The lamp's spectrum",
+        "x": "Place in the tube",
+        "a": "Half the tube's width",
+        "tau": "Optical depth of the air straight up (0.097 at 550 nm)",
+        "m": "Air mass: how much air the sunlight crosses, against the way straight down",
+        "t3": "What the ozone layer lets through of the sunlight",
+        "sigma": "Absorption cross-section of an ozone molecule, measured (Serdyuchenko et al. 2014)",
+        "n": "Ozone molecules above each square centimetre of ground: 300 Dobson units",
+        "m3": "Ozone air mass: how much ozone the sunlight crosses, against the way straight down",
+        "r": "Earth's radius",
+        "hh": "Height of the ozone layer (22 km)",
+        "h": "Sun's height"
+      },
+      "sweet": {
+        "same": "The trick: the tube is the sky in small. The molecules of the air are much smaller than the wavelength and scatter blue 4.4 times as strongly as red. Wherever one looks away from the sun, one sees scattered light – and it is blue.",
+        "sunset": "In the evening the sun stands low, and its light crosses 38 times as much air as light coming straight down. On the way the blue is scattered almost entirely away: only 3 % of the sunlight arrives (4 % without the ozone layer), and it is orange – like the lamp at the end of the tube.",
+        "not_violet": "Violet is scattered even more strongly than blue. That the sky still looks blue and not violet is down to the sun, which sends out less violet, and to the eye, which is little sensitive to it – the page's colour computation shows both.",
+        "ozone": "And why is the sky overhead still blue at sunset, when the sunlight has lost its blue on the way? What the air scatters down of it would be almost white. But on that long, flat way the ozone layer absorbs mostly orange, and the blue stays. Switch the ozone off above and put the sun on the horizon."
+      },
+      "computed": {
+        "system": "For each of 81 wavelengths the page computes how much light is still there at each place of the tube and how much of it is scattered to the side. For the sky it takes the air's optical depth, 0.097 at 550 nm, and the air mass by Kasten and Young, 37.9 at the horizon. For ozone it takes the measured cross-section (Serdyuchenko et al. 2014, averaged over each 5 nm), 300 Dobson units and a thin layer 22 km up.",
+        "colours": "The colours as for the glass-bead rainbow: weighted by the eye's sensitivity to colour (CIE 1931) and converted into the screen's colours (sRGB). The lamp's white – for the sky, the sun's above the air – appears white. Each colour is drawn as bright as the screen allows for it; how bright it really is, the figures say.",
+        "check": "The page's tests count that the light scattered to the side and the light arriving at the end add up to exactly the lamp's light (Simpson's rule), and hold the sky overhead against the same sum over all heights. The computing happens in your browser, with the same formulas as the site's engine.",
+        "left_out": "Left out: light scattered more than once (it makes a very cloudy tube and the sky at the horizon whiter); larger particles, which scatter all colours alike (that is why milk is white); the direction of scattering, which changes only the brightness; for the sky, dust and haze, which make the sunset redder still, the sun below the horizon (the sky overhead is then lit only high up, through still more ozone), and how much ozone there is, which changes with the season and the place. Assumed: a tube 1 m long and 6 cm across."
+      }
+    },
+    "slits": {
+      "at": {
+        "laser": "A laser shines on a plate with two narrow slits, only fractions of a millimetre wide and apart.",
+        "stripes": "On the wall behind it a row of bright and dark stripes appears – not two bright lines.",
+        "cover": "Cover one slit and the stripes vanish: a broad bright patch is left, even where it was dark a moment ago."
+      },
+      "setup_view": "The laser, the plate with the two slits, and the wall",
+      "wall_view": "The wall behind the slits with its pattern",
+      "play": {
+        "title": "Light through two slits",
+        "hint": "Choose laser or white light, change the laser's colour and cover one slit.",
+        "light": "Light",
+        "lights": {
+          "laser": "Laser",
+          "white": "White light"
+        },
+        "wavelength": "Laser's wavelength",
+        "wavelength_hint": "From violet (400 nm) to red (700 nm).",
+        "cover": "Cover one slit",
+        "cover_hint": "Only one slit lets light through.",
+        "caption": "Above, the setup; below, the wall as you see it: one slit's whole middle band and a little beyond. The colours on the screen are only approximate.",
+        "plate": "Slits",
+        "wall": "Wall",
+        "status_both": "Two slits: stripes, {{spacing}} mm apart.",
+        "status_one": "One slit: a broad bright patch, no stripes – and only a quarter as bright in the middle."
+      },
+      "figures": {
+        "spacing": "Spacing of the stripes",
+        "first_dark": "First dark stripe at",
+        "stripes": "Bright stripes in the middle band",
+        "one_slit_there": "One slit alone at the first dark stripe"
+      },
+      "change": {
+        "title": "Change the slits",
+        "hint": "Move the slits closer, make them wider or put the wall further away.",
+        "spacing": "Spacing of the slits",
+        "spacing_hint": "From the middle of one to the middle of the other.",
+        "width": "Width of a slit",
+        "width_hint": "The narrower, the wider the middle band.",
+        "distance": "Distance to the wall",
+        "distance_hint": "How far behind the slits the wall stands."
+      },
+      "chart": {
+        "hint": "The brightness on the wall at {{nm}} nm, with two slits and with one; 1 is the middle with two slits.",
+        "both": "Two slits",
+        "one": "One slit",
+        "light": "Brightness",
+        "along": "Place on the wall"
+      },
+      "model": {
+        "intro": "Light is a wave. From each slit a wave goes to every point of the wall; there the two add up.",
+        "path": "The two waves' difference in path. Is it a whole number of wavelengths, they arrive in step: bright. Is it half a wavelength more, they cancel: dark.",
+        "intensity": "The brightness on the wall (Fraunhofer): each slit alone gives the broad middle band (sin β/β)², the two together the stripes within it (cos² α).",
+        "stripes": "The spacing of the stripes on the wall: the longer the wavelength and the further the wall, the wider; the further apart the slits, the narrower."
+      },
+      "symbols": {
+        "ds": "Difference in path",
+        "d": "Spacing of the slits",
+        "theta": "Angle from straight on",
+        "i": "Brightness",
+        "i0": "Brightness in the middle, with two slits",
+        "a": "Width of a slit",
+        "lambda": "Wavelength",
+        "dy": "Spacing of the stripes on the wall",
+        "l": "Distance to the wall"
+      },
+      "sweet": {
+        "dark": "The trick: at the first dark stripe one slit alone gives 97 % of the brightness of its middle. Open the second slit and more light comes – and just there it goes dark. The two waves arrive half a wavelength apart and cancel. Light plus light makes dark.",
+        "colours": "With white light each colour has its own stripes, red ones further apart than blue. Only the middle is bright for all of them: it stays white, beside it the stripes turn coloured. Where red cancels, blue still shines.",
+        "one_label": "One slit open",
+        "two_label": "Two slits open, drawn at the same brightness"
+      },
+      "computed": {
+        "system": "The page computes the brightness at each point of the wall with the formula for a distant wall (Fraunhofer). The laser is red, 650 nm; the slits are 0.25 mm apart and 0.05 mm wide each, the wall 2 m behind them. Then the stripes lie 5.2 mm apart, the first dark one 2.6 mm beside the middle, and 9 bright stripes fit into one slit's middle band, 26 mm wide.",
+        "colours": "The laser's colour is its wavelength's, as saturated as the screen can show it and as bright as the light is there. White light: for 81 wavelengths each its own pattern, weighted by the eye's sensitivity to colour (CIE 1931) and converted into the screen's colours (sRGB).",
+        "check": "The page's tests cut each slit into 400 narrow strips, add up the waves of all the strips at each point of the wall (Huygens) and compare the result with the formula. They check that the dark stripes are exactly dark where one slit alone gives light, and that white light is blue where red cancels. The computing happens in your browser, with the same formulas as the site's engine.",
+        "left_out": "Left out: that the wall is not infinitely far away (the formula holds once it is much further away than d²/λ, here about a tenth of a metre); the laser beam's width and spread, which make the stripes fade out up and down; the slits' edges and thickness; the light's polarisation."
+      }
+    },
+    "beats": {
+      "at": {
+        "forks": "Two tuning forks on their sounding boxes, tuned alike – but for a small rider clamped to the prongs of one.",
+        "swell": "Strike both and you hear a single tone that slowly grows louder and softer, again and again.",
+        "rider": "Slide the rider further out and the tone swells faster; slide it towards the stem, slower."
+      },
+      "view": "The two tuning forks with their pitches, the second with the rider, and below them the sound in slow motion",
+      "loudness_view": "The loudness since the strike, both forks together and one alone",
+      "play": {
+        "title": "Strike the forks",
+        "hint": "Strike both forks and watch – or hear – the tone swell and fade.",
+        "strike": "Strike",
+        "sound": "Sound",
+        "sound_hint": "Plays the two forks; your ear hears the beats by itself.",
+        "no_sound": "Your browser cannot make a sound here.",
+        "caption": "Above, the forks and their sound together in slow motion; below, the loudness since the strike: solid both together, dashed one alone.",
+        "slow": "The sound now, {{ms}} ms in slow motion",
+        "waiting": "The forks are silent. Strike them.",
+        "silent": "The forks have died away.",
+        "ringing": "For {{time}} s: loudness {{loud}} % of the strike.",
+        "f1": "First fork",
+        "f2": "Second fork, with rider"
+      },
+      "figures": {
+        "beat": "Beats",
+        "period": "Time from beat to beat",
+        "detuned": "Second fork",
+        "cents": "Distance between the tones",
+        "heard": "Beats until it dies away"
+      },
+      "change": {
+        "title": "Slide the rider",
+        "hint": "Make the rider heavier or slide it along the prongs.",
+        "mass": "Rider's mass",
+        "mass_hint": "A rider of this mass on each prong.",
+        "position": "Rider's place",
+        "position_hint": "From the stem (0 %) to the prong's tip (100 %)."
+      },
+      "chart": {
+        "loudness_hint": "The loudness over ten seconds: both together swell and fade, one alone simply dies away.",
+        "sum": "Both forks",
+        "one": "One fork",
+        "loudness": "Loudness",
+        "time": "Time",
+        "rider_hint": "How many beats a second the rider makes, by its place, for three masses.",
+        "beat": "Beats",
+        "position": "Rider's place"
+      },
+      "model": {
+        "intro": "Each fork swings at its frequency and slowly dies away. At your ear the two swings add up.",
+        "sum": "The sum is a tone of the mean frequency whose strength slowly rises and falls: now the forks swing in step, now against each other.",
+        "beat": "The loudness peaks as many times a second as the frequencies differ.",
+        "rider": "The rider slows the prong like an added mass (Rayleigh): hardly at all near the stem, where the prong barely swings, fully at the tip. At its tip the prong acts like a quarter of its mass."
+      },
+      "symbols": {
+        "x": "The air's swing, both forks together",
+        "f": "The two forks' frequencies",
+        "t": "Time since the strike",
+        "tau": "A fork's decay time",
+        "fb": "Beat frequency",
+        "m": "Rider's mass on each prong",
+        "phi": "The prong's mode shape, 1 at the tip",
+        "s": "Rider's place along the prong",
+        "mz": "Mass of one prong"
+      },
+      "sweet": {
+        "closer": "The trick: the closer the two tones, the slower the beats. Here they are only 0.82 Hz apart, 3.2 cents – and yet one clearly hears a beat every 1.22 s, 23 until it dies away.",
+        "tuning": "That is how instruments are tuned: play two tones together and adjust until the beats slow down and finally vanish.",
+        "rider": "The rider hardly matters near the stem and fully at the tip: 1 g at 30 % of the prong detunes the fork by 0.82 Hz, at the tip by 38 Hz."
+      },
+      "computed": {
+        "system": "The page computes the second fork's frequency by Rayleigh's method from the mode shape of a clamped prong (βL = 1.875) and adds the two dying swings. Assumed: a fork of 440 Hz, prongs of 20 g, a decay time of 6 s.",
+        "check": "The page's tests hold the mode shape to its equation, check that the prong acts at its tip like a quarter of its mass, and compare Rayleigh's estimate with the exact frequency of a prong with a mass at its tip: for 1 g it is less than 0.1 % high. The computing happens in your browser, with the same formulas as the site's engine.",
+        "left_out": "Left out: the sounding boxes and the room; that the rider itself changes the mode shape a little; the coupling of the two prongs, and the stem; the ear, which hears fast beats no longer as swelling and fading but as roughness and finally as two tones."
+      }
+    }
+  },
+  "account": {
+    "settings": "Account and settings",
+    "roles": {
+      "ADMIN": "Admin",
+      "MEMBER": "Member",
+      "REVIEWER": "Reviewer"
+    },
+    "admin": "Administration",
+    "reviewTranslations": "Review translations",
+    "more": "More of the account",
+    "areas": {
+      "experiments": "Exhibits",
+      "legal": "Legal"
+    },
+    "feedback": "Feedback and ideas",
+    "contributions": {
+      "translations": "By submitting a suggestion you license it under CC BY 4.0, the licence of all of Staunlabor's texts, so that it may be taken over.",
+      "feedback": "By submitting feedback you license it under CC BY 4.0, the licence of all of Staunlabor's texts, so that ideas and wording from it may be taken over."
     }
   }
 }

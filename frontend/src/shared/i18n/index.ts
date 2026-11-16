@@ -29,6 +29,14 @@ async function load(code: string): Promise<void> {
   ready.add(code);
 }
 
+/** One language's catalogue as the site ships it, for the translation review: the fallback
+ *  from the entry chunk, every other one fetched as its own chunk, as `load` fetches it. */
+export async function loadBundle(code: string): Promise<Record<string, unknown>> {
+  if (code === FALLBACK_LOCALE) return deCH;
+  const fetch = FETCHED[`./locales/${code}.json`];
+  return fetch ? (await fetch()).default : {};
+}
+
 /** The language for this reader, on this device. */
 export function readerLanguage(): string {
   const browser = typeof navigator === "undefined" ? [] : [...(navigator.languages ?? [navigator.language])];

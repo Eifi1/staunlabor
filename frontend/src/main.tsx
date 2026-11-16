@@ -9,6 +9,8 @@ import { useLanguage, useLocale } from "@/shared/i18n/use-locale";
 import { STORAGE } from "@/shared/lib/storage-keys";
 import { queryClient } from "@/shared/state/query-client";
 import { useApplyTheme, useTheme } from "@/shared/state/theme-store";
+import { AccountsProvider } from "@eifi1/ui-kit/accounts";
+import { accounts } from "@/shared/api/accounts";
 import { AppRoutes } from "@/app/routes";
 import { routerLink } from "@/app/router-link";
 import "./app.css";
@@ -24,17 +26,19 @@ function Root() {
   return (
     <BrowserRouter>
       <QueryClientProvider client={queryClient}>
-        <UiKitProvider
-          labels={kitLabels(language)}
-          locale={locale}
-          linkComponent={routerLink}
-          tableStorageKeyPrefix={STORAGE.tables}
-          appName="Staunlabor"
-        >
-          <ErrorBoundary placement="app" appVersion={__APP_VERSION__}>
-            <AppRoutes />
-          </ErrorBoundary>
-        </UiKitProvider>
+        <AccountsProvider client={accounts}>
+          <UiKitProvider
+            labels={kitLabels(language)}
+            locale={locale}
+            linkComponent={routerLink}
+            tableStorageKeyPrefix={STORAGE.tables}
+            appName="Staunlabor"
+          >
+            <ErrorBoundary placement="app" appVersion={__APP_VERSION__}>
+              <AppRoutes />
+            </ErrorBoundary>
+          </UiKitProvider>
+        </AccountsProvider>
         <Toaster theme={mode} closeButton />
       </QueryClientProvider>
     </BrowserRouter>
