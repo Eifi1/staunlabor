@@ -2,6 +2,18 @@
 
 All notable changes to Staunlabor are documented in this file, generated from the commit messages by commit-and-tag-version at each release.
 
+## [0.1.8](https://github.com/Eifi1/staunlabor/compare/v0.1.7...v0.1.8) (2026-11-16)
+
+### Added
+
+* **experiments:** every exhibit's drawing on its card in the overview's list ([9dd544c](https://github.com/Eifi1/staunlabor/commit/9dd544c0bba563946e8683e7810e42e81f89413d))
+* link previews per exhibit, drawings in the overview's list, www sent on to the bare domain ([#3](https://github.com/Eifi1/staunlabor/issues/3)) ([c8af7f8](https://github.com/Eifi1/staunlabor/commit/c8af7f8bd063d476fda6f93f02ea45b238ce2575))
+* **site:** a link-preview picture for every exhibit, and a page per route that names it ([f30cf5c](https://github.com/Eifi1/staunlabor/commit/f30cf5c86c370e46a8db5730ddba5e0735b67f4f))
+
+### Fixed
+
+* **deploy:** www.staunlabor.app sent on to the bare domain, through a second mapping ([14c5151](https://github.com/Eifi1/staunlabor/commit/14c515141b7aab5532a03422be1d088a75bef67c))
+
 ## [0.1.7](https://github.com/Eifi1/staunlabor/compare/v0.1.6...v0.1.7) (2026-11-16)
 
 ### Fixed
