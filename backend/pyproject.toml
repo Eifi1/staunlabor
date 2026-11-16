@@ -18,9 +18,10 @@ dependencies = [
     # the passkey routes, `mail` the Resend client the console transport gives way
     # to once the domain is verified, `jwt` and `bcrypt` the ready signer (HS256,
     # PyJWT) and hasher the kit took over from this app, `seal` (0.32) the
-    # AES-GCM box the second factor's secrets are stored in. The wheel and its
+    # AES-GCM box the second factor's secrets are stored in, `gcs` the Cloud
+    # Storage client feedback's files go to on a deployment. The wheel and its
     # sha256 are pinned in uv.lock.
-    "eifi1-server-kit[bcrypt,fastapi,jwt,mail,passkeys,seal,sql]",
+    "eifi1-server-kit[bcrypt,fastapi,gcs,jwt,mail,passkeys,seal,sql]",
 ]
 
 [dependency-groups]

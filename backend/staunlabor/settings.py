@@ -134,11 +134,16 @@ class Settings(BaseSettings):
     #: refuses to start (``main.check_deployment``), because then nothing would ever
     #: delete an ended session's address.
     jobs_token: str = Field(default="", repr=False)
-    #: Where a feedback report's files (screenshots, attachments) are kept: a
-    #: directory on this machine, outside the repository (``.gitignore``), until a
-    #: deployment brings a bucket (deploy/README.md). Relative to the backend's
-    #: working directory.
+    #: Where a feedback report's files (screenshots, attachments) are kept on a
+    #: laptop: a directory outside the repository (``.gitignore``), relative to
+    #: the backend's working directory. Unused once ``feedback_bucket`` names one.
     feedback_files_dir: Path = Field(default=Path("var/feedback-files"))
+    #: The Cloud Storage bucket a deployment keeps them in (deploy/README.md §6),
+    #: reached as the service's own account. On Cloud Run a directory is the
+    #: instance's and goes with it, so a deployment refuses to start without one
+    #: (``main.check_deployment``): a report's screenshot would vanish at the next
+    #: scale-down.
+    feedback_bucket: str = Field(default="")
 
     #: Set by Cloud Run in every service's container and every job's.
     cloud_run_service: str | None = Field(default=None, validation_alias="K_SERVICE")

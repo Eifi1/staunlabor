@@ -1,5 +1,6 @@
-"""What the app chooses beside the kit's account layer: the transport, and the
-boot check that refuses a deployment anybody could take over. No database. The
+"""What the app chooses beside the kit's account layer: the transport, where
+feedback's files go, and the boot check that refuses a deployment anybody could
+take over. No database. The
 signer and the hasher are server-kit's (0.30), tested there; the routes' tests
 (``tests/api/test_accounts_api.py``) show they are wired with this app's key
 and cost."""
@@ -10,8 +11,10 @@ import logging
 
 import pytest
 from eifi1_server_kit.mail import ConsoleMailer, MailMessage, ResendClient
+from eifi1_server_kit.objects import GcsObjectStore, LocalObjectStore
 
 from staunlabor.accounts import mailer_for
+from staunlabor.feedback import objects_for
 from staunlabor.main import check_deployment, create_app
 from staunlabor.settings import DEV_JWT_SECRET, DEV_TOTP_KEYS, Settings, get_settings
 
@@ -23,6 +26,17 @@ def test_mail_goes_to_the_log_until_resend_is_chosen(monkeypatch: pytest.MonkeyP
     monkeypatch.setenv("STAUNLABOR_MAIL_BACKEND", "resend")
     monkeypatch.setenv("STAUNLABOR_RESEND_API_KEY", "re_test_key")
     assert isinstance(mailer_for(Settings()), ResendClient)
+
+
+def test_feedback_files_go_to_the_bucket_once_one_is_named_and_to_a_directory_before(
+    monkeypatch: pytest.MonkeyPatch,
+):
+    assert isinstance(objects_for(Settings()), LocalObjectStore)
+    monkeypatch.setenv("STAUNLABOR_FEEDBACK_BUCKET", "staunlabor-feedback-files")
+    bucket = objects_for(Settings())
+    assert isinstance(bucket, GcsObjectStore)
+    # One store a process, so one Cloud Storage client: the routes, the purge and the sweep share it.
+    assert objects_for(Settings()) is bucket
 
 
 LINK = "http://localhost:5176/verify-email?token=the-unspent-token"
@@ -60,6 +74,7 @@ DEPLOYED = {
     "STAUNLABOR_REGISTRATION_ALLOWLIST": "owner@example.com",
     "STAUNLABOR_JOBS_TOKEN": "a-jobs-token-long-enough-for-a-deployment-0123",
     "STAUNLABOR_TOTP_KEYS": "a-seal-key-long-enough-for-a-deployment-4567",
+    "STAUNLABOR_FEEDBACK_BUCKET": "staunlabor-feedback-files",
 }
 
 
@@ -88,6 +103,7 @@ def test_a_deployment_with_its_key_its_list_and_its_host_starts(deployed: pytest
         ("STAUNLABOR_JOBS_TOKEN", "short", "STAUNLABOR_JOBS_TOKEN is too short"),
         ("STAUNLABOR_TOTP_KEYS", DEV_TOTP_KEYS, "STAUNLABOR_TOTP_KEYS is a placeholder"),
         ("STAUNLABOR_TOTP_KEYS", " ", "STAUNLABOR_TOTP_KEYS is not set"),
+        ("STAUNLABOR_FEEDBACK_BUCKET", " ", "STAUNLABOR_FEEDBACK_BUCKET is empty"),
     ],
 )
 def test_a_deployment_anybody_could_take_over_refuses_to_start(

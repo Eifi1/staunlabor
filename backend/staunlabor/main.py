@@ -61,6 +61,8 @@ def check_deployment(settings: Settings) -> None:
       characters**: unset, nobody could switch it on (``503``); the
       repository's, whoever reads this file opens every sealed secret and makes
       the codes of every account that has it on.
+    * **No bucket for feedback's files**: the instance's own directory goes
+      with the instance, and a report's screenshot with it.
 
     A deployment (``Settings.deployed``) refuses to start on any of them. A
     laptop boots with nothing configured, and hears about the key and the RP id.
@@ -85,6 +87,10 @@ def check_deployment(settings: Settings) -> None:
         )
     problems += secret_problems(settings.jobs_token, name="STAUNLABOR_JOBS_TOKEN")
     problems += secret_problems(settings.totp_keys, name="STAUNLABOR_TOTP_KEYS")
+    if not settings.feedback_bucket.strip():
+        problems.append(
+            "STAUNLABOR_FEEDBACK_BUCKET is empty: a report's files would go with the instance they were uploaded to"
+        )
     if problems:
         raise RuntimeError("Refusing to start a deployment: " + "; ".join(problems) + ".")
     if settings.mail_backend == "console":

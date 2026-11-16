@@ -8,8 +8,9 @@ what the kit leaves to an app, and nothing more:
 - the stores: ``feedback.sql``'s, over ``staunlabor.models``, each on the
   request's session, with the uploads table so a writer names only a file they
   uploaded;
-- the files' bytes: a directory on the machine (``settings.feedback_files_dir``)
-  until a deployment brings a bucket (``deploy/README.md``);
+- the files' bytes: a Cloud Storage bucket on a deployment
+  (``settings.feedback_bucket``), a directory on a laptop
+  (``settings.feedback_files_dir``);
 - who is who: the signed-in account (server-kit's ``current_user``, the one the
   account routes use) as the feedback's actor, an ADMIN as its admin;
 - who sees the public list: everybody signed in, since every account here came
@@ -26,6 +27,7 @@ the planned exhibits are filed here as ideas (plan, second stage).
 # the annotation holds the dependency itself.
 
 from collections.abc import Awaitable, Callable, Sequence
+from functools import lru_cache
 from typing import Annotated, Any
 
 from eifi1_server_kit.auth.accounts import full_name
@@ -41,7 +43,7 @@ from eifi1_server_kit.feedback.sql import (
     SqlFeedbackVoteStore,
     SqlPeopleLookup,
 )
-from eifi1_server_kit.objects import LocalObjectStore, ObjectStore, purge_objects
+from eifi1_server_kit.objects import GcsObjectStore, LocalObjectStore, ObjectStore, purge_objects
 from eifi1_server_kit.user_admin.service import UserAdminHooks
 from fastapi import Depends
 from sqlalchemy.ext.asyncio import AsyncSession
@@ -77,8 +79,17 @@ def no_demo(_scope: str) -> Any:
 
 
 def objects_for(settings: Settings) -> ObjectStore:
-    """Where the files' bytes go: a directory on this machine."""
+    """Where the files' bytes go: the deployment's bucket, or a directory on this machine."""
+    if settings.feedback_bucket:
+        return _bucket(settings.feedback_bucket)
     return LocalObjectStore(settings.feedback_files_dir)
+
+
+@lru_cache
+def _bucket(name: str) -> GcsObjectStore:
+    """One store, so one Cloud Storage client, per process: the routes, the erasure's purge
+    and the daily sweep each ask for the store, and each client keeps its own connections."""
+    return GcsObjectStore(name)
 
 
 def attachment_storage_on(session: AsyncSession, objects: ObjectStore) -> SqlAttachmentStorage[FeedbackAttachment]:
