@@ -1,12 +1,12 @@
 import { useDeferredValue, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { AlertBanner, LoadingState, Switch, ToggleGroup } from "@eifi1/ui-kit";
-import { apiErrorMessage } from "@/shared/api/client";
+import { Switch, ToggleGroup } from "@eifi1/ui-kit";
 import { useChartHex } from "@/shared/state/palette-store";
 import { SliderField } from "@/shared/ui/slider-field";
 import { Figures, WidgetCard } from "@/shared/ui/widget";
 import { Equation } from "./equation";
 import { ExhibitFrame } from "./exhibit-frame";
+import { BuildPending } from "./build-pending";
 import { PreviewPending, type PreviewMode } from "./preview-mode";
 import {
   blocks,
@@ -54,10 +54,8 @@ export function ArchPage() {
       computed={<ArchComputed />}
       sweetSpot={<ArchTrick />}
     >
-      {defaults.isPending ? (
-        <LoadingState className="py-10" label={t("common.loading")} />
-      ) : !arch ? (
-        <AlertBanner tone="danger">{apiErrorMessage(defaults.error, t("experiments.failed"))}</AlertBanner>
+      {defaults.isPending || !arch ? (
+        <BuildPending pending={defaults.isPending} error={defaults.error} />
       ) : (
         <ArchPlay arch={arch} onChange={setBuild} />
       )}

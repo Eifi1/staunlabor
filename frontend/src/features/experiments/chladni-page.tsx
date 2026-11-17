@@ -1,8 +1,7 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Pause, Play, Shuffle } from "lucide-react";
-import { AlertBanner, Button, LoadingState, Switch } from "@eifi1/ui-kit";
-import { apiErrorMessage } from "@/shared/api/client";
+import { Button, Switch } from "@eifi1/ui-kit";
 import { useLocale } from "@/shared/i18n/use-locale";
 import { formatNumber } from "@/shared/lib/format";
 import { useTones } from "@/shared/lib/use-tones";
@@ -11,6 +10,7 @@ import { SliderField } from "@/shared/ui/slider-field";
 import { Figures, WidgetCard } from "@/shared/ui/widget";
 import { Equation } from "./equation";
 import { ExhibitFrame } from "./exhibit-frame";
+import { BuildPending } from "./build-pending";
 import { PreviewPending, type PreviewMode, type PreviewProps } from "./preview-mode";
 import { startsRunning } from "./play";
 import { frequencyHz, modeGrids, response, responseFrom, type Mode, type Plate } from "./simulate/chladni";
@@ -98,10 +98,8 @@ export function ChladniPage() {
       computed={<ChladniComputed />}
       sweetSpot={<ChladniTrick />}
     >
-      {defaults.isPending || modes.isPending ? (
-        <LoadingState className="py-10" label={t("common.loading")} />
-      ) : !plate || !modes.data ? (
-        <AlertBanner tone="danger">{apiErrorMessage(failed, t("experiments.failed"))}</AlertBanner>
+      {defaults.isPending || modes.isPending || !plate || !modes.data ? (
+        <BuildPending pending={defaults.isPending || modes.isPending} error={failed} />
       ) : (
         <ChladniPlay plate={plate} data={modes.data} />
       )}

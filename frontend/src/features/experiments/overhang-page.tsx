@@ -1,7 +1,6 @@
 import { useEffect, useMemo, useRef, useState, type KeyboardEvent, type PointerEvent } from "react";
 import { useTranslation } from "react-i18next";
-import { AlertBanner, Button, LoadingState } from "@eifi1/ui-kit";
-import { apiErrorMessage } from "@/shared/api/client";
+import { Button } from "@eifi1/ui-kit";
 import { SeriesChart } from "@/shared/charts/series-chart";
 import { useLocale } from "@/shared/i18n/use-locale";
 import { formatNumber } from "@/shared/lib/format";
@@ -11,6 +10,7 @@ import { SliderField } from "@/shared/ui/slider-field";
 import { Figures, WidgetCard } from "@/shared/ui/widget";
 import { Equation } from "./equation";
 import { ExhibitFrame } from "./exhibit-frame";
+import { BuildPending } from "./build-pending";
 import { PreviewPending, type PreviewProps } from "./preview-mode";
 import { MOST_BLOCKS, blocksFor, even, harmonic, holds, layers, overhang } from "./simulate/overhang";
 import { SIDE } from "./stage";
@@ -57,10 +57,8 @@ export function OverhangPage() {
       computed={<OverhangComputed />}
       sweetSpot={<OverhangTrick />}
     >
-      {defaults.isPending ? (
-        <LoadingState className="py-10" label={t("common.loading")} />
-      ) : !data ? (
-        <AlertBanner tone="danger">{apiErrorMessage(defaults.error, t("experiments.failed"))}</AlertBanner>
+      {defaults.isPending || !data ? (
+        <BuildPending pending={defaults.isPending} error={defaults.error} />
       ) : (
         <OverhangPlay blocks={data} />
       )}

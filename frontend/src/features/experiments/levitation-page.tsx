@@ -1,7 +1,5 @@
 import { useDeferredValue, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { AlertBanner, LoadingState } from "@eifi1/ui-kit";
-import { apiErrorMessage } from "@/shared/api/client";
 import { useLocale } from "@/shared/i18n/use-locale";
 import { formatNumber } from "@/shared/lib/format";
 import { useChartHex } from "@/shared/state/palette-store";
@@ -10,6 +8,7 @@ import { SliderField } from "@/shared/ui/slider-field";
 import { Figures, WidgetCard } from "@/shared/ui/widget";
 import { Equation } from "./equation";
 import { ExhibitFrame } from "./exhibit-frame";
+import { BuildPending } from "./build-pending";
 import { PreviewPending, type PreviewMode } from "./preview-mode";
 import { hover, liftKg, type Base, type Hover, type Top } from "./simulate/levitation";
 import { SIDE } from "./stage";
@@ -55,10 +54,8 @@ export function LevitationPage() {
       computed={<LevitationComputed />}
       sweetSpot={<LevitationTrick />}
     >
-      {defaults.isPending ? (
-        <LoadingState className="py-10" label={t("common.loading")} />
-      ) : !build ? (
-        <AlertBanner tone="danger">{apiErrorMessage(defaults.error, t("experiments.failed"))}</AlertBanner>
+      {defaults.isPending || !build ? (
+        <BuildPending pending={defaults.isPending} error={defaults.error} />
       ) : (
         <LevitationPlay base={build.base} top={build.top} />
       )}

@@ -1,8 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Hand, Pause, Play } from "lucide-react";
-import { AlertBanner, Button, LoadingState, ToggleGroup } from "@eifi1/ui-kit";
-import { apiErrorMessage } from "@/shared/api/client";
+import { Button, ToggleGroup } from "@eifi1/ui-kit";
 import { useLocale } from "@/shared/i18n/use-locale";
 import { formatNumber } from "@/shared/lib/format";
 import { useChartHex } from "@/shared/state/palette-store";
@@ -10,6 +9,7 @@ import { SliderField } from "@/shared/ui/slider-field";
 import { Figures, WidgetCard } from "@/shared/ui/widget";
 import { Equation } from "./equation";
 import { ExhibitFrame } from "./exhibit-frame";
+import { BuildPending } from "./build-pending";
 import { PreviewPending, type PreviewMode, type PreviewProps } from "./preview-mode";
 import {
   HANGING_DEG,
@@ -87,10 +87,8 @@ export function GyroscopePage() {
       computed={<GyroscopeComputed />}
       sweetSpot={<GyroscopeTrick />}
     >
-      {defaults.isPending ? (
-        <LoadingState className="py-10" label={t("common.loading")} />
-      ) : !w ? (
-        <AlertBanner tone="danger">{apiErrorMessage(defaults.error, t("experiments.failed"))}</AlertBanner>
+      {defaults.isPending || !w ? (
+        <BuildPending pending={defaults.isPending} error={defaults.error} />
       ) : (
         <GyroscopePlay w={w} onChange={setBuild} />
       )}

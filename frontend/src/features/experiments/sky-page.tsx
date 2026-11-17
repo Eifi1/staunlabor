@@ -1,7 +1,6 @@
 import { useEffect, useId, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { AlertBanner, LoadingState, Switch } from "@eifi1/ui-kit";
-import { apiErrorMessage } from "@/shared/api/client";
+import { Switch } from "@eifi1/ui-kit";
 import { SeriesChart } from "@/shared/charts/series-chart";
 import { useLocale } from "@/shared/i18n/use-locale";
 import { formatNumber } from "@/shared/lib/format";
@@ -10,6 +9,7 @@ import { SliderField } from "@/shared/ui/slider-field";
 import { Figures, WidgetCard } from "@/shared/ui/widget";
 import { Equation } from "./equation";
 import { ExhibitFrame } from "./exhibit-frame";
+import { BuildPending } from "./build-pending";
 import { PreviewPending, type PreviewMode, type PreviewProps } from "./preview-mode";
 import { WAVELENGTHS_NM, css, lamp, onScreen, seen } from "./simulate/colour";
 import {
@@ -105,10 +105,8 @@ export function SkyPage() {
       computed={<SkyComputed />}
       sweetSpot={<SkyTrick />}
     >
-      {defaults.isPending ? (
-        <LoadingState className="py-10" label={t("common.loading")} />
-      ) : !tube ? (
-        <AlertBanner tone="danger">{apiErrorMessage(defaults.error, t("experiments.failed"))}</AlertBanner>
+      {defaults.isPending || !tube ? (
+        <BuildPending pending={defaults.isPending} error={defaults.error} />
       ) : (
         <>
           <TubePlay tube={tube} onChange={setTube} />

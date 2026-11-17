@@ -1,8 +1,7 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { ArrowDown, Pause, Play, RotateCcw } from "lucide-react";
-import { AlertBanner, Button, LoadingState, Switch, ToggleGroup } from "@eifi1/ui-kit";
-import { apiErrorMessage } from "@/shared/api/client";
+import { Button, LoadingState, Switch, ToggleGroup } from "@eifi1/ui-kit";
 import { SeriesChart } from "@/shared/charts/series-chart";
 import { useLocale } from "@/shared/i18n/use-locale";
 import { formatNumber } from "@/shared/lib/format";
@@ -12,6 +11,7 @@ import { SliderField } from "@/shared/ui/slider-field";
 import { Figures, WidgetCard } from "@/shared/ui/widget";
 import { Equation } from "./equation";
 import { ExhibitFrame } from "./exhibit-frame";
+import { BuildPending } from "./build-pending";
 import { PreviewPending, type PreviewMode, type PreviewProps } from "./preview-mode";
 import { G, bounces, figures, state, type Bounces, type BouncingBall } from "./simulate/bounce";
 import { SIDE } from "./stage";
@@ -89,10 +89,8 @@ export function BouncePage() {
         )
       }
     >
-      {defaults.isPending ? (
-        <LoadingState className="py-10" label={t("common.loading")} />
-      ) : !data || height === null || !ball ? (
-        <AlertBanner tone="danger">{apiErrorMessage(defaults.error, t("experiments.failed"))}</AlertBanner>
+      {defaults.isPending || !data || height === null || !ball ? (
+        <BuildPending pending={defaults.isPending} error={defaults.error} />
       ) : (
         <>
           {/* A new height is a new start: the balls go back up. */}

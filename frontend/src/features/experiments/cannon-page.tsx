@@ -2,7 +2,6 @@ import { useEffect, useMemo, useRef, useState, type PointerEvent as ReactPointer
 import { useTranslation } from "react-i18next";
 import { ArrowDownUp, ArrowDown, Pause, Play, RotateCcw } from "lucide-react";
 import {
-  AlertBanner,
   Button,
   LoadingState,
   SectionLabel,
@@ -11,7 +10,6 @@ import {
   ToggleGroup,
   seriesLegendEntries,
 } from "@eifi1/ui-kit";
-import { apiErrorMessage } from "@/shared/api/client";
 import { SeriesChart } from "@/shared/charts/series-chart";
 import { useLocale } from "@/shared/i18n/use-locale";
 import { formatNumber } from "@/shared/lib/format";
@@ -22,6 +20,7 @@ import { Figures, WidgetCard } from "@/shared/ui/widget";
 import { CannonView } from "./cannon-view";
 import { Equation } from "./equation";
 import { ExhibitFrame } from "./exhibit-frame";
+import { BuildPending } from "./build-pending";
 import {
   CONTACT_STEP_S,
   G,
@@ -78,10 +77,8 @@ export function CannonPage() {
       computed={<CannonComputed />}
       sweetSpot={<CannonTrick figures={figures.data ?? null} stack={stack} />}
     >
-      {defaults.isPending ? (
-        <LoadingState className="py-10" label={t("common.loading")} />
-      ) : !stack ? (
-        <AlertBanner tone="danger">{apiErrorMessage(defaults.error, t("experiments.failed"))}</AlertBanner>
+      {defaults.isPending || !stack ? (
+        <BuildPending pending={defaults.isPending} error={defaults.error} />
       ) : (
         <>
           <CannonPlay stack={stack} onDropHeight={(h) => setBuild({ ...stack, drop_m: h })} />

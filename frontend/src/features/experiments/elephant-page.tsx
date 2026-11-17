@@ -11,7 +11,6 @@ import {
   seriesLegendEntries,
   useDebounce,
 } from "@eifi1/ui-kit";
-import { apiErrorMessage } from "@/shared/api/client";
 import { SeriesChart } from "@/shared/charts/series-chart";
 import { useLocale } from "@/shared/i18n/use-locale";
 import { formatNumber } from "@/shared/lib/format";
@@ -22,6 +21,7 @@ import { Figures, WidgetCard } from "@/shared/ui/widget";
 import { ElephantView, JET_DRAWN_M, type Streak } from "./elephant-view";
 import { Equation } from "./equation";
 import { ExhibitFrame } from "./exhibit-frame";
+import { BuildPending } from "./build-pending";
 import {
   STEP_S,
   airSpeed,
@@ -108,10 +108,8 @@ export function ElephantPage() {
       computed={<ElephantComputed />}
       sweetSpot={<ElephantTrick figures={figures.data ?? null} exhibit={exhibit} />}
     >
-      {defaults.isPending ? (
-        <LoadingState className="py-10" label={t("common.loading")} />
-      ) : !exhibit ? (
-        <AlertBanner tone="danger">{apiErrorMessage(defaults.error, t("experiments.failed"))}</AlertBanner>
+      {defaults.isPending || !exhibit ? (
+        <BuildPending pending={defaults.isPending} error={defaults.error} />
       ) : (
         <>
           <ElephantPlay exhibit={exhibit} onChange={setBuild} limit={figures.data?.tilt_limit_deg ?? null} />

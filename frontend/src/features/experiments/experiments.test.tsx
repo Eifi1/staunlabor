@@ -1418,3 +1418,22 @@ describe("for a reader who asked for reduced motion", () => {
     expect(screen.getByRole("button", { name: E.play.pause })).toBeInTheDocument();
   });
 });
+
+describe("while the server does not answer", () => {
+  // The defaults, the chair's boxes and the Chladni plate's modes: the three
+  // answers a page waits on before it draws its twin.
+  it.each([
+    ["coupled pendulums", CoupledPage, "GET /experiments/defaults"],
+    ["chair", ChairPage, "GET /experiments/chair"],
+    ["Chladni plate", ChladniPage, "GET /experiments/chladni"],
+  ])("the %s page says so in place of its twin", async (_, Page, route) => {
+    mockApi({
+      "GET /experiments/defaults": fixtures.defaults,
+      "GET /experiments/chair": chair,
+      "GET /experiments/chladni": fixtures.chladni,
+      [route]: new Error("unreachable"),
+    });
+    renderWithProviders(<Page />);
+    expect(await screen.findByText(E.failed)).toBeInTheDocument();
+  });
+});

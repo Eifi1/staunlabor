@@ -1,8 +1,7 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Hand, Pause, Play, RotateCcw } from "lucide-react";
-import { AlertBanner, Button, LoadingState, Switch } from "@eifi1/ui-kit";
-import { apiErrorMessage } from "@/shared/api/client";
+import { Button, LoadingState, Switch } from "@eifi1/ui-kit";
 import { SeriesChart } from "@/shared/charts/series-chart";
 import { useLocale } from "@/shared/i18n/use-locale";
 import { formatNumber } from "@/shared/lib/format";
@@ -12,6 +11,7 @@ import { SliderField } from "@/shared/ui/slider-field";
 import { Figures, WidgetCard } from "@/shared/ui/widget";
 import { Equation } from "./equation";
 import { ExhibitFrame } from "./exhibit-frame";
+import { BuildPending } from "./build-pending";
 import { PlatformView } from "./platform-view";
 import { frictionStep, inertia, pullN, run, type Move, type Posture } from "./simulate/platform";
 import { PreviewPending, type PreviewMode, type PreviewProps } from "./preview-mode";
@@ -84,10 +84,8 @@ export function PlatformPage() {
       computed={<PlatformComputed />}
       sweetSpot={<PlatformTrick figures={figures.data ?? null} exhibit={exhibit} />}
     >
-      {defaults.isPending ? (
-        <LoadingState className="py-10" label={t("common.loading")} />
-      ) : !exhibit ? (
-        <AlertBanner tone="danger">{apiErrorMessage(defaults.error, t("experiments.failed"))}</AlertBanner>
+      {defaults.isPending || !exhibit ? (
+        <BuildPending pending={defaults.isPending} error={defaults.error} />
       ) : (
         <>
           <PlatformPlay key={JSON.stringify(exhibit)} exhibit={exhibit} />

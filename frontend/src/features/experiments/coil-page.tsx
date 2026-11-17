@@ -1,8 +1,7 @@
 import { useEffect, useMemo, useRef, useState, type KeyboardEvent } from "react";
 import { useTranslation } from "react-i18next";
 import { Pause, Play, RotateCcw } from "lucide-react";
-import { AlertBanner, Button, LoadingState, Switch, ToggleGroup } from "@eifi1/ui-kit";
-import { apiErrorMessage } from "@/shared/api/client";
+import { Button, LoadingState, Switch, ToggleGroup } from "@eifi1/ui-kit";
 import { SeriesChart } from "@/shared/charts/series-chart";
 import { useLocale } from "@/shared/i18n/use-locale";
 import { formatNumber } from "@/shared/lib/format";
@@ -15,6 +14,7 @@ import { PreviewPending, type PreviewMode, type PreviewProps } from "./preview-m
 import { startsRunning } from "./play";
 import { Equation } from "./equation";
 import { ExhibitFrame } from "./exhibit-frame";
+import { BuildPending } from "./build-pending";
 import {
   RESISTANCE_FADE_M_S,
   STEP_S,
@@ -106,10 +106,8 @@ export function CoilPage() {
       computed={<CoilComputed />}
       sweetSpot={<CoilTrick exhibit={exhibit} analysis={analysis.data ?? null} />}
     >
-      {defaults.isPending ? (
-        <LoadingState className="py-10" label={t("common.loading")} />
-      ) : !exhibit ? (
-        <AlertBanner tone="danger">{apiErrorMessage(defaults.error, t("experiments.failed"))}</AlertBanner>
+      {defaults.isPending || !exhibit ? (
+        <BuildPending pending={defaults.isPending} error={defaults.error} />
       ) : (
         <>
           {/* A changed build starts the car again: keyed on the build. */}
