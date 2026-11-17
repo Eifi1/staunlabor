@@ -1,5 +1,5 @@
 import { useDebounce } from "@eifi1/ui-kit";
-import { useQuery } from "@tanstack/react-query";
+import { keepPreviousData, useQuery } from "@tanstack/react-query";
 import { experimentsApi, queryKeys } from "@/shared/api/endpoints";
 import type {
   CoilExhibitRequest,
@@ -45,120 +45,63 @@ export function useChladniModes() {
  *  has said: the same 0.15 s it serves. */
 const FALLBACK_SETTLE_S = 0.15;
 
-/** A coil build's figures and curves, once its sliders have held still; the
- *  last answer stays on screen while the next is in flight. `null` asks for
- *  nothing. */
-export function useCoilAnalysis(build: CoilExhibitRequest | null) {
+/** An exhibit's answer to its build, once the build's sliders have held still
+ *  for the page's settle; the last answer stays on screen while the next is in
+ *  flight. `null` asks for nothing. Every routed exhibit's hook below is this
+ *  with its name and its route. */
+function useSettledQuery<Build, Answer>(exhibit: string, ask: (build: Build) => Promise<Answer>, build: Build | null) {
   const defaults = useExperimentsDefaults();
   const settleS = defaults.data?.settle_s ?? FALLBACK_SETTLE_S;
   const settled = useDebounce(build, settleS * 1000, { key: JSON.stringify(build) });
   return useQuery({
-    queryKey: queryKeys.experiments("coil", settled),
-    queryFn: () => experimentsApi.coil(settled as CoilExhibitRequest),
+    queryKey: queryKeys.experiments(exhibit, settled),
+    queryFn: () => ask(settled as Build),
     enabled: settled !== null,
-    placeholderData: (previous) => previous,
+    placeholderData: keepPreviousData,
     staleTime: Infinity,
   });
+}
+
+/** A coil build's figures and curves, once its sliders have held still. */
+export function useCoilAnalysis(build: CoilExhibitRequest | null) {
+  return useSettledQuery("coil", experimentsApi.coil, build);
 }
 
 /** A sphere's orbits and swing, once its sliders have held still. */
 export function useSphereFigures(build: SphereRequest | null) {
-  const defaults = useExperimentsDefaults();
-  const settleS = defaults.data?.settle_s ?? FALLBACK_SETTLE_S;
-  const settled = useDebounce(build, settleS * 1000, { key: JSON.stringify(build) });
-  return useQuery({
-    queryKey: queryKeys.experiments("sphere", settled),
-    queryFn: () => experimentsApi.sphere(settled as SphereRequest),
-    enabled: settled !== null,
-    placeholderData: (previous) => previous,
-    staleTime: Infinity,
-  });
+  return useSettledQuery("sphere", experimentsApi.sphere, build);
 }
 
 /** A platform's spins and curves, once its sliders have held still. */
 export function usePlatformFigures(build: PlatformExhibitRequest | null) {
-  const defaults = useExperimentsDefaults();
-  const settleS = defaults.data?.settle_s ?? FALLBACK_SETTLE_S;
-  const settled = useDebounce(build, settleS * 1000, { key: JSON.stringify(build) });
-  return useQuery({
-    queryKey: queryKeys.experiments("platform", settled),
-    queryFn: () => experimentsApi.platform(settled as PlatformExhibitRequest),
-    enabled: settled !== null,
-    placeholderData: (previous) => previous,
-    staleTime: Infinity,
-  });
+  return useSettledQuery("platform", experimentsApi.platform, build);
 }
 
 /** A race's six tracks and its valley, once its sliders have held still. */
 export function useRace(build: RaceRequest | null) {
-  const defaults = useExperimentsDefaults();
-  const settleS = defaults.data?.settle_s ?? FALLBACK_SETTLE_S;
-  const settled = useDebounce(build, settleS * 1000, { key: JSON.stringify(build) });
-  return useQuery({
-    queryKey: queryKeys.experiments("race", settled),
-    queryFn: () => experimentsApi.race(settled as RaceRequest),
-    enabled: settled !== null,
-    placeholderData: (previous) => previous,
-    staleTime: Infinity,
-  });
+  return useSettledQuery("race", experimentsApi.race, build);
 }
 
 /** An elephant build's float height, curves and tilt limit, once its sliders
  *  have held still. */
 export function useElephantFigures(build: ElephantRequest | null) {
-  const defaults = useExperimentsDefaults();
-  const settleS = defaults.data?.settle_s ?? FALLBACK_SETTLE_S;
-  const settled = useDebounce(build, settleS * 1000, { key: JSON.stringify(build) });
-  return useQuery({
-    queryKey: queryKeys.experiments("elephant", settled),
-    queryFn: () => experimentsApi.elephant(settled as ElephantRequest),
-    enabled: settled !== null,
-    placeholderData: (previous) => previous,
-    staleTime: Infinity,
-  });
+  return useSettledQuery("elephant", experimentsApi.elephant, build);
 }
 
 /** A drum's window, its curve of presses and its best ring, once its sliders
  *  have held still. */
 export function useSmokeFigures(build: SmokeExhibitRequest | null) {
-  const defaults = useExperimentsDefaults();
-  const settleS = defaults.data?.settle_s ?? FALLBACK_SETTLE_S;
-  const settled = useDebounce(build, settleS * 1000, { key: JSON.stringify(build) });
-  return useQuery({
-    queryKey: queryKeys.experiments("smoke", settled),
-    queryFn: () => experimentsApi.smoke(settled as SmokeExhibitRequest),
-    enabled: settled !== null,
-    placeholderData: (previous) => previous,
-    staleTime: Infinity,
-  });
+  return useSettledQuery("smoke", experimentsApi.smoke, build);
 }
 
 /** How high one, two and three balls of a stack send the top one, once its
  *  sliders have held still. */
 export function useCannonFigures(build: BallStackRequest | null) {
-  const defaults = useExperimentsDefaults();
-  const settleS = defaults.data?.settle_s ?? FALLBACK_SETTLE_S;
-  const settled = useDebounce(build, settleS * 1000, { key: JSON.stringify(build) });
-  return useQuery({
-    queryKey: queryKeys.experiments("cannon", settled),
-    queryFn: () => experimentsApi.cannon(settled as BallStackRequest),
-    enabled: settled !== null,
-    placeholderData: (previous) => previous,
-    staleTime: Infinity,
-  });
+  return useSettledQuery("cannon", experimentsApi.cannon, build);
 }
 
 /** A pendulum wave's lengths and how far apart it comes back, once its sliders
  *  have held still. */
 export function useWaveFigures(build: WaveRequest | null) {
-  const defaults = useExperimentsDefaults();
-  const settleS = defaults.data?.settle_s ?? FALLBACK_SETTLE_S;
-  const settled = useDebounce(build, settleS * 1000, { key: JSON.stringify(build) });
-  return useQuery({
-    queryKey: queryKeys.experiments("wave", settled),
-    queryFn: () => experimentsApi.wave(settled as WaveRequest),
-    enabled: settled !== null,
-    placeholderData: (previous) => previous,
-    staleTime: Infinity,
-  });
+  return useSettledQuery("wave", experimentsApi.wave, build);
 }
