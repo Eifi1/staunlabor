@@ -12,6 +12,7 @@ import { Route, Routes } from "react-router";
 import en from "@/shared/i18n/locales/en.json";
 import { renderWithProviders } from "@/test/render";
 import { AppRoutes } from "@/app/routes";
+import { EXHIBITS } from "@/features/experiments/exhibits";
 import { AboutPage } from "./about-page";
 import { ANYPLOT_PALETTE_URL, ANYPLOT_URL } from "./credits";
 import { ImprintPage, PrivacyPage } from "./legal-pages";
@@ -141,6 +142,24 @@ describe("the privacy policy", () => {
 });
 
 describe("the routes", () => {
+  // `EXHIBITS` names each exhibit's path, and the link pages, the overview and
+  // the daily pick all follow it; the routes are written apart from it, and a
+  // path without its route would ship a 404 behind a share card.
+  it.each(EXHIBITS.flatMap((entry) => (entry.path ? [[entry.path, entry.exhibit] as const] : [])))(
+    "opens %s on its exhibit's page",
+    async (path, exhibit) => {
+      renderWithProviders(
+        <Routes>
+          <Route path="*" element={<AppRoutes />} />
+        </Routes>,
+        { initialEntries: [path] },
+      );
+      expect(
+        await screen.findByRole("heading", { level: 1, name: en.experiments.exhibits[exhibit].title }),
+      ).toBeInTheDocument();
+    },
+  );
+
   it("answers an address that is no page with the 404, inside the site's frame", async () => {
     renderWithProviders(
       <Routes>
