@@ -2,6 +2,29 @@
 
 All notable changes to Staunlabor are documented in this file, generated from the commit messages by commit-and-tag-version at each release.
 
+## [0.1.9](https://github.com/Eifi1/staunlabor/compare/v0.1.8...v0.1.9) (2026-11-17)
+
+### Added
+
+* **experiments:** a pulsing skeleton where a drawing waits for the waking server ([f917efc](https://github.com/Eifi1/staunlabor/commit/f917efca7cbd7b3aa72f99bf1389d031f62af24f))
+* **experiments:** the twin's card in outline while an exhibit page waits for the server ([12e5761](https://github.com/Eifi1/staunlabor/commit/12e576191f91a216c0d6de249cb9d73c2ee6827e))
+* skeletons while the server wakes, six fixes, guard tests and the first refactors ([#4](https://github.com/Eifi1/staunlabor/issues/4)) ([cc62cf7](https://github.com/Eifi1/staunlabor/commit/cc62cf7fd0078b77eebb8a2a96df88ebb023abad))
+
+### Fixed
+
+* **experiments:** a gyroscope too slow to circle at its tilt let go from rest, not breaking the site ([7a30000](https://github.com/Eifi1/staunlabor/commit/7a3000072c405428f79134c0a071539eac66215b))
+* **experiments:** every twin starts still for a reader who asked for reduced motion ([d285231](https://github.com/Eifi1/staunlabor/commit/d285231a2c63726ea9aa0d8a16d487614eed9fb8))
+* **experiments:** the floating top's own icon, no longer the magnet car's ([2587641](https://github.com/Eifi1/staunlabor/commit/2587641d86a5d5908e122099215c495cf66f8d27))
+* **experiments:** the race takes a run clamped to its bound, no longer stuck a rounding past it ([1e2602b](https://github.com/Eifi1/staunlabor/commit/1e2602b778a7fd39c206264bd4657599e05d0181))
+* **experiments:** the sky's end caption above the window, not cut at the drawing's edge ([2154817](https://github.com/Eifi1/staunlabor/commit/2154817b106328b8a173b32d9461dea3714e556d))
+* **site:** the app's own confirm dialog, so the feedback thread's delete no longer throws ([d62a53f](https://github.com/Eifi1/staunlabor/commit/d62a53fe561dfa5c684151b2ffb71165dc01e231))
+
+### Changed
+
+* **experiments:** one BuildPending for every page's loading and failure states ([d0bb07f](https://github.com/Eifi1/staunlabor/commit/d0bb07fe2f4c97190fb0d52a9c54e3f9ab99c6f9))
+* **experiments:** one settled query for every routed exhibit, two endpoint factories ([befecbc](https://github.com/Eifi1/staunlabor/commit/befecbcb908a18f49a68cb9bc4e7cd07c577d150))
+* **experiments:** one table of exhibit modules for the routes, previews and icons ([10ee2ea](https://github.com/Eifi1/staunlabor/commit/10ee2ea195faba2aeb6ce9b73b65b13b2bad5c59))
+
 ## [0.1.8](https://github.com/Eifi1/staunlabor/compare/v0.1.7...v0.1.8) (2026-11-16)
 
 ### Added
