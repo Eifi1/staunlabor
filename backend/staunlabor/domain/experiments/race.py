@@ -118,6 +118,11 @@ INERTIA = {RaceBall.SOLID: SOLID, RaceBall.HOLLOW: HOLLOW, RaceBall.SLIDING: 0.0
 SHORTEST_RUN = 1.1
 #: The longest, as a share of the drop: past it the tracks are nearly flat.
 LONGEST_RUN = 6.0
+#: How far past either bound a run may lie, as a share of it. The page clamps
+#: its run to a bound times the drop, and that product in floats can land a
+#: rounding outside (6 · 0.2 m is 1.2000000000000002 m): refused, it left the
+#: page with an error and no sliders to move back.
+_RUN_ROUNDING = 1e-9
 
 
 @dataclass(frozen=True)
@@ -130,7 +135,8 @@ class Race:
     def __post_init__(self) -> None:
         if not self.drop_m > 0 or not self.run_m > 0:
             raise ValueError("the finish has to lie below and beyond the start")
-        if not SHORTEST_RUN <= self.run_m / self.drop_m <= LONGEST_RUN:
+        share = self.run_m / self.drop_m
+        if not SHORTEST_RUN * (1 - _RUN_ROUNDING) <= share <= LONGEST_RUN * (1 + _RUN_ROUNDING):
             raise ValueError("the run lies between 1.1 and six times the drop")
 
     @property
