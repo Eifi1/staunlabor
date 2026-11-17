@@ -1944,7 +1944,7 @@
         "phi": "a földrajzi szélesség"
       },
       "sweet": {
-        "floor": "Az inga megtartja síkját a térben, alatta elfordul a padló. Winterthurban óránként {{rate}}°-kal: így mutatta meg Foucault 1851-ben Párizsban, hogy a Föld forog, anélkül hogy az égre nézett volna.",
+        "floor": "Az inga nem fordul el a padlóval: Winterthurban a padló óránként {{rate}}°-kal fordul el a lengési síkja alatt. Így mutatta meg Foucault 1851-ben Párizsban, hogy a Föld forog, anélkül hogy az égre nézett volna.",
         "period": "Egy lengés itt {{period}} s; a sík ettől függetlenül fordul. Egy rövidebb inga ugyanezt mutatja, ha elég sokáig leng."
       },
       "chart": {

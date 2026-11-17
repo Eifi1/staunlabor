@@ -1944,7 +1944,7 @@
         "phi": "la latitud"
       },
       "sweet": {
-        "floor": "El péndulo mantiene su plano en el espacio y el suelo gira debajo. En Winterthur a {{rate}}° por hora: así mostró Foucault en París en 1851 que la Tierra gira, sin mirar al cielo.",
+        "floor": "El péndulo no gira con el suelo: en Winterthur el suelo gira bajo su plano a {{rate}}° por hora. Así mostró Foucault en París en 1851 que la Tierra gira, sin mirar al cielo.",
         "period": "Aquí una oscilación dura {{period}} s; el plano gira sin que eso importe. Un péndulo más corto muestra lo mismo, siempre que siga oscilando lo suficiente."
       },
       "chart": {

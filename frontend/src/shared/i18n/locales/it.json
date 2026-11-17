@@ -1944,7 +1944,7 @@
         "phi": "la latitudine"
       },
       "sweet": {
-        "floor": "Il pendolo mantiene il suo piano nello spazio; il pavimento ruota sotto di esso. A Winterthur a {{rate}}° all'ora: così Foucault mostrò a Parigi nel 1851 che la Terra ruota, senza guardare il cielo.",
+        "floor": "Il pendolo non ruota con il pavimento: a Winterthur il pavimento ruota sotto il suo piano a {{rate}}° all'ora. Così Foucault mostrò a Parigi nel 1851 che la Terra ruota, senza guardare il cielo.",
         "period": "Qui un'oscillazione dura {{period}} s; il piano ruota indipendentemente da ciò. Un pendolo più corto mostra lo stesso, purché continui a oscillare abbastanza a lungo."
       },
       "chart": {

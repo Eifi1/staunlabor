@@ -1944,7 +1944,7 @@
         "phi": "die geografische Breite"
       },
       "sweet": {
-        "floor": "Das Pendel hält seine Ebene im Raum, der Boden dreht sich darunter weg. In Winterthur mit {{rate}}° pro Stunde: Foucault hat 1851 so in Paris gezeigt, dass sich die Erde dreht, ohne in den Himmel zu schauen.",
+        "floor": "Das Pendel dreht sich nicht mit dem Boden: In Winterthur dreht sich der Boden mit {{rate}}° pro Stunde unter seiner Ebene weg. So hat Foucault 1851 in Paris gezeigt, dass sich die Erde dreht, ohne in den Himmel zu schauen.",
         "period": "Eine Schwingung dauert hier {{period}} s; die Ebene dreht sich davon unberührt. Ein kürzeres Pendel zeigt dasselbe, solange es lange genug weiterschwingt."
       },
       "chart": {

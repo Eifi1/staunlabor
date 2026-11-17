@@ -1944,7 +1944,7 @@
         "phi": "the latitude"
       },
       "sweet": {
-        "floor": "The pendulum keeps its plane in space; the floor turns away beneath it. In Winterthur at {{rate}}° an hour: so Foucault showed in Paris in 1851 that the Earth turns, without looking at the sky.",
+        "floor": "The pendulum does not turn with the floor: in Winterthur the floor turns away beneath its plane at {{rate}}° an hour. So Foucault showed in Paris in 1851 that the Earth turns, without looking at the sky.",
         "period": "One swing takes {{period}} s here; the plane turns regardless. A shorter pendulum shows the same, as long as it keeps swinging long enough."
       },
       "chart": {

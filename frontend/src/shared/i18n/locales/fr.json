@@ -1944,7 +1944,7 @@
         "phi": "la latitude"
       },
       "sweet": {
-        "floor": "Le pendule garde son plan dans l'espace ; le sol tourne en dessous. À Winterthour à {{rate}}° par heure : c'est ainsi que Foucault montra à Paris en 1851 que la Terre tourne, sans regarder le ciel.",
+        "floor": "Le pendule ne tourne pas avec le sol : à Winterthour, le sol tourne sous son plan à {{rate}}° par heure. C'est ainsi que Foucault montra à Paris en 1851 que la Terre tourne, sans regarder le ciel.",
         "period": "Une oscillation dure ici {{period}} s ; le plan tourne sans s'en soucier. Un pendule plus court montre la même chose, pourvu qu'il oscille assez longtemps."
       },
       "chart": {
