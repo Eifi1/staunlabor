@@ -32,8 +32,23 @@ import {
 import { SIDE } from "./stage";
 import { useExperimentsDefaults } from "./use-experiments";
 
-/** The tube's drawing: the lamp, the tube from `left` to `right`, the window at its end. */
-const TUBE = { width: 400, height: 150, left: 62, right: 318, top: 44, bottom: 82, lampX: 30, eyeX: 362 } as const;
+/**
+ * The tube's drawing: the lamp, the tube from `left` to `right`, the window at
+ * its end (centre `eyeX`, radius `eyeR`), and the line its two captions stand
+ * on, above it (`caption`).
+ */
+const TUBE = {
+  width: 400,
+  height: 150,
+  left: 62,
+  right: 318,
+  top: 44,
+  bottom: 82,
+  lampX: 30,
+  eyeX: 362,
+  eyeR: 24,
+  caption: 30,
+} as const;
 /** The tube's colour is computed at this many places along it, a gradient between them. */
 const SLICES = 64;
 /** The sky's drawing: the horizon, and the arc the sun moves along. */
@@ -156,12 +171,17 @@ function TubeView({ tube }: { tube: Tube }) {
         strokeWidth={1.5}
       />
       {/* The far end, looked into: the lamp's light that came through. */}
-      <circle cx={TUBE.eyeX} cy={cy} r={24} fill={css(hue(lampSpectrum, endLight(tube)))} stroke={INK} />
-      <text x={TUBE.eyeX} y={cy + 42} fontSize={13} fill={INK} textAnchor="middle">
-        {t("experiments.sky.play.end")}
-      </text>
-      <text x={TUBE.left} y={TUBE.top - 10} fontSize={13} fill={INK}>
+      <circle cx={TUBE.eyeX} cy={cy} r={TUBE.eyeR} fill={css(hue(lampSpectrum, endLight(tube)))} stroke={INK} />
+      {/* The captions above, where nothing else is drawn: the side's flush with
+          the tube's left end, the end's with the window's right edge, so a long
+          one grows to the left, over the tube. Centred under the window, the
+          end's ran past the drawing's edge and was cut (Spanish, French,
+          Hungarian; the German touched it), and below, the marks' labels pass. */}
+      <text x={TUBE.left} y={TUBE.caption} fontSize={13} fill={INK}>
         {t("experiments.sky.play.side")}
+      </text>
+      <text x={TUBE.eyeX + TUBE.eyeR} y={TUBE.caption} fontSize={13} fill={INK} textAnchor="end">
+        {t("experiments.sky.play.end")}
       </text>
       {[
         { m: shown.blue_half_m, label: t("experiments.sky.play.half_mark") },
