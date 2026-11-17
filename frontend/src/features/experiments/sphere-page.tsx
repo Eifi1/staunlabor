@@ -1,8 +1,7 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Pause, Play, RotateCcw } from "lucide-react";
-import { AlertBanner, Button, LoadingState, ToggleGroup } from "@eifi1/ui-kit";
-import { apiErrorMessage } from "@/shared/api/client";
+import { Button, LoadingState, ToggleGroup } from "@eifi1/ui-kit";
 import { SeriesChart } from "@/shared/charts/series-chart";
 import { useLocale } from "@/shared/i18n/use-locale";
 import { formatNumber } from "@/shared/lib/format";
@@ -12,6 +11,7 @@ import { SliderField } from "@/shared/ui/slider-field";
 import { Figures, WidgetCard } from "@/shared/ui/widget";
 import { Equation } from "./equation";
 import { ExhibitFrame } from "./exhibit-frame";
+import { BuildPending } from "./build-pending";
 import {
   RESISTANCE_FADE_M_S,
   STEP_S,
@@ -33,6 +33,7 @@ import {
 } from "./sphere-hand";
 import { SideView, TopView } from "./sphere-views";
 import { PreviewPending, type PreviewMode, type PreviewProps } from "./preview-mode";
+import { startsRunning } from "./play";
 import { SIDE, STAGE } from "./stage";
 import { useExperimentsDefaults, useSphereFigures } from "./use-experiments";
 
@@ -109,12 +110,11 @@ export function SpherePage() {
       computed={<SphereComputed />}
       sweetSpot={<SphereTrick figures={data} />}
     >
-      {defaults.isPending || (sphere && !data && figures.isPending) ? (
-        <LoadingState className="py-10" label={t("common.loading")} />
-      ) : !sphere || !data ? (
-        <AlertBanner tone="danger">
-          {apiErrorMessage(defaults.error ?? figures.error, t("experiments.failed"))}
-        </AlertBanner>
+      {defaults.isPending || (!!sphere && !data && figures.isPending) || !sphere || !data ? (
+        <BuildPending
+          pending={defaults.isPending || (!!sphere && !data && figures.isPending)}
+          error={defaults.error ?? figures.error}
+        />
       ) : (
         <>
           <SpherePlay key={JSON.stringify(sphere)} sphere={sphere} figures={data} />
@@ -152,7 +152,7 @@ function SpherePlay({
   if (sim.current === null) sim.current = { y: startState(s), hand: restingHand() };
   const finger = useRef<[number, number]>([0, 0]);
   const [view, setView] = useState<View>(() => viewOf(s, startState(s), restingHand()));
-  const [runningHere, setRunning] = useState(true);
+  const [runningHere, setRunning] = useState(startsRunning);
   const running = preview ? !paused : runningHere;
   const [mode, setMode] = useState<Mode>(preview ? "perfect" : "hand");
   const [tempo, setTempo] = useState(1.5);

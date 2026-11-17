@@ -1,8 +1,7 @@
 import { useEffect, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Eye } from "lucide-react";
-import { AlertBanner, Button, Chip, LoadingState, Switch } from "@eifi1/ui-kit";
-import { apiErrorMessage } from "@/shared/api/client";
+import { Button, Chip, Switch } from "@eifi1/ui-kit";
 import { useLocale } from "@/shared/i18n/use-locale";
 import { formatNumber } from "@/shared/lib/format";
 import { SliderField } from "@/shared/ui/slider-field";
@@ -10,6 +9,7 @@ import { Figures, WidgetCard } from "@/shared/ui/widget";
 import { OrbitView, frameOf } from "./chair-views";
 import { Equation } from "./equation";
 import { ExhibitFrame } from "./exhibit-frame";
+import { BuildPending } from "./build-pending";
 import { PreviewPending, type PreviewProps } from "./preview-mode";
 import { SIDE, STAGE } from "./stage";
 import { useChair } from "./use-experiments";
@@ -198,10 +198,8 @@ export function ChairPage() {
         </>
       }
     >
-      {chair.isPending ? (
-        <LoadingState className="py-10" label={t("common.loading")} />
-      ) : chair.isError || !data ? (
-        <AlertBanner tone="danger">{apiErrorMessage(chair.error, t("experiments.failed"))}</AlertBanner>
+      {chair.isPending || chair.isError || !data ? (
+        <BuildPending pending={chair.isPending} error={chair.error} />
       ) : (
         <WidgetCard
           title={t("experiments.chair.views.title")}

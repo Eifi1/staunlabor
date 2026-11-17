@@ -1,8 +1,7 @@
 import { useEffect, useMemo, useRef, useState, type PointerEvent } from "react";
 import { useTranslation } from "react-i18next";
 import { Hand, Pause, Play } from "lucide-react";
-import { AlertBanner, Button, LoadingState, ToggleGroup } from "@eifi1/ui-kit";
-import { apiErrorMessage } from "@/shared/api/client";
+import { AlertBanner, Button, ToggleGroup } from "@eifi1/ui-kit";
 import { useLocale } from "@/shared/i18n/use-locale";
 import { formatNumber } from "@/shared/lib/format";
 import { useChartHex } from "@/shared/state/palette-store";
@@ -10,7 +9,9 @@ import { SliderField } from "@/shared/ui/slider-field";
 import { Figures, WidgetCard } from "@/shared/ui/widget";
 import { Equation } from "./equation";
 import { ExhibitFrame } from "./exhibit-frame";
+import { BuildPending } from "./build-pending";
 import { PreviewPending, type PreviewMode, type PreviewProps } from "./preview-mode";
+import { startsRunning } from "./play";
 import {
   outcome,
   position,
@@ -77,10 +78,8 @@ export function PegPage() {
         />
       }
     >
-      {defaults.isPending ? (
-        <LoadingState className="py-10" label={t("common.loading")} />
-      ) : !p ? (
-        <AlertBanner tone="danger">{apiErrorMessage(defaults.error, t("experiments.failed"))}</AlertBanner>
+      {defaults.isPending || !p ? (
+        <BuildPending pending={defaults.isPending} error={defaults.error} />
       ) : (
         <>
           <PegPlay key={JSON.stringify(p)} p={p} onChange={setBuild} />
@@ -224,7 +223,7 @@ function PegPlay({
 }: { p: PegPendulum; onChange?: (next: PegPendulum) => void } & PreviewMode) {
   const { t } = useTranslation();
   const sim = useRef({ s: start(p), clock: 0, owed: 0, trail: [] as Array<[number, number]>, i: 0 });
-  const [runningHere, setRunning] = useState(true);
+  const [runningHere, setRunning] = useState(startsRunning);
   const [speedHere, setSpeed] = useState<Speed>(1);
   const [frame, setFrame] = useState(() => ({ s: start(p), trail: [] as Array<[number, number]> }));
   const [said, setSaid] = useState<string | null>(null);

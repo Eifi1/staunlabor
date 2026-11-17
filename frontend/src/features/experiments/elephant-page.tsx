@@ -11,7 +11,6 @@ import {
   seriesLegendEntries,
   useDebounce,
 } from "@eifi1/ui-kit";
-import { apiErrorMessage } from "@/shared/api/client";
 import { SeriesChart } from "@/shared/charts/series-chart";
 import { useLocale } from "@/shared/i18n/use-locale";
 import { formatNumber } from "@/shared/lib/format";
@@ -22,6 +21,7 @@ import { Figures, WidgetCard } from "@/shared/ui/widget";
 import { ElephantView, JET_DRAWN_M, type Streak } from "./elephant-view";
 import { Equation } from "./equation";
 import { ExhibitFrame } from "./exhibit-frame";
+import { BuildPending } from "./build-pending";
 import {
   STEP_S,
   airSpeed,
@@ -37,6 +37,7 @@ import {
   run,
 } from "./simulate/elephant";
 import { PreviewPending, type PreviewMode, type PreviewProps } from "./preview-mode";
+import { startsRunning } from "./play";
 import { STAGE } from "./stage";
 import { useElephantFigures, useExperimentsDefaults } from "./use-experiments";
 
@@ -107,10 +108,8 @@ export function ElephantPage() {
       computed={<ElephantComputed />}
       sweetSpot={<ElephantTrick figures={figures.data ?? null} exhibit={exhibit} />}
     >
-      {defaults.isPending ? (
-        <LoadingState className="py-10" label={t("common.loading")} />
-      ) : !exhibit ? (
-        <AlertBanner tone="danger">{apiErrorMessage(defaults.error, t("experiments.failed"))}</AlertBanner>
+      {defaults.isPending || !exhibit ? (
+        <BuildPending pending={defaults.isPending} error={defaults.error} />
       ) : (
         <>
           <ElephantPlay exhibit={exhibit} onChange={setBuild} limit={figures.data?.tilt_limit_deg ?? null} />
@@ -149,7 +148,7 @@ function ElephantPlay({
   const locale = useLocale();
   const [tilt, setTilt] = useState(0);
   const [auto, setAuto] = useState(preview);
-  const [runningHere, setRunning] = useState(true);
+  const [runningHere, setRunning] = useState(startsRunning);
   const running = preview ? !paused : runningHere;
   // The ball set on the trunk, once: a state's initialiser, so the render never
   // reads the ref the loop then steps.

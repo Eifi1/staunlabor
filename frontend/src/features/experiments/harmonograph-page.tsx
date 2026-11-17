@@ -1,8 +1,7 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Download, FastForward, Pause, Play, RotateCcw } from "lucide-react";
-import { AlertBanner, Button, LoadingState, ToggleGroup } from "@eifi1/ui-kit";
-import { apiErrorMessage } from "@/shared/api/client";
+import { Button, LoadingState, ToggleGroup } from "@eifi1/ui-kit";
 import { useLocale } from "@/shared/i18n/use-locale";
 import { formatNumber } from "@/shared/lib/format";
 import { useChartHex } from "@/shared/state/palette-store";
@@ -10,7 +9,9 @@ import { SliderField } from "@/shared/ui/slider-field";
 import { Figures, WidgetCard } from "@/shared/ui/widget";
 import { Equation } from "./equation";
 import { ExhibitFrame } from "./exhibit-frame";
+import { BuildPending } from "./build-pending";
 import { PreviewPending, type PreviewMode, type PreviewProps } from "./preview-mode";
+import { startsRunning } from "./play";
 import {
   advance,
   figures as harmonographFigures,
@@ -87,10 +88,8 @@ export function HarmonographPage() {
       computed={<HarmonographComputed />}
       sweetSpot={<HarmonographTrick h={h} />}
     >
-      {defaults.isPending ? (
-        <LoadingState className="py-10" label={t("common.loading")} />
-      ) : !h ? (
-        <AlertBanner tone="danger">{apiErrorMessage(defaults.error, t("experiments.failed"))}</AlertBanner>
+      {defaults.isPending || !h ? (
+        <BuildPending pending={defaults.isPending} error={defaults.error} />
       ) : (
         <>
           <HarmonographPlay key={JSON.stringify(h)} h={h} />
@@ -119,7 +118,7 @@ function HarmonographPlay({ h, preview = false, paused = false }: { h: Harmonogr
   const ink = hex[INK_HUE % hex.length];
   const canvas = useRef<HTMLCanvasElement | null>(null);
   const drawing = useRef<DrawingState>(startDrawing(h));
-  const [runningHere, setRunning] = useState(true);
+  const [runningHere, setRunning] = useState(startsRunning);
   const [speedHere, setSpeed] = useState<Speed>(5);
   const [time, setTime] = useState(0);
   const [pen, setPen] = useState<[number, number]>(() => penAt(h, startDrawing(h)));

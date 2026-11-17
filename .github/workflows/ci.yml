@@ -116,7 +116,7 @@ jobs:
       # they are on the machine the push came from.
       - name: Format, lint, types, tests, build
         run: npm run check:frontend
-      - name: Security (npm audit, high and above)
+      - name: Security (npm audit, high and above, scripts/npm-audit.mjs)
         run: npm run check:security:frontend
       - name: Dead code (ts-prune against frontend/.ts-prune-baseline)
         run: npm run check:deadcode:frontend

@@ -136,6 +136,10 @@
       "computed": "Cómo se calcula"
     },
     "unchecked": "La revisión de los cálculos aún está pendiente: las cifras y los dibujos de estas páginas aún pueden cambiar.",
+    "play": {
+      "pause": "Pausa",
+      "run": "Seguir"
+    },
     "exhibits": {
       "chair": {
         "short": "La silla",
@@ -2246,7 +2250,8 @@
         "dip": "El eje baja",
         "suitcase": "Girar la maleta",
         "suitcase_hint": "Quien gira la maleta con esta rueda un cuarto de vuelta por segundo en una esquina debe aplicar este par de través.",
-        "dropped": "Sin giro la rueda cae: tras {{t}} s cuelga casi vertical."
+        "dropped": "Sin giro la rueda cae: tras {{t}} s cuelga casi vertical.",
+        "no_steady": "Tan lenta, la rueda no puede girar en círculo de forma regular con esta inclinación: se suelta desde el reposo."
       },
       "model": {
         "intro": "Una rueda que gira tiene momento angular a lo largo de su eje. La gravedad tira de la rueda, el hilo sujeta el extremo del eje: eso da un par de través al eje, horizontal.",

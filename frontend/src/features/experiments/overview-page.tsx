@@ -1,49 +1,7 @@
 import { useState } from "react";
 import { Link } from "react-router";
 import { useTranslation } from "react-i18next";
-import {
-  Anchor,
-  ArrowRight,
-  Armchair,
-  CalendarDays,
-  Check,
-  ChevronsUp,
-  Diamond,
-  Disc3,
-  Droplets,
-  GlassWater,
-  Globe,
-  HelpCircle,
-  Link2,
-  Magnet,
-  Orbit,
-  PenTool,
-  RefreshCcw,
-  RotateCcw,
-  RotateCw,
-  Shuffle,
-  Timer,
-  Torus,
-  Waves,
-  Wind,
-  Ellipsis,
-  Target,
-  AudioWaveform,
-  LifeBuoy,
-  Landmark,
-  Grid3x3,
-  Magnet as MagnetIcon,
-  CircuitBoard,
-  ChevronsDown,
-  Volleyball,
-  Layers,
-  TestTube,
-  Rainbow,
-  CloudSun,
-  Columns3,
-  BellRing,
-} from "lucide-react";
-import type { LucideIcon } from "lucide-react";
+import { ArrowRight, CalendarDays, Check, HelpCircle, RotateCcw } from "lucide-react";
 import {
   Button,
   Card,
@@ -63,49 +21,12 @@ import { useLocale } from "@/shared/i18n/use-locale";
 import { PAGE_SHELL } from "@/shared/ui/page-shell";
 import { UncheckedNotice } from "./unchecked-notice";
 import { dailyExhibit, dailyHistory, dayIn, type DailyPick } from "./daily";
+import { EXHIBIT_MODULES } from "./exhibit-modules";
 import { ExhibitPreview } from "./exhibit-preview";
 import { FittedPreview } from "./fitted-preview";
 import { lessonPath } from "./exhibit-frame";
 import { EXHIBITS, TOPICS, exhibitEntry, type Exhibit, type ExhibitEntry, type Topic } from "./exhibits";
 import { useTried } from "./tried";
-
-const ICON: Record<Exhibit, LucideIcon> = {
-  chair: Armchair,
-  coil: Magnet,
-  sphere: Orbit,
-  platform: RotateCw,
-  race: Timer,
-  elephant: Wind,
-  smoke: Torus,
-  cannon: ChevronsUp,
-  wave: Waves,
-  harmonograph: PenTool,
-  cone: Diamond,
-  parabola: GlassWater,
-  coupled: Link2,
-  peg: Anchor,
-  maxwell: Disc3,
-  chaos: Shuffle,
-  waterwheel: Droplets,
-  foucault: Globe,
-  coriolis: RefreshCcw,
-  cradle: Ellipsis,
-  well: Target,
-  resonance: AudioWaveform,
-  gyroscope: LifeBuoy,
-  arch: Landmark,
-  chladni: Grid3x3,
-  levitation: MagnetIcon,
-  circuit: CircuitBoard,
-  plates: ChevronsDown,
-  bounce: Volleyball,
-  overhang: Layers,
-  diver: TestTube,
-  rainbow: Rainbow,
-  sky: CloudSun,
-  slits: Columns3,
-  beats: BellRing,
-};
 
 /** Two weeks back, in the dialog: long enough to find the one a friend
  *  mentioned, and every exhibit at least once. */
@@ -322,7 +243,7 @@ const CARD_PREVIEW_HEIGHT = 200;
  *  (`ExhibitPreview`), so the list costs nothing below the fold. */
 function ExhibitCard({ entry, today, tried }: { entry: ExhibitEntry; today: boolean; tried: boolean }) {
   const { t } = useTranslation();
-  const Icon = ICON[entry.exhibit];
+  const Icon = EXHIBIT_MODULES[entry.exhibit].icon;
   const [live, setLive] = useState(false);
   return (
     <Card

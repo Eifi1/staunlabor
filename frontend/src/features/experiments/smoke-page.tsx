@@ -2,7 +2,6 @@ import { useEffect, useMemo, useRef, useState, type PointerEvent as ReactPointer
 import { useTranslation } from "react-i18next";
 import { Hand, Pause, Play, RotateCcw } from "lucide-react";
 import { AlertBanner, Button, Chip, LoadingState, StaticLegend, Switch, seriesLegendEntries } from "@eifi1/ui-kit";
-import { apiErrorMessage } from "@/shared/api/client";
 import { SeriesChart } from "@/shared/charts/series-chart";
 import { useLocale } from "@/shared/i18n/use-locale";
 import { formatNumber } from "@/shared/lib/format";
@@ -12,9 +11,11 @@ import { SliderField } from "@/shared/ui/slider-field";
 import { Figures, WidgetCard } from "@/shared/ui/widget";
 import { Equation } from "./equation";
 import { ExhibitFrame } from "./exhibit-frame";
+import { BuildPending } from "./build-pending";
 import { CORE_SHARE, SAMPLES_PER_S, flight, pressDepth, ringOf, type Flight, type Ring } from "./simulate/smoke";
 import { SmokeView, type Puff } from "./smoke-view";
 import { PreviewPending, type PreviewMode, type PreviewProps } from "./preview-mode";
+import { startsRunning } from "./play";
 import { STAGE } from "./stage";
 import { useExperimentsDefaults, useSmokeFigures } from "./use-experiments";
 
@@ -95,10 +96,8 @@ export function SmokePage() {
       computed={<SmokeComputed />}
       sweetSpot={<SmokeTrick figures={figures.data ?? null} exhibit={exhibit} />}
     >
-      {defaults.isPending ? (
-        <LoadingState className="py-10" label={t("common.loading")} />
-      ) : !exhibit ? (
-        <AlertBanner tone="danger">{apiErrorMessage(defaults.error, t("experiments.failed"))}</AlertBanner>
+      {defaults.isPending || !exhibit ? (
+        <BuildPending pending={defaults.isPending} error={defaults.error} />
       ) : (
         <>
           <SmokePlay exhibit={exhibit} figures={figures.data ?? null} />
@@ -144,7 +143,7 @@ function SmokePlay({
   const [duration, setDuration] = useState(0.5);
   const [depth, setDepth] = useState(stroke);
   const [auto, setAuto] = useState(preview);
-  const [runningHere, setRunning] = useState(true);
+  const [runningHere, setRunning] = useState(startsRunning);
   const running = preview ? !paused : runningHere;
   const [ring, setRing] = useState<Ring | null>(null);
   const [initial] = useState<Sim>(() => ({

@@ -1,8 +1,7 @@
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Flag, Pause, Play } from "lucide-react";
-import { AlertBanner, Button, LoadingState, Switch, ToggleGroup } from "@eifi1/ui-kit";
-import { apiErrorMessage } from "@/shared/api/client";
+import { Button, LoadingState, Switch, ToggleGroup } from "@eifi1/ui-kit";
 import { useLocale } from "@/shared/i18n/use-locale";
 import { formatNumber } from "@/shared/lib/format";
 import type { CurveKind, RaceAnalysis, RaceBall, RaceRequest } from "@/shared/types";
@@ -10,8 +9,10 @@ import { SliderField } from "@/shared/ui/slider-field";
 import { Figures, WidgetCard } from "@/shared/ui/widget";
 import { Equation } from "./equation";
 import { ExhibitFrame } from "./exhibit-frame";
+import { BuildPending } from "./build-pending";
 import { MotionTable, VectorPlane, niceSpan } from "./race-motion";
 import { PreviewPending, type PreviewMode, type PreviewProps } from "./preview-mode";
+import { startsRunning } from "./play";
 import { RaceView, ValleyView, ballState, pitEntries, raceLayout, type BallState } from "./race-views";
 import { G as PIT_G, run as runPit } from "./simulate/pit";
 import { useExperimentsDefaults, useRace } from "./use-experiments";
@@ -55,12 +56,11 @@ export function RacePage() {
       computed={<RaceComputed />}
       sweetSpot={<RaceTrick data={data} />}
     >
-      {defaults.isPending || (spec && !data && analysis.isPending) ? (
-        <LoadingState className="py-10" label={t("common.loading")} />
-      ) : !spec || !data ? (
-        <AlertBanner tone="danger">
-          {apiErrorMessage(defaults.error ?? analysis.error, t("experiments.failed"))}
-        </AlertBanner>
+      {defaults.isPending || (!!spec && !data && analysis.isPending) || !spec || !data ? (
+        <BuildPending
+          pending={defaults.isPending || (!!spec && !data && analysis.isPending)}
+          error={defaults.error ?? analysis.error}
+        />
       ) : (
         <>
           <RacePlay spec={spec} data={data} />
@@ -304,7 +304,7 @@ function RaceBuild({ spec, onChange }: { spec: RaceRequest; onChange: (next: Rac
 function ValleyPlay({ data }: { data: RaceAnalysis }) {
   const { t } = useTranslation();
   const locale = useLocale();
-  const [running, setRunning] = useState(true);
+  const [running, setRunning] = useState(startsRunning);
   const [time, setTime] = useClock(running, 0.5);
   const v = data.valley;
   return (

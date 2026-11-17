@@ -1,8 +1,7 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { Shuffle } from "lucide-react";
-import { AlertBanner, Button, LoadingState, Switch } from "@eifi1/ui-kit";
-import { apiErrorMessage } from "@/shared/api/client";
+import { Pause, Play, Shuffle } from "lucide-react";
+import { Button, Switch } from "@eifi1/ui-kit";
 import { useLocale } from "@/shared/i18n/use-locale";
 import { formatNumber } from "@/shared/lib/format";
 import { useTones } from "@/shared/lib/use-tones";
@@ -11,7 +10,9 @@ import { SliderField } from "@/shared/ui/slider-field";
 import { Figures, WidgetCard } from "@/shared/ui/widget";
 import { Equation } from "./equation";
 import { ExhibitFrame } from "./exhibit-frame";
+import { BuildPending } from "./build-pending";
 import { PreviewPending, type PreviewMode, type PreviewProps } from "./preview-mode";
+import { startsRunning } from "./play";
 import { frequencyHz, modeGrids, response, responseFrom, type Mode, type Plate } from "./simulate/chladni";
 import { SIDE } from "./stage";
 import { useChladniModes, useExperimentsDefaults } from "./use-experiments";
@@ -97,10 +98,8 @@ export function ChladniPage() {
       computed={<ChladniComputed />}
       sweetSpot={<ChladniTrick />}
     >
-      {defaults.isPending || modes.isPending ? (
-        <LoadingState className="py-10" label={t("common.loading")} />
-      ) : !plate || !modes.data ? (
-        <AlertBanner tone="danger">{apiErrorMessage(failed, t("experiments.failed"))}</AlertBanner>
+      {defaults.isPending || modes.isPending || !plate || !modes.data ? (
+        <BuildPending pending={defaults.isPending || modes.isPending} error={failed} />
       ) : (
         <ChladniPlay plate={plate} data={modes.data} />
       )}
@@ -170,7 +169,8 @@ function ChladniPlay({
   const tone = useTones(sound && !preview, [drive], [Math.sqrt(Math.min(1, share))]);
   const sand = useRef(strew(GRAINS));
   const [grains, setGrains] = useState<Grain[]>(() => strew(GRAINS));
-  const running = !(preview && paused);
+  const [runningHere, setRunning] = useState(startsRunning);
+  const running = preview ? !paused : runningHere;
 
   useEffect(() => {
     if (!running) return;
@@ -207,10 +207,16 @@ function ChladniPlay({
       title={t("experiments.chladni.play.title")}
       hint={t("experiments.chladni.play.hint")}
       actions={
-        <Button variant="secondary" size="sm" onClick={restrew}>
-          <Shuffle className="size-4" aria-hidden />
-          {t("experiments.chladni.play.restrew")}
-        </Button>
+        <>
+          <Button variant="secondary" size="sm" onClick={() => setRunning(!running)}>
+            {running ? <Pause className="size-4" aria-hidden /> : <Play className="size-4" aria-hidden />}
+            {running ? t("experiments.play.pause") : t("experiments.play.run")}
+          </Button>
+          <Button variant="secondary" size="sm" onClick={restrew}>
+            <Shuffle className="size-4" aria-hidden />
+            {t("experiments.chladni.play.restrew")}
+          </Button>
+        </>
       }
     >
       <div className={SIDE.grid}>

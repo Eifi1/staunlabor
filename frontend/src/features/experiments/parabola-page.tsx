@@ -2,7 +2,6 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Pause, Play, RotateCcw } from "lucide-react";
 import { AlertBanner, Button, LoadingState, ToggleGroup } from "@eifi1/ui-kit";
-import { apiErrorMessage } from "@/shared/api/client";
 import { SeriesChart } from "@/shared/charts/series-chart";
 import { useLocale } from "@/shared/i18n/use-locale";
 import { formatNumber } from "@/shared/lib/format";
@@ -11,8 +10,10 @@ import { SliderField } from "@/shared/ui/slider-field";
 import { Figures, WidgetCard } from "@/shared/ui/widget";
 import { Equation } from "./equation";
 import { ExhibitFrame } from "./exhibit-frame";
+import { BuildPending } from "./build-pending";
 import { ParabolaSideView, ParabolaTopView } from "./parabola-views";
 import { PreviewPending, type PreviewMode, type PreviewProps } from "./preview-mode";
+import { startsRunning } from "./play";
 import {
   SPIN_STEP_S,
   dryRate,
@@ -79,10 +80,8 @@ export function ParabolaPage() {
       computed={<ParabolaComputed />}
       sweetSpot={<ParabolaTrick v={v && wellFilled(v) ? v : null} rate={rate} />}
     >
-      {defaults.isPending ? (
-        <LoadingState className="py-10" label={t("common.loading")} />
-      ) : !v ? (
-        <AlertBanner tone="danger">{apiErrorMessage(defaults.error, t("experiments.failed"))}</AlertBanner>
+      {defaults.isPending || !v ? (
+        <BuildPending pending={defaults.isPending} error={defaults.error} />
       ) : (
         <>
           {wellFilled(v) ? (
@@ -121,7 +120,7 @@ function ParabolaPlay({
   // The page's turntable has been running before the reader came: the water
   // turns with it. The preview starts from rest.
   const sim = useRef({ water: preview ? 0 : target, vesselAngle: 0, waterAngle: 0, clock: 0, owed: 0 });
-  const [runningHere, setRunning] = useState(true);
+  const [runningHere, setRunning] = useState(startsRunning);
   const [speedHere, setSpeed] = useState<Speed>(1);
   const [frame, setFrame] = useState<Frame>("outside");
   const [view, setView] = useState<View>(() => ({ water: preview ? 0 : target, vesselAngle: 0, waterAngle: 0 }));

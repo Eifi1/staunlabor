@@ -46,7 +46,7 @@ Test Task* is `npm run check`; `.vscode/tasks.json` has the rest, and
 | `npm run dev` | The API (`:8002`) and the site (`:5176`) |
 | `npm run check` | Everything CI runs, all blocking (the pre-push hook runs it): the five below, in order |
 | `npm run check:versioning` | The versions agree across the release's files; the branch's commits are Conventional Commits |
-| `npm run check:security` | server-kit's dependency audit + `npm audit --audit-level=high` |
+| `npm run check:security` | server-kit's dependency audit + `scripts/npm-audit.mjs` (`npm audit`, high and up; `--ignore-until-fixed ID=reason` as server-kit's) |
 | `npm run check:deadcode` | vulture and ts-prune against their baselines (empty, and to stay so) |
 | `npm run check:frontend` | prettier + eslint + tsc + vitest with coverage + build |
 | `npm run check:backend` | `scripts/check-backend.sh`: ruff check + ruff format + pytest with coverage (the accounts' tests on PostgreSQL) |

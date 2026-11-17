@@ -1,8 +1,7 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Pause, Play, RotateCcw } from "lucide-react";
-import { AlertBanner, Button, LoadingState, ToggleGroup } from "@eifi1/ui-kit";
-import { apiErrorMessage } from "@/shared/api/client";
+import { Button, LoadingState, ToggleGroup } from "@eifi1/ui-kit";
 import { SeriesChart } from "@/shared/charts/series-chart";
 import { useLocale } from "@/shared/i18n/use-locale";
 import { formatNumber } from "@/shared/lib/format";
@@ -11,7 +10,9 @@ import { SliderField } from "@/shared/ui/slider-field";
 import { Figures, WidgetCard } from "@/shared/ui/widget";
 import { Equation } from "./equation";
 import { ExhibitFrame } from "./exhibit-frame";
+import { BuildPending } from "./build-pending";
 import { PreviewPending, type PreviewMode, type PreviewProps } from "./preview-mode";
+import { startsRunning } from "./play";
 import {
   WINTERTHUR_DEG,
   degreesPerHour,
@@ -79,10 +80,8 @@ export function FoucaultPage() {
       computed={<FoucaultComputed />}
       sweetSpot={<FoucaultTrick p={p} />}
     >
-      {defaults.isPending ? (
-        <LoadingState className="py-10" label={t("common.loading")} />
-      ) : !p ? (
-        <AlertBanner tone="danger">{apiErrorMessage(defaults.error, t("experiments.failed"))}</AlertBanner>
+      {defaults.isPending || !p ? (
+        <BuildPending pending={defaults.isPending} error={defaults.error} />
       ) : (
         <>
           <FoucaultPlay key={JSON.stringify(p)} p={p} onChange={setBuild} />
@@ -177,7 +176,7 @@ function FoucaultPlay({
   const clock = useRef(0);
   const trail = useRef<Array<[number, number]>>([]);
   const [frame, setFrame] = useState<{ time: number; trail: Array<[number, number]> }>({ time: 0, trail: [] });
-  const [runningHere, setRunning] = useState(true);
+  const [runningHere, setRunning] = useState(startsRunning);
   const [speedHere, setSpeed] = useState<Speed>(60);
   const running = preview ? !paused : runningHere;
   const speed = preview ? 3600 : speedHere;

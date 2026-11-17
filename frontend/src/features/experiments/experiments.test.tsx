@@ -135,6 +135,16 @@ describe("the overview", () => {
     }
   });
 
+  it("gives every exhibit in the list its own icon", async () => {
+    await renderOverview();
+    const icons = screen.getAllByRole("heading", { level: 3 }).map((heading) => {
+      const icon = heading.parentElement?.parentElement?.querySelector(":scope > svg");
+      return [...(icon?.classList ?? [])].find((name) => name.startsWith("lucide-"));
+    });
+    expect(icons).toHaveLength(EXHIBITS.length);
+    expect(new Set(icons).size).toBe(EXHIBITS.length);
+  });
+
   it("shows the day's exhibit with its question, and the days before it only when asked", async () => {
     const view = await renderOverview();
     const today = dailyExhibit(DAY);
@@ -1027,6 +1037,19 @@ describe("the gyroscope wheel", () => {
     fireEvent.click(screen.getByRole("button", { name: E.gyroscope.play.let_go }));
     expect(await screen.findByRole("button", { name: E.gyroscope.play.pause })).toBeInTheDocument();
   });
+
+  it("lets a wheel too slow to circle at its tilt go from rest, and says so, where it once broke the site", async () => {
+    renderWithProviders(<GyroscopePage />);
+    await screen.findByRole("img", { name: E.gyroscope.view });
+    fireEvent.click(screen.getByRole("radio", { name: E.gyroscope.play.starts.steady }));
+    fireEvent.change(screen.getByRole("slider", { name: E.gyroscope.play.rpm }), { target: { value: "20" } });
+    fireEvent.change(screen.getByRole("slider", { name: E.gyroscope.play.tilt }), { target: { value: "70" } });
+    expect(await screen.findByText(E.gyroscope.play.no_steady)).toBeInTheDocument();
+    fireEvent.click(screen.getByRole("button", { name: E.gyroscope.play.let_go }));
+    expect(await screen.findByRole("button", { name: E.gyroscope.play.pause })).toBeInTheDocument();
+    fireEvent.change(screen.getByRole("slider", { name: E.gyroscope.play.rpm }), { target: { value: "200" } });
+    expect(screen.queryByText(E.gyroscope.play.no_steady)).not.toBeInTheDocument();
+  });
 });
 
 describe("the chain and the arch", () => {
@@ -1356,5 +1379,74 @@ describe("the beats", () => {
     expect(screen.getByText("23")).toBeInTheDocument();
     fireEvent.change(screen.getByRole("slider", { name: E.beats.change.position }), { target: { value: "0" } });
     expect((await screen.findAllByText("0.00")).length).toBeGreaterThanOrEqual(2);
+  });
+});
+
+describe("for a reader who asked for reduced motion", () => {
+  // jsdom has no matchMedia; here it answers as such a reader's browser does.
+  beforeEach(() => {
+    vi.stubGlobal("matchMedia", (query: string) => ({
+      matches: query === "(prefers-reduced-motion: reduce)",
+      media: query,
+      onchange: null,
+      addEventListener: () => {},
+      removeEventListener: () => {},
+      addListener: () => {},
+      removeListener: () => {},
+      dispatchEvent: () => false,
+    }));
+  });
+  afterEach(() => {
+    vi.unstubAllGlobals();
+  });
+
+  // Every twin that would start moving by itself as its page opens.
+  it.each([
+    ["coupled pendulums", CoupledPage, E.coupled.play],
+    ["ball cannon", CannonPage, E.cannon.play],
+    ["magnet car", CoilPage, E.coil.play],
+    ["harmonograph", HarmonographPage, E.harmonograph.play],
+    ["Bernoulli elephant", ElephantPage, E.elephant.play],
+    ["Cartesian diver", DiverPage, E.diver.play],
+    ["water parabola", ParabolaPage, E.parabola.play],
+    ["interrupted pendulum", PegPage, E.peg.play],
+    ["ball in the sphere", SpherePage, E.sphere.play],
+    ["chaotic waterwheel", WaterwheelPage, E.waterwheel.play],
+    ["pendulum wave", WavePage, E.wave.play],
+    ["Foucault pendulum", FoucaultPage, E.foucault.play],
+    ["smoke ring", SmokePage, E.smoke.play],
+    ["turntable", PlatformPage, E.platform.play],
+    ["race and its valley", RacePage, E.race.play],
+    ["Coriolis carousel", CoriolisPage, E.play],
+    ["Chladni plate", ChladniPage, E.play],
+  ])("the %s starts still, with a button to start it", async (_, Page, words) => {
+    renderWithProviders(<Page />);
+    expect((await screen.findAllByRole("button", { name: words.run })).length).toBeGreaterThan(0);
+    expect(screen.queryByRole("button", { name: words.pause })).not.toBeInTheDocument();
+  });
+
+  it("starts the Coriolis carousel when a throw is thrown", async () => {
+    renderWithProviders(<CoriolisPage />);
+    fireEvent.click(await screen.findByRole("button", { name: E.coriolis.play.throw }));
+    expect(screen.getByRole("button", { name: E.play.pause })).toBeInTheDocument();
+  });
+});
+
+describe("while the server does not answer", () => {
+  // The defaults, the chair's boxes and the Chladni plate's modes: the three
+  // answers a page waits on before it draws its twin.
+  it.each([
+    ["coupled pendulums", CoupledPage, "GET /experiments/defaults"],
+    ["chair", ChairPage, "GET /experiments/chair"],
+    ["Chladni plate", ChladniPage, "GET /experiments/chladni"],
+  ])("the %s page says so in place of its twin", async (_, Page, route) => {
+    mockApi({
+      "GET /experiments/defaults": fixtures.defaults,
+      "GET /experiments/chair": chair,
+      "GET /experiments/chladni": fixtures.chladni,
+      [route]: new Error("unreachable"),
+    });
+    renderWithProviders(<Page />);
+    expect(await screen.findByText(E.failed)).toBeInTheDocument();
   });
 });

@@ -2,7 +2,6 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Hand, Pause, Play } from "lucide-react";
 import { AlertBanner, Button, LoadingState, ToggleGroup } from "@eifi1/ui-kit";
-import { apiErrorMessage } from "@/shared/api/client";
 import { SeriesChart } from "@/shared/charts/series-chart";
 import { useLocale } from "@/shared/i18n/use-locale";
 import { formatNumber } from "@/shared/lib/format";
@@ -12,6 +11,7 @@ import { Figures, WidgetCard } from "@/shared/ui/widget";
 import { ConeFrontView, ConeSideView } from "./cone-views";
 import { Equation } from "./equation";
 import { ExhibitFrame } from "./exhibit-frame";
+import { BuildPending } from "./build-pending";
 import { PreviewPending, type PreviewMode, type PreviewProps } from "./preview-mode";
 import {
   axisHeightM,
@@ -70,10 +70,8 @@ export function ConePage() {
       computed={<ConeComputed />}
       sweetSpot={<ConeTrick ex={refused ? null : ex} />}
     >
-      {defaults.isPending ? (
-        <LoadingState className="py-10" label={t("common.loading")} />
-      ) : !ex ? (
-        <AlertBanner tone="danger">{apiErrorMessage(defaults.error, t("experiments.failed"))}</AlertBanner>
+      {defaults.isPending || !ex ? (
+        <BuildPending pending={defaults.isPending} error={defaults.error} />
       ) : (
         <>
           {refused ? (

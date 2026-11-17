@@ -136,6 +136,10 @@
       "computed": "How it is computed"
     },
     "unchecked": "The calculations have not been checked yet: figures and drawings on these pages may still change.",
+    "play": {
+      "pause": "Pause",
+      "run": "Run"
+    },
     "exhibits": {
       "chair": {
         "short": "The chair",
@@ -2246,7 +2250,8 @@
         "dip": "The axle sinks by",
         "suitcase": "Turning the suitcase",
         "suitcase_hint": "Whoever turns the suitcase with this wheel a quarter turn a second round a corner must supply this torque across it.",
-        "dropped": "Without spin the wheel falls: after {{t}} s it hangs almost straight down."
+        "dropped": "Without spin the wheel falls: after {{t}} s it hangs almost straight down.",
+        "no_steady": "This slow a wheel cannot circle steadily at this tilt: it is let go from rest."
       },
       "model": {
         "intro": "A spinning wheel has angular momentum along its axle. Gravity pulls on the wheel, the string holds the axle's end: that makes a torque across the axle, level.",

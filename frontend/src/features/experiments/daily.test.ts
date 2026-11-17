@@ -149,6 +149,25 @@ describe("the experiment of the day", () => {
     expect(DAILY_WEIGHTS.pairMalus).toBeGreaterThan(first.pairMalus);
   });
 
+  it("keeps every day the live site has shown, and the rest of the round under way, as drawn", () => {
+    // The first round, the first eight from the epoch, and the second, every
+    // exhibit from 2026-11-20 to 2026-12-24: on the live site, or fixed since
+    // the round began. A change to the draw, to `EXHIBITS`' order or to an
+    // exhibit's topics or `since` that moves one of these days fails here, and
+    // must not ship; a new exhibit joins a later round and moves none of them.
+    const firstRound = "smoke elephant cannon chair platform coil sphere race".split(" ");
+    const secondRound = [
+      "wave sky parabola gyroscope arch slits overhang coupled chaos rainbow cradle bounce peg plates",
+      "coriolis levitation well elephant resonance harmonograph cone race chair maxwell smoke chladni",
+      "cannon coil diver foucault circuit waterwheel beats platform sphere",
+    ]
+      .join(" ")
+      .split(" ");
+    const shown = dailyHistory("2026-12-25", firstRound.length + secondRound.length).reverse();
+    expect(shown[0].day).toBe(DAILY_EPOCH);
+    expect(shown.map((pick) => pick.exhibit)).toEqual([...firstRound, ...secondRound]);
+  });
+
   it("takes a new exhibit in at the next round, leaving the days before it as they were", () => {
     const pool = built.map((exhibit) => ({ exhibit, since: DAILY_EPOCH }));
     const before = run(built.length * 4, pool);

@@ -20,7 +20,7 @@
     "check:versioning": "node scripts/check-version-sync.cjs && BASE_SHA=$(git merge-base origin/main HEAD 2>/dev/null || true) node scripts/check-commit-range.cjs",
     "check:security": "npm-run-all -s check:security:backend check:security:frontend",
     "check:security:backend": "cd backend && uv run --no-sync python -I -m eifi1_server_kit.dependency_audit",
-    "check:security:frontend": "npm audit --audit-level=high",
+    "check:security:frontend": "node scripts/npm-audit.mjs --ignore-until-fixed GHSA-fc5q-39xc-vjpf=\"picomatch ReDoS, only in vite, vitest and typescript-eslint (build and test tools, never in the bundle); no fixed version yet\"",
     "check:deadcode": "npm-run-all -s check:deadcode:backend check:deadcode:frontend",
     "check:deadcode:backend": "node scripts/check-vulture.cjs",
     "check:deadcode:frontend": "node scripts/check-ts-prune.cjs",

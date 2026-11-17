@@ -4,10 +4,8 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { I18nextProvider, initReactI18next } from "react-i18next";
 import { createInstance } from "i18next";
 import { MemoryRouter } from "react-router";
-import { ConfirmProvider, UiKitProvider } from "@eifi1/ui-kit";
 import en from "@/shared/i18n/locales/en.json";
-import { routerLink } from "@/app/router-link";
-import { STORAGE } from "@/shared/lib/storage-keys";
+import { KitProviders } from "@/app/kit-providers";
 
 /** A test i18n instance carrying the REAL English bundle.
  *
@@ -39,17 +37,13 @@ export function renderWithProviders(
       <I18nextProvider i18n={testI18n()}>
         <QueryClientProvider client={queryClient}>
           <MemoryRouter initialEntries={initialEntries}>
-            {/* As in main.tsx, inside the router: a kit link is a router link
-                here too, so following one moves this router rather than asking
-                jsdom for another document; and a table keeps its view under
-                this app's prefix, as it does in the app. Only those two — the
-                kit's own English and the runtime's locale are what a test
-                without the provider was already reading, and what its
+            {/* The app's own kit providers, inside the router: a kit link is a
+                router link here too, so following one moves this router rather
+                than asking jsdom for another document. Without labels or a
+                locale — the kit's own English and the runtime's locale are what
+                a test without the provider was already reading, and what its
                 expectations say. */}
-            <UiKitProvider linkComponent={routerLink} tableStorageKeyPrefix={STORAGE.tables}>
-              {/* As in main.tsx: `useConfirm()` throws without it. */}
-              <ConfirmProvider>{children}</ConfirmProvider>
-            </UiKitProvider>
+            <KitProviders>{children}</KitProviders>
           </MemoryRouter>
         </QueryClientProvider>
       </I18nextProvider>

@@ -2,7 +2,7 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import { BrowserRouter } from "react-router";
 import { QueryClientProvider } from "@tanstack/react-query";
-import { applyPersistedTheme, ErrorBoundary, Toaster, UiKitProvider } from "@eifi1/ui-kit";
+import { applyPersistedTheme, ErrorBoundary, Toaster } from "@eifi1/ui-kit";
 import { initI18n } from "@/shared/i18n/index";
 import { kitLabels } from "@/shared/i18n/kit-labels";
 import { useLanguage, useLocale } from "@/shared/i18n/use-locale";
@@ -12,7 +12,7 @@ import { useApplyTheme, useTheme } from "@/shared/state/theme-store";
 import { AccountsProvider } from "@eifi1/ui-kit/accounts";
 import { accounts } from "@/shared/api/accounts";
 import { AppRoutes } from "@/app/routes";
-import { routerLink } from "@/app/router-link";
+import { KitProviders } from "@/app/kit-providers";
 import "./app.css";
 
 // Before the first paint, so a dark-mode reader never sees a white flash.
@@ -27,17 +27,11 @@ function Root() {
     <BrowserRouter>
       <QueryClientProvider client={queryClient}>
         <AccountsProvider client={accounts}>
-          <UiKitProvider
-            labels={kitLabels(language)}
-            locale={locale}
-            linkComponent={routerLink}
-            tableStorageKeyPrefix={STORAGE.tables}
-            appName="Staunlabor"
-          >
+          <KitProviders labels={kitLabels(language)} locale={locale} appName="Staunlabor">
             <ErrorBoundary placement="app" appVersion={__APP_VERSION__}>
               <AppRoutes />
             </ErrorBoundary>
-          </UiKitProvider>
+          </KitProviders>
         </AccountsProvider>
         <Toaster theme={mode} closeButton />
       </QueryClientProvider>

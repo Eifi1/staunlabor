@@ -806,6 +806,16 @@ def test_the_race_refuses_a_finish_it_cannot_reach():
         x.Race(drop_m=0.1, run_m=2.0)
     with pytest.raises(ValueError):
         x.Race(drop_m=0.5, run_m=0.5)
+    with pytest.raises(ValueError):
+        x.Race(drop_m=0.5, run_m=0.5 * rc.LONGEST_RUN * 1.001)
+
+
+def test_the_race_takes_a_run_the_page_clamped_to_a_bound_a_rounding_past_it():
+    # The page's clamp, bound × drop in floats: 6 · 0.2 m and 1.1 · 0.95 m land
+    # a rounding outside, and their refusal left the page without its sliders.
+    for drop in (0.2, 0.36, 0.38, 0.4, 0.95, 0.97, 0.99):
+        for share in (rc.SHORTEST_RUN, rc.LONGEST_RUN):
+            assert x.Race(drop_m=drop, run_m=share * drop).run_m == share * drop
 
 
 # ── the Bernoulli elephant ───────────────────────────────────────────────────

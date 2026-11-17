@@ -136,6 +136,10 @@
       "computed": "Come si calcola"
     },
     "unchecked": "La verifica dei calcoli è ancora in sospeso: cifre e disegni di queste pagine possono ancora cambiare.",
+    "play": {
+      "pause": "Pausa",
+      "run": "Continua"
+    },
     "exhibits": {
       "chair": {
         "short": "La sedia",
@@ -2246,7 +2250,8 @@
         "dip": "L'asse scende di",
         "suitcase": "Girare la valigia",
         "suitcase_hint": "Chi gira la valigia con questa ruota di un quarto di giro al secondo a un angolo deve applicare questa coppia di traverso.",
-        "dropped": "Senza rotazione la ruota cade: dopo {{t}} s pende quasi verticale."
+        "dropped": "Senza rotazione la ruota cade: dopo {{t}} s pende quasi verticale.",
+        "no_steady": "Così lenta, la ruota non può girare in cerchio in modo regolare con questa inclinazione: viene lasciata da ferma."
       },
       "model": {
         "intro": "Una ruota che gira ha un momento angolare lungo il suo asse. La gravità tira la ruota, il filo trattiene l'estremità dell'asse: ne nasce una coppia di traverso all'asse, orizzontale.",

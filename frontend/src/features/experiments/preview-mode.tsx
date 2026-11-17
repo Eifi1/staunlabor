@@ -11,7 +11,7 @@
  * no figures, and the clock run by `paused` rather than by a Pause button.
  */
 
-import { FlaskConical } from "lucide-react";
+import { Skeleton } from "@eifi1/ui-kit";
 
 /** What a page's `<X>Preview` takes. */
 export interface PreviewProps {
@@ -27,14 +27,18 @@ export interface PreviewMode {
   paused?: boolean;
 }
 
-/** The space a preview takes while its build is on its way. */
+/**
+ * The space a preview takes while its build is on its way: the drawing's
+ * outline, pulsing. On a cold start the server takes some seconds to wake, and
+ * the still grey box with an icon this was read as nothing happening (Marcel,
+ * 2026-11-17). The kit's `Skeleton`, so it pulses as every kit placeholder
+ * does and holds still under reduced motion; `aria-busy` says the drawing is
+ * on its way, and the placeholder itself is hidden.
+ */
 export function PreviewPending() {
   return (
-    <div
-      aria-busy="true"
-      className="flex aspect-[4/3] w-full items-center justify-center rounded-lg border border-subtle bg-surface-2"
-    >
-      <FlaskConical className="size-8 text-muted" aria-hidden />
+    <div aria-busy="true" className="aspect-[4/3] w-full">
+      <Skeleton shape="block" className="size-full rounded-lg" />
     </div>
   );
 }
