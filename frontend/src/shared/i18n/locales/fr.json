@@ -2250,7 +2250,8 @@
         "dip": "L'axe descend de",
         "suitcase": "Tourner la valise",
         "suitcase_hint": "Qui tourne la valise avec cette roue d'un quart de tour par seconde à un coin doit fournir ce couple en travers.",
-        "dropped": "Sans rotation, la roue tombe : après {{t}} s, elle pend presque à la verticale."
+        "dropped": "Sans rotation, la roue tombe : après {{t}} s, elle pend presque à la verticale.",
+        "no_steady": "Aussi lente, la roue ne peut pas tourner en rond régulièrement à cette inclinaison : elle est lâchée au repos."
       },
       "model": {
         "intro": "Une roue qui tourne a un moment cinétique le long de son axe. La pesanteur tire sur la roue, le fil retient l'extrémité de l'axe : cela donne un couple en travers de l'axe, horizontal.",

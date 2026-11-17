@@ -54,8 +54,26 @@ interface Sim {
   dropped: number | null;
 }
 
+/**
+ * Whether the wheel can be let go already circling. A slow wheel at a steep
+ * tilt has no steady turn there (its momentum is too small to hold the axle
+ * up), and `start` refuses it, as the engine does. Its refusal once ran during
+ * a render and took the whole site with it, at 10 to 40 rpm and 60 to 89°.
+ */
+function circles(w: Wheel, release: Release): boolean {
+  if (!release.steady) return false;
+  try {
+    start(w, release);
+    return true;
+  } catch (error) {
+    if (error instanceof RangeError) return false;
+    throw error;
+  }
+}
+
+/** The wheel let go: circling if asked and it can, else from rest (the page says so). */
 function letGo(w: Wheel, release: Release): Sim {
-  const [y, m] = start(w, release);
+  const [y, m] = start(w, { ...release, steady: circles(w, release) });
   return { y, m, owed: 0, i: 0, trace: [[0, tiltDeg(y)]], deepest: tiltDeg(y), dropped: null };
 }
 
@@ -225,11 +243,14 @@ function GyroscopePlay({
   const { t } = useTranslation();
   const locale = useLocale();
   const [release, setRelease] = useState<Release>({ tilt_deg: 90, steady: false });
-  const sim = useRef(letGo(w, release));
-  const [frame, setFrame] = useState(() => {
-    const first = letGo(w, release);
-    return { y: first.y, trace: first.trace, deepest: first.deepest, dropped: first.dropped };
-  });
+  const [first] = useState(() => letGo(w, release));
+  const sim = useRef(first);
+  const [frame, setFrame] = useState(() => ({
+    y: first.y,
+    trace: [...first.trace],
+    deepest: first.deepest,
+    dropped: first.dropped,
+  }));
   const [runningHere, setRunning] = useState(false);
   const [speedHere, setSpeed] = useState<Speed>(1);
   const running = preview ? !paused : runningHere;
@@ -283,6 +304,7 @@ function GyroscopePlay({
     reset(w, next, false);
   };
   const spinning = w.rpm > 0;
+  const refused = release.steady && !circles(w, release);
   return (
     <WidgetCard
       title={t("experiments.gyroscope.play.title")}
@@ -330,6 +352,11 @@ function GyroscopePlay({
               {t("experiments.gyroscope.trace_caption")}
             </figcaption>
           </figure>
+          {refused && (
+            <p className="text-sm text-secondary" role="status">
+              {t("experiments.gyroscope.play.no_steady")}
+            </p>
+          )}
           {frame.dropped !== null && (
             <p className="text-sm font-medium text-primary" role="status">
               {t("experiments.gyroscope.play.dropped", { t: formatNumber(frame.dropped, 2, locale) })}

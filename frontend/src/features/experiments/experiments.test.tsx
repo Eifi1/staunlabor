@@ -1037,6 +1037,19 @@ describe("the gyroscope wheel", () => {
     fireEvent.click(screen.getByRole("button", { name: E.gyroscope.play.let_go }));
     expect(await screen.findByRole("button", { name: E.gyroscope.play.pause })).toBeInTheDocument();
   });
+
+  it("lets a wheel too slow to circle at its tilt go from rest, and says so, where it once broke the site", async () => {
+    renderWithProviders(<GyroscopePage />);
+    await screen.findByRole("img", { name: E.gyroscope.view });
+    fireEvent.click(screen.getByRole("radio", { name: E.gyroscope.play.starts.steady }));
+    fireEvent.change(screen.getByRole("slider", { name: E.gyroscope.play.rpm }), { target: { value: "20" } });
+    fireEvent.change(screen.getByRole("slider", { name: E.gyroscope.play.tilt }), { target: { value: "70" } });
+    expect(await screen.findByText(E.gyroscope.play.no_steady)).toBeInTheDocument();
+    fireEvent.click(screen.getByRole("button", { name: E.gyroscope.play.let_go }));
+    expect(await screen.findByRole("button", { name: E.gyroscope.play.pause })).toBeInTheDocument();
+    fireEvent.change(screen.getByRole("slider", { name: E.gyroscope.play.rpm }), { target: { value: "200" } });
+    expect(screen.queryByText(E.gyroscope.play.no_steady)).not.toBeInTheDocument();
+  });
 });
 
 describe("the chain and the arch", () => {

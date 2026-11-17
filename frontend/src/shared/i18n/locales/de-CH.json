@@ -2250,7 +2250,8 @@
         "dip": "Achse sinkt um",
         "suitcase": "Koffer drehen",
         "suitcase_hint": "Wer den Koffer mit diesem Rad eine Vierteldrehung pro Sekunde um die Ecke dreht, muss quer dazu dieses Drehmoment aufbringen.",
-        "dropped": "Ohne Drehung fällt das Rad: Nach {{t}} s hängt es fast senkrecht."
+        "dropped": "Ohne Drehung fällt das Rad: Nach {{t}} s hängt es fast senkrecht.",
+        "no_steady": "So langsam kann das Rad bei dieser Neigung nicht gleichmässig kreisen: Es wird aus der Ruhe losgelassen."
       },
       "model": {
         "intro": "Ein drehendes Rad hat einen Drehimpuls entlang seiner Achse. Die Schwerkraft zieht am Rad, der Faden hält das Ende der Achse: Das ergibt ein Drehmoment quer zur Achse, waagrecht.",

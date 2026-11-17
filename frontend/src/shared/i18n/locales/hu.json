@@ -2250,7 +2250,8 @@
         "dip": "A tengely süllyedése",
         "suitcase": "A bőrönd fordítása",
         "suitcase_hint": "Aki ezzel a kerékkel a bőröndöt másodpercenként negyed fordulattal fordítja be egy sarkon, annak keresztben ekkora forgatónyomatékot kell kifejtenie.",
-        "dropped": "Forgás nélkül a kerék leesik: {{t}} s után szinte függőlegesen lóg."
+        "dropped": "Forgás nélkül a kerék leesik: {{t}} s után szinte függőlegesen lóg.",
+        "no_steady": "Ilyen lassú forgással a kerék ennél a dőlésnél nem tud egyenletesen körbejárni: nyugalomból engedjük el."
       },
       "model": {
         "intro": "A forgó keréknek a tengelye mentén perdülete van. A gravitáció húzza a kereket, a fonál tartja a tengely végét: ebből a tengelyre merőleges, vízszintes forgatónyomaték lesz.",
