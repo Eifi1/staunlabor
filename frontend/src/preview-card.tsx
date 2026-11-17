@@ -14,11 +14,10 @@ import React, { useEffect, useState } from "react";
 import ReactDOM from "react-dom/client";
 import { BrowserRouter } from "react-router";
 import { QueryClientProvider } from "@tanstack/react-query";
-import { UiKitProvider } from "@eifi1/ui-kit";
 import { changeLanguage, initI18n } from "@/shared/i18n/index";
 import { kitLabels } from "@/shared/i18n/kit-labels";
 import { queryClient } from "@/shared/state/query-client";
-import { routerLink } from "@/app/router-link";
+import { KitProviders } from "@/app/kit-providers";
 import { EXHIBITS } from "@/features/experiments/exhibits";
 import { PreviewCard, type Card } from "@/features/experiments/preview-card";
 import "./app.css";
@@ -76,14 +75,9 @@ void initI18n()
       <React.StrictMode>
         <BrowserRouter>
           <QueryClientProvider client={queryClient}>
-            <UiKitProvider
-              labels={kitLabels(LANGUAGE)}
-              locale={LANGUAGE}
-              linkComponent={routerLink}
-              appName="Staunlabor"
-            >
+            <KitProviders labels={kitLabels(LANGUAGE)} locale={LANGUAGE} appName="Staunlabor">
               <Host card={cardAsked()} />
-            </UiKitProvider>
+            </KitProviders>
           </QueryClientProvider>
         </BrowserRouter>
       </React.StrictMode>,
