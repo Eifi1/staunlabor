@@ -135,6 +135,16 @@ describe("the overview", () => {
     }
   });
 
+  it("gives every exhibit in the list its own icon", async () => {
+    await renderOverview();
+    const icons = screen.getAllByRole("heading", { level: 3 }).map((heading) => {
+      const icon = heading.parentElement?.parentElement?.querySelector(":scope > svg");
+      return [...(icon?.classList ?? [])].find((name) => name.startsWith("lucide-"));
+    });
+    expect(icons).toHaveLength(EXHIBITS.length);
+    expect(new Set(icons).size).toBe(EXHIBITS.length);
+  });
+
   it("shows the day's exhibit with its question, and the days before it only when asked", async () => {
     const view = await renderOverview();
     const today = dailyExhibit(DAY);
