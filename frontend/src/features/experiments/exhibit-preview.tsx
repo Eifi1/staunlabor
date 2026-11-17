@@ -3,9 +3,9 @@
  * overview's experiment of the day and its history.
  *
  * Each preview is its page's `<X>Preview` (`preview-mode.tsx`), imported
- * lazily from the page's own module, so it is the chunk the reader's click
- * would load anyway, fetched a little early, and the overview, which is in
- * the first wave, carries none of the simulations.
+ * lazily from the page's own module (`exhibit-modules.ts`), so it is the chunk
+ * the reader's click would load anyway, fetched a little early, and the
+ * overview, which is in the first wave, carries none of the simulations.
  *
  * It moves only when moving is wanted:
  *
@@ -21,48 +21,11 @@
  *   pointed at or focused.
  */
 
-import { Suspense, lazy, useEffect, useState, type ComponentType, type LazyExoticComponent } from "react";
+import { Suspense, useEffect, useState } from "react";
 import { prefersReducedMotion } from "@eifi1/ui-kit";
+import { EXHIBIT_MODULES } from "./exhibit-modules";
 import type { Exhibit } from "./exhibits";
-import { PreviewPending, type PreviewProps } from "./preview-mode";
-
-const PREVIEWS: Record<Exhibit, LazyExoticComponent<ComponentType<PreviewProps>>> = {
-  chair: lazy(() => import("./chair-page").then((m) => ({ default: m.ChairPreview }))),
-  coil: lazy(() => import("./coil-page").then((m) => ({ default: m.CoilPreview }))),
-  sphere: lazy(() => import("./sphere-page").then((m) => ({ default: m.SpherePreview }))),
-  platform: lazy(() => import("./platform-page").then((m) => ({ default: m.PlatformPreview }))),
-  race: lazy(() => import("./race-page").then((m) => ({ default: m.RacePreview }))),
-  elephant: lazy(() => import("./elephant-page").then((m) => ({ default: m.ElephantPreview }))),
-  smoke: lazy(() => import("./smoke-page").then((m) => ({ default: m.SmokePreview }))),
-  cannon: lazy(() => import("./cannon-page").then((m) => ({ default: m.CannonPreview }))),
-  wave: lazy(() => import("./wave-page").then((m) => ({ default: m.WavePreview }))),
-  harmonograph: lazy(() => import("./harmonograph-page").then((m) => ({ default: m.HarmonographPreview }))),
-  cone: lazy(() => import("./cone-page").then((m) => ({ default: m.ConePreview }))),
-  parabola: lazy(() => import("./parabola-page").then((m) => ({ default: m.ParabolaPreview }))),
-  coupled: lazy(() => import("./coupled-page").then((m) => ({ default: m.CoupledPreview }))),
-  peg: lazy(() => import("./peg-page").then((m) => ({ default: m.PegPreview }))),
-  maxwell: lazy(() => import("./maxwell-page").then((m) => ({ default: m.MaxwellPreview }))),
-  chaos: lazy(() => import("./chaos-page").then((m) => ({ default: m.ChaosPreview }))),
-  waterwheel: lazy(() => import("./waterwheel-page").then((m) => ({ default: m.WaterwheelPreview }))),
-  foucault: lazy(() => import("./foucault-page").then((m) => ({ default: m.FoucaultPreview }))),
-  coriolis: lazy(() => import("./coriolis-page").then((m) => ({ default: m.CoriolisPreview }))),
-  cradle: lazy(() => import("./cradle-page").then((m) => ({ default: m.CradlePreview }))),
-  well: lazy(() => import("./well-page").then((m) => ({ default: m.WellPreview }))),
-  resonance: lazy(() => import("./resonance-page").then((m) => ({ default: m.ResonancePreview }))),
-  gyroscope: lazy(() => import("./gyroscope-page").then((m) => ({ default: m.GyroscopePreview }))),
-  arch: lazy(() => import("./arch-page").then((m) => ({ default: m.ArchPreview }))),
-  chladni: lazy(() => import("./chladni-page").then((m) => ({ default: m.ChladniPreview }))),
-  levitation: lazy(() => import("./levitation-page").then((m) => ({ default: m.LevitationPreview }))),
-  circuit: lazy(() => import("./circuit-page").then((m) => ({ default: m.CircuitPreview }))),
-  plates: lazy(() => import("./plates-page").then((m) => ({ default: m.PlatesPreview }))),
-  bounce: lazy(() => import("./bounce-page").then((m) => ({ default: m.BouncePreview }))),
-  overhang: lazy(() => import("./overhang-page").then((m) => ({ default: m.OverhangPreview }))),
-  diver: lazy(() => import("./diver-page").then((m) => ({ default: m.DiverPreview }))),
-  rainbow: lazy(() => import("./rainbow-page").then((m) => ({ default: m.RainbowPreview }))),
-  sky: lazy(() => import("./sky-page").then((m) => ({ default: m.SkyPreview }))),
-  slits: lazy(() => import("./slits-page").then((m) => ({ default: m.SlitsPreview }))),
-  beats: lazy(() => import("./beats-page").then((m) => ({ default: m.BeatsPreview }))),
-};
+import { PreviewPending } from "./preview-mode";
 
 /** Whether the element is on screen (`margin` beyond it counts), and whether
  *  it ever has been. Without an IntersectionObserver both are true: the
@@ -91,7 +54,7 @@ function useOnScreen(margin: string): { ref: (el: HTMLElement | null) => void; s
 export function ExhibitPreview({ exhibit, still = false }: { exhibit: Exhibit; still?: boolean }) {
   const { ref, seen, visible } = useOnScreen("200px");
   const [reduced] = useState(() => prefersReducedMotion(true));
-  const Preview = PREVIEWS[exhibit];
+  const Preview = EXHIBIT_MODULES[exhibit].Preview;
   return (
     <div ref={ref} className="pointer-events-none select-none">
       {seen ? (

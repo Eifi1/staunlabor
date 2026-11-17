@@ -132,8 +132,11 @@ in its auto mode, draws its views only — no buttons, sliders or figures — an
 runs while `paused` is false. The motion on the overview is the motion on the
 page, from the same browser port, so it cannot drift from what it advertises.
 The chair, whose turning lives in its page rather than a play component, has
-a `ChairPreview` of its own over the same `autoView`. `exhibit-preview.tsx`
-imports each lazily from its page's module — the chunk a click would load
+a `ChairPreview` of its own over the same `autoView`. One table,
+`exhibit-modules.ts`, names each exhibit's page module, its `<X>Page`, its
+`<X>Preview` and its card's icon; the routes, the previews and the cards all
+read it, so a new exhibit is one line there. `exhibit-preview.tsx` takes each
+preview lazily from its page's module — the chunk a click would load
 anyway — mounts it once it comes near the screen, stops it off screen, and
 shows the first frame as a still under `prefers-reduced-motion` or where that
 cannot be read. The coil's keyboard (its two buttons on `+`/`−` and the
