@@ -1699,7 +1699,7 @@
       },
       "change": {
         "title": "Modifier l'objet exposé",
-        "hint": "Un axe plus mince ou une roue plus lourde à sa périphérie tombe plus lentement – et rend l'à-coup du bas plus dur.",
+        "hint": "Un axe plus mince ou une roue plus lourde à sa périphérie tombe plus lentement – et rend l'à-coup du bas plus doux.",
         "shape": "Roue",
         "shapes": {
           "disc": "Disque plein",

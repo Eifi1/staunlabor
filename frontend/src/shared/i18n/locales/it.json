@@ -1699,7 +1699,7 @@
       },
       "change": {
         "title": "Modificare l'oggetto esposto",
-        "hint": "Un asse più sottile o una ruota più pesante sul bordo cadono più lentamente – e rendono più duro lo strappo in basso.",
+        "hint": "Un asse più sottile o una ruota più pesante sul bordo cadono più lentamente – e rendono più dolce lo strappo in basso.",
         "shape": "Ruota",
         "shapes": {
           "disc": "Disco pieno",

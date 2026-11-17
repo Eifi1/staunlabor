@@ -1699,7 +1699,7 @@
       },
       "change": {
         "title": "Das Exponat verändern",
-        "hint": "Eine dünnere Achse oder ein schwereres Rad aussen lässt es langsamer fallen – und macht den Ruck unten härter.",
+        "hint": "Eine dünnere Achse oder ein schwereres Rad aussen lässt es langsamer fallen – und macht den Ruck unten sanfter.",
         "shape": "Rad",
         "shapes": {
           "disc": "Volle Scheibe",

@@ -9,6 +9,7 @@ from the engine.
 
 from __future__ import annotations
 
+import dataclasses
 import importlib
 import itertools
 import math
@@ -1717,6 +1718,18 @@ def test_the_jerk_at_the_bottom_is_a_spring_s_and_pulls_six_times_the_weight():
     assert max(-s * z for z in trace.states[0]) == pytest.approx(b.peak_tension_n, rel=1e-9)
     assert round(b.peak_tension_n / (m * 9.80665), 1) == 6.4
     assert round(b.jerk_s * 1000) == 25
+
+
+def test_a_thinner_axle_or_a_wheel_heavy_at_its_rim_falls_slower_and_meets_the_bottom_more_gently():
+    """The page's hint: slower at the bottom, so a softer jerk (it once said harder)."""
+    w = x.MaxwellWheel()
+    default = x.wheel_bounce(w, 0.6)
+    for slower in (dataclasses.replace(w, axle_radius_m=0.003), dataclasses.replace(w, shape=x.Shape.RING)):
+        b = x.wheel_bounce(slower, 0.6)
+        assert b.bottom_speed_m_s < default.bottom_speed_m_s
+        assert b.peak_tension_n < default.peak_tension_n
+    thicker = x.wheel_bounce(dataclasses.replace(w, axle_radius_m=0.008), 0.6)
+    assert thicker.peak_tension_n > default.peak_tension_n
 
 
 def test_the_wheel_is_where_its_closed_form_puts_it():

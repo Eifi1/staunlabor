@@ -1699,7 +1699,7 @@
       },
       "change": {
         "title": "Change the exhibit",
-        "hint": "A thinner axle, or a wheel heavier at its rim, falls more slowly – and makes the jerk at the bottom harder.",
+        "hint": "A thinner axle, or a wheel heavier at its rim, falls more slowly – and makes the jerk at the bottom softer.",
         "shape": "Wheel",
         "shapes": {
           "disc": "Solid disc",

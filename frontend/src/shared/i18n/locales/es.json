@@ -1699,7 +1699,7 @@
       },
       "change": {
         "title": "Cambiar el objeto expuesto",
-        "hint": "Un eje más delgado o una rueda más pesada en el borde caen más despacio – y endurecen el tirón de abajo.",
+        "hint": "Un eje más delgado o una rueda más pesada en el borde caen más despacio – y suavizan el tirón de abajo.",
         "shape": "Rueda",
         "shapes": {
           "disc": "Disco macizo",

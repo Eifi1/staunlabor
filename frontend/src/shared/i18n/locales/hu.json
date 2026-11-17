@@ -1699,7 +1699,7 @@
       },
       "change": {
         "title": "A kiállítási tárgy módosítása",
-        "hint": "A vékonyabb tengely vagy a peremén nehezebb kerék lassabban esik – és keményebbé teszi a rándulást lent.",
+        "hint": "A vékonyabb tengely vagy a peremén nehezebb kerék lassabban esik – és lágyabbá teszi a rándulást lent.",
         "shape": "Kerék",
         "shapes": {
           "disc": "Tömör tárcsa",
