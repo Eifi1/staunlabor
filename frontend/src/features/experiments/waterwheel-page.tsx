@@ -12,6 +12,7 @@ import { Figures, WidgetCard } from "@/shared/ui/widget";
 import { Equation } from "./equation";
 import { ExhibitFrame } from "./exhibit-frame";
 import { PreviewPending, type PreviewMode, type PreviewProps } from "./preview-mode";
+import { startsRunning } from "./play";
 import {
   STEP_TAU,
   cupLevel,
@@ -180,7 +181,7 @@ function WaterwheelPlay({
 }: { w: WaterWheel; onChange?: (next: WaterWheel) => void } & PreviewMode) {
   const { t } = useTranslation();
   const sim = useRef({ state: startWheel(), owed: 0, trail: [] as Array<[number, number]> });
-  const [runningHere, setRunning] = useState(true);
+  const [runningHere, setRunning] = useState(startsRunning);
   const [speedHere, setSpeed] = useState<Speed>(1);
   const [frame, setFrame] = useState(() => ({ y: [1e-3, 0, 0], angle: 0, trail: [] as Array<[number, number]> }));
   const running = preview ? !paused : runningHere;

@@ -136,6 +136,10 @@
       "computed": "如何计算"
     },
     "unchecked": "计算尚待核查：这些页面上的数字和图示仍可能改变。",
+    "play": {
+      "pause": "暂停",
+      "run": "继续"
+    },
     "exhibits": {
       "chair": {
         "short": "椅子",

@@ -12,6 +12,7 @@ import { Figures, WidgetCard } from "@/shared/ui/widget";
 import { Equation } from "./equation";
 import { ExhibitFrame } from "./exhibit-frame";
 import { PreviewPending, type PreviewMode, type PreviewProps } from "./preview-mode";
+import { startsRunning } from "./play";
 import {
   WINTERTHUR_DEG,
   degreesPerHour,
@@ -177,7 +178,7 @@ function FoucaultPlay({
   const clock = useRef(0);
   const trail = useRef<Array<[number, number]>>([]);
   const [frame, setFrame] = useState<{ time: number; trail: Array<[number, number]> }>({ time: 0, trail: [] });
-  const [runningHere, setRunning] = useState(true);
+  const [runningHere, setRunning] = useState(startsRunning);
   const [speedHere, setSpeed] = useState<Speed>(60);
   const running = preview ? !paused : runningHere;
   const speed = preview ? 3600 : speedHere;

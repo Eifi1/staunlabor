@@ -1358,3 +1358,53 @@ describe("the beats", () => {
     expect((await screen.findAllByText("0.00")).length).toBeGreaterThanOrEqual(2);
   });
 });
+
+describe("for a reader who asked for reduced motion", () => {
+  // jsdom has no matchMedia; here it answers as such a reader's browser does.
+  beforeEach(() => {
+    vi.stubGlobal("matchMedia", (query: string) => ({
+      matches: query === "(prefers-reduced-motion: reduce)",
+      media: query,
+      onchange: null,
+      addEventListener: () => {},
+      removeEventListener: () => {},
+      addListener: () => {},
+      removeListener: () => {},
+      dispatchEvent: () => false,
+    }));
+  });
+  afterEach(() => {
+    vi.unstubAllGlobals();
+  });
+
+  // Every twin that would start moving by itself as its page opens.
+  it.each([
+    ["coupled pendulums", CoupledPage, E.coupled.play],
+    ["ball cannon", CannonPage, E.cannon.play],
+    ["magnet car", CoilPage, E.coil.play],
+    ["harmonograph", HarmonographPage, E.harmonograph.play],
+    ["Bernoulli elephant", ElephantPage, E.elephant.play],
+    ["Cartesian diver", DiverPage, E.diver.play],
+    ["water parabola", ParabolaPage, E.parabola.play],
+    ["interrupted pendulum", PegPage, E.peg.play],
+    ["ball in the sphere", SpherePage, E.sphere.play],
+    ["chaotic waterwheel", WaterwheelPage, E.waterwheel.play],
+    ["pendulum wave", WavePage, E.wave.play],
+    ["Foucault pendulum", FoucaultPage, E.foucault.play],
+    ["smoke ring", SmokePage, E.smoke.play],
+    ["turntable", PlatformPage, E.platform.play],
+    ["race and its valley", RacePage, E.race.play],
+    ["Coriolis carousel", CoriolisPage, E.play],
+    ["Chladni plate", ChladniPage, E.play],
+  ])("the %s starts still, with a button to start it", async (_, Page, words) => {
+    renderWithProviders(<Page />);
+    expect((await screen.findAllByRole("button", { name: words.run })).length).toBeGreaterThan(0);
+    expect(screen.queryByRole("button", { name: words.pause })).not.toBeInTheDocument();
+  });
+
+  it("starts the Coriolis carousel when a throw is thrown", async () => {
+    renderWithProviders(<CoriolisPage />);
+    fireEvent.click(await screen.findByRole("button", { name: E.coriolis.play.throw }));
+    expect(screen.getByRole("button", { name: E.play.pause })).toBeInTheDocument();
+  });
+});

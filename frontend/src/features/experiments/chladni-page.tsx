@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { Shuffle } from "lucide-react";
+import { Pause, Play, Shuffle } from "lucide-react";
 import { AlertBanner, Button, LoadingState, Switch } from "@eifi1/ui-kit";
 import { apiErrorMessage } from "@/shared/api/client";
 import { useLocale } from "@/shared/i18n/use-locale";
@@ -12,6 +12,7 @@ import { Figures, WidgetCard } from "@/shared/ui/widget";
 import { Equation } from "./equation";
 import { ExhibitFrame } from "./exhibit-frame";
 import { PreviewPending, type PreviewMode, type PreviewProps } from "./preview-mode";
+import { startsRunning } from "./play";
 import { frequencyHz, modeGrids, response, responseFrom, type Mode, type Plate } from "./simulate/chladni";
 import { SIDE } from "./stage";
 import { useChladniModes, useExperimentsDefaults } from "./use-experiments";
@@ -170,7 +171,8 @@ function ChladniPlay({
   const tone = useTones(sound && !preview, [drive], [Math.sqrt(Math.min(1, share))]);
   const sand = useRef(strew(GRAINS));
   const [grains, setGrains] = useState<Grain[]>(() => strew(GRAINS));
-  const running = !(preview && paused);
+  const [runningHere, setRunning] = useState(startsRunning);
+  const running = preview ? !paused : runningHere;
 
   useEffect(() => {
     if (!running) return;
@@ -207,10 +209,16 @@ function ChladniPlay({
       title={t("experiments.chladni.play.title")}
       hint={t("experiments.chladni.play.hint")}
       actions={
-        <Button variant="secondary" size="sm" onClick={restrew}>
-          <Shuffle className="size-4" aria-hidden />
-          {t("experiments.chladni.play.restrew")}
-        </Button>
+        <>
+          <Button variant="secondary" size="sm" onClick={() => setRunning(!running)}>
+            {running ? <Pause className="size-4" aria-hidden /> : <Play className="size-4" aria-hidden />}
+            {running ? t("experiments.play.pause") : t("experiments.play.run")}
+          </Button>
+          <Button variant="secondary" size="sm" onClick={restrew}>
+            <Shuffle className="size-4" aria-hidden />
+            {t("experiments.chladni.play.restrew")}
+          </Button>
+        </>
       }
     >
       <div className={SIDE.grid}>

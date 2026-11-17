@@ -37,6 +37,7 @@ import {
   type Launch,
 } from "./simulate/cannon";
 import { PreviewPending, type PreviewMode, type PreviewProps } from "./preview-mode";
+import { startsRunning } from "./play";
 import { STAGE } from "./stage";
 import { useCannonFigures, useExperimentsDefaults } from "./use-experiments";
 
@@ -151,7 +152,7 @@ function CannonPlay({
 } & PreviewMode) {
   const { t } = useTranslation();
   const locale = useLocale();
-  const [runningHere, setRunning] = useState(true);
+  const [runningHere, setRunning] = useState(startsRunning);
   const running = preview ? !paused : runningHere;
   const [slow, setSlow] = useState(false);
   const [auto, setAuto] = useState(preview);

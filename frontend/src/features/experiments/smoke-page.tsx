@@ -15,6 +15,7 @@ import { ExhibitFrame } from "./exhibit-frame";
 import { CORE_SHARE, SAMPLES_PER_S, flight, pressDepth, ringOf, type Flight, type Ring } from "./simulate/smoke";
 import { SmokeView, type Puff } from "./smoke-view";
 import { PreviewPending, type PreviewMode, type PreviewProps } from "./preview-mode";
+import { startsRunning } from "./play";
 import { STAGE } from "./stage";
 import { useExperimentsDefaults, useSmokeFigures } from "./use-experiments";
 
@@ -144,7 +145,7 @@ function SmokePlay({
   const [duration, setDuration] = useState(0.5);
   const [depth, setDepth] = useState(stroke);
   const [auto, setAuto] = useState(preview);
-  const [runningHere, setRunning] = useState(true);
+  const [runningHere, setRunning] = useState(startsRunning);
   const running = preview ? !paused : runningHere;
   const [ring, setRing] = useState<Ring | null>(null);
   const [initial] = useState<Sim>(() => ({

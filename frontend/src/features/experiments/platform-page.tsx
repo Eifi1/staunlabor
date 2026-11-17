@@ -15,6 +15,7 @@ import { ExhibitFrame } from "./exhibit-frame";
 import { PlatformView } from "./platform-view";
 import { frictionStep, inertia, pullN, run, type Move, type Posture } from "./simulate/platform";
 import { PreviewPending, type PreviewMode, type PreviewProps } from "./preview-mode";
+import { startsRunning } from "./play";
 import { STAGE } from "./stage";
 import { useExperimentsDefaults, usePlatformFigures } from "./use-experiments";
 
@@ -112,7 +113,7 @@ function PlatformPlay({ exhibit, preview = false, paused = false }: { exhibit: P
   if (sim.current === null) sim.current = { momentum: 0, angle: 0, clock: 0 };
   const [lean, setLean] = useState(LEANING.lean_m);
   const [auto, setAuto] = useState(preview);
-  const [runningHere, setRunning] = useState(true);
+  const [runningHere, setRunning] = useState(startsRunning);
   const running = preview ? !paused : runningHere;
   const [view, setView] = useState<View>({ angle: 0, momentum: 0, posture: LEANING });
   const body = exhibit.body;

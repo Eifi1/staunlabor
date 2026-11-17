@@ -136,6 +136,10 @@
       "computed": "How it is computed"
     },
     "unchecked": "The calculations have not been checked yet: figures and drawings on these pages may still change.",
+    "play": {
+      "pause": "Pause",
+      "run": "Run"
+    },
     "exhibits": {
       "chair": {
         "short": "The chair",

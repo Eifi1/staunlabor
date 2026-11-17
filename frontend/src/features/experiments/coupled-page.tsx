@@ -12,6 +12,7 @@ import { Figures, WidgetCard } from "@/shared/ui/widget";
 import { Equation } from "./equation";
 import { ExhibitFrame } from "./exhibit-frame";
 import { PreviewPending, type PreviewMode, type PreviewProps } from "./preview-mode";
+import { startsRunning } from "./play";
 import {
   beatS,
   energies,
@@ -167,7 +168,7 @@ function CoupledPlay({ cp, preview = false, paused = false }: { cp: CoupledPendu
   const { t } = useTranslation();
   const hex = useChartHex();
   const sim = useRef({ y: startState("one", START_DEG), clock: 0, owed: 0 });
-  const [runningHere, setRunning] = useState(true);
+  const [runningHere, setRunning] = useState(startsRunning);
   const [speedHere, setSpeed] = useState<Speed>(1);
   const [start, setStart] = useState<Start>("one");
   const [y, setY] = useState<number[]>(() => startState("one", START_DEG));

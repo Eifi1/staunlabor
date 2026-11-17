@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { Crosshair, Send } from "lucide-react";
+import { Crosshair, Pause, Play, Send } from "lucide-react";
 import { AlertBanner, Button, LoadingState, ToggleGroup } from "@eifi1/ui-kit";
 import { apiErrorMessage } from "@/shared/api/client";
 import { useLocale } from "@/shared/i18n/use-locale";
@@ -11,6 +11,7 @@ import { Figures, WidgetCard } from "@/shared/ui/widget";
 import { Equation } from "./equation";
 import { ExhibitFrame } from "./exhibit-frame";
 import { PreviewPending, type PreviewMode, type PreviewProps } from "./preview-mode";
+import { startsRunning } from "./play";
 import { leadDeg, path, rateOf, type Body, type Carousel, type Throw } from "./simulate/coriolis";
 import { SIDE } from "./stage";
 import { useExperimentsDefaults } from "./use-experiments";
@@ -150,11 +151,12 @@ function CoriolisPlay({
   const [throwOf, setThrow] = useState<Throw>({ speed_m_s: 3, aim_deg: 0, body: "puck" });
   const [frameHere, setFrame] = useState<Frame>("riding");
   const [time, setTime] = useState(0);
+  const [runningHere, setRunning] = useState(startsRunning);
   const clock = useRef(0);
   const frame = preview ? "riding" : frameHere;
   const route = useMemo(() => path(c, throwOf), [c, throwOf]);
   const lead = useMemo(() => leadDeg(c, throwOf.speed_m_s, throwOf.body), [c, throwOf.speed_m_s, throwOf.body]);
-  const running = !(preview && paused);
+  const running = preview ? !paused : runningHere;
 
   useEffect(() => {
     if (!running) return;
@@ -175,9 +177,11 @@ function CoriolisPlay({
 
   const view = <CarouselView c={c} throwOf={throwOf} frame={frame} time={time} />;
   if (preview) return view;
+  // A throw is thrown to be watched: it sets the carousel going.
   const throwAgain = () => {
     clock.current = 0;
     setTime(0);
+    setRunning(true);
   };
   return (
     <WidgetCard
@@ -200,6 +204,10 @@ function CoriolisPlay({
           >
             <Crosshair className="size-4" aria-hidden />
             {t("experiments.coriolis.play.aim_lead")}
+          </Button>
+          <Button variant="secondary" size="sm" onClick={() => setRunning(!running)}>
+            {running ? <Pause className="size-4" aria-hidden /> : <Play className="size-4" aria-hidden />}
+            {running ? t("experiments.play.pause") : t("experiments.play.run")}
           </Button>
         </>
       }

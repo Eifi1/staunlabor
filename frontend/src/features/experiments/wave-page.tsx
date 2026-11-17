@@ -13,6 +13,7 @@ import { Figures, WidgetCard } from "@/shared/ui/widget";
 import { Equation } from "./equation";
 import { ExhibitFrame } from "./exhibit-frame";
 import { PreviewPending, type PreviewMode, type PreviewProps } from "./preview-mode";
+import { startsRunning } from "./play";
 import { angleDeg, swing } from "./simulate/pendulum";
 import { lengthsM, spreadDeg } from "./simulate/wave";
 import { SIDE } from "./stage";
@@ -91,7 +92,7 @@ function WavePlay({
   const locale = useLocale();
   const clock = useRef(0);
   const [time, setTime] = useState(0);
-  const [runningHere, setRunning] = useState(true);
+  const [runningHere, setRunning] = useState(startsRunning);
   const [speedHere, setSpeed] = useState<Speed>(1);
   const running = preview ? !paused : runningHere;
   const speed = preview ? PREVIEW_SPEED : speedHere;

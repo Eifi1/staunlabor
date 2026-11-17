@@ -11,6 +11,7 @@ import { Figures, WidgetCard } from "@/shared/ui/widget";
 import { Equation } from "./equation";
 import { ExhibitFrame } from "./exhibit-frame";
 import { PreviewPending, type PreviewMode, type PreviewProps } from "./preview-mode";
+import { startsRunning } from "./play";
 import {
   outcome,
   position,
@@ -224,7 +225,7 @@ function PegPlay({
 }: { p: PegPendulum; onChange?: (next: PegPendulum) => void } & PreviewMode) {
   const { t } = useTranslation();
   const sim = useRef({ s: start(p), clock: 0, owed: 0, trail: [] as Array<[number, number]>, i: 0 });
-  const [runningHere, setRunning] = useState(true);
+  const [runningHere, setRunning] = useState(startsRunning);
   const [speedHere, setSpeed] = useState<Speed>(1);
   const [frame, setFrame] = useState(() => ({ s: start(p), trail: [] as Array<[number, number]> }));
   const [said, setSaid] = useState<string | null>(null);

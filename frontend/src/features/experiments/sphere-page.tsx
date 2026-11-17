@@ -33,6 +33,7 @@ import {
 } from "./sphere-hand";
 import { SideView, TopView } from "./sphere-views";
 import { PreviewPending, type PreviewMode, type PreviewProps } from "./preview-mode";
+import { startsRunning } from "./play";
 import { SIDE, STAGE } from "./stage";
 import { useExperimentsDefaults, useSphereFigures } from "./use-experiments";
 
@@ -152,7 +153,7 @@ function SpherePlay({
   if (sim.current === null) sim.current = { y: startState(s), hand: restingHand() };
   const finger = useRef<[number, number]>([0, 0]);
   const [view, setView] = useState<View>(() => viewOf(s, startState(s), restingHand()));
-  const [runningHere, setRunning] = useState(true);
+  const [runningHere, setRunning] = useState(startsRunning);
   const running = preview ? !paused : runningHere;
   const [mode, setMode] = useState<Mode>(preview ? "perfect" : "hand");
   const [tempo, setTempo] = useState(1.5);

@@ -12,6 +12,7 @@ import { Equation } from "./equation";
 import { ExhibitFrame } from "./exhibit-frame";
 import { MotionTable, VectorPlane, niceSpan } from "./race-motion";
 import { PreviewPending, type PreviewMode, type PreviewProps } from "./preview-mode";
+import { startsRunning } from "./play";
 import { RaceView, ValleyView, ballState, pitEntries, raceLayout, type BallState } from "./race-views";
 import { G as PIT_G, run as runPit } from "./simulate/pit";
 import { useExperimentsDefaults, useRace } from "./use-experiments";
@@ -304,7 +305,7 @@ function RaceBuild({ spec, onChange }: { spec: RaceRequest; onChange: (next: Rac
 function ValleyPlay({ data }: { data: RaceAnalysis }) {
   const { t } = useTranslation();
   const locale = useLocale();
-  const [running, setRunning] = useState(true);
+  const [running, setRunning] = useState(startsRunning);
   const [time, setTime] = useClock(running, 0.5);
   const v = data.valley;
   return (

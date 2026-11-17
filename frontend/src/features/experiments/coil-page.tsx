@@ -12,6 +12,7 @@ import { SliderField } from "@/shared/ui/slider-field";
 import { Figures, WidgetCard } from "@/shared/ui/widget";
 import { BUTTON_HUE, CoilTrack, Meter } from "./coil-track";
 import { PreviewPending, type PreviewMode, type PreviewProps } from "./preview-mode";
+import { startsRunning } from "./play";
 import { Equation } from "./equation";
 import { ExhibitFrame } from "./exhibit-frame";
 import {
@@ -146,7 +147,7 @@ function CoilPlay({
   if (sim.current === null) sim.current = start(ex);
   const held = useRef<Press>(0);
   const [view, setView] = useState<View>(() => viewOf(start(ex), 0));
-  const [runningHere, setRunning] = useState(true);
+  const [runningHere, setRunning] = useState(startsRunning);
   const running = preview ? !paused : runningHere;
   const [speed, setSpeed] = useState<(typeof SPEEDS)[number]>(1);
   const [autopilot, setAutopilot] = useState(preview);

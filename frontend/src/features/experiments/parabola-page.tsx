@@ -13,6 +13,7 @@ import { Equation } from "./equation";
 import { ExhibitFrame } from "./exhibit-frame";
 import { ParabolaSideView, ParabolaTopView } from "./parabola-views";
 import { PreviewPending, type PreviewMode, type PreviewProps } from "./preview-mode";
+import { startsRunning } from "./play";
 import {
   SPIN_STEP_S,
   dryRate,
@@ -121,7 +122,7 @@ function ParabolaPlay({
   // The page's turntable has been running before the reader came: the water
   // turns with it. The preview starts from rest.
   const sim = useRef({ water: preview ? 0 : target, vesselAngle: 0, waterAngle: 0, clock: 0, owed: 0 });
-  const [runningHere, setRunning] = useState(true);
+  const [runningHere, setRunning] = useState(startsRunning);
   const [speedHere, setSpeed] = useState<Speed>(1);
   const [frame, setFrame] = useState<Frame>("outside");
   const [view, setView] = useState<View>(() => ({ water: preview ? 0 : target, vesselAngle: 0, waterAngle: 0 }));

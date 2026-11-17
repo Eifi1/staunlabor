@@ -11,6 +11,7 @@ import { Figures, WidgetCard } from "@/shared/ui/widget";
 import { Equation } from "./equation";
 import { ExhibitFrame } from "./exhibit-frame";
 import { PreviewPending, type PreviewMode, type PreviewProps } from "./preview-mode";
+import { startsRunning } from "./play";
 import {
   advance,
   figures as harmonographFigures,
@@ -119,7 +120,7 @@ function HarmonographPlay({ h, preview = false, paused = false }: { h: Harmonogr
   const ink = hex[INK_HUE % hex.length];
   const canvas = useRef<HTMLCanvasElement | null>(null);
   const drawing = useRef<DrawingState>(startDrawing(h));
-  const [runningHere, setRunning] = useState(true);
+  const [runningHere, setRunning] = useState(startsRunning);
   const [speedHere, setSpeed] = useState<Speed>(5);
   const [time, setTime] = useState(0);
   const [pen, setPen] = useState<[number, number]>(() => penAt(h, startDrawing(h)));

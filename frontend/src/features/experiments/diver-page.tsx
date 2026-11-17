@@ -12,6 +12,7 @@ import { Figures, WidgetCard } from "@/shared/ui/widget";
 import { Equation } from "./equation";
 import { ExhibitFrame } from "./exhibit-frame";
 import { PreviewPending, type PreviewMode, type PreviewProps } from "./preview-mode";
+import { startsRunning } from "./play";
 import { STEP_S, bubbleM3, figures, hoverDepthM, liftN, step, type Bottle, type Diver } from "./simulate/diver";
 import { SIDE } from "./stage";
 import { useExperimentsDefaults } from "./use-experiments";
@@ -214,7 +215,7 @@ function DiverPlay({ diver, bottle, preview = false, paused = false }: { diver: 
   const locale = useLocale();
   const [frame, setFrame] = useState({ depth: 0, speed: 0, time: 0 });
   const [squeezeKpa, setSqueeze] = useState(0);
-  const [runningHere, setRunning] = useState(true);
+  const [runningHere, setRunning] = useState(startsRunning);
   const motion = useRef({ depth: 0, speed: 0, time: 0, carry: 0 });
   const hand = useRef(0);
   useEffect(() => {

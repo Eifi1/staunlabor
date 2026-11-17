@@ -37,6 +37,7 @@ import {
   run,
 } from "./simulate/elephant";
 import { PreviewPending, type PreviewMode, type PreviewProps } from "./preview-mode";
+import { startsRunning } from "./play";
 import { STAGE } from "./stage";
 import { useElephantFigures, useExperimentsDefaults } from "./use-experiments";
 
@@ -149,7 +150,7 @@ function ElephantPlay({
   const locale = useLocale();
   const [tilt, setTilt] = useState(0);
   const [auto, setAuto] = useState(preview);
-  const [runningHere, setRunning] = useState(true);
+  const [runningHere, setRunning] = useState(startsRunning);
   const running = preview ? !paused : runningHere;
   // The ball set on the trunk, once: a state's initialiser, so the render never
   // reads the ref the loop then steps.

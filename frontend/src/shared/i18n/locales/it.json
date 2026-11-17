@@ -136,6 +136,10 @@
       "computed": "Come si calcola"
     },
     "unchecked": "La verifica dei calcoli è ancora in sospeso: cifre e disegni di queste pagine possono ancora cambiare.",
+    "play": {
+      "pause": "Pausa",
+      "run": "Continua"
+    },
     "exhibits": {
       "chair": {
         "short": "La sedia",

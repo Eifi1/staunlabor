@@ -136,6 +136,10 @@
       "computed": "Cómo se calcula"
     },
     "unchecked": "La revisión de los cálculos aún está pendiente: las cifras y los dibujos de estas páginas aún pueden cambiar.",
+    "play": {
+      "pause": "Pausa",
+      "run": "Seguir"
+    },
     "exhibits": {
       "chair": {
         "short": "La silla",

@@ -136,6 +136,10 @@
       "computed": "Hogyan számoljuk ki"
     },
     "unchecked": "A számítások ellenőrzése még hátravan: az oldalakon szereplő számok és ábrák még változhatnak.",
+    "play": {
+      "pause": "Szünet",
+      "run": "Tovább"
+    },
     "exhibits": {
       "chair": {
         "short": "A szék",
