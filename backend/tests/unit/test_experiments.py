@@ -177,6 +177,24 @@ def test_a_swing_back_and_forth_slows_as_it_widens():
     assert 1 / _period(run.t, run.depth_below_equator_m) == pytest.approx(2 * x.swing_hz(s, 60.0), rel=0.005)
 
 
+def test_the_chart_s_swings_keep_the_ball_on_the_wall_and_stop_at_ninety_degrees():
+    """Past 90° the wall's push turns negative before the turning point, and the
+    ball leaves it: no such swing exists, so the chart ends at 90°."""
+    s = x.Sphere()
+    swings = x.sphere_figures(s).swing
+    assert swings[-1].amplitude_deg == 90
+    g_share = s.gravity_share
+
+    def push(theta: float, theta0: float) -> float:  # N/(m·g), rolling from rest at θ₀
+        return math.cos(theta) + 2 * g_share * (math.cos(theta) - math.cos(theta0))
+
+    for point in swings:
+        theta0 = math.radians(point.amplitude_deg)
+        assert min(push(theta0 * i / 200, theta0) for i in range(201)) >= -1e-12
+    beyond = math.radians(95)
+    assert push(beyond * 0.99, beyond) < 0
+
+
 def test_holding_an_orbit_needs_a_circle_only_rolling_resistance_asks_for():
     o = x.orbit(x.Sphere(), 2.5)
     assert 0 < o.drive_radius_needed_m < 0.002

@@ -185,7 +185,11 @@ to feel: the hand moves the sphere where it likes.
   other — bobs at Ω·√(1 + 3cos²θ), near the equator once a revolution: the
   visitor's "not in the plane yet".
 * Back and forth is the opposite: a pendulum swings *slower* the wider it
-  swings (0.84 Hz at ±90° against 0.99 Hz small).
+  swings (0.84 Hz at ±90° against 0.99 Hz small). The chart ends there: past
+  90° the wall's push turns negative before the turning point and the ball
+  falls off the wall, so no such swing exists (`SWING_TO_DEG`; it once ran to
+  175°). Rolling at the turning point asks a grip of `(2/7)·tan θ₀`, 0.49 at
+  60°.
 * Rolling needs at most 0.16 of friction anywhere on the default sweep.
 
 ## The magnet car and the coil (`experiments.coil`)

@@ -214,6 +214,15 @@ def swing_hz(sphere: Sphere, amplitude_deg: float) -> float:
     return lowest_orbit_hz(sphere) * _agm(1.0, math.sqrt(1 - k * k))
 
 
+#: The widest swing the chart draws. Past 90° no swing back and forth exists:
+#: the wall's push per kilogram, ``g·cos θ + 2·g′·(cos θ − cos θ₀)``, turns
+#: negative before the turning point, and the ball falls off the wall (a curve
+#: drawn to 175° once showed swings there). Up to 90° it presses on, though
+#: rolling at the turning point asks a grip of ``(2/7)·tan θ₀`` there (0.49 at
+#: 60°), which only a sticky ball and wall give.
+SWING_TO_DEG = 90
+
+
 @dataclass(frozen=True)
 class SwingPoint:
     amplitude_deg: float
@@ -239,7 +248,7 @@ def figures(sphere: Sphere) -> SphereFigures:
         gravity_share=sphere.gravity_share,
         lowest_orbit_hz=lowest_orbit_hz(sphere),
         backbone=backbone(sphere),
-        swing=tuple(SwingPoint(float(a), swing_hz(sphere, a)) for a in range(0, 176, 5)),
+        swing=tuple(SwingPoint(float(a), swing_hz(sphere, a)) for a in range(0, SWING_TO_DEG + 1, 5)),
     )
 
 
