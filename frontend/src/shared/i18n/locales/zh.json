@@ -2962,7 +2962,8 @@
         "incidence": "入射角",
         "refraction": "折射角",
         "leaves": "出射角 θ",
-        "bow": "彩虹角"
+        "bow": "彩虹角",
+        "across_outside": "这条光线穿过返回灯的方向，从另一侧以 {{angle}}° 返回，在 {{bow}}° 的光环之外。"
       },
       "change": {
         "title": "改变材料",

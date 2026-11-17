@@ -2962,7 +2962,8 @@
         "incidence": "Beesési szög",
         "refraction": "Törési szög",
         "leaves": "Kilépési szög θ",
-        "bow": "Szivárványszög"
+        "bow": "Szivárványszög",
+        "across_outside": "Ez a sugár keresztezi a lámpához visszavezető utat, és a másik oldalon {{angle}}°-ban jön vissza, a {{bow}}°-os gyűrűn kívül."
       },
       "change": {
         "title": "Az anyag megváltoztatása",

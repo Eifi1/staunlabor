@@ -2962,7 +2962,8 @@
         "incidence": "Angle of incidence",
         "refraction": "Angle of refraction",
         "leaves": "Angle out θ",
-        "bow": "Rainbow angle"
+        "bow": "Rainbow angle",
+        "across_outside": "This ray crosses the way back to the lamp and comes back on the other side at {{angle}}°, outside the ring at {{bow}}°."
       },
       "change": {
         "title": "Change the material",

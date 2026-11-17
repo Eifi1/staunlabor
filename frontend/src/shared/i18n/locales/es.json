@@ -2962,7 +2962,8 @@
         "incidence": "Ángulo de incidencia",
         "refraction": "Ángulo de refracción",
         "leaves": "Ángulo de salida θ",
-        "bow": "Ángulo del arcoíris"
+        "bow": "Ángulo del arcoíris",
+        "across_outside": "Este rayo cruza el camino de vuelta a la lámpara y vuelve por el otro lado con {{angle}}°, fuera del anillo situado a {{bow}}°."
       },
       "change": {
         "title": "Cambiar el material",

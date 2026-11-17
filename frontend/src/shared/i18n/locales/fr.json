@@ -2962,7 +2962,8 @@
         "incidence": "Angle d’incidence",
         "refraction": "Angle de réfraction",
         "leaves": "Angle de sortie θ",
-        "bow": "Angle de l’arc-en-ciel"
+        "bow": "Angle de l’arc-en-ciel",
+        "across_outside": "Ce rayon croise le chemin de retour vers la lampe et revient de l’autre côté sous {{angle}}°, à l’extérieur de l’anneau situé à {{bow}}°."
       },
       "change": {
         "title": "Changer le matériau",

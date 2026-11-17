@@ -2962,7 +2962,8 @@
         "incidence": "Angolo d’incidenza",
         "refraction": "Angolo di rifrazione",
         "leaves": "Angolo d’uscita θ",
-        "bow": "Angolo dell’arcobaleno"
+        "bow": "Angolo dell’arcobaleno",
+        "across_outside": "Questo raggio incrocia la via di ritorno verso la lampada e torna dall’altra parte con {{angle}}°, fuori dall’anello a {{bow}}°."
       },
       "change": {
         "title": "Cambiare il materiale",

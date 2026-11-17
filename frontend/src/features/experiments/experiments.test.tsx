@@ -1278,10 +1278,21 @@ describe("the glass-bead rainbow", () => {
     fireEvent.click(screen.getByRole("button", { name: E.rainbow.play.to_bow }));
     expect(screen.getByText(E.rainbow.play.at_bow)).toBeInTheDocument();
     fireEvent.change(screen.getByRole("slider", { name: E.rainbow.play.impact }), { target: { value: "99" } });
-    expect(screen.getByText(new RegExp(E.rainbow.play.across.split("{{angle}}")[0]))).toBeInTheDocument();
+    expect(screen.getByText(new RegExp(`${E.rainbow.play.across.split("{{angle}}")[1]}$`))).toBeInTheDocument();
     fireEvent.click(screen.getByRole("switch", { name: E.rainbow.play.split }));
     expect(screen.getByRole("switch", { name: E.rainbow.play.split })).toBeChecked();
     expect(screen.getAllByLabelText(E.equation.symbols).length).toBeGreaterThanOrEqual(4);
+  });
+
+  it("says a crossing ray lands outside the ring once a dense bead's ring has shrunk inside it", async () => {
+    renderWithProviders(<RainbowPage />);
+    await screen.findByRole("img", { name: E.rainbow.bead_view });
+    // At n = 1.9 the ring stands at 1.5°, and a ray 99 % out comes back across the way at some 20°.
+    fireEvent.change(screen.getByRole("slider", { name: E.rainbow.change.index }), { target: { value: "1.9" } });
+    fireEvent.change(screen.getByRole("slider", { name: E.rainbow.play.impact }), { target: { value: "99" } });
+    const [, between, after] = E.rainbow.play.across_outside.split(/\{\{(?:angle|bow)\}\}/);
+    expect(screen.getByText(new RegExp(`${between}[\\d.]+${after}$`))).toBeInTheDocument();
+    expect(screen.queryByText(new RegExp(`${E.rainbow.play.across.split("{{angle}}")[1]}$`))).not.toBeInTheDocument();
   });
 
   it("rings at 21.1° for glass and 42.1° for a water drop", async () => {

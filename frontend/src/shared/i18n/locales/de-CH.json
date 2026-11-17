@@ -2962,7 +2962,8 @@
         "incidence": "Einfallswinkel",
         "refraction": "Brechungswinkel",
         "leaves": "Austrittswinkel θ",
-        "bow": "Regenbogenwinkel"
+        "bow": "Regenbogenwinkel",
+        "across_outside": "Dieser Strahl kreuzt den Weg zurück zur Lampe und kommt auf der anderen Seite unter {{angle}}° zurück, ausserhalb des Rings bei {{bow}}°."
       },
       "change": {
         "title": "Das Material ändern",
