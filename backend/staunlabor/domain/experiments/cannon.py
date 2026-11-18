@@ -563,6 +563,11 @@ def launch(stack: BallStack) -> Launch:
     """The top ball's flight up: the drop until it leaves, then the ball alone
     until it turns."""
     _run, speed, height = _launched(stack)
+    return _flight(stack, speed, height)
+
+
+def _flight(stack: BallStack, speed: float, height: float) -> Launch:
+    """The top ball, left at ``speed`` from ``height``, alone until it turns."""
     top = stack.balls[-1]
     apex = height
     if speed > 0:
@@ -595,7 +600,10 @@ class CannonFigures:
 
 def figures(stack: BallStack) -> CannonFigures:
     impact = impact_speed(stack)
-    launches = tuple(
+    # The whole stack is run once, for its launch and its forces: twice, it
+    # was a quarter of a dear stack's cost.
+    run, speed, height = _launched(stack)
+    below = [
         launch(
             BallStack(
                 stack.balls[:k],
@@ -606,9 +614,9 @@ def figures(stack: BallStack) -> CannonFigures:
                 stack.youngs_mpa,
             )
         )
-        for k in range(1, len(stack.balls) + 1)
-    )
-    run, _speed, _height = _launched(stack)
+        for k in range(1, len(stack.balls))
+    ]
+    launches = (*below, _flight(stack, speed, height))
     # The window of forces, whole: the launch is read before it ends.
     while run.first is not None and run.t - run.first <= IMPACT_WINDOW_S:
         run.step()

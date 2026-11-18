@@ -618,8 +618,13 @@ barrel).
   0.02 mm/s and swings a twentieth of a radian a step. In small steps the big
   ball on top from 3 m took 243 000 of them, 11 s of the server (6.4 s in the
   version then live), where the budget allows a couple of hundred
-  milliseconds; now 13 000, against the exhibit's 9 900, with the same figures
-  to a millionth. The impact's forces, overlaps and positions are recorded
+  milliseconds; now 9 300, against the exhibit's 7 800, with the same figures
+  to a millionth. The whole stack is run once for its launch and its forces
+  (it was run twice, a fifth to a third of the cost). Dearest still, at the
+  page's own corners, is a small ball pinched under big ones at 200 MPa (2,
+  20 and 20 cm from 3 m: 140 000 steps): it rattles between the floor and the
+  big ball, every hit a struck contact, and rings too fast (some 6 kHz) for a
+  large step. The impact's forces, overlaps and positions are recorded
   every 0.1 ms for 30 ms.
 - **The textbook's model** is kept beside it for comparison: instantaneous hits
   one after another (`sequential_launch`), with and without losses, and the
