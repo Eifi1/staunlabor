@@ -196,9 +196,11 @@ export function step(el: Elephant, tiltDeg: number, state: State, h = STEP_S): S
   return seat(el, tiltDeg, next);
 }
 
+/** The engine's `fallen`: below the opening and beside it, or the whole ball below it. */
 export function fallen(el: Elephant, state: State): boolean {
   const [x, y] = state;
-  return y < 0 && Math.abs(x) > el.jet.opening_m / 2 + radiusOf(el.ball);
+  const r = radiusOf(el.ball);
+  return y < -r || (y < 0 && Math.abs(x) > el.jet.opening_m / 2 + r);
 }
 
 export function startState(el: Elephant, tiltDeg = 0): State {

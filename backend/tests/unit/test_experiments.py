@@ -1049,6 +1049,18 @@ def test_a_tilted_jet_holds_its_ball_lower_and_to_the_low_side():
     assert max(p.side_n for p in f.side_curve) > (f.weight_n - f.buoyancy_n) * math.sin(math.radians(30))
 
 
+def test_a_ball_sliding_down_beside_the_opening_counts_as_fallen_once_it_is_below_it():
+    """A 4 cm trunk, an 8 cm ball of 30 g at 8 m/s, tilted 3° a second from the
+    start: the ball slides off the rim and down at just the trunk's width from
+    its axis, which "beside the opening" alone did not count until 4 s in.
+    Wholly below the opening, it has fallen."""
+    el = x.Elephant(jet=x.Jet(opening_m=0.04, speed_m_s=8.0), ball=x.FloatingBall(diameter_m=0.08, mass_kg=0.03))
+    run = x.run_elephant(el, (x.ElephantMove(at_s=0.0, tilt_deg=20.0, over_s=20 / 3),), 6.0)
+    assert run.fell_at_s is not None and run.fell_at_s < 2.0
+    at = min(range(len(run.t)), key=lambda i: abs(run.t[i] - run.fell_at_s))
+    assert run.y_m[at] > -2 * el.ball.radius_m
+
+
 def test_the_elephant_refuses_what_it_cannot_be():
     with pytest.raises(ValueError, match="wider than the opening"):
         x.Elephant(jet=x.Jet(opening_m=0.2))

@@ -287,9 +287,13 @@ def step(
 
 
 def fallen(el: Elephant, state: tuple[float, float, float, float]) -> bool:
-    """Out of the jet for good: the centre below the opening and beside it."""
+    """Out of the jet for good: the centre below the opening and beside it, or
+    the whole ball below the opening. (Beside it alone missed a ball sliding
+    down at just that distance, the trunk's own width: it fell for ever and
+    the auto mode never set it back; found by the crash sweep, 2026-11-17.)"""
     x, y, _, _ = state
-    return y < 0 and abs(x) > el.jet.opening_m / 2 + el.ball.radius_m
+    r = el.ball.radius_m
+    return y < -r or (y < 0 and abs(x) > el.jet.opening_m / 2 + r)
 
 
 def start_state(el: Elephant, tilt_deg: float = 0.0) -> tuple[float, float, float, float]:
