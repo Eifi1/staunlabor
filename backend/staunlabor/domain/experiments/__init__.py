@@ -464,6 +464,7 @@ from staunlabor.domain.experiments.sphere import (
 from staunlabor.domain.experiments.sphere import figures as sphere_figures
 from staunlabor.domain.experiments.sphere import run as run_sphere
 from staunlabor.domain.experiments.waterwheel import WaterWheel, WheelTurns, cup_level, hopf_rho, regime, steady_x
+from staunlabor.domain.experiments.waterwheel import behaviour as waterwheel_behaviour
 from staunlabor.domain.experiments.waterwheel import run as run_waterwheel
 from staunlabor.domain.experiments.wave import (
     GroupPoint,
@@ -856,6 +857,7 @@ __all__ = [
     "vertical_rate",
     "water_profile",
     "water_spin",
+    "waterwheel_behaviour",
     "wave_figures",
     "well_circular_period",
     "well_circular_speed",
