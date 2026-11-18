@@ -2825,7 +2825,7 @@
         "holds": "La pila regge se a ogni strato il baricentro di tutti i blocchi da esso in su sta sopra il suo appoggio: sopra il tratto in cui tocca il blocco sotto, per il più basso sopra il tavolo.",
         "step": "Costruita dall’alto, ogni blocco tanto in fuori quanto permettono quelli sopra: il k-esimo blocco dall’alto sporge di 1/(2k) sul successivo.",
         "harmonic": "Insieme fa metà della serie armonica.",
-        "even": "A gradini uguali il baricentro dell’intera pila raggiunge per primo il bordo: n blocchi sporgono di n/(n + 1), mai una lunghezza intera."
+        "even": "A gradini uguali, con il blocco in basso che sporge dal tavolo quanto ogni blocco da quello sotto, il baricentro dell’intera pila raggiunge per primo il bordo: n blocchi sporgono di n/(n + 1), mai una lunghezza intera."
       },
       "symbols": {
         "centre": "baricentro dei blocchi dallo strato k in su",
@@ -2839,7 +2839,7 @@
         "even": "sbalzo a gradini uguali"
       },
       "sweet": {
-        "steps": "Il trucco: si costruisce dall’alto, non dal basso. Il blocco in cima può sporgere di mezza lunghezza, i due in cima insieme di un quarto sul terzo, i tre in cima di un sesto: i gradini rimpiccioliscono verso il basso. Nove blocchi sporgono così di 1,41 lunghezze, 28 cm con blocchi di 20 cm; a gradini uguali solo 0,9.",
+        "steps": "Il trucco: si costruisce dall’alto, non dal basso. Il blocco in cima può sporgere di mezza lunghezza, i due in cima insieme di un quarto sul terzo, i tre in cima di un sesto: i gradini rimpiccioliscono verso il basso. Nove blocchi sporgono così di 1,41 lunghezze, 28 cm con blocchi di 20 cm; a gradini uguali solo 0,9, e 0,94 con il blocco in basso un po’ arretrato: mai una lunghezza intera.",
         "endless": "La serie armonica non ha fine: con abbastanza blocchi la pila sporge quanto si vuole. Ma lentamente, come un logaritmo. Servono tanti blocchi:",
         "reach_one": "per {{count}} lunghezza",
         "reach_other": "per {{count}} lunghezze",

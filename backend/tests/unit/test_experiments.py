@@ -3302,6 +3302,17 @@ def test_even_steps_never_reach_a_whole_length():
         wider = tuple(left + (i + 1) * 1e-6 for i, left in enumerate(stack))
         assert not x.stack_holds(wider)
     assert round(x.stack_overhang(x.even_stack(9)), 1) == 0.9
+    # The 0.9 holds with the bottom block jutting as far as the rest. Set back
+    # to 1/2 − (n − 1)/(2n), even steps of 1/n reach (2n − 1)/(2n), nine 0.94:
+    # still never a whole length.
+    for n in range(2, 21):
+        step, bottom = 1 / n, 0.5 - (n - 1) / (2 * n)
+        set_back = tuple(bottom + i * step - 1 for i in range(n))
+        assert x.stack_holds(set_back)
+        assert x.stack_overhang(set_back) == pytest.approx((2 * n - 1) / (2 * n), rel=1e-12)
+        assert x.stack_overhang(set_back) < 1
+        assert not x.stack_holds(tuple(left + i * 1e-6 for i, left in enumerate(set_back)))
+    assert round(x.stack_overhang(tuple(1 / 18 + i / 9 - 1 for i in range(9))), 2) == 0.94
 
 
 def test_one_length_takes_4_blocks_two_31_three_227_four_1674():

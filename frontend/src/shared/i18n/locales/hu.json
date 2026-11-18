@@ -2825,7 +2825,7 @@
         "holds": "A torony megáll, ha minden rétegben az attól felfelé lévő összes hasáb tömegközéppontja az alátámasztása fölött van: azon a szakaszon, ahol az alatta lévő hasábot érinti, a legalsónál az asztal fölött.",
         "step": "Felülről építve, minden hasáb annyira kint, amennyire a fölötte lévők engedik: a felülről k-adik hasáb 1/(2k)-val nyúlik túl a következőn.",
         "harmonic": "Együtt ez a harmonikus sor fele.",
-        "even": "Egyenlő lépcsőkben az egész torony tömegközéppontja éri el először az élt: n hasáb n/(n + 1)-gyel nyúlik ki, soha egy teljes hosszal."
+        "even": "Egyenlő lépcsőkben, ha a legalsó hasáb is annyival nyúlik túl az asztalon, mint mindegyik az alatta lévőn, az egész torony tömegközéppontja éri el először az élt: n hasáb n/(n + 1)-gyel nyúlik ki, soha egy teljes hosszal."
       },
       "symbols": {
         "centre": "a k-adik rétegtől felfelé lévő hasábok tömegközéppontja",
@@ -2839,7 +2839,7 @@
         "even": "kinyúlás egyenlő lépcsőkben"
       },
       "sweet": {
-        "steps": "A trükk: nem alulról, hanem felülről építünk. A legfelső hasáb fél hosszal nyúlhat ki, a felső kettő együtt negyed hosszal a harmadik fölött, a felső három egyhatoddal: a lépcsők lefelé egyre kisebbek. Kilenc hasáb így 1,41 hosszal nyúlik ki, 20 cm-es hasáboknál 28 cm-rel; egyenlő lépcsőkben csak 0,9-del.",
+        "steps": "A trükk: nem alulról, hanem felülről építünk. A legfelső hasáb fél hosszal nyúlhat ki, a felső kettő együtt negyed hosszal a harmadik fölött, a felső három egyhatoddal: a lépcsők lefelé egyre kisebbek. Kilenc hasáb így 1,41 hosszal nyúlik ki, 20 cm-es hasáboknál 28 cm-rel; egyenlő lépcsőkben csak 0,9-del, kissé visszahúzott legalsó hasábbal 0,94-dal: soha egy teljes hosszal.",
         "endless": "A harmonikus sornak nincs vége: elég hasábbal a torony olyan messzire nyúlik ki, amennyire csak akarjuk. De lassan, mint egy logaritmus. Ennyi hasáb kell:",
         "reach_one": "{{count}} hosszhoz",
         "reach_other": "{{count}} hosszhoz",

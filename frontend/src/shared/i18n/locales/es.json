@@ -2825,7 +2825,7 @@
         "holds": "La pila aguanta si en cada capa el centro de masa de todos los bloques de ella hacia arriba está sobre su apoyo: sobre el tramo en que toca el bloque de abajo, y la más baja sobre la mesa.",
         "step": "Construida desde arriba, cada bloque tan lejos como permiten los de encima: el bloque k desde arriba sobresale 1/(2k) del siguiente.",
         "harmonic": "Juntos, es la mitad de la serie armónica.",
-        "even": "En peldaños iguales, el centro de masa de toda la pila llega primero al borde: n bloques sobresalen n/(n + 1), nunca una longitud entera."
+        "even": "En peldaños iguales, con el bloque de abajo sobresaliendo de la mesa lo mismo que cada uno sobre el de debajo, el centro de masa de toda la pila llega primero al borde: n bloques sobresalen n/(n + 1), nunca una longitud entera."
       },
       "symbols": {
         "centre": "centro de masa de los bloques de la capa k hacia arriba",
@@ -2839,7 +2839,7 @@
         "even": "voladizo en peldaños iguales"
       },
       "sweet": {
-        "steps": "El truco: se construye desde arriba, no desde abajo. El bloque de arriba puede sobresalir media longitud, los dos de arriba juntos un cuarto sobre el tercero, los tres de arriba un sexto: los peldaños se hacen más pequeños hacia abajo. Así nueve bloques sobresalen 1,41 longitudes, 28 cm con bloques de 20 cm; en peldaños iguales, solo 0,9.",
+        "steps": "El truco: se construye desde arriba, no desde abajo. El bloque de arriba puede sobresalir media longitud, los dos de arriba juntos un cuarto sobre el tercero, los tres de arriba un sexto: los peldaños se hacen más pequeños hacia abajo. Así nueve bloques sobresalen 1,41 longitudes, 28 cm con bloques de 20 cm; en peldaños iguales, solo 0,9, y 0,94 con el bloque de abajo algo retrasado: nunca una longitud entera.",
         "endless": "La serie armónica no tiene fin: con bloques suficientes la pila sobresale tanto como se quiera. Pero despacio, como un logaritmo. Hacen falta tantos bloques:",
         "reach_one": "para {{count}} longitud",
         "reach_other": "para {{count}} longitudes",

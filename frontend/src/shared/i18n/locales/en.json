@@ -2825,7 +2825,7 @@
         "holds": "The stack holds if at every layer the centre of mass of all the blocks from it upward lies over its footing: over the stretch where it touches the block below, for the lowest over the table.",
         "step": "Built from the top, each block as far out as the ones above allow: the k-th block from the top juts 1/(2k) out over the next.",
         "harmonic": "Together that is half the harmonic series.",
-        "even": "In even steps the whole stack's centre of mass reaches the edge first: n blocks reach n/(n + 1) out, never a whole length."
+        "even": "In even steps, the bottom block jutting over the table as far as each block over the one below, the whole stack's centre of mass reaches the edge first: n blocks reach n/(n + 1) out, never a whole length."
       },
       "symbols": {
         "centre": "centre of mass of the blocks from layer k up",
@@ -2839,7 +2839,7 @@
         "even": "overhang in even steps"
       },
       "sweet": {
-        "steps": "The trick: build from the top, not from the bottom. The top block may jut half a length out, the top two together a quarter over the third, the top three a sixth: the steps grow smaller downward. Nine blocks then reach 1.41 lengths out, 28 cm with blocks of 20 cm; in even steps only 0.9.",
+        "steps": "The trick: build from the top, not from the bottom. The top block may jut half a length out, the top two together a quarter over the third, the top three a sixth: the steps grow smaller downward. Nine blocks then reach 1.41 lengths out, 28 cm with blocks of 20 cm; in even steps only 0.9, and 0.94 with the bottom block set back a little: never a whole length.",
         "endless": "The harmonic series has no end: with enough blocks the stack reaches as far out as you like. But slowly, like a logarithm. This many blocks it takes:",
         "reach_one": "for {{count}} length",
         "reach_other": "for {{count}} lengths",

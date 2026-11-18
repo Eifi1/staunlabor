@@ -1727,11 +1727,15 @@ one to a layer; a layer holds while the centre of mass of it and all above lies
 over its footing (where it overlaps the block below; the table's top, edge at
 zero, for the lowest), its ends included. The furthest stack is built from the
 top, the `k`-th block from the top `1/(2k)` over the next: `H_n/2`. Even steps
-`1/(n + 1)` put the whole stack's centre on the edge first and reach
-`n/(n + 1)`. In lengths; the blocks are 20 × 4 cm only to draw and measure.
+`1/(n + 1)`, the lowest block that far over the edge too, put the whole
+stack's centre on the edge first and reach `n/(n + 1)`; with the lowest block
+set back to `1/2 − (n − 1)/(2n)`, even steps of `1/n` reach `(2n − 1)/(2n)`,
+nine 0.94 — the page said "in even steps only 0.9" without the first condition
+(the mathematics check, 2026-11-17). In lengths; the blocks are 20 × 4 cm only to draw and measure.
 
 **What it shows.** Nine blocks reach 1.41 lengths, 28.3 cm; four already more
-than one (1.04); even steps 0.9 with nine, never a whole length. One length
+than one (1.04); even steps 0.9 with nine, 0.94 with the lowest set back,
+never a whole length. One length
 takes 4 blocks, two 31, three 227, four 1674. The furthest stack stands at
 every edge at once: a block pushed a breath further out tips its own layer and
 every one below it, so the whole stack goes over the table's edge.
@@ -1758,8 +1762,8 @@ only tip); the wood giving way; a shaking hand.
 
 **Checked by** `tests/unit/test_experiments.py`: the furthest stacks of 1 to
 20 against `H_n/2` in exact fractions, nine at 1.41 (28 cm), three short of a
-length and four past it; even steps at `n/(n + 1)`, holding, and tipping a
-step wider; the blocks for one to four lengths; the furthest stack at every
+length and four past it; even steps at `n/(n + 1)` and, the lowest set back,
+at `(2n − 1)/(2n)`, holding, and tipping a step wider; the blocks for one to four lengths; the furthest stack at every
 edge at once and a nudge tipping its layer and all below; a blind search of
 20 000 random stacks of three and of four, none holding past the harmonic; the
 refusals.

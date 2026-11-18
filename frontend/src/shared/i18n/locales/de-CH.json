@@ -2825,7 +2825,7 @@
         "holds": "Der Stapel hält, wenn in jeder Lage der Schwerpunkt aller Klötze von ihr an aufwärts über ihrer Auflage liegt: über dem Stück, auf dem sie den Klotz darunter berührt, bei der untersten über dem Tisch.",
         "step": "Von oben gebaut, jeder Klotz so weit hinaus, wie die darüber es erlauben: Der k-te Klotz von oben ragt um 1/(2k) über den nächsten.",
         "harmonic": "Zusammen ist das die Hälfte der harmonischen Reihe.",
-        "even": "In gleichen Stufen erreicht der Schwerpunkt des ganzen Stapels zuerst die Kante: n Klötze ragen n/(n + 1) hinaus, nie eine ganze Länge."
+        "even": "In gleichen Stufen, auch der unterste Klotz so weit über den Tisch wie jeder über den darunter, erreicht der Schwerpunkt des ganzen Stapels zuerst die Kante: n Klötze ragen n/(n + 1) hinaus, nie eine ganze Länge."
       },
       "symbols": {
         "centre": "Schwerpunkt der Klötze ab Lage k aufwärts",
@@ -2839,7 +2839,7 @@
         "even": "Überhang in gleichen Stufen"
       },
       "sweet": {
-        "steps": "Der Trick: Man baut nicht von unten, sondern von oben. Der oberste Klotz darf eine halbe Länge überstehen, die obersten zwei zusammen eine Viertellänge über dem dritten, die obersten drei ein Sechstel: Die Stufen werden nach unten immer kleiner. Neun Klötze ragen so 1,41 Längen hinaus, bei Klötzen von 20 cm 28 cm; in gleichen Stufen nur 0,9.",
+        "steps": "Der Trick: Man baut nicht von unten, sondern von oben. Der oberste Klotz darf eine halbe Länge überstehen, die obersten zwei zusammen eine Viertellänge über dem dritten, die obersten drei ein Sechstel: Die Stufen werden nach unten immer kleiner. Neun Klötze ragen so 1,41 Längen hinaus, bei Klötzen von 20 cm 28 cm; in gleichen Stufen nur 0,9, mit etwas zurückgesetztem untersten Klotz 0,94: nie eine ganze Länge.",
         "endless": "Die harmonische Reihe hat kein Ende: Mit genug Klötzen ragt der Stapel so weit hinaus, wie man will. Aber langsam, wie ein Logarithmus. So viele Klötze braucht es:",
         "reach_one": "für {{count}} Länge",
         "reach_other": "für {{count}} Längen",

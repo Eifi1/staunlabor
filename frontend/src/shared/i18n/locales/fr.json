@@ -2825,7 +2825,7 @@
         "holds": "La pile tient si, à chaque étage, le centre de gravité de tous les blocs à partir de lui vers le haut est au-dessus de son appui : au-dessus de la partie où il touche le bloc du dessous, pour le plus bas au-dessus de la table.",
         "step": "Construite par le haut, chaque bloc aussi loin que ceux du dessus le permettent : le k-ième bloc depuis le haut dépasse de 1/(2k) le suivant.",
         "harmonic": "Ensemble, c’est la moitié de la série harmonique.",
-        "even": "En marches égales, le centre de gravité de toute la pile atteint le bord en premier : n blocs dépassent de n/(n + 1), jamais d’une longueur entière."
+        "even": "En marches égales, le bloc du bas dépassant de la table autant que chaque bloc de celui du dessous, le centre de gravité de toute la pile atteint le bord en premier : n blocs dépassent de n/(n + 1), jamais d’une longueur entière."
       },
       "symbols": {
         "centre": "centre de gravité des blocs à partir de l’étage k",
@@ -2839,7 +2839,7 @@
         "even": "porte-à-faux en marches égales"
       },
       "sweet": {
-        "steps": "L’astuce : on construit par le haut, pas par le bas. Le bloc du haut peut dépasser d’une demi-longueur, les deux du haut ensemble d’un quart sur le troisième, les trois du haut d’un sixième : les marches rapetissent vers le bas. Neuf blocs dépassent ainsi de 1,41 longueur, 28 cm avec des blocs de 20 cm ; en marches égales, de 0,9 seulement.",
+        "steps": "L’astuce : on construit par le haut, pas par le bas. Le bloc du haut peut dépasser d’une demi-longueur, les deux du haut ensemble d’un quart sur le troisième, les trois du haut d’un sixième : les marches rapetissent vers le bas. Neuf blocs dépassent ainsi de 1,41 longueur, 28 cm avec des blocs de 20 cm ; en marches égales, de 0,9 seulement, et de 0,94 avec le bloc du bas un peu en retrait : jamais d’une longueur entière.",
         "endless": "La série harmonique n’a pas de fin : avec assez de blocs, la pile dépasse aussi loin qu’on veut. Mais lentement, comme un logarithme. Il faut tant de blocs :",
         "reach_one": "pour {{count}} longueur",
         "reach_other": "pour {{count}} longueurs",
