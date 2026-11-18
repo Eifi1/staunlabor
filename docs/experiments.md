@@ -830,7 +830,14 @@ the ends.
 **What it shows** (the default: R 6 cm, α 20°, β 20°, γ 4°, rails 30 cm from
 6 cm apart). The rails rise 2.1 cm while the axis falls 1.9 cm; up to 7.5° the
 cone rolls up; it reaches the top in 1.5 s at 0.17 m/s, spinning 2.8 times a
-second on its thin part. At 10° it rolls down, and is laid at the top.
+second on its thin part. At 10° it rolls down, and is laid at the top. The
+contact lies `s*·r₀` along the rails from the axis's place, behind it where the
+cone rolls up, so laid at the very end it would touch the rails before they
+begin and rest on their ends, which the model does not have: it is laid, and
+stopped, where its contact lies on them (`on_rails_m`) — 3 mm up in the
+default build, which changes the run by 2 ms, and 84 mm of a 10 cm rail at the
+sliders' corner, where the first version had it roll from nowhere (the
+mathematics check, 2026-11-17).
 
 **The page.** The cone from the side (the rails one rising line, the middle
 disc, the circle it rolls on, a turning spoke, and the dashed path of its axis)

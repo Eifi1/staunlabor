@@ -596,8 +596,10 @@ describe("the double cone's port", () => {
 
   it("lays the cone where it can roll from, and says when the rails would let it fall through", () => {
     const ex = cases.cone[0].ex as cone.ConeExhibit;
-    expect(cone.startFor(ex)).toBe(0);
-    expect(cone.startFor({ ...ex, rails: { ...ex.rails, slope_deg: 10 } })).toBe(ex.rails.length_m);
+    // Where its contact first lies on the rails, as the engine lays it: 3 mm up.
+    expect(cone.startFor(ex)).toBe(cases.cone[0].start_x_m);
+    expect(cone.startFor(ex)).toBeCloseTo(0.0031, 4);
+    expect(cone.startFor({ ...ex, rails: { ...ex.rails, slope_deg: 10 } })).toBeCloseTo(0.2996, 4);
     expect(cone.refusal(ex)).toBeNull();
     expect(cone.refusal({ ...ex, rails: { ...ex.rails, length_m: 0.5 } })).toBe("fall_through");
     expect(() => cone.roll(ex, 0.5, 1)).toThrow(RangeError);

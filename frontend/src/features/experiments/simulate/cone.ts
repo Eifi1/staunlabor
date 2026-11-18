@@ -137,7 +137,15 @@ export interface RollState {
   stopped: boolean;
 }
 
-/** One step of the roll, in place: the stops at the ends hold it. */
+/** The engine's `on_rails_m`: from where to where the cone's contact lies on the rails. */
+export function onRailsM(ex: ConeExhibit): [number, number] {
+  const [along, share] = offsets(ex);
+  const start = radiusUnderM(ex, 0.0);
+  const length = ex.rails.length_m;
+  return [Math.max(0.0, (-along * start) / share), Math.min(length, (length - along * start) / share)];
+}
+
+/** One step of the roll, in place: the stops where its contact leaves the rails hold it. */
 export function rollStep(ex: ConeExhibit, state: RollState, stepS = STEP_S): void {
   if (state.stopped) return;
   const f = (_t: number, y: readonly number[]) => [y[1], acceleration(ex, y[0], y[1])];
@@ -145,8 +153,9 @@ export function rollStep(ex: ConeExhibit, state: RollState, stepS = STEP_S): voi
   state.i += 1;
   state.x = y[0];
   state.v = y[1];
-  if (state.x >= ex.rails.length_m || state.x <= 0) {
-    state.x = Math.min(Math.max(state.x, 0.0), ex.rails.length_m);
+  const [low, high] = onRailsM(ex);
+  if (state.x >= high || state.x <= low) {
+    state.x = Math.min(Math.max(state.x, low), high);
     state.v = 0.0;
     state.stopped = true;
   }
@@ -163,7 +172,9 @@ export function roll(ex: ConeExhibit, startXM: number, durationS: number, stepS 
   if (!(stepS > 0 && stepS <= 0.01)) throw new RangeError("the step lies between 0 and 10 ms");
   if (!(durationS > 0 && durationS <= MAX_DURATION_S))
     throw new RangeError(`a roll lasts more than nothing and at most ${MAX_DURATION_S} s`);
-  if (!(startXM >= 0 && startXM <= ex.rails.length_m)) throw new RangeError("the cone is laid on the rails");
+  const [low, high] = onRailsM(ex);
+  if (!(startXM >= low - 1e-12 && startXM <= high + 1e-12))
+    throw new RangeError("the cone is laid on the rails, where its contact lies on them");
   const state: RollState = { i: 0, x: startXM, v: 0, stopped: false };
   const steps = roundHalfEven(durationS / stepS);
   const every = sampleEvery(stepS);
@@ -189,5 +200,6 @@ export function roll(ex: ConeExhibit, startXM: number, durationS: number, stepS 
 /** Where the cone is laid to roll: the low end, or the high end when its axis
  *  rises along the rails. */
 export function startFor(ex: ConeExhibit): number {
-  return axisSlope(ex) > 0 ? ex.rails.length_m : 0.0;
+  const [low, high] = onRailsM(ex);
+  return axisSlope(ex) > 0 ? high : low;
 }

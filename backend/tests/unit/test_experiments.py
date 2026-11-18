@@ -1676,25 +1676,50 @@ def test_the_axis_falls_as_the_rails_rise_and_the_textbook_says_where_that_stops
 
 def test_the_cone_rolls_up_to_the_top_without_slipping_and_without_losing_energy():
     ex = x.ConeExhibit()
-    run = x.roll(ex, 0.0, 10.0)
+    run = x.roll(ex, x.start_for(ex), 10.0)
     assert run.final_x_m == 0.3
     assert round(run.stopped_at_s, 1) == 1.5
     spin = 0.3 * ex.cone.radius_m**2
+    laid = x.axis_height_m(ex, run.x_m[0])
     for xs, v in zip(run.x_m[:-1], run.speed_m_s[:-1], strict=True):
         rho = x.contact_radius_m(ex, xs)
-        energy = 0.5 * (1 + spin / rho**2) * v * v + 9.80665 * (x.axis_height_m(ex, xs) - x.axis_height_m(ex, 0))
+        energy = 0.5 * (1 + spin / rho**2) * v * v + 9.80665 * (x.axis_height_m(ex, xs) - laid)
         assert energy == pytest.approx(0, abs=1e-10)
     # Near the top it spins fast on the thin part and moves slowly.
     assert round(run.speed_m_s[-2], 2) == 0.17
     assert round(run.spin_rev_s[-2], 1) == 2.8
 
 
+def test_the_cone_is_laid_where_its_contact_first_lies_on_the_rails():
+    """Rolling up, the contact lies behind the axis: laid at the very end, the
+    cone would touch the rails before they begin. Its contact at x + s*·r₀(x),
+    the first place on them is 3 mm up in the default build, 84 mm of a 10 cm
+    rail at the sliders' corner; the run to the top barely changes by default."""
+    from staunlabor.domain.experiments import cone
+
+    def contact_at(ex: Any, place: float) -> float:
+        along, _ = cone._offsets(ex)
+        return place + along * cone.radius_under_m(ex, place)
+
+    default = x.ConeExhibit()
+    low, high = cone.on_rails_m(default)
+    assert contact_at(default, low) == pytest.approx(0.0, abs=1e-12) and high == 0.3
+    assert round(low * 1000, 1) == 3.1
+    corner = x.ConeExhibit(
+        cone=x.DoubleCone(radius_m=0.12, cone_deg=40.0),
+        rails=x.Rails(slope_deg=0.0, spread_deg=40.0, length_m=0.10, start_half_gap_m=0.0),
+    )
+    assert round(cone.on_rails_m(corner)[0] * 1000, 1) == 84.5
+    assert round(x.roll(default, x.start_for(default), 30.0).stopped_at_s, 2) == 1.49
+
+
 def test_on_steeper_rails_the_cone_is_laid_at_the_top_and_rolls_down():
     steep = x.ConeExhibit(rails=x.Rails(slope_deg=10.0))
-    assert x.start_for(steep) == 0.3
+    # Each where its contact lies on the rails: 0.4 mm short of the top here.
+    assert x.start_for(steep) == pytest.approx(0.2996, abs=1e-4)
     run = x.roll(steep, x.start_for(steep), 10.0)
     assert run.final_x_m == 0.0
-    assert x.start_for(x.ConeExhibit()) == 0.0
+    assert x.start_for(x.ConeExhibit()) == pytest.approx(0.0031, abs=1e-4)
     # Laid at the low end of steep rails, it stays.
     assert x.roll(steep, 0.0, 1.0).final_x_m == 0.0
 
