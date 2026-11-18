@@ -240,8 +240,15 @@ turns at 3 V drew 455 mA, off the meter's scale. All of it is a slider.
 * **Wrong way round traps the car** at the coil within a pass.
 * **The meter's swing is a brake**: with the coil closed through the meter the
   coasting car stops sooner than with it open (Lenz).
-* **There is a top speed however well you press**, where `k·v` equals the
-  supply: 4.8 m/s for the default build.
+* **There is a top speed however well you press**, `U·Ψ(0)/∫k² dx`: the car's
+  own current brakes it, the harder the faster it goes, and past that speed the
+  brake takes more from a pass than the battery can give, even with plus the
+  whole way in and minus the whole way out. 7.2 m/s for the default build; the
+  formula leaves the inductance out, and stepped with it the zero lies about
+  7 % higher. `U/k_max`, 4.8 m/s, given here before the mathematics check, is
+  only where the car's voltage first beats the battery's, at the peaks of `k`:
+  the flanks still push, and a pass there still gains 40 % of what it gains at
+  1 m/s.
 * A perfect pass at full current gains `2·I·Ψ(0)`, 16 mJ (11 mm of height);
   rolling resistance and the induced voltage take some of it.
 

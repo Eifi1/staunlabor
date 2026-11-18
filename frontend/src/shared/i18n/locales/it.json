@@ -496,7 +496,7 @@
         "gain": "la massima energia che un passaggio può dare",
         "full_current": "la corrente con un pulsante premuto",
         "supply": "la tensione della batteria",
-        "top_speed": "la velocità oltre la quale la bobina non può più spingere",
+        "top_speed": "la velocità oltre la quale nessun passaggio guadagna più nulla",
         "arc": "la distanza percorsa sull'arco, dalla fine del tratto piano",
         "ramp_radius": "il raggio delle rampe"
       },
@@ -507,7 +507,7 @@
         "late": "Ritardo della mano sul pulsante −",
         "reading": "Come leggere la curva: commutare in tempo guadagna di più; con 20 ms di ritardo si ottengono ancora circa due terzi; con 30 ms di ritardo il carrello non arriva mai in cima; con circa 60 ms di ritardo, l'attrazione che resta frena il carrello. Questi valori valgono per il montaggio predefinito.",
         "gain_bound": "Il massimo che un passaggio può dare: tirare il carrello da lontano fino al centro guadagna I·Ψ(0), spingerlo di nuovo fuori altrettanto. La tensione indotta e la resistenza al rotolamento ne prendono una parte.",
-        "top_speed": "Per quanto bene Lei prema, c'è una velocità massima: dove la tensione che il carrello induce eguaglia quella della batteria, non scorre corrente e la bobina non può più spingere."
+        "top_speed": "Per quanto bene Lei prema, c'è una velocità massima. Il carrello stesso induce nella bobina una corrente che lo frena, tanto più forte quanto più va veloce. A questa velocità quel freno toglie a un passaggio quanto la batteria può dare al massimo, anche premendo il più per tutta l'entrata e il meno per tutta l'uscita; oltre, toglie di più. La formula trascura l'induttanza della bobina; con essa il limite sta circa il 7 % più in alto."
       },
       "figures": {
         "tau": "Costante di tempo",

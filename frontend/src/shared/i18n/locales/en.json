@@ -496,7 +496,7 @@
         "gain": "the most energy one pass can give",
         "full_current": "the current with a button held",
         "supply": "the battery's voltage",
-        "top_speed": "the speed past which the coil can no longer push",
+        "top_speed": "the speed past which no pass gains anything",
         "arc": "how far up the arc, from the flat's end",
         "ramp_radius": "the ramps' radius"
       },
@@ -507,7 +507,7 @@
         "late": "How late the hand reaches the − button",
         "reading": "Read the curve: switching on time gains the most; 20 ms late still gives about two thirds; 30 ms late and the car never reaches the top; some 60 ms late the pull that is left brakes the car. These figures hold for the default build.",
         "gain_bound": "The most one pass can give: pulling in from far away to the middle gains I·Ψ(0), pushing out again the same. The induced voltage and rolling resistance take some of it.",
-        "top_speed": "However well you press, there is a top speed: where the voltage the car induces equals the battery's, no current flows and the coil can no longer push."
+        "top_speed": "However well you press, there is a top speed. The car drives a current of its own through the coil, which brakes it, the harder the faster it goes. At this speed the brake takes as much from a pass as the battery can give at most, even with plus pressed the whole way in and minus the whole way out; past it, the brake takes more. The formula leaves out the coil's inductance; with it the limit lies about 7 % higher."
       },
       "figures": {
         "tau": "Time constant",

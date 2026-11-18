@@ -496,7 +496,7 @@
         "gain": "die grösste Energie, die eine Durchfahrt bringen kann",
         "full_current": "der Strom bei gedrückter Taste",
         "supply": "die Spannung der Batterie",
-        "top_speed": "das Tempo, ab dem die Spule nicht mehr schieben kann",
+        "top_speed": "das Tempo, ab dem keine Durchfahrt mehr etwas gewinnt",
         "arc": "wie weit den Bogen hinauf, vom Ende des flachen Stücks aus",
         "ramp_radius": "der Radius der Rampen"
       },
@@ -507,7 +507,7 @@
         "late": "Wie spät die Hand die Taste − erreicht",
         "reading": "So liest man die Kurve: Pünktlich umschalten gewinnt am meisten; 20 ms zu spät bringt noch etwa zwei Drittel; 30 ms zu spät, und der Wagen kommt nie oben an; etwa 60 ms zu spät bremst der verbliebene Zug den Wagen. Diese Zahlen gelten für den voreingestellten Aufbau.",
         "gain_bound": "Das Meiste, was eine Durchfahrt bringen kann: das Hineinziehen von weit weg bis zur Mitte bringt I·Ψ(0), das Hinausstossen noch einmal so viel. Die induzierte Spannung und der Rollwiderstand nehmen davon etwas weg.",
-        "top_speed": "Wie gut Sie auch drücken, es gibt ein Höchsttempo: Wo die Spannung, die der Wagen erzeugt, der Batteriespannung gleicht, fliesst kein Strom mehr, und die Spule kann nicht mehr schieben."
+        "top_speed": "Wie gut Sie auch drücken, es gibt ein Höchsttempo. Der Wagen erzeugt in der Spule selbst einen Strom, der ihn bremst, umso stärker, je schneller er fährt. Bei diesem Tempo nimmt die Bremse einer Durchfahrt so viel, wie die Batterie höchstens geben kann, auch wenn Sie auf dem ganzen Weg hinein plus und auf dem ganzen Weg hinaus minus drücken; darüber nimmt sie mehr. Die Formel lässt die Induktivität der Spule weg; mit ihr liegt die Grenze etwa 7 % höher."
       },
       "figures": {
         "tau": "Zeitkonstante",

@@ -264,12 +264,52 @@ def test_the_coil_s_figures_for_the_default_build():
     assert fig.time_constant_s == pytest.approx(1.257e-3, rel=1e-3)
     assert fig.full_current_a == pytest.approx(9.0 / 94.0)
     assert fig.peak_coupling_v_s_per_m == pytest.approx(1.8924, rel=1e-3)
-    assert fig.top_speed_m_s == pytest.approx(9.0 / fig.peak_coupling_v_s_per_m)
+    assert round(fig.top_speed_m_s, 1) == 7.2
     assert fig.ideal_gain_per_pass_j == pytest.approx(2 * fig.full_current_a * fig.peak_flux_wb)
     # What the page says about the game: the coil answers in a millisecond,
     # the hand has about fifty between the two buttons.
     assert fig.time_constant_s < 0.002
     assert 0.04 < fig.between_peaks_s < 0.07
+
+
+def _coil_pass_gain(ex: x.CoilExhibit, v: float) -> float:
+    """The work the coil does on a car crossing it at a steady ``v``, plus the
+    whole way in and minus the whole way out, its current stepped with the
+    coil's inductance (RK4 over 6000 steps, ±0.3 m), not the engine's run."""
+    u_max, r, ind, far, n = ex.supply_v, ex.coil.resistance_ohm, ex.coil.inductance_h, 0.3, 6000
+    dx = 2 * far / n
+    ks = [x.coupling(ex, -far + j * dx / 2) for j in range(2 * n + 1)]
+    dt, i, work = dx / v, 0.0, 0.0
+
+    def di(k: float, u: float, now: float) -> float:
+        return (u - k * v - r * now) / ind
+
+    for j in range(n):
+        u = u_max if j < n // 2 else -u_max
+        k0, km, k1 = ks[2 * j : 2 * j + 3]
+        a = di(k0, u, i)
+        b = di(km, u, i + dt / 2 * a)
+        c = di(km, u, i + dt / 2 * b)
+        d = di(k1, u, i + dt * c)
+        nxt = i + dt / 6 * (a + 2 * b + 2 * c + d)
+        work += (k0 * i + k1 * nxt) / 2 * dx
+        i = nxt
+    return work
+
+
+def test_past_the_top_speed_no_pass_gains_however_well_the_buttons_are_pressed():
+    """``U·Ψ(0)/∫k² dx`` leaves the inductance out, which delays the current and
+    weakens the car's own brake, so a stepped pass still gains a little there
+    and nothing 7 % higher. ``U/k_max``, the figure once given, is far below:
+    a pass still gains 40 % of what it does at 1 m/s."""
+    ex = x.CoilExhibit()
+    top = x.figures(ex).top_speed_m_s
+    assert 0 < _coil_pass_gain(ex, top) < 0.1 * _coil_pass_gain(ex, 1.0)
+    assert _coil_pass_gain(ex, 1.06 * top) > 0 > _coil_pass_gain(ex, 1.08 * top)
+    peaks = ex.supply_v / x.figures(ex).peak_coupling_v_s_per_m
+    assert _coil_pass_gain(ex, peaks) > 0.35 * _coil_pass_gain(ex, 1.0)
+    # The rule's window of 6 cm presses over 86 % of the flux the whole way would.
+    assert x.flux_linkage(ex, -x.PressRule().window_m) / x.flux_linkage(ex, 0.0) == pytest.approx(0.14, abs=0.01)
 
 
 def test_the_default_build_reads_on_the_exhibit_s_meter():

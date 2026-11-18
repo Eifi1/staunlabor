@@ -626,9 +626,15 @@ function CoilTrick({ exhibit, analysis }: { exhibit: CoilExhibitRequest | null; 
         ]}
       />
       <Equation
-        tex={String.raw`v_{\max} = \frac{U}{k_{\max}}`}
+        tex={String.raw`v_{\max} = \frac{U\, \Psi(0)}{\int_{-\infty}^{0} k^2\, dx}`}
         reads={t("experiments.coil.sweet.top_speed")}
-        symbols={[{ tex: String.raw`v_{\max}`, meaning: s("top_speed"), unit: "m/s" }]}
+        symbols={[
+          { tex: String.raw`v_{\max}`, meaning: s("top_speed"), unit: "m/s" },
+          { tex: "U", meaning: s("supply"), unit: "V" },
+          { tex: String.raw`\Psi`, meaning: s("psi"), unit: "Wb = V·s" },
+          { tex: "k", meaning: s("k"), unit: "V·s/m = N/A" },
+          { tex: "x", meaning: s("x"), unit: "m" },
+        ]}
       />
       <Figures
         tiles={[

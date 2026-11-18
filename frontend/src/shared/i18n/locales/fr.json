@@ -496,7 +496,7 @@
         "gain": "le plus d’énergie qu’un passage puisse apporter",
         "full_current": "le courant quand un bouton est maintenu",
         "supply": "la tension de la batterie",
-        "top_speed": "la vitesse au-delà de laquelle la bobine ne peut plus pousser",
+        "top_speed": "la vitesse au-delà de laquelle aucun passage ne rapporte plus rien",
         "arc": "la distance parcourue sur l’arc, depuis la fin du plat",
         "ramp_radius": "le rayon des rampes"
       },
@@ -507,7 +507,7 @@
         "late": "Retard de la main sur le bouton −",
         "reading": "Comment lire la courbe : commuter à temps gagne le plus ; avec 20 ms de retard, on obtient encore environ deux tiers ; avec 30 ms de retard, la voiture n’atteint jamais le sommet ; vers 60 ms de retard, l’attraction qui reste freine la voiture. Ces valeurs valent pour le montage par défaut.",
         "gain_bound": "Le maximum qu’un passage puisse apporter : attirer la voiture de loin jusqu’au milieu rapporte I·Ψ(0), la repousser vers l’extérieur autant. La tension induite et la résistance au roulement en prennent une partie.",
-        "top_speed": "Si bien que vous appuyiez, il y a une vitesse maximale : là où la tension que la voiture induit égale celle de la batterie, aucun courant ne circule et la bobine ne peut plus pousser."
+        "top_speed": "Si bien que vous appuyiez, il y a une vitesse maximale. La voiture induit elle-même dans la bobine un courant qui la freine, d’autant plus fort qu’elle va vite. À cette vitesse, ce frein prend à un passage autant que la batterie peut donner au plus, même en appuyant sur plus tout le long de l’entrée et sur moins tout le long de la sortie ; au-delà, il prend davantage. La formule laisse de côté l’inductance de la bobine ; avec elle, la limite est environ 7 % plus haut."
       },
       "figures": {
         "tau": "Constante de temps",

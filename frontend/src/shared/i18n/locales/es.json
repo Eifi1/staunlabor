@@ -496,7 +496,7 @@
         "gain": "la mayor energía que puede aportar una pasada",
         "full_current": "la corriente con un botón pulsado",
         "supply": "la tensión de la batería",
-        "top_speed": "la velocidad a partir de la cual la bobina ya no puede empujar",
+        "top_speed": "la velocidad a partir de la cual ninguna pasada gana nada",
         "arc": "la distancia recorrida por el arco, desde el final del tramo llano",
         "ramp_radius": "el radio de las rampas"
       },
@@ -507,7 +507,7 @@
         "late": "Retraso de la mano al pulsar −",
         "reading": "Cómo leer la curva: conmutar a tiempo es lo que más gana; con 20 ms de retraso aún se obtienen unos dos tercios; con 30 ms de retraso el coche nunca llega arriba; con unos 60 ms de retraso, la atracción que queda frena el coche. Estas cifras valen para el montaje predeterminado.",
         "gain_bound": "Lo máximo que puede dar una pasada: atraer el coche desde lejos hasta el centro gana I·Ψ(0), y empujarlo de nuevo hacia fuera, otro tanto. La tensión inducida y la resistencia a la rodadura se llevan parte de ello.",
-        "top_speed": "Por bien que pulse, hay una velocidad máxima: donde la tensión que induce el coche iguala la de la batería, no circula corriente y la bobina ya no puede empujar."
+        "top_speed": "Por bien que pulse, hay una velocidad máxima. El propio coche induce en la bobina una corriente que lo frena, con más fuerza cuanto más rápido va. A esta velocidad, ese freno se lleva de una pasada tanto como la batería puede dar como mucho, aunque pulse más durante toda la entrada y menos durante toda la salida; por encima, se lleva más. La fórmula deja fuera la inductancia de la bobina; con ella, el límite queda alrededor de un 7 % más arriba."
       },
       "figures": {
         "tau": "Constante de tiempo",

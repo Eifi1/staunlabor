@@ -496,7 +496,7 @@
         "gain": "a legtöbb energia, amelyet egy áthaladás adhat",
         "full_current": "az áram lenyomva tartott gombbal",
         "supply": "a telep feszültsége",
-        "top_speed": "a sebesség, amely fölött a tekercs már nem tud tolni",
+        "top_speed": "a sebesség, amely fölött egyetlen áthaladás sem nyer már semmit",
         "arc": "milyen messze az íven felfelé, a sík szakasz végétől mérve",
         "ramp_radius": "a rámpák sugara"
       },
@@ -507,7 +507,7 @@
         "late": "Mennyit késik a kéz a − gombbal",
         "reading": "Így értelmezze a görbét: a pontos átkapcsolás nyer a legtöbbet; 20 ms késéssel még nagyjából kétharmad marad; 30 ms késéssel a kocsi sosem ér fel; mintegy 60 ms késéssel a megmaradt húzóerő már fékezi a kocsit. Ezek az értékek az alapbeállítású összeállításra érvényesek.",
         "gain_bound": "A legtöbb, amit egy áthaladás adhat: messziről a közepéig behúzva I·Ψ(0) a nyereség, kifelé tolva ugyanennyi. Az indukált feszültség és a gördülési ellenállás ebből elvesz valamennyit.",
-        "top_speed": "Akármilyen jól nyomja is a gombokat, van egy legnagyobb sebesség: ahol a kocsi által indukált feszültség eléri a telepét, nem folyik áram, és a tekercs már nem tud tolni."
+        "top_speed": "Akármilyen jól nyomja is a gombokat, van egy legnagyobb sebesség. A kocsi maga is áramot indukál a tekercsben, és ez fékezi, annál erősebben, minél gyorsabban halad. Ennél a sebességnél ez a fék egy áthaladás alatt annyit vesz el, amennyit a telep legfeljebb adhat, akkor is, ha befelé végig a pluszt, kifelé végig a mínuszt nyomja; e fölött többet. A képlet elhagyja a tekercs induktivitását; azzal együtt a határ mintegy 7 %-kal magasabb."
       },
       "figures": {
         "tau": "Időállandó",
