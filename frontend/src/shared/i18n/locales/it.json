@@ -1154,7 +1154,7 @@
         "gap": "Tenga le palle a qualche millimetro l'una dall'altra e i contatti si susseguono uno dopo l'altro: la risalita raggiunge quasi ciò che darebbero urti istantanei. Provi la distanza.",
         "masses": "Il 7v dei libri di testo richiede che ogni palla sia molto più leggera di quella sottostante. Queste pesano {{masses}} g: la palla centrale pesa un terzo di quella in basso, quella in cima un terzo di quella centrale.",
         "energy": "Eppure il {{share}} % dell'energia con cui l'intera pila ha colpito il pavimento se ne va nella palla più piccola.",
-        "flip": "Capovolga la pila e non vola niente: una palla leggera in basso non può spingere in alto una pesante.",
+        "flip": "Capovolga la pila e non è più un cannone: la palla grande in cima risale meno di quanto è caduta; le palle leggere sotto si limitano ad attutirla.",
         "name": "Perché un cannone: i libri di fisica lo chiamano cannone di Galileo, perché la palla piccola viene sparata dritta verso l'alto fuori dalla pila, come dalla canna di un cannone. Nulla viene sparato di lato.",
         "assumed": "Che cosa si assume: palle piene di 1100 kg/m³, la rigidezza dell'elastomero e quanto è elastico, contatti che seguono la legge di Hertz con uno smorzamento che restituisce una quota fissa della velocità di avvicinamento, e un pavimento rigido. L'attrito sul filo e la rotazione delle palle sono tralasciati."
       }

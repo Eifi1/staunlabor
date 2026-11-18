@@ -283,7 +283,9 @@ SMOKE_FLIGHTS = {"half a second": 3.0, "a jab": 2.0, "a slow press": 4.0}
 #: The ball cannon: the exhibit's stack through its impact and the start of
 #: the climb, two balls with a gap, the big ball on top, one lossless ball, and
 #: a stiff, soft-bouncing stack — Hertz's contacts closing, overlapping and
-#: opening, a contact staying closed at the end. Short: every step of a
+#: opening, a contact staying closed at the end — and the big ball on top from
+#: high up, its contacts resting through the fall in large steps and then
+#: struck by the floor. Short: every step of a
 #: contact is fifty small ones, and the page's drops are run in the browser.
 CANNON_CASES: dict[str, dict[str, Any]] = {
     "the exhibit": {"stack": cannon.BallStack(), "duration_s": 0.6},
@@ -295,6 +297,10 @@ CANNON_CASES: dict[str, dict[str, Any]] = {
     "upside down": {
         "stack": cannon.BallStack(balls=(cannon.Ball(0.05), cannon.Ball(0.07), cannon.Ball(0.10)), drop_m=0.3),
         "duration_s": 0.4,
+    },
+    "upside down from high up": {
+        "stack": cannon.BallStack(balls=(cannon.Ball(0.05), cannon.Ball(0.07), cannon.Ball(0.10)), drop_m=1.5),
+        "duration_s": 0.65,
     },
     "one ball, lossless": {
         "stack": cannon.BallStack(balls=(cannon.Ball(0.07),), floor_restitution=1.0, drop_m=0.5),
@@ -1529,6 +1535,8 @@ def cases() -> dict[str, Any]:
             "SAMPLES_PER_S",
             "MAX_S",
             "MIN_CLOSING_M_S",
+            "RESTING_M_S",
+            "RESTING_SWING",
             "IMPACT_EVERY",
             "IMPACT_WINDOW_S",
             "LAUNCH_WINDOW_S",

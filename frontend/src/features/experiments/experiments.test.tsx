@@ -666,11 +666,11 @@ describe("the ball cannon", () => {
     expect(screen.getByRole("button", { name: E.cannon.play.drop })).toBeInTheDocument();
     expect(screen.getByRole("switch", { name: E.cannon.play.auto })).toBeInTheDocument();
     // The engine's answer for the exhibit's stack from a metre: touching, the
-    // top ball of three climbs 2.4 times that, to 2.6 m — instantaneous hits one
-    // after another would send it off at 10.9 m/s instead of 7.0.
-    expect(await screen.findByText(/top ball of 3 climbs 2\.4 times that, to 2\.6 m/)).toBeInTheDocument();
+    // top ball of three climbs 3.9 times that, to 4.0 m — instantaneous hits one
+    // after another would send it off at 10.9 m/s instead of 8.9.
+    expect(await screen.findByText(/top ball of 3 climbs 3\.9 times that, to 4\.0 m/)).toBeInTheDocument();
     expect(
-      screen.getByText(/leaves at 7\.0 m\/s\. With instantaneous hits one after another it would leave at 10\.9 m\/s/),
+      screen.getByText(/leaves at 8\.9 m\/s\. With instantaneous hits one after another it would leave at 10\.9 m\/s/),
     ).toBeInTheDocument();
     // The contacts of the impact, with the force the floor pushes back with.
     expect(screen.getByRole("cell", { name: "Floor – 10 cm" })).toBeInTheDocument();

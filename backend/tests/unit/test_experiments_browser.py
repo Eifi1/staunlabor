@@ -97,6 +97,9 @@ def test_the_cases_cross_every_branch_a_page_can_reach(stored: Any):
     floor = next(c for c in exhibit if c["contact"] == 0)
     assert any(c["contact"] == 1 and c["start_s"] < floor["end_s"] for c in exhibit), "contacts that overlap"
     assert any(c["end_s"] is None for case in cannons.values() for c in case["drop"]["contacts"]), "one still closed"
+    high = cannons["upside down from high up"]["drop"]["contacts"]
+    floor = next(c for c in high if c["contact"] == 0)
+    assert any(c["contact"] > 0 and c["start_s"] < floor["start_s"] for c in high), "a contact resting in the fall"
     lossless = [c for c in cannons["one ball, lossless"]["drop"]["contacts"] if c["end_s"] is not None]
     assert lossless and abs(lossless[0]["parting_m_s"] - lossless[0]["closing_m_s"]) < 0.01, "a ball that loses nothing"
     pits = stored["pit"]

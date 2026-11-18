@@ -1243,8 +1243,8 @@ def test_the_exhibit_s_three_contacts_overlap_and_press_with_a_kilonewton_at_the
         first.setdefault(contact.contact, contact)
     floor, lower, upper = first[0], first[1], first[2]
     assert floor.peak_force_n == pytest.approx(1237, abs=1) and floor.peak_overlap_m == pytest.approx(0.0101, abs=1e-4)
-    assert lower.peak_force_n == pytest.approx(687, abs=1) and upper.peak_force_n == pytest.approx(370, abs=1)
-    assert 0.009 < floor.end_s - floor.start_s < 0.011, "about ten milliseconds"
+    assert lower.peak_force_n == pytest.approx(599, abs=1) and upper.peak_force_n == pytest.approx(323, abs=1)
+    assert 0.011 < floor.end_s - floor.start_s < 0.012, "about eleven milliseconds"
     # Touching, they are all closed at once: the middle ball presses into the
     # bottom one while that one is still squashing into the floor.
     assert lower.start_s < floor.end_s and upper.start_s < floor.end_s
@@ -1258,15 +1258,15 @@ def test_touching_balls_send_the_top_one_up_far_less_than_hits_one_after_another
     one, two, three = f.launches
     assert one.times_drop == pytest.approx(0.698, abs=1e-3), "e² of its fall, less the air"
     assert [launch.balls for launch in f.launches] == [1, 2, 3]
-    assert three.launch_m_s == pytest.approx(6.994, abs=1e-3)
-    assert three.apex_m == pytest.approx(2.617, abs=1e-3) and three.times_drop == pytest.approx(2.447, abs=1e-3)
-    assert two.times_drop == pytest.approx(1.354, abs=1e-3)
+    assert three.launch_m_s == pytest.approx(8.851, abs=1e-3)
+    assert three.apex_m == pytest.approx(4.047, abs=1e-3) and three.times_drop == pytest.approx(3.877, abs=1e-3)
+    assert two.times_drop == pytest.approx(2.133, abs=1e-3)
     # The textbook's model, instantaneous hits one after another: 10.85 m/s;
     # without losses 14.88; with each ball far lighter 7v = 30.9.
     assert three.sequential_launch_m_s == pytest.approx(10.853, abs=1e-3)
     assert three.ideal_launch_m_s == pytest.approx(14.877, abs=1e-3)
     assert three.textbook_launch_m_s == pytest.approx(7 * f.impact_m_s)
-    assert f.energy_share == pytest.approx(0.213, abs=1e-3)
+    assert f.energy_share == pytest.approx(0.341, abs=1e-3)
 
 
 def test_a_heavy_ball_settled_onto_a_small_one_in_the_fall_is_struck_without_blowing_up():
@@ -1284,10 +1284,52 @@ def test_a_heavy_ball_settled_onto_a_small_one_in_the_fall_is_struck_without_blo
     assert math.isfinite(x.cannon_launch(steep).apex_m)
 
 
+def test_a_contact_struck_after_it_closed_parts_again_within_the_impact():
+    """The big ball on top from 3 m: in the fall each ball settles onto the one
+    below, closing their contact at a crawl, and the floor then presses it at
+    metres a second. Damped on the way back against the crawl, its force went
+    to nothing, and the balls flew off 19 mm into each other, stuck, for the
+    whole half second the launch is watched. Against the strike, they part."""
+    upside_down = x.BallStack(balls=(x.Ball(0.05), x.Ball(0.07), x.Ball(0.10)), drop_m=3.0)
+    contacts = x.cannon_drop(upside_down, 1.0).contacts
+    floor = next(c for c in contacts if c.contact == 0)
+    settled = [c for c in contacts if c.contact > 0 and c.start_s < floor.start_s]
+    assert {c.contact for c in settled} == {1, 2}, "both closed in the fall"
+    assert all(c.end_s is not None and c.end_s < floor.start_s + 0.05 for c in settled)
+
+
+def test_a_ball_resting_on_another_in_the_fall_costs_the_server_what_a_fall_does(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    """A contact that rests is stepped large, as free flight is: in small steps,
+    the big ball on top from 3 m took 243 000 of them, 11 s of the server, where
+    the route's budget allows a couple of hundred milliseconds. Its figures are
+    those of small steps throughout."""
+    steps = 0
+    rk4 = CANNON._rk4
+
+    def counted(*args: Any) -> Any:
+        nonlocal steps
+        steps += 1
+        return rk4(*args)
+
+    monkeypatch.setattr(CANNON, "_rk4", counted)
+    x.cannon_figures(x.BallStack())
+    exhibit, steps = steps, 0
+    upside_down = x.BallStack(balls=(x.Ball(0.05), x.Ball(0.07), x.Ball(0.10)), drop_m=3.0)
+    rested = x.cannon_figures(upside_down)
+    assert steps < 1.5 * exhibit
+    monkeypatch.setattr(CANNON, "RESTING_M_S", -1.0)  # every closed contact in small steps
+    small = x.cannon_figures(upside_down)
+    for a, b in zip(rested.launches, small.launches, strict=True):
+        assert a.launch_m_s == pytest.approx(b.launch_m_s, rel=1e-6)
+        assert a.apex_m == pytest.approx(b.apex_m, rel=1e-6)
+
+
 def test_a_gap_of_two_centimetres_parts_the_contacts_and_nearly_reaches_hits_one_after_another():
     touching = x.cannon_launch(x.BallStack())
     apart = x.cannon_launch(x.BallStack(gap_m=0.02))
-    assert apart.launch_m_s > 1.5 * touching.launch_m_s
+    assert apart.launch_m_s > 1.15 * touching.launch_m_s
     assert apart.launch_m_s == pytest.approx(apart.sequential_launch_m_s, rel=0.04)
     # What the gap does: the balls' contact closes only once the bottom ball is
     # already springing back off the floor, past the middle of that contact —
@@ -1308,11 +1350,16 @@ def test_the_sequential_model_without_losses_is_the_closed_form():
     assert [CANNON.textbook_factor(n) for n in (1, 2, 3)] == [1, 3, 7]
 
 
-def test_the_big_ball_on_top_sends_nothing_up():
+def test_the_big_ball_on_top_is_no_cannon_and_climbs_back_less_than_it_fell():
+    """Turned over, the light balls below only cushion the big one. One hit
+    after another would leave it still going down; touching, they press it up
+    again. That it sent nothing up was the damping's fault: its contacts, closed
+    in the fall, gave back nothing (fixed 2026-11-18)."""
     upside_down = x.BallStack(balls=(x.Ball(0.05), x.Ball(0.07), x.Ball(0.10)))
-    launches = x.cannon_figures(upside_down).launches
-    assert launches[2].launch_m_s < launches[1].launch_m_s < launches[0].launch_m_s
-    assert launches[2].times_drop < 0.2
+    top = x.cannon_figures(upside_down).launches[2]
+    assert top.times_drop == pytest.approx(0.785, abs=1e-3)
+    assert top.times_drop < 0.25 * x.cannon_launch(x.BallStack()).times_drop
+    assert top.sequential_launch_m_s < 0 < top.launch_m_s
 
 
 def test_the_ball_cannon_refuses_what_it_cannot_be():

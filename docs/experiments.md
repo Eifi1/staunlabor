@@ -589,16 +589,35 @@ barrel).
   Poisson's ratio 0.5 (rubber), both assumed. **Damped as Flores et al. (2011)
   give it**, `·(1 + 8(1 − e)/(5e)·δ̇/δ̇₀)`, so a contact gives back about the
   share `e` (0.85, assumed) of the speed it closed at — to 2 %. `δ̇₀` is the
-  fastest the contact has been struck: in a touching stack the contacts above
-  close gently in the fall or as the bottom ball slows, and are then pressed
-  far faster. The first version took the gentle closing, which made their
-  damping up to four times too strong (their peaks 0.56 and 0.28 kN, the top
-  ball off at 6.6 m/s) and, with a heavy ball settling onto a small one in the
-  fall, a hundredfold, where the steps blew up (20, 2 and 20 cm at 100 MPa;
-  the crash sweep, 2026-11-17).
+  fastest the contact has been struck in this compression: in a touching stack
+  the contacts above close gently in the fall or as the bottom ball slows, and
+  are then pressed far faster (the middle one closes at 1.1 m/s and is struck
+  at 4.3); pressed again after it began to part, a contact is struck anew.
+  - The first version took the gentle closing throughout, which made the
+    damping up to four times too strong (the contacts above peaking at 0.56
+    and 0.28 kN, the top ball off at 6.6 m/s) and, with a heavy ball settling
+    onto a small one in the fall, a hundredfold, where the steps blew up (20, 2
+    and 20 cm at 100 MPa; the crash sweep, 2026-11-17).
+  - The second took the faster of the gentle closing and the present rate,
+    which still held the gentle closing on the way back: the contacts above
+    gave back too little (0.69 and 0.37 kN, the top ball off at 7.0 m/s,
+    2.4 times the drop), and the big ball on top, its contacts closed in the
+    fall, gave back nothing — the balls flew off 19 mm into each other, stuck,
+    and the stack "sent nothing up" (found by the cost of it, 2026-11-18).
+  - Held at the fastest of the episode instead, a contact pressed again and
+    again (the big ball on top, cushioned by the light ones) was damped too
+    little from the second time on, and came back as high as it fell.
 - **Stepped with RK4**: 0.5 ms while every ball flies free, 10 µs while a
-  contact is closed or about to close (fifty small steps for one large, the time
-  grid unchanged). The impact's forces, overlaps and positions are recorded
+  contact is struck or about to be (fifty small steps for one large, the time
+  grid unchanged). A contact that rests — opening or closing slower than
+  1 mm/s, its swing (`1.5·K·√δ` on the pair's reduced mass) and its damping
+  slow enough that a large step takes at most 0.5 of a radian — is stepped
+  large as well: a ball settled onto another in the fall moves at some
+  0.02 mm/s and swings a twentieth of a radian a step. In small steps the big
+  ball on top from 3 m took 243 000 of them, 11 s of the server (6.4 s in the
+  version then live), where the budget allows a couple of hundred
+  milliseconds; now 13 000, against the exhibit's 9 900, with the same figures
+  to a millionth. The impact's forces, overlaps and positions are recorded
   every 0.1 ms for 30 ms.
 - **The textbook's model** is kept beside it for comparison: instantaneous hits
   one after another (`sequential_launch`), with and without losses, and the
@@ -606,14 +625,16 @@ barrel).
 
 **What it shows.** From a metre the stack meets the floor at 4.42 m/s. The
 floor pushes back with 1.24 kN (about 220 times the bottom ball's weight), the
-ball squashed by 10 mm for 10 ms; the two contacts above peak at 0.69 and
-0.37 kN. Touching, the three contacts overlap — the middle ball presses into the
+ball squashed by 10 mm for 11 ms; the two contacts above peak at 0.60 and
+0.32 kN. Touching, the three contacts overlap — the middle ball presses into the
 bottom one 1.7 ms after that one met the floor — and the top ball leaves at
-7.0 m/s and climbs 2.4 times the drop, where instantaneous hits one after
+8.9 m/s and climbs 3.9 times the drop, where instantaneous hits one after
 another would send it off at 10.9 m/s (5.7 times). A few millimetres apart the
-contacts come one after another: 5 mm gives 4.7 times, 2 cm 5.4. The
+contacts come one after another: 5 mm gives 5.1 times, 2 cm 5.4. The
 elastomer's stiffness changes the forces and the durations much and the climb
-little (1 MPa 2.0 times, 50 MPa 3.6). Turned over, the stack sends nothing up.
+little (1 MPa 3.8 times, 50 MPa 4.3). Turned over, the stack is no cannon: the
+big ball on top climbs back about 0.8 of its fall, the light balls below only
+cushioning it — one hit after another would leave it still going down.
 In the page the reader drags the stack up in a close-up and lets go, or drops it
 with a button; a column beside it holds the whole climb; slow motion plays the
 impact a hundred times slower, the balls squashing into each other; a table and
@@ -630,7 +651,10 @@ elastomer's real, speed-dependent damping.
 - the damping gives back e to 2 %;
 - the exhibit's forces and launch, the overlap of its contacts, and a gap that
   parts them and nearly reaches the sequential model;
-- the sequential model's closed form, and the stack turned over.
+- the sequential model's closed form, and the stack turned over;
+- a contact struck after it closed parting again within the impact, and a
+  resting one stepped large at the cost of a fall, with the figures of small
+  steps throughout.
 
 ## The pendulum (`experiments.pendulum`), the block the swinging ones stand on
 

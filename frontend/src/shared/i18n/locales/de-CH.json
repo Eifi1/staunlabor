@@ -1154,7 +1154,7 @@
         "gap": "Halten Sie die Kugeln ein paar Millimeter auseinander, folgen die Kontakte aufeinander: Der Aufstieg erreicht fast, was augenblickliche Stösse ergäben. Probieren Sie den Abstand aus.",
         "masses": "Die 7v des Lehrbuchs verlangen, dass jede Kugel viel leichter ist als die darunter. Diese wiegen {{masses}} g: Die mittlere hat ein Drittel der untersten, die oberste ein Drittel der mittleren.",
         "energy": "Trotzdem verlassen {{share}} % der Energie, mit der der ganze Stapel auf den Boden traf, den Stapel in der kleinsten Kugel.",
-        "flip": "Drehen Sie den Stapel um, und nichts fliegt: Eine leichte Kugel unten kann keine schwere nach oben stossen.",
+        "flip": "Drehen Sie den Stapel um, und er ist keine Kanone mehr: Die grosse Kugel oben steigt weniger hoch, als sie gefallen ist; die leichten Kugeln darunter federn sie nur ab.",
         "name": "Warum Kanone: Physikbücher nennen den Versuch «galileische Kanone», weil die kleine Kugel senkrecht aus dem Stapel geschossen wird wie aus einem Rohr. Seitwärts wird nichts abgefeuert.",
         "assumed": "Angenommen sind: volle Kugeln von 1100 kg/m³, die Steifigkeit des Elastomers und wie elastisch es ist, Kontakte nach Hertz mit einer Dämpfung, die einen festen Anteil der Annäherungsgeschwindigkeit zurückgibt, und ein starrer Boden. Die Reibung am Draht und der Drall der Kugeln sind weggelassen."
       }

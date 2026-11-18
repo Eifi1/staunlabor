@@ -1154,7 +1154,7 @@
         "gap": "Hold the balls a few millimetres apart and the contacts come one after another: the climb nearly reaches what instantaneous hits would give. Try the gap.",
         "masses": "The textbook's 7v needs each ball much lighter than the one below. These weigh {{masses}} g: the middle ball is a third of the bottom one, the top one a third of the middle.",
         "energy": "Still, {{share}} % of the energy the whole stack hit the floor with leaves in the smallest ball.",
-        "flip": "Turn the stack over and nothing flies: a light ball at the bottom cannot push a heavy one up.",
+        "flip": "Turn the stack over and it is no cannon: the big ball on top climbs back less than it fell, the light balls below only cushioning it.",
         "name": "Why a cannon: physics books call it the Galilean cannon, because the small ball is shot straight up out of the stack as if out of a barrel. Nothing in it is fired sideways.",
         "assumed": "What is assumed: solid balls of 1100 kg/m³, the elastomer's stiffness and how springy it is, contacts that follow Hertz's law with damping that gives back a fixed share of the closing speed, a rigid floor. The wire's friction and the balls' spin are left out."
       }

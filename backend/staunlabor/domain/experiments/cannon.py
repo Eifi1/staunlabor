@@ -34,9 +34,12 @@ the floor. That is what the instantaneous hits of the textbook leave out, and
 what makes the real cannon weaker than its formula.
 
 **Stepped with RK4**: 0.5 ms while every ball flies free, 10 µs while a contact
-is closed or about to close — fifty small steps for one large one, so the time
+is struck or about to be — fifty small steps for one large one, so the time
 grid stays the same. A large step that would close a contact it did not see
-coming is taken again in small ones.
+coming is taken again in small ones. A contact that rests (a heavy ball
+settled onto a light one in the fall, a ball lying on the floor) barely moves
+and swings slowly, and is stepped as free flight is: in small steps, a heavy
+ball on top made a fall from 3 m cost the server 11 s.
 
 **What it shows besides the climb:** each contact's force over time, its peak,
 how far the balls squash and the impulse it passes on.
@@ -69,6 +72,13 @@ SAMPLES_PER_S = 100
 MAX_S = 12.0
 #: A contact closing slower than this damps as if it closed at this speed.
 MIN_CLOSING_M_S = 0.01
+#: A closed contact opening or closing slower than this rests rather than being
+#: struck: a settled one in the fall moves at some 0.02 mm/s, a struck one at
+#: metres a second.
+RESTING_M_S = 1e-3
+#: The most of a resting contact's swing (``ω·h``, and its damping rate times
+#: ``h``) a large step may take: a dozen steps a swing, well inside RK4's bound.
+RESTING_SWING = 0.5
 #: The forces over the stack's impact: every this many small steps, for this long after it begins.
 IMPACT_EVERY = 10
 IMPACT_WINDOW_S = 0.03
@@ -175,6 +185,28 @@ def _forces(stack: BallStack, ks: list[float], y: list[float], v: list[float], c
     return out
 
 
+def _resting(stack: BallStack, ks: list[float], y: list[float], v: list[float], closed: list[float], c: int) -> bool:
+    """Whether closed contact ``c`` rests, so that a large step may take it:
+    barely opening or closing, and its swing and its damping slow for the step.
+    Its swing is Hertz's stiffness at this overlap, ``dF/dδ = 1.5·K·√δ``, on the
+    pair's reduced mass (the floor's ball's own): a lighter mass than the stack
+    it may carry, so the swing it gives is never too slow."""
+    rate = _closing(v, c)
+    if abs(rate) > RESTING_M_S:
+        return False
+    overlap = -_gap(stack.balls, y, c)
+    if c == 0:
+        mass = stack.balls[0].mass_kg
+    else:
+        lower, upper = stack.balls[c - 1].mass_kg, stack.balls[c].mass_kg
+        mass = lower * upper / (lower + upper)
+    e = stack.floor_restitution if c == 0 else stack.ball_restitution
+    at = max(closed[c], rate, MIN_CLOSING_M_S)
+    swing = math.sqrt(1.5 * ks[c] * math.sqrt(overlap) / mass)
+    damping = ks[c] * overlap**1.5 * 8 * (1 - e) / (5 * e) / at / mass
+    return max(swing, damping) * STEP_S <= RESTING_SWING
+
+
 def _accelerations(
     stack: BallStack, ks: list[float], y: list[float], v: list[float], closed: list[float]
 ) -> list[float]:
@@ -271,6 +303,8 @@ class _Run:
         self.v = [0.0] * n
         self.t = 0.0
         self.closed = [0.0] * n
+        #: Whether a closed contact has begun to part since it was last struck.
+        self.parting = [False] * n
         self.open_since: list[dict[str, float] | None] = [None] * n
         self.contacts: list[Contact] = []
         self.first: float | None = None
@@ -281,13 +315,28 @@ class _Run:
         self.small = 0
 
     def _imminent(self) -> bool:
-        """A contact closed, or closing so that a large step would close it."""
+        """A contact closed and not resting, or open and closing so that a
+        large step would close it."""
         balls = self.stack.balls
         for c in range(len(balls)):
             gap, rate = _gap(balls, self.y, c), _closing(self.v, c)
-            if gap <= 0 or (rate > 0 and gap < 2 * rate * STEP_S + 1e-6):
+            if gap < 0:
+                if not _resting(self.stack, self.ks, self.y, self.v, self.closed, c):
+                    return True
+            elif rate > 0 and gap < 2 * rate * STEP_S + 1e-6:
                 return True
         return False
+
+    def _stands(self, ny: list[float], nv: list[float]) -> bool:
+        """Whether a large step to ``ny, nv`` may stand: it closed no contact,
+        and every contact still closed rests."""
+        balls = self.stack.balls
+        for c in range(len(balls)):
+            if _gap(balls, ny, c) >= 0:
+                continue
+            if _gap(balls, self.y, c) >= 0 or not _resting(self.stack, self.ks, ny, nv, self.closed, c):
+                return False
+        return True
 
     def _book(self, h: float) -> None:
         """After a small step: contacts that closed, that opened, and their peaks."""
@@ -306,6 +355,21 @@ class _Run:
             if episode is None:
                 continue
             if overlap > 0:
+                # Flores's δ̇₀ is the speed the contact is struck at, and a
+                # contact can be struck after it closed (a heavy ball settled
+                # onto a light one, then the floor): held at the gentle closing,
+                # the damping on the way back ate the whole force, and the balls
+                # flew off 19 mm into each other, stuck (2026-11-18). So it is
+                # the fastest of this compression: pressed again after it began
+                # to part, a contact is struck anew, or the strike before would
+                # damp the next one too little.
+                rate = _closing(self.v, c)
+                if rate < 0:
+                    self.parting[c] = True
+                elif rate > 0 and self.parting[c]:
+                    self.parting[c] = False
+                    self.closed[c] = MIN_CLOSING_M_S
+                self.closed[c] = max(self.closed[c], rate)
                 episode["peak"] = max(episode["peak"], forces[c])
                 episode["deep"] = max(episode["deep"], overlap)
                 episode["impulse"] += forces[c] * h
@@ -324,6 +388,7 @@ class _Run:
                 )
                 self.open_since[c] = None
                 self.closed[c] = 0.0
+                self.parting[c] = False
         if self.first is not None and self.t - self.first <= IMPACT_WINDOW_S + 1e-12:
             if self.small % IMPACT_EVERY == 0:
                 self.impact_t.append((self.t - self.first) * 1000)
@@ -338,9 +403,13 @@ class _Run:
         recording = self.first is not None and self.t - self.first <= IMPACT_WINDOW_S
         if not recording and not self._imminent():
             ny, nv = _rk4(self.stack, self.ks, self.y, self.v, self.closed, STEP_S)
-            if all(_gap(self.stack.balls, ny, c) > 0 for c in range(len(ny))):
+            if self._stands(ny, nv):
                 self.y, self.v = ny, nv
                 self.t += STEP_S
+                # A resting contact is booked as a struck one is; a large step
+                # closes none, so one that is closed has its episode open.
+                if any(episode is not None for episode in self.open_since):
+                    self._book(STEP_S)
                 return
         start_t = self.t
         for k in range(1, SUBSTEPS + 1):

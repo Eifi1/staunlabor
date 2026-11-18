@@ -1154,7 +1154,7 @@
         "gap": "Mantenga las pelotas a unos milímetros unas de otras y los contactos se suceden uno tras otro: la subida casi alcanza lo que darían choques instantáneos. Pruebe la separación.",
         "masses": "El 7v de los libros de texto exige que cada pelota sea mucho más ligera que la de abajo. Estas pesan {{masses}} g: la del medio pesa un tercio de la de abajo, y la de arriba un tercio de la del medio.",
         "energy": "Aun así, el {{share}} % de la energía con la que toda la pila llegó al suelo sale en la pelota más pequeña.",
-        "flip": "Dé la vuelta a la pila y nada sale volando: una pelota ligera abajo no puede empujar hacia arriba a una pesada.",
+        "flip": "Dé la vuelta a la pila y ya no es un cañón: la pelota grande de arriba vuelve a subir menos de lo que cayó; las ligeras de abajo solo la amortiguan.",
         "name": "Por qué un cañón: los libros de física lo llaman el cañón de Galileo, porque la pelota pequeña sale disparada de la pila en vertical hacia arriba, como de un tubo. Nada sale disparado hacia los lados.",
         "assumed": "Lo que se supone: pelotas macizas de 1100 kg/m³, la rigidez del elastómero y lo elástico que es, contactos que siguen la ley de Hertz con un amortiguamiento que devuelve una fracción fija de la velocidad de aproximación, y un suelo rígido. Se dejan fuera el rozamiento con el alambre y el giro de las pelotas."
       }

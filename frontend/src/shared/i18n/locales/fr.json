@@ -1154,7 +1154,7 @@
         "gap": "Tenez les balles à quelques millimètres l’une de l’autre et les contacts se succèdent : la montée atteint presque ce que donneraient des chocs instantanés. Essayez l’écart.",
         "masses": "Le 7v des manuels exige que chaque balle soit bien plus légère que celle du dessous. Celles-ci pèsent {{masses}} g : la balle du milieu pèse un tiers de celle du bas, celle du dessus un tiers de celle du milieu.",
         "energy": "Pourtant, {{share}} % de l’énergie avec laquelle toute la pile a frappé le sol repart dans la plus petite balle.",
-        "flip": "Retournez la pile, et rien ne s’envole : une balle légère en bas ne peut pas pousser une lourde vers le haut.",
+        "flip": "Retournez la pile, et ce n’est plus un canon : la grosse balle du haut remonte moins haut qu’elle n’est tombée ; les balles légères en dessous ne font que l’amortir.",
         "name": "Pourquoi un canon : les livres de physique l’appellent le canon de Galilée, parce que la petite balle est projetée tout droit vers le haut hors de la pile, comme si elle sortait d’un tube. Rien n’y est tiré de côté.",
         "assumed": "Ce qui est supposé : des balles pleines de 1100 kg/m³, la raideur de l’élastomère et son élasticité, des contacts qui suivent la loi de Hertz avec un amortissement qui restitue une part fixe de la vitesse de rapprochement, et un sol rigide. Le frottement sur le fil et la rotation des balles sont laissés de côté."
       }

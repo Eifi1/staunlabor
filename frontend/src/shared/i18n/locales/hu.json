@@ -1154,7 +1154,7 @@
         "gap": "Tartsa a labdákat néhány milliméterre egymástól, és az érintkezések egymás után következnek: az emelkedés majdnem eléri azt, amit pillanatszerű ütközések adnának. Próbálja ki a távolságot.",
         "masses": "A tankönyvi 7v-hez minden labdának sokkal könnyebbnek kell lennie az alatta lévőnél. Ezek tömege {{masses}} g: a középsőé az alsóénak a harmada, a legfelsőé a középsőének a harmada.",
         "energy": "Mégis annak az energiának, amellyel az egész oszlop a padlónak ütközött, {{share}} %-a a legkisebb labdában távozik.",
-        "flip": "Fordítsa meg az oszlopot, és semmi sem repül: egy alul lévő könnyű labda nem tud felfelé lökni egy nehezet.",
+        "flip": "Fordítsa meg az oszlopot, és már nem ágyú: a felül lévő nagy labda kevésbé emelkedik vissza, mint amennyit esett; az alatta lévő könnyű labdák csak felfogják.",
         "name": "Miért ágyú: a fizikakönyvek Galilei-ágyúnak nevezik, mert a kis labdát az oszlop függőlegesen felfelé lövi ki, mintha egy ágyúcsőből. Oldalra semmit sem lő ki.",
         "assumed": "Amit feltételezünk: tömör, 1100 kg/m³ sűrűségű labdák, az elasztomer merevsége és rugalmassága, Hertz törvényét követő érintkezések olyan csillapítással, amely a közeledési sebesség rögzített hányadát adja vissza, valamint merev padló. A huzalon fellépő súrlódást és a labdák pörgését kihagytuk."
       }

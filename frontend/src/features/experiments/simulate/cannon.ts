@@ -24,6 +24,8 @@ export const CONTACT_STEP_S = STEP_S / SUBSTEPS;
 export const SAMPLES_PER_S = 100;
 export const MAX_S = 12.0;
 export const MIN_CLOSING_M_S = 0.01;
+export const RESTING_M_S = 1e-3;
+export const RESTING_SWING = 0.5;
 export const IMPACT_EVERY = 10;
 export const IMPACT_WINDOW_S = 0.03;
 export const LAUNCH_WINDOW_S = 0.5;
@@ -85,6 +87,29 @@ function forcesOf(stack: BallStack, ks: number[], y: number[], v: number[], clos
     const force = k * overlap ** 1.5 * (1 + (((8 * (1 - e)) / (5 * e)) * rate) / at);
     return Math.max(force, 0);
   });
+}
+
+/**
+ * The engine's `_resting`: a closed contact barely opening or closing, whose
+ * swing (`1.5·K·√δ` on the pair's reduced mass) and damping are slow for a
+ * large step.
+ */
+function resting(stack: BallStack, ks: number[], y: number[], v: number[], closed: number[], c: number): boolean {
+  const rate = closingOf(v, c);
+  if (Math.abs(rate) > RESTING_M_S) return false;
+  const overlap = -gapOf(stack.balls, y, c);
+  let mass: number;
+  if (c === 0) mass = massKg(stack.balls[0]);
+  else {
+    const lower = massKg(stack.balls[c - 1]);
+    const upper = massKg(stack.balls[c]);
+    mass = (lower * upper) / (lower + upper);
+  }
+  const e = c === 0 ? stack.floor_restitution : stack.ball_restitution;
+  const at = Math.max(closed[c], rate, MIN_CLOSING_M_S);
+  const swing = Math.sqrt((1.5 * ks[c] * Math.sqrt(overlap)) / mass);
+  const damping = (ks[c] * overlap ** 1.5 * 8 * (1 - e)) / (5 * e) / at / mass;
+  return Math.max(swing, damping) * STEP_S <= RESTING_SWING;
 }
 
 function accelerations(stack: BallStack, ks: number[], y: number[], v: number[], closed: number[]): number[] {
@@ -172,6 +197,7 @@ class Run {
   v: number[];
   t = 0;
   closed: number[];
+  parting: boolean[];
   openSince: (Episode | null)[];
   contacts: Contact[] = [];
   first: number | null = null;
@@ -188,20 +214,34 @@ class Run {
     this.y = start(stack);
     this.v = new Array<number>(n).fill(0);
     this.closed = new Array<number>(n).fill(0);
+    this.parting = new Array<boolean>(n).fill(false);
     this.openSince = new Array<Episode | null>(n).fill(null);
     this.impactF = stack.balls.map(() => []);
     this.impactD = stack.balls.map(() => []);
     this.impactY = stack.balls.map(() => []);
   }
 
+  /** A contact closed and not resting, or open and about to close in a large step. */
   private imminent(): boolean {
     const balls = this.stack.balls;
     for (let c = 0; c < balls.length; c += 1) {
       const gap = gapOf(balls, this.y, c);
       const rate = closingOf(this.v, c);
-      if (gap <= 0 || (rate > 0 && gap < 2 * rate * STEP_S + 1e-6)) return true;
+      if (gap < 0) {
+        if (!resting(this.stack, this.ks, this.y, this.v, this.closed, c)) return true;
+      } else if (rate > 0 && gap < 2 * rate * STEP_S + 1e-6) return true;
     }
     return false;
+  }
+
+  /** A large step stands if it closed no contact and every one still closed rests. */
+  private stands(ny: number[], nv: number[]): boolean {
+    const balls = this.stack.balls;
+    for (let c = 0; c < balls.length; c += 1) {
+      if (gapOf(balls, ny, c) >= 0) continue;
+      if (gapOf(balls, this.y, c) >= 0 || !resting(this.stack, this.ks, ny, nv, this.closed, c)) return false;
+    }
+    return true;
   }
 
   private book(h: number): void {
@@ -219,6 +259,15 @@ class Run {
       }
       if (episode === null) continue;
       if (overlap > 0) {
+        // The engine's δ̇₀: the fastest strike of this compression, anew when
+        // the contact is pressed again after it began to part.
+        const rate = closingOf(this.v, c);
+        if (rate < 0) this.parting[c] = true;
+        else if (rate > 0 && this.parting[c]) {
+          this.parting[c] = false;
+          this.closed[c] = MIN_CLOSING_M_S;
+        }
+        this.closed[c] = Math.max(this.closed[c], rate);
         episode.peak = Math.max(episode.peak, forces[c]);
         episode.deep = Math.max(episode.deep, overlap);
         episode.impulse += forces[c] * h;
@@ -235,6 +284,7 @@ class Run {
         });
         this.openSince[c] = null;
         this.closed[c] = 0;
+        this.parting[c] = false;
       }
     }
     if (this.first !== null && this.t - this.first <= IMPACT_WINDOW_S + 1e-12) {
@@ -254,10 +304,11 @@ class Run {
     const recording = this.first !== null && this.t - this.first <= IMPACT_WINDOW_S;
     if (!recording && !this.imminent()) {
       const [ny, nv] = rk4(this.stack, this.ks, this.y, this.v, this.closed, STEP_S);
-      if (this.stack.balls.every((_, c) => gapOf(this.stack.balls, ny, c) > 0)) {
+      if (this.stands(ny, nv)) {
         this.y = ny;
         this.v = nv;
         this.t += STEP_S;
+        if (this.openSince.some((episode) => episode !== null)) this.book(STEP_S);
         return;
       }
     }
