@@ -1820,7 +1820,7 @@
         "slow": "Slow mode"
       },
       "computed": {
-        "system": "Four first-order equations, both angles and their speeds, with the Runge–Kutta method in steps of a millisecond, for the pendulum and its twin. The engine measures the exponent Benettin's way: a twin starts a hundred-millionth away, every tenth of a second the gap's growth is noted and the twin set back to the small gap. The mean of the logarithms is the exponent – whatever small gap is chosen.",
+        "system": "Four first-order equations, both angles and their speeds, with the Runge–Kutta method in steps of a millisecond, for the pendulum and its twin; where a light upper arm under a heavy lower one whips round, in equal parts of one, so that no arm turns more than 0.035 rad in a step. The engine measures the exponent Benettin's way: a twin starts a hundred-millionth away, every tenth of a second the gap's growth is noted and the twin set back to the small gap. The mean of the logarithms is the exponent – whatever small gap is chosen.",
         "d0": "the small gap the twin is set back to each time",
         "dk": "the gap after the k-th tenth of a second",
         "t": "the whole time measured"

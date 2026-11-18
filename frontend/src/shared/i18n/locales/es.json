@@ -1820,7 +1820,7 @@
         "slow": "Modo lento"
       },
       "computed": {
-        "system": "Cuatro ecuaciones de primer orden, ambos ángulos y sus velocidades, con el método de Runge-Kutta en pasos de un milisegundo, para el péndulo y su gemelo. El motor mide el exponente a la manera de Benettin: un gemelo empieza a una cienmillonésima, cada décima de segundo se anota cuánto creció la distancia y el gemelo vuelve a la distancia pequeña. La media de los logaritmos es el exponente – sea cual sea la distancia pequeña elegida.",
+        "system": "Cuatro ecuaciones de primer orden, ambos ángulos y sus velocidades, con el método de Runge-Kutta en pasos de un milisegundo, para el péndulo y su gemelo; donde un brazo superior ligero bajo uno inferior pesado gira con violencia, en partes iguales de él, de modo que ningún brazo gire más de 0,035 rad en un paso. El motor mide el exponente a la manera de Benettin: un gemelo empieza a una cienmillonésima, cada décima de segundo se anota cuánto creció la distancia y el gemelo vuelve a la distancia pequeña. La media de los logaritmos es el exponente – sea cual sea la distancia pequeña elegida.",
         "d0": "la distancia pequeña a la que vuelve el gemelo cada vez",
         "dk": "la distancia tras la k-ésima décima de segundo",
         "t": "todo el tiempo medido"

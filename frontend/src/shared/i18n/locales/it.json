@@ -1820,7 +1820,7 @@
         "slow": "Modo lento"
       },
       "computed": {
-        "system": "Quattro equazioni del primo ordine, i due angoli e le loro velocità, con il metodo di Runge-Kutta a passi di un millisecondo, per il pendolo e il suo gemello. Il motore misura l'esponente alla maniera di Benettin: un gemello parte a un centomilionesimo, ogni decimo di secondo si annota quanto è cresciuta la distanza e il gemello viene riportato alla piccola distanza. La media dei logaritmi è l'esponente – qualunque sia la piccola distanza scelta.",
+        "system": "Quattro equazioni del primo ordine, i due angoli e le loro velocità, con il metodo di Runge-Kutta a passi di un millisecondo, per il pendolo e il suo gemello; dove un braccio superiore leggero sotto uno inferiore pesante frusta attorno, in parti uguali di esso, così che nessun braccio ruoti di più di 0,035 rad in un passo. Il motore misura l'esponente alla maniera di Benettin: un gemello parte a un centomilionesimo, ogni decimo di secondo si annota quanto è cresciuta la distanza e il gemello viene riportato alla piccola distanza. La media dei logaritmi è l'esponente – qualunque sia la piccola distanza scelta.",
         "d0": "la piccola distanza a cui il gemello viene riportato ogni volta",
         "dk": "la distanza dopo il k-esimo decimo di secondo",
         "t": "tutto il tempo misurato"

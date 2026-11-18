@@ -1820,7 +1820,7 @@
         "slow": "Mode lent"
       },
       "computed": {
-        "system": "Quatre équations du premier ordre, les deux angles et leurs vitesses, par la méthode de Runge-Kutta, par pas d'une milliseconde, pour le pendule et son jumeau. Le moteur mesure l'exposant à la manière de Benettin : un jumeau part à un cent-millionième, chaque dixième de seconde on note de combien l'écart a crû et on ramène le jumeau au petit écart. La moyenne des logarithmes est l'exposant – quel que soit le petit écart choisi.",
+        "system": "Quatre équations du premier ordre, les deux angles et leurs vitesses, par la méthode de Runge-Kutta, par pas d'une milliseconde, pour le pendule et son jumeau ; là où un bras supérieur léger sous un bras inférieur lourd tournoie, en parts égales de celle-ci, pour qu'aucun bras ne tourne de plus de 0,035 rad en un pas. Le moteur mesure l'exposant à la manière de Benettin : un jumeau part à un cent-millionième, chaque dixième de seconde on note de combien l'écart a crû et on ramène le jumeau au petit écart. La moyenne des logarithmes est l'exposant – quel que soit le petit écart choisi.",
         "d0": "le petit écart auquel le jumeau est ramené chaque fois",
         "dk": "l'écart après le k-ième dixième de seconde",
         "t": "toute la durée mesurée"

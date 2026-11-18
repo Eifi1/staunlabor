@@ -689,7 +689,8 @@ describe("the chaotic pendulum's port", () => {
     const dp = c.dp as chaos.DoublePendulum;
     const [a, b] = c.start;
     expect(differences(c.mode_rates, chaos.modeRates(dp))).toEqual([]);
-    expect(differences(c.lyapunov, chaos.lyapunov(dp, a, b, 3.0, 1e-4, undefined, c.step_s))).toEqual([]);
+    expect(differences(c.step_for, chaos.stepFor(dp, a, b))).toEqual([]);
+    expect(differences(c.lyapunov, chaos.lyapunov(dp, a, b, c.lyapunov_s, 1e-4, undefined, c.step_s))).toEqual([]);
     const port = chaos.run(dp, a, b, c.duration_s, c.nudge_deg, c.step_s);
     // The drift is a difference of two energies a few hundred millionths apart:
     // its last digits are rounding, so it is held absolutely, the rest exactly.

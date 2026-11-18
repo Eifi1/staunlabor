@@ -954,7 +954,14 @@ pushes it twice "the same" sees two different dances.
 **The model** (`domain/experiments/chaos.py`). Two point masses on light rods,
 Lagrange's equations in their usual closed form, stepped by the block's
 Runge–Kutta at 1 ms; the energy is the check (it drifts by less than 10⁻⁷ of
-itself in twenty wild seconds). For small swings the two modes are
+itself in twenty wild seconds). Where a light upper arm under a heavy lower one
+whips round, the millisecond is cut into equal parts (`step_for`): as many as
+keep each arm's turn in a step within 0.035 rad, by a bound on its rate from the
+energy (all of it above the lowest hang as motion, through the inertia matrix's
+least eigenvalue). The first version kept 1 ms everywhere, and the mathematics
+check (2026-11-17) found the energy off by 28 % to 110 % at the page's corners:
+at 50 g over 2 kg on 10 cm rods from 120°, 80 % in 10 s; cut to a seventh,
+5·10⁻⁴. The default build keeps its millisecond. For small swings the two modes are
 `ω² = (g/L)(2 ∓ √2)` (equal arms and masses; the general quartic's roots), and
 a start in the slow mode comes back after its period. **Chaos, measured:** the
 page lets go the pendulum and a twin whose upper arm is nudged (1° down to

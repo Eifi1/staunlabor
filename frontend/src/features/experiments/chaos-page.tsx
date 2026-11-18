@@ -12,8 +12,18 @@ import { Equation } from "./equation";
 import { ExhibitFrame } from "./exhibit-frame";
 import { BuildPending } from "./build-pending";
 import { PreviewPending, type PreviewMode, type PreviewProps } from "./preview-mode";
-import { lyapunov, modeRates, rhs, run, separation, startState, twinOf, type DoublePendulum } from "./simulate/chaos";
-import { STEP_S, rk4 } from "./simulate/pendulum";
+import {
+  lyapunov,
+  modeRates,
+  rhs,
+  run,
+  separation,
+  startState,
+  stepFor,
+  twinOf,
+  type DoublePendulum,
+} from "./simulate/chaos";
+import { rk4 } from "./simulate/pendulum";
 import { SIDE } from "./stage";
 import { useExperimentsDefaults } from "./use-experiments";
 
@@ -42,6 +52,8 @@ const TWIN_HUE = 6;
 
 /** The trail of the lower bob: this many seconds. */
 const TRAIL_S = 3;
+/** How often the trail takes a point, seconds. */
+const TRAIL_EVERY_S = 0.01;
 
 /** The exponent is measured over this long: long enough to settle, short
  *  enough that a slider's settle does not keep the reader waiting. */
@@ -191,22 +203,26 @@ function ChaosPlay({
   useEffect(() => {
     if (!running) return;
     const f = rhs(dp);
-    const keep = Math.round(TRAIL_S / (STEP_S * 10));
+    // The engine's step for this build and start: 1 ms, or a part of it
+    // where a light upper arm whips round.
+    const h = stepFor(dp, start.upper, start.lower);
+    const per = Math.round(TRAIL_EVERY_S / h);
+    const keep = Math.round(TRAIL_S / TRAIL_EVERY_S);
     let raf = 0;
     let last = performance.now();
     const tick = (now: number) => {
       const dt = Math.max(0, Math.min(0.05, (now - last) / 1000));
       last = now;
       const s = sim.current;
-      s.owed += (dt * speed) / STEP_S;
+      s.owed += (dt * speed) / h;
       const steps = Math.floor(s.owed);
       s.owed -= steps;
       for (let k = 0; k < steps; k++) {
-        s.a = rk4(f, s.clock, s.a, STEP_S);
-        s.b = rk4(f, s.clock, s.b, STEP_S);
-        s.clock += STEP_S;
+        s.a = rk4(f, s.clock, s.a, h);
+        s.b = rk4(f, s.clock, s.b, h);
+        s.clock += h;
         s.i += 1;
-        if (s.i % 10 === 0) {
+        if (s.i % per === 0) {
           s.trail.push(arms(dp, s.a)[1]);
           if (s.trail.length > keep) s.trail.shift();
         }
@@ -220,7 +236,7 @@ function ChaosPlay({
     return () => cancelAnimationFrame(raf);
     // `begin` reads the start and the nudge, which a new start remounts for.
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [running, speed, dp, preview]);
+  }, [running, speed, dp, preview, start.upper, start.lower]);
 
   const view = <ChaosView dp={dp} main={frame.a} twin={frame.b} trail={frame.trail} />;
   if (preview) return view;
@@ -413,7 +429,7 @@ function ChaosTrick({ dp, start, nudge }: { dp: DoublePendulum | null; start: St
   const settled = useDebounce({ dp, start, nudge }, 300, { key: JSON.stringify({ dp, start, nudge }) });
   const measured = useMemo(() => {
     if (!settled.dp) return null;
-    const r = run(settled.dp, settled.start.upper, settled.start.lower, 20, settled.nudge, 0.002);
+    const r = run(settled.dp, settled.start.upper, settled.start.lower, 20, settled.nudge);
     return {
       rows: r.t.flatMap((time, i) =>
         i % 5 === 0 ? [{ t: time, gap: Math.log10(Math.max(r.separation[i], 1e-16)) }] : [],

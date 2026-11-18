@@ -1820,7 +1820,7 @@
         "slow": "Lassú sajátrezgés"
       },
       "computed": {
-        "system": "Négy elsőrendű egyenlet, mindkét szög és sebességeik, a Runge–Kutta-módszerrel ezredmásodperces lépésekben, az ingára és ikrére. Az exponenst a számítómag Benettin módszerével méri: egy iker százmilliomodnyira indul, tizedmásodpercenként feljegyzi, mennyit nőtt a távolság, és az ikret visszaállítja a kis távolságra. A logaritmusok átlaga az exponens – bármilyen kicsi távolságot választunk.",
+        "system": "Négy elsőrendű egyenlet, mindkét szög és sebességeik, a Runge–Kutta-módszerrel ezredmásodperces lépésekben, az ingára és ikrére; ahol egy könnyű felső kar egy nehéz alsó alatt körbecsapódik, annak egyenlő részeiben, hogy egy lépésben egyik kar se forduljon el 0,035 radiánnál többet. Az exponenst a számítómag Benettin módszerével méri: egy iker százmilliomodnyira indul, tizedmásodpercenként feljegyzi, mennyit nőtt a távolság, és az ikret visszaállítja a kis távolságra. A logaritmusok átlaga az exponens – bármilyen kicsi távolságot választunk.",
         "d0": "a kis távolság, amelyre az ikret minden alkalommal visszaállítják",
         "dk": "a távolság a k-adik tizedmásodperc után",
         "t": "a teljes mérési idő"

@@ -7,7 +7,8 @@ different dances.
 **The model.** Two point masses ``m₁, m₂`` on light rods ``L₁, L₂``, the second
 hung from the first; the angles ``θ₁, θ₂`` from the vertical. Lagrange's
 equations give the two accelerations (the usual closed form, below), stepped
-by the block's Runge–Kutta at 1 ms; the energy
+by the block's Runge–Kutta at 1 ms, cut into equal parts where an arm could turn
+more than :data:`TURN_PER_STEP` in a step (:func:`step_for`); the energy
 
     E = ½(m₁ + m₂)L₁²θ₁'² + ½m₂L₂²θ₂'² + m₂L₁L₂θ₁'θ₂'cos(θ₁ − θ₂)
         − (m₁ + m₂)gL₁cos θ₁ − m₂gL₂cos θ₂
@@ -121,6 +122,34 @@ class ChaosRun:
     energy_drift: float
 
 
+#: The most an arm may turn in one step, radians. A light upper mass under a
+#: heavy lower one whips the arms round: at 50 g over 2 kg on 10 cm rods, let
+#: go from 120°, a 1 ms step lost 80 % of the energy in 10 s (found in the
+#: mathematics check, 2026-11-17); cut to a seventh, a twentieth of a percent.
+#: The default build keeps its 1 ms.
+TURN_PER_STEP = 0.035
+
+
+def fastest_rate(dp: DoublePendulum, start1_deg: float, start2_deg: float) -> float:
+    """A bound on how fast either arm can turn from this start, rad/s: all the
+    energy above the lowest the pendulum can hang, as motion, through the
+    smallest the inertia matrix gets (its least eigenvalue with the arms in
+    line). Damping only lowers it."""
+    m1, m2, l1, l2 = dp.mass1_kg, dp.mass2_kg, dp.length1_m, dp.length2_m
+    lowest = -(m1 + m2) * G * l1 - m2 * G * l2
+    moving = energy(dp, start_state(start1_deg, start2_deg)) - lowest
+    a, d, b = (m1 + m2) * l1 * l1, m2 * l2 * l2, m2 * l1 * l2
+    least = (a + d) / 2 - math.sqrt(((a - d) / 2) ** 2 + b * b)
+    return math.sqrt(2 * moving / least)
+
+
+def step_for(dp: DoublePendulum, start1_deg: float, start2_deg: float) -> float:
+    """The step for this build and start: 1 ms, in as many equal parts as keep
+    each arm's turn in a step within :data:`TURN_PER_STEP`."""
+    parts = max(1, math.ceil(fastest_rate(dp, start1_deg, start2_deg) * STEP_S / TURN_PER_STEP))
+    return STEP_S / parts
+
+
 def start_state(start1_deg: float, start2_deg: float) -> tuple[float, float, float, float]:
     if not (-180 <= start1_deg <= 180 and -180 <= start2_deg <= 180):
         raise ValueError("the arms start between −180° and 180°")
@@ -134,7 +163,7 @@ def lyapunov(
     duration_s: float = 60.0,
     gap: float = 1e-8,
     every_s: float = 0.1,
-    step_s: float = STEP_S,
+    step_s: float | None = None,
 ) -> float:
     """The largest Lyapunov exponent along the path from this start, per
     second: a twin ``gap`` away, its separation's growth over each ``every_s``
@@ -142,6 +171,7 @@ def lyapunov(
     between them; the sum over the time."""
     if not 0 < duration_s <= MAX_DURATION_S:
         raise ValueError(f"a measurement lasts more than nothing and at most {MAX_DURATION_S:g} s")
+    step_s = step_for(dp, start1_deg, start2_deg) if step_s is None else step_s
     f = rhs(dp)
     a: tuple[float, ...] = start_state(start1_deg, start2_deg)
     b: tuple[float, ...] = (a[0] + gap, a[1], a[2], a[3])
@@ -165,9 +195,11 @@ def run(
     start2_deg: float,
     duration_s: float,
     nudge_deg: float = 0.001,
-    step_s: float = STEP_S,
+    step_s: float | None = None,
 ) -> ChaosRun:
-    """The pendulum and its twin, let go from rest together, stepped side by side."""
+    """The pendulum and its twin, let go from rest together, stepped side by
+    side, by :func:`step_for` unless a step is given."""
+    step_s = step_for(dp, start1_deg, start2_deg) if step_s is None else step_s
     if not 0 < step_s <= 0.01:
         raise ValueError("the step lies between 0 and 10 ms")
     if not 0 < duration_s <= MAX_DURATION_S:

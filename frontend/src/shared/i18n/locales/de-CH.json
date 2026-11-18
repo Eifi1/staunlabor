@@ -1820,7 +1820,7 @@
         "slow": "Langsame Eigenschwingung"
       },
       "computed": {
-        "system": "Vier Gleichungen erster Ordnung, beide Winkel und ihre Geschwindigkeiten, mit dem Runge-Kutta-Verfahren in Schritten von einer Millisekunde, für das Pendel und seinen Zwilling. Den Exponenten misst der Rechenkern nach Benettin: Ein Zwilling startet einen Hundertmillionstel daneben, alle Zehntelsekunden wird notiert, wie stark der Abstand gewachsen ist, und der Zwilling wieder auf den kleinen Abstand zurückgesetzt. Der Mittelwert der Logarithmen ist der Exponent – unabhängig davon, wie klein der Abstand gewählt wird.",
+        "system": "Vier Gleichungen erster Ordnung, beide Winkel und ihre Geschwindigkeiten, mit dem Runge-Kutta-Verfahren in Schritten von einer Millisekunde, für das Pendel und seinen Zwilling; wo ein leichter oberer Arm unter einem schweren unteren herumschlägt, in gleichen Teilen davon, so dass sich kein Arm in einem Schritt um mehr als 0,035 rad dreht. Den Exponenten misst der Rechenkern nach Benettin: Ein Zwilling startet einen Hundertmillionstel daneben, alle Zehntelsekunden wird notiert, wie stark der Abstand gewachsen ist, und der Zwilling wieder auf den kleinen Abstand zurückgesetzt. Der Mittelwert der Logarithmen ist der Exponent – unabhängig davon, wie klein der Abstand gewählt wird.",
         "d0": "der kleine Abstand, auf den der Zwilling jedes Mal zurückgesetzt wird",
         "dk": "der Abstand nach der k-ten Zehntelsekunde",
         "t": "die ganze Messdauer"

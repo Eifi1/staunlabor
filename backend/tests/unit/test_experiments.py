@@ -1914,6 +1914,29 @@ def test_the_lyapunov_exponent_is_measured_whatever_the_twin_s_distance():
     assert x.lyapunov(dp, 5.0, 7.0, 60.0) < 0.01
 
 
+def test_a_light_upper_arm_under_a_heavy_lower_one_is_stepped_finely_enough_to_keep_its_energy():
+    """The page's sharpest corner: 50 g over 2 kg on 10 cm rods, let go from
+    120°. The arms whip round at 150 rad/s, and at the 1 ms step the energy
+    lost most of itself in 10 s; the step is cut to a seventh, where it keeps
+    to a thousandth. The bound it is cut by holds: no arm turns faster. The
+    default build keeps its millisecond."""
+    from staunlabor.domain.experiments import chaos
+
+    sharp = x.DoublePendulum(length1_m=0.1, length2_m=0.1, mass1_kg=0.05, mass2_kg=2.0)
+    assert chaos.STEP_S / chaos.step_for(sharp, 120.0, 120.0) == pytest.approx(7)
+    assert chaos.run(sharp, 120.0, 120.0, 10.0, step_s=chaos.STEP_S).energy_drift > 0.5
+    run = chaos.run(sharp, 120.0, 120.0, 10.0)
+    assert run.energy_drift < 1e-3
+    f, h = chaos.rhs(sharp), chaos.step_for(sharp, 120.0, 120.0)
+    y, fastest = chaos.start_state(120.0, 120.0), 0.0
+    for i in range(round(5.0 / h)):
+        y = chaos.rk4(f, i * h, y, h)
+        fastest = max(fastest, abs(y[2]), abs(y[3]))
+    assert 100 < fastest < chaos.fastest_rate(sharp, 120.0, 120.0)
+    for start in ((120.0, 120.0), (180.0, 180.0), (5.0, 7.0)):
+        assert chaos.step_for(x.DoublePendulum(), *start) == chaos.STEP_S
+
+
 def test_the_double_pendulum_refuses_what_it_cannot_be():
     with pytest.raises(ValueError, match="5 cm and 3 m"):
         x.DoublePendulum(length1_m=5.0)

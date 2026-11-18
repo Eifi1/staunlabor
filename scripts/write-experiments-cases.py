@@ -466,6 +466,14 @@ MAXWELL_CASES: dict[str, dict[str, Any]] = {
 CHAOS_CASES: dict[str, dict[str, Any]] = {
     "wild": {"dp": chaos.DoublePendulum(), "start": (120.0, 120.0), "duration_s": 4.0},
     "gentle": {"dp": chaos.DoublePendulum(), "start": (5.0, 7.0), "duration_s": 3.0},
+    "a light upper arm, the step cut to a seventh": {
+        "dp": chaos.DoublePendulum(length1_m=0.1, length2_m=0.1, mass1_kg=0.05, mass2_kg=2.0),
+        "start": (120.0, 120.0),
+        "duration_s": 1.0,
+        # Its arms whip round so fast that the last digit's rounding grows by
+        # 10⁷ in 3 s: the two sides agree to the cases' digits for half a second.
+        "lyapunov_s": 0.5,
+    },
     "unequal and damped, a coarse step": {
         "dp": chaos.DoublePendulum(length2_m=0.5, mass2_kg=0.2, damping_per_s=0.1),
         "start": (-90.0, 170.0),
@@ -1194,7 +1202,7 @@ def _waterwheel_cases(out: dict[str, Any]) -> None:
 def _chaos_cases(out: dict[str, Any]) -> None:
     for name, case in CHAOS_CASES.items():
         dp, (a, b) = case["dp"], case["start"]
-        step = case.get("step_s", chaos.STEP_S)
+        step = case.get("step_s", chaos.step_for(dp, a, b))
         nudge = case.get("nudge_deg", 0.001)
         out["chaos"].append(
             {
@@ -1203,11 +1211,13 @@ def _chaos_cases(out: dict[str, Any]) -> None:
                 "start": [a, b],
                 "duration_s": case["duration_s"],
                 "step_s": step,
+                "step_for": chaos.step_for(dp, a, b),
                 "nudge_deg": nudge,
                 "mode_rates": list(chaos.mode_rates(dp)),
                 # A twin 10⁻⁴ away: at the measurement's 10⁻⁸ the gap's subtraction
                 # loses eight digits, and the port could not be held to the last ones.
-                "lyapunov": chaos.lyapunov(dp, a, b, 3.0, gap=1e-4, step_s=step),
+                "lyapunov_s": case.get("lyapunov_s", 3.0),
+                "lyapunov": chaos.lyapunov(dp, a, b, case.get("lyapunov_s", 3.0), gap=1e-4, step_s=step),
                 "run": thin(asdict(chaos.run(dp, a, b, case["duration_s"], nudge, step))),
             }
         )
