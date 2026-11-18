@@ -471,11 +471,16 @@ CHAOS_CASES: dict[str, dict[str, Any]] = {
 }
 
 #: The waterwheel: still, steady after one reversal, chaotic, and a strong brake
-#: at a coarse step.
+#: at a coarse step; and the page's 200 s run in each of the behaviours it names.
 WATERWHEEL_CASES: dict[str, dict[str, Any]] = {
     "still": {"w": waterwheel.WaterWheel(rho=0.5), "duration_s": 20.0},
     "steady": {"w": waterwheel.WaterWheel(rho=10.0), "duration_s": 30.0},
     "chaotic": {"w": waterwheel.WaterWheel(), "duration_s": 30.0},
+    "the page's run, steady": {"w": waterwheel.WaterWheel(rho=10.0), "duration_s": 200.0},
+    "the page's run, chaotic": {"w": waterwheel.WaterWheel(), "duration_s": 200.0},
+    "below ρ_H, wandering on": {"w": waterwheel.WaterWheel(rho=16.0), "duration_s": 200.0},
+    "a repeating pattern": {"w": waterwheel.WaterWheel(sigma=15.0, rho=32.0), "duration_s": 200.0},
+    "not yet settled": {"w": waterwheel.WaterWheel(leak_per_s=0.01), "duration_s": 200.0},
     "a strong brake, a coarse step": {
         "w": waterwheel.WaterWheel(sigma=30.0, rho=60.0, leak_per_s=1.0),
         "duration_s": 5.0,
@@ -1173,6 +1178,7 @@ def _waterwheel_cases(out: dict[str, Any]) -> None:
                 "duration_s": case["duration_s"],
                 "step_tau": step,
                 "regime": waterwheel.regime(w),
+                "behaviour": waterwheel.behaviour(w, result),
                 "hopf_rho": waterwheel.hopf_rho(w),
                 "levels": [waterwheel.cup_level(w, 3.0, 20.0, k * 0.785) for k in range(8)],
                 "run": {**thin(asdict(result)), "reversals_s": list(result.reversals_s)},

@@ -1853,7 +1853,9 @@
         },
         "regime_still": "Trop peu d'eau : les fuites l'emportent avant que le godet du haut soit assez lourd. La roue reste immobile.",
         "regime_steady": "La roue tourne régulièrement dans un sens – lequel, c'est la première petite impulsion qui en décide.",
-        "regime_chaotic": "Chaos : aucune rotation régulière ne tient. La roue change de sens sans jamais suivre de motif.",
+        "regime_chaotic": "Chaos : la roue ne trouve aucune rotation régulière. Elle change de sens sans suivre de motif.",
+        "regime_pattern": "La roue change sans cesse de sens, mais selon un motif fixe qui se répète.",
+        "regime_starting": "En 200 secondes, la roue ne trouve ici pas encore de marche stable.",
         "rate": "Rotation de la roue",
         "rpm": "tr/min",
         "hopf": "Chaos dès un robinet de"
@@ -1862,7 +1864,7 @@
         "intro": "Ce qui compte, c'est la répartition de l'eau autour de la roue – plus précisément, à quelle distance son centre de gravité se trouve à côté de l'axe et au-dessus ou au-dessous. Avec cela et la rotation de la roue s'écrivent trois équations.",
         "wheel": "La répartition de l'eau tourne avec la roue, l'eau arrive en haut et fuit partout ; la pesanteur fait tourner la roue quand l'eau est d'un côté, et l'axe freine.",
         "lorenz": "Avec le temps en unités des fuites et convenablement mises à l'échelle, ce sont exactement les équations de Lorenz, tirées en 1963 d'un modèle de l'écoulement de l'air – avec b = 1 au lieu de 8/3.",
-        "hopf": "Au-dessus de ce débit, même la rotation régulière n'est plus stable : la roue devient chaotique."
+        "hopf": "Au-dessus de ce débit, même la rotation régulière n'est plus stable : la roue change sans cesse de sens, le plus souvent de façon chaotique, à certains débits selon un motif fixe. Même en dessous, elle peut rester chaotique depuis le repos, alors que la rotation régulière tiendrait."
       },
       "symbols": {
         "ab": "la répartition de l'eau : sur le côté, et haut contre bas",
@@ -1880,6 +1882,8 @@
       "sweet": {
         "lorenz": "La rotation de la roue sur 200 secondes. En 1963, Lorenz cherchait un modèle simple du temps qu'il fait et trouva ces trois équations – et que d'infimes différences au départ rendent la prévision sans valeur au bout de peu de temps. La roue à eau est ce modèle à toucher.",
         "chaotic": "En 200 secondes, la roue change ici {{reversals}} fois de sens, jamais à la même cadence.",
+        "pattern": "En 200 secondes, la roue change ici {{reversals}} fois de sens, une fois lancée à une cadence fixe : les intervalles entre les changements se répètent. Au-dessus du seuil du chaos aussi, il existe de tels débits.",
+        "starting": "En 200 secondes, la roue ne trouve ici pas encore de marche stable : ce temps ne montre pas si elle se calme plus tard.",
         "steady": "À ce débit, une fois lancée, la roue tourne régulièrement à {{rpm}} tours par minute.",
         "still": "À ce débit, la roue reste immobile."
       },

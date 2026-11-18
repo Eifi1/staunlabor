@@ -1853,7 +1853,9 @@
         },
         "regime_still": "Túl kevés víz: a szivárgás elviszi, mielőtt a felső vödör elég nehéz lenne. A kerék áll.",
         "regime_steady": "A kerék egyenletesen forog az egyik irányba – hogy melyikbe, az első kis lökés dönti el.",
-        "regime_chaotic": "Káosz: semmilyen egyenletes forgás nem tart ki. A kerék irányt vált, anélkül hogy bármilyen mintát követne.",
+        "regime_chaotic": "Káosz: a kerék nem talál egyenletes forgásba. Irányt vált, anélkül hogy mintát követne.",
+        "regime_pattern": "A kerék újra meg újra irányt vált, de rögzített, ismétlődő minta szerint.",
+        "regime_starting": "A kerék itt 200 másodperc alatt még nem talál egyenletes járásba.",
         "rate": "A kerék fordulatszáma",
         "rpm": "ford./perc",
         "hopf": "Káosz ettől a csaptól"
@@ -1862,7 +1864,7 @@
         "intro": "Az számít, hogyan oszlik el a víz a kerék körül – pontosabban, milyen messze van a súlypontja oldalt a tengelytől, és fölötte vagy alatta. Ezzel és a kerék forgásával három egyenlet írható fel.",
         "wheel": "A víz eloszlása a kerékkel együtt forog, felül víz folyik be, mindenhol szivárog; a nehézségi erő forgatja a kereket, ha a víz oldalt van, és a tengely fékez.",
         "lorenz": "Az időt a szivárgás egységeiben mérve és alkalmasan skálázva ezek pontosan Lorenz egyenletei, amelyeket 1963-ban a levegő áramlásának egy modelljéből kapott – b = 1-gyel 8/3 helyett.",
-        "hopf": "E befolyás fölött már az egyenletes forgás sem stabil: a kerék kaotikussá válik."
+        "hopf": "E befolyás fölött már az egyenletes forgás sem stabil: a kerék újra meg újra irányt vált, többnyire kaotikusan, egyes befolyásoknál rögzített minta szerint. Már e határ alatt is kaotikus maradhat nyugalomból indulva, noha az egyenletes forgás megmaradna."
       },
       "symbols": {
         "ab": "hogyan oszlik el a víz: oldalra, és fent kontra lent",
@@ -1880,6 +1882,8 @@
       "sweet": {
         "lorenz": "A kerék forgása 200 másodpercen át. Lorenz 1963-ban egyszerű időjárásmodellt keresett, és megtalálta ezt a három egyenletet – meg azt, hogy az apró kezdeti különbségek rövid idő alatt értéktelenné teszik az előrejelzést. A vízkerék ez a modell, kézzelfoghatóan.",
         "chaotic": "200 másodperc alatt a kerék itt {{reversals}}-szor fordul vissza, sosem azonos ütemben.",
+        "pattern": "200 másodperc alatt a kerék itt {{reversals}}-szor fordul vissza, beindulás után rögzített ütemben: a váltások közti szünetek ismétlődnek. A káosz határa fölött is vannak ilyen befolyások.",
+        "starting": "A kerék itt 200 másodperc alatt még nem talál egyenletes járásba: hogy később megnyugszik-e, ez az idő nem mutatja meg.",
         "steady": "Ennél a befolyásnál a kerék beindulás után egyenletesen forog, percenként {{rpm}} fordulattal.",
         "still": "Ennél a befolyásnál a kerék áll."
       },

@@ -1853,7 +1853,9 @@
         },
         "regime_still": "Zu wenig Wasser: Die Lecks tragen es ab, bevor der obere Becher schwer genug wird. Das Rad steht.",
         "regime_steady": "Das Rad dreht gleichmässig in eine Richtung – in welche, entscheidet der erste kleine Anstoss.",
-        "regime_chaotic": "Chaos: Kein gleichmässiges Drehen hält. Das Rad wechselt die Richtung, ohne je einem Muster zu folgen.",
+        "regime_chaotic": "Chaos: Das Rad findet in kein gleichmässiges Drehen. Es wechselt die Richtung, ohne einem Muster zu folgen.",
+        "regime_pattern": "Das Rad wechselt immer wieder die Richtung, aber in einem festen Muster, das sich wiederholt.",
+        "regime_starting": "In 200 Sekunden findet das Rad hier noch in keinen festen Lauf.",
         "rate": "Drehzahl des Rads",
         "rpm": "U/min",
         "hopf": "Chaos ab Hahn"
@@ -1862,7 +1864,7 @@
         "intro": "Was zählt, ist, wie das Wasser um das Rad verteilt ist – genauer: wie weit sein Schwerpunkt seitlich und in der Höhe von der Achse liegt. Damit und mit der Drehrate des Rads schreiben sich drei Gleichungen.",
         "wheel": "Die Verteilung des Wassers dreht sich mit dem Rad, oben läuft Wasser zu, überall leckt es heraus; die Schwerkraft dreht das Rad, wenn das Wasser seitlich liegt, und die Achse bremst.",
         "lorenz": "Mit der Zeit in Einheiten der Lecks und passend skaliert sind es genau Lorenz' Gleichungen, die er 1963 aus einem Modell der Luftströmung gewann – mit b = 1 statt 8/3.",
-        "hopf": "Oberhalb dieser Zuflussrate ist auch das gleichmässige Drehen nicht mehr stabil: Das Rad wird chaotisch."
+        "hopf": "Oberhalb dieser Zuflussrate ist auch das gleichmässige Drehen nicht mehr stabil: Das Rad wechselt immer wieder die Richtung, meist chaotisch, bei manchen Zuflüssen in einem festen Muster. Schon darunter kann es aus dem Stand chaotisch bleiben, obwohl gleichmässiges Drehen hielte."
       },
       "symbols": {
         "ab": "wie das Wasser verteilt ist: seitlich und oben gegen unten",
@@ -1880,6 +1882,8 @@
       "sweet": {
         "lorenz": "Die Drehzahl über 200 Sekunden. Lorenz suchte 1963 ein einfaches Modell für das Wetter und fand diese drei Gleichungen – und dass winzige Unterschiede am Anfang die Vorhersage nach kurzer Zeit wertlos machen. Das Wasserrad ist dieses Modell zum Anfassen.",
         "chaotic": "In 200 Sekunden kehrt das Rad hier {{reversals}}-mal um, nie im selben Takt.",
+        "pattern": "In 200 Sekunden kehrt das Rad hier {{reversals}}-mal um, nach dem Anlaufen in einem festen Takt: Die Abstände zwischen den Wechseln wiederholen sich. Auch oberhalb der Grenze zum Chaos gibt es solche Zuflüsse.",
+        "starting": "In 200 Sekunden findet das Rad hier noch in keinen festen Lauf: Ob es sich später beruhigt, zeigt diese Zeit nicht.",
         "steady": "Bei diesem Zufluss dreht das Rad nach dem Anlaufen gleichmässig, mit {{rpm}} Umdrehungen pro Minute.",
         "still": "Bei diesem Zufluss bleibt das Rad stehen."
       },

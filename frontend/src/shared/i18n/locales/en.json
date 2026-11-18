@@ -1853,7 +1853,9 @@
         },
         "regime_still": "Too little water: the leaks carry it off before the top cup grows heavy enough. The wheel stands.",
         "regime_steady": "The wheel turns steadily one way – which way, the first small nudge decides.",
-        "regime_chaotic": "Chaos: no steady turning holds. The wheel changes direction without ever following a pattern.",
+        "regime_chaotic": "Chaos: the wheel finds no steady turning. It changes direction without following a pattern.",
+        "regime_pattern": "The wheel keeps changing direction, but in a fixed pattern that repeats.",
+        "regime_starting": "In 200 seconds the wheel here finds no settled run yet.",
         "rate": "Wheel's speed",
         "rpm": "rpm",
         "hopf": "Chaos from a tap of"
@@ -1862,7 +1864,7 @@
         "intro": "What counts is how the water is spread round the wheel – more precisely, how far its centre of mass lies to the side of the axle and above or below it. With that and the wheel's rate three equations can be written.",
         "wheel": "The water's spread turns with the wheel, water flows in at the top and leaks out everywhere; gravity turns the wheel when the water lies to one side, and the axle brakes.",
         "lorenz": "With time in units of the leaks and suitably scaled they are exactly Lorenz's equations, which he drew from a model of the air's flow in 1963 – with b = 1 instead of 8/3.",
-        "hopf": "Above this inflow even steady turning is no longer stable: the wheel turns chaotic."
+        "hopf": "Above this inflow even steady turning is no longer stable: the wheel keeps changing direction, mostly chaotically, at some inflows in a fixed pattern. Even below it the wheel can stay chaotic from rest, though steady turning would hold."
       },
       "symbols": {
         "ab": "how the water is spread: to the side, and top against bottom",
@@ -1880,6 +1882,8 @@
       "sweet": {
         "lorenz": "The wheel's speed over 200 seconds. In 1963 Lorenz looked for a simple model of the weather and found these three equations – and that tiny differences at the start make the forecast worthless after a short while. The waterwheel is that model to touch.",
         "chaotic": "In 200 seconds the wheel here turns back {{reversals}} times, never to the same beat.",
+        "pattern": "In 200 seconds the wheel here turns back {{reversals}} times, once started to a fixed beat: the gaps between the reversals repeat. Above the threshold of chaos there are such inflows too.",
+        "starting": "In 200 seconds the wheel here finds no settled run yet: whether it calms down later, this time does not show.",
         "steady": "At this inflow the wheel, once started, turns steadily at {{rpm}} turns a minute.",
         "still": "At this inflow the wheel stands still."
       },

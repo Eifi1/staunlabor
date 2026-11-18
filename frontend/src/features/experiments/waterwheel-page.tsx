@@ -15,19 +15,23 @@ import { PreviewPending, type PreviewMode, type PreviewProps } from "./preview-m
 import { startsRunning } from "./play";
 import {
   STEP_TAU,
+  behaviour,
   cupLevel,
   hopfRho,
-  regime,
   run,
   startWheel,
   steadyX,
   stepWheel,
+  type Behaviour,
   type WaterWheel,
+  type WheelTurns,
 } from "./simulate/waterwheel";
 import { STAGE } from "./stage";
 import { useExperimentsDefaults } from "./use-experiments";
 
 const SPEEDS = [1, 4] as const;
+/** The run the page reads what the wheel does from, and charts, seconds. */
+const SHOWN_S = 200;
 type Speed = (typeof SPEEDS)[number];
 
 /** Cups round the rim. */
@@ -52,6 +56,10 @@ export function WaterwheelPage() {
   const defaults = useExperimentsDefaults();
   const [build, setBuild] = useState<WaterWheel | null>(null);
   const w = build ?? defaults.data?.waterwheel ?? null;
+  // One run from rest for the play card's line and the chart: what the page
+  // says the wheel does is what it does here, not what ρ_H alone suggests.
+  const shown = useMemo(() => (w ? run(w, SHOWN_S) : null), [w]);
+  const kind = w && shown ? behaviour(w, shown) : null;
   return (
     <ExhibitFrame
       exhibit="waterwheel"
@@ -63,12 +71,12 @@ export function WaterwheelPage() {
       }
       whatHappens={<WaterwheelModel />}
       computed={<WaterwheelComputed />}
-      sweetSpot={<WaterwheelTrick w={w} />}
+      sweetSpot={<WaterwheelTrick w={w} shown={shown} kind={kind} />}
     >
       {defaults.isPending || !w ? (
         <BuildPending pending={defaults.isPending} error={defaults.error} />
       ) : (
-        <WaterwheelPlay key={JSON.stringify(w)} w={w} onChange={setBuild} />
+        <WaterwheelPlay key={JSON.stringify(w)} w={w} kind={kind} onChange={setBuild} />
       )}
     </ExhibitFrame>
   );
@@ -173,10 +181,11 @@ function ButterflyView({ trail, w }: { trail: Array<[number, number]>; w: WaterW
 
 function WaterwheelPlay({
   w,
+  kind = null,
   onChange,
   preview = false,
   paused = false,
-}: { w: WaterWheel; onChange?: (next: WaterWheel) => void } & PreviewMode) {
+}: { w: WaterWheel; kind?: Behaviour | null; onChange?: (next: WaterWheel) => void } & PreviewMode) {
   const { t } = useTranslation();
   const sim = useRef({ state: startWheel(), owed: 0, trail: [] as Array<[number, number]> });
   const [runningHere, setRunning] = useState(startsRunning);
@@ -281,7 +290,7 @@ function WaterwheelPlay({
         onChange={(v: string) => setSpeed(Number(v) as Speed)}
         options={SPEEDS.map((v) => ({ value: String(v), label: t(`experiments.waterwheel.play.speeds.${v}`) }))}
       />
-      <p className="text-sm font-medium text-primary">{t(`experiments.waterwheel.play.regime_${regime(w)}`)}</p>
+      {kind && <p className="text-sm font-medium text-primary">{t(`experiments.waterwheel.play.regime_${kind}`)}</p>}
       <Figures
         tiles={[
           {
@@ -342,19 +351,27 @@ function WaterwheelModel() {
   );
 }
 
-function WaterwheelTrick({ w }: { w: WaterWheel | null }) {
+function WaterwheelTrick({
+  w,
+  shown,
+  kind,
+}: {
+  w: WaterWheel | null;
+  shown: WheelTurns | null;
+  kind: Behaviour | null;
+}) {
   const { t } = useTranslation();
   const locale = useLocale();
   const hex = useChartHex();
-  const runs = useMemo(() => {
-    if (!w) return null;
-    const r = run(w, 200);
-    return {
-      rows: r.t.flatMap((time, i) => (i % 2 === 0 ? [{ t: time, rate: r.rate_rad_s[i] * RPM }] : [])),
-      reversals: r.reversals_s.length,
-    };
-  }, [w]);
-  if (!w || !runs) return <LoadingState className="py-6" label={t("common.loading")} />;
+  const runs = useMemo(
+    () =>
+      shown && {
+        rows: shown.t.flatMap((time, i) => (i % 2 === 0 ? [{ t: time, rate: shown.rate_rad_s[i] * RPM }] : [])),
+        reversals: shown.reversals_s.length,
+      },
+    [shown],
+  );
+  if (!w || !runs || !kind) return <LoadingState className="py-6" label={t("common.loading")} />;
   const steady = steadyX(w);
   return (
     <>
@@ -376,13 +393,11 @@ function WaterwheelTrick({ w }: { w: WaterWheel | null }) {
         }}
       />
       <p>
-        {regime(w) === "chaotic"
-          ? t("experiments.waterwheel.sweet.chaotic", { reversals: runs.reversals })
-          : regime(w) === "steady"
-            ? t("experiments.waterwheel.sweet.steady", {
-                rpm: formatNumber((steady ?? 0) * w.leak_per_s * RPM, 1, locale),
-              })
-            : t("experiments.waterwheel.sweet.still")}
+        {kind === "steady"
+          ? t("experiments.waterwheel.sweet.steady", {
+              rpm: formatNumber((steady ?? 0) * w.leak_per_s * RPM, 1, locale),
+            })
+          : t(`experiments.waterwheel.sweet.${kind}`, { reversals: runs.reversals })}
       </p>
     </>
   );

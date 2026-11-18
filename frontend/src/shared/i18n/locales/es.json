@@ -1853,7 +1853,9 @@
         },
         "regime_still": "Poca agua: las fugas se la llevan antes de que el cubo de arriba pese lo bastante. La rueda está quieta.",
         "regime_steady": "La rueda gira de forma regular en un sentido – cuál, lo decide el primer pequeño empujón.",
-        "regime_chaotic": "Caos: ningún giro regular se mantiene. La rueda cambia de sentido sin seguir nunca un patrón.",
+        "regime_chaotic": "Caos: la rueda no encuentra ningún giro regular. Cambia de sentido sin seguir un patrón.",
+        "regime_pattern": "La rueda cambia de sentido una y otra vez, pero con un patrón fijo que se repite.",
+        "regime_starting": "En 200 segundos la rueda aquí aún no encuentra una marcha estable.",
         "rate": "Giro de la rueda",
         "rpm": "rpm",
         "hopf": "Caos a partir de un grifo de"
@@ -1862,7 +1864,7 @@
         "intro": "Lo que cuenta es cómo se reparte el agua alrededor de la rueda – más exactamente, a qué distancia queda su centro de masa al lado del eje y por encima o por debajo. Con eso y el giro de la rueda se escriben tres ecuaciones.",
         "wheel": "El reparto del agua gira con la rueda, el agua entra arriba y se escapa por todas partes; la gravedad hace girar la rueda cuando el agua queda a un lado, y el eje frena.",
         "lorenz": "Con el tiempo en unidades de las fugas y bien escaladas, son exactamente las ecuaciones de Lorenz, que él obtuvo en 1963 de un modelo del flujo del aire – con b = 1 en lugar de 8/3.",
-        "hopf": "Por encima de este caudal ni siquiera el giro regular es estable: la rueda se vuelve caótica."
+        "hopf": "Por encima de este caudal ni siquiera el giro regular es estable: la rueda cambia de sentido una y otra vez, casi siempre de forma caótica y, con algunos caudales, con un patrón fijo. Incluso por debajo puede seguir caótica desde el reposo, aunque el giro regular se mantendría."
       },
       "symbols": {
         "ab": "cómo se reparte el agua: hacia un lado, y arriba frente a abajo",
@@ -1880,6 +1882,8 @@
       "sweet": {
         "lorenz": "El giro de la rueda durante 200 segundos. En 1963 Lorenz buscaba un modelo sencillo del tiempo y halló estas tres ecuaciones – y que diferencias diminutas al principio hacen inútil el pronóstico al poco tiempo. La noria es ese modelo para tocar.",
         "chaotic": "En 200 segundos la rueda invierte aquí {{reversals}} veces, nunca con el mismo compás.",
+        "pattern": "En 200 segundos la rueda invierte aquí {{reversals}} veces, una vez arrancada con un compás fijo: los intervalos entre los cambios se repiten. También por encima del umbral del caos hay caudales así.",
+        "starting": "En 200 segundos la rueda aquí aún no encuentra una marcha estable: si se calma más tarde, este tiempo no lo muestra.",
         "steady": "Con este caudal, una vez arrancada, la rueda gira regularmente a {{rpm}} vueltas por minuto.",
         "still": "Con este caudal la rueda se queda quieta."
       },

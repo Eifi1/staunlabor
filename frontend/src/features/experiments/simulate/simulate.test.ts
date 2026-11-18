@@ -708,6 +708,7 @@ describe("the waterwheel's port", () => {
   it.each(cases.waterwheel.map((c) => [c.name, c] as const))("turns %s as the engine does", (_name, c) => {
     const w = c.w as waterwheel.WaterWheel;
     expect(waterwheel.regime(w)).toBe(c.regime);
+    expect(waterwheel.behaviour(w, waterwheel.run(w, c.duration_s, c.step_tau))).toBe(c.behaviour);
     expect(differences(c.hopf_rho, waterwheel.hopfRho(w))).toEqual([]);
     const levels = Array.from({ length: 8 }, (_, k) => waterwheel.cupLevel(w, 3.0, 20.0, k * 0.785));
     expect(differences(c.levels, levels)).toEqual([]);

@@ -990,9 +990,16 @@ wheel's own equations in seconds and finds the engine's `x`, `y`, `z` in them to
 heaped at the top and a nudge of 10⁻³.
 
 **What it shows** (σ 10, K 0.2/s). Below ρ = 1 the wheel stands; up to
-`ρ_H = σ(σ + 4)/(σ − 2)` = 17.5 it settles to turning steadily at `√(ρ − 1)`
-(in units of `K`); above, it wanders — at the default ρ 28 twenty-odd reversals
-in 200 s at gaps that range more than threefold.
+`ρ_H = σ(σ + 4)/(σ − 2)` = 17.5 steady turning at `√(ρ − 1)` (in units of `K`)
+is stable, and at ρ 10 the wheel settles to it; above, it wanders — at the
+default ρ 28 twenty-odd reversals in 200 s at gaps that range more than
+threefold. What the page says the wheel does is read from the 200 s it shows
+(`behaviour`, from the run's last third: steady, a pattern whose gaps repeat
+some `p ≤ 4` on to 2 %, chaotic, or not yet settled), not from `ρ_H` alone,
+which the first version did: the mathematics check (2026-11-17) found the
+wheel at ρ 15–17, below `ρ_H`, still wandering after 250 of 300 s, and at
+σ 15, ρ 32, above its `ρ_H`, locked into reversals at equal gaps. Above `ρ_H`
+most taps stay chaotic (σ 10, ρ 20 to 200).
 
 **The page.** The wheel with eight cups hanging upright, each as full as the
 harmonic says at its place, the stream from the tap, beside Lorenz's butterfly
@@ -1006,7 +1013,7 @@ its first harmonic counts), the wheel's tilt, splashing.
 
 **Checked by** `tests/unit/test_experiments.py`: the wheel's equations against
 Lorenz's, the three regimes and the steady rate, the reversals' spread, the
-cups full at the top at rest.
+cups full at the top at rest, and what the page says from the run it shows.
 
 ## Foucault's pendulum (`experiments.foucault`)
 

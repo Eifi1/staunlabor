@@ -111,3 +111,38 @@ export function run(w: WaterWheel, durationS: number, stepTau = STEP_TAU): Wheel
   }
   return out;
 }
+
+/** The share of a run, at its end, that `behaviour` reads. */
+const LATE_SHARE = 1 / 3;
+/** Gaps between reversals that agree to this share of a gap repeat. */
+const REPEAT_TOL = 0.02;
+/** The longest repeating pattern looked for, in gaps between reversals. */
+const LONGEST_PATTERN = 4;
+
+export type Behaviour = "still" | "steady" | "pattern" | "chaotic" | "starting";
+
+/** The engine's `behaviour`: what the wheel does in a run from rest, read
+ *  from its last third. */
+export function behaviour(w: WaterWheel, turns: WheelTurns): Behaviour {
+  if (regime(w) === "still") return "still";
+  const end = turns.t[turns.t.length - 1];
+  const late = turns.reversals_s.filter((r) => r > end * (1 - LATE_SHARE));
+  if (late.length === 0) {
+    const steady = steadyX(w) ?? 0.0;
+    return Math.abs(Math.abs(turns.x[turns.x.length - 1]) - steady) <= 0.1 * steady ? "steady" : "starting";
+  }
+  if (late.length < 4) return "starting";
+  const gaps = late.slice(1).map((r, i) => r - late[i]);
+  for (let p = 1; p <= LONGEST_PATTERN; p++) {
+    if (gaps.length < 2 * p + 1) continue;
+    let repeats = true;
+    for (let i = 0; i + p < gaps.length; i++) {
+      if (Math.abs(gaps[i] - gaps[i + p]) > REPEAT_TOL * gaps[i]) {
+        repeats = false;
+        break;
+      }
+    }
+    if (repeats) return "pattern";
+  }
+  return "chaotic";
+}

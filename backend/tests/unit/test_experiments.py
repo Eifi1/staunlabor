@@ -1938,6 +1938,31 @@ def test_the_tap_decides_whether_the_wheel_stands_turns_or_wanders():
     assert max(gaps) > 3 * min(gaps)
 
 
+def test_what_the_page_says_the_wheel_does_is_read_from_the_run_it_shows():
+    """The page's 200 s from rest. Two taps that ρ_H alone got wrong: at
+    σ = 10, ρ = 16, below its ρ_H of 17.5, the wheel keeps reversing, still
+    after 250 of 300 s; at σ = 15, ρ = 32, above its ρ_H, the gaps
+    between the reversals repeat to 1 %. Above ρ_H most taps stay chaotic."""
+    from staunlabor.domain.experiments import waterwheel
+
+    def shown(**build: float) -> tuple[x.WaterWheel, x.WheelTurns]:
+        w = x.WaterWheel(**build)
+        return w, x.run_waterwheel(w, 200.0)
+
+    assert [waterwheel.behaviour(*shown(rho=r)) for r in (0.5, 10.0, 28.0)] == ["still", "steady", "chaotic"]
+    lingering, turns = shown(rho=16.0)
+    assert x.regime(lingering) == "steady" and waterwheel.behaviour(lingering, turns) == "chaotic"
+    assert any(r > 250 for r in x.run_waterwheel(lingering, 300.0).reversals_s)
+    locked, turns = shown(sigma=15.0, rho=32.0)
+    assert x.regime(locked) == "chaotic" and waterwheel.behaviour(locked, turns) == "pattern"
+    late = [r for r in turns.reversals_s if r > 200 * 2 / 3]
+    gaps = [b - a for a, b in itertools.pairwise(late)]
+    assert len(gaps) >= 3 and max(gaps) < 1.01 * min(gaps)
+    above = [waterwheel.behaviour(*shown(rho=float(r))) for r in range(20, 201, 10)]
+    assert above.count("chaotic") > 0.6 * len(above)
+    assert waterwheel.behaviour(*shown(leak_per_s=0.01)) == "starting"
+
+
 def test_the_cups_are_full_at_the_top_while_the_wheel_stands():
     w = x.WaterWheel()
     assert x.cup_level(w, 0.0, 0.0, 0.0) == pytest.approx(0.95)
