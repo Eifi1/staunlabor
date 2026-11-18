@@ -1719,7 +1719,7 @@
       },
       "model": {
         "intro": "Les rubans se déroulent de l'axe sans glisser : pour chaque centimètre de chute, la roue tourne d'un centimètre de la circonférence de l'axe. Comme l'axe est mince, cela fait beaucoup de rotation pour peu de chute.",
-        "roll": "La roue tombe avec une accélération uniforme, mais avec seulement une petite part de celle de la pesanteur : k dit combien il est plus difficile de mettre la roue en rotation qu'en mouvement.",
+        "roll": "La roue tombe avec une accélération uniforme, mais avec seulement une petite part de celle de la pesanteur : k dit combien il est plus difficile de mettre la roue en rotation qu'en mouvement. Le frottement des fils sur l'axe, la part c de leur traction, freine la rotation et la rend encore un peu plus lente.",
         "tension": "C'est pourquoi les rubans portent presque tout le poids pendant le déroulement.",
         "share": "Cette part de l'énergie du mouvement est dans la rotation – 98,8 % pour la roue standard."
       },
@@ -1729,6 +1729,7 @@
         "i": "le moment d'inertie de la roue : ½·M·R² pour un disque, M·R² pour un anneau",
         "m": "la masse de la roue",
         "r": "le rayon de l'axe",
+        "c": "le frottement des fils : cette part de leur traction freine la rotation",
         "t": "la traction des deux rubans",
         "s": "la raideur des deux rubans ensemble",
         "v": "la vitesse de la roue quand les rubans sont déroulés"

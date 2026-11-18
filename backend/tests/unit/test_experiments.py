@@ -1917,6 +1917,13 @@ def test_the_wheel_falls_slowly_because_nearly_all_its_energy_goes_into_its_spin
     b = x.wheel_bounce(w, 0.6)
     assert 0.5 * (1 + k) * b.bottom_speed_m_s**2 == pytest.approx(9.80665 * 0.6, rel=1e-14)
     assert round(x.wheel_bounce(x.MaxwellWheel(), 0.6).fall_s, 1) == 3.3
+    # The page's formula has the strings' rubbing c in it, as the engine does:
+    # without it the default wheel would fall in 3.23 s, with it in 3.28.
+    rubbing = x.MaxwellWheel()
+    k = x.inertia_ratio(rubbing)
+    assert x.fall_acceleration(rubbing) == pytest.approx(9.80665 / (1 + k / (1 - rubbing.loss)))
+    assert round(math.sqrt(2 * 0.6 * (1 + k) / 9.80665), 2) == 3.23
+    assert round(x.wheel_bounce(rubbing, 0.6).fall_s, 2) == 3.28
 
 
 def test_without_losses_it_climbs_back_to_where_it_started():

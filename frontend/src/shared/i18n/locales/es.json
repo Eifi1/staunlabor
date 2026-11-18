@@ -1719,7 +1719,7 @@
       },
       "model": {
         "intro": "Las cintas se desenrollan del eje sin deslizar: por cada centímetro que cae, la rueda gira un centímetro de la circunferencia del eje. Como el eje es delgado, eso significa mucho giro para poca caída.",
-        "roll": "La rueda cae con aceleración uniforme, pero solo con una pequeña parte de la de la gravedad: k indica cuánto más difícil es poner la rueda a girar que a moverse.",
+        "roll": "La rueda cae con aceleración uniforme, pero solo con una pequeña parte de la de la gravedad: k indica cuánto más difícil es poner la rueda a girar que a moverse. El roce de los hilos con el eje, la parte c de su tracción, frena el giro y la hace un poco más lenta todavía.",
         "tension": "Por eso, al desenrollarse, las cintas sostienen casi todo el peso.",
         "share": "Esta parte de la energía del movimiento está en el giro – el 98,8 % en la rueda estándar."
       },
@@ -1729,6 +1729,7 @@
         "i": "el momento de inercia de la rueda: ½·M·R² para un disco, M·R² para un aro",
         "m": "la masa de la rueda",
         "r": "el radio del eje",
+        "c": "el roce de los hilos: esta parte de su tracción frena el giro",
         "t": "el tirón de ambas cintas",
         "s": "la rigidez de ambas cintas juntas",
         "v": "la velocidad de la rueda cuando las cintas se han desenrollado"

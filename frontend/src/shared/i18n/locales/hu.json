@@ -1719,7 +1719,7 @@
       },
       "model": {
         "intro": "A szalagok csúszás nélkül tekeredik le a tengelyről: minden centiméter esésnél a kerék a tengely kerületének egy centiméterével fordul tovább. Mivel a tengely vékony, ez kevés esésre sok forgást jelent.",
-        "roll": "A kerék egyenletesen gyorsulva esik, de a nehézségi gyorsulásnak csak kis részével: k megmondja, mennyivel nehezebb a kereket forgásba hozni, mint mozgásba.",
+        "roll": "A kerék egyenletesen gyorsulva esik, de a nehézségi gyorsulásnak csak kis részével: k megmondja, mennyivel nehezebb a kereket forgásba hozni, mint mozgásba. A zsinórok súrlódása a tengelyen, húzásuk c része, fékezi a forgást, és még kissé lassabbá teszi.",
         "tension": "Ezért legördüléskor a szalagok majdnem az egész súlyt tartják.",
         "share": "A mozgási energia ekkora része van a forgásban – az alapkeréknél 98,8 %."
       },
@@ -1729,6 +1729,7 @@
         "i": "a kerék tehetetlenségi nyomatéka: tárcsánál ½·M·R², gyűrűnél M·R²",
         "m": "a kerék tömege",
         "r": "a tengely sugara",
+        "c": "a zsinórok súrlódása: húzásuknak ez a része fékezi a forgást",
         "t": "a két szalag húzása",
         "s": "a két szalag együttes merevsége",
         "v": "a kerék sebessége, amikor a szalagok letekeredtek"

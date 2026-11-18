@@ -963,7 +963,9 @@ for a disc, M·R² for a ring), the strings pull `M·(g − a)`, and `k/(1 + k)`
 the energy of motion is in the spin. **Losses:** the strings bend round the
 axle and rub, a braking torque of `c·T·r` that opposes the spin both ways: the
 fall at `g/(1 + k/(1 − c))`, the climb slowed at `g/(1 + k/(1 + c))`, each
-climb `a↓/a↑` of the height before. **The turn-round:** a first sketch had the
+climb `a↓/a↑` of the height before. The page's formula first left `c` out,
+which gives 3.23 s for the fall the page shows as 3.3 (3.28; the mathematics
+check, 2026-11-17). **The turn-round:** a first sketch had the
 centre swing round a half-circle about the strings' ends, the textbook picture
 — but the strings hang straight down and can pull only up, so nothing pushes
 the centre sideways; it was dropped before it was written. Instead, as the plan

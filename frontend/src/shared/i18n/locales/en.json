@@ -1719,7 +1719,7 @@
       },
       "model": {
         "intro": "The strings come off the axle without slipping: for every centimetre the wheel falls, it turns on by a centimetre of the axle's circumference. Because the axle is thin, that means a great deal of spin for little fall.",
-        "roll": "The wheel falls uniformly accelerated, but with only a small part of gravity's acceleration: k says how much harder the wheel is to set spinning than to set moving.",
+        "roll": "The wheel falls uniformly accelerated, but with only a small part of gravity's acceleration: k says how much harder the wheel is to set spinning than to set moving. The strings' rubbing on the axle, the share c of their pull, brakes the spin and makes it a little slower still.",
         "tension": "So while it rolls, the strings carry nearly the whole weight.",
         "share": "This share of the energy of motion is in the spin – 98.8 % for the default wheel."
       },
@@ -1729,6 +1729,7 @@
         "i": "the wheel's moment of inertia: ½·M·R² for a disc, M·R² for a ring",
         "m": "the wheel's mass",
         "r": "the axle's radius",
+        "c": "the strings' rubbing: this share of their pull brakes the spin",
         "t": "the pull of both strings",
         "s": "the stiffness of both strings together",
         "v": "the wheel's speed when the strings have run out"

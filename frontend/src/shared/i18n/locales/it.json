@@ -1719,7 +1719,7 @@
       },
       "model": {
         "intro": "I nastri si srotolano dall'asse senza strisciare: per ogni centimetro di caduta la ruota gira di un centimetro della circonferenza dell'asse. Poiché l'asse è sottile, ciò significa molta rotazione per poca caduta.",
-        "roll": "La ruota cade con accelerazione uniforme, ma solo con una piccola parte di quella di gravità: k dice quanto è più difficile mettere la ruota in rotazione che in moto.",
+        "roll": "La ruota cade con accelerazione uniforme, ma solo con una piccola parte di quella di gravità: k dice quanto è più difficile mettere la ruota in rotazione che in moto. Lo sfregamento dei fili sull'asse, la quota c della loro trazione, frena la rotazione e la rende ancora un po' più lenta.",
         "tension": "Per questo, mentre si srotola, i nastri reggono quasi tutto il peso.",
         "share": "Questa quota dell'energia del moto è nella rotazione – il 98,8 % per la ruota standard."
       },
@@ -1729,6 +1729,7 @@
         "i": "il momento d'inerzia della ruota: ½·M·R² per un disco, M·R² per un anello",
         "m": "la massa della ruota",
         "r": "il raggio dell'asse",
+        "c": "lo sfregamento dei fili: questa quota della loro trazione frena la rotazione",
         "t": "la trazione dei due nastri",
         "s": "la rigidità dei due nastri insieme",
         "v": "la velocità della ruota quando i nastri sono srotolati"

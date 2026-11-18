@@ -1719,7 +1719,7 @@
       },
       "model": {
         "intro": "Die Bänder wickeln sich ohne zu gleiten von der Achse: Für jeden Zentimeter, den das Rad fällt, dreht es sich um einen Zentimeter Achsumfang weiter. Weil die Achse dünn ist, heisst das: sehr viel Drehung für wenig Fall.",
-        "roll": "Das Rad fällt gleichmässig beschleunigt, aber nur mit einem kleinen Teil der Fallbeschleunigung: k sagt, wie viel schwerer das Rad in Drehung zu bringen ist als in Bewegung.",
+        "roll": "Das Rad fällt gleichmässig beschleunigt, aber nur mit einem kleinen Teil der Fallbeschleunigung: k sagt, wie viel schwerer das Rad in Drehung zu bringen ist als in Bewegung. Das Reiben der Schnüre an der Achse, der Anteil c ihres Zugs, bremst die Drehung und macht es noch etwas langsamer.",
         "tension": "Die Bänder tragen darum beim Abrollen fast das ganze Gewicht.",
         "share": "Dieser Anteil der Bewegungsenergie steckt in der Drehung – beim Standard-Rad 98,8 %."
       },
@@ -1729,6 +1729,7 @@
         "i": "das Trägheitsmoment des Rads: ½·M·R² für eine Scheibe, M·R² für einen Ring",
         "m": "die Masse des Rads",
         "r": "der Radius der Achse",
+        "c": "das Reiben der Schnüre: dieser Anteil ihres Zugs bremst die Drehung",
         "t": "der Zug beider Bänder",
         "s": "die Steifigkeit beider Bänder zusammen",
         "v": "das Tempo des Rads, wenn die Bänder abgewickelt sind"

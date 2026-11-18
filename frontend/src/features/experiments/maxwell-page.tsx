@@ -384,7 +384,7 @@ function MaxwellModel() {
     <>
       <p>{t("experiments.maxwell.model.intro")}</p>
       <Equation
-        tex={String.raw`a = \frac{g}{1 + k}, \qquad k = \frac{I}{M\,r^2}`}
+        tex={String.raw`a = \frac{g}{1 + k/(1 - c)}, \qquad k = \frac{I}{M\,r^2}`}
         reads={t("experiments.maxwell.model.roll")}
         symbols={[
           { tex: "a", meaning: s("a"), unit: "m/s²" },
@@ -392,6 +392,7 @@ function MaxwellModel() {
           { tex: "I", meaning: s("i"), unit: "kg·m²" },
           { tex: "M", meaning: s("m"), unit: "kg" },
           { tex: "r", meaning: s("r"), unit: "m" },
+          { tex: "c", meaning: s("c") },
         ]}
       />
       <Equation
