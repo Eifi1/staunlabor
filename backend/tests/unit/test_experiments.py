@@ -961,8 +961,9 @@ def test_the_default_build_floats_as_the_exhibit_does_and_states_its_figures():
     assert f.air_m_s == pytest.approx(7.41, abs=0.005)
     assert f.flow_m3_s * 3600 == pytest.approx(410, abs=0.5)
     assert f.tilt_limit_deg == pytest.approx(31.7, abs=0.06)
-    assert f.bob_hz == pytest.approx(0.54, abs=0.005)
-    assert f.sway_hz == pytest.approx(1.85, abs=0.005)
+    # Damped as the air damps them; undamped, 0.54 and 1.85.
+    assert f.bob_hz == pytest.approx(0.50, abs=0.005)
+    assert f.sway_hz == pytest.approx(1.84, abs=0.005)
     assert 5e4 < f.reynolds < 2e5, "below a smooth sphere's drag crisis, where C_d = 0.47 holds"
 
 

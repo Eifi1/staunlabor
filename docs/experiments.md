@@ -482,8 +482,9 @@ default ball (15 cm, 30 g) floats with its centre 36 cm above the opening, its
 underside 28 cm, where the air reaching it has 7.4 m/s. It lifts off from
 12.1 m/s. It floats where the lift crosses its weight because higher up the
 jet is wider than the ball and the ball catches less of it: the lift falls with
-height, so the ball comes back to that height, bobbing at 0.54 Hz, and the air
-damps the bob. Off the axis the suction pulls it back, strongest about 7 cm
+height, so the ball comes back to that height, bobbing at 0.50 Hz as the air
+damps the bob (undamped 0.54, which the page first gave; across, 1.84 Hz for
+1.85 — the mathematics check, 2026-11-17). Off the axis the suction pulls it back, strongest about 7 cm
 out. Tilted, it hangs lower and to the low side, and from 31.7° it rocks:
 the limit is where the motion linearised about the balance (`stable`: its
 Jacobian by central differences, the characteristic polynomial by Faddeev and

@@ -575,7 +575,8 @@ class ElephantFigures:
     air_m_s: float | None
     centre_m_s: float | None
     reynolds: float | None
-    #: How fast it bobs up and down and sways, small and undamped.
+    #: How fast it bobs up and down and sways, small, damped as the air damps
+    #: it: the linearised motion's ``√(k − c²/4)/2π`` along each axis.
     bob_hz: float | None
     sway_hz: float | None
     #: The steepest tilt the jet still holds the ball at.
@@ -583,6 +584,18 @@ class ElephantFigures:
     lift_curve: tuple[LiftPoint, ...]
     side_curve: tuple[SidePoint, ...]
     tilt_curve: tuple[TiltPoint, ...]
+
+
+def _damped_hz(el: Elephant, height: float, along: bool) -> float | None:
+    """How often the ball, floating upright at ``height``, swings about it
+    along the jet (``along``) or across: ``√(k − c²/4)/2π`` from the linearised
+    motion, its stiffness ``k`` and the air's damping ``c``, none if it does not
+    swing. The first version gave the undamped ``√k/2π``, 0.54 Hz for the bob
+    where the air lets it bob at 0.50 (the mathematics check, 2026-11-17)."""
+    jacobian = _linearised(el, 0.0, height, 0.0)
+    place, speed = (1, 3) if along else (0, 2)
+    k, c = -jacobian[speed][place], -jacobian[speed][speed]
+    return math.sqrt(k - c * c / 4) / (2 * math.pi) if k > c * c / 4 else None
 
 
 def figures(el: Elephant) -> ElephantFigures:
@@ -619,10 +632,6 @@ def figures(el: Elephant) -> ElephantFigures:
             tilt_curve=(),
         )
     air = math.sqrt(cover(el, height, 0.0).mean_square)
-    inertia = el.ball.mass_kg + 0.5 * el.ball.displaced_kg
-    d = 1e-5 * el.ball.diameter_m
-    lift_slope = (lift_n(el, height + d) - lift_n(el, height - d)) / (2 * d)
-    side_slope = (side_n(el, height, d) - side_n(el, height, -d)) / (2 * d)
     reach = 2 * width(el.jet, height) + el.ball.radius_m
     side_curve = tuple(
         SidePoint(reach * i / 40, -side_n(el, height, reach * i / 40), lift_n(el, height, reach * i / 40))
@@ -641,8 +650,8 @@ def figures(el: Elephant) -> ElephantFigures:
         air_m_s=air,
         centre_m_s=centre_speed(el.jet, height),
         reynolds=air * el.ball.diameter_m / NU,
-        bob_hz=math.sqrt(-lift_slope / inertia) / (2 * math.pi) if lift_slope < 0 else None,
-        sway_hz=math.sqrt(-side_slope / inertia) / (2 * math.pi) if side_slope < 0 else None,
+        bob_hz=_damped_hz(el, height, along=True),
+        sway_hz=_damped_hz(el, height, along=False),
         tilt_limit_deg=limit,
         lift_curve=lift_curve,
         side_curve=side_curve,
