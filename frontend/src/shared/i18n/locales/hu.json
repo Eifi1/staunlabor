@@ -3159,7 +3159,8 @@
         "plate": "Rések",
         "wall": "Fal",
         "status_both": "Két rés: csíkok, {{spacing}} mm-re egymástól.",
-        "status_one": "Egy rés: széles világos folt, csíkok nélkül – és középen csak negyed olyan világos."
+        "status_one": "Egy rés: széles világos folt, csíkok nélkül – és középen csak negyed olyan világos.",
+        "near": "A fal közelebb van, mint amit a képlet megenged: ilyen széles réseknél csak {{near}} m-től pontos egy százalékon belül."
       },
       "figures": {
         "spacing": "A csíkok távolsága",
@@ -3211,7 +3212,7 @@
         "system": "Az oldal a fal minden pontjának világosságát a távoli falra érvényes képlettel számolja (Fraunhofer). A lézer piros, 650 nm; a rések 0,25 mm-re vannak egymástól, egyenként 0,05 mm szélesek, a fal 2 m-re áll mögöttük. Ekkor a csíkok 5,2 mm-re vannak egymástól, az első sötét 2,6 mm-re a középtől, és 9 világos csík fér el egy rés középső sávjában, amely a középtől mindkét oldalra 26 mm-ig ér.",
         "colours": "A lézer színe a hullámhosszáé, olyan telített, amennyire a képernyő meg tudja mutatni, és olyan világos, amilyen ott a fény. Fehér fény: 81 hullámhosszra mindegyik a saját mintázatával, a szem színérzékenységével súlyozva (CIE 1931), és a képernyő színeire átszámítva (sRGB).",
         "check": "Az oldal tesztjei minden rést 400 keskeny sávra bontanak, a fal minden pontjában összeadják az összes sáv hullámát (Huygens), és az eredményt a képlettel vetik össze. Ellenőrzik, hogy a sötét csíkok pontosan sötétek ott, ahol egyetlen rés fényt ad, és hogy a fehér fény kék ott, ahol a piros kioltódik. A számítás az Ön böngészőjében fut, ugyanazokkal a képletekkel, mint az oldal számítómagja.",
-        "left_out": "Kimaradt: hogy a fal nincs végtelen messze (a képlet akkor érvényes, ha sokkal messzebb van, mint d²/λ, itt nagyjából egy tized méter); a lézernyaláb szélessége és széttartása, amely miatt a csíkok fölfelé és lefelé elhalványulnak; a rések éle és vastagsága; a fény polarizációja."
+        "left_out": "Kimaradt: hogy a fal nincs végtelen messze (a képlet egy százalékon belül pontos, ha a²/λ harmincötszörösénél messzebb van – a egy rés szélessége –, itt 13 cm; ha közelebb van, az oldal jelzi); a lézernyaláb szélessége és széttartása, amely miatt a csíkok fölfelé és lefelé elhalványulnak; a rések éle és vastagsága; a fény polarizációja."
       }
     },
     "beats": {

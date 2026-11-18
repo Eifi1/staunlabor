@@ -3838,8 +3838,43 @@ def test_a_red_laser_makes_stripes_five_millimetres_apart_and_nine_in_the_middle
     assert (x.Slits().spacing_m, x.Slits().width_m, x.Slits().distance_m, x.LASER_NM) == (0.25e-3, 0.05e-3, 2.0, 650.0)
     # One slit alone lights the middle a quarter as brightly as two.
     assert x.slits_intensity(x.Slits(), 650, 0.0, both=False) == 0.25
-    # Fraunhofer's wall is far against d²/λ: here about a tenth of a metre.
-    assert round(x.Slits().spacing_m ** 2 / (x.LASER_NM * 1e-9), 1) == 0.1
+    # Fraunhofer's wall is far enough from 35·a²/λ on: here 13 cm.
+    assert round(x.slits_figures(x.Slits(), x.LASER_NM).near_m, 2) == 0.13
+
+
+def test_the_far_field_formula_holds_to_a_per_cent_from_thirty_five_times_a_squared_over_lambda():
+    """Huygens with each strip's own path to the wall, the near field and all:
+    the formula is off by about 10·(a²/λL)² of the middle, so from 35·a²/λ on
+    under a per cent (0.8 %; at 30, 1.1 %). The slit's width sets it, not the spacing: the spacing's
+    own term is the same for both slits and drops out — at the sliders' corner
+    of 1 mm and 0.5 m, with 0.05 mm slits, the formula is off by 0.3 %."""
+    import cmath
+
+    def worst(slits: Any, nm: float) -> float:
+        k = 2 * math.pi / (nm * 1e-9)
+
+        def field(y: float) -> complex:
+            out = 0j
+            for c in (-slits.spacing_m / 2, slits.spacing_m / 2):
+                for j in range(200):
+                    xs = c - slits.width_m / 2 + (j + 0.5) * slits.width_m / 200
+                    r = math.hypot(slits.distance_m, y - xs)
+                    out += cmath.exp(1j * k * r) / r
+            return out
+
+        middle = abs(field(0.0)) ** 2
+        stripe = nm * 1e-9 * slits.distance_m / slits.spacing_m
+        ys = [-2.5 * stripe + 5 * stripe * i / 100 for i in range(101)]
+        return max(abs(abs(field(y)) ** 2 / middle - x.slits_intensity(slits, nm, y)) for y in ys)
+
+    wide = x.Slits(spacing_m=1e-3, width_m=0.2e-3, distance_m=5.0)
+    near = x.slits_figures(wide, 400.0).near_m
+    assert near == pytest.approx(35 * 0.2e-3**2 / 400e-9)
+    assert worst(dataclasses.replace(wide, distance_m=near), 400.0) < 0.01
+    assert worst(dataclasses.replace(wide, distance_m=near / 2), 400.0) > 0.01
+    corner = x.Slits(spacing_m=1e-3, width_m=0.05e-3, distance_m=0.5)
+    assert corner.distance_m > x.slits_figures(corner, 400.0).near_m
+    assert round(worst(corner, 400.0), 3) == 0.003
 
 
 def test_the_pattern_is_the_two_slits_waves_added_point_by_point():

@@ -2057,8 +2057,14 @@ middle; one slit's middle band 26 mm to its first dark, nine bright stripes
 within it, the fifth lying on that dark and missing; at the pair's first dark
 stripe one slit alone gives 97 % of its own middle; one slit lights the middle
 a quarter as brightly as two. With white light the middle is white and the
-red's first dark blue. Fraunhofer holds as the wall is far against `d²/λ`,
-about a tenth of a metre.
+red's first dark blue. Fraunhofer holds to a per cent of the middle once the
+wall is more than 35 times `a²/λ` away, 13 cm here (0.8 %; at 30 times 1.1 %): summed
+strip by strip on each strip's own path, the near field included, the formula
+is off by about `10·(a²/λL)²`. The slit's width sets it, not the spacing (the
+spacing's own term is the same for both slits and drops out), so the sliders'
+corner of 1 mm and 0.5 m is off by only 0.3 %, while 0.2 mm slits at 400 nm
+need 3.5 m. Nearer than that the page says so; it had named `d²/λ` and said
+nothing (the mathematics check, 2026-11-17).
 
 **The page.** The setup, small, in a dark room (the beam in the laser's
 colour, the second slit shown covered when it is), and under it the wall as

@@ -22,8 +22,13 @@ wavelength's (``colour.matching``) at full saturation the screen allows,
 scaled by the intensity; white light is the lamp's spectrum with each
 wavelength's own pattern, by ``colour.seen``, so the middle stripe is white.
 
-**What it leaves out.** The wall's nearness (Fraunhofer holds once ``L`` is
-large against ``d²/λ``, a tenth of a metre here); the laser beam's own width
+**What it leaves out.** The wall's nearness: Fraunhofer holds to a per cent of
+the middle's brightness once ``L`` is more than :data:`FAR` times ``a²/λ``, the
+slit's width, not its spacing, setting it (the spacing's own term is the same
+for both slits and drops out of their difference) — 13 cm here,
+and :attr:`SlitsFigures.near_m` for any build. Nearer, the page says so; it
+named ``d²/λ`` and said nothing at its sliders' corners (the mathematics check,
+2026-11-17); the laser beam's own width
 and spread, so the stripes' brightness up and down the wall; the slits' edges
 and thickness; light polarisation (the same for both slits).
 """
@@ -125,6 +130,14 @@ class SlitsFigures:
     stripes: int
     #: At the pair's first dark stripe, one slit alone gives this share of its own middle.
     one_slit_there: float
+    #: From how far the formula holds to a per cent: :data:`FAR` times ``a²/λ``.
+    near_m: float
+
+
+#: How many times ``a²/λ`` away the wall must be for Fraunhofer to hold to a
+#: per cent: a wave summed strip by strip on its own path (Fresnel's near field
+#: included) is off the formula by about ``10·(a²/(λ·L))²`` of the middle.
+FAR = 35.0
 
 
 def figures(slits: Slits, nm: float) -> SlitsFigures:
@@ -137,4 +150,5 @@ def figures(slits: Slits, nm: float) -> SlitsFigures:
         envelope_m=slits.distance_m * s_env / math.sqrt(1 - s_env * s_env),
         stripes=2 * beyond + 1,
         one_slit_there=4 * intensity(slits, nm, first_dark, both=False),
+        near_m=FAR * slits.width_m**2 / (nm * 1e-9),
     )

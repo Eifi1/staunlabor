@@ -1402,6 +1402,15 @@ describe("the double slit", () => {
     fireEvent.change(screen.getByRole("slider", { name: E.slits.change.spacing }), { target: { value: "0.5" } });
     expect(await screen.findByText(E.slits.play.status_both.replace("{{spacing}}", "2.1"))).toBeInTheDocument();
   });
+
+  it("says when the wall is nearer than the far-field formula allows for slits this wide", async () => {
+    renderWithProviders(<SlitsPage />);
+    await screen.findByRole("img", { name: E.slits.wall_view });
+    expect(screen.queryByText(/nearer than the formula allows/)).toBeNull();
+    // The slider's widest, 0.2 mm, in red light: 35·a²/λ = 2.2 m, past the wall's 2 m.
+    fireEvent.change(screen.getByRole("slider", { name: E.slits.change.width }), { target: { value: "0.2" } });
+    expect(await screen.findByText(E.slits.play.near.replace("{{near}}", "2.2"))).toBeInTheDocument();
+  });
 });
 
 describe("the beats", () => {

@@ -71,7 +71,12 @@ export interface SlitsFigures {
   envelope_m: number;
   stripes: number;
   one_slit_there: number;
+  /** From how far the formula holds to a per cent: FAR times a²/λ. */
+  near_m: number;
 }
+
+/** The engine's: how many times a²/λ away the wall must be for Fraunhofer to hold to a per cent. */
+export const FAR = 35.0;
 
 export function figures(slits: Slits, nm: number): SlitsFigures {
   const firstDark = darkM(slits, nm, 0);
@@ -83,5 +88,6 @@ export function figures(slits: Slits, nm: number): SlitsFigures {
     envelope_m: (slits.distance_m * sEnv) / Math.sqrt(1 - sEnv * sEnv),
     stripes: 2 * beyond + 1,
     one_slit_there: 4 * intensity(slits, nm, firstDark, false),
+    near_m: (FAR * slits.width_m ** 2) / (nm * 1e-9),
   };
 }
