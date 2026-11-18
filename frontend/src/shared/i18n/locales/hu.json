@@ -658,7 +658,7 @@
         "inertia": "Tehetetlenségi nyomaték",
         "momentum": "Perdület",
         "energy": "A forgás energiája",
-        "pull": "Húzóerő a kapaszkodón",
+        "pull": "Befelé húzás a kapaszkodón",
         "times": "Gyorsabb, mint kifelé dőlve",
         "reading": "Minden lökés {{push}} kg·m²/s perdületet ad. Két lökés között csak a csapágy vesz el belőle valamennyit — akárhogy dől is, a perdület megmarad.",
         "lean_hint": "Mennyire dől hátra a törzs a tengelytől, a kezek a kapaszkodón, a lábak a helyükön."
@@ -695,13 +695,13 @@
         "lean": "mennyire dől ki a törzs",
         "own": "az adott rész saját tehetetlenségi nyomatéka",
         "energy": "a forgás energiája",
-        "pull": "amit a kezeknek a kapaszkodón tartaniuk kell: hogy a kidőlt test a körpályáján maradjon",
+        "pull": "a befelé irányuló húzás, amelyet a kezek a kapaszkodón át adnak, hogy a kidőlt test a körpályáján maradjon; a súlya elleni megtartás ehhez jön hozzá",
         "trunk_mass": "a törzs tömege, a fejjel együtt"
       },
       "sweet": {
         "faster": "Egyenesen állva a látogató {{ratio}}× olyan gyorsan forog, mint kifelé dőlve — ugyanazzal a perdülettel.",
         "energy": "A forgás energiája azonos perdület mellett: kisebb tehetetlenségi nyomaték, több energia. Az összehúzódás nemcsak gyorsabbá, hanem energiadúsabbá is teszi a forgást.",
-        "pull": "Ennek az energiának valahonnan jönnie kell: a karokból. Kifelé dőlve a testnek szüksége van erre a befelé irányuló húzóerőre, hogy a körpályáján maradjon, és ezt a kezek adják a kapaszkodón keresztül — a szögsebesség négyzetével nő, és a látogató úgy érzi, mintha a kapaszkodó húzná a kezét.",
+        "pull": "Ennek az energiának valahonnan jönnie kell: a karokból. Kifelé dőlve a testnek szüksége van erre a befelé irányuló húzóerőre, hogy a körpályáján maradjon, és ezt a kezek adják a kapaszkodón keresztül — a szögsebesség négyzetével nő, és a látogató úgy érzi, mintha a kapaszkodó húzná a kezét. Ráadásul a karok a kidőlt testet a saját súlya ellen is tartják; ez a rész nem nő a forgással.",
         "paid": "Kifelé dőlt helyzetből felegyenesedve a karok {{work}} J munkát végeznek e húzóerő ellenében, és a forgás energiája pontosan ennyivel nő, {{from}} J-ról {{to}} J-ra. A számítómotor ezt úgy ellenőrzi, hogy a befelé vezető út mentén összegzi a húzóerőt.",
         "replay": "Itt az automatikus mód tizenhat másodpercen át, egy {{push}} kg·m²/s-os lökés után: a sebesség minden felegyenesedésnél megugrik, kifelé dőléskor visszaesik, miközben a perdület csak csökken, lassan és egyenletesen, a csapágy miatt."
       },

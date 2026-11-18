@@ -319,8 +319,11 @@ hold weights; at the exhibit the hands stay on the bar.)
 upright, 1.6 — 3.2 times as fast, `I` falling from 5.3 to 1.7 kg·m². And the
 **energy** `E = L²/2I` rises: the 58 J are the work the arms do pulling the
 body upright against what holds it out, `m·ω²·x` per piece, which the test
-checks by adding that pull up along the way in. Leaning out, the hands hold
-124 N on the bar; upright, nothing. The bearing stops a spin after about 84 s.
+checks by adding that pull up along the way in. Leaning out, the hands pull
+inwards with 124 N on the bar, what keeps the body on its circle; upright,
+nothing. Holding the leaning body up against its own weight comes on top and
+does not grow with the turn; the page called the 124 N the pull on the bar,
+which is more (the mathematics check, 2026-11-17). The bearing stops a spin after about 84 s.
 The auto mode leans out, stands up, holds and leans out again.
 
 **Sentences with fixed numbers** (Marcel, 2026-11-07): where the prose quotes a

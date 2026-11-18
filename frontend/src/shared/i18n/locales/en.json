@@ -658,7 +658,7 @@
         "inertia": "Moment of inertia",
         "momentum": "Angular momentum",
         "energy": "Energy of the spin",
-        "pull": "Pull on the bar",
+        "pull": "Pull inwards on the bar",
         "times": "Faster than leaning out",
         "reading": "Each push gives {{push}} kg·m²/s of angular momentum. Between pushes only the bearing takes some away — however you lean, the angular momentum stays.",
         "lean_hint": "How far the trunk leans back from the axis, the hands on the bar and the feet where they are."
@@ -695,13 +695,13 @@
         "lean": "how far the trunk leans out",
         "own": "the part's own moment of inertia",
         "energy": "the energy of the spin",
-        "pull": "what the hands hold on the bar: the leaning body kept on its circle",
+        "pull": "the pull inwards the hands give through the bar to keep the leaning body on its circle; holding it up against its weight comes on top",
         "trunk_mass": "the trunk's mass, with the head"
       },
       "sweet": {
         "faster": "Upright, the visitor turns {{ratio}} times as fast as leaning out — with the same angular momentum.",
         "energy": "The energy of the spin, at the same angular momentum: smaller inertia, more energy. Pulling in makes the spin more energetic, not just faster.",
-        "pull": "That energy has to come from somewhere: from the arms. Leaning out, the body needs this pull inwards to stay on its circle, and the hands give it through the bar — it grows with the square of the rate, and the visitor feels it as the bar pulling at the hands.",
+        "pull": "That energy has to come from somewhere: from the arms. Leaning out, the body needs this pull inwards to stay on its circle, and the hands give it through the bar — it grows with the square of the rate, and the visitor feels it as the bar pulling at the hands. On top of it the arms hold the leaning body up against its own weight; that part does not grow with the turn.",
         "paid": "Standing up from leaning out, the arms do {{work}} J of work against that pull, and the spin's energy rises by exactly that, from {{from}} J to {{to}} J. The engine checks it by adding up the pull along the way in.",
         "replay": "Here is the auto mode over sixteen seconds, from one push of {{push}} kg·m²/s: the speed leaps each time the visitor stands up and drops as they lean out, while the angular momentum only runs down, slowly and steadily, with the bearing."
       },

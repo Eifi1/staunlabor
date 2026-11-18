@@ -658,7 +658,7 @@
         "inertia": "Momento d'inerzia",
         "momentum": "Momento angolare",
         "energy": "Energia della rotazione",
-        "pull": "Trazione sulla barra",
+        "pull": "Trazione verso l'interno sulla barra",
         "times": "Più veloce che inclinato in fuori",
         "reading": "Ogni spinta dà {{push}} kg·m²/s di momento angolare. Tra una spinta e l'altra solo il cuscinetto ne toglie un po' — comunque Lei si inclini, il momento angolare resta.",
         "lean_hint": "Quanto il tronco si inclina all'indietro, lontano dall'asse, con le mani sulla barra e i piedi dove sono."
@@ -695,13 +695,13 @@
         "lean": "quanto il tronco si sporge in fuori",
         "own": "il momento d'inerzia proprio della parte",
         "energy": "l'energia della rotazione",
-        "pull": "ciò che le mani reggono sulla barra: il corpo inclinato, mantenuto sul suo cerchio",
+        "pull": "la trazione verso l'interno che le mani danno attraverso la barra per tenere il corpo inclinato sul suo cerchio; reggerlo contro il suo peso si aggiunge",
         "trunk_mass": "la massa del tronco, testa compresa"
       },
       "sweet": {
         "faster": "Dritto, il visitatore gira {{ratio}} volte più veloce che inclinato in fuori — con lo stesso momento angolare.",
         "energy": "L'energia della rotazione, a parità di momento angolare: meno inerzia, più energia. Raccogliersi rende la rotazione più ricca di energia, non solo più veloce.",
-        "pull": "Quell'energia deve venire da qualche parte: dalle braccia. Inclinato in fuori, il corpo ha bisogno di questa trazione verso l'interno per restare sul suo cerchio, e le mani la danno attraverso la barra — cresce con il quadrato della velocità angolare, e il visitatore la sente come se la barra gli tirasse le mani.",
+        "pull": "Quell'energia deve venire da qualche parte: dalle braccia. Inclinato in fuori, il corpo ha bisogno di questa trazione verso l'interno per restare sul suo cerchio, e le mani la danno attraverso la barra — cresce con il quadrato della velocità angolare, e il visitatore la sente come se la barra gli tirasse le mani. In più le braccia reggono il corpo inclinato contro il suo stesso peso; questa parte non cresce con la rotazione.",
         "paid": "Raddrizzandosi dalla posizione inclinata in fuori, le braccia compiono {{work}} J di lavoro contro quella trazione, e l'energia della rotazione cresce esattamente di tanto, da {{from}} J a {{to}} J. Il motore di calcolo lo verifica sommando la trazione lungo il percorso verso l'interno.",
         "replay": "Ecco la modalità automatica su sedici secondi, dopo una spinta di {{push}} kg·m²/s: la velocità balza ogni volta che il visitatore si raddrizza e cala quando si sporge in fuori, mentre il momento angolare diminuisce soltanto, lentamente e in modo uniforme, per il cuscinetto."
       },

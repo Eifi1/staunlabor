@@ -658,7 +658,7 @@
         "inertia": "Trägheitsmoment",
         "momentum": "Drehimpuls",
         "energy": "Energie der Drehung",
-        "pull": "Zug am Griff",
+        "pull": "Zug nach innen am Griff",
         "times": "Schneller als hinausgelehnt",
         "reading": "Jeder Schubs gibt {{push}} kg·m²/s Drehimpuls. Zwischen den Schubsen nimmt nur das Lager etwas weg – wie Sie sich auch lehnen, der Drehimpuls bleibt.",
         "lean_hint": "Wie weit sich der Rumpf von der Achse wegneigt, die Hände am Griff und die Füsse, wo sie sind."
@@ -695,13 +695,13 @@
         "lean": "wie weit sich der Rumpf hinauslehnt",
         "own": "das eigene Trägheitsmoment des Teils",
         "energy": "die Energie der Drehung",
-        "pull": "was die Hände am Griff halten: den hinausgelehnten Körper auf seinem Kreis",
+        "pull": "der Zug nach innen, den die Hände über den Griff geben, damit der hinausgelehnte Körper auf seinem Kreis bleibt; das Halten gegen sein Gewicht kommt dazu",
         "trunk_mass": "die Masse des Rumpfs, mit dem Kopf"
       },
       "sweet": {
         "faster": "Aufrecht dreht sich die Person {{ratio}}-mal so schnell wie hinausgelehnt – mit demselben Drehimpuls.",
         "energy": "Die Energie der Drehung, bei gleichem Drehimpuls: kleineres Trägheitsmoment, mehr Energie. Einziehen macht die Drehung energiereicher, nicht nur schneller.",
-        "pull": "Diese Energie muss irgendwoher kommen: aus den Armen. Hinausgelehnt braucht der Körper diesen Zug nach innen, um auf seinem Kreis zu bleiben, und die Hände geben ihn über den Griff – er wächst mit dem Quadrat der Drehrate, und man spürt ihn, als zöge der Griff an den Händen.",
+        "pull": "Diese Energie muss irgendwoher kommen: aus den Armen. Hinausgelehnt braucht der Körper diesen Zug nach innen, um auf seinem Kreis zu bleiben, und die Hände geben ihn über den Griff – er wächst mit dem Quadrat der Drehrate, und man spürt ihn, als zöge der Griff an den Händen. Dazu halten die Arme den hinausgelehnten Körper gegen sein eigenes Gewicht; dieser Teil wächst nicht mit der Drehung.",
         "paid": "Beim Aufrichten aus der hinausgelehnten Haltung leisten die Arme {{work}} J Arbeit gegen diesen Zug, und die Energie der Drehung steigt um genau so viel, von {{from}} J auf {{to}} J. Der Rechenkern prüft es, indem er den Zug entlang des Wegs nach innen aufsummiert.",
         "replay": "Hier der automatische Ablauf über sechzehn Sekunden, nach einem Schubs von {{push}} kg·m²/s: Das Tempo springt jedes Mal, wenn sich die Person aufrichtet, und fällt, wenn sie sich hinauslehnt, während der Drehimpuls nur abnimmt, langsam und gleichmässig, durch das Lager."
       },

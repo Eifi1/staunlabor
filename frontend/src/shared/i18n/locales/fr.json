@@ -658,7 +658,7 @@
         "inertia": "Moment d’inertie",
         "momentum": "Moment cinétique",
         "energy": "Énergie de la rotation",
-        "pull": "Traction sur la barre",
+        "pull": "Traction vers l’intérieur sur la barre",
         "times": "Plus vite que penché vers l’extérieur",
         "reading": "Chaque poussée apporte {{push}} kg·m²/s de moment cinétique. Entre les poussées, seul le palier en retire un peu — que vous vous penchiez ou non, le moment cinétique reste.",
         "lean_hint": "De combien le tronc se penche en arrière, loin de l’axe, les mains sur la barre et les pieds à leur place."
@@ -695,13 +695,13 @@
         "lean": "de combien le tronc se penche vers l’extérieur",
         "own": "le moment d’inertie propre de la partie",
         "energy": "l’énergie de la rotation",
-        "pull": "ce que les mains retiennent sur la barre : le corps penché, maintenu sur son cercle",
+        "pull": "la traction vers l’intérieur que les mains transmettent par la barre pour garder le corps penché sur son cercle ; le retenir contre son poids s’y ajoute",
         "trunk_mass": "la masse du tronc, tête comprise"
       },
       "sweet": {
         "faster": "Redressé, le visiteur tourne {{ratio}} fois plus vite que penché vers l’extérieur — avec le même moment cinétique.",
         "energy": "L’énergie de la rotation, à moment cinétique égal : moins d’inertie, plus d’énergie. Se replier donne à la rotation plus d’énergie, pas seulement plus de vitesse.",
-        "pull": "Cette énergie doit bien venir de quelque part : des bras. Penché vers l’extérieur, le corps a besoin de cette traction vers l’intérieur pour rester sur son cercle, et les mains la transmettent par la barre — elle croît avec le carré de la vitesse angulaire, et le visiteur la ressent comme si la barre lui tirait les mains.",
+        "pull": "Cette énergie doit bien venir de quelque part : des bras. Penché vers l’extérieur, le corps a besoin de cette traction vers l’intérieur pour rester sur son cercle, et les mains la transmettent par la barre — elle croît avec le carré de la vitesse angulaire, et le visiteur la ressent comme si la barre lui tirait les mains. En plus, les bras retiennent le corps penché contre son propre poids ; cette part ne croît pas avec la rotation.",
         "paid": "En se redressant depuis la position penchée, les bras fournissent {{work}} J de travail contre cette traction, et l’énergie de la rotation augmente exactement d’autant, de {{from}} J à {{to}} J. Le moteur de calcul le vérifie en additionnant la traction le long du chemin vers l’intérieur.",
         "replay": "Voici le mode automatique sur seize secondes, après une poussée de {{push}} kg·m²/s : la vitesse bondit chaque fois que le visiteur se redresse et retombe quand il se penche vers l’extérieur, tandis que le moment cinétique ne fait que diminuer, lentement et régulièrement, à cause du palier."
       },

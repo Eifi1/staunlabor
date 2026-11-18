@@ -658,7 +658,7 @@
         "inertia": "Momento de inercia",
         "momentum": "Momento angular",
         "energy": "Energía del giro",
-        "pull": "Tracción en la barra",
+        "pull": "Tracción hacia dentro en la barra",
         "times": "Más rápido que inclinado hacia fuera",
         "reading": "Cada empujón aporta {{push}} kg·m²/s de momento angular. Entre empujones solo el cojinete quita algo — se incline como se incline, el momento angular se mantiene.",
         "lean_hint": "Cuánto se inclina el tronco hacia atrás, alejándose del eje, con las manos en la barra y los pies donde están."
@@ -695,13 +695,13 @@
         "lean": "cuánto se inclina el tronco hacia fuera",
         "own": "el momento de inercia propio de la parte",
         "energy": "la energía del giro",
-        "pull": "lo que sostienen las manos en la barra: el cuerpo inclinado, mantenido en su círculo",
+        "pull": "la tracción hacia dentro que dan las manos a través de la barra para mantener el cuerpo inclinado en su círculo; sostenerlo contra su peso se suma",
         "trunk_mass": "la masa del tronco, con la cabeza"
       },
       "sweet": {
         "faster": "Erguido, el visitante gira {{ratio}} veces más rápido que inclinado hacia fuera — con el mismo momento angular.",
         "energy": "La energía del giro, con el mismo momento angular: menos inercia, más energía. Recogerse no solo hace el giro más rápido, sino también más energético.",
-        "pull": "Esa energía tiene que salir de algún sitio: de los brazos. Inclinado hacia fuera, el cuerpo necesita esta tracción hacia dentro para mantenerse en su círculo, y las manos la dan a través de la barra — crece con el cuadrado de la velocidad angular, y el visitante la nota como si la barra le tirara de las manos.",
+        "pull": "Esa energía tiene que salir de algún sitio: de los brazos. Inclinado hacia fuera, el cuerpo necesita esta tracción hacia dentro para mantenerse en su círculo, y las manos la dan a través de la barra — crece con el cuadrado de la velocidad angular, y el visitante la nota como si la barra le tirara de las manos. Además, los brazos sostienen el cuerpo inclinado contra su propio peso; esa parte no crece con el giro.",
         "paid": "Al enderezarse desde la postura inclinada hacia fuera, los brazos realizan {{work}} J de trabajo contra esa tracción, y la energía del giro sube exactamente eso, de {{from}} J a {{to}} J. El motor de cálculo lo comprueba sumando la tracción a lo largo del recorrido hacia dentro.",
         "replay": "Aquí el modo automático durante dieciséis segundos, tras un empujón de {{push}} kg·m²/s: la velocidad salta cada vez que el visitante se endereza y cae cuando se inclina hacia fuera, mientras el momento angular solo disminuye, lenta y uniformemente, por el cojinete."
       },
