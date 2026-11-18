@@ -163,7 +163,13 @@ def _forces(stack: BallStack, ks: list[float], y: list[float], v: list[float], c
             continue
         rate = _closing(v, c)
         e = stack.floor_restitution if c == 0 else stack.ball_restitution
-        at = closed[c] if closed[c] > 0 else max(rate, MIN_CLOSING_M_S)
+        # Flores's δ̇₀ is the speed the contact was struck at. A contact that
+        # closed gently and is then struck hard (a heavy ball settling onto a
+        # small one in the fall, then the stack meeting the floor) is struck
+        # at the faster: referred to the gentle closing, the damping grew a
+        # hundredfold and the steps blew up (found by the crash sweep,
+        # 2026-11-17).
+        at = max(closed[c], rate, MIN_CLOSING_M_S)
         force = k * overlap**1.5 * (1 + 8 * (1 - e) / (5 * e) * rate / at)
         out.append(max(force, 0.0))
     return out

@@ -80,7 +80,8 @@ function forcesOf(stack: BallStack, ks: number[], y: number[], v: number[], clos
     if (overlap <= 0) return 0;
     const rate = closingOf(v, c);
     const e = c === 0 ? stack.floor_restitution : stack.ball_restitution;
-    const at = closed[c] > 0 ? closed[c] : Math.max(rate, MIN_CLOSING_M_S);
+    // The engine's δ̇₀: the fastest the contact has been struck.
+    const at = Math.max(closed[c], rate, MIN_CLOSING_M_S);
     const force = k * overlap ** 1.5 * (1 + (((8 * (1 - e)) / (5 * e)) * rate) / at);
     return Math.max(force, 0);
   });

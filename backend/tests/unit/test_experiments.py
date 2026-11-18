@@ -1230,8 +1230,8 @@ def test_the_exhibit_s_three_contacts_overlap_and_press_with_a_kilonewton_at_the
     for contact in f.contacts:
         first.setdefault(contact.contact, contact)
     floor, lower, upper = first[0], first[1], first[2]
-    assert floor.peak_force_n == pytest.approx(1239, abs=1) and floor.peak_overlap_m == pytest.approx(0.0101, abs=1e-4)
-    assert lower.peak_force_n == pytest.approx(559, abs=1) and upper.peak_force_n == pytest.approx(281, abs=1)
+    assert floor.peak_force_n == pytest.approx(1237, abs=1) and floor.peak_overlap_m == pytest.approx(0.0101, abs=1e-4)
+    assert lower.peak_force_n == pytest.approx(687, abs=1) and upper.peak_force_n == pytest.approx(370, abs=1)
     assert 0.009 < floor.end_s - floor.start_s < 0.011, "about ten milliseconds"
     # Touching, they are all closed at once: the middle ball presses into the
     # bottom one while that one is still squashing into the floor.
@@ -1246,15 +1246,30 @@ def test_touching_balls_send_the_top_one_up_far_less_than_hits_one_after_another
     one, two, three = f.launches
     assert one.times_drop == pytest.approx(0.698, abs=1e-3), "e² of its fall, less the air"
     assert [launch.balls for launch in f.launches] == [1, 2, 3]
-    assert three.launch_m_s == pytest.approx(6.633, abs=1e-3)
-    assert three.apex_m == pytest.approx(2.374, abs=1e-3) and three.times_drop == pytest.approx(2.205, abs=1e-3)
-    assert two.times_drop == pytest.approx(1.300, abs=1e-3)
+    assert three.launch_m_s == pytest.approx(6.994, abs=1e-3)
+    assert three.apex_m == pytest.approx(2.617, abs=1e-3) and three.times_drop == pytest.approx(2.447, abs=1e-3)
+    assert two.times_drop == pytest.approx(1.354, abs=1e-3)
     # The textbook's model, instantaneous hits one after another: 10.85 m/s;
     # without losses 14.88; with each ball far lighter 7v = 30.9.
     assert three.sequential_launch_m_s == pytest.approx(10.853, abs=1e-3)
     assert three.ideal_launch_m_s == pytest.approx(14.877, abs=1e-3)
     assert three.textbook_launch_m_s == pytest.approx(7 * f.impact_m_s)
-    assert f.energy_share == pytest.approx(0.192, abs=1e-3)
+    assert f.energy_share == pytest.approx(0.213, abs=1e-3)
+
+
+def test_a_heavy_ball_settled_onto_a_small_one_in_the_fall_is_struck_without_blowing_up():
+    """20, 2 and 20 cm at 100 MPa: the top ball, less braked by the air, settles
+    onto the small one in the fall, closing their contact at a crawl; then the
+    stack meets the floor and that contact is pressed at metres a second.
+    Damped against the crawl, the steps blew up (an OverflowError, a 500 from
+    the route). Every contact's damping is against its fastest strike, which
+    a single hit's closing is: the one-ball restitution above holds."""
+    stack = x.BallStack(balls=(x.Ball(0.20), x.Ball(0.02), x.Ball(0.20)), youngs_mpa=100.0)
+    f = x.cannon_figures(stack)
+    assert all(math.isfinite(launch.launch_m_s) and math.isfinite(launch.apex_m) for launch in f.launches)
+    assert all(math.isfinite(contact.peak_force_n) for contact in f.contacts)
+    steep = x.BallStack(balls=(x.Ball(0.07), x.Ball(0.02), x.Ball(0.20)), drop_m=3.0, youngs_mpa=200.0)
+    assert math.isfinite(x.cannon_launch(steep).apex_m)
 
 
 def test_a_gap_of_two_centimetres_parts_the_contacts_and_nearly_reaches_hits_one_after_another():

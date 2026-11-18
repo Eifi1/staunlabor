@@ -588,7 +588,14 @@ barrel).
   rigid and two balls of one elastomer halving `E*`; Young's modulus 3 MPa and
   Poisson's ratio 0.5 (rubber), both assumed. **Damped as Flores et al. (2011)
   give it**, `·(1 + 8(1 − e)/(5e)·δ̇/δ̇₀)`, so a contact gives back about the
-  share `e` (0.85, assumed) of the speed it closed at — to 2 %.
+  share `e` (0.85, assumed) of the speed it closed at — to 2 %. `δ̇₀` is the
+  fastest the contact has been struck: in a touching stack the contacts above
+  close gently in the fall or as the bottom ball slows, and are then pressed
+  far faster. The first version took the gentle closing, which made their
+  damping up to four times too strong (their peaks 0.56 and 0.28 kN, the top
+  ball off at 6.6 m/s) and, with a heavy ball settling onto a small one in the
+  fall, a hundredfold, where the steps blew up (20, 2 and 20 cm at 100 MPa;
+  the crash sweep, 2026-11-17).
 - **Stepped with RK4**: 0.5 ms while every ball flies free, 10 µs while a
   contact is closed or about to close (fifty small steps for one large, the time
   grid unchanged). The impact's forces, overlaps and positions are recorded
@@ -599,14 +606,14 @@ barrel).
 
 **What it shows.** From a metre the stack meets the floor at 4.42 m/s. The
 floor pushes back with 1.24 kN (about 220 times the bottom ball's weight), the
-ball squashed by 10 mm for 10 ms; the two contacts above peak at 0.56 and
-0.28 kN. Touching, the three contacts overlap — the middle ball presses into the
+ball squashed by 10 mm for 10 ms; the two contacts above peak at 0.69 and
+0.37 kN. Touching, the three contacts overlap — the middle ball presses into the
 bottom one 1.7 ms after that one met the floor — and the top ball leaves at
-6.6 m/s and climbs 2.2 times the drop, where instantaneous hits one after
+7.0 m/s and climbs 2.4 times the drop, where instantaneous hits one after
 another would send it off at 10.9 m/s (5.7 times). A few millimetres apart the
-contacts come one after another: 5 mm gives 4.6 times, 2 cm 5.4. The
+contacts come one after another: 5 mm gives 4.7 times, 2 cm 5.4. The
 elastomer's stiffness changes the forces and the durations much and the climb
-little (1 MPa 1.8 times, 50 MPa 3.4). Turned over, the stack sends nothing up.
+little (1 MPa 2.0 times, 50 MPa 3.6). Turned over, the stack sends nothing up.
 In the page the reader drags the stack up in a close-up and lets go, or drops it
 with a button; a column beside it holds the whole climb; slow motion plays the
 impact a hundred times slower, the balls squashing into each other; a table and
