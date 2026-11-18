@@ -2426,9 +2426,38 @@ def test_a_rod_s_second_mode_lies_6_27_times_higher_and_is_left_out():
     assert round((lo / resonance.BETA1) ** 2, 2) == 6.27
 
 
-def test_the_six_rods_ring_between_1_4_and_5_7_hz():
+def test_the_six_rods_ring_between_1_3_and_5_6_hz():
     rack = x.ResonanceRack()
-    assert [round(x.rod_hz(rack, length), 2) for length in rack.lengths_m] == [1.41, 1.74, 2.21, 2.88, 3.92, 5.65]
+    assert [round(x.rod_hz(rack, length), 2) for length in rack.lengths_m] == [1.27, 1.61, 2.09, 2.78, 3.84, 5.58]
+
+
+def test_standing_upright_a_rod_s_own_weight_lowers_its_tone_and_buckles_it_at_greenhill_s_load():
+    """``ω² = ω₀² − Λ·g/L``, Λ from the first mode's slope; here Λ is found
+    again from the shape alone, by differences. Where ω² reaches nothing the
+    rod buckles under its weight: at ``ρ·A·g·L³/(E·I) = β₁⁴/Λ``, which a one-term
+    Rayleigh quotient puts within half a per cent of Greenhill's 7.837."""
+    from staunlabor.domain.experiments import resonance
+
+    n, eps = 2000, 1e-6
+    over = squared = 0.0
+    for i in range(n + 1):
+        xi = i / n
+        w = 1 if i in (0, n) else 4 if i % 2 else 2
+        slope = (resonance.shape(min(xi + eps, 1.0)) - resonance.shape(max(xi - eps, 0.0))) / (
+            min(xi + eps, 1.0) - max(xi - eps, 0.0)
+        )
+        over += w * (1 - xi) * slope**2
+        squared += w * resonance.shape(xi) ** 2
+    softening = resonance.LAMBDA
+    assert softening == pytest.approx(over / squared, rel=1e-6)
+    assert resonance.BETA1**4 / softening == pytest.approx(7.837, rel=0.005)
+    # The metre rod rings a tenth lower for its weight, the 80 cm one a twentieth.
+    rack = x.ResonanceRack()
+    for length, lower in ((1.0, 0.103), (0.8, 0.051)):
+        bending = resonance.BETA1**2 / (2 * math.pi * length**2) * math.sqrt(200e9 / 7850) * 0.002 / 4
+        assert 1 - x.rod_hz(rack, length) / bending == pytest.approx(lower, abs=5e-4)
+    with pytest.raises(ValueError, match="buckles under its own weight"):
+        x.ResonanceRack(lengths_m=(2.0,), diameter_m=0.0005, youngs_gpa=1.0)
 
 
 def test_in_step_one_rod_swings_78_mm_on_a_table_moving_1_mm_and_its_neighbours_at_most_4():
@@ -2444,7 +2473,9 @@ def test_in_step_one_rod_swings_78_mm_on_a_table_moving_1_mm_and_its_neighbours_
 
 def test_stepped_from_rest_the_rods_settle_on_the_closed_form():
     rack = x.ResonanceRack()
-    run = x.run_resonance(rack, 2.0, 60.0)
+    # Two minutes: the metre rod's start dies away in 1/(ζ·ω) = 12.5 s, and at
+    # one minute it still showed by a per cent and a half.
+    run = x.run_resonance(rack, 2.0, 120.0)
     for rod, length in enumerate(rack.lengths_m):
         late = max(abs(q) for q in run.tips_m[rod][-200:])
         assert late == pytest.approx(x.rod_steady_m(rack, length, 2.0), rel=0.01)
@@ -2456,7 +2487,7 @@ def test_in_step_a_swing_grows_to_two_thirds_in_one_over_zeta_omega():
     rack = x.ResonanceRack()
     beat = x.rod_hz(rack, 0.8)
     tau = 1 / (rack.damping_ratio * 2 * math.pi * beat)
-    assert round(tau, 1) == 7.2
+    assert round(tau, 1) == 7.6
     s = resonance.start(rack)
     for _ in range(round(tau / resonance.STEP_S)):
         s = resonance.step(rack, s, beat)
@@ -2478,16 +2509,16 @@ def test_swept_at_a_twentieth_of_a_hertz_a_second_the_rod_reaches_half_its_swing
         if swing > widest:
             widest, at = swing, drive
         tip = max(tip, abs(s.q[2]))
-    assert round(widest * 1000) == 39 == round(tip * 1000)
-    assert round(at, 1) == 2.4
+    assert round(widest * 1000) == 38 == round(tip * 1000)
+    assert round(at, 1) == 2.3
     # Half the 78 mm in step.
-    assert widest / x.rod_steady_m(rack, 0.8, x.rod_hz(rack, 0.8)) == pytest.approx(0.5, abs=0.01)
+    assert widest / x.rod_steady_m(rack, 0.8, x.rod_hz(rack, 0.8)) == pytest.approx(0.5, abs=0.02)
 
 
 def test_a_rod_driven_far_above_its_tone_is_measured_as_wide_as_it_swings():
     """The measure takes the tip's place and speed at the drive's frequency: a
-    steady swing at 6.3 Hz of the metre rod, whose tone is 1.41 Hz, is as wide
-    as its tip goes. At the rod's own frequency it read 4.5 times that."""
+    steady swing at 6.3 Hz of the metre rod, whose tone is 1.27 Hz, is as wide
+    as its tip goes. At the rod's own frequency it read 5.0 times that."""
     from staunlabor.domain.experiments import resonance
 
     rack = x.ResonanceRack(lengths_m=(1.0,))
@@ -2504,7 +2535,7 @@ def test_a_rod_driven_far_above_its_tone_is_measured_as_wide_as_it_swings():
         at_own = max(at_own, math.hypot(s.q[0], s.v[0] / own))
     assert measured == pytest.approx(tip, rel=0.005)
     assert tip == pytest.approx(x.rod_steady_m(rack, 1.0, drive), rel=0.01)
-    assert round(at_own / tip, 1) == 4.5
+    assert round(at_own / tip, 1) == 5.0
 
 
 def test_the_rack_refuses_what_it_cannot_hold():

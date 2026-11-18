@@ -849,6 +849,8 @@ describe("the resonance rods' port", () => {
       differences(k, {
         BETA1: resonance.BETA1,
         GAMMA: resonance.GAMMA,
+        LAMBDA: resonance.LAMBDA,
+        G: resonance.G,
         shape: k.shape.map((_: number, i: number) => resonance.shape(i / 10)),
       }),
     ).toEqual([]);

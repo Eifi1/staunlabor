@@ -2193,12 +2193,14 @@
       },
       "model": {
         "intro": "Chaque tige est fixée en bas et libre en haut. De ses façons de vibrer, seule la première compte ici : toute la tige se plie d'un côté.",
-        "frequency": "Sa fréquence propre : plus la tige est longue, plus elle est basse – comme le carré de la longueur.",
+        "frequency": "Sa fréquence propre : plus la tige est longue, plus elle est basse – presque comme le carré de la longueur. Debout, son propre poids la comprime dans sa longueur et l'abaisse encore un peu : d'un dixième pour la tige d'un mètre.",
         "motion": "La table secoue, et son accélération pousse chaque tige, pondérée par Γ = 1,566 pour la forme du premier mode. L'amortissement lui retire de l'élan.",
         "steady": "Secouée assez longtemps au même rythme, la pointe oscille de tant. En phase (r = 1), c'est Γ·Y/(2ζ)."
       },
       "symbols": {
         "beta": "la première solution de cosh β · cos β = −1 : 1,8751",
+        "lambda": "combien le propre poids de la tige assouplit son premier mode : 1,571",
+        "g": "accélération de la pesanteur, 9,81 m/s²",
         "l": "la longueur de la tige",
         "e": "le module d'Young de l'acier",
         "i": "le moment quadratique d'une tige ronde de diamètre d",
@@ -2213,8 +2215,8 @@
         "y": "de combien la table va et vient"
       },
       "sweet": {
-        "step": "Une petite poussée au bon rythme fait plus qu'une grande au mauvais. La table ne va et vient que de 1 mm ; en phase avec la tige de 80 cm, à 2,21 Hz, sa pointe oscille de 78 mm, ses voisines de 4 mm au plus. À trois pour cent du rythme, il ne reste que 26 mm.",
-        "patience": "La résonance demande de la patience : à 2,21 Hz, l'oscillation n'atteint en 7,2 s qu'un peu moins des deux tiers. Qui balaie plus vite la manque : à 0,05 Hz par seconde, la même tige oscille de 39 mm au plus, moitié moins, et seulement à 2,4 Hz.",
+        "step": "Une petite poussée au bon rythme fait plus qu'une grande au mauvais. La table ne va et vient que de 1 mm ; en phase avec la tige de 80 cm, à 2,09 Hz, sa pointe oscille de 78 mm, ses voisines de 4 mm au plus. À trois pour cent du rythme, il ne reste que 26 mm.",
+        "patience": "La résonance demande de la patience : à 2,09 Hz, l'oscillation n'atteint en 7,6 s qu'un peu moins des deux tiers. Qui balaie plus vite la manque : à 0,05 Hz par seconde, la même tige oscille de 38 mm au plus, moitié moins, et seulement à 2,3 Hz.",
         "everywhere": "Ce même accord fait éclater un verre à la bonne note, balancer un pont sous des pas cadencés et permet à une corde de reprendre la note d'un instrument."
       },
       "computed": {

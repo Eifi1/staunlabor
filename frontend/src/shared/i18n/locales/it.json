@@ -2193,12 +2193,14 @@
       },
       "model": {
         "intro": "Ogni asta è fissata in basso e libera in alto. Dei suoi modi di vibrare qui conta solo il primo: tutta l'asta si piega da un lato.",
-        "frequency": "La sua frequenza propria: più l'asta è lunga, più è bassa – con il quadrato della lunghezza.",
+        "frequency": "La sua frequenza propria: più l'asta è lunga, più è bassa – quasi con il quadrato della lunghezza. In piedi, il suo stesso peso la comprime per il lungo e la abbassa ancora un po': di un decimo per l'asta di un metro.",
         "motion": "Il tavolo scuote, e la sua accelerazione spinge ogni asta, pesata con Γ = 1,566 per la forma del primo modo. Lo smorzamento le toglie slancio.",
         "steady": "Scossa abbastanza a lungo allo stesso ritmo, la punta oscilla di tanto. Al passo (r = 1) è Γ·Y/(2ζ)."
       },
       "symbols": {
         "beta": "la prima soluzione di cosh β · cos β = −1: 1,8751",
+        "lambda": "quanto il peso proprio dell'asta ammorbidisce il suo primo modo: 1,571",
+        "g": "accelerazione di gravità, 9,81 m/s²",
         "l": "la lunghezza dell'asta",
         "e": "il modulo di Young dell'acciaio",
         "i": "il momento d'inerzia della sezione di un'asta tonda di diametro d",
@@ -2213,8 +2215,8 @@
         "y": "di quanto il tavolo va avanti e indietro"
       },
       "sweet": {
-        "step": "Una piccola spinta al ritmo giusto muove più di una grande al ritmo sbagliato. Il tavolo va avanti e indietro di solo 1 mm; al passo con l'asta di 80 cm, a 2,21 Hz, la sua punta oscilla di 78 mm, le vicine al massimo di 4 mm. Al tre per cento dal ritmo, solo 26 mm.",
-        "patience": "La risonanza vuole pazienza: a 2,21 Hz l'oscillazione cresce in 7,2 s solo fino a poco meno di due terzi. Chi scorre più in fretta la perde: a 0,05 Hz al secondo la stessa asta oscilla al massimo di 39 mm, la metà, e solo a 2,4 Hz.",
+        "step": "Una piccola spinta al ritmo giusto muove più di una grande al ritmo sbagliato. Il tavolo va avanti e indietro di solo 1 mm; al passo con l'asta di 80 cm, a 2,09 Hz, la sua punta oscilla di 78 mm, le vicine al massimo di 4 mm. Al tre per cento dal ritmo, solo 26 mm.",
+        "patience": "La risonanza vuole pazienza: a 2,09 Hz l'oscillazione cresce in 7,6 s solo fino a poco meno di due terzi. Chi scorre più in fretta la perde: a 0,05 Hz al secondo la stessa asta oscilla al massimo di 38 mm, la metà, e solo a 2,3 Hz.",
         "everywhere": "Lo stesso andare al passo fa scoppiare un bicchiere alla nota giusta, fa oscillare un ponte sotto passi di marcia e lascia che una corda raccolga la nota di uno strumento."
       },
       "computed": {

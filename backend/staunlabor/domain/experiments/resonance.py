@@ -7,8 +7,14 @@ over.
 
 **The model.** Each rod is a cantilever, clamped at the table and free at the
 top, and only its first mode is kept: the clamped-free beam's shape ``φ``, 1 at
-the tip, at ``f₁ = β₁²/(2π·L²)·√(E·I/(ρ·A))``, ``β₁`` the first root of
-``cosh β·cos β = −1`` (1.8751). The table moves ``y_b = Y·sin θ``, ``θ̇ = Ω``;
+the tip, at ``ω₀ = β₁²/L²·√(E·I/(ρ·A))``, ``β₁`` the first root of
+``cosh β·cos β = −1`` (1.8751). Standing upright, the rod carries its own
+weight, which presses it along its length and softens it: the mode's Rayleigh
+quotient loses ``ρ·A·g·∫(L − x)·φ'² dx``, and ``ω² = ω₀² − Λ·g/L`` with
+``Λ = ∫(1 − ξ)·φ'² dξ / ∫φ² dξ`` (1.571). That is the rod's own frequency to
+0.01 % for the exhibit's rods, against Rayleigh–Ritz in twelve polynomials;
+the metre rod rings 10 % lower for it, the 80 cm one 5 %. A rod too long and
+thin for its weight buckles, and is refused. The table moves ``y_b = Y·sin θ``, ``θ̇ = Ω``;
 in the table's frame its acceleration loads the rod along its length, and the
 mode answers with the participation ``Γ = ∫φ / ∫φ²`` (1.566):
 ``q̈ + 2ζω·q̇ + ω²·q = −Γ·ÿ_b``, ``q`` the tip's swing against the table. The
@@ -75,6 +81,29 @@ def _participation() -> float:
 
 GAMMA = _participation()
 
+
+def _slope(xi: float) -> float:
+    """``dφ/dξ``: the first mode's slope at ``xi``."""
+    b = BETA1 * xi
+    return BETA1 * (math.sinh(b) + math.sin(b) - _SIGMA * (math.cosh(b) - math.cos(b))) / _TIP
+
+
+def _softening() -> float:
+    """Λ = ∫(1 − ξ)·φ'² / ∫φ², by Simpson's rule over 400 strips: what the rod's
+    own weight takes from the first mode's ``ω²``, in units of ``g/L``."""
+    n = 400
+    over = squared = 0.0
+    for i in range(n + 1):
+        w = 1 if i in (0, n) else 4 if i % 2 else 2
+        xi = i / n
+        over += w * (1 - xi) * _slope(xi) ** 2
+        squared += w * shape(xi) ** 2
+    return over / squared
+
+
+LAMBDA = _softening()
+G = 9.80665
+
 STEP_S = 1e-3
 
 #: Samples a run returns per second.
@@ -109,12 +138,20 @@ class Rack:
             raise ValueError("the damping ratio lies between 0.0005 and 0.5")
         if not 0 < self.table_m <= 0.01:
             raise ValueError("the table moves more than nothing and at most 1 cm each way")
+        if any(_squared(self, length) <= 0 for length in self.lengths_m):
+            raise ValueError("a rod this long and thin buckles under its own weight")
+
+
+def _squared(rack: Rack, length_m: float) -> float:
+    """ω² of a round rod standing upright: the bending's, ``E·I/(ρ·A) =
+    E·d²/(16·ρ)``, less what its own weight takes, ``Λ·g/L``."""
+    wave = math.sqrt(rack.youngs_gpa * 1e9 / rack.density_kg_m3) * rack.diameter_m / 4
+    return (BETA1**2 / length_m**2 * wave) ** 2 - LAMBDA * G / length_m
 
 
 def natural_hz(rack: Rack, length_m: float) -> float:
-    """f₁ of a round rod: ``E·I/(ρ·A) = E·d²/(16·ρ)``."""
-    wave = math.sqrt(rack.youngs_gpa * 1e9 / rack.density_kg_m3) * rack.diameter_m / 4
-    return BETA1**2 / (2 * math.pi * length_m**2) * wave
+    """f₁ of a round rod standing upright, its own weight and all."""
+    return math.sqrt(_squared(rack, length_m)) / (2 * math.pi)
 
 
 def steady_m(rack: Rack, length_m: float, drive_hz: float) -> float:

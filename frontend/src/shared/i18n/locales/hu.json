@@ -2193,12 +2193,14 @@
       },
       "model": {
         "intro": "Minden pálca alul be van fogva, felül szabad. Rezgési módjai közül itt csak az első számít: az egész pálca egy oldalra hajlik.",
-        "frequency": "A saját frekvenciája: minél hosszabb a pálca, annál mélyebb – a hossz négyzetével.",
+        "frequency": "A saját frekvenciája: minél hosszabb a pálca, annál mélyebb – csaknem a hossz négyzetével. Állva a saját súlya hosszában összenyomja, és még kissé lejjebb viszi: a méteres pálcáét egytizedével.",
         "motion": "Az asztal ráz, és gyorsulása minden pálcát meglök, az első rezgési alakra vonatkozó Γ = 1,566 súllyal. A csillapítás lendületet vesz el tőle.",
         "steady": "Elég sokáig ugyanabban az ütemben rázva a csúcs ennyire leng ki. Ütemre (r = 1) ez Γ·Y/(2ζ)."
       },
       "symbols": {
         "beta": "a cosh β · cos β = −1 első megoldása: 1,8751",
+        "lambda": "mennyire lágyítja a pálca saját súlya az első rezgési módusát: 1,571",
+        "g": "nehézségi gyorsulás, 9,81 m/s²",
         "l": "a pálca hossza",
         "e": "az acél rugalmassági modulusa",
         "i": "a d átmérőjű kör keresztmetszetű pálca másodrendű nyomatéka",
@@ -2213,8 +2215,8 @@
         "y": "mennyire megy ide-oda az asztal"
       },
       "sweet": {
-        "step": "Egy kis lökés a jó ütemben többet mozdít, mint egy nagy a rosszban. Az asztal csak 1 mm-t megy ide-oda; a 80 cm-es pálcával ütemben, 2,21 Hz-en, annak csúcsa 78 mm-t leng ki, a szomszédai legfeljebb 4 mm-t. Három százalékkal az ütem mellett már csak 26 mm-t.",
-        "patience": "A rezonancia türelmet kíván: 2,21 Hz-en a kitérés 7,2 s alatt is csak alig kétharmadáig nő. Aki gyorsabban fut végig, lemarad róla: másodpercenként 0,05 Hz-cel ugyanez a pálca legfeljebb 39 mm-t leng ki, feleannyit, és csak 2,4 Hz-nél.",
+        "step": "Egy kis lökés a jó ütemben többet mozdít, mint egy nagy a rosszban. Az asztal csak 1 mm-t megy ide-oda; a 80 cm-es pálcával ütemben, 2,09 Hz-en, annak csúcsa 78 mm-t leng ki, a szomszédai legfeljebb 4 mm-t. Három százalékkal az ütem mellett már csak 26 mm-t.",
+        "patience": "A rezonancia türelmet kíván: 2,09 Hz-en a kitérés 7,6 s alatt is csak alig kétharmadáig nő. Aki gyorsabban fut végig, lemarad róla: másodpercenként 0,05 Hz-cel ugyanez a pálca legfeljebb 38 mm-t leng ki, feleannyit, és csak 2,3 Hz-nél.",
         "everywhere": "Ugyanez az ütemtartás töri szét a poharat a megfelelő hangra, lengeti meg a hidat a menetelő léptek alatt, és engedi, hogy egy húr átvegye egy hangszer hangját."
       },
       "computed": {

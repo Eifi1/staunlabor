@@ -1239,19 +1239,27 @@ stir.
 **The model** (`domain/experiments/resonance.py`). Each rod a clamped-free
 beam, only its first mode kept: `β₁` found by bisection on
 `cosh β·cos β = −1` (1.8751), the shape 1 at the tip, its participation
-`Γ = ∫φ/∫φ²` by Simpson (1.566), both held to the textbook; `f₁ =
-β₁²/(2πL²)·(d/4)·√(E/ρ)` for a round rod. The table `Y·sin θ`, `θ̇ = Ω`; per
+`Γ = ∫φ/∫φ²` by Simpson (1.566), both held to the textbook; `ω₀ =
+β₁²/L²·(d/4)·√(E/ρ)` for a round rod. **Its own weight**: standing upright, a
+rod carries it along its length, which softens it — the mode's Rayleigh
+quotient loses `ρAg·∫(L − x)·φ'²`, so `ω² = ω₀² − Λ·g/L`,
+`Λ = ∫(1 − ξ)·φ'²/∫φ²` = 1.571. Against Rayleigh–Ritz in twelve polynomials
+that is the frequency to 0.01 % for the exhibit's rods (by hand, 2026-11-18),
+and where `ω²` reaches nothing it puts the buckling load `ρAgL³/(EI)` at
+`β₁⁴/Λ` = 7.87, within half a per cent of Greenhill's 7.837; such a rod is
+refused. The first version left the weight out, and its rods rang up to 10 %
+high (the mathematics check, 2026-11-17). The table `Y·sin θ`, `θ̇ = Ω`; per
 rod `q̈ + 2ζω·q̇ + ω²·q = −Γ·ÿ_b`, stepped by Runge–Kutta a millisecond at a
 time with the drive held through each step (a sweep moves it between steps;
 the neglected `Ω̇` term is a few thousandths at 0.05 Hz/s). The steady swing
 in closed form; the live swing `√(q² + (v/ω)²)`.
 
 **What it shows** (six 2 mm steel rods, 1.0 to 0.5 m, ζ = 0.01, the table
-1 mm each way). They ring at 1.41, 1.74, 2.21, 2.88, 3.92 and 5.65 Hz. In step
-with the 80 cm rod its tip swings 78 mm, the neighbours at most 4; 3 % off,
-26 mm. From rest a swing grows to 1 − 1/e in `1/(ζω)`, 7.2 s at 2.21 Hz. A
-sweep from 1 Hz at 0.05 Hz/s gives the same rod only 39 mm, half, and at
-2.4 Hz. The page measures a rod's swing as `√(q² + (v/Ω)²)`, at the drive's
+1 mm each way). They ring at 1.27, 1.61, 2.09, 2.78, 3.84 and 5.58 Hz, their
+weight taking 10 % from the metre rod and 5 % from the 80 cm one. In step with
+the 80 cm rod its tip swings 78 mm, the neighbours at most 4; 3 % off, 26 mm.
+From rest a swing grows to 1 − 1/e in `1/(ζω)`, 7.6 s at 2.09 Hz. A sweep from
+1 Hz at 0.05 Hz/s gives the same rod only 38 mm, half, and at 2.3 Hz. The page measures a rod's swing as `√(q² + (v/Ω)²)`, at the drive's
 frequency, which a steady swing keeps exactly; the first version took the
 rod's own `ω`, and the mathematics check (2026-11-17) found the dashed record
 of a sweep up to 4.6 times above the steady curves for rods driven well above
@@ -1265,7 +1273,7 @@ with the sweep's record dashed over them and a line at the beat. The chart is
 redrawn every half second of the run, not every frame: its points made the
 page stutter. **Sound**, muted until switched on (Marcel's call, 2026-11-15):
 `shared/lib/use-tones.ts`, one sine per rod at its frequency seven octaves up
-(181 to 723 Hz), as loud as it swings; no audio graph exists while off, the
+(162 to 714 Hz), as loud as it swings; no audio graph exists while off, the
 context is closed when switched off, nothing is stored. **No route**: the
 port's (`simulate/resonance.ts`); the engine's `run` is not ported, the test
 samples the port's steps the engine's way.
@@ -1274,10 +1282,12 @@ samples the port's steps the engine's way.
 first), the rod's stiffening at wide swings, the table's give.
 
 **Checked by** `tests/unit/test_experiments.py`: β₁, β₁² and Γ against the
-tables; the second mode's ratio found independently; the six frequencies; the
-78, 4 and 26 mm; the stepped swings settling on the closed form within 1 %;
-the build-up to 1 − 1/e in 7.2 s; the sweep's 39 mm at 2.4 Hz, the widest
-`|q|` itself; a rod driven at 4.5 times its tone measured as it swings.
+tables; the second mode's ratio found independently; Λ found again from the
+shape by differences, its buckling load against Greenhill's, the tenth and the
+twentieth the weight takes; the six frequencies; the 78, 4 and 26 mm; the
+stepped swings settling on the closed form within 1 %; the build-up to
+1 − 1/e in 7.6 s; the sweep's 38 mm at 2.3 Hz, the widest `|q|` itself; a rod
+driven at 5.0 times its tone measured as it swings.
 
 ## The gyroscope wheel (`experiments.gyroscope`)
 

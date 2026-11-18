@@ -2193,12 +2193,14 @@
       },
       "model": {
         "intro": "Cada varilla está sujeta abajo y libre arriba. De sus formas de vibrar aquí solo cuenta la primera: toda la varilla se dobla hacia un lado.",
-        "frequency": "Su frecuencia propia: cuanto más larga la varilla, más grave – con el cuadrado de la longitud.",
+        "frequency": "Su frecuencia propia: cuanto más larga la varilla, más grave – casi con el cuadrado de la longitud. De pie, su propio peso la comprime a lo largo y la baja un poco más: la de la varilla de un metro, en una décima parte.",
         "motion": "La mesa se sacude, y su aceleración empuja cada varilla, ponderada con Γ = 1,566 para la forma de la primera vibración. La amortiguación le quita impulso.",
         "steady": "Sacudida con el mismo ritmo el tiempo suficiente, la punta oscila esta amplitud. Al compás (r = 1) es Γ·Y/(2ζ)."
       },
       "symbols": {
         "beta": "la primera solución de cosh β · cos β = −1: 1,8751",
+        "lambda": "cuánto ablanda el propio peso de la varilla su primer modo: 1,571",
+        "g": "aceleración de la gravedad, 9,81 m/s²",
         "l": "la longitud de la varilla",
         "e": "el módulo de Young del acero",
         "i": "el momento de inercia de la sección de una varilla redonda de diámetro d",
@@ -2213,8 +2215,8 @@
         "y": "cuánto va y viene la mesa"
       },
       "sweet": {
-        "step": "Un pequeño empujón al ritmo justo mueve más que uno grande al ritmo equivocado. La mesa va y viene solo 1 mm; al compás de la varilla de 80 cm, a 2,21 Hz, su punta oscila 78 mm, sus vecinas como mucho 4 mm. Un tres por ciento fuera del ritmo, solo 26 mm.",
-        "patience": "La resonancia requiere paciencia: a 2,21 Hz la oscilación crece en 7,2 s hasta algo menos de dos tercios. Quien barre más deprisa se la pierde: a 0,05 Hz por segundo la misma varilla oscila como mucho 39 mm, la mitad, y solo a 2,4 Hz.",
+        "step": "Un pequeño empujón al ritmo justo mueve más que uno grande al ritmo equivocado. La mesa va y viene solo 1 mm; al compás de la varilla de 80 cm, a 2,09 Hz, su punta oscila 78 mm, sus vecinas como mucho 4 mm. Un tres por ciento fuera del ritmo, solo 26 mm.",
+        "patience": "La resonancia requiere paciencia: a 2,09 Hz la oscilación crece en 7,6 s hasta algo menos de dos tercios. Quien barre más deprisa se la pierde: a 0,05 Hz por segundo la misma varilla oscila como mucho 38 mm, la mitad, y solo a 2,3 Hz.",
         "everywhere": "El mismo ir al compás hace estallar un vaso con la nota justa, balancea un puente bajo pasos de marcha y deja que una cuerda recoja la nota de un instrumento."
       },
       "computed": {

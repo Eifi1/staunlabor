@@ -50,6 +50,29 @@ function participation(): number {
 }
 
 export const GAMMA = participation();
+
+/** dφ/dξ: the first mode's slope. */
+function slope(xi: number): number {
+  const b = BETA1 * xi;
+  return (BETA1 * (Math.sinh(b) + Math.sin(b) - SIGMA * (Math.cosh(b) - Math.cos(b)))) / TIP;
+}
+
+/** Λ = ∫(1 − ξ)·φ'² / ∫φ², by Simpson's rule over 400 strips: what the rod's own weight takes from ω², in g/L. */
+function softening(): number {
+  const n = 400;
+  let over = 0.0;
+  let squared = 0.0;
+  for (let i = 0; i <= n; i++) {
+    const w = i === 0 || i === n ? 1 : i % 2 ? 4 : 2;
+    const xi = i / n;
+    over += w * (1 - xi) * slope(xi) ** 2;
+    squared += w * shape(xi) ** 2;
+  }
+  return over / squared;
+}
+
+export const LAMBDA = softening();
+export const G = 9.80665;
 export const STEP_S = 1e-3;
 
 /** The engine's `Rack`. */
@@ -62,10 +85,11 @@ export interface Rack {
   table_m: number;
 }
 
-/** f₁ of a round rod: E·I/(ρ·A) = E·d²/(16·ρ). */
+/** f₁ of a round rod standing upright: the bending's ω², E·I/(ρ·A) = E·d²/(16·ρ), less its own weight's Λ·g/L. */
 export function naturalHz(rack: Rack, lengthM: number): number {
   const wave = (Math.sqrt((rack.youngs_gpa * 1e9) / rack.density_kg_m3) * rack.diameter_m) / 4;
-  return (BETA1 ** 2 / (2 * Math.PI * lengthM ** 2)) * wave;
+  const squared = ((BETA1 ** 2 / lengthM ** 2) * wave) ** 2 - (LAMBDA * G) / lengthM;
+  return Math.sqrt(squared) / (2 * Math.PI);
 }
 
 /** The tip's steady swing against the table, each way. */

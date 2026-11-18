@@ -555,7 +555,7 @@ WELL_CASES = (
 #: Resonance: the exhibit's rack in step with its third rod and between two,
 #: swept, and a stiff, well-damped rack of three.
 RESONANCE_CASES = (
-    (resonance.Rack(), 2.2073, 0.0),
+    (resonance.Rack(), 2.0933, 0.0),
     (resonance.Rack(), 2.0, 0.0),
     (resonance.Rack(), 1.5, 0.05),
     (resonance.Rack(lengths_m=(0.3, 0.25, 0.2), diameter_m=0.004, damping_ratio=0.05, table_m=0.002), 20.0, -0.5),
@@ -850,6 +850,8 @@ def _resonance_cases(out: dict[str, Any]) -> None:
     out["resonance_constants"] = {
         "BETA1": resonance.BETA1,
         "GAMMA": resonance.GAMMA,
+        "LAMBDA": resonance.LAMBDA,
+        "G": resonance.G,
         "shape": [resonance.shape(i / 10) for i in range(11)],
     }
     for rack, drive, sweep in RESONANCE_CASES:

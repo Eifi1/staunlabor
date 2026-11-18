@@ -2193,12 +2193,14 @@
       },
       "model": {
         "intro": "Jeder Stab ist unten eingespannt und oben frei. Von seinen Schwingungsformen zählt hier nur die erste: der ganze Stab biegt sich nach einer Seite.",
-        "frequency": "Seine Eigenfrequenz: je länger der Stab, desto tiefer – mit dem Quadrat der Länge.",
+        "frequency": "Seine Eigenfrequenz: je länger der Stab, desto tiefer – fast mit dem Quadrat der Länge. Aufrecht stehend drückt ihn sein eigenes Gewicht der Länge nach zusammen und senkt sie noch etwas: beim Meterstab um ein Zehntel.",
         "motion": "Der Tisch rüttelt, und seine Beschleunigung schiebt jeden Stab an, gewichtet mit Γ = 1,566 für die Form der ersten Schwingung. Die Dämpfung nimmt ihm dabei Schwung.",
         "steady": "Lange genug im selben Takt gerüttelt, schwingt die Spitze so weit. Im Gleichschritt (r = 1) ist das Γ·Y/(2ζ)."
       },
       "symbols": {
         "beta": "die erste Lösung von cosh β · cos β = −1: 1,8751",
+        "lambda": "wie stark das eigene Gewicht die erste Schwingungsform des Stabs weicher macht: 1,571",
+        "g": "Fallbeschleunigung, 9,81 m/s²",
         "l": "die Länge des Stabs",
         "e": "der Elastizitätsmodul des Stahls",
         "i": "das Flächenmoment des runden Stabs vom Durchmesser d",
@@ -2213,8 +2215,8 @@
         "y": "wie weit der Tisch hin und her geht"
       },
       "sweet": {
-        "step": "Ein kleiner Anstoss im richtigen Takt bewegt mehr als ein grosser im falschen. Der Tisch geht nur 1 mm hin und her; im Gleichschritt mit dem 80 cm langen Stab, bei 2,21 Hz, schwingt dessen Spitze 78 mm weit, seine Nachbarn höchstens 4 mm. Drei Prozent neben dem Takt sind es nur noch 26 mm.",
-        "patience": "Resonanz braucht Geduld: Bei 2,21 Hz wächst der Ausschlag in 7,2 s erst auf knapp zwei Drittel. Wer schneller durchfährt, verpasst sie: Mit 0,05 Hz pro Sekunde schwingt derselbe Stab höchstens 39 mm weit, halb so weit, und erst bei 2,4 Hz.",
+        "step": "Ein kleiner Anstoss im richtigen Takt bewegt mehr als ein grosser im falschen. Der Tisch geht nur 1 mm hin und her; im Gleichschritt mit dem 80 cm langen Stab, bei 2,09 Hz, schwingt dessen Spitze 78 mm weit, seine Nachbarn höchstens 4 mm. Drei Prozent neben dem Takt sind es nur noch 26 mm.",
+        "patience": "Resonanz braucht Geduld: Bei 2,09 Hz wächst der Ausschlag in 7,6 s erst auf knapp zwei Drittel. Wer schneller durchfährt, verpasst sie: Mit 0,05 Hz pro Sekunde schwingt derselbe Stab höchstens 38 mm weit, halb so weit, und erst bei 2,3 Hz.",
         "everywhere": "Derselbe Gleichschritt lässt ein Glas unter dem richtigen Ton zerspringen, eine Brücke unter Marschschritten schwingen und eine Saite den Ton eines Instruments aufnehmen."
       },
       "computed": {

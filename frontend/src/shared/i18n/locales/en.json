@@ -2193,12 +2193,14 @@
       },
       "model": {
         "intro": "Each rod is clamped at the bottom and free at the top. Of its ways to vibrate only the first counts here: the whole rod bending to one side.",
-        "frequency": "Its own frequency: the longer the rod, the lower – as the square of its length.",
+        "frequency": "Its own frequency: the longer the rod, the lower – nearly as the square of its length. Standing upright, its own weight presses it along its length and lowers it a little more: the metre rod's by a tenth.",
         "motion": "The table shakes, and its acceleration pushes each rod, weighted by Γ = 1.566 for the first mode's shape. The damping takes swing away.",
         "steady": "Shaken at one beat long enough, the tip swings this far. In step (r = 1) that is Γ·Y/(2ζ)."
       },
       "symbols": {
         "beta": "the first solution of cosh β · cos β = −1: 1.8751",
+        "lambda": "how much the rod's own weight softens its first mode: 1.571",
+        "g": "gravitational acceleration, 9.81 m/s²",
         "l": "the rod's length",
         "e": "the steel's Young's modulus",
         "i": "the second moment of area of a round rod of diameter d",
@@ -2213,8 +2215,8 @@
         "y": "how far the table goes to and fro"
       },
       "sweet": {
-        "step": "A small push at the right beat moves more than a big one at the wrong. The table goes only 1 mm to and fro; in step with the 80 cm rod, at 2.21 Hz, its tip swings 78 mm, its neighbours at most 4 mm. Three per cent off the beat, only 26 mm.",
-        "patience": "Resonance needs patience: at 2.21 Hz the swing grows in 7.2 s to just under two thirds. Sweep faster and you miss it: at 0.05 Hz a second the same rod swings at most 39 mm, half as far, and only at 2.4 Hz.",
+        "step": "A small push at the right beat moves more than a big one at the wrong. The table goes only 1 mm to and fro; in step with the 80 cm rod, at 2.09 Hz, its tip swings 78 mm, its neighbours at most 4 mm. Three per cent off the beat, only 26 mm.",
+        "patience": "Resonance needs patience: at 2.09 Hz the swing grows in 7.6 s to just under two thirds. Sweep faster and you miss it: at 0.05 Hz a second the same rod swings at most 38 mm, half as far, and only at 2.3 Hz.",
         "everywhere": "The same keeping in step shatters a glass at the right note, sets a bridge swinging under marching feet and lets a string take up an instrument's note."
       },
       "computed": {

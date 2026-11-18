@@ -1025,8 +1025,8 @@ describe("the resonance rods", () => {
   it("shows six rods with their frequencies, the table in step with the third, and the sound off", async () => {
     renderWithProviders(<ResonancePage />);
     expect(await screen.findByRole("img", { name: E.resonance.view })).toBeInTheDocument();
-    for (const hz of ["1.41 Hz", "2.21 Hz", "5.65 Hz"]) expect(screen.getByText(hz)).toBeInTheDocument();
-    expect((await screen.findAllByDisplayValue("2.21")).length).toBeGreaterThan(0);
+    for (const hz of ["1.27 Hz", "2.09 Hz", "5.58 Hz"]) expect(screen.getByText(hz)).toBeInTheDocument();
+    expect((await screen.findAllByDisplayValue("2.09")).length).toBeGreaterThan(0);
     // No Web Audio in the test runner: the switch is off, and says why it cannot turn on.
     expect(screen.getByRole("switch", { name: E.resonance.play.sound })).not.toBeChecked();
     expect(screen.getByText(E.resonance.play.no_sound)).toBeInTheDocument();

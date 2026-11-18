@@ -393,10 +393,12 @@ function ResonanceModel() {
     <>
       <p>{t("experiments.resonance.model.intro")}</p>
       <Equation
-        tex={String.raw`f_1 = \frac{\beta_1^2}{2\pi L^2}\sqrt{\frac{E\,I}{\rho\,A}}`}
+        tex={String.raw`f_1 = \frac{1}{2\pi}\sqrt{\frac{\beta_1^4}{L^4}\,\frac{E\,I}{\rho\,A} - \Lambda\,\frac{g}{L}}`}
         reads={t("experiments.resonance.model.frequency")}
         symbols={[
           { tex: String.raw`\beta_1`, meaning: s("beta") },
+          { tex: String.raw`\Lambda`, meaning: s("lambda") },
+          { tex: "g", meaning: s("g"), unit: "m/s²" },
           { tex: "L", meaning: s("l"), unit: "m" },
           { tex: "E", meaning: s("e"), unit: "Pa" },
           { tex: String.raw`I = \tfrac{\pi d^4}{64}`, meaning: s("i"), unit: "m⁴" },
