@@ -832,7 +832,7 @@ describe("the coupled pendulums", () => {
       expect(screen.getByRole("button", { name: E.coupled.play.starts[how] })).toBeInTheDocument();
     }
     // The default pair: over and back in 22.9 s, all of it reaching the other.
-    expect(screen.getByText(/wanders over and back once in 22\.9 s, and 100 % of it/)).toBeInTheDocument();
+    expect(screen.getByText(/wanders over and back once in 22\.9 s, and about 100 % of it/)).toBeInTheDocument();
     expect(screen.getAllByLabelText(E.equation.symbols).length).toBeGreaterThanOrEqual(4);
   });
 

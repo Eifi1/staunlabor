@@ -1580,7 +1580,7 @@
       },
       "sweet": {
         "modes": "Amit a természet itt lengetni hagy, az nem az egyik inga, majd a másik, hanem a két közös ütem. A vándorló lengés ezek összege – ezért nem vándorol „Mindkettő egyformán” és „Egymás ellen” esetén.",
-        "beat": "Itt a lengés {{beat}} s alatt vándorol át és vissza, és {{share}} %-a jut el a másik ingához.",
+        "beat": "Itt a lengés {{beat}} s alatt vándorol át és vissza, és nagyjából {{share}} %-a jut el a másik ingához.",
         "unequal": "Különböző ingák soha nem adnak át mindent: csak ezt a részt, annál többet, minél hasonlóbbak az ingák és minél erősebb a rugó."
       },
       "chart": {

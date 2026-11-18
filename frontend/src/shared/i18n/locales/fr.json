@@ -1580,7 +1580,7 @@
       },
       "sweet": {
         "modes": "Ce que la nature fait osciller ici, ce n'est pas un pendule puis l'autre, mais les deux cadences communes. L'oscillation qui passe de l'un à l'autre est leur somme – c'est pourquoi elle ne passe pas avec « Les deux pareil » ni « L'un contre l'autre ».",
-        "beat": "Ici l'oscillation fait l'aller-retour une fois en {{beat}} s, et {{share}} % en parviennent à l'autre pendule.",
+        "beat": "Ici l'oscillation fait l'aller-retour une fois en {{beat}} s, et environ {{share}} % en parviennent à l'autre pendule.",
         "unequal": "Des pendules différents ne transmettent jamais tout : seulement cette part, d'autant plus grande que les pendules se ressemblent et que le ressort est fort."
       },
       "chart": {

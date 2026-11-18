@@ -1784,6 +1784,16 @@ def test_unequal_pendulums_hand_over_only_the_share_rabi_s_formula_gives():
     assert round(share, 2) == 0.56
     run = x.coupled_swing(cp, x.Start.ONE, 2.0, 120.0)
     assert max(run.right_j) / run.left_j[0] == pytest.approx(share, abs=0.015)
+    # "About" on the page: its chart, from 10°, counts the shares of the whole
+    # energy, the spring's 6 % at the start included, and peaks at 54.5 %;
+    # of the pushed pendulum's own, 58 % reach the other.
+    from staunlabor.domain.experiments import coupled
+
+    wide = x.coupled_swing(cp, x.Start.ONE, 10.0, 2 * coupled.beat_s(cp), 0.002)
+    whole = wide.left_j[0] + wide.right_j[0] + wide.spring_j[0]
+    assert round(wide.spring_j[0] / whole, 2) == 0.06
+    assert round(max(wide.right_j) / whole, 3) == 0.545
+    assert round(max(wide.right_j) / wide.left_j[0], 2) == 0.58
 
 
 def test_the_coupled_pair_keeps_its_energy_without_damping():

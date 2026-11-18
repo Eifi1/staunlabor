@@ -1580,7 +1580,7 @@
       },
       "sweet": {
         "modes": "Ciò che la natura fa oscillare qui non è un pendolo e poi l'altro, ma i due ritmi comuni. L'oscillazione che passa dall'uno all'altro è la loro somma – per questo non passa con «Entrambi uguali» né con «Uno contro l'altro».",
-        "beat": "Qui l'oscillazione va e torna una volta in {{beat}} s, e il {{share}} % arriva all'altro pendolo.",
+        "beat": "Qui l'oscillazione va e torna una volta in {{beat}} s, e circa il {{share}} % arriva all'altro pendolo.",
         "unequal": "Pendoli diversi non passano mai tutto: solo questa quota, tanto più grande quanto più i pendoli si somigliano e quanto più forte è la molla."
       },
       "chart": {

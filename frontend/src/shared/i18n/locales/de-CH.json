@@ -1580,7 +1580,7 @@
       },
       "sweet": {
         "modes": "Was die Natur hier schwingen lässt, ist nicht ein Pendel und dann das andere, sondern die beiden gemeinsamen Takte. Die wandernde Schwingung ist ihre Summe – darum wandert sie bei «Beide gleich» und «Gegeneinander» nicht.",
-        "beat": "Hier wandert die Schwingung in {{beat}} s einmal hinüber und zurück, und {{share}} % davon kommen beim anderen Pendel an.",
+        "beat": "Hier wandert die Schwingung in {{beat}} s einmal hinüber und zurück, und etwa {{share}} % davon kommen beim anderen Pendel an.",
         "unequal": "Sind die Pendel ungleich, kommt nie alles hinüber: nur dieser Anteil, umso mehr, je ähnlicher die Pendel und je stärker die Feder."
       },
       "chart": {

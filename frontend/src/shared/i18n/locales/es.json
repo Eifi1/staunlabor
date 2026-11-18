@@ -1580,7 +1580,7 @@
       },
       "sweet": {
         "modes": "Lo que la naturaleza hace oscilar aquí no es un péndulo y luego el otro, sino los dos compases comunes. La oscilación que pasa de uno a otro es su suma – por eso no pasa con «Los dos igual» ni con «Uno contra otro».",
-        "beat": "Aquí la oscilación va y vuelve una vez en {{beat}} s, y el {{share}} % de ella llega al otro péndulo.",
+        "beat": "Aquí la oscilación va y vuelve una vez en {{beat}} s, y alrededor del {{share}} % de ella llega al otro péndulo.",
         "unequal": "Si los péndulos son distintos, nunca pasa todo: solo esta parte, tanto más cuanto más parecidos son los péndulos y más fuerte el muelle."
       },
       "chart": {

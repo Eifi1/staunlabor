@@ -1580,7 +1580,7 @@
       },
       "sweet": {
         "modes": "What nature swings here is not one pendulum and then the other, but the two shared beats. The wandering swing is their sum – which is why it does not wander for “Both alike” and “Against each other”.",
-        "beat": "Here the swing wanders over and back once in {{beat}} s, and {{share}} % of it reaches the other pendulum.",
+        "beat": "Here the swing wanders over and back once in {{beat}} s, and about {{share}} % of it reaches the other pendulum.",
         "unequal": "Unequal pendulums never hand over all of it: only this share, the more the more alike the pendulums and the stronger the spring."
       },
       "chart": {

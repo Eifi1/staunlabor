@@ -889,7 +889,10 @@ stretches; 50 against 55 cm, 0.56 of it reaches the other, which a two-minute
 run confirms to 1.5 %. The shares on the page are of everything put in, the
 spring's stretch at the start included — pulled aside alone, the left pendulum
 stretches the spring too (6 % of the default push; the first chart had divided
-by the pendulum's energy alone and climbed past 100 %).
+by the pendulum's energy alone and climbed past 100 %). So from 10° the chart
+of 50 against 55 cm peaks at 54.5 %, two points under Rabi's 56, which is for
+small swings and of the pushed pendulum's own (of that, 58 % reach the other
+at 10°); the page says "about" (the mathematics check, 2026-11-17).
 
 **The page.** The pair from the front with the spring, let go one way, both
 alike or against each other, real time or threefold; bars of each pendulum's
