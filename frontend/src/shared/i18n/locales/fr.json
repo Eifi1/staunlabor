@@ -1616,7 +1616,8 @@
           "released": "Le fil quitte la cheville.",
           "slack": "Le fil se détend : la boule vole librement.",
           "taut": "Le fil se tend d'un coup sec.",
-          "over_the_top": "Tour complet : le fil s'enroule autour de la cheville."
+          "over_the_top": "Tour complet : le fil s'enroule autour de la cheville.",
+          "wound": "En vol, le fil est passé par-dessus la cheville : il reste enroulé autour."
         }
       },
       "figures": {

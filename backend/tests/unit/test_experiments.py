@@ -1767,6 +1767,31 @@ def test_the_jerk_taut_costs_the_bob_its_speed_along_the_string():
     assert after < before - 0.1
 
 
+def test_a_bob_flying_over_the_peg_winds_the_string_round_it_and_one_flying_under_it_comes_off():
+    """The page's slack string (d = 0.55 L, from the horizontal): the bob flies
+    over the peg to the other side, so the string, taut again, is wound round
+    the peg and stays there; the bob never again swings at 1 m from the pivot.
+    With the peg at 0.45 L the bob flies under the peg: the string comes off
+    it in flight and jerks taut at L from the pivot."""
+    over = x.PegPendulum(start_deg=90.0, peg_depth_m=0.55)
+    run = x.run_peg(over, 6.0)
+    kinds = [e[1] for e in run.events]
+    assert kinds[:4] == ["caught", "slack", "taut", "wound"]
+    assert "released" not in kinds
+    wound_at = run.events[3][0]
+    r = over.small_radius_m
+    for t, xs, ys in zip(run.t, run.x_m, run.y_m, strict=True):
+        if t > wound_at:
+            assert math.hypot(xs, ys + over.peg_depth_m) <= r + 1e-9, t
+    under = x.PegPendulum(start_deg=90.0, peg_depth_m=0.45)
+    run = x.run_peg(under, 4.0)
+    assert [e[1] for e in run.events[:5]] == ["caught", "slack", "released", "taut", "caught"]
+    _, _, x_off, y_off = run.events[2]
+    assert x_off == pytest.approx(0.0, abs=1e-9) and y_off < -under.peg_depth_m
+    _, _, x_taut, y_taut = run.events[3]
+    assert math.hypot(x_taut, y_taut) == pytest.approx(under.length_m, abs=1e-9)
+
+
 def test_the_peg_pendulum_refuses_what_cannot_hang():
     with pytest.raises(ValueError, match="below the pivot and above the bob"):
         x.PegPendulum(peg_depth_m=1.2)

@@ -17,7 +17,7 @@ import { roundHalfEven } from "./sphere";
 export const BISECTIONS = 40;
 
 export type Mode = "big" | "small" | "free";
-export type Event = "caught" | "released" | "slack" | "taut" | "over_the_top";
+export type Event = "caught" | "released" | "slack" | "taut" | "over_the_top" | "wound";
 
 export interface PegPendulum {
   length_m: number;
@@ -29,6 +29,10 @@ export interface PegState {
   mode: Mode;
   y: number[];
   wound: boolean;
+  /** Free with the string still bent at the peg: the bob's angle round it,
+   *  unwrapped from where the string went slack; `null` once off the peg, and
+   *  in the other modes. */
+  around: number | null;
 }
 
 /** What happened in a step: when, what, and where the bob was. */
@@ -44,7 +48,7 @@ export function refusal(p: PegPendulum): "peg" | null {
 }
 
 export function start(p: PegPendulum): PegState {
-  return { mode: "big", y: [p.start_deg * TO_RAD, 0.0], wound: false };
+  return { mode: "big", y: [p.start_deg * TO_RAD, 0.0], wound: false, around: null };
 }
 
 export function position(p: PegPendulum, s: PegState): [number, number] {
@@ -76,6 +80,42 @@ function locate(f: Rhs, t: number, y0: readonly number[], h: number, event: (y: 
 
 const crossed = (a: number, b: number) => (a > 0 && b < 0) || (a < 0 && b > 0);
 
+/** The engine's `_turn`: how far the bob turned round the peg from `a` to `b`, the shorter way. */
+function turn(p: PegPendulum, a: readonly number[], b: readonly number[]): number {
+  const d = p.peg_depth_m;
+  const turned = Math.atan2(b[0], -(b[1] + d)) - Math.atan2(a[0], -(a[1] + d));
+  return turned - 2 * Math.PI * Math.floor((turned + Math.PI) / (2 * Math.PI));
+}
+
+/** The engine's `_taut`: the string jerks taut on the bob at `y`, flying from `free`. */
+function taut(p: PegPendulum, free: PegState, y: readonly number[]): [PegState, Event[]] {
+  const [x, z, vx, vy] = y;
+  if (free.around === null) {
+    const theta = Math.atan2(x, -z);
+    const rate = (vx * Math.cos(theta) + vy * Math.sin(theta)) / p.length_m;
+    return [{ mode: "big", y: [theta, rate], wound: false, around: null }, ["taut"]];
+  }
+  const raw = Math.atan2(x, -(z + p.peg_depth_m));
+  const around = free.around + turn(p, free.y, y);
+  const phi = raw + 2 * Math.PI * roundHalfEven((around - raw) / (2 * Math.PI));
+  const rate = (vx * Math.cos(phi) + vy * Math.sin(phi)) / smallRadiusM(p);
+  const wound = free.wound || Math.abs(phi) > Math.PI;
+  const kinds: Event[] = wound && !free.wound ? ["taut", "wound"] : ["taut"];
+  return [{ mode: "small", y: [phi, rate], wound, around: null }, kinds];
+}
+
+/** The engine's `_stretch`: past the string's reach, round the peg or from the pivot. */
+function stretchOf(p: PegPendulum, free: PegState): (y: readonly number[]) => number {
+  if (free.around === null) return (y) => y[0] ** 2 + y[1] ** 2 - p.length_m ** 2;
+  const r = smallRadiusM(p);
+  return (y) => y[0] ** 2 + (y[1] + p.peg_depth_m) ** 2 - r * r;
+}
+
+/** The engine's `_comes_off`: under the peg to the other side, the string comes off it. */
+function comesOff(p: PegPendulum, free: PegState, y1: readonly number[]): boolean {
+  return free.around !== null && !free.wound && free.around * (free.around + turn(p, free.y, y1)) < 0;
+}
+
 /** One step of `h` from `s` at `t`, split at whatever happens in it. */
 export function step(p: PegPendulum, state: PegState, time: number, h: number): [PegState, Happening[]] {
   const events: Happening[] = [];
@@ -84,7 +124,6 @@ export function step(p: PegPendulum, state: PegState, time: number, h: number): 
   let left = h;
   const r = smallRadiusM(p);
   const pull = (y: readonly number[]) => r * y[1] ** 2 + G * Math.cos(y[0]);
-  const stretch = (y: readonly number[]) => y[0] ** 2 + (y[1] + p.peg_depth_m) ** 2 - r * r;
   const at = (kind: Event, where: PegState): Happening => [t, kind, ...position(p, where)];
   for (let k = 0; k < 4; k++) {
     const f = rhsOf(p, s.mode);
@@ -93,7 +132,7 @@ export function step(p: PegPendulum, state: PegState, time: number, h: number): 
       if (crossed(s.y[0], y1[0])) {
         const tau = locate(f, t, s.y, left, (y) => y[0]);
         const y = rk4(f, t, s.y, tau);
-        s = { mode: "small", y: [0.0, (y[1] * p.length_m) / r], wound: s.wound };
+        s = { mode: "small", y: [0.0, (y[1] * p.length_m) / r], wound: s.wound, around: null };
         t += tau;
         left -= tau;
         events.push(at("caught", s));
@@ -107,21 +146,26 @@ export function step(p: PegPendulum, state: PegState, time: number, h: number): 
         const [phi, rate] = rk4(f, t, s.y, tau);
         const x = r * Math.sin(phi);
         const z = -p.peg_depth_m - r * Math.cos(phi);
-        s = { mode: "free", y: [x, z, r * rate * Math.cos(phi), r * rate * Math.sin(phi)], wound: s.wound };
+        s = {
+          mode: "free",
+          y: [x, z, r * rate * Math.cos(phi), r * rate * Math.sin(phi)],
+          wound: s.wound,
+          around: phi,
+        };
         t += tau;
         left -= tau;
         events.push(at("slack", s));
         continue;
       }
       if (!s.wound && Math.abs(y1[0]) > Math.PI && Math.PI >= Math.abs(s.y[0])) {
-        const wound: PegState = { mode: "small", y: y1, wound: true };
+        const wound: PegState = { mode: "small", y: y1, wound: true, around: null };
         events.push([t + left, "over_the_top", ...position(p, wound)]);
         return [wound, events];
       }
       if (!s.wound && crossed(s.y[0], y1[0])) {
         const tau = locate(f, t, s.y, left, (y) => y[0]);
         const y = rk4(f, t, s.y, tau);
-        s = { mode: "big", y: [0.0, (y[1] * r) / p.length_m], wound: false };
+        s = { mode: "big", y: [0.0, (y[1] * r) / p.length_m], wound: false, around: null };
         t += tau;
         left -= tau;
         events.push(at("released", s));
@@ -129,18 +173,25 @@ export function step(p: PegPendulum, state: PegState, time: number, h: number): 
       }
       return [{ ...s, y: y1 }, events];
     }
-    if (stretch(s.y) < 0 && stretch(y1) >= 0) {
-      const tau = locate(f, t, s.y, left, stretch);
-      const [x, z, vx, vy] = rk4(f, t, s.y, tau);
-      const phi = Math.atan2(x, -(z + p.peg_depth_m));
-      const rate = (vx * Math.cos(phi) + vy * Math.sin(phi)) / r;
-      s = { mode: "small", y: [phi, rate], wound: s.wound };
+    if (comesOff(p, s, y1)) {
+      const tau = locate(f, t, s.y, left, (y) => y[0]);
+      s = { mode: "free", y: rk4(f, t, s.y, tau), wound: false, around: null };
       t += tau;
       left -= tau;
-      events.push(at("taut", s));
+      events.push(at("released", s));
       continue;
     }
-    return [{ ...s, y: y1 }, events];
+    const tight = stretchOf(p, s);
+    if (tight(s.y) < 0 && tight(y1) >= 0) {
+      const tau = locate(f, t, s.y, left, tight);
+      const [next, kinds] = taut(p, s, rk4(f, t, s.y, tau));
+      s = next;
+      t += tau;
+      left -= tau;
+      for (const kind of kinds) events.push(at(kind, s));
+      continue;
+    }
+    return [{ ...s, y: y1, around: s.around === null ? null : s.around + turn(p, s.y, y1) }, events];
   }
   return [s, events];
 }

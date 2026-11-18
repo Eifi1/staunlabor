@@ -1616,7 +1616,8 @@
           "released": "Der Faden löst sich vom Stift.",
           "slack": "Der Faden wird schlaff: Die Kugel fliegt frei.",
           "taut": "Der Faden spannt sich mit einem Ruck.",
-          "over_the_top": "Überschlag: Der Faden wickelt sich um den Stift."
+          "over_the_top": "Überschlag: Der Faden wickelt sich um den Stift.",
+          "wound": "Der Faden hat sich im Flug über den Stift gelegt: Er bleibt um ihn gewickelt."
         }
       },
       "figures": {

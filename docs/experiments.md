@@ -870,7 +870,15 @@ right over it or lets the string go slack.
 round the pivot (`θ'' = −(g/L)·sin θ`), round the peg (`φ'' = −(g/r)·sin φ`,
 `r = L − d`, the speed kept at the catch), free while the string would have to
 push (`r·φ'² + g·cos φ < 0`), until the string round the peg is straight again
-and jerks taut, taking the speed along it — the one place energy is lost. Each
+and jerks taut, taking the speed along it — the one place energy is lost. In
+flight the string follows the bob round the peg (its angle round the peg,
+unwrapped): a bob that flies over the peg to the other side winds the string
+round it for good, one that flies under it takes the string off it, and the
+string then jerks taut at `L` from the pivot. The first version took every
+taut string as round the peg and unwound, so the page's slack string (a metre,
+the peg at 55 cm, from the horizontal) flew over the peg and was then swung as
+a 1 m pendulum again, saying the string came off the peg; the mathematics
+check (2026-11-17) found it. Each
 switch is found within its 1 ms step by bisection on the stepped state (40
 halvings) and the step split there; the port does the same, switch for switch.
 
@@ -890,7 +898,9 @@ three cases as buttons in the trick. **No route**: the port's
 **Left out, and said:** the peg's thickness, a string that stretches, air.
 
 **Checked by** `tests/unit/test_experiments.py`: the same height, energy kept
-until the jerk, the threshold both sides, the slack height, the jerk's loss.
+until the jerk, the threshold both sides, the slack height, the jerk's loss,
+and the string wound over the peg in flight (at 55 cm) or taken off it (at
+45 cm).
 
 ## Maxwell's wheel (`experiments.maxwell`)
 

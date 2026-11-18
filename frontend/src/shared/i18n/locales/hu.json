@@ -1616,7 +1616,8 @@
           "released": "A fonal leválik a pecekről.",
           "slack": "A fonal meglazul: a golyó szabadon repül.",
           "taut": "A fonal egy rándulással megfeszül.",
-          "over_the_top": "Átfordulás: a fonal rátekeredik a pecekre."
+          "over_the_top": "Átfordulás: a fonal rátekeredik a pecekre.",
+          "wound": "Repülés közben a fonal átfordult a pecek fölött: rátekeredve marad."
         }
       },
       "figures": {

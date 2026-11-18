@@ -1616,7 +1616,8 @@
           "released": "Il filo si stacca dal piolo.",
           "slack": "Il filo si allenta: la sfera vola libera.",
           "taut": "Il filo si tende con uno strappo.",
-          "over_the_top": "Giro completo: il filo si avvolge attorno al piolo."
+          "over_the_top": "Giro completo: il filo si avvolge attorno al piolo.",
+          "wound": "In volo il filo è passato sopra il piolo: resta avvolto attorno a esso."
         }
       },
       "figures": {

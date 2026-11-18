@@ -1616,7 +1616,8 @@
           "released": "El hilo se suelta del clavo.",
           "slack": "El hilo se afloja: la bola vuela libre.",
           "taut": "El hilo se tensa de un tirón.",
-          "over_the_top": "Vuelta completa: el hilo se enrolla en el clavo."
+          "over_the_top": "Vuelta completa: el hilo se enrolla en el clavo.",
+          "wound": "En el vuelo, el hilo ha pasado por encima del clavo: queda enrollado en él."
         }
       },
       "figures": {

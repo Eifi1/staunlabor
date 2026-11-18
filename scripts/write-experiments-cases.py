@@ -433,6 +433,11 @@ PEG_CASES: dict[str, dict[str, Any]] = {
     "the same height": {"p": peg.PegPendulum(), "duration_s": 5.0},
     "over the top": {"p": peg.PegPendulum(start_deg=90.0, peg_depth_m=0.62), "duration_s": 3.0},
     "slack, then taut": {"p": peg.PegPendulum(start_deg=90.0, peg_depth_m=0.58), "duration_s": 4.0},
+    "the page's slack string, wound over the peg in flight": {
+        "p": peg.PegPendulum(start_deg=90.0, peg_depth_m=0.55),
+        "duration_s": 4.0,
+    },
+    "slack, then off the peg in flight": {"p": peg.PegPendulum(start_deg=90.0, peg_depth_m=0.45), "duration_s": 4.0},
     "a long string, a coarse step": {
         "p": peg.PegPendulum(length_m=3.0, peg_depth_m=2.0, start_deg=70.0),
         "duration_s": 6.0,

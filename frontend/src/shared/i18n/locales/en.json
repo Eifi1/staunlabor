@@ -1616,7 +1616,8 @@
           "released": "The string comes off the peg.",
           "slack": "The string goes slack: the bob flies free.",
           "taut": "The string jerks taut.",
-          "over_the_top": "Over the top: the string winds round the peg."
+          "over_the_top": "Over the top: the string winds round the peg.",
+          "wound": "In flight the string has passed over the peg: it stays wound round it."
         }
       },
       "figures": {
