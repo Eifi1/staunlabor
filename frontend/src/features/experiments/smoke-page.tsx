@@ -41,8 +41,18 @@ interface Particle {
 }
 
 interface Sim {
-  /** The press being made: the samples so far, and whether a hand or the button makes it. */
-  press: { times: number[]; depths: number[]; source: "drag" | "button"; duration: number; depth: number } | null;
+  /** The press being made: the samples so far, whether a hand or the button
+   *  makes it, and the drum it began on — a slider moved mid-press changes the
+   *  next press, not this one (a stroke lowered under its depth stopped the
+   *  animation). */
+  press: {
+    times: number[];
+    depths: number[];
+    source: "drag" | "button";
+    duration: number;
+    depth: number;
+    exhibit: SmokeExhibitRequest;
+  } | null;
   start: number;
   depth: number;
   /** Where the skin was when let go, and how long ago. */
@@ -177,16 +187,23 @@ function SmokePlay({
     current.released = { from: current.depth, age: 0 };
     if (!press || press.times.length < 2) return;
     const times = press.times.map((x) => x - press.times[0]);
-    const made = ringOf(latest.current.exhibit, times, press.depths);
+    const made = ringOf(press.exhibit, times, press.depths);
     setRing(made);
     if (made.verdict === "none") return;
-    current.flying = { ring: made, flight: flight(latest.current.exhibit, made, FLIGHT_S), age: 0 };
+    current.flying = { ring: made, flight: flight(press.exhibit, made, FLIGHT_S), age: 0 };
     current.particles = freshParticles();
   };
 
   const startPress = (source: "drag" | "button", now: number, pressDuration: number, pressDepth: number) => {
     const current = sim.current;
-    current.press = { times: [now], depths: [current.depth], source, duration: pressDuration, depth: pressDepth };
+    current.press = {
+      times: [now],
+      depths: [current.depth],
+      source,
+      duration: pressDuration,
+      depth: pressDepth,
+      exhibit: latest.current.exhibit,
+    };
     current.start = now;
     current.released = null;
   };

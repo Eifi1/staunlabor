@@ -640,6 +640,14 @@ describe("the smoke ring", () => {
     await waitFor(() => expect(screen.getAllByLabelText(E.equation.symbols)).toHaveLength(8));
   });
 
+  it("makes the ring of a press on the drum it began on, though the stroke is lowered mid-press", async () => {
+    renderWithProviders(<SmokePage />);
+    fireEvent.click(await screen.findByRole("button", { name: E.smoke.play.press }));
+    // Lowered under the depth already pressed: the ring is still the press's own.
+    fireEvent.change(screen.getByRole("slider", { name: E.smoke.change.stroke }), { target: { value: "2" } });
+    expect(await screen.findByText(E.smoke.play.verdict.ring, {}, { timeout: 3000 })).toBeInTheDocument();
+  });
+
   it("says when no press can make a ring", async () => {
     mockApi({
       "GET /experiments/defaults": fixtures.defaults,
