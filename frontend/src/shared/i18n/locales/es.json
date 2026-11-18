@@ -984,16 +984,16 @@
         "tension": "Tensión de la membrana",
         "tension_hint": "Valor supuesto: cuánto se tensa la membrana. Solo cambia la fuerza sobre la mano, no el anillo.",
         "draught": "Corriente de aire en la sala (modelo)",
-        "draught_hint": "Un anillo más lento que el aire de la sala es arrastrado antes de formarse. Ajustado para que una pulsación más lenta que aproximadamente 1.2 s no produzca nada.",
+        "draught_hint": "Un anillo más lento que el aire de la sala es arrastrado antes de formarse. Ajustado para que una pulsación más lenta que aproximadamente 1.3 s no produzca nada.",
         "turbulent": "Turbulento a partir de (modelo)",
         "turbulent_hint": "Por encima de este número de Reynolds, el anillo es turbulento y difumina su humo. Ajustado para que una pulsación más rápida que aproximadamente 0.2 s no produzca ningún anillo visible."
       },
       "model": {
         "intro": "La pulsación expulsa aire del tambor; el aire que sale del agujero se enrolla en un anillo; lo rápido y lo fuerte que sea el anillo decide si vuela.",
         "area": "El aro empuja la membrana hacia abajo, y la membrana entre el aro y el borde adopta la forma de una membrana tensada. El tambor pierde este volumen por cada centímetro de pulsación.",
-        "jet": "Ese volumen sale por el agujero, que es once veces más pequeño: el aire sale once veces más rápido de lo que baja la mano.",
-        "circulation": "El aire expulsado se enrolla en un anillo de vórtice; su circulación, la fuerza con que gira, es la mitad de la integral del cuadrado de la velocidad del aire.",
-        "formation": "Un anillo no admite más que una columna de aire de cuatro diámetros del agujero de largo; una más larga deja tras de sí un chorro. Aquí, una pulsación completa da tres.",
+        "jet": "Ese volumen sale por el agujero, que es once veces más pequeño y baja con el anillo: el aire sale de él doce veces más rápido de lo que baja la mano.",
+        "circulation": "El aire expulsado se enrolla en un anillo de vórtice; su circulación, la fuerza con que gira, es la mitad de la integral del cuadrado de la velocidad del aire, menos el cuadrado de la velocidad con que baja el borde del agujero.",
+        "formation": "Un anillo no admite más que una columna de aire de cuatro diámetros del agujero de largo; una más larga deja tras de sí un chorro. Aquí, una pulsación completa da 3,3.",
         "speed": "Un anillo vuela a una velocidad que fijan su circulación y su tamaño, tanto más rápido cuanto más fuerte gira.",
         "reynolds": "Su número de Reynolds dice lo turbulento que es: por encima de un umbral, el anillo suelta su humo en su estela.",
         "hand": "La mano nota la elasticidad de la membrana y la contrapresión del aire, que crece con el cuadrado de la rapidez."

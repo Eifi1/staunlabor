@@ -984,16 +984,16 @@
         "tension": "Tensione della membrana",
         "tension_hint": "Assunta: quanto è tesa la membrana. Cambia solo la forza sulla mano, non l'anello.",
         "draught": "Corrente d'aria nella sala (modello)",
-        "draught_hint": "Un anello più lento dell'aria nella sala viene portato via prima di formarsi. Impostata in modo che una pressione più lenta di circa 1,2 s non produca nulla.",
+        "draught_hint": "Un anello più lento dell'aria nella sala viene portato via prima di formarsi. Impostata in modo che una pressione più lenta di circa 1,3 s non produca nulla.",
         "turbulent": "Turbolento da (modello)",
         "turbulent_hint": "Oltre questo numero di Reynolds l'anello è turbolento e sfuma il suo fumo. Impostato in modo che una pressione più rapida di circa 0,2 s non produca alcun anello visibile."
       },
       "model": {
         "intro": "La pressione spinge l'aria fuori dal tamburo; l'aria che esce dal foro si arrotola in un anello; quanto è veloce e quanto è intenso l'anello decide se vola.",
         "area": "L'anello rigido spinge giù la membrana, e la membrana tra l'anello rigido e il bordo assume la forma di una membrana tesa. Il tamburo perde questo volume per ogni centimetro di pressione.",
-        "jet": "Questo volume esce dal foro, che è undici volte più piccolo: l'aria esce undici volte più veloce di quanto scenda la mano.",
-        "circulation": "L'aria spinta fuori si arrotola in un anello vorticoso; la sua circolazione, quanto forte vortica, è metà dell'integrale del quadrato della velocità dell'aria.",
-        "formation": "Un anello non assorbe più di una colonna d'aria lunga quattro diametri del foro; una più lunga si lascia dietro un getto. Qui una pressione completa ne dà tre.",
+        "jet": "Questo volume esce dal foro, che è undici volte più piccolo e scende con l'anello: l'aria ne esce dodici volte più veloce di quanto scenda la mano.",
+        "circulation": "L'aria spinta fuori si arrotola in un anello vorticoso; la sua circolazione, quanto forte vortica, è metà dell'integrale del quadrato della velocità dell'aria, meno il quadrato della velocità con cui scende il bordo del foro.",
+        "formation": "Un anello non assorbe più di una colonna d'aria lunga quattro diametri del foro; una più lunga si lascia dietro un getto. Qui una pressione completa ne dà 3,3.",
         "speed": "Un anello vola a una velocità fissata dalla sua circolazione e dalle sue dimensioni, tanto più veloce quanto più forte vortica.",
         "reynolds": "Il suo numero di Reynolds dice quanto è turbolento: oltre una soglia l'anello cede il suo fumo alla scia.",
         "hand": "La mano sente la molla della membrana e la contropressione dell'aria, che cresce con il quadrato della rapidità."

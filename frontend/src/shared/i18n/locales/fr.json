@@ -984,16 +984,16 @@
         "tension": "Tension de la peau",
         "tension_hint": "Supposée : la force avec laquelle la peau est tendue. Elle ne change que la force sur la main, pas l’anneau.",
         "draught": "Courant d’air de la salle (modèle)",
-        "draught_hint": "Un anneau plus lent que l’air de la salle est emporté avant de se former. Réglé de sorte qu’un appui plus lent qu’environ 1.2 s ne produise rien.",
+        "draught_hint": "Un anneau plus lent que l’air de la salle est emporté avant de se former. Réglé de sorte qu’un appui plus lent qu’environ 1.3 s ne produise rien.",
         "turbulent": "Turbulent à partir de (modèle)",
         "turbulent_hint": "Au-delà de ce nombre de Reynolds, l’anneau est turbulent et étale sa fumée. Réglé de sorte qu’un appui plus rapide qu’environ 0.2 s ne produise aucun anneau visible."
       },
       "model": {
         "intro": "L’appui chasse de l’air du tambour ; l’air qui sort du trou s’enroule en un anneau ; la vitesse et l’intensité de l’anneau décident s’il s’envole.",
         "area": "Le cerclage enfonce la peau, et la peau entre le cerclage et le bord prend la forme d’une membrane tendue. Le tambour perd ce volume par centimètre d’enfoncement.",
-        "jet": "Ce volume sort par le trou, onze fois plus petit : l’air sort onze fois plus vite que la main ne descend.",
-        "circulation": "L’air chassé s’enroule en un anneau tourbillonnaire ; sa circulation, l’intensité de sa rotation, vaut la moitié de l’intégrale du carré de la vitesse de l’air.",
-        "formation": "Un anneau n’absorbe pas plus qu’une colonne d’air longue de quatre diamètres de trou ; une plus longue laisse un jet derrière lui. Un appui complet en donne ici trois.",
+        "jet": "Ce volume sort par le trou, onze fois plus petit, qui descend avec l’anneau : l’air en sort douze fois plus vite que la main ne descend.",
+        "circulation": "L’air chassé s’enroule en un anneau tourbillonnaire ; sa circulation, l’intensité de sa rotation, vaut la moitié de l’intégrale du carré de la vitesse de l’air, moins le carré de la vitesse à laquelle descend le bord du trou.",
+        "formation": "Un anneau n’absorbe pas plus qu’une colonne d’air longue de quatre diamètres de trou ; une plus longue laisse un jet derrière lui. Un appui complet en donne ici 3,3.",
         "speed": "Un anneau vole à une vitesse fixée par sa circulation et sa taille, d’autant plus vite qu’il tourbillonne fort.",
         "reynolds": "Son nombre de Reynolds dit à quel point il est turbulent : au-delà d’un seuil, l’anneau abandonne sa fumée dans son sillage.",
         "hand": "La main sent le ressort de la peau et la contre-pression de l’air, qui croît avec le carré de la vitesse."

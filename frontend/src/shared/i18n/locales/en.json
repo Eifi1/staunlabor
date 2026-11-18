@@ -984,16 +984,16 @@
         "tension": "Skin's tension",
         "tension_hint": "Assumed: how hard the skin is stretched. It only changes the force on the hand, not the ring.",
         "draught": "Room's draught (model)",
-        "draught_hint": "A ring slower than the air in the hall is carried off before it forms. Set so that a press slower than about 1.2 s makes nothing.",
+        "draught_hint": "A ring slower than the air in the hall is carried off before it forms. Set so that a press slower than about 1.3 s makes nothing.",
         "turbulent": "Turbulent from (model)",
         "turbulent_hint": "Past this Reynolds number the ring is turbulent and smears its smoke. Set so that a press faster than about 0.2 s makes no visible ring."
       },
       "model": {
         "intro": "The press squeezes air out of the drum; the air leaving the hole rolls up into a ring; how fast and how strong the ring is decides whether it flies.",
         "area": "The ring pushes the skin down, and the skin between the ring and the rim takes a stretched membrane's shape. The drum loses this volume for every centimetre of press.",
-        "jet": "That volume leaves through the hole, which is eleven times smaller: the air comes out eleven times faster than the hand goes down.",
-        "circulation": "The air pushed out rolls up into a ring; its circulation, how strongly it swirls, is half the integral of the air speed squared.",
-        "formation": "A ring takes up no more than a slug four hole diameters long; a longer one leaves a trailing jet behind. A full press here is three.",
+        "jet": "That volume leaves through the hole, which is eleven times smaller and goes down with the ring: the air comes out of it twelve times faster than the hand goes down.",
+        "circulation": "The air pushed out rolls up into a ring; its circulation, how strongly it swirls, is half the integral of the air speed squared, less the square of the speed at which the hole's edge goes down.",
+        "formation": "A ring takes up no more than a slug four hole diameters long; a longer one leaves a trailing jet behind. A full press here is 3.3.",
         "speed": "A ring flies at a speed set by its circulation and its size, faster the more it swirls.",
         "reynolds": "Its Reynolds number says how turbulent it is: past a threshold the ring sheds its smoke into its wake.",
         "hand": "The hand feels the skin's spring and the air's back pressure, which grows with the square of the pace."

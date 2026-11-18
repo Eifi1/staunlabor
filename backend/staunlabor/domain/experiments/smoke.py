@@ -12,12 +12,15 @@ in only when the skin is let go, and the smoke flows in slowly all the while.
 **The press.** The ring pushes the skin down, the skin between it and the rim
 taking the shape a stretched membrane has (``w ∝ ln(R/r)``), so the drum loses
 the volume of an effective area ``A_eff`` times the press — about 0.8 m² for the
-exhibit, eleven times the hole. The air leaves the hole at that ratio times the
-speed of the hand (relative to the hole, which moves with the ring).
+exhibit, eleven times the hole. The hole goes down with the ring, so the air
+leaves it at that ratio plus one times the speed of the hand, ``u = (r + 1)·ẋ``
+(``r·ẋ`` in the room).
 
 **The ring** is the slug model's (Didden 1979; Gharib, Rambod & Shariff 1998):
-the air pushed out rolls up into a ring whose circulation is
-``Γ = ½·∫u²·dt``, until the slug is four hole diameters long — the formation
+the air pushed out rolls up into a ring whose circulation is what leaves the
+hole's moving edge, ``Γ = ½·∫(u² − ẋ²)·dt`` (taken in the room's frame,
+``½·∫(r·ẋ)²·dt``, it was 18 % short: the mathematics check, 2026-11-17), until
+the slug, ``∫u·dt``, is four hole diameters long — the formation
 number; what comes after is a trailing jet the ring does not take up. Its
 radius is 0.6 hole diameters and its core a third of that, as measured rings
 have them, and its speed is Saffman's for a ring of that core,
@@ -101,9 +104,9 @@ class Drum:
 @dataclass(frozen=True)
 class Room:
     #: The room's own air: a ring slower than this is carried off before it forms.
-    draught_m_s: float = 0.5
+    draught_m_s: float = 0.6
     #: Past this Reynolds number a ring is turbulent and smears its smoke.
-    turbulent_reynolds: float = 1.6e5
+    turbulent_reynolds: float = 1.9e5
 
     def __post_init__(self) -> None:
         if self.draught_m_s < 0 or self.turbulent_reynolds <= 0:
@@ -206,15 +209,20 @@ def ring_of(exhibit: SmokeExhibit, times: tuple[float, ...], depths: tuple[float
         dt = times[k + 1] - times[k]
         if dt <= 0:
             raise ValueError("a press's times go forward")
-        u = ratio * (depths[k + 1] - depths[k]) / dt
-        if u <= 0:
+        hand = (depths[k + 1] - depths[k]) / dt
+        if hand <= 0:
             continue
+        # The hole goes down with the ring, so the air leaves it at (r + 1)
+        # times the hand's speed (r in the room), and the circulation leaving
+        # its moving edge is ½·(u² − ẋ²) relative to it: taken in the room's
+        # frame, ½·r²·ẋ², it was 18 % short (the mathematics check, 2026-11-17).
+        u = (ratio + 1) * hand
         peak_jet = max(peak_jet, u)
         mid = (depths[k] + depths[k + 1]) / 2
         peak_force = max(peak_force, spring * mid + 0.5 * RHO * u * u * a_eff)
         if stroke < limit:
             share = min(1.0, (limit - stroke) / (u * dt))
-            circulation += 0.5 * u * u * dt * share
+            circulation += 0.5 * (u * u - hand * hand) * dt * share
         stroke += u * dt
     radius = RING_SHARE * drum.hole_m
     speed = ring_speed(circulation, radius, CORE_SHARE * radius)
@@ -379,7 +387,7 @@ def figures(exhibit: SmokeExhibit, depth_m: float | None = None) -> SmokeFigures
     best_s = math.sqrt(fastest * slowest) if fastest and slowest and fastest < slowest else None
     jab = ring_from_push(exhibit, Push(depth, 0.01))
     push = ring_from_push(exhibit, Push(depth, MAX_FLIGHT_S))
-    stroke = effective_area(drum) / hole_area(drum) * depth
+    stroke = (effective_area(drum) / hole_area(drum) + 1) * depth
     presses = []
     for i in range(31):
         duration = 0.05 * (60.0 ** (i / 30))

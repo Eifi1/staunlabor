@@ -984,16 +984,16 @@
         "tension": "Spannung der Haut",
         "tension_hint": "Angenommen: wie stark die Haut gespannt ist. Sie ändert nur die Kraft auf die Hand, nicht den Ring.",
         "draught": "Luftzug im Raum (Modell)",
-        "draught_hint": "Ein Ring, der langsamer ist als die Luft in der Halle, wird weggetragen, bevor er sich bildet. So gesetzt, dass ein Druck langsamer als etwa 1.2 s nichts bewirkt.",
+        "draught_hint": "Ein Ring, der langsamer ist als die Luft in der Halle, wird weggetragen, bevor er sich bildet. So gesetzt, dass ein Druck langsamer als etwa 1.3 s nichts bewirkt.",
         "turbulent": "Turbulent ab (Modell)",
         "turbulent_hint": "Über dieser Reynoldszahl ist der Ring turbulent und verwischt seinen Rauch. So gesetzt, dass ein Druck schneller als etwa 0.2 s keinen sichtbaren Ring macht."
       },
       "model": {
         "intro": "Der Druck presst Luft aus der Trommel; die Luft, die aus dem Loch kommt, rollt sich zu einem Ring auf; wie schnell und wie stark der Ring ist, entscheidet, ob er fliegt.",
         "area": "Der Ring drückt die Haut hinunter, und die Haut zwischen Ring und Rand nimmt die Form einer gespannten Membran an. Die Trommel verliert dieses Volumen pro Zentimeter Druck.",
-        "jet": "Dieses Volumen verlässt die Trommel durch das Loch, das elfmal kleiner ist: Die Luft kommt elfmal schneller heraus, als die Hand hinuntergeht.",
-        "circulation": "Die hinausgedrückte Luft rollt sich zu einem Ring auf; seine Zirkulation, wie stark er wirbelt, ist die Hälfte des Integrals über das Quadrat der Luftgeschwindigkeit.",
-        "formation": "Ein Ring nimmt höchstens einen Luftpfropfen von vier Lochdurchmessern auf; ein längerer lässt einen Strahl hinter sich zurück. Ein voller Druck ergibt hier drei.",
+        "jet": "Dieses Volumen verlässt die Trommel durch das Loch, das elfmal kleiner ist und mit dem Ring hinuntergeht: Die Luft kommt zwölfmal schneller aus ihm heraus, als die Hand hinuntergeht.",
+        "circulation": "Die hinausgedrückte Luft rollt sich zu einem Ring auf; seine Zirkulation, wie stark er wirbelt, ist die Hälfte des Integrals über das Quadrat der Luftgeschwindigkeit, weniger das Quadrat der Geschwindigkeit, mit der der Rand des Lochs hinuntergeht.",
+        "formation": "Ein Ring nimmt höchstens einen Luftpfropfen von vier Lochdurchmessern auf; ein längerer lässt einen Strahl hinter sich zurück. Ein voller Druck ergibt hier 3,3.",
         "speed": "Ein Ring fliegt mit einem Tempo, das seine Zirkulation und seine Grösse bestimmen, umso schneller, je stärker er wirbelt.",
         "reynolds": "Seine Reynoldszahl sagt, wie turbulent er ist: Über einer Schwelle gibt der Ring seinen Rauch an seinen Nachlauf ab.",
         "hand": "Die Hand spürt die Feder der Haut und den Gegendruck der Luft, der mit dem Quadrat des Tempos wächst."

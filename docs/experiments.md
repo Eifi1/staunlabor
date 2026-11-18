@@ -530,15 +530,17 @@ down, at most about 8 cm. Marcel's observations:
 **The model** (`domain/experiments/smoke.py`).
 - **The press:** pressing the ring pushes the skin into a stretched membrane's
   log profile, so the drum loses `A_eff ≈ 0.80 m²` per metre of press, 11.3
-  times the hole. The air leaves the hole at that ratio times the hand's speed.
-- **The ring** is the slug model's: circulation `Γ = ½∫u²dt`, taken up only
+  times the hole. The hole goes down with the ring, so the air leaves it at that
+  ratio plus one times the hand's speed (the ratio in the room).
+- **The ring** is the slug model's: circulation `Γ = ½∫(u² − ẋ²)dt`, what
+  leaves the hole's moving edge, taken up only
   until the slug is four hole diameters long (the formation number; a full
   press here is 3.0). Its radius is 0.6 hole diameters and its core 0.35 of
   that; it flies at Saffman's speed and has Reynolds number `Γ/ν`.
 - **Too fast, too slow:** both the circulation and the speed grow in
   proportion to the pace of the press. So the two failures are two thresholds on
-  one scale: past `Re = 1.6·10⁵` the ring is turbulent and smears; slower than
-  the hall's draught, 0.5 m/s, it is carried off before it forms. Neither is a
+  one scale: past `Re = 1.9·10⁵` the ring is turbulent and smears; slower than
+  the hall's draught, 0.6 m/s, it is carried off before it forms. Neither is a
   textbook number for a ring this size in a museum hall; both are set to
   Marcel's half second and offered as sliders that say so. Either end of the
   window can be open: with a draught of a few cm/s even a 20 s push outruns it
@@ -552,10 +554,17 @@ down, at most about 8 cm. Marcel's observations:
   turbulent one widens at 1 % of the distance and slows with the cube of its
   size; the draught carries both sideways.
 
-**What it shows.** A full press makes a ring between 0.21 and 1.28 s, best at
-0.52 s: Re 67,000, the ring at 1.28 m/s, the air out of the hole at 2.8 m/s. A
-jab of 0.1 s gives Re 336,000 and needs 122 N on the hand, where a slow press
-needs only the skin's 48 N. In the page, the reader presses with a button (a
+**What it shows.** A full press makes a ring between 0.21 and 1.26 s, best at
+0.51 s: Re 77,000, the ring at 1.48 m/s, the air out of the hole at 3.0 m/s. A
+jab of 0.1 s gives Re 396,000 and needs 140 N on the hand, where a slow press
+needs only the skin's 48 N. The jet is taken relative to the hole, which goes
+down with the ring: `u = (r + 1)·ẋ`, and the circulation leaving its moving
+edge `½·∫(u² − ẋ²)·dt`, `(r + 2)/r` = 18 % more than the room's frame, in
+which the first version took it (Re 67,000 and 1.28 m/s at half a second; the
+mathematics check, 2026-11-17). The two thresholds, set to the exhibit's half
+second, rose by the same 18 %, from 1.6·10⁵ and 0.5 m/s.
+
+In the page, the reader presses with a button (a
 smooth half cosine of the length they set), by dragging the ring down in the
 drawing (the page samples the hand and the browser's port makes the ring from
 those samples), or with an auto mode of three presses: a jab, the best, and a

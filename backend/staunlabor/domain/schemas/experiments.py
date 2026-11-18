@@ -358,8 +358,8 @@ class DrumIn(_In):
 
 
 class RoomIn(_In):
-    draught_m_s: float = Field(ge=0, le=3, default=0.5)
-    turbulent_reynolds: float = Field(ge=1e3, le=1e7, default=1.6e5)
+    draught_m_s: float = Field(ge=0, le=3, default=0.6)
+    turbulent_reynolds: float = Field(ge=1e3, le=1e7, default=1.9e5)
 
 
 class SmokeExhibitIn(_In):

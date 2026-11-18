@@ -559,7 +559,7 @@ function SmokeModel() {
         ]}
       />
       <Equation
-        tex={String.raw`u = \frac{A_{\text{eff}}}{A_h}\, \dot x`}
+        tex={String.raw`u = \left(\frac{A_{\text{eff}}}{A_h} + 1\right) \dot x`}
         reads={t("experiments.smoke.model.jet")}
         symbols={[
           { tex: "u", meaning: s("u"), unit: "m/s" },
@@ -567,7 +567,7 @@ function SmokeModel() {
         ]}
       />
       <Equation
-        tex={String.raw`\Gamma = \tfrac12 \int u^2\, dt`}
+        tex={String.raw`\Gamma = \tfrac12 \int \left(u^2 - \dot x^2\right) dt`}
         reads={t("experiments.smoke.model.circulation")}
         symbols={[
           { tex: String.raw`\Gamma`, meaning: s("gamma"), unit: "m²/s" },

@@ -984,16 +984,16 @@
         "tension": "A bőr feszítése",
         "tension_hint": "Feltételezett érték: mennyire feszes a bőr. Csak a kézre ható erőt változtatja meg, a karikát nem.",
         "draught": "Légmozgás a teremben (modell)",
-        "draught_hint": "Egy karikát, amely lassabb a terem levegőjénél, a levegő elsodor, mielőtt kialakulna. Úgy beállítva, hogy a nagyjából 1.2 s-nál lassabb lenyomás semmit se hozzon létre.",
+        "draught_hint": "Egy karikát, amely lassabb a terem levegőjénél, a levegő elsodor, mielőtt kialakulna. Úgy beállítva, hogy a nagyjából 1.3 s-nál lassabb lenyomás semmit se hozzon létre.",
         "turbulent": "Turbulens küszöb (modell)",
         "turbulent_hint": "E Reynolds-szám fölött a karika turbulens, és szétkeni a füstjét. Úgy beállítva, hogy a nagyjából 0.2 s-nál gyorsabb lenyomás ne hozzon létre látható karikát."
       },
       "model": {
         "intro": "A lenyomás levegőt présel ki a dobból; a lyukon kilépő levegő karikává csavarodik fel; az, hogy a karika milyen gyors és milyen erős, dönti el, hogy repül-e.",
         "area": "A gyűrű lenyomja a bőrt, és a bőr a gyűrű és a perem között egy kifeszített membrán alakját veszi fel. A dob a lenyomás minden centiméterével ennyi térfogatot veszít.",
-        "jet": "Ez a térfogat a lyukon át távozik, amely tizenegyszer kisebb: a levegő tizenegyszer gyorsabban jön ki, mint ahogy a kéz lefelé halad.",
-        "circulation": "A kitolt levegő karikává, egy örvénygyűrűvé csavarodik fel; a cirkulációja, vagyis hogy milyen erősen örvénylik, a légsebesség négyzete integráljának a fele.",
-        "formation": "Egy karika legfeljebb négy lyukátmérő hosszú kitolt légoszlopot vesz fel; egy hosszabb légoszlop egy légsugarat hagy maga mögött. Itt egy teljes lenyomás három lyukátmérőnyi légoszlopot ad.",
+        "jet": "Ez a térfogat a lyukon át távozik, amely tizenegyszer kisebb, és a karikával együtt lefelé halad: a levegő tizenkétszer gyorsabban jön ki belőle, mint ahogy a kéz lefelé halad.",
+        "circulation": "A kitolt levegő karikává, egy örvénygyűrűvé csavarodik fel; a cirkulációja, vagyis hogy milyen erősen örvénylik, a légsebesség négyzetének, mínusz a lyuk lefelé haladó peremének sebességnégyzetének integráljának a fele.",
+        "formation": "Egy karika legfeljebb négy lyukátmérő hosszú kitolt légoszlopot vesz fel; egy hosszabb légoszlop egy légsugarat hagy maga mögött. Itt egy teljes lenyomás 3,3 lyukátmérőnyi légoszlopot ad.",
         "speed": "Egy karika olyan sebességgel repül, amelyet a cirkulációja és a mérete határoz meg: annál gyorsabban, minél erősebben örvénylik.",
         "reynolds": "A Reynolds-száma megmondja, mennyire turbulens: egy küszöb fölött a karika a füstjét a nyomában hagyja.",
         "hand": "A kéz a bőr rugóerejét és a levegő ellennyomását érzi, amely a tempó négyzetével nő."

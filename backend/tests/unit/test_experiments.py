@@ -1103,9 +1103,14 @@ def test_the_ring_s_circulation_is_half_the_integral_of_the_jet_s_square_and_gro
     ratio = SMOKE.effective_area(ex.drum) / SMOKE.hole_area(ex.drum)
     for duration in (0.3, 0.6, 1.2):
         ring = x.ring_from_push(ex, x.Push(0.08, duration))
-        # Half a cosine: ∫ẋ²dt = π²d²/(8T).
-        assert ring.circulation_m2_s == pytest.approx(0.5 * ratio**2 * math.pi**2 * 0.08**2 / (8 * duration), rel=1e-4)
-        assert ring.stroke_m == pytest.approx(ratio * 0.08, rel=1e-9)
+        # Half a cosine: ∫ẋ²dt = π²d²/(8T). Relative to the hole, which goes
+        # down with the ring, the air leaves at (r + 1)·ẋ and the circulation
+        # leaving its edge is ½·(u² − ẋ²) = ½·r·(r + 2)·ẋ²: (r + 2)/r, 18 %, more
+        # than the room's frame gave.
+        expected = 0.5 * ratio * (ratio + 2) * math.pi**2 * 0.08**2 / (8 * duration)
+        assert ring.circulation_m2_s == pytest.approx(expected, rel=1e-4)
+        assert round((ratio + 2) / ratio, 2) == 1.18
+        assert ring.stroke_m == pytest.approx((ratio + 1) * 0.08, rel=1e-9)
         assert ring.reynolds == pytest.approx(ring.circulation_m2_s / SMOKE.NU)
     assert x.ring_from_push(ex, x.Push(0.08, 0.25)).circulation_m2_s == pytest.approx(
         2 * x.ring_from_push(ex, x.Push(0.08, 0.5)).circulation_m2_s, rel=1e-4
@@ -1120,7 +1125,7 @@ def test_a_slug_longer_than_four_hole_diameters_leaves_the_rest_as_a_trailing_je
     # half the integral of the whole press's square: summed here at mid-steps.
     ratio = SMOKE.effective_area(narrow.drum) / SMOKE.hole_area(narrow.drum)
     pace = math.pi * 0.08 / (2 * 0.5)
-    full = 0.5 * sum((ratio * pace * math.sin(math.pi * (k + 0.5) / 500)) ** 2 for k in range(500)) * 1e-3
+    full = 0.5 * ratio * (ratio + 2) * sum((pace * math.sin(math.pi * (k + 0.5) / 500)) ** 2 for k in range(500)) * 1e-3
     assert ring.circulation_m2_s < full * 0.95
     assert not x.ring_from_push(x.SmokeExhibit(), x.Push(0.08, 0.5)).trailing
 
@@ -1140,14 +1145,14 @@ def test_too_fast_smears_too_slow_drifts_and_about_half_a_second_makes_a_ring():
     verdicts = {d: x.ring_from_push(ex, x.Push(0.08, d)).verdict for d in (0.1, 0.5, 1.0, 2.0)}
     assert verdicts == {0.1: x.Verdict.TOO_FAST, 0.5: x.Verdict.RING, 1.0: x.Verdict.RING, 2.0: x.Verdict.TOO_SLOW}
     f = x.smoke_figures(ex)
-    assert f.fastest_s == pytest.approx(0.210, abs=5e-4)
-    assert f.slowest_s == pytest.approx(1.284, abs=5e-4)
-    assert f.best_s == pytest.approx(0.519, abs=5e-4)
+    assert f.fastest_s == pytest.approx(0.208, abs=5e-4)
+    assert f.slowest_s == pytest.approx(1.259, abs=5e-4)
+    assert f.best_s == pytest.approx(0.512, abs=5e-4)
     assert f.best.verdict is x.Verdict.RING
-    assert f.stroke_ratio == pytest.approx(3.01, abs=0.005), "under the formation number: all of it rolls up"
+    assert f.stroke_ratio == pytest.approx(3.28, abs=0.005), "under the formation number: all of it rolls up"
     ring = x.ring_from_push(ex, x.Push(0.08, 0.5))
-    assert ring.reynolds == pytest.approx(67224, abs=1)
-    assert ring.speed_m_s == pytest.approx(1.28, abs=0.005)
+    assert ring.reynolds == pytest.approx(79122, abs=1)
+    assert ring.speed_m_s == pytest.approx(1.51, abs=0.005)
     assert not f.open_fast and not f.open_slow
 
 
@@ -1159,9 +1164,9 @@ def test_with_a_draught_of_a_few_cm_s_every_press_slower_than_a_jab_makes_a_ring
         f = x.smoke_figures(dataclasses.replace(x.SmokeExhibit(), room=x.Room(draught_m_s=draught)))
         assert f.open_slow and not f.open_fast
         assert f.slowest_s is None and f.best_s is None
-        assert f.fastest_s == pytest.approx(0.210, abs=5e-4)
+        assert f.fastest_s == pytest.approx(0.208, abs=5e-4)
     still = x.smoke_figures(dataclasses.replace(x.SmokeExhibit(), room=x.Room(turbulent_reynolds=1e9)))
-    assert still.open_fast and not still.open_slow and still.slowest_s == pytest.approx(1.284, abs=5e-4)
+    assert still.open_fast and not still.open_slow and still.slowest_s == pytest.approx(1.259, abs=5e-4)
 
 
 def test_the_hand_feels_the_skin_and_an_air_pressure_that_grows_with_the_square_of_the_pace():
@@ -1172,7 +1177,7 @@ def test_the_hand_feels_the_skin_and_an_air_pressure_that_grows_with_the_square_
     assert slow.peak_force_n == pytest.approx(spring * 0.08, rel=1e-3), "slowly, only the skin"
     fast = x.ring_from_push(ex, x.Push(0.08, 0.1))
     assert fast.peak_force_n > 2 * slow.peak_force_n
-    assert fast.peak_force_n == pytest.approx(122, abs=0.5)
+    assert fast.peak_force_n == pytest.approx(140, abs=0.5)
 
 
 def test_only_air_going_out_makes_a_ring():
@@ -1189,7 +1194,7 @@ def test_a_laminar_ring_reaches_the_ceiling_and_a_turbulent_one_widens_keeping_i
     assert calm.z_m[-1] >= SMOKE.CEILING_M
     assert calm.radius_m[-1] == calm.radius_m[0]
     assert calm.speed_m_s[-1] < calm.speed_m_s[0], "its core thickens, and it slows a little"
-    assert calm.x_m[-1] == pytest.approx(0.5 * calm.t[-1])
+    assert calm.x_m[-1] == pytest.approx(ex.room.draught_m_s * calm.t[-1]), "carried at the draught"
     rough = x.smoke_flight(ex, x.ring_from_push(ex, x.Push(0.08, 0.1)), 5.0)
     r0, r1 = rough.radius_m[0], rough.radius_m[-1]
     assert r1 > r0
