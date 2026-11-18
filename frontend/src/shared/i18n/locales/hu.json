@@ -2338,7 +2338,7 @@
         "lambda": "legfeljebb mennyire tér el a vonal a középtől, a fél vastagság hányadaként"
       },
       "sweet": {
-        "chain": "Egy ív legjobb alakja a fejjel lefelé fordított lelógó lánc – Robert Hooke 1675-ben jegyezte fel, és Antoni Gaudí lelógó láncokkal tervezett. A láncívben a nyomásvonal a saját súly alatt a kövek közepén marad, a fél vastagság századánál kisebb eltéréssel, akármilyen vastagok is a kövek.",
+        "chain": "Egy ív legjobb alakja a fejjel lefelé fordított lelógó lánc – Robert Hooke 1675-ben jegyezte fel, és Antoni Gaudí lelógó láncokkal tervezett. A láncívben a nyomásvonal a saját súly alatt a kövek közepén marad: tizenhat, legalább 3 cm vastag kőnél a fél vastagság századánál kisebb eltéréssel.",
         "semicircle": "A félkörnek nincs ilyen alakja. Csak akkor áll, ha kövei legalább a sugara 10,75 %-ának megfelelő vastagságúak – tizenhat kővel 10,7 %. Egy méterre 10 cm-rel eltörik; az ugyanakkora fesztávú és vastagságú csúcsív megáll.",
         "load": "A teher elmozdítja a nyomásvonalat. A negyedpontra téve a 25 cm-es félkört már saját súlyának 80 %-ánál eltöri, az ugyanolyan magas láncívet csak 141 %-nál."
       },

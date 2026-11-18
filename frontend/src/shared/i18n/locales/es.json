@@ -2338,7 +2338,7 @@
         "lambda": "cuánto se aparta como mucho la línea del centro, como fracción de medio grosor"
       },
       "sweet": {
-        "chain": "La mejor forma para un arco es una cadena colgante del revés – Robert Hooke lo anotó en 1675, y Antoni Gaudí diseñó con cadenas colgantes. En el arco de cadena, la línea de presiones bajo su propio peso queda en el centro de las piedras, a menos de una centésima de medio grosor, sea cual sea el grosor.",
+        "chain": "La mejor forma para un arco es una cadena colgante del revés – Robert Hooke lo anotó en 1675, y Antoni Gaudí diseñó con cadenas colgantes. En el arco de cadena, la línea de presiones bajo su propio peso queda en el centro de las piedras: con dieciséis piedras de 3 cm de grosor o más, a menos de una centésima de medio grosor.",
         "semicircle": "El semicírculo no tiene esa forma. Solo se sostiene si sus piedras tienen al menos un 10,75 % del grosor de su radio – un 10,7 % con dieciséis piedras. Con 10 cm para un metro se rompe; un arco ojival de la misma luz y grosor se sostiene.",
         "load": "Una carga desplaza la línea de presiones. Colocada en el punto del cuarto, rompe el semicírculo de 25 cm ya con el 80 % de su propio peso; el arco de cadena de la misma altura, solo con el 141 %."
       },

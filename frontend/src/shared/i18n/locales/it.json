@@ -2338,7 +2338,7 @@
         "lambda": "di quanto la linea si scosta al massimo dal centro, come frazione del mezzo spessore"
       },
       "sweet": {
-        "chain": "La forma migliore per un arco è una catena appesa, capovolta – Robert Hooke lo annotò nel 1675, e Antoni Gaudí progettò con catene appese. Nell'arco a catenaria la linea delle pressioni sotto il proprio peso resta al centro delle pietre, a meno di un centesimo del mezzo spessore, qualunque sia lo spessore.",
+        "chain": "La forma migliore per un arco è una catena appesa, capovolta – Robert Hooke lo annotò nel 1675, e Antoni Gaudí progettò con catene appese. Nell'arco a catenaria la linea delle pressioni sotto il proprio peso resta al centro delle pietre: con sedici pietre spesse almeno 3 cm, a meno di un centesimo del mezzo spessore.",
         "semicircle": "Il semicerchio non ha quella forma. Sta in piedi solo se le sue pietre sono spesse almeno il 10,75 % del suo raggio – il 10,7 % con sedici pietre. Con 10 cm su un metro si rompe; un'ogiva della stessa luce e spessore sta in piedi.",
         "load": "Un carico sposta la linea delle pressioni. Posto al quarto della luce, rompe il semicerchio di 25 cm già all'80 % del suo stesso peso, l'arco a catenaria della stessa altezza solo al 141 %."
       },

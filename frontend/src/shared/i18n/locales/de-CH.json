@@ -2338,7 +2338,7 @@
         "lambda": "wie weit die Linie höchstens von der Mitte abweicht, als Anteil der halben Dicke"
       },
       "sweet": {
-        "chain": "Die beste Form eines Bogens ist eine hängende Kette, umgedreht – so hat Robert Hooke es 1675 notiert, und Antoni Gaudí hat mit hängenden Ketten entworfen. Im Kettenbogen bleibt die Stützlinie unter dem eigenen Gewicht in der Mitte der Steine, um weniger als ein Hundertstel der halben Dicke daneben, wie dick die Steine auch sind.",
+        "chain": "Die beste Form eines Bogens ist eine hängende Kette, umgedreht – so hat Robert Hooke es 1675 notiert, und Antoni Gaudí hat mit hängenden Ketten entworfen. Im Kettenbogen bleibt die Stützlinie unter dem eigenen Gewicht in der Mitte der Steine: bei sechzehn Steinen ab 3 cm Dicke um weniger als ein Hundertstel der halben Dicke daneben.",
         "semicircle": "Der Halbkreis hat diese Form nicht. Er steht nur, wenn seine Steine mindestens 10,75 % so dick sind wie sein Radius – 10,7 % bei sechzehn Steinen. Mit 10 cm auf einen Meter bricht er; ein Spitzbogen gleicher Spannweite und Dicke steht.",
         "load": "Eine Last verschiebt die Stützlinie. Steht sie am Viertelpunkt, bricht der Halbkreis mit 25 cm Dicke schon bei 80 % seines eigenen Gewichts, der Kettenbogen gleicher Höhe erst bei 141 %."
       },

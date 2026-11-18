@@ -2338,7 +2338,7 @@
         "lambda": "how far the line strays from the middle at most, as a share of half the thickness"
       },
       "sweet": {
-        "chain": "The best shape for an arch is a hanging chain, upside down – Robert Hooke noted it in 1675, and Antoni Gaudí designed with hanging chains. In the chain's arch the thrust line under its own weight stays in the middle of the stones, less than a hundredth of half the thickness off, however thick the stones.",
+        "chain": "The best shape for an arch is a hanging chain, upside down – Robert Hooke noted it in 1675, and Antoni Gaudí designed with hanging chains. In the chain's arch the thrust line under its own weight stays in the middle of the stones: with sixteen stones from 3 cm thick, less than a hundredth of half the thickness off.",
         "semicircle": "The semicircle does not have that shape. It stands only if its stones are at least 10.75 % as thick as its radius – 10.7 % with sixteen stones. At 10 cm on a metre it breaks; a pointed arch of the same span and thickness stands.",
         "load": "A load shifts the thrust line. Standing at the quarter point, it breaks the 25 cm semicircle at only 80 % of its own weight, the chain's arch of the same height not until 141 %."
       },

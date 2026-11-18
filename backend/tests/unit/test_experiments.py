@@ -2671,11 +2671,14 @@ def test_the_upside_down_chain_springs_from_the_ends_and_rises_as_high_as_the_ar
 
 
 def test_a_catenary_arch_is_pressed_along_itself_its_thrust_line_at_its_middle():
-    for thickness in (0.05, 0.1, 0.15, 0.25):
+    # Sixteen stones over 2 m, from 3 cm thick to the page's 50: within a
+    # hundredth of half the thickness. At the page's thinnest, 2 cm, 0.014 — the
+    # straight stones' own bend tells against so thin a line.
+    for thickness in (0.03, 0.05, 0.1, 0.15, 0.25, 0.5):
         line = x.arch_thrust(x.StoneArch(shape="catenary", thickness_m=thickness))
         assert line.stands
-        # Within a hundredth of half the thickness, whatever the thickness.
         assert line.reach < 0.01
+    assert round(x.arch_thrust(x.StoneArch(shape="catenary", thickness_m=0.02)).reach, 3) == 0.014
 
 
 def test_a_semicircular_arch_needs_10_75_percent_of_its_radius_milankovitch_s_bound():

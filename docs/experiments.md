@@ -1376,8 +1376,13 @@ reach of half the thickness up.
 **What it shows** (2 m span to the centre line, 25 cm stones, 16 of them).
 A semicircle needs `t/R` ≥ 0.1075 (Milankovitch 1907; 0.10746 in 100 stones,
 0.107 in 16): at 10 cm on its metre it breaks, where a pointed arch stands.
-A catenary arch keeps its line within a hundredth of half the thickness,
-however thick. A load at the quarter point breaks the semicircle at 80 % of
+A catenary arch of sixteen stones over 2 m keeps its line within a hundredth
+of half the thickness from 3 cm thick to 50; at the slider's 2 cm it is 0.014,
+the straight stones' own bend telling against so thin a line. The reach goes
+with the thickness over the span (16 stones: under a hundredth from a
+seventieth of the span to about a third) and with the stones' number (eight
+stones at 5 cm: 0.018). The page said "however thick" (the mathematics check,
+2026-11-17). A load at the quarter point breaks the semicircle at 80 % of
 its own weight, the catenary arch at 141 %; at the crown the catenary arch
 has no limit in this model (the thrust line fits as two straight struts).
 

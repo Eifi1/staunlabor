@@ -2338,7 +2338,7 @@
         "lambda": "de combien la ligne s'écarte au plus du milieu, en part de la demi-épaisseur"
       },
       "sweet": {
-        "chain": "La meilleure forme pour un arc est une chaîne suspendue, retournée – Robert Hooke l'a noté en 1675, et Antoni Gaudí a conçu avec des chaînes suspendues. Dans l'arc de chaînette, la ligne de pression sous son propre poids reste au milieu des pierres, à moins d'un centième de la demi-épaisseur, quelle que soit l'épaisseur.",
+        "chain": "La meilleure forme pour un arc est une chaîne suspendue, retournée – Robert Hooke l'a noté en 1675, et Antoni Gaudí a conçu avec des chaînes suspendues. Dans l'arc de chaînette, la ligne de pression sous son propre poids reste au milieu des pierres : avec seize pierres d'au moins 3 cm d'épaisseur, à moins d'un centième de la demi-épaisseur.",
         "semicircle": "Le demi-cercle n'a pas cette forme. Il ne tient que si ses pierres sont épaisses d'au moins 10,75 % de son rayon – 10,7 % avec seize pierres. Avec 10 cm pour un mètre, il casse ; une ogive de même portée et de même épaisseur tient.",
         "load": "Une charge déplace la ligne de pression. Posée au quart de la portée, elle casse le demi-cercle de 25 cm déjà à 80 % de son propre poids, l'arc de chaînette de même hauteur seulement à 141 %."
       },
