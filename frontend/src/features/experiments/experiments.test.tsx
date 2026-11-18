@@ -751,7 +751,7 @@ describe("the harmonograph", () => {
     }
     // The default pair is 0.67 % off 2 : 3, and its figure turns once in 90 s.
     expect(screen.getByText("Near the ratio 2 : 3 (pen : board)")).toBeInTheDocument();
-    expect(screen.getByText(/0\.67 % off 2 : 3: the figure turns once in 90 s/)).toBeInTheDocument();
+    expect(screen.getByText(/0\.67 % off 2 : 3: at first the figure turns once in 90 s/)).toBeInTheDocument();
     expect(screen.getAllByLabelText(E.equation.symbols).length).toBeGreaterThanOrEqual(5);
   });
 

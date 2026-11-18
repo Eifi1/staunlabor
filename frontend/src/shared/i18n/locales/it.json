@@ -1320,7 +1320,7 @@
       "sweet": {
         "near": "Se i ritmi sono vicini a un rapporto semplice p : q ma non esattamente su di esso, la figura mantiene la sua forma e ruota lentamente – un giro in questo tempo. Più vicino, più lento.",
         "closed": "Questi pendoli sono esattamente a {{p}} : {{q}}: la figura si chiude e si rimpicciolisce soltanto. Scordi la tavola dell'uno per cento, e comincerà a ruotare.",
-        "turns": "Questi pendoli sono a {{detune}} % da {{p}} : {{q}}: la figura fa un giro in {{turn}} s.",
+        "turns": "Questi pendoli sono a {{detune}} % da {{p}} : {{q}}: all'inizio la figura fa un giro in {{turn}} s.",
         "widths": "E ruota perfino a un rapporto esatto quando i pendoli oscillano con ampiezze diverse: un'oscillazione ampia dura un po' più di una stretta. Porti il pendolo della penna a 30° e quello della tavola a 5°, e la figura chiusa si apre."
       },
       "computed": {

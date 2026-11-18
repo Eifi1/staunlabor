@@ -1320,7 +1320,7 @@
       "sweet": {
         "near": "Liegen die Takte nahe an einem einfachen Verhältnis p : q, aber nicht genau darauf, behält die Figur ihre Form und dreht sich langsam weiter – einmal in dieser Zeit. Je näher, desto langsamer.",
         "closed": "Diese Pendel stehen genau im Verhältnis {{p}} : {{q}}: Die Figur schliesst sich und schrumpft nur. Verstimmen Sie das Brett um ein Prozent, und sie beginnt sich zu drehen.",
-        "turns": "Diese Pendel liegen {{detune}} % neben {{p}} : {{q}}: Die Figur dreht sich einmal in {{turn}} s.",
+        "turns": "Diese Pendel liegen {{detune}} % neben {{p}} : {{q}}: Die Figur dreht sich anfangs einmal in {{turn}} s.",
         "widths": "Und sie dreht sich selbst bei einem genauen Verhältnis, wenn die Pendel verschieden weit schwingen: Ein weiter Ausschlag dauert etwas länger als ein enger. Stellen Sie das Stiftpendel auf 30° und das Brettpendel auf 5°, und die geschlossene Figur öffnet sich."
       },
       "computed": {

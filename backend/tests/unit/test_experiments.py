@@ -1550,6 +1550,19 @@ def test_let_go_at_different_widths_an_exact_ratio_drifts_open():
     two = 2 * x.small_period_s(0.8)
     run = x.harmonograph_draw(h, two, step_s=_ending_on(two))
     assert abs(run.x_m[-1] - run.x_m[0]) > 1e-3
+    assert x.harmonograph_figures(h).turn_s is not None, "so the figures say it turns"
+
+
+def test_let_go_wide_and_narrow_the_default_figure_turns_in_26_s_not_90():
+    """The beats are the let-go swings': by the small swing's formula a pen at
+    30° over a board at 5° turned in 90 s, where it turns in 26."""
+    h = x.Harmonograph()
+    wide = dataclasses.replace(
+        h,
+        pen=dataclasses.replace(h.pen, amplitude_deg=30.0),
+        board=dataclasses.replace(h.board, amplitude_deg=5.0),
+    )
+    assert round(x.harmonograph_figures(wide).turn_s) == 26
 
 
 def test_a_damped_swing_draws_inward_and_fades_to_a_tenth_when_the_figures_say():

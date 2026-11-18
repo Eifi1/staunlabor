@@ -118,9 +118,9 @@ export function draw(h: Harmonograph, durationS: number, stepS = STEP_S): Harmon
   return run;
 }
 
-/** A small swing's beats per second. */
+/** The engine's: beats per second at the swing it is let go at, 1/T(L, θ₀). */
 export function frequencyHz(p: HarmonographPendulum): number {
-  return naturalRate(p.length_m) / (2 * Math.PI);
+  return 1 / periodS(p.length_m, p.amplitude_deg);
 }
 
 function gcd(a: number, b: number): number {

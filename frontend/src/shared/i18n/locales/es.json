@@ -1320,7 +1320,7 @@
       "sweet": {
         "near": "Si los compases están cerca de una proporción sencilla p : q pero no exactamente en ella, la figura conserva su forma y gira despacio – una vez en este tiempo. Cuanto más cerca, más despacio.",
         "closed": "Estos péndulos están exactamente en {{p}} : {{q}}: la figura se cierra y solo se encoge. Desafine el tablero un uno por ciento y empezará a girar.",
-        "turns": "Estos péndulos están un {{detune}} % fuera de {{p}} : {{q}}: la figura gira una vez en {{turn}} s.",
+        "turns": "Estos péndulos están un {{detune}} % fuera de {{p}} : {{q}}: al principio la figura gira una vez en {{turn}} s.",
         "widths": "Y gira incluso con una proporción exacta si los péndulos oscilan con amplitudes distintas: una oscilación amplia dura algo más que una estrecha. Ponga el péndulo del lápiz a 30° y el del tablero a 5°, y la figura cerrada se abre."
       },
       "computed": {

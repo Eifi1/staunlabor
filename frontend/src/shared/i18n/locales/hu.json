@@ -1320,7 +1320,7 @@
       "sweet": {
         "near": "Ha az ütemek egy egyszerű p : q arány közelében vannak, de nem pontosan rajta, az ábra megtartja alakját, és lassan tovább fordul – ennyi idő alatt egyszer. Minél közelebb, annál lassabban.",
         "closed": "Ezek az ingák pontosan {{p}} : {{q}} arányban állnak: az ábra záródik, és csak zsugorodik. Hangolja el a táblát egy százalékkal, és forogni kezd.",
-        "turns": "Ezek az ingák {{detune}} %-kal térnek el a {{p}} : {{q}} aránytól: az ábra {{turn}} s alatt fordul egyet.",
+        "turns": "Ezek az ingák {{detune}} %-kal térnek el a {{p}} : {{q}} aránytól: az ábra eleinte {{turn}} s alatt fordul egyet.",
         "widths": "És pontos aránynál is fordul, ha az ingák különböző szélesen lengenek: a széles lengés kicsit tovább tart, mint a keskeny. Állítsa a tollingát 30°-ra, a táblaingát 5°-ra, és a zárt ábra kinyílik."
       },
       "computed": {

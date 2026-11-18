@@ -1320,7 +1320,7 @@
       "sweet": {
         "near": "Quand les cadences sont proches d'un rapport simple p : q sans y être exactement, la figure garde sa forme et tourne lentement – un tour en ce temps. Plus c'est proche, plus c'est lent.",
         "closed": "Ces pendules sont exactement au rapport {{p}} : {{q}} : la figure se referme et ne fait que rapetisser. Désaccordez la planche d'un pour cent, et elle se met à tourner.",
-        "turns": "Ces pendules sont à {{detune}} % de {{p}} : {{q}} : la figure fait un tour en {{turn}} s.",
+        "turns": "Ces pendules sont à {{detune}} % de {{p}} : {{q}} : au début, la figure fait un tour en {{turn}} s.",
         "widths": "Et elle tourne même à un rapport exact quand les pendules oscillent avec des amplitudes différentes : une grande oscillation dure un peu plus qu'une petite. Réglez le pendule du stylo sur 30° et celui de la planche sur 5°, et la figure fermée s'ouvre."
       },
       "computed": {

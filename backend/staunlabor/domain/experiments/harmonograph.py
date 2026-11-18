@@ -24,7 +24,9 @@ hundred, the figure keeps its shape and slowly turns, once every
 ``1/|q·f₁ − p·f₂|`` for the ratio ``p:q`` it is near (:attr:`HarmonographFigures.turn_s`).
 And it can turn even at an exact ratio: a wider swing is a slower one (the
 pendulum's ``1 + θ₀²/16``), so two pendulums let go at different widths drift
-apart as they die away at different rates.
+apart. The beats are therefore taken at the swings they are let go at; as
+both die away the turn slows towards the small swings' (a pen at 30° over a
+board at 5°: 26 s at first, the small swings' 90).
 
 **What it leaves out.** The board's own swing in the second direction (a real
 board hangs on a gimbal and swings both ways), the pen's friction on the paper,
@@ -40,7 +42,6 @@ from dataclasses import dataclass
 from staunlabor.domain.experiments.pendulum import (
     MAX_DURATION_S,
     STEP_S,
-    G,
     angle_deg,
     natural_rate,
     period_s,
@@ -133,8 +134,11 @@ def draw(h: Harmonograph, duration_s: float, step_s: float = STEP_S) -> Harmonog
 
 
 def frequency_hz(p: HarmonographPendulum) -> float:
-    """A small swing's beats per second, ``√(g/L)/2π``."""
-    return natural_rate(p.length_m, G) / (2 * math.pi)
+    """Beats per second at the swing it is let go at, ``1/T(L, θ₀)``: a wider
+    swing is slower (``1 + θ₀²/16 + …``). By the small swing's ``√(g/L)/2π``
+    the figure of a pen at 30° over a board at 5° turned once in 90 s, where it
+    turns in 26 (the mathematics check, 2026-11-17)."""
+    return 1 / period_s(p.length_m, p.amplitude_deg)
 
 
 def nearest_ratio(pen_hz: float, board_hz: float) -> tuple[int, int]:

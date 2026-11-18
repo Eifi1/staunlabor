@@ -1320,7 +1320,7 @@
       "sweet": {
         "near": "When the beats are near a simple ratio p : q but not on it, the figure keeps its shape and slowly turns on – once in this time. The nearer, the slower.",
         "closed": "These pendulums stand exactly at {{p}} : {{q}}: the figure closes on itself and only shrinks. Detune the board by one per cent, and it starts to turn.",
-        "turns": "These pendulums are {{detune}} % off {{p}} : {{q}}: the figure turns once in {{turn}} s.",
+        "turns": "These pendulums are {{detune}} % off {{p}} : {{q}}: at first the figure turns once in {{turn}} s.",
         "widths": "And it turns even at an exact ratio when the pendulums swing differently wide: a wide swing takes a little longer than a narrow one. Set the pen's pendulum to 30° and the board's to 5°, and the closed figure opens."
       },
       "computed": {

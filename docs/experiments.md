@@ -753,7 +753,11 @@ the figure closes on itself after two of the pen's swings (to 10⁻⁹ m); let g
 at 30° and 5° it drifts open, the wider swing being the slower one. Near a
 ratio `p:q` it keeps its shape and turns once every `1/|q·f₁ − p·f₂|`: the
 default pair, 0.67 % off 2:3, turns once in 90 s; it fades to a tenth in
-`2·ln 10/c`, 230 s at `c = 0.02/s`.
+`2·ln 10/c`, 230 s at `c = 0.02/s`. The beats `f₁, f₂` are the swings' as they
+are let go, `1/T(L, θ₀)`: the first version took the small swing's for both,
+and a pen at 30° over a board at 5° was said to turn in 90 s where it turns in
+26 at first, slowing towards 90 as both die away (the mathematics check,
+2026-11-17).
 
 **The page.** A canvas the pen draws on, a few hundred steps a frame, in real
 time, fivefold or twentyfold; "Finish the drawing" draws the rest at once (to
