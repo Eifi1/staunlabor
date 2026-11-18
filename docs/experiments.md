@@ -1722,9 +1722,13 @@ the topic "light".
 
 **Colour, for every light exhibit** (`domain/experiments/colour.py`). A
 spectrum at 81 wavelengths (380–780 nm, 5 nm) becomes the eye's `X, Y, Z` by
-the CIE 1931 observer, taken as the multi-lobe fit of Wyman, Sloan and
-Shirley (2013) rather than a table; then the screen's linear red, green and
-blue by the sRGB matrix, relative to the lamp's own white (each channel
+the CIE 1931 observer, the CIE's own table every 5 nm (360–830 nm, CIE
+018:2019), straight between its steps. The multi-lobe fit of Wyman, Sloan and
+Shirley (2013) was used first and dropped in the mathematics check
+(2026-11-17): it halves `x̄` past 680 nm, so a laser at 690–700 nm and the red
+end of the rainbow came out orange; with the table every wavelength from
+610 nm on is the screen's pure red (test). Then the screen's linear red, green
+and blue by the sRGB matrix, relative to the lamp's own white (each channel
 divided by the lamp's: the eye takes its lamp as white), a channel below zero
 shown as zero, a colour brighter than white dimmed as a whole, and sRGB's
 curve. Lamps are Planck's glowing bodies by their temperature. Mixing an

@@ -3111,7 +3111,7 @@ def _chromaticity(xyz: tuple[float, float, float]) -> tuple[float, float]:
     return xyz[0] / sum(xyz), xyz[1] / sum(xyz)
 
 
-def test_the_eye_s_fit_peaks_at_555_nm_and_sums_as_the_standard_s_table():
+def test_the_eye_s_observer_peaks_at_555_nm_and_sums_as_the_standard_s_table():
     from staunlabor.domain.experiments import colour as c
 
     peak = max(range(380, 781), key=lambda nm: x.colour_matching(nm)[1])
@@ -3119,6 +3119,23 @@ def test_the_eye_s_fit_peaks_at_555_nm_and_sums_as_the_standard_s_table():
     # The CIE's ȳ, summed nanometre by nanometre: 106.857.
     assert sum(x.colour_matching(nm)[1] for nm in range(360, 831)) == pytest.approx(106.857, rel=0.002)
     assert c.WAVELENGTHS_NM[0] == 380 and c.WAVELENGTHS_NM[-1] == 780 and len(c.WAVELENGTHS_NM) == 81
+
+
+def test_deep_red_is_drawn_red_where_a_fit_of_the_eye_drew_it_orange():
+    """The observer is the CIE's table, straight between its steps: its ``x̄``
+    past 680 nm, which the fit it replaced halved, so that a laser at 700 nm
+    came out orange. From 610 nm on a single wavelength is the screen's pure
+    red, its green and blue below what a screen can show."""
+    from staunlabor.domain.experiments import colour as c
+
+    assert x.colour_matching(690) == (0.0227, 0.00821, 0.0)
+    assert x.colour_matching(700) == (0.01135916, 0.004102, 0.0)
+    between = [(a + b) / 2 for a, b in zip(x.colour_matching(695), x.colour_matching(700), strict=True)]
+    assert x.colour_matching(697.5) == pytest.approx(between)
+    assert x.colour_matching(359) == x.colour_matching(831) == (0.0, 0.0, 0.0)
+    for nm in range(610, 781, 5):
+        r, g, b = c.linear_rgb(x.colour_matching(nm))
+        assert r > 0 > g and b < 0, nm
 
 
 def test_white_lights_land_on_the_standard_s_white_points():
