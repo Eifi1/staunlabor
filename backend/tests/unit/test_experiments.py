@@ -3049,8 +3049,10 @@ def test_the_steel_ball_clicks_75_times_for_nine_and_a_half_seconds_the_table_te
     assert round(tennis.still_s, 1) == 5.2 and tennis.counted == 44
     assert round(steel.landing_s, 2) == 0.25 and round(steel.first_apex_m * 100) == 27
     assert round(tennis.first_apex_m * 100) == 24
-    # The rules of table tennis: from 305 mm a ball must rise to between 230 and 250 mm; this one, 240.
-    assert round(x.bounce_figures(x.TABLE_TENNIS, 0.305).first_apex_m * 1000) == 240
+    # The rules of table tennis (ITTF T3, B.7): from 305 mm onto steel a ball
+    # must rise to between 240 and 265 mm; this one, 240, at the lower limit.
+    rebound = x.bounce_figures(x.TABLE_TENNIS, 0.305).first_apex_m
+    assert round(rebound * 1000) == 240 and 0.240 <= rebound <= 0.265
     # The air hardly touches the steel ball (60 m/s terminal) and holds the light one back (8.6 m/s).
     assert round(steel.terminal_m_s) == 60 and round(tennis.terminal_m_s, 1) == 8.6
     # The steel ball's rhythm is its restitution; the table-tennis ball's is less, the air taking its share.

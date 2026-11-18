@@ -2780,7 +2780,7 @@
         "zeno": "A trükk: a pattanások nemcsak alacsonyabbak, hanem rövidebbek is lesznek, mindegyik ugyanazzal a hányaddal. Így fér el végtelen sok pattanás véges időben, mint Zénón paradoxonában Akhilleuszról és a teknősről.",
         "steel": "30 cm-ről a 0,95-ös ütközési számú acélgolyó 9,6 s után nyugszik meg, 75 olyan pattanással, amely egy századmásodpercnél tovább tart; a 0,92-es pingponglabda 5,2 s után, 44-gyel. Az ütközési szám kis különbsége sokat számít, mert az idő 1/(1 − e)-vel nő.",
         "rhythm": "Az ütközési szám a ritmusból hallható: az acélgolyó második pattanása 0,95-ször olyan hosszú, mint az első, pontosan az ütközési száma. A pingponglabdánál 0,89 a 0,92 helyett, mert a levegő is fékezi, amely már 8,6 m/s-nál egészen megtartja; az acélgolyót csak 60 m/s-nál.",
-        "rules": "Az asztalitenisz szabályai szerint a 305 mm-ről ejtett labdának 230 és 250 mm közé kell visszapattannia. 0,92-es ütközési számmal és a levegővel ez 240 mm-re pattan."
+        "rules": "Az asztalitenisz szabályai szerint a 305 mm-ről acéltömbre ejtett labdának 240 és 265 mm közé kell visszapattannia. 0,92-es ütközési számmal és a levegővel ez 240 mm-re pattan, az alsó határra."
       },
       "computed": {
         "system": "Két ütés között a golyó függőlegesen repül, csak a súlyával és a légellenállással. Erre pontos megoldás van: felfelé a tangenssel, lefelé a hiperbolikus tangenssel. Az oldal repülésről repülésre számol; ha a repülések egy tized ezredmásodpercnél rövidebbek, a sor maradékát zárt alakban adja össze, ahol a levegő már rég nem számít.",

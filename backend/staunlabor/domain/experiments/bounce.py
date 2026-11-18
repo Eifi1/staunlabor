@@ -27,7 +27,11 @@ its sum (the ball rests on the plate a little early); spin; the plate's
 recoil. The values: a steel ball 20 mm across (33 g) with ``e = 0.95`` on a
 hardened steel plate, an assumption; a regulation table-tennis ball (2.7 g,
 40 mm), whose ``e = 0.92`` makes it rise from 305 mm to 240 mm with the air's
-drag, the middle of what the rules of table tennis demand (230 to 250 mm).
+drag, at the lower limit of what the rules of table tennis demand: dropped
+from 305 mm onto a standard steel block, 240 to 265 mm for today's balls,
+which are not celluloid (240 to 260 mm for celluloid; ITTF Technical Leaflet
+T3, *The Ball*, 2018, B.7). The first version gave the rule as 230 to 250 mm
+and the ball as its middle; the mathematics check (2026-11-17) found it.
 """
 
 from __future__ import annotations

@@ -2780,7 +2780,7 @@
         "zeno": "El truco: los botes no solo se hacen más bajos, sino también más cortos, cada uno en la misma proporción. Así caben infinitos botes en un tiempo finito, como en la paradoja de Zenón de Aquiles y la tortuga.",
         "steel": "Desde 30 cm, la bola de acero, con coeficiente 0,95, queda quieta tras 9,6 s, con 75 botes de más de una centésima de segundo; la pelota de tenis de mesa, con 0,92, tras 5,2 s, con 44. La pequeña diferencia de coeficiente pesa mucho, pues el tiempo crece con 1/(1 − e).",
         "rhythm": "El coeficiente se puede oír en el ritmo: el segundo bote de la bola de acero dura 0,95 veces el primero, exactamente su coeficiente. En la pelota de tenis de mesa es 0,89 en vez de 0,92, porque también la frena el aire, que ya la sostiene entera a 8,6 m/s; a la bola de acero, solo a 60 m/s.",
-        "rules": "Las reglas del tenis de mesa exigen que una pelota soltada desde 305 mm rebote hasta entre 230 y 250 mm. Con un coeficiente de 0,92 y el aire, esta rebota hasta 240 mm."
+        "rules": "Las reglas del tenis de mesa exigen que una pelota soltada desde 305 mm sobre un bloque de acero rebote hasta entre 240 y 265 mm. Con un coeficiente de 0,92 y el aire, esta rebota hasta 240 mm, en el límite inferior."
       },
       "computed": {
         "system": "Entre dos golpes la bola vuela en vertical, solo con su peso y la resistencia del aire. Para ello hay una solución exacta: hacia arriba con la tangente, hacia abajo con la tangente hiperbólica. La página calcula vuelo tras vuelo; cuando los vuelos duran menos de una décima de milisegundo, el resto de la serie se suma en forma cerrada, donde el aire ya no importa.",

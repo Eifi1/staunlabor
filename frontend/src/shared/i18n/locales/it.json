@@ -2780,7 +2780,7 @@
         "zeno": "Il trucco: i rimbalzi diventano non solo più bassi, ma anche più brevi, ognuno della stessa parte. Così infiniti rimbalzi stanno in un tempo finito, come nel paradosso di Zenone di Achille e la tartaruga.",
         "steel": "Da 30 cm la sfera d’acciaio, coefficiente 0,95, si ferma dopo 9,6 s, con 75 rimbalzi più lunghi di un centesimo di secondo; la pallina da ping-pong, 0,92, dopo 5,2 s, con 44. La piccola differenza di coefficiente conta molto, perché il tempo cresce con 1/(1 − e).",
         "rhythm": "Il coefficiente si può sentire nel ritmo: il secondo rimbalzo della sfera d’acciaio dura 0,95 volte il primo, esattamente il suo coefficiente. Per la pallina da ping-pong è 0,89 invece di 0,92, perché la frena anche l’aria, che la regge del tutto già a 8,6 m/s; la sfera d’acciaio solo a 60 m/s.",
-        "rules": "Le regole del tennistavolo esigono che una pallina lasciata cadere da 305 mm rimbalzi tra 230 e 250 mm. Con un coefficiente di 0,92 e l’aria, questa rimbalza a 240 mm."
+        "rules": "Le regole del tennistavolo esigono che una pallina lasciata cadere da 305 mm su un blocco d’acciaio rimbalzi tra 240 e 265 mm. Con un coefficiente di 0,92 e l’aria, questa rimbalza a 240 mm, al limite inferiore."
       },
       "computed": {
         "system": "Tra due colpi la palla vola in verticale, solo con il suo peso e la resistenza dell’aria. Per questo c’è una soluzione esatta: in salita con la tangente, in discesa con la tangente iperbolica. La pagina calcola volo dopo volo; quando i voli durano meno di un decimo di millisecondo, il resto della serie si somma in forma chiusa, dove l’aria non conta più da tempo.",

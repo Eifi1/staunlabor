@@ -1610,8 +1610,11 @@ one leaving it.
 
 **What it shows** (from 30 cm: a steel ball of 20 mm, 33 g, `e = 0.95` on
 hardened steel, an assumption; a regulation table-tennis ball, 2.7 g, 40 mm,
-`e = 0.92`, which with the air rises from 305 mm to 240 mm, the middle of the
-230–250 mm the rules of table tennis demand). The steel ball lands after
+`e = 0.92`, which with the air rises from 305 mm to 240 mm, at the lower limit
+of the 240–265 mm the rules of table tennis demand of today's balls, dropped
+onto a standard steel block: ITTF Technical Leaflet T3, *The Ball* (2018), B.7,
+240–260 mm for celluloid. The first version said 230–250 mm and its middle;
+the mathematics check, 2026-11-17, found it). The steel ball lands after
 0.25 s, rises to 27 cm and lies still after 9.6 s, 75 of its bounces longer
 than a hundredth of a second; the table-tennis ball rises to 24 cm and is
 still after 5.2 s, with 44. The air carries the table-tennis ball whole at

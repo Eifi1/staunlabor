@@ -2780,7 +2780,7 @@
         "zeno": "L’astuce : les rebonds deviennent non seulement plus bas, mais aussi plus courts, chacun dans la même proportion. Une infinité de rebonds tient ainsi dans un temps fini, comme dans le paradoxe de Zénon, Achille et la tortue.",
         "steel": "Depuis 30 cm, la bille d’acier, coefficient 0,95, s’immobilise après 9,6 s, avec 75 rebonds de plus d’un centième de seconde ; la balle de tennis de table, 0,92, après 5,2 s, avec 44. La petite différence de coefficient pèse lourd, car le temps croît comme 1/(1 − e).",
         "rhythm": "On peut entendre le coefficient dans le rythme : le deuxième rebond de la bille d’acier dure 0,95 fois le premier, exactement son coefficient. Pour la balle de tennis de table, c’est 0,89 au lieu de 0,92, car l’air la freine aussi, l’air qui la porte entière dès 8,6 m/s ; la bille d’acier seulement à 60 m/s.",
-        "rules": "Les règles du tennis de table exigent qu’une balle lâchée de 305 mm rebondisse entre 230 et 250 mm. Avec un coefficient de 0,92 et l’air, celle-ci rebondit à 240 mm."
+        "rules": "Les règles du tennis de table exigent qu’une balle lâchée de 305 mm sur un bloc d’acier rebondisse entre 240 et 265 mm. Avec un coefficient de 0,92 et l’air, celle-ci rebondit à 240 mm, à la limite inférieure."
       },
       "computed": {
         "system": "Entre deux chocs la balle vole à la verticale, avec seulement son poids et la résistance de l’air. Il y a une solution exacte : vers le haut avec la tangente, vers le bas avec la tangente hyperbolique. La page calcule vol après vol ; quand les vols durent moins d’un dixième de milliseconde, le reste de la série s’ajoute sous forme fermée, l’air n’y comptant plus depuis longtemps.",

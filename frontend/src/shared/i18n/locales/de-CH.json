@@ -2780,7 +2780,7 @@
         "zeno": "Der Trick: Die Sprünge werden nicht nur niedriger, sondern auch kürzer, jeder um denselben Anteil. So passen unendlich viele Sprünge in eine endliche Zeit, wie in Zenons Rätsel von Achilles und der Schildkröte.",
         "steel": "Aus 30 cm liegt die Stahlkugel mit der Stosszahl 0,95 nach 9,6 s still, mit 75 Sprüngen, die länger als eine Hundertstelsekunde dauern; der Tischtennisball mit 0,92 nach 5,2 s, mit 44. Der kleine Unterschied der Stosszahl macht viel aus, denn die Zeit wächst mit 1/(1 − e).",
         "rhythm": "Aus dem Rhythmus lässt sich die Stosszahl hören: Der zweite Sprung der Stahlkugel dauert 0,95-mal so lang wie der erste, genau ihre Stosszahl. Beim Tischtennisball sind es 0,89 statt 0,92, denn ihn bremst auch die Luft, die ihn schon bei 8,6 m/s ganz trägt; die Stahlkugel erst bei 60 m/s.",
-        "rules": "Die Regeln des Tischtennis verlangen, dass ein Ball aus 305 mm Höhe auf 230 bis 250 mm zurückspringt. Mit der Stosszahl 0,92 und der Luft springt dieser auf 240 mm."
+        "rules": "Die Regeln des Tischtennis verlangen, dass ein Ball, aus 305 mm auf einen Stahlblock fallen gelassen, 240 bis 265 mm hoch zurückspringt. Mit der Stosszahl 0,92 und der Luft springt dieser auf 240 mm, an der unteren Grenze."
       },
       "computed": {
         "system": "Zwischen zwei Schlägen fliegt die Kugel senkrecht, nur mit ihrem Gewicht und dem Luftwiderstand. Dafür gibt es eine exakte Lösung, aufwärts mit dem Tangens, abwärts mit dem Tangens hyperbolicus. Die Seite rechnet Flug um Flug; sind die Flüge kürzer als eine Zehntelmillisekunde, wird der Rest der Reihe in geschlossener Form addiert, die Luft dort längst bedeutungslos.",

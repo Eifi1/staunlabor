@@ -2780,7 +2780,7 @@
         "zeno": "The trick: the bounces grow not only lower but shorter too, each by the same share. So infinitely many bounces fit into a finite time, as in Zeno's riddle of Achilles and the tortoise.",
         "steel": "From 30 cm the steel ball, restitution 0.95, lies still after 9.6 s, with 75 bounces that last longer than a hundredth of a second; the table-tennis ball, 0.92, after 5.2 s, with 44. The small difference in restitution counts for a lot, as the time grows with 1/(1 − e).",
         "rhythm": "You can hear the restitution in the rhythm: the steel ball's second bounce lasts 0.95 times as long as its first, its restitution exactly. For the table-tennis ball it is 0.89 rather than 0.92, as the air brakes it too, the air that carries it whole at 8.6 m/s; the steel ball only at 60 m/s.",
-        "rules": "The rules of table tennis demand that a ball dropped from 305 mm bounce back to between 230 and 250 mm. With a restitution of 0.92 and the air, this one bounces to 240 mm."
+        "rules": "The rules of table tennis demand that a ball dropped from 305 mm onto a steel block bounce back to between 240 and 265 mm. With a restitution of 0.92 and the air, this one bounces to 240 mm, at the lower limit."
       },
       "computed": {
         "system": "Between two strikes the ball flies straight up and down, with only its weight and the air's drag. That has an exact solution, upward with the tangent, downward with the hyperbolic tangent. The page computes flight after flight; once the flights are shorter than a tenth of a millisecond, the rest of the series is added in closed form, the air long negligible there.",
