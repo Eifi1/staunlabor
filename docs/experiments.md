@@ -1165,10 +1165,14 @@ stayed open for 200 µs.
 
 **What it shows** (25 mm steel balls, 15 cm strings, `e` = 0.95, one lifted
 by 30°). The ball comes in at 0.63 m/s; the contact lasts 0.2 ms at nearly
-900 N; 97 % of the energy leaves in the last ball and the first bounces back
-a little. With 0.1 mm between the balls they meet one pair at a time: 99.9 %.
+900 N; 97 % of the energy the collision leaves is in the last ball (89 % of
+what came in, 8 % going into the dents) and the first bounces back a little.
+With 0.1 mm between the balls they meet one pair at a time: 99.9 % of what is
+left, but only 87 % of what came in, every hit taking its share. The page said
+"97 % of the energy" without saying of which (the mathematics check,
+2026-11-17).
 Two lifted leave as a train of two waves, the last at 0.70 m/s and the next at
-0.49 m/s, 97 % between them — the solitary waves of a Hertzian chain, which a
+0.49 m/s, 97 % between them (92 % of what came in) — the solitary waves of a Hertzian chain, which a
 heavier striker sends as a train. With `e` < 1 what stays in the row grows
 until all swing (the middle ball 2.5° wide in the fourth second); with
 `e` = 1 it stays nearly still — the row's coming together is the losses'

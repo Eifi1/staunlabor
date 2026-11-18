@@ -2251,11 +2251,24 @@ def test_a_lone_pair_s_peak_force_is_hertz_s():
     assert im.peak_n == pytest.approx(k * deepest**1.5, rel=0.01)
 
 
+def _of_what_came_in(im: Any, far: int) -> tuple[float, float]:
+    """The far balls' share of the energy brought in, and the share lost."""
+    came_in = sum(v * v for v in im.before_m_s)
+    left = sum(v * v for v in im.after_m_s)
+    return sum(v * v for v in im.after_m_s[-far:]) / came_in, 1 - left / came_in
+
+
 def test_the_exhibit_s_one_ball_sends_97_percent_out_and_a_hair_s_gap_99_9():
+    """Of what the collision leaves. Of what came in, the last ball carries 89 %,
+    8 % going into the dents; a hair's gap, every hit taking its share, leaves
+    it only 87 %."""
     im = x.cradle_impact(x.Cradle(), x.Pull())
     assert round(im.far_share, 2) == 0.97
+    assert [round(share, 2) for share in _of_what_came_in(im, 1)] == [0.89, 0.08]
     assert im.after_m_s[0] < 0
-    assert round(x.cradle_impact(x.Cradle(gap_m=1e-4), x.Pull()).far_share, 3) == 0.999
+    apart = x.cradle_impact(x.Cradle(gap_m=1e-4), x.Pull())
+    assert round(apart.far_share, 3) == 0.999
+    assert round(_of_what_came_in(apart, 1)[0], 2) == 0.87
 
 
 def test_a_steel_contact_lasts_0_2_ms_and_presses_with_nearly_900_n():
@@ -2273,6 +2286,7 @@ def test_two_in_come_out_as_two_but_not_at_the_same_speed():
     assert round(im.after_m_s[-1], 2) == 0.70
     assert round(im.after_m_s[-2], 2) == 0.49
     assert round(im.far_share, 2) == 0.97
+    assert round(_of_what_came_in(im, 2)[0], 2) == 0.92
 
 
 def test_with_lossy_contacts_the_middle_ball_comes_to_swing_and_without_it_stays_nearly_still():

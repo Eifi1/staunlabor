@@ -2080,9 +2080,9 @@
         "v": "la velocidad de la bola que cae, abajo"
       },
       "sweet": {
-        "wave": "Las bolas se tocan, así que no chocan una tras otra: el choque recorre la fila como una onda. Como el contacto de Hertz se vuelve más rígido al hundirse, la onda sigue siendo corta y llega casi entera a la última bola – el 97 % de la energía. El resto se lo quedan las demás; la primera incluso rebota un poco.",
-        "gap": "Con 0,1 mm de aire entre las bolas, vuelven a chocar de una en una, y la cuenta sale: el 99,9 % de la energía en la última bola.",
-        "two": "Si se dejan caer dos, recorren la fila dos ondas, una tras otra. La última bola sale a 0,70 m/s, la penúltima a 0,49 m/s – no las dos a los 0,63 m/s con que llegaron. Juntas llevan aun así el 97 % de la energía.",
+        "wave": "Las bolas se tocan, así que no chocan una tras otra: el choque recorre la fila como una onda. Como el contacto de Hertz se vuelve más rígido al hundirse, la onda sigue siendo corta y llega casi entera a la última bola – el 97 % de la energía que queda tras el choque, el 89 % de la que entró: un 8 % se va en las deformaciones. El resto se lo quedan las demás; la primera incluso rebota un poco.",
+        "gap": "Con 0,1 mm de aire entre las bolas, vuelven a chocar de una en una, y el movimiento sale como dice la cuenta: el 99,9 % de lo que queda, en la última bola. Pero cada choque se lleva su parte, y la última bola lleva solo el 87 % de la energía que entró – menos que tocándose.",
+        "two": "Si se dejan caer dos, recorren la fila dos ondas, una tras otra. La última bola sale a 0,70 m/s, la penúltima a 0,49 m/s – no las dos a los 0,63 m/s con que llegaron. Juntas llevan aun así el 97 % de la energía que queda tras los choques, el 92 % de la que entró.",
         "together": "Lo que queda en la fila crece con cada choque si los choques pierden algo de energía: en el cuarto segundo la bola del medio ya oscila 2,5°. Si cada choque lo devuelve todo (e = 1), se queda casi quieta."
       },
       "computed": {

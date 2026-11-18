@@ -2080,9 +2080,9 @@
         "v": "a leeső golyó sebessége lent"
       },
       "sweet": {
-        "wave": "A golyók érintkeznek, így nem egymás után ütköznek: az ütközés hullámként fut végig a soron. Mivel a Hertz-féle érintkezés a benyomódással merevebbé válik, a hullám rövid marad, és szinte egészében az utolsó golyóba érkezik – az energia 97 %-a. A maradékot a többiek tartják meg; az első még vissza is pattan egy kicsit.",
-        "gap": "Ha 0,1 mm levegő van a golyók között, ismét egyenként ütköznek, és a számítás kijön: az energia 99,9 %-a az utolsó golyóban.",
-        "two": "Ha kettőt ejtünk le, két hullám fut végig a soron egymás után. Az utolsó golyó 0,70 m/s-mal repül el, az utolsó előtti 0,49 m/s-mal – nem mindkettő azzal a 0,63 m/s-mal, amellyel a kettő érkezett. Együtt mégis az energia 97 %-át viszik.",
+        "wave": "A golyók érintkeznek, így nem egymás után ütköznek: az ütközés hullámként fut végig a soron. Mivel a Hertz-féle érintkezés a benyomódással merevebbé válik, a hullám rövid marad, és szinte egészében az utolsó golyóba érkezik – az ütközés után megmaradó energia 97 %-a, a bevitt energia 89 %-a: 8 % a benyomódásokra megy el. A maradékot a többiek tartják meg; az első még vissza is pattan egy kicsit.",
+        "gap": "Ha 0,1 mm levegő van a golyók között, ismét egyenként ütköznek, és a mozgás kijön: ami megmarad, annak 99,9 %-a az utolsó golyóban. De minden ütközés elvisz a részéből, és az utolsó golyó a bevitt energiának csak 87 %-át viszi – kevesebbet, mint érintkezve.",
+        "two": "Ha kettőt ejtünk le, két hullám fut végig a soron egymás után. Az utolsó golyó 0,70 m/s-mal repül el, az utolsó előtti 0,49 m/s-mal – nem mindkettő azzal a 0,63 m/s-mal, amellyel a kettő érkezett. Együtt mégis az ütközések után megmaradó energia 97 %-át viszik, a bevitt energia 92 %-át.",
         "together": "Ami a sorban marad, minden ütközéssel nő, ha az ütközések egy kevés energiát elveszítenek: a negyedik másodpercben a középső golyó már 2,5°-ot leng ki. Ha minden ütközés mindent visszaad (e = 1), szinte mozdulatlan marad."
       },
       "computed": {

@@ -2080,9 +2080,9 @@
         "v": "la velocità della sfera che cade, in basso"
       },
       "sweet": {
-        "wave": "Le sfere si toccano, quindi non si urtano una dopo l'altra: l'urto percorre la fila come un'onda. Poiché il contatto di Hertz si irrigidisce schiacciandosi, l'onda resta corta e arriva quasi intera nell'ultima sfera – il 97 % dell'energia. Il resto lo tengono le altre; la prima rimbalza persino un poco indietro.",
-        "gap": "Con 0,1 mm d'aria tra le sfere, si urtano di nuovo una alla volta, e i conti tornano: il 99,9 % dell'energia nell'ultima sfera.",
-        "two": "Se se ne lasciano cadere due, due onde percorrono la fila una dietro l'altra. L'ultima sfera vola via a 0,70 m/s, la penultima a 0,49 m/s – non entrambe ai 0,63 m/s con cui le due sono arrivate. Insieme portano comunque il 97 % dell'energia.",
+        "wave": "Le sfere si toccano, quindi non si urtano una dopo l'altra: l'urto percorre la fila come un'onda. Poiché il contatto di Hertz si irrigidisce schiacciandosi, l'onda resta corta e arriva quasi intera nell'ultima sfera – il 97 % dell'energia che resta dopo l'urto, l'89 % di quella entrata: l'8 % va nelle deformazioni. Il resto lo tengono le altre; la prima rimbalza persino un poco indietro.",
+        "gap": "Con 0,1 mm d'aria tra le sfere, si urtano di nuovo una alla volta, e il moto torna con i conti: il 99,9 % di ciò che resta nell'ultima sfera. Ma ogni urto prende la sua parte, e l'ultima sfera porta solo l'87 % dell'energia entrata – meno che a contatto.",
+        "two": "Se se ne lasciano cadere due, due onde percorrono la fila una dietro l'altra. L'ultima sfera vola via a 0,70 m/s, la penultima a 0,49 m/s – non entrambe ai 0,63 m/s con cui le due sono arrivate. Insieme portano comunque il 97 % dell'energia che resta dopo gli urti, il 92 % di quella entrata.",
         "together": "Ciò che resta nella fila cresce a ogni urto se gli urti perdono un po' di energia: nel quarto secondo la sfera di mezzo oscilla già di 2,5°. Se ogni urto restituisce tutto (e = 1), resta quasi ferma."
       },
       "computed": {
