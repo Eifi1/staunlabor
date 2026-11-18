@@ -428,7 +428,7 @@ function MaxwellTrick({ w }: { w: MaxwellWheel | null }) {
     <>
       <p>{t("experiments.maxwell.sweet.spin", { share: formatNumber(rotationShare(w) * 100, 1, locale) })}</p>
       <Equation
-        tex={String.raw`T_{\max} = M g + s\,A, \qquad A = \sqrt{\left(\frac{g}{w^2}\right)^2 + \left(\frac{v}{w}\right)^2}, \quad w = \sqrt{\frac{s}{M}}`}
+        tex={String.raw`T_{\max} = M g + s\,A, \qquad A = \sqrt{\left(\frac{a}{w^2}\right)^2 + \left(\frac{v}{w}\right)^2}, \quad w = \sqrt{\frac{s}{M}}`}
         reads={t("experiments.maxwell.sweet.jerk", {
           peak: formatNumber(b[0].peak_tension_n, 1, locale),
           times: formatNumber(b[0].peak_tension_n / weight, 1, locale),
@@ -514,7 +514,7 @@ function MaxwellComputed() {
   const c = (key: string) => t(`experiments.maxwell.computed.${key}`);
   return (
     <Equation
-      tex={String.raw`z(t) = -\frac{g}{w^2}\bigl(1 - \cos wt\bigr) - \frac{v}{w}\sin wt`}
+      tex={String.raw`z(t) = -\frac{a}{w^2}\bigl(1 - \cos wt\bigr) - \frac{v}{w}\sin wt`}
       reads={c("system")}
       symbols={[{ tex: "z", meaning: c("z"), unit: "m" }]}
     />

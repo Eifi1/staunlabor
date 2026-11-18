@@ -1941,20 +1941,32 @@ def test_the_strings_rubbing_costs_each_climb_the_same_share():
     assert round(share * 100) == 94
 
 
+MAXWELL = importlib.import_module("staunlabor.domain.experiments.maxwell")
+
+
 def test_the_jerk_at_the_bottom_is_a_spring_s_and_pulls_six_times_the_weight():
+    """The strings run out already stretched by the rolling pull, which carries
+    all of the weight but ``M·a↓``: that is all the jerk has to catch, and their
+    pull goes on into it without a break (it once fell to nothing)."""
     w = x.MaxwellWheel()
     b = x.wheel_bounce(w, 0.6)
     s, m, v = w.stiffness_n_m, w.mass_kg, b.bottom_speed_m_s
+    rolling = MAXWELL.roll_tension_n(w)
 
     def spring(_t, y):
-        return [y[1], -9.80665 - (s / m) * y[0] if y[0] < 0 else -9.80665]
+        pull = rolling - s * y[0]
+        return [y[1], -9.80665 + pull / m]
 
     trace = rk4(spring, [0.0, -v], 1e-6, b.jerk_s)
     assert trace.states[0][-1] == pytest.approx(0, abs=1e-9)
     assert trace.states[1][-1] == pytest.approx(v, rel=1e-6)
-    assert max(-s * z for z in trace.states[0]) == pytest.approx(b.peak_tension_n, rel=1e-9)
-    assert round(b.peak_tension_n / (m * 9.80665), 1) == 6.4
-    assert round(b.jerk_s * 1000) == 25
+    # Sampled every microsecond, the trace's peak is the closed form's to 1e-8.
+    assert max(rolling - s * z for z in trace.states[0]) == pytest.approx(b.peak_tension_n, rel=1e-8)
+    assert round(b.peak_tension_n / (m * 9.80665), 1) == 6.3
+    assert round(b.jerk_s * 1000) == 22
+    for edge in (b.fall_s, b.fall_s + b.jerk_s):
+        before, after = x.state_at(w, edge - 1e-9), x.state_at(w, edge + 1e-9)
+        assert after.tension_n == pytest.approx(before.tension_n, abs=0.01), "no break at the jerk's ends"
 
 
 def test_a_thinner_axle_or_a_wheel_heavy_at_its_rim_falls_slower_and_meets_the_bottom_more_gently():
@@ -1973,7 +1985,8 @@ def test_the_wheel_is_where_its_closed_form_puts_it():
     w = x.MaxwellWheel()
     b = x.wheel_bounce(w, 0.6)
     assert x.state_at(w, 0).height_m == 0.6
-    assert x.state_at(w, b.fall_s + b.jerk_s / 2).height_m == pytest.approx(-b.stretch_m, rel=1e-9)
+    deepest = b.stretch_m - MAXWELL.roll_tension_n(w) / w.stiffness_n_m
+    assert x.state_at(w, b.fall_s + b.jerk_s / 2).height_m == pytest.approx(-deepest, rel=1e-9)
     top = x.state_at(w, b.fall_s + b.jerk_s + b.climb_s - 1e-9)
     assert top.height_m == pytest.approx(b.to_m, rel=1e-6)
 

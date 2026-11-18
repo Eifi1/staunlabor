@@ -21,8 +21,12 @@ is slowed on the way up at ``a↑ = g/(1 + k/(1 + c))``: each climb reaches
 ``v`` and spinning at ``v/r``. The strings stop the fall by stretching, a spring
 of stiffness ``s`` (both together), and throw the wheel back up at ``v``; the
 spin goes on through the jerk, and the strings wind on from the other side.
-The jerk lasts ``(2π − 2·atan(v·w/g))/w``, ``w = √(s/M)``, and the strings pull
-up to ``M·g + s·A``, ``A = √((g/w²)² + (v/w)²)`` — several times the weight.
+They run out already stretched by the rolling pull ``M·(g − a↓)``, so only
+``a↓`` is left for the jerk to catch: ``z'' = −a↓ − w²·z``. It lasts
+``(2π − 2·atan(v·w/a↓))/w``, ``w = √(s/M)``, nearly half a swing, and the
+strings pull up to ``M·g + s·A``, ``A = √((a↓/w²)² + (v/w)²)`` — several times
+the weight. The first version let them run out slack, and their pull fell to
+nothing at the jerk's start and end (the mathematics check, 2026-11-17).
 That peak is the stiffness's: a stiffer string, a shorter jerk and a higher
 peak. The jerk itself loses nothing in the model; the wheel's spin, not its
 fall, carries it round.
@@ -107,10 +111,12 @@ def rotation_share(w: MaxwellWheel) -> float:
 
 
 def _jerk(w: MaxwellWheel, v: float) -> tuple[float, float, float]:
-    """The jerk's rate ``w``, its duration, and the strings' peak pull."""
+    """The jerk's rate ``w``, its duration, and the strings' peak pull: on
+    strings already stretched by the rolling pull, only ``a↓`` to catch."""
     rate = math.sqrt(w.stiffness_n_m / w.mass_kg)
-    duration = (2 * math.pi - 2 * math.atan(v * rate / G)) / rate
-    amplitude = math.hypot(G / rate**2, v / rate)
+    down = fall_acceleration(w)
+    duration = (2 * math.pi - 2 * math.atan(v * rate / down)) / rate
+    amplitude = math.hypot(down / rate**2, v / rate)
     return rate, duration, w.mass_kg * G + w.stiffness_n_m * amplitude
 
 
@@ -198,13 +204,13 @@ def state_at(w: MaxwellWheel, t: float) -> WheelState:
         if t < clock + b.jerk_s:
             rate, _, _ = _jerk(w, v)
             x = rate * (t - clock)
-            z = -(G / rate**2) * (1 - math.cos(x)) - (v / rate) * math.sin(x)
+            z = -(down / rate**2) * (1 - math.cos(x)) - (v / rate) * math.sin(x)
             # The spin goes on through the jerk at the bottom's rate.
             turned = height + v * (t - clock)
             return WheelState(
                 z,
-                -(G / rate) * math.sin(x) - v * math.cos(x),
-                -w.stiffness_n_m * z,
+                -(down / rate) * math.sin(x) - v * math.cos(x),
+                roll_tension_n(w, Phase.DOWN) - w.stiffness_n_m * z,
                 sense * turned / circumference,
                 Phase.JERK,
                 n,

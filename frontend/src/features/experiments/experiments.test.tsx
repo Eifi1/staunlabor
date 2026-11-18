@@ -873,9 +873,9 @@ describe("Maxwell's wheel", () => {
     renderWithProviders(<MaxwellPage />);
     expect(await screen.findByRole("img", { name: E.maxwell.view })).toBeInTheDocument();
     expect(screen.getByRole("button", { name: E.maxwell.play.let_go })).toBeInTheDocument();
-    // The default disc: 98.8 % in the spin, a 25 ms jerk at 6.4 times the weight.
+    // The default disc: 98.8 % in the spin, a 22 ms jerk at 6.3 times the weight.
     expect(screen.getByText(/98\.8 % here/)).toBeInTheDocument();
-    expect(screen.getByText(/For 25 ms their pull rises to 31\.2 N, 6\.4 times the weight/)).toBeInTheDocument();
+    expect(screen.getByText(/For 22 ms their pull rises to 30\.7 N, 6\.3 times the weight/)).toBeInTheDocument();
     expect(screen.getAllByLabelText(E.equation.symbols).length).toBeGreaterThanOrEqual(4);
   });
 

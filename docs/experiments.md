@@ -976,8 +976,8 @@ and peaks at `M·g + s·A`. The jerk itself loses nothing in the model.
 
 **What it shows** (the default: a 0.5 kg disc of 6.5 cm on a 5 mm axle, 60 cm
 of strings, `c` 3 %, `s` 10 kN/m). 98.8 % of the energy of motion is in the
-spin; the fall takes 3.3 s; the jerk 25 ms at 31.2 N, 6.4 times the weight, the
-strings stretched 3.1 mm; each climb reaches 94 % of the height before. A ring
+spin; the fall takes 3.3 s; the jerk 22 ms at 30.7 N, 6.3 times the weight, the
+strings stretched 3.1 mm (25 ms, 31.2 N and 6.4 times from slack strings); each climb reaches 94 % of the height before. A ring
 of the same size puts 99.4 % into its spin.
 
 **The page.** The wheel from the front on its strings, spokes turning, in real

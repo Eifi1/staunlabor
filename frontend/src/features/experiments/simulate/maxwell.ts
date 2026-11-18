@@ -54,10 +54,12 @@ export function rotationShare(w: MaxwellWheel): number {
   return k / (1 + k);
 }
 
+/** The engine's: on strings already stretched by the rolling pull, only a↓ is left to catch. */
 function jerk(w: MaxwellWheel, v: number): [number, number, number] {
   const rate = Math.sqrt(w.stiffness_n_m / w.mass_kg);
-  const duration = (2 * Math.PI - 2 * Math.atan((v * rate) / G)) / rate;
-  const amplitude = Math.hypot(G / rate ** 2, v / rate);
+  const down = fallAcceleration(w);
+  const duration = (2 * Math.PI - 2 * Math.atan((v * rate) / down)) / rate;
+  const amplitude = Math.hypot(down / rate ** 2, v / rate);
   return [rate, duration, w.mass_kg * G + w.stiffness_n_m * amplitude];
 }
 
@@ -143,12 +145,12 @@ export function stateAt(w: MaxwellWheel, t: number): WheelState {
     if (t < clock + b.jerk_s) {
       const [rate] = jerk(w, v);
       const x = rate * (t - clock);
-      const z = -(G / rate ** 2) * (1 - Math.cos(x)) - (v / rate) * Math.sin(x);
+      const z = -(down / rate ** 2) * (1 - Math.cos(x)) - (v / rate) * Math.sin(x);
       const turned = height + v * (t - clock);
       return {
         height_m: z,
-        velocity_m_s: -(G / rate) * Math.sin(x) - v * Math.cos(x),
-        tension_n: -w.stiffness_n_m * z,
+        velocity_m_s: -(down / rate) * Math.sin(x) - v * Math.cos(x),
+        tension_n: rollTensionN(w, "down") - w.stiffness_n_m * z,
         turns: (sense * turned) / circumference,
         phase: "jerk",
         bounce: n,
