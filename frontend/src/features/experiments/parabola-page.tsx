@@ -78,7 +78,7 @@ export function ParabolaPage() {
       }
       whatHappens={<ParabolaModel />}
       computed={<ParabolaComputed />}
-      sweetSpot={<ParabolaTrick v={v && wellFilled(v) ? v : null} rate={rate} />}
+      sweetSpot={<ParabolaTrick v={v && wellFilled(v) ? v : null} rate={rate} refused={!!v && !wellFilled(v)} />}
     >
       {defaults.isPending || !v ? (
         <BuildPending pending={defaults.isPending} error={defaults.error} />
@@ -334,7 +334,7 @@ function ParabolaModel() {
   );
 }
 
-function ParabolaTrick({ v, rate }: { v: Vessel | null; rate: number }) {
+function ParabolaTrick({ v, rate, refused = false }: { v: Vessel | null; rate: number; refused?: boolean }) {
   const { t } = useTranslation();
   const locale = useLocale();
   const hex = useChartHex();
@@ -356,6 +356,8 @@ function ParabolaTrick({ v, rate }: { v: Vessel | null; rate: number }) {
     const r = spin(v, rate, Math.min(3 * tau, 300), 0, 0.05);
     return r.t.map((time, i) => ({ t: time, water: r.water_rate[i] / RPM, vessel: rate / RPM }));
   }, [v, rate]);
+  // A vessel filled over its top has nothing to wait for: say so, not "Loading".
+  if (refused) return <p className="text-secondary">{t("experiments.parabola.refused")}</p>;
   if (!v) return <LoadingState className="py-6" label={t("common.loading")} />;
   const now = surface(v, rate);
   const drop = (v.fill_m - now.centre_m) * 100;

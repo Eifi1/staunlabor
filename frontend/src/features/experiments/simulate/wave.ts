@@ -32,6 +32,18 @@ export function lengthsM(wave: PendulumWave): number[] {
   return swings(wave).map((s) => lengthFor(wave.cycle_s / s, wave.tuned_deg));
 }
 
+/** The engine's bounds on a pendulum's length, metres. */
+const MIN_LENGTH_M = 0.02;
+const MAX_LENGTH_M = 10.0;
+
+/** Whether the engine takes the row: every length it asks for within its
+ *  bounds. One corner of the page's sliders asks for less than 2 cm (24
+ *  pendulums, 30 s, 80 swings, 40°), where the engine refuses. */
+export function fits(wave: PendulumWave): boolean {
+  const lengths = lengthsM(wave);
+  return lengths[0] <= MAX_LENGTH_M && lengths[lengths.length - 1] >= MIN_LENGTH_M;
+}
+
 /** How far each pendulum is behind its start after one cycle, in degrees of its swing. */
 export function lagDeg(wave: PendulumWave, amplitudeDeg?: number): number[] {
   const amplitude = amplitudeDeg ?? wave.amplitude_deg;

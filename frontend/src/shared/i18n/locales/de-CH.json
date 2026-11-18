@@ -1160,6 +1160,7 @@
       }
     },
     "wave": {
+      "refused": "Diese Einstellung verlangt Pendel, die kürzer als 2 cm sind, und so kurze rechnet die Seite nicht. Weniger Pendel, ein längerer Zyklus oder weniger Schwingungen des längsten helfen.",
       "at": {
         "row": "Eine Reihe von Pendeln hängt an einer Stange, das längste an einem Ende, jedes nächste ein wenig kürzer. Ein Brett lenkt alle gleich weit aus und gibt sie zugleich frei.",
         "pattern": "Erst schwingen sie gemeinsam, dann zieht sich die Reihe zu einer Welle auseinander, zu Schlangen, zu scheinbarem Durcheinander, zu zwei, drei, vier Gruppen – und nach einer Minute schwingen alle wieder im Gleichtakt, als wäre nichts gewesen."

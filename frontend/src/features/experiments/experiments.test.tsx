@@ -695,6 +695,19 @@ describe("the ball cannon", () => {
 });
 
 describe("the pendulum wave", () => {
+  it("refuses a row that asks for pendulums shorter than 2 cm, in the play card and the trick", async () => {
+    renderWithProviders(<WavePage />);
+    await screen.findByRole("img", { name: E.wave.views.top });
+    const set = (name: string, value: string) =>
+      fireEvent.change(screen.getByRole("slider", { name }), { target: { value } });
+    set(E.wave.change.count, "24");
+    set(E.wave.change.cycle, "30");
+    set(E.wave.change.swings, "80");
+    set(E.wave.change.tuned, "40");
+    expect(await screen.findAllByText(E.wave.refused)).toHaveLength(2);
+    expect(screen.queryByText(en.common.loading)).not.toBeInTheDocument();
+  });
+
   it("shows the row from above and from its end, the moments to jump to and the engine's lengths", async () => {
     renderWithProviders(<WavePage />);
     expect(await screen.findByRole("img", { name: E.wave.views.top })).toBeInTheDocument();
@@ -804,7 +817,9 @@ describe("the water parabola", () => {
     renderWithProviders(<ParabolaPage />);
     await screen.findByRole("img", { name: E.parabola.views.side });
     fireEvent.change(screen.getByRole("slider", { name: E.parabola.change.fill }), { target: { value: "35" } });
-    expect(await screen.findByText(E.parabola.refused)).toBeInTheDocument();
+    // In the play card and in the trick, which has nothing to wait for.
+    expect(await screen.findAllByText(E.parabola.refused)).toHaveLength(2);
+    expect(screen.queryByText(en.common.loading)).not.toBeInTheDocument();
     expect(wellFilled({ radius_m: 0.15, height_m: 0.3, fill_m: 0.1 })).toBe(true);
   });
 });

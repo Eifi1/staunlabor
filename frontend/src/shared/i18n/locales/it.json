@@ -1160,6 +1160,7 @@
       }
     },
     "wave": {
+      "refused": "Questa impostazione richiede pendoli più corti di 2 cm, che la pagina non calcola. Aiutano meno pendoli, un ciclo più lungo o meno oscillazioni del più lungo.",
       "at": {
         "row": "Una fila di pendoli pende da un'asta, il più lungo a un'estremità, ognuno dei successivi un po' più corto. Un'asse li scosta tutti allo stesso modo e li lascia andare insieme.",
         "pattern": "All'inizio oscillano insieme, poi la fila si apre in un'onda, in serpenti, in un caos apparente, in due, tre, quattro gruppi – e dopo un minuto tutti oscillano di nuovo all'unisono, come se nulla fosse."

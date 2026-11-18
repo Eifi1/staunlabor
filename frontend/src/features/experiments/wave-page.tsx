@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Pause, Play, RotateCcw } from "lucide-react";
-import { Button, LoadingState, ToggleGroup } from "@eifi1/ui-kit";
+import { AlertBanner, Button, LoadingState, ToggleGroup } from "@eifi1/ui-kit";
 import { SeriesChart } from "@/shared/charts/series-chart";
 import { useLocale } from "@/shared/i18n/use-locale";
 import { formatNumber, formatPowerOfTen } from "@/shared/lib/format";
@@ -15,7 +15,7 @@ import { BuildPending } from "./build-pending";
 import { PreviewPending, type PreviewMode, type PreviewProps } from "./preview-mode";
 import { startsRunning } from "./play";
 import { angleDeg, swing } from "./simulate/pendulum";
-import { lengthsM, spreadDeg } from "./simulate/wave";
+import { fits, lengthsM, spreadDeg } from "./simulate/wave";
 import { SIDE } from "./stage";
 import { useExperimentsDefaults, useWaveFigures } from "./use-experiments";
 import { WaveSideView, WaveTopView } from "./wave-views";
@@ -46,7 +46,8 @@ export function WavePage() {
   const defaults = useExperimentsDefaults();
   const [build, setBuild] = useState<WaveRequest | null>(null);
   const wave = build ?? defaults.data?.wave ?? null;
-  const figures = useWaveFigures(wave);
+  const fine = wave ? fits(wave) : false;
+  const figures = useWaveFigures(fine ? wave : null);
 
   return (
     <ExhibitFrame
@@ -59,14 +60,18 @@ export function WavePage() {
       }
       whatHappens={<WaveModel />}
       computed={<WaveComputed wave={wave} />}
-      sweetSpot={<WaveTrick figures={figures.data ?? null} wave={wave} />}
+      sweetSpot={<WaveTrick figures={fine ? (figures.data ?? null) : null} wave={wave} refused={!!wave && !fine} />}
     >
       {defaults.isPending || !wave ? (
         <BuildPending pending={defaults.isPending} error={defaults.error} />
       ) : (
         <>
-          <WavePlay key={JSON.stringify({ ...wave, amplitude_deg: 0 })} wave={wave} onChange={setBuild} />
-          <WaveBuild wave={wave} figures={figures.data ?? null} onChange={setBuild} />
+          {fine ? (
+            <WavePlay key={JSON.stringify({ ...wave, amplitude_deg: 0 })} wave={wave} onChange={setBuild} />
+          ) : (
+            <AlertBanner tone="warning">{t("experiments.wave.refused")}</AlertBanner>
+          )}
+          <WaveBuild wave={wave} figures={fine ? (figures.data ?? null) : null} onChange={setBuild} />
         </>
       )}
     </ExhibitFrame>
@@ -353,7 +358,15 @@ function WaveModel() {
   );
 }
 
-function WaveTrick({ figures, wave }: { figures: WaveFigures | null; wave: WaveRequest | null }) {
+function WaveTrick({
+  figures,
+  wave,
+  refused = false,
+}: {
+  figures: WaveFigures | null;
+  wave: WaveRequest | null;
+  refused?: boolean;
+}) {
   const { t } = useTranslation();
   const locale = useLocale();
   const hex = useChartHex();
@@ -361,6 +374,8 @@ function WaveTrick({ figures, wave }: { figures: WaveFigures | null; wave: WaveR
     () => (figures ? figures.spread_curve.map((p) => ({ amplitude: p.amplitude_deg, spread: p.spread_deg })) : []),
     [figures],
   );
+  // A row the engine refuses has no figures to wait for: say so, not "Loading".
+  if (refused) return <p className="text-secondary">{t("experiments.wave.refused")}</p>;
   if (!figures || !wave) return <LoadingState className="py-6" label={t("common.loading")} />;
   return (
     <>

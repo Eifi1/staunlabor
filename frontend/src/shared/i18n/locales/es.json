@@ -1160,6 +1160,7 @@
       }
     },
     "wave": {
+      "refused": "Este ajuste pide péndulos de menos de 2 cm, y la página no calcula péndulos tan cortos. Ayudan menos péndulos, un ciclo más largo o menos oscilaciones del más largo.",
       "at": {
         "row": "Una fila de péndulos cuelga de una barra, el más largo en un extremo y cada uno de los siguientes un poco más corto. Una tabla los aparta a todos por igual y los suelta a la vez.",
         "pattern": "Primero oscilan juntos; luego la fila se abre en una onda, en serpientes, en un aparente caos, en dos, tres, cuatro grupos – y al cabo de un minuto todos vuelven a oscilar al unísono, como si nada hubiera pasado."

@@ -1160,6 +1160,7 @@
       }
     },
     "wave": {
+      "refused": "Ce réglage demande des pendules de moins de 2 cm, que la page ne calcule pas. Moins de pendules, un cycle plus long ou moins d’oscillations du plus long aident.",
       "at": {
         "row": "Une rangée de pendules pend à une barre, le plus long à une extrémité, chacun des suivants un peu plus court. Une planche les écarte tous également et les lâche ensemble.",
         "pattern": "D'abord ils oscillent ensemble, puis la rangée s'étire en une vague, en serpents, en un apparent désordre, en deux, trois, quatre groupes – et au bout d'une minute tous oscillent de nouveau à l'unisson, comme si de rien n'était."

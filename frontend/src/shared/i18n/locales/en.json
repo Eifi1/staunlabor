@@ -1160,6 +1160,7 @@
       }
     },
     "wave": {
+      "refused": "This setting asks for pendulums shorter than 2 cm, which the page does not compute. Fewer pendulums, a longer cycle or fewer swings of the longest one help.",
       "at": {
         "row": "A row of pendulums hangs from a bar, the longest at one end, each next one a little shorter. A board holds them all out equally far and lets them go together.",
         "pattern": "At first they swing together, then the row pulls apart into a wave, into snakes, into apparent chaos, into two, three, four groups – and after a minute they all swing in step again, as if nothing had happened."

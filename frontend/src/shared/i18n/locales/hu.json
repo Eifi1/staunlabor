@@ -1160,6 +1160,7 @@
       }
     },
     "wave": {
+      "refused": "Ez a beállítás 2 cm-nél rövidebb ingákat kíván, ilyen rövideket az oldal nem számol. Kevesebb inga, hosszabb ciklus vagy a leghosszabb inga kevesebb lengése segít.",
       "at": {
         "row": "Egy rúdon ingák sora lóg, a leghosszabb az egyik végén, a következők mind kicsit rövidebbek. Egy deszka mindet egyformán kitéríti, és egyszerre elengedi.",
         "pattern": "Először együtt lengenek, aztán a sor hullámmá, kígyókká, látszólagos káosszá, két, három, négy csoporttá húzódik szét – és egy perc múlva ismét mind egy ütemben lengenek, mintha mi sem történt volna."
