@@ -3811,6 +3811,23 @@ def test_ozone_takes_the_orange_and_keeps_the_sky_overhead_blue_at_sunset():
         x.sky_ozone_air_mass(91)
 
 
+def test_the_sky_overhead_is_scattered_through_ninety_degrees_less_the_sun_s_height():
+    """Rayleigh's 1 + cos²Θ, Θ = 90° − h: with the sun overhead the light goes
+    on as it came, with it on the horizon it turns a right angle and is half as
+    bright. Left out, the evening sky was drawn up to twice as bright against
+    noon's; the colour does not change."""
+    from staunlabor.domain.experiments import sky
+
+    for h, weight in ((90.0, 1.0), (30.0, 0.625), (0.0, 0.5)):
+        m = sky.air_mass(h)
+        bare = [sky.scattered_down(sky.scattering(sky.AIR_DEPTH, nm), m) for nm in sky.WAVELENGTHS_NM]
+        assert x.sky_overhead_light(h, ozone=False) == pytest.approx([weight * b for b in bare], rel=1e-12)
+    sun = x.colour_lamp(sky.SUN_K)
+    assert x.sky_hue(sun, x.sky_overhead_light(0)) == pytest.approx(
+        x.sky_hue(sun, [2 * v for v in x.sky_overhead_light(0)]), abs=1e-9
+    )
+
+
 def test_the_tube_and_the_sun_refuse_what_they_cannot_be():
     with pytest.raises(ValueError, match="long"):
         x.SkyTube(length_m=10)

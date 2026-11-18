@@ -1966,7 +1966,11 @@ the sun at height `h` through Kasten and Young's air mass `m` (37.9 at the
 horizon), its light `S·e^{−m·τ}`; the sky straight overhead as sunlight
 scattered once at every height on its way down, `(e^{−τ} − e^{−m·τ})/(m − 1)`
 for an air whose density falls alike for every wavelength, written with
-`expm1` so that it holds at `m = 1` (`τ·e^{−τ}`). The sun a 5778 K glow above
+`expm1` so that it holds at `m = 1` (`τ·e^{−τ}`), and turned into the eye
+through `Θ = 90° − h`, which Rayleigh's `1 + cos²Θ` weighs: `(1 + sin²h)/2`
+of the sky with the sun overhead, half with it on the horizon. The first
+version left it out and drew the evening sky up to twice as bright against
+noon's (the mathematics check, 2026-11-17); the colours do not change. The sun a 5778 K glow above
 the air, taken as white. **Ozone** (added the same day, Marcel's "Ja" after a
 side agent found the sky overhead at sunset nearly white without it): the
 layer absorbs rather than scatters, most in the orange (the Chappuis band,

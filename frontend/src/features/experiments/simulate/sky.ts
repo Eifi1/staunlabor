@@ -87,9 +87,11 @@ export function scatteredDown(tau: number, m: number): number {
   return (-Math.exp(-tau) * Math.expm1(-(m - 1) * tau)) / (m - 1);
 }
 
+/** The engine's: scattered through Θ = 90° − h into the eye, weighed by Rayleigh's (1 + cos²Θ)/2. */
 export function skyLight(heightDeg: number, ozone = true): number[] {
   const m = airMass(heightDeg);
-  const air = WAVELENGTHS_NM.map((nm) => scatteredDown(scattering(AIR_DEPTH, nm), m));
+  const angle = (1 + Math.sin(heightDeg * (Math.PI / 180)) ** 2) / 2;
+  const air = WAVELENGTHS_NM.map((nm) => angle * scatteredDown(scattering(AIR_DEPTH, nm), m));
   if (!ozone) return air;
   const through = ozoneLight(heightDeg);
   return air.map((a, k) => a * through[k]);
