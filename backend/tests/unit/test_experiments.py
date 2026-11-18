@@ -2492,6 +2492,32 @@ def test_the_sand_s_lines_are_where_the_driven_plate_stands_still():
     assert chladni.response(plate, chladni.driven_modes(), f, lo, 0.0) < 0.02 * middle
 
 
+def test_the_plate_s_answer_weighs_each_mode_by_its_mass_not_by_its_scale():
+    """Each mode is scaled to 1 at its peak, so its mass ``∫φ²`` (here by a 2D
+    Gauss grid, not the engine's ``Σ c²``) is not 1, and the answer divides by
+    it: a mode scaled otherwise answers the same. At the fourth tone, 711 Hz,
+    the middle then swings 4.7 % of what it swings at the lowest; left out, it
+    was 2.0 %."""
+    from staunlabor.domain.experiments import chladni
+
+    plate = x.ChladniPlate()
+    driven = chladni.driven_modes()
+    nodes = chladni._gauss(30)
+    for mode in driven[:3]:
+        mass = sum(wa * wb * chladni.value(mode, a, b) ** 2 for a, wa in nodes for b, wb in nodes)
+        assert chladni.modal_mass(mode) == pytest.approx(mass, rel=1e-9)
+        assert 0.1 < mass < 0.9
+    lowest = chladni.frequency_hz(plate, driven[0].lam)
+    middle = chladni.response(plate, driven, 711.0, 0.0, 0.0) / chladni.response(plate, driven, lowest, 0.0, 0.0)
+    assert middle == pytest.approx(0.047, abs=0.001)
+    tripled = dataclasses.replace(driven[1], terms=tuple((m, n, 3 * c) for m, n, c in driven[1].terms))
+    other = (driven[0], tripled, *driven[2:])
+    for hz in (150.0, 711.0):
+        assert chladni.response(plate, other, hz, 0.3, 0.1) == pytest.approx(
+            chladni.response(plate, driven, hz, 0.3, 0.1)
+        )
+
+
 def test_the_plate_refuses_what_it_cannot_be():
     with pytest.raises(ValueError, match="thin beside its side"):
         x.ChladniPlate(thickness_m=0.05)

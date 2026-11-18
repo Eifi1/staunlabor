@@ -1316,7 +1316,11 @@ is the identity in this basis). Rigid motions (κ ≈ 0) are dropped by κ > 1,
 the lowest true κ being about 11. λ = 4√κ. Each mode is scaled to 1 at its
 largest on a 41-point grid and signed positive at the middle. Shaken at its
 middle, only the doubly even, swap-kept modes move there and are driven; the
-answer is `|Σ φ_k·φ_k(0)/(ω_k² − Ω² + 2iζω_kΩ)|`, ζ = 0.002.
+answer is `|Σ φ_k·φ_k(0)/(μ_k·(ω_k² − Ω² + 2iζω_kΩ))|`, ζ = 0.002, with
+`μ_k = ∫φ_k² = Σ c²` the mode's mass (the products are orthonormal). The first
+version left `μ_k` out, which made the answer hang on each mode's scale: the
+mathematics check (2026-11-17) found the middle's swing at the fourth tone,
+711 Hz, at 2.0 % of the lowest tone's; it is 4.7 % (test).
 
 **What it shows.** Leissa's free square plate: 13.468, 19.596, 24.270,
 34.801, 61.093, 63.686 to the third place. The driven modes of a 24 cm, 1 mm

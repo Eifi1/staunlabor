@@ -18,8 +18,11 @@ again by whether they keep or change sign when x and y swap.
 **What the page shows.** Shaken at its middle, a plate rings in the modes that
 move there: the doubly even ones that keep their sign under the swap. Every
 other mode has a still middle and is not driven. Shaken at ``Ω``, the plate
-answers with ``w = Σ φ_k·φ_k(0)/(ω_k² − Ω² + 2iζω_kΩ)``; the sand is drawn
-where that is small (a drawing rule, not a sand model).
+answers with ``w = Σ φ_k·φ_k(0)/(μ_k·(ω_k² − Ω² + 2iζω_kΩ))``, ``μ_k = ∫φ_k²``
+the mode's mass (each mode is scaled to 1 at its peak, so it is not 1; the
+first version left it out, and the middle's swing at the higher tones came out
+too small: at the fourth, 711 Hz, 2.0 % of the lowest tone's for 4.7 %). The
+sand is drawn where ``w`` is small (a drawing rule, not a sand model).
 
 **What it leaves out.** The shaker's hold at the middle (its mass and its
 stiffness shift the tones a little), the plate's thickness beside its side
@@ -266,14 +269,22 @@ def frequency_hz(plate: Plate, lam: float) -> float:
     return lam / (2 * math.pi * plate.side_m**2) * math.sqrt(d / (plate.density_kg_m3 * plate.thickness_m))
 
 
+def modal_mass(mode: Mode) -> float:
+    """``μ = ∫φ² dξ dη`` over the square ``[−1, 1]²``: the mode's mass, in units
+    of ``ρh·(a/2)²``. The products ``p_m(ξ)·p_n(η)`` are orthonormal there, so
+    it is ``Σ c²``."""
+    return sum(c * c for _, _, c in mode.terms)
+
+
 def response(plate: Plate, driven: tuple[Mode, ...], drive_hz: float, x: float, y: float) -> float:
     """How far the plate swings at (x, y), shaken at its middle at ``drive_hz``:
-    ``|Σ φ_k(x, y)·φ_k(0)/(ω_k² − Ω² + 2iζω_kΩ)|``, ω in rad/s, per unit push."""
+    ``|Σ φ_k(x, y)·φ_k(0)/(μ_k·(ω_k² − Ω² + 2iζω_kΩ))|``, ω in rad/s, per unit
+    push. Without ``μ_k`` the answer would hang on how each mode is scaled."""
     big = 2 * math.pi * drive_hz
     re = im = 0.0
     for mode in driven:
         w = 2 * math.pi * frequency_hz(plate, mode.lam)
-        weight = value(mode, x, y) * value(mode, 0.0, 0.0)
+        weight = value(mode, x, y) * value(mode, 0.0, 0.0) / modal_mass(mode)
         a = w * w - big * big
         b = 2 * plate.damping_ratio * w * big
         den = a * a + b * b
