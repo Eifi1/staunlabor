@@ -1809,7 +1809,7 @@
       },
       "sweet": {
         "gap": "La distancia entre los dos péndulos con el tiempo, en escala logarítmica: una recta significa que crece por el mismo factor cada segundo.",
-        "chaotic": "Medido para este inicio: λ = {{lambda}} por segundo. Una diferencia se duplica cada {{doubling}} s. Hacerla mil veces menor solo gana el tiempo de diez duplicaciones – por eso el péndulo no se puede predecir, aunque cada cálculo sea exacto.",
+        "chaotic": "Medido para este inicio durante medio minuto: λ ≈ {{lambda}} por segundo – un solo tramo de trayectoria, así que unas décimas más o menos. Una diferencia se duplica más o menos cada {{doubling}} s. Hacerla mil veces menor solo gana el tiempo de diez duplicaciones – por eso el péndulo no se puede predecir, aunque cada cálculo sea exacto.",
         "regular": "Medido para este inicio: λ = {{lambda}} por segundo, prácticamente cero. Con oscilaciones tan suaves la diferencia sigue pequeña: el péndulo es predecible."
       },
       "chart": {

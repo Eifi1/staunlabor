@@ -1809,7 +1809,7 @@
       },
       "sweet": {
         "gap": "The gap between the two pendulums over time, on a logarithmic scale: a straight line means it grows by the same factor every second.",
-        "chaotic": "Measured for this start: λ = {{lambda}} a second. A difference thus doubles every {{doubling}} s. Making it a thousand times smaller buys only ten doublings' time – which is why the pendulum cannot be predicted, though every computation is exact.",
+        "chaotic": "Measured for this start over half a minute: λ ≈ {{lambda}} a second – a single stretch of path, so a few tenths more or less. A difference thus doubles about every {{doubling}} s. Making it a thousand times smaller buys only ten doublings' time – which is why the pendulum cannot be predicted, though every computation is exact.",
         "regular": "Measured for this start: λ = {{lambda}} a second, practically zero. Swung this gently the difference stays small: the pendulum is predictable."
       },
       "chart": {

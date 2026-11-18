@@ -1010,7 +1010,12 @@ logarithms every tenth of a second before it is set back: from 120°/120° over 
 minute, 2.82 a second whatever the gap (10⁻⁶ to 10⁻¹⁰); gently (5°/7°), under
 0.01. A first version fitted a slope to one pair's gap, which gave 1.9 to 3.8
 with the nudge — one stretch of one path says little — and was dropped. The
-page measures over 30 s, after the sliders settle; the port is held to the
+step matters as the gap does not: over half a minute 2.4 at 1 ms and 3.1 at
+0.5 ms, over two minutes 2.7 (and 2.64 to 2.71 over four, at 1, 0.5 and
+0.25 ms). The page measures over 30 s, after the sliders settle — four minutes
+would hold the main thread for a second, three with a light upper arm — so it
+shows one decimal and says it is a few tenths either way; it showed two (the
+mathematics check, 2026-11-17); the port is held to the
 engine with a twin 10⁻⁴ away, since at 10⁻⁸ the gap's subtraction loses eight
 digits that chaos then magnifies.
 

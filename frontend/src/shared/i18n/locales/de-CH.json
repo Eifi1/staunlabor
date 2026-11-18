@@ -1809,7 +1809,7 @@
       },
       "sweet": {
         "gap": "Der Abstand der beiden Pendel über der Zeit, auf logarithmischer Skala: Eine Gerade heisst, er wächst jede Sekunde um denselben Faktor.",
-        "chaotic": "Gemessen für diesen Start: λ = {{lambda}} pro Sekunde. Ein Unterschied verdoppelt sich also alle {{doubling}} s. Wer ihn um das Tausendfache kleiner macht, gewinnt nur zehn Verdopplungen Zeit – darum ist das Pendel nicht vorherzusagen, auch wenn jede Rechnung exakt ist.",
+        "chaotic": "Gemessen für diesen Start über eine halbe Minute: λ ≈ {{lambda}} pro Sekunde – ein einzelnes Stück Bahn, also einige Zehntel mehr oder weniger. Ein Unterschied verdoppelt sich also etwa alle {{doubling}} s. Wer ihn um das Tausendfache kleiner macht, gewinnt nur zehn Verdopplungen Zeit – darum ist das Pendel nicht vorherzusagen, auch wenn jede Rechnung exakt ist.",
         "regular": "Gemessen für diesen Start: λ = {{lambda}} pro Sekunde, praktisch null. So sanft geschwungen bleibt der Unterschied klein: Das Pendel ist vorhersagbar."
       },
       "chart": {

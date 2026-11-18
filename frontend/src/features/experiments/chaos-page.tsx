@@ -458,7 +458,9 @@ function ChaosTrick({ dp, start, nudge }: { dp: DoublePendulum | null; start: St
       <p>
         {chaotic
           ? t("experiments.chaos.sweet.chaotic", {
-              lambda: formatNumber(measured.exponent, 2, locale),
+              // One decimal: half a minute is one stretch of one path, a few
+              // tenths either way (the step alone moves it from 2.4 to 3.1).
+              lambda: formatNumber(measured.exponent, 1, locale),
               doubling: formatNumber(Math.log(2) / measured.exponent, 2, locale),
             })
           : t("experiments.chaos.sweet.regular", { lambda: formatNumber(measured.exponent, 3, locale) })}
@@ -469,7 +471,7 @@ function ChaosTrick({ dp, start, nudge }: { dp: DoublePendulum | null; start: St
             key: "lambda",
             label: t("experiments.chaos.figures.lambda"),
             value: measured.exponent,
-            digits: 2,
+            digits: 1,
             unit: "1/s",
           },
           {

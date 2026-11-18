@@ -1809,7 +1809,7 @@
       },
       "sweet": {
         "gap": "A két inga távolsága az idő függvényében, logaritmikus skálán: az egyenes azt jelenti, hogy másodpercenként ugyanazzal a tényezővel nő.",
-        "chaotic": "Erre az indulásra mérve: λ = {{lambda}} másodpercenként. Egy különbség tehát {{doubling}} s-onként megduplázódik. Ezerszer kisebbre véve csak tíz duplázódásnyi időt nyerünk – ezért nem jósolható meg az inga, bár minden számítás pontos.",
+        "chaotic": "Erre az indulásra fél perc alatt mérve: λ ≈ {{lambda}} másodpercenként – egyetlen pályaszakasz, tehát néhány tizeddel több vagy kevesebb. Egy különbség tehát nagyjából {{doubling}} s-onként megduplázódik. Ezerszer kisebbre véve csak tíz duplázódásnyi időt nyerünk – ezért nem jósolható meg az inga, bár minden számítás pontos.",
         "regular": "Erre az indulásra mérve: λ = {{lambda}} másodpercenként, gyakorlatilag nulla. Ilyen finom lengésnél a különbség kicsi marad: az inga megjósolható."
       },
       "chart": {

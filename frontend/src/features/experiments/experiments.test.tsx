@@ -897,7 +897,7 @@ describe("the chaotic pendulum", () => {
     // Wild, the exponent is measured and the gap doubles in a fraction of a second.
     expect(
       await screen.findByText(
-        /Measured for this start: λ = \d\.\d\d a second\. A difference thus doubles/,
+        /Measured for this start over half a minute: λ ≈ \d\.\d a second – a single stretch of path, so a few tenths more or less\. A difference thus doubles about every \d\.\d\d s/,
         {},
         { timeout: 8000 },
       ),

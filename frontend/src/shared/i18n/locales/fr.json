@@ -1809,7 +1809,7 @@
       },
       "sweet": {
         "gap": "L'écart entre les deux pendules au cours du temps, en échelle logarithmique : une droite signifie qu'il croît du même facteur chaque seconde.",
-        "chaotic": "Mesuré pour ce départ : λ = {{lambda}} par seconde. Un écart double donc toutes les {{doubling}} s. Le rendre mille fois plus petit ne fait gagner que le temps de dix doublements – c'est pourquoi le pendule est imprévisible, bien que chaque calcul soit exact.",
+        "chaotic": "Mesuré pour ce départ sur une demi-minute : λ ≈ {{lambda}} par seconde – un seul tronçon de trajectoire, donc quelques dixièmes de plus ou de moins. Un écart double donc environ toutes les {{doubling}} s. Le rendre mille fois plus petit ne fait gagner que le temps de dix doublements – c'est pourquoi le pendule est imprévisible, bien que chaque calcul soit exact.",
         "regular": "Mesuré pour ce départ : λ = {{lambda}} par seconde, pratiquement zéro. Avec des oscillations aussi douces l'écart reste petit : le pendule est prévisible."
       },
       "chart": {

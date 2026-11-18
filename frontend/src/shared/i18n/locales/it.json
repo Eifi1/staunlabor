@@ -1809,7 +1809,7 @@
       },
       "sweet": {
         "gap": "La distanza tra i due pendoli nel tempo, in scala logaritmica: una retta significa che cresce dello stesso fattore ogni secondo.",
-        "chaotic": "Misurato per questa partenza: λ = {{lambda}} al secondo. Una differenza raddoppia quindi ogni {{doubling}} s. Renderla mille volte più piccola fa guadagnare solo il tempo di dieci raddoppi – per questo il pendolo è imprevedibile, anche se ogni calcolo è esatto.",
+        "chaotic": "Misurato per questa partenza in mezzo minuto: λ ≈ {{lambda}} al secondo – un solo tratto di traiettoria, quindi qualche decimo in più o in meno. Una differenza raddoppia quindi circa ogni {{doubling}} s. Renderla mille volte più piccola fa guadagnare solo il tempo di dieci raddoppi – per questo il pendolo è imprevedibile, anche se ogni calcolo è esatto.",
         "regular": "Misurato per questa partenza: λ = {{lambda}} al secondo, praticamente zero. Con oscillazioni così dolci la differenza resta piccola: il pendolo è prevedibile."
       },
       "chart": {

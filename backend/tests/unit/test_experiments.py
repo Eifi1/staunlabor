@@ -1993,6 +1993,18 @@ def test_the_lyapunov_exponent_is_measured_whatever_the_twin_s_distance():
     assert x.lyapunov(dp, 5.0, 7.0, 60.0) < 0.01
 
 
+def test_half_a_minute_measures_the_exponent_to_a_few_tenths():
+    """What the page measures, half a minute, is one stretch of one path: the
+    step alone moves it from 2.4 to 3.1, where two minutes give 2.7. The page
+    shows one decimal and says it is a few tenths either way."""
+    dp = x.DoublePendulum()
+    long = x.lyapunov(dp, 120.0, 120.0, 120.0)
+    assert round(long, 1) == 2.7
+    halves = [x.lyapunov(dp, 120.0, 120.0, 30.0, step_s=h) for h in (1e-3, 5e-4)]
+    assert max(halves) - min(halves) > 0.5, "the step alone moves it"
+    assert all(abs(half - long) < 0.5 for half in halves)
+
+
 def test_a_light_upper_arm_under_a_heavy_lower_one_is_stepped_finely_enough_to_keep_its_energy():
     """The page's sharpest corner: 50 g over 2 kg on 10 cm rods, let go from
     120°. The arms whip round at 150 rad/s, and at the 1 ms step the energy
