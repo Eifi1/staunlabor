@@ -955,7 +955,7 @@ def test_the_default_build_floats_as_the_exhibit_does_and_states_its_figures():
     assert f.lift_off_m_s == pytest.approx(12.07, abs=0.005)
     assert f.air_m_s == pytest.approx(7.41, abs=0.005)
     assert f.flow_m3_s * 3600 == pytest.approx(410, abs=0.5)
-    assert f.tilt_limit_deg == pytest.approx(43.7, abs=0.06)
+    assert f.tilt_limit_deg == pytest.approx(31.7, abs=0.06)
     assert f.bob_hz == pytest.approx(0.54, abs=0.005)
     assert f.sway_hz == pytest.approx(1.85, abs=0.005)
     assert 5e4 < f.reynolds < 2e5, "below a smooth sphere's drag crisis, where C_d = 0.47 holds"
@@ -983,16 +983,60 @@ def test_a_ball_set_on_the_opening_rises_and_settles_at_the_stated_height():
     assert r.x_m[-1] == pytest.approx(0.0, abs=1e-9)
 
 
-def test_a_push_sideways_comes_back_and_a_slow_tilt_drops_the_ball_just_past_the_limit():
+def test_a_push_sideways_comes_back():
     el = x.Elephant()
     nudged = x.run_elephant(el, (x.ElephantMove(at_s=3.0, tilt_deg=0.0, over_s=0.0, nudge_m_s=0.8),), 8.0)
     assert nudged.fell_at_s is None
     assert max(abs(v) for v in nudged.x_m) > 0.05
     assert abs(nudged.x_m[-1]) < 0.02
+
+
+def _held(el: x.Elephant, tilt_deg: float, duration_s: float) -> x.ElephantRun:
+    """Risen straight up, the trunk turned at 3° a second to ``tilt_deg`` and
+    held there, the ball nudged once it is still."""
+    turned = 8.0 + tilt_deg / 3
+    return x.run_elephant(
+        el,
+        (
+            x.ElephantMove(at_s=8.0, tilt_deg=tilt_deg, over_s=tilt_deg / 3),
+            x.ElephantMove(at_s=turned + 1.0, tilt_deg=tilt_deg, over_s=0.0, nudge_m_s=0.05),
+        ),
+        duration_s,
+    )
+
+
+def test_held_past_the_limit_the_ball_rocks_out_long_before_the_suction_gives_out():
+    """The limit is where the linearised motion first lets a disturbance grow:
+    held 1.5° below it the ball stays, 1.5° above it it rocks out. The jet
+    alone (the lift falling with height and the suction pulling back, each
+    taken by itself, the first version's test) would hold the ball to 43.7°."""
+    el = x.Elephant()
     limit = x.elephant_figures(el).tilt_limit_deg
-    tilted = x.run_elephant(el, (x.ElephantMove(at_s=1.0, tilt_deg=80.0, over_s=40.0),), 30.0)
-    assert tilted.fell_at_s is not None
-    assert limit < tilted.tilt_deg[-1] < limit + 3, "falls only once the jet cannot hold it, a little late"
+    assert _held(el, limit - 1.5, 35.0).fell_at_s is None
+    assert _held(el, limit + 1.5, 40.0).fell_at_s is not None
+    guess, tilt = (x.elephant_figures(el).float_height_m, 0.0), 0.0
+    while True:
+        found = ELEPHANT.balance(el, tilt + 0.1, guess)
+        d = 1e-5 * el.ball.diameter_m
+        if found is None:
+            break
+        s, e = found
+        lift = ELEPHANT.lift_n(el, s + d, e) - ELEPHANT.lift_n(el, s - d, e)
+        side = ELEPHANT.side_n(el, s, e + d) - ELEPHANT.side_n(el, s, e - d)
+        if lift >= 0 or side >= 0:
+            break
+        guess, tilt = found, tilt + 0.1
+    assert round(tilt, 1) == pytest.approx(43.7, abs=0.15)
+
+
+def test_the_auto_mode_s_quick_tilt_gets_past_the_limit_before_the_ball_falls():
+    """The page's auto mode: from the opening, 3° a second. The rocking takes
+    its time to grow, so the ball falls well past the limit."""
+    el = x.Elephant()
+    limit = x.elephant_figures(el).tilt_limit_deg
+    quick = x.run_elephant(el, (x.ElephantMove(at_s=0.0, tilt_deg=80.0, over_s=80 / 3),), 30.0)
+    assert quick.fell_at_s is not None
+    assert quick.tilt_deg[-1] > limit + 10
 
 
 def test_a_tilted_jet_holds_its_ball_lower_and_to_the_low_side():

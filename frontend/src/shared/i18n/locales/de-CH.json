@@ -857,7 +857,7 @@
         "height": "Ballmitte über dem Rüssel",
         "air_at_ball": "Luft am Ball",
         "off_axis": "Neben der Strahlachse",
-        "falls_at": "Fällt bei einer Neigung von",
+        "falls_at": "Ruhig bis zu einer Neigung von",
         "resting": "Auf dem Rüssel: Die Luft kann ihn nicht heben",
         "floating": "Schwebt",
         "fallen": "Aus der Luft gefallen"
@@ -916,7 +916,7 @@
         "height": "Warum er auf seiner Höhe bleibt: Weiter oben ist der Strahl breiter als der Ball, der Ball fängt weniger davon und sinkt; weiter unten fängt er mehr und steigt. Er schwebt dort, wo der Schub sein Gewicht kreuzt, {{height}} cm über dem Rüssel, und wippt um diesen Punkt {{bob}}-mal pro Sekunde, während die Luft ihn dämpft.",
         "middle": "Warum er in der Mitte bleibt: Zur Seite gestossen, zieht ihn die schnellere Luft auf seiner inneren Seite zurück, umso stärker, je weiter er abweicht, bis etwa {{offset}} cm neben der Achse. Darüber hinaus verlässt er den Strahl.",
         "rise": "Vom Rüssel auf seine Höhe: Der Ball schiesst darüber hinaus, kommt zurück und pendelt sich ein, das Wippen klingt ab wie bei einer gedämpften Feder. Die Kurve ist der Lauf des Rechenkerns für den Aufbau auf dem Bildschirm, derselbe, den die Seite oben abspielt.",
-        "tilt": "Wie weit sich der Rüssel neigen lässt: bis {{limit}}°. Davor hängt der Ball tiefer und zur tiefen Seite hin; bei {{limit}}° kann der Sog den Anteil des Gewichts, der quer zum Strahl zieht, nicht mehr halten.",
+        "tilt": "Wie weit sich der Rüssel neigen lässt: bis {{limit}}°. Davor hängt der Ball tiefer und zur tiefen Seite hin. Darüber fällt er nicht sofort heraus: Er beginnt zu schaukeln, entlang des Strahls und quer dazu, jedes Mal etwas weiter, bis er fällt. Das braucht Zeit, und wer den Rüssel schnell neigt wie der Automodus, kommt weiter, bevor der Ball fällt.",
         "lift_off": "Die Luft muss schnell genug sein, um den Ball überhaupt vom Rüssel zu heben: ab {{speed}} m/s.",
         "buoyancy": "Ein aufblasbarer Ball verdrängt Luft, die {{share}} % seines eigenen Gewichts wiegt, und die muss der Strahl nicht tragen.",
         "assumed": "Was angenommen ist: die Form des Strahls direkt am Rüssel (ein echter Strahl behält auf den ersten paar Durchmessern seine volle Geschwindigkeit auf der Achse), ein Widerstandsbeiwert von 0.47 für einen glatten Ball und der seitliche Anteil des Sogs. Die Zahlen sind die des Modells, nicht auf den Zentimeter die des Exponats.",
@@ -938,7 +938,7 @@
         "height": "Schwebt auf",
         "lift_off": "Hebt ab ab",
         "air": "Luft am Ball",
-        "limit": "Fällt bei einer Neigung von",
+        "limit": "Ruhig bis zu einer Neigung von",
         "bob": "Wippt",
         "flow": "Luft durch den Rüssel"
       }

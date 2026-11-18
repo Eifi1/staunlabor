@@ -857,7 +857,7 @@
         "height": "Centro de la pelota sobre la trompa",
         "air_at_ball": "Aire en la pelota",
         "off_axis": "Distancia al eje del chorro",
-        "falls_at": "Cae con una inclinación de",
+        "falls_at": "Estable hasta una inclinación de",
         "resting": "Sobre la trompa: el aire no puede levantarla",
         "floating": "Flotando",
         "fallen": "Ha caído del chorro de aire"
@@ -916,7 +916,7 @@
         "height": "Por qué se queda a su altura: más arriba, el chorro es más ancho que la pelota, así que la pelota capta menos de él y baja; más abajo capta más y sube. Flota donde el empuje se cruza con su peso, {{height}} cm por encima de la trompa, y oscila alrededor de ese punto {{bob}} veces por segundo mientras el aire la amortigua.",
         "middle": "Por qué se queda en el centro: si se la aparta hacia un lado, el aire más rápido de su lado interior la atrae de vuelta, tanto más fuerte cuanto más se aleja, hasta unos {{offset}} cm del eje. Más allá, está saliendo del chorro.",
         "rise": "De la trompa a su altura: la pelota sube más allá, vuelve y se asienta, y el balanceo se apaga como el de un resorte amortiguado. La curva es la simulación del motor de cálculo para el montaje en pantalla, la misma que la página reproduce arriba.",
-        "tilt": "Cuánto puede inclinarse la trompa: hasta {{limit}}°. Antes de eso, la pelota cuelga más baja y hacia el lado bajo; a {{limit}}°, la succión ya no puede sostener la parte del peso que tira transversalmente al chorro.",
+        "tilt": "Cuánto puede inclinarse la trompa: hasta {{limit}}°. Antes de eso, la pelota cuelga más baja y hacia el lado bajo. Más allá no cae enseguida: empieza a balancearse, a lo largo del chorro y de través, cada vez un poco más, hasta que cae. Eso lleva tiempo, y quien inclina la trompa deprisa, como el modo automático, llega más lejos antes de que la pelota caiga.",
         "lift_off": "Para que la pelota llegue siquiera a despegar de la trompa, el aire tiene que ser lo bastante rápido: a partir de {{speed}} m/s.",
         "buoyancy": "Una pelota hinchable desplaza aire que pesa el {{share}} % de su propio peso, y ese peso no tiene que sostenerlo el chorro.",
         "assumed": "Lo que se supone: la forma del chorro justo a la salida de la trompa (un chorro real mantiene toda su velocidad en el eje durante los primeros diámetros), un coeficiente de arrastre de 0.47 para una pelota lisa y la fracción lateral de la succión. Las cifras son las del modelo, no las de la exposición al centímetro.",
@@ -938,7 +938,7 @@
         "height": "Flota a",
         "lift_off": "Despega a partir de",
         "air": "Aire en la pelota",
-        "limit": "Cae con una inclinación de",
+        "limit": "Estable hasta una inclinación de",
         "bob": "Oscila",
         "flow": "Aire por la trompa"
       }

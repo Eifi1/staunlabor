@@ -610,7 +610,7 @@ describe("the elephant", () => {
     expect(
       await screen.findByText(/floats where the push crosses its weight, 36 cm above the trunk/),
     ).toBeInTheDocument();
-    expect(screen.getByText(/How far the trunk can tilt: up to 44°/)).toBeInTheDocument();
+    expect(screen.getByText(/How far the trunk can tilt: up to 32°/)).toBeInTheDocument();
     expect(screen.getByText(/from 12\.1 m\/s on/)).toBeInTheDocument();
     // Every equation with a letter in it explains them: all but the balance, which reuses the others'.
     await waitFor(() => expect(screen.getAllByLabelText(E.equation.symbols)).toHaveLength(7));

@@ -857,7 +857,7 @@
         "height": "A labda középpontja az ormány fölött",
         "air_at_ball": "Légsebesség a labdánál",
         "off_axis": "Eltérés a légsugár tengelyétől",
-        "falls_at": "Dőlés, amelynél leesik",
+        "falls_at": "Nyugodt marad eddig a dőlésig",
         "resting": "Az ormányon: a levegő nem tudja felemelni",
         "floating": "Lebeg",
         "fallen": "Kiesett a légsugárból"
@@ -916,7 +916,7 @@
         "height": "Miért marad a magasságában: feljebb a légsugár szélesebb a labdánál, így a labda kevesebbet fog fel belőle, és süllyed; lejjebb többet fog fel, és emelkedik. Ott lebeg, ahol a tolóerő metszi a súlyát, {{height}} cm-rel az ormány fölött, és e pont körül fel-le leng, másodpercenként {{bob}} lengéssel, miközben a levegő csillapítja.",
         "middle": "Miért marad középen: ha oldalra lökik, a labdát a belső oldalán gyorsabban áramló levegő visszahúzza, annál erősebben, minél messzebbre téved, egészen a tengelytől mintegy {{offset}} cm-ig. Azon túl már elhagyja a légsugarat.",
         "rise": "Az ormánytól a magasságáig: a labda túllendül rajta, visszatér és beáll, a lengés pedig lecseng, mint egy csillapított rugóé. A görbe a számítómotor futása a képernyőn látható összeállításra, ugyanaz, amelyet az oldal fent lejátszik.",
-        "tilt": "Mennyire dőlhet meg az ormány: legfeljebb {{limit}}°-ig. Addig a labda lejjebb és a mélyebb oldal felé lóg; {{limit}}°-nál a szívóhatás már nem tudja megtartani a súlynak azt a részét, amely a légsugárra merőlegesen húz.",
+        "tilt": "Mennyire dőlhet meg az ormány: legfeljebb {{limit}}°-ig. Addig a labda lejjebb és a mélyebb oldal felé lóg. Ezen túl nem esik ki azonnal: hintázni kezd a légsugár mentén és keresztben, minden alkalommal kicsit jobban, amíg le nem esik. Ez időbe telik, és aki gyorsan dönti az ormányt, ahogy az automatikus mód, tovább jut, mielőtt a labda leesik.",
         "lift_off": "A levegőnek elég gyorsnak kell lennie ahhoz, hogy egyáltalán felemelje a labdát az ormányról: {{speed}} m/s sebességtől kezdve.",
         "buoyancy": "Egy felfújható labda annyi levegőt szorít ki, amelynek súlya a labda saját súlyának {{share}} %-a, és ezt a légsugárnak nem kell megtartania.",
         "assumed": "Amit feltételezünk: a légsugár alakja közvetlenül az ormánynál (egy valódi légsugár az első néhány átmérőnyi szakaszon megtartja teljes sebességét a tengelyén), egy sima labda 0.47-es közegellenállási tényezője, valamint a szívóhatás oldalirányú hányada. Az értékek a modellé, nem centiméterre pontosan a kiállítási tárgyé.",
@@ -938,7 +938,7 @@
         "height": "Lebegési magasság",
         "lift_off": "Felemelkedési küszöb",
         "air": "Légsebesség a labdánál",
-        "limit": "Dőlés, amelynél leesik",
+        "limit": "Nyugodt marad eddig a dőlésig",
         "bob": "Fel-le lengés",
         "flow": "Levegő az ormányon át"
       }

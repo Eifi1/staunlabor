@@ -479,9 +479,16 @@ underside 28 cm, where the air reaching it has 7.4 m/s. It lifts off from
 jet is wider than the ball and the ball catches less of it: the lift falls with
 height, so the ball comes back to that height, bobbing at 0.54 Hz, and the air
 damps the bob. Off the axis the suction pulls it back, strongest about 7 cm
-out. Tilted, it hangs lower and to the low side, and at 43.7° no balance is
-left; tilted slowly in a run, it falls just past that. Tilted from the start,
-before it has risen, it falls well before: the rise carries it out sideways.
+out. Tilted, it hangs lower and to the low side, and from 31.7° it rocks:
+the limit is where the motion linearised about the balance (`stable`: its
+Jacobian by central differences, the characteristic polynomial by Faddeev and
+LeVerrier, Routh–Hurwitz) first lets a disturbance grow, a pair of roots
+crossing to growth (a Hopf bifurcation). Held 1.5° below it the ball stays,
+1.5° above it it rocks out. The first version asked only that the lift fall
+with height and the suction pull back, each alone, which holds to 43.7°; the
+mathematics check (2026-11-17) found the ball, held at 34°, falling after
+10 s. The rocking takes time to grow: the auto mode's 3° a second, from the
+opening, drops the ball only at about 47°.
 
 **What is assumed, and said on the page.** The jet's first diameters: a real
 jet keeps `U₀` on its axis for about five of them, and this one's virtual
@@ -497,8 +504,9 @@ high as Marcel saw it.
 `tests/unit/test_experiments.py` sums the jet's momentum flux across the whole
 plane with a radial rule of its own (it is conserved to 10⁻⁴ at every height),
 holds the 288-point rule to the closed form on the axis (0.2 %), and runs the
-ball from the rim to the stated height, back from a push, and out of a slowly
-tilted jet just past the stated limit.
+ball from the rim to the stated height and back from a push, holds it 1.5°
+below the stated limit and drops it 1.5° above, and finds the jet alone
+holding it to 43.7°.
 
 ## The smoke ring (`experiments.smoke`)
 

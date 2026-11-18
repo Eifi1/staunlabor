@@ -857,7 +857,7 @@
         "height": "Centre du ballon au-dessus de la trompe",
         "air_at_ball": "Air au niveau du ballon",
         "off_axis": "Écart à l’axe du jet",
-        "falls_at": "Tombe à une inclinaison de",
+        "falls_at": "Stable jusqu’à une inclinaison de",
         "resting": "Sur la trompe : l’air ne peut pas le soulever",
         "floating": "Flotte",
         "fallen": "Tombé hors du jet d’air"
@@ -916,7 +916,7 @@
         "height": "Pourquoi il reste à sa hauteur : plus haut, le jet est plus large que le ballon, qui en capte donc moins et descend ; plus bas, il en capte plus et monte. Il flotte là où la poussée croise son poids, à {{height}} cm au-dessus de la trompe, et oscille autour de ce point {{bob}} fois par seconde, tandis que l’air l’amortit.",
         "middle": "Pourquoi il reste au milieu : écarté sur le côté, le ballon est ramené par l’air plus rapide de son côté intérieur, d’autant plus fort qu’il s’écarte, jusqu’à environ {{offset}} cm de l’axe. Au-delà, il quitte le jet.",
         "rise": "De la trompe à sa hauteur : le ballon monte au-delà, revient et se stabilise, l’oscillation s’éteignant comme celle d’un ressort amorti. La courbe est la simulation du moteur de calcul pour le montage à l’écran, celle que la page joue plus haut.",
-        "tilt": "Jusqu’où la trompe peut s’incliner : jusqu’à {{limit}}°. Avant cela, le ballon pend plus bas et vers le côté bas ; à {{limit}}°, l’aspiration ne peut plus retenir la part du poids qui tire en travers du jet.",
+        "tilt": "Jusqu’où la trompe peut s’incliner : jusqu’à {{limit}}°. Avant cela, le ballon pend plus bas et vers le côté bas. Au-delà, il ne tombe pas tout de suite : il se met à osciller, le long du jet et en travers, un peu plus à chaque fois, jusqu’à tomber. Cela prend du temps, et une trompe inclinée vite, comme en mode automatique, va plus loin avant que le ballon tombe.",
         "lift_off": "L’air doit d’abord être assez rapide pour décoller le ballon de la trompe : à partir de {{speed}} m/s.",
         "buoyancy": "Un ballon gonflable déplace une quantité d’air qui pèse {{share}} % de son propre poids : autant que le jet n’a pas à porter.",
         "assumed": "Ce qui est supposé : la forme du jet juste à la sortie de la trompe (un vrai jet garde toute sa vitesse sur l’axe sur les premiers diamètres), un coefficient de traînée de 0.47 pour un ballon lisse, et la part latérale de l’aspiration. Les valeurs sont celles du modèle, pas celles de l’exposition au centimètre près.",
@@ -938,7 +938,7 @@
         "height": "Flotte à",
         "lift_off": "Décolle à partir de",
         "air": "Air au niveau du ballon",
-        "limit": "Tombe à une inclinaison de",
+        "limit": "Stable jusqu’à une inclinaison de",
         "bob": "Oscille",
         "flow": "Air à travers la trompe"
       }

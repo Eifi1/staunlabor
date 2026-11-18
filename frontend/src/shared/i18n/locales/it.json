@@ -857,7 +857,7 @@
         "height": "Centro della palla sopra la proboscide",
         "air_at_ball": "Aria all'altezza della palla",
         "off_axis": "Scostamento dall'asse del getto",
-        "falls_at": "Cade con un'inclinazione di",
+        "falls_at": "Stabile fino a un'inclinazione di",
         "resting": "Sulla proboscide: l'aria non riesce a sollevarla",
         "floating": "Sospesa",
         "fallen": "Caduta fuori dal getto d'aria"
@@ -916,7 +916,7 @@
         "height": "Perché resta alla sua altezza: più in alto il getto è più largo della palla, che ne cattura meno e scende; più in basso ne cattura di più e sale. Resta sospesa dove la spinta incrocia il suo peso, {{height}} cm sopra la proboscide, e oscilla attorno a quel punto {{bob}} volte al secondo, mentre l'aria la smorza.",
         "middle": "Perché resta al centro: spinta di lato, la palla viene richiamata dall'aria più veloce sul suo lato interno, tanto più forte quanto più si allontana, fino a circa {{offset}} cm dall'asse. Oltre, sta uscendo dal getto.",
         "rise": "Dalla proboscide alla sua altezza: la palla sale oltre, torna indietro e si assesta, e l'oscillazione si spegne come quella di una molla smorzata. La curva è la simulazione del motore di calcolo per il montaggio sullo schermo, la stessa che la pagina riproduce sopra.",
-        "tilt": "Quanto può inclinarsi la proboscide: fino a {{limit}}°. Prima di allora la palla sta più in basso e verso il lato basso; a {{limit}}° il risucchio non riesce più a trattenere la quota del peso che tira di traverso al getto.",
+        "tilt": "Quanto può inclinarsi la proboscide: fino a {{limit}}°. Prima di allora la palla sta più in basso e verso il lato basso. Oltre, non cade subito: comincia a dondolare, lungo il getto e di traverso, ogni volta un po' di più, finché cade. Questo richiede tempo, e chi inclina la proboscide in fretta, come la modalità automatica, arriva più in là prima che la palla cada.",
         "lift_off": "Già per staccare la palla dalla proboscide l'aria deve essere abbastanza veloce: da {{speed}} m/s in su.",
         "buoyancy": "Una palla gonfiabile sposta aria che pesa il {{share}} % del suo stesso peso: una parte che il getto non deve sostenere.",
         "assumed": "Che cosa si assume: la forma del getto subito all'uscita della proboscide (un getto reale mantiene sull'asse tutta la sua velocità per i primi diametri), un coefficiente di resistenza aerodinamica di 0,47 per una palla liscia e la quota laterale del risucchio. I valori sono quelli del modello, non quelli dell'exhibit al centimetro.",
@@ -938,7 +938,7 @@
         "height": "Sospesa a",
         "lift_off": "Si stacca a partire da",
         "air": "Aria all'altezza della palla",
-        "limit": "Cade con un'inclinazione di",
+        "limit": "Stabile fino a un'inclinazione di",
         "bob": "Oscilla",
         "flow": "Aria attraverso la proboscide"
       }

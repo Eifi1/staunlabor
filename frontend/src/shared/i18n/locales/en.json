@@ -857,7 +857,7 @@
         "height": "Ball's centre above the trunk",
         "air_at_ball": "Air at the ball",
         "off_axis": "Off the jet's axis",
-        "falls_at": "Falls at a tilt of",
+        "falls_at": "Steady up to a tilt of",
         "resting": "On the trunk: the air cannot lift it",
         "floating": "Floating",
         "fallen": "Fallen out of the air"
@@ -916,7 +916,7 @@
         "height": "Why it stays at its height: higher up the jet is wider than the ball, so the ball catches less of it and sinks; lower down it catches more and rises. It floats where the push crosses its weight, {{height}} cm above the trunk, and bobs about that point {{bob}} times a second while the air damps it.",
         "middle": "Why it stays in the middle: pushed aside, the ball is pulled back by the faster air on its inner side, the harder the farther it strays, up to about {{offset}} cm off the axis. Beyond that it is leaving the jet.",
         "rise": "From the trunk to its height: the ball shoots up past it, comes back and settles, the bob dying away as a damped spring's does. The curve is the engine's run for the build on screen, the one the page plays above.",
-        "tilt": "How far the trunk can tilt: up to {{limit}}°. Before that, the ball hangs lower and to the low side; at {{limit}}° the suction can no longer hold the share of the weight that pulls across the jet.",
+        "tilt": "How far the trunk can tilt: up to {{limit}}°. Before that, the ball hangs lower and to the low side. Past it, the ball does not drop out at once: it starts to rock, along the jet and across it, a little wider each time, until it falls. That takes time, and a trunk tilted quickly, as the auto mode does, gets further before the ball falls.",
         "lift_off": "The air must be fast enough to lift the ball off the trunk at all: from {{speed}} m/s on.",
         "buoyancy": "An inflatable ball pushes aside air weighing {{share}} % of its own weight, which the jet does not have to carry.",
         "assumed": "What is assumed: the jet's shape right at the trunk (a real jet keeps its full speed on the axis for the first few diameters), a smooth ball's drag coefficient of 0.47, and the sideways share of the suction. The figures are the model's, not the exhibit's to the centimetre.",
@@ -938,7 +938,7 @@
         "height": "Floats at",
         "lift_off": "Lifts off from",
         "air": "Air at the ball",
-        "limit": "Falls at a tilt of",
+        "limit": "Steady up to a tilt of",
         "bob": "Bobs",
         "flow": "Air through the trunk"
       }
