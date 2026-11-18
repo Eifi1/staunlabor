@@ -2208,7 +2208,7 @@
       },
       "sweet": {
         "step": "Egy kis lökés a jó ütemben többet mozdít, mint egy nagy a rosszban. Az asztal csak 1 mm-t megy ide-oda; a 80 cm-es pálcával ütemben, 2,21 Hz-en, annak csúcsa 78 mm-t leng ki, a szomszédai legfeljebb 4 mm-t. Három százalékkal az ütem mellett már csak 26 mm-t.",
-        "patience": "A rezonancia türelmet kíván: 2,21 Hz-en a kitérés 7,2 s alatt is csak alig kétharmadáig nő. Aki gyorsabban fut végig, lemarad róla: másodpercenként 0,05 Hz-cel ugyanez a pálca legfeljebb 40 mm-t leng ki, feleannyit, és csak 2,4 Hz-nél.",
+        "patience": "A rezonancia türelmet kíván: 2,21 Hz-en a kitérés 7,2 s alatt is csak alig kétharmadáig nő. Aki gyorsabban fut végig, lemarad róla: másodpercenként 0,05 Hz-cel ugyanez a pálca legfeljebb 39 mm-t leng ki, feleannyit, és csak 2,4 Hz-nél.",
         "everywhere": "Ugyanez az ütemtartás töri szét a poharat a megfelelő hangra, lengeti meg a hidat a menetelő léptek alatt, és engedi, hogy egy húr átvegye egy hangszer hangját."
       },
       "computed": {

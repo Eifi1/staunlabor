@@ -2208,7 +2208,7 @@
       },
       "sweet": {
         "step": "A small push at the right beat moves more than a big one at the wrong. The table goes only 1 mm to and fro; in step with the 80 cm rod, at 2.21 Hz, its tip swings 78 mm, its neighbours at most 4 mm. Three per cent off the beat, only 26 mm.",
-        "patience": "Resonance needs patience: at 2.21 Hz the swing grows in 7.2 s to just under two thirds. Sweep faster and you miss it: at 0.05 Hz a second the same rod swings at most 40 mm, half as far, and only at 2.4 Hz.",
+        "patience": "Resonance needs patience: at 2.21 Hz the swing grows in 7.2 s to just under two thirds. Sweep faster and you miss it: at 0.05 Hz a second the same rod swings at most 39 mm, half as far, and only at 2.4 Hz.",
         "everywhere": "The same keeping in step shatters a glass at the right note, sets a bridge swinging under marching feet and lets a string take up an instrument's note."
       },
       "computed": {

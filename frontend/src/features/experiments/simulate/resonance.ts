@@ -142,8 +142,7 @@ export function step(rack: Rack, s: Shaking, driveHz: number): Shaking {
 }
 
 /** The width of a rod's swing now: its tip's place and speed taken together at
- *  its own frequency. */
-export function swingM(rack: Rack, s: Shaking, rod: number): number {
-  const w = 2 * Math.PI * naturalHz(rack, rack.lengths_m[rod]);
-  return Math.hypot(s.q[rod], s.v[rod] / w);
+ *  the drive's frequency, which a steady swing keeps exactly. */
+export function swingM(s: Shaking, rod: number, driveHz: number): number {
+  return Math.hypot(s.q[rod], s.v[rod] / (2 * Math.PI * driveHz));
 }

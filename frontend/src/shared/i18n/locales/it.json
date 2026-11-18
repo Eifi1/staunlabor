@@ -2208,7 +2208,7 @@
       },
       "sweet": {
         "step": "Una piccola spinta al ritmo giusto muove più di una grande al ritmo sbagliato. Il tavolo va avanti e indietro di solo 1 mm; al passo con l'asta di 80 cm, a 2,21 Hz, la sua punta oscilla di 78 mm, le vicine al massimo di 4 mm. Al tre per cento dal ritmo, solo 26 mm.",
-        "patience": "La risonanza vuole pazienza: a 2,21 Hz l'oscillazione cresce in 7,2 s solo fino a poco meno di due terzi. Chi scorre più in fretta la perde: a 0,05 Hz al secondo la stessa asta oscilla al massimo di 40 mm, la metà, e solo a 2,4 Hz.",
+        "patience": "La risonanza vuole pazienza: a 2,21 Hz l'oscillazione cresce in 7,2 s solo fino a poco meno di due terzi. Chi scorre più in fretta la perde: a 0,05 Hz al secondo la stessa asta oscilla al massimo di 39 mm, la metà, e solo a 2,4 Hz.",
         "everywhere": "Lo stesso andare al passo fa scoppiare un bicchiere alla nota giusta, fa oscillare un ponte sotto passi di marcia e lascia che una corda raccolga la nota di uno strumento."
       },
       "computed": {

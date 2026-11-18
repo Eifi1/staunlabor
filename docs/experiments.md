@@ -1187,7 +1187,12 @@ in closed form; the live swing `√(q² + (v/ω)²)`.
 1 mm each way). They ring at 1.41, 1.74, 2.21, 2.88, 3.92 and 5.65 Hz. In step
 with the 80 cm rod its tip swings 78 mm, the neighbours at most 4; 3 % off,
 26 mm. From rest a swing grows to 1 − 1/e in `1/(ζω)`, 7.2 s at 2.21 Hz. A
-sweep from 1 Hz at 0.05 Hz/s gives the same rod only 40 mm, and at 2.4 Hz.
+sweep from 1 Hz at 0.05 Hz/s gives the same rod only 39 mm, half, and at
+2.4 Hz. The page measures a rod's swing as `√(q² + (v/Ω)²)`, at the drive's
+frequency, which a steady swing keeps exactly; the first version took the
+rod's own `ω`, and the mathematics check (2026-11-17) found the dashed record
+of a sweep up to 4.6 times above the steady curves for rods driven well above
+their tone (and the sweep's widest at 40 mm).
 
 **The page.** The rods on their table (the table's millimetre true to scale,
 which is the point), each rod's frequency under it; the table's beat, a sweep
@@ -1208,7 +1213,8 @@ first), the rod's stiffening at wide swings, the table's give.
 **Checked by** `tests/unit/test_experiments.py`: β₁, β₁² and Γ against the
 tables; the second mode's ratio found independently; the six frequencies; the
 78, 4 and 26 mm; the stepped swings settling on the closed form within 1 %;
-the build-up to 1 − 1/e in 7.2 s; the sweep's 40 mm at 2.4 Hz.
+the build-up to 1 − 1/e in 7.2 s; the sweep's 39 mm at 2.4 Hz, the widest
+`|q|` itself; a rod driven at 4.5 times its tone measured as it swings.
 
 ## The gyroscope wheel (`experiments.gyroscope`)
 

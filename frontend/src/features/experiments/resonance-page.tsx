@@ -192,7 +192,7 @@ function ResonancePlay({
         if (m.sweeping) {
           m.drive += SWEEP_HZ_PER_S * STEP_S;
           if (m.i % RECORD_EVERY === 0) {
-            m.recorded.push({ hz: m.drive, swings: rack.lengths_m.map((_, rod) => swingM(rack, m.s, rod)) });
+            m.recorded.push({ hz: m.drive, swings: rack.lengths_m.map((_, rod) => swingM(m.s, rod, m.drive)) });
           }
           if (m.i % REDRAW_EVERY === 0) noted = true;
           if (m.drive >= SWEEP_TO_HZ) {
@@ -212,7 +212,7 @@ function ResonancePlay({
     return () => cancelAnimationFrame(raf);
   }, [running, speed, rack]);
 
-  const swings = rack.lengths_m.map((_, rod) => swingM(rack, frame.s, rod));
+  const swings = rack.lengths_m.map((_, rod) => swingM(frame.s, rod, frame.drive));
   const pitches = useMemo(() => rack.lengths_m.map((length) => naturalHz(rack, length) * OCTAVES_UP), [rack]);
   const levels = useMemo(() => swings.map((swing) => (running ? swing / LOUDEST_M : 0)), [swings, running]);
   const tones = useTones(sound && !preview, pitches, levels);

@@ -2208,7 +2208,7 @@
       },
       "sweet": {
         "step": "Un pequeño empujón al ritmo justo mueve más que uno grande al ritmo equivocado. La mesa va y viene solo 1 mm; al compás de la varilla de 80 cm, a 2,21 Hz, su punta oscila 78 mm, sus vecinas como mucho 4 mm. Un tres por ciento fuera del ritmo, solo 26 mm.",
-        "patience": "La resonancia requiere paciencia: a 2,21 Hz la oscilación crece en 7,2 s hasta algo menos de dos tercios. Quien barre más deprisa se la pierde: a 0,05 Hz por segundo la misma varilla oscila como mucho 40 mm, la mitad, y solo a 2,4 Hz.",
+        "patience": "La resonancia requiere paciencia: a 2,21 Hz la oscilación crece en 7,2 s hasta algo menos de dos tercios. Quien barre más deprisa se la pierde: a 0,05 Hz por segundo la misma varilla oscila como mucho 39 mm, la mitad, y solo a 2,4 Hz.",
         "everywhere": "El mismo ir al compás hace estallar un vaso con la nota justa, balancea un puente bajo pasos de marcha y deja que una cuerda recoja la nota de un instrumento."
       },
       "computed": {

@@ -188,11 +188,12 @@ def step(rack: Rack, s: Shaking, drive_hz: float) -> Shaking:
     )
 
 
-def swing_m(rack: Rack, s: Shaking, rod: int) -> float:
+def swing_m(s: Shaking, rod: int, drive_hz: float) -> float:
     """The width of a rod's swing now: its tip's place and speed taken together
-    at its own frequency, ``√(q² + (v/ω)²)``."""
-    w = 2 * math.pi * natural_hz(rack, rack.lengths_m[rod])
-    return math.hypot(s.q[rod], s.v[rod] / w)
+    at the drive's frequency, ``√(q² + (v/Ω)²)``, which a steady swing keeps
+    exactly. Taken at the rod's own frequency, as it first was, it measured a
+    rod driven well above its tone up to 4.6 times as wide as it swings."""
+    return math.hypot(s.q[rod], s.v[rod] / (2 * math.pi * drive_hz))
 
 
 @dataclass(frozen=True)

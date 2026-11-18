@@ -2269,7 +2269,7 @@ def test_in_step_a_swing_grows_to_two_thirds_in_one_over_zeta_omega():
     s = resonance.start(rack)
     for _ in range(round(tau / resonance.STEP_S)):
         s = resonance.step(rack, s, beat)
-    grown = resonance.swing_m(rack, s, 2) / x.rod_steady_m(rack, 0.8, beat)
+    grown = resonance.swing_m(s, 2, beat) / x.rod_steady_m(rack, 0.8, beat)
     assert grown == pytest.approx(1 - math.exp(-1), abs=0.02)
 
 
@@ -2278,16 +2278,42 @@ def test_swept_at_a_twentieth_of_a_hertz_a_second_the_rod_reaches_half_its_swing
 
     rack = x.ResonanceRack()
     s = resonance.start(rack)
-    widest, at = 0.0, 0.0
+    widest, at, tip = 0.0, 0.0, 0.0
     # The page's sweep: from 1 Hz, 0.05 Hz a second.
     for i in range(round(30 / resonance.STEP_S)):
         drive = 1.0 + 0.05 * i * resonance.STEP_S
         s = resonance.step(rack, s, drive)
-        swing = resonance.swing_m(rack, s, 2)
+        swing = resonance.swing_m(s, 2, drive)
         if swing > widest:
             widest, at = swing, drive
-    assert round(widest * 1000) == 40
+        tip = max(tip, abs(s.q[2]))
+    assert round(widest * 1000) == 39 == round(tip * 1000)
     assert round(at, 1) == 2.4
+    # Half the 78 mm in step.
+    assert widest / x.rod_steady_m(rack, 0.8, x.rod_hz(rack, 0.8)) == pytest.approx(0.5, abs=0.01)
+
+
+def test_a_rod_driven_far_above_its_tone_is_measured_as_wide_as_it_swings():
+    """The measure takes the tip's place and speed at the drive's frequency: a
+    steady swing at 6.3 Hz of the metre rod, whose tone is 1.41 Hz, is as wide
+    as its tip goes. At the rod's own frequency it read 4.5 times that."""
+    from staunlabor.domain.experiments import resonance
+
+    rack = x.ResonanceRack(lengths_m=(1.0,))
+    drive = 6.3
+    s = resonance.start(rack)
+    for _ in range(round(100 / resonance.STEP_S)):
+        s = resonance.step(rack, s, drive)
+    own = 2 * math.pi * x.rod_hz(rack, 1.0)
+    tip = measured = at_own = 0.0
+    for _ in range(round(1 / drive / resonance.STEP_S) + 1):
+        s = resonance.step(rack, s, drive)
+        tip = max(tip, abs(s.q[0]))
+        measured = max(measured, resonance.swing_m(s, 0, drive))
+        at_own = max(at_own, math.hypot(s.q[0], s.v[0] / own))
+    assert measured == pytest.approx(tip, rel=0.005)
+    assert tip == pytest.approx(x.rod_steady_m(rack, 1.0, drive), rel=0.01)
+    assert round(at_own / tip, 1) == 4.5
 
 
 def test_the_rack_refuses_what_it_cannot_hold():
