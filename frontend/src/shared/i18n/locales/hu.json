@@ -1109,7 +1109,7 @@
         "youngs": "Az elasztomer merevsége (Young-modulus)",
         "youngs_hint": "Becsült érték: a puha gumié 1 és 10 MPa között van. Ez szabja meg, milyen erősen és milyen röviden nyomják egymást a labdák, az emelkedést pedig csak kevéssé változtatja meg.",
         "floor_e": "Visszapattanás a padlón",
-        "e_hint": "A közeledési sebességnek az a hányada, amelyet egy érintkezés visszaad: 1 semmit sem veszít, egy elasztomer labda nagyjából 0.85.",
+        "e_hint": "A közeledési sebességnek az a hányada, amelyet egy érintkezés visszaad: 1 semmit sem veszít, egy elasztomer labda nagyjából 0.85. A csillapítás képlete 0,85-től felfelé 2 %-on belül tartja; alatta kevesebbet ad vissza: 0,3-nál egyötödével kevesebbet.",
         "ball_e": "Visszapattanás két labda között"
       },
       "model": {
@@ -1159,7 +1159,7 @@
         "energy": "Mégis annak az energiának, amellyel az egész oszlop a padlónak ütközött, {{share}} %-a a legkisebb labdában távozik.",
         "flip": "Fordítsa meg az oszlopot, és már nem ágyú: a felül lévő nagy labda kevésbé emelkedik vissza, mint amennyit esett; az alatta lévő könnyű labdák csak felfogják.",
         "name": "Miért ágyú: a fizikakönyvek Galilei-ágyúnak nevezik, mert a kis labdát az oszlop függőlegesen felfelé lövi ki, mintha egy ágyúcsőből. Oldalra semmit sem lő ki.",
-        "assumed": "Amit feltételezünk: tömör, 1100 kg/m³ sűrűségű labdák, az elasztomer merevsége és rugalmassága, Hertz törvényét követő érintkezések olyan csillapítással, amely a közeledési sebesség rögzített hányadát adja vissza, valamint merev padló. A huzalon fellépő súrlódást és a labdák pörgését kihagytuk."
+        "assumed": "Amit feltételezünk: tömör, 1100 kg/m³ sűrűségű labdák, az elasztomer merevsége és rugalmassága, Hertz törvényét követő érintkezések olyan csillapítással, amely a közeledési sebesség rögzített hányadát adja vissza, valamint merev padló. Hertz törvénye kis benyomódásokra érvényes; az alsó labda a sugara egyötödével nyomódik be. A huzalon fellépő súrlódást és a labdák pörgését kihagytuk."
       }
     },
     "wave": {

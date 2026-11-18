@@ -1109,7 +1109,7 @@
         "youngs": "Rigidezza dell'elastomero (modulo di Young)",
         "youngs_hint": "Una stima: la gomma morbida ha da 1 a 10 MPa. Determina quanto forte e quanto brevemente premono le palle, e cambia la risalita solo di poco.",
         "floor_e": "Rimbalzo sul pavimento",
-        "e_hint": "La quota della velocità di avvicinamento che un contatto restituisce: 1 non perde nulla, una palla di elastomero circa 0,85.",
+        "e_hint": "La quota della velocità di avvicinamento che un contatto restituisce: 1 non perde nulla, una palla di elastomero circa 0,85. La formula dello smorzamento lo rispetta al 2 % da 0,85 in su; più in basso restituisce meno: un quinto in meno a 0,3.",
         "ball_e": "Rimbalzo tra due palle"
       },
       "model": {
@@ -1159,7 +1159,7 @@
         "energy": "Eppure il {{share}} % dell'energia con cui l'intera pila ha colpito il pavimento se ne va nella palla più piccola.",
         "flip": "Capovolga la pila e non è più un cannone: la palla grande in cima risale meno di quanto è caduta; le palle leggere sotto si limitano ad attutirla.",
         "name": "Perché un cannone: i libri di fisica lo chiamano cannone di Galileo, perché la palla piccola viene sparata dritta verso l'alto fuori dalla pila, come dalla canna di un cannone. Nulla viene sparato di lato.",
-        "assumed": "Che cosa si assume: palle piene di 1100 kg/m³, la rigidezza dell'elastomero e quanto è elastico, contatti che seguono la legge di Hertz con uno smorzamento che restituisce una quota fissa della velocità di avvicinamento, e un pavimento rigido. L'attrito sul filo e la rotazione delle palle sono tralasciati."
+        "assumed": "Che cosa si assume: palle piene di 1100 kg/m³, la rigidezza dell'elastomero e quanto è elastico, contatti che seguono la legge di Hertz con uno smorzamento che restituisce una quota fissa della velocità di avvicinamento, e un pavimento rigido. La legge di Hertz vale per piccole deformazioni; la palla in basso si schiaccia di un quinto del suo raggio. L'attrito sul filo e la rotazione delle palle sono tralasciati."
       }
     },
     "wave": {

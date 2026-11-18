@@ -1109,7 +1109,7 @@
         "youngs": "Steifigkeit des Elastomers (Elastizitätsmodul)",
         "youngs_hint": "Geschätzt: Weicher Gummi hat 1 bis 10 MPa. Er bestimmt, wie stark und wie kurz die Kugeln drücken, und ändert den Aufstieg nur wenig.",
         "floor_e": "Rückprall am Boden",
-        "e_hint": "Der Anteil der Annäherungsgeschwindigkeit, den ein Kontakt zurückgibt: 1 verliert nichts, eine Elastomerkugel etwa 0,85.",
+        "e_hint": "Der Anteil der Annäherungsgeschwindigkeit, den ein Kontakt zurückgibt: 1 verliert nichts, eine Elastomerkugel etwa 0,85. Die Formel der Dämpfung trifft ihn ab 0,85 auf 2 % genau; darunter gibt sie weniger zurück, bei 0,3 ein Fünftel weniger.",
         "ball_e": "Rückprall zwischen zwei Kugeln"
       },
       "model": {
@@ -1159,7 +1159,7 @@
         "energy": "Trotzdem verlassen {{share}} % der Energie, mit der der ganze Stapel auf den Boden traf, den Stapel in der kleinsten Kugel.",
         "flip": "Drehen Sie den Stapel um, und er ist keine Kanone mehr: Die grosse Kugel oben steigt weniger hoch, als sie gefallen ist; die leichten Kugeln darunter federn sie nur ab.",
         "name": "Warum Kanone: Physikbücher nennen den Versuch «galileische Kanone», weil die kleine Kugel senkrecht aus dem Stapel geschossen wird wie aus einem Rohr. Seitwärts wird nichts abgefeuert.",
-        "assumed": "Angenommen sind: volle Kugeln von 1100 kg/m³, die Steifigkeit des Elastomers und wie elastisch es ist, Kontakte nach Hertz mit einer Dämpfung, die einen festen Anteil der Annäherungsgeschwindigkeit zurückgibt, und ein starrer Boden. Die Reibung am Draht und der Drall der Kugeln sind weggelassen."
+        "assumed": "Angenommen sind: volle Kugeln von 1100 kg/m³, die Steifigkeit des Elastomers und wie elastisch es ist, Kontakte nach Hertz mit einer Dämpfung, die einen festen Anteil der Annäherungsgeschwindigkeit zurückgibt, und ein starrer Boden. Das Gesetz von Hertz gilt für kleine Eindrückungen; die unterste Kugel wird um ein Fünftel ihres Radius eingedrückt. Die Reibung am Draht und der Drall der Kugeln sind weggelassen."
       }
     },
     "wave": {

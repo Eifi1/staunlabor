@@ -608,7 +608,12 @@ barrel).
   rigid and two balls of one elastomer halving `E*`; Young's modulus 3 MPa and
   Poisson's ratio 0.5 (rubber), both assumed. **Damped as Flores et al. (2011)
   give it**, `·(1 + 8(1 − e)/(5e)·δ̇/δ̇₀)`, so a contact gives back about the
-  share `e` (0.85, assumed) of the speed it closed at — to 2 %. `δ̇₀` is the
+  share `e` (0.85, assumed) of the speed it closed at — to 2 % from 0.85 up;
+  fitted near 1, it gives back less the lower `e`, 9 % less at 0.5 and a fifth
+  less at the slider's 0.3, which the slider's hint says (the mathematics
+  check, 2026-11-17). Hertz's law is for small dents, where the exhibit's
+  bottom ball squashes by a fifth of its radius; the page says so among what
+  is assumed. `δ̇₀` is the
   fastest the contact has been struck in this compression: in a touching stack
   the contacts above close gently in the fall or as the bottom ball slows, and
   are then pressed far faster (the middle one closes at 1.1 m/s and is struck

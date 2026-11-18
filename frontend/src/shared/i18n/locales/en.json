@@ -1109,7 +1109,7 @@
         "youngs": "Stiffness of the elastomer (Young's modulus)",
         "youngs_hint": "A guess: soft rubber is 1 to 10 MPa. It sets how hard and how briefly the balls press, and changes the climb only a little.",
         "floor_e": "Bounce on the floor",
-        "e_hint": "The share of the closing speed a contact gives back: 1 loses nothing, an elastomer ball about 0.85.",
+        "e_hint": "The share of the closing speed a contact gives back: 1 loses nothing, an elastomer ball about 0.85. The damping's formula holds it to 2 % from 0.85 up; lower, it gives back less: a fifth less at 0.3.",
         "ball_e": "Bounce between two balls"
       },
       "model": {
@@ -1159,7 +1159,7 @@
         "energy": "Still, {{share}} % of the energy the whole stack hit the floor with leaves in the smallest ball.",
         "flip": "Turn the stack over and it is no cannon: the big ball on top climbs back less than it fell, the light balls below only cushioning it.",
         "name": "Why a cannon: physics books call it the Galilean cannon, because the small ball is shot straight up out of the stack as if out of a barrel. Nothing in it is fired sideways.",
-        "assumed": "What is assumed: solid balls of 1100 kg/m³, the elastomer's stiffness and how springy it is, contacts that follow Hertz's law with damping that gives back a fixed share of the closing speed, a rigid floor. The wire's friction and the balls' spin are left out."
+        "assumed": "What is assumed: solid balls of 1100 kg/m³, the elastomer's stiffness and how springy it is, contacts that follow Hertz's law with damping that gives back a fixed share of the closing speed, a rigid floor. Hertz's law is for small dents; the bottom ball squashes by a fifth of its radius. The wire's friction and the balls' spin are left out."
       }
     },
     "wave": {

@@ -1259,6 +1259,18 @@ def test_the_damping_gives_back_about_e_of_the_closing_speed():
     contact = x.cannon_drop(one, 1.0).contacts[0]
     assert contact.parting_m_s / contact.closing_m_s == pytest.approx(0.85, rel=0.02)
     assert x.cannon_launch(one).times_drop == pytest.approx(0.85**2, rel=0.05)
+    # Fitted near 1, it gives back less the lower e: a fifth less at the
+    # slider's 0.3, which the slider's hint says.
+    for e, short in ((0.85, 0.02), (0.95, 0.01)):
+        c = x.cannon_drop(dataclasses.replace(one, floor_restitution=e), 1.0).contacts[0]
+        assert 1 - c.parting_m_s / c.closing_m_s / e < short
+    low = x.cannon_drop(dataclasses.replace(one, floor_restitution=0.3), 1.0).contacts[0]
+    assert round(1 - low.parting_m_s / low.closing_m_s / 0.3, 1) == 0.2
+
+
+def test_the_exhibit_s_bottom_ball_squashes_by_a_fifth_of_its_radius_far_past_hertz_s_small_dents():
+    floor = next(c for c in x.cannon_figures(x.BallStack()).contacts if c.contact == 0)
+    assert round(floor.peak_overlap_m / 0.05, 1) == 0.2
 
 
 def test_the_exhibit_s_three_contacts_overlap_and_press_with_a_kilonewton_at_the_floor():

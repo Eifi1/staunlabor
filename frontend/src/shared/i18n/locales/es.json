@@ -1109,7 +1109,7 @@
         "youngs": "Rigidez del elastómero (módulo de Young)",
         "youngs_hint": "Valor supuesto: la goma blanda tiene de 1 a 10 MPa. Determina con cuánta fuerza y durante qué poco tiempo se aprietan las pelotas, y cambia la subida solo un poco.",
         "floor_e": "Rebote en el suelo",
-        "e_hint": "La fracción de la velocidad de aproximación que devuelve un contacto: 1 no pierde nada; una pelota de elastómero, alrededor de 0.85.",
+        "e_hint": "La fracción de la velocidad de aproximación que devuelve un contacto: 1 no pierde nada; una pelota de elastómero, alrededor de 0.85. La fórmula de la amortiguación lo cumple con un 2 % desde 0,85; por debajo devuelve menos: una quinta parte menos a 0,3.",
         "ball_e": "Rebote entre dos pelotas"
       },
       "model": {
@@ -1159,7 +1159,7 @@
         "energy": "Aun así, el {{share}} % de la energía con la que toda la pila llegó al suelo sale en la pelota más pequeña.",
         "flip": "Dé la vuelta a la pila y ya no es un cañón: la pelota grande de arriba vuelve a subir menos de lo que cayó; las ligeras de abajo solo la amortiguan.",
         "name": "Por qué un cañón: los libros de física lo llaman el cañón de Galileo, porque la pelota pequeña sale disparada de la pila en vertical hacia arriba, como de un tubo. Nada sale disparado hacia los lados.",
-        "assumed": "Lo que se supone: pelotas macizas de 1100 kg/m³, la rigidez del elastómero y lo elástico que es, contactos que siguen la ley de Hertz con un amortiguamiento que devuelve una fracción fija de la velocidad de aproximación, y un suelo rígido. Se dejan fuera el rozamiento con el alambre y el giro de las pelotas."
+        "assumed": "Lo que se supone: pelotas macizas de 1100 kg/m³, la rigidez del elastómero y lo elástico que es, contactos que siguen la ley de Hertz con un amortiguamiento que devuelve una fracción fija de la velocidad de aproximación, y un suelo rígido. La ley de Hertz es para abolladuras pequeñas; la pelota de abajo se aplasta una quinta parte de su radio. Se dejan fuera el rozamiento con el alambre y el giro de las pelotas."
       }
     },
     "wave": {

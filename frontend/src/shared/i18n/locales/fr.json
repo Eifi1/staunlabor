@@ -1109,7 +1109,7 @@
         "youngs": "Raideur de l’élastomère (module d’Young)",
         "youngs_hint": "Valeur supposée : un caoutchouc souple se situe entre 1 et 10 MPa. Ce module fixe la force et la brièveté avec lesquelles les balles se pressent, et ne modifie que peu la montée.",
         "floor_e": "Rebond sur le sol",
-        "e_hint": "La part de la vitesse de rapprochement qu’un contact restitue : 1 ne perd rien, une balle en élastomère environ 0.85.",
+        "e_hint": "La part de la vitesse de rapprochement qu’un contact restitue : 1 ne perd rien, une balle en élastomère environ 0.85. La formule de l’amortissement le tient à 2 % près à partir de 0,85 ; en dessous, elle rend moins : un cinquième de moins à 0,3.",
         "ball_e": "Rebond entre deux balles"
       },
       "model": {
@@ -1159,7 +1159,7 @@
         "energy": "Pourtant, {{share}} % de l’énergie avec laquelle toute la pile a frappé le sol repart dans la plus petite balle.",
         "flip": "Retournez la pile, et ce n’est plus un canon : la grosse balle du haut remonte moins haut qu’elle n’est tombée ; les balles légères en dessous ne font que l’amortir.",
         "name": "Pourquoi un canon : les livres de physique l’appellent le canon de Galilée, parce que la petite balle est projetée tout droit vers le haut hors de la pile, comme si elle sortait d’un tube. Rien n’y est tiré de côté.",
-        "assumed": "Ce qui est supposé : des balles pleines de 1100 kg/m³, la raideur de l’élastomère et son élasticité, des contacts qui suivent la loi de Hertz avec un amortissement qui restitue une part fixe de la vitesse de rapprochement, et un sol rigide. Le frottement sur le fil et la rotation des balles sont laissés de côté."
+        "assumed": "Ce qui est supposé : des balles pleines de 1100 kg/m³, la raideur de l’élastomère et son élasticité, des contacts qui suivent la loi de Hertz avec un amortissement qui restitue une part fixe de la vitesse de rapprochement, et un sol rigide. La loi de Hertz vaut pour de petites indentations ; la balle du bas s’écrase d’un cinquième de son rayon. Le frottement sur le fil et la rotation des balles sont laissés de côté."
       }
     },
     "wave": {
