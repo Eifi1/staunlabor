@@ -320,6 +320,11 @@ def test_the_default_build_reads_on_the_exhibit_s_meter():
     coasting = x.run_coil(ex, None, 6.0)
     assert max(abs(i) for i in pumped.current_a) < coil.METER_RANGE_A
     assert 0.005 < max(abs(i) for i in coasting.current_a) < 0.05
+    # Coasting through from halfway up a ramp about 9 mA, from the top 19.
+    assert round(max(abs(i) for i in coasting.current_a) * 1000) == 9
+    top = -(ex.track.flat_length_m / 2 + ex.track.ramp_length_m) + 1e-6
+    from_top = coil.run(ex, None, 3.0, start_x_m=top)
+    assert round(max(abs(i) for i in from_top.current_a) * 1000) == 19
 
 
 def test_plus_coming_in_and_minus_going_out_pumps_the_car_up_both_ramps():

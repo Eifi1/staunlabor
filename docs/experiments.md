@@ -224,9 +224,11 @@ coil stays closed through the meter (`Idle.CLOSED`). A Ø 20 × 10 mm NdFeB magn
 (B_r 1.3 T); a 1600-turn coil of 0.26 mm wire, 60 mm mean diameter and 50 mm
 long (94 Ω, 118 mH); a 9 V block; a 150 g car; ramps 30 cm along an arc of 0.9 m radius, 49.5 mm high and 19° steep at the top,
 either side of a 20 cm flat. With a button held the coil draws 96 mA (the meter,
-switched out, reads nothing); coasting through, the meter reads about 14 mA, and the car needs a handful of good passes to reach the top (the auto mode: six, from halfway up the left ramp). More
-turns of thinner wire lower the current without lowering what a pass gains,
-because `Ψ` grows with the turns as fast as `1/R` falls; a first guess of 400
+switched out, reads nothing); coasting through, the meter reads about 9 mA from
+halfway up a ramp and 19 mA from the top (the first version said 14), and the car needs a handful of good passes to reach the top (the auto mode: six, from halfway up the left ramp). More
+turns of the same wire lower the current without lowering what a pass gains,
+because `Ψ` grows with the turns as fast as `1/R` falls (of thinner wire, as
+the first version said, `R` grows faster and a pass gains less); a first guess of 400
 turns at 3 V drew 455 mA, off the meter's scale. All of it is a slider.
 
 **What it shows.**
