@@ -1034,7 +1034,10 @@
         "both": "Entrambe crescono insieme con la rapidità — l'intensità dell'anello e la sua velocità —, ed è per questo che la finestra ha due estremi.",
         "force": "E la mano paga per una pressione rapida: la contropressione dell'aria cresce con il quadrato della rapidità, {{fast}} N per un colpo secco contro {{slow}} N per una spinta lenta, dove conta solo la membrana.",
         "assumed": "Che cosa si assume: le due soglie, tarate sull'exhibit (un anello riesce meglio con circa mezzo secondo), le dimensioni dell'anello e del suo nucleo, come le hanno gli anelli misurati, e la tensione della membrana. L'oscillazione propria della membrana e il risucchio al rilascio sono tralasciati.",
-        "none": "Con queste impostazioni nessuna pressione produce un anello: la finestra si è chiusa."
+        "none": "Con queste impostazioni nessuna pressione produce un anello: la finestra si è chiusa.",
+        "open_slow": "Con così poca corrente d'aria una pressione completa fa un anello a qualsiasi ritmo più lento di {{fastest}} s: nessuno è troppo lento per l'aria della sala; solo un colpo più rapido diventa turbolento.",
+        "open_fast": "Con una soglia così alta una pressione completa fa un anello a qualsiasi ritmo più rapido di {{slowest}} s: nessun colpo diventa turbolento; solo una spinta più lenta viene portata via.",
+        "open_both": "Con queste impostazioni ogni pressione completa fa un anello, per quanto rapida o lenta."
       },
       "chart": {
         "duration": "Durata della pressione",

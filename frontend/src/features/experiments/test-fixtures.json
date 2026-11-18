@@ -21149,7 +21149,9 @@
         "peak_force_n": 48.38974689055628,
         "verdict": "too_slow"
       }
-    ]
+    ],
+    "open_fast": false,
+    "open_slow": false
   },
   "cannon": {
     "masses_kg": [

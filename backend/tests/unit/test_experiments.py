@@ -1148,6 +1148,20 @@ def test_too_fast_smears_too_slow_drifts_and_about_half_a_second_makes_a_ring():
     ring = x.ring_from_push(ex, x.Push(0.08, 0.5))
     assert ring.reynolds == pytest.approx(67224, abs=1)
     assert ring.speed_m_s == pytest.approx(1.28, abs=0.005)
+    assert not f.open_fast and not f.open_slow
+
+
+def test_with_a_draught_of_a_few_cm_s_every_press_slower_than_a_jab_makes_a_ring():
+    """No slow end: even a 20 s push outruns so little draught. The page said
+    that no press makes a ring at all (the mathematics check, 2026-11-17); a
+    threshold high enough leaves the fast end open the same way."""
+    for draught in (0.0, 0.03):
+        f = x.smoke_figures(dataclasses.replace(x.SmokeExhibit(), room=x.Room(draught_m_s=draught)))
+        assert f.open_slow and not f.open_fast
+        assert f.slowest_s is None and f.best_s is None
+        assert f.fastest_s == pytest.approx(0.210, abs=5e-4)
+    still = x.smoke_figures(dataclasses.replace(x.SmokeExhibit(), room=x.Room(turbulent_reynolds=1e9)))
+    assert still.open_fast and not still.open_slow and still.slowest_s == pytest.approx(1.284, abs=5e-4)
 
 
 def test_the_hand_feels_the_skin_and_an_air_pressure_that_grows_with_the_square_of_the_pace():

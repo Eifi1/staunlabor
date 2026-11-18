@@ -1034,7 +1034,10 @@
         "both": "Both grow together with the pace — the ring's strength and its speed — which is why the window has two ends.",
         "force": "And the hand pays for a fast press: the air's back pressure grows with the square of the pace, {{fast}} N for a jab against {{slow}} N for a slow push, where only the skin pushes back.",
         "assumed": "What is assumed: the two thresholds, set to the exhibit (a ring is best at about half a second), the ring's size and core, as measured rings have them, and the skin's tension. The skin's own swing and the suction when you let go are left out.",
-        "none": "With these settings no press makes a ring: the window has closed."
+        "none": "With these settings no press makes a ring: the window has closed.",
+        "open_slow": "With so little draught a full press makes a ring at any pace slower than {{fastest}} s: none is too slow to outrun the hall's air; only a quicker jab turns turbulent.",
+        "open_fast": "With so high a threshold a full press makes a ring at any pace quicker than {{slowest}} s: no jab turns turbulent; only a slower push is carried off.",
+        "open_both": "With these settings every full press makes a ring, however fast or slow."
       },
       "chart": {
         "duration": "How long the press takes",

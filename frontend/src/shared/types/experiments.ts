@@ -386,6 +386,9 @@ export interface SmokeFigures {
   best_s: number | null;
   best: SmokeRing | null;
   presses: PressPoint[];
+  /** The window open at an end: even a 10 ms jab stays laminar, or even a 20 s push outruns the draught. */
+  open_fast: boolean;
+  open_slow: boolean;
 }
 
 // ── the ball cannon ──────────────────────────────────────────────────────────

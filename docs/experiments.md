@@ -540,7 +540,12 @@ down, at most about 8 cm. Marcel's observations:
   one scale: past `Re = 1.6·10⁵` the ring is turbulent and smears; slower than
   the hall's draught, 0.5 m/s, it is carried off before it forms. Neither is a
   textbook number for a ring this size in a museum hall; both are set to
-  Marcel's half second and offered as sliders that say so.
+  Marcel's half second and offered as sliders that say so. Either end of the
+  window can be open: with a draught of a few cm/s even a 20 s push outruns it
+  (`open_slow`), and every full press slower than 0.21 s makes a ring; with a
+  threshold high enough even a 10 ms jab stays laminar (`open_fast`). The page
+  said then that no press makes a ring at all (the mathematics check,
+  2026-11-17).
 - **The hand** feels the skin's spring (tension 150 N/m assumed) and the air's
   back pressure `½ρu²` over `A_eff`.
 - **The flight:** a laminar ring slows only as its core thickens viscously; a

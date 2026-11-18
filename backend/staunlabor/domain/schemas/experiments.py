@@ -401,6 +401,8 @@ class SmokeFiguresOut(_Out):
     best_s: float | None
     best: RingOut | None
     presses: list[PressPointOut]
+    open_fast: bool
+    open_slow: bool
 
 
 # ── the ball cannon ──────────────────────────────────────────────────────────

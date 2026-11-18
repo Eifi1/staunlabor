@@ -1034,7 +1034,10 @@
         "both": "Beides wächst mit dem Tempo zusammen – die Stärke des Rings und sein Tempo –, darum hat das Fenster zwei Enden.",
         "force": "Und die Hand bezahlt für einen schnellen Druck: Der Gegendruck der Luft wächst mit dem Quadrat des Tempos, {{fast}} N bei einem Stoss gegenüber {{slow}} N bei einem langsamen Drücken, bei dem nur die Haut zurückdrückt.",
         "assumed": "Was angenommen ist: die beiden Schwellen, auf das Exponat abgestimmt (ein Ring gelingt am besten bei etwa einer halben Sekunde), die Grösse des Rings und seines Kerns, wie man sie an echten Ringen misst, und die Spannung der Haut. Das Schwingen der Haut und der Sog beim Loslassen sind weggelassen.",
-        "none": "Mit diesen Einstellungen macht kein Druck einen Ring: Das Fenster ist zu."
+        "none": "Mit diesen Einstellungen macht kein Druck einen Ring: Das Fenster ist zu.",
+        "open_slow": "Bei so wenig Zugluft macht ein voller Druck in jedem Tempo langsamer als {{fastest}} s einen Ring: Keiner ist zu langsam für die Luft der Halle; nur ein schnellerer Stoss wird turbulent.",
+        "open_fast": "Bei so hoher Schwelle macht ein voller Druck in jedem Tempo schneller als {{slowest}} s einen Ring: Kein Stoss wird turbulent; nur ein langsamerer Druck wird fortgetragen.",
+        "open_both": "Mit diesen Einstellungen macht jeder volle Druck einen Ring, wie schnell oder langsam er auch ist."
       },
       "chart": {
         "duration": "Dauer des Drucks",

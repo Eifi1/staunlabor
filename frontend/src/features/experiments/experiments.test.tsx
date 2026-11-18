@@ -656,6 +656,17 @@ describe("the smoke ring", () => {
     renderWithProviders(<SmokePage />);
     expect(await screen.findByText(E.smoke.sweet.none)).toBeInTheDocument();
   });
+
+  it("says that with a draught of a few cm/s every press slower than a jab makes a ring", async () => {
+    // The engine's answer for a draught of 0.03 m/s: no slow end, the fast one at 0.21 s.
+    mockApi({
+      "GET /experiments/defaults": fixtures.defaults,
+      "POST /experiments/smoke": { ...smoke, slowest_s: null, best_s: null, best: null, open_slow: true },
+    });
+    renderWithProviders(<SmokePage />);
+    expect(await screen.findByText(/a full press makes a ring at any pace slower than 0\.21 s/)).toBeInTheDocument();
+    expect(screen.queryByText(E.smoke.sweet.none)).toBeNull();
+  });
 });
 
 describe("the ball cannon", () => {

@@ -1034,7 +1034,10 @@
         "both": "Ambas cosas crecen juntas con la rapidez — la intensidad del anillo y su velocidad —, por eso la ventana tiene dos extremos.",
         "force": "Y la mano paga por una pulsación rápida: la contrapresión del aire crece con el cuadrado de la rapidez, {{fast}} N en un golpe seco frente a {{slow}} N en un empuje lento, en el que solo cuenta la membrana.",
         "assumed": "Lo que se supone: los dos umbrales, ajustados a la exposición (un anillo sale mejor con aproximadamente medio segundo), el tamaño del anillo y de su núcleo, como los tienen los anillos medidos, y la tensión de la membrana. Se dejan fuera la oscilación propia de la membrana y la succión al soltar.",
-        "none": "Con estos ajustes ninguna pulsación produce un anillo: la ventana se ha cerrado."
+        "none": "Con estos ajustes ninguna pulsación produce un anillo: la ventana se ha cerrado.",
+        "open_slow": "Con tan poca corriente, una presión completa forma un anillo a cualquier ritmo más lento que {{fastest}} s: ninguno es demasiado lento para el aire de la sala; solo un golpe más rápido se vuelve turbulento.",
+        "open_fast": "Con un umbral tan alto, una presión completa forma un anillo a cualquier ritmo más rápido que {{slowest}} s: ningún golpe se vuelve turbulento; solo a una presión más lenta se la lleva el aire.",
+        "open_both": "Con estos ajustes, toda presión completa forma un anillo, por rápida o lenta que sea."
       },
       "chart": {
         "duration": "Duración de la pulsación",

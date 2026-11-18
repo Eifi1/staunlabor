@@ -344,6 +344,11 @@ class SmokeFigures:
     best_s: float | None
     best: Ring | None
     presses: tuple[PressPoint, ...]
+    #: The window open at an end: even a 10 ms jab stays laminar, or even a
+    #: 20 s push outruns the draught. With a draught of a few cm/s the slow end
+    #: is open, and the page said that no press makes a ring at all.
+    open_fast: bool
+    open_slow: bool
 
 
 def _crossing(exhibit: SmokeExhibit, depth: float, above: object) -> float | None:
@@ -372,6 +377,8 @@ def figures(exhibit: SmokeExhibit, depth_m: float | None = None) -> SmokeFigures
     fastest = _crossing(exhibit, depth, lambda ring: ring.reynolds > room.turbulent_reynolds)
     slowest = _crossing(exhibit, depth, lambda ring: ring.speed_m_s >= room.draught_m_s)
     best_s = math.sqrt(fastest * slowest) if fastest and slowest and fastest < slowest else None
+    jab = ring_from_push(exhibit, Push(depth, 0.01))
+    push = ring_from_push(exhibit, Push(depth, MAX_FLIGHT_S))
     stroke = effective_area(drum) / hole_area(drum) * depth
     presses = []
     for i in range(31):
@@ -391,4 +398,6 @@ def figures(exhibit: SmokeExhibit, depth_m: float | None = None) -> SmokeFigures
         best_s=best_s,
         best=ring_from_push(exhibit, Push(depth, best_s)) if best_s else None,
         presses=tuple(presses),
+        open_fast=fastest is None and jab.reynolds <= room.turbulent_reynolds and jab.speed_m_s >= room.draught_m_s,
+        open_slow=slowest is None and push.speed_m_s >= room.draught_m_s and push.reynolds <= room.turbulent_reynolds,
     )

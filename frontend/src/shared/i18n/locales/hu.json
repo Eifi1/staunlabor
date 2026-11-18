@@ -1034,7 +1034,10 @@
         "both": "A kettő együtt nő a tempóval — a karika erőssége és a sebessége —, ezért van az ablaknak két vége.",
         "force": "És a kéz megfizeti a gyors lenyomás árát: a levegő ellennyomása a tempó négyzetével nő, bökésnél {{fast}} N, lassú nyomásnál pedig {{slow}} N, amikor már csak a bőr számít.",
         "assumed": "Amit feltételezünk: a két küszöb, a kiállítási tárgyhoz igazítva (egy karika nagyjából fél másodpercnél sikerül a legjobban), a karika és a magja mérete, ahogyan a mért karikáknál, valamint a bőr feszítése. A bőr saját rezgését és az elengedéskor fellépő szívóhatást kihagytuk.",
-        "none": "Ezekkel a beállításokkal egyetlen lenyomás sem hoz létre karikát: az ablak bezárult."
+        "none": "Ezekkel a beállításokkal egyetlen lenyomás sem hoz létre karikát: az ablak bezárult.",
+        "open_slow": "Ilyen kevés huzatnál egy teljes nyomás {{fastest}} s-nál lassabb tempóban mindig gyűrűt ad: egyik sem túl lassú a terem levegőjéhez; csak egy gyorsabb lökés lesz turbulens.",
+        "open_fast": "Ilyen magas küszöbnél egy teljes nyomás {{slowest}} s-nál gyorsabb tempóban mindig gyűrűt ad: egyetlen lökés sem lesz turbulens; csak egy lassabb nyomást visz el a levegő.",
+        "open_both": "Ezekkel a beállításokkal minden teljes nyomás gyűrűt ad, akármilyen gyors vagy lassú."
       },
       "chart": {
         "duration": "A lenyomás időtartama",

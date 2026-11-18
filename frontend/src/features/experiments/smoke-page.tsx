@@ -670,17 +670,7 @@ function SmokeTrick({ figures, exhibit }: { figures: SmokeFigures | null; exhibi
   };
   return (
     <>
-      {figures.fastest_s !== null && figures.slowest_s !== null && figures.best_s !== null ? (
-        <p>
-          {t("experiments.smoke.sweet.window", {
-            fastest: n(figures.fastest_s, 2),
-            slowest: n(figures.slowest_s, 1),
-            best: n(figures.best_s, 1),
-          })}
-        </p>
-      ) : (
-        <AlertBanner tone="info">{t("experiments.smoke.sweet.none")}</AlertBanner>
-      )}
+      <SmokeWindow figures={figures} n={n} />
       <p>{t("experiments.smoke.sweet.fast")}</p>
       <SeriesChart
         rows={rows}
@@ -751,4 +741,27 @@ function SmokeTrick({ figures, exhibit }: { figures: SmokeFigures | null; exhibi
       <p className="text-caption text-muted">{t("experiments.smoke.sweet.assumed")}</p>
     </>
   );
+}
+
+/** The window a full press makes a ring in: both ends, one end open (a draught
+ *  of a few cm/s carries nothing off, a high threshold lets every jab through),
+ *  both open, or none. */
+function SmokeWindow({ figures, n }: { figures: SmokeFigures; n: (v: number, digits: number) => string }) {
+  const { t } = useTranslation();
+  if (figures.fastest_s !== null && figures.slowest_s !== null && figures.best_s !== null)
+    return (
+      <p>
+        {t("experiments.smoke.sweet.window", {
+          fastest: n(figures.fastest_s, 2),
+          slowest: n(figures.slowest_s, 1),
+          best: n(figures.best_s, 1),
+        })}
+      </p>
+    );
+  if (figures.open_slow && figures.fastest_s !== null)
+    return <p>{t("experiments.smoke.sweet.open_slow", { fastest: n(figures.fastest_s, 2) })}</p>;
+  if (figures.open_fast && figures.slowest_s !== null)
+    return <p>{t("experiments.smoke.sweet.open_fast", { slowest: n(figures.slowest_s, 1) })}</p>;
+  if (figures.open_fast && figures.open_slow) return <p>{t("experiments.smoke.sweet.open_both")}</p>;
+  return <AlertBanner tone="info">{t("experiments.smoke.sweet.none")}</AlertBanner>;
 }

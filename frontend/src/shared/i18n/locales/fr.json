@@ -1034,7 +1034,10 @@
         "both": "Les deux croissent ensemble avec la vitesse de l’appui — l’intensité de l’anneau et sa vitesse —, c’est pourquoi la fenêtre a deux bords.",
         "force": "Et la main paie pour un appui rapide : la contre-pression de l’air croît avec le carré de la vitesse, {{fast}} N pour un coup sec contre {{slow}} N pour une poussée lente, où seule compte la peau.",
         "assumed": "Ce qui est supposé : les deux seuils, réglés sur l’exposition (un anneau réussit le mieux à environ une demi-seconde), la taille de l’anneau et de son noyau, telles qu’on les mesure sur de vrais anneaux, et la tension de la peau. La vibration propre de la peau et l’aspiration au relâchement sont laissées de côté.",
-        "none": "Avec ces réglages, aucun appui ne produit d’anneau : la fenêtre s’est refermée."
+        "none": "Avec ces réglages, aucun appui ne produit d’anneau : la fenêtre s’est refermée.",
+        "open_slow": "Avec si peu de courant d’air, une pression complète fait un anneau à toute cadence plus lente que {{fastest}} s : aucun n’est trop lent pour l’air de la salle ; seul un coup plus rapide devient turbulent.",
+        "open_fast": "Avec un seuil si haut, une pression complète fait un anneau à toute cadence plus rapide que {{slowest}} s : aucun coup ne devient turbulent ; seule une poussée plus lente est emportée.",
+        "open_both": "Avec ces réglages, toute pression complète fait un anneau, si rapide ou si lente soit-elle."
       },
       "chart": {
         "duration": "Durée de l’appui",
