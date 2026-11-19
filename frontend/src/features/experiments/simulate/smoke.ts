@@ -100,14 +100,16 @@ export function ringOf(exhibit: SmokeExhibit, times: readonly number[], depths: 
   for (let k = 0; k < times.length - 1; k += 1) {
     const dt = times[k + 1] - times[k];
     if (dt <= 0) throw new Error("a press's times go forward");
-    const u = (ratio * (depths[k + 1] - depths[k])) / dt;
-    if (u <= 0) continue;
+    const hand = (depths[k + 1] - depths[k]) / dt;
+    if (hand <= 0) continue;
+    // The engine's: relative to the hole, which goes down with the ring.
+    const u = (ratio + 1) * hand;
     peakJet = Math.max(peakJet, u);
     const mid = (depths[k] + depths[k + 1]) / 2;
     peakForce = Math.max(peakForce, spring * mid + 0.5 * RHO * u * u * aEff);
     if (stroke < limit) {
       const share = Math.min(1, (limit - stroke) / (u * dt));
-      circulation += 0.5 * u * u * dt * share;
+      circulation += 0.5 * (u * u - hand * hand) * dt * share;
     }
     stroke += u * dt;
   }

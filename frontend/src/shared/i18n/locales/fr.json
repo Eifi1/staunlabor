@@ -496,7 +496,7 @@
         "gain": "le plus d’énergie qu’un passage puisse apporter",
         "full_current": "le courant quand un bouton est maintenu",
         "supply": "la tension de la batterie",
-        "top_speed": "la vitesse au-delà de laquelle la bobine ne peut plus pousser",
+        "top_speed": "la vitesse au-delà de laquelle aucun passage ne rapporte plus rien",
         "arc": "la distance parcourue sur l’arc, depuis la fin du plat",
         "ramp_radius": "le rayon des rampes"
       },
@@ -507,7 +507,7 @@
         "late": "Retard de la main sur le bouton −",
         "reading": "Comment lire la courbe : commuter à temps gagne le plus ; avec 20 ms de retard, on obtient encore environ deux tiers ; avec 30 ms de retard, la voiture n’atteint jamais le sommet ; vers 60 ms de retard, l’attraction qui reste freine la voiture. Ces valeurs valent pour le montage par défaut.",
         "gain_bound": "Le maximum qu’un passage puisse apporter : attirer la voiture de loin jusqu’au milieu rapporte I·Ψ(0), la repousser vers l’extérieur autant. La tension induite et la résistance au roulement en prennent une partie.",
-        "top_speed": "Si bien que vous appuyiez, il y a une vitesse maximale : là où la tension que la voiture induit égale celle de la batterie, aucun courant ne circule et la bobine ne peut plus pousser."
+        "top_speed": "Si bien que vous appuyiez, il y a une vitesse maximale. La voiture induit elle-même dans la bobine un courant qui la freine, d’autant plus fort qu’elle va vite. À cette vitesse, ce frein prend à un passage autant que la batterie peut donner au plus, même en appuyant sur plus tout le long de l’entrée et sur moins tout le long de la sortie ; au-delà, il prend davantage. La formule laisse de côté l’inductance de la bobine ; avec elle, la limite est environ 7 % plus haut."
       },
       "figures": {
         "tau": "Constante de temps",
@@ -658,7 +658,7 @@
         "inertia": "Moment d’inertie",
         "momentum": "Moment cinétique",
         "energy": "Énergie de la rotation",
-        "pull": "Traction sur la barre",
+        "pull": "Traction vers l’intérieur sur la barre",
         "times": "Plus vite que penché vers l’extérieur",
         "reading": "Chaque poussée apporte {{push}} kg·m²/s de moment cinétique. Entre les poussées, seul le palier en retire un peu — que vous vous penchiez ou non, le moment cinétique reste.",
         "lean_hint": "De combien le tronc se penche en arrière, loin de l’axe, les mains sur la barre et les pieds à leur place."
@@ -695,13 +695,13 @@
         "lean": "de combien le tronc se penche vers l’extérieur",
         "own": "le moment d’inertie propre de la partie",
         "energy": "l’énergie de la rotation",
-        "pull": "ce que les mains retiennent sur la barre : le corps penché, maintenu sur son cercle",
+        "pull": "la traction vers l’intérieur que les mains transmettent par la barre pour garder le corps penché sur son cercle ; le retenir contre son poids s’y ajoute",
         "trunk_mass": "la masse du tronc, tête comprise"
       },
       "sweet": {
         "faster": "Redressé, le visiteur tourne {{ratio}} fois plus vite que penché vers l’extérieur — avec le même moment cinétique.",
         "energy": "L’énergie de la rotation, à moment cinétique égal : moins d’inertie, plus d’énergie. Se replier donne à la rotation plus d’énergie, pas seulement plus de vitesse.",
-        "pull": "Cette énergie doit bien venir de quelque part : des bras. Penché vers l’extérieur, le corps a besoin de cette traction vers l’intérieur pour rester sur son cercle, et les mains la transmettent par la barre — elle croît avec le carré de la vitesse angulaire, et le visiteur la ressent comme si la barre lui tirait les mains.",
+        "pull": "Cette énergie doit bien venir de quelque part : des bras. Penché vers l’extérieur, le corps a besoin de cette traction vers l’intérieur pour rester sur son cercle, et les mains la transmettent par la barre — elle croît avec le carré de la vitesse angulaire, et le visiteur la ressent comme si la barre lui tirait les mains. En plus, les bras retiennent le corps penché contre son propre poids ; cette part ne croît pas avec la rotation.",
         "paid": "En se redressant depuis la position penchée, les bras fournissent {{work}} J de travail contre cette traction, et l’énergie de la rotation augmente exactement d’autant, de {{from}} J à {{to}} J. Le moteur de calcul le vérifie en additionnant la traction le long du chemin vers l’intérieur.",
         "replay": "Voici le mode automatique sur seize secondes, après une poussée de {{push}} kg·m²/s : la vitesse bondit chaque fois que le visiteur se redresse et retombe quand il se penche vers l’extérieur, tandis que le moment cinétique ne fait que diminuer, lentement et régulièrement, à cause du palier."
       },
@@ -857,7 +857,7 @@
         "height": "Centre du ballon au-dessus de la trompe",
         "air_at_ball": "Air au niveau du ballon",
         "off_axis": "Écart à l’axe du jet",
-        "falls_at": "Tombe à une inclinaison de",
+        "falls_at": "Stable jusqu’à une inclinaison de",
         "resting": "Sur la trompe : l’air ne peut pas le soulever",
         "floating": "Flotte",
         "fallen": "Tombé hors du jet d’air"
@@ -916,7 +916,7 @@
         "height": "Pourquoi il reste à sa hauteur : plus haut, le jet est plus large que le ballon, qui en capte donc moins et descend ; plus bas, il en capte plus et monte. Il flotte là où la poussée croise son poids, à {{height}} cm au-dessus de la trompe, et oscille autour de ce point {{bob}} fois par seconde, tandis que l’air l’amortit.",
         "middle": "Pourquoi il reste au milieu : écarté sur le côté, le ballon est ramené par l’air plus rapide de son côté intérieur, d’autant plus fort qu’il s’écarte, jusqu’à environ {{offset}} cm de l’axe. Au-delà, il quitte le jet.",
         "rise": "De la trompe à sa hauteur : le ballon monte au-delà, revient et se stabilise, l’oscillation s’éteignant comme celle d’un ressort amorti. La courbe est la simulation du moteur de calcul pour le montage à l’écran, celle que la page joue plus haut.",
-        "tilt": "Jusqu’où la trompe peut s’incliner : jusqu’à {{limit}}°. Avant cela, le ballon pend plus bas et vers le côté bas ; à {{limit}}°, l’aspiration ne peut plus retenir la part du poids qui tire en travers du jet.",
+        "tilt": "Jusqu’où la trompe peut s’incliner : jusqu’à {{limit}}°. Avant cela, le ballon pend plus bas et vers le côté bas. Au-delà, il ne tombe pas tout de suite : il se met à osciller, le long du jet et en travers, un peu plus à chaque fois, jusqu’à tomber. Cela prend du temps, et une trompe inclinée vite, comme en mode automatique, va plus loin avant que le ballon tombe.",
         "lift_off": "L’air doit d’abord être assez rapide pour décoller le ballon de la trompe : à partir de {{speed}} m/s.",
         "buoyancy": "Un ballon gonflable déplace une quantité d’air qui pèse {{share}} % de son propre poids : autant que le jet n’a pas à porter.",
         "assumed": "Ce qui est supposé : la forme du jet juste à la sortie de la trompe (un vrai jet garde toute sa vitesse sur l’axe sur les premiers diamètres), un coefficient de traînée de 0.47 pour un ballon lisse, et la part latérale de l’aspiration. Les valeurs sont celles du modèle, pas celles de l’exposition au centimètre près.",
@@ -938,7 +938,7 @@
         "height": "Flotte à",
         "lift_off": "Décolle à partir de",
         "air": "Air au niveau du ballon",
-        "limit": "Tombe à une inclinaison de",
+        "limit": "Stable jusqu’à une inclinaison de",
         "bob": "Oscille",
         "flow": "Air à travers la trompe"
       }
@@ -984,16 +984,16 @@
         "tension": "Tension de la peau",
         "tension_hint": "Supposée : la force avec laquelle la peau est tendue. Elle ne change que la force sur la main, pas l’anneau.",
         "draught": "Courant d’air de la salle (modèle)",
-        "draught_hint": "Un anneau plus lent que l’air de la salle est emporté avant de se former. Réglé de sorte qu’un appui plus lent qu’environ 1.2 s ne produise rien.",
+        "draught_hint": "Un anneau plus lent que l’air de la salle est emporté avant de se former. Réglé de sorte qu’un appui plus lent qu’environ 1.3 s ne produise rien.",
         "turbulent": "Turbulent à partir de (modèle)",
         "turbulent_hint": "Au-delà de ce nombre de Reynolds, l’anneau est turbulent et étale sa fumée. Réglé de sorte qu’un appui plus rapide qu’environ 0.2 s ne produise aucun anneau visible."
       },
       "model": {
         "intro": "L’appui chasse de l’air du tambour ; l’air qui sort du trou s’enroule en un anneau ; la vitesse et l’intensité de l’anneau décident s’il s’envole.",
         "area": "Le cerclage enfonce la peau, et la peau entre le cerclage et le bord prend la forme d’une membrane tendue. Le tambour perd ce volume par centimètre d’enfoncement.",
-        "jet": "Ce volume sort par le trou, onze fois plus petit : l’air sort onze fois plus vite que la main ne descend.",
-        "circulation": "L’air chassé s’enroule en un anneau tourbillonnaire ; sa circulation, l’intensité de sa rotation, vaut la moitié de l’intégrale du carré de la vitesse de l’air.",
-        "formation": "Un anneau n’absorbe pas plus qu’une colonne d’air longue de quatre diamètres de trou ; une plus longue laisse un jet derrière lui. Un appui complet en donne ici trois.",
+        "jet": "Ce volume sort par le trou, onze fois plus petit, qui descend avec l’anneau : l’air en sort douze fois plus vite que la main ne descend.",
+        "circulation": "L’air chassé s’enroule en un anneau tourbillonnaire ; sa circulation, l’intensité de sa rotation, vaut la moitié de l’intégrale du carré de la vitesse de l’air, moins le carré de la vitesse à laquelle descend le bord du trou.",
+        "formation": "Un anneau n’absorbe pas plus qu’une colonne d’air longue de quatre diamètres de trou ; une plus longue laisse un jet derrière lui. Un appui complet en donne ici 3,3.",
         "speed": "Un anneau vole à une vitesse fixée par sa circulation et sa taille, d’autant plus vite qu’il tourbillonne fort.",
         "reynolds": "Son nombre de Reynolds dit à quel point il est turbulent : au-delà d’un seuil, l’anneau abandonne sa fumée dans son sillage.",
         "hand": "La main sent le ressort de la peau et la contre-pression de l’air, qui croît avec le carré de la vitesse."
@@ -1034,7 +1034,10 @@
         "both": "Les deux croissent ensemble avec la vitesse de l’appui — l’intensité de l’anneau et sa vitesse —, c’est pourquoi la fenêtre a deux bords.",
         "force": "Et la main paie pour un appui rapide : la contre-pression de l’air croît avec le carré de la vitesse, {{fast}} N pour un coup sec contre {{slow}} N pour une poussée lente, où seule compte la peau.",
         "assumed": "Ce qui est supposé : les deux seuils, réglés sur l’exposition (un anneau réussit le mieux à environ une demi-seconde), la taille de l’anneau et de son noyau, telles qu’on les mesure sur de vrais anneaux, et la tension de la peau. La vibration propre de la peau et l’aspiration au relâchement sont laissées de côté.",
-        "none": "Avec ces réglages, aucun appui ne produit d’anneau : la fenêtre s’est refermée."
+        "none": "Avec ces réglages, aucun appui ne produit d’anneau : la fenêtre s’est refermée.",
+        "open_slow": "Avec si peu de courant d’air, une pression complète fait un anneau à toute cadence plus lente que {{fastest}} s : aucun n’est trop lent pour l’air de la salle ; seul un coup plus rapide devient turbulent.",
+        "open_fast": "Avec un seuil si haut, une pression complète fait un anneau à toute cadence plus rapide que {{slowest}} s : aucun coup ne devient turbulent ; seule une poussée plus lente est emportée.",
+        "open_both": "Avec ces réglages, toute pression complète fait un anneau, si rapide ou si lente soit-elle."
       },
       "chart": {
         "duration": "Durée de l’appui",
@@ -1106,7 +1109,7 @@
         "youngs": "Raideur de l’élastomère (module d’Young)",
         "youngs_hint": "Valeur supposée : un caoutchouc souple se situe entre 1 et 10 MPa. Ce module fixe la force et la brièveté avec lesquelles les balles se pressent, et ne modifie que peu la montée.",
         "floor_e": "Rebond sur le sol",
-        "e_hint": "La part de la vitesse de rapprochement qu’un contact restitue : 1 ne perd rien, une balle en élastomère environ 0.85.",
+        "e_hint": "La part de la vitesse de rapprochement qu’un contact restitue : 1 ne perd rien, une balle en élastomère environ 0.85. La formule de l’amortissement le tient à 2 % près à partir de 0,85 ; en dessous, elle rend moins : un cinquième de moins à 0,3.",
         "ball_e": "Rebond entre deux balles"
       },
       "model": {
@@ -1154,12 +1157,13 @@
         "gap": "Tenez les balles à quelques millimètres l’une de l’autre et les contacts se succèdent : la montée atteint presque ce que donneraient des chocs instantanés. Essayez l’écart.",
         "masses": "Le 7v des manuels exige que chaque balle soit bien plus légère que celle du dessous. Celles-ci pèsent {{masses}} g : la balle du milieu pèse un tiers de celle du bas, celle du dessus un tiers de celle du milieu.",
         "energy": "Pourtant, {{share}} % de l’énergie avec laquelle toute la pile a frappé le sol repart dans la plus petite balle.",
-        "flip": "Retournez la pile, et rien ne s’envole : une balle légère en bas ne peut pas pousser une lourde vers le haut.",
+        "flip": "Retournez la pile, et ce n’est plus un canon : la grosse balle du haut remonte moins haut qu’elle n’est tombée ; les balles légères en dessous ne font que l’amortir.",
         "name": "Pourquoi un canon : les livres de physique l’appellent le canon de Galilée, parce que la petite balle est projetée tout droit vers le haut hors de la pile, comme si elle sortait d’un tube. Rien n’y est tiré de côté.",
-        "assumed": "Ce qui est supposé : des balles pleines de 1100 kg/m³, la raideur de l’élastomère et son élasticité, des contacts qui suivent la loi de Hertz avec un amortissement qui restitue une part fixe de la vitesse de rapprochement, et un sol rigide. Le frottement sur le fil et la rotation des balles sont laissés de côté."
+        "assumed": "Ce qui est supposé : des balles pleines de 1100 kg/m³, la raideur de l’élastomère et son élasticité, des contacts qui suivent la loi de Hertz avec un amortissement qui restitue une part fixe de la vitesse de rapprochement, et un sol rigide. La loi de Hertz vaut pour de petites indentations ; la balle du bas s’écrase d’un cinquième de son rayon. Le frottement sur le fil et la rotation des balles sont laissés de côté."
       }
     },
     "wave": {
+      "refused": "Ce réglage demande des pendules de moins de 2 cm, que la page ne calcule pas. Moins de pendules, un cycle plus long ou moins d’oscillations du plus long aident.",
       "at": {
         "row": "Une rangée de pendules pend à une barre, le plus long à une extrémité, chacun des suivants un peu plus court. Une planche les écarte tous également et les lâche ensemble.",
         "pattern": "D'abord ils oscillent ensemble, puis la rangée s'étire en une vague, en serpents, en un apparent désordre, en deux, trois, quatre groupes – et au bout d'une minute tous oscillent de nouveau à l'unisson, comme si de rien n'était."
@@ -1319,7 +1323,7 @@
       "sweet": {
         "near": "Quand les cadences sont proches d'un rapport simple p : q sans y être exactement, la figure garde sa forme et tourne lentement – un tour en ce temps. Plus c'est proche, plus c'est lent.",
         "closed": "Ces pendules sont exactement au rapport {{p}} : {{q}} : la figure se referme et ne fait que rapetisser. Désaccordez la planche d'un pour cent, et elle se met à tourner.",
-        "turns": "Ces pendules sont à {{detune}} % de {{p}} : {{q}} : la figure fait un tour en {{turn}} s.",
+        "turns": "Ces pendules sont à {{detune}} % de {{p}} : {{q}} : au début, la figure fait un tour en {{turn}} s.",
         "widths": "Et elle tourne même à un rapport exact quand les pendules oscillent avec des amplitudes différentes : une grande oscillation dure un peu plus qu'une petite. Réglez le pendule du stylo sur 30° et celui de la planche sur 5°, et la figure fermée s'ouvre."
       },
       "computed": {
@@ -1579,7 +1583,7 @@
       },
       "sweet": {
         "modes": "Ce que la nature fait osciller ici, ce n'est pas un pendule puis l'autre, mais les deux cadences communes. L'oscillation qui passe de l'un à l'autre est leur somme – c'est pourquoi elle ne passe pas avec « Les deux pareil » ni « L'un contre l'autre ».",
-        "beat": "Ici l'oscillation fait l'aller-retour une fois en {{beat}} s, et {{share}} % en parviennent à l'autre pendule.",
+        "beat": "Ici l'oscillation fait l'aller-retour une fois en {{beat}} s, et environ {{share}} % en parviennent à l'autre pendule.",
         "unequal": "Des pendules différents ne transmettent jamais tout : seulement cette part, d'autant plus grande que les pendules se ressemblent et que le ressort est fort."
       },
       "chart": {
@@ -1616,7 +1620,8 @@
           "released": "Le fil quitte la cheville.",
           "slack": "Le fil se détend : la boule vole librement.",
           "taut": "Le fil se tend d'un coup sec.",
-          "over_the_top": "Tour complet : le fil s'enroule autour de la cheville."
+          "over_the_top": "Tour complet : le fil s'enroule autour de la cheville.",
+          "wound": "En vol, le fil est passé par-dessus la cheville : il reste enroulé autour."
         }
       },
       "figures": {
@@ -1699,7 +1704,7 @@
       },
       "change": {
         "title": "Modifier l'objet exposé",
-        "hint": "Un axe plus mince ou une roue plus lourde à sa périphérie tombe plus lentement – et rend l'à-coup du bas plus dur.",
+        "hint": "Un axe plus mince ou une roue plus lourde à sa périphérie tombe plus lentement – et rend l'à-coup du bas plus doux.",
         "shape": "Roue",
         "shapes": {
           "disc": "Disque plein",
@@ -1717,7 +1722,7 @@
       },
       "model": {
         "intro": "Les rubans se déroulent de l'axe sans glisser : pour chaque centimètre de chute, la roue tourne d'un centimètre de la circonférence de l'axe. Comme l'axe est mince, cela fait beaucoup de rotation pour peu de chute.",
-        "roll": "La roue tombe avec une accélération uniforme, mais avec seulement une petite part de celle de la pesanteur : k dit combien il est plus difficile de mettre la roue en rotation qu'en mouvement.",
+        "roll": "La roue tombe avec une accélération uniforme, mais avec seulement une petite part de celle de la pesanteur : k dit combien il est plus difficile de mettre la roue en rotation qu'en mouvement. Le frottement des fils sur l'axe, la part c de leur traction, freine la rotation et la rend encore un peu plus lente.",
         "tension": "C'est pourquoi les rubans portent presque tout le poids pendant le déroulement.",
         "share": "Cette part de l'énergie du mouvement est dans la rotation – 98,8 % pour la roue standard."
       },
@@ -1727,6 +1732,7 @@
         "i": "le moment d'inertie de la roue : ½·M·R² pour un disque, M·R² pour un anneau",
         "m": "la masse de la roue",
         "r": "le rayon de l'axe",
+        "c": "le frottement des fils : cette part de leur traction freine la rotation",
         "t": "la traction des deux rubans",
         "s": "la raideur des deux rubans ensemble",
         "v": "la vitesse de la roue quand les rubans sont déroulés"
@@ -1807,7 +1813,7 @@
       },
       "sweet": {
         "gap": "L'écart entre les deux pendules au cours du temps, en échelle logarithmique : une droite signifie qu'il croît du même facteur chaque seconde.",
-        "chaotic": "Mesuré pour ce départ : λ = {{lambda}} par seconde. Un écart double donc toutes les {{doubling}} s. Le rendre mille fois plus petit ne fait gagner que le temps de dix doublements – c'est pourquoi le pendule est imprévisible, bien que chaque calcul soit exact.",
+        "chaotic": "Mesuré pour ce départ sur une demi-minute : λ ≈ {{lambda}} par seconde – un seul tronçon de trajectoire, donc quelques dixièmes de plus ou de moins. Un écart double donc environ toutes les {{doubling}} s. Le rendre mille fois plus petit ne fait gagner que le temps de dix doublements – c'est pourquoi le pendule est imprévisible, bien que chaque calcul soit exact.",
         "regular": "Mesuré pour ce départ : λ = {{lambda}} par seconde, pratiquement zéro. Avec des oscillations aussi douces l'écart reste petit : le pendule est prévisible."
       },
       "chart": {
@@ -1819,7 +1825,7 @@
         "slow": "Mode lent"
       },
       "computed": {
-        "system": "Quatre équations du premier ordre, les deux angles et leurs vitesses, par la méthode de Runge-Kutta, par pas d'une milliseconde, pour le pendule et son jumeau. Le moteur mesure l'exposant à la manière de Benettin : un jumeau part à un cent-millionième, chaque dixième de seconde on note de combien l'écart a crû et on ramène le jumeau au petit écart. La moyenne des logarithmes est l'exposant – quel que soit le petit écart choisi.",
+        "system": "Quatre équations du premier ordre, les deux angles et leurs vitesses, par la méthode de Runge-Kutta, par pas d'une milliseconde, pour le pendule et son jumeau ; là où un bras supérieur léger sous un bras inférieur lourd tournoie, en parts égales de celle-ci, pour qu'aucun bras ne tourne de plus de 0,035 rad en un pas. Le moteur mesure l'exposant à la manière de Benettin : un jumeau part à un cent-millionième, chaque dixième de seconde on note de combien l'écart a crû et on ramène le jumeau au petit écart. La moyenne des logarithmes est l'exposant – quel que soit le petit écart choisi.",
         "d0": "le petit écart auquel le jumeau est ramené chaque fois",
         "dk": "l'écart après le k-ième dixième de seconde",
         "t": "toute la durée mesurée"
@@ -1853,7 +1859,9 @@
         },
         "regime_still": "Trop peu d'eau : les fuites l'emportent avant que le godet du haut soit assez lourd. La roue reste immobile.",
         "regime_steady": "La roue tourne régulièrement dans un sens – lequel, c'est la première petite impulsion qui en décide.",
-        "regime_chaotic": "Chaos : aucune rotation régulière ne tient. La roue change de sens sans jamais suivre de motif.",
+        "regime_chaotic": "Chaos : la roue ne trouve aucune rotation régulière. Elle change de sens sans suivre de motif.",
+        "regime_pattern": "La roue change sans cesse de sens, mais selon un motif fixe qui se répète.",
+        "regime_starting": "En 200 secondes, la roue ne trouve ici pas encore de marche stable.",
         "rate": "Rotation de la roue",
         "rpm": "tr/min",
         "hopf": "Chaos dès un robinet de"
@@ -1862,7 +1870,7 @@
         "intro": "Ce qui compte, c'est la répartition de l'eau autour de la roue – plus précisément, à quelle distance son centre de gravité se trouve à côté de l'axe et au-dessus ou au-dessous. Avec cela et la rotation de la roue s'écrivent trois équations.",
         "wheel": "La répartition de l'eau tourne avec la roue, l'eau arrive en haut et fuit partout ; la pesanteur fait tourner la roue quand l'eau est d'un côté, et l'axe freine.",
         "lorenz": "Avec le temps en unités des fuites et convenablement mises à l'échelle, ce sont exactement les équations de Lorenz, tirées en 1963 d'un modèle de l'écoulement de l'air – avec b = 1 au lieu de 8/3.",
-        "hopf": "Au-dessus de ce débit, même la rotation régulière n'est plus stable : la roue devient chaotique."
+        "hopf": "Au-dessus de ce débit, même la rotation régulière n'est plus stable : la roue change sans cesse de sens, le plus souvent de façon chaotique, à certains débits selon un motif fixe. Même en dessous, elle peut rester chaotique depuis le repos, alors que la rotation régulière tiendrait."
       },
       "symbols": {
         "ab": "la répartition de l'eau : sur le côté, et haut contre bas",
@@ -1880,6 +1888,8 @@
       "sweet": {
         "lorenz": "La rotation de la roue sur 200 secondes. En 1963, Lorenz cherchait un modèle simple du temps qu'il fait et trouva ces trois équations – et que d'infimes différences au départ rendent la prévision sans valeur au bout de peu de temps. La roue à eau est ce modèle à toucher.",
         "chaotic": "En 200 secondes, la roue change ici {{reversals}} fois de sens, jamais à la même cadence.",
+        "pattern": "En 200 secondes, la roue change ici {{reversals}} fois de sens, une fois lancée à une cadence fixe : les intervalles entre les changements se répètent. Au-dessus du seuil du chaos aussi, il existe de tels débits.",
+        "starting": "En 200 secondes, la roue ne trouve ici pas encore de marche stable : ce temps ne montre pas si elle se calme plus tard.",
         "steady": "À ce débit, une fois lancée, la roue tourne régulièrement à {{rpm}} tours par minute.",
         "still": "À ce débit, la roue reste immobile."
       },
@@ -1944,7 +1954,7 @@
         "phi": "la latitude"
       },
       "sweet": {
-        "floor": "Le pendule garde son plan dans l'espace ; le sol tourne en dessous. À Winterthour à {{rate}}° par heure : c'est ainsi que Foucault montra à Paris en 1851 que la Terre tourne, sans regarder le ciel.",
+        "floor": "Le pendule ne tourne pas avec le sol : à Winterthour, le sol tourne sous son plan à {{rate}}° par heure. C'est ainsi que Foucault montra à Paris en 1851 que la Terre tourne, sans regarder le ciel.",
         "period": "Une oscillation dure ici {{period}} s ; le plan tourne sans s'en soucier. Un pendule plus court montre la même chose, pourvu qu'il oscille assez longtemps."
       },
       "chart": {
@@ -2074,9 +2084,9 @@
         "v": "la vitesse de la bille qui tombe, en bas"
       },
       "sweet": {
-        "wave": "Les billes se touchent, elles ne se heurtent donc pas l'une après l'autre : le choc parcourt la rangée comme une onde. Comme le contact de Hertz se raidit en s'enfonçant, l'onde reste courte et arrive presque entière dans la dernière bille – 97 % de l'énergie. Les autres gardent le reste ; la première rebondit même un peu.",
-        "gap": "Avec 0,1 mm d'air entre les billes, elles se heurtent de nouveau une à une, et le compte tombe juste : 99,9 % de l'énergie dans la dernière bille.",
-        "two": "Si l'on en lâche deux, deux ondes parcourent la rangée l'une derrière l'autre. La dernière bille part à 0,70 m/s, l'avant-dernière à 0,49 m/s – et non les deux aux 0,63 m/s avec lesquels les deux sont arrivées. Ensemble, elles portent malgré tout 97 % de l'énergie.",
+        "wave": "Les billes se touchent, elles ne se heurtent donc pas l'une après l'autre : le choc parcourt la rangée comme une onde. Comme le contact de Hertz se raidit en s'enfonçant, l'onde reste courte et arrive presque entière dans la dernière bille – 97 % de l'énergie qui reste après le choc, 89 % de celle qui est entrée : 8 % partent dans les déformations. Les autres gardent le reste ; la première rebondit même un peu.",
+        "gap": "Avec 0,1 mm d'air entre les billes, elles se heurtent de nouveau une à une, et le mouvement tombe juste : 99,9 % de ce qui reste dans la dernière bille. Mais chaque choc prend sa part, et la dernière bille ne porte que 87 % de l'énergie entrée – moins que si elles se touchent.",
+        "two": "Si l'on en lâche deux, deux ondes parcourent la rangée l'une derrière l'autre. La dernière bille part à 0,70 m/s, l'avant-dernière à 0,49 m/s – et non les deux aux 0,63 m/s avec lesquels les deux sont arrivées. Ensemble, elles portent malgré tout 97 % de l'énergie qui reste après les chocs, 92 % de celle qui est entrée.",
         "together": "Ce qui reste dans la rangée grandit à chaque choc si les chocs perdent un peu d'énergie : dans la quatrième seconde, la bille du milieu oscille déjà de 2,5°. Si chaque choc rend tout (e = 1), elle reste presque immobile."
       },
       "computed": {
@@ -2187,12 +2197,14 @@
       },
       "model": {
         "intro": "Chaque tige est fixée en bas et libre en haut. De ses façons de vibrer, seule la première compte ici : toute la tige se plie d'un côté.",
-        "frequency": "Sa fréquence propre : plus la tige est longue, plus elle est basse – comme le carré de la longueur.",
+        "frequency": "Sa fréquence propre : plus la tige est longue, plus elle est basse – presque comme le carré de la longueur. Debout, son propre poids la comprime dans sa longueur et l'abaisse encore un peu : d'un dixième pour la tige d'un mètre.",
         "motion": "La table secoue, et son accélération pousse chaque tige, pondérée par Γ = 1,566 pour la forme du premier mode. L'amortissement lui retire de l'élan.",
         "steady": "Secouée assez longtemps au même rythme, la pointe oscille de tant. En phase (r = 1), c'est Γ·Y/(2ζ)."
       },
       "symbols": {
         "beta": "la première solution de cosh β · cos β = −1 : 1,8751",
+        "lambda": "combien le propre poids de la tige assouplit son premier mode : 1,571",
+        "g": "accélération de la pesanteur, 9,81 m/s²",
         "l": "la longueur de la tige",
         "e": "le module d'Young de l'acier",
         "i": "le moment quadratique d'une tige ronde de diamètre d",
@@ -2207,8 +2219,8 @@
         "y": "de combien la table va et vient"
       },
       "sweet": {
-        "step": "Une petite poussée au bon rythme fait plus qu'une grande au mauvais. La table ne va et vient que de 1 mm ; en phase avec la tige de 80 cm, à 2,21 Hz, sa pointe oscille de 78 mm, ses voisines de 4 mm au plus. À trois pour cent du rythme, il ne reste que 26 mm.",
-        "patience": "La résonance demande de la patience : à 2,21 Hz, l'oscillation n'atteint en 7,2 s qu'un peu moins des deux tiers. Qui balaie plus vite la manque : à 0,05 Hz par seconde, la même tige oscille de 40 mm au plus, moitié moins, et seulement à 2,4 Hz.",
+        "step": "Une petite poussée au bon rythme fait plus qu'une grande au mauvais. La table ne va et vient que de 1 mm ; en phase avec la tige de 80 cm, à 2,09 Hz, sa pointe oscille de 78 mm, ses voisines de 4 mm au plus. À trois pour cent du rythme, il ne reste que 26 mm.",
+        "patience": "La résonance demande de la patience : à 2,09 Hz, l'oscillation n'atteint en 7,6 s qu'un peu moins des deux tiers. Qui balaie plus vite la manque : à 0,05 Hz par seconde, la même tige oscille de 38 mm au plus, moitié moins, et seulement à 2,3 Hz.",
         "everywhere": "Ce même accord fait éclater un verre à la bonne note, balancer un pont sous des pas cadencés et permet à une corde de reprendre la note d'un instrument."
       },
       "computed": {
@@ -2330,7 +2342,7 @@
         "lambda": "de combien la ligne s'écarte au plus du milieu, en part de la demi-épaisseur"
       },
       "sweet": {
-        "chain": "La meilleure forme pour un arc est une chaîne suspendue, retournée – Robert Hooke l'a noté en 1675, et Antoni Gaudí a conçu avec des chaînes suspendues. Dans l'arc de chaînette, la ligne de pression sous son propre poids reste au milieu des pierres, à moins d'un centième de la demi-épaisseur, quelle que soit l'épaisseur.",
+        "chain": "La meilleure forme pour un arc est une chaîne suspendue, retournée – Robert Hooke l'a noté en 1675, et Antoni Gaudí a conçu avec des chaînes suspendues. Dans l'arc de chaînette, la ligne de pression sous son propre poids reste au milieu des pierres : avec seize pierres d'au moins 3 cm d'épaisseur, à moins d'un centième de la demi-épaisseur.",
         "semicircle": "Le demi-cercle n'a pas cette forme. Il ne tient que si ses pierres sont épaisses d'au moins 10,75 % de son rayon – 10,7 % avec seize pierres. Avec 10 cm pour un mètre, il casse ; une ogive de même portée et de même épaisseur tient.",
         "load": "Une charge déplace la ligne de pression. Posée au quart de la portée, elle casse le demi-cercle de 25 cm déjà à 80 % de son propre poids, l'arc de chaînette de même hauteur seulement à 141 %."
       },
@@ -2775,7 +2787,7 @@
         "zeno": "L’astuce : les rebonds deviennent non seulement plus bas, mais aussi plus courts, chacun dans la même proportion. Une infinité de rebonds tient ainsi dans un temps fini, comme dans le paradoxe de Zénon, Achille et la tortue.",
         "steel": "Depuis 30 cm, la bille d’acier, coefficient 0,95, s’immobilise après 9,6 s, avec 75 rebonds de plus d’un centième de seconde ; la balle de tennis de table, 0,92, après 5,2 s, avec 44. La petite différence de coefficient pèse lourd, car le temps croît comme 1/(1 − e).",
         "rhythm": "On peut entendre le coefficient dans le rythme : le deuxième rebond de la bille d’acier dure 0,95 fois le premier, exactement son coefficient. Pour la balle de tennis de table, c’est 0,89 au lieu de 0,92, car l’air la freine aussi, l’air qui la porte entière dès 8,6 m/s ; la bille d’acier seulement à 60 m/s.",
-        "rules": "Les règles du tennis de table exigent qu’une balle lâchée de 305 mm rebondisse entre 230 et 250 mm. Avec un coefficient de 0,92 et l’air, celle-ci rebondit à 240 mm."
+        "rules": "Les règles du tennis de table exigent qu’une balle lâchée de 305 mm sur un bloc d’acier rebondisse entre 240 et 265 mm. Avec un coefficient de 0,92 et l’air, celle-ci rebondit à 240 mm, à la limite inférieure."
       },
       "computed": {
         "system": "Entre deux chocs la balle vole à la verticale, avec seulement son poids et la résistance de l’air. Il y a une solution exacte : vers le haut avec la tangente, vers le bas avec la tangente hyperbolique. La page calcule vol après vol ; quand les vols durent moins d’un dixième de milliseconde, le reste de la série s’ajoute sous forme fermée, l’air n’y comptant plus depuis longtemps.",
@@ -2817,7 +2829,7 @@
         "holds": "La pile tient si, à chaque étage, le centre de gravité de tous les blocs à partir de lui vers le haut est au-dessus de son appui : au-dessus de la partie où il touche le bloc du dessous, pour le plus bas au-dessus de la table.",
         "step": "Construite par le haut, chaque bloc aussi loin que ceux du dessus le permettent : le k-ième bloc depuis le haut dépasse de 1/(2k) le suivant.",
         "harmonic": "Ensemble, c’est la moitié de la série harmonique.",
-        "even": "En marches égales, le centre de gravité de toute la pile atteint le bord en premier : n blocs dépassent de n/(n + 1), jamais d’une longueur entière."
+        "even": "En marches égales, le bloc du bas dépassant de la table autant que chaque bloc de celui du dessous, le centre de gravité de toute la pile atteint le bord en premier : n blocs dépassent de n/(n + 1), jamais d’une longueur entière."
       },
       "symbols": {
         "centre": "centre de gravité des blocs à partir de l’étage k",
@@ -2831,7 +2843,7 @@
         "even": "porte-à-faux en marches égales"
       },
       "sweet": {
-        "steps": "L’astuce : on construit par le haut, pas par le bas. Le bloc du haut peut dépasser d’une demi-longueur, les deux du haut ensemble d’un quart sur le troisième, les trois du haut d’un sixième : les marches rapetissent vers le bas. Neuf blocs dépassent ainsi de 1,41 longueur, 28 cm avec des blocs de 20 cm ; en marches égales, de 0,9 seulement.",
+        "steps": "L’astuce : on construit par le haut, pas par le bas. Le bloc du haut peut dépasser d’une demi-longueur, les deux du haut ensemble d’un quart sur le troisième, les trois du haut d’un sixième : les marches rapetissent vers le bas. Neuf blocs dépassent ainsi de 1,41 longueur, 28 cm avec des blocs de 20 cm ; en marches égales, de 0,9 seulement, et de 0,94 avec le bloc du bas un peu en retrait : jamais d’une longueur entière.",
         "endless": "La série harmonique n’a pas de fin : avec assez de blocs, la pile dépasse aussi loin qu’on veut. Mais lentement, comme un logarithme. Il faut tant de blocs :",
         "reach_one": "pour {{count}} longueur",
         "reach_other": "pour {{count}} longueurs",
@@ -2962,7 +2974,8 @@
         "incidence": "Angle d’incidence",
         "refraction": "Angle de réfraction",
         "leaves": "Angle de sortie θ",
-        "bow": "Angle de l’arc-en-ciel"
+        "bow": "Angle de l’arc-en-ciel",
+        "across_outside": "Ce rayon croise le chemin de retour vers la lampe et revient de l’autre côté sous {{angle}}°, à l’extérieur de l’anneau situé à {{bow}}°."
       },
       "change": {
         "title": "Changer le matériau",
@@ -3087,7 +3100,7 @@
         "rayleigh": "La diffusion croît comme la puissance quatrième de la fréquence (Rayleigh) : la lumière bleue (450 nm) est diffusée 4,4 fois plus que la rouge (650 nm).",
         "beer": "Ce qui est diffusé manque à la lumière qui continue : elle décroît exponentiellement le long du tube, le bleu le plus vite (Beer-Lambert).",
         "side": "De côté, on voit ce qui est diffusé à cet endroit, moins ce qui se perd encore en chemin jusqu’à la paroi du tube.",
-        "sky": "Le ciel juste au-dessus de soi : la lumière du soleil diffusée une fois à chaque altitude, puis descendant jusqu’au sol. Le soleil est bas de m masses d’air.",
+        "sky": "Le ciel juste au-dessus de soi : la lumière du soleil diffusée une fois à chaque altitude, puis descendant jusqu’au sol. Le soleil est bas de m masses d’air. Elle arrive à l’œil déviée de 90° moins la hauteur du soleil, et l’air diffuse moitié moins sur le côté que tout droit : soleil bas, le ciel au-dessus de soi est donc moitié moins clair.",
         "ozone": "La couche d’ozone, vers 22 km d’altitude, ne diffuse pas la lumière, elle l’absorbe – surtout l’orange (600 nm). À la verticale, son épaisseur optique n’y est que de 0,041, peu à côté de celle de l’air.",
         "ozone_mass": "La lumière du soleil la traverse comme une coquille mince : m₃ fois autant d’ozone qu’à la verticale, 12 fois à l’horizon – où elle absorbe 39 % de l’orange. Comme elle se trouve au-dessus de presque tout l’air, la lumière du ciel, diffusée plus bas, porte le même facteur."
       },
@@ -3119,7 +3132,7 @@
         "system": "Pour chacune de 81 longueurs d’onde, la page calcule combien de lumière reste à chaque endroit du tube et combien en est diffusée sur le côté. Pour le ciel, elle prend l’épaisseur optique de l’air, 0,097 à 550 nm, et la masse d’air selon Kasten et Young, 37,9 à l’horizon. Pour l’ozone, elle prend la section efficace mesurée (Serdyuchenko et al. 2014, moyennée sur chaque 5 nm), 300 unités Dobson et une couche mince à 22 km d’altitude.",
         "colours": "Les couleurs comme pour l’arc-en-ciel des billes de verre : pondérées par la sensibilité de l’œil aux couleurs (CIE 1931) et converties dans les couleurs de l’écran (sRGB). Le blanc de la lampe – pour le ciel, celui du soleil au-dessus de l’air – apparaît blanc. Chaque couleur est dessinée aussi claire que l’écran le permet ; les chiffres disent sa clarté réelle.",
         "check": "Les tests de la page vérifient que la lumière diffusée sur le côté et celle qui arrive au bout donnent ensemble exactement la lumière de la lampe (règle de Simpson), et confrontent le ciel au-dessus de soi à la même somme sur toutes les altitudes. Le calcul se fait dans votre navigateur, avec les mêmes formules que le moteur de calcul de la page.",
-        "left_out": "Laissé de côté : la lumière diffusée plusieurs fois (elle rend un tube très trouble et le ciel à l’horizon plus blancs) ; les particules plus grosses, qui diffusent toutes les couleurs de la même façon (c’est pourquoi le lait est blanc) ; la direction de la diffusion, qui ne change que la clarté ; pour le ciel, la poussière et la brume, qui rendent le coucher de soleil plus rouge encore, le soleil sous l’horizon (le ciel au-dessus de soi n’est alors éclairé que très haut, à travers plus d’ozone encore) et la quantité d’ozone, qui change avec la saison et le lieu. On suppose un tube de 1 m de long et de 6 cm de diamètre."
+        "left_out": "Laissé de côté : la lumière diffusée plusieurs fois (elle rend un tube très trouble et le ciel à l’horizon plus blancs) ; les particules plus grosses, qui diffusent toutes les couleurs de la même façon (c’est pourquoi le lait est blanc) ; la direction de la diffusion dans le tube, qui ne change que la clarté ; pour le ciel, la poussière et la brume, qui rendent le coucher de soleil plus rouge encore, le soleil sous l’horizon (le ciel au-dessus de soi n’est alors éclairé que très haut, à travers plus d’ozone encore) et la quantité d’ozone, qui change avec la saison et le lieu. On suppose un tube de 1 m de long et de 6 cm de diamètre."
       }
     },
     "slits": {
@@ -3146,7 +3159,8 @@
         "plate": "Fentes",
         "wall": "Mur",
         "status_both": "Deux fentes : des franges espacées de {{spacing}} mm.",
-        "status_one": "Une fente : une large tache claire, sans franges – et au milieu quatre fois moins claire."
+        "status_one": "Une fente : une large tache claire, sans franges – et au milieu quatre fois moins claire.",
+        "near": "Le mur est plus près que la formule ne le permet : avec des fentes aussi larges, elle n’est juste à un pour cent près qu’à partir de {{near}} m."
       },
       "figures": {
         "spacing": "Espacement des franges",
@@ -3195,10 +3209,10 @@
         "two_label": "Deux fentes ouvertes, dessinées avec la même clarté"
       },
       "computed": {
-        "system": "La page calcule la clarté en chaque point du mur avec la formule pour un mur éloigné (Fraunhofer). Le laser est rouge, 650 nm ; les fentes sont espacées de 0,25 mm et larges de 0,05 mm chacune, le mur est à 2 m derrière. Les franges sont alors espacées de 5,2 mm, la première sombre à 2,6 mm du milieu, et 9 franges claires tiennent dans la bande centrale d’une fente, large de 26 mm.",
+        "system": "La page calcule la clarté en chaque point du mur avec la formule pour un mur éloigné (Fraunhofer). Le laser est rouge, 650 nm ; les fentes sont espacées de 0,25 mm et larges de 0,05 mm chacune, le mur est à 2 m derrière. Les franges sont alors espacées de 5,2 mm, la première sombre à 2,6 mm du milieu, et 9 franges claires tiennent dans la bande centrale d’une fente, qui s’étend sur 26 mm de part et d’autre du milieu.",
         "colours": "La couleur du laser est celle de sa longueur d’onde, aussi saturée que l’écran peut la montrer et aussi claire que la lumière l’est à cet endroit. Lumière blanche : pour 81 longueurs d’onde, chacune sa propre figure, pondérée par la sensibilité de l’œil aux couleurs (CIE 1931) et convertie dans les couleurs de l’écran (sRGB).",
         "check": "Les tests de la page découpent chaque fente en 400 bandes étroites, additionnent les ondes de toutes les bandes en chaque point du mur (Huygens) et comparent le résultat à la formule. Ils vérifient que les franges sombres sont exactement sombres là où une seule fente donne de la lumière, et que la lumière blanche est bleue là où le rouge s’annule. Le calcul se fait dans votre navigateur, avec les mêmes formules que le moteur de calcul de la page.",
-        "left_out": "Laissé de côté : que le mur n’est pas infiniment loin (la formule vaut dès qu’il est bien plus loin que d²/λ, ici environ un dixième de mètre) ; la largeur et l’ouverture du faisceau laser, qui font s’estomper les franges vers le haut et le bas ; les bords et l’épaisseur des fentes ; la polarisation de la lumière."
+        "left_out": "Laissé de côté : que le mur n’est pas infiniment loin (la formule est juste à un pour cent près dès qu’il est à plus de trente-cinq fois a²/λ, a la largeur d’une fente : ici 13 cm ; plus près, la page le dit) ; la largeur et l’ouverture du faisceau laser, qui font s’estomper les franges vers le haut et le bas ; les bords et l’épaisseur des fentes ; la polarisation de la lumière."
       }
     },
     "beats": {

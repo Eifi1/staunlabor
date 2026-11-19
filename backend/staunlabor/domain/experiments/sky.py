@@ -50,7 +50,7 @@ averaged over each 5 nm.
 **What it leaves out.** Light scattered more than once (in a cloudier tube,
 and near the horizon, it whitens the side light); the particles' own size
 past the Rayleigh limit (milk's fat drops scatter nearly white); the angle of
-scattering (only the brightness depends on it); the lamp's light spreading in
+scattering in the tube (only the brightness depends on it); the lamp's light spreading in
 the tube; for the sky, dust and haze (which redden the sunset further), the
 earth's curvature beyond the two air masses, the sun below the horizon (when
 the sky overhead is lit only high up, through ever more ozone), and how much
@@ -259,9 +259,14 @@ def scattered_down(tau: float, m: float) -> float:
 def sky_light(height_deg: float, *, ozone: bool = True) -> list[float]:
     """The sky straight overhead, per wavelength: sunlight scattered once on
     its way down, ``(e^{−τ} − e^{−m·τ})/(m − 1)``, the sunlight through the
-    ozone above it first."""
+    ozone above it first, and scattered through ``Θ = 90° − h`` into the eye,
+    which Rayleigh's ``1 + cos²Θ`` weighs: ``(1 + sin²h)/2`` of the sky with the
+    sun overhead. The first version left it out and drew the evening sky up to
+    twice as bright against noon's (the mathematics check, 2026-11-17); the
+    colours do not change with it."""
     m = air_mass(height_deg)
-    air = [scattered_down(scattering(AIR_DEPTH, nm), m) for nm in WAVELENGTHS_NM]
+    angle = (1 + math.sin(math.radians(height_deg)) ** 2) / 2
+    air = [angle * scattered_down(scattering(AIR_DEPTH, nm), m) for nm in WAVELENGTHS_NM]
     return [a * o for a, o in zip(air, ozone_light(height_deg), strict=True)] if ozone else air
 
 

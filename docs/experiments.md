@@ -185,7 +185,11 @@ to feel: the hand moves the sphere where it likes.
   other — bobs at Ω·√(1 + 3cos²θ), near the equator once a revolution: the
   visitor's "not in the plane yet".
 * Back and forth is the opposite: a pendulum swings *slower* the wider it
-  swings (0.84 Hz at ±90° against 0.99 Hz small).
+  swings (0.84 Hz at ±90° against 0.99 Hz small). The chart ends there: past
+  90° the wall's push turns negative before the turning point and the ball
+  falls off the wall, so no such swing exists (`SWING_TO_DEG`; it once ran to
+  175°). Rolling at the turning point asks a grip of `(2/7)·tan θ₀`, 0.49 at
+  60°.
 * Rolling needs at most 0.16 of friction anywhere on the default sweep.
 
 ## The magnet car and the coil (`experiments.coil`)
@@ -220,9 +224,11 @@ coil stays closed through the meter (`Idle.CLOSED`). A Ø 20 × 10 mm NdFeB magn
 (B_r 1.3 T); a 1600-turn coil of 0.26 mm wire, 60 mm mean diameter and 50 mm
 long (94 Ω, 118 mH); a 9 V block; a 150 g car; ramps 30 cm along an arc of 0.9 m radius, 49.5 mm high and 19° steep at the top,
 either side of a 20 cm flat. With a button held the coil draws 96 mA (the meter,
-switched out, reads nothing); coasting through, the meter reads about 14 mA, and the car needs a handful of good passes to reach the top (the auto mode: six, from halfway up the left ramp). More
-turns of thinner wire lower the current without lowering what a pass gains,
-because `Ψ` grows with the turns as fast as `1/R` falls; a first guess of 400
+switched out, reads nothing); coasting through, the meter reads about 9 mA from
+halfway up a ramp and 19 mA from the top (the first version said 14), and the car needs a handful of good passes to reach the top (the auto mode: six, from halfway up the left ramp). More
+turns of the same wire lower the current without lowering what a pass gains,
+because `Ψ` grows with the turns as fast as `1/R` falls (of thinner wire, as
+the first version said, `R` grows faster and a pass gains less); a first guess of 400
 turns at 3 V drew 455 mA, off the meter's scale. All of it is a slider.
 
 **What it shows.**
@@ -236,8 +242,15 @@ turns at 3 V drew 455 mA, off the meter's scale. All of it is a slider.
 * **Wrong way round traps the car** at the coil within a pass.
 * **The meter's swing is a brake**: with the coil closed through the meter the
   coasting car stops sooner than with it open (Lenz).
-* **There is a top speed however well you press**, where `k·v` equals the
-  supply: 4.8 m/s for the default build.
+* **There is a top speed however well you press**, `U·Ψ(0)/∫k² dx`: the car's
+  own current brakes it, the harder the faster it goes, and past that speed the
+  brake takes more from a pass than the battery can give, even with plus the
+  whole way in and minus the whole way out. 7.2 m/s for the default build; the
+  formula leaves the inductance out, and stepped with it the zero lies about
+  7 % higher. `U/k_max`, 4.8 m/s, given here before the mathematics check, is
+  only where the car's voltage first beats the battery's, at the peaks of `k`:
+  the flanks still push, and a pass there still gains 40 % of what it gains at
+  1 m/s.
 * A perfect pass at full current gains `2·I·Ψ(0)`, 16 mJ (11 mm of height);
   rolling resistance and the induced voltage take some of it.
 
@@ -306,8 +319,11 @@ hold weights; at the exhibit the hands stay on the bar.)
 upright, 1.6 — 3.2 times as fast, `I` falling from 5.3 to 1.7 kg·m². And the
 **energy** `E = L²/2I` rises: the 58 J are the work the arms do pulling the
 body upright against what holds it out, `m·ω²·x` per piece, which the test
-checks by adding that pull up along the way in. Leaning out, the hands hold
-124 N on the bar; upright, nothing. The bearing stops a spin after about 84 s.
+checks by adding that pull up along the way in. Leaning out, the hands pull
+inwards with 124 N on the bar, what keeps the body on its circle; upright,
+nothing. Holding the leaning body up against its own weight comes on top and
+does not grow with the turn; the page called the 124 N the pull on the bar,
+which is more (the mathematics check, 2026-11-17). The bearing stops a spin after about 84 s.
 The auto mode leans out, stands up, holds and leans out again.
 
 **Sentences with fixed numbers** (Marcel, 2026-11-07): where the prose quotes a
@@ -466,11 +482,19 @@ default ball (15 cm, 30 g) floats with its centre 36 cm above the opening, its
 underside 28 cm, where the air reaching it has 7.4 m/s. It lifts off from
 12.1 m/s. It floats where the lift crosses its weight because higher up the
 jet is wider than the ball and the ball catches less of it: the lift falls with
-height, so the ball comes back to that height, bobbing at 0.54 Hz, and the air
-damps the bob. Off the axis the suction pulls it back, strongest about 7 cm
-out. Tilted, it hangs lower and to the low side, and at 43.7° no balance is
-left; tilted slowly in a run, it falls just past that. Tilted from the start,
-before it has risen, it falls well before: the rise carries it out sideways.
+height, so the ball comes back to that height, bobbing at 0.50 Hz as the air
+damps the bob (undamped 0.54, which the page first gave; across, 1.84 Hz for
+1.85 — the mathematics check, 2026-11-17). Off the axis the suction pulls it back, strongest about 7 cm
+out. Tilted, it hangs lower and to the low side, and from 31.7° it rocks:
+the limit is where the motion linearised about the balance (`stable`: its
+Jacobian by central differences, the characteristic polynomial by Faddeev and
+LeVerrier, Routh–Hurwitz) first lets a disturbance grow, a pair of roots
+crossing to growth (a Hopf bifurcation). Held 1.5° below it the ball stays,
+1.5° above it it rocks out. The first version asked only that the lift fall
+with height and the suction pull back, each alone, which holds to 43.7°; the
+mathematics check (2026-11-17) found the ball, held at 34°, falling after
+10 s. The rocking takes time to grow: the auto mode's 3° a second, from the
+opening, drops the ball only at about 47°.
 
 **What is assumed, and said on the page.** The jet's first diameters: a real
 jet keeps `U₀` on its axis for about five of them, and this one's virtual
@@ -486,8 +510,9 @@ high as Marcel saw it.
 `tests/unit/test_experiments.py` sums the jet's momentum flux across the whole
 plane with a radial rule of its own (it is conserved to 10⁻⁴ at every height),
 holds the 288-point rule to the closed form on the axis (0.2 %), and runs the
-ball from the rim to the stated height, back from a push, and out of a slowly
-tilted jet just past the stated limit.
+ball from the rim to the stated height and back from a push, holds it 1.5°
+below the stated limit and drops it 1.5° above, and finds the jet alone
+holding it to 43.7°.
 
 ## The smoke ring (`experiments.smoke`)
 
@@ -505,27 +530,41 @@ down, at most about 8 cm. Marcel's observations:
 **The model** (`domain/experiments/smoke.py`).
 - **The press:** pressing the ring pushes the skin into a stretched membrane's
   log profile, so the drum loses `A_eff ≈ 0.80 m²` per metre of press, 11.3
-  times the hole. The air leaves the hole at that ratio times the hand's speed.
-- **The ring** is the slug model's: circulation `Γ = ½∫u²dt`, taken up only
+  times the hole. The hole goes down with the ring, so the air leaves it at that
+  ratio plus one times the hand's speed (the ratio in the room).
+- **The ring** is the slug model's: circulation `Γ = ½∫(u² − ẋ²)dt`, what
+  leaves the hole's moving edge, taken up only
   until the slug is four hole diameters long (the formation number; a full
   press here is 3.0). Its radius is 0.6 hole diameters and its core 0.35 of
   that; it flies at Saffman's speed and has Reynolds number `Γ/ν`.
 - **Too fast, too slow:** both the circulation and the speed grow in
   proportion to the pace of the press. So the two failures are two thresholds on
-  one scale: past `Re = 1.6·10⁵` the ring is turbulent and smears; slower than
-  the hall's draught, 0.5 m/s, it is carried off before it forms. Neither is a
+  one scale: past `Re = 1.9·10⁵` the ring is turbulent and smears; slower than
+  the hall's draught, 0.6 m/s, it is carried off before it forms. Neither is a
   textbook number for a ring this size in a museum hall; both are set to
-  Marcel's half second and offered as sliders that say so.
+  Marcel's half second and offered as sliders that say so. Either end of the
+  window can be open: with a draught of a few cm/s even a 20 s push outruns it
+  (`open_slow`), and every full press slower than 0.21 s makes a ring; with a
+  threshold high enough even a 10 ms jab stays laminar (`open_fast`). The page
+  said then that no press makes a ring at all (the mathematics check,
+  2026-11-17).
 - **The hand** feels the skin's spring (tension 150 N/m assumed) and the air's
   back pressure `½ρu²` over `A_eff`.
 - **The flight:** a laminar ring slows only as its core thickens viscously; a
   turbulent one widens at 1 % of the distance and slows with the cube of its
   size; the draught carries both sideways.
 
-**What it shows.** A full press makes a ring between 0.21 and 1.28 s, best at
-0.52 s: Re 67,000, the ring at 1.28 m/s, the air out of the hole at 2.8 m/s. A
-jab of 0.1 s gives Re 336,000 and needs 122 N on the hand, where a slow press
-needs only the skin's 48 N. In the page, the reader presses with a button (a
+**What it shows.** A full press makes a ring between 0.21 and 1.26 s, best at
+0.51 s: Re 77,000, the ring at 1.48 m/s, the air out of the hole at 3.0 m/s. A
+jab of 0.1 s gives Re 396,000 and needs 140 N on the hand, where a slow press
+needs only the skin's 48 N. The jet is taken relative to the hole, which goes
+down with the ring: `u = (r + 1)·ẋ`, and the circulation leaving its moving
+edge `½·∫(u² − ẋ²)·dt`, `(r + 2)/r` = 18 % more than the room's frame, in
+which the first version took it (Re 67,000 and 1.28 m/s at half a second; the
+mathematics check, 2026-11-17). The two thresholds, set to the exhibit's half
+second, rose by the same 18 %, from 1.6·10⁵ and 0.5 m/s.
+
+In the page, the reader presses with a button (a
 smooth half cosine of the length they set), by dragging the ring down in the
 drawing (the page samples the hand and the browser's port makes the ring from
 those samples), or with an auto mode of three presses: a jab, the best, and a
@@ -569,25 +608,72 @@ barrel).
   rigid and two balls of one elastomer halving `E*`; Young's modulus 3 MPa and
   Poisson's ratio 0.5 (rubber), both assumed. **Damped as Flores et al. (2011)
   give it**, `·(1 + 8(1 − e)/(5e)·δ̇/δ̇₀)`, so a contact gives back about the
-  share `e` (0.85, assumed) of the speed it closed at — to 2 %.
+  share `e` (0.85, assumed) of the speed it closed at — to 2 % from 0.85 up;
+  fitted near 1, it gives back less the lower `e`, 9 % less at 0.5 and a fifth
+  less at the slider's 0.3, which the slider's hint says (the mathematics
+  check, 2026-11-17). Hertz's law is for small dents, where the exhibit's
+  bottom ball squashes by a fifth of its radius; the page says so among what
+  is assumed. `δ̇₀` is the
+  fastest the contact has been struck in this compression: in a touching stack
+  the contacts above close gently in the fall or as the bottom ball slows, and
+  are then pressed far faster (the middle one closes at 1.1 m/s and is struck
+  at 4.3); pressed again after it began to part, a contact is struck anew.
+  - The first version took the gentle closing throughout, which made the
+    damping up to four times too strong (the contacts above peaking at 0.56
+    and 0.28 kN, the top ball off at 6.6 m/s) and, with a heavy ball settling
+    onto a small one in the fall, a hundredfold, where the steps blew up (20, 2
+    and 20 cm at 100 MPa; the crash sweep, 2026-11-17).
+  - The second took the faster of the gentle closing and the present rate,
+    which still held the gentle closing on the way back: the contacts above
+    gave back too little (0.69 and 0.37 kN, the top ball off at 7.0 m/s,
+    2.4 times the drop), and the big ball on top, its contacts closed in the
+    fall, gave back nothing — the balls flew off 19 mm into each other, stuck,
+    and the stack "sent nothing up" (found by the cost of it, 2026-11-18).
+  - Held at the fastest of the episode instead, a contact pressed again and
+    again (the big ball on top, cushioned by the light ones) was damped too
+    little from the second time on, and came back as high as it fell.
 - **Stepped with RK4**: 0.5 ms while every ball flies free, 10 µs while a
-  contact is closed or about to close (fifty small steps for one large, the time
-  grid unchanged). The impact's forces, overlaps and positions are recorded
-  every 0.1 ms for 30 ms.
+  contact is struck or about to be (fifty small steps for one large, the time
+  grid unchanged). A contact that rests — opening or closing slower than
+  1 mm/s, its swing (`1.5·K·√δ` on the pair's reduced mass) and its damping
+  slow enough that a large step takes at most 0.5 of a radian — is stepped
+  large as well: a ball settled onto another in the fall moves at some
+  0.02 mm/s and swings a twentieth of a radian a step. In small steps the big
+  ball on top from 3 m took 243 000 of them, 11 s of the server (6.4 s in the
+  version then live), where the budget allows a couple of hundred
+  milliseconds; now 9 300, against the exhibit's 7 800, with the same figures
+  to a millionth. The whole stack is run once for its launch and its forces
+  (it was run twice, a fifth to a third of the cost). A launch is bounded
+  before it begins: its fall and at most 0.5 s after the floor, at worst all
+  in small steps, 385 000 steps for the three from 3 m and 180 000 from 5 cm.
+  The dearest of the page's own corners come near it. Three 20 cm balls at
+  0.5 MPa and a restitution of 0.3, from 5 cm, take 151 000, some 4 s of a
+  laptop's core: they do not bounce but sink into each other at 1 to 4 mm/s,
+  faster than a resting contact moves, and the top ball never leaves, so the
+  whole window is stepped small. A 2 cm ball under two of 20 cm at 200 MPa
+  from 3 m takes 140 000, nearly all before the floor: the air brakes the
+  small ball harder than the big one on it, which presses on it through the
+  fall, and that contact, still to 0.6 µm/s, swings more than half a radian
+  a large step. Letting a resting contact's step take a whole radian cuts
+  that one to 9 000 and leaves the soft ones as they are; where it moved the
+  figures most, a drop a nanometre higher moves them as much. The impact's
+  forces, overlaps and positions are recorded every 0.1 ms for 30 ms.
 - **The textbook's model** is kept beside it for comparison: instantaneous hits
   one after another (`sequential_launch`), with and without losses, and the
   `(2ⁿ − 1)·v` of each ball far lighter than the one below.
 
 **What it shows.** From a metre the stack meets the floor at 4.42 m/s. The
 floor pushes back with 1.24 kN (about 220 times the bottom ball's weight), the
-ball squashed by 10 mm for 10 ms; the two contacts above peak at 0.56 and
-0.28 kN. Touching, the three contacts overlap — the middle ball presses into the
+ball squashed by 10 mm for 11 ms; the two contacts above peak at 0.60 and
+0.32 kN. Touching, the three contacts overlap — the middle ball presses into the
 bottom one 1.7 ms after that one met the floor — and the top ball leaves at
-6.6 m/s and climbs 2.2 times the drop, where instantaneous hits one after
+8.9 m/s and climbs 3.9 times the drop, where instantaneous hits one after
 another would send it off at 10.9 m/s (5.7 times). A few millimetres apart the
-contacts come one after another: 5 mm gives 4.6 times, 2 cm 5.4. The
+contacts come one after another: 5 mm gives 5.1 times, 2 cm 5.4. The
 elastomer's stiffness changes the forces and the durations much and the climb
-little (1 MPa 1.8 times, 50 MPa 3.4). Turned over, the stack sends nothing up.
+little (1 MPa 3.8 times, 50 MPa 4.3). Turned over, the stack is no cannon: the
+big ball on top climbs back about 0.8 of its fall, the light balls below only
+cushioning it — one hit after another would leave it still going down.
 In the page the reader drags the stack up in a close-up and lets go, or drops it
 with a button; a column beside it holds the whole climb; slow motion plays the
 impact a hundred times slower, the balls squashing into each other; a table and
@@ -604,7 +690,10 @@ elastomer's real, speed-dependent damping.
 - the damping gives back e to 2 %;
 - the exhibit's forces and launch, the overlap of its contacts, and a gap that
   parts them and nearly reaches the sequential model;
-- the sequential model's closed form, and the stack turned over.
+- the sequential model's closed form, and the stack turned over;
+- a contact struck after it closed parting again within the impact, and a
+  resting one stepped large at the cost of a fall, with the figures of small
+  steps throughout.
 
 ## The pendulum (`experiments.pendulum`), the block the swinging ones stand on
 
@@ -696,7 +785,11 @@ the figure closes on itself after two of the pen's swings (to 10⁻⁹ m); let g
 at 30° and 5° it drifts open, the wider swing being the slower one. Near a
 ratio `p:q` it keeps its shape and turns once every `1/|q·f₁ − p·f₂|`: the
 default pair, 0.67 % off 2:3, turns once in 90 s; it fades to a tenth in
-`2·ln 10/c`, 230 s at `c = 0.02/s`.
+`2·ln 10/c`, 230 s at `c = 0.02/s`. The beats `f₁, f₂` are the swings' as they
+are let go, `1/T(L, θ₀)`: the first version took the small swing's for both,
+and a pen at 30° over a board at 5° was said to turn in 90 s where it turns in
+26 at first, slowing towards 90 as both die away (the mathematics check,
+2026-11-17).
 
 **The page.** A canvas the pen draws on, a few hundred steps a frame, in real
 time, fivefold or twentyfold; "Finish the drawing" draws the rest at once (to
@@ -746,7 +839,14 @@ the ends.
 **What it shows** (the default: R 6 cm, α 20°, β 20°, γ 4°, rails 30 cm from
 6 cm apart). The rails rise 2.1 cm while the axis falls 1.9 cm; up to 7.5° the
 cone rolls up; it reaches the top in 1.5 s at 0.17 m/s, spinning 2.8 times a
-second on its thin part. At 10° it rolls down, and is laid at the top.
+second on its thin part. At 10° it rolls down, and is laid at the top. The
+contact lies `s*·r₀` along the rails from the axis's place, behind it where the
+cone rolls up, so laid at the very end it would touch the rails before they
+begin and rest on their ends, which the model does not have: it is laid, and
+stopped, where its contact lies on them (`on_rails_m`) — 3 mm up in the
+default build, which changes the run by 2 ms, and 84 mm of a 10 cm rail at the
+sliders' corner, where the first version had it roll from nowhere (the
+mathematics check, 2026-11-17).
 
 **The page.** The cone from the side (the rails one rising line, the middle
 disc, the circle it rolls on, a turning spoke, and the dashed path of its axis)
@@ -824,7 +924,10 @@ stretches; 50 against 55 cm, 0.56 of it reaches the other, which a two-minute
 run confirms to 1.5 %. The shares on the page are of everything put in, the
 spring's stretch at the start included — pulled aside alone, the left pendulum
 stretches the spring too (6 % of the default push; the first chart had divided
-by the pendulum's energy alone and climbed past 100 %).
+by the pendulum's energy alone and climbed past 100 %). So from 10° the chart
+of 50 against 55 cm peaks at 54.5 %, two points under Rabi's 56, which is for
+small swings and of the pushed pendulum's own (of that, 58 % reach the other
+at 10°); the page says "about" (the mathematics check, 2026-11-17).
 
 **The page.** The pair from the front with the spring, let go one way, both
 alike or against each other, real time or threefold; bars of each pendulum's
@@ -851,7 +954,15 @@ right over it or lets the string go slack.
 round the pivot (`θ'' = −(g/L)·sin θ`), round the peg (`φ'' = −(g/r)·sin φ`,
 `r = L − d`, the speed kept at the catch), free while the string would have to
 push (`r·φ'² + g·cos φ < 0`), until the string round the peg is straight again
-and jerks taut, taking the speed along it — the one place energy is lost. Each
+and jerks taut, taking the speed along it — the one place energy is lost. In
+flight the string follows the bob round the peg (its angle round the peg,
+unwrapped): a bob that flies over the peg to the other side winds the string
+round it for good, one that flies under it takes the string off it, and the
+string then jerks taut at `L` from the pivot. The first version took every
+taut string as round the peg and unwound, so the page's slack string (a metre,
+the peg at 55 cm, from the horizontal) flew over the peg and was then swung as
+a 1 m pendulum again, saying the string came off the peg; the mathematics
+check (2026-11-17) found it. Each
 switch is found within its 1 ms step by bisection on the stepped state (40
 halvings) and the step split there; the port does the same, switch for switch.
 
@@ -871,7 +982,9 @@ three cases as buttons in the trick. **No route**: the port's
 **Left out, and said:** the peg's thickness, a string that stretches, air.
 
 **Checked by** `tests/unit/test_experiments.py`: the same height, energy kept
-until the jerk, the threshold both sides, the slack height, the jerk's loss.
+until the jerk, the threshold both sides, the slack height, the jerk's loss,
+and the string wound over the peg in flight (at 55 cm) or taken off it (at
+45 cm).
 
 ## Maxwell's wheel (`experiments.maxwell`)
 
@@ -885,7 +998,9 @@ for a disc, M·R² for a ring), the strings pull `M·(g − a)`, and `k/(1 + k)`
 the energy of motion is in the spin. **Losses:** the strings bend round the
 axle and rub, a braking torque of `c·T·r` that opposes the spin both ways: the
 fall at `g/(1 + k/(1 − c))`, the climb slowed at `g/(1 + k/(1 + c))`, each
-climb `a↓/a↑` of the height before. **The turn-round:** a first sketch had the
+climb `a↓/a↑` of the height before. The page's formula first left `c` out,
+which gives 3.23 s for the fall the page shows as 3.3 (3.28; the mathematics
+check, 2026-11-17). **The turn-round:** a first sketch had the
 centre swing round a half-circle about the strings' ends, the textbook picture
 — but the strings hang straight down and can pull only up, so nothing pushes
 the centre sideways; it was dropped before it was written. Instead, as the plan
@@ -896,8 +1011,8 @@ and peaks at `M·g + s·A`. The jerk itself loses nothing in the model.
 
 **What it shows** (the default: a 0.5 kg disc of 6.5 cm on a 5 mm axle, 60 cm
 of strings, `c` 3 %, `s` 10 kN/m). 98.8 % of the energy of motion is in the
-spin; the fall takes 3.3 s; the jerk 25 ms at 31.2 N, 6.4 times the weight, the
-strings stretched 3.1 mm; each climb reaches 94 % of the height before. A ring
+spin; the fall takes 3.3 s; the jerk 22 ms at 30.7 N, 6.3 times the weight, the
+strings stretched 3.1 mm (25 ms, 31.2 N and 6.4 times from slack strings); each climb reaches 94 % of the height before. A ring
 of the same size puts 99.4 % into its spin.
 
 **The page.** The wheel from the front on its strings, spokes turning, in real
@@ -925,7 +1040,14 @@ pushes it twice "the same" sees two different dances.
 **The model** (`domain/experiments/chaos.py`). Two point masses on light rods,
 Lagrange's equations in their usual closed form, stepped by the block's
 Runge–Kutta at 1 ms; the energy is the check (it drifts by less than 10⁻⁷ of
-itself in twenty wild seconds). For small swings the two modes are
+itself in twenty wild seconds). Where a light upper arm under a heavy lower one
+whips round, the millisecond is cut into equal parts (`step_for`): as many as
+keep each arm's turn in a step within 0.035 rad, by a bound on its rate from the
+energy (all of it above the lowest hang as motion, through the inertia matrix's
+least eigenvalue). The first version kept 1 ms everywhere, and the mathematics
+check (2026-11-17) found the energy off by 28 % to 110 % at the page's corners:
+at 50 g over 2 kg on 10 cm rods from 120°, 80 % in 10 s; cut to a seventh,
+5·10⁻⁴. The default build keeps its millisecond. For small swings the two modes are
 `ω² = (g/L)(2 ∓ √2)` (equal arms and masses; the general quartic's roots), and
 a start in the slow mode comes back after its period. **Chaos, measured:** the
 page lets go the pendulum and a twin whose upper arm is nudged (1° down to
@@ -936,7 +1058,12 @@ logarithms every tenth of a second before it is set back: from 120°/120° over 
 minute, 2.82 a second whatever the gap (10⁻⁶ to 10⁻¹⁰); gently (5°/7°), under
 0.01. A first version fitted a slope to one pair's gap, which gave 1.9 to 3.8
 with the nudge — one stretch of one path says little — and was dropped. The
-page measures over 30 s, after the sliders settle; the port is held to the
+step matters as the gap does not: over half a minute 2.4 at 1 ms and 3.1 at
+0.5 ms, over two minutes 2.7 (and 2.64 to 2.71 over four, at 1, 0.5 and
+0.25 ms). The page measures over 30 s, after the sliders settle — four minutes
+would hold the main thread for a second, three with a light upper arm — so it
+shows one decimal and says it is a few tenths either way; it showed two (the
+mathematics check, 2026-11-17); the port is held to the
 engine with a twin 10⁻⁴ away, since at 10⁻⁸ the gap's subtraction loses eight
 digits that chaos then magnifies.
 
@@ -971,9 +1098,16 @@ wheel's own equations in seconds and finds the engine's `x`, `y`, `z` in them to
 heaped at the top and a nudge of 10⁻³.
 
 **What it shows** (σ 10, K 0.2/s). Below ρ = 1 the wheel stands; up to
-`ρ_H = σ(σ + 4)/(σ − 2)` = 17.5 it settles to turning steadily at `√(ρ − 1)`
-(in units of `K`); above, it wanders — at the default ρ 28 twenty-odd reversals
-in 200 s at gaps that range more than threefold.
+`ρ_H = σ(σ + 4)/(σ − 2)` = 17.5 steady turning at `√(ρ − 1)` (in units of `K`)
+is stable, and at ρ 10 the wheel settles to it; above, it wanders — at the
+default ρ 28 twenty-odd reversals in 200 s at gaps that range more than
+threefold. What the page says the wheel does is read from the 200 s it shows
+(`behaviour`, from the run's last third: steady, a pattern whose gaps repeat
+some `p ≤ 4` on to 2 %, chaotic, or not yet settled), not from `ρ_H` alone,
+which the first version did: the mathematics check (2026-11-17) found the
+wheel at ρ 15–17, below `ρ_H`, still wandering after 250 of 300 s, and at
+σ 15, ρ 32, above its `ρ_H`, locked into reversals at equal gaps. Above `ρ_H`
+most taps stay chaotic (σ 10, ρ 20 to 200).
 
 **The page.** The wheel with eight cups hanging upright, each as full as the
 harmonic says at its place, the stream from the tap, beside Lorenz's butterfly
@@ -987,7 +1121,7 @@ its first harmonic counts), the wheel's tilt, splashing.
 
 **Checked by** `tests/unit/test_experiments.py`: the wheel's equations against
 Lorenz's, the three regimes and the steady rate, the reversals' spread, the
-cups full at the top at rest.
+cups full at the top at rest, and what the page says from the run it shows.
 
 ## Foucault's pendulum (`experiments.foucault`)
 
@@ -1079,10 +1213,14 @@ stayed open for 200 µs.
 
 **What it shows** (25 mm steel balls, 15 cm strings, `e` = 0.95, one lifted
 by 30°). The ball comes in at 0.63 m/s; the contact lasts 0.2 ms at nearly
-900 N; 97 % of the energy leaves in the last ball and the first bounces back
-a little. With 0.1 mm between the balls they meet one pair at a time: 99.9 %.
+900 N; 97 % of the energy the collision leaves is in the last ball (89 % of
+what came in, 8 % going into the dents) and the first bounces back a little.
+With 0.1 mm between the balls they meet one pair at a time: 99.9 % of what is
+left, but only 87 % of what came in, every hit taking its share. The page said
+"97 % of the energy" without saying of which (the mathematics check,
+2026-11-17).
 Two lifted leave as a train of two waves, the last at 0.70 m/s and the next at
-0.49 m/s, 97 % between them — the solitary waves of a Hertzian chain, which a
+0.49 m/s, 97 % between them (92 % of what came in) — the solitary waves of a Hertzian chain, which a
 heavier striker sends as a train. With `e` < 1 what stays in the row grows
 until all swing (the middle ball 2.5° wide in the fourth second); with
 `e` = 1 it stays nearly still — the row's coming together is the losses'
@@ -1165,18 +1303,31 @@ stir.
 **The model** (`domain/experiments/resonance.py`). Each rod a clamped-free
 beam, only its first mode kept: `β₁` found by bisection on
 `cosh β·cos β = −1` (1.8751), the shape 1 at the tip, its participation
-`Γ = ∫φ/∫φ²` by Simpson (1.566), both held to the textbook; `f₁ =
-β₁²/(2πL²)·(d/4)·√(E/ρ)` for a round rod. The table `Y·sin θ`, `θ̇ = Ω`; per
+`Γ = ∫φ/∫φ²` by Simpson (1.566), both held to the textbook; `ω₀ =
+β₁²/L²·(d/4)·√(E/ρ)` for a round rod. **Its own weight**: standing upright, a
+rod carries it along its length, which softens it — the mode's Rayleigh
+quotient loses `ρAg·∫(L − x)·φ'²`, so `ω² = ω₀² − Λ·g/L`,
+`Λ = ∫(1 − ξ)·φ'²/∫φ²` = 1.571. Against Rayleigh–Ritz in twelve polynomials
+that is the frequency to 0.01 % for the exhibit's rods (by hand, 2026-11-18),
+and where `ω²` reaches nothing it puts the buckling load `ρAgL³/(EI)` at
+`β₁⁴/Λ` = 7.87, within half a per cent of Greenhill's 7.837; such a rod is
+refused. The first version left the weight out, and its rods rang up to 10 %
+high (the mathematics check, 2026-11-17). The table `Y·sin θ`, `θ̇ = Ω`; per
 rod `q̈ + 2ζω·q̇ + ω²·q = −Γ·ÿ_b`, stepped by Runge–Kutta a millisecond at a
 time with the drive held through each step (a sweep moves it between steps;
 the neglected `Ω̇` term is a few thousandths at 0.05 Hz/s). The steady swing
 in closed form; the live swing `√(q² + (v/ω)²)`.
 
 **What it shows** (six 2 mm steel rods, 1.0 to 0.5 m, ζ = 0.01, the table
-1 mm each way). They ring at 1.41, 1.74, 2.21, 2.88, 3.92 and 5.65 Hz. In step
-with the 80 cm rod its tip swings 78 mm, the neighbours at most 4; 3 % off,
-26 mm. From rest a swing grows to 1 − 1/e in `1/(ζω)`, 7.2 s at 2.21 Hz. A
-sweep from 1 Hz at 0.05 Hz/s gives the same rod only 40 mm, and at 2.4 Hz.
+1 mm each way). They ring at 1.27, 1.61, 2.09, 2.78, 3.84 and 5.58 Hz, their
+weight taking 10 % from the metre rod and 5 % from the 80 cm one. In step with
+the 80 cm rod its tip swings 78 mm, the neighbours at most 4; 3 % off, 26 mm.
+From rest a swing grows to 1 − 1/e in `1/(ζω)`, 7.6 s at 2.09 Hz. A sweep from
+1 Hz at 0.05 Hz/s gives the same rod only 38 mm, half, and at 2.3 Hz. The page measures a rod's swing as `√(q² + (v/Ω)²)`, at the drive's
+frequency, which a steady swing keeps exactly; the first version took the
+rod's own `ω`, and the mathematics check (2026-11-17) found the dashed record
+of a sweep up to 4.6 times above the steady curves for rods driven well above
+their tone (and the sweep's widest at 40 mm).
 
 **The page.** The rods on their table (the table's millimetre true to scale,
 which is the point), each rod's frequency under it; the table's beat, a sweep
@@ -1186,7 +1337,7 @@ with the sweep's record dashed over them and a line at the beat. The chart is
 redrawn every half second of the run, not every frame: its points made the
 page stutter. **Sound**, muted until switched on (Marcel's call, 2026-11-15):
 `shared/lib/use-tones.ts`, one sine per rod at its frequency seven octaves up
-(181 to 723 Hz), as loud as it swings; no audio graph exists while off, the
+(162 to 714 Hz), as loud as it swings; no audio graph exists while off, the
 context is closed when switched off, nothing is stored. **No route**: the
 port's (`simulate/resonance.ts`); the engine's `run` is not ported, the test
 samples the port's steps the engine's way.
@@ -1195,9 +1346,12 @@ samples the port's steps the engine's way.
 first), the rod's stiffening at wide swings, the table's give.
 
 **Checked by** `tests/unit/test_experiments.py`: β₁, β₁² and Γ against the
-tables; the second mode's ratio found independently; the six frequencies; the
-78, 4 and 26 mm; the stepped swings settling on the closed form within 1 %;
-the build-up to 1 − 1/e in 7.2 s; the sweep's 40 mm at 2.4 Hz.
+tables; the second mode's ratio found independently; Λ found again from the
+shape by differences, its buckling load against Greenhill's, the tenth and the
+twentieth the weight takes; the six frequencies; the 78, 4 and 26 mm; the
+stepped swings settling on the closed form within 1 %; the build-up to
+1 − 1/e in 7.6 s; the sweep's 38 mm at 2.3 Hz, the widest `|q|` itself; a rod
+driven at 5.0 times its tone measured as it swings.
 
 ## The gyroscope wheel (`experiments.gyroscope`)
 
@@ -1266,8 +1420,13 @@ reach of half the thickness up.
 **What it shows** (2 m span to the centre line, 25 cm stones, 16 of them).
 A semicircle needs `t/R` ≥ 0.1075 (Milankovitch 1907; 0.10746 in 100 stones,
 0.107 in 16): at 10 cm on its metre it breaks, where a pointed arch stands.
-A catenary arch keeps its line within a hundredth of half the thickness,
-however thick. A load at the quarter point breaks the semicircle at 80 % of
+A catenary arch of sixteen stones over 2 m keeps its line within a hundredth
+of half the thickness from 3 cm thick to 50; at the slider's 2 cm it is 0.014,
+the straight stones' own bend telling against so thin a line. The reach goes
+with the thickness over the span (16 stones: under a hundredth from a
+seventieth of the span to about a third) and with the stones' number (eight
+stones at 5 cm: 0.018). The page said "however thick" (the mathematics check,
+2026-11-17). A load at the quarter point breaks the semicircle at 80 % of
 its own weight, the catenary arch at 141 %; at the crown the catenary arch
 has no limit in this model (the thrust line fits as two straight struts).
 
@@ -1305,7 +1464,11 @@ is the identity in this basis). Rigid motions (κ ≈ 0) are dropped by κ > 1,
 the lowest true κ being about 11. λ = 4√κ. Each mode is scaled to 1 at its
 largest on a 41-point grid and signed positive at the middle. Shaken at its
 middle, only the doubly even, swap-kept modes move there and are driven; the
-answer is `|Σ φ_k·φ_k(0)/(ω_k² − Ω² + 2iζω_kΩ)|`, ζ = 0.002.
+answer is `|Σ φ_k·φ_k(0)/(μ_k·(ω_k² − Ω² + 2iζω_kΩ))|`, ζ = 0.002, with
+`μ_k = ∫φ_k² = Σ c²` the mode's mass (the products are orthonormal). The first
+version left `μ_k` out, which made the answer hang on each mode's scale: the
+mathematics check (2026-11-17) found the middle's swing at the fourth tone,
+711 Hz, at 2.0 % of the lowest tone's; it is 4.7 % (test).
 
 **What it shows.** Leissa's free square plate: 13.468, 19.596, 24.270,
 34.801, 61.093, 63.686 to the third place. The driven modes of a 24 cm, 1 mm
@@ -1557,8 +1720,11 @@ one leaving it.
 
 **What it shows** (from 30 cm: a steel ball of 20 mm, 33 g, `e = 0.95` on
 hardened steel, an assumption; a regulation table-tennis ball, 2.7 g, 40 mm,
-`e = 0.92`, which with the air rises from 305 mm to 240 mm, the middle of the
-230–250 mm the rules of table tennis demand). The steel ball lands after
+`e = 0.92`, which with the air rises from 305 mm to 240 mm, at the lower limit
+of the 240–265 mm the rules of table tennis demand of today's balls, dropped
+onto a standard steel block: ITTF Technical Leaflet T3, *The Ball* (2018), B.7,
+240–260 mm for celluloid. The first version said 230–250 mm and its middle;
+the mathematics check, 2026-11-17, found it). The steel ball lands after
 0.25 s, rises to 27 cm and lies still after 9.6 s, 75 of its bounces longer
 than a hundredth of a second; the table-tennis ball rises to 24 cm and is
 still after 5.2 s, with 44. The air carries the table-tennis ball whole at
@@ -1610,11 +1776,15 @@ one to a layer; a layer holds while the centre of mass of it and all above lies
 over its footing (where it overlaps the block below; the table's top, edge at
 zero, for the lowest), its ends included. The furthest stack is built from the
 top, the `k`-th block from the top `1/(2k)` over the next: `H_n/2`. Even steps
-`1/(n + 1)` put the whole stack's centre on the edge first and reach
-`n/(n + 1)`. In lengths; the blocks are 20 × 4 cm only to draw and measure.
+`1/(n + 1)`, the lowest block that far over the edge too, put the whole
+stack's centre on the edge first and reach `n/(n + 1)`; with the lowest block
+set back to `1/2 − (n − 1)/(2n)`, even steps of `1/n` reach `(2n − 1)/(2n)`,
+nine 0.94 — the page said "in even steps only 0.9" without the first condition
+(the mathematics check, 2026-11-17). In lengths; the blocks are 20 × 4 cm only to draw and measure.
 
 **What it shows.** Nine blocks reach 1.41 lengths, 28.3 cm; four already more
-than one (1.04); even steps 0.9 with nine, never a whole length. One length
+than one (1.04); even steps 0.9 with nine, 0.94 with the lowest set back,
+never a whole length. One length
 takes 4 blocks, two 31, three 227, four 1674. The furthest stack stands at
 every edge at once: a block pushed a breath further out tips its own layer and
 every one below it, so the whole stack goes over the table's edge.
@@ -1641,8 +1811,8 @@ only tip); the wood giving way; a shaking hand.
 
 **Checked by** `tests/unit/test_experiments.py`: the furthest stacks of 1 to
 20 against `H_n/2` in exact fractions, nine at 1.41 (28 cm), three short of a
-length and four past it; even steps at `n/(n + 1)`, holding, and tipping a
-step wider; the blocks for one to four lengths; the furthest stack at every
+length and four past it; even steps at `n/(n + 1)` and, the lowest set back,
+at `(2n − 1)/(2n)`, holding, and tipping a step wider; the blocks for one to four lengths; the furthest stack at every
 edge at once and a nudge tipping its layer and all below; a blind search of
 20 000 random stacks of three and of four, none holding past the harmonic; the
 refusals.
@@ -1711,9 +1881,13 @@ the topic "light".
 
 **Colour, for every light exhibit** (`domain/experiments/colour.py`). A
 spectrum at 81 wavelengths (380–780 nm, 5 nm) becomes the eye's `X, Y, Z` by
-the CIE 1931 observer, taken as the multi-lobe fit of Wyman, Sloan and
-Shirley (2013) rather than a table; then the screen's linear red, green and
-blue by the sRGB matrix, relative to the lamp's own white (each channel
+the CIE 1931 observer, the CIE's own table every 5 nm (360–830 nm, CIE
+018:2019), straight between its steps. The multi-lobe fit of Wyman, Sloan and
+Shirley (2013) was used first and dropped in the mathematics check
+(2026-11-17): it halves `x̄` past 680 nm, so a laser at 690–700 nm and the red
+end of the rainbow came out orange; with the table every wavelength from
+610 nm on is the screen's pure red (test). Then the screen's linear red, green
+and blue by the sRGB matrix, relative to the lamp's own white (each channel
 divided by the lamp's: the eye takes its lamp as white), a channel below zero
 shown as zero, a colour brighter than white dimmed as a whole, and sRGB's
 curve. Lamps are Planck's glowing bodies by their temperature. Mixing an
@@ -1808,7 +1982,11 @@ the sun at height `h` through Kasten and Young's air mass `m` (37.9 at the
 horizon), its light `S·e^{−m·τ}`; the sky straight overhead as sunlight
 scattered once at every height on its way down, `(e^{−τ} − e^{−m·τ})/(m − 1)`
 for an air whose density falls alike for every wavelength, written with
-`expm1` so that it holds at `m = 1` (`τ·e^{−τ}`). The sun a 5778 K glow above
+`expm1` so that it holds at `m = 1` (`τ·e^{−τ}`), and turned into the eye
+through `Θ = 90° − h`, which Rayleigh's `1 + cos²Θ` weighs: `(1 + sin²h)/2`
+of the sky with the sun overhead, half with it on the horizon. The first
+version left it out and drew the evening sky up to twice as bright against
+noon's (the mathematics check, 2026-11-17); the colours do not change. The sun a 5778 K glow above
 the air, taken as white. **Ozone** (added the same day, Marcel's "Ja" after a
 side agent found the sky overhead at sunset nearly white without it): the
 layer absorbs rather than scatters, most in the orange (the Chappuis band,
@@ -1899,8 +2077,14 @@ middle; one slit's middle band 26 mm to its first dark, nine bright stripes
 within it, the fifth lying on that dark and missing; at the pair's first dark
 stripe one slit alone gives 97 % of its own middle; one slit lights the middle
 a quarter as brightly as two. With white light the middle is white and the
-red's first dark blue. Fraunhofer holds as the wall is far against `d²/λ`,
-about a tenth of a metre.
+red's first dark blue. Fraunhofer holds to a per cent of the middle once the
+wall is more than 35 times `a²/λ` away, 13 cm here (0.8 %; at 30 times 1.1 %): summed
+strip by strip on each strip's own path, the near field included, the formula
+is off by about `10·(a²/λL)²`. The slit's width sets it, not the spacing (the
+spacing's own term is the same for both slits and drops out), so the sliders'
+corner of 1 mm and 0.5 m is off by only 0.3 %, while 0.2 mm slits at 400 nm
+need 3.5 m. Nearer than that the page says so; it had named `d²/λ` and said
+nothing (the mathematics check, 2026-11-17).
 
 **The page.** The setup, small, in a dark room (the beam in the laser's
 colour, the second slit shown covered when it is), and under it the wall as

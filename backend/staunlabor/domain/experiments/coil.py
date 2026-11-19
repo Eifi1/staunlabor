@@ -224,6 +224,33 @@ def peak_coupling(ex: CoilExhibit) -> tuple[float, float]:
     return x, coupling(ex, x)
 
 
+def top_speed(ex: CoilExhibit) -> float:
+    """The speed past which no pass gains, however well the buttons are pressed.
+
+    The car's own voltage drives a current ``−k·v/R`` that brakes it, harder
+    the faster it goes; the best a hand can add is plus the whole way in and
+    minus the whole way out. With the button held the current is
+    ``(U − k·v)/R`` (the coil's own inductance left out), so the coil's work
+    on the near half is ``∫k·(U − k·v)/R dx = (U·Ψ(0) − v·∫k² dx)/R``, and the
+    far half, pressed the other way, gives the same. It vanishes at
+    ``U·Ψ(0)/∫k² dx``, 7.2 m/s for the default build. ``U/k_max`` (4.8 m/s),
+    once given here, is only where the car's voltage first beats the
+    battery's, at the peaks of ``k``; the flanks still push past it. The
+    inductance, left out, delays the current and weakens the brake: stepped
+    with it, the zero lies 7 % higher. :class:`PressRule`'s window of 6 cm
+    misses 14 % of ``Ψ(0)`` and so stops short of it.
+
+    ``∫k² dx`` by Simpson's rule from ten diameters out to the middle, where
+    ``k`` has long fallen off (to 1e-7 of the whole).
+    """
+    lo, n = -(ex.coil.length_m / 2 + 10 * ex.coil.mean_diameter_m), 1000
+    h = -lo / n
+    total = coupling(ex, lo) ** 2 + coupling(ex, 0.0) ** 2
+    for j in range(1, n):
+        total += (4 if j % 2 else 2) * coupling(ex, lo + j * h) ** 2
+    return ex.supply_v * flux_linkage(ex, 0.0) / (total * h / 3)
+
+
 @dataclass(frozen=True)
 class CoilFigures:
     moment_a_m2: float
@@ -233,7 +260,8 @@ class CoilFigures:
     peak_flux_wb: float
     peak_coupling_v_s_per_m: float
     peak_coupling_at_m: float
-    #: Where the induced voltage would equal the supply: no current, no push.
+    #: The speed past which no pass gains, however well the buttons are
+    #: pressed, see :func:`top_speed`.
     top_speed_m_s: float
     #: ``2·I·Ψ(0)``: the most one pass can give, at full current, both buttons.
     ideal_gain_per_pass_j: float
@@ -261,7 +289,7 @@ def figures(ex: CoilExhibit) -> CoilFigures:
         peak_flux_wb=flux_linkage(ex, 0.0),
         peak_coupling_v_s_per_m=k_max,
         peak_coupling_at_m=at,
-        top_speed_m_s=ex.supply_v / k_max,
+        top_speed_m_s=top_speed(ex),
         ideal_gain_per_pass_j=2 * current * flux_linkage(ex, 0.0),
         top_height_m=t.top_height_m,
         speed_for_top_m_s=speed,

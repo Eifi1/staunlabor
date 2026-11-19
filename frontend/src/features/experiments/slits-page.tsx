@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { LoadingState, Switch, ToggleGroup } from "@eifi1/ui-kit";
+import { AlertBanner, LoadingState, Switch, ToggleGroup } from "@eifi1/ui-kit";
 import { SeriesChart } from "@/shared/charts/series-chart";
 import { useLocale } from "@/shared/i18n/use-locale";
 import { formatNumber } from "@/shared/lib/format";
@@ -264,6 +264,11 @@ function SlitsPlay({
               ? t("experiments.slits.play.status_both", { spacing: formatNumber(shown.spacing_m * 1000, 1, locale) })
               : t("experiments.slits.play.status_one")}
           </p>
+          {slits.distance_m < shown.near_m && (
+            <AlertBanner tone="info">
+              {t("experiments.slits.play.near", { near: formatNumber(shown.near_m, 1, locale) })}
+            </AlertBanner>
+          )}
           <Figures
             tiles={[
               {

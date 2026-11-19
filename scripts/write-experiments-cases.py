@@ -283,7 +283,9 @@ SMOKE_FLIGHTS = {"half a second": 3.0, "a jab": 2.0, "a slow press": 4.0}
 #: The ball cannon: the exhibit's stack through its impact and the start of
 #: the climb, two balls with a gap, the big ball on top, one lossless ball, and
 #: a stiff, soft-bouncing stack — Hertz's contacts closing, overlapping and
-#: opening, a contact staying closed at the end. Short: every step of a
+#: opening, a contact staying closed at the end — and the big ball on top from
+#: high up, its contacts resting through the fall in large steps and then
+#: struck by the floor. Short: every step of a
 #: contact is fifty small ones, and the page's drops are run in the browser.
 CANNON_CASES: dict[str, dict[str, Any]] = {
     "the exhibit": {"stack": cannon.BallStack(), "duration_s": 0.6},
@@ -295,6 +297,10 @@ CANNON_CASES: dict[str, dict[str, Any]] = {
     "upside down": {
         "stack": cannon.BallStack(balls=(cannon.Ball(0.05), cannon.Ball(0.07), cannon.Ball(0.10)), drop_m=0.3),
         "duration_s": 0.4,
+    },
+    "upside down from high up": {
+        "stack": cannon.BallStack(balls=(cannon.Ball(0.05), cannon.Ball(0.07), cannon.Ball(0.10)), drop_m=1.5),
+        "duration_s": 0.65,
     },
     "one ball, lossless": {
         "stack": cannon.BallStack(balls=(cannon.Ball(0.07),), floor_restitution=1.0, drop_m=0.5),
@@ -433,6 +439,11 @@ PEG_CASES: dict[str, dict[str, Any]] = {
     "the same height": {"p": peg.PegPendulum(), "duration_s": 5.0},
     "over the top": {"p": peg.PegPendulum(start_deg=90.0, peg_depth_m=0.62), "duration_s": 3.0},
     "slack, then taut": {"p": peg.PegPendulum(start_deg=90.0, peg_depth_m=0.58), "duration_s": 4.0},
+    "the page's slack string, wound over the peg in flight": {
+        "p": peg.PegPendulum(start_deg=90.0, peg_depth_m=0.55),
+        "duration_s": 4.0,
+    },
+    "slack, then off the peg in flight": {"p": peg.PegPendulum(start_deg=90.0, peg_depth_m=0.45), "duration_s": 4.0},
     "a long string, a coarse step": {
         "p": peg.PegPendulum(length_m=3.0, peg_depth_m=2.0, start_deg=70.0),
         "duration_s": 6.0,
@@ -461,6 +472,14 @@ MAXWELL_CASES: dict[str, dict[str, Any]] = {
 CHAOS_CASES: dict[str, dict[str, Any]] = {
     "wild": {"dp": chaos.DoublePendulum(), "start": (120.0, 120.0), "duration_s": 4.0},
     "gentle": {"dp": chaos.DoublePendulum(), "start": (5.0, 7.0), "duration_s": 3.0},
+    "a light upper arm, the step cut to a seventh": {
+        "dp": chaos.DoublePendulum(length1_m=0.1, length2_m=0.1, mass1_kg=0.05, mass2_kg=2.0),
+        "start": (120.0, 120.0),
+        "duration_s": 1.0,
+        # Its arms whip round so fast that the last digit's rounding grows by
+        # 10⁷ in 3 s: the two sides agree to the cases' digits for half a second.
+        "lyapunov_s": 0.5,
+    },
     "unequal and damped, a coarse step": {
         "dp": chaos.DoublePendulum(length2_m=0.5, mass2_kg=0.2, damping_per_s=0.1),
         "start": (-90.0, 170.0),
@@ -471,11 +490,16 @@ CHAOS_CASES: dict[str, dict[str, Any]] = {
 }
 
 #: The waterwheel: still, steady after one reversal, chaotic, and a strong brake
-#: at a coarse step.
+#: at a coarse step; and the page's 200 s run in each of the behaviours it names.
 WATERWHEEL_CASES: dict[str, dict[str, Any]] = {
     "still": {"w": waterwheel.WaterWheel(rho=0.5), "duration_s": 20.0},
     "steady": {"w": waterwheel.WaterWheel(rho=10.0), "duration_s": 30.0},
     "chaotic": {"w": waterwheel.WaterWheel(), "duration_s": 30.0},
+    "the page's run, steady": {"w": waterwheel.WaterWheel(rho=10.0), "duration_s": 200.0},
+    "the page's run, chaotic": {"w": waterwheel.WaterWheel(), "duration_s": 200.0},
+    "below ρ_H, wandering on": {"w": waterwheel.WaterWheel(rho=16.0), "duration_s": 200.0},
+    "a repeating pattern": {"w": waterwheel.WaterWheel(sigma=15.0, rho=32.0), "duration_s": 200.0},
+    "not yet settled": {"w": waterwheel.WaterWheel(leak_per_s=0.01), "duration_s": 200.0},
     "a strong brake, a coarse step": {
         "w": waterwheel.WaterWheel(sigma=30.0, rho=60.0, leak_per_s=1.0),
         "duration_s": 5.0,
@@ -531,7 +555,7 @@ WELL_CASES = (
 #: Resonance: the exhibit's rack in step with its third rod and between two,
 #: swept, and a stiff, well-damped rack of three.
 RESONANCE_CASES = (
-    (resonance.Rack(), 2.2073, 0.0),
+    (resonance.Rack(), 2.0933, 0.0),
     (resonance.Rack(), 2.0, 0.0),
     (resonance.Rack(), 1.5, 0.05),
     (resonance.Rack(lengths_m=(0.3, 0.25, 0.2), diameter_m=0.004, damping_ratio=0.05, table_m=0.002), 20.0, -0.5),
@@ -826,6 +850,8 @@ def _resonance_cases(out: dict[str, Any]) -> None:
     out["resonance_constants"] = {
         "BETA1": resonance.BETA1,
         "GAMMA": resonance.GAMMA,
+        "LAMBDA": resonance.LAMBDA,
+        "G": resonance.G,
         "shape": [resonance.shape(i / 10) for i in range(11)],
     }
     for rack, drive, sweep in RESONANCE_CASES:
@@ -1173,6 +1199,7 @@ def _waterwheel_cases(out: dict[str, Any]) -> None:
                 "duration_s": case["duration_s"],
                 "step_tau": step,
                 "regime": waterwheel.regime(w),
+                "behaviour": waterwheel.behaviour(w, result),
                 "hopf_rho": waterwheel.hopf_rho(w),
                 "levels": [waterwheel.cup_level(w, 3.0, 20.0, k * 0.785) for k in range(8)],
                 "run": {**thin(asdict(result)), "reversals_s": list(result.reversals_s)},
@@ -1183,7 +1210,7 @@ def _waterwheel_cases(out: dict[str, Any]) -> None:
 def _chaos_cases(out: dict[str, Any]) -> None:
     for name, case in CHAOS_CASES.items():
         dp, (a, b) = case["dp"], case["start"]
-        step = case.get("step_s", chaos.STEP_S)
+        step = case.get("step_s", chaos.step_for(dp, a, b))
         nudge = case.get("nudge_deg", 0.001)
         out["chaos"].append(
             {
@@ -1192,11 +1219,13 @@ def _chaos_cases(out: dict[str, Any]) -> None:
                 "start": [a, b],
                 "duration_s": case["duration_s"],
                 "step_s": step,
+                "step_for": chaos.step_for(dp, a, b),
                 "nudge_deg": nudge,
                 "mode_rates": list(chaos.mode_rates(dp)),
                 # A twin 10⁻⁴ away: at the measurement's 10⁻⁸ the gap's subtraction
                 # loses eight digits, and the port could not be held to the last ones.
-                "lyapunov": chaos.lyapunov(dp, a, b, 3.0, gap=1e-4, step_s=step),
+                "lyapunov_s": case.get("lyapunov_s", 3.0),
+                "lyapunov": chaos.lyapunov(dp, a, b, case.get("lyapunov_s", 3.0), gap=1e-4, step_s=step),
                 "run": thin(asdict(chaos.run(dp, a, b, case["duration_s"], nudge, step))),
             }
         )
@@ -1508,6 +1537,8 @@ def cases() -> dict[str, Any]:
             "SAMPLES_PER_S",
             "MAX_S",
             "MIN_CLOSING_M_S",
+            "RESTING_M_S",
+            "RESTING_SWING",
             "IMPACT_EVERY",
             "IMPACT_WINDOW_S",
             "LAUNCH_WINDOW_S",

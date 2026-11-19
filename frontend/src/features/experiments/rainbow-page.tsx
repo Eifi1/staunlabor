@@ -341,10 +341,13 @@ function RainbowPlay({ bead, preview = false, paused = false }: { bead: Bead } &
           <p className={`text-sm font-medium ${near ? "text-primary" : "text-secondary"}`} role="status">
             {near
               ? t("experiments.rainbow.play.at_bow")
-              : t(`experiments.rainbow.play.${leaves >= 0 ? "inside" : "across"}`, {
-                  angle: formatNumber(Math.abs(leaves), 1, locale),
-                  bow: formatNumber(angle, 1, locale),
-                })}
+              : t(
+                  `experiments.rainbow.play.${leaves >= 0 ? "inside" : -leaves <= angle ? "across" : "across_outside"}`,
+                  {
+                    angle: formatNumber(Math.abs(leaves), 1, locale),
+                    bow: formatNumber(angle, 1, locale),
+                  },
+                )}
           </p>
           <Switch
             label={t("experiments.rainbow.play.split")}

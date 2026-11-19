@@ -41,8 +41,18 @@ interface Particle {
 }
 
 interface Sim {
-  /** The press being made: the samples so far, and whether a hand or the button makes it. */
-  press: { times: number[]; depths: number[]; source: "drag" | "button"; duration: number; depth: number } | null;
+  /** The press being made: the samples so far, whether a hand or the button
+   *  makes it, and the drum it began on — a slider moved mid-press changes the
+   *  next press, not this one (a stroke lowered under its depth stopped the
+   *  animation). */
+  press: {
+    times: number[];
+    depths: number[];
+    source: "drag" | "button";
+    duration: number;
+    depth: number;
+    exhibit: SmokeExhibitRequest;
+  } | null;
   start: number;
   depth: number;
   /** Where the skin was when let go, and how long ago. */
@@ -177,16 +187,23 @@ function SmokePlay({
     current.released = { from: current.depth, age: 0 };
     if (!press || press.times.length < 2) return;
     const times = press.times.map((x) => x - press.times[0]);
-    const made = ringOf(latest.current.exhibit, times, press.depths);
+    const made = ringOf(press.exhibit, times, press.depths);
     setRing(made);
     if (made.verdict === "none") return;
-    current.flying = { ring: made, flight: flight(latest.current.exhibit, made, FLIGHT_S), age: 0 };
+    current.flying = { ring: made, flight: flight(press.exhibit, made, FLIGHT_S), age: 0 };
     current.particles = freshParticles();
   };
 
   const startPress = (source: "drag" | "button", now: number, pressDuration: number, pressDepth: number) => {
     const current = sim.current;
-    current.press = { times: [now], depths: [current.depth], source, duration: pressDuration, depth: pressDepth };
+    current.press = {
+      times: [now],
+      depths: [current.depth],
+      source,
+      duration: pressDuration,
+      depth: pressDepth,
+      exhibit: latest.current.exhibit,
+    };
     current.start = now;
     current.released = null;
   };
@@ -542,7 +559,7 @@ function SmokeModel() {
         ]}
       />
       <Equation
-        tex={String.raw`u = \frac{A_{\text{eff}}}{A_h}\, \dot x`}
+        tex={String.raw`u = \left(\frac{A_{\text{eff}}}{A_h} + 1\right) \dot x`}
         reads={t("experiments.smoke.model.jet")}
         symbols={[
           { tex: "u", meaning: s("u"), unit: "m/s" },
@@ -550,7 +567,7 @@ function SmokeModel() {
         ]}
       />
       <Equation
-        tex={String.raw`\Gamma = \tfrac12 \int u^2\, dt`}
+        tex={String.raw`\Gamma = \tfrac12 \int \left(u^2 - \dot x^2\right) dt`}
         reads={t("experiments.smoke.model.circulation")}
         symbols={[
           { tex: String.raw`\Gamma`, meaning: s("gamma"), unit: "m²/s" },
@@ -653,17 +670,7 @@ function SmokeTrick({ figures, exhibit }: { figures: SmokeFigures | null; exhibi
   };
   return (
     <>
-      {figures.fastest_s !== null && figures.slowest_s !== null && figures.best_s !== null ? (
-        <p>
-          {t("experiments.smoke.sweet.window", {
-            fastest: n(figures.fastest_s, 2),
-            slowest: n(figures.slowest_s, 1),
-            best: n(figures.best_s, 1),
-          })}
-        </p>
-      ) : (
-        <AlertBanner tone="info">{t("experiments.smoke.sweet.none")}</AlertBanner>
-      )}
+      <SmokeWindow figures={figures} n={n} />
       <p>{t("experiments.smoke.sweet.fast")}</p>
       <SeriesChart
         rows={rows}
@@ -734,4 +741,27 @@ function SmokeTrick({ figures, exhibit }: { figures: SmokeFigures | null; exhibi
       <p className="text-caption text-muted">{t("experiments.smoke.sweet.assumed")}</p>
     </>
   );
+}
+
+/** The window a full press makes a ring in: both ends, one end open (a draught
+ *  of a few cm/s carries nothing off, a high threshold lets every jab through),
+ *  both open, or none. */
+function SmokeWindow({ figures, n }: { figures: SmokeFigures; n: (v: number, digits: number) => string }) {
+  const { t } = useTranslation();
+  if (figures.fastest_s !== null && figures.slowest_s !== null && figures.best_s !== null)
+    return (
+      <p>
+        {t("experiments.smoke.sweet.window", {
+          fastest: n(figures.fastest_s, 2),
+          slowest: n(figures.slowest_s, 1),
+          best: n(figures.best_s, 1),
+        })}
+      </p>
+    );
+  if (figures.open_slow && figures.fastest_s !== null)
+    return <p>{t("experiments.smoke.sweet.open_slow", { fastest: n(figures.fastest_s, 2) })}</p>;
+  if (figures.open_fast && figures.slowest_s !== null)
+    return <p>{t("experiments.smoke.sweet.open_fast", { slowest: n(figures.slowest_s, 1) })}</p>;
+  if (figures.open_fast && figures.open_slow) return <p>{t("experiments.smoke.sweet.open_both")}</p>;
+  return <AlertBanner tone="info">{t("experiments.smoke.sweet.none")}</AlertBanner>;
 }

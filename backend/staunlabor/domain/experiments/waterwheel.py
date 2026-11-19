@@ -27,12 +27,20 @@ Above 1 it can turn steadily one way or the other (``x = ±√(ρ − 1)``); abo
 wheel wanders between turning one way and the other, never repeating:
 Lorenz's butterfly.
 
+**What the page says it does** is read from the run it shows, not from ``ρ``
+and ``ρ_H`` alone (:func:`behaviour`): below ``ρ_H`` steady turning is stable,
+but from rest the wheel can wander for good instead (σ = 10, ρ = 15–17), and
+above it some taps lock the reversals into a repeating pattern (σ = 10,
+ρ = 40). The first version said "steady" and "never in the same beat" by
+``ρ_H`` alone; the mathematics check (2026-11-17) found both.
+
 **What it leaves out.** Cups — the model's water is spread smoothly round the
 rim, its first harmonic all that matters; the wheel's tilt; splashing.
 """
 
 from __future__ import annotations
 
+import itertools
 import math
 from dataclasses import dataclass
 
@@ -161,3 +169,37 @@ def run(w: WaterWheel, duration_s: float, step_tau: float = STEP_TAU) -> WheelTu
         turns=tuple(out["n"]),
         reversals_s=tuple(reversals),
     )
+
+
+#: The share of a run, at its end, that :func:`behaviour` reads: what the
+#: wheel does once it has got going.
+LATE_SHARE = 1 / 3
+#: Gaps between reversals that agree to this share of a gap repeat.
+REPEAT_TOL = 0.02
+#: The longest repeating pattern looked for, in gaps between reversals.
+LONGEST_PATTERN = 4
+
+
+def behaviour(w: WaterWheel, turns: WheelTurns) -> str:
+    """What the wheel does in ``turns``, a run from rest, read from its last
+    third: ``"still"`` below ρ = 1; ``"steady"`` where it no longer reverses
+    and turns at ``±√(ρ − 1)`` to a tenth; ``"pattern"`` where it reverses at
+    least four times and the gaps between the reversals repeat, some ``p ≤ 4``
+    gaps on, to 2 %; ``"chaotic"`` where it reverses as often without; and
+    ``"starting"`` where the run ends before it shows which."""
+    if regime(w) == "still":
+        return "still"
+    end = turns.t[-1]
+    late = [r for r in turns.reversals_s if r > end * (1 - LATE_SHARE)]
+    if not late:
+        steady = steady_x(w) or 0.0
+        return "steady" if abs(abs(turns.x[-1]) - steady) <= 0.1 * steady else "starting"
+    if len(late) < 4:
+        return "starting"
+    gaps = [b - a for a, b in itertools.pairwise(late)]
+    for p in range(1, LONGEST_PATTERN + 1):
+        if len(gaps) >= 2 * p + 1 and all(
+            abs(gaps[i] - gaps[i + p]) <= REPEAT_TOL * gaps[i] for i in range(len(gaps) - p)
+        ):
+            return "pattern"
+    return "chaotic"

@@ -610,7 +610,7 @@ describe("the elephant", () => {
     expect(
       await screen.findByText(/floats where the push crosses its weight, 36 cm above the trunk/),
     ).toBeInTheDocument();
-    expect(screen.getByText(/How far the trunk can tilt: up to 44°/)).toBeInTheDocument();
+    expect(screen.getByText(/How far the trunk can tilt: up to 32°/)).toBeInTheDocument();
     expect(screen.getByText(/from 12\.1 m\/s on/)).toBeInTheDocument();
     // Every equation with a letter in it explains them: all but the balance, which reuses the others'.
     await waitFor(() => expect(screen.getAllByLabelText(E.equation.symbols)).toHaveLength(7));
@@ -640,6 +640,17 @@ describe("the smoke ring", () => {
     await waitFor(() => expect(screen.getAllByLabelText(E.equation.symbols)).toHaveLength(8));
   });
 
+  it("makes the ring of a press on the drum it began on, though the stroke is lowered mid-press", async () => {
+    renderWithProviders(<SmokePage />);
+    fireEvent.click(await screen.findByRole("button", { name: E.smoke.play.press }));
+    // Lowered under the depth already pressed: the ring is still the press's own.
+    fireEvent.change(screen.getByRole("slider", { name: E.smoke.change.stroke }), { target: { value: "2" } });
+    // The press takes half a second of real time on the page's own frames, which
+    // under coverage come so slowly that the verdict took 3.2 s alone and more
+    // in the full run: 3 s failed the pre-push check of 2026-11-19.
+    expect(await screen.findByText(E.smoke.play.verdict.ring, {}, { timeout: 8000 })).toBeInTheDocument();
+  });
+
   it("says when no press can make a ring", async () => {
     mockApi({
       "GET /experiments/defaults": fixtures.defaults,
@@ -647,6 +658,17 @@ describe("the smoke ring", () => {
     });
     renderWithProviders(<SmokePage />);
     expect(await screen.findByText(E.smoke.sweet.none)).toBeInTheDocument();
+  });
+
+  it("says that with a draught of a few cm/s every press slower than a jab makes a ring", async () => {
+    // The engine's answer for a draught of 0.03 m/s: no slow end, the fast one at 0.21 s.
+    mockApi({
+      "GET /experiments/defaults": fixtures.defaults,
+      "POST /experiments/smoke": { ...smoke, slowest_s: null, best_s: null, best: null, open_slow: true },
+    });
+    renderWithProviders(<SmokePage />);
+    expect(await screen.findByText(/a full press makes a ring at any pace slower than 0\.21 s/)).toBeInTheDocument();
+    expect(screen.queryByText(E.smoke.sweet.none)).toBeNull();
   });
 });
 
@@ -658,15 +680,15 @@ describe("the ball cannon", () => {
     expect(screen.getByRole("button", { name: E.cannon.play.drop })).toBeInTheDocument();
     expect(screen.getByRole("switch", { name: E.cannon.play.auto })).toBeInTheDocument();
     // The engine's answer for the exhibit's stack from a metre: touching, the
-    // top ball of three climbs 2.2 times that, to 2.4 m — instantaneous hits one
-    // after another would send it off at 10.9 m/s instead of 6.6.
-    expect(await screen.findByText(/top ball of 3 climbs 2\.2 times that, to 2\.4 m/)).toBeInTheDocument();
+    // top ball of three climbs 3.9 times that, to 4.0 m — instantaneous hits one
+    // after another would send it off at 10.9 m/s instead of 8.9.
+    expect(await screen.findByText(/top ball of 3 climbs 3\.9 times that, to 4\.0 m/)).toBeInTheDocument();
     expect(
-      screen.getByText(/leaves at 6\.6 m\/s\. With instantaneous hits one after another it would leave at 10\.9 m\/s/),
+      screen.getByText(/leaves at 8\.9 m\/s\. With instantaneous hits one after another it would leave at 10\.9 m\/s/),
     ).toBeInTheDocument();
     // The contacts of the impact, with the force the floor pushes back with.
     expect(screen.getByRole("cell", { name: "Floor – 10 cm" })).toBeInTheDocument();
-    expect(screen.getByRole("cell", { name: "1,239 N" })).toBeInTheDocument();
+    expect(screen.getByRole("cell", { name: "1,237 N" })).toBeInTheDocument();
     await waitFor(() => expect(screen.getAllByLabelText(E.equation.symbols)).toHaveLength(5));
   });
 
@@ -687,6 +709,19 @@ describe("the ball cannon", () => {
 });
 
 describe("the pendulum wave", () => {
+  it("refuses a row that asks for pendulums shorter than 2 cm, in the play card and the trick", async () => {
+    renderWithProviders(<WavePage />);
+    await screen.findByRole("img", { name: E.wave.views.top });
+    const set = (name: string, value: string) =>
+      fireEvent.change(screen.getByRole("slider", { name }), { target: { value } });
+    set(E.wave.change.count, "24");
+    set(E.wave.change.cycle, "30");
+    set(E.wave.change.swings, "80");
+    set(E.wave.change.tuned, "40");
+    expect(await screen.findAllByText(E.wave.refused)).toHaveLength(2);
+    expect(screen.queryByText(en.common.loading)).not.toBeInTheDocument();
+  });
+
   it("shows the row from above and from its end, the moments to jump to and the engine's lengths", async () => {
     renderWithProviders(<WavePage />);
     expect(await screen.findByRole("img", { name: E.wave.views.top })).toBeInTheDocument();
@@ -730,7 +765,7 @@ describe("the harmonograph", () => {
     }
     // The default pair is 0.67 % off 2 : 3, and its figure turns once in 90 s.
     expect(screen.getByText("Near the ratio 2 : 3 (pen : board)")).toBeInTheDocument();
-    expect(screen.getByText(/0\.67 % off 2 : 3: the figure turns once in 90 s/)).toBeInTheDocument();
+    expect(screen.getByText(/0\.67 % off 2 : 3: at first the figure turns once in 90 s/)).toBeInTheDocument();
     expect(screen.getAllByLabelText(E.equation.symbols).length).toBeGreaterThanOrEqual(5);
   });
 
@@ -796,7 +831,9 @@ describe("the water parabola", () => {
     renderWithProviders(<ParabolaPage />);
     await screen.findByRole("img", { name: E.parabola.views.side });
     fireEvent.change(screen.getByRole("slider", { name: E.parabola.change.fill }), { target: { value: "35" } });
-    expect(await screen.findByText(E.parabola.refused)).toBeInTheDocument();
+    // In the play card and in the trick, which has nothing to wait for.
+    expect(await screen.findAllByText(E.parabola.refused)).toHaveLength(2);
+    expect(screen.queryByText(en.common.loading)).not.toBeInTheDocument();
     expect(wellFilled({ radius_m: 0.15, height_m: 0.3, fill_m: 0.1 })).toBe(true);
   });
 });
@@ -809,7 +846,7 @@ describe("the coupled pendulums", () => {
       expect(screen.getByRole("button", { name: E.coupled.play.starts[how] })).toBeInTheDocument();
     }
     // The default pair: over and back in 22.9 s, all of it reaching the other.
-    expect(screen.getByText(/wanders over and back once in 22\.9 s, and 100 % of it/)).toBeInTheDocument();
+    expect(screen.getByText(/wanders over and back once in 22\.9 s, and about 100 % of it/)).toBeInTheDocument();
     expect(screen.getAllByLabelText(E.equation.symbols).length).toBeGreaterThanOrEqual(4);
   });
 
@@ -850,9 +887,9 @@ describe("Maxwell's wheel", () => {
     renderWithProviders(<MaxwellPage />);
     expect(await screen.findByRole("img", { name: E.maxwell.view })).toBeInTheDocument();
     expect(screen.getByRole("button", { name: E.maxwell.play.let_go })).toBeInTheDocument();
-    // The default disc: 98.8 % in the spin, a 25 ms jerk at 6.4 times the weight.
+    // The default disc: 98.8 % in the spin, a 22 ms jerk at 6.3 times the weight.
     expect(screen.getByText(/98\.8 % here/)).toBeInTheDocument();
-    expect(screen.getByText(/For 25 ms their pull rises to 31\.2 N, 6\.4 times the weight/)).toBeInTheDocument();
+    expect(screen.getByText(/For 22 ms their pull rises to 30\.7 N, 6\.3 times the weight/)).toBeInTheDocument();
     expect(screen.getAllByLabelText(E.equation.symbols).length).toBeGreaterThanOrEqual(4);
   });
 
@@ -874,7 +911,7 @@ describe("the chaotic pendulum", () => {
     // Wild, the exponent is measured and the gap doubles in a fraction of a second.
     expect(
       await screen.findByText(
-        /Measured for this start: λ = \d\.\d\d a second\. A difference thus doubles/,
+        /Measured for this start over half a minute: λ ≈ \d\.\d a second – a single stretch of path, so a few tenths more or less\. A difference thus doubles about every \d\.\d\d s/,
         {},
         { timeout: 8000 },
       ),
@@ -1002,8 +1039,8 @@ describe("the resonance rods", () => {
   it("shows six rods with their frequencies, the table in step with the third, and the sound off", async () => {
     renderWithProviders(<ResonancePage />);
     expect(await screen.findByRole("img", { name: E.resonance.view })).toBeInTheDocument();
-    for (const hz of ["1.41 Hz", "2.21 Hz", "5.65 Hz"]) expect(screen.getByText(hz)).toBeInTheDocument();
-    expect((await screen.findAllByDisplayValue("2.21")).length).toBeGreaterThan(0);
+    for (const hz of ["1.27 Hz", "2.09 Hz", "5.58 Hz"]) expect(screen.getByText(hz)).toBeInTheDocument();
+    expect((await screen.findAllByDisplayValue("2.09")).length).toBeGreaterThan(0);
     // No Web Audio in the test runner: the switch is off, and says why it cannot turn on.
     expect(screen.getByRole("switch", { name: E.resonance.play.sound })).not.toBeChecked();
     expect(screen.getByText(E.resonance.play.no_sound)).toBeInTheDocument();
@@ -1250,7 +1287,8 @@ describe("the Cartesian diver", () => {
     expect(await screen.findByRole("img", { name: E.diver.view })).toBeInTheDocument();
     expect(screen.getByText(E.diver.play.motion.floats)).toBeInTheDocument();
     fireEvent.change(screen.getByRole("slider", { name: E.diver.play.squeeze }), { target: { value: "20" } });
-    expect(await screen.findByText(E.diver.play.motion.sinks, undefined, { timeout: 3000 })).toBeInTheDocument();
+    // The sinking runs on the page's frames, slow under coverage, as the smoke ring's press.
+    expect(await screen.findByText(E.diver.play.motion.sinks, undefined, { timeout: 8000 })).toBeInTheDocument();
     fireEvent.click(screen.getByRole("button", { name: E.diver.play.pause }));
     expect(screen.getByRole("button", { name: E.diver.play.run })).toBeInTheDocument();
     fireEvent.click(screen.getByRole("button", { name: E.diver.play.surface }));
@@ -1278,10 +1316,21 @@ describe("the glass-bead rainbow", () => {
     fireEvent.click(screen.getByRole("button", { name: E.rainbow.play.to_bow }));
     expect(screen.getByText(E.rainbow.play.at_bow)).toBeInTheDocument();
     fireEvent.change(screen.getByRole("slider", { name: E.rainbow.play.impact }), { target: { value: "99" } });
-    expect(screen.getByText(new RegExp(E.rainbow.play.across.split("{{angle}}")[0]))).toBeInTheDocument();
+    expect(screen.getByText(new RegExp(`${E.rainbow.play.across.split("{{angle}}")[1]}$`))).toBeInTheDocument();
     fireEvent.click(screen.getByRole("switch", { name: E.rainbow.play.split }));
     expect(screen.getByRole("switch", { name: E.rainbow.play.split })).toBeChecked();
     expect(screen.getAllByLabelText(E.equation.symbols).length).toBeGreaterThanOrEqual(4);
+  });
+
+  it("says a crossing ray lands outside the ring once a dense bead's ring has shrunk inside it", async () => {
+    renderWithProviders(<RainbowPage />);
+    await screen.findByRole("img", { name: E.rainbow.bead_view });
+    // At n = 1.9 the ring stands at 1.5°, and a ray 99 % out comes back across the way at some 20°.
+    fireEvent.change(screen.getByRole("slider", { name: E.rainbow.change.index }), { target: { value: "1.9" } });
+    fireEvent.change(screen.getByRole("slider", { name: E.rainbow.play.impact }), { target: { value: "99" } });
+    const [, between, after] = E.rainbow.play.across_outside.split(/\{\{(?:angle|bow)\}\}/);
+    expect(screen.getByText(new RegExp(`${between}[\\d.]+${after}$`))).toBeInTheDocument();
+    expect(screen.queryByText(new RegExp(`${E.rainbow.play.across.split("{{angle}}")[1]}$`))).not.toBeInTheDocument();
   });
 
   it("rings at 21.1° for glass and 42.1° for a water drop", async () => {
@@ -1356,6 +1405,15 @@ describe("the double slit", () => {
     expect(await screen.findByText(E.slits.play.status_both.replace("{{spacing}}", "4.3"))).toBeInTheDocument();
     fireEvent.change(screen.getByRole("slider", { name: E.slits.change.spacing }), { target: { value: "0.5" } });
     expect(await screen.findByText(E.slits.play.status_both.replace("{{spacing}}", "2.1"))).toBeInTheDocument();
+  });
+
+  it("says when the wall is nearer than the far-field formula allows for slits this wide", async () => {
+    renderWithProviders(<SlitsPage />);
+    await screen.findByRole("img", { name: E.slits.wall_view });
+    expect(screen.queryByText(/nearer than the formula allows/)).toBeNull();
+    // The slider's widest, 0.2 mm, in red light: 35·a²/λ = 2.2 m, past the wall's 2 m.
+    fireEvent.change(screen.getByRole("slider", { name: E.slits.change.width }), { target: { value: "0.2" } });
+    expect(await screen.findByText(E.slits.play.near.replace("{{near}}", "2.2"))).toBeInTheDocument();
   });
 });
 

@@ -19,7 +19,14 @@ ways to move, one at a time:
 * **free** (``free``): when the string would have to push — ``r·φ'² + g·cos φ``,
   its pull per kilogram, falls to zero — the bob flies as a stone thrown, until
   the string round the peg is straight again. Then it jerks taut, and the bob
-  loses the speed it had along the string: the one place energy is lost.
+  loses the speed it had along the string: the one place energy is lost. In
+  flight the string follows the bob round the peg: should the bob fly over the
+  peg to the other side, the string is wound round it, and stays so; should it
+  fly under the peg, the string comes off it and the bob hangs from the pivot
+  again, the string taut at ``L``. (The first version took every taut string
+  as round the peg and unwound: a bob let go from the horizontal over a peg at
+  0.55 m flew over the peg and was then swung as a 1 m pendulum again; found
+  in the mathematics check, 2026-11-17.)
 
 Each switch is found within its step and the step split there (bisection on the
 stepped state), so an event lands where it belongs, not up to a step late.
@@ -58,6 +65,8 @@ class Event(enum.StrEnum):
     SLACK = "slack"
     TAUT = "taut"
     OVER_THE_TOP = "over_the_top"
+    #: In flight, over the peg to the other side: the string wound round it.
+    WOUND = "wound"
 
 
 @dataclass(frozen=True)
@@ -88,6 +97,10 @@ class PegState:
     y: tuple[float, ...]
     #: Gone over the top: the string is wound round the peg for good.
     wound: bool = False
+    #: Free with the string still bent at the peg: the bob's angle round it,
+    #: unwrapped from where the string went slack; ``None`` once it has come
+    #: off the peg, and in the other modes.
+    around: float | None = None
 
 
 def start(p: PegPendulum) -> PegState:
@@ -125,6 +138,55 @@ def _locate(f, t: float, y0: tuple[float, ...], h: float, event: Callable[[tuple
     return hi
 
 
+def _turn(p: PegPendulum, a: tuple[float, ...], b: tuple[float, ...]) -> float:
+    """How far the bob turned round the peg from ``a`` to ``b`` (free states),
+    the shorter way: a step is far too short to turn half round."""
+    d = p.peg_depth_m
+    turn = math.atan2(b[0], -(b[1] + d)) - math.atan2(a[0], -(a[1] + d))
+    return turn - 2 * math.pi * math.floor((turn + math.pi) / (2 * math.pi))
+
+
+def _taut(p: PegPendulum, free: PegState, y: tuple[float, ...]) -> tuple[PegState, tuple[Event, ...]]:
+    """The string jerks taut on the bob at ``y``, flying from ``free``: only
+    the speed across the string is kept. Off the peg it hangs from the pivot;
+    on it, its angle round the peg is the one the flight turned to, and past
+    half a turn the string is wound."""
+    x, z, vx, vy = y
+    if free.around is None:
+        theta = math.atan2(x, -z)
+        rate = (vx * math.cos(theta) + vy * math.sin(theta)) / p.length_m
+        return PegState(Mode.BIG, (theta, rate)), (Event.TAUT,)
+    raw = math.atan2(x, -(z + p.peg_depth_m))
+    around = free.around + _turn(p, free.y, y)
+    phi = raw + 2 * math.pi * round((around - raw) / (2 * math.pi))
+    rate = (vx * math.cos(phi) + vy * math.sin(phi)) / p.small_radius_m
+    wound = free.wound or abs(phi) > math.pi
+    kinds = (Event.TAUT, Event.WOUND) if wound and not free.wound else (Event.TAUT,)
+    return PegState(Mode.SMALL, (phi, rate), wound), kinds
+
+
+def _stretch(p: PegPendulum, free: PegState) -> Callable[[tuple[float, ...]], float]:
+    """How far the bob is past the string's reach, flying from ``free``: round
+    the peg while the string is bent at it, from the pivot once it is off."""
+    if free.around is None:
+        return lambda y: y[0] ** 2 + y[1] ** 2 - p.length_m**2
+    r = p.small_radius_m
+    return lambda y: y[0] ** 2 + (y[1] + p.peg_depth_m) ** 2 - r * r
+
+
+def _comes_off(p: PegPendulum, free: PegState, y1: tuple[float, ...]) -> bool:
+    """Whether the bob, flying from ``free`` to ``y1``, passes under the peg
+    to the other side, where the string comes off it: its angle round the peg
+    through zero. A wound string stays."""
+    return free.around is not None and not free.wound and free.around * (free.around + _turn(p, free.y, y1)) < 0
+
+
+def _flown(p: PegPendulum, free: PegState, y1: tuple[float, ...]) -> PegState:
+    """``free`` flown on to ``y1``, its angle round the peg kept up."""
+    around = None if free.around is None else free.around + _turn(p, free.y, y1)
+    return replace(free, y=y1, around=around)
+
+
 def _crossed(a: float, b: float) -> bool:
     return (a > 0 and b < 0) or (a < 0 and b > 0)
 
@@ -141,9 +203,6 @@ def step(p: PegPendulum, s: PegState, t: float, h: float) -> tuple[PegState, lis
 
     def pull(y: tuple[float, ...]) -> float:
         return r * y[1] ** 2 + G * math.cos(y[0])
-
-    def stretch(y: tuple[float, ...]) -> float:
-        return y[0] ** 2 + (y[1] + p.peg_depth_m) ** 2 - r * r
 
     for _ in range(4):  # at most a few switches in one step
         f = _rhs(p, s.mode)
@@ -162,7 +221,7 @@ def step(p: PegPendulum, s: PegState, t: float, h: float) -> tuple[PegState, lis
                 tau = _locate(f, t, s.y, left, pull)
                 phi, rate = rk4(f, t, s.y, tau)
                 x, z = r * math.sin(phi), -p.peg_depth_m - r * math.cos(phi)
-                s = PegState(Mode.FREE, (x, z, r * rate * math.cos(phi), r * rate * math.sin(phi)), s.wound)
+                s = PegState(Mode.FREE, (x, z, r * rate * math.cos(phi), r * rate * math.sin(phi)), s.wound, phi)
                 t, left = t + tau, left - tau
                 events.append((t, Event.SLACK, *position(p, s)))
                 continue
@@ -179,18 +238,23 @@ def step(p: PegPendulum, s: PegState, t: float, h: float) -> tuple[PegState, lis
                 continue
             return replace(s, y=y1), events
 
-        # Free: until the string round the peg is straight again.
-        if stretch(s.y) < 0 and stretch(y1) >= 0:
-            tau = _locate(f, t, s.y, left, stretch)
-            x, z, vx, vy = rk4(f, t, s.y, tau)
-            phi = math.atan2(x, -(z + p.peg_depth_m))
-            # The jerk: only the speed across the string is kept.
-            rate = (vx * math.cos(phi) + vy * math.sin(phi)) / r
-            s = PegState(Mode.SMALL, (phi, rate), s.wound)
+        # Free, the string still bent at the peg: under the peg to the other
+        # side (its angle round the peg through zero), it comes off.
+        if _comes_off(p, s, y1):
+            tau = _locate(f, t, s.y, left, lambda y: y[0])
+            s = PegState(Mode.FREE, rk4(f, t, s.y, tau))
             t, left = t + tau, left - tau
-            events.append((t, Event.TAUT, *position(p, s)))
+            events.append((t, Event.RELEASED, *position(p, s)))
             continue
-        return replace(s, y=y1), events
+        # Until the string is straight again: round the peg, or from the pivot.
+        tight = _stretch(p, s)
+        if tight(s.y) < 0 and tight(y1) >= 0:
+            tau = _locate(f, t, s.y, left, tight)
+            s, kinds = _taut(p, s, rk4(f, t, s.y, tau))
+            t, left = t + tau, left - tau
+            events.extend((t, kind, *position(p, s)) for kind in kinds)
+            continue
+        return _flown(p, s, y1), events
     return s, events
 
 

@@ -97,6 +97,9 @@ def test_the_cases_cross_every_branch_a_page_can_reach(stored: Any):
     floor = next(c for c in exhibit if c["contact"] == 0)
     assert any(c["contact"] == 1 and c["start_s"] < floor["end_s"] for c in exhibit), "contacts that overlap"
     assert any(c["end_s"] is None for case in cannons.values() for c in case["drop"]["contacts"]), "one still closed"
+    high = cannons["upside down from high up"]["drop"]["contacts"]
+    floor = next(c for c in high if c["contact"] == 0)
+    assert any(c["contact"] > 0 and c["start_s"] < floor["start_s"] for c in high), "a contact resting in the fall"
     lossless = [c for c in cannons["one ball, lossless"]["drop"]["contacts"] if c["end_s"] is not None]
     assert lossless and abs(lossless[0]["parting_m_s"] - lossless[0]["closing_m_s"]) < 0.01, "a ball that loses nothing"
     pits = stored["pit"]
@@ -177,7 +180,7 @@ def test_the_cases_cross_every_branch_a_page_can_reach(stored: Any):
     assert any(c["beat_s"] is None for c in stored["coupled"]), "no spring"
     assert any(c["cp"]["damping_per_s"] > 0 for c in stored["coupled"]), "a damped pair"
     kinds = {e[1] for c in stored["peg"] for e in c["run"]["events"]}
-    assert kinds == {"caught", "released", "slack", "taut", "over_the_top"}, "every switch of the peg's string"
+    assert kinds == {"caught", "released", "slack", "taut", "over_the_top", "wound"}, "every switch of the peg's string"
     assert any(c["w"]["loss"] == 0 for c in stored["maxwell"]), "a wheel that climbs all the way back"
     assert any(c["samples"] > 100 for c in stored["maxwell"]), "a jerk sampled inside"
     assert any(c["dp"]["damping_per_s"] > 0 for c in stored["chaos"]), "a damped double pendulum"

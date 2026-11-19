@@ -458,6 +458,8 @@ describe("the ball cannon's port", () => {
       cannon.SAMPLES_PER_S,
       cannon.MAX_S,
       cannon.MIN_CLOSING_M_S,
+      cannon.RESTING_M_S,
+      cannon.RESTING_SWING,
       cannon.IMPACT_EVERY,
       cannon.IMPACT_WINDOW_S,
       cannon.LAUNCH_WINDOW_S,
@@ -472,6 +474,8 @@ describe("the ball cannon's port", () => {
       c.SAMPLES_PER_S,
       c.MAX_S,
       c.MIN_CLOSING_M_S,
+      c.RESTING_M_S,
+      c.RESTING_SWING,
       c.IMPACT_EVERY,
       c.IMPACT_WINDOW_S,
       c.LAUNCH_WINDOW_S,
@@ -592,8 +596,10 @@ describe("the double cone's port", () => {
 
   it("lays the cone where it can roll from, and says when the rails would let it fall through", () => {
     const ex = cases.cone[0].ex as cone.ConeExhibit;
-    expect(cone.startFor(ex)).toBe(0);
-    expect(cone.startFor({ ...ex, rails: { ...ex.rails, slope_deg: 10 } })).toBe(ex.rails.length_m);
+    // Where its contact first lies on the rails, as the engine lays it: 3 mm up.
+    expect(cone.startFor(ex)).toBe(cases.cone[0].start_x_m);
+    expect(cone.startFor(ex)).toBeCloseTo(0.0031, 4);
+    expect(cone.startFor({ ...ex, rails: { ...ex.rails, slope_deg: 10 } })).toBeCloseTo(0.2996, 4);
     expect(cone.refusal(ex)).toBeNull();
     expect(cone.refusal({ ...ex, rails: { ...ex.rails, length_m: 0.5 } })).toBe("fall_through");
     expect(() => cone.roll(ex, 0.5, 1)).toThrow(RangeError);
@@ -689,7 +695,8 @@ describe("the chaotic pendulum's port", () => {
     const dp = c.dp as chaos.DoublePendulum;
     const [a, b] = c.start;
     expect(differences(c.mode_rates, chaos.modeRates(dp))).toEqual([]);
-    expect(differences(c.lyapunov, chaos.lyapunov(dp, a, b, 3.0, 1e-4, undefined, c.step_s))).toEqual([]);
+    expect(differences(c.step_for, chaos.stepFor(dp, a, b))).toEqual([]);
+    expect(differences(c.lyapunov, chaos.lyapunov(dp, a, b, c.lyapunov_s, 1e-4, undefined, c.step_s))).toEqual([]);
     const port = chaos.run(dp, a, b, c.duration_s, c.nudge_deg, c.step_s);
     // The drift is a difference of two energies a few hundred millionths apart:
     // its last digits are rounding, so it is held absolutely, the rest exactly.
@@ -708,6 +715,7 @@ describe("the waterwheel's port", () => {
   it.each(cases.waterwheel.map((c) => [c.name, c] as const))("turns %s as the engine does", (_name, c) => {
     const w = c.w as waterwheel.WaterWheel;
     expect(waterwheel.regime(w)).toBe(c.regime);
+    expect(waterwheel.behaviour(w, waterwheel.run(w, c.duration_s, c.step_tau))).toBe(c.behaviour);
     expect(differences(c.hopf_rho, waterwheel.hopfRho(w))).toEqual([]);
     const levels = Array.from({ length: 8 }, (_, k) => waterwheel.cupLevel(w, 3.0, 20.0, k * 0.785));
     expect(differences(c.levels, levels)).toEqual([]);
@@ -843,6 +851,8 @@ describe("the resonance rods' port", () => {
       differences(k, {
         BETA1: resonance.BETA1,
         GAMMA: resonance.GAMMA,
+        LAMBDA: resonance.LAMBDA,
+        G: resonance.G,
         shape: k.shape.map((_: number, i: number) => resonance.shape(i / 10)),
       }),
     ).toEqual([]);

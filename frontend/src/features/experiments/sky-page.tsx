@@ -498,11 +498,12 @@ function SkyModel() {
         symbols={[{ tex: "a", meaning: s("a"), unit: "m" }]}
       />
       <Equation
-        tex={String.raw`I_{\text{sky}} \propto S(\lambda)\,\frac{e^{-\tau(\lambda)} - e^{-m\,\tau(\lambda)}}{m - 1}`}
+        tex={String.raw`I_{\text{sky}} \propto \frac{1 + \sin^2 h}{2}\, S(\lambda)\,\frac{e^{-\tau(\lambda)} - e^{-m\,\tau(\lambda)}}{m - 1}`}
         reads={t("experiments.sky.model.sky")}
         symbols={[
           { tex: String.raw`\tau`, meaning: s("tau"), unit: "1" },
           { tex: "m", meaning: s("m"), unit: "1" },
+          { tex: "h", meaning: s("h"), unit: "°" },
         ]}
       />
       <Equation

@@ -73,6 +73,25 @@ export function startState(start1Deg: number, start2Deg: number): number[] {
   return [start1Deg * TO_RAD, start2Deg * TO_RAD, 0.0, 0.0];
 }
 
+/** The engine's `TURN_PER_STEP`: the most an arm may turn in one step, radians. */
+const TURN_PER_STEP = 0.035;
+
+/** The engine's `fastest_rate`: a bound on how fast either arm can turn from this start, rad/s. */
+export function fastestRate(dp: DoublePendulum, start1Deg: number, start2Deg: number): number {
+  const [m1, m2, l1, l2] = [dp.mass1_kg, dp.mass2_kg, dp.length1_m, dp.length2_m];
+  const lowest = -(m1 + m2) * G * l1 - m2 * G * l2;
+  const moving = energy(dp, startState(start1Deg, start2Deg)) - lowest;
+  const [a, d, b] = [(m1 + m2) * l1 * l1, m2 * l2 * l2, m2 * l1 * l2];
+  const least = (a + d) / 2 - Math.sqrt(((a - d) / 2) ** 2 + b * b);
+  return Math.sqrt((2 * moving) / least);
+}
+
+/** The engine's `step_for`: 1 ms, in as many equal parts as keep each arm's turn in a step within `TURN_PER_STEP`. */
+export function stepFor(dp: DoublePendulum, start1Deg: number, start2Deg: number): number {
+  const parts = Math.max(1, Math.ceil((fastestRate(dp, start1Deg, start2Deg) * STEP_S) / TURN_PER_STEP));
+  return STEP_S / parts;
+}
+
 /** The twin of a start: its upper arm nudged. */
 export function twinOf(start: readonly number[], nudgeDeg: number): number[] {
   return [start[0] + nudgeDeg * TO_RAD, start[1], 0.0, 0.0];
@@ -85,10 +104,11 @@ export function lyapunov(
   durationS = 60.0,
   gap = 1e-8,
   everyS = 0.1,
-  stepS = STEP_S,
+  step?: number,
 ): number {
   if (!(durationS > 0 && durationS <= MAX_DURATION_S))
     throw new RangeError(`a measurement lasts more than nothing and at most ${MAX_DURATION_S} s`);
+  const stepS = step ?? stepFor(dp, start1Deg, start2Deg);
   const f = rhs(dp);
   let a = startState(start1Deg, start2Deg);
   let b = [a[0] + gap, a[1], a[2], a[3]];
@@ -126,8 +146,9 @@ export function run(
   start2Deg: number,
   durationS: number,
   nudgeDeg = 0.001,
-  stepS = STEP_S,
+  step?: number,
 ): ChaosRun {
+  const stepS = step ?? stepFor(dp, start1Deg, start2Deg);
   if (!(stepS > 0 && stepS <= 0.01)) throw new RangeError("the step lies between 0 and 10 ms");
   if (!(durationS > 0 && durationS <= MAX_DURATION_S))
     throw new RangeError(`a run lasts more than nothing and at most ${MAX_DURATION_S} s`);

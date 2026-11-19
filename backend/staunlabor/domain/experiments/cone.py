@@ -165,6 +165,20 @@ def contact_radius_m(ex: ConeExhibit, x: float) -> float:
     return _offsets(ex)[1] * radius_under_m(ex, x)
 
 
+def on_rails_m(ex: ConeExhibit) -> tuple[float, float]:
+    """From where to where along the rails the cone's contact lies on them. It
+    lies ``s*·r₀`` along the rails from the axis's place, behind it where the
+    cone rolls up: laid at the very end, it would touch the rails before they
+    begin and rest on their ends instead, which the model does not have — 3 mm
+    of the default build's 30 cm, 84 mm of a 10 cm rail at the sliders' corner
+    (the mathematics check, 2026-11-17). So it is laid, and stopped, where its
+    contact lies on them: ``x + s*·r₀(x)`` between 0 and the rails' length."""
+    along, share = _offsets(ex)
+    start = radius_under_m(ex, 0.0)
+    length = ex.rails.length_m
+    return max(0.0, -along * start / share), min(length, (length - along * start) / share)
+
+
 def threshold_deg(ex: ConeExhibit) -> float:
     """The slope ``γ*`` at which the axis runs level: steeper rails, and the cone
     rolls down them; flatter, up them. It is the textbook's ``tan γ* = tan α·tan β``
@@ -205,9 +219,9 @@ def roll(ex: ConeExhibit, start_x_m: float, duration_s: float, step_s: float = S
         raise ValueError("the step lies between 0 and 10 ms")
     if not 0 < duration_s <= MAX_DURATION_S:
         raise ValueError(f"a roll lasts more than nothing and at most {MAX_DURATION_S:g} s")
-    length = ex.rails.length_m
-    if not 0 <= start_x_m <= length:
-        raise ValueError("the cone is laid on the rails")
+    low, high = on_rails_m(ex)
+    if not low - 1e-12 <= start_x_m <= high + 1e-12:
+        raise ValueError("the cone is laid on the rails, where its contact lies on them")
     m = axis_slope(ex)
     along = math.sqrt(1 + m * m)
 
@@ -235,9 +249,10 @@ def roll(ex: ConeExhibit, start_x_m: float, duration_s: float, step_s: float = S
         if stopped is not None or i == steps:
             break
         y = rk4(f, t, y, step_s)
-        # The stops at the ends hold it: it arrives, and stays.
-        if y[0] >= length or y[0] <= 0:
-            y = (min(max(y[0], 0.0), length), 0.0)
+        # The stops at the ends hold it: it arrives, and stays — where its
+        # contact leaves the rails.
+        if y[0] >= high or y[0] <= low:
+            y = (min(max(y[0], low), high), 0.0)
             stopped = t + step_s
     return ConeRun(
         t=tuple(ts),
@@ -253,5 +268,6 @@ def roll(ex: ConeExhibit, start_x_m: float, duration_s: float, step_s: float = S
 def start_for(ex: ConeExhibit) -> float:
     """Where the cone is laid to roll: at the low end when its axis falls along
     the rails, at the high end when it rises, and at the low end when it runs
-    level (where it stays)."""
-    return ex.rails.length_m if axis_slope(ex) > 0 else 0.0
+    level (where it stays) — each where its contact first lies on them."""
+    low, high = on_rails_m(ex)
+    return high if axis_slope(ex) > 0 else low

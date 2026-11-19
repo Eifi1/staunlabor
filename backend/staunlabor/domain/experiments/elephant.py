@@ -287,9 +287,13 @@ def step(
 
 
 def fallen(el: Elephant, state: tuple[float, float, float, float]) -> bool:
-    """Out of the jet for good: the centre below the opening and beside it."""
+    """Out of the jet for good: the centre below the opening and beside it, or
+    the whole ball below the opening. (Beside it alone missed a ball sliding
+    down at just that distance, the trunk's own width: it fell for ever and
+    the auto mode never set it back; found by the crash sweep, 2026-11-17.)"""
     x, y, _, _ = state
-    return y < 0 and abs(x) > el.jet.opening_m / 2 + el.ball.radius_m
+    r = el.ball.radius_m
+    return y < -r or (y < 0 and abs(x) > el.jet.opening_m / 2 + r)
 
 
 def start_state(el: Elephant, tilt_deg: float = 0.0) -> tuple[float, float, float, float]:
@@ -455,13 +459,56 @@ def balance(el: Elephant, tilt_deg: float, guess: tuple[float, float]) -> tuple[
     return None
 
 
-def stable(el: Elephant, s: float, e: float) -> bool:
-    """Whether a nudge brings the ball back: the lift falls with height and the
-    suction pulls harder the farther the ball strays (both slopes negative)."""
-    d = 1e-5 * el.ball.diameter_m
-    lift_slope = (lift_n(el, s + d, e) - lift_n(el, s - d, e)) / (2 * d)
-    side_slope = (side_n(el, s, e + d) - side_n(el, s, e - d)) / (2 * d)
-    return lift_slope < 0 and side_slope < 0
+def _linearised(el: Elephant, tilt_deg: float, s: float, e: float) -> list[list[float]]:
+    """The motion's Jacobian at the ball at rest at ``(s, e)``: ``d/dt`` of
+    ``(x, y, vx, vy)`` by central differences of :func:`acceleration`, so the
+    drag's pull on a moving ball and how the lift and the suction change with
+    each other's direction are all in it."""
+    (ax_, ay_), (nx, ny) = axes(tilt_deg)
+    here = (s * ax_ + e * nx, s * ay_ + e * ny, 0.0, 0.0)
+    steps = (1e-6 * el.ball.diameter_m,) * 2 + (1e-5 * max(el.jet.speed_m_s, 1.0),) * 2
+
+    def motion(st: tuple[float, ...]) -> tuple[float, float, float, float]:
+        a = acceleration(el, tilt_deg, (st[0], st[1], st[2], st[3]))
+        return st[2], st[3], a[0], a[1]
+
+    columns = []
+    for j, h in enumerate(steps):
+        up = motion(tuple(v + (h if i == j else 0.0) for i, v in enumerate(here)))
+        down = motion(tuple(v - (h if i == j else 0.0) for i, v in enumerate(here)))
+        columns.append([(u - d) / (2 * h) for u, d in zip(up, down, strict=True)])
+    return [[columns[j][i] for j in range(4)] for i in range(4)]
+
+
+def _characteristic(a: list[list[float]]) -> list[float]:
+    """``det(λ·I − A) = λⁿ + c₁·λⁿ⁻¹ + … + cₙ``, the coefficients ``c₁ … cₙ``
+    by Faddeev and LeVerrier."""
+    n = len(a)
+    m = [[0.0] * n for _ in range(n)]
+    out: list[float] = []
+    last = 1.0
+    for k in range(1, n + 1):
+        m = [[sum(a[i][q] * m[q][j] for q in range(n)) + (last if i == j else 0.0) for j in range(n)] for i in range(n)]
+        trace = sum(sum(a[i][q] * m[q][i] for q in range(n)) for i in range(n))
+        last = -trace / k
+        out.append(last)
+    return out
+
+
+def stable(el: Elephant, tilt_deg: float, s: float, e: float) -> bool:
+    """Whether every small disturbance of the ball at rest at ``(s, e)`` dies
+    away: every root of the linearised motion's characteristic polynomial in
+    the left half-plane, by Routh and Hurwitz.
+
+    The first version asked only that the lift fall with height and the
+    suction pull back across, each alone, which holds the default ball to
+    43.7°. Tilted, the two couple through the ball's place, and past about
+    31° a pair of roots crosses to growth while the suction could still hold
+    the weight's share across: the ball begins to rock, along the jet and
+    across it, wider each time, until it falls (a Hopf bifurcation; found in
+    the mathematics check, 2026-11-17)."""
+    a1, a2, a3, a4 = _characteristic(_linearised(el, tilt_deg, s, e))
+    return a1 > 0 and a3 > 0 and a4 > 0 and a1 * a2 > a3 and a1 * a2 * a3 > a3 * a3 + a1 * a1 * a4
 
 
 @dataclass(frozen=True)
@@ -480,7 +527,7 @@ def tilt_curve(el: Elephant, start: float) -> tuple[tuple[TiltPoint, ...], float
     tilt = 0.0
     while tilt < MAX_TILT_DEG:
         found = balance(el, tilt + 1.0, guess)
-        if found is None or not stable(el, *found):
+        if found is None or not stable(el, tilt + 1.0, *found):
             break
         tilt += 1.0
         guess = found
@@ -490,7 +537,7 @@ def tilt_curve(el: Elephant, start: float) -> tuple[tuple[TiltPoint, ...], float
     while hi - lo > 0.1 + 1e-9:
         mid = (lo + hi) / 2
         found = balance(el, mid, best)
-        if found is not None and stable(el, *found):
+        if found is not None and stable(el, mid, *found):
             lo, best = mid, found
         else:
             hi = mid
@@ -528,7 +575,8 @@ class ElephantFigures:
     air_m_s: float | None
     centre_m_s: float | None
     reynolds: float | None
-    #: How fast it bobs up and down and sways, small and undamped.
+    #: How fast it bobs up and down and sways, small, damped as the air damps
+    #: it: the linearised motion's ``√(k − c²/4)/2π`` along each axis.
     bob_hz: float | None
     sway_hz: float | None
     #: The steepest tilt the jet still holds the ball at.
@@ -536,6 +584,18 @@ class ElephantFigures:
     lift_curve: tuple[LiftPoint, ...]
     side_curve: tuple[SidePoint, ...]
     tilt_curve: tuple[TiltPoint, ...]
+
+
+def _damped_hz(el: Elephant, height: float, along: bool) -> float | None:
+    """How often the ball, floating upright at ``height``, swings about it
+    along the jet (``along``) or across: ``√(k − c²/4)/2π`` from the linearised
+    motion, its stiffness ``k`` and the air's damping ``c``, none if it does not
+    swing. The first version gave the undamped ``√k/2π``, 0.54 Hz for the bob
+    where the air lets it bob at 0.50 (the mathematics check, 2026-11-17)."""
+    jacobian = _linearised(el, 0.0, height, 0.0)
+    place, speed = (1, 3) if along else (0, 2)
+    k, c = -jacobian[speed][place], -jacobian[speed][speed]
+    return math.sqrt(k - c * c / 4) / (2 * math.pi) if k > c * c / 4 else None
 
 
 def figures(el: Elephant) -> ElephantFigures:
@@ -572,10 +632,6 @@ def figures(el: Elephant) -> ElephantFigures:
             tilt_curve=(),
         )
     air = math.sqrt(cover(el, height, 0.0).mean_square)
-    inertia = el.ball.mass_kg + 0.5 * el.ball.displaced_kg
-    d = 1e-5 * el.ball.diameter_m
-    lift_slope = (lift_n(el, height + d) - lift_n(el, height - d)) / (2 * d)
-    side_slope = (side_n(el, height, d) - side_n(el, height, -d)) / (2 * d)
     reach = 2 * width(el.jet, height) + el.ball.radius_m
     side_curve = tuple(
         SidePoint(reach * i / 40, -side_n(el, height, reach * i / 40), lift_n(el, height, reach * i / 40))
@@ -594,8 +650,8 @@ def figures(el: Elephant) -> ElephantFigures:
         air_m_s=air,
         centre_m_s=centre_speed(el.jet, height),
         reynolds=air * el.ball.diameter_m / NU,
-        bob_hz=math.sqrt(-lift_slope / inertia) / (2 * math.pi) if lift_slope < 0 else None,
-        sway_hz=math.sqrt(-side_slope / inertia) / (2 * math.pi) if side_slope < 0 else None,
+        bob_hz=_damped_hz(el, height, along=True),
+        sway_hz=_damped_hz(el, height, along=False),
         tilt_limit_deg=limit,
         lift_curve=lift_curve,
         side_curve=side_curve,

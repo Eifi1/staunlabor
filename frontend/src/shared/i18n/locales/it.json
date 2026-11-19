@@ -496,7 +496,7 @@
         "gain": "la massima energia che un passaggio può dare",
         "full_current": "la corrente con un pulsante premuto",
         "supply": "la tensione della batteria",
-        "top_speed": "la velocità oltre la quale la bobina non può più spingere",
+        "top_speed": "la velocità oltre la quale nessun passaggio guadagna più nulla",
         "arc": "la distanza percorsa sull'arco, dalla fine del tratto piano",
         "ramp_radius": "il raggio delle rampe"
       },
@@ -507,7 +507,7 @@
         "late": "Ritardo della mano sul pulsante −",
         "reading": "Come leggere la curva: commutare in tempo guadagna di più; con 20 ms di ritardo si ottengono ancora circa due terzi; con 30 ms di ritardo il carrello non arriva mai in cima; con circa 60 ms di ritardo, l'attrazione che resta frena il carrello. Questi valori valgono per il montaggio predefinito.",
         "gain_bound": "Il massimo che un passaggio può dare: tirare il carrello da lontano fino al centro guadagna I·Ψ(0), spingerlo di nuovo fuori altrettanto. La tensione indotta e la resistenza al rotolamento ne prendono una parte.",
-        "top_speed": "Per quanto bene Lei prema, c'è una velocità massima: dove la tensione che il carrello induce eguaglia quella della batteria, non scorre corrente e la bobina non può più spingere."
+        "top_speed": "Per quanto bene Lei prema, c'è una velocità massima. Il carrello stesso induce nella bobina una corrente che lo frena, tanto più forte quanto più va veloce. A questa velocità quel freno toglie a un passaggio quanto la batteria può dare al massimo, anche premendo il più per tutta l'entrata e il meno per tutta l'uscita; oltre, toglie di più. La formula trascura l'induttanza della bobina; con essa il limite sta circa il 7 % più in alto."
       },
       "figures": {
         "tau": "Costante di tempo",
@@ -658,7 +658,7 @@
         "inertia": "Momento d'inerzia",
         "momentum": "Momento angolare",
         "energy": "Energia della rotazione",
-        "pull": "Trazione sulla barra",
+        "pull": "Trazione verso l'interno sulla barra",
         "times": "Più veloce che inclinato in fuori",
         "reading": "Ogni spinta dà {{push}} kg·m²/s di momento angolare. Tra una spinta e l'altra solo il cuscinetto ne toglie un po' — comunque Lei si inclini, il momento angolare resta.",
         "lean_hint": "Quanto il tronco si inclina all'indietro, lontano dall'asse, con le mani sulla barra e i piedi dove sono."
@@ -695,13 +695,13 @@
         "lean": "quanto il tronco si sporge in fuori",
         "own": "il momento d'inerzia proprio della parte",
         "energy": "l'energia della rotazione",
-        "pull": "ciò che le mani reggono sulla barra: il corpo inclinato, mantenuto sul suo cerchio",
+        "pull": "la trazione verso l'interno che le mani danno attraverso la barra per tenere il corpo inclinato sul suo cerchio; reggerlo contro il suo peso si aggiunge",
         "trunk_mass": "la massa del tronco, testa compresa"
       },
       "sweet": {
         "faster": "Dritto, il visitatore gira {{ratio}} volte più veloce che inclinato in fuori — con lo stesso momento angolare.",
         "energy": "L'energia della rotazione, a parità di momento angolare: meno inerzia, più energia. Raccogliersi rende la rotazione più ricca di energia, non solo più veloce.",
-        "pull": "Quell'energia deve venire da qualche parte: dalle braccia. Inclinato in fuori, il corpo ha bisogno di questa trazione verso l'interno per restare sul suo cerchio, e le mani la danno attraverso la barra — cresce con il quadrato della velocità angolare, e il visitatore la sente come se la barra gli tirasse le mani.",
+        "pull": "Quell'energia deve venire da qualche parte: dalle braccia. Inclinato in fuori, il corpo ha bisogno di questa trazione verso l'interno per restare sul suo cerchio, e le mani la danno attraverso la barra — cresce con il quadrato della velocità angolare, e il visitatore la sente come se la barra gli tirasse le mani. In più le braccia reggono il corpo inclinato contro il suo stesso peso; questa parte non cresce con la rotazione.",
         "paid": "Raddrizzandosi dalla posizione inclinata in fuori, le braccia compiono {{work}} J di lavoro contro quella trazione, e l'energia della rotazione cresce esattamente di tanto, da {{from}} J a {{to}} J. Il motore di calcolo lo verifica sommando la trazione lungo il percorso verso l'interno.",
         "replay": "Ecco la modalità automatica su sedici secondi, dopo una spinta di {{push}} kg·m²/s: la velocità balza ogni volta che il visitatore si raddrizza e cala quando si sporge in fuori, mentre il momento angolare diminuisce soltanto, lentamente e in modo uniforme, per il cuscinetto."
       },
@@ -857,7 +857,7 @@
         "height": "Centro della palla sopra la proboscide",
         "air_at_ball": "Aria all'altezza della palla",
         "off_axis": "Scostamento dall'asse del getto",
-        "falls_at": "Cade con un'inclinazione di",
+        "falls_at": "Stabile fino a un'inclinazione di",
         "resting": "Sulla proboscide: l'aria non riesce a sollevarla",
         "floating": "Sospesa",
         "fallen": "Caduta fuori dal getto d'aria"
@@ -916,7 +916,7 @@
         "height": "Perché resta alla sua altezza: più in alto il getto è più largo della palla, che ne cattura meno e scende; più in basso ne cattura di più e sale. Resta sospesa dove la spinta incrocia il suo peso, {{height}} cm sopra la proboscide, e oscilla attorno a quel punto {{bob}} volte al secondo, mentre l'aria la smorza.",
         "middle": "Perché resta al centro: spinta di lato, la palla viene richiamata dall'aria più veloce sul suo lato interno, tanto più forte quanto più si allontana, fino a circa {{offset}} cm dall'asse. Oltre, sta uscendo dal getto.",
         "rise": "Dalla proboscide alla sua altezza: la palla sale oltre, torna indietro e si assesta, e l'oscillazione si spegne come quella di una molla smorzata. La curva è la simulazione del motore di calcolo per il montaggio sullo schermo, la stessa che la pagina riproduce sopra.",
-        "tilt": "Quanto può inclinarsi la proboscide: fino a {{limit}}°. Prima di allora la palla sta più in basso e verso il lato basso; a {{limit}}° il risucchio non riesce più a trattenere la quota del peso che tira di traverso al getto.",
+        "tilt": "Quanto può inclinarsi la proboscide: fino a {{limit}}°. Prima di allora la palla sta più in basso e verso il lato basso. Oltre, non cade subito: comincia a dondolare, lungo il getto e di traverso, ogni volta un po' di più, finché cade. Questo richiede tempo, e chi inclina la proboscide in fretta, come la modalità automatica, arriva più in là prima che la palla cada.",
         "lift_off": "Già per staccare la palla dalla proboscide l'aria deve essere abbastanza veloce: da {{speed}} m/s in su.",
         "buoyancy": "Una palla gonfiabile sposta aria che pesa il {{share}} % del suo stesso peso: una parte che il getto non deve sostenere.",
         "assumed": "Che cosa si assume: la forma del getto subito all'uscita della proboscide (un getto reale mantiene sull'asse tutta la sua velocità per i primi diametri), un coefficiente di resistenza aerodinamica di 0,47 per una palla liscia e la quota laterale del risucchio. I valori sono quelli del modello, non quelli dell'exhibit al centimetro.",
@@ -938,7 +938,7 @@
         "height": "Sospesa a",
         "lift_off": "Si stacca a partire da",
         "air": "Aria all'altezza della palla",
-        "limit": "Cade con un'inclinazione di",
+        "limit": "Stabile fino a un'inclinazione di",
         "bob": "Oscilla",
         "flow": "Aria attraverso la proboscide"
       }
@@ -984,16 +984,16 @@
         "tension": "Tensione della membrana",
         "tension_hint": "Assunta: quanto è tesa la membrana. Cambia solo la forza sulla mano, non l'anello.",
         "draught": "Corrente d'aria nella sala (modello)",
-        "draught_hint": "Un anello più lento dell'aria nella sala viene portato via prima di formarsi. Impostata in modo che una pressione più lenta di circa 1,2 s non produca nulla.",
+        "draught_hint": "Un anello più lento dell'aria nella sala viene portato via prima di formarsi. Impostata in modo che una pressione più lenta di circa 1,3 s non produca nulla.",
         "turbulent": "Turbolento da (modello)",
         "turbulent_hint": "Oltre questo numero di Reynolds l'anello è turbolento e sfuma il suo fumo. Impostato in modo che una pressione più rapida di circa 0,2 s non produca alcun anello visibile."
       },
       "model": {
         "intro": "La pressione spinge l'aria fuori dal tamburo; l'aria che esce dal foro si arrotola in un anello; quanto è veloce e quanto è intenso l'anello decide se vola.",
         "area": "L'anello rigido spinge giù la membrana, e la membrana tra l'anello rigido e il bordo assume la forma di una membrana tesa. Il tamburo perde questo volume per ogni centimetro di pressione.",
-        "jet": "Questo volume esce dal foro, che è undici volte più piccolo: l'aria esce undici volte più veloce di quanto scenda la mano.",
-        "circulation": "L'aria spinta fuori si arrotola in un anello vorticoso; la sua circolazione, quanto forte vortica, è metà dell'integrale del quadrato della velocità dell'aria.",
-        "formation": "Un anello non assorbe più di una colonna d'aria lunga quattro diametri del foro; una più lunga si lascia dietro un getto. Qui una pressione completa ne dà tre.",
+        "jet": "Questo volume esce dal foro, che è undici volte più piccolo e scende con l'anello: l'aria ne esce dodici volte più veloce di quanto scenda la mano.",
+        "circulation": "L'aria spinta fuori si arrotola in un anello vorticoso; la sua circolazione, quanto forte vortica, è metà dell'integrale del quadrato della velocità dell'aria, meno il quadrato della velocità con cui scende il bordo del foro.",
+        "formation": "Un anello non assorbe più di una colonna d'aria lunga quattro diametri del foro; una più lunga si lascia dietro un getto. Qui una pressione completa ne dà 3,3.",
         "speed": "Un anello vola a una velocità fissata dalla sua circolazione e dalle sue dimensioni, tanto più veloce quanto più forte vortica.",
         "reynolds": "Il suo numero di Reynolds dice quanto è turbolento: oltre una soglia l'anello cede il suo fumo alla scia.",
         "hand": "La mano sente la molla della membrana e la contropressione dell'aria, che cresce con il quadrato della rapidità."
@@ -1034,7 +1034,10 @@
         "both": "Entrambe crescono insieme con la rapidità — l'intensità dell'anello e la sua velocità —, ed è per questo che la finestra ha due estremi.",
         "force": "E la mano paga per una pressione rapida: la contropressione dell'aria cresce con il quadrato della rapidità, {{fast}} N per un colpo secco contro {{slow}} N per una spinta lenta, dove conta solo la membrana.",
         "assumed": "Che cosa si assume: le due soglie, tarate sull'exhibit (un anello riesce meglio con circa mezzo secondo), le dimensioni dell'anello e del suo nucleo, come le hanno gli anelli misurati, e la tensione della membrana. L'oscillazione propria della membrana e il risucchio al rilascio sono tralasciati.",
-        "none": "Con queste impostazioni nessuna pressione produce un anello: la finestra si è chiusa."
+        "none": "Con queste impostazioni nessuna pressione produce un anello: la finestra si è chiusa.",
+        "open_slow": "Con così poca corrente d'aria una pressione completa fa un anello a qualsiasi ritmo più lento di {{fastest}} s: nessuno è troppo lento per l'aria della sala; solo un colpo più rapido diventa turbolento.",
+        "open_fast": "Con una soglia così alta una pressione completa fa un anello a qualsiasi ritmo più rapido di {{slowest}} s: nessun colpo diventa turbolento; solo una spinta più lenta viene portata via.",
+        "open_both": "Con queste impostazioni ogni pressione completa fa un anello, per quanto rapida o lenta."
       },
       "chart": {
         "duration": "Durata della pressione",
@@ -1106,7 +1109,7 @@
         "youngs": "Rigidezza dell'elastomero (modulo di Young)",
         "youngs_hint": "Una stima: la gomma morbida ha da 1 a 10 MPa. Determina quanto forte e quanto brevemente premono le palle, e cambia la risalita solo di poco.",
         "floor_e": "Rimbalzo sul pavimento",
-        "e_hint": "La quota della velocità di avvicinamento che un contatto restituisce: 1 non perde nulla, una palla di elastomero circa 0,85.",
+        "e_hint": "La quota della velocità di avvicinamento che un contatto restituisce: 1 non perde nulla, una palla di elastomero circa 0,85. La formula dello smorzamento lo rispetta al 2 % da 0,85 in su; più in basso restituisce meno: un quinto in meno a 0,3.",
         "ball_e": "Rimbalzo tra due palle"
       },
       "model": {
@@ -1154,12 +1157,13 @@
         "gap": "Tenga le palle a qualche millimetro l'una dall'altra e i contatti si susseguono uno dopo l'altro: la risalita raggiunge quasi ciò che darebbero urti istantanei. Provi la distanza.",
         "masses": "Il 7v dei libri di testo richiede che ogni palla sia molto più leggera di quella sottostante. Queste pesano {{masses}} g: la palla centrale pesa un terzo di quella in basso, quella in cima un terzo di quella centrale.",
         "energy": "Eppure il {{share}} % dell'energia con cui l'intera pila ha colpito il pavimento se ne va nella palla più piccola.",
-        "flip": "Capovolga la pila e non vola niente: una palla leggera in basso non può spingere in alto una pesante.",
+        "flip": "Capovolga la pila e non è più un cannone: la palla grande in cima risale meno di quanto è caduta; le palle leggere sotto si limitano ad attutirla.",
         "name": "Perché un cannone: i libri di fisica lo chiamano cannone di Galileo, perché la palla piccola viene sparata dritta verso l'alto fuori dalla pila, come dalla canna di un cannone. Nulla viene sparato di lato.",
-        "assumed": "Che cosa si assume: palle piene di 1100 kg/m³, la rigidezza dell'elastomero e quanto è elastico, contatti che seguono la legge di Hertz con uno smorzamento che restituisce una quota fissa della velocità di avvicinamento, e un pavimento rigido. L'attrito sul filo e la rotazione delle palle sono tralasciati."
+        "assumed": "Che cosa si assume: palle piene di 1100 kg/m³, la rigidezza dell'elastomero e quanto è elastico, contatti che seguono la legge di Hertz con uno smorzamento che restituisce una quota fissa della velocità di avvicinamento, e un pavimento rigido. La legge di Hertz vale per piccole deformazioni; la palla in basso si schiaccia di un quinto del suo raggio. L'attrito sul filo e la rotazione delle palle sono tralasciati."
       }
     },
     "wave": {
+      "refused": "Questa impostazione richiede pendoli più corti di 2 cm, che la pagina non calcola. Aiutano meno pendoli, un ciclo più lungo o meno oscillazioni del più lungo.",
       "at": {
         "row": "Una fila di pendoli pende da un'asta, il più lungo a un'estremità, ognuno dei successivi un po' più corto. Un'asse li scosta tutti allo stesso modo e li lascia andare insieme.",
         "pattern": "All'inizio oscillano insieme, poi la fila si apre in un'onda, in serpenti, in un caos apparente, in due, tre, quattro gruppi – e dopo un minuto tutti oscillano di nuovo all'unisono, come se nulla fosse."
@@ -1319,7 +1323,7 @@
       "sweet": {
         "near": "Se i ritmi sono vicini a un rapporto semplice p : q ma non esattamente su di esso, la figura mantiene la sua forma e ruota lentamente – un giro in questo tempo. Più vicino, più lento.",
         "closed": "Questi pendoli sono esattamente a {{p}} : {{q}}: la figura si chiude e si rimpicciolisce soltanto. Scordi la tavola dell'uno per cento, e comincerà a ruotare.",
-        "turns": "Questi pendoli sono a {{detune}} % da {{p}} : {{q}}: la figura fa un giro in {{turn}} s.",
+        "turns": "Questi pendoli sono a {{detune}} % da {{p}} : {{q}}: all'inizio la figura fa un giro in {{turn}} s.",
         "widths": "E ruota perfino a un rapporto esatto quando i pendoli oscillano con ampiezze diverse: un'oscillazione ampia dura un po' più di una stretta. Porti il pendolo della penna a 30° e quello della tavola a 5°, e la figura chiusa si apre."
       },
       "computed": {
@@ -1579,7 +1583,7 @@
       },
       "sweet": {
         "modes": "Ciò che la natura fa oscillare qui non è un pendolo e poi l'altro, ma i due ritmi comuni. L'oscillazione che passa dall'uno all'altro è la loro somma – per questo non passa con «Entrambi uguali» né con «Uno contro l'altro».",
-        "beat": "Qui l'oscillazione va e torna una volta in {{beat}} s, e il {{share}} % arriva all'altro pendolo.",
+        "beat": "Qui l'oscillazione va e torna una volta in {{beat}} s, e circa il {{share}} % arriva all'altro pendolo.",
         "unequal": "Pendoli diversi non passano mai tutto: solo questa quota, tanto più grande quanto più i pendoli si somigliano e quanto più forte è la molla."
       },
       "chart": {
@@ -1616,7 +1620,8 @@
           "released": "Il filo si stacca dal piolo.",
           "slack": "Il filo si allenta: la sfera vola libera.",
           "taut": "Il filo si tende con uno strappo.",
-          "over_the_top": "Giro completo: il filo si avvolge attorno al piolo."
+          "over_the_top": "Giro completo: il filo si avvolge attorno al piolo.",
+          "wound": "In volo il filo è passato sopra il piolo: resta avvolto attorno a esso."
         }
       },
       "figures": {
@@ -1699,7 +1704,7 @@
       },
       "change": {
         "title": "Modificare l'oggetto esposto",
-        "hint": "Un asse più sottile o una ruota più pesante sul bordo cadono più lentamente – e rendono più duro lo strappo in basso.",
+        "hint": "Un asse più sottile o una ruota più pesante sul bordo cadono più lentamente – e rendono più dolce lo strappo in basso.",
         "shape": "Ruota",
         "shapes": {
           "disc": "Disco pieno",
@@ -1717,7 +1722,7 @@
       },
       "model": {
         "intro": "I nastri si srotolano dall'asse senza strisciare: per ogni centimetro di caduta la ruota gira di un centimetro della circonferenza dell'asse. Poiché l'asse è sottile, ciò significa molta rotazione per poca caduta.",
-        "roll": "La ruota cade con accelerazione uniforme, ma solo con una piccola parte di quella di gravità: k dice quanto è più difficile mettere la ruota in rotazione che in moto.",
+        "roll": "La ruota cade con accelerazione uniforme, ma solo con una piccola parte di quella di gravità: k dice quanto è più difficile mettere la ruota in rotazione che in moto. Lo sfregamento dei fili sull'asse, la quota c della loro trazione, frena la rotazione e la rende ancora un po' più lenta.",
         "tension": "Per questo, mentre si srotola, i nastri reggono quasi tutto il peso.",
         "share": "Questa quota dell'energia del moto è nella rotazione – il 98,8 % per la ruota standard."
       },
@@ -1727,6 +1732,7 @@
         "i": "il momento d'inerzia della ruota: ½·M·R² per un disco, M·R² per un anello",
         "m": "la massa della ruota",
         "r": "il raggio dell'asse",
+        "c": "lo sfregamento dei fili: questa quota della loro trazione frena la rotazione",
         "t": "la trazione dei due nastri",
         "s": "la rigidità dei due nastri insieme",
         "v": "la velocità della ruota quando i nastri sono srotolati"
@@ -1807,7 +1813,7 @@
       },
       "sweet": {
         "gap": "La distanza tra i due pendoli nel tempo, in scala logaritmica: una retta significa che cresce dello stesso fattore ogni secondo.",
-        "chaotic": "Misurato per questa partenza: λ = {{lambda}} al secondo. Una differenza raddoppia quindi ogni {{doubling}} s. Renderla mille volte più piccola fa guadagnare solo il tempo di dieci raddoppi – per questo il pendolo è imprevedibile, anche se ogni calcolo è esatto.",
+        "chaotic": "Misurato per questa partenza in mezzo minuto: λ ≈ {{lambda}} al secondo – un solo tratto di traiettoria, quindi qualche decimo in più o in meno. Una differenza raddoppia quindi circa ogni {{doubling}} s. Renderla mille volte più piccola fa guadagnare solo il tempo di dieci raddoppi – per questo il pendolo è imprevedibile, anche se ogni calcolo è esatto.",
         "regular": "Misurato per questa partenza: λ = {{lambda}} al secondo, praticamente zero. Con oscillazioni così dolci la differenza resta piccola: il pendolo è prevedibile."
       },
       "chart": {
@@ -1819,7 +1825,7 @@
         "slow": "Modo lento"
       },
       "computed": {
-        "system": "Quattro equazioni del primo ordine, i due angoli e le loro velocità, con il metodo di Runge-Kutta a passi di un millisecondo, per il pendolo e il suo gemello. Il motore misura l'esponente alla maniera di Benettin: un gemello parte a un centomilionesimo, ogni decimo di secondo si annota quanto è cresciuta la distanza e il gemello viene riportato alla piccola distanza. La media dei logaritmi è l'esponente – qualunque sia la piccola distanza scelta.",
+        "system": "Quattro equazioni del primo ordine, i due angoli e le loro velocità, con il metodo di Runge-Kutta a passi di un millisecondo, per il pendolo e il suo gemello; dove un braccio superiore leggero sotto uno inferiore pesante frusta attorno, in parti uguali di esso, così che nessun braccio ruoti di più di 0,035 rad in un passo. Il motore misura l'esponente alla maniera di Benettin: un gemello parte a un centomilionesimo, ogni decimo di secondo si annota quanto è cresciuta la distanza e il gemello viene riportato alla piccola distanza. La media dei logaritmi è l'esponente – qualunque sia la piccola distanza scelta.",
         "d0": "la piccola distanza a cui il gemello viene riportato ogni volta",
         "dk": "la distanza dopo il k-esimo decimo di secondo",
         "t": "tutto il tempo misurato"
@@ -1853,7 +1859,9 @@
         },
         "regime_still": "Troppo poca acqua: le perdite la portano via prima che il secchiello in alto diventi abbastanza pesante. La ruota sta ferma.",
         "regime_steady": "La ruota gira regolarmente in un verso – quale, lo decide la prima piccola spinta.",
-        "regime_chaotic": "Caos: nessuna rotazione regolare regge. La ruota cambia verso senza mai seguire uno schema.",
+        "regime_chaotic": "Caos: la ruota non trova alcuna rotazione regolare. Cambia verso senza seguire uno schema.",
+        "regime_pattern": "La ruota cambia verso di continuo, ma secondo uno schema fisso che si ripete.",
+        "regime_starting": "In 200 secondi la ruota qui non trova ancora un andamento stabile.",
         "rate": "Rotazione della ruota",
         "rpm": "giri/min",
         "hopf": "Caos da un rubinetto di"
@@ -1862,7 +1870,7 @@
         "intro": "Ciò che conta è come l'acqua è distribuita attorno alla ruota – più precisamente, quanto il suo baricentro si trova di lato rispetto all'asse e sopra o sotto. Con questo e la rotazione della ruota si scrivono tre equazioni.",
         "wheel": "La distribuzione dell'acqua gira con la ruota, l'acqua entra in alto e perde ovunque; la gravità fa girare la ruota quando l'acqua sta da un lato, e l'asse frena.",
         "lorenz": "Con il tempo in unità delle perdite e scalate opportunamente, sono esattamente le equazioni di Lorenz, che egli ricavò nel 1963 da un modello del flusso dell'aria – con b = 1 invece di 8/3.",
-        "hopf": "Sopra questa portata nemmeno la rotazione regolare è più stabile: la ruota diventa caotica."
+        "hopf": "Sopra questa portata nemmeno la rotazione regolare è più stabile: la ruota cambia verso di continuo, per lo più in modo caotico, con alcune portate secondo uno schema fisso. Anche al di sotto può restare caotica partendo da ferma, mentre la rotazione regolare reggerebbe."
       },
       "symbols": {
         "ab": "come è distribuita l'acqua: di lato, e sopra contro sotto",
@@ -1880,6 +1888,8 @@
       "sweet": {
         "lorenz": "La rotazione della ruota in 200 secondi. Nel 1963 Lorenz cercava un modello semplice del tempo atmosferico e trovò queste tre equazioni – e che differenze minime all'inizio rendono inutile la previsione dopo poco tempo. La ruota idraulica è quel modello da toccare.",
         "chaotic": "In 200 secondi la ruota qui inverte il verso {{reversals}} volte, mai con lo stesso ritmo.",
+        "pattern": "In 200 secondi la ruota qui inverte il verso {{reversals}} volte, una volta avviata con un ritmo fisso: gli intervalli tra le inversioni si ripetono. Anche sopra la soglia del caos esistono portate così.",
+        "starting": "In 200 secondi la ruota qui non trova ancora un andamento stabile: se più tardi si calma, questo tempo non lo mostra.",
         "steady": "Con questa portata, una volta avviata, la ruota gira regolarmente a {{rpm}} giri al minuto.",
         "still": "Con questa portata la ruota resta ferma."
       },
@@ -1944,7 +1954,7 @@
         "phi": "la latitudine"
       },
       "sweet": {
-        "floor": "Il pendolo mantiene il suo piano nello spazio; il pavimento ruota sotto di esso. A Winterthur a {{rate}}° all'ora: così Foucault mostrò a Parigi nel 1851 che la Terra ruota, senza guardare il cielo.",
+        "floor": "Il pendolo non ruota con il pavimento: a Winterthur il pavimento ruota sotto il suo piano a {{rate}}° all'ora. Così Foucault mostrò a Parigi nel 1851 che la Terra ruota, senza guardare il cielo.",
         "period": "Qui un'oscillazione dura {{period}} s; il piano ruota indipendentemente da ciò. Un pendolo più corto mostra lo stesso, purché continui a oscillare abbastanza a lungo."
       },
       "chart": {
@@ -2074,9 +2084,9 @@
         "v": "la velocità della sfera che cade, in basso"
       },
       "sweet": {
-        "wave": "Le sfere si toccano, quindi non si urtano una dopo l'altra: l'urto percorre la fila come un'onda. Poiché il contatto di Hertz si irrigidisce schiacciandosi, l'onda resta corta e arriva quasi intera nell'ultima sfera – il 97 % dell'energia. Il resto lo tengono le altre; la prima rimbalza persino un poco indietro.",
-        "gap": "Con 0,1 mm d'aria tra le sfere, si urtano di nuovo una alla volta, e i conti tornano: il 99,9 % dell'energia nell'ultima sfera.",
-        "two": "Se se ne lasciano cadere due, due onde percorrono la fila una dietro l'altra. L'ultima sfera vola via a 0,70 m/s, la penultima a 0,49 m/s – non entrambe ai 0,63 m/s con cui le due sono arrivate. Insieme portano comunque il 97 % dell'energia.",
+        "wave": "Le sfere si toccano, quindi non si urtano una dopo l'altra: l'urto percorre la fila come un'onda. Poiché il contatto di Hertz si irrigidisce schiacciandosi, l'onda resta corta e arriva quasi intera nell'ultima sfera – il 97 % dell'energia che resta dopo l'urto, l'89 % di quella entrata: l'8 % va nelle deformazioni. Il resto lo tengono le altre; la prima rimbalza persino un poco indietro.",
+        "gap": "Con 0,1 mm d'aria tra le sfere, si urtano di nuovo una alla volta, e il moto torna con i conti: il 99,9 % di ciò che resta nell'ultima sfera. Ma ogni urto prende la sua parte, e l'ultima sfera porta solo l'87 % dell'energia entrata – meno che a contatto.",
+        "two": "Se se ne lasciano cadere due, due onde percorrono la fila una dietro l'altra. L'ultima sfera vola via a 0,70 m/s, la penultima a 0,49 m/s – non entrambe ai 0,63 m/s con cui le due sono arrivate. Insieme portano comunque il 97 % dell'energia che resta dopo gli urti, il 92 % di quella entrata.",
         "together": "Ciò che resta nella fila cresce a ogni urto se gli urti perdono un po' di energia: nel quarto secondo la sfera di mezzo oscilla già di 2,5°. Se ogni urto restituisce tutto (e = 1), resta quasi ferma."
       },
       "computed": {
@@ -2187,12 +2197,14 @@
       },
       "model": {
         "intro": "Ogni asta è fissata in basso e libera in alto. Dei suoi modi di vibrare qui conta solo il primo: tutta l'asta si piega da un lato.",
-        "frequency": "La sua frequenza propria: più l'asta è lunga, più è bassa – con il quadrato della lunghezza.",
+        "frequency": "La sua frequenza propria: più l'asta è lunga, più è bassa – quasi con il quadrato della lunghezza. In piedi, il suo stesso peso la comprime per il lungo e la abbassa ancora un po': di un decimo per l'asta di un metro.",
         "motion": "Il tavolo scuote, e la sua accelerazione spinge ogni asta, pesata con Γ = 1,566 per la forma del primo modo. Lo smorzamento le toglie slancio.",
         "steady": "Scossa abbastanza a lungo allo stesso ritmo, la punta oscilla di tanto. Al passo (r = 1) è Γ·Y/(2ζ)."
       },
       "symbols": {
         "beta": "la prima soluzione di cosh β · cos β = −1: 1,8751",
+        "lambda": "quanto il peso proprio dell'asta ammorbidisce il suo primo modo: 1,571",
+        "g": "accelerazione di gravità, 9,81 m/s²",
         "l": "la lunghezza dell'asta",
         "e": "il modulo di Young dell'acciaio",
         "i": "il momento d'inerzia della sezione di un'asta tonda di diametro d",
@@ -2207,8 +2219,8 @@
         "y": "di quanto il tavolo va avanti e indietro"
       },
       "sweet": {
-        "step": "Una piccola spinta al ritmo giusto muove più di una grande al ritmo sbagliato. Il tavolo va avanti e indietro di solo 1 mm; al passo con l'asta di 80 cm, a 2,21 Hz, la sua punta oscilla di 78 mm, le vicine al massimo di 4 mm. Al tre per cento dal ritmo, solo 26 mm.",
-        "patience": "La risonanza vuole pazienza: a 2,21 Hz l'oscillazione cresce in 7,2 s solo fino a poco meno di due terzi. Chi scorre più in fretta la perde: a 0,05 Hz al secondo la stessa asta oscilla al massimo di 40 mm, la metà, e solo a 2,4 Hz.",
+        "step": "Una piccola spinta al ritmo giusto muove più di una grande al ritmo sbagliato. Il tavolo va avanti e indietro di solo 1 mm; al passo con l'asta di 80 cm, a 2,09 Hz, la sua punta oscilla di 78 mm, le vicine al massimo di 4 mm. Al tre per cento dal ritmo, solo 26 mm.",
+        "patience": "La risonanza vuole pazienza: a 2,09 Hz l'oscillazione cresce in 7,6 s solo fino a poco meno di due terzi. Chi scorre più in fretta la perde: a 0,05 Hz al secondo la stessa asta oscilla al massimo di 38 mm, la metà, e solo a 2,3 Hz.",
         "everywhere": "Lo stesso andare al passo fa scoppiare un bicchiere alla nota giusta, fa oscillare un ponte sotto passi di marcia e lascia che una corda raccolga la nota di uno strumento."
       },
       "computed": {
@@ -2330,7 +2342,7 @@
         "lambda": "di quanto la linea si scosta al massimo dal centro, come frazione del mezzo spessore"
       },
       "sweet": {
-        "chain": "La forma migliore per un arco è una catena appesa, capovolta – Robert Hooke lo annotò nel 1675, e Antoni Gaudí progettò con catene appese. Nell'arco a catenaria la linea delle pressioni sotto il proprio peso resta al centro delle pietre, a meno di un centesimo del mezzo spessore, qualunque sia lo spessore.",
+        "chain": "La forma migliore per un arco è una catena appesa, capovolta – Robert Hooke lo annotò nel 1675, e Antoni Gaudí progettò con catene appese. Nell'arco a catenaria la linea delle pressioni sotto il proprio peso resta al centro delle pietre: con sedici pietre spesse almeno 3 cm, a meno di un centesimo del mezzo spessore.",
         "semicircle": "Il semicerchio non ha quella forma. Sta in piedi solo se le sue pietre sono spesse almeno il 10,75 % del suo raggio – il 10,7 % con sedici pietre. Con 10 cm su un metro si rompe; un'ogiva della stessa luce e spessore sta in piedi.",
         "load": "Un carico sposta la linea delle pressioni. Posto al quarto della luce, rompe il semicerchio di 25 cm già all'80 % del suo stesso peso, l'arco a catenaria della stessa altezza solo al 141 %."
       },
@@ -2775,7 +2787,7 @@
         "zeno": "Il trucco: i rimbalzi diventano non solo più bassi, ma anche più brevi, ognuno della stessa parte. Così infiniti rimbalzi stanno in un tempo finito, come nel paradosso di Zenone di Achille e la tartaruga.",
         "steel": "Da 30 cm la sfera d’acciaio, coefficiente 0,95, si ferma dopo 9,6 s, con 75 rimbalzi più lunghi di un centesimo di secondo; la pallina da ping-pong, 0,92, dopo 5,2 s, con 44. La piccola differenza di coefficiente conta molto, perché il tempo cresce con 1/(1 − e).",
         "rhythm": "Il coefficiente si può sentire nel ritmo: il secondo rimbalzo della sfera d’acciaio dura 0,95 volte il primo, esattamente il suo coefficiente. Per la pallina da ping-pong è 0,89 invece di 0,92, perché la frena anche l’aria, che la regge del tutto già a 8,6 m/s; la sfera d’acciaio solo a 60 m/s.",
-        "rules": "Le regole del tennistavolo esigono che una pallina lasciata cadere da 305 mm rimbalzi tra 230 e 250 mm. Con un coefficiente di 0,92 e l’aria, questa rimbalza a 240 mm."
+        "rules": "Le regole del tennistavolo esigono che una pallina lasciata cadere da 305 mm su un blocco d’acciaio rimbalzi tra 240 e 265 mm. Con un coefficiente di 0,92 e l’aria, questa rimbalza a 240 mm, al limite inferiore."
       },
       "computed": {
         "system": "Tra due colpi la palla vola in verticale, solo con il suo peso e la resistenza dell’aria. Per questo c’è una soluzione esatta: in salita con la tangente, in discesa con la tangente iperbolica. La pagina calcola volo dopo volo; quando i voli durano meno di un decimo di millisecondo, il resto della serie si somma in forma chiusa, dove l’aria non conta più da tempo.",
@@ -2817,7 +2829,7 @@
         "holds": "La pila regge se a ogni strato il baricentro di tutti i blocchi da esso in su sta sopra il suo appoggio: sopra il tratto in cui tocca il blocco sotto, per il più basso sopra il tavolo.",
         "step": "Costruita dall’alto, ogni blocco tanto in fuori quanto permettono quelli sopra: il k-esimo blocco dall’alto sporge di 1/(2k) sul successivo.",
         "harmonic": "Insieme fa metà della serie armonica.",
-        "even": "A gradini uguali il baricentro dell’intera pila raggiunge per primo il bordo: n blocchi sporgono di n/(n + 1), mai una lunghezza intera."
+        "even": "A gradini uguali, con il blocco in basso che sporge dal tavolo quanto ogni blocco da quello sotto, il baricentro dell’intera pila raggiunge per primo il bordo: n blocchi sporgono di n/(n + 1), mai una lunghezza intera."
       },
       "symbols": {
         "centre": "baricentro dei blocchi dallo strato k in su",
@@ -2831,7 +2843,7 @@
         "even": "sbalzo a gradini uguali"
       },
       "sweet": {
-        "steps": "Il trucco: si costruisce dall’alto, non dal basso. Il blocco in cima può sporgere di mezza lunghezza, i due in cima insieme di un quarto sul terzo, i tre in cima di un sesto: i gradini rimpiccioliscono verso il basso. Nove blocchi sporgono così di 1,41 lunghezze, 28 cm con blocchi di 20 cm; a gradini uguali solo 0,9.",
+        "steps": "Il trucco: si costruisce dall’alto, non dal basso. Il blocco in cima può sporgere di mezza lunghezza, i due in cima insieme di un quarto sul terzo, i tre in cima di un sesto: i gradini rimpiccioliscono verso il basso. Nove blocchi sporgono così di 1,41 lunghezze, 28 cm con blocchi di 20 cm; a gradini uguali solo 0,9, e 0,94 con il blocco in basso un po’ arretrato: mai una lunghezza intera.",
         "endless": "La serie armonica non ha fine: con abbastanza blocchi la pila sporge quanto si vuole. Ma lentamente, come un logaritmo. Servono tanti blocchi:",
         "reach_one": "per {{count}} lunghezza",
         "reach_other": "per {{count}} lunghezze",
@@ -2962,7 +2974,8 @@
         "incidence": "Angolo d’incidenza",
         "refraction": "Angolo di rifrazione",
         "leaves": "Angolo d’uscita θ",
-        "bow": "Angolo dell’arcobaleno"
+        "bow": "Angolo dell’arcobaleno",
+        "across_outside": "Questo raggio incrocia la via di ritorno verso la lampada e torna dall’altra parte con {{angle}}°, fuori dall’anello a {{bow}}°."
       },
       "change": {
         "title": "Cambiare il materiale",
@@ -3087,7 +3100,7 @@
         "rayleigh": "La diffusione cresce con la quarta potenza della frequenza (Rayleigh): la luce blu (450 nm) viene diffusa 4,4 volte più della rossa (650 nm).",
         "beer": "Ciò che viene diffuso manca alla luce che prosegue: diminuisce esponenzialmente lungo il tubo, il blu più in fretta (Beer-Lambert).",
         "side": "Di lato si vede ciò che viene diffuso in quel punto, meno ciò che si perde ancora sulla via fino alla parete del tubo.",
-        "sky": "Il cielo proprio sopra di sé: luce solare diffusa una volta a ogni altezza e poi scesa al suolo. Il sole sta basso di m masse d’aria.",
+        "sky": "Il cielo proprio sopra di sé: luce solare diffusa una volta a ogni altezza e poi scesa al suolo. Il sole sta basso di m masse d’aria. Arriva all’occhio deviata di 90° meno l’altezza del sole, e l’aria diffonde di lato la metà che in avanti: con il sole basso il cielo sopra di sé è perciò chiaro la metà.",
         "ozone": "Lo strato di ozono, a circa 22 km di quota, non diffonde la luce, la assorbe – soprattutto l’arancione (600 nm). In verticale il suo spessore ottico lì è solo 0,041, poco accanto a quello dell’aria.",
         "ozone_mass": "La luce del sole lo attraversa come un guscio sottile: m₃ volte tanto ozono quanto in verticale, 12 volte all’orizzonte – dove assorbe il 39 % dell’arancione. Poiché sta sopra quasi tutta l’aria, anche la luce del cielo, diffusa più in basso, porta lo stesso fattore."
       },
@@ -3119,7 +3132,7 @@
         "system": "Per ciascuna di 81 lunghezze d’onda la pagina calcola quanta luce resta in ogni punto del tubo e quanta ne viene diffusa di lato. Per il cielo prende lo spessore ottico dell’aria, 0,097 a 550 nm, e la massa d’aria secondo Kasten e Young, 37,9 all’orizzonte. Per l’ozono prende la sezione d’urto misurata (Serdyuchenko et al. 2014, mediata su ogni 5 nm), 300 unità Dobson e uno strato sottile a 22 km di quota.",
         "colours": "I colori come per l’arcobaleno delle perline di vetro: pesati con la sensibilità dell’occhio ai colori (CIE 1931) e convertiti nei colori dello schermo (sRGB). Il bianco della lampada – per il cielo, quello del sole sopra l’aria – appare bianco. Ogni colore è disegnato chiaro quanto lo schermo consente; quanto sia chiaro davvero, lo dicono le cifre.",
         "check": "I test della pagina verificano che la luce diffusa di lato e quella che arriva in fondo diano insieme esattamente la luce della lampada (regola di Simpson), e confrontano il cielo sopra di sé con la stessa somma su tutte le altezze. Il calcolo avviene nel suo browser, con le stesse formule del motore di calcolo della pagina.",
-        "left_out": "Tralasciato: la luce diffusa più volte (rende più bianchi un tubo molto torbido e il cielo all’orizzonte); le particelle più grandi, che diffondono tutti i colori allo stesso modo (per questo il latte è bianco); la direzione della diffusione, che cambia solo la luminosità; per il cielo la polvere e la foschia, che rendono il tramonto ancora più rosso, il sole sotto l’orizzonte (il cielo sopra di sé è allora illuminato solo molto in alto, attraverso ancora più ozono) e quanto ozono c’è, che cambia con la stagione e il luogo. Si assume un tubo lungo 1 m e largo 6 cm."
+        "left_out": "Tralasciato: la luce diffusa più volte (rende più bianchi un tubo molto torbido e il cielo all’orizzonte); le particelle più grandi, che diffondono tutti i colori allo stesso modo (per questo il latte è bianco); la direzione della diffusione nel tubo, che cambia solo la luminosità; per il cielo la polvere e la foschia, che rendono il tramonto ancora più rosso, il sole sotto l’orizzonte (il cielo sopra di sé è allora illuminato solo molto in alto, attraverso ancora più ozono) e quanto ozono c’è, che cambia con la stagione e il luogo. Si assume un tubo lungo 1 m e largo 6 cm."
       }
     },
     "slits": {
@@ -3146,7 +3159,8 @@
         "plate": "Fenditure",
         "wall": "Parete",
         "status_both": "Due fenditure: frange distanti {{spacing}} mm.",
-        "status_one": "Una fenditura: una larga macchia chiara, senza frange – e al centro chiara solo un quarto."
+        "status_one": "Una fenditura: una larga macchia chiara, senza frange – e al centro chiara solo un quarto.",
+        "near": "La parete è più vicina di quanto la formula permetta: con fenditure così larghe è esatta all'uno per cento solo da {{near}} m in su."
       },
       "figures": {
         "spacing": "Distanza delle frange",
@@ -3195,10 +3209,10 @@
         "two_label": "Due fenditure aperte, disegnate con la stessa luminosità"
       },
       "computed": {
-        "system": "La pagina calcola la luminosità in ogni punto della parete con la formula per una parete lontana (Fraunhofer). Il laser è rosso, 650 nm; le fenditure distano 0,25 mm e sono larghe 0,05 mm ciascuna, la parete sta 2 m dietro. Allora le frange distano 5,2 mm, la prima scura è a 2,6 mm dal centro, e 9 frange chiare stanno nella banda centrale di una fenditura, larga 26 mm.",
+        "system": "La pagina calcola la luminosità in ogni punto della parete con la formula per una parete lontana (Fraunhofer). Il laser è rosso, 650 nm; le fenditure distano 0,25 mm e sono larghe 0,05 mm ciascuna, la parete sta 2 m dietro. Allora le frange distano 5,2 mm, la prima scura è a 2,6 mm dal centro, e 9 frange chiare stanno nella banda centrale di una fenditura, che arriva a 26 mm da ciascun lato del centro.",
         "colours": "Il colore del laser è quello della sua lunghezza d’onda, saturo quanto lo schermo può mostrarlo e chiaro quanto la luce lì. Luce bianca: per 81 lunghezze d’onda ciascuna con la propria figura, pesate con la sensibilità dell’occhio ai colori (CIE 1931) e convertite nei colori dello schermo (sRGB).",
         "check": "I test della pagina dividono ogni fenditura in 400 strisce sottili, sommano le onde di tutte le strisce in ogni punto della parete (Huygens) e confrontano il risultato con la formula. Verificano che le frange scure siano esattamente buie dove una fenditura da sola dà luce, e che la luce bianca sia blu dove il rosso si annulla. Il calcolo avviene nel suo browser, con le stesse formule del motore di calcolo della pagina.",
-        "left_out": "Tralasciato: che la parete non è infinitamente lontana (la formula vale appena è molto più lontana di d²/λ, qui circa un decimo di metro); la larghezza e l’apertura del fascio laser, che fanno sfumare le frange in alto e in basso; i bordi e lo spessore delle fenditure; la polarizzazione della luce."
+        "left_out": "Tralasciato: che la parete non è infinitamente lontana (la formula è esatta all’uno per cento appena è a più di trentacinque volte a²/λ, a la larghezza di una fenditura: qui 13 cm; più vicino, la pagina lo dice); la larghezza e l’apertura del fascio laser, che fanno sfumare le frange in alto e in basso; i bordi e lo spessore delle fenditure; la polarizzazione della luce."
       }
     },
     "beats": {

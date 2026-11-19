@@ -496,7 +496,7 @@
         "gain": "a legtöbb energia, amelyet egy áthaladás adhat",
         "full_current": "az áram lenyomva tartott gombbal",
         "supply": "a telep feszültsége",
-        "top_speed": "a sebesség, amely fölött a tekercs már nem tud tolni",
+        "top_speed": "a sebesség, amely fölött egyetlen áthaladás sem nyer már semmit",
         "arc": "milyen messze az íven felfelé, a sík szakasz végétől mérve",
         "ramp_radius": "a rámpák sugara"
       },
@@ -507,7 +507,7 @@
         "late": "Mennyit késik a kéz a − gombbal",
         "reading": "Így értelmezze a görbét: a pontos átkapcsolás nyer a legtöbbet; 20 ms késéssel még nagyjából kétharmad marad; 30 ms késéssel a kocsi sosem ér fel; mintegy 60 ms késéssel a megmaradt húzóerő már fékezi a kocsit. Ezek az értékek az alapbeállítású összeállításra érvényesek.",
         "gain_bound": "A legtöbb, amit egy áthaladás adhat: messziről a közepéig behúzva I·Ψ(0) a nyereség, kifelé tolva ugyanennyi. Az indukált feszültség és a gördülési ellenállás ebből elvesz valamennyit.",
-        "top_speed": "Akármilyen jól nyomja is a gombokat, van egy legnagyobb sebesség: ahol a kocsi által indukált feszültség eléri a telepét, nem folyik áram, és a tekercs már nem tud tolni."
+        "top_speed": "Akármilyen jól nyomja is a gombokat, van egy legnagyobb sebesség. A kocsi maga is áramot indukál a tekercsben, és ez fékezi, annál erősebben, minél gyorsabban halad. Ennél a sebességnél ez a fék egy áthaladás alatt annyit vesz el, amennyit a telep legfeljebb adhat, akkor is, ha befelé végig a pluszt, kifelé végig a mínuszt nyomja; e fölött többet. A képlet elhagyja a tekercs induktivitását; azzal együtt a határ mintegy 7 %-kal magasabb."
       },
       "figures": {
         "tau": "Időállandó",
@@ -658,7 +658,7 @@
         "inertia": "Tehetetlenségi nyomaték",
         "momentum": "Perdület",
         "energy": "A forgás energiája",
-        "pull": "Húzóerő a kapaszkodón",
+        "pull": "Befelé húzás a kapaszkodón",
         "times": "Gyorsabb, mint kifelé dőlve",
         "reading": "Minden lökés {{push}} kg·m²/s perdületet ad. Két lökés között csak a csapágy vesz el belőle valamennyit — akárhogy dől is, a perdület megmarad.",
         "lean_hint": "Mennyire dől hátra a törzs a tengelytől, a kezek a kapaszkodón, a lábak a helyükön."
@@ -695,13 +695,13 @@
         "lean": "mennyire dől ki a törzs",
         "own": "az adott rész saját tehetetlenségi nyomatéka",
         "energy": "a forgás energiája",
-        "pull": "amit a kezeknek a kapaszkodón tartaniuk kell: hogy a kidőlt test a körpályáján maradjon",
+        "pull": "a befelé irányuló húzás, amelyet a kezek a kapaszkodón át adnak, hogy a kidőlt test a körpályáján maradjon; a súlya elleni megtartás ehhez jön hozzá",
         "trunk_mass": "a törzs tömege, a fejjel együtt"
       },
       "sweet": {
         "faster": "Egyenesen állva a látogató {{ratio}}× olyan gyorsan forog, mint kifelé dőlve — ugyanazzal a perdülettel.",
         "energy": "A forgás energiája azonos perdület mellett: kisebb tehetetlenségi nyomaték, több energia. Az összehúzódás nemcsak gyorsabbá, hanem energiadúsabbá is teszi a forgást.",
-        "pull": "Ennek az energiának valahonnan jönnie kell: a karokból. Kifelé dőlve a testnek szüksége van erre a befelé irányuló húzóerőre, hogy a körpályáján maradjon, és ezt a kezek adják a kapaszkodón keresztül — a szögsebesség négyzetével nő, és a látogató úgy érzi, mintha a kapaszkodó húzná a kezét.",
+        "pull": "Ennek az energiának valahonnan jönnie kell: a karokból. Kifelé dőlve a testnek szüksége van erre a befelé irányuló húzóerőre, hogy a körpályáján maradjon, és ezt a kezek adják a kapaszkodón keresztül — a szögsebesség négyzetével nő, és a látogató úgy érzi, mintha a kapaszkodó húzná a kezét. Ráadásul a karok a kidőlt testet a saját súlya ellen is tartják; ez a rész nem nő a forgással.",
         "paid": "Kifelé dőlt helyzetből felegyenesedve a karok {{work}} J munkát végeznek e húzóerő ellenében, és a forgás energiája pontosan ennyivel nő, {{from}} J-ról {{to}} J-ra. A számítómotor ezt úgy ellenőrzi, hogy a befelé vezető út mentén összegzi a húzóerőt.",
         "replay": "Itt az automatikus mód tizenhat másodpercen át, egy {{push}} kg·m²/s-os lökés után: a sebesség minden felegyenesedésnél megugrik, kifelé dőléskor visszaesik, miközben a perdület csak csökken, lassan és egyenletesen, a csapágy miatt."
       },
@@ -857,7 +857,7 @@
         "height": "A labda középpontja az ormány fölött",
         "air_at_ball": "Légsebesség a labdánál",
         "off_axis": "Eltérés a légsugár tengelyétől",
-        "falls_at": "Dőlés, amelynél leesik",
+        "falls_at": "Nyugodt marad eddig a dőlésig",
         "resting": "Az ormányon: a levegő nem tudja felemelni",
         "floating": "Lebeg",
         "fallen": "Kiesett a légsugárból"
@@ -916,7 +916,7 @@
         "height": "Miért marad a magasságában: feljebb a légsugár szélesebb a labdánál, így a labda kevesebbet fog fel belőle, és süllyed; lejjebb többet fog fel, és emelkedik. Ott lebeg, ahol a tolóerő metszi a súlyát, {{height}} cm-rel az ormány fölött, és e pont körül fel-le leng, másodpercenként {{bob}} lengéssel, miközben a levegő csillapítja.",
         "middle": "Miért marad középen: ha oldalra lökik, a labdát a belső oldalán gyorsabban áramló levegő visszahúzza, annál erősebben, minél messzebbre téved, egészen a tengelytől mintegy {{offset}} cm-ig. Azon túl már elhagyja a légsugarat.",
         "rise": "Az ormánytól a magasságáig: a labda túllendül rajta, visszatér és beáll, a lengés pedig lecseng, mint egy csillapított rugóé. A görbe a számítómotor futása a képernyőn látható összeállításra, ugyanaz, amelyet az oldal fent lejátszik.",
-        "tilt": "Mennyire dőlhet meg az ormány: legfeljebb {{limit}}°-ig. Addig a labda lejjebb és a mélyebb oldal felé lóg; {{limit}}°-nál a szívóhatás már nem tudja megtartani a súlynak azt a részét, amely a légsugárra merőlegesen húz.",
+        "tilt": "Mennyire dőlhet meg az ormány: legfeljebb {{limit}}°-ig. Addig a labda lejjebb és a mélyebb oldal felé lóg. Ezen túl nem esik ki azonnal: hintázni kezd a légsugár mentén és keresztben, minden alkalommal kicsit jobban, amíg le nem esik. Ez időbe telik, és aki gyorsan dönti az ormányt, ahogy az automatikus mód, tovább jut, mielőtt a labda leesik.",
         "lift_off": "A levegőnek elég gyorsnak kell lennie ahhoz, hogy egyáltalán felemelje a labdát az ormányról: {{speed}} m/s sebességtől kezdve.",
         "buoyancy": "Egy felfújható labda annyi levegőt szorít ki, amelynek súlya a labda saját súlyának {{share}} %-a, és ezt a légsugárnak nem kell megtartania.",
         "assumed": "Amit feltételezünk: a légsugár alakja közvetlenül az ormánynál (egy valódi légsugár az első néhány átmérőnyi szakaszon megtartja teljes sebességét a tengelyén), egy sima labda 0.47-es közegellenállási tényezője, valamint a szívóhatás oldalirányú hányada. Az értékek a modellé, nem centiméterre pontosan a kiállítási tárgyé.",
@@ -938,7 +938,7 @@
         "height": "Lebegési magasság",
         "lift_off": "Felemelkedési küszöb",
         "air": "Légsebesség a labdánál",
-        "limit": "Dőlés, amelynél leesik",
+        "limit": "Nyugodt marad eddig a dőlésig",
         "bob": "Fel-le lengés",
         "flow": "Levegő az ormányon át"
       }
@@ -984,16 +984,16 @@
         "tension": "A bőr feszítése",
         "tension_hint": "Feltételezett érték: mennyire feszes a bőr. Csak a kézre ható erőt változtatja meg, a karikát nem.",
         "draught": "Légmozgás a teremben (modell)",
-        "draught_hint": "Egy karikát, amely lassabb a terem levegőjénél, a levegő elsodor, mielőtt kialakulna. Úgy beállítva, hogy a nagyjából 1.2 s-nál lassabb lenyomás semmit se hozzon létre.",
+        "draught_hint": "Egy karikát, amely lassabb a terem levegőjénél, a levegő elsodor, mielőtt kialakulna. Úgy beállítva, hogy a nagyjából 1.3 s-nál lassabb lenyomás semmit se hozzon létre.",
         "turbulent": "Turbulens küszöb (modell)",
         "turbulent_hint": "E Reynolds-szám fölött a karika turbulens, és szétkeni a füstjét. Úgy beállítva, hogy a nagyjából 0.2 s-nál gyorsabb lenyomás ne hozzon létre látható karikát."
       },
       "model": {
         "intro": "A lenyomás levegőt présel ki a dobból; a lyukon kilépő levegő karikává csavarodik fel; az, hogy a karika milyen gyors és milyen erős, dönti el, hogy repül-e.",
         "area": "A gyűrű lenyomja a bőrt, és a bőr a gyűrű és a perem között egy kifeszített membrán alakját veszi fel. A dob a lenyomás minden centiméterével ennyi térfogatot veszít.",
-        "jet": "Ez a térfogat a lyukon át távozik, amely tizenegyszer kisebb: a levegő tizenegyszer gyorsabban jön ki, mint ahogy a kéz lefelé halad.",
-        "circulation": "A kitolt levegő karikává, egy örvénygyűrűvé csavarodik fel; a cirkulációja, vagyis hogy milyen erősen örvénylik, a légsebesség négyzete integráljának a fele.",
-        "formation": "Egy karika legfeljebb négy lyukátmérő hosszú kitolt légoszlopot vesz fel; egy hosszabb légoszlop egy légsugarat hagy maga mögött. Itt egy teljes lenyomás három lyukátmérőnyi légoszlopot ad.",
+        "jet": "Ez a térfogat a lyukon át távozik, amely tizenegyszer kisebb, és a karikával együtt lefelé halad: a levegő tizenkétszer gyorsabban jön ki belőle, mint ahogy a kéz lefelé halad.",
+        "circulation": "A kitolt levegő karikává, egy örvénygyűrűvé csavarodik fel; a cirkulációja, vagyis hogy milyen erősen örvénylik, a légsebesség négyzetének, mínusz a lyuk lefelé haladó peremének sebességnégyzetének integráljának a fele.",
+        "formation": "Egy karika legfeljebb négy lyukátmérő hosszú kitolt légoszlopot vesz fel; egy hosszabb légoszlop egy légsugarat hagy maga mögött. Itt egy teljes lenyomás 3,3 lyukátmérőnyi légoszlopot ad.",
         "speed": "Egy karika olyan sebességgel repül, amelyet a cirkulációja és a mérete határoz meg: annál gyorsabban, minél erősebben örvénylik.",
         "reynolds": "A Reynolds-száma megmondja, mennyire turbulens: egy küszöb fölött a karika a füstjét a nyomában hagyja.",
         "hand": "A kéz a bőr rugóerejét és a levegő ellennyomását érzi, amely a tempó négyzetével nő."
@@ -1034,7 +1034,10 @@
         "both": "A kettő együtt nő a tempóval — a karika erőssége és a sebessége —, ezért van az ablaknak két vége.",
         "force": "És a kéz megfizeti a gyors lenyomás árát: a levegő ellennyomása a tempó négyzetével nő, bökésnél {{fast}} N, lassú nyomásnál pedig {{slow}} N, amikor már csak a bőr számít.",
         "assumed": "Amit feltételezünk: a két küszöb, a kiállítási tárgyhoz igazítva (egy karika nagyjából fél másodpercnél sikerül a legjobban), a karika és a magja mérete, ahogyan a mért karikáknál, valamint a bőr feszítése. A bőr saját rezgését és az elengedéskor fellépő szívóhatást kihagytuk.",
-        "none": "Ezekkel a beállításokkal egyetlen lenyomás sem hoz létre karikát: az ablak bezárult."
+        "none": "Ezekkel a beállításokkal egyetlen lenyomás sem hoz létre karikát: az ablak bezárult.",
+        "open_slow": "Ilyen kevés huzatnál egy teljes nyomás {{fastest}} s-nál lassabb tempóban mindig gyűrűt ad: egyik sem túl lassú a terem levegőjéhez; csak egy gyorsabb lökés lesz turbulens.",
+        "open_fast": "Ilyen magas küszöbnél egy teljes nyomás {{slowest}} s-nál gyorsabb tempóban mindig gyűrűt ad: egyetlen lökés sem lesz turbulens; csak egy lassabb nyomást visz el a levegő.",
+        "open_both": "Ezekkel a beállításokkal minden teljes nyomás gyűrűt ad, akármilyen gyors vagy lassú."
       },
       "chart": {
         "duration": "A lenyomás időtartama",
@@ -1106,7 +1109,7 @@
         "youngs": "Az elasztomer merevsége (Young-modulus)",
         "youngs_hint": "Becsült érték: a puha gumié 1 és 10 MPa között van. Ez szabja meg, milyen erősen és milyen röviden nyomják egymást a labdák, az emelkedést pedig csak kevéssé változtatja meg.",
         "floor_e": "Visszapattanás a padlón",
-        "e_hint": "A közeledési sebességnek az a hányada, amelyet egy érintkezés visszaad: 1 semmit sem veszít, egy elasztomer labda nagyjából 0.85.",
+        "e_hint": "A közeledési sebességnek az a hányada, amelyet egy érintkezés visszaad: 1 semmit sem veszít, egy elasztomer labda nagyjából 0.85. A csillapítás képlete 0,85-től felfelé 2 %-on belül tartja; alatta kevesebbet ad vissza: 0,3-nál egyötödével kevesebbet.",
         "ball_e": "Visszapattanás két labda között"
       },
       "model": {
@@ -1154,12 +1157,13 @@
         "gap": "Tartsa a labdákat néhány milliméterre egymástól, és az érintkezések egymás után következnek: az emelkedés majdnem eléri azt, amit pillanatszerű ütközések adnának. Próbálja ki a távolságot.",
         "masses": "A tankönyvi 7v-hez minden labdának sokkal könnyebbnek kell lennie az alatta lévőnél. Ezek tömege {{masses}} g: a középsőé az alsóénak a harmada, a legfelsőé a középsőének a harmada.",
         "energy": "Mégis annak az energiának, amellyel az egész oszlop a padlónak ütközött, {{share}} %-a a legkisebb labdában távozik.",
-        "flip": "Fordítsa meg az oszlopot, és semmi sem repül: egy alul lévő könnyű labda nem tud felfelé lökni egy nehezet.",
+        "flip": "Fordítsa meg az oszlopot, és már nem ágyú: a felül lévő nagy labda kevésbé emelkedik vissza, mint amennyit esett; az alatta lévő könnyű labdák csak felfogják.",
         "name": "Miért ágyú: a fizikakönyvek Galilei-ágyúnak nevezik, mert a kis labdát az oszlop függőlegesen felfelé lövi ki, mintha egy ágyúcsőből. Oldalra semmit sem lő ki.",
-        "assumed": "Amit feltételezünk: tömör, 1100 kg/m³ sűrűségű labdák, az elasztomer merevsége és rugalmassága, Hertz törvényét követő érintkezések olyan csillapítással, amely a közeledési sebesség rögzített hányadát adja vissza, valamint merev padló. A huzalon fellépő súrlódást és a labdák pörgését kihagytuk."
+        "assumed": "Amit feltételezünk: tömör, 1100 kg/m³ sűrűségű labdák, az elasztomer merevsége és rugalmassága, Hertz törvényét követő érintkezések olyan csillapítással, amely a közeledési sebesség rögzített hányadát adja vissza, valamint merev padló. Hertz törvénye kis benyomódásokra érvényes; az alsó labda a sugara egyötödével nyomódik be. A huzalon fellépő súrlódást és a labdák pörgését kihagytuk."
       }
     },
     "wave": {
+      "refused": "Ez a beállítás 2 cm-nél rövidebb ingákat kíván, ilyen rövideket az oldal nem számol. Kevesebb inga, hosszabb ciklus vagy a leghosszabb inga kevesebb lengése segít.",
       "at": {
         "row": "Egy rúdon ingák sora lóg, a leghosszabb az egyik végén, a következők mind kicsit rövidebbek. Egy deszka mindet egyformán kitéríti, és egyszerre elengedi.",
         "pattern": "Először együtt lengenek, aztán a sor hullámmá, kígyókká, látszólagos káosszá, két, három, négy csoporttá húzódik szét – és egy perc múlva ismét mind egy ütemben lengenek, mintha mi sem történt volna."
@@ -1319,7 +1323,7 @@
       "sweet": {
         "near": "Ha az ütemek egy egyszerű p : q arány közelében vannak, de nem pontosan rajta, az ábra megtartja alakját, és lassan tovább fordul – ennyi idő alatt egyszer. Minél közelebb, annál lassabban.",
         "closed": "Ezek az ingák pontosan {{p}} : {{q}} arányban állnak: az ábra záródik, és csak zsugorodik. Hangolja el a táblát egy százalékkal, és forogni kezd.",
-        "turns": "Ezek az ingák {{detune}} %-kal térnek el a {{p}} : {{q}} aránytól: az ábra {{turn}} s alatt fordul egyet.",
+        "turns": "Ezek az ingák {{detune}} %-kal térnek el a {{p}} : {{q}} aránytól: az ábra eleinte {{turn}} s alatt fordul egyet.",
         "widths": "És pontos aránynál is fordul, ha az ingák különböző szélesen lengenek: a széles lengés kicsit tovább tart, mint a keskeny. Állítsa a tollingát 30°-ra, a táblaingát 5°-ra, és a zárt ábra kinyílik."
       },
       "computed": {
@@ -1579,7 +1583,7 @@
       },
       "sweet": {
         "modes": "Amit a természet itt lengetni hagy, az nem az egyik inga, majd a másik, hanem a két közös ütem. A vándorló lengés ezek összege – ezért nem vándorol „Mindkettő egyformán” és „Egymás ellen” esetén.",
-        "beat": "Itt a lengés {{beat}} s alatt vándorol át és vissza, és {{share}} %-a jut el a másik ingához.",
+        "beat": "Itt a lengés {{beat}} s alatt vándorol át és vissza, és nagyjából {{share}} %-a jut el a másik ingához.",
         "unequal": "Különböző ingák soha nem adnak át mindent: csak ezt a részt, annál többet, minél hasonlóbbak az ingák és minél erősebb a rugó."
       },
       "chart": {
@@ -1616,7 +1620,8 @@
           "released": "A fonal leválik a pecekről.",
           "slack": "A fonal meglazul: a golyó szabadon repül.",
           "taut": "A fonal egy rándulással megfeszül.",
-          "over_the_top": "Átfordulás: a fonal rátekeredik a pecekre."
+          "over_the_top": "Átfordulás: a fonal rátekeredik a pecekre.",
+          "wound": "Repülés közben a fonal átfordult a pecek fölött: rátekeredve marad."
         }
       },
       "figures": {
@@ -1699,7 +1704,7 @@
       },
       "change": {
         "title": "A kiállítási tárgy módosítása",
-        "hint": "A vékonyabb tengely vagy a peremén nehezebb kerék lassabban esik – és keményebbé teszi a rándulást lent.",
+        "hint": "A vékonyabb tengely vagy a peremén nehezebb kerék lassabban esik – és lágyabbá teszi a rándulást lent.",
         "shape": "Kerék",
         "shapes": {
           "disc": "Tömör tárcsa",
@@ -1717,7 +1722,7 @@
       },
       "model": {
         "intro": "A szalagok csúszás nélkül tekeredik le a tengelyről: minden centiméter esésnél a kerék a tengely kerületének egy centiméterével fordul tovább. Mivel a tengely vékony, ez kevés esésre sok forgást jelent.",
-        "roll": "A kerék egyenletesen gyorsulva esik, de a nehézségi gyorsulásnak csak kis részével: k megmondja, mennyivel nehezebb a kereket forgásba hozni, mint mozgásba.",
+        "roll": "A kerék egyenletesen gyorsulva esik, de a nehézségi gyorsulásnak csak kis részével: k megmondja, mennyivel nehezebb a kereket forgásba hozni, mint mozgásba. A zsinórok súrlódása a tengelyen, húzásuk c része, fékezi a forgást, és még kissé lassabbá teszi.",
         "tension": "Ezért legördüléskor a szalagok majdnem az egész súlyt tartják.",
         "share": "A mozgási energia ekkora része van a forgásban – az alapkeréknél 98,8 %."
       },
@@ -1727,6 +1732,7 @@
         "i": "a kerék tehetetlenségi nyomatéka: tárcsánál ½·M·R², gyűrűnél M·R²",
         "m": "a kerék tömege",
         "r": "a tengely sugara",
+        "c": "a zsinórok súrlódása: húzásuknak ez a része fékezi a forgást",
         "t": "a két szalag húzása",
         "s": "a két szalag együttes merevsége",
         "v": "a kerék sebessége, amikor a szalagok letekeredtek"
@@ -1807,7 +1813,7 @@
       },
       "sweet": {
         "gap": "A két inga távolsága az idő függvényében, logaritmikus skálán: az egyenes azt jelenti, hogy másodpercenként ugyanazzal a tényezővel nő.",
-        "chaotic": "Erre az indulásra mérve: λ = {{lambda}} másodpercenként. Egy különbség tehát {{doubling}} s-onként megduplázódik. Ezerszer kisebbre véve csak tíz duplázódásnyi időt nyerünk – ezért nem jósolható meg az inga, bár minden számítás pontos.",
+        "chaotic": "Erre az indulásra fél perc alatt mérve: λ ≈ {{lambda}} másodpercenként – egyetlen pályaszakasz, tehát néhány tizeddel több vagy kevesebb. Egy különbség tehát nagyjából {{doubling}} s-onként megduplázódik. Ezerszer kisebbre véve csak tíz duplázódásnyi időt nyerünk – ezért nem jósolható meg az inga, bár minden számítás pontos.",
         "regular": "Erre az indulásra mérve: λ = {{lambda}} másodpercenként, gyakorlatilag nulla. Ilyen finom lengésnél a különbség kicsi marad: az inga megjósolható."
       },
       "chart": {
@@ -1819,7 +1825,7 @@
         "slow": "Lassú sajátrezgés"
       },
       "computed": {
-        "system": "Négy elsőrendű egyenlet, mindkét szög és sebességeik, a Runge–Kutta-módszerrel ezredmásodperces lépésekben, az ingára és ikrére. Az exponenst a számítómag Benettin módszerével méri: egy iker százmilliomodnyira indul, tizedmásodpercenként feljegyzi, mennyit nőtt a távolság, és az ikret visszaállítja a kis távolságra. A logaritmusok átlaga az exponens – bármilyen kicsi távolságot választunk.",
+        "system": "Négy elsőrendű egyenlet, mindkét szög és sebességeik, a Runge–Kutta-módszerrel ezredmásodperces lépésekben, az ingára és ikrére; ahol egy könnyű felső kar egy nehéz alsó alatt körbecsapódik, annak egyenlő részeiben, hogy egy lépésben egyik kar se forduljon el 0,035 radiánnál többet. Az exponenst a számítómag Benettin módszerével méri: egy iker százmilliomodnyira indul, tizedmásodpercenként feljegyzi, mennyit nőtt a távolság, és az ikret visszaállítja a kis távolságra. A logaritmusok átlaga az exponens – bármilyen kicsi távolságot választunk.",
         "d0": "a kis távolság, amelyre az ikret minden alkalommal visszaállítják",
         "dk": "a távolság a k-adik tizedmásodperc után",
         "t": "a teljes mérési idő"
@@ -1853,7 +1859,9 @@
         },
         "regime_still": "Túl kevés víz: a szivárgás elviszi, mielőtt a felső vödör elég nehéz lenne. A kerék áll.",
         "regime_steady": "A kerék egyenletesen forog az egyik irányba – hogy melyikbe, az első kis lökés dönti el.",
-        "regime_chaotic": "Káosz: semmilyen egyenletes forgás nem tart ki. A kerék irányt vált, anélkül hogy bármilyen mintát követne.",
+        "regime_chaotic": "Káosz: a kerék nem talál egyenletes forgásba. Irányt vált, anélkül hogy mintát követne.",
+        "regime_pattern": "A kerék újra meg újra irányt vált, de rögzített, ismétlődő minta szerint.",
+        "regime_starting": "A kerék itt 200 másodperc alatt még nem talál egyenletes járásba.",
         "rate": "A kerék fordulatszáma",
         "rpm": "ford./perc",
         "hopf": "Káosz ettől a csaptól"
@@ -1862,7 +1870,7 @@
         "intro": "Az számít, hogyan oszlik el a víz a kerék körül – pontosabban, milyen messze van a súlypontja oldalt a tengelytől, és fölötte vagy alatta. Ezzel és a kerék forgásával három egyenlet írható fel.",
         "wheel": "A víz eloszlása a kerékkel együtt forog, felül víz folyik be, mindenhol szivárog; a nehézségi erő forgatja a kereket, ha a víz oldalt van, és a tengely fékez.",
         "lorenz": "Az időt a szivárgás egységeiben mérve és alkalmasan skálázva ezek pontosan Lorenz egyenletei, amelyeket 1963-ban a levegő áramlásának egy modelljéből kapott – b = 1-gyel 8/3 helyett.",
-        "hopf": "E befolyás fölött már az egyenletes forgás sem stabil: a kerék kaotikussá válik."
+        "hopf": "E befolyás fölött már az egyenletes forgás sem stabil: a kerék újra meg újra irányt vált, többnyire kaotikusan, egyes befolyásoknál rögzített minta szerint. Már e határ alatt is kaotikus maradhat nyugalomból indulva, noha az egyenletes forgás megmaradna."
       },
       "symbols": {
         "ab": "hogyan oszlik el a víz: oldalra, és fent kontra lent",
@@ -1880,6 +1888,8 @@
       "sweet": {
         "lorenz": "A kerék forgása 200 másodpercen át. Lorenz 1963-ban egyszerű időjárásmodellt keresett, és megtalálta ezt a három egyenletet – meg azt, hogy az apró kezdeti különbségek rövid idő alatt értéktelenné teszik az előrejelzést. A vízkerék ez a modell, kézzelfoghatóan.",
         "chaotic": "200 másodperc alatt a kerék itt {{reversals}}-szor fordul vissza, sosem azonos ütemben.",
+        "pattern": "200 másodperc alatt a kerék itt {{reversals}}-szor fordul vissza, beindulás után rögzített ütemben: a váltások közti szünetek ismétlődnek. A káosz határa fölött is vannak ilyen befolyások.",
+        "starting": "A kerék itt 200 másodperc alatt még nem talál egyenletes járásba: hogy később megnyugszik-e, ez az idő nem mutatja meg.",
         "steady": "Ennél a befolyásnál a kerék beindulás után egyenletesen forog, percenként {{rpm}} fordulattal.",
         "still": "Ennél a befolyásnál a kerék áll."
       },
@@ -1944,7 +1954,7 @@
         "phi": "a földrajzi szélesség"
       },
       "sweet": {
-        "floor": "Az inga megtartja síkját a térben, alatta elfordul a padló. Winterthurban óránként {{rate}}°-kal: így mutatta meg Foucault 1851-ben Párizsban, hogy a Föld forog, anélkül hogy az égre nézett volna.",
+        "floor": "Az inga nem fordul el a padlóval: Winterthurban a padló óránként {{rate}}°-kal fordul el a lengési síkja alatt. Így mutatta meg Foucault 1851-ben Párizsban, hogy a Föld forog, anélkül hogy az égre nézett volna.",
         "period": "Egy lengés itt {{period}} s; a sík ettől függetlenül fordul. Egy rövidebb inga ugyanezt mutatja, ha elég sokáig leng."
       },
       "chart": {
@@ -2074,9 +2084,9 @@
         "v": "a leeső golyó sebessége lent"
       },
       "sweet": {
-        "wave": "A golyók érintkeznek, így nem egymás után ütköznek: az ütközés hullámként fut végig a soron. Mivel a Hertz-féle érintkezés a benyomódással merevebbé válik, a hullám rövid marad, és szinte egészében az utolsó golyóba érkezik – az energia 97 %-a. A maradékot a többiek tartják meg; az első még vissza is pattan egy kicsit.",
-        "gap": "Ha 0,1 mm levegő van a golyók között, ismét egyenként ütköznek, és a számítás kijön: az energia 99,9 %-a az utolsó golyóban.",
-        "two": "Ha kettőt ejtünk le, két hullám fut végig a soron egymás után. Az utolsó golyó 0,70 m/s-mal repül el, az utolsó előtti 0,49 m/s-mal – nem mindkettő azzal a 0,63 m/s-mal, amellyel a kettő érkezett. Együtt mégis az energia 97 %-át viszik.",
+        "wave": "A golyók érintkeznek, így nem egymás után ütköznek: az ütközés hullámként fut végig a soron. Mivel a Hertz-féle érintkezés a benyomódással merevebbé válik, a hullám rövid marad, és szinte egészében az utolsó golyóba érkezik – az ütközés után megmaradó energia 97 %-a, a bevitt energia 89 %-a: 8 % a benyomódásokra megy el. A maradékot a többiek tartják meg; az első még vissza is pattan egy kicsit.",
+        "gap": "Ha 0,1 mm levegő van a golyók között, ismét egyenként ütköznek, és a mozgás kijön: ami megmarad, annak 99,9 %-a az utolsó golyóban. De minden ütközés elvisz a részéből, és az utolsó golyó a bevitt energiának csak 87 %-át viszi – kevesebbet, mint érintkezve.",
+        "two": "Ha kettőt ejtünk le, két hullám fut végig a soron egymás után. Az utolsó golyó 0,70 m/s-mal repül el, az utolsó előtti 0,49 m/s-mal – nem mindkettő azzal a 0,63 m/s-mal, amellyel a kettő érkezett. Együtt mégis az ütközések után megmaradó energia 97 %-át viszik, a bevitt energia 92 %-át.",
         "together": "Ami a sorban marad, minden ütközéssel nő, ha az ütközések egy kevés energiát elveszítenek: a negyedik másodpercben a középső golyó már 2,5°-ot leng ki. Ha minden ütközés mindent visszaad (e = 1), szinte mozdulatlan marad."
       },
       "computed": {
@@ -2187,12 +2197,14 @@
       },
       "model": {
         "intro": "Minden pálca alul be van fogva, felül szabad. Rezgési módjai közül itt csak az első számít: az egész pálca egy oldalra hajlik.",
-        "frequency": "A saját frekvenciája: minél hosszabb a pálca, annál mélyebb – a hossz négyzetével.",
+        "frequency": "A saját frekvenciája: minél hosszabb a pálca, annál mélyebb – csaknem a hossz négyzetével. Állva a saját súlya hosszában összenyomja, és még kissé lejjebb viszi: a méteres pálcáét egytizedével.",
         "motion": "Az asztal ráz, és gyorsulása minden pálcát meglök, az első rezgési alakra vonatkozó Γ = 1,566 súllyal. A csillapítás lendületet vesz el tőle.",
         "steady": "Elég sokáig ugyanabban az ütemben rázva a csúcs ennyire leng ki. Ütemre (r = 1) ez Γ·Y/(2ζ)."
       },
       "symbols": {
         "beta": "a cosh β · cos β = −1 első megoldása: 1,8751",
+        "lambda": "mennyire lágyítja a pálca saját súlya az első rezgési módusát: 1,571",
+        "g": "nehézségi gyorsulás, 9,81 m/s²",
         "l": "a pálca hossza",
         "e": "az acél rugalmassági modulusa",
         "i": "a d átmérőjű kör keresztmetszetű pálca másodrendű nyomatéka",
@@ -2207,8 +2219,8 @@
         "y": "mennyire megy ide-oda az asztal"
       },
       "sweet": {
-        "step": "Egy kis lökés a jó ütemben többet mozdít, mint egy nagy a rosszban. Az asztal csak 1 mm-t megy ide-oda; a 80 cm-es pálcával ütemben, 2,21 Hz-en, annak csúcsa 78 mm-t leng ki, a szomszédai legfeljebb 4 mm-t. Három százalékkal az ütem mellett már csak 26 mm-t.",
-        "patience": "A rezonancia türelmet kíván: 2,21 Hz-en a kitérés 7,2 s alatt is csak alig kétharmadáig nő. Aki gyorsabban fut végig, lemarad róla: másodpercenként 0,05 Hz-cel ugyanez a pálca legfeljebb 40 mm-t leng ki, feleannyit, és csak 2,4 Hz-nél.",
+        "step": "Egy kis lökés a jó ütemben többet mozdít, mint egy nagy a rosszban. Az asztal csak 1 mm-t megy ide-oda; a 80 cm-es pálcával ütemben, 2,09 Hz-en, annak csúcsa 78 mm-t leng ki, a szomszédai legfeljebb 4 mm-t. Három százalékkal az ütem mellett már csak 26 mm-t.",
+        "patience": "A rezonancia türelmet kíván: 2,09 Hz-en a kitérés 7,6 s alatt is csak alig kétharmadáig nő. Aki gyorsabban fut végig, lemarad róla: másodpercenként 0,05 Hz-cel ugyanez a pálca legfeljebb 38 mm-t leng ki, feleannyit, és csak 2,3 Hz-nél.",
         "everywhere": "Ugyanez az ütemtartás töri szét a poharat a megfelelő hangra, lengeti meg a hidat a menetelő léptek alatt, és engedi, hogy egy húr átvegye egy hangszer hangját."
       },
       "computed": {
@@ -2330,7 +2342,7 @@
         "lambda": "legfeljebb mennyire tér el a vonal a középtől, a fél vastagság hányadaként"
       },
       "sweet": {
-        "chain": "Egy ív legjobb alakja a fejjel lefelé fordított lelógó lánc – Robert Hooke 1675-ben jegyezte fel, és Antoni Gaudí lelógó láncokkal tervezett. A láncívben a nyomásvonal a saját súly alatt a kövek közepén marad, a fél vastagság századánál kisebb eltéréssel, akármilyen vastagok is a kövek.",
+        "chain": "Egy ív legjobb alakja a fejjel lefelé fordított lelógó lánc – Robert Hooke 1675-ben jegyezte fel, és Antoni Gaudí lelógó láncokkal tervezett. A láncívben a nyomásvonal a saját súly alatt a kövek közepén marad: tizenhat, legalább 3 cm vastag kőnél a fél vastagság századánál kisebb eltéréssel.",
         "semicircle": "A félkörnek nincs ilyen alakja. Csak akkor áll, ha kövei legalább a sugara 10,75 %-ának megfelelő vastagságúak – tizenhat kővel 10,7 %. Egy méterre 10 cm-rel eltörik; az ugyanakkora fesztávú és vastagságú csúcsív megáll.",
         "load": "A teher elmozdítja a nyomásvonalat. A negyedpontra téve a 25 cm-es félkört már saját súlyának 80 %-ánál eltöri, az ugyanolyan magas láncívet csak 141 %-nál."
       },
@@ -2775,7 +2787,7 @@
         "zeno": "A trükk: a pattanások nemcsak alacsonyabbak, hanem rövidebbek is lesznek, mindegyik ugyanazzal a hányaddal. Így fér el végtelen sok pattanás véges időben, mint Zénón paradoxonában Akhilleuszról és a teknősről.",
         "steel": "30 cm-ről a 0,95-ös ütközési számú acélgolyó 9,6 s után nyugszik meg, 75 olyan pattanással, amely egy századmásodpercnél tovább tart; a 0,92-es pingponglabda 5,2 s után, 44-gyel. Az ütközési szám kis különbsége sokat számít, mert az idő 1/(1 − e)-vel nő.",
         "rhythm": "Az ütközési szám a ritmusból hallható: az acélgolyó második pattanása 0,95-ször olyan hosszú, mint az első, pontosan az ütközési száma. A pingponglabdánál 0,89 a 0,92 helyett, mert a levegő is fékezi, amely már 8,6 m/s-nál egészen megtartja; az acélgolyót csak 60 m/s-nál.",
-        "rules": "Az asztalitenisz szabályai szerint a 305 mm-ről ejtett labdának 230 és 250 mm közé kell visszapattannia. 0,92-es ütközési számmal és a levegővel ez 240 mm-re pattan."
+        "rules": "Az asztalitenisz szabályai szerint a 305 mm-ről acéltömbre ejtett labdának 240 és 265 mm közé kell visszapattannia. 0,92-es ütközési számmal és a levegővel ez 240 mm-re pattan, az alsó határra."
       },
       "computed": {
         "system": "Két ütés között a golyó függőlegesen repül, csak a súlyával és a légellenállással. Erre pontos megoldás van: felfelé a tangenssel, lefelé a hiperbolikus tangenssel. Az oldal repülésről repülésre számol; ha a repülések egy tized ezredmásodpercnél rövidebbek, a sor maradékát zárt alakban adja össze, ahol a levegő már rég nem számít.",
@@ -2817,7 +2829,7 @@
         "holds": "A torony megáll, ha minden rétegben az attól felfelé lévő összes hasáb tömegközéppontja az alátámasztása fölött van: azon a szakaszon, ahol az alatta lévő hasábot érinti, a legalsónál az asztal fölött.",
         "step": "Felülről építve, minden hasáb annyira kint, amennyire a fölötte lévők engedik: a felülről k-adik hasáb 1/(2k)-val nyúlik túl a következőn.",
         "harmonic": "Együtt ez a harmonikus sor fele.",
-        "even": "Egyenlő lépcsőkben az egész torony tömegközéppontja éri el először az élt: n hasáb n/(n + 1)-gyel nyúlik ki, soha egy teljes hosszal."
+        "even": "Egyenlő lépcsőkben, ha a legalsó hasáb is annyival nyúlik túl az asztalon, mint mindegyik az alatta lévőn, az egész torony tömegközéppontja éri el először az élt: n hasáb n/(n + 1)-gyel nyúlik ki, soha egy teljes hosszal."
       },
       "symbols": {
         "centre": "a k-adik rétegtől felfelé lévő hasábok tömegközéppontja",
@@ -2831,7 +2843,7 @@
         "even": "kinyúlás egyenlő lépcsőkben"
       },
       "sweet": {
-        "steps": "A trükk: nem alulról, hanem felülről építünk. A legfelső hasáb fél hosszal nyúlhat ki, a felső kettő együtt negyed hosszal a harmadik fölött, a felső három egyhatoddal: a lépcsők lefelé egyre kisebbek. Kilenc hasáb így 1,41 hosszal nyúlik ki, 20 cm-es hasáboknál 28 cm-rel; egyenlő lépcsőkben csak 0,9-del.",
+        "steps": "A trükk: nem alulról, hanem felülről építünk. A legfelső hasáb fél hosszal nyúlhat ki, a felső kettő együtt negyed hosszal a harmadik fölött, a felső három egyhatoddal: a lépcsők lefelé egyre kisebbek. Kilenc hasáb így 1,41 hosszal nyúlik ki, 20 cm-es hasáboknál 28 cm-rel; egyenlő lépcsőkben csak 0,9-del, kissé visszahúzott legalsó hasábbal 0,94-dal: soha egy teljes hosszal.",
         "endless": "A harmonikus sornak nincs vége: elég hasábbal a torony olyan messzire nyúlik ki, amennyire csak akarjuk. De lassan, mint egy logaritmus. Ennyi hasáb kell:",
         "reach_one": "{{count}} hosszhoz",
         "reach_other": "{{count}} hosszhoz",
@@ -2962,7 +2974,8 @@
         "incidence": "Beesési szög",
         "refraction": "Törési szög",
         "leaves": "Kilépési szög θ",
-        "bow": "Szivárványszög"
+        "bow": "Szivárványszög",
+        "across_outside": "Ez a sugár keresztezi a lámpához visszavezető utat, és a másik oldalon {{angle}}°-ban jön vissza, a {{bow}}°-os gyűrűn kívül."
       },
       "change": {
         "title": "Az anyag megváltoztatása",
@@ -3087,7 +3100,7 @@
         "rayleigh": "A szórás a frekvencia negyedik hatványával nő (Rayleigh): a kék fény (450 nm) 4,4-szer erősebben szóródik, mint a piros (650 nm).",
         "beer": "Ami szóródik, az hiányzik a továbbhaladó fényből: a cső mentén exponenciálisan csökken, a kék a leggyorsabban (Beer–Lambert-törvény).",
         "side": "Oldalról azt látjuk, ami azon a helyen szóródik, levonva azt, ami a cső faláig vezető úton még elvész.",
-        "sky": "Az ég közvetlenül felettünk: napfény, amely minden magasságban egyszer szóródik, majd lejut a talajra. A nap m légtömegnyire alacsonyan áll.",
+        "sky": "Az ég közvetlenül felettünk: napfény, amely minden magasságban egyszer szóródik, majd lejut a talajra. A nap m légtömegnyire alacsonyan áll. A szembe a nap magasságával kevesebb mint 90°-kal elfordulva jut, és a levegő oldalra feleannyit szór, mint egyenesen előre: alacsony napnál ezért a felettünk lévő ég feleolyan világos.",
         "ozone": "Az ózonréteg, mintegy 22 km magasan, nem szórja a fényt, hanem elnyeli – leginkább a narancssárgát (600 nm). Függőlegesen az optikai vastagsága ott csak 0,041, kevés a levegőéhez képest.",
         "ozone_mass": "A napfény vékony héjként halad át rajta: m₃-szor annyi ózonon, mint függőlegesen, a horizonton 12-szer annyin – ott a narancs 39 %-át nyeli el. Mivel szinte az egész levegő felett fekszik, a lejjebb szórt égbolt fénye is ugyanezt a tényezőt hordozza."
       },
@@ -3119,7 +3132,7 @@
         "system": "Az oldal 81 hullámhossz mindegyikére kiszámítja, mennyi fény marad a cső minden helyén, és abból mennyi szóródik oldalra. Az éghez a levegő optikai vastagságát veszi, 550 nm-en 0,097-et, és a Kasten–Young-féle légtömeget, a horizonton 37,9-et. Az ózonhoz a mért hatáskeresztmetszetet veszi (Serdyuchenko és mtsai, 2014, 5 nm-enként átlagolva), 300 Dobson-egységet és egy vékony réteget 22 km magasan.",
         "colours": "A színek, mint az üveggyöngy-szivárványnál: a szem színérzékenységével súlyozva (CIE 1931), és a képernyő színeire átszámítva (sRGB). A lámpa fehérje – az égnél a nap fehérje a levegő felett – fehérnek látszik. Minden szín olyan világosnak van rajzolva, amennyire a képernyő engedi; hogy valójában mennyire világos, azt a számok mondják meg.",
         "check": "Az oldal tesztjei ellenőrzik, hogy az oldalra szórt és a végére érkező fény együtt pontosan a lámpa fényét adja (Simpson-szabály), és a felettünk lévő eget ugyanahhoz az összes magasságra vett összeghez tartják. A számítás az Ön böngészőjében fut, ugyanazokkal a képletekkel, mint az oldal számítómagja.",
-        "left_out": "Kimaradt: a többször szóródó fény (egy nagyon zavaros csövet és az eget a horizontnál fehérebbé tesz); a nagyobb részecskék, amelyek minden színt egyformán szórnak (ezért fehér a tej); a szórás iránya, amely csak a világosságot változtatja; az égnél a por és a pára, amelyek még vörösebbé teszik a naplementét, a horizont alatti nap (ekkor a felettünk lévő eget már csak magasan éri fény, még több ózonon át), és hogy mennyi ózon van – ez évszakonként és helyenként változik. Feltételezve: 1 m hosszú, 6 cm átmérőjű cső."
+        "left_out": "Kimaradt: a többször szóródó fény (egy nagyon zavaros csövet és az eget a horizontnál fehérebbé tesz); a nagyobb részecskék, amelyek minden színt egyformán szórnak (ezért fehér a tej); a szórás iránya a csőben, amely csak a világosságot változtatja; az égnél a por és a pára, amelyek még vörösebbé teszik a naplementét, a horizont alatti nap (ekkor a felettünk lévő eget már csak magasan éri fény, még több ózonon át), és hogy mennyi ózon van – ez évszakonként és helyenként változik. Feltételezve: 1 m hosszú, 6 cm átmérőjű cső."
       }
     },
     "slits": {
@@ -3146,7 +3159,8 @@
         "plate": "Rések",
         "wall": "Fal",
         "status_both": "Két rés: csíkok, {{spacing}} mm-re egymástól.",
-        "status_one": "Egy rés: széles világos folt, csíkok nélkül – és középen csak negyed olyan világos."
+        "status_one": "Egy rés: széles világos folt, csíkok nélkül – és középen csak negyed olyan világos.",
+        "near": "A fal közelebb van, mint amit a képlet megenged: ilyen széles réseknél csak {{near}} m-től pontos egy százalékon belül."
       },
       "figures": {
         "spacing": "A csíkok távolsága",
@@ -3195,10 +3209,10 @@
         "two_label": "Két rés nyitva, ugyanazzal a világossággal rajzolva"
       },
       "computed": {
-        "system": "Az oldal a fal minden pontjának világosságát a távoli falra érvényes képlettel számolja (Fraunhofer). A lézer piros, 650 nm; a rések 0,25 mm-re vannak egymástól, egyenként 0,05 mm szélesek, a fal 2 m-re áll mögöttük. Ekkor a csíkok 5,2 mm-re vannak egymástól, az első sötét 2,6 mm-re a középtől, és 9 világos csík fér el egy rés 26 mm széles középső sávjában.",
+        "system": "Az oldal a fal minden pontjának világosságát a távoli falra érvényes képlettel számolja (Fraunhofer). A lézer piros, 650 nm; a rések 0,25 mm-re vannak egymástól, egyenként 0,05 mm szélesek, a fal 2 m-re áll mögöttük. Ekkor a csíkok 5,2 mm-re vannak egymástól, az első sötét 2,6 mm-re a középtől, és 9 világos csík fér el egy rés középső sávjában, amely a középtől mindkét oldalra 26 mm-ig ér.",
         "colours": "A lézer színe a hullámhosszáé, olyan telített, amennyire a képernyő meg tudja mutatni, és olyan világos, amilyen ott a fény. Fehér fény: 81 hullámhosszra mindegyik a saját mintázatával, a szem színérzékenységével súlyozva (CIE 1931), és a képernyő színeire átszámítva (sRGB).",
         "check": "Az oldal tesztjei minden rést 400 keskeny sávra bontanak, a fal minden pontjában összeadják az összes sáv hullámát (Huygens), és az eredményt a képlettel vetik össze. Ellenőrzik, hogy a sötét csíkok pontosan sötétek ott, ahol egyetlen rés fényt ad, és hogy a fehér fény kék ott, ahol a piros kioltódik. A számítás az Ön böngészőjében fut, ugyanazokkal a képletekkel, mint az oldal számítómagja.",
-        "left_out": "Kimaradt: hogy a fal nincs végtelen messze (a képlet akkor érvényes, ha sokkal messzebb van, mint d²/λ, itt nagyjából egy tized méter); a lézernyaláb szélessége és széttartása, amely miatt a csíkok fölfelé és lefelé elhalványulnak; a rések éle és vastagsága; a fény polarizációja."
+        "left_out": "Kimaradt: hogy a fal nincs végtelen messze (a képlet egy százalékon belül pontos, ha a²/λ harmincötszörösénél messzebb van – a egy rés szélessége –, itt 13 cm; ha közelebb van, az oldal jelzi); a lézernyaláb szélessége és széttartása, amely miatt a csíkok fölfelé és lefelé elhalványulnak; a rések éle és vastagsága; a fény polarizációja."
       }
     },
     "beats": {

@@ -49,15 +49,28 @@ export function frequencyHz(plate: Plate, lam: number): number {
   return (lam / (2 * Math.PI * plate.side_m ** 2)) * Math.sqrt(d / (plate.density_kg_m3 * plate.thickness_m));
 }
 
+const MASSES = new WeakMap<Mode, number>();
+
+/** The engine's `modal_mass`: μ = ∫φ² over the square, Σ c² as the products
+ *  are orthonormal; worked out once a mode, as the sand asks it per point. */
+export function modalMass(mode: Mode): number {
+  let mass = MASSES.get(mode);
+  if (mass === undefined) {
+    mass = mode.c.reduce((sum, c) => sum + c * c, 0);
+    MASSES.set(mode, mass);
+  }
+  return mass;
+}
+
 /** The plate's swing at (x, y), shaken at its middle at `driveHz`, from each
- *  mode's value there and at the middle. */
+ *  mode's value there and at the middle, each mode by its mass. */
 export function responseFrom(plate: Plate, modes: Mode[], driveHz: number, here: number[], middle: number[]): number {
   const big = 2 * Math.PI * driveHz;
   let re = 0.0;
   let im = 0.0;
   modes.forEach((mode, k) => {
     const w = 2 * Math.PI * frequencyHz(plate, mode.lam);
-    const weight = here[k] * middle[k];
+    const weight = (here[k] * middle[k]) / modalMass(mode);
     const a = w * w - big * big;
     const b = 2 * plate.damping_ratio * w * big;
     const den = a * a + b * b;

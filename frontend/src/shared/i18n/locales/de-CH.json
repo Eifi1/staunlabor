@@ -496,7 +496,7 @@
         "gain": "die grösste Energie, die eine Durchfahrt bringen kann",
         "full_current": "der Strom bei gedrückter Taste",
         "supply": "die Spannung der Batterie",
-        "top_speed": "das Tempo, ab dem die Spule nicht mehr schieben kann",
+        "top_speed": "das Tempo, ab dem keine Durchfahrt mehr etwas gewinnt",
         "arc": "wie weit den Bogen hinauf, vom Ende des flachen Stücks aus",
         "ramp_radius": "der Radius der Rampen"
       },
@@ -507,7 +507,7 @@
         "late": "Wie spät die Hand die Taste − erreicht",
         "reading": "So liest man die Kurve: Pünktlich umschalten gewinnt am meisten; 20 ms zu spät bringt noch etwa zwei Drittel; 30 ms zu spät, und der Wagen kommt nie oben an; etwa 60 ms zu spät bremst der verbliebene Zug den Wagen. Diese Zahlen gelten für den voreingestellten Aufbau.",
         "gain_bound": "Das Meiste, was eine Durchfahrt bringen kann: das Hineinziehen von weit weg bis zur Mitte bringt I·Ψ(0), das Hinausstossen noch einmal so viel. Die induzierte Spannung und der Rollwiderstand nehmen davon etwas weg.",
-        "top_speed": "Wie gut Sie auch drücken, es gibt ein Höchsttempo: Wo die Spannung, die der Wagen erzeugt, der Batteriespannung gleicht, fliesst kein Strom mehr, und die Spule kann nicht mehr schieben."
+        "top_speed": "Wie gut Sie auch drücken, es gibt ein Höchsttempo. Der Wagen erzeugt in der Spule selbst einen Strom, der ihn bremst, umso stärker, je schneller er fährt. Bei diesem Tempo nimmt die Bremse einer Durchfahrt so viel, wie die Batterie höchstens geben kann, auch wenn Sie auf dem ganzen Weg hinein plus und auf dem ganzen Weg hinaus minus drücken; darüber nimmt sie mehr. Die Formel lässt die Induktivität der Spule weg; mit ihr liegt die Grenze etwa 7 % höher."
       },
       "figures": {
         "tau": "Zeitkonstante",
@@ -658,7 +658,7 @@
         "inertia": "Trägheitsmoment",
         "momentum": "Drehimpuls",
         "energy": "Energie der Drehung",
-        "pull": "Zug am Griff",
+        "pull": "Zug nach innen am Griff",
         "times": "Schneller als hinausgelehnt",
         "reading": "Jeder Schubs gibt {{push}} kg·m²/s Drehimpuls. Zwischen den Schubsen nimmt nur das Lager etwas weg – wie Sie sich auch lehnen, der Drehimpuls bleibt.",
         "lean_hint": "Wie weit sich der Rumpf von der Achse wegneigt, die Hände am Griff und die Füsse, wo sie sind."
@@ -695,13 +695,13 @@
         "lean": "wie weit sich der Rumpf hinauslehnt",
         "own": "das eigene Trägheitsmoment des Teils",
         "energy": "die Energie der Drehung",
-        "pull": "was die Hände am Griff halten: den hinausgelehnten Körper auf seinem Kreis",
+        "pull": "der Zug nach innen, den die Hände über den Griff geben, damit der hinausgelehnte Körper auf seinem Kreis bleibt; das Halten gegen sein Gewicht kommt dazu",
         "trunk_mass": "die Masse des Rumpfs, mit dem Kopf"
       },
       "sweet": {
         "faster": "Aufrecht dreht sich die Person {{ratio}}-mal so schnell wie hinausgelehnt – mit demselben Drehimpuls.",
         "energy": "Die Energie der Drehung, bei gleichem Drehimpuls: kleineres Trägheitsmoment, mehr Energie. Einziehen macht die Drehung energiereicher, nicht nur schneller.",
-        "pull": "Diese Energie muss irgendwoher kommen: aus den Armen. Hinausgelehnt braucht der Körper diesen Zug nach innen, um auf seinem Kreis zu bleiben, und die Hände geben ihn über den Griff – er wächst mit dem Quadrat der Drehrate, und man spürt ihn, als zöge der Griff an den Händen.",
+        "pull": "Diese Energie muss irgendwoher kommen: aus den Armen. Hinausgelehnt braucht der Körper diesen Zug nach innen, um auf seinem Kreis zu bleiben, und die Hände geben ihn über den Griff – er wächst mit dem Quadrat der Drehrate, und man spürt ihn, als zöge der Griff an den Händen. Dazu halten die Arme den hinausgelehnten Körper gegen sein eigenes Gewicht; dieser Teil wächst nicht mit der Drehung.",
         "paid": "Beim Aufrichten aus der hinausgelehnten Haltung leisten die Arme {{work}} J Arbeit gegen diesen Zug, und die Energie der Drehung steigt um genau so viel, von {{from}} J auf {{to}} J. Der Rechenkern prüft es, indem er den Zug entlang des Wegs nach innen aufsummiert.",
         "replay": "Hier der automatische Ablauf über sechzehn Sekunden, nach einem Schubs von {{push}} kg·m²/s: Das Tempo springt jedes Mal, wenn sich die Person aufrichtet, und fällt, wenn sie sich hinauslehnt, während der Drehimpuls nur abnimmt, langsam und gleichmässig, durch das Lager."
       },
@@ -857,7 +857,7 @@
         "height": "Ballmitte über dem Rüssel",
         "air_at_ball": "Luft am Ball",
         "off_axis": "Neben der Strahlachse",
-        "falls_at": "Fällt bei einer Neigung von",
+        "falls_at": "Ruhig bis zu einer Neigung von",
         "resting": "Auf dem Rüssel: Die Luft kann ihn nicht heben",
         "floating": "Schwebt",
         "fallen": "Aus der Luft gefallen"
@@ -916,7 +916,7 @@
         "height": "Warum er auf seiner Höhe bleibt: Weiter oben ist der Strahl breiter als der Ball, der Ball fängt weniger davon und sinkt; weiter unten fängt er mehr und steigt. Er schwebt dort, wo der Schub sein Gewicht kreuzt, {{height}} cm über dem Rüssel, und wippt um diesen Punkt {{bob}}-mal pro Sekunde, während die Luft ihn dämpft.",
         "middle": "Warum er in der Mitte bleibt: Zur Seite gestossen, zieht ihn die schnellere Luft auf seiner inneren Seite zurück, umso stärker, je weiter er abweicht, bis etwa {{offset}} cm neben der Achse. Darüber hinaus verlässt er den Strahl.",
         "rise": "Vom Rüssel auf seine Höhe: Der Ball schiesst darüber hinaus, kommt zurück und pendelt sich ein, das Wippen klingt ab wie bei einer gedämpften Feder. Die Kurve ist der Lauf des Rechenkerns für den Aufbau auf dem Bildschirm, derselbe, den die Seite oben abspielt.",
-        "tilt": "Wie weit sich der Rüssel neigen lässt: bis {{limit}}°. Davor hängt der Ball tiefer und zur tiefen Seite hin; bei {{limit}}° kann der Sog den Anteil des Gewichts, der quer zum Strahl zieht, nicht mehr halten.",
+        "tilt": "Wie weit sich der Rüssel neigen lässt: bis {{limit}}°. Davor hängt der Ball tiefer und zur tiefen Seite hin. Darüber fällt er nicht sofort heraus: Er beginnt zu schaukeln, entlang des Strahls und quer dazu, jedes Mal etwas weiter, bis er fällt. Das braucht Zeit, und wer den Rüssel schnell neigt wie der Automodus, kommt weiter, bevor der Ball fällt.",
         "lift_off": "Die Luft muss schnell genug sein, um den Ball überhaupt vom Rüssel zu heben: ab {{speed}} m/s.",
         "buoyancy": "Ein aufblasbarer Ball verdrängt Luft, die {{share}} % seines eigenen Gewichts wiegt, und die muss der Strahl nicht tragen.",
         "assumed": "Was angenommen ist: die Form des Strahls direkt am Rüssel (ein echter Strahl behält auf den ersten paar Durchmessern seine volle Geschwindigkeit auf der Achse), ein Widerstandsbeiwert von 0.47 für einen glatten Ball und der seitliche Anteil des Sogs. Die Zahlen sind die des Modells, nicht auf den Zentimeter die des Exponats.",
@@ -938,7 +938,7 @@
         "height": "Schwebt auf",
         "lift_off": "Hebt ab ab",
         "air": "Luft am Ball",
-        "limit": "Fällt bei einer Neigung von",
+        "limit": "Ruhig bis zu einer Neigung von",
         "bob": "Wippt",
         "flow": "Luft durch den Rüssel"
       }
@@ -984,16 +984,16 @@
         "tension": "Spannung der Haut",
         "tension_hint": "Angenommen: wie stark die Haut gespannt ist. Sie ändert nur die Kraft auf die Hand, nicht den Ring.",
         "draught": "Luftzug im Raum (Modell)",
-        "draught_hint": "Ein Ring, der langsamer ist als die Luft in der Halle, wird weggetragen, bevor er sich bildet. So gesetzt, dass ein Druck langsamer als etwa 1.2 s nichts bewirkt.",
+        "draught_hint": "Ein Ring, der langsamer ist als die Luft in der Halle, wird weggetragen, bevor er sich bildet. So gesetzt, dass ein Druck langsamer als etwa 1.3 s nichts bewirkt.",
         "turbulent": "Turbulent ab (Modell)",
         "turbulent_hint": "Über dieser Reynoldszahl ist der Ring turbulent und verwischt seinen Rauch. So gesetzt, dass ein Druck schneller als etwa 0.2 s keinen sichtbaren Ring macht."
       },
       "model": {
         "intro": "Der Druck presst Luft aus der Trommel; die Luft, die aus dem Loch kommt, rollt sich zu einem Ring auf; wie schnell und wie stark der Ring ist, entscheidet, ob er fliegt.",
         "area": "Der Ring drückt die Haut hinunter, und die Haut zwischen Ring und Rand nimmt die Form einer gespannten Membran an. Die Trommel verliert dieses Volumen pro Zentimeter Druck.",
-        "jet": "Dieses Volumen verlässt die Trommel durch das Loch, das elfmal kleiner ist: Die Luft kommt elfmal schneller heraus, als die Hand hinuntergeht.",
-        "circulation": "Die hinausgedrückte Luft rollt sich zu einem Ring auf; seine Zirkulation, wie stark er wirbelt, ist die Hälfte des Integrals über das Quadrat der Luftgeschwindigkeit.",
-        "formation": "Ein Ring nimmt höchstens einen Luftpfropfen von vier Lochdurchmessern auf; ein längerer lässt einen Strahl hinter sich zurück. Ein voller Druck ergibt hier drei.",
+        "jet": "Dieses Volumen verlässt die Trommel durch das Loch, das elfmal kleiner ist und mit dem Ring hinuntergeht: Die Luft kommt zwölfmal schneller aus ihm heraus, als die Hand hinuntergeht.",
+        "circulation": "Die hinausgedrückte Luft rollt sich zu einem Ring auf; seine Zirkulation, wie stark er wirbelt, ist die Hälfte des Integrals über das Quadrat der Luftgeschwindigkeit, weniger das Quadrat der Geschwindigkeit, mit der der Rand des Lochs hinuntergeht.",
+        "formation": "Ein Ring nimmt höchstens einen Luftpfropfen von vier Lochdurchmessern auf; ein längerer lässt einen Strahl hinter sich zurück. Ein voller Druck ergibt hier 3,3.",
         "speed": "Ein Ring fliegt mit einem Tempo, das seine Zirkulation und seine Grösse bestimmen, umso schneller, je stärker er wirbelt.",
         "reynolds": "Seine Reynoldszahl sagt, wie turbulent er ist: Über einer Schwelle gibt der Ring seinen Rauch an seinen Nachlauf ab.",
         "hand": "Die Hand spürt die Feder der Haut und den Gegendruck der Luft, der mit dem Quadrat des Tempos wächst."
@@ -1034,7 +1034,10 @@
         "both": "Beides wächst mit dem Tempo zusammen – die Stärke des Rings und sein Tempo –, darum hat das Fenster zwei Enden.",
         "force": "Und die Hand bezahlt für einen schnellen Druck: Der Gegendruck der Luft wächst mit dem Quadrat des Tempos, {{fast}} N bei einem Stoss gegenüber {{slow}} N bei einem langsamen Drücken, bei dem nur die Haut zurückdrückt.",
         "assumed": "Was angenommen ist: die beiden Schwellen, auf das Exponat abgestimmt (ein Ring gelingt am besten bei etwa einer halben Sekunde), die Grösse des Rings und seines Kerns, wie man sie an echten Ringen misst, und die Spannung der Haut. Das Schwingen der Haut und der Sog beim Loslassen sind weggelassen.",
-        "none": "Mit diesen Einstellungen macht kein Druck einen Ring: Das Fenster ist zu."
+        "none": "Mit diesen Einstellungen macht kein Druck einen Ring: Das Fenster ist zu.",
+        "open_slow": "Bei so wenig Zugluft macht ein voller Druck in jedem Tempo langsamer als {{fastest}} s einen Ring: Keiner ist zu langsam für die Luft der Halle; nur ein schnellerer Stoss wird turbulent.",
+        "open_fast": "Bei so hoher Schwelle macht ein voller Druck in jedem Tempo schneller als {{slowest}} s einen Ring: Kein Stoss wird turbulent; nur ein langsamerer Druck wird fortgetragen.",
+        "open_both": "Mit diesen Einstellungen macht jeder volle Druck einen Ring, wie schnell oder langsam er auch ist."
       },
       "chart": {
         "duration": "Dauer des Drucks",
@@ -1106,7 +1109,7 @@
         "youngs": "Steifigkeit des Elastomers (Elastizitätsmodul)",
         "youngs_hint": "Geschätzt: Weicher Gummi hat 1 bis 10 MPa. Er bestimmt, wie stark und wie kurz die Kugeln drücken, und ändert den Aufstieg nur wenig.",
         "floor_e": "Rückprall am Boden",
-        "e_hint": "Der Anteil der Annäherungsgeschwindigkeit, den ein Kontakt zurückgibt: 1 verliert nichts, eine Elastomerkugel etwa 0,85.",
+        "e_hint": "Der Anteil der Annäherungsgeschwindigkeit, den ein Kontakt zurückgibt: 1 verliert nichts, eine Elastomerkugel etwa 0,85. Die Formel der Dämpfung trifft ihn ab 0,85 auf 2 % genau; darunter gibt sie weniger zurück, bei 0,3 ein Fünftel weniger.",
         "ball_e": "Rückprall zwischen zwei Kugeln"
       },
       "model": {
@@ -1154,12 +1157,13 @@
         "gap": "Halten Sie die Kugeln ein paar Millimeter auseinander, folgen die Kontakte aufeinander: Der Aufstieg erreicht fast, was augenblickliche Stösse ergäben. Probieren Sie den Abstand aus.",
         "masses": "Die 7v des Lehrbuchs verlangen, dass jede Kugel viel leichter ist als die darunter. Diese wiegen {{masses}} g: Die mittlere hat ein Drittel der untersten, die oberste ein Drittel der mittleren.",
         "energy": "Trotzdem verlassen {{share}} % der Energie, mit der der ganze Stapel auf den Boden traf, den Stapel in der kleinsten Kugel.",
-        "flip": "Drehen Sie den Stapel um, und nichts fliegt: Eine leichte Kugel unten kann keine schwere nach oben stossen.",
+        "flip": "Drehen Sie den Stapel um, und er ist keine Kanone mehr: Die grosse Kugel oben steigt weniger hoch, als sie gefallen ist; die leichten Kugeln darunter federn sie nur ab.",
         "name": "Warum Kanone: Physikbücher nennen den Versuch «galileische Kanone», weil die kleine Kugel senkrecht aus dem Stapel geschossen wird wie aus einem Rohr. Seitwärts wird nichts abgefeuert.",
-        "assumed": "Angenommen sind: volle Kugeln von 1100 kg/m³, die Steifigkeit des Elastomers und wie elastisch es ist, Kontakte nach Hertz mit einer Dämpfung, die einen festen Anteil der Annäherungsgeschwindigkeit zurückgibt, und ein starrer Boden. Die Reibung am Draht und der Drall der Kugeln sind weggelassen."
+        "assumed": "Angenommen sind: volle Kugeln von 1100 kg/m³, die Steifigkeit des Elastomers und wie elastisch es ist, Kontakte nach Hertz mit einer Dämpfung, die einen festen Anteil der Annäherungsgeschwindigkeit zurückgibt, und ein starrer Boden. Das Gesetz von Hertz gilt für kleine Eindrückungen; die unterste Kugel wird um ein Fünftel ihres Radius eingedrückt. Die Reibung am Draht und der Drall der Kugeln sind weggelassen."
       }
     },
     "wave": {
+      "refused": "Diese Einstellung verlangt Pendel, die kürzer als 2 cm sind, und so kurze rechnet die Seite nicht. Weniger Pendel, ein längerer Zyklus oder weniger Schwingungen des längsten helfen.",
       "at": {
         "row": "Eine Reihe von Pendeln hängt an einer Stange, das längste an einem Ende, jedes nächste ein wenig kürzer. Ein Brett lenkt alle gleich weit aus und gibt sie zugleich frei.",
         "pattern": "Erst schwingen sie gemeinsam, dann zieht sich die Reihe zu einer Welle auseinander, zu Schlangen, zu scheinbarem Durcheinander, zu zwei, drei, vier Gruppen – und nach einer Minute schwingen alle wieder im Gleichtakt, als wäre nichts gewesen."
@@ -1319,7 +1323,7 @@
       "sweet": {
         "near": "Liegen die Takte nahe an einem einfachen Verhältnis p : q, aber nicht genau darauf, behält die Figur ihre Form und dreht sich langsam weiter – einmal in dieser Zeit. Je näher, desto langsamer.",
         "closed": "Diese Pendel stehen genau im Verhältnis {{p}} : {{q}}: Die Figur schliesst sich und schrumpft nur. Verstimmen Sie das Brett um ein Prozent, und sie beginnt sich zu drehen.",
-        "turns": "Diese Pendel liegen {{detune}} % neben {{p}} : {{q}}: Die Figur dreht sich einmal in {{turn}} s.",
+        "turns": "Diese Pendel liegen {{detune}} % neben {{p}} : {{q}}: Die Figur dreht sich anfangs einmal in {{turn}} s.",
         "widths": "Und sie dreht sich selbst bei einem genauen Verhältnis, wenn die Pendel verschieden weit schwingen: Ein weiter Ausschlag dauert etwas länger als ein enger. Stellen Sie das Stiftpendel auf 30° und das Brettpendel auf 5°, und die geschlossene Figur öffnet sich."
       },
       "computed": {
@@ -1579,7 +1583,7 @@
       },
       "sweet": {
         "modes": "Was die Natur hier schwingen lässt, ist nicht ein Pendel und dann das andere, sondern die beiden gemeinsamen Takte. Die wandernde Schwingung ist ihre Summe – darum wandert sie bei «Beide gleich» und «Gegeneinander» nicht.",
-        "beat": "Hier wandert die Schwingung in {{beat}} s einmal hinüber und zurück, und {{share}} % davon kommen beim anderen Pendel an.",
+        "beat": "Hier wandert die Schwingung in {{beat}} s einmal hinüber und zurück, und etwa {{share}} % davon kommen beim anderen Pendel an.",
         "unequal": "Sind die Pendel ungleich, kommt nie alles hinüber: nur dieser Anteil, umso mehr, je ähnlicher die Pendel und je stärker die Feder."
       },
       "chart": {
@@ -1616,7 +1620,8 @@
           "released": "Der Faden löst sich vom Stift.",
           "slack": "Der Faden wird schlaff: Die Kugel fliegt frei.",
           "taut": "Der Faden spannt sich mit einem Ruck.",
-          "over_the_top": "Überschlag: Der Faden wickelt sich um den Stift."
+          "over_the_top": "Überschlag: Der Faden wickelt sich um den Stift.",
+          "wound": "Der Faden hat sich im Flug über den Stift gelegt: Er bleibt um ihn gewickelt."
         }
       },
       "figures": {
@@ -1699,7 +1704,7 @@
       },
       "change": {
         "title": "Das Exponat verändern",
-        "hint": "Eine dünnere Achse oder ein schwereres Rad aussen lässt es langsamer fallen – und macht den Ruck unten härter.",
+        "hint": "Eine dünnere Achse oder ein schwereres Rad aussen lässt es langsamer fallen – und macht den Ruck unten sanfter.",
         "shape": "Rad",
         "shapes": {
           "disc": "Volle Scheibe",
@@ -1717,7 +1722,7 @@
       },
       "model": {
         "intro": "Die Bänder wickeln sich ohne zu gleiten von der Achse: Für jeden Zentimeter, den das Rad fällt, dreht es sich um einen Zentimeter Achsumfang weiter. Weil die Achse dünn ist, heisst das: sehr viel Drehung für wenig Fall.",
-        "roll": "Das Rad fällt gleichmässig beschleunigt, aber nur mit einem kleinen Teil der Fallbeschleunigung: k sagt, wie viel schwerer das Rad in Drehung zu bringen ist als in Bewegung.",
+        "roll": "Das Rad fällt gleichmässig beschleunigt, aber nur mit einem kleinen Teil der Fallbeschleunigung: k sagt, wie viel schwerer das Rad in Drehung zu bringen ist als in Bewegung. Das Reiben der Schnüre an der Achse, der Anteil c ihres Zugs, bremst die Drehung und macht es noch etwas langsamer.",
         "tension": "Die Bänder tragen darum beim Abrollen fast das ganze Gewicht.",
         "share": "Dieser Anteil der Bewegungsenergie steckt in der Drehung – beim Standard-Rad 98,8 %."
       },
@@ -1727,6 +1732,7 @@
         "i": "das Trägheitsmoment des Rads: ½·M·R² für eine Scheibe, M·R² für einen Ring",
         "m": "die Masse des Rads",
         "r": "der Radius der Achse",
+        "c": "das Reiben der Schnüre: dieser Anteil ihres Zugs bremst die Drehung",
         "t": "der Zug beider Bänder",
         "s": "die Steifigkeit beider Bänder zusammen",
         "v": "das Tempo des Rads, wenn die Bänder abgewickelt sind"
@@ -1807,7 +1813,7 @@
       },
       "sweet": {
         "gap": "Der Abstand der beiden Pendel über der Zeit, auf logarithmischer Skala: Eine Gerade heisst, er wächst jede Sekunde um denselben Faktor.",
-        "chaotic": "Gemessen für diesen Start: λ = {{lambda}} pro Sekunde. Ein Unterschied verdoppelt sich also alle {{doubling}} s. Wer ihn um das Tausendfache kleiner macht, gewinnt nur zehn Verdopplungen Zeit – darum ist das Pendel nicht vorherzusagen, auch wenn jede Rechnung exakt ist.",
+        "chaotic": "Gemessen für diesen Start über eine halbe Minute: λ ≈ {{lambda}} pro Sekunde – ein einzelnes Stück Bahn, also einige Zehntel mehr oder weniger. Ein Unterschied verdoppelt sich also etwa alle {{doubling}} s. Wer ihn um das Tausendfache kleiner macht, gewinnt nur zehn Verdopplungen Zeit – darum ist das Pendel nicht vorherzusagen, auch wenn jede Rechnung exakt ist.",
         "regular": "Gemessen für diesen Start: λ = {{lambda}} pro Sekunde, praktisch null. So sanft geschwungen bleibt der Unterschied klein: Das Pendel ist vorhersagbar."
       },
       "chart": {
@@ -1819,7 +1825,7 @@
         "slow": "Langsame Eigenschwingung"
       },
       "computed": {
-        "system": "Vier Gleichungen erster Ordnung, beide Winkel und ihre Geschwindigkeiten, mit dem Runge-Kutta-Verfahren in Schritten von einer Millisekunde, für das Pendel und seinen Zwilling. Den Exponenten misst der Rechenkern nach Benettin: Ein Zwilling startet einen Hundertmillionstel daneben, alle Zehntelsekunden wird notiert, wie stark der Abstand gewachsen ist, und der Zwilling wieder auf den kleinen Abstand zurückgesetzt. Der Mittelwert der Logarithmen ist der Exponent – unabhängig davon, wie klein der Abstand gewählt wird.",
+        "system": "Vier Gleichungen erster Ordnung, beide Winkel und ihre Geschwindigkeiten, mit dem Runge-Kutta-Verfahren in Schritten von einer Millisekunde, für das Pendel und seinen Zwilling; wo ein leichter oberer Arm unter einem schweren unteren herumschlägt, in gleichen Teilen davon, so dass sich kein Arm in einem Schritt um mehr als 0,035 rad dreht. Den Exponenten misst der Rechenkern nach Benettin: Ein Zwilling startet einen Hundertmillionstel daneben, alle Zehntelsekunden wird notiert, wie stark der Abstand gewachsen ist, und der Zwilling wieder auf den kleinen Abstand zurückgesetzt. Der Mittelwert der Logarithmen ist der Exponent – unabhängig davon, wie klein der Abstand gewählt wird.",
         "d0": "der kleine Abstand, auf den der Zwilling jedes Mal zurückgesetzt wird",
         "dk": "der Abstand nach der k-ten Zehntelsekunde",
         "t": "die ganze Messdauer"
@@ -1853,7 +1859,9 @@
         },
         "regime_still": "Zu wenig Wasser: Die Lecks tragen es ab, bevor der obere Becher schwer genug wird. Das Rad steht.",
         "regime_steady": "Das Rad dreht gleichmässig in eine Richtung – in welche, entscheidet der erste kleine Anstoss.",
-        "regime_chaotic": "Chaos: Kein gleichmässiges Drehen hält. Das Rad wechselt die Richtung, ohne je einem Muster zu folgen.",
+        "regime_chaotic": "Chaos: Das Rad findet in kein gleichmässiges Drehen. Es wechselt die Richtung, ohne einem Muster zu folgen.",
+        "regime_pattern": "Das Rad wechselt immer wieder die Richtung, aber in einem festen Muster, das sich wiederholt.",
+        "regime_starting": "In 200 Sekunden findet das Rad hier noch in keinen festen Lauf.",
         "rate": "Drehzahl des Rads",
         "rpm": "U/min",
         "hopf": "Chaos ab Hahn"
@@ -1862,7 +1870,7 @@
         "intro": "Was zählt, ist, wie das Wasser um das Rad verteilt ist – genauer: wie weit sein Schwerpunkt seitlich und in der Höhe von der Achse liegt. Damit und mit der Drehrate des Rads schreiben sich drei Gleichungen.",
         "wheel": "Die Verteilung des Wassers dreht sich mit dem Rad, oben läuft Wasser zu, überall leckt es heraus; die Schwerkraft dreht das Rad, wenn das Wasser seitlich liegt, und die Achse bremst.",
         "lorenz": "Mit der Zeit in Einheiten der Lecks und passend skaliert sind es genau Lorenz' Gleichungen, die er 1963 aus einem Modell der Luftströmung gewann – mit b = 1 statt 8/3.",
-        "hopf": "Oberhalb dieser Zuflussrate ist auch das gleichmässige Drehen nicht mehr stabil: Das Rad wird chaotisch."
+        "hopf": "Oberhalb dieser Zuflussrate ist auch das gleichmässige Drehen nicht mehr stabil: Das Rad wechselt immer wieder die Richtung, meist chaotisch, bei manchen Zuflüssen in einem festen Muster. Schon darunter kann es aus dem Stand chaotisch bleiben, obwohl gleichmässiges Drehen hielte."
       },
       "symbols": {
         "ab": "wie das Wasser verteilt ist: seitlich und oben gegen unten",
@@ -1880,6 +1888,8 @@
       "sweet": {
         "lorenz": "Die Drehzahl über 200 Sekunden. Lorenz suchte 1963 ein einfaches Modell für das Wetter und fand diese drei Gleichungen – und dass winzige Unterschiede am Anfang die Vorhersage nach kurzer Zeit wertlos machen. Das Wasserrad ist dieses Modell zum Anfassen.",
         "chaotic": "In 200 Sekunden kehrt das Rad hier {{reversals}}-mal um, nie im selben Takt.",
+        "pattern": "In 200 Sekunden kehrt das Rad hier {{reversals}}-mal um, nach dem Anlaufen in einem festen Takt: Die Abstände zwischen den Wechseln wiederholen sich. Auch oberhalb der Grenze zum Chaos gibt es solche Zuflüsse.",
+        "starting": "In 200 Sekunden findet das Rad hier noch in keinen festen Lauf: Ob es sich später beruhigt, zeigt diese Zeit nicht.",
         "steady": "Bei diesem Zufluss dreht das Rad nach dem Anlaufen gleichmässig, mit {{rpm}} Umdrehungen pro Minute.",
         "still": "Bei diesem Zufluss bleibt das Rad stehen."
       },
@@ -1944,7 +1954,7 @@
         "phi": "die geografische Breite"
       },
       "sweet": {
-        "floor": "Das Pendel hält seine Ebene im Raum, der Boden dreht sich darunter weg. In Winterthur mit {{rate}}° pro Stunde: Foucault hat 1851 so in Paris gezeigt, dass sich die Erde dreht, ohne in den Himmel zu schauen.",
+        "floor": "Das Pendel dreht sich nicht mit dem Boden: In Winterthur dreht sich der Boden mit {{rate}}° pro Stunde unter seiner Ebene weg. So hat Foucault 1851 in Paris gezeigt, dass sich die Erde dreht, ohne in den Himmel zu schauen.",
         "period": "Eine Schwingung dauert hier {{period}} s; die Ebene dreht sich davon unberührt. Ein kürzeres Pendel zeigt dasselbe, solange es lange genug weiterschwingt."
       },
       "chart": {
@@ -2074,9 +2084,9 @@
         "v": "das Tempo der fallenden Kugel unten"
       },
       "sweet": {
-        "wave": "Die Kugeln berühren sich, also treffen sie einander nicht eine nach der anderen: Der Stoss läuft als Welle durch die Reihe. Weil der Kontakt nach Hertz mit der Eindrückung steifer wird, bleibt diese Welle kurz und kommt fast ganz in der letzten Kugel an – 97 % der Energie. Den Rest behalten die anderen; die erste prallt sogar ein wenig zurück.",
-        "gap": "Mit 0,1 mm Luft zwischen den Kugeln treffen sie einander wieder einzeln, und die Rechnung geht auf: 99,9 % der Energie in der letzten Kugel.",
-        "two": "Lässt man zwei fallen, laufen zwei Wellen hintereinander durch die Reihe. Die letzte Kugel fliegt mit 0,70 m/s davon, die zweitletzte mit 0,49 m/s – nicht beide mit den 0,63 m/s, mit denen die zwei hereinkamen. Zusammen tragen sie trotzdem 97 % der Energie.",
+        "wave": "Die Kugeln berühren sich, also treffen sie einander nicht eine nach der anderen: Der Stoss läuft als Welle durch die Reihe. Weil der Kontakt nach Hertz mit der Eindrückung steifer wird, bleibt diese Welle kurz und kommt fast ganz in der letzten Kugel an – 97 % der Energie, die nach dem Stoss bleibt, 89 % der hereingebrachten: 8 % gehen in die Eindrückungen. Den Rest behalten die anderen; die erste prallt sogar ein wenig zurück.",
+        "gap": "Mit 0,1 mm Luft zwischen den Kugeln treffen sie einander wieder einzeln, und die Bewegung geht auf: 99,9 % dessen, was bleibt, in der letzten Kugel. Doch jeder Stoss nimmt seinen Teil, und von der hereingebrachten Energie trägt die letzte Kugel nur 87 % – weniger als ohne Luft.",
+        "two": "Lässt man zwei fallen, laufen zwei Wellen hintereinander durch die Reihe. Die letzte Kugel fliegt mit 0,70 m/s davon, die zweitletzte mit 0,49 m/s – nicht beide mit den 0,63 m/s, mit denen die zwei hereinkamen. Zusammen tragen sie trotzdem 97 % der Energie, die nach den Stössen bleibt, 92 % der hereingebrachten.",
         "together": "Was in der Reihe bleibt, wächst mit jedem Stoss, wenn die Stösse etwas Energie verlieren: In der vierten Sekunde schwingt die mittlere Kugel schon 2,5° weit aus. Gibt jeder Stoss alles zurück (e = 1), bleibt sie fast stehen."
       },
       "computed": {
@@ -2187,12 +2197,14 @@
       },
       "model": {
         "intro": "Jeder Stab ist unten eingespannt und oben frei. Von seinen Schwingungsformen zählt hier nur die erste: der ganze Stab biegt sich nach einer Seite.",
-        "frequency": "Seine Eigenfrequenz: je länger der Stab, desto tiefer – mit dem Quadrat der Länge.",
+        "frequency": "Seine Eigenfrequenz: je länger der Stab, desto tiefer – fast mit dem Quadrat der Länge. Aufrecht stehend drückt ihn sein eigenes Gewicht der Länge nach zusammen und senkt sie noch etwas: beim Meterstab um ein Zehntel.",
         "motion": "Der Tisch rüttelt, und seine Beschleunigung schiebt jeden Stab an, gewichtet mit Γ = 1,566 für die Form der ersten Schwingung. Die Dämpfung nimmt ihm dabei Schwung.",
         "steady": "Lange genug im selben Takt gerüttelt, schwingt die Spitze so weit. Im Gleichschritt (r = 1) ist das Γ·Y/(2ζ)."
       },
       "symbols": {
         "beta": "die erste Lösung von cosh β · cos β = −1: 1,8751",
+        "lambda": "wie stark das eigene Gewicht die erste Schwingungsform des Stabs weicher macht: 1,571",
+        "g": "Fallbeschleunigung, 9,81 m/s²",
         "l": "die Länge des Stabs",
         "e": "der Elastizitätsmodul des Stahls",
         "i": "das Flächenmoment des runden Stabs vom Durchmesser d",
@@ -2207,8 +2219,8 @@
         "y": "wie weit der Tisch hin und her geht"
       },
       "sweet": {
-        "step": "Ein kleiner Anstoss im richtigen Takt bewegt mehr als ein grosser im falschen. Der Tisch geht nur 1 mm hin und her; im Gleichschritt mit dem 80 cm langen Stab, bei 2,21 Hz, schwingt dessen Spitze 78 mm weit, seine Nachbarn höchstens 4 mm. Drei Prozent neben dem Takt sind es nur noch 26 mm.",
-        "patience": "Resonanz braucht Geduld: Bei 2,21 Hz wächst der Ausschlag in 7,2 s erst auf knapp zwei Drittel. Wer schneller durchfährt, verpasst sie: Mit 0,05 Hz pro Sekunde schwingt derselbe Stab höchstens 40 mm weit, halb so weit, und erst bei 2,4 Hz.",
+        "step": "Ein kleiner Anstoss im richtigen Takt bewegt mehr als ein grosser im falschen. Der Tisch geht nur 1 mm hin und her; im Gleichschritt mit dem 80 cm langen Stab, bei 2,09 Hz, schwingt dessen Spitze 78 mm weit, seine Nachbarn höchstens 4 mm. Drei Prozent neben dem Takt sind es nur noch 26 mm.",
+        "patience": "Resonanz braucht Geduld: Bei 2,09 Hz wächst der Ausschlag in 7,6 s erst auf knapp zwei Drittel. Wer schneller durchfährt, verpasst sie: Mit 0,05 Hz pro Sekunde schwingt derselbe Stab höchstens 38 mm weit, halb so weit, und erst bei 2,3 Hz.",
         "everywhere": "Derselbe Gleichschritt lässt ein Glas unter dem richtigen Ton zerspringen, eine Brücke unter Marschschritten schwingen und eine Saite den Ton eines Instruments aufnehmen."
       },
       "computed": {
@@ -2330,7 +2342,7 @@
         "lambda": "wie weit die Linie höchstens von der Mitte abweicht, als Anteil der halben Dicke"
       },
       "sweet": {
-        "chain": "Die beste Form eines Bogens ist eine hängende Kette, umgedreht – so hat Robert Hooke es 1675 notiert, und Antoni Gaudí hat mit hängenden Ketten entworfen. Im Kettenbogen bleibt die Stützlinie unter dem eigenen Gewicht in der Mitte der Steine, um weniger als ein Hundertstel der halben Dicke daneben, wie dick die Steine auch sind.",
+        "chain": "Die beste Form eines Bogens ist eine hängende Kette, umgedreht – so hat Robert Hooke es 1675 notiert, und Antoni Gaudí hat mit hängenden Ketten entworfen. Im Kettenbogen bleibt die Stützlinie unter dem eigenen Gewicht in der Mitte der Steine: bei sechzehn Steinen ab 3 cm Dicke um weniger als ein Hundertstel der halben Dicke daneben.",
         "semicircle": "Der Halbkreis hat diese Form nicht. Er steht nur, wenn seine Steine mindestens 10,75 % so dick sind wie sein Radius – 10,7 % bei sechzehn Steinen. Mit 10 cm auf einen Meter bricht er; ein Spitzbogen gleicher Spannweite und Dicke steht.",
         "load": "Eine Last verschiebt die Stützlinie. Steht sie am Viertelpunkt, bricht der Halbkreis mit 25 cm Dicke schon bei 80 % seines eigenen Gewichts, der Kettenbogen gleicher Höhe erst bei 141 %."
       },
@@ -2775,7 +2787,7 @@
         "zeno": "Der Trick: Die Sprünge werden nicht nur niedriger, sondern auch kürzer, jeder um denselben Anteil. So passen unendlich viele Sprünge in eine endliche Zeit, wie in Zenons Rätsel von Achilles und der Schildkröte.",
         "steel": "Aus 30 cm liegt die Stahlkugel mit der Stosszahl 0,95 nach 9,6 s still, mit 75 Sprüngen, die länger als eine Hundertstelsekunde dauern; der Tischtennisball mit 0,92 nach 5,2 s, mit 44. Der kleine Unterschied der Stosszahl macht viel aus, denn die Zeit wächst mit 1/(1 − e).",
         "rhythm": "Aus dem Rhythmus lässt sich die Stosszahl hören: Der zweite Sprung der Stahlkugel dauert 0,95-mal so lang wie der erste, genau ihre Stosszahl. Beim Tischtennisball sind es 0,89 statt 0,92, denn ihn bremst auch die Luft, die ihn schon bei 8,6 m/s ganz trägt; die Stahlkugel erst bei 60 m/s.",
-        "rules": "Die Regeln des Tischtennis verlangen, dass ein Ball aus 305 mm Höhe auf 230 bis 250 mm zurückspringt. Mit der Stosszahl 0,92 und der Luft springt dieser auf 240 mm."
+        "rules": "Die Regeln des Tischtennis verlangen, dass ein Ball, aus 305 mm auf einen Stahlblock fallen gelassen, 240 bis 265 mm hoch zurückspringt. Mit der Stosszahl 0,92 und der Luft springt dieser auf 240 mm, an der unteren Grenze."
       },
       "computed": {
         "system": "Zwischen zwei Schlägen fliegt die Kugel senkrecht, nur mit ihrem Gewicht und dem Luftwiderstand. Dafür gibt es eine exakte Lösung, aufwärts mit dem Tangens, abwärts mit dem Tangens hyperbolicus. Die Seite rechnet Flug um Flug; sind die Flüge kürzer als eine Zehntelmillisekunde, wird der Rest der Reihe in geschlossener Form addiert, die Luft dort längst bedeutungslos.",
@@ -2817,7 +2829,7 @@
         "holds": "Der Stapel hält, wenn in jeder Lage der Schwerpunkt aller Klötze von ihr an aufwärts über ihrer Auflage liegt: über dem Stück, auf dem sie den Klotz darunter berührt, bei der untersten über dem Tisch.",
         "step": "Von oben gebaut, jeder Klotz so weit hinaus, wie die darüber es erlauben: Der k-te Klotz von oben ragt um 1/(2k) über den nächsten.",
         "harmonic": "Zusammen ist das die Hälfte der harmonischen Reihe.",
-        "even": "In gleichen Stufen erreicht der Schwerpunkt des ganzen Stapels zuerst die Kante: n Klötze ragen n/(n + 1) hinaus, nie eine ganze Länge."
+        "even": "In gleichen Stufen, auch der unterste Klotz so weit über den Tisch wie jeder über den darunter, erreicht der Schwerpunkt des ganzen Stapels zuerst die Kante: n Klötze ragen n/(n + 1) hinaus, nie eine ganze Länge."
       },
       "symbols": {
         "centre": "Schwerpunkt der Klötze ab Lage k aufwärts",
@@ -2831,7 +2843,7 @@
         "even": "Überhang in gleichen Stufen"
       },
       "sweet": {
-        "steps": "Der Trick: Man baut nicht von unten, sondern von oben. Der oberste Klotz darf eine halbe Länge überstehen, die obersten zwei zusammen eine Viertellänge über dem dritten, die obersten drei ein Sechstel: Die Stufen werden nach unten immer kleiner. Neun Klötze ragen so 1,41 Längen hinaus, bei Klötzen von 20 cm 28 cm; in gleichen Stufen nur 0,9.",
+        "steps": "Der Trick: Man baut nicht von unten, sondern von oben. Der oberste Klotz darf eine halbe Länge überstehen, die obersten zwei zusammen eine Viertellänge über dem dritten, die obersten drei ein Sechstel: Die Stufen werden nach unten immer kleiner. Neun Klötze ragen so 1,41 Längen hinaus, bei Klötzen von 20 cm 28 cm; in gleichen Stufen nur 0,9, mit etwas zurückgesetztem untersten Klotz 0,94: nie eine ganze Länge.",
         "endless": "Die harmonische Reihe hat kein Ende: Mit genug Klötzen ragt der Stapel so weit hinaus, wie man will. Aber langsam, wie ein Logarithmus. So viele Klötze braucht es:",
         "reach_one": "für {{count}} Länge",
         "reach_other": "für {{count}} Längen",
@@ -2962,7 +2974,8 @@
         "incidence": "Einfallswinkel",
         "refraction": "Brechungswinkel",
         "leaves": "Austrittswinkel θ",
-        "bow": "Regenbogenwinkel"
+        "bow": "Regenbogenwinkel",
+        "across_outside": "Dieser Strahl kreuzt den Weg zurück zur Lampe und kommt auf der anderen Seite unter {{angle}}° zurück, ausserhalb des Rings bei {{bow}}°."
       },
       "change": {
         "title": "Das Material ändern",
@@ -3087,7 +3100,7 @@
         "rayleigh": "Die Streuung wächst mit der vierten Potenz der Frequenz (Rayleigh): Blaues Licht (450 nm) wird 4,4-mal so stark gestreut wie rotes (650 nm).",
         "beer": "Was gestreut wird, fehlt dem weitergehenden Licht: Es nimmt entlang des Rohrs exponentiell ab, Blau am schnellsten (Lambert-Beer).",
         "side": "Von der Seite sieht man, was an dieser Stelle gestreut wird, abzüglich dessen, was auf dem Weg zur Wand des Rohrs noch verloren geht.",
-        "sky": "Der Himmel senkrecht über einem: Sonnenlicht, das auf jeder Höhe einmal gestreut wird und dann zum Boden geht. Die Sonne steht m Luftmassen tief.",
+        "sky": "Der Himmel senkrecht über einem: Sonnenlicht, das auf jeder Höhe einmal gestreut wird und dann zum Boden geht. Die Sonne steht m Luftmassen tief. Ins Auge kommt es um 90° weniger die Höhe der Sonne gestreut, und zur Seite streut die Luft halb so viel wie geradeaus: Mit tiefer Sonne ist der Himmel über einem darum halb so hell.",
         "ozone": "Die Ozonschicht, rund 22 km hoch, streut das Licht nicht, sie schluckt es – am meisten Orange (600 nm). Senkrecht von oben ist ihre optische Dicke dort nur 0,041, wenig neben der Luft.",
         "ozone_mass": "Das Sonnenlicht durchquert sie als dünne Schale: m₃-mal so viel Ozon wie senkrecht von oben, am Horizont 12-mal – dort schluckt sie 39 % des Orange. Weil sie über fast aller Luft liegt, trägt auch das Himmelslicht, das weiter unten gestreut wird, diesen Faktor."
       },
@@ -3119,7 +3132,7 @@
         "system": "Die Seite rechnet für jede von 81 Wellenlängen, wie viel Licht an jeder Stelle des Rohrs noch da ist und wie viel davon zur Seite gestreut wird. Für den Himmel nimmt sie die optische Dicke der Luft, 0,097 bei 550 nm, und die Luftmasse nach Kasten und Young, 37,9 am Horizont. Für das Ozon nimmt sie den gemessenen Wirkungsquerschnitt (Serdyuchenko u. a. 2014, gemittelt über je 5 nm), 300 Dobson-Einheiten und eine dünne Schicht in 22 km Höhe.",
         "colours": "Die Farben wie beim Glasperlen-Regenbogen: gewichtet mit der Farbempfindlichkeit des Auges (CIE 1931) und umgerechnet in die Farben des Bildschirms (sRGB). Das Weiss der Lampe – beim Himmel das der Sonne über der Luft – erscheint weiss. Jede Farbe ist so hell gezeichnet, wie der Bildschirm es für sie zulässt; wie hell es wirklich ist, sagen die Zahlen.",
         "check": "Die Tests der Seite zählen nach, dass das seitlich gestreute und das am Ende ankommende Licht zusammen genau das Licht der Lampe ergeben (Simpson-Regel), und halten den Himmel über einem gegen dieselbe Summe über alle Höhen. Gerechnet wird in Ihrem Browser, mit denselben Formeln wie im Rechenkern der Seite.",
-        "left_out": "Weggelassen: Licht, das mehrfach gestreut wird (es macht ein sehr trübes Rohr und den Himmel am Horizont weisslicher); grössere Teilchen, die alle Farben gleich streuen (darum ist Milch weiss); die Richtung der Streuung, die nur die Helligkeit ändert; für den Himmel Staub und Dunst, die den Sonnenuntergang noch röter machen, die Sonne unter dem Horizont (dann ist der Himmel über einem nur noch hoch oben beleuchtet, durch noch mehr Ozon) und wie viel Ozon es gibt – das ändert sich mit Jahreszeit und Ort. Angenommen ist ein Rohr von 1 m Länge und 6 cm Durchmesser."
+        "left_out": "Weggelassen: Licht, das mehrfach gestreut wird (es macht ein sehr trübes Rohr und den Himmel am Horizont weisslicher); grössere Teilchen, die alle Farben gleich streuen (darum ist Milch weiss); die Richtung der Streuung im Rohr, die nur die Helligkeit ändert; für den Himmel Staub und Dunst, die den Sonnenuntergang noch röter machen, die Sonne unter dem Horizont (dann ist der Himmel über einem nur noch hoch oben beleuchtet, durch noch mehr Ozon) und wie viel Ozon es gibt – das ändert sich mit Jahreszeit und Ort. Angenommen ist ein Rohr von 1 m Länge und 6 cm Durchmesser."
       }
     },
     "slits": {
@@ -3146,7 +3159,8 @@
         "plate": "Spalte",
         "wall": "Wand",
         "status_both": "Zwei Spalte: Streifen, {{spacing}} mm auseinander.",
-        "status_one": "Ein Spalt: ein breiter heller Fleck, keine Streifen – und in der Mitte nur ein Viertel so hell."
+        "status_one": "Ein Spalt: ein breiter heller Fleck, keine Streifen – und in der Mitte nur ein Viertel so hell.",
+        "near": "Die Wand steht näher, als die Formel erlaubt: Bei so breiten Spalten stimmt sie auf ein Prozent erst ab {{near}} m."
       },
       "figures": {
         "spacing": "Abstand der Streifen",
@@ -3195,10 +3209,10 @@
         "two_label": "Zwei Spalte offen, in derselben Helligkeit gezeichnet"
       },
       "computed": {
-        "system": "Die Seite rechnet die Helligkeit an jedem Punkt der Wand mit der Formel für eine weit entfernte Wand (Fraunhofer). Der Laser ist rot, 650 nm; die Spalte sind 0,25 mm voneinander entfernt und je 0,05 mm breit, die Wand steht 2 m dahinter. Dann liegen die Streifen 5,2 mm auseinander, der erste dunkle 2,6 mm neben der Mitte, und 9 helle Streifen passen ins 26 mm breite Mittelband eines Spalts.",
+        "system": "Die Seite rechnet die Helligkeit an jedem Punkt der Wand mit der Formel für eine weit entfernte Wand (Fraunhofer). Der Laser ist rot, 650 nm; die Spalte sind 0,25 mm voneinander entfernt und je 0,05 mm breit, die Wand steht 2 m dahinter. Dann liegen die Streifen 5,2 mm auseinander, der erste dunkle 2,6 mm neben der Mitte, und 9 helle Streifen passen ins Mittelband eines Spalts, das 26 mm zu beiden Seiten der Mitte reicht.",
         "colours": "Die Farbe des Lasers ist die seiner Wellenlänge, so gesättigt, wie der Bildschirm sie zeigen kann, und so hell, wie das Licht dort ist. Weisses Licht: für 81 Wellenlängen je das eigene Muster, gewichtet mit der Farbempfindlichkeit des Auges (CIE 1931) und umgerechnet in die Farben des Bildschirms (sRGB).",
         "check": "Die Tests der Seite zerlegen jeden Spalt in 400 schmale Streifen, addieren die Wellen aller Streifen an jedem Punkt der Wand (Huygens) und vergleichen das Ergebnis mit der Formel. Sie prüfen, dass es an den dunklen Streifen genau dunkel ist, wo ein Spalt allein Licht gibt, und dass weisses Licht dort blau ist, wo Rot sich auslöscht. Gerechnet wird in Ihrem Browser, mit denselben Formeln wie im Rechenkern der Seite.",
-        "left_out": "Weggelassen: dass die Wand nicht unendlich weit weg ist (die Formel gilt, sobald sie viel weiter weg ist als d²/λ, hier etwa ein Zehntelmeter); die Breite und Aufweitung des Laserstrahls, die die Streifen nach oben und unten auslaufen lässt; Kanten und Dicke der Spalte; die Polarisation des Lichts."
+        "left_out": "Weggelassen: dass die Wand nicht unendlich weit weg ist (die Formel stimmt auf ein Prozent, sobald sie mehr als fünfunddreissigmal a²/λ weg ist, a die Breite eines Spalts: hier 13 cm; ist sie näher, sagt es die Seite); die Breite und Aufweitung des Laserstrahls, die die Streifen nach oben und unten auslaufen lässt; Kanten und Dicke der Spalte; die Polarisation des Lichts."
       }
     },
     "beats": {
