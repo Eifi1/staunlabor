@@ -39,6 +39,15 @@ screen ran to some 250); the figures, charts and equations keep the page's
 full width. The frame (`exhibit-frame.tsx`) owns all of this, so every page
 has it.
 
+On a wide screen (`2xl`, 1536 px and up) the controls stand in a column
+beside the views, and the two are capped as one group at the views' own width
+and centred (`SIDE.cap` in `stage.ts`, 2026-11-19). Before that, the views
+stood centred in all the width the column left them, with the column at the far
+edge: at 1920 px the sliders stood 400 to 620 px from the drawing on twenty
+pages. `stage.test.ts` holds every page's cap to its views' width. No drawing
+is taller than 60 % of the screen (`STAGE`). The gravity well and the water
+parabola, whose views fill the row, are capped the way the sphere's are.
+
 **How it is computed** (Marcel, 2026-11-07: "are these differential
 equations?"). Each exhibit that moves has a section between what happens and
 the trick that writes its whole model as one system and says how it is solved:

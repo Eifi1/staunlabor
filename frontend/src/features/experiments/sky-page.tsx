@@ -231,7 +231,7 @@ function TubePlay({
   if (preview) return view;
   return (
     <WidgetCard title={t("experiments.sky.play.title")} hint={t("experiments.sky.play.hint")}>
-      <div className={SIDE.grid}>
+      <div className={`${SIDE.grid} ${SIDE.cap.xl}`}>
         <div className={SIDE.top}>
           <SliderField
             label={t("experiments.sky.play.cloudiness")}
@@ -404,7 +404,7 @@ function SunPlay() {
   const sun = sunLight(height, ozone);
   return (
     <WidgetCard title={t("experiments.sky.air.title")} hint={t("experiments.sky.air.hint")}>
-      <div className={SIDE.grid}>
+      <div className={`${SIDE.grid} ${SIDE.cap.xl}`}>
         <div className={SIDE.top}>
           <SliderField
             label={t("experiments.sky.air.height")}

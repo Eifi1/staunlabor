@@ -49,10 +49,27 @@ export const STAGE = {
  * column on the right, and the order in the markup kept for the narrower
  * widths, where the controls follow the views. `top` is what stands above the
  * views below `2xl` (a choice of who drives) and heads the column beside them.
+ *
+ * `cap` is for views that carry a width of their own (`mx-auto w-full
+ * max-w-xl` and the like): the grid, capped at that width plus the column and
+ * its gap, and centred, from `2xl` up. Without it the views stood centred in
+ * all the width the column left them, and the column at the far edge: at
+ * 1920 px the sliders stood some 500 px from the drawing they move. One entry
+ * per width a page's views use, the rem of Tailwind's `max-w-*` written out,
+ * since Tailwind finds a class only as a literal string; `stage.test.ts`
+ * holds every page's cap to its views' width.
  */
 export const SIDE = {
   grid: "grid grid-cols-1 gap-4 2xl:grid-cols-[minmax(0,1fr)_18rem] 2xl:grid-rows-[auto_1fr] 2xl:items-start",
   top: "2xl:col-start-2 2xl:row-start-1",
   views: "space-y-4 2xl:col-start-1 2xl:row-span-2 2xl:row-start-1",
   column: "space-y-4 2xl:col-start-2 2xl:row-start-2",
+  cap: {
+    xs: "2xl:mx-auto 2xl:max-w-[calc(20rem_+_19rem)]",
+    sm: "2xl:mx-auto 2xl:max-w-[calc(24rem_+_19rem)]",
+    md: "2xl:mx-auto 2xl:max-w-[calc(28rem_+_19rem)]",
+    xl: "2xl:mx-auto 2xl:max-w-[calc(36rem_+_19rem)]",
+    "2xl": "2xl:mx-auto 2xl:max-w-[calc(42rem_+_19rem)]",
+    "3xl": "2xl:mx-auto 2xl:max-w-[calc(48rem_+_19rem)]",
+  },
 } as const;

@@ -274,7 +274,7 @@ function DiverPlay({ diver, bottle, preview = false, paused = false }: { diver: 
         </>
       }
     >
-      <div className={SIDE.grid}>
+      <div className={`${SIDE.grid} ${SIDE.cap.xs}`}>
         <div className={SIDE.top}>
           <SliderField
             label={t("experiments.diver.play.squeeze")}

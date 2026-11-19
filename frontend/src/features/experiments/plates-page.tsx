@@ -453,7 +453,7 @@ function PlatesPlay({
         )
       }
     >
-      <div className={SIDE.grid}>
+      <div className={`${SIDE.grid} ${SIDE.cap["2xl"]}`}>
         <div className={`${SIDE.top} flex flex-wrap gap-4`}>
           <ToggleGroup
             label={t("experiments.plates.play.speed")}

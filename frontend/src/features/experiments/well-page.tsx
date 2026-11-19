@@ -25,7 +25,7 @@ import {
   type Launch,
   type Ride,
 } from "./simulate/well";
-import { SIDE } from "./stage";
+import { SIDE, STAGE } from "./stage";
 import { useExperimentsDefaults } from "./use-experiments";
 
 const SPEEDS = [1, 4] as const;
@@ -343,7 +343,7 @@ function WellPlay({
         </>
       }
     >
-      <div className={SIDE.grid}>
+      <div className={`${SIDE.grid} ${STAGE.twoWithSide}`}>
         <div className={`${SIDE.top} flex flex-wrap gap-4`}>
           <ToggleGroup
             label={t("experiments.well.play.speed")}

@@ -379,7 +379,7 @@ function CircuitPlay({ circuit, preview = false, paused = false }: { circuit: Ci
         )
       }
     >
-      <div className={SIDE.grid}>
+      <div className={`${SIDE.grid} ${SIDE.cap.xl}`}>
         <div className={SIDE.top}>
           <ToggleGroup
             label={t("experiments.circuit.play.speed")}

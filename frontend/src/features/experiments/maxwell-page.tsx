@@ -224,7 +224,7 @@ function MaxwellPlay({ w, preview = false, paused = false }: { w: MaxwellWheel }
         </>
       }
     >
-      <div className={SIDE.grid}>
+      <div className={`${SIDE.grid} ${SIDE.cap.sm}`}>
         <div className={SIDE.top}>
           <ToggleGroup
             label={t("experiments.maxwell.play.speed")}

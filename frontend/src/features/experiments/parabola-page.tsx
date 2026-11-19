@@ -24,7 +24,7 @@ import {
   surface,
   type Vessel,
 } from "./simulate/parabola";
-import { SIDE } from "./stage";
+import { SIDE, STAGE } from "./stage";
 import { useExperimentsDefaults } from "./use-experiments";
 
 /** Real time, or ten times faster: the water takes half a minute to follow. */
@@ -181,7 +181,7 @@ function ParabolaPlay({
         </>
       }
     >
-      <div className={SIDE.grid}>
+      <div className={`${SIDE.grid} ${STAGE.twoWithSide}`}>
         <div className={`${SIDE.top} flex flex-wrap gap-4`}>
           <ToggleGroup
             label={t("experiments.parabola.play.frame")}

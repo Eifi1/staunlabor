@@ -267,7 +267,7 @@ function OverhangPlay({ blocks }: { blocks: OverhangRequest }) {
         </>
       }
     >
-      <div className={SIDE.grid}>
+      <div className={`${SIDE.grid} ${SIDE.cap["2xl"]}`}>
         <div className={SIDE.top}>
           <SliderField
             label={t("experiments.overhang.play.count")}

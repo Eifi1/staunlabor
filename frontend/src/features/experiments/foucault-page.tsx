@@ -223,7 +223,7 @@ function FoucaultPlay({
         </>
       }
     >
-      <div className={SIDE.grid}>
+      <div className={`${SIDE.grid} ${SIDE.cap.xl}`}>
         <div className={`${SIDE.top} space-y-2`}>
           <p className="text-sm text-secondary">{t("experiments.foucault.play.places_label")}</p>
           <div className="flex flex-wrap gap-2">

@@ -210,7 +210,7 @@ function CoriolisPlay({
         </>
       }
     >
-      <div className={SIDE.grid}>
+      <div className={`${SIDE.grid} ${SIDE.cap.xl}`}>
         <div className={`${SIDE.top} flex flex-wrap gap-4`}>
           <ToggleGroup
             label={t("experiments.coriolis.play.frame")}

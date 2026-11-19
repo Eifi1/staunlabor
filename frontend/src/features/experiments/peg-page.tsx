@@ -291,7 +291,7 @@ function PegPlay({
       {refused ? (
         <AlertBanner tone="warning">{t("experiments.peg.refused")}</AlertBanner>
       ) : (
-        <div className={SIDE.grid}>
+        <div className={`${SIDE.grid} ${SIDE.cap.xl}`}>
           <div className={SIDE.top}>
             <ToggleGroup
               label={t("experiments.peg.play.speed")}

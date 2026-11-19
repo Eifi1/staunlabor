@@ -219,7 +219,7 @@ function ChladniPlay({
         </>
       }
     >
-      <div className={SIDE.grid}>
+      <div className={`${SIDE.grid} ${SIDE.cap.md}`}>
         <div className={`${SIDE.top} space-y-2`}>
           <p className="text-sm font-medium text-primary">{t("experiments.chladni.play.tones")}</p>
           <div className="flex flex-wrap gap-2">
