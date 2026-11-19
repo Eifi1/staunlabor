@@ -645,7 +645,10 @@ describe("the smoke ring", () => {
     fireEvent.click(await screen.findByRole("button", { name: E.smoke.play.press }));
     // Lowered under the depth already pressed: the ring is still the press's own.
     fireEvent.change(screen.getByRole("slider", { name: E.smoke.change.stroke }), { target: { value: "2" } });
-    expect(await screen.findByText(E.smoke.play.verdict.ring, {}, { timeout: 3000 })).toBeInTheDocument();
+    // The press takes half a second of real time on the page's own frames, which
+    // under coverage come so slowly that the verdict took 3.2 s alone and more
+    // in the full run: 3 s failed the pre-push check of 2026-11-19.
+    expect(await screen.findByText(E.smoke.play.verdict.ring, {}, { timeout: 8000 })).toBeInTheDocument();
   });
 
   it("says when no press can make a ring", async () => {
@@ -1284,7 +1287,8 @@ describe("the Cartesian diver", () => {
     expect(await screen.findByRole("img", { name: E.diver.view })).toBeInTheDocument();
     expect(screen.getByText(E.diver.play.motion.floats)).toBeInTheDocument();
     fireEvent.change(screen.getByRole("slider", { name: E.diver.play.squeeze }), { target: { value: "20" } });
-    expect(await screen.findByText(E.diver.play.motion.sinks, undefined, { timeout: 3000 })).toBeInTheDocument();
+    // The sinking runs on the page's frames, slow under coverage, as the smoke ring's press.
+    expect(await screen.findByText(E.diver.play.motion.sinks, undefined, { timeout: 8000 })).toBeInTheDocument();
     fireEvent.click(screen.getByRole("button", { name: E.diver.play.pause }));
     expect(screen.getByRole("button", { name: E.diver.play.run })).toBeInTheDocument();
     fireEvent.click(screen.getByRole("button", { name: E.diver.play.surface }));
