@@ -130,7 +130,10 @@
       "try_it": "Ausprobieren",
       "what_happens": "Was geschieht",
       "sweet_spot": "Der Trick",
-      "computed": "Wie es gerechnet wird"
+      "computed": "Wie es gerechnet wird",
+      "more_at": "Mehr zum Exponat",
+      "next": "Nächstes Exponat: {{name}}",
+      "onward": "Weitere Exponate"
     },
     "unchecked": "Die Prüfung der Berechnungen steht noch aus: Zahlen und Darstellungen auf diesen Seiten können sich noch ändern.",
     "play": {

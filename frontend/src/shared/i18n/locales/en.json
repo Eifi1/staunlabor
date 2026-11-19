@@ -130,7 +130,10 @@
       "try_it": "Try it",
       "what_happens": "What happens",
       "sweet_spot": "The trick",
-      "computed": "How it is computed"
+      "computed": "How it is computed",
+      "more_at": "More about the exhibit",
+      "next": "Next exhibit: {{name}}",
+      "onward": "More exhibits"
     },
     "unchecked": "The calculations have not been checked yet: figures and drawings on these pages may still change.",
     "play": {

@@ -265,9 +265,23 @@ describe("the area", () => {
     expect(within(header).getAllByRole("link")).toHaveLength(1);
   });
 
-  it("links every exhibit's page back to the list on the front page", async () => {
+  it("links every exhibit's page back to the list on the front page, and on to the next exhibit", async () => {
     renderWithProviders(<ChairPage />);
-    expect(await screen.findByRole("link", { name: E.overview.all })).toHaveAttribute("href", "/#all-exhibits");
+    const back = await screen.findAllByRole("link", { name: E.overview.all });
+    expect(back.map((link) => link.getAttribute("href"))).toEqual(["/#all-exhibits", "/#all-exhibits"]);
+    const onward = screen.getByRole("navigation", { name: E.frame.onward });
+    expect(
+      within(onward).getByRole("link", { name: E.frame.next.replace("{{name}}", E.exhibits.coil.short) }),
+    ).toHaveAttribute("href", "/coil");
+  });
+
+  it("shows the first paragraph of what stands at the exhibit, and the rest on request", async () => {
+    renderWithProviders(<SpherePage />);
+    expect(await screen.findByText(E.sphere.at.sphere)).toBeVisible();
+    const more = screen.getByText(E.frame.more_at);
+    expect(more.closest("details")).not.toHaveAttribute("open");
+    fireEvent.click(more);
+    expect(more.closest("details")).toHaveAttribute("open");
   });
 });
 

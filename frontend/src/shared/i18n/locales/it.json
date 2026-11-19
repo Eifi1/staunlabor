@@ -130,7 +130,10 @@
       "try_it": "Lo provi",
       "what_happens": "Che cosa accade",
       "sweet_spot": "Il trucco",
-      "computed": "Come si calcola"
+      "computed": "Come si calcola",
+      "more_at": "Altro sull'exhibit",
+      "next": "Exhibit successivo: {{name}}",
+      "onward": "Altri exhibit"
     },
     "unchecked": "La verifica dei calcoli è ancora in sospeso: cifre e disegni di queste pagine possono ancora cambiare.",
     "play": {

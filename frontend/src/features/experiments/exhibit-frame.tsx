@@ -8,12 +8,12 @@
  * drawing, model and insight.
  */
 
-import type { ReactNode } from "react";
+import { Children, Fragment, isValidElement, type ReactElement, type ReactNode } from "react";
 import { useTranslation } from "react-i18next";
-import { ArrowLeft, ArrowRight, Cpu, FlaskConical, Lightbulb } from "lucide-react";
+import { ArrowLeft, ArrowRight, ChevronRight, Cpu, FlaskConical, Lightbulb } from "lucide-react";
 import { Button, Card, CardHeader, CardTitle, PageHeader, SectionLabel, TextLink } from "@eifi1/ui-kit";
 import { PAGE_SHELL } from "@/shared/ui/page-shell";
-import { EXHIBITS_ANCHOR, OVERVIEW_PATH, exhibitEntry, type CourseLesson, type Exhibit } from "./exhibits";
+import { EXHIBITS, EXHIBITS_ANCHOR, OVERVIEW_PATH, exhibitEntry, type CourseLesson, type Exhibit } from "./exhibits";
 import { useTried } from "./tried";
 import { UncheckedNotice } from "./unchecked-notice";
 
@@ -29,6 +29,26 @@ const LESSON_PATHS: Record<CourseLesson, string> = {
 
 export function lessonPath(lesson: CourseLesson): string {
   return LESSON_PATHS[lesson];
+}
+
+/** Prose at a reading measure: a paragraph across a wide screen ran to some
+ *  250 characters a line, where 60 to 80 read well. Paragraphs only — the
+ *  figures, charts and equations beside them keep the full width. */
+const PROSE = "[&_p]:max-w-[75ch]";
+
+/** The parts of a node given as one fragment or as several elements. */
+function parts(node: ReactNode): ReactNode[] {
+  if (isValidElement(node) && node.type === Fragment) {
+    return Children.toArray((node as ReactElement<{ children?: ReactNode }>).props.children);
+  }
+  return Children.toArray(node);
+}
+
+/** The built exhibit after `exhibit` in the list, the first after the last. */
+function nextExhibit(exhibit: Exhibit) {
+  const built = EXHIBITS.filter((entry) => entry.path);
+  const at = built.findIndex((entry) => entry.exhibit === exhibit);
+  return built[(at + 1) % built.length];
 }
 
 export function ExhibitFrame({
@@ -56,6 +76,8 @@ export function ExhibitFrame({
   const { lessons } = exhibitEntry(exhibit);
   const mark = useTried((state) => state.mark);
   const tried = () => mark(exhibit);
+  const [first, ...rest] = parts(atTheExhibit);
+  const next = nextExhibit(exhibit);
   return (
     <div className={PAGE_SHELL}>
       {/* The way back to the list, now that the header names no exhibit. */}
@@ -77,7 +99,21 @@ export function ExhibitFrame({
           <FlaskConical className="mt-0.5 size-5 shrink-0 text-brand" aria-hidden />
           <div className="min-w-0 space-y-2">
             <SectionLabel as="h2">{t("experiments.frame.at_the_exhibit")}</SectionLabel>
-            <div className="space-y-2 text-sm text-primary">{atTheExhibit}</div>
+            {/* Its first paragraph, and the rest on request: the exhibit's
+                twin is what the page is for, and it should not wait below
+                two long paragraphs. */}
+            <div className={`space-y-2 text-sm text-primary ${PROSE}`}>
+              {first}
+              {rest.length > 0 && (
+                <details className="group">
+                  <summary className="flex w-fit cursor-pointer list-none items-center gap-1 text-sm font-medium text-brand [&::-webkit-details-marker]:hidden">
+                    <ChevronRight className="size-4 transition-transform group-open:rotate-90" aria-hidden />
+                    {t("experiments.frame.more_at")}
+                  </summary>
+                  <div className="mt-2 space-y-2">{rest}</div>
+                </details>
+              )}
+            </div>
           </div>
         </div>
       </Card>
@@ -96,7 +132,7 @@ export function ExhibitFrame({
         <CardHeader>
           <CardTitle as="h2">{t("experiments.frame.what_happens")}</CardTitle>
         </CardHeader>
-        <div className="space-y-3 text-sm text-secondary">{whatHappens}</div>
+        <div className={`space-y-3 text-sm text-secondary ${PROSE}`}>{whatHappens}</div>
       </Card>
 
       {computed && (
@@ -107,7 +143,7 @@ export function ExhibitFrame({
               <CardTitle as="h2">{t("experiments.frame.computed")}</CardTitle>
             </div>
           </CardHeader>
-          <div className="space-y-3 text-sm text-secondary">{computed}</div>
+          <div className={`space-y-3 text-sm text-secondary ${PROSE}`}>{computed}</div>
           {lessons.length > 0 && (
             <nav aria-label={t("experiments.computed.course")} className="space-y-2">
               <p className="text-sm text-secondary">{t("experiments.computed.course")}</p>
@@ -131,8 +167,22 @@ export function ExhibitFrame({
             <CardTitle as="h2">{t("experiments.frame.sweet_spot")}</CardTitle>
           </div>
         </CardHeader>
-        <div className="space-y-3 text-sm text-secondary">{sweetSpot}</div>
+        <div className={`space-y-3 text-sm text-secondary ${PROSE}`}>{sweetSpot}</div>
       </Card>
+
+      {/* Where to go on: back to the list, or on to the next exhibit. */}
+      <nav aria-label={t("experiments.frame.onward")} className="flex flex-wrap items-center justify-between gap-3">
+        <TextLink href={`${OVERVIEW_PATH}#${EXHIBITS_ANCHOR}`} className="inline-flex items-center gap-1 text-sm">
+          <ArrowLeft className="size-4" aria-hidden />
+          {t("experiments.overview.all")}
+        </TextLink>
+        {next.path && next.exhibit !== exhibit && (
+          <Button variant="secondary" size="sm" href={next.path}>
+            {t("experiments.frame.next", { name: t(`experiments.exhibits.${next.exhibit}.short`) })}
+            <ArrowRight className="size-4" aria-hidden />
+          </Button>
+        )}
+      </nav>
     </div>
   );
 }

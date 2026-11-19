@@ -22,13 +22,22 @@ models found before the engine was written, and what is left to build.
 
 Every exhibit gets one page in one shape:
 
-1. **At the exhibit** — a drawing of the setup and what the visitor does.
+1. **At the exhibit** — a drawing of the setup and what the visitor does: its
+   first paragraph, and the rest behind "More about the exhibit" (2026-11-19,
+   the review of the coil's page: two long paragraphs pushed the twin below
+   the fold).
 2. **Try it** — the exhibit's twin, played with a mouse or a finger.
 3. **What happens** — the derivation step by step, KaTeX, the engine's numbers.
 4. **The sweet spot** — the one insight that explains the trick, as a chart.
 5. **Change the exhibit** — sliders for its size, mass, voltage and so on.
 6. **Further** — the lessons it stands on, in the differential-equations
-   course at kurvenschmiede.app, which stayed there.
+   course at kurvenschmiede.app, which stayed there; at the foot, back to
+   every exhibit and on to the next one in the list's order.
+
+The prose reads at 75 characters a line at most (a paragraph across a wide
+screen ran to some 250); the figures, charts and equations keep the page's
+full width. The frame (`exhibit-frame.tsx`) owns all of this, so every page
+has it.
 
 **How it is computed** (Marcel, 2026-11-07: "are these differential
 equations?"). Each exhibit that moves has a section between what happens and

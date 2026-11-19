@@ -130,7 +130,10 @@
       "try_it": "Próbálja ki",
       "what_happens": "Mi történik",
       "sweet_spot": "A trükk",
-      "computed": "Hogyan számoljuk ki"
+      "computed": "Hogyan számoljuk ki",
+      "more_at": "Bővebben a tárgyról",
+      "next": "Következő tárgy: {{name}}",
+      "onward": "További tárgyak"
     },
     "unchecked": "A számítások ellenőrzése még hátravan: az oldalakon szereplő számok és ábrák még változhatnak.",
     "play": {
