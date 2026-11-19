@@ -10,10 +10,10 @@
 
 import type { ReactNode } from "react";
 import { useTranslation } from "react-i18next";
-import { ArrowRight, Cpu, FlaskConical, Lightbulb } from "lucide-react";
-import { Button, Card, CardHeader, CardTitle, PageHeader, SectionLabel } from "@eifi1/ui-kit";
+import { ArrowLeft, ArrowRight, Cpu, FlaskConical, Lightbulb } from "lucide-react";
+import { Button, Card, CardHeader, CardTitle, PageHeader, SectionLabel, TextLink } from "@eifi1/ui-kit";
 import { PAGE_SHELL } from "@/shared/ui/page-shell";
-import { exhibitEntry, type CourseLesson, type Exhibit } from "./exhibits";
+import { EXHIBITS_ANCHOR, OVERVIEW_PATH, exhibitEntry, type CourseLesson, type Exhibit } from "./exhibits";
 import { useTried } from "./tried";
 import { UncheckedNotice } from "./unchecked-notice";
 
@@ -58,6 +58,11 @@ export function ExhibitFrame({
   const tried = () => mark(exhibit);
   return (
     <div className={PAGE_SHELL}>
+      {/* The way back to the list, now that the header names no exhibit. */}
+      <TextLink href={`${OVERVIEW_PATH}#${EXHIBITS_ANCHOR}`} className="inline-flex w-fit items-center gap-1 text-sm">
+        <ArrowLeft className="size-4" aria-hidden />
+        {t("experiments.overview.all")}
+      </TextLink>
       <PageHeader
         size="sm"
         eyebrow={t("experiments.frame.eyebrow")}

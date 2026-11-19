@@ -1,7 +1,7 @@
-import { useState } from "react";
-import { Link } from "react-router";
+import { useEffect, useState } from "react";
+import { Link, useLocation } from "react-router";
 import { useTranslation } from "react-i18next";
-import { ArrowRight, CalendarDays, Check, HelpCircle, RotateCcw } from "lucide-react";
+import { ArrowDown, ArrowRight, CalendarDays, Check, HelpCircle, RotateCcw } from "lucide-react";
 import {
   Button,
   Card,
@@ -10,7 +10,6 @@ import {
   CardTitle,
   Chip,
   DialogFrame,
-  PageHeader,
   ProgressBar,
   SectionLabel,
   TextLink,
@@ -25,7 +24,15 @@ import { EXHIBIT_MODULES } from "./exhibit-modules";
 import { ExhibitPreview } from "./exhibit-preview";
 import { FittedPreview } from "./fitted-preview";
 import { lessonPath } from "./exhibit-frame";
-import { EXHIBITS, TOPICS, exhibitEntry, type Exhibit, type ExhibitEntry, type Topic } from "./exhibits";
+import {
+  EXHIBITS,
+  EXHIBITS_ANCHOR,
+  TOPICS,
+  exhibitEntry,
+  type Exhibit,
+  type ExhibitEntry,
+  type Topic,
+} from "./exhibits";
 import { useTried } from "./tried";
 
 /** Two weeks back, in the dialog: long enough to find the one a friend
@@ -68,11 +75,19 @@ export function ExperimentsOverviewPage() {
     title: `${t("app.name")} — ${t("app.tagline")}`,
     description: t("experiments.overview.lead"),
   });
+  const { hash } = useLocation();
+  // An exhibit's page links back to the list (`#all-exhibits`): a client-side
+  // navigation lands at the top, so the page goes down to it itself.
+  useEffect(() => {
+    if (hash === `#${EXHIBITS_ANCHOR}`) document.getElementById(EXHIBITS_ANCHOR)?.scrollIntoView();
+  }, [hash]);
   return (
     <div className={PAGE_SHELL}>
-      <PageHeader size="sm" title={t("app.name")} description={t("experiments.overview.lead")} />
-      <UncheckedNotice />
-      <DailyCard entry={daily} today={today} />
+      <DailyHero entry={daily} today={today} />
+      <div className="space-y-3">
+        <p className="text-base text-primary">{t("experiments.overview.lead")}</p>
+        <UncheckedNotice />
+      </div>
       <AllExhibits daily={daily.exhibit} />
       <p className="text-sm text-secondary">{t("experiments.overview.how")}</p>
       <p className="text-caption text-muted">{t("experiments.overview.credit")}</p>
@@ -80,46 +95,79 @@ export function ExperimentsOverviewPage() {
   );
 }
 
-function DailyCard({ entry, today }: { entry: ExhibitEntry; today: string }) {
+/** The drawing's height: most of the screen beside the text, less on a phone,
+ *  where it stands above the text and the title must still show. */
+function useHeroHeight(): number {
+  const measure = () => {
+    if (typeof window === "undefined") return 420;
+    const wide = window.matchMedia?.("(min-width: 768px)").matches ?? true;
+    return Math.round(Math.min(720, Math.max(240, window.innerHeight * (wide ? 0.72 : 0.42))));
+  };
+  const [height, setHeight] = useState(measure);
+  useEffect(() => {
+    const resize = () => setHeight(measure());
+    window.addEventListener("resize", resize);
+    return () => window.removeEventListener("resize", resize);
+  }, []);
+  return height;
+}
+
+/**
+ * The experiment of the day, filling the first screen (Marcel, 2026-11-19):
+ * its title, what it is about and what stands at the exhibit, the question to
+ * guess at, and its drawing, playing, to the right; on a phone the drawing
+ * stands above. The first paragraph of the page's "At the exhibit" is the
+ * longer text: it says what is there without giving the trick away.
+ */
+function DailyHero({ entry, today }: { entry: ExhibitEntry; today: string }) {
   const { t } = useTranslation();
   const locale = useLocale();
   const tried = useTried((s) => s.tried.includes(entry.exhibit));
+  const height = useHeroHeight();
   // In the address (`?dialog=history`), so a phone's Back closes it.
   const [historyOpen, setHistoryOpen] = useDialogParam({ key: "dialog", value: "history" });
   const history = dailyHistory(today, HISTORY_DAYS);
+  const at = t(`experiments.${entry.exhibit}.at`, { returnObjects: true }) as Record<string, string> | string;
+  const atTheExhibit = typeof at === "object" ? Object.values(at)[0] : null;
   return (
-    <Card padding="md" density="compact" className="border-l-4 border-l-brand">
-      <div className="grid grid-cols-1 items-center gap-4 md:grid-cols-2">
-        <div className="mx-auto w-full max-w-md">
-          <ExhibitPreview exhibit={entry.exhibit} />
-        </div>
-        <div className="min-w-0 space-y-3">
-          <SectionLabel as="p">
-            {t("experiments.overview.daily.eyebrow")} · {shortDay(today, locale)}
-          </SectionLabel>
-          <CardTitle as="h2">{t(`experiments.exhibits.${entry.exhibit}.title`)}</CardTitle>
-          <p className="text-sm text-secondary">{t(`experiments.exhibits.${entry.exhibit}.summary`)}</p>
-          <p className="flex gap-2 text-sm text-primary">
-            <HelpCircle className="mt-0.5 size-4 shrink-0 text-brand" aria-hidden />
-            {t(`experiments.exhibits.${entry.exhibit}.question`)}
-          </p>
-          <TopicTags entry={entry} tried={tried} />
-          <div className="flex flex-wrap gap-2">
-            {entry.path && (
-              <Button variant="accent" size="sm" href={entry.path}>
-                {t("experiments.overview.daily.open")}
-                <ArrowRight className="size-4" aria-hidden />
-              </Button>
-            )}
-            {history.length > 0 && (
-              <Button variant="ghost" size="sm" onClick={() => setHistoryOpen(true)}>
-                <CalendarDays className="size-4" aria-hidden />
-                {t("experiments.overview.history.open")}
-              </Button>
-            )}
-          </div>
+    <section
+      aria-labelledby="daily"
+      className="grid min-h-[calc(100dvh-4.5rem)] grid-cols-1 content-center items-center gap-6 md:grid-cols-[minmax(0,1fr)_minmax(0,1.4fr)] md:gap-10"
+    >
+      <div className="order-last min-w-0 space-y-4 md:order-first">
+        <SectionLabel as="p">
+          {t("experiments.overview.daily.eyebrow")} · {shortDay(today, locale)}
+        </SectionLabel>
+        <h1 id="daily" className="text-2xl font-semibold text-primary md:text-4xl">
+          {t(`experiments.exhibits.${entry.exhibit}.title`)}
+        </h1>
+        <p className="text-base text-primary md:text-lg">{t(`experiments.exhibits.${entry.exhibit}.summary`)}</p>
+        {atTheExhibit && <p className="text-sm text-secondary md:text-base">{atTheExhibit}</p>}
+        <p className="flex gap-2 text-sm text-primary md:text-base">
+          <HelpCircle className="mt-0.5 size-5 shrink-0 text-brand" aria-hidden />
+          {t(`experiments.exhibits.${entry.exhibit}.question`)}
+        </p>
+        <TopicTags entry={entry} tried={tried} />
+        <div className="flex flex-wrap gap-2">
+          {entry.path && (
+            <Button variant="accent" href={entry.path}>
+              {t("experiments.overview.daily.open")}
+              <ArrowRight className="size-4" aria-hidden />
+            </Button>
+          )}
+          {history.length > 0 && (
+            <Button variant="ghost" onClick={() => setHistoryOpen(true)}>
+              <CalendarDays className="size-4" aria-hidden />
+              {t("experiments.overview.history.open")}
+            </Button>
+          )}
+          <Button variant="ghost" href={`#${EXHIBITS_ANCHOR}`}>
+            <ArrowDown className="size-4" aria-hidden />
+            {t("experiments.overview.all")}
+          </Button>
         </div>
       </div>
+      <FittedPreview exhibit={entry.exhibit} height={height} shrink box="order-first w-full md:order-last" />
       <DialogFrame
         open={historyOpen}
         onClose={() => setHistoryOpen(false)}
@@ -136,7 +184,7 @@ function DailyCard({ entry, today }: { entry: ExhibitEntry; today: string }) {
           ))}
         </ol>
       </DialogFrame>
-    </Card>
+    </section>
   );
 }
 
@@ -188,9 +236,9 @@ function AllExhibits({ daily }: { daily: Exhibit }) {
   // promise the page cannot keep.
   const topics = TOPICS.filter((tp) => EXHIBITS.some((entry) => entry.topics.includes(tp)));
   return (
-    <section aria-labelledby="all-exhibits" className="space-y-3">
+    <section aria-labelledby={EXHIBITS_ANCHOR} className="space-y-3">
       <div className="flex flex-wrap items-end justify-between gap-3">
-        <SectionLabel as="h2" id="all-exhibits">
+        <SectionLabel as="h2" id={EXHIBITS_ANCHOR}>
           {t("experiments.overview.all")}
         </SectionLabel>
         {tried.length > 0 && (

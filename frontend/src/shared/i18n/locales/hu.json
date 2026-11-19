@@ -87,10 +87,8 @@
   },
   "experiments": {
     "title": "Kísérletek",
-    "area": "A kísérletek",
     "failed": "A kiállítási tárgyat nem sikerült kiszámolni.",
     "overview": {
-      "short": "Áttekintés",
       "lead": "Kézbe vehető kiállítási tárgyak, kiszámolva. Legyen látogató a tárgy ikerpárjánál, majd nézze meg a számítást amögött, amit érzett.",
       "how": "Minden oldal azzal kezdődik, ami a kiállításon áll, kipróbálhatja, majd megmutatja, mi történik, és azt az egy felismerést, amely a trükköt megmagyarázza. Minden szám az alkalmazás saját számítómotorjából származik, és a tesztjei garantálják.",
       "open": "A tárgy megnyitása",

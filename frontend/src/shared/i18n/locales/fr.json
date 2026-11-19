@@ -87,10 +87,8 @@
   },
   "experiments": {
     "title": "Expériences",
-    "area": "Les expériences",
     "failed": "L’exposition n’a pas pu être calculée.",
     "overview": {
-      "short": "Aperçu",
       "lead": "Des expositions interactives, calculées. Jouez le visiteur devant le jumeau de l’exposition, puis découvrez le calcul derrière ce que vous avez ressenti.",
       "how": "Chaque page commence par ce qui se trouve à l’exposition, vous laisse l’essayer, puis montre ce qui se passe et l’idée qui explique le tour. Chaque nombre vient du moteur de calcul de l’application et est garanti par ses tests.",
       "open": "Ouvrir l’exposition",

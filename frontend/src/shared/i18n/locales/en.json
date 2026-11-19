@@ -87,10 +87,8 @@
   },
   "experiments": {
     "title": "Experiments",
-    "area": "The experiments",
     "failed": "The exhibit could not be computed.",
     "overview": {
-      "short": "Overview",
       "lead": "Hands-on exhibits, computed. Play the visitor in the exhibit's twin, then see the computation behind what you felt.",
       "how": "Each page starts with what stands at the exhibit, lets you try it, then shows what happens and the one insight that explains the trick. Every number comes from the app's own engine and is held by its tests.",
       "open": "Open the exhibit",

@@ -20,6 +20,7 @@ export function FittedPreview({
   height,
   box = "",
   frame = "",
+  shrink = false,
 }: {
   exhibit: Exhibit;
   still?: boolean;
@@ -29,18 +30,29 @@ export function FittedPreview({
   box?: string;
   /** Classes for the frame round the preview itself, which is what scales. */
   frame?: string;
+  /** `height` is the most, and a wide drawing's box only as tall as the
+   *  drawing: for one preview alone (the front page's), where a band of
+   *  empty box above and below it would push the text off the screen. */
+  shrink?: boolean;
 }) {
   const [scale, setScale] = useState(1);
+  const [natural, setNatural] = useState<number | null>(null);
   const [inner, setInner] = useState<HTMLDivElement | null>(null);
   useLayoutEffect(() => {
     if (!inner || typeof ResizeObserver !== "function") return;
-    const fit = () => setScale(inner.offsetHeight > height ? height / inner.offsetHeight : 1);
+    const fit = () => {
+      setScale(inner.offsetHeight > height ? height / inner.offsetHeight : 1);
+      setNatural(inner.offsetHeight);
+    };
     const observer = new ResizeObserver(fit);
     observer.observe(inner);
     return () => observer.disconnect();
   }, [inner, height]);
   return (
-    <div className={`flex items-center justify-center overflow-hidden ${box}`} style={{ height }}>
+    <div
+      className={`flex items-center justify-center overflow-hidden ${box}`}
+      style={{ height: shrink && natural !== null ? Math.min(height, natural) : height }}
+    >
       <div
         ref={setInner}
         data-still={exhibit}

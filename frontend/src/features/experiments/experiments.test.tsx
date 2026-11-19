@@ -63,7 +63,7 @@ import { run as runPit } from "./simulate/pit";
 import { HOLE, cameraAt, frameOf, project } from "./chair-views";
 import { dailyExhibit, dailyHistory } from "./daily";
 import { ExhibitPreview } from "./exhibit-preview";
-import { EXHIBITS, exhibitAt, exhibitEntry } from "./exhibits";
+import { EXHIBITS, exhibitEntry } from "./exhibits";
 import { ExperimentsLayout } from "./experiments-layout";
 import { ExperimentsOverviewPage } from "./overview-page";
 import { useTried } from "./tried";
@@ -124,9 +124,11 @@ describe("the overview", () => {
 
   it("shows every built exhibit in the list with its own drawing, held still until the card is pointed at", async () => {
     await renderOverview();
+    // In the list: the day's exhibit has a second, larger drawing at the top.
+    const list = screen.getByRole("region", { name: E.overview.all });
     for (const entry of EXHIBITS.filter((e) => e.path)) {
-      const heading = screen.getByRole("heading", { level: 3, name: E.exhibits[entry.exhibit].title });
-      const drawing = document.querySelector(`[data-still="${entry.exhibit}"]`);
+      const heading = within(list).getByRole("heading", { level: 3, name: E.exhibits[entry.exhibit].title });
+      const drawing = list.querySelector(`[data-still="${entry.exhibit}"]`);
       expect(drawing?.querySelector("svg, canvas"), entry.exhibit).not.toBeNull();
       // In the exhibit's own card: the smallest box holding both holds no other title.
       let card = heading.parentElement;
@@ -148,9 +150,16 @@ describe("the overview", () => {
   it("shows the day's exhibit with its question, and the days before it only when asked", async () => {
     const view = await renderOverview();
     const today = dailyExhibit(DAY);
-    const daily = screen.getByRole("heading", { level: 2, name: E.exhibits[today].title });
+    // The page's one heading of the first rank: the day's exhibit, not the site's name.
+    const daily = screen.getByRole("heading", { level: 1, name: E.exhibits[today].title });
+    expect(screen.getAllByRole("heading", { level: 1 })).toHaveLength(1);
     const card = daily.closest("div.min-w-0") as HTMLElement;
     expect(within(card).getByText(E.exhibits[today].question)).toBeInTheDocument();
+    // The longer text: what stands at the exhibit, the first paragraph of its page's.
+    const at = (E as unknown as Record<string, { at: Record<string, string> }>)[today].at;
+    expect(within(card).getByText(Object.values(at)[0])).toBeInTheDocument();
+    // The list is further down, and the way to it is a link.
+    expect(within(card).getByRole("link", { name: E.overview.all })).toHaveAttribute("href", "#all-exhibits");
     expect(within(card).getByRole("link", { name: new RegExp(E.overview.daily.open) })).toHaveAttribute(
       "href",
       exhibitEntry(today).path,
@@ -207,11 +216,6 @@ describe("the overview", () => {
     expect(screen.getByText(`0 of ${EXHIBITS.length}`)).toBeInTheDocument();
     expect(screen.queryByText(E.overview.tried.mark)).toBeNull();
   });
-
-  it("names an exhibit by its exact address only", () => {
-    expect(exhibitAt("/chair/")?.exhibit).toBe("chair");
-    expect(exhibitAt("/chair/more")).toBeUndefined();
-  });
 });
 
 describe("trying an exhibit", () => {
@@ -243,15 +247,18 @@ describe("a preview", () => {
 });
 
 describe("the area", () => {
-  it("has a strip with the overview and every built exhibit", () => {
+  it("has only the name, the language and the theme in its header, and no strip of exhibits", () => {
     renderWithProviders(<ExperimentsLayout />, { initialEntries: ["/chair"] });
-    const strip = screen.getByRole("navigation", { name: E.area });
-    expect(within(strip).getByRole("link", { name: E.overview.short })).toBeInTheDocument();
-    expect(within(strip).getByRole("link", { name: E.exhibits.chair.short })).toBeInTheDocument();
-    expect(within(strip).getByRole("link", { name: E.exhibits.coil.short })).toBeInTheDocument();
-    expect(within(strip).getByRole("link", { name: E.exhibits.sphere.short })).toBeInTheDocument();
-    expect(within(strip).getByRole("link", { name: E.exhibits.platform.short })).toBeInTheDocument();
-    expect(within(strip).getByRole("link", { name: E.exhibits.race.short })).toBeInTheDocument();
+    const header = screen.getByRole("banner");
+    expect(within(header).getByRole("link", { name: en.app.name })).toHaveAttribute("href", "/");
+    expect(within(header).queryByRole("navigation")).toBeNull();
+    expect(within(header).queryByRole("combobox")).toBeNull();
+    expect(within(header).getAllByRole("link")).toHaveLength(1);
+  });
+
+  it("links every exhibit's page back to the list on the front page", async () => {
+    renderWithProviders(<ChairPage />);
+    expect(await screen.findByRole("link", { name: E.overview.all })).toHaveAttribute("href", "/#all-exhibits");
   });
 });
 

@@ -92,6 +92,10 @@ export interface ExhibitEntry {
 
 export const OVERVIEW_PATH = "/";
 
+/** The front page's list of every exhibit, under the day's one: the anchor
+ *  every exhibit's page links back to. */
+export const EXHIBITS_ANCHOR = "all-exhibits";
+
 /**
  * The day the second series joins the experiment of the day, and the day the
  * draw's maluses weaken (`daily.ts`): the day of the joint deploy, set when it
@@ -322,10 +326,4 @@ export const EXHIBITS: readonly ExhibitEntry[] = [
 
 export function exhibitEntry(exhibit: Exhibit): ExhibitEntry {
   return EXHIBITS.find((entry) => entry.exhibit === exhibit) ?? EXHIBITS[0];
-}
-
-/** The built exhibit whose page `pathname` is, if any. */
-export function exhibitAt(pathname: string): ExhibitEntry | undefined {
-  const path = pathname.replace(/\/+$/, "");
-  return EXHIBITS.find((entry) => entry.path === path);
 }

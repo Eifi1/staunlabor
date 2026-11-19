@@ -87,10 +87,8 @@
   },
   "experiments": {
     "title": "Experimente",
-    "area": "Die Experimente",
     "failed": "Das Exponat konnte nicht berechnet werden.",
     "overview": {
-      "short": "Übersicht",
       "lead": "Exponate zum Anfassen, nachgerechnet. Spielen Sie den Besucher am Zwilling des Exponats und sehen Sie dann die Rechnung hinter dem, was Sie erlebt haben.",
       "how": "Jede Seite beginnt mit dem, was am Exponat steht, lässt Sie es ausprobieren und zeigt dann, was geschieht, und die eine Einsicht, die den Trick erklärt. Jede Zahl stammt aus dem Rechenkern der App und ist durch dessen Tests abgesichert.",
       "open": "Exponat öffnen",

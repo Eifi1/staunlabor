@@ -49,18 +49,28 @@ means in words, and a legend of every symbol in it with its meaning and unit.
 
 The front page, `/`, is the overview. It was a grid of eight cards until
 2026-11-12, when Marcel asked for it to be redone now that there were "schon
-einige Experimente". Top to bottom (`overview-page.tsx`):
+einige Experimente". Since 2026-11-19 the first screen is the experiment of
+the day's alone (Marcel: "Das erste was ein neuer Nutzer auf staunlabor.app
+sieht soll das Experiment des Tages sein und nicht überladen werden"), and the
+header holds only the name, the language and the theme: the strip naming every
+exhibit beside it went, and every exhibit's page links back to the list
+instead (`/#all-exhibits`). Top to bottom (`overview-page.tsx`):
 
-* **The experiment of the day**, playing by itself beside its name, its
-  summary and a question to guess at before opening it
-  (`experiments.exhibits.<x>.question`), with the button into the exhibit and
-  **"Earlier days"**: the last fourteen days in a dialog (`?dialog=history`,
+* **The experiment of the day**, filling the first screen: the page's one
+  `h1`, its name, its summary, the first paragraph of its page's "At the
+  exhibit" (which says what stands there without giving the trick away, in all
+  seven languages already) and a question to guess at before opening it
+  (`experiments.exhibits.<x>.question`), with its drawing playing to the right
+  (above it on a phone, smaller, so the name still shows). Then the button into
+  the exhibit, one down to the list, and **"Earlier days"**: the last fourteen days in a dialog (`?dialog=history`,
   so a phone's Back closes it), a still of each that plays while it is
   pointed at or focused. Not on the page itself (Marcel, the same evening:
   "Show the history only in a dialog on request. Not right away. That shall
   be reserved for the experiment of the day"): anyplot.ai's plot of the day
   stands alone on its landing, and APOD's or Wikipedia's picture of the day
   keeps its archive a link away.
+* **The site's one-line lead and the notice that the check is still to come**,
+  below the first screen.
 * **Every exhibit**, filtered by topic chips (`TOPICS` in `exhibits.ts`: an
   exhibit is about one or two — momentum, angular momentum, energy,
   oscillation, flow, induction, perception), with "n of 8 tried on this
