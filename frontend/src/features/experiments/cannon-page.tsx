@@ -202,6 +202,8 @@ function CannonPlay({
     setLast({ stack: what, drop: d, launch: up });
     setReached(false);
     setStruck(false);
+    // A drop is the reader asking to see it: paused (reduced motion), it starts the clock.
+    setRunning(true);
   };
 
   useEffect(() => {
@@ -363,6 +365,7 @@ function CannonPlay({
             checked={auto}
             onCheckedChange={(on) => {
               setAuto(on);
+              if (on) setRunning(true);
               autoState.current = { next: 0, at: 0 };
             }}
           />

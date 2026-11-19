@@ -208,6 +208,9 @@ function ElephantPlay({
     if (sim.current.down !== null) return;
     const [x, y, vx, vy] = sim.current.state;
     sim.current.state = [x, y, vx + sign * PUSH_M_S, vy];
+    // A push or a tilt is the reader asking to see the ball answer: paused
+    // (reduced motion), it starts the clock.
+    setRunning(true);
   };
   const restart = () => {
     sim.current.state = startState(exhibit, tilt);
@@ -261,6 +264,7 @@ function ElephantPlay({
             onChange={(v) => {
               setAuto(false);
               setTilt(v);
+              setRunning(true);
             }}
           />
           <Switch
@@ -270,6 +274,7 @@ function ElephantPlay({
             onCheckedChange={(on) => {
               setAuto(on);
               if (on) {
+                setRunning(true);
                 sim.current.tilt = 0;
                 sim.current.state = startState(exhibit);
                 sim.current.down = null;

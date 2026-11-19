@@ -1635,6 +1635,32 @@ describe("for a reader who asked for reduced motion", () => {
     fireEvent.click(await screen.findByRole("button", { name: E.coriolis.play.throw }));
     expect(screen.getByRole("button", { name: E.play.pause })).toBeInTheDocument();
   });
+
+  // Paused, a twin's main action starts it: the reader is asking to see it
+  // move, and on these pages the action did nothing until Run was pressed.
+  const click = (name: string) => () => fireEvent.click(screen.getByRole("button", { name }));
+  const slide = (name: string, value: string) => () =>
+    fireEvent.change(screen.getByRole("slider", { name }), { target: { value } });
+  it.each([
+    ["smoke ring", SmokePage, E.smoke.play, click(E.smoke.play.press)],
+    ["ball cannon", CannonPage, E.cannon.play, click(E.cannon.play.drop)],
+    ["turntable", PlatformPage, E.platform.play, click(E.platform.play.push)],
+    ["Bernoulli elephant", ElephantPage, E.elephant.play, click(E.elephant.play.push_left)],
+    ["Chladni plate", ChladniPage, E.play, slide(E.chladni.play.drive, "300")],
+    ["Cartesian diver", DiverPage, E.diver.play, slide(E.diver.play.squeeze, "2")],
+    [
+      "ball in the sphere",
+      SpherePage,
+      E.sphere.play,
+      () => fireEvent.click(screen.getByRole("radio", { name: E.sphere.play.modes.circle })),
+    ],
+    ["water parabola", ParabolaPage, E.parabola.play, slide(E.parabola.play.rate, "120")],
+  ])("starts the %s when its main action is taken", async (_, Page, words, act) => {
+    renderWithProviders(<Page />);
+    await screen.findAllByRole("button", { name: words.run });
+    act();
+    expect(await screen.findByRole("button", { name: words.pause })).toBeInTheDocument();
+  });
 });
 
 describe("while the server does not answer", () => {

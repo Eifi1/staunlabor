@@ -2414,5 +2414,10 @@ below 1 cm/s.
    while the box turns, so the effect plays without a hand on it. Touch first: the sphere is circled
    with a finger, the coil has two big buttons, the eye is dragged. Every
    animation pauses, and starts paused for a reader who asked for reduced motion.
+   There, a twin's main action starts its clock: a push, a press, a let-go, a
+   tilt, a tone, a new rate, an automatic mode switched on (2026-11-19). The
+   reader is asking to see it move, and before this, on eight pages, the action
+   did nothing until the Run button in the header. Actions that only reset
+   leave the clock as it is.
 4. **Seven languages**, the pages since, and the move to this site on
    2026-11-13 (`docs/plan.md`).

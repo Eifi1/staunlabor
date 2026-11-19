@@ -288,6 +288,8 @@ function SpherePlay({
             onChange={(v: Mode) => {
               setMode(v);
               finger.current = [0, 0];
+              // An automatic hand chosen is one to watch; the hand waits for a push, the let-go for its button.
+              if (v === "circle" || v === "perfect") setRunning(true);
             }}
             options={MODES.map((m) => ({ value: m, label: t(`experiments.sphere.play.modes.${m}`) }))}
           />
@@ -304,6 +306,9 @@ function SpherePlay({
                 disabled={mode !== "hand"}
                 onPush={(x, y) => {
                   finger.current = clampPush(x, y);
+                  // A push is the reader asking to see the ball answer:
+                  // paused (reduced motion), it starts the clock.
+                  setRunning(true);
                 }}
                 onRelease={() => {
                   finger.current = [0, 0];

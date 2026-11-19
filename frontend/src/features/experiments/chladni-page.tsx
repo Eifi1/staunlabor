@@ -201,6 +201,13 @@ function ChladniPlay({
   const restrew = () => {
     sand.current = strew(GRAINS);
     setGrains([...sand.current]);
+    setRunning(true);
+  };
+  /** A tone, or fresh sand, is the reader asking to see the sand move: paused
+   *  (reduced motion), it starts the clock. */
+  const ring = (hz: number) => {
+    setDrive(hz);
+    setRunning(true);
   };
   return (
     <WidgetCard
@@ -228,7 +235,7 @@ function ChladniPlay({
                 key={f}
                 variant={Math.abs(f - drive) < 0.5 ? "accent" : "secondary"}
                 size="sm"
-                onClick={() => setDrive(Math.round(f * 10) / 10)}
+                onClick={() => ring(Math.round(f * 10) / 10)}
               >
                 {`${formatNumber(f, 0, locale)} Hz`}
               </Button>
@@ -247,7 +254,7 @@ function ChladniPlay({
             digits={0}
             log
             hint={t("experiments.chladni.play.drive_hint")}
-            onChange={setDrive}
+            onChange={ring}
           />
           <Switch
             label={t("experiments.chladni.play.sound")}
