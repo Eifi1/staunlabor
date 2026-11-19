@@ -2418,6 +2418,10 @@ below 1 cm/s.
    tilt, a tone, a new rate, an automatic mode switched on (2026-11-19). The
    reader is asking to see it move, and before this, on eight pages, the action
    did nothing until the Run button in the header. Actions that only reset
-   leave the clock as it is.
+   leave the clock as it is. A play card's hint says what to do and what to
+   watch, never what will happen: the page's question is the reader's to answer
+   (2026-11-19: the hints of the waterwheel, of the smoke ring's and the
+   sphere's automatic modes and of the cone gave it away, the sphere's with
+   "a quarter turn ahead" and "up to about 4 Hz").
 4. **Seven languages**, the pages since, and the move to this site on
    2026-11-13 (`docs/plan.md`).

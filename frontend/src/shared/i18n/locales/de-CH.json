@@ -550,7 +550,7 @@
         },
         "hint_hand": "Ziehen Sie in der Ansicht von oben: Die Hohlkugel folgt Ihrem Finger, wie eine Hand es täte. Kreisen Sie um die Mitte – zuerst langsam, etwa einmal pro Sekunde, dann schneller, wenn die Kugel steigt.",
         "hint_circle": "Die Hohlkugel wird auf einem Kreis von 2 cm im eingestellten Tempo geschoben. Ändern Sie das Tempo langsam, folgt die Kugel; ändern Sie es auf einmal, fällt sie zurück.",
-        "hint_perfect": "Die Hohlkugel wird immer eine Vierteldrehung vor der Kugel geschoben und wird genau so schneller, wie die Kugel steigt – das Timing richtig gemacht, bis etwa 4 Hz, so schnell, wie ein Arm kann.",
+        "hint_perfect": "Hier wird die Hohlkugel mit dem bestmöglichen Timing geschoben. Achten Sie darauf, wo die Hohlkugel steht, während die Kugel steigt, und wie schnell sie am Ende kreist.",
         "pause": "Anhalten",
         "run": "Weiter",
         "restart": "Neu starten",
@@ -964,7 +964,7 @@
       "play": {
         "title": "An der Trommel",
         "hint": "Ziehen Sie den Ring hinunter und lassen Sie los, schnell oder langsam, oder drücken Sie die Taste: Das Tempo entscheidet, ob ein Ring fliegt.",
-        "hint_auto": "Drei Drücke nacheinander: ein Stoss, eine halbe Sekunde und ein langsames Drücken – Wirbel, Ring und nichts.",
+        "hint_auto": "Drei Drücke nacheinander: ein Stoss, eine halbe Sekunde und ein langsames Drücken. Schauen Sie, was jeder aus dem Loch schickt.",
         "press": "Drücken",
         "pause": "Pause",
         "run": "Weiter",
@@ -1356,8 +1356,8 @@
       "play": {
         "title": "Den Kegel loslassen",
         "hint_up": "Der Kegel liegt am tiefen Ende. Lassen Sie ihn los und schauen Sie, wohin er rollt.",
-        "hint_down": "Bei diesen Schienen rollt der Kegel hinunter; er liegt darum am hohen Ende. Lassen Sie ihn los.",
-        "hint_stays": "Bei genau dieser Neigung bleibt die Achse auf gleicher Höhe: Der Kegel bleibt liegen, wo er ist.",
+        "hint_down": "Der Kegel liegt am hohen Ende. Lassen Sie ihn los und schauen Sie, wohin er rollt.",
+        "hint_stays": "Der Kegel liegt am tiefen Ende. Lassen Sie ihn los und schauen Sie, wohin er rollt.",
         "let_go": "Loslassen",
         "pause": "Anhalten",
         "run": "Weiter",
@@ -1856,7 +1856,7 @@
       },
       "play": {
         "title": "Den Hahn aufdrehen",
-        "hint": "Der Hahn entscheidet: zu wenig Wasser, und das Rad bleibt stehen; mehr, und es dreht gleichmässig; noch mehr, und es wird chaotisch.",
+        "hint": "Stellen Sie den Hahn auf wenig, auf mehr und auf viel Wasser und schauen Sie, was das Rad jeweils tut.",
         "pause": "Anhalten",
         "run": "Weiter",
         "restart": "Von vorn",

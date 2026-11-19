@@ -550,7 +550,7 @@
         },
         "hint_hand": "Faites glisser dans la vue de dessus : la sphère suit votre doigt comme le ferait une main. Tournez autour du milieu — lentement d’abord, environ une fois par seconde, puis plus vite à mesure que la bille monte.",
         "hint_circle": "La sphère est poussée sur un cercle de 2 cm à la cadence que vous réglez. Changez la cadence lentement et la bille suit ; changez-la d’un coup et elle prend du retard.",
-        "hint_perfect": "La sphère est toujours poussée un quart de tour en avance sur la bille et accélère exactement à mesure que la bille monte — la synchronisation bien faite, jusqu’à environ 4 Hz, aussi vite que peut aller un bras.",
+        "hint_perfect": "Ici, la sphère est poussée avec la meilleure synchronisation possible. Observez où se trouve la sphère pendant que la bille monte, et à quelle vitesse elle tourne à la fin.",
         "pause": "Pause",
         "run": "Reprendre",
         "restart": "Recommencer",
@@ -964,7 +964,7 @@
       "play": {
         "title": "Au tambour",
         "hint": "Faites glisser le cerclage vers le bas et relâchez, vite ou lentement, ou appuyez sur le bouton : c’est la vitesse qui décide si un anneau s’envole.",
-        "hint_auto": "Trois appuis à la suite : un coup sec, une demi-seconde et une poussée lente — une bouffée diffuse, un anneau, et rien.",
+        "hint_auto": "Trois appuis à la suite : un coup sec, une demi-seconde et une poussée lente. Regardez ce que chacun fait sortir du trou.",
         "press": "Appuyer",
         "pause": "Pause",
         "run": "Reprendre",
@@ -1356,8 +1356,8 @@
       "play": {
         "title": "Lâcher le cône",
         "hint_up": "Le cône est à l'extrémité basse. Lâchez-le et regardez où il roule.",
-        "hint_down": "Sur ces rails le cône descend ; il est donc posé à l'extrémité haute. Lâchez-le.",
-        "hint_stays": "À exactement cette pente, l'axe reste à la même hauteur : le cône reste où il est.",
+        "hint_down": "Le cône est à l'extrémité haute. Lâchez-le et regardez où il roule.",
+        "hint_stays": "Le cône est à l'extrémité basse. Lâchez-le et regardez où il roule.",
         "let_go": "Lâcher",
         "pause": "Pause",
         "run": "Reprendre",
@@ -1856,7 +1856,7 @@
       },
       "play": {
         "title": "Ouvrir le robinet",
-        "hint": "Le robinet décide : trop peu d'eau et la roue reste immobile ; davantage, et elle tourne régulièrement ; plus encore, et elle devient chaotique.",
+        "hint": "Réglez le robinet sur peu d'eau, sur davantage, puis sur beaucoup, et regardez ce que fait la roue à chaque fois.",
         "pause": "Pause",
         "run": "Reprendre",
         "restart": "Depuis le début",

@@ -163,6 +163,8 @@ function ConePlay({ ex, preview = false, paused = false }: { ex: ConeExhibit } &
   return (
     <WidgetCard
       title={t("experiments.cone.play.title")}
+      // The hint says where the cone lies, never where it will go: that is
+      // the question. "stays" lies at the low end too, so it reads as "up".
       hint={t(`experiments.cone.play.hint_${where}`)}
       actions={
         <>

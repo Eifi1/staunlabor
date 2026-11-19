@@ -550,7 +550,7 @@
         },
         "hint_hand": "Trascini nella vista dall'alto: la sfera segue il Suo dito come farebbe una mano. Giri attorno al centro — lentamente all'inizio, circa una volta al secondo, poi più in fretta man mano che la pallina sale.",
         "hint_circle": "La sfera viene spinta lungo un cerchio di 2 cm al ritmo che Lei imposta. Se cambia il ritmo lentamente, la pallina segue; se lo cambia di colpo, resta indietro.",
-        "hint_perfect": "La sfera viene spinta sempre un quarto di giro davanti alla pallina e accelera esattamente man mano che la pallina sale — il tempismo fatto bene, fino a circa 4 Hz, alla massima velocità di un braccio.",
+        "hint_perfect": "Qui la sfera viene spinta con il miglior tempismo possibile. Osservi dove si trova la sfera mentre la pallina sale, e quanto velocemente gira alla fine.",
         "pause": "Pausa",
         "run": "Riprendi",
         "restart": "Ricomincia",
@@ -964,7 +964,7 @@
       "play": {
         "title": "Al tamburo",
         "hint": "Trascini giù l'anello rigido e lo lasci andare, in fretta o lentamente, oppure prema il pulsante: è la rapidità a decidere se un anello vola.",
-        "hint_auto": "Tre pressioni di seguito: un colpo secco, mezzo secondo e una spinta lenta — uno sbuffo informe, un anello e niente.",
+        "hint_auto": "Tre pressioni di seguito: un colpo secco, mezzo secondo e una spinta lenta. Guardi che cosa fa uscire ciascuna dal foro.",
         "press": "Premi",
         "pause": "Pausa",
         "run": "Riprendi",
@@ -1356,8 +1356,8 @@
       "play": {
         "title": "Lasciare andare il cono",
         "hint_up": "Il cono è all'estremità bassa. Lo lasci andare e guardi dove rotola.",
-        "hint_down": "Su questi binari il cono rotola in giù; per questo è all'estremità alta. Lo lasci andare.",
-        "hint_stays": "Proprio con questa pendenza l'asse resta alla stessa altezza: il cono resta dov'è.",
+        "hint_down": "Il cono è all'estremità alta. Lo lasci andare e guardi dove rotola.",
+        "hint_stays": "Il cono è all'estremità bassa. Lo lasci andare e guardi dove rotola.",
         "let_go": "Lasciare",
         "pause": "Pausa",
         "run": "Continua",
@@ -1856,7 +1856,7 @@
       },
       "play": {
         "title": "Aprire il rubinetto",
-        "hint": "Decide il rubinetto: poca acqua e la ruota resta ferma; di più, e gira regolarmente; ancora di più, e diventa caotica.",
+        "hint": "Regoli il rubinetto su poca acqua, su di più e su molta, e guardi che cosa fa la ruota ogni volta.",
         "pause": "Pausa",
         "run": "Continua",
         "restart": "Dall'inizio",

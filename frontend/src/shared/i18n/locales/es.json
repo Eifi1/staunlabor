@@ -550,7 +550,7 @@
         },
         "hint_hand": "Arrastre en la vista desde arriba: la esfera sigue su dedo como lo haría una mano. Describa círculos alrededor del centro — despacio al principio, más o menos una vez por segundo, y después más deprisa a medida que sube la bola.",
         "hint_circle": "La esfera se empuja por un círculo de 2 cm al ritmo que usted fije. Cambie el ritmo despacio y la bola lo sigue; cámbielo de golpe y se queda atrás.",
-        "hint_perfect": "La esfera se empuja siempre un cuarto de vuelta por delante de la bola y acelera exactamente a medida que la bola sube — la sincronización bien hecha, hasta unos 4 Hz, tan rápido como puede ir un brazo.",
+        "hint_perfect": "Aquí la esfera se empuja con la mejor sincronización posible. Fíjese en dónde está la esfera mientras la bola sube y en lo rápido que gira al final.",
         "pause": "Pausa",
         "run": "Continuar",
         "restart": "Empezar de nuevo",
@@ -964,7 +964,7 @@
       "play": {
         "title": "En el tambor",
         "hint": "Arrastre el aro hacia abajo y suéltelo, rápido o despacio, o pulse el botón: la rapidez decide si vuela un anillo.",
-        "hint_auto": "Tres pulsaciones seguidas: un golpe seco, medio segundo y un empuje lento — un borrón de humo, un anillo y nada.",
+        "hint_auto": "Tres pulsaciones seguidas: un golpe seco, medio segundo y un empuje lento. Observe qué saca cada una por el agujero.",
         "press": "Presionar",
         "pause": "Pausa",
         "run": "Continuar",
@@ -1356,8 +1356,8 @@
       "play": {
         "title": "Soltar el cono",
         "hint_up": "El cono está en el extremo bajo. Suéltelo y mire hacia dónde rueda.",
-        "hint_down": "Con estos rieles el cono rueda hacia abajo, por eso está en el extremo alto. Suéltelo.",
-        "hint_stays": "Con exactamente esta pendiente el eje se mantiene a la misma altura: el cono se queda donde está.",
+        "hint_down": "El cono está en el extremo alto. Suéltelo y mire hacia dónde rueda.",
+        "hint_stays": "El cono está en el extremo bajo. Suéltelo y mire hacia dónde rueda.",
         "let_go": "Soltar",
         "pause": "Pausa",
         "run": "Seguir",
@@ -1856,7 +1856,7 @@
       },
       "play": {
         "title": "Abrir el grifo",
-        "hint": "El grifo decide: poca agua y la rueda se queda quieta; más, y gira de forma regular; más aún, y se vuelve caótica.",
+        "hint": "Ponga el grifo con poca agua, con más y con mucha, y observe qué hace la rueda cada vez.",
         "pause": "Pausa",
         "run": "Seguir",
         "restart": "Desde el principio",

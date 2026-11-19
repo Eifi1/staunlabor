@@ -550,7 +550,7 @@
         },
         "hint_hand": "Drag in the view from above: the sphere follows your finger as a hand would. Circle round the middle — slowly at first, about once a second, then faster as the ball climbs.",
         "hint_circle": "The sphere is pushed round a 2 cm circle at the tempo you set. Change the tempo slowly and the ball follows; change it at once and it falls behind.",
-        "hint_perfect": "The sphere is always pushed a quarter turn ahead of the ball and speeds up exactly as the ball climbs — the timing done right, up to about 4 Hz, as fast as an arm can go.",
+        "hint_perfect": "Here the sphere is pushed with the best timing there is. Watch where the sphere is while the ball climbs, and how fast it goes round in the end.",
         "pause": "Pause",
         "run": "Run",
         "restart": "Start again",
@@ -964,7 +964,7 @@
       "play": {
         "title": "At the drum",
         "hint": "Drag the ring down and let go, quickly or slowly, or press the button: the pace decides whether a ring flies.",
-        "hint_auto": "Three presses in turn: a jab, half a second, and a slow push — a smear, a ring, and nothing.",
+        "hint_auto": "Three presses in turn: a jab, half a second, and a slow push. Watch what each one sends out of the hole.",
         "press": "Press",
         "pause": "Pause",
         "run": "Run",
@@ -1356,8 +1356,8 @@
       "play": {
         "title": "Let the cone go",
         "hint_up": "The cone lies at the low end. Let it go and see where it rolls.",
-        "hint_down": "On these rails the cone rolls down, so it lies at the high end. Let it go.",
-        "hint_stays": "At exactly this slope the axis stays level: the cone stays where it lies.",
+        "hint_down": "The cone lies at the high end. Let it go and see where it rolls.",
+        "hint_stays": "The cone lies at the low end. Let it go and see where it rolls.",
         "let_go": "Let go",
         "pause": "Pause",
         "run": "Run",
@@ -1856,7 +1856,7 @@
       },
       "play": {
         "title": "Turn the tap on",
-        "hint": "The tap decides: too little water and the wheel stands still; more, and it turns steadily; more still, and it turns chaotic.",
+        "hint": "Set the tap to a little water, to more and to a lot, and watch what the wheel does each time.",
         "pause": "Pause",
         "run": "Run",
         "restart": "From the start",

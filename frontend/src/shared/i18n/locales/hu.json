@@ -550,7 +550,7 @@
         },
         "hint_hand": "Húzza az ujját a felülnézetben: a gömb úgy követi az ujját, ahogy egy kéz tenné. Körözzön a közép körül — eleinte lassan, nagyjából másodpercenként egyszer, aztán egyre gyorsabban, ahogy a golyó emelkedik.",
         "hint_circle": "A gömböt egy 2 cm-es körön toljuk körbe az Ön által beállított tempóban. Ha lassan változtatja a tempót, a golyó követi; ha egyszerre, lemarad.",
-        "hint_perfect": "A gömböt mindig negyed fordulattal a golyó előtt toljuk, és pontosan olyan ütemben gyorsítunk, ahogy a golyó emelkedik — így helyes az időzítés, nagyjából 4 Hz-ig, amilyen gyorsan egy kar csak bírja.",
+        "hint_perfect": "Itt a gömböt a lehető legjobb időzítéssel toljuk. Figyelje meg, hol van a gömb, miközben a golyó emelkedik, és milyen gyorsan kering a végén.",
         "pause": "Szünet",
         "run": "Folytatás",
         "restart": "Újrakezdés",
@@ -964,7 +964,7 @@
       "play": {
         "title": "A dobnál",
         "hint": "Húzza le a gyűrűt, és engedje el, gyorsan vagy lassan, vagy nyomja meg a gombot: a tempó dönti el, kirepül-e egy karika.",
-        "hint_auto": "Három lenyomás egymás után: egy hirtelen bökés, egy fél másodperces lenyomás és egy lassú nyomás — szétfoszló füst, egy karika és semmi.",
+        "hint_auto": "Három lenyomás egymás után: egy hirtelen bökés, egy fél másodperces lenyomás és egy lassú nyomás. Figyelje meg, mit küld ki mindegyik a lyukon.",
         "press": "Lenyomás",
         "pause": "Szünet",
         "run": "Folytatás",
@@ -1356,8 +1356,8 @@
       "play": {
         "title": "A kúp elengedése",
         "hint_up": "A kúp az alacsony végen fekszik. Engedje el, és nézze meg, merre gurul.",
-        "hint_down": "Ezeken a síneken a kúp lefelé gurul, ezért a magas végen fekszik. Engedje el.",
-        "hint_stays": "Pontosan ennél a lejtésnél a tengely ugyanazon a magasságon marad: a kúp ott marad, ahol van.",
+        "hint_down": "A kúp a magas végen fekszik. Engedje el, és nézze meg, merre gurul.",
+        "hint_stays": "A kúp az alacsony végen fekszik. Engedje el, és nézze meg, merre gurul.",
         "let_go": "Elengedés",
         "pause": "Szünet",
         "run": "Tovább",
@@ -1856,7 +1856,7 @@
       },
       "play": {
         "title": "A csap kinyitása",
-        "hint": "A csap dönt: túl kevés víz, és a kerék áll; több, és egyenletesen forog; még több, és kaotikussá válik.",
+        "hint": "Állítsa a csapot kevés, több, majd sok vízre, és figyelje meg, mit csinál a kerék minden esetben.",
         "pause": "Szünet",
         "run": "Tovább",
         "restart": "Elölről",
