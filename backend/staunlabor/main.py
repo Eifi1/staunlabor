@@ -33,6 +33,7 @@ from staunlabor import __version__
 from staunlabor.accounts import account_deps, admin_deps, jobs_deps
 from staunlabor.api.experiments_router import router as experiments_router
 from staunlabor.database import Database
+from staunlabor.exhibit_checks import exhibit_checks_router
 from staunlabor.feedback import feedback_deps
 from staunlabor.security import AccountLimiters, ExperimentsLimiters, limit_account_request
 from staunlabor.settings import Settings, get_settings
@@ -156,6 +157,9 @@ def create_app() -> FastAPI:
     app.include_router(
         translation_review_router(translation_review_deps(accounts)), prefix=API_PREFIX, dependencies=budget
     )
+    # Which exhibits' calculations are checked: the public list every page asks
+    # for its notice, and an admin's verdict, kept with the code's fingerprint.
+    app.include_router(exhibit_checks_router(accounts), prefix=API_PREFIX)
     # The kit's refusals — the budget's 429 with its Retry-After — are
     # ValueErrors too; the kit's handlers answer them at their own status,
     # beside the engine's 400 below.

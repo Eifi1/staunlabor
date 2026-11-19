@@ -16,6 +16,7 @@ its own.
 
 from __future__ import annotations
 
+from datetime import datetime
 from enum import StrEnum
 
 from eifi1_server_kit.auth.sql import (
@@ -36,13 +37,14 @@ from eifi1_server_kit.feedback.sql import (
     FeedbackVoteColumns,
 )
 from eifi1_server_kit.translation_review.sql import TranslationReviewColumns
-from sqlalchemy import CheckConstraint, MetaData
-from sqlalchemy.orm import DeclarativeBase
+from sqlalchemy import CheckConstraint, DateTime, ForeignKey, MetaData, String
+from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column
 
 __all__ = [
     "NAMING_CONVENTION",
     "AdminAction",
     "Base",
+    "ExhibitCheck",
     "Feedback",
     "FeedbackAttachment",
     "FeedbackComment",
@@ -156,3 +158,19 @@ class TranslationReview(TranslationReviewColumns, Base):
     (``docs/translations.md``), on server-kit's ``translation_review.sql``."""
 
     __tablename__ = "translation_reviews"
+
+
+class ExhibitCheck(Base):
+    """An admin's verdict that an exhibit's calculations are checked, held with
+    the fingerprint of the code it was given on (``staunlabor.domain.checks``):
+    once the engine changes, the fingerprint differs and the exhibit counts as
+    unchecked again, with no one having to remember. One row per exhibit, the
+    latest; who gave it is kept for the admin, and the page shows only the date
+    (Marcel, 2026-11-19). The verdict outlives its admin's account (``SET NULL``)."""
+
+    __tablename__ = "exhibit_checks"
+
+    exhibit: Mapped[str] = mapped_column(String(32), primary_key=True)
+    fingerprint: Mapped[str] = mapped_column(String(64))
+    checked_at: Mapped[datetime] = mapped_column(DateTime(timezone=True))
+    checked_by_id: Mapped[int | None] = mapped_column(ForeignKey("users.id", ondelete="SET NULL"), index=True)
