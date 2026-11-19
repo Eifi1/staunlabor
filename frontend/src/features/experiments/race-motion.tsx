@@ -7,8 +7,10 @@
  *   the other. All arrows start at one point, so their lengths and directions
  *   compare at a glance; drawn on the balls they would be scattered over the
  *   race and hide its tracks.
- * * {@link MotionTable}: the same numbers, by rank — each ball's time, its
- *   speed and acceleration with their components, x to the right and y up.
+ * * {@link MotionTable}: the same numbers — each ball's time, its speed and
+ *   acceleration with their components, x to the right and y up — by rank
+ *   once the reader has seen a race, by track before: a table in finishing
+ *   order answered the page's question before the start.
  *
  * A drawing rather than one of the kit's charts:
  * what it shows is arrows in a plane, not quantities over an abscissa. The scale
@@ -138,15 +140,19 @@ export function VectorPlane({
   );
 }
 
-/** Each ball's time, speed and acceleration, by rank, with the components. */
+/** Each ball's time, speed and acceleration, with the components. Until the
+ *  reader has seen a race (`revealed`), in the tracks' own order, each ball's
+ *  place and time shown as it arrives; then by rank. */
 export function MotionTable({
-  ranked,
+  tracks,
   states,
   time,
+  revealed,
 }: {
-  ranked: RaceTrack[];
+  tracks: readonly RaceTrack[];
   states: Record<CurveKind, BallState>;
   time: number;
+  revealed: boolean;
 }) {
   const { t } = useTranslation();
   const locale = useLocale();
@@ -161,6 +167,8 @@ export function MotionTable({
       <span className="block text-caption text-muted">{unit}</span>
     </th>
   );
+  const ranked = [...tracks].sort((a, b) => a.time_s - b.time_s);
+  const rows = revealed ? ranked : tracks;
   return (
     <div className="overflow-x-auto">
       <table className="w-full text-sm tabular-nums">
@@ -183,14 +191,16 @@ export function MotionTable({
           </tr>
         </thead>
         <tbody>
-          {ranked.map((track, rank) => {
+          {rows.map((track) => {
             const { v, a } = states[track.kind];
             const arrived = time >= track.time_s;
+            const known = revealed || arrived;
+            const rank = ranked.indexOf(track);
             return (
               <tr key={track.kind} className="border-b border-subtle last:border-0">
                 <th scope="row" className="px-2 py-1 text-left font-normal">
                   <span className="flex items-center gap-2">
-                    <span className="w-4 text-right text-muted">{rank + 1}.</span>
+                    <span className="w-4 text-right text-muted">{known ? `${rank + 1}.` : ""}</span>
                     <span
                       aria-hidden
                       className="inline-block size-3 shrink-0 rounded-full"
@@ -200,7 +210,7 @@ export function MotionTable({
                   </span>
                 </th>
                 <td className={`px-2 py-1 text-right ${arrived ? "font-semibold text-primary" : "text-muted"}`}>
-                  {formatNumber(track.time_s, 3, locale)}
+                  {known ? formatNumber(track.time_s, 3, locale) : "–"}
                 </td>
                 <td className="px-2 py-1 text-right font-semibold text-primary">{n(Math.hypot(v[0], v[1]), 2)}</td>
                 <td className="px-2 py-1 text-right text-secondary">{n(v[0], 2)}</td>

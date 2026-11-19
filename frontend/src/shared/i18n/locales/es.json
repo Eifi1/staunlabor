@@ -133,7 +133,9 @@
       "computed": "Cómo se calcula",
       "more_at": "Más sobre la exposición",
       "next": "Siguiente exposición: {{name}}",
-      "onward": "Más exposiciones"
+      "onward": "Más exposiciones",
+      "held": "La respuesta aparece aquí en cuanto lo haya probado.",
+      "show": "Mostrar la respuesta"
     },
     "play": {
       "pause": "Pausa",
@@ -763,7 +765,7 @@
       },
       "play": {
         "title": "Suéltelas",
-        "hint": "Inicie la carrera y observe dónde está cada bola. Los tiempos junto a los colores son los del motor de cálculo, en el orden en que llegan las bolas. En la bandera termina cada pista, y la bola sigue volando hasta un foso acolchado, donde acaban juntas las seis.",
+        "hint": "Inicie la carrera y observe dónde está cada bola. En cuanto llega una bola, aparecen su puesto y su tiempo, el del motor de cálculo. En la bandera termina cada pista, y la bola sigue volando hasta un foso acolchado, donde acaban juntas las seis.",
         "start": "Iniciar",
         "pause": "Pausa",
         "run": "Continuar",
@@ -783,7 +785,7 @@
         "acceleration": "Aceleración",
         "velocity_label": "La velocidad de cada bola como una flecha desde un mismo punto",
         "acceleration_label": "La aceleración de cada bola como una flecha desde un mismo punto",
-        "table": "El tiempo, la rapidez y la aceleración de cada bola, por puesto",
+        "table": "El tiempo, la rapidez y la aceleración de cada bola",
         "track": "Pista",
         "time": "Tiempo"
       },
@@ -2042,7 +2044,7 @@
       "view": "El péndulo de Newton de frente: la barra, los hilos y las bolas",
       "play": {
         "title": "Levantar y soltar",
-        "hint": "Deje caer una bola, luego dos. Con 0,1 mm de aire entre las bolas, la cuenta sale exacta.",
+        "hint": "Deje caer una bola, luego dos, y cuente cuántas salen volando por el otro extremo.",
         "let_go": "Soltar",
         "pause": "Pausa",
         "run": "Seguir",

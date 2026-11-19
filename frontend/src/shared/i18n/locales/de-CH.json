@@ -133,7 +133,9 @@
       "computed": "Wie es gerechnet wird",
       "more_at": "Mehr zum Exponat",
       "next": "Nächstes Exponat: {{name}}",
-      "onward": "Weitere Exponate"
+      "onward": "Weitere Exponate",
+      "held": "Die Antwort steht hier, sobald Sie es ausprobiert haben.",
+      "show": "Antwort zeigen"
     },
     "play": {
       "pause": "Anhalten",
@@ -763,7 +765,7 @@
       },
       "play": {
         "title": "Loslassen",
-        "hint": "Starten Sie das Rennen und schauen Sie, wo jede Kugel ist. Die Zeiten neben den Farben sind die des Rechenkerns, in der Reihenfolge, in der die Kugeln ankommen. Bei der Flagge endet jede Bahn, und die Kugel fliegt weiter in ein gepolstertes Auffangbecken, wo alle sechs zusammen landen.",
+        "hint": "Starten Sie das Rennen und schauen Sie, wo jede Kugel ist. Sobald eine Kugel ankommt, erscheinen ihr Platz und ihre Zeit, die des Rechenkerns. Bei der Flagge endet jede Bahn, und die Kugel fliegt weiter in ein gepolstertes Auffangbecken, wo alle sechs zusammen landen.",
         "start": "Start",
         "pause": "Anhalten",
         "run": "Weiter",
@@ -783,7 +785,7 @@
         "acceleration": "Beschleunigung",
         "velocity_label": "Die Geschwindigkeit jeder Kugel als Pfeil von einem Punkt aus",
         "acceleration_label": "Die Beschleunigung jeder Kugel als Pfeil von einem Punkt aus",
-        "table": "Zeit, Tempo und Beschleunigung jeder Kugel, nach Rang",
+        "table": "Zeit, Tempo und Beschleunigung jeder Kugel",
         "track": "Bahn",
         "time": "Zeit"
       },
@@ -2042,7 +2044,7 @@
       "view": "Das Kugelstosspendel von vorn: der Balken, die Fäden und die Kugeln",
       "play": {
         "title": "Anheben und loslassen",
-        "hint": "Lassen Sie eine Kugel fallen, dann zwei. Mit 0,1 mm Luft zwischen den Kugeln geht die Rechnung genau auf.",
+        "hint": "Lassen Sie eine Kugel fallen, dann zwei, und zählen Sie, wie viele am anderen Ende wegfliegen.",
         "let_go": "Loslassen",
         "pause": "Anhalten",
         "run": "Weiter",

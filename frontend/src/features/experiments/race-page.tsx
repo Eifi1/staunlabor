@@ -13,6 +13,7 @@ import { BuildPending } from "./build-pending";
 import { MotionTable, VectorPlane, niceSpan } from "./race-motion";
 import { PreviewPending, type PreviewMode, type PreviewProps } from "./preview-mode";
 import { startsRunning } from "./play";
+import { HeldAnswer, useHeld } from "./held";
 import { RaceView, ValleyView, ballState, pitEntries, raceLayout, type BallState } from "./race-views";
 import { G as PIT_G, run as runPit } from "./simulate/pit";
 import { useExperimentsDefaults, useRace } from "./use-experiments";
@@ -120,6 +121,8 @@ function RacePlay({
   const running = preview ? !paused : runningHere;
   const [speed, setSpeed] = useState<(typeof SPEEDS)[number]>(0.25);
   const [auto, setAuto] = useState(preview);
+  // The table by rank once every ball has arrived in a race the reader started.
+  const held = useHeld();
   const tracks = data.race.tracks;
   // The pit, run once per build by the engine's port: a time loop of some
   // thirty thousand steps, a few tens of milliseconds, that the API's budget
@@ -133,7 +136,12 @@ function RacePlay({
   // lain still a moment in the pit.
   const restart = useCallback((next: number) => (next > pit.settled_s + REST_S ? 0 : null), [pit.settled_s]);
   const [time, setTime] = useClock(running, speed, auto ? restart : undefined);
-  const ranked = [...data.race.tracks].sort((a, b) => a.time_s - b.time_s);
+  const last = Math.max(...tracks.map((tr) => tr.time_s));
+  const finished = running && time >= last;
+  const { show } = held;
+  useEffect(() => {
+    if (finished) show();
+  }, [finished, show]);
   const layout = useMemo(
     () => raceLayout(spec.drop_m, spec.run_m, data.race, pit),
     [spec.drop_m, spec.run_m, data.race, pit],
@@ -210,7 +218,7 @@ function RacePlay({
                 symbol="v"
                 unit="m/s"
                 span={spans.v}
-                vectors={ranked.map((tr) => ({ kind: tr.kind, value: states[tr.kind].v }))}
+                vectors={tracks.map((tr) => ({ kind: tr.kind, value: states[tr.kind].v }))}
                 label={t("experiments.race.motion.velocity_label")}
               />
               <figcaption className="text-center text-sm text-secondary">
@@ -222,7 +230,7 @@ function RacePlay({
                 symbol="a"
                 unit="m/s²"
                 span={spans.a}
-                vectors={ranked.map((tr) => ({ kind: tr.kind, value: states[tr.kind].a }))}
+                vectors={tracks.map((tr) => ({ kind: tr.kind, value: states[tr.kind].a }))}
                 label={t("experiments.race.motion.acceleration_label")}
               />
               <figcaption className="text-center text-sm text-secondary">
@@ -230,7 +238,10 @@ function RacePlay({
               </figcaption>
             </figure>
           </div>
-          <MotionTable ranked={ranked} states={states} time={time} />
+          <div className="space-y-2">
+            <MotionTable tracks={tracks} states={states} time={time} revealed={held.shown} />
+            <HeldAnswer held={held}>{null}</HeldAnswer>
+          </div>
         </div>
       </div>
       <div className="flex flex-wrap items-end gap-x-6 gap-y-3">

@@ -133,7 +133,9 @@
       "computed": "How it is computed",
       "more_at": "More about the exhibit",
       "next": "Next exhibit: {{name}}",
-      "onward": "More exhibits"
+      "onward": "More exhibits",
+      "held": "The answer appears here once you have tried it.",
+      "show": "Show the answer"
     },
     "play": {
       "pause": "Pause",
@@ -763,7 +765,7 @@
       },
       "play": {
         "title": "Let them go",
-        "hint": "Start the race and watch where each ball is. The times beside the colours are the engine's, in the order the balls arrive. At the flag each track ends, and the ball flies on into a padded pit, where all six end up together.",
+        "hint": "Start the race and watch where each ball is. As each ball arrives, its place and its time appear, the engine's. At the flag each track ends, and the ball flies on into a padded pit, where all six end up together.",
         "start": "Start",
         "pause": "Pause",
         "run": "Run",
@@ -783,7 +785,7 @@
         "acceleration": "Acceleration",
         "velocity_label": "Every ball's velocity as an arrow from one point",
         "acceleration_label": "Every ball's acceleration as an arrow from one point",
-        "table": "Every ball's time, speed and acceleration, by rank",
+        "table": "Every ball's time, speed and acceleration",
         "track": "Track",
         "time": "Time"
       },
@@ -2042,7 +2044,7 @@
       "view": "Newton's cradle from the front: the beam, the strings and the balls",
       "play": {
         "title": "Lift and let go",
-        "hint": "Let one ball fall, then two. With 0.1 mm of air between the balls the sum comes out exactly.",
+        "hint": "Let one ball fall, then two, and count how many fly off at the other end.",
         "let_go": "Let go",
         "pause": "Pause",
         "run": "Continue",

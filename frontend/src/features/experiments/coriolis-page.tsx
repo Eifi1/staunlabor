@@ -12,6 +12,7 @@ import { ExhibitFrame } from "./exhibit-frame";
 import { BuildPending } from "./build-pending";
 import { PreviewPending, type PreviewMode, type PreviewProps } from "./preview-mode";
 import { startsRunning } from "./play";
+import { HeldAnswer, useHeld } from "./held";
 import { leadDeg, path, rateOf, type Body, type Carousel, type Throw } from "./simulate/coriolis";
 import { SIDE } from "./stage";
 import { useExperimentsDefaults } from "./use-experiments";
@@ -151,6 +152,9 @@ function CoriolisPlay({
   const [time, setTime] = useState(0);
   const [runningHere, setRunning] = useState(startsRunning);
   const clock = useRef(0);
+  // The aim that hits, and the button that sets it, once the reader has thrown
+  // with an aim of their own: before, the twin throws straight at the other seat.
+  const held = useHeld();
   const frame = preview ? "riding" : frameHere;
   const route = useMemo(() => path(c, throwOf), [c, throwOf]);
   const lead = useMemo(() => leadDeg(c, throwOf.speed_m_s, throwOf.body), [c, throwOf.speed_m_s, throwOf.body]);
@@ -180,6 +184,7 @@ function CoriolisPlay({
     clock.current = 0;
     setTime(0);
     setRunning(true);
+    if (throwOf.aim_deg !== 0) held.show();
   };
   return (
     <WidgetCard
@@ -191,18 +196,20 @@ function CoriolisPlay({
             <Send className="size-4" aria-hidden />
             {t("experiments.coriolis.play.throw")}
           </Button>
-          <Button
-            variant="secondary"
-            size="sm"
-            disabled={lead === null}
-            onClick={() => {
-              if (lead !== null) setThrow({ ...throwOf, aim_deg: Math.round(lead * 10) / 10 });
-              throwAgain();
-            }}
-          >
-            <Crosshair className="size-4" aria-hidden />
-            {t("experiments.coriolis.play.aim_lead")}
-          </Button>
+          {held.shown && (
+            <Button
+              variant="secondary"
+              size="sm"
+              disabled={lead === null}
+              onClick={() => {
+                if (lead !== null) setThrow({ ...throwOf, aim_deg: Math.round(lead * 10) / 10 });
+                throwAgain();
+              }}
+            >
+              <Crosshair className="size-4" aria-hidden />
+              {t("experiments.coriolis.play.aim_lead")}
+            </Button>
+          )}
           <Button variant="secondary" size="sm" onClick={() => setRunning(!running)}>
             {running ? <Pause className="size-4" aria-hidden /> : <Play className="size-4" aria-hidden />}
             {running ? t("experiments.play.pause") : t("experiments.play.run")}
@@ -284,11 +291,13 @@ function CoriolisPlay({
               },
             ]}
           />
-          <p className="text-sm text-secondary">
-            {lead === null
-              ? t("experiments.coriolis.play.no_lead")
-              : t("experiments.coriolis.play.lead", { lead: formatNumber(lead, 1, locale) })}
-          </p>
+          <HeldAnswer held={held}>
+            <p className="text-sm text-secondary">
+              {lead === null
+                ? t("experiments.coriolis.play.no_lead")
+                : t("experiments.coriolis.play.lead", { lead: formatNumber(lead, 1, locale) })}
+            </p>
+          </HeldAnswer>
         </div>
       </div>
     </WidgetCard>

@@ -15,6 +15,7 @@ import { PreviewPending, type PreviewMode, type PreviewProps } from "./preview-m
 import { impact, start, step, STEP_S, type Cradle, type Pull } from "./simulate/cradle";
 import { SIDE } from "./stage";
 import { useExperimentsDefaults } from "./use-experiments";
+import { HeldAnswer, useHeld } from "./held";
 
 const SPEEDS = [1, 0.25, 0.1] as const;
 type Speed = (typeof SPEEDS)[number];
@@ -172,6 +173,10 @@ function CradlePlay({
   const [rows, setRows] = useState(() => begin(cr, pull).rows);
   const [runningHere, setRunning] = useState(false);
   const [speedHere, setSpeed] = useState<Speed>(1);
+  // What leaves the other end after the first knock, once the reader has let
+  // the balls go and seen it: the chart's first second.
+  const held = useHeld();
+  const show = held.show;
   const running = preview ? !paused : runningHere;
   const speed = preview ? 1 : speedHere;
 
@@ -204,12 +209,15 @@ function CradlePlay({
       }
       if (preview && s.i * STEP_S > PREVIEW_S) sim.current = begin(cr, pull);
       setTh(sim.current.th);
-      if (closed) setRows([...sim.current.rows]);
+      if (closed) {
+        setRows([...sim.current.rows]);
+        show();
+      }
       raf = requestAnimationFrame(tick);
     };
     raf = requestAnimationFrame(tick);
     return () => cancelAnimationFrame(raf);
-  }, [running, speed, cr, pull, preview]);
+  }, [running, speed, cr, pull, preview, show]);
 
   // The impact is some ten thousand microsecond steps: a slider dragged across
   // asks for it at every notch, and the drag must not wait for each.
@@ -316,7 +324,9 @@ function CradlePlay({
         </div>
         <div className={`${SIDE.views} mx-auto w-full max-w-xl space-y-2`}>
           {view}
-          <p className="text-sm text-secondary">{t("experiments.cradle.play.after", { speeds: after })}</p>
+          <HeldAnswer held={held}>
+            <p className="text-sm text-secondary">{t("experiments.cradle.play.after", { speeds: after })}</p>
+          </HeldAnswer>
         </div>
         <div className={SIDE.column}>
           <SliderField
@@ -342,7 +352,14 @@ function CradlePlay({
           />
           <Figures
             tiles={[
-              { key: "far", label: t("experiments.cradle.play.far"), value: im.far_share * 100, digits: 1, unit: "%" },
+              {
+                key: "far",
+                label: t("experiments.cradle.play.far"),
+                value: im.far_share * 100,
+                digits: 1,
+                unit: "%",
+                held: !held.shown,
+              },
               {
                 key: "duration",
                 label: t("experiments.cradle.play.duration"),
@@ -353,7 +370,7 @@ function CradlePlay({
               { key: "peak", label: t("experiments.cradle.play.peak"), value: im.peak_n, digits: 0, unit: "N" },
             ]}
           />
-          <p className="text-sm text-secondary">{t("experiments.cradle.play.far_hint")}</p>
+          {held.shown && <p className="text-sm text-secondary">{t("experiments.cradle.play.far_hint")}</p>}
         </div>
       </div>
       {/* One point is no line: the chart waits for the first second. */}

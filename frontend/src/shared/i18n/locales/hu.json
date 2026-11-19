@@ -133,7 +133,9 @@
       "computed": "Hogyan számoljuk ki",
       "more_at": "Bővebben a tárgyról",
       "next": "Következő tárgy: {{name}}",
-      "onward": "További tárgyak"
+      "onward": "További tárgyak",
+      "held": "A válasz itt jelenik meg, amint kipróbálta.",
+      "show": "Válasz megjelenítése"
     },
     "play": {
       "pause": "Szünet",
@@ -763,7 +765,7 @@
       },
       "play": {
         "title": "Engedje el őket",
-        "hint": "Indítsa el a versenyt, és figyelje, hol jár éppen mindegyik golyó. A színek melletti idők a számítómotoréi, a golyók beérkezésének sorrendjében. A zászlónál minden pálya véget ér, és a golyó tovarepül egy párnázott gödörbe, ahol mind a hat együtt köt ki.",
+        "hint": "Indítsa el a versenyt, és figyelje, hol jár éppen mindegyik golyó. Amint egy golyó beér, megjelenik a helyezése és az ideje, a számítómotoré. A zászlónál minden pálya véget ér, és a golyó tovarepül egy párnázott gödörbe, ahol mind a hat együtt köt ki.",
         "start": "Rajt",
         "pause": "Szünet",
         "run": "Folytatás",
@@ -783,7 +785,7 @@
         "acceleration": "Gyorsulás",
         "velocity_label": "Minden golyó sebessége nyílként egy pontból",
         "acceleration_label": "Minden golyó gyorsulása nyílként egy pontból",
-        "table": "Minden golyó ideje, sebessége és gyorsulása, helyezés szerint",
+        "table": "Minden golyó ideje, sebessége és gyorsulása",
         "track": "Pálya",
         "time": "Idő"
       },
@@ -2042,7 +2044,7 @@
       "view": "A Newton-inga elölről: a rúd, a fonalak és a golyók",
       "play": {
         "title": "Felemelni és elengedni",
-        "hint": "Ejtsen le egy golyót, aztán kettőt. Ha 0,1 mm levegő van a golyók között, a számítás pontosan kijön.",
+        "hint": "Ejtsen le egy golyót, aztán kettőt, és számolja meg, hány repül el a másik végén.",
         "let_go": "Elengedni",
         "pause": "Megállítás",
         "run": "Tovább",

@@ -133,7 +133,9 @@
       "computed": "Comment c’est calculé",
       "more_at": "En savoir plus sur l’exposition",
       "next": "Exposition suivante : {{name}}",
-      "onward": "Autres expositions"
+      "onward": "Autres expositions",
+      "held": "La réponse s'affiche ici dès que vous l'avez essayé.",
+      "show": "Afficher la réponse"
     },
     "play": {
       "pause": "Pause",
@@ -763,7 +765,7 @@
       },
       "play": {
         "title": "Lâchez-les",
-        "hint": "Lancez la course et regardez où se trouve chaque bille. Les temps à côté des couleurs sont ceux du moteur de calcul, dans l’ordre d’arrivée des billes. Au drapeau, chaque piste s’arrête et la bille s’envole jusque dans une fosse rembourrée, où les six finissent ensemble.",
+        "hint": "Lancez la course et regardez où se trouve chaque bille. Dès qu'une bille arrive, sa place et son temps s'affichent, ceux du moteur de calcul. Au drapeau, chaque piste s’arrête et la bille s’envole jusque dans une fosse rembourrée, où les six finissent ensemble.",
         "start": "Démarrer",
         "pause": "Pause",
         "run": "Reprendre",
@@ -783,7 +785,7 @@
         "acceleration": "Accélération",
         "velocity_label": "La vitesse de chaque bille, en flèche partant d’un même point",
         "acceleration_label": "L’accélération de chaque bille, en flèche partant d’un même point",
-        "table": "Le temps, la vitesse et l’accélération de chaque bille, par rang",
+        "table": "Le temps, la vitesse et l’accélération de chaque bille",
         "track": "Piste",
         "time": "Temps"
       },
@@ -2042,7 +2044,7 @@
       "view": "Le pendule de Newton de face : la barre, les fils et les billes",
       "play": {
         "title": "Soulever et lâcher",
-        "hint": "Lâchez une bille, puis deux. Avec 0,1 mm d'air entre les billes, le compte tombe juste.",
+        "hint": "Lâchez une bille, puis deux, et comptez combien s'envolent à l'autre bout.",
         "let_go": "Lâcher",
         "pause": "Pause",
         "run": "Continuer",

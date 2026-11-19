@@ -11,6 +11,7 @@ import { Figures, WidgetCard } from "@/shared/ui/widget";
 import { Equation } from "./equation";
 import { ExhibitFrame } from "./exhibit-frame";
 import { BuildPending } from "./build-pending";
+import { HeldAnswer, useHeld, type Held } from "./held";
 import { PreviewPending, type PreviewMode, type PreviewProps } from "./preview-mode";
 import { startsRunning } from "./play";
 import {
@@ -66,6 +67,7 @@ export function FoucaultPage() {
   const { t } = useTranslation();
   const defaults = useExperimentsDefaults();
   const [build, setBuild] = useState<FoucaultPendulum | null>(null);
+  const held = useHeld();
   const p = build ?? defaults.data?.foucault ?? null;
   return (
     <ExhibitFrame
@@ -84,7 +86,7 @@ export function FoucaultPage() {
         <BuildPending pending={defaults.isPending} error={defaults.error} />
       ) : (
         <>
-          <FoucaultPlay key={JSON.stringify(p)} p={p} onChange={setBuild} />
+          <FoucaultPlay key={JSON.stringify(p)} p={p} onChange={setBuild} held={held} />
           <FoucaultBuild p={p} onChange={setBuild} />
         </>
       )}
@@ -165,12 +167,17 @@ function FoucaultView({ p, time, trail }: { p: FoucaultPendulum; time: number; t
   );
 }
 
+/** An hour under the pendulum: long enough to read its turn per hour off the
+ *  figures, and then the full turn is the reader's to compare. */
+const SEEN_AFTER_S = 3600;
+
 function FoucaultPlay({
   p,
   onChange,
+  held,
   preview = false,
   paused = false,
-}: { p: FoucaultPendulum; onChange?: (next: FoucaultPendulum) => void } & PreviewMode) {
+}: { p: FoucaultPendulum; onChange?: (next: FoucaultPendulum) => void; held?: Held } & PreviewMode) {
   const { t } = useTranslation();
   const locale = useLocale();
   const clock = useRef(0);
@@ -180,6 +187,7 @@ function FoucaultPlay({
   const [speedHere, setSpeed] = useState<Speed>(60);
   const running = preview ? !paused : runningHere;
   const speed = preview ? 3600 : speedHere;
+  const show = held?.show;
 
   useEffect(() => {
     if (!running) return;
@@ -189,6 +197,7 @@ function FoucaultPlay({
       const dt = Math.max(0, Math.min(0.05, (now - last) / 1000));
       last = now;
       clock.current += dt * speed;
+      if (clock.current >= SEEN_AFTER_S) show?.();
       trail.current.push(position(p, clock.current));
       if (trail.current.length > TRAIL) trail.current.shift();
       setFrame({ time: clock.current, trail: [...trail.current] });
@@ -196,7 +205,7 @@ function FoucaultPlay({
     };
     raf = requestAnimationFrame(tick);
     return () => cancelAnimationFrame(raf);
-  }, [running, speed, p]);
+  }, [running, speed, p, show]);
 
   const view = <FoucaultView p={p} time={frame.time} trail={frame.trail} />;
   if (preview) return view;
@@ -277,14 +286,19 @@ function FoucaultPlay({
                 value: degreesPerHour(p),
                 digits: 1,
                 unit: "°/h",
+                held: !held?.shown,
               },
             ]}
           />
-          <p className="text-sm text-secondary">
-            {fullTurnH(p) === null
-              ? t("experiments.foucault.play.never")
-              : t("experiments.foucault.play.full_turn", { hours: formatNumber(fullTurnH(p) ?? 0, 1, locale) })}
-          </p>
+          {held && (
+            <HeldAnswer held={held}>
+              <p className="text-sm text-secondary">
+                {fullTurnH(p) === null
+                  ? t("experiments.foucault.play.never")
+                  : t("experiments.foucault.play.full_turn", { hours: formatNumber(fullTurnH(p) ?? 0, 1, locale) })}
+              </p>
+            </HeldAnswer>
+          )}
         </div>
       </div>
     </WidgetCard>

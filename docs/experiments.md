@@ -2423,5 +2423,25 @@ below 1 cm/s.
    (2026-11-19: the hints of the waterwheel, of the smoke ring's and the
    sphere's automatic modes and of the cone gave it away, the sphere's with
    "a quarter turn ahead" and "up to about 4 Hz").
+
+   **The answer waits for a try** (`held.tsx`, 2026-11-19): nine play cards
+   showed the answer to their page's question from the first frame. Each now
+   holds it back until the exhibit has shown it, and says where it will stand,
+   with "Show the answer" for the reader who wants it at once. What "shown"
+   means is the page's: Foucault, an hour under the pendulum (the full turn and
+   the turn per hour); Coriolis, a throw at an aim of the reader's own (the
+   aim that hits, and the button that sets it); the peg, whatever follows the
+   catch (the outcome, the height a loop needs, the slack height and its line);
+   the cone, a roll to its end (the verdict, the axis's dashed path); the
+   elephant, the ball falling (its tilt limit); the overhang, a stack tipped
+   (the furthest reach, and its button); the coupled pendulums, half a beat
+   (the beat and the share that goes over); the cradle, the first second after
+   letting go (the speeds after the knock, the far share); the race, every
+   ball arrived in a race the reader started (the table by rank; before, the
+   tracks' own order, each place and time shown as its ball arrives). Once out,
+   an answer stays out for the visit, across new settings: hiding it again on
+   every slider would only be in the way. The cone still lies at the high end
+   of rails it will roll down (`start_for`, the engine's, with figures in the
+   prose): moving it would change the engine and its catalogue.
 4. **Seven languages**, the pages since, and the move to this site on
    2026-11-13 (`docs/plan.md`).

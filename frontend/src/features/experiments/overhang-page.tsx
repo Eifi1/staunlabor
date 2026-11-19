@@ -15,6 +15,7 @@ import { PreviewPending, type PreviewProps } from "./preview-mode";
 import { MOST_BLOCKS, blocksFor, even, harmonic, holds, layers, overhang } from "./simulate/overhang";
 import { SIDE } from "./stage";
 import { useExperimentsDefaults } from "./use-experiments";
+import { HeldAnswer, useHeld } from "./held";
 
 /** The drawing: a block length in its units, the edge's place, the margins. */
 const VIEW = { width: 300, scale: 80, edge: 130, top: 22, bottom: 18, table: 12 } as const;
@@ -240,6 +241,10 @@ function OverhangPlay({ blocks }: { blocks: OverhangRequest }) {
   const { t } = useTranslation();
   const locale = useLocale();
   const [lefts, setLefts] = useState<number[]>(() => flush(blocks.blocks));
+  // The furthest a stack can reach, and the button that builds it, once the
+  // reader has pushed a stack past what holds: they have found an edge of
+  // their own to set it against.
+  const held = useHeld();
   const n = lefts.length;
   const stack = layers(lefts);
   const standing = holds(lefts);
@@ -247,8 +252,11 @@ function OverhangPlay({ blocks }: { blocks: OverhangRequest }) {
   const tipping = stack.findIndex((layer) => layer.margin < -1e-12);
   const best = overhang(harmonic(n));
   const cm = (lengths: number) => formatNumber(lengths * blocks.length_m * 100, 1, locale);
-  const move = (index: number, left: number) =>
-    setLefts((now) => now.map((l, i) => (i === index ? Math.max(-2, Math.min(2, left)) : l)));
+  const move = (index: number, left: number) => {
+    const next = lefts.map((l, i) => (i === index ? Math.max(-2, Math.min(2, left)) : l));
+    setLefts(next);
+    if (!holds(next)) held.show();
+  };
   return (
     <WidgetCard
       title={t("experiments.overhang.play.title")}
@@ -261,9 +269,11 @@ function OverhangPlay({ blocks }: { blocks: OverhangRequest }) {
           <Button variant="secondary" size="sm" onClick={() => setLefts(even(n))}>
             {t("experiments.overhang.play.even")}
           </Button>
-          <Button variant="secondary" size="sm" onClick={() => setLefts(harmonic(n))}>
-            {t("experiments.overhang.play.furthest")}
-          </Button>
+          {held.shown && (
+            <Button variant="secondary" size="sm" onClick={() => setLefts(harmonic(n))}>
+              {t("experiments.overhang.play.furthest")}
+            </Button>
+          )}
         </>
       }
     >
@@ -313,6 +323,7 @@ function OverhangPlay({ blocks }: { blocks: OverhangRequest }) {
                 value: best * blocks.length_m * 100,
                 digits: 1,
                 unit: "cm",
+                held: !held.shown,
               },
               {
                 key: "even",
@@ -323,6 +334,7 @@ function OverhangPlay({ blocks }: { blocks: OverhangRequest }) {
               },
             ]}
           />
+          <HeldAnswer held={held}>{null}</HeldAnswer>
         </div>
       </div>
     </WidgetCard>

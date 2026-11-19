@@ -57,6 +57,9 @@ export interface Tile {
   tone?: StatTileTone;
   /** The bound the value is held to, said under it when it has crossed it. */
   note?: string;
+  /** A figure that answers the page's question: left out until the reader has
+   *  tried the exhibit (`features/experiments/held.tsx`). */
+  held?: boolean;
 }
 
 /** A widget's figures, as the kit's small tiles. A figure past its bound is in
@@ -73,20 +76,22 @@ export function Figures({ title, tiles }: { title?: string; tiles: Tile[] }) {
       {/* Hyphenated in the reader's language: the tile sets its label in
           capitals and German names these in one word. */}
       <StatTileGrid minTileWidth="8rem" lang={locale} className="gap-2 hyphens-auto">
-        {tiles.map((tile) => (
-          <StatTile
-            key={tile.key}
-            size="sm"
-            // The kit sets a small tile's label in capitals, and a capital ω
-            // is Ω, a capital η an H: a symbol's case is its meaning here.
-            label={<span className="normal-case">{tile.label}</span>}
-            value={tile.value ?? null}
-            format={(value) => formatNumber(value, tile.digits, locale)}
-            unit={tile.unit || undefined}
-            tone={tile.tone ?? "neutral"}
-            description={tile.note}
-          />
-        ))}
+        {tiles
+          .filter((tile) => !tile.held)
+          .map((tile) => (
+            <StatTile
+              key={tile.key}
+              size="sm"
+              // The kit sets a small tile's label in capitals, and a capital ω
+              // is Ω, a capital η an H: a symbol's case is its meaning here.
+              label={<span className="normal-case">{tile.label}</span>}
+              value={tile.value ?? null}
+              format={(value) => formatNumber(value, tile.digits, locale)}
+              unit={tile.unit || undefined}
+              tone={tile.tone ?? "neutral"}
+              description={tile.note}
+            />
+          ))}
       </StatTileGrid>
     </div>
   );

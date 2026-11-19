@@ -71,6 +71,10 @@ import { useTried } from "./tried";
 import fixtures from "./test-fixtures.json";
 
 const E = en.experiments;
+
+/** Asks a play card for the answer it holds back until the exhibit is tried
+ *  (`held.tsx`). */
+const showAnswer = () => fireEvent.click(screen.getByRole("button", { name: E.frame.show }));
 const chair = fixtures.chair as unknown as ChairAnalysis;
 const race = fixtures.race as unknown as RaceAnalysis;
 const elephant = fixtures.elephant as unknown as ElephantFigures;
@@ -502,9 +506,14 @@ describe("the race", () => {
     renderWithProviders(<RacePage />);
     expect(await screen.findByRole("img", { name: E.race.play.view })).toBeInTheDocument();
     expect(screen.getByRole("button", { name: E.race.play.start })).toBeInTheDocument();
-    // The ranking, in the order the balls arrive: the cycloid first, the
-    // hump last.
+    // Before a race, the table holds no place and no time: in finishing
+    // order it would answer the page's question.
     const table = screen.getByRole("table", { name: E.race.motion.table });
+    expect(table).not.toHaveTextContent("0.747");
+    expect(within(table).getAllByRole("row")[1]).toHaveTextContent(E.race.curves.line);
+    // Asked for, the ranking, in the order the balls arrive: the cycloid
+    // first, the hump last.
+    showAnswer();
     const ranked = within(table).getAllByRole("row").slice(1);
     expect(ranked).toHaveLength(6);
     expect(ranked[0]).toHaveTextContent(E.race.curves.cycloid);
@@ -846,6 +855,10 @@ describe("the double cone", () => {
     expect(await screen.findByRole("img", { name: E.cone.views.side })).toBeInTheDocument();
     expect(screen.getByRole("img", { name: E.cone.views.front })).toBeInTheDocument();
     expect(screen.getByRole("button", { name: E.cone.play.let_go })).toBeInTheDocument();
+    // Which way it rolls is the question: the verdict waits for a roll, or
+    // for the reader asking.
+    expect(screen.queryByText(E.cone.play.verdict_up)).not.toBeInTheDocument();
+    showAnswer();
     expect(screen.getByText(E.cone.play.verdict_up)).toBeInTheDocument();
     // The default rails rise 2.1 cm while the axis falls 1.9; up to 7.5° it rolls up.
     expect(screen.getByText(/rise by 2\.1 cm\. The cone's axis falls by 1\.9 cm/)).toBeInTheDocument();
@@ -858,6 +871,8 @@ describe("the double cone", () => {
     await screen.findByRole("img", { name: E.cone.views.side });
     const slope = screen.getByRole("slider", { name: E.cone.change.slope });
     fireEvent.change(slope, { target: { value: "10" } });
+    await screen.findByRole("img", { name: E.cone.views.side });
+    showAnswer();
     expect(await screen.findByText(E.cone.play.verdict_down)).toBeInTheDocument();
     const length = screen.getByRole("slider", { name: E.cone.change.length });
     fireEvent.change(length, { target: { value: "50" } });
@@ -922,6 +937,8 @@ describe("Galileo's pendulum", () => {
   it("shows the pendulum and its peg, and says the bob rises as high as it fell from", async () => {
     renderWithProviders(<PegPage />);
     expect(await screen.findByRole("img", { name: E.peg.view })).toBeInTheDocument();
+    expect(screen.queryByText(E.peg.play.outcome_same_height)).not.toBeInTheDocument();
+    showAnswer();
     expect(screen.getByText(E.peg.play.outcome_same_height)).toBeInTheDocument();
     // Let go at 30° on a metre of string: 13.4 cm up; over the top would take 125 cm.
     expect(
@@ -1012,6 +1029,10 @@ describe("Foucault's pendulum", () => {
     for (const place of ["winterthur", "pole", "equator", "sydney"] as const) {
       expect(screen.getByRole("button", { name: E.foucault.play.places[place] })).toBeInTheDocument();
     }
+    // The full turn is the question: it waits for an hour under the pendulum,
+    // or for the reader asking.
+    expect(screen.queryByText("Turning right round takes 32.5 hours here.")).not.toBeInTheDocument();
+    showAnswer();
     expect(screen.getByText("Turning right round takes 32.5 hours here.")).toBeInTheDocument();
     expect(screen.getAllByLabelText(E.equation.symbols).length).toBeGreaterThanOrEqual(3);
   });
@@ -1020,6 +1041,8 @@ describe("Foucault's pendulum", () => {
     renderWithProviders(<FoucaultPage />);
     await screen.findByRole("img", { name: E.foucault.view });
     fireEvent.click(screen.getByRole("button", { name: E.foucault.play.places.equator }));
+    await screen.findByRole("img", { name: E.foucault.view });
+    showAnswer();
     expect(await screen.findByText(E.foucault.play.never)).toBeInTheDocument();
   });
 
@@ -1038,6 +1061,12 @@ describe("the Coriolis carousel", () => {
     renderWithProviders(<CoriolisPage />);
     expect(await screen.findByRole("img", { name: E.coriolis.view })).toBeInTheDocument();
     expect(screen.getByRole("radio", { name: E.coriolis.play.frames.outside })).toBeInTheDocument();
+    // The aim that hits, and the button that sets it, wait for a throw with
+    // an aim of the reader's own.
+    expect(screen.queryByText("Aiming 50.4° ahead hits it.")).not.toBeInTheDocument();
+    expect(screen.queryByRole("button", { name: E.coriolis.play.aim_lead })).not.toBeInTheDocument();
+    fireEvent.change(screen.getByRole("slider", { name: E.coriolis.play.aim }), { target: { value: "20" } });
+    fireEvent.click(screen.getByRole("button", { name: E.coriolis.play.throw }));
     expect(screen.getByText("Aiming 50.4° ahead hits it.")).toBeInTheDocument();
     expect(screen.getAllByLabelText(E.equation.symbols).length).toBeGreaterThanOrEqual(3);
   });
@@ -1045,6 +1074,7 @@ describe("the Coriolis carousel", () => {
   it("aims ahead when asked, and then misses by nothing", async () => {
     renderWithProviders(<CoriolisPage />);
     await screen.findByRole("img", { name: E.coriolis.view });
+    showAnswer();
     fireEvent.click(screen.getByRole("button", { name: E.coriolis.play.aim_lead }));
     expect((await screen.findAllByDisplayValue("50.4")).length).toBeGreaterThan(0);
   });
@@ -1056,6 +1086,10 @@ describe("Newton's cradle", () => {
     expect(await screen.findByRole("img", { name: E.cradle.view })).toBeInTheDocument();
     for (const n of ["1", "2", "3", "4"]) expect(screen.getByRole("radio", { name: n })).toBeInTheDocument();
     expect(screen.queryByRole("radio", { name: "5" })).not.toBeInTheDocument();
+    // What leaves the other end waits for the balls to be let go, or for the
+    // reader asking.
+    expect(screen.queryByText(/0\.09 · 0\.59 m\/s$/)).not.toBeInTheDocument();
+    showAnswer();
     expect(await screen.findByText(/0\.09 · 0\.59 m\/s$/)).toBeInTheDocument();
     expect(screen.getAllByLabelText(E.equation.symbols).length).toBeGreaterThanOrEqual(3);
   });
@@ -1064,6 +1098,7 @@ describe("Newton's cradle", () => {
     renderWithProviders(<CradlePage />);
     await screen.findByRole("img", { name: E.cradle.view });
     fireEvent.click(screen.getByRole("radio", { name: E.cradle.play.spacings.gap }));
+    showAnswer();
     expect(await screen.findByText(/0\.01 · 0\.01 · 0\.01 · 0\.01 · 0\.59 m\/s$/)).toBeInTheDocument();
   });
 
@@ -1400,6 +1435,10 @@ describe("the overhang", () => {
     const holds = (cm: string, lengths: string) =>
       E.overhang.play.holds.replace("{{cm}}", cm).replace("{{lengths}}", lengths);
     expect(screen.getByText(holds("0.0", "0.00"))).toBeInTheDocument();
+    // The furthest stack is the question: its button waits for a stack the
+    // reader has tipped, or for the reader asking.
+    expect(screen.queryByRole("button", { name: E.overhang.play.furthest })).not.toBeInTheDocument();
+    showAnswer();
     fireEvent.click(screen.getByRole("button", { name: E.overhang.play.furthest }));
     expect(screen.getByText(holds("28.3", "1.41"))).toBeInTheDocument();
     fireEvent.click(screen.getByRole("button", { name: E.overhang.play.even }));
@@ -1412,9 +1451,13 @@ describe("the overhang", () => {
     const top = await screen.findByRole("slider", { name: E.overhang.play.block.replace("{{n}}", "1") });
     for (let i = 0; i < 9; i++) fireEvent.keyDown(top, { key: "ArrowRight", shiftKey: true });
     expect(screen.getByText(new RegExp(`^${E.overhang.play.holds.split("{{cm}}")[0]}9[.,]0 cm`))).toBeInTheDocument();
+    expect(screen.queryByRole("button", { name: E.overhang.play.furthest })).not.toBeInTheDocument();
     fireEvent.keyDown(top, { key: "ArrowRight", shiftKey: true });
     fireEvent.keyDown(top, { key: "ArrowRight", shiftKey: true });
     expect(screen.getByText(E.overhang.play.tips_one)).toBeInTheDocument();
+    // Tipped, the reader has found an edge of their own: now the furthest.
+    expect(screen.getByRole("button", { name: E.overhang.play.furthest })).toBeInTheDocument();
+    expect(screen.queryByRole("button", { name: E.frame.show })).not.toBeInTheDocument();
     fireEvent.click(screen.getByRole("button", { name: E.overhang.play.flush }));
     expect(screen.queryByText(E.overhang.play.tips_one)).not.toBeInTheDocument();
   });

@@ -133,7 +133,9 @@
       "computed": "Come si calcola",
       "more_at": "Altro sull'exhibit",
       "next": "Exhibit successivo: {{name}}",
-      "onward": "Altri exhibit"
+      "onward": "Altri exhibit",
+      "held": "La risposta compare qui non appena l'avrà provato.",
+      "show": "Mostra la risposta"
     },
     "play": {
       "pause": "Pausa",
@@ -763,7 +765,7 @@
       },
       "play": {
         "title": "Le lasci andare",
-        "hint": "Avvii la corsa e osservi dove si trova ciascuna pallina. I tempi accanto ai colori sono quelli del motore di calcolo, nell'ordine in cui arrivano le palline. Alla bandierina ogni pista finisce e la pallina vola avanti fino a una vasca imbottita, dove finiscono tutte e sei insieme.",
+        "hint": "Avvii la corsa e osservi dove si trova ciascuna pallina. Appena una pallina arriva, compaiono il suo posto e il suo tempo, quello del motore di calcolo. Alla bandierina ogni pista finisce e la pallina vola avanti fino a una vasca imbottita, dove finiscono tutte e sei insieme.",
         "start": "Avvia",
         "pause": "Pausa",
         "run": "Riprendi",
@@ -783,7 +785,7 @@
         "acceleration": "Accelerazione",
         "velocity_label": "La velocità di ogni pallina come freccia da un unico punto",
         "acceleration_label": "L’accelerazione di ogni pallina come freccia da un unico punto",
-        "table": "Il tempo, la velocità e l’accelerazione di ogni pallina, per posizione",
+        "table": "Il tempo, la velocità e l’accelerazione di ogni pallina",
         "track": "Pista",
         "time": "Tempo"
       },
@@ -2042,7 +2044,7 @@
       "view": "Il pendolo di Newton visto di fronte: la barra, i fili e le sfere",
       "play": {
         "title": "Sollevare e lasciare",
-        "hint": "Lasci cadere una sfera, poi due. Con 0,1 mm d'aria tra le sfere i conti tornano esatti.",
+        "hint": "Lasci cadere una sfera, poi due, e conti quante ne volano via all'altra estremità.",
         "let_go": "Lasciare",
         "pause": "Pausa",
         "run": "Continuare",

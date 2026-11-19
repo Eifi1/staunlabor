@@ -38,7 +38,19 @@ function contactX(ex: ConeExhibit, x: number): number {
   return x + offsets(ex)[0] * radiusUnderM(ex, x);
 }
 
-export function ConeSideView({ ex, x, turnDeg }: { ex: ConeExhibit; x: number; turnDeg: number }) {
+/** `axisPath`: the axis's dashed path, which says which way the cone will
+ *  roll and why; the play card leaves it out until the reader has let it go. */
+export function ConeSideView({
+  ex,
+  x,
+  turnDeg,
+  axisPath = true,
+}: {
+  ex: ConeExhibit;
+  x: number;
+  turnDeg: number;
+  axisPath?: boolean;
+}) {
   const { t } = useTranslation();
   const hex = useChartHex();
   const colour = hex[CONE_HUE % hex.length];
@@ -82,16 +94,18 @@ export function ConeSideView({ ex, x, turnDeg }: { ex: ConeExhibit; x: number; t
         vectorEffect="non-scaling-stroke"
       />
       {/* The axis's path: falling while the rails rise. */}
-      <line
-        x1={0}
-        y1={-axisHeightM(ex, 0)}
-        x2={length}
-        y2={-axisHeightM(ex, length)}
-        stroke="currentColor"
-        strokeDasharray="4 3"
-        strokeWidth={1.5}
-        vectorEffect="non-scaling-stroke"
-      />
+      {axisPath && (
+        <line
+          x1={0}
+          y1={-axisHeightM(ex, 0)}
+          x2={length}
+          y2={-axisHeightM(ex, length)}
+          stroke="currentColor"
+          strokeDasharray="4 3"
+          strokeWidth={1.5}
+          vectorEffect="non-scaling-stroke"
+        />
+      )}
       <circle cx={x} cy={-z} r={big} fill={colour} opacity={0.25} />
       <circle cx={x} cy={-z} r={rho} fill="none" stroke={colour} strokeWidth={2} vectorEffect="non-scaling-stroke" />
       <line

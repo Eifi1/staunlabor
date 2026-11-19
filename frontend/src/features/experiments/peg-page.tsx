@@ -12,6 +12,7 @@ import { ExhibitFrame } from "./exhibit-frame";
 import { BuildPending } from "./build-pending";
 import { PreviewPending, type PreviewMode, type PreviewProps } from "./preview-mode";
 import { startsRunning } from "./play";
+import { HeldAnswer, useHeld, type Held } from "./held";
 import {
   outcome,
   position,
@@ -58,6 +59,7 @@ export function PegPage() {
   const defaults = useExperimentsDefaults();
   const [build, setBuild] = useState<PegPendulum | null>(null);
   const p = build ?? defaults.data?.peg ?? null;
+  const held = useHeld();
   return (
     <ExhibitFrame
       exhibit="peg"
@@ -82,7 +84,7 @@ export function PegPage() {
         <BuildPending pending={defaults.isPending} error={defaults.error} />
       ) : (
         <>
-          <PegPlay key={JSON.stringify(p)} p={p} onChange={setBuild} />
+          <PegPlay key={JSON.stringify(p)} p={p} onChange={setBuild} held={held} />
           <PegBuild p={p} onChange={setBuild} />
         </>
       )}
@@ -102,11 +104,15 @@ function PegView({
   s,
   trail,
   onPeg,
+  hideSlack = false,
 }: {
   p: PegPendulum;
   s: PegState;
   trail: Array<[number, number]>;
   onPeg?: (depth: number) => void;
+  /** The height the string goes slack at is drawn only for a swing that does
+   *  so: before the reader has seen it, it would say what happens. */
+  hideSlack?: boolean;
 }) {
   const { t } = useTranslation();
   const hex = useChartHex();
@@ -161,7 +167,7 @@ function PegView({
         opacity={0.7}
         vectorEffect="non-scaling-stroke"
       />
-      {slack !== null && (
+      {slack !== null && !hideSlack && (
         <line
           x1={-(length + margin)}
           y1={length - slack}
@@ -218,9 +224,10 @@ function PegView({
 function PegPlay({
   p,
   onChange,
+  held,
   preview = false,
   paused = false,
-}: { p: PegPendulum; onChange?: (next: PegPendulum) => void } & PreviewMode) {
+}: { p: PegPendulum; onChange?: (next: PegPendulum) => void; held?: Held } & PreviewMode) {
   const { t } = useTranslation();
   const sim = useRef({ s: start(p), clock: 0, owed: 0, trail: [] as Array<[number, number]>, i: 0 });
   const [runningHere, setRunning] = useState(startsRunning);
@@ -229,6 +236,7 @@ function PegPlay({
   const [said, setSaid] = useState<string | null>(null);
   const running = preview ? !paused : runningHere;
   const speed = preview ? 1 : speedHere;
+  const show = held?.show;
 
   useEffect(() => {
     if (!running) return;
@@ -250,6 +258,9 @@ function PegPlay({
         m.clock += STEP_S;
         m.i += 1;
         if (happened.length) setSaid(happened[happened.length - 1][1]);
+        // Whatever comes after the catch shows the outcome: it swings back
+        // (released), goes slack, or goes over the top.
+        if (happened.some(([, kind]) => kind !== "caught")) show?.();
         if (m.i % TRAIL_EVERY === 0) {
           m.trail.push(position(p, m.s));
           if (m.trail.length > keep) m.trail.shift();
@@ -260,7 +271,7 @@ function PegPlay({
     };
     raf = requestAnimationFrame(tick);
     return () => cancelAnimationFrame(raf);
-  }, [running, speed, p]);
+  }, [running, speed, p, show]);
 
   const letGo = () => {
     sim.current = { s: start(p), clock: 0, owed: 0, trail: [], i: 0 };
@@ -308,12 +319,17 @@ function PegPlay({
               s={frame.s}
               trail={frame.trail}
               onPeg={(depth) => onChange?.({ ...p, peg_depth_m: Math.round(depth * 100) / 100 })}
+              hideSlack={!held?.shown}
             />
           </div>
           <div className={SIDE.column}>
-            <p className="text-sm font-medium text-primary">{t(`experiments.peg.play.outcome_${outcome(p)}`)}</p>
+            {held && (
+              <HeldAnswer held={held}>
+                <p className="text-sm font-medium text-primary">{t(`experiments.peg.play.outcome_${outcome(p)}`)}</p>
+              </HeldAnswer>
+            )}
             {said && <p className="text-sm text-secondary">{t(`experiments.peg.play.events.${said}`)}</p>}
-            <PegFigures p={p} />
+            <PegFigures p={p} held={!held?.shown} />
           </div>
         </div>
       )}
@@ -321,7 +337,9 @@ function PegPlay({
   );
 }
 
-function PegFigures({ p }: { p: PegPendulum }) {
+/** `held`: the height a loop needs, set beside the start height, and the
+ *  height it goes slack at, there only when it does, both say the outcome. */
+function PegFigures({ p, held }: { p: PegPendulum; held: boolean }) {
   const { t } = useTranslation();
   const slack = slackHeightM(p);
   return (
@@ -347,10 +365,20 @@ function PegFigures({ p }: { p: PegPendulum }) {
           value: 2.5 * smallRadiusM(p) * 100,
           digits: 1,
           unit: "cm",
+          held,
         },
         ...(slack === null
           ? []
-          : [{ key: "slack", label: t("experiments.peg.figures.slack"), value: slack * 100, digits: 1, unit: "cm" }]),
+          : [
+              {
+                key: "slack",
+                label: t("experiments.peg.figures.slack"),
+                value: slack * 100,
+                digits: 1,
+                unit: "cm",
+                held,
+              },
+            ]),
       ]}
     />
   );
