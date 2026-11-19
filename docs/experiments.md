@@ -643,12 +643,21 @@ barrel).
   version then live), where the budget allows a couple of hundred
   milliseconds; now 9 300, against the exhibit's 7 800, with the same figures
   to a millionth. The whole stack is run once for its launch and its forces
-  (it was run twice, a fifth to a third of the cost). Dearest still, at the
-  page's own corners, is a small ball pinched under big ones at 200 MPa (2,
-  20 and 20 cm from 3 m: 140 000 steps): it rattles between the floor and the
-  big ball, every hit a struck contact, and rings too fast (some 6 kHz) for a
-  large step. The impact's forces, overlaps and positions are recorded
-  every 0.1 ms for 30 ms.
+  (it was run twice, a fifth to a third of the cost). A launch is bounded
+  before it begins: its fall and at most 0.5 s after the floor, at worst all
+  in small steps, 385 000 steps for the three from 3 m and 180 000 from 5 cm.
+  The dearest of the page's own corners come near it. Three 20 cm balls at
+  0.5 MPa and a restitution of 0.3, from 5 cm, take 151 000, some 4 s of a
+  laptop's core: they do not bounce but sink into each other at 1 to 4 mm/s,
+  faster than a resting contact moves, and the top ball never leaves, so the
+  whole window is stepped small. A 2 cm ball under two of 20 cm at 200 MPa
+  from 3 m takes 140 000, nearly all before the floor: the air brakes the
+  small ball harder than the big one on it, which presses on it through the
+  fall, and that contact, still to 0.6 µm/s, swings more than half a radian
+  a large step. Letting a resting contact's step take a whole radian cuts
+  that one to 9 000 and leaves the soft ones as they are; where it moved the
+  figures most, a drop a nanometre higher moves them as much. The impact's
+  forces, overlaps and positions are recorded every 0.1 ms for 30 ms.
 - **The textbook's model** is kept beside it for comparison: instantaneous hits
   one after another (`sequential_launch`), with and without losses, and the
   `(2ⁿ − 1)·v` of each ball far lighter than the one below.
