@@ -421,6 +421,9 @@
         "pause": "Pausa",
         "run": "Continuar",
         "restart": "Empezar de nuevo",
+        "let_go": "Soltar el coche",
+        "aim": "Objetivo: lleve el coche hasta las dos banderas.",
+        "done": "Conseguido: el coche ha llegado a las dos banderas.",
         "plus": "Botón +, atrae el coche hacia la bobina",
         "minus": "Botón −, empuja el coche fuera de la bobina",
         "plus_caption": "Entrando",
@@ -430,7 +433,7 @@
         "tops": "Cimas alcanzadas",
         "time": "Tiempo",
         "autopilot": "Automático: sincronización perfecta",
-        "autopilot_hint": "El + desde el pie de la rampa hasta el centro, el − desde el centro hasta la otra rampa, con el cambio justo cuando el coche pasa por el centro — {{window}} cm a cada lado. La curva bajo «El truco» muestra por qué.",
+        "autopilot_hint": "Deje que la regla pulse y observe cuándo lo hace.",
         "speed": "Velocidad",
         "speeds": {
           "1": "Tiempo real",

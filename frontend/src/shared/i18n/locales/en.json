@@ -421,6 +421,9 @@
         "pause": "Pause",
         "run": "Run",
         "restart": "Start again",
+        "let_go": "Let the car go",
+        "aim": "The aim: get the car up to both flags.",
+        "done": "Done: the car has reached both flags.",
         "plus": "Button +, pulls the car into the coil",
         "minus": "Button −, pushes the car out of the coil",
         "plus_caption": "Coming in",
@@ -430,7 +433,7 @@
         "tops": "Tops reached",
         "time": "Time",
         "autopilot": "Auto: perfect timing",
-        "autopilot_hint": "Plus from the foot of the ramp to the middle, minus from the middle to the other ramp, switched exactly as the car passes the middle — {{window}} cm each side. The curve under “The trick” shows why.",
+        "autopilot_hint": "Let the rule press, and watch when it does.",
         "speed": "Speed",
         "speeds": {
           "1": "Real time",

@@ -24,6 +24,7 @@ import type {
 } from "@/shared/types";
 import { ChairPage, autoView } from "./chair-page";
 import { CoilPage } from "./coil-page";
+import { CoilTrack } from "./coil-track";
 import { Equation } from "./equation";
 import { SpherePage, tempoFor } from "./sphere-page";
 import { PlatformPage, autoPosture } from "./platform-page";
@@ -386,6 +387,28 @@ describe("the coil", () => {
     // against some 50: the coil is fast, the hand is slow.
     expect(await screen.findByText(/1\.3 ms/)).toBeInTheDocument();
     expect(screen.getAllByText(/\b5\d ms/).length).toBeGreaterThan(0);
+  });
+
+  it("says the aim above the track, and lights a flag the car has reached", async () => {
+    renderWithProviders(<CoilPage />);
+    expect(await screen.findByText(E.coil.play.aim)).toBeInTheDocument();
+    // The auto mode's words no longer give the answer away.
+    expect(E.coil.play.autopilot_hint).not.toMatch(/cm|centre|middle/);
+    const { container } = renderWithProviders(
+      <CoilTrack
+        exhibit={fixtures.defaults.coil as never}
+        x={0}
+        press={0}
+        reached={[true, false]}
+        peak={{ height: 0.02, side: 1 }}
+      />,
+    );
+    const flags = container.querySelectorAll("g.text-success, g.text-muted");
+    expect([...flags].map((g) => g.getAttribute("class"))).toEqual(["text-success", "text-muted"]);
+    // How high the car last came: a mark on the right ramp, 2 cm up.
+    const mark = container.querySelector("g.text-brand circle");
+    expect(Number(mark?.getAttribute("cx"))).toBeGreaterThan(0.1);
+    expect(Number(mark?.getAttribute("cy"))).toBeCloseTo(-0.02, 9);
   });
 
   it("holds a button while it is pressed, and lets go", async () => {
@@ -1537,6 +1560,14 @@ describe("for a reader who asked for reduced motion", () => {
   });
   afterEach(() => {
     vi.unstubAllGlobals();
+  });
+
+  it("puts the magnet car's start on the track, and lets it go from there", async () => {
+    renderWithProviders(<CoilPage />);
+    const go = await screen.findByRole("button", { name: E.coil.play.let_go });
+    fireEvent.click(go);
+    expect(screen.queryByRole("button", { name: E.coil.play.let_go })).toBeNull();
+    expect(screen.getByRole("button", { name: E.coil.play.pause })).toBeInTheDocument();
   });
 
   // Every twin that would start moving by itself as its page opens.

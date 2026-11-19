@@ -421,6 +421,9 @@
         "pause": "Szünet",
         "run": "Folytatás",
         "restart": "Újrakezdés",
+        "let_go": "A kocsi elengedése",
+        "aim": "A cél: juttassa fel a kocsit mindkét zászlóig.",
+        "done": "Sikerült: a kocsi mindkét zászlót elérte.",
         "plus": "+ gomb, behúzza a kocsit a tekercsbe",
         "minus": "− gomb, kilöki a kocsit a tekercsből",
         "plus_caption": "Befelé",
@@ -430,7 +433,7 @@
         "tops": "Elért tetők",
         "time": "Idő",
         "autopilot": "Automatikus: tökéletes időzítés",
-        "autopilot_hint": "+ a rámpa aljától a középig, − a középtől a másik rámpáig, pontosan abban a pillanatban átkapcsolva, amikor a kocsi áthalad a közepén — mindkét oldalon {{window}} cm. Hogy miért, azt „A trükk” alatti görbe mutatja.",
+        "autopilot_hint": "Hagyja, hogy a szabály nyomja a gombokat, és figyelje, mikor teszi.",
         "speed": "Sebesség",
         "speeds": {
           "1": "Valós idő",

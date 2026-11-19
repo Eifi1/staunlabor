@@ -421,6 +421,9 @@
         "pause": "Pausa",
         "run": "Riprendi",
         "restart": "Ricomincia",
+        "let_go": "Lasciare andare il carrello",
+        "aim": "Obiettivo: porti il carrello fino a entrambe le bandierine.",
+        "done": "Fatto: il carrello ha raggiunto entrambe le bandierine.",
         "plus": "Pulsante +, tira il carrello nella bobina",
         "minus": "Pulsante −, spinge il carrello fuori dalla bobina",
         "plus_caption": "In entrata",
@@ -430,7 +433,7 @@
         "tops": "Cime raggiunte",
         "time": "Tempo",
         "autopilot": "Automatico: tempismo perfetto",
-        "autopilot_hint": "+ dal piede della rampa fino al centro, − dal centro fino all'altra rampa, con il passaggio dall'uno all'altro esattamente quando il carrello supera il centro — {{window}} cm per lato. La curva sotto “Il trucco” mostra perché.",
+        "autopilot_hint": "Lasci premere la regola e guardi quando lo fa.",
         "speed": "Velocità",
         "speeds": {
           "1": "Tempo reale",

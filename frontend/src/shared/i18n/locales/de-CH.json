@@ -421,6 +421,9 @@
         "pause": "Anhalten",
         "run": "Weiter",
         "restart": "Neu starten",
+        "let_go": "Wagen loslassen",
+        "aim": "Ziel: Bringen Sie den Wagen bis zu beiden Fahnen.",
+        "done": "Geschafft: Der Wagen war an beiden Fahnen.",
         "plus": "Taste +, zieht den Wagen in die Spule",
         "minus": "Taste −, stösst den Wagen aus der Spule",
         "plus_caption": "Hineinfahren",
@@ -430,7 +433,7 @@
         "tops": "Oben angekommen",
         "time": "Zeit",
         "autopilot": "Automatisch: perfektes Timing",
-        "autopilot_hint": "Plus vom Fuss der Rampe bis zur Mitte, minus von der Mitte bis zur anderen Rampe, umgeschaltet genau dann, wenn der Wagen die Mitte passiert – {{window}} cm auf jeder Seite. Die Kurve unter «Der Trick» zeigt, warum.",
+        "autopilot_hint": "Lassen Sie die Regel drücken und schauen Sie zu, wann sie es tut.",
         "speed": "Tempo",
         "speeds": {
           "1": "Echtzeit",

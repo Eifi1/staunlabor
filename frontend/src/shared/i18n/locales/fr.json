@@ -421,6 +421,9 @@
         "pause": "Pause",
         "run": "Reprendre",
         "restart": "Recommencer",
+        "let_go": "Lâcher la voiture",
+        "aim": "Le but : amener la voiture jusqu’aux deux drapeaux.",
+        "done": "Réussi : la voiture a atteint les deux drapeaux.",
         "plus": "Bouton +, attire la voiture dans la bobine",
         "minus": "Bouton −, repousse la voiture hors de la bobine",
         "plus_caption": "Entrée",
@@ -430,7 +433,7 @@
         "tops": "Sommets atteints",
         "time": "Temps",
         "autopilot": "Automatique : synchronisation parfaite",
-        "autopilot_hint": "+ du pied de la rampe jusqu’au milieu, − du milieu jusqu’à l’autre rampe, avec la commutation exactement quand la voiture passe le milieu — {{window}} cm de chaque côté. La courbe sous « Le tour » montre pourquoi.",
+        "autopilot_hint": "Laissez la règle appuyer et regardez quand elle le fait.",
         "speed": "Vitesse",
         "speeds": {
           "1": "Temps réel",

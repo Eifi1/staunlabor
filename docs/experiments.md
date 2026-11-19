@@ -257,6 +257,18 @@ because `Ψ` grows with the turns as fast as `1/R` falls (of thinner wire, as
 the first version said, `R` grows faster and a pass gains less); a first guess of 400
 turns at 3 V drew 455 mA, off the meter's scale. All of it is a slider.
 
+**The aim on the track** (the review of the coil's page, 2026-11-19: the
+start was unclear and "reached the top 0" in the figures too abstract). Over
+the track one line says the aim, "get the car up to both flags", and says it
+is done once it is. A flag lights when the car has reached it, and a dot marks
+on its ramp how high the car came at its last turn, so a better pass shows
+where the eye already is. A reader who asked for less motion finds the car
+standing still with "Let the car go" on the track itself, not only "Run" in
+the header. The track, the buttons and the meters stand in one column at most
+64rem wide: across a wide screen the buttons stood over 1000 px apart. The
+auto mode says only "let the rule press, and watch when it does"; how it
+presses is the trick's to show.
+
 **What it shows.**
 
 * **The coil is fast and the hand is slow.** At the exhibit each button has its
