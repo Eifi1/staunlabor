@@ -135,7 +135,6 @@
       "next": "Nächstes Exponat: {{name}}",
       "onward": "Weitere Exponate"
     },
-    "unchecked": "Die Prüfung der Berechnungen steht noch aus: Zahlen und Darstellungen auf diesen Seiten können sich noch ändern.",
     "play": {
       "pause": "Anhalten",
       "run": "Weiter"
@@ -3289,6 +3288,224 @@
         "system": "Die Seite rechnet die Frequenz der zweiten Gabel mit dem Verfahren von Rayleigh aus der Schwingungsform einer eingespannten Zinke (βL = 1,875) und addiert die beiden ausklingenden Schwingungen. Angenommen ist eine Gabel mit 440 Hz, Zinken von 20 g und einer Abklingzeit von 6 s.",
         "check": "Die Tests der Seite halten die Schwingungsform an ihre Gleichung, prüfen, dass die Zinke an der Spitze wie ein Viertel ihrer Masse wirkt, und vergleichen Rayleighs Schätzung mit der exakten Frequenz einer Zinke mit einer Masse an der Spitze: Für 1 g liegt sie weniger als 0,1 % zu hoch. Gerechnet wird in Ihrem Browser, mit denselben Formeln wie im Rechenkern der Seite.",
         "left_out": "Weggelassen: die Resonanzkästen und der Raum; dass der Reiter die Schwingungsform selbst ein wenig verändert; die Kopplung der beiden Zinken und der Stiel; das Ohr, das schnelle Schwebungen nicht mehr als An- und Abschwellen hört, sondern als Rauheit und schliesslich als zwei Töne."
+      }
+    },
+    "checks": {
+      "title": "Nachprüfen",
+      "intro": "Grenzfälle, die sich von Hand ausrechnen lassen. Zu jedem steht die Formel aus einer veröffentlichten Quelle, der Wert von Hand und der Wert, den diese Seite rechnet. Wo keine Quelle die Formel genau so nennt, steht «hergeleitet» und der eine Schritt dazu.",
+      "by_hand": "Von Hand",
+      "page": "Die Seite rechnet",
+      "deviation": "Abweichung {{value}}, erlaubt {{allowed}}",
+      "setting": "Einstellung",
+      "why": "Was der Fall prüft",
+      "derived": "hergeleitet",
+      "step": "Der Schritt",
+      "sources": "Quellen",
+      "original": "Zitat im Original",
+      "status": {
+        "unchecked": "Rechnungen noch nicht geprüft",
+        "checked": "Rechnungen geprüft am {{date}}",
+        "to_cases": "Nachprüfen"
+      },
+      "admin": {
+        "check": "Als geprüft bestätigen",
+        "uncheck": "Prüfung zurücknehmen",
+        "failed": "Das hat nicht geklappt. Bitte noch einmal versuchen."
+      },
+      "overview": "Die Rechnungen werden Exponat für Exponat nachgeprüft: {{checked}} von {{total}} sind geprüft.",
+      "symbols": {
+        "f0": "Frequenz der kleinsten Schwingung",
+        "f": "Frequenz",
+        "g": "Fallbeschleunigung, 9,80665",
+        "k": "Trägheitsfaktor I/(m r²) der Kugel",
+        "rho": "Abstand der Kugelmitte von der Mitte der Hohlkugel, R − r",
+        "theta0": "Ausschlag, ab dem tiefsten Punkt",
+        "K": "vollständiges elliptisches Integral erster Art",
+        "theta": "Winkel ab dem tiefsten Punkt",
+        "Omega": "Umlaufrate des Kreises",
+        "gprime": "der Teil der Schwerkraft, der die Kugelmitte bewegt",
+        "omega": "Kreisfrequenz des Wippens",
+        "E": "Energie pro Kilogramm Kugel",
+        "v": "Geschwindigkeit",
+        "h": "Höhe über dem tiefsten Punkt",
+        "mu": "nötige Haftreibungszahl",
+        "m": "Masse",
+        "r": "Radius der Kugel",
+        "inertia": "Trägheitsmoment",
+        "N": "Druck der Wand",
+        "current": "Strom",
+        "U": "Spannung der Batterie",
+        "R": "Widerstand der Spule",
+        "L": "Induktivität",
+        "tau": "Zeitkonstante",
+        "t": "Zeit",
+        "a_in": "Radius der Spule, in Zoll",
+        "b_in": "Länge der Spule, in Zoll",
+        "n": "Windungen",
+        "Psi": "Fluss durch alle Windungen",
+        "dipole": "magnetisches Moment des Magneten",
+        "mu0": "magnetische Feldkonstante",
+        "a": "mittlerer Radius einer Windung",
+        "z": "Abstand einer Windung vom Magneten, entlang der Achse",
+        "Br": "Remanenz des Magneten",
+        "V": "Volumen des Magneten",
+        "Q": "Ladung durch das Messgerät",
+        "T": "Periode, hin und zurück",
+        "R_arc": "Radius der Rampenbögen",
+        "l": "Länge des flachen Stücks",
+        "v0": "Geschwindigkeit auf dem flachen Stück",
+        "dE": "Energieverlust in einem Durchgang",
+        "coupling": "Kopplung dΨ/dx: Volt pro m/s, Newton pro Ampere",
+        "x": "Ort des Wagens",
+        "W": "Verluste: Rollen, Funken, Endanschlag",
+        "Emech": "Bewegungs- und Lageenergie des Wagens",
+        "xy": "Ort im Bild",
+        "XYZ": "Ort des Punkts vom Auge aus, Z nach vorn",
+        "focal": "Abstand des Bildschirms vom Auge",
+        "P": "ein Punkt des Stuhls",
+        "eye": "das Auge im Guckloch",
+        "w": "die Verzerrung",
+        "delta": "Weg des Auges",
+        "alpha": "Sehschärfe, eine Bogenminute",
+        "phi": "Winkel zwischen Bewegung und Sehlinie",
+        "d12": "Abstände der beiden Enden vom Auge",
+        "eta": "Winkel zwischen den beiden Enden",
+        "b": "Augenabstand"
+      },
+      "cases": {
+        "sphere": {
+          "small_swing": {
+            "title": "Kleine Schwingung am Boden",
+            "setting": "Hohlkugel Ø 40 cm, Vollkugel Ø 4 cm, ohne Rollwiderstand und ohne Hand: um 2° ausgelenkt und losgelassen.",
+            "reads": "Rollend schwingt die Kugel wie ein Pendel der Länge ρ unter 5/7 der Schwerkraft; die anderen 2/7 drehen sie.",
+            "why": "Prüft das Rollen: Gleitend schwänge dieselbe Kugel mit 1,17 Hz. Die Abweichung von 0,008 % ist die des Ausschlags von 2°, denn die Formel gilt für den kleinsten."
+          },
+          "hollow_ball": {
+            "title": "Die Hohlkugel",
+            "setting": "Wie oben, aber mit einer dünnwandigen Hohlkugel als Kugel.",
+            "reads": "Dieselbe Formel mit k = 2/3: Eine Hohlkugel hat ihre Masse aussen und braucht mehr zum Drehen.",
+            "why": "Prüft, dass das Trägheitsmoment eingeht und nicht ein fester Faktor 5/7.",
+            "step": "Die erste Quelle gibt die Formel für jedes k = I/(m r²); eingesetzt ist k = 2/3 der Hohlkugel aus der zweiten."
+          },
+          "wide_swing": {
+            "title": "Weite Schwingung bis zur Waagrechten",
+            "setting": "Vollkugel, ohne Rollwiderstand, um 90° ausgelenkt und losgelassen.",
+            "reads": "Weit ausgelenkt schwingt ein Pendel langsamer, um den Faktor π/(2K) mit dem elliptischen Integral K.",
+            "why": "Prüft die Bewegungsgleichung weit weg von kleinen Winkeln: 0,84 Hz statt 0,99 Hz. K ist hier als Integral summiert, nicht wie in der Engine über das arithmetisch-geometrische Mittel.",
+            "step": "Die erste Quelle zeigt, dass die rollende Kugel genau die Pendelgleichung mit g/(1+k) erfüllt; die zweite gibt deren Periode für jeden Ausschlag."
+          },
+          "circle_any_size": {
+            "title": "Kreisbahn, gleich tief in jeder Kugel",
+            "setting": "Hohlkugel Ø 1 m statt 40 cm, Vollkugel Ø 4 cm, ohne Rollwiderstand: auf der Kreisbahn für 2 Hz gestartet und 10 s laufen gelassen.",
+            "reads": "Ein Kreis mit der Rate Ω liegt g′/Ω² unter dem Äquator, gleich wie gross die Kugel ist.",
+            "why": "Prüft die Bewegung im Raum, nicht nur in einer Ebene: Nach 10 s liegt die Kugel noch 4,4358 cm tief, wie in der 40-cm-Kugel.",
+            "step": "Für die rollende Kugel ist das ein Kegelpendel unter g′ = g/(1+k). Belegt ist, dass der Drall um die Normale erhalten bleibt (Routh). Dass die Kugelmitte dann wie ein Kugelpendel unter g′ läuft, folgt daraus in einem Schritt, den keine der Quellen ausschreibt."
+          },
+          "wobble": {
+            "title": "Das Wackeln einer schiefen Bahn",
+            "setting": "Vollkugel auf der Kreisbahn bei 60°, aber 0,3° zu hoch gestartet.",
+            "reads": "Eine leicht gestörte Kreisbahn wippt mit Ω·√(1 + 3cos²θ) auf und ab.",
+            "why": "Prüft, wie stabil die Kreisbahn ist; die Seite nennt das «noch nicht in der Ebene». 0,3° sind nicht unendlich klein, daher 0,02 % Abweichung.",
+            "step": "Die Quelle rechnet das Kugelpendel, mit dem Winkel ab der Senkrechten nach unten wie hier; für die rollende Kugel unter g′ = g/(1+k), wie bei der Kreisbahn."
+          },
+          "energy": {
+            "title": "Die Energie bleibt erhalten",
+            "setting": "Vollkugel bei 60° mit 0,3 m/s seitwärts gestartet, ohne Rollwiderstand und ohne Hand, 20 s lang.",
+            "reads": "Ohne Verluste bleibt die Summe aus Bewegung, Drehung und Höhe gleich; die Drehung trägt k-mal so viel wie die Bewegung.",
+            "why": "Prüft die Zeitschleife selbst: Nach 20 000 Schritten ist die Energie auf 10⁻¹¹ dieselbe."
+          },
+          "grip": {
+            "title": "Wie viel Haftung das Rollen braucht",
+            "setting": "Vollkugel um 60° ausgelenkt und losgelassen; gelesen am Umkehrpunkt.",
+            "reads": "Rollen ohne Rutschen braucht eine Haftreibung von mindestens tan θ/(1 + m r²/I), für die Vollkugel (2/7)·tan θ.",
+            "why": "Prüft die Reibung, die die Seite angibt: 0,49 bei 60°.",
+            "step": "Die Quelle rechnet die schiefe Ebene. Am Umkehrpunkt steht die Kugel still und liegt wie auf einer Ebene mit derselben Neigung."
+          },
+          "leaves_wall": {
+            "title": "Wo die Kugel von der Wand fällt",
+            "setting": "Vollkugel unten so schnell angestossen, dass sie ohne Wand bis 120° käme.",
+            "reads": "Die Wand drückt mit g·cos θ + 2g′(cos θ − cos θ₀). Wo das null wird, fällt die Kugel: bei cos θ = 2cos θ₀/(3 + k).",
+            "why": "Prüft die Kraft der Wand, an der die Seite merkt, dass die Kugel fällt: bei 107,1°.",
+            "step": "Die Quelle gibt die Fadenkraft des einfachen Pendels, mg(3cos θ − 2cos θ_m). Für die rollende Kugel trägt der Energiesatz den Faktor 1 + k; die Kraft quer zur Wand bleibt g·cos θ + v²/ρ."
+          }
+        },
+        "coil": {
+          "rl_rise": {
+            "title": "Der Strom steigt an",
+            "setting": "Plus gehalten, der Wagen oben an einer Rampe, weit weg von der Spule; gelesen nach vier Zeitkonstanten.",
+            "reads": "An einer Spannung steigt der Strom in einer Spule nur langsam, mit der Zeitkonstante τ = L/R.",
+            "why": "Prüft den Stromkreis der Seite: 94 mA nach 5 ms, 96 mA am Ende."
+          },
+          "wheeler": {
+            "title": "Die Induktivität der Spule",
+            "setting": "1600 Windungen, im Mittel Ø 60 mm, 50 mm lang.",
+            "reads": "Wheelers Formel von 1928, in Zoll und Mikrohenry, auf 1 % genau.",
+            "why": "Prüft die Induktivität: Die Seite rechnet 118,1 mH mit der SI-Form derselben Formel, Wheeler gedruckt gibt 117,8 mH. Die 0,28 % liegen in seinem eigenen Prozent, denn seine 9 und 10 sind gerundet."
+          },
+          "flux_centre": {
+            "title": "Der Fluss des Magneten in der Spule",
+            "setting": "Der Magnet, Ø 20 × 10 mm und 1,3 T, mitten in der Spule.",
+            "reads": "Jede Windung umfasst einen Teil des Flusses des kleinen Magneten; über alle 1600 Windungen einzeln summiert.",
+            "why": "Prüft die Kurve Ψ(x), aus der Spannung und Kraft kommen: Die Summe über die Windungen trifft die geschlossene Formel der Seite auf 10⁻⁷.",
+            "step": "Die erste Quelle gibt das Feld einer Leiterschleife auf ihrer Achse, die zweite, dass die Gegeninduktivität in beide Richtungen gleich ist: Der Fluss des Magneten durch die Schleife ist sein Moment mal dieses Feld pro Ampere. Die dritte schreibt dasselbe für eine Spule."
+          },
+          "charge": {
+            "title": "Die Ladung, gleich bei jedem Tempo",
+            "setting": "Ohne Tasten und ohne Rollwiderstand, von halber Rampenhöhe losgelassen; gezählt bis zur Mitte der Spule.",
+            "reads": "Durch das Messgerät fliesst die Flussänderung geteilt durch den Widerstand, gleich wie schnell der Wagen fährt.",
+            "why": "Prüft das Induktionsgesetz an der Zeitschleife: 888 µC. Die 0,1 % Abweichung: Die Spule hält in der Mitte noch L·i/R zurück, und die Seite zeichnet 200-mal pro Sekunde.",
+            "step": "Die Quelle gibt die Ladung einer Suchspule ohne Induktivität. Mit ihr gilt dasselbe, sobald der Strom am Anfang und am Ende null ist; in der Mitte ist er es fast."
+          },
+          "period": {
+            "title": "Ohne Spule: eine Schaukel auf Bögen",
+            "setting": "Spule offen, ohne Rollwiderstand, von halber Rampenhöhe losgelassen; die Zeit für hin und zurück.",
+            "reads": "Auf jedem Bogen schwingt der Wagen eine halbe Periode wie ein Pendel der Länge R; dazwischen quert er das flache Stück zweimal mit der Geschwindigkeit aus dem Fall.",
+            "why": "Prüft die Bahn und die Zeitschleife: 2,71554 s auf fünf Stellen.",
+            "step": "Die erste Quelle gibt die Bewegung auf einem Kreisbogen, mit β = 0 für einen Körper, der gleitet statt rollt; die zweite deren Periode für jeden Ausschlag."
+          },
+          "brake": {
+            "title": "Die Bremse der Spule",
+            "setting": "Ein hundertmal schwererer Wagen, 15 kg, damit er kaum langsamer wird, mit 0,3 m/s durch die geschlossene Spule; ohne Rollwiderstand.",
+            "reads": "Die induzierte Spannung k·v treibt einen Strom, der mit k²v²/R bremst; über einen Durchgang (v/R)·∫k² dx.",
+            "why": "Prüft die Bremse nach Lenz, die den rollenden Wagen früher stehen lässt: 667 µJ pro Durchgang.",
+            "step": "Die Quellen geben die Bremskraft eines Magneten in einer Spule und die Leistung eines bewegten Leiters; über den Weg summiert ergibt das den Verlust eines Durchgangs."
+          },
+          "energy_account": {
+            "title": "Die Energiebilanz geht auf",
+            "setting": "Zehn Sekunden mit Tasten nach der Regel: Plus beim Hineinfahren, Minus beim Hinausfahren.",
+            "reads": "Was die Batterie gibt, wird Wärme im Draht, Verlust beim Rollen, Funken beim Loslassen, Stoss am Ende, Bewegung und Höhe des Wagens und Energie im Feld der Spule.",
+            "why": "Prüft alles zusammen: 953 mJ aus der Batterie, bis auf 4 · 10⁻⁷ wiedergefunden.",
+            "step": "Die Quellen geben die Energie im Feld einer Spule und den Strom im Stromkreis; die Bilanz zählt die Posten nur zusammen."
+          }
+        },
+        "chair": {
+          "one_picture": {
+            "title": "Durch das Loch: ein Bild",
+            "setting": "Blick genau durch das Guckloch, ohne Drehung und ohne Neigung.",
+            "reads": "Ein Punkt (X, Y, Z) landet im Bild bei (f·X/Z, f·Y/Z); alle Punkte auf einer Sehlinie landen am selben Ort.",
+            "why": "Prüft, dass verzogener Stuhl und verstreute Stäbe Ecke für Ecke dasselbe Bild geben wie der Stuhl: Die Bilder liegen 10⁻¹⁶ auseinander, also gar nicht."
+          },
+          "straight_rods": {
+            "title": "Verzogen, aber gerade",
+            "setting": "Der verzogene Stuhl: je ein Punkt bei ¼, ½ und ¾ jedes Stabs.",
+            "reads": "Eine projektive Abbildung erhält gerade Linien: Der verzogene Stuhl hat gerade Stäbe, die sich an den Ecken treffen.",
+            "why": "Prüft die Verzerrung der Seite: Die Punkte liegen 10⁻¹⁶ m neben dem Stab, also auf ihm."
+          },
+          "parallax": {
+            "title": "Wie weit das Auge wandern darf",
+            "setting": "Die verstreuten Stäbe; das Auge seitwärts oder nach oben geschoben, bis die erste Ecke eine Bogenminute aufgeht.",
+            "reads": "Zwei Punkte auf einer Sehlinie in d₁ und d₂ gehen um δ·sin φ·|1/d₁ − 1/d₂| auseinander, wenn das Auge um δ wandert.",
+            "why": "Prüft die 0,16 mm, die die Seite nennt: weniger als das Guckloch. Die Seite sucht sie durch Halbieren, hier steht die Formel; beide treffen sich auf 4 · 10⁻⁵.",
+            "step": "Die Quelle gibt, wie schnell ein Punkt quer zur Sehlinie wandert, V·sin φ/d. Für zwei Punkte die Differenz, für einen kleinen Weg δ statt V·t."
+          },
+          "second_eye": {
+            "title": "Was das zweite Auge sieht",
+            "setting": "Die verstreuten Stäbe, das zweite Auge 65 mm neben dem ersten.",
+            "reads": "Für kleine Winkel gehen die Ecken um b·sin φ·|1/d₁ − 1/d₂| auseinander.",
+            "why": "Prüft die 6,6° der Seite, der Grund für das einzelne Guckloch. Die Formel liegt 1,7 % zu hoch, weil 65 mm bei Stäben einen halben Meter weit kein kleiner Schritt mehr sind; die Seite rechnet den Winkel genau.",
+            "step": "Die Quelle gibt die Disparität für kleine Winkel; die 65 mm sind der Augenabstand Erwachsener aus der zweiten (im Mittel um 63 mm)."
+          }
+        }
       }
     }
   },

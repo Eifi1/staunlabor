@@ -1,0 +1,491 @@
+{
+ "chair": [
+  {
+   "key": "one_picture",
+   "unit": "",
+   "expected": 0.0,
+   "measured": 6.20633538312e-17,
+   "deviation": 6.20633538312e-17,
+   "tolerance": 1e-12,
+   "derived": false,
+   "setting": {
+    "view": "through the hole"
+   },
+   "sources": [
+    {
+     "cite": "R. Hartley, A. Zisserman, Multiple View Geometry in Computer Vision, Ch. 1, §1.2 (free sample chapter)",
+     "url": "https://www.robots.ox.ac.uk/~vgg/hzbook/hzbook2/HZintroduction.pdf",
+     "quote": "all points in a ray passing through the centre of projection projecting to the same point in an image"
+    },
+    {
+     "cite": "W. H. Ittelson, The Ames Demonstrations in Perception (Princeton UP, 1952), Ch. 8 “The Chair Demonstration”",
+     "url": "https://archive.org/details/amesdemonstratio00itte",
+     "quote": "three groups of strings in different arrangements and at different distances … they all produce the same image on the retina when viewed from the peepholes"
+    }
+   ]
+  },
+  {
+   "key": "straight_rods",
+   "unit": "m",
+   "expected": 0.0,
+   "measured": 1.65483301822e-16,
+   "deviation": 1.65483301822e-16,
+   "tolerance": 1e-12,
+   "derived": false,
+   "setting": {
+    "figure": "skewed chair"
+   },
+   "sources": [
+    {
+     "cite": "R. Hartley, A. Zisserman, Multiple View Geometry in Computer Vision, Ch. 1, §1.1",
+     "url": "https://www.robots.ox.ac.uk/~vgg/hzbook/hzbook2/HZintroduction.pdf",
+     "quote": "we may define a projective transformation of a plane as any mapping of the points on the plane that preserves straight lines"
+    }
+   ]
+  },
+  {
+   "key": "parallax",
+   "unit": "mm",
+   "expected": 0.162189423001,
+   "measured": 0.162183559726,
+   "deviation": 3.61507892697e-05,
+   "tolerance": 0.001,
+   "derived": true,
+   "setting": {
+    "figure": "scattered rods",
+    "acuity_arcmin": 1
+   },
+   "sources": [
+    {
+     "cite": "J. J. Koenderink, “Optic flow”, Vision Research 26 (1986) 161, p. 164",
+     "url": "https://doi.org/10.1016/0042-6989(86)90078-7",
+     "quote": "introduce the distance to the patch (d) and define … the ‘specific transverse velocity’ A_t = V_t/d"
+    },
+    {
+     "cite": "M. Kalloniatis, C. Luu, Webvision, “Visual Acuity”, §2, Fig. 5",
+     "url": "https://www.webvision.pitt.edu/book/part-viii-psychophysics-of-vision/visual-acuity/",
+     "quote": "the minimum angle of resolution (MAR) is one minute of arc and the logMAR is 0"
+    }
+   ]
+  },
+  {
+   "key": "second_eye",
+   "unit": "°",
+   "expected": 6.6794326861,
+   "measured": 6.5636088777,
+   "deviation": 0.017340366142,
+   "tolerance": 0.02,
+   "derived": true,
+   "setting": {
+    "figure": "scattered rods",
+    "baseline_mm": 65
+   },
+   "sources": [
+    {
+     "cite": "K. Stroyan, “Motion parallax is asymptotic to binocular disparity”, arXiv:1010.0575, Eq. (17), after Cormack & Fox (1985)",
+     "url": "https://arxiv.org/abs/1010.0575",
+     "quote": "B.D. ~ i d/(f(f+d))"
+    },
+    {
+     "cite": "N. A. Dodgson, “Variation and extrema of human interpupillary distance”, Proc. SPIE 5291 (2004) 36, abstract",
+     "url": "https://doi.org/10.1117/12.529999",
+     "quote": "mean adult IPD is around 63 mm, the vast majority of adults have IPDs in the range 50-75 mm"
+    }
+   ]
+  }
+ ],
+ "coil": [
+  {
+   "key": "rl_rise",
+   "unit": "mA",
+   "expected": 93.9533879699,
+   "measured": 93.9533007726,
+   "deviation": 9.28090917264e-07,
+   "tolerance": 1e-05,
+   "derived": false,
+   "setting": {
+    "supply_v": 9,
+    "turns": 1600,
+    "button": "plus",
+    "car": "at the top"
+   },
+   "sources": [
+    {
+     "cite": "OpenStax, University Physics Volume 2, §14.4 RL Circuits, Eq. 14.24 and 14.25",
+     "url": "https://openstax.org/books/university-physics-volume-2/pages/14-4-rl-circuits",
+     "quote": "I(t) = ε/R (1 − e^(−t/τ_L)) … τ_L = L/R … the inductive time constant of the circuit"
+    }
+   ]
+  },
+  {
+   "key": "wheeler",
+   "unit": "mH",
+   "expected": 117.803456386,
+   "measured": 118.12762878,
+   "deviation": 0.00275180715068,
+   "tolerance": 0.01,
+   "derived": false,
+   "setting": {
+    "turns": 1600,
+    "mean_diameter_mm": 60,
+    "length_mm": 50
+   },
+   "sources": [
+    {
+     "cite": "H. A. Wheeler, “Simple inductance formulas for radio coils”, Proc. IRE 16 (1928) 1398, Eq. (2), p. 1399",
+     "url": "https://www.worldradiohistory.com/Archive-IRE/20s/IRE-1928-10.pdf",
+     "quote": "L = a²n²/(9a+10b) microhenries … This formula is correct to within 1 per cent for coils with b > 0.8 a."
+    }
+   ]
+  },
+  {
+   "key": "flux_centre",
+   "unit": "Wb",
+   "expected": 0.0836658660006,
+   "measured": 0.0836658620482,
+   "deviation": 4.72403236195e-08,
+   "tolerance": 1e-06,
+   "derived": true,
+   "setting": {
+    "turns": 1600,
+    "remanence_t": 1.3
+   },
+   "sources": [
+    {
+     "cite": "OpenStax, University Physics Volume 2, §12.4 Magnetic Field of a Current Loop, Eq. 12.15",
+     "url": "https://openstax.org/books/university-physics-volume-2/pages/12-4-magnetic-field-of-a-current-loop",
+     "quote": "B = μ₀IR² / [2(y² + R²)^(3/2)]"
+    },
+    {
+     "cite": "OpenStax, University Physics Volume 2, §14.1 Mutual Inductance, after Eq. 14.2",
+     "url": "https://openstax.org/books/university-physics-volume-2/pages/14-1-mutual-inductance",
+     "quote": "we can show that M21 = M12"
+    },
+    {
+     "cite": "N. Samboy, Am. J. Phys. (2023), doi:10.1119/5.0141862, Eq. (2)",
+     "url": "https://arxiv.org/abs/2305.01813",
+     "quote": "Φ_tot = N_c kπR²R_c² / [2(R_c² + z²)^(3/2)]"
+    }
+   ]
+  },
+  {
+   "key": "charge",
+   "unit": "µC",
+   "expected": -888.064319959,
+   "measured": -887.166184194,
+   "deviation": 0.0010113408957,
+   "tolerance": 0.002,
+   "derived": true,
+   "setting": {
+    "start": "halfway up the left ramp",
+    "rolling_resistance": 0,
+    "buttons": "none"
+   },
+   "sources": [
+    {
+     "cite": "J. Tatum, LibreTexts, Electricity and Magnetism, §10.4, Eq. 10.4.2",
+     "url": "https://phys.libretexts.org/Bookshelves/Electricity_and_Magnetism/Electricity_and_Magnetism_(Tatum)/10%3A_Electromagnetic_Induction/10.04%3A_Search_Coils",
+     "quote": "Q = NAB/(R+r)"
+    },
+    {
+     "cite": "OpenStax, University Physics Volume 2, §13.1 Faraday’s Law, Eq. 13.3",
+     "url": "https://openstax.org/books/university-physics-volume-2/pages/13-1-faradays-law",
+     "quote": "ε = −N dΦm/dt"
+    }
+   ]
+  },
+  {
+   "key": "period",
+   "unit": "s",
+   "expected": 2.71554060721,
+   "measured": 2.71554061149,
+   "deviation": 1.57501180935e-09,
+   "tolerance": 1e-05,
+   "derived": true,
+   "setting": {
+    "start": "halfway up the left ramp",
+    "rolling_resistance": 0,
+    "coil": "open"
+   },
+   "sources": [
+    {
+     "cite": "LibreTexts, General Physics I (Prince George's CC), §44.5 “Ball Rolling in a Bowl”, with β = 0 for a body that slides",
+     "url": "https://phys.libretexts.org/Courses/Prince_Georges_Community_College/General_Physics_I%3A_Classical_Mechanics/44%3A_Rolling_Bodies/44.05%3A_Ball_Rolling_in_a_Bowl",
+     "quote": "d²θ/dt² = −g/((β+1)(R−r)) sin θ"
+    },
+    {
+     "cite": "NIST Digital Library of Mathematical Functions, §22.19(i)",
+     "url": "https://dlmf.nist.gov/22.19",
+     "quote": "The period is 4K(sin(α/2))"
+    }
+   ]
+  },
+  {
+   "key": "brake",
+   "unit": "µJ",
+   "expected": 667.504983542,
+   "measured": 667.13513569,
+   "deviation": 0.00055407504093,
+   "tolerance": 0.002,
+   "derived": true,
+   "setting": {
+    "car_mass_kg": 15,
+    "speed_m_s": 0.3,
+    "rolling_resistance": 0,
+    "coil": "closed"
+   },
+   "sources": [
+    {
+     "cite": "N. Derby, S. Olbert, “Cylindrical Magnets and Ideal Solenoids”, Am. J. Phys. 78 (2010) 229, §IV.B, Eq. 28",
+     "url": "https://arxiv.org/abs/0909.3880",
+     "quote": "F_drag = −(v_z/R_L) ∫ B_ρ² dz′"
+    },
+    {
+     "cite": "OpenStax, University Physics Volume 2, §13.3 Motional Emf, Eq. 13.7",
+     "url": "https://openstax.org/books/university-physics-volume-2/pages/13-3-motional-emf",
+     "quote": "P = I²R = B²l²v²/R"
+    }
+   ]
+  },
+  {
+   "key": "energy_account",
+   "unit": "mJ",
+   "expected": 952.957273912,
+   "measured": 952.957658867,
+   "deviation": 4.03958645207e-07,
+   "tolerance": 1e-05,
+   "derived": true,
+   "setting": {
+    "visitor": "presses by the rule",
+    "duration_s": 10
+   },
+   "sources": [
+    {
+     "cite": "OpenStax, University Physics Volume 2, §14.3 Energy in a Magnetic Field, Eq. 14.22",
+     "url": "https://openstax.org/books/university-physics-volume-2/pages/14-3-energy-in-a-magnetic-field",
+     "quote": "U = ½LI²"
+    },
+    {
+     "cite": "OpenStax, University Physics Volume 2, §14.4 RL Circuits, Eq. 14.24 and 14.25",
+     "url": "https://openstax.org/books/university-physics-volume-2/pages/14-4-rl-circuits",
+     "quote": "I(t) = ε/R (1 − e^(−t/τ_L)) … τ_L = L/R … the inductive time constant of the circuit"
+    }
+   ]
+  }
+ ],
+ "sphere": [
+  {
+   "key": "small_swing",
+   "unit": "Hz",
+   "expected": 0.992842133249,
+   "measured": 0.992766524381,
+   "deviation": 7.61539672156e-05,
+   "tolerance": 0.0002,
+   "derived": false,
+   "setting": {
+    "shell_diameter_cm": 40,
+    "ball_diameter_cm": 4,
+    "ball": "solid",
+    "amplitude_deg": 2
+   },
+   "sources": [
+    {
+     "cite": "LibreTexts, General Physics I (Prince George's CC), §44.5 “Ball Rolling in a Bowl”",
+     "url": "https://phys.libretexts.org/Courses/Prince_Georges_Community_College/General_Physics_I%3A_Classical_Mechanics/44%3A_Rolling_Bodies/44.05%3A_Ball_Rolling_in_a_Bowl",
+     "quote": "d²θ/dt² = −g/((β+1)(R−r)) sin θ … L_eff = (β+1)(R−r) … T = 2π√(7(R−r)/5g)"
+    },
+    {
+     "cite": "OpenStax, University Physics Volume 1, §11.1 Rolling Motion, Eq. 11.4",
+     "url": "https://openstax.org/books/university-physics-volume-1/pages/11-1-rolling-motion",
+     "quote": "a_CM = mg sin θ / (m + I_CM/r²)"
+    }
+   ]
+  },
+  {
+   "key": "hollow_ball",
+   "unit": "Hz",
+   "expected": 0.909954845751,
+   "measured": 0.909885549231,
+   "deviation": 7.61538008932e-05,
+   "tolerance": 0.0002,
+   "derived": true,
+   "setting": {
+    "shell_diameter_cm": 40,
+    "ball_diameter_cm": 4,
+    "ball": "hollow",
+    "amplitude_deg": 2
+   },
+   "sources": [
+    {
+     "cite": "LibreTexts, General Physics I (Prince George's CC), §44.5 “Ball Rolling in a Bowl”",
+     "url": "https://phys.libretexts.org/Courses/Prince_Georges_Community_College/General_Physics_I%3A_Classical_Mechanics/44%3A_Rolling_Bodies/44.05%3A_Ball_Rolling_in_a_Bowl",
+     "quote": "d²θ/dt² = −g/((β+1)(R−r)) sin θ … L_eff = (β+1)(R−r) … T = 2π√(7(R−r)/5g)"
+    },
+    {
+     "cite": "Wikipedia, “List of moments of inertia”, hollow sphere (citing Serway, Physics for Scientists and Engineers, 2nd ed., p. 202)",
+     "url": "https://en.wikipedia.org/wiki/List_of_moments_of_inertia",
+     "quote": "I = 2/3 m r²"
+    }
+   ]
+  },
+  {
+   "key": "wide_swing",
+   "unit": "Hz",
+   "expected": 0.841148846423,
+   "measured": 0.841148846476,
+   "deviation": 6.30005409505e-11,
+   "tolerance": 1e-05,
+   "derived": true,
+   "setting": {
+    "shell_diameter_cm": 40,
+    "ball_diameter_cm": 4,
+    "ball": "solid",
+    "amplitude_deg": 90
+   },
+   "sources": [
+    {
+     "cite": "LibreTexts, General Physics I (Prince George's CC), §44.5 “Ball Rolling in a Bowl”",
+     "url": "https://phys.libretexts.org/Courses/Prince_Georges_Community_College/General_Physics_I%3A_Classical_Mechanics/44%3A_Rolling_Bodies/44.05%3A_Ball_Rolling_in_a_Bowl",
+     "quote": "d²θ/dt² = −g/((β+1)(R−r)) sin θ … L_eff = (β+1)(R−r) … T = 2π√(7(R−r)/5g)"
+    },
+    {
+     "cite": "NIST Digital Library of Mathematical Functions, §22.19(i), Eq. 22.19.1",
+     "url": "https://dlmf.nist.gov/22.19",
+     "quote": "The period is 4K(sin(α/2))"
+    },
+    {
+     "cite": "NIST Digital Library of Mathematical Functions, §19.8, Eq. 19.8.5",
+     "url": "https://dlmf.nist.gov/19.8",
+     "quote": "K(k) = π/(2M(1,k′))"
+    }
+   ]
+  },
+  {
+   "key": "circle_any_size",
+   "unit": "cm",
+   "expected": 4.43580975699,
+   "measured": 4.43580975473,
+   "deviation": 5.10111192452e-10,
+   "tolerance": 1e-05,
+   "derived": true,
+   "setting": {
+    "shell_diameter_cm": 100,
+    "ball_diameter_cm": 4,
+    "ball": "solid",
+    "rate_hz": 2
+   },
+   "sources": [
+    {
+     "cite": "Wikipedia, “Conical pendulum” (citing Serway, Physics for Scientists and Engineers, 1986, p. 109)",
+     "url": "https://en.wikipedia.org/wiki/Conical_pendulum",
+     "quote": "t = 2π√(L cos θ / g)"
+    },
+    {
+     "cite": "Borisov, Mamaev, Kilin, “The rolling motion of a ball on a surface”, Regul. Chaotic Dyn. 7 (2002) 201, §3, Eq. 3.38 (Routh’s integrals)",
+     "url": "https://arxiv.org/abs/nlin/0303024",
+     "quote": "They possess the integrals H = ½(M, ω) + V(γ), F₁ = (M, γ) = c, F₂ = γ² = 1"
+    }
+   ]
+  },
+  {
+   "key": "wobble",
+   "unit": "Hz",
+   "expected": 1.85743755089,
+   "measured": 1.85774946921,
+   "deviation": 0.000167929376138,
+   "tolerance": 0.001,
+   "derived": true,
+   "setting": {
+    "shell_diameter_cm": 40,
+    "ball_diameter_cm": 4,
+    "ball": "solid",
+    "angle_deg": 60,
+    "kick_deg": 0.3
+   },
+   "sources": [
+    {
+     "cite": "Stony Brook University, Physics Comprehensive Exam, Spring 2020, Classical Mechanics 1, Eq. 25",
+     "url": "https://www.stonybrook.edu/commcms/grad-physics-astronomy/resources/_pdfs/ComprehensiveS2020.pdf",
+     "quote": "ω_c = √((g cos θ_c/ℓ)(4 + tan² θ_c))"
+    },
+    {
+     "cite": "Borisov, Mamaev, Kilin, “The rolling motion of a ball on a surface”, Regul. Chaotic Dyn. 7 (2002) 201, §3, Eq. 3.38 (Routh’s integrals)",
+     "url": "https://arxiv.org/abs/nlin/0303024",
+     "quote": "They possess the integrals H = ½(M, ω) + V(γ), F₁ = (M, γ) = c, F₂ = γ² = 1"
+    }
+   ]
+  },
+  {
+   "key": "energy",
+   "unit": "J/kg",
+   "expected": 0.9455985,
+   "measured": 0.945598499977,
+   "deviation": 2.43397059474e-11,
+   "tolerance": 1e-08,
+   "derived": false,
+   "setting": {
+    "shell_diameter_cm": 40,
+    "ball_diameter_cm": 4,
+    "ball": "solid",
+    "angle_deg": 60,
+    "speed_m_s": 0.3
+   },
+   "sources": [
+    {
+     "cite": "OpenStax, University Physics Volume 1, §11.1, “Conservation of Mechanical Energy in Rolling Motion”",
+     "url": "https://openstax.org/books/university-physics-volume-1/pages/11-1-rolling-motion",
+     "quote": "the total mechanical energy of an object rolling is E_T = ½mv_CM² + ½I_CMω² + mgh"
+    }
+   ]
+  },
+  {
+   "key": "grip",
+   "unit": "",
+   "expected": 0.494871659305,
+   "measured": 0.494871659305,
+   "deviation": 1.12172823372e-16,
+   "tolerance": 1e-06,
+   "derived": true,
+   "setting": {
+    "shell_diameter_cm": 40,
+    "ball_diameter_cm": 4,
+    "ball": "solid",
+    "amplitude_deg": 60
+   },
+   "sources": [
+    {
+     "cite": "OpenStax, University Physics Volume 1, §11.1, Example 11.1",
+     "url": "https://openstax.org/books/university-physics-volume-1/pages/11-1-rolling-motion",
+     "quote": "μ_s ≥ tan θ / (1 + mr²/I_CM)"
+    }
+   ]
+  },
+  {
+   "key": "leaves_wall",
+   "unit": "°",
+   "expected": 107.104635177,
+   "measured": 107.104635529,
+   "deviation": 3.28773665324e-09,
+   "tolerance": 0.0001,
+   "derived": true,
+   "setting": {
+    "shell_diameter_cm": 40,
+    "ball_diameter_cm": 4,
+    "ball": "solid",
+    "turn_deg": 120.0
+   },
+   "sources": [
+    {
+     "cite": "javalab.org, “Force to move the pendulum”",
+     "url": "https://javalab.org/en/pendulum_en",
+     "quote": "½mv² = mgl(cos θ – cos θ_m) … = mg(3cos θ – 2cos θ_m)"
+    },
+    {
+     "cite": "OpenStax, University Physics Volume 1, §11.1, “Conservation of Mechanical Energy in Rolling Motion”",
+     "url": "https://openstax.org/books/university-physics-volume-1/pages/11-1-rolling-motion",
+     "quote": "the total mechanical energy of an object rolling is E_T = ½mv_CM² + ½I_CMω² + mgh"
+    }
+   ]
+  }
+ ]
+}

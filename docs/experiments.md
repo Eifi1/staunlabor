@@ -2228,16 +2228,61 @@ German only: a link preview's request names no language, and de-CH is the
 site's fallback. The pictures cost nothing to serve to speak of: a few
 megabytes in the web image, fetched when a link is shared.
 
-## The notice: the check still to come
+## The check, exhibit by exhibit
 
-On Marcel's word (2026-11-15) the overview and every exhibit's page carry a
-warning banner under their heading: the calculations still await their check,
-and figures and drawings may change (`experiments.unchecked`,
-`features/experiments/unchecked-notice.tsx`, placed by `ExhibitFrame` and the
-overview). Every figure is tested against the engine and the engine against
-independent counts, but no one outside has gone through the models. One
-component in two places: removing it once the check is done is one edit, and
-the two page tests that look for it go with it.
+From 2026-11-15 the overview and every exhibit's page carried a warning
+banner under their heading: the calculations still await their check. Since
+2026-11-19 each exhibit says it in one line under its title, "not yet
+checked" or the day an admin checked it (`CheckStatus`,
+`unchecked-notice.tsx`), and the front page says how many are checked, below
+its first screen. The two reviews of that day (Marcel's Claude docs of the
+front page and of the coil's page) found that a warning in second place costs
+more trust than it earns, and asked for it where the calculation is.
+
+**The cases** (`backend/staunlabor/domain/checks/`, Marcel: "Für die
+anstehende Überprüfung und Nachvollziehen sind Edge Cases besonders
+geeignet"). Each is a limiting case a reader can work out by hand: what is
+set, the formula, its value by hand, the value the page computes (the time
+loop at the page's step, or the function the page calls), and the deviation
+allowed and why. Every case names its sources, where in them and the words
+verbatim, untranslated (Marcel, on a side agent's point that cases written by
+the agent who wrote the engine can share its mistakes: "Bitte
+Quellenangaben implementieren"); its expected value is computed from that
+formula in the case's module, not by the engine's closed forms. Where no
+source states the formula exactly as used, the case is marked "derived" and
+its words give the one step, so a reader checks the step rather than trust a
+citation. The first three exhibits have them: the sphere (eight), the coil
+(seven), the chair (four). `tests/unit/test_checks.py` holds every case to its
+tolerance; their runs take seconds, so the pages read them from
+`checks.json` (`scripts/write-checks.py`, held current by
+`tests/unit/test_checks_file.py`).
+
+**Where the sources are thin**, and the cases say so: the hollow ball's
+frequency only through the general formula and the hollow sphere's moment of
+inertia; the ball's centre as a spherical pendulum under g/(1 + k) only
+through Routh's conserved spin, the reduction itself a step of ours; where
+the ball leaves the wall only through an educational site's string tension;
+Wheeler's formula as printed lies 0.28 % under the SI form the engine uses,
+within his own 1 %; the second eye's small-angle disparity overshoots the
+exact angle by 1.7 %.
+
+**On the page** a section "Check it yourself" (`check-section.tsx`) lists the
+cases, each with its formula as an `Equation` (`check-formulas.ts`), both
+values to seven digits, the deviation, why the case would catch a mistake,
+and the sources linked and quoted. It is public and meant to teach (Marcel,
+the same day: "Wenn der Aufwand für Überprüfung getan wird kann der auch
+gleich zu Lehrzwecken dienen").
+
+**The verdict is an admin's** (Marcel chose a button over a commit): signed
+in as an admin, an exhibit with cases shows "Confirm as checked" and "Take
+the check back" (`PUT`/`DELETE /admin/experiments/checks/{exhibit}`). The
+verdict is stored with the fingerprint of the code it was given on
+(`staunlabor.domain.checks.fingerprint`: the exhibit's engine modules, the
+engine modules they import and its cases, without docstrings and comments),
+and `GET /experiments/checks` counts it only while that is still the
+deployed code's. An engine change brings "not yet checked" back by itself.
+The public answer gives the day and nothing of who checked (Marcel: only the
+date).
 
 ## Checking the mathematics
 

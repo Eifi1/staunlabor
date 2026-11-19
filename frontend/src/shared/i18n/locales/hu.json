@@ -135,7 +135,6 @@
       "next": "Következő tárgy: {{name}}",
       "onward": "További tárgyak"
     },
-    "unchecked": "A számítások ellenőrzése még hátravan: az oldalakon szereplő számok és ábrák még változhatnak.",
     "play": {
       "pause": "Szünet",
       "run": "Tovább"
@@ -3289,6 +3288,224 @@
         "system": "Az oldal a második villa frekvenciáját Rayleigh módszerével számolja egy befogott ág rezgésalakjából (βL = 1,875), és összeadja a két lecsengő rezgést. Feltételezve: 440 Hz-es villa, 20 g-os ágak, 6 s lecsengési idő.",
         "check": "Az oldal tesztjei a rezgésalakot az egyenletéhez tartják, ellenőrzik, hogy az ág a csúcsán a tömege negyedeként hat, és Rayleigh becslését összevetik egy csúcsán tömeget hordozó ág pontos frekvenciájával: 1 g-ra kevesebb mint 0,1 %-kal magasabb. A számítás az Ön böngészőjében fut, ugyanazokkal a képletekkel, mint az oldal számítómagja.",
         "left_out": "Kimaradt: a rezonanciaszekrények és a terem; hogy maga a lovas is kissé megváltoztatja a rezgésalakot; a két ág csatolása és a nyél; a fül, amely a gyors lebegést már nem erősödésként és halkulásként hallja, hanem érdességként, végül két hangként."
+      }
+    },
+    "checks": {
+      "title": "Ellenőrizze maga",
+      "intro": "Határesetek, amelyek kézzel is kiszámolhatók. Mindegyiknél ott áll a képlet egy publikált forrásból, a kézzel számolt érték és az az érték, amelyet ez az oldal számol. Ahol egyetlen forrás sem adja meg pontosan így a képletet, ott „levezetve” áll, mellette pedig az az egy lépés, amely odavezet.",
+      "by_hand": "Kézzel",
+      "page": "Az oldal számítása",
+      "deviation": "Eltérés {{value}}, megengedett {{allowed}}",
+      "setting": "Beállítás",
+      "why": "Mit ellenőriz az eset",
+      "derived": "levezetve",
+      "step": "A lépés",
+      "sources": "Források",
+      "original": "Idézet az eredetiből",
+      "status": {
+        "unchecked": "A számítások még nincsenek ellenőrizve",
+        "checked": "A számítások ellenőrizve: {{date}}",
+        "to_cases": "Ellenőrizze maga"
+      },
+      "admin": {
+        "check": "Ellenőrzés megerősítése",
+        "uncheck": "Ellenőrzés visszavonása",
+        "failed": "Ez nem sikerült. Kérjük, próbálja újra."
+      },
+      "overview": "A számításokat tárgyról tárgyra ellenőrizzük: {{total}} tárgy közül {{checked}} már ellenőrizve.",
+      "symbols": {
+        "f0": "a legkisebb lengés frekvenciája",
+        "f": "frekvencia",
+        "g": "nehézségi gyorsulás, 9,80665",
+        "k": "a golyó I/(m r²) tehetetlenségi tényezője",
+        "rho": "a golyó középpontjának távolsága a gömb középpontjától, R − r",
+        "theta0": "kitérés, a legalsó ponttól",
+        "K": "elsőfajú teljes elliptikus integrál",
+        "theta": "szög a legalsó ponttól",
+        "Omega": "a kör szögsebessége",
+        "gprime": "a gravitációnak az a része, amely a középpontot mozgatja",
+        "omega": "a bólogatás körfrekvenciája",
+        "E": "a golyó egy kilogrammjára jutó energia",
+        "v": "sebesség",
+        "h": "magasság a legalsó pont fölött",
+        "mu": "szükséges tapadási súrlódási együttható",
+        "m": "tömeg",
+        "r": "a golyó sugara",
+        "inertia": "tehetetlenségi nyomaték",
+        "N": "a fal nyomóereje",
+        "current": "áram",
+        "U": "a telep feszültsége",
+        "R": "a tekercs ellenállása",
+        "L": "induktivitás",
+        "tau": "időállandó",
+        "t": "idő",
+        "a_in": "a tekercs sugara, hüvelykben",
+        "b_in": "a tekercs hossza, hüvelykben",
+        "n": "menetszám",
+        "Psi": "fluxus az összes meneten át",
+        "dipole": "a mágnes mágneses momentuma",
+        "mu0": "a mágneses állandó",
+        "a": "egy menet közepes sugara",
+        "z": "egy menet távolsága a mágnestől a tengely mentén",
+        "Br": "a mágnes remanenciája",
+        "V": "a mágnes térfogata",
+        "Q": "az árammérőn átfolyó töltés",
+        "T": "periódus, oda és vissza",
+        "R_arc": "a rámpaívek sugara",
+        "l": "a sík szakasz hossza",
+        "v0": "sebesség a sík szakaszon",
+        "dE": "egy áthaladás energiavesztesége",
+        "coupling": "csatolás, dΨ/dx: volt per m/s, egyben newton per amper",
+        "x": "a kocsi helyzete",
+        "W": "veszteségek: gördülés, szikrák, végütköző",
+        "Emech": "a kocsi mozgási és helyzeti energiája",
+        "xy": "hely a képen",
+        "XYZ": "a pont helye a szemtől nézve, Z előre",
+        "focal": "a képernyő távolsága a szemtől",
+        "P": "a szék egy pontja",
+        "eye": "a szem a kukucskálólyuknál",
+        "w": "a torzítás",
+        "delta": "a szem elmozdulása",
+        "alpha": "látásélesség, egy ívperc",
+        "phi": "a mozgás és a látóvonal közötti szög",
+        "d12": "a két vég távolsága a szemtől",
+        "eta": "a két vég közötti szög",
+        "b": "a két szem távolsága"
+      },
+      "cases": {
+        "sphere": {
+          "small_swing": {
+            "title": "Kis lengés a gömb alján",
+            "setting": "Gömb Ø 40 cm, tömör golyó Ø 4 cm, gördülési ellenállás és kézi tolás nélkül: 2°-kal kitérítve és elengedve.",
+            "reads": "Gurulva a golyó úgy leng, mint egy ρ hosszúságú inga a gravitáció 5/7-ében; a maradék 2/7 forgatja.",
+            "why": "A gurulást ellenőrzi: csúszva ugyanez a golyó 1,17 Hz-cel lengene. A 0,008 %-os eltérés magából a 2°-os lengésből adódik, mert a képlet a legkisebbre érvényes."
+          },
+          "hollow_ball": {
+            "title": "Az üreges golyó",
+            "setting": "Mint fent, de vékony falú üreges golyóval.",
+            "reads": "Ugyanaz a képlet k = 2/3-dal: az üreges golyó tömege kívül van, ezért több kell a megforgatásához.",
+            "why": "Azt ellenőrzi, hogy a tehetetlenségi nyomaték szerepel benne, nem egy rögzített 5/7.",
+            "step": "Az első forrás bármely k = I/(m r²) értékre megadja a képletet; ebbe az üreges golyó k = 2/3 értéke kerül, a második forrásból."
+          },
+          "wide_swing": {
+            "title": "Nagy lengés a vízszintesig",
+            "setting": "Tömör golyó, gördülési ellenállás nélkül, 90°-kal kitérítve és elengedve.",
+            "reads": "Nagy kitérésnél az inga lelassul: π/(2K)-szorosára, ahol K az elliptikus integrál.",
+            "why": "A mozgásegyenletet ellenőrzi a kis szögektől távol: 0,84 Hz 0,99 Hz helyett. K itt integrálként van összegezve, nem a számítómotor által használt számtani-mértani közép útján.",
+            "step": "Az első forrás megmutatja, hogy a guruló golyó pontosan az ingaegyenletet követi, g/(1+k)-val; a második bármely kitérésre megadja ennek periódusát."
+          },
+          "circle_any_size": {
+            "title": "Körpálya, bármely gömbben ugyanolyan mélyen",
+            "setting": "Gömb Ø 1 m 40 cm helyett, tömör golyó Ø 4 cm, gördülési ellenállás nélkül: a 2 Hz-es körpályán indítva, 10 s-ig futtatva.",
+            "reads": "Egy Ω szögsebességű kör g′/Ω² mélyen van az egyenlítő alatt, bármekkora is a gömb.",
+            "why": "A térbeli mozgást ellenőrzi, nem csak egy síkbelit: 10 s után a golyó még mindig 4,4358 cm mélyen fut, ugyanúgy, mint a 40 cm-es gömbben.",
+            "step": "A guruló golyónál ez kúpinga g′ = g/(1+k) mellett. A források megmutatják, hogy a normális körüli forgás megmarad (Routh). Hogy a középpont ekkor gömbingaként mozog g′ mellett, az egyetlen lépésben következik, amelyet egyik forrás sem ír le."
+          },
+          "wobble": {
+            "title": "A megdöntött kör bólogatása",
+            "setting": "Tömör golyó a 60°-os körpályán, de 0,3°-kal túl magasan indítva.",
+            "reads": "Egy kissé megzavart kör Ω·√(1 + 3cos²θ) körfrekvenciával bólogat fel-le.",
+            "why": "Azt ellenőrzi, mennyire stabil a körpálya; az oldal ezt nevezi úgy, hogy „még nincs a síkban”. 0,3° nem végtelenül kicsi, ezért 0,02 % az eltérés.",
+            "step": "A forrás a gömbingát számolja, a lefelé mutató függőlegestől mért szöggel, ahogy itt is; a guruló golyóra g′ = g/(1+k) mellett, mint a körpályánál."
+          },
+          "energy": {
+            "title": "Az energia megmarad",
+            "setting": "Tömör golyó 60°-nál, 0,3 m/s oldalirányú sebességgel indítva, gördülési ellenállás és kézi tolás nélkül, 20 s-ig.",
+            "reads": "Veszteségek nélkül a mozgás, a forgás és a magasság összege változatlan; a forgás a mozgási energia k-szorosát hordozza.",
+            "why": "Magát az időléptető ciklust ellenőrzi: 20 000 lépés után az energia 10⁻¹¹ pontossággal ugyanannyi."
+          },
+          "grip": {
+            "title": "Mennyi tapadás kell a guruláshoz",
+            "setting": "Tömör golyó 60°-nál elengedve; a fordulópontban leolvasva.",
+            "reads": "A csúszásmentes guruláshoz legalább tan θ/(1 + m r²/I) tapadás kell, tömör golyónál (2/7)·tan θ.",
+            "why": "Az oldal által megadott súrlódást ellenőrzi: 0,49 60°-nál.",
+            "step": "A forrás a lejtőt számolja. A fordulópontban a golyó áll, és úgy fekszik, mint egy ugyanilyen meredek lejtőn."
+          },
+          "leaves_wall": {
+            "title": "Hol esik le a golyó a falról",
+            "setting": "Tömör golyó, alul olyan gyorsan meglökve, hogy fal nélkül 120°-ig jutna.",
+            "reads": "A fal g·cos θ + 2g′(cos θ − cos θ₀) erővel nyom. Ahol ez nulla lesz, a golyó leesik: ott, ahol cos θ = 2cos θ₀/(3 + k).",
+            "why": "A fal nyomóerejét ellenőrzi, amelyből az oldal észreveszi, hogy a golyó leesik: 107,1°-nál.",
+            "step": "A forrás az egyszerű inga fonalerejét adja meg, mg(3cos θ − 2cos θ_m). A guruló golyónál az energiában megjelenik az 1 + k tényező; a falra merőleges nyomóerő továbbra is g·cos θ + v²/ρ."
+          }
+        },
+        "coil": {
+          "rl_rise": {
+            "title": "Az áram felfut",
+            "setting": "A + gomb lenyomva, a kocsi egy rámpa tetején, messze a tekercstől; négy időállandó után leolvasva.",
+            "reads": "Feszültségre kapcsolva a tekercs árama csak lassan emelkedik, τ = L/R időállandóval.",
+            "why": "Az oldal áramkörét ellenőrzi: 5 ms után 94 mA, a végén 96 mA."
+          },
+          "wheeler": {
+            "title": "A tekercs induktivitása",
+            "setting": "1600 menet, 60 mm közepes átmérő, 50 mm hosszú.",
+            "reads": "Wheeler 1928-as képlete, hüvelykben és mikrohenryben, 1 %-os pontossággal.",
+            "why": "Az induktivitást ellenőrzi: az oldal 118,1 mH-s értéke ugyanennek a képletnek az SI-alakjából adódik, Wheeler nyomtatott képlete 117,8 mH-t ad. A 0,28 % belefér az ő saját egy százalékába, mert a 9-es és a 10-es tényezője kerekített."
+          },
+          "flux_centre": {
+            "title": "A mágnes fluxusa a tekercsben",
+            "setting": "A mágnes, Ø 20 × 10 mm és 1,3 T, a tekercs közepén.",
+            "reads": "Minden menet a kis mágnes fluxusának egy részét fogja át; menetenként összegezve mind az 1600-ra.",
+            "why": "A Ψ(x) görbét ellenőrzi, amelyből a feszültség és az erő is származik: a menetekre vett összeg 10⁻⁷ pontossággal egyezik az oldal zárt alakú képletével.",
+            "step": "Az első forrás egy vezetőhurok terét adja meg a tengelyén, a második azt, hogy a kölcsönös induktivitás mindkét irányban ugyanaz: a mágnes fluxusa a hurkon át a momentuma szorozva ezzel az amperenkénti térrel. A harmadik ugyanezt egy tekercsre írja fel."
+          },
+          "charge": {
+            "title": "A töltés, bármilyen sebességnél ugyanannyi",
+            "setting": "Gombok és gördülési ellenállás nélkül, a rámpa feléről elengedve; a tekercs közepéig számolva.",
+            "reads": "Az árammérőn a fluxusváltozás osztva az ellenállással folyik át, bármilyen gyorsan halad is a kocsi.",
+            "why": "Faraday indukciós törvényét ellenőrzi az időléptető ciklusban: 888 µC. A 0,1 %-os eltérés oka: középen a tekercs még visszatart L·i/R-t, és az oldal másodpercenként 200-szor rajzol.",
+            "step": "A forrás egy induktivitás nélküli mérőtekercs töltését adja meg. Induktivitással ugyanez érvényes, ha az áram az elején és a végén nulla; középen majdnem az."
+          },
+          "period": {
+            "title": "Tekercs nélkül: hinta íveken",
+            "setting": "Nyitott tekercs, gördülési ellenállás nélkül, a rámpa feléről elengedve; az oda-vissza út ideje.",
+            "reads": "Minden íven a kocsi fél periódust leng, mint egy R hosszúságú inga; közöttük kétszer halad át a sík szakaszon az esésből kapott sebességgel.",
+            "why": "A pályát és az időléptető ciklust ellenőrzi: 2,71554 s öt tizedesjegyre.",
+            "step": "Az első forrás a körív menti mozgást adja meg, ahol β = 0 a csúszó, nem guruló testre áll; a második ennek periódusát bármely kitérésre."
+          },
+          "brake": {
+            "title": "A tekercs fékje",
+            "setting": "Százszor nehezebb, 15 kg-os kocsi, hogy alig lassuljon, 0,3 m/s-mal át a zárt tekercsen; gördülési ellenállás nélkül.",
+            "reads": "A k·v indukált feszültség áramot hajt, amely k²v²/R-rel fékez; egy áthaladásra (v/R)·∫k² dx.",
+            "why": "A Lenz-féle féket ellenőrzi, amely a szabadon guruló kocsit hamarabb megállítja: áthaladásonként 667 µJ.",
+            "step": "A források egy tekercsben mozgó mágnes fékezőerejét és egy mozgó vezető teljesítményét adják meg; az út mentén összegezve ezekből adódik egy áthaladás vesztesége."
+          },
+          "energy_account": {
+            "title": "Az energiamérleg kijön",
+            "setting": "Tíz másodperc gombnyomás a szabály szerint: befelé +, kifelé −.",
+            "reads": "Amit a telep lead, az hővé válik a huzalban, gördülési veszteséggé, szikrává az elengedéskor, ütéssé a végütközőn, a kocsi mozgásává és magasságává, valamint energiává a tekercs terében.",
+            "why": "Mindent együtt ellenőriz: a telepből jövő 953 mJ 4 · 10⁻⁷ pontossággal újra megtalálható.",
+            "step": "A források egy tekercs terének energiáját és az áramkör áramát adják meg; a mérleg csak összeadja a tételeket."
+          }
+        },
+        "chair": {
+          "one_picture": {
+            "title": "A lyukon át: egy kép",
+            "setting": "Pontosan a kukucskálólyukon át nézve, forgatás és döntés nélkül.",
+            "reads": "Egy (X, Y, Z) pont a képen az (f·X/Z, f·Y/Z) helyre kerül; egy látóvonal minden pontja ugyanoda kerül.",
+            "why": "Azt ellenőrzi, hogy a torz szék és a szétszórt rudak sarokról sarokra a szék képét adják: a képek csupán 10⁻¹⁶ távolságra vannak egymástól, vagyis egyáltalán nem térnek el."
+          },
+          "straight_rods": {
+            "title": "Torz, mégis egyenes",
+            "setting": "A torz szék: egy-egy pont minden rúd ¼, ½ és ¾ részénél.",
+            "reads": "Egy projektív leképezés megőrzi az egyeneseket: a torz szék rúdjai egyenesek, és a sarkokban találkoznak.",
+            "why": "Az oldal torzítását ellenőrzi: a pontok 10⁻¹⁶ m-re vannak a rúdtól, vagyis rajta."
+          },
+          "parallax": {
+            "title": "Mennyit mozdulhat a szem",
+            "setting": "A szétszórt rudak; a szem oldalra vagy felfelé mozdítva, amíg az első sarok egy ívpercnyire szét nem nyílik.",
+            "reads": "Egy látóvonal két pontja d₁ és d₂ távolságban δ·sin φ·|1/d₁ − 1/d₂| szöggel válik szét, ha a szem δ-val elmozdul.",
+            "why": "Az oldal által megadott 0,16 mm-t ellenőrzi: kevesebb, mint a kukucskálólyuk. Az oldal felezéssel keresi meg, itt a képlet áll; a kettő 4 · 10⁻⁵ pontossággal egyezik.",
+            "step": "A forrás megadja, milyen gyorsan mozdul el egy pont a látóvonalra merőlegesen: V·sin φ/d. Két pontra a különbség, kis elmozdulásra δ áll V·t helyett."
+          },
+          "second_eye": {
+            "title": "Mit lát a második szem",
+            "setting": "A szétszórt rudak, a második szem 65 mm-rel az első mellett.",
+            "reads": "Kis szögeknél a sarkok b·sin φ·|1/d₁ − 1/d₂| szöggel válnak szét.",
+            "why": "Az oldal 6,6°-át ellenőrzi, ez az oka az egyetlen kukucskálólyuknak. A képlet 1,7 %-kal többet ad, mert fél méterre lévő rudaknál a 65 mm már nem kis lépés; az oldal pontosan számolja ki a szöget.",
+            "step": "A forrás kis szögekre adja meg a diszparitást; a 65 mm a felnőttek szemtávolsága a második forrás szerint (átlagosan 63 mm körül)."
+          }
+        }
       }
     }
   },

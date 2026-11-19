@@ -77,9 +77,13 @@ const smoke = fixtures.smoke as unknown as SmokeFigures;
 const cannon = fixtures.cannon as unknown as CannonFigures;
 const wave = fixtures.wave as unknown as WaveFigures;
 
+/** No exhibit checked yet: what the server answers until an admin checks one. */
+const UNCHECKED = { with_cases: ["chair", "coil", "sphere"], checked: [] };
+
 beforeEach(() => {
   useTried.getState().forget();
   mockApi({
+    "GET /experiments/checks": UNCHECKED,
     "GET /experiments/chair": chair,
     "GET /experiments/chladni": fixtures.chladni,
     "GET /experiments/defaults": fixtures.defaults,
@@ -298,7 +302,8 @@ describe("the chair", () => {
     expect(screen.getByText(E.chair.views.apart)).toBeInTheDocument();
     // The engine's tolerance, a fifth of a millimetre, and the second eye.
     expect(screen.getAllByText(/0\.16 mm/).length).toBeGreaterThan(0);
-    expect(screen.getByText(/6\.6°/)).toBeInTheDocument();
+    // Also in the check of it, further down.
+    expect(screen.getAllByText(/6\.6°/).length).toBeGreaterThan(0);
   });
 
   it("looks through the hole when asked, and the three are one chair", async () => {
@@ -1157,15 +1162,61 @@ describe("the Chladni figures", () => {
   });
 });
 
-describe("the notice that the calculations await their check", () => {
-  it("stands on the overview", async () => {
+describe("the check of the calculations", () => {
+  it("says on the front page how far the checking has come", async () => {
     renderWithProviders(<ExperimentsOverviewPage />);
-    expect(await screen.findByText(E.unchecked)).toBeInTheDocument();
+    const built = EXHIBITS.filter((entry) => entry.path).length;
+    expect(
+      await screen.findByText(E.checks.overview.replace("{{checked}}", "0").replace("{{total}}", String(built))),
+    ).toBeInTheDocument();
   });
 
-  it("stands on an exhibit's page, above trying it", async () => {
+  it("says in one line under an exhibit's title that it is not yet checked, with no cases where it has none", async () => {
     renderWithProviders(<CradlePage />);
-    expect(await screen.findByText(E.unchecked)).toBeInTheDocument();
+    expect(await screen.findByText(E.checks.status.unchecked)).toBeInTheDocument();
+    expect(screen.queryByRole("link", { name: E.checks.status.to_cases })).toBeNull();
+    expect(screen.queryByRole("heading", { name: E.checks.title })).toBeNull();
+  });
+
+  it("shows an exhibit's cases: formula, the value by hand and the page's, and the source quoted", async () => {
+    renderWithProviders(<SpherePage />);
+    expect(await screen.findByRole("link", { name: E.checks.status.to_cases })).toHaveAttribute("href", "#check-it");
+    const section = screen
+      .getByRole("heading", { level: 2, name: E.checks.title })
+      .closest("div.space-y-4") as HTMLElement;
+    const cases = within(section).getAllByRole("heading", { level: 3 });
+    expect(cases).toHaveLength(8);
+    expect(cases[0]).toHaveTextContent(E.checks.cases.sphere.small_swing.title);
+    // By hand 0.9928421 Hz, the page's time loop 0.9927665 Hz: seven digits show where they part.
+    expect(within(section).getByText("0.9928421 Hz")).toBeInTheDocument();
+    expect(within(section).getByText("0.9927665 Hz")).toBeInTheDocument();
+    // The source, a link a reader can open, and its words as it has them.
+    expect(within(section).getAllByRole("link", { name: /Ball Rolling in a Bowl/ })[0]).toHaveAttribute(
+      "href",
+      expect.stringContaining("libretexts.org"),
+    );
+    // A case no source states as used says so, and gives the step.
+    expect(within(section).getAllByText(E.checks.derived).length).toBeGreaterThan(0);
+    expect(within(section).getByText(E.checks.cases.sphere.hollow_ball.step)).toBeInTheDocument();
+  });
+
+  it("gives the day an admin checked the exhibit, and no warning", async () => {
+    mockApi({
+      "GET /experiments/checks": { ...UNCHECKED, checked: [{ exhibit: "sphere", checked_on: "2026-11-20" }] },
+      "GET /experiments/defaults": fixtures.defaults,
+      "POST /experiments/sphere": fixtures.sphere,
+    });
+    renderWithProviders(<SpherePage />);
+    // The day as the reader's language writes it (English here: "20 November 2026").
+    const said = E.checks.status.checked.replace("{{date}}", "");
+    expect(await screen.findByText(new RegExp(`^${said}.*20.*November.*2026`))).toBeInTheDocument();
+    expect(screen.queryByText(E.checks.status.unchecked)).toBeNull();
+  });
+
+  it("offers no verdict to a reader who is not signed in", async () => {
+    renderWithProviders(<SpherePage />);
+    await screen.findByText(E.checks.status.unchecked);
+    expect(screen.queryByRole("button", { name: E.checks.admin.check })).toBeNull();
   });
 });
 

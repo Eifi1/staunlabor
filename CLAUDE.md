@@ -59,6 +59,7 @@ cd backend && uv run pytest tests/unit/test_experiments.py -q
 cd frontend && npx vitest run src/features/experiments/daily.test.ts
 cd backend && uv run python ../scripts/write-experiments-cases.py         # after an engine change
 cd backend && uv run python ../scripts/write-test-fixtures.py             # after a change to a route's answer
+cd backend && uv run python ../scripts/write-checks.py                   # after a change to an engine with checks
 node scripts/write-previews.mjs                                          # link-preview pictures, after a new exhibit
 cd backend && uv run alembic revision -m "…" --rev-id 0002                # a new migration, written by hand
 ```

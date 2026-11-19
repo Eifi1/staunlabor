@@ -135,7 +135,6 @@
       "next": "Exhibit successivo: {{name}}",
       "onward": "Altri exhibit"
     },
-    "unchecked": "La verifica dei calcoli è ancora in sospeso: cifre e disegni di queste pagine possono ancora cambiare.",
     "play": {
       "pause": "Pausa",
       "run": "Continua"
@@ -3289,6 +3288,224 @@
         "system": "La pagina calcola la frequenza del secondo diapason con il metodo di Rayleigh dalla forma del modo di un rebbio incastrato (βL = 1,875) e somma le due oscillazioni smorzate. Si assume un diapason da 440 Hz, rebbi da 20 g e un tempo di smorzamento di 6 s.",
         "check": "I test della pagina confrontano la forma del modo con la sua equazione, verificano che il rebbio agisca sulla punta come un quarto della sua massa, e confrontano la stima di Rayleigh con la frequenza esatta di un rebbio con una massa sulla punta: per 1 g risulta alta di meno dello 0,1 %. Il calcolo avviene nel suo browser, con le stesse formule del motore di calcolo della pagina.",
         "left_out": "Tralasciato: le casse di risonanza e la sala; che il cavaliere stesso modifica un po’ la forma del modo; l’accoppiamento dei due rebbi e il gambo; l’orecchio, che non sente più i battimenti rapidi come un crescere e svanire, ma come ruvidità e infine come due suoni."
+      }
+    },
+    "checks": {
+      "title": "Verifichi Lei stesso",
+      "intro": "Casi limite che si possono calcolare a mano. Per ciascuno sono indicati la formula tratta da una fonte pubblicata, il valore calcolato a mano e il valore che calcola questa pagina. Dove nessuna fonte riporta la formula esattamente così, compare «ricavata» insieme all'unico passaggio che vi conduce.",
+      "by_hand": "A mano",
+      "page": "La pagina calcola",
+      "deviation": "Scarto {{value}}, ammesso {{allowed}}",
+      "setting": "Impostazione",
+      "why": "Che cosa verifica il caso",
+      "derived": "ricavata",
+      "step": "Il passaggio",
+      "sources": "Fonti",
+      "original": "Citazione in originale",
+      "status": {
+        "unchecked": "Calcoli non ancora verificati",
+        "checked": "Calcoli verificati il {{date}}",
+        "to_cases": "Li verifichi Lei stesso"
+      },
+      "admin": {
+        "check": "Conferma come verificato",
+        "uncheck": "Annulla la verifica",
+        "failed": "Non ha funzionato. La preghiamo di riprovare."
+      },
+      "overview": "I calcoli vengono verificati exhibit per exhibit: {{checked}} di {{total}} sono verificati.",
+      "symbols": {
+        "f0": "frequenza della più piccola oscillazione",
+        "f": "frequenza",
+        "g": "accelerazione di gravità, 9,80665",
+        "k": "fattore d'inerzia I/(m r²) della pallina",
+        "rho": "distanza del centro della pallina dal centro della sfera, R − r",
+        "theta0": "ampiezza, dal fondo",
+        "K": "integrale ellittico completo di prima specie",
+        "theta": "angolo dal fondo",
+        "Omega": "velocità angolare del cerchio",
+        "gprime": "la parte della gravità che muove il centro",
+        "omega": "frequenza angolare del dondolio",
+        "E": "energia per chilogrammo di pallina",
+        "v": "velocità",
+        "h": "altezza sopra il punto più basso",
+        "mu": "coefficiente di aderenza necessario",
+        "m": "massa",
+        "r": "il raggio della pallina",
+        "inertia": "momento d'inerzia",
+        "N": "la spinta della parete",
+        "current": "corrente",
+        "U": "la tensione della batteria",
+        "R": "la resistenza della bobina",
+        "L": "induttanza",
+        "tau": "costante di tempo",
+        "t": "tempo",
+        "a_in": "il raggio della bobina, in pollici",
+        "b_in": "la lunghezza della bobina, in pollici",
+        "n": "spire",
+        "Psi": "flusso attraverso tutte le spire",
+        "dipole": "il momento magnetico del magnete",
+        "mu0": "la costante magnetica",
+        "a": "il raggio medio di una spira",
+        "z": "la distanza di una spira dal magnete, lungo l'asse",
+        "Br": "la rimanenza del magnete",
+        "V": "il volume del magnete",
+        "Q": "carica attraverso l'amperometro",
+        "T": "periodo, andata e ritorno",
+        "R_arc": "il raggio degli archi delle rampe",
+        "l": "lunghezza del tratto piano",
+        "v0": "velocità nel tratto piano",
+        "dE": "energia persa in un passaggio",
+        "coupling": "accoppiamento dΨ/dx: volt per m/s, newton per ampere",
+        "x": "la posizione del carrello",
+        "W": "perdite: rotolamento, scintille, finecorsa",
+        "Emech": "l'energia cinetica e potenziale del carrello",
+        "xy": "posizione nell'immagine",
+        "XYZ": "la posizione del punto rispetto all'occhio, Z in avanti",
+        "focal": "la distanza dello schermo dall'occhio",
+        "P": "un punto della sedia",
+        "eye": "l'occhio allo spioncino",
+        "w": "la deformazione",
+        "delta": "lo spostamento dell'occhio",
+        "alpha": "acuità visiva, un minuto d'arco",
+        "phi": "angolo tra lo spostamento e la linea di vista",
+        "d12": "le distanze delle due estremità dall'occhio",
+        "eta": "angolo tra le due estremità",
+        "b": "distanza tra gli occhi"
+      },
+      "cases": {
+        "sphere": {
+          "small_swing": {
+            "title": "Una piccola oscillazione sul fondo",
+            "setting": "Sfera Ø 40 cm, pallina piena Ø 4 cm, senza resistenza al rotolamento e senza spinta della mano: lasciata andare a 2° su per la parete.",
+            "reads": "Rotolando, la pallina oscilla come un pendolo di lunghezza ρ sotto 5/7 della gravità; gli altri 2/7 la fanno girare.",
+            "why": "Verifica il rotolamento: scivolando, la stessa pallina oscillerebbe a 1,17 Hz. Lo scarto dello 0,008 % è dovuto all'oscillazione di 2° stessa, perché la formula vale per la più piccola."
+          },
+          "hollow_ball": {
+            "title": "La pallina cava",
+            "setting": "Come sopra, con una pallina cava a parete sottile.",
+            "reads": "La stessa formula con k = 2/3: una pallina cava ha la massa all'esterno e ci vuole di più per farla girare.",
+            "why": "Verifica che entri il momento d'inerzia, e non un 5/7 fisso.",
+            "step": "La prima fonte dà la formula per qualsiasi k = I/(m r²); vi si inserisce il k = 2/3 della pallina cava, preso dalla seconda."
+          },
+          "wide_swing": {
+            "title": "Un'ampia oscillazione fino all'orizzontale",
+            "setting": "Pallina piena, senza resistenza al rotolamento, lasciata andare a 90° su per la parete.",
+            "reads": "Con un'ampia oscillazione un pendolo rallenta, di un fattore π/(2K), con l'integrale ellittico K.",
+            "why": "Verifica l'equazione del moto lontano dai piccoli angoli: 0,84 Hz invece di 0,99 Hz. Qui K è sommato come integrale, non con la media aritmetico-geometrica usata dal motore di calcolo.",
+            "step": "La prima fonte mostra che la pallina che rotola obbedisce esattamente all'equazione del pendolo, con g/(1+k); la seconda ne dà il periodo per qualsiasi ampiezza."
+          },
+          "circle_any_size": {
+            "title": "Un cerchio, alla stessa profondità in ogni sfera",
+            "setting": "Sfera Ø 1 m invece di 40 cm, pallina piena Ø 4 cm, senza resistenza al rotolamento: avviata sul cerchio per 2 Hz e lasciata correre per 10 s.",
+            "reads": "Un cerchio con velocità angolare Ω sta g′/Ω² sotto l'equatore, qualunque sia la dimensione della sfera.",
+            "why": "Verifica il moto nello spazio, non solo in un piano: dopo 10 s la pallina è ancora 4,4358 cm più in basso, come nella sfera da 40 cm.",
+            "step": "Per la pallina che rotola è un pendolo conico sotto g′ = g/(1+k). Le fonti mostrano che la rotazione attorno alla normale si conserva (Routh). Che il centro si muova allora come un pendolo sferico sotto g′ ne segue in un passaggio che nessuna di esse scrive per esteso."
+          },
+          "wobble": {
+            "title": "Il dondolio di un cerchio inclinato",
+            "setting": "Pallina piena sul cerchio a 60°, ma avviata 0,3° troppo in alto.",
+            "reads": "Un cerchio leggermente perturbato sale e scende con Ω·√(1 + 3cos²θ).",
+            "why": "Verifica quanto è stabile il cerchio, ciò che la pagina chiama «non ancora nel piano». 0,3° non sono infinitamente piccoli, da cui lo scarto dello 0,02 %.",
+            "step": "La fonte tratta il pendolo sferico, con l'angolo misurato dalla verticale verso il basso, come qui; per la pallina che rotola, sotto g′ = g/(1+k), come per il cerchio."
+          },
+          "energy": {
+            "title": "L'energia si conserva",
+            "setting": "Pallina piena avviata a 60° con 0,3 m/s di lato, senza resistenza al rotolamento e senza spinta della mano, per 20 s.",
+            "reads": "Senza perdite, la somma di moto, rotazione e altezza resta la stessa; la rotazione porta k volte l'energia del moto.",
+            "why": "Verifica il ciclo dei passi temporali stesso: dopo 20.000 passi l'energia è la stessa a meno di 10⁻¹¹."
+          },
+          "grip": {
+            "title": "Quanta aderenza serve al rotolamento",
+            "setting": "Pallina piena lasciata andare a 60°; letto nel punto di inversione.",
+            "reads": "Rotolare senza scivolare richiede un'aderenza di almeno tan θ/(1 + m r²/I), (2/7)·tan θ per una pallina piena.",
+            "why": "Verifica l'attrito che indica la pagina: 0,49 a 60°.",
+            "step": "La fonte tratta il piano inclinato. Nel punto di inversione la pallina è ferma e poggia come su un piano inclinato della stessa pendenza."
+          },
+          "leaves_wall": {
+            "title": "Dove la pallina si stacca dalla parete",
+            "setting": "Pallina piena spinta sul fondo così veloce che senza la parete arriverebbe a 120°.",
+            "reads": "La parete spinge con g·cos θ + 2g′(cos θ − cos θ₀). Dove questo si annulla, la pallina cade: a cos θ = 2cos θ₀/(3 + k).",
+            "why": "Verifica la spinta della parete, da cui la pagina capisce che la pallina cade: a 107,1°.",
+            "step": "La fonte dà la tensione del filo del pendolo semplice, mg(3cos θ − 2cos θ_m). Per la pallina che rotola l'energia porta il fattore 1 + k; la spinta perpendicolare alla parete resta g·cos θ + v²/ρ."
+          }
+        },
+        "coil": {
+          "rl_rise": {
+            "title": "La corrente sale",
+            "setting": "Pulsante + premuto, il carrello in cima a una rampa, lontano dalla bobina; letto dopo quattro costanti di tempo.",
+            "reads": "Collegata a una tensione, la corrente in una bobina sale solo lentamente, con la costante di tempo τ = L/R.",
+            "why": "Verifica il circuito della pagina: 94 mA dopo 5 ms, 96 mA alla fine."
+          },
+          "wheeler": {
+            "title": "L'induttanza della bobina",
+            "setting": "1600 spire, 60 mm di diametro medio, 50 mm di lunghezza.",
+            "reads": "La formula di Wheeler del 1928, in pollici e microhenry, precisa all'1 %.",
+            "why": "Verifica l'induttanza: i 118,1 mH della pagina vengono dalla forma SI della stessa formula; quella di Wheeler, così come è stampata, dà 117,8 mH. Lo 0,28 % rientra nel suo stesso uno per cento, perché il suo 9 e il suo 10 sono arrotondati."
+          },
+          "flux_centre": {
+            "title": "Il flusso del magnete nella bobina",
+            "setting": "Il magnete, Ø 20 × 10 mm e 1,3 T, al centro della bobina.",
+            "reads": "Ogni spira abbraccia una parte del flusso del piccolo magnete; sommato spira per spira su tutte le 1600.",
+            "why": "Verifica la curva Ψ(x), da cui vengono la tensione e la forza: la somma sulle spire coincide con la formula chiusa della pagina a meno di 10⁻⁷.",
+            "step": "La prima fonte dà il campo di una spira sul suo asse, la seconda che la mutua induttanza è la stessa nei due versi: il flusso del magnete attraverso la spira è il suo momento per quel campo per ampere. La terza scrive lo stesso per una bobina."
+          },
+          "charge": {
+            "title": "La carica, la stessa a ogni velocità",
+            "setting": "Senza pulsanti e senza resistenza al rotolamento, lasciato andare da metà altezza di una rampa; contata fino al centro della bobina.",
+            "reads": "Attraverso l'amperometro passa la variazione di flusso divisa per la resistenza, a qualunque velocità vada il carrello.",
+            "why": "Verifica la legge di Faraday sul ciclo dei passi temporali: 888 µC. Lo scarto dello 0,1 %: al centro la bobina trattiene ancora L·i/R, e la pagina disegna 200 volte al secondo.",
+            "step": "La fonte dà la carica di una bobina esploratrice senza induttanza. Con l'induttanza vale lo stesso, purché la corrente sia nulla all'inizio e alla fine; al centro lo è quasi."
+          },
+          "period": {
+            "title": "Senza bobina: un'altalena su archi",
+            "setting": "Bobina aperta, senza resistenza al rotolamento, lasciato andare da metà altezza di una rampa; il tempo di andata e ritorno.",
+            "reads": "Su ogni arco il carrello oscilla per mezzo periodo come un pendolo di lunghezza R; fra l'uno e l'altro attraversa due volte il tratto piano alla velocità della discesa.",
+            "why": "Verifica il percorso e il ciclo dei passi temporali: 2,71554 s a cinque decimali.",
+            "step": "La prima fonte dà il moto su un arco di circonferenza, con β = 0 per un corpo che scivola invece di rotolare; la seconda il suo periodo per qualsiasi ampiezza."
+          },
+          "brake": {
+            "title": "Il freno della bobina",
+            "setting": "Un carrello cento volte più pesante, 15 kg, perché rallenti appena, a 0,3 m/s attraverso la bobina chiusa; senza resistenza al rotolamento.",
+            "reads": "La tensione indotta k·v spinge una corrente che frena con k²v²/R; su un passaggio, (v/R)·∫k² dx.",
+            "why": "Verifica il freno di Lenz, che ferma prima il carrello a ruota libera: 667 µJ per passaggio.",
+            "step": "Le fonti danno la forza frenante di un magnete in una bobina e la potenza di un conduttore in moto; sommate lungo il percorso danno la perdita di un passaggio."
+          },
+          "energy_account": {
+            "title": "Il bilancio energetico torna",
+            "setting": "Dieci secondi premendo secondo la regola: + in entrata, − in uscita.",
+            "reads": "Ciò che dà la batteria diventa calore nel filo, perdita per rotolamento, scintille al rilascio, l'urto al finecorsa, moto e altezza del carrello ed energia nel campo della bobina.",
+            "why": "Verifica tutto insieme: 953 mJ dalla batteria, ritrovati a meno di 4 · 10⁻⁷.",
+            "step": "Le fonti danno l'energia nel campo di una bobina e la corrente nel circuito; il bilancio si limita a sommare le voci."
+          }
+        },
+        "chair": {
+          "one_picture": {
+            "title": "Attraverso il foro: un'immagine",
+            "setting": "Guardando esattamente attraverso lo spioncino, senza rotazione né inclinazione.",
+            "reads": "Un punto (X, Y, Z) finisce nell'immagine in (f·X/Z, f·Y/Z); tutti i punti di una stessa linea di vista finiscono nello stesso posto.",
+            "why": "Verifica che la sedia deformata e le aste sparse diano, vertice per vertice, l'immagine della sedia: le immagini distano 10⁻¹⁶, cioè per niente."
+          },
+          "straight_rods": {
+            "title": "Deformata, ma diritta",
+            "setting": "La sedia deformata: un punto a ¼, ½ e ¾ di ogni asta.",
+            "reads": "Una trasformazione proiettiva conserva le rette: la sedia deformata ha aste diritte che si incontrano nei vertici.",
+            "why": "Verifica la deformazione della pagina: i punti stanno a 10⁻¹⁶ m dall'asta, cioè sopra di essa."
+          },
+          "parallax": {
+            "title": "Quanto può spostarsi l'occhio",
+            "setting": "Le aste sparse; l'occhio spostato di lato o verso l'alto finché il primo vertice si apre di un minuto d'arco.",
+            "reads": "Due punti su una stessa linea di vista, a d₁ e d₂, si separano di δ·sin φ·|1/d₁ − 1/d₂| quando l'occhio si sposta di δ.",
+            "why": "Verifica gli 0,16 mm che indica la pagina: meno dello spioncino. La pagina li trova per bisezione, qui c'è la formula; i due valori coincidono a meno di 4 · 10⁻⁵.",
+            "step": "La fonte dà quanto velocemente un punto si muove trasversalmente alla linea di vista, V·sin φ/d. Per due punti la differenza, per un piccolo spostamento δ al posto di V·t."
+          },
+          "second_eye": {
+            "title": "Che cosa vede il secondo occhio",
+            "setting": "Le aste sparse, il secondo occhio 65 mm accanto al primo.",
+            "reads": "Per piccoli angoli i vertici si separano di b·sin φ·|1/d₁ − 1/d₂|.",
+            "why": "Verifica i 6,6° della pagina, il motivo dell'unico spioncino. La formula dà l'1,7 % in più, perché 65 mm non sono un piccolo passo per aste a mezzo metro; la pagina calcola l'angolo esattamente.",
+            "step": "La fonte dà la disparità per piccoli angoli; i 65 mm sono la distanza tra gli occhi di un adulto, secondo la seconda (in media circa 63 mm)."
+          }
+        }
       }
     }
   },

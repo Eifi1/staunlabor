@@ -135,7 +135,6 @@
       "next": "Siguiente exposición: {{name}}",
       "onward": "Más exposiciones"
     },
-    "unchecked": "La revisión de los cálculos aún está pendiente: las cifras y los dibujos de estas páginas aún pueden cambiar.",
     "play": {
       "pause": "Pausa",
       "run": "Seguir"
@@ -3289,6 +3288,224 @@
         "system": "La página calcula la frecuencia del segundo diapasón con el método de Rayleigh a partir de la forma del modo de una rama empotrada (βL = 1,875) y suma las dos oscilaciones amortiguadas. Se supone un diapasón de 440 Hz, ramas de 20 g y un tiempo de amortiguamiento de 6 s.",
         "check": "Las pruebas de la página contrastan la forma del modo con su ecuación, comprueban que la rama actúa en su punta como una cuarta parte de su masa, y comparan la estimación de Rayleigh con la frecuencia exacta de una rama con una masa en la punta: para 1 g queda menos de un 0,1 % alta. Se calcula en su navegador, con las mismas fórmulas que el motor de cálculo de la página.",
         "left_out": "Se omite: las cajas de resonancia y la sala; que el propio jinete cambia un poco la forma del modo; el acoplamiento de las dos ramas y el mango; el oído, que ya no oye los batidos rápidos como un crecer y desvanecerse, sino como aspereza y al final como dos tonos."
+      }
+    },
+    "checks": {
+      "title": "Compruébelo usted mismo",
+      "intro": "Casos límite que se pueden calcular a mano. En cada uno figuran la fórmula de una fuente publicada, el valor calculado a mano y el valor que calcula esta página. Donde ninguna fuente da la fórmula exactamente así, pone «deducida» junto con el único paso que lleva a ella.",
+      "by_hand": "A mano",
+      "page": "La página calcula",
+      "deviation": "Desviación {{value}}, se admite {{allowed}}",
+      "setting": "Configuración",
+      "why": "Qué comprueba el caso",
+      "derived": "deducida",
+      "step": "El paso",
+      "sources": "Fuentes",
+      "original": "Cita en el original",
+      "status": {
+        "unchecked": "Cálculos aún no revisados",
+        "checked": "Cálculos revisados el {{date}}",
+        "to_cases": "Compruébelos usted mismo"
+      },
+      "admin": {
+        "check": "Confirmar como revisado",
+        "uncheck": "Retirar la revisión",
+        "failed": "No ha funcionado. Inténtelo de nuevo, por favor."
+      },
+      "overview": "Los cálculos se revisan exposición por exposición: {{checked}} de {{total}} ya están revisadas.",
+      "symbols": {
+        "f0": "frecuencia de la oscilación más pequeña",
+        "f": "frecuencia",
+        "g": "aceleración de la gravedad, 9,80665",
+        "k": "factor de inercia I/(m r²) de la bola",
+        "rho": "distancia del centro de la bola al centro de la esfera, R − r",
+        "theta0": "amplitud, desde el fondo",
+        "K": "integral elíptica completa de primera especie",
+        "theta": "ángulo desde el fondo",
+        "Omega": "velocidad angular del círculo",
+        "gprime": "la parte de la gravedad que mueve el centro",
+        "omega": "frecuencia angular del balanceo",
+        "E": "energía por kilogramo de bola",
+        "v": "velocidad",
+        "h": "altura sobre el punto más bajo",
+        "mu": "coeficiente de adherencia necesario",
+        "m": "masa",
+        "r": "el radio de la bola",
+        "inertia": "momento de inercia",
+        "N": "el empuje de la pared",
+        "current": "corriente",
+        "U": "la tensión de la batería",
+        "R": "la resistencia de la bobina",
+        "L": "inductancia",
+        "tau": "constante de tiempo",
+        "t": "tiempo",
+        "a_in": "el radio de la bobina, en pulgadas",
+        "b_in": "la longitud de la bobina, en pulgadas",
+        "n": "espiras",
+        "Psi": "flujo a través de todas las espiras",
+        "dipole": "el momento magnético del imán",
+        "mu0": "la constante magnética",
+        "a": "el radio medio de una espira",
+        "z": "la distancia de una espira al imán, a lo largo del eje",
+        "Br": "la remanencia del imán",
+        "V": "el volumen del imán",
+        "Q": "carga que pasa por el amperímetro",
+        "T": "periodo, ida y vuelta",
+        "R_arc": "el radio de los arcos de las rampas",
+        "l": "longitud del tramo llano",
+        "v0": "velocidad en el tramo llano",
+        "dE": "energía perdida en una pasada",
+        "coupling": "acoplamiento dΨ/dx: voltios por m/s, newtons por amperio",
+        "x": "la posición del coche",
+        "W": "pérdidas: rodadura, chispas, tope final",
+        "Emech": "la energía cinética y potencial del coche",
+        "xy": "posición en la imagen",
+        "XYZ": "la posición del punto vista desde el ojo, Z hacia delante",
+        "focal": "la distancia de la pantalla al ojo",
+        "P": "un punto de la silla",
+        "eye": "el ojo en la mirilla",
+        "w": "la deformación",
+        "delta": "el desplazamiento del ojo",
+        "alpha": "agudeza visual, un minuto de arco",
+        "phi": "ángulo entre el desplazamiento y la línea de visión",
+        "d12": "las distancias de los dos extremos al ojo",
+        "eta": "ángulo entre los dos extremos",
+        "b": "distancia entre los ojos"
+      },
+      "cases": {
+        "sphere": {
+          "small_swing": {
+            "title": "Una oscilación pequeña en el fondo",
+            "setting": "Esfera Ø 40 cm, bola maciza Ø 4 cm, sin resistencia a la rodadura y sin empuje de la mano: soltada a 2° pared arriba.",
+            "reads": "Al rodar, la bola oscila como un péndulo de longitud ρ bajo 5/7 de la gravedad; los otros 2/7 la hacen girar.",
+            "why": "Comprueba la rodadura: deslizándose, la misma bola oscilaría a 1,17 Hz. La desviación del 0,008 % se debe a la propia oscilación de 2°, pues la fórmula vale para la más pequeña."
+          },
+          "hollow_ball": {
+            "title": "La bola hueca",
+            "setting": "Como arriba, con una bola hueca de pared delgada.",
+            "reads": "La misma fórmula con k = 2/3: una bola hueca tiene su masa por fuera y cuesta más hacerla girar.",
+            "why": "Comprueba que interviene el momento de inercia y no un 5/7 fijo.",
+            "step": "La primera fuente da la fórmula para cualquier k = I/(m r²); se introduce el k = 2/3 de la bola hueca, tomado de la segunda."
+          },
+          "wide_swing": {
+            "title": "Una oscilación amplia hasta la horizontal",
+            "setting": "Bola maciza, sin resistencia a la rodadura, soltada a 90° pared arriba.",
+            "reads": "Con mucha amplitud, un péndulo va más despacio, en el factor π/(2K), con la integral elíptica K.",
+            "why": "Comprueba la ecuación del movimiento lejos de los ángulos pequeños: 0,84 Hz en lugar de 0,99 Hz. Aquí K se suma como integral, no mediante la media aritmético-geométrica que usa el motor de cálculo.",
+            "step": "La primera fuente muestra que la bola que rueda cumple exactamente la ecuación del péndulo, con g/(1+k); la segunda da su periodo para cualquier amplitud."
+          },
+          "circle_any_size": {
+            "title": "Un círculo, a la misma profundidad en cualquier esfera",
+            "setting": "Esfera Ø 1 m en lugar de 40 cm, bola maciza Ø 4 cm, sin resistencia a la rodadura: lanzada en el círculo de 2 Hz y dejada correr 10 s.",
+            "reads": "Un círculo con velocidad angular Ω queda g′/Ω² por debajo del ecuador, sea cual sea el tamaño de la esfera.",
+            "why": "Comprueba el movimiento en el espacio, no solo en un plano: tras 10 s la bola sigue 4,4358 cm por debajo, como en la esfera de 40 cm.",
+            "step": "Para la bola que rueda es un péndulo cónico bajo g′ = g/(1+k). Las fuentes muestran que el giro alrededor de la normal se conserva (Routh). Que el centro se mueva entonces como un péndulo esférico bajo g′ se deduce en un paso que ninguna de ellas escribe."
+          },
+          "wobble": {
+            "title": "El balanceo de un círculo inclinado",
+            "setting": "Bola maciza en el círculo a 60°, pero lanzada 0,3° demasiado alta.",
+            "reads": "Un círculo ligeramente perturbado sube y baja con Ω·√(1 + 3cos²θ).",
+            "why": "Comprueba lo estable que es el círculo, lo que la página llama «aún no en el plano». 0,3° no es infinitamente pequeño, de ahí la desviación del 0,02 %.",
+            "step": "La fuente trata el péndulo esférico, con el ángulo medido desde la vertical hacia abajo, como aquí; para la bola que rueda, bajo g′ = g/(1+k), como en el círculo."
+          },
+          "energy": {
+            "title": "La energía se conserva",
+            "setting": "Bola maciza lanzada a 60° con 0,3 m/s de lado, sin resistencia a la rodadura y sin empuje de la mano, durante 20 s.",
+            "reads": "Sin pérdidas, la suma de movimiento, giro y altura se mantiene igual; el giro lleva k veces la energía del movimiento.",
+            "why": "Comprueba el propio bucle de pasos de tiempo: tras 20 000 pasos, la energía es la misma con una precisión de 10⁻¹¹."
+          },
+          "grip": {
+            "title": "Cuánta adherencia necesita la rodadura",
+            "setting": "Bola maciza soltada a 60°; leído en el punto de retorno.",
+            "reads": "Rodar sin deslizar requiere una adherencia de al menos tan θ/(1 + m r²/I), (2/7)·tan θ para una bola maciza.",
+            "why": "Comprueba el rozamiento que indica la página: 0,49 a 60°.",
+            "step": "La fuente trata el plano inclinado. En el punto de retorno la bola está quieta y descansa como sobre un plano inclinado de la misma pendiente."
+          },
+          "leaves_wall": {
+            "title": "Dónde se despega la bola de la pared",
+            "setting": "Bola maciza impulsada en el fondo tan deprisa que sin la pared llegaría a 120°.",
+            "reads": "La pared empuja con g·cos θ + 2g′(cos θ − cos θ₀). Donde eso se anula, la bola cae: en cos θ = 2cos θ₀/(3 + k).",
+            "why": "Comprueba el empuje de la pared, con el que la página detecta que la bola cae: a 107,1°.",
+            "step": "La fuente da la tensión del hilo del péndulo simple, mg(3cos θ − 2cos θ_m). Para la bola que rueda, la energía lleva el factor 1 + k; el empuje perpendicular a la pared sigue siendo g·cos θ + v²/ρ."
+          }
+        },
+        "coil": {
+          "rl_rise": {
+            "title": "La corriente sube",
+            "setting": "Botón + pulsado, el coche en lo alto de una rampa, lejos de la bobina; leído tras cuatro constantes de tiempo.",
+            "reads": "Al conectarla a una tensión, la corriente en una bobina sube solo despacio, con la constante de tiempo τ = L/R.",
+            "why": "Comprueba el circuito de la página: 94 mA tras 5 ms, 96 mA al final."
+          },
+          "wheeler": {
+            "title": "La inductancia de la bobina",
+            "setting": "1600 espiras, 60 mm de diámetro medio, 50 mm de longitud.",
+            "reads": "La fórmula de Wheeler de 1928, en pulgadas y microhenrios, con una precisión del 1 %.",
+            "why": "Comprueba la inductancia: los 118,1 mH de la página salen de la forma SI de la misma fórmula; la de Wheeler, tal como está impresa, da 117,8 mH. El 0,28 % queda dentro de su propio uno por ciento, pues su 9 y su 10 están redondeados."
+          },
+          "flux_centre": {
+            "title": "El flujo del imán en la bobina",
+            "setting": "El imán, Ø 20 × 10 mm y 1,3 T, en el centro de la bobina.",
+            "reads": "Cada espira abarca una parte del flujo del pequeño imán; sumado espira a espira sobre las 1600.",
+            "why": "Comprueba la curva Ψ(x), de la que salen la tensión y la fuerza: la suma sobre las espiras coincide con la fórmula cerrada de la página con una precisión de 10⁻⁷.",
+            "step": "La primera fuente da el campo de una espira en su eje; la segunda, que la inductancia mutua es la misma en ambos sentidos: el flujo del imán a través de la espira es su momento por ese campo por amperio. La tercera escribe lo mismo para una bobina."
+          },
+          "charge": {
+            "title": "La carga, la misma a cualquier velocidad",
+            "setting": "Sin botones y sin resistencia a la rodadura, soltado desde media altura de una rampa; contado hasta el centro de la bobina.",
+            "reads": "Por el amperímetro pasa la variación del flujo dividida entre la resistencia, sea cual sea la velocidad del coche.",
+            "why": "Comprueba la ley de Faraday en el bucle de pasos de tiempo: 888 µC. La desviación del 0,1 %: en el centro la bobina aún retiene L·i/R, y la página dibuja 200 veces por segundo.",
+            "step": "La fuente da la carga de una bobina exploradora sin inductancia. Con inductancia vale lo mismo siempre que la corriente sea nula al principio y al final; en el centro casi lo es."
+          },
+          "period": {
+            "title": "Sin bobina: un columpio sobre arcos",
+            "setting": "Bobina abierta, sin resistencia a la rodadura, soltado desde media altura de una rampa; el tiempo de ida y vuelta.",
+            "reads": "En cada arco el coche oscila medio periodo como un péndulo de longitud R; entre ellos cruza dos veces el tramo llano a la velocidad que le da la caída.",
+            "why": "Comprueba la pista y el bucle de pasos de tiempo: 2,71554 s con cinco decimales.",
+            "step": "La primera fuente da el movimiento sobre un arco de circunferencia, con β = 0 para un cuerpo que se desliza en lugar de rodar; la segunda, su periodo para cualquier amplitud."
+          },
+          "brake": {
+            "title": "El freno de la bobina",
+            "setting": "Un coche cien veces más pesado, de 15 kg, para que apenas se frene, a 0,3 m/s a través de la bobina cerrada; sin resistencia a la rodadura.",
+            "reads": "La tensión inducida k·v impulsa una corriente que frena con k²v²/R; en una pasada, (v/R)·∫k² dx.",
+            "why": "Comprueba el freno de Lenz, que hace que el coche que rueda libre se pare antes: 667 µJ por pasada.",
+            "step": "Las fuentes dan la fuerza de frenado de un imán en una bobina y la potencia de un conductor en movimiento; sumadas a lo largo del recorrido dan la pérdida de una pasada."
+          },
+          "energy_account": {
+            "title": "El balance de energía cuadra",
+            "setting": "Diez segundos pulsando según la regla: + al entrar, − al salir.",
+            "reads": "Lo que da la batería se convierte en calor en el alambre, pérdida por rodadura, chispas al soltar, el golpe en el tope final, movimiento y altura del coche y energía en el campo de la bobina.",
+            "why": "Comprueba todo junto: 953 mJ de la batería, recuperados con una precisión de 4 · 10⁻⁷.",
+            "step": "Las fuentes dan la energía en el campo de una bobina y la corriente en el circuito; el balance solo suma las partidas."
+          }
+        },
+        "chair": {
+          "one_picture": {
+            "title": "Por el agujero: una imagen",
+            "setting": "Mirando exactamente por la mirilla, sin giro ni inclinación.",
+            "reads": "Un punto (X, Y, Z) cae en la imagen en (f·X/Z, f·Y/Z); todos los puntos de una misma línea de visión caen en el mismo lugar.",
+            "why": "Comprueba que la silla deformada y las varillas dispersas dan, esquina por esquina, la imagen de la silla: las imágenes distan 10⁻¹⁶, es decir, nada."
+          },
+          "straight_rods": {
+            "title": "Deformada, pero recta",
+            "setting": "La silla deformada: un punto a ¼, ½ y ¾ de cada varilla.",
+            "reads": "Una transformación proyectiva conserva las rectas: la silla deformada tiene varillas rectas que se juntan en las esquinas.",
+            "why": "Comprueba la deformación de la página: los puntos quedan a 10⁻¹⁶ m de la varilla, es decir, sobre ella."
+          },
+          "parallax": {
+            "title": "Cuánto puede moverse el ojo",
+            "setting": "Las varillas dispersas; el ojo desplazado de lado o hacia arriba hasta que la primera esquina se abre un minuto de arco.",
+            "reads": "Dos puntos de una misma línea de visión, a d₁ y d₂, se separan δ·sin φ·|1/d₁ − 1/d₂| cuando el ojo se desplaza δ.",
+            "why": "Comprueba los 0,16 mm que indica la página: menos que la mirilla. La página los busca por bisección, aquí está la fórmula; ambos coinciden con una precisión de 4 · 10⁻⁵.",
+            "step": "La fuente da lo rápido que se mueve un punto transversalmente a la línea de visión, V·sin φ/d. Para dos puntos, la diferencia; para un desplazamiento pequeño, δ en lugar de V·t."
+          },
+          "second_eye": {
+            "title": "Lo que ve el segundo ojo",
+            "setting": "Las varillas dispersas, el segundo ojo 65 mm al lado del primero.",
+            "reads": "Para ángulos pequeños, las esquinas se separan b·sin φ·|1/d₁ − 1/d₂|.",
+            "why": "Comprueba los 6,6° de la página, la razón de la única mirilla. La fórmula da un 1,7 % de más, porque 65 mm no son un paso pequeño para varillas a medio metro; la página calcula el ángulo exactamente.",
+            "step": "La fuente da la disparidad para ángulos pequeños; los 65 mm son la distancia entre los ojos de un adulto, según la segunda (en promedio, unos 63 mm)."
+          }
+        }
       }
     }
   },

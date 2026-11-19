@@ -15,7 +15,8 @@ import { Button, Card, CardHeader, CardTitle, PageHeader, SectionLabel, TextLink
 import { PAGE_SHELL } from "@/shared/ui/page-shell";
 import { EXHIBITS, EXHIBITS_ANCHOR, OVERVIEW_PATH, exhibitEntry, type CourseLesson, type Exhibit } from "./exhibits";
 import { useTried } from "./tried";
-import { UncheckedNotice } from "./unchecked-notice";
+import { CheckSection } from "./check-section";
+import { CheckStatus } from "./unchecked-notice";
 
 /** The course these computations stand on lives in Kurvenschmiede, the
  *  engineering app the exhibits were first built in, public and free: its
@@ -92,7 +93,7 @@ export function ExhibitFrame({
         description={t(`experiments.exhibits.${exhibit}.summary`)}
       />
 
-      <UncheckedNotice />
+      <CheckStatus exhibit={exhibit} />
 
       <Card padding="md" density="compact" className="border-l-4 border-l-brand">
         <div className="flex gap-3">
@@ -169,6 +170,8 @@ export function ExhibitFrame({
         </CardHeader>
         <div className={`space-y-3 text-sm text-secondary ${PROSE}`}>{sweetSpot}</div>
       </Card>
+
+      <CheckSection exhibit={exhibit} />
 
       {/* Where to go on: back to the list, or on to the next exhibit. */}
       <nav aria-label={t("experiments.frame.onward")} className="flex flex-wrap items-center justify-between gap-3">

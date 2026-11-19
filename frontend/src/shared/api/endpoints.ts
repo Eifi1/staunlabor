@@ -35,5 +35,6 @@ export const queryKeys = {
   experimentsDefaults: ["experiments", "defaults"] as const,
   experimentsChair: ["experiments", "chair"] as const,
   experimentsChladni: ["experiments", "chladni"] as const,
+  experimentsChecks: ["experiments", "checks"] as const,
   experiments: (exhibit: string, payload: unknown) => ["experiments", exhibit, payload] as const,
 };

@@ -135,7 +135,6 @@
       "next": "Exposition suivante : {{name}}",
       "onward": "Autres expositions"
     },
-    "unchecked": "La vérification des calculs est encore en attente : les chiffres et les dessins de ces pages peuvent encore changer.",
     "play": {
       "pause": "Pause",
       "run": "Reprendre"
@@ -3289,6 +3288,224 @@
         "system": "La page calcule la fréquence du second diapason par la méthode de Rayleigh à partir de la forme du mode d’une branche encastrée (βL = 1,875) et additionne les deux vibrations amorties. On suppose un diapason de 440 Hz, des branches de 20 g et un temps d’amortissement de 6 s.",
         "check": "Les tests de la page confrontent la forme du mode à son équation, vérifient que la branche agit à sa pointe comme le quart de sa masse, et comparent l’estimation de Rayleigh à la fréquence exacte d’une branche portant une masse à sa pointe : pour 1 g, elle est trop haute de moins de 0,1 %. Le calcul se fait dans votre navigateur, avec les mêmes formules que le moteur de calcul de la page.",
         "left_out": "Laissé de côté : les caisses de résonance et la salle ; le fait que le cavalier modifie lui-même un peu la forme du mode ; le couplage des deux branches et la tige ; l’oreille, qui n’entend plus les battements rapides comme un son qui enfle et s’éteint, mais comme une rugosité et enfin comme deux sons."
+      }
+    },
+    "checks": {
+      "title": "Vérifiez par vous-même",
+      "intro": "Des cas limites que l’on peut calculer à la main. Pour chacun figurent la formule tirée d’une source publiée, la valeur calculée à la main et la valeur que calcule cette page. Là où aucune source ne donne la formule exactement ainsi, il est indiqué « déduite », avec l’unique étape qui y mène.",
+      "by_hand": "À la main",
+      "page": "La page calcule",
+      "deviation": "Écart {{value}}, toléré {{allowed}}",
+      "setting": "Réglage",
+      "why": "Ce que le cas vérifie",
+      "derived": "déduite",
+      "step": "L’étape",
+      "sources": "Sources",
+      "original": "Citation originale",
+      "status": {
+        "unchecked": "Calculs pas encore vérifiés",
+        "checked": "Calculs vérifiés le {{date}}",
+        "to_cases": "Vérifiez-les vous-même"
+      },
+      "admin": {
+        "check": "Confirmer comme vérifié",
+        "uncheck": "Annuler la vérification",
+        "failed": "Cela n’a pas fonctionné. Veuillez réessayer."
+      },
+      "overview": "Les calculs sont vérifiés exposition par exposition : {{checked}} sur {{total}} sont vérifiées.",
+      "symbols": {
+        "f0": "fréquence de la plus petite oscillation",
+        "f": "fréquence",
+        "g": "accélération de la pesanteur, 9,80665",
+        "k": "facteur d’inertie I/(m r²) de la bille",
+        "rho": "distance du centre de la bille au centre de la sphère, R − r",
+        "theta0": "amplitude, depuis le bas",
+        "K": "intégrale elliptique complète de première espèce",
+        "theta": "angle depuis le bas",
+        "Omega": "vitesse angulaire du cercle",
+        "gprime": "la part de la pesanteur qui déplace le centre",
+        "omega": "pulsation du balancement",
+        "E": "énergie par kilogramme de bille",
+        "v": "vitesse",
+        "h": "hauteur au-dessus du point le plus bas",
+        "mu": "coefficient d’adhérence nécessaire",
+        "m": "masse",
+        "r": "le rayon de la bille",
+        "inertia": "moment d’inertie",
+        "N": "la poussée de la paroi",
+        "current": "courant",
+        "U": "la tension de la batterie",
+        "R": "la résistance de la bobine",
+        "L": "inductance",
+        "tau": "constante de temps",
+        "t": "temps",
+        "a_in": "le rayon de la bobine, en pouces",
+        "b_in": "la longueur de la bobine, en pouces",
+        "n": "spires",
+        "Psi": "flux à travers toutes les spires",
+        "dipole": "le moment magnétique de l’aimant",
+        "mu0": "la constante magnétique",
+        "a": "le rayon moyen d’une spire",
+        "z": "la distance d’une spire à l’aimant, le long de l’axe",
+        "Br": "la rémanence de l’aimant",
+        "V": "le volume de l’aimant",
+        "Q": "charge traversant l’ampèremètre",
+        "T": "période, aller et retour",
+        "R_arc": "le rayon des arcs des rampes",
+        "l": "longueur du plat",
+        "v0": "vitesse sur le plat",
+        "dE": "énergie perdue en un passage",
+        "coupling": "couplage dΨ/dx : volts par m/s, newtons par ampère",
+        "x": "la position de la voiture",
+        "W": "pertes : roulement, étincelles, butée",
+        "Emech": "l’énergie cinétique et potentielle de la voiture",
+        "xy": "position dans l’image",
+        "XYZ": "la position du point vue de l’œil, Z vers l’avant",
+        "focal": "la distance de l’écran à l’œil",
+        "P": "un point de la chaise",
+        "eye": "l’œil au judas",
+        "w": "la déformation",
+        "delta": "le déplacement de l’œil",
+        "alpha": "acuité visuelle, une minute d’arc",
+        "phi": "angle entre le déplacement et la ligne de visée",
+        "d12": "les distances des deux extrémités à l’œil",
+        "eta": "angle entre les deux extrémités",
+        "b": "écart entre les yeux"
+      },
+      "cases": {
+        "sphere": {
+          "small_swing": {
+            "title": "Une petite oscillation au fond",
+            "setting": "Sphère Ø 40 cm, bille pleine Ø 4 cm, sans résistance au roulement ni poussée de la main : lâchée à 2° sur la paroi.",
+            "reads": "En roulant, la bille oscille comme un pendule de longueur ρ sous 5/7 de la pesanteur ; les 2/7 restants la font tourner.",
+            "why": "Vérifie le roulement : en glissant, la même bille oscillerait à 1,17 Hz. L’écart de 0,008 % vient de l’oscillation de 2° elle-même, car la formule vaut pour la plus petite."
+          },
+          "hollow_ball": {
+            "title": "La bille creuse",
+            "setting": "Comme ci-dessus, avec une bille creuse à paroi mince.",
+            "reads": "La même formule avec k = 2/3 : une bille creuse a sa masse à l’extérieur et il faut davantage pour la faire tourner.",
+            "why": "Vérifie que le moment d’inertie intervient, et non un facteur fixe de 5/7.",
+            "step": "La première source donne la formule pour tout k = I/(m r²) ; on y met le k = 2/3 de la bille creuse, tiré de la seconde."
+          },
+          "wide_swing": {
+            "title": "Une grande oscillation jusqu’à l’horizontale",
+            "setting": "Bille pleine, sans résistance au roulement, lâchée à 90° sur la paroi.",
+            "reads": "Avec une grande amplitude, un pendule ralentit, d’un facteur π/(2K), avec l’intégrale elliptique K.",
+            "why": "Vérifie l’équation du mouvement loin des petits angles : 0,84 Hz au lieu de 0,99 Hz. K est ici sommée comme une intégrale, et non par la moyenne arithmético-géométrique qu’utilise le moteur de calcul.",
+            "step": "La première source montre que la bille qui roule obéit exactement à l’équation du pendule, avec g/(1+k) ; la seconde donne sa période pour toute amplitude."
+          },
+          "circle_any_size": {
+            "title": "Un cercle à la même profondeur dans toute sphère",
+            "setting": "Sphère Ø 1 m au lieu de 40 cm, bille pleine Ø 4 cm, sans résistance au roulement : lancée sur le cercle de 2 Hz et laissée tourner 10 s.",
+            "reads": "Un cercle à la vitesse angulaire Ω se trouve g′/Ω² sous l’équateur, quelle que soit la taille de la sphère.",
+            "why": "Vérifie le mouvement dans l’espace, pas seulement dans un plan : après 10 s, la bille est toujours 4,4358 cm plus bas, comme dans la sphère de 40 cm.",
+            "step": "Pour la bille qui roule, c’est un pendule conique sous g′ = g/(1+k). Les sources montrent que la rotation autour de la normale se conserve (Routh). Que le centre se meuve alors comme un pendule sphérique sous g′ en découle en une étape qu’aucune d’elles n’écrit."
+          },
+          "wobble": {
+            "title": "Le balancement d’un cercle incliné",
+            "setting": "Bille pleine sur le cercle à 60°, mais lancée 0,3° trop haut.",
+            "reads": "Un cercle légèrement perturbé monte et descend à Ω·√(1 + 3cos²θ).",
+            "why": "Vérifie la stabilité du cercle, ce que la page appelle « pas encore dans le plan ». 0,3° n’est pas infiniment petit, d’où l’écart de 0,02 %.",
+            "step": "La source traite le pendule sphérique, avec l’angle compté depuis la verticale descendante, comme ici ; pour la bille qui roule, sous g′ = g/(1+k), comme pour le cercle."
+          },
+          "energy": {
+            "title": "L’énergie se conserve",
+            "setting": "Bille pleine lancée à 60° avec 0,3 m/s de côté, sans résistance au roulement ni poussée de la main, pendant 20 s.",
+            "reads": "Sans pertes, la somme du mouvement, de la rotation et de la hauteur reste la même ; la rotation porte k fois l’énergie du mouvement.",
+            "why": "Vérifie la boucle des pas de temps elle-même : après 20 000 pas, l’énergie est la même à 10⁻¹¹ près."
+          },
+          "grip": {
+            "title": "Quelle adhérence le roulement exige",
+            "setting": "Bille pleine lâchée à 60° ; relevé au point de retour.",
+            "reads": "Rouler sans glisser demande une adhérence d’au moins tan θ/(1 + m r²/I), soit (2/7)·tan θ pour une bille pleine.",
+            "why": "Vérifie le frottement qu’indique la page : 0,49 à 60°.",
+            "step": "La source traite le plan incliné. Au point de retour, la bille est immobile et repose comme sur un plan incliné de même pente."
+          },
+          "leaves_wall": {
+            "title": "Où la bille se détache de la paroi",
+            "setting": "Bille pleine lancée au fond si vite que, sans la paroi, elle atteindrait 120°.",
+            "reads": "La paroi pousse avec g·cos θ + 2g′(cos θ − cos θ₀). Là où cela s’annule, la bille tombe : à cos θ = 2cos θ₀/(3 + k).",
+            "why": "Vérifie la poussée de la paroi, par laquelle la page remarque que la bille tombe : à 107,1°.",
+            "step": "La source donne la tension du fil du pendule simple, mg(3cos θ − 2cos θ_m). Pour la bille qui roule, l’énergie porte le facteur 1 + k ; la poussée perpendiculaire à la paroi reste g·cos θ + v²/ρ."
+          }
+        },
+        "coil": {
+          "rl_rise": {
+            "title": "Le courant monte",
+            "setting": "Bouton + maintenu, la voiture au sommet d’une rampe, loin de la bobine ; relevé après quatre constantes de temps.",
+            "reads": "Sous une tension, le courant dans une bobine ne monte que lentement, avec la constante de temps τ = L/R.",
+            "why": "Vérifie le circuit de la page : 94 mA après 5 ms, 96 mA à la fin."
+          },
+          "wheeler": {
+            "title": "L’inductance de la bobine",
+            "setting": "1600 spires, 60 mm de diamètre moyen, 50 mm de long.",
+            "reads": "La formule de Wheeler de 1928, en pouces et en microhenrys, précise à 1 %.",
+            "why": "Vérifie l’inductance : les 118,1 mH de la page viennent de la forme SI de la même formule ; celle de Wheeler, telle qu’imprimée, donne 117,8 mH. Les 0,28 % restent dans son propre pour cent, car ses 9 et 10 sont arrondis."
+          },
+          "flux_centre": {
+            "title": "Le flux de l’aimant dans la bobine",
+            "setting": "L’aimant, Ø 20 × 10 mm et 1,3 T, au milieu de la bobine.",
+            "reads": "Chaque spire embrasse une part du flux du petit aimant ; sommé spire par spire sur les 1600.",
+            "why": "Vérifie la courbe Ψ(x), dont découlent la tension et la force : la somme sur les spires rejoint la formule fermée de la page à 10⁻⁷ près.",
+            "step": "La première source donne le champ d’une spire sur son axe, la deuxième que l’inductance mutuelle est la même dans les deux sens : le flux de l’aimant à travers la spire est son moment multiplié par ce champ par ampère. La troisième écrit la même chose pour une bobine."
+          },
+          "charge": {
+            "title": "La charge, la même à toute vitesse",
+            "setting": "Sans boutons ni résistance au roulement, lâchée à mi-hauteur d’une rampe ; comptée jusqu’au milieu de la bobine.",
+            "reads": "À travers l’ampèremètre passe la variation de flux divisée par la résistance, quelle que soit la vitesse de la voiture.",
+            "why": "Vérifie la loi de Faraday sur la boucle des pas de temps : 888 µC. L’écart de 0,1 % : au milieu, la bobine retient encore L·i/R, et la page dessine 200 fois par seconde.",
+            "step": "La source donne la charge d’une bobine exploratrice sans inductance. Avec inductance, il en va de même dès que le courant est nul au début et à la fin ; au milieu, il l’est presque."
+          },
+          "period": {
+            "title": "Sans la bobine : une balançoire sur des arcs",
+            "setting": "Bobine ouverte, sans résistance au roulement, lâchée à mi-hauteur d’une rampe ; le temps d’un aller-retour.",
+            "reads": "Sur chaque arc, la voiture oscille une demi-période comme un pendule de longueur R ; entre les deux, elle traverse deux fois le plat à la vitesse acquise dans la descente.",
+            "why": "Vérifie la piste et la boucle des pas de temps : 2,71554 s à cinq décimales.",
+            "step": "La première source donne le mouvement sur un arc de cercle, avec β = 0 pour un corps qui glisse au lieu de rouler ; la seconde, sa période pour toute amplitude."
+          },
+          "brake": {
+            "title": "Le frein de la bobine",
+            "setting": "Une voiture cent fois plus lourde, 15 kg, pour qu’elle ne ralentisse presque pas, à 0,3 m/s à travers la bobine fermée ; sans résistance au roulement.",
+            "reads": "La tension induite k·v fait circuler un courant qui freine avec k²v²/R ; sur un passage, (v/R)·∫k² dx.",
+            "why": "Vérifie le frein de Lenz, qui arrête plus tôt la voiture en roue libre : 667 µJ par passage.",
+            "step": "Les sources donnent la force de freinage d’un aimant dans une bobine et la puissance d’un conducteur en mouvement ; sommées le long du trajet, elles donnent la perte d’un passage."
+          },
+          "energy_account": {
+            "title": "Le bilan énergétique tombe juste",
+            "setting": "Dix secondes d’appuis selon la règle : + en entrant, − en sortant.",
+            "reads": "Ce que donne la batterie devient chaleur dans le fil, perte au roulement, étincelles au relâchement, choc en butée, mouvement et hauteur de la voiture, et énergie dans le champ de la bobine.",
+            "why": "Vérifie tout ensemble : 953 mJ tirés de la batterie, retrouvés à 4 · 10⁻⁷ près.",
+            "step": "Les sources donnent l’énergie dans le champ d’une bobine et le courant dans le circuit ; le bilan ne fait qu’additionner les postes."
+          }
+        },
+        "chair": {
+          "one_picture": {
+            "title": "Par le trou : une image",
+            "setting": "Regard exactement par le judas, sans rotation ni inclinaison.",
+            "reads": "Un point (X, Y, Z) arrive dans l’image en (f·X/Z, f·Y/Z) ; tous les points d’une même ligne de visée arrivent au même endroit.",
+            "why": "Vérifie que la chaise déformée et les tiges dispersées donnent, coin par coin, l’image de la chaise : les images sont à 10⁻¹⁶ l’une de l’autre, c’est-à-dire pas du tout."
+          },
+          "straight_rods": {
+            "title": "Déformée, mais droite",
+            "setting": "La chaise déformée : un point à ¼, ½ et ¾ de chaque tige.",
+            "reads": "Une transformation projective conserve les droites : la chaise déformée a des tiges droites qui se rejoignent aux coins.",
+            "why": "Vérifie la déformation de la page : les points sont à 10⁻¹⁶ m de la tige, c’est-à-dire dessus."
+          },
+          "parallax": {
+            "title": "Jusqu’où l’œil peut bouger",
+            "setting": "Les tiges dispersées ; l’œil déplacé latéralement ou vers le haut jusqu’à ce que le premier coin s’ouvre d’une minute d’arc.",
+            "reads": "Deux points d’une même ligne de visée, à d₁ et d₂, s’écartent de δ·sin φ·|1/d₁ − 1/d₂| quand l’œil se déplace de δ.",
+            "why": "Vérifie les 0,16 mm qu’indique la page : moins que le judas. La page les trouve par dichotomie, ici c’est la formule ; les deux concordent à 4 · 10⁻⁵ près.",
+            "step": "La source donne la vitesse à laquelle un point se déplace perpendiculairement à la ligne de visée, V·sin φ/d. Pour deux points, la différence ; pour un petit déplacement, δ au lieu de V·t."
+          },
+          "second_eye": {
+            "title": "Ce que voit le second œil",
+            "setting": "Les tiges dispersées, le second œil à 65 mm à côté du premier.",
+            "reads": "Pour de petits angles, les coins s’écartent de b·sin φ·|1/d₁ − 1/d₂|.",
+            "why": "Vérifie les 6,6° de la page, la raison du judas unique. La formule donne 1,7 % de trop, car 65 mm ne sont pas un petit pas pour des tiges à un demi-mètre ; la page calcule l’angle exactement.",
+            "step": "La source donne la disparité pour de petits angles ; les 65 mm sont l’écart entre les yeux d’un adulte, d’après la seconde (environ 63 mm en moyenne)."
+          }
+        }
       }
     }
   },

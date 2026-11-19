@@ -135,7 +135,6 @@
       "next": "Next exhibit: {{name}}",
       "onward": "More exhibits"
     },
-    "unchecked": "The calculations have not been checked yet: figures and drawings on these pages may still change.",
     "play": {
       "pause": "Pause",
       "run": "Run"
@@ -3289,6 +3288,224 @@
         "system": "The page computes the second fork's frequency by Rayleigh's method from the mode shape of a clamped prong (βL = 1.875) and adds the two dying swings. Assumed: a fork of 440 Hz, prongs of 20 g, a decay time of 6 s.",
         "check": "The page's tests hold the mode shape to its equation, check that the prong acts at its tip like a quarter of its mass, and compare Rayleigh's estimate with the exact frequency of a prong with a mass at its tip: for 1 g it is less than 0.1 % high. The computing happens in your browser, with the same formulas as the site's engine.",
         "left_out": "Left out: the sounding boxes and the room; that the rider itself changes the mode shape a little; the coupling of the two prongs, and the stem; the ear, which hears fast beats no longer as swelling and fading but as roughness and finally as two tones."
+      }
+    },
+    "checks": {
+      "title": "Check it yourself",
+      "intro": "Limiting cases you can work out by hand. Each gives the formula from a published source, the value by hand and the value this page computes. Where no source states the formula exactly so, it says “derived” and gives the one step.",
+      "by_hand": "By hand",
+      "page": "The page computes",
+      "deviation": "Off by {{value}}, allowed {{allowed}}",
+      "setting": "Setting",
+      "why": "What the case checks",
+      "derived": "derived",
+      "step": "The step",
+      "sources": "Sources",
+      "original": "Quoted as the source has it",
+      "status": {
+        "unchecked": "Calculations not yet checked",
+        "checked": "Calculations checked on {{date}}",
+        "to_cases": "Check them yourself"
+      },
+      "admin": {
+        "check": "Confirm as checked",
+        "uncheck": "Take the check back",
+        "failed": "That did not work. Please try again."
+      },
+      "overview": "The calculations are being checked exhibit by exhibit: {{checked}} of {{total}} are checked.",
+      "symbols": {
+        "f0": "the smallest swing's frequency",
+        "f": "frequency",
+        "g": "gravity, 9.80665",
+        "k": "the ball's inertia factor I/(m r²)",
+        "rho": "the ball centre's distance from the sphere's centre, R − r",
+        "theta0": "amplitude, from the bottom",
+        "K": "complete elliptic integral of the first kind",
+        "theta": "angle from the bottom",
+        "Omega": "the circle's rate",
+        "gprime": "the share of gravity that moves the centre",
+        "omega": "the bob's angular frequency",
+        "E": "energy per kilogram of ball",
+        "v": "speed",
+        "h": "height above the bottom",
+        "mu": "the grip needed",
+        "m": "mass",
+        "r": "the ball's radius",
+        "inertia": "moment of inertia",
+        "N": "the wall's push",
+        "current": "current",
+        "U": "the battery's voltage",
+        "R": "the coil's resistance",
+        "L": "inductance",
+        "tau": "time constant",
+        "t": "time",
+        "a_in": "the coil's radius, in inches",
+        "b_in": "the coil's length, in inches",
+        "n": "turns",
+        "Psi": "flux through all the turns",
+        "dipole": "the magnet's magnetic moment",
+        "mu0": "the magnetic constant",
+        "a": "a turn's mean radius",
+        "z": "a turn's distance from the magnet along the axis",
+        "Br": "the magnet's remanence",
+        "V": "the magnet's volume",
+        "Q": "charge through the meter",
+        "T": "period, there and back",
+        "R_arc": "the ramps' arc radius",
+        "l": "length of the flat",
+        "v0": "speed on the flat",
+        "dE": "energy lost in one pass",
+        "coupling": "coupling dΨ/dx: volts per m/s, newtons per ampere",
+        "x": "the car's position",
+        "W": "losses: rolling, sparks, end stop",
+        "Emech": "the car's energy of motion and height",
+        "xy": "place in the picture",
+        "XYZ": "the point's place from the eye, Z ahead",
+        "focal": "the screen's distance from the eye",
+        "P": "a point of the chair",
+        "eye": "the eye at the peephole",
+        "w": "the skew",
+        "delta": "the eye's move",
+        "alpha": "visual acuity, a minute of arc",
+        "phi": "angle between the move and the line of sight",
+        "d12": "the two ends' distances from the eye",
+        "eta": "angle between the two ends",
+        "b": "distance between the eyes"
+      },
+      "cases": {
+        "sphere": {
+          "small_swing": {
+            "title": "A small swing at the bottom",
+            "setting": "Sphere Ø 40 cm, solid ball Ø 4 cm, no rolling resistance, no hand: let go 2° up the wall.",
+            "reads": "Rolling, the ball swings like a pendulum of length ρ under 5/7 of gravity; the other 2/7 spin it.",
+            "why": "Checks the rolling: sliding, the same ball would swing at 1.17 Hz. The 0.008 % off is the 2° swing's own, as the formula is for the smallest."
+          },
+          "hollow_ball": {
+            "title": "The hollow ball",
+            "setting": "As above, with a thin hollow ball.",
+            "reads": "The same formula with k = 2/3: a hollow ball has its mass outside and takes more to spin.",
+            "why": "Checks that the moment of inertia enters, not a fixed 5/7.",
+            "step": "The first source gives the formula for any k = I/(m r²); put in is the hollow ball's k = 2/3 from the second."
+          },
+          "wide_swing": {
+            "title": "A wide swing up to the level",
+            "setting": "Solid ball, no rolling resistance, let go 90° up the wall.",
+            "reads": "Swung wide, a pendulum slows, by π/(2K) with the elliptic integral K.",
+            "why": "Checks the equation of motion far from small angles: 0.84 Hz, not 0.99 Hz. K is summed here as an integral, not by the arithmetic-geometric mean the engine uses.",
+            "step": "The first source shows the rolling ball obeys the pendulum equation exactly, with g/(1+k); the second gives its period at any amplitude."
+          },
+          "circle_any_size": {
+            "title": "A circle, as deep in any sphere",
+            "setting": "Sphere Ø 1 m, not 40 cm, solid ball Ø 4 cm, no rolling resistance: started on the circle for 2 Hz and run for 10 s.",
+            "reads": "A circle at rate Ω lies g′/Ω² below the equator, whatever the sphere's size.",
+            "why": "Checks the motion in space, not in one plane only: after 10 s the ball is still 4.4358 cm down, as in the 40 cm sphere.",
+            "step": "For the rolling ball this is a conical pendulum under g′ = g/(1+k). The sources show the spin about the normal is kept (Routh). That the centre then moves as a spherical pendulum under g′ follows in one step none of them writes out."
+          },
+          "wobble": {
+            "title": "The wobble of a tilted circle",
+            "setting": "Solid ball on the circle at 60°, but started 0.3° too high.",
+            "reads": "A slightly disturbed circle bobs at Ω·√(1 + 3cos²θ).",
+            "why": "Checks how stable the circle is, which the page calls “not in the plane yet”. 0.3° is not infinitely small, hence 0.02 % off.",
+            "step": "The source does the spherical pendulum, with the angle from the downward vertical as here; for the rolling ball under g′ = g/(1+k), as for the circle."
+          },
+          "energy": {
+            "title": "Energy is kept",
+            "setting": "Solid ball started at 60° with 0.3 m/s sideways, no rolling resistance, no hand, for 20 s.",
+            "reads": "With no losses, motion, spin and height add to the same; the spin carries k times the motion's.",
+            "why": "Checks the time loop itself: after 20,000 steps the energy is the same to 10⁻¹¹."
+          },
+          "grip": {
+            "title": "How much grip rolling needs",
+            "setting": "Solid ball let go at 60°; read at the turning point.",
+            "reads": "Rolling without slipping needs a grip of at least tan θ/(1 + m r²/I), (2/7)·tan θ for a solid ball.",
+            "why": "Checks the friction the page gives: 0.49 at 60°.",
+            "step": "The source does the incline. At the turning point the ball stands still and lies as on an incline of the same slope."
+          },
+          "leaves_wall": {
+            "title": "Where the ball falls off the wall",
+            "setting": "Solid ball pushed at the bottom so fast that without the wall it would reach 120°.",
+            "reads": "The wall pushes with g·cos θ + 2g′(cos θ − cos θ₀). Where that is zero the ball falls: at cos θ = 2cos θ₀/(3 + k).",
+            "why": "Checks the wall's push, by which the page notices the ball falling: at 107.1°.",
+            "step": "The source gives the simple pendulum's string tension, mg(3cos θ − 2cos θ_m). For the rolling ball the energy carries the factor 1 + k; the push across the wall is still g·cos θ + v²/ρ."
+          }
+        },
+        "coil": {
+          "rl_rise": {
+            "title": "The current rises",
+            "setting": "Plus held, the car at the top of a ramp, far from the coil; read after four time constants.",
+            "reads": "Switched onto a voltage, the current in a coil rises only slowly, with the time constant τ = L/R.",
+            "why": "Checks the page's circuit: 94 mA after 5 ms, 96 mA in the end."
+          },
+          "wheeler": {
+            "title": "The coil's inductance",
+            "setting": "1600 turns, 60 mm mean diameter, 50 mm long.",
+            "reads": "Wheeler's formula of 1928, in inches and microhenries, good to 1 %.",
+            "why": "Checks the inductance: the page's 118.1 mH is the SI form of the same formula, Wheeler as printed gives 117.8 mH. The 0.28 % lie within his own per cent, as his 9 and 10 are rounded."
+          },
+          "flux_centre": {
+            "title": "The magnet's flux through the coil",
+            "setting": "The magnet, Ø 20 × 10 mm and 1.3 T, in the middle of the coil.",
+            "reads": "Each turn holds a share of the small magnet's flux; summed turn by turn over all 1600.",
+            "why": "Checks the curve Ψ(x) both the voltage and the force come from: the sum over the turns meets the page's closed form to 10⁻⁷.",
+            "step": "The first source gives a loop's field on its axis, the second that mutual inductance is the same both ways: the magnet's flux through the loop is its moment times that field per ampere. The third writes the same for a coil."
+          },
+          "charge": {
+            "title": "The charge, the same at any speed",
+            "setting": "No buttons, no rolling resistance, let go from halfway up a ramp; counted to the coil's middle.",
+            "reads": "Through the meter flows the change of flux over the resistance, however fast the car goes.",
+            "why": "Checks Faraday's law on the time loop: 888 µC. The 0.1 % off: the coil still holds L·i/R back at the middle, and the page draws 200 times a second.",
+            "step": "The source gives a search coil's charge without inductance. With it the same holds once the current is zero at start and end; at the middle it nearly is."
+          },
+          "period": {
+            "title": "Without the coil: a swing on arcs",
+            "setting": "Coil open, no rolling resistance, let go from halfway up a ramp; the time there and back.",
+            "reads": "On each arc the car swings half a period like a pendulum of length R; between them it crosses the flat twice at the speed of its drop.",
+            "why": "Checks the track and the time loop: 2.71554 s to five places.",
+            "step": "The first source gives the motion on a circular arc, with β = 0 for a body that slides rather than rolls; the second its period at any amplitude."
+          },
+          "brake": {
+            "title": "The coil's brake",
+            "setting": "A car a hundred times heavier, 15 kg, so it hardly slows, through the closed coil at 0.3 m/s; no rolling resistance.",
+            "reads": "The induced voltage k·v drives a current that brakes with k²v²/R; over one pass (v/R)·∫k² dx.",
+            "why": "Checks Lenz's brake, which stops the coasting car sooner: 667 µJ a pass.",
+            "step": "The sources give a magnet's drag in a coil and a moving conductor's power; summed along the way they give one pass's loss."
+          },
+          "energy_account": {
+            "title": "The energy account closes",
+            "setting": "Ten seconds pressing by the rule: plus coming in, minus going out.",
+            "reads": "What the battery gives becomes heat in the wire, rolling loss, sparks on letting go, the knock at the end stop, the car's motion and height, and energy in the coil's field.",
+            "why": "Checks everything together: 953 mJ from the battery, found again to 4 · 10⁻⁷.",
+            "step": "The sources give the energy in a coil's field and the current in the circuit; the account only adds the items up."
+          }
+        },
+        "chair": {
+          "one_picture": {
+            "title": "Through the hole: one picture",
+            "setting": "Looking exactly through the peephole, with no turn and no tilt.",
+            "reads": "A point (X, Y, Z) lands in the picture at (f·X/Z, f·Y/Z); every point on one line of sight lands in the same place.",
+            "why": "Checks that the skewed chair and the scattered rods give the chair's picture corner for corner: the pictures lie 10⁻¹⁶ apart, which is not at all."
+          },
+          "straight_rods": {
+            "title": "Skewed, but straight",
+            "setting": "The skewed chair: a point at ¼, ½ and ¾ along every rod.",
+            "reads": "A projective map keeps straight lines: the skewed chair has straight rods that meet at the corners.",
+            "why": "Checks the page's skew: the points lie 10⁻¹⁶ m off the rod, which is on it."
+          },
+          "parallax": {
+            "title": "How far the eye may move",
+            "setting": "The scattered rods; the eye moved sideways or up until the first corner opens by a minute of arc.",
+            "reads": "Two points on one line of sight at d₁ and d₂ part by δ·sin φ·|1/d₁ − 1/d₂| when the eye moves by δ.",
+            "why": "Checks the 0.16 mm the page gives: less than the peephole. The page finds it by halving, here is the formula; the two meet to 4 · 10⁻⁵.",
+            "step": "The source gives how fast a point moves across the line of sight, V·sin φ/d. For two points the difference, for a small move δ in place of V·t."
+          },
+          "second_eye": {
+            "title": "What the second eye sees",
+            "setting": "The scattered rods, the second eye 65 mm beside the first.",
+            "reads": "For small angles the corners part by b·sin φ·|1/d₁ − 1/d₂|.",
+            "why": "Checks the page's 6.6°, the reason for the single peephole. The formula is 1.7 % high, as 65 mm is no small step for rods half a metre away; the page works the angle out exactly.",
+            "step": "The source gives the disparity for small angles; the 65 mm are an adult's eye distance from the second (around 63 mm on average)."
+          }
+        }
       }
     }
   },
