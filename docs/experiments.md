@@ -2314,6 +2314,17 @@ deployed code's. An engine change brings "not yet checked" back by itself.
 The public answer gives the day and nothing of who checked (Marcel: only the
 date).
 
+**Refactors uncheck** (Marcel, 2026-11-19, on a side agent's note: "Das ist
+sinnvoll. Und sollte bei zukünftigen Refactorings berücksichtigt werden").
+The fingerprint changes with any code change in the exhibit's engine
+modules, a renamed variable or a function split as much as a new constant;
+only docstrings and comments are left out. A change to a helper several
+engines import unchecks all of them, and so does a change to the cases. So
+the refactors of the engine (the audit's) go before an exhibit is checked,
+and a change after says which exhibits it unchecks. The browser ports in
+`simulate/` are not in the fingerprint: they are held to the engine by
+`engine-cases.json`, not by the check.
+
 ## Checking the mathematics
 
 Before the engine was written each model was checked independently with SciPy

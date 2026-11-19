@@ -101,6 +101,12 @@ frontend/src/
   `scripts/write-experiments-cases.py` → `engine-cases.json`, checked from
   both sides (`tests/unit/test_experiments_browser.py`, `simulate.test.ts`).
   Change both sides and rewrite the cases in one commit.
+* **A checked exhibit's engine is changed only on purpose**: an admin's check
+  holds for the fingerprint of the exhibit's Python engine modules, those they
+  import and its cases (`domain/checks/`); any code change there, a pure
+  refactor too, brings "not yet checked" back. Do refactors of an engine
+  before its exhibit is checked, and name the exhibits a change unchecks
+  (Marcel, 2026-11-19). Docstrings, comments and `simulate/` do not count.
 * **The prose states only what a test asserts**: a figure in a catalogue
   sentence is one `tests/unit/test_experiments.py` checks.
 * **No formula stands alone**: every one is an `Equation` with a sentence and
