@@ -190,15 +190,39 @@ biggest thing on the first screen (`docs/experiments.md`, "The overview").
   account stays in the footer, never in the exhibits' way (second stage). A
   fixed header covers what a link jumps to (`#try-it`, a check's "Set it up"):
   those targets get a scroll margin.
-- **The front page, `/`, is the first screen only:** on the left the project
-  (its name, the tagline as the biggest line, one sentence, the way into the
-  day's exhibit and to every exhibit); on the right the day's exhibit, playing,
-  in a frame captioned with the day, its name and its question; "Earlier days"
-  stays a dialog. Under both, five figures counted from the code, none kept by
-  hand: the exhibits, the fields, the equations, how many are checked (from
-  the server), the languages; and one quiet line: no cookies, no tracking, no
-  account needed. The content keeps one centred width (about 1500 px) on a
-  wide screen, the header with it.
+- **The front page, `/`** (Marcel's spec, "Spec: Redesign Startseite &
+  Layout-Raster", a Claude doc of 2026-11-19, and his choice of 2026-11-20
+  among three drafts: "Ansicht A, drei Abschnitte"):
+  - on the left the project: "Staunlabor" as the `h1`, the claim "Erst
+    spielen, dann rechnen." under it, one paragraph, the way into the day's
+    exhibit and down to the exhibits;
+  - on the right the day's exhibit, playing, in a frame: the day and "Earlier
+    days" (still a dialog) above, its name, its question and "Ausprobieren"
+    below; a click on the drawing opens it too;
+  - under both, five figures counted from the code, none kept by hand: the
+    exhibits, the fields, the equations worked through, how many are checked
+    (from the server), the languages; and one quiet line: no cookies, no
+    tracking, no account needed;
+  - then three sections, each a title with "›", a link on the right, a
+    hairline and two sentences at most: **Exponate** (the five latest, whole
+    cards as links, "+ 30 weitere im Katalog"), **Gebiete** (each field as a
+    chip with its count, into the catalogue filtered by it) and **So
+    funktioniert's** (try, watch, work it out: three steps);
+  - no `100vh` and no vertical centring; at 1440×900 the hero and the
+    figures show without scrolling.
+- **One width everywhere** (Marcel, 2026-11-20: "Überall 1160 px"): a
+  container of 1160 px with a 32 px gutter (20 px below 640 px) holds the
+  header, every page, the exhibits' pages too, and the footer, so every left
+  edge lines up; prose at most 64ch; lines rather than boxes between sections.
+  An exhibit's drawing and its controls then stand side by side within it.
+- **Type** (the spec; Fraunces kept in its comment): Fraunces for the name,
+  the claim and the section titles, Inter for the text, JetBrains Mono for
+  figures, labels and dates, all three hosted here (no request to Google).
+- **The footer** keeps one quiet line, "Beta: Die Berechnungen werden noch
+  geprüft.", beside the status line under each exhibit's title.
+- **Checked by** the spec's criteria at 1280×800, 1440×900 and 375×812: one
+  left edge, no horizontal scroll, AA contrast, a visible focus everywhere,
+  Lighthouse accessibility ≥ 95 and CLS < 0.1.
 - **Exponate, `/exhibits`:** the list from the front page, grouped by
   **field**, the topics a finer filter kept in the address (`?topic=…`), "n of
   35 tried" with it. Every exhibit's page links back to it (`exhibit-frame.tsx`,
@@ -220,8 +244,8 @@ biggest thing on the first screen (`docs/experiments.md`, "The overview").
   three it links now (coupled pendulums → the two-mass oscillator, resonance →
   Laplace and Bode, stability → eigenvalues). Kurvenschmiede writes
   "Differenzialgleichungen", with a z.
-- **Über:** the about page with the project's facts, and "So funktioniert's":
-  how the site computes (the engine as the authority, the browser's loops held
+- **Über:** the about page with the project's facts, and at length what the
+  front page's "So funktioniert's" says in three steps: how the site computes (the engine as the authority, the browser's loops held
   to it by the reference cases) and how it is checked (the cases and which
   exhibits are checked), in place of the "n of 35 checked" line on the front
   page.

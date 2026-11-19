@@ -21,7 +21,6 @@ import { PAGE_SHELL } from "@/shared/ui/page-shell";
 import { ChecksSummary } from "./unchecked-notice";
 import { dailyExhibit, dailyHistory, dayIn, type DailyPick } from "./daily";
 import { EXHIBIT_MODULES } from "./exhibit-modules";
-import { ExhibitPreview } from "./exhibit-preview";
 import { FittedPreview } from "./fitted-preview";
 import { lessonPath } from "./exhibit-frame";
 import {
@@ -178,7 +177,7 @@ function DailyHero({ entry, today }: { entry: ExhibitEntry; today: string }) {
         closeButton
         closeLabel={t("common.close")}
       >
-        <ol className="grid grid-cols-2 gap-3 sm:grid-cols-3 md:grid-cols-4">
+        <ol className="grid grid-cols-1 gap-3 sm:grid-cols-2 md:grid-cols-3">
           {history.map((pick) => (
             <li key={pick.day}>
               <HistoryCard pick={pick} />
@@ -189,6 +188,13 @@ function DailyHero({ entry, today }: { entry: ExhibitEntry; today: string }) {
     </section>
   );
 }
+
+/** How tall a day's drawing is in the dialog: one height for every card, each
+ *  drawing fitted to it and centred (`FittedPreview`). Laid out at its own
+ *  height, a wide track came out a thin strip at the top of an empty card and
+ *  an upright drop a tall column (Marcel, 2026-11-20: "geht bedeutend
+ *  schöner"). */
+const HISTORY_PREVIEW_HEIGHT = 170;
 
 /** One day's exhibit: a still, which plays while it is pointed at or focused. */
 function HistoryCard({ pick }: { pick: DailyPick }) {
@@ -204,7 +210,12 @@ function HistoryCard({ pick }: { pick: DailyPick }) {
         {shortDay(pick.day, locale)}
         {tried && <Check className="size-4 text-success" aria-label={t("experiments.overview.tried.mark")} />}
       </span>
-      <ExhibitPreview exhibit={pick.exhibit} still={!live} />
+      <FittedPreview
+        exhibit={pick.exhibit}
+        still={!live}
+        height={HISTORY_PREVIEW_HEIGHT}
+        box="rounded-md bg-surface-2"
+      />
       <span className="mt-auto block truncate text-sm font-medium text-primary">{title}</span>
     </>
   );
