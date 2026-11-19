@@ -404,7 +404,9 @@
         "aligned": "A lyukakon át: egy szék, háromszor",
         "apart": "Innen: három különböző dolog",
         "turn": "Forgatás",
-        "tilt": "Döntés"
+        "tilt": "Döntés",
+        "eye": "Oldalra tolt szem",
+        "eye_hint": "65 mm-nél a másik szem néz be."
       }
     },
     "equation": {
@@ -440,7 +442,9 @@
           "0_25": "¼",
           "0_1": "⅒"
         },
-        "keys": "Billentyűzeten: a pluszhoz tartsa lenyomva a + vagy a ← billentyűt, a mínuszhoz a − vagy a → billentyűt."
+        "keys": "Billentyűzeten: a pluszhoz tartsa lenyomva a + vagy a ← billentyűt, a mínuszhoz a − vagy a → billentyűt.",
+        "start": "Indulás: ennyire balra a tekercstől",
+        "start_hint": "{{top}} cm: a rámpa tetején; {{half}} cm: félmagasságban."
       },
       "meter": {
         "label": "Az árammérő, milliamperben",
@@ -462,7 +466,8 @@
         "closed": "Az árammérő a gombnyomások között is bekötve marad",
         "closed_hint": "A kiállításon így van: a kijelzés kitér, amikor a kocsi átgurul, és ez az áram kissé fékezi a kocsit.",
         "radius": "Rámpasugár",
-        "radius_hint": "Minden rámpa egy ilyen sugarú körív, amely a sík szakasznál vízszintesen indul: minél kisebb, annál meredekebben és magasabbra emelkedik ugyanazon a hosszon."
+        "radius_hint": "Minden rámpa egy ilyen sugarú körív, amely a sík szakasznál vízszintesen indul: minél kisebb, annál meredekebben és magasabbra emelkedik ugyanazon a hosszon.",
+        "mass_hint": "20 kg-ig: a nehéz kocsi alig lassul a tekercsben."
       },
       "model": {
         "flux_intro": "Minden egyetlen görbével kezdődik: a mágnes teréből mennyi halad át a tekercs menetein, ha a kocsi egy adott helyen van.",
@@ -540,7 +545,8 @@
         "modes": {
           "hand": "Ön",
           "circle": "Egyenletes kör",
-          "perfect": "Automatikus: tökéletes időzítés"
+          "perfect": "Automatikus: tökéletes időzítés",
+          "release": "Kéz nélkül"
         },
         "hint_hand": "Húzza az ujját a felülnézetben: a gömb úgy követi az ujját, ahogy egy kéz tenné. Körözzön a közép körül — eleinte lassan, nagyjából másodpercenként egyszer, aztán egyre gyorsabban, ahogy a golyó emelkedik.",
         "hint_circle": "A gömböt egy 2 cm-es körön toljuk körbe az Ön által beállított tempóban. Ha lassan változtatja a tempót, a golyó követi; ha egyszerre, lemarad.",
@@ -557,7 +563,11 @@
         "your_tempo": "Az Ön tempója",
         "needed": "Tempó ehhez a magassághoz",
         "lead": "Gömb a golyó előtt",
-        "reading": "{{f0}} Hz alatt nincs kör: a golyó csak billeg a gömb alján. Minden magasságnak megvan a saját tempója — ez a vonal a diagramon —, és minél magasabban, annál gyorsabb."
+        "reading": "{{f0}} Hz alatt nincs kör: a golyó csak billeg a gömb alján. Minden magasságnak megvan a saját tempója — ez a vonal a diagramon —, és minél magasabban, annál gyorsabb.",
+        "hint_release": "Válassza ki, honnan induljon a golyó és milyen gyorsan guruljon oldalra, majd engedje el: a gömb nyugalomban marad.",
+        "start_angle": "Indulás: szög a legalsó ponttól",
+        "start_speed": "Indulás: oldalra ennyivel",
+        "release": "Elengedés"
       },
       "views": {
         "top": "A gömb felülről: húzza, hogy tolja",
@@ -3373,7 +3383,9 @@
         "phi": "a mozgás és a látóvonal közötti szög",
         "d12": "a két vég távolsága a szemtől",
         "eta": "a két vég közötti szög",
-        "b": "a két szem távolsága"
+        "b": "a két szem távolsága",
+        "h0": "a magasság, ahonnan a kocsit elengedik",
+        "hx": "a pálya magassága az x helyen"
       },
       "cases": {
         "sphere": {
@@ -3468,10 +3480,10 @@
           },
           "brake": {
             "title": "A tekercs fékje",
-            "setting": "Százszor nehezebb, 15 kg-os kocsi, hogy alig lassuljon, 0,3 m/s-mal át a zárt tekercsen; gördülési ellenállás nélkül.",
-            "reads": "A k·v indukált feszültség áramot hajt, amely k²v²/R-rel fékez; egy áthaladásra (v/R)·∫k² dx.",
-            "why": "A Lenz-féle féket ellenőrzi, amely a szabadon guruló kocsit hamarabb megállítja: áthaladásonként 667 µJ.",
-            "step": "A források egy tekercsben mozgó mágnes fékezőerejét és egy mozgó vezető teljesítményét adják meg; az út mentén összegezve ezekből adódik egy áthaladás vesztesége."
+            "setting": "Százszor nehezebb kocsi, 15 kg, hogy alig lassuljon; zárt tekercs, gördülési ellenállás nélkül, a rámpa feléről elengedve. A jobb oldali első fordulóig mérve.",
+            "reads": "Az indukált k·v feszültség áramot hajt, amely k²v²/R teljesítménnyel fékez; egy áthaladás alatt (1/R)·∫k²v dx, ahol a v sebesség csak az esésből adódik.",
+            "why": "A Lenz-féle fékezést ellenőrzi, amely hamarabb megállítja a guruló kocsit: 1,10 mJ a tekercsen át, a nehéz kocsi túloldalon hiányzó magasságaként mérve.",
+            "step": "A források megadják egy tekercsben mozgó mágnes fékezőerejét és egy mozgó vezető teljesítményét; az út mentén összegezve, az energiából kapott sebességgel, ezek adják egy áthaladás veszteségét."
           },
           "energy_account": {
             "title": "Az energiamérleg kijön",
@@ -3509,7 +3521,9 @@
             "step": "A forrás kis szögekre adja meg a diszparitást; a 65 mm a felnőttek szemtávolsága a második forrás szerint (átlagosan 63 mm körül)."
           }
         }
-      }
+      },
+      "set_up": "Beállítás",
+      "set_up_hint": "A fenti tárgyat erre az esetre állítja"
     }
   },
   "account": {

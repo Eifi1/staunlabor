@@ -1,8 +1,9 @@
 import { useTranslation } from "react-i18next";
-import { BookOpen, ClipboardCheck } from "lucide-react";
-import { Card, CardHeader, CardTitle, Chip, TextLink } from "@eifi1/ui-kit";
+import { BookOpen, ClipboardCheck, SlidersHorizontal } from "lucide-react";
+import { Button, Card, CardHeader, CardTitle, Chip, TextLink } from "@eifi1/ui-kit";
 import { useLocale } from "@/shared/i18n/use-locale";
 import { CHECK_FORMULAS } from "./check-formulas";
+import { askCheckSetting } from "./check-setting";
 import { checkCases, type CheckCase } from "./checks";
 import { Equation } from "./equation";
 import type { Exhibit } from "./exhibits";
@@ -77,6 +78,17 @@ function CaseCard({ exhibit, item, index }: { exhibit: Exhibit; item: CheckCase;
             {t("experiments.checks.derived")}
           </Chip>
         )}
+        {/* Tried, not only read: the twin above set to the case. */}
+        <Button
+          variant="secondary"
+          size="sm"
+          className="ml-auto"
+          title={t("experiments.checks.set_up_hint")}
+          onClick={() => askCheckSetting(exhibit, item.setting)}
+        >
+          <SlidersHorizontal className="size-4" aria-hidden />
+          {t("experiments.checks.set_up")}
+        </Button>
       </div>
       <p className="text-sm text-secondary">
         <span className="font-medium text-primary">{t("experiments.checks.setting")}: </span>

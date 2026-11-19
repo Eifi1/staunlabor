@@ -183,6 +183,24 @@ def _leaves_at_deg(sphere: engine.Sphere) -> float:
     raise AssertionError("the ball never left the wall")
 
 
+def _setting(sphere: engine.Sphere, angle_deg: float, speed_m_s: float) -> dict[str, float | str]:
+    """What the page's "Set it up" sets: the build, and the ball let go without
+    a hand at ``angle_deg`` up the wall, rolling round at ``speed_m_s``."""
+    return {
+        "shell_radius_m": sphere.shell_radius_m,
+        "ball_radius_m": sphere.ball_radius_m,
+        "ball": sphere.ball.value,
+        "rolling_resistance": sphere.rolling_resistance,
+        "start_angle_deg": angle_deg,
+        "start_speed_m_s": speed_m_s,
+    }
+
+
+_CIRCLE = engine.orbit(_BIG, 2.0)
+assert _CIRCLE is not None
+_SIXTY = engine.orbit_at(_FREE, 60.0)
+
+
 CASES: tuple[Case, ...] = (
     Case(
         key="small_swing",
@@ -192,7 +210,7 @@ CASES: tuple[Case, ...] = (
         # A swing of 2° is 0.008 % slower than the smallest.
         tolerance=2e-4,
         sources=(_BOWL, _INCLINE),
-        setting={"shell_diameter_cm": 40, "ball_diameter_cm": 4, "ball": "solid", "amplitude_deg": 2},
+        setting=_setting(_FREE, 2.0, 0.0),
     ),
     Case(
         key="hollow_ball",
@@ -202,7 +220,7 @@ CASES: tuple[Case, ...] = (
         tolerance=2e-4,
         sources=(_BOWL, _HOLLOW),
         derived=True,
-        setting={"shell_diameter_cm": 40, "ball_diameter_cm": 4, "ball": "hollow", "amplitude_deg": 2},
+        setting=_setting(_HOLLOW_BALL, 2.0, 0.0),
     ),
     Case(
         key="wide_swing",
@@ -212,7 +230,7 @@ CASES: tuple[Case, ...] = (
         tolerance=1e-5,
         sources=(_BOWL, _PERIOD, _AGM),
         derived=True,
-        setting={"shell_diameter_cm": 40, "ball_diameter_cm": 4, "ball": "solid", "amplitude_deg": 90},
+        setting=_setting(_FREE, 90.0, 0.0),
     ),
     Case(
         key="circle_any_size",
@@ -222,7 +240,7 @@ CASES: tuple[Case, ...] = (
         tolerance=1e-5,
         sources=(_CONICAL, _ROUTH),
         derived=True,
-        setting={"shell_diameter_cm": 100, "ball_diameter_cm": 4, "ball": "solid", "rate_hz": 2},
+        setting=_setting(_BIG, _CIRCLE.angle_deg, _CIRCLE.speed_m_s),
     ),
     Case(
         key="wobble",
@@ -233,7 +251,7 @@ CASES: tuple[Case, ...] = (
         tolerance=1e-3,
         sources=(_WOBBLE, _ROUTH),
         derived=True,
-        setting={"shell_diameter_cm": 40, "ball_diameter_cm": 4, "ball": "solid", "angle_deg": 60, "kick_deg": 0.3},
+        setting=_setting(_FREE, 60.3, _SIXTY.speed_m_s),
     ),
     Case(
         key="energy",
@@ -242,7 +260,7 @@ CASES: tuple[Case, ...] = (
         measured=lambda: _energy_after(_FREE),
         tolerance=1e-8,
         sources=(_ENERGY,),
-        setting={"shell_diameter_cm": 40, "ball_diameter_cm": 4, "ball": "solid", "angle_deg": 60, "speed_m_s": 0.3},
+        setting=_setting(_FREE, 60.0, 0.3),
     ),
     Case(
         key="grip",
@@ -252,7 +270,7 @@ CASES: tuple[Case, ...] = (
         tolerance=1e-6,
         sources=(_GRIP,),
         derived=True,
-        setting={"shell_diameter_cm": 40, "ball_diameter_cm": 4, "ball": "solid", "amplitude_deg": 60},
+        setting=_setting(_FREE, 60.0, 0.0),
     ),
     Case(
         key="leaves_wall",
@@ -262,6 +280,6 @@ CASES: tuple[Case, ...] = (
         tolerance=1e-4,
         sources=(_SLACK, _ENERGY),
         derived=True,
-        setting={"shell_diameter_cm": 40, "ball_diameter_cm": 4, "ball": "solid", "turn_deg": _TURN_DEG},
+        setting=_setting(_FREE, 0.0, _launch_speed(_FREE)),
     ),
 )

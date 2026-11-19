@@ -404,7 +404,9 @@
         "aligned": "Through the holes: one chair, three times",
         "apart": "From here: three different things",
         "turn": "Turn",
-        "tilt": "Tilt"
+        "tilt": "Tilt",
+        "eye": "Eye moved sideways",
+        "eye_hint": "At 65 mm the other eye looks in."
       }
     },
     "equation": {
@@ -440,7 +442,9 @@
           "0_25": "¼",
           "0_1": "⅒"
         },
-        "keys": "On a keyboard: hold + or ← for plus, − or → for minus."
+        "keys": "On a keyboard: hold + or ← for plus, − or → for minus.",
+        "start": "Start: this far left of the coil",
+        "start_hint": "{{top}} cm: at the top of the ramp; {{half}} cm: halfway up."
       },
       "meter": {
         "label": "The meter, in milliamperes",
@@ -462,7 +466,8 @@
         "closed": "The meter stays connected between presses",
         "closed_hint": "At the exhibit it does: the reading moves as the car rolls through, and that current brakes the car a little.",
         "radius": "Ramp radius",
-        "radius_hint": "Each ramp is an arc of this radius, starting level at the flat: the smaller, the steeper and higher it rises over the same length."
+        "radius_hint": "Each ramp is an arc of this radius, starting level at the flat: the smaller, the steeper and higher it rises over the same length.",
+        "mass_hint": "Up to 20 kg: a heavy car hardly slows in the coil."
       },
       "model": {
         "flux_intro": "Everything starts with one curve: how much of the magnet's field passes through the coil's turns, with the car at a given place.",
@@ -540,7 +545,8 @@
         "modes": {
           "hand": "You",
           "circle": "A steady circle",
-          "perfect": "Auto: perfect timing"
+          "perfect": "Auto: perfect timing",
+          "release": "No hand"
         },
         "hint_hand": "Drag in the view from above: the sphere follows your finger as a hand would. Circle round the middle — slowly at first, about once a second, then faster as the ball climbs.",
         "hint_circle": "The sphere is pushed round a 2 cm circle at the tempo you set. Change the tempo slowly and the ball follows; change it at once and it falls behind.",
@@ -557,7 +563,11 @@
         "your_tempo": "Your tempo",
         "needed": "Tempo for this height",
         "lead": "Sphere ahead of the ball",
-        "reading": "Below {{f0}} Hz there is no circle: the ball only wobbles at the bottom. Each height has its own tempo — the line in the chart — and the higher, the faster."
+        "reading": "Below {{f0}} Hz there is no circle: the ball only wobbles at the bottom. Each height has its own tempo — the line in the chart — and the higher, the faster.",
+        "hint_release": "Choose where the ball starts and how fast it rolls sideways, and let it go: the sphere stays still.",
+        "start_angle": "Start: angle from the bottom",
+        "start_speed": "Start: sideways at",
+        "release": "Let go"
       },
       "views": {
         "top": "The sphere from above: drag to push it",
@@ -3373,7 +3383,9 @@
         "phi": "angle between the move and the line of sight",
         "d12": "the two ends' distances from the eye",
         "eta": "angle between the two ends",
-        "b": "distance between the eyes"
+        "b": "distance between the eyes",
+        "h0": "the height the car is let go from",
+        "hx": "the track's height at x"
       },
       "cases": {
         "sphere": {
@@ -3468,10 +3480,10 @@
           },
           "brake": {
             "title": "The coil's brake",
-            "setting": "A car a hundred times heavier, 15 kg, so it hardly slows, through the closed coil at 0.3 m/s; no rolling resistance.",
-            "reads": "The induced voltage k·v drives a current that brakes with k²v²/R; over one pass (v/R)·∫k² dx.",
-            "why": "Checks Lenz's brake, which stops the coasting car sooner: 667 µJ a pass.",
-            "step": "The sources give a magnet's drag in a coil and a moving conductor's power; summed along the way they give one pass's loss."
+            "setting": "A car a hundred times heavier, 15 kg, so it hardly slows; coil closed, no rolling resistance, let go from halfway up a ramp. Measured to its first turn on the right.",
+            "reads": "The induced voltage k·v drives a current that brakes with k²v²/R; over one pass (1/R)·∫k²v dx, with the speed v from the drop alone.",
+            "why": "Checks Lenz's brake, which stops the coasting car sooner: 1.10 mJ on the way through the coil, measured as the height the heavy car falls short on the other side.",
+            "step": "The sources give a magnet's drag in a coil and a moving conductor's power; summed along the way, with the speed from the energy, they give one pass's loss."
           },
           "energy_account": {
             "title": "The energy account closes",
@@ -3509,7 +3521,9 @@
             "step": "The source gives the disparity for small angles; the 65 mm are an adult's eye distance from the second (around 63 mm on average)."
           }
         }
-      }
+      },
+      "set_up": "Set it up",
+      "set_up_hint": "Sets the exhibit above to this case"
     }
   },
   "account": {

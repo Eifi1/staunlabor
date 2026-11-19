@@ -33,14 +33,15 @@ import {
 } from "./sphere-hand";
 import { SideView, TopView } from "./sphere-views";
 import { PreviewPending, type PreviewMode, type PreviewProps } from "./preview-mode";
+import { useCheckRequest, useCheckSetting, settingNumber, type CheckSetting } from "./check-setting";
 import { startsRunning } from "./play";
 import { SIDE, STAGE } from "./stage";
 import { useExperimentsDefaults, useSphereFigures } from "./use-experiments";
 
 /** Who pushes the sphere: the reader's finger, a steady circle at a chosen
  *  tempo, or the auto mode with perfect timing. */
-type Mode = "hand" | "circle" | "perfect";
-const MODES: Mode[] = ["hand", "circle", "perfect"];
+type Mode = "hand" | "circle" | "perfect" | "release";
+const MODES: Mode[] = ["hand", "circle", "perfect", "release"];
 
 /** How often the chart's "you are here" point moves: a chart redrawn every
  *  frame would cost more than the whole simulation. */
@@ -89,11 +90,30 @@ export function tempoFor(backbone: Orbit[], angleDeg: number): number | null {
  * `sphere-hand.ts`. The orbits and the swing are the server's, for the
  * sphere the sliders describe.
  */
+/** The build a check case asks for, on the exhibit's defaults. */
+function sphereOf(base: SphereRequest, setting: CheckSetting): SphereRequest {
+  return {
+    ...base,
+    shell_radius_m: settingNumber(setting, "shell_radius_m", base.shell_radius_m),
+    ball_radius_m: settingNumber(setting, "ball_radius_m", base.ball_radius_m),
+    ball: setting.ball === "hollow" ? "hollow" : setting.ball === "solid" ? "solid" : base.ball,
+    rolling_resistance: settingNumber(setting, "rolling_resistance", base.rolling_resistance),
+  };
+}
+
 export function SpherePage() {
   const { t } = useTranslation();
   const defaults = useExperimentsDefaults();
   const [build, setBuild] = useState<SphereRequest | null>(null);
   const sphere = build ?? defaults.data?.sphere ?? null;
+  // A check case's "Set it up": the build here; the twin, built anew for it,
+  // lets the ball go.
+  const request = useCheckRequest("sphere");
+  const [seen, setSeen] = useState<number | null>(null);
+  if (request && !request.done && request.nonce !== seen && defaults.data) {
+    setSeen(request.nonce);
+    setBuild(sphereOf(defaults.data.sphere, request.setting));
+  }
   const figures = useSphereFigures(sphere);
   const data = figures.data ?? null;
 
@@ -157,7 +177,30 @@ function SpherePlay({
   const [mode, setMode] = useState<Mode>(preview ? "perfect" : "hand");
   const [tempo, setTempo] = useState(1.5);
   const [slowly, setSlowly] = useState(true);
+  const [startAngle, setStartAngle] = useState(30);
+  const [startSpeed, setStartSpeed] = useState(0);
   const f0 = figures.lowest_orbit_hz;
+
+  /** No hand: the ball let go `angle` up the wall, rolling round at `speed`. */
+  const letGo = (angle: number, speed: number) => {
+    sim.current = { y: startState(s, angle, speed), hand: restingHand() };
+    finger.current = [0, 0];
+    setView(viewOf(s, sim.current.y, sim.current.hand));
+    setRunning(true);
+  };
+  useCheckSetting("sphere", (setting) => {
+    if (preview) return false;
+    // Built for another case: the page builds this twin anew, and the new one takes it.
+    const wanted = sphereOf(sphere, setting);
+    if (JSON.stringify(wanted) !== JSON.stringify(sphere)) return false;
+    const angle = settingNumber(setting, "start_angle_deg", 0);
+    const speed = settingNumber(setting, "start_speed_m_s", 0);
+    setMode("release");
+    setStartAngle(angle);
+    setStartSpeed(speed);
+    letGo(angle, speed);
+    return true;
+  });
 
   // The loop: every millisecond of the time that passed (at most a twentieth
   // of a second per frame), the hand one step towards its target and the ball
@@ -175,11 +218,13 @@ function SpherePlay({
       for (let k = 0; k < steps; k++) {
         const y = current.y;
         const [tx, ty] =
-          mode === "hand"
-            ? finger.current
-            : mode === "circle"
-              ? autopilotTarget(current.hand, tempo, slowly, STEP_S)
-              : perfectTarget(current.hand, { x: y[0], y: y[1], vx: y[3], vy: y[4] }, f0, STEP_S);
+          mode === "release"
+            ? [0, 0]
+            : mode === "hand"
+              ? finger.current
+              : mode === "circle"
+                ? autopilotTarget(current.hand, tempo, slowly, STEP_S)
+                : perfectTarget(current.hand, { x: y[0], y: y[1], vx: y[3], vy: y[4] }, f0, STEP_S);
         const [ax, ay] = follow(current.hand, tx, ty, STEP_S);
         current.y = handStep(s, y, ax, ay);
       }
@@ -282,6 +327,34 @@ function SpherePlay({
           </div>
         </div>
         <div className={SIDE.column}>
+          {mode === "release" && (
+            <div className="grid grid-cols-1 gap-4 md:grid-cols-2 2xl:grid-cols-1">
+              <SliderField
+                label={t("experiments.sphere.play.start_angle")}
+                unit="°"
+                value={startAngle}
+                min={0}
+                max={150}
+                step={0.1}
+                digits={1}
+                onChange={setStartAngle}
+              />
+              <SliderField
+                label={t("experiments.sphere.play.start_speed")}
+                unit="m/s"
+                value={startSpeed}
+                min={0}
+                max={8}
+                step={0.01}
+                digits={2}
+                onChange={setStartSpeed}
+              />
+              <Button variant="accent" size="sm" onClick={() => letGo(startAngle, startSpeed)}>
+                <Play className="size-4" aria-hidden />
+                {t("experiments.sphere.play.release")}
+              </Button>
+            </div>
+          )}
           {mode === "circle" && (
             <div className="grid grid-cols-1 gap-4 md:grid-cols-2 2xl:grid-cols-1">
               <SliderField
@@ -404,7 +477,7 @@ function SphereBuild({ sphere, onChange }: { sphere: SphereRequest; onChange: (n
           unit="cm"
           value={sphere.shell_radius_m * 200}
           min={20}
-          max={80}
+          max={100}
           step={1}
           digits={0}
           hint={t("experiments.sphere.change.shell_hint")}

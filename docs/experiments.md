@@ -2285,6 +2285,24 @@ and the sources linked and quoted. It is public and meant to teach (Marcel,
 the same day: "Wenn der Aufwand für Überprüfung getan wird kann der auch
 gleich zu Lehrzwecken dienen").
 
+**Set it up** (Marcel, the same day, on a side agent's note that many cases
+used values no slider reached: "Regler erweitern"). Every case has a button
+that sets the exhibit above to it and scrolls up to it (`check-setting.ts`);
+its setting is in the page's own inputs, written into `checks.json` by the
+case's module. The page sets the build while it renders, and the twin, built
+anew for it, sets how it starts. For that the sliders grew:
+- **the sphere** a fourth "who pushes", **No hand**: the ball let go at a
+  start angle (0–150°) and rolling sideways (0–8 m/s), and its sphere up to
+  1 m across;
+- **the coil** where the car is let go (from the coil's middle to the top of
+  the ramp), and its mass on a logarithmic slider from 50 g to 20 kg (the
+  route takes up to 20). The brake's case is a 15 kg car on the page's own
+  track, measured as the height it falls short on the other side, against
+  (1/R)·∫k²v dx with v from the drop alone (to 4 · 10⁻⁴);
+- **the chair** the eye moved sideways, 0.01 to 70 mm on a logarithmic slider
+  with a stop at zero: 0.16 mm is the parallax case, 65 mm the other eye; "one
+  picture" holds only below the engine's tolerance.
+
 **The verdict is an admin's** (Marcel chose a button over a commit): signed
 in as an admin, an exhibit with cases shows "Confirm as checked" and "Take
 the check back" (`PUT`/`DELETE /admin/experiments/checks/{exhibit}`). The

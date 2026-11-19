@@ -82,7 +82,7 @@ class CoilIn(_In):
 
 
 class TrackIn(_In):
-    car_mass_kg: float = Field(ge=0.01, le=5, default=0.15)
+    car_mass_kg: float = Field(ge=0.01, le=20, default=0.15)
     flat_length_m: float = Field(ge=0.05, le=2, default=0.20)
     ramp_length_m: float = Field(ge=0.05, le=2, default=0.30)
     ramp_radius_m: float = Field(ge=0.1, le=10, default=0.90)

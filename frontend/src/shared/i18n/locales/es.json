@@ -404,7 +404,9 @@
         "aligned": "Por los agujeros: una silla, tres veces",
         "apart": "Desde aquí: tres cosas distintas",
         "turn": "Girar",
-        "tilt": "Inclinar"
+        "tilt": "Inclinar",
+        "eye": "Ojo desplazado de lado",
+        "eye_hint": "A 65 mm mira el otro ojo."
       }
     },
     "equation": {
@@ -440,7 +442,9 @@
           "0_25": "¼",
           "0_1": "⅒"
         },
-        "keys": "Con el teclado: mantenga pulsado + o ← para más, − o → para menos."
+        "keys": "Con el teclado: mantenga pulsado + o ← para más, − o → para menos.",
+        "start": "Inicio: a esta distancia a la izquierda de la bobina",
+        "start_hint": "{{top}} cm: arriba de la rampa; {{half}} cm: a media altura."
       },
       "meter": {
         "label": "El amperímetro, en miliamperios",
@@ -462,7 +466,8 @@
         "closed": "El amperímetro sigue conectado entre pulsaciones",
         "closed_hint": "En la exposición es así: la lectura se mueve cuando el coche pasa rodando, y esa corriente frena un poco el coche.",
         "radius": "Radio de la rampa",
-        "radius_hint": "Cada rampa es un arco de este radio que arranca horizontal en el tramo llano: cuanto menor es, más empinada y más alto sube en la misma longitud."
+        "radius_hint": "Cada rampa es un arco de este radio que arranca horizontal en el tramo llano: cuanto menor es, más empinada y más alto sube en la misma longitud.",
+        "mass_hint": "Hasta 20 kg: un coche pesado apenas frena en la bobina."
       },
       "model": {
         "flux_intro": "Todo empieza con una curva: cuánto del campo del imán atraviesa las espiras de la bobina, con el coche en un lugar dado.",
@@ -540,7 +545,8 @@
         "modes": {
           "hand": "Usted",
           "circle": "Un círculo constante",
-          "perfect": "Automático: sincronización perfecta"
+          "perfect": "Automático: sincronización perfecta",
+          "release": "Sin mano"
         },
         "hint_hand": "Arrastre en la vista desde arriba: la esfera sigue su dedo como lo haría una mano. Describa círculos alrededor del centro — despacio al principio, más o menos una vez por segundo, y después más deprisa a medida que sube la bola.",
         "hint_circle": "La esfera se empuja por un círculo de 2 cm al ritmo que usted fije. Cambie el ritmo despacio y la bola lo sigue; cámbielo de golpe y se queda atrás.",
@@ -557,7 +563,11 @@
         "your_tempo": "Su ritmo",
         "needed": "Ritmo para esta altura",
         "lead": "Esfera por delante de la bola",
-        "reading": "Por debajo de {{f0}} Hz no hay círculo: la bola solo se bambolea en el fondo. Cada altura tiene su propio ritmo — la línea del gráfico — y cuanto más alto, más rápido."
+        "reading": "Por debajo de {{f0}} Hz no hay círculo: la bola solo se bambolea en el fondo. Cada altura tiene su propio ritmo — la línea del gráfico — y cuanto más alto, más rápido.",
+        "hint_release": "Elija dónde empieza la bola y con qué rapidez rueda de lado, y suéltela: la esfera hueca se queda quieta.",
+        "start_angle": "Inicio: ángulo desde el punto más bajo",
+        "start_speed": "Inicio: de lado a",
+        "release": "Soltar"
       },
       "views": {
         "top": "La esfera vista desde arriba: arrastre para empujarla",
@@ -3373,7 +3383,9 @@
         "phi": "ángulo entre el desplazamiento y la línea de visión",
         "d12": "las distancias de los dos extremos al ojo",
         "eta": "ángulo entre los dos extremos",
-        "b": "distancia entre los ojos"
+        "b": "distancia entre los ojos",
+        "h0": "altura desde la que se suelta el coche",
+        "hx": "altura de la pista en x"
       },
       "cases": {
         "sphere": {
@@ -3468,10 +3480,10 @@
           },
           "brake": {
             "title": "El freno de la bobina",
-            "setting": "Un coche cien veces más pesado, de 15 kg, para que apenas se frene, a 0,3 m/s a través de la bobina cerrada; sin resistencia a la rodadura.",
-            "reads": "La tensión inducida k·v impulsa una corriente que frena con k²v²/R; en una pasada, (v/R)·∫k² dx.",
-            "why": "Comprueba el freno de Lenz, que hace que el coche que rueda libre se pare antes: 667 µJ por pasada.",
-            "step": "Las fuentes dan la fuerza de frenado de un imán en una bobina y la potencia de un conductor en movimiento; sumadas a lo largo del recorrido dan la pérdida de una pasada."
+            "setting": "Un coche cien veces más pesado, 15 kg, para que apenas frene; bobina cerrada, sin resistencia a la rodadura, soltado desde la mitad de una rampa. Medido hasta su primer giro a la derecha.",
+            "reads": "La tensión inducida k·v impulsa una corriente que frena con k²v²/R; en una pasada (1/R)·∫k²v dx, con la velocidad v solo de la caída.",
+            "why": "Comprueba el freno de Lenz, que detiene antes al coche que rueda: 1,10 mJ al atravesar la bobina, medidos como la altura que le falta al coche pesado al otro lado.",
+            "step": "Las fuentes dan la fuerza de frenado de un imán en una bobina y la potencia de un conductor en movimiento; sumadas a lo largo del camino, con la velocidad de la conservación de la energía, dan la pérdida de una pasada."
           },
           "energy_account": {
             "title": "El balance de energía cuadra",
@@ -3509,7 +3521,9 @@
             "step": "La fuente da la disparidad para ángulos pequeños; los 65 mm son la distancia entre los ojos de un adulto, según la segunda (en promedio, unos 63 mm)."
           }
         }
-      }
+      },
+      "set_up": "Configurar",
+      "set_up_hint": "Ajusta la exposición de arriba a este caso"
     }
   },
   "account": {

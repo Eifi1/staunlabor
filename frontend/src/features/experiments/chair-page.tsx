@@ -6,6 +6,7 @@ import { useLocale } from "@/shared/i18n/use-locale";
 import { formatNumber } from "@/shared/lib/format";
 import { SliderField } from "@/shared/ui/slider-field";
 import { Figures, WidgetCard } from "@/shared/ui/widget";
+import { useCheckSetting, settingNumber } from "./check-setting";
 import { OrbitView, frameOf } from "./chair-views";
 import { Equation } from "./equation";
 import { ExhibitFrame } from "./exhibit-frame";
@@ -84,7 +85,16 @@ export function ChairPage() {
   const [yaw, setYaw] = useState(35);
   const [pitch, setPitch] = useState(15);
   const [auto, setAuto] = useState(false);
+  const [eyeMm, setEyeMm] = useState(0);
   const data = chair.data;
+  // A check case's "Set it up": the view and how far the eye is moved.
+  useCheckSetting("chair", (setting) => {
+    setAuto(false);
+    setYaw(settingNumber(setting, "yaw_deg", 0));
+    setPitch(settingNumber(setting, "pitch_deg", 0));
+    setEyeMm(settingNumber(setting, "eye_mm", 0));
+    return true;
+  });
   const half = useMemo(() => (data ? frameOf(data.boxes[0]) : 1), [data]);
 
   // The auto mode: the views go once round every fourteen seconds, resting at
@@ -107,7 +117,10 @@ export function ChairPage() {
     setYaw(nextYaw);
     setPitch(nextPitch);
   };
-  const atTheHole = Math.abs(yaw) < 0.5 && Math.abs(pitch) < 0.5;
+  // One picture only at the hole and with the eye moved less than the engine's
+  // tolerance: past it a joint of the scattered rods opens to a minute of arc.
+  const atTheHole =
+    Math.abs(yaw) < 0.5 && Math.abs(pitch) < 0.5 && eyeMm / 1000 < (chair.data?.tolerance_m ?? Infinity);
 
   const tolerance = data ? formatNumber(data.tolerance_m * 1000, 2, locale) : "…";
   const binocular = data ? formatNumber((data.binocular_gap_rad * 180) / Math.PI, 1, locale) : "…";
@@ -221,6 +234,7 @@ export function ChairPage() {
                       peephole={box}
                       yaw={yaw}
                       pitch={pitch}
+                      eye={eyeMm / 1000}
                       half={half}
                       onTurn={turn}
                       label={t("experiments.chair.views.view", {
@@ -239,9 +253,7 @@ export function ChairPage() {
                 </Chip>
               </div>
             </div>
-            <div
-              className={`grid grid-cols-1 gap-4 md:grid-cols-[minmax(0,1fr)_minmax(0,1fr)_16rem] 2xl:grid-cols-1 ${SIDE.column}`}
-            >
+            <div className={`grid grid-cols-1 gap-4 md:grid-cols-2 2xl:grid-cols-1 ${SIDE.column}`}>
               <SliderField
                 label={t("experiments.chair.views.turn")}
                 unit="°"
@@ -261,6 +273,22 @@ export function ChairPage() {
                 step={0.5}
                 digits={1}
                 onChange={(v) => turn(yaw, v)}
+              />
+              <SliderField
+                label={t("experiments.chair.views.eye")}
+                unit="mm"
+                value={eyeMm}
+                min={0.01}
+                max={70}
+                step={0.01}
+                digits={2}
+                log
+                zeroStop
+                hint={t("experiments.chair.views.eye_hint")}
+                onChange={(v) => {
+                  setAuto(false);
+                  setEyeMm(v);
+                }}
               />
               <Switch
                 label={t("experiments.chair.auto")}

@@ -404,7 +404,9 @@
         "aligned": "Durch die Löcher: ein Stuhl, dreimal",
         "apart": "Von hier aus: drei verschiedene Dinge",
         "turn": "Drehen",
-        "tilt": "Kippen"
+        "tilt": "Kippen",
+        "eye": "Auge seitwärts verschoben",
+        "eye_hint": "Bei 65 mm sieht das andere Auge hin."
       }
     },
     "equation": {
@@ -440,7 +442,9 @@
           "0_25": "¼",
           "0_1": "⅒"
         },
-        "keys": "Mit der Tastatur: + oder ← für plus halten, − oder → für minus."
+        "keys": "Mit der Tastatur: + oder ← für plus halten, − oder → für minus.",
+        "start": "Start: so weit links von der Spule",
+        "start_hint": "{{top}} cm: oben an der Rampe; {{half}} cm: auf halber Höhe."
       },
       "meter": {
         "label": "Das Messgerät, in Milliampere",
@@ -462,7 +466,8 @@
         "closed": "Das Messgerät bleibt zwischen den Tastendrücken angeschlossen",
         "closed_hint": "Am Exponat ist es so: Die Anzeige schlägt aus, wenn der Wagen hindurchrollt, und dieser Strom bremst den Wagen ein wenig.",
         "radius": "Rampenradius",
-        "radius_hint": "Jede Rampe ist ein Kreisbogen mit diesem Radius, der flach beim flachen Stück beginnt: Je kleiner, desto steiler und höher steigt sie auf derselben Länge."
+        "radius_hint": "Jede Rampe ist ein Kreisbogen mit diesem Radius, der flach beim flachen Stück beginnt: Je kleiner, desto steiler und höher steigt sie auf derselben Länge.",
+        "mass_hint": "Bis 20 kg: Ein schwerer Wagen wird in der Spule kaum langsamer."
       },
       "model": {
         "flux_intro": "Alles beginnt mit einer Kurve: wie viel vom Feld des Magneten durch die Windungen der Spule geht, wenn der Wagen an einer bestimmten Stelle steht.",
@@ -540,7 +545,8 @@
         "modes": {
           "hand": "Sie",
           "circle": "Ein gleichmässiger Kreis",
-          "perfect": "Automatisch: perfektes Timing"
+          "perfect": "Automatisch: perfektes Timing",
+          "release": "Ohne Hand"
         },
         "hint_hand": "Ziehen Sie in der Ansicht von oben: Die Hohlkugel folgt Ihrem Finger, wie eine Hand es täte. Kreisen Sie um die Mitte – zuerst langsam, etwa einmal pro Sekunde, dann schneller, wenn die Kugel steigt.",
         "hint_circle": "Die Hohlkugel wird auf einem Kreis von 2 cm im eingestellten Tempo geschoben. Ändern Sie das Tempo langsam, folgt die Kugel; ändern Sie es auf einmal, fällt sie zurück.",
@@ -557,7 +563,11 @@
         "your_tempo": "Ihr Tempo",
         "needed": "Tempo für diese Höhe",
         "lead": "Hohlkugel vor der Kugel",
-        "reading": "Unter {{f0}} Hz gibt es keinen Kreis: Die Kugel wackelt nur unten. Jede Höhe hat ihr eigenes Tempo – die Linie im Diagramm –, und je höher, desto schneller."
+        "reading": "Unter {{f0}} Hz gibt es keinen Kreis: Die Kugel wackelt nur unten. Jede Höhe hat ihr eigenes Tempo – die Linie im Diagramm –, und je höher, desto schneller.",
+        "hint_release": "Wählen Sie, wo die Kugel startet und wie schnell sie seitwärts rollt, und lassen Sie sie los: Die Hohlkugel bleibt still.",
+        "start_angle": "Start: Winkel ab dem tiefsten Punkt",
+        "start_speed": "Start: seitwärts mit",
+        "release": "Loslassen"
       },
       "views": {
         "top": "Die Hohlkugel von oben: ziehen, um sie zu schieben",
@@ -3373,7 +3383,9 @@
         "phi": "Winkel zwischen Bewegung und Sehlinie",
         "d12": "Abstände der beiden Enden vom Auge",
         "eta": "Winkel zwischen den beiden Enden",
-        "b": "Augenabstand"
+        "b": "Augenabstand",
+        "h0": "Höhe, aus der der Wagen losgelassen wird",
+        "hx": "Höhe der Bahn am Ort x"
       },
       "cases": {
         "sphere": {
@@ -3468,10 +3480,10 @@
           },
           "brake": {
             "title": "Die Bremse der Spule",
-            "setting": "Ein hundertmal schwererer Wagen, 15 kg, damit er kaum langsamer wird, mit 0,3 m/s durch die geschlossene Spule; ohne Rollwiderstand.",
-            "reads": "Die induzierte Spannung k·v treibt einen Strom, der mit k²v²/R bremst; über einen Durchgang (v/R)·∫k² dx.",
-            "why": "Prüft die Bremse nach Lenz, die den rollenden Wagen früher stehen lässt: 667 µJ pro Durchgang.",
-            "step": "Die Quellen geben die Bremskraft eines Magneten in einer Spule und die Leistung eines bewegten Leiters; über den Weg summiert ergibt das den Verlust eines Durchgangs."
+            "setting": "Ein hundertmal schwererer Wagen, 15 kg, damit er kaum langsamer wird; Spule geschlossen, ohne Rollwiderstand, von halber Rampenhöhe losgelassen. Gemessen bis zur ersten Umkehr rechts.",
+            "reads": "Die induzierte Spannung k·v treibt einen Strom, der mit k²v²/R bremst; über einen Durchgang (1/R)·∫k²v dx, mit der Geschwindigkeit v aus dem Fall allein.",
+            "why": "Prüft die Bremse nach Lenz, die den rollenden Wagen früher stehen lässt: 1,10 mJ auf dem Weg durch die Spule, gemessen als die Höhe, die dem schweren Wagen auf der anderen Seite fehlt.",
+            "step": "Die Quellen geben die Bremskraft eines Magneten in einer Spule und die Leistung eines bewegten Leiters; über den Weg summiert, mit der Geschwindigkeit aus dem Energiesatz, ergibt das den Verlust eines Durchgangs."
           },
           "energy_account": {
             "title": "Die Energiebilanz geht auf",
@@ -3509,7 +3521,9 @@
             "step": "Die Quelle gibt die Disparität für kleine Winkel; die 65 mm sind der Augenabstand Erwachsener aus der zweiten (im Mittel um 63 mm)."
           }
         }
-      }
+      },
+      "set_up": "Einstellen",
+      "set_up_hint": "Stellt das Exponat oben auf diesen Fall ein"
     }
   },
   "account": {

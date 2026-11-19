@@ -144,7 +144,7 @@ CASES: tuple[Case, ...] = (
         measured=_image_mismatch,
         tolerance=1e-12,
         sources=(_PROJECTION, _AMES),
-        setting={"view": "through the hole"},
+        setting={"yaw_deg": 0.0, "pitch_deg": 0.0, "eye_mm": 0.0},
     ),
     Case(
         key="straight_rods",
@@ -153,7 +153,7 @@ CASES: tuple[Case, ...] = (
         measured=_bend,
         tolerance=1e-12,
         sources=(_STRAIGHT,),
-        setting={"figure": "skewed chair"},
+        setting={"yaw_deg": 60.0, "pitch_deg": 20.0, "eye_mm": 0.0},
     ),
     Case(
         key="parallax",
@@ -165,7 +165,7 @@ CASES: tuple[Case, ...] = (
         tolerance=1e-3,
         sources=(_PARALLAX, _ACUITY),
         derived=True,
-        setting={"figure": "scattered rods", "acuity_arcmin": 1},
+        setting={"yaw_deg": 0.0, "pitch_deg": 0.0, "eye_mm": 0.16},
     ),
     Case(
         key="second_eye",
@@ -177,6 +177,6 @@ CASES: tuple[Case, ...] = (
         tolerance=2e-2,
         sources=(_DISPARITY, _IPD),
         derived=True,
-        setting={"figure": "scattered rods", "baseline_mm": 65},
+        setting={"yaw_deg": 0.0, "pitch_deg": 0.0, "eye_mm": 65.0},
     ),
 )

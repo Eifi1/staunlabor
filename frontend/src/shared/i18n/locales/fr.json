@@ -404,7 +404,9 @@
         "aligned": "Par les trous : une chaise, trois fois",
         "apart": "D’ici : trois choses différentes",
         "turn": "Tourner",
-        "tilt": "Incliner"
+        "tilt": "Incliner",
+        "eye": "Œil décalé de côté",
+        "eye_hint": "À 65 mm, c’est l’autre œil qui regarde."
       }
     },
     "equation": {
@@ -440,7 +442,9 @@
           "0_25": "¼",
           "0_1": "⅒"
         },
-        "keys": "Au clavier : maintenez + ou ← pour plus, − ou → pour moins."
+        "keys": "Au clavier : maintenez + ou ← pour plus, − ou → pour moins.",
+        "start": "Départ : à cette distance à gauche de la bobine",
+        "start_hint": "{{top}} cm : en haut de la rampe ; {{half}} cm : à mi-hauteur."
       },
       "meter": {
         "label": "L’ampèremètre, en milliampères",
@@ -462,7 +466,8 @@
         "closed": "L’ampèremètre reste branché entre les appuis",
         "closed_hint": "C’est le cas à l’exposition : l’affichage bouge quand la voiture passe en roulant, et ce courant freine un peu la voiture.",
         "radius": "Rayon de la rampe",
-        "radius_hint": "Chaque rampe est un arc de ce rayon, qui part à l’horizontale depuis le plat : plus il est petit, plus elle monte raide et haut sur la même longueur."
+        "radius_hint": "Chaque rampe est un arc de ce rayon, qui part à l’horizontale depuis le plat : plus il est petit, plus elle monte raide et haut sur la même longueur.",
+        "mass_hint": "Jusqu’à 20 kg : une voiture lourde ralentit à peine dans la bobine."
       },
       "model": {
         "flux_intro": "Tout part d’une courbe : la part du champ de l’aimant qui traverse les spires de la bobine, la voiture étant à un endroit donné.",
@@ -540,7 +545,8 @@
         "modes": {
           "hand": "Vous",
           "circle": "Un cercle régulier",
-          "perfect": "Automatique : synchronisation parfaite"
+          "perfect": "Automatique : synchronisation parfaite",
+          "release": "Sans la main"
         },
         "hint_hand": "Faites glisser dans la vue de dessus : la sphère suit votre doigt comme le ferait une main. Tournez autour du milieu — lentement d’abord, environ une fois par seconde, puis plus vite à mesure que la bille monte.",
         "hint_circle": "La sphère est poussée sur un cercle de 2 cm à la cadence que vous réglez. Changez la cadence lentement et la bille suit ; changez-la d’un coup et elle prend du retard.",
@@ -557,7 +563,11 @@
         "your_tempo": "Votre cadence",
         "needed": "Cadence pour cette hauteur",
         "lead": "Avance de la sphère sur la bille",
-        "reading": "En dessous de {{f0}} Hz, il n’y a pas de cercle : la bille ne fait que vaciller au fond. Chaque hauteur a sa propre cadence — la ligne du graphique — et plus c’est haut, plus c’est rapide."
+        "reading": "En dessous de {{f0}} Hz, il n’y a pas de cercle : la bille ne fait que vaciller au fond. Chaque hauteur a sa propre cadence — la ligne du graphique — et plus c’est haut, plus c’est rapide.",
+        "hint_release": "Choisissez où la bille part et à quelle vitesse elle roule de côté, puis lâchez-la : la sphère reste immobile.",
+        "start_angle": "Départ : angle depuis le point le plus bas",
+        "start_speed": "Départ : de côté à",
+        "release": "Lâcher"
       },
       "views": {
         "top": "La sphère vue de dessus : faites glisser pour la pousser",
@@ -3373,7 +3383,9 @@
         "phi": "angle entre le déplacement et la ligne de visée",
         "d12": "les distances des deux extrémités à l’œil",
         "eta": "angle entre les deux extrémités",
-        "b": "écart entre les yeux"
+        "b": "écart entre les yeux",
+        "h0": "hauteur d’où la voiture est lâchée",
+        "hx": "hauteur de la piste en x"
       },
       "cases": {
         "sphere": {
@@ -3468,10 +3480,10 @@
           },
           "brake": {
             "title": "Le frein de la bobine",
-            "setting": "Une voiture cent fois plus lourde, 15 kg, pour qu’elle ne ralentisse presque pas, à 0,3 m/s à travers la bobine fermée ; sans résistance au roulement.",
-            "reads": "La tension induite k·v fait circuler un courant qui freine avec k²v²/R ; sur un passage, (v/R)·∫k² dx.",
-            "why": "Vérifie le frein de Lenz, qui arrête plus tôt la voiture en roue libre : 667 µJ par passage.",
-            "step": "Les sources donnent la force de freinage d’un aimant dans une bobine et la puissance d’un conducteur en mouvement ; sommées le long du trajet, elles donnent la perte d’un passage."
+            "setting": "Une voiture cent fois plus lourde, 15 kg, pour qu’elle ralentisse à peine ; bobine fermée, sans résistance au roulement, lâchée à mi-hauteur d’une rampe. Mesuré jusqu’à son premier demi-tour à droite.",
+            "reads": "La tension induite k·v fait circuler un courant qui freine avec k²v²/R ; sur un passage (1/R)·∫k²v dx, avec la vitesse v due à la seule descente.",
+            "why": "Vérifie le frein de Lenz, qui arrête plus tôt la voiture en roue libre : 1,10 mJ en traversant la bobine, mesurés comme la hauteur qui manque à la voiture lourde de l’autre côté.",
+            "step": "Les sources donnent la force de freinage d’un aimant dans une bobine et la puissance d’un conducteur en mouvement ; sommées le long du trajet, avec la vitesse tirée de l’énergie, elles donnent la perte d’un passage."
           },
           "energy_account": {
             "title": "Le bilan énergétique tombe juste",
@@ -3509,7 +3521,9 @@
             "step": "La source donne la disparité pour de petits angles ; les 65 mm sont l’écart entre les yeux d’un adulte, d’après la seconde (environ 63 mm en moyenne)."
           }
         }
-      }
+      },
+      "set_up": "Régler",
+      "set_up_hint": "Règle l’exposition ci-dessus sur ce cas"
     }
   },
   "account": {

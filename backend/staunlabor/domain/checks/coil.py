@@ -81,10 +81,11 @@ _FIELD_ENERGY = Source(
 _EXHIBIT = engine.CoilExhibit()
 _FREE = engine.CoilExhibit(track=engine.Track(rolling_resistance=0.0))
 _OPEN = engine.CoilExhibit(track=engine.Track(rolling_resistance=0.0), idle=engine.Idle.OPEN)
-#: A car a hundred times heavier on a long flat: its speed hardly changes in one pass.
-_HEAVY = engine.CoilExhibit(
-    track=engine.Track(car_mass_kg=15.0, rolling_resistance=0.0, flat_length_m=0.6, ramp_length_m=0.05)
-)
+#: A car a hundred times heavier on the page's own track: its speed hardly
+#: changes in one pass, so the drop alone gives it.
+_HEAVY = engine.CoilExhibit(track=engine.Track(car_mass_kg=15.0, rolling_resistance=0.0))
+#: Halfway up the left ramp: where the page lets the car go.
+_HALFWAY = -(_FREE.track.flat_length_m / 2 + _FREE.track.ramp_length_m / 2)
 
 
 def _held_current(at_tau: float) -> float:
@@ -120,7 +121,7 @@ def _flux_by_turns(x: float = 0.0) -> float:
     return sum(MU0 * m * a * a / (2 * (a * a + z * z) ** 1.5) for z in zs)
 
 
-_START_M = -0.25
+_START_M = _HALFWAY
 
 
 def _charge_in_uc() -> float:
@@ -162,18 +163,17 @@ def _period_hand() -> float:
     return 2 * (2 * math.sqrt(track.ramp_radius_m / G) * big_k) + 2 * track.flat_length_m / v0
 
 
-_PASS_M_S = 0.3
-
-
 def _brake_run_uj() -> float:
-    run = engine.run(_HEAVY, None, duration_s=0.7 / _PASS_M_S, start_x_m=-0.27, start_speed_m_s=_PASS_M_S)
-    j = max(n for n in range(len(run.t)) if run.x_m[n] <= 0.27)
-    return 0.5 * _HEAVY.track.car_mass_kg * (_PASS_M_S**2 - run.speed_m_s[j] ** 2) * 1e6
+    """The energy the heavy car loses from halfway up the left ramp to its
+    first turn on the right: its weight times the height it falls short."""
+    run = engine.run(_HEAVY, None, duration_s=3.0, start_x_m=_HALFWAY)
+    return _HEAVY.track.car_mass_kg * G * (engine.height(_HEAVY, _HALFWAY) - run.peaks_m[0]) * 1e6
 
 
 def _brake_hand_uj() -> float:
-    """(v/R)·∫k² dx, with k = dΨ/dx by central differences of the flux summed
-    turn by turn, and Simpson's rule over ten coil diameters each side."""
+    """(1/R)·∫k(x)²·v(x) dx over the pass, with k = dΨ/dx by central
+    differences of the winding's flux and v from the drop alone,
+    v = √(2g(h₀ − h(x))), by Simpson's rule from turn to turn."""
     ex = _HEAVY
     a, length, turns = ex.coil.mean_diameter_m / 2, ex.coil.length_m, ex.coil.turns
     m = ex.magnet.remanence_t * math.pi * (ex.magnet.diameter_m / 2) ** 2 * ex.magnet.length_m / MU0
@@ -186,11 +186,20 @@ def _brake_hand_uj() -> float:
     def k(x: float, d: float = 1e-6) -> float:
         return (psi(x + d) - psi(x - d)) / (2 * d)
 
-    reach = length / 2 + 10 * ex.coil.mean_diameter_m
-    n = 4000
-    h = 2 * reach / n
-    total = sum((1 if j in (0, n) else 4 if j % 2 else 2) * k(-reach + j * h) ** 2 for j in range(n + 1)) * h / 3
-    return _PASS_M_S / ex.coil.resistance_ohm * total * 1e6
+    track = ex.track
+    h0 = track.ramp_radius_m * (1 - math.cos((track.ramp_length_m / 2) / track.ramp_radius_m))
+
+    def v(x: float) -> float:
+        along = abs(x) - track.flat_length_m / 2
+        h = track.ramp_radius_m * (1 - math.cos(along / track.ramp_radius_m)) if along > 0 else 0.0
+        return math.sqrt(max(0.0, 2 * G * (h0 - h)))
+
+    n = 20000
+    h = 2 * -_HALFWAY / n
+    total = sum(
+        (1 if j in (0, n) else 4 if j % 2 else 2) * k(_HALFWAY + j * h) ** 2 * v(_HALFWAY + j * h) for j in range(n + 1)
+    )
+    return total * h / 3 / ex.coil.resistance_ohm * 1e6
 
 
 def _account() -> engine.EnergyAccount:
@@ -205,7 +214,7 @@ CASES: tuple[Case, ...] = (
         measured=lambda: _held_current(4.0)[1] * 1000,
         tolerance=1e-5,
         sources=(_RL,),
-        setting={"supply_v": 9, "turns": 1600, "button": "plus", "car": "at the top"},
+        setting={"start_x_m": -_EXHIBIT.track.end_m},
     ),
     Case(
         key="wheeler",
@@ -216,7 +225,7 @@ CASES: tuple[Case, ...] = (
         # his formula as printed, whose 9 and 10 are rounded.
         tolerance=1e-2,
         sources=(_WHEELER,),
-        setting={"turns": 1600, "mean_diameter_mm": 60, "length_mm": 50},
+        setting={},
     ),
     Case(
         key="flux_centre",
@@ -226,7 +235,7 @@ CASES: tuple[Case, ...] = (
         tolerance=1e-6,
         sources=(_LOOP, _RECIPROCITY, _DIPOLE_COIL),
         derived=True,
-        setting={"turns": 1600, "remanence_t": 1.3},
+        setting={"start_x_m": 0.0},
     ),
     Case(
         key="charge",
@@ -238,7 +247,7 @@ CASES: tuple[Case, ...] = (
         tolerance=2e-3,
         sources=(_FLIP, _FARADAY),
         derived=True,
-        setting={"start": "halfway up the left ramp", "rolling_resistance": 0, "buttons": "none"},
+        setting={"rolling_resistance": 0.0, "idle": "closed", "start_x_m": _HALFWAY},
     ),
     Case(
         key="period",
@@ -248,19 +257,19 @@ CASES: tuple[Case, ...] = (
         tolerance=1e-5,
         sources=(_BOWL, _PERIOD),
         derived=True,
-        setting={"start": "halfway up the left ramp", "rolling_resistance": 0, "coil": "open"},
+        setting={"rolling_resistance": 0.0, "idle": "open", "start_x_m": _HALFWAY},
     ),
     Case(
         key="brake",
         unit="µJ",
         expected=_brake_hand_uj,
         measured=_brake_run_uj,
-        # The car still slows by 0.03 % in the pass, and the coil's inductance
-        # delays the current a little.
+        # The car still slows a little in the pass (it loses 0.06 % of its
+        # energy), and the coil's inductance delays the current.
         tolerance=2e-3,
         sources=(_BRAKE, _ROD),
         derived=True,
-        setting={"car_mass_kg": 15, "speed_m_s": _PASS_M_S, "rolling_resistance": 0, "coil": "closed"},
+        setting={"car_mass_kg": 15.0, "rolling_resistance": 0.0, "idle": "closed", "start_x_m": _HALFWAY},
     ),
     Case(
         key="energy_account",
@@ -275,6 +284,6 @@ CASES: tuple[Case, ...] = (
         tolerance=1e-5,
         sources=(_FIELD_ENERGY, _RL),
         derived=True,
-        setting={"visitor": "presses by the rule", "duration_s": 10},
+        setting={"autopilot": "on"},
     ),
 )

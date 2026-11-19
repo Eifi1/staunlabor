@@ -135,13 +135,16 @@ export const CHECK_FORMULAS: Record<string, Record<string, CheckFormula>> = {
       ],
     },
     brake: {
-      tex: String.raw`\Delta E = \frac{v}{R}\int k(x)^2\,dx, \qquad k = \frac{d\Psi}{dx}`,
+      tex: String.raw`\Delta E = \frac{1}{R}\int k(x)^2\,v(x)\,dx, \qquad v(x) = \sqrt{2g\,\bigl(h_0 - h(x)\bigr)}, \qquad k = \frac{d\Psi}{dx}`,
       symbols: [
         { tex: String.raw`\Delta E`, key: "dE", unit: "J" },
-        { tex: "v", key: "v", unit: "m/s" },
         R_COIL,
         { tex: "k", key: "coupling", unit: "V·s/m" },
+        { tex: "v", key: "v", unit: "m/s" },
         { tex: "x", key: "x", unit: "m" },
+        G,
+        { tex: "h_0", key: "h0", unit: "m" },
+        { tex: "h(x)", key: "hx", unit: "m" },
         PSI,
       ],
     },

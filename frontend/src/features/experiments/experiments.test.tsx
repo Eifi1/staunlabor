@@ -1243,6 +1243,41 @@ describe("the check of the calculations", () => {
   });
 });
 
+describe("setting a check case up", () => {
+  const setUp = async (index: number) => {
+    const buttons = await screen.findAllByRole("button", { name: E.checks.set_up });
+    fireEvent.click(buttons[index]);
+  };
+
+  it("moves the chair's eye by the parallax case's 0.16 mm, and to the other eye for the next", async () => {
+    renderWithProviders(<ChairPage />);
+    await setUp(2);
+    const eye = screen.getByRole("slider", { name: E.chair.views.eye });
+    expect(eye.getAttribute("aria-valuetext")).toMatch(/0\.16/);
+    await setUp(3);
+    expect(eye.getAttribute("aria-valuetext")).toMatch(/65/);
+  });
+
+  it("lets the sphere's ball go without a hand, 90° up the wall, for the wide swing", async () => {
+    renderWithProviders(<SpherePage />);
+    await setUp(2);
+    expect(await screen.findByRole("slider", { name: E.sphere.play.start_angle })).toHaveAttribute(
+      "aria-valuetext",
+      expect.stringMatching(/90/),
+    );
+    expect(screen.getByText(E.sphere.play.hint_release)).toBeInTheDocument();
+  });
+
+  it("puts a 15 kg car on the coil's track for the brake, without rolling resistance", async () => {
+    renderWithProviders(<CoilPage />);
+    await setUp(5);
+    await waitFor(() =>
+      expect(screen.getByRole("slider", { name: E.coil.change.mass }).getAttribute("aria-valuetext")).toMatch(/15/),
+    );
+    expect(screen.getByRole("slider", { name: E.coil.change.rolling }).getAttribute("aria-valuetext")).toMatch(/^0\b/);
+  });
+});
+
 describe("the floating top", () => {
   it("shows the tuned top floating in its window, with the field's equations", async () => {
     renderWithProviders(<LevitationPage />);

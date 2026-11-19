@@ -11,6 +11,7 @@ import { SliderField } from "@/shared/ui/slider-field";
 import { Figures, WidgetCard } from "@/shared/ui/widget";
 import { BUTTON_HUE, CoilTrack, Meter } from "./coil-track";
 import { PreviewPending, type PreviewMode, type PreviewProps } from "./preview-mode";
+import { useCheckRequest, useCheckSetting, settingNumber, type CheckSetting } from "./check-setting";
 import { startsRunning } from "./play";
 import { Equation } from "./equation";
 import { ExhibitFrame } from "./exhibit-frame";
@@ -18,6 +19,7 @@ import { BuildPending } from "./build-pending";
 import {
   RESISTANCE_FADE_M_S,
   STEP_S,
+  endOf,
   frame,
   pressOf,
   start,
@@ -112,11 +114,32 @@ function viewOf(sim: CoilSim, press: Press, marks: Marks = NO_MARKS): View {
  * computes. The figures and the curves are the server's, for the build the
  * sliders describe.
  */
+/** The build a check case asks for, on the exhibit's defaults. */
+function coilOf(base: CoilExhibitRequest, setting: CheckSetting): CoilExhibitRequest {
+  return {
+    ...base,
+    idle: setting.idle === "open" ? "open" : setting.idle === "closed" ? "closed" : base.idle,
+    track: {
+      ...base.track,
+      car_mass_kg: settingNumber(setting, "car_mass_kg", base.track.car_mass_kg),
+      rolling_resistance: settingNumber(setting, "rolling_resistance", base.track.rolling_resistance),
+    },
+  };
+}
+
 export function CoilPage() {
   const { t } = useTranslation();
   const defaults = useExperimentsDefaults();
   const [build, setBuild] = useState<CoilExhibitRequest | null>(null);
   const exhibit = build ?? defaults.data?.coil ?? null;
+  // A check case's "Set it up": the build here; the twin, built anew for it,
+  // starts the car where the case lets it go.
+  const request = useCheckRequest("coil");
+  const [seen, setSeen] = useState<number | null>(null);
+  if (request && !request.done && request.nonce !== seen && defaults.data) {
+    setSeen(request.nonce);
+    setBuild(coilOf(defaults.data.coil, request.setting));
+  }
   const analysis = useCoilAnalysis(exhibit);
 
   return (
@@ -165,7 +188,10 @@ function CoilPlay({
   paused = false,
 }: { exhibit: CoilExhibitRequest; meterRangeA: number } & PreviewMode) {
   const { t } = useTranslation();
+  const locale = useLocale();
   const ex = exhibit as CoilExhibit;
+  const halfway = -(ex.track.flat_length_m / 2 + ex.track.ramp_length_m / 2);
+  const [startX, setStartX] = useState(halfway);
   const sim = useRef<CoilSim | null>(null);
   if (sim.current === null) sim.current = start(ex);
   const held = useRef<Press>(0);
@@ -246,12 +272,23 @@ function CoilPlay({
       window.removeEventListener("keyup", up);
     };
   }, [autopilot, preview]);
-  const restart = () => {
-    sim.current = start(ex);
+  const restart = (from: number = startX) => {
+    sim.current = start(ex, from);
     marks.current = NO_MARKS;
     hold(0);
     setView(viewOf(sim.current, 0));
   };
+  useCheckSetting("coil", (setting) => {
+    if (preview) return false;
+    // Built for another case: the page builds this twin anew, and the new one takes it.
+    if (JSON.stringify(coilOf(exhibit, setting)) !== JSON.stringify(exhibit)) return false;
+    const from = Math.max(-endOf(ex.track), Math.min(0, settingNumber(setting, "start_x_m", halfway)));
+    setStartX(from);
+    setAutopilot(setting.autopilot === "on");
+    restart(from);
+    setRunning(true);
+    return true;
+  });
   const top = topHeight(ex.track);
   const shownPress = autopilot ? view.press : pressed;
 
@@ -266,7 +303,7 @@ function CoilPlay({
             {running ? <Pause className="size-4" aria-hidden /> : <Play className="size-4" aria-hidden />}
             {running ? t("experiments.coil.play.pause") : t("experiments.coil.play.run")}
           </Button>
-          <Button variant="secondary" size="sm" onClick={restart}>
+          <Button variant="secondary" size="sm" onClick={() => restart()}>
             <RotateCcw className="size-4" aria-hidden />
             {t("experiments.coil.play.restart")}
           </Button>
@@ -288,6 +325,23 @@ function CoilPlay({
             onCheckedChange={(on) => {
               setAutopilot(on);
               hold(0);
+            }}
+          />
+          <SliderField
+            label={t("experiments.coil.play.start")}
+            unit="cm"
+            value={-startX * 100}
+            min={0}
+            max={endOf(ex.track) * 100}
+            step={0.5}
+            digits={1}
+            hint={t("experiments.coil.play.start_hint", {
+              top: formatNumber(endOf(ex.track) * 100, 0, locale),
+              half: formatNumber(-halfway * 100, 0, locale),
+            })}
+            onChange={(cm) => {
+              setStartX(-cm / 100);
+              restart(-cm / 100);
             }}
           />
           <ToggleGroup
@@ -482,13 +536,15 @@ function CoilBuild({
         />
         <SliderField
           label={t("experiments.coil.change.mass")}
-          unit="g"
-          value={exhibit.track.car_mass_kg * 1000}
-          min={50}
-          max={500}
-          step={10}
-          digits={0}
-          onChange={(v) => onChange({ ...exhibit, track: { ...exhibit.track, car_mass_kg: v / 1000 } })}
+          unit="kg"
+          value={exhibit.track.car_mass_kg}
+          min={0.05}
+          max={20}
+          step={0.01}
+          digits={2}
+          log
+          hint={t("experiments.coil.change.mass_hint")}
+          onChange={(v) => onChange({ ...exhibit, track: { ...exhibit.track, car_mass_kg: v } })}
         />
         <SliderField
           label={t("experiments.coil.change.radius")}

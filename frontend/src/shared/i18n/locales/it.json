@@ -404,7 +404,9 @@
         "aligned": "Attraverso i fori: una sedia, tre volte",
         "apart": "Da qui: tre cose diverse",
         "turn": "Ruotare",
-        "tilt": "Inclinare"
+        "tilt": "Inclinare",
+        "eye": "Occhio spostato di lato",
+        "eye_hint": "A 65 mm guarda l'altro occhio."
       }
     },
     "equation": {
@@ -440,7 +442,9 @@
           "0_25": "¼",
           "0_1": "⅒"
         },
-        "keys": "Da tastiera: tenga premuto + o ← per il più, − o → per il meno."
+        "keys": "Da tastiera: tenga premuto + o ← per il più, − o → per il meno.",
+        "start": "Partenza: a questa distanza a sinistra della bobina",
+        "start_hint": "{{top}} cm: in cima alla rampa; {{half}} cm: a metà altezza."
       },
       "meter": {
         "label": "L'amperometro, in milliampere",
@@ -462,7 +466,8 @@
         "closed": "L'amperometro resta collegato tra una pressione e l'altra",
         "closed_hint": "All'exhibit è così: la lettura si muove quando il carrello passa rotolando, e quella corrente frena un poco il carrello.",
         "radius": "Raggio della rampa",
-        "radius_hint": "Ogni rampa è un arco di questo raggio, che parte orizzontale dal tratto piano: più è piccolo, più la rampa sale ripida e in alto sulla stessa lunghezza."
+        "radius_hint": "Ogni rampa è un arco di questo raggio, che parte orizzontale dal tratto piano: più è piccolo, più la rampa sale ripida e in alto sulla stessa lunghezza.",
+        "mass_hint": "Fino a 20 kg: un carrello pesante rallenta appena nella bobina."
       },
       "model": {
         "flux_intro": "Tutto comincia da una curva: quanta parte del campo del magnete attraversa le spire della bobina, con il carrello in un dato punto.",
@@ -540,7 +545,8 @@
         "modes": {
           "hand": "Lei",
           "circle": "Un cerchio regolare",
-          "perfect": "Automatico: tempismo perfetto"
+          "perfect": "Automatico: tempismo perfetto",
+          "release": "Senza mano"
         },
         "hint_hand": "Trascini nella vista dall'alto: la sfera segue il Suo dito come farebbe una mano. Giri attorno al centro — lentamente all'inizio, circa una volta al secondo, poi più in fretta man mano che la pallina sale.",
         "hint_circle": "La sfera viene spinta lungo un cerchio di 2 cm al ritmo che Lei imposta. Se cambia il ritmo lentamente, la pallina segue; se lo cambia di colpo, resta indietro.",
@@ -557,7 +563,11 @@
         "your_tempo": "Il Suo ritmo",
         "needed": "Ritmo per questa altezza",
         "lead": "Sfera davanti alla pallina",
-        "reading": "Sotto {{f0}} Hz non c'è cerchio: la pallina traballa soltanto sul fondo. Ogni altezza ha il suo ritmo — la linea nel grafico — e più in alto, più veloce."
+        "reading": "Sotto {{f0}} Hz non c'è cerchio: la pallina traballa soltanto sul fondo. Ogni altezza ha il suo ritmo — la linea nel grafico — e più in alto, più veloce.",
+        "hint_release": "Scelga dove parte la pallina e quanto veloce rotola di lato, e la lasci andare: la sfera resta ferma.",
+        "start_angle": "Partenza: angolo dal punto più basso",
+        "start_speed": "Partenza: di lato a",
+        "release": "Lasciare"
       },
       "views": {
         "top": "La sfera dall'alto: trascini per spingerla",
@@ -3373,7 +3383,9 @@
         "phi": "angolo tra lo spostamento e la linea di vista",
         "d12": "le distanze delle due estremità dall'occhio",
         "eta": "angolo tra le due estremità",
-        "b": "distanza tra gli occhi"
+        "b": "distanza tra gli occhi",
+        "h0": "altezza da cui viene lasciato il carrello",
+        "hx": "altezza della pista in x"
       },
       "cases": {
         "sphere": {
@@ -3468,10 +3480,10 @@
           },
           "brake": {
             "title": "Il freno della bobina",
-            "setting": "Un carrello cento volte più pesante, 15 kg, perché rallenti appena, a 0,3 m/s attraverso la bobina chiusa; senza resistenza al rotolamento.",
-            "reads": "La tensione indotta k·v spinge una corrente che frena con k²v²/R; su un passaggio, (v/R)·∫k² dx.",
-            "why": "Verifica il freno di Lenz, che ferma prima il carrello a ruota libera: 667 µJ per passaggio.",
-            "step": "Le fonti danno la forza frenante di un magnete in una bobina e la potenza di un conduttore in moto; sommate lungo il percorso danno la perdita di un passaggio."
+            "setting": "Un carrello cento volte più pesante, 15 kg, perché rallenti appena; bobina chiusa, senza resistenza al rotolamento, lasciato andare da metà rampa. Misurato fino alla prima inversione a destra.",
+            "reads": "La tensione indotta k·v spinge una corrente che frena con k²v²/R; in un passaggio (1/R)·∫k²v dx, con la velocità v data dalla sola discesa.",
+            "why": "Verifica il freno di Lenz, che ferma prima il carrello in corsa: 1,10 mJ attraverso la bobina, misurati come l'altezza che manca al carrello pesante dall'altra parte.",
+            "step": "Le fonti danno la forza frenante di un magnete in una bobina e la potenza di un conduttore in moto; sommate lungo il percorso, con la velocità ricavata dall'energia, danno la perdita di un passaggio."
           },
           "energy_account": {
             "title": "Il bilancio energetico torna",
@@ -3509,7 +3521,9 @@
             "step": "La fonte dà la disparità per piccoli angoli; i 65 mm sono la distanza tra gli occhi di un adulto, secondo la seconda (in media circa 63 mm)."
           }
         }
-      }
+      },
+      "set_up": "Impostare",
+      "set_up_hint": "Imposta l'exhibit qui sopra su questo caso"
     }
   },
   "account": {
