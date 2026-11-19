@@ -171,3 +171,79 @@ Steps, each its own commits:
 6. The deploy: the database and its roles on keksdose-db, the secrets, the
    migrate job, the bucket for feedback files, the daily call's scheduler job
    and its token (`deploy/README.md` §6).
+
+## The third stage: the front page, the header and the course (decided 2026-11-19)
+
+Marcel, 2026-11-19, with anyplot.ai as the reference ("Nicht 1:1 übernehmen
+aber das finde ich besser"): a landing that says what the project is, the
+experiment of the day beside it, some figures about the whole project under
+both, and a fixed header with a few entries, not every exhibit. The course on
+differential equations comes over from Kurvenschmiede rather than being linked
+("nicht als Link sondern aus Kurvenschmiede herausziehen und in Staunlabor
+einfügen"). This reverses two decisions of the same morning: the header holding
+only the name, the language and the theme, and the day's question as the
+biggest thing on the first screen (`docs/experiments.md`, "The overview").
+
+- **The header, fixed at the top:** the name, **Exponate · Grundlagen · Über**,
+  and on the right a search that goes to an exhibit (Ctrl+K too), the language
+  and the theme. On a phone, the mark, a menu, the language and the theme. The
+  account stays in the footer, never in the exhibits' way (second stage). A
+  fixed header covers what a link jumps to (`#try-it`, a check's "Set it up"):
+  those targets get a scroll margin.
+- **The front page, `/`, is the first screen only:** on the left the project
+  (its name, the tagline as the biggest line, one sentence, the way into the
+  day's exhibit and to every exhibit); on the right the day's exhibit, playing,
+  in a frame captioned with the day, its name and its question; "Earlier days"
+  stays a dialog. Under both, five figures counted from the code, none kept by
+  hand: the exhibits, the fields, the equations, how many are checked (from
+  the server), the languages; and one quiet line: no cookies, no tracking, no
+  account needed. The content keeps one centred width (about 1500 px) on a
+  wide screen, the header with it.
+- **Exponate, `/exhibits`:** the list from the front page, grouped by
+  **field**, the topics a finer filter kept in the address (`?topic=…`), "n of
+  35 tried" with it. Every exhibit's page links back to it (`exhibit-frame.tsx`,
+  one place) instead of `/#all-exhibits`.
+- **Fields over topics:** each exhibit is in exactly one field — mechanics;
+  oscillations and waves; flow and pressure; electricity and magnetism; light;
+  perception — and keeps its one or two topics. Only a field with an exhibit is
+  shown: there is no thermodynamics yet.
+- **Grundlagen, the course:** lessons 0–6 and the cheat sheet of Kurvenschmiede's
+  course on differential equations (the recipe, first order, second order,
+  eigenvalues and the pole plane, Laplace and Bode, numerics, the two-mass
+  oscillator) move here, with their engine (`domain/dynamics/` there: the ODE
+  solvers, the linear algebra, the LTI and frequency parts), their exercises,
+  their seven catalogues and the reader's progress on this device (a key in
+  `storage-keys.ts`, a line on the privacy page). Lessons 7–10 (the reduction,
+  the worm rig, the vacuum, the valve) and the explorer stay in Kurvenschmiede
+  and link here for the basics. The exhibits' "How it is computed" links the
+  lessons here instead of at kurvenschmiede.app, and more of them than the
+  three it links now (coupled pendulums → the two-mass oscillator, resonance →
+  Laplace and Bode, stability → eigenvalues). Kurvenschmiede writes
+  "Differenzialgleichungen", with a z.
+- **Über:** the about page with the project's facts, and "So funktioniert's":
+  how the site computes (the engine as the authority, the browser's loops held
+  to it by the reference cases) and how it is checked (the cases and which
+  exhibits are checked), in place of the "n of 35 checked" line on the front
+  page.
+- **The footer** in groups: the site, the legal pages, the code and the issues,
+  the account; the version under them.
+
+### What the kits and Kurvenschmiede are asked for
+
+- `@eifi1/ui-kit` (UI-Kit's answer, 2026-11-19): the search is the kit's
+  `GlobalSearch` (a `TopBar` button, Mod+K, accent-folding match) and a figure
+  is its `StatTile` (with `loading` for the checked count), both in 0.65.1; a
+  `nav` slot with `TopBarNav` (collapsing into a menu below md) and a quiet
+  `StatStrip` are proposed for 0.66, which Marcel schedules. Until then a plain
+  row of links stands in the header's brand slot. Its landing parts (`Hero`,
+  `PublicHeader`) are an app's with "request access" and are not used.
+- Kurvenschmiede: the move of lessons 0–6 and the cheat sheet, its redirects
+  from the old paths to `staunlabor.app`, and its remaining lessons' links,
+  with its own release and Marcel's go for both deploys.
+
+### Order
+
+1. The exhibits' sweep under way (the spoiler texts, the answers held back
+   until a first try, the goals on the drawing) is finished first.
+2. The header, the front page, `/exhibits`, the fields and "Über".
+3. The course, in its own branch.
