@@ -56,27 +56,34 @@ header holds only the name, the language and the theme: the strip naming every
 exhibit beside it went, and every exhibit's page links back to the list
 instead (`/#all-exhibits`). Top to bottom (`overview-page.tsx`):
 
-* **The experiment of the day**, filling the first screen: the page's one
-  `h1`, its name, its summary, the first paragraph of its page's "At the
-  exhibit" (which says what stands there without giving the trick away, in all
-  seven languages already) and a question to guess at before opening it
-  (`experiments.exhibits.<x>.question`), with its drawing playing to the right
-  (above it on a phone, smaller, so the name still shows). Then the button into
-  the exhibit, one down to the list, and **"Earlier days"**: the last fourteen days in a dialog (`?dialog=history`,
+* **The experiment of the day**, filling the first screen. On top, one line
+  saying what the site is (`experiments.overview.lead`, rewritten on
+  2026-11-19 without "the exhibit's twin", which no newcomer knows, and with
+  "like those in a science centre", never "from"). Then the day and the
+  exhibit's name, small, and its question as the page's one `h1`: the hook is
+  the biggest thing on the screen (the review of the front page, Marcel's
+  Claude doc of 2026-11-19). Then its summary and the first paragraph of its
+  page's "At the exhibit" (which says what stands there without giving the
+  trick away, in all seven languages already), with its drawing playing to
+  the right (above it on a phone, smaller, so the question still shows). Then
+  the one primary button, into the exhibit, one down to the list, and
+  **"Earlier days"**: the last fourteen days in a dialog (`?dialog=history`,
   so a phone's Back closes it), a still of each that plays while it is
   pointed at or focused. Not on the page itself (Marcel, the same evening:
   "Show the history only in a dialog on request. Not right away. That shall
   be reserved for the experiment of the day"): anyplot.ai's plot of the day
   stands alone on its landing, and APOD's or Wikipedia's picture of the day
   keeps its archive a link away.
-* **The site's one-line lead and the notice that the check is still to come**,
-  below the first screen.
+* **The notice that the check is still to come**, below the first screen.
 * **Every exhibit**, filtered by topic chips (`TOPICS` in `exhibits.ts`: an
   exhibit is about one or two — momentum, angular momentum, energy,
-  oscillation, flow, induction, perception), with "n of 8 tried on this
-  device" and a "Forget", and on each card its topics, a
+  oscillation, flow, induction, perception), with "n of 35 tried on this
+  device" and a "Forget" once one was tried (before, "0 of 35" read as
+  homework), and on each card, the whole of which opens the exhibit (its title
+  is the link, stretched over it; the front page keeps one primary button), its topics, a
   tick once tried, "Today" on the day's, and "Builds on:" with links to the
-  course's lessons at kurvenschmiede.app — the list the page's "How it is computed" links to, kept
+  course's lessons at kurvenschmiede.app, small and grey (for the technically
+  minded, not in a newcomer's way) — the list the page's "How it is computed" links to, kept
   in `exhibits.ts` beside the topics since both read it. Since 2026-11-16
   each built exhibit's card opens with its drawing (Marcel: the pictures
   under the experiment of the day): its preview held still, playing while the

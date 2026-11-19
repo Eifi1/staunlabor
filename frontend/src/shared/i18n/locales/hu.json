@@ -89,9 +89,8 @@
     "title": "Kísérletek",
     "failed": "A kiállítási tárgyat nem sikerült kiszámolni.",
     "overview": {
-      "lead": "Kézbe vehető kiállítási tárgyak, kiszámolva. Legyen látogató a tárgy ikerpárjánál, majd nézze meg a számítást amögött, amit érzett.",
+      "lead": "Kiállítási tárgyak, mint egy tudományos központban, kipróbálásra és utánaszámolásra: előbb játsszon maga, aztán nézze meg, milyen fizika van mögötte.",
       "how": "Minden oldal azzal kezdődik, ami a kiállításon áll, kipróbálhatja, majd megmutatja, mi történik, és azt az egy felismerést, amely a trükköt megmagyarázza. Minden szám az alkalmazás saját számítómotorjából származik, és a tesztjei garantálják.",
-      "open": "A tárgy megnyitása",
       "coming": "Előkészületben",
       "credit": "A kiállítási tárgyak többségét a winterthuri Swiss Science Center Technorama kiállítási tárgyai ihlették.",
       "daily": {

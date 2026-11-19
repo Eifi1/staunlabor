@@ -84,10 +84,7 @@ export function ExperimentsOverviewPage() {
   return (
     <div className={PAGE_SHELL}>
       <DailyHero entry={daily} today={today} />
-      <div className="space-y-3">
-        <p className="text-base text-primary">{t("experiments.overview.lead")}</p>
-        <UncheckedNotice />
-      </div>
+      <UncheckedNotice />
       <AllExhibits daily={daily.exhibit} />
       <p className="text-sm text-secondary">{t("experiments.overview.how")}</p>
       <p className="text-caption text-muted">{t("experiments.overview.credit")}</p>
@@ -135,18 +132,23 @@ function DailyHero({ entry, today }: { entry: ExhibitEntry; today: string }) {
       className="grid min-h-[calc(100dvh-4.5rem)] grid-cols-1 content-center items-center gap-6 md:grid-cols-[minmax(0,1fr)_minmax(0,1.4fr)] md:gap-10"
     >
       <div className="order-last min-w-0 space-y-4 md:order-first">
-        <SectionLabel as="p">
-          {t("experiments.overview.daily.eyebrow")} · {shortDay(today, locale)}
-        </SectionLabel>
-        <h1 id="daily" className="text-2xl font-semibold text-primary md:text-4xl">
-          {t(`experiments.exhibits.${entry.exhibit}.title`)}
-        </h1>
-        <p className="text-base text-primary md:text-lg">{t(`experiments.exhibits.${entry.exhibit}.summary`)}</p>
-        {atTheExhibit && <p className="text-sm text-secondary md:text-base">{atTheExhibit}</p>}
-        <p className="flex gap-2 text-sm text-primary md:text-base">
-          <HelpCircle className="mt-0.5 size-5 shrink-0 text-brand" aria-hidden />
-          {t(`experiments.exhibits.${entry.exhibit}.question`)}
-        </p>
+        {/* What the site is, in one line: the first five seconds' question. */}
+        <p className="max-w-[60ch] text-sm text-secondary md:text-base">{t("experiments.overview.lead")}</p>
+        <div className="space-y-2">
+          <SectionLabel as="p">
+            {t("experiments.overview.daily.eyebrow")} · {shortDay(today, locale)}
+          </SectionLabel>
+          <p className="text-base font-semibold text-brand md:text-lg">
+            {t(`experiments.exhibits.${entry.exhibit}.title`)}
+          </p>
+          {/* The hook is the biggest thing on the screen: the question to guess at. */}
+          <h1 id="daily" className="flex gap-3 text-2xl font-semibold text-primary md:text-4xl">
+            <HelpCircle className="mt-1 size-6 shrink-0 text-brand md:mt-1.5 md:size-8" aria-hidden />
+            {t(`experiments.exhibits.${entry.exhibit}.question`)}
+          </h1>
+        </div>
+        <p className="max-w-[65ch] text-base text-primary">{t(`experiments.exhibits.${entry.exhibit}.summary`)}</p>
+        {atTheExhibit && <p className="max-w-[65ch] text-sm text-secondary md:text-base">{atTheExhibit}</p>}
         <TopicTags entry={entry} tried={tried} />
         <div className="flex flex-wrap gap-2">
           {entry.path && (
@@ -248,14 +250,17 @@ function AllExhibits({ daily }: { daily: Exhibit }) {
           </Button>
         )}
       </div>
-      <ProgressBar
-        label={t("experiments.overview.tried.label")}
-        value={tried.length}
-        max={built.length}
-        showValue
-        formatValue={(v, max) => t("experiments.overview.tried.count", { tried: v, total: max })}
-        tone="success"
-      />
+      {/* Only once the reader has tried one: "0 of 35" to a newcomer reads as homework. */}
+      {tried.length > 0 && (
+        <ProgressBar
+          label={t("experiments.overview.tried.label")}
+          value={tried.length}
+          max={built.length}
+          showValue
+          formatValue={(v, max) => t("experiments.overview.tried.count", { tried: v, total: max })}
+          tone="success"
+        />
+      )}
       <div role="group" aria-label={t("experiments.overview.topics_label")} className="flex flex-wrap gap-2">
         <Chip onClick={() => setTopic(null)} selected={topic === null}>
           {t("experiments.overview.all_topics")}
@@ -297,7 +302,7 @@ function ExhibitCard({ entry, today, tried }: { entry: ExhibitEntry; today: bool
     <Card
       padding="md"
       density="compact"
-      className="flex flex-col gap-3"
+      className={`relative flex flex-col gap-3 ${entry.path ? "transition-colors hover:border-brand has-[a[data-card]:focus-visible]:ring-2 has-[a[data-card]:focus-visible]:ring-brand" : ""}`}
       onPointerEnter={() => setLive(true)}
       onPointerLeave={() => setLive(false)}
       onFocus={() => setLive(true)}
@@ -315,7 +320,21 @@ function ExhibitCard({ entry, today, tried }: { entry: ExhibitEntry; today: bool
         <div className="flex items-start gap-2">
           <Icon className="mt-0.5 size-5 shrink-0 text-brand" aria-hidden />
           <div className="min-w-0 space-y-1">
-            <CardTitle as="h3">{t(`experiments.exhibits.${entry.exhibit}.title`)}</CardTitle>
+            <CardTitle as="h3">
+              {entry.path ? (
+                // Stretched over the card, so the whole card opens the exhibit
+                // and one primary button stays the front page's own.
+                <Link
+                  to={entry.path}
+                  data-card
+                  className="outline-none after:absolute after:inset-0 after:content-['']"
+                >
+                  {t(`experiments.exhibits.${entry.exhibit}.title`)}
+                </Link>
+              ) : (
+                t(`experiments.exhibits.${entry.exhibit}.title`)
+              )}
+            </CardTitle>
             {today && (
               <Chip size="xs" tone="brand">
                 {t("experiments.overview.daily.today")}
@@ -332,21 +351,19 @@ function ExhibitCard({ entry, today, tried }: { entry: ExhibitEntry; today: bool
           {entry.lessons.map((lesson, i) => (
             <span key={lesson}>
               {i > 0 && ", "}
-              <TextLink href={lessonPath(lesson)}>{t(`experiments.computed.links.${lesson}`)}</TextLink>
+              {/* Above the card's own link, and quiet: for the technically minded. */}
+              <TextLink href={lessonPath(lesson)} tone="muted" className="relative z-10">
+                {t(`experiments.computed.links.${lesson}`)}
+              </TextLink>
             </span>
           ))}
         </p>
       )}
-      <div className="mt-auto">
-        {entry.path ? (
-          <Button variant="accent" size="sm" href={entry.path}>
-            {t("experiments.overview.open")}
-            <ArrowRight className="size-4" aria-hidden />
-          </Button>
-        ) : (
+      {!entry.path && (
+        <div className="mt-auto">
           <Chip tone="neutral">{t("experiments.overview.coming")}</Chip>
-        )}
-      </div>
+        </div>
+      )}
     </Card>
   );
 }

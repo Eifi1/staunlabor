@@ -89,9 +89,8 @@
     "title": "Esperimenti",
     "failed": "Non è stato possibile calcolare l'exhibit.",
     "overview": {
-      "lead": "Exhibit interattivi, calcolati. Faccia il visitatore davanti al gemello dell'exhibit, poi scopra il calcolo dietro ciò che ha provato.",
+      "lead": "Exhibit come in un museo della scienza, da provare e da ricalcolare: prima giochi Lei stesso, poi scopra la fisica che c'è dietro.",
       "how": "Ogni pagina comincia da ciò che si trova all'exhibit, Le permette di provarlo e poi mostra che cosa accade e l'idea che spiega il trucco. Ogni numero viene dal motore di calcolo dell'app ed è garantito dai suoi test.",
-      "open": "Apri l'exhibit",
       "coming": "In preparazione",
       "credit": "La maggior parte degli exhibit è ispirata agli exhibit dello Swiss Science Center Technorama, Winterthur.",
       "daily": {

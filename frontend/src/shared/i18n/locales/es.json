@@ -89,9 +89,8 @@
     "title": "Experimentos",
     "failed": "No se pudo calcular la exposición.",
     "overview": {
-      "lead": "Exposiciones interactivas, calculadas. Haga de visitante en el gemelo de la exposición y vea después el cálculo detrás de lo que sintió.",
+      "lead": "Exposiciones como las de un museo de ciencias, para probar y recalcular: primero juegue usted mismo y luego vea qué física hay detrás.",
       "how": "Cada página empieza con lo que hay en la exposición, le deja probarla y muestra después lo que ocurre y la idea que explica el truco. Cada número procede del motor de cálculo de la aplicación y está respaldado por sus pruebas.",
-      "open": "Abrir la exposición",
       "coming": "En preparación",
       "credit": "La mayoría de las exposiciones están inspiradas en exposiciones del Swiss Science Center Technorama, Winterthur.",
       "daily": {

@@ -116,8 +116,13 @@ describe("the overview", () => {
   it("opens the built exhibit, says the others are coming and credits the museum", async () => {
     await renderOverview();
     expect(screen.getByRole("heading", { level: 3, name: E.exhibits.chair.title })).toBeInTheDocument();
-    const opens = screen.getAllByRole("link", { name: new RegExp(E.overview.open) });
+    // The whole card opens its exhibit, through its title: no button per card.
+    const list = screen.getByRole("region", { name: E.overview.all });
+    const opens = within(list)
+      .getAllByRole("heading", { level: 3 })
+      .flatMap((heading) => within(heading).queryAllByRole("link"));
     expect(opens.map((link) => link.getAttribute("href"))).toEqual(EXHIBITS.flatMap((e) => (e.path ? [e.path] : [])));
+    expect(within(list).queryAllByRole("link", { name: /Open the exhibit/ })).toHaveLength(0);
     expect(screen.queryAllByText(E.overview.coming)).toHaveLength(EXHIBITS.filter((e) => !e.path).length);
     expect(screen.getByText(E.overview.credit)).toBeInTheDocument();
   });
@@ -150,11 +155,14 @@ describe("the overview", () => {
   it("shows the day's exhibit with its question, and the days before it only when asked", async () => {
     const view = await renderOverview();
     const today = dailyExhibit(DAY);
-    // The page's one heading of the first rank: the day's exhibit, not the site's name.
-    const daily = screen.getByRole("heading", { level: 1, name: E.exhibits[today].title });
+    // The page's one heading of the first rank is the day's question, the
+    // hook; the exhibit's name above it, and above that what the site is.
+    const daily = screen.getByRole("heading", { level: 1, name: E.exhibits[today].question });
     expect(screen.getAllByRole("heading", { level: 1 })).toHaveLength(1);
     const card = daily.closest("div.min-w-0") as HTMLElement;
-    expect(within(card).getByText(E.exhibits[today].question)).toBeInTheDocument();
+    expect(within(card).getByText(E.exhibits[today].title)).toBeInTheDocument();
+    expect(within(card).getByText(E.overview.lead)).toBeInTheDocument();
+    expect(E.overview.lead).not.toMatch(/twin/);
     // The longer text: what stands at the exhibit, the first paragraph of its page's.
     const at = (E as unknown as Record<string, { at: Record<string, string> }>)[today].at;
     expect(within(card).getByText(Object.values(at)[0])).toBeInTheDocument();
@@ -213,8 +221,9 @@ describe("the overview", () => {
     expect(screen.getAllByText(E.overview.tried.mark).length).toBeGreaterThan(0);
     expect(JSON.parse(localStorage.getItem("staunlabor.experimentsTried") ?? "[]")).toEqual(["cannon"]);
     fireEvent.click(screen.getByRole("button", { name: E.overview.tried.forget }));
-    expect(screen.getByText(`0 of ${EXHIBITS.length}`)).toBeInTheDocument();
     expect(screen.queryByText(E.overview.tried.mark)).toBeNull();
+    // Nothing tried, nothing counted: "0 of 35" to a newcomer reads as homework.
+    expect(screen.queryByText(`0 of ${EXHIBITS.length}`)).toBeNull();
   });
 });
 

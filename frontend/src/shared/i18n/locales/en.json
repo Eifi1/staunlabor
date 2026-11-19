@@ -89,9 +89,8 @@
     "title": "Experiments",
     "failed": "The exhibit could not be computed.",
     "overview": {
-      "lead": "Hands-on exhibits, computed. Play the visitor in the exhibit's twin, then see the computation behind what you felt.",
+      "lead": "Exhibits like those in a science centre, to try out and to work through: play first, then see the physics behind it.",
       "how": "Each page starts with what stands at the exhibit, lets you try it, then shows what happens and the one insight that explains the trick. Every number comes from the app's own engine and is held by its tests.",
-      "open": "Open the exhibit",
       "coming": "In preparation",
       "credit": "Most exhibits are inspired by exhibits at the Swiss Science Center Technorama, Winterthur.",
       "daily": {
