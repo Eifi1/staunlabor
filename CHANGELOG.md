@@ -2,6 +2,53 @@
 
 All notable changes to Staunlabor are documented in this file, generated from the commit messages by commit-and-tag-version at each release.
 
+## [0.1.10](https://github.com/Eifi1/staunlabor/compare/v0.1.9...v0.1.10) (2026-11-19)
+
+### Fixed
+
+* **experiments:** a build the engine refuses says so on the page, not Loading for ever ([046b4fd](https://github.com/Eifi1/staunlabor/commit/046b4fd1854ce8a1a81028aae24547bf83969004))
+* **experiments:** a ray across the rainbow's way back lands outside the ring in a dense bead ([dc40d1e](https://github.com/Eifi1/staunlabor/commit/dc40d1eb3e8481f00cc62d30cf1b357ba3e350a1))
+* **experiments:** a rod's swing measured at the drive's frequency, as wide as its tip goes ([11c69ab](https://github.com/Eifi1/staunlabor/commit/11c69ab58daa4dc46e9a06225278600ffaf5cdde))
+* **experiments:** a smoke-ring press keeps the drum it began on when a slider moves mid-press ([78c1b86](https://github.com/Eifi1/staunlabor/commit/78c1b864b3455126da21c3bbef2ba61c3f5f749e))
+* **experiments:** a thinner axle softens Maxwell's jerk at the bottom, as the hint now says ([003c818](https://github.com/Eifi1/staunlabor/commit/003c81850aa5a80309078578922db0e87d5ba9bd))
+* **experiments:** Foucault's pendulum is said not to turn with the floor, not to keep its plane ([e074c51](https://github.com/Eifi1/staunlabor/commit/e074c51206a35e68f6e100ece1ff8d5b4ee0f971))
+* **experiments:** Maxwell's strings run out already stretched, so their pull goes on into the jerk ([3a59ed3](https://github.com/Eifi1/staunlabor/commit/3a59ed30828509e257f74170366631a4917fea1f))
+* **experiments:** Maxwell's wheel shows its fall with the strings' rubbing, as the engine has it ([0d45821](https://github.com/Eifi1/staunlabor/commit/0d45821614f6c0da7db024fb6a8f61f6c73b674e))
+* **experiments:** Newton's cradle says of which energy its shares are ([87fdaad](https://github.com/Eifi1/staunlabor/commit/87fdaade9b8de3bd47a65e99f9851d1cb08a52f6))
+* **experiments:** the ball cannon damps each compression against its own strike and steps rest large ([3a70265](https://github.com/Eifi1/staunlabor/commit/3a702651b5483afb7177bcab239c9c4383249382))
+* **experiments:** the ball cannon says where Flores's damping and Hertz's law hold ([f3d7d21](https://github.com/Eifi1/staunlabor/commit/f3d7d211da58df89e415342de8c999a5c9d395dc))
+* **experiments:** the ball cannon's contacts damped against their fastest strike, not a crawl ([97ad9fb](https://github.com/Eifi1/staunlabor/commit/97ad9fba34fdbb86279a4826a9854a84f4ad6fdc))
+* **experiments:** the chain arch's line is within a hundredth from 3 cm thick, not however thick ([c3d73f7](https://github.com/Eifi1/staunlabor/commit/c3d73f7c2a8138dde5bd0b3b2cd3a2e4c39a2df0))
+* **experiments:** the chaotic pendulum's exponent to one decimal, a few tenths either way ([872dd30](https://github.com/Eifi1/staunlabor/commit/872dd30622728efe2eef466365b75c14d5967ef6))
+* **experiments:** the chaotic pendulum's step cut where a light upper arm whips round ([88c2196](https://github.com/Eifi1/staunlabor/commit/88c2196bd79064227e13156ef102229b775477fe))
+* **experiments:** the Chladni plate's answer weighs each mode by its mass, not by its scale ([38ec9d4](https://github.com/Eifi1/staunlabor/commit/38ec9d410eba0bc7d16656da03aa638f063dd11d))
+* **experiments:** the coupled pendulums' share is "about" Rabi's; the chart is two points short ([4f448d8](https://github.com/Eifi1/staunlabor/commit/4f448d81411c36453aa24a80a1095b3a51374e0e))
+* **experiments:** the double cone is laid where its contact lies on the rails, not before them ([d50c5cc](https://github.com/Eifi1/staunlabor/commit/d50c5cca601870fb1bb30d4cea72724f15bcab70))
+* **experiments:** the double slit's far field is set by a slit's width; the page says when it fails ([6a74fc7](https://github.com/Eifi1/staunlabor/commit/6a74fc7bc1778b545636ceab794789ade4a570c5))
+* **experiments:** the double slit's middle band reaches 26 mm to either side, not 26 mm wide ([70cdfce](https://github.com/Eifi1/staunlabor/commit/70cdfce8c6b64d9a589b07ec06dedfc10cdc3e16))
+* **experiments:** the elephant's ball bobs at 0.50 Hz as the air damps it, not the undamped 0.54 ([6fdc45e](https://github.com/Eifi1/staunlabor/commit/6fdc45eb5f8cce09419a91d7f0a2f3aaf9142f1d))
+* **experiments:** the elephant's ball counts as fallen once it is wholly below the opening ([0093b92](https://github.com/Eifi1/staunlabor/commit/0093b921ed1284ef4f817ce417a334370ac3cc8d))
+* **experiments:** the elephant's ball held steady to 31.7°, where it starts to rock, not 43.7° ([35e3f8a](https://github.com/Eifi1/staunlabor/commit/35e3f8ad75b700bfd7f594133e62fad067a05d43))
+* **experiments:** the eye from the CIE's own table, so deep red is drawn red, not orange ([7341888](https://github.com/Eifi1/staunlabor/commit/73418881bc2da3fac737841d911bd5e422fdf098))
+* **experiments:** the harmonograph's turn time from the swings it is let go at ([9a6a564](https://github.com/Eifi1/staunlabor/commit/9a6a564815ee9200248ffa7a5b57cc71719f7658))
+* **experiments:** the magnet car's top speed is where its own brake eats a pass, 7.2 m/s, not 4.8 ([b87356a](https://github.com/Eifi1/staunlabor/commit/b87356a8fd8389ebc3f4f54e982c30f6aeee14a2))
+* **experiments:** the mathematics check, every exhibit ([#5](https://github.com/Eifi1/staunlabor/issues/5)) ([ab8f7a8](https://github.com/Eifi1/staunlabor/commit/ab8f7a84187a7c376289de1244229693aed20999))
+* **experiments:** the overhang's even steps reach 0.9 with the bottom one as far out, 0.94 set back ([b5032e1](https://github.com/Eifi1/staunlabor/commit/b5032e12f489a73f912e9af2d9e63c4e9f653c04))
+* **experiments:** the peg's string wound over the peg in flight, or off it, not swung at L again ([b3ad139](https://github.com/Eifi1/staunlabor/commit/b3ad139806c1168e531bb6d13fd5af95c1e8affd))
+* **experiments:** the resonance rods carry their own weight, lowering their tones by up to a tenth ([090805d](https://github.com/Eifi1/staunlabor/commit/090805d229ca6890ed971b9fa4271d2f56c0f132))
+* **experiments:** the sky overhead is weighed by Rayleigh's scattering angle, half as bright at dusk ([8ee1c10](https://github.com/Eifi1/staunlabor/commit/8ee1c105d06d608e84e1d71f5abba7cf4f95a8a3))
+* **experiments:** the smoke ring's jet relative to the hole, which goes down with the ring ([d779081](https://github.com/Eifi1/staunlabor/commit/d7790815fdeabf828d108220b7763914f36ebbe2))
+* **experiments:** the smoke ring's window can be open at an end, and the page says so ([c61ac1c](https://github.com/Eifi1/staunlabor/commit/c61ac1cb1d496a6dbdbc677c1a14cce6ccc628e7))
+* **experiments:** the sphere's back-and-forth curve ends at 90°, where the ball would leave the wall ([40880c6](https://github.com/Eifi1/staunlabor/commit/40880c6443d31d395dc1d951cfa98cdbd104c588))
+* **experiments:** the table-tennis rule is 240 to 265 mm from 305 mm, not 230 to 250 ([6786096](https://github.com/Eifi1/staunlabor/commit/67860965c4c4a86e50827fcbdb7e8832fa8e9acd))
+* **experiments:** the turntable's 124 N is the pull inwards, the hold against the weight on top ([c649614](https://github.com/Eifi1/staunlabor/commit/c64961457465ab701d81493a8119c191f0a2134f))
+* **experiments:** what the waterwheel does read from the run the page shows, not from ρ_H alone ([cef10fb](https://github.com/Eifi1/staunlabor/commit/cef10fb31bbf09dad2c977138f4aa3d868cadc79))
+
+### Changed
+
+* **experiments:** the ball cannon's figures run the whole stack once, not twice ([fd956b6](https://github.com/Eifi1/staunlabor/commit/fd956b6b2f664a49e764ed29c1f765713d690ecd))
+* **experiments:** the waterwheel's behaviour among the engine's public names ([3f307d5](https://github.com/Eifi1/staunlabor/commit/3f307d57beaed011f00c5efa33a1b1dcf1dbabb1))
+
 ## [0.1.9](https://github.com/Eifi1/staunlabor/compare/v0.1.8...v0.1.9) (2026-11-17)
 
 ### Added

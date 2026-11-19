@@ -2,4 +2,4 @@
 behind a few public routes, which need no database and no account, and
 server-kit's invitation-only accounts on a database of their own."""
 
-__version__ = "0.1.9"
+__version__ = "0.1.10"
