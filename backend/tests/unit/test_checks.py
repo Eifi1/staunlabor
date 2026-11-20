@@ -28,7 +28,7 @@ def test_the_engine_meets_every_limiting_case_within_its_tolerance(
 
 
 def test_the_exhibits_with_checks_are_these() -> None:
-    assert checks.exhibits() == ("chair", "chladni", "coil", "coriolis", "cradle", "foucault", "peg", "plates", "sky", "sphere", "waterwheel", "wave")
+    assert checks.exhibits() == ("arch", "chair", "chladni", "coil", "coriolis", "cradle", "foucault", "maxwell", "peg", "plates", "sky", "sphere", "waterwheel", "wave")
     assert [c.key for c in checks.cases("sphere")][:3] == ["small_swing", "hollow_ball", "wide_swing"]
 
 

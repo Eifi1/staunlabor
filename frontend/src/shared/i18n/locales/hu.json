@@ -3525,7 +3525,31 @@
         "resistivity": "fajlagos ellenállás",
         "field_k": "a tér hullámszáma az oszlop mentén",
         "tooth": "egy fog magassága",
-        "field_period": "a tér periódusa: egy északi és egy déli mágnes"
+        "field_period": "a tér periódusa: egy északi és egy déli mágnes",
+        "r_axle": "a tengely sugara",
+        "R_wheel": "a kerék sugara",
+        "L_band": "a szalagok hossza",
+        "T_pull": "a két szalag együttes húzása",
+        "omega_spin": "a kerék forgási sebessége",
+        "h_top": "a legmagasabb pont a rándulás után, az alsó vég fölött",
+        "dt_jerk": "a rándulás időtartama",
+        "s_band": "a két szalag együttes merevsége",
+        "v_bottom": "a kerék sebessége, amikor a szalagok letekeredtek",
+        "F_band": "a szalagok legnagyobb húzása",
+        "A_stretch": "nyúlás azon a helyzeten túl, amelyben a szalagok a súlyt tartják",
+        "arch_radius": "az ív középvonalának sugara",
+        "push": "oldalnyomás a lábnál, vízszintesen",
+        "arch_weight": "az egész ív súlya",
+        "w_length": "a lánc méterenkénti súlya",
+        "a_chain": "a láncgörbe paramétere",
+        "half_span": "a fél fesztáv",
+        "rise": "az ív magassága a lábai felett",
+        "stones": "a kövek száma",
+        "R_pm": "a külső és a belső perem sugara",
+        "arch_T0": "a lánc húzása a csúcsban, vízszintesen",
+        "arch_density": "a kő sűrűsége",
+        "arch_depth": "az ív mélysége, a nézetre merőlegesen",
+        "arch_thickness": "a kövek vastagsága"
       },
       "cases": {
         "sphere": {
@@ -3953,6 +3977,63 @@
             "reads": "Egy fog, amely jóval szélesebb, mint amilyen magas, csak keresztirányban vezet áramot. Keresztben nettó áram nem folyhat, ezért csak az hajt áramot, ami eltér a térnek a fogra vett átlagától: egy végtelen lemez fékjéből η = 1 − (sin(kh/2)/(kh/2))² hányad marad.",
             "why": "Azt ellenőrzi, miért veszik el a bevágások a féket: kézzel 3,25 % marad, az oldal 3,21 %-ot számol. Az 1,3 %-os eltérést a fogak végei okozzák: a képlet végtelenül széles fogakra érvényes, a lemez 10 cm széles.",
             "step": "Az első forrás a mozgó vezetőben folyó áramot adja meg, J = σ(E + v×B). A végtelenül széles fogban csak keresztben folyik, és mivel keresztben nettó áram nem folyhat, a végeken lévő töltések tere elveszi a B̄ átlagot: J = σ·v·(B − B̄). A második szerint a hő egyenlő a fékteljesítménnyel; a pólusokhoz viszonyított helyzetre átlagolva B₀²/2-ből hiányzik a B₀²/2·(sin(kh/2)/(kh/2))² rész, az átlag négyzete."
+          }
+        },
+        "maxwell": {
+          "fall_time": {
+            "title": "A lassú esés",
+            "setting": "Az oldal kereke: tömör tárcsa, 0,5 kg, sugár 6,5 cm, tengely 5 mm, 60 cm hosszú szalagok, a szalagok súrlódása nélkül; az idő, amíg a szalagok letekerednek.",
+            "reads": "A szalagok arra kényszerítik a kereket, hogy forogjon, miközben esik. Mivel a tengely ilyen vékony, szinte az egész helyzeti energia a forgásba megy, és a kerék mintha lassítva esne.",
+            "why": "A vékony tengelyről való legördülést és a tárcsa tehetetlenségi nyomatékát ellenőrzi: 3,2345 s 60 cm-re, 10⁻¹⁴ pontossággal ugyanannyi, mint az oldalon."
+          },
+          "pull": {
+            "title": "A szalagok majdnem az egész súlyt tartják",
+            "setting": "Mint fent, 1 s esés után leolvasva.",
+            "reads": "Mivel a kerék ilyen lassan esik, a szalagok majdnem a teljes súlyával húznak; ami hiányzik, az gyorsítja az esést.",
+            "why": "A szalagok húzását ellenőrzi, amelyet az oldal mutat: 4,846 N."
+          },
+          "back_up": {
+            "title": "Súrlódás nélkül vissza egészen fel",
+            "setting": "Mint fent; a legmagasabb ponton, az első rándulás után leolvasva.",
+            "reads": "Lefelé a helyzeti energia eséssé és forgássá alakul, a rándulás változatlanul visszaadja a sebességet, felfelé pedig minden ismét helyzeti energiává válik.",
+            "why": "Azt ellenőrzi, hogy az esés, a rándulás és az emelkedés összeillik: a kerék pontosan 60 cm-re tér vissza.",
+            "step": "Az első forrás megadja az esés energiáját: MgL = ½Mv² + ½Iω². A rándulás egy rugólengés, amelynek energiája a második szerint változatlan: a kerék ugyanolyan gyorsan hagyja el, ahogy érkezett. Felfelé az első forrás számítása visszafelé érvényes."
+          },
+          "jerk_time": {
+            "title": "A rándulás: fél lengés",
+            "setting": "Mint fent, a két szalag együtt 10 kN/m; a szalagok végétől addig, amíg a kerék újra emelkedni kezd.",
+            "reads": "Lent már nem a legördülés fékezi a kereket, hanem a szalagok, amelyek megnyúlnak: a kerék fél lengést végez rajtuk, mint egy rugón, és visszafordul.",
+            "why": "A rándulást ellenőrzi, azt az időt, amíg a szalagok a legerősebben húznak: 22,2 ms. A szalagok közben a lefelé irányuló gyorsulás maradékát is felfogják, ezért 1,4 · 10⁻³-del tovább tart a fél lengésnél.",
+            "step": "A forrás megadja egy rugón lógó tömeg periódusát. A rándulás ennek a fele, amíg a kerék olyan gyorsan érkezik, hogy kis lefelé irányuló gyorsulása emellett nem számít."
+          },
+          "peak": {
+            "title": "A legnagyobb húzás a rándulásban",
+            "setting": "Mint fent, a két szalag együtt 10 kN/m; a legnagyobb húzás a rándulás alatt.",
+            "reads": "A szalagokba csak az esés energiája, ½Mv² kerül, a forgásé nem: az a ránduláson át tovább folytatódik. A legalsó ponton a szalagok a súllyal és még s·A-val húznak.",
+            "why": "Azt a húzást ellenőrzi, amelyet az oldal a rándulásban mutat: 31,14 N, a 4,90 N-os súly több mint hatszorosa.",
+            "step": "Az első forrás megadja a lenti v sebességet. A rándulásban a kerék a szalagokon annak a helyzetnek a két oldalán leng, amelyben a szalagok a súlyát tartják; a második szerint a legalsó ponton a ½Mv² energia teljes egészében az e helyzeten túli A nyúlásban van: ½sA² = ½Mv²."
+          }
+        },
+        "arch": {
+          "milankovitch": {
+            "title": "A legvékonyabb félkör, amely még megáll",
+            "setting": "Félkör 2 m fesztávval, 40 kő, teher nélkül; a vastagságot addig csökkentve, amíg már egyetlen nyomásvonal sem fér el az összes kőben.",
+            "reads": "Egy habarcs nélkül, kövekből rakott félköríves ív csak akkor áll meg, ha vastagsága legalább a sugara 0,1075-szöröse: így számolta ki Milankovitch, és Makris és Alexakis megerősítette.",
+            "why": "Azt ellenőrzi, hogy az oldal ott is a kövekbe helyezi-e a nyomásvonalat, ahol még éppen elfér: 40 kővel az ív a sugár 0,10743-szeresétől áll meg. Ez 6 · 10⁻⁴-del kevesebb Milankovitch értékénél, amely bárhol elhelyezkedő hézagokra érvényes, és négy tizedesjegyre van kerekítve."
+          },
+          "chain_push": {
+            "title": "A megfordított lánc úgy nyom, ahogy húz",
+            "setting": "Láncív 2 m fesztávval, 1 m magas, csak 2 cm vastag, 40 kőből, teher nélkül; a lánc megjelenítve.",
+            "reads": "Megfordítva a lánc húzása az ív nyomásává válik. Vízszintesen a lánc mindenütt egyformán húz, T₀ = w·a erővel; függőlegesen mindkét láb a fél lánc súlyát tartja, ez w·a·sinh(c/a). Ezért a lábnál ható oldalnyomás a súly 1/(2·sinh(c/a)) része.",
+            "why": "Az oldal „Oldalnyomás a lábnál” értékét ellenőrzi: a súly 20,68 %-a. A 40 egyenes, 2 cm-es kő nem lánc; a vonaluk 1,3 · 10⁻⁴-nyire tér el.",
+            "step": "Az első forrás Hooke tétele: ahogy a lánc lóg, úgy áll meg az ív fejjel lefelé. A második a láncot adja meg: vízszintesen T₀ = w·a, függőlegesen w·s, ahol s = a·sinh(x/a) a csúcsig mérve. A lábnál, x = c-nél tehát w·a és w·a·sinh(c/a) adódik; a a magasságból következik: a·(cosh(c/a) − 1) = h."
+          },
+          "weight": {
+            "title": "A kövek súlya",
+            "setting": "Az oldal félköre: 2 m fesztáv, 25 cm vastag, 16 kő, 30 cm mély, 2400 kg/m³.",
+            "reads": "Minden kő két, egymással π/16 szöget bezáró sugár mentén van kivágva: a külső peremig érő háromszög mínusz a belső peremig érő háromszög, ½(R₊² − R₋²)·sin(π/16).",
+            "why": "Azokat a köveket ellenőrzi, amelyekből az oldal a súlyokat és a súlypontokat veszi: 561,86 kg, az oldal „Az ív súlya” értéke.",
+            "step": "A forrás egy háromszög területét adja meg két oldalából és a közbezárt szögből. Egy kő a középponttól a külső peremig érő háromszög, R₊ = R + t/2, mínusz a belső peremig érő, R₋ = R − t/2; ezt kell megszorozni a mélységgel és a sűrűséggel."
           }
         }
       },

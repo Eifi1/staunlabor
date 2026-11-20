@@ -26,6 +26,7 @@ import {
 import { G } from "./simulate/pendulum";
 import { SIDE } from "./stage";
 import { useExperimentsDefaults } from "./use-experiments";
+import { settingNumber, useCheckRequest, useCheckSetting, type CheckSetting } from "./check-setting";
 
 /** Real time, a quarter, and a twentieth: the jerk at the bottom lasts some
  *  hundredths of a second, which only the slowest shows. */
@@ -48,6 +49,15 @@ export function MaxwellPage() {
   const defaults = useExperimentsDefaults();
   const [build, setBuild] = useState<MaxwellWheel | null>(null);
   const w = build ?? defaults.data?.maxwell ?? null;
+  // A check case's "Set it up": the wheel here; the play, built anew for it,
+  // lets it go.
+  const request = useCheckRequest("maxwell");
+  const [seen, setSeen] = useState<number | null>(null);
+  if (request && !request.done && request.nonce !== seen && w) {
+    setSeen(request.nonce);
+    const next = maxwellOf(w, request.setting);
+    if (JSON.stringify(next) !== JSON.stringify(w)) setBuild(next);
+  }
   const fine = w ? refusal(w) === null : false;
   return (
     <ExhibitFrame
@@ -76,6 +86,21 @@ export function MaxwellPage() {
       )}
     </ExhibitFrame>
   );
+}
+
+/** The wheel a case names, the rest as it is. */
+function maxwellOf(w: MaxwellWheel, setting: CheckSetting): MaxwellWheel {
+  const n = (key: keyof MaxwellWheel & string) => settingNumber(setting, key, w[key] as number);
+  return {
+    ...w,
+    shape: setting.shape === "disc" || setting.shape === "ring" ? setting.shape : w.shape,
+    mass_kg: n("mass_kg"),
+    wheel_radius_m: n("wheel_radius_m"),
+    axle_radius_m: n("axle_radius_m"),
+    drop_m: n("drop_m"),
+    loss: n("loss"),
+    stiffness_n_m: n("stiffness_n_m"),
+  };
 }
 
 /** Let go and left to bounce, for the overview. */
@@ -190,6 +215,14 @@ function MaxwellPlay({ w, preview = false, paused = false }: { w: MaxwellWheel }
     return () => cancelAnimationFrame(raf);
   }, [running, speed]);
 
+  // Once the play's wheel is the case's, it is let go.
+  useCheckSetting("maxwell", (setting) => {
+    if (preview || JSON.stringify(maxwellOf(w, setting)) !== JSON.stringify(w)) return false;
+    clock.current = 0;
+    setTime(0);
+    setRunning(true);
+    return true;
+  });
   const state = stateAt(w, time);
   const view = <MaxwellView w={w} height={state.height_m} turns={state.turns} />;
   if (preview) return view;

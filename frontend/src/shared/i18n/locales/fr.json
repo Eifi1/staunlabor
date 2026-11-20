@@ -3525,7 +3525,31 @@
         "resistivity": "résistivité",
         "field_k": "nombre d’onde du champ le long de la colonne",
         "tooth": "hauteur d’une dent",
-        "field_period": "période du champ : un aimant nord et un aimant sud"
+        "field_period": "période du champ : un aimant nord et un aimant sud",
+        "r_axle": "rayon de l’axe",
+        "R_wheel": "rayon de la roue",
+        "L_band": "longueur des rubans",
+        "T_pull": "traction des deux rubans ensemble",
+        "omega_spin": "vitesse de rotation de la roue",
+        "h_top": "point le plus haut après l’à-coup, au-dessus de l’extrémité inférieure",
+        "dt_jerk": "durée de l’à-coup",
+        "s_band": "raideur des deux rubans ensemble",
+        "v_bottom": "vitesse de la roue quand les rubans sont déroulés",
+        "F_band": "traction maximale des rubans",
+        "A_stretch": "allongement au-delà de la position où les rubans portent le poids",
+        "arch_radius": "rayon de la ligne médiane de l’arc",
+        "push": "poussée au pied, horizontale",
+        "arch_weight": "poids de l’arc entier",
+        "w_length": "poids de la chaîne par mètre",
+        "a_chain": "paramètre de la chaînette",
+        "half_span": "demi-portée",
+        "rise": "hauteur de l’arc au-dessus de ses pieds",
+        "stones": "nombre de pierres",
+        "R_pm": "rayon du bord extérieur et du bord intérieur",
+        "arch_T0": "traction de la chaîne au sommet, horizontale",
+        "arch_density": "masse volumique de la pierre",
+        "arch_depth": "profondeur de l’arc, perpendiculaire à la vue",
+        "arch_thickness": "épaisseur des pierres"
       },
       "cases": {
         "sphere": {
@@ -3953,6 +3977,63 @@
             "reads": "Une dent bien plus large que haute ne conduit le courant qu’en travers. En travers, aucun courant net ne peut circuler ; seul pousse donc ce qui s’écarte de la moyenne du champ sur la dent : du freinage d’une plaque infinie reste la part η = 1 − (sin(kh/2)/(kh/2))².",
             "why": "Vérifie pourquoi les fentes ôtent le frein : à la main, il reste 3,25 %, la page calcule 3,21 %. L’écart de 1,3 % vient des extrémités des dents : la formule vaut pour des dents infiniment larges, la plaque fait 10 cm de large.",
             "step": "La première source donne le courant dans un conducteur en mouvement, J = σ(E + v×B). Dans une dent infiniment large, il ne circule qu’en travers, et comme rien de net ne peut circuler en travers, le champ des charges aux extrémités retire la moyenne B̄ : J = σ·v·(B − B̄). D’après la deuxième, la chaleur est égale à la puissance de freinage ; en moyenne sur la position par rapport aux pôles, il manque à B₀²/2 la part B₀²/2·(sin(kh/2)/(kh/2))², la moyenne au carré."
+          }
+        },
+        "maxwell": {
+          "fall_time": {
+            "title": "La chute lente",
+            "setting": "La roue de la page : disque plein, 0,5 kg, rayon 6,5 cm, axe 5 mm, rubans de 60 cm, sans frottement des rubans ; le temps jusqu’à ce qu’ils soient déroulés.",
+            "reads": "Les rubans obligent la roue à tourner pendant qu’elle tombe. Comme l’axe est si mince, presque toute l’énergie potentielle passe dans la rotation, et la roue tombe comme au ralenti.",
+            "why": "Vérifie le déroulement sur l’axe mince et le moment d’inertie du disque : 3,2345 s pour 60 cm, comme la page à 10⁻¹⁴ près."
+          },
+          "pull": {
+            "title": "Les rubans portent presque tout le poids",
+            "setting": "Comme ci-dessus, relevé après 1 s de chute.",
+            "reads": "Comme la roue tombe si lentement, les rubans tirent avec presque tout son poids ; ce qui manque accélère la chute.",
+            "why": "Vérifie la traction des rubans qu’indique la page : 4,846 N."
+          },
+          "back_up": {
+            "title": "Sans frottement, de retour jusqu’en haut",
+            "setting": "Comme ci-dessus ; relevé au point le plus haut après le premier à-coup.",
+            "reads": "En descendant, l’énergie potentielle devient chute et rotation, l’à-coup rend la vitesse inchangée, et en montant tout redevient énergie potentielle.",
+            "why": "Vérifie que la chute, l’à-coup et la montée s’accordent : la roue revient exactement à 60 cm.",
+            "step": "La première source donne l’énergie dans la chute, MgL = ½Mv² + ½Iω². L’à-coup est une oscillation de ressort dont l’énergie, d’après la seconde, reste la même : la roue en sort aussi vite qu’elle est arrivée. En montant, le calcul de la première vaut à rebours."
+          },
+          "jerk_time": {
+            "title": "L’à-coup : une demi-oscillation",
+            "setting": "Comme ci-dessus, les rubans ensemble à 10 kN/m ; de la fin des rubans jusqu’à ce que la roue remonte.",
+            "reads": "En bas, ce n’est plus le déroulement qui freine la roue, mais les rubans, qui s’allongent : elle y fait une demi-oscillation comme sur un ressort et fait demi-tour.",
+            "why": "Vérifie l’à-coup, le temps pendant lequel les rubans tirent le plus fort : 22,2 ms. Les rubans absorbent aussi le reste de l’accélération vers le bas ; c’est pourquoi il dure 1,4 · 10⁻³ de plus que la demi-oscillation.",
+            "step": "La source donne la période d’une masse suspendue à un ressort. L’à-coup en est la moitié, tant que la roue arrive assez vite pour que sa petite accélération vers le bas ne compte pas à côté."
+          },
+          "peak": {
+            "title": "La plus forte traction pendant l’à-coup",
+            "setting": "Comme ci-dessus, les rubans ensemble à 10 kN/m ; la plus forte traction pendant l’à-coup.",
+            "reads": "Seule l’énergie de la chute, ½Mv², passe dans les rubans, pas celle de la rotation : celle-ci continue à travers l’à-coup. Au point le plus bas, les rubans tirent avec le poids et, en plus, avec s·A.",
+            "why": "Vérifie la traction qu’indique la page pendant l’à-coup : 31,14 N, plus de six fois le poids de 4,90 N.",
+            "step": "La première source donne la vitesse v en bas. Pendant l’à-coup, la roue oscille sur les rubans autour de la position où ils portent son poids ; d’après la seconde, au point le plus bas l’énergie ½Mv² est tout entière dans l’allongement A au-delà de cette position : ½sA² = ½Mv²."
+          }
+        },
+        "arch": {
+          "milankovitch": {
+            "title": "Le demi-cercle le plus mince qui tienne",
+            "setting": "Demi-cercle de 2 m de portée, 40 pierres, sans charge ; l’épaisseur réduite jusqu’à ce qu’aucune ligne de pression ne tienne plus dans toutes les pierres.",
+            "reads": "Un arc en plein cintre en pierres sans mortier ne tient que s’il est épais d’au moins 0,1075 de son rayon : c’est ce qu’a calculé Milankovitch, et Makris et Alexakis l’ont confirmé.",
+            "why": "Vérifie que la page place la ligne de pression dans les pierres là où elle tient encore tout juste : avec 40 pierres, l’arc tient à partir de 0,10743 du rayon. C’est 6 · 10⁻⁴ de moins que la valeur de Milankovitch, qui vaut pour des joints placés n’importe où et est arrondie à quatre décimales."
+          },
+          "chain_push": {
+            "title": "La chaîne retournée pousse comme elle tire",
+            "setting": "Arc de chaînette de 2 m de portée, 1 m de haut, épais de 2 cm seulement et fait de 40 pierres, sans charge ; la chaîne affichée.",
+            "reads": "Retournée, la traction de la chaîne devient la poussée de l’arc. Horizontalement, la chaîne tire partout de la même façon, avec T₀ = w·a ; verticalement, chaque pied porte le poids de la moitié de la chaîne, w·a·sinh(c/a). La poussée au pied vaut donc 1/(2·sinh(c/a)) du poids.",
+            "why": "Vérifie le chiffre « Poussée au pied » de la page : 20,68 % du poids. Les 40 pierres droites de 2 cm ne sont pas une chaîne ; leur ligne s’écarte de 1,3 · 10⁻⁴.",
+            "step": "La première source est la règle de Hooke : comme pend la chaîne, ainsi se tient l’arc retourné. La seconde donne la chaîne : horizontalement T₀ = w·a, verticalement w·s avec s = a·sinh(x/a) jusqu’au sommet. Au pied, en x = c, on a donc w·a et w·a·sinh(c/a) ; a se déduit de la hauteur, a·(cosh(c/a) − 1) = h."
+          },
+          "weight": {
+            "title": "Le poids des pierres",
+            "setting": "Le demi-cercle de la page : 2 m de portée, 25 cm d’épaisseur, 16 pierres, 30 cm de profondeur, 2400 kg/m³.",
+            "reads": "Chaque pierre est taillée le long de deux rayons distants de π/16 : le triangle jusqu’au bord extérieur moins le triangle jusqu’au bord intérieur, ½(R₊² − R₋²)·sin(π/16).",
+            "why": "Vérifie les pierres dont la page tire les poids et les centres de gravité : 561,86 kg, le chiffre « Poids de l’arc » de la page.",
+            "step": "La source donne l’aire d’un triangle à partir de deux côtés et de l’angle qu’ils forment. Une pierre est le triangle allant du centre jusqu’au bord extérieur, R₊ = R + t/2, moins celui allant jusqu’au bord intérieur, R₋ = R − t/2 ; le tout multiplié par la profondeur et la masse volumique."
           }
         }
       },

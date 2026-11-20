@@ -3525,7 +3525,31 @@
         "resistivity": "resistività",
         "field_k": "numero d'onda del campo lungo la colonna",
         "tooth": "altezza di un dente",
-        "field_period": "periodo del campo: un magnete nord e uno sud"
+        "field_period": "periodo del campo: un magnete nord e uno sud",
+        "r_axle": "raggio dell'asse",
+        "R_wheel": "raggio della ruota",
+        "L_band": "lunghezza dei nastri",
+        "T_pull": "trazione dei due nastri insieme",
+        "omega_spin": "velocità di rotazione della ruota",
+        "h_top": "punto più alto dopo lo strappo, sopra l'estremità inferiore",
+        "dt_jerk": "durata dello strappo",
+        "s_band": "rigidità dei due nastri insieme",
+        "v_bottom": "velocità della ruota quando i nastri sono srotolati",
+        "F_band": "trazione massima dei nastri",
+        "A_stretch": "allungamento oltre la posizione in cui i nastri reggono il peso",
+        "arch_radius": "raggio della linea mediana dell'arco",
+        "push": "spinta al piede, orizzontale",
+        "arch_weight": "peso dell'intero arco",
+        "w_length": "peso della catena per metro",
+        "a_chain": "parametro della catenaria",
+        "half_span": "metà della luce",
+        "rise": "altezza dell'arco sopra i suoi piedi",
+        "stones": "numero di pietre",
+        "R_pm": "raggio del bordo esterno e di quello interno",
+        "arch_T0": "trazione della catena al vertice, orizzontale",
+        "arch_density": "densità della pietra",
+        "arch_depth": "profondità dell'arco, perpendicolare alla vista",
+        "arch_thickness": "spessore delle pietre"
       },
       "cases": {
         "sphere": {
@@ -3953,6 +3977,63 @@
             "reads": "Un dente molto più largo che alto porta corrente solo di traverso. Di traverso non può scorrere corrente netta, quindi spinge solo ciò che si scosta dalla media del campo sul dente: della frenata di una lastra infinita resta la parte η = 1 − (sin(kh/2)/(kh/2))².",
             "why": "Verifica perché le fenditure tolgono il freno: a mano resta il 3,25 %, la pagina calcola il 3,21 %. Lo scarto dell'1,3 % sono le estremità dei denti: la formula vale per denti infinitamente larghi, la piastra è larga 10 cm.",
             "step": "La prima fonte dà la corrente in un conduttore in moto, J = σ(E + v×B). In un dente infinitamente largo scorre solo di traverso, e poiché di traverso non può scorrere nulla di netto, il campo delle cariche alle estremità toglie la media B̄: J = σ·v·(B − B̄). Secondo la seconda il calore è uguale alla potenza frenante; mediando sulla posizione rispetto ai poli, a B₀²/2 manca la parte B₀²/2·(sin(kh/2)/(kh/2))², la media al quadrato."
+          }
+        },
+        "maxwell": {
+          "fall_time": {
+            "title": "La caduta lenta",
+            "setting": "La ruota della pagina: disco pieno, 0,5 kg, raggio 6,5 cm, asse 5 mm, nastri lunghi 60 cm, senza attrito dei nastri; il tempo finché sono srotolati.",
+            "reads": "I nastri costringono la ruota a girare mentre cade. Poiché l'asse è così sottile, quasi tutta l'energia potenziale va nella rotazione, e la ruota cade come al rallentatore.",
+            "why": "Verifica lo srotolamento sull'asse sottile e il momento d'inerzia del disco: 3,2345 s per 60 cm, come la pagina a meno di 10⁻¹⁴."
+          },
+          "pull": {
+            "title": "I nastri reggono quasi tutto il peso",
+            "setting": "Come sopra, letto dopo 1 s di caduta.",
+            "reads": "Poiché la ruota cade così lentamente, i nastri tirano con quasi tutto il suo peso; ciò che manca accelera la caduta.",
+            "why": "Verifica la trazione dei nastri che indica la pagina: 4,846 N."
+          },
+          "back_up": {
+            "title": "Senza attrito, di nuovo fino in cima",
+            "setting": "Come sopra; letto nel punto più alto dopo il primo strappo.",
+            "reads": "Scendendo, l'energia potenziale diventa caduta e rotazione, lo strappo restituisce la velocità invariata, e salendo tutto torna energia potenziale.",
+            "why": "Verifica che caduta, strappo e salita si accordino: la ruota torna esattamente a 60 cm.",
+            "step": "La prima fonte dà l'energia nella caduta, MgL = ½Mv² + ½Iω². Lo strappo è un'oscillazione di molla la cui energia, secondo la seconda, resta la stessa: la ruota ne esce veloce quanto vi è entrata. In salita vale il calcolo della prima, a ritroso."
+          },
+          "jerk_time": {
+            "title": "Lo strappo: mezza oscillazione",
+            "setting": "Come sopra, i nastri insieme a 10 kN/m; dalla fine dei nastri finché la ruota risale.",
+            "reads": "In basso non è più lo srotolamento a frenare la ruota, ma i nastri, che si allungano: la ruota compie su di essi mezza oscillazione come su una molla e si inverte.",
+            "why": "Verifica lo strappo, il tempo in cui i nastri tirano più forte: 22,2 ms. I nastri assorbono anche il resto dell'accelerazione verso il basso, per questo dura 1,4 · 10⁻³ in più della mezza oscillazione.",
+            "step": "La fonte dà il periodo di una massa appesa a una molla. Lo strappo ne è la metà, purché la ruota arrivi così veloce che la sua piccola accelerazione verso il basso, al confronto, non conti."
+          },
+          "peak": {
+            "title": "La trazione massima nello strappo",
+            "setting": "Come sopra, i nastri insieme a 10 kN/m; la trazione massima durante lo strappo.",
+            "reads": "Nei nastri va solo l'energia della caduta, ½Mv², non quella della rotazione: questa prosegue attraverso lo strappo. Nel punto più basso i nastri tirano con il peso e in più con s·A.",
+            "why": "Verifica la trazione che la pagina indica nello strappo: 31,14 N, più di sei volte il peso di 4,90 N.",
+            "step": "La prima fonte dà la velocità v in basso. Nello strappo la ruota oscilla sui nastri attorno alla posizione in cui questi ne reggono il peso; secondo la seconda, nel punto più basso l'energia ½Mv² sta tutta nell'allungamento A oltre questa posizione: ½sA² = ½Mv²."
+          }
+        },
+        "arch": {
+          "milankovitch": {
+            "title": "Il semicerchio più sottile che sta in piedi",
+            "setting": "Semicerchio di 2 m di luce, 40 pietre, senza carico; lo spessore ridotto finché nessuna linea delle pressioni sta più dentro tutte le pietre.",
+            "reads": "Un arco a tutto sesto di pietre senza malta sta in piedi solo se è spesso almeno 0,1075 del suo raggio: così ha calcolato Milankovitch, e Makris e Alexakis lo hanno confermato.",
+            "why": "Verifica che la pagina collochi la linea delle pressioni dentro le pietre là dove ci sta ancora appena: con 40 pietre l'arco sta in piedi da 0,10743 del raggio. Sono 6 · 10⁻⁴ in meno del valore di Milankovitch, che vale per giunti in qualunque punto ed è arrotondato a quattro decimali."
+          },
+          "chain_push": {
+            "title": "La catena capovolta spinge come tira",
+            "setting": "Arco a catenaria di 2 m di luce, alto 1 m, spesso solo 2 cm e fatto di 40 pietre, senza carico; la catena mostrata.",
+            "reads": "Capovolta, la trazione della catena diventa la spinta dell'arco. In orizzontale la catena tira ovunque allo stesso modo, con T₀ = w·a; in verticale ogni piede porta il peso di mezza catena, w·a·sinh(c/a). La spinta al piede è quindi 1/(2·sinh(c/a)) del peso.",
+            "why": "Verifica la cifra «Spinta al piede» della pagina: il 20,68 % del peso. Le 40 pietre diritte da 2 cm non sono una catena; la loro linea si scosta di 1,3 · 10⁻⁴.",
+            "step": "La prima fonte è la regola di Hooke: come pende la catena, così sta l'arco capovolto. La seconda dà la catena: in orizzontale T₀ = w·a, in verticale w·s con s = a·sinh(x/a) fino al vertice. Al piede, in x = c, si hanno quindi w·a e w·a·sinh(c/a); a si ricava dall'altezza, a·(cosh(c/a) − 1) = h."
+          },
+          "weight": {
+            "title": "Il peso delle pietre",
+            "setting": "Il semicerchio della pagina: 2 m di luce, spesso 25 cm, 16 pietre, profondo 30 cm, 2400 kg/m³.",
+            "reads": "Ogni pietra è tagliata lungo due raggi distanti π/16: il triangolo fino al bordo esterno meno il triangolo fino a quello interno, ½(R₊² − R₋²)·sin(π/16).",
+            "why": "Verifica le pietre da cui la pagina prende pesi e baricentri: 561,86 kg, la cifra «Peso dell'arco» della pagina.",
+            "step": "La fonte dà l'area di un triangolo a partire da due lati e dall'angolo compreso. Una pietra è il triangolo dal centro fino al bordo esterno, R₊ = R + t/2, meno quello fino al bordo interno, R₋ = R − t/2; il tutto per profondità e densità."
           }
         }
       },

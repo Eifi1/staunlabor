@@ -2426,6 +2426,15 @@ brake; a plate up to 50 cm wide would bring it to 0.25 %. Aluminium's
 conductivity is 3.77 · 10⁷ S/m, the value of Wikipedia's resistivity-density
 table (26.50 nΩ·m), not of its main table (28.2 nΩ·m).
 
+**The Maxwell wheel's** five (2026-11-20) hold its fall time and the bands'
+pull to the rolling fall under g/(1 + I/mr²), the climb back up, the jerk's
+duration and its peak at the bottom; "Set it up" builds the wheel and lets it
+go. **The arch's** three hold the thinnest semicircle that stands (40 stones
+at 0.10743 of the radius against Milankovitch's 0.1075; the case's source
+cites his dissertation of 1904, the line above his paper of 1907), the hanging chain's line inside a thin catenary arch, and the
+weight; the thinnest arch's 10.75 cm lies between the thickness slider's whole
+centimetres, so "Set it up" sets it exactly.
+
 **On the page** a section "Check it yourself" (`check-section.tsx`) lists the
 cases, each with its formula as an `Equation` (`check-formulas.ts`), both
 values to seven digits, the deviation, why the case would catch a mistake,

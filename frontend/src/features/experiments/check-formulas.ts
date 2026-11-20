@@ -67,6 +67,15 @@ const TAU: CheckSymbol = { tex: String.raw`\tau`, key: "tau", unit: "s" };
 const MASS: CheckSymbol = { tex: "m", key: "m", unit: "kg" };
 const SIGMA: CheckSymbol = { tex: String.raw`\sigma`, key: "sigma", unit: "S/m" };
 const SHARE: CheckSymbol = { tex: String.raw`\eta`, key: "sheet_share" };
+const MASS_WHEEL: CheckSymbol = { tex: "M", key: "m", unit: "kg" };
+const AXLE: CheckSymbol = { tex: "r", key: "r_axle", unit: "m" };
+const WHEEL: CheckSymbol = { tex: "R", key: "R_wheel", unit: "m" };
+const BANDS: CheckSymbol = { tex: "L", key: "L_band", unit: "m" };
+const INERTIA: CheckSymbol = { tex: "I", key: "inertia", unit: "kg·m²" };
+const STIFF: CheckSymbol = { tex: "s", key: "s_band", unit: "N/m" };
+const V_BOTTOM: CheckSymbol = { tex: "v", key: "v_bottom", unit: "m/s" };
+const THICKNESS: CheckSymbol = { tex: "t", key: "arch_thickness", unit: "m" };
+const ARCH_RADIUS: CheckSymbol = { tex: "R", key: "arch_radius", unit: "m" };
 
 export const CHECK_FORMULAS: Record<string, Record<string, CheckFormula>> = {
   sphere: {
@@ -555,6 +564,76 @@ export const CHECK_FORMULAS: Record<string, Record<string, CheckFormula>> = {
         { tex: "k", key: "field_k", unit: "1/m" },
         { tex: "h", key: "tooth", unit: "m" },
         { tex: String.raw`\lambda`, key: "field_period", unit: "m" },
+      ],
+    },
+  },
+  maxwell: {
+    fall_time: {
+      tex: String.raw`t = \frac{1}{r}\sqrt{\frac{L\,(2r^2 + R^2)}{g}}`,
+      symbols: [{ tex: "t", key: "t", unit: "s" }, AXLE, BANDS, WHEEL, G],
+    },
+    pull: {
+      tex: String.raw`T = \frac{I\,M g}{M r^2 + I}, \qquad I = \tfrac12 M R^2`,
+      symbols: [{ tex: "T", key: "T_pull", unit: "N" }, INERTIA, MASS_WHEEL, G, AXLE, WHEEL],
+    },
+    back_up: {
+      tex: String.raw`M g L = \tfrac12 M v^2 + \tfrac12 I \omega^2 \;\Rightarrow\; h_{\max} = L`,
+      symbols: [
+        MASS_WHEEL,
+        G,
+        BANDS,
+        V_BOTTOM,
+        INERTIA,
+        { tex: String.raw`\omega`, key: "omega_spin", unit: "1/s" },
+        { tex: String.raw`h_{\max}`, key: "h_top", unit: "m" },
+      ],
+    },
+    jerk_time: {
+      tex: String.raw`\Delta t = \frac{T}{2} = \pi\sqrt{\frac{M}{s}}`,
+      symbols: [{ tex: String.raw`\Delta t`, key: "dt_jerk", unit: "s" }, MASS_WHEEL, STIFF],
+    },
+    peak: {
+      tex: String.raw`F = M g + s A, \qquad \tfrac12 s A^2 = \tfrac12 M v^2, \qquad v = \sqrt{\frac{2 g L}{1 + I/(M r^2)}}`,
+      symbols: [
+        { tex: "F", key: "F_band", unit: "N" },
+        MASS_WHEEL,
+        G,
+        STIFF,
+        { tex: "A", key: "A_stretch", unit: "m" },
+        V_BOTTOM,
+        BANDS,
+        INERTIA,
+        AXLE,
+      ],
+    },
+  },
+  arch: {
+    milankovitch: {
+      tex: String.raw`\frac{t}{R} \ge 0.1075`,
+      symbols: [THICKNESS, ARCH_RADIUS],
+    },
+    chain_push: {
+      tex: String.raw`\frac{H}{W} = \frac{T_0}{2\,w\,a\sinh(c/a)} = \frac{1}{2\sinh(c/a)}, \qquad T_0 = w\,a, \qquad a\left(\cosh\frac{c}{a} - 1\right) = h`,
+      symbols: [
+        { tex: "H", key: "push", unit: "N" },
+        { tex: "W", key: "arch_weight", unit: "N" },
+        { tex: "T_0", key: "arch_T0", unit: "N" },
+        { tex: "w", key: "w_length", unit: "N/m" },
+        { tex: "a", key: "a_chain", unit: "m" },
+        { tex: "c", key: "half_span", unit: "m" },
+        { tex: "h", key: "rise", unit: "m" },
+      ],
+    },
+    weight: {
+      tex: String.raw`m = \rho\,d\,N\cdot\tfrac12\left(R_+^2 - R_-^2\right)\sin\frac{\pi}{N}, \qquad R_\pm = R \pm \frac{t}{2}`,
+      symbols: [
+        { tex: "m", key: "m", unit: "kg" },
+        { tex: String.raw`\rho`, key: "arch_density", unit: "kg/m³" },
+        { tex: "d", key: "arch_depth", unit: "m" },
+        { tex: "N", key: "stones" },
+        { tex: String.raw`R_\pm`, key: "R_pm", unit: "m" },
+        ARCH_RADIUS,
+        THICKNESS,
       ],
     },
   },

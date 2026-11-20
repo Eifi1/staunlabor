@@ -89,12 +89,14 @@ const wave = fixtures.wave as unknown as WaveFigures;
 /** No exhibit checked yet: what the server answers until an admin checks one. */
 const UNCHECKED = {
   with_cases: [
+    "arch",
     "chair",
     "chladni",
     "coil",
     "coriolis",
     "cradle",
     "foucault",
+    "maxwell",
     "peg",
     "plates",
     "sky",
@@ -1689,6 +1691,21 @@ describe("setting a check case up", () => {
         /^10\b/,
       ),
     );
+  });
+
+  it("builds a chain-shaped arch of 40 thin stones with the chain beside it, for the arch's second case", async () => {
+    renderWithProviders(<ArchPage />);
+    await screen.findByRole("img", { name: E.arch.view });
+    await setUp(1);
+    await waitFor(() => expect(screen.getByRole("switch", { name: E.arch.play.chain })).toBeChecked());
+    expect(screen.getByRole("slider", { name: E.arch.play.stones }).getAttribute("aria-valuetext")).toMatch(/^40\b/);
+  });
+
+  it("lets the Maxwell wheel go without loss in the bands, for its fall", async () => {
+    renderWithProviders(<MaxwellPage />);
+    await screen.findAllByRole("img");
+    await setUp(0);
+    await waitFor(() => expect(screen.queryByRole("button", { name: E.maxwell.play.pause })).toBeInTheDocument());
   });
 
   it("puts a 15 kg car on the coil's track for the brake, without rolling resistance", async () => {

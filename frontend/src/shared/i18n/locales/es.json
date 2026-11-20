@@ -3525,7 +3525,31 @@
         "resistivity": "resistividad",
         "field_k": "número de onda del campo a lo largo de la columna",
         "tooth": "altura de un diente",
-        "field_period": "periodo del campo: un imán norte y uno sur"
+        "field_period": "periodo del campo: un imán norte y uno sur",
+        "r_axle": "radio del eje",
+        "R_wheel": "radio de la rueda",
+        "L_band": "longitud de las cintas",
+        "T_pull": "tracción de ambas cintas juntas",
+        "omega_spin": "velocidad de giro de la rueda",
+        "h_top": "punto más alto tras el tirón, por encima del extremo inferior",
+        "dt_jerk": "duración del tirón",
+        "s_band": "rigidez de ambas cintas juntas",
+        "v_bottom": "velocidad de la rueda cuando las cintas se han desenrollado",
+        "F_band": "tracción máxima de las cintas",
+        "A_stretch": "estiramiento más allá de la posición en la que las cintas sostienen el peso",
+        "arch_radius": "radio de la línea media del arco",
+        "push": "empuje en el pie, horizontal",
+        "arch_weight": "peso de todo el arco",
+        "w_length": "peso de la cadena por metro",
+        "a_chain": "parámetro de la catenaria",
+        "half_span": "media luz",
+        "rise": "altura del arco sobre sus pies",
+        "stones": "número de piedras",
+        "R_pm": "radio del borde exterior y del interior",
+        "arch_T0": "tracción de la cadena en el vértice, horizontal",
+        "arch_density": "densidad de la piedra",
+        "arch_depth": "fondo del arco, perpendicular a la vista",
+        "arch_thickness": "grosor de las piedras"
       },
       "cases": {
         "sphere": {
@@ -3953,6 +3977,63 @@
             "reads": "Un diente mucho más ancho que alto solo conduce corriente de través. De través no puede fluir corriente neta, así que solo impulsa lo que se aparta de la media del campo sobre el diente: del freno de una placa sin fin queda la parte η = 1 − (sin(kh/2)/(kh/2))².",
             "why": "Comprueba por qué las ranuras quitan el freno: a mano queda el 3,25 %, la página calcula el 3,21 %. La desviación del 1,3 % se debe a los extremos de los dientes: la fórmula vale para dientes infinitamente anchos, y la placa mide 10 cm de ancho.",
             "step": "La primera fuente da la corriente en un conductor en movimiento, J = σ(E + v×B). En un diente infinitamente ancho solo fluye de través, y como de través no puede fluir nada neto, el campo de las cargas en los extremos quita la media B̄: J = σ·v·(B − B̄). Según la segunda, el calor es igual a la potencia de frenado; promediando sobre la posición respecto a los polos, a B₀²/2 le falta la parte B₀²/2·(sin(kh/2)/(kh/2))², la media al cuadrado."
+          }
+        },
+        "maxwell": {
+          "fall_time": {
+            "title": "La caída lenta",
+            "setting": "La rueda de la página: disco macizo, 0,5 kg, radio 6,5 cm, eje 5 mm, cintas de 60 cm, sin rozamiento de las cintas; el tiempo hasta que se desenrollan.",
+            "reads": "Las cintas obligan a la rueda a girar mientras cae. Como el eje es tan delgado, casi toda la energía potencial pasa al giro, y la rueda cae como a cámara lenta.",
+            "why": "Comprueba el desenrollado en el eje delgado y el momento de inercia del disco: 3,2345 s para 60 cm, igual que la página con una precisión de 10⁻¹⁴."
+          },
+          "pull": {
+            "title": "Las cintas sostienen casi todo el peso",
+            "setting": "Como arriba, leído tras 1 s de caída.",
+            "reads": "Como la rueda cae tan despacio, las cintas tiran con casi todo su peso; lo que falta acelera la caída.",
+            "why": "Comprueba la tracción de las cintas que muestra la página: 4,846 N."
+          },
+          "back_up": {
+            "title": "Sin rozamiento, de vuelta hasta arriba",
+            "setting": "Como arriba; leído en el punto más alto tras el primer tirón.",
+            "reads": "Al bajar, la energía potencial se convierte en caída y giro; el tirón devuelve la velocidad sin cambios, y al subir todo vuelve a ser energía potencial.",
+            "why": "Comprueba que la caída, el tirón y la subida encajan: la rueda vuelve exactamente a 60 cm.",
+            "step": "La primera fuente da la energía en la caída, MgL = ½Mv² + ½Iω². El tirón es una oscilación de muelle cuya energía, según la segunda, se mantiene igual: la rueda sale de él tan rápido como llegó. Al subir, el cálculo de la primera vale a la inversa."
+          },
+          "jerk_time": {
+            "title": "El tirón: media oscilación",
+            "setting": "Como arriba, las cintas juntas con 10 kN/m; desde el final de las cintas hasta que la rueda vuelve a subir.",
+            "reads": "Abajo ya no es el desenrollado lo que frena la rueda, sino las cintas, que se estiran: la rueda hace en ellas media oscilación, como en un muelle, y da la vuelta.",
+            "why": "Comprueba el tirón, el tiempo en que las cintas tiran con más fuerza: 22,2 ms. Las cintas frenan además el resto de la aceleración hacia abajo; por eso dura 1,4 · 10⁻³ más que la media oscilación.",
+            "step": "La fuente da el periodo de una masa colgada de un muelle. El tirón es la mitad, siempre que la rueda llegue tan rápido que su pequeña aceleración hacia abajo no cuente a su lado."
+          },
+          "peak": {
+            "title": "La tracción máxima en el tirón",
+            "setting": "Como arriba, las cintas juntas con 10 kN/m; la tracción máxima durante el tirón.",
+            "reads": "En las cintas entra solo la energía de la caída, ½Mv², no la del giro: esta sigue a través del tirón. En el punto más bajo, las cintas tiran con el peso y, además, con s·A.",
+            "why": "Comprueba la tracción que muestra la página en el tirón: 31,14 N, más de seis veces el peso de 4,90 N.",
+            "step": "La primera fuente da la velocidad v abajo. En el tirón, la rueda oscila en las cintas alrededor de la posición en la que estas sostienen su peso; según la segunda, en el punto más bajo la energía ½Mv² está entera en el estiramiento A más allá de esa posición: ½sA² = ½Mv²."
+          }
+        },
+        "arch": {
+          "milankovitch": {
+            "title": "El semicírculo más delgado que se sostiene",
+            "setting": "Semicírculo de 2 m de luz, 40 piedras, sin carga; el grosor reducido hasta que ninguna línea de presiones cabe ya dentro de todas las piedras.",
+            "reads": "Un arco semicircular de piedras sin mortero solo se sostiene si su grosor es al menos 0,1075 de su radio: así lo calculó Milankovitch, y Makris y Alexakis lo confirmaron.",
+            "why": "Comprueba que la página coloca la línea de presiones dentro de las piedras allí donde todavía cabe justo: con 40 piedras, el arco se sostiene a partir de 0,10743 del radio. Son 6 · 10⁻⁴ menos que el valor de Milankovitch, que vale para juntas en cualquier punto y está redondeado a cuatro decimales."
+          },
+          "chain_push": {
+            "title": "La cadena del revés empuja como tira",
+            "setting": "Arco de cadena de 2 m de luz, 1 m de altura, de solo 2 cm de grosor y 40 piedras, sin carga; con la cadena mostrada.",
+            "reads": "Del revés, la tracción de la cadena se convierte en la compresión del arco. En horizontal, la cadena tira igual en todas partes, con T₀ = w·a; en vertical, cada pie sostiene el peso de media cadena, w·a·sinh(c/a). Por eso el empuje en el pie es 1/(2·sinh(c/a)) del peso.",
+            "why": "Comprueba la cifra «Empuje en el pie» de la página: el 20,68 % del peso. Las 40 piedras rectas de 2 cm no son una cadena; su línea se aparta 1,3 · 10⁻⁴.",
+            "step": "La primera fuente es la regla de Hooke: tal como cuelga la cadena, se sostiene el arco del revés. La segunda da la cadena: en horizontal T₀ = w·a, en vertical w·s con s = a·sinh(x/a) hasta el vértice. En el pie, en x = c, quedan pues w·a y w·a·sinh(c/a); a se deduce de la altura, a·(cosh(c/a) − 1) = h."
+          },
+          "weight": {
+            "title": "El peso de las piedras",
+            "setting": "El semicírculo de la página: 2 m de luz, 25 cm de grosor, 16 piedras, 30 cm de fondo, 2400 kg/m³.",
+            "reads": "Cada piedra está cortada a lo largo de dos radios separados π/16: el triángulo hasta el borde exterior menos el triángulo hasta el interior, ½(R₊² − R₋²)·sin(π/16).",
+            "why": "Comprueba las piedras de las que la página toma pesos y centroides: 561,86 kg, la cifra «Peso del arco» de la página.",
+            "step": "La fuente da el área de un triángulo a partir de dos lados y el ángulo que forman. Una piedra es el triángulo desde el centro hasta el borde exterior, R₊ = R + t/2, menos el que llega hasta el interior, R₋ = R − t/2; eso por el fondo y la densidad."
           }
         }
       },

@@ -1,4 +1,80 @@
 {
+ "arch": [
+  {
+   "key": "milankovitch",
+   "unit": "",
+   "expected": 0.1075,
+   "measured": 0.107432006831,
+   "deviation": 0.000632494598692,
+   "tolerance": 0.001,
+   "derived": false,
+   "setting": {
+    "shape": "semicircle",
+    "thickness_m": 0.1075,
+    "blocks": 40.0,
+    "share": 0.0,
+    "chain": "off"
+   },
+   "sources": [
+    {
+     "cite": "G. Kampas, N. Kalapodis, T. McLean, C. Málaga-Chuquitaype, “Limit-state analysis of parabolic arches subjected to inertial loading in different gravitational fields using a variational formulation”, Engineering Structures, corrected proof, 111501, doi:10.1016/j.engstruct.2020.111501, §2, p. 2 (open-access copy, University of Greenwich)",
+     "url": "https://gala.gre.ac.uk/id/eprint/30314/3/30314%20KAMPAS_Limit-state_Analysis_of_Parabolic_Arches_%28OA%29_2020.pdf",
+     "quote": "Makris and Alexakis [27] confirmed Milankowitch’s [30] results about the dimensionless minimum thickness of semicircular arches which is t/R = 0.1075 (t: thickness, R: radius) using radial ruptures"
+    }
+   ]
+  },
+  {
+   "key": "chain_push",
+   "unit": "",
+   "expected": 0.206827546445,
+   "measured": 0.206800332959,
+   "deviation": 0.00013157573131,
+   "tolerance": 0.0003,
+   "derived": true,
+   "setting": {
+    "shape": "catenary",
+    "thickness_m": 0.02,
+    "blocks": 40.0,
+    "share": 0.0,
+    "chain": "on"
+   },
+   "sources": [
+    {
+     "cite": "Wikipedia, “Catenary”, §“History” (Hooke’s anagram, published 1705)",
+     "url": "https://en.wikipedia.org/wiki/Catenary",
+     "quote": "ut pendet continuum flexile, sic stabit contiguum rigidum inversum, meaning “As hangs a flexible cable so, inverted, stand the touching pieces of an arch.”"
+    },
+    {
+     "cite": "Wikipedia, “Catenary”, §“Analysis”: “Model of chains and arches” and “Derivation of equations for the curve”",
+     "url": "https://en.wikipedia.org/wiki/Catenary",
+     "quote": "It is convenient to write a = T₀/w which is the length of chain whose weight is equal in magnitude to the tension at c. … The horizontal component of the tension, T cos φ = T₀ is constant and the vertical component of the tension, T sin φ = ws is proportional to the length of chain between r and the vertex. … y = a sec φ = a cosh(x/a), and s = a tan φ = a sinh(x/a)."
+    }
+   ]
+  },
+  {
+   "key": "weight",
+   "unit": "kg",
+   "expected": 561.860127406,
+   "measured": 561.860127406,
+   "deviation": 0.0,
+   "tolerance": 1e-12,
+   "derived": true,
+   "setting": {
+    "shape": "semicircle",
+    "thickness_m": 0.25,
+    "blocks": 16.0,
+    "share": 0.0,
+    "chain": "off"
+   },
+   "sources": [
+    {
+     "cite": "OpenStax, Algebra and Trigonometry 2e, §10.1 Non-right Triangles: Law of Sines, “Area of an Oblique Triangle”",
+     "url": "https://openstax.org/books/algebra-and-trigonometry-2e/pages/10-1-non-right-triangles-law-of-sines",
+     "quote": "The formula for the area of an oblique triangle is given by Area = ½bc sin α = ½ac sin β = ½ab sin γ This is equivalent to one-half of the product of two sides and the sine of their included angle."
+    }
+   ]
+  }
+ ],
  "chair": [
   {
    "key": "one_picture",
@@ -720,6 +796,143 @@
      "cite": "OpenStax, University Physics Volume 1, §15.4 Pendulums, Eq. 15.19",
      "url": "https://openstax.org/books/university-physics-volume-1/pages/15-4-pendulums",
      "quote": "and the period is T = 2π√(L/g)."
+    }
+   ]
+  }
+ ],
+ "maxwell": [
+  {
+   "key": "fall_time",
+   "unit": "s",
+   "expected": 3.23454608023,
+   "measured": 3.23454608023,
+   "deviation": 2.74591363879e-15,
+   "tolerance": 1e-09,
+   "derived": false,
+   "setting": {
+    "shape": "disc",
+    "mass_kg": 0.5,
+    "wheel_radius_m": 0.065,
+    "axle_radius_m": 0.005,
+    "drop_m": 0.6,
+    "loss": 0.0,
+    "stiffness_n_m": 10000.0
+   },
+   "sources": [
+    {
+     "cite": "UC Santa Barbara Physics, Lecture Demonstrations, 28.33 “Maxwell’s yo-yo”",
+     "url": "https://web.physics.ucsb.edu/~lecturedemonstrations/Composer/Pages/28.33.html",
+     "quote": "In this case, its moment of inertia is (1/2) MR², and the expressions above for v and t become … t = (1/r)√[L(2r² + R²)/g]"
+    }
+   ]
+  },
+  {
+   "key": "pull",
+   "unit": "N",
+   "expected": 4.84597616959,
+   "measured": 4.84597616959,
+   "deviation": 0.0,
+   "tolerance": 1e-12,
+   "derived": false,
+   "setting": {
+    "shape": "disc",
+    "mass_kg": 0.5,
+    "wheel_radius_m": 0.065,
+    "axle_radius_m": 0.005,
+    "drop_m": 0.6,
+    "loss": 0.0,
+    "stiffness_n_m": 10000.0
+   },
+   "sources": [
+    {
+     "cite": "UC Santa Barbara Physics, Lecture Demonstrations, 28.33 “Maxwell’s yo-yo”",
+     "url": "https://web.physics.ucsb.edu/~lecturedemonstrations/Composer/Pages/28.33.html",
+     "quote": "We can also write this as T = IMg/(Mr² + I), which may make it easier to see that when I >> M or r² is very small, or both, T ≈ Mg."
+    }
+   ]
+  },
+  {
+   "key": "back_up",
+   "unit": "m",
+   "expected": 0.6,
+   "measured": 0.6,
+   "deviation": 0.0,
+   "tolerance": 1e-09,
+   "derived": true,
+   "setting": {
+    "shape": "disc",
+    "mass_kg": 0.5,
+    "wheel_radius_m": 0.065,
+    "axle_radius_m": 0.005,
+    "drop_m": 0.6,
+    "loss": 0.0,
+    "stiffness_n_m": 10000.0
+   },
+   "sources": [
+    {
+     "cite": "UC Santa Barbara Physics, Lecture Demonstrations, 28.33 “Maxwell’s yo-yo”",
+     "url": "https://web.physics.ucsb.edu/~lecturedemonstrations/Composer/Pages/28.33.html",
+     "quote": "Thus the potential energy is converted into both linear and rotational kinetic energy thus: MgL = (1/2) Mv² + (1/2) Iω² … v = √[(2gL)/(1 + I/Mr²)]"
+    },
+    {
+     "cite": "OpenStax, University Physics Volume 1, §15.2 Energy in Simple Harmonic Motion",
+     "url": "https://openstax.org/books/university-physics-volume-1/pages/15-2-energy-in-simple-harmonic-motion",
+     "quote": "The kinetic energy is maximum and equal to K = ½mv² = ½mA²ω² = ½kA². … The total energy of the system is constant."
+    }
+   ]
+  },
+  {
+   "key": "jerk_time",
+   "unit": "ms",
+   "expected": 22.2144146908,
+   "measured": 22.2453308807,
+   "deviation": 0.00139171750945,
+   "tolerance": 0.002,
+   "derived": true,
+   "setting": {
+    "shape": "disc",
+    "mass_kg": 0.5,
+    "wheel_radius_m": 0.065,
+    "axle_radius_m": 0.005,
+    "drop_m": 0.6,
+    "loss": 0.0,
+    "stiffness_n_m": 10000.0
+   },
+   "sources": [
+    {
+     "cite": "OpenStax, University Physics Volume 1, §15.1 Simple Harmonic Motion, Eq. 15.10",
+     "url": "https://openstax.org/books/university-physics-volume-1/pages/15-1-simple-harmonic-motion",
+     "quote": "The angular frequency is defined as ω = 2π/T, which yields an equation for the period of the motion: T = 2π√(m/k)."
+    }
+   ]
+  },
+  {
+   "key": "peak",
+   "unit": "N",
+   "expected": 31.1366237806,
+   "measured": 31.1366864659,
+   "deviation": 2.01323369739e-06,
+   "tolerance": 1e-05,
+   "derived": true,
+   "setting": {
+    "shape": "disc",
+    "mass_kg": 0.5,
+    "wheel_radius_m": 0.065,
+    "axle_radius_m": 0.005,
+    "drop_m": 0.6,
+    "loss": 0.0,
+    "stiffness_n_m": 10000.0
+   },
+   "sources": [
+    {
+     "cite": "UC Santa Barbara Physics, Lecture Demonstrations, 28.33 “Maxwell’s yo-yo”",
+     "url": "https://web.physics.ucsb.edu/~lecturedemonstrations/Composer/Pages/28.33.html",
+     "quote": "Thus the potential energy is converted into both linear and rotational kinetic energy thus: MgL = (1/2) Mv² + (1/2) Iω² … v = √[(2gL)/(1 + I/Mr²)]"
+    },
+    {
+     "cite": "OpenStax, University Physics Volume 1, §15.2 Energy in Simple Harmonic Motion",
+     "url": "https://openstax.org/books/university-physics-volume-1/pages/15-2-energy-in-simple-harmonic-motion",
+     "quote": "The kinetic energy is maximum and equal to K = ½mv² = ½mA²ω² = ½kA². … The total energy of the system is constant."
     }
    ]
   }

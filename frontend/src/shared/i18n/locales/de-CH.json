@@ -3525,7 +3525,31 @@
         "resistivity": "spezifischer Widerstand",
         "field_k": "Wellenzahl des Felds entlang der Säule",
         "tooth": "Höhe eines Zahns",
-        "field_period": "Periode des Felds: ein Nord- und ein Südmagnet"
+        "field_period": "Periode des Felds: ein Nord- und ein Südmagnet",
+        "r_axle": "Radius der Achse",
+        "R_wheel": "Radius des Rads",
+        "L_band": "Länge der Bänder",
+        "T_pull": "Zug beider Bänder zusammen",
+        "omega_spin": "Drehrate des Rads",
+        "h_top": "höchster Punkt nach dem Ruck, über dem unteren Ende",
+        "dt_jerk": "Dauer des Rucks",
+        "s_band": "Steifigkeit beider Bänder zusammen",
+        "v_bottom": "Tempo des Rads, wenn die Bänder abgewickelt sind",
+        "F_band": "grösster Zug der Bänder",
+        "A_stretch": "Dehnung über die Lage hinaus, in der die Bänder das Gewicht tragen",
+        "arch_radius": "Radius der Mittellinie des Bogens",
+        "push": "Schub am Fuss, waagrecht",
+        "arch_weight": "Gewicht des ganzen Bogens",
+        "w_length": "Gewicht der Kette pro Meter",
+        "a_chain": "Parameter der Kettenlinie",
+        "half_span": "halbe Spannweite",
+        "rise": "Höhe des Bogens über seinen Füssen",
+        "stones": "Anzahl Steine",
+        "R_pm": "Radius des äusseren und des inneren Rands",
+        "arch_T0": "Zug der Kette im Scheitel, waagrecht",
+        "arch_density": "Dichte des Steins",
+        "arch_depth": "Tiefe des Bogens, quer zur Ansicht",
+        "arch_thickness": "Dicke der Steine"
       },
       "cases": {
         "sphere": {
@@ -3953,6 +3977,63 @@
             "reads": "Ein Zahn, viel breiter als hoch, führt Strom nur quer. Netto kann quer kein Strom fliessen, also treibt nur, was vom Mittelwert des Felds über den Zahn abweicht: Von der Bremse einer endlosen Platte bleibt der Anteil η = 1 − (sin(kh/2)/(kh/2))².",
             "why": "Prüft, warum die Schlitze die Bremse nehmen: Von Hand bleiben 3,25 %, die Seite rechnet 3,21 %. Die 1,3 % Abweichung sind die Enden der Zähne: Die Formel gilt für endlos breite, die Platte ist 10 cm breit.",
             "step": "Die erste Quelle gibt den Strom im bewegten Leiter, J = σ(E + v×B). Im endlos breiten Zahn fliesst er nur quer, und weil netto quer nichts fliessen kann, nimmt das Feld der Ladungen an den Enden den Mittelwert B̄ weg: J = σ·v·(B − B̄). Nach der zweiten ist die Wärme gleich der Bremsleistung; über die Lage zu den Polen gemittelt fehlt von B₀²/2 der Teil B₀²/2·(sin(kh/2)/(kh/2))², der Mittelwert im Quadrat."
+          }
+        },
+        "maxwell": {
+          "fall_time": {
+            "title": "Der langsame Fall",
+            "setting": "Das Rad der Seite: volle Scheibe, 0,5 kg, Radius 6,5 cm, Achse 5 mm, Bänder 60 cm lang, ohne Reibung der Bänder; die Zeit, bis sie abgewickelt sind.",
+            "reads": "Die Bänder zwingen das Rad, sich zu drehen, während es fällt. Weil die Achse so dünn ist, geht fast die ganze Lageenergie in die Drehung, und das Rad fällt wie in Zeitlupe.",
+            "why": "Prüft das Abrollen an der dünnen Achse und das Trägheitsmoment der Scheibe: 3,2345 s für 60 cm, auf 10⁻¹⁴ wie die Seite."
+          },
+          "pull": {
+            "title": "Die Bänder tragen fast das ganze Gewicht",
+            "setting": "Wie oben, gelesen nach 1 s Fall.",
+            "reads": "Weil das Rad so langsam fällt, ziehen die Bänder fast mit seinem ganzen Gewicht; was fehlt, beschleunigt den Fall.",
+            "why": "Prüft den Zug der Bänder, den die Seite zeigt: 4,846 N."
+          },
+          "back_up": {
+            "title": "Ohne Reibung zurück bis oben",
+            "setting": "Wie oben; gelesen am höchsten Punkt nach dem ersten Ruck.",
+            "reads": "Hinunter wird die Lageenergie zu Fall und Drehung, der Ruck gibt das Tempo unverändert zurück, und hinauf wird alles wieder Lageenergie.",
+            "why": "Prüft, dass Fall, Ruck und Steigen zusammenpassen: Das Rad kommt genau auf 60 cm zurück.",
+            "step": "Die erste Quelle gibt die Energie beim Fall, MgL = ½Mv² + ½Iω². Der Ruck ist eine Federschwingung, deren Energie nach der zweiten gleich bleibt: Das Rad verlässt ihn so schnell, wie es kam. Hinauf gilt die Rechnung der ersten rückwärts."
+          },
+          "jerk_time": {
+            "title": "Der Ruck: eine halbe Schwingung",
+            "setting": "Wie oben, die Bänder zusammen mit 10 kN/m; vom Ende der Bänder, bis das Rad wieder steigt.",
+            "reads": "Unten bremst nicht mehr das Abrollen das Rad, sondern die Bänder, die sich dehnen: Es schwingt an ihnen eine halbe Schwingung wie an einer Feder und kehrt um.",
+            "why": "Prüft den Ruck, die Zeit, in der die Bänder am stärksten ziehen: 22,2 ms. Die Bänder fangen dabei auch den Rest der Beschleunigung nach unten ab, darum dauert er 1,4 · 10⁻³ länger als die halbe Schwingung.",
+            "step": "Die Quelle gibt die Periode einer Masse an einer Feder. Der Ruck ist die Hälfte davon, solange das Rad so schnell ankommt, dass seine kleine Beschleunigung nach unten daneben nicht zählt."
+          },
+          "peak": {
+            "title": "Der grösste Zug im Ruck",
+            "setting": "Wie oben, die Bänder zusammen mit 10 kN/m; der grösste Zug während des Rucks.",
+            "reads": "In die Bänder geht nur die Energie des Fallens, ½Mv², nicht die der Drehung: Die läuft durch den Ruck weiter. Am tiefsten Punkt ziehen die Bänder mit dem Gewicht und dazu mit s·A.",
+            "why": "Prüft den Zug, den die Seite im Ruck zeigt: 31,14 N, über sechsmal das Gewicht von 4,90 N.",
+            "step": "Die erste Quelle gibt das Tempo v unten. Im Ruck schwingt das Rad an den Bändern um die Lage, in der sie sein Gewicht tragen; nach der zweiten steckt am tiefsten Punkt die Energie ½Mv² ganz in der Dehnung A über diese Lage hinaus: ½sA² = ½Mv²."
+          }
+        },
+        "arch": {
+          "milankovitch": {
+            "title": "Der dünnste Halbkreis, der steht",
+            "setting": "Halbkreis über 2 m, 40 Steine, ohne Last; die Dicke verringert, bis keine Stützlinie mehr in alle Steine passt.",
+            "reads": "Ein Halbkreisbogen aus Steinen ohne Mörtel steht nur, wenn er mindestens 0,1075 seines Radius dick ist: So hat es Milankovitch ausgerechnet, und Makris und Alexakis haben es bestätigt.",
+            "why": "Prüft, ob die Seite die Stützlinie in die Steine legt, wo es eben noch geht: Mit 40 Steinen steht der Bogen ab 0,10743 des Radius. Das sind 6 · 10⁻⁴ weniger als Milankovitchs Wert, der für Fugen an jeder Stelle gilt und auf vier Stellen gerundet ist."
+          },
+          "chain_push": {
+            "title": "Die umgedrehte Kette drückt, wie sie zieht",
+            "setting": "Kettenlinie über 2 m, 1 m hoch, nur 2 cm dick und aus 40 Steinen, ohne Last; die Kette eingeblendet.",
+            "reads": "Umgedreht wird der Zug der Kette zum Druck des Bogens. Waagrecht zieht die Kette überall gleich, mit T₀ = w·a; senkrecht trägt jeder Fuss das Gewicht der halben Kette, w·a·sinh(c/a). Der Schub am Fuss ist darum 1/(2·sinh(c/a)) des Gewichts.",
+            "why": "Prüft die Zahl «Schub am Fuss» der Seite: 20,68 % des Gewichts. 40 gerade Steine von 2 cm sind keine Kette; ihre Linie liegt 1,3 · 10⁻⁴ daneben.",
+            "step": "Die erste Quelle ist Hookes Satz: Wie die Kette hängt, steht der Bogen umgedreht. Die zweite gibt die Kette: waagrecht T₀ = w·a, senkrecht w·s mit s = a·sinh(x/a) bis zum Scheitel. Am Fuss, bei x = c, stehen also w·a und w·a·sinh(c/a); a folgt aus der Höhe, a·(cosh(c/a) − 1) = h."
+          },
+          "weight": {
+            "title": "Das Gewicht der Steine",
+            "setting": "Der Halbkreis der Seite: 2 m Spannweite, 25 cm dick, 16 Steine, 30 cm tief, 2400 kg/m³.",
+            "reads": "Jeder Stein ist entlang zweier Radien geschnitten, π/16 auseinander: das Dreieck bis zum äusseren Rand weniger das Dreieck bis zum inneren, ½(R₊² − R₋²)·sin(π/16).",
+            "why": "Prüft die Steine, aus denen die Seite Gewichte und Schwerpunkte nimmt: 561,86 kg, die Zahl «Gewicht des Bogens» der Seite.",
+            "step": "Die Quelle gibt die Fläche eines Dreiecks aus zwei Seiten und dem Winkel dazwischen. Ein Stein ist das Dreieck vom Mittelpunkt bis zum äusseren Rand, R₊ = R + t/2, weniger das bis zum inneren, R₋ = R − t/2; das mal Tiefe und Dichte."
           }
         }
       },

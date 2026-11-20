@@ -3525,7 +3525,31 @@
         "resistivity": "resistivity",
         "field_k": "the field's wavenumber along the column",
         "tooth": "height of a tooth",
-        "field_period": "period of the field: one north and one south magnet"
+        "field_period": "period of the field: one north and one south magnet",
+        "r_axle": "the axle's radius",
+        "R_wheel": "the wheel's radius",
+        "L_band": "the bands' length",
+        "T_pull": "both bands' pull together",
+        "omega_spin": "the wheel's rate of turning",
+        "h_top": "the highest point after the jerk, above the bottom",
+        "dt_jerk": "the jerk's duration",
+        "s_band": "both bands' stiffness together",
+        "v_bottom": "the wheel's speed when the bands are unwound",
+        "F_band": "the bands' largest pull",
+        "A_stretch": "the stretch beyond the place where the bands carry the weight",
+        "arch_radius": "the radius of the arch's centre line",
+        "push": "the push at the foot, across",
+        "arch_weight": "the whole arch's weight",
+        "w_length": "the chain's weight per metre",
+        "a_chain": "the catenary's parameter",
+        "half_span": "half the span",
+        "rise": "the arch's height above its feet",
+        "stones": "number of stones",
+        "R_pm": "the radius of the outer and of the inner edge",
+        "arch_T0": "the chain's pull at its vertex, across",
+        "arch_density": "the stone's density",
+        "arch_depth": "the arch's depth, into the page",
+        "arch_thickness": "the stones' thickness"
       },
       "cases": {
         "sphere": {
@@ -3953,6 +3977,63 @@
             "reads": "A tooth much wider than high carries current only across. No net current can flow across, so only what differs from the field's mean over the tooth drives: of an endless sheet's brake the share η = 1 − (sin(kh/2)/(kh/2))² is left.",
             "why": "Checks why the slots take the brake away: by hand 3.25 % is left, the page computes 3.21 %. The 1.3 % off is the teeth's ends: the formula is for endlessly wide ones, the plate is 10 cm wide.",
             "step": "The first source gives the current in a moving conductor, J = σ(E + v×B). In an endlessly wide tooth it flows only across, and as no net current can flow across, the field of the charges at the ends takes the mean B̄ away: J = σ·v·(B − B̄). By the second the heat equals the braking power; averaged over where the tooth stands against the poles, what is missing from B₀²/2 is B₀²/2·(sin(kh/2)/(kh/2))², the mean squared."
+          }
+        },
+        "maxwell": {
+          "fall_time": {
+            "title": "The slow fall",
+            "setting": "The page's wheel: a solid disc, 0.5 kg, radius 6.5 cm, axle 5 mm, bands 60 cm long, without the bands' rubbing; the time until they are unwound.",
+            "reads": "The bands make the wheel turn as it falls. The axle being so thin, nearly all the energy of height goes into the spin, and the wheel falls as if in slow motion.",
+            "why": "Checks the rolling off the thin axle and the disc's moment of inertia: 3.2345 s for 60 cm, the same as the page's to 10⁻¹⁴."
+          },
+          "pull": {
+            "title": "The bands carry nearly all the weight",
+            "setting": "As above, read after 1 s of falling.",
+            "reads": "Since the wheel falls so slowly, the bands pull with nearly all its weight; what is missing speeds the fall.",
+            "why": "Checks the bands' pull the page shows: 4.846 N."
+          },
+          "back_up": {
+            "title": "Without rubbing, back to the top",
+            "setting": "As above; read at the highest point after the first jerk.",
+            "reads": "On the way down the energy of height becomes fall and spin, the jerk gives the speed back unchanged, and on the way up it all becomes energy of height again.",
+            "why": "Checks that the fall, the jerk and the climb fit together: the wheel comes back to exactly 60 cm.",
+            "step": "The first source gives the energy in the fall, MgL = ½Mv² + ½Iω². The jerk is a spring's swing whose energy, by the second, stays the same: the wheel leaves it as fast as it came. On the way up the first source's sum runs backwards."
+          },
+          "jerk_time": {
+            "title": "The jerk: half a swing",
+            "setting": "As above, the bands together at 10 kN/m; from the bands' end until the wheel climbs again.",
+            "reads": "At the bottom it is no longer the rolling that slows the wheel but the bands, stretching: it swings half a swing on them as on a spring and turns back.",
+            "why": "Checks the jerk, the time the bands pull hardest: 22.2 ms. The bands also catch the rest of the downward acceleration, so it lasts 1.4 · 10⁻³ longer than half a swing.",
+            "step": "The source gives the period of a mass on a spring. The jerk is half of it, as long as the wheel comes in fast enough for its small downward acceleration not to count beside it."
+          },
+          "peak": {
+            "title": "The largest pull in the jerk",
+            "setting": "As above, the bands together at 10 kN/m; the largest pull during the jerk.",
+            "reads": "Only the energy of the fall, ½Mv², goes into the bands, not the spin's: that runs on through the jerk. At the lowest point the bands pull with the weight and s·A besides.",
+            "why": "Checks the pull the page shows in the jerk: 31.14 N, more than six times the weight of 4.90 N.",
+            "step": "The first source gives the speed v at the bottom. In the jerk the wheel swings on the bands about the place where they carry its weight; by the second, at the lowest point the energy ½Mv² is all in the stretch A beyond that place: ½sA² = ½Mv²."
+          }
+        },
+        "arch": {
+          "milankovitch": {
+            "title": "The thinnest semicircle that stands",
+            "setting": "A semicircle over 2 m, 40 stones, no load; the thickness lowered until no thrust line fits inside every stone.",
+            "reads": "A semicircular arch of stones without mortar stands only if it is at least 0.1075 of its radius thick: so Milankovitch worked out, and Makris and Alexakis confirmed.",
+            "why": "Checks that the page lays the thrust line inside the stones wherever it just still fits: with 40 stones the arch stands from 0.10743 of its radius. That is 6 · 10⁻⁴ less than Milankovitch's value, which holds for joints everywhere and is rounded to four places."
+          },
+          "chain_push": {
+            "title": "The chain upside down pushes as it pulled",
+            "setting": "A catenary over 2 m, 1 m high, only 2 cm thick and of 40 stones, no load; the chain shown.",
+            "reads": "Turned upside down, the chain's pull becomes the arch's push. Across, the chain pulls the same everywhere, T₀ = w·a; up, each foot carries the weight of half the chain, w·a·sinh(c/a). So the push at the foot is 1/(2·sinh(c/a)) of the weight.",
+            "why": "Checks the page's figure \"Push at the foot\": 20.68 % of the weight. Forty straight stones 2 cm thick are no chain; their line is 1.3 · 10⁻⁴ off.",
+            "step": "The first source is Hooke's rule: as the chain hangs, the arch stands upside down. The second gives the chain: across T₀ = w·a, up w·s with s = a·sinh(x/a) from the vertex. So at the foot, x = c, stand w·a and w·a·sinh(c/a); a follows from the height, a·(cosh(c/a) − 1) = h."
+          },
+          "weight": {
+            "title": "The stones' weight",
+            "setting": "The page's semicircle: 2 m span, 25 cm thick, 16 stones, 30 cm deep, 2400 kg/m³.",
+            "reads": "Every stone is cut along two radii π/16 apart: the triangle out to the outer edge less the triangle to the inner one, ½(R₊² − R₋²)·sin(π/16).",
+            "why": "Checks the stones the page takes its weights and centroids from: 561.86 kg, the page's figure \"The arch's weight\".",
+            "step": "The source gives a triangle's area from two sides and the angle between them. A stone is the triangle from the centre out to the outer edge, R₊ = R + t/2, less the one to the inner edge, R₋ = R − t/2; that times depth and density."
           }
         }
       },
