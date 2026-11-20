@@ -86,14 +86,14 @@ instead (`/#all-exhibits`). Top to bottom (`overview-page.tsx`):
   page's "At the exhibit" (which says what stands there without giving the
   trick away, in all seven languages already), with its drawing playing to
   the right (above it on a phone, smaller, so the question still shows). Then
-  the one primary button, into the exhibit, one down to the list, and
-  **"Earlier weeks"**: the last twelve weeks in a dialog (`?dialog=history`,
-  so a phone's Back closes it), a still of each that plays while it is
-  pointed at or focused, each fitted to one height, three to a row. Not on the page itself (Marcel, the same evening:
-  "Show the history only in a dialog on request. Not right away. That shall
-  be reserved for the experiment of the day"): anyplot.ai's plot of the day
-  stands alone on its landing, and APOD's or Wikipedia's picture of the day
-  keeps its archive a link away.
+  the one primary button, into the exhibit, and one down to the list. Until
+  2026-11-20 a third, "Earlier days" (then "Earlier weeks"), opened the past
+  picks in a dialog (Marcel, 2026-11-19: "Show the history only in a dialog
+  on request. Not right away"); Marcel then dropped it for the list: "gehe
+  stattdessen gleich auf die Seite mit den Experimenten anstelle des
+  Dialogs". The list has every exhibit with the same cards and their text,
+  and with one pick a week a record of past ones is worth little.
+  anyplot.ai's plot of the day stands alone on its landing in the same way.
 * **The notice that the check is still to come**, below the first screen.
 * **Every exhibit**, filtered by topic chips (`TOPICS` in `exhibits.ts`: an
   exhibit is about one or two — momentum, angular momentum, energy,
@@ -107,7 +107,7 @@ instead (`/#all-exhibits`). Top to bottom (`overview-page.tsx`):
   in `exhibits.ts` beside the topics since both read it. Since 2026-11-16
   each built exhibit's card opens with its drawing (Marcel: the pictures
   under the experiment of the day, now the week's): its preview held still, playing while the
-  card is pointed at or has the focus, as the history's cards do, and fitted to
+  card is pointed at or has the focus, and fitted to
   one height (`fitted-preview.tsx`), so the upright ones do not make their row
   the longest. The live preview and not the link-preview picture: it draws in
   the reader's language and appearance, and its code is about 5 kB a page
@@ -117,9 +117,8 @@ instead (`/#all-exhibits`). Top to bottom (`overview-page.tsx`):
 rotation and over an admin's choice). Since 2026-11-20 it is **one exhibit a
 week**, Monday to Sunday (Marcel: "Stelle auf Experiment of the week um");
 from 2026-11-12 it was one a day, drawn by the same rule. The weeks from the
-epoch on (`WEEKLY_EPOCH`, the Monday of the week the weekly pick ships in, set
-when it goes out: an earlier Monday would list weeks in the history with an
-exhibit the site never showed for them) are cut into rounds of one week per
+epoch on (`WEEKLY_EPOCH`, 2026-11-23, fixed once it ships, since moving it
+would change the week's exhibit under the readers) are cut into rounds of one week per
 exhibit, so every exhibit has its turn before any has a second. A round is
 drawn week by week, by a generator seeded with the round's number (moving the
 epoch moves only the dates), from the exhibits whose last turn is at least
@@ -151,8 +150,8 @@ by a twentieth, with 35 by a thirty-sixth (14966 against 15376 over 1200
 rounds); `weekly.test.ts` holds it only to a fiftieth. Its weight a turn is
 fixed while a round grows longer, and stays so: Marcel weakened the maluses
 instead (2026-11-15). The week is Zurich's, so one week has one exhibit
-whoever asks; the pick needs no server, no table and no admin, and the history
-is the rule run backwards. A new exhibit joins at the first round that starts
+whoever asks; the pick needs no server, no table and no admin, and the past
+weeks are the rule run backwards (the tests walk them; no page lists them). A new exhibit joins at the first round that starts
 on or after its `since` day, never mid-round, which would redraw weeks already
 shown; so `since` is the day it **ships** — a past date puts it into a round
 already under way on the live site. A round of 35 weeks is most of a year, so

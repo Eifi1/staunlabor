@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { Link, useLocation } from "react-router";
 import { useTranslation } from "react-i18next";
-import { ArrowDown, ArrowRight, CalendarDays, Check, HelpCircle, RotateCcw } from "lucide-react";
+import { ArrowDown, ArrowRight, Check, HelpCircle, RotateCcw } from "lucide-react";
 import {
   Button,
   Card,
@@ -9,17 +9,15 @@ import {
   CardHeader,
   CardTitle,
   Chip,
-  DialogFrame,
   ProgressBar,
   SectionLabel,
   TextLink,
-  useDialogParam,
   usePageSeo,
 } from "@eifi1/ui-kit";
 import { useLocale } from "@/shared/i18n/use-locale";
 import { PAGE_SHELL } from "@/shared/ui/page-shell";
 import { ChecksSummary } from "./unchecked-notice";
-import { dayIn, weekOf, weeklyExhibit, weeklyHistory, type WeeklyPick } from "./weekly";
+import { dayIn, weekOf, weeklyExhibit } from "./weekly";
 import { EXHIBIT_MODULES } from "./exhibit-modules";
 import { FittedPreview } from "./fitted-preview";
 import { lessonPath } from "./exhibit-frame";
@@ -33,10 +31,6 @@ import {
   type Topic,
 } from "./exhibits";
 import { useTried } from "./tried";
-
-/** A quarter of a year back, in the dialog: long enough to find the one a
- *  friend mentioned, and four rows of three on a wide screen. */
-const HISTORY_WEEKS = 12;
 
 /** A week, by its Monday (`YYYY-MM-DD`), as the reader's language writes the
  *  days from Monday to Sunday ("23.–29. Nov.", "Nov 23 – 29"). Formatted in
@@ -53,9 +47,11 @@ function weekSpan(monday: string, locale: string): string {
  *
  * - **the experiment of the week**, playing by itself, with the question to
  *   guess at before opening it (`weekly.ts` picks it: random, with a memory),
- *   and **the weeks before it** in a dialog, on request only: the page is the
- *   week's experiment's alone, as anyplot.ai shows its plot of the day alone,
- *   and an archive is a link away on APOD or Wikipedia's picture of the day;
+ *   alone on the first screen, as anyplot.ai shows its plot of the day alone.
+ *   The weeks before it are not listed: the way on is the list of every
+ *   exhibit, the same cards with their text, which a dialog of past weeks
+ *   only repeated in smaller (Marcel, 2026-11-20: "gehe stattdessen gleich
+ *   auf die Seite mit den Experimenten anstelle des Dialogs");
  * - **every exhibit**, filtered by what it is about, ticked once tried on this
  *   device (`tried.ts`), and linked to the course's lessons its computation
  *   stands on.
@@ -121,9 +117,6 @@ function WeekHero({ entry, week }: { entry: ExhibitEntry; week: string }) {
   const locale = useLocale();
   const tried = useTried((s) => s.tried.includes(entry.exhibit));
   const height = useHeroHeight();
-  // In the address (`?dialog=history`), so a phone's Back closes it.
-  const [historyOpen, setHistoryOpen] = useDialogParam({ key: "dialog", value: "history" });
-  const history = weeklyHistory(week, HISTORY_WEEKS);
   const at = t(`experiments.${entry.exhibit}.at`, { returnObjects: true }) as Record<string, string> | string;
   const atTheExhibit = typeof at === "object" ? Object.values(at)[0] : null;
   return (
@@ -157,12 +150,6 @@ function WeekHero({ entry, week }: { entry: ExhibitEntry; week: string }) {
               <ArrowRight className="size-4" aria-hidden />
             </Button>
           )}
-          {history.length > 0 && (
-            <Button variant="ghost" onClick={() => setHistoryOpen(true)}>
-              <CalendarDays className="size-4" aria-hidden />
-              {t("experiments.overview.history.open")}
-            </Button>
-          )}
           <Button variant="ghost" href={`#${EXHIBITS_ANCHOR}`}>
             <ArrowDown className="size-4" aria-hidden />
             {t("experiments.overview.all")}
@@ -170,72 +157,7 @@ function WeekHero({ entry, week }: { entry: ExhibitEntry; week: string }) {
         </div>
       </div>
       <FittedPreview exhibit={entry.exhibit} height={height} shrink box="order-first w-full md:order-last" />
-      <DialogFrame
-        open={historyOpen}
-        onClose={() => setHistoryOpen(false)}
-        size="xl"
-        title={t("experiments.overview.history.title")}
-        closeButton
-        closeLabel={t("common.close")}
-      >
-        <ol className="grid grid-cols-1 gap-3 sm:grid-cols-2 md:grid-cols-3">
-          {history.map((pick) => (
-            <li key={pick.week}>
-              <HistoryCard pick={pick} />
-            </li>
-          ))}
-        </ol>
-      </DialogFrame>
     </section>
-  );
-}
-
-/** How tall a week's drawing is in the dialog: one height for every card, each
- *  drawing fitted to it and centred (`FittedPreview`). Laid out at its own
- *  height, a wide track came out a thin strip at the top of an empty card and
- *  an upright drop a tall column (Marcel, 2026-11-20: "geht bedeutend
- *  schöner"). */
-const HISTORY_PREVIEW_HEIGHT = 170;
-
-/** One week's exhibit: a still, which plays while it is pointed at or focused. */
-function HistoryCard({ pick }: { pick: WeeklyPick }) {
-  const { t } = useTranslation();
-  const locale = useLocale();
-  const [live, setLive] = useState(false);
-  const tried = useTried((s) => s.tried.includes(pick.exhibit));
-  const entry = exhibitEntry(pick.exhibit);
-  const title = t(`experiments.exhibits.${pick.exhibit}.short`);
-  const body = (
-    <>
-      <span className="flex items-center justify-between gap-1 text-caption text-muted">
-        {weekSpan(pick.week, locale)}
-        {tried && <Check className="size-4 text-success" aria-label={t("experiments.overview.tried.mark")} />}
-      </span>
-      <FittedPreview
-        exhibit={pick.exhibit}
-        still={!live}
-        height={HISTORY_PREVIEW_HEIGHT}
-        box="rounded-md bg-surface-2"
-      />
-      <span className="mt-auto block truncate text-sm font-medium text-primary">{title}</span>
-    </>
-  );
-  // As tall as the row's tallest, the name at the foot: the drawings differ
-  // in shape — a wide track, a tall drop — and ragged cards read as broken.
-  const look = "flex h-full flex-col gap-2 rounded-lg border border-subtle bg-surface-1 p-2";
-  return entry.path ? (
-    <Link
-      to={entry.path}
-      className={`${look} transition-colors hover:border-brand`}
-      onPointerEnter={() => setLive(true)}
-      onPointerLeave={() => setLive(false)}
-      onFocus={() => setLive(true)}
-      onBlur={() => setLive(false)}
-    >
-      {body}
-    </Link>
-  ) : (
-    <div className={look}>{body}</div>
   );
 }
 
@@ -303,8 +225,8 @@ function AllExhibits({ current }: { current: Exhibit }) {
 const CARD_PREVIEW_HEIGHT = 200;
 
 /** An exhibit in the list: its drawing, held still and playing while the card
- *  is pointed at or something in it has the focus, as the history's cards do;
- *  then what it is and the way in. A preview mounts only once it scrolls near
+ *  is pointed at or something in it has the focus; then what it is and the
+ *  way in. A preview mounts only once it scrolls near
  *  (`ExhibitPreview`), so the list costs nothing below the fold. */
 function ExhibitCard({ entry, current, tried }: { entry: ExhibitEntry; current: boolean; tried: boolean }) {
   const { t } = useTranslation();

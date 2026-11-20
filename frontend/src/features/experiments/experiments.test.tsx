@@ -62,7 +62,7 @@ import { ChladniPage } from "./chladni-page";
 import { ballState, pitEntries, positionAt, raceLayout, swingAt } from "./race-views";
 import { run as runPit } from "./simulate/pit";
 import { HOLE, cameraAt, frameOf, project } from "./chair-views";
-import { weeklyExhibit, weeklyHistory } from "./weekly";
+import { weeklyExhibit } from "./weekly";
 import { ExhibitPreview } from "./exhibit-preview";
 import { EXHIBITS, exhibitEntry } from "./exhibits";
 import { ExperimentsLayout } from "./experiments-layout";
@@ -104,9 +104,8 @@ beforeEach(() => {
 });
 
 describe("the overview", () => {
-  // A Wednesday long after the epoch, in Zurich, so the history is full,
-  // twelve weeks; only the clock is faked, so the previews' frames and the
-  // queries run as ever.
+  // A Wednesday long after the epoch, in Zurich; only the clock is faked, so
+  // the previews' frames and the queries run as ever.
   const DAY = "2027-04-07";
   beforeEach(() => {
     vi.useFakeTimers({ toFake: ["Date"] });
@@ -162,8 +161,8 @@ describe("the overview", () => {
     expect(new Set(icons).size).toBe(EXHIBITS.length);
   });
 
-  it("shows the week's exhibit with its question, and the weeks before it only when asked", async () => {
-    const view = await renderOverview();
+  it("shows the week's exhibit with its question, and the list as the way on, with no dialog of past weeks", async () => {
+    await renderOverview();
     const today = weeklyExhibit(DAY);
     // The page's one heading of the first rank is the week's question, the
     // hook; the exhibit's name above it, and above that what the site is.
@@ -185,18 +184,10 @@ describe("the overview", () => {
       "href",
       exhibitEntry(today).path,
     );
-    // The page is the week's exhibit's; the weeks before it wait behind a button.
-    expect(screen.queryByRole("dialog")).toBeNull();
-    fireEvent.click(within(card).getByRole("button", { name: E.overview.history.open }));
-    const dialog = await screen.findByRole("dialog", { name: E.overview.history.title });
-    await waitFor(() => expect(view.container.ownerDocument.querySelector("[aria-busy='true']")).toBeNull());
-    const weeks = within(dialog).getAllByRole("link");
-    expect(weeks.map((link) => link.getAttribute("href"))).toEqual(
-      weeklyHistory(DAY, 12).map((pick) => exhibitEntry(pick.exhibit).path),
-    );
-    expect(weeks).toHaveLength(12);
-    expect(weeks[0]).toHaveTextContent(E.exhibits[weeklyHistory(DAY, 1)[0].exhibit].short);
-    expect(weeks[0]).toHaveTextContent(/29 Mar\s–\s4 Apr/);
+    // The past weeks are not listed: the list below has every exhibit, with
+    // the same cards (Marcel, 2026-11-20), and a dialog only repeated it.
+    expect(within(card).queryByRole("button", { name: /earlier/i })).toBeNull();
+    expect(within(card).getAllByRole("link")).toHaveLength(2);
   });
 
   it("filters the exhibits by what they are about, and shows them all again", async () => {

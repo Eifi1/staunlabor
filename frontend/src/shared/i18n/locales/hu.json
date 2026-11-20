@@ -98,10 +98,6 @@
         "open": "Próbálja ki",
         "current": "Ezen a héten"
       },
-      "history": {
-        "title": "Az elmúlt hetek kísérletei",
-        "open": "Korábbi hetek"
-      },
       "all": "Az összes kiállítási tárgy",
       "topics_label": "Szűrés téma szerint",
       "all_topics": "Minden téma",

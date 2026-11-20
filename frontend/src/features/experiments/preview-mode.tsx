@@ -1,6 +1,6 @@
 /**
  * An exhibit's twin played as a preview: its own auto mode, with none of its
- * controls, for the overview's experiment of the week and its history
+ * controls, for the overview's experiment of the week and its list
  * (`exhibit-preview.tsx` places it).
  *
  * The preview is the page's own play component in a mode, not a drawing made
@@ -15,7 +15,7 @@ import { Skeleton } from "@eifi1/ui-kit";
 
 /** What a page's `<X>Preview` takes. */
 export interface PreviewProps {
-  /** Held still: off screen, under reduced motion, or a history card that is
+  /** Held still: off screen, under reduced motion, or a list's card that is
    *  not being looked at. The first frame is then the still. */
   paused: boolean;
 }

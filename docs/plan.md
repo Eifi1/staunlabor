@@ -198,7 +198,8 @@ biggest thing on the first screen (`docs/experiments.md`, "The overview").
     exhibit and down to the exhibits;
   - on the right the week's exhibit (one a week since 2026-11-20, Marcel:
     "Stelle auf Experiment of the week um"), playing, in a frame: the week
-    and "Earlier weeks" (still a dialog) above, its name, its question and "Ausprobieren"
+    and "Alle Exponate" above (the dialog of earlier weeks went on 2026-11-20:
+    Marcel wanted the list instead), its name, its question and "Ausprobieren"
     below; a click on the drawing opens it too;
   - under both, five figures counted from the code, none kept by hand: the
     exhibits, the fields, the equations worked through, how many are checked

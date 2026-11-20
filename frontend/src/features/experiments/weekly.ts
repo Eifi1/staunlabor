@@ -35,8 +35,9 @@
  *   in disguise: it repeated triples 0.65 times a round, five times as often
  *   as a shuffle — the history showed the chair, the platform and the cannon
  *   in that order two rounds running;
- * - **the history is the rule run backwards**, so it needs no record either,
- *   and the overview can show the past weeks without having kept them.
+ * - **the past weeks are the rule run backwards** ({@link weeklyHistory}), so
+ *   they need no record either. The overview lists none since 2026-11-20 (its
+ *   way on is the list of every exhibit); the tests walk them.
  *
  * The week is Zurich's (`Europe/Zurich`), not the reader's: the museum whose
  * exhibits inspired these stands in Winterthur, and one week's exhibit should
@@ -61,11 +62,11 @@ import { EXHIBITS, type Exhibit, type Topic } from "./exhibits";
 
 /**
  * The first Monday of the first round. Nothing before it has an exhibit of its
- * own: a day before it shows this week's. It is the Monday of the week the
- * weekly pick ships in, set when it goes out, and never an earlier one: the
- * history would list weeks before it with an exhibit the site never showed
- * for them (it showed one a day). Moving it moves no round's order, only its
- * dates: a round is seeded with its number, not its first day.
+ * own: a day before it shows this week's. It must not move once it has
+ * shipped: the week's exhibit would change under the readers. Moving it moves
+ * no round's order, only its dates: a round is seeded with its number, not
+ * its first day. Before it shipped it needed no care, as no page lists past
+ * weeks the site never showed (Marcel dropped the dialog of earlier weeks).
  */
 export const WEEKLY_EPOCH = "2026-11-23";
 

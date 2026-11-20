@@ -98,10 +98,6 @@
         "open": "Try it",
         "current": "This week"
       },
-      "history": {
-        "title": "The experiments of recent weeks",
-        "open": "Earlier weeks"
-      },
       "all": "All exhibits",
       "topics_label": "Filter by topic",
       "all_topics": "All topics",

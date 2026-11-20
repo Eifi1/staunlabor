@@ -98,10 +98,6 @@
         "open": "Essayez",
         "current": "Cette semaine"
       },
-      "history": {
-        "title": "Les expériences des dernières semaines",
-        "open": "Semaines précédentes"
-      },
       "all": "Toutes les expositions",
       "topics_label": "Filtrer par thème",
       "all_topics": "Tous les thèmes",

@@ -98,10 +98,6 @@
         "open": "Ausprobieren",
         "current": "Diese Woche"
       },
-      "history": {
-        "title": "Die Experimente der letzten Wochen",
-        "open": "Frühere Wochen"
-      },
       "all": "Alle Exponate",
       "topics_label": "Nach Thema filtern",
       "all_topics": "Alle Themen",
