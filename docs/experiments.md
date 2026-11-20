@@ -2269,10 +2269,17 @@ anything published says: LinkedIn shows `og:image` as a still, does not read
 first frame. A video uploaded into the post plays, with the link in its text.
 For that, `scripts/write-clips.mjs` writes `clips/<card>.mp4`: the same card,
 moving, ten seconds at 1920 × 1008, MP4 (H.264), the format every guide to
-LinkedIn's uploads agrees on. The page runs under Playwright's clock, one
-frame's time per photograph, so the clip never stutters; Chromium's
+LinkedIn's uploads agrees on. The page runs under Playwright's clock, paused,
+one frame's time per photograph, so the clip never stutters; Chromium's
 MediaRecorder encodes, so it needs no ffmpeg. The clips are not committed
-(`clips/` is ignored): nothing on the site uses them.
+(`clips/` is ignored): nothing on the site uses them. The first clips ran
+about four times too fast (Marcel noticed on his phone): an installed clock
+keeps running in real time unless paused, and each screenshot's own time went
+into the clip. The script now pauses it and checks that the page's time over
+the frames equals the clip's length. A clip keeps its preview's pace, which
+for a few exhibits is faster than the exhibit's own: the pendulum wave twice,
+the coupled pendulums three times, the waterwheel and the well four times, the
+parabola and the harmonograph ten times, Foucault's pendulum 3600 times.
 
 ## The check, exhibit by exhibit
 

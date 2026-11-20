@@ -16,10 +16,15 @@
  * nothing on the site uses them.
  *
  * How, and why so:
- * - **The page's clock is Playwright's** (`page.clock`): every frame advances
- *   the time by exactly 1/FPS and is then photographed, so a slow machine
- *   makes a slow run, never a stuttering clip. The previews draw from
- *   `requestAnimationFrame` and `performance.now`, which the clock drives.
+ * - **The page's clock is Playwright's** (`page.clock`), paused: every frame
+ *   advances the time by exactly 1/FPS and is then photographed, so a slow
+ *   machine makes a slow run, never a stuttering or hurried clip. The previews
+ *   draw from `requestAnimationFrame` and `performance.now`, which the clock
+ *   drives. The run checks that the page's time over the frames is the
+ *   clip's length. A clip still shows the preview's own pace: the pendulum
+ *   wave's preview runs at twice the exhibit's time, the waterwheel's at four
+ *   times, Foucault's at 3600 times (`PREVIEW_SPEED` and `preview ? n` in the
+ *   pages).
  * - **The browser encodes**: the frames are played into a canvas at their
  *   rate and recorded by Chromium's MediaRecorder as MP4 (H.264), the one
  *   format every guide to LinkedIn's uploads agrees on. No ffmpeg, no package.
@@ -76,7 +81,11 @@ const settle = (page) =>
 
 /** The card, loaded under the fake clock, and its frames as JPEG. */
 async function frames(page, card, lang, seconds) {
-  await page.clock.install();
+  // Paused at once: an installed clock otherwise also runs in real time, and
+  // every screenshot's own time went into the clip on top of its 1/FPS.
+  const start = Date.now();
+  await page.clock.install({ time: start });
+  await page.clock.pauseAt(start + 1000);
   await page.goto(`http://localhost:${PORT}/preview-card.html?card=${card}&lang=${lang}`);
   // Loading needs the network (real) and the page's timers (the clock's):
   // both, a little at a time.
@@ -88,10 +97,20 @@ async function frames(page, card, lang, seconds) {
   }
   await page.clock.runFor(PREROLL_MS[card] ?? PREROLL_DEFAULT_MS);
   const shots = [];
+  const before = await page.evaluate(() => performance.now());
   for (let i = 0; i < seconds * FPS; i++) {
-    await page.clock.runFor(1000 / FPS);
+    // Whole milliseconds, 33, 33, 34, …: the clock rounds a step of 33.3 up,
+    // which made each second 1.02.
+    await page.clock.runFor(Math.round(((i + 1) * 1000) / FPS) - Math.round((i * 1000) / FPS));
     await settle(page);
     shots.push((await page.screenshot({ type: "jpeg", quality: 92 })).toString("base64"));
+  }
+  // The page's time over the frames is the clip's, or the clip plays at the
+  // wrong speed: a clock left running added each screenshot's own time, and
+  // the first clips ran several times too fast (Marcel, 2026-11-20).
+  const filmed = (await page.evaluate(() => performance.now())) - before;
+  if (Math.abs(filmed - seconds * 1000) > 1) {
+    throw new Error(`${card}: ${(filmed / 1000).toFixed(2)} s of the page in ${seconds} s of clip`);
   }
   return shots;
 }
