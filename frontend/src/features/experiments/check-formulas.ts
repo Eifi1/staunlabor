@@ -44,6 +44,10 @@ const K_INTEGRAL: CheckSymbol = { tex: "K", key: "K" };
 const MISS: CheckSymbol = { tex: String.raw`\Delta`, key: "miss", unit: "°" };
 const SPIN: CheckSymbol = { tex: String.raw`\Omega`, key: "platform_rate", unit: "rad/s" };
 const THROW: CheckSymbol = { tex: "u", key: "throw", unit: "m/s" };
+const BETA: CheckSymbol = { tex: String.raw`\beta`, key: "beta", unit: "1/m" };
+const AIR_MASS: CheckSymbol = { tex: "m", key: "air_mass" };
+const ZENITH: CheckSymbol = { tex: "z", key: "z_zenith", unit: "°" };
+const HEIGHT: CheckSymbol = { tex: "h", key: "h_sun", unit: "°" };
 
 export const CHECK_FORMULAS: Record<string, Record<string, CheckFormula>> = {
   sphere: {
@@ -359,6 +363,38 @@ export const CHECK_FORMULAS: Record<string, Record<string, CheckFormula>> = {
         { tex: "I", key: "inertia", unit: "kg·m²" },
         { tex: String.raw`\hat n`, key: "n_up" },
         { tex: String.raw`\omega_v`, key: "heading_rate", unit: "°/s" },
+      ],
+    },
+  },
+  sky: {
+    rayleigh: {
+      tex: String.raw`\frac{\beta(450\,\mathrm{nm})}{\beta(650\,\mathrm{nm})} = \left(\frac{650}{450}\right)^4, \qquad \beta(\lambda) = \beta_{550}\left(\frac{550\,\mathrm{nm}}{\lambda}\right)^4`,
+      symbols: [
+        BETA,
+        { tex: String.raw`\lambda`, key: "lambda", unit: "nm" },
+        { tex: String.raw`\beta_{550}`, key: "beta550", unit: "1/m" },
+      ],
+    },
+    light_kept: {
+      tex: String.raw`\int_0^L \beta\,e^{-\beta x}\,dx + e^{-\beta L} = 1`,
+      symbols: [BETA, { tex: "x", key: "x_tube", unit: "m" }, { tex: "L", key: "L_tube", unit: "m" }],
+    },
+    high_sun: {
+      tex: String.raw`m = \sec z = \frac{1}{\sin h}, \qquad z = 90^\circ - h`,
+      symbols: [AIR_MASS, ZENITH, HEIGHT],
+    },
+    sky_noon: {
+      tex: String.raw`\frac{e^{-\tau} - e^{-m\tau}}{m - 1} \;\longrightarrow\; \tau\,e^{-\tau} \quad (m \to 1)`,
+      symbols: [{ tex: String.raw`\tau`, key: "tau_air" }, AIR_MASS],
+    },
+    ozone_horizon: {
+      tex: String.raw`m_3 = \frac{R + H}{\sqrt{R^2 \cos^2 z + 2RH + H^2}}, \qquad z = 90^\circ - h`,
+      symbols: [
+        { tex: "m_3", key: "m3" },
+        { tex: "R", key: "R_earth", unit: "km" },
+        { tex: "H", key: "H_ozone", unit: "km" },
+        ZENITH,
+        HEIGHT,
       ],
     },
   },

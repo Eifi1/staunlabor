@@ -1,16 +1,18 @@
-import { useEffect, useId, useMemo, useState } from "react";
+import { useEffect, useId, useMemo, useRef, useState, type PointerEvent } from "react";
 import { useTranslation } from "react-i18next";
 import { Switch } from "@eifi1/ui-kit";
 import { SeriesChart } from "@/shared/charts/series-chart";
 import { useLocale } from "@/shared/i18n/use-locale";
 import { formatNumber } from "@/shared/lib/format";
 import { useChartHex } from "@/shared/state/palette-store";
+import { holdTouch } from "@/shared/ui/grab";
 import { SliderField } from "@/shared/ui/slider-field";
 import { Figures, WidgetCard } from "@/shared/ui/widget";
 import { Equation } from "./equation";
 import { ExhibitFrame } from "./exhibit-frame";
 import { BuildPending } from "./build-pending";
 import { PreviewPending, type PreviewMode, type PreviewProps } from "./preview-mode";
+import { settingNumber, useCheckRequest, useCheckSetting } from "./check-setting";
 import { WAVELENGTHS_NM, css, lamp, onScreen, seen } from "./simulate/colour";
 import {
   BLUE_NM,
@@ -91,6 +93,20 @@ export function SkyPage() {
   const data = defaults.data?.sky;
   const [built, setTube] = useState<Tube | null>(null);
   const tube = built ?? data ?? null;
+  // A check case's "Set it up" for the tube: the cloudiness and the length
+  // here. The sun's cases are the sun's card's (`SunPlay`).
+  const request = useCheckRequest("sky");
+  const [seen, setSeen] = useState<number | null>(null);
+  if (request && !request.done && request.nonce !== seen && tube) {
+    setSeen(request.nonce);
+    if ("cloudiness_per_m" in request.setting || "length_m" in request.setting) {
+      setTube({
+        ...tube,
+        cloudiness_per_m: settingNumber(request.setting, "cloudiness_per_m", tube.cloudiness_per_m),
+        length_m: settingNumber(request.setting, "length_m", tube.length_m),
+      });
+    }
+  }
   return (
     <ExhibitFrame
       exhibit="sky"
@@ -370,9 +386,45 @@ function TubeBuild({ tube, onChange }: { tube: Tube; onChange: (next: Tube) => v
   );
 }
 
-/** The sky overhead in its colour, the ground, and the sun at its height in its own. */
-function SkyView({ heightDeg, ozone }: { heightDeg: number; ozone: boolean }) {
+/**
+ * The sky overhead in its colour, the ground, and the sun at its height in its
+ * own. Given `onHeight`, the sun can be taken by mouse or finger and moved
+ * along its arc (Marcel, 2026-11-20: the exhibits "ähnlich interaktiv"), from
+ * the horizon to straight overhead, in the slider's half degrees.
+ */
+function SkyView({
+  heightDeg,
+  ozone,
+  onHeight,
+}: {
+  heightDeg: number;
+  ozone: boolean;
+  onHeight?: (deg: number) => void;
+}) {
   const { t } = useTranslation();
+  const [held, setHeld] = useState(false);
+  const holding = useRef(false);
+  const follow = (svg: SVGSVGElement, clientX: number, clientY: number) => {
+    let x: number;
+    let y: number;
+    const matrix = svg.getScreenCTM?.();
+    if (matrix) {
+      const p = new DOMPoint(clientX, clientY).matrixTransform(matrix.inverse());
+      x = p.x;
+      y = p.y;
+    } else {
+      const box = svg.getBoundingClientRect();
+      if (!box.width || !box.height) return;
+      x = ((clientX - box.left) / box.width) * SKY.width;
+      y = ((clientY - box.top) / box.height) * SKY.height;
+    }
+    const deg = Math.atan2(SKY.horizon - y, SKY.cx - x) * (180 / Math.PI);
+    onHeight?.(Math.round(Math.min(90, Math.max(0, deg)) * 2) / 2);
+  };
+  const release = () => {
+    holding.current = false;
+    setHeld(false);
+  };
   const rad = (heightDeg * Math.PI) / 180;
   const sunX = SKY.cx - SKY.arc * Math.cos(rad);
   const sunY = SKY.horizon - SKY.arc * Math.sin(rad);
@@ -382,15 +434,35 @@ function SkyView({ heightDeg, ozone }: { heightDeg: number; ozone: boolean }) {
       viewBox={`0 0 ${SKY.width} ${SKY.height}`}
       role="img"
       aria-label={t("experiments.sky.sky_view")}
-      className="w-full rounded-lg border border-subtle"
+      className={`w-full rounded-lg border border-subtle ${onHeight ? "select-none" : ""} ${held ? "cursor-grabbing" : ""}`}
       style={{ background: ROOM }}
+      onPointerMove={(e: PointerEvent<SVGSVGElement>) => {
+        if (holding.current) follow(e.currentTarget, e.clientX, e.clientY);
+      }}
+      onPointerUp={release}
+      onPointerCancel={release}
     >
       <rect
         width={SKY.width}
         height={SKY.horizon}
         fill={css(onScreen(seen(sunSpectrum, skyLight(heightDeg, ozone)).map((c) => c / NOON_SKY)))}
       />
-      <circle cx={sunX} cy={sunY} r={SKY.sun * 1.9} fill={sunFill} fillOpacity={0.3} />
+      <circle
+        cx={sunX}
+        cy={sunY}
+        r={SKY.sun * 1.9}
+        fill={sunFill}
+        fillOpacity={0.3}
+        className={onHeight && !held ? "cursor-grab" : undefined}
+        ref={onHeight ? holdTouch : undefined}
+        onPointerDown={(e: PointerEvent<SVGCircleElement>) => {
+          const svg = e.currentTarget.ownerSVGElement;
+          if (!onHeight || !svg) return;
+          svg.setPointerCapture?.(e.pointerId);
+          holding.current = true;
+          setHeld(true);
+        }}
+      />
       <circle cx={sunX} cy={sunY} r={SKY.sun} fill={sunFill} />
       <rect y={SKY.horizon} width={SKY.width} height={SKY.height - SKY.horizon} fill="#1d2a1f" />
     </svg>
@@ -401,6 +473,14 @@ function SunPlay() {
   const { t } = useTranslation();
   const [height, setHeight] = useState(START_HEIGHT_DEG);
   const [ozone, setOzone] = useState(true);
+  // A check case's "Set it up" for the sun: its height and the ozone. The
+  // tube's cases are the page's.
+  useCheckSetting("sky", (setting) => {
+    if (!("height_deg" in setting) && !("ozone" in setting)) return false;
+    setHeight(settingNumber(setting, "height_deg", height));
+    if (setting.ozone === "on" || setting.ozone === "off") setOzone(setting.ozone === "on");
+    return true;
+  });
   const sun = sunLight(height, ozone);
   return (
     <WidgetCard title={t("experiments.sky.air.title")} hint={t("experiments.sky.air.hint")}>
@@ -426,8 +506,9 @@ function SunPlay() {
         </div>
         <div className={`${SIDE.views} mx-auto w-full max-w-xl`}>
           <figure className="space-y-1">
-            <SkyView heightDeg={height} ozone={ozone} />
+            <SkyView heightDeg={height} ozone={ozone} onHeight={setHeight} />
             <figcaption className="text-center text-caption text-muted">{t("experiments.sky.air.caption")}</figcaption>
+            <p className="text-sm text-secondary">{t("experiments.sky.air.drag_hint")}</p>
           </figure>
         </div>
         <div className={SIDE.column}>

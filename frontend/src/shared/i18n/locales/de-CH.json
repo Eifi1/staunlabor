@@ -3134,6 +3134,7 @@
         "hint": "Stellen Sie die Sonne höher oder tiefer. Die Luft ist ein solches trübes Rohr: Je tiefer die Sonne, desto länger ihr Weg durch die Luft.",
         "height": "Sonnenhöhe",
         "height_hint": "Wie hoch die Sonne über dem Horizont steht.",
+        "drag_hint": "Oder ziehen Sie die Sonne mit der Maus oder dem Finger über den Himmel.",
         "ozone": "Ozonschicht",
         "ozone_hint": "Sie schluckt vor allem oranges Licht. Schalten Sie sie aus, um den Himmel ohne sie zu sehen.",
         "ozone_takes": "Vom Orange (600 nm) schluckt das Ozon",
@@ -3469,7 +3470,19 @@
         "primed": "Beschleunigung, Geschwindigkeit und Ort, wie sie ein Mitfahrer misst",
         "a_across": "Beschleunigung quer zum Wurf, wie sie ein Mitfahrer misst",
         "n_up": "Senkrechte auf der Scheibe, nach oben",
-        "heading_rate": "wie schnell sich die Richtung des Balls dreht, von aussen gesehen"
+        "heading_rate": "wie schnell sich die Richtung des Balls dreht, von aussen gesehen",
+        "beta": "Streukoeffizient bei der Wellenlänge λ",
+        "lambda": "Wellenlänge",
+        "beta550": "Trübung der Röhre: der Streukoeffizient bei 550 nm",
+        "x_tube": "Ort entlang der Röhre, ab der Lampe",
+        "L_tube": "Länge der Röhre",
+        "air_mass": "Luftmasse: wie viel Luft das Sonnenlicht durchquert, gemessen an der Luft senkrecht",
+        "z_zenith": "Zenitwinkel der Sonne",
+        "h_sun": "Höhe der Sonne über dem Horizont",
+        "tau_air": "optische Dicke der Luft senkrecht, bei 550 nm 0,097",
+        "m3": "Luftmasse der Ozonschicht",
+        "R_earth": "Erdradius, 6371 km",
+        "H_ozone": "Höhe der Ozonschicht, 22 km"
       },
       "cases": {
         "sphere": {
@@ -3740,6 +3753,41 @@
             "setting": "6 U/min, Radius 2 m; der rollende Ball mit 3 m/s gerade auf den anderen Sitz, von aussen gesehen.",
             "reads": "Rollend muss der Ball mit der Scheibe unter ihm Schritt halten. Die Reibung dreht seine Geschwindigkeit dabei stetig, mit Ω/(1 + m r²/I), bei einer vollen Kugel 2/7 der Drehrate: Von aussen fährt er einen Kreis.",
             "why": "Prüft den Faktor des Rollens: 10,29° pro Sekunde statt der 36° des Karussells. Gelesen an der Richtung des ersten und des letzten Stücks der gezeichneten Bahn; bei einem Kreis zeigt jede Sehne genau in die Richtung, die der Ball in der Mitte ihres Bogens hat."
+          }
+        },
+        "sky": {
+          "rayleigh": {
+            "title": "Blau streut 4,4-mal so stark wie Rot",
+            "setting": "Die Röhre, wie sie ist: 1 m lang, Trübung 1,5 pro Meter.",
+            "reads": "Teilchen, die viel kleiner sind als die Wellenlänge, streuen umgekehrt proportional zur vierten Potenz der Wellenlänge: Blau bei 450 nm stärker als Rot bei 650 nm.",
+            "why": "Prüft die vierte Potenz, aus der alle Farben der Röhre kommen: 4,353-mal so stark."
+          },
+          "light_kept": {
+            "title": "Kein Licht geht verloren",
+            "setting": "Die Röhre, wie sie ist: 1 m lang, Trübung 1,5 pro Meter; blaues Licht, 450 nm.",
+            "reads": "Was auf einem Stück der Röhre fehlt, wird dort zur Seite gestreut: β mal das Licht, das noch da ist. Was entlang der ganzen Röhre zur Seite geht, und was am Ende hinauskommt, ergeben zusammen alles Licht der Lampe.",
+            "why": "Prüft, dass das Licht an der Seite und das am Ende zusammenpassen: Die Seite mit Simpsons Regel summiert und das Ende dazu, fehlen 4 · 10⁻¹⁴, also nichts.",
+            "step": "Die Quelle gibt den Verlust einer dünnen Schicht, μ·Φ·dz, und daraus e^(−μd). In der Röhre wird nichts verschluckt, also ist der Verlust jeder Schicht das, was sie zur Seite streut. Die Seite zieht davon noch ab, was das gestreute Licht auf dem Weg zur Wand verliert, e^(−βa); das ist hier wieder dazugezählt."
+          },
+          "high_sun": {
+            "title": "Hohe Sonne, flache Luft",
+            "setting": "Die Sonne 60° über dem Horizont.",
+            "reads": "Steht die Sonne hoch, spielt die Krümmung der Erde keine Rolle: Das Licht durchquert die Luft schräg, 1/sin h mal so viel wie senkrecht.",
+            "why": "Prüft die Luftmasse der Seite, nach Kasten und Young: 1,1540 statt 1,1547. Ihre Formel rechnet mit der gekrümmten Luft und der Brechung des Lichts und liegt darum 6 · 10⁻⁴ tiefer; ein Fehler in Winkel oder Einheit fiele hier weit heraus."
+          },
+          "sky_noon": {
+            "title": "Der Himmel über der Mittagssonne",
+            "setting": "Die Sonne senkrecht über uns, 90°, ohne Ozonschicht; grünes Licht, 550 nm.",
+            "reads": "Der Himmel senkrecht über uns ist Sonnenlicht, das auf dem Weg nach unten einmal gestreut wurde: in jeder Höhe gestreut und auf dem Rest des Wegs geschwächt. Steht die Sonne selbst senkrecht, ist das τ·e^(−τ).",
+            "why": "Prüft den Himmel der Seite an seinem Grenzfall: Die Formel wird bei m = 1 zu 0/0, und die Seite rechnet sie dort eigens. Die Abweichung von 1,4 · 10⁻⁵: Die Seite nimmt für die Sonne senkrecht die Luftmasse nach Kasten und Young, die dort nicht ganz 1 ist.",
+            "step": "Die Quelle gibt das Licht, das einmal gestreut nach unten kommt, für die Sonne beim Kosinus μ_sw und den Blick beim Kosinus μ. Senkrecht nach oben geschaut (μ = 1), mit der Sonne bei μ_sw = 1/m und am Boden der Luft (ζ = τ), wird daraus (e^(−τ) − e^(−mτ))/(m − 1), gemessen am Sonnenlicht und an der Streuung in Blickrichtung; ihr Grenzwert für μ → μ_sw gibt τ·e^(−τ)."
+          },
+          "ozone_horizon": {
+            "title": "Die Ozonschicht am Horizont",
+            "setting": "Die Sonne am Horizont, 0°, mit Ozonschicht.",
+            "reads": "Die Ozonschicht liegt als dünne Schale 22 km hoch. Ein Strahl vom Horizont durchquert sie schräg, aber nicht unendlich lang wie in flacher Luft: 12-mal so viel Ozon wie senkrecht.",
+            "why": "Prüft den Weg durch die Schale, mit dem die Seite das Orange der Abendsonne schwächt: 12,064, von Hand aus dem allgemeinen Integral, auf der Seite aus einer umgeformten Formel; beide gleich bis auf 10⁻¹⁴.",
+            "step": "Die Quelle gibt die Luftmasse für jede Dichte ρ(y) über der Höhe y. Liegt alles Ozon in einer dünnen Schale bei y = H, bleibt vom Integral der Bruch an der Stelle H, geteilt durch denselben Bruch senkrecht (z = 0). Der Zenitwinkel z ist 90° minus die Höhe der Sonne."
           }
         }
       },

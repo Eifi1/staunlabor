@@ -3134,6 +3134,7 @@
         "hint": "Suba o baje el sol. El aire es un tubo turbio así: cuanto más bajo el sol, más largo su camino a través del aire.",
         "height": "Altura del sol",
         "height_hint": "A qué altura está el sol sobre el horizonte.",
+        "drag_hint": "O mueva el sol por el cielo con el ratón o con el dedo.",
         "ozone": "Capa de ozono",
         "ozone_hint": "Absorbe sobre todo la luz naranja. Desactívela para ver el cielo sin ella.",
         "ozone_takes": "Del naranja (600 nm), el ozono absorbe",
@@ -3469,7 +3470,19 @@
         "primed": "aceleración, velocidad y posición tal como las mide quien gira",
         "a_across": "aceleración de través al lanzamiento, tal como la mide quien gira",
         "n_up": "la normal a la plataforma, hacia arriba",
-        "heading_rate": "lo rápido que gira la dirección de la pelota, vista desde fuera"
+        "heading_rate": "lo rápido que gira la dirección de la pelota, vista desde fuera",
+        "beta": "coeficiente de dispersión a la longitud de onda λ",
+        "lambda": "longitud de onda",
+        "beta550": "turbidez del tubo: el coeficiente de dispersión a 550 nm",
+        "x_tube": "lugar a lo largo del tubo, desde la lámpara",
+        "L_tube": "longitud del tubo",
+        "air_mass": "masa de aire: cuánto aire atraviesa la luz del sol, respecto al aire en vertical",
+        "z_zenith": "ángulo cenital del sol",
+        "h_sun": "altura del sol sobre el horizonte",
+        "tau_air": "espesor óptico del aire en vertical, 0,097 a 550 nm",
+        "m3": "masa de aire de la capa de ozono",
+        "R_earth": "radio de la Tierra, 6371 km",
+        "H_ozone": "altura de la capa de ozono, 22 km"
       },
       "cases": {
         "sphere": {
@@ -3740,6 +3753,41 @@
             "setting": "6 rpm, radio 2 m; la pelota que rueda, a 3 m/s recta al otro asiento, vista desde fuera.",
             "reads": "Al rodar, la pelota debe seguir el paso de la plataforma que tiene debajo. El rozamiento gira entonces su velocidad de forma constante, con Ω/(1 + m r²/I), para una esfera maciza 2/7 del giro: desde fuera recorre un círculo.",
             "why": "Comprueba el factor de la rodadura: 10,29° por segundo en lugar de los 36° del carrusel. Leído en la dirección del primer y del último tramo de la trayectoria dibujada; en un círculo, cada cuerda apunta exactamente en la dirección que lleva la pelota en el centro de su arco."
+          }
+        },
+        "sky": {
+          "rayleigh": {
+            "title": "El azul se dispersa 4,4 veces más que el rojo",
+            "setting": "El tubo tal como es: 1 m de largo, turbidez de 1,5 por metro.",
+            "reads": "Las partículas mucho más pequeñas que la longitud de onda dispersan en proporción inversa a la cuarta potencia de la longitud de onda: el azul a 450 nm más que el rojo a 650 nm.",
+            "why": "Comprueba la cuarta potencia, de la que salen todos los colores del tubo: 4,353 veces más."
+          },
+          "light_kept": {
+            "title": "No se pierde nada de luz",
+            "setting": "El tubo tal como es: 1 m de largo, turbidez de 1,5 por metro; luz azul, 450 nm.",
+            "reads": "Lo que falta en un tramo del tubo se dispersa allí hacia el lado: β por la luz que aún queda. Lo que sale de lado a lo largo de todo el tubo y lo que sale por el final suman toda la luz de la lámpara.",
+            "why": "Comprueba que la luz de lado y la del final encajan: sumando la de lado con la regla de Simpson y añadiendo la del final, faltan 4 · 10⁻¹⁴, es decir, nada.",
+            "step": "La fuente da la pérdida de una capa delgada, μ·Φ·dz, y de ella e^(−μd). En el tubo no se absorbe nada, así que la pérdida de cada capa es lo que dispersa hacia el lado. La página le resta además lo que la luz dispersada pierde en el camino hasta la pared, e^(−βa); aquí se vuelve a sumar."
+          },
+          "high_sun": {
+            "title": "Sol alto, aire plano",
+            "setting": "El sol a 60° sobre el horizonte.",
+            "reads": "Con el sol alto, la curvatura de la Tierra no importa: la luz atraviesa el aire en diagonal, 1/sin h veces tanto como en vertical.",
+            "why": "Comprueba la masa de aire de la página, según Kasten y Young: 1,1540 en lugar de 1,1547. Su fórmula tiene en cuenta el aire curvado y la refracción de la luz, y por eso queda 6 · 10⁻⁴ más baja; un error en el ángulo o en su unidad se saldría aquí con mucho."
+          },
+          "sky_noon": {
+            "title": "El cielo sobre el sol de mediodía",
+            "setting": "El sol justo encima de nosotros, 90°, sin capa de ozono; luz verde, 550 nm.",
+            "reads": "El cielo justo encima de nosotros es luz solar dispersada una vez en su camino hacia abajo: dispersada a cada altura y atenuada en el resto del camino. Si el propio sol está en la vertical, eso es τ·e^(−τ).",
+            "why": "Comprueba el cielo de la página en su caso límite: la fórmula se vuelve 0/0 en m = 1, y la página la calcula allí aparte. La desviación de 1,4 · 10⁻⁵: para el sol en la vertical, la página toma la masa de aire según Kasten y Young, que allí no es exactamente 1.",
+            "step": "La fuente da la luz que llega hacia abajo tras una sola dispersión, con el sol en el coseno μ_sw y la mirada en el coseno μ. Mirando en vertical hacia arriba (μ = 1), con el sol en μ_sw = 1/m y en el fondo del aire (ζ = τ), resulta (e^(−τ) − e^(−mτ))/(m − 1), referido a la luz solar y a la dispersión en la dirección de la mirada; su límite para μ → μ_sw da τ·e^(−τ)."
+          },
+          "ozone_horizon": {
+            "title": "La capa de ozono en el horizonte",
+            "setting": "El sol en el horizonte, 0°, con capa de ozono.",
+            "reads": "La capa de ozono está a 22 km de altura, como una cáscara delgada. Un rayo desde el horizonte la atraviesa en diagonal, pero no a lo largo de un camino infinito como en un aire plano: 12 veces tanto ozono como en vertical.",
+            "why": "Comprueba el camino a través de la cáscara, con el que la página atenúa el naranja del sol de la tarde: 12,064, a mano a partir de la integral general, en la página a partir de una fórmula transformada; ambos coinciden hasta 10⁻¹⁴.",
+            "step": "La fuente da la masa de aire para cualquier densidad ρ(y) en función de la altura y. Si todo el ozono está en una cáscara delgada en y = H, de la integral queda la fracción en H, dividida entre la misma fracción en vertical (z = 0). El ángulo cenital z es 90° menos la altura del sol."
           }
         }
       },

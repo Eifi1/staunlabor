@@ -3134,6 +3134,7 @@
         "hint": "Montez ou descendez le soleil. L’air est un tel tube trouble : plus le soleil est bas, plus son chemin à travers l’air est long.",
         "height": "Hauteur du soleil",
         "height_hint": "À quelle hauteur le soleil se trouve au-dessus de l’horizon.",
+        "drag_hint": "Ou déplacez le soleil dans le ciel avec la souris ou le doigt.",
         "ozone": "Couche d’ozone",
         "ozone_hint": "Elle absorbe surtout la lumière orange. Désactivez-la pour voir le ciel sans elle.",
         "ozone_takes": "De l’orange (600 nm), l’ozone absorbe",
@@ -3469,7 +3470,19 @@
         "primed": "accélération, vitesse et position telles que les mesure qui tourne avec",
         "a_across": "accélération en travers du lancer, telle que la mesure qui tourne avec",
         "n_up": "la normale à la plateforme, vers le haut",
-        "heading_rate": "la vitesse à laquelle tourne la direction de la balle, vue de l’extérieur"
+        "heading_rate": "la vitesse à laquelle tourne la direction de la balle, vue de l’extérieur",
+        "beta": "coefficient de diffusion à la longueur d’onde λ",
+        "lambda": "longueur d’onde",
+        "beta550": "turbidité du tube : le coefficient de diffusion à 550 nm",
+        "x_tube": "position le long du tube, depuis la lampe",
+        "L_tube": "longueur du tube",
+        "air_mass": "masse d’air : quantité d’air traversée par la lumière du soleil, rapportée à l’air à la verticale",
+        "z_zenith": "angle zénithal du soleil",
+        "h_sun": "hauteur du soleil au-dessus de l’horizon",
+        "tau_air": "épaisseur optique de l’air à la verticale, 0,097 à 550 nm",
+        "m3": "masse d’air de la couche d’ozone",
+        "R_earth": "rayon de la Terre, 6371 km",
+        "H_ozone": "altitude de la couche d’ozone, 22 km"
       },
       "cases": {
         "sphere": {
@@ -3740,6 +3753,41 @@
             "setting": "6 tr/min, rayon 2 m ; la balle qui roule, à 3 m/s droit vers l’autre siège, vue de l’extérieur.",
             "reads": "En roulant, la balle doit suivre la plateforme sous elle. Le frottement tourne alors sa vitesse continûment, à Ω/(1 + m r²/I), soit 2/7 de la rotation pour une boule pleine : vue de l’extérieur, elle décrit un cercle.",
             "why": "Vérifie le facteur du roulement : 10,29° par seconde au lieu des 36° du manège. Relevé sur la direction du premier et du dernier segment de la trajectoire dessinée ; sur un cercle, chaque corde pointe exactement dans la direction qu’a la balle au milieu de son arc."
+          }
+        },
+        "sky": {
+          "rayleigh": {
+            "title": "Le bleu est diffusé 4,4 fois plus que le rouge",
+            "setting": "Le tube tel qu’il est : 1 m de long, turbidité de 1,5 par mètre.",
+            "reads": "Des particules bien plus petites que la longueur d’onde diffusent en raison inverse de la puissance quatrième de la longueur d’onde : le bleu à 450 nm plus fortement que le rouge à 650 nm.",
+            "why": "Vérifie la puissance quatrième, d’où viennent toutes les couleurs du tube : 4,353 fois plus fort."
+          },
+          "light_kept": {
+            "title": "Aucune lumière ne se perd",
+            "setting": "Le tube tel qu’il est : 1 m de long, turbidité de 1,5 par mètre ; lumière bleue, 450 nm.",
+            "reads": "Ce qui manque sur un tronçon du tube y est diffusé sur le côté : β fois la lumière qui reste. Ce qui part sur le côté tout le long du tube et ce qui sort au bout donnent ensemble toute la lumière de la lampe.",
+            "why": "Vérifie que la lumière sur le côté et celle au bout concordent : le côté sommé par la règle de Simpson et le bout ajouté, il manque 4 · 10⁻¹⁴, c’est-à-dire rien.",
+            "step": "La source donne la perte d’une couche mince, μ·Φ·dz, et en tire e^(−μd). Dans le tube, rien n’est absorbé ; la perte de chaque couche est donc ce qu’elle diffuse sur le côté. La page en retire encore ce que la lumière diffusée perd en chemin jusqu’à la paroi, e^(−βa) ; ici, c’est rajouté."
+          },
+          "high_sun": {
+            "title": "Soleil haut, air plat",
+            "setting": "Le soleil à 60° au-dessus de l’horizon.",
+            "reads": "Quand le soleil est haut, la courbure de la Terre ne joue aucun rôle : la lumière traverse l’air en biais, 1/sin h fois autant qu’à la verticale.",
+            "why": "Vérifie la masse d’air de la page, selon Kasten et Young : 1,1540 au lieu de 1,1547. Leur formule tient compte de l’air courbé et de la réfraction de la lumière, et se trouve donc 6 · 10⁻⁴ plus bas ; une erreur d’angle ou d’unité ressortirait ici nettement."
+          },
+          "sky_noon": {
+            "title": "Le ciel au-dessus du soleil de midi",
+            "setting": "Le soleil à la verticale au-dessus de nous, 90°, sans couche d’ozone ; lumière verte, 550 nm.",
+            "reads": "Le ciel à la verticale au-dessus de nous est de la lumière du soleil diffusée une fois en descendant : diffusée à chaque altitude et affaiblie sur le reste du chemin. Quand le soleil lui-même est à la verticale, cela fait τ·e^(−τ).",
+            "why": "Vérifie le ciel de la page à son cas limite : la formule devient 0/0 pour m = 1, et la page la calcule là à part. L’écart de 1,4 · 10⁻⁵ : pour le soleil à la verticale, la page prend la masse d’air selon Kasten et Young, qui n’y vaut pas tout à fait 1.",
+            "step": "La source donne la lumière qui descend après une seule diffusion, pour le soleil au cosinus μ_sw et le regard au cosinus μ. En regardant à la verticale vers le haut (μ = 1), avec le soleil à μ_sw = 1/m et au fond de l’air (ζ = τ), on obtient (e^(−τ) − e^(−mτ))/(m − 1), rapporté à la lumière du soleil et à la diffusion dans la direction du regard ; sa limite pour μ → μ_sw donne τ·e^(−τ)."
+          },
+          "ozone_horizon": {
+            "title": "La couche d’ozone à l’horizon",
+            "setting": "Le soleil à l’horizon, 0°, avec couche d’ozone.",
+            "reads": "La couche d’ozone est une coquille mince à 22 km d’altitude. Un rayon venant de l’horizon la traverse en biais, mais pas sur une longueur infinie comme dans un air plat : 12 fois autant d’ozone qu’à la verticale.",
+            "why": "Vérifie le chemin à travers la coquille, par lequel la page affaiblit l’orange du soleil du soir : 12,064, à la main à partir de l’intégrale générale, sur la page à partir d’une formule transformée ; les deux concordent à 10⁻¹⁴ près.",
+            "step": "La source donne la masse d’air pour toute densité ρ(y) en fonction de l’altitude y. Si tout l’ozone se trouve dans une coquille mince en y = H, il reste de l’intégrale la fraction au point H, divisée par la même fraction à la verticale (z = 0). L’angle zénithal z vaut 90° moins la hauteur du soleil."
           }
         }
       },

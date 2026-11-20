@@ -87,7 +87,10 @@ const cannon = fixtures.cannon as unknown as CannonFigures;
 const wave = fixtures.wave as unknown as WaveFigures;
 
 /** No exhibit checked yet: what the server answers until an admin checks one. */
-const UNCHECKED = { with_cases: ["chair", "coil", "coriolis", "cradle", "sphere", "waterwheel", "wave"], checked: [] };
+const UNCHECKED = {
+  with_cases: ["chair", "coil", "coriolis", "cradle", "sky", "sphere", "waterwheel", "wave"],
+  checked: [],
+};
 
 beforeEach(() => {
   useTried.getState().forget();
@@ -1596,6 +1599,16 @@ describe("setting a check case up", () => {
     expect(screen.getByRole("slider", { name: E.coriolis.play.rpm }).getAttribute("aria-valuetext")).toMatch(/^6\b/);
   });
 
+  it("puts the sun on the horizon with the ozone, for the sky's last case", async () => {
+    renderWithProviders(<SkyPage />);
+    await screen.findByRole("img", { name: E.sky.sky_view });
+    await setUp(4);
+    await waitFor(() =>
+      expect(screen.getByRole("slider", { name: E.sky.air.height }).getAttribute("aria-valuetext")).toMatch(/^0\b/),
+    );
+    expect(screen.getByRole("switch", { name: E.sky.air.ozone })).toBeChecked();
+  });
+
   it("puts a 15 kg car on the coil's track for the brake, without rolling resistance", async () => {
     renderWithProviders(<CoilPage />);
     await setUp(5);
@@ -1857,6 +1870,33 @@ describe("why the sky is blue", () => {
     fireEvent.click(screen.getByRole("switch", { name: E.sky.air.ozone }));
     expect(screen.queryByText(E.sky.air.ozone_takes)).not.toBeInTheDocument();
     expect(screen.queryByText("39")).not.toBeInTheDocument();
+  });
+
+  it("moves the sun along its arc by mouse or finger, from the horizon to overhead", async () => {
+    renderWithProviders(<SkyPage />);
+    const sky = await screen.findByRole("img", { name: E.sky.sky_view });
+    // The drawing's own units, 400 by 220, a pixel each.
+    vi.spyOn(sky, "getBoundingClientRect").mockReturnValue({
+      left: 0,
+      top: 0,
+      width: 400,
+      height: 220,
+      right: 400,
+      bottom: 220,
+      x: 0,
+      y: 0,
+      toJSON: () => ({}),
+    });
+    const sun = sky.querySelector("circle.cursor-grab")!;
+    const height = () => screen.getByRole("slider", { name: E.sky.air.height }).getAttribute("aria-valuetext");
+    fireEvent.pointerDown(sun, { pointerId: 1, clientX: 125, clientY: 48 });
+    // 30° up from the horizon (y 178), seen from the arc's centre (x 200).
+    fireEvent.pointerMove(sky, { pointerId: 1, clientX: 200 - 100, clientY: 178 - 100 * Math.tan(Math.PI / 6) });
+    expect(height()).toMatch(/^30\b/);
+    // Past the top it stays overhead.
+    fireEvent.pointerMove(sky, { pointerId: 1, clientX: 260, clientY: 40 });
+    expect(height()).toMatch(/^90\b/);
+    fireEvent.pointerUp(sky, { pointerId: 1 });
   });
 });
 

@@ -3134,6 +3134,7 @@
         "hint": "Raise or lower the sun. The air is such a cloudy tube: the lower the sun, the longer its way through the air.",
         "height": "Sun's height",
         "height_hint": "How high the sun stands above the horizon.",
+        "drag_hint": "Or move the sun across the sky with the mouse or a finger.",
         "ozone": "Ozone layer",
         "ozone_hint": "It absorbs mostly orange light. Switch it off to see the sky without it.",
         "ozone_takes": "Of the orange (600 nm), ozone absorbs",
@@ -3469,7 +3470,19 @@
         "primed": "acceleration, velocity and place as a rider measures them",
         "a_across": "acceleration across the throw, as a rider measures it",
         "n_up": "the plate's normal, pointing up",
-        "heading_rate": "how fast the ball's heading turns, seen from outside"
+        "heading_rate": "how fast the ball's heading turns, seen from outside",
+        "beta": "scattering coefficient at the wavelength λ",
+        "lambda": "wavelength",
+        "beta550": "the tube's cloudiness: its scattering coefficient at 550 nm",
+        "x_tube": "place along the tube, from the lamp",
+        "L_tube": "the tube's length",
+        "air_mass": "air mass: how much air the sunlight crosses, against the air straight up",
+        "z_zenith": "the sun's zenith angle",
+        "h_sun": "the sun's height above the horizon",
+        "tau_air": "the air's optical depth straight up, 0.097 at 550 nm",
+        "m3": "the ozone layer's air mass",
+        "R_earth": "the earth's radius, 6371 km",
+        "H_ozone": "the ozone layer's height, 22 km"
       },
       "cases": {
         "sphere": {
@@ -3740,6 +3753,41 @@
             "setting": "6 rpm, radius 2 m; the rolling ball at 3 m/s straight at the other seat, seen from outside.",
             "reads": "Rolling, the ball must keep up with the plate under it. The friction that makes it do so turns its velocity steadily, at Ω/(1 + m r²/I), for a solid ball 2/7 of the platform's rate: seen from outside it runs on a circle.",
             "why": "Checks the rolling's factor: 10.29° a second, not the carousel's 36°. Read off the heading of the first and the last piece of the path drawn; on a circle every chord points exactly where the ball heads at the middle of its arc."
+          }
+        },
+        "sky": {
+          "rayleigh": {
+            "title": "Blue scatters 4.4 times as strongly as red",
+            "setting": "The tube as it is: 1 m long, cloudiness 1.5 per metre.",
+            "reads": "Particles far smaller than the wavelength scatter inversely as the wavelength's fourth power: blue at 450 nm more strongly than red at 650 nm.",
+            "why": "Checks the fourth power all the tube's colours come from: 4.353 times as strongly."
+          },
+          "light_kept": {
+            "title": "No light is lost",
+            "setting": "The tube as it is: 1 m long, cloudiness 1.5 per metre; blue light, 450 nm.",
+            "reads": "What a stretch of the tube takes from the light, it scatters to the side there: β times the light still left. What goes to the side along the whole tube and what comes out at the end add up to all the lamp's light.",
+            "why": "Checks that the light at the side and the light at the end belong together: the side summed by Simpson's rule and the end added, 4 · 10⁻¹⁴ is missing, that is nothing.",
+            "step": "The source gives a thin slice's loss, μ·Φ·dz, and from it e^(−μd). Nothing is absorbed in the tube, so each slice's loss is what it scatters to the side. The page takes from that what the scattered light loses on its way to the wall, e^(−βa); here it is added back."
+          },
+          "high_sun": {
+            "title": "A high sun, a flat air",
+            "setting": "The sun 60° above the horizon.",
+            "reads": "With the sun high, the earth's curve does not matter: the light crosses the air slantwise, 1/sin h times as much as straight up.",
+            "why": "Checks the page's air mass, Kasten and Young's: 1.1540, not 1.1547. Their formula holds the curved air and the bending of the light, so it lies 6 · 10⁻⁴ lower; a mistake in the angle or its unit would stand out far."
+          },
+          "sky_noon": {
+            "title": "The sky above the noon sun",
+            "setting": "The sun straight overhead, 90°, no ozone layer; green light, 550 nm.",
+            "reads": "The sky straight overhead is sunlight scattered once on its way down: scattered at every height and dimmed on the rest of the way. With the sun itself straight overhead, that is τ·e^(−τ).",
+            "why": "Checks the page's sky at its limit: the formula turns 0/0 at m = 1, and the page computes it there specially. The 1.4 · 10⁻⁵ off: for the sun overhead the page takes Kasten and Young's air mass, which is not quite 1 there.",
+            "step": "The source gives the light scattered once on its way down, for the sun at cosine μ_sw and the view at cosine μ. Looking straight up (μ = 1), with the sun at μ_sw = 1/m and at the bottom of the air (ζ = τ), that is (e^(−τ) − e^(−mτ))/(m − 1), per sunlight and per scattering into the view; its limit for μ → μ_sw gives τ·e^(−τ)."
+          },
+          "ozone_horizon": {
+            "title": "The ozone layer at the horizon",
+            "setting": "The sun at the horizon, 0°, with the ozone layer.",
+            "reads": "The ozone layer lies as a thin shell 22 km up. A ray from the horizon crosses it slantwise, but not endlessly as in a flat air: 12 times as much ozone as straight up.",
+            "why": "Checks the path through the shell, by which the page dims the evening sun's orange: 12.064, by hand from the general integral, on the page from a formula rearranged; the two agree to 10⁻¹⁴.",
+            "step": "The source gives the air mass for any density ρ(y) over the height y. With all the ozone in a thin shell at y = H, what is left of the integral is the fraction at H, over the same fraction straight up (z = 0). The zenith angle z is 90° less the sun's height."
           }
         }
       },

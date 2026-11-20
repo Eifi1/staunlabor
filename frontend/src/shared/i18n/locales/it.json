@@ -3134,6 +3134,7 @@
         "hint": "Alzi o abbassi il sole. L’aria è un tubo torbido così: più il sole è basso, più lungo è il suo cammino attraverso l’aria.",
         "height": "Altezza del sole",
         "height_hint": "Quanto in alto sta il sole sopra l’orizzonte.",
+        "drag_hint": "Oppure sposti il sole nel cielo con il mouse o con il dito.",
         "ozone": "Strato di ozono",
         "ozone_hint": "Assorbe soprattutto la luce arancione. Lo disattivi per vedere il cielo senza di esso.",
         "ozone_takes": "Dell’arancione (600 nm), l’ozono assorbe",
@@ -3469,7 +3470,19 @@
         "primed": "accelerazione, velocità e posizione come le misura chi gira",
         "a_across": "accelerazione di traverso al tiro, come la misura chi gira",
         "n_up": "la normale alla piattaforma, verso l'alto",
-        "heading_rate": "quanto velocemente ruota la direzione della palla, vista da fuori"
+        "heading_rate": "quanto velocemente ruota la direzione della palla, vista da fuori",
+        "beta": "coefficiente di diffusione alla lunghezza d'onda λ",
+        "lambda": "lunghezza d'onda",
+        "beta550": "torbidità del tubo: il coefficiente di diffusione a 550 nm",
+        "x_tube": "punto lungo il tubo, dalla lampada",
+        "L_tube": "lunghezza del tubo",
+        "air_mass": "massa d'aria: quanta aria attraversa la luce del sole, rispetto all'aria in verticale",
+        "z_zenith": "angolo zenitale del sole",
+        "h_sun": "altezza del sole sopra l'orizzonte",
+        "tau_air": "spessore ottico dell'aria in verticale, 0,097 a 550 nm",
+        "m3": "massa d'aria dello strato di ozono",
+        "R_earth": "raggio della Terra, 6371 km",
+        "H_ozone": "quota dello strato di ozono, 22 km"
       },
       "cases": {
         "sphere": {
@@ -3740,6 +3753,41 @@
             "setting": "6 giri/min, raggio 2 m; la palla che rotola, a 3 m/s dritta verso l'altro sedile, vista da fuori.",
             "reads": "Rotolando, la palla deve tenere il passo con la piattaforma sotto di sé. L'attrito ne ruota così la velocità di continuo, con Ω/(1 + m r²/I), per una sfera piena 2/7 della rotazione: vista da fuori percorre un cerchio.",
             "why": "Verifica il fattore del rotolamento: 10,29° al secondo invece dei 36° della giostra. Letto sulla direzione del primo e dell'ultimo tratto della traiettoria disegnata; su un cerchio ogni corda punta esattamente nella direzione che la palla ha a metà del suo arco."
+          }
+        },
+        "sky": {
+          "rayleigh": {
+            "title": "Il blu viene diffuso 4,4 volte più del rosso",
+            "setting": "Il tubo così com'è: lungo 1 m, torbidità 1,5 al metro.",
+            "reads": "Particelle molto più piccole della lunghezza d'onda diffondono in modo inversamente proporzionale alla quarta potenza della lunghezza d'onda: il blu a 450 nm più del rosso a 650 nm.",
+            "why": "Verifica la quarta potenza, da cui vengono tutti i colori del tubo: 4,353 volte più forte."
+          },
+          "light_kept": {
+            "title": "Nessuna luce va persa",
+            "setting": "Il tubo così com'è: lungo 1 m, torbidità 1,5 al metro; luce blu, 450 nm.",
+            "reads": "Ciò che manca su un tratto del tubo viene lì diffuso di lato: β per la luce che resta. Ciò che va di lato lungo tutto il tubo e ciò che esce in fondo danno insieme tutta la luce della lampada.",
+            "why": "Verifica che la luce di lato e quella in fondo combacino: sommata la luce di lato con la regola di Simpson e aggiunta quella in fondo, mancano 4 · 10⁻¹⁴, cioè niente.",
+            "step": "La fonte dà la perdita di uno strato sottile, μ·Φ·dz, e da essa e^(−μd). Nel tubo non viene assorbito nulla, quindi la perdita di ogni strato è ciò che esso diffonde di lato. La pagina vi sottrae ancora ciò che la luce diffusa perde sulla via fino alla parete, e^(−βa); qui è sommato di nuovo."
+          },
+          "high_sun": {
+            "title": "Sole alto, aria piatta",
+            "setting": "Il sole a 60° sopra l'orizzonte.",
+            "reads": "Con il sole alto la curvatura della Terra non conta: la luce attraversa l'aria di sbieco, 1/sin h volte tanto quanto in verticale.",
+            "why": "Verifica la massa d'aria della pagina, secondo Kasten e Young: 1,1540 invece di 1,1547. La loro formula tiene conto dell'aria curva e della rifrazione della luce, e perciò sta 6 · 10⁻⁴ più in basso; un errore nell'angolo o nell'unità salterebbe qui subito all'occhio."
+          },
+          "sky_noon": {
+            "title": "Il cielo sopra il sole di mezzogiorno",
+            "setting": "Il sole proprio sopra di noi, 90°, senza strato di ozono; luce verde, 550 nm.",
+            "reads": "Il cielo proprio sopra di noi è luce solare diffusa una volta durante la discesa: diffusa a ogni altezza e attenuata sul resto del cammino. Se il sole stesso è in verticale, questo vale τ·e^(−τ).",
+            "why": "Verifica il cielo della pagina nel suo caso limite: la formula diventa 0/0 per m = 1, e la pagina lì la calcola a parte. Lo scarto di 1,4 · 10⁻⁵: per il sole in verticale la pagina prende la massa d'aria secondo Kasten e Young, che lì non è proprio 1.",
+            "step": "La fonte dà la luce che arriva verso il basso dopo una sola diffusione, per il sole al coseno μ_sw e lo sguardo al coseno μ. Guardando in verticale verso l'alto (μ = 1), con il sole a μ_sw = 1/m e sul fondo dell'aria (ζ = τ), ne risulta (e^(−τ) − e^(−mτ))/(m − 1), riferito alla luce solare e alla diffusione nella direzione dello sguardo; il suo limite per μ → μ_sw dà τ·e^(−τ)."
+          },
+          "ozone_horizon": {
+            "title": "Lo strato di ozono all'orizzonte",
+            "setting": "Il sole all'orizzonte, 0°, con strato di ozono.",
+            "reads": "Lo strato di ozono è un guscio sottile a 22 km di quota. Un raggio dall'orizzonte lo attraversa di sbieco, ma non per un tratto infinito come in un'aria piatta: 12 volte tanto ozono quanto in verticale.",
+            "why": "Verifica il cammino attraverso il guscio, con cui la pagina attenua l'arancione del sole della sera: 12,064, a mano dall'integrale generale, nella pagina da una formula trasformata; i due coincidono a meno di 10⁻¹⁴.",
+            "step": "La fonte dà la massa d'aria per qualsiasi densità ρ(y) in funzione della quota y. Se tutto l'ozono sta in un guscio sottile a y = H, dell'integrale resta la frazione nel punto H, divisa per la stessa frazione in verticale (z = 0). L'angolo zenitale z è 90° meno l'altezza del sole."
           }
         }
       },

@@ -2388,6 +2388,12 @@ straight throw's miss on a turning platform, the Coriolis push 2Ωv at the
 throw, and the rolled ball's turn at 2/7 of the platform's rate. "Set it up"
 sets the platform's turn, the throw, what is thrown and the view, and throws.
 
+**The sky's** five (2026-11-20) hold the tube to Rayleigh's λ⁻⁴ (blue against
+red), the light kept between the side and the end, the air mass of a high sun,
+the noon sky without ozone and the ozone's share at the horizon. "Set it up"
+sets the tube on the page and the sun on the sun's card, each taking only its
+own cases.
+
 **On the page** a section "Check it yourself" (`check-section.tsx`) lists the
 cases, each with its formula as an `Equation` (`check-formulas.ts`), both
 values to seven digits, the deviation, why the case would catch a mistake,

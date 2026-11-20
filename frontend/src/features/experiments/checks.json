@@ -521,6 +521,107 @@
    ]
   }
  ],
+ "sky": [
+  {
+   "key": "rayleigh",
+   "unit": "",
+   "expected": 4.35314738607,
+   "measured": 4.35314738607,
+   "deviation": 4.08062645681e-16,
+   "tolerance": 1e-12,
+   "derived": false,
+   "setting": {
+    "cloudiness_per_m": 1.5,
+    "length_m": 1.0
+   },
+   "sources": [
+    {
+     "cite": "Wikipedia, “Rayleigh scattering”, introduction",
+     "url": "https://en.wikipedia.org/wiki/Rayleigh_scattering",
+     "quote": "the amount of scattering is inversely proportional to the fourth power of the wavelength (e.g., a blue color is scattered much more than a red color as light propagates through air)"
+    }
+   ]
+  },
+  {
+   "key": "light_kept",
+   "unit": "",
+   "expected": 1.0,
+   "measured": 1.0,
+   "deviation": 4.21884749358e-14,
+   "tolerance": 1e-11,
+   "derived": true,
+   "setting": {
+    "cloudiness_per_m": 1.5,
+    "length_m": 1.0
+   },
+   "sources": [
+    {
+     "cite": "Wikipedia, “Beer–Lambert law”, §Derivation and §History",
+     "url": "https://en.wikipedia.org/wiki/Beer%E2%80%93Lambert_law",
+     "quote": "The radiant flux of the light that emerges from a slice is reduced, compared to that of the light that entered, by dΦe(z) = −μ(z)Φe(z) dz, where μ is the (Napierian) attenuation coefficient … As long as μ is constant along a distance d, the exponential attenuation law, I = I0 e^{−μd} follows from integration."
+    }
+   ]
+  },
+  {
+   "key": "high_sun",
+   "unit": "",
+   "expected": 1.15470053838,
+   "measured": 1.15399223336,
+   "deviation": 0.000613410137116,
+   "tolerance": 0.001,
+   "derived": false,
+   "setting": {
+    "height_deg": 60.0
+   },
+   "sources": [
+    {
+     "cite": "Wikipedia, “Air mass (astronomy)”, §Plane-parallel atmosphere",
+     "url": "https://en.wikipedia.org/wiki/Air_mass_(astronomy)",
+     "quote": "When the zenith angle is small to moderate, a good approximation is given by assuming a homogeneous plane-parallel atmosphere (i.e., one in which density is constant and Earth's curvature is ignored). The air mass X then is simply the secant of the zenith angle z: X = sec z."
+    }
+   ]
+  },
+  {
+   "key": "sky_noon",
+   "unit": "",
+   "expected": 0.0880329325949,
+   "measured": 0.0880341622852,
+   "deviation": 1.39685250702e-05,
+   "tolerance": 3e-05,
+   "derived": true,
+   "setting": {
+    "height_deg": 90.0,
+    "ozone": "off"
+   },
+   "sources": [
+    {
+     "cite": "C. Mobley, Ocean Optics Web Book, “The Single-Scattering Approximation”, Eq. (14) and (16)",
+     "url": "https://www.oceanopticsbook.info/view/radiative-transfer-theory/level-2/the-single-scattering-approximation",
+     "quote": "L_d^(SSA)(ζ, μ, ϕ) = ω_o E_d(0) β̃(μ_sw, ϕ_sw → μ, ϕ) · 1/(μ_sw − μ) · (e^{−ζ/μ_sw} − e^{−ζ/μ}) (14) if μ > 0 and μ ≠ μ_sw … It is easy to show that lim_{μ→μ_sw} 1/(μ_sw − μ) (e^{−ζ/μ_sw} − e^{−ζ/μ}) = ζ/μ_sw² e^{−ζ/μ_sw}"
+    }
+   ]
+  },
+  {
+   "key": "ozone_horizon",
+   "unit": "",
+   "expected": 12.0642399448,
+   "measured": 12.0642399448,
+   "deviation": 7.36207522203e-15,
+   "tolerance": 1e-12,
+   "derived": true,
+   "setting": {
+    "height_deg": 0.0,
+    "ozone": "on"
+   },
+   "sources": [
+    {
+     "cite": "Wikipedia, “Air mass (astronomy)”, §Variable-density atmosphere",
+     "url": "https://en.wikipedia.org/wiki/Air_mass_(astronomy)",
+     "quote": "The absolute air mass for the geometrical light path discussed above, becomes, for a sea-level observer, σ = ∫₀^{y_atm} ρ (R_E + y) dy / √(R_E² cos² z + 2 R_E y + y²)"
+    }
+   ]
+  }
+ ],
  "sphere": [
   {
    "key": "small_swing",

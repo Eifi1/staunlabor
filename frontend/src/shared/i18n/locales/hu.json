@@ -3134,6 +3134,7 @@
         "hint": "Emelje vagy süllyessze a napot. A levegő ilyen zavaros cső: minél alacsonyabban áll a nap, annál hosszabb az útja a levegőn át.",
         "height": "A nap magassága",
         "height_hint": "Milyen magasan áll a nap a horizont felett.",
+        "drag_hint": "Vagy húzza végig a napot az égen egérrel vagy ujjal.",
         "ozone": "Ózonréteg",
         "ozone_hint": "Főleg a narancssárga fényt nyeli el. Kapcsolja ki, hogy lássa az eget nélküle.",
         "ozone_takes": "A narancsból (600 nm) az ózon elnyel",
@@ -3469,7 +3470,19 @@
         "primed": "gyorsulás, sebesség és hely, ahogyan az együtt forgó méri",
         "a_across": "a dobásra merőleges gyorsulás, ahogyan az együtt forgó méri",
         "n_up": "a platform normálisa, felfelé",
-        "heading_rate": "milyen gyorsan fordul a labda iránya, kívülről nézve"
+        "heading_rate": "milyen gyorsan fordul a labda iránya, kívülről nézve",
+        "beta": "szórási együttható a λ hullámhosszon",
+        "lambda": "hullámhossz",
+        "beta550": "a cső zavarossága: a szórási együttható 550 nm-en",
+        "x_tube": "hely a cső mentén, a lámpától mérve",
+        "L_tube": "a cső hossza",
+        "air_mass": "légtömeg: mennyi levegőn halad át a napfény, a függőleges levegőhöz mérve",
+        "z_zenith": "a nap zenitszöge",
+        "h_sun": "a nap magassága a horizont felett",
+        "tau_air": "a levegő optikai vastagsága függőlegesen, 550 nm-en 0,097",
+        "m3": "az ózonréteg légtömege",
+        "R_earth": "a Föld sugara, 6371 km",
+        "H_ozone": "az ózonréteg magassága, 22 km"
       },
       "cases": {
         "sphere": {
@@ -3740,6 +3753,41 @@
             "setting": "6 ford./perc, sugár 2 m; a guruló labda 3 m/s-mal egyenesen a másik ülés felé, kívülről nézve.",
             "reads": "Gurulás közben a labdának lépést kell tartania az alatta lévő platformmal. A súrlódás eközben folyamatosan elforgatja a sebességét, Ω/(1 + m r²/I) szögsebességgel, tömör golyónál a forgás 2/7-ével: kívülről nézve kört ír le.",
             "why": "A gurulás tényezőjét ellenőrzi: másodpercenként 10,29° a körhinta 36°-a helyett. A megrajzolt pálya első és utolsó darabjának irányáról leolvasva; körön minden húr pontosan abba az irányba mutat, amerre a labda az íve közepén halad."
+          }
+        },
+        "sky": {
+          "rayleigh": {
+            "title": "A kék 4,4-szer erősebben szóródik, mint a piros",
+            "setting": "A cső, ahogy van: 1 m hosszú, zavarossága méterenként 1,5.",
+            "reads": "A hullámhossznál jóval kisebb részecskék a hullámhossz negyedik hatványával fordítottan arányosan szórnak: a kéket 450 nm-en erősebben, mint a pirosat 650 nm-en.",
+            "why": "A negyedik hatványt ellenőrzi, amelyből a cső összes színe adódik: 4,353-szor erősebb."
+          },
+          "light_kept": {
+            "title": "Semmi fény nem vész el",
+            "setting": "A cső, ahogy van: 1 m hosszú, zavarossága méterenként 1,5; kék fény, 450 nm.",
+            "reads": "Ami a cső egy darabján hiányzik, az ott oldalra szóródik: β szorozva a még meglévő fénnyel. Ami a cső teljes hossza mentén oldalra távozik, és ami a végén kijön, együtt kiadja a lámpa teljes fényét.",
+            "why": "Azt ellenőrzi, hogy az oldalsó és a végén kijövő fény összeillik: az oldalsót Simpson-szabállyal összegezve és a végén kijövőt hozzáadva 4 · 10⁻¹⁴ hiányzik, vagyis semmi.",
+            "step": "A forrás egy vékony réteg veszteségét adja meg, μ·Φ·dz, és ebből e^(−μd)-t. A csőben semmi sem nyelődik el, tehát minden réteg vesztesége az, amit oldalra szór. Az oldal ebből még levonja, amit a szórt fény a falig vezető úton elveszít, e^(−βa); ez itt vissza van adva."
+          },
+          "high_sun": {
+            "title": "Magas nap, lapos légkör",
+            "setting": "A nap 60°-kal a horizont felett.",
+            "reads": "Ha a nap magasan áll, a Föld görbülete nem számít: a fény ferdén halad át a levegőn, 1/sin h-szor annyin, mint függőlegesen.",
+            "why": "Az oldal Kasten és Young szerinti légtömegét ellenőrzi: 1,1540 az 1,1547 helyett. Képletük a görbült levegővel és a fény törésével számol, ezért 6 · 10⁻⁴-nel alacsonyabb; a szög vagy a mértékegység hibája itt messze kilógna."
+          },
+          "sky_noon": {
+            "title": "Az ég a déli nap fölött",
+            "setting": "A nap függőlegesen felettünk, 90°, ózonréteg nélkül; zöld fény, 550 nm.",
+            "reads": "A függőlegesen felettünk lévő ég olyan napfény, amely lefelé vezető útján egyszer szóródott: minden magasságban szóródik, és az út hátralevő részén gyengül. Ha maga a nap áll függőlegesen, ez τ·e^(−τ).",
+            "why": "Az oldal egét ellenőrzi a határesetében: a képlet m = 1-nél 0/0 lesz, és az oldal ott külön számolja. Az 1,4 · 10⁻⁵ eltérés oka: a függőleges napra az oldal a Kasten és Young szerinti légtömeget veszi, amely ott nem egészen 1.",
+            "step": "A forrás az egyszer szóródva lefelé érkező fényt adja meg, μ_sw koszinuszú napra és μ koszinuszú nézési irányra. Függőlegesen felfelé nézve (μ = 1), μ_sw = 1/m helyzetű nappal és a levegő alján (ζ = τ) ebből (e^(−τ) − e^(−mτ))/(m − 1) lesz, a napfényhez és a nézési irányba való szóráshoz mérve; ennek határértéke μ → μ_sw esetén τ·e^(−τ)."
+          },
+          "ozone_horizon": {
+            "title": "Az ózonréteg a horizonton",
+            "setting": "A nap a horizonton, 0°, ózonréteggel.",
+            "reads": "Az ózonréteg vékony héjként fekszik 22 km magasan. A horizontról érkező sugár ferdén halad át rajta, de nem végtelen hosszan, mint lapos légkörben: 12-szer annyi ózonon, mint függőlegesen.",
+            "why": "A héjon át vezető utat ellenőrzi, amellyel az oldal az esti nap narancsát gyengíti: 12,064, kézzel az általános integrálból, az oldalon egy átalakított képletből; a kettő 10⁻¹⁴ pontossággal egyezik.",
+            "step": "A forrás bármely ρ(y) sűrűségre megadja a légtömeget az y magasság függvényében. Ha az összes ózon egy vékony héjban van y = H-nál, az integrálból a H helyen vett tört marad, osztva ugyanezzel a törttel függőlegesen (z = 0). A z zenitszög 90° mínusz a nap magassága."
           }
         }
       },
