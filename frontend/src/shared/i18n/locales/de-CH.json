@@ -2074,6 +2074,7 @@
       "play": {
         "title": "Anheben und loslassen",
         "hint": "Lassen Sie eine Kugel fallen, dann zwei, und zählen Sie, wie viele am anderen Ende wegfliegen.",
+        "drag_hint": "Oder fassen Sie eine der linken Kugeln mit der Maus oder dem Finger, ziehen Sie sie hoch und lassen Sie los.",
         "let_go": "Loslassen",
         "pause": "Anhalten",
         "run": "Weiter",

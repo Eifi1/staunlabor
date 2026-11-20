@@ -2074,6 +2074,7 @@
       "play": {
         "title": "Sollevare e lasciare",
         "hint": "Lasci cadere una sfera, poi due, e conti quante ne volano via all'altra estremità.",
+        "drag_hint": "Oppure afferri una delle sfere a sinistra con il mouse o con il dito, la sollevi e la lasci andare.",
         "let_go": "Lasciare",
         "pause": "Pausa",
         "run": "Continuare",

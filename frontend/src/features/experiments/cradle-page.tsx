@@ -1,4 +1,4 @@
-import { useDeferredValue, useEffect, useMemo, useRef, useState } from "react";
+import { useDeferredValue, useEffect, useMemo, useRef, useState, type PointerEvent } from "react";
 import { useTranslation } from "react-i18next";
 import { Hand, Pause, Play } from "lucide-react";
 import { Button, StaticLegend, ToggleGroup, seriesLegendEntries } from "@eifi1/ui-kit";
@@ -108,9 +108,30 @@ export function CradlePreview({ paused }: PreviewProps) {
   return cr ? <CradlePlay cr={cr} preview paused={paused} /> : <PreviewPending />;
 }
 
-function CradleView({ cr, th }: { cr: Cradle; th: number[] }) {
+/**
+ * The row, drawn. Given `onPull`, the left balls can be taken by mouse or
+ * finger (Marcel, 2026-11-20: "über den Touchscreen oder Maus ausgelegt"): the
+ * ball taken and every one to its left lift together, as on the exhibit, at
+ * the angle the pointer makes with the taken ball's string, in whole degrees
+ * within the slider's 5–60°; letting go of it lets them go. Only the left: the
+ * engine lifts from the left, and the right would be its mirror.
+ */
+function CradleView({
+  cr,
+  th,
+  onPull,
+  onLetGo,
+}: {
+  cr: Cradle;
+  th: number[];
+  onPull?: (pull: Pull) => void;
+  onLetGo?: (pull: Pull) => void;
+}) {
   const { t } = useTranslation();
   const hex = useChartHex();
+  // How many balls the pointer holds lifted, while it does.
+  const [held, setHeld] = useState<number | null>(null);
+  const last = useRef<Pull | null>(null);
   // Millimetres, so the drawing's numbers stay near one.
   const d = cr.diameter_m * 1000;
   const L = cr.string_m * 1000;
@@ -120,12 +141,39 @@ function CradleView({ cr, th }: { cr: Cradle; th: number[] }) {
   const reach = half + L * Math.sin(Math.PI / 3) + d;
   const top = -d;
   const bottom = L + d;
+  // The pointer in the drawing's millimetres: the drawing keeps its aspect
+  // across the box's width, so the box maps onto the view box directly.
+  const pullAt = (svg: SVGSVGElement, x: number, y: number, balls: number): Pull | null => {
+    const box = svg.getBoundingClientRect();
+    if (!box.width || !box.height) return null;
+    const px = -reach + ((x - box.left) / box.width) * 2 * reach;
+    const py = top + ((y - box.top) / box.height) * (bottom - top);
+    const pivot = -half + (balls - 1) * pitch;
+    const angle = (Math.atan2(pivot - px, Math.max(py, d / 2)) * 180) / Math.PI;
+    return { balls, angle_deg: Math.round(Math.min(60, Math.max(5, angle))) };
+  };
+  const follow = (svg: SVGSVGElement, x: number, y: number, balls: number) => {
+    const next = pullAt(svg, x, y, balls);
+    if (!next) return;
+    last.current = next;
+    onPull?.(next);
+  };
+  const release = () => {
+    if (held === null) return;
+    setHeld(null);
+    if (last.current) onLetGo?.(last.current);
+  };
   return (
     <svg
       viewBox={`${-reach} ${top} ${2 * reach} ${bottom - top}`}
       role="img"
       aria-label={t("experiments.cradle.view")}
-      className="w-full rounded-lg border border-subtle bg-surface-2 text-muted"
+      className={`w-full rounded-lg border border-subtle bg-surface-2 text-muted ${onPull ? "touch-none select-none" : ""} ${held !== null ? "cursor-grabbing" : ""}`}
+      onPointerMove={(e: PointerEvent<SVGSVGElement>) => {
+        if (held !== null) follow(e.currentTarget, e.clientX, e.clientY, held);
+      }}
+      onPointerUp={release}
+      onPointerCancel={release}
     >
       <line
         x1={-half - d}
@@ -151,6 +199,14 @@ function CradleView({ cr, th }: { cr: Cradle; th: number[] }) {
               fill={hex[i % hex.length]}
               stroke="currentColor"
               vectorEffect="non-scaling-stroke"
+              className={onPull && i < cr.count - 1 && held === null ? "cursor-grab" : undefined}
+              onPointerDown={(e: PointerEvent<SVGCircleElement>) => {
+                const svg = e.currentTarget.ownerSVGElement;
+                if (!onPull || i >= cr.count - 1 || !svg) return;
+                svg.setPointerCapture?.(e.pointerId);
+                setHeld(i + 1);
+                follow(svg, e.clientX, e.clientY, i + 1);
+              }}
             />
           </g>
         );
@@ -278,9 +334,6 @@ function CradlePlay({
     );
   }, [rows, cr.count, hex, locale, t]);
 
-  const view = <CradleView cr={cr} th={th} />;
-  if (preview) return view;
-
   // A new setting hangs the balls up again, lifted as set: the reader lets go.
   const reset = (nextCr: Cradle, nextPull: Pull, go: boolean) => {
     sim.current = begin(nextCr, nextPull);
@@ -288,6 +341,22 @@ function CradlePlay({
     setRows([...sim.current.rows]);
     setRunning(go);
   };
+  // Taken by the pointer: held as it moves, let go when it lets go.
+  const hold = (next: Pull) => {
+    setPull(next);
+    reset(cr, next, false);
+  };
+  const letGoFrom = (next: Pull) => {
+    setPull(next);
+    reset(cr, next, true);
+  };
+  const view = preview ? (
+    <CradleView cr={cr} th={th} />
+  ) : (
+    <CradleView cr={cr} th={th} onPull={hold} onLetGo={letGoFrom} />
+  );
+  if (preview) return view;
+
   const changeCradle = (next: Cradle) => {
     onChange?.(next);
     reset(next, pull, false);
@@ -348,6 +417,7 @@ function CradlePlay({
         </div>
         <div className={`${SIDE.views} mx-auto w-full max-w-xl space-y-2`}>
           {view}
+          <p className="text-sm text-secondary">{t("experiments.cradle.play.drag_hint")}</p>
           <HeldAnswer held={held}>
             <p className="text-sm text-secondary">{t("experiments.cradle.play.after", { speeds: after })}</p>
           </HeldAnswer>

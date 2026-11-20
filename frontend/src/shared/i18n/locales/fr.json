@@ -2074,6 +2074,7 @@
       "play": {
         "title": "Soulever et lâcher",
         "hint": "Lâchez une bille, puis deux, et comptez combien s'envolent à l'autre bout.",
+        "drag_hint": "Ou prenez une des billes de gauche avec la souris ou le doigt, tirez-la vers le haut et lâchez-la.",
         "let_go": "Lâcher",
         "pause": "Pause",
         "run": "Continuer",

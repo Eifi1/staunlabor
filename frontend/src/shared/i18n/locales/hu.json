@@ -2074,6 +2074,7 @@
       "play": {
         "title": "Felemelni és elengedni",
         "hint": "Ejtsen le egy golyót, aztán kettőt, és számolja meg, hány repül el a másik végén.",
+        "drag_hint": "Vagy fogja meg egérrel vagy ujjal az egyik bal oldali golyót, húzza fel, és engedje el.",
         "let_go": "Elengedni",
         "pause": "Megállítás",
         "run": "Tovább",

@@ -2074,6 +2074,7 @@
       "play": {
         "title": "Levantar y soltar",
         "hint": "Deje caer una bola, luego dos, y cuente cuántas salen volando por el otro extremo.",
+        "drag_hint": "O tome una de las bolas de la izquierda con el ratón o con el dedo, levántela y suéltela.",
         "let_go": "Soltar",
         "pause": "Pausa",
         "run": "Seguir",

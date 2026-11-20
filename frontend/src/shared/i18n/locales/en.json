@@ -2074,6 +2074,7 @@
       "play": {
         "title": "Lift and let go",
         "hint": "Let one ball fall, then two, and count how many fly off at the other end.",
+        "drag_hint": "Or take one of the left balls with the mouse or a finger, pull it up and let go.",
         "let_go": "Let go",
         "pause": "Pause",
         "run": "Continue",

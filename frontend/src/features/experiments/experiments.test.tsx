@@ -1206,6 +1206,34 @@ describe("Newton's cradle", () => {
     expect(await screen.findByText(/0\.01 · 0\.01 · 0\.01 · 0\.01 · 0\.59 m\/s$/)).toBeInTheDocument();
   });
 
+  it("lifts the left balls by mouse or finger, and lets them go when let go", async () => {
+    renderWithProviders(<CradlePage />);
+    const view = await screen.findByRole("img", { name: E.cradle.view });
+    // A millimetre of the drawing a pixel, its top left at the box's.
+    const [x0, y0, w, h] = view.getAttribute("viewBox")!.split(" ").map(Number);
+    vi.spyOn(view, "getBoundingClientRect").mockReturnValue({
+      left: 0,
+      top: 0,
+      width: w,
+      height: h,
+      right: w,
+      bottom: h,
+      x: 0,
+      y: 0,
+      toJSON: () => ({}),
+    });
+    // The second ball taken lifts two; pulled to the far left, high up, they
+    // stop at the slider's 60°.
+    fireEvent.pointerDown(view.querySelectorAll("circle")[1], { pointerId: 1, clientX: w / 2, clientY: h / 2 });
+    fireEvent.pointerMove(view, { pointerId: 1, clientX: 0, clientY: 40 - y0 });
+    expect(screen.getByRole("radio", { name: "2" })).toBeChecked();
+    expect(screen.getByRole("slider", { name: E.cradle.play.angle }).getAttribute("aria-valuetext")).toMatch(/^60\b/);
+    expect(screen.queryByRole("button", { name: E.cradle.play.pause })).toBeNull();
+    fireEvent.pointerUp(view, { pointerId: 1 });
+    expect(await screen.findByRole("button", { name: E.cradle.play.pause })).toBeInTheDocument();
+    expect(x0).toBeLessThan(0);
+  });
+
   it("lets go when asked, and can be paused", async () => {
     renderWithProviders(<CradlePage />);
     await screen.findByRole("img", { name: E.cradle.view });
