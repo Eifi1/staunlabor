@@ -156,7 +156,7 @@ on or after its `since` day, never mid-round, which would redraw weeks already
 shown; so `since` is the day it **ships** — a past date puts it into a round
 already under way on the live site. A round of 35 weeks is most of a year, so
 a new exhibit is first shown among the front page's newest (the third stage,
-`docs/plan.md`), not by this pick.
+`docs/plan.md`), not by this pick (Marcel agreed, 2026-11-20).
 
 **The previews are the pages' own auto modes** (`preview-mode.tsx`): each
 page's play component takes `preview` and `paused`, and in a preview it starts
@@ -2244,6 +2244,18 @@ and run no script, so each exhibit's route has its own copy of the page:
 German only: a link preview's request names no language, and de-CH is the
 site's fallback. The pictures cost nothing to serve to speak of: a few
 megabytes in the web image, fetched when a link is shared.
+
+**No moving picture in a link's preview.** Marcel asked (2026-11-20) whether
+a link shared on LinkedIn could show the exhibit moving. It cannot, as far as
+anything published says: LinkedIn shows `og:image` as a still, does not read
+`og:video` for a site's own pages, and an animated GIF there stays on its
+first frame. A video uploaded into the post plays, with the link in its text.
+For that, `scripts/write-clips.mjs` writes `clips/<card>.mp4`: the same card,
+moving, ten seconds at 1920 × 1008, MP4 (H.264), the format every guide to
+LinkedIn's uploads agrees on. The page runs under Playwright's clock, one
+frame's time per photograph, so the clip never stutters; Chromium's
+MediaRecorder encodes, so it needs no ffmpeg. The clips are not committed
+(`clips/` is ignored): nothing on the site uses them.
 
 ## The check, exhibit by exhibit
 

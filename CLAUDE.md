@@ -61,6 +61,7 @@ cd backend && uv run python ../scripts/write-experiments-cases.py         # afte
 cd backend && uv run python ../scripts/write-test-fixtures.py             # after a change to a route's answer
 cd backend && uv run python ../scripts/write-checks.py                   # after a change to an engine with checks
 node scripts/write-previews.mjs                                          # link-preview pictures, after a new exhibit
+node scripts/write-clips.mjs cone                                        # moving cards for posts, into clips/ (not committed)
 cd backend && uv run alembic revision -m "…" --rev-id 0002                # a new migration, written by hand
 ```
 
