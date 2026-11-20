@@ -1,7 +1,16 @@
 /**
  * The picture a shared link shows (WhatsApp, Signal, Mastodon …), 1200 × 630:
- * an exhibit's own preview, held still, beside its title, its question and its
- * address; for the overview, the site's name and line beside four of them.
+ * an exhibit's own preview, held still, beside its title, its question, its
+ * summary and its address; for the overview, the site's name and line beside
+ * four of them. `scripts/write-clips.mjs` films the same card moving.
+ *
+ * One layout for every exhibit (Marcel, 2026-11-20: "eine feste Grösse für die
+ * Vorschaubilder … und dann annähernd gleich viel Text pro Exponat"): the
+ * picture is one box of one size, the drawing fitted into it with its own
+ * frame and ground taken off, so a wide track no longer sits as a small framed
+ * strip in an empty frame; and the text is the title, the question and the
+ * summary, 177 to 325 characters in German (median 245), where title and
+ * question alone left most of the column empty.
  *
  * Never part of the site: `preview-card.html` mounts it in the dev server
  * (`src/preview-card.tsx`), `scripts/write-previews.mjs` photographs it, and
@@ -25,10 +34,19 @@ const OVERVIEW_STILLS: readonly Exhibit[] = ["wave", "harmonograph", "chladni", 
 
 export type Card = Exhibit | "overview";
 
-/** The frame round a still: round the preview on an exhibit's card, round
- *  the whole cell in the overview's grid, whose four are not all of one shape
- *  and would otherwise show four frames of four sizes. */
+/** The frame round a still: round the whole cell, the exhibit's picture box
+ *  and each of the overview's four, which are not all of one shape and would
+ *  otherwise show frames of different sizes. */
 const FRAME = "overflow-hidden rounded-xl border border-subtle bg-surface";
+
+/** The exhibit's picture box: as tall as the card allows, and as wide. */
+const PICTURE = { width: 600, height: 534 };
+
+/** Takes a drawing's own frames and grounds off inside the box, the svg's and
+ *  its wrappers' (the harmonograph's paper, the chair's three peepholes): one
+ *  picture in one frame, not a frame of the drawing's size inside the box's.
+ *  A drawing's own colours are fills, which this leaves alone. */
+const PLAIN = "p-6 [&_*]:rounded-none [&_*]:border-0 [&_*]:bg-transparent";
 
 function Brand({ large = false }: { large?: boolean }) {
   const { t } = useTranslation();
@@ -45,19 +63,20 @@ function ExhibitCard({ exhibit, held }: { exhibit: Exhibit; held: boolean }) {
   const path = EXHIBITS.find((entry) => entry.exhibit === exhibit)?.path ?? "";
   return (
     <div className="flex size-full items-center gap-12 px-12">
-      <div className="w-[600px] shrink-0">
-        <FittedPreview exhibit={exhibit} still={held} height={534} frame={FRAME} />
+      <div className="shrink-0" style={{ width: PICTURE.width }}>
+        <FittedPreview exhibit={exhibit} still={held} height={PICTURE.height} box={FRAME} frame={PLAIN} />
       </div>
-      <div className="flex h-full min-w-0 flex-col justify-between py-14">
+      <div className="flex h-[534px] min-w-0 flex-col justify-between">
         <Brand />
-        <div className="space-y-6">
-          <h1 className="text-5xl leading-tight font-semibold text-primary">
+        <div className="space-y-5">
+          <h1 className="text-[2.6rem] leading-tight font-semibold text-primary">
             {t(`experiments.exhibits.${exhibit}.title`)}
           </h1>
-          <p className="flex gap-3 text-2xl leading-snug text-secondary">
+          <p className="flex gap-3 text-2xl leading-snug text-primary">
             <HelpCircle className="mt-1 size-7 shrink-0 text-brand" aria-hidden />
             {t(`experiments.exhibits.${exhibit}.question`)}
           </p>
+          <p className="text-xl leading-relaxed text-secondary">{t(`experiments.exhibits.${exhibit}.summary`)}</p>
         </div>
         <p className="text-xl text-muted">staunlabor.app{path}</p>
       </div>

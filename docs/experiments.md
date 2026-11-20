@@ -2225,9 +2225,16 @@ and run no script, so each exhibit's route has its own copy of the page:
 * **The pictures**, `frontend/public/previews/<exhibit>.jpg` and
   `overview.jpg`, 1200 × 630 (Open Graph's large card), JPEG under 300 kB so
   WhatsApp shows them large. Each is a card (`preview-card.tsx`) with the
-  exhibit's own preview, the overview's still, beside its title, its question
-  and its address; the overview's card has the site's line beside four
-  previews. The still is the page's preview mode, played for a moment and held,
+  exhibit's own preview, the overview's still, beside its title, its question,
+  its summary and its address; the overview's card has the site's line beside
+  four previews. Since 2026-11-20 (Marcel: "eine feste Grösse für die
+  Vorschaubilder … annähernd gleich viel Text pro Exponat … Besser aufgeteilt
+  ist besser") the picture is one box of 600 × 534 on every card, the drawing
+  fitted into it with its own frames and grounds taken off: before, each
+  drawing brought a frame of its own size, a wide track a small strip in an
+  empty frame. And the summary joined the question: in German 177 to 325
+  characters of text a card (median 245), the column 60 to 88 % full where it
+  had been half empty. The still is the page's preview mode, played for a moment and held,
   so the picture cannot drift from the exhibit; a tall one is scaled down to
   fit. `scripts/write-previews.mjs` photographs the cards in a headless
   Chromium (Playwright) from a dev server of its own, and the pictures are
