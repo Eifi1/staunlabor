@@ -3506,7 +3506,13 @@
         "phi_peg": "angolo attorno al piolo, misurato dal basso",
         "phi0_peg": "ampiezza attorno al piolo",
         "pull": "trazione del filo",
-        "depth": "profondità del piolo sotto la sospensione"
+        "depth": "profondità del piolo sotto la sospensione",
+        "plane_rate": "quanto velocemente ruota il piano di oscillazione rispetto al pavimento, positivo in senso orario",
+        "earth_rate": "rotazione della Terra rispetto alle stelle",
+        "latitude": "latitudine, negativa a sud",
+        "stellar_day": "un giro della Terra rispetto alle stelle",
+        "full_turn": "tempo per un giro completo del piano di oscillazione",
+        "foucault_length": "lunghezza del pendolo"
       },
       "cases": {
         "sphere": {
@@ -3869,6 +3875,35 @@
             "reads": "Il filo si allenta dove la sua trazione si annulla: v²/r + g·cos φ = 0. Con la velocità data dall'altezza di partenza ciò avviene all'altezza (r + 2h)/3.",
             "why": "Verifica dove la pagina fa iniziare il volo libero: 81,6667 cm sopra il punto più basso, a meno di 10⁻⁹, perché la pagina cerca il momento all'interno del suo passo.",
             "step": "La fonte dà la trazione mg(3cos θ − 2cos θ_m) per un pendolo che si inverte a θ_m. Attorno al piolo, al posto di cos θ_m sta l'altezza di partenza: 1 − h/r. Posta uguale a zero, dà cos φ = 2(1 − h/r)/3, e l'altezza r(1 − cos φ) = (r + 2h)/3."
+          }
+        },
+        "foucault": {
+          "winterthur": {
+            "title": "A Winterthur: 11,1° all'ora",
+            "setting": "Winterthur, 47,5° nord; il pendolo lungo 12 m, scostato di 50 cm. Letto al primo punto di inversione dopo un'ora.",
+            "reads": "Il piano di oscillazione ruota rispetto al pavimento con Ω·sin φ, a nord in senso orario: 360° · sin φ per ogni giro della Terra rispetto alle stelle.",
+            "why": "Verifica l'oscillazione disegnata stessa, non solo il numero accanto: dove la sfera si inverte dopo un'ora, il piano è ruotato di 11,09° in senso orario. Lo scarto di 2 · 10⁻⁸ è l'ottava cifra della rotazione terrestre con cui calcola la pagina, 7,2921150 · 10⁻⁵ al secondo.",
+            "step": "La prima fonte dà la velocità di rotazione Ω·sin λ, la seconda il verso: a nord orario. Per Ω si prende un giro della Terra rispetto alle stelle, 86.164,0989 s (terza fonte)."
+          },
+          "pole": {
+            "title": "Al Polo Nord: un giro per ogni rotazione della Terra",
+            "setting": "Al Polo Nord, 90° nord; per il resto come a Winterthur.",
+            "reads": "Al polo il pendolo mantiene il suo piano rispetto alle stelle, e la Terra gli ruota sotto per intero: un giro in un giro della Terra rispetto alle stelle.",
+            "why": "Verifica la rotazione terrestre con cui calcola la pagina: un giro in 23,934 h, contato rispetto alle stelle e non rispetto al Sole.",
+            "step": "Al polo la Terra ruota sotto il pendolo con tutto il suo Ω (prima fonte), un giro completo rispetto alle stelle in 86.164,0989 s (seconda fonte)."
+          },
+          "south": {
+            "title": "A Sydney: al contrario",
+            "setting": "Sydney, 33,9° sud; per il resto come a Winterthur.",
+            "reads": "A sud dell'equatore sin φ è negativo: il piano ruota in senso antiorario.",
+            "why": "Verifica il segno della latitudine nel numero «All'ora» della pagina: −8,39°, cioè 8,39° all'ora in senso antiorario.",
+            "step": "La prima fonte conta in senso orario, e le latitudini a sud come negative. Per il giorno si prende, come sopra, un giro della Terra rispetto alle stelle (seconda fonte)."
+          },
+          "period": {
+            "title": "Il ritmo dell'oscillazione",
+            "setting": "Winterthur, il pendolo lungo 12 m; misurato dal rilascio fino al punto di inversione dopo un'ora, su tutte le mezze oscillazioni in mezzo.",
+            "reads": "Un pendolo con piccola ampiezza oscilla con T = 2π√(L/g), indipendentemente da massa e ampiezza.",
+            "why": "Verifica lunghezza e gravità nell'oscillazione disegnata: 6,9504 s. La rotazione della Terra la cambia solo di 2 · 10⁻⁹."
           }
         }
       },

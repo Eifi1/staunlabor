@@ -3506,7 +3506,13 @@
         "phi_peg": "Winkel um den Stift, von unten gemessen",
         "phi0_peg": "Ausschlag um den Stift",
         "pull": "Zug des Fadens",
-        "depth": "Tiefe des Stifts unter der Aufhängung"
+        "depth": "Tiefe des Stifts unter der Aufhängung",
+        "plane_rate": "wie schnell sich die Schwingebene gegen den Boden dreht, im Uhrzeigersinn positiv",
+        "earth_rate": "Drehung der Erde gegenüber den Sternen",
+        "latitude": "geografische Breite, im Süden negativ",
+        "stellar_day": "eine Umdrehung der Erde gegenüber den Sternen",
+        "full_turn": "Zeit für eine ganze Runde der Schwingebene",
+        "foucault_length": "Länge des Pendels"
       },
       "cases": {
         "sphere": {
@@ -3869,6 +3875,35 @@
             "reads": "Der Faden wird schlaff, wo sein Zug null wird: v²/r + g·cos φ = 0. Mit dem Tempo aus der Starthöhe liegt das auf der Höhe (r + 2h)/3.",
             "why": "Prüft, wo die Seite den freien Flug beginnen lässt: 81,6667 cm über dem tiefsten Punkt, auf 10⁻⁹ genau, denn die Seite sucht den Moment innerhalb ihres Schritts.",
             "step": "Die Quelle gibt den Zug mg(3cos θ − 2cos θ_m) für ein Pendel, das bei θ_m umkehrt. Um den Stift steht für cos θ_m die Starthöhe: 1 − h/r. Null gesetzt gibt das cos φ = 2(1 − h/r)/3, und die Höhe r(1 − cos φ) = (r + 2h)/3."
+          }
+        },
+        "foucault": {
+          "winterthur": {
+            "title": "In Winterthur: 11,1° pro Stunde",
+            "setting": "Winterthur, 47,5° Nord; das Pendel 12 m lang, 50 cm ausgelenkt. Gelesen am ersten Umkehrpunkt nach einer Stunde.",
+            "reads": "Die Schwingebene dreht sich gegen den Boden mit Ω·sin φ, im Norden im Uhrzeigersinn: 360° · sin φ pro Umdrehung der Erde gegenüber den Sternen.",
+            "why": "Prüft die gezeichnete Schwingung selbst, nicht nur die Zahl daneben: Wo die Kugel nach einer Stunde umkehrt, liegt die Ebene 11,09° im Uhrzeigersinn gedreht. Die Abweichung von 2 · 10⁻⁸ ist die achte Stelle der Erddrehung, mit der die Seite rechnet, 7,2921150 · 10⁻⁵ pro Sekunde.",
+            "step": "Die erste Quelle gibt die Drehrate Ω·sin λ, die zweite den Sinn: im Norden im Uhrzeigersinn. Für Ω steht eine Umdrehung der Erde gegenüber den Sternen, 86 164,0989 s (dritte Quelle)."
+          },
+          "pole": {
+            "title": "Am Nordpol: eine Runde pro Erddrehung",
+            "setting": "Am Nordpol, 90° Nord; sonst wie in Winterthur.",
+            "reads": "Am Pol hält das Pendel seine Ebene gegenüber den Sternen, und die Erde dreht sich ganz darunter weg: eine Runde in einer Umdrehung der Erde gegenüber den Sternen.",
+            "why": "Prüft die Erddrehung, mit der die Seite rechnet: eine Runde in 23,934 h, gegenüber den Sternen gezählt und nicht gegenüber der Sonne.",
+            "step": "Am Pol dreht sich die Erde mit ihrem ganzen Ω unter dem Pendel (erste Quelle), einmal ganz herum gegenüber den Sternen in 86 164,0989 s (zweite Quelle)."
+          },
+          "south": {
+            "title": "In Sydney: andersherum",
+            "setting": "Sydney, 33,9° Süd; sonst wie in Winterthur.",
+            "reads": "Südlich des Äquators ist sin φ negativ: Die Ebene dreht sich im Gegenuhrzeigersinn.",
+            "why": "Prüft das Vorzeichen der Breite in der Zahl «Pro Stunde» der Seite: −8,39°, also 8,39° pro Stunde im Gegenuhrzeigersinn.",
+            "step": "Die erste Quelle zählt im Uhrzeigersinn und die Breiten im Süden negativ. Für den Tag steht wie oben eine Umdrehung der Erde gegenüber den Sternen (zweite Quelle)."
+          },
+          "period": {
+            "title": "Der Takt der Schwingung",
+            "setting": "Winterthur, das Pendel 12 m lang; gemessen vom Loslassen bis zum Umkehrpunkt nach einer Stunde, über alle halben Schwingungen dazwischen.",
+            "reads": "Ein Pendel mit kleinem Ausschlag schwingt mit T = 2π√(L/g), unabhängig von Masse und Ausschlag.",
+            "why": "Prüft Länge und Schwerkraft in der gezeichneten Schwingung: 6,9504 s. Die Drehung der Erde ändert sie nur um 2 · 10⁻⁹."
           }
         }
       },

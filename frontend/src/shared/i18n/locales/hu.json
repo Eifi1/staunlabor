@@ -3506,7 +3506,13 @@
         "phi_peg": "a pecek körüli szög, alulról mérve",
         "phi0_peg": "kitérés a pecek körül",
         "pull": "a fonal húzóereje",
-        "depth": "a pecek mélysége a felfüggesztés alatt"
+        "depth": "a pecek mélysége a felfüggesztés alatt",
+        "plane_rate": "milyen gyorsan fordul a lengési sík a padlóhoz képest, az óramutató járásával egyezően pozitív",
+        "earth_rate": "a Föld forgása a csillagokhoz képest",
+        "latitude": "földrajzi szélesség, délen negatív",
+        "stellar_day": "a Föld egy fordulata a csillagokhoz képest",
+        "full_turn": "a lengési sík egy teljes körének ideje",
+        "foucault_length": "az inga hossza"
       },
       "cases": {
         "sphere": {
@@ -3869,6 +3875,35 @@
             "reads": "A fonal ott lazul meg, ahol a húzóereje nullára csökken: v²/r + g·cos φ = 0. A kezdeti magasságból adódó sebességgel ez (r + 2h)/3 magasságban van.",
             "why": "Azt ellenőrzi, hol kezdi az oldal a szabad repülést: 81,6667 cm-rel a legmélyebb pont fölött, 10⁻⁹ pontossággal, mert az oldal a pillanatot a lépésén belül keresi meg.",
             "step": "A forrás egy θ_m-nél visszaforduló ingára adja meg a húzóerőt, mg(3cos θ − 2cos θ_m). A pecek körül cos θ_m helyére a kezdeti magasság kerül: 1 − h/r. Nullával egyenlővé téve ebből cos φ = 2(1 − h/r)/3 adódik, a magasság pedig r(1 − cos φ) = (r + 2h)/3."
+          }
+        },
+        "foucault": {
+          "winterthur": {
+            "title": "Winterthurban: óránként 11,1°",
+            "setting": "Winterthur, északi szélesség 47,5°; az inga 12 m hosszú, 50 cm-rel kitérítve. Az egy óra utáni első fordulópontban leolvasva.",
+            "reads": "A lengési sík a padlóhoz képest Ω·sin φ szögsebességgel fordul, északon az óramutató járásával egyezően: a Föld csillagokhoz viszonyított minden fordulatára 360° · sin φ.",
+            "why": "Magát a megrajzolt lengést ellenőrzi, nem csak a mellette álló számot: ahol a golyó egy óra után visszafordul, a sík 11,09°-kal van elfordulva az óramutató járásával egyezően. A 2 · 10⁻⁸ eltérés a Föld forgásának nyolcadik jegye, amellyel az oldal számol: másodpercenként 7,2921150 · 10⁻⁵.",
+            "step": "Az első forrás az Ω·sin λ forgási sebességet adja meg, a második az irányát: északon az óramutató járásával egyező. Ω helyére a Föld egy, a csillagokhoz viszonyított fordulata kerül, 86 164,0989 s (harmadik forrás)."
+          },
+          "pole": {
+            "title": "Az Északi-sarkon: egy kör a Föld minden fordulatára",
+            "setting": "Az Északi-sarkon, északi szélesség 90°; egyébként mint Winterthurban.",
+            "reads": "A sarkon az inga megtartja síkját a csillagokhoz képest, és a Föld teljes egészében elfordul alatta: egy kör a Föld egy, a csillagokhoz viszonyított fordulata alatt.",
+            "why": "A Föld forgását ellenőrzi, amellyel az oldal számol: egy kör 23,934 h alatt, a csillagokhoz és nem a Naphoz viszonyítva.",
+            "step": "A sarkon a Föld teljes Ω-jával fordul el az inga alatt (első forrás), a csillagokhoz képest egyszer teljesen körbe 86 164,0989 s alatt (második forrás)."
+          },
+          "south": {
+            "title": "Sydneyben: fordítva",
+            "setting": "Sydney, déli szélesség 33,9°; egyébként mint Winterthurban.",
+            "reads": "Az Egyenlítőtől délre sin φ negatív: a sík az óramutatóval ellentétesen fordul.",
+            "why": "A szélesség előjelét ellenőrzi az oldal „Óránként” számában: −8,39°, vagyis óránként 8,39° az óramutatóval ellentétesen.",
+            "step": "Az első forrás az óramutató járásával egyező irányt veszi pozitívnak, a déli szélességeket pedig negatívnak. A nap helyére, mint fent, a Föld egy, a csillagokhoz viszonyított fordulata kerül (második forrás)."
+          },
+          "period": {
+            "title": "A lengés üteme",
+            "setting": "Winterthur, az inga 12 m hosszú; az elengedéstől az egy óra utáni fordulópontig mérve, a közbeeső összes féllengésen át.",
+            "reads": "Egy kis kitérésű inga T = 2π√(L/g) periódussal leng, tömegétől és kitérésétől függetlenül.",
+            "why": "A hosszt és a nehézségi gyorsulást ellenőrzi a megrajzolt lengésben: 6,9504 s. A Föld forgása ezt csak 2 · 10⁻⁹-nel változtatja meg."
           }
         }
       },

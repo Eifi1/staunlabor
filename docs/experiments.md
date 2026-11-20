@@ -2410,6 +2410,12 @@ its pull changing sign between the ends of a step, so right at the edge it can
 miss a dip below zero shorter than a step: a band of about 7 · 10⁻⁷ m in the
 peg's depth, which the loop case's tolerance of 2 · 10⁻⁶ covers.
 
+**Foucault's** four (2026-11-20) hold the plane's turn to sin φ times the
+Earth's rate against the stars, at Winterthur, at the pole and in the south,
+and the full turn's day. The engine's Earth rate lies 2 · 10⁻⁸ off the
+stellar day, in its eighth digit. Its drawing is scaled to the swing, so it
+has no gesture: pulled out further, everything would grow with it.
+
 **On the page** a section "Check it yourself" (`check-section.tsx`) lists the
 cases, each with its formula as an `Equation` (`check-formulas.ts`), both
 values to seven digits, the deviation, why the case would catch a mistake,

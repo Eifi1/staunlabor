@@ -88,7 +88,19 @@ const wave = fixtures.wave as unknown as WaveFigures;
 
 /** No exhibit checked yet: what the server answers until an admin checks one. */
 const UNCHECKED = {
-  with_cases: ["chair", "chladni", "coil", "coriolis", "cradle", "peg", "sky", "sphere", "waterwheel", "wave"],
+  with_cases: [
+    "chair",
+    "chladni",
+    "coil",
+    "coriolis",
+    "cradle",
+    "foucault",
+    "peg",
+    "sky",
+    "sphere",
+    "waterwheel",
+    "wave",
+  ],
   checked: [],
 };
 
@@ -1654,6 +1666,17 @@ describe("setting a check case up", () => {
       expect(screen.getByRole("slider", { name: E.peg.change.peg }).getAttribute("aria-valuetext")).toMatch(/^60\b/),
     );
     expect(screen.getByRole("slider", { name: E.peg.change.start }).getAttribute("aria-valuetext")).toMatch(/^90\b/);
+  });
+
+  it("hangs Foucault's pendulum at the pole and runs an hour a second, for the pole's turn", async () => {
+    renderWithProviders(<FoucaultPage />);
+    await screen.findByRole("img", { name: E.foucault.view });
+    await setUp(1);
+    await waitFor(() =>
+      expect(screen.getByRole("slider", { name: E.foucault.play.latitude }).getAttribute("aria-valuetext")).toMatch(
+        /^90\b/,
+      ),
+    );
   });
 
   it("puts a 15 kg car on the coil's track for the brake, without rolling resistance", async () => {

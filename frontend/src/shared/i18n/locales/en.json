@@ -3506,7 +3506,13 @@
         "phi_peg": "angle round the peg, from below",
         "phi0_peg": "amplitude round the peg",
         "pull": "the string's pull",
-        "depth": "depth of the peg below the pivot"
+        "depth": "depth of the peg below the pivot",
+        "plane_rate": "how fast the plane of the swing turns against the floor, clockwise positive",
+        "earth_rate": "the Earth's turn against the stars",
+        "latitude": "latitude, negative in the south",
+        "stellar_day": "one turn of the Earth against the stars",
+        "full_turn": "time for the plane to turn once round",
+        "foucault_length": "the pendulum's length"
       },
       "cases": {
         "sphere": {
@@ -3869,6 +3875,35 @@
             "reads": "The string goes slack where its pull falls to zero: v²/r + g·cos φ = 0. With the speed from the starting height that is at the height (r + 2h)/3.",
             "why": "Checks where the page lets the free flight begin: 81.6667 cm above the bottom, to 10⁻⁹, since the page finds the moment within its step.",
             "step": "The source gives the pull mg(3cos θ − 2cos θ_m) for a pendulum turning at θ_m. Round the peg the starting height stands in for cos θ_m: 1 − h/r. Set to zero, that gives cos φ = 2(1 − h/r)/3, and the height r(1 − cos φ) = (r + 2h)/3."
+          }
+        },
+        "foucault": {
+          "winterthur": {
+            "title": "In Winterthur: 11.1° an hour",
+            "setting": "Winterthur, 47.5° north; the pendulum 12 m long, let go 50 cm out. Read at the first turning point after an hour.",
+            "reads": "The plane of the swing turns against the floor at Ω·sin φ, clockwise in the north: 360° · sin φ per turn of the Earth against the stars.",
+            "why": "Checks the swing drawn, not only the figure beside it: where the bob turns back after an hour, the plane lies turned 11.09° clockwise. The 2 · 10⁻⁸ off is the eighth digit of the Earth's turn the page takes, 7.2921150 · 10⁻⁵ per second.",
+            "step": "The first source gives the rate Ω·sin λ, the second its sense: clockwise in the north. For Ω stands one turn of the Earth against the stars, 86 164.0989 s (third source)."
+          },
+          "pole": {
+            "title": "At the North Pole: once round per turn of the Earth",
+            "setting": "At the North Pole, 90° north; otherwise as in Winterthur.",
+            "reads": "At the pole the pendulum keeps its plane against the stars, and the whole Earth turns away under it: once round in one turn of the Earth against the stars.",
+            "why": "Checks the Earth's turn the page takes: once round in 23.934 h, counted against the stars and not against the Sun.",
+            "step": "At the pole the Earth turns under the pendulum at its whole Ω (first source), once round against the stars in 86 164.0989 s (second source)."
+          },
+          "south": {
+            "title": "In Sydney: the other way",
+            "setting": "Sydney, 33.9° south; otherwise as in Winterthur.",
+            "reads": "South of the equator sin φ is negative: the plane turns anticlockwise.",
+            "why": "Checks the latitude's sign in the page's figure \"Per hour\": −8.39°, that is 8.39° an hour anticlockwise.",
+            "step": "The first source counts clockwise, and southern latitudes as negative. For the day stands, as above, one turn of the Earth against the stars (second source)."
+          },
+          "period": {
+            "title": "The beat of the swing",
+            "setting": "Winterthur, the pendulum 12 m long; timed from the release to the turning point after an hour, over all the half swings between.",
+            "reads": "A pendulum swinging little swings at T = 2π√(L/g), whatever its mass and swing.",
+            "why": "Checks the length and gravity in the swing drawn: 6.9504 s. The Earth's turn changes it by only 2 · 10⁻⁹."
           }
         }
       },

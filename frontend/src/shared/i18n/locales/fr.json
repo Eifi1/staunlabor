@@ -3506,7 +3506,13 @@
         "phi_peg": "angle autour de la cheville, mesuré depuis le bas",
         "phi0_peg": "amplitude autour de la cheville",
         "pull": "traction du fil",
-        "depth": "profondeur de la cheville sous la suspension"
+        "depth": "profondeur de la cheville sous la suspension",
+        "plane_rate": "la vitesse à laquelle le plan d’oscillation tourne par rapport au sol, positive dans le sens horaire",
+        "earth_rate": "rotation de la Terre par rapport aux étoiles",
+        "latitude": "latitude, négative au sud",
+        "stellar_day": "un tour de la Terre par rapport aux étoiles",
+        "full_turn": "temps d’un tour complet du plan d’oscillation",
+        "foucault_length": "longueur du pendule"
       },
       "cases": {
         "sphere": {
@@ -3869,6 +3875,35 @@
             "reads": "Le fil se détend là où sa traction s’annule : v²/r + g·cos φ = 0. Avec la vitesse tirée de la hauteur de départ, cela se produit à la hauteur (r + 2h)/3.",
             "why": "Vérifie où la page fait commencer le vol libre : 81,6667 cm au-dessus du point le plus bas, à 10⁻⁹ près, car la page cherche l’instant à l’intérieur de son pas.",
             "step": "La source donne la traction mg(3cos θ − 2cos θ_m) pour un pendule qui rebrousse chemin en θ_m. Autour de la cheville, la hauteur de départ remplace cos θ_m : 1 − h/r. Égalée à zéro, elle donne cos φ = 2(1 − h/r)/3, et la hauteur r(1 − cos φ) = (r + 2h)/3."
+          }
+        },
+        "foucault": {
+          "winterthur": {
+            "title": "À Winterthour : 11,1° par heure",
+            "setting": "Winterthour, 47,5° nord ; le pendule long de 12 m, écarté de 50 cm. Relevé au premier point de retour après une heure.",
+            "reads": "Le plan d’oscillation tourne par rapport au sol à Ω·sin φ, dans le sens horaire au nord : 360° · sin φ par tour de la Terre par rapport aux étoiles.",
+            "why": "Vérifie l’oscillation dessinée elle-même, pas seulement le nombre à côté : là où la boule rebrousse chemin après une heure, le plan est tourné de 11,09° dans le sens horaire. L’écart de 2 · 10⁻⁸ est le huitième chiffre de la rotation de la Terre avec laquelle calcule la page, 7,2921150 · 10⁻⁵ par seconde.",
+            "step": "La première source donne la vitesse de rotation Ω·sin λ, la deuxième son sens : horaire au nord. Pour Ω, on prend un tour de la Terre par rapport aux étoiles, 86 164,0989 s (troisième source)."
+          },
+          "pole": {
+            "title": "Au pôle Nord : un tour par rotation de la Terre",
+            "setting": "Au pôle Nord, 90° nord ; pour le reste, comme à Winterthour.",
+            "reads": "Au pôle, le pendule garde son plan par rapport aux étoiles, et la Terre tourne entièrement en dessous : un tour en un tour de la Terre par rapport aux étoiles.",
+            "why": "Vérifie la rotation de la Terre avec laquelle calcule la page : un tour en 23,934 h, compté par rapport aux étoiles et non par rapport au Soleil.",
+            "step": "Au pôle, la Terre tourne sous le pendule avec tout son Ω (première source), un tour complet par rapport aux étoiles en 86 164,0989 s (deuxième source)."
+          },
+          "south": {
+            "title": "À Sydney : dans l’autre sens",
+            "setting": "Sydney, 33,9° sud ; pour le reste, comme à Winterthour.",
+            "reads": "Au sud de l’équateur, sin φ est négatif : le plan tourne dans le sens antihoraire.",
+            "why": "Vérifie le signe de la latitude dans le nombre « Par heure » de la page : −8,39°, soit 8,39° par heure dans le sens antihoraire.",
+            "step": "La première source compte dans le sens horaire, et les latitudes au sud comme négatives. Pour le jour, on prend comme ci-dessus un tour de la Terre par rapport aux étoiles (deuxième source)."
+          },
+          "period": {
+            "title": "La cadence de l’oscillation",
+            "setting": "Winterthour, le pendule long de 12 m ; mesuré du lâcher jusqu’au point de retour après une heure, sur toutes les demi-oscillations entre les deux.",
+            "reads": "Un pendule de faible amplitude oscille avec T = 2π√(L/g), quelles que soient sa masse et son amplitude.",
+            "why": "Vérifie la longueur et la pesanteur dans l’oscillation dessinée : 6,9504 s. La rotation de la Terre ne la modifie que de 2 · 10⁻⁹."
           }
         }
       },

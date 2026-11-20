@@ -55,6 +55,10 @@ const H_START: CheckSymbol = { tex: "h", key: "h_start", unit: "m" };
 const Z_BOB: CheckSymbol = { tex: "z", key: "h", unit: "m" };
 const PHI_PEG: CheckSymbol = { tex: String.raw`\varphi`, key: "phi_peg", unit: "°" };
 const V: CheckSymbol = { tex: "v", key: "v", unit: "m/s" };
+const PLANE_RATE: CheckSymbol = { tex: String.raw`\omega_F`, key: "plane_rate", unit: "°/h" };
+const EARTH_RATE: CheckSymbol = { tex: String.raw`\Omega`, key: "earth_rate", unit: "rad/s" };
+const LATITUDE: CheckSymbol = { tex: String.raw`\varphi`, key: "latitude", unit: "°" };
+const STELLAR_DAY: CheckSymbol = { tex: String.raw`T_\star`, key: "stellar_day", unit: "h" };
 
 export const CHECK_FORMULAS: Record<string, Record<string, CheckFormula>> = {
   sphere: {
@@ -478,6 +482,28 @@ export const CHECK_FORMULAS: Record<string, Record<string, CheckFormula>> = {
     slack: {
       tex: String.raw`\frac{v^2}{r} + g\cos\varphi = 0, \quad v^2 = 2g\,(h - z), \quad z = r\,(1 - \cos\varphi) \;\Rightarrow\; z = \frac{r + 2h}{3}`,
       symbols: [V, R_SMALL, G, PHI_PEG, H_START, Z_BOB],
+    },
+  },
+  foucault: {
+    winterthur: {
+      tex: String.raw`\omega_F = \Omega\,\sin\varphi = \frac{360^\circ\,\sin\varphi}{T_\star}`,
+      symbols: [PLANE_RATE, EARTH_RATE, LATITUDE, STELLAR_DAY],
+    },
+    pole: {
+      tex: String.raw`T_{360} = \frac{2\pi}{\Omega\,\sin 90^\circ} = T_\star`,
+      symbols: [{ tex: String.raw`T_{360}`, key: "full_turn", unit: "h" }, EARTH_RATE, STELLAR_DAY],
+    },
+    south: {
+      tex: String.raw`\omega_F = \frac{360^\circ\,\sin\varphi}{T_\star} < 0 \quad \text{for} \quad \varphi < 0`,
+      symbols: [PLANE_RATE, LATITUDE, STELLAR_DAY],
+    },
+    period: {
+      tex: String.raw`T = 2\pi\sqrt{\frac{L}{g}}`,
+      symbols: [
+        { tex: "T", key: "T", unit: "s" },
+        { tex: "L", key: "foucault_length", unit: "m" },
+        { tex: "g", key: "g", unit: "m/s²" },
+      ],
     },
   },
 };

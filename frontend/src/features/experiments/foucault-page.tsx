@@ -14,6 +14,7 @@ import { BuildPending } from "./build-pending";
 import { HeldAnswer, useHeld, type Held } from "./held";
 import { PreviewPending, type PreviewMode, type PreviewProps } from "./preview-mode";
 import { startsRunning } from "./play";
+import { settingNumber, useCheckRequest, useCheckSetting, type CheckSetting } from "./check-setting";
 import {
   WINTERTHUR_DEG,
   degreesPerHour,
@@ -69,6 +70,15 @@ export function FoucaultPage() {
   const [build, setBuild] = useState<FoucaultPendulum | null>(null);
   const held = useHeld();
   const p = build ?? defaults.data?.foucault ?? null;
+  // A check case's "Set it up": the pendulum and its place here; the play,
+  // built anew for them, sets the clock's speed.
+  const request = useCheckRequest("foucault");
+  const [seen, setSeen] = useState<number | null>(null);
+  if (request && !request.done && request.nonce !== seen && p) {
+    setSeen(request.nonce);
+    const next = foucaultOf(p, request.setting);
+    if (JSON.stringify(next) !== JSON.stringify(p)) setBuild(next);
+  }
   return (
     <ExhibitFrame
       exhibit="foucault"
@@ -99,6 +109,16 @@ export function FoucaultPreview({ paused }: PreviewProps) {
   const defaults = useExperimentsDefaults();
   const p = defaults.data?.foucault;
   return p ? <FoucaultPlay p={p} preview paused={paused} /> : <PreviewPending />;
+}
+
+/** The pendulum and its place a case names, the rest as it is. */
+function foucaultOf(p: FoucaultPendulum, setting: CheckSetting): FoucaultPendulum {
+  return {
+    ...p,
+    length_m: settingNumber(setting, "length_m", p.length_m),
+    amplitude_m: settingNumber(setting, "amplitude_m", p.amplitude_m),
+    latitude_deg: settingNumber(setting, "latitude_deg", p.latitude_deg),
+  };
 }
 
 function FoucaultView({ p, time, trail }: { p: FoucaultPendulum; time: number; trail: Array<[number, number]> }) {
@@ -187,6 +207,14 @@ function FoucaultPlay({
   const [speedHere, setSpeed] = useState<Speed>(60);
   const running = preview ? !paused : runningHere;
   const speed = preview ? 3600 : speedHere;
+  // Once the play's pendulum is the case's, the clock at the case's speed.
+  useCheckSetting("foucault", (setting) => {
+    if (preview || JSON.stringify(foucaultOf(p, setting)) !== JSON.stringify(p)) return false;
+    const at = settingNumber(setting, "speed", speedHere);
+    if (SPEEDS.includes(at as Speed)) setSpeed(at as Speed);
+    setRunning(true);
+    return true;
+  });
   const show = held?.show;
 
   useEffect(() => {

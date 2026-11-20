@@ -3506,7 +3506,13 @@
         "phi_peg": "ángulo alrededor del clavo, medido desde abajo",
         "phi0_peg": "amplitud alrededor del clavo",
         "pull": "tirón del hilo",
-        "depth": "profundidad del clavo bajo la suspensión"
+        "depth": "profundidad del clavo bajo la suspensión",
+        "plane_rate": "lo rápido que gira el plano de oscilación respecto al suelo, positivo en sentido horario",
+        "earth_rate": "giro de la Tierra respecto a las estrellas",
+        "latitude": "latitud, negativa en el sur",
+        "stellar_day": "una vuelta de la Tierra respecto a las estrellas",
+        "full_turn": "tiempo de una vuelta completa del plano de oscilación",
+        "foucault_length": "longitud del péndulo"
       },
       "cases": {
         "sphere": {
@@ -3869,6 +3875,35 @@
             "reads": "El hilo se afloja donde su tirón se anula: v²/r + g·cos φ = 0. Con la velocidad que da la altura de partida, eso ocurre a la altura (r + 2h)/3.",
             "why": "Comprueba dónde hace empezar la página el vuelo libre: 81,6667 cm sobre el punto más bajo, con una precisión de 10⁻⁹, porque la página busca el momento dentro de su paso.",
             "step": "La fuente da el tirón mg(3cos θ − 2cos θ_m) para un péndulo con punto de retorno en θ_m. Alrededor del clavo, en lugar de cos θ_m entra la altura de partida: 1 − h/r. Igualado a cero, da cos φ = 2(1 − h/r)/3, y la altura r(1 − cos φ) = (r + 2h)/3."
+          }
+        },
+        "foucault": {
+          "winterthur": {
+            "title": "En Winterthur: 11,1° por hora",
+            "setting": "Winterthur, 47,5° norte; el péndulo de 12 m de largo, apartado 50 cm. Leído en el primer punto de retorno tras una hora.",
+            "reads": "El plano de oscilación gira respecto al suelo con Ω·sin φ, en el norte en sentido horario: 360° · sin φ por cada vuelta de la Tierra respecto a las estrellas.",
+            "why": "Comprueba la propia oscilación dibujada, no solo la cifra de al lado: donde la bola invierte el sentido tras una hora, el plano está girado 11,09° en sentido horario. La desviación de 2 · 10⁻⁸ es la octava cifra del giro de la Tierra con el que calcula la página, 7,2921150 · 10⁻⁵ por segundo.",
+            "step": "La primera fuente da la velocidad de giro Ω·sin λ; la segunda, el sentido: en el norte, horario. Para Ω se toma una vuelta de la Tierra respecto a las estrellas, 86 164,0989 s (tercera fuente)."
+          },
+          "pole": {
+            "title": "En el Polo Norte: una vuelta por cada giro de la Tierra",
+            "setting": "En el Polo Norte, 90° norte; por lo demás, como en Winterthur.",
+            "reads": "En el polo, el péndulo mantiene su plano respecto a las estrellas, y la Tierra gira entera por debajo: una vuelta en una vuelta de la Tierra respecto a las estrellas.",
+            "why": "Comprueba el giro de la Tierra con el que calcula la página: una vuelta en 23,934 h, contada respecto a las estrellas y no respecto al Sol.",
+            "step": "En el polo, la Tierra gira bajo el péndulo con todo su Ω (primera fuente), una vuelta completa respecto a las estrellas en 86 164,0989 s (segunda fuente)."
+          },
+          "south": {
+            "title": "En Sídney: al revés",
+            "setting": "Sídney, 33,9° sur; por lo demás, como en Winterthur.",
+            "reads": "Al sur del ecuador, sin φ es negativo: el plano gira en sentido antihorario.",
+            "why": "Comprueba el signo de la latitud en la cifra «Por hora» de la página: −8,39°, es decir, 8,39° por hora en sentido antihorario.",
+            "step": "La primera fuente cuenta en sentido horario, y las latitudes del sur como negativas. Para el día se toma, como arriba, una vuelta de la Tierra respecto a las estrellas (segunda fuente)."
+          },
+          "period": {
+            "title": "El compás de la oscilación",
+            "setting": "Winterthur, el péndulo de 12 m de largo; medido desde que se suelta hasta el punto de retorno tras una hora, sobre todas las semioscilaciones intermedias.",
+            "reads": "Un péndulo de amplitud pequeña oscila con T = 2π√(L/g), sean cuales sean su masa y su amplitud.",
+            "why": "Comprueba la longitud y la gravedad en la oscilación dibujada: 6,9504 s. El giro de la Tierra solo la cambia en 2 · 10⁻⁹."
           }
         }
       },

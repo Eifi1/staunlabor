@@ -614,6 +614,116 @@
    ]
   }
  ],
+ "foucault": [
+  {
+   "key": "winterthur",
+   "unit": "°/h",
+   "expected": 11.0894379523,
+   "measured": 11.0894377291,
+   "deviation": 2.01218028127e-08,
+   "tolerance": 1e-07,
+   "derived": true,
+   "setting": {
+    "length_m": 12.0,
+    "amplitude_m": 0.5,
+    "latitude_deg": 47.5,
+    "speed": 3600.0
+   },
+   "sources": [
+    {
+     "cite": "D. Cline, Variational Principles in Classical Mechanics (LibreTexts), §12.13 “Foucault pendulum”",
+     "url": "https://phys.libretexts.org/Bookshelves/Classical_Mechanics/Variational_Principles_in_Classical_Mechanics_(Cline)/12%3A_Non-inertial_Reference_Frames/12.13%3A_Foucault_pendulum",
+     "quote": "At lower latitudes, the pendulum precesses at the lower angular frequency Ω_z = Ω sin λ that goes to zero at the equator."
+    },
+    {
+     "cite": "Wikipedia, “Foucault pendulum”, §“Mechanism”",
+     "url": "https://en.wikipedia.org/wiki/Foucault_pendulum",
+     "quote": "the angular speed, ω (measured in clockwise degrees per sidereal day), is proportional to the sine of the latitude, φ: ω = 360° sin φ / day, where latitudes north and south of the equator are defined as positive and negative, respectively."
+    },
+    {
+     "cite": "Wikipedia, “Earth’s rotation”, §“Stellar and sidereal day” (after IERS)",
+     "url": "https://en.wikipedia.org/wiki/Earth%27s_rotation",
+     "quote": "Earth's rotation period relative to the International Celestial Reference Frame, called its stellar day by the International Earth Rotation and Reference Systems Service (IERS), is 86 164.098 903 691 seconds of mean solar time (UT1)"
+    }
+   ]
+  },
+  {
+   "key": "pole",
+   "unit": "h",
+   "expected": 23.9344719177,
+   "measured": 23.9344723992,
+   "deviation": 2.01185698133e-08,
+   "tolerance": 1e-07,
+   "derived": true,
+   "setting": {
+    "length_m": 12.0,
+    "amplitude_m": 0.5,
+    "latitude_deg": 90.0,
+    "speed": 3600.0
+   },
+   "sources": [
+    {
+     "cite": "D. Cline, Variational Principles in Classical Mechanics (LibreTexts), §12.13 “Foucault pendulum”",
+     "url": "https://phys.libretexts.org/Bookshelves/Classical_Mechanics/Variational_Principles_in_Classical_Mechanics_(Cline)/12%3A_Non-inertial_Reference_Frames/12.13%3A_Foucault_pendulum",
+     "quote": "At the north pole the earth rotates under the pendulum with angular velocity Ω and the axis of the pendulum is fixed in an inertial frame of reference."
+    },
+    {
+     "cite": "Wikipedia, “Earth’s rotation”, §“Stellar and sidereal day” (after IERS)",
+     "url": "https://en.wikipedia.org/wiki/Earth%27s_rotation",
+     "quote": "Earth's rotation period relative to the International Celestial Reference Frame, called its stellar day by the International Earth Rotation and Reference Systems Service (IERS), is 86 164.098 903 691 seconds of mean solar time (UT1)"
+    }
+   ]
+  },
+  {
+   "key": "south",
+   "unit": "°/h",
+   "expected": -8.38908165274,
+   "measured": -8.38908148396,
+   "deviation": 2.01185693388e-08,
+   "tolerance": 1e-07,
+   "derived": true,
+   "setting": {
+    "length_m": 12.0,
+    "amplitude_m": 0.5,
+    "latitude_deg": -33.9,
+    "speed": 3600.0
+   },
+   "sources": [
+    {
+     "cite": "Wikipedia, “Foucault pendulum”, §“Mechanism”",
+     "url": "https://en.wikipedia.org/wiki/Foucault_pendulum",
+     "quote": "the angular speed, ω (measured in clockwise degrees per sidereal day), is proportional to the sine of the latitude, φ: ω = 360° sin φ / day, where latitudes north and south of the equator are defined as positive and negative, respectively."
+    },
+    {
+     "cite": "Wikipedia, “Earth’s rotation”, §“Stellar and sidereal day” (after IERS)",
+     "url": "https://en.wikipedia.org/wiki/Earth%27s_rotation",
+     "quote": "Earth's rotation period relative to the International Celestial Reference Frame, called its stellar day by the International Earth Rotation and Reference Systems Service (IERS), is 86 164.098 903 691 seconds of mean solar time (UT1)"
+    }
+   ]
+  },
+  {
+   "key": "period",
+   "unit": "s",
+   "expected": 6.95040567109,
+   "measured": 6.95040565882,
+   "deviation": 1.76524332914e-09,
+   "tolerance": 1e-08,
+   "derived": false,
+   "setting": {
+    "length_m": 12.0,
+    "amplitude_m": 0.5,
+    "latitude_deg": 47.5,
+    "speed": 3600.0
+   },
+   "sources": [
+    {
+     "cite": "OpenStax, University Physics Volume 1, §15.4 Pendulums, Eq. 15.19",
+     "url": "https://openstax.org/books/university-physics-volume-1/pages/15-4-pendulums",
+     "quote": "and the period is T = 2π√(L/g)."
+    }
+   ]
+  }
+ ],
  "peg": [
   {
    "key": "same_height",
