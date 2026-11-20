@@ -85,7 +85,12 @@ instead (`/#all-exhibits`). Top to bottom (`overview-page.tsx`):
   Claude doc of 2026-11-19). Then its summary and the first paragraph of its
   page's "At the exhibit" (which says what stands there without giving the
   trick away, in all seven languages already), with its drawing playing to
-  the right (above it on a phone, smaller, so the question still shows). Then
+  the right (above it on a phone, smaller, so the question still shows), in
+  one box of one size whatever the exhibit, its own frame taken off (Marcel,
+  2026-11-20, of the first impression: "Da ist es am wichtigsten"); before,
+  the box shrank round a wide drawing and grew round a tall one. The text
+  beside it, question, summary and first paragraph at the exhibit, is 318 to
+  517 characters in German (median 396). Then
   the one primary button, into the exhibit, and one down to the list. Until
   2026-11-20 a third, "Earlier days" (then "Earlier weeks"), opened the past
   picks in a dialog (Marcel, 2026-11-19: "Show the history only in a dialog

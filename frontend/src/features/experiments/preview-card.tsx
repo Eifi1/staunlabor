@@ -42,12 +42,6 @@ const FRAME = "overflow-hidden rounded-xl border border-subtle bg-surface";
 /** The exhibit's picture box: as tall as the card allows, and as wide. */
 const PICTURE = { width: 600, height: 534 };
 
-/** Takes a drawing's own frames and grounds off inside the box, the svg's and
- *  its wrappers' (the harmonograph's paper, the chair's three peepholes): one
- *  picture in one frame, not a frame of the drawing's size inside the box's.
- *  A drawing's own colours are fills, which this leaves alone. */
-const PLAIN = "p-6 [&_*]:rounded-none [&_*]:border-0 [&_*]:bg-transparent";
-
 function Brand({ large = false }: { large?: boolean }) {
   const { t } = useTranslation();
   return (
@@ -64,7 +58,7 @@ function ExhibitCard({ exhibit, held }: { exhibit: Exhibit; held: boolean }) {
   return (
     <div className="flex size-full items-center gap-12 px-12">
       <div className="shrink-0" style={{ width: PICTURE.width }}>
-        <FittedPreview exhibit={exhibit} still={held} height={PICTURE.height} box={FRAME} frame={PLAIN} />
+        <FittedPreview exhibit={exhibit} still={held} height={PICTURE.height} box={FRAME} frame="p-6" plain />
       </div>
       <div className="flex h-[534px] min-w-0 flex-col justify-between">
         <Brand />

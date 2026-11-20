@@ -88,13 +88,15 @@ export function ExperimentsOverviewPage() {
   );
 }
 
-/** The drawing's height: most of the screen beside the text, less on a phone,
- *  where it stands above the text and the title must still show. */
+/** The picture box's height: most of the screen beside the text, less on a
+ *  phone, where it stands above the text and the question must still show;
+ *  never more than 560 px, so beside the text it stays about 4 : 3 rather
+ *  than a tall panel round a wide drawing. */
 function useHeroHeight(): number {
   const measure = () => {
     if (typeof window === "undefined") return 420;
     const wide = window.matchMedia?.("(min-width: 768px)").matches ?? true;
-    return Math.round(Math.min(720, Math.max(240, window.innerHeight * (wide ? 0.72 : 0.42))));
+    return Math.round(Math.min(560, Math.max(240, window.innerHeight * (wide ? 0.66 : 0.42))));
   };
   const [height, setHeight] = useState(measure);
   useEffect(() => {
@@ -111,6 +113,13 @@ function useHeroHeight(): number {
  * guess at, and its drawing, playing, to the right; on a phone the drawing
  * stands above. The first paragraph of the page's "At the exhibit" is the
  * longer text: it says what is there without giving the trick away.
+ *
+ * The drawing sits in one box of one size, whatever the exhibit, its own
+ * frame taken off (Marcel, 2026-11-20: the first impression, "Da ist es am
+ * wichtigsten"): before, the box shrank to a wide drawing and grew round a
+ * tall one, and each came in a frame of its own size. The text beside it is
+ * 318 to 517 characters in German (question, summary, first paragraph at the
+ * exhibit; median 396), so the two halves balance for every exhibit.
  */
 function WeekHero({ entry, week }: { entry: ExhibitEntry; week: string }) {
   const { t } = useTranslation();
@@ -156,7 +165,13 @@ function WeekHero({ entry, week }: { entry: ExhibitEntry; week: string }) {
           </Button>
         </div>
       </div>
-      <FittedPreview exhibit={entry.exhibit} height={height} shrink box="order-first w-full md:order-last" />
+      <FittedPreview
+        exhibit={entry.exhibit}
+        height={height}
+        plain
+        box="order-first w-full rounded-xl border border-subtle bg-surface md:order-last"
+        frame="p-4 md:p-8"
+      />
     </section>
   );
 }
@@ -219,9 +234,10 @@ function AllExhibits({ current }: { current: Exhibit }) {
   );
 }
 
-/** How tall a card's drawing is: one height for the row, the upright ones
- *  (the elephant, the diver) scaled down to it rather than making their card
- *  the longest in the grid. */
+/** How tall a card's drawing is: one box of one size for every card, the
+ *  upright ones (the elephant, the diver) scaled down to it rather than
+ *  making their card the longest in the grid, and each drawing's own frame
+ *  taken off, as in the week's box. */
 const CARD_PREVIEW_HEIGHT = 200;
 
 /** An exhibit in the list: its drawing, held still and playing while the card
@@ -247,7 +263,9 @@ function ExhibitCard({ entry, current, tried }: { entry: ExhibitEntry; current: 
           exhibit={entry.exhibit}
           still={!live}
           height={CARD_PREVIEW_HEIGHT}
+          plain
           box="rounded-lg bg-surface-2"
+          frame="p-3"
         />
       )}
       <CardHeader>
@@ -274,25 +292,31 @@ function ExhibitCard({ entry, current, tried }: { entry: ExhibitEntry; current: 
                 {t("experiments.overview.week.current")}
               </Chip>
             )}
-            <CardDescription>{t(`experiments.exhibits.${entry.exhibit}.summary`)}</CardDescription>
+            {/* At least three lines, the most a summary takes at most widths, so
+                the topics below start at one height along a row. */}
+            <CardDescription className="min-h-[3lh]">
+              {t(`experiments.exhibits.${entry.exhibit}.summary`)}
+            </CardDescription>
           </div>
         </div>
       </CardHeader>
-      <TopicTags entry={entry} tried={tried} />
-      {entry.lessons.length > 0 && (
-        <p className="text-caption text-muted">
-          {t("experiments.overview.builds_on")}{" "}
-          {entry.lessons.map((lesson, i) => (
-            <span key={lesson}>
-              {i > 0 && ", "}
-              {/* Above the card's own link, and quiet: for the technically minded. */}
-              <TextLink href={lessonPath(lesson)} tone="muted" className="relative z-10">
-                {t(`experiments.computed.links.${lesson}`)}
-              </TextLink>
-            </span>
-          ))}
-        </p>
-      )}
+      <div className="mt-auto space-y-3">
+        <TopicTags entry={entry} tried={tried} />
+        {entry.lessons.length > 0 && (
+          <p className="text-caption text-muted">
+            {t("experiments.overview.builds_on")}{" "}
+            {entry.lessons.map((lesson, i) => (
+              <span key={lesson}>
+                {i > 0 && ", "}
+                {/* Above the card's own link, and quiet: for the technically minded. */}
+                <TextLink href={lessonPath(lesson)} tone="muted" className="relative z-10">
+                  {t(`experiments.computed.links.${lesson}`)}
+                </TextLink>
+              </span>
+            ))}
+          </p>
+        )}
+      </div>
       {!entry.path && (
         <div className="mt-auto">
           <Chip tone="neutral">{t("experiments.overview.coming")}</Chip>
