@@ -200,7 +200,8 @@ biggest thing on the first screen (`docs/experiments.md`, "The overview").
     "Stelle auf Experiment of the week um"), playing, in a frame: the week
     and "Alle Exponate" above (the dialog of earlier weeks went on 2026-11-20:
     Marcel wanted the list instead), its name, its question and "Ausprobieren"
-    below; a click on the drawing opens it too;
+    below; a click on the drawing opens it too; on a phone the picture stands
+    above the question (Marcel, 2026-11-20: "Bild über Frage beim Handy");
   - under both, five figures counted from the code, none kept by hand: the
     exhibits, the fields, the equations worked through, how many are checked
     (from the server), the languages; and one quiet line: no cookies, no

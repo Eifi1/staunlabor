@@ -90,7 +90,12 @@ instead (`/#all-exhibits`). Top to bottom (`overview-page.tsx`):
   2026-11-20, of the first impression: "Da ist es am wichtigsten"); before,
   the box shrank round a wide drawing and grew round a tall one. The text
   beside it, question, summary and first paragraph at the exhibit, is 318 to
-  517 characters in German (median 396). Then
+  517 characters in German (median 396). Shown three ways the same day, the
+  picture left or right on a wide screen and, on a phone, the picture first,
+  the text first, or the question, then the picture, then the rest, Marcel
+  kept the picture above the question on a phone ("Bild über Frage beim
+  Handy"), and it stays on the right on a wide screen, where the reader meets
+  the name and the question first, in line with the site's name above. Then
   the one primary button, into the exhibit, and one down to the list. Until
   2026-11-20 a third, "Earlier days" (then "Earlier weeks"), opened the past
   picks in a dialog (Marcel, 2026-11-19: "Show the history only in a dialog

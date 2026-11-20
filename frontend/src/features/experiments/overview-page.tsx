@@ -111,7 +111,8 @@ function useHeroHeight(): number {
  * The experiment of the week, filling the first screen (Marcel, 2026-11-19):
  * its title, what it is about and what stands at the exhibit, the question to
  * guess at, and its drawing, playing, to the right; on a phone the drawing
- * stands above. The first paragraph of the page's "At the exhibit" is the
+ * stands above the question (Marcel, 2026-11-20, of three orders shown: "Bild
+ * über Frage beim Handy"). The first paragraph of the page's "At the exhibit" is the
  * longer text: it says what is there without giving the trick away.
  *
  * The drawing sits in one box of one size, whatever the exhibit, its own
