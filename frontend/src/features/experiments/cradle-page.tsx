@@ -6,6 +6,7 @@ import { SeriesChart } from "@/shared/charts/series-chart";
 import { useLocale } from "@/shared/i18n/use-locale";
 import { formatNumber } from "@/shared/lib/format";
 import { useChartHex } from "@/shared/state/palette-store";
+import { holdTouch } from "@/shared/ui/grab";
 import { SliderField } from "@/shared/ui/slider-field";
 import { Figures, WidgetCard } from "@/shared/ui/widget";
 import { Equation } from "./equation";
@@ -168,7 +169,7 @@ function CradleView({
       viewBox={`${-reach} ${top} ${2 * reach} ${bottom - top}`}
       role="img"
       aria-label={t("experiments.cradle.view")}
-      className={`w-full rounded-lg border border-subtle bg-surface-2 text-muted ${onPull ? "touch-none select-none" : ""} ${held !== null ? "cursor-grabbing" : ""}`}
+      className={`w-full rounded-lg border border-subtle bg-surface-2 text-muted ${onPull ? "select-none" : ""} ${held !== null ? "cursor-grabbing" : ""}`}
       onPointerMove={(e: PointerEvent<SVGSVGElement>) => {
         if (held !== null) follow(e.currentTarget, e.clientX, e.clientY, held);
       }}
@@ -200,6 +201,7 @@ function CradleView({
               stroke="currentColor"
               vectorEffect="non-scaling-stroke"
               className={onPull && i < cr.count - 1 && held === null ? "cursor-grab" : undefined}
+              ref={onPull && i < cr.count - 1 ? holdTouch : undefined}
               onPointerDown={(e: PointerEvent<SVGCircleElement>) => {
                 const svg = e.currentTarget.ownerSVGElement;
                 if (!onPull || i >= cr.count - 1 || !svg) return;
