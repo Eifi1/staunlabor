@@ -17,6 +17,7 @@ import { PreviewPending, type PreviewMode, type PreviewProps } from "./preview-m
 import { naturalHz, shape, start, steadyM, step, swingM, STEP_S, type Rack, type Shaking } from "./simulate/resonance";
 import { SIDE } from "./stage";
 import { useExperimentsDefaults } from "./use-experiments";
+import { settingNumber, useCheckSetting } from "./check-setting";
 
 const SPEEDS = [1, 4] as const;
 type Speed = (typeof SPEEDS)[number];
@@ -285,6 +286,21 @@ function ResonancePlay({
     );
   }, [rack, steadyRows, recorded, chartDrive, hex, locale, t]);
 
+  // A check case's "Set it up": the table at the case's beat, to the
+  // hundred-thousandth of a hertz the slider's hundredths cannot reach, the
+  // rods at rest, and the run started.
+  useCheckSetting("resonance", (setting) => {
+    if (preview) return false;
+    const damping = settingNumber(setting, "damping_ratio", rack.damping_ratio);
+    if (damping !== rack.damping_ratio) onChange?.({ ...rack, damping_ratio: damping });
+    const hz = settingNumber(setting, "drive_hz", sim.current.drive);
+    sim.current = begin(hz);
+    setFrame({ s: sim.current.s, drive: hz, sweeping: false });
+    setChartDrive(hz);
+    setRecorded([]);
+    setRunning(true);
+    return true;
+  });
   const view = <RodsView rack={rack} s={frame.s} labels={preview || held.shown} />;
   if (preview) return view;
 

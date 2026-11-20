@@ -76,6 +76,26 @@ const STIFF: CheckSymbol = { tex: "s", key: "s_band", unit: "N/m" };
 const V_BOTTOM: CheckSymbol = { tex: "v", key: "v_bottom", unit: "m/s" };
 const THICKNESS: CheckSymbol = { tex: "t", key: "arch_thickness", unit: "m" };
 const ARCH_RADIUS: CheckSymbol = { tex: "R", key: "arch_radius", unit: "m" };
+const ROD_EI: CheckSymbol = { tex: "EI", key: "rod_EI", unit: "N·m²" };
+const ROD_B: CheckSymbol = { tex: "B", key: "rod_B" };
+const ROD_OMEGA: CheckSymbol = { tex: String.raw`\omega`, key: "rod_omega", unit: "1/s" };
+const ROD_ZETA: CheckSymbol = { tex: String.raw`\zeta`, key: "rod_zeta" };
+const R_WELL: CheckSymbol = { tex: "r", key: "r_well", unit: "m" };
+const K_FUNNEL: CheckSymbol = { tex: "k", key: "k_funnel", unit: "m²" };
+
+const ROD_STEADY: CheckFormula = {
+  tex: String.raw`w = \frac{\Gamma\,\Omega^2 Y}{\sqrt{(\omega^2 - \Omega^2)^2 + (2\zeta\omega\Omega)^2}}, \qquad \Gamma = \frac{\int_0^1 \varphi\,d\xi}{\int_0^1 \varphi^2\,d\xi}`,
+  symbols: [
+    { tex: "w", key: "rod_w", unit: "m" },
+    { tex: String.raw`\Gamma`, key: "rod_Gamma" },
+    { tex: String.raw`\Omega`, key: "rod_Omega", unit: "1/s" },
+    { tex: "Y", key: "rod_Y", unit: "m" },
+    ROD_OMEGA,
+    ROD_ZETA,
+    { tex: String.raw`\varphi`, key: "rod_phi" },
+    { tex: String.raw`\xi`, key: "rod_xi" },
+  ],
+};
 
 export const CHECK_FORMULAS: Record<string, Record<string, CheckFormula>> = {
   sphere: {
@@ -634,6 +654,79 @@ export const CHECK_FORMULAS: Record<string, Record<string, CheckFormula>> = {
         { tex: String.raw`R_\pm`, key: "R_pm", unit: "m" },
         ARCH_RADIUS,
         THICKNESS,
+      ],
+    },
+  },
+  resonance: {
+    tone: {
+      tex: String.raw`f = \frac{1}{2\pi}\,\frac{(\beta_1 L)^2}{L^2}\sqrt{\frac{EI}{\mu}}\,\sqrt{1 - \frac{q}{q_c}}, \qquad q = \frac{\mu g L^3}{EI}, \qquad q_c = \frac{9B^2}{4}`,
+      symbols: [
+        { tex: "f", key: "f", unit: "Hz" },
+        { tex: String.raw`\beta_1 L`, key: "rod_beta" },
+        { tex: "L", key: "rod_L", unit: "m" },
+        ROD_EI,
+        { tex: String.raw`\mu`, key: "rod_mu", unit: "kg/m" },
+        { tex: "q", key: "rod_load" },
+        { tex: "g", key: "g", unit: "m/s²" },
+        { tex: "q_c", key: "rod_qc" },
+        ROD_B,
+      ],
+    },
+    buckling: {
+      tex: String.raw`h_c = \left(\frac{9B^2}{4}\,\frac{EI}{\rho g A}\right)^{1/3}`,
+      symbols: [
+        { tex: "h_c", key: "rod_hc", unit: "m" },
+        ROD_B,
+        ROD_EI,
+        { tex: String.raw`\rho`, key: "rod_rho", unit: "kg/m³" },
+        { tex: "g", key: "g", unit: "m/s²" },
+        { tex: "A", key: "rod_A", unit: "m²" },
+      ],
+    },
+    in_step: ROD_STEADY,
+    neighbour: ROD_STEADY,
+    growth: {
+      tex: String.raw`q = X\left[-\cos\omega t + e^{-\zeta\omega t}\left(\cos\omega_1 t + \frac{\zeta\omega}{\omega_1}\sin\omega_1 t\right)\right], \qquad \omega_1 = \omega\sqrt{1 - \zeta^2}, \qquad \sqrt{q^2 + (\dot q/\omega)^2} = \left(1 - e^{-1}\right) X`,
+      symbols: [
+        { tex: "q", key: "rod_tip", unit: "m" },
+        { tex: "X", key: "rod_X", unit: "m" },
+        ROD_OMEGA,
+        { tex: "t", key: "t", unit: "s" },
+        ROD_ZETA,
+        { tex: String.raw`\omega_1`, key: "rod_omega1", unit: "1/s" },
+      ],
+    },
+  },
+  well: {
+    kepler_period: {
+      tex: String.raw`T^2 = \frac{4\pi^2}{GM}\,r^3, \qquad GM \;\to\; \tfrac57\,g\,k`,
+      symbols: [{ tex: "T", key: "T_lap", unit: "s" }, { tex: "GM", key: "GM", unit: "m³/s²" }, R_WELL, G, K_FUNNEL],
+    },
+    equal_areas: {
+      tex: String.raw`r^2\,\dot\varphi = r_0\,v_0`,
+      symbols: [
+        R_WELL,
+        { tex: String.raw`\dot\varphi`, key: "phidot", unit: "1/s" },
+        { tex: "r_0", key: "r0_well", unit: "m" },
+        { tex: "v_0", key: "v0_push", unit: "m/s" },
+      ],
+    },
+    energy: {
+      tex: String.raw`E = \tfrac12\left(1 + \tfrac25\right)v^2 - \frac{g\,k}{r}`,
+      symbols: [{ tex: "E", key: "E", unit: "J/kg" }, V, G, K_FUNNEL, R_WELL],
+    },
+    brake: {
+      tex: String.raw`P = C\,N\,v, \qquad \frac{N}{m} = g\cos\alpha + \frac{v^2}{r}\sin\alpha, \qquad \tan\alpha = \frac{k}{r^2}`,
+      symbols: [
+        { tex: "P", key: "P_loss", unit: "W" },
+        { tex: "C", key: "C_rr" },
+        { tex: "N", key: "N", unit: "N" },
+        V,
+        { tex: "m", key: "m", unit: "kg" },
+        G,
+        { tex: String.raw`\alpha`, key: "alpha_wall", unit: "°" },
+        R_WELL,
+        K_FUNNEL,
       ],
     },
   },

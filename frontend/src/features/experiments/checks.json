@@ -1175,6 +1175,135 @@
    ]
   }
  ],
+ "resonance": [
+  {
+   "key": "tone",
+   "unit": "Hz",
+   "expected": 5.57932856581,
+   "measured": 5.57962044147,
+   "deviation": 5.23137601865e-05,
+   "tolerance": 0.0001,
+   "derived": true,
+   "setting": {
+    "drive_hz": 5.579620441466105,
+    "damping_ratio": 0.01
+   },
+   "sources": [
+    {
+     "cite": "Wikipedia, “Euler–Bernoulli beam theory”, §Dynamic beam equation, Free vibration, “Example: Cantilevered beam”",
+     "url": "https://en.wikipedia.org/wiki/Euler%E2%80%93Bernoulli_beam_theory",
+     "quote": "cosh(β_n L) cos(β_n L) + 1 = 0. … The first four roots are β₁L = 0.596864π, … ω₁ = β₁²√(EI/μ) = (3.5160/L²)√(EI/μ)"
+    },
+    {
+     "cite": "Wikipedia, “Buckling”, §Self-buckling (citing Kato 1915, Ratzersdorfer 1936, Cox & McCarthy 1998)",
+     "url": "https://en.wikipedia.org/wiki/Buckling",
+     "quote": "A free-standing, vertical column, with density ρ, Young's modulus E, and cross-sectional area A, will buckle under its own weight if its height exceeds a certain critical value: h_crit = (9B²/4 · EI/(ρgA))^(1/3) … B is the first zero of the Bessel function of the first kind of order −1/3, which is equal to 1.86635086..."
+    }
+   ]
+  },
+  {
+   "key": "buckling",
+   "unit": "m",
+   "expected": 1.72021576783,
+   "measured": 1.72258061486,
+   "deviation": 0.0013747386112,
+   "tolerance": 0.002,
+   "derived": false,
+   "setting": {},
+   "sources": [
+    {
+     "cite": "Wikipedia, “Buckling”, §Self-buckling (citing Kato 1915, Ratzersdorfer 1936, Cox & McCarthy 1998)",
+     "url": "https://en.wikipedia.org/wiki/Buckling",
+     "quote": "A free-standing, vertical column, with density ρ, Young's modulus E, and cross-sectional area A, will buckle under its own weight if its height exceeds a certain critical value: h_crit = (9B²/4 · EI/(ρgA))^(1/3) … B is the first zero of the Bessel function of the first kind of order −1/3, which is equal to 1.86635086..."
+    }
+   ]
+  },
+  {
+   "key": "in_step",
+   "unit": "mm",
+   "expected": 78.2991770807,
+   "measured": 78.2991646892,
+   "deviation": 1.58257581384e-07,
+   "tolerance": 1e-05,
+   "derived": true,
+   "setting": {
+    "drive_hz": 2.0932527625364954,
+    "damping_ratio": 0.01
+   },
+   "sources": [
+    {
+     "cite": "Wikipedia, “Harmonic oscillator”, §Sinusoidal driving force",
+     "url": "https://en.wikipedia.org/wiki/Harmonic_oscillator",
+     "quote": "d²x/dt² + 2ζω₀ dx/dt + ω₀²x = (1/m)F₀ sin(ωt) … The steady-state solution is proportional to the driving force with an induced phase change φ: x(t) = F₀/(m Z_m ω) sin(ωt + φ), where Z_m = √((2ω₀ζ)² + (1/ω²)(ω₀² − ω²)²)"
+    },
+    {
+     "cite": "Wikipedia, “Euler–Bernoulli beam theory”, §Dynamic beam equation, Free vibration, “Example: Cantilevered beam”",
+     "url": "https://en.wikipedia.org/wiki/Euler%E2%80%93Bernoulli_beam_theory",
+     "quote": "ŵ_n = A₁[(cosh β_n x − cos β_n x) + (cos β_n L + cosh β_n L)/(sin β_n L + sinh β_n L)(sin β_n x − sinh β_n x)]"
+    },
+    {
+     "cite": "T. Irvine, “Effective Modal Mass & Modal Participation Factors”, Rev. I (Vibrationdata, 2015), App. C, Eq. (C-1), p. 18, and Table D-2, p. 20",
+     "url": "https://www.vibrationdata.com/tutorials2/ModalMass.pdf",
+     "quote": "The participation factor is Γ_n = ∫₀ᴸ m(x) Y_n(x) dx (C-1) … Table D-2. Bending Vibration, Fixed-Free Beam … 1 … [1.87510/L]² √(EI/ρ) … 0.7830 √(ρL) … 0.6131 ρL"
+    }
+   ]
+  },
+  {
+   "key": "neighbour",
+   "unit": "mm",
+   "expected": 3.86230764605,
+   "measured": 3.86233262283,
+   "deviation": 6.46680279279e-06,
+   "tolerance": 5e-05,
+   "derived": true,
+   "setting": {
+    "drive_hz": 2.0932527625364954,
+    "damping_ratio": 0.01
+   },
+   "sources": [
+    {
+     "cite": "Wikipedia, “Harmonic oscillator”, §Sinusoidal driving force",
+     "url": "https://en.wikipedia.org/wiki/Harmonic_oscillator",
+     "quote": "d²x/dt² + 2ζω₀ dx/dt + ω₀²x = (1/m)F₀ sin(ωt) … The steady-state solution is proportional to the driving force with an induced phase change φ: x(t) = F₀/(m Z_m ω) sin(ωt + φ), where Z_m = √((2ω₀ζ)² + (1/ω²)(ω₀² − ω²)²)"
+    },
+    {
+     "cite": "Wikipedia, “Euler–Bernoulli beam theory”, §Dynamic beam equation, Free vibration, “Example: Cantilevered beam”",
+     "url": "https://en.wikipedia.org/wiki/Euler%E2%80%93Bernoulli_beam_theory",
+     "quote": "ŵ_n = A₁[(cosh β_n x − cos β_n x) + (cos β_n L + cosh β_n L)/(sin β_n L + sinh β_n L)(sin β_n x − sinh β_n x)]"
+    },
+    {
+     "cite": "T. Irvine, “Effective Modal Mass & Modal Participation Factors”, Rev. I (Vibrationdata, 2015), App. C, Eq. (C-1), p. 18, and Table D-2, p. 20",
+     "url": "https://www.vibrationdata.com/tutorials2/ModalMass.pdf",
+     "quote": "The participation factor is Γ_n = ∫₀ᴸ m(x) Y_n(x) dx (C-1) … Table D-2. Bending Vibration, Fixed-Free Beam … 1 … [1.87510/L]² √(EI/ρ) … 0.7830 √(ρL) … 0.6131 ρL"
+    }
+   ]
+  },
+  {
+   "key": "growth",
+   "unit": "",
+   "expected": 15.8419584683,
+   "measured": 15.8419601965,
+   "deviation": 1.09092892738e-07,
+   "tolerance": 1e-05,
+   "derived": true,
+   "setting": {
+    "drive_hz": 2.0932527625364954,
+    "damping_ratio": 0.01
+   },
+   "sources": [
+    {
+     "cite": "Wikipedia, “Harmonic oscillator”, §Damped harmonic oscillator and §Sinusoidal driving force",
+     "url": "https://en.wikipedia.org/wiki/Harmonic_oscillator",
+     "quote": "The angular frequency of the underdamped harmonic oscillator is given by ω₁ = ω₀√(1 − ζ²), the exponential decay of the underdamped harmonic oscillator is given by λ = ω₀ζ. … The general solution is a sum of a transient solution that depends on initial conditions, and a steady state … The transient solutions are the same as the unforced (F₀ = 0) damped harmonic oscillator"
+    },
+    {
+     "cite": "Wikipedia, “Harmonic oscillator”, §Sinusoidal driving force",
+     "url": "https://en.wikipedia.org/wiki/Harmonic_oscillator",
+     "quote": "d²x/dt² + 2ζω₀ dx/dt + ω₀²x = (1/m)F₀ sin(ωt) … The steady-state solution is proportional to the driving force with an induced phase change φ: x(t) = F₀/(m Z_m ω) sin(ωt + φ), where Z_m = √((2ω₀ζ)² + (1/ω²)(ω₀² − ω²)²)"
+    }
+   ]
+  }
+ ],
  "sky": [
   {
    "key": "rayleigh",
@@ -1797,6 +1926,112 @@
      "cite": "NIST Digital Library of Mathematical Functions, §19.2(ii), Eqs. 19.2.4 and 19.2.8",
      "url": "https://dlmf.nist.gov/19.2",
      "quote": "F(φ,k) = ∫₀^φ dθ/√(1 − k² sin²θ) … K(k) = F(π/2,k)"
+    }
+   ]
+  }
+ ],
+ "well": [
+  {
+   "key": "kepler_period",
+   "unit": "s",
+   "expected": 5.12787345948,
+   "measured": 5.12787345948,
+   "deviation": 1.26959993608e-13,
+   "tolerance": 1e-10,
+   "derived": true,
+   "setting": {
+    "speed_m_s": 0.44110813740951194,
+    "aim_deg": 0.0,
+    "rolling_resistance": 0.0
+   },
+   "sources": [
+    {
+     "cite": "OpenStax, University Physics Volume 1, §13.5 Kepler’s Laws of Planetary Motion, Eq. 13.11",
+     "url": "https://openstax.org/books/university-physics-volume-1/pages/13-5-keplers-laws-of-planetary-motion",
+     "quote": "Kepler’s third law states that the square of the period is proportional to the cube of the semi-major axis of the orbit. … For a circular orbit, the semi-major axis (a) is the same as the radius for the orbit. … T² = (4π²/GM) a³"
+    },
+    {
+     "cite": "OpenStax, University Physics Volume 1, §11.1 Rolling Motion, Eq. 11.4",
+     "url": "https://openstax.org/books/university-physics-volume-1/pages/11-1-rolling-motion",
+     "quote": "a_CM = mg sin θ / (m + I_CM/r²)"
+    },
+    {
+     "cite": "Wikipedia, “List of moments of inertia”, solid sphere (citing Serway, Physics for Scientists and Engineers)",
+     "url": "https://en.wikipedia.org/wiki/List_of_moments_of_inertia",
+     "quote": "I = 2/5 m r²"
+    }
+   ]
+  },
+  {
+   "key": "equal_areas",
+   "unit": "m²/s",
+   "expected": 0.108,
+   "measured": 0.108,
+   "deviation": 5.94945903242e-14,
+   "tolerance": 1e-10,
+   "derived": true,
+   "setting": {
+    "speed_m_s": 0.3,
+    "aim_deg": 0.0,
+    "rolling_resistance": 0.0
+   },
+   "sources": [
+    {
+     "cite": "OpenStax, University Physics Volume 1, §13.5 Kepler’s Laws of Planetary Motion, “Kepler’s Second Law”",
+     "url": "https://openstax.org/books/university-physics-volume-1/pages/13-5-keplers-laws-of-planetary-motion",
+     "quote": "areal velocity = ΔA/Δt = L/2m. Since the angular momentum is constant, the areal velocity must also be constant. This is exactly Kepler’s second law."
+    }
+   ]
+  },
+  {
+   "key": "energy",
+   "unit": "J/kg",
+   "expected": -0.209406944444,
+   "measured": -0.209406944444,
+   "deviation": 4.38189541558e-13,
+   "tolerance": 1e-10,
+   "derived": false,
+   "setting": {
+    "speed_m_s": 0.3,
+    "aim_deg": 0.0,
+    "rolling_resistance": 0.0
+   },
+   "sources": [
+    {
+     "cite": "OpenStax, University Physics Volume 1, §11.1, “Conservation of Mechanical Energy in Rolling Motion”",
+     "url": "https://openstax.org/books/university-physics-volume-1/pages/11-1-rolling-motion",
+     "quote": "the total mechanical energy of an object rolling is E_T = ½mv_CM² + ½I_CMω² + mgh"
+    },
+    {
+     "cite": "Wikipedia, “List of moments of inertia”, solid sphere (citing Serway, Physics for Scientists and Engineers)",
+     "url": "https://en.wikipedia.org/wiki/List_of_moments_of_inertia",
+     "quote": "I = 2/5 m r²"
+    }
+   ]
+  },
+  {
+   "key": "brake",
+   "unit": "mW/kg",
+   "expected": 8.66262933622,
+   "measured": 8.66246817238,
+   "deviation": 1.86044937975e-05,
+   "tolerance": 3e-05,
+   "derived": true,
+   "setting": {
+    "speed_m_s": 0.44110813740951194,
+    "aim_deg": 0.0,
+    "rolling_resistance": 0.002
+   },
+   "sources": [
+    {
+     "cite": "Wikipedia, “Rolling resistance”, §Rolling resistance coefficient",
+     "url": "https://en.wikipedia.org/wiki/Rolling_resistance",
+     "quote": "The “rolling resistance coefficient” is defined by the following equation: F = C_rr N … N is the normal force, the force perpendicular to the surface on which the wheel is rolling."
+    },
+    {
+     "cite": "OpenStax, University Physics Volume 1, §6.3 Centripetal Force, “Banked curves”",
+     "url": "https://openstax.org/books/university-physics-volume-1/pages/6-3-centripetal-force",
+     "quote": "Only the normal force has a horizontal component, so this must equal the centripetal force, that is, N sin θ = mv²/r. … N cos θ = mg."
     }
    ]
   }

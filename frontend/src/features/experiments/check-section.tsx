@@ -78,17 +78,22 @@ function CaseCard({ exhibit, item, index }: { exhibit: Exhibit; item: CheckCase;
             {t("experiments.checks.derived")}
           </Chip>
         )}
-        {/* Tried, not only read: the twin above set to the case. */}
-        <Button
-          variant="secondary"
-          size="sm"
-          className="ml-auto"
-          title={t("experiments.checks.set_up_hint")}
-          onClick={() => askCheckSetting(exhibit, item.setting)}
-        >
-          <SlidersHorizontal className="size-4" aria-hidden />
-          {t("experiments.checks.set_up")}
-        </Button>
+        {/* Tried, not only read: the twin above set to the case. A case the
+            page cannot show (a rod's length it has no input for, a box of
+            states, an answer the trick holds back) has no setting, and no
+            button that would do nothing. */}
+        {Object.keys(item.setting).length > 0 && (
+          <Button
+            variant="secondary"
+            size="sm"
+            className="ml-auto"
+            title={t("experiments.checks.set_up_hint")}
+            onClick={() => askCheckSetting(exhibit, item.setting)}
+          >
+            <SlidersHorizontal className="size-4" aria-hidden />
+            {t("experiments.checks.set_up")}
+          </Button>
+        )}
       </div>
       <p className="text-sm text-secondary">
         <span className="font-medium text-primary">{t("experiments.checks.setting")}: </span>

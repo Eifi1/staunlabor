@@ -3549,7 +3549,38 @@
         "arch_T0": "trazione della catena al vertice, orizzontale",
         "arch_density": "densità della pietra",
         "arch_depth": "profondità dell'arco, perpendicolare alla vista",
-        "arch_thickness": "spessore delle pietre"
+        "arch_thickness": "spessore delle pietre",
+        "rod_beta": "prima radice di cosh x·cos x = −1",
+        "rod_L": "lunghezza dell'asta",
+        "rod_EI": "rigidezza flessionale dell'asta, E·πd⁴/64",
+        "rod_mu": "massa dell'asta per metro",
+        "rod_load": "peso rispetto alla rigidezza, μgL³/(EI)",
+        "rod_qc": "carico al quale l'asta si inflette, 7,837",
+        "rod_B": "primo zero della funzione di Bessel J₋₁/₃, 1,86635",
+        "rod_hc": "lunghezza oltre la quale l'asta si inflette sotto il proprio peso",
+        "rod_rho": "densità dell'acciaio, 7850",
+        "rod_A": "sezione dell'asta",
+        "rod_w": "ampiezza della punta rispetto al tavolo",
+        "rod_Gamma": "fattore di partecipazione della prima oscillazione, 1,566",
+        "rod_Omega": "pulsazione del tavolo",
+        "rod_Y": "corsa del tavolo per lato, 1 mm",
+        "rod_omega": "pulsazione dell'asta",
+        "rod_zeta": "rapporto di smorzamento, 0,01",
+        "rod_phi": "forma della prima oscillazione, 1 in punta",
+        "rod_xi": "posizione lungo l'asta, x/L",
+        "rod_tip": "spostamento della punta",
+        "rod_X": "ampiezza stazionaria al passo",
+        "rod_omega1": "pulsazione dell'oscillazione che si smorza",
+        "T_lap": "durata di un giro",
+        "r_well": "distanza della pallina dal centro",
+        "GM": "intensità dell'attrazione di una stella: la costante di gravitazione per la sua massa",
+        "k_funnel": "forma dell'imbuto: la parete sta a z = −k/r",
+        "phidot": "velocità angolare attorno al centro",
+        "r0_well": "distanza al lancio",
+        "v0_push": "velocità del lancio",
+        "P_loss": "perdita al secondo",
+        "C_rr": "resistenza al rotolamento: la frazione della spinta della parete che frena",
+        "alpha_wall": "pendenza della parete"
       },
       "cases": {
         "sphere": {
@@ -4034,6 +4065,71 @@
             "reads": "Ogni pietra è tagliata lungo due raggi distanti π/16: il triangolo fino al bordo esterno meno il triangolo fino a quello interno, ½(R₊² − R₋²)·sin(π/16).",
             "why": "Verifica le pietre da cui la pagina prende pesi e baricentri: 561,86 kg, la cifra «Peso dell'arco» della pagina.",
             "step": "La fonte dà l'area di un triangolo a partire da due lati e dall'angolo compreso. Una pietra è il triangolo dal centro fino al bordo esterno, R₊ = R + t/2, meno quello fino al bordo interno, R₋ = R − t/2; il tutto per profondità e densità."
+          }
+        },
+        "resonance": {
+          "tone": {
+            "title": "Il tono dell'asta più corta",
+            "setting": "L'asta da 50 cm, acciaio da 2 mm; il tavolo esattamente al suo ritmo.",
+            "reads": "Un'asta fissata in basso oscilla con ω₀ = (β₁L)²/L²·√(EI/μ), β₁L = 0,596864π. Il suo peso la comprime e la ammorbidisce: tra peso nullo e il carico critico di Greenhill, ω² qui scende lungo una retta.",
+            "why": "Verifica radice, rigidezza e peso nel tono che la pagina scrive sotto ogni asta: 5,58 Hz; il peso toglie il 2,5 % di ω². La pagina, secondo Rayleigh, abbassa ω² con una pendenza dello 0,4 % maggiore della retta verso il carico critico esatto di Greenhill, da cui lo scarto di 5 · 10⁻⁵.",
+            "step": "La prima fonte dà il tono senza peso, la seconda la lunghezza alla quale l'asta si inflette sotto il proprio peso e il suo tono scende a zero. Nel mezzo, ω² è assunto come una retta in funzione del carico, un'approssimazione; la tolleranza la copre."
+          },
+          "buckling": {
+            "title": "Troppo lunga per il suo peso",
+            "setting": "Una singola asta dello stesso acciaio da 2 mm, sempre più lunga, finché il calcolo non la accetta più perché si inflette sotto il proprio peso.",
+            "reads": "Una colonna libera si inflette sotto il proprio peso appena è più alta di (9B²/4·EI/(ρgA))^(1/3), con B il primo zero della funzione di Bessel J₋₁/₃.",
+            "why": "Verifica ciò che il peso toglie al tono, là dove lo toglie del tutto: 1,720 m secondo la fonte, 1,723 m secondo la pagina. La pagina calcola con la forma dell'oscillazione invece che con quella dell'inflessione; ciò alza il carico critico dello 0,4 % e la lunghezza di un terzo di questo."
+          },
+          "in_step": {
+            "title": "Al passo: l'asta oscilla ampiamente",
+            "setting": "Il tavolo esattamente al ritmo dell'asta da 80 cm, 2,09 Hz, 1 mm per lato, smorzamento 0,01; due minuti a partire dalla quiete.",
+            "reads": "Il tavolo spinge l'oscillazione dell'asta con Γ·Ω²·Y, Γ = ∫φ/∫φ²; al passo la punta oscilla in modo stazionario con ampiezza Γ·Y/(2ζ).",
+            "why": "Verifica il ciclo dei passi temporali, la spinta e lo smorzamento: 78,3 mm da 1 mm di tavolo. Γ = 1,566 è qui sommato dalla forma della fonte, non preso dal motore di calcolo.",
+            "step": "La prima fonte dà l'oscillatore forzato, la seconda la forma dell'oscillazione, la terza il fattore di partecipazione per una forma di massa unitaria; per una forma che vale 1 in punta diventa ∫φ/∫φ²."
+          },
+          "neighbour": {
+            "title": "Accanto: la vicina si muove appena",
+            "setting": "Come sopra; letto sull'asta da 90 cm, il cui ritmo proprio è 1,61 Hz.",
+            "reads": "La stessa formula fuori ritmo: Γ·r²·Y/√((1 − r²)² + (2ζr)²), r = Ω/ω.",
+            "why": "Verifica che il tavolo spinga con la sua accelerazione, Ω²·Y, e non con una forza fissa: 3,86 mm; con la forza ω²·Y sarebbero 2,30 mm. Dopo due minuti resta 6 · 10⁻⁶ dell'avvio.",
+            "step": "Come sopra: l'oscillatore forzato della prima fonte, con la forma e il fattore di partecipazione delle altre due."
+          },
+          "growth": {
+            "title": "Dalla quiete: quanto in fretta cresce l'oscillazione",
+            "setting": "Il tavolo esattamente al ritmo dell'asta da 80 cm, a partire dalla quiete; contato finché l'oscillazione raggiunge 1 − 1/e di quella stazionaria.",
+            "reads": "Dalla quiete il moto è l'oscillazione stazionaria più una che si smorza con e^(−ζωt); approssimativamente cresce come 1 − e^(−ζωt), quindi raggiunge 1 − 1/e dopo circa 1/(2πζ) = 15,9 oscillazioni.",
+            "why": "Verifica come il ciclo dei passi temporali unisce smorzamento e avvio: calcolato esattamente, 15,842 oscillazioni, 7,57 s a 2,09 Hz. La regola semplice sta lo 0,5 % sopra, perché l'avvio stesso ha termini dell'ordine di ζ.",
+            "step": "La fonte dà la soluzione come oscillazione stazionaria più una che si smorza, con ω₁ = ω√(1 − ζ²) e il tasso ζω; le sue due costanti sono scelte qui in modo che posizione e velocità partano da zero."
+          }
+        },
+        "well": {
+          "kepler_period": {
+            "title": "La terza legge di Keplero nell'imbuto",
+            "setting": "Senza resistenza al rotolamento, lanciata a 36 cm con la velocità del cerchio, 0,4411 m/s («Cerchio»); misurato il primo giro.",
+            "reads": "Sul cerchio la pendenza della parete tira la pallina verso il centro con (5/7)·g·k/r²: un inverso del quadrato, come la gravità di una stella. Per questo vale la legge di Keplero T² = 4π²r³/(GM), con (5/7)·g·k al posto di GM.",
+            "why": "Verifica il moto verso il centro e la quota di 5/7 della pallina che rotola: 5,127873 s per il giro. Scivolando, senza il 5/7, sarebbe più veloce.",
+            "step": "La prima fonte dà la legge di Keplero per un'attrazione di GM/r² per chilogrammo. La seconda dà che una pallina piena che rotola su un pendio sente solo g·sin α/(1 + 2/5), i 5/7 dello scivolamento, con il momento d'inerzia 2/5·m·r² della pallina piena preso dalla terza. Sul cerchio questa parte tiene la pallina: (v²/r)·cos α = (5/7)·g·sin α, e con tan α = k/r² ciò dà v²/r = (5/7)·g·k/r²."
+          },
+          "equal_areas": {
+            "title": "Aree uguali in tempi uguali",
+            "setting": "Senza resistenza al rotolamento, lanciata a 36 cm lungo il bordo a 0,30 m/s, più lenta del cerchio; letto dopo 20 s.",
+            "reads": "La parete spinge nel piano che passa per l'asse, la gravità tira verso il basso: nulla fa girare la pallina attorno all'asse. Così r²·φ̇ resta uguale: il doppio dell'area che la linea verso il centro spazza in un secondo.",
+            "why": "Verifica l'equazione del giro attorno al centro, su una rosetta che si spinge molto verso l'interno e poi di nuovo fuori: dopo 20 s sono 0,108 m²/s, a meno di 10⁻¹⁰, come al lancio, 0,36 m per 0,30 m/s.",
+            "step": "La fonte ricava la seconda legge di Keplero dalla conservazione del momento angolare. Qui è il momento angolare attorno all'asse, con la rotazione della pallina che rotola, (7/5)·r²·φ̇ per chilogrammo; il fattore 7/5 resta fisso, quindi r²·φ̇ si conserva."
+          },
+          "energy": {
+            "title": "L'energia si conserva",
+            "setting": "Come sopra: senza resistenza al rotolamento, lanciata a 36 cm a 0,30 m/s; dopo 20 s, 20.000 passi.",
+            "reads": "Senza perdite la somma di moto, rotazione e altezza resta la stessa; la rotazione della pallina piena porta i 2/5 di ciò che porta il moto.",
+            "why": "Verifica il ciclo dei passi temporali lungo una rosetta che a ogni giro ruota un po' più avanti: −0,209407 J/kg al lancio e dopo 20 s, uguali a meno di 10⁻¹⁰."
+          },
+          "brake": {
+            "title": "Quanto costa la resistenza al rotolamento",
+            "setting": "Resistenza al rotolamento 0,002 come sulla pagina, lanciata a 36 cm sul cerchio; letto sul primo passo.",
+            "reads": "La resistenza al rotolamento frena con C·N contro il moto; ciò costa C·N·v al secondo. N, la spinta della parete, è la parte del peso perpendicolare alla parete più ciò che tiene la pallina sul suo cerchio.",
+            "why": "Verifica il freno e la spinta della parete da cui deriva: 8,6625 mW per chilogrammo. Già nel primo millisecondo la pallina rallenta un poco, e il freno con essa; e sotto 1 mm/s la pagina attenua la resistenza fino ad annullarla: insieme, uno scarto di 2 · 10⁻⁵.",
+            "step": "La prima fonte dà la resistenza al rotolamento C·N. La seconda tratta la curva sopraelevata: N·sin θ = mv²/r e N·cos θ = mg. Sommate perpendicolarmente alla parete danno N = mg·cos α + (mv²/r)·sin α; l'aderenza della pallina che rotola giace nel piano della parete e non contribuisce perpendicolarmente a essa."
           }
         }
       },

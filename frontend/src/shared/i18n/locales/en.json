@@ -3549,7 +3549,38 @@
         "arch_T0": "the chain's pull at its vertex, across",
         "arch_density": "the stone's density",
         "arch_depth": "the arch's depth, into the page",
-        "arch_thickness": "the stones' thickness"
+        "arch_thickness": "the stones' thickness",
+        "rod_beta": "first root of cosh x·cos x = −1",
+        "rod_L": "the rod's length",
+        "rod_EI": "the rod's flexural rigidity, E·πd⁴/64",
+        "rod_mu": "the rod's mass per metre",
+        "rod_load": "weight against stiffness, μgL³/(EI)",
+        "rod_qc": "the load at which the rod buckles, 7.837",
+        "rod_B": "first zero of the Bessel function J₋₁/₃, 1.86635",
+        "rod_hc": "the length from which the rod buckles under its weight",
+        "rod_rho": "the steel's density, 7850",
+        "rod_A": "the rod's cross-section",
+        "rod_w": "the tip's swing against the table",
+        "rod_Gamma": "the first swing's participation factor, 1.566",
+        "rod_Omega": "the table's angular frequency",
+        "rod_Y": "the table's travel each way, 1 mm",
+        "rod_omega": "the rod's angular frequency",
+        "rod_zeta": "damping ratio, 0.01",
+        "rod_phi": "the first swing's shape, 1 at the tip",
+        "rod_xi": "place along the rod, x/L",
+        "rod_tip": "the tip's deflection",
+        "rod_X": "the steady swing in step",
+        "rod_omega1": "angular frequency of the dying swing",
+        "T_lap": "time for one lap",
+        "r_well": "distance of the ball from the middle",
+        "GM": "strength of a star’s pull: the gravitational constant times its mass",
+        "k_funnel": "shape of the funnel: the wall lies at z = −k/r",
+        "phidot": "angular velocity about the middle",
+        "r0_well": "distance at the push",
+        "v0_push": "speed of the push",
+        "P_loss": "loss per second",
+        "C_rr": "rolling resistance: the share of the wall’s push that brakes",
+        "alpha_wall": "slope of the wall"
       },
       "cases": {
         "sphere": {
@@ -4034,6 +4065,71 @@
             "reads": "Every stone is cut along two radii π/16 apart: the triangle out to the outer edge less the triangle to the inner one, ½(R₊² − R₋²)·sin(π/16).",
             "why": "Checks the stones the page takes its weights and centroids from: 561.86 kg, the page's figure \"The arch's weight\".",
             "step": "The source gives a triangle's area from two sides and the angle between them. A stone is the triangle from the centre out to the outer edge, R₊ = R + t/2, less the one to the inner edge, R₋ = R − t/2; that times depth and density."
+          }
+        },
+        "resonance": {
+          "tone": {
+            "title": "The shortest rod's tone",
+            "setting": "The 50 cm rod, 2 mm steel; the table exactly in its beat.",
+            "reads": "A rod clamped at its foot swings at ω₀ = (β₁L)²/L²·√(EI/μ), β₁L = 0.596864π. Its weight presses it together and softens it: between no weight and Greenhill's buckling, ω² falls here along a straight line.",
+            "why": "Checks root, stiffness and weight in the tone the page writes under every rod: 5.58 Hz; the weight takes 2.5 % of ω². The page lowers ω² by Rayleigh 0.4 % more steeply than the line to Greenhill's exact buckling, hence 5 · 10⁻⁵.",
+            "step": "The first source gives the tone without weight, the second the length at which the rod buckles under its weight and its tone falls to nothing. In between, ω² is taken as a straight line in the load, an approximation; the tolerance carries it."
+          },
+          "buckling": {
+            "title": "Too long for its weight",
+            "setting": "A single rod of the same 2 mm steel, longer and longer, until the calculation refuses it because it buckles under its weight.",
+            "reads": "A free-standing column buckles under its own weight once it is taller than (9B²/4·EI/(ρgA))^(1/3), B the first zero of the Bessel function J₋₁/₃.",
+            "why": "Checks what the weight takes from the tone, where it takes all of it: 1.720 m by the source, 1.723 m by the page. The page works with the swinging shape, not the buckled one; that raises the buckling load by 0.4 % and the length by a third of that."
+          },
+          "in_step": {
+            "title": "In step: the rod swings wide",
+            "setting": "The table exactly in the 80 cm rod's beat, 2.09 Hz, 1 mm each way, damping 0.01; two minutes from rest.",
+            "reads": "The table pushes the rod's swing with Γ·Ω²·Y, Γ = ∫φ/∫φ²; in step the tip swings steadily by Γ·Y/(2ζ).",
+            "why": "Checks the time loop, the push and the damping: 78.3 mm from a 1 mm table. Γ = 1.566 is summed here from the source's shape, not taken from the engine.",
+            "step": "The first source gives the driven oscillator, the second the shape of the swing, the third the participation factor for a shape of unit mass; for a shape of 1 at the tip it becomes ∫φ/∫φ²."
+          },
+          "neighbour": {
+            "title": "Beside it: the neighbour hardly stirs",
+            "setting": "As above; read off the 90 cm rod, whose own beat is 1.61 Hz.",
+            "reads": "The same formula out of step: Γ·r²·Y/√((1 − r²)² + (2ζr)²), r = Ω/ω.",
+            "why": "Checks that the table pushes with its acceleration, Ω²·Y, not with a fixed force: 3.86 mm; with the force ω²·Y it would be 2.30 mm. After two minutes 6 · 10⁻⁶ of the start is left.",
+            "step": "As above: the first source's driven oscillator, with the shape and the participation factor of the other two."
+          },
+          "growth": {
+            "title": "From rest: how fast the swing grows",
+            "setting": "The table exactly in the 80 cm rod's beat, from rest; counted until the swing reaches 1 − 1/e of the steady one.",
+            "reads": "From rest the motion is the steady swing plus one dying away as e^(−ζωt); roughly it grows as 1 − e^(−ζωt), reaching 1 − 1/e after about 1/(2πζ) = 15.9 swings.",
+            "why": "Checks how the time loop joins damping and start: worked out exactly, 15.842 swings, 7.57 s at 2.09 Hz. The simple rule lies 0.5 % above, as the start itself has terms of size ζ.",
+            "step": "The source gives the solution as the steady swing plus a dying one at ω₁ = ω√(1 − ζ²) and the rate ζω; its two constants are chosen here so that place and speed start at zero."
+          }
+        },
+        "well": {
+          "kepler_period": {
+            "title": "Kepler’s third law in the funnel",
+            "setting": "No rolling resistance, pushed at 36 cm at the circle’s speed, 0.4411 m/s (“Circle”); timing the first lap.",
+            "reads": "On the circle the wall’s slope holds the ball towards the middle with (5/7)·g·k/r²: an inverse square like a star’s gravity. So Kepler’s T² = 4π²r³/(GM) holds, with (5/7)·g·k in place of GM.",
+            "why": "Checks the motion towards the middle and the rolling ball’s share of 5/7: 5.127873 s for the lap. Sliding, without the 5/7, it would be quicker.",
+            "step": "The first source gives Kepler’s law for a pull of GM/r² per kilogram. The second gives that a solid ball rolling on a slope feels only g·sin α/(1 + 2/5), 5/7 of sliding, with the solid ball’s moment of inertia 2/5·m·r² from the third. On the circle that share holds the ball: (v²/r)·cos α = (5/7)·g·sin α, and with tan α = k/r² that is v²/r = (5/7)·g·k/r²."
+          },
+          "equal_areas": {
+            "title": "Equal areas in equal times",
+            "setting": "No rolling resistance, pushed at 36 cm along the rim at 0.30 m/s, slower than the circle; read after 20 s.",
+            "reads": "The wall pushes in the plane through the axis, gravity pulls straight down: nothing turns the ball about the axis. So r²·φ̇ stays the same, twice the area the line to the middle sweeps in a second.",
+            "why": "Checks the equation for going round, on a rosette that reaches far in and out again: after 20 s it is 0.108 m²/s, to 10⁻¹⁰, as at the push, 0.36 m times 0.30 m/s.",
+            "step": "The source derives Kepler’s second law from the angular momentum being kept. Here it is the angular momentum about the axis, with the rolling ball’s spin (7/5)·r²·φ̇ per kilogram; the factor 7/5 is fixed, so r²·φ̇ stays."
+          },
+          "energy": {
+            "title": "The energy is kept",
+            "setting": "As above: no rolling resistance, pushed at 36 cm at 0.30 m/s; after 20 s, 20,000 steps.",
+            "reads": "Without losses the sum of motion, spin and height stays the same; the solid ball’s spin carries 2/5 of what the motion carries.",
+            "why": "Checks the time loop over a rosette that turns a little further every lap: −0.209407 J/kg at the push and after 20 s, the same to 10⁻¹⁰."
+          },
+          "brake": {
+            "title": "What the rolling resistance costs",
+            "setting": "Rolling resistance 0.002 as on the page, pushed at 36 cm on the circle; read over the first step.",
+            "reads": "The rolling resistance brakes with C·N against the motion; that costs C·N·v a second. N, the wall’s push, is the weight’s share across the wall and what holds the ball on its circle.",
+            "why": "Checks the brake and the wall’s push it comes from: 8.6625 mW per kilogram. Within the first millisecond the ball already slows a little and the brake with it, and below 1 mm/s the page fades the resistance out: together a deviation of 2 · 10⁻⁵.",
+            "step": "The first source gives the rolling resistance C·N. The second works the banked curve: N·sin θ = mv²/r and N·cos θ = mg. Added up across the wall they give N = mg·cos α + (mv²/r)·sin α; the grip of the rolling ball lies in the wall and adds nothing across it."
           }
         }
       },

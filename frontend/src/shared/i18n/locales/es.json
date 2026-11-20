@@ -3549,7 +3549,38 @@
         "arch_T0": "tracción de la cadena en el vértice, horizontal",
         "arch_density": "densidad de la piedra",
         "arch_depth": "fondo del arco, perpendicular a la vista",
-        "arch_thickness": "grosor de las piedras"
+        "arch_thickness": "grosor de las piedras",
+        "rod_beta": "primera raíz de cosh x·cos x = −1",
+        "rod_L": "longitud de la varilla",
+        "rod_EI": "rigidez a la flexión de la varilla, E·πd⁴/64",
+        "rod_mu": "masa de la varilla por metro",
+        "rod_load": "peso frente a rigidez, μgL³/(EI)",
+        "rod_qc": "carga a la que pandea la varilla, 7,837",
+        "rod_B": "primer cero de la función de Bessel J₋₁/₃, 1,86635",
+        "rod_hc": "longitud a partir de la cual la varilla pandea bajo su peso",
+        "rod_rho": "densidad del acero, 7850",
+        "rod_A": "sección de la varilla",
+        "rod_w": "amplitud de la punta respecto a la mesa",
+        "rod_Gamma": "factor de participación de la primera oscilación, 1,566",
+        "rod_Omega": "frecuencia angular de la mesa",
+        "rod_Y": "recorrido de la mesa hacia cada lado, 1 mm",
+        "rod_omega": "frecuencia angular de la varilla",
+        "rod_zeta": "grado de amortiguación, 0,01",
+        "rod_phi": "forma de la primera oscilación, 1 en la punta",
+        "rod_xi": "posición a lo largo de la varilla, x/L",
+        "rod_tip": "desviación de la punta",
+        "rod_X": "amplitud estacionaria al compás",
+        "rod_omega1": "frecuencia angular de la oscilación que se extingue",
+        "T_lap": "tiempo de una vuelta",
+        "r_well": "distancia de la bola al centro",
+        "GM": "intensidad de la atracción de una estrella: la constante de gravitación por su masa",
+        "k_funnel": "forma del embudo: la pared está en z = −k/r",
+        "phidot": "velocidad angular alrededor del centro",
+        "r0_well": "distancia en el lanzamiento",
+        "v0_push": "velocidad del lanzamiento",
+        "P_loss": "pérdida por segundo",
+        "C_rr": "resistencia a la rodadura: la fracción del empuje de la pared que frena",
+        "alpha_wall": "pendiente de la pared"
       },
       "cases": {
         "sphere": {
@@ -4034,6 +4065,71 @@
             "reads": "Cada piedra está cortada a lo largo de dos radios separados π/16: el triángulo hasta el borde exterior menos el triángulo hasta el interior, ½(R₊² − R₋²)·sin(π/16).",
             "why": "Comprueba las piedras de las que la página toma pesos y centroides: 561,86 kg, la cifra «Peso del arco» de la página.",
             "step": "La fuente da el área de un triángulo a partir de dos lados y el ángulo que forman. Una piedra es el triángulo desde el centro hasta el borde exterior, R₊ = R + t/2, menos el que llega hasta el interior, R₋ = R − t/2; eso por el fondo y la densidad."
+          }
+        },
+        "resonance": {
+          "tone": {
+            "title": "El tono de la varilla más corta",
+            "setting": "La varilla de 50 cm, acero de 2 mm; la mesa exactamente a su ritmo.",
+            "reads": "Una varilla sujeta abajo oscila con ω₀ = (β₁L)²/L²·√(EI/μ), β₁L = 0,596864π. Su peso la comprime y la ablanda: entre ningún peso y el pandeo de Greenhill, ω² cae aquí a lo largo de una recta.",
+            "why": "Comprueba la raíz, la rigidez y el peso en el tono que la página escribe bajo cada varilla: 5,58 Hz; el peso le quita a ω² el 2,5 %. La página, según Rayleigh, baja ω² con una pendiente un 0,4 % mayor que la recta hacia el pandeo exacto de Greenhill; de ahí los 5 · 10⁻⁵.",
+            "step": "La primera fuente da el tono sin peso; la segunda, la longitud a la que la varilla pandea bajo su peso y su tono cae a cero. Entre ambos extremos, ω² se toma como una recta en función de la carga, una aproximación; la tolerancia la cubre."
+          },
+          "buckling": {
+            "title": "Demasiado larga para su peso",
+            "setting": "Una sola varilla del mismo acero de 2 mm, cada vez más larga, hasta que el cálculo ya no la acepta porque pandea bajo su peso.",
+            "reads": "Una columna exenta pandea bajo su propio peso en cuanto es más alta que (9B²/4·EI/(ρgA))^(1/3), con B el primer cero de la función de Bessel J₋₁/₃.",
+            "why": "Comprueba lo que el peso le quita al tono, allí donde se lo quita del todo: 1,720 m según la fuente, 1,723 m según la página. La página calcula con la forma de la oscilación en lugar de la del pandeo; eso eleva la carga de pandeo un 0,4 % y la longitud, un tercio de eso."
+          },
+          "in_step": {
+            "title": "Al compás: la varilla oscila con fuerza",
+            "setting": "La mesa exactamente al ritmo de la varilla de 80 cm, 2,09 Hz, 1 mm hacia cada lado, amortiguación 0,01; dos minutos desde el reposo.",
+            "reads": "La mesa empuja la oscilación de la varilla con Γ·Ω²·Y, Γ = ∫φ/∫φ²; al compás, la punta oscila de forma estacionaria con una amplitud de Γ·Y/(2ζ).",
+            "why": "Comprueba el bucle de pasos de tiempo, el empuje y la amortiguación: 78,3 mm a partir de 1 mm de la mesa. Γ = 1,566 se suma aquí a partir de la forma de la fuente; no se toma del motor de cálculo.",
+            "step": "La primera fuente da el oscilador forzado; la segunda, la forma de la oscilación; la tercera, el factor de participación para una forma de masa unidad; para una forma que vale 1 en la punta, se convierte en ∫φ/∫φ²."
+          },
+          "neighbour": {
+            "title": "Al lado: la vecina apenas se mueve",
+            "setting": "Como arriba; leído en la varilla de 90 cm, cuyo propio ritmo es de 1,61 Hz.",
+            "reads": "La misma fórmula fuera del ritmo: Γ·r²·Y/√((1 − r²)² + (2ζr)²), r = Ω/ω.",
+            "why": "Comprueba que la mesa empuja con su aceleración, Ω²·Y, y no con una fuerza fija: 3,86 mm; con la fuerza ω²·Y serían 2,30 mm. Tras dos minutos quedan 6 · 10⁻⁶ del arranque.",
+            "step": "Como arriba: el oscilador forzado de la primera fuente, con la forma y el factor de participación de las otras dos."
+          },
+          "growth": {
+            "title": "Desde el reposo: lo rápido que crece la oscilación",
+            "setting": "La mesa exactamente al ritmo de la varilla de 80 cm, desde el reposo; contado hasta que la oscilación alcanza 1 − 1/e de la estacionaria.",
+            "reads": "Desde el reposo, el movimiento es la oscilación estacionaria más otra que se extingue con e^(−ζωt); aproximadamente crece como 1 − e^(−ζωt), así que alcanza 1 − 1/e tras unas 1/(2πζ) = 15,9 oscilaciones.",
+            "why": "Comprueba cómo el bucle de pasos de tiempo une amortiguación y arranque: calculado con exactitud, 15,842 oscilaciones, 7,57 s a 2,09 Hz. La regla simple queda un 0,5 % por encima, porque el propio arranque tiene términos del orden de ζ.",
+            "step": "La fuente da la solución como la oscilación estacionaria más una que se extingue, con ω₁ = ω√(1 − ζ²) y la tasa ζω; sus dos constantes se eligen aquí de modo que posición y velocidad empiecen en cero."
+          }
+        },
+        "well": {
+          "kepler_period": {
+            "title": "La tercera ley de Kepler en el embudo",
+            "setting": "Sin resistencia a la rodadura, lanzada a 36 cm con la velocidad del círculo, 0,4411 m/s («Círculo»); medida la primera vuelta.",
+            "reads": "En el círculo, la pendiente de la pared tira de la bola hacia el centro con (5/7)·g·k/r²: un cuadrado inverso, como la gravedad de una estrella. Por eso vale la ley de Kepler T² = 4π²r³/(GM), con (5/7)·g·k en lugar de GM.",
+            "why": "Comprueba el movimiento hacia el centro y la fracción 5/7 de la bola que rueda: 5,127873 s por vuelta. Deslizándose, sin el 5/7, sería más rápida.",
+            "step": "La primera fuente da la ley de Kepler para una atracción de GM/r² por kilogramo. La segunda, que una bola maciza que rueda por una pendiente solo siente g·sin α/(1 + 2/5), 5/7 de lo que sentiría deslizándose, con el momento de inercia 2/5·m·r² de la bola maciza tomado de la tercera. En el círculo, esa parte mantiene la bola: (v²/r)·cos α = (5/7)·g·sin α, y con tan α = k/r² eso es v²/r = (5/7)·g·k/r²."
+          },
+          "equal_areas": {
+            "title": "Áreas iguales en tiempos iguales",
+            "setting": "Sin resistencia a la rodadura, lanzada a 36 cm a lo largo del borde con 0,30 m/s, más despacio que el círculo; leído tras 20 s.",
+            "reads": "La pared empuja en el plano que pasa por el eje, la gravedad tira verticalmente: nada hace girar la bola alrededor del eje. Así r²·φ̇ se mantiene igual: el doble del área que la línea hacia el centro barre en un segundo.",
+            "why": "Comprueba la ecuación de la vuelta alrededor del centro, en una roseta que entra mucho hacia dentro y vuelve a salir: tras 20 s son 0,108 m²/s, con una precisión de 10⁻¹⁰, como en el lanzamiento, 0,36 m por 0,30 m/s.",
+            "step": "La fuente deduce la segunda ley de Kepler de la conservación del momento angular. Aquí es el momento angular alrededor del eje, con el giro de la bola que rueda, (7/5)·r²·φ̇ por kilogramo; el factor 7/5 es fijo, así que r²·φ̇ se mantiene."
+          },
+          "energy": {
+            "title": "La energía se conserva",
+            "setting": "Como arriba: sin resistencia a la rodadura, lanzada a 36 cm con 0,30 m/s; tras 20 s, 20 000 pasos.",
+            "reads": "Sin pérdidas, la suma de movimiento, giro y altura se mantiene igual; el giro de la bola maciza lleva 2/5 de lo que lleva el movimiento.",
+            "why": "Comprueba el bucle de pasos de tiempo a lo largo de una roseta que gira un poco más en cada vuelta: −0,209407 J/kg en el lanzamiento y tras 20 s, iguales con una precisión de 10⁻¹⁰."
+          },
+          "brake": {
+            "title": "Lo que cuesta la resistencia a la rodadura",
+            "setting": "Resistencia a la rodadura 0,002 como en la página, lanzada a 36 cm en el círculo; leído a lo largo del primer paso.",
+            "reads": "La resistencia a la rodadura frena con C·N contra el movimiento; eso cuesta C·N·v por segundo. N, el empuje de la pared, es la parte del peso perpendicular a la pared más lo que mantiene la bola en su círculo.",
+            "why": "Comprueba el freno y el empuje de la pared del que procede: 8,6625 mW por kilogramo. Ya en el primer milisegundo la bola se frena un poco, y el freno con ella; y por debajo de 1 mm/s la página atenúa la resistencia hasta anularla: en conjunto, una desviación de 2 · 10⁻⁵.",
+            "step": "La primera fuente da la resistencia a la rodadura C·N. La segunda calcula la curva peraltada: N·sin θ = mv²/r y N·cos θ = mg. Sumadas en la dirección perpendicular a la pared, dan N = mg·cos α + (mv²/r)·sin α; la adherencia de la bola que rueda está en el plano de la pared y no aporta nada perpendicular a ella."
           }
         }
       },

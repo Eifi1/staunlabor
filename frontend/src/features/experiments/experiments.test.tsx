@@ -99,10 +99,12 @@ const UNCHECKED = {
     "maxwell",
     "peg",
     "plates",
+    "resonance",
     "sky",
     "sphere",
     "waterwheel",
     "wave",
+    "well",
   ],
   checked: [],
 };
@@ -1706,6 +1708,32 @@ describe("setting a check case up", () => {
     await screen.findAllByRole("img");
     await setUp(0);
     await waitFor(() => expect(screen.queryByRole("button", { name: E.maxwell.play.pause })).toBeInTheDocument());
+  });
+
+  it("drives the resonance table at the 60 cm rod's own beat, and has no button for the case the page cannot show", async () => {
+    renderWithProviders(<ResonancePage />);
+    await screen.findByRole("img", { name: E.resonance.view });
+    const buttons = await screen.findAllByRole("button", { name: E.checks.set_up });
+    // Five cases, one of them (the buckling rod) with nothing to set.
+    expect(buttons).toHaveLength(4);
+    await setUp(1);
+    await waitFor(() =>
+      expect(screen.getByRole("slider", { name: E.resonance.play.beat }).getAttribute("aria-valuetext")).toMatch(
+        /^2\.09/,
+      ),
+    );
+  });
+
+  it("pushes the ball round the well on its circle, with the felt's brake, for the brake's case", async () => {
+    renderWithProviders(<WellPage />);
+    await screen.findByRole("img", { name: E.well.view_top });
+    await setUp(3);
+    await waitFor(() =>
+      expect(screen.getByRole("slider", { name: E.well.play.resistance }).getAttribute("aria-valuetext")).toMatch(
+        /^0\.002/,
+      ),
+    );
+    expect(screen.getByRole("slider", { name: E.well.play.push }).getAttribute("aria-valuetext")).toMatch(/^0\.44/);
   });
 
   it("puts a 15 kg car on the coil's track for the brake, without rolling resistance", async () => {

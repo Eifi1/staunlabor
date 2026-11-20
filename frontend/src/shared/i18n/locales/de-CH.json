@@ -3549,7 +3549,38 @@
         "arch_T0": "Zug der Kette im Scheitel, waagrecht",
         "arch_density": "Dichte des Steins",
         "arch_depth": "Tiefe des Bogens, quer zur Ansicht",
-        "arch_thickness": "Dicke der Steine"
+        "arch_thickness": "Dicke der Steine",
+        "rod_beta": "erste Wurzel von cosh x·cos x = −1",
+        "rod_L": "Länge des Stabs",
+        "rod_EI": "Biegesteifigkeit des Stabs, E·πd⁴/64",
+        "rod_mu": "Masse des Stabs pro Meter",
+        "rod_load": "Gewicht gegen Steifigkeit, μgL³/(EI)",
+        "rod_qc": "Last, bei der der Stab knickt, 7,837",
+        "rod_B": "erste Nullstelle der Besselfunktion J₋₁/₃, 1,86635",
+        "rod_hc": "Länge, ab der der Stab unter seinem Gewicht knickt",
+        "rod_rho": "Dichte des Stahls, 7850",
+        "rod_A": "Querschnitt des Stabs",
+        "rod_w": "Schwingweite der Spitze gegen den Tisch",
+        "rod_Gamma": "Beteiligungsfaktor der ersten Schwingung, 1,566",
+        "rod_Omega": "Kreisfrequenz des Tischs",
+        "rod_Y": "Weg des Tischs zu jeder Seite, 1 mm",
+        "rod_omega": "Kreisfrequenz des Stabs",
+        "rod_zeta": "Dämpfungsgrad, 0,01",
+        "rod_phi": "Form der ersten Schwingung, 1 an der Spitze",
+        "rod_xi": "Ort entlang des Stabs, x/L",
+        "rod_tip": "Auslenkung der Spitze",
+        "rod_X": "stetige Schwingweite im Takt",
+        "rod_omega1": "Kreisfrequenz der abklingenden Schwingung",
+        "T_lap": "Zeit für eine Runde",
+        "r_well": "Abstand der Kugel von der Mitte",
+        "GM": "Stärke der Anziehung eines Sterns: Gravitationskonstante mal Masse",
+        "k_funnel": "Form des Trichters: Die Wand liegt bei z = −k/r",
+        "phidot": "Winkelgeschwindigkeit um die Mitte",
+        "r0_well": "Abstand beim Anstoss",
+        "v0_push": "Tempo des Anstosses",
+        "P_loss": "Verlust pro Sekunde",
+        "C_rr": "Rollwiderstand: Anteil des Drucks der Wand, der bremst",
+        "alpha_wall": "Neigung der Wand"
       },
       "cases": {
         "sphere": {
@@ -4034,6 +4065,71 @@
             "reads": "Jeder Stein ist entlang zweier Radien geschnitten, π/16 auseinander: das Dreieck bis zum äusseren Rand weniger das Dreieck bis zum inneren, ½(R₊² − R₋²)·sin(π/16).",
             "why": "Prüft die Steine, aus denen die Seite Gewichte und Schwerpunkte nimmt: 561,86 kg, die Zahl «Gewicht des Bogens» der Seite.",
             "step": "Die Quelle gibt die Fläche eines Dreiecks aus zwei Seiten und dem Winkel dazwischen. Ein Stein ist das Dreieck vom Mittelpunkt bis zum äusseren Rand, R₊ = R + t/2, weniger das bis zum inneren, R₋ = R − t/2; das mal Tiefe und Dichte."
+          }
+        },
+        "resonance": {
+          "tone": {
+            "title": "Der Ton des kürzesten Stabs",
+            "setting": "Der 50-cm-Stab, 2 mm Stahl; der Tisch genau in seinem Takt.",
+            "reads": "Ein unten eingespannter Stab schwingt mit ω₀ = (β₁L)²/L²·√(EI/μ), β₁L = 0,596864π. Sein Gewicht drückt ihn zusammen und macht ihn weicher: Zwischen keinem Gewicht und Greenhills Knicken fällt ω² hier auf einer Geraden.",
+            "why": "Prüft Wurzel, Steifigkeit und Gewicht im Ton, den die Seite unter jeden Stab schreibt: 5,58 Hz; das Gewicht nimmt 2,5 % von ω². Die Seite senkt ω² nach Rayleigh um 0,4 % steiler als die Gerade zu Greenhills genauem Knicken, daher 5 · 10⁻⁵.",
+            "step": "Die erste Quelle gibt den Ton ohne Gewicht, die zweite die Länge, bei der der Stab unter seinem Gewicht knickt und sein Ton auf null fällt. Dazwischen ist ω² als Gerade in der Last angenommen, eine Näherung; die Toleranz trägt sie."
+          },
+          "buckling": {
+            "title": "Zu lang für sein Gewicht",
+            "setting": "Ein einzelner Stab aus demselben 2-mm-Stahl, immer länger, bis die Rechnung ihn nicht mehr nimmt, weil er unter seinem Gewicht knickt.",
+            "reads": "Eine freistehende Säule knickt unter ihrem eigenen Gewicht, sobald sie höher ist als (9B²/4·EI/(ρgA))^(1/3), B die erste Nullstelle der Besselfunktion J₋₁/₃.",
+            "why": "Prüft, was das Gewicht dem Ton nimmt, dort, wo es ihn ganz nimmt: 1,720 m nach der Quelle, 1,723 m nach der Seite. Die Seite rechnet mit der Form der Schwingung statt der des Knickens; das hebt die Knicklast um 0,4 % und die Länge um ein Drittel davon."
+          },
+          "in_step": {
+            "title": "Im Takt: der Stab schwingt weit",
+            "setting": "Der Tisch genau im Takt des 80-cm-Stabs, 2,09 Hz, 1 mm hin und her, Dämpfung 0,01; zwei Minuten aus der Ruhe.",
+            "reads": "Der Tisch schiebt die Schwingung des Stabs mit Γ·Ω²·Y an, Γ = ∫φ/∫φ²; im Takt schwingt die Spitze stetig um Γ·Y/(2ζ).",
+            "why": "Prüft Zeitschleife, Anstoss und Dämpfung: 78,3 mm aus 1 mm Tisch. Γ = 1,566 ist hier aus der Form der Quelle summiert, nicht aus der Engine genommen.",
+            "step": "Die erste Quelle gibt den angetriebenen Schwinger, die zweite die Form der Schwingung, die dritte den Beteiligungsfaktor für eine Form mit der Masse eins; für eine Form mit 1 an der Spitze wird er ∫φ/∫φ²."
+          },
+          "neighbour": {
+            "title": "Daneben: der Nachbar rührt sich kaum",
+            "setting": "Wie oben; abgelesen am 90-cm-Stab, dessen eigener Takt 1,61 Hz ist.",
+            "reads": "Dieselbe Formel ausserhalb des Takts: Γ·r²·Y/√((1 − r²)² + (2ζr)²), r = Ω/ω.",
+            "why": "Prüft, dass der Tisch mit seiner Beschleunigung schiebt, Ω²·Y, und nicht mit einer festen Kraft: 3,86 mm; mit der Kraft ω²·Y wären es 2,30 mm. Nach zwei Minuten bleiben 6 · 10⁻⁶ vom Anlauf.",
+            "step": "Wie oben: der angetriebene Schwinger der ersten Quelle, mit der Form und dem Beteiligungsfaktor der beiden anderen."
+          },
+          "growth": {
+            "title": "Aus der Ruhe: wie schnell die Schwingung wächst",
+            "setting": "Der Tisch genau im Takt des 80-cm-Stabs, aus der Ruhe; gezählt, bis die Schwingung 1 − 1/e der stetigen erreicht.",
+            "reads": "Aus der Ruhe ist die Bewegung die stetige Schwingung plus eine, die mit e^(−ζωt) abklingt; ungefähr wächst sie wie 1 − e^(−ζωt), erreicht 1 − 1/e also nach etwa 1/(2πζ) = 15,9 Schwingungen.",
+            "why": "Prüft, wie die Zeitschleife Dämpfung und Anlauf verbindet: genau gerechnet 15,842 Schwingungen, 7,57 s bei 2,09 Hz. Die einfache Regel liegt 0,5 % darüber, weil der Anlauf selbst Glieder der Grösse ζ hat.",
+            "step": "Die Quelle gibt die Lösung als stetige Schwingung plus eine abklingende mit ω₁ = ω√(1 − ζ²) und der Rate ζω; deren zwei Konstanten sind hier so gewählt, dass Ort und Geschwindigkeit bei null beginnen."
+          }
+        },
+        "well": {
+          "kepler_period": {
+            "title": "Keplers drittes Gesetz im Trichter",
+            "setting": "Ohne Rollwiderstand, bei 36 cm mit dem Tempo der Kreisbahn angestossen, 0,4411 m/s («Kreisbahn»); gemessen die erste Runde.",
+            "reads": "Auf der Kreisbahn hält die Neigung der Wand die Kugel mit (5/7)·g·k/r² zur Mitte: ein umgekehrtes Quadrat wie die Schwerkraft eines Sterns. Darum gilt Keplers T² = 4π²r³/(GM), mit (5/7)·g·k an der Stelle von GM.",
+            "why": "Prüft die Bewegung zur Mitte hin und den Anteil 5/7 der rollenden Kugel: 5,127873 s für die Runde. Gleitend, ohne die 5/7, wäre sie schneller.",
+            "step": "Die erste Quelle gibt Keplers Gesetz für eine Anziehung GM/r² pro Kilogramm. Die zweite gibt, dass eine rollende Vollkugel am Hang nur g·sin α/(1 + 2/5) spürt, 5/7 des Gleitens, mit dem Trägheitsmoment 2/5·m·r² der Vollkugel aus der dritten. Auf dem Kreis hält dieser Teil die Kugel: (v²/r)·cos α = (5/7)·g·sin α, und mit tan α = k/r² ist das v²/r = (5/7)·g·k/r²."
+          },
+          "equal_areas": {
+            "title": "Gleiche Flächen in gleichen Zeiten",
+            "setting": "Ohne Rollwiderstand, bei 36 cm mit 0,30 m/s längs des Rands angestossen, langsamer als die Kreisbahn; gelesen nach 20 s.",
+            "reads": "Die Wand drückt in der Ebene durch die Achse, die Schwere zieht senkrecht: Nichts dreht die Kugel um die Achse. So bleibt r²·φ̇ gleich, das Doppelte der Fläche, die die Linie zur Mitte in einer Sekunde überstreicht.",
+            "why": "Prüft die Gleichung für den Umlauf, auf einer Rosette, die weit nach innen und wieder hinaus führt: Nach 20 s sind es 0,108 m²/s, auf 10⁻¹⁰ genau, wie beim Anstoss 0,36 m mal 0,30 m/s.",
+            "step": "Die Quelle leitet Keplers zweites Gesetz aus dem erhaltenen Drehimpuls her. Hier ist es der Drehimpuls um die Achse, mit dem Drall der rollenden Kugel (7/5)·r²·φ̇ pro Kilogramm; der Faktor 7/5 bleibt fest, also bleibt r²·φ̇."
+          },
+          "energy": {
+            "title": "Die Energie bleibt erhalten",
+            "setting": "Wie oben: ohne Rollwiderstand, bei 36 cm mit 0,30 m/s angestossen; nach 20 s, 20 000 Schritten.",
+            "reads": "Ohne Verluste bleibt die Summe aus Bewegung, Drehung und Höhe gleich; die Drehung der Vollkugel trägt 2/5 dessen, was die Bewegung trägt.",
+            "why": "Prüft die Zeitschleife über eine Rosette, die sich jede Runde weiterdreht: −0,209407 J/kg beim Anstoss und nach 20 s, auf 10⁻¹⁰ gleich."
+          },
+          "brake": {
+            "title": "Was der Rollwiderstand kostet",
+            "setting": "Rollwiderstand 0,002 wie auf der Seite, bei 36 cm auf der Kreisbahn angestossen; gelesen über den ersten Schritt.",
+            "reads": "Der Rollwiderstand bremst mit C·N gegen die Bewegung; das kostet C·N·v pro Sekunde. N, der Druck der Wand, ist der Anteil des Gewichts quer zur Wand und dazu, was die Kugel auf ihrem Kreis hält.",
+            "why": "Prüft die Bremse und den Druck der Wand, aus dem sie kommt: 8,6625 mW pro Kilogramm. Schon in der ersten Millisekunde wird die Kugel ein wenig langsamer und die Bremse mit ihr, und unter 1 mm/s blendet die Seite den Widerstand aus: zusammen 2 · 10⁻⁵ Abweichung.",
+            "step": "Die erste Quelle gibt den Rollwiderstand C·N. Die zweite rechnet die überhöhte Kurve: N·sin θ = mv²/r und N·cos θ = mg. Quer zur Wand zusammengezählt geben beide N = mg·cos α + (mv²/r)·sin α; die Haftreibung der rollenden Kugel liegt in der Wand und trägt quer zu ihr nichts bei."
           }
         }
       },

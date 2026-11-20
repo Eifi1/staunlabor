@@ -3549,7 +3549,38 @@
         "arch_T0": "traction de la chaîne au sommet, horizontale",
         "arch_density": "masse volumique de la pierre",
         "arch_depth": "profondeur de l’arc, perpendiculaire à la vue",
-        "arch_thickness": "épaisseur des pierres"
+        "arch_thickness": "épaisseur des pierres",
+        "rod_beta": "première racine de cosh x·cos x = −1",
+        "rod_L": "longueur de la tige",
+        "rod_EI": "rigidité en flexion de la tige, E·πd⁴/64",
+        "rod_mu": "masse de la tige par mètre",
+        "rod_load": "poids rapporté à la raideur, μgL³/(EI)",
+        "rod_qc": "charge à laquelle la tige flambe, 7,837",
+        "rod_B": "premier zéro de la fonction de Bessel J₋₁/₃, 1,86635",
+        "rod_hc": "longueur à partir de laquelle la tige flambe sous son poids",
+        "rod_rho": "masse volumique de l’acier, 7850",
+        "rod_A": "section de la tige",
+        "rod_w": "amplitude de la pointe par rapport à la table",
+        "rod_Gamma": "facteur de participation de la première oscillation, 1,566",
+        "rod_Omega": "pulsation de la table",
+        "rod_Y": "course de la table de chaque côté, 1 mm",
+        "rod_omega": "pulsation de la tige",
+        "rod_zeta": "taux d’amortissement, 0,01",
+        "rod_phi": "forme de la première oscillation, 1 à la pointe",
+        "rod_xi": "position le long de la tige, x/L",
+        "rod_tip": "déviation de la pointe",
+        "rod_X": "amplitude stationnaire en phase",
+        "rod_omega1": "pulsation de l’oscillation qui s’éteint",
+        "T_lap": "durée d’un tour",
+        "r_well": "distance de la bille au centre",
+        "GM": "intensité de l’attraction d’une étoile : la constante gravitationnelle multipliée par sa masse",
+        "k_funnel": "forme de l’entonnoir : la paroi se trouve à z = −k/r",
+        "phidot": "vitesse angulaire autour du centre",
+        "r0_well": "distance au lancer",
+        "v0_push": "vitesse du lancer",
+        "P_loss": "perte par seconde",
+        "C_rr": "résistance au roulement : la part de la poussée de la paroi qui freine",
+        "alpha_wall": "pente de la paroi"
       },
       "cases": {
         "sphere": {
@@ -4034,6 +4065,71 @@
             "reads": "Chaque pierre est taillée le long de deux rayons distants de π/16 : le triangle jusqu’au bord extérieur moins le triangle jusqu’au bord intérieur, ½(R₊² − R₋²)·sin(π/16).",
             "why": "Vérifie les pierres dont la page tire les poids et les centres de gravité : 561,86 kg, le chiffre « Poids de l’arc » de la page.",
             "step": "La source donne l’aire d’un triangle à partir de deux côtés et de l’angle qu’ils forment. Une pierre est le triangle allant du centre jusqu’au bord extérieur, R₊ = R + t/2, moins celui allant jusqu’au bord intérieur, R₋ = R − t/2 ; le tout multiplié par la profondeur et la masse volumique."
+          }
+        },
+        "resonance": {
+          "tone": {
+            "title": "La note de la tige la plus courte",
+            "setting": "La tige de 50 cm, acier de 2 mm ; la table exactement à son rythme.",
+            "reads": "Une tige fixée en bas oscille à ω₀ = (β₁L)²/L²·√(EI/μ), β₁L = 0,596864π. Son poids la comprime et l’assouplit : entre aucun poids et le flambage de Greenhill, ω² descend ici le long d’une droite.",
+            "why": "Vérifie la racine, la raideur et le poids dans la note que la page écrit sous chaque tige : 5,58 Hz ; le poids retire 2,5 % de ω². La page, selon Rayleigh, abaisse ω² avec une pente 0,4 % plus forte que la droite menant au flambage exact de Greenhill, d’où les 5 · 10⁻⁵.",
+            "step": "La première source donne la note sans poids, la seconde la longueur à laquelle la tige flambe sous son poids et sa note tombe à zéro. Entre les deux, ω² est pris comme une droite en fonction de la charge, une approximation ; la tolérance la couvre."
+          },
+          "buckling": {
+            "title": "Trop longue pour son poids",
+            "setting": "Une seule tige du même acier de 2 mm, de plus en plus longue, jusqu’à ce que le calcul la refuse parce qu’elle flambe sous son poids.",
+            "reads": "Une colonne libre flambe sous son propre poids dès qu’elle est plus haute que (9B²/4·EI/(ρgA))^(1/3), B étant le premier zéro de la fonction de Bessel J₋₁/₃.",
+            "why": "Vérifie ce que le poids enlève à la note, là où il l’enlève tout entière : 1,720 m d’après la source, 1,723 m d’après la page. La page calcule avec la forme de l’oscillation au lieu de celle du flambage ; cela relève la charge de flambage de 0,4 % et la longueur d’un tiers de cela."
+          },
+          "in_step": {
+            "title": "En phase : la tige oscille largement",
+            "setting": "La table exactement au rythme de la tige de 80 cm, 2,09 Hz, 1 mm de chaque côté, amortissement 0,01 ; deux minutes à partir du repos.",
+            "reads": "La table pousse l’oscillation de la tige avec Γ·Ω²·Y, Γ = ∫φ/∫φ² ; en phase, la pointe oscille de façon stationnaire avec une amplitude Γ·Y/(2ζ).",
+            "why": "Vérifie la boucle des pas de temps, la poussée et l’amortissement : 78,3 mm à partir de 1 mm de table. Γ = 1,566 est ici sommé à partir de la forme de la source, et non tiré du moteur de calcul.",
+            "step": "La première source donne l’oscillateur forcé, la deuxième la forme de l’oscillation, la troisième le facteur de participation pour une forme de masse unité ; pour une forme valant 1 à la pointe, il devient ∫φ/∫φ²."
+          },
+          "neighbour": {
+            "title": "À côté : la voisine bouge à peine",
+            "setting": "Comme ci-dessus ; relevé sur la tige de 90 cm, dont le rythme propre est de 1,61 Hz.",
+            "reads": "La même formule hors du rythme : Γ·r²·Y/√((1 − r²)² + (2ζr)²), r = Ω/ω.",
+            "why": "Vérifie que la table pousse avec son accélération, Ω²·Y, et non avec une force fixe : 3,86 mm ; avec la force ω²·Y, ce serait 2,30 mm. Après deux minutes, il reste 6 · 10⁻⁶ du démarrage.",
+            "step": "Comme ci-dessus : l’oscillateur forcé de la première source, avec la forme et le facteur de participation des deux autres."
+          },
+          "growth": {
+            "title": "À partir du repos : à quelle vitesse l’oscillation croît",
+            "setting": "La table exactement au rythme de la tige de 80 cm, à partir du repos ; compté jusqu’à ce que l’oscillation atteigne 1 − 1/e de l’oscillation stationnaire.",
+            "reads": "À partir du repos, le mouvement est l’oscillation stationnaire plus une autre qui s’éteint en e^(−ζωt) ; elle croît à peu près comme 1 − e^(−ζωt) et atteint donc 1 − 1/e après environ 1/(2πζ) = 15,9 oscillations.",
+            "why": "Vérifie comment la boucle des pas de temps relie l’amortissement et le démarrage : calculé exactement, 15,842 oscillations, 7,57 s à 2,09 Hz. La règle simple est 0,5 % au-dessus, car le démarrage lui-même a des termes de l’ordre de ζ.",
+            "step": "La source donne la solution comme l’oscillation stationnaire plus une oscillation qui s’éteint, à ω₁ = ω√(1 − ζ²) et au taux ζω ; ses deux constantes sont choisies ici pour que la position et la vitesse partent de zéro."
+          }
+        },
+        "well": {
+          "kepler_period": {
+            "title": "La troisième loi de Kepler dans l’entonnoir",
+            "setting": "Sans résistance au roulement, lancée à 36 cm à la vitesse du cercle, 0,4411 m/s (« Cercle ») ; mesuré sur le premier tour.",
+            "reads": "Sur le cercle, la pente de la paroi tire la bille vers le centre avec (5/7)·g·k/r² : un carré inverse, comme la gravité d’une étoile. C’est pourquoi la loi de Kepler T² = 4π²r³/(GM) s’applique, avec (5/7)·g·k à la place de GM.",
+            "why": "Vérifie le mouvement vers le centre et la part de 5/7 de la bille qui roule : 5,127873 s pour le tour. En glissant, sans le 5/7, elle serait plus rapide.",
+            "step": "La première source donne la loi de Kepler pour une attraction de GM/r² par kilogramme. La deuxième indique qu’une bille pleine qui roule sur une pente ne ressent que g·sin α/(1 + 2/5), soit 5/7 du glissement, avec le moment d’inertie 2/5·m·r² de la bille pleine tiré de la troisième. Sur le cercle, cette part retient la bille : (v²/r)·cos α = (5/7)·g·sin α, et avec tan α = k/r², cela donne v²/r = (5/7)·g·k/r²."
+          },
+          "equal_areas": {
+            "title": "Des aires égales en des temps égaux",
+            "setting": "Sans résistance au roulement, lancée à 36 cm le long du bord à 0,30 m/s, plus lentement que le cercle ; relevé après 20 s.",
+            "reads": "La paroi pousse dans le plan qui passe par l’axe, la pesanteur tire verticalement : rien ne fait tourner la bille autour de l’axe. Ainsi r²·φ̇ reste le même : le double de l’aire que la ligne vers le centre balaie en une seconde.",
+            "why": "Vérifie l’équation de la révolution autour du centre, sur une rosette qui va loin vers l’intérieur et ressort : après 20 s, on a 0,108 m²/s à 10⁻¹⁰ près, comme au lancer, 0,36 m fois 0,30 m/s.",
+            "step": "La source déduit la deuxième loi de Kepler de la conservation du moment cinétique. Ici, c’est le moment cinétique autour de l’axe, avec la rotation de la bille qui roule, (7/5)·r²·φ̇ par kilogramme ; le facteur 7/5 est fixe, donc r²·φ̇ se conserve."
+          },
+          "energy": {
+            "title": "L’énergie se conserve",
+            "setting": "Comme ci-dessus : sans résistance au roulement, lancée à 36 cm à 0,30 m/s ; après 20 s, soit 20 000 pas.",
+            "reads": "Sans pertes, la somme du mouvement, de la rotation et de la hauteur reste la même ; la rotation de la bille pleine porte 2/5 de ce que porte le mouvement.",
+            "why": "Vérifie la boucle des pas de temps sur une rosette qui tourne un peu plus à chaque tour : −0,209407 J/kg au lancer et après 20 s, identiques à 10⁻¹⁰ près."
+          },
+          "brake": {
+            "title": "Ce que coûte la résistance au roulement",
+            "setting": "Résistance au roulement 0,002 comme sur la page, lancée à 36 cm sur le cercle ; relevé sur le premier pas.",
+            "reads": "La résistance au roulement freine avec C·N contre le mouvement ; cela coûte C·N·v par seconde. N, la poussée de la paroi, est la part du poids perpendiculaire à la paroi, plus ce qui maintient la bille sur son cercle.",
+            "why": "Vérifie le freinage et la poussée de la paroi dont il découle : 8,6625 mW par kilogramme. Dès la première milliseconde, la bille ralentit un peu, et le freinage avec elle ; et en dessous de 1 mm/s, la page atténue la résistance jusqu’à l’annuler : ensemble, un écart de 2 · 10⁻⁵.",
+            "step": "La première source donne la résistance au roulement C·N. La deuxième traite le virage relevé : N·sin θ = mv²/r et N·cos θ = mg. Additionnées perpendiculairement à la paroi, elles donnent N = mg·cos α + (mv²/r)·sin α ; l’adhérence de la bille qui roule se trouve dans le plan de la paroi et n’apporte rien perpendiculairement à elle."
           }
         }
       },

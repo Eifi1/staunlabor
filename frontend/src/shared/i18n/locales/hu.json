@@ -3549,7 +3549,38 @@
         "arch_T0": "a lánc húzása a csúcsban, vízszintesen",
         "arch_density": "a kő sűrűsége",
         "arch_depth": "az ív mélysége, a nézetre merőlegesen",
-        "arch_thickness": "a kövek vastagsága"
+        "arch_thickness": "a kövek vastagsága",
+        "rod_beta": "a cosh x·cos x = −1 első gyöke",
+        "rod_L": "a pálca hossza",
+        "rod_EI": "a pálca hajlítómerevsége, E·πd⁴/64",
+        "rod_mu": "a pálca méterenkénti tömege",
+        "rod_load": "súly a merevséghez képest, μgL³/(EI)",
+        "rod_qc": "a teher, amelynél a pálca kihajlik, 7,837",
+        "rod_B": "a J₋₁/₃ Bessel-függvény első zérushelye, 1,86635",
+        "rod_hc": "a hossz, amelytől a pálca a saját súlya alatt kihajlik",
+        "rod_rho": "az acél sűrűsége, 7850",
+        "rod_A": "a pálca keresztmetszete",
+        "rod_w": "a csúcs lengési amplitúdója az asztalhoz képest",
+        "rod_Gamma": "az első lengés részvételi tényezője, 1,566",
+        "rod_Omega": "az asztal körfrekvenciája",
+        "rod_Y": "az asztal útja mindkét oldalra, 1 mm",
+        "rod_omega": "a pálca körfrekvenciája",
+        "rod_zeta": "csillapítási tényező, 0,01",
+        "rod_phi": "az első lengés alakja, a csúcson 1",
+        "rod_xi": "hely a pálca mentén, x/L",
+        "rod_tip": "a csúcs kitérése",
+        "rod_X": "az állandósult kitérés ütemben",
+        "rod_omega1": "a lecsengő lengés körfrekvenciája",
+        "T_lap": "egy kör ideje",
+        "r_well": "a golyó távolsága a középtől",
+        "GM": "egy csillag vonzásának erőssége: a gravitációs állandó szorozva a tömegével",
+        "k_funnel": "a tölcsér alakja: a fal z = −k/r magasságban van",
+        "phidot": "szögsebesség a közép körül",
+        "r0_well": "távolság a lökéskor",
+        "v0_push": "a lökés sebessége",
+        "P_loss": "másodpercenkénti veszteség",
+        "C_rr": "gördülési ellenállás: a fal nyomóerejének fékező hányada",
+        "alpha_wall": "a fal lejtése"
       },
       "cases": {
         "sphere": {
@@ -4034,6 +4065,71 @@
             "reads": "Minden kő két, egymással π/16 szöget bezáró sugár mentén van kivágva: a külső peremig érő háromszög mínusz a belső peremig érő háromszög, ½(R₊² − R₋²)·sin(π/16).",
             "why": "Azokat a köveket ellenőrzi, amelyekből az oldal a súlyokat és a súlypontokat veszi: 561,86 kg, az oldal „Az ív súlya” értéke.",
             "step": "A forrás egy háromszög területét adja meg két oldalából és a közbezárt szögből. Egy kő a középponttól a külső peremig érő háromszög, R₊ = R + t/2, mínusz a belső peremig érő, R₋ = R − t/2; ezt kell megszorozni a mélységgel és a sűrűséggel."
+          }
+        },
+        "resonance": {
+          "tone": {
+            "title": "A legrövidebb pálca hangja",
+            "setting": "Az 50 cm-es pálca, 2 mm-es acél; az asztal pontosan az ő ütemében.",
+            "reads": "Egy alul befogott pálca ω₀ = (β₁L)²/L²·√(EI/μ) körfrekvenciával leng, β₁L = 0,596864π. A súlya összenyomja és lágyabbá teszi: a súlytalan esettől Greenhill kihajlásáig ω² itt egy egyenes mentén csökken.",
+            "why": "A gyököt, a merevséget és a súlyt ellenőrzi abban a hangban, amelyet az oldal minden pálca alá kiír: 5,58 Hz; a súly ω² 2,5 %-át veszi el. Az oldal Rayleigh szerint 0,4 %-kal meredekebben csökkenti ω²-et, mint a Greenhill pontos kihajlásához vezető egyenes, innen az 5 · 10⁻⁵.",
+            "step": "Az első forrás a súly nélküli hangot adja meg, a második azt a hosszt, amelynél a pálca a saját súlya alatt kihajlik, és a hangja nullára csökken. A kettő között ω²-et a teher függvényében egyenesnek vesszük; ez közelítés, amelyet a tűréshatár elbír."
+          },
+          "buckling": {
+            "title": "Túl hosszú a saját súlyához",
+            "setting": "Egyetlen pálca ugyanabból a 2 mm-es acélból, egyre hosszabban, amíg a számítás már nem fogadja el, mert a saját súlya alatt kihajlik.",
+            "reads": "Egy szabadon álló oszlop a saját súlya alatt kihajlik, amint magasabb, mint (9B²/4·EI/(ρgA))^(1/3), ahol B a J₋₁/₃ Bessel-függvény első zérushelye.",
+            "why": "Azt ellenőrzi, mit vesz el a súly a hangból ott, ahol az egészet elveszi: 1,720 m a forrás szerint, 1,723 m az oldal szerint. Az oldal a lengés alakjával számol a kihajlásé helyett; ez 0,4 %-kal emeli a kihajlási terhet, és ennek harmadával a hosszt."
+          },
+          "in_step": {
+            "title": "Ütemben: a pálca nagyot leng",
+            "setting": "Az asztal pontosan a 80 cm-es pálca ütemében, 2,09 Hz, oldalanként 1 mm, csillapítás 0,01; két perc nyugalomból indulva.",
+            "reads": "Az asztal Γ·Ω²·Y-nal löki a pálca lengését, Γ = ∫φ/∫φ²; ütemben a csúcs állandósult Γ·Y/(2ζ) kitéréssel leng.",
+            "why": "Az időléptető ciklust, a lökést és a csillapítást ellenőrzi: 78,3 mm 1 mm-es asztalmozgásból. Γ = 1,566 itt a forrás alakjából van összegezve, nem a számítómotorból véve.",
+            "step": "Az első forrás a gerjesztett lengőt adja meg, a második a lengés alakját, a harmadik az egységnyi tömegű alak részvételi tényezőjét; olyan alakra, amely a csúcson 1, ez ∫φ/∫φ² lesz."
+          },
+          "neighbour": {
+            "title": "Mellette: a szomszéd alig mozdul",
+            "setting": "Mint fent; a 90 cm-es pálcán leolvasva, amelynek saját üteme 1,61 Hz.",
+            "reads": "Ugyanaz a képlet az ütemen kívül: Γ·r²·Y/√((1 − r²)² + (2ζr)²), r = Ω/ω.",
+            "why": "Azt ellenőrzi, hogy az asztal a gyorsulásával, Ω²·Y-nal lök, és nem állandó erővel: 3,86 mm; ω²·Y erővel 2,30 mm lenne. Két perc után 6 · 10⁻⁶ marad a felfutásból.",
+            "step": "Mint fent: az első forrás gerjesztett lengője, a másik kettő alakjával és részvételi tényezőjével."
+          },
+          "growth": {
+            "title": "Nyugalomból: milyen gyorsan nő a lengés",
+            "setting": "Az asztal pontosan a 80 cm-es pálca ütemében, nyugalomból indulva; addig számolva, amíg a lengés eléri az állandósult lengés 1 − 1/e részét.",
+            "reads": "Nyugalomból a mozgás az állandósult lengés és egy e^(−ζωt) szerint lecsengő lengés összege; nagyjából úgy nő, mint 1 − e^(−ζωt), tehát körülbelül 1/(2πζ) = 15,9 lengés után éri el 1 − 1/e-t.",
+            "why": "Azt ellenőrzi, hogyan kapcsolja össze az időléptető ciklus a csillapítást és a felfutást: pontosan számolva 15,842 lengés, 7,57 s 2,09 Hz-nél. Az egyszerű szabály 0,5 %-kal fölötte van, mert maga a felfutás is tartalmaz ζ nagyságrendű tagokat.",
+            "step": "A forrás a megoldást az állandósult lengés és egy lecsengő lengés összegeként adja meg, ω₁ = ω√(1 − ζ²) körfrekvenciával és ζω lecsengési rátával; ennek két állandóját itt úgy választjuk, hogy a hely és a sebesség nulláról induljon."
+          }
+        },
+        "well": {
+          "kepler_period": {
+            "title": "Kepler harmadik törvénye a tölcsérben",
+            "setting": "Gördülési ellenállás nélkül, 36 cm-nél a körpálya sebességével, 0,4411 m/s-mal meglökve („Körpálya”); az első kört mérve.",
+            "reads": "A körpályán a fal lejtése (5/7)·g·k/r²-tel húzza a golyót a közép felé: ez fordított négyzetes, mint egy csillag gravitációja. Ezért érvényes Kepler T² = 4π²r³/(GM) törvénye, GM helyén (5/7)·g·k-val.",
+            "why": "A közép felé irányuló mozgást és a guruló golyó 5/7-es hányadát ellenőrzi: 5,127873 s egy kör. Csúszva, az 5/7 nélkül gyorsabb lenne.",
+            "step": "Az első forrás Kepler törvényét kilogrammonként GM/r² vonzásra adja meg. A második szerint egy lejtőn guruló tömör golyó csak g·sin α/(1 + 2/5) gyorsulást érez, a csúszásénak 5/7-ét, a tömör golyó 2/5·m·r² tehetetlenségi nyomatékával a harmadik forrásból. A körpályán ez a rész tartja a golyót: (v²/r)·cos α = (5/7)·g·sin α, és tan α = k/r² mellett ez v²/r = (5/7)·g·k/r²."
+          },
+          "equal_areas": {
+            "title": "Egyenlő idők alatt egyenlő területek",
+            "setting": "Gördülési ellenállás nélkül, 36 cm-nél a perem mentén 0,30 m/s-mal meglökve, lassabban, mint a körpálya; 20 s után leolvasva.",
+            "reads": "A fal a tengelyen átmenő síkban nyom, a nehézségi erő függőlegesen húz: semmi sem forgatja a golyót a tengely körül. Így r²·φ̇ változatlan marad; ez a középhez húzott vonal által egy másodperc alatt súrolt terület kétszerese.",
+            "why": "A keringés egyenletét ellenőrzi egy rozettán, amely messze befelé, majd újra kifelé visz: 20 s után 0,108 m²/s, 10⁻¹⁰ pontossággal ugyanannyi, mint a lökéskor, 0,36 m szorozva 0,30 m/s-mal.",
+            "step": "A forrás Kepler második törvényét a perdület megmaradásából vezeti le. Itt a tengely körüli perdületről van szó, a guruló golyó kilogrammonkénti (7/5)·r²·φ̇ perdületével; a 7/5-ös tényező állandó, tehát r²·φ̇ megmarad."
+          },
+          "energy": {
+            "title": "Az energia megmarad",
+            "setting": "Mint fent: gördülési ellenállás nélkül, 36 cm-nél 0,30 m/s-mal meglökve; 20 s, azaz 20 000 lépés után.",
+            "reads": "Veszteségek nélkül a mozgás, a forgás és a magasság összege változatlan; a tömör golyó forgása annak 2/5-ét hordozza, amit a mozgás.",
+            "why": "Az időléptető ciklust ellenőrzi egy rozettán, amely minden körben kicsit továbbfordul: −0,209407 J/kg a lökéskor és 20 s után, 10⁻¹⁰ pontossággal egyezően."
+          },
+          "brake": {
+            "title": "Mibe kerül a gördülési ellenállás",
+            "setting": "Gördülési ellenállás 0,002, mint az oldalon, 36 cm-nél a körpályán meglökve; az első lépés alatt leolvasva.",
+            "reads": "A gördülési ellenállás C·N erővel fékez a mozgással szemben; ez másodpercenként C·N·v-be kerül. N, a fal nyomóereje, a súlynak a falra merőleges része, és hozzá az, ami a golyót a körén tartja.",
+            "why": "A fékezést és a fal nyomóerejét ellenőrzi, amelyből a fékezés származik: kilogrammonként 8,6625 mW. Már az első ezredmásodpercben kissé lelassul a golyó, és vele a fékezés is, 1 mm/s alatt pedig az oldal fokozatosan kikapcsolja az ellenállást: együtt 2 · 10⁻⁵ eltérés.",
+            "step": "Az első forrás a C·N gördülési ellenállást adja meg. A második a döntött kanyart számolja: N·sin θ = mv²/r és N·cos θ = mg. A falra merőlegesen összeadva ezekből N = mg·cos α + (mv²/r)·sin α adódik; a guruló golyó tapadási súrlódása a fal síkjában hat, és merőlegesen semmit sem ad hozzá."
           }
         }
       },

@@ -2435,6 +2435,18 @@ cites his dissertation of 1904, the line above his paper of 1907), the hanging c
 weight; the thinnest arch's 10.75 cm lies between the thickness slider's whole
 centimetres, so "Set it up" sets it exactly.
 
+**The resonance rods'** five (2026-11-20) hold a rod's tone to the clamped
+beam's first mode lowered towards Greenhill's buckling load (that lowering
+along a straight line is a step of ours, marked derived, and kept to the
+50 cm rod, where it differs by 5 · 10⁻⁵), the buckling length itself (which
+the page has no input for, so the case has no "Set it up"), the swing in step
+at a rod's beat, its neighbour's, and the growth from rest. The docs' simple
+rule for the growth, 1 − 1/e after 1/(2πζ) cycles, is 0.5 % off the exact
+solution the engine follows to 10⁻⁷. **The well's** four hold the circle's lap
+to Kepler's third law under g·5/7, equal areas in equal times, the energy, and
+the felt's brake. A case without a setting shows no "Set it up" button
+(`check-section.tsx`).
+
 **On the page** a section "Check it yourself" (`check-section.tsx`) lists the
 cases, each with its formula as an `Equation` (`check-formulas.ts`), both
 values to seven digits, the deviation, why the case would catch a mistake,
