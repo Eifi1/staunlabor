@@ -89,7 +89,7 @@ function OverviewCard({ held }: { held: boolean }) {
       </div>
       <div className="grid flex-1 grid-cols-2 gap-4">
         {OVERVIEW_STILLS.map((exhibit) => (
-          <FittedPreview key={exhibit} exhibit={exhibit} still={held} height={262} box={FRAME} />
+          <FittedPreview key={exhibit} exhibit={exhibit} still={held} height={262} box={FRAME} frame="p-3" plain />
         ))}
       </div>
     </div>
