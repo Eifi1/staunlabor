@@ -12,3 +12,8 @@ coverage/
 # the next write.
 src/features/experiments/simulate/engine-cases.json
 src/features/experiments/test-fixtures.json
+
+# The exhibits' checks, every case computed with its sources, written the same
+# way by `scripts/write-checks.py` and held to the engine by
+# `backend/tests/unit/test_checks_file.py`.
+src/features/experiments/checks.json
