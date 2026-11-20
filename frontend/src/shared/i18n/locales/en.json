@@ -200,8 +200,8 @@
       },
       "cone": {
         "short": "Double cone",
-        "title": "The double cone rolls uphill",
-        "summary": "Two rails spread apart and rise as they go. A double cone laid at the bottom rolls up by itself.",
+        "title": "The rolling double cone",
+        "summary": "Two rails spread apart and rise as they go. A double cone lies across them – and which way it rolls is less obvious than it looks.",
         "question": "Does a double cone on two rising rails roll up or down – and what decides it?"
       },
       "parabola": {

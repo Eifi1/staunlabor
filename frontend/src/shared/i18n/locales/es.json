@@ -200,8 +200,8 @@
       },
       "cone": {
         "short": "Doble cono",
-        "title": "El doble cono rueda cuesta arriba",
-        "summary": "Dos rieles se separan y suben a la vez. Un doble cono colocado abajo rueda solo hacia arriba.",
+        "title": "El doble cono que rueda",
+        "summary": "Dos rieles se separan y suben a la vez. Sobre ellos descansa un doble cono, y hacia dónde rueda no es tan obvio como parece.",
         "question": "¿Rueda un doble cono sobre dos rieles que suben hacia arriba o hacia abajo – y qué lo decide?"
       },
       "parabola": {

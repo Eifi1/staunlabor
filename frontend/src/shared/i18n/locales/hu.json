@@ -200,8 +200,8 @@
       },
       "cone": {
         "short": "Kettős kúp",
-        "title": "A kettős kúp felfelé gurul",
-        "summary": "Két sín szétválik, és közben emelkedik. A lent ráhelyezett kettős kúp magától felgurul.",
+        "title": "A guruló kettős kúp",
+        "summary": "Két sín szétválik, és közben emelkedik. Rajtuk egy kettős kúp fekszik – és hogy merre gurul, az kevésbé nyilvánvaló, mint amilyennek látszik.",
         "question": "Felfelé vagy lefelé gurul a kettős kúp két emelkedő sínen – és mi dönti el?"
       },
       "parabola": {

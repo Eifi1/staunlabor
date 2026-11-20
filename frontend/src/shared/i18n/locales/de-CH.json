@@ -200,8 +200,8 @@
       },
       "cone": {
         "short": "Doppelkegel",
-        "title": "Der Doppelkegel rollt bergauf",
-        "summary": "Zwei Schienen laufen auseinander und steigen dabei an. Ein Doppelkegel, unten aufgelegt, rollt von selbst hinauf.",
+        "title": "Der rollende Doppelkegel",
+        "summary": "Zwei Schienen laufen auseinander und steigen dabei an. Darauf liegt ein Doppelkegel – und wohin er rollt, ist nicht so klar, wie es aussieht.",
         "question": "Rollt ein Doppelkegel auf zwei ansteigenden Schienen hinauf oder hinunter – und was entscheidet es?"
       },
       "parabola": {

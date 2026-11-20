@@ -200,8 +200,8 @@
       },
       "cone": {
         "short": "Double cône",
-        "title": "Le double cône monte la pente",
-        "summary": "Deux rails s'écartent en montant. Un double cône posé en bas monte tout seul.",
+        "title": "Le double cône qui roule",
+        "summary": "Deux rails s'écartent en montant. Un double cône est posé dessus – et le sens dans lequel il roule est moins évident qu'il n'y paraît.",
         "question": "Un double cône sur deux rails qui montent roule-t-il vers le haut ou vers le bas – et qu'est-ce qui en décide ?"
       },
       "parabola": {
