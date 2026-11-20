@@ -148,12 +148,14 @@ it encrypted in the data source's secure settings.
 1. Make a folder **Staunlabor** (**Dashboards → New → New folder**).
 2. Import the dashboard into it (**Dashboards → New → Import → Upload
    dashboard JSON file**): `deploy/grafana/staunlabor-dashboard.json`.
-3. At the top, pick in **Cloud Monitoring** the Google Cloud Monitoring data
-   source with uid `keksdose-gcp`.
-4. Leave **Project** at `staunlabor` and **Cloud SQL project** at `keksdose`.
+3. Leave **Project** at `staunlabor` and **Cloud SQL project** at `keksdose`.
 
-The panels refer to the data source only through that variable, so the import
-asks nothing and works with any name.
+Every panel names its data source by uid, `keksdose-gcp`, as Keksdose's own
+`keksdose-platform-gcp` does, so the import asks nothing. The first version
+picked it through a variable instead. In the stack every panel then said "No
+data" without an error, while the same queries sent to Google directly
+answered (2026-11-20). In another stack, replace the uid in the JSON before
+importing.
 
 Keksdose's dashboards are in its folder **Keksdose**. Its import script
 (`scripts/grafana-import.py`) writes only there and only its own uids. This
