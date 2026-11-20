@@ -1,8 +1,10 @@
 """The app: the exhibits' routes and the accounts' and their admin's (server-kit's)
 under ``/api/v1``, a health check, and the two answers an error can get.
 
-No middleware beyond CORS, which only the development server needs: in
-production the web service proxies ``/api`` on the site's own origin. The
+Two middlewares: CORS, which only the development server needs (in
+production the web service proxies ``/api`` on the site's own origin), and
+the request log (``staunlabor.request_log``), one line per API call with the
+route, the status and the time it took, and nothing about who asked. The
 accounts' database is built with the app and connects only when an account
 route asks for it (``staunlabor.database``): the exhibits and the health check
 never do.
@@ -36,6 +38,7 @@ from staunlabor.api.experiments_router import router as experiments_router
 from staunlabor.database import Database
 from staunlabor.exhibit_checks import exhibit_checks_router
 from staunlabor.feedback import feedback_deps
+from staunlabor.request_log import RequestLogMiddleware
 from staunlabor.security import AccountLimiters, ExperimentsLimiters, limit_account_request
 from staunlabor.settings import Settings, get_settings
 from staunlabor.translations import translation_review_deps
@@ -129,6 +132,7 @@ def create_app() -> FastAPI:
         allow_methods=["GET", "POST"],
         allow_headers=["Content-Type"],
     )
+    app.add_middleware(RequestLogMiddleware, prefix=API_PREFIX)
 
     @app.get(f"{API_PREFIX}/health")
     async def health() -> dict[str, str]:

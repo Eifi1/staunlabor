@@ -1,0 +1,3132 @@
+{
+  "title": "Staunlabor: where the load goes",
+  "uid": "staunlabor-load",
+  "description": "Cloud Run, Cloud SQL and the backend's per-route log metrics, one row per bottleneck (deploy/grafana/README.md).",
+  "tags": [
+    "staunlabor",
+    "cloud-run"
+  ],
+  "timezone": "browser",
+  "editable": true,
+  "graphTooltip": 1,
+  "refresh": "1m",
+  "time": {
+    "from": "now-6h",
+    "to": "now"
+  },
+  "timepicker": {
+    "refresh_intervals": [
+      "1m",
+      "5m",
+      "15m"
+    ]
+  },
+  "schemaVersion": 39,
+  "version": 1,
+  "links": [],
+  "annotations": {
+    "list": []
+  },
+  "templating": {
+    "list": [
+      {
+        "name": "datasource",
+        "label": "Cloud Monitoring",
+        "type": "datasource",
+        "query": "stackdriver",
+        "current": {},
+        "hide": 0,
+        "refresh": 1,
+        "regex": "",
+        "options": [],
+        "includeAll": false,
+        "multi": false
+      },
+      {
+        "name": "project",
+        "label": "Project",
+        "type": "textbox",
+        "query": "staunlabor",
+        "current": {
+          "selected": false,
+          "text": "staunlabor",
+          "value": "staunlabor"
+        },
+        "options": [
+          {
+            "selected": true,
+            "text": "staunlabor",
+            "value": "staunlabor"
+          }
+        ],
+        "hide": 0
+      },
+      {
+        "name": "sql_project",
+        "label": "Cloud SQL project",
+        "type": "textbox",
+        "query": "keksdose",
+        "current": {
+          "selected": false,
+          "text": "keksdose",
+          "value": "keksdose"
+        },
+        "options": [
+          {
+            "selected": true,
+            "text": "keksdose",
+            "value": "keksdose"
+          }
+        ],
+        "hide": 0
+      }
+    ]
+  },
+  "panels": [
+    {
+      "id": 1,
+      "type": "row",
+      "title": "At a glance",
+      "collapsed": false,
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 0
+      },
+      "panels": []
+    },
+    {
+      "id": 999,
+      "type": "text",
+      "title": "How to read this dashboard",
+      "gridPos": {
+        "h": 9,
+        "w": 24,
+        "x": 0,
+        "y": 1
+      },
+      "options": {
+        "mode": "markdown",
+        "content": "**Which is it?** Each row below answers one question. Read them top to bottom while a post brings visitors.\n\n1. **CPU** — backend CPU near 100 % *and* time in the app far above the CPU per call: requests wait for the one core. The route panels say whose calculation it is.\n2. **Cold starts** — new instances, startup latency and *pending* latency rise together; cold requests show which route paid the first-time work.\n3. **The budget** — 429s marked *refused by the budget* rise while CPU is fine: visitors share an address (an office, a proxy). The line names no address, so this cannot tell one busy visitor from many behind one.\n4. **The instance cap** — instances sit at 3, Cloud Run *recommends* more, and *refused for want of an instance* appears.\n5. **Static files** — the web service's CPU or latency rises while the backend is quiet.\n6. **The database** — `/experiments/checks` slows while CPU is fine; connection latency or refusals rise.\n\nPer-route data comes from the backend's own log line (`backend/staunlabor/request_log.py`) through the log-based metrics of `deploy/grafana/create-log-metrics.sh`; it starts when they are created. Set-up and costs: `deploy/grafana/README.md`."
+      }
+    },
+    {
+      "id": 2,
+      "type": "timeseries",
+      "title": "Requests per second",
+      "description": "Cloud Run's own count. Every visitor's request reaches the web service; only /api goes on to the backend.",
+      "datasource": {
+        "type": "stackdriver",
+        "uid": "${datasource}"
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 8,
+        "x": 0,
+        "y": 10
+      },
+      "interval": "1m",
+      "fieldConfig": {
+        "defaults": {
+          "unit": "reqps",
+          "custom": {
+            "drawStyle": "line",
+            "lineWidth": 1,
+            "fillOpacity": 0,
+            "pointSize": 6,
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": {
+              "mode": "none",
+              "group": "A"
+            },
+            "axisSoftMin": 0
+          }
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byFrameRefID",
+              "options": "A"
+            },
+            "properties": [
+              {
+                "id": "displayName",
+                "value": "web: pages, files and /api"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byFrameRefID",
+              "options": "B"
+            },
+            "properties": [
+              {
+                "id": "displayName",
+                "value": "backend: /api"
+              }
+            ]
+          }
+        ]
+      },
+      "targets": [
+        {
+          "refId": "A",
+          "datasource": {
+            "type": "stackdriver",
+            "uid": "${datasource}"
+          },
+          "queryType": "promQL",
+          "promQLQuery": {
+            "projectName": "$project",
+            "expr": "sum(rate(run_googleapis_com:request_count{monitored_resource=\"cloud_run_revision\",service_name=\"staunlabor-web\"}[5m]))",
+            "step": "$__interval"
+          }
+        },
+        {
+          "refId": "B",
+          "datasource": {
+            "type": "stackdriver",
+            "uid": "${datasource}"
+          },
+          "queryType": "promQL",
+          "promQLQuery": {
+            "projectName": "$project",
+            "expr": "sum(rate(run_googleapis_com:request_count{monitored_resource=\"cloud_run_revision\",service_name=\"staunlabor-backend\"}[5m]))",
+            "step": "$__interval"
+          }
+        }
+      ],
+      "options": {
+        "legend": {
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "mode": "multi",
+          "sort": "desc"
+        }
+      }
+    },
+    {
+      "id": 3,
+      "type": "timeseries",
+      "title": "p95 latency, as Cloud Run measures it",
+      "description": "From the request reaching a running container until it leaves; startup is not included (see Cold starts).",
+      "datasource": {
+        "type": "stackdriver",
+        "uid": "${datasource}"
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 8,
+        "x": 8,
+        "y": 10
+      },
+      "interval": "1m",
+      "fieldConfig": {
+        "defaults": {
+          "unit": "ms",
+          "custom": {
+            "drawStyle": "line",
+            "lineWidth": 1,
+            "fillOpacity": 0,
+            "pointSize": 6,
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": {
+              "mode": "none",
+              "group": "A"
+            },
+            "axisSoftMin": 0
+          }
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byFrameRefID",
+              "options": "A"
+            },
+            "properties": [
+              {
+                "id": "displayName",
+                "value": "web p95"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byFrameRefID",
+              "options": "B"
+            },
+            "properties": [
+              {
+                "id": "displayName",
+                "value": "backend p95"
+              }
+            ]
+          }
+        ]
+      },
+      "targets": [
+        {
+          "refId": "A",
+          "datasource": {
+            "type": "stackdriver",
+            "uid": "${datasource}"
+          },
+          "queryType": "promQL",
+          "promQLQuery": {
+            "projectName": "$project",
+            "expr": "histogram_quantile(0.95, sum by (le) (rate(run_googleapis_com:request_latencies_bucket{monitored_resource=\"cloud_run_revision\",service_name=\"staunlabor-web\"}[5m])))",
+            "step": "$__interval"
+          }
+        },
+        {
+          "refId": "B",
+          "datasource": {
+            "type": "stackdriver",
+            "uid": "${datasource}"
+          },
+          "queryType": "promQL",
+          "promQLQuery": {
+            "projectName": "$project",
+            "expr": "histogram_quantile(0.95, sum by (le) (rate(run_googleapis_com:request_latencies_bucket{monitored_resource=\"cloud_run_revision\",service_name=\"staunlabor-backend\"}[5m])))",
+            "step": "$__interval"
+          }
+        }
+      ],
+      "options": {
+        "legend": {
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "mode": "multi",
+          "sort": "desc"
+        }
+      }
+    },
+    {
+      "id": 4,
+      "type": "timeseries",
+      "title": "Refused or failed, per minute",
+      "description": "429 and 5xx as the containers answered them (the budget's 429 included), and Cloud Run's own refusals for want of an instance, which never reach a container and are missing from Cloud Run's request count.",
+      "datasource": {
+        "type": "stackdriver",
+        "uid": "${datasource}"
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 8,
+        "x": 16,
+        "y": 10
+      },
+      "interval": "1m",
+      "fieldConfig": {
+        "defaults": {
+          "unit": "short",
+          "custom": {
+            "drawStyle": "bars",
+            "lineWidth": 1,
+            "fillOpacity": 60,
+            "pointSize": 6,
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": {
+              "mode": "none",
+              "group": "A"
+            },
+            "axisSoftMin": 0
+          }
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byFrameRefID",
+              "options": "A"
+            },
+            "properties": [
+              {
+                "id": "displayName",
+                "value": "${__field.labels.service_name} ${__field.labels.response_code}"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byFrameRefID",
+              "options": "B"
+            },
+            "properties": [
+              {
+                "id": "displayName",
+                "value": "${__field.labels.service_name}: no instance free"
+              }
+            ]
+          }
+        ]
+      },
+      "targets": [
+        {
+          "refId": "A",
+          "datasource": {
+            "type": "stackdriver",
+            "uid": "${datasource}"
+          },
+          "queryType": "promQL",
+          "promQLQuery": {
+            "projectName": "$project",
+            "expr": "sum by (service_name, response_code) (rate(run_googleapis_com:request_count{monitored_resource=\"cloud_run_revision\",service_name=~\"staunlabor-(web|backend)\",response_code=~\"429|5..\"}[5m])) * 60",
+            "step": "$__interval"
+          }
+        },
+        {
+          "refId": "B",
+          "datasource": {
+            "type": "stackdriver",
+            "uid": "${datasource}"
+          },
+          "queryType": "promQL",
+          "promQLQuery": {
+            "projectName": "$project",
+            "expr": "sum by (service_name) (rate(logging_googleapis_com:user_staunlabor_run_no_instance{monitored_resource=\"cloud_run_revision\",service_name=~\"staunlabor-(web|backend)\"}[5m])) * 60",
+            "step": "$__interval"
+          }
+        }
+      ],
+      "options": {
+        "legend": {
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "mode": "multi",
+          "sort": "desc"
+        }
+      }
+    },
+    {
+      "id": 5,
+      "type": "row",
+      "title": "1 · CPU: one calculation at a time per backend instance (1 vCPU, one worker)",
+      "collapsed": false,
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 18
+      },
+      "panels": []
+    },
+    {
+      "id": 6,
+      "type": "timeseries",
+      "title": "Backend CPU utilization across instances",
+      "description": "Cloud Run's distribution over the backend's instances. Cloud Run adds an instance at about 60 %, up to the cap of 3.",
+      "datasource": {
+        "type": "stackdriver",
+        "uid": "${datasource}"
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 8,
+        "x": 0,
+        "y": 19
+      },
+      "interval": "1m",
+      "fieldConfig": {
+        "defaults": {
+          "unit": "percentunit",
+          "custom": {
+            "drawStyle": "line",
+            "lineWidth": 1,
+            "fillOpacity": 0,
+            "pointSize": 6,
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": {
+              "mode": "none",
+              "group": "A"
+            },
+            "axisSoftMin": 0,
+            "thresholdsStyle": {
+              "mode": "dashed"
+            }
+          },
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 0.6
+              }
+            ]
+          }
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byFrameRefID",
+              "options": "A"
+            },
+            "properties": [
+              {
+                "id": "displayName",
+                "value": "p50"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byFrameRefID",
+              "options": "B"
+            },
+            "properties": [
+              {
+                "id": "displayName",
+                "value": "p95"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byFrameRefID",
+              "options": "C"
+            },
+            "properties": [
+              {
+                "id": "displayName",
+                "value": "p99"
+              }
+            ]
+          }
+        ]
+      },
+      "targets": [
+        {
+          "refId": "A",
+          "datasource": {
+            "type": "stackdriver",
+            "uid": "${datasource}"
+          },
+          "queryType": "promQL",
+          "promQLQuery": {
+            "projectName": "$project",
+            "expr": "histogram_quantile(0.5, sum by (le) (rate(run_googleapis_com:container_cpu_utilizations_bucket{monitored_resource=\"cloud_run_revision\",service_name=\"staunlabor-backend\"}[5m])))",
+            "step": "$__interval"
+          }
+        },
+        {
+          "refId": "B",
+          "datasource": {
+            "type": "stackdriver",
+            "uid": "${datasource}"
+          },
+          "queryType": "promQL",
+          "promQLQuery": {
+            "projectName": "$project",
+            "expr": "histogram_quantile(0.95, sum by (le) (rate(run_googleapis_com:container_cpu_utilizations_bucket{monitored_resource=\"cloud_run_revision\",service_name=\"staunlabor-backend\"}[5m])))",
+            "step": "$__interval"
+          }
+        },
+        {
+          "refId": "C",
+          "datasource": {
+            "type": "stackdriver",
+            "uid": "${datasource}"
+          },
+          "queryType": "promQL",
+          "promQLQuery": {
+            "projectName": "$project",
+            "expr": "histogram_quantile(0.99, sum by (le) (rate(run_googleapis_com:container_cpu_utilizations_bucket{monitored_resource=\"cloud_run_revision\",service_name=\"staunlabor-backend\"}[5m])))",
+            "step": "$__interval"
+          }
+        }
+      ],
+      "options": {
+        "legend": {
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "mode": "multi",
+          "sort": "desc"
+        }
+      }
+    },
+    {
+      "id": 7,
+      "type": "timeseries",
+      "title": "Backend latency in the container",
+      "description": "Cloud Run's request latency for the backend: p50, p95, p99.",
+      "datasource": {
+        "type": "stackdriver",
+        "uid": "${datasource}"
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 8,
+        "x": 8,
+        "y": 19
+      },
+      "interval": "1m",
+      "fieldConfig": {
+        "defaults": {
+          "unit": "ms",
+          "custom": {
+            "drawStyle": "line",
+            "lineWidth": 1,
+            "fillOpacity": 0,
+            "pointSize": 6,
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": {
+              "mode": "none",
+              "group": "A"
+            },
+            "axisSoftMin": 0
+          }
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byFrameRefID",
+              "options": "A"
+            },
+            "properties": [
+              {
+                "id": "displayName",
+                "value": "p50"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byFrameRefID",
+              "options": "B"
+            },
+            "properties": [
+              {
+                "id": "displayName",
+                "value": "p95"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byFrameRefID",
+              "options": "C"
+            },
+            "properties": [
+              {
+                "id": "displayName",
+                "value": "p99"
+              }
+            ]
+          }
+        ]
+      },
+      "targets": [
+        {
+          "refId": "A",
+          "datasource": {
+            "type": "stackdriver",
+            "uid": "${datasource}"
+          },
+          "queryType": "promQL",
+          "promQLQuery": {
+            "projectName": "$project",
+            "expr": "histogram_quantile(0.5, sum by (le) (rate(run_googleapis_com:request_latencies_bucket{monitored_resource=\"cloud_run_revision\",service_name=\"staunlabor-backend\"}[5m])))",
+            "step": "$__interval"
+          }
+        },
+        {
+          "refId": "B",
+          "datasource": {
+            "type": "stackdriver",
+            "uid": "${datasource}"
+          },
+          "queryType": "promQL",
+          "promQLQuery": {
+            "projectName": "$project",
+            "expr": "histogram_quantile(0.95, sum by (le) (rate(run_googleapis_com:request_latencies_bucket{monitored_resource=\"cloud_run_revision\",service_name=\"staunlabor-backend\"}[5m])))",
+            "step": "$__interval"
+          }
+        },
+        {
+          "refId": "C",
+          "datasource": {
+            "type": "stackdriver",
+            "uid": "${datasource}"
+          },
+          "queryType": "promQL",
+          "promQLQuery": {
+            "projectName": "$project",
+            "expr": "histogram_quantile(0.99, sum by (le) (rate(run_googleapis_com:request_latencies_bucket{monitored_resource=\"cloud_run_revision\",service_name=\"staunlabor-backend\"}[5m])))",
+            "step": "$__interval"
+          }
+        }
+      ],
+      "options": {
+        "legend": {
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "mode": "multi",
+          "sort": "desc"
+        }
+      }
+    },
+    {
+      "id": 8,
+      "type": "timeseries",
+      "title": "Requests in flight per backend instance",
+      "description": "The most requests one active instance held at once in a minute. Above 1 with CPU near 100 %, calculations queue for the core inside the instance (up to 20 per instance, --concurrency).",
+      "datasource": {
+        "type": "stackdriver",
+        "uid": "${datasource}"
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 8,
+        "x": 16,
+        "y": 19
+      },
+      "interval": "1m",
+      "fieldConfig": {
+        "defaults": {
+          "unit": "short",
+          "custom": {
+            "drawStyle": "line",
+            "lineWidth": 1,
+            "fillOpacity": 0,
+            "pointSize": 6,
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": {
+              "mode": "none",
+              "group": "A"
+            },
+            "axisSoftMin": 0
+          }
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byFrameRefID",
+              "options": "A"
+            },
+            "properties": [
+              {
+                "id": "displayName",
+                "value": "p50"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byFrameRefID",
+              "options": "B"
+            },
+            "properties": [
+              {
+                "id": "displayName",
+                "value": "p99"
+              }
+            ]
+          }
+        ]
+      },
+      "targets": [
+        {
+          "refId": "A",
+          "datasource": {
+            "type": "stackdriver",
+            "uid": "${datasource}"
+          },
+          "queryType": "promQL",
+          "promQLQuery": {
+            "projectName": "$project",
+            "expr": "histogram_quantile(0.5, sum by (le) (rate(run_googleapis_com:container_max_request_concurrencies_bucket{monitored_resource=\"cloud_run_revision\",service_name=\"staunlabor-backend\",state=\"active\"}[5m])))",
+            "step": "$__interval"
+          }
+        },
+        {
+          "refId": "B",
+          "datasource": {
+            "type": "stackdriver",
+            "uid": "${datasource}"
+          },
+          "queryType": "promQL",
+          "promQLQuery": {
+            "projectName": "$project",
+            "expr": "histogram_quantile(0.99, sum by (le) (rate(run_googleapis_com:container_max_request_concurrencies_bucket{monitored_resource=\"cloud_run_revision\",service_name=\"staunlabor-backend\",state=\"active\"}[5m])))",
+            "step": "$__interval"
+          }
+        }
+      ],
+      "options": {
+        "legend": {
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "mode": "multi",
+          "sort": "desc"
+        }
+      }
+    },
+    {
+      "id": 9,
+      "type": "timeseries",
+      "title": "CPU used, by route (cores)",
+      "description": "Each request's CPU from the app's line, summed per route: 1.0 is one instance's whole core. Requests that overlap share the CPU of their overlap equally (request_log.CpuShares), so the stack adds up to what the backend used.",
+      "datasource": {
+        "type": "stackdriver",
+        "uid": "${datasource}"
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 0,
+        "y": 27
+      },
+      "interval": "1m",
+      "fieldConfig": {
+        "defaults": {
+          "unit": "short",
+          "custom": {
+            "drawStyle": "line",
+            "lineWidth": 1,
+            "fillOpacity": 60,
+            "pointSize": 6,
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": {
+              "mode": "normal",
+              "group": "A"
+            },
+            "axisSoftMin": 0
+          }
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byFrameRefID",
+              "options": "A"
+            },
+            "properties": [
+              {
+                "id": "displayName",
+                "value": "${__field.labels.route}"
+              }
+            ]
+          }
+        ]
+      },
+      "targets": [
+        {
+          "refId": "A",
+          "datasource": {
+            "type": "stackdriver",
+            "uid": "${datasource}"
+          },
+          "queryType": "promQL",
+          "promQLQuery": {
+            "projectName": "$project",
+            "expr": "sum by (route) (rate(logging_googleapis_com:user_staunlabor_api_cpu_sum{monitored_resource=\"cloud_run_revision\",service_name=\"staunlabor-backend\"}[5m])) / 1000",
+            "step": "$__interval"
+          }
+        }
+      ],
+      "options": {
+        "legend": {
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "mode": "multi",
+          "sort": "desc"
+        }
+      }
+    },
+    {
+      "id": 10,
+      "type": "timeseries",
+      "title": "p95 time in the app, by route",
+      "description": "From the request entering the app to the last byte handed to the server. Far above the route's CPU per call: it waited for the core.",
+      "datasource": {
+        "type": "stackdriver",
+        "uid": "${datasource}"
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 12,
+        "y": 27
+      },
+      "interval": "1m",
+      "fieldConfig": {
+        "defaults": {
+          "unit": "ms",
+          "custom": {
+            "drawStyle": "line",
+            "lineWidth": 1,
+            "fillOpacity": 0,
+            "pointSize": 6,
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": {
+              "mode": "none",
+              "group": "A"
+            },
+            "axisSoftMin": 0
+          }
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byFrameRefID",
+              "options": "A"
+            },
+            "properties": [
+              {
+                "id": "displayName",
+                "value": "${__field.labels.route}"
+              }
+            ]
+          }
+        ]
+      },
+      "targets": [
+        {
+          "refId": "A",
+          "datasource": {
+            "type": "stackdriver",
+            "uid": "${datasource}"
+          },
+          "queryType": "promQL",
+          "promQLQuery": {
+            "projectName": "$project",
+            "expr": "histogram_quantile(0.95, sum by (le, route) (rate(logging_googleapis_com:user_staunlabor_api_latency_bucket{monitored_resource=\"cloud_run_revision\",service_name=\"staunlabor-backend\"}[5m])))",
+            "step": "$__interval"
+          }
+        }
+      ],
+      "options": {
+        "legend": {
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "mode": "multi",
+          "sort": "desc"
+        }
+      }
+    },
+    {
+      "id": 11,
+      "type": "bargauge",
+      "title": "CPU per call, by route (mean over the range)",
+      "description": "What one call costs. Overlap moves CPU from dear calls to cheap ones in this figure, so read the true cost from a quiet hour.",
+      "datasource": {
+        "type": "stackdriver",
+        "uid": "${datasource}"
+      },
+      "gridPos": {
+        "h": 10,
+        "w": 12,
+        "x": 0,
+        "y": 35
+      },
+      "interval": "1m",
+      "fieldConfig": {
+        "defaults": {
+          "unit": "ms"
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byFrameRefID",
+              "options": "A"
+            },
+            "properties": [
+              {
+                "id": "displayName",
+                "value": "${__field.labels.route}"
+              }
+            ]
+          }
+        ]
+      },
+      "targets": [
+        {
+          "refId": "A",
+          "datasource": {
+            "type": "stackdriver",
+            "uid": "${datasource}"
+          },
+          "queryType": "promQL",
+          "promQLQuery": {
+            "projectName": "$project",
+            "expr": "sum by (route) (rate(logging_googleapis_com:user_staunlabor_api_cpu_sum{monitored_resource=\"cloud_run_revision\",service_name=\"staunlabor-backend\"}[5m])) / sum by (route) (rate(logging_googleapis_com:user_staunlabor_api_cpu_count{monitored_resource=\"cloud_run_revision\",service_name=\"staunlabor-backend\"}[5m]))",
+            "step": "$__interval"
+          }
+        }
+      ],
+      "options": {
+        "orientation": "horizontal",
+        "displayMode": "basic",
+        "showUnfilled": true,
+        "reduceOptions": {
+          "calcs": [
+            "mean"
+          ],
+          "fields": "",
+          "values": false
+        }
+      }
+    },
+    {
+      "id": 12,
+      "type": "timeseries",
+      "title": "Requests per minute, by route and status",
+      "description": "From the app's line: every /api request the backend answered.",
+      "datasource": {
+        "type": "stackdriver",
+        "uid": "${datasource}"
+      },
+      "gridPos": {
+        "h": 10,
+        "w": 12,
+        "x": 12,
+        "y": 35
+      },
+      "interval": "1m",
+      "fieldConfig": {
+        "defaults": {
+          "unit": "short",
+          "custom": {
+            "drawStyle": "line",
+            "lineWidth": 1,
+            "fillOpacity": 0,
+            "pointSize": 6,
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": {
+              "mode": "none",
+              "group": "A"
+            },
+            "axisSoftMin": 0
+          }
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byFrameRefID",
+              "options": "A"
+            },
+            "properties": [
+              {
+                "id": "displayName",
+                "value": "${__field.labels.route} ${__field.labels.status}"
+              }
+            ]
+          }
+        ]
+      },
+      "targets": [
+        {
+          "refId": "A",
+          "datasource": {
+            "type": "stackdriver",
+            "uid": "${datasource}"
+          },
+          "queryType": "promQL",
+          "promQLQuery": {
+            "projectName": "$project",
+            "expr": "sum by (route, status) (rate(logging_googleapis_com:user_staunlabor_api_latency_count{monitored_resource=\"cloud_run_revision\",service_name=\"staunlabor-backend\"}[5m])) * 60",
+            "step": "$__interval"
+          }
+        }
+      ],
+      "options": {
+        "legend": {
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "mode": "multi",
+          "sort": "desc"
+        }
+      }
+    },
+    {
+      "id": 13,
+      "type": "row",
+      "title": "2 · Cold starts: min instances 0",
+      "collapsed": false,
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 45
+      },
+      "panels": []
+    },
+    {
+      "id": 14,
+      "type": "timeseries",
+      "title": "Instances by state",
+      "description": "Cloud Run's instance count: active ones serve requests, idle ones wait to be reused or removed. The dashed line is the cap of 3.",
+      "datasource": {
+        "type": "stackdriver",
+        "uid": "${datasource}"
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 8,
+        "x": 0,
+        "y": 46
+      },
+      "interval": "1m",
+      "fieldConfig": {
+        "defaults": {
+          "unit": "short",
+          "decimals": 0,
+          "custom": {
+            "drawStyle": "line",
+            "lineWidth": 1,
+            "fillOpacity": 0,
+            "pointSize": 6,
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": {
+              "mode": "none",
+              "group": "A"
+            },
+            "axisSoftMin": 0,
+            "thresholdsStyle": {
+              "mode": "dashed"
+            }
+          },
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 3
+              }
+            ]
+          }
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byFrameRefID",
+              "options": "A"
+            },
+            "properties": [
+              {
+                "id": "displayName",
+                "value": "backend ${__field.labels.state}"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byFrameRefID",
+              "options": "B"
+            },
+            "properties": [
+              {
+                "id": "displayName",
+                "value": "web ${__field.labels.state}"
+              }
+            ]
+          }
+        ]
+      },
+      "targets": [
+        {
+          "refId": "A",
+          "datasource": {
+            "type": "stackdriver",
+            "uid": "${datasource}"
+          },
+          "queryType": "promQL",
+          "promQLQuery": {
+            "projectName": "$project",
+            "expr": "sum by (state) (run_googleapis_com:container_instance_count{monitored_resource=\"cloud_run_revision\",service_name=\"staunlabor-backend\"})",
+            "step": "$__interval"
+          }
+        },
+        {
+          "refId": "B",
+          "datasource": {
+            "type": "stackdriver",
+            "uid": "${datasource}"
+          },
+          "queryType": "promQL",
+          "promQLQuery": {
+            "projectName": "$project",
+            "expr": "sum by (state) (run_googleapis_com:container_instance_count{monitored_resource=\"cloud_run_revision\",service_name=\"staunlabor-web\"})",
+            "step": "$__interval"
+          }
+        }
+      ],
+      "options": {
+        "legend": {
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "mode": "multi",
+          "sort": "desc"
+        }
+      }
+    },
+    {
+      "id": 15,
+      "type": "timeseries",
+      "title": "Container startup latency",
+      "description": "How long a new instance took to start (Cloud Run, beta metric). The backend imports the app first: about 4.4 s measured on 2026-11-13.",
+      "datasource": {
+        "type": "stackdriver",
+        "uid": "${datasource}"
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 8,
+        "x": 8,
+        "y": 46
+      },
+      "interval": "1m",
+      "fieldConfig": {
+        "defaults": {
+          "unit": "ms",
+          "custom": {
+            "drawStyle": "points",
+            "lineWidth": 1,
+            "fillOpacity": 0,
+            "pointSize": 6,
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": {
+              "mode": "none",
+              "group": "A"
+            },
+            "axisSoftMin": 0
+          }
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byFrameRefID",
+              "options": "A"
+            },
+            "properties": [
+              {
+                "id": "displayName",
+                "value": "backend p50"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byFrameRefID",
+              "options": "B"
+            },
+            "properties": [
+              {
+                "id": "displayName",
+                "value": "backend p95"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byFrameRefID",
+              "options": "C"
+            },
+            "properties": [
+              {
+                "id": "displayName",
+                "value": "web p95"
+              }
+            ]
+          }
+        ]
+      },
+      "targets": [
+        {
+          "refId": "A",
+          "datasource": {
+            "type": "stackdriver",
+            "uid": "${datasource}"
+          },
+          "queryType": "promQL",
+          "promQLQuery": {
+            "projectName": "$project",
+            "expr": "histogram_quantile(0.5, sum by (le) (rate(run_googleapis_com:container_startup_latencies_bucket{monitored_resource=\"cloud_run_revision\",service_name=\"staunlabor-backend\"}[5m])))",
+            "step": "$__interval"
+          }
+        },
+        {
+          "refId": "B",
+          "datasource": {
+            "type": "stackdriver",
+            "uid": "${datasource}"
+          },
+          "queryType": "promQL",
+          "promQLQuery": {
+            "projectName": "$project",
+            "expr": "histogram_quantile(0.95, sum by (le) (rate(run_googleapis_com:container_startup_latencies_bucket{monitored_resource=\"cloud_run_revision\",service_name=\"staunlabor-backend\"}[5m])))",
+            "step": "$__interval"
+          }
+        },
+        {
+          "refId": "C",
+          "datasource": {
+            "type": "stackdriver",
+            "uid": "${datasource}"
+          },
+          "queryType": "promQL",
+          "promQLQuery": {
+            "projectName": "$project",
+            "expr": "histogram_quantile(0.95, sum by (le) (rate(run_googleapis_com:container_startup_latencies_bucket{monitored_resource=\"cloud_run_revision\",service_name=\"staunlabor-web\"}[5m])))",
+            "step": "$__interval"
+          }
+        }
+      ],
+      "options": {
+        "legend": {
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "mode": "multi",
+          "sort": "desc"
+        }
+      }
+    },
+    {
+      "id": 16,
+      "type": "timeseries",
+      "title": "Waiting before an instance takes the request",
+      "description": "Cloud Run's pending latency (beta): from the request reaching Cloud Run until an instance takes it, waiting for a free slot or a new instance's start.",
+      "datasource": {
+        "type": "stackdriver",
+        "uid": "${datasource}"
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 8,
+        "x": 16,
+        "y": 46
+      },
+      "interval": "1m",
+      "fieldConfig": {
+        "defaults": {
+          "unit": "ms",
+          "custom": {
+            "drawStyle": "line",
+            "lineWidth": 1,
+            "fillOpacity": 0,
+            "pointSize": 6,
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": {
+              "mode": "none",
+              "group": "A"
+            },
+            "axisSoftMin": 0
+          }
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byFrameRefID",
+              "options": "A"
+            },
+            "properties": [
+              {
+                "id": "displayName",
+                "value": "backend p95"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byFrameRefID",
+              "options": "B"
+            },
+            "properties": [
+              {
+                "id": "displayName",
+                "value": "backend p99"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byFrameRefID",
+              "options": "C"
+            },
+            "properties": [
+              {
+                "id": "displayName",
+                "value": "web p95"
+              }
+            ]
+          }
+        ]
+      },
+      "targets": [
+        {
+          "refId": "A",
+          "datasource": {
+            "type": "stackdriver",
+            "uid": "${datasource}"
+          },
+          "queryType": "promQL",
+          "promQLQuery": {
+            "projectName": "$project",
+            "expr": "histogram_quantile(0.95, sum by (le) (rate(run_googleapis_com:request_latency_pending_bucket{monitored_resource=\"cloud_run_revision\",service_name=\"staunlabor-backend\"}[5m])))",
+            "step": "$__interval"
+          }
+        },
+        {
+          "refId": "B",
+          "datasource": {
+            "type": "stackdriver",
+            "uid": "${datasource}"
+          },
+          "queryType": "promQL",
+          "promQLQuery": {
+            "projectName": "$project",
+            "expr": "histogram_quantile(0.99, sum by (le) (rate(run_googleapis_com:request_latency_pending_bucket{monitored_resource=\"cloud_run_revision\",service_name=\"staunlabor-backend\"}[5m])))",
+            "step": "$__interval"
+          }
+        },
+        {
+          "refId": "C",
+          "datasource": {
+            "type": "stackdriver",
+            "uid": "${datasource}"
+          },
+          "queryType": "promQL",
+          "promQLQuery": {
+            "projectName": "$project",
+            "expr": "histogram_quantile(0.95, sum by (le) (rate(run_googleapis_com:request_latency_pending_bucket{monitored_resource=\"cloud_run_revision\",service_name=\"staunlabor-web\"}[5m])))",
+            "step": "$__interval"
+          }
+        }
+      ],
+      "options": {
+        "legend": {
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "mode": "multi",
+          "sort": "desc"
+        }
+      }
+    },
+    {
+      "id": 17,
+      "type": "timeseries",
+      "title": "Cold requests, by route",
+      "description": "The first request each new backend process answered: which route met a fresh instance and paid the first-time work (the first database connection of /experiments/checks, the Chladni modes' one computation).",
+      "datasource": {
+        "type": "stackdriver",
+        "uid": "${datasource}"
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 0,
+        "y": 54
+      },
+      "interval": "1m",
+      "fieldConfig": {
+        "defaults": {
+          "unit": "short",
+          "decimals": 0,
+          "custom": {
+            "drawStyle": "bars",
+            "lineWidth": 1,
+            "fillOpacity": 60,
+            "pointSize": 6,
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": {
+              "mode": "none",
+              "group": "A"
+            },
+            "axisSoftMin": 0
+          }
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byFrameRefID",
+              "options": "A"
+            },
+            "properties": [
+              {
+                "id": "displayName",
+                "value": "${__field.labels.route}"
+              }
+            ]
+          }
+        ]
+      },
+      "targets": [
+        {
+          "refId": "A",
+          "datasource": {
+            "type": "stackdriver",
+            "uid": "${datasource}"
+          },
+          "queryType": "promQL",
+          "promQLQuery": {
+            "projectName": "$project",
+            "expr": "sum by (route) (increase(logging_googleapis_com:user_staunlabor_api_cold_count{monitored_resource=\"cloud_run_revision\",service_name=\"staunlabor-backend\"}[$__interval]))",
+            "step": "$__interval"
+          }
+        }
+      ],
+      "options": {
+        "legend": {
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "mode": "multi",
+          "sort": "desc"
+        }
+      }
+    },
+    {
+      "id": 18,
+      "type": "timeseries",
+      "title": "Time in the app of cold requests, by route",
+      "description": "Their mean time in the app. The process's start (the import) comes before and is in the startup latency instead.",
+      "datasource": {
+        "type": "stackdriver",
+        "uid": "${datasource}"
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 12,
+        "y": 54
+      },
+      "interval": "1m",
+      "fieldConfig": {
+        "defaults": {
+          "unit": "ms",
+          "custom": {
+            "drawStyle": "points",
+            "lineWidth": 1,
+            "fillOpacity": 0,
+            "pointSize": 6,
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": {
+              "mode": "none",
+              "group": "A"
+            },
+            "axisSoftMin": 0
+          }
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byFrameRefID",
+              "options": "A"
+            },
+            "properties": [
+              {
+                "id": "displayName",
+                "value": "${__field.labels.route}"
+              }
+            ]
+          }
+        ]
+      },
+      "targets": [
+        {
+          "refId": "A",
+          "datasource": {
+            "type": "stackdriver",
+            "uid": "${datasource}"
+          },
+          "queryType": "promQL",
+          "promQLQuery": {
+            "projectName": "$project",
+            "expr": "sum by (route) (rate(logging_googleapis_com:user_staunlabor_api_cold_sum{monitored_resource=\"cloud_run_revision\",service_name=\"staunlabor-backend\"}[5m])) / sum by (route) (rate(logging_googleapis_com:user_staunlabor_api_cold_count{monitored_resource=\"cloud_run_revision\",service_name=\"staunlabor-backend\"}[5m]))",
+            "step": "$__interval"
+          }
+        }
+      ],
+      "options": {
+        "legend": {
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "mode": "multi",
+          "sort": "desc"
+        }
+      }
+    },
+    {
+      "id": 19,
+      "type": "row",
+      "title": "3 · The per-address budget: 90 calculations per 10 s, per instance",
+      "collapsed": false,
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 62
+      },
+      "panels": []
+    },
+    {
+      "id": 20,
+      "type": "timeseries",
+      "title": "Refused by the budget, per minute, by route",
+      "description": "429s the app answered itself: a per-address budget was spent (security.py, or the kit's windows on the account routes). Cloud Run's own 429 never reaches the app and is in row 4.",
+      "datasource": {
+        "type": "stackdriver",
+        "uid": "${datasource}"
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 0,
+        "y": 63
+      },
+      "interval": "1m",
+      "fieldConfig": {
+        "defaults": {
+          "unit": "short",
+          "custom": {
+            "drawStyle": "bars",
+            "lineWidth": 1,
+            "fillOpacity": 60,
+            "pointSize": 6,
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": {
+              "mode": "none",
+              "group": "A"
+            },
+            "axisSoftMin": 0
+          }
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byFrameRefID",
+              "options": "A"
+            },
+            "properties": [
+              {
+                "id": "displayName",
+                "value": "${__field.labels.route}"
+              }
+            ]
+          }
+        ]
+      },
+      "targets": [
+        {
+          "refId": "A",
+          "datasource": {
+            "type": "stackdriver",
+            "uid": "${datasource}"
+          },
+          "queryType": "promQL",
+          "promQLQuery": {
+            "projectName": "$project",
+            "expr": "sum by (route) (rate(logging_googleapis_com:user_staunlabor_api_latency_count{monitored_resource=\"cloud_run_revision\",service_name=\"staunlabor-backend\",status=\"429\"}[5m])) * 60",
+            "step": "$__interval"
+          }
+        }
+      ],
+      "options": {
+        "legend": {
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "mode": "multi",
+          "sort": "desc"
+        }
+      }
+    },
+    {
+      "id": 21,
+      "type": "timeseries",
+      "title": "Share of API requests the budget refused",
+      "description": "Refusals rising while CPU is fine point to visitors sharing an address. The line names no address, by design.",
+      "datasource": {
+        "type": "stackdriver",
+        "uid": "${datasource}"
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 12,
+        "y": 63
+      },
+      "interval": "1m",
+      "fieldConfig": {
+        "defaults": {
+          "unit": "percentunit",
+          "custom": {
+            "drawStyle": "line",
+            "lineWidth": 1,
+            "fillOpacity": 0,
+            "pointSize": 6,
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": {
+              "mode": "none",
+              "group": "A"
+            },
+            "axisSoftMin": 0
+          }
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byFrameRefID",
+              "options": "A"
+            },
+            "properties": [
+              {
+                "id": "displayName",
+                "value": "refused"
+              }
+            ]
+          }
+        ]
+      },
+      "targets": [
+        {
+          "refId": "A",
+          "datasource": {
+            "type": "stackdriver",
+            "uid": "${datasource}"
+          },
+          "queryType": "promQL",
+          "promQLQuery": {
+            "projectName": "$project",
+            "expr": "sum(rate(logging_googleapis_com:user_staunlabor_api_latency_count{monitored_resource=\"cloud_run_revision\",service_name=\"staunlabor-backend\",status=\"429\"}[5m])) / sum(rate(logging_googleapis_com:user_staunlabor_api_latency_count{monitored_resource=\"cloud_run_revision\",service_name=\"staunlabor-backend\"}[5m]))",
+            "step": "$__interval"
+          }
+        }
+      ],
+      "options": {
+        "legend": {
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "mode": "multi",
+          "sort": "desc"
+        }
+      }
+    },
+    {
+      "id": 22,
+      "type": "row",
+      "title": "4 · The instance cap: at most 3 instances per service",
+      "collapsed": false,
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 71
+      },
+      "panels": []
+    },
+    {
+      "id": 23,
+      "type": "timeseries",
+      "title": "Instances against the cap",
+      "description": "All instances of each service, idle ones included. At 3 a service cannot grow.",
+      "datasource": {
+        "type": "stackdriver",
+        "uid": "${datasource}"
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 8,
+        "x": 0,
+        "y": 72
+      },
+      "interval": "1m",
+      "fieldConfig": {
+        "defaults": {
+          "unit": "short",
+          "decimals": 0,
+          "custom": {
+            "drawStyle": "line",
+            "lineWidth": 1,
+            "fillOpacity": 0,
+            "pointSize": 6,
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": {
+              "mode": "none",
+              "group": "A"
+            },
+            "axisSoftMin": 0,
+            "thresholdsStyle": {
+              "mode": "dashed"
+            }
+          },
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 3
+              }
+            ]
+          }
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byFrameRefID",
+              "options": "A"
+            },
+            "properties": [
+              {
+                "id": "displayName",
+                "value": "backend"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byFrameRefID",
+              "options": "B"
+            },
+            "properties": [
+              {
+                "id": "displayName",
+                "value": "web"
+              }
+            ]
+          }
+        ]
+      },
+      "targets": [
+        {
+          "refId": "A",
+          "datasource": {
+            "type": "stackdriver",
+            "uid": "${datasource}"
+          },
+          "queryType": "promQL",
+          "promQLQuery": {
+            "projectName": "$project",
+            "expr": "sum(run_googleapis_com:container_instance_count{monitored_resource=\"cloud_run_revision\",service_name=\"staunlabor-backend\"})",
+            "step": "$__interval"
+          }
+        },
+        {
+          "refId": "B",
+          "datasource": {
+            "type": "stackdriver",
+            "uid": "${datasource}"
+          },
+          "queryType": "promQL",
+          "promQLQuery": {
+            "projectName": "$project",
+            "expr": "sum(run_googleapis_com:container_instance_count{monitored_resource=\"cloud_run_revision\",service_name=\"staunlabor-web\"})",
+            "step": "$__interval"
+          }
+        }
+      ],
+      "options": {
+        "legend": {
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "mode": "multi",
+          "sort": "desc"
+        }
+      }
+    },
+    {
+      "id": 24,
+      "type": "timeseries",
+      "title": "Instances Cloud Run recommends",
+      "description": "What Cloud Run's autoscaler would like, and what drives it. Above the cap of 3 the cap is in the way.",
+      "datasource": {
+        "type": "stackdriver",
+        "uid": "${datasource}"
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 8,
+        "x": 8,
+        "y": 72
+      },
+      "interval": "1m",
+      "fieldConfig": {
+        "defaults": {
+          "unit": "short",
+          "decimals": 0,
+          "custom": {
+            "drawStyle": "line",
+            "lineWidth": 1,
+            "fillOpacity": 0,
+            "pointSize": 6,
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": {
+              "mode": "none",
+              "group": "A"
+            },
+            "axisSoftMin": 0,
+            "thresholdsStyle": {
+              "mode": "dashed"
+            }
+          },
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 3
+              }
+            ]
+          }
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byFrameRefID",
+              "options": "A"
+            },
+            "properties": [
+              {
+                "id": "displayName",
+                "value": "backend: ${__field.labels.scaling_driver}"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byFrameRefID",
+              "options": "B"
+            },
+            "properties": [
+              {
+                "id": "displayName",
+                "value": "web: ${__field.labels.scaling_driver}"
+              }
+            ]
+          }
+        ]
+      },
+      "targets": [
+        {
+          "refId": "A",
+          "datasource": {
+            "type": "stackdriver",
+            "uid": "${datasource}"
+          },
+          "queryType": "promQL",
+          "promQLQuery": {
+            "projectName": "$project",
+            "expr": "max by (scaling_driver) (run_googleapis_com:scaling_recommended_instances{monitored_resource=\"cloud_run_revision\",service_name=\"staunlabor-backend\"})",
+            "step": "$__interval"
+          }
+        },
+        {
+          "refId": "B",
+          "datasource": {
+            "type": "stackdriver",
+            "uid": "${datasource}"
+          },
+          "queryType": "promQL",
+          "promQLQuery": {
+            "projectName": "$project",
+            "expr": "max by (scaling_driver) (run_googleapis_com:scaling_recommended_instances{monitored_resource=\"cloud_run_revision\",service_name=\"staunlabor-web\"})",
+            "step": "$__interval"
+          }
+        }
+      ],
+      "options": {
+        "legend": {
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "mode": "multi",
+          "sort": "desc"
+        }
+      }
+    },
+    {
+      "id": 25,
+      "type": "timeseries",
+      "title": "Refused for want of an instance, per minute",
+      "description": "Cloud Run's own answers when no instance could take a request: 429 at the cap, 500 when traffic rose faster than it could scale. Counted from Cloud Run's request log (create-log-metrics.sh).",
+      "datasource": {
+        "type": "stackdriver",
+        "uid": "${datasource}"
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 8,
+        "x": 16,
+        "y": 72
+      },
+      "interval": "1m",
+      "fieldConfig": {
+        "defaults": {
+          "unit": "short",
+          "custom": {
+            "drawStyle": "bars",
+            "lineWidth": 1,
+            "fillOpacity": 60,
+            "pointSize": 6,
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": {
+              "mode": "none",
+              "group": "A"
+            },
+            "axisSoftMin": 0
+          }
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byFrameRefID",
+              "options": "A"
+            },
+            "properties": [
+              {
+                "id": "displayName",
+                "value": "${__field.labels.service_name} ${__field.labels.status}"
+              }
+            ]
+          }
+        ]
+      },
+      "targets": [
+        {
+          "refId": "A",
+          "datasource": {
+            "type": "stackdriver",
+            "uid": "${datasource}"
+          },
+          "queryType": "promQL",
+          "promQLQuery": {
+            "projectName": "$project",
+            "expr": "sum by (service_name, status) (rate(logging_googleapis_com:user_staunlabor_run_no_instance{monitored_resource=\"cloud_run_revision\",service_name=~\"staunlabor-(web|backend)\"}[5m])) * 60",
+            "step": "$__interval"
+          }
+        }
+      ],
+      "options": {
+        "legend": {
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "mode": "multi",
+          "sort": "desc"
+        }
+      }
+    },
+    {
+      "id": 26,
+      "type": "row",
+      "title": "5 · Static files: Caddy, no CDN",
+      "collapsed": false,
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 80
+      },
+      "panels": []
+    },
+    {
+      "id": 27,
+      "type": "timeseries",
+      "title": "Web CPU utilization across instances",
+      "description": "Caddy serves the files and proxies /api.",
+      "datasource": {
+        "type": "stackdriver",
+        "uid": "${datasource}"
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 8,
+        "x": 0,
+        "y": 81
+      },
+      "interval": "1m",
+      "fieldConfig": {
+        "defaults": {
+          "unit": "percentunit",
+          "custom": {
+            "drawStyle": "line",
+            "lineWidth": 1,
+            "fillOpacity": 0,
+            "pointSize": 6,
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": {
+              "mode": "none",
+              "group": "A"
+            },
+            "axisSoftMin": 0,
+            "thresholdsStyle": {
+              "mode": "dashed"
+            }
+          },
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 0.6
+              }
+            ]
+          }
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byFrameRefID",
+              "options": "A"
+            },
+            "properties": [
+              {
+                "id": "displayName",
+                "value": "p50"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byFrameRefID",
+              "options": "B"
+            },
+            "properties": [
+              {
+                "id": "displayName",
+                "value": "p95"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byFrameRefID",
+              "options": "C"
+            },
+            "properties": [
+              {
+                "id": "displayName",
+                "value": "p99"
+              }
+            ]
+          }
+        ]
+      },
+      "targets": [
+        {
+          "refId": "A",
+          "datasource": {
+            "type": "stackdriver",
+            "uid": "${datasource}"
+          },
+          "queryType": "promQL",
+          "promQLQuery": {
+            "projectName": "$project",
+            "expr": "histogram_quantile(0.5, sum by (le) (rate(run_googleapis_com:container_cpu_utilizations_bucket{monitored_resource=\"cloud_run_revision\",service_name=\"staunlabor-web\"}[5m])))",
+            "step": "$__interval"
+          }
+        },
+        {
+          "refId": "B",
+          "datasource": {
+            "type": "stackdriver",
+            "uid": "${datasource}"
+          },
+          "queryType": "promQL",
+          "promQLQuery": {
+            "projectName": "$project",
+            "expr": "histogram_quantile(0.95, sum by (le) (rate(run_googleapis_com:container_cpu_utilizations_bucket{monitored_resource=\"cloud_run_revision\",service_name=\"staunlabor-web\"}[5m])))",
+            "step": "$__interval"
+          }
+        },
+        {
+          "refId": "C",
+          "datasource": {
+            "type": "stackdriver",
+            "uid": "${datasource}"
+          },
+          "queryType": "promQL",
+          "promQLQuery": {
+            "projectName": "$project",
+            "expr": "histogram_quantile(0.99, sum by (le) (rate(run_googleapis_com:container_cpu_utilizations_bucket{monitored_resource=\"cloud_run_revision\",service_name=\"staunlabor-web\"}[5m])))",
+            "step": "$__interval"
+          }
+        }
+      ],
+      "options": {
+        "legend": {
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "mode": "multi",
+          "sort": "desc"
+        }
+      }
+    },
+    {
+      "id": 28,
+      "type": "timeseries",
+      "title": "Web latency in the container",
+      "description": "Includes the /api requests it proxies, which wait for the backend: compare the backend's latency in row 1.",
+      "datasource": {
+        "type": "stackdriver",
+        "uid": "${datasource}"
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 8,
+        "x": 8,
+        "y": 81
+      },
+      "interval": "1m",
+      "fieldConfig": {
+        "defaults": {
+          "unit": "ms",
+          "custom": {
+            "drawStyle": "line",
+            "lineWidth": 1,
+            "fillOpacity": 0,
+            "pointSize": 6,
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": {
+              "mode": "none",
+              "group": "A"
+            },
+            "axisSoftMin": 0
+          }
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byFrameRefID",
+              "options": "A"
+            },
+            "properties": [
+              {
+                "id": "displayName",
+                "value": "p50"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byFrameRefID",
+              "options": "B"
+            },
+            "properties": [
+              {
+                "id": "displayName",
+                "value": "p95"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byFrameRefID",
+              "options": "C"
+            },
+            "properties": [
+              {
+                "id": "displayName",
+                "value": "p99"
+              }
+            ]
+          }
+        ]
+      },
+      "targets": [
+        {
+          "refId": "A",
+          "datasource": {
+            "type": "stackdriver",
+            "uid": "${datasource}"
+          },
+          "queryType": "promQL",
+          "promQLQuery": {
+            "projectName": "$project",
+            "expr": "histogram_quantile(0.5, sum by (le) (rate(run_googleapis_com:request_latencies_bucket{monitored_resource=\"cloud_run_revision\",service_name=\"staunlabor-web\"}[5m])))",
+            "step": "$__interval"
+          }
+        },
+        {
+          "refId": "B",
+          "datasource": {
+            "type": "stackdriver",
+            "uid": "${datasource}"
+          },
+          "queryType": "promQL",
+          "promQLQuery": {
+            "projectName": "$project",
+            "expr": "histogram_quantile(0.95, sum by (le) (rate(run_googleapis_com:request_latencies_bucket{monitored_resource=\"cloud_run_revision\",service_name=\"staunlabor-web\"}[5m])))",
+            "step": "$__interval"
+          }
+        },
+        {
+          "refId": "C",
+          "datasource": {
+            "type": "stackdriver",
+            "uid": "${datasource}"
+          },
+          "queryType": "promQL",
+          "promQLQuery": {
+            "projectName": "$project",
+            "expr": "histogram_quantile(0.99, sum by (le) (rate(run_googleapis_com:request_latencies_bucket{monitored_resource=\"cloud_run_revision\",service_name=\"staunlabor-web\"}[5m])))",
+            "step": "$__interval"
+          }
+        }
+      ],
+      "options": {
+        "legend": {
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "mode": "multi",
+          "sort": "desc"
+        }
+      }
+    },
+    {
+      "id": 29,
+      "type": "timeseries",
+      "title": "Bytes sent per second",
+      "description": "What the web service sends (to visitors: internet) and, for comparison, what the backend sends to it (the API's answers, part of the web's own).",
+      "datasource": {
+        "type": "stackdriver",
+        "uid": "${datasource}"
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 8,
+        "x": 16,
+        "y": 81
+      },
+      "interval": "1m",
+      "fieldConfig": {
+        "defaults": {
+          "unit": "Bps",
+          "custom": {
+            "drawStyle": "line",
+            "lineWidth": 1,
+            "fillOpacity": 0,
+            "pointSize": 6,
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": {
+              "mode": "none",
+              "group": "A"
+            },
+            "axisSoftMin": 0
+          }
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byFrameRefID",
+              "options": "A"
+            },
+            "properties": [
+              {
+                "id": "displayName",
+                "value": "web → ${__field.labels.kind}"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byFrameRefID",
+              "options": "B"
+            },
+            "properties": [
+              {
+                "id": "displayName",
+                "value": "backend → ${__field.labels.kind}"
+              }
+            ]
+          }
+        ]
+      },
+      "targets": [
+        {
+          "refId": "A",
+          "datasource": {
+            "type": "stackdriver",
+            "uid": "${datasource}"
+          },
+          "queryType": "promQL",
+          "promQLQuery": {
+            "projectName": "$project",
+            "expr": "sum by (kind) (rate(run_googleapis_com:container_network_sent_bytes_count{monitored_resource=\"cloud_run_revision\",service_name=\"staunlabor-web\"}[5m]))",
+            "step": "$__interval"
+          }
+        },
+        {
+          "refId": "B",
+          "datasource": {
+            "type": "stackdriver",
+            "uid": "${datasource}"
+          },
+          "queryType": "promQL",
+          "promQLQuery": {
+            "projectName": "$project",
+            "expr": "sum by (kind) (rate(run_googleapis_com:container_network_sent_bytes_count{monitored_resource=\"cloud_run_revision\",service_name=\"staunlabor-backend\"}[5m]))",
+            "step": "$__interval"
+          }
+        }
+      ],
+      "options": {
+        "legend": {
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "mode": "multi",
+          "sort": "desc"
+        }
+      }
+    },
+    {
+      "id": 30,
+      "type": "timeseries",
+      "title": "Web requests per second: files and pages against /api",
+      "description": "Files and pages are the web's requests less the backend's.",
+      "datasource": {
+        "type": "stackdriver",
+        "uid": "${datasource}"
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 0,
+        "y": 89
+      },
+      "interval": "1m",
+      "fieldConfig": {
+        "defaults": {
+          "unit": "reqps",
+          "custom": {
+            "drawStyle": "line",
+            "lineWidth": 1,
+            "fillOpacity": 60,
+            "pointSize": 6,
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": {
+              "mode": "normal",
+              "group": "A"
+            },
+            "axisSoftMin": 0
+          }
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byFrameRefID",
+              "options": "A"
+            },
+            "properties": [
+              {
+                "id": "displayName",
+                "value": "files and pages"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byFrameRefID",
+              "options": "B"
+            },
+            "properties": [
+              {
+                "id": "displayName",
+                "value": "/api"
+              }
+            ]
+          }
+        ]
+      },
+      "targets": [
+        {
+          "refId": "A",
+          "datasource": {
+            "type": "stackdriver",
+            "uid": "${datasource}"
+          },
+          "queryType": "promQL",
+          "promQLQuery": {
+            "projectName": "$project",
+            "expr": "sum(rate(run_googleapis_com:request_count{monitored_resource=\"cloud_run_revision\",service_name=\"staunlabor-web\"}[5m])) - sum(rate(run_googleapis_com:request_count{monitored_resource=\"cloud_run_revision\",service_name=\"staunlabor-backend\"}[5m]))",
+            "step": "$__interval"
+          }
+        },
+        {
+          "refId": "B",
+          "datasource": {
+            "type": "stackdriver",
+            "uid": "${datasource}"
+          },
+          "queryType": "promQL",
+          "promQLQuery": {
+            "projectName": "$project",
+            "expr": "sum(rate(run_googleapis_com:request_count{monitored_resource=\"cloud_run_revision\",service_name=\"staunlabor-backend\"}[5m]))",
+            "step": "$__interval"
+          }
+        }
+      ],
+      "options": {
+        "legend": {
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "mode": "multi",
+          "sort": "desc"
+        }
+      }
+    },
+    {
+      "id": 31,
+      "type": "timeseries",
+      "title": "Web responses by class, per second",
+      "description": "Cloud Run's response classes for the web service.",
+      "datasource": {
+        "type": "stackdriver",
+        "uid": "${datasource}"
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 12,
+        "y": 89
+      },
+      "interval": "1m",
+      "fieldConfig": {
+        "defaults": {
+          "unit": "reqps",
+          "custom": {
+            "drawStyle": "line",
+            "lineWidth": 1,
+            "fillOpacity": 0,
+            "pointSize": 6,
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": {
+              "mode": "none",
+              "group": "A"
+            },
+            "axisSoftMin": 0
+          }
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byFrameRefID",
+              "options": "A"
+            },
+            "properties": [
+              {
+                "id": "displayName",
+                "value": "${__field.labels.response_code_class}"
+              }
+            ]
+          }
+        ]
+      },
+      "targets": [
+        {
+          "refId": "A",
+          "datasource": {
+            "type": "stackdriver",
+            "uid": "${datasource}"
+          },
+          "queryType": "promQL",
+          "promQLQuery": {
+            "projectName": "$project",
+            "expr": "sum by (response_code_class) (rate(run_googleapis_com:request_count{monitored_resource=\"cloud_run_revision\",service_name=\"staunlabor-web\"}[5m]))",
+            "step": "$__interval"
+          }
+        }
+      ],
+      "options": {
+        "legend": {
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "mode": "multi",
+          "sort": "desc"
+        }
+      }
+    },
+    {
+      "id": 32,
+      "type": "row",
+      "title": "6 · The database: /experiments/checks (pool 1 + 1, shared Cloud SQL instance)",
+      "collapsed": false,
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 97
+      },
+      "panels": []
+    },
+    {
+      "id": 33,
+      "type": "timeseries",
+      "title": "/experiments/checks: time in the app",
+      "description": "The one exhibit route that reads the database: once a minute per instance (exhibit_checks.LIST_TTL_S), every other call answers from the process. A slow p95 with a fast p50 is that one read.",
+      "datasource": {
+        "type": "stackdriver",
+        "uid": "${datasource}"
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 8,
+        "x": 0,
+        "y": 98
+      },
+      "interval": "1m",
+      "fieldConfig": {
+        "defaults": {
+          "unit": "ms",
+          "custom": {
+            "drawStyle": "line",
+            "lineWidth": 1,
+            "fillOpacity": 0,
+            "pointSize": 6,
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": {
+              "mode": "none",
+              "group": "A"
+            },
+            "axisSoftMin": 0
+          }
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byFrameRefID",
+              "options": "A"
+            },
+            "properties": [
+              {
+                "id": "displayName",
+                "value": "p50"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byFrameRefID",
+              "options": "B"
+            },
+            "properties": [
+              {
+                "id": "displayName",
+                "value": "p95"
+              }
+            ]
+          }
+        ]
+      },
+      "targets": [
+        {
+          "refId": "A",
+          "datasource": {
+            "type": "stackdriver",
+            "uid": "${datasource}"
+          },
+          "queryType": "promQL",
+          "promQLQuery": {
+            "projectName": "$project",
+            "expr": "histogram_quantile(0.5, sum by (le) (rate(logging_googleapis_com:user_staunlabor_api_latency_bucket{monitored_resource=\"cloud_run_revision\",service_name=\"staunlabor-backend\",route=\"/api/v1/experiments/checks\"}[5m])))",
+            "step": "$__interval"
+          }
+        },
+        {
+          "refId": "B",
+          "datasource": {
+            "type": "stackdriver",
+            "uid": "${datasource}"
+          },
+          "queryType": "promQL",
+          "promQLQuery": {
+            "projectName": "$project",
+            "expr": "histogram_quantile(0.95, sum by (le) (rate(logging_googleapis_com:user_staunlabor_api_latency_bucket{monitored_resource=\"cloud_run_revision\",service_name=\"staunlabor-backend\",route=\"/api/v1/experiments/checks\"}[5m])))",
+            "step": "$__interval"
+          }
+        }
+      ],
+      "options": {
+        "legend": {
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "mode": "multi",
+          "sort": "desc"
+        }
+      }
+    },
+    {
+      "id": 34,
+      "type": "timeseries",
+      "title": "Backend → Cloud SQL: connection latency",
+      "description": "Cloud Run's measure of the backend's connections to Cloud SQL.",
+      "datasource": {
+        "type": "stackdriver",
+        "uid": "${datasource}"
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 8,
+        "x": 8,
+        "y": 98
+      },
+      "interval": "1m",
+      "fieldConfig": {
+        "defaults": {
+          "unit": "µs",
+          "custom": {
+            "drawStyle": "line",
+            "lineWidth": 1,
+            "fillOpacity": 0,
+            "pointSize": 6,
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": {
+              "mode": "none",
+              "group": "A"
+            },
+            "axisSoftMin": 0
+          }
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byFrameRefID",
+              "options": "A"
+            },
+            "properties": [
+              {
+                "id": "displayName",
+                "value": "p50"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byFrameRefID",
+              "options": "B"
+            },
+            "properties": [
+              {
+                "id": "displayName",
+                "value": "p95"
+              }
+            ]
+          }
+        ]
+      },
+      "targets": [
+        {
+          "refId": "A",
+          "datasource": {
+            "type": "stackdriver",
+            "uid": "${datasource}"
+          },
+          "queryType": "promQL",
+          "promQLQuery": {
+            "projectName": "$project",
+            "expr": "histogram_quantile(0.5, sum by (le) (rate(run_googleapis_com:infrastructure_cloudsql_connection_latencies_bucket{monitored_resource=\"cloud_run_revision\",service_name=\"staunlabor-backend\"}[5m])))",
+            "step": "$__interval"
+          }
+        },
+        {
+          "refId": "B",
+          "datasource": {
+            "type": "stackdriver",
+            "uid": "${datasource}"
+          },
+          "queryType": "promQL",
+          "promQLQuery": {
+            "projectName": "$project",
+            "expr": "histogram_quantile(0.95, sum by (le) (rate(run_googleapis_com:infrastructure_cloudsql_connection_latencies_bucket{monitored_resource=\"cloud_run_revision\",service_name=\"staunlabor-backend\"}[5m])))",
+            "step": "$__interval"
+          }
+        }
+      ],
+      "options": {
+        "legend": {
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "mode": "multi",
+          "sort": "desc"
+        }
+      }
+    },
+    {
+      "id": 35,
+      "type": "timeseries",
+      "title": "Backend → Cloud SQL: connections per minute",
+      "description": "Connections the backend opened, and those refused.",
+      "datasource": {
+        "type": "stackdriver",
+        "uid": "${datasource}"
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 8,
+        "x": 16,
+        "y": 98
+      },
+      "interval": "1m",
+      "fieldConfig": {
+        "defaults": {
+          "unit": "short",
+          "custom": {
+            "drawStyle": "bars",
+            "lineWidth": 1,
+            "fillOpacity": 60,
+            "pointSize": 6,
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": {
+              "mode": "none",
+              "group": "A"
+            },
+            "axisSoftMin": 0
+          }
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byFrameRefID",
+              "options": "A"
+            },
+            "properties": [
+              {
+                "id": "displayName",
+                "value": "opened"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byFrameRefID",
+              "options": "B"
+            },
+            "properties": [
+              {
+                "id": "displayName",
+                "value": "refused"
+              }
+            ]
+          }
+        ]
+      },
+      "targets": [
+        {
+          "refId": "A",
+          "datasource": {
+            "type": "stackdriver",
+            "uid": "${datasource}"
+          },
+          "queryType": "promQL",
+          "promQLQuery": {
+            "projectName": "$project",
+            "expr": "sum(rate(run_googleapis_com:infrastructure_cloudsql_connection_request_count{monitored_resource=\"cloud_run_revision\",service_name=\"staunlabor-backend\"}[5m])) * 60",
+            "step": "$__interval"
+          }
+        },
+        {
+          "refId": "B",
+          "datasource": {
+            "type": "stackdriver",
+            "uid": "${datasource}"
+          },
+          "queryType": "promQL",
+          "promQLQuery": {
+            "projectName": "$project",
+            "expr": "sum(rate(run_googleapis_com:infrastructure_cloudsql_connection_refused_count{monitored_resource=\"cloud_run_revision\",service_name=\"staunlabor-backend\"}[5m])) * 60",
+            "step": "$__interval"
+          }
+        }
+      ],
+      "options": {
+        "legend": {
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "mode": "multi",
+          "sort": "desc"
+        }
+      }
+    },
+    {
+      "id": 36,
+      "type": "timeseries",
+      "title": "Connections to the database staunlabor, by state",
+      "description": "Needs the monitoring.viewer grant in the project keksdose (README, step 4). The pool's ceiling at three instances is six (dashed); the app role's own limit is twelve.",
+      "datasource": {
+        "type": "stackdriver",
+        "uid": "${datasource}"
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 0,
+        "y": 106
+      },
+      "interval": "1m",
+      "fieldConfig": {
+        "defaults": {
+          "unit": "short",
+          "decimals": 0,
+          "custom": {
+            "drawStyle": "line",
+            "lineWidth": 1,
+            "fillOpacity": 60,
+            "pointSize": 6,
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": {
+              "mode": "normal",
+              "group": "A"
+            },
+            "axisSoftMin": 0,
+            "thresholdsStyle": {
+              "mode": "dashed"
+            }
+          },
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 6
+              }
+            ]
+          }
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byFrameRefID",
+              "options": "A"
+            },
+            "properties": [
+              {
+                "id": "displayName",
+                "value": "${__field.labels.state}"
+              }
+            ]
+          }
+        ]
+      },
+      "targets": [
+        {
+          "refId": "A",
+          "datasource": {
+            "type": "stackdriver",
+            "uid": "${datasource}"
+          },
+          "queryType": "promQL",
+          "promQLQuery": {
+            "projectName": "$sql_project",
+            "expr": "sum by (state) (cloudsql_googleapis_com:database_postgresql_num_backends_by_state{monitored_resource=\"cloudsql_database\",database=\"staunlabor\"})",
+            "step": "$__interval"
+          }
+        }
+      ],
+      "options": {
+        "legend": {
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "mode": "multi",
+          "sort": "desc"
+        }
+      }
+    },
+    {
+      "id": 37,
+      "type": "timeseries",
+      "title": "Shared instance CPU (keksdose-db)",
+      "description": "Every app on the shared instance counts here. Needs the same grant.",
+      "datasource": {
+        "type": "stackdriver",
+        "uid": "${datasource}"
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 12,
+        "y": 106
+      },
+      "interval": "1m",
+      "fieldConfig": {
+        "defaults": {
+          "unit": "percentunit",
+          "custom": {
+            "drawStyle": "line",
+            "lineWidth": 1,
+            "fillOpacity": 0,
+            "pointSize": 6,
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": {
+              "mode": "none",
+              "group": "A"
+            },
+            "axisSoftMin": 0
+          }
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byFrameRefID",
+              "options": "A"
+            },
+            "properties": [
+              {
+                "id": "displayName",
+                "value": "keksdose-db"
+              }
+            ]
+          }
+        ]
+      },
+      "targets": [
+        {
+          "refId": "A",
+          "datasource": {
+            "type": "stackdriver",
+            "uid": "${datasource}"
+          },
+          "queryType": "promQL",
+          "promQLQuery": {
+            "projectName": "$sql_project",
+            "expr": "max(cloudsql_googleapis_com:database_cpu_utilization{monitored_resource=\"cloudsql_database\",database_id=\"keksdose:keksdose-db\"})",
+            "step": "$__interval"
+          }
+        }
+      ],
+      "options": {
+        "legend": {
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "mode": "multi",
+          "sort": "desc"
+        }
+      }
+    }
+  ]
+}
