@@ -31,9 +31,13 @@ lessons are summed up below.
 
 The cheat sheet was lesson 11 there; here it follows lesson 6 without a
 number, being a page to look things up on rather than a lesson (the lead's
-recommendation, which Marcel took on 2026-11-20). The old addresses (`kurvenschmiede.app/dynamics/…`)
-are to redirect here once this site has deployed; Kurvenschmiede does that on
-its side, on Marcel's go, and has the map.
+recommendation, which Marcel took on 2026-11-20). The seven old lesson
+addresses (`kurvenschmiede.app/dynamics/first-order`, `second-order`,
+`eigenvalues`, `laplace`, `numerics`, `two-mass`, `cheat-sheet`) are to
+redirect to `/basics/<the same>` once this site has deployed; Kurvenschmiede
+does that on its side, on Marcel's go, and has the map. `/dynamics` itself
+stays Kurvenschmiede's, the front page of its rigs (lessons 7–10) and the
+explorer (Marcel chose so on 2026-11-20); it does not redirect here.
 
 * **Front end**: the pages and their helpers in `frontend/src/features/course/`
   (the helpers copied, since Kurvenschmiede's rigs use them too), the types in
