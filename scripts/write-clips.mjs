@@ -75,9 +75,9 @@ const settle = (page) =>
   );
 
 /** The card, loaded under the fake clock, and its frames as JPEG. */
-async function frames(page, card, seconds) {
+async function frames(page, card, lang, seconds) {
   await page.clock.install();
-  await page.goto(`http://localhost:${PORT}/preview-card.html?card=${card}`);
+  await page.goto(`http://localhost:${PORT}/preview-card.html?card=${card}&lang=${lang}`);
   // Loading needs the network (real) and the page's timers (the clock's):
   // both, a little at a time.
   const deadline = Date.now() + 60_000;
@@ -180,7 +180,7 @@ try {
       });
       page.on("pageerror", (error) => console.error(`  page error: ${error.message}`));
       try {
-        const shots = await frames(page, card, seconds);
+        const shots = await frames(page, card, lang, seconds);
         const file = path.join(OUT, lang === "de-CH" ? `${card}.mp4` : `${card}.${lang}.mp4`);
         const clip = await encode(encoder, shots);
         await writeFile(file, clip);
