@@ -2446,5 +2446,12 @@ below 1 cm/s.
    looked. The beat now starts at 1 Hz, below every rod (the overview's
    preview stays in step), and the frequencies and the chart wait for a rod
    swinging 2 cm, twenty times the table's millimetre, or a sweep.
+   **The goal on the drawing** (2026-11-20): three play cards asked for
+   something their drawing did not show. The sphere's side view names the
+   dashed equator "Goal: the equator"; the carousel rings the other seat and
+   names it "Target"; the overhang draws a line a whole block past the edge,
+   "Goal: 1 block length", which nine blocks pass (they reach 1.41) and four
+   are the fewest for, so it gives the furthest away no more than the
+   trick's own "four blocks for one length".
 4. **Seven languages**, the pages since, and the move to this site on
    2026-11-13 (`docs/plan.md`).

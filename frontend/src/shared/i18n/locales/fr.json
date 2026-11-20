@@ -575,7 +575,8 @@
         "top": "La sphère vue de dessus : faites glisser pour la pousser",
         "top_caption": "De dessus — poussez ici",
         "side": "La sphère vue de côté : à quelle hauteur roule la bille",
-        "side_caption": "De côté"
+        "side_caption": "De côté",
+        "goal": "Objectif : l’équateur"
       },
       "chart": {
         "circle": "En cercle",
@@ -2034,7 +2035,8 @@
       },
       "computed": {
         "system": "Les deux trajectoires ont une solution fermée : le palet sur une droite, la balle sur un cercle, toutes deux vues de l'extérieur et ramenées par rotation pour qui tourne avec. Où la balle atteint à nouveau le bord, et où il faut viser pour atteindre, la page le trouve par dichotomie. Le test confronte la trajectoire ramenée du palet à un calcul pas à pas avec les forces de Coriolis et centrifuge."
-      }
+      },
+      "target": "Cible"
     },
     "cradle": {
       "at": {
@@ -2875,7 +2877,8 @@
         "system": "La page vérifie à chaque étage si le centre de gravité des blocs à partir de lui vers le haut est au-dessus de son appui ; une pile d’un bloc par étage n’en demande pas plus. La pile la plus longue se construit par le haut, chaque bloc 1/(2k) plus loin.",
         "check": "Les tests de la page recalculent le porte-à-faux en fractions exactes et cherchent à l’aveugle parmi vingt mille piles aléatoires de trois et de quatre blocs : aucune qui tient ne dépasse plus loin que l’harmonique. Le calcul se fait dans votre navigateur, avec les mêmes formules que le moteur de calcul de la page.",
         "left_out": "Laissé de côté : les piles à plusieurs blocs par étage, dont certains servent de contrepoids, qui vont encore plus loin (Paterson et Zwick) ; le frottement, les blocs ne glissant jamais ici, ils ne font que basculer ; le bois qui cède ; la main qui tremble. Les blocs mesurent 20 cm de long et 4 cm de haut."
-      }
+      },
+      "goal": "Objectif : 1 bloc entier"
     },
     "diver": {
       "at": {

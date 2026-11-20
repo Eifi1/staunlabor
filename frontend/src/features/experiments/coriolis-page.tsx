@@ -134,6 +134,26 @@ function CarouselView({ c, throwOf, frame, time }: { c: Carousel; throwOf: Throw
       ].map(([x, y], k) => (
         <circle key={k} cx={x} cy={-y} r={R * 0.06} fill={hex[SEAT_HUE % hex.length]} />
       ))}
+      {/* The other seat, ringed and named: what the throw is for. */}
+      <circle
+        cx={cx}
+        cy={-cy}
+        r={R * 0.11}
+        fill="none"
+        stroke={hex[SEAT_HUE % hex.length]}
+        strokeDasharray="3 2"
+        vectorEffect="non-scaling-stroke"
+      />
+      <text
+        x={cx * 0.72}
+        y={-cy * 0.72}
+        fontSize={R * 0.08}
+        textAnchor="middle"
+        dominantBaseline="middle"
+        className="fill-current text-secondary"
+      >
+        {t("experiments.coriolis.target")}
+      </text>
       {last >= 0 && <circle cx={xs[last]} cy={-ys[last]} r={R * 0.04} fill={hex[BALL_HUE % hex.length]} />}
     </svg>
   );

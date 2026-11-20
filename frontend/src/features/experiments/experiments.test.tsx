@@ -457,7 +457,10 @@ describe("the sphere", () => {
   it("shows both views, who pushes, and the engine's orbits", async () => {
     renderWithProviders(<SpherePage />);
     expect(await screen.findByRole("img", { name: E.sphere.views.top })).toBeInTheDocument();
-    expect(screen.getByRole("img", { name: E.sphere.views.side })).toBeInTheDocument();
+    // The side view names the equator as the goal: the question is how to get there.
+    expect(
+      within(screen.getByRole("img", { name: E.sphere.views.side })).getByText(E.sphere.views.goal),
+    ).toBeInTheDocument();
     for (const mode of ["hand", "circle", "perfect"] as const) {
       expect(screen.getByRole("radio", { name: E.sphere.play.modes[mode] })).toBeInTheDocument();
     }
@@ -1066,6 +1069,8 @@ describe("the Coriolis carousel", () => {
   it("shows the carousel, both views and the lead a throw needs", async () => {
     renderWithProviders(<CoriolisPage />);
     expect(await screen.findByRole("img", { name: E.coriolis.view })).toBeInTheDocument();
+    // The other seat is ringed and named in the drawing: what the throw is for.
+    expect(within(screen.getByRole("img", { name: E.coriolis.view })).getByText(E.coriolis.target)).toBeInTheDocument();
     expect(screen.getByRole("radio", { name: E.coriolis.play.frames.outside })).toBeInTheDocument();
     // The aim that hits, and the button that sets it, wait for a throw with
     // an aim of the reader's own.
@@ -1445,6 +1450,8 @@ describe("the overhang", () => {
   it("starts flush, and the furthest stack of nine reaches 28.3 cm where even steps reach 18", async () => {
     renderWithProviders(<OverhangPage />);
     expect(await screen.findByRole("group", { name: E.overhang.view })).toBeInTheDocument();
+    // A goal in the drawing, a whole block past the edge, that does not give the furthest away.
+    expect(within(screen.getByRole("group", { name: E.overhang.view })).getByText(E.overhang.goal)).toBeInTheDocument();
     const holds = (cm: string, lengths: string) =>
       E.overhang.play.holds.replace("{{cm}}", cm).replace("{{lengths}}", lengths);
     expect(screen.getByText(holds("0.0", "0.00"))).toBeInTheDocument();

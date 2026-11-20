@@ -575,7 +575,8 @@
         "top": "La sfera dall'alto: trascini per spingerla",
         "top_caption": "Dall'alto — spinga qui",
         "side": "La sfera di lato: quanto in alto corre la pallina",
-        "side_caption": "Di lato"
+        "side_caption": "Di lato",
+        "goal": "Obiettivo: l’equatore"
       },
       "chart": {
         "circle": "In cerchio",
@@ -2034,7 +2035,8 @@
       },
       "computed": {
         "system": "Entrambe le traiettorie hanno una soluzione chiusa: il disco su una retta, la palla su un cerchio, entrambe viste da fuori e riportate indietro per chi gira. Dove la palla raggiunge di nuovo il bordo, e dove bisogna mirare per colpire, la pagina lo trova dimezzando. Il test confronta la traiettoria riportata del disco con un calcolo passo dopo passo con la forza di Coriolis e quella centrifuga."
-      }
+      },
+      "target": "Bersaglio"
     },
     "cradle": {
       "at": {
@@ -2875,7 +2877,8 @@
         "system": "La pagina controlla a ogni strato se il baricentro dei blocchi da esso in su sta sopra il suo appoggio; per una pila di un blocco per strato non serve altro. La pila più lunga si costruisce dall’alto, ogni blocco 1/(2k) più in fuori.",
         "check": "I test della pagina ricalcolano lo sbalzo con frazioni esatte e cercano alla cieca tra ventimila pile casuali di tre e di quattro blocchi: nessuna che regga sporge più dell’armonica. Il calcolo avviene nel suo browser, con le stesse formule del motore di calcolo della pagina.",
         "left_out": "Tralasciato: pile con più blocchi per strato, alcuni da contrappeso, che arrivano ancora più lontano (Paterson e Zwick); l’attrito, perché qui i blocchi non scivolano mai, si ribaltano soltanto; il legno che cede; la mano che trema. I blocchi sono lunghi 20 cm e alti 4 cm."
-      }
+      },
+      "goal": "Obiettivo: 1 blocco intero"
     },
     "diver": {
       "at": {

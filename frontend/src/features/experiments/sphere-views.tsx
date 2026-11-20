@@ -6,7 +6,9 @@
  *   equator; the ball is where the engine's port puts it. A finger or a mouse
  *   on this view is the hand's target (`sphere-hand.ts`).
  * * **From the side** — how high the ball rides: a cut through the sphere along
- *   the ball's own direction, the ropes above and below, the equator dashed.
+ *   the ball's own direction, the ropes above and below, the equator dashed
+ *   and named as the goal: the page's question is how to get the ball there,
+ *   and a dashed line alone did not say so.
  *
  * Both in metres, as the engine has them; the colours are the chart palette's
  * for the ball and the page's own greys for the glass and the ropes.
@@ -144,6 +146,14 @@ export function SideView({
         strokeDasharray="4 4"
         vectorEffect="non-scaling-stroke"
       />
+      <text
+        x={-pathRadiusM}
+        y={-shellRadiusM * 0.05}
+        fontSize={shellRadiusM * 0.09}
+        className="fill-current text-secondary"
+      >
+        {t("experiments.sphere.views.goal")}
+      </text>
       <line x1={0} y1={0} x2={out} y2={-up} stroke="currentColor" opacity={0.5} vectorEffect="non-scaling-stroke" />
       <circle cx={out} cy={-up} r={ballRadiusM} fill={hex[BALL_HUE % hex.length]} />
     </svg>

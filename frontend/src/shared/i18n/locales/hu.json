@@ -575,7 +575,8 @@
         "top": "A gömb felülről: húzza, hogy tolja",
         "top_caption": "Felülről — itt toljon",
         "side": "A gömb oldalról: milyen magasan fut a golyó",
-        "side_caption": "Oldalról"
+        "side_caption": "Oldalról",
+        "goal": "Cél: az egyenlítő"
       },
       "chart": {
         "circle": "Körbe-körbe",
@@ -2034,7 +2035,8 @@
       },
       "computed": {
         "system": "Mindkét pálya zárt alakban megoldható: a korong egyenesen, a labda körön, mindkettő kívülről nézve, és az együtt forgó számára visszaforgatva. Hogy a labda hol éri el újra a peremet, és hová kell célozni a találathoz, azt az oldal felezéssel keresi meg. A teszt a korong visszaforgatott pályáját egy Coriolis- és centrifugális erővel lépésenként számolt megoldással veti össze."
-      }
+      },
+      "target": "Cél"
     },
     "cradle": {
       "at": {
@@ -2875,7 +2877,8 @@
         "system": "Az oldal minden rétegnél ellenőrzi, hogy az attól felfelé lévő hasábok közös tömegközéppontja az alátámasztása fölött van-e; rétegenként egy hasábos toronyhoz ennél több nem kell. A legmesszebb nyúló tornyot felülről építjük, minden hasábot 1/(2k)-val kijjebb.",
         "check": "Az oldal tesztjei pontos törtekkel számolják újra a kinyúlást, és vakon keresnek húszezer-húszezer véletlen három- és négyhasábos torony között: egyik sem nyúlik ki messzebb a harmonikusnál, amely megáll. A számítás az Ön böngészőjében fut, ugyanazokkal a képletekkel, mint az oldal számítómagja.",
         "left_out": "Kimaradt: a rétegenként több hasábos tornyok, ahol némelyik ellensúlyként szolgál – azokkal még messzebb lehet jutni (Paterson és Zwick); a súrlódás, mert a hasábok itt sosem csúsznak meg, csak felborulnak; a fa engedése; a kéz remegése. A hasábok 20 cm hosszúak és 4 cm magasak."
-      }
+      },
+      "goal": "Cél: 1 hasábhossz"
     },
     "diver": {
       "at": {

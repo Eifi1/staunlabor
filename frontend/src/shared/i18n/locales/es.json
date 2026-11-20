@@ -575,7 +575,8 @@
         "top": "La esfera vista desde arriba: arrastre para empujarla",
         "top_caption": "Desde arriba — empuje aquí",
         "side": "La esfera vista de lado: a qué altura va la bola",
-        "side_caption": "De lado"
+        "side_caption": "De lado",
+        "goal": "Meta: el ecuador"
       },
       "chart": {
         "circle": "En círculos",
@@ -2034,7 +2035,8 @@
       },
       "computed": {
         "system": "Ambas trayectorias tienen solución cerrada: el disco en una recta, la pelota en un círculo, ambas vistas desde fuera y giradas de vuelta para quien gira. Dónde la pelota vuelve a llegar al borde, y hacia dónde hay que apuntar para acertar, lo halla la página partiendo por la mitad. La prueba contrasta la trayectoria girada del disco con un cálculo paso a paso con las fuerzas de Coriolis y centrífuga."
-      }
+      },
+      "target": "Objetivo"
     },
     "cradle": {
       "at": {
@@ -2875,7 +2877,8 @@
         "system": "La página comprueba en cada capa si el centro de masa de los bloques de ella hacia arriba está sobre su apoyo; una pila de un bloque por capa no necesita más. La pila más lejana se construye desde arriba, cada bloque 1/(2k) más afuera.",
         "check": "Las pruebas de la página recalculan el voladizo con fracciones exactas y buscan a ciegas entre veinte mil pilas aleatorias de tres y de cuatro bloques: ninguna que aguante sobresale más que la armónica. Se calcula en su navegador, con las mismas fórmulas que el motor de cálculo de la página.",
         "left_out": "Se omite: pilas con varios bloques por capa, algunos de contrapeso, que llegan aún más lejos (Paterson y Zwick); el rozamiento, pues aquí los bloques nunca resbalan, solo vuelcan; que la madera cede; el temblor de la mano. Los bloques miden 20 cm de largo y 4 cm de alto."
-      }
+      },
+      "goal": "Meta: 1 bloque entero"
     },
     "diver": {
       "at": {

@@ -575,7 +575,8 @@
         "top": "Die Hohlkugel von oben: ziehen, um sie zu schieben",
         "top_caption": "Von oben – hier schieben",
         "side": "Die Hohlkugel von der Seite: wie hoch die Kugel läuft",
-        "side_caption": "Von der Seite"
+        "side_caption": "Von der Seite",
+        "goal": "Ziel: Äquator"
       },
       "chart": {
         "circle": "Im Kreis",
@@ -2034,7 +2035,8 @@
       },
       "computed": {
         "system": "Beide Bahnen sind geschlossen lösbar: der Puck auf einer Geraden, der Ball auf einem Kreis, beide von aussen gesehen und für den Mitfahrer zurückgedreht. Wo der Ball den Rand wieder erreicht, und wohin man zielen muss, um zu treffen, findet die Seite durch Halbieren. Der Test prüft die zurückgedrehte Bahn des Pucks gegen eine Schrittrechnung mit Coriolis- und Fliehkraft."
-      }
+      },
+      "target": "Ziel"
     },
     "cradle": {
       "at": {
@@ -2875,7 +2877,8 @@
         "system": "Die Seite prüft für jede Lage, ob der gemeinsame Schwerpunkt der Klötze von ihr an aufwärts über ihrer Auflage liegt; mehr braucht es für einen Stapel mit einem Klotz pro Lage nicht. Der weiteste Stapel ist von oben her gebaut, jeder Klotz um 1/(2k) hinaus.",
         "check": "Die Tests der Seite rechnen den Überhang mit exakten Brüchen nach und suchen blind unter je zwanzigtausend zufälligen Stapeln aus drei und aus vier Klötzen: Keiner, der hält, ragt weiter hinaus als der harmonische. Gerechnet wird in Ihrem Browser, mit denselben Formeln wie im Rechenkern der Seite.",
         "left_out": "Weggelassen: Stapel mit mehreren Klötzen in einer Lage, bei denen einige als Gegengewicht dienen – damit kommt man noch weiter (Paterson und Zwick); die Reibung, denn die Klötze rutschen hier nie, sie kippen nur; dass Holz nachgibt; das Zittern der Hand. Die Klötze sind 20 cm lang und 4 cm hoch."
-      }
+      },
+      "goal": "Ziel: 1 Klotzlänge"
     },
     "diver": {
       "at": {

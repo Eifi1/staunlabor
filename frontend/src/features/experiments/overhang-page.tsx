@@ -225,6 +225,23 @@ function StackView({
           {stack.map((layer, i) => (i >= tipping ? dot(layer, i) : null))}
         </g>
       )}
+      {/* A whole block past the edge: a goal to try for that does not give the
+          furthest away (nine reach 1.41 lengths; four are the fewest for one). */}
+      <line
+        x1={x(1)}
+        y1={14}
+        x2={x(1)}
+        y2={tableY}
+        stroke="currentColor"
+        strokeDasharray="2 3"
+        className="text-brand"
+        vectorEffect="non-scaling-stroke"
+      />
+      {/* To the right of the line, where no stack of nine reaches above the
+          blocks; on the left it ran through the edge's line. */}
+      <text x={x(1) + 2} y={19} fontSize={6} className="fill-current text-secondary">
+        {t("experiments.overhang.goal")}
+      </text>
       {reach > 0 && (
         <g fill="currentColor" fontSize={7}>
           <line x1={VIEW.edge} y1={12} x2={x(reach)} y2={12} stroke="currentColor" vectorEffect="non-scaling-stroke" />

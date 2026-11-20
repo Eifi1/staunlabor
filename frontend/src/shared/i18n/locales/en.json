@@ -575,7 +575,8 @@
         "top": "The sphere from above: drag to push it",
         "top_caption": "From above — push here",
         "side": "The sphere from the side: how high the ball rides",
-        "side_caption": "From the side"
+        "side_caption": "From the side",
+        "goal": "Goal: the equator"
       },
       "chart": {
         "circle": "Round and round",
@@ -2034,7 +2035,8 @@
       },
       "computed": {
         "system": "Both paths have closed forms: the puck on a straight line, the ball on a circle, both seen from outside and turned back for the rider. Where the ball reaches the edge again, and where one must aim to hit, the page finds by halving. The test holds the puck's turned-back path to a stepped solution with the Coriolis and the centrifugal force."
-      }
+      },
+      "target": "Target"
     },
     "cradle": {
       "at": {
@@ -2875,7 +2877,8 @@
         "system": "The page checks at every layer whether the centre of mass of the blocks from it upward lies over its footing; a stack of one block a layer needs nothing more. The furthest stack is built from the top, each block 1/(2k) further out.",
         "check": "The page's tests work the overhang out again in exact fractions and search blindly among twenty thousand random stacks of three and of four blocks each: none that holds reaches further than the harmonic one. The computing happens in your browser, with the same formulas as the site's engine.",
         "left_out": "Left out: stacks with several blocks to a layer, some of them counterweights – which reach further still (Paterson and Zwick); friction, as the blocks here never slide, they only tip; the wood giving way; a shaking hand. The blocks are 20 cm long and 4 cm high."
-      }
+      },
+      "goal": "Goal: 1 block length"
     },
     "diver": {
       "at": {
