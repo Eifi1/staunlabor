@@ -40,6 +40,16 @@
       "feedback": "¿Algo está mal o no queda claro, o hay una exposición que le gustaría ver?",
       "issues": "Comuníquelo en GitHub",
       "source": "Ver el código fuente"
+    },
+    "nav": {
+      "label": "Navegación principal",
+      "exhibits": "Exposiciones",
+      "basics": "Fundamentos",
+      "about": "Acerca de"
+    },
+    "search": {
+      "trigger": "Buscar exposiciones",
+      "placeholder": "Exposición, tema o pregunta …"
     }
   },
   "legal": {
@@ -89,7 +99,8 @@
     "title": "Experimentos",
     "failed": "No se pudo calcular la exposición.",
     "overview": {
-      "lead": "Exposiciones como las de un museo de ciencias, para probar y recalcular: primero juegue usted mismo y luego vea qué física hay detrás.",
+      "claim": "Primero <em>jugar</em>, luego <em>calcular</em>.",
+      "lead": "Exposiciones como las de un museo de ciencias, para probar y recalcular.",
       "how": "Cada página empieza con lo que hay en la exposición, le deja probarla y muestra después lo que ocurre y la idea que explica el truco. Cada número procede del motor de cálculo de la aplicación y está respaldado por sus pruebas.",
       "coming": "En preparación",
       "credit": "La mayoría de las exposiciones están inspiradas en exposiciones del Swiss Science Center Technorama, Winterthur.",
@@ -107,7 +118,16 @@
         "mark": "Probada",
         "forget": "Olvidar"
       },
-      "builds_on": "Se basa en:"
+      "builds_on": "Se basa en:",
+      "facts": {
+        "label": "Staunlabor en cifras",
+        "exhibits": "Exposiciones",
+        "topics": "Temas",
+        "equations": "Ecuaciones",
+        "checked": "Revisadas",
+        "languages": "Idiomas",
+        "promise": "0 cookies · 0 rastreo · sin cuenta · libre y de código abierto"
+      }
     },
     "topics": {
       "momentum": "Cantidad de movimiento",
@@ -479,7 +499,7 @@
       },
       "symbols": {
         "psi": "flujo concatenado, el flujo del imán a través de todas las espiras",
-        "x": "la posición del coche, medida desde el centro de la bobina",
+        "x": "la posición del coche, desde el centro de la bobina",
         "mu0": "la constante magnética",
         "moment": "la intensidad del imán (su momento dipolar)",
         "turns": "el número de espiras",
@@ -3326,7 +3346,6 @@
         "uncheck": "Retirar la revisión",
         "failed": "No ha funcionado. Inténtelo de nuevo, por favor."
       },
-      "overview": "Los cálculos se revisan exposición por exposición: {{checked}} de {{total}} ya están revisadas.",
       "symbols": {
         "f0": "frecuencia de la oscilación más pequeña",
         "f": "frecuencia",

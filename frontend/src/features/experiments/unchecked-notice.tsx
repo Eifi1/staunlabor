@@ -6,7 +6,7 @@ import { accounts } from "@/shared/api/accounts";
 import { useLocale } from "@/shared/i18n/use-locale";
 import { CHECKS_ANCHOR } from "./check-section";
 import { checkCases, checkedOn, useCheckVerdict, useChecks } from "./checks";
-import { EXHIBITS, type Exhibit } from "./exhibits";
+import type { Exhibit } from "./exhibits";
 
 /** `YYYY-MM-DD` as the reader's language writes a date; a calendar day, so in UTC. */
 function longDay(day: string, locale: string): string {
@@ -69,18 +69,5 @@ export function CheckStatus({ exhibit }: { exhibit: Exhibit }) {
       {hasCases && <TextLink href={`#${CHECKS_ANCHOR}`}>{t("experiments.checks.status.to_cases")}</TextLink>}
       {hasCases && signedIn && <AdminVerdict exhibit={exhibit} checked={day !== null} />}
     </div>
-  );
-}
-
-/** On the front page, under its first screen: how far the checking has come. */
-export function ChecksSummary() {
-  const { t } = useTranslation();
-  const checks = useChecks();
-  const total = EXHIBITS.filter((entry) => entry.path).length;
-  return (
-    <p className="flex items-center gap-1.5 text-sm text-secondary">
-      <CircleAlert className="size-4 shrink-0 text-warning" aria-hidden />
-      {t("experiments.checks.overview", { checked: checks.data?.checked.length ?? 0, total })}
-    </p>
   );
 }

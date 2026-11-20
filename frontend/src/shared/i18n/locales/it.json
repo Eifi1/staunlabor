@@ -40,6 +40,16 @@
       "feedback": "Qualcosa di sbagliato o poco chiaro, o un exhibit che vorrebbe vedere?",
       "issues": "Lo segnali su GitHub",
       "source": "Consulti il codice sorgente"
+    },
+    "nav": {
+      "label": "Navigazione principale",
+      "exhibits": "Exhibit",
+      "basics": "Fondamenti",
+      "about": "Informazioni"
+    },
+    "search": {
+      "trigger": "Cerca un exhibit",
+      "placeholder": "Exhibit, tema o domanda …"
     }
   },
   "legal": {
@@ -89,7 +99,8 @@
     "title": "Esperimenti",
     "failed": "Non è stato possibile calcolare l'exhibit.",
     "overview": {
-      "lead": "Exhibit come in un museo della scienza, da provare e da ricalcolare: prima giochi Lei stesso, poi scopra la fisica che c'è dietro.",
+      "claim": "Prima <em>giocare</em>, poi <em>calcolare</em>.",
+      "lead": "Exhibit come in un museo della scienza, da provare e da ricalcolare.",
       "how": "Ogni pagina comincia da ciò che si trova all'exhibit, Le permette di provarlo e poi mostra che cosa accade e l'idea che spiega il trucco. Ogni numero viene dal motore di calcolo dell'app ed è garantito dai suoi test.",
       "coming": "In preparazione",
       "credit": "La maggior parte degli exhibit è ispirata agli exhibit dello Swiss Science Center Technorama, Winterthur.",
@@ -107,7 +118,16 @@
         "mark": "Provato",
         "forget": "Dimentica"
       },
-      "builds_on": "Si basa su:"
+      "builds_on": "Si basa su:",
+      "facts": {
+        "label": "Staunlabor in cifre",
+        "exhibits": "Exhibit",
+        "topics": "Temi",
+        "equations": "Equazioni",
+        "checked": "Verificati",
+        "languages": "Lingue",
+        "promise": "0 cookie · 0 tracciamento · senza account · libero e open source"
+      }
     },
     "topics": {
       "momentum": "Quantità di moto",
@@ -479,7 +499,7 @@
       },
       "symbols": {
         "psi": "flusso concatenato, il flusso del magnete attraverso tutte le spire",
-        "x": "la posizione del carrello, misurata dal centro della bobina",
+        "x": "la posizione del carrello, dal centro della bobina",
         "mu0": "la costante magnetica",
         "moment": "l'intensità del magnete (il suo momento di dipolo)",
         "turns": "il numero di spire",
@@ -3326,7 +3346,6 @@
         "uncheck": "Annulla la verifica",
         "failed": "Non ha funzionato. La preghiamo di riprovare."
       },
-      "overview": "I calcoli vengono verificati exhibit per exhibit: {{checked}} di {{total}} sono verificati.",
       "symbols": {
         "f0": "frequenza della più piccola oscillazione",
         "f": "frequenza",

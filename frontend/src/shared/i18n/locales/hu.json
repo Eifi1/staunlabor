@@ -40,6 +40,16 @@
       "feedback": "Valami hibás vagy nem világos, vagy van egy kiállítási tárgy, amelyet szívesen látna?",
       "issues": "Jelezze a GitHubon",
       "source": "A forráskód megtekintése"
+    },
+    "nav": {
+      "label": "Fő navigáció",
+      "exhibits": "Kiállítási tárgyak",
+      "basics": "Alapok",
+      "about": "Névjegy"
+    },
+    "search": {
+      "trigger": "Kiállítási tárgy keresése",
+      "placeholder": "Tárgy, téma vagy kérdés …"
     }
   },
   "legal": {
@@ -89,7 +99,8 @@
     "title": "Kísérletek",
     "failed": "A kiállítási tárgyat nem sikerült kiszámolni.",
     "overview": {
-      "lead": "Kiállítási tárgyak, mint egy tudományos központban, kipróbálásra és utánaszámolásra: előbb játsszon maga, aztán nézze meg, milyen fizika van mögötte.",
+      "claim": "Előbb <em>játék</em>, aztán <em>számolás</em>.",
+      "lead": "Kiállítási tárgyak, mint egy tudományos központban – kipróbálásra és utánaszámolásra.",
       "how": "Minden oldal azzal kezdődik, ami a kiállításon áll, kipróbálhatja, majd megmutatja, mi történik, és azt az egy felismerést, amely a trükköt megmagyarázza. Minden szám az alkalmazás saját számítómotorjából származik, és a tesztjei garantálják.",
       "coming": "Előkészületben",
       "credit": "A kiállítási tárgyak többségét a winterthuri Swiss Science Center Technorama kiállítási tárgyai ihlették.",
@@ -107,7 +118,16 @@
         "mark": "Kipróbálva",
         "forget": "Törlés"
       },
-      "builds_on": "Erre épül:"
+      "builds_on": "Erre épül:",
+      "facts": {
+        "label": "A Staunlabor számokban",
+        "exhibits": "Kiállítási tárgy",
+        "topics": "Téma",
+        "equations": "Egyenlet",
+        "checked": "Ellenőrizve",
+        "languages": "Nyelv",
+        "promise": "0 süti · 0 követés · fiók nélkül · ingyenes és nyílt forráskódú"
+      }
     },
     "topics": {
       "momentum": "Impulzus",
@@ -3326,7 +3346,6 @@
         "uncheck": "Ellenőrzés visszavonása",
         "failed": "Ez nem sikerült. Kérjük, próbálja újra."
       },
-      "overview": "A számításokat tárgyról tárgyra ellenőrizzük: {{total}} tárgy közül {{checked}} már ellenőrizve.",
       "symbols": {
         "f0": "a legkisebb lengés frekvenciája",
         "f": "frekvencia",

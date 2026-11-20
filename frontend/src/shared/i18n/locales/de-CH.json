@@ -40,6 +40,16 @@
       "feedback": "Etwas falsch, unklar oder ein Exponat, das Sie sich wünschen?",
       "issues": "Auf GitHub melden",
       "source": "Quellcode ansehen"
+    },
+    "nav": {
+      "label": "Hauptnavigation",
+      "exhibits": "Exponate",
+      "basics": "Grundlagen",
+      "about": "Über"
+    },
+    "search": {
+      "trigger": "Exponat suchen",
+      "placeholder": "Exponat, Thema oder Frage …"
     }
   },
   "legal": {
@@ -89,7 +99,8 @@
     "title": "Experimente",
     "failed": "Das Exponat konnte nicht berechnet werden.",
     "overview": {
-      "lead": "Exponate wie im Science Center, zum Ausprobieren und Nachrechnen: Erst selbst spielen, dann sehen, welche Physik dahintersteckt.",
+      "claim": "Erst <em>spielen</em>, dann <em>rechnen</em>.",
+      "lead": "Exponate wie im Science Center – zum Ausprobieren und Nachrechnen.",
       "how": "Jede Seite beginnt mit dem, was am Exponat steht, lässt Sie es ausprobieren und zeigt dann, was geschieht, und die eine Einsicht, die den Trick erklärt. Jede Zahl stammt aus dem Rechenkern der App und ist durch dessen Tests abgesichert.",
       "coming": "In Vorbereitung",
       "credit": "Die meisten Exponate sind inspiriert von Exponaten im Swiss Science Center Technorama, Winterthur.",
@@ -107,7 +118,16 @@
         "mark": "Ausprobiert",
         "forget": "Vergessen"
       },
-      "builds_on": "Baut auf:"
+      "builds_on": "Baut auf:",
+      "facts": {
+        "label": "Staunlabor in Zahlen",
+        "exhibits": "Exponate",
+        "topics": "Themen",
+        "equations": "Gleichungen",
+        "checked": "Geprüft",
+        "languages": "Sprachen",
+        "promise": "0 Cookies · 0 Tracking · kein Konto nötig · frei und quelloffen"
+      }
     },
     "topics": {
       "momentum": "Impuls",
@@ -3326,7 +3346,6 @@
         "uncheck": "Prüfung zurücknehmen",
         "failed": "Das hat nicht geklappt. Bitte noch einmal versuchen."
       },
-      "overview": "Die Rechnungen werden Exponat für Exponat nachgeprüft: {{checked}} von {{total}} sind geprüft.",
       "symbols": {
         "f0": "Frequenz der kleinsten Schwingung",
         "f": "Frequenz",

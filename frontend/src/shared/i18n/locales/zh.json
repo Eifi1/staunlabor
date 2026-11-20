@@ -40,6 +40,16 @@
       "feedback": "发现错误或不清楚之处，或者希望看到某件展品？",
       "issues": "在 GitHub 上反馈",
       "source": "查看源代码"
+    },
+    "nav": {
+      "label": "主导航",
+      "exhibits": "展品",
+      "basics": "基础",
+      "about": "关于"
+    },
+    "search": {
+      "trigger": "搜索展品",
+      "placeholder": "展品、主题或问题……"
     }
   },
   "legal": {
@@ -89,7 +99,8 @@
     "title": "动手实验",
     "failed": "无法计算该展品。",
     "overview": {
-      "lead": "像科学中心里一样的展品，可以动手试，也可以重新计算：先亲自玩一玩，再看看背后的物理。",
+      "claim": "先<em>玩</em>，再<em>算</em>。",
+      "lead": "像科学中心里一样的展品，可以动手试，也可以重新计算。",
       "how": "每一页先介绍展品处有什么，让您亲手试一试，再展示发生了什么，以及解释其中奥妙的那一个关键认识。每个数字都来自本应用自己的计算引擎，并由其测试保证。",
       "coming": "准备中",
       "credit": "大多数展品的灵感来自温特图尔 Swiss Science Center Technorama 的展品。",
@@ -107,7 +118,16 @@
         "mark": "已试过",
         "forget": "清除记录"
       },
-      "builds_on": "基于："
+      "builds_on": "基于：",
+      "facts": {
+        "label": "Staunlabor 数据一览",
+        "exhibits": "展品",
+        "topics": "主题",
+        "equations": "方程",
+        "checked": "已核查",
+        "languages": "语言",
+        "promise": "0 Cookie · 0 追踪 · 无需账户 · 免费开源"
+      }
     },
     "topics": {
       "momentum": "动量",
@@ -3326,7 +3346,6 @@
         "uncheck": "撤销核查",
         "failed": "操作未成功，请重试。"
       },
-      "overview": "计算正在逐件展品核查：{{total}} 件中已核查 {{checked}} 件。",
       "symbols": {
         "f0": "最小幅摆动的频率",
         "f": "频率",

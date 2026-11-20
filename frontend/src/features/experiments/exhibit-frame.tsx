@@ -20,8 +20,9 @@ import { CheckStatus } from "./unchecked-notice";
 
 /** The course these computations stand on lives in Kurvenschmiede, the
  *  engineering app the exhibits were first built in, public and free: its
- *  lessons are linked there rather than copied here. */
-const COURSE = "https://kurvenschmiede.app/dynamics";
+ *  lessons are linked there rather than copied here; the header's "Basics"
+ *  is the course's front page until its first lessons move in. */
+export const COURSE = "https://kurvenschmiede.app/dynamics";
 const LESSON_PATHS: Record<CourseLesson, string> = {
   first_order: `${COURSE}/first-order`,
   second_order: `${COURSE}/second-order`,

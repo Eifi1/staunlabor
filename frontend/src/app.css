@@ -5,6 +5,19 @@
    tokens inline on <html> at runtime (see @eifi1/ui-kit's palette store). */
 @import "@eifi1/ui-kit/tokens.css";
 
+/* The site's three faces, served from its own origin (Marcel's spec of
+   2026-11-20): Inter for the text, Fraunces for the headlines and the
+   figures, JetBrains Mono for counts and code. Self-hosted, so a page asks no
+   font server for anything, which "0 tracking" means as well. Variable fonts
+   with only the weight axis: one file per face and script, 37 to 48 kB for
+   Latin, and a browser fetches a script's file only once a page has a glyph
+   in it (Hungarian's ő and ű are latin-ext; Chinese keeps the system's). The
+   italic Fraunces is the front page's headline alone. */
+@import "@fontsource-variable/inter/index.css";
+@import "@fontsource-variable/fraunces/index.css";
+@import "@fontsource-variable/fraunces/wght-italic.css";
+@import "@fontsource-variable/jetbrains-mono/index.css";
+
 /* Tailwind ignores node_modules by default, so point it at the shared design
    system — without this, the class names @eifi1/ui-kit's own components use are
    never generated and every shared component renders unstyled, which nothing
@@ -16,6 +29,16 @@
    class names and put about 180 unused rules, 11 KB, into this stylesheet. */
 @source "../../node_modules/@eifi1/ui-kit/dist";
 @source not "../../node_modules/@eifi1/ui-kit/dist/**/*.{map,d.ts}";
+
+/* The faces above, named for Tailwind: `font-sans` is every page's text (and
+   the kit's components', which inherit it), `font-serif` and `font-mono` are
+   asked for by name. */
+@theme {
+  --font-sans:
+    "Inter Variable", ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Noto Color Emoji";
+  --font-serif: "Fraunces Variable", ui-serif, Georgia, serif;
+  --font-mono: "JetBrains Mono Variable", ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+}
 
 /* Toasts must sit above every dialog and overlay. Sonner injects its own
    z-index at runtime, which can land too late; pinning it in the bundled

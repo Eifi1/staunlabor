@@ -65,6 +65,7 @@ import { HOLE, cameraAt, frameOf, project } from "./chair-views";
 import { weeklyExhibit } from "./weekly";
 import { ExhibitPreview } from "./exhibit-preview";
 import { EXHIBITS, exhibitEntry } from "./exhibits";
+import { EQUATION_COUNT } from "./facts";
 import { ExperimentsLayout } from "./experiments-layout";
 import { ExperimentsOverviewPage } from "./overview-page";
 import { useTried } from "./tried";
@@ -161,33 +162,82 @@ describe("the overview", () => {
     expect(new Set(icons).size).toBe(EXHIBITS.length);
   });
 
-  it("shows the week's exhibit with its question, and the list as the way on, with no dialog of past weeks", async () => {
+  it("heads the page with what the site is, and shows the week's exhibit on a stage under it", async () => {
     await renderOverview();
     const today = weeklyExhibit(DAY);
-    // The page's one heading of the first rank is the week's question, the
-    // hook; the exhibit's name above it, and above that what the site is.
-    const hero = screen.getByRole("heading", { level: 1, name: E.exhibits[today].question });
+    // The page's one heading of the first rank says what the site is, across
+    // the page (Marcel, 2026-11-20), and one line under it.
+    expect(screen.getByRole("heading", { level: 1 })).toHaveTextContent(E.overview.claim.replace(/<\/?em>/g, ""));
     expect(screen.getAllByRole("heading", { level: 1 })).toHaveLength(1);
-    const card = hero.closest("div.min-w-0") as HTMLElement;
-    // The eyebrow names the week, Monday to Sunday.
-    // (Intl sets thin spaces around the dash, hence \s.)
-    expect(within(card).getByText(new RegExp(`${E.overview.week.eyebrow} · 5\\s–\\s11 Apr`))).toBeInTheDocument();
-    expect(within(card).getByText(E.exhibits[today].title)).toBeInTheDocument();
-    expect(within(card).getByText(E.overview.lead)).toBeInTheDocument();
+    expect(screen.getByText(E.overview.lead)).toBeInTheDocument();
     expect(E.overview.lead).not.toMatch(/twin/);
-    // The longer text: what stands at the exhibit, the first paragraph of its page's.
-    const at = (E as unknown as Record<string, { at: Record<string, string> }>)[today].at;
-    expect(within(card).getByText(Object.values(at)[0])).toBeInTheDocument();
-    // The list is further down, and the way to it is a link.
-    expect(within(card).getByRole("link", { name: E.overview.all })).toHaveAttribute("href", "#all-exhibits");
-    expect(within(card).getByRole("link", { name: new RegExp(E.overview.week.open) })).toHaveAttribute(
+    // The stage: the week, Monday to Sunday (Intl sets thin spaces round the
+    // dash, hence \s), the exhibit's name, the question, the two ways on.
+    const stage = screen.getByRole("region", { name: E.exhibits[today].title });
+    expect(within(stage).getByText(new RegExp(`${E.overview.week.eyebrow} · 5\\s–\\s11 Apr`))).toBeInTheDocument();
+    expect(within(stage).getByText(E.exhibits[today].question)).toBeInTheDocument();
+    expect(within(stage).getByRole("link", { name: new RegExp(E.overview.week.open) })).toHaveAttribute(
       "href",
       exhibitEntry(today).path,
     );
+    expect(within(stage).getByRole("link", { name: E.overview.all })).toHaveAttribute("href", "#all-exhibits");
+    // The question alone: the summary is the list's, the longer text the page's.
+    expect(within(stage).queryByText(E.exhibits[today].summary)).toBeNull();
     // The past weeks are not listed: the list below has every exhibit, with
     // the same cards (Marcel, 2026-11-20), and a dialog only repeated it.
-    expect(within(card).queryByRole("button", { name: /earlier/i })).toBeNull();
-    expect(within(card).getAllByRole("link")).toHaveLength(2);
+    expect(within(stage).getAllByRole("link")).toHaveLength(2);
+    expect(within(stage).queryByRole("button")).toBeNull();
+  });
+
+  it("goes down to the list visibly, and gives its heading the focus", async () => {
+    await renderOverview();
+    const heading = screen.getByRole("heading", { level: 2, name: E.overview.all });
+    const scroll = vi.fn();
+    heading.scrollIntoView = scroll;
+    const stage = screen.getByRole("region", { name: E.exhibits[weeklyExhibit(DAY)].title });
+    fireEvent.click(within(stage).getByRole("link", { name: E.overview.all }));
+    // A smooth scroll, not a jump (Marcel, 2026-11-20: "Es soll visuell scrollen").
+    expect(scroll).toHaveBeenCalledWith({ behavior: "smooth", block: "start" });
+    expect(heading).toHaveFocus();
+    expect(window.location.hash).toBe("#all-exhibits");
+    window.history.replaceState(null, "", "/");
+  });
+
+  it("jumps to the list instead for a reader who asked the system for less motion", async () => {
+    const original = window.matchMedia;
+    window.matchMedia = ((query: string) => ({
+      matches: query.includes("reduce"),
+      media: query,
+      onchange: null,
+      addEventListener: () => {},
+      removeEventListener: () => {},
+      addListener: () => {},
+      removeListener: () => {},
+      dispatchEvent: () => false,
+    })) as typeof window.matchMedia;
+    try {
+      await renderOverview();
+      const heading = screen.getByRole("heading", { level: 2, name: E.overview.all });
+      const scroll = vi.fn();
+      heading.scrollIntoView = scroll;
+      fireEvent.click(screen.getAllByRole("link", { name: E.overview.all })[0]);
+      expect(scroll).toHaveBeenCalledWith({ behavior: "auto", block: "start" });
+    } finally {
+      window.matchMedia = original;
+      window.history.replaceState(null, "", "/");
+    }
+  });
+
+  it("counts the site in figures, the checked exhibits as the server says", async () => {
+    await renderOverview();
+    const band = screen.getByRole("region", { name: E.overview.facts.label });
+    const built = EXHIBITS.filter((entry) => entry.path).length;
+    expect(band).toHaveTextContent(new RegExp(`${E.overview.facts.exhibits}\\s*${built}`));
+    expect(band).toHaveTextContent(new RegExp(`${E.overview.facts.equations}\\s*${EQUATION_COUNT}`));
+    expect(band).toHaveTextContent(new RegExp(`${E.overview.facts.languages}\\s*7`));
+    // None checked yet: the server's answer, not a figure the page made up.
+    await waitFor(() => expect(band).toHaveTextContent(new RegExp(`${E.overview.facts.checked}\\s*0`)));
+    expect(within(band).getByText(E.overview.facts.promise)).toBeInTheDocument();
   });
 
   it("filters the exhibits by what they are about, and shows them all again", async () => {
@@ -262,13 +312,35 @@ describe("a preview", () => {
 });
 
 describe("the area", () => {
-  it("has only the name, the language and the theme in its header, and no strip of exhibits", () => {
+  it("has the name, the three ways in, the search, the language and the theme in its header", () => {
     renderWithProviders(<ExperimentsLayout />, { initialEntries: ["/chair"] });
     const header = screen.getByRole("banner");
     expect(within(header).getByRole("link", { name: en.app.name })).toHaveAttribute("href", "/");
-    expect(within(header).queryByRole("navigation")).toBeNull();
-    expect(within(header).queryByRole("combobox")).toBeNull();
-    expect(within(header).getAllByRole("link")).toHaveLength(1);
+    const nav = within(header).getByRole("navigation", { name: en.site.nav.label });
+    expect(
+      within(nav)
+        .getAllByRole("link")
+        .map((link) => [link.textContent, link.getAttribute("href")]),
+    ).toEqual([
+      [en.site.nav.exhibits, "/#all-exhibits"],
+      [en.site.nav.basics, "https://kurvenschmiede.app/dynamics"],
+      [en.site.nav.about, "/about"],
+    ]);
+    expect(within(header).getByRole("button", { name: new RegExp(en.site.search.trigger) })).toBeInTheDocument();
+    // Still no strip of thirty-five exhibits (Marcel, 2026-11-19).
+    expect(within(header).getAllByRole("link")).toHaveLength(4);
+  });
+
+  it("finds an exhibit by its question in the header's search", async () => {
+    renderWithProviders(<ExperimentsLayout />, { initialEntries: ["/chair"] });
+    fireEvent.click(
+      within(screen.getByRole("banner")).getByRole("button", { name: new RegExp(en.site.search.trigger) }),
+    );
+    const field = await screen.findByPlaceholderText(en.site.search.placeholder);
+    fireEvent.change(field, { target: { value: E.exhibits.smoke.question } });
+    // A row of the palette, and a real link to the page.
+    const found = await screen.findByRole("option", { name: new RegExp(E.exhibits.smoke.title) });
+    expect(found).toHaveAttribute("href", "/smoke");
   });
 
   it("links every exhibit's page back to the list on the front page, and on to the next exhibit", async () => {
@@ -1230,14 +1302,6 @@ describe("the Chladni figures", () => {
 });
 
 describe("the check of the calculations", () => {
-  it("says on the front page how far the checking has come", async () => {
-    renderWithProviders(<ExperimentsOverviewPage />);
-    const built = EXHIBITS.filter((entry) => entry.path).length;
-    expect(
-      await screen.findByText(E.checks.overview.replace("{{checked}}", "0").replace("{{total}}", String(built))),
-    ).toBeInTheDocument();
-  });
-
   it("says in one line under an exhibit's title that it is not yet checked, with no cases where it has none", async () => {
     renderWithProviders(<CradlePage />);
     expect(await screen.findByText(E.checks.status.unchecked)).toBeInTheDocument();

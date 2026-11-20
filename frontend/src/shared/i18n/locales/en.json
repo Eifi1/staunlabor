@@ -40,6 +40,16 @@
       "feedback": "Something wrong, unclear, or an exhibit you would like to see?",
       "issues": "Report it on GitHub",
       "source": "See the source code"
+    },
+    "nav": {
+      "label": "Main navigation",
+      "exhibits": "Exhibits",
+      "basics": "Basics",
+      "about": "About"
+    },
+    "search": {
+      "trigger": "Search the exhibits",
+      "placeholder": "Exhibit, topic or question …"
     }
   },
   "legal": {
@@ -89,7 +99,8 @@
     "title": "Experiments",
     "failed": "The exhibit could not be computed.",
     "overview": {
-      "lead": "Exhibits like those in a science centre, to try out and to work through: play first, then see the physics behind it.",
+      "claim": "First <em>play</em>, then <em>compute</em>.",
+      "lead": "Exhibits like those in a science centre – to try out and to work through.",
       "how": "Each page starts with what stands at the exhibit, lets you try it, then shows what happens and the one insight that explains the trick. Every number comes from the app's own engine and is held by its tests.",
       "coming": "In preparation",
       "credit": "Most exhibits are inspired by exhibits at the Swiss Science Center Technorama, Winterthur.",
@@ -107,7 +118,16 @@
         "mark": "Tried",
         "forget": "Forget"
       },
-      "builds_on": "Builds on:"
+      "builds_on": "Builds on:",
+      "facts": {
+        "label": "Staunlabor in numbers",
+        "exhibits": "Exhibits",
+        "topics": "Topics",
+        "equations": "Equations",
+        "checked": "Checked",
+        "languages": "Languages",
+        "promise": "0 cookies · 0 tracking · no account needed · free and open source"
+      }
     },
     "topics": {
       "momentum": "Momentum",
@@ -3326,7 +3346,6 @@
         "uncheck": "Take the check back",
         "failed": "That did not work. Please try again."
       },
-      "overview": "The calculations are being checked exhibit by exhibit: {{checked}} of {{total}} are checked.",
       "symbols": {
         "f0": "the smallest swing's frequency",
         "f": "frequency",

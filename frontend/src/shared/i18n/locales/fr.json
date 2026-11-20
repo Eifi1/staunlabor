@@ -40,6 +40,16 @@
       "feedback": "Une erreur, un point peu clair, ou une exposition que vous aimeriez voir ?",
       "issues": "Signalez-le sur GitHub",
       "source": "Voir le code source"
+    },
+    "nav": {
+      "label": "Navigation principale",
+      "exhibits": "Expositions",
+      "basics": "Bases",
+      "about": "À propos"
+    },
+    "search": {
+      "trigger": "Rechercher une exposition",
+      "placeholder": "Exposition, thème ou question …"
     }
   },
   "legal": {
@@ -89,7 +99,8 @@
     "title": "Expériences",
     "failed": "L’exposition n’a pas pu être calculée.",
     "overview": {
-      "lead": "Des expositions comme dans un centre de sciences, à essayer et à recalculer : jouez d’abord vous-même, puis découvrez la physique qui se cache derrière.",
+      "claim": "D’abord <em>jouer</em>, ensuite <em>calculer</em>.",
+      "lead": "Des expositions comme dans un centre de sciences, à essayer et à recalculer.",
       "how": "Chaque page commence par ce qui se trouve à l’exposition, vous laisse l’essayer, puis montre ce qui se passe et l’idée qui explique le tour. Chaque nombre vient du moteur de calcul de l’application et est garanti par ses tests.",
       "coming": "En préparation",
       "credit": "La plupart des expositions s’inspirent d’expositions du Swiss Science Center Technorama, Winterthour.",
@@ -107,7 +118,16 @@
         "mark": "Essayée",
         "forget": "Oublier"
       },
-      "builds_on": "S’appuie sur :"
+      "builds_on": "S’appuie sur :",
+      "facts": {
+        "label": "Staunlabor en chiffres",
+        "exhibits": "Expositions",
+        "topics": "Thèmes",
+        "equations": "Équations",
+        "checked": "Vérifiées",
+        "languages": "Langues",
+        "promise": "0 cookie · 0 pistage · sans compte · libre et open source"
+      }
     },
     "topics": {
       "momentum": "Quantité de mouvement",
@@ -479,7 +499,7 @@
       },
       "symbols": {
         "psi": "flux totalisé, le flux de l’aimant à travers toutes les spires",
-        "x": "la position de la voiture, comptée depuis le milieu de la bobine",
+        "x": "la position de la voiture, du centre de la bobine",
         "mu0": "la constante magnétique",
         "moment": "la force de l’aimant (son moment dipolaire)",
         "turns": "le nombre de spires",
@@ -3326,7 +3346,6 @@
         "uncheck": "Annuler la vérification",
         "failed": "Cela n’a pas fonctionné. Veuillez réessayer."
       },
-      "overview": "Les calculs sont vérifiés exposition par exposition : {{checked}} sur {{total}} sont vérifiées.",
       "symbols": {
         "f0": "fréquence de la plus petite oscillation",
         "f": "fréquence",

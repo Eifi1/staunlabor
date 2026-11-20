@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { Link, useLocation } from "react-router";
-import { useTranslation } from "react-i18next";
-import { ArrowDown, ArrowRight, Check, HelpCircle, RotateCcw } from "lucide-react";
+import { Trans, useTranslation } from "react-i18next";
+import { ArrowDown, ArrowRight, Check, RotateCcw } from "lucide-react";
 import {
   Button,
   Card,
@@ -11,16 +11,21 @@ import {
   Chip,
   ProgressBar,
   SectionLabel,
+  StatTile,
+  StatTileGrid,
   TextLink,
   usePageSeo,
 } from "@eifi1/ui-kit";
+import { LANGUAGES } from "@/shared/i18n/languages";
 import { useLocale } from "@/shared/i18n/use-locale";
-import { PAGE_SHELL } from "@/shared/ui/page-shell";
-import { ChecksSummary } from "./unchecked-notice";
+import { CONTAINER } from "@/shared/ui/page-shell";
+import { useChecks } from "./checks";
 import { dayIn, weekOf, weeklyExhibit } from "./weekly";
 import { EXHIBIT_MODULES } from "./exhibit-modules";
+import { EQUATION_COUNT } from "./facts";
 import { FittedPreview } from "./fitted-preview";
 import { lessonPath } from "./exhibit-frame";
+import { scrollToList } from "./list-anchor";
 import {
   EXHIBITS,
   EXHIBITS_ANCHOR,
@@ -42,16 +47,25 @@ function weekSpan(monday: string, locale: string): string {
   return new Intl.DateTimeFormat(locale, { day: "numeric", month: "short", timeZone: "UTC" }).formatRange(start, end);
 }
 
+/** The topics some exhibit has: a chip, or a figure, for a topic with none
+ *  would promise what the page cannot show. */
+const TOPICS_SHOWN = TOPICS.filter((topic) => EXHIBITS.some((entry) => entry.topics.includes(topic)));
+
+const BUILT = EXHIBITS.filter((entry) => entry.path);
+
 /**
- * The site's front page, the overview of the exhibits:
+ * The site's front page (Marcel chose the "stage" of three drafts on
+ * 2026-11-20, with the week's exhibit whole on the first screen):
  *
- * - **the experiment of the week**, playing by itself, with the question to
- *   guess at before opening it (`weekly.ts` picks it: random, with a memory),
- *   alone on the first screen, as anyplot.ai shows its plot of the day alone.
- *   The weeks before it are not listed: the way on is the list of every
- *   exhibit, the same cards with their text, which a dialog of past weeks
- *   only repeated in smaller (Marcel, 2026-11-20: "gehe stattdessen gleich
+ * - **what the site is**, the page's headline across its width: "First play,
+ *   then compute", and one line under it;
+ * - **the experiment of the week** on a stage under it, playing by itself,
+ *   with the question to guess at and the two ways on (`weekly.ts` picks it:
+ *   random, with a memory). The weeks before it are not listed: the way on is
+ *   the list of every exhibit (Marcel, 2026-11-20: "gehe stattdessen gleich
  *   auf die Seite mit den Experimenten anstelle des Dialogs");
+ * - **the site in figures**, a band across the window: exhibits, topics,
+ *   equations, checked, languages, and what the site does not do;
  * - **every exhibit**, filtered by what it is about, ticked once tried on this
  *   device (`tried.ts`), and linked to the course's lessons its computation
  *   stands on.
@@ -73,106 +87,181 @@ export function ExperimentsOverviewPage() {
   });
   const { hash } = useLocation();
   // An exhibit's page links back to the list (`#all-exhibits`): a client-side
-  // navigation lands at the top, so the page goes down to it itself.
+  // navigation lands at the top, so the page goes down to it itself, at once,
+  // since the reader asked for the list rather than for this page.
   useEffect(() => {
-    if (hash === `#${EXHIBITS_ANCHOR}`) document.getElementById(EXHIBITS_ANCHOR)?.scrollIntoView();
+    if (hash === `#${EXHIBITS_ANCHOR}`) scrollToList("auto");
   }, [hash]);
   return (
-    <div className={PAGE_SHELL}>
-      <WeekHero entry={current} week={week} />
-      <ChecksSummary />
-      <AllExhibits current={current.exhibit} />
-      <p className="text-sm text-secondary">{t("experiments.overview.how")}</p>
-      <p className="text-caption text-muted">{t("experiments.overview.credit")}</p>
+    <>
+      <div className={`${CONTAINER} flex flex-col items-center pt-6 md:pt-9`}>
+        <Welcome />
+        <WeekStage entry={current} week={week} />
+      </div>
+      <Figures />
+      <div className={`${CONTAINER} flex flex-col gap-4 pt-10 pb-6 md:pt-14`}>
+        <AllExhibits current={current.exhibit} />
+        <p className="text-sm text-secondary">{t("experiments.overview.how")}</p>
+        <p className="text-caption text-muted">{t("experiments.overview.credit")}</p>
+      </div>
+    </>
+  );
+}
+
+/** The page's headline, across the page under the header (Marcel,
+ *  2026-11-20: the line about the whole site was "zu lang und nicht relevant
+ *  für das Experiment", and belongs above everything instead). */
+function Welcome() {
+  const { t } = useTranslation();
+  return (
+    <div className="space-y-2 text-center md:space-y-2.5">
+      <h1 className="font-serif text-[2.125rem] leading-[1.06] font-semibold tracking-tight text-primary md:text-[3.5rem]">
+        <Trans i18nKey="experiments.overview.claim" components={{ em: <em className="font-medium text-brand" /> }} />
+      </h1>
+      <p className="mx-auto max-w-[40rem] text-base text-secondary md:text-lg">{t("experiments.overview.lead")}</p>
     </div>
   );
 }
 
-/** The picture box's height: most of the screen beside the text, less on a
- *  phone, where it stands above the text and the question must still show;
- *  never more than 560 px, so beside the text it stays about 4 : 3 rather
- *  than a tall panel round a wide drawing. */
-function useHeroHeight(): number {
-  const measure = () => {
-    if (typeof window === "undefined") return 420;
-    const wide = window.matchMedia?.("(min-width: 768px)").matches ?? true;
-    return Math.round(Math.min(560, Math.max(240, window.innerHeight * (wide ? 0.66 : 0.42))));
-  };
-  const [height, setHeight] = useState(measure);
+/** The stage's picture: never lower than this, however low the window. */
+const STAGE_MIN = 180;
+/** Nor higher than this, however high: under a stage 52 rem wide, a picture
+ *  about twice as wide as high. */
+const STAGE_MAX = 400;
+/** Window left under the stage, where the band of figures begins. */
+const STAGE_GAP = 16;
+
+/**
+ * How high the stage's picture may be for the whole stage to fit the first
+ * screen (Marcel, 2026-11-20: "so, dass das Experiment der Woche ganz zu sehen
+ * ist"): the window's height less what stands above the stage and its
+ * caption below the picture, and no higher than the stage's width allows
+ * (2 : 1 when wide, 16 : 10 on a phone). Measured again when the window, the
+ * stage or the caption changes size, and once the fonts are in, which moves
+ * the stage down a line's worth.
+ */
+function useStageHeight(figure: HTMLElement | null, caption: HTMLElement | null): number {
+  const [height, setHeight] = useState(() =>
+    typeof window === "undefined"
+      ? 320
+      : Math.round(Math.min(STAGE_MAX, Math.max(STAGE_MIN, window.innerHeight - 440))),
+  );
   useEffect(() => {
-    const resize = () => setHeight(measure());
-    window.addEventListener("resize", resize);
-    return () => window.removeEventListener("resize", resize);
-  }, []);
+    if (!figure || !caption) return;
+    const measure = () => {
+      const top = figure.getBoundingClientRect().top + window.scrollY;
+      const room = window.innerHeight - top - caption.offsetHeight - STAGE_GAP;
+      const wide = window.matchMedia?.("(min-width: 768px)").matches ?? true;
+      const byWidth = figure.clientWidth * (wide ? 0.5 : 0.625);
+      setHeight(Math.round(Math.min(STAGE_MAX, Math.max(STAGE_MIN, Math.min(room, byWidth)))));
+    };
+    const observer = typeof ResizeObserver === "function" ? new ResizeObserver(measure) : null;
+    observer?.observe(figure);
+    observer?.observe(caption);
+    window.addEventListener("resize", measure);
+    void document.fonts?.ready.then(measure);
+    return () => {
+      observer?.disconnect();
+      window.removeEventListener("resize", measure);
+    };
+  }, [figure, caption]);
   return height;
 }
 
 /**
- * The experiment of the week, filling the first screen (Marcel, 2026-11-19):
- * its title, what it is about and what stands at the exhibit, the question to
- * guess at, and its drawing, playing, to the right; on a phone the drawing
- * stands above the question (Marcel, 2026-11-20, of three orders shown: "Bild
- * über Frage beim Handy"). The first paragraph of the page's "At the exhibit" is the
- * longer text: it says what is there without giving the trick away.
- *
- * The drawing sits in one box of one size, whatever the exhibit, its own
- * frame taken off (Marcel, 2026-11-20: the first impression, "Da ist es am
- * wichtigsten"): before, the box shrank to a wide drawing and grew round a
- * tall one, and each came in a frame of its own size. The text beside it is
- * 318 to 517 characters in German (question, summary, first paragraph at the
- * exhibit; median 396), so the two halves balance for every exhibit.
+ * The experiment of the week on a stage, as an exhibit stands in a museum
+ * with its label under it: the drawing, playing, in a box no wider than 52
+ * rem whatever the window (Marcel, 2026-11-20: the picture should stop
+ * growing with the screen); under it the week, the exhibit's name, the
+ * question to guess at, and the two ways on, beside the words when wide and
+ * under them on a phone, where the drawing stands above the question (Marcel,
+ * 2026-11-20: "Bild über Frage beim Handy"). The drawing's own frame is taken
+ * off: the stage is its frame.
  */
-function WeekHero({ entry, week }: { entry: ExhibitEntry; week: string }) {
+function WeekStage({ entry, week }: { entry: ExhibitEntry; week: string }) {
   const { t } = useTranslation();
   const locale = useLocale();
-  const tried = useTried((s) => s.tried.includes(entry.exhibit));
-  const height = useHeroHeight();
-  const at = t(`experiments.${entry.exhibit}.at`, { returnObjects: true }) as Record<string, string> | string;
-  const atTheExhibit = typeof at === "object" ? Object.values(at)[0] : null;
+  const [figure, setFigure] = useState<HTMLElement | null>(null);
+  const [caption, setCaption] = useState<HTMLElement | null>(null);
+  const height = useStageHeight(figure, caption);
+  return (
+    <section aria-labelledby="week" className="mt-5 w-full max-w-[52rem] md:mt-7">
+      <figure ref={setFigure} className="m-0 overflow-hidden rounded-2xl border border-subtle bg-surface">
+        <FittedPreview exhibit={entry.exhibit} height={height} plain box="w-full" frame="px-3 pt-3 md:px-6 md:pt-4" />
+        <figcaption
+          ref={setCaption}
+          className="flex flex-col gap-3 border-t border-subtle px-4 pt-3.5 pb-4 md:flex-row md:items-center md:justify-between md:gap-8 md:px-7 md:py-5"
+        >
+          <div className="min-w-0 space-y-1.5">
+            <SectionLabel as="p">
+              {t("experiments.overview.week.eyebrow")} · {weekSpan(week, locale)}
+            </SectionLabel>
+            <h2 id="week" className="text-base font-semibold text-brand">
+              {t(`experiments.exhibits.${entry.exhibit}.title`)}
+            </h2>
+            <p className="font-serif text-xl leading-snug font-semibold text-primary md:text-2xl">
+              {t(`experiments.exhibits.${entry.exhibit}.question`)}
+            </p>
+          </div>
+          <div className="flex gap-2 md:shrink-0 md:flex-col">
+            {entry.path && (
+              <Button variant="accent" href={entry.path} className="flex-1 md:flex-none">
+                {t("experiments.overview.week.open")}
+                <ArrowRight className="size-4" aria-hidden />
+              </Button>
+            )}
+            <Button
+              variant="secondary"
+              href={`#${EXHIBITS_ANCHOR}`}
+              onClick={(event) => {
+                if (scrollToList()) event.preventDefault();
+              }}
+              className="flex-1 md:flex-none"
+            >
+              <ArrowDown className="size-4" aria-hidden />
+              {t("experiments.overview.all")}
+            </Button>
+          </div>
+        </figcaption>
+      </figure>
+    </section>
+  );
+}
+
+/**
+ * The site in five figures, a band across the window under the stage
+ * (Marcel, 2026-11-20: "Wo ist die bottom line mit den key facts zur
+ * Seite?"), each counted where it is kept: the built exhibits and their
+ * topics, the equations the pages write out (`facts.ts`), the exhibits an
+ * admin has checked, from the server, and the languages. Under them, in one
+ * quiet line, what the site does not do. The kit's tiles, as UI-Kit advised;
+ * its `StatStrip`, proposed for 0.66, would draw them as one strip.
+ */
+function Figures() {
+  const { t } = useTranslation();
+  const locale = useLocale();
+  const checks = useChecks();
+  const checked = checks.data?.checked.filter((check) => BUILT.some((entry) => entry.exhibit === check.exhibit)).length;
   return (
     <section
-      aria-labelledby="week"
-      className="grid min-h-[calc(100dvh-4.5rem)] grid-cols-1 content-center items-center gap-6 md:grid-cols-[minmax(0,1fr)_minmax(0,1.4fr)] md:gap-10"
+      aria-label={t("experiments.overview.facts.label")}
+      className="mt-8 border-y border-subtle bg-surface md:mt-10"
     >
-      <div className="order-last min-w-0 space-y-4 md:order-first">
-        {/* What the site is, in one line: the first five seconds' question. */}
-        <p className="max-w-[60ch] text-sm text-secondary md:text-base">{t("experiments.overview.lead")}</p>
-        <div className="space-y-2">
-          <SectionLabel as="p">
-            {t("experiments.overview.week.eyebrow")} · {weekSpan(week, locale)}
-          </SectionLabel>
-          <p className="text-base font-semibold text-brand md:text-lg">
-            {t(`experiments.exhibits.${entry.exhibit}.title`)}
-          </p>
-          {/* The hook is the biggest thing on the screen: the question to guess at. */}
-          <h1 id="week" className="flex gap-3 text-2xl font-semibold text-primary md:text-4xl">
-            <HelpCircle className="mt-1 size-6 shrink-0 text-brand md:mt-1.5 md:size-8" aria-hidden />
-            {t(`experiments.exhibits.${entry.exhibit}.question`)}
-          </h1>
-        </div>
-        <p className="max-w-[65ch] text-base text-primary">{t(`experiments.exhibits.${entry.exhibit}.summary`)}</p>
-        {atTheExhibit && <p className="max-w-[65ch] text-sm text-secondary md:text-base">{atTheExhibit}</p>}
-        <TopicTags entry={entry} tried={tried} />
-        <div className="flex flex-wrap gap-2">
-          {entry.path && (
-            <Button variant="accent" href={entry.path}>
-              {t("experiments.overview.week.open")}
-              <ArrowRight className="size-4" aria-hidden />
-            </Button>
-          )}
-          <Button variant="ghost" href={`#${EXHIBITS_ANCHOR}`}>
-            <ArrowDown className="size-4" aria-hidden />
-            {t("experiments.overview.all")}
-          </Button>
-        </div>
+      <div className={`${CONTAINER} py-6 md:py-8`}>
+        <StatTileGrid minTileWidth="9rem" lang={locale}>
+          <StatTile label={t("experiments.overview.facts.exhibits")} value={BUILT.length} locale={locale} />
+          <StatTile label={t("experiments.overview.facts.topics")} value={TOPICS_SHOWN.length} locale={locale} />
+          <StatTile label={t("experiments.overview.facts.equations")} value={EQUATION_COUNT} locale={locale} />
+          <StatTile
+            label={t("experiments.overview.facts.checked")}
+            value={checks.isError ? null : checked}
+            loading={checks.isPending}
+            locale={locale}
+          />
+          <StatTile label={t("experiments.overview.facts.languages")} value={LANGUAGES.length} locale={locale} />
+        </StatTileGrid>
+        <p className="mt-4 text-center text-sm text-muted">{t("experiments.overview.facts.promise")}</p>
       </div>
-      <FittedPreview
-        exhibit={entry.exhibit}
-        height={height}
-        plain
-        box="order-first w-full rounded-xl border border-subtle bg-surface md:order-last"
-        frame="p-4 md:p-8"
-      />
     </section>
   );
 }
@@ -182,17 +271,22 @@ function AllExhibits({ current }: { current: Exhibit }) {
   const tried = useTried((s) => s.tried);
   const forget = useTried((s) => s.forget);
   const [topic, setTopic] = useState<Topic | null>(null);
-  const built = EXHIBITS.filter((entry) => entry.path);
   const shown = EXHIBITS.filter((entry) => topic === null || entry.topics.includes(topic));
-  // Only the topics some exhibit has: a chip that filters to nothing is a
-  // promise the page cannot keep.
-  const topics = TOPICS.filter((tp) => EXHIBITS.some((entry) => entry.topics.includes(tp)));
   return (
-    <section aria-labelledby={EXHIBITS_ANCHOR} className="space-y-3">
+    <section aria-labelledby={EXHIBITS_ANCHOR} className="space-y-4">
       <div className="flex flex-wrap items-end justify-between gap-3">
-        <SectionLabel as="h2" id={EXHIBITS_ANCHOR}>
-          {t("experiments.overview.all")}
-        </SectionLabel>
+        {/* A heading to be seen from afar, and the place the page scrolls to,
+            clear of the header that stays at the top (Marcel, 2026-11-20). */}
+        <div className="flex items-baseline gap-3">
+          <h2
+            id={EXHIBITS_ANCHOR}
+            tabIndex={-1}
+            className="scroll-mt-20 font-serif text-3xl font-semibold text-primary outline-none md:text-4xl"
+          >
+            {t("experiments.overview.all")}
+          </h2>
+          <span className="font-mono text-sm text-muted">{BUILT.length}</span>
+        </div>
         {tried.length > 0 && (
           <Button variant="ghost" size="sm" onClick={forget}>
             <RotateCcw className="size-4" aria-hidden />
@@ -205,7 +299,7 @@ function AllExhibits({ current }: { current: Exhibit }) {
         <ProgressBar
           label={t("experiments.overview.tried.label")}
           value={tried.length}
-          max={built.length}
+          max={BUILT.length}
           showValue
           formatValue={(v, max) => t("experiments.overview.tried.count", { tried: v, total: max })}
           tone="success"
@@ -215,7 +309,7 @@ function AllExhibits({ current }: { current: Exhibit }) {
         <Chip onClick={() => setTopic(null)} selected={topic === null}>
           {t("experiments.overview.all_topics")}
         </Chip>
-        {topics.map((tp) => (
+        {TOPICS_SHOWN.map((tp) => (
           <Chip key={tp} onClick={() => setTopic(topic === tp ? null : tp)} selected={topic === tp}>
             {t(`experiments.topics.${tp}`)}
           </Chip>
