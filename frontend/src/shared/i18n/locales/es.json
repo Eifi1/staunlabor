@@ -3416,7 +3416,22 @@
         "eta": "ángulo entre los dos extremos",
         "b": "distancia entre los ojos",
         "h0": "altura desde la que se suelta el coche",
-        "hx": "altura de la pista en x"
+        "hx": "altura de la pista en x",
+        "v_in": "velocidad de la bola que cae, abajo",
+        "v_last": "velocidad de la última bola tras el choque",
+        "v_after": "velocidad de la i-ésima bola tras el choque",
+        "v_i": "velocidad de la i-ésima bola",
+        "L_string": "longitud desde el punto de suspensión hasta el centro de la bola",
+        "theta_i": "ángulo de la i-ésima bola desde el punto más bajo",
+        "F_peak": "fuerza máxima entre dos bolas",
+        "K_hertz": "rigidez de dos bolas según Hertz",
+        "hM": "deformación máxima",
+        "mu_red": "masa reducida del par, m/2",
+        "E_star": "rigidez del acero, E/(2(1 − ν²)), a partir del módulo de Young E y el coeficiente de Poisson ν",
+        "R_eff": "radio efectivo de dos bolas iguales de diámetro d, d/4",
+        "T_impact": "duración del choque a lo largo de la fila",
+        "tau_contact": "duración de un contacto",
+        "gap": "aire entre dos bolas"
       },
       "cases": {
         "sphere": {
@@ -3550,6 +3565,43 @@
             "reads": "Para ángulos pequeños, las esquinas se separan b·sin φ·|1/d₁ − 1/d₂|.",
             "why": "Comprueba los 6,6° de la página, la razón de la única mirilla. La fórmula da un 1,7 % de más, porque 65 mm no son un paso pequeño para varillas a medio metro; la página calcula el ángulo exactamente.",
             "step": "La fuente da la disparidad para ángulos pequeños; los 65 mm son la distancia entre los ojos de un adulto, según la segunda (en promedio, unos 63 mm)."
+          }
+        },
+        "cradle": {
+          "one_out": {
+            "title": "Entra una, sale una",
+            "setting": "Cinco bolas con 0,1 mm de aire, sin pérdidas (e = 1), una levantada 30° y soltada; leído tras el primer choque.",
+            "reads": "Abajo, la primera bola va tan rápido como un péndulo que cae desde 30°. Con aire entre ellas, cada bola choca con su vecina por separado; al hacerlo, las bolas iguales intercambian su velocidad, hasta que esta llega a la última.",
+            "why": "Comprueba a la vez el péndulo y el choque: la última bola sale despedida a 0,63 m/s, tan rápido como llegó la primera. La desviación de 3 · 10⁻⁶: durante el choque, la gravedad sigue tirando de las bolas que ya dejan el punto más bajo.",
+            "step": "La primera fuente da la velocidad de un péndulo que cae desde θ₀ hasta el punto más bajo. Según la segunda, dos bolas iguales intercambian su velocidad; con aire entre ellas, eso ocurre cuatro veces seguidas."
+          },
+          "momentum": {
+            "title": "El momento se conserva, incluso con pérdidas",
+            "setting": "La exposición tal como cuelga: cinco bolas que se tocan, e = 0,95, una levantada 30° y soltada; leído tras el primer choque.",
+            "reads": "Lo que una bola da a la otra, lo pierde ella misma. La suma de las velocidades tras el choque es la velocidad con que llegó la primera, aunque el choque pierda energía y no todo pase a la última bola.",
+            "why": "Comprueba que toda fuerza entre dos bolas actúa con la misma intensidad sobre ambas, amortiguación incluida. La desviación de 6 · 10⁻⁶ se debe a la gravedad, que durante el choque tira de las bolas que se alejan del punto más bajo.",
+            "step": "Abajo, el hilo y el peso casi se compensan: durante el breve choque, la fila es casi un sistema cerrado. Con masas iguales, la suma de los momentos se convierte en la suma de las velocidades; la velocidad de la primera la da la segunda fuente."
+          },
+          "energy": {
+            "title": "Sin pérdidas, la energía se conserva",
+            "setting": "Cinco bolas que se tocan, sin pérdidas (e = 1), una levantada 30° y soltada; leído tras 2 s.",
+            "reads": "Cada bola lleva energía cinética y potencial; un contacto de Hertz almacena lo que toma y lo devuelve entero. En cuanto ningún contacto aprieta ya, la suma vuelve a ser la del principio: la altura desde la que cayó la primera.",
+            "why": "Comprueba el bucle de pasos de tiempo de la página, un milisegundo por paso y un microsegundo mientras dos bolas se tocan: tras 2 s, la energía es la misma con una precisión de 10⁻⁵. La desviación es lo que los pasos de un microsegundo no captan donde se cierra un contacto.",
+            "step": "La primera fuente da la energía de un péndulo: ½v² + gL(1 − cos θ) se mantiene igual. La segunda da al contacto de Hertz una energía elástica que solo depende de la deformación; sin amortiguación, por tanto, devuelve todo lo que toma. Sumado sobre las bolas, en cuanto ningún contacto aprieta ya."
+          },
+          "peak": {
+            "title": "La fuerza máxima según Hertz",
+            "setting": "Cinco bolas con 0,1 mm de aire, sin pérdidas (e = 1), una levantada 30° y soltada.",
+            "reads": "Dos bolas se aprietan con una fuerza que crece con la deformación elevada a 3/2. La deformación es máxima cuando toda la energía cinética del par está en ella; ahí la fuerza es máxima.",
+            "why": "Comprueba la rigidez de Hertz a partir del módulo de Young, el coeficiente de Poisson y el radio: 879 N con 18 µm de deformación. La página lee la fuerza cada microsegundo, es decir, justo al lado de su máximo; de ahí la desviación de 4 · 10⁻⁵.",
+            "step": "La primera fuente da la fuerza para cualquier deformación; la segunda, la deformación máxima en el choque de dos bolas; esta se introduce en aquella. Con aire, cada par choca por separado, y sin pérdidas, cada uno a la misma velocidad."
+          },
+          "duration": {
+            "title": "Cuánto dura el choque",
+            "setting": "Cinco bolas con 0,1 mm de aire, sin pérdidas (e = 1), una levantada 30° y soltada.",
+            "reads": "Con aire, los cuatro pares chocan uno tras otro. Cada contacto dura τ; entre uno y otro, la bola golpeada vuela hasta la siguiente a través del aire que le queda.",
+            "why": "Comprueba la duración que indica la página, desde que las bolas se tocan por primera vez hasta que se abre el último contacto: a mano 689 µs, de ellos 84 µs por contacto; la página cuenta en microsegundos enteros y llega a 688.",
+            "step": "La primera fuente da la duración de un contacto. El centro de masas del par avanza a v/2, así que al final de su contacto la bola golpeada ha avanzado v·τ/2 y recorre el aire restante s − v·τ/2 a la velocidad v que, según la segunda fuente, ha recibido. De un contacto al siguiente pasan así τ/2 + s/v, tres veces; a eso se suma el último contacto."
           }
         }
       },

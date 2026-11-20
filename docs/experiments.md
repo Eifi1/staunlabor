@@ -2338,7 +2338,10 @@ formula in the case's module, not by the engine's closed forms. Where no
 source states the formula exactly as used, the case is marked "derived" and
 its words give the one step, so a reader checks the step rather than trust a
 citation. The first three exhibits have them: the sphere (eight), the coil
-(seven), the chair (four). `tests/unit/test_checks.py` holds every case to its
+(seven), the chair (four); Newton's cradle followed on 2026-11-20 (five), the
+first of the rest (Marcel: "Prüffälle für alle Exponate ergänzen"), drafted by
+subagents with every quote fetched and found verbatim and run against the
+engine before they went in. `tests/unit/test_checks.py` holds every case to its
 tolerance; their runs take seconds, so the pages read them from
 `checks.json` (`scripts/write-checks.py`, held current by
 `tests/unit/test_checks_file.py`).
@@ -2351,6 +2354,17 @@ the ball leaves the wall only through an educational site's string tension;
 Wheeler's formula as printed lies 0.28 % under the SI form the engine uses,
 within his own 1 %; the second eye's small-angle disparity overshoots the
 exact angle by 1.7 %.
+
+**The cradle's** five are all derived: no source states the first impact of
+a row as the page reads it, so each case puts two together (the pendulum's
+fall and the exchange of equal balls, Hertz's force and Patrício's deepest
+dent and contact time, arXiv:physics/0402036, whose equations are transcribed
+from the PDF's layout). Its energy case allows 4 · 10⁻⁵ over 2 s: the
+microsecond step loses up to 7 · 10⁻⁶ of the energy at each impact, where
+Hertz's force has no second derivative as a contact closes. Writing them found
+that Flores et al.'s damping parts a lone pair with about e, not e (0.947 for
+0.95, 0.47 for 0.50), so the restitution's hint says "about" (Marcel chose the
+word over an engine change).
 
 **On the page** a section "Check it yourself" (`check-section.tsx`) lists the
 cases, each with its formula as an `Equation` (`check-formulas.ts`), both

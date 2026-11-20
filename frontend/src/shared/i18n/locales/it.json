@@ -3416,7 +3416,22 @@
         "eta": "angolo tra le due estremità",
         "b": "distanza tra gli occhi",
         "h0": "altezza da cui viene lasciato il carrello",
-        "hx": "altezza della pista in x"
+        "hx": "altezza della pista in x",
+        "v_in": "velocità della sfera che cade, in basso",
+        "v_last": "velocità dell'ultima sfera dopo l'urto",
+        "v_after": "velocità della i-esima sfera dopo l'urto",
+        "v_i": "velocità della i-esima sfera",
+        "L_string": "lunghezza dal punto di sospensione al centro della sfera",
+        "theta_i": "angolo della i-esima sfera dal punto più basso",
+        "F_peak": "forza massima tra due sfere",
+        "K_hertz": "rigidezza di due sfere secondo Hertz",
+        "hM": "schiacciamento massimo",
+        "mu_red": "massa ridotta della coppia, m/2",
+        "E_star": "rigidezza dell'acciaio, E/(2(1 − ν²)), da modulo di Young E e coefficiente di Poisson ν",
+        "R_eff": "raggio efficace di due sfere uguali di diametro d, d/4",
+        "T_impact": "durata dell'urto lungo la fila",
+        "tau_contact": "durata di un contatto",
+        "gap": "aria tra due sfere"
       },
       "cases": {
         "sphere": {
@@ -3550,6 +3565,43 @@
             "reads": "Per piccoli angoli i vertici si separano di b·sin φ·|1/d₁ − 1/d₂|.",
             "why": "Verifica i 6,6° della pagina, il motivo dell'unico spioncino. La formula dà l'1,7 % in più, perché 65 mm non sono un piccolo passo per aste a mezzo metro; la pagina calcola l'angolo esattamente.",
             "step": "La fonte dà la disparità per piccoli angoli; i 65 mm sono la distanza tra gli occhi di un adulto, secondo la seconda (in media circa 63 mm)."
+          }
+        },
+        "cradle": {
+          "one_out": {
+            "title": "Ne entra una, ne esce una",
+            "setting": "Cinque sfere con 0,1 mm d'aria tra l'una e l'altra, senza perdite (e = 1), una sollevata di 30° e lasciata andare; letto dopo il primo urto.",
+            "reads": "In basso la prima sfera è veloce quanto un pendolo che cade da 30°. Con aria in mezzo, ogni sfera urta la sua vicina per conto proprio; sfere uguali si scambiano così la velocità, finché questa arriva nell'ultima.",
+            "why": "Verifica insieme il pendolo e l'urto: l'ultima sfera vola via a 0,63 m/s, veloce quanto è arrivata la prima. Lo scarto di 3 · 10⁻⁶: durante l'urto la gravità continua a tirare le sfere che stanno già lasciando il punto più basso.",
+            "step": "La prima fonte dà la velocità di un pendolo che cade da θ₀ fino al punto più basso. Secondo la seconda, due sfere uguali si scambiano la velocità; con aria in mezzo ciò accade quattro volte di seguito."
+          },
+          "momentum": {
+            "title": "La quantità di moto si conserva, anche con perdite",
+            "setting": "L'exhibit così com'è appeso: cinque sfere a contatto, e = 0,95, una sollevata di 30° e lasciata andare; letto dopo il primo urto.",
+            "reads": "Ciò che una sfera dà all'altra, lo perde essa stessa. La somma delle velocità dopo l'urto è la velocità con cui è arrivata la prima, anche se l'urto perde energia e non tutto passa nell'ultima sfera.",
+            "why": "Verifica che ogni forza tra due sfere agisca su entrambe con la stessa intensità, smorzamento compreso. Lo scarto di 6 · 10⁻⁶ viene dalla gravità, che durante l'urto tira le sfere che si allontanano dal punto più basso.",
+            "step": "In basso filo e peso quasi si compensano: durante il breve urto la fila è quasi un sistema chiuso. Con masse uguali la somma delle quantità di moto diventa la somma delle velocità; la velocità della prima la dà la seconda fonte."
+          },
+          "energy": {
+            "title": "Senza perdite, l'energia si conserva",
+            "setting": "Cinque sfere a contatto, senza perdite (e = 1), una sollevata di 30° e lasciata andare; letto dopo 2 s.",
+            "reads": "Ogni sfera porta energia cinetica e potenziale; un contatto di Hertz immagazzina ciò che prende e lo restituisce tutto. Appena nessun contatto preme più, la somma torna quella dell'inizio: l'altezza da cui è caduta la prima.",
+            "why": "Verifica il ciclo dei passi temporali della pagina, un millisecondo per passo e un microsecondo finché due sfere si toccano: dopo 2 s l'energia è la stessa a meno di 10⁻⁵. Lo scarto è ciò che i passi di un microsecondo mancano dove si chiude un contatto.",
+            "step": "La prima fonte dà l'energia di un pendolo: ½v² + gL(1 − cos θ) resta uguale. La seconda dà al contatto di Hertz un'energia elastica che dipende solo dallo schiacciamento; senza smorzamento, quindi, restituisce tutto ciò che prende. Sommato sulle sfere, appena nessun contatto preme più."
+          },
+          "peak": {
+            "title": "La forza massima secondo Hertz",
+            "setting": "Cinque sfere con 0,1 mm d'aria tra l'una e l'altra, senza perdite (e = 1), una sollevata di 30° e lasciata andare.",
+            "reads": "Due sfere si premono con una forza che cresce con lo schiacciamento elevato a 3/2. Lo schiacciamento è massimo quando tutta l'energia cinetica della coppia è in esso; lì la forza è massima.",
+            "why": "Verifica la rigidezza di Hertz a partire da modulo di Young, coefficiente di Poisson e raggio: 879 N con 18 µm di schiacciamento. La pagina legge la forza ogni microsecondo, quindi appena accanto al suo picco; da qui lo scarto di 4 · 10⁻⁵.",
+            "step": "La prima fonte dà la forza per ogni schiacciamento, la seconda lo schiacciamento massimo nell'urto di due sfere; questo si inserisce in quella. Con aria in mezzo ogni coppia si urta per conto proprio, e senza perdite ognuna alla stessa velocità."
+          },
+          "duration": {
+            "title": "Quanto dura l'urto",
+            "setting": "Cinque sfere con 0,1 mm d'aria tra l'una e l'altra, senza perdite (e = 1), una sollevata di 30° e lasciata andare.",
+            "reads": "Con aria in mezzo le quattro coppie si urtano una dopo l'altra. Ogni contatto dura τ; tra un contatto e l'altro la sfera colpita attraversa in volo l'aria che le resta fino alla successiva.",
+            "why": "Verifica la durata che indica la pagina, dal primo contatto finché si apre l'ultimo: a mano 689 µs, di cui 84 µs per ogni contatto; la pagina conta in microsecondi interi e arriva a 688.",
+            "step": "La prima fonte dà la durata di un contatto. Il baricentro della coppia avanza a v/2, quindi alla fine del suo contatto la sfera colpita è avanti di v·τ/2 e percorre l'aria rimanente s − v·τ/2 alla velocità v che ha ricevuto secondo la seconda fonte. Da un contatto al successivo passano così τ/2 + s/v, tre volte; poi si aggiunge l'ultimo contatto."
           }
         }
       },

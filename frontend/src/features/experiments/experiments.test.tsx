@@ -87,7 +87,7 @@ const cannon = fixtures.cannon as unknown as CannonFigures;
 const wave = fixtures.wave as unknown as WaveFigures;
 
 /** No exhibit checked yet: what the server answers until an admin checks one. */
-const UNCHECKED = { with_cases: ["chair", "coil", "sphere"], checked: [] };
+const UNCHECKED = { with_cases: ["chair", "coil", "cradle", "sphere"], checked: [] };
 
 beforeEach(() => {
   useTried.getState().forget();
@@ -1333,7 +1333,8 @@ describe("the Chladni figures", () => {
 
 describe("the check of the calculations", () => {
   it("says in one line under an exhibit's title that it is not yet checked, with no cases where it has none", async () => {
-    renderWithProviders(<CradlePage />);
+    // The gyroscope is among the last to get its cases (docs/experiments.md).
+    renderWithProviders(<GyroscopePage />);
     expect(await screen.findByText(E.checks.status.unchecked)).toBeInTheDocument();
     expect(screen.queryByRole("link", { name: E.checks.status.to_cases })).toBeNull();
     expect(screen.queryByRole("heading", { name: E.checks.title })).toBeNull();
@@ -1404,6 +1405,17 @@ describe("setting a check case up", () => {
       expect.stringMatching(/90/),
     );
     expect(screen.getByText(E.sphere.play.hint_release)).toBeInTheDocument();
+  });
+
+  it("hangs the cradle's balls a hair apart without loss and lets one go, for one in, one out", async () => {
+    renderWithProviders(<CradlePage />);
+    await screen.findByRole("img", { name: E.cradle.view });
+    await setUp(0);
+    expect(await screen.findByRole("button", { name: E.cradle.play.pause })).toBeInTheDocument();
+    expect(screen.getByRole("radio", { name: E.cradle.play.spacings.gap })).toBeChecked();
+    expect(screen.getByRole("slider", { name: E.cradle.play.restitution }).getAttribute("aria-valuetext")).toMatch(
+      /^1\b/,
+    );
   });
 
   it("puts a 15 kg car on the coil's track for the brake, without rolling resistance", async () => {

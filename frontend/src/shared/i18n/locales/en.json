@@ -3416,7 +3416,22 @@
         "eta": "angle between the two ends",
         "b": "distance between the eyes",
         "h0": "the height the car is let go from",
-        "hx": "the track's height at x"
+        "hx": "the track's height at x",
+        "v_in": "the falling ball's speed at the bottom",
+        "v_last": "the last ball's speed after the impact",
+        "v_after": "the i-th ball's speed after the impact",
+        "v_i": "the i-th ball's speed",
+        "L_string": "from the strings' top to the middle of a ball",
+        "theta_i": "the i-th ball's angle from the bottom",
+        "F_peak": "the largest force between two balls",
+        "K_hertz": "two balls' stiffness, by Hertz",
+        "hM": "the deepest dent",
+        "mu_red": "the pair's reduced mass, m/2",
+        "E_star": "steel's stiffness, E/(2(1 − ν²)) from Young's modulus E and Poisson's ratio ν",
+        "R_eff": "the effective radius of two equal balls of diameter d, d/4",
+        "T_impact": "the impact's duration through the row",
+        "tau_contact": "one contact's duration",
+        "gap": "the air between two balls"
       },
       "cases": {
         "sphere": {
@@ -3550,6 +3565,43 @@
             "reads": "For small angles the corners part by b·sin φ·|1/d₁ − 1/d₂|.",
             "why": "Checks the page's 6.6°, the reason for the single peephole. The formula is 1.7 % high, as 65 mm is no small step for rods half a metre away; the page works the angle out exactly.",
             "step": "The source gives the disparity for small angles; the 65 mm are an adult's eye distance from the second (around 63 mm on average)."
+          }
+        },
+        "cradle": {
+          "one_out": {
+            "title": "One in, one out",
+            "setting": "Five balls 0.1 mm apart, no loss (e = 1), one lifted by 30° and let go; read after the first impact.",
+            "reads": "At the bottom the first ball is as fast as a pendulum falling from 30°. With air between them, each ball meets its neighbour on its own; equal balls trade speeds, until the speed is in the last one.",
+            "why": "Checks the pendulum and the impact at once: the last ball flies off at 0.63 m/s, as fast as the first came in. The 3 · 10⁻⁶ off: during the impact, gravity keeps pulling on the balls already leaving the bottom.",
+            "step": "The first source gives the speed of a pendulum falling from θ₀ to the bottom. By the second, two equal balls trade speeds; with air between them that happens four times, one after the other."
+          },
+          "momentum": {
+            "title": "Momentum is kept, losses and all",
+            "setting": "The exhibit as it hangs: five balls touching, e = 0.95, one lifted by 30° and let go; read after the first impact.",
+            "reads": "What one ball gives the other, it loses itself. The speeds after the impact add up to the speed the first came in at, even though the impact loses energy and not all of it goes into the last ball.",
+            "why": "Checks that every force between two balls acts on both alike, the damping included. The 6 · 10⁻⁶ off is gravity, pulling during the impact on the balls moving off the bottom.",
+            "step": "At the bottom, string and weight nearly cancel: during the short impact the row is nearly a closed system. With equal masses the sum of the momenta becomes the sum of the speeds; the first ball's speed is the second source's."
+          },
+          "energy": {
+            "title": "Without losses, energy is kept",
+            "setting": "Five balls touching, no loss (e = 1), one lifted by 30° and let go; read after 2 s.",
+            "reads": "Every ball carries energy of motion and of height; a Hertz contact stores what it takes and gives it all back. Once none presses, the sum is the start's again: the height the first ball fell from.",
+            "why": "Checks the page's time loop, a millisecond a step and a microsecond while two balls touch: after 2 s the energy is the same to 10⁻⁵. What is off, the microsecond steps miss where a contact closes.",
+            "step": "The first source gives a pendulum's energy: ½v² + gL(1 − cos θ) stays the same. The second gives the Hertz contact an elastic energy that depends on the dent alone, so without damping it gives back all it takes. Summed over the balls, once none presses."
+          },
+          "peak": {
+            "title": "The largest force, by Hertz",
+            "setting": "Five balls 0.1 mm apart, no loss (e = 1), one lifted by 30° and let go.",
+            "reads": "Two balls press on each other with a force growing as the dent to the power 3/2. The dent is deepest when all the pair's energy of motion is in it; there the force is largest.",
+            "why": "Checks Hertz's stiffness from Young's modulus, Poisson's ratio and the radius: 879 N at a dent of 18 µm. The page reads the force every microsecond, so just beside its top; hence the 4 · 10⁻⁵.",
+            "step": "The first source gives the force for any dent, the second the deepest dent when two balls meet; the one is put into the other. With air between them each pair meets on its own, and without loss each at the same speed."
+          },
+          "duration": {
+            "title": "How long the impact lasts",
+            "setting": "Five balls 0.1 mm apart, no loss (e = 1), one lifted by 30° and let go.",
+            "reads": "With air between them the four pairs meet one after the other. Each contact lasts τ; in between, the ball just struck flies through the air left to the next.",
+            "why": "Checks the duration the page gives, from the first touch until the last contact opens: by hand 689 µs, 84 µs of it each contact; the page counts whole microseconds and makes it 688.",
+            "step": "The first source gives one contact's duration. The pair's centre moves at v/2, so at the end of its contact the ball struck is v·τ/2 further and flies the remaining air s − v·τ/2 at the speed v it took over by the second source. From touch to touch that is τ/2 + s/v, three times; then the last contact."
           }
         }
       },

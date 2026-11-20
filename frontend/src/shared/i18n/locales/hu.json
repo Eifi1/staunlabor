@@ -3416,7 +3416,22 @@
         "eta": "a két vég közötti szög",
         "b": "a két szem távolsága",
         "h0": "a magasság, ahonnan a kocsit elengedik",
-        "hx": "a pálya magassága az x helyen"
+        "hx": "a pálya magassága az x helyen",
+        "v_in": "a leeső golyó sebessége lent",
+        "v_last": "az utolsó golyó sebessége az ütközés után",
+        "v_after": "az i-edik golyó sebessége az ütközés után",
+        "v_i": "az i-edik golyó sebessége",
+        "L_string": "a hossz a felfüggesztési ponttól a golyó közepéig",
+        "theta_i": "az i-edik golyó szöge a legalsó ponttól",
+        "F_peak": "a két golyó közti legnagyobb erő",
+        "K_hertz": "két golyó merevsége Hertz szerint",
+        "hM": "a legmélyebb benyomódás",
+        "mu_red": "a pár redukált tömege, m/2",
+        "E_star": "az acél merevsége, E/(2(1 − ν²)), az E rugalmassági modulusból és a ν Poisson-számból",
+        "R_eff": "két egyforma, d átmérőjű golyó hatásos sugara, d/4",
+        "T_impact": "az ütközés időtartama végig a soron",
+        "tau_contact": "egy érintkezés időtartama",
+        "gap": "a levegő két golyó között"
       },
       "cases": {
         "sphere": {
@@ -3550,6 +3565,43 @@
             "reads": "Kis szögeknél a sarkok b·sin φ·|1/d₁ − 1/d₂| szöggel válnak szét.",
             "why": "Az oldal 6,6°-át ellenőrzi, ez az oka az egyetlen kukucskálólyuknak. A képlet 1,7 %-kal többet ad, mert fél méterre lévő rudaknál a 65 mm már nem kis lépés; az oldal pontosan számolja ki a szöget.",
             "step": "A forrás kis szögekre adja meg a diszparitást; a 65 mm a felnőttek szemtávolsága a második forrás szerint (átlagosan 63 mm körül)."
+          }
+        },
+        "cradle": {
+          "one_out": {
+            "title": "Egy be, egy ki",
+            "setting": "Öt golyó, köztük 0,1 mm levegővel, veszteség nélkül (e = 1), az egyik 30°-kal felemelve és elengedve; az első ütközés után leolvasva.",
+            "reads": "Lent az első golyó olyan gyors, mint egy 30°-ról leeső inga. Ha levegő van köztük, minden golyó külön-külön ütközik a szomszédjával; az egyforma golyók közben kicserélik a sebességüket, amíg az az utolsóba nem kerül.",
+            "why": "Egyszerre ellenőrzi az ingát és az ütközést: az utolsó golyó 0,63 m/s-mal repül el, olyan gyorsan, ahogy az első érkezett. A 3 · 10⁻⁶ eltérés oka: az ütközés alatt a gravitáció tovább húzza azokat a golyókat, amelyek már elhagyják a legalsó pontot.",
+            "step": "Az első forrás megadja egy θ₀-ból a legalsó pontig eső inga sebességét. A második szerint két egyforma golyó kicseréli a sebességét; ha levegő van köztük, ez négyszer történik meg egymás után."
+          },
+          "momentum": {
+            "title": "Az impulzus megmarad, veszteséggel is",
+            "setting": "A kiállítási tárgy, ahogy lóg: öt egymást érintő golyó, e = 0,95, az egyik 30°-kal felemelve és elengedve; az első ütközés után leolvasva.",
+            "reads": "Amit az egyik golyó átad a másiknak, azt maga elveszíti. Az ütközés utáni sebességek összege megegyezik azzal a sebességgel, amellyel az első érkezett, még akkor is, ha az ütközés energiát veszít, és nem minden kerül az utolsó golyóba.",
+            "why": "Azt ellenőrzi, hogy két golyó között minden erő mindkettőre ugyanakkora, a csillapítást is beleértve. A 6 · 10⁻⁶ eltérés a gravitációtól származik, amely az ütközés alatt húzza a legalsó ponttól távolodó golyókat.",
+            "step": "Lent a fonal ereje és a súly majdnem kiegyenlíti egymást: a rövid ütközés alatt a sor majdnem zárt rendszer. Egyforma tömegeknél az impulzusok összegéből a sebességek összege lesz; az első golyó sebességét a második forrás adja meg."
+          },
+          "energy": {
+            "title": "Veszteség nélkül az energia megmarad",
+            "setting": "Öt egymást érintő golyó, veszteség nélkül (e = 1), az egyik 30°-kal felemelve és elengedve; 2 s után leolvasva.",
+            "reads": "Minden golyónak van mozgási és helyzeti energiája; a Hertz-féle érintkezés eltárolja, amit elvesz, és teljesen visszaadja. Amint már egyik érintkezés sem nyom, az összeg ismét a kezdeti érték: az a magasság, ahonnan az első leesett.",
+            "why": "Az oldal időléptető ciklusát ellenőrzi, lépésenként egy ezredmásodperccel, és egy milliomod másodperccel, amíg két golyó érintkezik: 2 s után az energia 10⁻⁵ pontossággal ugyanannyi. Az eltérés az, amit a milliomod másodperces lépések elvétenek ott, ahol egy érintkezés létrejön.",
+            "step": "Az első forrás egy inga energiáját adja meg: ½v² + gL(1 − cos θ) változatlan marad. A második a Hertz-féle érintkezéshez olyan rugalmas energiát rendel, amely csak a benyomódástól függ; csillapítás nélkül tehát mindent visszaad, amit elvesz. A golyókra összegezve, amint már egyik érintkezés sem nyom."
+          },
+          "peak": {
+            "title": "A legnagyobb erő Hertz szerint",
+            "setting": "Öt golyó, köztük 0,1 mm levegővel, veszteség nélkül (e = 1), az egyik 30°-kal felemelve és elengedve.",
+            "reads": "Két golyó olyan erővel nyomja egymást, amely a benyomódás 3/2-edik hatványával nő. A benyomódás akkor a legmélyebb, amikor a pár teljes mozgási energiája benne van; ott a legnagyobb az erő.",
+            "why": "A Hertz-féle merevséget ellenőrzi a rugalmassági modulusból, a Poisson-számból és a sugárból: 879 N 18 µm-es benyomódásnál. Az oldal minden milliomod másodpercben leolvassa az erőt, tehát kicsit a csúcsa mellett; innen a 4 · 10⁻⁵ eltérés.",
+            "step": "Az első forrás bármely benyomódásra megadja az erőt, a második a legmélyebb benyomódást két golyó ütközésekor; ez utóbbit helyettesítjük be az előbbibe. Levegővel minden pár külön ütközik, veszteség nélkül pedig mindegyik ugyanazzal a sebességgel."
+          },
+          "duration": {
+            "title": "Meddig tart az ütközés",
+            "setting": "Öt golyó, köztük 0,1 mm levegővel, veszteség nélkül (e = 1), az egyik 30°-kal felemelve és elengedve.",
+            "reads": "Levegővel a négy pár egymás után ütközik. Minden érintkezés τ ideig tart; közben a meglökött golyó átrepül a neki maradt levegőn a következőig.",
+            "why": "Az oldal által megadott időtartamot ellenőrzi az első érintéstől addig, amíg az utolsó érintkezés megszűnik: kézzel 689 µs, ebből érintkezésenként 84 µs; az oldal egész milliomod másodpercekben számol, és 688-at kap.",
+            "step": "Az első forrás egy érintkezés időtartamát adja meg. A pár tömegközéppontja v/2 sebességgel halad, így a meglökött golyó az érintkezése végén v·τ/2-vel előrébb van, és a maradék s − v·τ/2 levegőt azzal a v sebességgel repüli át, amelyet a második forrás szerint átvett. Érintéstől érintésig így τ/2 + s/v telik el, háromszor; ehhez jön az utolsó érintkezés."
           }
         }
       },

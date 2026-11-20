@@ -28,6 +28,10 @@ const L_COIL: CheckSymbol = { tex: "L", key: "L", unit: "H" };
 const PSI: CheckSymbol = { tex: String.raw`\Psi`, key: "Psi", unit: "Wb" };
 const D12: CheckSymbol = { tex: "d_1, d_2", key: "d12", unit: "m" };
 const PHI: CheckSymbol = { tex: String.raw`\varphi`, key: "phi", unit: "°" };
+const V_IN: CheckSymbol = { tex: "v", key: "v_in", unit: "m/s" };
+const L_STRING: CheckSymbol = { tex: "L", key: "L_string", unit: "m" };
+const K_HERTZ: CheckSymbol = { tex: "K", key: "K_hertz", unit: "N/m¹·⁵" };
+const MU_RED: CheckSymbol = { tex: String.raw`\mu`, key: "mu_red", unit: "kg" };
 
 export const CHECK_FORMULAS: Record<string, Record<string, CheckFormula>> = {
   sphere: {
@@ -189,6 +193,50 @@ export const CHECK_FORMULAS: Record<string, Record<string, CheckFormula>> = {
     second_eye: {
       tex: String.raw`\eta \approx b\,\sin\varphi\,\left|\frac{1}{d_1} - \frac{1}{d_2}\right|`,
       symbols: [{ tex: String.raw`\eta`, key: "eta", unit: "rad" }, { tex: "b", key: "b", unit: "m" }, PHI, D12],
+    },
+  },
+  cradle: {
+    one_out: {
+      tex: String.raw`v_5' = v = \sqrt{2gL\,(1 - \cos\theta_0)}`,
+      symbols: [{ tex: "v_5'", key: "v_last", unit: "m/s" }, V_IN, G, L_STRING, THETA0],
+    },
+    momentum: {
+      tex: String.raw`\sum_{i=1}^{5} v_i' = v = \sqrt{2gL\,(1 - \cos\theta_0)}`,
+      symbols: [{ tex: "v_i'", key: "v_after", unit: "m/s" }, V_IN, G, L_STRING, THETA0],
+    },
+    energy: {
+      tex: String.raw`E = \sum_{i=1}^{5} \left(\tfrac12\,v_i^2 + gL\,(1 - \cos\theta_i)\right) = gL\,(1 - \cos\theta_0)`,
+      symbols: [
+        { tex: "E", key: "E", unit: "J/kg" },
+        { tex: "v_i", key: "v_i", unit: "m/s" },
+        G,
+        L_STRING,
+        { tex: String.raw`\theta_i`, key: "theta_i", unit: "°" },
+        THETA0,
+      ],
+    },
+    peak: {
+      tex: String.raw`F_{\max} = K\,h_M^{3/2}, \qquad h_M = \left(\frac{5\mu}{4K}\right)^{2/5} v^{4/5}, \qquad K = \tfrac43\,E^*\sqrt{R}`,
+      symbols: [
+        { tex: String.raw`F_{\max}`, key: "F_peak", unit: "N" },
+        K_HERTZ,
+        { tex: "h_M", key: "hM", unit: "m" },
+        MU_RED,
+        V_IN,
+        { tex: "E^*", key: "E_star", unit: "Pa" },
+        { tex: "R", key: "R_eff", unit: "m" },
+      ],
+    },
+    duration: {
+      tex: String.raw`T = 3\left(\frac{\tau}{2} + \frac{s}{v}\right) + \tau, \qquad \tau = 2\left(\frac{25\,\mu^2}{16\,K^2 v}\right)^{1/5} \int_0^1 \frac{dx}{\sqrt{1 - x^{5/2}}}`,
+      symbols: [
+        { tex: "T", key: "T_impact", unit: "s" },
+        { tex: String.raw`\tau`, key: "tau_contact", unit: "s" },
+        { tex: "s", key: "gap", unit: "m" },
+        V_IN,
+        MU_RED,
+        K_HERTZ,
+      ],
     },
   },
 };

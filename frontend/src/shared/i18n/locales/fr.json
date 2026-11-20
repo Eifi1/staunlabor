@@ -3416,7 +3416,22 @@
         "eta": "angle entre les deux extrémités",
         "b": "écart entre les yeux",
         "h0": "hauteur d’où la voiture est lâchée",
-        "hx": "hauteur de la piste en x"
+        "hx": "hauteur de la piste en x",
+        "v_in": "vitesse de la bille qui tombe, en bas",
+        "v_last": "vitesse de la dernière bille après le choc",
+        "v_after": "vitesse de la i-ème bille après le choc",
+        "v_i": "vitesse de la i-ème bille",
+        "L_string": "longueur du point de suspension au centre de la bille",
+        "theta_i": "angle de la i-ème bille depuis le point le plus bas",
+        "F_peak": "force maximale entre deux billes",
+        "K_hertz": "raideur de deux billes selon Hertz",
+        "hM": "enfoncement le plus profond",
+        "mu_red": "masse réduite de la paire, m/2",
+        "E_star": "raideur de l’acier, E/(2(1 − ν²)), tirée du module d’Young E et du coefficient de Poisson ν",
+        "R_eff": "rayon effectif de deux billes égales de diamètre d, d/4",
+        "T_impact": "durée du choc à travers la rangée",
+        "tau_contact": "durée d’un contact",
+        "gap": "air entre deux billes"
       },
       "cases": {
         "sphere": {
@@ -3550,6 +3565,43 @@
             "reads": "Pour de petits angles, les coins s’écartent de b·sin φ·|1/d₁ − 1/d₂|.",
             "why": "Vérifie les 6,6° de la page, la raison du judas unique. La formule donne 1,7 % de trop, car 65 mm ne sont pas un petit pas pour des tiges à un demi-mètre ; la page calcule l’angle exactement.",
             "step": "La source donne la disparité pour de petits angles ; les 65 mm sont l’écart entre les yeux d’un adulte, d’après la seconde (environ 63 mm en moyenne)."
+          }
+        },
+        "cradle": {
+          "one_out": {
+            "title": "Une entre, une sort",
+            "setting": "Cinq billes séparées de 0,1 mm d’air, sans perte (e = 1), une soulevée de 30° et lâchée ; relevé après le premier choc.",
+            "reads": "En bas, la première bille va aussi vite qu’un pendule qui tombe de 30°. Avec de l’air entre elles, chaque bille heurte sa voisine séparément ; des billes égales échangent alors leur vitesse, jusqu’à ce qu’elle soit dans la dernière.",
+            "why": "Vérifie à la fois le pendule et le choc : la dernière bille s’envole à 0,63 m/s, aussi vite que la première est arrivée. L’écart de 3 · 10⁻⁶ : pendant le choc, la pesanteur continue de tirer sur les billes qui quittent déjà le point le plus bas.",
+            "step": "La première source donne la vitesse d’un pendule qui tombe de θ₀ jusqu’au point le plus bas. D’après la deuxième, deux billes égales échangent leur vitesse ; avec de l’air entre elles, cela se produit quatre fois de suite."
+          },
+          "momentum": {
+            "title": "La quantité de mouvement se conserve, même avec des pertes",
+            "setting": "L’exposition telle qu’elle est suspendue : cinq billes en contact, e = 0,95, une soulevée de 30° et lâchée ; relevé après le premier choc.",
+            "reads": "Ce qu’une bille donne à l’autre, elle le perd elle-même. La somme des vitesses après le choc est égale à la vitesse avec laquelle la première est arrivée, même si le choc perd de l’énergie et que tout ne passe pas dans la dernière bille.",
+            "why": "Vérifie que chaque force entre deux billes agit sur les deux avec la même intensité, amortissement compris. L’écart de 6 · 10⁻⁶ vient de la pesanteur, qui tire pendant le choc sur les billes qui s’éloignent du point le plus bas.",
+            "step": "En bas, le fil et le poids se compensent presque : pendant le bref choc, la rangée est presque un système fermé. Pour des masses égales, la somme des quantités de mouvement devient la somme des vitesses ; la vitesse de la première est donnée par la deuxième source."
+          },
+          "energy": {
+            "title": "Sans pertes, l’énergie se conserve",
+            "setting": "Cinq billes en contact, sans perte (e = 1), une soulevée de 30° et lâchée ; relevé après 2 s.",
+            "reads": "Chaque bille porte de l’énergie cinétique et potentielle ; un contact de Hertz stocke ce qu’il prend et le rend en entier. Dès qu’aucun contact ne presse plus, la somme redevient celle du début : la hauteur d’où la première est tombée.",
+            "why": "Vérifie la boucle des pas de temps de la page, une milliseconde par pas et une microseconde tant que deux billes se touchent : après 2 s, l’énergie est la même à 10⁻⁵ près. L’écart est ce que les pas d’une microseconde manquent là où un contact se ferme.",
+            "step": "La première source donne l’énergie d’un pendule : ½v² + gL(1 − cos θ) reste la même. La deuxième donne au contact de Hertz une énergie élastique qui ne dépend que de l’enfoncement ; sans amortissement, il rend donc tout ce qu’il prend. Sommé sur les billes, dès qu’aucun contact ne presse plus."
+          },
+          "peak": {
+            "title": "La force maximale selon Hertz",
+            "setting": "Cinq billes séparées de 0,1 mm d’air, sans perte (e = 1), une soulevée de 30° et lâchée.",
+            "reads": "Deux billes se pressent avec une force qui croît comme l’enfoncement à la puissance 3/2. L’enfoncement est le plus profond quand toute l’énergie cinétique de la paire s’y trouve ; c’est là que la force est la plus grande.",
+            "why": "Vérifie la raideur de Hertz tirée du module d’Young, du coefficient de Poisson et du rayon : 879 N pour un enfoncement de 18 µm. La page relève la force chaque microseconde, donc juste à côté de son maximum ; d’où l’écart de 4 · 10⁻⁵.",
+            "step": "La première source donne la force pour tout enfoncement, la deuxième l’enfoncement le plus profond quand deux billes se heurtent ; on met celui-ci dans celle-là. Avec de l’air, chaque paire se heurte séparément, et sans perte, chacune à la même vitesse."
+          },
+          "duration": {
+            "title": "Combien de temps dure le choc",
+            "setting": "Cinq billes séparées de 0,1 mm d’air, sans perte (e = 1), une soulevée de 30° et lâchée.",
+            "reads": "Avec de l’air, les quatre paires se heurtent l’une après l’autre. Chaque contact dure τ ; entre deux, la bille heurtée traverse l’air qui lui reste jusqu’à la suivante.",
+            "why": "Vérifie la durée qu’indique la page, du premier contact jusqu’à ce que le dernier s’ouvre : à la main 689 µs, dont 84 µs par contact ; la page compte en microsecondes entières et arrive à 688.",
+            "step": "La première source donne la durée d’un contact. Le centre de masse de la paire avance à v/2 ; à la fin de son contact, la bille heurtée est donc v·τ/2 plus loin et parcourt l’air restant s − v·τ/2 à la vitesse v qu’elle a reprise d’après la deuxième source. D’un contact au suivant, il s’écoule ainsi τ/2 + s/v, trois fois ; s’y ajoute le dernier contact."
           }
         }
       },

@@ -16,6 +16,7 @@ import { impact, start, step, STEP_S, type Cradle, type Pull } from "./simulate/
 import { SIDE } from "./stage";
 import { useExperimentsDefaults } from "./use-experiments";
 import { HeldAnswer, useHeld } from "./held";
+import { settingNumber, useCheckSetting } from "./check-setting";
 
 const SPEEDS = [1, 0.25, 0.1] as const;
 type Speed = (typeof SPEEDS)[number];
@@ -218,6 +219,29 @@ function CradlePlay({
     raf = requestAnimationFrame(tick);
     return () => cancelAnimationFrame(raf);
   }, [running, speed, cr, pull, preview, show]);
+
+  // "Set it up" (a check case's button): the build and the pull it names, the
+  // balls hung up again and let go, as the case reads them. The preview takes
+  // none: it is not the page's exhibit.
+  useCheckSetting("cradle", (setting) => {
+    if (preview) return false;
+    const nextCr = {
+      ...cr,
+      gap_m: settingNumber(setting, "gap_m", cr.gap_m),
+      restitution: settingNumber(setting, "restitution", cr.restitution),
+    };
+    const nextPull = {
+      balls: settingNumber(setting, "balls", pull.balls),
+      angle_deg: settingNumber(setting, "angle_deg", pull.angle_deg),
+    };
+    onChange?.(nextCr);
+    setPull(nextPull);
+    sim.current = begin(nextCr, nextPull);
+    setTh(sim.current.th);
+    setRows([...sim.current.rows]);
+    setRunning(true);
+    return true;
+  });
 
   // The impact is some ten thousand microsecond steps: a slider dragged across
   // asks for it at every notch, and the drag must not wait for each.

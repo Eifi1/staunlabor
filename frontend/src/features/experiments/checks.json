@@ -270,6 +270,143 @@
    ]
   }
  ],
+ "cradle": [
+  {
+   "key": "one_out",
+   "unit": "m/s",
+   "expected": 0.627815731081,
+   "measured": 0.627813795533,
+   "deviation": 3.08298795191e-06,
+   "tolerance": 1e-05,
+   "derived": true,
+   "setting": {
+    "balls": 1,
+    "angle_deg": 30.0,
+    "gap_m": 0.0001,
+    "restitution": 1.0
+   },
+   "sources": [
+    {
+     "cite": "javalab.org, “Force to move the pendulum”, “Total tension applied to the string”",
+     "url": "https://javalab.org/en/pendulum_en",
+     "quote": "The increased kinetic energy is equal to the reduced potential energy by the law of conservation of energy. ½mv² = mgl(cos θ – cos θ_m) ∴ v² = 2gl(cos θ – cos θ_m)"
+    },
+    {
+     "cite": "Wikipedia, “Elastic collision”, §One-dimensional Newtonian (citing Serway & Jewett, 2014, p. 258)",
+     "url": "https://en.wikipedia.org/wiki/Elastic_collision",
+     "quote": "If both masses are the same, we have a trivial solution: v_A2 = v_B1, v_B2 = v_A1. This simply corresponds to the bodies exchanging their initial velocities with each other."
+    }
+   ]
+  },
+  {
+   "key": "momentum",
+   "unit": "m/s",
+   "expected": 0.627815731081,
+   "measured": 0.6278122093,
+   "deviation": 5.60957741997e-06,
+   "tolerance": 1e-05,
+   "derived": true,
+   "setting": {
+    "balls": 1,
+    "angle_deg": 30.0,
+    "gap_m": 0.0,
+    "restitution": 0.95
+   },
+   "sources": [
+    {
+     "cite": "OpenStax, University Physics Volume 1, §9.3 Conservation of Linear Momentum, “Law of Conservation of Momentum”",
+     "url": "https://openstax.org/books/university-physics-volume-1/pages/9-3-conservation-of-linear-momentum",
+     "quote": "The total momentum of a closed system is conserved: ∑ p⃗_j = constant. … In a closed system, the total momentum never changes."
+    },
+    {
+     "cite": "javalab.org, “Force to move the pendulum”, “Total tension applied to the string”",
+     "url": "https://javalab.org/en/pendulum_en",
+     "quote": "The increased kinetic energy is equal to the reduced potential energy by the law of conservation of energy. ½mv² = mgl(cos θ – cos θ_m) ∴ v² = 2gl(cos θ – cos θ_m)"
+    }
+   ]
+  },
+  {
+   "key": "energy",
+   "unit": "J/kg",
+   "expected": 0.197076296097,
+   "measured": 0.197078302762,
+   "deviation": 1.01821754635e-05,
+   "tolerance": 4e-05,
+   "derived": true,
+   "setting": {
+    "balls": 1,
+    "angle_deg": 30.0,
+    "gap_m": 0.0,
+    "restitution": 1.0
+   },
+   "sources": [
+    {
+     "cite": "javalab.org, “Force to move the pendulum”, “Total tension applied to the string”",
+     "url": "https://javalab.org/en/pendulum_en",
+     "quote": "The increased kinetic energy is equal to the reduced potential energy by the law of conservation of energy. ½mv² = mgl(cos θ – cos θ_m) ∴ v² = 2gl(cos θ – cos θ_m)"
+    },
+    {
+     "cite": "P. Patrício, “The Hertz contact in chain elastic collisions”, arXiv:physics/0402036 (doi:10.1119/1.1778394), §I and §III.A, Eq. (5)",
+     "url": "https://arxiv.org/abs/physics/0402036",
+     "quote": "even in those cases where the interactions are elastic, i.e., with no loss of energy. … the elastic potential energy Ep depends on the combined deformation h as: Ep = 2/5 e r^½ h^{5/2}"
+    }
+   ]
+  },
+  {
+   "key": "peak",
+   "unit": "N",
+   "expected": 878.925167094,
+   "measured": 878.890798636,
+   "deviation": 3.91028257999e-05,
+   "tolerance": 0.0003,
+   "derived": true,
+   "setting": {
+    "balls": 1,
+    "angle_deg": 30.0,
+    "gap_m": 0.0001,
+    "restitution": 1.0
+   },
+   "sources": [
+    {
+     "cite": "Wikipedia, “Contact mechanics”, §Contact between a sphere and a half-space and §Contact between two spheres (citing Hertz, 1882)",
+     "url": "https://en.wikipedia.org/wiki/Contact_mechanics",
+     "quote": "The applied force F is related to the displacement d by F = 4/3 E* R^½ d^{3/2} where 1/E* = (1 − ν₁²)/E₁ + (1 − ν₂²)/E₂ … The equations are the same as for a sphere in contact with a half plane except that the effective radius R is defined as 1/R = 1/R₁ + 1/R₂"
+    },
+    {
+     "cite": "P. Patrício, “The Hertz contact in chain elastic collisions”, arXiv:physics/0402036, §III.A, Eq. (6) and (8)",
+     "url": "https://arxiv.org/abs/physics/0402036",
+     "quote": "Suppose ν is the relative velocity of the spheres before the collision, and µ = m1 m2 /(m1 + m2) their reduced mass. … The maximum height of deformation occurs when the relative velocity is zero and can be written: hM = (5µ/(4er^½))^{2/5} ν^{4/5}"
+    }
+   ]
+  },
+  {
+   "key": "duration",
+   "unit": "µs",
+   "expected": 688.816629519,
+   "measured": 688.0,
+   "deviation": 0.00118555430297,
+   "tolerance": 0.002,
+   "derived": true,
+   "setting": {
+    "balls": 1,
+    "angle_deg": 30.0,
+    "gap_m": 0.0001,
+    "restitution": 1.0
+   },
+   "sources": [
+    {
+     "cite": "P. Patrício, “The Hertz contact in chain elastic collisions”, arXiv:physics/0402036, §III.A, Eq. (9)",
+     "url": "https://arxiv.org/abs/physics/0402036",
+     "quote": "The collision time corresponds to the time in which the deformation goes from 0 to hM and back to 0 again. It is given by: τ = 2 (25µ²/(16e²rν))^{1/5} ∫₀¹ dx/√(1 − x^{5/2}) ≈ 3.21 (µ²/(e²rν))^{1/5}"
+    },
+    {
+     "cite": "Wikipedia, “Elastic collision”, §One-dimensional Newtonian (citing Serway & Jewett, 2014, p. 258)",
+     "url": "https://en.wikipedia.org/wiki/Elastic_collision",
+     "quote": "If both masses are the same, we have a trivial solution: v_A2 = v_B1, v_B2 = v_A1. This simply corresponds to the bodies exchanging their initial velocities with each other."
+    }
+   ]
+  }
+ ],
  "sphere": [
   {
    "key": "small_swing",

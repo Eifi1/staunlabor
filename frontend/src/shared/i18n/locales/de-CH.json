@@ -3416,7 +3416,22 @@
         "eta": "Winkel zwischen den beiden Enden",
         "b": "Augenabstand",
         "h0": "Höhe, aus der der Wagen losgelassen wird",
-        "hx": "Höhe der Bahn am Ort x"
+        "hx": "Höhe der Bahn am Ort x",
+        "v_in": "Tempo der fallenden Kugel unten",
+        "v_last": "Tempo der letzten Kugel nach dem Stoss",
+        "v_after": "Tempo der i-ten Kugel nach dem Stoss",
+        "v_i": "Tempo der i-ten Kugel",
+        "L_string": "Länge vom Aufhängepunkt bis zur Mitte der Kugel",
+        "theta_i": "Winkel der i-ten Kugel ab dem tiefsten Punkt",
+        "F_peak": "grösste Kraft zwischen zwei Kugeln",
+        "K_hertz": "Steifigkeit zweier Kugeln nach Hertz",
+        "hM": "tiefste Eindrückung",
+        "mu_red": "reduzierte Masse des Paars, m/2",
+        "E_star": "Steifigkeit des Stahls, E/(2(1 − ν²)) aus Elastizitätsmodul E und Querzahl ν",
+        "R_eff": "wirksamer Radius zweier gleicher Kugeln vom Durchmesser d, d/4",
+        "T_impact": "Dauer des Stosses durch die Reihe",
+        "tau_contact": "Dauer eines Kontakts",
+        "gap": "Luft zwischen zwei Kugeln"
       },
       "cases": {
         "sphere": {
@@ -3550,6 +3565,43 @@
             "reads": "Für kleine Winkel gehen die Ecken um b·sin φ·|1/d₁ − 1/d₂| auseinander.",
             "why": "Prüft die 6,6° der Seite, der Grund für das einzelne Guckloch. Die Formel liegt 1,7 % zu hoch, weil 65 mm bei Stäben einen halben Meter weit kein kleiner Schritt mehr sind; die Seite rechnet den Winkel genau.",
             "step": "Die Quelle gibt die Disparität für kleine Winkel; die 65 mm sind der Augenabstand Erwachsener aus der zweiten (im Mittel um 63 mm)."
+          }
+        },
+        "cradle": {
+          "one_out": {
+            "title": "Eine hinein, eine hinaus",
+            "setting": "Fünf Kugeln mit 0,1 mm Luft, ohne Verlust (e = 1), eine um 30° angehoben und losgelassen; gelesen nach dem ersten Stoss.",
+            "reads": "Unten ist die erste Kugel so schnell wie ein Pendel, das aus 30° fällt. Mit Luft dazwischen trifft jede Kugel ihre Nachbarin für sich; gleiche Kugeln tauschen dabei ihr Tempo, bis es in der letzten ist.",
+            "why": "Prüft das Pendel und den Stoss zugleich: Die letzte Kugel fliegt mit 0,63 m/s davon, so schnell, wie die erste ankam. Die Abweichung von 3 · 10⁻⁶: Während des Stosses zieht die Schwerkraft weiter an den Kugeln, die den tiefsten Punkt schon verlassen.",
+            "step": "Die erste Quelle gibt das Tempo eines Pendels, das aus θ₀ bis zum tiefsten Punkt fällt. Nach der zweiten tauschen zwei gleiche Kugeln ihr Tempo; mit Luft dazwischen geschieht das viermal nacheinander."
+          },
+          "momentum": {
+            "title": "Der Impuls bleibt, auch mit Verlust",
+            "setting": "Das Exponat, wie es hängt: fünf Kugeln, die sich berühren, e = 0,95, eine um 30° angehoben und losgelassen; gelesen nach dem ersten Stoss.",
+            "reads": "Was eine Kugel der anderen gibt, verliert sie selbst. Die Summe der Tempi nach dem Stoss ist das Tempo, mit dem die erste ankam, auch wenn der Stoss Energie verliert und nicht alles in die letzte Kugel geht.",
+            "why": "Prüft, dass jede Kraft zwischen zwei Kugeln auf beide gleich stark wirkt, die Dämpfung eingeschlossen. Die Abweichung von 6 · 10⁻⁶ kommt von der Schwerkraft, die während des Stosses an den Kugeln zieht, die sich vom tiefsten Punkt entfernen.",
+            "step": "Unten heben sich Faden und Gewicht fast auf: Während des kurzen Stosses ist die Reihe fast ein abgeschlossenes System. Bei gleichen Massen wird aus der Summe der Impulse die Summe der Tempi; das Tempo der ersten gibt die zweite Quelle."
+          },
+          "energy": {
+            "title": "Ohne Verlust bleibt die Energie",
+            "setting": "Fünf Kugeln, die sich berühren, ohne Verlust (e = 1), eine um 30° angehoben und losgelassen; gelesen nach 2 s.",
+            "reads": "Jede Kugel trägt Bewegungs- und Lageenergie; ein Kontakt nach Hertz speichert, was er nimmt, und gibt es ganz zurück. Sobald keiner mehr drückt, ist die Summe wieder die vom Anfang: die Höhe, aus der die erste fiel.",
+            "why": "Prüft die Zeitschleife der Seite, eine Millisekunde pro Schritt und eine Mikrosekunde, solange sich zwei Kugeln berühren: Nach 2 s ist die Energie auf 10⁻⁵ dieselbe. Was abweicht, verfehlen die Mikrosekunden-Schritte dort, wo sich ein Kontakt schliesst.",
+            "step": "Die erste Quelle gibt die Energie eines Pendels: ½v² + gL(1 − cos θ) bleibt gleich. Die zweite gibt dem Kontakt nach Hertz eine elastische Energie, die nur von der Eindrückung abhängt; ohne Dämpfung gibt er also alles zurück, was er nimmt. Summiert über die Kugeln, sobald keiner mehr drückt."
+          },
+          "peak": {
+            "title": "Die grösste Kraft nach Hertz",
+            "setting": "Fünf Kugeln mit 0,1 mm Luft, ohne Verlust (e = 1), eine um 30° angehoben und losgelassen.",
+            "reads": "Zwei Kugeln drücken mit einer Kraft aufeinander, die mit der Eindrückung hoch 3/2 wächst. Am tiefsten ist die Eindrückung, wenn die ganze Bewegungsenergie des Paars in ihr steckt; dort ist die Kraft am grössten.",
+            "why": "Prüft die Steifigkeit nach Hertz aus Elastizitätsmodul, Querzahl und Radius: 879 N bei 18 µm Eindrückung. Die Seite liest die Kraft jede Mikrosekunde, also knapp neben ihrem Höhepunkt; daher die 4 · 10⁻⁵.",
+            "step": "Die erste Quelle gibt die Kraft für jede Eindrückung, die zweite die tiefste Eindrückung beim Stoss zweier Kugeln; eingesetzt ist diese in jene. Mit Luft trifft jedes Paar für sich, und ohne Verlust jedes mit demselben Tempo."
+          },
+          "duration": {
+            "title": "Wie lange der Stoss dauert",
+            "setting": "Fünf Kugeln mit 0,1 mm Luft, ohne Verlust (e = 1), eine um 30° angehoben und losgelassen.",
+            "reads": "Mit Luft treffen sich die vier Paare nacheinander. Jeder Kontakt dauert τ; dazwischen fliegt die gestossene Kugel durch die Luft, die ihr bleibt, zur nächsten.",
+            "why": "Prüft die Dauer, die die Seite angibt, von der ersten Berührung, bis sich der letzte Kontakt öffnet: von Hand 689 µs, davon 84 µs je Kontakt; die Seite zählt in ganzen Mikrosekunden und kommt auf 688.",
+            "step": "Die erste Quelle gibt die Dauer eines Kontakts. Der Schwerpunkt des Paars läuft mit v/2, also ist die gestossene Kugel am Ende ihres Kontakts v·τ/2 weiter und fliegt die übrige Luft s − v·τ/2 mit dem Tempo v, das sie nach der zweiten Quelle übernommen hat. Von Berührung zu Berührung vergehen so τ/2 + s/v, dreimal; dazu kommt der letzte Kontakt."
           }
         }
       },
