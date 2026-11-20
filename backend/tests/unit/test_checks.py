@@ -28,7 +28,7 @@ def test_the_engine_meets_every_limiting_case_within_its_tolerance(
 
 
 def test_the_exhibits_with_checks_are_these() -> None:
-    assert checks.exhibits() == ("chair", "coil", "cradle", "sphere")
+    assert checks.exhibits() == ("chair", "coil", "cradle", "sphere", "waterwheel")
     assert [c.key for c in checks.cases("sphere")][:3] == ["small_swing", "hollow_ball", "wide_swing"]
 
 
@@ -64,6 +64,17 @@ def test_the_small_angle_rule_overshoots_the_second_eyes_gap_by_1_7_percent(
     result = results[("chair", "second_eye")]
     assert result.measured == pytest.approx(6.56, abs=0.01)
     assert result.deviation == pytest.approx(0.017, abs=0.001)
+
+
+def test_any_wheel_with_the_same_tap_and_brake_turns_at_the_same_rate() -> None:
+    """The waterwheel's case says so: its equations hold σ, ρ and K, nothing else."""
+    from staunlabor.domain.checks import waterwheel
+    from staunlabor.domain.experiments import waterwheel as engine
+
+    w = engine.WaterWheel()
+    assert waterwheel._wheel_hand_rpm(w, 12.0, radius_m=1.3, brake_nms=0.2) == pytest.approx(
+        waterwheel._wheel_hand_rpm(w, 12.0), rel=1e-12
+    )
 
 
 def test_unknown_exhibits_have_no_checks() -> None:

@@ -87,7 +87,7 @@ const cannon = fixtures.cannon as unknown as CannonFigures;
 const wave = fixtures.wave as unknown as WaveFigures;
 
 /** No exhibit checked yet: what the server answers until an admin checks one. */
-const UNCHECKED = { with_cases: ["chair", "coil", "cradle", "sphere"], checked: [] };
+const UNCHECKED = { with_cases: ["chair", "coil", "cradle", "sphere", "waterwheel"], checked: [] };
 
 beforeEach(() => {
   useTried.getState().forget();
@@ -1122,6 +1122,44 @@ describe("the chaotic waterwheel", () => {
     fireEvent.change(screen.getByRole("slider", { name: E.waterwheel.play.tap }), { target: { value: "10" } });
     expect(await screen.findByText(E.waterwheel.play.regime_steady)).toBeInTheDocument();
   });
+
+  it("opens the tap by its lever and brakes by the knob on the axle, the wheel starting anew when let go", async () => {
+    renderWithProviders(<WaterwheelPage />);
+    // The wheel is drawn anew for each new tap and brake: a hundred pixels to
+    // the drawing's unit, its top left at the box's, each time.
+    const drawing = async () => {
+      const view = await screen.findByRole("img", { name: E.waterwheel.views.wheel });
+      vi.spyOn(view, "getBoundingClientRect").mockReturnValue({
+        left: 0,
+        top: 0,
+        width: 290,
+        height: 300,
+        right: 290,
+        bottom: 300,
+        x: 0,
+        y: 0,
+        toJSON: () => ({}),
+      });
+      const [knob, lever] = view.querySelectorAll("circle.cursor-grab");
+      return { view, knob, lever };
+    };
+    const tap = () => screen.getByRole("slider", { name: E.waterwheel.play.tap });
+    const brake = () => screen.getByRole("slider", { name: E.waterwheel.play.brake });
+    // The lever straight across, level with its pivot at (0.14, −1.49): the tap full open.
+    let { view, knob } = await drawing();
+    const { lever } = await drawing();
+    fireEvent.pointerDown(lever, { pointerId: 1, clientX: 159, clientY: 30 });
+    fireEvent.pointerMove(view, { pointerId: 1, clientX: 189, clientY: 6 });
+    expect(tap().getAttribute("aria-valuetext")).toMatch(/^40\b/);
+    fireEvent.pointerUp(view, { pointerId: 1 });
+    await waitFor(() => expect(tap().getAttribute("aria-valuetext")).toMatch(/^40\b/));
+    // The knob straight below the axle, at (0, 0.3): halfway, σ = 12.
+    ({ view, knob } = await drawing());
+    fireEvent.pointerDown(knob, { pointerId: 2, clientX: 170, clientY: 185 });
+    fireEvent.pointerMove(view, { pointerId: 2, clientX: 145, clientY: 185 });
+    fireEvent.pointerUp(view, { pointerId: 2 });
+    await waitFor(() => expect(brake().getAttribute("aria-valuetext")).toMatch(/^12\b/));
+  });
 });
 
 describe("Foucault's pendulum", () => {
@@ -1444,6 +1482,18 @@ describe("setting a check case up", () => {
     expect(screen.getByRole("slider", { name: E.cradle.play.restitution }).getAttribute("aria-valuetext")).toMatch(
       /^1\b/,
     );
+  });
+
+  it("turns the waterwheel's tap down to 5 for its steady turn, and starts it from rest", async () => {
+    renderWithProviders(<WaterwheelPage />);
+    await screen.findByRole("img", { name: E.waterwheel.views.wheel });
+    await setUp(1);
+    await waitFor(() =>
+      expect(screen.getByRole("slider", { name: E.waterwheel.play.tap }).getAttribute("aria-valuetext")).toMatch(
+        /^5\b/,
+      ),
+    );
+    expect(await screen.findByText(E.waterwheel.play.regime_steady)).toBeInTheDocument();
   });
 
   it("puts a 15 kg car on the coil's track for the brake, without rolling resistance", async () => {

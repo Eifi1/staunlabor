@@ -1894,6 +1894,7 @@
         "tap_hint": "ρ: wie viel Wasser zuläuft, gemessen an Lecks und Bremse.",
         "brake": "Bremse",
         "brake_hint": "σ: wie stark die Achse bremst, gemessen an der Trägheit des Rads und den Lecks.",
+        "turn_hint": "Oder drehen Sie mit der Maus oder dem Finger den Hebel am Hahn und den Knopf an der Achse, die Bremse. Beim Loslassen startet das Rad von vorn.",
         "speed": "Tempo",
         "speeds": {
           "1": "Echtzeit",
@@ -3432,7 +3433,20 @@
         "R_eff": "wirksamer Radius zweier gleicher Kugeln vom Durchmesser d, d/4",
         "T_impact": "Dauer des Stosses durch die Reihe",
         "tau_contact": "Dauer eines Kontakts",
-        "gap": "Luft zwischen zwei Kugeln"
+        "gap": "Luft zwischen zwei Kugeln",
+        "wheel_growth": "Wachstumsrate des Anstosses",
+        "wheel_leak": "Leckrate der Becher, 0,2 pro Sekunde",
+        "wheel_sigma": "Bremse gegen Trägheit und Lecks, ν/(K·I)",
+        "wheel_rho": "Hahn: Zufluss gegen Bremse und Lecks, π·g·r·q/(ν·K²)",
+        "wheel_b": "Lorenz' dritter Parameter; beim Wasserrad 1",
+        "wheel_rpm": "Drehzahl des Rads",
+        "wheel_rhoH": "Hahn, ab dem gleichmässiges Drehen nicht mehr stabil ist",
+        "wheel_volume": "Volumen einer kleinen Schachtel von Zuständen",
+        "wheel_ab": "wie das Wasser verteilt ist: seitlich und oben gegen unten",
+        "wheel_rate": "Drehrate des Rads",
+        "wheel_inflow": "Zufluss oben",
+        "wheel_nu": "Bremse der Achse",
+        "wheel_radius": "Radius des Rads"
       },
       "cases": {
         "sphere": {
@@ -3603,6 +3617,42 @@
             "reads": "Mit Luft treffen sich die vier Paare nacheinander. Jeder Kontakt dauert τ; dazwischen fliegt die gestossene Kugel durch die Luft, die ihr bleibt, zur nächsten.",
             "why": "Prüft die Dauer, die die Seite angibt, von der ersten Berührung, bis sich der letzte Kontakt öffnet: von Hand 689 µs, davon 84 µs je Kontakt; die Seite zählt in ganzen Mikrosekunden und kommt auf 688.",
             "step": "Die erste Quelle gibt die Dauer eines Kontakts. Der Schwerpunkt des Paars läuft mit v/2, also ist die gestossene Kugel am Ende ihres Kontakts v·τ/2 weiter und fliegt die übrige Luft s − v·τ/2 mit dem Tempo v, das sie nach der zweiten Quelle übernommen hat. Von Berührung zu Berührung vergehen so τ/2 + s/v, dreimal; dazu kommt der letzte Kontakt."
+          }
+        },
+        "waterwheel": {
+          "start": {
+            "title": "Der erste Anstoss wächst",
+            "setting": "Hahn ρ = 28, Bremse σ = 10, wie die Seite öffnet: das Rad aus dem Stand, oben voll, um einen Hauch angestossen; gemessen zwischen 1,5 s und 2,5 s.",
+            "reads": "Aus dem Stand wächst ein kleiner Anstoss mit dem grösseren Eigenwert der Gleichungen beim stehenden Rad, (−1 − σ + √((1 − σ)² + 4ρσ))/2 pro Leckzeit 1/K.",
+            "why": "Prüft Hahn und Bremse in der Zeitschleife, solange das Rad noch fast steht: 2,37 pro Sekunde, der Anstoss verdoppelt sich alle 0,29 s. Die Abweichung von 3 · 10⁻⁵ stammt zum grössten Teil vom zweiten, abklingenden Anteil, der nach 1,5 s noch nicht ganz verschwunden ist."
+          },
+          "steady": {
+            "title": "Wenig Wasser: gleichmässiges Drehen",
+            "setting": "Hahn ρ = 5, Bremse σ = 10; das Rad aus dem Stand, abgelesen am Ende der 200 s, die die Seite zeigt.",
+            "reads": "Über ρ = 1 kann das Rad gleichmässig drehen, mit x = √(b(ρ − 1)) in Einheiten der Lecks; beim Wasserrad ist b = 1.",
+            "why": "Prüft die nichtlinearen Glieder und das b des Rads: 3,82 U/min. Mit Lorenz' b = 8/3 für die Luft wären es 6,24 U/min.",
+            "step": "Die erste Quelle gibt das gleichmässige Drehen von Lorenz' Gleichungen für jedes b; dass beim Wasserrad b = 1 ist, steht in der zweiten. Zurück zum Rad: Drehrate Ω = K·x, eine Umdrehung sind 2π."
+          },
+          "threshold": {
+            "title": "Die Schwelle zum Chaos",
+            "setting": "Bremse σ = 15 statt 10; abgelesen an der Kachel «Chaos ab Hahn».",
+            "reads": "Oberhalb von ρ_H = σ(σ + b + 3)/(σ − b − 1) ist auch das gleichmässige Drehen nicht mehr stabil.",
+            "why": "Prüft die Schwelle, die die Seite nennt, mit dem b des Rads: 21,9 bei σ = 15. Mit Lorenz' b = 8/3 stünde dort 27,4.",
+            "step": "Die ersten beiden Quellen geben die Schwelle für jedes b; eingesetzt ist b = 1 des Wasserrads aus der dritten."
+          },
+          "volume": {
+            "title": "Ein Volumen von Zuständen schrumpft",
+            "setting": "Hahn ρ = 28, Bremse σ = 10: eine winzige Schachtel von Zuständen, 2 · 10⁻⁵ breit, um den Zustand des Rads nach 20 s, 2,5 s weitergerechnet wie auf der Seite.",
+            "reads": "Lorenz' Gleichungen ziehen jedes Volumen von Zuständen gleich schnell zusammen, mit e^(−(σ + 1 + b)·K·t), gleich wo das Rad gerade ist.",
+            "why": "Prüft die drei Dämpfungen auf einmal, Bremse, Lecks und das b des Rads, mitten im Chaos: Nach 2,5 s bleiben 0,248 % des Volumens. Die Abweichung von 2 · 10⁻⁵ ist der Fehler des Runge-Kutta-Verfahrens über diese 50 Schritte.",
+            "step": "Die Quellen geben das Schrumpfen für jedes b, in Lorenz' Zeit τ; eingesetzt sind b = 1 des Wasserrads aus der dritten und τ = K·t."
+          },
+          "wheel": {
+            "title": "Die Gleichungen des Rads selbst",
+            "setting": "Hahn ρ = 28, Bremse σ = 10, wie die Seite öffnet; abgelesen nach 12 s, nach den ersten beiden Umkehrungen.",
+            "reads": "Die Verteilung des Wassers dreht sich mit dem Rad, oben läuft Wasser zu, überall leckt es heraus; die Schwerkraft dreht das Rad, die Achse bremst. Hier in Sekunden gerechnet, für ein Rad mit 0,5 m Radius und einer Bremse von 1 N·m·s.",
+            "why": "Prüft, dass Lorenz' Gleichungen mit b = 1 das Rad sind, samt der Umrechnung in Umdrehungen: 19,04 U/min nach 12 s. Jeder andere Radius und jede andere Bremse mit demselben σ und ρ gibt dieselbe Zahl.",
+            "step": "Die Quelle schreibt die Bremse als κ + Q_tot·R² und die Schwerkraft am geneigten Rad als g·sin α; hier heissen sie ν und g. Trägheit und Zufluss folgen aus σ = ν/(K·I) und ρ = π·g·r·q/(ν·K²)."
           }
         }
       },

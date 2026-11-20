@@ -1894,6 +1894,7 @@
         "tap_hint": "ρ: mennyi víz folyik be, a szivárgáshoz és a fékhez mérve.",
         "brake": "Fék",
         "brake_hint": "σ: mennyire fékez a tengely, a kerék tehetetlenségéhez és a szivárgáshoz mérve.",
+        "turn_hint": "Vagy forgassa el egérrel vagy ujjal a csap karját és a tengelyen lévő gombot, a féket. Elengedéskor a kerék elölről indul.",
         "speed": "Tempó",
         "speeds": {
           "1": "Valós idő",
@@ -3432,7 +3433,20 @@
         "R_eff": "két egyforma, d átmérőjű golyó hatásos sugara, d/4",
         "T_impact": "az ütközés időtartama végig a soron",
         "tau_contact": "egy érintkezés időtartama",
-        "gap": "a levegő két golyó között"
+        "gap": "a levegő két golyó között",
+        "wheel_growth": "a lökés növekedési üteme",
+        "wheel_leak": "a vödrök szivárgási üteme, másodpercenként 0,2",
+        "wheel_sigma": "a fék a tehetetlenséghez és a szivárgáshoz mérve, ν/(K·I)",
+        "wheel_rho": "a csap: a befolyás a fékhez és a szivárgáshoz mérve, π·g·r·q/(ν·K²)",
+        "wheel_b": "Lorenz harmadik paramétere; a vízkeréknél 1",
+        "wheel_rpm": "a kerék fordulatszáma",
+        "wheel_rhoH": "a csapállás, amely fölött az egyenletes forgás már nem stabil",
+        "wheel_volume": "állapotok egy kis dobozának térfogata",
+        "wheel_ab": "hogyan oszlik el a víz: oldalra, és fent kontra lent",
+        "wheel_rate": "a kerék forgása",
+        "wheel_inflow": "befolyás felül",
+        "wheel_nu": "a tengely fékje",
+        "wheel_radius": "a kerék sugara"
       },
       "cases": {
         "sphere": {
@@ -3603,6 +3617,42 @@
             "reads": "Levegővel a négy pár egymás után ütközik. Minden érintkezés τ ideig tart; közben a meglökött golyó átrepül a neki maradt levegőn a következőig.",
             "why": "Az oldal által megadott időtartamot ellenőrzi az első érintéstől addig, amíg az utolsó érintkezés megszűnik: kézzel 689 µs, ebből érintkezésenként 84 µs; az oldal egész milliomod másodpercekben számol, és 688-at kap.",
             "step": "Az első forrás egy érintkezés időtartamát adja meg. A pár tömegközéppontja v/2 sebességgel halad, így a meglökött golyó az érintkezése végén v·τ/2-vel előrébb van, és a maradék s − v·τ/2 levegőt azzal a v sebességgel repüli át, amelyet a második forrás szerint átvett. Érintéstől érintésig így τ/2 + s/v telik el, háromszor; ehhez jön az utolsó érintkezés."
+          }
+        },
+        "waterwheel": {
+          "start": {
+            "title": "Az első lökés növekszik",
+            "setting": "Csap ρ = 28, fék σ = 10, ahogy az oldal megnyílik: a kerék állásból, felül tele, egy leheletnyit meglökve; 1,5 s és 2,5 s között mérve.",
+            "reads": "Állásból egy kis lökés az álló kerék egyenleteinek nagyobbik sajátértéke szerint nő, amely 1/K szivárgási időre vetítve (−1 − σ + √((1 − σ)² + 4ρσ))/2.",
+            "why": "A csapot és a féket ellenőrzi az időléptető ciklusban, amíg a kerék még szinte áll: másodpercenként 2,37, a lökés 0,29 s-onként megduplázódik. A 3 · 10⁻⁵ eltérés nagyrészt a második, lecsengő részből adódik, amely 1,5 s után még nem tűnt el teljesen."
+          },
+          "steady": {
+            "title": "Kevés víz: egyenletes forgás",
+            "setting": "Csap ρ = 5, fék σ = 10; a kerék állásból indul, az oldalon látható 200 s végén leolvasva.",
+            "reads": "ρ = 1 fölött a kerék egyenletesen foroghat, x = √(b(ρ − 1)) forgással a szivárgás egységeiben; a vízkeréknél b = 1.",
+            "why": "A nemlineáris tagokat és a kerék b-jét ellenőrzi: 3,82 ford./perc. Lorenz levegőre vonatkozó b = 8/3 értékével 6,24 ford./perc lenne.",
+            "step": "Az első forrás bármely b-re megadja Lorenz egyenleteinek egyenletes forgását; hogy a vízkeréknél b = 1, az a másodikban áll. Vissza a kerékre: a forgás Ω = K·x, egy fordulat 2π."
+          },
+          "threshold": {
+            "title": "A káosz határa",
+            "setting": "Fék σ = 15 a 10 helyett; a „Káosz ettől a csaptól” mezőről leolvasva.",
+            "reads": "ρ_H = σ(σ + b + 3)/(σ − b − 1) fölött már az egyenletes forgás sem stabil.",
+            "why": "Az oldal által megadott határt ellenőrzi, a kerék b-jével: 21,9 σ = 15 mellett. Lorenz b = 8/3 értékével 27,4 állna ott.",
+            "step": "Az első két forrás bármely b-re megadja a határt; ebbe a vízkerék b = 1 értéke kerül, a harmadik forrásból."
+          },
+          "volume": {
+            "title": "Az állapotok egy térfogata összezsugorodik",
+            "setting": "Csap ρ = 28, fék σ = 10: állapotok egy parányi, 2 · 10⁻⁵ széles doboza a kerék 20 s utáni állapota körül, további 2,5 s-ig számolva, ahogy az oldalon.",
+            "reads": "Lorenz egyenletei az állapotok minden térfogatát ugyanolyan gyorsan húzzák össze, e^(−(σ + 1 + b)·K·t) szerint, bárhol tart is éppen a kerék.",
+            "why": "Egyszerre ellenőrzi a három csillapítást, a féket, a szivárgást és a kerék b-jét, a káosz kellős közepén: 2,5 s után a térfogat 0,248 %-a marad meg. A 2 · 10⁻⁵ eltérés a Runge–Kutta-módszer hibája erre az 50 lépésre.",
+            "step": "A források bármely b-re megadják a zsugorodást, Lorenz τ idejében; ebbe a vízkerék b = 1 értéke kerül a harmadik forrásból, valamint τ = K·t."
+          },
+          "wheel": {
+            "title": "A kerék saját egyenletei",
+            "setting": "Csap ρ = 28, fék σ = 10, ahogy az oldal megnyílik; 12 s után leolvasva, az első két irányváltás után.",
+            "reads": "A víz eloszlása a kerékkel együtt forog, felül víz folyik be, mindenhol szivárog; a nehézségi erő forgatja a kereket, a tengely fékez. Itt másodpercekben számolva, egy 0,5 m sugarú kerékre és 1 N·m·s-os fékre.",
+            "why": "Azt ellenőrzi, hogy Lorenz egyenletei b = 1-gyel maga a kerék, a fordulatokra való átszámítással együtt: 12 s után 19,04 ford./perc. Bármely más sugár és más fék ugyanazzal a σ-val és ρ-val ugyanezt a számot adja.",
+            "step": "A forrás a féket κ + Q_tot·R² alakban, a megdöntött kerékre ható nehézségi erőt g·sin α alakban írja; itt ezek neve ν és g. A tehetetlenség és a befolyás σ = ν/(K·I)-ből és ρ = π·g·r·q/(ν·K²)-ből következik."
           }
         }
       },

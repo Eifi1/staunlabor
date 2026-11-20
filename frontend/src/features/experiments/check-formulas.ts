@@ -32,6 +32,10 @@ const V_IN: CheckSymbol = { tex: "v", key: "v_in", unit: "m/s" };
 const L_STRING: CheckSymbol = { tex: "L", key: "L_string", unit: "m" };
 const K_HERTZ: CheckSymbol = { tex: "K", key: "K_hertz", unit: "N/m¹·⁵" };
 const MU_RED: CheckSymbol = { tex: String.raw`\mu`, key: "mu_red", unit: "kg" };
+const WHEEL_K: CheckSymbol = { tex: "K", key: "wheel_leak", unit: "1/s" };
+const WHEEL_SIGMA: CheckSymbol = { tex: String.raw`\sigma`, key: "wheel_sigma" };
+const WHEEL_RHO: CheckSymbol = { tex: String.raw`\rho`, key: "wheel_rho" };
+const WHEEL_B: CheckSymbol = { tex: "b", key: "wheel_b" };
 
 export const CHECK_FORMULAS: Record<string, Record<string, CheckFormula>> = {
   sphere: {
@@ -236,6 +240,37 @@ export const CHECK_FORMULAS: Record<string, Record<string, CheckFormula>> = {
         V_IN,
         MU_RED,
         K_HERTZ,
+      ],
+    },
+  },
+  waterwheel: {
+    start: {
+      tex: String.raw`\lambda = \frac{K}{2}\left(-1 - \sigma + \sqrt{(1 - \sigma)^2 + 4\rho\sigma}\right)`,
+      symbols: [{ tex: String.raw`\lambda`, key: "wheel_growth", unit: "1/s" }, WHEEL_K, WHEEL_SIGMA, WHEEL_RHO],
+    },
+    steady: {
+      tex: String.raw`n = \frac{60}{2\pi}\,K\sqrt{b\,(\rho - 1)}, \qquad b = 1`,
+      symbols: [{ tex: "n", key: "wheel_rpm", unit: "1/min" }, WHEEL_K, WHEEL_B, WHEEL_RHO],
+    },
+    threshold: {
+      tex: String.raw`\rho_H = \frac{\sigma\,(\sigma + b + 3)}{\sigma - b - 1}, \qquad b = 1`,
+      symbols: [{ tex: String.raw`\rho_H`, key: "wheel_rhoH" }, WHEEL_SIGMA, WHEEL_B],
+    },
+    volume: {
+      tex: String.raw`\frac{V(t)}{V(0)} = e^{-(\sigma + 1 + b)\,K t}, \qquad b = 1`,
+      symbols: [{ tex: "V", key: "wheel_volume" }, { tex: "t", key: "t", unit: "s" }, WHEEL_SIGMA, WHEEL_B, WHEEL_K],
+    },
+    wheel: {
+      tex: String.raw`\dot A = \Omega B - K A, \quad \dot B = -\Omega A + q - K B, \quad I\,\dot\Omega = -\nu\,\Omega + \pi g r A`,
+      symbols: [
+        { tex: "A, B", key: "wheel_ab", unit: "kg/rad" },
+        { tex: String.raw`\Omega`, key: "wheel_rate", unit: "1/s" },
+        WHEEL_K,
+        { tex: "q", key: "wheel_inflow", unit: "kg/(rad·s)" },
+        { tex: "I", key: "inertia", unit: "kg·m²" },
+        { tex: String.raw`\nu`, key: "wheel_nu", unit: "N·m·s" },
+        G,
+        { tex: "r", key: "wheel_radius", unit: "m" },
       ],
     },
   },

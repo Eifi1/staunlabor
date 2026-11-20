@@ -1894,6 +1894,7 @@
         "tap_hint": "ρ : la quantité d'eau qui arrive, rapportée aux fuites et au frein.",
         "brake": "Frein",
         "brake_hint": "σ : la force du frein de l'axe, rapportée à l'inertie de la roue et aux fuites.",
+        "turn_hint": "Ou tournez avec la souris ou le doigt le levier du robinet et le bouton sur l'axe, le frein. En lâchant, la roue repart depuis le début.",
         "speed": "Vitesse",
         "speeds": {
           "1": "Temps réel",
@@ -3432,7 +3433,20 @@
         "R_eff": "rayon effectif de deux billes égales de diamètre d, d/4",
         "T_impact": "durée du choc à travers la rangée",
         "tau_contact": "durée d’un contact",
-        "gap": "air entre deux billes"
+        "gap": "air entre deux billes",
+        "wheel_growth": "taux de croissance de l’impulsion",
+        "wheel_leak": "taux de fuite des godets, 0,2 par seconde",
+        "wheel_sigma": "le frein rapporté à l’inertie et aux fuites, ν/(K·I)",
+        "wheel_rho": "le robinet : le débit rapporté au frein et aux fuites, π·g·r·q/(ν·K²)",
+        "wheel_b": "le troisième paramètre de Lorenz ; 1 pour la roue à eau",
+        "wheel_rpm": "la vitesse de rotation de la roue",
+        "wheel_rhoH": "le robinet à partir duquel la rotation régulière n’est plus stable",
+        "wheel_volume": "volume d’une petite boîte d’états",
+        "wheel_ab": "la répartition de l’eau : sur le côté, et haut contre bas",
+        "wheel_rate": "la rotation de la roue",
+        "wheel_inflow": "le débit qui arrive en haut",
+        "wheel_nu": "le frein de l’axe",
+        "wheel_radius": "le rayon de la roue"
       },
       "cases": {
         "sphere": {
@@ -3603,6 +3617,42 @@
             "reads": "Avec de l’air, les quatre paires se heurtent l’une après l’autre. Chaque contact dure τ ; entre deux, la bille heurtée traverse l’air qui lui reste jusqu’à la suivante.",
             "why": "Vérifie la durée qu’indique la page, du premier contact jusqu’à ce que le dernier s’ouvre : à la main 689 µs, dont 84 µs par contact ; la page compte en microsecondes entières et arrive à 688.",
             "step": "La première source donne la durée d’un contact. Le centre de masse de la paire avance à v/2 ; à la fin de son contact, la bille heurtée est donc v·τ/2 plus loin et parcourt l’air restant s − v·τ/2 à la vitesse v qu’elle a reprise d’après la deuxième source. D’un contact au suivant, il s’écoule ainsi τ/2 + s/v, trois fois ; s’y ajoute le dernier contact."
+          }
+        },
+        "waterwheel": {
+          "start": {
+            "title": "La première impulsion grandit",
+            "setting": "Robinet ρ = 28, frein σ = 10, comme à l’ouverture de la page : la roue à l’arrêt, pleine en haut, poussée d’un rien ; mesuré entre 1,5 s et 2,5 s.",
+            "reads": "Depuis le repos, une petite impulsion grandit selon la plus grande valeur propre des équations à roue immobile, (−1 − σ + √((1 − σ)² + 4ρσ))/2 par temps de fuite 1/K.",
+            "why": "Vérifie le robinet et le frein dans la boucle des pas de temps, tant que la roue est encore presque immobile : 2,37 par seconde, l’impulsion double toutes les 0,29 s. L’écart de 3 · 10⁻⁵ vient pour l’essentiel de la seconde part, celle qui s’amortit, pas encore tout à fait disparue après 1,5 s."
+          },
+          "steady": {
+            "title": "Peu d’eau : rotation régulière",
+            "setting": "Robinet ρ = 5, frein σ = 10 ; la roue partant du repos, relevé à la fin des 200 s que montre la page.",
+            "reads": "Au-dessus de ρ = 1, la roue peut tourner régulièrement, à x = √(b(ρ − 1)) en unités des fuites ; pour la roue à eau, b = 1.",
+            "why": "Vérifie les termes non linéaires et le b de la roue : 3,82 tr/min. Avec le b = 8/3 de Lorenz pour l’air, ce serait 6,24 tr/min.",
+            "step": "La première source donne la rotation régulière des équations de Lorenz pour tout b ; que b = 1 pour la roue à eau figure dans la seconde. Retour à la roue : rotation Ω = K·x, un tour vaut 2π."
+          },
+          "threshold": {
+            "title": "Le seuil du chaos",
+            "setting": "Frein σ = 15 au lieu de 10 ; relevé dans l’encadré « Chaos dès un robinet de ».",
+            "reads": "Au-dessus de ρ_H = σ(σ + b + 3)/(σ − b − 1), même la rotation régulière n’est plus stable.",
+            "why": "Vérifie le seuil qu’indique la page, avec le b de la roue : 21,9 pour σ = 15. Avec le b = 8/3 de Lorenz, on y lirait 27,4.",
+            "step": "Les deux premières sources donnent le seuil pour tout b ; on y met le b = 1 de la roue à eau, tiré de la troisième."
+          },
+          "volume": {
+            "title": "Un volume d’états se contracte",
+            "setting": "Robinet ρ = 28, frein σ = 10 : une minuscule boîte d’états, large de 2 · 10⁻⁵, autour de l’état de la roue après 20 s, calculée 2,5 s de plus comme sur la page.",
+            "reads": "Les équations de Lorenz contractent tout volume d’états au même rythme, selon e^(−(σ + 1 + b)·K·t), où que se trouve la roue.",
+            "why": "Vérifie les trois amortissements à la fois, frein, fuites et le b de la roue, en plein chaos : après 2,5 s, il reste 0,248 % du volume. L’écart de 2 · 10⁻⁵ est l’erreur de la méthode de Runge-Kutta sur ces 50 pas.",
+            "step": "Les sources donnent la contraction pour tout b, dans le temps τ de Lorenz ; on y met le b = 1 de la roue à eau, tiré de la troisième, et τ = K·t."
+          },
+          "wheel": {
+            "title": "Les équations de la roue elle-même",
+            "setting": "Robinet ρ = 28, frein σ = 10, comme à l’ouverture de la page ; relevé après 12 s, passé les deux premiers changements de sens.",
+            "reads": "La répartition de l’eau tourne avec la roue, l’eau arrive en haut et fuit partout ; la pesanteur fait tourner la roue, l’axe freine. Calculé ici en secondes, pour une roue de 0,5 m de rayon et un frein de 1 N·m·s.",
+            "why": "Vérifie que les équations de Lorenz avec b = 1 sont bien la roue, conversion en tours comprise : 19,04 tr/min après 12 s. Tout autre rayon et tout autre frein ayant les mêmes σ et ρ donnent le même nombre.",
+            "step": "La source écrit le frein κ + Q_tot·R² et la pesanteur sur la roue inclinée g·sin α ; ici, ils s’appellent ν et g. L’inertie et le débit découlent de σ = ν/(K·I) et ρ = π·g·r·q/(ν·K²)."
           }
         }
       },

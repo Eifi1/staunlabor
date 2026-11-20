@@ -89,13 +89,14 @@ class Result:
 
 def _registry() -> dict[str, tuple[tuple[Case, ...], tuple[str, ...]]]:
     # Imported here: each module imports this one for its dataclasses.
-    from staunlabor.domain.checks import chair, coil, cradle, sphere
+    from staunlabor.domain.checks import chair, coil, cradle, sphere, waterwheel
 
     return {
         "chair": (chair.CASES, chair.ENGINE),
         "coil": (coil.CASES, coil.ENGINE),
         "cradle": (cradle.CASES, cradle.ENGINE),
         "sphere": (sphere.CASES, sphere.ENGINE),
+        "waterwheel": (waterwheel.CASES, waterwheel.ENGINE),
     }
 
 

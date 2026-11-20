@@ -2366,6 +2366,15 @@ that Flores et al.'s damping parts a lone pair with about e, not e (0.947 for
 0.95, 0.47 for 0.50), so the restitution's hint says "about" (Marcel chose the
 word over an engine change).
 
+**The waterwheel's** five (2026-11-20) hold Lorenz's equations with b = 1 to
+Knill's eigenvalue at the origin, the steady turn √(b(ρ − 1)), the threshold
+of chaos σ(σ + b + 3)/(σ − b − 1) on the page's tile, the shrinking volume of
+states e^(−(σ + 1 + b)Kt), and Illing et al.'s own wheel equations in seconds
+(arXiv:1202.5508, which gives b = 1), integrated in the case. A test holds the
+case's sentence that any radius and brake with the same σ and ρ give the same
+rate. Its `volume` case is about a box of states, not the one wheel: "Set it
+up" sets the tap and the brake, and the box is the case's own.
+
 **On the page** a section "Check it yourself" (`check-section.tsx`) lists the
 cases, each with its formula as an `Equation` (`check-formulas.ts`), both
 values to seven digits, the deviation, why the case would catch a mistake,

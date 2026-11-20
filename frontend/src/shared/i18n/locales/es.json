@@ -1894,6 +1894,7 @@
         "tap_hint": "ρ: cuánta agua entra, medida frente a las fugas y el freno.",
         "brake": "Freno",
         "brake_hint": "σ: cuánto frena el eje, medido frente a la inercia de la rueda y las fugas.",
+        "turn_hint": "O gire con el ratón o con el dedo la palanca del grifo y el botón del eje, el freno. Al soltar, la rueda empieza desde el principio.",
         "speed": "Velocidad",
         "speeds": {
           "1": "Tiempo real",
@@ -3432,7 +3433,20 @@
         "R_eff": "radio efectivo de dos bolas iguales de diámetro d, d/4",
         "T_impact": "duración del choque a lo largo de la fila",
         "tau_contact": "duración de un contacto",
-        "gap": "aire entre dos bolas"
+        "gap": "aire entre dos bolas",
+        "wheel_growth": "tasa de crecimiento del empujón",
+        "wheel_leak": "ritmo de fuga de los cubos, 0,2 por segundo",
+        "wheel_sigma": "el freno frente a la inercia y las fugas, ν/(K·I)",
+        "wheel_rho": "el grifo: el caudal frente al freno y las fugas, π·g·r·q/(ν·K²)",
+        "wheel_b": "el tercer parámetro de Lorenz; en la noria, 1",
+        "wheel_rpm": "las revoluciones de la rueda",
+        "wheel_rhoH": "el grifo a partir del cual el giro regular ya no es estable",
+        "wheel_volume": "volumen de una pequeña caja de estados",
+        "wheel_ab": "cómo se reparte el agua: hacia un lado, y arriba frente a abajo",
+        "wheel_rate": "el giro de la rueda",
+        "wheel_inflow": "el caudal que entra por arriba",
+        "wheel_nu": "el freno del eje",
+        "wheel_radius": "el radio de la rueda"
       },
       "cases": {
         "sphere": {
@@ -3603,6 +3617,42 @@
             "reads": "Con aire, los cuatro pares chocan uno tras otro. Cada contacto dura τ; entre uno y otro, la bola golpeada vuela hasta la siguiente a través del aire que le queda.",
             "why": "Comprueba la duración que indica la página, desde que las bolas se tocan por primera vez hasta que se abre el último contacto: a mano 689 µs, de ellos 84 µs por contacto; la página cuenta en microsegundos enteros y llega a 688.",
             "step": "La primera fuente da la duración de un contacto. El centro de masas del par avanza a v/2, así que al final de su contacto la bola golpeada ha avanzado v·τ/2 y recorre el aire restante s − v·τ/2 a la velocidad v que, según la segunda fuente, ha recibido. De un contacto al siguiente pasan así τ/2 + s/v, tres veces; a eso se suma el último contacto."
+          }
+        },
+        "waterwheel": {
+          "start": {
+            "title": "El primer empujón crece",
+            "setting": "Grifo ρ = 28, freno σ = 10, como se abre la página: la rueda parada, llena arriba, con un empujón mínimo; medido entre 1,5 s y 2,5 s.",
+            "reads": "Desde el reposo, un pequeño empujón crece con el mayor valor propio de las ecuaciones con la rueda parada, (−1 − σ + √((1 − σ)² + 4ρσ))/2 por tiempo de fuga 1/K.",
+            "why": "Comprueba el grifo y el freno en el bucle de pasos de tiempo, mientras la rueda aún está casi quieta: 2,37 por segundo; el empujón se duplica cada 0,29 s. La desviación de 3 · 10⁻⁵ se debe sobre todo a la segunda parte, la que se extingue, que a los 1,5 s aún no ha desaparecido del todo."
+          },
+          "steady": {
+            "title": "Poca agua: giro regular",
+            "setting": "Grifo ρ = 5, freno σ = 10; la rueda desde el reposo, leído al final de los 200 s que muestra la página.",
+            "reads": "Por encima de ρ = 1 la rueda puede girar de forma regular, con x = √(b(ρ − 1)) en unidades de las fugas; en la noria, b = 1.",
+            "why": "Comprueba los términos no lineales y la b de la rueda: 3,82 rpm. Con la b = 8/3 de Lorenz para el aire serían 6,24 rpm.",
+            "step": "La primera fuente da el giro regular de las ecuaciones de Lorenz para cualquier b; que en la noria b = 1 lo dice la segunda. De vuelta a la rueda: giro Ω = K·x; una vuelta son 2π."
+          },
+          "threshold": {
+            "title": "El umbral del caos",
+            "setting": "Freno σ = 15 en lugar de 10; leído en el recuadro «Caos a partir de un grifo de».",
+            "reads": "Por encima de ρ_H = σ(σ + b + 3)/(σ − b − 1) ni siquiera el giro regular es estable.",
+            "why": "Comprueba el umbral que indica la página, con la b de la rueda: 21,9 con σ = 15. Con la b = 8/3 de Lorenz pondría 27,4.",
+            "step": "Las dos primeras fuentes dan el umbral para cualquier b; se introduce la b = 1 de la noria, tomada de la tercera."
+          },
+          "volume": {
+            "title": "Un volumen de estados se encoge",
+            "setting": "Grifo ρ = 28, freno σ = 10: una caja diminuta de estados, de 2 · 10⁻⁵ de ancho, alrededor del estado de la rueda tras 20 s, calculada 2,5 s más como en la página.",
+            "reads": "Las ecuaciones de Lorenz contraen todo volumen de estados igual de rápido, con e^(−(σ + 1 + b)·K·t), esté donde esté la rueda.",
+            "why": "Comprueba las tres amortiguaciones a la vez, freno, fugas y la b de la rueda, en pleno caos: tras 2,5 s queda el 0,248 % del volumen. La desviación de 2 · 10⁻⁵ es el error del método de Runge-Kutta en estos 50 pasos.",
+            "step": "Las fuentes dan la contracción para cualquier b, en el tiempo τ de Lorenz; se introducen la b = 1 de la noria, tomada de la tercera, y τ = K·t."
+          },
+          "wheel": {
+            "title": "Las ecuaciones de la propia rueda",
+            "setting": "Grifo ρ = 28, freno σ = 10, como se abre la página; leído tras 12 s, después de los dos primeros cambios de sentido.",
+            "reads": "El reparto del agua gira con la rueda, el agua entra arriba y se escapa por todas partes; la gravedad hace girar la rueda y el eje frena. Aquí calculado en segundos, para una rueda de 0,5 m de radio y un freno de 1 N·m·s.",
+            "why": "Comprueba que las ecuaciones de Lorenz con b = 1 son la rueda, incluida la conversión a vueltas: 19,04 rpm tras 12 s. Cualquier otro radio y cualquier otro freno con los mismos σ y ρ dan el mismo número.",
+            "step": "La fuente escribe el freno como κ + Q_tot·R² y la gravedad en la rueda inclinada como g·sin α; aquí se llaman ν y g. La inercia y el caudal se deducen de σ = ν/(K·I) y ρ = π·g·r·q/(ν·K²)."
           }
         }
       },

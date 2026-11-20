@@ -635,5 +635,142 @@
     }
    ]
   }
+ ],
+ "waterwheel": [
+  {
+   "key": "start",
+   "unit": "1/s",
+   "expected": 2.36554469023,
+   "measured": 2.3654773372,
+   "deviation": 2.84725259355e-05,
+   "tolerance": 0.0001,
+   "derived": false,
+   "setting": {
+    "sigma": 10.0,
+    "rho": 28.0
+   },
+   "sources": [
+    {
+     "cite": "O. Knill, “The Lorenz system”, Harvard Math 118r handout (spring 2005), “The origin” (s there is σ)",
+     "url": "https://abel.math.harvard.edu/archive/118r_spring_05/handouts/lorentz.pdf",
+     "quote": "At the equilibrium point (0, 0, 0), the Jacobean DF (0, 0, 0) is block diagonal. The eigenvalues are −b, (−1−s±√((1−s)²+4rs))/2."
+    },
+    {
+     "cite": "University of Warwick, CO903 Complexity and Chaos in Dynamical Systems, §4.1 Lorenz equations, “Linear stability of the origin”, p. 3",
+     "url": "https://warwick.ac.uk/fac/cross_fac/complexity/study/msc_and_phd/co903/co903online/chaos_lorenz13.pdf",
+     "quote": "The linearisation at the origin gives ẋ = σ(y − x), ẏ = rx − y, ż = −bz … with tr(A) = −σ − 1 < 0 and det(A) = σ(1 − r)."
+    }
+   ]
+  },
+  {
+   "key": "steady",
+   "unit": "1/min",
+   "expected": 3.81971863421,
+   "measured": 3.81972426352,
+   "deviation": 1.47375068625e-06,
+   "tolerance": 1e-05,
+   "derived": true,
+   "setting": {
+    "sigma": 10.0,
+    "rho": 5.0
+   },
+   "sources": [
+    {
+     "cite": "University of Warwick, CO903 Complexity and Chaos in Dynamical Systems, §4.1 Lorenz equations, “Fixed points”, p. 3",
+     "url": "https://warwick.ac.uk/fac/cross_fac/complexity/study/msc_and_phd/co903/co903online/chaos_lorenz13.pdf",
+     "quote": "a symmetric pair of fixed points C⁺ ≡ (x* = y* = √(b(r − 1)), z* = r − 1) C⁻ ≡ (x* = y* = −√(b(r − 1)), z* = r − 1) when r > 1."
+    },
+    {
+     "cite": "L. Illing, R. F. Fordyce, A. M. Saunders, R. Ormond, “Experiments with a Malkus-Lorenz water wheel: Chaos and Synchronization”, Am. J. Phys. (2012), doi:10.1119/1.3680533, §III.A, after Eq. (22) (p. 5 of arXiv:1202.5508v1)",
+     "url": "https://arxiv.org/abs/1202.5508",
+     "quote": "Equation (22) is identical to the Lorenz equations with the third parameter (often denoted as b) equal one."
+    }
+   ]
+  },
+  {
+   "key": "threshold",
+   "unit": "",
+   "expected": 21.9230769231,
+   "measured": 21.9230769231,
+   "deviation": 0.0,
+   "tolerance": 1e-12,
+   "derived": true,
+   "setting": {
+    "sigma": 15.0,
+    "rho": 28.0
+   },
+   "sources": [
+    {
+     "cite": "University of Warwick, CO903 Complexity and Chaos in Dynamical Systems, §4.1 Lorenz equations, “Stability of C⁺ and C⁻”, p. 3",
+     "url": "https://warwick.ac.uk/fac/cross_fac/complexity/study/msc_and_phd/co903/co903online/chaos_lorenz13.pdf",
+     "quote": "We can find that they are linearly stable for 1 < r < r_H = σ(σ + b + 3)/(σ − b − 1) (assuming σ − b − 1 > 0). At r = r_H - subcritical Hopf bifurcation"
+    },
+    {
+     "cite": "Wikipedia, “Lorenz system”, §Analysis (citing Hirsch, Smale, Devaney 2003, pp. 307–308)",
+     "url": "https://en.wikipedia.org/wiki/Lorenz_system",
+     "quote": "This pair of equilibrium points is stable only if ρ < σ (σ + β + 3)/(σ − β − 1)"
+    },
+    {
+     "cite": "L. Illing, R. F. Fordyce, A. M. Saunders, R. Ormond, “Experiments with a Malkus-Lorenz water wheel: Chaos and Synchronization”, Am. J. Phys. (2012), doi:10.1119/1.3680533, §III.A, after Eq. (22) (p. 5 of arXiv:1202.5508v1)",
+     "url": "https://arxiv.org/abs/1202.5508",
+     "quote": "Equation (22) is identical to the Lorenz equations with the third parameter (often denoted as b) equal one."
+    }
+   ]
+  },
+  {
+   "key": "volume",
+   "unit": "%",
+   "expected": 0.247875217667,
+   "measured": 0.24788120505,
+   "deviation": 2.41548274812e-05,
+   "tolerance": 0.0001,
+   "derived": true,
+   "setting": {
+    "sigma": 10.0,
+    "rho": 28.0
+   },
+   "sources": [
+    {
+     "cite": "University of Warwick, CO903 Complexity and Chaos in Dynamical Systems, §4.1 Lorenz equations, “Volume contraction”, p. 2",
+     "url": "https://warwick.ac.uk/fac/cross_fac/complexity/study/msc_and_phd/co903/co903online/chaos_lorenz13.pdf",
+     "quote": "Since the divergence is constant we have V̇ = −(σ + 1 + b)V with solution V(t) = V(0)e^(−(σ+1+b)t). Thus volumes in phase space shrink exponentially fast."
+    },
+    {
+     "cite": "O. Knill, “The Lorenz system”, Harvard Math 118r handout (spring 2005), “Volume”",
+     "url": "https://abel.math.harvard.edu/archive/118r_spring_05/handouts/lorentz.pdf",
+     "quote": "The Lorenz flow is dissipative: indeed, the divergence of F is negative. The flow contracts volume. div(F) = −1 − σ − b"
+    },
+    {
+     "cite": "L. Illing, R. F. Fordyce, A. M. Saunders, R. Ormond, “Experiments with a Malkus-Lorenz water wheel: Chaos and Synchronization”, Am. J. Phys. (2012), doi:10.1119/1.3680533, §III.A, after Eq. (22) (p. 5 of arXiv:1202.5508v1)",
+     "url": "https://arxiv.org/abs/1202.5508",
+     "quote": "Equation (22) is identical to the Lorenz equations with the third parameter (often denoted as b) equal one."
+    }
+   ]
+  },
+  {
+   "key": "wheel",
+   "unit": "1/min",
+   "expected": 19.0378439776,
+   "measured": 19.0378027326,
+   "deviation": 2.16647567191e-06,
+   "tolerance": 5e-05,
+   "derived": true,
+   "setting": {
+    "sigma": 10.0,
+    "rho": 28.0
+   },
+   "sources": [
+    {
+     "cite": "L. Illing, R. F. Fordyce, A. M. Saunders, R. Ormond, “Experiments with a Malkus-Lorenz water wheel: Chaos and Synchronization”, Am. J. Phys. (2012), doi:10.1119/1.3680533, §III.A, Eq. (19) (p. 4 of arXiv:1202.5508v1)",
+     "url": "https://arxiv.org/abs/1202.5508",
+     "quote": "dω/dt = −(κ + Q_tot R²)/I_tot ω(t) + π R g sin α/I_tot a₁(t), da₁/dt = −k a₁(t) + ω(t) b₁(t), db₁/dt = q₁ − k b₁(t) − ω(t) a₁(t)"
+    },
+    {
+     "cite": "L. Illing, R. F. Fordyce, A. M. Saunders, R. Ormond, “Experiments with a Malkus-Lorenz water wheel: Chaos and Synchronization”, Am. J. Phys. (2012), doi:10.1119/1.3680533, §III.A, after Eq. (22) (p. 5 of arXiv:1202.5508v1)",
+     "url": "https://arxiv.org/abs/1202.5508",
+     "quote": "Equation (22) is identical to the Lorenz equations with the third parameter (often denoted as b) equal one."
+    }
+   ]
+  }
  ]
 }

@@ -1894,6 +1894,7 @@
         "tap_hint": "ρ: quanta acqua entra, misurata rispetto alle perdite e al freno.",
         "brake": "Freno",
         "brake_hint": "σ: quanto frena l'asse, misurato rispetto all'inerzia della ruota e alle perdite.",
+        "turn_hint": "Oppure giri con il mouse o con il dito la leva del rubinetto e la manopola sull'asse, il freno. Quando la lascia, la ruota riparte dall'inizio.",
         "speed": "Velocità",
         "speeds": {
           "1": "Tempo reale",
@@ -3432,7 +3433,20 @@
         "R_eff": "raggio efficace di due sfere uguali di diametro d, d/4",
         "T_impact": "durata dell'urto lungo la fila",
         "tau_contact": "durata di un contatto",
-        "gap": "aria tra due sfere"
+        "gap": "aria tra due sfere",
+        "wheel_growth": "tasso di crescita della spinta",
+        "wheel_leak": "tasso di perdita dei secchielli, 0,2 al secondo",
+        "wheel_sigma": "il freno rispetto a inerzia e perdite, ν/(K·I)",
+        "wheel_rho": "il rubinetto: la portata rispetto a freno e perdite, π·g·r·q/(ν·K²)",
+        "wheel_b": "il terzo parametro di Lorenz; per la ruota idraulica 1",
+        "wheel_rpm": "il numero di giri della ruota",
+        "wheel_rhoH": "il rubinetto oltre il quale la rotazione regolare non è più stabile",
+        "wheel_volume": "volume di una piccola scatola di stati",
+        "wheel_ab": "come è distribuita l'acqua: di lato, e sopra contro sotto",
+        "wheel_rate": "la rotazione della ruota",
+        "wheel_inflow": "la portata che entra in alto",
+        "wheel_nu": "il freno dell'asse",
+        "wheel_radius": "il raggio della ruota"
       },
       "cases": {
         "sphere": {
@@ -3603,6 +3617,42 @@
             "reads": "Con aria in mezzo le quattro coppie si urtano una dopo l'altra. Ogni contatto dura τ; tra un contatto e l'altro la sfera colpita attraversa in volo l'aria che le resta fino alla successiva.",
             "why": "Verifica la durata che indica la pagina, dal primo contatto finché si apre l'ultimo: a mano 689 µs, di cui 84 µs per ogni contatto; la pagina conta in microsecondi interi e arriva a 688.",
             "step": "La prima fonte dà la durata di un contatto. Il baricentro della coppia avanza a v/2, quindi alla fine del suo contatto la sfera colpita è avanti di v·τ/2 e percorre l'aria rimanente s − v·τ/2 alla velocità v che ha ricevuto secondo la seconda fonte. Da un contatto al successivo passano così τ/2 + s/v, tre volte; poi si aggiunge l'ultimo contatto."
+          }
+        },
+        "waterwheel": {
+          "start": {
+            "title": "La prima spinta cresce",
+            "setting": "Rubinetto ρ = 28, freno σ = 10, come all'apertura della pagina: la ruota da ferma, piena in alto, spinta appena appena; misurato tra 1,5 s e 2,5 s.",
+            "reads": "Partendo da ferma, una piccola spinta cresce secondo il più grande autovalore delle equazioni con la ruota immobile, (−1 − σ + √((1 − σ)² + 4ρσ))/2 per tempo di perdita 1/K.",
+            "why": "Verifica rubinetto e freno nel ciclo dei passi temporali, finché la ruota è ancora quasi ferma: 2,37 al secondo, la spinta raddoppia ogni 0,29 s. Lo scarto di 3 · 10⁻⁵ viene per lo più dalla seconda parte, quella che si smorza, non ancora del tutto scomparsa dopo 1,5 s."
+          },
+          "steady": {
+            "title": "Poca acqua: rotazione regolare",
+            "setting": "Rubinetto ρ = 5, freno σ = 10; la ruota da ferma, letto alla fine dei 200 s che mostra la pagina.",
+            "reads": "Sopra ρ = 1 la ruota può girare regolarmente, con x = √(b(ρ − 1)) in unità delle perdite; per la ruota idraulica b = 1.",
+            "why": "Verifica i termini non lineari e la b della ruota: 3,82 giri/min. Con la b = 8/3 di Lorenz per l'aria sarebbero 6,24 giri/min.",
+            "step": "La prima fonte dà la rotazione regolare delle equazioni di Lorenz per qualsiasi b; che per la ruota idraulica b = 1 lo dice la seconda. Ritorno alla ruota: rotazione Ω = K·x, un giro vale 2π."
+          },
+          "threshold": {
+            "title": "La soglia del caos",
+            "setting": "Freno σ = 15 invece di 10; letto nel riquadro «Caos da un rubinetto di».",
+            "reads": "Sopra ρ_H = σ(σ + b + 3)/(σ − b − 1) nemmeno la rotazione regolare è più stabile.",
+            "why": "Verifica la soglia che indica la pagina, con la b della ruota: 21,9 con σ = 15. Con la b = 8/3 di Lorenz vi si leggerebbe 27,4.",
+            "step": "Le prime due fonti danno la soglia per qualsiasi b; vi si inserisce la b = 1 della ruota idraulica, presa dalla terza."
+          },
+          "volume": {
+            "title": "Un volume di stati si restringe",
+            "setting": "Rubinetto ρ = 28, freno σ = 10: una minuscola scatola di stati, larga 2 · 10⁻⁵, attorno allo stato della ruota dopo 20 s, calcolata per altri 2,5 s come nella pagina.",
+            "reads": "Le equazioni di Lorenz contraggono ogni volume di stati con la stessa rapidità, con e^(−(σ + 1 + b)·K·t), ovunque si trovi la ruota.",
+            "why": "Verifica i tre smorzamenti in una volta, freno, perdite e la b della ruota, in pieno caos: dopo 2,5 s resta lo 0,248 % del volume. Lo scarto di 2 · 10⁻⁵ è l'errore del metodo di Runge-Kutta su questi 50 passi.",
+            "step": "Le fonti danno la contrazione per qualsiasi b, nel tempo τ di Lorenz; vi si inseriscono la b = 1 della ruota idraulica, presa dalla terza, e τ = K·t."
+          },
+          "wheel": {
+            "title": "Le equazioni della ruota stessa",
+            "setting": "Rubinetto ρ = 28, freno σ = 10, come all'apertura della pagina; letto dopo 12 s, dopo le prime due inversioni.",
+            "reads": "La distribuzione dell'acqua gira con la ruota, l'acqua entra in alto e perde ovunque; la gravità fa girare la ruota, l'asse frena. Qui calcolato in secondi, per una ruota di 0,5 m di raggio e un freno di 1 N·m·s.",
+            "why": "Verifica che le equazioni di Lorenz con b = 1 siano la ruota, conversione in giri compresa: 19,04 giri/min dopo 12 s. Qualsiasi altro raggio e qualsiasi altro freno con gli stessi σ e ρ danno lo stesso numero.",
+            "step": "La fonte scrive il freno come κ + Q_tot·R² e la gravità sulla ruota inclinata come g·sin α; qui si chiamano ν e g. Inerzia e portata seguono da σ = ν/(K·I) e ρ = π·g·r·q/(ν·K²)."
           }
         }
       },

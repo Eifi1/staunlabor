@@ -1894,6 +1894,7 @@
         "tap_hint": "ρ: how much water flows in, measured against the leaks and the brake.",
         "brake": "Brake",
         "brake_hint": "σ: how hard the axle brakes, measured against the wheel's inertia and the leaks.",
+        "turn_hint": "Or turn the tap's lever and the knob on the axle, the brake, with the mouse or a finger. Letting go starts the wheel from the start.",
         "speed": "Speed",
         "speeds": {
           "1": "Real time",
@@ -3432,7 +3433,20 @@
         "R_eff": "the effective radius of two equal balls of diameter d, d/4",
         "T_impact": "the impact's duration through the row",
         "tau_contact": "one contact's duration",
-        "gap": "the air between two balls"
+        "gap": "the air between two balls",
+        "wheel_growth": "the nudge's growth rate",
+        "wheel_leak": "the cups' leak rate, 0.2 a second",
+        "wheel_sigma": "the brake against inertia and leaks, ν/(K·I)",
+        "wheel_rho": "the tap: inflow against brake and leaks, π·g·r·q/(ν·K²)",
+        "wheel_b": "Lorenz's third parameter; 1 for the waterwheel",
+        "wheel_rpm": "the wheel's speed",
+        "wheel_rhoH": "the tap above which steady turning is no longer stable",
+        "wheel_volume": "volume of a small box of states",
+        "wheel_ab": "how the water is spread: to the side, and top against bottom",
+        "wheel_rate": "the wheel's rate",
+        "wheel_inflow": "inflow at the top",
+        "wheel_nu": "the axle's brake",
+        "wheel_radius": "the wheel's radius"
       },
       "cases": {
         "sphere": {
@@ -3603,6 +3617,42 @@
             "reads": "With air between them the four pairs meet one after the other. Each contact lasts τ; in between, the ball just struck flies through the air left to the next.",
             "why": "Checks the duration the page gives, from the first touch until the last contact opens: by hand 689 µs, 84 µs of it each contact; the page counts whole microseconds and makes it 688.",
             "step": "The first source gives one contact's duration. The pair's centre moves at v/2, so at the end of its contact the ball struck is v·τ/2 further and flies the remaining air s − v·τ/2 at the speed v it took over by the second source. From touch to touch that is τ/2 + s/v, three times; then the last contact."
+          }
+        },
+        "waterwheel": {
+          "start": {
+            "title": "The first nudge grows",
+            "setting": "Tap ρ = 28, brake σ = 10, as the page opens: the wheel from rest, full at the top, nudged by a hair; measured between 1.5 s and 2.5 s.",
+            "reads": "From rest a small nudge grows at the larger eigenvalue of the equations at the standing wheel, (−1 − σ + √((1 − σ)² + 4ρσ))/2 per leak time 1/K.",
+            "why": "Checks tap and brake in the time loop while the wheel has hardly moved: 2.37 per second, the nudge doubling every 0.29 s. The 3 · 10⁻⁵ off comes mostly from the second, dying share, not quite gone at 1.5 s."
+          },
+          "steady": {
+            "title": "A little water: steady turning",
+            "setting": "Tap ρ = 5, brake σ = 10; the wheel from rest, read at the end of the 200 s the page shows.",
+            "reads": "Above ρ = 1 the wheel can turn steadily, at x = √(b(ρ − 1)) in units of the leaks; for the waterwheel b = 1.",
+            "why": "Checks the nonlinear terms and the wheel's b: 3.82 rpm. With Lorenz's b = 8/3 for the air it would be 6.24 rpm.",
+            "step": "The first source gives the steady turning of Lorenz's equations for any b; that b = 1 for the waterwheel is in the second. Back to the wheel: rate Ω = K·x, one turn is 2π."
+          },
+          "threshold": {
+            "title": "The threshold of chaos",
+            "setting": "Brake σ = 15 instead of 10; read off the tile “Chaos from a tap of”.",
+            "reads": "Above ρ_H = σ(σ + b + 3)/(σ − b − 1) even steady turning is no longer stable.",
+            "why": "Checks the threshold the page names, with the wheel's b: 21.9 at σ = 15. With Lorenz's b = 8/3 it would read 27.4.",
+            "step": "The first two sources give the threshold for any b; put in is the waterwheel's b = 1 from the third."
+          },
+          "volume": {
+            "title": "A volume of states shrinks",
+            "setting": "Tap ρ = 28, brake σ = 10: a tiny box of states, 2 · 10⁻⁵ wide, round the wheel's state after 20 s, run on for 2.5 s as the page runs it.",
+            "reads": "Lorenz's equations draw every volume of states together at the same pace, e^(−(σ + 1 + b)·K·t), wherever the wheel is.",
+            "why": "Checks the three dampings at once, brake, leaks and the wheel's b, in the middle of the chaos: after 2.5 s, 0.248 % of the volume is left. The 2 · 10⁻⁵ off is the Runge–Kutta method's error over these 50 steps.",
+            "step": "The sources give the shrinking for any b, in Lorenz's time τ; put in are the waterwheel's b = 1 from the third and τ = K·t."
+          },
+          "wheel": {
+            "title": "The wheel's own equations",
+            "setting": "Tap ρ = 28, brake σ = 10, as the page opens; read after 12 s, past the first two reversals.",
+            "reads": "The water's spread turns with the wheel, water flows in at the top and leaks out everywhere; gravity turns the wheel, the axle brakes. Computed here in seconds, for a wheel of 0.5 m radius and a brake of 1 N·m·s.",
+            "why": "Checks that Lorenz's equations with b = 1 are the wheel, turning into rpm included: 19.04 rpm after 12 s. Any other radius and brake with the same σ and ρ give the same number.",
+            "step": "The source writes the brake as κ + Q_tot·R² and gravity on the tilted wheel as g·sin α; here they are ν and g. Inertia and inflow follow from σ = ν/(K·I) and ρ = π·g·r·q/(ν·K²)."
           }
         }
       },
