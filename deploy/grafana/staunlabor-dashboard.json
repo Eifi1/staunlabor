@@ -137,7 +137,7 @@
       },
       "options": {
         "mode": "markdown",
-        "content": "**Which is it?** Each row below answers one question. Read them top to bottom while a post brings visitors.\n\n1. **CPU** — backend CPU near 100 % *and* time in the app far above the CPU per call: requests wait for the one core. The route panels say whose calculation it is.\n2. **Cold starts** — new instances, startup latency and *pending* latency rise together; cold requests show which route paid the first-time work.\n3. **The budget** — 429s marked *refused by the budget* rise while CPU is fine: visitors share an address (an office, a proxy). The line names no address, so this cannot tell one busy visitor from many behind one.\n4. **The instance cap** — instances sit at the cap (8 backend, 10 web), Cloud Run *recommends* more, and *refused for want of an instance* appears.\n5. **Static files** — the web service's CPU or latency rises while the backend is quiet.\n6. **The database** — `/experiments/checks` slows while CPU is fine; connection latency or refusals rise.\n\nPer-route data comes from the backend's own log line (`backend/staunlabor/request_log.py`) through the log-based metrics of `deploy/grafana/create-log-metrics.sh`; it starts when they are created. Set-up and costs: `deploy/grafana/README.md`."
+        "content": "**Which is it?** Each row below answers one question. Read them top to bottom while a post brings visitors.\n\n1. **CPU** — backend CPU near 100 % *and* time in the app far above the CPU per call: requests wait for the one core. The route panels say whose calculation it is.\n2. **Cold starts** — new instances, startup latency and *pending* latency rise together; cold requests show which route paid the first-time work.\n3. **The budget** — 429s marked *refused by the budget* rise while CPU is fine: visitors share an address (an office, a proxy). The line names no address, so this cannot tell one busy visitor from many behind one.\n4. **The instance cap** — instances sit at the cap (4 backend, 10 web), Cloud Run *recommends* more, and *refused for want of an instance* appears.\n5. **Static files** — the web service's CPU or latency rises while the backend is quiet.\n6. **The database** — `/experiments/checks` slows while CPU is fine; connection latency or refusals rise.\n\nPer-route data comes from the backend's own log line (`backend/staunlabor/request_log.py`) through the log-based metrics of `deploy/grafana/create-log-metrics.sh`; it starts when they are created. Set-up and costs: `deploy/grafana/README.md`."
       }
     },
     {
@@ -469,7 +469,7 @@
       "id": 6,
       "type": "timeseries",
       "title": "Backend CPU utilization across instances",
-      "description": "Cloud Run's distribution over the backend's instances. Cloud Run adds an instance at about 60 %, up to the cap of 8.",
+      "description": "Cloud Run's distribution over the backend's instances. Cloud Run adds an instance at about 60 %, up to the cap of 4.",
       "datasource": {
         "type": "stackdriver",
         "uid": "${DS_CLOUD_MONITORING}"
@@ -1313,7 +1313,7 @@
       "id": 14,
       "type": "timeseries",
       "title": "Instances by state",
-      "description": "Cloud Run's instance count: active ones serve requests, idle ones wait to be reused or removed. The dashed line is the cap of 8.",
+      "description": "Cloud Run's instance count: active ones serve requests, idle ones wait to be reused or removed. The dashed line is the cap of 4.",
       "datasource": {
         "type": "stackdriver",
         "uid": "${DS_CLOUD_MONITORING}"
@@ -1354,7 +1354,7 @@
               },
               {
                 "color": "red",
-                "value": 8
+                "value": 4
               }
             ]
           }
@@ -2071,7 +2071,7 @@
     {
       "id": 22,
       "type": "row",
-      "title": "4 · The instance cap: at most 8 backend and 10 web instances",
+      "title": "4 · The instance cap: at most 4 backend and 10 web instances",
       "collapsed": false,
       "gridPos": {
         "h": 1,
@@ -2126,7 +2126,7 @@
               },
               {
                 "color": "red",
-                "value": 8
+                "value": 4
               }
             ]
           }
@@ -2203,7 +2203,7 @@
       "id": 24,
       "type": "timeseries",
       "title": "Instances Cloud Run recommends",
-      "description": "What Cloud Run's autoscaler would like, and what drives it. Above the cap of 8 the cap is in the way.",
+      "description": "What Cloud Run's autoscaler would like, and what drives it. Above the cap of 4 the cap is in the way.",
       "datasource": {
         "type": "stackdriver",
         "uid": "${DS_CLOUD_MONITORING}"
@@ -2244,7 +2244,7 @@
               },
               {
                 "color": "red",
-                "value": 8
+                "value": 4
               }
             ]
           }

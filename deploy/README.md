@@ -275,9 +275,11 @@ keys and the feedback bucket; Cloud Run then keeps serving the revision before.
    `staunlabor_app` (`SELECT, INSERT, UPDATE, DELETE` and the sequences, the
    same by default privileges for what the owner makes later;
    `CONNECTION LIMIT 12`: in production the pool is one connection a
-   process (`STAUNLABOR_DB_MAX_OVERFLOW=0`, `cloudbuild.yaml`) at up to eight
-   instances, eight, and a rollout runs the new revision beside the old, so
-   the cap leaves room for it; a cap, not a reservation). Only these two
+   process (`STAUNLABOR_DB_MAX_OVERFLOW=0`, `cloudbuild.yaml`) at up to four
+   instances, four, and a rollout runs the new revision beside the old, so
+   eight for a moment; the cap leaves room for that, and is a cap, not a
+   reservation. Four because the shared instance is a `db-f1-micro`, about
+   25 connections for all its apps). Only these two
    may connect to `staunlabor`. Nothing else on the instance is touched. Safe
    to run again: it sets the passwords to the secrets' again.
 4. **Marcel: `bash deploy/bootstrap-admin.sh`**, the first admin before the
