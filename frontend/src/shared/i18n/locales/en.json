@@ -127,6 +127,11 @@
         "checked": "Checked",
         "languages": "Languages",
         "promise": "0 cookies · 0 tracking · no account needed · free and open source"
+      },
+      "selection": {
+        "title": "Exhibits",
+        "lead": "The {{count}} newest. A drawing moves as soon as you point at it.",
+        "all": "All {{count}} exhibits"
       }
     },
     "topics": {
@@ -3544,6 +3549,9 @@
       },
       "set_up": "Set it up",
       "set_up_hint": "Sets the exhibit above to this case"
+    },
+    "list": {
+      "lead": "Every exhibit with its drawing, which moves as soon as you point at it. Filter by topic or browse them all."
     }
   },
   "account": {

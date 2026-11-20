@@ -10,7 +10,7 @@
  * are at the bottom at the one time the engine names.
  */
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
-import { fireEvent, screen, waitFor, within } from "@testing-library/react";
+import { act, fireEvent, screen, waitFor, within } from "@testing-library/react";
 import en from "@/shared/i18n/locales/en.json";
 import { mockApi } from "@/test/api-mock";
 import { renderWithProviders } from "@/test/render";
@@ -68,6 +68,9 @@ import { EXHIBITS, exhibitEntry } from "./exhibits";
 import { EQUATION_COUNT } from "./facts";
 import { ExperimentsLayout } from "./experiments-layout";
 import { ExperimentsOverviewPage } from "./overview-page";
+import { ExhibitsPage } from "./exhibits-page";
+import { AppRoutes } from "@/app/routes";
+import { settled } from "@/test/settle";
 import { useTried } from "./tried";
 import fixtures from "./test-fixtures.json";
 
@@ -123,24 +126,30 @@ describe("the overview", () => {
     return view;
   };
 
+  /** The page of every exhibit, likewise once its previews are in. */
+  const renderList = async () => {
+    const view = renderWithProviders(<ExhibitsPage />, { initialEntries: ["/exhibits"] });
+    await waitFor(() => expect(view.container.querySelector("[aria-busy='true']")).toBeNull());
+    return view;
+  };
+
   it("opens the built exhibit, says the others are coming and credits the museum", async () => {
-    await renderOverview();
+    await renderList();
     expect(screen.getByRole("heading", { level: 3, name: E.exhibits.chair.title })).toBeInTheDocument();
     // The whole card opens its exhibit, through its title: no button per card.
-    const list = screen.getByRole("region", { name: E.overview.all });
-    const opens = within(list)
+    const list = within(document.body);
+    const opens = list
       .getAllByRole("heading", { level: 3 })
       .flatMap((heading) => within(heading).queryAllByRole("link"));
     expect(opens.map((link) => link.getAttribute("href"))).toEqual(EXHIBITS.flatMap((e) => (e.path ? [e.path] : [])));
-    expect(within(list).queryAllByRole("link", { name: /Open the exhibit/ })).toHaveLength(0);
+    expect(list.queryAllByRole("link", { name: /Open the exhibit/ })).toHaveLength(0);
     expect(screen.queryAllByText(E.overview.coming)).toHaveLength(EXHIBITS.filter((e) => !e.path).length);
     expect(screen.getByText(E.overview.credit)).toBeInTheDocument();
   });
 
   it("shows every built exhibit in the list with its own drawing, held still until the card is pointed at", async () => {
-    await renderOverview();
-    // In the list: the day's exhibit has a second, larger drawing at the top.
-    const list = screen.getByRole("region", { name: E.overview.all });
+    await renderList();
+    const list = document.body;
     for (const entry of EXHIBITS.filter((e) => e.path)) {
       const heading = within(list).getByRole("heading", { level: 3, name: E.exhibits[entry.exhibit].title });
       const drawing = list.querySelector(`[data-still="${entry.exhibit}"]`);
@@ -153,7 +162,7 @@ describe("the overview", () => {
   });
 
   it("gives every exhibit in the list its own icon", async () => {
-    await renderOverview();
+    await renderList();
     const icons = screen.getAllByRole("heading", { level: 3 }).map((heading) => {
       const icon = heading.parentElement?.parentElement?.querySelector(":scope > svg");
       return [...(icon?.classList ?? [])].find((name) => name.startsWith("lucide-"));
@@ -180,7 +189,8 @@ describe("the overview", () => {
       "href",
       exhibitEntry(today).path,
     );
-    expect(within(stage).getByRole("link", { name: E.overview.all })).toHaveAttribute("href", "#all-exhibits");
+    // The list is a page of its own, so the browser's back button returns here.
+    expect(within(stage).getByRole("link", { name: E.overview.all })).toHaveAttribute("href", "/exhibits");
     // The question alone: the summary is the list's, the longer text the page's.
     expect(within(stage).queryByText(E.exhibits[today].summary)).toBeNull();
     // The past weeks are not listed: the list below has every exhibit, with
@@ -189,43 +199,51 @@ describe("the overview", () => {
     expect(within(stage).queryByRole("button")).toBeNull();
   });
 
-  it("goes down to the list visibly, and gives its heading the focus", async () => {
+  it("shows the newest exhibits as a part of its own, and the way to all of them", async () => {
     await renderOverview();
-    const heading = screen.getByRole("heading", { level: 2, name: E.overview.all });
-    const scroll = vi.fn();
-    heading.scrollIntoView = scroll;
-    const stage = screen.getByRole("region", { name: E.exhibits[weeklyExhibit(DAY)].title });
-    fireEvent.click(within(stage).getByRole("link", { name: E.overview.all }));
-    // A smooth scroll, not a jump (Marcel, 2026-11-20: "Es soll visuell scrollen").
-    expect(scroll).toHaveBeenCalledWith({ behavior: "smooth", block: "start" });
-    expect(heading).toHaveFocus();
-    expect(window.location.hash).toBe("#all-exhibits");
-    window.history.replaceState(null, "", "/");
+    const built = EXHIBITS.filter((entry) => entry.path);
+    const part = screen.getByRole("region", { name: E.overview.selection.title });
+    expect(
+      within(part)
+        .getAllByRole("heading", { level: 3 })
+        .map((heading) => heading.textContent),
+    ).toEqual(built.slice(0, 6).map((entry) => E.exhibits[entry.exhibit].title));
+    const all = E.overview.selection.all.replace("{{count}}", String(built.length));
+    expect(within(part).getByRole("link", { name: new RegExp(all) })).toHaveAttribute("href", "/exhibits");
   });
 
-  it("jumps to the list instead for a reader who asked the system for less motion", async () => {
-    const original = window.matchMedia;
-    window.matchMedia = ((query: string) => ({
-      matches: query.includes("reduce"),
-      media: query,
-      onchange: null,
-      addEventListener: () => {},
-      removeEventListener: () => {},
-      addListener: () => {},
-      removeListener: () => {},
-      dispatchEvent: () => false,
-    })) as typeof window.matchMedia;
-    try {
-      await renderOverview();
-      const heading = screen.getByRole("heading", { level: 2, name: E.overview.all });
-      const scroll = vi.fn();
-      heading.scrollIntoView = scroll;
-      fireEvent.click(screen.getAllByRole("link", { name: E.overview.all })[0]);
-      expect(scroll).toHaveBeenCalledWith({ behavior: "auto", block: "start" });
-    } finally {
-      window.matchMedia = original;
-      window.history.replaceState(null, "", "/");
+  it("grows the list of every exhibit as the reader scrolls near its end", async () => {
+    // An observer that reports only when told to; the list's own is the one
+    // watching the line under the last card.
+    const watching: { report: IntersectionObserverCallback; target?: Element }[] = [];
+    class Observer {
+      readonly watch: { report: IntersectionObserverCallback; target?: Element };
+      constructor(report: IntersectionObserverCallback) {
+        this.watch = { report };
+        watching.push(this.watch);
+      }
+      observe(target: Element) {
+        this.watch.target = target;
+      }
+      unobserve() {}
+      disconnect() {}
     }
+    vi.stubGlobal("IntersectionObserver", Observer);
+    try {
+      renderWithProviders(<ExhibitsPage />, { initialEntries: ["/exhibits"] });
+      expect(screen.getAllByRole("heading", { level: 3 })).toHaveLength(9);
+      const end = () => watching.filter((w) => w.target?.classList.contains("h-px")).at(-1)!;
+      act(() => end().report([{ isIntersecting: true } as IntersectionObserverEntry], {} as IntersectionObserver));
+      expect(screen.getAllByRole("heading", { level: 3 })).toHaveLength(18);
+      await settled();
+    } finally {
+      vi.unstubAllGlobals();
+    }
+  });
+
+  it("sends a link to the list's old place on the front page on to its page", async () => {
+    renderWithProviders(<AppRoutes />, { initialEntries: ["/#all-exhibits"] });
+    expect(await screen.findByRole("heading", { level: 1, name: E.overview.all })).toBeInTheDocument();
   });
 
   it("counts the site in figures, the checked exhibits as the server says", async () => {
@@ -241,7 +259,7 @@ describe("the overview", () => {
   });
 
   it("filters the exhibits by what they are about, and shows them all again", async () => {
-    await renderOverview();
+    await renderList();
     const cards = () => screen.getAllByRole("heading", { level: 3 }).map((h) => h.textContent);
     fireEvent.click(screen.getByRole("button", { name: E.topics.flow }));
     // The flows, in the list's order: the elephant and the smoke ring first.
@@ -256,7 +274,7 @@ describe("the overview", () => {
   });
 
   it("links a card to the course's lessons its computation stands on, and the chair to none", async () => {
-    await renderOverview();
+    await renderList();
     const card = (exhibit: "cannon" | "chair") =>
       screen.getByRole("heading", { level: 3, name: E.exhibits[exhibit].title }).closest(".flex-col") as HTMLElement;
     expect(within(card("cannon")).getByRole("link", { name: E.computed.links.second_order })).toHaveAttribute(
@@ -272,7 +290,7 @@ describe("the overview", () => {
 
   it("ticks what was tried on this device, counts it, and forgets it when asked", async () => {
     useTried.getState().mark("cannon");
-    await renderOverview();
+    await renderList();
     expect(screen.getByText(`1 of ${EXHIBITS.length}`)).toBeInTheDocument();
     expect(screen.getAllByText(E.overview.tried.mark).length).toBeGreaterThan(0);
     expect(JSON.parse(localStorage.getItem("staunlabor.experimentsTried") ?? "[]")).toEqual(["cannon"]);
@@ -322,7 +340,7 @@ describe("the area", () => {
         .getAllByRole("link")
         .map((link) => [link.textContent, link.getAttribute("href")]),
     ).toEqual([
-      [en.site.nav.exhibits, "/#all-exhibits"],
+      [en.site.nav.exhibits, "/exhibits"],
       [en.site.nav.basics, "https://kurvenschmiede.app/dynamics"],
       [en.site.nav.about, "/about"],
     ]);
@@ -346,7 +364,7 @@ describe("the area", () => {
   it("links every exhibit's page back to the list on the front page, and on to the next exhibit", async () => {
     renderWithProviders(<ChairPage />);
     const back = await screen.findAllByRole("link", { name: E.overview.all });
-    expect(back.map((link) => link.getAttribute("href"))).toEqual(["/#all-exhibits", "/#all-exhibits"]);
+    expect(back.map((link) => link.getAttribute("href"))).toEqual(["/exhibits", "/exhibits"]);
     const onward = screen.getByRole("navigation", { name: E.frame.onward });
     expect(
       within(onward).getByRole("link", { name: E.frame.next.replace("{{name}}", E.exhibits.coil.short) }),

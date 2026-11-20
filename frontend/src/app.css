@@ -40,6 +40,22 @@
   --font-mono: "JetBrains Mono Variable", ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
 }
 
+/* A new page comes in (the layout's fade), and a card added to a growing
+   list rises into place (`ExhibitGrid`). Both are used under motion-safe:
+   only, so a reader whose system asks for less motion sees neither. */
+@keyframes page-in {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+}
+@keyframes card-in {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+}
+
 /* Toasts must sit above every dialog and overlay. Sonner injects its own
    z-index at runtime, which can land too late; pinning it in the bundled
    stylesheet makes it deterministic. */

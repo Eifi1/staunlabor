@@ -127,6 +127,11 @@
         "checked": "Revisadas",
         "languages": "Idiomas",
         "promise": "0 cookies · 0 rastreo · sin cuenta · libre y de código abierto"
+      },
+      "selection": {
+        "title": "Exposiciones",
+        "lead": "Las {{count}} más recientes. Un dibujo se mueve en cuanto lo señala.",
+        "all": "Las {{count}} exposiciones"
       }
     },
     "topics": {
@@ -3544,6 +3549,9 @@
       },
       "set_up": "Configurar",
       "set_up_hint": "Ajusta la exposición de arriba a este caso"
+    },
+    "list": {
+      "lead": "Cada exposición con su dibujo, que se mueve en cuanto lo señala. Filtre por tema o recórralas todas."
     }
   },
   "account": {

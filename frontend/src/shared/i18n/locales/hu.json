@@ -127,6 +127,11 @@
         "checked": "Ellenőrizve",
         "languages": "Nyelv",
         "promise": "0 süti · 0 követés · fiók nélkül · ingyenes és nyílt forráskódú"
+      },
+      "selection": {
+        "title": "Kiállítási tárgyak",
+        "lead": "A {{count}} legújabb. A rajz megmozdul, amint rámutat.",
+        "all": "Mind a {{count}} kiállítási tárgy"
       }
     },
     "topics": {
@@ -3544,6 +3549,9 @@
       },
       "set_up": "Beállítás",
       "set_up_hint": "A fenti tárgyat erre az esetre állítja"
+    },
+    "list": {
+      "lead": "Minden kiállítási tárgy a rajzával, amely megmozdul, amint rámutat. Szűrjön téma szerint, vagy nézze végig mindet."
     }
   },
   "account": {

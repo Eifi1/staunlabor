@@ -127,6 +127,11 @@
         "checked": "Verificati",
         "languages": "Lingue",
         "promise": "0 cookie · 0 tracciamento · senza account · libero e open source"
+      },
+      "selection": {
+        "title": "Exhibit",
+        "lead": "I {{count}} più recenti. Un disegno si muove appena lo indica.",
+        "all": "Tutti i {{count}} exhibit"
       }
     },
     "topics": {
@@ -3544,6 +3549,9 @@
       },
       "set_up": "Impostare",
       "set_up_hint": "Imposta l'exhibit qui sopra su questo caso"
+    },
+    "list": {
+      "lead": "Ogni exhibit con il suo disegno, che si muove appena lo indica. Filtri per tema o li sfogli tutti."
     }
   },
   "account": {

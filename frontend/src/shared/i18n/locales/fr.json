@@ -127,6 +127,11 @@
         "checked": "Vérifiées",
         "languages": "Langues",
         "promise": "0 cookie · 0 pistage · sans compte · libre et open source"
+      },
+      "selection": {
+        "title": "Expositions",
+        "lead": "Les {{count}} plus récentes. Un dessin s’anime dès que vous le pointez.",
+        "all": "Les {{count}} expositions"
       }
     },
     "topics": {
@@ -3544,6 +3549,9 @@
       },
       "set_up": "Régler",
       "set_up_hint": "Règle l’exposition ci-dessus sur ce cas"
+    },
+    "list": {
+      "lead": "Chaque exposition avec son dessin, qui s’anime dès que vous le pointez. Filtrez par thème ou parcourez-les toutes."
     }
   },
   "account": {

@@ -13,7 +13,7 @@ import { useTranslation } from "react-i18next";
 import { ArrowLeft, ArrowRight, ChevronRight, Cpu, FlaskConical, Lightbulb } from "lucide-react";
 import { Button, Card, CardHeader, CardTitle, PageHeader, SectionLabel, TextLink } from "@eifi1/ui-kit";
 import { PAGE_SHELL } from "@/shared/ui/page-shell";
-import { EXHIBITS, EXHIBITS_ANCHOR, OVERVIEW_PATH, exhibitEntry, type CourseLesson, type Exhibit } from "./exhibits";
+import { EXHIBITS, EXHIBITS_PATH, exhibitEntry, type CourseLesson, type Exhibit } from "./exhibits";
 import { useTried } from "./tried";
 import { CheckSection } from "./check-section";
 import { CheckStatus } from "./unchecked-notice";
@@ -83,7 +83,7 @@ export function ExhibitFrame({
   return (
     <div className={PAGE_SHELL}>
       {/* The way back to the list, now that the header names no exhibit. */}
-      <TextLink href={`${OVERVIEW_PATH}#${EXHIBITS_ANCHOR}`} className="inline-flex w-fit items-center gap-1 text-sm">
+      <TextLink href={EXHIBITS_PATH} className="inline-flex w-fit items-center gap-1 text-sm">
         <ArrowLeft className="size-4" aria-hidden />
         {t("experiments.overview.all")}
       </TextLink>
@@ -176,7 +176,7 @@ export function ExhibitFrame({
 
       {/* Where to go on: back to the list, or on to the next exhibit. */}
       <nav aria-label={t("experiments.frame.onward")} className="flex flex-wrap items-center justify-between gap-3">
-        <TextLink href={`${OVERVIEW_PATH}#${EXHIBITS_ANCHOR}`} className="inline-flex items-center gap-1 text-sm">
+        <TextLink href={EXHIBITS_PATH} className="inline-flex items-center gap-1 text-sm">
           <ArrowLeft className="size-4" aria-hidden />
           {t("experiments.overview.all")}
         </TextLink>

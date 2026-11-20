@@ -11,6 +11,9 @@ import { ExperimentsOverviewPage } from "@/features/experiments/overview-page";
 
 /** The site's own pages and the account's, each its own chunk too. The front
  *  page is the overview, in the first wave. */
+const ExhibitsPage = lazy(() =>
+  import("@/features/experiments/exhibits-page").then((m) => ({ default: m.ExhibitsPage })),
+);
 const AboutPage = lazy(() => import("@/features/site/about-page").then((m) => ({ default: m.AboutPage })));
 const ImprintPage = lazy(() => import("@/features/site/legal-pages").then((m) => ({ default: m.ImprintPage })));
 const PrivacyPage = lazy(() => import("@/features/site/legal-pages").then((m) => ({ default: m.PrivacyPage })));
@@ -56,6 +59,14 @@ export function AppRoutes() {
             />,
           ];
         })}
+        <Route
+          path="exhibits"
+          element={
+            <Page>
+              <ExhibitsPage />
+            </Page>
+          }
+        />
         <Route
           path="about"
           element={

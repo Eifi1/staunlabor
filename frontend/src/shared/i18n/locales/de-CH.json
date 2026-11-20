@@ -127,6 +127,11 @@
         "checked": "Geprüft",
         "languages": "Sprachen",
         "promise": "0 Cookies · 0 Tracking · kein Konto nötig · frei und quelloffen"
+      },
+      "selection": {
+        "title": "Exponate",
+        "lead": "Die {{count}} neuesten. Eine Zeichnung bewegt sich, sobald Sie darauf zeigen.",
+        "all": "Alle {{count}} Exponate"
       }
     },
     "topics": {
@@ -3544,6 +3549,9 @@
       },
       "set_up": "Einstellen",
       "set_up_hint": "Stellt das Exponat oben auf diesen Fall ein"
+    },
+    "list": {
+      "lead": "Jedes Exponat mit seiner Zeichnung, die sich bewegt, sobald Sie darauf zeigen. Nach Thema filtern oder alle durchgehen."
     }
   },
   "account": {

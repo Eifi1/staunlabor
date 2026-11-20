@@ -1,5 +1,5 @@
-import type { MouseEvent } from "react";
 import { Link, NavLink, Outlet, useLocation } from "react-router";
+import { useScrollMemory } from "@/app/scroll-memory";
 import { useTranslation } from "react-i18next";
 import { ExternalLink } from "lucide-react";
 import { LanguageMenu, ThemeToggle } from "@eifi1/ui-kit";
@@ -11,8 +11,7 @@ import { CONTAINER } from "@/shared/ui/page-shell";
 import { SiteFooter } from "@/features/site/site-footer";
 import { SiteSearch } from "@/features/site/site-search";
 import { COURSE } from "./exhibit-frame";
-import { EXHIBITS_ANCHOR, OVERVIEW_PATH } from "./exhibits";
-import { scrollToList } from "./list-anchor";
+import { EXHIBITS_PATH, OVERVIEW_PATH } from "./exhibits";
 
 /** A link in the header's row: quiet until pointed at, and plain text once
  *  it is the page shown. */
@@ -25,7 +24,11 @@ const NAV_LINK =
  * in (the exhibits, the basics they stand on, the page about the site), the
  * search, the language and the light or dark theme; the account stays in the
  * footer. On a phone the three links give way to the search: the footer
- * names the about page too, and the front page is the list.
+ * names the about page too, and the front page leads to the others.
+ *
+ * Each way in is a page of its own, so the browser's back button returns to
+ * where the reader clicked (`useScrollMemory`); a new page fades in, unless
+ * the reader's system asks for less motion.
  *
  * The links are a plain row in the header until the kit's `TopBarNav` (0.66,
  * proposed by UI-Kit on 2026-11-19) takes them.
@@ -36,10 +39,7 @@ export function ExperimentsLayout() {
   const mode = useTheme((s) => s.mode);
   const setPreference = useTheme((s) => s.setPreference);
   const { pathname } = useLocation();
-  // On the front page the list is a scroll away, not a navigation.
-  const toList = (event: MouseEvent) => {
-    if (pathname === OVERVIEW_PATH && scrollToList()) event.preventDefault();
-  };
+  useScrollMemory();
   return (
     <div className="flex min-h-dvh w-full flex-col bg-page">
       <header className="sticky top-0 z-30 shrink-0 border-b border-subtle bg-page print:hidden">
@@ -49,9 +49,9 @@ export function ExperimentsLayout() {
             {t("app.name")}
           </Link>
           <nav aria-label={t("site.nav.label")} className="hidden items-center gap-5 md:flex">
-            <Link to={{ pathname: OVERVIEW_PATH, hash: EXHIBITS_ANCHOR }} onClick={toList} className={NAV_LINK}>
+            <NavLink to={EXHIBITS_PATH} className={NAV_LINK}>
               {t("site.nav.exhibits")}
-            </Link>
+            </NavLink>
             <a href={COURSE} className={NAV_LINK}>
               {t("site.nav.basics")}
               <ExternalLink className="size-3.5" aria-hidden />
@@ -77,7 +77,10 @@ export function ExperimentsLayout() {
         </div>
       </header>
       <main className="flex w-full flex-1 flex-col">
-        <Outlet />
+        {/* Keyed by the page, so each new one comes in with the fade. */}
+        <div key={pathname} className="flex flex-1 flex-col motion-safe:animate-[page-in_240ms_ease-out]">
+          <Outlet />
+        </div>
       </main>
       <SiteFooter />
     </div>

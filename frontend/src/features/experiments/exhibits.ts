@@ -92,8 +92,11 @@ export interface ExhibitEntry {
 
 export const OVERVIEW_PATH = "/";
 
-/** The front page's list of every exhibit, under the week's one: the anchor
- *  every exhibit's page links back to. */
+/** The page of every exhibit, the header's "Exhibits". */
+export const EXHIBITS_PATH = "/exhibits";
+
+/** Where the list of every exhibit was until 2026-11-20, the front page's
+ *  lower half: the front page sends a link to it on to `EXHIBITS_PATH`. */
 export const EXHIBITS_ANCHOR = "all-exhibits";
 
 /**
@@ -326,3 +329,12 @@ export const EXHIBITS: readonly ExhibitEntry[] = [
 export function exhibitEntry(exhibit: Exhibit): ExhibitEntry {
   return EXHIBITS.find((entry) => entry.exhibit === exhibit) ?? EXHIBITS[0];
 }
+
+/** The exhibits that are built, in the list's order, newest first. */
+export const BUILT: readonly ExhibitEntry[] = EXHIBITS.filter((entry) => entry.path);
+
+/** The topics some exhibit has: a chip, or a figure, for a topic with none
+ *  would promise what the page cannot show. */
+export const TOPICS_SHOWN: readonly Topic[] = TOPICS.filter((topic) =>
+  EXHIBITS.some((entry) => entry.topics.includes(topic)),
+);
