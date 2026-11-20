@@ -1231,6 +1231,7 @@
         },
         "amplitude": "Kitérés elengedéskor",
         "amplitude_hint": "A hosszak {{tuned}}°-ra vannak hangolva. Ennél messzebbről vagy közelebbről elengedve az ingák egy ciklus után már nem találkoznak egészen.",
+        "pull_hint": "Vagy fogjon meg egérrel vagy ujjal egy golyót a sor végéről látható nézetben, és húzza félre az egész sort. Elengedéskor mind lengeni kezd.",
         "time": "Idő",
         "cycles": "Ciklusok",
         "spread": "Elcsúszás egy ciklus után"
@@ -3446,7 +3447,17 @@
         "wheel_rate": "a kerék forgása",
         "wheel_inflow": "befolyás felül",
         "wheel_nu": "a tengely fékje",
-        "wheel_radius": "a kerék sugara"
+        "wheel_radius": "a kerék sugara",
+        "length": "az inga hossza, a felfüggesztési ponttól a golyó közepéig",
+        "cycle": "a ciklus: az idő, amíg mind ismét egy ütemben leng",
+        "swings": "a leghosszabb inga lengései a ciklus alatt",
+        "index": "az inga sorszáma a leghosszabbtól számolva: 0, 1, 2, …",
+        "T0": "a legkisebb lengés periódusa",
+        "theta_n": "az n-edik inga szöge",
+        "sn": "Jacobi sn elliptikus függvénye",
+        "omega0": "a legkisebb lengés körfrekvenciája, √(g/L)",
+        "skew": "elcsúszás egy ciklus után, egy lengés fokaiban",
+        "count": "az ingák száma"
       },
       "cases": {
         "sphere": {
@@ -3653,6 +3664,41 @@
             "reads": "A víz eloszlása a kerékkel együtt forog, felül víz folyik be, mindenhol szivárog; a nehézségi erő forgatja a kereket, a tengely fékez. Itt másodpercekben számolva, egy 0,5 m sugarú kerékre és 1 N·m·s-os fékre.",
             "why": "Azt ellenőrzi, hogy Lorenz egyenletei b = 1-gyel maga a kerék, a fordulatokra való átszámítással együtt: 12 s után 19,04 ford./perc. Bármely más sugár és más fék ugyanazzal a σ-val és ρ-val ugyanezt a számot adja.",
             "step": "A forrás a féket κ + Q_tot·R² alakban, a megdöntött kerékre ható nehézségi erőt g·sin α alakban írja; itt ezek neve ν és g. A tehetetlenség és a befolyás σ = ν/(K·I)-ből és ρ = π·g·r·q/(ν·K²)-ből következik."
+          }
+        },
+        "wave": {
+          "textbook_lengths": {
+            "title": "A hosszak a tankönyvi képlet szerint",
+            "setting": "Tizenöt inga, 60 s-os ciklus, a leghosszabb 51-szer leng benne; 0°-ra hangolva, vagyis a kis kitérésekre szóló képlettel.",
+            "reads": "Az az inga, amely a Γ ciklus alatt pontosan (N + n)-szer leng, Γ/(N + n) periódusú; hosszát T = 2π√(L/g) adja meg.",
+            "why": "A sor hangolását ellenőrzi: a legrövidebb inga 60 s alatt 65-ször leng, és 21,1659 cm hosszú. Egy rosszul számolt sorszám vagy más g itt kiderülne."
+          },
+          "tuned_lengths": {
+            "title": "15°-ra hangolva",
+            "setting": "Az oldal sora: tizenöt inga, 60 s, a leghosszabb 51-szer leng, 15°-ra hangolva.",
+            "reads": "Egy 15°-os lengés 2K/π-szer tovább tart, mint egy kicsi. Hogy mégis Γ/(N + n) ideig tartson, az inga e tényező négyzetének arányában rövidebb.",
+            "why": "Azt ellenőrzi, hogy az oldal a pontos periódussal hangol, nem a tankönyvi képlettel: a leghosszabb inga 34,0875 cm hosszú. K itt integrálként van összegezve, nem a számítómotor által használt számtani-mértani közép útján.",
+            "step": "Az első forrás a kis kitérések periódusából adja meg a hosszt, a második bármely kitérésre a periódust: 4K, √(L/g) egységekben; a harmadik integrálként definiálja K-t. Kis kitérések periódusaként ezért Γ/(N + n)·π/(2K)-t kell behelyettesíteni."
+          },
+          "together": {
+            "title": "Egy ciklus után újra együtt",
+            "setting": "Az oldal sora, 15°-ról elengedve; az óra 60 s-on, egy egész ciklus.",
+            "reads": "A ciklus alatt minden inga egész számú lengést tesz meg, és ismét ott áll, ahol elengedték.",
+            "why": "Az oldal óráját ellenőrzi egy egész percen át: mind a tizenöt ismét 15°-nál áll, egyik sem tér el 10⁻¹²°-nál többel. Az oldal minden időpontot közvetlenül számol ki, lépések nélkül; ezért a hatvanadik másodperc ugyanolyan pontos, mint az első."
+          },
+          "third": {
+            "title": "A ciklus harmadánál",
+            "setting": "Az oldal sora, 15°-ról elengedve; az óra 20 s-on, a ciklus harmadán. A második ingán leolvasva, amely a ciklus alatt 52-szer leng.",
+            "reads": "A második inga 17⅓ lengést tett meg. Az ingaegyenlet pontos megoldása Jacobi sn függvényével megmondja, hol áll egyharmad lengéssel az elengedés után.",
+            "why": "A lengés alakját ellenőrzi a fordulópontok között, nem csak az időtartamát: −7,50807°, valamivel kijjebb, mint a 15° fele, amelyet egy koszinuszgörbe adna. sn itt az integráljából van megkeresve, nem a számítómotor által használt számtani-mértani közép útján.",
+            "step": "Az első forrás a megoldást √(L/g) egységekben mért időben adja meg; ott egy lengés 4K ideig tart. 17⅓ lengés után az argumentum 17⅓·4K + K = 35·2K + K/3, a második forrás szerint tehát sn = −sin φ, ahol F(φ) = K/3; a harmadik F-et integrálként adja meg."
+          },
+          "textbook_skew": {
+            "title": "A tankönyvi képlettel hangolva",
+            "setting": "Tizenöt inga, 60 s, a leghosszabb 51-szer leng, a tankönyvi képlettel 0°-ra hangolva, de 15°-ról elengedve.",
+            "reads": "15°-nál minden lengés 2K/π-szer tovább tart. Az n-edik inga a ciklus alatt csak (N + n)·π/(2K) lengést tesz meg; a legrövidebb, amelyik a legtöbbet lengi, marad le a legjobban.",
+            "why": "Az elcsúszást ellenőrzi, amelyet az oldal trükkként mutat: a sor 21,5821°-kal ferdén tér vissza, ennyivel marad le a legrövidebb inga a leghosszabb mögött, egy lengés fokaiban.",
+            "step": "Az első forrás a hangolást adja meg, a második a periódust 15°-nál, a harmadik K-t. A ciklus alatt az n-edik ingának (N + n)(1 − π/(2K)) egyenként 360°-os lengés hiányzik; a legrövidebb c − 1 = 14 lengéssel többet tesz meg, mint a leghosszabb."
           }
         }
       },

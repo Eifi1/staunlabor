@@ -1231,6 +1231,7 @@
         },
         "amplitude": "Ampiezza al rilascio",
         "amplitude_hint": "Le lunghezze sono accordate per {{tuned}}°. Lasciati più o meno lontano, dopo un ciclo i pendoli non si ritrovano più del tutto.",
+        "pull_hint": "Oppure afferri una sfera nella vista dall'estremità della fila con il mouse o con il dito e tiri di lato tutta la fila. Quando la lascia, oscillano tutte.",
         "time": "Tempo",
         "cycles": "Cicli",
         "spread": "Sfasamento dopo un ciclo"
@@ -3446,7 +3447,17 @@
         "wheel_rate": "la rotazione della ruota",
         "wheel_inflow": "la portata che entra in alto",
         "wheel_nu": "il freno dell'asse",
-        "wheel_radius": "il raggio della ruota"
+        "wheel_radius": "il raggio della ruota",
+        "length": "lunghezza del pendolo, dal punto di sospensione al centro della sfera",
+        "cycle": "il ciclo: il tempo finché tutti oscillano di nuovo all'unisono",
+        "swings": "oscillazioni del pendolo più lungo nel ciclo",
+        "index": "il numero del pendolo, contato dal più lungo: 0, 1, 2, …",
+        "T0": "periodo della più piccola oscillazione",
+        "theta_n": "angolo dell'n-esimo pendolo",
+        "sn": "la funzione ellittica sn di Jacobi",
+        "omega0": "pulsazione della più piccola oscillazione, √(g/L)",
+        "skew": "sfasamento dopo un ciclo, in gradi di un'oscillazione",
+        "count": "numero di pendoli"
       },
       "cases": {
         "sphere": {
@@ -3653,6 +3664,41 @@
             "reads": "La distribuzione dell'acqua gira con la ruota, l'acqua entra in alto e perde ovunque; la gravità fa girare la ruota, l'asse frena. Qui calcolato in secondi, per una ruota di 0,5 m di raggio e un freno di 1 N·m·s.",
             "why": "Verifica che le equazioni di Lorenz con b = 1 siano la ruota, conversione in giri compresa: 19,04 giri/min dopo 12 s. Qualsiasi altro raggio e qualsiasi altro freno con gli stessi σ e ρ danno lo stesso numero.",
             "step": "La fonte scrive il freno come κ + Q_tot·R² e la gravità sulla ruota inclinata come g·sin α; qui si chiamano ν e g. Inerzia e portata seguono da σ = ν/(K·I) e ρ = π·g·r·q/(ν·K²)."
+          }
+        },
+        "wave": {
+          "textbook_lengths": {
+            "title": "Le lunghezze secondo la formula dei libri",
+            "setting": "Quindici pendoli, ciclo di 60 s, il più lungo vi oscilla 51 volte; accordati per 0°, cioè con la formula per piccole oscillazioni.",
+            "reads": "Un pendolo che nel ciclo Γ oscilla esattamente N + n volte ha il periodo Γ/(N + n); da T = 2π√(L/g) segue la sua lunghezza.",
+            "why": "Verifica l'accordatura della fila: il pendolo più corto oscilla 65 volte in 60 s ed è lungo 21,1659 cm. Un numero contato male o un'altra g si noterebbe qui."
+          },
+          "tuned_lengths": {
+            "title": "Accordati per 15°",
+            "setting": "La fila della pagina: quindici pendoli, 60 s, il più lungo 51 volte, accordati per 15°.",
+            "reads": "Un'oscillazione di 15° dura più di una piccola, di un fattore 2K/π. Perché duri comunque Γ/(N + n), il pendolo è più corto del quadrato di questo fattore.",
+            "why": "Verifica che la pagina accordi con il periodo esatto e non con la formula dei libri: il pendolo più lungo è lungo 34,0875 cm. Qui K è sommato come integrale, non con la media aritmetico-geometrica usata dal motore di calcolo.",
+            "step": "La prima fonte dà la lunghezza dal periodo delle piccole oscillazioni, la seconda il periodo per qualsiasi ampiezza: 4K, in unità di √(L/g); la terza definisce K come integrale. Come periodo delle piccole oscillazioni va quindi inserito Γ/(N + n)·π/(2K)."
+          },
+          "together": {
+            "title": "Di nuovo insieme dopo un ciclo",
+            "setting": "La fila della pagina, lasciata andare a 15°; l'orologio a 60 s, un ciclo intero.",
+            "reads": "Nel ciclo ogni pendolo ha alle spalle un numero intero di oscillazioni ed è di nuovo dove è stato lasciato andare.",
+            "why": "Verifica l'orologio della pagina su un minuto intero: tutti e quindici sono di nuovo a 15°, nessuno scostato di più di 10⁻¹²°. La pagina calcola ogni istante direttamente, senza passi; per questo il sessantesimo secondo è esatto quanto il primo."
+          },
+          "third": {
+            "title": "Dopo un terzo del ciclo",
+            "setting": "La fila della pagina, lasciata andare a 15°; l'orologio a 20 s, un terzo del ciclo. Letto sul secondo pendolo, che nel ciclo oscilla 52 volte.",
+            "reads": "Il secondo pendolo ha alle spalle 17⅓ oscillazioni. La soluzione esatta dell'equazione del pendolo, con la funzione sn di Jacobi, dice dove si trova un terzo di oscillazione dopo il rilascio.",
+            "why": "Verifica la forma dell'oscillazione tra i punti di inversione, non solo la sua durata: −7,50807°, un po' più in fuori della metà di 15° che darebbe una cosinusoide. Qui sn è cercata a partire dal suo integrale, non con la media aritmetico-geometrica usata dal motore di calcolo.",
+            "step": "La prima fonte dà la soluzione in un tempo misurato in unità di √(L/g); lì un'oscillazione dura 4K. Dopo 17⅓ oscillazioni l'argomento è 17⅓·4K + K = 35·2K + K/3, quindi secondo la seconda fonte sn = −sin φ con F(φ) = K/3; la terza dà F come integrale."
+          },
+          "textbook_skew": {
+            "title": "Accordati con la formula dei libri",
+            "setting": "Quindici pendoli, 60 s, il più lungo 51 volte, accordati per 0° con la formula dei libri, ma lasciati andare a 15°.",
+            "reads": "A 15° ogni oscillazione dura di più, di un fattore 2K/π. L'n-esimo pendolo compie nel ciclo solo (N + n)·π/(2K) oscillazioni; il più corto, che ne fa di più, resta più indietro di tutti.",
+            "why": "Verifica lo sfasamento che la pagina mostra come trucco: la fila torna storta di 21,5821°, tanto è il ritardo del pendolo più corto rispetto al più lungo, in gradi di un'oscillazione.",
+            "step": "La prima fonte dà l'accordatura, la seconda il periodo a 15°, la terza K. Nel ciclo all'n-esimo pendolo mancano (N + n)(1 − π/(2K)) oscillazioni di 360° ciascuna; il più corto fa c − 1 = 14 oscillazioni più del più lungo."
           }
         }
       },

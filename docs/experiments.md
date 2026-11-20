@@ -2375,6 +2375,14 @@ case's sentence that any radius and brake with the same σ and ρ give the same
 rate. Its `volume` case is about a box of states, not the one wheel: "Set it
 up" sets the tap and the brake, and the box is the case's own.
 
+**The pendulum wave's** five (2026-11-20) hold the textbook lengths and the
+lengths tuned for 15° (the complete elliptic integral K, from the DLMF), the
+row together again after one cycle, the exact swing at a third of the cycle
+(Jacobi's sn, found in the case from its integral, in the engine by the
+arithmetic-geometric mean), and how far a textbook row comes back skewed.
+"Set it up" sets the row and, for the two read at a moment, stops the clock
+there.
+
 **On the page** a section "Check it yourself" (`check-section.tsx`) lists the
 cases, each with its formula as an `Equation` (`check-formulas.ts`), both
 values to seven digits, the deviation, why the case would catch a mistake,

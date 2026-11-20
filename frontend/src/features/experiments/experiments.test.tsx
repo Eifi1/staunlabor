@@ -87,7 +87,7 @@ const cannon = fixtures.cannon as unknown as CannonFigures;
 const wave = fixtures.wave as unknown as WaveFigures;
 
 /** No exhibit checked yet: what the server answers until an admin checks one. */
-const UNCHECKED = { with_cases: ["chair", "coil", "cradle", "sphere", "waterwheel"], checked: [] };
+const UNCHECKED = { with_cases: ["chair", "coil", "cradle", "sphere", "waterwheel", "wave"], checked: [] };
 
 beforeEach(() => {
   useTried.getState().forget();
@@ -923,6 +923,37 @@ describe("the pendulum wave", () => {
     renderWithProviders(<WavePage />);
     expect(await screen.findByText(/come back 22° skewed at 15°/)).toBeInTheDocument();
   });
+
+  it("pulls the whole row aside by any ball, holding it there, and lets it go when let go", async () => {
+    renderWithProviders(<WavePage />);
+    const side = await screen.findByRole("img", { name: E.wave.views.side });
+    const [x0, y0, w, h] = side.getAttribute("viewBox")!.split(" ").map(Number);
+    // A pixel to the drawing's unit times a thousand, its top left at the box's.
+    vi.spyOn(side, "getBoundingClientRect").mockReturnValue({
+      left: 0,
+      top: 0,
+      width: w * 1000,
+      height: h * 1000,
+      right: w * 1000,
+      bottom: h * 1000,
+      x: 0,
+      y: 0,
+      toJSON: () => ({}),
+    });
+    const bobs = side.querySelectorAll("circle.cursor-grab");
+    expect(bobs.length).toBeGreaterThan(1);
+    // 30° out from the bar, at a third of the drawing's depth.
+    const depth = (h + y0) / 3;
+    const across = depth * Math.tan(Math.PI / 6);
+    fireEvent.pointerDown(bobs[bobs.length - 1], { pointerId: 1, clientX: -x0 * 1000, clientY: -y0 * 1000 });
+    fireEvent.pointerMove(side, { pointerId: 1, clientX: (across - x0) * 1000, clientY: (depth - y0) * 1000 });
+    const swing = () => screen.getByRole("slider", { name: E.wave.play.amplitude }).getAttribute("aria-valuetext");
+    expect(swing()).toMatch(/^30\b/);
+    expect(screen.getByRole("button", { name: E.wave.play.run })).toBeInTheDocument();
+    fireEvent.pointerUp(side, { pointerId: 1 });
+    expect(await screen.findByRole("button", { name: E.wave.play.pause })).toBeInTheDocument();
+    expect(swing()).toMatch(/^30\b/);
+  });
 });
 
 describe("the harmonograph", () => {
@@ -1494,6 +1525,14 @@ describe("setting a check case up", () => {
       ),
     );
     expect(await screen.findByText(E.waterwheel.play.regime_steady)).toBeInTheDocument();
+  });
+
+  it("stops the wave's clock at a third of its cycle, where its third case reads the row", async () => {
+    renderWithProviders(<WavePage />);
+    await screen.findByRole("img", { name: E.wave.views.top });
+    await setUp(3);
+    expect(await screen.findByRole("button", { name: E.wave.play.run })).toBeInTheDocument();
+    expect(screen.getByText(/^20\.0/)).toBeInTheDocument();
   });
 
   it("puts a 15 kg car on the coil's track for the brake, without rolling resistance", async () => {

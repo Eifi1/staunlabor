@@ -1231,6 +1231,7 @@
         },
         "amplitude": "Amplitude au lâcher",
         "amplitude_hint": "Les longueurs sont accordées pour {{tuned}}°. Lâchés plus ou moins loin, les pendules ne se retrouvent plus tout à fait après un cycle.",
+        "pull_hint": "Ou prenez une boule dans la vue depuis l'extrémité de la rangée avec la souris ou le doigt, et tirez toute la rangée de côté. En lâchant, toutes se mettent à osciller.",
         "time": "Temps",
         "cycles": "Cycles",
         "spread": "Décalage après un cycle"
@@ -3446,7 +3447,17 @@
         "wheel_rate": "la rotation de la roue",
         "wheel_inflow": "le débit qui arrive en haut",
         "wheel_nu": "le frein de l’axe",
-        "wheel_radius": "le rayon de la roue"
+        "wheel_radius": "le rayon de la roue",
+        "length": "longueur du pendule, du point de suspension au centre de la boule",
+        "cycle": "le cycle : le temps jusqu’à ce que tous oscillent de nouveau à l’unisson",
+        "swings": "oscillations du pendule le plus long pendant le cycle",
+        "index": "le numéro du pendule, compté depuis le plus long : 0, 1, 2, …",
+        "T0": "période de la plus petite oscillation",
+        "theta_n": "angle du n-ième pendule",
+        "sn": "la fonction elliptique sn de Jacobi",
+        "omega0": "pulsation de la plus petite oscillation, √(g/L)",
+        "skew": "décalage après un cycle, en degrés d’oscillation",
+        "count": "nombre de pendules"
       },
       "cases": {
         "sphere": {
@@ -3653,6 +3664,41 @@
             "reads": "La répartition de l’eau tourne avec la roue, l’eau arrive en haut et fuit partout ; la pesanteur fait tourner la roue, l’axe freine. Calculé ici en secondes, pour une roue de 0,5 m de rayon et un frein de 1 N·m·s.",
             "why": "Vérifie que les équations de Lorenz avec b = 1 sont bien la roue, conversion en tours comprise : 19,04 tr/min après 12 s. Tout autre rayon et tout autre frein ayant les mêmes σ et ρ donnent le même nombre.",
             "step": "La source écrit le frein κ + Q_tot·R² et la pesanteur sur la roue inclinée g·sin α ; ici, ils s’appellent ν et g. L’inertie et le débit découlent de σ = ν/(K·I) et ρ = π·g·r·q/(ν·K²)."
+          }
+        },
+        "wave": {
+          "textbook_lengths": {
+            "title": "Les longueurs selon la formule des manuels",
+            "setting": "Quinze pendules, cycle de 60 s, le plus long y oscillant 51 fois ; accordés pour 0°, c’est-à-dire avec la formule des petites oscillations.",
+            "reads": "Un pendule qui oscille exactement N + n fois pendant le cycle Γ a la période Γ/(N + n) ; T = 2π√(L/g) en donne la longueur.",
+            "why": "Vérifie l’accord de la rangée : le pendule le plus court oscille 65 fois en 60 s et mesure 21,1659 cm. Un numéro mal compté ou un autre g se verrait ici."
+          },
+          "tuned_lengths": {
+            "title": "Accordés pour 15°",
+            "setting": "La rangée de la page : quinze pendules, 60 s, le plus long 51 fois, accordés pour 15°.",
+            "reads": "Une oscillation de 15° dure plus longtemps qu’une petite, d’un facteur 2K/π. Pour qu’elle dure malgré tout Γ/(N + n), le pendule est plus court du carré de ce facteur.",
+            "why": "Vérifie que la page accorde avec la période exacte et non avec la formule des manuels : le pendule le plus long mesure 34,0875 cm. K est ici sommée comme une intégrale, et non par la moyenne arithmético-géométrique qu’utilise le moteur de calcul.",
+            "step": "La première source donne la longueur à partir de la période des petites oscillations, la deuxième la période pour toute amplitude : 4K, en unités de √(L/g) ; la troisième définit K comme une intégrale. Comme période des petites oscillations, il faut donc y mettre Γ/(N + n)·π/(2K)."
+          },
+          "together": {
+            "title": "De nouveau ensemble après un cycle",
+            "setting": "La rangée de la page, lâchée à 15° ; l’horloge sur 60 s, un cycle entier.",
+            "reads": "Pendant le cycle, chaque pendule a un nombre entier d’oscillations derrière lui et se retrouve là où il a été lâché.",
+            "why": "Vérifie l’horloge de la page sur une minute entière : les quinze sont de nouveau à 15°, aucun à plus de 10⁻¹²° à côté. La page calcule chaque instant directement, sans pas ; c’est pourquoi la soixantième seconde est aussi exacte que la première."
+          },
+          "third": {
+            "title": "Après un tiers du cycle",
+            "setting": "La rangée de la page, lâchée à 15° ; l’horloge sur 20 s, un tiers du cycle. Relevé sur le deuxième pendule, qui oscille 52 fois pendant le cycle.",
+            "reads": "Le deuxième pendule a 17⅓ oscillations derrière lui. La solution exacte de l’équation du pendule, avec la fonction sn de Jacobi, dit où il se trouve un tiers d’oscillation après le lâcher.",
+            "why": "Vérifie la forme de l’oscillation entre les points de retour, pas seulement sa durée : −7,50807°, un peu plus à l’extérieur que la moitié de 15° que donnerait une courbe en cosinus. sn est ici cherchée à partir de son intégrale, et non par la moyenne arithmético-géométrique qu’utilise le moteur de calcul.",
+            "step": "La première source donne la solution dans un temps mesuré en unités de √(L/g) ; une oscillation y dure 4K. Après 17⅓ oscillations, l’argument vaut 17⅓·4K + K = 35·2K + K/3, donc, d’après la deuxième source, sn = −sin φ avec F(φ) = K/3 ; la troisième donne F comme une intégrale."
+          },
+          "textbook_skew": {
+            "title": "Accordés avec la formule des manuels",
+            "setting": "Quinze pendules, 60 s, le plus long 51 fois, accordés pour 0° avec la formule des manuels, mais lâchés à 15°.",
+            "reads": "À 15°, chaque oscillation dure plus longtemps d’un facteur 2K/π. Le n-ième pendule n’accomplit que (N + n)·π/(2K) oscillations pendant le cycle ; le plus court, qui en fait le plus, prend le plus de retard.",
+            "why": "Vérifie le décalage que la page montre comme truc : la rangée revient de travers de 21,5821° ; c’est le retard du pendule le plus court sur le plus long, en degrés d’oscillation.",
+            "step": "La première source donne l’accord, la deuxième la période à 15°, la troisième K. Pendant le cycle, il manque au n-ième pendule (N + n)(1 − π/(2K)) oscillations de 360° chacune ; le plus court fait c − 1 = 14 oscillations de plus que le plus long."
           }
         }
       },

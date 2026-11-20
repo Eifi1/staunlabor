@@ -1231,6 +1231,7 @@
         },
         "amplitude": "Swing when let go",
         "amplitude_hint": "The lengths are tuned for {{tuned}}°. Let go wider or narrower, the pendulums no longer quite meet again after a cycle.",
+        "pull_hint": "Or take a ball in the view from the end of the row with the mouse or a finger and pull the whole row aside. Letting go sets them all swinging.",
         "time": "Time",
         "cycles": "Cycles",
         "spread": "Skew after one cycle"
@@ -3446,7 +3447,17 @@
         "wheel_rate": "the wheel's rate",
         "wheel_inflow": "inflow at the top",
         "wheel_nu": "the axle's brake",
-        "wheel_radius": "the wheel's radius"
+        "wheel_radius": "the wheel's radius",
+        "length": "length of the pendulum, from the pivot to the middle of the bob",
+        "cycle": "the cycle: the time until all swing in step again",
+        "swings": "swings of the longest pendulum in the cycle",
+        "index": "the pendulum's number, counted from the longest: 0, 1, 2, …",
+        "T0": "period of the smallest swing",
+        "theta_n": "angle of the n-th pendulum",
+        "sn": "Jacobi's elliptic function sn",
+        "omega0": "angular frequency of the smallest swing, √(g/L)",
+        "skew": "skew after a cycle, in degrees of a swing",
+        "count": "number of pendulums"
       },
       "cases": {
         "sphere": {
@@ -3653,6 +3664,41 @@
             "reads": "The water's spread turns with the wheel, water flows in at the top and leaks out everywhere; gravity turns the wheel, the axle brakes. Computed here in seconds, for a wheel of 0.5 m radius and a brake of 1 N·m·s.",
             "why": "Checks that Lorenz's equations with b = 1 are the wheel, turning into rpm included: 19.04 rpm after 12 s. Any other radius and brake with the same σ and ρ give the same number.",
             "step": "The source writes the brake as κ + Q_tot·R² and gravity on the tilted wheel as g·sin α; here they are ν and g. Inertia and inflow follow from σ = ν/(K·I) and ρ = π·g·r·q/(ν·K²)."
+          }
+        },
+        "wave": {
+          "textbook_lengths": {
+            "title": "The lengths by the textbook's formula",
+            "setting": "Fifteen pendulums, a cycle of 60 s, the longest swinging 51 times in it; tuned for 0°, that is, by the formula for small swings.",
+            "reads": "A pendulum that swings exactly N + n times in the cycle Γ has the period Γ/(N + n); T = 2π√(L/g) gives its length.",
+            "why": "Checks how the row is tuned: the shortest pendulum swings 65 times in 60 s and is 21.1659 cm long. A miscounted number or another g would show here."
+          },
+          "tuned_lengths": {
+            "title": "Tuned for 15°",
+            "setting": "The page's row: fifteen pendulums, 60 s, the longest 51 times, tuned for 15°.",
+            "reads": "A swing of 15° takes longer than a small one by the factor 2K/π. For it to take Γ/(N + n) all the same, the pendulum is shorter by the square of that factor.",
+            "why": "Checks that the page tunes by the exact period, not by the textbook's formula: the longest pendulum is 34.0875 cm long. K is summed here as an integral, not by the arithmetic-geometric mean as in the engine.",
+            "step": "The first source gives the length from the small swing's period, the second the period of any swing: 4K, in units of √(L/g); the third defines K as an integral. So the small swing's period to put in is Γ/(N + n)·π/(2K)."
+          },
+          "together": {
+            "title": "Together again after a cycle",
+            "setting": "The page's row, let go at 15°; the clock at 60 s, one whole cycle.",
+            "reads": "In the cycle every pendulum has made a whole number of swings and stands where it was let go.",
+            "why": "Checks the page's clock over a whole minute: all fifteen stand at 15° again, none more than 10⁻¹²° off. The page computes each instant directly, without steps, so the sixtieth second is as exact as the first."
+          },
+          "third": {
+            "title": "A third of the way through the cycle",
+            "setting": "The page's row, let go at 15°; the clock at 20 s, a third of the cycle. Read at the second pendulum, which swings 52 times in the cycle.",
+            "reads": "The second pendulum has made 17⅓ swings. The exact solution of the pendulum's equation, with Jacobi's function sn, says where it stands a third of a swing after its release.",
+            "why": "Checks the shape of the swing between its turning points, not only how long it takes: −7.50807°, a little farther out than the half of 15° a cosine would give. sn is found here from its integral, not by the arithmetic-geometric mean as in the engine.",
+            "step": "The first source gives the solution in a time measured in units of √(L/g), in which a swing takes 4K. After 17⅓ swings the argument is 17⅓·4K + K = 35·2K + K/3, so by the second source sn = −sin φ with F(φ) = K/3; the third gives F as an integral."
+          },
+          "textbook_skew": {
+            "title": "Tuned by the textbook's formula",
+            "setting": "Fifteen pendulums, 60 s, the longest 51 times, tuned for 0° by the textbook's formula, but let go at 15°.",
+            "reads": "At 15° every swing takes longer by the factor 2K/π. The n-th pendulum manages only (N + n)·π/(2K) swings in the cycle; the shortest, with the most, falls behind the farthest.",
+            "why": "Checks the skew the page shows as its trick: the row comes back 21.5821° askew, the shortest pendulum that far behind the longest, in degrees of a swing.",
+            "step": "The first source gives the tuning, the second the period at 15°, the third K. In the cycle the n-th pendulum falls (N + n)(1 − π/(2K)) swings of 360° short; the shortest has c − 1 = 14 swings more than the longest."
           }
         }
       },

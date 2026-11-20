@@ -772,5 +772,164 @@
     }
    ]
   }
+ ],
+ "wave": [
+  {
+   "key": "textbook_lengths",
+   "unit": "cm",
+   "expected": 21.1658993375,
+   "measured": 21.1658993375,
+   "deviation": 0.0,
+   "tolerance": 1e-12,
+   "derived": false,
+   "setting": {
+    "count": 15,
+    "cycle_s": 60.0,
+    "longest_swings": 51,
+    "tuned_deg": 0.0,
+    "amplitude_deg": 15.0
+   },
+   "sources": [
+    {
+     "cite": "Wikipedia, “Pendulum wave”, §Design (the period after Halliday, Resnick, Walker, Fundamentals of Physics, 5th ed., p. 381)",
+     "url": "https://en.wikipedia.org/wiki/Pendulum_wave",
+     "quote": "For small perturbations, the period of a pendulum is given by T = 2π√(L/g) … As t/n is the period of a pendulum completing n oscillations in t, t/n = 2π√(L/g) ∴ L = g(t/(2πn))²"
+    },
+    {
+     "cite": "Wikipedia, “Pendulum wave”, §Design (citing Harvard Natural Sciences Lecture Demonstrations, “Pendulum Waves”)",
+     "url": "https://en.wikipedia.org/wiki/Pendulum_wave",
+     "quote": "in a given time t, the first pendulum completes n oscillations, and each subsequent one completes one more oscillation than the previous. As all pendulums are started together, their relative phases change continuously, but after time t, they come back in sync and the sequence repeats."
+    }
+   ]
+  },
+  {
+   "key": "tuned_lengths",
+   "unit": "cm",
+   "expected": 34.0875400444,
+   "measured": 34.0875400444,
+   "deviation": 0.0,
+   "tolerance": 1e-12,
+   "derived": true,
+   "setting": {
+    "count": 15,
+    "cycle_s": 60.0,
+    "longest_swings": 51,
+    "tuned_deg": 15.0,
+    "amplitude_deg": 15.0
+   },
+   "sources": [
+    {
+     "cite": "Wikipedia, “Pendulum wave”, §Design (the period after Halliday, Resnick, Walker, Fundamentals of Physics, 5th ed., p. 381)",
+     "url": "https://en.wikipedia.org/wiki/Pendulum_wave",
+     "quote": "For small perturbations, the period of a pendulum is given by T = 2π√(L/g) … As t/n is the period of a pendulum completing n oscillations in t, t/n = 2π√(L/g) ∴ L = g(t/(2πn))²"
+    },
+    {
+     "cite": "NIST Digital Library of Mathematical Functions, §22.19(i), after Eq. 22.19.2",
+     "url": "https://dlmf.nist.gov/22.19",
+     "quote": "The period is 4K(sin(½α))"
+    },
+    {
+     "cite": "NIST Digital Library of Mathematical Functions, §19.2(ii), Eqs. 19.2.4 and 19.2.8",
+     "url": "https://dlmf.nist.gov/19.2",
+     "quote": "F(φ,k) = ∫₀^φ dθ/√(1 − k² sin²θ) … K(k) = F(π/2,k)"
+    }
+   ]
+  },
+  {
+   "key": "together",
+   "unit": "°",
+   "expected": 0.0,
+   "measured": 1.7763568394e-15,
+   "deviation": 1.7763568394e-15,
+   "tolerance": 1e-12,
+   "derived": false,
+   "setting": {
+    "count": 15,
+    "cycle_s": 60.0,
+    "longest_swings": 51,
+    "tuned_deg": 15.0,
+    "amplitude_deg": 15.0,
+    "time_s": 60.0
+   },
+   "sources": [
+    {
+     "cite": "Wikipedia, “Pendulum wave”, §Design (citing Harvard Natural Sciences Lecture Demonstrations, “Pendulum Waves”)",
+     "url": "https://en.wikipedia.org/wiki/Pendulum_wave",
+     "quote": "in a given time t, the first pendulum completes n oscillations, and each subsequent one completes one more oscillation than the previous. As all pendulums are started together, their relative phases change continuously, but after time t, they come back in sync and the sequence repeats."
+    },
+    {
+     "cite": "NIST Digital Library of Mathematical Functions, §22.19(i), after Eq. 22.19.2",
+     "url": "https://dlmf.nist.gov/22.19",
+     "quote": "The period is 4K(sin(½α))"
+    }
+   ]
+  },
+  {
+   "key": "third",
+   "unit": "°",
+   "expected": -7.50806647494,
+   "measured": -7.50806647494,
+   "deviation": 3.47791879924e-13,
+   "tolerance": 1e-11,
+   "derived": true,
+   "setting": {
+    "count": 15,
+    "cycle_s": 60.0,
+    "longest_swings": 51,
+    "tuned_deg": 15.0,
+    "amplitude_deg": 15.0,
+    "time_s": 20.0
+   },
+   "sources": [
+    {
+     "cite": "NIST Digital Library of Mathematical Functions, §22.19(i), Eqs. 22.19.1 and 22.19.2",
+     "url": "https://dlmf.nist.gov/22.19",
+     "quote": "d²θ(t)/dt² = −sin θ(t) … sin(½θ(t)) = sin(½α) sn(t + K, sin(½α)) … for an initial angular displacement α, with dθ/dt = 0 at time 0"
+    },
+    {
+     "cite": "NIST Digital Library of Mathematical Functions, §22.16(i), Eqs. 22.16.2 and 22.16.10–22.16.12",
+     "url": "https://dlmf.nist.gov/22.16",
+     "quote": "am(x + 2K,k) = am(x,k) + π … If −K ≤ x ≤ K, then the following four equations are equivalent: x = F(φ,k), am(x,k) = φ, sn(x,k) = sin φ = sin(am(x,k))"
+    },
+    {
+     "cite": "NIST Digital Library of Mathematical Functions, §19.2(ii), Eqs. 19.2.4 and 19.2.8",
+     "url": "https://dlmf.nist.gov/19.2",
+     "quote": "F(φ,k) = ∫₀^φ dθ/√(1 − k² sin²θ) … K(k) = F(π/2,k)"
+    }
+   ]
+  },
+  {
+   "key": "textbook_skew",
+   "unit": "°",
+   "expected": 21.5821034895,
+   "measured": 21.5821034895,
+   "deviation": 5.18533705191e-14,
+   "tolerance": 1e-11,
+   "derived": true,
+   "setting": {
+    "count": 15,
+    "cycle_s": 60.0,
+    "longest_swings": 51,
+    "tuned_deg": 0.0,
+    "amplitude_deg": 15.0
+   },
+   "sources": [
+    {
+     "cite": "Wikipedia, “Pendulum wave”, §Design (citing Harvard Natural Sciences Lecture Demonstrations, “Pendulum Waves”)",
+     "url": "https://en.wikipedia.org/wiki/Pendulum_wave",
+     "quote": "in a given time t, the first pendulum completes n oscillations, and each subsequent one completes one more oscillation than the previous. As all pendulums are started together, their relative phases change continuously, but after time t, they come back in sync and the sequence repeats."
+    },
+    {
+     "cite": "NIST Digital Library of Mathematical Functions, §22.19(i), after Eq. 22.19.2",
+     "url": "https://dlmf.nist.gov/22.19",
+     "quote": "The period is 4K(sin(½α))"
+    },
+    {
+     "cite": "NIST Digital Library of Mathematical Functions, §19.2(ii), Eqs. 19.2.4 and 19.2.8",
+     "url": "https://dlmf.nist.gov/19.2",
+     "quote": "F(φ,k) = ∫₀^φ dθ/√(1 − k² sin²θ) … K(k) = F(π/2,k)"
+    }
+   ]
+  }
  ]
 }

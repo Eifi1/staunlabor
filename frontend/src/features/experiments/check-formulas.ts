@@ -36,6 +36,11 @@ const WHEEL_K: CheckSymbol = { tex: "K", key: "wheel_leak", unit: "1/s" };
 const WHEEL_SIGMA: CheckSymbol = { tex: String.raw`\sigma`, key: "wheel_sigma" };
 const WHEEL_RHO: CheckSymbol = { tex: String.raw`\rho`, key: "wheel_rho" };
 const WHEEL_B: CheckSymbol = { tex: "b", key: "wheel_b" };
+const L_PENDULUM: CheckSymbol = { tex: "L", key: "length", unit: "m" };
+const CYCLE: CheckSymbol = { tex: String.raw`\Gamma`, key: "cycle", unit: "s" };
+const SWINGS: CheckSymbol = { tex: "N", key: "swings" };
+const INDEX: CheckSymbol = { tex: "n", key: "index" };
+const K_INTEGRAL: CheckSymbol = { tex: "K", key: "K" };
 
 export const CHECK_FORMULAS: Record<string, Record<string, CheckFormula>> = {
   sphere: {
@@ -272,6 +277,47 @@ export const CHECK_FORMULAS: Record<string, Record<string, CheckFormula>> = {
         G,
         { tex: "r", key: "wheel_radius", unit: "m" },
       ],
+    },
+  },
+  wave: {
+    textbook_lengths: {
+      tex: String.raw`L = g\left(\frac{\Gamma}{2\pi\,(N + n)}\right)^2`,
+      symbols: [L_PENDULUM, G, CYCLE, SWINGS, INDEX],
+    },
+    tuned_lengths: {
+      tex: String.raw`L = g\left(\frac{T_0}{2\pi}\right)^2, \qquad T_0 = \frac{\Gamma}{N + n}\cdot\frac{\pi}{2K\!\left(\sin\frac{\theta_0}{2}\right)}, \qquad K(k) = \int_0^{\pi/2} \frac{d\varphi}{\sqrt{1 - k^2 \sin^2\varphi}}`,
+      symbols: [L_PENDULUM, G, { tex: "T_0", key: "T0", unit: "s" }, CYCLE, SWINGS, INDEX, K_INTEGRAL, THETA0],
+    },
+    together: {
+      tex: String.raw`\theta_n(\Gamma) = \theta_0, \qquad \Gamma = (N + n)\cdot 4K\!\left(\sin\frac{\theta_0}{2}\right)\sqrt{\frac{L}{g}}`,
+      symbols: [
+        { tex: String.raw`\theta_n`, key: "theta_n", unit: "°" },
+        CYCLE,
+        THETA0,
+        SWINGS,
+        INDEX,
+        K_INTEGRAL,
+        L_PENDULUM,
+        G,
+      ],
+    },
+    third: {
+      tex: String.raw`\sin\frac{\theta}{2} = \sin\frac{\theta_0}{2}\;\mathrm{sn}\!\left(\omega_0 t + K,\ \sin\frac{\theta_0}{2}\right), \qquad \omega_0 t = (N + n)\,\frac{4K}{3} \ \text{at}\ t = \frac{\Gamma}{3}`,
+      symbols: [
+        THETA,
+        THETA0,
+        { tex: String.raw`\mathrm{sn}`, key: "sn" },
+        { tex: String.raw`\omega_0`, key: "omega0", unit: "1/s" },
+        { tex: "t", key: "t", unit: "s" },
+        K_INTEGRAL,
+        SWINGS,
+        INDEX,
+        CYCLE,
+      ],
+    },
+    textbook_skew: {
+      tex: String.raw`\Delta = 360^\circ\cdot(c - 1)\left(1 - \frac{\pi}{2K\!\left(\sin\frac{\theta_0}{2}\right)}\right)`,
+      symbols: [{ tex: String.raw`\Delta`, key: "skew", unit: "°" }, { tex: "c", key: "count" }, K_INTEGRAL, THETA0],
     },
   },
 };

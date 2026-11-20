@@ -138,7 +138,10 @@ function WheelView({
 }) {
   const { t } = useTranslation();
   const hex = useChartHex();
+  // Which control the pointer holds: a ref for the handlers, which a move can
+  // reach before React has drawn the hold; the state for the cursor.
   const [grip, setGrip] = useState<Grip | null>(null);
+  const gripped = useRef<Grip | null>(null);
   const last = useRef<{ rho: number; sigma: number } | null>(null);
   // The pointer in the drawing's units. The view box is not the box's shape,
   // so the browser's own matrix maps it; a page without one (a test) has the
@@ -169,7 +172,8 @@ function WheelView({
     onDraft?.(next);
   };
   const release = () => {
-    if (grip === null) return;
+    if (gripped.current === null) return;
+    gripped.current = null;
     setGrip(null);
     if (last.current) onCommit?.(last.current);
   };
@@ -177,6 +181,7 @@ function WheelView({
     const svg = e.currentTarget.ownerSVGElement;
     if (!onDraft || !svg) return;
     svg.setPointerCapture?.(e.pointerId);
+    gripped.current = which;
     setGrip(which);
     turn(svg, e.clientX, e.clientY, which);
   };
@@ -196,7 +201,7 @@ function WheelView({
       aria-label={t("experiments.waterwheel.views.wheel")}
       className={`aspect-square w-full rounded-lg border border-subtle bg-surface-2 text-muted ${onDraft ? "select-none" : ""} ${grip ? "cursor-grabbing" : ""}`}
       onPointerMove={(e: PointerEvent<SVGSVGElement>) => {
-        if (grip) turn(e.currentTarget, e.clientX, e.clientY, grip);
+        if (gripped.current) turn(e.currentTarget, e.clientX, e.clientY, gripped.current);
       }}
       onPointerUp={release}
       onPointerCancel={release}

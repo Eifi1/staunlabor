@@ -131,7 +131,10 @@ function CradleView({
   const { t } = useTranslation();
   const hex = useChartHex();
   // How many balls the pointer holds lifted, while it does.
+  // A ref for the handlers, which a move can reach before React has drawn the
+  // hold; the state for the cursor.
   const [held, setHeld] = useState<number | null>(null);
+  const holding = useRef<number | null>(null);
   const last = useRef<Pull | null>(null);
   // Millimetres, so the drawing's numbers stay near one.
   const d = cr.diameter_m * 1000;
@@ -160,7 +163,8 @@ function CradleView({
     onPull?.(next);
   };
   const release = () => {
-    if (held === null) return;
+    if (holding.current === null) return;
+    holding.current = null;
     setHeld(null);
     if (last.current) onLetGo?.(last.current);
   };
@@ -171,7 +175,7 @@ function CradleView({
       aria-label={t("experiments.cradle.view")}
       className={`w-full rounded-lg border border-subtle bg-surface-2 text-muted ${onPull ? "select-none" : ""} ${held !== null ? "cursor-grabbing" : ""}`}
       onPointerMove={(e: PointerEvent<SVGSVGElement>) => {
-        if (held !== null) follow(e.currentTarget, e.clientX, e.clientY, held);
+        if (holding.current !== null) follow(e.currentTarget, e.clientX, e.clientY, holding.current);
       }}
       onPointerUp={release}
       onPointerCancel={release}
@@ -206,6 +210,7 @@ function CradleView({
                 const svg = e.currentTarget.ownerSVGElement;
                 if (!onPull || i >= cr.count - 1 || !svg) return;
                 svg.setPointerCapture?.(e.pointerId);
+                holding.current = i + 1;
                 setHeld(i + 1);
                 follow(svg, e.clientX, e.clientY, i + 1);
               }}

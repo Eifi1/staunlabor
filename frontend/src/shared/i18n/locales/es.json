@@ -1231,6 +1231,7 @@
         },
         "amplitude": "Amplitud al soltar",
         "amplitude_hint": "Las longitudes están afinadas para {{tuned}}°. Si se sueltan más o menos lejos, los péndulos ya no vuelven a coincidir del todo tras un ciclo.",
+        "pull_hint": "O tome una bola en la vista desde el extremo de la fila con el ratón o con el dedo y aparte toda la fila. Al soltar, todas empiezan a oscilar.",
         "time": "Tiempo",
         "cycles": "Ciclos",
         "spread": "Desfase tras un ciclo"
@@ -3446,7 +3447,17 @@
         "wheel_rate": "el giro de la rueda",
         "wheel_inflow": "el caudal que entra por arriba",
         "wheel_nu": "el freno del eje",
-        "wheel_radius": "el radio de la rueda"
+        "wheel_radius": "el radio de la rueda",
+        "length": "longitud del péndulo, del punto de suspensión al centro de la bola",
+        "cycle": "el ciclo: el tiempo hasta que todos vuelven a oscilar al unísono",
+        "swings": "oscilaciones del péndulo más largo en el ciclo",
+        "index": "el número del péndulo, contado desde el más largo: 0, 1, 2, …",
+        "T0": "periodo de la oscilación más pequeña",
+        "theta_n": "ángulo del n-ésimo péndulo",
+        "sn": "la función elíptica sn de Jacobi",
+        "omega0": "frecuencia angular de la oscilación más pequeña, √(g/L)",
+        "skew": "desfase tras un ciclo, en grados de una oscilación",
+        "count": "número de péndulos"
       },
       "cases": {
         "sphere": {
@@ -3653,6 +3664,41 @@
             "reads": "El reparto del agua gira con la rueda, el agua entra arriba y se escapa por todas partes; la gravedad hace girar la rueda y el eje frena. Aquí calculado en segundos, para una rueda de 0,5 m de radio y un freno de 1 N·m·s.",
             "why": "Comprueba que las ecuaciones de Lorenz con b = 1 son la rueda, incluida la conversión a vueltas: 19,04 rpm tras 12 s. Cualquier otro radio y cualquier otro freno con los mismos σ y ρ dan el mismo número.",
             "step": "La fuente escribe el freno como κ + Q_tot·R² y la gravedad en la rueda inclinada como g·sin α; aquí se llaman ν y g. La inercia y el caudal se deducen de σ = ν/(K·I) y ρ = π·g·r·q/(ν·K²)."
+          }
+        },
+        "wave": {
+          "textbook_lengths": {
+            "title": "Las longitudes según la fórmula de los libros",
+            "setting": "Quince péndulos, ciclo de 60 s, el más largo oscila 51 veces en él; afinados para 0°, es decir, con la fórmula para oscilaciones pequeñas.",
+            "reads": "Un péndulo que oscila exactamente N + n veces en el ciclo Γ tiene el periodo Γ/(N + n); de T = 2π√(L/g) se obtiene su longitud.",
+            "why": "Comprueba la afinación de la fila: el péndulo más corto oscila 65 veces en 60 s y mide 21,1659 cm. Un número mal contado u otra g se notaría aquí."
+          },
+          "tuned_lengths": {
+            "title": "Afinados para 15°",
+            "setting": "La fila de la página: quince péndulos, 60 s, el más largo 51 veces, afinados para 15°.",
+            "reads": "Una oscilación de 15° dura más que una pequeña, en el factor 2K/π. Para que aun así dure Γ/(N + n), el péndulo es más corto en el cuadrado de ese factor.",
+            "why": "Comprueba que la página afina con el periodo exacto y no con la fórmula de los libros: el péndulo más largo mide 34,0875 cm. Aquí K se suma como integral, no mediante la media aritmético-geométrica que usa el motor de cálculo.",
+            "step": "La primera fuente da la longitud a partir del periodo de las oscilaciones pequeñas; la segunda, el periodo para cualquier amplitud: 4K, en unidades de √(L/g); la tercera define K como integral. Por eso, como periodo de las oscilaciones pequeñas hay que introducir Γ/(N + n)·π/(2K)."
+          },
+          "together": {
+            "title": "Juntos de nuevo tras un ciclo",
+            "setting": "La fila de la página, soltada a 15°; el reloj en 60 s, un ciclo entero.",
+            "reads": "En el ciclo, cada péndulo lleva un número entero de oscilaciones y vuelve a estar donde se soltó.",
+            "why": "Comprueba el reloj de la página durante un minuto entero: los quince vuelven a estar a 15°, ninguno a más de 10⁻¹²° de distancia. La página calcula cada instante directamente, sin pasos; por eso el segundo sesenta es tan exacto como el primero."
+          },
+          "third": {
+            "title": "Tras un tercio del ciclo",
+            "setting": "La fila de la página, soltada a 15°; el reloj en 20 s, un tercio del ciclo. Leído en el segundo péndulo, que oscila 52 veces en el ciclo.",
+            "reads": "El segundo péndulo lleva 17⅓ oscilaciones. La solución exacta de la ecuación del péndulo, con la función sn de Jacobi, dice dónde está un tercio de oscilación después de soltarlo.",
+            "why": "Comprueba la forma de la oscilación entre los puntos de retorno, no solo su duración: −7,50807°, algo más afuera que la mitad de 15° que daría una curva coseno. Aquí sn se busca a partir de su integral, no mediante la media aritmético-geométrica que usa el motor de cálculo.",
+            "step": "La primera fuente da la solución en un tiempo medido en unidades de √(L/g); allí una oscilación dura 4K. Tras 17⅓ oscilaciones el argumento es 17⅓·4K + K = 35·2K + K/3; según la segunda fuente, por tanto, sn = −sin φ con F(φ) = K/3; la tercera da F como integral."
+          },
+          "textbook_skew": {
+            "title": "Afinados con la fórmula de los libros",
+            "setting": "Quince péndulos, 60 s, el más largo 51 veces, afinados para 0° con la fórmula de los libros, pero soltados a 15°.",
+            "reads": "A 15°, cada oscilación dura más, en el factor 2K/π. El n-ésimo péndulo solo completa (N + n)·π/(2K) oscilaciones en el ciclo; el más corto, que hace más, es el que más se retrasa.",
+            "why": "Comprueba el desfase que la página muestra como truco: la fila vuelve torcida en 21,5821°; eso es lo que el péndulo más corto va por detrás del más largo, en grados de una oscilación.",
+            "step": "La primera fuente da la afinación; la segunda, el periodo a 15°; la tercera, K. En el ciclo, al n-ésimo péndulo le faltan (N + n)(1 − π/(2K)) oscilaciones de 360° cada una; el más corto hace c − 1 = 14 oscilaciones más que el más largo."
           }
         }
       },

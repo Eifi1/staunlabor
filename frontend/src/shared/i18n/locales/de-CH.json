@@ -1231,6 +1231,7 @@
         },
         "amplitude": "Ausschlag beim Loslassen",
         "amplitude_hint": "Die Längen sind auf {{tuned}}° abgestimmt. Weiter oder weniger weit losgelassen, finden die Pendel nach einem Zyklus nicht mehr ganz zusammen.",
+        "pull_hint": "Oder fassen Sie in der Ansicht vom Ende der Reihe eine Kugel mit der Maus oder dem Finger und ziehen Sie die ganze Reihe zur Seite. Beim Loslassen schwingen alle los.",
         "time": "Zeit",
         "cycles": "Zyklen",
         "spread": "Versatz nach einem Zyklus"
@@ -3446,7 +3447,17 @@
         "wheel_rate": "Drehrate des Rads",
         "wheel_inflow": "Zufluss oben",
         "wheel_nu": "Bremse der Achse",
-        "wheel_radius": "Radius des Rads"
+        "wheel_radius": "Radius des Rads",
+        "length": "Länge des Pendels, vom Aufhängepunkt bis zur Mitte der Kugel",
+        "cycle": "der Zyklus: die Zeit, bis alle wieder im Gleichtakt schwingen",
+        "swings": "Schwingungen des längsten Pendels im Zyklus",
+        "index": "die Nummer des Pendels, vom längsten an gezählt: 0, 1, 2, …",
+        "T0": "Periode der kleinsten Schwingung",
+        "theta_n": "Winkel des n-ten Pendels",
+        "sn": "Jacobis elliptische Funktion sn",
+        "omega0": "Kreisfrequenz der kleinsten Schwingung, √(g/L)",
+        "skew": "Versatz nach einem Zyklus, in Grad einer Schwingung",
+        "count": "Zahl der Pendel"
       },
       "cases": {
         "sphere": {
@@ -3653,6 +3664,41 @@
             "reads": "Die Verteilung des Wassers dreht sich mit dem Rad, oben läuft Wasser zu, überall leckt es heraus; die Schwerkraft dreht das Rad, die Achse bremst. Hier in Sekunden gerechnet, für ein Rad mit 0,5 m Radius und einer Bremse von 1 N·m·s.",
             "why": "Prüft, dass Lorenz' Gleichungen mit b = 1 das Rad sind, samt der Umrechnung in Umdrehungen: 19,04 U/min nach 12 s. Jeder andere Radius und jede andere Bremse mit demselben σ und ρ gibt dieselbe Zahl.",
             "step": "Die Quelle schreibt die Bremse als κ + Q_tot·R² und die Schwerkraft am geneigten Rad als g·sin α; hier heissen sie ν und g. Trägheit und Zufluss folgen aus σ = ν/(K·I) und ρ = π·g·r·q/(ν·K²)."
+          }
+        },
+        "wave": {
+          "textbook_lengths": {
+            "title": "Die Längen nach der Lehrbuchformel",
+            "setting": "Fünfzehn Pendel, Zyklus 60 s, das längste 51-mal darin; abgestimmt auf 0°, also mit der Formel für kleine Ausschläge.",
+            "reads": "Ein Pendel, das im Zyklus Γ genau (N + n)-mal schwingt, hat die Periode Γ/(N + n); aus T = 2π√(L/g) folgt seine Länge.",
+            "why": "Prüft die Abstimmung der Reihe: Das kürzeste Pendel schwingt 65-mal in 60 s und ist 21,1659 cm lang. Eine falsch gezählte Nummer oder ein anderes g fiele hier auf."
+          },
+          "tuned_lengths": {
+            "title": "Abgestimmt auf 15°",
+            "setting": "Die Reihe der Seite: fünfzehn Pendel, 60 s, das längste 51-mal, abgestimmt auf 15°.",
+            "reads": "Ein Ausschlag von 15° dauert um den Faktor 2K/π länger als ein kleiner. Damit er trotzdem Γ/(N + n) dauert, ist das Pendel um das Quadrat dieses Faktors kürzer.",
+            "why": "Prüft, dass die Seite mit der genauen Periode abstimmt und nicht mit der Lehrbuchformel: Das längste Pendel ist 34,0875 cm lang. K ist hier als Integral summiert, nicht wie in der Engine über das arithmetisch-geometrische Mittel.",
+            "step": "Die erste Quelle gibt die Länge aus der Periode kleiner Ausschläge, die zweite die Periode für jeden Ausschlag: 4K, in Einheiten von √(L/g); die dritte definiert K als Integral. Als Periode kleiner Ausschläge ist darum Γ/(N + n)·π/(2K) einzusetzen."
+          },
+          "together": {
+            "title": "Nach einem Zyklus wieder beisammen",
+            "setting": "Die Reihe der Seite, bei 15° losgelassen; die Uhr auf 60 s, einen ganzen Zyklus.",
+            "reads": "Jedes Pendel hat im Zyklus eine ganze Zahl von Schwingungen hinter sich und steht wieder dort, wo es losgelassen wurde.",
+            "why": "Prüft die Uhr der Seite über eine ganze Minute: Alle fünfzehn stehen wieder bei 15°, keines mehr als 10⁻¹²° daneben. Die Seite rechnet jeden Zeitpunkt direkt aus, ohne Schritte; darum ist die sechzigste Sekunde so genau wie die erste."
+          },
+          "third": {
+            "title": "Nach einem Drittel des Zyklus",
+            "setting": "Die Reihe der Seite, bei 15° losgelassen; die Uhr auf 20 s, ein Drittel des Zyklus. Gelesen am zweiten Pendel, das im Zyklus 52-mal schwingt.",
+            "reads": "Das zweite Pendel hat 17⅓ Schwingungen hinter sich. Die genaue Lösung der Pendelgleichung, mit Jacobis Funktion sn, sagt, wo es ein Drittel einer Schwingung nach dem Loslassen steht.",
+            "why": "Prüft die Form der Schwingung zwischen den Umkehrpunkten, nicht nur ihre Dauer: −7,50807°, etwas weiter draussen als die Hälfte von 15°, die eine Kosinuskurve gäbe. sn ist hier aus seinem Integral gesucht, nicht wie in der Engine über das arithmetisch-geometrische Mittel.",
+            "step": "Die erste Quelle gibt die Lösung in einer Zeit, die in Einheiten von √(L/g) gemessen ist; eine Schwingung dauert dort 4K. Nach 17⅓ Schwingungen ist das Argument 17⅓·4K + K = 35·2K + K/3, nach der zweiten Quelle also sn = −sin φ mit F(φ) = K/3; die dritte gibt F als Integral."
+          },
+          "textbook_skew": {
+            "title": "Mit der Lehrbuchformel abgestimmt",
+            "setting": "Fünfzehn Pendel, 60 s, das längste 51-mal, abgestimmt auf 0° mit der Lehrbuchformel, aber bei 15° losgelassen.",
+            "reads": "Bei 15° dauert jede Schwingung um den Faktor 2K/π länger. Das n-te Pendel schafft im Zyklus nur (N + n)·π/(2K) Schwingungen; das kürzeste, mit den meisten, bleibt am weitesten zurück.",
+            "why": "Prüft den Versatz, den die Seite als Trick zeigt: Die Reihe kommt um 21,5821° schief zurück, so weit liegt das kürzeste Pendel hinter dem längsten, in Grad einer Schwingung.",
+            "step": "Die erste Quelle gibt die Abstimmung, die zweite die Periode bei 15°, die dritte K. Im Zyklus fehlen dem n-ten Pendel (N + n)(1 − π/(2K)) Schwingungen zu je 360°; das kürzeste hat c − 1 = 14 Schwingungen mehr als das längste."
           }
         }
       },
