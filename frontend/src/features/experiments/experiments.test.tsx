@@ -96,6 +96,7 @@ const UNCHECKED = {
     "cradle",
     "foucault",
     "peg",
+    "plates",
     "sky",
     "sphere",
     "waterwheel",
@@ -1675,6 +1676,17 @@ describe("setting a check case up", () => {
     await waitFor(() =>
       expect(screen.getByRole("slider", { name: E.foucault.play.latitude }).getAttribute("aria-valuetext")).toMatch(
         /^90\b/,
+      ),
+    );
+  });
+
+  it("puts a 1 cm aluminium plate between the falling plates' magnets, for its thickness case", async () => {
+    renderWithProviders(<PlatesPage />);
+    await screen.findAllByRole("img");
+    await setUp(2);
+    await waitFor(() =>
+      expect(screen.getByRole("slider", { name: E.plates.change.thickness }).getAttribute("aria-valuetext")).toMatch(
+        /^10\b/,
       ),
     );
   });

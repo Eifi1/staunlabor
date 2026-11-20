@@ -89,7 +89,7 @@ class Result:
 
 def _registry() -> dict[str, tuple[tuple[Case, ...], tuple[str, ...]]]:
     # Imported here: each module imports this one for its dataclasses.
-    from staunlabor.domain.checks import chair, chladni, coil, coriolis, cradle, foucault, peg, sky, sphere, waterwheel, wave
+    from staunlabor.domain.checks import chair, chladni, coil, coriolis, cradle, foucault, peg, plates, sky, sphere, waterwheel, wave
 
     return {
         "chair": (chair.CASES, chair.ENGINE),
@@ -99,6 +99,7 @@ def _registry() -> dict[str, tuple[tuple[Case, ...], tuple[str, ...]]]:
         "cradle": (cradle.CASES, cradle.ENGINE),
         "foucault": (foucault.CASES, foucault.ENGINE),
         "peg": (peg.CASES, peg.ENGINE),
+        "plates": (plates.CASES, plates.ENGINE),
         "sky": (sky.CASES, sky.ENGINE),
         "sphere": (sphere.CASES, sphere.ENGINE),
         "waterwheel": (waterwheel.CASES, waterwheel.ENGINE),

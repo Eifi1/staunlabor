@@ -59,6 +59,14 @@ const PLANE_RATE: CheckSymbol = { tex: String.raw`\omega_F`, key: "plane_rate", 
 const EARTH_RATE: CheckSymbol = { tex: String.raw`\Omega`, key: "earth_rate", unit: "rad/s" };
 const LATITUDE: CheckSymbol = { tex: String.raw`\varphi`, key: "latitude", unit: "°" };
 const STELLAR_DAY: CheckSymbol = { tex: String.raw`T_\star`, key: "stellar_day", unit: "h" };
+const TIME: CheckSymbol = { tex: "t", key: "t", unit: "s" };
+const DROP: CheckSymbol = { tex: "s", key: "drop", unit: "m" };
+const V_E: CheckSymbol = { tex: "v_E", key: "vE", unit: "m/s" };
+const C_BAR: CheckSymbol = { tex: String.raw`\bar c`, key: "cbar", unit: "N·s/m" };
+const TAU: CheckSymbol = { tex: String.raw`\tau`, key: "tau", unit: "s" };
+const MASS: CheckSymbol = { tex: "m", key: "m", unit: "kg" };
+const SIGMA: CheckSymbol = { tex: String.raw`\sigma`, key: "sigma", unit: "S/m" };
+const SHARE: CheckSymbol = { tex: String.raw`\eta`, key: "sheet_share" };
 
 export const CHECK_FORMULAS: Record<string, Record<string, CheckFormula>> = {
   sphere: {
@@ -503,6 +511,50 @@ export const CHECK_FORMULAS: Record<string, Record<string, CheckFormula>> = {
         { tex: "T", key: "T", unit: "s" },
         { tex: "L", key: "foucault_length", unit: "m" },
         { tex: "g", key: "g", unit: "m/s²" },
+      ],
+    },
+  },
+  plates: {
+    free_fall: {
+      tex: String.raw`s = \tfrac12\,g\,t^2 \;\Rightarrow\; t = \sqrt{\frac{2s}{g}}`,
+      symbols: [DROP, G, TIME],
+    },
+    late_start: {
+      tex: String.raw`t = \frac{s}{v_E} + \tau, \qquad v_E = \frac{m\,g}{\bar c}, \qquad \tau = \frac{m}{\bar c}`,
+      symbols: [TIME, DROP, V_E, TAU, MASS, G, C_BAR],
+    },
+    thickness: {
+      tex: String.raw`v_E = \frac{m\,g}{\bar c} = \frac{\varrho\,d\,A\,g}{\sigma\,d\,A\,\frac{B_0^2}{2}\,\eta}, \qquad \tau = \frac{m}{\bar c}`,
+      symbols: [
+        V_E,
+        MASS,
+        G,
+        C_BAR,
+        { tex: String.raw`\varrho`, key: "density", unit: "kg/m³" },
+        { tex: "d", key: "thickness", unit: "m" },
+        { tex: "A", key: "area", unit: "m²" },
+        SIGMA,
+        { tex: "B_0", key: "B0", unit: "T" },
+        SHARE,
+        TAU,
+      ],
+    },
+    metals: {
+      tex: String.raw`\frac{v_{E,\mathrm{Al}}}{v_{E,\mathrm{Cu}}} = \frac{\rho_\mathrm{Al}\,\varrho_\mathrm{Al}}{\rho_\mathrm{Cu}\,\varrho_\mathrm{Cu}}, \qquad \rho = \frac{1}{\sigma}`,
+      symbols: [
+        V_E,
+        { tex: String.raw`\rho`, key: "resistivity", unit: "nΩ·m" },
+        { tex: String.raw`\varrho`, key: "density", unit: "g/cm³" },
+        SIGMA,
+      ],
+    },
+    strip: {
+      tex: String.raw`\eta = 1 - \left(\frac{\sin(k h/2)}{k h/2}\right)^2, \qquad k = \frac{2\pi}{\lambda}`,
+      symbols: [
+        SHARE,
+        { tex: "k", key: "field_k", unit: "1/m" },
+        { tex: "h", key: "tooth", unit: "m" },
+        { tex: String.raw`\lambda`, key: "field_period", unit: "m" },
       ],
     },
   },

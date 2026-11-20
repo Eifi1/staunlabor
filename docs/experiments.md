@@ -2416,6 +2416,16 @@ and the full turn's day. The engine's Earth rate lies 2 · 10⁻⁸ off the
 stellar day, in its eighth digit. Its drawing is scaled to the swing, so it
 has no gesture: pulled out further, everything would grow with it.
 
+**The falling plates'** five (2026-11-20) hold a plastic plate's free fall, a
+late start's fall with the engine's own mass and brake (as the coil's rise
+uses its L and R), the brake's growth with thickness, copper against aluminium
+by their conductivities, and fine teeth against the endless strip. That last
+one is the loosest: the engine lies 1.26 % under 1 − sinc²(kh/2), within
+1.5 %, the teeth's ends at the plate's edges taking about 0.63·h/W of the
+brake; a plate up to 50 cm wide would bring it to 0.25 %. Aluminium's
+conductivity is 3.77 · 10⁷ S/m, the value of Wikipedia's resistivity-density
+table (26.50 nΩ·m), not of its main table (28.2 nΩ·m).
+
 **On the page** a section "Check it yourself" (`check-section.tsx`) lists the
 cases, each with its formula as an `Equation` (`check-formulas.ts`), both
 values to seven digits, the deviation, why the case would catch a mistake,

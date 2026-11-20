@@ -3512,7 +3512,20 @@
         "latitude": "latitude, negative in the south",
         "stellar_day": "one turn of the Earth against the stars",
         "full_turn": "time for the plane to turn once round",
-        "foucault_length": "the pendulum's length"
+        "foucault_length": "the pendulum's length",
+        "drop": "distance fallen through the column",
+        "vE": "terminal speed",
+        "cbar": "mean braking constant: braking force per speed",
+        "density": "density",
+        "thickness": "thickness of the plate",
+        "area": "area of the plate",
+        "sigma": "electrical conductivity",
+        "B0": "field in the gap, where it is strongest",
+        "sheet_share": "share of an endless sheet's brake",
+        "resistivity": "resistivity",
+        "field_k": "the field's wavenumber along the column",
+        "tooth": "height of a tooth",
+        "field_period": "period of the field: one north and one south magnet"
       },
       "cases": {
         "sphere": {
@@ -3904,6 +3917,42 @@
             "setting": "Winterthur, the pendulum 12 m long; timed from the release to the turning point after an hour, over all the half swings between.",
             "reads": "A pendulum swinging little swings at T = 2π√(L/g), whatever its mass and swing.",
             "why": "Checks the length and gravity in the swing drawn: 6.9504 s. The Earth's turn changes it by only 2 · 10⁻⁹."
+          }
+        },
+        "plates": {
+          "free_fall": {
+            "title": "The plastic plate falls freely",
+            "setting": "Field 0.15 T, magnets 20 mm high; your plate of plastic, no slots, 90 cm through the column.",
+            "reads": "What conducts no current is not braked: the plate falls freely from rest, s = ½·g·t².",
+            "why": "Checks that no brake is left without conductivity, and the column's drop: 0.43 s, as the fourth stopwatch above."
+          },
+          "late_start": {
+            "title": "One time constant late",
+            "setting": "The exhibit's slotted aluminium plate: 3 mm thick, teeth 8 mm high; field 0.15 T, magnets 20 mm high.",
+            "reads": "With a brake proportional to the speed, the plate approaches its terminal speed v_E = m·g/c̄ exponentially, with the time constant τ = m/c̄. Soon it falls at v_E, τ behind a plate that had started at v_E.",
+            "why": "Checks the fall, not the brake: with the page's mass and brake it is 1.710 s for 90 cm at 52.6 cm/s, and 54 ms more, 1.764 s in all. Without the time constant the time would be 3 % short.",
+            "step": "The source gives the distance y = (mg/b)·t + (m²g/b²)·(e^(−bt/m) − 1), here with b = c̄. After 33 time constants the exponential is gone: y = v_E·(t − τ), so t = s/v_E + τ."
+          },
+          "thickness": {
+            "title": "The thickness changes nothing",
+            "setting": "Your plate of aluminium, no slots, 10 mm thick, not 3 mm; above, the exhibit's aluminium plate at 3 mm.",
+            "reads": "A thicker plate carries more current and brakes harder, but it is heavier in the same measure: v_E and τ stay, and so does the whole fall.",
+            "why": "Checks that the thickness enters the brake and the mass alike: both plates take 12.31 s, the same to 10⁻¹².",
+            "step": "By the first source the current per area, J = σ(E + v×B), is the same in every layer of the plate; so the brake c̄ grows with the thickness d as the mass m = ϱ·d·A does. By the second, v_E = mg/c̄ and τ = m/c̄ depend only on their ratio."
+          },
+          "metals": {
+            "title": "Copper against aluminium",
+            "setting": "Your plate of copper, no slots, 3 mm thick; then the same plate of aluminium, as the exhibit's.",
+            "reads": "For the same plate between the same magnets the terminal speeds go as resistivity times density: conducting well brakes, being heavy pulls.",
+            "why": "Checks the metals' values and how they enter: aluminium falls at 0.476 of copper's speed; the table itself rounds to 0.48. The 0.1 % off: the page computes with conductivities to three digits, the table gives resistivities to four.",
+            "step": "With J = σ(E + v×B) every current grows with σ while its pattern stays: the brake is σ·d·A·B₀²/2·η, with η from the shape alone. Set equal to the weight ϱ·d·A·g it gives v_E = ϱ·g/(σ·B₀²/2·η); for the same shape η drops out, and with σ = 1/ρ what is left is ρ·ϱ, the table's column."
+          },
+          "strip": {
+            "title": "Fine teeth: the endless strip",
+            "setting": "Magnets 10 mm high, so a period of 20 mm; your plate of aluminium, 1 mm thick, slotted into teeth 2 mm high.",
+            "reads": "A tooth much wider than high carries current only across. No net current can flow across, so only what differs from the field's mean over the tooth drives: of an endless sheet's brake the share η = 1 − (sin(kh/2)/(kh/2))² is left.",
+            "why": "Checks why the slots take the brake away: by hand 3.25 % is left, the page computes 3.21 %. The 1.3 % off is the teeth's ends: the formula is for endlessly wide ones, the plate is 10 cm wide.",
+            "step": "The first source gives the current in a moving conductor, J = σ(E + v×B). In an endlessly wide tooth it flows only across, and as no net current can flow across, the field of the charges at the ends takes the mean B̄ away: J = σ·v·(B − B̄). By the second the heat equals the braking power; averaged over where the tooth stands against the poles, what is missing from B₀²/2 is B₀²/2·(sin(kh/2)/(kh/2))², the mean squared."
           }
         }
       },

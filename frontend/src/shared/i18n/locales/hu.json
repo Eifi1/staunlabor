@@ -3512,7 +3512,20 @@
         "latitude": "földrajzi szélesség, délen negatív",
         "stellar_day": "a Föld egy fordulata a csillagokhoz képest",
         "full_turn": "a lengési sík egy teljes körének ideje",
-        "foucault_length": "az inga hossza"
+        "foucault_length": "az inga hossza",
+        "drop": "esési út az oszlopon át",
+        "vE": "határsebesség",
+        "cbar": "átlagos fékállandó: fékezőerő egységnyi sebességre",
+        "density": "sűrűség",
+        "thickness": "a lemez vastagsága",
+        "area": "a lemez felülete",
+        "sigma": "elektromos vezetőképesség",
+        "B0": "a tér a résben, ahol a legerősebb",
+        "sheet_share": "egy végtelen lemez fékjének hányada",
+        "resistivity": "fajlagos ellenállás",
+        "field_k": "a tér hullámszáma az oszlop mentén",
+        "tooth": "egy fog magassága",
+        "field_period": "a tér periódusa: egy északi és egy déli mágnes"
       },
       "cases": {
         "sphere": {
@@ -3904,6 +3917,42 @@
             "setting": "Winterthur, az inga 12 m hosszú; az elengedéstől az egy óra utáni fordulópontig mérve, a közbeeső összes féllengésen át.",
             "reads": "Egy kis kitérésű inga T = 2π√(L/g) periódussal leng, tömegétől és kitérésétől függetlenül.",
             "why": "A hosszt és a nehézségi gyorsulást ellenőrzi a megrajzolt lengésben: 6,9504 s. A Föld forgása ezt csak 2 · 10⁻⁹-nel változtatja meg."
+          }
+        },
+        "plates": {
+          "free_fall": {
+            "title": "A műanyag lemez szabadon esik",
+            "setting": "Tér 0,15 T, a mágnesek 20 mm magasak; az Ön műanyag lemeze bevágások nélkül, 90 cm az oszlopon át.",
+            "reads": "Ami nem vezeti az áramot, azt semmi sem fékezi: a lemez nyugalomból szabadon esik, s = ½·g·t².",
+            "why": "Azt ellenőrzi, hogy vezetőképesség nélkül nem marad fék, valamint az oszlop ejtési magasságát: 0,43 s, mint a fenti negyedik stopperórán."
+          },
+          "late_start": {
+            "title": "Egy időállandóval később",
+            "setting": "A kiállítási tárgy bevágott alumíniumlemeze: 3 mm vastag, a fogak 8 mm magasak; tér 0,15 T, a mágnesek 20 mm magasak.",
+            "reads": "A sebességgel arányos fékkel a lemez exponenciálisan közelít v_E = m·g/c̄ határsebességéhez, τ = m/c̄ időállandóval. Hamarosan v_E-vel esik, τ-val lemaradva egy olyan lemez mögött, amely már v_E-vel indult volna.",
+            "why": "Az esést ellenőrzi, nem a féket: az oldal tömegével és fékjével 1,710 s 90 cm-re 52,6 cm/s-mal, plusz 54 ms, összesen 1,764 s. Az időállandó nélkül az idő 3 %-kal túl rövid lenne.",
+            "step": "A forrás az y = (mg/b)·t + (m²g/b²)·(e^(−bt/m) − 1) utat adja meg, itt b = c̄ értékkel. 33 időállandó után az exponenciális tag eltűnik: y = v_E·(t − τ), tehát t = s/v_E + τ."
+          },
+          "thickness": {
+            "title": "A vastagság semmin sem változtat",
+            "setting": "Az Ön alumíniumlemeze bevágások nélkül, 3 mm helyett 10 mm vastag; fent a kiállítási tárgy 3 mm-es alumíniumlemeze.",
+            "reads": "A vastagabb lemez több áramot vezet és erősebben fékez, de ugyanolyan mértékben nehezebb is: v_E és τ marad, és vele az egész esés.",
+            "why": "Azt ellenőrzi, hogy a vastagság ugyanúgy szerepel a fékben és a tömegben: mindkét lemeznek 12,31 s kell, 10⁻¹² pontossággal ugyanannyi.",
+            "step": "Az első forrás szerint az egységnyi felületre jutó áram, J = σ(E + v×B), a lemez minden rétegében ugyanakkora; a c̄ fék tehát ugyanúgy nő a d vastagsággal, mint az m = ϱ·d·A tömeg. A második szerint v_E = mg/c̄ és τ = m/c̄ csak a kettő arányától függ."
+          },
+          "metals": {
+            "title": "Réz kontra alumínium",
+            "setting": "Az Ön rézlemeze bevágások nélkül, 3 mm vastag; aztán ugyanez a lemez alumíniumból, mint a kiállítási tárgyé.",
+            "reads": "Azonos lemeznél azonos mágnesek között a határsebességek úgy aránylanak, mint a fajlagos ellenállás és a sűrűség szorzata: a jó vezetés fékez, a nagy súly húz.",
+            "why": "A fémek értékeit és szerepüket ellenőrzi: az alumínium a réz sebességének 0,476-szorosával esik, a táblázat maga 0,48-ra kerekít. A 0,1 %-os eltérés oka: az oldal három jegyre megadott vezetőképességekkel számol, a táblázat négy jegyre adja meg az ellenállásokat.",
+            "step": "J = σ(E + v×B) szerint minden áram σ-val nő, a mintázata marad: a fék σ·d·A·B₀²/2·η, ahol η egyedül az alakból adódik. Az ϱ·d·A·g súlyerővel egyenlővé téve ebből v_E = ϱ·g/(σ·B₀²/2·η); azonos alaknál η kiesik, és σ = 1/ρ mellett ρ·ϱ marad, a táblázat oszlopa."
+          },
+          "strip": {
+            "title": "Finom fogak: a végtelen csík",
+            "setting": "A mágnesek 10 mm magasak, egy periódus tehát 20 mm; az Ön alumíniumlemeze 1 mm vastag, 2 mm magas fogakra bevágva.",
+            "reads": "Egy fog, amely jóval szélesebb, mint amilyen magas, csak keresztirányban vezet áramot. Keresztben nettó áram nem folyhat, ezért csak az hajt áramot, ami eltér a térnek a fogra vett átlagától: egy végtelen lemez fékjéből η = 1 − (sin(kh/2)/(kh/2))² hányad marad.",
+            "why": "Azt ellenőrzi, miért veszik el a bevágások a féket: kézzel 3,25 % marad, az oldal 3,21 %-ot számol. Az 1,3 %-os eltérést a fogak végei okozzák: a képlet végtelenül széles fogakra érvényes, a lemez 10 cm széles.",
+            "step": "Az első forrás a mozgó vezetőben folyó áramot adja meg, J = σ(E + v×B). A végtelenül széles fogban csak keresztben folyik, és mivel keresztben nettó áram nem folyhat, a végeken lévő töltések tere elveszi a B̄ átlagot: J = σ·v·(B − B̄). A második szerint a hő egyenlő a fékteljesítménnyel; a pólusokhoz viszonyított helyzetre átlagolva B₀²/2-ből hiányzik a B₀²/2·(sin(kh/2)/(kh/2))² rész, az átlag négyzete."
           }
         }
       },

@@ -3512,7 +3512,20 @@
         "latitude": "latitude, négative au sud",
         "stellar_day": "un tour de la Terre par rapport aux étoiles",
         "full_turn": "temps d’un tour complet du plan d’oscillation",
-        "foucault_length": "longueur du pendule"
+        "foucault_length": "longueur du pendule",
+        "drop": "distance de chute à travers la colonne",
+        "vE": "vitesse limite",
+        "cbar": "constante de freinage moyenne : force de freinage par unité de vitesse",
+        "density": "masse volumique",
+        "thickness": "épaisseur de la plaque",
+        "area": "surface de la plaque",
+        "sigma": "conductivité électrique",
+        "B0": "champ dans la fente, là où il est le plus fort",
+        "sheet_share": "part du freinage d’une plaque infinie",
+        "resistivity": "résistivité",
+        "field_k": "nombre d’onde du champ le long de la colonne",
+        "tooth": "hauteur d’une dent",
+        "field_period": "période du champ : un aimant nord et un aimant sud"
       },
       "cases": {
         "sphere": {
@@ -3904,6 +3917,42 @@
             "setting": "Winterthour, le pendule long de 12 m ; mesuré du lâcher jusqu’au point de retour après une heure, sur toutes les demi-oscillations entre les deux.",
             "reads": "Un pendule de faible amplitude oscille avec T = 2π√(L/g), quelles que soient sa masse et son amplitude.",
             "why": "Vérifie la longueur et la pesanteur dans l’oscillation dessinée : 6,9504 s. La rotation de la Terre ne la modifie que de 2 · 10⁻⁹."
+          }
+        },
+        "plates": {
+          "free_fall": {
+            "title": "La plaque en plastique tombe librement",
+            "setting": "Champ de 0,15 T, aimants de 20 mm de haut ; votre plaque en plastique, sans fentes, 90 cm à travers la colonne.",
+            "reads": "Ce qui ne conduit pas le courant n’est pas freiné : la plaque tombe librement depuis le repos, s = ½·g·t².",
+            "why": "Vérifie que sans conductivité il ne reste aucun frein, et la hauteur de chute de la colonne : 0,43 s, comme le quatrième chronomètre ci-dessus."
+          },
+          "late_start": {
+            "title": "Une constante de temps plus tard",
+            "setting": "La plaque d’aluminium entaillée de l’exposition : 3 mm d’épaisseur, dents de 8 mm de haut ; champ de 0,15 T, aimants de 20 mm de haut.",
+            "reads": "Avec un frein proportionnel à la vitesse, la plaque s’approche exponentiellement de sa vitesse limite v_E = m·g/c̄, avec la constante de temps τ = m/c̄. Elle tombe bientôt à v_E, avec τ de retard sur une plaque qui serait partie directement à v_E.",
+            "why": "Vérifie la chute, pas le frein : avec la masse et le frein de la page, cela fait 1,710 s pour 90 cm à 52,6 cm/s, plus 54 ms, soit 1,764 s en tout. Sans la constante de temps, le temps serait trop court de 3 %.",
+            "step": "La source donne le chemin y = (mg/b)·t + (m²g/b²)·(e^(−bt/m) − 1), ici avec b = c̄. Après 33 constantes de temps, l’exponentielle a disparu : y = v_E·(t − τ), donc t = s/v_E + τ."
+          },
+          "thickness": {
+            "title": "L’épaisseur ne change rien",
+            "setting": "Votre plaque en aluminium, sans fentes, de 10 mm d’épaisseur au lieu de 3 mm ; ci-dessus, la plaque d’aluminium de l’exposition, de 3 mm.",
+            "reads": "Une plaque plus épaisse conduit plus de courant et freine plus fort, mais elle est plus lourde dans la même mesure : v_E et τ restent, et avec eux toute la chute.",
+            "why": "Vérifie que l’épaisseur intervient de la même façon dans le frein et dans la masse : les deux plaques mettent 12,31 s, identiques à 10⁻¹² près.",
+            "step": "D’après la première source, le courant par unité de surface, J = σ(E + v×B), est le même dans chaque couche de la plaque ; le frein c̄ croît donc avec l’épaisseur d comme la masse m = ϱ·d·A. D’après la deuxième, v_E = mg/c̄ et τ = m/c̄ ne dépendent que de leur rapport."
+          },
+          "metals": {
+            "title": "Cuivre contre aluminium",
+            "setting": "Votre plaque en cuivre, sans fentes, de 3 mm d’épaisseur ; puis la même plaque en aluminium, comme celle de l’exposition.",
+            "reads": "Pour une même plaque entre les mêmes aimants, les vitesses limites sont dans le rapport de la résistivité multipliée par la masse volumique : bien conduire freine, être lourd entraîne.",
+            "why": "Vérifie les valeurs des métaux et la façon dont elles interviennent : l’aluminium tombe à 0,476 fois la vitesse du cuivre ; la table elle-même arrondit à 0,48. L’écart de 0,1 % : la page calcule avec des conductivités à trois chiffres, la table donne des résistivités à quatre.",
+            "step": "Avec J = σ(E + v×B), tout courant croît avec σ, et son motif reste le même : le frein vaut σ·d·A·B₀²/2·η, avec η issu de la seule forme. Égalé au poids ϱ·d·A·g, cela donne v_E = ϱ·g/(σ·B₀²/2·η) ; pour une même forme, η s’élimine, et avec σ = 1/ρ il reste ρ·ϱ, la colonne de la table."
+          },
+          "strip": {
+            "title": "Dents fines : la bande infinie",
+            "setting": "Aimants de 10 mm de haut, donc une période de 20 mm ; votre plaque en aluminium, de 1 mm d’épaisseur, entaillée en dents de 2 mm de haut.",
+            "reads": "Une dent bien plus large que haute ne conduit le courant qu’en travers. En travers, aucun courant net ne peut circuler ; seul pousse donc ce qui s’écarte de la moyenne du champ sur la dent : du freinage d’une plaque infinie reste la part η = 1 − (sin(kh/2)/(kh/2))².",
+            "why": "Vérifie pourquoi les fentes ôtent le frein : à la main, il reste 3,25 %, la page calcule 3,21 %. L’écart de 1,3 % vient des extrémités des dents : la formule vaut pour des dents infiniment larges, la plaque fait 10 cm de large.",
+            "step": "La première source donne le courant dans un conducteur en mouvement, J = σ(E + v×B). Dans une dent infiniment large, il ne circule qu’en travers, et comme rien de net ne peut circuler en travers, le champ des charges aux extrémités retire la moyenne B̄ : J = σ·v·(B − B̄). D’après la deuxième, la chaleur est égale à la puissance de freinage ; en moyenne sur la position par rapport aux pôles, il manque à B₀²/2 la part B₀²/2·(sin(kh/2)/(kh/2))², la moyenne au carré."
           }
         }
       },

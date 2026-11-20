@@ -3512,7 +3512,20 @@
         "latitude": "geografische Breite, im Süden negativ",
         "stellar_day": "eine Umdrehung der Erde gegenüber den Sternen",
         "full_turn": "Zeit für eine ganze Runde der Schwingebene",
-        "foucault_length": "Länge des Pendels"
+        "foucault_length": "Länge des Pendels",
+        "drop": "Fallweg durch die Säule",
+        "vE": "Endgeschwindigkeit",
+        "cbar": "mittlere Bremskonstante: Bremskraft pro Geschwindigkeit",
+        "density": "Dichte",
+        "thickness": "Dicke der Platte",
+        "area": "Fläche der Platte",
+        "sigma": "elektrische Leitfähigkeit",
+        "B0": "Feld im Spalt, wo es am stärksten ist",
+        "sheet_share": "Anteil an der Bremse einer endlosen Platte",
+        "resistivity": "spezifischer Widerstand",
+        "field_k": "Wellenzahl des Felds entlang der Säule",
+        "tooth": "Höhe eines Zahns",
+        "field_period": "Periode des Felds: ein Nord- und ein Südmagnet"
       },
       "cases": {
         "sphere": {
@@ -3904,6 +3917,42 @@
             "setting": "Winterthur, das Pendel 12 m lang; gemessen vom Loslassen bis zum Umkehrpunkt nach einer Stunde, über alle halben Schwingungen dazwischen.",
             "reads": "Ein Pendel mit kleinem Ausschlag schwingt mit T = 2π√(L/g), unabhängig von Masse und Ausschlag.",
             "why": "Prüft Länge und Schwerkraft in der gezeichneten Schwingung: 6,9504 s. Die Drehung der Erde ändert sie nur um 2 · 10⁻⁹."
+          }
+        },
+        "plates": {
+          "free_fall": {
+            "title": "Die Kunststoffplatte fällt frei",
+            "setting": "Feld 0,15 T, Magnete 20 mm hoch; Ihre Platte aus Kunststoff, ohne Schlitze, 90 cm durch die Säule.",
+            "reads": "Was keinen Strom leitet, wird nicht gebremst: Die Platte fällt frei aus der Ruhe, s = ½·g·t².",
+            "why": "Prüft, dass ohne Leitfähigkeit keine Bremse bleibt, und die Fallhöhe der Säule: 0,43 s, wie die vierte Stoppuhr oben."
+          },
+          "late_start": {
+            "title": "Um eine Zeitkonstante später",
+            "setting": "Die geschlitzte Aluminiumplatte der Ausstellung: 3 mm dick, Zähne 8 mm hoch; Feld 0,15 T, Magnete 20 mm hoch.",
+            "reads": "Mit einer Bremse proportional zur Geschwindigkeit nähert sich die Platte ihrer Endgeschwindigkeit v_E = m·g/c̄ exponentiell, mit der Zeitkonstante τ = m/c̄. Bald fällt sie mit v_E, um τ hinter einer Platte, die schon mit v_E gestartet wäre.",
+            "why": "Prüft den Fall, nicht die Bremse: Mit Masse und Bremse der Seite sind es 1,710 s für 90 cm mit 52,6 cm/s und 54 ms dazu, zusammen 1,764 s. Ohne die Zeitkonstante wäre die Zeit 3 % zu kurz.",
+            "step": "Die Quelle gibt den Weg y = (mg/b)·t + (m²g/b²)·(e^(−bt/m) − 1), hier mit b = c̄. Nach 33 Zeitkonstanten ist die Exponentialfunktion weg: y = v_E·(t − τ), also t = s/v_E + τ."
+          },
+          "thickness": {
+            "title": "Die Dicke ändert nichts",
+            "setting": "Ihre Platte aus Aluminium, ohne Schlitze, 10 mm dick statt 3 mm; oben die Aluminiumplatte der Ausstellung mit 3 mm.",
+            "reads": "Eine dickere Platte führt mehr Strom und bremst stärker, ist aber im selben Mass schwerer: v_E und τ bleiben, und damit der ganze Fall.",
+            "why": "Prüft, dass die Dicke in Bremse und Masse gleich eingeht: Beide Platten brauchen 12,31 s, auf 10⁻¹² gleich.",
+            "step": "Nach der ersten Quelle ist der Strom pro Fläche, J = σ(E + v×B), in jeder Schicht der Platte derselbe; die Bremse c̄ wächst also mit der Dicke d wie die Masse m = ϱ·d·A. Nach der zweiten hängen v_E = mg/c̄ und τ = m/c̄ nur von ihrem Verhältnis ab."
+          },
+          "metals": {
+            "title": "Kupfer gegen Aluminium",
+            "setting": "Ihre Platte aus Kupfer, ohne Schlitze, 3 mm dick; dann dieselbe Platte aus Aluminium, wie die der Ausstellung.",
+            "reads": "Bei gleicher Platte zwischen gleichen Magneten verhalten sich die Endgeschwindigkeiten wie spezifischer Widerstand mal Dichte: Gut leiten bremst, schwer sein zieht.",
+            "why": "Prüft die Werte der Metalle und wie sie eingehen: Aluminium fällt mit 0,476 der Geschwindigkeit von Kupfer, die Tabelle selbst rundet auf 0,48. Die 0,1 % Abweichung: Die Seite rechnet mit Leitfähigkeiten auf drei Stellen, die Tabelle gibt Widerstände auf vier.",
+            "step": "Mit J = σ(E + v×B) wächst jeder Strom mit σ, sein Muster bleibt: Die Bremse ist σ·d·A·B₀²/2·η, mit η allein aus der Form. Gleich der Gewichtskraft ϱ·d·A·g gibt das v_E = ϱ·g/(σ·B₀²/2·η); bei gleicher Form fällt η heraus, und mit σ = 1/ρ bleibt ρ·ϱ, die Spalte der Tabelle."
+          },
+          "strip": {
+            "title": "Feine Zähne: der endlose Streifen",
+            "setting": "Magnete 10 mm hoch, also 20 mm eine Periode; Ihre Platte aus Aluminium, 1 mm dick, geschlitzt in Zähne 2 mm hoch.",
+            "reads": "Ein Zahn, viel breiter als hoch, führt Strom nur quer. Netto kann quer kein Strom fliessen, also treibt nur, was vom Mittelwert des Felds über den Zahn abweicht: Von der Bremse einer endlosen Platte bleibt der Anteil η = 1 − (sin(kh/2)/(kh/2))².",
+            "why": "Prüft, warum die Schlitze die Bremse nehmen: Von Hand bleiben 3,25 %, die Seite rechnet 3,21 %. Die 1,3 % Abweichung sind die Enden der Zähne: Die Formel gilt für endlos breite, die Platte ist 10 cm breit.",
+            "step": "Die erste Quelle gibt den Strom im bewegten Leiter, J = σ(E + v×B). Im endlos breiten Zahn fliesst er nur quer, und weil netto quer nichts fliessen kann, nimmt das Feld der Ladungen an den Enden den Mittelwert B̄ weg: J = σ·v·(B − B̄). Nach der zweiten ist die Wärme gleich der Bremsleistung; über die Lage zu den Polen gemittelt fehlt von B₀²/2 der Teil B₀²/2·(sin(kh/2)/(kh/2))², der Mittelwert im Quadrat."
           }
         }
       },

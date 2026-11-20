@@ -3512,7 +3512,20 @@
         "latitude": "latitudine, negativa a sud",
         "stellar_day": "un giro della Terra rispetto alle stelle",
         "full_turn": "tempo per un giro completo del piano di oscillazione",
-        "foucault_length": "lunghezza del pendolo"
+        "foucault_length": "lunghezza del pendolo",
+        "drop": "tratto di caduta attraverso la colonna",
+        "vE": "velocità limite",
+        "cbar": "costante di frenata media: forza frenante per unità di velocità",
+        "density": "densità",
+        "thickness": "spessore della piastra",
+        "area": "superficie della piastra",
+        "sigma": "conducibilità elettrica",
+        "B0": "campo nella fessura, dove è più forte",
+        "sheet_share": "parte della frenata di una lastra infinita",
+        "resistivity": "resistività",
+        "field_k": "numero d'onda del campo lungo la colonna",
+        "tooth": "altezza di un dente",
+        "field_period": "periodo del campo: un magnete nord e uno sud"
       },
       "cases": {
         "sphere": {
@@ -3904,6 +3917,42 @@
             "setting": "Winterthur, il pendolo lungo 12 m; misurato dal rilascio fino al punto di inversione dopo un'ora, su tutte le mezze oscillazioni in mezzo.",
             "reads": "Un pendolo con piccola ampiezza oscilla con T = 2π√(L/g), indipendentemente da massa e ampiezza.",
             "why": "Verifica lunghezza e gravità nell'oscillazione disegnata: 6,9504 s. La rotazione della Terra la cambia solo di 2 · 10⁻⁹."
+          }
+        },
+        "plates": {
+          "free_fall": {
+            "title": "La piastra di plastica cade libera",
+            "setting": "Campo di 0,15 T, magneti alti 20 mm; la sua piastra di plastica, senza fenditure, 90 cm attraverso la colonna.",
+            "reads": "Ciò che non conduce corrente non viene frenato: la piastra cade libera partendo da ferma, s = ½·g·t².",
+            "why": "Verifica che senza conducibilità non resti alcun freno, e l'altezza di caduta della colonna: 0,43 s, come il quarto cronometro sopra."
+          },
+          "late_start": {
+            "title": "Una costante di tempo più tardi",
+            "setting": "La piastra di alluminio con le fenditure dell'exhibit: spessa 3 mm, denti alti 8 mm; campo di 0,15 T, magneti alti 20 mm.",
+            "reads": "Con un freno proporzionale alla velocità, la piastra si avvicina esponenzialmente alla sua velocità limite v_E = m·g/c̄, con la costante di tempo τ = m/c̄. Presto cade con v_E, τ dietro una piastra che fosse partita già con v_E.",
+            "why": "Verifica la caduta, non il freno: con massa e freno della pagina sono 1,710 s per 90 cm a 52,6 cm/s più 54 ms, in tutto 1,764 s. Senza la costante di tempo il tempo sarebbe troppo corto del 3 %.",
+            "step": "La fonte dà il percorso y = (mg/b)·t + (m²g/b²)·(e^(−bt/m) − 1), qui con b = c̄. Dopo 33 costanti di tempo l'esponenziale è sparito: y = v_E·(t − τ), quindi t = s/v_E + τ."
+          },
+          "thickness": {
+            "title": "Lo spessore non cambia nulla",
+            "setting": "La sua piastra di alluminio, senza fenditure, spessa 10 mm invece di 3 mm; sopra, la piastra di alluminio dell'exhibit, da 3 mm.",
+            "reads": "Una piastra più spessa porta più corrente e frena di più, ma è più pesante nella stessa misura: v_E e τ restano, e con esse l'intera caduta.",
+            "why": "Verifica che lo spessore entri allo stesso modo nel freno e nella massa: entrambe le piastre impiegano 12,31 s, uguali a meno di 10⁻¹².",
+            "step": "Secondo la prima fonte la corrente per unità di superficie, J = σ(E + v×B), è la stessa in ogni strato della piastra; il freno c̄ cresce quindi con lo spessore d come la massa m = ϱ·d·A. Secondo la seconda, v_E = mg/c̄ e τ = m/c̄ dipendono solo dal loro rapporto."
+          },
+          "metals": {
+            "title": "Rame contro alluminio",
+            "setting": "La sua piastra di rame, senza fenditure, spessa 3 mm; poi la stessa piastra di alluminio, come quella dell'exhibit.",
+            "reads": "Con la stessa piastra tra gli stessi magneti, le velocità limite stanno tra loro come resistività per densità: condurre bene frena, essere pesanti tira giù.",
+            "why": "Verifica i valori dei metalli e come entrano: l'alluminio cade a 0,476 volte la velocità del rame; la tabella stessa arrotonda a 0,48. Lo scarto dello 0,1 %: la pagina calcola con conducibilità a tre cifre, la tabella dà resistività a quattro.",
+            "step": "Con J = σ(E + v×B) ogni corrente cresce con σ e il suo disegno resta: il freno è σ·d·A·B₀²/2·η, con η dato solo dalla forma. Uguagliato alla forza peso ϱ·d·A·g, dà v_E = ϱ·g/(σ·B₀²/2·η); a parità di forma η si elide, e con σ = 1/ρ resta ρ·ϱ, la colonna della tabella."
+          },
+          "strip": {
+            "title": "Denti sottili: la striscia infinita",
+            "setting": "Magneti alti 10 mm, quindi un periodo di 20 mm; la sua piastra di alluminio, spessa 1 mm, tagliata in denti alti 2 mm.",
+            "reads": "Un dente molto più largo che alto porta corrente solo di traverso. Di traverso non può scorrere corrente netta, quindi spinge solo ciò che si scosta dalla media del campo sul dente: della frenata di una lastra infinita resta la parte η = 1 − (sin(kh/2)/(kh/2))².",
+            "why": "Verifica perché le fenditure tolgono il freno: a mano resta il 3,25 %, la pagina calcola il 3,21 %. Lo scarto dell'1,3 % sono le estremità dei denti: la formula vale per denti infinitamente larghi, la piastra è larga 10 cm.",
+            "step": "La prima fonte dà la corrente in un conduttore in moto, J = σ(E + v×B). In un dente infinitamente largo scorre solo di traverso, e poiché di traverso non può scorrere nulla di netto, il campo delle cariche alle estremità toglie la media B̄: J = σ·v·(B − B̄). Secondo la seconda il calore è uguale alla potenza frenante; mediando sulla posizione rispetto ai poli, a B₀²/2 manca la parte B₀²/2·(sin(kh/2)/(kh/2))², la media al quadrato."
           }
         }
       },
