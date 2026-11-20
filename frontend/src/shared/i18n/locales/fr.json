@@ -3482,7 +3482,24 @@
         "tau_air": "épaisseur optique de l’air à la verticale, 0,097 à 550 nm",
         "m3": "masse d’air de la couche d’ozone",
         "R_earth": "rayon de la Terre, 6371 km",
-        "H_ozone": "altitude de la couche d’ozone, 22 km"
+        "H_ozone": "altitude de la couche d’ozone, 22 km",
+        "plate_lambda": "paramètre de fréquence ωa²√(ρh/D)",
+        "plate_side": "le côté de la plaque",
+        "plate_D": "la rigidité en flexion de la plaque",
+        "plate_rho": "masse volumique de l’acier, 7850",
+        "plate_h": "l’épaisseur de la plaque",
+        "plate_E": "module d’Young, 200 GPa",
+        "plate_nu": "coefficient de Poisson, 0,3",
+        "plate_f12": "le son excité le plus grave et le deuxième",
+        "plate_Q": "facteur de qualité du son",
+        "plate_f1": "le son excité le plus grave",
+        "plate_df": "largeur du son, entre les points à mi-énergie",
+        "plate_zeta": "taux d’amortissement de chaque forme, 0,002",
+        "plate_w0": "amplitude du milieu sur le son k",
+        "plate_phi0": "déplacement de la forme k au milieu",
+        "plate_mu": "masse de la forme k, en unités de ρh·(a/2)²",
+        "plate_omega": "pulsation du son k",
+        "plate_xi": "position sur la plaque, de −1 à 1"
       },
       "cases": {
         "sphere": {
@@ -3788,6 +3805,34 @@
             "reads": "La couche d’ozone est une coquille mince à 22 km d’altitude. Un rayon venant de l’horizon la traverse en biais, mais pas sur une longueur infinie comme dans un air plat : 12 fois autant d’ozone qu’à la verticale.",
             "why": "Vérifie le chemin à travers la coquille, par lequel la page affaiblit l’orange du soleil du soir : 12,064, à la main à partir de l’intégrale générale, sur la page à partir d’une formule transformée ; les deux concordent à 10⁻¹⁴ près.",
             "step": "La source donne la masse d’air pour toute densité ρ(y) en fonction de l’altitude y. Si tout l’ozone se trouve dans une coquille mince en y = H, il reste de l’intégrale la fraction au point H, divisée par la même fraction à la verticale (z = 0). L’angle zénithal z vaut 90° moins la hauteur du soleil."
+          }
+        },
+        "chladni": {
+          "lowest_tone": {
+            "title": "Le son le plus grave",
+            "setting": "La plaque de la page, 24 cm et 1 mm d’acier ; le vibreur sur le son le plus grave qu’il excite au milieu.",
+            "reads": "La table de Leissa donne pour la plaque carrée libre λ = ωa²√(ρh/D) = 24,2702 pour la vibration la plus grave symétrique par rapport aux deux médianes et aux deux diagonales ; en hertz, f = λ/(2πa²)·√(D/(ρh)).",
+            "why": "Vérifie la méthode de Ritz, par laquelle la page cherche les vibrations, et la conversion en hertz : 102,43 Hz. La table et la page concordent à 4 · 10⁻⁸ près."
+          },
+          "second_tone": {
+            "title": "Le deuxième son, pas une harmonique",
+            "setting": "Le vibreur sur le deuxième son, 268,8 Hz.",
+            "reads": "D’après la table de Leissa, le deuxième son excité est 63,6870/24,2702 fois plus haut que le plus grave, quelles que soient la taille et l’épaisseur de la plaque.",
+            "why": "Vérifie une vibration plus haute, indépendante de l’acier et de la taille : 2,624 fois plus haut, pas un multiple entier comme sur une corde. L’écart de 1,4 · 10⁻⁵ vient de la table : la série d’Iguchi est tronquée après cinq termes, et la méthode de Ritz ne passe jamais sous la valeur exacte, mais ici elle passe sous la table."
+          },
+          "sharpness": {
+            "title": "La netteté d’un son",
+            "setting": "Le vibreur 0,2 Hz au-dessus du son le plus grave, là où le milieu vibre encore à 70,7 % de ce qu’il vibre sur le son.",
+            "reads": "Un son a une largeur Δf = f/Q, mesurée là où l’énergie tombe à la moitié ; avec l’amortissement ζ, Q = 1/(2ζ).",
+            "why": "Vérifie l’amortissement dans la loi selon laquelle la page fait répondre la plaque : avec ζ = 0,002, Q = 250, le son le plus grave n’a donc que 0,41 Hz de largeur.",
+            "step": "La source donne Q pour un oscillateur seul. Près du son le plus grave, la plaque vibre presque uniquement selon cette forme ; les neuf autres apportent 1,4 · 10⁻⁵."
+          },
+          "fourth_tone": {
+            "title": "Le quatrième son, pondéré par sa masse",
+            "setting": "Le vibreur sur le quatrième son, 711,1 Hz ; relevé dans l’encadré qui indique de combien vibre le milieu.",
+            "reads": "Sur son son, chaque forme vibre comme un oscillateur seul, au milieu de φ(0)²·F/(μ·ω²·2ζ), avec μ = ∫φ² la masse de cette forme. Rapportées au son le plus grave, la force et l’amortissement s’éliminent.",
+            "why": "Vérifie que chaque forme intervient avec sa propre masse : 4,70 % du son le plus grave. Sans μ, ce serait 1,98 %, l’erreur de la première version. μ est ici intégrée sur la plaque, et non, comme sur la page, sommée comme les carrés des coefficients.",
+            "step": "La source traite un système à deux masses : la réponse est la somme des formes, et chacune répond sur son son avec Q₁/K₁·1/(2ζ₁), Q₁ étant la force sur la forme et K₁ sa raideur. Pour la plaque, la somme sur les masses devient une intégrale : K = μ·ω² et Q = φ(0)·F pour une force au milieu. Les formes φ elles-mêmes sont celles de la page."
           }
         }
       },

@@ -88,7 +88,7 @@ const wave = fixtures.wave as unknown as WaveFigures;
 
 /** No exhibit checked yet: what the server answers until an admin checks one. */
 const UNCHECKED = {
-  with_cases: ["chair", "coil", "coriolis", "cradle", "sky", "sphere", "waterwheel", "wave"],
+  with_cases: ["chair", "chladni", "coil", "coriolis", "cradle", "sky", "sphere", "waterwheel", "wave"],
   checked: [],
 };
 
@@ -1607,6 +1607,13 @@ describe("setting a check case up", () => {
       expect(screen.getByRole("slider", { name: E.sky.air.height }).getAttribute("aria-valuetext")).toMatch(/^0\b/),
     );
     expect(screen.getByRole("switch", { name: E.sky.air.ozone })).toBeChecked();
+  });
+
+  it("drives the Chladni plate 0.2 Hz off its lowest tone, finer than the slider goes, for its sharpness", async () => {
+    renderWithProviders(<ChladniPage />);
+    await screen.findByRole("img", { name: E.chladni.view });
+    await setUp(2);
+    await waitFor(() => expect(screen.getByText(/^70\.7/)).toBeInTheDocument());
   });
 
   it("puts a 15 kg car on the coil's track for the brake, without rolling resistance", async () => {

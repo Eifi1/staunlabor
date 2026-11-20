@@ -3482,7 +3482,24 @@
         "tau_air": "a levegő optikai vastagsága függőlegesen, 550 nm-en 0,097",
         "m3": "az ózonréteg légtömege",
         "R_earth": "a Föld sugara, 6371 km",
-        "H_ozone": "az ózonréteg magassága, 22 km"
+        "H_ozone": "az ózonréteg magassága, 22 km",
+        "plate_lambda": "frekvenciaparaméter, ωa²√(ρh/D)",
+        "plate_side": "a lemez oldalhossza",
+        "plate_D": "a lemez hajlítómerevsége",
+        "plate_rho": "az acél sűrűsége, 7850",
+        "plate_h": "a lemez vastagsága",
+        "plate_E": "rugalmassági modulus, 200 GPa",
+        "plate_nu": "Poisson-szám, 0,3",
+        "plate_f12": "a legmélyebb és a második gerjesztett hang",
+        "plate_Q": "a hang jósági tényezője",
+        "plate_f1": "a legmélyebb gerjesztett hang",
+        "plate_df": "a hang szélessége a félenergiás pontok között",
+        "plate_zeta": "az egyes alakok csillapítási tényezője, 0,002",
+        "plate_w0": "a közép rezgési amplitúdója a k-adik hangon",
+        "plate_phi0": "a k-adik alak kitérése a közepén",
+        "plate_mu": "a k-adik alak tömege, ρh·(a/2)² egységekben",
+        "plate_omega": "a k-adik hang körfrekvenciája",
+        "plate_xi": "hely a lemezen, −1-től 1-ig"
       },
       "cases": {
         "sphere": {
@@ -3788,6 +3805,34 @@
             "reads": "Az ózonréteg vékony héjként fekszik 22 km magasan. A horizontról érkező sugár ferdén halad át rajta, de nem végtelen hosszan, mint lapos légkörben: 12-szer annyi ózonon, mint függőlegesen.",
             "why": "A héjon át vezető utat ellenőrzi, amellyel az oldal az esti nap narancsát gyengíti: 12,064, kézzel az általános integrálból, az oldalon egy átalakított képletből; a kettő 10⁻¹⁴ pontossággal egyezik.",
             "step": "A forrás bármely ρ(y) sűrűségre megadja a légtömeget az y magasság függvényében. Ha az összes ózon egy vékony héjban van y = H-nál, az integrálból a H helyen vett tört marad, osztva ugyanezzel a törttel függőlegesen (z = 0). A z zenitszög 90° mínusz a nap magassága."
+          }
+        },
+        "chladni": {
+          "lowest_tone": {
+            "title": "A legmélyebb hang",
+            "setting": "Az oldal lemeze, 24 cm, 1 mm acél; a rázó a legmélyebb hangon, amelyet a közepén gerjeszt.",
+            "reads": "Leissa táblázata a szabadon fekvő négyzetes lemezre λ = ωa²√(ρh/D) = 24,2702 értéket ad arra a legmélyebb rezgésre, amely mindkét középvonalra és mindkét átlóra szimmetrikus; hertzben f = λ/(2πa²)·√(D/(ρh)).",
+            "why": "A Ritz-módszert ellenőrzi, amellyel az oldal a rezgéseket keresi, és a hertzre való átszámítást: 102,43 Hz. A táblázat és az oldal 4 · 10⁻⁸ pontossággal egyezik."
+          },
+          "second_tone": {
+            "title": "A második hang, nem felhang",
+            "setting": "A rázó a második hangon, 268,8 Hz.",
+            "reads": "Leissa táblázata szerint a második gerjesztett hang 63,6870/24,2702-szer olyan magas, mint a legmélyebb, akármekkora és akármilyen vastag a lemez.",
+            "why": "Egy magasabb rezgést ellenőriz, az acéltól és a mérettől függetlenül: 2,624-szer olyan magas, nem egész számú többszörös, mint egy húrnál. Az 1,4 · 10⁻⁵ eltérés a táblázaté: Iguchi sorát öt tag után elvágták, a Ritz-módszer pedig sosem ad a pontos értéknél kisebbet, itt mégis a táblázaté alatt marad."
+          },
+          "sharpness": {
+            "title": "Mennyire éles egy hang",
+            "setting": "A rázó 0,2 Hz-cel a legmélyebb hang fölött, ahol a közép rezgése még a hangon mért 70,7 %-a.",
+            "reads": "Egy hang Δf = f/Q széles, ott mérve, ahol az energia a felére esik; ζ csillapítással Q = 1/(2ζ).",
+            "why": "A csillapítást ellenőrzi abban a törvényben, amely szerint az oldal a lemezt válaszoltatja: ζ = 0,002 mellett Q = 250, a legmélyebb hang tehát csak 0,41 Hz széles.",
+            "step": "A forrás egyetlen rezgőre adja meg Q-t. A legmélyebb hang közelében a lemez szinte csak ebben az egy alakban rezeg; a többi kilenc 1,4 · 10⁻⁵-nel járul hozzá."
+          },
+          "fourth_tone": {
+            "title": "A negyedik hang, a tömegével súlyozva",
+            "setting": "A rázó a negyedik hangon, 711,1 Hz; arról a mezőről leolvasva, amely megmutatja, mennyire rezeg a közép.",
+            "reads": "A saját hangján minden alak úgy rezeg, mint egyetlen rezgő, a közepén φ(0)²·F/(μ·ω²·2ζ) kitéréssel, ahol μ = ∫φ² ennek az alaknak a tömege. A legmélyebb hanghoz viszonyítva az erő és a csillapítás kiesik.",
+            "why": "Azt ellenőrzi, hogy minden alak a saját tömegével szerepel: a legmélyebb hang 4,70 %-a. μ nélkül 1,98 % lenne, az első változat hibája. μ itt a lemezre integrálva van, nem úgy, mint az oldalon, az együtthatók négyzeteinek összegeként.",
+            "step": "A forrás egy kéttömegű rendszert számol: a válasz az alakok összege, és mindegyik a saját hangján Q₁/K₁·1/(2ζ₁)-gyel válaszol, ahol Q₁ az alakra ható erő, K₁ a merevsége. A lemeznél a tömegekre vett összegből integrál lesz: K = μ·ω² és Q = φ(0)·F egy középen ható erőre. Maguk a φ alakok az oldaléi."
           }
         }
       },

@@ -3482,7 +3482,24 @@
         "tau_air": "optische Dicke der Luft senkrecht, bei 550 nm 0,097",
         "m3": "Luftmasse der Ozonschicht",
         "R_earth": "Erdradius, 6371 km",
-        "H_ozone": "Höhe der Ozonschicht, 22 km"
+        "H_ozone": "Höhe der Ozonschicht, 22 km",
+        "plate_lambda": "Frequenzparameter ωa²√(ρh/D)",
+        "plate_side": "Seitenlänge der Platte",
+        "plate_D": "Biegesteifigkeit der Platte",
+        "plate_rho": "Dichte des Stahls, 7850",
+        "plate_h": "Dicke der Platte",
+        "plate_E": "Elastizitätsmodul, 200 GPa",
+        "plate_nu": "Querdehnzahl, 0,3",
+        "plate_f12": "tiefster und zweiter angetriebener Ton",
+        "plate_Q": "Güte des Tons",
+        "plate_f1": "tiefster angetriebener Ton",
+        "plate_df": "Breite des Tons, zwischen den Punkten halber Energie",
+        "plate_zeta": "Dämpfungsgrad jeder Form, 0,002",
+        "plate_w0": "Schwingweite der Mitte auf dem Ton k",
+        "plate_phi0": "Ausschlag der Form k in der Mitte",
+        "plate_mu": "Masse der Form k, in Einheiten ρh·(a/2)²",
+        "plate_omega": "Kreisfrequenz des Tons k",
+        "plate_xi": "Ort auf der Platte, von −1 bis 1"
       },
       "cases": {
         "sphere": {
@@ -3788,6 +3805,34 @@
             "reads": "Die Ozonschicht liegt als dünne Schale 22 km hoch. Ein Strahl vom Horizont durchquert sie schräg, aber nicht unendlich lang wie in flacher Luft: 12-mal so viel Ozon wie senkrecht.",
             "why": "Prüft den Weg durch die Schale, mit dem die Seite das Orange der Abendsonne schwächt: 12,064, von Hand aus dem allgemeinen Integral, auf der Seite aus einer umgeformten Formel; beide gleich bis auf 10⁻¹⁴.",
             "step": "Die Quelle gibt die Luftmasse für jede Dichte ρ(y) über der Höhe y. Liegt alles Ozon in einer dünnen Schale bei y = H, bleibt vom Integral der Bruch an der Stelle H, geteilt durch denselben Bruch senkrecht (z = 0). Der Zenitwinkel z ist 90° minus die Höhe der Sonne."
+          }
+        },
+        "chladni": {
+          "lowest_tone": {
+            "title": "Der tiefste Ton",
+            "setting": "Die Platte der Seite, 24 cm und 1 mm Stahl; der Rüttler auf dem tiefsten Ton, den er in der Mitte antreibt.",
+            "reads": "Leissas Tabelle gibt für die frei liegende quadratische Platte λ = ωa²√(ρh/D) = 24,2702 für die tiefste Schwingung, die zu beiden Mittellinien und beiden Diagonalen symmetrisch ist; in Hertz f = λ/(2πa²)·√(D/(ρh)).",
+            "why": "Prüft das Verfahren von Ritz, mit dem die Seite die Schwingungen sucht, und die Umrechnung in Hertz: 102,43 Hz. Tabelle und Seite treffen sich auf 4 · 10⁻⁸."
+          },
+          "second_tone": {
+            "title": "Der zweite Ton, kein Oberton",
+            "setting": "Der Rüttler auf dem zweiten Ton, 268,8 Hz.",
+            "reads": "Der zweite angetriebene Ton liegt nach Leissas Tabelle 63,6870/24,2702-mal so hoch wie der tiefste, gleich wie gross und wie dick die Platte ist.",
+            "why": "Prüft eine höhere Schwingung, unabhängig von Stahl und Grösse: 2,624-mal so hoch, kein ganzzahliges Vielfaches wie bei einer Saite. Die Abweichung von 1,4 · 10⁻⁵ liegt bei der Tabelle: Iguchis Reihe ist nach fünf Gliedern abgebrochen, und das Verfahren von Ritz liegt nie unter dem genauen Wert, hier aber unter der Tabelle."
+          },
+          "sharpness": {
+            "title": "Wie scharf ein Ton ist",
+            "setting": "Der Rüttler 0,2 Hz über dem tiefsten Ton, wo die Mitte noch 70,7 % so weit schwingt wie auf dem Ton.",
+            "reads": "Ein Ton ist Δf = f/Q breit, gemessen, wo die Energie auf die Hälfte fällt; mit der Dämpfung ζ ist Q = 1/(2ζ).",
+            "why": "Prüft die Dämpfung im Gesetz, nach dem die Seite die Platte antworten lässt: Mit ζ = 0,002 ist Q = 250, der tiefste Ton also nur 0,41 Hz breit.",
+            "step": "Die Quelle gibt Q für einen einzelnen Schwinger. Nahe am tiefsten Ton schwingt die Platte fast nur in dieser einen Form; die übrigen neun tragen 1,4 · 10⁻⁵ bei."
+          },
+          "fourth_tone": {
+            "title": "Der vierte Ton, gewogen mit seiner Masse",
+            "setting": "Der Rüttler auf dem vierten Ton, 711,1 Hz; abgelesen an der Kachel, wie weit die Mitte schwingt.",
+            "reads": "Auf ihrem Ton schwingt jede Form wie ein einzelner Schwinger, in der Mitte um φ(0)²·F/(μ·ω²·2ζ), mit μ = ∫φ² der Masse dieser Form. Gegen den tiefsten Ton fallen Kraft und Dämpfung heraus.",
+            "why": "Prüft, dass jede Form mit ihrer eigenen Masse eingeht: 4,70 % des tiefsten Tons. Ohne μ wären es 1,98 %, der Fehler der ersten Fassung. μ ist hier über die Platte integriert, nicht wie auf der Seite als Summe der Koeffizientenquadrate.",
+            "step": "Die Quelle rechnet ein System aus zwei Massen: Die Antwort ist die Summe der Formen, und jede antwortet auf ihrem Ton mit Q₁/K₁·1/(2ζ₁), Q₁ der Kraft auf die Form, K₁ ihrer Steifigkeit. Für die Platte wird die Summe über die Massen zum Integral: K = μ·ω² und Q = φ(0)·F für eine Kraft in der Mitte. Die Formen φ selbst sind die der Seite."
           }
         }
       },

@@ -2394,6 +2394,14 @@ the noon sky without ozone and the ozone's share at the horizon. "Set it up"
 sets the tube on the page and the sun on the sun's card, each taking only its
 own cases.
 
+**The Chladni plate's** four (2026-11-20) hold its two lowest tones to Leissa's
+table (NASA SP-160, Table 4.65, after Iguchi), the sharpness of the lowest, and
+the fourth's swing. The engine finds a driven mode at λ = 281.11 (the 1186 Hz
+button) that the table leaves out between its 168.49 and 299.93; it stays at
+Ritz degrees 16, 20 and 24, and Ritz values are upper bounds, so the table
+skipped it, and the cases rest on the two lowest. "Set it up" sets the shaker
+to the case's tone, to the hundredth of a hertz.
+
 **On the page** a section "Check it yourself" (`check-section.tsx`) lists the
 cases, each with its formula as an `Equation` (`check-formulas.ts`), both
 values to seven digits, the deviation, why the case would catch a mistake,

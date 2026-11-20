@@ -3482,7 +3482,24 @@
         "tau_air": "espesor óptico del aire en vertical, 0,097 a 550 nm",
         "m3": "masa de aire de la capa de ozono",
         "R_earth": "radio de la Tierra, 6371 km",
-        "H_ozone": "altura de la capa de ozono, 22 km"
+        "H_ozone": "altura de la capa de ozono, 22 km",
+        "plate_lambda": "parámetro de frecuencia ωa²√(ρh/D)",
+        "plate_side": "el lado de la placa",
+        "plate_D": "la rigidez a la flexión de la placa",
+        "plate_rho": "densidad del acero, 7850",
+        "plate_h": "el grosor de la placa",
+        "plate_E": "módulo de Young, 200 GPa",
+        "plate_nu": "coeficiente de Poisson, 0,3",
+        "plate_f12": "el tono excitado más grave y el segundo",
+        "plate_Q": "factor de calidad del tono",
+        "plate_f1": "el tono excitado más grave",
+        "plate_df": "anchura del tono, entre los puntos de media energía",
+        "plate_zeta": "grado de amortiguación de cada forma, 0,002",
+        "plate_w0": "amplitud del centro en el tono k",
+        "plate_phi0": "desplazamiento de la forma k en el centro",
+        "plate_mu": "masa de la forma k, en unidades de ρh·(a/2)²",
+        "plate_omega": "frecuencia angular del tono k",
+        "plate_xi": "lugar en la placa, de −1 a 1"
       },
       "cases": {
         "sphere": {
@@ -3788,6 +3805,34 @@
             "reads": "La capa de ozono está a 22 km de altura, como una cáscara delgada. Un rayo desde el horizonte la atraviesa en diagonal, pero no a lo largo de un camino infinito como en un aire plano: 12 veces tanto ozono como en vertical.",
             "why": "Comprueba el camino a través de la cáscara, con el que la página atenúa el naranja del sol de la tarde: 12,064, a mano a partir de la integral general, en la página a partir de una fórmula transformada; ambos coinciden hasta 10⁻¹⁴.",
             "step": "La fuente da la masa de aire para cualquier densidad ρ(y) en función de la altura y. Si todo el ozono está en una cáscara delgada en y = H, de la integral queda la fracción en H, dividida entre la misma fracción en vertical (z = 0). El ángulo cenital z es 90° menos la altura del sol."
+          }
+        },
+        "chladni": {
+          "lowest_tone": {
+            "title": "El tono más grave",
+            "setting": "La placa de la página, 24 cm y 1 mm de acero; el vibrador en el tono más grave que excita en el centro.",
+            "reads": "La tabla de Leissa da para la placa cuadrada libre λ = ωa²√(ρh/D) = 24,2702 para la vibración más grave que es simétrica respecto a las dos líneas medias y las dos diagonales; en hercios, f = λ/(2πa²)·√(D/(ρh)).",
+            "why": "Comprueba el método de Ritz, con el que la página busca las vibraciones, y la conversión a hercios: 102,43 Hz. La tabla y la página coinciden con una precisión de 4 · 10⁻⁸."
+          },
+          "second_tone": {
+            "title": "El segundo tono, no un armónico",
+            "setting": "El vibrador en el segundo tono, 268,8 Hz.",
+            "reads": "Según la tabla de Leissa, el segundo tono excitado es 63,6870/24,2702 veces más alto que el más grave, sean cuales sean el tamaño y el grosor de la placa.",
+            "why": "Comprueba una vibración más alta, independiente del acero y del tamaño: 2,624 veces más alto, no un múltiplo entero como en una cuerda. La desviación de 1,4 · 10⁻⁵ es de la tabla: la serie de Iguchi está cortada tras cinco términos, y el método de Ritz nunca queda por debajo del valor exacto, pero aquí queda por debajo de la tabla."
+          },
+          "sharpness": {
+            "title": "Lo nítido que es un tono",
+            "setting": "El vibrador 0,2 Hz por encima del tono más grave, donde el centro aún vibra el 70,7 % de lo que vibra en el tono.",
+            "reads": "Un tono tiene una anchura Δf = f/Q, medida donde la energía cae a la mitad; con la amortiguación ζ, Q = 1/(2ζ).",
+            "why": "Comprueba la amortiguación en la ley con la que la página hace responder a la placa: con ζ = 0,002, Q = 250, así que el tono más grave solo tiene 0,41 Hz de anchura.",
+            "step": "La fuente da Q para un oscilador único. Cerca del tono más grave, la placa vibra casi solo en esta forma; las otras nueve aportan 1,4 · 10⁻⁵."
+          },
+          "fourth_tone": {
+            "title": "El cuarto tono, ponderado con su masa",
+            "setting": "El vibrador en el cuarto tono, 711,1 Hz; leído en el recuadro que indica cuánto vibra el centro.",
+            "reads": "En su tono, cada forma vibra como un oscilador único, en el centro con φ(0)²·F/(μ·ω²·2ζ), donde μ = ∫φ² es la masa de esa forma. Frente al tono más grave, la fuerza y la amortiguación se cancelan.",
+            "why": "Comprueba que cada forma entra con su propia masa: el 4,70 % del tono más grave. Sin μ sería el 1,98 %, el error de la primera versión. Aquí μ se integra sobre la placa, no como en la página, como suma de los cuadrados de los coeficientes.",
+            "step": "La fuente trata un sistema de dos masas: la respuesta es la suma de las formas, y cada una responde en su tono con Q₁/K₁·1/(2ζ₁), donde Q₁ es la fuerza sobre la forma y K₁ su rigidez. Para la placa, la suma sobre las masas se convierte en una integral: K = μ·ω² y Q = φ(0)·F para una fuerza en el centro. Las formas φ son las de la página."
           }
         }
       },

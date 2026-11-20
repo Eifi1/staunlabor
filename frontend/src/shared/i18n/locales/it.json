@@ -3482,7 +3482,24 @@
         "tau_air": "spessore ottico dell'aria in verticale, 0,097 a 550 nm",
         "m3": "massa d'aria dello strato di ozono",
         "R_earth": "raggio della Terra, 6371 km",
-        "H_ozone": "quota dello strato di ozono, 22 km"
+        "H_ozone": "quota dello strato di ozono, 22 km",
+        "plate_lambda": "parametro di frequenza ωa²√(ρh/D)",
+        "plate_side": "il lato della lastra",
+        "plate_D": "la rigidezza flessionale della lastra",
+        "plate_rho": "densità dell'acciaio, 7850",
+        "plate_h": "lo spessore della lastra",
+        "plate_E": "modulo di Young, 200 GPa",
+        "plate_nu": "coefficiente di Poisson, 0,3",
+        "plate_f12": "il suono eccitato più grave e il secondo",
+        "plate_Q": "fattore di qualità del suono",
+        "plate_f1": "il suono eccitato più grave",
+        "plate_df": "larghezza del suono, tra i punti a metà energia",
+        "plate_zeta": "rapporto di smorzamento di ogni forma, 0,002",
+        "plate_w0": "ampiezza del centro sul suono k",
+        "plate_phi0": "spostamento della forma k al centro",
+        "plate_mu": "massa della forma k, in unità di ρh·(a/2)²",
+        "plate_omega": "pulsazione del suono k",
+        "plate_xi": "punto sulla lastra, da −1 a 1"
       },
       "cases": {
         "sphere": {
@@ -3788,6 +3805,34 @@
             "reads": "Lo strato di ozono è un guscio sottile a 22 km di quota. Un raggio dall'orizzonte lo attraversa di sbieco, ma non per un tratto infinito come in un'aria piatta: 12 volte tanto ozono quanto in verticale.",
             "why": "Verifica il cammino attraverso il guscio, con cui la pagina attenua l'arancione del sole della sera: 12,064, a mano dall'integrale generale, nella pagina da una formula trasformata; i due coincidono a meno di 10⁻¹⁴.",
             "step": "La fonte dà la massa d'aria per qualsiasi densità ρ(y) in funzione della quota y. Se tutto l'ozono sta in un guscio sottile a y = H, dell'integrale resta la frazione nel punto H, divisa per la stessa frazione in verticale (z = 0). L'angolo zenitale z è 90° meno l'altezza del sole."
+          }
+        },
+        "chladni": {
+          "lowest_tone": {
+            "title": "Il suono più grave",
+            "setting": "La lastra della pagina, 24 cm e 1 mm d'acciaio; il vibratore sul suono più grave che eccita al centro.",
+            "reads": "La tabella di Leissa dà per la lastra quadrata libera λ = ωa²√(ρh/D) = 24,2702 per la vibrazione più grave simmetrica rispetto a entrambe le linee mediane e a entrambe le diagonali; in hertz f = λ/(2πa²)·√(D/(ρh)).",
+            "why": "Verifica il metodo di Ritz, con cui la pagina cerca le vibrazioni, e la conversione in hertz: 102,43 Hz. Tabella e pagina coincidono a meno di 4 · 10⁻⁸."
+          },
+          "second_tone": {
+            "title": "Il secondo suono, non un armonico",
+            "setting": "Il vibratore sul secondo suono, 268,8 Hz.",
+            "reads": "Secondo la tabella di Leissa il secondo suono eccitato è 63,6870/24,2702 volte più alto del più grave, qualunque siano dimensioni e spessore della lastra.",
+            "why": "Verifica una vibrazione più alta, indipendente da acciaio e dimensioni: 2,624 volte più alto, non un multiplo intero come in una corda. Lo scarto di 1,4 · 10⁻⁵ sta nella tabella: la serie di Iguchi è troncata dopo cinque termini, e il metodo di Ritz non scende mai sotto il valore esatto, qui però scende sotto la tabella."
+          },
+          "sharpness": {
+            "title": "Quanto è netto un suono",
+            "setting": "Il vibratore 0,2 Hz sopra il suono più grave, dove il centro vibra ancora il 70,7 % di quanto vibra sul suono.",
+            "reads": "Un suono è largo Δf = f/Q, misurato dove l'energia scende alla metà; con lo smorzamento ζ, Q = 1/(2ζ).",
+            "why": "Verifica lo smorzamento nella legge con cui la pagina fa rispondere la lastra: con ζ = 0,002, Q = 250, quindi il suono più grave è largo solo 0,41 Hz.",
+            "step": "La fonte dà Q per un singolo oscillatore. Vicino al suono più grave la lastra vibra quasi solo in questa forma; le altre nove contribuiscono per 1,4 · 10⁻⁵."
+          },
+          "fourth_tone": {
+            "title": "Il quarto suono, pesato con la sua massa",
+            "setting": "Il vibratore sul quarto suono, 711,1 Hz; letto nel riquadro che indica quanto vibra il centro.",
+            "reads": "Sul suo suono ogni forma vibra come un singolo oscillatore, al centro di φ(0)²·F/(μ·ω²·2ζ), con μ = ∫φ² la massa di questa forma. Rispetto al suono più grave, forza e smorzamento si eliminano.",
+            "why": "Verifica che ogni forma entri con la propria massa: il 4,70 % del suono più grave. Senza μ sarebbe l'1,98 %, l'errore della prima versione. Qui μ è integrata sulla lastra, non come nella pagina come somma dei quadrati dei coefficienti.",
+            "step": "La fonte tratta un sistema di due masse: la risposta è la somma delle forme, e ognuna risponde sul suo suono con Q₁/K₁·1/(2ζ₁), con Q₁ la forza sulla forma e K₁ la sua rigidezza. Per la lastra la somma sulle masse diventa un integrale: K = μ·ω² e Q = φ(0)·F per una forza al centro. Le forme φ stesse sono quelle della pagina."
           }
         }
       },

@@ -3482,7 +3482,24 @@
         "tau_air": "the air's optical depth straight up, 0.097 at 550 nm",
         "m3": "the ozone layer's air mass",
         "R_earth": "the earth's radius, 6371 km",
-        "H_ozone": "the ozone layer's height, 22 km"
+        "H_ozone": "the ozone layer's height, 22 km",
+        "plate_lambda": "frequency parameter ωa²√(ρh/D)",
+        "plate_side": "the plate's side",
+        "plate_D": "the plate's flexural rigidity",
+        "plate_rho": "the steel's density, 7850",
+        "plate_h": "the plate's thickness",
+        "plate_E": "Young's modulus, 200 GPa",
+        "plate_nu": "Poisson's ratio, 0.3",
+        "plate_f12": "lowest and second driven tone",
+        "plate_Q": "the tone's quality factor",
+        "plate_f1": "lowest driven tone",
+        "plate_df": "the tone's width, between the half-energy points",
+        "plate_zeta": "each shape's damping ratio, 0.002",
+        "plate_w0": "the middle's swing on tone k",
+        "plate_phi0": "shape k's deflection at the middle",
+        "plate_mu": "shape k's mass, in units of ρh·(a/2)²",
+        "plate_omega": "angular frequency of tone k",
+        "plate_xi": "place on the plate, from −1 to 1"
       },
       "cases": {
         "sphere": {
@@ -3788,6 +3805,34 @@
             "reads": "The ozone layer lies as a thin shell 22 km up. A ray from the horizon crosses it slantwise, but not endlessly as in a flat air: 12 times as much ozone as straight up.",
             "why": "Checks the path through the shell, by which the page dims the evening sun's orange: 12.064, by hand from the general integral, on the page from a formula rearranged; the two agree to 10⁻¹⁴.",
             "step": "The source gives the air mass for any density ρ(y) over the height y. With all the ozone in a thin shell at y = H, what is left of the integral is the fraction at H, over the same fraction straight up (z = 0). The zenith angle z is 90° less the sun's height."
+          }
+        },
+        "chladni": {
+          "lowest_tone": {
+            "title": "The lowest tone",
+            "setting": "The page's plate, 24 cm and 1 mm of steel; the shaker on the lowest tone it drives at the middle.",
+            "reads": "Leissa's table gives the free square plate λ = ωa²√(ρh/D) = 24.2702 for the lowest mode symmetric about both middle lines and both diagonals; in hertz f = λ/(2πa²)·√(D/(ρh)).",
+            "why": "Checks the Ritz method the page finds the modes by, and the turning into hertz: 102.43 Hz. Table and page meet to 4 · 10⁻⁸."
+          },
+          "second_tone": {
+            "title": "The second tone, no overtone",
+            "setting": "The shaker on the second tone, 268.8 Hz.",
+            "reads": "By Leissa's table the second driven tone lies 63.6870/24.2702 times as high as the lowest, however large and thick the plate.",
+            "why": "Checks a higher mode, free of steel and size: 2.624 times as high, no whole multiple as on a string. The 1.4 · 10⁻⁵ off lies with the table: Iguchi's series is cut off after five terms, and the Ritz method never lies below the exact value, yet here lies below the table."
+          },
+          "sharpness": {
+            "title": "How sharp a tone is",
+            "setting": "The shaker 0.2 Hz above the lowest tone, where the middle still swings 70.7 % as far as on the tone.",
+            "reads": "A tone is Δf = f/Q wide, measured where the energy falls to half; with the damping ζ, Q = 1/(2ζ).",
+            "why": "Checks the damping in the law the page makes the plate answer by: with ζ = 0.002, Q = 250, so the lowest tone is only 0.41 Hz wide.",
+            "step": "The source gives Q for a single oscillator. Near the lowest tone the plate swings almost only in this one shape; the other nine add 1.4 · 10⁻⁵."
+          },
+          "fourth_tone": {
+            "title": "The fourth tone, weighed by its mass",
+            "setting": "The shaker on the fourth tone, 711.1 Hz; read off the tile for how far the middle swings.",
+            "reads": "On its tone each shape swings like a single oscillator, at the middle by φ(0)²·F/(μ·ω²·2ζ), with μ = ∫φ² the shape's mass. Against the lowest tone force and damping drop out.",
+            "why": "Checks that each shape enters with its own mass: 4.70 % of the lowest tone's. Without μ it would be 1.98 %, the first version's mistake. μ is integrated over the plate here, not summed as the squares of the coefficients as on the page.",
+            "step": "The source works a system of two masses: the answer is the sum of the shapes, and each answers on its tone with Q₁/K₁·1/(2ζ₁), Q₁ the force on the shape, K₁ its stiffness. For the plate the sum over the masses becomes an integral: K = μ·ω² and Q = φ(0)·F for a force at the middle. The shapes φ themselves are the page's."
           }
         }
       },

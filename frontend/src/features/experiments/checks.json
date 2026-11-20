@@ -100,6 +100,99 @@
    ]
   }
  ],
+ "chladni": [
+  {
+   "key": "lowest_tone",
+   "unit": "Hz",
+   "expected": 102.432990894,
+   "measured": 102.432994686,
+   "deviation": 3.7011657268e-08,
+   "tolerance": 2e-06,
+   "derived": false,
+   "setting": {
+    "drive_hz": 102.4329946855643
+   },
+   "sources": [
+    {
+     "cite": "A. W. Leissa, Vibration of Plates, NASA SP-160 (1969), Table 4.65, p. 104 (after Iguchi, ref. 4.113)",
+     "url": "https://ntrs.nasa.gov/api/citations/19700009156/downloads/19700009156.pdf",
+     "quote": "Frequency Parameters and Mode Shapes for a Completely Free Square Plate; ν=0.3 … ωa²√(ρ/D) … Modes symmetric about coordinate axes, symmetric about diagonals … 24.2702 … 63.6870 … 122.4449 … 168.4888 … 299.9325"
+    },
+    {
+     "cite": "A. W. Leissa, Vibration of Plates, NASA SP-160 (1969), Ch. 1, Eqs. (1.1) and (1.2), p. 1",
+     "url": "https://ntrs.nasa.gov/api/citations/19700009156/downloads/19700009156.pdf",
+     "quote": "D∇⁴w + ρ ∂²w/∂t² = 0 (1.1) where D is the flexural rigidity and is defined by D = Eh³/12(1−ν²) (1.2) E is Young's modulus, h is the plate thickness, ν is Poisson's ratio, ρ is mass density per unit area of the plate"
+    }
+   ]
+  },
+  {
+   "key": "second_tone",
+   "unit": "",
+   "expected": 2.62408220781,
+   "measured": 2.62404638734,
+   "deviation": 1.36506661345e-05,
+   "tolerance": 5e-05,
+   "derived": false,
+   "setting": {
+    "drive_hz": 268.7889296491004
+   },
+   "sources": [
+    {
+     "cite": "A. W. Leissa, Vibration of Plates, NASA SP-160 (1969), Table 4.65, p. 104 (after Iguchi, ref. 4.113)",
+     "url": "https://ntrs.nasa.gov/api/citations/19700009156/downloads/19700009156.pdf",
+     "quote": "Frequency Parameters and Mode Shapes for a Completely Free Square Plate; ν=0.3 … ωa²√(ρ/D) … Modes symmetric about coordinate axes, symmetric about diagonals … 24.2702 … 63.6870 … 122.4449 … 168.4888 … 299.9325"
+    }
+   ]
+  },
+  {
+   "key": "sharpness",
+   "unit": "",
+   "expected": 250.0,
+   "measured": 249.994506887,
+   "deviation": 2.19724530835e-05,
+   "tolerance": 0.0001,
+   "derived": true,
+   "setting": {
+    "drive_hz": 102.63673083058401
+   },
+   "sources": [
+    {
+     "cite": "Wikipedia, “Q factor”, §Physical interpretation",
+     "url": "https://en.wikipedia.org/wiki/Q_factor",
+     "quote": "Starting from the stored energy definition, it can be shown that Q = 1/(2ζ), where ζ is the damping ratio."
+    },
+    {
+     "cite": "Wikipedia, “Q factor”, §Physical interpretation",
+     "url": "https://en.wikipedia.org/wiki/Q_factor",
+     "quote": "The width (bandwidth) of the resonance is given by (approximately): Δf = f_N/Q, where f_N is the natural frequency, and Δf, the bandwidth, is the width of the range of frequencies for which the energy is at least half its peak value."
+    }
+   ]
+  },
+  {
+   "key": "fourth_tone",
+   "unit": "%",
+   "expected": 4.70086155773,
+   "measured": 4.70114735237,
+   "deviation": 6.0796225968e-05,
+   "tolerance": 0.0002,
+   "derived": true,
+   "setting": {
+    "drive_hz": 711.0869139719288
+   },
+   "sources": [
+    {
+     "cite": "MIT OpenCourseWare 2.003SC Engineering Dynamics (Fall 2011), Recitation 12 Notes: Modal Analysis, p. 4",
+     "url": "https://ocw.mit.edu/courses/2-003sc-engineering-dynamics-fall-2011/650ea2d4579aa784f6e46044188560b0_MIT2_003SCF11_rec12note1.pdf",
+     "quote": "θ = Uq = [u]⁽¹⁾q₁(t) + [u]⁽²⁾q₂(t) … |q₁| = |Q₁| (1/K₁)/[(1 − ω²/ω₁²)² + (2ζ₁ω/ω₁)²]^(1/2) … |q₁| = (Q₁/K₁)·1/(2ζ₁)"
+    },
+    {
+     "cite": "A. W. Leissa, Vibration of Plates, NASA SP-160 (1969), Ch. 1, Eqs. (1.1) and (1.2), p. 1",
+     "url": "https://ntrs.nasa.gov/api/citations/19700009156/downloads/19700009156.pdf",
+     "quote": "D∇⁴w + ρ ∂²w/∂t² = 0 (1.1) where D is the flexural rigidity and is defined by D = Eh³/12(1−ν²) (1.2) E is Young's modulus, h is the plate thickness, ν is Poisson's ratio, ρ is mass density per unit area of the plate"
+    }
+   ]
+  }
+ ],
  "coil": [
   {
    "key": "rl_rise",

@@ -48,6 +48,7 @@ const BETA: CheckSymbol = { tex: String.raw`\beta`, key: "beta", unit: "1/m" };
 const AIR_MASS: CheckSymbol = { tex: "m", key: "air_mass" };
 const ZENITH: CheckSymbol = { tex: "z", key: "z_zenith", unit: "°" };
 const HEIGHT: CheckSymbol = { tex: "h", key: "h_sun", unit: "°" };
+const PLATE_LAMBDA: CheckSymbol = { tex: String.raw`\lambda`, key: "plate_lambda" };
 
 export const CHECK_FORMULAS: Record<string, Record<string, CheckFormula>> = {
   sphere: {
@@ -395,6 +396,44 @@ export const CHECK_FORMULAS: Record<string, Record<string, CheckFormula>> = {
         { tex: "H", key: "H_ozone", unit: "km" },
         ZENITH,
         HEIGHT,
+      ],
+    },
+  },
+  chladni: {
+    lowest_tone: {
+      tex: String.raw`f = \frac{\lambda}{2\pi a^2}\sqrt{\frac{D}{\rho h}}, \qquad D = \frac{E h^3}{12\,(1 - \nu^2)}, \qquad \lambda = 24.2702`,
+      symbols: [
+        { tex: "f", key: "f", unit: "Hz" },
+        PLATE_LAMBDA,
+        { tex: "a", key: "plate_side", unit: "m" },
+        { tex: "D", key: "plate_D", unit: "N·m" },
+        { tex: String.raw`\rho`, key: "plate_rho", unit: "kg/m³" },
+        { tex: "h", key: "plate_h", unit: "m" },
+        { tex: "E", key: "plate_E", unit: "Pa" },
+        { tex: String.raw`\nu`, key: "plate_nu" },
+      ],
+    },
+    second_tone: {
+      tex: String.raw`\frac{f_2}{f_1} = \frac{\lambda_2}{\lambda_1} = \frac{63.6870}{24.2702}`,
+      symbols: [{ tex: "f_1, f_2", key: "plate_f12", unit: "Hz" }, PLATE_LAMBDA],
+    },
+    sharpness: {
+      tex: String.raw`Q = \frac{f_1}{\Delta f} = \frac{1}{2\zeta}`,
+      symbols: [
+        { tex: "Q", key: "plate_Q" },
+        { tex: "f_1", key: "plate_f1", unit: "Hz" },
+        { tex: String.raw`\Delta f`, key: "plate_df", unit: "Hz" },
+        { tex: String.raw`\zeta`, key: "plate_zeta" },
+      ],
+    },
+    fourth_tone: {
+      tex: String.raw`\frac{w_4(0)}{w_1(0)} = \frac{\varphi_4(0)^2 / (\mu_4\,\omega_4^2)}{\varphi_1(0)^2 / (\mu_1\,\omega_1^2)}, \qquad \mu_k = \iint \varphi_k^2\,d\xi\,d\eta`,
+      symbols: [
+        { tex: "w_k(0)", key: "plate_w0" },
+        { tex: String.raw`\varphi_k(0)`, key: "plate_phi0" },
+        { tex: String.raw`\mu_k`, key: "plate_mu" },
+        { tex: String.raw`\omega_k`, key: "plate_omega", unit: "1/s" },
+        { tex: String.raw`\xi, \eta`, key: "plate_xi" },
       ],
     },
   },
