@@ -1647,6 +1647,7 @@
       "play": {
         "title": "Let the pendulum go",
         "hint": "Drag the peg up or down, or pick one of the three cases below.",
+        "drag_hint": "Or take the bob with the mouse or a finger, pull it out and let go.",
         "let_go": "Let go",
         "pause": "Pause",
         "run": "Run",
@@ -3499,7 +3500,13 @@
         "plate_phi0": "shape k's deflection at the middle",
         "plate_mu": "shape k's mass, in units of ρh·(a/2)²",
         "plate_omega": "angular frequency of tone k",
-        "plate_xi": "place on the plate, from −1 to 1"
+        "plate_xi": "place on the plate, from −1 to 1",
+        "h_start": "starting height, above the bottom",
+        "r_small": "radius of the small circle: the string's length less the peg's depth",
+        "phi_peg": "angle round the peg, from below",
+        "phi0_peg": "amplitude round the peg",
+        "pull": "the string's pull",
+        "depth": "depth of the peg below the pivot"
       },
       "cases": {
         "sphere": {
@@ -3833,6 +3840,35 @@
             "reads": "On its tone each shape swings like a single oscillator, at the middle by φ(0)²·F/(μ·ω²·2ζ), with μ = ∫φ² the shape's mass. Against the lowest tone force and damping drop out.",
             "why": "Checks that each shape enters with its own mass: 4.70 % of the lowest tone's. Without μ it would be 1.98 %, the first version's mistake. μ is integrated over the plate here, not summed as the squares of the coefficients as on the page.",
             "step": "The source works a system of two masses: the answer is the sum of the shapes, and each answers on its tone with Q₁/K₁·1/(2ζ₁), Q₁ the force on the shape, K₁ its stiffness. For the plate the sum over the masses becomes an integral: K = μ·ω² and Q = φ(0)·F for a force at the middle. The shapes φ themselves are the page's."
+          }
+        },
+        "peg": {
+          "same_height": {
+            "title": "As high on both sides",
+            "setting": "A 1 m string, the peg 50 cm below the pivot, let go at 30°; for six seconds.",
+            "reads": "The string pulls across the motion and does no work: round the peg the bob rises again to the height L(1 − cos θ₀) it was let go from.",
+            "why": "Checks that the peg, catching the string, keeps the bob's speed and not its angular velocity: 13.3975 cm high. The page reads the bob every millisecond, and the turning point lies between two readings: hence the deviation of 2 · 10⁻⁷."
+          },
+          "period": {
+            "title": "The period on two circles",
+            "setting": "As above: a 1 m string, the peg 50 cm down, let go at 30°; timed from the first to the fourth time the peg catches the string.",
+            "reads": "Out, the bob swings half a period on the whole string, back half a period round the peg, each at its own amplitude.",
+            "why": "Checks both equations of motion and the switches between them, which the page finds within its step: 1.755778 s, to 10⁻⁹. K is summed here as an integral, not by the arithmetic-geometric mean as in the engine.",
+            "step": "The first source gives ω = √(g/L), the second the pendulum's equation in the time ω·t and its period 4K, the third K. Half a period in seconds is thus 2√(ℓ/g)·K(sin(α/2)): once with ℓ = L and α = θ₀, once with ℓ = r and the amplitude φ₀ that reaches the same height round the peg."
+          },
+          "loop": {
+            "title": "How deep the peg must be for the bob to loop",
+            "setting": "A 1 m string, let go from the horizontal, the peg 60 cm down: at the edge. The edge is found by halving between 55 and 65 cm.",
+            "reads": "At the top of the small circle the string must still pull. With the speed from the starting height that means h ≥ 5r/2; from the horizontal, h = 1 m, so r ≤ 40 cm, the peg at least 60 cm down.",
+            "why": "Checks the loop in the time loop itself, not the page's formula: from 59.99999 cm. With the peg a hair higher the string would be slack at the top only for an instant, shorter than a step; the page does not see that, hence the deviation of 2 · 10⁻⁷.",
+            "step": "The source gives the string's pull, mg(3cos θ − 2cos θ_m), for a pendulum turning at θ_m. Round the peg the radius is r, and the starting height stands in for cos θ_m: 1 − h/r. At the top, cos θ = −1, the pull is mg(2h/r − 5)."
+          },
+          "slack": {
+            "title": "Where the string goes slack",
+            "setting": "A 1 m string, the peg 55 cm down, let go from the horizontal: the case “Slack string”.",
+            "reads": "The string goes slack where its pull falls to zero: v²/r + g·cos φ = 0. With the speed from the starting height that is at the height (r + 2h)/3.",
+            "why": "Checks where the page lets the free flight begin: 81.6667 cm above the bottom, to 10⁻⁹, since the page finds the moment within its step.",
+            "step": "The source gives the pull mg(3cos θ − 2cos θ_m) for a pendulum turning at θ_m. Round the peg the starting height stands in for cos θ_m: 1 − h/r. Set to zero, that gives cos φ = 2(1 − h/r)/3, and the height r(1 − cos φ) = (r + 2h)/3."
           }
         }
       },

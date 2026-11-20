@@ -2402,6 +2402,14 @@ Ritz degrees 16, 20 and 24, and Ritz values are upper bounds, so the table
 skipped it, and the cases rest on the two lowest. "Set it up" sets the shaker
 to the case's tone, to the hundredth of a hertz.
 
+**The peg's** four (2026-11-20) hold the bob to the same height on both
+sides (Galileo, quoted for that alone: in the same passage he puts the loop at
+h > 2r, where it needs 2.5r), the caught swing's period, the loop at its very
+edge and the slack string just below it. The engine spots a slack string by
+its pull changing sign between the ends of a step, so right at the edge it can
+miss a dip below zero shorter than a step: a band of about 7 · 10⁻⁷ m in the
+peg's depth, which the loop case's tolerance of 2 · 10⁻⁶ covers.
+
 **On the page** a section "Check it yourself" (`check-section.tsx`) lists the
 cases, each with its formula as an `Equation` (`check-formulas.ts`), both
 values to seven digits, the deviation, why the case would catch a mistake,

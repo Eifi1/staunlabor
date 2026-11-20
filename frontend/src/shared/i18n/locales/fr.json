@@ -1647,6 +1647,7 @@
       "play": {
         "title": "Lâcher le pendule",
         "hint": "Faites glisser la cheville vers le haut ou le bas, ou choisissez plus bas l'un des trois cas.",
+        "drag_hint": "Ou prenez la boule avec la souris ou le doigt, écartez-la et lâchez-la.",
         "let_go": "Lâcher",
         "pause": "Pause",
         "run": "Reprendre",
@@ -3499,7 +3500,13 @@
         "plate_phi0": "déplacement de la forme k au milieu",
         "plate_mu": "masse de la forme k, en unités de ρh·(a/2)²",
         "plate_omega": "pulsation du son k",
-        "plate_xi": "position sur la plaque, de −1 à 1"
+        "plate_xi": "position sur la plaque, de −1 à 1",
+        "h_start": "hauteur de départ, au-dessus du point le plus bas",
+        "r_small": "rayon du petit cercle : la longueur du fil moins la profondeur de la cheville",
+        "phi_peg": "angle autour de la cheville, mesuré depuis le bas",
+        "phi0_peg": "amplitude autour de la cheville",
+        "pull": "traction du fil",
+        "depth": "profondeur de la cheville sous la suspension"
       },
       "cases": {
         "sphere": {
@@ -3833,6 +3840,35 @@
             "reads": "Sur son son, chaque forme vibre comme un oscillateur seul, au milieu de φ(0)²·F/(μ·ω²·2ζ), avec μ = ∫φ² la masse de cette forme. Rapportées au son le plus grave, la force et l’amortissement s’éliminent.",
             "why": "Vérifie que chaque forme intervient avec sa propre masse : 4,70 % du son le plus grave. Sans μ, ce serait 1,98 %, l’erreur de la première version. μ est ici intégrée sur la plaque, et non, comme sur la page, sommée comme les carrés des coefficients.",
             "step": "La source traite un système à deux masses : la réponse est la somme des formes, et chacune répond sur son son avec Q₁/K₁·1/(2ζ₁), Q₁ étant la force sur la forme et K₁ sa raideur. Pour la plaque, la somme sur les masses devient une intégrale : K = μ·ω² et Q = φ(0)·F pour une force au milieu. Les formes φ elles-mêmes sont celles de la page."
+          }
+        },
+        "peg": {
+          "same_height": {
+            "title": "Aussi haut des deux côtés",
+            "setting": "Fil de 1 m, cheville 50 cm sous la suspension, lâché à 30° ; pendant six secondes.",
+            "reads": "Le fil tire en travers du mouvement et ne fournit aucun travail : autour de la cheville, la boule remonte à la hauteur L(1 − cos θ₀) d’où elle a été lâchée.",
+            "why": "Vérifie que la cheville, en arrêtant le fil, conserve la vitesse de la boule et non sa vitesse angulaire : 13,3975 cm de haut. La page relève la boule chaque milliseconde, et le point de retour tombe entre deux relevés : d’où l’écart de 2 · 10⁻⁷."
+          },
+          "period": {
+            "title": "La période sur deux cercles",
+            "setting": "Comme ci-dessus : fil de 1 m, cheville 50 cm plus bas, lâché à 30° ; mesuré de la première à la quatrième fois où la cheville arrête le fil.",
+            "reads": "À l’aller, la boule oscille une demi-période sur tout le fil, au retour une demi-période autour de la cheville, chacune avec sa propre amplitude.",
+            "why": "Vérifie les deux équations du mouvement et les passages de l’une à l’autre, que la page cherche à l’intérieur de son pas : 1,755778 s, à 10⁻⁹ près. K est ici sommée comme une intégrale, et non par la moyenne arithmético-géométrique qu’utilise le moteur de calcul.",
+            "step": "La première source donne ω = √(g/L), la deuxième l’équation du pendule dans le temps ω·t et sa période 4K, la troisième K. Une demi-période en secondes vaut donc 2√(ℓ/g)·K(sin(α/2)) : une fois avec ℓ = L et α = θ₀, une fois avec ℓ = r et l’amplitude φ₀ qui atteint la même hauteur autour de la cheville."
+          },
+          "loop": {
+            "title": "À partir de quelle profondeur la boule fait le tour",
+            "setting": "Fil de 1 m, lâché depuis l’horizontale, la cheville 60 cm plus bas : à la limite. La limite est cherchée par dichotomie entre 55 et 65 cm.",
+            "reads": "En haut du petit cercle, le fil doit encore tirer. Avec la vitesse tirée de la hauteur de départ, cela veut dire h ≥ 5r/2 ; depuis l’horizontale, h = 1 m, donc r ≤ 40 cm, la cheville au moins 60 cm plus bas.",
+            "why": "Vérifie le tour complet dans la boucle des pas de temps elle-même, et non la formule de la page : dès 59,99999 cm. Avec la cheville à peine plus haut, le fil ne serait détendu en haut qu’un instant, moins qu’un pas ; la page ne le voit pas, d’où l’écart de 2 · 10⁻⁷.",
+            "step": "La source donne la traction du fil, mg(3cos θ − 2cos θ_m), pour un pendule qui rebrousse chemin en θ_m. Autour de la cheville, le rayon est r, et la hauteur de départ remplace cos θ_m : 1 − h/r. En haut, pour cos θ = −1, la traction vaut mg(2h/r − 5)."
+          },
+          "slack": {
+            "title": "Où le fil se détend",
+            "setting": "Fil de 1 m, cheville 55 cm plus bas, lâché depuis l’horizontale : le cas « Fil détendu ».",
+            "reads": "Le fil se détend là où sa traction s’annule : v²/r + g·cos φ = 0. Avec la vitesse tirée de la hauteur de départ, cela se produit à la hauteur (r + 2h)/3.",
+            "why": "Vérifie où la page fait commencer le vol libre : 81,6667 cm au-dessus du point le plus bas, à 10⁻⁹ près, car la page cherche l’instant à l’intérieur de son pas.",
+            "step": "La source donne la traction mg(3cos θ − 2cos θ_m) pour un pendule qui rebrousse chemin en θ_m. Autour de la cheville, la hauteur de départ remplace cos θ_m : 1 − h/r. Égalée à zéro, elle donne cos φ = 2(1 − h/r)/3, et la hauteur r(1 − cos φ) = (r + 2h)/3."
           }
         }
       },

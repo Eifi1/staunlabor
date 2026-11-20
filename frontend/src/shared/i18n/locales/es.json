@@ -1647,6 +1647,7 @@
       "play": {
         "title": "Soltar el péndulo",
         "hint": "Arrastre el clavo hacia arriba o hacia abajo, o elija abajo uno de los tres casos.",
+        "drag_hint": "O tome la bola con el ratón o con el dedo, apártela y suéltela.",
         "let_go": "Soltar",
         "pause": "Pausa",
         "run": "Seguir",
@@ -3499,7 +3500,13 @@
         "plate_phi0": "desplazamiento de la forma k en el centro",
         "plate_mu": "masa de la forma k, en unidades de ρh·(a/2)²",
         "plate_omega": "frecuencia angular del tono k",
-        "plate_xi": "lugar en la placa, de −1 a 1"
+        "plate_xi": "lugar en la placa, de −1 a 1",
+        "h_start": "altura de partida, sobre el punto más bajo",
+        "r_small": "radio del círculo pequeño: la longitud del hilo menos la profundidad del clavo",
+        "phi_peg": "ángulo alrededor del clavo, medido desde abajo",
+        "phi0_peg": "amplitud alrededor del clavo",
+        "pull": "tirón del hilo",
+        "depth": "profundidad del clavo bajo la suspensión"
       },
       "cases": {
         "sphere": {
@@ -3833,6 +3840,35 @@
             "reads": "En su tono, cada forma vibra como un oscilador único, en el centro con φ(0)²·F/(μ·ω²·2ζ), donde μ = ∫φ² es la masa de esa forma. Frente al tono más grave, la fuerza y la amortiguación se cancelan.",
             "why": "Comprueba que cada forma entra con su propia masa: el 4,70 % del tono más grave. Sin μ sería el 1,98 %, el error de la primera versión. Aquí μ se integra sobre la placa, no como en la página, como suma de los cuadrados de los coeficientes.",
             "step": "La fuente trata un sistema de dos masas: la respuesta es la suma de las formas, y cada una responde en su tono con Q₁/K₁·1/(2ζ₁), donde Q₁ es la fuerza sobre la forma y K₁ su rigidez. Para la placa, la suma sobre las masas se convierte en una integral: K = μ·ω² y Q = φ(0)·F para una fuerza en el centro. Las formas φ son las de la página."
+          }
+        },
+        "peg": {
+          "same_height": {
+            "title": "Igual de alto a ambos lados",
+            "setting": "Hilo de 1 m, clavo 50 cm por debajo de la suspensión, soltado a 30°; durante seis segundos.",
+            "reads": "El hilo tira de través al movimiento y no realiza trabajo: en el clavo, la bola vuelve a subir hasta la altura L(1 − cos θ₀) desde la que se soltó.",
+            "why": "Comprueba que el clavo, al atrapar el hilo, conserva la velocidad de la bola y no su velocidad angular: 13,3975 cm de altura. La página lee la bola cada milisegundo, y el punto de retorno cae entre dos lecturas: de ahí la desviación de 2 · 10⁻⁷."
+          },
+          "period": {
+            "title": "El periodo sobre dos círculos",
+            "setting": "Como arriba: hilo de 1 m, clavo 50 cm abajo, soltado a 30°; medido desde la primera hasta la cuarta vez que el clavo atrapa el hilo.",
+            "reads": "A la ida, la bola oscila medio periodo con el hilo entero; a la vuelta, medio alrededor del clavo, cada uno con su propia amplitud.",
+            "why": "Comprueba las dos ecuaciones del movimiento y los cambios entre ellas, que la página busca dentro de su paso: 1,755778 s, con una precisión de 10⁻⁹. Aquí K se suma como integral, no mediante la media aritmético-geométrica que usa el motor de cálculo.",
+            "step": "La primera fuente da ω = √(g/L); la segunda, la ecuación del péndulo en el tiempo ω·t y su periodo 4K; la tercera, K. Medio periodo en segundos es, por tanto, 2√(ℓ/g)·K(sin(α/2)): una vez con ℓ = L y α = θ₀, otra con ℓ = r y la amplitud φ₀ que alcanza la misma altura alrededor del clavo."
+          },
+          "loop": {
+            "title": "A partir de qué profundidad la bola da la vuelta",
+            "setting": "Hilo de 1 m, soltado desde la horizontal, el clavo 60 cm abajo: en el límite. El límite se busca partiendo por la mitad entre 55 y 65 cm.",
+            "reads": "En lo alto del círculo pequeño el hilo aún tiene que tirar. Con la velocidad que da la altura de partida, eso significa h ≥ 5r/2; desde la horizontal, h = 1 m, así que r ≤ 40 cm, con el clavo al menos 60 cm abajo.",
+            "why": "Comprueba la vuelta completa en el propio bucle de pasos de tiempo, no la fórmula de la página: a partir de 59,99999 cm. Con el clavo apenas más arriba, el hilo solo estaría flojo arriba un instante, menos que un paso; la página no lo ve, de ahí la desviación de 2 · 10⁻⁷.",
+            "step": "La fuente da el tirón del hilo, mg(3cos θ − 2cos θ_m), para un péndulo con punto de retorno en θ_m. Alrededor del clavo el radio es r, y en lugar de cos θ_m entra la altura de partida: 1 − h/r. Arriba, con cos θ = −1, el tirón es mg(2h/r − 5)."
+          },
+          "slack": {
+            "title": "Dónde se afloja el hilo",
+            "setting": "Hilo de 1 m, clavo 55 cm abajo, soltado desde la horizontal: el caso «Hilo flojo».",
+            "reads": "El hilo se afloja donde su tirón se anula: v²/r + g·cos φ = 0. Con la velocidad que da la altura de partida, eso ocurre a la altura (r + 2h)/3.",
+            "why": "Comprueba dónde hace empezar la página el vuelo libre: 81,6667 cm sobre el punto más bajo, con una precisión de 10⁻⁹, porque la página busca el momento dentro de su paso.",
+            "step": "La fuente da el tirón mg(3cos θ − 2cos θ_m) para un péndulo con punto de retorno en θ_m. Alrededor del clavo, en lugar de cos θ_m entra la altura de partida: 1 − h/r. Igualado a cero, da cos φ = 2(1 − h/r)/3, y la altura r(1 − cos φ) = (r + 2h)/3."
           }
         }
       },

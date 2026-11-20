@@ -26,7 +26,7 @@ def admin_path(exhibit: str) -> str:
 async def test_with_no_verdict_every_exhibit_with_cases_is_listed_and_none_is_checked(accounts: AsyncClient) -> None:
     answer = await accounts.get(LIST)
     assert answer.status_code == 200, answer.text
-    assert answer.json() == {"with_cases": ["chair", "chladni", "coil", "coriolis", "cradle", "sky", "sphere", "waterwheel", "wave"], "checked": []}
+    assert answer.json() == {"with_cases": ["chair", "chladni", "coil", "coriolis", "cradle", "peg", "sky", "sphere", "waterwheel", "wave"], "checked": []}
 
 
 async def test_an_admin_checks_an_exhibit_and_the_public_list_shows_its_date_and_no_name(

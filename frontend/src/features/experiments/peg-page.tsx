@@ -5,6 +5,7 @@ import { AlertBanner, Button, ToggleGroup } from "@eifi1/ui-kit";
 import { useLocale } from "@/shared/i18n/use-locale";
 import { formatNumber } from "@/shared/lib/format";
 import { useChartHex } from "@/shared/state/palette-store";
+import { holdTouch } from "@/shared/ui/grab";
 import { SliderField } from "@/shared/ui/slider-field";
 import { Figures, WidgetCard } from "@/shared/ui/widget";
 import { Equation } from "./equation";
@@ -12,6 +13,7 @@ import { ExhibitFrame } from "./exhibit-frame";
 import { BuildPending } from "./build-pending";
 import { PreviewPending, type PreviewMode, type PreviewProps } from "./preview-mode";
 import { startsRunning } from "./play";
+import { settingNumber, useCheckRequest } from "./check-setting";
 import { HeldAnswer, useHeld, type Held } from "./held";
 import {
   outcome,
@@ -60,6 +62,28 @@ export function PegPage() {
   const [build, setBuild] = useState<PegPendulum | null>(null);
   const p = build ?? defaults.data?.peg ?? null;
   const held = useHeld();
+  // The peg or the bob as the reader drags them, before they are let go: the
+  // play is built anew for each build, so a drag that changed the build at
+  // every step lost its hold after the first (seen 2026-11-20).
+  const [draft, setDraft] = useState<Partial<PegPendulum> | null>(null);
+  const shown = p && draft ? { ...p, ...draft } : p;
+  const commit = (next: PegPendulum) => {
+    setDraft(null);
+    setBuild(next);
+  };
+  // A check case's "Set it up": the whole build at once, and the play, built
+  // anew for it, lets the bob go.
+  const request = useCheckRequest("peg");
+  const [seen, setSeen] = useState<number | null>(null);
+  if (request && !request.done && request.nonce !== seen && p) {
+    setSeen(request.nonce);
+    setBuild({
+      ...p,
+      length_m: settingNumber(request.setting, "length_m", p.length_m),
+      peg_depth_m: settingNumber(request.setting, "peg_depth_m", p.peg_depth_m),
+      start_deg: settingNumber(request.setting, "start_deg", p.start_deg),
+    });
+  }
   return (
     <ExhibitFrame
       exhibit="peg"
@@ -84,8 +108,8 @@ export function PegPage() {
         <BuildPending pending={defaults.isPending} error={defaults.error} />
       ) : (
         <>
-          <PegPlay key={JSON.stringify(p)} p={p} onChange={setBuild} held={held} />
-          <PegBuild p={p} onChange={setBuild} />
+          <PegPlay key={JSON.stringify(p)} p={p} draft={draft} onDraft={setDraft} onChange={commit} held={held} />
+          <PegBuild p={shown ?? p} onChange={setBuild} />
         </>
       )}
     </ExhibitFrame>
@@ -104,12 +128,20 @@ function PegView({
   s,
   trail,
   onPeg,
+  onPegDone,
+  onPull,
+  onLetGo,
   hideSlack = false,
 }: {
   p: PegPendulum;
   s: PegState;
   trail: Array<[number, number]>;
   onPeg?: (depth: number) => void;
+  onPegDone?: (depth: number) => void;
+  /** The bob pulled out by mouse or finger (Marcel, 2026-11-20: "ähnlich
+   *  interaktiv"), in whole degrees within the slider's 5–90°, and let go. */
+  onPull?: (deg: number) => void;
+  onLetGo?: (deg: number) => void;
   /** The height the string goes slack at is drawn only for a swing that does
    *  so: before the reader has seen it, it would say what happens. */
   hideSlack?: boolean;
@@ -118,7 +150,11 @@ function PegView({
   const hex = useChartHex();
   const colour = hex[BOB_HUE % hex.length];
   const svg = useRef<SVGSVGElement | null>(null);
-  const [dragging, setDragging] = useState(false);
+  // What the pointer holds: a ref for the handlers, which a move can reach
+  // before React has drawn the hold; the state for the cursor.
+  const [dragging, setDragging] = useState<"peg" | "bob" | null>(null);
+  const holding = useRef<"peg" | "bob" | null>(null);
+  const last = useRef<number | null>(null);
   const length = p.length_m;
   const bob = length * 0.04;
   const margin = length * 0.15;
@@ -133,13 +169,50 @@ function PegView({
         ? `M 0 0 L 0 ${p.peg_depth_m} L ${x} ${-y}`
         : // Slack: from the peg to the bob, sagging.
           `M 0 0 L 0 ${p.peg_depth_m} Q ${x / 2} ${(p.peg_depth_m - y) / 2 + length * 0.1} ${x} ${-y}`;
-  // Where the pointer is, in the drawing's metres: the depth below the pivot.
-  const depthAt = (event: PointerEvent<SVGSVGElement>) => {
+  // Where the pointer is, in the drawing's metres, y down from the pivot. A
+  // page without the browser's matrix (a test) has the box stand for the view.
+  const pointAt = (clientX: number, clientY: number): [number, number] | null => {
     const el = svg.current;
-    const matrix = el?.getScreenCTM?.();
-    if (!el || !matrix) return null;
-    const point = new DOMPoint(event.clientX, event.clientY).matrixTransform(matrix.inverse());
-    return Math.min(0.95 * length, Math.max(0.05 * length, point.y));
+    if (!el) return null;
+    const matrix = el.getScreenCTM?.();
+    if (matrix) {
+      const point = new DOMPoint(clientX, clientY).matrixTransform(matrix.inverse());
+      return [point.x, point.y];
+    }
+    const box = el.getBoundingClientRect();
+    if (!box.width || !box.height) return null;
+    return [
+      -(length + margin) + ((clientX - box.left) / box.width) * 2 * (length + margin),
+      -margin + ((clientY - box.top) / box.height) * (length + 2 * margin),
+    ];
+  };
+  const follow = (clientX: number, clientY: number) => {
+    const point = pointAt(clientX, clientY);
+    if (!point) return;
+    if (holding.current === "peg") {
+      last.current = Math.min(0.95 * length, Math.max(0.05 * length, point[1]));
+      onPeg?.(last.current);
+    } else if (holding.current === "bob") {
+      const deg = Math.atan2(point[0], Math.max(point[1], bob)) * (180 / Math.PI);
+      last.current = Math.round(Math.min(90, Math.max(5, deg)));
+      onPull?.(last.current);
+    }
+  };
+  const release = () => {
+    const was = holding.current;
+    holding.current = null;
+    setDragging(null);
+    if (last.current === null) return;
+    if (was === "peg") onPegDone?.(last.current);
+    if (was === "bob") onLetGo?.(last.current);
+    last.current = null;
+  };
+  const take = (which: "peg" | "bob", e: PointerEvent<SVGCircleElement>) => {
+    e.currentTarget.ownerSVGElement?.setPointerCapture?.(e.pointerId);
+    holding.current = which;
+    last.current = null;
+    setDragging(which);
+    follow(e.clientX, e.clientY);
   };
   return (
     <svg
@@ -147,14 +220,12 @@ function PegView({
       viewBox={`${-(length + margin)} ${-margin} ${2 * (length + margin)} ${length + 2 * margin}`}
       role="img"
       aria-label={t("experiments.peg.view")}
-      className="max-h-[60dvh] w-full touch-none rounded-lg border border-subtle bg-surface-2 text-muted"
+      className={`max-h-[60dvh] w-full rounded-lg border border-subtle bg-surface-2 text-muted ${onPeg || onPull ? "select-none" : ""}`}
       onPointerMove={(e) => {
-        if (!dragging) return;
-        const depth = depthAt(e);
-        if (depth !== null) onPeg?.(depth);
+        if (holding.current) follow(e.clientX, e.clientY);
       }}
-      onPointerUp={() => setDragging(false)}
-      onPointerLeave={() => setDragging(false)}
+      onPointerUp={release}
+      onPointerCancel={release}
     >
       {/* The height it was let go from, on both sides. */}
       <line
@@ -210,13 +281,25 @@ function PegView({
         cy={p.peg_depth_m}
         r={bob * 0.8}
         className={`fill-current text-primary ${onPeg ? "cursor-ns-resize" : ""}`}
+        ref={onPeg ? holdTouch : undefined}
         onPointerDown={(e) => {
-          if (!onPeg) return;
-          e.currentTarget.ownerSVGElement?.setPointerCapture?.(e.pointerId);
-          setDragging(true);
+          if (onPeg) take("peg", e);
         }}
       />
       <circle cx={x} cy={-y} r={bob} fill={colour} />
+      {onPull && (
+        // A swinging bob is hard to catch: the hold is three of its radii round
+        // it, unseen.
+        <circle
+          cx={x}
+          cy={-y}
+          r={bob * 3}
+          fill="transparent"
+          className={dragging ? "cursor-grabbing" : "cursor-grab"}
+          ref={holdTouch}
+          onPointerDown={(e) => take("bob", e)}
+        />
+      )}
     </svg>
   );
 }
@@ -225,9 +308,17 @@ function PegPlay({
   p,
   onChange,
   held,
+  draft = null,
+  onDraft,
   preview = false,
   paused = false,
-}: { p: PegPendulum; onChange?: (next: PegPendulum) => void; held?: Held } & PreviewMode) {
+}: {
+  p: PegPendulum;
+  onChange?: (next: PegPendulum) => void;
+  held?: Held;
+  draft?: Partial<PegPendulum> | null;
+  onDraft?: (next: Partial<PegPendulum>) => void;
+} & PreviewMode) {
   const { t } = useTranslation();
   const sim = useRef({ s: start(p), clock: 0, owed: 0, trail: [] as Array<[number, number]>, i: 0 });
   const [runningHere, setRunning] = useState(startsRunning);
@@ -281,6 +372,9 @@ function PegPlay({
   };
 
   if (preview) return <PegView p={p} s={frame.s} trail={frame.trail} />;
+  // While the reader holds the bob out, it hangs there, at rest.
+  const shownP = draft ? { ...p, ...draft } : p;
+  const pulled = draft?.start_deg !== undefined;
   const refused = refusal(p);
   return (
     <WidgetCard
@@ -315,12 +409,22 @@ function PegPlay({
           </div>
           <div className={`${SIDE.views} mx-auto w-full max-w-xl`}>
             <PegView
-              p={p}
-              s={frame.s}
-              trail={frame.trail}
-              onPeg={(depth) => onChange?.({ ...p, peg_depth_m: Math.round(depth * 100) / 100 })}
+              p={shownP}
+              s={pulled ? start(shownP) : frame.s}
+              trail={pulled ? [] : frame.trail}
+              onPeg={(depth) => {
+                setRunning(false);
+                onDraft?.({ peg_depth_m: Math.round(depth * 100) / 100 });
+              }}
+              onPegDone={(depth) => onChange?.({ ...p, peg_depth_m: Math.round(depth * 100) / 100 })}
+              onPull={(deg) => {
+                setRunning(false);
+                onDraft?.({ start_deg: deg });
+              }}
+              onLetGo={(deg) => onChange?.({ ...p, start_deg: deg })}
               hideSlack={!held?.shown}
             />
+            <p className="mt-2 text-sm text-secondary">{t("experiments.peg.play.drag_hint")}</p>
           </div>
           <div className={SIDE.column}>
             {held && (

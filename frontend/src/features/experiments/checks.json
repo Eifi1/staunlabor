@@ -614,6 +614,107 @@
    ]
   }
  ],
+ "peg": [
+  {
+   "key": "same_height",
+   "unit": "cm",
+   "expected": 13.3974596216,
+   "measured": 13.3974568132,
+   "deviation": 2.09615741509e-07,
+   "tolerance": 5e-06,
+   "derived": false,
+   "setting": {
+    "length_m": 1.0,
+    "peg_depth_m": 0.5,
+    "start_deg": 30.0
+   },
+   "sources": [
+    {
+     "cite": "Galileo Galilei, Dialogues Concerning Two New Sciences, transl. H. Crew and A. de Salvio (Macmillan, 1914), Third Day, p. 171 (Ed. Naz. VIII, 206), Fig. 46",
+     "url": "https://archive.org/details/dialoguesconcern00galiuoft",
+     "quote": "you will observe with pleasure that the ball swings to the point G in the horizontal, and you would see the same thing happen if the obstacle were placed at some lower point, say at F, about which the ball would describe the arc BI, the rise of the ball always terminating exactly on the line CD."
+    },
+    {
+     "cite": "javalab.org, “Force to move the pendulum”, total tension applied to the string",
+     "url": "https://javalab.org/en/pendulum_en/",
+     "quote": "½mv² = mgl(cos θ – cos θ_m) ∴ v² = 2gl(cos θ – cos θ_m) … The total tension = Tension by gravity + Centripetal force … = mg(3cos θ – 2cos θ_m)"
+    }
+   ]
+  },
+  {
+   "key": "period",
+   "unit": "s",
+   "expected": 1.75577782205,
+   "measured": 1.75577782205,
+   "deviation": 1.53478036431e-12,
+   "tolerance": 1e-09,
+   "derived": true,
+   "setting": {
+    "length_m": 1.0,
+    "peg_depth_m": 0.5,
+    "start_deg": 30.0
+   },
+   "sources": [
+    {
+     "cite": "OpenStax, University Physics Volume 1, §15.4 Pendulums, Eqs. 15.18 and 15.19",
+     "url": "https://openstax.org/books/university-physics-volume-1/pages/15-4-pendulums",
+     "quote": "The angular frequency is ω = √(g/L) and the period is T = 2π√(L/g)."
+    },
+    {
+     "cite": "NIST Digital Library of Mathematical Functions, §22.19(i), Eq. 22.19.1 and after Eq. 22.19.2",
+     "url": "https://dlmf.nist.gov/22.19",
+     "quote": "With appropriate scalings, Newton’s equation of motion for a pendulum … is d²θ(t)/dt² = −sin θ(t) … The period is 4K(sin(½α))"
+    },
+    {
+     "cite": "NIST Digital Library of Mathematical Functions, §19.2(ii), Eqs. 19.2.4 and 19.2.8",
+     "url": "https://dlmf.nist.gov/19.2",
+     "quote": "F(φ,k) = ∫₀^φ dθ/√(1 − k² sin²θ) … K(k) = F(π/2,k)"
+    }
+   ]
+  },
+  {
+   "key": "loop",
+   "unit": "cm",
+   "expected": 60.0,
+   "measured": 59.9999887077,
+   "deviation": 1.88204770287e-07,
+   "tolerance": 2e-06,
+   "derived": true,
+   "setting": {
+    "length_m": 1.0,
+    "peg_depth_m": 0.6,
+    "start_deg": 90.0
+   },
+   "sources": [
+    {
+     "cite": "javalab.org, “Force to move the pendulum”, total tension applied to the string",
+     "url": "https://javalab.org/en/pendulum_en/",
+     "quote": "½mv² = mgl(cos θ – cos θ_m) ∴ v² = 2gl(cos θ – cos θ_m) … The total tension = Tension by gravity + Centripetal force … = mg(3cos θ – 2cos θ_m)"
+    }
+   ]
+  },
+  {
+   "key": "slack",
+   "unit": "cm",
+   "expected": 81.6666666667,
+   "measured": 81.6666666665,
+   "deviation": 1.8171912954e-12,
+   "tolerance": 1e-09,
+   "derived": true,
+   "setting": {
+    "length_m": 1.0,
+    "peg_depth_m": 0.55,
+    "start_deg": 90.0
+   },
+   "sources": [
+    {
+     "cite": "javalab.org, “Force to move the pendulum”, total tension applied to the string",
+     "url": "https://javalab.org/en/pendulum_en/",
+     "quote": "½mv² = mgl(cos θ – cos θ_m) ∴ v² = 2gl(cos θ – cos θ_m) … The total tension = Tension by gravity + Centripetal force … = mg(3cos θ – 2cos θ_m)"
+    }
+   ]
+  }
+ ],
  "sky": [
   {
    "key": "rayleigh",

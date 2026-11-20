@@ -1647,6 +1647,7 @@
       "play": {
         "title": "Az inga elengedése",
         "hint": "Húzza a peceket felfelé vagy lefelé, vagy válassza lent a három eset egyikét.",
+        "drag_hint": "Vagy fogja meg a golyót egérrel vagy ujjal, térítse ki, és engedje el.",
         "let_go": "Elengedés",
         "pause": "Szünet",
         "run": "Tovább",
@@ -3499,7 +3500,13 @@
         "plate_phi0": "a k-adik alak kitérése a közepén",
         "plate_mu": "a k-adik alak tömege, ρh·(a/2)² egységekben",
         "plate_omega": "a k-adik hang körfrekvenciája",
-        "plate_xi": "hely a lemezen, −1-től 1-ig"
+        "plate_xi": "hely a lemezen, −1-től 1-ig",
+        "h_start": "kezdeti magasság, a legmélyebb pont fölött",
+        "r_small": "a kis kör sugara: a fonal hossza mínusz a pecek mélysége",
+        "phi_peg": "a pecek körüli szög, alulról mérve",
+        "phi0_peg": "kitérés a pecek körül",
+        "pull": "a fonal húzóereje",
+        "depth": "a pecek mélysége a felfüggesztés alatt"
       },
       "cases": {
         "sphere": {
@@ -3833,6 +3840,35 @@
             "reads": "A saját hangján minden alak úgy rezeg, mint egyetlen rezgő, a közepén φ(0)²·F/(μ·ω²·2ζ) kitéréssel, ahol μ = ∫φ² ennek az alaknak a tömege. A legmélyebb hanghoz viszonyítva az erő és a csillapítás kiesik.",
             "why": "Azt ellenőrzi, hogy minden alak a saját tömegével szerepel: a legmélyebb hang 4,70 %-a. μ nélkül 1,98 % lenne, az első változat hibája. μ itt a lemezre integrálva van, nem úgy, mint az oldalon, az együtthatók négyzeteinek összegeként.",
             "step": "A forrás egy kéttömegű rendszert számol: a válasz az alakok összege, és mindegyik a saját hangján Q₁/K₁·1/(2ζ₁)-gyel válaszol, ahol Q₁ az alakra ható erő, K₁ a merevsége. A lemeznél a tömegekre vett összegből integrál lesz: K = μ·ω² és Q = φ(0)·F egy középen ható erőre. Maguk a φ alakok az oldaléi."
+          }
+        },
+        "peg": {
+          "same_height": {
+            "title": "Mindkét oldalon ugyanolyan magasra",
+            "setting": "1 m-es fonal, a pecek 50 cm-rel a felfüggesztés alatt, 30°-ról elengedve; hat másodpercig.",
+            "reads": "A fonal a mozgásra merőlegesen húz, és nem végez munkát: a pecek körül a golyó ismét arra az L(1 − cos θ₀) magasságra emelkedik, ahonnan elengedték.",
+            "why": "Azt ellenőrzi, hogy a pecek, amikor elkapja a fonalat, a golyó sebességét őrzi meg, nem a szögsebességét: 13,3975 cm magasan. Az oldal ezredmásodpercenként olvassa le a golyót, és a fordulópont két leolvasás közé esik: innen a 2 · 10⁻⁷ eltérés."
+          },
+          "period": {
+            "title": "A periódus két körön",
+            "setting": "Mint fent: 1 m-es fonal, a pecek 50 cm mélyen, 30°-ról elengedve; attól mérve, hogy a pecek először elkapja a fonalat, addig, hogy negyedszer.",
+            "reads": "Oda a golyó fél periódust leng a teljes fonalon, vissza felet a pecek körül, mindkettőt a saját kitérésével.",
+            "why": "A két mozgásegyenletet és a köztük való váltásokat ellenőrzi, amelyeket az oldal a lépésén belül keres meg: 1,755778 s, 10⁻⁹ pontossággal. K itt integrálként van összegezve, nem a számítómotor által használt számtani-mértani közép útján.",
+            "step": "Az első forrás ω = √(g/L)-t adja meg, a második az ingaegyenletet ω·t időben és annak 4K periódusát, a harmadik K-t. Egy fél periódus másodpercben tehát 2√(ℓ/g)·K(sin(α/2)): egyszer ℓ = L és α = θ₀ értékkel, egyszer ℓ = r értékkel és azzal a φ₀ kitéréssel, amely a pecek körül ugyanazt a magasságot éri el."
+          },
+          "loop": {
+            "title": "Milyen mélységtől fordul át a golyó",
+            "setting": "1 m-es fonal, vízszintesből elengedve, a pecek 60 cm mélyen: a határon. A határt felezéssel keressük 55 és 65 cm között.",
+            "reads": "A kis kör tetején a fonalnak még húznia kell. A kezdeti magasságból adódó sebességgel ez h ≥ 5r/2-t jelent; vízszintesből, h = 1 m, tehát r ≤ 40 cm, a pecek legalább 60 cm mélyen.",
+            "why": "Az átfordulást magában az időléptető ciklusban ellenőrzi, nem az oldal képletét: 59,99999 cm-től. Ha a pecek épp csak feljebb van, a fonal fent csak egy pillanatra lazulna meg, rövidebb ideig egy lépésnél; ezt az oldal nem látja, innen a 2 · 10⁻⁷ eltérés.",
+            "step": "A forrás a fonal húzóerejét adja meg, mg(3cos θ − 2cos θ_m), egy θ_m-nél visszaforduló ingára. A pecek körül a sugár r, és cos θ_m helyére a kezdeti magasság kerül: 1 − h/r. Fent, cos θ = −1-nél a húzóerő mg(2h/r − 5)."
+          },
+          "slack": {
+            "title": "Hol lazul meg a fonal",
+            "setting": "1 m-es fonal, a pecek 55 cm mélyen, vízszintesből elengedve: a „Laza fonal” eset.",
+            "reads": "A fonal ott lazul meg, ahol a húzóereje nullára csökken: v²/r + g·cos φ = 0. A kezdeti magasságból adódó sebességgel ez (r + 2h)/3 magasságban van.",
+            "why": "Azt ellenőrzi, hol kezdi az oldal a szabad repülést: 81,6667 cm-rel a legmélyebb pont fölött, 10⁻⁹ pontossággal, mert az oldal a pillanatot a lépésén belül keresi meg.",
+            "step": "A forrás egy θ_m-nél visszaforduló ingára adja meg a húzóerőt, mg(3cos θ − 2cos θ_m). A pecek körül cos θ_m helyére a kezdeti magasság kerül: 1 − h/r. Nullával egyenlővé téve ebből cos φ = 2(1 − h/r)/3 adódik, a magasság pedig r(1 − cos φ) = (r + 2h)/3."
           }
         }
       },

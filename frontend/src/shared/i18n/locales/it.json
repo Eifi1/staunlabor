@@ -1647,6 +1647,7 @@
       "play": {
         "title": "Lasciare andare il pendolo",
         "hint": "Trascini il piolo in su o in giù, oppure scelga qui sotto uno dei tre casi.",
+        "drag_hint": "Oppure afferri la sfera con il mouse o con il dito, la sposti di lato e la lasci andare.",
         "let_go": "Lasciare",
         "pause": "Pausa",
         "run": "Continua",
@@ -3499,7 +3500,13 @@
         "plate_phi0": "spostamento della forma k al centro",
         "plate_mu": "massa della forma k, in unità di ρh·(a/2)²",
         "plate_omega": "pulsazione del suono k",
-        "plate_xi": "punto sulla lastra, da −1 a 1"
+        "plate_xi": "punto sulla lastra, da −1 a 1",
+        "h_start": "altezza di partenza, sopra il punto più basso",
+        "r_small": "raggio del cerchio piccolo: la lunghezza del filo meno la profondità del piolo",
+        "phi_peg": "angolo attorno al piolo, misurato dal basso",
+        "phi0_peg": "ampiezza attorno al piolo",
+        "pull": "trazione del filo",
+        "depth": "profondità del piolo sotto la sospensione"
       },
       "cases": {
         "sphere": {
@@ -3833,6 +3840,35 @@
             "reads": "Sul suo suono ogni forma vibra come un singolo oscillatore, al centro di φ(0)²·F/(μ·ω²·2ζ), con μ = ∫φ² la massa di questa forma. Rispetto al suono più grave, forza e smorzamento si eliminano.",
             "why": "Verifica che ogni forma entri con la propria massa: il 4,70 % del suono più grave. Senza μ sarebbe l'1,98 %, l'errore della prima versione. Qui μ è integrata sulla lastra, non come nella pagina come somma dei quadrati dei coefficienti.",
             "step": "La fonte tratta un sistema di due masse: la risposta è la somma delle forme, e ognuna risponde sul suo suono con Q₁/K₁·1/(2ζ₁), con Q₁ la forza sulla forma e K₁ la sua rigidezza. Per la lastra la somma sulle masse diventa un integrale: K = μ·ω² e Q = φ(0)·F per una forza al centro. Le forme φ stesse sono quelle della pagina."
+          }
+        },
+        "peg": {
+          "same_height": {
+            "title": "Alla stessa altezza da entrambe le parti",
+            "setting": "Filo di 1 m, piolo 50 cm sotto la sospensione, lasciato andare a 30°; per sei secondi.",
+            "reads": "Il filo tira di traverso al moto e non compie lavoro: al piolo la sfera risale all'altezza L(1 − cos θ₀) da cui è stata lasciata.",
+            "why": "Verifica che il piolo, fermando il filo, conservi la velocità della sfera e non la sua velocità angolare: 13,3975 cm di altezza. La pagina legge la sfera ogni millisecondo, e il punto di inversione cade tra due letture: da qui lo scarto di 2 · 10⁻⁷."
+          },
+          "period": {
+            "title": "Il periodo su due cerchi",
+            "setting": "Come sopra: filo di 1 m, piolo 50 cm più in basso, lasciato andare a 30°; misurato dalla prima alla quarta volta in cui il piolo ferma il filo.",
+            "reads": "All'andata la sfera oscilla mezzo periodo sull'intero filo, al ritorno mezzo attorno al piolo, ciascuno con la propria ampiezza.",
+            "why": "Verifica le due equazioni del moto e i passaggi dall'una all'altra, che la pagina cerca all'interno del suo passo: 1,755778 s, a meno di 10⁻⁹. Qui K è sommato come integrale, non con la media aritmetico-geometrica usata dal motore di calcolo.",
+            "step": "La prima fonte dà ω = √(g/L), la seconda l'equazione del pendolo nel tempo ω·t e il suo periodo 4K, la terza K. Mezzo periodo in secondi è quindi 2√(ℓ/g)·K(sin(α/2)): una volta con ℓ = L e α = θ₀, una volta con ℓ = r e l'ampiezza φ₀ che attorno al piolo raggiunge la stessa altezza."
+          },
+          "loop": {
+            "title": "Da quale profondità la sfera fa il giro",
+            "setting": "Filo di 1 m, lasciato andare dall'orizzontale, il piolo 60 cm più in basso: al limite. Il limite è cercato per bisezione tra 55 e 65 cm.",
+            "reads": "In cima al cerchio piccolo il filo deve ancora tirare. Con la velocità data dall'altezza di partenza ciò significa h ≥ 5r/2; dall'orizzontale, h = 1 m, quindi r ≤ 40 cm, il piolo almeno 60 cm più in basso.",
+            "why": "Verifica il giro completo nel ciclo dei passi temporali stesso, non la formula della pagina: da 59,99999 cm. Con il piolo appena più in alto, il filo sarebbe allentato in cima solo per un istante, meno di un passo; la pagina non lo vede, da qui lo scarto di 2 · 10⁻⁷.",
+            "step": "La fonte dà la trazione del filo, mg(3cos θ − 2cos θ_m), per un pendolo che si inverte a θ_m. Attorno al piolo il raggio è r, e al posto di cos θ_m sta l'altezza di partenza: 1 − h/r. In cima, con cos θ = −1, la trazione è mg(2h/r − 5)."
+          },
+          "slack": {
+            "title": "Dove il filo si allenta",
+            "setting": "Filo di 1 m, piolo 55 cm più in basso, lasciato andare dall'orizzontale: il caso «Filo allentato».",
+            "reads": "Il filo si allenta dove la sua trazione si annulla: v²/r + g·cos φ = 0. Con la velocità data dall'altezza di partenza ciò avviene all'altezza (r + 2h)/3.",
+            "why": "Verifica dove la pagina fa iniziare il volo libero: 81,6667 cm sopra il punto più basso, a meno di 10⁻⁹, perché la pagina cerca il momento all'interno del suo passo.",
+            "step": "La fonte dà la trazione mg(3cos θ − 2cos θ_m) per un pendolo che si inverte a θ_m. Attorno al piolo, al posto di cos θ_m sta l'altezza di partenza: 1 − h/r. Posta uguale a zero, dà cos φ = 2(1 − h/r)/3, e l'altezza r(1 − cos φ) = (r + 2h)/3."
           }
         }
       },

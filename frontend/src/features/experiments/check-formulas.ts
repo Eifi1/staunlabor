@@ -49,6 +49,12 @@ const AIR_MASS: CheckSymbol = { tex: "m", key: "air_mass" };
 const ZENITH: CheckSymbol = { tex: "z", key: "z_zenith", unit: "°" };
 const HEIGHT: CheckSymbol = { tex: "h", key: "h_sun", unit: "°" };
 const PLATE_LAMBDA: CheckSymbol = { tex: String.raw`\lambda`, key: "plate_lambda" };
+const L_PEG: CheckSymbol = { tex: "L", key: "length", unit: "m" };
+const R_SMALL: CheckSymbol = { tex: "r", key: "r_small", unit: "m" };
+const H_START: CheckSymbol = { tex: "h", key: "h_start", unit: "m" };
+const Z_BOB: CheckSymbol = { tex: "z", key: "h", unit: "m" };
+const PHI_PEG: CheckSymbol = { tex: String.raw`\varphi`, key: "phi_peg", unit: "°" };
+const V: CheckSymbol = { tex: "v", key: "v", unit: "m/s" };
 
 export const CHECK_FORMULAS: Record<string, Record<string, CheckFormula>> = {
   sphere: {
@@ -435,6 +441,43 @@ export const CHECK_FORMULAS: Record<string, Record<string, CheckFormula>> = {
         { tex: String.raw`\omega_k`, key: "plate_omega", unit: "1/s" },
         { tex: String.raw`\xi, \eta`, key: "plate_xi" },
       ],
+    },
+  },
+  peg: {
+    same_height: {
+      tex: String.raw`\tfrac12 v^2 = g\,L\,(\cos\theta - \cos\theta_0) \;\Rightarrow\; h = L\,(1 - \cos\theta_0)`,
+      symbols: [V, G, L_PEG, THETA, THETA0, H_START],
+    },
+    period: {
+      tex: String.raw`T = 2\sqrt{\frac{L}{g}}\,K\!\left(\sin\frac{\theta_0}{2}\right) + 2\sqrt{\frac{r}{g}}\,K\!\left(\sin\frac{\varphi_0}{2}\right), \qquad r\,(1 - \cos\varphi_0) = L\,(1 - \cos\theta_0)`,
+      symbols: [
+        { tex: "T", key: "T", unit: "s" },
+        L_PEG,
+        G,
+        { tex: "K", key: "K" },
+        THETA0,
+        R_SMALL,
+        { tex: String.raw`\varphi_0`, key: "phi0_peg", unit: "°" },
+      ],
+    },
+    loop: {
+      tex: String.raw`\frac{F}{m} = \frac{v^2}{r} + g\cos\varphi, \quad v^2 = 2g\,(h - z) \;\xrightarrow{\ \varphi = \pi,\ z = 2r\ }\; \frac{F}{m} = g\left(\frac{2h}{r} - 5\right) \ge 0, \qquad d = L - \tfrac25\,h`,
+      symbols: [
+        { tex: "F", key: "pull", unit: "N" },
+        { tex: "m", key: "m", unit: "kg" },
+        V,
+        R_SMALL,
+        G,
+        PHI_PEG,
+        H_START,
+        Z_BOB,
+        { tex: "d", key: "depth", unit: "m" },
+        L_PEG,
+      ],
+    },
+    slack: {
+      tex: String.raw`\frac{v^2}{r} + g\cos\varphi = 0, \quad v^2 = 2g\,(h - z), \quad z = r\,(1 - \cos\varphi) \;\Rightarrow\; z = \frac{r + 2h}{3}`,
+      symbols: [V, R_SMALL, G, PHI_PEG, H_START, Z_BOB],
     },
   },
 };

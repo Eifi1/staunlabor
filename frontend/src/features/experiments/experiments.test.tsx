@@ -88,7 +88,7 @@ const wave = fixtures.wave as unknown as WaveFigures;
 
 /** No exhibit checked yet: what the server answers until an admin checks one. */
 const UNCHECKED = {
-  with_cases: ["chair", "chladni", "coil", "coriolis", "cradle", "sky", "sphere", "waterwheel", "wave"],
+  with_cases: ["chair", "chladni", "coil", "coriolis", "cradle", "peg", "sky", "sphere", "waterwheel", "wave"],
   checked: [],
 };
 
@@ -1091,6 +1091,36 @@ describe("Galileo's pendulum", () => {
     fireEvent.click(screen.getByRole("button", { name: E.peg.sweet.cases.slack }));
     expect(await screen.findByText(E.peg.play.outcome_slack)).toBeInTheDocument();
   });
+
+  it("moves the peg and pulls the bob out by mouse or finger, keeping hold to the end of the drag", async () => {
+    renderWithProviders(<PegPage />);
+    const view = await screen.findByRole("img", { name: E.peg.view });
+    // The drawing's metres a thousand pixels each, its top left at the box's.
+    const [x0, y0, w, h] = view.getAttribute("viewBox")!.split(" ").map(Number);
+    const box = { left: 0, top: 0, width: w * 1000, height: h * 1000, right: w * 1000, bottom: h * 1000, x: 0, y: 0 };
+    vi.spyOn(view, "getBoundingClientRect").mockReturnValue({ ...box, toJSON: () => ({}) });
+    const px = (x: number, y: number) => ({ clientX: (x - x0) * 1000, clientY: (y - y0) * 1000 });
+    const depth = () => screen.getByRole("slider", { name: E.peg.change.peg }).getAttribute("aria-valuetext");
+    // The peg, in several steps, from 50 cm to 70 cm: the hold lasts.
+    const peg = view.querySelector("circle.cursor-ns-resize")!;
+    fireEvent.pointerDown(peg, { pointerId: 1, ...px(0, 0.5) });
+    for (const y of [0.55, 0.6, 0.65, 0.7]) fireEvent.pointerMove(view, { pointerId: 1, ...px(0, y) });
+    fireEvent.pointerUp(view, { pointerId: 1 });
+    await waitFor(() => expect(depth()).toMatch(/^70\b/));
+    // The bob, out to 40°, then let go.
+    const again = await screen.findByRole("img", { name: E.peg.view });
+    vi.spyOn(again, "getBoundingClientRect").mockReturnValue({ ...box, toJSON: () => ({}) });
+    const bob = again.querySelector("circle.cursor-grab")!;
+    fireEvent.pointerDown(bob, { pointerId: 2, ...px(0.5, 0.87) });
+    fireEvent.pointerMove(again, {
+      pointerId: 2,
+      ...px(Math.sin((40 * Math.PI) / 180), Math.cos((40 * Math.PI) / 180)),
+    });
+    fireEvent.pointerUp(again, { pointerId: 2 });
+    await waitFor(() =>
+      expect(screen.getByRole("slider", { name: E.peg.change.start }).getAttribute("aria-valuetext")).toMatch(/^40\b/),
+    );
+  });
 });
 
 describe("Maxwell's wheel", () => {
@@ -1614,6 +1644,16 @@ describe("setting a check case up", () => {
     await screen.findByRole("img", { name: E.chladni.view });
     await setUp(2);
     await waitFor(() => expect(screen.getByText(/^70\.7/)).toBeInTheDocument());
+  });
+
+  it("lets Galileo's bob go from the horizontal with the peg at 60 cm, for the loop at its edge", async () => {
+    renderWithProviders(<PegPage />);
+    await screen.findByRole("img", { name: E.peg.view });
+    await setUp(2);
+    await waitFor(() =>
+      expect(screen.getByRole("slider", { name: E.peg.change.peg }).getAttribute("aria-valuetext")).toMatch(/^60\b/),
+    );
+    expect(screen.getByRole("slider", { name: E.peg.change.start }).getAttribute("aria-valuetext")).toMatch(/^90\b/);
   });
 
   it("puts a 15 kg car on the coil's track for the brake, without rolling resistance", async () => {
