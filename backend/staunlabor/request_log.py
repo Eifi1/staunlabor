@@ -13,8 +13,9 @@ The line records nothing about a visitor: the site promises no tracking, and
 the privacy policy lists what is logged. It holds the route's **template** as
 FastAPI matched it (``/api/v1/admin/experiments/checks/{exhibit}``), never the
 path as sent and never its query; the method; the status; the time in the app;
-the CPU time; whether it was the process's first request; and whether a
-per-address budget refused it. No address, header, query, body or identifier
+the CPU time; whether it was the process's first request; whether a
+per-address budget refused it; and whether the answer was a kept one
+(``answer_cache``), which took no calculation. No address, header, query, body or identifier
 is read here, the budget's key (``security.caller_address``) included.
 
 What it deliberately does not do: time anything outside ``/api`` (in
@@ -32,6 +33,8 @@ from collections.abc import Callable
 from typing import TextIO
 
 from starlette.types import ASGIApp, Message, Receive, Scope, Send
+
+from staunlabor.answer_cache import CACHE_HEADER
 
 #: What the log metrics select the lines by (``deploy/grafana/create-log-metrics.sh``).
 EVENT = "api_request"
@@ -153,11 +156,13 @@ class RequestLogMiddleware:
         # What the client gets when the app raises before it answers: the
         # outermost handler (main._unhandled) turns that into a 500.
         status = 500
+        cached = False
 
         async def send_and_note_status(message: Message) -> None:
-            nonlocal status
+            nonlocal status, cached
             if message["type"] == "http.response.start":
                 status = message["status"]
+                cached = any(name == CACHE_HEADER and value == b"hit" for name, value in message.get("headers", []))
             await send(message)
 
         started = self._clock()
@@ -165,9 +170,9 @@ class RequestLogMiddleware:
         try:
             await self.app(scope, receive, send_and_note_status)
         finally:
-            self._write(scope, status, self._clock() - started, self._cpu.leave(mark), cold)
+            self._write(scope, status, self._clock() - started, self._cpu.leave(mark), cold, cached)
 
-    def _write(self, scope: Scope, status: int, seconds: float, cpu_seconds: float, cold: bool) -> None:
+    def _write(self, scope: Scope, status: int, seconds: float, cpu_seconds: float, cold: bool, cached: bool) -> None:
         route = route_template(scope, self._prefix)
         method = scope["method"] if scope["method"] in _METHODS else "OTHER"
         duration_ms = round(seconds * 1000, 1)
@@ -183,6 +188,7 @@ class RequestLogMiddleware:
                 "cpu_ms": round(cpu_seconds * 1000, 1),
                 "cold": cold,
                 "budget_refused": status == 429,
+                "cached": cached,
             },
             separators=(",", ":"),
         )

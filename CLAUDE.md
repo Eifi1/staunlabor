@@ -83,6 +83,8 @@ backend/staunlabor/
   domain/course/        the course's engine (the basics, lessons 0–6), pure as the
                         exhibits'; no exhibit imports it
   security.py           the request budgets, per address
+  answer_cache.py       the calculation routes' answers kept by question: one
+                        calculation per question and process, free of the budget
   request_log.py        one JSON line per API call: route, status, time, CPU; nothing
                         of the visitor's (deploy/grafana reads them as metrics)
   accounts.py           server-kit's account and admin routes wired: the stores, the mail,

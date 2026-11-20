@@ -23,7 +23,19 @@ from staunlabor.request_log import EVENT, UNMATCHED, CpuShares, RequestLogMiddle
 pytestmark = pytest.mark.unit
 
 #: Every key a line has; one more would be one more thing recorded.
-KEYS = {"severity", "message", "event", "route", "method", "status", "duration_ms", "cpu_ms", "cold", "budget_refused"}
+KEYS = {
+    "severity",
+    "message",
+    "event",
+    "route",
+    "method",
+    "status",
+    "duration_ms",
+    "cpu_ms",
+    "cold",
+    "budget_refused",
+    "cached",
+}
 
 
 def _lines(text: str) -> list[dict]:
@@ -131,13 +143,25 @@ async def test_only_the_process_s_first_request_is_cold(site, capsys):
 async def test_a_refusal_by_the_address_budget_is_marked(site, capsys):
     app, client = site
     app.state.experiments_limiters.runs = Budget(1, 60).limiter(monotonic)
-    assert (await client.get("/api/v1/experiments/chair")).status_code == 200
-    assert (await client.get("/api/v1/experiments/chair")).status_code == 429
+    # Two questions not asked before: a kept answer would cost no budget.
+    assert (await client.post("/api/v1/experiments/sphere", json={"shell_radius_m": 0.21})).status_code == 200
+    assert (await client.post("/api/v1/experiments/sphere", json={"shell_radius_m": 0.22})).status_code == 429
 
     answered, refused = _lines(capsys.readouterr().out)
-    assert (answered["status"], answered["budget_refused"]) == (200, False)
+    assert (answered["status"], answered["budget_refused"], answered["cached"]) == (200, False, False)
     assert (refused["status"], refused["budget_refused"], refused["severity"]) == (429, True, "WARNING")
-    assert refused["route"] == "/api/v1/experiments/chair"
+    assert refused["route"] == "/api/v1/experiments/sphere"
+
+
+async def test_a_kept_answer_is_marked_and_keeps_its_route(site, capsys):
+    _, client = site
+    await client.get("/api/v1/experiments/chair")
+    await client.get("/api/v1/experiments/chair")
+
+    computed, kept = _lines(capsys.readouterr().out)
+    assert (computed["cached"], kept["cached"]) == (False, True)
+    assert kept["route"] == computed["route"] == "/api/v1/experiments/chair"
+    assert kept["status"] == 200
 
 
 async def test_a_path_no_route_matches_is_logged_as_unmatched(site, capsys):

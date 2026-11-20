@@ -168,25 +168,33 @@ its own:
   through the project's VPC.
 
 After every change to the network, the proxies or the secret,
-run these three (150 parallel requests each, `xargs -P 25`):
+run these three (250 parallel requests each, `xargs -P 25`). Each asks a
+question not asked before (a different sphere): since 2026-11-20 a kept
+answer costs no budget (`answer_cache`), so 250 copies of one question would
+all be answered.
 
 | Request | Expected |
 | --- | --- |
 | straight to the backend's run.app URL | every one a 404 |
-| through the site, a fresh fake `X-Forwarded-For` each | 90 answered, the rest 429 |
-| through the site, no header | 90 answered, the rest 429 |
+| through the site, a fresh fake `X-Forwarded-For` each | 180 answered, the rest 429 |
+| through the site, no header | 180 answered, the rest 429 |
+
+The budget counts per instance: should Cloud Run start a second instance
+during the burst, up to twice as many are answered.
 
 ```bash
 B=$(gcloud run services describe staunlabor-backend --project=staunlabor \
   --region=europe-west4 --format='value(status.url)')
 for url in "$B" https://staunlabor.app; do
-  seq 1 150 | xargs -P 25 -I{} curl -s -o /dev/null -w '%{http_code}\n' \
-    -H 'X-Forwarded-For: 203.0.113.{}, 198.51.100.1' "$url/api/v1/experiments/chair" | sort | uniq -c
+  seq 100 349 | xargs -P 25 -I{} curl -s -o /dev/null -w '%{http_code}\n' \
+    -H 'X-Forwarded-For: 203.0.113.7, 198.51.100.1' -H 'Content-Type: application/json' \
+    -d '{"shell_radius_m": 0.{}}' "$url/api/v1/experiments/sphere" | sort | uniq -c
   sleep 11   # the budget's ten-second window
 done
 ```
 
-Measured on 2026-11-13, after the change: 150 × 404 direct, 90 × 200 and
+Measured on 2026-11-13, after the change, with 150 copies of `GET
+/experiments/chair` and the budget at ninety: 150 × 404 direct, 90 × 200 and
 60 × 429 through the site, with and without the header. Direct VPC egress did
 not change the hop count.
 
@@ -266,9 +274,10 @@ keys and the feedback bucket; Cloud Run then keeps serving the revision before.
    the schema, runs the migrations; `CONNECTION LIMIT 2`) and the app role
    `staunlabor_app` (`SELECT, INSERT, UPDATE, DELETE` and the sequences, the
    same by default privileges for what the owner makes later;
-   `CONNECTION LIMIT 12`: the pool draws 1 + 1 at three instances, six, and a
-   rollout runs the old revision beside the new one, so the cap is twice
-   that; a cap, not a reservation). Only these two
+   `CONNECTION LIMIT 12`: in production the pool is one connection a
+   process (`STAUNLABOR_DB_MAX_OVERFLOW=0`, `cloudbuild.yaml`) at up to eight
+   instances, eight, and a rollout runs the new revision beside the old, so
+   the cap leaves room for it; a cap, not a reservation). Only these two
    may connect to `staunlabor`. Nothing else on the instance is touched. Safe
    to run again: it sets the passwords to the secrets' again.
 4. **Marcel: `bash deploy/bootstrap-admin.sh`**, the first admin before the

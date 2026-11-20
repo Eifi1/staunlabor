@@ -152,9 +152,9 @@ so the import asks nothing and works with any name.
 
 ### 7. Check it before a post
 
-`../README.md` §4's check sends 150 parallel requests through the site and
-ends in 60 refusals: within about three minutes they appear in row 3 as
-`/api/v1/experiments/chair` refused by the budget, and the backend's instances,
+`../README.md` §4's check sends 250 parallel questions through the site and
+ends in about 70 refusals: within about three minutes they appear in row 3 as
+`/api/v1/experiments/sphere` refused by the budget, and the backend's instances,
 CPU and latency move in rows 1 and 2. Cloud Monitoring shows a minute's data
 up to two minutes later (Cloud SQL's up to 165 s), so the dashboard always
 trails by that much.
@@ -165,10 +165,10 @@ Read the rows top to bottom; each answers one question.
 
 | Row | It is this when … | Panels | Levers (each a decision of its own) |
 | --- | --- | --- | --- |
-| 1. **CPU**: one calculation at a time (1 vCPU, one worker, at most 3 instances) | backend CPU near 100 % and *p95 time in the app* far above *CPU per call*; *requests in flight* above 1 | CPU utilization; latency; requests in flight; **CPU used by route** (stacked, in cores) says whose calculation it is | dearer routes made cheaper; more instances. A second vCPU does little for one worker: the engine is pure Python and holds the GIL |
-| 2. **Cold starts** (min instances 0) | new instances, startup latency and *waiting before an instance takes the request* rise together | instances by state; startup latency; pending latency (both beta metrics); **cold requests by route** and their time | `--min-instances=1` (an instance always on) |
-| 3. **The budget** (90 calculations per 10 s per address, per instance) | refusals rise while CPU is fine | refused by the budget, by route; the refused share | the budget in `security.py`. The line names no address, so this cannot tell one busy visitor from many behind one office or proxy; refusals that come with a post's spike point to the latter |
-| 4. **The instance cap** (3) | instances sit at 3, Cloud Run *recommends* more, *refused for want of an instance* appears | instances against the cap; recommended instances by driver; Cloud Run's own 429 (at the cap) and 500 (a spike faster than scaling) | `--max-instances` |
+| 1. **CPU**: one calculation at a time (1 vCPU, one worker, at most 8 instances; kept answers cost none, `answer_cache`) | backend CPU near 100 % and *p95 time in the app* far above *CPU per call*; *requests in flight* above 1 | CPU utilization; latency; requests in flight; **CPU used by route** (stacked, in cores) says whose calculation it is | dearer routes made cheaper; more instances. A second vCPU does little for one worker: the engine is pure Python and holds the GIL |
+| 2. **Cold starts** (one backend instance always on since 2026-11-20) | new instances, startup latency and *waiting before an instance takes the request* rise together | instances by state; startup latency; pending latency (both beta metrics); **cold requests by route** and their time | `--min-instances=1` (an instance always on) |
+| 3. **The budget** (180 calculations per 10 s per address, per instance; kept answers are free) | refusals rise while CPU is fine | refused by the budget, by route; the refused share | the budget in `security.py`. The line names no address, so this cannot tell one busy visitor from many behind one office or proxy; refusals that come with a post's spike point to the latter |
+| 4. **The instance cap** (8 for the backend, 10 for the web) | instances sit at the cap, Cloud Run *recommends* more, *refused for want of an instance* appears | instances against the cap; recommended instances by driver; Cloud Run's own 429 (at the cap) and 500 (a spike faster than scaling) | `--max-instances` |
 | 5. **Static files** (Caddy, no CDN) | the web service's CPU or latency rises while the backend is quiet | web CPU; web latency (includes the proxied `/api`, compare row 1); bytes sent; files against `/api`; response classes | more web instances; a CDN. Not Cloudflare's proxy: the privacy policy says web traffic does not pass through Cloudflare |
 | 6. **The database** (`/experiments/checks`, pool 1 + 1, shared Cloud SQL) | `/experiments/checks` slows while CPU is fine; connection latency or refusals rise | its time in the app (it reads the table once a minute per instance, `LIST_TTL_S`); Cloud Run's connection latency and counts; connections to `staunlabor` by state and the shared instance's CPU (these two need the keksdose grant) | a longer `LIST_TTL_S`; the pool |
 

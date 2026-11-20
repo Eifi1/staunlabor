@@ -162,9 +162,10 @@ async def test_a_reader_dragging_a_slider_never_runs_out(client: AsyncClient):
 async def test_the_course_and_the_exhibits_spend_one_budget(client: AsyncClient):
     """An address that has spent the window on lessons has spent it on
     exhibits too, so two kinds of page buy it no more computing."""
+    # A question each, never asked before: a kept answer would cost nothing.
     allowed = [
-        (await client.post(f"{API}/eigen/scalar", json={"rate": -1})).status_code
-        for _ in range(EXPERIMENT_RUNS.max_hits)
+        (await client.post(f"{API}/eigen/scalar", json={"rate": -1 - i / 1000})).status_code
+        for i in range(EXPERIMENT_RUNS.max_hits)
     ]
     assert allowed == [200] * EXPERIMENT_RUNS.max_hits
     refused = await client.post("/api/v1/experiments/sphere", json={})

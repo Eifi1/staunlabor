@@ -2434,7 +2434,8 @@ below 1 cm/s.
 1. **The API**, done 2026-11-07: `GET /experiments/defaults`, `POST
    /experiments/sphere` (the orbits and the swing), `POST /experiments/coil`
    (the figures, Ψ and `k`), `GET /experiments/chair` (the three boxes), all
-   public under one budget (`security.EXPERIMENT_RUNS`, 90 per ten seconds;
+   public under one budget (`security.EXPERIMENT_RUNS`, 90 per ten seconds then,
+   180 since 2026-11-20, a kept answer free;
    the dearest was the chair at about 10 ms, and is now the race, `POST
    /experiments/race`, at about 45 ms with its velocities and accelerations
    written out; its pit runs in the browser). `tests/api/test_experiments_api.py` covers them.

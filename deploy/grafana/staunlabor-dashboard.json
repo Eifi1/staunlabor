@@ -428,7 +428,7 @@
       "id": 6,
       "type": "timeseries",
       "title": "Backend CPU utilization across instances",
-      "description": "Cloud Run's distribution over the backend's instances. Cloud Run adds an instance at about 60 %, up to the cap of 3.",
+      "description": "Cloud Run's distribution over the backend's instances. Cloud Run adds an instance at about 60 %, up to the cap of 8.",
       "datasource": {
         "type": "stackdriver",
         "uid": "${datasource}"
@@ -1095,7 +1095,7 @@
       "id": 14,
       "type": "timeseries",
       "title": "Instances by state",
-      "description": "Cloud Run's instance count: active ones serve requests, idle ones wait to be reused or removed. The dashed line is the cap of 3.",
+      "description": "Cloud Run's instance count: active ones serve requests, idle ones wait to be reused or removed. The dashed line is the cap of 8.",
       "datasource": {
         "type": "stackdriver",
         "uid": "${datasource}"
@@ -1136,7 +1136,7 @@
               },
               {
                 "color": "red",
-                "value": 3
+                "value": 8
               }
             ]
           }
@@ -1830,7 +1830,7 @@
               },
               {
                 "color": "red",
-                "value": 3
+                "value": 8
               }
             ]
           }
@@ -1906,7 +1906,7 @@
       "id": 24,
       "type": "timeseries",
       "title": "Instances Cloud Run recommends",
-      "description": "What Cloud Run's autoscaler would like, and what drives it. Above the cap of 3 the cap is in the way.",
+      "description": "What Cloud Run's autoscaler would like, and what drives it. Above the cap of 8 the cap is in the way.",
       "datasource": {
         "type": "stackdriver",
         "uid": "${datasource}"
@@ -1947,7 +1947,7 @@
               },
               {
                 "color": "red",
-                "value": 3
+                "value": 8
               }
             ]
           }

@@ -1,10 +1,12 @@
 """The app: the exhibits' routes and the accounts' and their admin's (server-kit's)
 under ``/api/v1``, a health check, and the two answers an error can get.
 
-Two middlewares: CORS, which only the development server needs (in
-production the web service proxies ``/api`` on the site's own origin), and
-the request log (``staunlabor.request_log``), one line per API call with the
-route, the status and the time it took, and nothing about who asked. The
+Three middlewares: the kept answers (``staunlabor.answer_cache``), one
+calculation per question and process; CORS, which only the development
+server needs (in production the web service proxies ``/api`` on the site's
+own origin); and the request log (``staunlabor.request_log``), one line per
+API call with the route, the status and the time it took, and nothing about
+who asked. The
 accounts' database is built with the app and connects only when an account
 route asks for it (``staunlabor.database``): the exhibits and the health check
 never do.
@@ -33,6 +35,7 @@ from fastapi.responses import JSONResponse
 
 from staunlabor import __version__
 from staunlabor.accounts import account_deps, admin_deps, jobs_deps
+from staunlabor.answer_cache import AnswerCacheMiddleware
 from staunlabor.api.course_router import router as course_router
 from staunlabor.api.experiments_router import router as experiments_router
 from staunlabor.database import Database
@@ -126,6 +129,9 @@ def create_app() -> FastAPI:
     app.state.auth_limiters = AuthLimiters()
     app.state.feedback_limiters = FeedbackLimiters()
     app.state.database = Database(settings)
+    # Innermost of the three: a kept answer still gets CORS's headers on the
+    # development server and its line in the request log (answer_cache).
+    app.add_middleware(AnswerCacheMiddleware, prefix=API_PREFIX)
     app.add_middleware(
         CORSMiddleware,
         allow_origins=[settings.app_base_url.rstrip("/")],
