@@ -27,10 +27,11 @@ lessons are summed up below.
 | 4 Laplace and Bode | `/basics/laplace` | `lesson-laplace.tsx` |
 | 5 Numerical solution | `/basics/numerics` | `lesson-numerics.tsx` |
 | 6 The two-mass oscillator | `/basics/two-mass` | `lesson-two-mass.tsx` |
-| 7 The cheat sheet | `/basics/cheat-sheet` | `cheat-sheet.tsx` |
+| The cheat sheet (no number) | `/basics/cheat-sheet` | `cheat-sheet.tsx` |
 
-The cheat sheet was lesson 11 there; here it follows lesson 6, so the
-numbers run without a gap. The old addresses (`kurvenschmiede.app/dynamics/…`)
+The cheat sheet was lesson 11 there; here it follows lesson 6 without a
+number, being a page to look things up on rather than a lesson (the lead's
+recommendation, which Marcel took on 2026-11-20). The old addresses (`kurvenschmiede.app/dynamics/…`)
 are to redirect here once this site has deployed; Kurvenschmiede does that on
 its side, on Marcel's go, and has the map.
 
@@ -77,8 +78,9 @@ links there:
   Kurvenschmiede's control page; the rest now opens with "Hinter jedem
   Exponat steht eine Differenzialgleichung."
 
-Still to look at: the cheat sheet's traps "location", "efficiency" and
-"motor" sum up what lessons 7–8 taught and link nowhere now.
+* the cheat sheet's traps "location", "efficiency" and "motor", which summed
+  up what lessons 7–8 taught (Marcel took the recommendation to cut them,
+  2026-11-20); "inertia" and "filter", which lesson 6 teaches, stay.
 
 ## The formula rule, in two steps
 

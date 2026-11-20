@@ -4115,11 +4115,8 @@
       },
       "traps": "Csapdák, amelyeket egy próbapad állít",
       "trap": {
-        "location": "Az, hogy hol mérjük a szöget, eldönti, milyen merevséget mérünk: egy motorjeladó az út minden engedékenységét látja.",
         "inertia": "A nyomatékérzékelő és a próbatest közötti tehetetlenség benne van a mért értékben: a hiba (f/f_a)² szerint nő.",
-        "filter": "A nyomatékot és a szöget azonos módon szűrje, különben a szűrő hiszterézist talál ki.",
-        "efficiency": "Egy áttétel hatásfoka attól függ, melyik oldal hajt: egy nyomatékot csak az áttétellel átszámítva 1/η tényezővel tévedünk.",
-        "motor": "Egy kis, gyors motor uralja a redukált tömeget — és egy gyors ciklusban nyomatékának nagy részét önmagára fordítja."
+        "filter": "A nyomatékot és a szöget azonos módon szűrje, különben a szűrő hiszterézist talál ki."
       },
       "python": "Pythonban"
     },

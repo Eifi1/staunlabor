@@ -267,7 +267,11 @@ function LessonTiles() {
             <ActionCard
               key={entry.path}
               href={entry.path}
-              title={`${entry.number} · ${t(`course.lessons.${entry.lesson}.title`)}`}
+              title={
+                entry.number === null
+                  ? t(`course.lessons.${entry.lesson}.title`)
+                  : `${entry.number} · ${t(`course.lessons.${entry.lesson}.title`)}`
+              }
               description={t(`course.lessons.${entry.lesson}.summary`)}
               meta={meta || undefined}
               metaTone={own.length && done === own.length ? "success" : "muted"}

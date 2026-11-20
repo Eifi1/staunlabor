@@ -4115,11 +4115,8 @@
       },
       "traps": "Le trappole di un banco prova",
       "trap": {
-        "location": "Dove si misura l'angolo decide quale rigidezza si misura: un encoder del motore vede ogni cedevolezza lungo il percorso.",
         "inertia": "Un'inerzia tra il sensore di coppia e il provino entra nella lettura: l'errore cresce con (f/f_a)².",
-        "filter": "Filtri coppia e angolo in modo identico, altrimenti il filtro inventa un'isteresi.",
-        "efficiency": "Il rendimento di una trasmissione dipende da quale lato aziona: convertire una coppia con il solo rapporto sbaglia di 1/η.",
-        "motor": "Un motore piccolo e veloce domina la massa equivalente — e in un ciclo rapido gli serve la maggior parte della sua coppia per sé stesso."
+        "filter": "Filtri coppia e angolo in modo identico, altrimenti il filtro inventa un'isteresi."
       },
       "python": "In Python"
     },

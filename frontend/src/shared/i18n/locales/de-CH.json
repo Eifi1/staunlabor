@@ -4115,11 +4115,8 @@
       },
       "traps": "Fallen am Prüfstand",
       "trap": {
-        "location": "Wo der Winkel gemessen wird, entscheidet, welche Steifigkeit gemessen wird: Ein Motorgeber sieht jede Nachgiebigkeit im Pfad.",
         "inertia": "Eine Trägheit zwischen Momentsensor und Prüfling steckt in der Messung: Der Fehler wächst mit (f/f_a)².",
-        "filter": "Moment und Winkel identisch filtern, sonst erfindet der Filter eine Hysterese.",
-        "efficiency": "Der Wirkungsgrad eines Getriebes hängt davon ab, welche Seite treibt: Ein Moment nur mit der Übersetzung umzurechnen, liegt um 1/η daneben.",
-        "motor": "Ein kleiner, schneller Motor dominiert die Ersatzmasse – und braucht in einem schnellen Zyklus das meiste Moment für sich selbst."
+        "filter": "Moment und Winkel identisch filtern, sonst erfindet der Filter eine Hysterese."
       },
       "python": "In Python"
     },

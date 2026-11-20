@@ -4115,11 +4115,8 @@
       },
       "traps": "Traps a test rig sets",
       "trap": {
-        "location": "Where the angle is measured decides what stiffness is measured: a motor encoder sees every compliance in the path.",
         "inertia": "An inertia between the torque sensor and the test object is in the reading: the error grows with (f/f_a)².",
-        "filter": "Filter torque and angle identically, or the filter invents a hysteresis.",
-        "efficiency": "A transmission's efficiency depends on which side drives: converting a torque with the ratio alone is off by 1/η.",
-        "motor": "A small fast motor dominates the equivalent mass — and needs most of its torque for itself in a fast cycle."
+        "filter": "Filter torque and angle identically, or the filter invents a hysteresis."
       },
       "python": "In Python"
     },

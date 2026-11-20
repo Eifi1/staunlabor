@@ -115,7 +115,10 @@ const CELLS: Record<(typeof ROLES)[number], Record<(typeof DOMAINS)[number], str
   tau: { electrical: "R\\,C", mechanical: "d/c", thermal: "C_\\text{th}/k", vacuum: "V/S" },
 };
 
-const TRAPS = ["location", "inertia", "filter", "efficiency", "motor"] as const;
+/** The traps that belong to these lessons; the location of the angle, the
+ *  gear's efficiency and the motor's inertia were lessons 7 and 8's, which
+ *  stayed in Kurvenschmiede. */
+const TRAPS = ["inertia", "filter"] as const;
 
 const PYTHON = [
   `from scipy.integrate import solve_ivp
@@ -142,7 +145,6 @@ export function CheatSheetPage() {
       <div id="cheat-sheet" className="space-y-4">
         <PageHeader
           size="sm"
-          eyebrow={t("course.lesson_n", { n: lessonEntry("cheat_sheet").number })}
           title={t("course.lessons.cheat_sheet.title")}
           description={t("course.lessons.cheat_sheet.summary")}
           actions={

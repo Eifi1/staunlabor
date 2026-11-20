@@ -10,10 +10,11 @@ export const BASICS_PATH = "/basics";
  *
  * Lessons 0–6 and the cheat sheet, moved from Kurvenschmiede's course on
  * differential equations (`docs/plan.md`, "The third stage"); its lessons 7–10
- * stayed there. The cheat sheet follows lesson 6 as lesson 7, so the numbers
- * here run without a gap.
+ * stayed there. The cheat sheet follows lesson 6 and has no number: it is a
+ * page to look things up on, not a lesson (it was number 11 there; Marcel
+ * left it to the lead's recommendation, 2026-11-20).
  */
-export const LESSONS: readonly { lesson: Lesson; path: string; number: number }[] = [
+export const LESSONS: readonly { lesson: Lesson; path: string; number: number | null }[] = [
   { lesson: "recipe", path: BASICS_PATH, number: 0 },
   { lesson: "first_order", path: `${BASICS_PATH}/first-order`, number: 1 },
   { lesson: "second_order", path: `${BASICS_PATH}/second-order`, number: 2 },
@@ -21,7 +22,7 @@ export const LESSONS: readonly { lesson: Lesson; path: string; number: number }[
   { lesson: "laplace", path: `${BASICS_PATH}/laplace`, number: 4 },
   { lesson: "numerics", path: `${BASICS_PATH}/numerics`, number: 5 },
   { lesson: "two_mass", path: `${BASICS_PATH}/two-mass`, number: 6 },
-  { lesson: "cheat_sheet", path: `${BASICS_PATH}/cheat-sheet`, number: 7 },
+  { lesson: "cheat_sheet", path: `${BASICS_PATH}/cheat-sheet`, number: null },
 ];
 
 export function lessonEntry(lesson: Lesson): (typeof LESSONS)[number] {

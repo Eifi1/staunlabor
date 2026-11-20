@@ -4115,11 +4115,8 @@
       },
       "traps": "Trampas que tiende un banco de ensayo",
       "trap": {
-        "location": "Dónde se mide el ángulo decide qué rigidez se mide: un encóder del motor ve todas las elasticidades del camino.",
         "inertia": "Una inercia entre el sensor de par y el objeto de ensayo está en la lectura: el error crece con (f/f_a)².",
-        "filter": "Filtre el par y el ángulo de forma idéntica, o el filtro inventará una histéresis.",
-        "efficiency": "El rendimiento de una transmisión depende de qué lado acciona: convertir un par solo con la relación da un error de 1/η.",
-        "motor": "Un motor pequeño y rápido domina la masa equivalente, y en un ciclo rápido necesita la mayor parte de su par para sí mismo."
+        "filter": "Filtre el par y el ángulo de forma idéntica, o el filtro inventará una histéresis."
       },
       "python": "En Python"
     },

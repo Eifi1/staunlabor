@@ -4115,11 +4115,8 @@
       },
       "traps": "Les pièges d'un banc d'essai",
       "trap": {
-        "location": "L'endroit où l'angle est mesuré décide de la raideur mesurée : un codeur moteur voit toutes les souplesses du chemin.",
         "inertia": "Une inertie entre le capteur de couple et l'objet d'essai figure dans la mesure : l'erreur croît avec (f/f_a)².",
-        "filter": "Filtrez le couple et l'angle de façon identique, sinon le filtre invente une hystérésis.",
-        "efficiency": "Le rendement d'une transmission dépend du côté qui entraîne : convertir un couple avec le seul rapport le fausse d'un facteur 1/η.",
-        "motor": "Un petit moteur rapide domine la masse équivalente — et a besoin de la majeure partie de son couple pour lui-même dans un cycle rapide."
+        "filter": "Filtrez le couple et l'angle de façon identique, sinon le filtre invente une hystérésis."
       },
       "python": "En Python"
     },

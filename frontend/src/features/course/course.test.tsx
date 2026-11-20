@@ -237,8 +237,8 @@ describe("the small rules", () => {
     }
   });
 
-  it("numbers the lessons without a gap, from the recipe to the cheat sheet", () => {
-    expect(LESSONS.map((entry) => entry.number)).toEqual([0, 1, 2, 3, 4, 5, 6, 7]);
+  it("numbers the lessons without a gap, and the cheat sheet, which is no lesson, not at all", () => {
+    expect(LESSONS.map((entry) => entry.number)).toEqual([0, 1, 2, 3, 4, 5, 6, null]);
     expect(lessonEntry("recipe").path).toBe(BASICS_PATH);
     expect(neighbours("recipe").previous).toBeNull();
     expect(neighbours("cheat_sheet").next).toBeNull();
