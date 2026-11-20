@@ -93,14 +93,14 @@
       "how": "Minden oldal azzal kezdődik, ami a kiállításon áll, kipróbálhatja, majd megmutatja, mi történik, és azt az egy felismerést, amely a trükköt megmagyarázza. Minden szám az alkalmazás saját számítómotorjából származik, és a tesztjei garantálják.",
       "coming": "Előkészületben",
       "credit": "A kiállítási tárgyak többségét a winterthuri Swiss Science Center Technorama kiállítási tárgyai ihlették.",
-      "daily": {
-        "eyebrow": "A nap kísérlete",
+      "week": {
+        "eyebrow": "A hét kísérlete",
         "open": "Próbálja ki",
-        "today": "Ma"
+        "current": "Ezen a héten"
       },
       "history": {
-        "title": "Az elmúlt napok kísérletei",
-        "open": "Korábbi napok"
+        "title": "Az elmúlt hetek kísérletei",
+        "open": "Korábbi hetek"
       },
       "all": "Az összes kiállítási tárgy",
       "topics_label": "Szűrés téma szerint",

@@ -93,14 +93,14 @@
       "how": "Cada página empieza con lo que hay en la exposición, le deja probarla y muestra después lo que ocurre y la idea que explica el truco. Cada número procede del motor de cálculo de la aplicación y está respaldado por sus pruebas.",
       "coming": "En preparación",
       "credit": "La mayoría de las exposiciones están inspiradas en exposiciones del Swiss Science Center Technorama, Winterthur.",
-      "daily": {
-        "eyebrow": "Experimento del día",
+      "week": {
+        "eyebrow": "Experimento de la semana",
         "open": "Pruébelo",
-        "today": "Hoy"
+        "current": "Esta semana"
       },
       "history": {
-        "title": "Los experimentos de los últimos días",
-        "open": "Días anteriores"
+        "title": "Los experimentos de las últimas semanas",
+        "open": "Semanas anteriores"
       },
       "all": "Todas las exposiciones",
       "topics_label": "Filtrar por tema",

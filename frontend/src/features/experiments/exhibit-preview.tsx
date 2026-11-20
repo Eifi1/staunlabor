@@ -1,6 +1,6 @@
 /**
  * An exhibit's twin, playing by itself, where the exhibit is advertised: the
- * overview's experiment of the day and its history.
+ * overview's experiment of the week and its history.
  *
  * Each preview is its page's `<X>Preview` (`preview-mode.tsx`), imported
  * lazily from the page's own module (`exhibit-modules.ts`), so it is the chunk
@@ -10,7 +10,7 @@
  * It moves only when moving is wanted:
  *
  * - **not before it has been on screen**: a preview below the fold mounts once
- *   it scrolls near, so the history's seven cards do not load seven pages and
+ *   it scrolls near, so the history's twelve cards do not load twelve pages and
  *   ask the server for four computations before anybody looks at them;
  * - **not while it is off screen**: the frame loop stops (the page's own
  *   Pause), and starts again where it was;

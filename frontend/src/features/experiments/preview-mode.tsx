@@ -1,6 +1,6 @@
 /**
  * An exhibit's twin played as a preview: its own auto mode, with none of its
- * controls, for the overview's experiment of the day and its history
+ * controls, for the overview's experiment of the week and its history
  * (`exhibit-preview.tsx` places it).
  *
  * The preview is the page's own play component in a mode, not a drawing made

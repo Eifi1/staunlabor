@@ -19,7 +19,7 @@ import {
 import { useLocale } from "@/shared/i18n/use-locale";
 import { PAGE_SHELL } from "@/shared/ui/page-shell";
 import { ChecksSummary } from "./unchecked-notice";
-import { dailyExhibit, dailyHistory, dayIn, type DailyPick } from "./daily";
+import { dayIn, weekOf, weeklyExhibit, weeklyHistory, type WeeklyPick } from "./weekly";
 import { EXHIBIT_MODULES } from "./exhibit-modules";
 import { FittedPreview } from "./fitted-preview";
 import { lessonPath } from "./exhibit-frame";
@@ -34,26 +34,27 @@ import {
 } from "./exhibits";
 import { useTried } from "./tried";
 
-/** Two weeks back, in the dialog: long enough to find the one a friend
- *  mentioned, and every exhibit at least once. */
-const HISTORY_DAYS = 14;
+/** A quarter of a year back, in the dialog: long enough to find the one a
+ *  friend mentioned, and four rows of three on a wide screen. */
+const HISTORY_WEEKS = 12;
 
-/** A day, `YYYY-MM-DD`, as the reader's language writes a short date. Formatted
- *  in UTC because the string is a calendar day, not an instant: in any other
- *  zone midnight UTC can fall on the day before. */
-function shortDay(day: string, locale: string): string {
-  return new Intl.DateTimeFormat(locale, { weekday: "short", day: "numeric", month: "short", timeZone: "UTC" }).format(
-    new Date(`${day}T00:00:00Z`),
-  );
+/** A week, by its Monday (`YYYY-MM-DD`), as the reader's language writes the
+ *  days from Monday to Sunday ("23.–29. Nov.", "Nov 23 – 29"). Formatted in
+ *  UTC because the strings are calendar days, not instants: in any other zone
+ *  midnight UTC can fall on the day before. */
+function weekSpan(monday: string, locale: string): string {
+  const start = new Date(`${monday}T00:00:00Z`);
+  const end = new Date(start.getTime() + 6 * 86_400_000);
+  return new Intl.DateTimeFormat(locale, { day: "numeric", month: "short", timeZone: "UTC" }).formatRange(start, end);
 }
 
 /**
  * The site's front page, the overview of the exhibits:
  *
- * - **the experiment of the day**, playing by itself, with the question to
- *   guess at before opening it (`daily.ts` picks it: random, with a memory),
- *   and **the days before it** in a dialog, on request only: the page is the
- *   day's experiment's alone, as anyplot.ai shows its plot of the day alone,
+ * - **the experiment of the week**, playing by itself, with the question to
+ *   guess at before opening it (`weekly.ts` picks it: random, with a memory),
+ *   and **the weeks before it** in a dialog, on request only: the page is the
+ *   week's experiment's alone, as anyplot.ai shows its plot of the day alone,
  *   and an archive is a link away on APOD or Wikipedia's picture of the day;
  * - **every exhibit**, filtered by what it is about, ticked once tried on this
  *   device (`tried.ts`), and linked to the course's lessons its computation
@@ -64,11 +65,11 @@ function shortDay(day: string, locale: string): string {
  */
 export function ExperimentsOverviewPage() {
   const { t } = useTranslation();
-  // The day the page was opened: a page left open past midnight keeps
-  // yesterday's exhibit until it is loaded again, which is what a reader
-  // looking at it would expect.
-  const [today] = useState(() => dayIn());
-  const daily = exhibitEntry(dailyExhibit(today));
+  // The week of the day the page was opened: a page left open past Sunday
+  // midnight keeps last week's exhibit until it is loaded again, which is what
+  // a reader looking at it would expect.
+  const [week] = useState(() => weekOf(dayIn()));
+  const current = exhibitEntry(weeklyExhibit(week));
   usePageSeo({
     canonicalPath: "/",
     title: `${t("app.name")} — ${t("app.tagline")}`,
@@ -82,9 +83,9 @@ export function ExperimentsOverviewPage() {
   }, [hash]);
   return (
     <div className={PAGE_SHELL}>
-      <DailyHero entry={daily} today={today} />
+      <WeekHero entry={current} week={week} />
       <ChecksSummary />
-      <AllExhibits daily={daily.exhibit} />
+      <AllExhibits current={current.exhibit} />
       <p className="text-sm text-secondary">{t("experiments.overview.how")}</p>
       <p className="text-caption text-muted">{t("experiments.overview.credit")}</p>
     </div>
@@ -109,25 +110,25 @@ function useHeroHeight(): number {
 }
 
 /**
- * The experiment of the day, filling the first screen (Marcel, 2026-11-19):
+ * The experiment of the week, filling the first screen (Marcel, 2026-11-19):
  * its title, what it is about and what stands at the exhibit, the question to
  * guess at, and its drawing, playing, to the right; on a phone the drawing
  * stands above. The first paragraph of the page's "At the exhibit" is the
  * longer text: it says what is there without giving the trick away.
  */
-function DailyHero({ entry, today }: { entry: ExhibitEntry; today: string }) {
+function WeekHero({ entry, week }: { entry: ExhibitEntry; week: string }) {
   const { t } = useTranslation();
   const locale = useLocale();
   const tried = useTried((s) => s.tried.includes(entry.exhibit));
   const height = useHeroHeight();
   // In the address (`?dialog=history`), so a phone's Back closes it.
   const [historyOpen, setHistoryOpen] = useDialogParam({ key: "dialog", value: "history" });
-  const history = dailyHistory(today, HISTORY_DAYS);
+  const history = weeklyHistory(week, HISTORY_WEEKS);
   const at = t(`experiments.${entry.exhibit}.at`, { returnObjects: true }) as Record<string, string> | string;
   const atTheExhibit = typeof at === "object" ? Object.values(at)[0] : null;
   return (
     <section
-      aria-labelledby="daily"
+      aria-labelledby="week"
       className="grid min-h-[calc(100dvh-4.5rem)] grid-cols-1 content-center items-center gap-6 md:grid-cols-[minmax(0,1fr)_minmax(0,1.4fr)] md:gap-10"
     >
       <div className="order-last min-w-0 space-y-4 md:order-first">
@@ -135,13 +136,13 @@ function DailyHero({ entry, today }: { entry: ExhibitEntry; today: string }) {
         <p className="max-w-[60ch] text-sm text-secondary md:text-base">{t("experiments.overview.lead")}</p>
         <div className="space-y-2">
           <SectionLabel as="p">
-            {t("experiments.overview.daily.eyebrow")} · {shortDay(today, locale)}
+            {t("experiments.overview.week.eyebrow")} · {weekSpan(week, locale)}
           </SectionLabel>
           <p className="text-base font-semibold text-brand md:text-lg">
             {t(`experiments.exhibits.${entry.exhibit}.title`)}
           </p>
           {/* The hook is the biggest thing on the screen: the question to guess at. */}
-          <h1 id="daily" className="flex gap-3 text-2xl font-semibold text-primary md:text-4xl">
+          <h1 id="week" className="flex gap-3 text-2xl font-semibold text-primary md:text-4xl">
             <HelpCircle className="mt-1 size-6 shrink-0 text-brand md:mt-1.5 md:size-8" aria-hidden />
             {t(`experiments.exhibits.${entry.exhibit}.question`)}
           </h1>
@@ -152,7 +153,7 @@ function DailyHero({ entry, today }: { entry: ExhibitEntry; today: string }) {
         <div className="flex flex-wrap gap-2">
           {entry.path && (
             <Button variant="accent" href={entry.path}>
-              {t("experiments.overview.daily.open")}
+              {t("experiments.overview.week.open")}
               <ArrowRight className="size-4" aria-hidden />
             </Button>
           )}
@@ -179,7 +180,7 @@ function DailyHero({ entry, today }: { entry: ExhibitEntry; today: string }) {
       >
         <ol className="grid grid-cols-1 gap-3 sm:grid-cols-2 md:grid-cols-3">
           {history.map((pick) => (
-            <li key={pick.day}>
+            <li key={pick.week}>
               <HistoryCard pick={pick} />
             </li>
           ))}
@@ -189,15 +190,15 @@ function DailyHero({ entry, today }: { entry: ExhibitEntry; today: string }) {
   );
 }
 
-/** How tall a day's drawing is in the dialog: one height for every card, each
+/** How tall a week's drawing is in the dialog: one height for every card, each
  *  drawing fitted to it and centred (`FittedPreview`). Laid out at its own
  *  height, a wide track came out a thin strip at the top of an empty card and
  *  an upright drop a tall column (Marcel, 2026-11-20: "geht bedeutend
  *  schöner"). */
 const HISTORY_PREVIEW_HEIGHT = 170;
 
-/** One day's exhibit: a still, which plays while it is pointed at or focused. */
-function HistoryCard({ pick }: { pick: DailyPick }) {
+/** One week's exhibit: a still, which plays while it is pointed at or focused. */
+function HistoryCard({ pick }: { pick: WeeklyPick }) {
   const { t } = useTranslation();
   const locale = useLocale();
   const [live, setLive] = useState(false);
@@ -207,7 +208,7 @@ function HistoryCard({ pick }: { pick: DailyPick }) {
   const body = (
     <>
       <span className="flex items-center justify-between gap-1 text-caption text-muted">
-        {shortDay(pick.day, locale)}
+        {weekSpan(pick.week, locale)}
         {tried && <Check className="size-4 text-success" aria-label={t("experiments.overview.tried.mark")} />}
       </span>
       <FittedPreview
@@ -238,7 +239,7 @@ function HistoryCard({ pick }: { pick: DailyPick }) {
   );
 }
 
-function AllExhibits({ daily }: { daily: Exhibit }) {
+function AllExhibits({ current }: { current: Exhibit }) {
   const { t } = useTranslation();
   const tried = useTried((s) => s.tried);
   const forget = useTried((s) => s.forget);
@@ -287,7 +288,7 @@ function AllExhibits({ daily }: { daily: Exhibit }) {
           <ExhibitCard
             key={entry.exhibit}
             entry={entry}
-            today={entry.exhibit === daily}
+            current={entry.exhibit === current}
             tried={tried.includes(entry.exhibit)}
           />
         ))}
@@ -305,7 +306,7 @@ const CARD_PREVIEW_HEIGHT = 200;
  *  is pointed at or something in it has the focus, as the history's cards do;
  *  then what it is and the way in. A preview mounts only once it scrolls near
  *  (`ExhibitPreview`), so the list costs nothing below the fold. */
-function ExhibitCard({ entry, today, tried }: { entry: ExhibitEntry; today: boolean; tried: boolean }) {
+function ExhibitCard({ entry, current, tried }: { entry: ExhibitEntry; current: boolean; tried: boolean }) {
   const { t } = useTranslation();
   const Icon = EXHIBIT_MODULES[entry.exhibit].icon;
   const [live, setLive] = useState(false);
@@ -346,9 +347,9 @@ function ExhibitCard({ entry, today, tried }: { entry: ExhibitEntry; today: bool
                 t(`experiments.exhibits.${entry.exhibit}.title`)
               )}
             </CardTitle>
-            {today && (
+            {current && (
               <Chip size="xs" tone="brand">
-                {t("experiments.overview.daily.today")}
+                {t("experiments.overview.week.current")}
               </Chip>
             )}
             <CardDescription>{t(`experiments.exhibits.${entry.exhibit}.summary`)}</CardDescription>

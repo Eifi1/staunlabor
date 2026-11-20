@@ -4,7 +4,7 @@ Guidance for Claude Code in this repository. Read the document a change
 touches before making it:
 
 * [`docs/experiments.md`](docs/experiments.md) — each exhibit: what it is, how
-  it is modelled, what checking the models found, the overview and the daily
+  it is modelled, what checking the models found, the overview and the weekly
   pick;
 * [`docs/translations.md`](docs/translations.md) — the seven languages, who
   wrote which, what a reviewer should look at;
@@ -18,7 +18,7 @@ document it points to.
 
 **Staunlabor** (staunlabor.app): hands-on exhibits, computed. The exhibits,
 each a page in one shape (at the exhibit, try it, what happens, how it is
-computed, the trick), and an overview with the experiment of the day. Free,
+computed, the trick), and an overview with the experiment of the week. Free,
 open source (code MIT, texts and drawings CC BY 4.0), **no cookies, no
 tracking, and no account needed for any exhibit**. A FastAPI backend holds the
 exhibits' engine behind a few public routes; a React SPA on `@eifi1/ui-kit`
@@ -56,7 +56,7 @@ Test Task* is `npm run check`; `.vscode/tasks.json` has the rest, and
 
 ```bash
 cd backend && uv run pytest tests/unit/test_experiments.py -q
-cd frontend && npx vitest run src/features/experiments/daily.test.ts
+cd frontend && npx vitest run src/features/experiments/weekly.test.ts
 cd backend && uv run python ../scripts/write-experiments-cases.py         # after an engine change
 cd backend && uv run python ../scripts/write-test-fixtures.py             # after a change to a route's answer
 cd backend && uv run python ../scripts/write-checks.py                   # after a change to an engine with checks
@@ -87,7 +87,7 @@ backend/alembic/        the migrations (0001: the accounts' tables, 0002: the fe
                         0003: the translation review's, 0004: two-factor sign-in's)
 frontend/src/
   app/                  routes (every page but the overview lazy), router link
-  features/experiments/ the pages, the views, the overview, the daily pick,
+  features/experiments/ the pages, the views, the overview, the weekly pick,
                         simulate/ (the time loops, ported from the engine)
   features/site/        the footer, the about page, the imprint, the privacy policy
   shared/               api, i18n, state, charts, ui, lib (storage-keys.ts)

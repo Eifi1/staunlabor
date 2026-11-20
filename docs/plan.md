@@ -19,8 +19,8 @@ without a database.
 
 ## The site
 
-- **The front page is the overview:** the experiment of the day, playing by
-  itself; the earlier days on request; every exhibit, filtered by topic,
+- **The front page is the overview:** the experiment of the day (of the week
+  since 2026-11-20), playing by itself; the earlier ones on request; every exhibit, filtered by topic,
   ticked once tried on this device.
 - **Eight exhibits,** each page in the same shape: at the exhibit, try it
   (the exhibit's twin), what happens, how it is computed, the trick.
@@ -176,7 +176,7 @@ Steps, each its own commits:
 
 Marcel, 2026-11-19, with anyplot.ai as the reference ("Nicht 1:1 übernehmen
 aber das finde ich besser"): a landing that says what the project is, the
-experiment of the day beside it, some figures about the whole project under
+experiment of the week beside it, some figures about the whole project under
 both, and a fixed header with a few entries, not every exhibit. The course on
 differential equations comes over from Kurvenschmiede rather than being linked
 ("nicht als Link sondern aus Kurvenschmiede herausziehen und in Staunlabor
@@ -194,10 +194,11 @@ biggest thing on the first screen (`docs/experiments.md`, "The overview").
   Layout-Raster", a Claude doc of 2026-11-19, and his choice of 2026-11-20
   among three drafts: "Ansicht A, drei Abschnitte"):
   - on the left the project: "Staunlabor" as the `h1`, the claim "Erst
-    spielen, dann rechnen." under it, one paragraph, the way into the day's
+    spielen, dann rechnen." under it, one paragraph, the way into the week's
     exhibit and down to the exhibits;
-  - on the right the day's exhibit, playing, in a frame: the day and "Earlier
-    days" (still a dialog) above, its name, its question and "Ausprobieren"
+  - on the right the week's exhibit (one a week since 2026-11-20, Marcel:
+    "Stelle auf Experiment of the week um"), playing, in a frame: the week
+    and "Earlier weeks" (still a dialog) above, its name, its question and "Ausprobieren"
     below; a click on the drawing opens it too;
   - under both, five figures counted from the code, none kept by hand: the
     exhibits, the fields, the equations worked through, how many are checked

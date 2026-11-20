@@ -69,25 +69,27 @@ The front page, `/`, is the overview. It was a grid of eight cards until
 2026-11-12, when Marcel asked for it to be redone now that there were "schon
 einige Experimente". Since 2026-11-19 the first screen is the experiment of
 the day's alone (Marcel: "Das erste was ein neuer Nutzer auf staunlabor.app
-sieht soll das Experiment des Tages sein und nicht überladen werden"), and the
+sieht soll das Experiment des Tages sein und nicht überladen werden"); since
+2026-11-20 it is the experiment of the **week** (Marcel: "Stelle auf
+Experiment of the week um"), and the
 header holds only the name, the language and the theme: the strip naming every
 exhibit beside it went, and every exhibit's page links back to the list
 instead (`/#all-exhibits`). Top to bottom (`overview-page.tsx`):
 
-* **The experiment of the day**, filling the first screen. On top, one line
+* **The experiment of the week**, filling the first screen. On top, one line
   saying what the site is (`experiments.overview.lead`, rewritten on
   2026-11-19 without "the exhibit's twin", which no newcomer knows, and with
-  "like those in a science centre", never "from"). Then the day and the
-  exhibit's name, small, and its question as the page's one `h1`: the hook is
+  "like those in a science centre", never "from"). Then the week, Monday to
+  Sunday ("23.–29. Nov."), and the exhibit's name, small, and its question as the page's one `h1`: the hook is
   the biggest thing on the screen (the review of the front page, Marcel's
   Claude doc of 2026-11-19). Then its summary and the first paragraph of its
   page's "At the exhibit" (which says what stands there without giving the
   trick away, in all seven languages already), with its drawing playing to
   the right (above it on a phone, smaller, so the question still shows). Then
   the one primary button, into the exhibit, one down to the list, and
-  **"Earlier days"**: the last fourteen days in a dialog (`?dialog=history`,
+  **"Earlier weeks"**: the last twelve weeks in a dialog (`?dialog=history`,
   so a phone's Back closes it), a still of each that plays while it is
-  pointed at or focused. Not on the page itself (Marcel, the same evening:
+  pointed at or focused, each fitted to one height, three to a row. Not on the page itself (Marcel, the same evening:
   "Show the history only in a dialog on request. Not right away. That shall
   be reserved for the experiment of the day"): anyplot.ai's plot of the day
   stands alone on its landing, and APOD's or Wikipedia's picture of the day
@@ -99,67 +101,63 @@ instead (`/#all-exhibits`). Top to bottom (`overview-page.tsx`):
   device" and a "Forget" once one was tried (before, "0 of 35" read as
   homework), and on each card, the whole of which opens the exhibit (its title
   is the link, stretched over it; the front page keeps one primary button), its topics, a
-  tick once tried, "Today" on the day's, and "Builds on:" with links to the
+  tick once tried, "This week" on the week's, and "Builds on:" with links to the
   course's lessons at kurvenschmiede.app, small and grey (for the technically
   minded, not in a newcomer's way) — the list the page's "How it is computed" links to, kept
   in `exhibits.ts` beside the topics since both read it. Since 2026-11-16
   each built exhibit's card opens with its drawing (Marcel: the pictures
-  under the experiment of the day): its preview held still, playing while the
+  under the experiment of the day, now the week's): its preview held still, playing while the
   card is pointed at or has the focus, as the history's cards do, and fitted to
   one height (`fitted-preview.tsx`), so the upright ones do not make their row
   the longest. The live preview and not the link-preview picture: it draws in
   the reader's language and appearance, and its code is about 5 kB a page
   against 20–80 kB a picture; it mounts only once it scrolls near.
 
-**The pick: random, with a memory** (`daily.ts`; Marcel chose it over a fixed
-rotation and over an admin's choice). From the epoch, 2026-11-12, the days are
-cut into rounds of one day per exhibit, so every exhibit has its turn before
-any has a second. A round is drawn day by day, by a generator seeded with the
-day the round starts, from the exhibits whose last turn is at least half a
-round back (four days with eight): a shuffle alone guards only its own round,
-and the first week drawn that way showed the chair on a Friday and again on
-the Sunday. Among those, Marcel's **bonus and malus** ("dass es
+**The pick: random, with a memory** (`weekly.ts`; Marcel chose it over a fixed
+rotation and over an admin's choice). Since 2026-11-20 it is **one exhibit a
+week**, Monday to Sunday (Marcel: "Stelle auf Experiment of the week um");
+from 2026-11-12 it was one a day, drawn by the same rule. The weeks from the
+epoch on (`WEEKLY_EPOCH`, the Monday of the week the weekly pick ships in, set
+when it goes out: an earlier Monday would list weeks in the history with an
+exhibit the site never showed for them) are cut into rounds of one week per
+exhibit, so every exhibit has its turn before any has a second. A round is
+drawn week by week, by a generator seeded with the round's number (moving the
+epoch moves only the dates), from the exhibits whose last turn is at least
+half a round back: a shuffle alone guards only its own round, and the first
+week drawn that way, still a day each, showed the chair on a Friday and again
+on the Sunday. Among those, Marcel's **bonus and malus** ("dass es
 unwahrscheinlicher wird, dass gleiche Experimente aufeinander folgen") lean
-the draw (`DAILY_WEIGHTS`): a quarter more weight per day waited beyond the
-spacing, half the weight for an exhibit about a topic yesterday's was about, a
-quarter for one that came right after yesterday's in the round before. Those
-are the second series' maluses (Marcel, 2026-11-15: "Tagesminus sollte weniger
-zählen"); the first series drew with a quarter and a tenth, and its rounds keep
-them, so the days the live site has shown keep their exhibit. Measured over
-400 rounds of all 35 (a plain shuffle, then the old maluses, in brackets):
-repeated pairs 0.44 a round (1.18; 0.27), repeated triples 0.008 (0.033;
-0.013), neighbours sharing a topic 17.5 days in a hundred (24.5; 12.8); with
-34, before the beats, 0.43 and 17.2, with 33, before the double slit, 0.39
-and 18.1. With eleven exhibits about energy,
-ten about oscillation and eight about angular momentum, the quarter held a
-topic back on most days.
-They were measured over 2000 rounds against a plain shuffle (`daily.ts` has
-the numbers): pairs of the round before repeated in order fall from 0.9 a round
-to 0.27, triples from 0.12 to 0.01, neighbours about one topic from 14.5 days in
-a hundred to 7.9. A stricter first version — six days apart, a full point of
-bonus a day — turned out a rotation in disguise, repeating triples five times
-as often as a shuffle, and was dropped the same evening. They are weights, so
+the draw (`WEEKLY_WEIGHTS`): a quarter more weight per week waited beyond the
+spacing, half the weight for an exhibit about a topic last week's was about, a
+quarter for one that came right after last week's in the round before. Those
+are the halved maluses (Marcel, 2026-11-15: "Tagesminus sollte weniger
+zählen"); the first eight were drawn with a quarter and a tenth. Measured over
+400 rounds of all 35 (a plain shuffle in brackets): repeated pairs 0.45 a
+round (1.20), repeated triples 0.013 (0.023), neighbours sharing a topic 17.4
+weeks in a hundred (24.7), a wait of more than a round and two weeks 35.7 % of
+turns (36.6 %). With eleven exhibits about energy, ten about oscillation and
+eight about angular momentum, the stronger maluses held a topic back on most
+turns. With the first eight, over 2000 rounds against a plain shuffle, the
+first maluses cut pairs of the round before repeated in order from 0.9 a round
+to 0.27, triples from 0.12 to 0.01, neighbours about one topic from 14.5 in a
+hundred to 7.9. A stricter first version — six apart, a full point of bonus
+each — turned out a rotation in disguise, repeating triples five times as
+often as a shuffle, and was dropped the same evening. They are weights, so
 "rarer" is not "never": the first two days, the smoke ring and then the
-elephant, are a 3 % draw that came up. With the second series the bonus weighs
-less, and less with every exhibit: with eight it cut the turns that come after
-more than a round and two days by a quarter, with fifteen by an eighth (1456
-against 1670 over 400 rounds), with sixteen by a tenth (2311 against 2555),
-with 26 by a twentieth (10259 against 10834 over 1200 rounds), with 27 to
-31 the same (10513 against 11135, 11237 against 11819, 11640 against 12183,
-12332 against 12882, 12771 against 13269), with 32 by a fortieth (13523
-against 13858), with 33 by a thirtieth (13847 against 14261), with 34 by a
-forty-fifth (14480 against 14809), with 35 by a thirty-sixth (14894 against
-15315);
-`daily.test.ts` now holds it only to a fiftieth. Its weight a day is fixed
-while a round grows longer, and stays so: Marcel weakened the maluses instead
-(2026-11-15).
-The day is Zurich's, so one day has one
-exhibit whoever asks; the pick needs no server, no table and no admin, and the
-history is the rule run backwards. A new exhibit joins at the first round that starts on or after its
-`since` day, never mid-round, which would redraw days already shown; so
-`since` is the day it **ships** (the second series': `SECOND_SERIES` in
-`exhibits.ts`, the day of the joint deploy, which also switches the weights) — a past date puts it into a round already
-under way on the live site.
+elephant, were a 3 % draw that came up. The bonus weighs less with every
+exhibit: with eight it cut the turns that come after more than a round and two
+more by a quarter, with fifteen by an eighth, with sixteen by a tenth, with 26
+by a twentieth, with 35 by a thirty-sixth (14966 against 15376 over 1200
+rounds); `weekly.test.ts` holds it only to a fiftieth. Its weight a turn is
+fixed while a round grows longer, and stays so: Marcel weakened the maluses
+instead (2026-11-15). The week is Zurich's, so one week has one exhibit
+whoever asks; the pick needs no server, no table and no admin, and the history
+is the rule run backwards. A new exhibit joins at the first round that starts
+on or after its `since` day, never mid-round, which would redraw weeks already
+shown; so `since` is the day it **ships** — a past date puts it into a round
+already under way on the live site. A round of 35 weeks is most of a year, so
+a new exhibit is first shown among the front page's newest (the third stage,
+`docs/plan.md`), not by this pick.
 
 **The previews are the pages' own auto modes** (`preview-mode.tsx`): each
 page's play component takes `preview` and `paused`, and in a preview it starts
@@ -807,10 +805,9 @@ number in a cycle; let go at the tuned swing the row is together after `Γ`
 groups in two angles; the skew curve's numbers above and its two sides; the
 short ones fall behind the most.
 
-**Joins the experiment of the day** on `SECOND_SERIES` in `exhibits.ts`, as
-every exhibit of the second series does: a placeholder (2026-12-01) set to the
-day of the joint deploy, the next deploy after the last kit versions are
-released (Marcel, 2026-11-15).
+**Joins the experiment of the week** with its first round, as every exhibit
+of the second series does: `SECOND_SERIES` in `exhibits.ts`, the day of the
+joint deploy (Marcel, 2026-11-15), is before `WEEKLY_EPOCH`.
 
 ## The harmonograph (`experiments.harmonograph`)
 
@@ -1592,7 +1589,7 @@ window's two edges and the balance. Topic "equilibrium". **No route**: the
 port's (`simulate/levitation.ts`), held to the engine exactly, the grid and
 the bisections included.
 
-**Joins the experiment of the day** on `SECOND_SERIES`, with the second series.
+**Joins the experiment of the week** on `SECOND_SERIES`, with the second series.
 
 **Left out, and said:** the spin itself (taken fast enough for the magnet to
 follow the field and slow enough for the axis to follow its turns; that speed
@@ -1653,7 +1650,7 @@ the coil and both together over time. Topics "oscillation" and "induction",
 lesson `second_order`. **No route**: the port's (`simulate/circuit.ts`), held
 to the engine exactly in all three regimes and a hair either side of the edge.
 
-**Joins the experiment of the day** on `SECOND_SERIES`, with the second series.
+**Joins the experiment of the week** on `SECOND_SERIES`, with the second series.
 
 **Left out, and said:** the iron core's losses (its magnetisation lags, eddy
 currents) and its saturation (a fixed `L`), the capacitors' leakage; the
@@ -1730,7 +1727,7 @@ plates' times over the field. Topic "induction", lesson `first_order`. **No
 route**: the port's (`simulate/plates.ts`), held to the engine to 10⁻⁹ over
 three columns and eight plates, the currents' stream function included.
 
-**Joins the experiment of the day** on `SECOND_SERIES`, with the second series.
+**Joins the experiment of the week** on `SECOND_SERIES`, with the second series.
 
 **Left out, and said:** the field's true shape and its fraying at the column's
 ends (its strength is an assumption), the currents' own field, the spine of
@@ -1795,7 +1792,7 @@ until still over the restitution for both, and without air
 heights, from a dull one with 10 strikes before the closed-form rest to one with
 723.
 
-**Joins the experiment of the day** on `SECOND_SERIES`, with the second series.
+**Joins the experiment of the week** on `SECOND_SERIES`, with the second series.
 
 **Left out, and said:** the restitution's dependence on the speed; the time on
 the plate at each strike (under 0.1 ms), which in reality ends the series with
@@ -1850,7 +1847,7 @@ stacks of 1 to 20, eight stacks that hold or tip, one a block off its footing,
 and nine reaches. The preview pushes the nine out to the furthest and back,
 every stack on the way holding (each condition is linear along it).
 
-**Joins the experiment of the day** on `SECOND_SERIES`, with the second series.
+**Joins the experiment of the week** on `SECOND_SERIES`, with the second series.
 
 **Left out, and said:** stacks with several blocks to a layer, some as
 counterweights, which reach further (Paterson and Zwick); friction (the blocks
@@ -1903,7 +1900,7 @@ the engine over six runs of 1500 steps (both ways off the hover depth, from the
 surface unsqueezed and squeezed hard, a deep bottle, a heavy wide diver in a
 short one), the bubble, the lift, the hover depths and the figures.
 
-**Joins the experiment of the day** on `SECOND_SERIES`, with the second series.
+**Joins the experiment of the week** on `SECOND_SERIES`, with the second series.
 
 **Left out, and said:** the water that must run into the tube before the
 bubble shrinks; the water's and the bottle's give; the air in the neck,
@@ -1991,7 +1988,7 @@ mapping, and four beads (glass, water, a dense one at 1.9, one without
 dispersion at 1.3): angles, shares, traced paths, profiles, the ring's colours
 and the figures.
 
-**Joins the experiment of the day** on `SECOND_SERIES`, with the second series.
+**Joins the experiment of the week** on `SECOND_SERIES`, with the second series.
 
 **Left out, and said:** the beads' size (in very small beads the waves widen
 the ring and add faint rings inside it); light reflected twice or more inside
@@ -2077,7 +2074,7 @@ cloudy one, a short clear wide one) at four places each, eight heights of the
 sun (one where the air mass is within a hair of 1) with the ozone and without,
 and the light scattered down at exactly one air and near it.
 
-**Joins the experiment of the day** on `SECOND_SERIES`, with the second series.
+**Joins the experiment of the week** on `SECOND_SERIES`, with the second series.
 
 **Left out, and said:** light scattered more than once (it whitens a very
 cloudy tube and the horizon); larger particles that scatter every colour
@@ -2150,7 +2147,7 @@ exhibit's, a wide pair near the wall, a far one, one barely wider apart than a
 slit) and three lasers: intensities, stripes, colours, both patterns and the
 figures.
 
-**Joins the experiment of the day** on `SECOND_SERIES`, with the second series.
+**Joins the experiment of the week** on `SECOND_SERIES`, with the second series.
 
 **Left out, and said:** the wall's nearness; the laser beam's width and
 spread, which make the stripes fade up and down; the slits' edges and
@@ -2205,7 +2202,7 @@ shape, three forks (the exhibit's, a low heavy one ringing long, a high light
 one ringing short) with five riders each, and the loudness and the sound over
 five seconds.
 
-**Joins the experiment of the day** on `SECOND_SERIES`, with the second series.
+**Joins the experiment of the week** on `SECOND_SERIES`, with the second series.
 
 **Left out, and said:** the sounding boxes and the room; the rider's own pull
 on the mode's shape; the prongs' coupling and the stem; the ear, which hears

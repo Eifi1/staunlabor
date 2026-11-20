@@ -93,14 +93,14 @@
       "how": "Each page starts with what stands at the exhibit, lets you try it, then shows what happens and the one insight that explains the trick. Every number comes from the app's own engine and is held by its tests.",
       "coming": "In preparation",
       "credit": "Most exhibits are inspired by exhibits at the Swiss Science Center Technorama, Winterthur.",
-      "daily": {
-        "eyebrow": "Experiment of the day",
+      "week": {
+        "eyebrow": "Experiment of the week",
         "open": "Try it",
-        "today": "Today"
+        "current": "This week"
       },
       "history": {
-        "title": "The experiments of the last days",
-        "open": "Earlier days"
+        "title": "The experiments of recent weeks",
+        "open": "Earlier weeks"
       },
       "all": "All exhibits",
       "topics_label": "Filter by topic",

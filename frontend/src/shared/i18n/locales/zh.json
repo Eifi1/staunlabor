@@ -93,14 +93,14 @@
       "how": "每一页先介绍展品处有什么，让您亲手试一试，再展示发生了什么，以及解释其中奥妙的那一个关键认识。每个数字都来自本应用自己的计算引擎，并由其测试保证。",
       "coming": "准备中",
       "credit": "大多数展品的灵感来自温特图尔 Swiss Science Center Technorama 的展品。",
-      "daily": {
-        "eyebrow": "每日实验",
+      "week": {
+        "eyebrow": "本周实验",
         "open": "试一试",
-        "today": "今天"
+        "current": "本周"
       },
       "history": {
-        "title": "最近几天的每日实验",
-        "open": "往日实验"
+        "title": "最近几周的每周实验",
+        "open": "往期实验"
       },
       "all": "全部展品",
       "topics_label": "按主题筛选",

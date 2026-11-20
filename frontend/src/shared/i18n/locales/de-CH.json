@@ -93,14 +93,14 @@
       "how": "Jede Seite beginnt mit dem, was am Exponat steht, lässt Sie es ausprobieren und zeigt dann, was geschieht, und die eine Einsicht, die den Trick erklärt. Jede Zahl stammt aus dem Rechenkern der App und ist durch dessen Tests abgesichert.",
       "coming": "In Vorbereitung",
       "credit": "Die meisten Exponate sind inspiriert von Exponaten im Swiss Science Center Technorama, Winterthur.",
-      "daily": {
-        "eyebrow": "Experiment des Tages",
+      "week": {
+        "eyebrow": "Experiment der Woche",
         "open": "Ausprobieren",
-        "today": "Heute"
+        "current": "Diese Woche"
       },
       "history": {
-        "title": "Die Experimente der letzten Tage",
-        "open": "Frühere Tage"
+        "title": "Die Experimente der letzten Wochen",
+        "open": "Frühere Wochen"
       },
       "all": "Alle Exponate",
       "topics_label": "Nach Thema filtern",

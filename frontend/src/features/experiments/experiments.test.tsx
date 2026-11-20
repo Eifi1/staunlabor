@@ -62,7 +62,7 @@ import { ChladniPage } from "./chladni-page";
 import { ballState, pitEntries, positionAt, raceLayout, swingAt } from "./race-views";
 import { run as runPit } from "./simulate/pit";
 import { HOLE, cameraAt, frameOf, project } from "./chair-views";
-import { dailyExhibit, dailyHistory } from "./daily";
+import { weeklyExhibit, weeklyHistory } from "./weekly";
 import { ExhibitPreview } from "./exhibit-preview";
 import { EXHIBITS, exhibitEntry } from "./exhibits";
 import { ExperimentsLayout } from "./experiments-layout";
@@ -104,9 +104,10 @@ beforeEach(() => {
 });
 
 describe("the overview", () => {
-  // A day long after the epoch, in Zurich, so the history is a full week; only
-  // the clock is faked, so the previews' frames and the queries run as ever.
-  const DAY = "2027-02-03";
+  // A Wednesday long after the epoch, in Zurich, so the history is full,
+  // twelve weeks; only the clock is faked, so the previews' frames and the
+  // queries run as ever.
+  const DAY = "2027-04-07";
   beforeEach(() => {
     vi.useFakeTimers({ toFake: ["Date"] });
     vi.setSystemTime(new Date(`${DAY}T11:00:00Z`));
@@ -161,14 +162,17 @@ describe("the overview", () => {
     expect(new Set(icons).size).toBe(EXHIBITS.length);
   });
 
-  it("shows the day's exhibit with its question, and the days before it only when asked", async () => {
+  it("shows the week's exhibit with its question, and the weeks before it only when asked", async () => {
     const view = await renderOverview();
-    const today = dailyExhibit(DAY);
-    // The page's one heading of the first rank is the day's question, the
+    const today = weeklyExhibit(DAY);
+    // The page's one heading of the first rank is the week's question, the
     // hook; the exhibit's name above it, and above that what the site is.
-    const daily = screen.getByRole("heading", { level: 1, name: E.exhibits[today].question });
+    const hero = screen.getByRole("heading", { level: 1, name: E.exhibits[today].question });
     expect(screen.getAllByRole("heading", { level: 1 })).toHaveLength(1);
-    const card = daily.closest("div.min-w-0") as HTMLElement;
+    const card = hero.closest("div.min-w-0") as HTMLElement;
+    // The eyebrow names the week, Monday to Sunday.
+    // (Intl sets thin spaces around the dash, hence \s.)
+    expect(within(card).getByText(new RegExp(`${E.overview.week.eyebrow} · 5\\s–\\s11 Apr`))).toBeInTheDocument();
     expect(within(card).getByText(E.exhibits[today].title)).toBeInTheDocument();
     expect(within(card).getByText(E.overview.lead)).toBeInTheDocument();
     expect(E.overview.lead).not.toMatch(/twin/);
@@ -177,20 +181,22 @@ describe("the overview", () => {
     expect(within(card).getByText(Object.values(at)[0])).toBeInTheDocument();
     // The list is further down, and the way to it is a link.
     expect(within(card).getByRole("link", { name: E.overview.all })).toHaveAttribute("href", "#all-exhibits");
-    expect(within(card).getByRole("link", { name: new RegExp(E.overview.daily.open) })).toHaveAttribute(
+    expect(within(card).getByRole("link", { name: new RegExp(E.overview.week.open) })).toHaveAttribute(
       "href",
       exhibitEntry(today).path,
     );
-    // The page is the day's exhibit's; the days before it wait behind a button.
+    // The page is the week's exhibit's; the weeks before it wait behind a button.
     expect(screen.queryByRole("dialog")).toBeNull();
     fireEvent.click(within(card).getByRole("button", { name: E.overview.history.open }));
     const dialog = await screen.findByRole("dialog", { name: E.overview.history.title });
     await waitFor(() => expect(view.container.ownerDocument.querySelector("[aria-busy='true']")).toBeNull());
-    const days = within(dialog).getAllByRole("link");
-    expect(days.map((link) => link.getAttribute("href"))).toEqual(
-      dailyHistory(DAY, 14).map((pick) => exhibitEntry(pick.exhibit).path),
+    const weeks = within(dialog).getAllByRole("link");
+    expect(weeks.map((link) => link.getAttribute("href"))).toEqual(
+      weeklyHistory(DAY, 12).map((pick) => exhibitEntry(pick.exhibit).path),
     );
-    expect(days[0]).toHaveTextContent(E.exhibits[dailyHistory(DAY, 1)[0].exhibit].short);
+    expect(weeks).toHaveLength(12);
+    expect(weeks[0]).toHaveTextContent(E.exhibits[weeklyHistory(DAY, 1)[0].exhibit].short);
+    expect(weeks[0]).toHaveTextContent(/29 Mar\s–\s4 Apr/);
   });
 
   it("filters the exhibits by what they are about, and shows them all again", async () => {
