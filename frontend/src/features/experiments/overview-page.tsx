@@ -2,7 +2,8 @@ import { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router";
 import { Trans, useTranslation } from "react-i18next";
 import { ArrowRight, LayoutGrid } from "lucide-react";
-import { Button, SectionLabel, StatTile, StatTileGrid, usePageSeo } from "@eifi1/ui-kit";
+import { ActionCard, Button, SectionLabel, StatTile, StatTileGrid, usePageSeo } from "@eifi1/ui-kit";
+import { LESSONS, BASICS_PATH } from "@/features/course/lessons";
 import { LANGUAGES } from "@/shared/i18n/languages";
 import { useLocale } from "@/shared/i18n/use-locale";
 import { CONTAINER } from "@/shared/ui/page-shell";
@@ -47,7 +48,11 @@ function weekSpan(monday: string, locale: string): string {
  * - **the exhibits** as a part of their own: the newest few, each moving
  *   once pointed at, and the way to the page of all of them (`exhibits-page.tsx`;
  *   Marcel, 2026-11-20: "nicht alle Exponate gleich sofort … sondern nur eine
- *   Auswahl, … weiterhin eine separate Seite mit allen Exponaten").
+ *   Auswahl, … weiterhin eine separate Seite mit allen Exponaten");
+ * - **the basics** under them, likewise: the lessons most exhibits build on,
+ *   and the way to the course (`features/course`), which moved here from
+ *   Kurvenschmiede (Marcel, 2026-11-20: "Genauso wie die Grundlagen unten
+ *   drunter").
  *
  * The museum is credited in one line, by name, with no logo and no photo:
  * every drawing on the site is its own (`docs/experiments.md`).
@@ -80,6 +85,7 @@ export function ExperimentsOverviewPage() {
       <Figures />
       <div className={`${CONTAINER} flex flex-col gap-4 pt-10 pb-6 md:pt-14`}>
         <Selection current={current.exhibit} />
+        <Basics />
         <p className="text-sm text-secondary">{t("experiments.overview.how")}</p>
         <p className="text-caption text-muted">{t("experiments.overview.credit")}</p>
       </div>
@@ -267,6 +273,54 @@ function Selection({ current }: { current: Exhibit }) {
         </Button>
       </div>
       <ExhibitGrid entries={BUILT.slice(0, SELECTION)} current={current} />
+    </section>
+  );
+}
+
+/** The lessons the front page shows: the three the most exhibits build on,
+ *  in the course's order. */
+const LESSONS_SHOWN = LESSONS.filter((entry) =>
+  [...new Set(BUILT.flatMap((exhibit) => exhibit.lessons))]
+    .sort(
+      (a, b) =>
+        BUILT.filter((exhibit) => exhibit.lessons.includes(b)).length -
+        BUILT.filter((exhibit) => exhibit.lessons.includes(a)).length,
+    )
+    .slice(0, 3)
+    .some((lesson) => lesson === entry.lesson),
+);
+
+/**
+ * The basics as a part of the front page, under the exhibits: the lessons
+ * most exhibits stand on, each with what it teaches, and the way to the
+ * course.
+ */
+function Basics() {
+  const { t } = useTranslation();
+  return (
+    <section aria-labelledby="basics" className="space-y-4 pt-6">
+      <div className="flex flex-wrap items-end justify-between gap-x-6 gap-y-2">
+        <div className="space-y-1">
+          <h2 id="basics" className="font-serif text-3xl font-semibold text-primary md:text-4xl">
+            {t("experiments.overview.basics.title")}
+          </h2>
+          <p className="text-sm text-secondary md:text-base">{t("experiments.overview.basics.lead")}</p>
+        </div>
+        <Button variant="ghost" href={BASICS_PATH}>
+          {t("experiments.overview.basics.all")}
+          <ArrowRight className="size-4" aria-hidden />
+        </Button>
+      </div>
+      <div className="grid grid-cols-1 gap-3 md:grid-cols-3">
+        {LESSONS_SHOWN.map((entry) => (
+          <ActionCard
+            key={entry.path}
+            href={entry.path}
+            title={`${entry.number} · ${t(`course.lessons.${entry.lesson}.title`)}`}
+            description={t(`course.lessons.${entry.lesson}.summary`)}
+          />
+        ))}
+      </div>
     </section>
   );
 }

@@ -13,24 +13,17 @@ import { useTranslation } from "react-i18next";
 import { ArrowLeft, ArrowRight, ChevronRight, Cpu, FlaskConical, Lightbulb } from "lucide-react";
 import { Button, Card, CardHeader, CardTitle, PageHeader, SectionLabel, TextLink } from "@eifi1/ui-kit";
 import { PAGE_SHELL } from "@/shared/ui/page-shell";
+import { lessonEntry } from "@/features/course/lessons";
 import { EXHIBITS, EXHIBITS_PATH, exhibitEntry, type CourseLesson, type Exhibit } from "./exhibits";
 import { useTried } from "./tried";
 import { CheckSection } from "./check-section";
 import { CheckStatus } from "./unchecked-notice";
 
-/** The course these computations stand on lives in Kurvenschmiede, the
- *  engineering app the exhibits were first built in, public and free: its
- *  lessons are linked there rather than copied here; the header's "Basics"
- *  is the course's front page until its first lessons move in. */
-export const COURSE = "https://kurvenschmiede.app/dynamics";
-const LESSON_PATHS: Record<CourseLesson, string> = {
-  first_order: `${COURSE}/first-order`,
-  second_order: `${COURSE}/second-order`,
-  numerics: `${COURSE}/numerics`,
-};
-
+/** The course lesson a computation stands on, on this site since its lessons
+ *  0–6 moved in from Kurvenschmiede (Marcel, 2026-11-20: "Grundlagen sollte
+ *  keine Weiterleitung auf Kurvenschmiede haben"). */
 export function lessonPath(lesson: CourseLesson): string {
-  return LESSON_PATHS[lesson];
+  return lessonEntry(lesson).path;
 }
 
 /** Prose at a reading measure: a paragraph across a wide screen ran to some

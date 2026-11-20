@@ -78,7 +78,8 @@
         "entries": {
           "language": "A választott nyelv",
           "look": "A világos vagy sötét megjelenés",
-          "tried": "Mely kiállítási tárgyakat próbálta ki, hogy az áttekintés kipipálhassa őket"
+          "tried": "Mely kiállítási tárgyakat próbálta ki, hogy az áttekintés kipipálhassa őket",
+          "course": "Előrehaladása a differenciálegyenlet-kurzusban: a megnyitott leckék, a megoldott feladatok és az előzetesen megadott becslései"
         },
         "tail": "Egyiket sem használjuk az Ön követésére. A bejelentkezési tokeneket a böngészője a fiókjához intézett minden kéréssel elküldi; minden más a böngészőjében marad. Kijelentkezéskor a bejelentkezési tokenek törlődnek, és mindez eltűnik, amikor törli a webhely adatait a böngészőjében."
       },
@@ -132,6 +133,11 @@
         "title": "Kiállítási tárgyak",
         "lead": "A {{count}} legújabb. A rajz megmozdul, amint rámutat.",
         "all": "Mind a {{count}} kiállítási tárgy"
+      },
+      "basics": {
+        "title": "Alapok",
+        "lead": "A kiállítási tárgyak mögötti matematika, lépésről lépésre: a mérlegtől a kéttömegű lengőrendszerig.",
+        "all": "A kurzushoz"
       }
     },
     "topics": {
@@ -3552,6 +3558,635 @@
     },
     "list": {
       "lead": "Minden kiállítási tárgy a rajzával, amely megmozdul, amint rámutat. Szűrjön téma szerint, vagy nézze végig mindet."
+    }
+  },
+  "course": {
+    "title": "Differenciálegyenletek",
+    "tagline": "Műszaki rendszerek differenciálegyenletei, kipróbálva: minden lecke egy valós berendezést párosít egy modellel, amely a csúszkák mozgatása közben számol.",
+    "reset": "Visszaállítás",
+    "failed": "A számítás nem sikerült.",
+    "lesson_n": "{{n}}. lecke",
+    "axis": {
+      "time": "Idő",
+      "frequency": "Frekvencia",
+      "angle": "Szög",
+      "torque": "Nyomaték"
+    },
+    "figure": {
+      "time_constant": "Időállandó",
+      "overshoot": "Túllövés",
+      "peak_time": "A csúcs időpontja",
+      "settling": "Beállási idő",
+      "phase": "Fázis"
+    },
+    "frame": {
+      "question": "A kérdés",
+      "model": "A modell",
+      "assumptions": "Amit a modell elhanyagol",
+      "assumptions_hint": "Minden modell döntés arról, mi nem számít az adott esetben.",
+      "experiments": "Kísérletek",
+      "insights": "Amit megmutatott",
+      "exercises": "Feladatok",
+      "lesson_navigation": "Előző és következő lecke"
+    },
+    "lessons": {
+      "recipe": {
+        "title": "A recept",
+        "summary": "Minden műszaki differenciálegyenlet egy mérlegből születik: változás = beáramlás − kiáramlás."
+      },
+      "first_order": {
+        "title": "Elsőrendű rendszerek",
+        "summary": "Az időállandó: mit jelent, hogyan olvasható le egy mérésből, és hol bukkan fel."
+      },
+      "second_order": {
+        "title": "Másodrendű rendszerek",
+        "summary": "Sajátfrekvencia és csillapítás: túllövés, rezonancia, és a csillapítás meghatározása egy lecsengésből."
+      },
+      "eigenvalues": {
+        "title": "Sajátértékek és a pólussík",
+        "summary": "A sajátérték egy lecsengési ütem és egy frekvencia; a sajátvektor a rendszer egyik mozgásformája."
+      },
+      "laplace": {
+        "title": "Laplace és Bode",
+        "summary": "A deriválásból s-sel való szorzás lesz, a láncokból szorzatok, a fázisból pedig késés."
+      },
+      "numerics": {
+        "title": "Numerikus megoldás",
+        "summary": "Euler és Runge–Kutta: lépésköz, stabilitás, és miért kívánnak a merev problémák implicit módszereket."
+      },
+      "two_mass": {
+        "title": "A kéttömeges lengőrendszer",
+        "summary": "Lengésmódok, antirezonanciák, és miért mér hibásan egy nyomatékmérő tengely már néhány hertznél."
+      },
+      "cheat_sheet": {
+        "title": "Összefoglaló és analógiák",
+        "summary": "A kurzus egyetlen nyomtatható oldalon, minden képlet a hozzá tartozó interaktív elemhez kapcsolva."
+      }
+    },
+    "overview": {
+      "why": "Minden kiállítási tárgy mögött egy differenciálegyenlet áll. Ez a kurzus adja az alapjait: mi egy ilyen egyenlet, honnan származik, és mit mond egy valós rendszerről.",
+      "how": "Minden lecke ugyanazt a mintát követi: egy kérdés a gyakorlatból, a modell, amely megválaszolja, csúszkákkal végzett kísérletek, amit ezek megmutattak, és feladatok — előbb becsüljön, aztán számoljon. Minden számot az alkalmazás saját számítómotorja számol ki, referenciaértékekkel ellenőrizve.",
+      "lessons": "A leckék",
+      "lessons_hint": "Előrehaladását csak ez az eszköz tárolja.",
+      "forget": "Előrehaladásom törlése",
+      "progress": "Megoldott feladatok",
+      "solved": "{{solved}} / {{total}}",
+      "visited": "megnyitva",
+      "exercises_done": "{{done}} / {{total}} feladat",
+      "surprises": "Meglepetések",
+      "surprises_hint": "Minden becslés, amely több mint a felével tévedett — ezt a listát érdemes visszaolvasni.",
+      "no_surprises": "Még nincs ilyen. Becsüljön, mielőtt számol, és ami meglepi, itt gyűlik össze.",
+      "surprise_entry": "becslés: {{estimate}} {{unit}}, a helyes válasz: {{answer}} {{unit}}"
+    },
+    "recipe": {
+      "title": "A recept: nyolc lépés",
+      "hint": "A kurzus minden modellje ezekkel a lépésekkel készül.",
+      "steps": {
+        "question": {
+          "title": "A kérdés tisztázása",
+          "body": "Mire kell a modellnek választ adnia, és milyen pontossággal? Egy kérdés nélküli modell sosem lehet helyes."
+        },
+        "boundary": {
+          "title": "Rendszerhatár és feltevések",
+          "body": "Döntse el, mi van belül, mi kívül, és mit hanyagolunk el — és írja le."
+        },
+        "coordinate": {
+          "title": "Koordináta választása és redukálás",
+          "body": "Szabadságfokonként egy koordináta, minden más az áttételeken keresztül erre redukálva."
+        },
+        "balance": {
+          "title": "A mérleg felírása",
+          "body": "Változás = beáramlás − kiáramlás: tömegre, energiára, impulzusra vagy gázra. Innen származik a differenciálegyenlet."
+        },
+        "normalise": {
+          "title": "Normálás",
+          "body": "Hozza standard alakra — τ, ω₀, D —, hogy összevethető legyen minden más, azonos fajtájú rendszerrel."
+        },
+        "solve": {
+          "title": "Megoldás",
+          "body": "Zárt alakban, ahol van ilyen, numerikusan, ahol nincs."
+        },
+        "check": {
+          "title": "Ellenőrzés",
+          "body": "Mértékegységek, határesetek, kézi becslés, mérés. Egy eredmény, amelyet senki sem ellenőrzött, csak tizedesjegyekkel ellátott találgatás."
+        },
+        "interpret": {
+          "title": "Értelmezés",
+          "body": "Fordítsa vissza a választ a kérdés nyelvére: egy időre, egy erőre, egy tervezési döntésre."
+        }
+      },
+      "tank": {
+        "title": "Egy mérlegből elsőrendű késleltető tag lesz",
+        "hint": "Egy tartály állandó beáramlással és a szinttel növekvő kiáramlással. Változtassa meg a beáramlást, a keresztmetszetet vagy a kifolyót, és figyelje, hogyan áll be a szint.",
+        "inflow": "Beáramlás",
+        "area": "Tartály keresztmetszete",
+        "outflow": "Kiáramlás szintméterenként",
+        "level0": "Kezdeti szint",
+        "level": "Szint",
+        "outflow_series": "Kiáramlás",
+        "inflow_series": "Beáramlás",
+        "flow": "Térfogatáram",
+        "final": "Végső szint",
+        "insight": "Az A·dh/dt = beáramlás − k·h mérleg egy τ = A/k időállandójú elsőrendű késleltető tag: egy nagyobb tartály vagy egy szűkebb kifolyó lassabbá teszi, és a szint ott áll be, ahol a kiáramlás egyenlő a beáramlással."
+      }
+    },
+    "exercise": {
+      "solved": "Megoldva",
+      "estimate_label": "Az Ön becslése ({{unit}})",
+      "estimate_bare": "Az Ön becslése",
+      "estimate_submit": "Becslés rögzítése",
+      "estimate_why": "Előbb becsüljön: a válaszmező akkor nyílik meg, amikor már elkötelezte magát egy szám mellett.",
+      "your_estimate": "Az Ön becslése: {{value}} {{unit}}",
+      "answer": "Az Ön válasza ({{unit}})",
+      "answer_bare": "Az Ön válasza",
+      "answer_n": "{{n}}. válasz ({{unit}})",
+      "answer_n_bare": "{{n}}. válasz",
+      "check": "Ellenőrzés",
+      "empty": "Előbb adjon meg egy értéket.",
+      "right": "Helyes.",
+      "wrong": "Még nem — próbálja újra, vagy kérjen tippet.",
+      "surprise": "Becslése {{pct}} %-kal tért el: felvettük a Meglepetések közé.",
+      "estimate_close": "Becslése {{pct}} %-kal tért el.",
+      "hint": "Tipp",
+      "show_solution": "Megoldás megjelenítése",
+      "hide_solution": "Megoldás elrejtése",
+      "solution": "Megoldás"
+    },
+    "regime": {
+      "underdamped": "Alulcsillapított (D < 1)",
+      "critical": "Kritikusan csillapított (D = 1)",
+      "overdamped": "Túlcsillapított (D > 1)"
+    },
+    "poles": {
+      "stable": "stabil",
+      "unstable": "instabil"
+    },
+    "animation": {
+      "pause": "Animáció szüneteltetése",
+      "play": "Animáció lejátszása",
+      "slow": "Lassítás: két másodpercenként egy periódus, a frekvenciától függetlenül.",
+      "twist": "Az egyes rugók elcsavarodása"
+    },
+    "first_order": {
+      "question": "Egy hőmérséklet-érzékelőt 20 °C-ról egy 80 °C-os fürdőbe merítenek. Mikortól lehet megbízni a kijelzésében — és mit mutat nyolc másodperc után?",
+      "model": "Egy tároló (az érzékelő hőkapacitása) és egy ellenállás (a fürdőből az érzékelőbe irányuló hőátadás): ami beáramlik, növeli a tároló tartalmát, és az áram arányos a még fennmaradó különbséggel. Mérlegként felírva ez egy elsőrendű késleltető tag:",
+      "model_tau": "τ az időállandó. Egy τ után a válasz megtette az út 63 %-át, három után 95 %-át, öt után 99.3 %-át — bármiből álljon is a rendszer.",
+      "assumptions": {
+        "one_store": "Egy tároló: az érzékelő teljes egészében egyetlen hőmérsékleten van, belső hőmérséklet-különbség nélkül.",
+        "linear": "Lineáris: az áram arányos a különbséggel, így τ nem függ attól, mekkora utat kell még megtenni.",
+        "constant": "Állandó paraméterek: τ 20 °C-on ugyanakkora, mint 80 °C-on."
+      },
+      "insights": {
+        "settled": "5 τ után a válasz megtette az ugrás 99.3 %-át: beállt, minden elsőrendű rendszer esetén.",
+        "read": "τ egy mérésből ott olvasható le, ahol a válasz megtette az út 63 %-át — vagy ahol a kezdeti érintő eléri a végértéket.",
+        "log": "Logaritmikus tengelyen a hátralévő távolság egyenes: meredeksége −1/τ, és az a mérés, amely ott nem egyenes, nem elsőrendű."
+      },
+      "step": {
+        "title": "Az ugrásválasz",
+        "hint": "Mozgassa τ-t és a két szintet. A jelölések 1, 2, 3 és 5 τ-nál vannak; a szaggatott vonal a kezdeti érintő, amely pontosan τ-nál éri el a végértéket."
+      },
+      "tau": "Időállandó τ",
+      "start": "Kezdeti érték",
+      "final": "Végérték",
+      "at": "Leolvasás t időpontban",
+      "analogy_label": "Ugyanaz az egyenlet, mint",
+      "analogy": {
+        "thermal": {
+          "name": "Hőmérséklet",
+          "unit": "°C",
+          "quantity": "Hőmérséklet"
+        },
+        "electrical": {
+          "name": "RC-kör",
+          "unit": "V",
+          "quantity": "Kondenzátorfeszültség"
+        },
+        "mechanical": {
+          "name": "Rugó és csillapító",
+          "unit": "mm",
+          "quantity": "Elmozdulás"
+        },
+        "vacuum": {
+          "name": "Vákuumkamra",
+          "unit": "mbar",
+          "quantity": "Nyomás"
+        }
+      },
+      "view": "Tengely",
+      "view_linear": "Lineáris",
+      "view_log": "Hátralévő távolság, logaritmikus",
+      "remaining": "Hátralévő távolság",
+      "tangent": "Kezdeti érintő",
+      "final_short": "végérték",
+      "value_at": "Érték t = {{t}} s időpontban",
+      "fraction_at": "Az ugrás hányada t időpontban",
+      "settled": "99.3 %-ig beállt (5 τ)",
+      "measure": {
+        "title": "τ leolvasása egy mérésből",
+        "hint": "Egy zajos mérés ismeretlen időállandóval. Kattintson a görbére ott, ahol átmetszi a 63 %-os vonalat (vagy állítsa be alább a jelölőt), majd hasonlítsa össze.",
+        "another": "Másik mérés",
+        "series": "Mért hőmérséklet",
+        "yours": "az Ön τ értéke",
+        "marker": "Az Ön τ-leolvasása",
+        "marker_hint": "Ahol a mérés átmetszi a 63 %-os vonalat, ott az idő éppen τ.",
+        "compare": "Összehasonlítás",
+        "result": "Az Ön leolvasása: {{yours}} s; a valódi τ: {{truth}} s (eltérés: {{off}} %)."
+      }
+    },
+    "second_order": {
+      "question": "Egy nyomatékmérő tengelyt egyszer megütnek, és lengeni kezd. Milyen gyorsan leng, milyen hamar nyugszik meg — és mennyit téved egy mérés, ha a jel a sajátfrekvenciája közelébe kerül?",
+      "model": "Egy forgó tehetetlen tömeg rugóval és csillapítóval: Newton törvénye forgómozgásra. Két szám mindent elmond róla — az ω₀ saját-körfrekvencia és a D csillapítási tényező.",
+      "model_magnification": "f frekvenciájú gerjesztésnél a válasz a statikus válasz és a V(η) nagyítási tényező szorzata; egy szabad lecsengés két egymást követő maximuma pedig a tehetetlenségi nyomaték és a merevség ismerete nélkül megadja D-t:",
+      "assumptions": {
+        "lumped": "Egyetlen koncentrált tehetetlenség: a tengely saját, megoszló tömege kimarad; a koncentrált modell a tengely első lengésmódja, és egy mérőláncnál ez számít.",
+        "viscous": "Viszkózus csillapítás, a sebességgel arányos; nincs állandó nagyságú súrlódás.",
+        "linear": "Lineáris rugó a teljes elmozdulási tartományban."
+      },
+      "insights": {
+        "peak": "D = 0.05 f₀-nál 10-szeres nagyítást jelent: a tengely a statikus kitérésének tízszereséig leng fel.",
+        "chain": "Egy mérőlánc a sajátfrekvenciája ötödéig nagyjából 4 %-on belül mér: f₀ ≥ 5 × a legnagyobb vizsgált frekvencia.",
+        "mass": "Azonos csillapító mellett a nagyobb tehetetlenség f₀ mellett D-t is csökkenti, mert D = d/(2√(c·J))."
+      },
+      "system": {
+        "title": "Az ugrásválasz",
+        "hint": "Adja meg a tengelyt az alkatrészeivel vagy a két jellemző számával. A szaggatott vonalak az e^(−Dω₀t) burkológörbét mutatják; a címke színe jelzi, hogy a három megoldás közül melyikről van szó."
+      },
+      "describe": "A tengely megadása",
+      "describe_parts": "Alkatrészeivel: J, c, d",
+      "describe_numbers": "Jellemzőivel: f₀, D",
+      "inertia": "Tehetetlenségi nyomaték J",
+      "stiffness": "Merevség c",
+      "damping": "Csillapítás d",
+      "f0": "Sajátfrekvencia f₀",
+      "ratio": "Csillapítási tényező D",
+      "torque_note": "Gerjesztés: {{torque}} N·m nagyságú nyomatékugrás.",
+      "angle": "Szög",
+      "envelope": "Burkológörbe",
+      "final": "Végérték",
+      "magnification": {
+        "title": "Nagyítás és egy mérőlánc hibája",
+        "hint": "V(η) az Ön csillapításával (vastagon) és öt referenciaértékkel. Mozgassa a gerjesztést, és olvassa le, mennyivel nagyobb a tengely mozgása a statikus kitérésénél — pontosan ennyit téved egy rá épülő mérőlánc.",
+        "v": "Nagyítás V",
+        "eta": "Frekvenciaarány η = f/f₀",
+        "error": "Mérési hiba",
+        "error_note": "5 % fölött: túl közel f₀-hoz",
+        "peak": "Legnagyobb nagyítás"
+      },
+      "excitation": "Gerjesztési frekvencia f",
+      "decay": {
+        "title": "Csillapítás lecsengési kísérletből",
+        "hint": "Egy megütött tengely, zajjal mérve; a csillapítása ismeretlen. Kattintson két egymást követő maximumra Λ és D kiszámításához, majd hasonlítsa össze.",
+        "another": "Másik lecsengés",
+        "series": "Mért nyomaték",
+        "not_successive": "Válasszon két szomszédos maximumot.",
+        "damping": "Csillapítási tényező D",
+        "compare": "Összehasonlítás",
+        "result": "Az Ön két maximumából D = {{yours}}; a valódi D = {{truth}}. Az összes ({{n}}) periódust egyszerre kiértékelve D = {{overall}} — egyetlen logaritmus sok perióduson át a stabilabb válasz."
+      }
+    },
+    "eigenvalues": {
+      "question": "Mit mond valójában az a két szám, amelyre egy másodrendű rendszert megoldunk — és mit csinál mozgás közben egy két csatolt állapotú rendszer?",
+      "model": "Egy ẋ = A·x lineáris rendszer a sajátmegoldásainak összegeként mozog: minden λ sajátérték megmondja, milyen gyorsan cseng le vagy nő egy összetevő, és milyen gyorsan forog, minden sajátvektor pedig azt az irányt, amelyben mozog.",
+      "model_pair": "Egy rugóval és csillapítóval felfüggesztett tömeg mátrixának egy sajátérték-párja van, és ezek pontosan a 2. lecke karakterisztikus egyenletének gyökei:",
+      "assumptions": {
+        "linear": "Lineáris és időinvariáns: A állandó. Egy nemlineáris rendszernek csak egy munkapont körül vannak sajátértékei.",
+        "minimal": "A pólusok és a sajátértékek egybeesnek, ha a rendszert egyszerűsíthető tényezők nélkül írjuk fel; egy pólus, amelyet egy zérus kiejt, továbbra is A sajátértéke."
+      },
+      "insights": {
+        "parts": "λ = σ ± jω: a σ valós rész határozza meg az e^(σt) burkológörbét, a képzetes rész a lengés frekvenciáját.",
+        "same": "det(A − λI) = 0 a 2. lecke karakterisztikus egyenlete: a pólusok, a sajátértékek és az egyenlet gyökei ugyanazok a számok.",
+        "vectors": "Egy valós sajátvektoron induló trajektória ezen az egyenesen marad; minden más a két irány keveréke."
+      },
+      "scalar": {
+        "title": "Egy sajátérték: ẋ = a·x",
+        "hint": "Vigye át a-t a nullán: negatív értéknél lecseng, pozitívnál nő, és az időállandó, illetve a duplázódási idő egy szorzótól eltekintve 1/|a|."
+      },
+      "stable": "Stabil",
+      "unstable": "Instabil",
+      "marginal": "A stabilitás határán",
+      "doubling": "Duplázódási idő",
+      "poles": {
+        "title": "Pólusok és az ugrásválasz",
+        "hint": "Állítsa be f₀-t és D-t, vagy húzza a felső pólust a síkon. A szaggatott félkör a |λ| = ω₀ kör; a rajta fekvő póluspárok csak a csillapításukban különböznek.",
+        "plane": "A pólussík, pólusok: {{poles}} 1/s",
+        "response": "Ugrásválasz"
+      },
+      "matrix": {
+        "title": "Egy 2×2-es rendszer és a fázisportréja",
+        "hint": "Szerkessze a mátrixot, vagy induljon egy előbeállításból. A szaggatott vonalak a valós sajátvektorok; tizenkét trajektória indul a pontozott egységkörről.",
+        "presets": {
+          "spring": "Rugó–tömeg–csillapító",
+          "saddle": "Nyeregpont",
+          "centre": "Centrum",
+          "spiral": "Spirál"
+        },
+        "kind": {
+          "saddle": "Nyeregpont — instabil",
+          "stable_node": "Stabil csomópont",
+          "unstable_node": "Instabil csomópont",
+          "stable_focus": "Stabil fókusz — csillapodó lengés",
+          "unstable_focus": "Instabil fókusz — növekvő lengés",
+          "centre": "Centrum — csillapítatlan lengés",
+          "degenerate": "Elfajult — egy sajátérték nulla"
+        },
+        "portrait": "Fázisportré: {{kind}}",
+        "trace": "Nyom",
+        "det": "Determináns",
+        "vectors": "Sajátvektorok"
+      }
+    },
+    "laplace": {
+      "question": "Egy mérőlánc: egy tengely, mögötte egy szűrő, mögötte egy erősítő. Mit tesz a lánc egy 3 Hz-es jellel — mennyivel lesz kisebb, és mennyivel később érkezik meg?",
+      "model": "A Laplace-transzformáció a deriválást s-sel való szorzássá alakítja, így a differenciálegyenletből algebrai egyenlet lesz. Minden blokk egy G(s) átviteli függvény; a sorba kapcsolt blokkok összeszorzódnak, a decibeles Bode-diagramon pedig összeadódnak.",
+      "model_delay": "Egy f frekvencián a fáziskésés időbeli késést jelent:",
+      "assumptions": {
+        "lti": "Lineáris, időinvariáns blokkok; egy telítődő erősítő nem írható le átviteli függvénnyel.",
+        "steady": "A Bode-diagram a szinuszos gerjesztés melletti állandósult állapotot írja le; a felfutás az ugrásválasz dolga.",
+        "dead_time": "A holtidő fázist ad, de pólust nem: e^(−sT)-nek nincs pólusa, így nem is rajzolunk ilyet."
+      },
+      "insights": {
+        "product": "A sorba kapcsolt blokkok összeszorzódnak; a dB-es Bode-diagramon a görbéik összeadódnak — a szaggatott görbék összege a folytonos.",
+        "final": "Egy stabil ugrásválasz végértéke G(0): az átviteli függvényből leolvasható, semmit sem kell megoldani.",
+        "lag": "Egy PT1 az alacsony frekvenciákat nagyjából τ-val késlelteti: egy 5 Hz-es szűrő mögött egy 3 Hz-es jel 28.7 ms-mal később érkezik, egy 50 Hz-es szűrő mögött egy 5 Hz-es jel 3.2 ms-mal.",
+        "filter": "A nyomatékot és a szöget azonos módon szűrje — vagy offline, előre és visszafelé —, különben a szűrő olyan hiszterézist rajzol, amely a próbatestnek nincs."
+      },
+      "steps": {
+        "title": "Laplace lépésről lépésre",
+        "hint": "Az elsőrendű ugrásválasz Laplace-módszerrel megoldva: minden sor az Ön számaival.",
+        "transform": "Transzformálás",
+        "solve": "Megoldás Y(s)-re",
+        "split": "Parciális törtekre bontás",
+        "back": "Visszatranszformálás"
+      },
+      "time_domain": "Időtartomány",
+      "image_domain": "Laplace-tartomány",
+      "chain": {
+        "title": "Bode-építőkészlet",
+        "hint": "Legfeljebb négy sorba kapcsolt blokk. Az eredő folytonos vonal, alatta minden blokk szaggatottan; a kurzor az erősítést, a fázist és a fázisnak megfelelő késést mutatja.",
+        "block": "{{n}}. blokk",
+        "remove": "Blokk eltávolítása",
+        "add": "Blokk hozzáadása",
+        "cursor": "Kurzorfrekvencia",
+        "total": "Lánc",
+        "gain": "Erősítés |G|",
+        "delay": "Késés",
+        "poles": "A lánc pólusai",
+        "step": "Ugrásválasz"
+      },
+      "kind": {
+        "proportional": "Erősítés K",
+        "integrator": "Integrátor K/s",
+        "first_order": "Elsőrendű (PT1)",
+        "second_order": "Másodrendű (PT2)",
+        "dead_time": "Holtidő"
+      },
+      "magnitude": "Amplitúdó",
+      "filter": {
+        "title": "A hiszterézis, amelyet egy szűrő kitalál",
+        "hint": "Egy hiszterézis nélküli próbatest (a nyomaték arányos a szöggel), szinuszosan mozgatva. Ha csak a nyomatékot szűri, megjelenik egy hurok; ha mindkettőt, vagy offline szűr, eltűnik. Adjon hozzá súrlódást, és meglátja, hogy egy valódi hurok megmarad.",
+        "frequency": "Gerjesztési frekvencia",
+        "corner": "A szűrő törésponti frekvenciája",
+        "friction": "Valódi súrlódási sáv",
+        "mode": "Szűrve",
+        "modes": {
+          "torque_only": "Csak a nyomaték",
+          "both": "Nyomaték és szög",
+          "zero_phase": "Mindkettő, előre és visszafelé"
+        },
+        "truth": "Ahogy valójában van",
+        "measured": "Ahogy mérjük",
+        "apparent": "Mért hiszterézis",
+        "true": "Valódi hiszterézis"
+      }
+    },
+    "numerics": {
+      "question": "A gyakorlatban a legtöbb egyenletnek nincs zárt alakú megoldása, ezért a számítógép lépésenként halad végig rajtuk. Mekkora lehet a lépés — és mit tesz egy módszer azzal a rendszerrel, amelyen végiglépked?",
+      "model": "Az Euler-módszer minden lépés elején veszi a meredekséget, és a teljes lépésen át tartja. Az RK4 a lépésen belül négyszer értékeli ki a meredekséget, és súlyozott átlagot képez:",
+      "model_stability": "Az ẏ = λy egyenleten egy módszer minden lépésben egy rögzített tényezővel szorozza a megoldást, és csak addig stabil, amíg e tényező abszolút értéke legfeljebb egy. Az Euler-módszerre:",
+      "assumptions": {
+        "fixed": "Rögzített lépésköz: az itteni módszerek nem igazítják. Egy adaptív módszer (mint amelyen a leszívás számítása fut) maga választja meg.",
+        "rounding": "A kerekítést figyelmen kívül hagyjuk: dupla pontosságban messze az itt mutatott összes hiba alatt marad."
+      },
+      "insights": {
+        "order": "Az Euler-módszer hibája h-val, az RK4-é h⁴-nel csökken: a lépésköz felezése az egyiket felezi, a másikat a tizenhatodára csökkenti.",
+        "energy": "Az Euler-módszer energiát pumpál egy oszcillátorba: h·ω₀ = 2D-nél pontosan kioltja a csillapítást — a mérőtengelyen ez h = 1 ms, amelynél a tengely örökké a teljes 1°-os amplitúdóval leng —, e fölött pedig a lengés felerősödik.",
+        "rule": "Ökölszabály az RK4-hez: h legfeljebb a legrövidebb periódus huszada. Az explicit Euler-módszernek egy gyengén csillapított oszcillátoron h·ω₀ < 2D kell, ami D = 0.05 mellett a periódus hatvanharmada.",
+        "stiff": "A merevség gyors és lassú dinamika együttesét jelenti: egy 1 ms-os késleltetés egy 10 s-os mellett 30 s alatt több mint 10 000 lépésre kényszeríti az RK4-et egy olyan összetevő miatt, amely 5 ms után eltűnik. Az implicit Euler-módszer bármekkora lépésköznél stabil."
+      },
+      "sensor": {
+        "title": "Euler, Heun és RK4 a pontos megoldással szemben",
+        "hint": "Az 1. lecke érzékelője (τ = 4 s, 20 → 80 °C). Növelje a lépést — τ fölött az Euler-módszer túllő, 2τ fölött elszalad."
+      },
+      "step": "Lépésköz h",
+      "steps": "Lépések száma",
+      "regime": {
+        "monotone": "Az Euler-módszer lassan közelít (h < τ)",
+        "one_step": "Az Euler-módszer egy lépésben célba ér (h = τ)",
+        "alternating": "Az Euler-módszer túllő és váltakozik (τ < h < 2τ)",
+        "neutral": "Az Euler-módszer örökké váltakozik (h = 2τ)",
+        "diverging": "Az Euler-módszer elszalad (h > 2τ)"
+      },
+      "euler_factor": "Euler-tényező lépésenként, 1 − h/τ",
+      "rk4_factor": "RK4-tényező lépésenként",
+      "method": {
+        "exact": "Pontos",
+        "euler": "Euler",
+        "heun": "Heun",
+        "rk4": "RK4",
+        "symplectic": "Félig implicit Euler",
+        "implicit": "Implicit Euler"
+      },
+      "errors": {
+        "title": "Hibatáblázat",
+        "hint": "Minden lépés értéke és hibája.",
+        "euler": "Euler-hiba",
+        "rk4": "RK4-hiba"
+      },
+      "rk4_table": {
+        "title": "RK4 lépésről lépésre",
+        "hint": "Hol értékeljük ki a négy meredekség mindegyikét, és mekkora az értékük.",
+        "step": "{{n}}. lépés",
+        "slope": "Meredekség"
+      },
+      "oscillator": {
+        "title": "Energiasodródás egy oszcillátoron",
+        "hint": "A 2. lecke mérőtengelye (f₀ = 15.9 Hz, D = 0.05) 1°-os kitérésből elengedve, egy másodpercen át, négy módszerrel. Fent az amplitúdó logaritmikus tengelyen, lent a szög.",
+        "gain": "Euler-erősítés lépésenként |1 + hλ|",
+        "neutral": "Lépésköz, amelynél az Euler-módszer kioltja a csillapítást",
+        "amplitude": "Amplitúdó",
+        "final": "{{method}}: amplitúdó 1 s után",
+        "damping": "{{method}}: a mutatott csillapítás"
+      },
+      "stiff": {
+        "title": "Merevség",
+        "hint": "Két független késleltetés, 1 ms és 10 s, 30 s időtartamon. A lassú látható. Ha a lépést 2.8 ms fölé növeli, az RK4 divergál; az implicit Euler-módszer bármekkora lépésnél stabil marad.",
+        "limit": "Legnagyobb stabil RK4-lépés",
+        "min_steps": "Legalább szükséges RK4-lépések",
+        "rk4_steps": "Megtett RK4-lépések",
+        "diverged": "divergált",
+        "implicit_steps": "Implicit Euler-lépések",
+        "exact": "Pontos",
+        "slow": "Lassú összetevő"
+      }
+    },
+    "two_mass": {
+      "question": "Egy nyomatékmérő tengely a motor és a próbatesten lévő nehéz adapter között ül. Miért mér 3 Hz-en 15 %-kal kevesebbet a valósnál?",
+      "model": "Két tehetetlen tömeg két rugón: a motor J₁, a mérőtengely c₁, az oszlop vagy adapter J₂, a próbatest pedig c₂ torziós rúdként a vázhoz kötve. Mátrixalakban:",
+      "model_reading": "A tengely a saját magán átmenő nyomatékot méri; a próbatest a rúdon átmenő nyomatékot viseli. A kettő között ül J₂, és ami a gyorsításához kell, az benne van a mért értékben, a próbatestben viszont nincs:",
+      "assumptions": {
+        "lumped": "Koncentrált tehetetlenségek: a mérőtengely saját tehetetlenségét elhanyagoljuk (a két végére elosztva mindkét lengésmódot néhány százalékkal eltolná).",
+        "torque": "Ideális nyomatékhajtás: a motor áramszabályozó körét nem modellezzük.",
+        "linear": "Lineáris rugók és viszkózus csillapítók."
+      },
+      "insights": {
+        "count": "A vázhoz rugókkal kötött n tehetetlen tömegnek n sajátfrekvenciája van; egy szabad lánc ehhez még egy 0 Hz-es merevtest-mozgást ad.",
+        "soft": "Az alsó lengésmód az, amikor minden a legpuhább rugón leng: a teljes tehetetlenség a két sorba kapcsolt rugón kézi számítással 6.3 Hz-et ad, a pontos érték 6.94 Hz.",
+        "error": "A tengely a próbatest által viselt nyomatéknak körülbelül 1 − (f/f_a)²-szeresét méri, ahol f_a = √(c₂/J₂)/2π: az alapértelmezett adapterrel 1 Hz-en 2 %-kal kevesebbet, 3 Hz-en 15 %-kal, 5 Hz-en 43 %-kal."
+      },
+      "rig": {
+        "title": "A próbapad szinuszos gerjesztés alatt",
+        "hint": "Mozgassa a gerjesztést, vagy ugorjon egy előbeállításra. A tárcsák lassítva forognak a számítómotor által kiszámított fázisokkal; a sávok mutatják, mennyire csavarodik el az egyes rugó."
+      },
+      "excitation": "Gerjesztési frekvencia",
+      "presets": {
+        "three": "3 Hz",
+        "mode1": "1. lengésmód",
+        "absorber": "Abszorberpont",
+        "motor_still": "A motor áll",
+        "mode2": "2. lengésmód"
+      },
+      "parameters": "A próbapad paraméterei",
+      "parameters_hint": "Tehetetlenségek, merevségek és csillapítások, mindegyik egy csúszkán.",
+      "j1": "Motor tehetetlenségi nyomatéka J₁",
+      "j2": "Adapter tehetetlenségi nyomatéka J₂",
+      "c1": "Mérőtengely c₁",
+      "c2": "Torziós rúd c₂",
+      "d1": "A tengely csillapítása d₁",
+      "d2": "A rúd csillapítása d₂",
+      "motor": "Motor",
+      "adapter": "Adapter",
+      "animation_label": "A két tehetetlen tömeg {{f}} Hz-en, lassítva",
+      "in_phase": "Azonos irányban forognak",
+      "anti_phase": "Egymással szemben forognak",
+      "error": "Mérési hiba",
+      "shaft_reads": "Amit a tengely mér, M_W",
+      "object_carries": "Amit a próbatest visel, M_T",
+      "per_motor_torque": "Nyomaték a motornyomatékra vetítve",
+      "modes": "Lengésmódok",
+      "mode_f": "{{n}}. lengésmód: frekvencia",
+      "mode_d": "{{n}}. lengésmód: csillapítás",
+      "mode_shape": "{{n}}. lengésmód: φ₂/φ₁",
+      "hand": "Az 1. lengésmód kézi becslése",
+      "hand_deviation": "A kézi becslés eltérése",
+      "compensation": {
+        "title": "Az adapter tehetetlenségének kompenzálása",
+        "hint": "M_T = M_W − J₂·φ̈₂, a gyorsulást a mért szög kétszeri differenciálásával kapjuk. Növelje a zajt: a korrekció a mintavételi frekvencia négyzetével erősíti fel, és egy szűrő ezt késésre cseréli.",
+        "noise": "Szögzaj",
+        "rate": "Mintavételi frekvencia",
+        "filter": "A gyorsulás simítása",
+        "filters": {
+          "none": "Nincs",
+          "lowpass": "Aluláteresztő",
+          "zero_phase": "Aluláteresztő mindkét irányban (offline)"
+        },
+        "corrected": "Korrigálva, M_W − J₂·φ̈₂",
+        "raw_error": "Hiba korrekció nélkül",
+        "comp_error": "Hiba korrekcióval",
+        "noise_price": "A korrekció által hozzáadott zaj"
+      }
+    },
+    "cheat": {
+      "print": "Nyomtatás",
+      "analogies": "Analógiák",
+      "role": "Szerep",
+      "domains": {
+        "electrical": "Villamos",
+        "mechanical": "Mechanikai",
+        "thermal": "Termikus",
+        "vacuum": "Vákuum"
+      },
+      "roles": {
+        "drive": "Hajtóerő",
+        "flow": "Áram",
+        "resistance": "Ellenállás",
+        "store": "Tároló",
+        "inert": "Tehetetlen tároló",
+        "tau": "Időállandó"
+      },
+      "traps": "Csapdák, amelyeket egy próbapad állít",
+      "trap": {
+        "location": "Az, hogy hol mérjük a szöget, eldönti, milyen merevséget mérünk: egy motorjeladó az út minden engedékenységét látja.",
+        "inertia": "A nyomatékérzékelő és a próbatest közötti tehetetlenség benne van a mért értékben: a hiba (f/f_a)² szerint nő.",
+        "filter": "A nyomatékot és a szöget azonos módon szűrje, különben a szűrő hiszterézist talál ki.",
+        "efficiency": "Egy áttétel hatásfoka attól függ, melyik oldal hajt: egy nyomatékot csak az áttétellel átszámítva 1/η tényezővel tévedünk.",
+        "motor": "Egy kis, gyors motor uralja a redukált tömeget — és egy gyors ciklusban nyomatékának nagy részét önmagára fordítja."
+      },
+      "python": "Pythonban"
+    },
+    "exercises": {
+      "pt1_reading": {
+        "title": "Egy érzékelő kijelzése",
+        "prompt": "Egy τ = {{tau}} s időállandójú érzékelő bemenetén {{start}} °C-ról {{final}} °C-ra ugrik a hőmérséklet. Mit mutat {{t}} s elteltével?",
+        "hint1": "t/τ időállandó után az ugrás e^(−t/τ) része még hiányzik.",
+        "hint2": "y(t) = y∞ + (y₀ − y∞)·e^(−t/τ).",
+        "solution": "{{t}} s = {{t}}/{{tau}} időállandó, így az ugrás e^(−{{t}}/{{tau}}) része még hiányzik: az érzékelő {{a1}} °C-ot mutat."
+      },
+      "decrement": {
+        "title": "Csillapítás két maximumból",
+        "prompt": "Egy lecsengési kísérletben az egyik maximum {{first}} N·m, a következő {{second}} N·m. Mekkora a D csillapítási tényező?",
+        "hint1": "Vegye két egymást követő maximum arányának logaritmusát: Λ = ln(xₙ/xₙ₊₁).",
+        "hint2": "D = Λ/√(4π² + Λ²) — kis Λ esetén majdnem Λ/2π.",
+        "solution": "Λ = ln({{first}}/{{second}}), és D = Λ/√(4π² + Λ²) = {{a1}}."
+      },
+      "double_frequency": {
+        "title": "Kétszeres sajátfrekvencia",
+        "prompt": "Milyen tényezővel kell növelni a merevséget ahhoz, hogy a sajátfrekvencia {{factor}} tényezővel nőjön, változatlan tehetetlenség mellett?",
+        "hint1": "A sajátfrekvencia a merevség négyzetgyökével arányosan nő.",
+        "hint2": "Emelje négyzetre a tényezőt.",
+        "solution": "f₀ √c-vel arányosan nő, így a merevségnek {{factor}}² = {{a1}} tényezővel kell nőnie."
+      },
+      "filter_delay": {
+        "title": "Mennyit késleltet egy szűrő egy jelet",
+        "prompt": "Egy {{corner}} Hz törésponti frekvenciájú elsőrendű szűrőn egy {{f}} Hz-es jel halad át. Mennyivel később érkezik meg a jel?",
+        "hint1": "Egy elsőrendű késleltető tag fázisa −arctan(f/f_E).",
+        "hint2": "Egy f frekvencián fellépő φ fokos fázis φ/360° · 1/f késésnek felel meg.",
+        "solution": "φ = −arctan({{f}}/{{corner}}), és ez {{f}} Hz-en {{a1}} ms késést jelent."
+      },
+      "filter_phase": {
+        "title": "Egy túl közel hangolt szűrő fázisa és késése",
+        "prompt": "Egy {{corner}} Hz törésponti frekvenciájú elsőrendű szűrőn egy {{f}} Hz-es jel halad át. Mekkora a fázisa, és milyen késést jelent ez?",
+        "hint1": "φ = −arctan(f/f_E).",
+        "hint2": "Δt = −φ/360° · 1/f.",
+        "solution": "φ = −arctan({{f}}/{{corner}}) = {{a1}}°, ami {{f}} Hz-en {{a2}} ms késés — majdnem a szűrő teljes időállandója."
+      },
+      "euler_steps": {
+        "title": "Két Euler-lépés kézzel",
+        "prompt": "Euler-módszer h = {{h}} s lépésközzel a τ = {{tau}} s időállandójú érzékelőn, {{start}} °C-ról {{final}} °C-ra történő ugrásnál. Mit ad {{steps}} lépés után?",
+        "hint1": "Minden lépés a lépés elején vett (y∞ − y)/τ meredekség h-szorosát adja hozzá.",
+        "hint2": "A második lépés az első lépés eredményéből indul.",
+        "solution": "Két y ← y + h·(y∞ − y)/τ lépés {{a1}} °C-ot ad — túl sokat, mert az Euler-módszer a legmeredekebb meredekséget, a lépés elején vettet tartja a teljes lépésen át."
+      },
+      "euler_gain": {
+        "title": "Euler-módszer csillapítatlan oszcillátoron",
+        "prompt": "Explicit Euler-módszer csillapítatlan oszcillátoron, h·ω₀ = {{ratio}} mellett: milyen tényezővel nő az amplitúdó lépésenként?",
+        "hint1": "Az Euler-módszer lépésenként 1 + hλ tényezővel szorozza az egyes sajátösszetevőket.",
+        "hint2": "Csillapítatlan esetben λ = ±jω₀.",
+        "solution": "|1 + j·{{ratio}}| = √(1 + {{ratio}}²) = {{a1}} lépésenként: minden lépésben fél százalék, ezer lépés alatt több mint százszoros."
+      },
+      "hand_estimate": {
+        "title": "Az alsó lengésmód kézi becsléssel",
+        "prompt": "Becsülje meg kézzel a kéttömeges próbapad legalacsonyabb sajátfrekvenciáját: a teljes tehetetlenség ({{j1}} + {{j2}} kg·m²) a két sorba kapcsolt rugón ({{c1}} és {{c2}} N·m/rad).",
+        "hint1": "Sorba kapcsolt rugók: 1/c = 1/c₁ + 1/c₂.",
+        "hint2": "f = √(c/J)/2π a teljes tehetetlenséggel.",
+        "solution": "c = {{c1}}·{{c2}}/({{c1}} + {{c2}}) N·m/rad és {{j1}} + {{j2}} kg·m² együtt {{a1}} Hz-et ad. A pontos lengésmód 6.94 Hz: a motor nem a teljes amplitúdóval leng, így kevesebb tehetetlenség vesz részt a lengésben, mint amennyit a becslés feltételez."
+      },
+      "light_adapter": {
+        "title": "Könnyebb adapter",
+        "prompt": "Egy könnyebb adapter, J₂ = {{j2}} kg·m², a c₂ = {{c2}} N·m/rad merevségű torziós rúdon. Mennyit téved a tengely {{f}} Hz-en?",
+        "hint1": "Az f_a = √(c₂/J₂)/2π frekvencián a tengely semmit sem mér.",
+        "hint2": "A tévedés nagyjából (f/f_a)².",
+        "solution": "f_a = √({{c2}}/{{j2}})/2π, és (f/f_a)² = {{a1}} % — egy könnyebb adapter feljebb tolja f_a-t, és csökkenti a hibát."
+      }
     }
   },
   "account": {

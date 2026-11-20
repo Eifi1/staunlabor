@@ -31,8 +31,9 @@ Every exhibit gets one page in one shape:
 4. **The sweet spot** — the one insight that explains the trick, as a chart.
 5. **Change the exhibit** — sliders for its size, mass, voltage and so on.
 6. **Further** — the lessons it stands on, in the differential-equations
-   course at kurvenschmiede.app, which stayed there; at the foot, back to
-   every exhibit and on to the next one in the list's order.
+   course under `/basics` (`docs/course.md`; at kurvenschmiede.app until
+   2026-11-20); at the foot, back to every exhibit and on to the next one in
+   the list's order.
 
 The prose reads at 75 characters a line at most (a paragraph across a wide
 screen ran to some 250); the figures, charts and equations keep the page's
@@ -56,7 +57,7 @@ the mechanics and the circuit) and the sphere's six (the ball centre's position
 and velocity), stepped by classical Runge–Kutta every 0.2 and 1 ms, the same
 steps in the browser; the platform's one, `dL/dt = −τ_f`, solved exactly. Each
 links to the course's lessons it stands on (first and second order,
-numerics), at kurvenschmiede.app.
+numerics), under `/basics`.
 
 **No formula stands alone** (Marcel, 2026-11-07: "if there are equations
 involved, are they also explained?"). Every one is an `Equation` block
@@ -71,57 +72,89 @@ einige Experimente". Since 2026-11-19 the first screen is the experiment of
 the day's alone (Marcel: "Das erste was ein neuer Nutzer auf staunlabor.app
 sieht soll das Experiment des Tages sein und nicht überladen werden"); since
 2026-11-20 it is the experiment of the **week** (Marcel: "Stelle auf
-Experiment of the week um"), and the
-header holds only the name, the language and the theme: the strip naming every
-exhibit beside it went, and every exhibit's page links back to the list
-instead (`/#all-exhibits`). Top to bottom (`overview-page.tsx`):
+Experiment of the week um"), and since the
+same day it is the "stage" Marcel chose of three drafts (a design canvas with
+an exhibition, a stage and a lab overview, each for a desktop and a phone):
+"Das zweite und passe es so an, dass das Experiment der Woche ganz zu sehen
+ist". The header stays at the top and holds the name, the three ways in
+(**Exponate** `/exhibits`, **Grundlagen** `/basics`, **Über** `/about`), the
+kit's `GlobalSearch` over the exhibits (Ctrl K), the language and the theme
+(`experiments-layout.tsx`); every page sits in a column of at most 1160 px
+(`page-shell.ts`). Top to bottom (`overview-page.tsx`):
 
-* **The experiment of the week**, filling the first screen. On top, one line
-  saying what the site is (`experiments.overview.lead`, rewritten on
-  2026-11-19 without "the exhibit's twin", which no newcomer knows, and with
-  "like those in a science centre", never "from"). Then the week, Monday to
-  Sunday ("23.–29. Nov."), and the exhibit's name, small, and its question as the page's one `h1`: the hook is
-  the biggest thing on the screen (the review of the front page, Marcel's
-  Claude doc of 2026-11-19). Then its summary and the first paragraph of its
-  page's "At the exhibit" (which says what stands there without giving the
-  trick away, in all seven languages already), with its drawing playing to
-  the right (above it on a phone, smaller, so the question still shows), in
-  one box of one size whatever the exhibit, its own frame taken off (Marcel,
-  2026-11-20, of the first impression: "Da ist es am wichtigsten"); before,
-  the box shrank round a wide drawing and grew round a tall one. The text
-  beside it, question, summary and first paragraph at the exhibit, is 318 to
-  517 characters in German (median 396). Shown three ways the same day, the
-  picture left or right on a wide screen and, on a phone, the picture first,
-  the text first, or the question, then the picture, then the rest, Marcel
-  kept the picture above the question on a phone ("Bild über Frage beim
-  Handy"), and it stays on the right on a wide screen, where the reader meets
-  the name and the question first, in line with the site's name above. Then
-  the one primary button, into the exhibit, and one down to the list. Until
-  2026-11-20 a third, "Earlier days" (then "Earlier weeks"), opened the past
-  picks in a dialog (Marcel, 2026-11-19: "Show the history only in a dialog
-  on request. Not right away"); Marcel then dropped it for the list: "gehe
-  stattdessen gleich auf die Seite mit den Experimenten anstelle des
-  Dialogs". The list has every exhibit with the same cards and their text,
-  and with one pick a week a record of past ones is worth little.
-  anyplot.ai's plot of the day stands alone on its landing in the same way.
-* **The notice that the check is still to come**, below the first screen.
-* **Every exhibit**, filtered by topic chips (`TOPICS` in `exhibits.ts`: an
-  exhibit is about one or two — momentum, angular momentum, energy,
-  oscillation, flow, induction, perception), with "n of 35 tried on this
-  device" and a "Forget" once one was tried (before, "0 of 35" read as
-  homework), and on each card, the whole of which opens the exhibit (its title
-  is the link, stretched over it; the front page keeps one primary button), its topics, a
-  tick once tried, "This week" on the week's, and "Builds on:" with links to the
-  course's lessons at kurvenschmiede.app, small and grey (for the technically
-  minded, not in a newcomer's way) — the list the page's "How it is computed" links to, kept
-  in `exhibits.ts` beside the topics since both read it. Since 2026-11-16
-  each built exhibit's card opens with its drawing (Marcel: the pictures
-  under the experiment of the day, now the week's): its preview held still, playing while the
-  card is pointed at or has the focus, and fitted to
-  one height (`fitted-preview.tsx`), so the upright ones do not make their row
-  the longest. The live preview and not the link-preview picture: it draws in
-  the reader's language and appearance, and its code is about 5 kB a page
-  against 20–80 kB a picture; it mounts only once it scrolls near.
+* **The headline** across the page, "Erst *spielen*, dann *rechnen*."
+  (`experiments.overview.claim`, the two verbs in Fraunces italic), and one
+  line under it, what the site is (`experiments.overview.lead`, cut on
+  2026-11-20 to "Exponate wie im Science Center – zum Ausprobieren und
+  Nachrechnen.": the old one was "zu lang und nicht relevant für das
+  Experiment", Marcel). It replaced the week's question as the page's `h1`.
+* **The experiment of the week on a stage**, under the headline, as an
+  exhibit stands in a museum with its label under it: the drawing, playing, in
+  a box at most 52 rem wide whatever the window (Marcel: the picture should
+  stop growing with the screen), and under it the week, Monday to Sunday
+  ("23.–29. Nov."), the exhibit's name, the question to guess at (Fraunces,
+  24 px; the 36 px question in the middle of the screen "sieht schlecht aus"),
+  and the two ways on: into the exhibit, and to the page of all exhibits.
+  The whole stage fits the first screen (Marcel: "so, dass das Experiment der
+  Woche ganz zu sehen ist"): the drawing's height is the window's less what
+  stands above it and the caption below it, between 180 and 400 px, and no
+  more than half the stage's width (16 : 10 on a phone). Measured on
+  2026-11-20 the stage ends at 779 px of 900, 754 of 768, 675 of 844 and
+  653 of 667 (1440, 1366, 390 and 375 px wide). On a phone the drawing stands
+  above the question (Marcel, 2026-11-20, of three orders shown: "Bild über
+  Frage beim Handy"). The summary and the first paragraph at the exhibit,
+  which stood beside the drawing before, are the card's and the page's.
+* **The site in figures**, a band across the window (Marcel: "Wo ist die
+  bottom line mit den key facts zur Seite?"): the built exhibits, their
+  topics, the equations the pages write out (`facts.ts`, held to a count of
+  the pages' sources by `facts.test.ts`), the exhibits an admin has checked
+  (the server's answer; it replaced the sentence "n of 35 are checked"), and
+  the languages, in the kit's `StatTile`s; under them "0 Cookies · 0 Tracking
+  · kein Konto nötig · frei und quelloffen".
+* **Exponate**, a part of its own (Marcel: "nicht alle Exponate gleich sofort
+  … sondern nur eine Auswahl"): the six newest, the same cards as the list,
+  and the way to all of them.
+* **Grundlagen**, likewise, under them (Marcel: "Genauso wie die Grundlagen
+  unten drunter"): the three lessons the most exhibits build on, and the way
+  to the course, which moved in from Kurvenschmiede (`docs/course.md`).
+
+**The page of every exhibit**, `/exhibits` (`exhibits-page.tsx`; Marcel:
+"es soll doch weiterhin eine separate Seite mit allen Exponaten geben"):
+filtered by topic chips (`TOPICS` in `exhibits.ts`: an exhibit is about one or
+two — momentum, angular momentum, energy, oscillation, equilibrium, flow,
+induction, light, perception), the filter in the address (`?topic=flow`), with
+"n of 35 tried on this device" and a "Forget" once one was tried (before,
+"0 of 35" read as homework). Each card (`exhibit-cards.tsx`), the whole of
+which opens the exhibit (its title is the link, stretched over it), shows its
+drawing, its summary, its topics, a tick once tried, "This week" on the
+week's, and "Builds on:" with links to the course's lessons, small and grey,
+for the technically minded. The drawing is the live preview, held still and
+playing while the card is pointed at or has the focus, fitted to one height
+(`fitted-preview.tsx`); not the link-preview picture, since it draws in the
+reader's language and appearance and its code is about 5 kB a page against
+20–80 kB a picture.
+
+The list grows as the reader scrolls (Marcel: "beim Scrollen mit Transition
+unten anheften, auch eine Art von Virtualisierung, die wichtig ist, wenn es
+mehr werden"): nine cards, then nine more each time its end comes within
+480 px, each new card rising into place. A card off screen is skipped by the
+browser's layout and paint (`content-visibility: auto`), and its drawing is
+not mounted until it comes within 200 px (`exhibit-preview.tsx`), so the
+page costs what is on the screen. How far a list grew is remembered per
+filter for the tab, so the way back from an exhibit lands where it was.
+
+**Back where one clicked.** Every way in is a page (Marcel: back with the
+mouse's side button should return to where one was before the click), and
+`app/scroll-memory.ts` does what the browser's own memory cannot for a
+single-page site: it keeps each history entry's position and, on the way
+back, scrolls there once the page is tall enough again (trying for a
+second), and starts every new page at its top. Measured on 2026-11-20 in
+Chromium: clicked at 800 px, back at 800 px; at 1100, back at 1100. A new
+page fades in (`page-in`), a reader whose system asks for less motion sees
+no fade, no rising card, no smooth scroll and no playing preview: on
+2026-11-20 that was the reason Marcel saw no transition at all, his
+Windows' animation effects being off. A link to the list's old place,
+`/#all-exhibits`, goes on to `/exhibits`.
 
 **The pick: random, with a memory** (`weekly.ts`; Marcel chose it over a fixed
 rotation and over an admin's choice). Since 2026-11-20 it is **one exhibit a

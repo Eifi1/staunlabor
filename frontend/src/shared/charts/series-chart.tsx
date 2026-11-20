@@ -25,3 +25,19 @@ const GRID_INK = "[&_.recharts-cartesian-grid_line]:!stroke-strong/30";
 export function SeriesChart({ className, empty = null, ...props }: ComponentProps<typeof KitSeriesChart>) {
   return <KitSeriesChart {...props} empty={empty} className={cn(GRID_INK, className)} />;
 }
+
+/**
+ * The most rows a chart of a long table hands recharts — the kit's `maxRows`,
+ * on the course's charts, some of which draw thousands of samples.
+ *
+ * A chart cannot draw more points than the plot has pixels, so a long table is
+ * thinned, and how decides what the reader sees: a stride aliases (a fast
+ * wave kept every sixth sample is drawn as a slow one, with confidence) and
+ * drops a one-sample spike between two kept samples. `maxRows` thins by the
+ * **envelope** instead — from each stretch the rows where each line is lowest
+ * and highest, and each line's first and last — so every line reaches every
+ * extreme the table has, and a zoom thins the window on show. That is why a
+ * chart is handed every row. Two thousand is about what a plot's pixels show.
+ * (Kurvenschmiede's `PLOT_ROWS`, with the course.)
+ */
+export const PLOT_ROWS = 2000;

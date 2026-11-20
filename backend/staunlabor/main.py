@@ -31,6 +31,7 @@ from fastapi.responses import JSONResponse
 
 from staunlabor import __version__
 from staunlabor.accounts import account_deps, admin_deps, jobs_deps
+from staunlabor.api.course_router import router as course_router
 from staunlabor.api.experiments_router import router as experiments_router
 from staunlabor.database import Database
 from staunlabor.exhibit_checks import exhibit_checks_router
@@ -134,6 +135,8 @@ def create_app() -> FastAPI:
         return {"status": "ok", "version": __version__}
 
     app.include_router(experiments_router, prefix=API_PREFIX)
+    # The course's lessons, under the exhibits' calculation budget (course_router).
+    app.include_router(course_router, prefix=API_PREFIX)
     # Every account route spends the address's budget first, the kit's own
     # windows after it (security.ACCOUNT_REQUESTS).
     accounts = account_deps(app.state.database, settings)

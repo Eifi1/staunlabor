@@ -1,7 +1,6 @@
 import { Link, NavLink, Outlet, useLocation } from "react-router";
 import { useScrollMemory } from "@/app/scroll-memory";
 import { useTranslation } from "react-i18next";
-import { ExternalLink } from "lucide-react";
 import { LanguageMenu, ThemeToggle } from "@eifi1/ui-kit";
 import { changeLanguage } from "@/shared/i18n/index";
 import { LANGUAGES } from "@/shared/i18n/languages";
@@ -10,7 +9,7 @@ import { useTheme } from "@/shared/state/theme-store";
 import { CONTAINER } from "@/shared/ui/page-shell";
 import { SiteFooter } from "@/features/site/site-footer";
 import { SiteSearch } from "@/features/site/site-search";
-import { COURSE } from "./exhibit-frame";
+import { BASICS_PATH } from "@/features/course/lessons";
 import { EXHIBITS_PATH, OVERVIEW_PATH } from "./exhibits";
 
 /** A link in the header's row: quiet until pointed at, and plain text once
@@ -52,10 +51,9 @@ export function ExperimentsLayout() {
             <NavLink to={EXHIBITS_PATH} className={NAV_LINK}>
               {t("site.nav.exhibits")}
             </NavLink>
-            <a href={COURSE} className={NAV_LINK}>
+            <NavLink to={BASICS_PATH} className={NAV_LINK}>
               {t("site.nav.basics")}
-              <ExternalLink className="size-3.5" aria-hidden />
-            </a>
+            </NavLink>
             <NavLink to="/about" className={NAV_LINK}>
               {t("site.nav.about")}
             </NavLink>

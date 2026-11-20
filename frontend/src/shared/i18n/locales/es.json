@@ -78,7 +78,8 @@
         "entries": {
           "language": "El idioma elegido",
           "look": "El tema claro u oscuro",
-          "tried": "Qué exposiciones ha probado, para que el resumen pueda marcarlas"
+          "tried": "Qué exposiciones ha probado, para que el resumen pueda marcarlas",
+          "course": "Su progreso en el curso de ecuaciones diferenciales: las lecciones que abrió, los ejercicios que resolvió y las estimaciones que hizo antes de calcular"
         },
         "tail": "Nada de ello se usa para rastrearle. Su navegador envía los tokens de inicio de sesión con cada solicitud a su cuenta; todo lo demás se queda en su navegador. Al cerrar sesión se eliminan los tokens de inicio de sesión, y todo ello desaparece cuando borra los datos del sitio en su navegador."
       },
@@ -132,6 +133,11 @@
         "title": "Exposiciones",
         "lead": "Las {{count}} más recientes. Un dibujo se mueve en cuanto lo señala.",
         "all": "Las {{count}} exposiciones"
+      },
+      "basics": {
+        "title": "Fundamentos",
+        "lead": "Las matemáticas detrás de las exposiciones, paso a paso: del balance al oscilador de dos masas.",
+        "all": "Al curso"
       }
     },
     "topics": {
@@ -3552,6 +3558,635 @@
     },
     "list": {
       "lead": "Cada exposición con su dibujo, que se mueve en cuanto lo señala. Filtre por tema o recórralas todas."
+    }
+  },
+  "course": {
+    "title": "Ecuaciones diferenciales",
+    "tagline": "Ecuaciones diferenciales de sistemas técnicos, aprendidas probándolas: cada lección combina un banco real con un modelo que calcula mientras usted mueve los controles deslizantes.",
+    "reset": "Restablecer",
+    "failed": "El cálculo ha fallado.",
+    "lesson_n": "Lección {{n}}",
+    "axis": {
+      "time": "Tiempo",
+      "frequency": "Frecuencia",
+      "angle": "Ángulo",
+      "torque": "Par"
+    },
+    "figure": {
+      "time_constant": "Constante de tiempo",
+      "overshoot": "Sobreoscilación",
+      "peak_time": "Instante del pico",
+      "settling": "Tiempo de establecimiento",
+      "phase": "Fase"
+    },
+    "frame": {
+      "question": "La pregunta",
+      "model": "El modelo",
+      "assumptions": "Lo que el modelo deja fuera",
+      "assumptions_hint": "Todo modelo es una decisión sobre lo que aquí no importa.",
+      "experiments": "Experimentos",
+      "insights": "Lo que se ha visto",
+      "exercises": "Ejercicios",
+      "lesson_navigation": "Lección anterior y siguiente"
+    },
+    "lessons": {
+      "recipe": {
+        "title": "La receta",
+        "summary": "Toda ecuación diferencial técnica surge de un balance: variación = entrada − salida."
+      },
+      "first_order": {
+        "title": "Sistemas de primer orden",
+        "summary": "La constante de tiempo: qué significa, cómo leerla en una medición y dónde aparece."
+      },
+      "second_order": {
+        "title": "Sistemas de segundo orden",
+        "summary": "Frecuencia natural y amortiguamiento: sobreoscilación, resonancia y el amortiguamiento medido a partir de un decaimiento."
+      },
+      "eigenvalues": {
+        "title": "Valores propios y el plano de polos",
+        "summary": "Un valor propio es una tasa de decaimiento y una frecuencia; un vector propio es una forma de moverse del sistema."
+      },
+      "laplace": {
+        "title": "Laplace y Bode",
+        "summary": "Derivar se convierte en multiplicar por s, las cadenas en productos y una fase en un retardo."
+      },
+      "numerics": {
+        "title": "Solución numérica",
+        "summary": "Euler y Runge–Kutta: tamaño de paso, estabilidad y por qué los problemas rígidos piden métodos implícitos."
+      },
+      "two_mass": {
+        "title": "El oscilador de dos masas",
+        "summary": "Modos, antirresonancias y por qué un eje de medición de par mide mal ya a unos pocos hercios."
+      },
+      "cheat_sheet": {
+        "title": "Hoja de referencia y analogías",
+        "summary": "El curso en una página imprimible, cada fórmula enlazada con su widget."
+      }
+    },
+    "overview": {
+      "why": "Detrás de cada exposición hay una ecuación diferencial. Este curso es su base: qué es una ecuación así, de dónde sale y qué dice sobre un sistema real.",
+      "how": "Cada lección sigue el mismo patrón: una pregunta de la práctica, el modelo que la responde, experimentos que usted realiza con controles deslizantes, lo que mostraron y ejercicios: primero estime, después calcule. Cada número lo calcula el propio motor de cálculo de la aplicación y se contrasta con valores de referencia.",
+      "lessons": "Las lecciones",
+      "lessons_hint": "Su progreso se guarda solo en este dispositivo.",
+      "forget": "Olvidar mi progreso",
+      "progress": "Ejercicios resueltos",
+      "solved": "{{solved}} de {{total}}",
+      "visited": "abierta",
+      "exercises_done": "{{done}} de {{total}} ejercicios",
+      "surprises": "Sorpresas",
+      "surprises_hint": "Cada estimación que se desvió en más de la mitad: la lista que vale la pena releer.",
+      "no_surprises": "Ninguna todavía. Estime antes de calcular, y las que le sorprendan se irán reuniendo aquí.",
+      "surprise_entry": "estimó {{estimate}} {{unit}}; la respuesta era {{answer}} {{unit}}"
+    },
+    "recipe": {
+      "title": "La receta: ocho pasos",
+      "hint": "Todos los modelos de este curso se escriben siguiendo estos pasos.",
+      "steps": {
+        "question": {
+          "title": "Aclarar la pregunta",
+          "body": "¿Qué debe responder el modelo y con qué precisión? Un modelo sin pregunta no tiene forma de ser correcto."
+        },
+        "boundary": {
+          "title": "Límite del sistema e hipótesis",
+          "body": "Decida qué queda dentro, qué queda fuera y qué se desprecia, y déjelo por escrito."
+        },
+        "coordinate": {
+          "title": "Elegir una coordenada y reducir",
+          "body": "Una coordenada por grado de libertad; todo lo demás, reducido a ella a través de las transmisiones."
+        },
+        "balance": {
+          "title": "Plantear el balance",
+          "body": "Variación = entrada − salida: de masa, energía, cantidad de movimiento o gas. De aquí sale la ecuación diferencial."
+        },
+        "normalise": {
+          "title": "Normalizar",
+          "body": "Llévela a una forma estándar —τ, ω₀, D— para poder compararla con cualquier otro sistema de su tipo."
+        },
+        "solve": {
+          "title": "Resolver",
+          "body": "En forma cerrada donde la hay, numéricamente donde no."
+        },
+        "check": {
+          "title": "Comprobar",
+          "body": "Unidades, casos límite, una estimación a mano, una medición. Un resultado que nadie ha comprobado es una conjetura con decimales."
+        },
+        "interpret": {
+          "title": "Interpretar",
+          "body": "Traduzca la respuesta a los términos de la pregunta: un tiempo, una fuerza, una decisión de diseño."
+        }
+      },
+      "tank": {
+        "title": "Un balance se convierte en un retardo de primer orden",
+        "hint": "Un depósito con un caudal de entrada constante y un caudal de salida que crece con el nivel. Cambie la entrada, el área o la salida y observe cómo se estabiliza el nivel.",
+        "inflow": "Caudal de entrada",
+        "area": "Área del depósito",
+        "outflow": "Caudal de salida por metro de nivel",
+        "level0": "Nivel inicial",
+        "level": "Nivel",
+        "outflow_series": "Caudal de salida",
+        "inflow_series": "Caudal de entrada",
+        "flow": "Caudal",
+        "final": "Nivel final",
+        "insight": "El balance A·dh/dt = entrada − k·h es un retardo de primer orden con τ = A/k: un depósito mayor o una salida más estrecha lo hacen más lento, y se estabiliza donde la salida iguala a la entrada."
+      }
+    },
+    "exercise": {
+      "solved": "Resuelto",
+      "estimate_label": "Su estimación ({{unit}})",
+      "estimate_bare": "Su estimación",
+      "estimate_submit": "Fijar la estimación",
+      "estimate_why": "Primero estime: el campo de respuesta se abre en cuanto se haya comprometido con un número.",
+      "your_estimate": "Su estimación: {{value}} {{unit}}",
+      "answer": "Su respuesta ({{unit}})",
+      "answer_bare": "Su respuesta",
+      "answer_n": "Respuesta {{n}} ({{unit}})",
+      "answer_n_bare": "Respuesta {{n}}",
+      "check": "Comprobar",
+      "empty": "Introduzca primero un valor.",
+      "right": "Correcto.",
+      "wrong": "Todavía no: inténtelo de nuevo o pida una pista.",
+      "surprise": "Su estimación se desvió un {{pct}} %: queda anotada en Sorpresas.",
+      "estimate_close": "Su estimación se desvió un {{pct}} %.",
+      "hint": "Pista",
+      "show_solution": "Mostrar la solución",
+      "hide_solution": "Ocultar la solución",
+      "solution": "Solución"
+    },
+    "regime": {
+      "underdamped": "Subamortiguado (D < 1)",
+      "critical": "Amortiguamiento crítico (D = 1)",
+      "overdamped": "Sobreamortiguado (D > 1)"
+    },
+    "poles": {
+      "stable": "estable",
+      "unstable": "inestable"
+    },
+    "animation": {
+      "pause": "Pausar la animación",
+      "play": "Reproducir la animación",
+      "slow": "Cámara lenta: un periodo cada dos segundos, sea cual sea la frecuencia.",
+      "twist": "Torsión de cada muelle"
+    },
+    "first_order": {
+      "question": "Un sensor de temperatura a 20 °C se sumerge en un baño a 80 °C. ¿Cuándo puede fiarse de su lectura y qué indica al cabo de ocho segundos?",
+      "model": "Un acumulador (la capacidad calorífica del sensor) y una resistencia (la transferencia de calor del baño al sensor): lo que entra eleva el acumulador, y el flujo es proporcional a la diferencia que queda. Escrito como balance, es un retardo de primer orden:",
+      "model_tau": "τ es la constante de tiempo. Tras un τ la respuesta ha recorrido el 63 % del camino; tras tres, el 95 %; tras cinco, el 99.3 %, sea cual sea la naturaleza del sistema.",
+      "assumptions": {
+        "one_store": "Un solo acumulador: el sensor tiene una única temperatura en todo su volumen, sin gradiente interior.",
+        "linear": "Lineal: el flujo es proporcional a la diferencia, de modo que τ no depende de cuánto camino quede por recorrer.",
+        "constant": "Parámetros constantes: τ es el mismo a 20 °C que a 80 °C."
+      },
+      "insights": {
+        "settled": "Tras 5 τ la respuesta ha recorrido el 99.3 % del escalón: está establecida, en cualquier sistema de primer orden.",
+        "read": "τ se lee en una medición donde la respuesta ha recorrido el 63 %, o donde la tangente inicial alcanza el valor final.",
+        "log": "En un eje logarítmico, la distancia restante es una recta: la pendiente es −1/τ, y una medición que ahí no sea recta no es de primer orden."
+      },
+      "step": {
+        "title": "La respuesta al escalón",
+        "hint": "Mueva τ y los dos niveles. Las marcas están en 1, 2, 3 y 5 τ; la línea discontinua es la tangente inicial, que alcanza el valor final exactamente en τ."
+      },
+      "tau": "Constante de tiempo τ",
+      "start": "Valor inicial",
+      "final": "Valor final",
+      "at": "Lectura en el instante t",
+      "analogy_label": "La misma ecuación que",
+      "analogy": {
+        "thermal": {
+          "name": "Temperatura",
+          "unit": "°C",
+          "quantity": "Temperatura"
+        },
+        "electrical": {
+          "name": "Red RC",
+          "unit": "V",
+          "quantity": "Tensión del condensador"
+        },
+        "mechanical": {
+          "name": "Muelle y amortiguador",
+          "unit": "mm",
+          "quantity": "Recorrido"
+        },
+        "vacuum": {
+          "name": "Cámara de vacío",
+          "unit": "mbar",
+          "quantity": "Presión"
+        }
+      },
+      "view": "Eje",
+      "view_linear": "Lineal",
+      "view_log": "Distancia restante, logarítmica",
+      "remaining": "Distancia restante",
+      "tangent": "Tangente inicial",
+      "final_short": "valor final",
+      "value_at": "Valor en t = {{t}} s",
+      "fraction_at": "Fracción del escalón en t",
+      "settled": "Establecido al 99.3 % (5 τ)",
+      "measure": {
+        "title": "Leer τ en una medición",
+        "hint": "Una medición con ruido y una constante de tiempo que usted no conoce. Haga clic en la curva donde cruza la línea del 63 % (o ajuste el marcador de abajo) y compare.",
+        "another": "Otra medición",
+        "series": "Temperatura medida",
+        "yours": "su τ",
+        "marker": "Su lectura de τ",
+        "marker_hint": "Donde la medición cruza la línea del 63 %, el tiempo es τ.",
+        "compare": "Comparar",
+        "result": "Usted leyó {{yours}} s; el valor real de τ es {{truth}} s (una desviación del {{off}} %)."
+      }
+    },
+    "second_order": {
+      "question": "Un eje de medición de par recibe un golpe y queda oscilando. ¿Con qué rapidez oscila, cuánto tarda en calmarse y cuánto se equivoca una medición cuando la señal se acerca a su frecuencia natural?",
+      "model": "Una inercia sobre un muelle con un amortiguador: la ley de Newton para la rotación. Dos números lo dicen todo sobre ella: la frecuencia natural ω₀ y el coeficiente de amortiguamiento D.",
+      "model_magnification": "Excitada a una frecuencia f, la respuesta es la estática multiplicada por el factor de amplificación V(η); y dos máximos sucesivos de un decaimiento libre dan D sin conocer la inercia ni la rigidez:",
+      "assumptions": {
+        "lumped": "Una sola inercia concentrada: se deja fuera la masa distribuida del propio eje, que es su primer modo y el que importa a una cadena de medida.",
+        "viscous": "Amortiguamiento viscoso, proporcional a la velocidad; ninguna fricción de magnitud constante.",
+        "linear": "Un muelle lineal en todo el recorrido."
+      },
+      "insights": {
+        "peak": "D = 0.05 significa un factor de amplificación de 10 en f₀: el eje oscila hasta diez veces su deflexión estática.",
+        "chain": "Una cadena de medida lee con un error de un 4 % aproximadamente hasta una quinta parte de su frecuencia natural: f₀ ≥ 5 × la frecuencia más alta de interés.",
+        "mass": "Más inercia con el mismo amortiguador reduce tanto D como f₀, porque D = d/(2√(c·J))."
+      },
+      "system": {
+        "title": "La respuesta al escalón",
+        "hint": "Defina el eje por sus componentes o por sus dos números. Las líneas discontinuas son la envolvente e^(−Dω₀t); el color de la etiqueta indica cuál de las tres soluciones es."
+      },
+      "describe": "Describir el eje por",
+      "describe_parts": "Sus componentes J, c, d",
+      "describe_numbers": "Sus números f₀, D",
+      "inertia": "Inercia J",
+      "stiffness": "Rigidez c",
+      "damping": "Amortiguamiento d",
+      "f0": "Frecuencia natural f₀",
+      "ratio": "Coeficiente de amortiguamiento D",
+      "torque_note": "Excitado por un escalón de par de {{torque}} N·m.",
+      "angle": "Ángulo",
+      "envelope": "Envolvente",
+      "final": "Valor final",
+      "magnification": {
+        "title": "El factor de amplificación y el error de una cadena de medida",
+        "hint": "V(η) para su amortiguamiento (en negrita) y cinco de referencia. Mueva la excitación y lea cuánto más se mueve el eje que su deflexión estática: eso es lo que se equivoca una cadena de medida construida sobre él.",
+        "v": "Factor de amplificación V",
+        "eta": "Relación de frecuencias η = f/f₀",
+        "error": "Error de lectura",
+        "error_note": "más del 5 %: demasiado cerca de f₀",
+        "peak": "Mayor factor de amplificación"
+      },
+      "excitation": "Frecuencia de excitación f",
+      "decay": {
+        "title": "El amortiguamiento a partir de un ensayo de decaimiento",
+        "hint": "Un eje golpeado, medido con ruido; su amortiguamiento es desconocido. Haga clic en dos máximos sucesivos para calcular Λ y D, y después compare.",
+        "another": "Otro decaimiento",
+        "series": "Par medido",
+        "not_successive": "Elija dos máximos contiguos.",
+        "damping": "Coeficiente de amortiguamiento D",
+        "compare": "Comparar",
+        "result": "Sus dos máximos dan D = {{yours}}; el valor real de D es {{truth}}. Leído sobre los {{n}} periodos a la vez, D = {{overall}}: un logaritmo sobre muchos periodos es la respuesta más estable."
+      }
+    },
+    "eigenvalues": {
+      "question": "¿Qué dicen realmente los dos números para los que se resuelve un sistema de segundo orden, y qué hace un sistema con dos estados acoplados cuando se mueve?",
+      "model": "Un sistema lineal ẋ = A·x se mueve como una suma de sus soluciones propias: cada valor propio λ indica con qué rapidez decae o crece una parte y con qué rapidez gira; cada vector propio, la dirección en la que se mueve.",
+      "model_pair": "Para una masa sobre un muelle con un amortiguador, la matriz tiene un par de valores propios, y son exactamente las raíces de la ecuación característica de la lección 2:",
+      "assumptions": {
+        "linear": "Lineal e invariante en el tiempo: A es constante. Un sistema no lineal solo tiene valores propios en torno a un punto de funcionamiento.",
+        "minimal": "Los polos y los valores propios coinciden cuando el sistema se escribe sin factores que se cancelen; un polo cancelado por un cero sigue siendo un valor propio de A."
+      },
+      "insights": {
+        "parts": "λ = σ ± jω: la parte real σ fija la envolvente e^(σt); la parte imaginaria, la frecuencia de oscilación.",
+        "same": "det(A − λI) = 0 es la ecuación característica de la lección 2: los polos, los valores propios y sus raíces son los mismos números.",
+        "vectors": "Una trayectoria que empieza sobre un vector propio real permanece en esa recta; cualquier otra es una mezcla de las dos direcciones."
+      },
+      "scalar": {
+        "title": "Un valor propio: ẋ = a·x",
+        "hint": "Haga pasar a por cero: negativo decae, positivo crece, y la constante de tiempo o el tiempo de duplicación es 1/|a| salvo un factor."
+      },
+      "stable": "Estable",
+      "unstable": "Inestable",
+      "marginal": "En el límite",
+      "doubling": "Tiempo de duplicación",
+      "poles": {
+        "title": "Los polos y la respuesta al escalón",
+        "hint": "Ajuste f₀ y D, o arrastre el polo superior en el plano. La semicircunferencia discontinua es |λ| = ω₀; un par situado sobre ella solo difiere en el amortiguamiento.",
+        "plane": "El plano de polos, polos en {{poles}} 1/s",
+        "response": "Respuesta al escalón"
+      },
+      "matrix": {
+        "title": "Un sistema 2×2 y su retrato de fase",
+        "hint": "Edite la matriz o parta de un preajuste. Las líneas discontinuas son los vectores propios reales; doce trayectorias parten de la circunferencia unidad punteada.",
+        "presets": {
+          "spring": "Muelle–masa–amortiguador",
+          "saddle": "Silla",
+          "centre": "Centro",
+          "spiral": "Espiral"
+        },
+        "kind": {
+          "saddle": "Punto de silla: inestable",
+          "stable_node": "Nodo estable",
+          "unstable_node": "Nodo inestable",
+          "stable_focus": "Foco estable: oscilación amortiguada",
+          "unstable_focus": "Foco inestable: oscilación creciente",
+          "centre": "Centro: oscilación no amortiguada",
+          "degenerate": "Degenerado: un valor propio en cero"
+        },
+        "portrait": "Retrato de fase: {{kind}}",
+        "trace": "Traza",
+        "det": "Determinante",
+        "vectors": "Vectores propios"
+      }
+    },
+    "laplace": {
+      "question": "Una cadena de medida es un eje detrás de un filtro detrás de un amplificador. ¿Qué le hace la cadena a una señal de 3 Hz: cuánto más pequeña y con cuánto retraso llega?",
+      "model": "La transformada de Laplace convierte derivar en multiplicar por s, de modo que una ecuación diferencial se convierte en una algebraica. Cada bloque es una función de transferencia G(s); los bloques en serie se multiplican, y en un diagrama de Bode en decibelios se suman.",
+      "model_delay": "A una frecuencia f, un retraso de fase es un retardo temporal:",
+      "assumptions": {
+        "lti": "Bloques lineales e invariantes en el tiempo; un amplificador que satura no es una función de transferencia.",
+        "steady": "Bode describe el régimen permanente bajo un seno; el arranque es asunto de la respuesta al escalón.",
+        "dead_time": "Un tiempo muerto añade fase pero ningún polo: e^(−sT) no tiene ninguno, y no se dibuja ninguno."
+      },
+      "insights": {
+        "product": "Los bloques en serie se multiplican; en un diagrama de Bode en dB sus curvas se suman: las curvas discontinuas suman la continua.",
+        "final": "El valor final de una respuesta al escalón estable es G(0): se lee en la función de transferencia sin resolver nada.",
+        "lag": "Un PT1 retrasa las frecuencias bajas aproximadamente τ: tras un filtro de 5 Hz, una señal de 3 Hz llega 28.7 ms tarde; tras un filtro de 50 Hz, una señal de 5 Hz, 3.2 ms.",
+        "filter": "Filtre el par y el ángulo de forma idéntica —o fuera de línea, hacia delante y hacia atrás—, o el filtro dibujará una histéresis que el objeto de ensayo no tiene."
+      },
+      "steps": {
+        "title": "Laplace, paso a paso",
+        "hint": "El escalón de primer orden resuelto a la manera de Laplace: cada línea lleva sus números.",
+        "transform": "Transformar",
+        "solve": "Despejar Y(s)",
+        "split": "Descomponer en fracciones parciales",
+        "back": "Antitransformar"
+      },
+      "time_domain": "Dominio del tiempo",
+      "image_domain": "Dominio de Laplace",
+      "chain": {
+        "title": "Un kit de construcción de Bode",
+        "hint": "Hasta cuatro bloques en cadena. El total va en trazo continuo y cada bloque en discontinuo debajo; el cursor lee la ganancia, la fase y el retardo que significa esa fase.",
+        "block": "Bloque {{n}}",
+        "remove": "Quitar el bloque",
+        "add": "Añadir un bloque",
+        "cursor": "Frecuencia del cursor",
+        "total": "Cadena",
+        "gain": "Ganancia |G|",
+        "delay": "Retardo",
+        "poles": "Polos de la cadena",
+        "step": "Respuesta al escalón"
+      },
+      "kind": {
+        "proportional": "Ganancia K",
+        "integrator": "Integrador K/s",
+        "first_order": "Primer orden (PT1)",
+        "second_order": "Segundo orden (PT2)",
+        "dead_time": "Tiempo muerto"
+      },
+      "magnitude": "Magnitud",
+      "filter": {
+        "title": "La histéresis que inventa un filtro",
+        "hint": "Un objeto de ensayo sin histéresis (par proporcional al ángulo), barrido de forma sinusoidal. Filtre solo el par y aparece un lazo; filtre ambos, o fuera de línea, y desaparece. Añada fricción para ver cómo sobrevive uno real.",
+        "frequency": "Frecuencia del barrido",
+        "corner": "Frecuencia de corte del filtro",
+        "friction": "Banda de fricción real",
+        "mode": "Filtrado",
+        "modes": {
+          "torque_only": "Solo el par",
+          "both": "Par y ángulo",
+          "zero_phase": "Ambos, hacia delante y hacia atrás"
+        },
+        "truth": "Tal como es",
+        "measured": "Tal como se mide",
+        "apparent": "Histéresis medida",
+        "true": "Histéresis real"
+      }
+    },
+    "numerics": {
+      "question": "La mayoría de las ecuaciones de la práctica no tienen solución en forma cerrada, así que un ordenador las recorre paso a paso. ¿Qué tamaño puede tener el paso y qué le hace un método al sistema que está integrando?",
+      "model": "Euler toma la pendiente al inicio de cada paso y la mantiene durante todo el paso. RK4 evalúa la pendiente cuatro veces dentro del paso y toma una media ponderada:",
+      "model_stability": "En ẏ = λy, un método multiplica la solución por un factor fijo en cada paso, y solo es estable mientras el módulo de ese factor sea como mucho uno. Para Euler:",
+      "assumptions": {
+        "fixed": "Un paso fijo: los métodos de aquí no lo adaptan. Un método adaptativo (como el que usa la evacuación) elige el suyo propio.",
+        "rounding": "Se ignora el redondeo: en doble precisión queda muy por debajo de cualquier error mostrado aquí."
+      },
+      "insights": {
+        "order": "El error de Euler disminuye con h; el de RK4, con h⁴: reducir el paso a la mitad reduce uno a la mitad y divide el otro entre dieciséis.",
+        "energy": "Euler bombea energía a un oscilador: con h·ω₀ = 2D anula exactamente el amortiguamiento —en el eje de medición eso es h = 1 ms, que lo mantiene oscilando con su 1° completo indefinidamente— y por encima de ese valor la oscilación del eje crece.",
+        "rule": "Regla práctica para RK4: h como mucho una vigésima parte del periodo más corto. Euler explícito en un oscilador poco amortiguado necesita h·ω₀ < 2D, lo que con D = 0.05 es 1/63 de periodo.",
+        "stiff": "Rígido significa dinámicas rápidas y lentas a la vez: un retardo de 1 ms junto a uno de 10 s obliga a RK4 a dar más de 10 000 pasos en 30 s por una parte que desaparece al cabo de 5 ms. Euler implícito es estable con cualquier paso."
+      },
+      "sensor": {
+        "title": "Euler, Heun y RK4 frente a la solución exacta",
+        "hint": "El sensor de la lección 1 (τ = 4 s, 20 → 80 °C). Aumente el paso: por encima de τ, Euler sobreoscila; por encima de 2τ, diverge."
+      },
+      "step": "Paso h",
+      "steps": "Número de pasos",
+      "regime": {
+        "monotone": "Euler se aproxima poco a poco (h < τ)",
+        "one_step": "Euler llega en un solo paso (h = τ)",
+        "alternating": "Euler sobreoscila y alterna (τ < h < 2τ)",
+        "neutral": "Euler alterna indefinidamente (h = 2τ)",
+        "diverging": "Euler diverge (h > 2τ)"
+      },
+      "euler_factor": "Factor de Euler por paso, 1 − h/τ",
+      "rk4_factor": "Factor de RK4 por paso",
+      "method": {
+        "exact": "Exacta",
+        "euler": "Euler",
+        "heun": "Heun",
+        "rk4": "RK4",
+        "symplectic": "Euler semiimplícito",
+        "implicit": "Euler implícito"
+      },
+      "errors": {
+        "title": "Tabla de errores",
+        "hint": "El valor de cada paso y su error.",
+        "euler": "Error de Euler",
+        "rk4": "Error de RK4"
+      },
+      "rk4_table": {
+        "title": "RK4 paso a paso",
+        "hint": "Dónde se evalúa cada una de las cuatro pendientes y cuánto vale.",
+        "step": "Paso {{n}}",
+        "slope": "Pendiente"
+      },
+      "oscillator": {
+        "title": "Deriva de energía en un oscilador",
+        "hint": "El eje de medición de la lección 2 (f₀ = 15.9 Hz, D = 0.05) liberado desde 1°, durante un segundo, con cuatro métodos. Arriba, la amplitud en un eje logarítmico; abajo, el ángulo.",
+        "gain": "Ganancia de Euler por paso |1 + hλ|",
+        "neutral": "Paso con el que Euler anula el amortiguamiento",
+        "amplitude": "Amplitud",
+        "final": "{{method}}: amplitud tras 1 s",
+        "damping": "{{method}}: amortiguamiento que muestra"
+      },
+      "stiff": {
+        "title": "Rigidez numérica",
+        "hint": "Dos retardos independientes, de 1 ms y de 10 s, durante 30 s. Se muestra el lento. Haga el paso mayor que 2.8 ms y RK4 diverge; Euler implícito se mantiene estable con cualquier paso.",
+        "limit": "Mayor paso estable de RK4",
+        "min_steps": "Pasos de RK4 necesarios como mínimo",
+        "rk4_steps": "Pasos de RK4 realizados",
+        "diverged": "divergió",
+        "implicit_steps": "Pasos de Euler implícito",
+        "exact": "Exacta",
+        "slow": "Componente lenta"
+      }
+    },
+    "two_mass": {
+      "question": "Un eje de medición de par está montado entre el motor y un adaptador pesado sobre el objeto de ensayo. ¿Por qué mide un 15 % de menos a 3 Hz?",
+      "model": "Dos inercias sobre dos muelles: el motor J₁, el eje de medición c₁, la columna o el adaptador J₂, y el objeto de ensayo como barra de torsión c₂ hasta la bancada. En forma matricial:",
+      "model_reading": "El eje mide el par que lo atraviesa; el objeto de ensayo soporta el par que atraviesa la barra. Entre ambos está J₂, y lo que cuesta acelerar esa inercia está en la lectura y no en el objeto de ensayo:",
+      "assumptions": {
+        "lumped": "Inercias concentradas: se deja fuera la inercia propia del eje (repartida entre sus extremos, desplazaría ambos modos unos pocos por ciento).",
+        "torque": "Un accionamiento de par ideal: no se modela el lazo de corriente del motor.",
+        "linear": "Muelles lineales y amortiguadores viscosos."
+      },
+      "insights": {
+        "count": "n inercias sobre muelles unidos a la bancada dan n frecuencias naturales; una cadena libre añade un movimiento de sólido rígido a 0 Hz.",
+        "soft": "El modo bajo es todo el conjunto oscilando sobre el muelle más blando: toda la inercia sobre los dos muelles en serie da 6.3 Hz a mano, frente a 6.94 Hz exactos.",
+        "error": "El eje mide aproximadamente 1 − (f/f_a)² veces el par que soporta el objeto de ensayo, con f_a = √(c₂/J₂)/2π: un 2 % de menos a 1 Hz, un 15 % a 3 Hz y un 43 % a 5 Hz con el adaptador por defecto."
+      },
+      "rig": {
+        "title": "El banco bajo una excitación sinusoidal",
+        "hint": "Mueva la excitación o salte a un preajuste. Los discos giran a cámara lenta con las fases que calculó el motor de cálculo; las barras muestran cuánto está torsionado cada muelle."
+      },
+      "excitation": "Frecuencia de excitación",
+      "presets": {
+        "three": "3 Hz",
+        "mode1": "Modo 1",
+        "absorber": "Punto de absorción",
+        "motor_still": "Motor parado",
+        "mode2": "Modo 2"
+      },
+      "parameters": "Parámetros del banco",
+      "parameters_hint": "Inercias, rigideces y amortiguamientos, cada uno en un control deslizante.",
+      "j1": "Inercia del motor J₁",
+      "j2": "Inercia del adaptador J₂",
+      "c1": "Eje de medición c₁",
+      "c2": "Barra de torsión c₂",
+      "d1": "Amortiguamiento del eje d₁",
+      "d2": "Amortiguamiento de la barra d₂",
+      "motor": "Motor",
+      "adapter": "Adaptador",
+      "animation_label": "Las dos inercias a {{f}} Hz, a cámara lenta",
+      "in_phase": "Giran en el mismo sentido",
+      "anti_phase": "Giran en sentidos opuestos",
+      "error": "Error de lectura",
+      "shaft_reads": "Lo que mide el eje, M_W",
+      "object_carries": "Lo que soporta el objeto de ensayo, M_T",
+      "per_motor_torque": "Par por unidad de par del motor",
+      "modes": "Modos",
+      "mode_f": "Modo {{n}}: frecuencia",
+      "mode_d": "Modo {{n}}: amortiguamiento",
+      "mode_shape": "Modo {{n}}: φ₂/φ₁",
+      "hand": "Estimación a mano del modo 1",
+      "hand_deviation": "Desviación de la estimación a mano",
+      "compensation": {
+        "title": "Compensar la inercia del adaptador",
+        "hint": "M_T = M_W − J₂·φ̈₂, con la aceleración obtenida derivando dos veces el ángulo medido. Aumente el ruido: la corrección lo amplifica con el cuadrado de la frecuencia de muestreo, y un filtro lo cambia por retardo.",
+        "noise": "Ruido del ángulo",
+        "rate": "Frecuencia de muestreo",
+        "filter": "Limpieza de la aceleración",
+        "filters": {
+          "none": "Ninguna",
+          "lowpass": "Paso bajo",
+          "zero_phase": "Paso bajo en ambos sentidos (fuera de línea)"
+        },
+        "corrected": "Corregido, M_W − J₂·φ̈₂",
+        "raw_error": "Error sin la corrección",
+        "comp_error": "Error con la corrección",
+        "noise_price": "Ruido que añade la corrección"
+      }
+    },
+    "cheat": {
+      "print": "Imprimir",
+      "analogies": "Analogías",
+      "role": "Papel",
+      "domains": {
+        "electrical": "Eléctrico",
+        "mechanical": "Mecánico",
+        "thermal": "Térmico",
+        "vacuum": "Vacío"
+      },
+      "roles": {
+        "drive": "Fuerza motriz",
+        "flow": "Flujo",
+        "resistance": "Resistencia",
+        "store": "Acumulador",
+        "inert": "Acumulador inercial",
+        "tau": "Constante de tiempo"
+      },
+      "traps": "Trampas que tiende un banco de ensayo",
+      "trap": {
+        "location": "Dónde se mide el ángulo decide qué rigidez se mide: un encóder del motor ve todas las elasticidades del camino.",
+        "inertia": "Una inercia entre el sensor de par y el objeto de ensayo está en la lectura: el error crece con (f/f_a)².",
+        "filter": "Filtre el par y el ángulo de forma idéntica, o el filtro inventará una histéresis.",
+        "efficiency": "El rendimiento de una transmisión depende de qué lado acciona: convertir un par solo con la relación da un error de 1/η.",
+        "motor": "Un motor pequeño y rápido domina la masa equivalente, y en un ciclo rápido necesita la mayor parte de su par para sí mismo."
+      },
+      "python": "En Python"
+    },
+    "exercises": {
+      "pt1_reading": {
+        "title": "La lectura de un sensor",
+        "prompt": "Un sensor con τ = {{tau}} s recibe un escalón de {{start}} °C a {{final}} °C. ¿Qué indica al cabo de {{t}} s?",
+        "hint1": "Tras t/τ constantes de tiempo, todavía falta la fracción e^(−t/τ) del escalón.",
+        "hint2": "y(t) = y∞ + (y₀ − y∞)·e^(−t/τ).",
+        "solution": "{{t}} s son {{t}}/{{tau}} constantes de tiempo, así que todavía falta e^(−{{t}}/{{tau}}) del escalón: el sensor indica {{a1}} °C."
+      },
+      "decrement": {
+        "title": "El amortiguamiento a partir de dos máximos",
+        "prompt": "En un ensayo de decaimiento, un máximo marca {{first}} N·m y el siguiente {{second}} N·m. ¿Cuál es el coeficiente de amortiguamiento D?",
+        "hint1": "Tome el logaritmo del cociente de dos máximos sucesivos: Λ = ln(xₙ/xₙ₊₁).",
+        "hint2": "D = Λ/√(4π² + Λ²); para un Λ pequeño, casi Λ/2π.",
+        "solution": "Λ = ln({{first}}/{{second}}), y D = Λ/√(4π² + Λ²) = {{a1}}."
+      },
+      "double_frequency": {
+        "title": "El doble de frecuencia natural",
+        "prompt": "¿Por qué factor debe crecer la rigidez para multiplicar la frecuencia natural por {{factor}}, con la inercia sin cambios?",
+        "hint1": "La frecuencia natural crece con la raíz cuadrada de la rigidez.",
+        "hint2": "Eleve el factor al cuadrado.",
+        "solution": "f₀ crece con √c, así que la rigidez tiene que crecer en un factor {{factor}}² = {{a1}}."
+      },
+      "filter_delay": {
+        "title": "Cuánto retrasa un filtro una señal",
+        "prompt": "Un filtro de primer orden con la frecuencia de corte en {{corner}} Hz transmite una señal de {{f}} Hz. ¿Con cuánto retraso llega la señal?",
+        "hint1": "La fase de un retardo de primer orden es −arctan(f/f_E).",
+        "hint2": "Una fase de φ grados a una frecuencia f es un retardo de φ/360° · 1/f.",
+        "solution": "φ = −arctan({{f}}/{{corner}}), y a {{f}} Hz eso es un retardo de {{a1}} ms."
+      },
+      "filter_phase": {
+        "title": "Fase y retardo de un filtro demasiado cercano",
+        "prompt": "Un filtro de primer orden con la frecuencia de corte en {{corner}} Hz transmite una señal de {{f}} Hz. ¿Cuál es su fase y qué retardo supone?",
+        "hint1": "φ = −arctan(f/f_E).",
+        "hint2": "Δt = −φ/360° · 1/f.",
+        "solution": "φ = −arctan({{f}}/{{corner}}) = {{a1}}°, lo que a {{f}} Hz es un retardo de {{a2}} ms: casi toda la constante de tiempo del filtro."
+      },
+      "euler_steps": {
+        "title": "Dos pasos de Euler a mano",
+        "prompt": "Euler con h = {{h}} s sobre el sensor con τ = {{tau}} s, con un escalón de {{start}} °C a {{final}} °C. ¿Qué da tras {{steps}} pasos?",
+        "hint1": "Cada paso suma h veces la pendiente (y∞ − y)/τ tomada al inicio del paso.",
+        "hint2": "El segundo paso parte del resultado del primero.",
+        "solution": "Dos pasos de y ← y + h·(y∞ − y)/τ dan {{a1}} °C: demasiado alto, porque Euler mantiene durante todo el paso la pendiente más pronunciada, la del inicio del paso."
+      },
+      "euler_gain": {
+        "title": "Euler en un oscilador no amortiguado",
+        "prompt": "Euler explícito en un oscilador no amortiguado con h·ω₀ = {{ratio}}: ¿por qué factor crece la amplitud en cada paso?",
+        "hint1": "Euler multiplica cada componente propia por 1 + hλ en cada paso.",
+        "hint2": "Sin amortiguamiento, λ = ±jω₀.",
+        "solution": "|1 + j·{{ratio}}| = √(1 + {{ratio}}²) = {{a1}} por paso: medio por ciento en cada paso, más de cien veces en mil pasos."
+      },
+      "hand_estimate": {
+        "title": "El modo bajo a mano",
+        "prompt": "Estime a mano la frecuencia natural más baja del banco de dos masas: toda su inercia ({{j1}} + {{j2}} kg·m²) sobre los dos muelles ({{c1}} y {{c2}} N·m/rad) en serie.",
+        "hint1": "Muelles en serie: 1/c = 1/c₁ + 1/c₂.",
+        "hint2": "f = √(c/J)/2π con la inercia total.",
+        "solution": "c = {{c1}}·{{c2}}/({{c1}} + {{c2}}) N·m/rad sobre {{j1}} + {{j2}} kg·m² da {{a1}} Hz. El modo exacto está en 6.94 Hz: el motor no oscila con la amplitud completa, así que participa menos inercia de la que supone la estimación."
+      },
+      "light_adapter": {
+        "title": "Un adaptador más ligero",
+        "prompt": "Un adaptador más ligero, J₂ = {{j2}} kg·m², sobre la barra de torsión c₂ = {{c2}} N·m/rad. ¿Cuánto se equivoca el eje a {{f}} Hz?",
+        "hint1": "El eje no mide nada en f_a = √(c₂/J₂)/2π.",
+        "hint2": "El error de lectura es aproximadamente (f/f_a)².",
+        "solution": "f_a = √({{c2}}/{{j2}})/2π, y (f/f_a)² = {{a1}} %: un adaptador más ligero sube f_a y baja el error."
+      }
     }
   },
   "account": {

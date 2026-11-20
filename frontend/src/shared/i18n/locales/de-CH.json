@@ -78,7 +78,8 @@
         "entries": {
           "language": "Die gewählte Sprache",
           "look": "Das helle oder dunkle Erscheinungsbild",
-          "tried": "Welche Exponate Sie ausprobiert haben, damit die Übersicht sie abhakt"
+          "tried": "Welche Exponate Sie ausprobiert haben, damit die Übersicht sie abhakt",
+          "course": "Ihr Fortschritt im Kurs Differenzialgleichungen: die geöffneten Lektionen, die gelösten Übungen und die vorher abgegebenen Schätzungen"
         },
         "tail": "Nichts davon dient dazu, Sie zu verfolgen. Die Anmeldetoken schickt Ihr Browser mit jeder Anfrage an Ihr Konto mit; alles andere bleibt in Ihrem Browser. Beim Abmelden werden die Anmeldetoken entfernt, und alles verschwindet, wenn Sie die Daten der Seite in Ihrem Browser löschen."
       },
@@ -132,6 +133,11 @@
         "title": "Exponate",
         "lead": "Die {{count}} neuesten. Eine Zeichnung bewegt sich, sobald Sie darauf zeigen.",
         "all": "Alle {{count}} Exponate"
+      },
+      "basics": {
+        "title": "Grundlagen",
+        "lead": "Die Mathematik hinter den Exponaten, Schritt für Schritt: von der Bilanz bis zum Zweimassenschwinger.",
+        "all": "Zum Kurs"
       }
     },
     "topics": {
@@ -3552,6 +3558,635 @@
     },
     "list": {
       "lead": "Jedes Exponat mit seiner Zeichnung, die sich bewegt, sobald Sie darauf zeigen. Nach Thema filtern oder alle durchgehen."
+    }
+  },
+  "course": {
+    "title": "Differenzialgleichungen",
+    "tagline": "Differenzialgleichungen technischer Systeme durch Ausprobieren verstehen: Jede Lektion verbindet einen realen Prüfstand mit einem Modell, das live rechnet, während Sie die Regler bewegen.",
+    "reset": "Zurücksetzen",
+    "failed": "Die Berechnung ist fehlgeschlagen.",
+    "lesson_n": "Lektion {{n}}",
+    "axis": {
+      "time": "Zeit",
+      "frequency": "Frequenz",
+      "angle": "Winkel",
+      "torque": "Moment"
+    },
+    "figure": {
+      "time_constant": "Zeitkonstante",
+      "overshoot": "Überschwingen",
+      "peak_time": "Zeitpunkt des Maximums",
+      "settling": "Einschwingzeit",
+      "phase": "Phase"
+    },
+    "frame": {
+      "question": "Die Frage",
+      "model": "Das Modell",
+      "assumptions": "Was das Modell weglässt",
+      "assumptions_hint": "Jedes Modell ist eine Entscheidung darüber, was hier keine Rolle spielt.",
+      "experiments": "Experimente",
+      "insights": "Was sich gezeigt hat",
+      "exercises": "Übungen",
+      "lesson_navigation": "Vorherige und nächste Lektion"
+    },
+    "lessons": {
+      "recipe": {
+        "title": "Das Rezept",
+        "summary": "Jede technische Differenzialgleichung entsteht aus einer Bilanz: Änderung = Zufluss − Abfluss."
+      },
+      "first_order": {
+        "title": "Systeme 1. Ordnung",
+        "summary": "Die Zeitkonstante: was sie bedeutet, wie man sie aus einer Messung abliest und wo sie überall vorkommt."
+      },
+      "second_order": {
+        "title": "Systeme 2. Ordnung",
+        "summary": "Eigenfrequenz und Dämpfung: Überschwingen, Resonanz und die Dämpfung aus einem Ausschwingversuch."
+      },
+      "eigenvalues": {
+        "title": "Eigenwerte und Polebene",
+        "summary": "Ein Eigenwert ist eine Abklingrate und eine Frequenz, ein Eigenvektor eine Bewegungsform."
+      },
+      "laplace": {
+        "title": "Laplace und Bode",
+        "summary": "Ableiten wird Multiplizieren mit s, Ketten werden Produkte, und eine Phase wird ein Zeitverzug."
+      },
+      "numerics": {
+        "title": "Numerische Lösung",
+        "summary": "Euler und Runge-Kutta: Schrittweite, Stabilität und warum steife Probleme implizite Verfahren wollen."
+      },
+      "two_mass": {
+        "title": "Der Zweimassenschwinger",
+        "summary": "Eigenformen, Antiresonanzen und warum eine Messwelle schon bei wenigen Hertz falsch misst."
+      },
+      "cheat_sheet": {
+        "title": "Spickzettel und Analogien",
+        "summary": "Der Kurs auf einer druckbaren Seite, jede Formel mit ihrem Widget verlinkt."
+      }
+    },
+    "overview": {
+      "why": "Hinter jedem Exponat steht eine Differenzialgleichung. Dieser Kurs ist ihr Fundament: was eine solche Gleichung ist, woher sie kommt und was sie über ein reales System aussagt.",
+      "how": "Jede Lektion folgt demselben Muster: eine Frage aus der Praxis, das Modell, das sie beantwortet, Experimente mit Schiebereglern, die Erkenntnis daraus und Übungen – zuerst schätzen, dann rechnen. Jede Zahl berechnet die eigene Rechenmaschine der App, geprüft gegen Referenzwerte.",
+      "lessons": "Die Lektionen",
+      "lessons_hint": "Ihr Fortschritt wird nur auf diesem Gerät gespeichert.",
+      "forget": "Fortschritt vergessen",
+      "progress": "Gelöste Übungen",
+      "solved": "{{solved}} von {{total}}",
+      "visited": "geöffnet",
+      "exercises_done": "{{done}} von {{total}} Übungen",
+      "surprises": "Überraschungen",
+      "surprises_hint": "Jede Schätzung, die um mehr als die Hälfte daneben lag – die Liste, die sich nachzulesen lohnt.",
+      "no_surprises": "Noch keine. Schätzen Sie, bevor Sie rechnen – was Sie überrascht, sammelt sich hier.",
+      "surprise_entry": "geschätzt {{estimate}} {{unit}}, die Lösung war {{answer}} {{unit}}"
+    },
+    "recipe": {
+      "title": "Das Rezept in acht Schritten",
+      "hint": "Jedes Modell dieses Kurses entsteht nach diesen Schritten.",
+      "steps": {
+        "question": {
+          "title": "Frage klären",
+          "body": "Was muss das Modell beantworten, und wie genau? Ein Modell ohne Frage kann nicht richtig sein."
+        },
+        "boundary": {
+          "title": "Systemgrenze und Annahmen",
+          "body": "Festlegen, was drinnen ist, was draussen bleibt und was vernachlässigt wird – und es aufschreiben."
+        },
+        "coordinate": {
+          "title": "Koordinate wählen und reduzieren",
+          "body": "Eine Koordinate pro Freiheitsgrad, alles andere über die Übersetzungen darauf reduziert."
+        },
+        "balance": {
+          "title": "Bilanz aufstellen",
+          "body": "Änderung = Zufluss − Abfluss: von Masse, Energie, Impuls oder Gas. Hier entsteht die Differenzialgleichung."
+        },
+        "normalise": {
+          "title": "Normieren",
+          "body": "In eine Standardform bringen – τ, ω₀, D –, damit sie mit jedem anderen System ihrer Art vergleichbar wird."
+        },
+        "solve": {
+          "title": "Lösen",
+          "body": "Geschlossen, wo es eine Lösung gibt, numerisch, wo nicht."
+        },
+        "check": {
+          "title": "Prüfen",
+          "body": "Einheiten, Grenzfälle, eine Handabschätzung, eine Messung. Ein ungeprüftes Ergebnis ist eine Vermutung mit Nachkommastellen."
+        },
+        "interpret": {
+          "title": "Interpretieren",
+          "body": "Die Antwort in die Sprache der Frage zurückübersetzen: eine Zeit, eine Kraft, eine Konstruktionsentscheidung."
+        }
+      },
+      "tank": {
+        "title": "Aus einer Bilanz wird ein PT1",
+        "hint": "Ein Behälter mit konstantem Zufluss und einem Abfluss, der mit dem Füllstand wächst. Ändern Sie Zufluss, Fläche oder Auslauf und sehen Sie zu, wie sich der Füllstand einstellt.",
+        "inflow": "Zufluss",
+        "area": "Behälterfläche",
+        "outflow": "Abfluss pro Meter Füllstand",
+        "level0": "Anfangsfüllstand",
+        "level": "Füllstand",
+        "outflow_series": "Abfluss",
+        "inflow_series": "Zufluss",
+        "flow": "Durchfluss",
+        "final": "Endfüllstand",
+        "insight": "Die Bilanz A·dh/dt = Zufluss − k·h ist ein PT1 mit τ = A/k: Ein grösserer Behälter oder ein engerer Auslauf macht es langsamer, und es stellt sich dort ein, wo der Abfluss den Zufluss erreicht."
+      }
+    },
+    "exercise": {
+      "solved": "Gelöst",
+      "estimate_label": "Ihre Schätzung ({{unit}})",
+      "estimate_bare": "Ihre Schätzung",
+      "estimate_submit": "Schätzung abgeben",
+      "estimate_why": "Zuerst schätzen: Das Antwortfeld öffnet sich, sobald Sie sich auf eine Zahl festgelegt haben.",
+      "your_estimate": "Ihre Schätzung: {{value}} {{unit}}",
+      "answer": "Ihre Antwort ({{unit}})",
+      "answer_bare": "Ihre Antwort",
+      "answer_n": "Antwort {{n}} ({{unit}})",
+      "answer_n_bare": "Antwort {{n}}",
+      "check": "Prüfen",
+      "empty": "Geben Sie zuerst einen Wert ein.",
+      "right": "Richtig.",
+      "wrong": "Noch nicht – versuchen Sie es nochmals oder nehmen Sie einen Hinweis.",
+      "surprise": "Ihre Schätzung lag {{pct}} % daneben: unter Überraschungen notiert.",
+      "estimate_close": "Ihre Schätzung lag {{pct}} % daneben.",
+      "hint": "Hinweis",
+      "show_solution": "Lösung zeigen",
+      "hide_solution": "Lösung ausblenden",
+      "solution": "Lösung"
+    },
+    "regime": {
+      "underdamped": "Unterdämpft (D < 1)",
+      "critical": "Aperiodischer Grenzfall (D = 1)",
+      "overdamped": "Überdämpft (D > 1)"
+    },
+    "poles": {
+      "stable": "stabil",
+      "unstable": "instabil"
+    },
+    "animation": {
+      "pause": "Animation anhalten",
+      "play": "Animation abspielen",
+      "slow": "Zeitlupe: eine Periode alle zwei Sekunden, unabhängig von der Frequenz.",
+      "twist": "Verdrillung jeder Feder"
+    },
+    "first_order": {
+      "question": "Ein Temperaturfühler wird von 20 °C in ein Bad von 80 °C getaucht. Ab wann darf man seiner Anzeige trauen – und was zeigt er nach acht Sekunden?",
+      "model": "Ein Speicher (die Wärmekapazität des Fühlers) und ein Widerstand (der Übergang vom Bad in den Fühler): Was hineinfliesst, füllt den Speicher, und der Fluss ist proportional zur verbleibenden Differenz. Als Bilanz geschrieben ist das ein PT1-Glied:",
+      "model_tau": "τ ist die Zeitkonstante. Nach einem τ ist 63 % des Wegs zurückgelegt, nach drei 95 %, nach fünf 99.3 % – egal, woraus das System besteht.",
+      "assumptions": {
+        "one_store": "Ein Speicher: Der Fühler hat überall dieselbe Temperatur, ohne Gefälle im Inneren.",
+        "linear": "Linear: Der Fluss ist proportional zur Differenz, also hängt τ nicht davon ab, wie weit es noch ist.",
+        "constant": "Konstante Parameter: τ ist bei 20 °C dasselbe wie bei 80 °C."
+      },
+      "insights": {
+        "settled": "Nach 5 τ sind 99.3 % des Sprungs erreicht: eingeschwungen, bei jedem System 1. Ordnung.",
+        "read": "τ liest man dort ab, wo die Antwort 63 % erreicht hat – oder wo die Starttangente den Endwert schneidet.",
+        "log": "Auf logarithmischer Achse ist der Restabstand eine Gerade mit der Steigung −1/τ; eine Messung, die dort nicht gerade ist, ist nicht 1. Ordnung."
+      },
+      "step": {
+        "title": "Die Sprungantwort",
+        "hint": "Verändern Sie τ und die beiden Werte. Die Markierungen liegen bei 1, 2, 3 und 5 τ; die gestrichelte Linie ist die Starttangente, die den Endwert genau bei τ schneidet."
+      },
+      "tau": "Zeitkonstante τ",
+      "start": "Startwert",
+      "final": "Endwert",
+      "at": "Ablesen zur Zeit t",
+      "analogy_label": "Dieselbe Gleichung als",
+      "analogy": {
+        "thermal": {
+          "name": "Temperatur",
+          "unit": "°C",
+          "quantity": "Temperatur"
+        },
+        "electrical": {
+          "name": "RC-Glied",
+          "unit": "V",
+          "quantity": "Kondensatorspannung"
+        },
+        "mechanical": {
+          "name": "Feder und Dämpfer",
+          "unit": "mm",
+          "quantity": "Weg"
+        },
+        "vacuum": {
+          "name": "Vakuumkammer",
+          "unit": "mbar",
+          "quantity": "Druck"
+        }
+      },
+      "view": "Achse",
+      "view_linear": "Linear",
+      "view_log": "Restabstand, logarithmisch",
+      "remaining": "Restabstand",
+      "tangent": "Starttangente",
+      "final_short": "Endwert",
+      "value_at": "Wert bei t = {{t}} s",
+      "fraction_at": "Anteil des Sprungs bei t",
+      "settled": "Eingeschwungen auf 99.3 % (5 τ)",
+      "measure": {
+        "title": "τ aus einer Messung ablesen",
+        "hint": "Eine verrauschte Messung mit unbekannter Zeitkonstante. Klicken Sie auf die Kurve, wo sie die 63-%-Linie kreuzt (oder setzen Sie den Marker unten), und vergleichen Sie dann.",
+        "another": "Neue Messung",
+        "series": "Gemessene Temperatur",
+        "yours": "Ihr τ",
+        "marker": "Ihre Ablesung von τ",
+        "marker_hint": "Wo die Messung die 63-%-Linie kreuzt, ist die Zeit gleich τ.",
+        "compare": "Vergleichen",
+        "result": "Sie haben {{yours}} s abgelesen; das wahre τ ist {{truth}} s ({{off}} % daneben)."
+      }
+    },
+    "second_order": {
+      "question": "Eine Drehmoment-Messwelle wird einmal angeschlagen und schwingt aus. Wie schnell schwingt sie, wie rasch beruhigt sie sich – und wie falsch misst sie, wenn das Signal in die Nähe ihrer Eigenfrequenz kommt?",
+      "model": "Eine Trägheit an einer Feder mit einem Dämpfer: das Newtonsche Gesetz für die Drehung. Zwei Zahlen sagen alles darüber – die Eigenkreisfrequenz ω₀ und das Dämpfungsmass D.",
+      "model_magnification": "Mit der Frequenz f angeregt, ist die Antwort die statische mal der Vergrösserungsfunktion V(η); und zwei aufeinanderfolgende Maxima eines freien Ausschwingens liefern D, ohne Trägheit oder Steifigkeit zu kennen:",
+      "assumptions": {
+        "lumped": "Eine konzentrierte Trägheit: Die verteilte Masse der Welle selbst fehlt; die konzentrierte ist ihre erste Eigenform, und auf die kommt es bei einer Messkette an.",
+        "viscous": "Viskose Dämpfung, proportional zur Geschwindigkeit; keine Reibung konstanter Grösse.",
+        "linear": "Eine lineare Feder über den ganzen Weg."
+      },
+      "insights": {
+        "peak": "D = 0.05 heisst Faktor 10 Überhöhung bei f₀: Die Welle schwingt auf das Zehnfache ihrer statischen Auslenkung auf.",
+        "chain": "Eine Messkette misst bis zu einem Fünftel ihrer Eigenfrequenz auf etwa 4 % genau: f₀ ≥ 5 × die höchste Nutzfrequenz.",
+        "mass": "Mehr Trägheit bei gleichem Dämpfer senkt neben f₀ auch D, denn D = d/(2√(c·J))."
+      },
+      "system": {
+        "title": "Die Sprungantwort",
+        "hint": "Stellen Sie die Welle über ihre Bauteile oder über ihre zwei Kennzahlen ein. Die gestrichelten Linien sind die Hüllkurve e^(−Dω₀t); die Farbe des Chips zeigt, welche der drei Lösungen vorliegt."
+      },
+      "describe": "Welle beschreiben durch",
+      "describe_parts": "Bauteile J, c, d",
+      "describe_numbers": "Kennzahlen f₀, D",
+      "inertia": "Trägheit J",
+      "stiffness": "Steifigkeit c",
+      "damping": "Dämpfung d",
+      "f0": "Eigenfrequenz f₀",
+      "ratio": "Dämpfungsmass D",
+      "torque_note": "Angeregt durch einen Momentensprung von {{torque}} N·m.",
+      "angle": "Winkel",
+      "envelope": "Hüllkurve",
+      "final": "Endwert",
+      "magnification": {
+        "title": "Vergrösserungsfunktion und Fehler einer Messkette",
+        "hint": "V(η) für Ihre Dämpfung (fett) und fünf Vergleichswerte. Verschieben Sie die Anregung und lesen Sie ab, um wie viel mehr sich die Welle bewegt als statisch – genau so weit liegt eine darauf gebaute Messkette daneben.",
+        "v": "Vergrösserung V",
+        "eta": "Frequenzverhältnis η = f/f₀",
+        "error": "Messfehler",
+        "error_note": "über 5 %: zu nahe an f₀",
+        "peak": "Grösste Vergrösserung"
+      },
+      "excitation": "Anregungsfrequenz f",
+      "decay": {
+        "title": "Dämpfung aus einem Ausschwingversuch",
+        "hint": "Eine angeschlagene Welle, mit Rauschen gemessen; ihre Dämpfung ist unbekannt. Klicken Sie zwei aufeinanderfolgende Maxima an, um Λ und D zu berechnen, und vergleichen Sie dann.",
+        "another": "Neuer Versuch",
+        "series": "Gemessenes Moment",
+        "not_successive": "Wählen Sie zwei benachbarte Maxima.",
+        "damping": "Dämpfungsmass D",
+        "compare": "Vergleichen",
+        "result": "Ihre zwei Maxima ergeben D = {{yours}}; das wahre D ist {{truth}}. Über alle {{n}} Perioden auf einmal gelesen ist D = {{overall}} – ein Logarithmus über viele Perioden ist die ruhigere Antwort."
+      }
+    },
+    "eigenvalues": {
+      "question": "Was sagen die zwei Zahlen, nach denen man ein System 2. Ordnung auflöst, eigentlich aus – und was tut ein System mit zwei gekoppelten Zuständen, wenn es sich bewegt?",
+      "model": "Ein lineares System ẋ = A·x bewegt sich als Summe seiner Eigenlösungen: Jeder Eigenwert λ sagt, wie schnell ein Anteil abklingt oder wächst und wie schnell er dreht, jeder Eigenvektor, in welche Richtung er sich bewegt.",
+      "model_pair": "Für eine Masse an Feder und Dämpfer hat die Matrix ein Eigenwertpaar, und es sind genau die Nullstellen der charakteristischen Gleichung aus Lektion 2:",
+      "assumptions": {
+        "linear": "Linear und zeitinvariant: A ist konstant. Ein nichtlineares System hat Eigenwerte nur um einen Arbeitspunkt.",
+        "minimal": "Pole und Eigenwerte stimmen überein, wenn das System ohne kürzbare Faktoren geschrieben ist; ein Pol, den eine Nullstelle kürzt, bleibt ein Eigenwert von A."
+      },
+      "insights": {
+        "parts": "λ = σ ± jω: Der Realteil σ bestimmt die Hüllkurve e^(σt), der Imaginärteil die Schwingfrequenz.",
+        "same": "det(A − λI) = 0 ist die charakteristische Gleichung aus Lektion 2: Pole, Eigenwerte und ihre Nullstellen sind dieselben Zahlen.",
+        "vectors": "Eine Trajektorie, die auf einem reellen Eigenvektor startet, bleibt auf dieser Geraden; jede andere ist eine Mischung der beiden Richtungen."
+      },
+      "scalar": {
+        "title": "Ein Eigenwert: ẋ = a·x",
+        "hint": "Schieben Sie a über null: negativ klingt ab, positiv wächst, und Zeitkonstante bzw. Verdopplungszeit sind bis auf einen Faktor 1/|a|."
+      },
+      "stable": "Stabil",
+      "unstable": "Instabil",
+      "marginal": "Grenzstabil",
+      "doubling": "Verdopplungszeit",
+      "poles": {
+        "title": "Pole und Sprungantwort",
+        "hint": "Stellen Sie f₀ und D ein oder ziehen Sie den oberen Pol in der Ebene. Der gestrichelte Halbkreis ist |λ| = ω₀; ein Paar darauf unterscheidet sich nur in der Dämpfung.",
+        "plane": "Die Polebene, Pole bei {{poles}} 1/s",
+        "response": "Sprungantwort"
+      },
+      "matrix": {
+        "title": "Ein 2×2-System und sein Phasenporträt",
+        "hint": "Bearbeiten Sie die Matrix oder starten Sie von einer Vorlage. Die gestrichelten Linien sind die reellen Eigenvektoren; zwölf Trajektorien starten auf dem gepunkteten Einheitskreis.",
+        "presets": {
+          "spring": "Feder-Masse-Dämpfer",
+          "saddle": "Sattel",
+          "centre": "Zentrum",
+          "spiral": "Strudel"
+        },
+        "kind": {
+          "saddle": "Sattel – instabil",
+          "stable_node": "Stabiler Knoten",
+          "unstable_node": "Instabiler Knoten",
+          "stable_focus": "Stabiler Strudel – abklingende Schwingung",
+          "unstable_focus": "Instabiler Strudel – aufklingende Schwingung",
+          "centre": "Zentrum – ungedämpfte Schwingung",
+          "degenerate": "Entartet – ein Eigenwert bei null"
+        },
+        "portrait": "Phasenporträt: {{kind}}",
+        "trace": "Spur",
+        "det": "Determinante",
+        "vectors": "Eigenvektoren"
+      }
+    },
+    "laplace": {
+      "question": "Eine Messkette ist eine Welle hinter einem Filter hinter einem Verstärker. Was macht die Kette mit einem 3-Hz-Signal – wie viel kleiner und wie viel später kommt es an?",
+      "model": "Die Laplace-Transformation macht aus dem Ableiten ein Multiplizieren mit s, aus einer Differenzialgleichung also eine algebraische. Jeder Block ist eine Übertragungsfunktion G(s); Blöcke in Reihe multiplizieren sich, und im Bode-Diagramm in Dezibel addieren sie sich.",
+      "model_delay": "Bei einer Frequenz f ist ein Phasenverzug ein Zeitverzug:",
+      "assumptions": {
+        "lti": "Lineare, zeitinvariante Blöcke; ein Verstärker in der Begrenzung ist keine Übertragungsfunktion.",
+        "steady": "Bode beschreibt den eingeschwungenen Zustand unter einem Sinus; das Anlaufen ist Sache der Sprungantwort.",
+        "dead_time": "Eine Totzeit bringt Phase, aber keinen Pol: e^(−sT) hat keinen, und keiner wird gezeichnet."
+      },
+      "insights": {
+        "product": "Blöcke in Reihe multiplizieren sich; im Bode-Diagramm in dB addieren sich ihre Kurven – die gestrichelten ergeben zusammen die ausgezogene.",
+        "final": "Der Endwert einer stabilen Sprungantwort ist G(0): aus der Übertragungsfunktion abgelesen, ohne etwas zu lösen.",
+        "lag": "Ein PT1 verzögert tiefe Frequenzen um etwa τ: Hinter einem 5-Hz-Filter kommt ein 3-Hz-Signal 28.7 ms zu spät, hinter einem 50-Hz-Filter ein 5-Hz-Signal 3.2 ms.",
+        "filter": "Moment und Winkel identisch filtern – oder offline vorwärts und rückwärts –, sonst zeichnet der Filter eine Hysterese, die der Prüfling nicht hat."
+      },
+      "steps": {
+        "title": "Laplace Schritt für Schritt",
+        "hint": "Die PT1-Sprungantwort auf dem Laplace-Weg gelöst: jede Zeile mit Ihren Zahlen.",
+        "transform": "Transformieren",
+        "solve": "Nach Y(s) auflösen",
+        "split": "In Partialbrüche zerlegen",
+        "back": "Zurücktransformieren"
+      },
+      "time_domain": "Zeitbereich",
+      "image_domain": "Bildbereich",
+      "chain": {
+        "title": "Ein Bode-Baukasten",
+        "hint": "Bis zu vier Glieder in Reihe. Die Summe ist ausgezogen, jedes Glied gestrichelt darunter; der Cursor zeigt Verstärkung, Phase und den Zeitverzug, den die Phase bedeutet.",
+        "block": "Glied {{n}}",
+        "remove": "Glied entfernen",
+        "add": "Glied hinzufügen",
+        "cursor": "Cursorfrequenz",
+        "total": "Kette",
+        "gain": "Verstärkung |G|",
+        "delay": "Zeitverzug",
+        "poles": "Pole der Kette",
+        "step": "Sprungantwort"
+      },
+      "kind": {
+        "proportional": "Verstärkung K",
+        "integrator": "Integrator K/s",
+        "first_order": "1. Ordnung (PT1)",
+        "second_order": "2. Ordnung (PT2)",
+        "dead_time": "Totzeit"
+      },
+      "magnitude": "Betrag",
+      "filter": {
+        "title": "Die Hysterese, die ein Filter erfindet",
+        "hint": "Ein Prüfling ohne Hysterese (Moment proportional zum Winkel), sinusförmig bewegt. Filtern Sie nur das Moment, erscheint eine Schleife; filtern Sie beides oder offline, ist sie weg. Geben Sie Reibung dazu, um eine echte überleben zu sehen.",
+        "frequency": "Anregungsfrequenz",
+        "corner": "Eckfrequenz des Filters",
+        "friction": "Echtes Reibband",
+        "mode": "Gefiltert",
+        "modes": {
+          "torque_only": "Nur Moment",
+          "both": "Moment und Winkel",
+          "zero_phase": "Beide, vorwärts und rückwärts"
+        },
+        "truth": "Wie es ist",
+        "measured": "Wie gemessen",
+        "apparent": "Gemessene Hysterese",
+        "true": "Wahre Hysterese"
+      }
+    },
+    "numerics": {
+      "question": "Die meisten Gleichungen der Praxis haben keine geschlossene Lösung, also schreitet ein Rechner sie ab. Wie gross darf der Schritt sein – und was macht ein Verfahren mit dem System, das es abschreitet?",
+      "model": "Euler nimmt die Steigung am Anfang jedes Schritts und hält sie den ganzen Schritt lang. RK4 wertet die Steigung viermal innerhalb des Schritts aus und bildet einen gewichteten Mittelwert:",
+      "model_stability": "Auf ẏ = λy multipliziert ein Verfahren die Lösung pro Schritt mit einem festen Faktor, und es ist nur stabil, solange dessen Betrag höchstens eins ist. Für Euler:",
+      "assumptions": {
+        "fixed": "Feste Schrittweite: Die Verfahren hier passen sie nicht an. Ein adaptives Verfahren (wie das, mit dem das Abpumpen gerechnet wird) wählt sie selbst.",
+        "rounding": "Rundungsfehler sind vernachlässigt: In doppelter Genauigkeit liegen sie weit unter jedem hier gezeigten Fehler."
+      },
+      "insights": {
+        "order": "Der Fehler von Euler fällt mit h, der von RK4 mit h⁴: Halbieren der Schrittweite halbiert den einen und teilt den anderen durch sechzehn.",
+        "energy": "Euler pumpt Energie in einen Schwinger: Bei h·ω₀ = 2D hebt er die Dämpfung genau auf – an der Messwelle ist das h = 1 ms, bei dem sie für immer mit vollem 1° weiterschwingt –, darüber schaukelt sie sich auf.",
+        "rule": "Faustregel für RK4: h höchstens ein Zwanzigstel der kürzesten Periode. Expliziter Euler braucht an einem schwach gedämpften Schwinger h·ω₀ < 2D, bei D = 0.05 ein Dreiundsechzigstel einer Periode.",
+        "stiff": "Steif heisst schnelle und langsame Dynamik zusammen: Ein 1-ms-Glied neben einem 10-s-Glied zwingt RK4 zu mehr als 10'000 Schritten über 30 s – für einen Anteil, der nach 5 ms verschwunden ist. Impliziter Euler ist bei jeder Schrittweite stabil."
+      },
+      "sensor": {
+        "title": "Euler, Heun und RK4 gegen die exakte Lösung",
+        "hint": "Der Fühler aus Lektion 1 (τ = 4 s, 20 → 80 °C). Vergrössern Sie den Schritt – über τ schiesst Euler über, über 2τ läuft er davon."
+      },
+      "step": "Schrittweite h",
+      "steps": "Anzahl Schritte",
+      "regime": {
+        "monotone": "Euler kriecht heran (h < τ)",
+        "one_step": "Euler landet in einem Schritt (h = τ)",
+        "alternating": "Euler schiesst über und wechselt das Vorzeichen (τ < h < 2τ)",
+        "neutral": "Euler wechselt für immer hin und her (h = 2τ)",
+        "diverging": "Euler läuft davon (h > 2τ)"
+      },
+      "euler_factor": "Euler-Faktor pro Schritt, 1 − h/τ",
+      "rk4_factor": "RK4-Faktor pro Schritt",
+      "method": {
+        "exact": "Exakt",
+        "euler": "Euler",
+        "heun": "Heun",
+        "rk4": "RK4",
+        "symplectic": "Symplektischer Euler",
+        "implicit": "Impliziter Euler"
+      },
+      "errors": {
+        "title": "Fehlertabelle",
+        "hint": "Der Wert jedes Schritts und sein Fehler.",
+        "euler": "Fehler Euler",
+        "rk4": "Fehler RK4"
+      },
+      "rk4_table": {
+        "title": "RK4 Schritt für Schritt",
+        "hint": "Wo jede der vier Steigungen ausgewertet wird und wie gross sie ist.",
+        "step": "Schritt {{n}}",
+        "slope": "Steigung"
+      },
+      "oscillator": {
+        "title": "Energiedrift beim Schwinger",
+        "hint": "Die Messwelle aus Lektion 2 (f₀ = 15.9 Hz, D = 0.05), aus 1° losgelassen, eine Sekunde, vier Verfahren. Oben die Amplitude auf logarithmischer Achse, unten der Winkel.",
+        "gain": "Euler-Verstärkung pro Schritt |1 + hλ|",
+        "neutral": "Schritt, bei dem Euler die Dämpfung aufhebt",
+        "amplitude": "Amplitude",
+        "final": "{{method}}: Amplitude nach 1 s",
+        "damping": "{{method}}: Dämpfung, die es zeigt"
+      },
+      "stiff": {
+        "title": "Steifigkeit",
+        "hint": "Zwei unabhängige Verzögerungen, 1 ms und 10 s, über 30 s. Gezeigt ist die langsame. Wählen Sie den Schritt grösser als 2.8 ms, und RK4 divergiert; impliziter Euler bleibt bei jeder Schrittweite stabil.",
+        "limit": "Grösster stabiler RK4-Schritt",
+        "min_steps": "Mindestens nötige RK4-Schritte",
+        "rk4_steps": "Gerechnete RK4-Schritte",
+        "diverged": "divergiert",
+        "implicit_steps": "Schritte impliziter Euler",
+        "exact": "Exakt",
+        "slow": "Langsamer Anteil"
+      }
+    },
+    "two_mass": {
+      "question": "Eine Drehmoment-Messwelle sitzt zwischen dem Motor und einem schweren Adapter am Prüfling. Warum misst sie bei 3 Hz 15 % zu wenig?",
+      "model": "Zwei Trägheiten an zwei Federn: der Motor J₁, die Messwelle c₁, die Säule oder der Adapter J₂, der Prüfling als Drehstab c₂ gegen das Gestell. In Matrixform:",
+      "model_reading": "Die Welle misst das Moment über sich selbst; der Prüfling trägt das Moment über den Drehstab. Dazwischen sitzt J₂, und was es braucht, um diese Trägheit zu beschleunigen, steckt in der Messung und nicht im Prüfling:",
+      "assumptions": {
+        "lumped": "Konzentrierte Trägheiten: Die Trägheit der Messwelle selbst fehlt (auf ihre Enden verteilt, verschöbe sie beide Eigenfrequenzen um einige Prozent).",
+        "torque": "Ein idealer Momentenantrieb: Der Stromregler des Motors ist nicht modelliert.",
+        "linear": "Lineare Federn und viskose Dämpfer."
+      },
+      "insights": {
+        "count": "n Trägheiten an Federn gegen das Gestell ergeben n Eigenfrequenzen; eine freie Kette bringt zusätzlich eine Starrkörperbewegung bei 0 Hz.",
+        "soft": "Die tiefe Eigenform ist alles, was auf der weichsten Feder schwingt: die ganze Trägheit auf den beiden Federn in Reihe ergibt von Hand 6.3 Hz, exakt sind es 6.94 Hz.",
+        "error": "Die Welle misst etwa das (1 − (f/f_a)²)-Fache dessen, was der Prüfling trägt, mit f_a = √(c₂/J₂)/2π: 2 % zu wenig bei 1 Hz, 15 % bei 3 Hz, 43 % bei 5 Hz mit dem Standardadapter."
+      },
+      "rig": {
+        "title": "Der Prüfstand unter sinusförmiger Anregung",
+        "hint": "Verschieben Sie die Anregung oder springen Sie zu einer Vorlage. Die Scheiben drehen sich in Zeitlupe mit den berechneten Phasen; die Balken zeigen, wie stark jede Feder verdrillt ist."
+      },
+      "excitation": "Anregungsfrequenz",
+      "presets": {
+        "three": "3 Hz",
+        "mode1": "Eigenform 1",
+        "absorber": "Tilgerpunkt",
+        "motor_still": "Motor steht",
+        "mode2": "Eigenform 2"
+      },
+      "parameters": "Parameter des Prüfstands",
+      "parameters_hint": "Trägheiten, Steifigkeiten und Dämpfungen, jede auf einem Regler.",
+      "j1": "Motorträgheit J₁",
+      "j2": "Adapterträgheit J₂",
+      "c1": "Messwelle c₁",
+      "c2": "Drehstab c₂",
+      "d1": "Dämpfung Messwelle d₁",
+      "d2": "Dämpfung Drehstab d₂",
+      "motor": "Motor",
+      "adapter": "Adapter",
+      "animation_label": "Die beiden Trägheiten bei {{f}} Hz, in Zeitlupe",
+      "in_phase": "Gleichsinnig",
+      "anti_phase": "Gegensinnig",
+      "error": "Messfehler",
+      "shaft_reads": "Was die Welle misst, M_W",
+      "object_carries": "Was der Prüfling trägt, M_T",
+      "per_motor_torque": "Moment pro Motormoment",
+      "modes": "Eigenformen",
+      "mode_f": "Eigenform {{n}}: Frequenz",
+      "mode_d": "Eigenform {{n}}: Dämpfung",
+      "mode_shape": "Eigenform {{n}}: φ₂/φ₁",
+      "hand": "Handabschätzung Eigenform 1",
+      "hand_deviation": "Handabschätzung liegt daneben um",
+      "compensation": {
+        "title": "Die Trägheit des Adapters kompensieren",
+        "hint": "M_T = M_W − J₂·φ̈₂, die Beschleunigung aus dem gemessenen Winkel zweimal differenziert. Erhöhen Sie das Rauschen: Die Korrektur verstärkt es mit dem Quadrat der Abtastrate, und ein Filter tauscht das gegen Verzug.",
+        "noise": "Winkelrauschen",
+        "rate": "Abtastrate",
+        "filter": "Beschleunigung glätten",
+        "filters": {
+          "none": "Nicht",
+          "lowpass": "Tiefpass",
+          "zero_phase": "Tiefpass in beide Richtungen (offline)"
+        },
+        "corrected": "Korrigiert, M_W − J₂·φ̈₂",
+        "raw_error": "Fehler ohne Korrektur",
+        "comp_error": "Fehler mit Korrektur",
+        "noise_price": "Rauschen, das die Korrektur bringt"
+      }
+    },
+    "cheat": {
+      "print": "Drucken",
+      "analogies": "Analogien",
+      "role": "Rolle",
+      "domains": {
+        "electrical": "Elektrik",
+        "mechanical": "Mechanik",
+        "thermal": "Thermik",
+        "vacuum": "Vakuum"
+      },
+      "roles": {
+        "drive": "Antrieb",
+        "flow": "Fluss",
+        "resistance": "Widerstand",
+        "store": "Speicher",
+        "inert": "Träger Speicher",
+        "tau": "Zeitkonstante"
+      },
+      "traps": "Fallen am Prüfstand",
+      "trap": {
+        "location": "Wo der Winkel gemessen wird, entscheidet, welche Steifigkeit gemessen wird: Ein Motorgeber sieht jede Nachgiebigkeit im Pfad.",
+        "inertia": "Eine Trägheit zwischen Momentsensor und Prüfling steckt in der Messung: Der Fehler wächst mit (f/f_a)².",
+        "filter": "Moment und Winkel identisch filtern, sonst erfindet der Filter eine Hysterese.",
+        "efficiency": "Der Wirkungsgrad eines Getriebes hängt davon ab, welche Seite treibt: Ein Moment nur mit der Übersetzung umzurechnen, liegt um 1/η daneben.",
+        "motor": "Ein kleiner, schneller Motor dominiert die Ersatzmasse – und braucht in einem schnellen Zyklus das meiste Moment für sich selbst."
+      },
+      "python": "In Python"
+    },
+    "exercises": {
+      "pt1_reading": {
+        "title": "Die Anzeige eines Fühlers",
+        "prompt": "Ein Fühler mit τ = {{tau}} s erfährt einen Sprung von {{start}} °C auf {{final}} °C. Was zeigt er nach {{t}} s an?",
+        "hint1": "Nach t/τ Zeitkonstanten fehlt noch der Anteil e^(−t/τ) des Sprungs.",
+        "hint2": "y(t) = y∞ + (y₀ − y∞)·e^(−t/τ).",
+        "solution": "{{t}} s sind {{t}}/{{tau}} Zeitkonstanten, also fehlt noch e^(−{{t}}/{{tau}}) des Sprungs: Der Fühler zeigt {{a1}} °C."
+      },
+      "decrement": {
+        "title": "Dämpfung aus zwei Maxima",
+        "prompt": "In einem Ausschwingversuch zeigt ein Maximum {{first}} N·m und das nächste {{second}} N·m. Wie gross ist das Dämpfungsmass D?",
+        "hint1": "Nehmen Sie den Logarithmus des Verhältnisses zweier aufeinanderfolgender Maxima: Λ = ln(xₙ/xₙ₊₁).",
+        "hint2": "D = Λ/√(4π² + Λ²) – für kleines Λ fast Λ/2π.",
+        "solution": "Λ = ln({{first}}/{{second}}), und D = Λ/√(4π² + Λ²) = {{a1}}."
+      },
+      "double_frequency": {
+        "title": "Doppelte Eigenfrequenz",
+        "prompt": "Um welchen Faktor muss die Steifigkeit wachsen, damit sich die Eigenfrequenz bei gleicher Trägheit mit {{factor}} multipliziert?",
+        "hint1": "Die Eigenfrequenz wächst mit der Wurzel der Steifigkeit.",
+        "hint2": "Quadrieren Sie den Faktor.",
+        "solution": "f₀ wächst mit √c, also muss die Steifigkeit um {{factor}}² = {{a1}} wachsen."
+      },
+      "filter_delay": {
+        "title": "Wie spät ein Filter ein Signal macht",
+        "prompt": "Ein Filter 1. Ordnung mit Eckfrequenz {{corner}} Hz überträgt ein {{f}}-Hz-Signal. Wie viel später kommt das Signal an?",
+        "hint1": "Die Phase eines PT1 ist −arctan(f/f_E).",
+        "hint2": "Eine Phase von φ Grad bei der Frequenz f ist ein Zeitverzug von φ/360° · 1/f.",
+        "solution": "φ = −arctan({{f}}/{{corner}}), und bei {{f}} Hz ist das ein Zeitverzug von {{a1}} ms."
+      },
+      "filter_phase": {
+        "title": "Phase und Zeitverzug eines zu nahen Filters",
+        "prompt": "Ein Filter 1. Ordnung mit Eckfrequenz {{corner}} Hz überträgt ein {{f}}-Hz-Signal. Wie gross ist seine Phase, und welchen Zeitverzug bedeutet das?",
+        "hint1": "φ = −arctan(f/f_E).",
+        "hint2": "Δt = −φ/360° · 1/f.",
+        "solution": "φ = −arctan({{f}}/{{corner}}) = {{a1}}°, bei {{f}} Hz ein Zeitverzug von {{a2}} ms – fast die ganze Zeitkonstante des Filters."
+      },
+      "euler_steps": {
+        "title": "Zwei Euler-Schritte von Hand",
+        "prompt": "Euler mit h = {{h}} s am Fühler mit τ = {{tau}} s, Sprung von {{start}} °C auf {{final}} °C. Was ergibt sich nach {{steps}} Schritten?",
+        "hint1": "Jeder Schritt addiert h mal die Steigung (y∞ − y)/τ am Anfang des Schritts.",
+        "hint2": "Der zweite Schritt beginnt beim Ergebnis des ersten.",
+        "solution": "Zwei Schritte y ← y + h·(y∞ − y)/τ ergeben {{a1}} °C – zu hoch, weil Euler die steilste Steigung, die am Anfang des Schritts, den ganzen Schritt lang hält."
+      },
+      "euler_gain": {
+        "title": "Euler am ungedämpften Schwinger",
+        "prompt": "Expliziter Euler an einem ungedämpften Schwinger mit h·ω₀ = {{ratio}}: Um welchen Faktor wächst die Amplitude pro Schritt?",
+        "hint1": "Euler multipliziert jeden Eigenanteil pro Schritt mit 1 + hλ.",
+        "hint2": "Ungedämpft ist λ = ±jω₀.",
+        "solution": "|1 + j·{{ratio}}| = √(1 + {{ratio}}²) = {{a1}} pro Schritt: ein halbes Prozent pro Schritt, über das Hundertfache in tausend Schritten."
+      },
+      "hand_estimate": {
+        "title": "Die tiefe Eigenform von Hand",
+        "prompt": "Schätzen Sie die tiefste Eigenfrequenz des Zweimassen-Prüfstands von Hand: die ganze Trägheit ({{j1}} + {{j2}} kg·m²) auf den beiden Federn ({{c1}} und {{c2}} N·m/rad) in Reihe.",
+        "hint1": "Federn in Reihe: 1/c = 1/c₁ + 1/c₂.",
+        "hint2": "f = √(c/J)/2π mit der ganzen Trägheit.",
+        "solution": "c = {{c1}}·{{c2}}/({{c1}} + {{c2}}) N·m/rad auf {{j1}} + {{j2}} kg·m² ergibt {{a1}} Hz. Exakt sind es 6.94 Hz: Der Motor schwingt nicht mit der vollen Amplitude mit, also wirkt weniger Trägheit, als die Schätzung annimmt."
+      },
+      "light_adapter": {
+        "title": "Ein leichterer Adapter",
+        "prompt": "Ein leichterer Adapter, J₂ = {{j2}} kg·m², am Drehstab c₂ = {{c2}} N·m/rad. Wie stark misst die Welle bei {{f}} Hz falsch?",
+        "hint1": "Bei f_a = √(c₂/J₂)/2π misst die Welle nichts.",
+        "hint2": "Der Messfehler ist etwa (f/f_a)².",
+        "solution": "f_a = √({{c2}}/{{j2}})/2π, und (f/f_a)² = {{a1}} % – ein leichterer Adapter schiebt f_a nach oben und den Fehler nach unten."
+      }
     }
   },
   "account": {

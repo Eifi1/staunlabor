@@ -9,7 +9,7 @@ import { OPERATOR } from "./operator";
 /** The day each page's text last changed for its readers: the deploy that put
  *  it live. A change to a page's words moves its date in the release that
  *  ships it. */
-const UPDATED = { impressum: "2026-11-13", privacy: "2026-11-16" } as const;
+const UPDATED = { impressum: "2026-11-13", privacy: "2026-11-20" } as const;
 
 /** "Show the German version": the binding text, one click away. */
 const showGerman = () => void changeLanguage("de-CH", { remember: true });
@@ -47,7 +47,7 @@ export function ImprintPage() {
 
 /** What the site's own lines say about the browser's storage, in the order
  *  the page lists them (`shared/lib/storage-keys.ts`). */
-const BROWSER_ENTRIES = ["language", "look", "tried"] as const;
+const BROWSER_ENTRIES = ["language", "look", "tried", "course"] as const;
 
 /** The privacy policy: the kit's sections where every site says the same, the
  *  site's own where it is different — the exhibits without an account, the

@@ -212,6 +212,18 @@ describe("the overview", () => {
     expect(within(part).getByRole("link", { name: new RegExp(all) })).toHaveAttribute("href", "/exhibits");
   });
 
+  it("shows the lessons most exhibits build on under them, and the way to the course", async () => {
+    await renderOverview();
+    const part = screen.getByRole("region", { name: E.overview.basics.title });
+    const course = en.course.lessons;
+    expect(
+      within(part)
+        .getAllByRole("link")
+        .map((link) => link.getAttribute("href")),
+    ).toEqual(["/basics", "/basics/first-order", "/basics/second-order", "/basics/numerics"]);
+    expect(within(part).getByText(new RegExp(course.numerics.title))).toBeInTheDocument();
+  });
+
   it("grows the list of every exhibit as the reader scrolls near its end", async () => {
     // An observer that reports only when told to; the list's own is the one
     // watching the line under the last card.
@@ -279,11 +291,11 @@ describe("the overview", () => {
       screen.getByRole("heading", { level: 3, name: E.exhibits[exhibit].title }).closest(".flex-col") as HTMLElement;
     expect(within(card("cannon")).getByRole("link", { name: E.computed.links.second_order })).toHaveAttribute(
       "href",
-      "https://kurvenschmiede.app/dynamics/second-order",
+      "/basics/second-order",
     );
     expect(within(card("cannon")).getByRole("link", { name: E.computed.links.numerics })).toHaveAttribute(
       "href",
-      "https://kurvenschmiede.app/dynamics/numerics",
+      "/basics/numerics",
     );
     expect(within(card("chair")).queryByText(E.overview.builds_on)).toBeNull();
   });
@@ -341,7 +353,7 @@ describe("the area", () => {
         .map((link) => [link.textContent, link.getAttribute("href")]),
     ).toEqual([
       [en.site.nav.exhibits, "/exhibits"],
-      [en.site.nav.basics, "https://kurvenschmiede.app/dynamics"],
+      [en.site.nav.basics, "/basics"],
       [en.site.nav.about, "/about"],
     ]);
     expect(within(header).getByRole("button", { name: new RegExp(en.site.search.trigger) })).toBeInTheDocument();

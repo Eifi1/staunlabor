@@ -78,7 +78,8 @@
         "entries": {
           "language": "La lingua scelta",
           "look": "Il tema chiaro o scuro",
-          "tried": "Quali exhibit ha provato, affinché la panoramica possa spuntarli"
+          "tried": "Quali exhibit ha provato, affinché la panoramica possa spuntarli",
+          "course": "Il Suo avanzamento nel corso sulle equazioni differenziali: le lezioni aperte, gli esercizi risolti e le stime fatte prima di calcolare"
         },
         "tail": "Niente di tutto ciò viene usato per tracciarLa. Il Suo browser invia i token di accesso con ogni richiesta al Suo account; tutto il resto rimane nel Suo browser. Uscendo dall'account i token di accesso vengono rimossi, e tutto questo scompare quando cancella i dati del sito nel Suo browser."
       },
@@ -132,6 +133,11 @@
         "title": "Exhibit",
         "lead": "I {{count}} più recenti. Un disegno si muove appena lo indica.",
         "all": "Tutti i {{count}} exhibit"
+      },
+      "basics": {
+        "title": "Fondamenti",
+        "lead": "La matematica dietro gli exhibit, passo dopo passo: dal bilancio all'oscillatore a due masse.",
+        "all": "Al corso"
       }
     },
     "topics": {
@@ -3552,6 +3558,635 @@
     },
     "list": {
       "lead": "Ogni exhibit con il suo disegno, che si muove appena lo indica. Filtri per tema o li sfogli tutti."
+    }
+  },
+  "course": {
+    "title": "Equazioni differenziali",
+    "tagline": "Le equazioni differenziali dei sistemi tecnici, provandole: ogni lezione abbina un banco reale a un modello che calcola mentre Lei muove i cursori.",
+    "reset": "Ripristina",
+    "failed": "Il calcolo non è riuscito.",
+    "lesson_n": "Lezione {{n}}",
+    "axis": {
+      "time": "Tempo",
+      "frequency": "Frequenza",
+      "angle": "Angolo",
+      "torque": "Coppia"
+    },
+    "figure": {
+      "time_constant": "Costante di tempo",
+      "overshoot": "Sovraelongazione",
+      "peak_time": "Istante del picco",
+      "settling": "Tempo di assestamento",
+      "phase": "Fase"
+    },
+    "frame": {
+      "question": "La domanda",
+      "model": "Il modello",
+      "assumptions": "Che cosa trascura il modello",
+      "assumptions_hint": "Ogni modello è una decisione su che cosa qui non conta.",
+      "experiments": "Esperimenti",
+      "insights": "Che cosa è emerso",
+      "exercises": "Esercizi",
+      "lesson_navigation": "Lezione precedente e successiva"
+    },
+    "lessons": {
+      "recipe": {
+        "title": "La ricetta",
+        "summary": "Ogni equazione differenziale tecnica nasce da un bilancio: variazione = afflusso − deflusso."
+      },
+      "first_order": {
+        "title": "Sistemi del primo ordine",
+        "summary": "La costante di tempo: che cosa significa, come leggerla da una misura e dove compare."
+      },
+      "second_order": {
+        "title": "Sistemi del secondo ordine",
+        "summary": "Frequenza naturale e smorzamento: sovraelongazione, risonanza e lo smorzamento misurato da un'oscillazione libera."
+      },
+      "eigenvalues": {
+        "title": "Autovalori e piano dei poli",
+        "summary": "Un autovalore è una velocità di decadimento e una frequenza; un autovettore è un modo in cui il sistema si muove."
+      },
+      "laplace": {
+        "title": "Laplace e Bode",
+        "summary": "Derivare diventa moltiplicare per s, le catene diventano prodotti e una fase diventa un ritardo."
+      },
+      "numerics": {
+        "title": "Soluzione numerica",
+        "summary": "Euler e Runge–Kutta: passo, stabilità e perché i problemi stiff richiedono metodi impliciti."
+      },
+      "two_mass": {
+        "title": "L'oscillatore a due masse",
+        "summary": "Modi propri, antirisonanze e perché un albero torsiometrico misura male già a pochi hertz."
+      },
+      "cheat_sheet": {
+        "title": "Formulario e analogie",
+        "summary": "Il corso su una pagina stampabile, ogni formula collegata al suo widget."
+      }
+    },
+    "overview": {
+      "why": "Dietro ogni exhibit c'è un'equazione differenziale. Questo corso ne è il fondamento: che cos'è un'equazione del genere, da dove viene e che cosa dice su un sistema reale.",
+      "how": "Ogni lezione segue lo stesso schema: una domanda dalla pratica, il modello che vi risponde, esperimenti da condurre con i cursori, che cosa hanno mostrato, ed esercizi — prima stimare, poi calcolare. Ogni numero è calcolato dal motore di calcolo dell'app stessa e verificato rispetto a valori di riferimento.",
+      "lessons": "Le lezioni",
+      "lessons_hint": "Il Suo avanzamento viene conservato solo su questo dispositivo.",
+      "forget": "Dimentica il mio avanzamento",
+      "progress": "Esercizi risolti",
+      "solved": "{{solved}} di {{total}}",
+      "visited": "aperta",
+      "exercises_done": "{{done}} di {{total}} esercizi",
+      "surprises": "Sorprese",
+      "surprises_hint": "Ogni stima sbagliata di oltre la metà — l'elenco che vale la pena rileggere.",
+      "no_surprises": "Ancora nessuna. Stimi prima di calcolare, e quelle che La sorprendono si raccoglieranno qui.",
+      "surprise_entry": "stimato {{estimate}} {{unit}}, la risposta era {{answer}} {{unit}}"
+    },
+    "recipe": {
+      "title": "La ricetta: otto passi",
+      "hint": "Ogni modello di questo corso è scritto seguendo questi passi.",
+      "steps": {
+        "question": {
+          "title": "Chiarire la domanda",
+          "body": "A che cosa deve rispondere il modello, e con quale precisione? Un modello senza una domanda non ha modo di essere giusto."
+        },
+        "boundary": {
+          "title": "Confine del sistema e ipotesi",
+          "body": "Decidere che cosa sta dentro, che cosa sta fuori e che cosa si trascura — e metterlo per iscritto."
+        },
+        "coordinate": {
+          "title": "Scegliere una coordinata e ridurre",
+          "body": "Una coordinata per grado di libertà, tutto il resto ridotto su di essa attraverso le trasmissioni."
+        },
+        "balance": {
+          "title": "Scrivere il bilancio",
+          "body": "Variazione = afflusso − deflusso: di massa, energia, quantità di moto o gas. È da qui che nasce l'equazione differenziale."
+        },
+        "normalise": {
+          "title": "Normalizzare",
+          "body": "Portarla in una forma standard — τ, ω₀, D — così che si possa confrontare con ogni altro sistema dello stesso tipo."
+        },
+        "solve": {
+          "title": "Risolvere",
+          "body": "In forma chiusa dove esiste, numericamente dove non esiste."
+        },
+        "check": {
+          "title": "Verificare",
+          "body": "Unità, casi limite, una stima a mano, una misura. Un risultato che nessuno ha verificato è un'ipotesi con i decimali."
+        },
+        "interpret": {
+          "title": "Interpretare",
+          "body": "Tradurre la risposta nei termini della domanda: un tempo, una forza, una decisione di progetto."
+        }
+      },
+      "tank": {
+        "title": "Un bilancio diventa un ritardo del primo ordine",
+        "hint": "Un serbatoio con un afflusso costante e un deflusso che cresce con il livello. Modifichi l'afflusso, la sezione o lo scarico e osservi il livello assestarsi.",
+        "inflow": "Afflusso",
+        "area": "Sezione del serbatoio",
+        "outflow": "Deflusso per metro di livello",
+        "level0": "Livello iniziale",
+        "level": "Livello",
+        "outflow_series": "Deflusso",
+        "inflow_series": "Afflusso",
+        "flow": "Portata",
+        "final": "Livello finale",
+        "insight": "Il bilancio A·dh/dt = afflusso − k·h è un ritardo del primo ordine con τ = A/k: un serbatoio più grande o uno scarico più stretto lo rendono più lento, e il livello si assesta dove il deflusso eguaglia l'afflusso."
+      }
+    },
+    "exercise": {
+      "solved": "Risolto",
+      "estimate_label": "La Sua stima ({{unit}})",
+      "estimate_bare": "La Sua stima",
+      "estimate_submit": "Conferma la stima",
+      "estimate_why": "Prima la stima: il campo per la risposta si apre non appena avrà fissato un numero.",
+      "your_estimate": "La Sua stima: {{value}} {{unit}}",
+      "answer": "La Sua risposta ({{unit}})",
+      "answer_bare": "La Sua risposta",
+      "answer_n": "Risposta {{n}} ({{unit}})",
+      "answer_n_bare": "Risposta {{n}}",
+      "check": "Verifica",
+      "empty": "Inserisca prima un valore.",
+      "right": "Corretto.",
+      "wrong": "Non ancora — riprovi, oppure chieda un suggerimento.",
+      "surprise": "La Sua stima si discostava del {{pct}} %: annotata tra le Sorprese.",
+      "estimate_close": "La Sua stima si discostava del {{pct}} %.",
+      "hint": "Suggerimento",
+      "show_solution": "Mostra la soluzione",
+      "hide_solution": "Nascondi la soluzione",
+      "solution": "Soluzione"
+    },
+    "regime": {
+      "underdamped": "Sottosmorzato (D < 1)",
+      "critical": "Smorzamento critico (D = 1)",
+      "overdamped": "Sovrasmorzato (D > 1)"
+    },
+    "poles": {
+      "stable": "stabile",
+      "unstable": "instabile"
+    },
+    "animation": {
+      "pause": "Metti in pausa l'animazione",
+      "play": "Avvia l'animazione",
+      "slow": "Rallentatore: un periodo ogni due secondi, qualunque sia la frequenza.",
+      "twist": "Torsione di ciascuna molla"
+    },
+    "first_order": {
+      "question": "Un sensore di temperatura viene immerso da 20 °C in un bagno a 80 °C. Quando ci si può fidare della sua lettura — e che cosa indica dopo otto secondi?",
+      "model": "Un accumulo (la capacità termica del sensore) e una resistenza (lo scambio dal bagno al sensore): ciò che entra fa crescere l'accumulo, e il flusso è proporzionale alla differenza che resta. Scritto come bilancio, è un ritardo del primo ordine:",
+      "model_tau": "τ è la costante di tempo. Dopo un τ la risposta ha percorso il 63 % del cammino, dopo tre il 95 %, dopo cinque il 99,3 % — qualunque sia la natura del sistema.",
+      "assumptions": {
+        "one_store": "Un solo accumulo: il sensore ha ovunque la stessa temperatura, senza gradienti al suo interno.",
+        "linear": "Lineare: il flusso è proporzionale alla differenza, quindi τ non dipende da quanta strada resta da fare.",
+        "constant": "Parametri costanti: τ è lo stesso a 20 °C e a 80 °C."
+      },
+      "insights": {
+        "settled": "Dopo 5 τ la risposta ha percorso il 99,3 % del gradino: assestata, per ogni sistema del primo ordine.",
+        "read": "τ si legge su una misura dove la risposta ha percorso il 63 % — oppure dove la tangente iniziale raggiunge il valore finale.",
+        "log": "Su un asse logaritmico la distanza residua è una retta: la pendenza è −1/τ, e una misura che lì non è rettilinea non è del primo ordine."
+      },
+      "step": {
+        "title": "La risposta al gradino",
+        "hint": "Sposti τ e i due livelli. I segni sono a 1, 2, 3 e 5 τ; la linea tratteggiata è la tangente iniziale, che raggiunge il valore finale esattamente a τ."
+      },
+      "tau": "Costante di tempo τ",
+      "start": "Valore iniziale",
+      "final": "Valore finale",
+      "at": "Lettura all'istante t",
+      "analogy_label": "La stessa equazione di",
+      "analogy": {
+        "thermal": {
+          "name": "Temperatura",
+          "unit": "°C",
+          "quantity": "Temperatura"
+        },
+        "electrical": {
+          "name": "Circuito RC",
+          "unit": "V",
+          "quantity": "Tensione del condensatore"
+        },
+        "mechanical": {
+          "name": "Molla e smorzatore",
+          "unit": "mm",
+          "quantity": "Corsa"
+        },
+        "vacuum": {
+          "name": "Camera da vuoto",
+          "unit": "mbar",
+          "quantity": "Pressione"
+        }
+      },
+      "view": "Asse",
+      "view_linear": "Lineare",
+      "view_log": "Distanza residua, logaritmica",
+      "remaining": "Distanza residua",
+      "tangent": "Tangente iniziale",
+      "final_short": "valore finale",
+      "value_at": "Valore a t = {{t}} s",
+      "fraction_at": "Quota del gradino a t",
+      "settled": "Assestato al 99,3 % (5 τ)",
+      "measure": {
+        "title": "Leggere τ da una misura",
+        "hint": "Una misura rumorosa con una costante di tempo che Lei non conosce. Clicchi sulla curva dove attraversa la linea del 63 % (oppure imposti il marcatore qui sotto), poi confronti.",
+        "another": "Un'altra misura",
+        "series": "Temperatura misurata",
+        "yours": "il Suo τ",
+        "marker": "La Sua lettura di τ",
+        "marker_hint": "Dove la misura attraversa la linea del 63 %, il tempo è τ.",
+        "compare": "Confronta",
+        "result": "Lei ha letto {{yours}} s; il τ vero è {{truth}} s (scarto del {{off}} %)."
+      }
+    },
+    "second_order": {
+      "question": "Un albero torsiometrico viene colpito una volta e vibra. Con quale frequenza vibra, quanto in fretta si calma — e di quanto sbaglia una misura quando il segnale si avvicina alla sua frequenza naturale?",
+      "model": "Un'inerzia su una molla con uno smorzatore: la legge di Newton per la rotazione. Due numeri dicono tutto: la frequenza naturale ω₀ e il coefficiente di smorzamento D.",
+      "model_magnification": "Eccitata a una frequenza f, la risposta è quella statica moltiplicata per il fattore di amplificazione V(η); e due massimi successivi di un'oscillazione libera danno D senza conoscere né l'inerzia né la rigidezza:",
+      "assumptions": {
+        "lumped": "Un'unica inerzia concentrata: la massa distribuita dell'albero stesso è trascurata; l'inerzia concentrata ne è il primo modo, ed è quello che interessa a una catena di misura.",
+        "viscous": "Smorzamento viscoso, proporzionale alla velocità; nessun attrito di entità costante.",
+        "linear": "Una molla lineare su tutta la corsa."
+      },
+      "insights": {
+        "peak": "D = 0,05 significa un fattore di amplificazione di 10 a f₀: l'albero oscilla fino a dieci volte la sua deformazione statica.",
+        "chain": "Una catena di misura legge con un errore entro il 4 % circa fino a un quinto della sua frequenza naturale: f₀ ≥ 5 × la frequenza più alta di interesse.",
+        "mass": "Più inerzia con lo stesso smorzatore abbassa D oltre a f₀, perché D = d/(2√(c·J))."
+      },
+      "system": {
+        "title": "La risposta al gradino",
+        "hint": "Imposti l'albero tramite i suoi componenti o tramite i suoi due numeri. Le linee tratteggiate sono l'inviluppo e^(−Dω₀t); il colore dell'etichetta indica quale delle tre soluzioni è."
+      },
+      "describe": "Descrivere l'albero tramite",
+      "describe_parts": "I suoi componenti J, c, d",
+      "describe_numbers": "I suoi numeri f₀, D",
+      "inertia": "Inerzia J",
+      "stiffness": "Rigidezza c",
+      "damping": "Smorzamento d",
+      "f0": "Frequenza naturale f₀",
+      "ratio": "Coefficiente di smorzamento D",
+      "torque_note": "Eccitato da un gradino di coppia di {{torque}} N·m.",
+      "angle": "Angolo",
+      "envelope": "Inviluppo",
+      "final": "Valore finale",
+      "magnification": {
+        "title": "Fattore di amplificazione ed errore di una catena di misura",
+        "hint": "V(η) per il Suo smorzamento (in grassetto) e cinque riferimenti. Sposti l'eccitazione e legga di quanto l'albero si muove più della sua deformazione statica — che è di quanto sbaglia una catena di misura costruita su di esso.",
+        "v": "Amplificazione V",
+        "eta": "Rapporto di frequenza η = f/f₀",
+        "error": "Errore di lettura",
+        "error_note": "oltre il 5 %: troppo vicino a f₀",
+        "peak": "Amplificazione massima"
+      },
+      "excitation": "Frequenza di eccitazione f",
+      "decay": {
+        "title": "Lo smorzamento da una prova di oscillazione libera",
+        "hint": "Un albero colpito, misurato con rumore; il suo smorzamento è sconosciuto. Clicchi su due massimi successivi per calcolare Λ e D, poi confronti.",
+        "another": "Un'altra oscillazione",
+        "series": "Coppia misurata",
+        "not_successive": "Scelga due massimi adiacenti.",
+        "damping": "Coefficiente di smorzamento D",
+        "compare": "Confronta",
+        "result": "I Suoi due massimi danno D = {{yours}}; il D vero è {{truth}}. Letto su tutti i {{n}} periodi in una volta, D = {{overall}} — un solo logaritmo su molti periodi è la risposta più stabile."
+      }
+    },
+    "eigenvalues": {
+      "question": "Che cosa dicono davvero i due numeri per cui si risolve un sistema del secondo ordine — e che cosa fa un sistema con due stati accoppiati quando si muove?",
+      "model": "Un sistema lineare ẋ = A·x si muove come somma delle sue autosoluzioni: ogni autovalore λ dice quanto velocemente una parte decade o cresce e quanto velocemente ruota, ogni autovettore la direzione in cui si muove.",
+      "model_pair": "Per una massa su una molla con uno smorzatore la matrice ha una coppia di autovalori, che sono esattamente le radici dell'equazione caratteristica della lezione 2:",
+      "assumptions": {
+        "linear": "Lineare e tempo-invariante: A è costante. Un sistema non lineare ha autovalori solo attorno a un punto di funzionamento.",
+        "minimal": "Poli e autovalori coincidono quando il sistema è scritto senza fattori che si semplificano; un polo semplificato da uno zero resta comunque un autovalore di A."
+      },
+      "insights": {
+        "parts": "λ = σ ± jω: la parte reale σ determina l'inviluppo e^(σt), la parte immaginaria la frequenza di oscillazione.",
+        "same": "det(A − λI) = 0 è l'equazione caratteristica della lezione 2: poli, autovalori e le sue radici sono gli stessi numeri.",
+        "vectors": "Una traiettoria che parte su un autovettore reale resta su quella retta; ogni altra è una combinazione delle due direzioni."
+      },
+      "scalar": {
+        "title": "Un autovalore: ẋ = a·x",
+        "hint": "Porti a attraverso lo zero: negativo decade, positivo cresce, e la costante di tempo o il tempo di raddoppio è 1/|a| a meno di un fattore."
+      },
+      "stable": "Stabile",
+      "unstable": "Instabile",
+      "marginal": "Al limite",
+      "doubling": "Tempo di raddoppio",
+      "poles": {
+        "title": "Poli e risposta al gradino",
+        "hint": "Imposti f₀ e D, oppure trascini il polo superiore nel piano. La semicirconferenza tratteggiata è |λ| = ω₀; le coppie di poli su di essa differiscono tra loro solo nello smorzamento.",
+        "plane": "Il piano dei poli, poli a {{poles}} 1/s",
+        "response": "Risposta al gradino"
+      },
+      "matrix": {
+        "title": "Un sistema 2×2 e il suo ritratto di fase",
+        "hint": "Modifichi la matrice o parta da un preset. Le linee tratteggiate sono gli autovettori reali; dodici traiettorie partono dalla circonferenza unitaria punteggiata.",
+        "presets": {
+          "spring": "Massa–molla–smorzatore",
+          "saddle": "Sella",
+          "centre": "Centro",
+          "spiral": "Spirale"
+        },
+        "kind": {
+          "saddle": "Sella — instabile",
+          "stable_node": "Nodo stabile",
+          "unstable_node": "Nodo instabile",
+          "stable_focus": "Fuoco stabile — oscillazione smorzata",
+          "unstable_focus": "Fuoco instabile — oscillazione crescente",
+          "centre": "Centro — oscillazione non smorzata",
+          "degenerate": "Degenere — un autovalore nullo"
+        },
+        "portrait": "Ritratto di fase: {{kind}}",
+        "trace": "Traccia",
+        "det": "Determinante",
+        "vectors": "Autovettori"
+      }
+    },
+    "laplace": {
+      "question": "Una catena di misura è un albero dietro un filtro dietro un amplificatore. Che cosa fa la catena a un segnale a 3 Hz — di quanto lo riduce, e con quanto ritardo arriva?",
+      "model": "La trasformata di Laplace trasforma la derivazione in una moltiplicazione per s, così un'equazione differenziale diventa algebrica. Ogni blocco è una funzione di trasferimento G(s); i blocchi in serie si moltiplicano, e su un diagramma di Bode in decibel si sommano.",
+      "model_delay": "A una frequenza f, un ritardo di fase è un ritardo temporale:",
+      "assumptions": {
+        "lti": "Blocchi lineari e tempo-invarianti; un amplificatore che satura non è una funzione di trasferimento.",
+        "steady": "Bode descrive il regime stazionario sotto un seno; il transitorio iniziale è compito della risposta al gradino.",
+        "dead_time": "Un tempo morto aggiunge fase ma nessun polo: e^(−sT) non ne ha, e non ne viene disegnato nessuno."
+      },
+      "insights": {
+        "product": "I blocchi in serie si moltiplicano; su un diagramma di Bode in dB le loro curve si sommano — la somma delle curve tratteggiate è quella continua.",
+        "final": "Il valore finale di una risposta al gradino stabile è G(0): si legge dalla funzione di trasferimento senza risolvere nulla.",
+        "lag": "Un PT1 ritarda le basse frequenze di circa τ: dietro un filtro a 5 Hz un segnale a 3 Hz arriva con 28,7 ms di ritardo, dietro un filtro a 50 Hz un segnale a 5 Hz con 3,2 ms.",
+        "filter": "Filtri coppia e angolo in modo identico — oppure offline, in avanti e all'indietro — altrimenti il filtro disegna un'isteresi che il provino non ha."
+      },
+      "steps": {
+        "title": "Laplace, passo per passo",
+        "hint": "Il gradino del primo ordine risolto alla maniera di Laplace: ogni riga riporta i Suoi numeri.",
+        "transform": "Trasformare",
+        "solve": "Risolvere per Y(s)",
+        "split": "Scomporre in fratti semplici",
+        "back": "Antitrasformare"
+      },
+      "time_domain": "Dominio del tempo",
+      "image_domain": "Dominio di Laplace",
+      "chain": {
+        "title": "Un kit per costruire diagrammi di Bode",
+        "hint": "Fino a quattro blocchi in catena. Il totale è a tratto continuo, ogni blocco tratteggiato sotto di esso; il cursore legge guadagno, fase e il ritardo che quella fase significa.",
+        "block": "Blocco {{n}}",
+        "remove": "Rimuovi il blocco",
+        "add": "Aggiungi un blocco",
+        "cursor": "Frequenza del cursore",
+        "total": "Catena",
+        "gain": "Guadagno |G|",
+        "delay": "Ritardo",
+        "poles": "Poli della catena",
+        "step": "Risposta al gradino"
+      },
+      "kind": {
+        "proportional": "Guadagno K",
+        "integrator": "Integratore K/s",
+        "first_order": "Primo ordine (PT1)",
+        "second_order": "Secondo ordine (PT2)",
+        "dead_time": "Tempo morto"
+      },
+      "magnitude": "Modulo",
+      "filter": {
+        "title": "L'isteresi che un filtro inventa",
+        "hint": "Un provino senza isteresi (coppia proporzionale all'angolo), mosso in modo sinusoidale. Filtri solo la coppia e compare un ciclo; filtri entrambi, oppure offline, e sparisce. Aggiunga attrito per vederne sopravvivere uno vero.",
+        "frequency": "Frequenza di scansione",
+        "corner": "Frequenza di taglio del filtro",
+        "friction": "Banda d'attrito reale",
+        "mode": "Filtraggio",
+        "modes": {
+          "torque_only": "Solo la coppia",
+          "both": "Coppia e angolo",
+          "zero_phase": "Entrambi, in avanti e all'indietro"
+        },
+        "truth": "Com'è",
+        "measured": "Come misurato",
+        "apparent": "Isteresi misurata",
+        "true": "Isteresi vera"
+      }
+    },
+    "numerics": {
+      "question": "Nella pratica la maggior parte delle equazioni non ha una soluzione in forma chiusa, quindi un computer le percorre a passi. Quanto può essere grande il passo — e che cosa fa un metodo al sistema che sta integrando?",
+      "model": "Euler prende la pendenza all'inizio di ogni passo e la mantiene per tutto il passo. RK4 valuta la pendenza quattro volte all'interno del passo e ne prende una media pesata:",
+      "model_stability": "Su ẏ = λy un metodo moltiplica la soluzione per un fattore fisso a ogni passo, ed è stabile solo finché il modulo di quel fattore è al massimo uno. Per Euler:",
+      "assumptions": {
+        "fixed": "Un passo fisso: i metodi qui non lo adattano. Un metodo adattivo (come quello su cui gira il pompaggio) sceglie da sé il proprio.",
+        "rounding": "L'arrotondamento è trascurato: in doppia precisione è molto al di sotto di ogni errore mostrato qui."
+      },
+      "insights": {
+        "order": "L'errore di Euler cala con h, quello di RK4 con h⁴: dimezzare il passo dimezza l'uno e divide l'altro per sedici.",
+        "energy": "Euler pompa energia in un oscillatore: a h·ω₀ = 2D annulla esattamente lo smorzamento — sull'albero torsiometrico ciò corrisponde a h = 1 ms, che lo fa oscillare per sempre con il suo pieno 1° — e oltre quel valore l'oscillazione dell'albero cresce.",
+        "rule": "Regola pratica per RK4: h al massimo un ventesimo del periodo più breve. Euler esplicito su un oscillatore poco smorzato richiede h·ω₀ < 2D, che a D = 0,05 è un sessantatreesimo di periodo.",
+        "stiff": "Stiff significa dinamiche veloci e lente insieme: un ritardo di 1 ms accanto a uno di 10 s costringe RK4 a più di 10.000 passi su 30 s per una componente che si è esaurita dopo 5 ms. Euler implicito è stabile con qualsiasi passo."
+      },
+      "sensor": {
+        "title": "Euler, Heun e RK4 a confronto con la soluzione esatta",
+        "hint": "Il sensore della lezione 1 (τ = 4 s, 20 → 80 °C). Aumenti il passo — oltre τ Euler supera il valore finale, oltre 2τ diverge."
+      },
+      "step": "Passo h",
+      "steps": "Numero di passi",
+      "regime": {
+        "monotone": "Euler si avvicina dal basso (h < τ)",
+        "one_step": "Euler arriva in un solo passo (h = τ)",
+        "alternating": "Euler supera il valore finale e alterna (τ < h < 2τ)",
+        "neutral": "Euler alterna per sempre (h = 2τ)",
+        "diverging": "Euler diverge (h > 2τ)"
+      },
+      "euler_factor": "Fattore di Euler per passo, 1 − h/τ",
+      "rk4_factor": "Fattore di RK4 per passo",
+      "method": {
+        "exact": "Esatta",
+        "euler": "Euler",
+        "heun": "Heun",
+        "rk4": "RK4",
+        "symplectic": "Euler semi-implicito",
+        "implicit": "Euler implicito"
+      },
+      "errors": {
+        "title": "Tabella degli errori",
+        "hint": "Il valore di ogni passo e il suo errore.",
+        "euler": "Errore di Euler",
+        "rk4": "Errore di RK4"
+      },
+      "rk4_table": {
+        "title": "RK4 passo per passo",
+        "hint": "Dove viene valutata ciascuna delle quattro pendenze, e quanto vale.",
+        "step": "Passo {{n}}",
+        "slope": "Pendenza"
+      },
+      "oscillator": {
+        "title": "Deriva dell'energia su un oscillatore",
+        "hint": "L'albero torsiometrico della lezione 2 (f₀ = 15,9 Hz, D = 0,05) rilasciato da 1°, un secondo, quattro metodi. Sopra, l'ampiezza su un asse logaritmico; sotto, l'angolo.",
+        "gain": "Guadagno di Euler per passo |1 + hλ|",
+        "neutral": "Passo al quale Euler annulla lo smorzamento",
+        "amplitude": "Ampiezza",
+        "final": "{{method}}: ampiezza dopo 1 s",
+        "damping": "{{method}}: smorzamento che mostra"
+      },
+      "stiff": {
+        "title": "Problemi stiff",
+        "hint": "Due ritardi indipendenti, 1 ms e 10 s, su 30 s. È mostrato quello lento. Porti il passo oltre 2,8 ms e RK4 diverge; Euler implicito resta stabile con qualsiasi passo.",
+        "limit": "Passo RK4 stabile massimo",
+        "min_steps": "Passi RK4 necessari come minimo",
+        "rk4_steps": "Passi RK4 eseguiti",
+        "diverged": "divergente",
+        "implicit_steps": "Passi di Euler implicito",
+        "exact": "Esatta",
+        "slow": "Componente lenta"
+      }
+    },
+    "two_mass": {
+      "question": "Un albero torsiometrico è montato tra il motore e un adattatore pesante sul provino. Perché a 3 Hz legge il 15 % in meno?",
+      "model": "Due inerzie su due molle: il motore J₁, l'albero torsiometrico c₁, il piantone o l'adattatore J₂, il provino come barra di torsione c₂ verso il telaio. In forma matriciale:",
+      "model_reading": "L'albero legge la coppia che lo attraversa; il provino sopporta la coppia che attraversa la barra. Tra i due si trova J₂, e ciò che serve per accelerarlo è nella lettura e non nel provino:",
+      "assumptions": {
+        "lumped": "Inerzie concentrate: l'inerzia propria dell'albero è trascurata (ripartita tra le sue estremità sposterebbe entrambi i modi di qualche percento).",
+        "torque": "Un azionamento ideale in coppia: l'anello di corrente del motore non è modellato.",
+        "linear": "Molle lineari e smorzatori viscosi."
+      },
+      "insights": {
+        "count": "n inerzie su molle vincolate al telaio danno n frequenze naturali; una catena libera aggiunge un moto rigido a 0 Hz.",
+        "soft": "Il modo più basso è l'insieme che oscilla sulla molla più cedevole: tutta l'inerzia sulle due molle in serie dà a mano 6,3 Hz, contro 6,94 Hz esatti.",
+        "error": "L'albero legge circa 1 − (f/f_a)² volte la coppia che sopporta il provino, con f_a = √(c₂/J₂)/2π: il 2 % in meno a 1 Hz, il 15 % a 3 Hz, il 43 % a 5 Hz con l'adattatore predefinito."
+      },
+      "rig": {
+        "title": "Il banco sotto un'eccitazione sinusoidale",
+        "hint": "Sposti l'eccitazione o salti a un preset. I dischi ruotano al rallentatore con le fasi calcolate dal motore di calcolo; le barre mostrano quanto è attorcigliata ciascuna molla."
+      },
+      "excitation": "Frequenza di eccitazione",
+      "presets": {
+        "three": "3 Hz",
+        "mode1": "Modo 1",
+        "absorber": "Punto di assorbimento",
+        "motor_still": "Motore fermo",
+        "mode2": "Modo 2"
+      },
+      "parameters": "Parametri del banco",
+      "parameters_hint": "Inerzie, rigidezze e smorzamenti, ciascuno su un cursore.",
+      "j1": "Inerzia del motore J₁",
+      "j2": "Inerzia dell'adattatore J₂",
+      "c1": "Albero torsiometrico c₁",
+      "c2": "Barra di torsione c₂",
+      "d1": "Smorzamento dell'albero d₁",
+      "d2": "Smorzamento della barra d₂",
+      "motor": "Motore",
+      "adapter": "Adattatore",
+      "animation_label": "Le due inerzie a {{f}} Hz, al rallentatore",
+      "in_phase": "Ruotano nello stesso verso",
+      "anti_phase": "Ruotano in versi opposti",
+      "error": "Errore di lettura",
+      "shaft_reads": "Ciò che legge l'albero, M_W",
+      "object_carries": "Ciò che sopporta il provino, M_T",
+      "per_motor_torque": "Coppia per coppia motrice",
+      "modes": "Modi",
+      "mode_f": "Modo {{n}}: frequenza",
+      "mode_d": "Modo {{n}}: smorzamento",
+      "mode_shape": "Modo {{n}}: φ₂/φ₁",
+      "hand": "Stima a mano del modo 1",
+      "hand_deviation": "Scarto della stima a mano",
+      "compensation": {
+        "title": "Compensare l'inerzia dell'adattatore",
+        "hint": "M_T = M_W − J₂·φ̈₂, con l'accelerazione ottenuta derivando due volte l'angolo misurato. Aumenti il rumore: la correzione lo amplifica con il quadrato della frequenza di campionamento, e un filtro lo scambia con un ritardo.",
+        "noise": "Rumore sull'angolo",
+        "rate": "Frequenza di campionamento",
+        "filter": "Pulizia dell'accelerazione",
+        "filters": {
+          "none": "Nessuna",
+          "lowpass": "Passa-basso",
+          "zero_phase": "Passa-basso nei due sensi (offline)"
+        },
+        "corrected": "Corretta, M_W − J₂·φ̈₂",
+        "raw_error": "Errore senza la correzione",
+        "comp_error": "Errore con la correzione",
+        "noise_price": "Rumore aggiunto dalla correzione"
+      }
+    },
+    "cheat": {
+      "print": "Stampa",
+      "analogies": "Analogie",
+      "role": "Ruolo",
+      "domains": {
+        "electrical": "Elettrico",
+        "mechanical": "Meccanico",
+        "thermal": "Termico",
+        "vacuum": "Vuoto"
+      },
+      "roles": {
+        "drive": "Forzante",
+        "flow": "Flusso",
+        "resistance": "Resistenza",
+        "store": "Accumulo",
+        "inert": "Accumulo inerziale",
+        "tau": "Costante di tempo"
+      },
+      "traps": "Le trappole di un banco prova",
+      "trap": {
+        "location": "Dove si misura l'angolo decide quale rigidezza si misura: un encoder del motore vede ogni cedevolezza lungo il percorso.",
+        "inertia": "Un'inerzia tra il sensore di coppia e il provino entra nella lettura: l'errore cresce con (f/f_a)².",
+        "filter": "Filtri coppia e angolo in modo identico, altrimenti il filtro inventa un'isteresi.",
+        "efficiency": "Il rendimento di una trasmissione dipende da quale lato aziona: convertire una coppia con il solo rapporto sbaglia di 1/η.",
+        "motor": "Un motore piccolo e veloce domina la massa equivalente — e in un ciclo rapido gli serve la maggior parte della sua coppia per sé stesso."
+      },
+      "python": "In Python"
+    },
+    "exercises": {
+      "pt1_reading": {
+        "title": "La lettura di un sensore",
+        "prompt": "Un sensore con τ = {{tau}} s riceve un gradino da {{start}} °C a {{final}} °C. Che cosa legge dopo {{t}} s?",
+        "hint1": "Dopo t/τ costanti di tempo manca ancora la quota e^(−t/τ) del gradino.",
+        "hint2": "y(t) = y∞ + (y₀ − y∞)·e^(−t/τ).",
+        "solution": "{{t}} s sono {{t}}/{{tau}} costanti di tempo, quindi manca ancora e^(−{{t}}/{{tau}}) del gradino: il sensore legge {{a1}} °C."
+      },
+      "decrement": {
+        "title": "Lo smorzamento da due massimi",
+        "prompt": "In una prova di oscillazione libera un massimo vale {{first}} N·m e il successivo {{second}} N·m. Qual è il coefficiente di smorzamento D?",
+        "hint1": "Prenda il logaritmo del rapporto tra due massimi successivi: Λ = ln(xₙ/xₙ₊₁).",
+        "hint2": "D = Λ/√(4π² + Λ²) — per un Λ piccolo quasi Λ/2π.",
+        "solution": "Λ = ln({{first}}/{{second}}), e D = Λ/√(4π² + Λ²) = {{a1}}."
+      },
+      "double_frequency": {
+        "title": "Il doppio della frequenza naturale",
+        "prompt": "Di quale fattore deve crescere la rigidezza per moltiplicare la frequenza naturale per {{factor}}, a parità di inerzia?",
+        "hint1": "La frequenza naturale cresce con la radice quadrata della rigidezza.",
+        "hint2": "Elevi il fattore al quadrato.",
+        "solution": "f₀ cresce con √c, quindi la rigidezza deve crescere di {{factor}}² = {{a1}}."
+      },
+      "filter_delay": {
+        "title": "Di quanto un filtro ritarda un segnale",
+        "prompt": "Un filtro del primo ordine con frequenza di taglio a {{corner}} Hz porta un segnale a {{f}} Hz. Con quanto ritardo arriva il segnale?",
+        "hint1": "La fase di un ritardo del primo ordine è −arctan(f/f_E).",
+        "hint2": "Una fase di φ gradi a una frequenza f è un ritardo di φ/360° · 1/f.",
+        "solution": "φ = −arctan({{f}}/{{corner}}), e a {{f}} Hz ciò corrisponde a un ritardo di {{a1}} ms."
+      },
+      "filter_phase": {
+        "title": "Fase e ritardo di un filtro impostato troppo vicino",
+        "prompt": "Un filtro del primo ordine con frequenza di taglio a {{corner}} Hz porta un segnale a {{f}} Hz. Qual è la sua fase, e quale ritardo comporta?",
+        "hint1": "φ = −arctan(f/f_E).",
+        "hint2": "Δt = −φ/360° · 1/f.",
+        "solution": "φ = −arctan({{f}}/{{corner}}) = {{a1}}°, che a {{f}} Hz è un ritardo di {{a2}} ms — quasi l'intera costante di tempo del filtro."
+      },
+      "euler_steps": {
+        "title": "Due passi di Euler a mano",
+        "prompt": "Euler con h = {{h}} s sul sensore con τ = {{tau}} s, gradino da {{start}} °C a {{final}} °C. Che cosa dà dopo {{steps}} passi?",
+        "hint1": "Ogni passo aggiunge h volte la pendenza (y∞ − y)/τ presa all'inizio del passo.",
+        "hint2": "Il secondo passo parte dal risultato del primo.",
+        "solution": "Due passi di y ← y + h·(y∞ − y)/τ danno {{a1}} °C — troppo alto, perché Euler mantiene per tutto il passo la pendenza più ripida, quella all'inizio del passo."
+      },
+      "euler_gain": {
+        "title": "Euler su un oscillatore non smorzato",
+        "prompt": "Euler esplicito su un oscillatore non smorzato con h·ω₀ = {{ratio}}: di quale fattore cresce l'ampiezza a ogni passo?",
+        "hint1": "Euler moltiplica ogni autocomponente per 1 + hλ a ogni passo.",
+        "hint2": "Senza smorzamento, λ = ±jω₀.",
+        "solution": "|1 + j·{{ratio}}| = √(1 + {{ratio}}²) = {{a1}} per passo: mezzo percento a ogni passo, più di cento volte in mille passi."
+      },
+      "hand_estimate": {
+        "title": "Il modo più basso a mano",
+        "prompt": "Stimi a mano la frequenza naturale più bassa del banco a due masse: tutta la sua inerzia ({{j1}} + {{j2}} kg·m²) sulle due molle ({{c1}} e {{c2}} N·m/rad) in serie.",
+        "hint1": "Molle in serie: 1/c = 1/c₁ + 1/c₂.",
+        "hint2": "f = √(c/J)/2π con l'inerzia totale.",
+        "solution": "c = {{c1}}·{{c2}}/({{c1}} + {{c2}}) N·m/rad su {{j1}} + {{j2}} kg·m² dà {{a1}} Hz. Il modo esatto è a 6,94 Hz: il motore non oscilla con l'ampiezza piena, quindi partecipa meno inerzia di quanta ne supponga la stima."
+      },
+      "light_adapter": {
+        "title": "Un adattatore più leggero",
+        "prompt": "Un adattatore più leggero, J₂ = {{j2}} kg·m², sulla barra di torsione c₂ = {{c2}} N·m/rad. Di quanto sbaglia l'albero a {{f}} Hz?",
+        "hint1": "L'albero non legge nulla a f_a = √(c₂/J₂)/2π.",
+        "hint2": "L'errore di lettura è circa (f/f_a)².",
+        "solution": "f_a = √({{c2}}/{{j2}})/2π, e (f/f_a)² = {{a1}} % — un adattatore più leggero sposta f_a verso l'alto e l'errore verso il basso."
+      }
     }
   },
   "account": {

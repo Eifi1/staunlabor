@@ -78,7 +78,8 @@
         "entries": {
           "language": "The language you picked",
           "look": "The light or dark theme",
-          "tried": "Which exhibits you have tried, so the overview can tick them"
+          "tried": "Which exhibits you have tried, so the overview can tick them",
+          "course": "Your progress through the differential-equations course: the lessons you opened, the exercises you solved and the estimates you made first"
         },
         "tail": "None of it is used to track you. Your browser sends the sign-in tokens with each request to your account; everything else stays in your browser. Signing out removes the sign-in tokens, and all of it disappears when you clear the site's data in your browser."
       },
@@ -132,6 +133,11 @@
         "title": "Exhibits",
         "lead": "The {{count}} newest. A drawing moves as soon as you point at it.",
         "all": "All {{count}} exhibits"
+      },
+      "basics": {
+        "title": "Basics",
+        "lead": "The mathematics behind the exhibits, step by step: from the balance to the two-mass oscillator.",
+        "all": "To the course"
       }
     },
     "topics": {
@@ -3552,6 +3558,635 @@
     },
     "list": {
       "lead": "Every exhibit with its drawing, which moves as soon as you point at it. Filter by topic or browse them all."
+    }
+  },
+  "course": {
+    "title": "Differential equations",
+    "tagline": "Differential equations of technical systems, by trying them: every lesson pairs a real rig with a model that computes while you move the sliders.",
+    "reset": "Reset",
+    "failed": "The calculation failed.",
+    "lesson_n": "Lesson {{n}}",
+    "axis": {
+      "time": "Time",
+      "frequency": "Frequency",
+      "angle": "Angle",
+      "torque": "Torque"
+    },
+    "figure": {
+      "time_constant": "Time constant",
+      "overshoot": "Overshoot",
+      "peak_time": "Time of the peak",
+      "settling": "Settling time",
+      "phase": "Phase"
+    },
+    "frame": {
+      "question": "The question",
+      "model": "The model",
+      "assumptions": "What the model leaves out",
+      "assumptions_hint": "Every model is a decision about what does not matter here.",
+      "experiments": "Experiments",
+      "insights": "What it showed",
+      "exercises": "Exercises",
+      "lesson_navigation": "Previous and next lesson"
+    },
+    "lessons": {
+      "recipe": {
+        "title": "The recipe",
+        "summary": "Every technical differential equation comes from a balance: change = inflow − outflow."
+      },
+      "first_order": {
+        "title": "First-order systems",
+        "summary": "The time constant: what it means, how to read it off a measurement, and where it turns up."
+      },
+      "second_order": {
+        "title": "Second-order systems",
+        "summary": "Natural frequency and damping: overshoot, resonance, and damping measured from a decay."
+      },
+      "eigenvalues": {
+        "title": "Eigenvalues and the pole plane",
+        "summary": "An eigenvalue is a decay rate and a frequency; an eigenvector is a way the system moves."
+      },
+      "laplace": {
+        "title": "Laplace and Bode",
+        "summary": "Differentiating becomes multiplying by s, chains become products, and a phase becomes a delay."
+      },
+      "numerics": {
+        "title": "Numerical solution",
+        "summary": "Euler and Runge–Kutta: step size, stability, and why stiff problems want implicit methods."
+      },
+      "two_mass": {
+        "title": "The two-mass oscillator",
+        "summary": "Modes, antiresonances, and why a torque shaft misreads at a few hertz."
+      },
+      "cheat_sheet": {
+        "title": "Cheat sheet and analogies",
+        "summary": "The course on one printable page, every formula linked to its widget."
+      }
+    },
+    "overview": {
+      "why": "Behind every exhibit stands a differential equation. This course is its ground: what such an equation is, where it comes from, and what it says about a real system.",
+      "how": "Every lesson follows the same pattern: a question from practice, the model that answers it, experiments you run with sliders, what they showed, and exercises — estimate first, then calculate. Every number is computed by the app's own engine and checked against reference values.",
+      "lessons": "The lessons",
+      "lessons_hint": "Your progress is kept on this device only.",
+      "forget": "Forget my progress",
+      "progress": "Exercises solved",
+      "solved": "{{solved}} of {{total}}",
+      "visited": "opened",
+      "exercises_done": "{{done}} of {{total}} exercises",
+      "surprises": "Surprises",
+      "surprises_hint": "Every estimate that was more than half off — the list worth reading back.",
+      "no_surprises": "None yet. Estimate before you calculate, and the ones that surprise you will collect here.",
+      "surprise_entry": "estimated {{estimate}} {{unit}}, the answer was {{answer}} {{unit}}"
+    },
+    "recipe": {
+      "title": "The recipe: eight steps",
+      "hint": "Every model in this course is written by these steps.",
+      "steps": {
+        "question": {
+          "title": "Clarify the question",
+          "body": "What must the model answer, and to what accuracy? A model without a question has no way of being right."
+        },
+        "boundary": {
+          "title": "System boundary and assumptions",
+          "body": "Decide what is inside, what is outside, and what is neglected — and write it down."
+        },
+        "coordinate": {
+          "title": "Choose a coordinate and reduce",
+          "body": "One coordinate per degree of freedom, everything else reduced onto it through the transmissions."
+        },
+        "balance": {
+          "title": "Write the balance",
+          "body": "Change = inflow − outflow: of mass, energy, momentum or gas. This is where the differential equation comes from."
+        },
+        "normalise": {
+          "title": "Normalise",
+          "body": "Bring it into a standard form — τ, ω₀, D — so it can be compared with every other system of its kind."
+        },
+        "solve": {
+          "title": "Solve",
+          "body": "In closed form where there is one, numerically where there is not."
+        },
+        "check": {
+          "title": "Check",
+          "body": "Units, limits, a hand estimate, a measurement. A result nobody has checked is a guess with decimals."
+        },
+        "interpret": {
+          "title": "Interpret",
+          "body": "Translate the answer back into the question's terms: a time, a force, a design decision."
+        }
+      },
+      "tank": {
+        "title": "A balance becomes a first-order lag",
+        "hint": "A tank with a constant inflow and an outflow that grows with the level. Change the inflow, the area or the outlet and watch the level settle.",
+        "inflow": "Inflow",
+        "area": "Tank area",
+        "outflow": "Outflow per metre of level",
+        "level0": "Starting level",
+        "level": "Level",
+        "outflow_series": "Outflow",
+        "inflow_series": "Inflow",
+        "flow": "Flow",
+        "final": "Final level",
+        "insight": "The balance A·dh/dt = inflow − k·h is a first-order lag with τ = A/k: a bigger tank or a narrower outlet makes it slower, and it settles where outflow equals inflow."
+      }
+    },
+    "exercise": {
+      "solved": "Solved",
+      "estimate_label": "Your estimate ({{unit}})",
+      "estimate_bare": "Your estimate",
+      "estimate_submit": "Commit estimate",
+      "estimate_why": "Estimate first: the answer field opens once you have committed to a number.",
+      "your_estimate": "Your estimate: {{value}} {{unit}}",
+      "answer": "Your answer ({{unit}})",
+      "answer_bare": "Your answer",
+      "answer_n": "Answer {{n}} ({{unit}})",
+      "answer_n_bare": "Answer {{n}}",
+      "check": "Check",
+      "empty": "Enter a value first.",
+      "right": "Correct.",
+      "wrong": "Not yet — try again, or take a hint.",
+      "surprise": "Your estimate was {{pct}} % off: noted under Surprises.",
+      "estimate_close": "Your estimate was {{pct}} % off.",
+      "hint": "Hint",
+      "show_solution": "Show solution",
+      "hide_solution": "Hide solution",
+      "solution": "Solution"
+    },
+    "regime": {
+      "underdamped": "Under-damped (D < 1)",
+      "critical": "Critically damped (D = 1)",
+      "overdamped": "Over-damped (D > 1)"
+    },
+    "poles": {
+      "stable": "stable",
+      "unstable": "unstable"
+    },
+    "animation": {
+      "pause": "Pause the animation",
+      "play": "Play the animation",
+      "slow": "Slow motion: one period every two seconds, whatever the frequency.",
+      "twist": "Twist of each spring"
+    },
+    "first_order": {
+      "question": "A temperature sensor is dipped from 20 °C into an 80 °C bath. When can you trust its reading — and what does it show after eight seconds?",
+      "model": "One store (the sensor's heat capacity) and one resistance (the transfer from the bath into it): whatever flows in raises the store, and the flow is proportional to the difference that is left. Written as a balance, that is a first-order lag:",
+      "model_tau": "τ is the time constant. After one τ the response has covered 63 % of the way, after three 95 %, after five 99.3 % — whatever the system is made of.",
+      "assumptions": {
+        "one_store": "One store: the sensor is at one temperature throughout, with no gradient inside it.",
+        "linear": "Linear: the flow is proportional to the difference, so τ does not depend on how far it has to go.",
+        "constant": "Constant parameters: τ is the same at 20 °C as at 80 °C."
+      },
+      "insights": {
+        "settled": "After 5 τ the response has covered 99.3 % of the step: settled, for every first-order system.",
+        "read": "τ is read off a measurement where the response has covered 63 % — or where the starting tangent reaches the final value.",
+        "log": "On a logarithmic axis the remaining distance is a straight line: the slope is −1/τ, and a measurement that is not straight there is not first order."
+      },
+      "step": {
+        "title": "The step response",
+        "hint": "Move τ and the two levels. The marks are at 1, 2, 3 and 5 τ; the dashed line is the starting tangent, which reaches the final value at exactly τ."
+      },
+      "tau": "Time constant τ",
+      "start": "Start value",
+      "final": "Final value",
+      "at": "Read at time t",
+      "analogy_label": "The same equation as",
+      "analogy": {
+        "thermal": {
+          "name": "Temperature",
+          "unit": "°C",
+          "quantity": "Temperature"
+        },
+        "electrical": {
+          "name": "RC network",
+          "unit": "V",
+          "quantity": "Capacitor voltage"
+        },
+        "mechanical": {
+          "name": "Spring and damper",
+          "unit": "mm",
+          "quantity": "Travel"
+        },
+        "vacuum": {
+          "name": "Vacuum chamber",
+          "unit": "mbar",
+          "quantity": "Pressure"
+        }
+      },
+      "view": "Axis",
+      "view_linear": "Linear",
+      "view_log": "Remaining distance, logarithmic",
+      "remaining": "Remaining distance",
+      "tangent": "Starting tangent",
+      "final_short": "final value",
+      "value_at": "Value at t = {{t}} s",
+      "fraction_at": "Share of the step at t",
+      "settled": "Settled to 99.3 % (5 τ)",
+      "measure": {
+        "title": "Read τ off a measurement",
+        "hint": "A noisy measurement with a time constant you do not know. Click the curve where it crosses the 63 % line (or set the marker below), then compare.",
+        "another": "Another measurement",
+        "series": "Measured temperature",
+        "yours": "your τ",
+        "marker": "Your reading of τ",
+        "marker_hint": "Where the measurement crosses the 63 % line, the time is τ.",
+        "compare": "Compare",
+        "result": "You read {{yours}} s; the true τ is {{truth}} s ({{off}} % off)."
+      }
+    },
+    "second_order": {
+      "question": "A torque measuring shaft is struck once and rings. How fast does it ring, how quickly does it calm down — and how far off does a measurement read when the signal comes close to its natural frequency?",
+      "model": "An inertia on a spring with a damper: Newton's law for rotation. Two numbers say everything about it — the natural frequency ω₀ and the damping ratio D.",
+      "model_magnification": "Driven at a frequency f, the response is the static one times the magnification V(η); and two successive maxima of a free decay give D without knowing the inertia or the stiffness:",
+      "assumptions": {
+        "lumped": "One lumped inertia: the shaft's own distributed mass is left out, which is the first mode of it and the one a measuring chain cares about.",
+        "viscous": "Viscous damping, proportional to the speed; no friction that stays the same size.",
+        "linear": "A linear spring over the whole travel."
+      },
+      "insights": {
+        "peak": "D = 0.05 means a magnification of 10 at f₀: the shaft rings up to ten times its static deflection.",
+        "chain": "A measuring chain reads within about 4 % up to a fifth of its natural frequency: f₀ ≥ 5 × the highest frequency of interest.",
+        "mass": "More inertia at the same damper lowers D as well as f₀, because D = d/(2√(c·J))."
+      },
+      "system": {
+        "title": "The step response",
+        "hint": "Set the shaft by its parts or by its two numbers. The dashed lines are the envelope e^(−Dω₀t); the colour of the chip says which of the three solutions it is."
+      },
+      "describe": "Describe the shaft by",
+      "describe_parts": "Its parts J, c, d",
+      "describe_numbers": "Its numbers f₀, D",
+      "inertia": "Inertia J",
+      "stiffness": "Stiffness c",
+      "damping": "Damping d",
+      "f0": "Natural frequency f₀",
+      "ratio": "Damping ratio D",
+      "torque_note": "Driven by a torque step of {{torque}} N·m.",
+      "angle": "Angle",
+      "envelope": "Envelope",
+      "final": "Final value",
+      "magnification": {
+        "title": "Magnification and the error of a measuring chain",
+        "hint": "V(η) for your damping (bold) and five references. Move the excitation and read how much more the shaft moves than its static deflection — which is how far a measuring chain built on it misreads.",
+        "v": "Magnification V",
+        "eta": "Frequency ratio η = f/f₀",
+        "error": "Reading error",
+        "error_note": "over 5 %: too close to f₀",
+        "peak": "Largest magnification"
+      },
+      "excitation": "Excitation frequency f",
+      "decay": {
+        "title": "Damping from a decay test",
+        "hint": "A struck shaft, measured with noise; its damping is unknown. Click two successive maxima to compute Λ and D, then compare.",
+        "another": "Another decay",
+        "series": "Measured torque",
+        "not_successive": "Pick two maxima next to each other.",
+        "damping": "Damping ratio D",
+        "compare": "Compare",
+        "result": "Your two maxima give D = {{yours}}; the true D is {{truth}}. Read over all {{n}} periods at once, D = {{overall}} — one logarithm over many periods is the steadier answer."
+      }
+    },
+    "eigenvalues": {
+      "question": "What do the two numbers a second-order system is solved for actually say — and what is a system with two coupled states doing when it moves?",
+      "model": "A linear system ẋ = A·x moves as a sum of its eigensolutions: each eigenvalue λ is how fast one part decays or grows and how fast it turns, each eigenvector the direction it moves in.",
+      "model_pair": "For a mass on a spring with a damper the matrix has a pair of eigenvalues, and they are exactly the roots of lesson 2's characteristic equation:",
+      "assumptions": {
+        "linear": "Linear and time-invariant: A is constant. A nonlinear system has eigenvalues only around an operating point.",
+        "minimal": "Poles and eigenvalues coincide when the system is written without cancelling factors; a pole that a zero cancels is still an eigenvalue of A."
+      },
+      "insights": {
+        "parts": "λ = σ ± jω: the real part σ sets the envelope e^(σt), the imaginary part the ringing frequency.",
+        "same": "det(A − λI) = 0 is the characteristic equation of lesson 2: poles, eigenvalues and its roots are the same numbers.",
+        "vectors": "A trajectory that starts on a real eigenvector stays on that straight line; every other is a mix of the two directions."
+      },
+      "scalar": {
+        "title": "One eigenvalue: ẋ = a·x",
+        "hint": "Move a through zero: negative decays, positive grows, and the time constant or the doubling time is 1/|a| apart from a factor."
+      },
+      "stable": "Stable",
+      "unstable": "Unstable",
+      "marginal": "On the edge",
+      "doubling": "Doubling time",
+      "poles": {
+        "title": "Poles and the step response",
+        "hint": "Set f₀ and D, or drag the upper pole in the plane. The dashed half circle is |λ| = ω₀; a pair on it differs only in damping.",
+        "plane": "The pole plane, poles at {{poles}} 1/s",
+        "response": "Step response"
+      },
+      "matrix": {
+        "title": "A 2×2 system and its phase portrait",
+        "hint": "Edit the matrix or start from a preset. The dashed lines are the real eigenvectors; twelve trajectories start on the dotted unit circle.",
+        "presets": {
+          "spring": "Spring–mass–damper",
+          "saddle": "Saddle",
+          "centre": "Centre",
+          "spiral": "Spiral"
+        },
+        "kind": {
+          "saddle": "Saddle — unstable",
+          "stable_node": "Stable node",
+          "unstable_node": "Unstable node",
+          "stable_focus": "Stable focus — decaying oscillation",
+          "unstable_focus": "Unstable focus — growing oscillation",
+          "centre": "Centre — undamped oscillation",
+          "degenerate": "Degenerate — an eigenvalue at zero"
+        },
+        "portrait": "Phase portrait: {{kind}}",
+        "trace": "Trace",
+        "det": "Determinant",
+        "vectors": "Eigenvectors"
+      }
+    },
+    "laplace": {
+      "question": "A measurement chain is a shaft behind a filter behind an amplifier. What does the chain do to a 3 Hz signal — how much smaller, and how much later does it arrive?",
+      "model": "The Laplace transform turns differentiating into multiplying by s, so a differential equation becomes an algebraic one. Each block is a transfer function G(s); blocks in series multiply, and on a Bode plot in decibels they add.",
+      "model_delay": "At a frequency f, a phase lag is a delay:",
+      "assumptions": {
+        "lti": "Linear and time-invariant blocks; a saturating amplifier is not a transfer function.",
+        "steady": "Bode describes the steady state under a sine; the start-up is the step response's business.",
+        "dead_time": "A dead time adds phase but no pole: e^(−sT) has none, and none is drawn."
+      },
+      "insights": {
+        "product": "Blocks in series multiply; on a Bode plot in dB their curves add — the dashed curves sum to the solid one.",
+        "final": "The final value of a stable step response is G(0): read off the transfer function without solving anything.",
+        "lag": "A PT1 delays low frequencies by about τ: behind a 5 Hz filter a 3 Hz signal arrives 28.7 ms late, behind a 50 Hz filter a 5 Hz signal 3.2 ms.",
+        "filter": "Filter torque and angle identically — or offline, forward and backward — or the filter draws a hysteresis the test object does not have."
+      },
+      "steps": {
+        "title": "Laplace, step by step",
+        "hint": "The first-order step solved the Laplace way: every line carries your numbers.",
+        "transform": "Transform",
+        "solve": "Solve for Y(s)",
+        "split": "Split into partial fractions",
+        "back": "Transform back"
+      },
+      "time_domain": "Time domain",
+      "image_domain": "Laplace domain",
+      "chain": {
+        "title": "A Bode construction kit",
+        "hint": "Up to four blocks in a chain. The total is solid, each block dashed under it; the cursor reads gain, phase and the delay the phase means.",
+        "block": "Block {{n}}",
+        "remove": "Remove the block",
+        "add": "Add a block",
+        "cursor": "Cursor frequency",
+        "total": "Chain",
+        "gain": "Gain |G|",
+        "delay": "Delay",
+        "poles": "Poles of the chain",
+        "step": "Step response"
+      },
+      "kind": {
+        "proportional": "Gain K",
+        "integrator": "Integrator K/s",
+        "first_order": "First order (PT1)",
+        "second_order": "Second order (PT2)",
+        "dead_time": "Dead time"
+      },
+      "magnitude": "Magnitude",
+      "filter": {
+        "title": "The hysteresis a filter invents",
+        "hint": "A test object with no hysteresis (torque proportional to angle), swept sinusoidally. Filter only the torque and a loop appears; filter both, or offline, and it is gone. Add friction to see a real one survive.",
+        "frequency": "Sweep frequency",
+        "corner": "Filter corner frequency",
+        "friction": "Real friction band",
+        "mode": "Filtered",
+        "modes": {
+          "torque_only": "Torque only",
+          "both": "Torque and angle",
+          "zero_phase": "Both, forward and backward"
+        },
+        "truth": "As it is",
+        "measured": "As measured",
+        "apparent": "Measured hysteresis",
+        "true": "True hysteresis"
+      }
+    },
+    "numerics": {
+      "question": "Most equations in practice have no closed-form solution, so a computer steps through them. How large may the step be — and what does a method do to the system it is stepping?",
+      "model": "Euler takes the slope at the start of each step and holds it for the whole step. RK4 evaluates the slope four times inside the step and takes a weighted mean:",
+      "model_stability": "On ẏ = λy a method multiplies the solution by a fixed factor each step, and it is stable only while that factor's size is at most one. For Euler:",
+      "assumptions": {
+        "fixed": "A fixed step: the methods here do not adapt it. An adaptive method (like the one the pump-down runs on) chooses its own.",
+        "rounding": "Rounding is ignored: in double precision it is far below every error shown here."
+      },
+      "insights": {
+        "order": "Euler's error falls with h, RK4's with h⁴: halving the step halves one and divides the other by sixteen.",
+        "energy": "Euler pumps energy into an oscillator: at h·ω₀ = 2D it cancels the damping exactly — on the measuring shaft that is h = 1 ms, which keeps it ringing at its full 1° for ever — and above it the shaft rings up.",
+        "rule": "Rule of thumb for RK4: h at most a twentieth of the shortest period. Explicit Euler on a lightly damped oscillator needs h·ω₀ < 2D, which at D = 0.05 is a sixty-third of a period.",
+        "stiff": "Stiff means fast and slow dynamics together: a 1 ms lag beside a 10 s one forces RK4 into more than 10,000 steps over 30 s for a part that is gone after 5 ms. Implicit Euler is stable at any step."
+      },
+      "sensor": {
+        "title": "Euler, Heun and RK4 against the exact solution",
+        "hint": "The sensor of lesson 1 (τ = 4 s, 20 → 80 °C). Make the step larger — past τ Euler overshoots, past 2τ it runs away."
+      },
+      "step": "Step h",
+      "steps": "Number of steps",
+      "regime": {
+        "monotone": "Euler creeps up (h < τ)",
+        "one_step": "Euler lands in one step (h = τ)",
+        "alternating": "Euler overshoots and alternates (τ < h < 2τ)",
+        "neutral": "Euler alternates for ever (h = 2τ)",
+        "diverging": "Euler runs away (h > 2τ)"
+      },
+      "euler_factor": "Euler factor per step, 1 − h/τ",
+      "rk4_factor": "RK4 factor per step",
+      "method": {
+        "exact": "Exact",
+        "euler": "Euler",
+        "heun": "Heun",
+        "rk4": "RK4",
+        "symplectic": "Semi-implicit Euler",
+        "implicit": "Implicit Euler"
+      },
+      "errors": {
+        "title": "Error table",
+        "hint": "Every step's value and its error.",
+        "euler": "Euler error",
+        "rk4": "RK4 error"
+      },
+      "rk4_table": {
+        "title": "RK4 step by step",
+        "hint": "Where each of the four slopes is evaluated, and what it is.",
+        "step": "Step {{n}}",
+        "slope": "Slope"
+      },
+      "oscillator": {
+        "title": "Energy drift on an oscillator",
+        "hint": "The measuring shaft of lesson 2 (f₀ = 15.9 Hz, D = 0.05) released from 1°, one second, four methods. Above, the amplitude on a logarithmic axis; below, the angle.",
+        "gain": "Euler gain per step |1 + hλ|",
+        "neutral": "Step at which Euler cancels the damping",
+        "amplitude": "Amplitude",
+        "final": "{{method}}: amplitude after 1 s",
+        "damping": "{{method}}: damping it shows"
+      },
+      "stiff": {
+        "title": "Stiffness",
+        "hint": "Two independent lags, 1 ms and 10 s, over 30 s. Shown is the slow one. Make the step larger than 2.8 ms and RK4 diverges; implicit Euler stays stable at any step.",
+        "limit": "Largest stable RK4 step",
+        "min_steps": "RK4 steps needed at least",
+        "rk4_steps": "RK4 steps taken",
+        "diverged": "diverged",
+        "implicit_steps": "Implicit Euler steps",
+        "exact": "Exact",
+        "slow": "Slow component"
+      }
+    },
+    "two_mass": {
+      "question": "A torque measuring shaft sits between the motor and a heavy adapter on the test object. Why does it read 15 % too little at 3 Hz?",
+      "model": "Two inertias on two springs: the motor J₁, the measuring shaft c₁, the column or adapter J₂, the test object as a torsion bar c₂ to ground. In matrix form:",
+      "model_reading": "The shaft reads the torque across itself; the test object carries the torque across the bar. Between the two sits J₂, and what it takes to accelerate it is in the reading and not in the test object:",
+      "assumptions": {
+        "lumped": "Lumped inertias: the shaft's own inertia is left out (split between its ends it would shift both modes by a few percent).",
+        "torque": "An ideal torque drive: the motor's current loop is not modelled.",
+        "linear": "Linear springs and viscous dampers."
+      },
+      "insights": {
+        "count": "n inertias on springs tied to ground give n natural frequencies; a free chain adds a rigid-body motion at 0 Hz.",
+        "soft": "The low mode is everything swinging on the softest spring: all inertia on the two springs in series gives 6.3 Hz by hand, against 6.94 Hz exact.",
+        "error": "The shaft reads about 1 − (f/f_a)² times what the test object carries, with f_a = √(c₂/J₂)/2π: 2 % too little at 1 Hz, 15 % at 3 Hz, 43 % at 5 Hz with the default adapter."
+      },
+      "rig": {
+        "title": "The rig under a sinusoidal drive",
+        "hint": "Move the excitation or jump to a preset. The discs turn in slow motion with the phases the engine computed; the bars show how much each spring is twisted."
+      },
+      "excitation": "Excitation frequency",
+      "presets": {
+        "three": "3 Hz",
+        "mode1": "Mode 1",
+        "absorber": "Absorber point",
+        "motor_still": "Motor stands still",
+        "mode2": "Mode 2"
+      },
+      "parameters": "Parameters of the rig",
+      "parameters_hint": "Inertias, stiffnesses and dampings, each on a slider.",
+      "j1": "Motor inertia J₁",
+      "j2": "Adapter inertia J₂",
+      "c1": "Measuring shaft c₁",
+      "c2": "Torsion bar c₂",
+      "d1": "Damping of the shaft d₁",
+      "d2": "Damping of the bar d₂",
+      "motor": "Motor",
+      "adapter": "Adapter",
+      "animation_label": "The two inertias at {{f}} Hz, in slow motion",
+      "in_phase": "Turning the same way",
+      "anti_phase": "Turning against each other",
+      "error": "Reading error",
+      "shaft_reads": "What the shaft reads, M_W",
+      "object_carries": "What the test object carries, M_T",
+      "per_motor_torque": "Torque per motor torque",
+      "modes": "Modes",
+      "mode_f": "Mode {{n}}: frequency",
+      "mode_d": "Mode {{n}}: damping",
+      "mode_shape": "Mode {{n}}: φ₂/φ₁",
+      "hand": "Hand estimate of mode 1",
+      "hand_deviation": "Hand estimate off by",
+      "compensation": {
+        "title": "Compensating the adapter's inertia",
+        "hint": "M_T = M_W − J₂·φ̈₂, with the acceleration from the measured angle differentiated twice. Raise the noise: the correction amplifies it by the square of the sample rate, and a filter trades that against lag.",
+        "noise": "Angle noise",
+        "rate": "Sample rate",
+        "filter": "Cleaning the acceleration",
+        "filters": {
+          "none": "None",
+          "lowpass": "Low-pass",
+          "zero_phase": "Low-pass both ways (offline)"
+        },
+        "corrected": "Corrected, M_W − J₂·φ̈₂",
+        "raw_error": "Error without the correction",
+        "comp_error": "Error with the correction",
+        "noise_price": "Noise the correction adds"
+      }
+    },
+    "cheat": {
+      "print": "Print",
+      "analogies": "Analogies",
+      "role": "Role",
+      "domains": {
+        "electrical": "Electrical",
+        "mechanical": "Mechanical",
+        "thermal": "Thermal",
+        "vacuum": "Vacuum"
+      },
+      "roles": {
+        "drive": "Drive",
+        "flow": "Flow",
+        "resistance": "Resistance",
+        "store": "Store",
+        "inert": "Inert store",
+        "tau": "Time constant"
+      },
+      "traps": "Traps a test rig sets",
+      "trap": {
+        "location": "Where the angle is measured decides what stiffness is measured: a motor encoder sees every compliance in the path.",
+        "inertia": "An inertia between the torque sensor and the test object is in the reading: the error grows with (f/f_a)².",
+        "filter": "Filter torque and angle identically, or the filter invents a hysteresis.",
+        "efficiency": "A transmission's efficiency depends on which side drives: converting a torque with the ratio alone is off by 1/η.",
+        "motor": "A small fast motor dominates the equivalent mass — and needs most of its torque for itself in a fast cycle."
+      },
+      "python": "In Python"
+    },
+    "exercises": {
+      "pt1_reading": {
+        "title": "A sensor's reading",
+        "prompt": "A sensor with τ = {{tau}} s is stepped from {{start}} °C to {{final}} °C. What does it read after {{t}} s?",
+        "hint1": "After t/τ time constants, the share e^(−t/τ) of the step is still missing.",
+        "hint2": "y(t) = y∞ + (y₀ − y∞)·e^(−t/τ).",
+        "solution": "{{t}} s are {{t}}/{{tau}} time constants, so e^(−{{t}}/{{tau}}) of the step is still missing: the sensor reads {{a1}} °C."
+      },
+      "decrement": {
+        "title": "Damping from two maxima",
+        "prompt": "In a decay test one maximum reads {{first}} N·m and the next {{second}} N·m. What is the damping ratio D?",
+        "hint1": "Take the logarithm of the ratio of two successive maxima: Λ = ln(xₙ/xₙ₊₁).",
+        "hint2": "D = Λ/√(4π² + Λ²) — for a small Λ almost Λ/2π.",
+        "solution": "Λ = ln({{first}}/{{second}}), and D = Λ/√(4π² + Λ²) = {{a1}}."
+      },
+      "double_frequency": {
+        "title": "Twice the natural frequency",
+        "prompt": "By what factor must the stiffness grow to multiply the natural frequency by {{factor}}, the inertia unchanged?",
+        "hint1": "The natural frequency grows with the square root of the stiffness.",
+        "hint2": "Square the factor.",
+        "solution": "f₀ grows with √c, so the stiffness has to grow by {{factor}}² = {{a1}}."
+      },
+      "filter_delay": {
+        "title": "How late a filter makes a signal",
+        "prompt": "A first-order filter with a corner at {{corner}} Hz carries a {{f}} Hz signal. How late does the signal arrive?",
+        "hint1": "The phase of a first-order lag is −arctan(f/f_E).",
+        "hint2": "A phase of φ degrees at a frequency f is a delay of φ/360° · 1/f.",
+        "solution": "φ = −arctan({{f}}/{{corner}}), and at {{f}} Hz that is a delay of {{a1}} ms."
+      },
+      "filter_phase": {
+        "title": "Phase and delay of a filter set too close",
+        "prompt": "A first-order filter with a corner at {{corner}} Hz carries a {{f}} Hz signal. What is its phase, and what delay does that mean?",
+        "hint1": "φ = −arctan(f/f_E).",
+        "hint2": "Δt = −φ/360° · 1/f.",
+        "solution": "φ = −arctan({{f}}/{{corner}}) = {{a1}}°, which at {{f}} Hz is a delay of {{a2}} ms — almost the filter's whole time constant."
+      },
+      "euler_steps": {
+        "title": "Two Euler steps by hand",
+        "prompt": "Euler with h = {{h}} s on the sensor with τ = {{tau}} s, stepped from {{start}} °C to {{final}} °C. What does it give after {{steps}} steps?",
+        "hint1": "Each step adds h times the slope (y∞ − y)/τ taken at the start of the step.",
+        "hint2": "The second step starts from the first step's result.",
+        "solution": "Two steps of y ← y + h·(y∞ − y)/τ give {{a1}} °C — too high, because Euler holds the steepest slope, the one at the start of the step, for the whole step."
+      },
+      "euler_gain": {
+        "title": "Euler on an undamped oscillator",
+        "prompt": "Explicit Euler on an undamped oscillator with h·ω₀ = {{ratio}}: by what factor does the amplitude grow each step?",
+        "hint1": "Euler multiplies each eigencomponent by 1 + hλ per step.",
+        "hint2": "Undamped, λ = ±jω₀.",
+        "solution": "|1 + j·{{ratio}}| = √(1 + {{ratio}}²) = {{a1}} per step: half a percent each step, more than a hundredfold in a thousand steps."
+      },
+      "hand_estimate": {
+        "title": "The low mode by hand",
+        "prompt": "Estimate the two-mass rig's lowest natural frequency by hand: all its inertia ({{j1}} + {{j2}} kg·m²) on the two springs ({{c1}} and {{c2}} N·m/rad) in series.",
+        "hint1": "Springs in series: 1/c = 1/c₁ + 1/c₂.",
+        "hint2": "f = √(c/J)/2π with the whole inertia.",
+        "solution": "c = {{c1}}·{{c2}}/({{c1}} + {{c2}}) N·m/rad on {{j1}} + {{j2}} kg·m² gives {{a1}} Hz. The exact mode is 6.94 Hz: the motor does not swing with the full amplitude, so less inertia takes part than the estimate assumes."
+      },
+      "light_adapter": {
+        "title": "A lighter adapter",
+        "prompt": "A lighter adapter, J₂ = {{j2}} kg·m², on the torsion bar c₂ = {{c2}} N·m/rad. By how much does the shaft misread at {{f}} Hz?",
+        "hint1": "The shaft reads nothing at f_a = √(c₂/J₂)/2π.",
+        "hint2": "The misreading is about (f/f_a)².",
+        "solution": "f_a = √({{c2}}/{{j2}})/2π, and (f/f_a)² = {{a1}} % — a lighter adapter moves f_a up and the error down."
+      }
     }
   },
   "account": {
