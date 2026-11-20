@@ -2091,7 +2091,7 @@
         },
         "angle": "Deviazione",
         "restitution": "Quanto restituisce un urto",
-        "restitution_hint": "La frazione della loro velocità con cui due sfere si separano dopo un urto a 1 m/s. 1 significa: nessuna perdita.",
+        "restitution_hint": "Circa la frazione della loro velocità con cui due sfere si separano dopo un urto a 1 m/s. 1 significa: nessuna perdita.",
         "far": "Energia dall'altra parte",
         "far_hint": "Dopo il primo urto: la frazione dell'energia in tante sfere dall'altra parte quante ne sono state sollevate.",
         "duration": "Durata dell'urto",

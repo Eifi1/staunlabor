@@ -2091,7 +2091,7 @@
         },
         "angle": "Desviación",
         "restitution": "Lo que devuelve un choque",
-        "restitution_hint": "La fracción de su velocidad con la que dos bolas se separan tras chocar a 1 m/s. 1 significa: sin pérdida.",
+        "restitution_hint": "Aproximadamente la fracción de su velocidad con la que dos bolas se separan tras chocar a 1 m/s. 1 significa: sin pérdida.",
         "far": "Energía en el otro extremo",
         "far_hint": "Tras el primer choque: la fracción de la energía en tantas bolas del otro extremo como se levantaron.",
         "duration": "Duración del choque",

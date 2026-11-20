@@ -2091,7 +2091,7 @@
         },
         "angle": "Auslenkung",
         "restitution": "Was ein Stoss zurückgibt",
-        "restitution_hint": "Der Anteil des Tempos, mit dem zwei Kugeln nach einem Stoss mit 1 m/s auseinandergehen. 1 heisst: kein Verlust.",
+        "restitution_hint": "Ungefähr der Anteil des Tempos, mit dem zwei Kugeln nach einem Stoss mit 1 m/s auseinandergehen. 1 heisst: kein Verlust.",
         "far": "Energie am anderen Ende",
         "far_hint": "Nach dem ersten Stoss: der Anteil der Energie, der in so vielen Kugeln am anderen Ende steckt, wie angehoben wurden.",
         "duration": "Dauer des Stosses",

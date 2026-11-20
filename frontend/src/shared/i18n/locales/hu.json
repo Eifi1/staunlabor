@@ -2091,7 +2091,7 @@
         },
         "angle": "Kitérés",
         "restitution": "Amit egy ütközés visszaad",
-        "restitution_hint": "A sebességnek az a hányada, amellyel két golyó 1 m/s-os ütközés után szétválik. 1 jelentése: nincs veszteség.",
+        "restitution_hint": "Nagyjából a sebességnek az a hányada, amellyel két golyó 1 m/s-os ütközés után szétválik. 1 jelentése: nincs veszteség.",
         "far": "Energia a túlsó végen",
         "far_hint": "Az első ütközés után: az energiának az a hányada, amely a túlsó végen annyi golyóban van, ahányat felemeltünk.",
         "duration": "Az ütközés hossza",

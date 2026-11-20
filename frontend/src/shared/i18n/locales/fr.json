@@ -2091,7 +2091,7 @@
         },
         "angle": "Écart",
         "restitution": "Ce que rend un choc",
-        "restitution_hint": "La part de leur vitesse avec laquelle deux billes se séparent après un choc à 1 m/s. 1 signifie : aucune perte.",
+        "restitution_hint": "Environ la part de leur vitesse avec laquelle deux billes se séparent après un choc à 1 m/s. 1 signifie : aucune perte.",
         "far": "Énergie à l'autre bout",
         "far_hint": "Après le premier choc : la part de l'énergie contenue dans autant de billes à l'autre bout qu'on en a soulevé.",
         "duration": "Durée du choc",

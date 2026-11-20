@@ -2091,7 +2091,7 @@
         },
         "angle": "Lifted by",
         "restitution": "What a collision gives back",
-        "restitution_hint": "The share of their speed at which two balls part after meeting at 1 m/s. 1 means: nothing lost.",
+        "restitution_hint": "About the share of their speed at which two balls part after meeting at 1 m/s. 1 means: nothing lost.",
         "far": "Energy at the other end",
         "far_hint": "After the first collision: the share of the energy in as many balls at the other end as were lifted.",
         "duration": "Length of the collision",
