@@ -2022,6 +2022,7 @@
       "play": {
         "title": "Célzás és dobás",
         "hint": "Dobjon egyszer egyenesen a másik ülés felé, aztán váltson a „Kívülről” nézetre: ott a korong egyenesen halad.",
+        "sling_hint": "Vagy húzza hátra egérrel vagy ujjal a saját ülésétől, mint egy csúzlit: az irány és a hossz adja a célzást és a sebességet, elengedéskor dob. A peremét megfogva és meglökve a körhinta forog.",
         "throw": "Dobás",
         "aim_lead": "Előre célzás",
         "frame": "Nézet",
@@ -3457,7 +3458,18 @@
         "sn": "Jacobi sn elliptikus függvénye",
         "omega0": "a legkisebb lengés körfrekvenciája, √(g/L)",
         "skew": "elcsúszás egy ciklus után, egy lengés fokaiban",
-        "count": "az ingák száma"
+        "count": "az ingák száma",
+        "miss": "mennyivel a másik ülés mellé érkezik a dobás, az óramutatóval ellentétesen pozitív",
+        "aim": "mennyivel céloznak a másik ülés mellé",
+        "lean": "a pálya hajlása az átmérőhöz képest, kívülről nézve",
+        "platform_rate": "a körhinta forgása",
+        "platform_radius": "a körhinta sugara",
+        "throw": "a dobás sebessége, a körhintán mérve",
+        "flight": "repülési idő a peremig",
+        "primed": "gyorsulás, sebesség és hely, ahogyan az együtt forgó méri",
+        "a_across": "a dobásra merőleges gyorsulás, ahogyan az együtt forgó méri",
+        "n_up": "a platform normálisa, felfelé",
+        "heading_rate": "milyen gyorsan fordul a labda iránya, kívülről nézve"
       },
       "cases": {
         "sphere": {
@@ -3699,6 +3711,35 @@
             "reads": "15°-nál minden lengés 2K/π-szer tovább tart. Az n-edik inga a ciklus alatt csak (N + n)·π/(2K) lengést tesz meg; a legrövidebb, amelyik a legtöbbet lengi, marad le a legjobban.",
             "why": "Az elcsúszást ellenőrzi, amelyet az oldal trükkként mutat: a sor 21,5821°-kal ferdén tér vissza, ennyivel marad le a legrövidebb inga a leghosszabb mögött, egy lengés fokaiban.",
             "step": "Az első forrás a hangolást adja meg, a második a periódust 15°-nál, a harmadik K-t. A ciklus alatt az n-edik ingának (N + n)(1 − π/(2K)) egyenként 360°-os lengés hiányzik; a legrövidebb c − 1 = 14 lengéssel többet tesz meg, mint a leghosszabb."
+          }
+        },
+        "coriolis": {
+          "at_rest": {
+            "title": "Forgás nélkül: a dobás mint húr",
+            "setting": "A körhinta áll (0 ford./perc); a korong 3 m/s-mal, 30°-kal a másik ülés mellé célozva.",
+            "reads": "A korong egyenesen halad, a dobó saját üléséből egy húr mentén a peremig. A peremen a húr és az átmérő közti szög fele az ugyanazon ív fölötti középponti szögnek: a korong 2 · 30° = 60°-kal a másik ülés mellett érkezik.",
+            "why": "Azt ellenőrzi, merre fordít a célzás, és hol találja meg az oldal a peremet: forgás nélkül csak geometria marad. Az oldal a repülési idő hatvanszori felezésével találja meg a peremet; a kettő 10⁻⁹ pontossággal egyezik.",
+            "step": "Erő nélkül a korong egyenesen halad (első forrás). Az útja és a másik ülés felé mutató egyenes egyaránt a dobó saját üléséből indul a peremen; Eukleidész szerint a középponti szög a másik ülés és az út vége között kétszer akkora (második forrás)."
+          },
+          "straight_puck": {
+            "title": "Az egyenes dobás 86°-kal téved",
+            "setting": "6 ford./perc, sugár 2 m; a korong 3 m/s-mal, pontosan a másik ülésre célozva.",
+            "reads": "Kívülről nézve a korong egyenesen halad, az u dobással és rá merőlegesen azzal az ΩR sebességgel, amellyel a dobó körbe megy. A húrja δ szöggel hajlik az átmérőhöz, és 2δ-val a másik ülés előtt ér véget; az közben Ωt-vel továbbhaladt.",
+            "why": "Mindkét dolgot ellenőrzi, ami eltéríti a dobást: a dobó saját együttforgását, δ = 22,7°, és a továbbfordulást a repülés 1,13 s-a alatt. Együtt 86,3° az óramutató járásával megegyezően, ahogyan az együtt forgók látják.",
+            "step": "Az első forrás a kívülről nézett sebességet adja meg, v₀ = v + Ω × r: a dobást és rá merőlegesen ΩR-t, tehát tan δ = ΩR/u. Eukleidész szerint a húr 2δ-val a másik ülés előtt ér véget, és 2R·cos δ hosszú, mert a félkörbe írt szög derékszög; √(u² + Ω²R²) sebességgel a repülés t ideig tart. Az együtt forgó mindent −Ωt-vel visszaforgat (negyedik forrás)."
+          },
+          "coriolis_push": {
+            "title": "A Coriolis-erő elengedéskor",
+            "setting": "6 ford./perc, sugár 2 m; a korong 3 m/s-mal egyenesen a másik ülés felé, a dobás pillanatában leolvasva, együtt forogva.",
+            "reads": "Aki együtt forog, a korongot a dobásra merőlegesen gyorsulni látja, 2Ωu-val: ez a Coriolis-erő kilogrammonként. A centrifugális erő a dobáskor a dobás vonala mentén kifelé mutat, és merőlegesen nem ad hozzá semmit.",
+            "why": "Az együtt forgók nézetébe való visszaforgatást ellenőrzi: 3,77 m/s² jobbra, ahogyan az óramutatóval ellentétes forgás megkívánja. Az oldal pályáján második deriváltként leolvasva, három 1 ms-os lépésen át; a módszer 7 · 10⁻⁷-nel tér el.",
+            "step": "A forrás az egyenletesen forgó rendszerbeli mozgásegyenletet adja meg; erő nélkül U = 0. A dobás pillanatában v′ maga a dobás, Ω-ra merőlegesen, r′ pedig az ülés, a dobás vonalán: arra merőlegesen egyedül 2Ωu marad."
+          },
+          "ball_turn": {
+            "title": "A gurított labda 2/7-del fordul",
+            "setting": "6 ford./perc, sugár 2 m; a guruló labda 3 m/s-mal egyenesen a másik ülés felé, kívülről nézve.",
+            "reads": "Gurulás közben a labdának lépést kell tartania az alatta lévő platformmal. A súrlódás eközben folyamatosan elforgatja a sebességét, Ω/(1 + m r²/I) szögsebességgel, tömör golyónál a forgás 2/7-ével: kívülről nézve kört ír le.",
+            "why": "A gurulás tényezőjét ellenőrzi: másodpercenként 10,29° a körhinta 36°-a helyett. A megrajzolt pálya első és utolsó darabjának irányáról leolvasva; körön minden húr pontosan abba az irányba mutat, amerre a labda az íve közepén halad."
           }
         }
       },

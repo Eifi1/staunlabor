@@ -2022,6 +2022,7 @@
       "play": {
         "title": "Aim and throw",
         "hint": "Throw straight at the other seat once, then switch to “From outside”: there the puck flies straight.",
+        "sling_hint": "Or pull back from your own seat with the mouse or a finger, as on a sling: direction and length give the aim and the speed, letting go throws. Taking the rim and pushing turns the carousel.",
         "throw": "Throw",
         "aim_lead": "Aim ahead",
         "frame": "View",
@@ -3457,7 +3458,18 @@
         "sn": "Jacobi's elliptic function sn",
         "omega0": "angular frequency of the smallest swing, √(g/L)",
         "skew": "skew after a cycle, in degrees of a swing",
-        "count": "number of pendulums"
+        "count": "number of pendulums",
+        "miss": "how far beside the other seat the throw arrives, anticlockwise positive",
+        "aim": "how far beside the other seat it is aimed",
+        "lean": "the path's lean off the diameter, seen from outside",
+        "platform_rate": "the carousel's rate of turning",
+        "platform_radius": "the carousel's radius",
+        "throw": "the throw's speed, measured on the carousel",
+        "flight": "time of flight to the rim",
+        "primed": "acceleration, velocity and place as a rider measures them",
+        "a_across": "acceleration across the throw, as a rider measures it",
+        "n_up": "the plate's normal, pointing up",
+        "heading_rate": "how fast the ball's heading turns, seen from outside"
       },
       "cases": {
         "sphere": {
@@ -3699,6 +3711,35 @@
             "reads": "At 15° every swing takes longer by the factor 2K/π. The n-th pendulum manages only (N + n)·π/(2K) swings in the cycle; the shortest, with the most, falls behind the farthest.",
             "why": "Checks the skew the page shows as its trick: the row comes back 21.5821° askew, the shortest pendulum that far behind the longest, in degrees of a swing.",
             "step": "The first source gives the tuning, the second the period at 15°, the third K. In the cycle the n-th pendulum falls (N + n)(1 − π/(2K)) swings of 360° short; the shortest has c − 1 = 14 swings more than the longest."
+          }
+        },
+        "coriolis": {
+          "at_rest": {
+            "title": "Standing still: the throw as a chord",
+            "setting": "The carousel at rest (0 rpm); the puck at 3 m/s, aimed 30° beside the other seat.",
+            "reads": "The puck goes straight, from the thrower's seat along a chord to the rim. The angle at the rim between the chord and the diameter is half the angle at the centre on the same arc: the puck arrives 2 · 30° = 60° beside the other seat.",
+            "why": "Checks which way the aim turns and where the page finds the rim: with no turning, only geometry is left. The page finds the rim by halving the flight time sixty times; the two meet to 10⁻⁹.",
+            "step": "With no force the puck goes straight (first source). Its path and the line to the other seat both start at the thrower's seat on the rim; by Euclid the angle at the centre, between the other seat and the path's end, is twice as large (second source)."
+          },
+          "straight_puck": {
+            "title": "The straight throw misses by 86°",
+            "setting": "6 rpm, radius 2 m; the puck at 3 m/s aimed straight at the other seat.",
+            "reads": "Seen from outside the puck goes straight, with the throw u and, across it, the speed ΩR the thrower rides at. Its chord leans δ off the diameter and ends 2δ short of the other seat, which has meanwhile moved on by Ωt.",
+            "why": "Checks both things that turn the throw aside: the thrower's own ride, δ = 22.7°, and the turning during the 1.13 s of flight. Together 86.3° clockwise, as the riders see it.",
+            "step": "The first source gives the velocity seen from outside, v₀ = v + Ω × r: the throw and, across it, ΩR, so tan δ = ΩR/u. By Euclid the chord ends 2δ short of the other seat and is 2R·cos δ long, as the angle in a semicircle is right; at the speed √(u² + Ω²R²) the flight takes t. The rider turns it all back by −Ωt (fourth source)."
+          },
+          "coriolis_push": {
+            "title": "The Coriolis force as the puck leaves the hand",
+            "setting": "6 rpm, radius 2 m; the puck at 3 m/s straight at the other seat, read at the moment of the throw, riding along.",
+            "reads": "A rider sees the puck pushed across the throw at 2Ωu: the Coriolis force per kilogram. At the throw the centrifugal force points outward along the line of the throw and adds nothing across it.",
+            "why": "Checks the turning back into the riders' view: 3.77 m/s² to the right, as an anticlockwise turn demands. Read off the page's path as a second derivative over three steps of 1 ms; the method is 7 · 10⁻⁷ off.",
+            "step": "The source gives the equation of motion in a uniformly turning frame; with no force, U = 0. At the moment of the throw v′ is the throw, square to Ω, and r′ is the seat, on the line of the throw: across it only 2Ωu is left."
+          },
+          "ball_turn": {
+            "title": "The rolled ball turns at 2/7",
+            "setting": "6 rpm, radius 2 m; the rolling ball at 3 m/s straight at the other seat, seen from outside.",
+            "reads": "Rolling, the ball must keep up with the plate under it. The friction that makes it do so turns its velocity steadily, at Ω/(1 + m r²/I), for a solid ball 2/7 of the platform's rate: seen from outside it runs on a circle.",
+            "why": "Checks the rolling's factor: 10.29° a second, not the carousel's 36°. Read off the heading of the first and the last piece of the path drawn; on a circle every chord points exactly where the ball heads at the middle of its arc."
           }
         }
       },

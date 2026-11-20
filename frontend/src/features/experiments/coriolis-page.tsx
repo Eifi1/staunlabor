@@ -1,10 +1,11 @@
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState, type PointerEvent } from "react";
 import { useTranslation } from "react-i18next";
 import { Crosshair, Pause, Play, Send } from "lucide-react";
 import { Button, ToggleGroup } from "@eifi1/ui-kit";
 import { useLocale } from "@/shared/i18n/use-locale";
 import { formatNumber } from "@/shared/lib/format";
 import { useChartHex } from "@/shared/state/palette-store";
+import { holdTouch } from "@/shared/ui/grab";
 import { SliderField } from "@/shared/ui/slider-field";
 import { Figures, WidgetCard } from "@/shared/ui/widget";
 import { Equation } from "./equation";
@@ -12,6 +13,7 @@ import { ExhibitFrame } from "./exhibit-frame";
 import { BuildPending } from "./build-pending";
 import { PreviewPending, type PreviewMode, type PreviewProps } from "./preview-mode";
 import { startsRunning } from "./play";
+import { settingNumber, useCheckSetting } from "./check-setting";
 import { HeldAnswer, useHeld } from "./held";
 import { leadDeg, path, rateOf, type Body, type Carousel, type Throw } from "./simulate/coriolis";
 import { SIDE } from "./stage";
@@ -66,14 +68,58 @@ export function CoriolisPreview({ paused }: PreviewProps) {
   return c ? <CoriolisPlay c={c} preview paused={paused} /> : <PreviewPending />;
 }
 
-function CarouselView({ c, throwOf, frame, time }: { c: Carousel; throwOf: Throw; frame: Frame; time: number }) {
+/** A pull of this many of the platform's radii throws at the slider's 8 m/s. */
+const FULL_PULL = 0.9;
+/** A turn of the rim smaller than this is a touch, not a push. */
+const LEAST_TURN = (5 * Math.PI) / 180;
+
+/** What the pointer does with the carousel, given `onThrow` and `onSpin`. */
+interface Hands {
+  /** The throw as the band is pulled, and when it is let go. */
+  onAim: (next: Pick<Throw, "aim_deg" | "speed_m_s">) => void;
+  onThrow: (next: Pick<Throw, "aim_deg" | "speed_m_s">) => void;
+  /** The platform turned by hand, and how fast it was going when let go. */
+  onTurn: (radians: number) => void;
+  onSpin: (rpm: number) => void;
+}
+
+/**
+ * The carousel from above. Given `hands`, the thrower's seat is a sling (Marcel,
+ * 2026-11-20: the exhibits "ähnlich interaktiv"): pulled back, the throw points
+ * the other way, as far as the pull is long, up to the slider's 8 m/s, and goes
+ * when let go. And the rim can be taken and pushed round: as fast as it turns
+ * when let go, within the slider's ±20 rpm, the platform turns on.
+ */
+function CarouselView({
+  c,
+  throwOf,
+  frame,
+  time,
+  turned = 0,
+  hands,
+}: {
+  c: Carousel;
+  throwOf: Throw;
+  frame: Frame;
+  time: number;
+  turned?: number;
+  hands?: Hands;
+}) {
   const { t } = useTranslation();
   const hex = useChartHex();
+  // What the pointer holds: a ref for the handlers, which a move can reach
+  // before React has drawn the hold; the state for the band and the cursor.
+  const [held, setHeld] = useState<"sling" | "rim" | null>(null);
+  const holding = useRef<"sling" | "rim" | null>(null);
+  const [band, setBand] = useState<[number, number] | null>(null);
+  const lastThrow = useRef<Pick<Throw, "aim_deg" | "speed_m_s"> | null>(null);
+  // The rim's angle by time, for its speed when let go.
+  const rim = useRef<{ start: number; trail: Array<[number, number]> }>({ start: 0, trail: [] });
   const route = useMemo(() => path(c, throwOf), [c, throwOf]);
   const R = c.radius_m;
   const reach = R * 1.15;
   // Outside, the platform has turned by Ω·t; riding along, it stands still.
-  const platform = frame === "outside" ? rateOf(c) * Math.min(time, route.leaves_s) : 0;
+  const platform = (frame === "outside" ? rateOf(c) * Math.min(time, route.leaves_s) : 0) + turned;
   const xs = frame === "outside" ? route.outside_x : route.turning_x;
   const ys = frame === "outside" ? route.outside_y : route.turning_y;
   const shown = route.t.findIndex((s) => s > time);
@@ -83,13 +129,96 @@ function CarouselView({ c, throwOf, frame, time }: { c: Carousel; throwOf: Throw
   const [cx, cy] = seat(Math.PI);
   const aim = (throwOf.aim_deg * Math.PI) / 180 + platform + Math.PI;
   const last = upto - 1;
+  // The pointer in the drawing's metres, y up as the platform's.
+  const at = (svg: SVGSVGElement, clientX: number, clientY: number): [number, number] | null => {
+    const matrix = svg.getScreenCTM?.();
+    if (matrix) {
+      const p = new DOMPoint(clientX, clientY).matrixTransform(matrix.inverse());
+      return [p.x, -p.y];
+    }
+    const box = svg.getBoundingClientRect();
+    if (!box.width || !box.height) return null;
+    return [
+      -reach + ((clientX - box.left) / box.width) * 2 * reach,
+      reach - ((clientY - box.top) / box.height) * 2 * reach,
+    ];
+  };
+  const pullTo = (p: [number, number]) => {
+    // The throw points from the pull back through the seat.
+    const dx = tx - p[0];
+    const dy = ty - p[1];
+    let deg = (Math.atan2(dy, dx) - platform - Math.PI) * (180 / Math.PI);
+    deg = ((((deg + 180) % 360) + 360) % 360) - 180;
+    const next = {
+      aim_deg: Math.round(Math.min(85, Math.max(-85, deg)) * 2) / 2,
+      speed_m_s: Math.round(Math.min(8, Math.max(0.5, (Math.hypot(dx, dy) / (FULL_PULL * R)) * 8)) * 10) / 10,
+    };
+    lastThrow.current = next;
+    setBand(p);
+    hands?.onAim(next);
+  };
+  const turnTo = (p: [number, number]) => {
+    const trail = rim.current.trail;
+    const previous = trail[trail.length - 1][1];
+    // Unwrapped, so a turn past ±180° keeps counting: the step from the last
+    // angle, the short way round.
+    const step = Math.atan2(p[1], p[0]) - previous;
+    const angle = previous + Math.atan2(Math.sin(step), Math.cos(step));
+    const now = performance.now();
+    trail.push([now, angle]);
+    while (trail.length > 2 && now - trail[0][0] > 150) trail.shift();
+    hands?.onTurn(angle - rim.current.start);
+  };
+  const move = (svg: SVGSVGElement, clientX: number, clientY: number) => {
+    const p = at(svg, clientX, clientY);
+    if (!p) return;
+    if (holding.current === "sling") pullTo(p);
+    else if (holding.current === "rim") turnTo(p);
+  };
+  const release = () => {
+    const was = holding.current;
+    if (was === null) return;
+    holding.current = null;
+    setHeld(null);
+    setBand(null);
+    if (was === "sling" && lastThrow.current) hands?.onThrow(lastThrow.current);
+    if (was === "rim") {
+      const trail = rim.current.trail;
+      const total = trail.length ? trail[trail.length - 1][1] - rim.current.start : 0;
+      if (Math.abs(total) < LEAST_TURN || trail.length < 2) {
+        hands?.onTurn(0);
+        return;
+      }
+      const [t0, a0] = trail[0];
+      const [t1, a1] = trail[trail.length - 1];
+      const omega = t1 > t0 ? (a1 - a0) / ((t1 - t0) / 1000) : 0;
+      hands?.onSpin(Math.round(Math.min(20, Math.max(-20, (omega * 60) / (2 * Math.PI))) * 2) / 2);
+    }
+  };
+  const take = (which: "sling" | "rim", e: PointerEvent<SVGElement>) => {
+    const svg = e.currentTarget.ownerSVGElement;
+    if (!hands || !svg) return;
+    svg.setPointerCapture?.(e.pointerId);
+    holding.current = which;
+    setHeld(which);
+    const p = at(svg, e.clientX, e.clientY);
+    if (!p) return;
+    if (which === "rim") {
+      const angle = Math.atan2(p[1], p[0]);
+      rim.current = { start: angle, trail: [[performance.now(), angle]] };
+    } else pullTo(p);
+  };
+  const reachOfAim = R * 0.1 * throwOf.speed_m_s;
   // SVG's y runs down: anticlockwise is drawn anticlockwise by flipping y.
   return (
     <svg
       viewBox={`${-reach} ${-reach} ${2 * reach} ${2 * reach}`}
       role="img"
       aria-label={t("experiments.coriolis.view")}
-      className="aspect-square w-full rounded-lg border border-subtle bg-surface-2 text-muted"
+      className={`aspect-square w-full rounded-lg border border-subtle bg-surface-2 text-muted ${hands ? "select-none" : ""} ${held ? "cursor-grabbing" : ""}`}
+      onPointerMove={(e: PointerEvent<SVGSVGElement>) => move(e.currentTarget, e.clientX, e.clientY)}
+      onPointerUp={release}
+      onPointerCancel={release}
     >
       <circle r={R} fill="currentColor" opacity={0.08} />
       <circle r={R} fill="none" stroke="currentColor" strokeWidth={2} vectorEffect="non-scaling-stroke" />
@@ -111,8 +240,8 @@ function CarouselView({ c, throwOf, frame, time }: { c: Carousel; throwOf: Throw
       <line
         x1={tx}
         y1={-ty}
-        x2={tx + R * 0.3 * Math.cos(aim)}
-        y2={-(ty + R * 0.3 * Math.sin(aim))}
+        x2={tx + reachOfAim * Math.cos(aim)}
+        y2={-(ty + reachOfAim * Math.sin(aim))}
         stroke={hex[BALL_HUE % hex.length]}
         strokeWidth={2}
         strokeDasharray="3 3"
@@ -155,6 +284,42 @@ function CarouselView({ c, throwOf, frame, time }: { c: Carousel; throwOf: Throw
         {t("experiments.coriolis.target")}
       </text>
       {last >= 0 && <circle cx={xs[last]} cy={-ys[last]} r={R * 0.04} fill={hex[BALL_HUE % hex.length]} />}
+      {hands && (
+        <>
+          {/* The rim, to push the platform round: a band along it, unseen. */}
+          <circle
+            r={R}
+            fill="none"
+            stroke="transparent"
+            strokeWidth={R * 0.16}
+            pointerEvents="stroke"
+            className={held ? undefined : "cursor-grab"}
+            ref={holdTouch}
+            onPointerDown={(e) => take("rim", e)}
+          />
+          {/* The sling: the band from the seat to the hand, and the seat to take. */}
+          {band && (
+            <line
+              x1={tx}
+              y1={-ty}
+              x2={band[0]}
+              y2={-band[1]}
+              stroke="currentColor"
+              strokeWidth={2}
+              vectorEffect="non-scaling-stroke"
+            />
+          )}
+          <circle
+            cx={tx}
+            cy={-ty}
+            r={R * 0.12}
+            fill="transparent"
+            className={held ? undefined : "cursor-grab"}
+            ref={holdTouch}
+            onPointerDown={(e) => take("sling", e)}
+          />
+        </>
+      )}
     </svg>
   );
 }
@@ -197,22 +362,67 @@ function CoriolisPlay({
     return () => cancelAnimationFrame(raf);
   }, [running, route.leaves_s]);
 
-  const view = <CarouselView c={c} throwOf={throwOf} frame={frame} time={time} />;
-  if (preview) return view;
   // A throw is thrown to be watched: it sets the carousel going.
-  const throwAgain = () => {
+  const throwAgain = (aimDeg = throwOf.aim_deg) => {
     clock.current = 0;
     setTime(0);
     setRunning(true);
-    if (throwOf.aim_deg !== 0) held.show();
+    if (aimDeg !== 0) held.show();
   };
+  // A check case's "Set it up": the platform's turn, the throw and the view,
+  // and the throw thrown from its start.
+  useCheckSetting("coriolis", (setting) => {
+    if (preview) return false;
+    const rpm = settingNumber(setting, "rpm", c.rpm);
+    if (rpm !== c.rpm) onChange?.({ ...c, rpm });
+    const body = setting.body === "ball" || setting.body === "puck" ? setting.body : throwOf.body;
+    setThrow({
+      speed_m_s: settingNumber(setting, "speed_m_s", throwOf.speed_m_s),
+      aim_deg: settingNumber(setting, "aim_deg", throwOf.aim_deg),
+      body,
+    });
+    if (setting.frame === "riding" || setting.frame === "outside") setFrame(setting.frame);
+    clock.current = 0;
+    setTime(0);
+    setRunning(true);
+    return true;
+  });
+  // The platform as the reader's hand turns it, before it is let go.
+  const [turned, setTurned] = useState(0);
+  const hands: Hands = {
+    onAim: (next) => {
+      setRunning(false);
+      clock.current = 0;
+      setTime(0);
+      setThrow({ ...throwOf, ...next });
+    },
+    onThrow: (next) => {
+      setThrow({ ...throwOf, ...next });
+      throwAgain(next.aim_deg);
+    },
+    onTurn: (radians) => {
+      setRunning(false);
+      setTurned(radians);
+    },
+    onSpin: (rpm) => {
+      setTurned(0);
+      onChange?.({ ...c, rpm });
+      throwAgain();
+    },
+  };
+  const view = preview ? (
+    <CarouselView c={c} throwOf={throwOf} frame={frame} time={time} />
+  ) : (
+    <CarouselView c={c} throwOf={throwOf} frame={frame} time={time} turned={turned} hands={hands} />
+  );
+  if (preview) return view;
   return (
     <WidgetCard
       title={t("experiments.coriolis.play.title")}
       hint={t("experiments.coriolis.play.hint")}
       actions={
         <>
-          <Button variant="accent" size="sm" onClick={throwAgain}>
+          <Button variant="accent" size="sm" onClick={() => throwAgain()}>
             <Send className="size-4" aria-hidden />
             {t("experiments.coriolis.play.throw")}
           </Button>
@@ -259,7 +469,10 @@ function CoriolisPlay({
             options={BODIES.map((b) => ({ value: b, label: t(`experiments.coriolis.play.bodies.${b}`) }))}
           />
         </div>
-        <div className={`${SIDE.views} mx-auto w-full max-w-xl`}>{view}</div>
+        <div className={`${SIDE.views} mx-auto w-full max-w-xl space-y-2`}>
+          {view}
+          <p className="text-sm text-secondary">{t("experiments.coriolis.play.sling_hint")}</p>
+        </div>
         <div className={SIDE.column}>
           <SliderField
             label={t("experiments.coriolis.play.aim")}

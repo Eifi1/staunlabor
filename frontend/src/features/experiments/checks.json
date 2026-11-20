@@ -270,6 +270,120 @@
    ]
   }
  ],
+ "coriolis": [
+  {
+   "key": "at_rest",
+   "unit": "°",
+   "expected": 60.0,
+   "measured": 60.0,
+   "deviation": 0.0,
+   "tolerance": 1e-09,
+   "derived": true,
+   "setting": {
+    "rpm": 0.0,
+    "speed_m_s": 3.0,
+    "aim_deg": 30.0,
+    "body": "puck",
+    "frame": "riding"
+   },
+   "sources": [
+    {
+     "cite": "OpenStax, University Physics Volume 1, §5.2 Newton’s First Law",
+     "url": "https://openstax.org/books/university-physics-volume-1/pages/5-2-newtons-first-law",
+     "quote": "A body at rest remains at rest or, if in motion, remains in motion at constant velocity unless acted on by a net external force."
+    },
+    {
+     "cite": "Euclid, Elements, Book III, Proposition 20 (D. E. Joyce’s edition, Clark University)",
+     "url": "https://mathcs.clarku.edu/~djoyce/java/elements/bookIII/propIII20.html",
+     "quote": "In a circle the angle at the center is double the angle at the circumference when the angles have the same circumference as base."
+    }
+   ]
+  },
+  {
+   "key": "straight_puck",
+   "unit": "°",
+   "expected": -86.2906647052,
+   "measured": -86.2906647052,
+   "deviation": 1.64685887677e-16,
+   "tolerance": 1e-09,
+   "derived": true,
+   "setting": {
+    "rpm": 6.0,
+    "speed_m_s": 3.0,
+    "aim_deg": 0.0,
+    "body": "puck",
+    "frame": "riding"
+   },
+   "sources": [
+    {
+     "cite": "M. Fowler, Graduate Classical Mechanics (LibreTexts), §29.2 “Uniformly Rotating Frame”",
+     "url": "https://phys.libretexts.org/Bookshelves/Classical_Mechanics/Graduate_Classical_Mechanics_(Fowler)/29%3A_Non-Inertial_Frame_and_Coriolis_Effect/29.02%3A_Uniformly_Rotating_Frame",
+     "quote": "For the important case of a frame having uniform rotation and no translation motion, m dv/dt = −∂U/∂r + 2m v × Ω + m(Ω × r) × Ω … The second term, 2m v × Ω Landau calls the Coriolis force … Remembering v₀ = v + Ω × r"
+    },
+    {
+     "cite": "Euclid, Elements, Book III, Proposition 20 (D. E. Joyce’s edition, Clark University)",
+     "url": "https://mathcs.clarku.edu/~djoyce/java/elements/bookIII/propIII20.html",
+     "quote": "In a circle the angle at the center is double the angle at the circumference when the angles have the same circumference as base."
+    },
+    {
+     "cite": "Euclid, Elements, Book III, Proposition 31 (D. E. Joyce’s edition, Clark University)",
+     "url": "https://mathcs.clarku.edu/~djoyce/java/elements/bookIII/propIII31.html",
+     "quote": "In a circle the angle in the semicircle is right"
+    },
+    {
+     "cite": "Wikipedia, “Rotating reference frame”, §“Relation between positions in the two frames”",
+     "url": "https://en.wikipedia.org/wiki/Rotating_reference_frame",
+     "quote": "whereas the reverse transformation is x′ = x cos(−θ(t)) − y sin(−θ(t)) y′ = x sin(−θ(t)) + y cos(−θ(t))"
+    }
+   ]
+  },
+  {
+   "key": "coriolis_push",
+   "unit": "m/s²",
+   "expected": 3.76991118431,
+   "measured": 3.76991391208,
+   "deviation": 7.23563012877e-07,
+   "tolerance": 2e-06,
+   "derived": true,
+   "setting": {
+    "rpm": 6.0,
+    "speed_m_s": 3.0,
+    "aim_deg": 0.0,
+    "body": "puck",
+    "frame": "riding"
+   },
+   "sources": [
+    {
+     "cite": "M. Fowler, Graduate Classical Mechanics (LibreTexts), §29.2 “Uniformly Rotating Frame”",
+     "url": "https://phys.libretexts.org/Bookshelves/Classical_Mechanics/Graduate_Classical_Mechanics_(Fowler)/29%3A_Non-Inertial_Frame_and_Coriolis_Effect/29.02%3A_Uniformly_Rotating_Frame",
+     "quote": "For the important case of a frame having uniform rotation and no translation motion, m dv/dt = −∂U/∂r + 2m v × Ω + m(Ω × r) × Ω … The second term, 2m v × Ω Landau calls the Coriolis force … Remembering v₀ = v + Ω × r"
+    }
+   ]
+  },
+  {
+   "key": "ball_turn",
+   "unit": "°/s",
+   "expected": 10.2857142857,
+   "measured": 10.2857142857,
+   "deviation": 1.95152536106e-13,
+   "tolerance": 1e-09,
+   "derived": false,
+   "setting": {
+    "rpm": 6.0,
+    "speed_m_s": 3.0,
+    "aim_deg": 0.0,
+    "body": "ball",
+    "frame": "outside"
+   },
+   "sources": [
+    {
+     "cite": "M. Fowler, Graduate Classical Mechanics (LibreTexts), §30.5 “Ball Rolling on Rotating Plane”, after E. A. Milne, Vectorial Mechanics",
+     "url": "https://phys.libretexts.org/Bookshelves/Classical_Mechanics/Graduate_Classical_Mechanics_(Fowler)/30%3A_A_Rolling_Sphere_on_a_Rotating_Plane/30.05%3A_Ball_Rolling_on_Rotating_Plane",
+     "quote": "(1 + a²m/I) r̈ = ω n̂ × ṙ … For a uniform sphere, I = 2/5 Ma², so ṙ = 2/7 ω n̂ × (r − r₀) So the ball rolling on the rotating plate goes around in a circle, which could be any circle."
+    }
+   ]
+  }
+ ],
  "cradle": [
   {
    "key": "one_out",

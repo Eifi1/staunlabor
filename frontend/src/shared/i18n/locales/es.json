@@ -2022,6 +2022,7 @@
       "play": {
         "title": "Apuntar y lanzar",
         "hint": "Lance una vez recto al otro asiento y cambie a «Desde fuera»: allí el disco va en línea recta.",
+        "sling_hint": "O tire hacia atrás desde su propio asiento con el ratón o con el dedo, como con una honda: la dirección y la longitud dan la puntería y la velocidad; al soltar, lanza. Tomar el borde y empujar hace girar el carrusel.",
         "throw": "Lanzar",
         "aim_lead": "Apuntar por delante",
         "frame": "Vista",
@@ -3457,7 +3458,18 @@
         "sn": "la función elíptica sn de Jacobi",
         "omega0": "frecuencia angular de la oscilación más pequeña, √(g/L)",
         "skew": "desfase tras un ciclo, en grados de una oscilación",
-        "count": "número de péndulos"
+        "count": "número de péndulos",
+        "miss": "a qué distancia del otro asiento llega el lanzamiento, positivo en sentido antihorario",
+        "aim": "cuánto se apunta al lado del otro asiento",
+        "lean": "inclinación de la trayectoria respecto al diámetro, vista desde fuera",
+        "platform_rate": "el giro del carrusel",
+        "platform_radius": "el radio del carrusel",
+        "throw": "velocidad del lanzamiento, medida sobre el carrusel",
+        "flight": "tiempo de vuelo hasta el borde",
+        "primed": "aceleración, velocidad y posición tal como las mide quien gira",
+        "a_across": "aceleración de través al lanzamiento, tal como la mide quien gira",
+        "n_up": "la normal a la plataforma, hacia arriba",
+        "heading_rate": "lo rápido que gira la dirección de la pelota, vista desde fuera"
       },
       "cases": {
         "sphere": {
@@ -3699,6 +3711,35 @@
             "reads": "A 15°, cada oscilación dura más, en el factor 2K/π. El n-ésimo péndulo solo completa (N + n)·π/(2K) oscilaciones en el ciclo; el más corto, que hace más, es el que más se retrasa.",
             "why": "Comprueba el desfase que la página muestra como truco: la fila vuelve torcida en 21,5821°; eso es lo que el péndulo más corto va por detrás del más largo, en grados de una oscilación.",
             "step": "La primera fuente da la afinación; la segunda, el periodo a 15°; la tercera, K. En el ciclo, al n-ésimo péndulo le faltan (N + n)(1 − π/(2K)) oscilaciones de 360° cada una; el más corto hace c − 1 = 14 oscilaciones más que el más largo."
+          }
+        },
+        "coriolis": {
+          "at_rest": {
+            "title": "Sin giro: el lanzamiento como cuerda",
+            "setting": "El carrusel está quieto (0 rpm); el disco a 3 m/s, apuntado 30° al lado del otro asiento.",
+            "reads": "El disco va en línea recta, desde el propio asiento a lo largo de una cuerda hasta el borde. El ángulo en el borde entre la cuerda y el diámetro es la mitad del ángulo en el centro sobre el mismo arco: el disco llega 2 · 30° = 60° al lado del otro asiento.",
+            "why": "Comprueba hacia dónde gira la puntería y dónde encuentra la página el borde: sin giro solo queda geometría. La página encuentra el borde partiendo sesenta veces por la mitad el tiempo de vuelo; ambos coinciden con una precisión de 10⁻⁹.",
+            "step": "Sin fuerza, el disco va en línea recta (primera fuente). Su camino y la línea hacia el otro asiento parten ambos del propio asiento en el borde; según Euclides, el ángulo en el centro, entre el otro asiento y el final del camino, es el doble (segunda fuente)."
+          },
+          "straight_puck": {
+            "title": "El lanzamiento recto falla por 86°",
+            "setting": "6 rpm, radio 2 m; el disco a 3 m/s, apuntado justo al otro asiento.",
+            "reads": "Visto desde fuera, el disco va en línea recta, con el lanzamiento u y, de través, la velocidad ΩR con la que gira el lanzador. Su cuerda está inclinada δ respecto al diámetro y termina 2δ antes del otro asiento, que entretanto ha avanzado Ωt.",
+            "why": "Comprueba las dos cosas que desvían el lanzamiento: el giro del propio lanzador, δ = 22,7°, y lo que sigue girando el carrusel durante los 1,13 s de vuelo. Juntas, 86,3° en sentido horario, tal como lo ven quienes giran con él.",
+            "step": "La primera fuente da la velocidad vista desde fuera, v₀ = v + Ω × r: el lanzamiento y, de través, ΩR; por tanto, tan δ = ΩR/u. Según Euclides, la cuerda termina 2δ antes del otro asiento y mide 2R·cos δ, pues el ángulo inscrito en una semicircunferencia es recto; a la velocidad √(u² + Ω²R²), el vuelo dura t. Quien gira con el carrusel lo hace girar todo de vuelta en −Ωt (cuarta fuente)."
+          },
+          "coriolis_push": {
+            "title": "La fuerza de Coriolis al soltar",
+            "setting": "6 rpm, radio 2 m; el disco a 3 m/s recto al otro asiento, leído en el momento del lanzamiento, girando con el carrusel.",
+            "reads": "Quien gira con el carrusel ve el disco acelerado de través al lanzamiento, con 2Ωu: la fuerza de Coriolis por kilogramo. En el lanzamiento, la fuerza centrífuga apunta hacia fuera a lo largo de la línea de tiro y no aporta nada de través.",
+            "why": "Comprueba el giro de vuelta a la vista de quienes giran con el carrusel: 3,77 m/s² hacia la derecha, como exige un giro en sentido antihorario. Leído en la trayectoria de la página como segunda derivada sobre tres pasos de 1 ms; el método se desvía 7 · 10⁻⁷.",
+            "step": "La fuente da la ecuación del movimiento en un sistema que gira uniformemente; sin fuerza, U = 0. En el momento del lanzamiento, v′ es el lanzamiento, perpendicular a Ω, y r′ es el asiento, sobre la línea de tiro: de través a ella solo queda 2Ωu."
+          },
+          "ball_turn": {
+            "title": "La pelota que rueda gira a 2/7",
+            "setting": "6 rpm, radio 2 m; la pelota que rueda, a 3 m/s recta al otro asiento, vista desde fuera.",
+            "reads": "Al rodar, la pelota debe seguir el paso de la plataforma que tiene debajo. El rozamiento gira entonces su velocidad de forma constante, con Ω/(1 + m r²/I), para una esfera maciza 2/7 del giro: desde fuera recorre un círculo.",
+            "why": "Comprueba el factor de la rodadura: 10,29° por segundo en lugar de los 36° del carrusel. Leído en la dirección del primer y del último tramo de la trayectoria dibujada; en un círculo, cada cuerda apunta exactamente en la dirección que lleva la pelota en el centro de su arco."
           }
         }
       },

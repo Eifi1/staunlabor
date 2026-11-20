@@ -2022,6 +2022,7 @@
       "play": {
         "title": "Mirare e tirare",
         "hint": "Tiri una volta dritto verso l'altro sedile, poi passi a «Da fuori»: lì il disco va dritto.",
+        "sling_hint": "Oppure tiri indietro dal proprio sedile con il mouse o con il dito, come con una fionda: direzione e lunghezza danno la mira e la velocità, lasciare tira. Afferrare il bordo e spingere fa girare la giostra.",
         "throw": "Tirare",
         "aim_lead": "Mirare avanti",
         "frame": "Vista",
@@ -3457,7 +3458,18 @@
         "sn": "la funzione ellittica sn di Jacobi",
         "omega0": "pulsazione della più piccola oscillazione, √(g/L)",
         "skew": "sfasamento dopo un ciclo, in gradi di un'oscillazione",
-        "count": "numero di pendoli"
+        "count": "numero di pendoli",
+        "miss": "quanto accanto all'altro sedile arriva il tiro, positivo in senso antiorario",
+        "aim": "quanto si mira accanto all'altro sedile",
+        "lean": "inclinazione della traiettoria rispetto al diametro, vista da fuori",
+        "platform_rate": "la rotazione della giostra",
+        "platform_radius": "il raggio della giostra",
+        "throw": "velocità del tiro, misurata sulla giostra",
+        "flight": "tempo di volo fino al bordo",
+        "primed": "accelerazione, velocità e posizione come le misura chi gira",
+        "a_across": "accelerazione di traverso al tiro, come la misura chi gira",
+        "n_up": "la normale alla piattaforma, verso l'alto",
+        "heading_rate": "quanto velocemente ruota la direzione della palla, vista da fuori"
       },
       "cases": {
         "sphere": {
@@ -3699,6 +3711,35 @@
             "reads": "A 15° ogni oscillazione dura di più, di un fattore 2K/π. L'n-esimo pendolo compie nel ciclo solo (N + n)·π/(2K) oscillazioni; il più corto, che ne fa di più, resta più indietro di tutti.",
             "why": "Verifica lo sfasamento che la pagina mostra come trucco: la fila torna storta di 21,5821°, tanto è il ritardo del pendolo più corto rispetto al più lungo, in gradi di un'oscillazione.",
             "step": "La prima fonte dà l'accordatura, la seconda il periodo a 15°, la terza K. Nel ciclo all'n-esimo pendolo mancano (N + n)(1 − π/(2K)) oscillazioni di 360° ciascuna; il più corto fa c − 1 = 14 oscillazioni più del più lungo."
+          }
+        },
+        "coriolis": {
+          "at_rest": {
+            "title": "Senza rotazione: il tiro come corda",
+            "setting": "La giostra è ferma (0 giri/min); il disco a 3 m/s, mirato 30° accanto all'altro sedile.",
+            "reads": "Il disco va dritto, dal proprio sedile lungo una corda fino al bordo. L'angolo al bordo tra corda e diametro è la metà dell'angolo al centro sullo stesso arco: il disco arriva 2 · 30° = 60° accanto all'altro sedile.",
+            "why": "Verifica in che verso gira la mira e dove la pagina trova il bordo: senza rotazione resta solo la geometria. La pagina trova il bordo dimezzando sessanta volte il tempo di volo; i due valori coincidono a meno di 10⁻⁹.",
+            "step": "Senza forze il disco va dritto (prima fonte). Il suo percorso e la linea verso l'altro sedile partono entrambi dal proprio sedile sul bordo; secondo Euclide l'angolo al centro, tra l'altro sedile e la fine del percorso, è il doppio (seconda fonte)."
+          },
+          "straight_puck": {
+            "title": "Il tiro dritto manca di 86°",
+            "setting": "6 giri/min, raggio 2 m; il disco a 3 m/s, mirato esattamente sull'altro sedile.",
+            "reads": "Visto da fuori il disco va dritto, con il tiro u e, di traverso, la velocità ΩR con cui il tiratore viene portato in giro. La sua corda è inclinata di δ rispetto al diametro e finisce 2δ prima dell'altro sedile, che nel frattempo è andato avanti di Ωt.",
+            "why": "Verifica entrambe le cose che deviano il tiro: il tiratore che gira con la giostra, δ = 22,7°, e la rotazione durante gli 1,13 s di volo. Insieme 86,3° in senso orario, come lo vede chi gira con la giostra.",
+            "step": "La prima fonte dà la velocità vista da fuori, v₀ = v + Ω × r: il tiro e, di traverso, ΩR, quindi tan δ = ΩR/u. Secondo Euclide la corda finisce 2δ prima dell'altro sedile ed è lunga 2R·cos δ, perché l'angolo inscritto in una semicirconferenza è retto; alla velocità √(u² + Ω²R²) il volo dura t. Chi gira con la giostra riporta indietro tutto di −Ωt (quarta fonte)."
+          },
+          "coriolis_push": {
+            "title": "La forza di Coriolis al rilascio",
+            "setting": "6 giri/min, raggio 2 m; il disco a 3 m/s dritto verso l'altro sedile, letto nel momento del tiro, girando con la giostra.",
+            "reads": "Chi gira con la giostra vede il disco accelerato di traverso al tiro, con 2Ωu: la forza di Coriolis per chilogrammo. Al momento del tiro la forza centrifuga punta verso l'esterno lungo la linea di tiro e di traverso non contribuisce nulla.",
+            "why": "Verifica il riportare indietro nella vista di chi gira con la giostra: 3,77 m/s² verso destra, come richiede una rotazione in senso antiorario. Letto sulla traiettoria della pagina come derivata seconda su tre passi di 1 ms; il metodo ha uno scarto di 7 · 10⁻⁷.",
+            "step": "La fonte dà l'equazione del moto in un sistema in rotazione uniforme; senza forze U = 0. Nel momento del tiro v′ è il tiro, perpendicolare a Ω, e r′ è il sedile, sulla linea di tiro: di traverso a essa resta solo 2Ωu."
+          },
+          "ball_turn": {
+            "title": "La palla che rotola gira a 2/7",
+            "setting": "6 giri/min, raggio 2 m; la palla che rotola, a 3 m/s dritta verso l'altro sedile, vista da fuori.",
+            "reads": "Rotolando, la palla deve tenere il passo con la piattaforma sotto di sé. L'attrito ne ruota così la velocità di continuo, con Ω/(1 + m r²/I), per una sfera piena 2/7 della rotazione: vista da fuori percorre un cerchio.",
+            "why": "Verifica il fattore del rotolamento: 10,29° al secondo invece dei 36° della giostra. Letto sulla direzione del primo e dell'ultimo tratto della traiettoria disegnata; su un cerchio ogni corda punta esattamente nella direzione che la palla ha a metà del suo arco."
           }
         }
       },

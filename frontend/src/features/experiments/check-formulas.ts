@@ -41,6 +41,9 @@ const CYCLE: CheckSymbol = { tex: String.raw`\Gamma`, key: "cycle", unit: "s" };
 const SWINGS: CheckSymbol = { tex: "N", key: "swings" };
 const INDEX: CheckSymbol = { tex: "n", key: "index" };
 const K_INTEGRAL: CheckSymbol = { tex: "K", key: "K" };
+const MISS: CheckSymbol = { tex: String.raw`\Delta`, key: "miss", unit: "°" };
+const SPIN: CheckSymbol = { tex: String.raw`\Omega`, key: "platform_rate", unit: "rad/s" };
+const THROW: CheckSymbol = { tex: "u", key: "throw", unit: "m/s" };
 
 export const CHECK_FORMULAS: Record<string, Record<string, CheckFormula>> = {
   sphere: {
@@ -318,6 +321,45 @@ export const CHECK_FORMULAS: Record<string, Record<string, CheckFormula>> = {
     textbook_skew: {
       tex: String.raw`\Delta = 360^\circ\cdot(c - 1)\left(1 - \frac{\pi}{2K\!\left(\sin\frac{\theta_0}{2}\right)}\right)`,
       symbols: [{ tex: String.raw`\Delta`, key: "skew", unit: "°" }, { tex: "c", key: "count" }, K_INTEGRAL, THETA0],
+    },
+  },
+  coriolis: {
+    at_rest: {
+      tex: String.raw`\Delta = 2\,\alpha`,
+      symbols: [MISS, { tex: String.raw`\alpha`, key: "aim", unit: "°" }],
+    },
+    straight_puck: {
+      tex: String.raw`\Delta = -\left(2\delta + \Omega\,t\right), \qquad \tan\delta = \frac{\Omega R}{u}, \qquad t = \frac{2R\cos\delta}{\sqrt{u^2 + \Omega^2 R^2}}`,
+      symbols: [
+        MISS,
+        { tex: String.raw`\delta`, key: "lean", unit: "°" },
+        SPIN,
+        { tex: "t", key: "flight", unit: "s" },
+        { tex: "R", key: "platform_radius", unit: "m" },
+        THROW,
+      ],
+    },
+    coriolis_push: {
+      tex: String.raw`\vec a' = 2\,\vec v' \times \vec\Omega + \left(\vec\Omega \times \vec r'\right) \times \vec\Omega, \qquad a'_\perp = 2\,\Omega\,u`,
+      symbols: [
+        { tex: String.raw`\vec a', \vec v', \vec r'`, key: "primed" },
+        { tex: String.raw`\vec\Omega`, key: "platform_rate", unit: "rad/s" },
+        { tex: String.raw`a'_\perp`, key: "a_across", unit: "m/s²" },
+        THROW,
+      ],
+    },
+    ball_turn: {
+      tex: String.raw`\frac{d\vec v}{dt} = \frac{\Omega}{1 + m r^2 / I}\;\hat n \times \vec v, \qquad \omega_v = \frac{\Omega}{1 + m r^2 / I} = \tfrac{2}{7}\,\Omega`,
+      symbols: [
+        { tex: String.raw`\vec v`, key: "v", unit: "m/s" },
+        { tex: "t", key: "t", unit: "s" },
+        { tex: String.raw`\Omega`, key: "platform_rate", unit: "°/s" },
+        { tex: "m", key: "m", unit: "kg" },
+        { tex: "r", key: "r", unit: "m" },
+        { tex: "I", key: "inertia", unit: "kg·m²" },
+        { tex: String.raw`\hat n`, key: "n_up" },
+        { tex: String.raw`\omega_v`, key: "heading_rate", unit: "°/s" },
+      ],
     },
   },
 };

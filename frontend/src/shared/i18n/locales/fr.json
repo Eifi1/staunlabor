@@ -2022,6 +2022,7 @@
       "play": {
         "title": "Viser et lancer",
         "hint": "Lancez une fois droit vers l'autre siège, puis passez à « De l'extérieur » : là, le palet va tout droit.",
+        "sling_hint": "Ou tirez en arrière depuis votre siège avec la souris ou le doigt, comme une fronde : la direction et la longueur donnent la visée et la vitesse, lâcher lance. Prendre le bord et pousser fait tourner le manège.",
         "throw": "Lancer",
         "aim_lead": "Viser en avant",
         "frame": "Vue",
@@ -3457,7 +3458,18 @@
         "sn": "la fonction elliptique sn de Jacobi",
         "omega0": "pulsation de la plus petite oscillation, √(g/L)",
         "skew": "décalage après un cycle, en degrés d’oscillation",
-        "count": "nombre de pendules"
+        "count": "nombre de pendules",
+        "miss": "de combien le lancer arrive à côté de l’autre siège, positif dans le sens antihoraire",
+        "aim": "de combien on vise à côté de l’autre siège",
+        "lean": "inclinaison de la trajectoire par rapport au diamètre, vue de l’extérieur",
+        "platform_rate": "la rotation du manège",
+        "platform_radius": "le rayon du manège",
+        "throw": "vitesse du lancer, mesurée sur le manège",
+        "flight": "temps de vol jusqu’au bord",
+        "primed": "accélération, vitesse et position telles que les mesure qui tourne avec",
+        "a_across": "accélération en travers du lancer, telle que la mesure qui tourne avec",
+        "n_up": "la normale à la plateforme, vers le haut",
+        "heading_rate": "la vitesse à laquelle tourne la direction de la balle, vue de l’extérieur"
       },
       "cases": {
         "sphere": {
@@ -3699,6 +3711,35 @@
             "reads": "À 15°, chaque oscillation dure plus longtemps d’un facteur 2K/π. Le n-ième pendule n’accomplit que (N + n)·π/(2K) oscillations pendant le cycle ; le plus court, qui en fait le plus, prend le plus de retard.",
             "why": "Vérifie le décalage que la page montre comme truc : la rangée revient de travers de 21,5821° ; c’est le retard du pendule le plus court sur le plus long, en degrés d’oscillation.",
             "step": "La première source donne l’accord, la deuxième la période à 15°, la troisième K. Pendant le cycle, il manque au n-ième pendule (N + n)(1 − π/(2K)) oscillations de 360° chacune ; le plus court fait c − 1 = 14 oscillations de plus que le plus long."
+          }
+        },
+        "coriolis": {
+          "at_rest": {
+            "title": "Sans rotation : le lancer comme une corde",
+            "setting": "Le manège est immobile (0 tr/min) ; le palet à 3 m/s, visé 30° à côté de l’autre siège.",
+            "reads": "Le palet va tout droit, de son propre siège le long d’une corde jusqu’au bord. L’angle au bord entre la corde et le diamètre vaut la moitié de l’angle au centre sur le même arc : le palet arrive 2 · 30° = 60° à côté de l’autre siège.",
+            "why": "Vérifie dans quel sens tourne la visée et où la page trouve le bord : sans rotation, il ne reste que de la géométrie. La page trouve le bord en divisant soixante fois par deux le temps de vol ; les deux concordent à 10⁻⁹ près.",
+            "step": "Sans force, le palet va tout droit (première source). Son chemin et la ligne vers l’autre siège partent tous deux du siège du lanceur, au bord ; d’après Euclide, l’angle au centre, entre l’autre siège et la fin du chemin, est deux fois plus grand (deuxième source)."
+          },
+          "straight_puck": {
+            "title": "Le lancer droit manque de 86°",
+            "setting": "6 tr/min, rayon 2 m ; le palet à 3 m/s, visé exactement sur l’autre siège.",
+            "reads": "Vu de l’extérieur, le palet va tout droit, avec le lancer u et, en travers, la vitesse ΩR à laquelle le lanceur est emporté. Sa corde est inclinée de δ par rapport au diamètre et finit 2δ avant l’autre siège ; celui-ci a entre-temps avancé de Ωt.",
+            "why": "Vérifie les deux causes qui dévient le lancer : le lanceur emporté avec le manège, δ = 22,7°, et la rotation pendant les 1,13 s de vol. Ensemble, 86,3° dans le sens horaire, tel que le voient ceux qui tournent avec.",
+            "step": "La première source donne la vitesse vue de l’extérieur, v₀ = v + Ω × r : le lancer et, en travers, ΩR, donc tan δ = ΩR/u. D’après Euclide, la corde finit 2δ avant l’autre siège et mesure 2R·cos δ, car l’angle inscrit dans un demi-cercle est droit ; à la vitesse √(u² + Ω²R²), le vol dure t. Qui tourne avec le manège ramène le tout par une rotation de −Ωt (quatrième source)."
+          },
+          "coriolis_push": {
+            "title": "La force de Coriolis au lâcher",
+            "setting": "6 tr/min, rayon 2 m ; le palet à 3 m/s droit vers l’autre siège, relevé au moment du lancer, en tournant avec le manège.",
+            "reads": "Qui tourne avec le manège voit le palet accéléré en travers du lancer, avec 2Ωu : la force de Coriolis par kilogramme. Au lancer, la force centrifuge pointe vers l’extérieur le long de la ligne du lancer et n’apporte rien en travers.",
+            "why": "Vérifie le retour par rotation dans la vue de ceux qui tournent avec : 3,77 m/s² vers la droite, comme l’exige une rotation dans le sens antihoraire. Relevé sur la trajectoire de la page comme dérivée seconde sur trois pas de 1 ms ; la méthode s’écarte de 7 · 10⁻⁷.",
+            "step": "La source donne l’équation du mouvement dans un référentiel en rotation uniforme ; sans force, U = 0. Au moment du lancer, v′ est le lancer, perpendiculaire à Ω, et r′ le siège, sur la ligne du lancer : en travers de celle-ci ne reste que 2Ωu."
+          },
+          "ball_turn": {
+            "title": "La balle qui roule tourne à 2/7",
+            "setting": "6 tr/min, rayon 2 m ; la balle qui roule, à 3 m/s droit vers l’autre siège, vue de l’extérieur.",
+            "reads": "En roulant, la balle doit suivre la plateforme sous elle. Le frottement tourne alors sa vitesse continûment, à Ω/(1 + m r²/I), soit 2/7 de la rotation pour une boule pleine : vue de l’extérieur, elle décrit un cercle.",
+            "why": "Vérifie le facteur du roulement : 10,29° par seconde au lieu des 36° du manège. Relevé sur la direction du premier et du dernier segment de la trajectoire dessinée ; sur un cercle, chaque corde pointe exactement dans la direction qu’a la balle au milieu de son arc."
           }
         }
       },

@@ -87,7 +87,7 @@ const cannon = fixtures.cannon as unknown as CannonFigures;
 const wave = fixtures.wave as unknown as WaveFigures;
 
 /** No exhibit checked yet: what the server answers until an admin checks one. */
-const UNCHECKED = { with_cases: ["chair", "coil", "cradle", "sphere", "waterwheel", "wave"], checked: [] };
+const UNCHECKED = { with_cases: ["chair", "coil", "coriolis", "cradle", "sphere", "waterwheel", "wave"], checked: [] };
 
 beforeEach(() => {
   useTried.getState().forget();
@@ -1251,6 +1251,58 @@ describe("the Coriolis carousel", () => {
     fireEvent.click(screen.getByRole("button", { name: E.coriolis.play.aim_lead }));
     expect((await screen.findAllByDisplayValue("50.4")).length).toBeGreaterThan(0);
   });
+
+  // The carousel's drawing at a hundred pixels to the metre: 4.6 m across,
+  // the platform's centre at (230, 230), y up as the platform's.
+  const carousel = async () => {
+    const view = await screen.findByRole("img", { name: E.coriolis.view });
+    vi.spyOn(view, "getBoundingClientRect").mockReturnValue({
+      left: 0,
+      top: 0,
+      width: 460,
+      height: 460,
+      right: 460,
+      bottom: 460,
+      x: 0,
+      y: 0,
+      toJSON: () => ({}),
+    });
+    return view;
+  };
+  const px = (x: number, y: number) => ({ clientX: 230 + 100 * x, clientY: 230 - 100 * y });
+
+  it("throws like a sling: pulled back from the seat, the other way, as fast as the pull is long", async () => {
+    renderWithProviders(<CoriolisPage />);
+    const view = await carousel();
+    const seat = [...view.querySelectorAll("circle.cursor-grab")].at(-1)!;
+    // From the seat at (2, 0) back to (2.9, −0.5): 29° to the right of straight
+    // across, a pull of 1.03 m, 4.6 m/s of the 8 at 1.8 m.
+    fireEvent.pointerDown(seat, { pointerId: 1, ...px(2, 0) });
+    fireEvent.pointerMove(view, { pointerId: 1, ...px(2.9, -0.5) });
+    expect(screen.getByRole("slider", { name: E.coriolis.play.aim }).getAttribute("aria-valuetext")).toMatch(/^−?-?29/);
+    expect(screen.getByRole("slider", { name: E.coriolis.play.speed }).getAttribute("aria-valuetext")).toMatch(/^4\.6/);
+    fireEvent.pointerUp(view, { pointerId: 1 });
+    expect(await screen.findByRole("button", { name: E.coriolis.play.aim_lead })).toBeInTheDocument();
+  });
+
+  it("turns on as fast as its rim was pushed round when let go", async () => {
+    renderWithProviders(<CoriolisPage />);
+    const view = await carousel();
+    let now = 0;
+    vi.spyOn(performance, "now").mockImplementation(() => now);
+    const rim = view.querySelector('circle[stroke="transparent"]')!;
+    const at = (deg: number) => px(2 * Math.cos((deg * Math.PI) / 180), 2 * Math.sin((deg * Math.PI) / 180));
+    fireEvent.pointerDown(rim, { pointerId: 1, ...at(90) });
+    // Two degrees every 50 ms, anticlockwise: 40°/s, 6.7 rpm.
+    for (let k = 1; k <= 10; k++) {
+      now = 50 * k;
+      fireEvent.pointerMove(view, { pointerId: 1, ...at(90 + 2 * k) });
+    }
+    fireEvent.pointerUp(view, { pointerId: 1 });
+    await waitFor(() =>
+      expect(screen.getByRole("slider", { name: E.coriolis.play.rpm }).getAttribute("aria-valuetext")).toMatch(/^6\.5/),
+    );
+  });
 });
 
 describe("Newton's cradle", () => {
@@ -1533,6 +1585,15 @@ describe("setting a check case up", () => {
     await setUp(3);
     expect(await screen.findByRole("button", { name: E.wave.play.run })).toBeInTheDocument();
     expect(screen.getByText(/^20\.0/)).toBeInTheDocument();
+  });
+
+  it("rolls a ball on the carousel at 6 rpm and shows it from outside, for its turn", async () => {
+    renderWithProviders(<CoriolisPage />);
+    await screen.findByRole("img", { name: E.coriolis.view });
+    await setUp(3);
+    expect(await screen.findByRole("radio", { name: E.coriolis.play.frames.outside })).toBeChecked();
+    expect(screen.getByRole("radio", { name: E.coriolis.play.bodies.ball })).toBeChecked();
+    expect(screen.getByRole("slider", { name: E.coriolis.play.rpm }).getAttribute("aria-valuetext")).toMatch(/^6\b/);
   });
 
   it("puts a 15 kg car on the coil's track for the brake, without rolling resistance", async () => {

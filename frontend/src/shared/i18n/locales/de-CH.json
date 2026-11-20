@@ -2022,6 +2022,7 @@
       "play": {
         "title": "Zielen und werfen",
         "hint": "Werfen Sie einmal gerade auf den anderen Sitz, dann schalten Sie auf «Von aussen»: Dort fliegt der Puck geradeaus.",
+        "sling_hint": "Oder ziehen Sie mit der Maus oder dem Finger vom eigenen Sitz zurück wie an einer Schleuder: Richtung und Länge geben Zielen und Tempo, Loslassen wirft. Am Rand fassen und anschieben dreht das Karussell.",
         "throw": "Werfen",
         "aim_lead": "Vorhalt einstellen",
         "frame": "Ansicht",
@@ -3457,7 +3458,18 @@
         "sn": "Jacobis elliptische Funktion sn",
         "omega0": "Kreisfrequenz der kleinsten Schwingung, √(g/L)",
         "skew": "Versatz nach einem Zyklus, in Grad einer Schwingung",
-        "count": "Zahl der Pendel"
+        "count": "Zahl der Pendel",
+        "miss": "wie weit der Wurf neben dem anderen Sitz ankommt, im Gegenuhrzeigersinn positiv",
+        "aim": "wie weit neben den anderen Sitz gezielt wird",
+        "lean": "Neigung der Bahn gegen den Durchmesser, von aussen gesehen",
+        "platform_rate": "Drehrate des Karussells",
+        "platform_radius": "Radius des Karussells",
+        "throw": "Tempo des Wurfs, gemessen auf dem Karussell",
+        "flight": "Flugzeit bis zum Rand",
+        "primed": "Beschleunigung, Geschwindigkeit und Ort, wie sie ein Mitfahrer misst",
+        "a_across": "Beschleunigung quer zum Wurf, wie sie ein Mitfahrer misst",
+        "n_up": "Senkrechte auf der Scheibe, nach oben",
+        "heading_rate": "wie schnell sich die Richtung des Balls dreht, von aussen gesehen"
       },
       "cases": {
         "sphere": {
@@ -3699,6 +3711,35 @@
             "reads": "Bei 15° dauert jede Schwingung um den Faktor 2K/π länger. Das n-te Pendel schafft im Zyklus nur (N + n)·π/(2K) Schwingungen; das kürzeste, mit den meisten, bleibt am weitesten zurück.",
             "why": "Prüft den Versatz, den die Seite als Trick zeigt: Die Reihe kommt um 21,5821° schief zurück, so weit liegt das kürzeste Pendel hinter dem längsten, in Grad einer Schwingung.",
             "step": "Die erste Quelle gibt die Abstimmung, die zweite die Periode bei 15°, die dritte K. Im Zyklus fehlen dem n-ten Pendel (N + n)(1 − π/(2K)) Schwingungen zu je 360°; das kürzeste hat c − 1 = 14 Schwingungen mehr als das längste."
+          }
+        },
+        "coriolis": {
+          "at_rest": {
+            "title": "Ohne Drehung: der Wurf als Sehne",
+            "setting": "Das Karussell steht still (0 U/min); der Puck mit 3 m/s, 30° neben den anderen Sitz gezielt.",
+            "reads": "Der Puck fliegt geradeaus, vom eigenen Sitz über eine Sehne zum Rand. Der Winkel am Rand zwischen Sehne und Durchmesser ist halb so gross wie der Winkel in der Mitte über demselben Bogen: Der Puck kommt 2 · 30° = 60° neben dem anderen Sitz an.",
+            "why": "Prüft, wohin das Zielen dreht und wo die Seite den Rand findet: Ohne Drehung bleibt nur Geometrie. Die Seite findet den Rand durch sechzigfaches Halbieren der Flugzeit; beide treffen sich auf 10⁻⁹.",
+            "step": "Ohne Kraft fliegt der Puck geradeaus (erste Quelle). Sein Weg und die Linie zum anderen Sitz gehen beide vom eigenen Sitz am Rand aus; nach Euklid ist der Winkel in der Mitte, zwischen dem anderen Sitz und dem Ende des Wegs, doppelt so gross (zweite Quelle)."
+          },
+          "straight_puck": {
+            "title": "Der gerade Wurf verfehlt um 86°",
+            "setting": "6 U/min, Radius 2 m; der Puck mit 3 m/s genau auf den anderen Sitz gezielt.",
+            "reads": "Von aussen fliegt der Puck geradeaus, mit dem Wurf u und quer dazu dem Tempo ΩR, mit dem der Werfer mitfährt. Seine Sehne ist um δ gegen den Durchmesser geneigt und endet 2δ vor dem anderen Sitz; der ist unterdessen um Ωt weitergefahren.",
+            "why": "Prüft beides, was den Wurf ablenkt: das Mitfahren des Werfers, δ = 22,7°, und das Weiterdrehen in den 1,13 s des Flugs. Zusammen 86,3° im Uhrzeigersinn, so wie es die Mitfahrer sehen.",
+            "step": "Die erste Quelle gibt die Geschwindigkeit von aussen, v₀ = v + Ω × r: den Wurf und quer dazu ΩR, also tan δ = ΩR/u. Nach Euklid endet die Sehne 2δ vor dem anderen Sitz und ist 2R·cos δ lang, denn im Halbkreis steht ein rechter Winkel; mit dem Tempo √(u² + Ω²R²) dauert der Flug t. Der Mitfahrer dreht alles um −Ωt zurück (vierte Quelle)."
+          },
+          "coriolis_push": {
+            "title": "Die Corioliskraft beim Loslassen",
+            "setting": "6 U/min, Radius 2 m; der Puck mit 3 m/s gerade auf den anderen Sitz, gelesen im Moment des Wurfs, mitfahrend.",
+            "reads": "Wer mitfährt, sieht den Puck quer zum Wurf beschleunigt, mit 2Ωu: die Corioliskraft pro Kilogramm. Die Fliehkraft zeigt beim Wurf längs der Wurflinie nach aussen und trägt quer nichts bei.",
+            "why": "Prüft das Zurückdrehen in die Sicht der Mitfahrer: 3,77 m/s² nach rechts, wie es eine Drehung im Gegenuhrzeigersinn verlangt. Gelesen an der Bahn der Seite als zweite Ableitung über drei Schritte von 1 ms; das Verfahren liegt 7 · 10⁻⁷ daneben.",
+            "step": "Die Quelle gibt die Bewegungsgleichung im gleichförmig drehenden System; ohne Kraft ist U = 0. Im Moment des Wurfs ist v′ der Wurf, senkrecht zu Ω, und r′ der Sitz auf der Wurflinie: Quer zu ihr bleibt allein 2Ωu."
+          },
+          "ball_turn": {
+            "title": "Der gerollte Ball dreht mit 2/7",
+            "setting": "6 U/min, Radius 2 m; der rollende Ball mit 3 m/s gerade auf den anderen Sitz, von aussen gesehen.",
+            "reads": "Rollend muss der Ball mit der Scheibe unter ihm Schritt halten. Die Reibung dreht seine Geschwindigkeit dabei stetig, mit Ω/(1 + m r²/I), bei einer vollen Kugel 2/7 der Drehrate: Von aussen fährt er einen Kreis.",
+            "why": "Prüft den Faktor des Rollens: 10,29° pro Sekunde statt der 36° des Karussells. Gelesen an der Richtung des ersten und des letzten Stücks der gezeichneten Bahn; bei einem Kreis zeigt jede Sehne genau in die Richtung, die der Ball in der Mitte ihres Bogens hat."
           }
         }
       },

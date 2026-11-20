@@ -2383,6 +2383,11 @@ arithmetic-geometric mean), and how far a textbook row comes back skewed.
 "Set it up" sets the row and, for the two read at a moment, stops the clock
 there.
 
+**The carousel's** four (2026-11-20) hold a throw at rest to its aim, the
+straight throw's miss on a turning platform, the Coriolis push 2Ωv at the
+throw, and the rolled ball's turn at 2/7 of the platform's rate. "Set it up"
+sets the platform's turn, the throw, what is thrown and the view, and throws.
+
 **On the page** a section "Check it yourself" (`check-section.tsx`) lists the
 cases, each with its formula as an `Equation` (`check-formulas.ts`), both
 values to seven digits, the deviation, why the case would catch a mistake,
