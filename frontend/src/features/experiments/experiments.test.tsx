@@ -1135,25 +1135,32 @@ describe("the gravity well", () => {
 });
 
 describe("the resonance rods", () => {
-  it("shows six rods with their frequencies, the table in step with the third, and the sound off", async () => {
+  it("starts the beat low, and holds the rods' frequencies back until the answer is asked for", async () => {
     renderWithProviders(<ResonancePage />);
     expect(await screen.findByRole("img", { name: E.resonance.view })).toBeInTheDocument();
+    // Off every rod's beat: in step with one, "Find the beat" would be found already.
+    expect((await screen.findAllByDisplayValue("1")).length).toBeGreaterThan(0);
+    expect(screen.queryByText("2.09 Hz")).toBeNull();
+    showAnswer();
     for (const hz of ["1.27 Hz", "2.09 Hz", "5.58 Hz"]) expect(screen.getByText(hz)).toBeInTheDocument();
-    expect((await screen.findAllByDisplayValue("2.09")).length).toBeGreaterThan(0);
     // No Web Audio in the test runner: the switch is off, and says why it cannot turn on.
     expect(screen.getByRole("switch", { name: E.resonance.play.sound })).not.toBeChecked();
     expect(screen.getByText(E.resonance.play.no_sound)).toBeInTheDocument();
     expect(screen.getAllByLabelText(E.equation.symbols).length).toBeGreaterThanOrEqual(3);
   });
 
-  it("shakes when asked, and sweeps from 1 Hz", async () => {
+  it("shakes when asked, and sweeps from 1 Hz with the frequencies out", async () => {
     renderWithProviders(<ResonancePage />);
     await screen.findByRole("img", { name: E.resonance.view });
     fireEvent.click(screen.getByRole("button", { name: E.resonance.play.shake }));
     expect(await screen.findByRole("button", { name: E.resonance.play.stop })).toBeInTheDocument();
+    fireEvent.change(screen.getByRole("slider", { name: E.resonance.play.beat }), { target: { value: "3" } });
+    expect(screen.queryByText("2.09 Hz")).toBeNull();
     fireEvent.click(screen.getByRole("button", { name: E.resonance.play.sweep }));
-    // The beat drops to the sweep's start and climbs from there.
+    // The beat drops to the sweep's start and climbs from there; the sweep is
+    // a search, so the frequencies and the curves are out.
     expect((await screen.findAllByDisplayValue(/^1\.0\d$/)).length).toBeGreaterThan(0);
+    expect(screen.getByText("2.09 Hz")).toBeInTheDocument();
   });
 });
 

@@ -2439,6 +2439,12 @@ below 1 cm/s.
    an answer stays out for the visit, across new settings: hiding it again on
    every slider would only be in the way. The cone still lies at the high end
    of rails it will roll down (`start_for`, the engine's, with figures in the
-   prose): moving it would change the engine and its catalogue.
+   prose): moving it would change the engine and its catalogue. The
+   resonance rods followed on 2026-11-20: their play card's beat started in
+   step with the third rod, the rods' frequencies stood under the drawing and
+   the chart drew every peak, so "Find the beat" was found before anybody
+   looked. The beat now starts at 1 Hz, below every rod (the overview's
+   preview stays in step), and the frequencies and the chart wait for a rod
+   swinging 2 cm, twenty times the table's millimetre, or a sweep.
 4. **Seven languages**, the pages since, and the move to this site on
    2026-11-13 (`docs/plan.md`).
