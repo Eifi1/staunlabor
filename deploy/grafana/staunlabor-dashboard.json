@@ -1,4 +1,46 @@
 {
+  "__inputs": [
+    {
+      "name": "DS_CLOUD_MONITORING",
+      "label": "Cloud Monitoring",
+      "description": "The Google Cloud Monitoring data source that may read the projects staunlabor and keksdose",
+      "type": "datasource",
+      "pluginId": "stackdriver",
+      "pluginName": "Google Cloud Monitoring"
+    }
+  ],
+  "__requires": [
+    {
+      "type": "grafana",
+      "id": "grafana",
+      "name": "Grafana",
+      "version": "10.0.0"
+    },
+    {
+      "type": "datasource",
+      "id": "stackdriver",
+      "name": "Google Cloud Monitoring",
+      "version": "1.0.0"
+    },
+    {
+      "type": "panel",
+      "id": "bargauge",
+      "name": "Bar gauge",
+      "version": ""
+    },
+    {
+      "type": "panel",
+      "id": "text",
+      "name": "Text",
+      "version": ""
+    },
+    {
+      "type": "panel",
+      "id": "timeseries",
+      "name": "Time series",
+      "version": ""
+    }
+  ],
   "title": "Staunlabor: where the load goes",
   "uid": "staunlabor-load",
   "description": "Cloud Run, Cloud SQL and the backend's per-route log metrics, one row per bottleneck (deploy/grafana/README.md).",
@@ -105,7 +147,7 @@
       "description": "Cloud Run's own count. Every visitor's request reaches the web service; only /api goes on to the backend.",
       "datasource": {
         "type": "stackdriver",
-        "uid": "keksdose-gcp"
+        "uid": "${DS_CLOUD_MONITORING}"
       },
       "gridPos": {
         "h": 8,
@@ -163,7 +205,7 @@
           "refId": "A",
           "datasource": {
             "type": "stackdriver",
-            "uid": "keksdose-gcp"
+            "uid": "${DS_CLOUD_MONITORING}"
           },
           "queryType": "promQL",
           "promQLQuery": {
@@ -176,7 +218,7 @@
           "refId": "B",
           "datasource": {
             "type": "stackdriver",
-            "uid": "keksdose-gcp"
+            "uid": "${DS_CLOUD_MONITORING}"
           },
           "queryType": "promQL",
           "promQLQuery": {
@@ -205,7 +247,7 @@
       "description": "From the request reaching a running container until it leaves; startup is not included (see Cold starts).",
       "datasource": {
         "type": "stackdriver",
-        "uid": "keksdose-gcp"
+        "uid": "${DS_CLOUD_MONITORING}"
       },
       "gridPos": {
         "h": 8,
@@ -263,7 +305,7 @@
           "refId": "A",
           "datasource": {
             "type": "stackdriver",
-            "uid": "keksdose-gcp"
+            "uid": "${DS_CLOUD_MONITORING}"
           },
           "queryType": "promQL",
           "promQLQuery": {
@@ -276,7 +318,7 @@
           "refId": "B",
           "datasource": {
             "type": "stackdriver",
-            "uid": "keksdose-gcp"
+            "uid": "${DS_CLOUD_MONITORING}"
           },
           "queryType": "promQL",
           "promQLQuery": {
@@ -305,7 +347,7 @@
       "description": "429 and 5xx as the containers answered them (the budget's 429 included), and Cloud Run's own refusals for want of an instance, which never reach a container and are missing from Cloud Run's request count.",
       "datasource": {
         "type": "stackdriver",
-        "uid": "keksdose-gcp"
+        "uid": "${DS_CLOUD_MONITORING}"
       },
       "gridPos": {
         "h": 8,
@@ -363,7 +405,7 @@
           "refId": "A",
           "datasource": {
             "type": "stackdriver",
-            "uid": "keksdose-gcp"
+            "uid": "${DS_CLOUD_MONITORING}"
           },
           "queryType": "promQL",
           "promQLQuery": {
@@ -376,7 +418,7 @@
           "refId": "B",
           "datasource": {
             "type": "stackdriver",
-            "uid": "keksdose-gcp"
+            "uid": "${DS_CLOUD_MONITORING}"
           },
           "queryType": "promQL",
           "promQLQuery": {
@@ -418,7 +460,7 @@
       "description": "Cloud Run's distribution over the backend's instances. Cloud Run adds an instance at about 60 %, up to the cap of 8.",
       "datasource": {
         "type": "stackdriver",
-        "uid": "keksdose-gcp"
+        "uid": "${DS_CLOUD_MONITORING}"
       },
       "gridPos": {
         "h": 8,
@@ -504,7 +546,7 @@
           "refId": "A",
           "datasource": {
             "type": "stackdriver",
-            "uid": "keksdose-gcp"
+            "uid": "${DS_CLOUD_MONITORING}"
           },
           "queryType": "promQL",
           "promQLQuery": {
@@ -517,7 +559,7 @@
           "refId": "B",
           "datasource": {
             "type": "stackdriver",
-            "uid": "keksdose-gcp"
+            "uid": "${DS_CLOUD_MONITORING}"
           },
           "queryType": "promQL",
           "promQLQuery": {
@@ -530,7 +572,7 @@
           "refId": "C",
           "datasource": {
             "type": "stackdriver",
-            "uid": "keksdose-gcp"
+            "uid": "${DS_CLOUD_MONITORING}"
           },
           "queryType": "promQL",
           "promQLQuery": {
@@ -559,7 +601,7 @@
       "description": "Cloud Run's request latency for the backend: p50, p95, p99.",
       "datasource": {
         "type": "stackdriver",
-        "uid": "keksdose-gcp"
+        "uid": "${DS_CLOUD_MONITORING}"
       },
       "gridPos": {
         "h": 8,
@@ -629,7 +671,7 @@
           "refId": "A",
           "datasource": {
             "type": "stackdriver",
-            "uid": "keksdose-gcp"
+            "uid": "${DS_CLOUD_MONITORING}"
           },
           "queryType": "promQL",
           "promQLQuery": {
@@ -642,7 +684,7 @@
           "refId": "B",
           "datasource": {
             "type": "stackdriver",
-            "uid": "keksdose-gcp"
+            "uid": "${DS_CLOUD_MONITORING}"
           },
           "queryType": "promQL",
           "promQLQuery": {
@@ -655,7 +697,7 @@
           "refId": "C",
           "datasource": {
             "type": "stackdriver",
-            "uid": "keksdose-gcp"
+            "uid": "${DS_CLOUD_MONITORING}"
           },
           "queryType": "promQL",
           "promQLQuery": {
@@ -684,7 +726,7 @@
       "description": "The most requests one active instance held at once in a minute. Above 1 with CPU near 100 %, calculations queue for the core inside the instance (up to 20 per instance, --concurrency).",
       "datasource": {
         "type": "stackdriver",
-        "uid": "keksdose-gcp"
+        "uid": "${DS_CLOUD_MONITORING}"
       },
       "gridPos": {
         "h": 8,
@@ -742,7 +784,7 @@
           "refId": "A",
           "datasource": {
             "type": "stackdriver",
-            "uid": "keksdose-gcp"
+            "uid": "${DS_CLOUD_MONITORING}"
           },
           "queryType": "promQL",
           "promQLQuery": {
@@ -755,7 +797,7 @@
           "refId": "B",
           "datasource": {
             "type": "stackdriver",
-            "uid": "keksdose-gcp"
+            "uid": "${DS_CLOUD_MONITORING}"
           },
           "queryType": "promQL",
           "promQLQuery": {
@@ -784,7 +826,7 @@
       "description": "Each request's CPU from the app's line, summed per route: 1.0 is one instance's whole core. Requests that overlap share the CPU of their overlap equally (request_log.CpuShares), so the stack adds up to what the backend used.",
       "datasource": {
         "type": "stackdriver",
-        "uid": "keksdose-gcp"
+        "uid": "${DS_CLOUD_MONITORING}"
       },
       "gridPos": {
         "h": 8,
@@ -830,7 +872,7 @@
           "refId": "A",
           "datasource": {
             "type": "stackdriver",
-            "uid": "keksdose-gcp"
+            "uid": "${DS_CLOUD_MONITORING}"
           },
           "queryType": "promQL",
           "promQLQuery": {
@@ -859,7 +901,7 @@
       "description": "From the request entering the app to the last byte handed to the server. Far above the route's CPU per call: it waited for the core.",
       "datasource": {
         "type": "stackdriver",
-        "uid": "keksdose-gcp"
+        "uid": "${DS_CLOUD_MONITORING}"
       },
       "gridPos": {
         "h": 8,
@@ -905,7 +947,7 @@
           "refId": "A",
           "datasource": {
             "type": "stackdriver",
-            "uid": "keksdose-gcp"
+            "uid": "${DS_CLOUD_MONITORING}"
           },
           "queryType": "promQL",
           "promQLQuery": {
@@ -934,7 +976,7 @@
       "description": "What one call costs. Overlap moves CPU from dear calls to cheap ones in this figure, so read the true cost from a quiet hour.",
       "datasource": {
         "type": "stackdriver",
-        "uid": "keksdose-gcp"
+        "uid": "${DS_CLOUD_MONITORING}"
       },
       "gridPos": {
         "h": 10,
@@ -967,7 +1009,7 @@
           "refId": "A",
           "datasource": {
             "type": "stackdriver",
-            "uid": "keksdose-gcp"
+            "uid": "${DS_CLOUD_MONITORING}"
           },
           "queryType": "promQL",
           "promQLQuery": {
@@ -997,7 +1039,7 @@
       "description": "From the app's line: every /api request the backend answered.",
       "datasource": {
         "type": "stackdriver",
-        "uid": "keksdose-gcp"
+        "uid": "${DS_CLOUD_MONITORING}"
       },
       "gridPos": {
         "h": 10,
@@ -1043,7 +1085,7 @@
           "refId": "A",
           "datasource": {
             "type": "stackdriver",
-            "uid": "keksdose-gcp"
+            "uid": "${DS_CLOUD_MONITORING}"
           },
           "queryType": "promQL",
           "promQLQuery": {
@@ -1085,7 +1127,7 @@
       "description": "Cloud Run's instance count: active ones serve requests, idle ones wait to be reused or removed. The dashed line is the cap of 8.",
       "datasource": {
         "type": "stackdriver",
-        "uid": "keksdose-gcp"
+        "uid": "${DS_CLOUD_MONITORING}"
       },
       "gridPos": {
         "h": 8,
@@ -1160,7 +1202,7 @@
           "refId": "A",
           "datasource": {
             "type": "stackdriver",
-            "uid": "keksdose-gcp"
+            "uid": "${DS_CLOUD_MONITORING}"
           },
           "queryType": "promQL",
           "promQLQuery": {
@@ -1173,7 +1215,7 @@
           "refId": "B",
           "datasource": {
             "type": "stackdriver",
-            "uid": "keksdose-gcp"
+            "uid": "${DS_CLOUD_MONITORING}"
           },
           "queryType": "promQL",
           "promQLQuery": {
@@ -1202,7 +1244,7 @@
       "description": "How long a new instance took to start (Cloud Run, beta metric). The backend imports the app first: about 4.4 s measured on 2026-11-13.",
       "datasource": {
         "type": "stackdriver",
-        "uid": "keksdose-gcp"
+        "uid": "${DS_CLOUD_MONITORING}"
       },
       "gridPos": {
         "h": 8,
@@ -1272,7 +1314,7 @@
           "refId": "A",
           "datasource": {
             "type": "stackdriver",
-            "uid": "keksdose-gcp"
+            "uid": "${DS_CLOUD_MONITORING}"
           },
           "queryType": "promQL",
           "promQLQuery": {
@@ -1285,7 +1327,7 @@
           "refId": "B",
           "datasource": {
             "type": "stackdriver",
-            "uid": "keksdose-gcp"
+            "uid": "${DS_CLOUD_MONITORING}"
           },
           "queryType": "promQL",
           "promQLQuery": {
@@ -1298,7 +1340,7 @@
           "refId": "C",
           "datasource": {
             "type": "stackdriver",
-            "uid": "keksdose-gcp"
+            "uid": "${DS_CLOUD_MONITORING}"
           },
           "queryType": "promQL",
           "promQLQuery": {
@@ -1327,7 +1369,7 @@
       "description": "Cloud Run's pending latency (beta): from the request reaching Cloud Run until an instance takes it, waiting for a free slot or a new instance's start.",
       "datasource": {
         "type": "stackdriver",
-        "uid": "keksdose-gcp"
+        "uid": "${DS_CLOUD_MONITORING}"
       },
       "gridPos": {
         "h": 8,
@@ -1397,7 +1439,7 @@
           "refId": "A",
           "datasource": {
             "type": "stackdriver",
-            "uid": "keksdose-gcp"
+            "uid": "${DS_CLOUD_MONITORING}"
           },
           "queryType": "promQL",
           "promQLQuery": {
@@ -1410,7 +1452,7 @@
           "refId": "B",
           "datasource": {
             "type": "stackdriver",
-            "uid": "keksdose-gcp"
+            "uid": "${DS_CLOUD_MONITORING}"
           },
           "queryType": "promQL",
           "promQLQuery": {
@@ -1423,7 +1465,7 @@
           "refId": "C",
           "datasource": {
             "type": "stackdriver",
-            "uid": "keksdose-gcp"
+            "uid": "${DS_CLOUD_MONITORING}"
           },
           "queryType": "promQL",
           "promQLQuery": {
@@ -1452,7 +1494,7 @@
       "description": "The first request each new backend process answered: which route met a fresh instance and paid the first-time work (the first database connection of /experiments/checks, the Chladni modes' one computation).",
       "datasource": {
         "type": "stackdriver",
-        "uid": "keksdose-gcp"
+        "uid": "${DS_CLOUD_MONITORING}"
       },
       "gridPos": {
         "h": 8,
@@ -1499,7 +1541,7 @@
           "refId": "A",
           "datasource": {
             "type": "stackdriver",
-            "uid": "keksdose-gcp"
+            "uid": "${DS_CLOUD_MONITORING}"
           },
           "queryType": "promQL",
           "promQLQuery": {
@@ -1528,7 +1570,7 @@
       "description": "Their mean time in the app. The process's start (the import) comes before and is in the startup latency instead.",
       "datasource": {
         "type": "stackdriver",
-        "uid": "keksdose-gcp"
+        "uid": "${DS_CLOUD_MONITORING}"
       },
       "gridPos": {
         "h": 8,
@@ -1574,7 +1616,7 @@
           "refId": "A",
           "datasource": {
             "type": "stackdriver",
-            "uid": "keksdose-gcp"
+            "uid": "${DS_CLOUD_MONITORING}"
           },
           "queryType": "promQL",
           "promQLQuery": {
@@ -1616,7 +1658,7 @@
       "description": "429s the app answered itself: a per-address budget was spent (security.py, or the kit's windows on the account routes). Cloud Run's own 429 never reaches the app and is in row 4.",
       "datasource": {
         "type": "stackdriver",
-        "uid": "keksdose-gcp"
+        "uid": "${DS_CLOUD_MONITORING}"
       },
       "gridPos": {
         "h": 8,
@@ -1662,7 +1704,7 @@
           "refId": "A",
           "datasource": {
             "type": "stackdriver",
-            "uid": "keksdose-gcp"
+            "uid": "${DS_CLOUD_MONITORING}"
           },
           "queryType": "promQL",
           "promQLQuery": {
@@ -1691,7 +1733,7 @@
       "description": "Refusals rising while CPU is fine point to visitors sharing an address. The line names no address, by design.",
       "datasource": {
         "type": "stackdriver",
-        "uid": "keksdose-gcp"
+        "uid": "${DS_CLOUD_MONITORING}"
       },
       "gridPos": {
         "h": 8,
@@ -1737,7 +1779,7 @@
           "refId": "A",
           "datasource": {
             "type": "stackdriver",
-            "uid": "keksdose-gcp"
+            "uid": "${DS_CLOUD_MONITORING}"
           },
           "queryType": "promQL",
           "promQLQuery": {
@@ -1779,7 +1821,7 @@
       "description": "All instances of each service, idle ones included. At 3 a service cannot grow.",
       "datasource": {
         "type": "stackdriver",
-        "uid": "keksdose-gcp"
+        "uid": "${DS_CLOUD_MONITORING}"
       },
       "gridPos": {
         "h": 8,
@@ -1854,7 +1896,7 @@
           "refId": "A",
           "datasource": {
             "type": "stackdriver",
-            "uid": "keksdose-gcp"
+            "uid": "${DS_CLOUD_MONITORING}"
           },
           "queryType": "promQL",
           "promQLQuery": {
@@ -1867,7 +1909,7 @@
           "refId": "B",
           "datasource": {
             "type": "stackdriver",
-            "uid": "keksdose-gcp"
+            "uid": "${DS_CLOUD_MONITORING}"
           },
           "queryType": "promQL",
           "promQLQuery": {
@@ -1896,7 +1938,7 @@
       "description": "What Cloud Run's autoscaler would like, and what drives it. Above the cap of 8 the cap is in the way.",
       "datasource": {
         "type": "stackdriver",
-        "uid": "keksdose-gcp"
+        "uid": "${DS_CLOUD_MONITORING}"
       },
       "gridPos": {
         "h": 8,
@@ -1971,7 +2013,7 @@
           "refId": "A",
           "datasource": {
             "type": "stackdriver",
-            "uid": "keksdose-gcp"
+            "uid": "${DS_CLOUD_MONITORING}"
           },
           "queryType": "promQL",
           "promQLQuery": {
@@ -1984,7 +2026,7 @@
           "refId": "B",
           "datasource": {
             "type": "stackdriver",
-            "uid": "keksdose-gcp"
+            "uid": "${DS_CLOUD_MONITORING}"
           },
           "queryType": "promQL",
           "promQLQuery": {
@@ -2013,7 +2055,7 @@
       "description": "Cloud Run's own answers when no instance could take a request: 429 at the cap, 500 when traffic rose faster than it could scale. Counted from Cloud Run's request log (create-log-metrics.sh).",
       "datasource": {
         "type": "stackdriver",
-        "uid": "keksdose-gcp"
+        "uid": "${DS_CLOUD_MONITORING}"
       },
       "gridPos": {
         "h": 8,
@@ -2059,7 +2101,7 @@
           "refId": "A",
           "datasource": {
             "type": "stackdriver",
-            "uid": "keksdose-gcp"
+            "uid": "${DS_CLOUD_MONITORING}"
           },
           "queryType": "promQL",
           "promQLQuery": {
@@ -2101,7 +2143,7 @@
       "description": "Caddy serves the files and proxies /api.",
       "datasource": {
         "type": "stackdriver",
-        "uid": "keksdose-gcp"
+        "uid": "${DS_CLOUD_MONITORING}"
       },
       "gridPos": {
         "h": 8,
@@ -2187,7 +2229,7 @@
           "refId": "A",
           "datasource": {
             "type": "stackdriver",
-            "uid": "keksdose-gcp"
+            "uid": "${DS_CLOUD_MONITORING}"
           },
           "queryType": "promQL",
           "promQLQuery": {
@@ -2200,7 +2242,7 @@
           "refId": "B",
           "datasource": {
             "type": "stackdriver",
-            "uid": "keksdose-gcp"
+            "uid": "${DS_CLOUD_MONITORING}"
           },
           "queryType": "promQL",
           "promQLQuery": {
@@ -2213,7 +2255,7 @@
           "refId": "C",
           "datasource": {
             "type": "stackdriver",
-            "uid": "keksdose-gcp"
+            "uid": "${DS_CLOUD_MONITORING}"
           },
           "queryType": "promQL",
           "promQLQuery": {
@@ -2242,7 +2284,7 @@
       "description": "Includes the /api requests it proxies, which wait for the backend: compare the backend's latency in row 1.",
       "datasource": {
         "type": "stackdriver",
-        "uid": "keksdose-gcp"
+        "uid": "${DS_CLOUD_MONITORING}"
       },
       "gridPos": {
         "h": 8,
@@ -2312,7 +2354,7 @@
           "refId": "A",
           "datasource": {
             "type": "stackdriver",
-            "uid": "keksdose-gcp"
+            "uid": "${DS_CLOUD_MONITORING}"
           },
           "queryType": "promQL",
           "promQLQuery": {
@@ -2325,7 +2367,7 @@
           "refId": "B",
           "datasource": {
             "type": "stackdriver",
-            "uid": "keksdose-gcp"
+            "uid": "${DS_CLOUD_MONITORING}"
           },
           "queryType": "promQL",
           "promQLQuery": {
@@ -2338,7 +2380,7 @@
           "refId": "C",
           "datasource": {
             "type": "stackdriver",
-            "uid": "keksdose-gcp"
+            "uid": "${DS_CLOUD_MONITORING}"
           },
           "queryType": "promQL",
           "promQLQuery": {
@@ -2367,7 +2409,7 @@
       "description": "What the web service sends (to visitors: internet) and, for comparison, what the backend sends to it (the API's answers, part of the web's own).",
       "datasource": {
         "type": "stackdriver",
-        "uid": "keksdose-gcp"
+        "uid": "${DS_CLOUD_MONITORING}"
       },
       "gridPos": {
         "h": 8,
@@ -2425,7 +2467,7 @@
           "refId": "A",
           "datasource": {
             "type": "stackdriver",
-            "uid": "keksdose-gcp"
+            "uid": "${DS_CLOUD_MONITORING}"
           },
           "queryType": "promQL",
           "promQLQuery": {
@@ -2438,7 +2480,7 @@
           "refId": "B",
           "datasource": {
             "type": "stackdriver",
-            "uid": "keksdose-gcp"
+            "uid": "${DS_CLOUD_MONITORING}"
           },
           "queryType": "promQL",
           "promQLQuery": {
@@ -2467,7 +2509,7 @@
       "description": "Files and pages are the web's requests less the backend's.",
       "datasource": {
         "type": "stackdriver",
-        "uid": "keksdose-gcp"
+        "uid": "${DS_CLOUD_MONITORING}"
       },
       "gridPos": {
         "h": 8,
@@ -2525,7 +2567,7 @@
           "refId": "A",
           "datasource": {
             "type": "stackdriver",
-            "uid": "keksdose-gcp"
+            "uid": "${DS_CLOUD_MONITORING}"
           },
           "queryType": "promQL",
           "promQLQuery": {
@@ -2538,7 +2580,7 @@
           "refId": "B",
           "datasource": {
             "type": "stackdriver",
-            "uid": "keksdose-gcp"
+            "uid": "${DS_CLOUD_MONITORING}"
           },
           "queryType": "promQL",
           "promQLQuery": {
@@ -2567,7 +2609,7 @@
       "description": "Cloud Run's response classes for the web service.",
       "datasource": {
         "type": "stackdriver",
-        "uid": "keksdose-gcp"
+        "uid": "${DS_CLOUD_MONITORING}"
       },
       "gridPos": {
         "h": 8,
@@ -2613,7 +2655,7 @@
           "refId": "A",
           "datasource": {
             "type": "stackdriver",
-            "uid": "keksdose-gcp"
+            "uid": "${DS_CLOUD_MONITORING}"
           },
           "queryType": "promQL",
           "promQLQuery": {
@@ -2655,7 +2697,7 @@
       "description": "The one exhibit route that reads the database: once a minute per instance (exhibit_checks.LIST_TTL_S), every other call answers from the process. A slow p95 with a fast p50 is that one read.",
       "datasource": {
         "type": "stackdriver",
-        "uid": "keksdose-gcp"
+        "uid": "${DS_CLOUD_MONITORING}"
       },
       "gridPos": {
         "h": 8,
@@ -2713,7 +2755,7 @@
           "refId": "A",
           "datasource": {
             "type": "stackdriver",
-            "uid": "keksdose-gcp"
+            "uid": "${DS_CLOUD_MONITORING}"
           },
           "queryType": "promQL",
           "promQLQuery": {
@@ -2726,7 +2768,7 @@
           "refId": "B",
           "datasource": {
             "type": "stackdriver",
-            "uid": "keksdose-gcp"
+            "uid": "${DS_CLOUD_MONITORING}"
           },
           "queryType": "promQL",
           "promQLQuery": {
@@ -2755,7 +2797,7 @@
       "description": "Cloud Run's measure of the backend's connections to Cloud SQL.",
       "datasource": {
         "type": "stackdriver",
-        "uid": "keksdose-gcp"
+        "uid": "${DS_CLOUD_MONITORING}"
       },
       "gridPos": {
         "h": 8,
@@ -2813,7 +2855,7 @@
           "refId": "A",
           "datasource": {
             "type": "stackdriver",
-            "uid": "keksdose-gcp"
+            "uid": "${DS_CLOUD_MONITORING}"
           },
           "queryType": "promQL",
           "promQLQuery": {
@@ -2826,7 +2868,7 @@
           "refId": "B",
           "datasource": {
             "type": "stackdriver",
-            "uid": "keksdose-gcp"
+            "uid": "${DS_CLOUD_MONITORING}"
           },
           "queryType": "promQL",
           "promQLQuery": {
@@ -2855,7 +2897,7 @@
       "description": "Connections the backend opened, and those refused.",
       "datasource": {
         "type": "stackdriver",
-        "uid": "keksdose-gcp"
+        "uid": "${DS_CLOUD_MONITORING}"
       },
       "gridPos": {
         "h": 8,
@@ -2913,7 +2955,7 @@
           "refId": "A",
           "datasource": {
             "type": "stackdriver",
-            "uid": "keksdose-gcp"
+            "uid": "${DS_CLOUD_MONITORING}"
           },
           "queryType": "promQL",
           "promQLQuery": {
@@ -2926,7 +2968,7 @@
           "refId": "B",
           "datasource": {
             "type": "stackdriver",
-            "uid": "keksdose-gcp"
+            "uid": "${DS_CLOUD_MONITORING}"
           },
           "queryType": "promQL",
           "promQLQuery": {
@@ -2955,7 +2997,7 @@
       "description": "Needs the monitoring.viewer grant in the project keksdose (README, step 4). The pool's ceiling at three instances is six (dashed); the app role's own limit is twelve.",
       "datasource": {
         "type": "stackdriver",
-        "uid": "keksdose-gcp"
+        "uid": "${DS_CLOUD_MONITORING}"
       },
       "gridPos": {
         "h": 8,
@@ -3018,7 +3060,7 @@
           "refId": "A",
           "datasource": {
             "type": "stackdriver",
-            "uid": "keksdose-gcp"
+            "uid": "${DS_CLOUD_MONITORING}"
           },
           "queryType": "promQL",
           "promQLQuery": {
@@ -3047,7 +3089,7 @@
       "description": "Every app on the shared instance counts here. Needs the same grant.",
       "datasource": {
         "type": "stackdriver",
-        "uid": "keksdose-gcp"
+        "uid": "${DS_CLOUD_MONITORING}"
       },
       "gridPos": {
         "h": 8,
@@ -3093,7 +3135,7 @@
           "refId": "A",
           "datasource": {
             "type": "stackdriver",
-            "uid": "keksdose-gcp"
+            "uid": "${DS_CLOUD_MONITORING}"
           },
           "queryType": "promQL",
           "promQLQuery": {
