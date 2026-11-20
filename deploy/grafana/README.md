@@ -2,8 +2,9 @@
 
 When a post brings visitors, this dashboard says where the site gives way: the
 backend's one core, cold starts, the per-address budget, the instance cap, the
-static files or the database. It runs in a free Grafana Cloud stack and reads
-Google Cloud Monitoring live; Grafana stores none of it.
+static files or the database. It runs in Keksdose's Grafana Cloud stack (the
+free plan, shared by both sites) and reads Google Cloud Monitoring live;
+Grafana stores none of it.
 
 | File | What it is |
 | --- | --- |
@@ -78,79 +79,87 @@ during it.
 Each also carries the entry's resource labels (`service_name`,
 `revision_name`, …) and the `log` label every log-based metric gets.
 
-### 3. A Grafana Cloud stack
+### 3. The stack: Keksdose's
 
-At [grafana.com](https://grafana.com), sign up for the free plan and create a
-stack (a name such as `staunlabor`; an EU region if one is offered). **Do not
-add the "GCP" integration or any Alloy agent**: those copy metrics into Grafana
-Cloud's own store, where they count against the free 10,000 series. The data
-source of step 5 reads Cloud Monitoring at query time and stores nothing.
+Both sites share one Grafana Cloud stack, the one Keksdose runs on the free
+plan (`https://sinceresorbet1955.grafana.net`, region `prod-eu-central-0`;
+Keksdose's `docs/observability.md` §0). Marcel chose it on 2026-11-20
+("Keksdose kann genutzt werden"). The stack's 10,000 free series hold
+Keksdose's own app metrics, which it pushes over OTLP. This dashboard adds
+none: its data source reads Cloud Monitoring at query time and stores nothing.
+**Do not add the "GCP" integration or any Alloy agent** to the stack. Those
+copy metrics into Grafana Cloud's own store, where they count against
+Keksdose's series.
 
-### 4. A read-only account in GCP, and its key
+### 4. Read access for Keksdose's reader
 
-```bash
-P=staunlabor
-SA=grafana-reader@$P.iam.gserviceaccount.com
-gcloud iam service-accounts create grafana-reader --project=$P \
-  --display-name="Grafana Cloud: reads metrics, nothing else"
-gcloud projects add-iam-policy-binding $P --member=serviceAccount:$SA \
-  --role=roles/monitoring.viewer --condition=None
-# The data source lists projects through this API (Grafana's docs ask for it).
-gcloud services enable cloudresourcemanager.googleapis.com --project=$P
-
-# Only for row 6's last two panels: the database's connections and the shared
-# instance's CPU live in the project keksdose, where Cloud SQL runs. This lets
-# the key read every metric of keksdose (its other apps' too); leave it out and
-# those two panels stay empty.
-gcloud projects add-iam-policy-binding keksdose --member=serviceAccount:$SA \
-  --role=roles/monitoring.viewer --condition=None
-
-# The key: into a file only you can read, uploaded in step 5, then deleted.
-(umask 077 && gcloud iam service-accounts keys create grafana-reader.json --iam-account=$SA --project=$P)
-```
-
-Two of `setup-gcp.sh`'s alert mails will arrive, both expected: "access
-changed" (the binding) and "service-account key created". `../README.md` §1
-says no account here uses keys; from now on this one does. To withdraw it
-(rotate once a year, or when Grafana is no longer used):
+The stack already has a Google Cloud Monitoring data source, uid
+`keksdose-gcp`. It signs in as `grafana-monitoring@keksdose.iam.gserviceaccount.com`
+with a key Keksdose made in 2026-07, and that account holds
+`roles/monitoring.viewer` in keksdose. One binding lets the same account read
+this project's metrics too. So this project makes no key of its own, and
+row 6's database panels, which read keksdose's Cloud SQL, need no grant in
+keksdose:
 
 ```bash
-gcloud iam service-accounts keys list --project=staunlabor \
-  --iam-account=grafana-reader@staunlabor.iam.gserviceaccount.com
-gcloud iam service-accounts keys delete KEY_ID --project=staunlabor \
-  --iam-account=grafana-reader@staunlabor.iam.gserviceaccount.com
+gcloud projects add-iam-policy-binding staunlabor \
+  --member=serviceAccount:grafana-monitoring@keksdose.iam.gserviceaccount.com \
+  --role=roles/monitoring.viewer --condition=None
 ```
+
+Marcel ran it on 2026-11-20. `setup-gcp.sh`'s "access changed" mail follows,
+as expected. What the binding means:
+
+* **What the account can read.** It reads every metric of both projects and
+  nothing else: request rates, latencies and instance counts. It reads no log
+  entry, nothing personal, and can change nothing. Whoever stole Keksdose's key
+  would see this site's load too.
+* **The key is Keksdose's to rotate**, in the data source's secure settings.
+  This dashboard follows without a step of its own.
+* **To withdraw the access**, run the same command with
+  `remove-iam-policy-binding`.
+* **If Keksdose ever deletes the account or moves stacks**, this dashboard
+  needs a reader of its own. `grafana-reader@staunlabor.iam.gserviceaccount.com`
+  was made for that on 2026-11-20, before Keksdose's stack was chosen. It holds
+  `roles/monitoring.viewer` here and has no key, and the way above does not use
+  it. If it is needed again:
+  * make a key for it into a file only you can read,
+    `(umask 077 && gcloud iam service-accounts keys create grafana-reader.json --iam-account=grafana-reader@staunlabor.iam.gserviceaccount.com --project=staunlabor)`;
+  * upload the key as a new data source (Google JWT File, default project
+    `staunlabor`), then delete the file;
+  * give the account `roles/monitoring.viewer` in keksdose for row 6.
+
+  If it is not needed, remove it with
+  `gcloud iam service-accounts delete grafana-reader@staunlabor.iam.gserviceaccount.com --project=staunlabor`.
 
 **Why a key and not Workload Identity Federation.** Grafana Cloud offers
-federation for this data source, but only through the stack's own sign-in: the
-stack's SSO must go through an OIDC provider that a workload identity pool in
-GCP trusts, which means an OAuth client, the stack's SSO settings and a pool
-and provider to keep, for one read-only data source. And its credentials live
-in the signed-in person's session, so Grafana alerting, scheduled reports and
-public dashboards do not work with it (Grafana's "Google authentication"
+federation for this data source, but only through the stack's own sign-in. The
+stack's SSO would have to go through an OIDC provider that a workload identity
+pool in GCP trusts. That means an OAuth client, the stack's SSO settings and a
+pool and provider to keep, for one read-only data source. Its credentials also
+live in the signed-in person's session, so Grafana alerting, scheduled reports
+and public dashboards do not work with it (Grafana's "Google authentication"
 docs). The key can only read metrics: whoever stole it would see request rates
 and latencies, nothing personal and nothing they could change. Grafana keeps
-it encrypted in the data source's secure settings. Should the stack one day
-sign in through an OIDC provider anyway, and no alerts be wanted, federation
-would then be the smaller thing.
+it encrypted in the data source's secure settings.
 
-### 5. The data source
+### 5. The dashboard
 
-In the stack's Grafana: **Connections → Add new connection → Google Cloud
-Monitoring → Add new data source**. Authentication **Google JWT File**: upload
-`grafana-reader.json`; default project `staunlabor`; **Save & test** should
-say "Successfully queried the Google Cloud Monitoring API." Then delete the
-file: `rm grafana-reader.json`.
+1. Make a folder **Staunlabor** (**Dashboards → New → New folder**).
+2. Import the dashboard into it (**Dashboards → New → Import → Upload
+   dashboard JSON file**): `deploy/grafana/staunlabor-dashboard.json`.
+3. At the top, pick in **Cloud Monitoring** the Google Cloud Monitoring data
+   source with uid `keksdose-gcp`.
+4. Leave **Project** at `staunlabor` and **Cloud SQL project** at `keksdose`.
 
-### 6. The dashboard
+The panels refer to the data source only through that variable, so the import
+asks nothing and works with any name.
 
-**Dashboards → New → Import → Upload dashboard JSON file**:
-`deploy/grafana/staunlabor-dashboard.json`. At the top, pick the data source
-in **Cloud Monitoring**; **Project** is `staunlabor` and **Cloud SQL project**
-`keksdose`. The panels refer to the data source only through that variable,
-so the import asks nothing and works with any name.
+Keksdose's dashboards are in its folder **Keksdose**. Its import script
+(`scripts/grafana-import.py`) writes only there and only its own uids. This
+dashboard's uid is `staunlabor-load`, so neither overwrites the other.
 
-### 7. Check it before a post
+### 6. Check it before a post
 
 `../README.md` §4's check sends 250 parallel questions through the site and
 ends in about 70 refusals: within about three minutes they appear in row 3 as
@@ -189,15 +198,17 @@ Grafana's (grafana.com/pricing, the same day).
 
 | Item | Price | Here |
 | --- | --- | --- |
-| Grafana Cloud Free | 10k active metric series, 50 GB logs and 50 GB traces a month, 14 days' retention, 3 active users | nothing is ingested into Grafana Cloud, so none of it is used; the data source is one of Grafana's own |
+| Grafana Cloud Free | 10k active metric series, 50 GB logs and 50 GB traces a month, 14 days' retention, 3 active users | this dashboard ingests nothing into Grafana Cloud, so it uses none of it (the series are Keksdose's pushed app metrics); the data source is one of Grafana's own |
 | Cloud Run's and Cloud SQL's metrics | non-chargeable Google Cloud metrics | free |
 | The backend's lines in Cloud Logging | $0.50/GiB beyond the first **50 GiB per project a month**, 30 days' storage included; the `_Default` bucket keeps 30 days | a line is about 250 bytes: a million requests are a quarter of a GiB. Free |
 | The four log-based metrics | chargeable custom metrics: **$0.2580/MiB** beyond the first **150 MiB per billing account a month**; a distribution point counts **80 bytes**, a counter point **8**; one point a minute per label combination that saw a request in that minute | a post's day, 4 hours with 30 busy combinations on two distributions: 2 × 30 × 240 × 80 B ≈ 1.1 MiB. A combination busy every minute of a month is 3.3 MiB (≈ $0.85 once past the free 150): twenty on two distributions, around the clock, ≈ 132 MiB, still free |
-| Reading the metrics (Monitoring API) | **$0.50 per million time series returned** beyond the first **million per billing account a month** (since 2025-10-02); console reads are free | one refresh returns about 100–300 series, depending on how many routes saw requests: at the 1-minute refresh about 15,000 an hour, so some 66 free hours a month. Left open around the clock, about $5 a month. Grafana queries only while a browser shows the dashboard (it has no alert rules) |
-| The service account, its key, the Resource Manager API | free | |
+| Reading the metrics (Monitoring API) | **$0.50 per million time series returned** beyond the first **million per billing account a month** (since 2025-10-02); console reads are free | one refresh returns about 100–300 series, depending on how many routes saw requests: at the 1-minute refresh about 15,000 an hour, so some 66 free hours a month. Left open around the clock, about $5 a month. Grafana queries only while a browser shows the dashboard: it has no alert rules, and Keksdose's alert rules read only its own pushed metrics |
+| The binding, Keksdose's reader and its key, the Resource Manager API | free | |
 
-The two free allotments are per **billing account**: if keksdose's projects
-bill to the same account, their chargeable metrics and reads share them. Google's
+The two free allotments are per **billing account**, and staunlabor and keksdose
+bill to the same one (checked 2026-11-20). So their chargeable metrics share
+them, and so do this dashboard's reads and those of Keksdose's
+`keksdose-platform-gcp` dashboard. Google's
 metric `time_series_billed_for_queries_count` (pricing page) shows the reads
 billed.
 
@@ -222,7 +233,7 @@ billed.
   `logging_googleapis_com:user_<name>` for the log-based metrics is that rule
   applied; Google gives no example of it.
 * **The queries were never run** against the project: no read access to its
-  metrics from where they were written. A panel that stays empty after step 7
+  metrics from where they were written. A panel that stays empty after step 6
   most likely has a label or name wrong; Grafana's query inspector shows
   Google's error.
 * **Cloud Run's refusals**: the message and the statuses (429 at the cap, 500

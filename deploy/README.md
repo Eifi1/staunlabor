@@ -64,8 +64,8 @@ bash deploy/setup-gcp.sh            # the alert mails go to the project's owner,
   `Eifi1/staunlabor` on `refs/heads/main`.
 * **Three alert mails** (Cloud Monitoring, one email channel, log-matched): a
   Cloud Run service changed by anyone but the build, a key created for a
-  service account (no account here uses keys; the Grafana reader's, once Marcel
-  creates it, would be the first: `grafana/README.md`), and a change to the project's
+  service account (no account here uses keys; Grafana reads this project with
+  Keksdose's reader and its key: `grafana/README.md`), and a change to the project's
   access. They prevent nothing; they make misuse visible.
 * **The site's private way to the backend:** the Compute API, which makes the
   `default` network, and Private Google Access on its europe-west4 subnet.
