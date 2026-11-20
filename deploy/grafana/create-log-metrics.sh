@@ -7,9 +7,13 @@
 #
 #   bash deploy/grafana/create-log-metrics.sh
 #
-# Four metrics, none holding anything about a visitor:
+# Five metrics, none holding anything about a visitor:
 #   staunlabor_api_latency      the backend's line (request_log.py): time in the
 #                               app, by route template, method and status
+#   staunlabor_api_requests     the same lines counted, by route, status, cold and
+#                               kept: Grafana's query builder cannot count the
+#                               requests in a distribution, only its percentiles
+#                               and mean, so the per-route counts need a counter
 #   staunlabor_api_cpu          the same lines: CPU per request, by route
 #   staunlabor_api_cold         the first request of each new backend process:
 #                               its time in the app, by route
@@ -79,6 +83,33 @@ bucketOptions:
     numFiniteBuckets: 30
     growthFactor: 1.5
     scale: 1
+YAML
+
+metric staunlabor_api_requests <<YAML
+description: "/api requests, counted from the backend's own line: by route template, status, whether it was the process's first (cold) and whether its answer was kept (no calculation)."
+filter: '$APP'
+labelExtractors:
+  route: EXTRACT(jsonPayload.route)
+  status: EXTRACT(jsonPayload.status)
+  cold: EXTRACT(jsonPayload.cold)
+  cached: EXTRACT(jsonPayload.cached)
+metricDescriptor:
+  metricKind: DELTA
+  valueType: INT64
+  unit: "1"
+  labels:
+    - key: route
+      valueType: STRING
+      description: "The route's template as FastAPI matched it, or 'unmatched'; never the path as sent."
+    - key: status
+      valueType: STRING
+      description: "The status the app answered; a 429 is a per-address budget's refusal."
+    - key: cold
+      valueType: STRING
+      description: "true for the first request a new backend process answered."
+    - key: cached
+      valueType: STRING
+      description: "true when the answer was a kept one (answer_cache.py): no calculation."
 YAML
 
 metric staunlabor_api_cpu <<YAML

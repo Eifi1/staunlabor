@@ -173,32 +173,7 @@
             "axisSoftMin": 0
           }
         },
-        "overrides": [
-          {
-            "matcher": {
-              "id": "byFrameRefID",
-              "options": "A"
-            },
-            "properties": [
-              {
-                "id": "displayName",
-                "value": "web: pages, files and /api"
-              }
-            ]
-          },
-          {
-            "matcher": {
-              "id": "byFrameRefID",
-              "options": "B"
-            },
-            "properties": [
-              {
-                "id": "displayName",
-                "value": "backend: /api"
-              }
-            ]
-          }
-        ]
+        "overrides": []
       },
       "targets": [
         {
@@ -207,12 +182,25 @@
             "type": "stackdriver",
             "uid": "${DS_CLOUD_MONITORING}"
           },
-          "queryType": "promQL",
-          "promQLQuery": {
+          "queryType": "timeSeriesList",
+          "timeSeriesList": {
             "projectName": "$project",
-            "expr": "sum(rate(run_googleapis_com:request_count{monitored_resource=\"cloud_run_revision\",service_name=\"staunlabor-web\"}[5m]))",
-            "step": "$__interval"
-          }
+            "filters": [
+              "metric.type",
+              "=",
+              "run.googleapis.com/request_count",
+              "AND",
+              "resource.label.service_name",
+              "=",
+              "staunlabor-web"
+            ],
+            "groupBys": [],
+            "perSeriesAligner": "ALIGN_RATE",
+            "crossSeriesReducer": "REDUCE_SUM",
+            "alignmentPeriod": "cloud-monitoring-auto",
+            "view": "FULL"
+          },
+          "aliasBy": "web: pages, files and /api"
         },
         {
           "refId": "B",
@@ -220,12 +208,25 @@
             "type": "stackdriver",
             "uid": "${DS_CLOUD_MONITORING}"
           },
-          "queryType": "promQL",
-          "promQLQuery": {
+          "queryType": "timeSeriesList",
+          "timeSeriesList": {
             "projectName": "$project",
-            "expr": "sum(rate(run_googleapis_com:request_count{monitored_resource=\"cloud_run_revision\",service_name=\"staunlabor-backend\"}[5m]))",
-            "step": "$__interval"
-          }
+            "filters": [
+              "metric.type",
+              "=",
+              "run.googleapis.com/request_count",
+              "AND",
+              "resource.label.service_name",
+              "=",
+              "staunlabor-backend"
+            ],
+            "groupBys": [],
+            "perSeriesAligner": "ALIGN_RATE",
+            "crossSeriesReducer": "REDUCE_SUM",
+            "alignmentPeriod": "cloud-monitoring-auto",
+            "view": "FULL"
+          },
+          "aliasBy": "backend: /api"
         }
       ],
       "options": {
@@ -273,32 +274,7 @@
             "axisSoftMin": 0
           }
         },
-        "overrides": [
-          {
-            "matcher": {
-              "id": "byFrameRefID",
-              "options": "A"
-            },
-            "properties": [
-              {
-                "id": "displayName",
-                "value": "web p95"
-              }
-            ]
-          },
-          {
-            "matcher": {
-              "id": "byFrameRefID",
-              "options": "B"
-            },
-            "properties": [
-              {
-                "id": "displayName",
-                "value": "backend p95"
-              }
-            ]
-          }
-        ]
+        "overrides": []
       },
       "targets": [
         {
@@ -307,12 +283,25 @@
             "type": "stackdriver",
             "uid": "${DS_CLOUD_MONITORING}"
           },
-          "queryType": "promQL",
-          "promQLQuery": {
+          "queryType": "timeSeriesList",
+          "timeSeriesList": {
             "projectName": "$project",
-            "expr": "histogram_quantile(0.95, sum by (le) (rate(run_googleapis_com:request_latencies_bucket{monitored_resource=\"cloud_run_revision\",service_name=\"staunlabor-web\"}[5m])))",
-            "step": "$__interval"
-          }
+            "filters": [
+              "metric.type",
+              "=",
+              "run.googleapis.com/request_latencies",
+              "AND",
+              "resource.label.service_name",
+              "=",
+              "staunlabor-web"
+            ],
+            "groupBys": [],
+            "perSeriesAligner": "ALIGN_DELTA",
+            "crossSeriesReducer": "REDUCE_PERCENTILE_95",
+            "alignmentPeriod": "cloud-monitoring-auto",
+            "view": "FULL"
+          },
+          "aliasBy": "web p95"
         },
         {
           "refId": "B",
@@ -320,12 +309,25 @@
             "type": "stackdriver",
             "uid": "${DS_CLOUD_MONITORING}"
           },
-          "queryType": "promQL",
-          "promQLQuery": {
+          "queryType": "timeSeriesList",
+          "timeSeriesList": {
             "projectName": "$project",
-            "expr": "histogram_quantile(0.95, sum by (le) (rate(run_googleapis_com:request_latencies_bucket{monitored_resource=\"cloud_run_revision\",service_name=\"staunlabor-backend\"}[5m])))",
-            "step": "$__interval"
-          }
+            "filters": [
+              "metric.type",
+              "=",
+              "run.googleapis.com/request_latencies",
+              "AND",
+              "resource.label.service_name",
+              "=",
+              "staunlabor-backend"
+            ],
+            "groupBys": [],
+            "perSeriesAligner": "ALIGN_DELTA",
+            "crossSeriesReducer": "REDUCE_PERCENTILE_95",
+            "alignmentPeriod": "cloud-monitoring-auto",
+            "view": "FULL"
+          },
+          "aliasBy": "backend p95"
         }
       ],
       "options": {
@@ -373,32 +375,7 @@
             "axisSoftMin": 0
           }
         },
-        "overrides": [
-          {
-            "matcher": {
-              "id": "byFrameRefID",
-              "options": "A"
-            },
-            "properties": [
-              {
-                "id": "displayName",
-                "value": "${__field.labels.service_name} ${__field.labels.response_code}"
-              }
-            ]
-          },
-          {
-            "matcher": {
-              "id": "byFrameRefID",
-              "options": "B"
-            },
-            "properties": [
-              {
-                "id": "displayName",
-                "value": "${__field.labels.service_name}: no instance free"
-              }
-            ]
-          }
-        ]
+        "overrides": []
       },
       "targets": [
         {
@@ -407,12 +384,32 @@
             "type": "stackdriver",
             "uid": "${DS_CLOUD_MONITORING}"
           },
-          "queryType": "promQL",
-          "promQLQuery": {
+          "queryType": "timeSeriesList",
+          "timeSeriesList": {
             "projectName": "$project",
-            "expr": "sum by (service_name, response_code) (rate(run_googleapis_com:request_count{monitored_resource=\"cloud_run_revision\",service_name=~\"staunlabor-(web|backend)\",response_code=~\"429|5..\"}[5m])) * 60",
-            "step": "$__interval"
-          }
+            "filters": [
+              "metric.type",
+              "=",
+              "run.googleapis.com/request_count",
+              "AND",
+              "resource.label.service_name",
+              "=~",
+              "staunlabor-(web|backend)",
+              "AND",
+              "metric.label.response_code",
+              "=~",
+              "429|5.."
+            ],
+            "groupBys": [
+              "resource.label.service_name",
+              "metric.label.response_code"
+            ],
+            "perSeriesAligner": "ALIGN_DELTA",
+            "crossSeriesReducer": "REDUCE_SUM",
+            "alignmentPeriod": "+60s",
+            "view": "FULL"
+          },
+          "aliasBy": "{{resource.label.service_name}} {{metric.label.response_code}}"
         },
         {
           "refId": "B",
@@ -420,12 +417,27 @@
             "type": "stackdriver",
             "uid": "${DS_CLOUD_MONITORING}"
           },
-          "queryType": "promQL",
-          "promQLQuery": {
+          "queryType": "timeSeriesList",
+          "timeSeriesList": {
             "projectName": "$project",
-            "expr": "sum by (service_name) (rate(logging_googleapis_com:user_staunlabor_run_no_instance{monitored_resource=\"cloud_run_revision\",service_name=~\"staunlabor-(web|backend)\"}[5m])) * 60",
-            "step": "$__interval"
-          }
+            "filters": [
+              "metric.type",
+              "=",
+              "logging.googleapis.com/user/staunlabor_run_no_instance",
+              "AND",
+              "resource.label.service_name",
+              "=~",
+              "staunlabor-(web|backend)"
+            ],
+            "groupBys": [
+              "resource.label.service_name"
+            ],
+            "perSeriesAligner": "ALIGN_DELTA",
+            "crossSeriesReducer": "REDUCE_SUM",
+            "alignmentPeriod": "+60s",
+            "view": "FULL"
+          },
+          "aliasBy": "{{resource.label.service_name}}: no instance free"
         }
       ],
       "options": {
@@ -502,44 +514,7 @@
             ]
           }
         },
-        "overrides": [
-          {
-            "matcher": {
-              "id": "byFrameRefID",
-              "options": "A"
-            },
-            "properties": [
-              {
-                "id": "displayName",
-                "value": "p50"
-              }
-            ]
-          },
-          {
-            "matcher": {
-              "id": "byFrameRefID",
-              "options": "B"
-            },
-            "properties": [
-              {
-                "id": "displayName",
-                "value": "p95"
-              }
-            ]
-          },
-          {
-            "matcher": {
-              "id": "byFrameRefID",
-              "options": "C"
-            },
-            "properties": [
-              {
-                "id": "displayName",
-                "value": "p99"
-              }
-            ]
-          }
-        ]
+        "overrides": []
       },
       "targets": [
         {
@@ -548,12 +523,25 @@
             "type": "stackdriver",
             "uid": "${DS_CLOUD_MONITORING}"
           },
-          "queryType": "promQL",
-          "promQLQuery": {
+          "queryType": "timeSeriesList",
+          "timeSeriesList": {
             "projectName": "$project",
-            "expr": "histogram_quantile(0.5, sum by (le) (rate(run_googleapis_com:container_cpu_utilizations_bucket{monitored_resource=\"cloud_run_revision\",service_name=\"staunlabor-backend\"}[5m])))",
-            "step": "$__interval"
-          }
+            "filters": [
+              "metric.type",
+              "=",
+              "run.googleapis.com/container/cpu/utilizations",
+              "AND",
+              "resource.label.service_name",
+              "=",
+              "staunlabor-backend"
+            ],
+            "groupBys": [],
+            "perSeriesAligner": "ALIGN_DELTA",
+            "crossSeriesReducer": "REDUCE_PERCENTILE_50",
+            "alignmentPeriod": "cloud-monitoring-auto",
+            "view": "FULL"
+          },
+          "aliasBy": "p50"
         },
         {
           "refId": "B",
@@ -561,12 +549,25 @@
             "type": "stackdriver",
             "uid": "${DS_CLOUD_MONITORING}"
           },
-          "queryType": "promQL",
-          "promQLQuery": {
+          "queryType": "timeSeriesList",
+          "timeSeriesList": {
             "projectName": "$project",
-            "expr": "histogram_quantile(0.95, sum by (le) (rate(run_googleapis_com:container_cpu_utilizations_bucket{monitored_resource=\"cloud_run_revision\",service_name=\"staunlabor-backend\"}[5m])))",
-            "step": "$__interval"
-          }
+            "filters": [
+              "metric.type",
+              "=",
+              "run.googleapis.com/container/cpu/utilizations",
+              "AND",
+              "resource.label.service_name",
+              "=",
+              "staunlabor-backend"
+            ],
+            "groupBys": [],
+            "perSeriesAligner": "ALIGN_DELTA",
+            "crossSeriesReducer": "REDUCE_PERCENTILE_95",
+            "alignmentPeriod": "cloud-monitoring-auto",
+            "view": "FULL"
+          },
+          "aliasBy": "p95"
         },
         {
           "refId": "C",
@@ -574,12 +575,25 @@
             "type": "stackdriver",
             "uid": "${DS_CLOUD_MONITORING}"
           },
-          "queryType": "promQL",
-          "promQLQuery": {
+          "queryType": "timeSeriesList",
+          "timeSeriesList": {
             "projectName": "$project",
-            "expr": "histogram_quantile(0.99, sum by (le) (rate(run_googleapis_com:container_cpu_utilizations_bucket{monitored_resource=\"cloud_run_revision\",service_name=\"staunlabor-backend\"}[5m])))",
-            "step": "$__interval"
-          }
+            "filters": [
+              "metric.type",
+              "=",
+              "run.googleapis.com/container/cpu/utilizations",
+              "AND",
+              "resource.label.service_name",
+              "=",
+              "staunlabor-backend"
+            ],
+            "groupBys": [],
+            "perSeriesAligner": "ALIGN_DELTA",
+            "crossSeriesReducer": "REDUCE_PERCENTILE_99",
+            "alignmentPeriod": "cloud-monitoring-auto",
+            "view": "FULL"
+          },
+          "aliasBy": "p99"
         }
       ],
       "options": {
@@ -627,44 +641,7 @@
             "axisSoftMin": 0
           }
         },
-        "overrides": [
-          {
-            "matcher": {
-              "id": "byFrameRefID",
-              "options": "A"
-            },
-            "properties": [
-              {
-                "id": "displayName",
-                "value": "p50"
-              }
-            ]
-          },
-          {
-            "matcher": {
-              "id": "byFrameRefID",
-              "options": "B"
-            },
-            "properties": [
-              {
-                "id": "displayName",
-                "value": "p95"
-              }
-            ]
-          },
-          {
-            "matcher": {
-              "id": "byFrameRefID",
-              "options": "C"
-            },
-            "properties": [
-              {
-                "id": "displayName",
-                "value": "p99"
-              }
-            ]
-          }
-        ]
+        "overrides": []
       },
       "targets": [
         {
@@ -673,12 +650,25 @@
             "type": "stackdriver",
             "uid": "${DS_CLOUD_MONITORING}"
           },
-          "queryType": "promQL",
-          "promQLQuery": {
+          "queryType": "timeSeriesList",
+          "timeSeriesList": {
             "projectName": "$project",
-            "expr": "histogram_quantile(0.5, sum by (le) (rate(run_googleapis_com:request_latencies_bucket{monitored_resource=\"cloud_run_revision\",service_name=\"staunlabor-backend\"}[5m])))",
-            "step": "$__interval"
-          }
+            "filters": [
+              "metric.type",
+              "=",
+              "run.googleapis.com/request_latencies",
+              "AND",
+              "resource.label.service_name",
+              "=",
+              "staunlabor-backend"
+            ],
+            "groupBys": [],
+            "perSeriesAligner": "ALIGN_DELTA",
+            "crossSeriesReducer": "REDUCE_PERCENTILE_50",
+            "alignmentPeriod": "cloud-monitoring-auto",
+            "view": "FULL"
+          },
+          "aliasBy": "p50"
         },
         {
           "refId": "B",
@@ -686,12 +676,25 @@
             "type": "stackdriver",
             "uid": "${DS_CLOUD_MONITORING}"
           },
-          "queryType": "promQL",
-          "promQLQuery": {
+          "queryType": "timeSeriesList",
+          "timeSeriesList": {
             "projectName": "$project",
-            "expr": "histogram_quantile(0.95, sum by (le) (rate(run_googleapis_com:request_latencies_bucket{monitored_resource=\"cloud_run_revision\",service_name=\"staunlabor-backend\"}[5m])))",
-            "step": "$__interval"
-          }
+            "filters": [
+              "metric.type",
+              "=",
+              "run.googleapis.com/request_latencies",
+              "AND",
+              "resource.label.service_name",
+              "=",
+              "staunlabor-backend"
+            ],
+            "groupBys": [],
+            "perSeriesAligner": "ALIGN_DELTA",
+            "crossSeriesReducer": "REDUCE_PERCENTILE_95",
+            "alignmentPeriod": "cloud-monitoring-auto",
+            "view": "FULL"
+          },
+          "aliasBy": "p95"
         },
         {
           "refId": "C",
@@ -699,12 +702,25 @@
             "type": "stackdriver",
             "uid": "${DS_CLOUD_MONITORING}"
           },
-          "queryType": "promQL",
-          "promQLQuery": {
+          "queryType": "timeSeriesList",
+          "timeSeriesList": {
             "projectName": "$project",
-            "expr": "histogram_quantile(0.99, sum by (le) (rate(run_googleapis_com:request_latencies_bucket{monitored_resource=\"cloud_run_revision\",service_name=\"staunlabor-backend\"}[5m])))",
-            "step": "$__interval"
-          }
+            "filters": [
+              "metric.type",
+              "=",
+              "run.googleapis.com/request_latencies",
+              "AND",
+              "resource.label.service_name",
+              "=",
+              "staunlabor-backend"
+            ],
+            "groupBys": [],
+            "perSeriesAligner": "ALIGN_DELTA",
+            "crossSeriesReducer": "REDUCE_PERCENTILE_99",
+            "alignmentPeriod": "cloud-monitoring-auto",
+            "view": "FULL"
+          },
+          "aliasBy": "p99"
         }
       ],
       "options": {
@@ -752,32 +768,7 @@
             "axisSoftMin": 0
           }
         },
-        "overrides": [
-          {
-            "matcher": {
-              "id": "byFrameRefID",
-              "options": "A"
-            },
-            "properties": [
-              {
-                "id": "displayName",
-                "value": "p50"
-              }
-            ]
-          },
-          {
-            "matcher": {
-              "id": "byFrameRefID",
-              "options": "B"
-            },
-            "properties": [
-              {
-                "id": "displayName",
-                "value": "p99"
-              }
-            ]
-          }
-        ]
+        "overrides": []
       },
       "targets": [
         {
@@ -786,12 +777,29 @@
             "type": "stackdriver",
             "uid": "${DS_CLOUD_MONITORING}"
           },
-          "queryType": "promQL",
-          "promQLQuery": {
+          "queryType": "timeSeriesList",
+          "timeSeriesList": {
             "projectName": "$project",
-            "expr": "histogram_quantile(0.5, sum by (le) (rate(run_googleapis_com:container_max_request_concurrencies_bucket{monitored_resource=\"cloud_run_revision\",service_name=\"staunlabor-backend\",state=\"active\"}[5m])))",
-            "step": "$__interval"
-          }
+            "filters": [
+              "metric.type",
+              "=",
+              "run.googleapis.com/container/max_request_concurrencies",
+              "AND",
+              "resource.label.service_name",
+              "=",
+              "staunlabor-backend",
+              "AND",
+              "metric.label.state",
+              "=",
+              "active"
+            ],
+            "groupBys": [],
+            "perSeriesAligner": "ALIGN_DELTA",
+            "crossSeriesReducer": "REDUCE_PERCENTILE_50",
+            "alignmentPeriod": "cloud-monitoring-auto",
+            "view": "FULL"
+          },
+          "aliasBy": "p50"
         },
         {
           "refId": "B",
@@ -799,12 +807,29 @@
             "type": "stackdriver",
             "uid": "${DS_CLOUD_MONITORING}"
           },
-          "queryType": "promQL",
-          "promQLQuery": {
+          "queryType": "timeSeriesList",
+          "timeSeriesList": {
             "projectName": "$project",
-            "expr": "histogram_quantile(0.99, sum by (le) (rate(run_googleapis_com:container_max_request_concurrencies_bucket{monitored_resource=\"cloud_run_revision\",service_name=\"staunlabor-backend\",state=\"active\"}[5m])))",
-            "step": "$__interval"
-          }
+            "filters": [
+              "metric.type",
+              "=",
+              "run.googleapis.com/container/max_request_concurrencies",
+              "AND",
+              "resource.label.service_name",
+              "=",
+              "staunlabor-backend",
+              "AND",
+              "metric.label.state",
+              "=",
+              "active"
+            ],
+            "groupBys": [],
+            "perSeriesAligner": "ALIGN_DELTA",
+            "crossSeriesReducer": "REDUCE_PERCENTILE_99",
+            "alignmentPeriod": "cloud-monitoring-auto",
+            "view": "FULL"
+          },
+          "aliasBy": "p99"
         }
       ],
       "options": {
@@ -852,20 +877,7 @@
             "axisSoftMin": 0
           }
         },
-        "overrides": [
-          {
-            "matcher": {
-              "id": "byFrameRefID",
-              "options": "A"
-            },
-            "properties": [
-              {
-                "id": "displayName",
-                "value": "${__field.labels.route}"
-              }
-            ]
-          }
-        ]
+        "overrides": []
       },
       "targets": [
         {
@@ -874,12 +886,67 @@
             "type": "stackdriver",
             "uid": "${DS_CLOUD_MONITORING}"
           },
-          "queryType": "promQL",
-          "promQLQuery": {
+          "queryType": "timeSeriesList",
+          "timeSeriesList": {
             "projectName": "$project",
-            "expr": "sum by (route) (rate(logging_googleapis_com:user_staunlabor_api_cpu_sum{monitored_resource=\"cloud_run_revision\",service_name=\"staunlabor-backend\"}[5m])) / 1000",
-            "step": "$__interval"
-          }
+            "filters": [
+              "metric.type",
+              "=",
+              "logging.googleapis.com/user/staunlabor_api_cpu",
+              "AND",
+              "resource.label.service_name",
+              "=",
+              "staunlabor-backend"
+            ],
+            "groupBys": [
+              "metric.label.route"
+            ],
+            "perSeriesAligner": "ALIGN_DELTA",
+            "crossSeriesReducer": "REDUCE_MEAN",
+            "alignmentPeriod": "cloud-monitoring-auto",
+            "view": "FULL"
+          },
+          "aliasBy": "{{metric.label.route}}",
+          "hide": true
+        },
+        {
+          "refId": "B",
+          "datasource": {
+            "type": "stackdriver",
+            "uid": "${DS_CLOUD_MONITORING}"
+          },
+          "queryType": "timeSeriesList",
+          "timeSeriesList": {
+            "projectName": "$project",
+            "filters": [
+              "metric.type",
+              "=",
+              "logging.googleapis.com/user/staunlabor_api_requests",
+              "AND",
+              "resource.label.service_name",
+              "=",
+              "staunlabor-backend"
+            ],
+            "groupBys": [
+              "metric.label.route"
+            ],
+            "perSeriesAligner": "ALIGN_RATE",
+            "crossSeriesReducer": "REDUCE_SUM",
+            "alignmentPeriod": "cloud-monitoring-auto",
+            "view": "FULL"
+          },
+          "aliasBy": "{{metric.label.route}}",
+          "hide": true
+        },
+        {
+          "refId": "C",
+          "datasource": {
+            "type": "__expr__",
+            "uid": "__expr__",
+            "name": "Expression"
+          },
+          "type": "math",
+          "expression": "$A * $B / 1000"
         }
       ],
       "options": {
@@ -892,7 +959,16 @@
           "mode": "multi",
           "sort": "desc"
         }
-      }
+      },
+      "transformations": [
+        {
+          "id": "renameByRegex",
+          "options": {
+            "regex": ".*metric\\.label\\.route=\"?([^\",}]+).*",
+            "renamePattern": "$1"
+          }
+        }
+      ]
     },
     {
       "id": 10,
@@ -927,20 +1003,7 @@
             "axisSoftMin": 0
           }
         },
-        "overrides": [
-          {
-            "matcher": {
-              "id": "byFrameRefID",
-              "options": "A"
-            },
-            "properties": [
-              {
-                "id": "displayName",
-                "value": "${__field.labels.route}"
-              }
-            ]
-          }
-        ]
+        "overrides": []
       },
       "targets": [
         {
@@ -949,12 +1012,27 @@
             "type": "stackdriver",
             "uid": "${DS_CLOUD_MONITORING}"
           },
-          "queryType": "promQL",
-          "promQLQuery": {
+          "queryType": "timeSeriesList",
+          "timeSeriesList": {
             "projectName": "$project",
-            "expr": "histogram_quantile(0.95, sum by (le, route) (rate(logging_googleapis_com:user_staunlabor_api_latency_bucket{monitored_resource=\"cloud_run_revision\",service_name=\"staunlabor-backend\"}[5m])))",
-            "step": "$__interval"
-          }
+            "filters": [
+              "metric.type",
+              "=",
+              "logging.googleapis.com/user/staunlabor_api_latency",
+              "AND",
+              "resource.label.service_name",
+              "=",
+              "staunlabor-backend"
+            ],
+            "groupBys": [
+              "metric.label.route"
+            ],
+            "perSeriesAligner": "ALIGN_DELTA",
+            "crossSeriesReducer": "REDUCE_PERCENTILE_95",
+            "alignmentPeriod": "cloud-monitoring-auto",
+            "view": "FULL"
+          },
+          "aliasBy": "{{metric.label.route}}"
         }
       ],
       "options": {
@@ -989,20 +1067,7 @@
         "defaults": {
           "unit": "ms"
         },
-        "overrides": [
-          {
-            "matcher": {
-              "id": "byFrameRefID",
-              "options": "A"
-            },
-            "properties": [
-              {
-                "id": "displayName",
-                "value": "${__field.labels.route}"
-              }
-            ]
-          }
-        ]
+        "overrides": []
       },
       "targets": [
         {
@@ -1011,12 +1076,27 @@
             "type": "stackdriver",
             "uid": "${DS_CLOUD_MONITORING}"
           },
-          "queryType": "promQL",
-          "promQLQuery": {
+          "queryType": "timeSeriesList",
+          "timeSeriesList": {
             "projectName": "$project",
-            "expr": "sum by (route) (rate(logging_googleapis_com:user_staunlabor_api_cpu_sum{monitored_resource=\"cloud_run_revision\",service_name=\"staunlabor-backend\"}[5m])) / sum by (route) (rate(logging_googleapis_com:user_staunlabor_api_cpu_count{monitored_resource=\"cloud_run_revision\",service_name=\"staunlabor-backend\"}[5m]))",
-            "step": "$__interval"
-          }
+            "filters": [
+              "metric.type",
+              "=",
+              "logging.googleapis.com/user/staunlabor_api_cpu",
+              "AND",
+              "resource.label.service_name",
+              "=",
+              "staunlabor-backend"
+            ],
+            "groupBys": [
+              "metric.label.route"
+            ],
+            "perSeriesAligner": "ALIGN_DELTA",
+            "crossSeriesReducer": "REDUCE_MEAN",
+            "alignmentPeriod": "cloud-monitoring-auto",
+            "view": "FULL"
+          },
+          "aliasBy": "{{metric.label.route}}"
         }
       ],
       "options": {
@@ -1065,20 +1145,7 @@
             "axisSoftMin": 0
           }
         },
-        "overrides": [
-          {
-            "matcher": {
-              "id": "byFrameRefID",
-              "options": "A"
-            },
-            "properties": [
-              {
-                "id": "displayName",
-                "value": "${__field.labels.route} ${__field.labels.status}"
-              }
-            ]
-          }
-        ]
+        "overrides": []
       },
       "targets": [
         {
@@ -1087,12 +1154,28 @@
             "type": "stackdriver",
             "uid": "${DS_CLOUD_MONITORING}"
           },
-          "queryType": "promQL",
-          "promQLQuery": {
+          "queryType": "timeSeriesList",
+          "timeSeriesList": {
             "projectName": "$project",
-            "expr": "sum by (route, status) (rate(logging_googleapis_com:user_staunlabor_api_latency_count{monitored_resource=\"cloud_run_revision\",service_name=\"staunlabor-backend\"}[5m])) * 60",
-            "step": "$__interval"
-          }
+            "filters": [
+              "metric.type",
+              "=",
+              "logging.googleapis.com/user/staunlabor_api_requests",
+              "AND",
+              "resource.label.service_name",
+              "=",
+              "staunlabor-backend"
+            ],
+            "groupBys": [
+              "metric.label.route",
+              "metric.label.status"
+            ],
+            "perSeriesAligner": "ALIGN_DELTA",
+            "crossSeriesReducer": "REDUCE_SUM",
+            "alignmentPeriod": "+60s",
+            "view": "FULL"
+          },
+          "aliasBy": "{{metric.label.route}} {{metric.label.status}}"
         }
       ],
       "options": {
@@ -1108,6 +1191,112 @@
       }
     },
     {
+      "id": 38,
+      "type": "timeseries",
+      "title": "Answers kept and computed, per minute",
+      "description": "Each /api answer of the calculation routes either comes from the kept answers (backend/staunlabor/answer_cache.py: no calculation, no budget) or is computed. A post's crowd asking the same questions should show mostly kept; a rising computed line means questions not asked before, which cost CPU and budget.",
+      "datasource": {
+        "type": "stackdriver",
+        "uid": "${DS_CLOUD_MONITORING}"
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 24,
+        "x": 0,
+        "y": 45
+      },
+      "fieldConfig": {
+        "defaults": {
+          "unit": "short",
+          "min": 0,
+          "custom": {
+            "drawStyle": "bars",
+            "stacking": {
+              "mode": "normal",
+              "group": "A"
+            },
+            "fillOpacity": 80,
+            "lineWidth": 0,
+            "showPoints": "never"
+          }
+        },
+        "overrides": []
+      },
+      "options": {
+        "legend": {
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "mode": "multi",
+          "sort": "desc"
+        }
+      },
+      "targets": [
+        {
+          "refId": "A",
+          "datasource": {
+            "type": "stackdriver",
+            "uid": "${DS_CLOUD_MONITORING}"
+          },
+          "queryType": "timeSeriesList",
+          "timeSeriesList": {
+            "projectName": "$project",
+            "filters": [
+              "metric.type",
+              "=",
+              "logging.googleapis.com/user/staunlabor_api_requests",
+              "AND",
+              "resource.label.service_name",
+              "=",
+              "staunlabor-backend",
+              "AND",
+              "metric.label.cached",
+              "=",
+              "true"
+            ],
+            "groupBys": [],
+            "perSeriesAligner": "ALIGN_DELTA",
+            "crossSeriesReducer": "REDUCE_SUM",
+            "alignmentPeriod": "+60s",
+            "view": "FULL"
+          },
+          "aliasBy": "kept (no calculation)"
+        },
+        {
+          "refId": "B",
+          "datasource": {
+            "type": "stackdriver",
+            "uid": "${DS_CLOUD_MONITORING}"
+          },
+          "queryType": "timeSeriesList",
+          "timeSeriesList": {
+            "projectName": "$project",
+            "filters": [
+              "metric.type",
+              "=",
+              "logging.googleapis.com/user/staunlabor_api_requests",
+              "AND",
+              "resource.label.service_name",
+              "=",
+              "staunlabor-backend",
+              "AND",
+              "metric.label.cached",
+              "=",
+              "false"
+            ],
+            "groupBys": [],
+            "perSeriesAligner": "ALIGN_DELTA",
+            "crossSeriesReducer": "REDUCE_SUM",
+            "alignmentPeriod": "+60s",
+            "view": "FULL"
+          },
+          "aliasBy": "computed"
+        }
+      ]
+    },
+    {
       "id": 13,
       "type": "row",
       "title": "2 · Cold starts: one backend instance always on (min instances 1)",
@@ -1116,7 +1305,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 45
+        "y": 53
       },
       "panels": []
     },
@@ -1133,7 +1322,7 @@
         "h": 8,
         "w": 8,
         "x": 0,
-        "y": 46
+        "y": 54
       },
       "interval": "1m",
       "fieldConfig": {
@@ -1170,32 +1359,7 @@
             ]
           }
         },
-        "overrides": [
-          {
-            "matcher": {
-              "id": "byFrameRefID",
-              "options": "A"
-            },
-            "properties": [
-              {
-                "id": "displayName",
-                "value": "backend ${__field.labels.state}"
-              }
-            ]
-          },
-          {
-            "matcher": {
-              "id": "byFrameRefID",
-              "options": "B"
-            },
-            "properties": [
-              {
-                "id": "displayName",
-                "value": "web ${__field.labels.state}"
-              }
-            ]
-          }
-        ]
+        "overrides": []
       },
       "targets": [
         {
@@ -1204,12 +1368,27 @@
             "type": "stackdriver",
             "uid": "${DS_CLOUD_MONITORING}"
           },
-          "queryType": "promQL",
-          "promQLQuery": {
+          "queryType": "timeSeriesList",
+          "timeSeriesList": {
             "projectName": "$project",
-            "expr": "sum by (state) (run_googleapis_com:container_instance_count{monitored_resource=\"cloud_run_revision\",service_name=\"staunlabor-backend\"})",
-            "step": "$__interval"
-          }
+            "filters": [
+              "metric.type",
+              "=",
+              "run.googleapis.com/container/instance_count",
+              "AND",
+              "resource.label.service_name",
+              "=",
+              "staunlabor-backend"
+            ],
+            "groupBys": [
+              "metric.label.state"
+            ],
+            "perSeriesAligner": "ALIGN_MAX",
+            "crossSeriesReducer": "REDUCE_SUM",
+            "alignmentPeriod": "cloud-monitoring-auto",
+            "view": "FULL"
+          },
+          "aliasBy": "backend {{metric.label.state}}"
         },
         {
           "refId": "B",
@@ -1217,12 +1396,27 @@
             "type": "stackdriver",
             "uid": "${DS_CLOUD_MONITORING}"
           },
-          "queryType": "promQL",
-          "promQLQuery": {
+          "queryType": "timeSeriesList",
+          "timeSeriesList": {
             "projectName": "$project",
-            "expr": "sum by (state) (run_googleapis_com:container_instance_count{monitored_resource=\"cloud_run_revision\",service_name=\"staunlabor-web\"})",
-            "step": "$__interval"
-          }
+            "filters": [
+              "metric.type",
+              "=",
+              "run.googleapis.com/container/instance_count",
+              "AND",
+              "resource.label.service_name",
+              "=",
+              "staunlabor-web"
+            ],
+            "groupBys": [
+              "metric.label.state"
+            ],
+            "perSeriesAligner": "ALIGN_MAX",
+            "crossSeriesReducer": "REDUCE_SUM",
+            "alignmentPeriod": "cloud-monitoring-auto",
+            "view": "FULL"
+          },
+          "aliasBy": "web {{metric.label.state}}"
         }
       ],
       "options": {
@@ -1250,7 +1444,7 @@
         "h": 8,
         "w": 8,
         "x": 8,
-        "y": 46
+        "y": 54
       },
       "interval": "1m",
       "fieldConfig": {
@@ -1270,44 +1464,7 @@
             "axisSoftMin": 0
           }
         },
-        "overrides": [
-          {
-            "matcher": {
-              "id": "byFrameRefID",
-              "options": "A"
-            },
-            "properties": [
-              {
-                "id": "displayName",
-                "value": "backend p50"
-              }
-            ]
-          },
-          {
-            "matcher": {
-              "id": "byFrameRefID",
-              "options": "B"
-            },
-            "properties": [
-              {
-                "id": "displayName",
-                "value": "backend p95"
-              }
-            ]
-          },
-          {
-            "matcher": {
-              "id": "byFrameRefID",
-              "options": "C"
-            },
-            "properties": [
-              {
-                "id": "displayName",
-                "value": "web p95"
-              }
-            ]
-          }
-        ]
+        "overrides": []
       },
       "targets": [
         {
@@ -1316,12 +1473,25 @@
             "type": "stackdriver",
             "uid": "${DS_CLOUD_MONITORING}"
           },
-          "queryType": "promQL",
-          "promQLQuery": {
+          "queryType": "timeSeriesList",
+          "timeSeriesList": {
             "projectName": "$project",
-            "expr": "histogram_quantile(0.5, sum by (le) (rate(run_googleapis_com:container_startup_latencies_bucket{monitored_resource=\"cloud_run_revision\",service_name=\"staunlabor-backend\"}[5m])))",
-            "step": "$__interval"
-          }
+            "filters": [
+              "metric.type",
+              "=",
+              "run.googleapis.com/container/startup_latencies",
+              "AND",
+              "resource.label.service_name",
+              "=",
+              "staunlabor-backend"
+            ],
+            "groupBys": [],
+            "perSeriesAligner": "ALIGN_DELTA",
+            "crossSeriesReducer": "REDUCE_PERCENTILE_50",
+            "alignmentPeriod": "cloud-monitoring-auto",
+            "view": "FULL"
+          },
+          "aliasBy": "backend p50"
         },
         {
           "refId": "B",
@@ -1329,12 +1499,25 @@
             "type": "stackdriver",
             "uid": "${DS_CLOUD_MONITORING}"
           },
-          "queryType": "promQL",
-          "promQLQuery": {
+          "queryType": "timeSeriesList",
+          "timeSeriesList": {
             "projectName": "$project",
-            "expr": "histogram_quantile(0.95, sum by (le) (rate(run_googleapis_com:container_startup_latencies_bucket{monitored_resource=\"cloud_run_revision\",service_name=\"staunlabor-backend\"}[5m])))",
-            "step": "$__interval"
-          }
+            "filters": [
+              "metric.type",
+              "=",
+              "run.googleapis.com/container/startup_latencies",
+              "AND",
+              "resource.label.service_name",
+              "=",
+              "staunlabor-backend"
+            ],
+            "groupBys": [],
+            "perSeriesAligner": "ALIGN_DELTA",
+            "crossSeriesReducer": "REDUCE_PERCENTILE_95",
+            "alignmentPeriod": "cloud-monitoring-auto",
+            "view": "FULL"
+          },
+          "aliasBy": "backend p95"
         },
         {
           "refId": "C",
@@ -1342,12 +1525,25 @@
             "type": "stackdriver",
             "uid": "${DS_CLOUD_MONITORING}"
           },
-          "queryType": "promQL",
-          "promQLQuery": {
+          "queryType": "timeSeriesList",
+          "timeSeriesList": {
             "projectName": "$project",
-            "expr": "histogram_quantile(0.95, sum by (le) (rate(run_googleapis_com:container_startup_latencies_bucket{monitored_resource=\"cloud_run_revision\",service_name=\"staunlabor-web\"}[5m])))",
-            "step": "$__interval"
-          }
+            "filters": [
+              "metric.type",
+              "=",
+              "run.googleapis.com/container/startup_latencies",
+              "AND",
+              "resource.label.service_name",
+              "=",
+              "staunlabor-web"
+            ],
+            "groupBys": [],
+            "perSeriesAligner": "ALIGN_DELTA",
+            "crossSeriesReducer": "REDUCE_PERCENTILE_95",
+            "alignmentPeriod": "cloud-monitoring-auto",
+            "view": "FULL"
+          },
+          "aliasBy": "web p95"
         }
       ],
       "options": {
@@ -1375,7 +1571,7 @@
         "h": 8,
         "w": 8,
         "x": 16,
-        "y": 46
+        "y": 54
       },
       "interval": "1m",
       "fieldConfig": {
@@ -1395,44 +1591,7 @@
             "axisSoftMin": 0
           }
         },
-        "overrides": [
-          {
-            "matcher": {
-              "id": "byFrameRefID",
-              "options": "A"
-            },
-            "properties": [
-              {
-                "id": "displayName",
-                "value": "backend p95"
-              }
-            ]
-          },
-          {
-            "matcher": {
-              "id": "byFrameRefID",
-              "options": "B"
-            },
-            "properties": [
-              {
-                "id": "displayName",
-                "value": "backend p99"
-              }
-            ]
-          },
-          {
-            "matcher": {
-              "id": "byFrameRefID",
-              "options": "C"
-            },
-            "properties": [
-              {
-                "id": "displayName",
-                "value": "web p95"
-              }
-            ]
-          }
-        ]
+        "overrides": []
       },
       "targets": [
         {
@@ -1441,12 +1600,25 @@
             "type": "stackdriver",
             "uid": "${DS_CLOUD_MONITORING}"
           },
-          "queryType": "promQL",
-          "promQLQuery": {
+          "queryType": "timeSeriesList",
+          "timeSeriesList": {
             "projectName": "$project",
-            "expr": "histogram_quantile(0.95, sum by (le) (rate(run_googleapis_com:request_latency_pending_bucket{monitored_resource=\"cloud_run_revision\",service_name=\"staunlabor-backend\"}[5m])))",
-            "step": "$__interval"
-          }
+            "filters": [
+              "metric.type",
+              "=",
+              "run.googleapis.com/request_latency/pending",
+              "AND",
+              "resource.label.service_name",
+              "=",
+              "staunlabor-backend"
+            ],
+            "groupBys": [],
+            "perSeriesAligner": "ALIGN_DELTA",
+            "crossSeriesReducer": "REDUCE_PERCENTILE_95",
+            "alignmentPeriod": "cloud-monitoring-auto",
+            "view": "FULL"
+          },
+          "aliasBy": "backend p95"
         },
         {
           "refId": "B",
@@ -1454,12 +1626,25 @@
             "type": "stackdriver",
             "uid": "${DS_CLOUD_MONITORING}"
           },
-          "queryType": "promQL",
-          "promQLQuery": {
+          "queryType": "timeSeriesList",
+          "timeSeriesList": {
             "projectName": "$project",
-            "expr": "histogram_quantile(0.99, sum by (le) (rate(run_googleapis_com:request_latency_pending_bucket{monitored_resource=\"cloud_run_revision\",service_name=\"staunlabor-backend\"}[5m])))",
-            "step": "$__interval"
-          }
+            "filters": [
+              "metric.type",
+              "=",
+              "run.googleapis.com/request_latency/pending",
+              "AND",
+              "resource.label.service_name",
+              "=",
+              "staunlabor-backend"
+            ],
+            "groupBys": [],
+            "perSeriesAligner": "ALIGN_DELTA",
+            "crossSeriesReducer": "REDUCE_PERCENTILE_99",
+            "alignmentPeriod": "cloud-monitoring-auto",
+            "view": "FULL"
+          },
+          "aliasBy": "backend p99"
         },
         {
           "refId": "C",
@@ -1467,12 +1652,25 @@
             "type": "stackdriver",
             "uid": "${DS_CLOUD_MONITORING}"
           },
-          "queryType": "promQL",
-          "promQLQuery": {
+          "queryType": "timeSeriesList",
+          "timeSeriesList": {
             "projectName": "$project",
-            "expr": "histogram_quantile(0.95, sum by (le) (rate(run_googleapis_com:request_latency_pending_bucket{monitored_resource=\"cloud_run_revision\",service_name=\"staunlabor-web\"}[5m])))",
-            "step": "$__interval"
-          }
+            "filters": [
+              "metric.type",
+              "=",
+              "run.googleapis.com/request_latency/pending",
+              "AND",
+              "resource.label.service_name",
+              "=",
+              "staunlabor-web"
+            ],
+            "groupBys": [],
+            "perSeriesAligner": "ALIGN_DELTA",
+            "crossSeriesReducer": "REDUCE_PERCENTILE_95",
+            "alignmentPeriod": "cloud-monitoring-auto",
+            "view": "FULL"
+          },
+          "aliasBy": "web p95"
         }
       ],
       "options": {
@@ -1490,7 +1688,7 @@
     {
       "id": 17,
       "type": "timeseries",
-      "title": "Cold requests, by route",
+      "title": "Cold requests per minute, by route",
       "description": "The first request each new backend process answered: which route met a fresh instance and paid the first-time work (the first database connection of /experiments/checks, the Chladni modes' one computation).",
       "datasource": {
         "type": "stackdriver",
@@ -1500,7 +1698,7 @@
         "h": 8,
         "w": 12,
         "x": 0,
-        "y": 54
+        "y": 62
       },
       "interval": "1m",
       "fieldConfig": {
@@ -1521,20 +1719,7 @@
             "axisSoftMin": 0
           }
         },
-        "overrides": [
-          {
-            "matcher": {
-              "id": "byFrameRefID",
-              "options": "A"
-            },
-            "properties": [
-              {
-                "id": "displayName",
-                "value": "${__field.labels.route}"
-              }
-            ]
-          }
-        ]
+        "overrides": []
       },
       "targets": [
         {
@@ -1543,12 +1728,31 @@
             "type": "stackdriver",
             "uid": "${DS_CLOUD_MONITORING}"
           },
-          "queryType": "promQL",
-          "promQLQuery": {
+          "queryType": "timeSeriesList",
+          "timeSeriesList": {
             "projectName": "$project",
-            "expr": "sum by (route) (increase(logging_googleapis_com:user_staunlabor_api_cold_count{monitored_resource=\"cloud_run_revision\",service_name=\"staunlabor-backend\"}[$__interval]))",
-            "step": "$__interval"
-          }
+            "filters": [
+              "metric.type",
+              "=",
+              "logging.googleapis.com/user/staunlabor_api_requests",
+              "AND",
+              "resource.label.service_name",
+              "=",
+              "staunlabor-backend",
+              "AND",
+              "metric.label.cold",
+              "=",
+              "true"
+            ],
+            "groupBys": [
+              "metric.label.route"
+            ],
+            "perSeriesAligner": "ALIGN_DELTA",
+            "crossSeriesReducer": "REDUCE_SUM",
+            "alignmentPeriod": "+60s",
+            "view": "FULL"
+          },
+          "aliasBy": "{{metric.label.route}}"
         }
       ],
       "options": {
@@ -1576,7 +1780,7 @@
         "h": 8,
         "w": 12,
         "x": 12,
-        "y": 54
+        "y": 62
       },
       "interval": "1m",
       "fieldConfig": {
@@ -1596,20 +1800,7 @@
             "axisSoftMin": 0
           }
         },
-        "overrides": [
-          {
-            "matcher": {
-              "id": "byFrameRefID",
-              "options": "A"
-            },
-            "properties": [
-              {
-                "id": "displayName",
-                "value": "${__field.labels.route}"
-              }
-            ]
-          }
-        ]
+        "overrides": []
       },
       "targets": [
         {
@@ -1618,12 +1809,27 @@
             "type": "stackdriver",
             "uid": "${DS_CLOUD_MONITORING}"
           },
-          "queryType": "promQL",
-          "promQLQuery": {
+          "queryType": "timeSeriesList",
+          "timeSeriesList": {
             "projectName": "$project",
-            "expr": "sum by (route) (rate(logging_googleapis_com:user_staunlabor_api_cold_sum{monitored_resource=\"cloud_run_revision\",service_name=\"staunlabor-backend\"}[5m])) / sum by (route) (rate(logging_googleapis_com:user_staunlabor_api_cold_count{monitored_resource=\"cloud_run_revision\",service_name=\"staunlabor-backend\"}[5m]))",
-            "step": "$__interval"
-          }
+            "filters": [
+              "metric.type",
+              "=",
+              "logging.googleapis.com/user/staunlabor_api_cold",
+              "AND",
+              "resource.label.service_name",
+              "=",
+              "staunlabor-backend"
+            ],
+            "groupBys": [
+              "metric.label.route"
+            ],
+            "perSeriesAligner": "ALIGN_DELTA",
+            "crossSeriesReducer": "REDUCE_MEAN",
+            "alignmentPeriod": "cloud-monitoring-auto",
+            "view": "FULL"
+          },
+          "aliasBy": "{{metric.label.route}}"
         }
       ],
       "options": {
@@ -1647,7 +1853,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 62
+        "y": 70
       },
       "panels": []
     },
@@ -1664,7 +1870,7 @@
         "h": 8,
         "w": 12,
         "x": 0,
-        "y": 63
+        "y": 71
       },
       "interval": "1m",
       "fieldConfig": {
@@ -1684,20 +1890,7 @@
             "axisSoftMin": 0
           }
         },
-        "overrides": [
-          {
-            "matcher": {
-              "id": "byFrameRefID",
-              "options": "A"
-            },
-            "properties": [
-              {
-                "id": "displayName",
-                "value": "${__field.labels.route}"
-              }
-            ]
-          }
-        ]
+        "overrides": []
       },
       "targets": [
         {
@@ -1706,12 +1899,31 @@
             "type": "stackdriver",
             "uid": "${DS_CLOUD_MONITORING}"
           },
-          "queryType": "promQL",
-          "promQLQuery": {
+          "queryType": "timeSeriesList",
+          "timeSeriesList": {
             "projectName": "$project",
-            "expr": "sum by (route) (rate(logging_googleapis_com:user_staunlabor_api_latency_count{monitored_resource=\"cloud_run_revision\",service_name=\"staunlabor-backend\",status=\"429\"}[5m])) * 60",
-            "step": "$__interval"
-          }
+            "filters": [
+              "metric.type",
+              "=",
+              "logging.googleapis.com/user/staunlabor_api_requests",
+              "AND",
+              "resource.label.service_name",
+              "=",
+              "staunlabor-backend",
+              "AND",
+              "metric.label.status",
+              "=",
+              "429"
+            ],
+            "groupBys": [
+              "metric.label.route"
+            ],
+            "perSeriesAligner": "ALIGN_DELTA",
+            "crossSeriesReducer": "REDUCE_SUM",
+            "alignmentPeriod": "+60s",
+            "view": "FULL"
+          },
+          "aliasBy": "{{metric.label.route}}"
         }
       ],
       "options": {
@@ -1739,7 +1951,7 @@
         "h": 8,
         "w": 12,
         "x": 12,
-        "y": 63
+        "y": 71
       },
       "interval": "1m",
       "fieldConfig": {
@@ -1763,7 +1975,7 @@
           {
             "matcher": {
               "id": "byFrameRefID",
-              "options": "A"
+              "options": "C"
             },
             "properties": [
               {
@@ -1781,12 +1993,67 @@
             "type": "stackdriver",
             "uid": "${DS_CLOUD_MONITORING}"
           },
-          "queryType": "promQL",
-          "promQLQuery": {
+          "queryType": "timeSeriesList",
+          "timeSeriesList": {
             "projectName": "$project",
-            "expr": "sum(rate(logging_googleapis_com:user_staunlabor_api_latency_count{monitored_resource=\"cloud_run_revision\",service_name=\"staunlabor-backend\",status=\"429\"}[5m])) / sum(rate(logging_googleapis_com:user_staunlabor_api_latency_count{monitored_resource=\"cloud_run_revision\",service_name=\"staunlabor-backend\"}[5m]))",
-            "step": "$__interval"
-          }
+            "filters": [
+              "metric.type",
+              "=",
+              "logging.googleapis.com/user/staunlabor_api_requests",
+              "AND",
+              "resource.label.service_name",
+              "=",
+              "staunlabor-backend",
+              "AND",
+              "metric.label.status",
+              "=",
+              "429"
+            ],
+            "groupBys": [],
+            "perSeriesAligner": "ALIGN_RATE",
+            "crossSeriesReducer": "REDUCE_SUM",
+            "alignmentPeriod": "cloud-monitoring-auto",
+            "view": "FULL"
+          },
+          "aliasBy": "refused",
+          "hide": true
+        },
+        {
+          "refId": "B",
+          "datasource": {
+            "type": "stackdriver",
+            "uid": "${DS_CLOUD_MONITORING}"
+          },
+          "queryType": "timeSeriesList",
+          "timeSeriesList": {
+            "projectName": "$project",
+            "filters": [
+              "metric.type",
+              "=",
+              "logging.googleapis.com/user/staunlabor_api_requests",
+              "AND",
+              "resource.label.service_name",
+              "=",
+              "staunlabor-backend"
+            ],
+            "groupBys": [],
+            "perSeriesAligner": "ALIGN_RATE",
+            "crossSeriesReducer": "REDUCE_SUM",
+            "alignmentPeriod": "cloud-monitoring-auto",
+            "view": "FULL"
+          },
+          "aliasBy": "all",
+          "hide": true
+        },
+        {
+          "refId": "C",
+          "datasource": {
+            "type": "__expr__",
+            "uid": "__expr__",
+            "name": "Expression"
+          },
+          "type": "math",
+          "expression": "$A / $B"
         }
       ],
       "options": {
@@ -1810,7 +2077,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 71
+        "y": 79
       },
       "panels": []
     },
@@ -1827,7 +2094,7 @@
         "h": 8,
         "w": 8,
         "x": 0,
-        "y": 72
+        "y": 80
       },
       "interval": "1m",
       "fieldConfig": {
@@ -1864,32 +2131,7 @@
             ]
           }
         },
-        "overrides": [
-          {
-            "matcher": {
-              "id": "byFrameRefID",
-              "options": "A"
-            },
-            "properties": [
-              {
-                "id": "displayName",
-                "value": "backend"
-              }
-            ]
-          },
-          {
-            "matcher": {
-              "id": "byFrameRefID",
-              "options": "B"
-            },
-            "properties": [
-              {
-                "id": "displayName",
-                "value": "web"
-              }
-            ]
-          }
-        ]
+        "overrides": []
       },
       "targets": [
         {
@@ -1898,12 +2140,25 @@
             "type": "stackdriver",
             "uid": "${DS_CLOUD_MONITORING}"
           },
-          "queryType": "promQL",
-          "promQLQuery": {
+          "queryType": "timeSeriesList",
+          "timeSeriesList": {
             "projectName": "$project",
-            "expr": "sum(run_googleapis_com:container_instance_count{monitored_resource=\"cloud_run_revision\",service_name=\"staunlabor-backend\"})",
-            "step": "$__interval"
-          }
+            "filters": [
+              "metric.type",
+              "=",
+              "run.googleapis.com/container/instance_count",
+              "AND",
+              "resource.label.service_name",
+              "=",
+              "staunlabor-backend"
+            ],
+            "groupBys": [],
+            "perSeriesAligner": "ALIGN_MAX",
+            "crossSeriesReducer": "REDUCE_SUM",
+            "alignmentPeriod": "cloud-monitoring-auto",
+            "view": "FULL"
+          },
+          "aliasBy": "backend"
         },
         {
           "refId": "B",
@@ -1911,12 +2166,25 @@
             "type": "stackdriver",
             "uid": "${DS_CLOUD_MONITORING}"
           },
-          "queryType": "promQL",
-          "promQLQuery": {
+          "queryType": "timeSeriesList",
+          "timeSeriesList": {
             "projectName": "$project",
-            "expr": "sum(run_googleapis_com:container_instance_count{monitored_resource=\"cloud_run_revision\",service_name=\"staunlabor-web\"})",
-            "step": "$__interval"
-          }
+            "filters": [
+              "metric.type",
+              "=",
+              "run.googleapis.com/container/instance_count",
+              "AND",
+              "resource.label.service_name",
+              "=",
+              "staunlabor-web"
+            ],
+            "groupBys": [],
+            "perSeriesAligner": "ALIGN_MAX",
+            "crossSeriesReducer": "REDUCE_SUM",
+            "alignmentPeriod": "cloud-monitoring-auto",
+            "view": "FULL"
+          },
+          "aliasBy": "web"
         }
       ],
       "options": {
@@ -1944,7 +2212,7 @@
         "h": 8,
         "w": 8,
         "x": 8,
-        "y": 72
+        "y": 80
       },
       "interval": "1m",
       "fieldConfig": {
@@ -1981,32 +2249,7 @@
             ]
           }
         },
-        "overrides": [
-          {
-            "matcher": {
-              "id": "byFrameRefID",
-              "options": "A"
-            },
-            "properties": [
-              {
-                "id": "displayName",
-                "value": "backend: ${__field.labels.scaling_driver}"
-              }
-            ]
-          },
-          {
-            "matcher": {
-              "id": "byFrameRefID",
-              "options": "B"
-            },
-            "properties": [
-              {
-                "id": "displayName",
-                "value": "web: ${__field.labels.scaling_driver}"
-              }
-            ]
-          }
-        ]
+        "overrides": []
       },
       "targets": [
         {
@@ -2015,12 +2258,27 @@
             "type": "stackdriver",
             "uid": "${DS_CLOUD_MONITORING}"
           },
-          "queryType": "promQL",
-          "promQLQuery": {
+          "queryType": "timeSeriesList",
+          "timeSeriesList": {
             "projectName": "$project",
-            "expr": "max by (scaling_driver) (run_googleapis_com:scaling_recommended_instances{monitored_resource=\"cloud_run_revision\",service_name=\"staunlabor-backend\"})",
-            "step": "$__interval"
-          }
+            "filters": [
+              "metric.type",
+              "=",
+              "run.googleapis.com/scaling/recommended_instances",
+              "AND",
+              "resource.label.service_name",
+              "=",
+              "staunlabor-backend"
+            ],
+            "groupBys": [
+              "metric.label.scaling_driver"
+            ],
+            "perSeriesAligner": "ALIGN_MAX",
+            "crossSeriesReducer": "REDUCE_MAX",
+            "alignmentPeriod": "cloud-monitoring-auto",
+            "view": "FULL"
+          },
+          "aliasBy": "backend: {{metric.label.scaling_driver}}"
         },
         {
           "refId": "B",
@@ -2028,12 +2286,27 @@
             "type": "stackdriver",
             "uid": "${DS_CLOUD_MONITORING}"
           },
-          "queryType": "promQL",
-          "promQLQuery": {
+          "queryType": "timeSeriesList",
+          "timeSeriesList": {
             "projectName": "$project",
-            "expr": "max by (scaling_driver) (run_googleapis_com:scaling_recommended_instances{monitored_resource=\"cloud_run_revision\",service_name=\"staunlabor-web\"})",
-            "step": "$__interval"
-          }
+            "filters": [
+              "metric.type",
+              "=",
+              "run.googleapis.com/scaling/recommended_instances",
+              "AND",
+              "resource.label.service_name",
+              "=",
+              "staunlabor-web"
+            ],
+            "groupBys": [
+              "metric.label.scaling_driver"
+            ],
+            "perSeriesAligner": "ALIGN_MAX",
+            "crossSeriesReducer": "REDUCE_MAX",
+            "alignmentPeriod": "cloud-monitoring-auto",
+            "view": "FULL"
+          },
+          "aliasBy": "web: {{metric.label.scaling_driver}}"
         }
       ],
       "options": {
@@ -2061,7 +2334,7 @@
         "h": 8,
         "w": 8,
         "x": 16,
-        "y": 72
+        "y": 80
       },
       "interval": "1m",
       "fieldConfig": {
@@ -2081,20 +2354,7 @@
             "axisSoftMin": 0
           }
         },
-        "overrides": [
-          {
-            "matcher": {
-              "id": "byFrameRefID",
-              "options": "A"
-            },
-            "properties": [
-              {
-                "id": "displayName",
-                "value": "${__field.labels.service_name} ${__field.labels.status}"
-              }
-            ]
-          }
-        ]
+        "overrides": []
       },
       "targets": [
         {
@@ -2103,12 +2363,28 @@
             "type": "stackdriver",
             "uid": "${DS_CLOUD_MONITORING}"
           },
-          "queryType": "promQL",
-          "promQLQuery": {
+          "queryType": "timeSeriesList",
+          "timeSeriesList": {
             "projectName": "$project",
-            "expr": "sum by (service_name, status) (rate(logging_googleapis_com:user_staunlabor_run_no_instance{monitored_resource=\"cloud_run_revision\",service_name=~\"staunlabor-(web|backend)\"}[5m])) * 60",
-            "step": "$__interval"
-          }
+            "filters": [
+              "metric.type",
+              "=",
+              "logging.googleapis.com/user/staunlabor_run_no_instance",
+              "AND",
+              "resource.label.service_name",
+              "=~",
+              "staunlabor-(web|backend)"
+            ],
+            "groupBys": [
+              "resource.label.service_name",
+              "metric.label.status"
+            ],
+            "perSeriesAligner": "ALIGN_DELTA",
+            "crossSeriesReducer": "REDUCE_SUM",
+            "alignmentPeriod": "+60s",
+            "view": "FULL"
+          },
+          "aliasBy": "{{resource.label.service_name}} {{metric.label.status}}"
         }
       ],
       "options": {
@@ -2132,7 +2408,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 80
+        "y": 88
       },
       "panels": []
     },
@@ -2149,7 +2425,7 @@
         "h": 8,
         "w": 8,
         "x": 0,
-        "y": 81
+        "y": 89
       },
       "interval": "1m",
       "fieldConfig": {
@@ -2185,44 +2461,7 @@
             ]
           }
         },
-        "overrides": [
-          {
-            "matcher": {
-              "id": "byFrameRefID",
-              "options": "A"
-            },
-            "properties": [
-              {
-                "id": "displayName",
-                "value": "p50"
-              }
-            ]
-          },
-          {
-            "matcher": {
-              "id": "byFrameRefID",
-              "options": "B"
-            },
-            "properties": [
-              {
-                "id": "displayName",
-                "value": "p95"
-              }
-            ]
-          },
-          {
-            "matcher": {
-              "id": "byFrameRefID",
-              "options": "C"
-            },
-            "properties": [
-              {
-                "id": "displayName",
-                "value": "p99"
-              }
-            ]
-          }
-        ]
+        "overrides": []
       },
       "targets": [
         {
@@ -2231,12 +2470,25 @@
             "type": "stackdriver",
             "uid": "${DS_CLOUD_MONITORING}"
           },
-          "queryType": "promQL",
-          "promQLQuery": {
+          "queryType": "timeSeriesList",
+          "timeSeriesList": {
             "projectName": "$project",
-            "expr": "histogram_quantile(0.5, sum by (le) (rate(run_googleapis_com:container_cpu_utilizations_bucket{monitored_resource=\"cloud_run_revision\",service_name=\"staunlabor-web\"}[5m])))",
-            "step": "$__interval"
-          }
+            "filters": [
+              "metric.type",
+              "=",
+              "run.googleapis.com/container/cpu/utilizations",
+              "AND",
+              "resource.label.service_name",
+              "=",
+              "staunlabor-web"
+            ],
+            "groupBys": [],
+            "perSeriesAligner": "ALIGN_DELTA",
+            "crossSeriesReducer": "REDUCE_PERCENTILE_50",
+            "alignmentPeriod": "cloud-monitoring-auto",
+            "view": "FULL"
+          },
+          "aliasBy": "p50"
         },
         {
           "refId": "B",
@@ -2244,12 +2496,25 @@
             "type": "stackdriver",
             "uid": "${DS_CLOUD_MONITORING}"
           },
-          "queryType": "promQL",
-          "promQLQuery": {
+          "queryType": "timeSeriesList",
+          "timeSeriesList": {
             "projectName": "$project",
-            "expr": "histogram_quantile(0.95, sum by (le) (rate(run_googleapis_com:container_cpu_utilizations_bucket{monitored_resource=\"cloud_run_revision\",service_name=\"staunlabor-web\"}[5m])))",
-            "step": "$__interval"
-          }
+            "filters": [
+              "metric.type",
+              "=",
+              "run.googleapis.com/container/cpu/utilizations",
+              "AND",
+              "resource.label.service_name",
+              "=",
+              "staunlabor-web"
+            ],
+            "groupBys": [],
+            "perSeriesAligner": "ALIGN_DELTA",
+            "crossSeriesReducer": "REDUCE_PERCENTILE_95",
+            "alignmentPeriod": "cloud-monitoring-auto",
+            "view": "FULL"
+          },
+          "aliasBy": "p95"
         },
         {
           "refId": "C",
@@ -2257,12 +2522,25 @@
             "type": "stackdriver",
             "uid": "${DS_CLOUD_MONITORING}"
           },
-          "queryType": "promQL",
-          "promQLQuery": {
+          "queryType": "timeSeriesList",
+          "timeSeriesList": {
             "projectName": "$project",
-            "expr": "histogram_quantile(0.99, sum by (le) (rate(run_googleapis_com:container_cpu_utilizations_bucket{monitored_resource=\"cloud_run_revision\",service_name=\"staunlabor-web\"}[5m])))",
-            "step": "$__interval"
-          }
+            "filters": [
+              "metric.type",
+              "=",
+              "run.googleapis.com/container/cpu/utilizations",
+              "AND",
+              "resource.label.service_name",
+              "=",
+              "staunlabor-web"
+            ],
+            "groupBys": [],
+            "perSeriesAligner": "ALIGN_DELTA",
+            "crossSeriesReducer": "REDUCE_PERCENTILE_99",
+            "alignmentPeriod": "cloud-monitoring-auto",
+            "view": "FULL"
+          },
+          "aliasBy": "p99"
         }
       ],
       "options": {
@@ -2290,7 +2568,7 @@
         "h": 8,
         "w": 8,
         "x": 8,
-        "y": 81
+        "y": 89
       },
       "interval": "1m",
       "fieldConfig": {
@@ -2310,44 +2588,7 @@
             "axisSoftMin": 0
           }
         },
-        "overrides": [
-          {
-            "matcher": {
-              "id": "byFrameRefID",
-              "options": "A"
-            },
-            "properties": [
-              {
-                "id": "displayName",
-                "value": "p50"
-              }
-            ]
-          },
-          {
-            "matcher": {
-              "id": "byFrameRefID",
-              "options": "B"
-            },
-            "properties": [
-              {
-                "id": "displayName",
-                "value": "p95"
-              }
-            ]
-          },
-          {
-            "matcher": {
-              "id": "byFrameRefID",
-              "options": "C"
-            },
-            "properties": [
-              {
-                "id": "displayName",
-                "value": "p99"
-              }
-            ]
-          }
-        ]
+        "overrides": []
       },
       "targets": [
         {
@@ -2356,12 +2597,25 @@
             "type": "stackdriver",
             "uid": "${DS_CLOUD_MONITORING}"
           },
-          "queryType": "promQL",
-          "promQLQuery": {
+          "queryType": "timeSeriesList",
+          "timeSeriesList": {
             "projectName": "$project",
-            "expr": "histogram_quantile(0.5, sum by (le) (rate(run_googleapis_com:request_latencies_bucket{monitored_resource=\"cloud_run_revision\",service_name=\"staunlabor-web\"}[5m])))",
-            "step": "$__interval"
-          }
+            "filters": [
+              "metric.type",
+              "=",
+              "run.googleapis.com/request_latencies",
+              "AND",
+              "resource.label.service_name",
+              "=",
+              "staunlabor-web"
+            ],
+            "groupBys": [],
+            "perSeriesAligner": "ALIGN_DELTA",
+            "crossSeriesReducer": "REDUCE_PERCENTILE_50",
+            "alignmentPeriod": "cloud-monitoring-auto",
+            "view": "FULL"
+          },
+          "aliasBy": "p50"
         },
         {
           "refId": "B",
@@ -2369,12 +2623,25 @@
             "type": "stackdriver",
             "uid": "${DS_CLOUD_MONITORING}"
           },
-          "queryType": "promQL",
-          "promQLQuery": {
+          "queryType": "timeSeriesList",
+          "timeSeriesList": {
             "projectName": "$project",
-            "expr": "histogram_quantile(0.95, sum by (le) (rate(run_googleapis_com:request_latencies_bucket{monitored_resource=\"cloud_run_revision\",service_name=\"staunlabor-web\"}[5m])))",
-            "step": "$__interval"
-          }
+            "filters": [
+              "metric.type",
+              "=",
+              "run.googleapis.com/request_latencies",
+              "AND",
+              "resource.label.service_name",
+              "=",
+              "staunlabor-web"
+            ],
+            "groupBys": [],
+            "perSeriesAligner": "ALIGN_DELTA",
+            "crossSeriesReducer": "REDUCE_PERCENTILE_95",
+            "alignmentPeriod": "cloud-monitoring-auto",
+            "view": "FULL"
+          },
+          "aliasBy": "p95"
         },
         {
           "refId": "C",
@@ -2382,12 +2649,25 @@
             "type": "stackdriver",
             "uid": "${DS_CLOUD_MONITORING}"
           },
-          "queryType": "promQL",
-          "promQLQuery": {
+          "queryType": "timeSeriesList",
+          "timeSeriesList": {
             "projectName": "$project",
-            "expr": "histogram_quantile(0.99, sum by (le) (rate(run_googleapis_com:request_latencies_bucket{monitored_resource=\"cloud_run_revision\",service_name=\"staunlabor-web\"}[5m])))",
-            "step": "$__interval"
-          }
+            "filters": [
+              "metric.type",
+              "=",
+              "run.googleapis.com/request_latencies",
+              "AND",
+              "resource.label.service_name",
+              "=",
+              "staunlabor-web"
+            ],
+            "groupBys": [],
+            "perSeriesAligner": "ALIGN_DELTA",
+            "crossSeriesReducer": "REDUCE_PERCENTILE_99",
+            "alignmentPeriod": "cloud-monitoring-auto",
+            "view": "FULL"
+          },
+          "aliasBy": "p99"
         }
       ],
       "options": {
@@ -2415,7 +2695,7 @@
         "h": 8,
         "w": 8,
         "x": 16,
-        "y": 81
+        "y": 89
       },
       "interval": "1m",
       "fieldConfig": {
@@ -2435,32 +2715,7 @@
             "axisSoftMin": 0
           }
         },
-        "overrides": [
-          {
-            "matcher": {
-              "id": "byFrameRefID",
-              "options": "A"
-            },
-            "properties": [
-              {
-                "id": "displayName",
-                "value": "web → ${__field.labels.kind}"
-              }
-            ]
-          },
-          {
-            "matcher": {
-              "id": "byFrameRefID",
-              "options": "B"
-            },
-            "properties": [
-              {
-                "id": "displayName",
-                "value": "backend → ${__field.labels.kind}"
-              }
-            ]
-          }
-        ]
+        "overrides": []
       },
       "targets": [
         {
@@ -2469,12 +2724,27 @@
             "type": "stackdriver",
             "uid": "${DS_CLOUD_MONITORING}"
           },
-          "queryType": "promQL",
-          "promQLQuery": {
+          "queryType": "timeSeriesList",
+          "timeSeriesList": {
             "projectName": "$project",
-            "expr": "sum by (kind) (rate(run_googleapis_com:container_network_sent_bytes_count{monitored_resource=\"cloud_run_revision\",service_name=\"staunlabor-web\"}[5m]))",
-            "step": "$__interval"
-          }
+            "filters": [
+              "metric.type",
+              "=",
+              "run.googleapis.com/container/network/sent_bytes_count",
+              "AND",
+              "resource.label.service_name",
+              "=",
+              "staunlabor-web"
+            ],
+            "groupBys": [
+              "metric.label.kind"
+            ],
+            "perSeriesAligner": "ALIGN_RATE",
+            "crossSeriesReducer": "REDUCE_SUM",
+            "alignmentPeriod": "cloud-monitoring-auto",
+            "view": "FULL"
+          },
+          "aliasBy": "web → {{metric.label.kind}}"
         },
         {
           "refId": "B",
@@ -2482,12 +2752,27 @@
             "type": "stackdriver",
             "uid": "${DS_CLOUD_MONITORING}"
           },
-          "queryType": "promQL",
-          "promQLQuery": {
+          "queryType": "timeSeriesList",
+          "timeSeriesList": {
             "projectName": "$project",
-            "expr": "sum by (kind) (rate(run_googleapis_com:container_network_sent_bytes_count{monitored_resource=\"cloud_run_revision\",service_name=\"staunlabor-backend\"}[5m]))",
-            "step": "$__interval"
-          }
+            "filters": [
+              "metric.type",
+              "=",
+              "run.googleapis.com/container/network/sent_bytes_count",
+              "AND",
+              "resource.label.service_name",
+              "=",
+              "staunlabor-backend"
+            ],
+            "groupBys": [
+              "metric.label.kind"
+            ],
+            "perSeriesAligner": "ALIGN_RATE",
+            "crossSeriesReducer": "REDUCE_SUM",
+            "alignmentPeriod": "cloud-monitoring-auto",
+            "view": "FULL"
+          },
+          "aliasBy": "backend → {{metric.label.kind}}"
         }
       ],
       "options": {
@@ -2515,7 +2800,7 @@
         "h": 8,
         "w": 12,
         "x": 0,
-        "y": 89
+        "y": 97
       },
       "interval": "1m",
       "fieldConfig": {
@@ -2539,24 +2824,12 @@
           {
             "matcher": {
               "id": "byFrameRefID",
-              "options": "A"
+              "options": "C"
             },
             "properties": [
               {
                 "id": "displayName",
                 "value": "files and pages"
-              }
-            ]
-          },
-          {
-            "matcher": {
-              "id": "byFrameRefID",
-              "options": "B"
-            },
-            "properties": [
-              {
-                "id": "displayName",
-                "value": "/api"
               }
             ]
           }
@@ -2569,12 +2842,26 @@
             "type": "stackdriver",
             "uid": "${DS_CLOUD_MONITORING}"
           },
-          "queryType": "promQL",
-          "promQLQuery": {
+          "queryType": "timeSeriesList",
+          "timeSeriesList": {
             "projectName": "$project",
-            "expr": "sum(rate(run_googleapis_com:request_count{monitored_resource=\"cloud_run_revision\",service_name=\"staunlabor-web\"}[5m])) - sum(rate(run_googleapis_com:request_count{monitored_resource=\"cloud_run_revision\",service_name=\"staunlabor-backend\"}[5m]))",
-            "step": "$__interval"
-          }
+            "filters": [
+              "metric.type",
+              "=",
+              "run.googleapis.com/request_count",
+              "AND",
+              "resource.label.service_name",
+              "=",
+              "staunlabor-web"
+            ],
+            "groupBys": [],
+            "perSeriesAligner": "ALIGN_RATE",
+            "crossSeriesReducer": "REDUCE_SUM",
+            "alignmentPeriod": "cloud-monitoring-auto",
+            "view": "FULL"
+          },
+          "aliasBy": "web",
+          "hide": true
         },
         {
           "refId": "B",
@@ -2582,12 +2869,35 @@
             "type": "stackdriver",
             "uid": "${DS_CLOUD_MONITORING}"
           },
-          "queryType": "promQL",
-          "promQLQuery": {
+          "queryType": "timeSeriesList",
+          "timeSeriesList": {
             "projectName": "$project",
-            "expr": "sum(rate(run_googleapis_com:request_count{monitored_resource=\"cloud_run_revision\",service_name=\"staunlabor-backend\"}[5m]))",
-            "step": "$__interval"
-          }
+            "filters": [
+              "metric.type",
+              "=",
+              "run.googleapis.com/request_count",
+              "AND",
+              "resource.label.service_name",
+              "=",
+              "staunlabor-backend"
+            ],
+            "groupBys": [],
+            "perSeriesAligner": "ALIGN_RATE",
+            "crossSeriesReducer": "REDUCE_SUM",
+            "alignmentPeriod": "cloud-monitoring-auto",
+            "view": "FULL"
+          },
+          "aliasBy": "/api"
+        },
+        {
+          "refId": "C",
+          "datasource": {
+            "type": "__expr__",
+            "uid": "__expr__",
+            "name": "Expression"
+          },
+          "type": "math",
+          "expression": "$A - $B"
         }
       ],
       "options": {
@@ -2615,7 +2925,7 @@
         "h": 8,
         "w": 12,
         "x": 12,
-        "y": 89
+        "y": 97
       },
       "interval": "1m",
       "fieldConfig": {
@@ -2635,20 +2945,7 @@
             "axisSoftMin": 0
           }
         },
-        "overrides": [
-          {
-            "matcher": {
-              "id": "byFrameRefID",
-              "options": "A"
-            },
-            "properties": [
-              {
-                "id": "displayName",
-                "value": "${__field.labels.response_code_class}"
-              }
-            ]
-          }
-        ]
+        "overrides": []
       },
       "targets": [
         {
@@ -2657,12 +2954,27 @@
             "type": "stackdriver",
             "uid": "${DS_CLOUD_MONITORING}"
           },
-          "queryType": "promQL",
-          "promQLQuery": {
+          "queryType": "timeSeriesList",
+          "timeSeriesList": {
             "projectName": "$project",
-            "expr": "sum by (response_code_class) (rate(run_googleapis_com:request_count{monitored_resource=\"cloud_run_revision\",service_name=\"staunlabor-web\"}[5m]))",
-            "step": "$__interval"
-          }
+            "filters": [
+              "metric.type",
+              "=",
+              "run.googleapis.com/request_count",
+              "AND",
+              "resource.label.service_name",
+              "=",
+              "staunlabor-web"
+            ],
+            "groupBys": [
+              "metric.label.response_code_class"
+            ],
+            "perSeriesAligner": "ALIGN_RATE",
+            "crossSeriesReducer": "REDUCE_SUM",
+            "alignmentPeriod": "cloud-monitoring-auto",
+            "view": "FULL"
+          },
+          "aliasBy": "{{metric.label.response_code_class}}"
         }
       ],
       "options": {
@@ -2686,7 +2998,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 97
+        "y": 105
       },
       "panels": []
     },
@@ -2703,7 +3015,7 @@
         "h": 8,
         "w": 8,
         "x": 0,
-        "y": 98
+        "y": 106
       },
       "interval": "1m",
       "fieldConfig": {
@@ -2723,32 +3035,7 @@
             "axisSoftMin": 0
           }
         },
-        "overrides": [
-          {
-            "matcher": {
-              "id": "byFrameRefID",
-              "options": "A"
-            },
-            "properties": [
-              {
-                "id": "displayName",
-                "value": "p50"
-              }
-            ]
-          },
-          {
-            "matcher": {
-              "id": "byFrameRefID",
-              "options": "B"
-            },
-            "properties": [
-              {
-                "id": "displayName",
-                "value": "p95"
-              }
-            ]
-          }
-        ]
+        "overrides": []
       },
       "targets": [
         {
@@ -2757,12 +3044,29 @@
             "type": "stackdriver",
             "uid": "${DS_CLOUD_MONITORING}"
           },
-          "queryType": "promQL",
-          "promQLQuery": {
+          "queryType": "timeSeriesList",
+          "timeSeriesList": {
             "projectName": "$project",
-            "expr": "histogram_quantile(0.5, sum by (le) (rate(logging_googleapis_com:user_staunlabor_api_latency_bucket{monitored_resource=\"cloud_run_revision\",service_name=\"staunlabor-backend\",route=\"/api/v1/experiments/checks\"}[5m])))",
-            "step": "$__interval"
-          }
+            "filters": [
+              "metric.type",
+              "=",
+              "logging.googleapis.com/user/staunlabor_api_latency",
+              "AND",
+              "resource.label.service_name",
+              "=",
+              "staunlabor-backend",
+              "AND",
+              "metric.label.route",
+              "=",
+              "/api/v1/experiments/checks"
+            ],
+            "groupBys": [],
+            "perSeriesAligner": "ALIGN_DELTA",
+            "crossSeriesReducer": "REDUCE_PERCENTILE_50",
+            "alignmentPeriod": "cloud-monitoring-auto",
+            "view": "FULL"
+          },
+          "aliasBy": "p50"
         },
         {
           "refId": "B",
@@ -2770,12 +3074,29 @@
             "type": "stackdriver",
             "uid": "${DS_CLOUD_MONITORING}"
           },
-          "queryType": "promQL",
-          "promQLQuery": {
+          "queryType": "timeSeriesList",
+          "timeSeriesList": {
             "projectName": "$project",
-            "expr": "histogram_quantile(0.95, sum by (le) (rate(logging_googleapis_com:user_staunlabor_api_latency_bucket{monitored_resource=\"cloud_run_revision\",service_name=\"staunlabor-backend\",route=\"/api/v1/experiments/checks\"}[5m])))",
-            "step": "$__interval"
-          }
+            "filters": [
+              "metric.type",
+              "=",
+              "logging.googleapis.com/user/staunlabor_api_latency",
+              "AND",
+              "resource.label.service_name",
+              "=",
+              "staunlabor-backend",
+              "AND",
+              "metric.label.route",
+              "=",
+              "/api/v1/experiments/checks"
+            ],
+            "groupBys": [],
+            "perSeriesAligner": "ALIGN_DELTA",
+            "crossSeriesReducer": "REDUCE_PERCENTILE_95",
+            "alignmentPeriod": "cloud-monitoring-auto",
+            "view": "FULL"
+          },
+          "aliasBy": "p95"
         }
       ],
       "options": {
@@ -2803,7 +3124,7 @@
         "h": 8,
         "w": 8,
         "x": 8,
-        "y": 98
+        "y": 106
       },
       "interval": "1m",
       "fieldConfig": {
@@ -2823,32 +3144,7 @@
             "axisSoftMin": 0
           }
         },
-        "overrides": [
-          {
-            "matcher": {
-              "id": "byFrameRefID",
-              "options": "A"
-            },
-            "properties": [
-              {
-                "id": "displayName",
-                "value": "p50"
-              }
-            ]
-          },
-          {
-            "matcher": {
-              "id": "byFrameRefID",
-              "options": "B"
-            },
-            "properties": [
-              {
-                "id": "displayName",
-                "value": "p95"
-              }
-            ]
-          }
-        ]
+        "overrides": []
       },
       "targets": [
         {
@@ -2857,12 +3153,25 @@
             "type": "stackdriver",
             "uid": "${DS_CLOUD_MONITORING}"
           },
-          "queryType": "promQL",
-          "promQLQuery": {
+          "queryType": "timeSeriesList",
+          "timeSeriesList": {
             "projectName": "$project",
-            "expr": "histogram_quantile(0.5, sum by (le) (rate(run_googleapis_com:infrastructure_cloudsql_connection_latencies_bucket{monitored_resource=\"cloud_run_revision\",service_name=\"staunlabor-backend\"}[5m])))",
-            "step": "$__interval"
-          }
+            "filters": [
+              "metric.type",
+              "=",
+              "run.googleapis.com/infrastructure/cloudsql/connection_latencies",
+              "AND",
+              "resource.label.service_name",
+              "=",
+              "staunlabor-backend"
+            ],
+            "groupBys": [],
+            "perSeriesAligner": "ALIGN_DELTA",
+            "crossSeriesReducer": "REDUCE_PERCENTILE_50",
+            "alignmentPeriod": "cloud-monitoring-auto",
+            "view": "FULL"
+          },
+          "aliasBy": "p50"
         },
         {
           "refId": "B",
@@ -2870,12 +3179,25 @@
             "type": "stackdriver",
             "uid": "${DS_CLOUD_MONITORING}"
           },
-          "queryType": "promQL",
-          "promQLQuery": {
+          "queryType": "timeSeriesList",
+          "timeSeriesList": {
             "projectName": "$project",
-            "expr": "histogram_quantile(0.95, sum by (le) (rate(run_googleapis_com:infrastructure_cloudsql_connection_latencies_bucket{monitored_resource=\"cloud_run_revision\",service_name=\"staunlabor-backend\"}[5m])))",
-            "step": "$__interval"
-          }
+            "filters": [
+              "metric.type",
+              "=",
+              "run.googleapis.com/infrastructure/cloudsql/connection_latencies",
+              "AND",
+              "resource.label.service_name",
+              "=",
+              "staunlabor-backend"
+            ],
+            "groupBys": [],
+            "perSeriesAligner": "ALIGN_DELTA",
+            "crossSeriesReducer": "REDUCE_PERCENTILE_95",
+            "alignmentPeriod": "cloud-monitoring-auto",
+            "view": "FULL"
+          },
+          "aliasBy": "p95"
         }
       ],
       "options": {
@@ -2903,7 +3225,7 @@
         "h": 8,
         "w": 8,
         "x": 16,
-        "y": 98
+        "y": 106
       },
       "interval": "1m",
       "fieldConfig": {
@@ -2923,32 +3245,7 @@
             "axisSoftMin": 0
           }
         },
-        "overrides": [
-          {
-            "matcher": {
-              "id": "byFrameRefID",
-              "options": "A"
-            },
-            "properties": [
-              {
-                "id": "displayName",
-                "value": "opened"
-              }
-            ]
-          },
-          {
-            "matcher": {
-              "id": "byFrameRefID",
-              "options": "B"
-            },
-            "properties": [
-              {
-                "id": "displayName",
-                "value": "refused"
-              }
-            ]
-          }
-        ]
+        "overrides": []
       },
       "targets": [
         {
@@ -2957,12 +3254,25 @@
             "type": "stackdriver",
             "uid": "${DS_CLOUD_MONITORING}"
           },
-          "queryType": "promQL",
-          "promQLQuery": {
+          "queryType": "timeSeriesList",
+          "timeSeriesList": {
             "projectName": "$project",
-            "expr": "sum(rate(run_googleapis_com:infrastructure_cloudsql_connection_request_count{monitored_resource=\"cloud_run_revision\",service_name=\"staunlabor-backend\"}[5m])) * 60",
-            "step": "$__interval"
-          }
+            "filters": [
+              "metric.type",
+              "=",
+              "run.googleapis.com/infrastructure/cloudsql/connection_request_count",
+              "AND",
+              "resource.label.service_name",
+              "=",
+              "staunlabor-backend"
+            ],
+            "groupBys": [],
+            "perSeriesAligner": "ALIGN_DELTA",
+            "crossSeriesReducer": "REDUCE_SUM",
+            "alignmentPeriod": "+60s",
+            "view": "FULL"
+          },
+          "aliasBy": "opened"
         },
         {
           "refId": "B",
@@ -2970,12 +3280,25 @@
             "type": "stackdriver",
             "uid": "${DS_CLOUD_MONITORING}"
           },
-          "queryType": "promQL",
-          "promQLQuery": {
+          "queryType": "timeSeriesList",
+          "timeSeriesList": {
             "projectName": "$project",
-            "expr": "sum(rate(run_googleapis_com:infrastructure_cloudsql_connection_refused_count{monitored_resource=\"cloud_run_revision\",service_name=\"staunlabor-backend\"}[5m])) * 60",
-            "step": "$__interval"
-          }
+            "filters": [
+              "metric.type",
+              "=",
+              "run.googleapis.com/infrastructure/cloudsql/connection_refused_count",
+              "AND",
+              "resource.label.service_name",
+              "=",
+              "staunlabor-backend"
+            ],
+            "groupBys": [],
+            "perSeriesAligner": "ALIGN_DELTA",
+            "crossSeriesReducer": "REDUCE_SUM",
+            "alignmentPeriod": "+60s",
+            "view": "FULL"
+          },
+          "aliasBy": "refused"
         }
       ],
       "options": {
@@ -3003,7 +3326,7 @@
         "h": 8,
         "w": 12,
         "x": 0,
-        "y": 106
+        "y": 114
       },
       "interval": "1m",
       "fieldConfig": {
@@ -3040,20 +3363,7 @@
             ]
           }
         },
-        "overrides": [
-          {
-            "matcher": {
-              "id": "byFrameRefID",
-              "options": "A"
-            },
-            "properties": [
-              {
-                "id": "displayName",
-                "value": "${__field.labels.state}"
-              }
-            ]
-          }
-        ]
+        "overrides": []
       },
       "targets": [
         {
@@ -3062,12 +3372,31 @@
             "type": "stackdriver",
             "uid": "${DS_CLOUD_MONITORING}"
           },
-          "queryType": "promQL",
-          "promQLQuery": {
+          "queryType": "timeSeriesList",
+          "timeSeriesList": {
             "projectName": "$sql_project",
-            "expr": "sum by (state) (cloudsql_googleapis_com:database_postgresql_num_backends_by_state{monitored_resource=\"cloudsql_database\",database=\"staunlabor\"})",
-            "step": "$__interval"
-          }
+            "filters": [
+              "metric.type",
+              "=",
+              "cloudsql.googleapis.com/database/postgresql/num_backends_by_state",
+              "AND",
+              "resource.label.database_id",
+              "=",
+              "keksdose:keksdose-db",
+              "AND",
+              "metric.label.database",
+              "=",
+              "staunlabor"
+            ],
+            "groupBys": [
+              "metric.label.state"
+            ],
+            "perSeriesAligner": "ALIGN_MAX",
+            "crossSeriesReducer": "REDUCE_SUM",
+            "alignmentPeriod": "cloud-monitoring-auto",
+            "view": "FULL"
+          },
+          "aliasBy": "{{metric.label.state}}"
         }
       ],
       "options": {
@@ -3095,7 +3424,7 @@
         "h": 8,
         "w": 12,
         "x": 12,
-        "y": 106
+        "y": 114
       },
       "interval": "1m",
       "fieldConfig": {
@@ -3115,20 +3444,7 @@
             "axisSoftMin": 0
           }
         },
-        "overrides": [
-          {
-            "matcher": {
-              "id": "byFrameRefID",
-              "options": "A"
-            },
-            "properties": [
-              {
-                "id": "displayName",
-                "value": "keksdose-db"
-              }
-            ]
-          }
-        ]
+        "overrides": []
       },
       "targets": [
         {
@@ -3137,12 +3453,25 @@
             "type": "stackdriver",
             "uid": "${DS_CLOUD_MONITORING}"
           },
-          "queryType": "promQL",
-          "promQLQuery": {
+          "queryType": "timeSeriesList",
+          "timeSeriesList": {
             "projectName": "$sql_project",
-            "expr": "max(cloudsql_googleapis_com:database_cpu_utilization{monitored_resource=\"cloudsql_database\",database_id=\"keksdose:keksdose-db\"})",
-            "step": "$__interval"
-          }
+            "filters": [
+              "metric.type",
+              "=",
+              "cloudsql.googleapis.com/database/cpu/utilization",
+              "AND",
+              "resource.label.database_id",
+              "=",
+              "keksdose:keksdose-db"
+            ],
+            "groupBys": [],
+            "perSeriesAligner": "ALIGN_MEAN",
+            "crossSeriesReducer": "REDUCE_MAX",
+            "alignmentPeriod": "cloud-monitoring-auto",
+            "view": "FULL"
+          },
+          "aliasBy": "keksdose-db"
         }
       ],
       "options": {
