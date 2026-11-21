@@ -1710,6 +1710,125 @@
    ]
   }
  ],
+ "gyroscope": [
+  {
+   "key": "steady_turn",
+   "unit": "s",
+   "expected": 8.05135649878,
+   "measured": 8.05135649878,
+   "deviation": 9.72970661894e-14,
+   "tolerance": 1e-11,
+   "derived": true,
+   "setting": {
+    "rpm": 200.0,
+    "tilt_deg": 90.0,
+    "start": "steady"
+   },
+   "sources": [
+    {
+     "cite": "OpenStax, University Physics Volume 1, §11.4 Precession of a Gyroscope, Eq. 11.12",
+     "url": "https://openstax.org/books/university-physics-volume-1/pages/11-4-precession-of-a-gyroscope",
+     "quote": "The precession angular velocity is ω_P = dϕ/dt and from this equation we see that ω_P = rMg/L … or, since L = Iω, ω_P = rMg/(Iω). (11.12) In this derivation, we assumed that ω_P ≪ ω"
+    },
+    {
+     "cite": "J. Tatum, LibreTexts, Classical Mechanics, §4.10 The Top, Eq. 4.10.29 and 4.10.30",
+     "url": "https://phys.libretexts.org/Bookshelves/Classical_Mechanics/Classical_Mechanics_(Tatum)/04%3A_Rigid_Body_Rotation/4.10%3A_The_Top",
+     "quote": "Therefore, in vector notation, τ = Ω × L (4.10.29) Note that the magnitude of τ is Mgl sinθ and the magnitude of Ω × L is ΩL sinθ, so that the rate of precession is Ω = Mgl/L (4.10.30) and is independent of θ."
+    },
+    {
+     "cite": "Wikipedia, “List of moments of inertia”, thin circular loop",
+     "url": "https://en.wikipedia.org/wiki/List_of_moments_of_inertia",
+     "quote": "Thin circular loop of radius r and mass m. I_z = m r² I_x = I_y = ½ m r²"
+    }
+   ]
+  },
+  {
+   "key": "dip",
+   "unit": "°",
+   "expected": 3.19404261744,
+   "measured": 3.19404260108,
+   "deviation": 5.1209915817e-09,
+   "tolerance": 0.0001,
+   "derived": true,
+   "setting": {
+    "rpm": 200.0,
+    "tilt_deg": 90.0,
+    "start": "rest"
+   },
+   "sources": [
+    {
+     "cite": "J. Tatum, LibreTexts, Classical Mechanics, §4.10 The Top, Eq. 4.10.25",
+     "url": "https://phys.libretexts.org/Bookshelves/Classical_Mechanics/Classical_Mechanics_(Tatum)/04%3A_Rigid_Body_Rotation/4.10%3A_The_Top",
+     "quote": "It corresponds to just letting the top drop when you let it go, without giving it either a forward or a backward push. … cos α − cos β = (2MglI₁/L₃²) sin²β, (4.10.25) from which we see that the greater L₃, the smaller the difference between α and β - i.e. the smaller the amplitute of the nutation."
+    },
+    {
+     "cite": "Wikipedia, “List of moments of inertia”, thin circular loop",
+     "url": "https://en.wikipedia.org/wiki/List_of_moments_of_inertia",
+     "quote": "Thin circular loop of radius r and mass m. I_z = m r² I_x = I_y = ½ m r²"
+    },
+    {
+     "cite": "OpenStax, University Physics Volume 1, §10.5 Calculating Moments of Inertia, Eq. 10.20",
+     "url": "https://openstax.org/books/university-physics-volume-1/pages/10-5-calculating-moments-of-inertia",
+     "quote": "Let m be the mass of an object and let d be the distance from an axis through the object’s center of mass to a new axis. Then we have I_parallel-axis = I_center of mass + md². (10.20)"
+    }
+   ]
+  },
+  {
+   "key": "nods",
+   "unit": "1/s",
+   "expected": 13.3333333333,
+   "measured": 13.3337138462,
+   "deviation": 2.85384614054e-05,
+   "tolerance": 0.0001,
+   "derived": true,
+   "setting": {
+    "rpm": 600.0,
+    "tilt_deg": 90.0,
+    "start": "rest"
+   },
+   "sources": [
+    {
+     "cite": "J. Tatum, LibreTexts, Classical Mechanics, §4.10 The Top, Eq. 4.10.15 and 4.10.22",
+     "url": "https://phys.libretexts.org/Bookshelves/Classical_Mechanics/Classical_Mechanics_(Tatum)/04%3A_Rigid_Body_Rotation/4.10%3A_The_Top",
+     "quote": "B = 2Mgl/I₁ (4.10.15) … In the case Equation 4.10.13 becomes θ̇² = B(cos α − cos θ) − [L₃(cos α − cos θ)/(I₁ sin θ)]² (4.10.22)"
+    },
+    {
+     "cite": "Wikipedia, “List of moments of inertia”, thin circular loop",
+     "url": "https://en.wikipedia.org/wiki/List_of_moments_of_inertia",
+     "quote": "Thin circular loop of radius r and mass m. I_z = m r² I_x = I_y = ½ m r²"
+    },
+    {
+     "cite": "OpenStax, University Physics Volume 1, §10.5 Calculating Moments of Inertia, Eq. 10.20",
+     "url": "https://openstax.org/books/university-physics-volume-1/pages/10-5-calculating-moments-of-inertia",
+     "quote": "Let m be the mass of an object and let d be the distance from an axis through the object’s center of mass to a new axis. Then we have I_parallel-axis = I_center of mass + md². (10.20)"
+    }
+   ]
+  },
+  {
+   "key": "suitcase",
+   "unit": "N·m",
+   "expected": 5.92176264065,
+   "measured": 5.92176264065,
+   "deviation": 0.0,
+   "tolerance": 1e-12,
+   "derived": true,
+   "setting": {
+    "rpm": 200.0
+   },
+   "sources": [
+    {
+     "cite": "J. Tatum, LibreTexts, Classical Mechanics, §4.10 The Top, Eq. 4.10.29 and 4.10.30",
+     "url": "https://phys.libretexts.org/Bookshelves/Classical_Mechanics/Classical_Mechanics_(Tatum)/04%3A_Rigid_Body_Rotation/4.10%3A_The_Top",
+     "quote": "Therefore, in vector notation, τ = Ω × L (4.10.29) Note that the magnitude of τ is Mgl sinθ and the magnitude of Ω × L is ΩL sinθ, so that the rate of precession is Ω = Mgl/L (4.10.30) and is independent of θ."
+    },
+    {
+     "cite": "Wikipedia, “List of moments of inertia”, thin circular loop",
+     "url": "https://en.wikipedia.org/wiki/List_of_moments_of_inertia",
+     "quote": "Thin circular loop of radius r and mass m. I_z = m r² I_x = I_y = ½ m r²"
+    }
+   ]
+  }
+ ],
  "harmonograph": [
   {
    "key": "wide_slower",

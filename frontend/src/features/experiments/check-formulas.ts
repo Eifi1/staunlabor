@@ -176,6 +176,12 @@ const A_BALL: CheckSymbol = { tex: "A", key: "A_ball", unit: "m²" };
 const M_BALL: CheckSymbol = { tex: "m", key: "m_ball", unit: "kg" };
 const V_BALL: CheckSymbol = { tex: "V", key: "V_ball", unit: "m³" };
 const G_SYM: CheckSymbol = { tex: "g", key: "g", unit: "m/s²" };
+const AXLE_GYROSCOPE: CheckSymbol = { tex: "d", key: "axle_length", unit: "m" };
+const HOOP_R: CheckSymbol = { tex: "r", key: "hoop_radius", unit: "m" };
+const L3: CheckSymbol = { tex: "L_3", key: "spin_momentum", unit: "kg·m²/s" };
+const SPIN_GYROSCOPE: CheckSymbol = { tex: String.raw`\omega_3`, key: "spin_rate", unit: "1/s" };
+const I1: CheckSymbol = { tex: "I_1", key: "i1_pivot", unit: "kg·m²" };
+const ALPHA_GYROSCOPE: CheckSymbol = { tex: String.raw`\alpha`, key: "tilt_start", unit: "°" };
 
 const ROD_STEADY: CheckFormula = {
   tex: String.raw`w = \frac{\Gamma\,\Omega^2 Y}{\sqrt{(\omega^2 - \Omega^2)^2 + (2\zeta\omega\Omega)^2}}, \qquad \Gamma = \frac{\int_0^1 \varphi\,d\xi}{\int_0^1 \varphi^2\,d\xi}`,
@@ -1429,6 +1435,58 @@ export const CHECK_FORMULAS: Record<string, Record<string, CheckFormula>> = {
     float_balance: {
       tex: String.raw`\tfrac12\rho\,u^2\,c_d\,A = (m - \rho V)\,g \;\Rightarrow\; u = \sqrt{\frac{2\,(m - \rho V)\,g}{\rho\,c_d\,A}}`,
       symbols: [RHO_AIR, { tex: "u", key: "u_ball", unit: "m/s" }, CD, A_BALL, M_BALL, V_BALL, G_SYM],
+    },
+  },
+  gyroscope: {
+    steady_turn: {
+      tex: String.raw`T = \frac{2\pi}{\Omega}, \qquad \Omega = \frac{m\,g\,d}{L_3}, \qquad L_3 = I_3\,\omega_3, \qquad I_3 = m\,r^2`,
+      symbols: [
+        { tex: "T", key: "round_time", unit: "s" },
+        { tex: String.raw`\Omega`, key: "precession", unit: "1/s" },
+        MASS,
+        G,
+        AXLE_GYROSCOPE,
+        L3,
+        { tex: "I_3", key: "i3_hoop", unit: "kg·m²" },
+        SPIN_GYROSCOPE,
+        HOOP_R,
+      ],
+    },
+    dip: {
+      tex: String.raw`\cos\alpha - \cos\beta = \frac{2\,m g d\,I_1}{L_3^2}\,\sin^2\beta, \qquad \alpha = 90^\circ, \qquad I_1 = \tfrac12\,m r^2 + m d^2`,
+      symbols: [
+        ALPHA_GYROSCOPE,
+        { tex: String.raw`\beta`, key: "tilt_lowest", unit: "°" },
+        MASS,
+        G,
+        AXLE_GYROSCOPE,
+        I1,
+        L3,
+        HOOP_R,
+      ],
+    },
+    nods: {
+      tex: String.raw`\dot\theta^2 = B\,(\cos\alpha - \cos\theta) - \left[\frac{L_3\,(\cos\alpha - \cos\theta)}{I_1 \sin\theta}\right]^2 \approx B\,x - \left(\frac{L_3}{I_1}\right)^2 x^2, \qquad f = \frac{L_3}{2\pi\,I_1}`,
+      symbols: [
+        { tex: String.raw`\theta`, key: "axle_tilt", unit: "rad" },
+        { tex: "B", key: "top_b", unit: "1/s²" },
+        ALPHA_GYROSCOPE,
+        L3,
+        I1,
+        { tex: "x", key: "below_level", unit: "rad" },
+        { tex: "f", key: "f", unit: "1/s" },
+      ],
+    },
+    suitcase: {
+      tex: String.raw`\vec\tau = \vec\Omega \times \vec L, \qquad \tau = \Omega\,L_3, \qquad L_3 = m\,r^2\,\omega_3`,
+      symbols: [
+        { tex: String.raw`\tau`, key: "torque", unit: "N·m" },
+        { tex: String.raw`\Omega`, key: "suitcase_turn", unit: "1/s" },
+        L3,
+        MASS,
+        HOOP_R,
+        SPIN_GYROSCOPE,
+      ],
     },
   },
 };

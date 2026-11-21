@@ -3791,7 +3791,22 @@
         "s_jet": "a labda középpontjának magassága a nyílás fölött",
         "B_decay": "a kör keresztmetszetű légsugár lecsengési állandója, itt 6",
         "u_ball": "a levegő sebessége a labdánál",
-        "elephant_rho_air": "a levegő sűrűsége"
+        "elephant_rho_air": "a levegő sűrűsége",
+        "round_time": "egy kör ideje a fonál körül",
+        "precession": "milyen gyorsan vándorol a tengely a fonál körül",
+        "axle_length": "a fonál és a kerék közepe közti távolság",
+        "hoop_radius": "az abroncs sugara",
+        "spin_momentum": "a kerék perdülete a tengelye körül",
+        "i3_hoop": "tehetetlenségi nyomaték a tengely körül",
+        "spin_rate": "milyen gyorsan forog a kerék a tengelyén",
+        "i1_pivot": "a tengelyre merőleges tehetetlenségi nyomaték a tengely végére",
+        "tilt_start": "a tengely dőlése elengedéskor, a felfelé mutató függőlegeshez képest",
+        "tilt_lowest": "a tengely dőlése a legmélyebb pontban",
+        "axle_tilt": "a tengely dőlése a felfelé mutató függőlegeshez képest",
+        "top_b": "2mgd/I₁",
+        "below_level": "mennyivel van a tengely a vízszintes alatt",
+        "torque": "a kezek által kifejtett forgatónyomaték",
+        "suitcase_turn": "milyen gyorsan fordítják a bőröndöt"
       },
       "cases": {
         "sphere": {
@@ -4846,6 +4861,36 @@
             "setting": "Mint fent; a labda a peremről indulva 20 s-ig magára hagyva.",
             "reads": "A labda ott nyugszik meg, ahol a közegellenállás tartja a felhajtóerővel csökkentett súlyát: ahol a levegő sebessége a labdánál u = √(2(m − ρV)g/(ρ·c_d·A)).",
             "why": "Az oldal időléptető ciklusát ellenőrzi: ott tartja lebegve a labdát, ahol a levegő sebessége nála 7,407 m/s, ahogy kell. 20 s után a fel-le lengés 10⁻¹¹-re csengett le."
+          }
+        },
+        "gyroscope": {
+          "steady_turn": {
+            "title": "Már körben: egyszer a fonál körül",
+            "setting": "Egy 2 kg-os, Ø 60 cm-es abroncs egy 15 cm-es tengelyen; percenként 200 fordulat, vízszintesen és már körben járva elengedve; 8 s-ig.",
+            "reads": "A gravitáció forgatónyomatéka a kerék perdületét fordítja el, ahelyett hogy a kereket billentené: a tengely Ω = m·g·d/L₃ szögsebességgel vándorol a fonál körül.",
+            "why": "Az időléptető ciklust a legegyszerűbb esetén ellenőrzi: a tengelynek 8,05 s kell egy körhöz. Vízszintes tengelynél a forrás közelítése pontos, mert az elhagyott tag cos θ-val arányos.",
+            "step": "Az első forrás ω_P = rMg/(Iω)-t ad, a második ugyanezt τ = Ω × L-ből; behelyettesítve az abroncs I₃ = m·r² értéke a harmadik forrásból."
+          },
+          "dip": {
+            "title": "Nyugalomból elengedve: mennyit süllyed a tengely",
+            "setting": "Ugyanaz a kerék, percenként 200 fordulat, vízszintesen és nyugalomból elengedve; 3 s-ig.",
+            "reads": "Elengedve a tengely addig süllyed, amíg az energia és a két megmaradó perdület engedi, aztán bólintva visszajön. A legmélyebb pontban cos α − cos β = (2mgd·I₁/L₃²)·sin²β.",
+            "why": "A mozgásegyenletet ellenőrzi, a tengelyre merőleges tehetetlenségi nyomatékkal együtt: a tengely 3,19°-ot süllyed, ahogy az oldal mutatja.",
+            "step": "A forrás ezt az egyenletet lökés nélkül elengedett pörgettyűre adja meg. α = 90°-nál cos α = 0, és u = cos β-ra egy másodfokú egyenlet marad. I₁ az abroncs egy átmérőre vett tehetetlenségi nyomatéka, ½·m·r², a tengely mentén d-vel eltolva (Steiner-tétel): ½·m·r² + m·d²."
+          },
+          "nods": {
+            "title": "A bólogatás",
+            "setting": "Ugyanaz a kerék, percenként 600 fordulat, vízszintesen és nyugalomból elengedve; a bólintások 3 s alatt megszámolva.",
+            "reads": "Kis kitéréseknél a bólogatás L₃/I₁ körfrekvenciájú rezgés, vagyis másodpercenként L₃/(2π·I₁) bólintás.",
+            "why": "Azt ellenőrzi, milyen gyorsan bólogat a tengely az időléptető ciklusban: másodpercenként 13,33-szor. A képlet a legkisebb kitérésekre érvényes, ezért az oldal leggyorsabb fordulatszáma; az időléptető ciklus 3 · 10⁻⁵-nel gyorsabban bólogat, mert a tengelye mégis süllyed egy kicsit.",
+            "step": "A forrás θ̇²-et adja meg lökés nélkül elengedett pörgettyűre. α = 90°-nál és kis x = θ − 90° mellett ebből θ̇² ≈ B·x − (L₃/I₁)²·x² lesz: harmonikus rezgés x = B·I₁²/(2L₃²) körül, L₃/I₁ körfrekvenciával."
+          },
+          "suitcase": {
+            "title": "A bőrönd a sarkon",
+            "setting": "Ugyanaz a kerék, percenként 200 fordulat, vízszintes tengellyel; a bőröndöt másodpercenként negyed fordulattal fordítják a függőleges körül.",
+            "reads": "Aki a vízszintes tengelyt Ω szögsebességgel fordítja a függőleges körül, az a perdületét fordítja: ehhez a fordításra merőleges τ = Ω × L forgatónyomaték kell.",
+            "why": "Az oldal által megadott forgatónyomatékot ellenőrzi, a fordulatszámot és a szöget a saját egységeikben véve: 5,92 N·m.",
+            "step": "A forrás τ = Ω × L-t adja meg, nagysága Ω·L·sin θ; a tengely vízszintes, sin θ = 1, és L = I₃·ω₃, ahol az abroncs I₃ = m·r² értéke a második forrásból való."
           }
         }
       },

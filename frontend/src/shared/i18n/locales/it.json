@@ -3791,7 +3791,22 @@
         "s_jet": "altezza del centro della palla sopra l'apertura",
         "B_decay": "costante di decadimento del getto circolare, qui 6",
         "u_ball": "velocità dell'aria all'altezza della palla",
-        "elephant_rho_air": "densità dell'aria"
+        "elephant_rho_air": "densità dell'aria",
+        "round_time": "tempo per un giro attorno al filo",
+        "precession": "quanto in fretta l'asse gira attorno al filo",
+        "axle_length": "distanza dal filo al centro della ruota",
+        "hoop_radius": "raggio del cerchione",
+        "spin_momentum": "momento angolare della ruota attorno al suo asse",
+        "i3_hoop": "momento d'inerzia attorno all'asse",
+        "spin_rate": "quanto in fretta la ruota gira sul suo asse",
+        "i1_pivot": "momento d'inerzia di traverso all'asse, attorno alla sua estremità",
+        "tilt_start": "inclinazione dell'asse al rilascio, rispetto alla verticale verso l'alto",
+        "tilt_lowest": "inclinazione dell'asse nel punto più basso",
+        "axle_tilt": "inclinazione dell'asse rispetto alla verticale verso l'alto",
+        "top_b": "2mgd/I₁",
+        "below_level": "quanto l'asse sta sotto l'orizzontale",
+        "torque": "coppia che applicano le mani",
+        "suitcase_turn": "quanto in fretta si gira la valigia"
       },
       "cases": {
         "sphere": {
@@ -4846,6 +4861,36 @@
             "setting": "Come sopra; la palla lasciata a sé stessa dal bordo per 20 s.",
             "reads": "La palla si ferma dove la resistenza aerodinamica sostiene il suo peso meno la spinta di Archimede: dove l'aria all'altezza della palla va a u = √(2(m − ρV)g/(ρ·c_d·A)).",
             "why": "Verifica il ciclo dei passi temporali della pagina: tiene la palla sospesa dove l'aria va a 7,407 m/s, come richiesto. Dopo 20 s l'oscillazione si è smorzata fino a 10⁻¹¹."
+          }
+        },
+        "gyroscope": {
+          "steady_turn": {
+            "title": "Già in cerchio: un giro attorno al filo",
+            "setting": "Un cerchione di 2 kg e Ø 60 cm su un asse di 15 cm; 200 giri al minuto, lasciato andare orizzontale e già in cerchio; per 8 s.",
+            "reads": "La coppia della gravità fa ruotare il momento angolare della ruota invece di farla ribaltare: l'asse gira attorno al filo con Ω = m·g·d/L₃.",
+            "why": "Verifica il ciclo dei passi temporali nel suo caso più semplice: l'asse impiega 8,05 s per un giro. In orizzontale l'approssimazione della fonte è esatta, perché il termine che trascura va con cos θ.",
+            "step": "La prima fonte dà ω_P = rMg/(Iω), la seconda lo stesso a partire da τ = Ω × L; vi si inserisce l'I₃ = m·r² del cerchione, preso dalla terza."
+          },
+          "dip": {
+            "title": "Lasciata andare da ferma: quanto scende l'asse",
+            "setting": "La stessa ruota, 200 giri al minuto, lasciata andare orizzontale e da ferma; per 3 s.",
+            "reads": "Lasciata andare la ruota, l'asse scende finché l'energia e i due momenti angolari conservati non permettono di più, e risale annuendo. Nel punto più basso vale cos α − cos β = (2mgd·I₁/L₃²)·sin²β.",
+            "why": "Verifica l'equazione del moto, compreso il momento d'inerzia di traverso all'asse: l'asse scende di 3,19°, come indica la pagina.",
+            "step": "La fonte dà questa equazione per una trottola lasciata andare senza spinta. Con α = 90° si ha cos α = 0, e per u = cos β resta un'equazione di secondo grado. I₁ è quello del cerchione attorno a un diametro, ½·m·r², spostato di d lungo l'asse (teorema di Huygens-Steiner): ½·m·r² + m·d²."
+          },
+          "nods": {
+            "title": "Il cenno",
+            "setting": "La stessa ruota, 600 giri al minuto, lasciata andare orizzontale e da ferma; i cenni contati su 3 s.",
+            "reads": "Per piccole ampiezze il cenno è un'oscillazione con frequenza angolare L₃/I₁, quindi L₃/(2π·I₁) cenni al secondo.",
+            "why": "Verifica quanto in fretta annuisce l'asse nel ciclo dei passi temporali: 13,33 volte al secondo. La formula vale per le ampiezze più piccole, da cui la rotazione più veloce della pagina; il ciclo dei passi temporali annuisce 3 · 10⁻⁵ più in fretta, perché il suo asse scende comunque un poco.",
+            "step": "La fonte dà θ̇² per una trottola lasciata andare senza spinta. Con α = 90° e x = θ − 90° piccolo diventa θ̇² ≈ B·x − (L₃/I₁)²·x²: un'oscillazione armonica attorno a x = B·I₁²/(2L₃²) con frequenza angolare L₃/I₁."
+          },
+          "suitcase": {
+            "title": "La valigia dietro l'angolo",
+            "setting": "La stessa ruota, 200 giri al minuto, l'asse orizzontale; la valigia girata di un quarto di giro al secondo attorno alla verticale.",
+            "reads": "Chi gira l'asse orizzontale con Ω attorno alla verticale ne gira il momento angolare: per questo serve la coppia τ = Ω × L, di traverso alla rotazione.",
+            "why": "Verifica la coppia che indica la pagina, con velocità di rotazione e angolo nelle loro unità: 5,92 N·m.",
+            "step": "La fonte dà τ = Ω × L, in modulo Ω·L·sin θ; l'asse è orizzontale, sin θ = 1, e L = I₃·ω₃ con l'I₃ = m·r² del cerchione, preso dalla seconda."
           }
         }
       },

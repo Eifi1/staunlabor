@@ -3791,7 +3791,22 @@
         "s_jet": "Höhe der Ballmitte über der Öffnung",
         "B_decay": "Abklingkonstante des runden Strahls, hier 6",
         "u_ball": "Tempo der Luft am Ball",
-        "elephant_rho_air": "Dichte der Luft"
+        "elephant_rho_air": "Dichte der Luft",
+        "round_time": "Zeit für eine Runde um den Faden",
+        "precession": "wie schnell die Achse um den Faden wandert",
+        "axle_length": "Abstand vom Faden bis zur Mitte des Rads",
+        "hoop_radius": "Radius des Reifens",
+        "spin_momentum": "Drehimpuls des Rads um seine Achse",
+        "i3_hoop": "Trägheitsmoment um die Achse",
+        "spin_rate": "wie schnell das Rad auf seiner Achse dreht",
+        "i1_pivot": "Trägheitsmoment quer zur Achse, um ihr Ende",
+        "tilt_start": "Neigung der Achse beim Loslassen, gegen die Senkrechte nach oben",
+        "tilt_lowest": "Neigung der Achse am tiefsten Punkt",
+        "axle_tilt": "Neigung der Achse gegen die Senkrechte nach oben",
+        "top_b": "2mgd/I₁",
+        "below_level": "wie weit die Achse unter der Waagrechten steht",
+        "torque": "Drehmoment, das die Hände aufbringen",
+        "suitcase_turn": "wie schnell der Koffer gedreht wird"
       },
       "cases": {
         "sphere": {
@@ -4846,6 +4861,36 @@
             "setting": "Wie oben; der Ball vom Rand aus 20 s sich selbst überlassen.",
             "reads": "Der Ball kommt dort zur Ruhe, wo der Luftwiderstand sein Gewicht weniger den Auftrieb trägt: wo die Luft am Ball u = √(2(m − ρV)g/(ρ·c_d·A)) schnell ist.",
             "why": "Prüft die Zeitschleife der Seite: Sie lässt den Ball dort schweben, wo die Luft an ihm 7,407 m/s schnell ist, wie verlangt. Nach 20 s ist das Wippen auf 10⁻¹¹ abgeklungen."
+          }
+        },
+        "gyroscope": {
+          "steady_turn": {
+            "title": "Schon im Kreis: einmal um den Faden",
+            "setting": "Ein Reifen von 2 kg und Ø 60 cm an einer Achse von 15 cm; 200 Umdrehungen pro Minute, waagrecht und schon im Kreis losgelassen; 8 s lang.",
+            "reads": "Das Drehmoment der Schwerkraft dreht den Drehimpuls des Rads, statt das Rad zu kippen: Die Achse wandert mit Ω = m·g·d/L₃ um den Faden.",
+            "why": "Prüft die Zeitschleife an ihrem einfachsten Fall: Die Achse braucht 8,05 s für eine Runde. Waagrecht ist die Näherung der Quelle exakt, denn das Glied, das sie weglässt, geht mit cos θ.",
+            "step": "Die erste Quelle gibt ω_P = rMg/(Iω), die zweite dasselbe aus τ = Ω × L; eingesetzt ist I₃ = m·r² des Reifens aus der dritten."
+          },
+          "dip": {
+            "title": "In Ruhe losgelassen: wie tief die Achse sinkt",
+            "setting": "Dasselbe Rad, 200 Umdrehungen pro Minute, waagrecht und in Ruhe losgelassen; 3 s lang.",
+            "reads": "Losgelassen sinkt die Achse, bis die Energie und die beiden erhaltenen Drehimpulse es nicht weiter erlauben, und nickt zurück. Am tiefsten Punkt gilt cos α − cos β = (2mgd·I₁/L₃²)·sin²β.",
+            "why": "Prüft die Bewegungsgleichung samt dem Trägheitsmoment quer zur Achse: Die Achse sinkt um 3,19°, wie die Seite anzeigt.",
+            "step": "Die Quelle gibt diese Gleichung für einen Kreisel, der ohne Stoss losgelassen wird. Mit α = 90° ist cos α = 0, und für u = cos β bleibt eine quadratische Gleichung. I₁ ist der Reifen um einen Durchmesser, ½·m·r², um d entlang der Achse verschoben (Steiner): ½·m·r² + m·d²."
+          },
+          "nods": {
+            "title": "Das Nicken",
+            "setting": "Dasselbe Rad, 600 Umdrehungen pro Minute, waagrecht und in Ruhe losgelassen; die Nicker über 3 s gezählt.",
+            "reads": "Für kleine Ausschläge ist das Nicken eine Schwingung mit der Kreisfrequenz L₃/I₁, also L₃/(2π·I₁) Nicker pro Sekunde.",
+            "why": "Prüft, wie schnell die Achse in der Zeitschleife nickt: 13,33 Mal pro Sekunde. Die Formel gilt für die kleinsten Ausschläge, darum die schnellste Drehzahl der Seite; die Zeitschleife nickt 3 · 10⁻⁵ schneller, weil ihre Achse doch ein wenig sinkt.",
+            "step": "Die Quelle gibt θ̇² für einen Kreisel, der ohne Stoss losgelassen wird. Mit α = 90° und x = θ − 90° klein wird daraus θ̇² ≈ B·x − (L₃/I₁)²·x²: eine harmonische Schwingung um x = B·I₁²/(2L₃²) mit der Kreisfrequenz L₃/I₁."
+          },
+          "suitcase": {
+            "title": "Der Koffer um die Ecke",
+            "setting": "Dasselbe Rad, 200 Umdrehungen pro Minute, die Achse waagrecht; der Koffer eine Vierteldrehung pro Sekunde um die Senkrechte gedreht.",
+            "reads": "Wer die waagrechte Achse mit Ω um die Senkrechte dreht, dreht ihren Drehimpuls: Das braucht das Drehmoment τ = Ω × L, quer zur Drehung.",
+            "why": "Prüft das Drehmoment, das die Seite nennt, mit Drehzahl und Winkel in ihren Einheiten: 5,92 N·m.",
+            "step": "Die Quelle gibt τ = Ω × L, dem Betrag nach Ω·L·sin θ; die Achse ist waagrecht, sin θ = 1, und L = I₃·ω₃ mit I₃ = m·r² des Reifens aus der zweiten."
           }
         }
       },

@@ -3791,7 +3791,22 @@
         "s_jet": "the ball centre's height above the opening",
         "B_decay": "the round jet's decay constant, here 6",
         "u_ball": "the air's speed at the ball",
-        "elephant_rho_air": "the air's density"
+        "elephant_rho_air": "the air's density",
+        "round_time": "time to go once round the string",
+        "precession": "how fast the axle wanders round the string",
+        "axle_length": "distance from the string to the wheel's middle",
+        "hoop_radius": "the hoop's radius",
+        "spin_momentum": "the wheel's angular momentum about its axle",
+        "i3_hoop": "moment of inertia about the axle",
+        "spin_rate": "how fast the wheel spins on its axle",
+        "i1_pivot": "moment of inertia across the axle, about its end",
+        "tilt_start": "the axle's tilt when let go, from the upward vertical",
+        "tilt_lowest": "the axle's tilt at its lowest point",
+        "axle_tilt": "the axle's tilt from the upward vertical",
+        "top_b": "2mgd/I₁",
+        "below_level": "how far the axle is below the level",
+        "torque": "torque the hands supply",
+        "suitcase_turn": "how fast the suitcase is turned"
       },
       "cases": {
         "sphere": {
@@ -4846,6 +4861,36 @@
             "setting": "As above; the ball left to itself from the rim for 20 s.",
             "reads": "The ball comes to rest where the drag carries its weight less the buoyancy: where the air at the ball is u = √(2(m − ρV)g/(ρ·c_d·A)) fast.",
             "why": "Checks the page's time loop: it lets the ball float where the air at it is 7.407 m/s, as demanded. After 20 s the bob has died away to 10⁻¹¹."
+          }
+        },
+        "gyroscope": {
+          "steady_turn": {
+            "title": "Already circling: once round the string",
+            "setting": "A hoop of 2 kg and Ø 60 cm on an axle of 15 cm; 200 turns a minute, let go level and already circling; for 8 s.",
+            "reads": "Gravity's torque turns the wheel's angular momentum instead of tipping the wheel: the axle wanders round the string at Ω = m·g·d/L₃.",
+            "why": "Checks the time loop at its simplest: the axle takes 8.05 s for a round. Level, the source's approximation is exact, as the term it leaves out goes with cos θ.",
+            "step": "The first source gives ω_P = rMg/(Iω), the second the same from τ = Ω × L; put in is the hoop's I₃ = m·r² from the third."
+          },
+          "dip": {
+            "title": "Let go at rest: how far the axle sinks",
+            "setting": "The same wheel, 200 turns a minute, let go level and at rest; for 3 s.",
+            "reads": "Let go, the axle sinks until energy and the two kept angular momenta allow no further, and nods back. At the lowest point cos α − cos β = (2mgd·I₁/L₃²)·sin²β.",
+            "why": "Checks the equation of motion, the moment of inertia across the axle included: the axle sinks by 3.19°, as the page shows.",
+            "step": "The source gives this equation for a top let go without a push. With α = 90°, cos α = 0, and what is left is a quadratic for u = cos β. I₁ is the hoop's about a diameter, ½·m·r², moved d along the axle (parallel axes): ½·m·r² + m·d²."
+          },
+          "nods": {
+            "title": "The nod",
+            "setting": "The same wheel, 600 turns a minute, let go level and at rest; the nods counted over 3 s.",
+            "reads": "For small swings the nod is an oscillation at the angular frequency L₃/I₁, so L₃/(2π·I₁) nods a second.",
+            "why": "Checks how fast the axle nods in the time loop: 13.33 times a second. The formula is for the smallest swings, hence the page's fastest spin; the time loop nods 3 · 10⁻⁵ faster, as its axle does sink a little.",
+            "step": "The source gives θ̇² for a top let go without a push. With α = 90° and x = θ − 90° small it becomes θ̇² ≈ B·x − (L₃/I₁)²·x²: a harmonic oscillation about x = B·I₁²/(2L₃²) at the angular frequency L₃/I₁."
+          },
+          "suitcase": {
+            "title": "The suitcase round the corner",
+            "setting": "The same wheel, 200 turns a minute, the axle level; the suitcase turned a quarter turn a second about the vertical.",
+            "reads": "Whoever turns the level axle at Ω about the vertical turns its angular momentum: that takes the torque τ = Ω × L, across the turn.",
+            "why": "Checks the torque the page gives, with spin and angle in their units: 5.92 N·m.",
+            "step": "The source gives τ = Ω × L, in size Ω·L·sin θ; the axle is level, sin θ = 1, and L = I₃·ω₃ with the hoop's I₃ = m·r² from the second."
           }
         }
       },

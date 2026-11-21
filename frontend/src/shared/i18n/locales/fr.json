@@ -3791,7 +3791,22 @@
         "s_jet": "hauteur du centre du ballon au-dessus de l’ouverture",
         "B_decay": "constante de décroissance du jet rond, ici 6",
         "u_ball": "vitesse de l’air au niveau du ballon",
-        "elephant_rho_air": "masse volumique de l’air"
+        "elephant_rho_air": "masse volumique de l’air",
+        "round_time": "temps d’un tour autour du fil",
+        "precession": "vitesse à laquelle l’axe tourne autour du fil",
+        "axle_length": "distance du fil au centre de la roue",
+        "hoop_radius": "rayon du cerceau",
+        "spin_momentum": "moment cinétique de la roue autour de son axe",
+        "i3_hoop": "moment d’inertie autour de l’axe",
+        "spin_rate": "vitesse de rotation de la roue sur son axe",
+        "i1_pivot": "moment d’inertie en travers de l’axe, autour de son extrémité",
+        "tilt_start": "inclinaison de l’axe au lâcher, par rapport à la verticale vers le haut",
+        "tilt_lowest": "inclinaison de l’axe au point le plus bas",
+        "axle_tilt": "inclinaison de l’axe par rapport à la verticale vers le haut",
+        "top_b": "2mgd/I₁",
+        "below_level": "de combien l’axe est sous l’horizontale",
+        "torque": "couple que fournissent les mains",
+        "suitcase_turn": "vitesse à laquelle on tourne la valise"
       },
       "cases": {
         "sphere": {
@@ -4846,6 +4861,36 @@
             "setting": "Comme ci-dessus ; le ballon laissé à lui-même depuis le bord pendant 20 s.",
             "reads": "Le ballon s’immobilise là où la traînée porte son poids diminué de la poussée d’Archimède : là où l’air au niveau du ballon va à u = √(2(m − ρV)g/(ρ·c_d·A)).",
             "why": "Vérifie la boucle des pas de temps de la page : elle fait flotter le ballon là où l’air à son niveau va à 7,407 m/s, comme demandé. Après 20 s, l’oscillation s’est éteinte à 10⁻¹¹ près."
+          }
+        },
+        "gyroscope": {
+          "steady_turn": {
+            "title": "Déjà en rond : un tour du fil",
+            "setting": "Un cerceau de 2 kg et Ø 60 cm sur un axe de 15 cm ; 200 tours par minute, lâché à l’horizontale et déjà en rond ; pendant 8 s.",
+            "reads": "Le couple de la pesanteur fait tourner le moment cinétique de la roue au lieu de la faire basculer : l’axe tourne autour du fil à Ω = m·g·d/L₃.",
+            "why": "Vérifie la boucle des pas de temps dans son cas le plus simple : l’axe met 8,05 s pour un tour. À l’horizontale, l’approximation de la source est exacte, car le terme qu’elle omet va avec cos θ.",
+            "step": "La première source donne ω_P = rMg/(Iω), la deuxième la même chose à partir de τ = Ω × L ; on y met le I₃ = m·r² du cerceau, tiré de la troisième."
+          },
+          "dip": {
+            "title": "Lâchée au repos : de combien l’axe descend",
+            "setting": "La même roue, 200 tours par minute, lâchée à l’horizontale et au repos ; pendant 3 s.",
+            "reads": "Une fois la roue lâchée, l’axe descend jusqu’à ce que l’énergie et les deux moments cinétiques conservés ne le permettent plus, puis remonte en hochant. Au point le plus bas, cos α − cos β = (2mgd·I₁/L₃²)·sin²β.",
+            "why": "Vérifie l’équation du mouvement, y compris le moment d’inertie en travers de l’axe : l’axe descend de 3,19°, comme l’indique la page.",
+            "step": "La source donne cette équation pour une toupie lâchée sans élan. Avec α = 90°, cos α = 0, et il reste une équation du second degré en u = cos β. I₁ est celui du cerceau autour d’un diamètre, ½·m·r², déplacé de d le long de l’axe (théorème de Huygens) : ½·m·r² + m·d²."
+          },
+          "nods": {
+            "title": "Le hochement",
+            "setting": "La même roue, 600 tours par minute, lâchée à l’horizontale et au repos ; les hochements comptés sur 3 s.",
+            "reads": "Pour de petites amplitudes, le hochement est une oscillation de pulsation L₃/I₁, soit L₃/(2π·I₁) hochements par seconde.",
+            "why": "Vérifie à quelle vitesse l’axe hoche dans la boucle des pas de temps : 13,33 fois par seconde. La formule vaut pour les plus petites amplitudes, d’où la rotation la plus rapide de la page ; la boucle des pas de temps hoche 3 · 10⁻⁵ plus vite, car son axe descend tout de même un peu.",
+            "step": "La source donne θ̇² pour une toupie lâchée sans élan. Avec α = 90° et x = θ − 90° petit, cela devient θ̇² ≈ B·x − (L₃/I₁)²·x² : une oscillation harmonique autour de x = B·I₁²/(2L₃²), de pulsation L₃/I₁."
+          },
+          "suitcase": {
+            "title": "La valise au coin",
+            "setting": "La même roue, 200 tours par minute, l’axe horizontal ; la valise tournée d’un quart de tour par seconde autour de la verticale.",
+            "reads": "Qui tourne l’axe horizontal à Ω autour de la verticale tourne son moment cinétique : il faut pour cela le couple τ = Ω × L, en travers de la rotation.",
+            "why": "Vérifie le couple qu’indique la page, avec la vitesse de rotation et l’angle dans leurs unités : 5,92 N·m.",
+            "step": "La source donne τ = Ω × L, de norme Ω·L·sin θ ; l’axe est horizontal, sin θ = 1, et L = I₃·ω₃ avec le I₃ = m·r² du cerceau, tiré de la seconde."
           }
         }
       },

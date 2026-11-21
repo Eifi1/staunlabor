@@ -3791,7 +3791,22 @@
         "s_jet": "altura del centro de la pelota sobre la abertura",
         "B_decay": "constante de decaimiento del chorro redondo, aquí 6",
         "u_ball": "velocidad del aire en la pelota",
-        "elephant_rho_air": "densidad del aire"
+        "elephant_rho_air": "densidad del aire",
+        "round_time": "tiempo de una vuelta alrededor del hilo",
+        "precession": "lo rápido que el eje da vueltas alrededor del hilo",
+        "axle_length": "distancia del hilo al centro de la rueda",
+        "hoop_radius": "radio del aro",
+        "spin_momentum": "momento angular de la rueda alrededor de su eje",
+        "i3_hoop": "momento de inercia alrededor del eje",
+        "spin_rate": "lo rápido que gira la rueda sobre su eje",
+        "i1_pivot": "momento de inercia de través al eje, respecto a su extremo",
+        "tilt_start": "inclinación del eje al soltarlo, respecto a la vertical hacia arriba",
+        "tilt_lowest": "inclinación del eje en el punto más bajo",
+        "axle_tilt": "inclinación del eje respecto a la vertical hacia arriba",
+        "top_b": "2mgd/I₁",
+        "below_level": "cuánto queda el eje por debajo de la horizontal",
+        "torque": "par que aplican las manos",
+        "suitcase_turn": "lo rápido que se gira la maleta"
       },
       "cases": {
         "sphere": {
@@ -4846,6 +4861,36 @@
             "setting": "Como arriba; la pelota, dejada a su aire desde el borde durante 20 s.",
             "reads": "La pelota se queda quieta donde la fuerza de arrastre sostiene su peso menos el empuje de Arquímedes: donde el aire en la pelota va a u = √(2(m − ρV)g/(ρ·c_d·A)).",
             "why": "Comprueba el bucle de pasos de tiempo de la página: hace flotar la pelota donde el aire en ella va a 7,407 m/s, como se exige. Tras 20 s, la oscilación se ha apagado hasta 10⁻¹¹."
+          }
+        },
+        "gyroscope": {
+          "steady_turn": {
+            "title": "Ya girando en círculo: una vuelta al hilo",
+            "setting": "Un aro de 2 kg y Ø 60 cm en un eje de 15 cm; 200 vueltas por minuto, soltado en horizontal y ya girando en círculo; durante 8 s.",
+            "reads": "El par de la gravedad hace girar el momento angular de la rueda en lugar de volcarla: el eje da vueltas alrededor del hilo con Ω = m·g·d/L₃.",
+            "why": "Comprueba el bucle de pasos de tiempo en su caso más simple: el eje tarda 8,05 s en dar una vuelta. En horizontal, la aproximación de la fuente es exacta, porque el término que omite va con cos θ.",
+            "step": "La primera fuente da ω_P = rMg/(Iω), la segunda lo mismo a partir de τ = Ω × L; se introduce el I₃ = m·r² del aro, tomado de la tercera."
+          },
+          "dip": {
+            "title": "Soltada en reposo: cuánto baja el eje",
+            "setting": "La misma rueda, 200 vueltas por minuto, soltada en horizontal y en reposo; durante 3 s.",
+            "reads": "Al soltar la rueda, el eje baja hasta que la energía y los dos momentos angulares conservados no le permiten bajar más, y vuelve a subir cabeceando. En el punto más bajo se cumple cos α − cos β = (2mgd·I₁/L₃²)·sin²β.",
+            "why": "Comprueba la ecuación del movimiento, incluido el momento de inercia de través al eje: el eje baja 3,19°, como indica la página.",
+            "step": "La fuente da esta ecuación para un trompo que se suelta sin impulso. Con α = 90°, cos α = 0, y para u = cos β queda una ecuación de segundo grado. I₁ es el del aro respecto a un diámetro, ½·m·r², desplazado d a lo largo del eje (teorema de Steiner): ½·m·r² + m·d²."
+          },
+          "nods": {
+            "title": "El cabeceo",
+            "setting": "La misma rueda, 600 vueltas por minuto, soltada en horizontal y en reposo; los cabeceos contados durante 3 s.",
+            "reads": "Para oscilaciones pequeñas, el cabeceo es una oscilación con la frecuencia angular L₃/I₁, es decir, L₃/(2π·I₁) cabeceos por segundo.",
+            "why": "Comprueba lo rápido que cabecea el eje en el bucle de pasos de tiempo: 13,33 veces por segundo. La fórmula vale para las oscilaciones más pequeñas, de ahí el giro más rápido de la página; el bucle de pasos de tiempo cabecea 3 · 10⁻⁵ más rápido, porque su eje sí baja un poco.",
+            "step": "La fuente da θ̇² para un trompo que se suelta sin impulso. Con α = 90° y x = θ − 90° pequeño, queda θ̇² ≈ B·x − (L₃/I₁)²·x²: una oscilación armónica alrededor de x = B·I₁²/(2L₃²) con la frecuencia angular L₃/I₁."
+          },
+          "suitcase": {
+            "title": "La maleta al doblar la esquina",
+            "setting": "La misma rueda, 200 vueltas por minuto, el eje horizontal; la maleta girada un cuarto de vuelta por segundo alrededor de la vertical.",
+            "reads": "Quien gira el eje horizontal con Ω alrededor de la vertical gira su momento angular: eso requiere el par τ = Ω × L, de través al giro.",
+            "why": "Comprueba el par que da la página, con la velocidad de giro y el ángulo en sus unidades: 5,92 N·m.",
+            "step": "La fuente da τ = Ω × L, de módulo Ω·L·sin θ; el eje es horizontal, sin θ = 1, y L = I₃·ω₃ con el I₃ = m·r² del aro, tomado de la segunda."
           }
         }
       },

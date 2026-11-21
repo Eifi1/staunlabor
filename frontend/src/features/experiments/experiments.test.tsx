@@ -63,8 +63,10 @@ import { ballState, pitEntries, positionAt, raceLayout, swingAt } from "./race-v
 import { run as runPit } from "./simulate/pit";
 import { HOLE, cameraAt, frameOf, project } from "./chair-views";
 import { weeklyExhibit } from "./weekly";
+import { CheckSection } from "./check-section";
+import { CheckStatus } from "./unchecked-notice";
 import { ExhibitPreview } from "./exhibit-preview";
-import { EXHIBITS, exhibitEntry } from "./exhibits";
+import { EXHIBITS, exhibitEntry, type Exhibit } from "./exhibits";
 import { EQUATION_COUNT } from "./facts";
 import { ExperimentsLayout } from "./experiments-layout";
 import { ExperimentsOverviewPage } from "./overview-page";
@@ -105,6 +107,7 @@ const UNCHECKED = {
     "diver",
     "elephant",
     "foucault",
+    "gyroscope",
     "harmonograph",
     "levitation",
     "maxwell",
@@ -1553,11 +1556,30 @@ describe("the Chladni figures", () => {
 
 describe("the check of the calculations", () => {
   it("says in one line under an exhibit's title that it is not yet checked, with no cases where it has none", async () => {
-    // The gyroscope is among the last to get its cases (docs/experiments.md).
-    renderWithProviders(<GyroscopePage />);
+    // Every exhibit has its cases since the gyroscope's (2026-11-21): a name
+    // that is no exhibit stands for one that ships before its cases.
+    const none = "orrery" as Exhibit;
+    renderWithProviders(
+      <>
+        <CheckStatus exhibit={none} />
+        <CheckSection exhibit={none} />
+      </>,
+    );
     expect(await screen.findByText(E.checks.status.unchecked)).toBeInTheDocument();
     expect(screen.queryByRole("link", { name: E.checks.status.to_cases })).toBeNull();
     expect(screen.queryByRole("heading", { name: E.checks.title })).toBeNull();
+  });
+
+  it("gives a case with nothing to set no button: the overhang's furthest stack, which the page holds back", async () => {
+    renderWithProviders(<OverhangPage />);
+    const titled = (title: string) => (name: string) => name.endsWith(title);
+    const cases = E.checks.cases.overhang;
+    const furthest = await screen.findByRole("heading", { level: 3, name: titled(cases.nine.title) });
+    expect(within(furthest.closest("li") as HTMLElement).queryByRole("button", { name: E.checks.set_up })).toBeNull();
+    const even = screen.getByRole("heading", { level: 3, name: titled(cases.even.title) });
+    expect(
+      within(even.closest("li") as HTMLElement).getByRole("button", { name: E.checks.set_up }),
+    ).toBeInTheDocument();
   });
 
   it("shows an exhibit's cases: formula, the value by hand and the page's, and the source quoted", async () => {
@@ -1999,6 +2021,20 @@ describe("setting a check case up", () => {
     );
     expect(screen.getByRole("slider", { name: E.elephant.play.tilt }).getAttribute("aria-valuetext")).toMatch(/^0\b/);
     expect(screen.getByRole("switch", { name: E.elephant.play.auto })).not.toBeChecked();
+  });
+
+  it("spins the gyroscope's wheel to 600 rpm and lets it go level from rest, for its nods", async () => {
+    renderWithProviders(<GyroscopePage />);
+    await screen.findByRole("img", { name: E.gyroscope.view });
+    await setUp(2);
+    await waitFor(() =>
+      expect(screen.getByRole("slider", { name: E.gyroscope.play.rpm }).getAttribute("aria-valuetext")).toMatch(
+        /^600\b/,
+      ),
+    );
+    expect(screen.getByRole("slider", { name: E.gyroscope.play.tilt }).getAttribute("aria-valuetext")).toMatch(/^90\b/);
+    expect(screen.getByRole("radio", { name: E.gyroscope.play.starts.rest })).toBeChecked();
+    expect(await screen.findByRole("button", { name: E.gyroscope.play.pause })).toBeInTheDocument();
   });
 
   it("pushes the ball round the well on its circle, with the felt's brake, for the brake's case", async () => {

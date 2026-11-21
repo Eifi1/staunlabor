@@ -2656,6 +2656,19 @@ lies 10⁻³ high in ⟨u²⟩ at the rest height, within 10⁻³; the jet's B =
 its Gaussian are the model's choices, not sourced numbers. "Set it up" sets
 the build, the trunk upright and the ball back on the rim.
 
+**The gyroscope's** four (2026-11-21) hold the steady turn's time round the
+string, level at 200 rpm, to L₃/(m·g·d) (8.0514 s; level, the slow root is
+exactly that, so OpenStax's ω_P ≪ ω costs nothing), the axle's dip let go
+from rest to the kept quantities (3.1940°), the nod's rate to L₃/I₁ and the
+suitcase's torque at a quarter turn a second (5.92 N·m). The moments of
+inertia are worked out in the cases from the hoop's and the parallel-axis
+theorem, not read from the engine. The nods are counted at 600 rpm, the
+slider's top: at 200 rpm the dip of 3.2° is no longer small and quickens the
+nod by 0.23 %; at 600 it leaves 2.9 · 10⁻⁵, within 10⁻⁴. "Set it up" sets the
+spin and the release and lets the wheel go; the suitcase's sets the spin only.
+With the gyroscope every exhibit has its cases; a case with nothing to set
+(the overhang's furthest stack, the resonance's buckling rod) shows no button.
+
 **On the page** a section "Check it yourself" (`check-section.tsx`) lists the
 cases, each with its formula as an `Equation` (`check-formulas.ts`), both
 values to seven digits, the deviation, why the case would catch a mistake,
