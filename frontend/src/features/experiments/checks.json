@@ -341,6 +341,111 @@
    ]
   }
  ],
+ "circuit": [
+  {
+   "key": "period",
+   "unit": "s",
+   "expected": 0.994088097122,
+   "measured": 0.994088097122,
+   "deviation": 2.23365117808e-16,
+   "tolerance": 1e-12,
+   "derived": false,
+   "setting": {
+    "inductance_h": 200.0,
+    "capacitance_f": 0.000125,
+    "resistance_ohm": 90.0,
+    "voltage_v": 10.0
+   },
+   "sources": [
+    {
+     "cite": "OpenStax, University Physics Volume 2, §14.6 RLC Series Circuits, Eqs. 14.45 and 14.46",
+     "url": "https://openstax.org/books/university-physics-volume-2/pages/14-6-rlc-series-circuits",
+     "quote": "q(t) = q₀e^(−Rt/2L) cos(ω′t + ϕ) (14.45) where the angular frequency of the oscillations is given by ω′ = √(1/LC − (R/2L)²) (14.46)"
+    }
+   ]
+  },
+  {
+   "key": "energy_kept",
+   "unit": "",
+   "expected": 0.639326728096,
+   "measured": 0.639326728096,
+   "deviation": 3.47310060986e-16,
+   "tolerance": 1e-12,
+   "derived": true,
+   "setting": {
+    "inductance_h": 200.0,
+    "capacitance_f": 0.000125,
+    "resistance_ohm": 90.0,
+    "voltage_v": 10.0
+   },
+   "sources": [
+    {
+     "cite": "OpenStax, University Physics Volume 2, §14.6 RLC Series Circuits, Eqs. 14.45 and 14.46",
+     "url": "https://openstax.org/books/university-physics-volume-2/pages/14-6-rlc-series-circuits",
+     "quote": "q(t) = q₀e^(−Rt/2L) cos(ω′t + ϕ) (14.45) where the angular frequency of the oscillations is given by ω′ = √(1/LC − (R/2L)²) (14.46)"
+    },
+    {
+     "cite": "OpenStax, University Physics Volume 2, §14.5 Oscillations in an LC Circuit, before Eq. 14.36",
+     "url": "https://openstax.org/books/university-physics-volume-2/pages/14-5-oscillations-in-an-lc-circuit",
+     "quote": "At an arbitrary time when the capacitor charge is q(t) and the current is i(t), the total energy U in the circuit is given by q²(t)/2C + Li²(t)/2."
+    }
+   ]
+  },
+  {
+   "key": "energy_account",
+   "unit": "mJ",
+   "expected": 6.25,
+   "measured": 6.25,
+   "deviation": 3.0837554732e-14,
+   "tolerance": 1e-09,
+   "derived": true,
+   "setting": {
+    "inductance_h": 200.0,
+    "capacitance_f": 0.000125,
+    "resistance_ohm": 90.0,
+    "voltage_v": 10.0
+   },
+   "sources": [
+    {
+     "cite": "OpenStax, University Physics Volume 2, §14.6 RLC Series Circuits, Eq. 14.43",
+     "url": "https://openstax.org/books/university-physics-volume-2/pages/14-6-rlc-series-circuits",
+     "quote": "When the switch is closed in the RLC circuit of Figure 14.17 (a), the capacitor begins to discharge and electromagnetic energy is dissipated by the resistor at a rate i²R. With U given by Equation 14.37, we have dU/dt = (q/C)(dq/dt) + Li(di/dt) = −i²R (14.43)"
+    },
+    {
+     "cite": "OpenStax, University Physics Volume 2, §14.5 Oscillations in an LC Circuit, before Eq. 14.36",
+     "url": "https://openstax.org/books/university-physics-volume-2/pages/14-5-oscillations-in-an-lc-circuit",
+     "quote": "At an arbitrary time when the capacitor charge is q(t) and the current is i(t), the total energy U in the circuit is given by q²(t)/2C + Li²(t)/2."
+    }
+   ]
+  },
+  {
+   "key": "edge",
+   "unit": "mA",
+   "expected": 2.90834234613,
+   "measured": 2.90834234613,
+   "deviation": 0.0,
+   "tolerance": 1e-12,
+   "derived": true,
+   "setting": {
+    "inductance_h": 200.0,
+    "capacitance_f": 0.000125,
+    "resistance_ohm": 2529.8221281347037,
+    "voltage_v": 10.0
+   },
+   "sources": [
+    {
+     "cite": "OpenStax, University Physics Volume 2, §14.6 RLC Series Circuits, after Eq. 14.44",
+     "url": "https://openstax.org/books/university-physics-volume-2/pages/14-6-rlc-series-circuits",
+     "quote": "the result can be underdamped (√(k/m) > b/2m), critically damped (√(k/m) = b/2m), or overdamped (√(k/m) < b/2m). By analogy, the solution q(t) to the RLC differential equation has the same feature. … By replacing m by L, b by R, k by 1/C, and x by q in Equation 14.44"
+    },
+    {
+     "cite": "Wikipedia, “Damping”, §Damping ratio",
+     "url": "https://en.wikipedia.org/wiki/Damping",
+     "quote": "It can be solved with the approach x(t) = Ce^(st), where C and s are both complex constants, with s satisfying s = −ω_n(ζ ± i√(1 − ζ²)). … The case where ζ = 1 is the border between the overdamped and underdamped cases, and is referred to as critically damped."
+    }
+   ]
+  }
+ ],
  "coil": [
   {
    "key": "rl_rise",

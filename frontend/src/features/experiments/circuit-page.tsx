@@ -12,6 +12,7 @@ import { Figures, WidgetCard } from "@/shared/ui/widget";
 import { Equation } from "./equation";
 import { ExhibitFrame } from "./exhibit-frame";
 import { BuildPending } from "./build-pending";
+import { settingNumber, useCheckRequest, useCheckSetting, type CheckSetting } from "./check-setting";
 import { PreviewPending, type PreviewMode, type PreviewProps } from "./preview-mode";
 import { energies, figures, rates, state, type Circuit } from "./simulate/circuit";
 import { SIDE } from "./stage";
@@ -66,11 +67,31 @@ function chartSpanS(circuit: Circuit): number {
  * (`simulate/circuit.ts`, held to the engine by `simulate.test.ts`), drawn as a
  * circuit with its meter and as the spring that obeys the same equation. No route.
  */
+/** The build a check case's setting asks for, the rest as `circuit`. */
+function circuitOf(circuit: Circuit, setting: CheckSetting): Circuit {
+  return {
+    ...circuit,
+    inductance_h: settingNumber(setting, "inductance_h", circuit.inductance_h),
+    capacitance_f: settingNumber(setting, "capacitance_f", circuit.capacitance_f),
+    resistance_ohm: settingNumber(setting, "resistance_ohm", circuit.resistance_ohm),
+    voltage_v: settingNumber(setting, "voltage_v", circuit.voltage_v),
+  };
+}
+
 export function CircuitPage() {
   const { t } = useTranslation();
   const defaults = useExperimentsDefaults();
   const [build, setBuild] = useState<CircuitRequest | null>(null);
   const circuit = build ?? defaults.data?.circuit ?? null;
+  // A check case's "Set it up": the build here, which recharges the capacitor;
+  // the play, built anew for it or already on it, throws the switch.
+  const request = useCheckRequest("circuit");
+  const [seen, setSeen] = useState<number | null>(null);
+  if (request && !request.done && request.nonce !== seen && circuit) {
+    setSeen(request.nonce);
+    const next = circuitOf(circuit, request.setting);
+    if (JSON.stringify(next) !== JSON.stringify(circuit)) setBuild(next);
+  }
   return (
     <ExhibitFrame
       exhibit="circuit"
@@ -313,6 +334,15 @@ function CircuitPlay({ circuit, preview = false, paused = false }: { circuit: Ci
   const running = preview ? !paused : thrown && runningHere;
   const speed = preview ? SPEEDS.real : SPEEDS[speedHere];
   const peak = useMemo(() => figures(circuit).peak_current_a, [circuit]);
+  // The case's run: charged, thrown over at once, the clock from naught.
+  useCheckSetting("circuit", (setting) => {
+    if (preview || JSON.stringify(circuitOf(circuit, setting)) !== JSON.stringify(circuit)) return false;
+    clock.current = 0;
+    setTime(0);
+    setThrown(true);
+    setRunning(true);
+    return true;
+  });
   const range = meterRangeMa(peak);
 
   useEffect(() => {

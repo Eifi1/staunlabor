@@ -118,6 +118,14 @@ const B_AXIS: CheckSymbol = { tex: "B", key: "B_axis", unit: "T" };
 const B1: CheckSymbol = { tex: "B'", key: "B1", unit: "T/m" };
 const B2: CheckSymbol = { tex: "B''", key: "B2", unit: "T/m²" };
 const FREQ: CheckSymbol = { tex: "f", key: "f", unit: "Hz" };
+const LC_T: CheckSymbol = { tex: "T", key: "T", unit: "s" };
+const LC_L: CheckSymbol = { tex: "L", key: "L", unit: "H" };
+const LC_C: CheckSymbol = { tex: "C", key: "lc_C", unit: "F" };
+const LC_R: CheckSymbol = { tex: "R", key: "lc_R", unit: "Ω" };
+const LC_Q: CheckSymbol = { tex: "q", key: "lc_q", unit: "C" };
+const LC_I: CheckSymbol = { tex: "i", key: "current", unit: "A" };
+const LC_U0: CheckSymbol = { tex: "U_0", key: "U", unit: "V" };
+const LC_T_NOW: CheckSymbol = { tex: "t", key: "t", unit: "s" };
 
 const ROD_STEADY: CheckFormula = {
   tex: String.raw`w = \frac{\Gamma\,\Omega^2 Y}{\sqrt{(\omega^2 - \Omega^2)^2 + (2\zeta\omega\Omega)^2}}, \qquad \Gamma = \frac{\int_0^1 \varphi\,d\xi}{\int_0^1 \varphi^2\,d\xi}`,
@@ -965,6 +973,33 @@ export const CHECK_FORMULAS: Record<string, Record<string, CheckFormula>> = {
     drift: {
       tex: String.raw`f = \frac{1}{2\pi}\sqrt{\frac{\mu\,(B'^2 - 2BB'')}{4Bm}}, \qquad |B|(r) \approx B + \frac{r^2\,(B'^2 - 2BB'')}{8B}`,
       symbols: [FREQ, MU_TOP, B_AXIS, B1, B2, MASS, { tex: "r", key: "r_axis", unit: "m" }],
+    },
+  },
+  circuit: {
+    period: {
+      tex: String.raw`T = \frac{2\pi}{\omega'}, \qquad \omega' = \sqrt{\frac{1}{LC} - \left(\frac{R}{2L}\right)^2}`,
+      symbols: [LC_T, { tex: String.raw`\omega'`, key: "lc_omega", unit: "1/s" }, LC_L, LC_C, LC_R],
+    },
+    energy_kept: {
+      tex: String.raw`\frac{E(T)}{E(0)} = e^{-RT/L}, \qquad E = \frac{q^2}{2C} + \frac{L\,i^2}{2}`,
+      symbols: [{ tex: "E", key: "lc_E", unit: "J" }, LC_T, LC_R, LC_L, LC_Q, LC_C, LC_I],
+    },
+    energy_account: {
+      tex: String.raw`\frac{q^2}{2C} + \frac{L\,i^2}{2} + \int_0^t R\,i^2\,dt' = \frac{C\,U_0^2}{2}`,
+      symbols: [LC_Q, LC_C, LC_L, LC_I, LC_R, LC_T_NOW, LC_U0],
+    },
+    edge: {
+      tex: String.raw`R = 2\sqrt{\frac{L}{C}}: \qquad i = q_0\,\omega_0^2\,t\,e^{-\omega_0 t}, \qquad i_{\max} = \frac{q_0\,\omega_0}{e}\ \text{at}\ t = \frac{1}{\omega_0}, \qquad q_0 = C\,U_0`,
+      symbols: [
+        LC_R,
+        LC_L,
+        LC_C,
+        LC_I,
+        { tex: "q_0", key: "lc_q0", unit: "C" },
+        { tex: String.raw`\omega_0`, key: "lc_omega0", unit: "1/s" },
+        LC_T_NOW,
+        LC_U0,
+      ],
     },
   },
 };

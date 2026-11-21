@@ -3656,7 +3656,14 @@
         "R2_ring": "il raggio dell'anello",
         "z_foot": "il piede della finestra, il punto di flesso del campo",
         "z_head": "l'estremo superiore della finestra",
-        "r_axis": "distanza dall'asse"
+        "r_axis": "distanza dall'asse",
+        "lc_omega": "pulsazione dell'oscillazione smorzata",
+        "lc_C": "la capacità del condensatore",
+        "lc_R": "la resistenza dell'intero circuito, soprattutto quella della bobina",
+        "lc_E": "energia nel condensatore e nella bobina",
+        "lc_q": "carica del condensatore",
+        "lc_q0": "carica alla commutazione, C·U₀",
+        "lc_omega0": "pulsazione senza resistenza, 1/√(LC)"
       },
       "cases": {
         "sphere": {
@@ -4386,6 +4393,35 @@
             "reads": "Accanto all'asse il campo è più intenso, di r²(B′² − 2BB″)/(8B). La trottola viene spinta di nuovo verso l'asse e gli gira lentamente attorno.",
             "why": "Verifica come la pagina ricava il campo accanto all'asse dal campo sull'asse: 0,636 Hz.",
             "step": "La prima fonte dà il quadrato del campo accanto all'asse a partire dalle derivate sull'asse. La sua radice, per r piccolo, è B + r²(B′² − 2BB″)/(8B); derivata due volte rispetto a r e moltiplicata per μ, dà la costante elastica laterale, e la terza fonte la frequenza."
+          }
+        },
+        "circuit": {
+          "period": {
+            "title": "Una volta andata e ritorno",
+            "setting": "Il circuito della pagina: 200 H, 125 µF, 90 Ω, 10 V; il deviatore spostato sulla bobina.",
+            "reads": "Un circuito oscillante con resistenza oscilla con ω′ = √(1/LC − (R/2L)²), un po' più lentamente che senza.",
+            "why": "Verifica il tempo che impiega l'ago per andare e tornare: 0,9941 s, misurato tra il suo primo e il suo terzo passaggio per lo zero."
+          },
+          "energy_kept": {
+            "title": "Quanta energia conserva un'oscillazione",
+            "setting": "Come sopra; si confrontano il momento della commutazione e un periodo dopo.",
+            "reads": "Dopo un periodo la carica è di nuovo lì, solo moltiplicata per e^(−RT/2L), e la corrente è nulla: l'energia q²/2C è scesa a e^(−RT/L) volte quella iniziale.",
+            "why": "Verifica che smorzamento e oscillazione combacino: il 63,9 % resta nel condensatore e nella bobina. Se il periodo della pagina fosse sbagliato, un periodo dopo la corrente non sarebbe a zero, e la quota sarebbe diversa.",
+            "step": "La prima fonte dà la carica, la seconda l'energia nel condensatore e nella bobina. Dopo un periodo completo il coseno si ripete, solo moltiplicato per e^(−RT/2L)."
+          },
+          "energy_account": {
+            "title": "L'energia non va persa",
+            "setting": "Come sopra; dieci secondi dopo la commutazione.",
+            "reads": "Ciò che manca nel condensatore e nella bobina è diventato calore nel filo, con la potenza R·i².",
+            "why": "Verifica la barra della pagina, che mostra il calore come resto: 6,25 mJ dalla batteria, di cui dopo 10 s l'1,1 % è ancora nel condensatore e nella bobina; il resto è il calore, sommato qui a partire dalla corrente, a meno di 3 · 10⁻¹⁴.",
+            "step": "La prima fonte dice quanto velocemente il filo consuma l'energia, la seconda di che cosa è fatta; sommato nel tempo, ciò dà il bilancio."
+          },
+          "edge": {
+            "title": "Al limite: non oscilla più",
+            "setting": "Resistenza 2√(L/C) = 2529,8 Ω invece di 90 Ω, per il resto come sopra.",
+            "reads": "Con R = 2√(L/C) le due radici coincidono; partendo da fermo, la corrente è q₀ω₀²·t·e^(−ω₀t), massima dopo 1/ω₀, con q₀ω₀/e.",
+            "why": "Verifica il ramo del calcolo che la pagina prende al limite: 2,908 mA dopo 0,158 s. Sul cursore sono 2530 Ω, appena sopra; lì il picco è 5 · 10⁻⁵ più basso.",
+            "step": "La prima fonte dà il limite, dove √(1/LC) = R/2L, la seconda le soluzioni e^(st) con s = −ω₀(ζ ± i√(1 − ζ²)). Al limite ζ = 1, ed entrambi gli s valgono −ω₀; la seconda soluzione è allora t·e^(−ω₀t). Partendo da fermo, ne segue la formula."
           }
         }
       },

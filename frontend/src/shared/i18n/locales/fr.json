@@ -3656,7 +3656,14 @@
         "R2_ring": "le rayon de l’anneau",
         "z_foot": "le pied de la fenêtre, le point d’inflexion du champ",
         "z_head": "l’extrémité supérieure de la fenêtre",
-        "r_axis": "distance à l’axe"
+        "r_axis": "distance à l’axe",
+        "lc_omega": "pulsation de l’oscillation amortie",
+        "lc_C": "la capacité du condensateur",
+        "lc_R": "la résistance de tout le circuit, surtout celle de la bobine",
+        "lc_E": "énergie dans le condensateur et la bobine",
+        "lc_q": "charge du condensateur",
+        "lc_q0": "charge au basculement, C·U₀",
+        "lc_omega0": "pulsation sans résistance, 1/√(LC)"
       },
       "cases": {
         "sphere": {
@@ -4386,6 +4393,35 @@
             "reads": "À côté de l’axe, le champ est plus intense, de r²(B′² − 2BB″)/(8B). La toupie est repoussée vers l’axe et tourne lentement autour de lui.",
             "why": "Vérifie comment la page obtient le champ à côté de l’axe à partir du champ sur l’axe : 0,636 Hz.",
             "step": "La première source donne le carré du champ à côté de l’axe à partir des dérivées sur l’axe. Sa racine, pour r petit, vaut B + r²(B′² − 2BB″)/(8B) ; dérivée deux fois par rapport à r et multipliée par μ, elle donne la raideur latérale, et la troisième source la fréquence."
+          }
+        },
+        "circuit": {
+          "period": {
+            "title": "Un aller-retour",
+            "setting": "Le circuit de la page : 200 H, 125 µF, 90 Ω, 10 V ; l’inverseur basculé.",
+            "reads": "Un circuit oscillant avec résistance oscille à ω′ = √(1/LC − (R/2L)²), un peu plus lentement que sans.",
+            "why": "Vérifie le temps que met l’aiguille pour un aller-retour : 0,9941 s, mesuré entre son premier et son troisième passage par zéro."
+          },
+          "energy_kept": {
+            "title": "Ce qu’une oscillation garde de l’énergie",
+            "setting": "Comme ci-dessus ; on compare l’instant du basculement et une période plus tard.",
+            "reads": "Après une période, la charge est revenue, seulement multipliée par e^(−RT/2L), et le courant est nul : l’énergie q²/2C est tombée à e^(−RT/L) fois sa valeur de départ.",
+            "why": "Vérifie que l’amortissement et l’oscillation s’accordent : 63,9 % restent dans le condensateur et la bobine. Si la période de la page était fausse, le courant ne serait pas nul une période plus tard, et la part serait différente.",
+            "step": "La première source donne la charge, la deuxième l’énergie dans le condensateur et la bobine. Après une période complète, le cosinus se répète, seulement multiplié par e^(−RT/2L)."
+          },
+          "energy_account": {
+            "title": "L’énergie ne se perd pas",
+            "setting": "Comme ci-dessus ; dix secondes après le basculement.",
+            "reads": "Ce qui manque au condensateur et à la bobine est devenu chaleur dans le fil, avec la puissance R·i².",
+            "why": "Vérifie la barre de la page, qui montre la chaleur comme le reste : 6,25 mJ tirés de la pile, dont 1,1 % se trouvent encore dans le condensateur et la bobine après 10 s ; le reste est la chaleur, sommée ici à partir du courant, à 3 · 10⁻¹⁴ près.",
+            "step": "La première source dit à quelle vitesse le fil consume l’énergie, la deuxième de quoi elle se compose ; sommé dans le temps, cela donne le bilan."
+          },
+          "edge": {
+            "title": "À la limite : plus d’oscillation",
+            "setting": "Résistance 2√(L/C) = 2529,8 Ω au lieu de 90 Ω, sinon comme ci-dessus.",
+            "reads": "Pour R = 2√(L/C), les deux racines se confondent ; en partant du repos, le courant vaut q₀ω₀²·t·e^(−ω₀t), maximal après 1/ω₀, à q₀ω₀/e.",
+            "why": "Vérifie la branche du calcul que prend la page à la limite : 2,908 mA après 0,158 s. Sur le curseur, c’est 2530 Ω, juste au-dessus ; le maximum y est 5 · 10⁻⁵ plus bas.",
+            "step": "La première source donne la limite, où √(1/LC) = R/2L, la deuxième les solutions e^(st) avec s = −ω₀(ζ ± i√(1 − ζ²)). À la limite, ζ = 1 et les deux s valent −ω₀ ; la seconde solution est alors t·e^(−ω₀t). En partant du repos, la formule s’ensuit."
           }
         }
       },

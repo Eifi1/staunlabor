@@ -93,6 +93,7 @@ const UNCHECKED = {
     "beats",
     "chair",
     "chladni",
+    "circuit",
     "coil",
     "cone",
     "coriolis",
@@ -1809,6 +1810,18 @@ describe("setting a check case up", () => {
     expect(await screen.findByText(E.levitation.play.hovers)).toBeInTheDocument();
     expect(screen.getByRole("slider", { name: E.levitation.play.warming }).getAttribute("aria-valuetext")).toMatch(
       /^0\b/,
+    );
+  });
+
+  it("sets the slow circuit's resistance to its edge, between the 10 Ω steps, and throws the switch", async () => {
+    renderWithProviders(<CircuitPage />);
+    await screen.findByRole("img", { name: E.circuit.view });
+    await setUp(3);
+    expect(await screen.findByRole("button", { name: E.circuit.play.pause })).toBeInTheDocument();
+    // 2√(L/C) = 2529.82 Ω, where rounding puts the engine a hair on the creeping side.
+    expect(screen.getByText(E.circuit.change.creeps)).toBeInTheDocument();
+    expect(screen.getByRole("slider", { name: E.circuit.change.resistance }).getAttribute("aria-valuetext")).toMatch(
+      /^2,?530\b/,
     );
   });
 

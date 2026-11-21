@@ -3656,7 +3656,14 @@
         "R2_ring": "a gyűrű sugara",
         "z_foot": "az ablak alja, a tér inflexiós pontja",
         "z_head": "az ablak felső széle",
-        "r_axis": "a tengelytől mért távolság"
+        "r_axis": "a tengelytől mért távolság",
+        "lc_omega": "a csillapított rezgés körfrekvenciája",
+        "lc_C": "a kondenzátor kapacitása",
+        "lc_R": "az egész kör ellenállása, főleg a tekercsé",
+        "lc_E": "energia a kondenzátorban és a tekercsben",
+        "lc_q": "a kondenzátor töltése",
+        "lc_q0": "a töltés átkapcsoláskor, C·U₀",
+        "lc_omega0": "körfrekvencia ellenállás nélkül, 1/√(LC)"
       },
       "cases": {
         "sphere": {
@@ -4386,6 +4393,35 @@
             "reads": "A tengely mellett a tér erősebb, r²(B′² − 2BB″)/(8B)-vel. A pörgettyűt a tér visszanyomja a tengely felé, és az lassan köröz körülötte.",
             "why": "Azt ellenőrzi, hogyan kapja meg az oldal a tengely melletti teret a tengelyen lévőből: 0,636 Hz.",
             "step": "Az első forrás a tengely melletti tér négyzetét a tengelyen vett deriváltakból adja meg. Ennek gyöke kis r-re B + r²(B′² − 2BB″)/(8B); kétszer r szerint deriválva és μ-vel szorozva ez adja az oldalirányú rugóállandót, a harmadik forrás pedig a frekvenciát."
+          }
+        },
+        "circuit": {
+          "period": {
+            "title": "Egyszer oda és vissza",
+            "setting": "Az oldal rezgőköre: 200 H, 125 µF, 90 Ω, 10 V; a kapcsoló átkapcsolva.",
+            "reads": "Egy ellenállásos rezgőkör ω′ = √(1/LC − (R/2L)²) körfrekvenciával leng, kicsit lassabban, mint ellenállás nélkül.",
+            "why": "Azt az időt ellenőrzi, amely alatt a mutató oda és vissza leng: 0,9941 s, az első és a harmadik nullán való áthaladása között mérve."
+          },
+          "energy_kept": {
+            "title": "Mennyit tart meg egy rezgés az energiából",
+            "setting": "Mint fent; az átkapcsolás pillanatát és az egy rezgésidővel későbbi pillanatot hasonlítjuk össze.",
+            "reads": "Egy rezgésidő után a töltés ismét ott van, csak e^(−RT/2L)-szeres nagyságban, és az áram nulla: a q²/2C energia e^(−RT/L)-szeresére csökkent.",
+            "why": "Azt ellenőrzi, hogy a lecsengés és a rezgés összeillik: 63,9 % marad a kondenzátorban és a tekercsben. Ha az oldal rezgésideje hibás volna, egy rezgésidővel később az áram nem állna nullán, és az arány eltérne.",
+            "step": "Az első forrás a töltést adja meg, a második az energiát a kondenzátorban és a tekercsben. Egy teljes rezgésidő után a koszinusz megismétlődik, csak e^(−RT/2L)-szeresére csökkenve."
+          },
+          "energy_account": {
+            "title": "Az energia nem vész el",
+            "setting": "Mint fent; tíz másodperccel az átkapcsolás után.",
+            "reads": "Ami a kondenzátorból és a tekercsből hiányzik, az a huzalban hővé vált, R·i² teljesítménnyel.",
+            "why": "Az oldal sávját ellenőrzi, amely a hőt maradékként mutatja: 6,25 mJ az elemből, amelynek 10 s után még 1,1 %-a van a kondenzátorban és a tekercsben; a maradék a hő, itt az áramból összegezve, 3 · 10⁻¹⁴ pontossággal.",
+            "step": "Az első forrás megmondja, milyen gyorsan emészti fel a huzal az energiát, a második, hogy miből áll; az időre összegezve ez adja a mérleget."
+          },
+          "edge": {
+            "title": "A határon: már nem leng",
+            "setting": "Ellenállás 2√(L/C) = 2529,8 Ω 90 Ω helyett, egyébként mint fent.",
+            "reads": "R = 2√(L/C)-nél a két gyök egybeesik; nyugalomból indulva az áram q₀ω₀²·t·e^(−ω₀t), és 1/ω₀ után a legerősebb, q₀ω₀/e.",
+            "why": "A számításnak azt az ágát ellenőrzi, amelyet az oldal a határon használ: 2,908 mA 0,158 s után. A csúszkán 2530 Ω áll, épp e fölött; ott a csúcs 5 · 10⁻⁵-nel alacsonyabb.",
+            "step": "Az első forrás megadja a határt, ahol √(1/LC) = R/2L, a második az e^(st) megoldásokat, ahol s = −ω₀(ζ ± i√(1 − ζ²)). A határon ζ = 1, és mindkét s értéke −ω₀; a második megoldás ekkor t·e^(−ω₀t). Nyugalomból indítva ebből következik a képlet."
           }
         }
       },

@@ -2517,6 +2517,19 @@ site, so that link may not last. The ring is illustrative: the cases check the
 computation, not a real top's numbers. "Set it up" sets the top's mass and the
 warming.
 
+**The slow LC circuit's** four (2026-11-21) hold the period to 2π/ω′ with the
+damping's share (without it 0.9935 s, not 0.9941), the energy kept over one
+period (e^(−RT/L), the docs' 64 %), the account after ten seconds (what is
+stored plus the wire's heat R∫i²dt, summed by the case on the page's current,
+is the start's 6.25 mJ: the heat bar the page draws as the rest is the Joule
+heat) and the strongest current at the edge, R = 2√(L/C) = 2529.822 Ω, against
+q₀ω₀/e. In floating point γ lands one ulp above ω₀ there, so the engine takes
+its creeping branch (β ≈ 10⁻⁷/s, kept exact by expm1) and the page says
+"creeps", not "critical", at the exact edge; the engine's critical branch is
+all but unreachable. The resistance slider steps by 10 Ω, so a reader gets
+2530 Ω (peak 4.7 · 10⁻⁵ lower); "Set it up" sets the exact value. It sets the
+build, which recharges the capacitor, and throws the switch.
+
 **On the page** a section "Check it yourself" (`check-section.tsx`) lists the
 cases, each with its formula as an `Equation` (`check-formulas.ts`), both
 values to seven digits, the deviation, why the case would catch a mistake,

@@ -3656,7 +3656,14 @@
         "R2_ring": "el radio del anillo",
         "z_foot": "el pie de la ventana, el punto de inflexión del campo",
         "z_head": "el extremo superior de la ventana",
-        "r_axis": "distancia al eje"
+        "r_axis": "distancia al eje",
+        "lc_omega": "frecuencia angular de la oscilación amortiguada",
+        "lc_C": "la capacidad del condensador",
+        "lc_R": "la resistencia de todo el circuito, sobre todo la de la bobina",
+        "lc_E": "energía en el condensador y la bobina",
+        "lc_q": "carga del condensador",
+        "lc_q0": "carga al conmutar, C·U₀",
+        "lc_omega0": "frecuencia angular sin resistencia, 1/√(LC)"
       },
       "cases": {
         "sphere": {
@@ -4386,6 +4393,35 @@
             "reads": "Fuera del eje, el campo es más intenso, en r²(B′² − 2BB″)/(8B). La peonza es empujada de vuelta hacia el eje y gira despacio a su alrededor.",
             "why": "Comprueba cómo obtiene la página el campo fuera del eje a partir del campo en el eje: 0,636 Hz.",
             "step": "La primera fuente da el cuadrado del campo fuera del eje a partir de las derivadas en el eje. Su raíz, para r pequeño, es B + r²(B′² − 2BB″)/(8B); derivada dos veces respecto a r y multiplicada por μ, da la constante del muelle lateral, y la tercera fuente, la frecuencia."
+          }
+        },
+        "circuit": {
+          "period": {
+            "title": "Una vez de ida y vuelta",
+            "setting": "El circuito de la página: 200 H, 125 µF, 90 Ω, 10 V; el conmutador pasado a la bobina.",
+            "reads": "Un circuito oscilante con resistencia oscila con ω′ = √(1/LC − (R/2L)²), algo más despacio que sin ella.",
+            "why": "Comprueba el tiempo que tarda la aguja en ir y volver: 0,9941 s, medido entre su primer y su tercer paso por cero."
+          },
+          "energy_kept": {
+            "title": "Lo que una oscilación conserva de la energía",
+            "setting": "Como arriba; se comparan el momento de conmutar y un periodo después.",
+            "reads": "Tras un periodo, la carga vuelve a estar ahí, solo que multiplicada por e^(−RT/2L), y la corriente es nula: la energía q²/2C ha bajado a e^(−RT/L) veces la inicial.",
+            "why": "Comprueba que la amortiguación y la oscilación encajan: el 63,9 % queda en el condensador y la bobina. Si el periodo de la página fuera erróneo, la corriente no estaría en cero un periodo después, y la fracción sería otra.",
+            "step": "La primera fuente da la carga; la segunda, la energía en el condensador y la bobina. Tras un periodo completo, el coseno se repite, solo que multiplicado por e^(−RT/2L)."
+          },
+          "energy_account": {
+            "title": "La energía no se pierde",
+            "setting": "Como arriba; diez segundos después de conmutar.",
+            "reads": "Lo que falta en el condensador y la bobina se ha convertido en calor en el hilo, con la potencia R·i².",
+            "why": "Comprueba la barra de la página, que muestra el calor como lo que resta: 6,25 mJ de la batería, de los que tras 10 s aún queda el 1,1 % en el condensador y la bobina; el resto es el calor, sumado aquí a partir de la corriente, con una precisión de 3 · 10⁻¹⁴.",
+            "step": "La primera fuente dice lo rápido que el hilo consume la energía; la segunda, de qué se compone. Sumado a lo largo del tiempo, eso da el balance."
+          },
+          "edge": {
+            "title": "En el límite: ya no oscila",
+            "setting": "Resistencia 2√(L/C) = 2529,8 Ω en lugar de 90 Ω; por lo demás, como arriba.",
+            "reads": "Con R = 2√(L/C) las dos raíces coinciden; partiendo del reposo, la corriente es q₀ω₀²·t·e^(−ω₀t), máxima tras 1/ω₀, con q₀ω₀/e.",
+            "why": "Comprueba la rama del cálculo que toma la página en el límite: 2,908 mA tras 0,158 s. En el control deslizante son 2530 Ω, justo por encima; allí el máximo queda 5 · 10⁻⁵ más bajo.",
+            "step": "La primera fuente da el límite, donde √(1/LC) = R/2L; la segunda, las soluciones e^(st) con s = −ω₀(ζ ± i√(1 − ζ²)). En el límite, ζ = 1 y ambos s valen −ω₀; la segunda solución es entonces t·e^(−ω₀t). Partiendo del reposo, se obtiene la fórmula."
           }
         }
       },

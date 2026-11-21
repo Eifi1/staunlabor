@@ -3656,7 +3656,14 @@
         "R2_ring": "Radius des Rings",
         "z_foot": "Fuss des Fensters, Wendepunkt des Felds",
         "z_head": "oberes Ende des Fensters",
-        "r_axis": "Abstand von der Achse"
+        "r_axis": "Abstand von der Achse",
+        "lc_omega": "Kreisfrequenz der gedämpften Schwingung",
+        "lc_C": "Kapazität des Kondensators",
+        "lc_R": "Widerstand des ganzen Kreises, vor allem der Spule",
+        "lc_E": "Energie in Kondensator und Spule",
+        "lc_q": "Ladung auf dem Kondensator",
+        "lc_q0": "Ladung beim Umlegen, C·U₀",
+        "lc_omega0": "Kreisfrequenz ohne Widerstand, 1/√(LC)"
       },
       "cases": {
         "sphere": {
@@ -4386,6 +4393,35 @@
             "reads": "Neben der Achse ist das Feld stärker, um r²(B′² − 2BB″)/(8B). Der Kreisel wird zur Achse zurückgedrückt und kreist langsam um sie.",
             "why": "Prüft, wie die Seite das Feld neben der Achse aus dem Feld auf ihr gewinnt: 0,636 Hz.",
             "step": "Die erste Quelle gibt das Quadrat des Felds neben der Achse aus den Ableitungen auf ihr. Seine Wurzel ist für kleine r B + r²(B′² − 2BB″)/(8B); zweimal nach r abgeleitet und mal μ ergibt das die Federkonstante zur Seite, die dritte Quelle die Frequenz."
+          }
+        },
+        "circuit": {
+          "period": {
+            "title": "Einmal hin und zurück",
+            "setting": "Die Schaltung der Seite: 200 H, 125 µF, 90 Ω, 10 V; der Schalter umgelegt.",
+            "reads": "Ein Schwingkreis mit Widerstand schwingt mit ω′ = √(1/LC − (R/2L)²), etwas langsamer als ohne.",
+            "why": "Prüft die Zeit, die die Nadel für hin und zurück braucht: 0,9941 s, gemessen zwischen ihrem ersten und dritten Durchgang durch null."
+          },
+          "energy_kept": {
+            "title": "Was eine Schwingung von der Energie behält",
+            "setting": "Wie oben; verglichen werden der Moment des Umlegens und eine Periode später.",
+            "reads": "Nach einer Periode ist die Ladung wieder da, nur e^(−RT/2L)-mal so gross, und der Strom ist null: Die Energie q²/2C ist auf e^(−RT/L) gefallen.",
+            "why": "Prüft, dass Abklingen und Schwingen zusammenpassen: 63,9 % bleiben in Kondensator und Spule. Läge die Periode der Seite daneben, stünde der Strom eine Periode später nicht auf null, und der Anteil wiche ab.",
+            "step": "Die erste Quelle gibt die Ladung, die zweite die Energie in Kondensator und Spule. Nach einer vollen Periode wiederholt sich der Kosinus, nur um e^(−RT/2L) kleiner."
+          },
+          "energy_account": {
+            "title": "Die Energie geht nicht verloren",
+            "setting": "Wie oben; zehn Sekunden nach dem Umlegen.",
+            "reads": "Was in Kondensator und Spule fehlt, ist im Draht zu Wärme geworden, mit der Leistung R·i².",
+            "why": "Prüft den Balken der Seite, der die Wärme als Rest zeigt: 6,25 mJ aus der Batterie, nach 10 s noch 1,1 % davon in Kondensator und Spule; der Rest ist die Wärme, hier über den Strom summiert, auf 3 · 10⁻¹⁴ genau.",
+            "step": "Die erste Quelle sagt, wie schnell der Draht die Energie aufzehrt, die zweite, woraus sie besteht; über die Zeit summiert ergibt das die Bilanz."
+          },
+          "edge": {
+            "title": "An der Grenze: Es schwingt nicht mehr",
+            "setting": "Widerstand 2√(L/C) = 2529,8 Ω statt 90 Ω, sonst wie oben.",
+            "reads": "Bei R = 2√(L/C) fallen die beiden Wurzeln zusammen; aus der Ruhe ist der Strom q₀ω₀²·t·e^(−ω₀t), am stärksten nach 1/ω₀ mit q₀ω₀/e.",
+            "why": "Prüft den Zweig der Rechnung, den die Seite an der Grenze nimmt: 2,908 mA nach 0,158 s. Auf dem Regler sind es 2530 Ω, knapp darüber; dort liegt die Spitze 5 · 10⁻⁵ tiefer.",
+            "step": "Die erste Quelle gibt die Grenze, wo √(1/LC) = R/2L, die zweite die Lösungen e^(st) mit s = −ω₀(ζ ± i√(1 − ζ²)). An der Grenze ist ζ = 1, und beide s sind −ω₀; die zweite Lösung ist dann t·e^(−ω₀t). Aus der Ruhe gestartet folgt die Formel."
           }
         }
       },

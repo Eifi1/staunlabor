@@ -3656,7 +3656,14 @@
         "R2_ring": "the ring's radius",
         "z_foot": "the window's foot, the field's inflection point",
         "z_head": "the window's head",
-        "r_axis": "distance from the axis"
+        "r_axis": "distance from the axis",
+        "lc_omega": "angular frequency of the damped swing",
+        "lc_C": "the capacitor's capacitance",
+        "lc_R": "the whole loop's resistance, mostly the coil's",
+        "lc_E": "energy in capacitor and coil",
+        "lc_q": "charge on the capacitor",
+        "lc_q0": "charge at the throw, C·U₀",
+        "lc_omega0": "angular frequency without resistance, 1/√(LC)"
       },
       "cases": {
         "sphere": {
@@ -4386,6 +4393,35 @@
             "reads": "Beside the axis the field is stronger, by r²(B′² − 2BB″)/(8B). The top is pushed back towards the axis and slowly circles it.",
             "why": "Checks how the page gets the field beside the axis from the field on it: 0.636 Hz.",
             "step": "The first source gives the field's square beside the axis from the derivatives on it. Its square root for small r is B + r²(B′² − 2BB″)/(8B); differentiated twice in r and times μ that is the spring constant sideways, and the third source gives the frequency."
+          }
+        },
+        "circuit": {
+          "period": {
+            "title": "There and back once",
+            "setting": "The page's circuit: 200 H, 125 µF, 90 Ω, 10 V; the switch thrown.",
+            "reads": "A circuit with resistance swings at ω′ = √(1/LC − (R/2L)²), a little slower than without.",
+            "why": "Checks the time the needle takes there and back: 0.9941 s, measured between its first and third pass through zero."
+          },
+          "energy_kept": {
+            "title": "What one swing keeps of the energy",
+            "setting": "As above; compared are the moment of the throw and one period later.",
+            "reads": "After one period the charge is back, only e^(−RT/2L) times as large, and the current is zero: the energy q²/2C has fallen to e^(−RT/L).",
+            "why": "Checks that decay and swing fit together: 63.9 % stays in capacitor and coil. Were the page's period off, the current would not be at zero a period later, and the share would differ.",
+            "step": "The first source gives the charge, the second the energy in capacitor and coil. After a full period the cosine repeats, only e^(−RT/2L) smaller."
+          },
+          "energy_account": {
+            "title": "No energy goes missing",
+            "setting": "As above; ten seconds after the throw.",
+            "reads": "What is missing from capacitor and coil has become heat in the wire, at the power R·i².",
+            "why": "Checks the page's bar, which shows the heat as what is left: 6.25 mJ from the battery, after 10 s still 1.1 % of it in capacitor and coil; the rest is the heat, summed here over the current, to 3 · 10⁻¹⁴.",
+            "step": "The first source says how fast the wire eats the energy, the second what it consists of; summed over time that gives the account."
+          },
+          "edge": {
+            "title": "At the edge: it swings no more",
+            "setting": "Resistance 2√(L/C) = 2529.8 Ω instead of 90 Ω, otherwise as above.",
+            "reads": "At R = 2√(L/C) the two roots coincide; from rest the current is q₀ω₀²·t·e^(−ω₀t), strongest after 1/ω₀ at q₀ω₀/e.",
+            "why": "Checks the branch of the calculation the page takes at the edge: 2.908 mA after 0.158 s. On the slider it is 2530 Ω, just above; there the peak lies 5 · 10⁻⁵ lower.",
+            "step": "The first source gives the edge, where √(1/LC) = R/2L, the second the solutions e^(st) with s = −ω₀(ζ ± i√(1 − ζ²)). At the edge ζ = 1, and both s are −ω₀; the second solution is then t·e^(−ω₀t). Started from rest, the formula follows."
           }
         }
       },
