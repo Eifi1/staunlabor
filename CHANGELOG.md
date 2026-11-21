@@ -2,6 +2,12 @@
 
 All notable changes to Staunlabor are documented in this file, generated from the commit messages by commit-and-tag-version at each release.
 
+## [0.1.12](https://github.com/Eifi1/staunlabor/compare/v0.1.11...v0.1.12) (2026-11-21)
+
+### Added
+
+* **checks:** check cases for the remaining 19 exhibits, all 35 now, set up from each page ([#7](https://github.com/Eifi1/staunlabor/issues/7)) ([482b2a7](https://github.com/Eifi1/staunlabor/commit/482b2a724ea54eb9be1d860d5541c83dd3fc5b61))
+
 ## [0.1.11](https://github.com/Eifi1/staunlabor/compare/v0.1.10...v0.1.11) (2026-11-21)
 
 ### Added
