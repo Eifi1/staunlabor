@@ -2505,6 +2505,18 @@ it: Greenspan and Howard's small-change result applied to a start from rest.
 the water, with the table already at speed, which the page's own controls
 cannot do (they keep the water turning with the table).
 
+**The floating top's** five (2026-11-21) hold the lift at 4.6 cm, the window's
+foot (where B″ turns positive) and head (where B′² = 2BB″, Berry and Geim's
+horizontal condition), the bob's and the drift's frequencies at the balance.
+The hand side builds the ring's field another way than the engine: loop by loop
+from its bound surface currents (K = M × n̂) with OpenStax's loop formula, summed
+by Simpson's rule, with its own bisections for the edges and the balance; the
+two agree to 5 · 10⁻¹³. Berry and Geim's paper (Eur. J. Phys. 18 (1997) 307) is
+cited from a copy on a University of Bielefeld course page, not the publisher's
+site, so that link may not last. The ring is illustrative: the cases check the
+computation, not a real top's numbers. "Set it up" sets the top's mass and the
+warming.
+
 **On the page** a section "Check it yourself" (`check-section.tsx`) lists the
 cases, each with its formula as an `Equation` (`check-formulas.ts`), both
 values to seven digits, the deviation, why the case would catch a mistake,

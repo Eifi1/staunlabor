@@ -3642,7 +3642,21 @@
         "focus": "Brennweite der Mulde als Spiegel",
         "dish_depth": "Tiefe der Mulde bis zum Abstand r",
         "water_rate": "Winkelgeschwindigkeit des Wassers",
-        "nu": "Zähigkeit des Wassers, 10⁻⁶ m²/s"
+        "nu": "Zähigkeit des Wassers, 10⁻⁶ m²/s",
+        "m_lift": "Last, die der Ring trägt, als Masse",
+        "mu_top": "magnetisches Moment des Kreisels",
+        "B_axis": "Feld auf der Achse",
+        "B1": "Steigung des Felds auf der Achse, nach oben",
+        "B2": "Krümmung des Felds auf der Achse",
+        "M_mag": "Magnetisierung des Rings",
+        "t_ring": "Höhe des Rings",
+        "z_height": "Höhe über dem Ring",
+        "s_depth": "Tiefe im Ring, unter seiner Oberseite",
+        "R1_hole": "Radius des Lochs",
+        "R2_ring": "Radius des Rings",
+        "z_foot": "Fuss des Fensters, Wendepunkt des Felds",
+        "z_head": "oberes Ende des Fensters",
+        "r_axis": "Abstand von der Achse"
       },
       "cases": {
         "sphere": {
@@ -4335,6 +4349,43 @@
             "reads": "Der Boden zieht das Wasser über eine dünne Grenzschicht mit. Nach der Anlaufzeit τ = h/√(ν·ω_v) fehlt ihm noch der Anteil 1/e an der Drehzahl des Gefässes.",
             "why": "Prüft die Zeitschleife und die Anlaufzeit der Seite: Nach 32,58 s dreht das Wasser mit 63,2 % der Drehzahl des Gefässes, mit 56,9 von 90 Umdrehungen pro Minute.",
             "step": "Die Quelle rechnet einen geschlossenen Zylinder der Höhe 2L, mit einer Ekman-Schicht unten und einer oben. Seine Mittelebene trägt aus Symmetrie keine Schubspannung, wie eine flache freie Oberfläche: Das Wasser der Tiefe h ist die untere Hälfte, L = h. Die Quelle rechnet kleine Änderungen; die Seite lässt auch grosse so nachlaufen, mit Ω der grösseren der beiden Drehzahlen."
+          }
+        },
+        "levitation": {
+          "lift": {
+            "title": "Die Last, die der Ring trägt",
+            "setting": "Der Ring der Seite (aussen Ø 10 cm, Loch Ø 3 cm, 1,5 cm hoch, Ferrit) und der Magnet des Kreisels mit 0,64 A·m²; die Last 4,6 cm über dem Ring.",
+            "reads": "Der Kreisel steht gegen das Feld und wird dorthin gedrückt, wo es schwächer ist: nach oben, mit μ mal dem Gefälle des Felds. Das Feld des Rings ist hier Schleife für Schleife summiert.",
+            "why": "Prüft das Feld des Rings auf seiner Achse, aus dem alles andere kommt: 23,589 g Last in 4,6 cm Höhe. Die Seite rechnet das Feld geschlossen, hier ist es summiert; beide stimmen auf 10⁻¹².",
+            "step": "Die zweite Quelle macht aus der Magnetisierung M einen Strom von M pro Meter Höhe um die Aussenwand des Rings und den entgegengesetzten um sein Loch. Jede dünne Schicht davon ist eine Leiterschleife; die erste Quelle gibt deren Feld auf der Achse, hier über die Höhe des Rings summiert und nach z abgeleitet. Die dritte gibt die Energie mgz + μB und damit die Kraft −μB′."
+          },
+          "window_foot": {
+            "title": "Der Fuss des Fensters",
+            "setting": "Der Ring der Seite; die tiefste Höhe, in der ein Kreisel schweben kann.",
+            "reads": "Auf und ab hält der Kreisel nur, wo das Feld nach oben immer langsamer abnimmt, B″ > 0. Die Grenze ist der Wendepunkt des Felds, B″ = 0.",
+            "why": "Prüft das untere Ende des Fensters: 4,3587 cm, wie die Seite es mit Raster und Halbieren findet.",
+            "step": "Die erste Quelle gibt die Bedingungen und sagt, dass das Fenster beim Wendepunkt beginnt. B″ kommt hier aus dem Feld, Schleife für Schleife summiert (zweite und dritte Quelle), seine Nullstelle durch Halbieren."
+          },
+          "window_head": {
+            "title": "Das obere Ende des Fensters",
+            "setting": "Der Ring der Seite; die höchste Höhe, in der ein Kreisel schweben kann.",
+            "reads": "Seitwärts hält der Kreisel nur, solange B′² > 2·B·B″; darüber gleitet er zur Seite weg.",
+            "why": "Prüft das obere Ende des Fensters: 4,8052 cm. Das Fenster ist damit nur 4,5 mm hoch.",
+            "step": "Die erste Quelle gibt die Bedingung für den Halt zur Seite. B, B′ und B″ kommen hier aus dem Feld, Schleife für Schleife summiert, die Grenze durch Halbieren."
+          },
+          "bob": {
+            "title": "Das Wippen auf und ab",
+            "setting": "Der Kreisel der Seite, 23,5 g, ohne Erwärmung; dort, wo er schwebt.",
+            "reads": "Wo das Gewicht die Last trifft, ist die Energie mgz + μB am tiefsten. Ihre Krümmung μB″ wirkt wie eine Feder, und der Kreisel wippt mit deren Frequenz.",
+            "why": "Prüft die Frequenz des Wippens, die die Seite angibt: 1,466 Hz, an der Höhe, die hier im summierten Feld gesucht ist.",
+            "step": "Die erste Quelle gibt die Energie mgz + μB. Ihre zweite Ableitung nach der Höhe ist μB″, die Federkonstante; die zweite gibt dazu ω = √(k/m)."
+          },
+          "drift": {
+            "title": "Das Kreisen um die Achse",
+            "setting": "Der Kreisel der Seite, 23,5 g, ohne Erwärmung; dort, wo er schwebt.",
+            "reads": "Neben der Achse ist das Feld stärker, um r²(B′² − 2BB″)/(8B). Der Kreisel wird zur Achse zurückgedrückt und kreist langsam um sie.",
+            "why": "Prüft, wie die Seite das Feld neben der Achse aus dem Feld auf ihr gewinnt: 0,636 Hz.",
+            "step": "Die erste Quelle gibt das Quadrat des Felds neben der Achse aus den Ableitungen auf ihr. Seine Wurzel ist für kleine r B + r²(B′² − 2BB″)/(8B); zweimal nach r abgeleitet und mal μ ergibt das die Federkonstante zur Seite, die dritte Quelle die Frequenz."
           }
         }
       },

@@ -3642,7 +3642,21 @@
         "focus": "distanza focale della conca come specchio",
         "dish_depth": "la profondità della conca fino alla distanza r",
         "water_rate": "la velocità angolare dell'acqua",
-        "nu": "la viscosità dell'acqua, 10⁻⁶ m²/s"
+        "nu": "la viscosità dell'acqua, 10⁻⁶ m²/s",
+        "m_lift": "il carico che sostiene l'anello, come massa",
+        "mu_top": "il momento magnetico della trottola",
+        "B_axis": "il campo sull'asse",
+        "B1": "la pendenza del campo sull'asse, verso l'alto",
+        "B2": "la curvatura del campo sull'asse",
+        "M_mag": "la magnetizzazione dell'anello",
+        "t_ring": "l'altezza dell'anello",
+        "z_height": "altezza sopra l'anello",
+        "s_depth": "profondità nell'anello, sotto la sua faccia superiore",
+        "R1_hole": "il raggio del foro",
+        "R2_ring": "il raggio dell'anello",
+        "z_foot": "il piede della finestra, il punto di flesso del campo",
+        "z_head": "l'estremo superiore della finestra",
+        "r_axis": "distanza dall'asse"
       },
       "cases": {
         "sphere": {
@@ -4335,6 +4349,43 @@
             "reads": "Il fondo trascina l'acqua attraverso un sottile strato limite. Dopo il tempo di avvio τ = h/√(ν·ω_v) le manca ancora la frazione 1/e della velocità del recipiente.",
             "why": "Verifica il ciclo dei passi temporali e il tempo di avvio della pagina: dopo 32,58 s l'acqua gira al 63,2 % della velocità del recipiente, a 56,9 dei 90 giri al minuto.",
             "step": "La fonte tratta un cilindro chiuso di altezza 2L, con uno strato di Ekman in basso e uno in alto. Per simmetria il suo piano medio non porta sforzo di taglio, come una superficie libera piatta: l'acqua di profondità h ne è la metà inferiore, L = h. La fonte tratta piccole variazioni; la pagina fa seguire allo stesso modo anche quelle grandi, con Ω la maggiore delle due velocità."
+          }
+        },
+        "levitation": {
+          "lift": {
+            "title": "Il carico che sostiene l'anello",
+            "setting": "L'anello della pagina (Ø esterno 10 cm, foro Ø 3 cm, alto 1,5 cm, in ferrite) e il magnete della trottola, da 0,64 A·m²; il carico a 4,6 cm sopra l'anello.",
+            "reads": "La trottola si orienta contro il campo e viene spinta verso dove esso è più debole: verso l'alto, con μ per la pendenza del campo. Il campo dell'anello è qui sommato spira per spira.",
+            "why": "Verifica il campo dell'anello sul suo asse, da cui viene tutto il resto: 23,589 g di carico a 4,6 cm di altezza. La pagina calcola il campo in forma chiusa, qui è sommato; i due coincidono a meno di 10⁻¹².",
+            "step": "La seconda fonte trasforma la magnetizzazione M in una corrente di M per metro di altezza attorno alla parete esterna dell'anello e in quella opposta attorno al suo foro. Ogni strato sottile di questa corrente è una spira; la prima fonte ne dà il campo sull'asse, qui sommato sull'altezza dell'anello e derivato rispetto a z. La terza dà l'energia mgz + μB e quindi la forza −μB′."
+          },
+          "window_foot": {
+            "title": "Il piede della finestra",
+            "setting": "L'anello della pagina; l'altezza più bassa alla quale una trottola può fluttuare.",
+            "reads": "Su e giù la trottola si regge solo dove il campo si indebolisce sempre più lentamente verso l'alto, B″ > 0. Il limite è il punto di flesso del campo, B″ = 0.",
+            "why": "Verifica l'estremo inferiore della finestra: 4,3587 cm, come lo trova la pagina con la sua griglia e per bisezione.",
+            "step": "La prima fonte dà le condizioni e dice che la finestra comincia nel punto di flesso. B″ viene qui dal campo sommato spira per spira (seconda e terza fonte), il suo zero per bisezione."
+          },
+          "window_head": {
+            "title": "L'estremo superiore della finestra",
+            "setting": "L'anello della pagina; l'altezza massima alla quale una trottola può fluttuare.",
+            "reads": "Di lato la trottola si regge solo finché B′² > 2·B·B″; più in alto scivola via di lato.",
+            "why": "Verifica l'estremo superiore della finestra: 4,8052 cm. La finestra è quindi alta solo 4,5 mm.",
+            "step": "La prima fonte dà la condizione per reggersi di lato. B, B′ e B″ vengono qui dal campo sommato spira per spira, il limite per bisezione."
+          },
+          "bob": {
+            "title": "L'oscillazione su e giù",
+            "setting": "La trottola della pagina, 23,5 g, senza riscaldamento; là dove fluttua.",
+            "reads": "Dove il peso incontra il carico, l'energia mgz + μB è minima. La sua curvatura μB″ agisce come una molla, e la trottola oscilla su e giù con la frequenza di questa molla.",
+            "why": "Verifica la frequenza dell'oscillazione che indica la pagina: 1,466 Hz, all'altezza cercata qui nel campo sommato.",
+            "step": "La prima fonte dà l'energia mgz + μB. La sua derivata seconda rispetto all'altezza è μB″, la costante elastica; la seconda dà con essa ω = √(k/m)."
+          },
+          "drift": {
+            "title": "Girare attorno all'asse",
+            "setting": "La trottola della pagina, 23,5 g, senza riscaldamento; là dove fluttua.",
+            "reads": "Accanto all'asse il campo è più intenso, di r²(B′² − 2BB″)/(8B). La trottola viene spinta di nuovo verso l'asse e gli gira lentamente attorno.",
+            "why": "Verifica come la pagina ricava il campo accanto all'asse dal campo sull'asse: 0,636 Hz.",
+            "step": "La prima fonte dà il quadrato del campo accanto all'asse a partire dalle derivate sull'asse. La sua radice, per r piccolo, è B + r²(B′² − 2BB″)/(8B); derivata due volte rispetto a r e moltiplicata per μ, dà la costante elastica laterale, e la terza fonte la frequenza."
           }
         }
       },

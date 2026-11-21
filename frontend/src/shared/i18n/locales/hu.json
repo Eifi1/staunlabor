@@ -3642,7 +3642,21 @@
         "focus": "a teknő mint tükör fókusztávolsága",
         "dish_depth": "a teknő mélysége r távolságig",
         "water_rate": "a víz szögsebessége",
-        "nu": "a víz viszkozitása, 10⁻⁶ m²/s"
+        "nu": "a víz viszkozitása, 10⁻⁶ m²/s",
+        "m_lift": "a gyűrű által megtartott teher, tömegként",
+        "mu_top": "a pörgettyű mágneses momentuma",
+        "B_axis": "a tér a tengelyen",
+        "B1": "a tér meredeksége a tengelyen, felfelé",
+        "B2": "a tér görbülete a tengelyen",
+        "M_mag": "a gyűrű mágnesezettsége",
+        "t_ring": "a gyűrű magassága",
+        "z_height": "magasság a gyűrű fölött",
+        "s_depth": "mélység a gyűrűben, a felső lapja alatt",
+        "R1_hole": "a lyuk sugara",
+        "R2_ring": "a gyűrű sugara",
+        "z_foot": "az ablak alja, a tér inflexiós pontja",
+        "z_head": "az ablak felső széle",
+        "r_axis": "a tengelytől mért távolság"
       },
       "cases": {
         "sphere": {
@@ -4335,6 +4349,43 @@
             "reads": "Az alj egy vékony határrétegen át húzza magával a vizet. A τ = h/√(ν·ω_v) felpörgési idő után még az edény fordulatszámának 1/e része hiányzik neki.",
             "why": "Az oldal időléptető ciklusát és felpörgési idejét ellenőrzi: 32,58 s után a víz az edény fordulatszámának 63,2 %-ával forog, a 90 fordulat/percből 56,9-cel.",
             "step": "A forrás egy 2L magasságú zárt hengert számol, alul és felül egy-egy Ekman-réteggel. Középsíkja a szimmetria miatt nem visel nyírófeszültséget, ahogy egy sík szabad felszín sem: a h mélységű víz az alsó fele, L = h. A forrás kis változásokat számol; az oldal a nagyokat is így követteti, ahol Ω a két fordulatszám közül a nagyobb."
+          }
+        },
+        "levitation": {
+          "lift": {
+            "title": "A teher, amelyet a gyűrű megtart",
+            "setting": "Az oldal gyűrűje (külső Ø 10 cm, lyuk Ø 3 cm, 1,5 cm magas, ferrit) és a pörgettyű 0,64 A·m²-es mágnese; a teher 4,6 cm-rel a gyűrű fölött.",
+            "reads": "A pörgettyű a térrel szemben áll, és arra tolódik, amerre a tér gyengébb: felfelé, a tér esésének μ-szörösével. A gyűrű terét itt hurokról hurokra összegezzük.",
+            "why": "A gyűrű tengelyén lévő teret ellenőrzi, amelyből minden más származik: 23,589 g teher 4,6 cm magasságban. Az oldal zárt alakban számolja a teret, itt összegezve van; a kettő 10⁻¹² pontossággal egyezik.",
+            "step": "A második forrás az M mágnesezettséget a gyűrű külső fala körül folyó, magasságméterenként M erősségű árammá alakítja, a lyuka körül pedig ellentétes irányúvá. Ennek minden vékony rétege egy vezetőhurok; az első forrás megadja ennek terét a tengelyen, amelyet itt a gyűrű magasságán összegzünk és z szerint deriválunk. A harmadik megadja az mgz + μB energiát, és ezzel a −μB′ erőt."
+          },
+          "window_foot": {
+            "title": "Az ablak alja",
+            "setting": "Az oldal gyűrűje; a legkisebb magasság, ahol pörgettyű lebeghet.",
+            "reads": "Fel-le irányban a pörgettyű csak ott marad meg, ahol a tér felfelé egyre lassabban gyengül, B″ > 0. A határ a tér inflexiós pontja, B″ = 0.",
+            "why": "Az ablak alsó szélét ellenőrzi: 4,3587 cm, ahogy az oldal rácson és felezéssel megtalálja.",
+            "step": "Az első forrás megadja a feltételeket, és kimondja, hogy az ablak az inflexiós pontnál kezdődik. B″ itt a hurokról hurokra összegzett térből adódik (második és harmadik forrás), zérushelye felezéssel."
+          },
+          "window_head": {
+            "title": "Az ablak felső széle",
+            "setting": "Az oldal gyűrűje; a legnagyobb magasság, ahol pörgettyű lebeghet.",
+            "reads": "Oldalirányban a pörgettyű csak addig marad meg, amíg B′² > 2·B·B″; e fölött oldalra elcsúszik.",
+            "why": "Az ablak felső szélét ellenőrzi: 4,8052 cm. Az ablak tehát csak 4,5 mm magas.",
+            "step": "Az első forrás megadja az oldalirányú megtartás feltételét. B, B′ és B″ itt a hurokról hurokra összegzett térből adódik, a határ felezéssel."
+          },
+          "bob": {
+            "title": "A fel-le mozgás",
+            "setting": "Az oldal pörgettyűje, 23,5 g, melegedés nélkül; ott, ahol lebeg.",
+            "reads": "Ahol a súly és a teher találkozik, az mgz + μB energia a legkisebb. Görbülete, μB″ rugóként hat, és a pörgettyű ennek a rugónak a frekvenciájával mozog fel és le.",
+            "why": "Az oldal által megadott fel-le mozgás frekvenciáját ellenőrzi: 1,466 Hz, abban a magasságban, amelyet itt az összegzett térben keresünk meg.",
+            "step": "Az első forrás megadja az mgz + μB energiát. Ennek magasság szerinti második deriváltja μB″, a rugóállandó; a második forrás ehhez megadja: ω = √(k/m)."
+          },
+          "drift": {
+            "title": "Körözés a tengely körül",
+            "setting": "Az oldal pörgettyűje, 23,5 g, melegedés nélkül; ott, ahol lebeg.",
+            "reads": "A tengely mellett a tér erősebb, r²(B′² − 2BB″)/(8B)-vel. A pörgettyűt a tér visszanyomja a tengely felé, és az lassan köröz körülötte.",
+            "why": "Azt ellenőrzi, hogyan kapja meg az oldal a tengely melletti teret a tengelyen lévőből: 0,636 Hz.",
+            "step": "Az első forrás a tengely melletti tér négyzetét a tengelyen vett deriváltakból adja meg. Ennek gyöke kis r-re B + r²(B′² − 2BB″)/(8B); kétszer r szerint deriválva és μ-vel szorozva ez adja az oldalirányú rugóállandót, a harmadik forrás pedig a frekvenciát."
           }
         }
       },

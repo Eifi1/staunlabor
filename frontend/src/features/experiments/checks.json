@@ -1076,6 +1076,153 @@
    ]
   }
  ],
+ "levitation": [
+  {
+   "key": "lift",
+   "unit": "g",
+   "expected": 23.5888970516,
+   "measured": 23.5888970516,
+   "deviation": 5.54695052099e-13,
+   "tolerance": 1e-10,
+   "derived": true,
+   "setting": {
+    "mass_kg": 0.0235,
+    "warming_k": 0.0
+   },
+   "sources": [
+    {
+     "cite": "OpenStax, University Physics Volume 2, §12.4 Magnetic Field of a Current Loop, Eq. 12.15",
+     "url": "https://openstax.org/books/university-physics-volume-2/pages/12-4-magnetic-field-of-a-current-loop",
+     "quote": "B = μ₀IR² / [2(y² + R²)^(3/2)]"
+    },
+    {
+     "cite": "Wikipedia, “Magnetization”, §Magnetization current",
+     "url": "https://en.wikipedia.org/wiki/Magnetization",
+     "quote": "The magnetization M makes a contribution to the current density J, known as the magnetization current. … J_m = ∇ × M and for the bound surface current: K_m = M × n̂"
+    },
+    {
+     "cite": "M. V. Berry, A. K. Geim, “Of flying frogs and levitrons”, Eur. J. Phys. 18 (1997) 307, §2, Eq. (5)",
+     "url": "https://obelix.physik.uni-bielefeld.de/~schnack/Herbstakademie/CD-2008/frog-ejp.pdf",
+     "quote": "For the Levitron™, m is approximately antiparallel to B(r), so this angle is close to 180°, and the energy is E(r) = mgz − m · B(r) ≈ mgz + |m|B(r)."
+    }
+   ]
+  },
+  {
+   "key": "window_foot",
+   "unit": "cm",
+   "expected": 4.35870803985,
+   "measured": 4.35870803984,
+   "deviation": 5.53034571031e-13,
+   "tolerance": 1e-10,
+   "derived": true,
+   "setting": {
+    "mass_kg": 0.0235,
+    "warming_k": 0.0
+   },
+   "sources": [
+    {
+     "cite": "M. V. Berry, A. K. Geim, “Of flying frogs and levitrons”, Eur. J. Phys. 18 (1997) 307, §3 Eq. (16) and §4",
+     "url": "https://obelix.physik.uni-bielefeld.de/~schnack/Herbstakademie/CD-2008/frog-ejp.pdf",
+     "quote": "D2(z) ≡ B′(z)² − 2B(z)B″(z) > 0 (horizontal stability). For the Levitron™, where the magnetic energy (5) depends on B(r) rather than B²(r), a similar analysis leads to the same horizontal stability condition, and the simpler vertical stability condition B″(r) > 0. … there is an inflection point at some height zi, that is B″(zi) = 0. … In the Levitron™, the stable zone is zi < z < z2"
+    },
+    {
+     "cite": "OpenStax, University Physics Volume 2, §12.4 Magnetic Field of a Current Loop, Eq. 12.15",
+     "url": "https://openstax.org/books/university-physics-volume-2/pages/12-4-magnetic-field-of-a-current-loop",
+     "quote": "B = μ₀IR² / [2(y² + R²)^(3/2)]"
+    },
+    {
+     "cite": "Wikipedia, “Magnetization”, §Magnetization current",
+     "url": "https://en.wikipedia.org/wiki/Magnetization",
+     "quote": "The magnetization M makes a contribution to the current density J, known as the magnetization current. … J_m = ∇ × M and for the bound surface current: K_m = M × n̂"
+    }
+   ]
+  },
+  {
+   "key": "window_head",
+   "unit": "cm",
+   "expected": 4.80518783009,
+   "measured": 4.80518783009,
+   "deviation": 4.79837887523e-13,
+   "tolerance": 1e-10,
+   "derived": true,
+   "setting": {
+    "mass_kg": 0.0235,
+    "warming_k": 0.0
+   },
+   "sources": [
+    {
+     "cite": "M. V. Berry, A. K. Geim, “Of flying frogs and levitrons”, Eur. J. Phys. 18 (1997) 307, §3 Eq. (16) and §4",
+     "url": "https://obelix.physik.uni-bielefeld.de/~schnack/Herbstakademie/CD-2008/frog-ejp.pdf",
+     "quote": "D2(z) ≡ B′(z)² − 2B(z)B″(z) > 0 (horizontal stability). For the Levitron™, where the magnetic energy (5) depends on B(r) rather than B²(r), a similar analysis leads to the same horizontal stability condition, and the simpler vertical stability condition B″(r) > 0. … there is an inflection point at some height zi, that is B″(zi) = 0. … In the Levitron™, the stable zone is zi < z < z2"
+    },
+    {
+     "cite": "OpenStax, University Physics Volume 2, §12.4 Magnetic Field of a Current Loop, Eq. 12.15",
+     "url": "https://openstax.org/books/university-physics-volume-2/pages/12-4-magnetic-field-of-a-current-loop",
+     "quote": "B = μ₀IR² / [2(y² + R²)^(3/2)]"
+    },
+    {
+     "cite": "Wikipedia, “Magnetization”, §Magnetization current",
+     "url": "https://en.wikipedia.org/wiki/Magnetization",
+     "quote": "The magnetization M makes a contribution to the current density J, known as the magnetization current. … J_m = ∇ × M and for the bound surface current: K_m = M × n̂"
+    }
+   ]
+  },
+  {
+   "key": "bob",
+   "unit": "Hz",
+   "expected": 1.46643470525,
+   "measured": 1.46643470527,
+   "deviation": 1.19673213457e-11,
+   "tolerance": 1e-09,
+   "derived": true,
+   "setting": {
+    "mass_kg": 0.0235,
+    "warming_k": 0.0
+   },
+   "sources": [
+    {
+     "cite": "M. V. Berry, A. K. Geim, “Of flying frogs and levitrons”, Eur. J. Phys. 18 (1997) 307, §2, Eq. (5)",
+     "url": "https://obelix.physik.uni-bielefeld.de/~schnack/Herbstakademie/CD-2008/frog-ejp.pdf",
+     "quote": "For the Levitron™, m is approximately antiparallel to B(r), so this angle is close to 180°, and the energy is E(r) = mgz − m · B(r) ≈ mgz + |m|B(r)."
+    },
+    {
+     "cite": "OpenStax, University Physics Volume 1, §15.1 Simple Harmonic Motion, Eq. 15.9",
+     "url": "https://openstax.org/books/university-physics-volume-1/pages/15-1-simple-harmonic-motion",
+     "quote": "ω = √(k/m). The angular frequency depends only on the force constant and the mass, and not the amplitude."
+    }
+   ]
+  },
+  {
+   "key": "drift",
+   "unit": "Hz",
+   "expected": 0.636131325182,
+   "measured": 0.636131325163,
+   "deviation": 2.93401386989e-11,
+   "tolerance": 1e-09,
+   "derived": true,
+   "setting": {
+    "mass_kg": 0.0235,
+    "warming_k": 0.0
+   },
+   "sources": [
+    {
+     "cite": "M. V. Berry, A. K. Geim, “Of flying frogs and levitrons”, Eur. J. Phys. 18 (1997) 307, §3, Eq. (12) and (15)",
+     "url": "https://obelix.physik.uni-bielefeld.de/~schnack/Herbstakademie/CD-2008/frog-ejp.pdf",
+     "quote": "φn(z) ≡ ∂zⁿΦ(0, 0, z). … From (11), the field strength can now be written B²(r) = φ1²(z) + ¼(x² + y²)(φ2²(z) − 2φ1(z)φ3(z)) + …"
+    },
+    {
+     "cite": "M. V. Berry, A. K. Geim, “Of flying frogs and levitrons”, Eur. J. Phys. 18 (1997) 307, §2, Eq. (5)",
+     "url": "https://obelix.physik.uni-bielefeld.de/~schnack/Herbstakademie/CD-2008/frog-ejp.pdf",
+     "quote": "For the Levitron™, m is approximately antiparallel to B(r), so this angle is close to 180°, and the energy is E(r) = mgz − m · B(r) ≈ mgz + |m|B(r)."
+    },
+    {
+     "cite": "OpenStax, University Physics Volume 1, §15.1 Simple Harmonic Motion, Eq. 15.9",
+     "url": "https://openstax.org/books/university-physics-volume-1/pages/15-1-simple-harmonic-motion",
+     "quote": "ω = √(k/m). The angular frequency depends only on the force constant and the mass, and not the amplitude."
+    }
+   ]
+  }
+ ],
  "maxwell": [
   {
    "key": "fall_time",

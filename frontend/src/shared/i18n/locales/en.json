@@ -3642,7 +3642,21 @@
         "focus": "focal length of the bowl as a mirror",
         "dish_depth": "the bowl's depth out to the distance r",
         "water_rate": "the water's angular velocity",
-        "nu": "the water's viscosity, 10⁻⁶ m²/s"
+        "nu": "the water's viscosity, 10⁻⁶ m²/s",
+        "m_lift": "the load the ring carries, as a mass",
+        "mu_top": "the top's magnetic moment",
+        "B_axis": "the field on the axis",
+        "B1": "the field's slope on the axis, upwards",
+        "B2": "the field's curvature on the axis",
+        "M_mag": "the ring's magnetisation",
+        "t_ring": "the ring's height",
+        "z_height": "height above the ring",
+        "s_depth": "depth in the ring, below its top face",
+        "R1_hole": "the hole's radius",
+        "R2_ring": "the ring's radius",
+        "z_foot": "the window's foot, the field's inflection point",
+        "z_head": "the window's head",
+        "r_axis": "distance from the axis"
       },
       "cases": {
         "sphere": {
@@ -4335,6 +4349,43 @@
             "reads": "The bottom drags the water along through a thin boundary layer. After the spin-up time τ = h/√(ν·ω_v) it still lacks the share 1/e of the vessel's speed.",
             "why": "Checks the page's time loop and spin-up time: after 32.58 s the water turns at 63.2 % of the vessel's speed, 56.9 of 90 turns a minute.",
             "step": "The source does a closed cylinder 2L high, with one Ekman layer at the bottom and one at the top. By symmetry its middle plane carries no shear, as a flat free surface does: water h deep is the lower half, L = h. The source does small changes; the page lets large ones lag the same way, with Ω the larger of the two speeds."
+          }
+        },
+        "levitation": {
+          "lift": {
+            "title": "The load the ring carries",
+            "setting": "The page's ring (10 cm across, a 3 cm hole, 1.5 cm high, ferrite) and the top's magnet of 0.64 A·m²; the load 4.6 cm above the ring.",
+            "reads": "The top stands against the field and is pushed towards where it is weaker: upwards, with μ times the field's slope. The ring's field is summed here loop by loop.",
+            "why": "Checks the ring's field on its axis, which everything else comes from: a load of 23.589 g at 4.6 cm. The page computes the field in closed form, here it is summed; the two agree to 10⁻¹².",
+            "step": "The second source turns the magnetisation M into a current of M per metre of height round the ring's outer wall and the opposite one round its hole. Each thin layer of it is a loop; the first source gives its field on the axis, summed here over the ring's height and differentiated in z. The third gives the energy mgz + μB, and so the force −μB′."
+          },
+          "window_foot": {
+            "title": "The window's foot",
+            "setting": "The page's ring; the lowest height a top can float at.",
+            "reads": "Up and down the top holds only where the field falls ever more slowly upwards, B″ > 0. The limit is the field's inflection point, B″ = 0.",
+            "why": "Checks the window's lower end: 4.3587 cm, as the page finds it by its grid and bisection.",
+            "step": "The first source gives the conditions and says the window begins at the inflection point. B″ comes here from the field summed loop by loop (second and third sources), its zero by bisection."
+          },
+          "window_head": {
+            "title": "The window's head",
+            "setting": "The page's ring; the highest height a top can float at.",
+            "reads": "Sideways the top holds only while B′² > 2·B·B″; above, it slides off to the side.",
+            "why": "Checks the window's upper end: 4.8052 cm. The window is thus only 4.5 mm high.",
+            "step": "The first source gives the condition for holding sideways. B, B′ and B″ come here from the field summed loop by loop, the limit by bisection."
+          },
+          "bob": {
+            "title": "Bobbing up and down",
+            "setting": "The page's top, 23.5 g, no warming; where it floats.",
+            "reads": "Where the weight meets the load, the energy mgz + μB is lowest. Its curvature μB″ acts as a spring, and the top bobs at that spring's frequency.",
+            "why": "Checks the bobbing frequency the page gives: 1.466 Hz, at the height found here in the summed field.",
+            "step": "The first source gives the energy mgz + μB. Its second derivative in height is μB″, the spring constant; the second gives ω = √(k/m)."
+          },
+          "drift": {
+            "title": "Drifting round the axis",
+            "setting": "The page's top, 23.5 g, no warming; where it floats.",
+            "reads": "Beside the axis the field is stronger, by r²(B′² − 2BB″)/(8B). The top is pushed back towards the axis and slowly circles it.",
+            "why": "Checks how the page gets the field beside the axis from the field on it: 0.636 Hz.",
+            "step": "The first source gives the field's square beside the axis from the derivatives on it. Its square root for small r is B + r²(B′² − 2BB″)/(8B); differentiated twice in r and times μ that is the spring constant sideways, and the third source gives the frequency."
           }
         }
       },

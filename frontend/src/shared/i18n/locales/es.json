@@ -3642,7 +3642,21 @@
         "focus": "distancia focal del cuenco como espejo",
         "dish_depth": "la profundidad del cuenco hasta la distancia r",
         "water_rate": "la velocidad angular del agua",
-        "nu": "la viscosidad del agua, 10⁻⁶ m²/s"
+        "nu": "la viscosidad del agua, 10⁻⁶ m²/s",
+        "m_lift": "la carga que sostiene el anillo, como masa",
+        "mu_top": "el momento magnético de la peonza",
+        "B_axis": "el campo en el eje",
+        "B1": "la pendiente del campo en el eje, hacia arriba",
+        "B2": "la curvatura del campo en el eje",
+        "M_mag": "la imanación del anillo",
+        "t_ring": "la altura del anillo",
+        "z_height": "altura sobre el anillo",
+        "s_depth": "profundidad dentro del anillo, bajo su cara superior",
+        "R1_hole": "el radio del agujero",
+        "R2_ring": "el radio del anillo",
+        "z_foot": "el pie de la ventana, el punto de inflexión del campo",
+        "z_head": "el extremo superior de la ventana",
+        "r_axis": "distancia al eje"
       },
       "cases": {
         "sphere": {
@@ -4335,6 +4349,43 @@
             "reads": "El fondo arrastra el agua a través de una fina capa límite. Tras el tiempo de arranque τ = h/√(ν·ω_v), aún le falta la fracción 1/e de la velocidad del recipiente.",
             "why": "Comprueba el bucle de pasos de tiempo y el tiempo de arranque de la página: tras 32,58 s, el agua gira al 63,2 % de la velocidad del recipiente, a 56,9 de las 90 vueltas por minuto.",
             "step": "La fuente trata un cilindro cerrado de altura 2L, con una capa de Ekman abajo y otra arriba. Por simetría, su plano medio no soporta esfuerzo cortante, igual que una superficie libre plana: el agua de profundidad h es la mitad inferior, L = h. La fuente trata cambios pequeños; la página hace que también los grandes se sigan así, con Ω la mayor de las dos velocidades."
+          }
+        },
+        "levitation": {
+          "lift": {
+            "title": "La carga que sostiene el anillo",
+            "setting": "El anillo de la página (Ø exterior 10 cm, agujero Ø 3 cm, 1,5 cm de alto, de ferrita) y el imán de la peonza, de 0,64 A·m²; la carga a 4,6 cm sobre el anillo.",
+            "reads": "La peonza se orienta contra el campo y es empujada hacia donde este es más débil: hacia arriba, con μ por la pendiente del campo. El campo del anillo se suma aquí espira a espira.",
+            "why": "Comprueba el campo del anillo en su eje, del que sale todo lo demás: 23,589 g de carga a 4,6 cm de altura. La página calcula el campo con una fórmula cerrada; aquí se suma. Ambos coinciden con una precisión de 10⁻¹².",
+            "step": "La segunda fuente convierte la imanación M en una corriente de M por metro de altura alrededor de la pared exterior del anillo y en la opuesta alrededor de su agujero. Cada capa delgada de esa corriente es una espira; la primera fuente da su campo en el eje, sumado aquí sobre la altura del anillo y derivado respecto a z. La tercera da la energía mgz + μB y, con ella, la fuerza −μB′."
+          },
+          "window_foot": {
+            "title": "El pie de la ventana",
+            "setting": "El anillo de la página; la altura más baja a la que puede flotar una peonza.",
+            "reads": "Arriba y abajo, la peonza solo se sostiene donde el campo se debilita cada vez más despacio hacia arriba, B″ > 0. El límite es el punto de inflexión del campo, B″ = 0.",
+            "why": "Comprueba el extremo inferior de la ventana: 4,3587 cm, como lo encuentra la página con su retícula y por bisección.",
+            "step": "La primera fuente da las condiciones y dice que la ventana empieza en el punto de inflexión. Aquí B″ sale del campo sumado espira a espira (segunda y tercera fuentes), y su cero, por bisección."
+          },
+          "window_head": {
+            "title": "El extremo superior de la ventana",
+            "setting": "El anillo de la página; la altura máxima a la que puede flotar una peonza.",
+            "reads": "De lado, la peonza solo se sostiene mientras B′² > 2·B·B″; por encima, se desliza hacia un lado.",
+            "why": "Comprueba el extremo superior de la ventana: 4,8052 cm. La ventana tiene así solo 4,5 mm de alto.",
+            "step": "La primera fuente da la condición para sostenerse de lado. Aquí B, B′ y B″ salen del campo sumado espira a espira, y el límite, por bisección."
+          },
+          "bob": {
+            "title": "La oscilación arriba y abajo",
+            "setting": "La peonza de la página, 23,5 g, sin calentamiento; allí donde flota.",
+            "reads": "Donde el peso iguala la carga, la energía mgz + μB es mínima. Su curvatura μB″ actúa como un muelle, y la peonza sube y baja con la frecuencia de ese muelle.",
+            "why": "Comprueba la frecuencia de la oscilación que indica la página: 1,466 Hz, a la altura que aquí se busca en el campo sumado.",
+            "step": "La primera fuente da la energía mgz + μB. Su segunda derivada respecto a la altura es μB″, la constante del muelle; la segunda fuente da con ella ω = √(k/m)."
+          },
+          "drift": {
+            "title": "Las vueltas alrededor del eje",
+            "setting": "La peonza de la página, 23,5 g, sin calentamiento; allí donde flota.",
+            "reads": "Fuera del eje, el campo es más intenso, en r²(B′² − 2BB″)/(8B). La peonza es empujada de vuelta hacia el eje y gira despacio a su alrededor.",
+            "why": "Comprueba cómo obtiene la página el campo fuera del eje a partir del campo en el eje: 0,636 Hz.",
+            "step": "La primera fuente da el cuadrado del campo fuera del eje a partir de las derivadas en el eje. Su raíz, para r pequeño, es B + r²(B′² − 2BB″)/(8B); derivada dos veces respecto a r y multiplicada por μ, da la constante del muelle lateral, y la tercera fuente, la frecuencia."
           }
         }
       },

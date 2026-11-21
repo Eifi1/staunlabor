@@ -99,6 +99,7 @@ const UNCHECKED = {
     "cradle",
     "diver",
     "foucault",
+    "levitation",
     "maxwell",
     "parabola",
     "peg",
@@ -1795,6 +1796,19 @@ describe("setting a check case up", () => {
       expect(screen.getByRole("slider", { name: E.parabola.play.rate }).getAttribute("aria-valuetext")).toMatch(
         /^160\b/,
       ),
+    );
+  });
+
+  it("tunes the floating top back to 23.5 g in a room not warmed, where it hovers again", async () => {
+    renderWithProviders(<LevitationPage />);
+    await screen.findByRole("img", { name: E.levitation.view });
+    fireEvent.change(screen.getByRole("slider", { name: E.levitation.play.mass }), { target: { value: "24" } });
+    fireEvent.change(screen.getByRole("slider", { name: E.levitation.play.warming }), { target: { value: "3.5" } });
+    expect(await screen.findByText(E.levitation.play.lands)).toBeInTheDocument();
+    await setUp(3);
+    expect(await screen.findByText(E.levitation.play.hovers)).toBeInTheDocument();
+    expect(screen.getByRole("slider", { name: E.levitation.play.warming }).getAttribute("aria-valuetext")).toMatch(
+      /^0\b/,
     );
   });
 

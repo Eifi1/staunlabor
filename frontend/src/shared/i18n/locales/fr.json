@@ -3642,7 +3642,21 @@
         "focus": "distance focale de la cuvette en tant que miroir",
         "dish_depth": "la profondeur de la cuvette jusqu’à la distance r",
         "water_rate": "la vitesse angulaire de l’eau",
-        "nu": "la viscosité de l’eau, 10⁻⁶ m²/s"
+        "nu": "la viscosité de l’eau, 10⁻⁶ m²/s",
+        "m_lift": "la charge que porte l’anneau, exprimée en masse",
+        "mu_top": "le moment magnétique de la toupie",
+        "B_axis": "le champ sur l’axe",
+        "B1": "la pente du champ sur l’axe, vers le haut",
+        "B2": "la courbure du champ sur l’axe",
+        "M_mag": "l’aimantation de l’anneau",
+        "t_ring": "la hauteur de l’anneau",
+        "z_height": "hauteur au-dessus de l’anneau",
+        "s_depth": "profondeur dans l’anneau, sous sa face supérieure",
+        "R1_hole": "le rayon du trou",
+        "R2_ring": "le rayon de l’anneau",
+        "z_foot": "le pied de la fenêtre, le point d’inflexion du champ",
+        "z_head": "l’extrémité supérieure de la fenêtre",
+        "r_axis": "distance à l’axe"
       },
       "cases": {
         "sphere": {
@@ -4335,6 +4349,43 @@
             "reads": "Le fond entraîne l’eau à travers une mince couche limite. Après le temps de mise en rotation τ = h/√(ν·ω_v), il lui manque encore la fraction 1/e de la vitesse du récipient.",
             "why": "Vérifie la boucle des pas de temps et le temps de mise en rotation de la page : après 32,58 s, l’eau tourne à 63,2 % de la vitesse du récipient, à 56,9 des 90 tours par minute.",
             "step": "La source traite un cylindre fermé de hauteur 2L, avec une couche d’Ekman en bas et une en haut. Par symétrie, son plan médian ne porte aucune contrainte de cisaillement, comme une surface libre plane : l’eau de profondeur h en est la moitié inférieure, L = h. La source traite de petits changements ; la page fait suivre les grands de la même façon, avec Ω la plus grande des deux vitesses."
+          }
+        },
+        "levitation": {
+          "lift": {
+            "title": "La charge que porte l’anneau",
+            "setting": "L’anneau de la page (Ø extérieur 10 cm, trou Ø 3 cm, 1,5 cm de haut, en ferrite) et l’aimant de la toupie, de 0,64 A·m² ; la charge à 4,6 cm au-dessus de l’anneau.",
+            "reads": "La toupie s’oriente contre le champ et est poussée vers là où il est plus faible : vers le haut, avec μ fois la pente du champ. Le champ de l’anneau est ici sommé spire par spire.",
+            "why": "Vérifie le champ de l’anneau sur son axe, dont découle tout le reste : 23,589 g de charge à 4,6 cm de hauteur. La page calcule le champ par une formule fermée, ici il est sommé ; les deux concordent à 10⁻¹² près.",
+            "step": "La deuxième source fait de l’aimantation M un courant de M par mètre de hauteur autour de la paroi extérieure de l’anneau, et le courant opposé autour de son trou. Chaque mince couche de ce courant est une spire ; la première source donne son champ sur l’axe, ici sommé sur la hauteur de l’anneau et dérivé par rapport à z. La troisième donne l’énergie mgz + μB et donc la force −μB′."
+          },
+          "window_foot": {
+            "title": "Le pied de la fenêtre",
+            "setting": "L’anneau de la page ; la hauteur la plus basse à laquelle une toupie peut flotter.",
+            "reads": "Vers le haut et le bas, la toupie ne tient que là où le champ faiblit de plus en plus lentement vers le haut, B″ > 0. La limite est le point d’inflexion du champ, B″ = 0.",
+            "why": "Vérifie l’extrémité inférieure de la fenêtre : 4,3587 cm, comme la page la trouve avec sa grille et par dichotomie.",
+            "step": "La première source donne les conditions et dit que la fenêtre commence au point d’inflexion. B″ vient ici du champ sommé spire par spire (deuxième et troisième sources), son zéro par dichotomie."
+          },
+          "window_head": {
+            "title": "L’extrémité supérieure de la fenêtre",
+            "setting": "L’anneau de la page ; la hauteur la plus élevée à laquelle une toupie peut flotter.",
+            "reads": "Sur le côté, la toupie ne tient que tant que B′² > 2·B·B″ ; au-dessus, elle glisse sur le côté.",
+            "why": "Vérifie l’extrémité supérieure de la fenêtre : 4,8052 cm. La fenêtre n’a donc que 4,5 mm de haut.",
+            "step": "La première source donne la condition de maintien sur le côté. B, B′ et B″ viennent ici du champ sommé spire par spire, la limite par dichotomie."
+          },
+          "bob": {
+            "title": "L’oscillation de haut en bas",
+            "setting": "La toupie de la page, 23,5 g, sans réchauffement ; là où elle flotte.",
+            "reads": "Là où le poids rencontre la charge, l’énergie mgz + μB est la plus basse. Sa courbure μB″ agit comme un ressort, et la toupie oscille de haut en bas à la fréquence de ce ressort.",
+            "why": "Vérifie la fréquence de l’oscillation qu’indique la page : 1,466 Hz, à la hauteur cherchée ici dans le champ sommé.",
+            "step": "La première source donne l’énergie mgz + μB. Sa dérivée seconde par rapport à la hauteur est μB″, la raideur du ressort ; la seconde donne alors ω = √(k/m)."
+          },
+          "drift": {
+            "title": "Tourner autour de l’axe",
+            "setting": "La toupie de la page, 23,5 g, sans réchauffement ; là où elle flotte.",
+            "reads": "À côté de l’axe, le champ est plus intense, de r²(B′² − 2BB″)/(8B). La toupie est repoussée vers l’axe et tourne lentement autour de lui.",
+            "why": "Vérifie comment la page obtient le champ à côté de l’axe à partir du champ sur l’axe : 0,636 Hz.",
+            "step": "La première source donne le carré du champ à côté de l’axe à partir des dérivées sur l’axe. Sa racine, pour r petit, vaut B + r²(B′² − 2BB″)/(8B) ; dérivée deux fois par rapport à r et multipliée par μ, elle donne la raideur latérale, et la troisième source la fréquence."
           }
         }
       },

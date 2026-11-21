@@ -113,6 +113,11 @@ const FILL: CheckSymbol = { tex: "h", key: "fill_depth", unit: "m" };
 const VESSEL_R: CheckSymbol = { tex: "R", key: "vessel_radius", unit: "m" };
 const RATE: CheckSymbol = { tex: String.raw`\omega`, key: "vessel_rate", unit: "1/s" };
 const ALPHA: CheckSymbol = { tex: String.raw`\alpha`, key: "steepness", unit: "1/m" };
+const MU_TOP: CheckSymbol = { tex: String.raw`\mu`, key: "mu_top", unit: "A·m²" };
+const B_AXIS: CheckSymbol = { tex: "B", key: "B_axis", unit: "T" };
+const B1: CheckSymbol = { tex: "B'", key: "B1", unit: "T/m" };
+const B2: CheckSymbol = { tex: "B''", key: "B2", unit: "T/m²" };
+const FREQ: CheckSymbol = { tex: "f", key: "f", unit: "Hz" };
 
 const ROD_STEADY: CheckFormula = {
   tex: String.raw`w = \frac{\Gamma\,\Omega^2 Y}{\sqrt{(\omega^2 - \Omega^2)^2 + (2\zeta\omega\Omega)^2}}, \qquad \Gamma = \frac{\int_0^1 \varphi\,d\xi}{\int_0^1 \varphi^2\,d\xi}`,
@@ -925,6 +930,41 @@ export const CHECK_FORMULAS: Record<string, Record<string, CheckFormula>> = {
         FILL,
         { tex: String.raw`\nu`, key: "nu", unit: "m²/s" },
       ],
+    },
+  },
+  levitation: {
+    lift: {
+      tex: String.raw`m_{\mathrm{L}} = -\frac{\mu\,B'(z)}{g}, \qquad B(z) = \frac{\mu_0 M}{2}\int_0^t \left[\frac{R_2^2}{\left((z+s)^2 + R_2^2\right)^{3/2}} - \frac{R_1^2}{\left((z+s)^2 + R_1^2\right)^{3/2}}\right] ds`,
+      symbols: [
+        { tex: String.raw`m_{\mathrm{L}}`, key: "m_lift", unit: "kg" },
+        MU_TOP,
+        B1,
+        G,
+        B_AXIS,
+        { tex: String.raw`\mu_0`, key: "mu0", unit: "H/m" },
+        { tex: "M", key: "M_mag", unit: "A/m" },
+        { tex: "t", key: "t_ring", unit: "m" },
+        { tex: "z", key: "z_height", unit: "m" },
+        { tex: "s", key: "s_depth", unit: "m" },
+        { tex: "R_1", key: "R1_hole", unit: "m" },
+        { tex: "R_2", key: "R2_ring", unit: "m" },
+      ],
+    },
+    window_foot: {
+      tex: String.raw`B''(z_i) = 0`,
+      symbols: [B2, { tex: "z_i", key: "z_foot", unit: "m" }],
+    },
+    window_head: {
+      tex: String.raw`B'(z_2)^2 = 2\,B(z_2)\,B''(z_2)`,
+      symbols: [B_AXIS, B1, B2, { tex: "z_2", key: "z_head", unit: "m" }],
+    },
+    bob: {
+      tex: String.raw`f = \frac{1}{2\pi}\sqrt{\frac{\mu\,B''}{m}}, \qquad m g = -\mu\,B'`,
+      symbols: [FREQ, MU_TOP, B2, MASS, G, B1],
+    },
+    drift: {
+      tex: String.raw`f = \frac{1}{2\pi}\sqrt{\frac{\mu\,(B'^2 - 2BB'')}{4Bm}}, \qquad |B|(r) \approx B + \frac{r^2\,(B'^2 - 2BB'')}{8B}`,
+      symbols: [FREQ, MU_TOP, B_AXIS, B1, B2, MASS, { tex: "r", key: "r_axis", unit: "m" }],
     },
   },
 };
