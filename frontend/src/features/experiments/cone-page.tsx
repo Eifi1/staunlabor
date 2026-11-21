@@ -12,6 +12,7 @@ import { ConeFrontView, ConeSideView } from "./cone-views";
 import { Equation } from "./equation";
 import { ExhibitFrame } from "./exhibit-frame";
 import { BuildPending } from "./build-pending";
+import { settingNumber, useCheckRequest, useCheckSetting, type CheckSetting } from "./check-setting";
 import { PreviewPending, type PreviewMode, type PreviewProps } from "./preview-mode";
 import { HeldAnswer, useHeld, type Held } from "./held";
 import {
@@ -51,11 +52,39 @@ export function verdict(ex: ConeExhibit): "up" | "down" | "stays" {
  * `simulate.test.ts`): no route, since every slider redraws the heights and
  * the cone rolls as the reader watches.
  */
+/** The build a check case's setting asks for: its six sliders, the rest as `ex`. */
+function coneOf(ex: ConeExhibit, setting: CheckSetting): ConeExhibit {
+  return {
+    ...ex,
+    cone: {
+      ...ex.cone,
+      radius_m: settingNumber(setting, "radius_m", ex.cone.radius_m),
+      cone_deg: settingNumber(setting, "cone_deg", ex.cone.cone_deg),
+    },
+    rails: {
+      ...ex.rails,
+      spread_deg: settingNumber(setting, "spread_deg", ex.rails.spread_deg),
+      slope_deg: settingNumber(setting, "slope_deg", ex.rails.slope_deg),
+      start_half_gap_m: settingNumber(setting, "start_half_gap_m", ex.rails.start_half_gap_m),
+      length_m: settingNumber(setting, "length_m", ex.rails.length_m),
+    },
+  };
+}
+
 export function ConePage() {
   const { t } = useTranslation();
   const defaults = useExperimentsDefaults();
   const [build, setBuild] = useState<ConeExhibit | null>(null);
   const ex = build ?? defaults.data?.cone ?? null;
+  // A check case's "Set it up": the build here; the play, built anew for it or
+  // already on it, lays the cone and lets it go.
+  const request = useCheckRequest("cone");
+  const [seen, setSeen] = useState<number | null>(null);
+  if (request && !request.done && request.nonce !== seen && ex) {
+    setSeen(request.nonce);
+    const next = coneOf(ex, request.setting);
+    if (JSON.stringify(next) !== JSON.stringify(ex)) setBuild(next);
+  }
   const refused = ex ? refusal(ex) : null;
   const held = useHeld();
 
@@ -163,6 +192,11 @@ function ConePlay({ ex, held, preview = false, paused = false }: { ex: ConeExhib
     setView((v) => ({ ...v, x: state.current.x, speed: 0, spin: 0 }));
     setRolling(true);
   };
+  useCheckSetting("cone", (setting) => {
+    if (preview || JSON.stringify(coneOf(ex, setting)) !== JSON.stringify(ex)) return false;
+    letGo();
+    return true;
+  });
 
   const side = <ConeSideView ex={ex} x={view.x} turnDeg={view.turnDeg} axisPath={preview || held?.shown} />;
   if (preview) return side;

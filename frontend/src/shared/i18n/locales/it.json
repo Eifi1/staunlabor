@@ -3605,7 +3605,16 @@
         "diver_dz": "distanza dalla profondità di equilibrio",
         "diver_k": "quanto la distanza si autoalimenta",
         "diver_pstar": "pressione alla profondità di equilibrio",
-        "diver_zstar": "profondità in cui resterebbe sospeso"
+        "diver_zstar": "profondità in cui resterebbe sospeso",
+        "delta_cone": "inclinazione della linea dall'asse al contatto, rispetto alla normale al piano dei binari",
+        "alpha_cone": "angolo del cono, tra superficie e asse",
+        "beta_rail": "apertura di ciascun binario, vista dall'alto",
+        "gamma_rail": "pendenza dei binari",
+        "gamma_star": "pendenza limite",
+        "dz_axis": "di quanto scende l'asse",
+        "l_rails": "lunghezza dei binari, vista dall'alto",
+        "a_roll": "raggio su cui rotola il cono: dall'asse al contatto",
+        "radius_cone": "raggio del cono al centro"
       },
       "cases": {
         "sphere": {
@@ -4219,6 +4228,29 @@
             "reads": "Un po' più in basso la bolla è un po' più piccola, e la spinta che manca lo trascina oltre: la distanza cresce come cosh(√k·t). A muoversi sono il vetro e l'acqua che si trascina dietro, la metà del suo volume.",
             "why": "Verifica che lo stato sospeso è instabile, e quanto in fretta: la distanza presto si moltiplica per e ogni 1,71 s. Lo scarto di 1 · 10⁻⁵ viene dalla resistenza dell'acqua e dalla curvatura della legge di Boyle; entrambe crescono con la distanza.",
             "step": "La prima fonte dà come la bolla si restringe con la pressione, la seconda la pressione in profondità; per un piccolo passo δz la variazione è lineare. La terza dà l'acqua trascinata da una sfera, la metà del suo volume, che la pagina adotta per la provetta."
+          }
+        },
+        "cone": {
+          "axis_path": {
+            "title": "L'asse scende, i binari salgono",
+            "setting": "L'oggetto standard: raggio 6 cm, angolo del cono 20°, apertura 20°, pendenza 4°, binari lunghi 30 cm e distanti 6 cm in basso.",
+            "reads": "La linea dall'asse al contatto è inclinata dell'angolo δ, con sin δ = tan β·cos γ·tan α. Perciò l'asse percorre una retta che scende di δ − γ.",
+            "why": "Verifica il contatto esatto, che il motore di calcolo cerca per un'altra via, tramite la distanza del binario dal cono: su 30 cm l'asse scende di 1,88426 cm; le due vie coincidono a meno di 10⁻¹².",
+            "step": "La fonte misura i suoi angoli nel piano dei binari e chiama α ciò che qui è δ. Quel piano sale di γ; un binario che, visto dall'alto, si allarga di tan β per metro, nel piano si allarga di tan β·cos γ. Con tan φ = tan β·cos γ e l'angolo del cono α come ψ si ottiene sin δ, e visto dall'alto l'asse scende di l·tan(δ − γ) sulla lunghezza l."
+          },
+          "threshold": {
+            "title": "Il limite tra salire e scendere",
+            "setting": "Cono e apertura dell'oggetto standard; si cerca per bisezione tra 0° e 15° la pendenza alla quale l'asse resta alla stessa altezza su tutta la lunghezza.",
+            "reads": "Il cono rotola in su finché δ è maggiore della pendenza γ; al limite i due sono uguali. Ne segue la condizione dei libri, tan γ* = tan α·tan β, qui esatta.",
+            "why": "Verifica il limite che indica la pagina: 7,54628°. Lo si cerca con il contatto esatto del motore di calcolo, non con la formula della pagina; i due coincidono a meno di 10⁻¹².",
+            "step": "La prima fonte dà la condizione sin(δ − γ) > 0, al limite quindi δ = γ; la seconda sin δ = tan φ·tan ψ, convertita come sopra in tan β·cos γ·tan α. Con δ = γ si ha sin γ = tan β·cos γ·tan α, quindi tan γ = tan α·tan β."
+          },
+          "speed": {
+            "title": "La velocità dall'energia",
+            "setting": "L'oggetto standard, lasciato andare all'estremità bassa; letto dopo un secondo.",
+            "reads": "Ciò che l'asse perde in altezza diventa moto e rotazione: ½(1 + I/(M a²))·v² = g·Δz, con a il raggio su cui rotola il cono, e I = (3/10)·M·R² per due coni pieni.",
+            "why": "Verifica il ciclo dei passi temporali e il rotolamento sul raggio a che si restringe: 28,5357 cm/s dopo un secondo, a meno di 10⁻⁹. Più si sale, più energia sta nella rotazione.",
+            "step": "La prima fonte dà l'energia e, con le sue equazioni (7) e (8), dove sta l'asse e su quale raggio a rotola il cono, con gli angoli convertiti come sopra alla vista dall'alto. La seconda dà il momento d'inerzia di un cono; due coni uguali, base contro base, hanno lo stesso I/(M·R²)."
           }
         }
       },

@@ -3605,7 +3605,16 @@
         "diver_dz": "Abstand von der Schwebetiefe",
         "diver_k": "wie stark der Abstand sich selbst verstärkt",
         "diver_pstar": "Druck in der Schwebetiefe",
-        "diver_zstar": "Tiefe, in der er schweben würde"
+        "diver_zstar": "Tiefe, in der er schweben würde",
+        "delta_cone": "Neigung der Linie von der Achse zur Berührung, gegen die Senkrechte auf die Ebene der Schienen",
+        "alpha_cone": "Kegelwinkel, zwischen Mantel und Achse",
+        "beta_rail": "Spreizung jeder Schiene, von oben gesehen",
+        "gamma_rail": "Steigung der Schienen",
+        "gamma_star": "Grenzsteigung",
+        "dz_axis": "wie weit die Achse fällt",
+        "l_rails": "Länge der Schienen, von oben gesehen",
+        "a_roll": "Radius, auf dem der Kegel rollt: von der Achse zur Berührung",
+        "radius_cone": "Radius des Kegels in der Mitte"
       },
       "cases": {
         "sphere": {
@@ -4219,6 +4228,29 @@
             "reads": "Etwas tiefer ist die Blase etwas kleiner, und der fehlende Auftrieb zieht ihn weiter: Der Abstand wächst wie cosh(√k·t). Bewegt werden das Glas und das Wasser, das es mitnimmt, die Hälfte seines Volumens.",
             "why": "Prüft, dass das Schweben instabil ist und wie schnell: Der Abstand wächst bald alle 1,71 s auf das e-fache. Die Abweichung von 1 · 10⁻⁵ kommt vom Widerstand des Wassers und von der Krümmung in Boyles Gesetz; beide wachsen mit dem Abstand.",
             "step": "Die erste Quelle gibt, wie die Blase mit dem Druck schrumpft, die zweite den Druck in der Tiefe; für einen kleinen Schritt δz ist die Änderung linear. Die dritte gibt das mitbewegte Wasser einer Kugel, die Hälfte ihres Volumens, das die Seite für das Röhrchen übernimmt."
+          }
+        },
+        "cone": {
+          "axis_path": {
+            "title": "Die Achse fällt, die Schienen steigen",
+            "setting": "Das Standard-Exponat: Radius 6 cm, Kegelwinkel 20°, Spreizung 20°, Steigung 4°, Schienen 30 cm lang und unten 6 cm auseinander.",
+            "reads": "Die Linie von der Achse zur Berührung steht um den Winkel δ schief, mit sin δ = tan β·cos γ·tan α. Die Achse läuft darum auf einer Geraden, die um δ − γ fällt.",
+            "why": "Prüft die genaue Berührung, die der Rechenkern auf anderem Weg sucht, über den Abstand der Schiene vom Kegel: Auf 30 cm fällt die Achse um 1,88426 cm; beide Wege treffen sich auf 10⁻¹².",
+            "step": "Die Quelle misst ihre Winkel in der Ebene der Schienen und nennt δ ihr α. Diese Ebene steigt mit γ; eine Schiene, die sich von oben gesehen um tan β pro Meter spreizt, spreizt sich in der Ebene um tan β·cos γ. Mit tan φ = tan β·cos γ und dem Kegelwinkel α als ψ folgt sin δ, und von oben gesehen fällt die Achse auf der Länge l um l·tan(δ − γ)."
+          },
+          "threshold": {
+            "title": "Die Grenze zwischen hinauf und hinunter",
+            "setting": "Kegel und Spreizung des Standard-Exponats; gesucht ist die Steigung, bei der die Achse auf der ganzen Länge gleich hoch bleibt, durch Halbieren zwischen 0° und 15°.",
+            "reads": "Der Kegel rollt hinauf, solange δ grösser ist als die Steigung γ; an der Grenze sind beide gleich. Daraus folgt die Lehrbuchbedingung tan γ* = tan α·tan β, hier genau.",
+            "why": "Prüft die Grenze, die die Seite nennt: 7,54628°. Gesucht ist sie an der genauen Berührung des Rechenkerns, nicht mit der Formel der Seite; beide treffen sich auf 10⁻¹².",
+            "step": "Die erste Quelle gibt die Bedingung sin(δ − γ) > 0, an der Grenze also δ = γ; die zweite sin δ = tan φ·tan ψ, umgerechnet wie oben tan β·cos γ·tan α. Mit δ = γ ist sin γ = tan β·cos γ·tan α, also tan γ = tan α·tan β."
+          },
+          "speed": {
+            "title": "Das Tempo aus der Energie",
+            "setting": "Das Standard-Exponat, am tiefen Ende losgelassen; gelesen nach einer Sekunde.",
+            "reads": "Was die Achse an Höhe verliert, wird Bewegung und Drehung: ½(1 + I/(M a²))·v² = g·Δz, mit a dem Radius, auf dem der Kegel rollt, und I = (3/10)·M·R² für zwei Vollkegel.",
+            "why": "Prüft die Zeitschleife und das Rollen auf dem schrumpfenden Radius a: 28,5357 cm/s nach einer Sekunde, auf 10⁻⁹ genau. Je weiter oben, desto mehr der Energie steckt in der Drehung.",
+            "step": "Die erste Quelle gibt die Energie und mit ihren Gleichungen (7) und (8), wo die Achse steht und auf welchem Radius a der Kegel rollt, die Winkel wie oben auf die Sicht von oben umgerechnet. Die zweite gibt das Trägheitsmoment eines Kegels; zwei gleiche Kegel, Grundfläche an Grundfläche, haben dasselbe I/(M·R²)."
           }
         }
       },

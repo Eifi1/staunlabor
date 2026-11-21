@@ -2469,6 +2469,20 @@ are found by bisection on one step of the engine's own loop. "Set it up" sets
 the hand and where the diver starts: at the surface, on the bottom, or that
 micrometre under the hover depth, which no hand on the slider could find.
 
+**The double cone's** three (2026-11-21) hold the axis's path, the slope
+where the cone stops rolling up (7.54628°, found by halving the rails' rise on
+the sign of the engine's own fall, not by its closed form) and the speed after
+a second's roll, against Gandhi and Efthimiou (Eur. J. Phys. 26 (2005) 681),
+who reach the contact by another route: the cone's surface square to the rail.
+Their angles lie in the rails' plane; the cases convert them (θ = γ, ψ = α,
+tan φ = tan β·cos γ). **The paper has a slip**: after its Eq. (9) it prints the
+path's intercept as b = L tan ψ(cos α − tan α sin α), while its own Eqs. (7),
+(8) and Z = a cos α give b = L tan ψ/cos α, a plus where the minus stands. With
+the printed b the axis lies 2.1 mm lower everywhere and the speed case fails by
+5 · 10⁻⁴; with (7) and (8) it agrees to 10⁻¹⁴. The cases quote (7), (8) and
+Z = a cos α, not the printed b, so nobody should "fix" the engine to it. "Set
+it up" sets the build's six sliders and lets the cone go.
+
 **On the page** a section "Check it yourself" (`check-section.tsx`) lists the
 cases, each with its formula as an `Equation` (`check-formulas.ts`), both
 values to seven digits, the deviation, why the case would catch a mistake,

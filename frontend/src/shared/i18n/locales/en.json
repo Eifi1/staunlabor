@@ -3605,7 +3605,16 @@
         "diver_dz": "distance from the hover depth",
         "diver_k": "how strongly the distance feeds itself",
         "diver_pstar": "pressure at the hover depth",
-        "diver_zstar": "the depth where it would hover"
+        "diver_zstar": "the depth where it would hover",
+        "delta_cone": "tilt of the line from the axis to the contact, against the normal to the rails' plane",
+        "alpha_cone": "cone angle, between surface and axis",
+        "beta_rail": "spread of each rail, seen from above",
+        "gamma_rail": "slope of the rails",
+        "gamma_star": "boundary slope",
+        "dz_axis": "how far the axis falls",
+        "l_rails": "length of the rails, seen from above",
+        "a_roll": "radius the cone rolls on: from the axis to the contact",
+        "radius_cone": "radius of the cone at the middle"
       },
       "cases": {
         "sphere": {
@@ -4219,6 +4228,29 @@
             "reads": "A little deeper the bubble is a little smaller, and the missing buoyancy pulls it on: the distance grows as cosh(√k·t). What moves is the glass and the water it carries along, half its volume.",
             "why": "Checks that hovering is unstable and how fast: the distance soon grows e-fold every 1.71 s. The 1 · 10⁻⁵ off comes from the water's drag and the curve of Boyle's law; both grow with the distance.",
             "step": "The first source gives how the bubble shrinks with pressure, the second the pressure at depth; for a small step δz the change is linear. The third gives the water a sphere carries along, half its volume, which the page takes over for the tube."
+          }
+        },
+        "cone": {
+          "axis_path": {
+            "title": "The axis falls, the rails rise",
+            "setting": "The standard exhibit: radius 6 cm, cone angle 20°, spread 20°, slope 4°, rails 30 cm long and 6 cm apart at the bottom.",
+            "reads": "The line from the axis to the contact is tilted by the angle δ, with sin δ = tan β·cos γ·tan α. So the axis runs on a straight line that falls by δ − γ.",
+            "why": "Checks the exact contact, which the engine finds another way, by the rail's distance from the cone: over 30 cm the axis falls by 1.88426 cm; the two ways meet to 10⁻¹².",
+            "step": "The source measures its angles in the rails' plane and calls δ its α. That plane rises at γ; a rail that spreads by tan β per metre seen from above spreads by tan β·cos γ in the plane. With tan φ = tan β·cos γ and the cone angle α as ψ, sin δ follows, and seen from above the axis falls over the length l by l·tan(δ − γ)."
+          },
+          "threshold": {
+            "title": "The boundary between up and down",
+            "setting": "The standard exhibit's cone and spread; the slope at which the axis keeps the same height all along is found by halving between 0° and 15°.",
+            "reads": "The cone rolls up as long as δ is greater than the slope γ; at the boundary the two are equal. That gives the textbook's condition tan γ* = tan α·tan β, here exactly.",
+            "why": "Checks the boundary the page names: 7.54628°. It is found on the engine's exact contact, not with the page's formula; the two meet to 10⁻¹².",
+            "step": "The first source gives the condition sin(δ − γ) > 0, at the boundary therefore δ = γ; the second sin δ = tan φ·tan ψ, converted as above to tan β·cos γ·tan α. With δ = γ, sin γ = tan β·cos γ·tan α, so tan γ = tan α·tan β."
+          },
+          "speed": {
+            "title": "The speed from the energy",
+            "setting": "The standard exhibit, let go at the low end; read after one second.",
+            "reads": "What the axis loses in height becomes motion and spin: ½(1 + I/(M a²))·v² = g·Δz, with a the radius the cone rolls on, and I = (3/10)·M·R² for two solid cones.",
+            "why": "Checks the time loop and the rolling on the shrinking radius a: 28.5357 cm/s after one second, to 10⁻⁹. The higher up, the more of the energy is in the spin.",
+            "step": "The first source gives the energy and, with its equations (7) and (8), where the axis is and on what radius a the cone rolls, the angles converted as above to the view from above. The second gives a cone's moment of inertia; two equal cones, base to base, have the same I/(M·R²)."
           }
         }
       },

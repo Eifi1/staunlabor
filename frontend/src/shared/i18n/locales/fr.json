@@ -3605,7 +3605,16 @@
         "diver_dz": "distance à la profondeur d’équilibre",
         "diver_k": "à quel point la distance s’amplifie elle-même",
         "diver_pstar": "pression à la profondeur d’équilibre",
-        "diver_zstar": "profondeur où il resterait en suspens"
+        "diver_zstar": "profondeur où il resterait en suspens",
+        "delta_cone": "inclinaison de la ligne allant de l’axe au contact, par rapport à la normale au plan des rails",
+        "alpha_cone": "angle du cône, entre surface et axe",
+        "beta_rail": "écartement de chaque rail, vu d’en haut",
+        "gamma_rail": "pente des rails",
+        "gamma_star": "pente limite",
+        "dz_axis": "de combien l’axe descend",
+        "l_rails": "longueur des rails, vue d’en haut",
+        "a_roll": "rayon sur lequel roule le cône : de l’axe au contact",
+        "radius_cone": "rayon du cône au milieu"
       },
       "cases": {
         "sphere": {
@@ -4219,6 +4228,29 @@
             "reads": "Un peu plus bas, la bulle est un peu plus petite, et la poussée qui manque l’entraîne plus loin : la distance croît comme cosh(√k·t). Ce qui bouge, c’est le verre et l’eau qu’il entraîne, la moitié de son volume.",
             "why": "Vérifie que l’équilibre en suspens est instable, et à quelle vitesse : la distance est bientôt multipliée par e toutes les 1,71 s. L’écart de 1 · 10⁻⁵ vient de la résistance de l’eau et de la courbure de la loi de Boyle ; les deux croissent avec la distance.",
             "step": "La première source donne comment la bulle rétrécit avec la pression, la deuxième la pression en profondeur ; pour un petit pas δz, la variation est linéaire. La troisième donne l’eau entraînée par une sphère, la moitié de son volume, que la page reprend pour le tube."
+          }
+        },
+        "cone": {
+          "axis_path": {
+            "title": "L’axe descend, les rails montent",
+            "setting": "L’objet standard : rayon 6 cm, angle du cône 20°, écartement 20°, pente 4°, rails de 30 cm de long et écartés de 6 cm en bas.",
+            "reads": "La ligne allant de l’axe au contact est inclinée de l’angle δ, avec sin δ = tan β·cos γ·tan α. L’axe suit donc une droite qui descend de δ − γ.",
+            "why": "Vérifie le contact exact, que le moteur de calcul cherche par un autre chemin, par la distance du rail au cône : sur 30 cm, l’axe descend de 1,88426 cm ; les deux chemins concordent à 10⁻¹² près.",
+            "step": "La source mesure ses angles dans le plan des rails et appelle α ce qui est ici δ. Ce plan monte de γ ; un rail qui, vu d’en haut, s’écarte de tan β par mètre s’écarte de tan β·cos γ dans le plan. Avec tan φ = tan β·cos γ et l’angle du cône α comme ψ, on obtient sin δ, et vu d’en haut l’axe descend de l·tan(δ − γ) sur la longueur l."
+          },
+          "threshold": {
+            "title": "La limite entre monter et descendre",
+            "setting": "Le cône et l’écartement de l’objet standard ; on cherche par dichotomie entre 0° et 15° la pente à laquelle l’axe garde la même hauteur sur toute la longueur.",
+            "reads": "Le cône monte tant que δ est plus grand que la pente γ ; à la limite, les deux sont égaux. On en tire la condition des manuels, tan γ* = tan α·tan β, ici exacte.",
+            "why": "Vérifie la limite qu’indique la page : 7,54628°. Elle est cherchée avec le contact exact du moteur de calcul, et non avec la formule de la page ; les deux concordent à 10⁻¹² près.",
+            "step": "La première source donne la condition sin(δ − γ) > 0, donc δ = γ à la limite ; la seconde sin δ = tan φ·tan ψ, convertie comme ci-dessus en tan β·cos γ·tan α. Avec δ = γ, sin γ = tan β·cos γ·tan α, donc tan γ = tan α·tan β."
+          },
+          "speed": {
+            "title": "La vitesse tirée de l’énergie",
+            "setting": "L’objet standard, lâché à l’extrémité basse ; relevé après une seconde.",
+            "reads": "Ce que l’axe perd en hauteur devient mouvement et rotation : ½(1 + I/(M a²))·v² = g·Δz, avec a le rayon sur lequel roule le cône, et I = (3/10)·M·R² pour deux cônes pleins.",
+            "why": "Vérifie la boucle des pas de temps et le roulement sur le rayon a qui diminue : 28,5357 cm/s après une seconde, à 10⁻⁹ près. Plus on monte, plus l’énergie se trouve dans la rotation.",
+            "step": "La première source donne l’énergie et, avec ses équations (7) et (8), où se trouve l’axe et sur quel rayon a roule le cône, les angles étant convertis comme ci-dessus à la vue d’en haut. La seconde donne le moment d’inertie d’un cône ; deux cônes égaux, base contre base, ont le même I/(M·R²)."
           }
         }
       },

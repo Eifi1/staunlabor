@@ -439,6 +439,95 @@
    ]
   }
  ],
+ "cone": [
+  {
+   "key": "axis_path",
+   "unit": "cm",
+   "expected": 1.88425686946,
+   "measured": 1.88425686946,
+   "deviation": 1.17842003669e-16,
+   "tolerance": 1e-12,
+   "derived": true,
+   "setting": {
+    "radius_m": 0.06,
+    "cone_deg": 20.0,
+    "spread_deg": 20.0,
+    "slope_deg": 4.0,
+    "start_half_gap_m": 0.03,
+    "length_m": 0.3
+   },
+   "sources": [
+    {
+     "cite": "S. C. Gandhi, C. J. Efthimiou, “The ascending double cone: a closer look at a familiar demonstration”, Eur. J. Phys. 26 (2005) 681, arXiv:physics/0501135, §2, Eq. (4)",
+     "url": "https://arxiv.org/abs/physics/0501135",
+     "quote": "sin α = tan φ tan ψ"
+    },
+    {
+     "cite": "S. C. Gandhi, C. J. Efthimiou, arXiv:physics/0501135, §4, Eq. (9) and after",
+     "url": "https://arxiv.org/abs/physics/0501135",
+     "quote": "Equation (9) implies that the CM is constrained to move along a line on the zy-plane with slope λ and intercept b. … the CM’s path is a line declined (inclined if α < θ) below the horizontal by an angle α − θ"
+    }
+   ]
+  },
+  {
+   "key": "threshold",
+   "unit": "°",
+   "expected": 7.54628044289,
+   "measured": 7.54628044289,
+   "deviation": 0.0,
+   "tolerance": 1e-12,
+   "derived": true,
+   "setting": {
+    "radius_m": 0.06,
+    "cone_deg": 20.0,
+    "spread_deg": 20.0,
+    "slope_deg": 4.0,
+    "start_half_gap_m": 0.03,
+    "length_m": 0.3
+   },
+   "sources": [
+    {
+     "cite": "S. C. Gandhi, C. J. Efthimiou, arXiv:physics/0501135, §5, before Eq. (11)",
+     "url": "https://arxiv.org/abs/physics/0501135",
+     "quote": "For the cone to roll up the ramp, the potential must be a decreasing function of q, that is sin(α − θ) > 0."
+    },
+    {
+     "cite": "S. C. Gandhi, C. J. Efthimiou, “The ascending double cone: a closer look at a familiar demonstration”, Eur. J. Phys. 26 (2005) 681, arXiv:physics/0501135, §2, Eq. (4)",
+     "url": "https://arxiv.org/abs/physics/0501135",
+     "quote": "sin α = tan φ tan ψ"
+    }
+   ]
+  },
+  {
+   "key": "speed",
+   "unit": "cm/s",
+   "expected": 28.53570253,
+   "measured": 28.53570253,
+   "deviation": 3.797270002e-14,
+   "tolerance": 1e-09,
+   "derived": true,
+   "setting": {
+    "radius_m": 0.06,
+    "cone_deg": 20.0,
+    "spread_deg": 20.0,
+    "slope_deg": 4.0,
+    "start_half_gap_m": 0.03,
+    "length_m": 0.3
+   },
+   "sources": [
+    {
+     "cite": "S. C. Gandhi, C. J. Efthimiou, arXiv:physics/0501135, §4, Eqs. (7) and (8), and §5, Eq. (12)",
+     "url": "https://arxiv.org/abs/physics/0501135",
+     "quote": "Z_CM = a cos α. … a = L tan ψ − Y_P sin α. … Y_P = (Y_CM − L tan ψ sin α)/cos² α. … E = T + U = ½[m + I/(L tan ψ − q tan α)²] q̇² − mgq sin(α − θ)."
+    },
+    {
+     "cite": "Wikipedia, “List of moments of inertia”, right circular cone (citing Beer, Johnston, Vector Mechanics for Engineers, 4th ed., p. 911)",
+     "url": "https://en.wikipedia.org/wiki/List_of_moments_of_inertia",
+     "quote": "I_z = 3/10 mr²"
+    }
+   ]
+  }
+ ],
  "coriolis": [
   {
    "key": "at_rest",

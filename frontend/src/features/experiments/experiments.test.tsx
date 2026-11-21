@@ -93,6 +93,7 @@ const UNCHECKED = {
     "chair",
     "chladni",
     "coil",
+    "cone",
     "coriolis",
     "cradle",
     "diver",
@@ -1751,6 +1752,16 @@ describe("setting a check case up", () => {
     expect(await screen.findByText(E.diver.play.motion.hovers)).toBeInTheDocument();
     expect(screen.getByRole("slider", { name: E.diver.play.squeeze }).getAttribute("aria-valuetext")).toMatch(/^10\b/);
     expect(screen.getByRole("slider", { name: E.diver.change.air }).getAttribute("aria-valuetext")).toMatch(/^2\b/);
+  });
+
+  it("puts the double cone's rails back from too long to the exhibit's and lets the cone go", async () => {
+    renderWithProviders(<ConePage />);
+    await screen.findByRole("img", { name: E.cone.views.side });
+    fireEvent.change(screen.getByRole("slider", { name: E.cone.change.length }), { target: { value: "50" } });
+    expect(await screen.findByText(E.cone.refused.fall_through)).toBeInTheDocument();
+    await setUp(2);
+    expect(await screen.findByRole("button", { name: E.cone.play.pause })).toBeInTheDocument();
+    expect(screen.getByRole("slider", { name: E.cone.change.length }).getAttribute("aria-valuetext")).toMatch(/^30\b/);
   });
 
   it("pushes the ball round the well on its circle, with the felt's brake, for the brake's case", async () => {

@@ -96,6 +96,11 @@ const D_P0: CheckSymbol = { tex: "p_0", key: "diver_p0", unit: "Pa" };
 const D_DP: CheckSymbol = { tex: String.raw`\Delta p`, key: "diver_dp", unit: "Pa" };
 const D_VSTAR: CheckSymbol = { tex: "V^*", key: "diver_Vstar", unit: "m³" };
 const D_G: CheckSymbol = { tex: "g", key: "g", unit: "m/s²" };
+const DELTA: CheckSymbol = { tex: String.raw`\delta`, key: "delta_cone", unit: "°" };
+const ALPHA_CONE: CheckSymbol = { tex: String.raw`\alpha`, key: "alpha_cone", unit: "°" };
+const BETA_RAIL: CheckSymbol = { tex: String.raw`\beta`, key: "beta_rail", unit: "°" };
+const GAMMA_RAIL: CheckSymbol = { tex: String.raw`\gamma`, key: "gamma_rail", unit: "°" };
+const DZ_AXIS: CheckSymbol = { tex: String.raw`\Delta z`, key: "dz_axis", unit: "m" };
 
 const ROD_STEADY: CheckFormula = {
   tex: String.raw`w = \frac{\Gamma\,\Omega^2 Y}{\sqrt{(\omega^2 - \Omega^2)^2 + (2\zeta\omega\Omega)^2}}, \qquad \Gamma = \frac{\int_0^1 \varphi\,d\xi}{\int_0^1 \varphi^2\,d\xi}`,
@@ -811,6 +816,28 @@ export const CHECK_FORMULAS: Record<string, Record<string, CheckFormula>> = {
         D_P0,
         D_DP,
         { tex: "z^*", key: "diver_zstar", unit: "m" },
+      ],
+    },
+  },
+  cone: {
+    axis_path: {
+      tex: String.raw`\sin\delta = \tan\beta\,\cos\gamma\,\tan\alpha, \qquad \Delta z = l\,\tan(\delta - \gamma)`,
+      symbols: [DELTA, BETA_RAIL, GAMMA_RAIL, ALPHA_CONE, DZ_AXIS, { tex: "l", key: "l_rails", unit: "m" }],
+    },
+    threshold: {
+      tex: String.raw`\sin(\delta - \gamma) = 0 \;\Rightarrow\; \tan\gamma^* = \tan\alpha\,\tan\beta`,
+      symbols: [DELTA, GAMMA_RAIL, { tex: String.raw`\gamma^*`, key: "gamma_star", unit: "°" }, ALPHA_CONE, BETA_RAIL],
+    },
+    speed: {
+      tex: String.raw`\tfrac12\left(1 + \frac{I}{M a^2}\right)v^2 = g\,\Delta z, \qquad I = \tfrac{3}{10}\,M R^2`,
+      symbols: [
+        { tex: "I", key: "inertia", unit: "kg·m²" },
+        { tex: "M", key: "m", unit: "kg" },
+        { tex: "a", key: "a_roll", unit: "m" },
+        { tex: "v", key: "v", unit: "m/s" },
+        G,
+        DZ_AXIS,
+        { tex: "R", key: "radius_cone", unit: "m" },
       ],
     },
   },

@@ -3605,7 +3605,16 @@
         "diver_dz": "távolság a lebegési mélységtől",
         "diver_k": "mennyire erősíti önmagát a távolság",
         "diver_pstar": "nyomás a lebegési mélységben",
-        "diver_zstar": "a mélység, ahol lebegne"
+        "diver_zstar": "a mélység, ahol lebegne",
+        "delta_cone": "a tengelytől az érintkezésig húzott vonal dőlése a sínek síkjának normálisához képest",
+        "alpha_cone": "kúpszög, a palást és a tengely között",
+        "beta_rail": "minden sín szétnyílása, felülről nézve",
+        "gamma_rail": "a sínek emelkedése",
+        "gamma_star": "határemelkedés",
+        "dz_axis": "mennyit süllyed a tengely",
+        "l_rails": "a sínek hossza, felülről nézve",
+        "a_roll": "a sugár, amelyen a kúp gurul: a tengelytől az érintkezésig",
+        "radius_cone": "a kúp sugara középen"
       },
       "cases": {
         "sphere": {
@@ -4219,6 +4228,29 @@
             "reads": "Kicsit mélyebben a buborék kicsit kisebb, és a hiányzó felhajtóerő tovább húzza: a távolság cosh(√k·t) szerint nő. Az üveg mozog, és vele a víz, amelyet magával visz, a térfogatának fele.",
             "why": "Azt ellenőrzi, hogy a lebegés instabil, és hogy milyen gyorsan: a távolság hamarosan 1,71 s-onként e-szeresére nő. Az 1 · 10⁻⁵ eltérés a víz ellenállásából és a Boyle-törvény görbületéből adódik; mindkettő a távolsággal nő.",
             "step": "Az első forrás megadja, hogyan zsugorodik a buborék a nyomással, a második a nyomást a mélységben; kis δz lépésre a változás lineáris. A harmadik egy gömb által magával vitt vizet adja meg, a térfogata felét, amit az oldal a csőre is átvesz."
+          }
+        },
+        "cone": {
+          "axis_path": {
+            "title": "A tengely süllyed, a sínek emelkednek",
+            "setting": "Az alapkiállítás: sugár 6 cm, kúpszög 20°, szétnyílás 20°, emelkedés 4°, a sínek 30 cm hosszúak, és lent 6 cm-re vannak egymástól.",
+            "reads": "A tengelytől az érintkezésig húzott vonal δ szöggel ferde, ahol sin δ = tan β·cos γ·tan α. A tengely ezért egy δ − γ szöggel lejtő egyenesen halad.",
+            "why": "A pontos érintkezést ellenőrzi, amelyet a számítómag más úton keres, a sín és a kúp távolságán keresztül: 30 cm-en a tengely 1,88426 cm-t süllyed; a két út 10⁻¹² pontossággal egyezik.",
+            "step": "A forrás a szögeit a sínek síkjában méri, és azt nevezi α-nak, ami itt δ. Ez a sík γ szöggel emelkedik; egy sín, amely felülről nézve méterenként tan β-val nyílik szét, a síkban tan β·cos γ-val nyílik szét. tan φ = tan β·cos γ mellett, ψ helyén az α kúpszöggel adódik sin δ, és felülről nézve a tengely az l hosszon l·tan(δ − γ)-t süllyed."
+          },
+          "threshold": {
+            "title": "A határ fel és le között",
+            "setting": "Az alapkiállítás kúpja és szétnyílása; azt az emelkedést keressük felezéssel 0° és 15° között, amelynél a tengely a teljes hosszon ugyanolyan magasan marad.",
+            "reads": "A kúp addig gurul felfelé, amíg δ nagyobb a γ emelkedésnél; a határon a kettő egyenlő. Ebből következik a tankönyvi feltétel, tan γ* = tan α·tan β, itt pontosan.",
+            "why": "Az oldal által megadott határt ellenőrzi: 7,54628°. A számítómag pontos érintkezésével keressük, nem az oldal képletével; a kettő 10⁻¹² pontossággal egyezik.",
+            "step": "Az első forrás a sin(δ − γ) > 0 feltételt adja meg, a határon tehát δ = γ; a második a sin δ = tan φ·tan ψ összefüggést, amely a fentiek szerint átszámolva tan β·cos γ·tan α. δ = γ esetén sin γ = tan β·cos γ·tan α, vagyis tan γ = tan α·tan β."
+          },
+          "speed": {
+            "title": "A sebesség az energiából",
+            "setting": "Az alapkiállítás, az alacsony végen elengedve; egy másodperc után leolvasva.",
+            "reads": "Amit a tengely magasságban veszít, az mozgássá és forgássá válik: ½(1 + I/(M a²))·v² = g·Δz, ahol a az a sugár, amelyen a kúp gurul, és két tömör kúpra I = (3/10)·M·R².",
+            "why": "Az időléptető ciklust és a gurulást ellenőrzi a csökkenő a sugáron: 28,5357 cm/s egy másodperc után, 10⁻⁹ pontossággal. Minél feljebb, annál több energia van a forgásban.",
+            "step": "Az első forrás megadja az energiát, és (7) és (8) egyenletével azt, hol áll a tengely, és mekkora az az a sugár, amelyen a kúp gurul; a szögeket a fentiek szerint a felülnézetre számoljuk át. A második egy kúp tehetetlenségi nyomatékát adja meg; két egyforma, alappal egymásnak illesztett kúpnak ugyanaz az I/(M·R²)."
           }
         }
       },

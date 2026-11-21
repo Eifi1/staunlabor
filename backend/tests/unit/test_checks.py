@@ -33,6 +33,7 @@ def test_the_exhibits_with_checks_are_these() -> None:
         "chair",
         "chladni",
         "coil",
+        "cone",
         "coriolis",
         "cradle",
         "diver",

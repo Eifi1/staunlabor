@@ -3605,7 +3605,16 @@
         "diver_dz": "distancia a la profundidad de equilibrio",
         "diver_k": "cuánto se refuerza a sí misma la distancia",
         "diver_pstar": "presión en la profundidad de equilibrio",
-        "diver_zstar": "profundidad en la que flotaría quieto"
+        "diver_zstar": "profundidad en la que flotaría quieto",
+        "delta_cone": "inclinación de la línea del eje al contacto, respecto a la normal al plano de los rieles",
+        "alpha_cone": "ángulo del cono, entre superficie y eje",
+        "beta_rail": "apertura de cada riel, vista desde arriba",
+        "gamma_rail": "pendiente de los rieles",
+        "gamma_star": "pendiente límite",
+        "dz_axis": "cuánto baja el eje",
+        "l_rails": "longitud de los rieles, vista desde arriba",
+        "a_roll": "radio sobre el que rueda el cono: del eje al contacto",
+        "radius_cone": "radio del cono en el centro"
       },
       "cases": {
         "sphere": {
@@ -4219,6 +4228,29 @@
             "reads": "Un poco más abajo la burbuja es un poco más pequeña, y el empuje que falta lo arrastra más allá: la distancia crece como cosh(√k·t). Se mueven el vidrio y el agua que arrastra consigo, la mitad de su volumen.",
             "why": "Comprueba que flotar quieto es inestable, y con qué rapidez: la distancia pronto se multiplica por e cada 1,71 s. La desviación de 1 · 10⁻⁵ viene de la resistencia del agua y de la curvatura de la ley de Boyle; ambas crecen con la distancia.",
             "step": "La primera fuente da cómo se encoge la burbuja con la presión; la segunda, la presión en la profundidad; para un paso pequeño δz, el cambio es lineal. La tercera da el agua que arrastra consigo una esfera, la mitad de su volumen, que la página adopta para el tubito."
+          }
+        },
+        "cone": {
+          "axis_path": {
+            "title": "El eje baja, los rieles suben",
+            "setting": "El objeto estándar: radio 6 cm, ángulo del cono 20°, apertura 20°, pendiente 4°, rieles de 30 cm de largo y separados 6 cm abajo.",
+            "reads": "La línea del eje al contacto está inclinada el ángulo δ, con sin δ = tan β·cos γ·tan α. Por eso el eje recorre una recta que baja con δ − γ.",
+            "why": "Comprueba el contacto exacto, que el motor de cálculo busca por otro camino, mediante la distancia del riel al cono: en 30 cm el eje baja 1,88426 cm; ambos caminos coinciden con una precisión de 10⁻¹².",
+            "step": "La fuente mide sus ángulos en el plano de los rieles y llama α a lo que aquí es δ. Ese plano sube con γ; un riel que, visto desde arriba, se abre tan β por metro, en el plano se abre tan β·cos γ. Con tan φ = tan β·cos γ y el ángulo del cono α como ψ se obtiene sin δ, y visto desde arriba el eje baja l·tan(δ − γ) a lo largo de la longitud l."
+          },
+          "threshold": {
+            "title": "El límite entre subir y bajar",
+            "setting": "Cono y apertura del objeto estándar; se busca por bisección entre 0° y 15° la pendiente con la que el eje mantiene la misma altura en toda la longitud.",
+            "reads": "El cono rueda hacia arriba mientras δ sea mayor que la pendiente γ; en el límite, ambos son iguales. De ahí sale la condición de los libros, tan γ* = tan α·tan β, aquí exacta.",
+            "why": "Comprueba el límite que indica la página: 7,54628°. Se busca con el contacto exacto del motor de cálculo, no con la fórmula de la página; ambos coinciden con una precisión de 10⁻¹².",
+            "step": "La primera fuente da la condición sin(δ − γ) > 0, y en el límite, por tanto, δ = γ; la segunda, sin δ = tan φ·tan ψ, convertida como arriba en tan β·cos γ·tan α. Con δ = γ, sin γ = tan β·cos γ·tan α, es decir, tan γ = tan α·tan β."
+          },
+          "speed": {
+            "title": "La velocidad a partir de la energía",
+            "setting": "El objeto estándar, soltado en el extremo bajo; leído al cabo de un segundo.",
+            "reads": "Lo que el eje pierde en altura se convierte en movimiento y giro: ½(1 + I/(M a²))·v² = g·Δz, con a el radio sobre el que rueda el cono, e I = (3/10)·M·R² para dos conos macizos.",
+            "why": "Comprueba el bucle de pasos de tiempo y la rodadura sobre el radio a, que se achica: 28,5357 cm/s al cabo de un segundo, con una precisión de 10⁻⁹. Cuanto más arriba, más parte de la energía está en el giro.",
+            "step": "La primera fuente da la energía y, con sus ecuaciones (7) y (8), dónde está el eje y sobre qué radio a rueda el cono, con los ángulos convertidos como arriba a la vista desde arriba. La segunda da el momento de inercia de un cono; dos conos iguales, base contra base, tienen el mismo I/(M·R²)."
           }
         }
       },
