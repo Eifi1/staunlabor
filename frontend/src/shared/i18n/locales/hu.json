@@ -3734,7 +3734,21 @@
         "ring_u": "a füstkarika sebessége",
         "circulation": "a karika cirkulációja",
         "ring_r": "a füstkarika sugara",
-        "core_a": "a magjának sugara"
+        "core_a": "a magjának sugara",
+        "ring_angle": "a gyűrű sugara, a lámpához visszavezető úttól mért szögként",
+        "refraction_angle": "törési szög",
+        "incidence_angle": "beesési szög",
+        "ring_width": "a gyűrű szélessége",
+        "wavelength": "hullámhossz",
+        "cauchy_a": "az A Cauchy-együttható",
+        "cauchy_b": "a színek szétválása (a B Cauchy-együttható)",
+        "index_d": "törésmutató sárga fényre (nátriumvonal)",
+        "sodium": "a nátriumvonal hullámhossza, 589,3",
+        "exit_angle": "kilépési szög a lámpához visszavezető úthoz képest",
+        "impact": "beesési pont: távolsága a középponttól, a gyöngy sugarában mérve",
+        "back_share": "a fénynek az a része, amely egy visszaverődés után visszajön",
+        "reflectance": "egy felületen visszavert hányad, a két polarizációra",
+        "rainbow_index": "törésmutató"
       },
       "cases": {
         "sphere": {
@@ -4653,6 +4667,34 @@
             "setting": "Mint fent; a karika egy teljes, fél másodperces lenyomásból.",
             "reads": "Egy vékony magú örvénygyűrű U = Γ/(4πR)·(ln(8R/a) − ¼) sebességgel repül: ez Kelvin képlete. Az oldal a karikát 0,6 lyukátmérő szélesnek veszi, a magját pedig ennek 0,35-szorosának.",
             "why": "Azt a képletet ellenőrzi, amellyel az oldal a repülést és a „túl lassú” ítéletet meghatározza: 1,511 m/s abból a cirkulációból, amelyet az oldal erre a lenyomásra kap. Magát a cirkulációt ez az eset nem ellenőrzi."
+          }
+        },
+        "rainbow": {
+          "water": {
+            "title": "A szivárvány az égen: 42°",
+            "setting": "Vízcsepp: törésmutató 1,333.",
+            "reads": "A gyűrűt az a sugár hozza létre, amely a lámpához visszavezető úttól a legmesszebb lép ki: attól 2φ-re, ahol φ = 2β − arcsin(n·sin β), és ez cos β = 2√(n² − 1)/(√3·n)-nél a legnagyobb.",
+            "why": "A gyűrű sugarát ellenőrzi: vízre 42,08°, ez a szivárvány az égen. Az oldal a beesési szög felől keresi meg a szivárványsugarat, a forrás a törési szög felől; mindkettő ugyanazt a sugarat találja meg."
+          },
+          "colours": {
+            "title": "Kívül piros, belül ibolya",
+            "setting": "Üveggyöngy: törésmutató 1,52 sárga fényre, Cauchy-együttható 4200 nm².",
+            "reads": "A kék fény jobban megtörik, mint a piros, n(λ) = A + B/λ², és a gyűrűje kisebb. A gyűrű szélessége a 700 nm-en és a 400 nm-en vett sugarak különbsége.",
+            "why": "A színeket ellenőrzi: a piros szél kívül van, és az üveggyöngy gyűrűje 1,49° széles.",
+            "step": "A harmadik forrás adja meg az n(λ) = A + B/λ² összefüggést; A úgy van megválasztva, hogy n a nátriumvonalnál, 589,3 nm-en, a gyöngy törésmutatója legyen. 700 nm-re és 400 nm-re behelyettesítve az első forrás képletébe."
+          },
+          "drawn_ray": {
+            "title": "A megrajzolt sugár",
+            "setting": "Üveggyöngy; a fénysugár a középponttól fél sugárnyira éri a gyöngyöt.",
+            "reads": "Ha sin i = b és sin β = b/n, akkor minden sugár θ = 2φ = 2·(2β − i) szögben hagyja el a gyöngyöt a lámpához visszavezető úthoz képest.",
+            "why": "A rajzot ellenőrzi: az oldal vektorokkal követi a sugarat törésen, visszaverődésen és újabb törésen át, és a sugár 16,82°-ban lép ki, ahogy a képlet mondja."
+          },
+          "reflected": {
+            "title": "Mennyi fény jön vissza",
+            "setting": "Üveggyöngy, törésmutató 1,52; a gyöngy teljes felületére.",
+            "reads": "Minden sugár minden felületen annyit veszít, amennyit Fresnel képletei mondanak: befelé (1 − R), belül visszaverve R, kifelé (1 − R). Mindkét polarizációra külön, a kettőt átlagolva, a gyöngy felületére összegezve.",
+            "why": "A gyűrű fényét ellenőrzi: a gyöngyre eső fény 5,5 %-a jön vissza egy visszaverődés után. Az oldal 2000 egyenlő területű gyűrűt összegez; ez 6 · 10⁻⁶-nal túl magas, mert a súroló sugarak fénye a peremen meredeken változik.",
+            "step": "A forrás mindkét polarizációra megadja R-t. Belül a sugár β szögben éri a felületet, és ugyanannyit ver vissza, mint kívül i szögben: a képletek nem változnak, ha a két oldalt felcseréljük. Az átlagolt mennyiség (1 − R)²·R, nem R, mert minden polarizáció külön teszi meg az utat mindhárom felületen át."
           }
         }
       },

@@ -110,6 +110,7 @@ const UNCHECKED = {
     "plates",
     "platform",
     "race",
+    "rainbow",
     "resonance",
     "sky",
     "slits",
@@ -1921,6 +1922,20 @@ describe("setting a check case up", () => {
       /^0\.50\b/,
     );
     expect(screen.getByRole("slider", { name: E.smoke.play.depth }).getAttribute("aria-valuetext")).toMatch(/^8\b/);
+  });
+
+  it("makes the bead a water drop, then glass with the ray halfway out, for the rainbow's cases", async () => {
+    renderWithProviders(<RainbowPage />);
+    await screen.findByRole("img", { name: E.rainbow.bead_view });
+    fireEvent.change(screen.getByRole("slider", { name: E.rainbow.play.impact }), { target: { value: "90" } });
+    await setUp(0);
+    const kind = screen.getByRole("radiogroup", { name: E.rainbow.change.kind });
+    await waitFor(() => expect(within(kind).getByRole("radio", { name: E.rainbow.change.kinds.water })).toBeChecked());
+    await setUp(2);
+    await waitFor(() => expect(within(kind).getByRole("radio", { name: E.rainbow.change.kinds.glass })).toBeChecked());
+    expect(
+      screen.getByText(E.rainbow.play.inside.replace("{{angle}}", "16.8").replace("{{bow}}", "21.1")),
+    ).toBeInTheDocument();
   });
 
   it("pushes the ball round the well on its circle, with the felt's brake, for the brake's case", async () => {

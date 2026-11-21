@@ -3734,7 +3734,21 @@
         "ring_u": "Tempo des Rauchrings",
         "circulation": "Zirkulation des Rings",
         "ring_r": "Radius des Rauchrings",
-        "core_a": "Radius seines Kerns"
+        "core_a": "Radius seines Kerns",
+        "ring_angle": "Radius des Rings, als Winkel vom Weg zurück zur Lampe",
+        "refraction_angle": "Brechungswinkel",
+        "incidence_angle": "Einfallswinkel",
+        "ring_width": "Breite des Rings",
+        "wavelength": "Wellenlänge",
+        "cauchy_a": "Cauchy-Koeffizient A",
+        "cauchy_b": "Auffächerung der Farben (Cauchy-Koeffizient B)",
+        "index_d": "Brechzahl bei gelbem Licht (Natriumlinie)",
+        "sodium": "Wellenlänge der Natriumlinie, 589,3",
+        "exit_angle": "Austrittswinkel, gegen den Weg zurück zur Lampe",
+        "impact": "Auftreffpunkt, Abstand von der Mitte in Radien der Perle",
+        "back_share": "Anteil des Lichts, der nach einer Spiegelung zurückkommt",
+        "reflectance": "gespiegelter Anteil an einer Fläche, für die beiden Polarisationen",
+        "rainbow_index": "Brechzahl"
       },
       "cases": {
         "sphere": {
@@ -4653,6 +4667,34 @@
             "setting": "Wie oben; der Ring aus einem vollen Druck von einer halben Sekunde.",
             "reads": "Ein Wirbelring mit dünnem Kern fliegt mit U = Γ/(4πR)·(ln(8R/a) − ¼): Kelvins Formel. Die Seite nimmt den Ring 0,6 Lochdurchmesser weit und seinen Kern 0,35 davon.",
             "why": "Prüft die Formel, mit der die Seite den Flug und das «zu langsam» bestimmt: 1,511 m/s aus der Zirkulation, die die Seite für diesen Druck findet. Die Zirkulation selbst prüft dieser Fall nicht."
+          }
+        },
+        "rainbow": {
+          "water": {
+            "title": "Der Regenbogen am Himmel: 42°",
+            "setting": "Wassertropfen: Brechzahl 1,333.",
+            "reads": "Den Ring macht der Strahl, der am weitesten neben dem Weg zurück zur Lampe herauskommt: 2φ daneben, mit φ = 2β − arcsin(n·sin β), am grössten bei cos β = 2√(n² − 1)/(√3·n).",
+            "why": "Prüft den Radius des Rings: 42,08° für Wasser, der Regenbogen am Himmel. Die Seite findet den Regenbogenstrahl über den Einfallswinkel, die Quelle über den Brechungswinkel; beide treffen denselben Strahl."
+          },
+          "colours": {
+            "title": "Rot aussen, Violett innen",
+            "setting": "Glasperle: Brechzahl 1,52 bei gelbem Licht, Cauchy-Koeffizient 4200 nm².",
+            "reads": "Blaues Licht wird stärker gebrochen als rotes, n(λ) = A + B/λ², und sein Ring ist kleiner. Die Breite des Rings ist der Unterschied der Radien bei 700 nm und bei 400 nm.",
+            "why": "Prüft die Farben: Der rote Rand liegt aussen, und der Ring der Glasperle ist 1,49° breit.",
+            "step": "Die dritte Quelle gibt n(λ) = A + B/λ²; A ist so gewählt, dass n bei der Natriumlinie, 589,3 nm, die Brechzahl der Perle ist. Für 700 nm und für 400 nm eingesetzt in die Formel der ersten."
+          },
+          "drawn_ray": {
+            "title": "Der gezeichnete Strahl",
+            "setting": "Glasperle; der Strahl trifft die Perle auf halbem Radius.",
+            "reads": "Mit sin i = b und sin β = b/n verlässt jeder Strahl die Perle unter θ = 2φ = 2·(2β − i) gegen den Weg zurück zur Lampe.",
+            "why": "Prüft die Zeichnung: Die Seite verfolgt den Strahl mit Vektoren durch Brechung, Spiegelung und Brechung, und er tritt unter 16,82° aus, wie die Formel sagt."
+          },
+          "reflected": {
+            "title": "Wie viel Licht zurückkommt",
+            "setting": "Glasperle, Brechzahl 1,52; über die ganze Fläche der Perle.",
+            "reads": "Jeder Strahl verliert an jeder Fläche, was Fresnels Formeln sagen: hinein (1 − R), innen gespiegelt R, hinaus (1 − R). Für jede Polarisation einzeln, die beiden gemittelt, über die Fläche der Perle summiert.",
+            "why": "Prüft das Licht des Rings: 5,5 % des Lichts, das die Perle trifft, kommen nach einer Spiegelung zurück. Die Seite summiert 2000 Ringe gleicher Fläche; das liegt 6 · 10⁻⁶ zu hoch, weil sich das Licht der streifenden Strahlen am Rand steil ändert.",
+            "step": "Die Quelle gibt R für beide Polarisationen. Innen trifft der Strahl die Fläche unter β und spiegelt so viel wie aussen unter i: Die Formeln bleiben gleich, wenn man die beiden Seiten vertauscht. Gemittelt wird (1 − R)²·R und nicht R, weil jede Polarisation den Weg durch alle drei Flächen für sich macht."
           }
         }
       },

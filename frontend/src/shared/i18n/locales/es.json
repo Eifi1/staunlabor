@@ -3734,7 +3734,21 @@
         "ring_u": "velocidad del anillo de humo",
         "circulation": "circulación del anillo",
         "ring_r": "radio del anillo de humo",
-        "core_a": "radio de su núcleo"
+        "core_a": "radio de su núcleo",
+        "ring_angle": "radio del anillo, como ángulo respecto al camino de vuelta a la lámpara",
+        "refraction_angle": "ángulo de refracción",
+        "incidence_angle": "ángulo de incidencia",
+        "ring_width": "anchura del anillo",
+        "wavelength": "longitud de onda",
+        "cauchy_a": "coeficiente de Cauchy A",
+        "cauchy_b": "separación de los colores (coeficiente de Cauchy B)",
+        "index_d": "índice de refracción para luz amarilla (línea del sodio)",
+        "sodium": "longitud de onda de la línea del sodio, 589,3",
+        "exit_angle": "ángulo de salida, respecto al camino de vuelta a la lámpara",
+        "impact": "punto de impacto, distancia al centro en radios de la perla",
+        "back_share": "fracción de la luz que vuelve tras una reflexión",
+        "reflectance": "fracción reflejada en una superficie, para las dos polarizaciones",
+        "rainbow_index": "índice de refracción"
       },
       "cases": {
         "sphere": {
@@ -4653,6 +4667,34 @@
             "setting": "Como arriba; el anillo de una pulsación completa de medio segundo.",
             "reads": "Un anillo de vórtice de núcleo delgado vuela a U = Γ/(4πR)·(ln(8R/a) − ¼): la fórmula de Kelvin. La página toma el anillo de 0,6 diámetros del agujero de ancho y su núcleo, de 0,35 veces esa medida.",
             "why": "Comprueba la fórmula con la que la página determina el vuelo y el «demasiado lento»: 1,511 m/s a partir de la circulación que la página halla para esta pulsación. La circulación misma no la comprueba este caso."
+          }
+        },
+        "rainbow": {
+          "water": {
+            "title": "El arcoíris en el cielo: 42°",
+            "setting": "Gota de agua: índice de refracción 1,333.",
+            "reads": "El anillo lo forma el rayo que sale más alejado del camino de vuelta a la lámpara: a 2φ de él, con φ = 2β − arcsin(n·sin β), máximo en cos β = 2√(n² − 1)/(√3·n).",
+            "why": "Comprueba el radio del anillo: 42,08° para el agua, el arcoíris en el cielo. La página halla el rayo del arcoíris por el ángulo de incidencia, la fuente por el ángulo de refracción; las dos dan con el mismo rayo."
+          },
+          "colours": {
+            "title": "Rojo por fuera, violeta por dentro",
+            "setting": "Perla de vidrio: índice de refracción 1,52 con luz amarilla, coeficiente de Cauchy 4200 nm².",
+            "reads": "La luz azul se refracta más que la roja, n(λ) = A + B/λ², y su anillo es más pequeño. La anchura del anillo es la diferencia entre los radios a 700 nm y a 400 nm.",
+            "why": "Comprueba los colores: el borde rojo queda por fuera, y el anillo de la perla de vidrio tiene 1,49° de anchura.",
+            "step": "La tercera fuente da n(λ) = A + B/λ²; A se elige de modo que n en la línea del sodio, 589,3 nm, sea el índice de refracción de la perla. Con 700 nm y con 400 nm, se introduce en la fórmula de la primera."
+          },
+          "drawn_ray": {
+            "title": "El rayo dibujado",
+            "setting": "Perla de vidrio; el rayo toca la perla a la mitad de su radio.",
+            "reads": "Con sin i = b y sin β = b/n, todo rayo sale de la perla con θ = 2φ = 2·(2β − i) respecto al camino de vuelta a la lámpara.",
+            "why": "Comprueba el dibujo: la página sigue el rayo con vectores a través de refracción, reflexión y refracción, y sale con 16,82°, como dice la fórmula."
+          },
+          "reflected": {
+            "title": "Cuánta luz vuelve",
+            "setting": "Perla de vidrio, índice de refracción 1,52; sobre toda la cara de la perla.",
+            "reads": "Cada rayo pierde en cada superficie lo que dicen las fórmulas de Fresnel: al entrar (1 − R), reflejado dentro R, al salir (1 − R). Para cada polarización por separado; las dos se promedian y se suman sobre la cara de la perla.",
+            "why": "Comprueba la luz del anillo: el 5,5 % de la luz que toca la perla vuelve tras una reflexión. La página suma 2000 anillos de igual área; eso da 6 · 10⁻⁶ de más, porque la luz de los rayos rasantes cambia bruscamente en el borde.",
+            "step": "La fuente da R para las dos polarizaciones. Dentro, el rayo toca la superficie con β y refleja tanto como fuera con i: las fórmulas no cambian si se intercambian los dos lados. Se promedia (1 − R)²·R y no R, porque cada polarización recorre por su cuenta el camino a través de las tres superficies."
           }
         }
       },

@@ -3734,7 +3734,21 @@
         "ring_u": "vitesse de l’anneau de fumée",
         "circulation": "circulation de l’anneau",
         "ring_r": "rayon de l’anneau de fumée",
-        "core_a": "rayon de son noyau"
+        "core_a": "rayon de son noyau",
+        "ring_angle": "rayon de l’anneau, comme angle par rapport au chemin de retour vers la lampe",
+        "refraction_angle": "angle de réfraction",
+        "incidence_angle": "angle d’incidence",
+        "ring_width": "largeur de l’anneau",
+        "wavelength": "longueur d’onde",
+        "cauchy_a": "coefficient de Cauchy A",
+        "cauchy_b": "étalement des couleurs (coefficient de Cauchy B)",
+        "index_d": "indice de réfraction pour la lumière jaune (raie du sodium)",
+        "sodium": "longueur d’onde de la raie du sodium, 589,3",
+        "exit_angle": "angle de sortie, par rapport au chemin de retour vers la lampe",
+        "impact": "point d’impact, distance au centre en rayons de la bille",
+        "back_share": "part de la lumière qui revient après une réflexion",
+        "reflectance": "part réfléchie à une surface, pour les deux polarisations",
+        "rainbow_index": "indice de réfraction"
       },
       "cases": {
         "sphere": {
@@ -4653,6 +4667,34 @@
             "setting": "Comme ci-dessus ; l’anneau d’un appui complet d’une demi-seconde.",
             "reads": "Un anneau tourbillonnaire à noyau mince vole à U = Γ/(4πR)·(ln(8R/a) − ¼) : la formule de Kelvin. La page prend un anneau large de 0,6 diamètre de trou et un noyau de 0,35 fois cette largeur.",
             "why": "Vérifie la formule par laquelle la page fixe le vol et le « trop lent » : 1,511 m/s à partir de la circulation que la page trouve pour cet appui. La circulation elle-même, ce cas ne la vérifie pas."
+          }
+        },
+        "rainbow": {
+          "water": {
+            "title": "L’arc-en-ciel dans le ciel : 42°",
+            "setting": "Goutte d’eau : indice de réfraction 1,333.",
+            "reads": "L’anneau est fait par le rayon qui ressort le plus loin du chemin de retour vers la lampe : à 2φ de celui-ci, avec φ = 2β − arcsin(n·sin β), maximal pour cos β = 2√(n² − 1)/(√3·n).",
+            "why": "Vérifie le rayon de l’anneau : 42,08° pour l’eau, l’arc-en-ciel dans le ciel. La page trouve le rayon de l’arc-en-ciel par l’angle d’incidence, la source par l’angle de réfraction ; les deux tombent sur le même rayon."
+          },
+          "colours": {
+            "title": "Rouge à l’extérieur, violet à l’intérieur",
+            "setting": "Bille de verre : indice de réfraction 1,52 en lumière jaune, coefficient de Cauchy 4200 nm².",
+            "reads": "La lumière bleue est plus réfractée que la rouge, n(λ) = A + B/λ², et son anneau est plus petit. La largeur de l’anneau est la différence des rayons à 700 nm et à 400 nm.",
+            "why": "Vérifie les couleurs : le bord rouge est à l’extérieur, et l’anneau de la bille de verre est large de 1,49°.",
+            "step": "La troisième source donne n(λ) = A + B/λ² ; A est choisi pour que n à la raie du sodium, 589,3 nm, soit l’indice de réfraction de la bille. Pour 700 nm et pour 400 nm, mis dans la formule de la première."
+          },
+          "drawn_ray": {
+            "title": "Le rayon dessiné",
+            "setting": "Bille de verre ; le rayon touche la bille à mi-rayon.",
+            "reads": "Avec sin i = b et sin β = b/n, chaque rayon quitte la bille sous θ = 2φ = 2·(2β − i) par rapport au chemin de retour vers la lampe.",
+            "why": "Vérifie le dessin : la page suit le rayon avec des vecteurs à travers réfraction, réflexion et réfraction, et il sort sous 16,82°, comme le dit la formule."
+          },
+          "reflected": {
+            "title": "Combien de lumière revient",
+            "setting": "Bille de verre, indice de réfraction 1,52 ; sur toute la face de la bille.",
+            "reads": "Chaque rayon perd à chaque surface ce que disent les formules de Fresnel : à l’entrée (1 − R), réfléchi à l’intérieur R, à la sortie (1 − R). Pour chaque polarisation séparément, les deux moyennées, sommé sur la face de la bille.",
+            "why": "Vérifie la lumière de l’anneau : 5,5 % de la lumière qui touche la bille revient après une réflexion. La page somme 2000 anneaux de même surface ; cela donne 6 · 10⁻⁶ de trop, car la lumière des rayons rasants varie brusquement au bord.",
+            "step": "La source donne R pour les deux polarisations. À l’intérieur, le rayon touche la surface sous β et réfléchit autant qu’à l’extérieur sous i : les formules restent les mêmes quand on échange les deux côtés. On moyenne (1 − R)²·R et non R, car chaque polarisation fait pour elle-même le chemin à travers les trois surfaces."
           }
         }
       },

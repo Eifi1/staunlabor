@@ -150,6 +150,10 @@ const T_PERIOD: CheckSymbol = { tex: "T", key: "T", unit: "s" };
 const A_EFF: CheckSymbol = { tex: String.raw`A_{\mathrm{eff}}`, key: "a_eff", unit: "m²" };
 const A_HOLE: CheckSymbol = { tex: String.raw`A_{\mathrm{hole}}`, key: "a_hole", unit: "m²" };
 const HOLE_D: CheckSymbol = { tex: "D", key: "hole_d", unit: "m" };
+const RING: CheckSymbol = { tex: String.raw`2\varphi`, key: "ring_angle", unit: "°" };
+const BETA_RAINBOW: CheckSymbol = { tex: String.raw`\beta`, key: "refraction_angle", unit: "°" };
+const INCIDENCE: CheckSymbol = { tex: "i", key: "incidence_angle", unit: "°" };
+const INDEX_RAINBOW: CheckSymbol = { tex: "n", key: "rainbow_index" };
 
 const ROD_STEADY: CheckFormula = {
   tex: String.raw`w = \frac{\Gamma\,\Omega^2 Y}{\sqrt{(\omega^2 - \Omega^2)^2 + (2\zeta\omega\Omega)^2}}, \qquad \Gamma = \frac{\int_0^1 \varphi\,d\xi}{\int_0^1 \varphi^2\,d\xi}`,
@@ -1231,6 +1235,46 @@ export const CHECK_FORMULAS: Record<string, Record<string, CheckFormula>> = {
         { tex: "R", key: "ring_r", unit: "m" },
         { tex: "a", key: "core_a", unit: "m" },
         HOLE_D,
+      ],
+    },
+  },
+  rainbow: {
+    water: {
+      tex: String.raw`\varphi = 2\beta - \arcsin(n\sin\beta), \qquad \beta_{\max} = \arccos\frac{2\sqrt{n^2 - 1}}{\sqrt{3}\,n}`,
+      symbols: [RING, BETA_RAINBOW, INDEX_RAINBOW],
+    },
+    colours: {
+      tex: String.raw`\Delta = 2\varphi_{\max}\bigl(n(700\,\mathrm{nm})\bigr) - 2\varphi_{\max}\bigl(n(400\,\mathrm{nm})\bigr), \qquad n(\lambda) = A + \frac{B}{\lambda^2}, \qquad A = n_D - \frac{B}{\lambda_D^2}`,
+      symbols: [
+        { tex: String.raw`\Delta`, key: "ring_width", unit: "°" },
+        RING,
+        INDEX_RAINBOW,
+        { tex: String.raw`\lambda`, key: "wavelength", unit: "nm" },
+        { tex: "A", key: "cauchy_a" },
+        { tex: "B", key: "cauchy_b", unit: "nm²" },
+        { tex: "n_D", key: "index_d" },
+        { tex: String.raw`\lambda_D`, key: "sodium", unit: "nm" },
+      ],
+    },
+    drawn_ray: {
+      tex: String.raw`\theta = 2\varphi = 2\,(2\beta - i), \qquad \sin i = b, \qquad \sin\beta = \frac{b}{n}`,
+      symbols: [
+        { tex: String.raw`\theta`, key: "exit_angle", unit: "°" },
+        BETA_RAINBOW,
+        INCIDENCE,
+        { tex: "b", key: "impact" },
+        INDEX_RAINBOW,
+      ],
+    },
+    reflected: {
+      tex: String.raw`S = \int_0^1 \tfrac12\left[(1 - R_s)^2 R_s + (1 - R_p)^2 R_p\right] 2b\,db, \qquad R_s = \left(\frac{\cos i - n\cos\beta}{\cos i + n\cos\beta}\right)^2, \qquad R_p = \left(\frac{\cos\beta - n\cos i}{\cos\beta + n\cos i}\right)^2`,
+      symbols: [
+        { tex: "S", key: "back_share" },
+        { tex: "R_s, R_p", key: "reflectance" },
+        { tex: "b", key: "impact" },
+        INCIDENCE,
+        BETA_RAINBOW,
+        INDEX_RAINBOW,
       ],
     },
   },

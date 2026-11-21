@@ -50,6 +50,7 @@ def test_the_exhibits_with_checks_are_these() -> None:
         "plates",
         "platform",
         "race",
+        "rainbow",
         "resonance",
         "sky",
         "slits",

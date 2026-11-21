@@ -3734,7 +3734,21 @@
         "ring_u": "velocità dell'anello di fumo",
         "circulation": "circolazione dell'anello",
         "ring_r": "raggio dell'anello di fumo",
-        "core_a": "raggio del suo nucleo"
+        "core_a": "raggio del suo nucleo",
+        "ring_angle": "raggio dell'anello, come angolo rispetto alla via di ritorno verso la lampada",
+        "refraction_angle": "angolo di rifrazione",
+        "incidence_angle": "angolo d'incidenza",
+        "ring_width": "larghezza dell'anello",
+        "wavelength": "lunghezza d'onda",
+        "cauchy_a": "coefficiente di Cauchy A",
+        "cauchy_b": "separazione dei colori (coefficiente di Cauchy B)",
+        "index_d": "indice di rifrazione per la luce gialla (riga del sodio)",
+        "sodium": "lunghezza d'onda della riga del sodio, 589,3",
+        "exit_angle": "angolo d'uscita, rispetto alla via di ritorno verso la lampada",
+        "impact": "punto d'impatto, distanza dal centro in raggi della perlina",
+        "back_share": "frazione della luce che torna dopo una riflessione",
+        "reflectance": "frazione riflessa su una superficie, per le due polarizzazioni",
+        "rainbow_index": "indice di rifrazione"
       },
       "cases": {
         "sphere": {
@@ -4653,6 +4667,34 @@
             "setting": "Come sopra; l'anello di una pressione completa di mezzo secondo.",
             "reads": "Un anello vorticoso con nucleo sottile vola a U = Γ/(4πR)·(ln(8R/a) − ¼): la formula di Kelvin. La pagina prende l'anello largo 0,6 diametri del foro e il suo nucleo pari a 0,35 volte questa larghezza.",
             "why": "Verifica la formula con cui la pagina determina il volo e il «troppo lento»: 1,511 m/s dalla circolazione che la pagina trova per questa pressione. La circolazione in sé questo caso non la verifica."
+          }
+        },
+        "rainbow": {
+          "water": {
+            "title": "L'arcobaleno nel cielo: 42°",
+            "setting": "Goccia d'acqua: indice di rifrazione 1,333.",
+            "reads": "L'anello lo forma il raggio che esce più lontano dalla via di ritorno verso la lampada: a 2φ da essa, con φ = 2β − arcsin(n·sin β), massimo per cos β = 2√(n² − 1)/(√3·n).",
+            "why": "Verifica il raggio dell'anello: 42,08° per l'acqua, l'arcobaleno nel cielo. La pagina trova il raggio dell'arcobaleno tramite l'angolo d'incidenza, la fonte tramite l'angolo di rifrazione; entrambe trovano lo stesso raggio."
+          },
+          "colours": {
+            "title": "Rosso fuori, viola dentro",
+            "setting": "Perlina di vetro: indice di rifrazione 1,52 con luce gialla, coefficiente di Cauchy 4200 nm².",
+            "reads": "La luce blu viene rifratta più della rossa, n(λ) = A + B/λ², e il suo anello è più piccolo. La larghezza dell'anello è la differenza dei raggi a 700 nm e a 400 nm.",
+            "why": "Verifica i colori: il bordo rosso sta fuori, e l'anello della perlina di vetro è largo 1,49°.",
+            "step": "La terza fonte dà n(λ) = A + B/λ²; A è scelto in modo che n alla riga del sodio, 589,3 nm, sia l'indice di rifrazione della perlina. Per 700 nm e per 400 nm, inserito nella formula della prima."
+          },
+          "drawn_ray": {
+            "title": "Il raggio disegnato",
+            "setting": "Perlina di vetro; il raggio colpisce la perlina a metà del suo raggio.",
+            "reads": "Con sin i = b e sin β = b/n, ogni raggio lascia la perlina con θ = 2φ = 2·(2β − i) rispetto alla via di ritorno verso la lampada.",
+            "why": "Verifica il disegno: la pagina segue il raggio con vettori attraverso rifrazione, riflessione e rifrazione, ed esso esce a 16,82°, come dice la formula."
+          },
+          "reflected": {
+            "title": "Quanta luce torna indietro",
+            "setting": "Perlina di vetro, indice di rifrazione 1,52; su tutta la faccia della perlina.",
+            "reads": "Ogni raggio perde a ogni superficie ciò che dicono le formule di Fresnel: entrando (1 − R), riflesso dentro R, uscendo (1 − R). Per ciascuna polarizzazione a sé, le due mediate, sommato sulla faccia della perlina.",
+            "why": "Verifica la luce dell'anello: il 5,5 % della luce che colpisce la perlina torna dopo una riflessione. La pagina somma 2000 anelli di uguale area; il risultato è 6 · 10⁻⁶ troppo alto, perché la luce dei raggi radenti cambia bruscamente sul bordo.",
+            "step": "La fonte dà R per entrambe le polarizzazioni. Dentro, il raggio colpisce la superficie con β e riflette quanto fuori con i: le formule restano le stesse scambiando i due lati. Si fa la media di (1 − R)²·R e non di R, perché ogni polarizzazione percorre per conto suo il cammino attraverso tutte e tre le superfici."
           }
         }
       },

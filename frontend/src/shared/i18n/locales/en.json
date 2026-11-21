@@ -3734,7 +3734,21 @@
         "ring_u": "the smoke ring's speed",
         "circulation": "the ring's circulation",
         "ring_r": "the smoke ring's radius",
-        "core_a": "its core's radius"
+        "core_a": "its core's radius",
+        "ring_angle": "the ring's radius, as an angle from the way back to the lamp",
+        "refraction_angle": "angle of refraction",
+        "incidence_angle": "angle of incidence",
+        "ring_width": "the ring's width",
+        "wavelength": "wavelength",
+        "cauchy_a": "Cauchy coefficient A",
+        "cauchy_b": "how far the colours fan out (Cauchy coefficient B)",
+        "index_d": "index in yellow light (the sodium line)",
+        "sodium": "wavelength of the sodium line, 589.3",
+        "exit_angle": "angle out, from the way back to the lamp",
+        "impact": "where the ray meets the bead, from its centre in radii",
+        "back_share": "share of the light that comes back after one reflection",
+        "reflectance": "share reflected at a surface, for the two polarisations",
+        "rainbow_index": "refractive index"
       },
       "cases": {
         "sphere": {
@@ -4653,6 +4667,34 @@
             "setting": "As above; the ring from a full press of half a second.",
             "reads": "A vortex ring with a thin core flies at U = Γ/(4πR)·(ln(8R/a) − ¼): Kelvin's formula. The page takes the ring 0.6 hole diameters wide and its core 0.35 of that.",
             "why": "Checks the formula the page sets the flight and \"too slow\" by: 1.511 m/s from the circulation the page finds for this press. The circulation itself this case does not check."
+          }
+        },
+        "rainbow": {
+          "water": {
+            "title": "The rainbow in the sky: 42°",
+            "setting": "Water drop: index 1.333.",
+            "reads": "The ring is made by the ray that comes out furthest from the way back to the lamp: 2φ from it, with φ = 2β − arcsin(n·sin β), largest at cos β = 2√(n² − 1)/(√3·n).",
+            "why": "Checks the ring's radius: 42.08° for water, the rainbow in the sky. The page finds the rainbow ray by the angle of incidence, the source by the angle of refraction; both find the same ray."
+          },
+          "colours": {
+            "title": "Red outside, violet inside",
+            "setting": "Glass bead: index 1.52 in yellow light, Cauchy coefficient 4200 nm².",
+            "reads": "Blue light is refracted more than red, n(λ) = A + B/λ², and its ring is smaller. The ring's width is the difference of the radii at 700 nm and at 400 nm.",
+            "why": "Checks the colours: the red edge is outside, and the glass bead's ring is 1.49° wide.",
+            "step": "The third source gives n(λ) = A + B/λ²; A is chosen so that n at the sodium line, 589.3 nm, is the bead's index. Put in at 700 nm and at 400 nm, into the first source's formula."
+          },
+          "drawn_ray": {
+            "title": "The ray as drawn",
+            "setting": "Glass bead; the ray meets the bead half its radius out.",
+            "reads": "With sin i = b and sin β = b/n, every ray leaves the bead at θ = 2φ = 2·(2β − i) from the way back to the lamp.",
+            "why": "Checks the drawing: the page follows the ray with vectors through refraction, reflection and refraction, and it leaves at 16.82°, as the formula says."
+          },
+          "reflected": {
+            "title": "How much light comes back",
+            "setting": "Glass bead, index 1.52; over the bead's whole face.",
+            "reads": "Every ray loses at every surface what Fresnel's formulas say: in (1 − R), reflected inside R, out (1 − R). For each polarisation on its own, the two averaged, summed over the bead's face.",
+            "why": "Checks the ring's light: 5.5 % of the light meeting the bead comes back after one reflection. The page sums 2000 rings of equal area; that is 6 · 10⁻⁶ high, as the grazing rays' light changes steeply at the rim.",
+            "step": "The source gives R for both polarisations. Inside, the ray meets the surface at β and reflects as much as outside at i: the formulas stay the same with the two sides swapped. What is averaged is (1 − R)²·R, not R, as each polarisation makes its way through all three surfaces on its own."
           }
         }
       },

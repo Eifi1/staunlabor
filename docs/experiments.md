@@ -2602,6 +2602,16 @@ exhibit's central number, has no case: the slug model's sources are behind
 paywalls, and no quote was invented. "Set it up" sets the drum and a full
 press of half a second; the reader presses.
 
+**The glass-bead rainbow's** four (2026-11-21) hold a water drop's ring at
+42.0781° by the source's route (the extremum cos β = 2√(n² − 1)/(√3 n)), not
+the engine's, the glass ring's width of 1.4918° to Cauchy's dispersion between
+700 and 400 nm, the drawn ray halfway out (16.8196°, the traced vector against
+the tiles' angle formula) and the light back after one reflection to Fresnel's
+formulas. That last one is the loosest: the engine's midpoint sum over 2000
+rings of equal area lies 6.3 · 10⁻⁶ over the integral, within 2 · 10⁻⁵; it is
+the ring count, not the formula (20,000 rings bring it to 10⁻⁷). "Set it up"
+sets the material and its index and, for the drawn ray, the ray's impact.
+
 **On the page** a section "Check it yourself" (`check-section.tsx`) lists the
 cases, each with its formula as an `Equation` (`check-formulas.ts`), both
 values to seven digits, the deviation, why the case would catch a mistake,
