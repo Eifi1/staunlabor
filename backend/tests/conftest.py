@@ -130,15 +130,18 @@ async def drop_database(name: str) -> None:
     """``DROP … WITH (FORCE)``, so a connection a crashed run left open cannot
     keep it. FORCE terminates every session on the database, an autovacuum
     worker's too, which the role may not signal: that refusal is a race with the
-    autovacuum launcher, over in milliseconds, so it is tried again."""
-    for attempt in range(8):
+    autovacuum launcher, so it is tried again. Usually over in milliseconds; under
+    the full gate's load a worker on a freshly migrated database outlasted the
+    two seconds this once allowed (2026-11-21), so it now waits up to ten."""
+    attempts = 20
+    for attempt in range(attempts):
         try:
             await _maintenance(f'DROP DATABASE IF EXISTS "{name}" WITH (FORCE)')
             return
         except DBAPIError as exc:
-            if attempt == 7 or not isinstance(exc.orig, asyncpg.exceptions.InsufficientPrivilegeError):
+            if attempt == attempts - 1 or not isinstance(exc.orig, asyncpg.exceptions.InsufficientPrivilegeError):
                 raise
-            await asyncio.sleep(0.25)
+            await asyncio.sleep(0.5)
 
 
 def _owner_is_gone(pid: int) -> bool:
