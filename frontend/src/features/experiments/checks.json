@@ -248,6 +248,93 @@
    ]
   }
  ],
+ "chaos": [
+  {
+   "key": "slow_mode",
+   "unit": "s",
+   "expected": 1.43585472508,
+   "measured": 1.43589059268,
+   "deviation": 2.49799698327e-05,
+   "tolerance": 0.0001,
+   "derived": false,
+   "setting": {
+    "length1_m": 0.3,
+    "length2_m": 0.3,
+    "mass1_kg": 0.5,
+    "mass2_kg": 0.5,
+    "damping_per_s": 0.0,
+    "upper": 1.0,
+    "lower": 1.4142135623730951
+   },
+   "sources": [
+    {
+     "cite": "S. Anlage, University of Maryland, Phys 410 (Fall 2015), Lecture #23 Summary, p. 3",
+     "url": "https://www.physics.umd.edu/courses/Phys410/Anlage_Fall15/Phys%20410%20F15%20Lecture%2023%20Summary.pdf",
+     "quote": "We then considered the special case of a double pendulum with equal masses (m) and equal lengths (L), and introduce the natural frequency (ω₀² ≡ g/L). The determinant yields two normal mode frequency solutions: ω₁ = ω₀√(2 − √2), and ω₂ = ω₀√(2 + √2). … The first is of the form φ = A₁(1, √2) cos(ω₁t − δ₁)"
+    }
+   ]
+  },
+  {
+   "key": "energy",
+   "unit": "J",
+   "expected": 2.20649625,
+   "measured": 2.20649602764,
+   "deviation": 1.00773297093e-07,
+   "tolerance": 1e-06,
+   "derived": true,
+   "setting": {
+    "length1_m": 0.3,
+    "length2_m": 0.3,
+    "mass1_kg": 0.5,
+    "mass2_kg": 0.5,
+    "damping_per_s": 0.0,
+    "upper": 120.0,
+    "lower": 120.0
+   },
+   "sources": [
+    {
+     "cite": "OpenStax, University Physics Volume 1, §8.3 Conservation of Energy",
+     "url": "https://openstax.org/books/university-physics-volume-1/pages/8-3-conservation-of-energy",
+     "quote": "The mechanical energy E of a particle stays constant unless forces outside the system or non-conservative forces do work on it"
+    },
+    {
+     "cite": "myPhysicsLab, “Double Pendulum”, §“Kinematics of the Double Pendulum”",
+     "url": "https://www.myphysicslab.com/pendulum/double-pendulum-en.html",
+     "quote": "x₁ = L₁ sin θ₁ y₁ = −L₁ cos θ₁ x₂ = x₁ + L₂ sin θ₂ y₂ = y₁ − L₂ cos θ₂ The velocity is the derivative with respect to time of the position. x₁' = θ₁' L₁ cos θ₁ y₁' = θ₁' L₁ sin θ₁ x₂' = x₁' + θ₂' L₂ cos θ₂ y₂' = y₁' + θ₂' L₂ sin θ₂"
+    }
+   ]
+  },
+  {
+   "key": "damping",
+   "unit": "1/s",
+   "expected": 0.05,
+   "measured": 0.0500023119077,
+   "deviation": 4.62381533499e-05,
+   "tolerance": 0.0002,
+   "derived": true,
+   "setting": {
+    "length1_m": 0.3,
+    "length2_m": 0.3,
+    "mass1_kg": 0.5,
+    "mass2_kg": 0.5,
+    "damping_per_s": 0.1,
+    "upper": 1.0,
+    "lower": 1.4142135623730951
+   },
+   "sources": [
+    {
+     "cite": "OpenStax, University Physics Volume 1, §15.5 Damped Oscillations, Eq. 15.23 and 15.24",
+     "url": "https://openstax.org/books/university-physics-volume-1/pages/15-5-damped-oscillations",
+     "quote": "m d²x/dt² + b dx/dt + kx = 0. … The solution is x(t) = A₀e^(−bt/2m) cos(ωt + ϕ)."
+    },
+    {
+     "cite": "S. Anlage, University of Maryland, Phys 410 (Fall 2015), Lecture #23 Summary, p. 3",
+     "url": "https://www.physics.umd.edu/courses/Phys410/Anlage_Fall15/Phys%20410%20F15%20Lecture%2023%20Summary.pdf",
+     "quote": "We then considered the special case of a double pendulum with equal masses (m) and equal lengths (L), and introduce the natural frequency (ω₀² ≡ g/L). The determinant yields two normal mode frequency solutions: ω₁ = ω₀√(2 − √2), and ω₂ = ω₀√(2 + √2). … The first is of the form φ = A₁(1, √2) cos(ω₁t − δ₁)"
+    }
+   ]
+  }
+ ],
  "chladni": [
   {
    "key": "lowest_tone",

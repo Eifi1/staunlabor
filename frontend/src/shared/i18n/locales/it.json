@@ -3671,7 +3671,20 @@
         "phi_B": "l'angolo del cerchio che rotola al traguardo",
         "r_cycloid": "raggio del cerchio che disegna la cicloide",
         "R_bowl": "raggio della conca circolare",
-        "phi0_bowl": "angolo di partenza nella conca, dal fondo"
+        "phi0_bowl": "angolo di partenza nella conca, dal fondo",
+        "omega_slow": "la pulsazione del modo proprio lento",
+        "omega0_pend": "la pulsazione di un pendolo semplice di lunghezza L",
+        "length_rod": "la lunghezza di ciascuna delle due aste",
+        "theta12": "gli angoli dell'asta superiore e di quella inferiore rispetto alla verticale",
+        "E_pend": "l'energia dei due pesi insieme",
+        "m12": "le masse del peso superiore e di quello inferiore",
+        "v12": "le velocità dei due pesi",
+        "y12": "le altezze dei due pesi, verso l'alto dal punto di sospensione",
+        "L12": "le lunghezze dell'asta superiore e di quella inferiore",
+        "theta_mode": "l'ampiezza dell'asta superiore nel modo proprio lento",
+        "c_damp": "lo smorzamento della pagina, al secondo",
+        "omega_d": "la pulsazione dell'oscillazione smorzata",
+        "alpha_decay": "quanto rapidamente si spegne l'ampiezza"
       },
       "cases": {
         "sphere": {
@@ -4460,6 +4473,28 @@
             "reads": "Nella conca la pallina oscilla come un pendolo di lunghezza R sotto g′; fino al fondo impiega un quarto del suo periodo, √(R/g′)·K(sin(φ₀/2)).",
             "why": "Verifica la conca con cui la pagina mostra che solo la cicloide fa arrivare tutte insieme: 0,696484 s da 59 cm, più tardi che nella valle. Qui K è sommato come integrale; la somma della pagina si scosta di 5 · 10⁻⁸.",
             "step": "La prima fonte dà il periodo del pendolo, 4K in unità di √(R/g′), la seconda K, la terza g′ = g/(1 + 2/5) per la pallina che rotola. La conca ha raggio 4r, la curvatura della cicloide sul suo fondo, e la pallina parte alla stessa altezza h che nella valle: cos φ₀ = 1 − h/R."
+          }
+        },
+        "chaos": {
+          "slow_mode": {
+            "title": "Il modo proprio lento",
+            "setting": "Due aste da 30 cm, due pesi da 500 g, senza smorzamento; sopra 1°, sotto √2° = 1,41°, lasciate andare da ferme.",
+            "reads": "Per piccole oscillazioni il pendolo doppio ha due modi propri. In quello lento entrambe le aste oscillano all'unisono, l'inferiore √2 volte più ampia, con ω₀·√(2 − √2).",
+            "why": "Verifica le equazioni del moto e il ciclo dei passi temporali della pagina per piccole oscillazioni: un'oscillazione in 1,43585 s. Poiché 1° non è infinitamente piccolo, il pendolo oscilla 2,5 · 10⁻⁵ più lentamente."
+          },
+          "energy": {
+            "title": "L'energia si conserva, anche quando si scatena",
+            "setting": "Senza smorzamento; entrambe le aste lasciate andare da ferme a 120° («Selvaggio»), per 20 s.",
+            "reads": "Senza attrito la somma dell'energia cinetica e potenziale dei due pesi resta la stessa. All'inizio è tutta energia potenziale: 2,2065 J, contati dall'altezza del punto di sospensione.",
+            "why": "Verifica il ciclo dei passi temporali dove ha più lavoro: dopo 20.000 passi da 1 ms l'energia è la stessa a meno di 1,0 · 10⁻⁷. Calcolata qui da posizioni e velocità dei pesi, non con la formula dell'energia della pagina.",
+            "step": "La seconda fonte dà posizioni e velocità dei due pesi a partire dagli angoli; con ½mv² e mgy ciò dà l'energia che, secondo la prima, si conserva finché nulla frena."
+          },
+          "damping": {
+            "title": "Lo smorzamento fa spegnere l'oscillazione",
+            "setting": "Come per il modo proprio lento, ma con uno smorzamento di 0,1 al secondo; letto alla settima inversione dell'asta superiore.",
+            "reads": "Un'oscillazione smorzata si spegne con e^(−bt/2m). La pagina sottrae da ogni accelerazione angolare c volte la velocità angolare; perciò l'ampiezza cala con e^(−ct/2).",
+            "why": "Verifica lo smorzamento della pagina: l'ampiezza cala con un tasso di 0,05 al secondo, metà dello smorzamento impostato. Lo scarto di 5 · 10⁻⁵ viene dall'ampiezza di 1°.",
+            "step": "La prima fonte dà la soluzione di m·x″ + b·x′ + k·x = 0, qui con b/m = c. Ciò vale per il modo proprio lento della seconda fonte, la cui forma lo smorzamento non cambia, perché frena allo stesso modo entrambe le aste."
           }
         }
       },

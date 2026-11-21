@@ -92,6 +92,7 @@ const UNCHECKED = {
     "arch",
     "beats",
     "chair",
+    "chaos",
     "chladni",
     "circuit",
     "coil",
@@ -1835,6 +1836,21 @@ describe("setting a check case up", () => {
       expect(screen.getByRole("slider", { name: E.race.change.run }).getAttribute("aria-valuetext")).toMatch(/^120\b/),
     );
     expect(screen.getByRole("slider", { name: E.race.change.drop }).getAttribute("aria-valuetext")).toMatch(/^50\b/);
+  });
+
+  it("lets the double pendulum go in its slow mode, damped, for the damping's case", async () => {
+    renderWithProviders(<ChaosPage />);
+    await screen.findByRole("img", { name: E.chaos.view });
+    await setUp(2);
+    await waitFor(() =>
+      expect(screen.getByRole("slider", { name: E.chaos.change.damping }).getAttribute("aria-valuetext")).toMatch(
+        /^0\.10\b/,
+      ),
+    );
+    // The lower arm at √2°, shown to the slider's whole degree.
+    expect(screen.getByRole("slider", { name: E.chaos.play.upper }).getAttribute("aria-valuetext")).toMatch(/^1\b/);
+    expect(screen.getByRole("slider", { name: E.chaos.play.lower }).getAttribute("aria-valuetext")).toMatch(/^1\b/);
+    expect(await screen.findByRole("button", { name: E.chaos.play.pause })).toBeInTheDocument();
   });
 
   it("pushes the ball round the well on its circle, with the felt's brake, for the brake's case", async () => {

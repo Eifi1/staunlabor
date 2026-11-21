@@ -3671,7 +3671,20 @@
         "phi_B": "a guruló kör szöge a célnál",
         "r_cycloid": "a cikloist rajzoló kör sugara",
         "R_bowl": "a köríves tál sugara",
-        "phi0_bowl": "indulási szög a tálban, az aljától mérve"
+        "phi0_bowl": "indulási szög a tálban, az aljától mérve",
+        "omega_slow": "a lassú sajátrezgés körfrekvenciája",
+        "omega0_pend": "egy L hosszúságú egyszerű inga körfrekvenciája",
+        "length_rod": "mindkét rúd hossza",
+        "theta12": "a felső és az alsó rúd szöge a függőlegestől",
+        "E_pend": "a két nehezék együttes energiája",
+        "m12": "a felső és az alsó nehezék tömege",
+        "v12": "a két nehezék sebessége",
+        "y12": "a két nehezék magassága a felfüggesztési ponttól felfelé mérve",
+        "L12": "a felső és az alsó rúd hossza",
+        "theta_mode": "a felső rúd kitérése a lassú sajátrezgésben",
+        "c_damp": "az oldal csillapítása, másodpercenként",
+        "omega_d": "a csillapított rezgés körfrekvenciája",
+        "alpha_decay": "milyen gyorsan cseng le a kitérés"
       },
       "cases": {
         "sphere": {
@@ -4460,6 +4473,28 @@
             "reads": "A tálban a golyó úgy leng, mint egy R hosszúságú inga g′ mellett; az aljáig periódusának negyede kell neki, √(R/g′)·K(sin(φ₀/2)).",
             "why": "A tálat ellenőrzi, amellyel az oldal megmutatja, hogy csak a ciklois juttatja be mindet egyszerre: 0,696484 s 59 cm-ről, később, mint a völgyben. K itt integrálként van összegezve; az oldal összege 5 · 10⁻⁸-nal tér el.",
             "step": "Az első forrás az inga periódusát adja meg, 4K-t √(R/g′) egységekben, a második K-t, a harmadik a guruló golyóra g′ = g/(1 + 2/5)-öt. A tál sugara 4r, ez felel meg a ciklois görbületének az alján, és a golyó ugyanabból a h magasságból indul, mint a völgyben: cos φ₀ = 1 − h/R."
+          }
+        },
+        "chaos": {
+          "slow_mode": {
+            "title": "A lassú sajátrezgés",
+            "setting": "Két 30 cm-es rúd, két 500 g-os nehezék, csillapítás nélkül; fent 1°, lent √2° = 1,41°, nyugalomból elengedve.",
+            "reads": "Kis kitéréseknél a kettős ingának két sajátrezgése van. A lassúban mindkét rúd együtt leng, az alsó √2-szer akkora kitéréssel, ω₀·√(2 − √2) körfrekvenciával.",
+            "why": "A mozgásegyenleteket és az oldal időléptető ciklusát ellenőrzi kis kitéréseknél: egy lengés 1,43585 s alatt. Mivel 1° nem végtelenül kicsi, az inga 2,5 · 10⁻⁵-nel lassabban leng."
+          },
+          "energy": {
+            "title": "Az energia megmarad, akkor is, ha vad lesz a mozgás",
+            "setting": "Csillapítás nélkül; mindkét rúd 120°-ról nyugalomból elengedve („Vad”), 20 s-ig.",
+            "reads": "Súrlódás nélkül a két nehezék mozgási és helyzeti energiájának összege változatlan. Kezdetben minden helyzeti energia: 2,2065 J, a felfüggesztési pont magasságától számítva.",
+            "why": "Az időléptető ciklust ott ellenőrzi, ahol a legtöbb dolga van: 20 000 darab 1 ms-os lépés után az energia 1,0 · 10⁻⁷ pontossággal ugyanannyi. Itt a nehezékek helyéből és sebességéből számolva, nem az oldal energiaképletével.",
+            "step": "A második forrás a szögekből megadja a két nehezék helyét és sebességét; ½mv²-tel és mgy-nal ebből adódik az energia, amely az első szerint megmarad, amíg semmi sem fékez."
+          },
+          "damping": {
+            "title": "A csillapítás lecsengeti a kitérést",
+            "setting": "Mint a lassú sajátrezgésnél, de másodpercenként 0,1 csillapítással; a felső rúd hetedik fordulópontjában leolvasva.",
+            "reads": "Egy csillapított rezgés e^(−bt/2m) szerint cseng le. Az oldal minden szöggyorsulásból levonja a szögsebesség c-szeresét; ezért a kitérés e^(−ct/2) szerint csökken.",
+            "why": "Az oldal csillapítását ellenőrzi: a kitérés másodpercenként 0,05-os ütemben csökken, feleannyira gyorsan, mint a beállított csillapítás. Az 5 · 10⁻⁵ eltérés az 1°-os kitérésből adódik.",
+            "step": "Az első forrás megadja az m·x″ + b·x′ + k·x = 0 egyenlet megoldását, itt b/m = c-vel. Ez érvényes a második forrás lassú sajátrezgésére, amelynek alakját a csillapítás nem változtatja meg, mert mindkét rudat egyformán fékezi."
           }
         }
       },

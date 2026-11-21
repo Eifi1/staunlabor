@@ -3671,7 +3671,20 @@
         "phi_B": "l’angle du cercle qui roule à l’arrivée",
         "r_cycloid": "rayon du cercle qui trace la cycloïde",
         "R_bowl": "rayon de la cuvette circulaire",
-        "phi0_bowl": "angle de départ dans la cuvette, depuis le fond"
+        "phi0_bowl": "angle de départ dans la cuvette, depuis le fond",
+        "omega_slow": "la pulsation du mode propre lent",
+        "omega0_pend": "la pulsation d’un pendule simple de longueur L",
+        "length_rod": "la longueur de chacune des deux tiges",
+        "theta12": "les angles de la tige supérieure et de la tige inférieure par rapport à la verticale",
+        "E_pend": "l’énergie des deux masses ensemble",
+        "m12": "les masses supérieure et inférieure",
+        "v12": "les vitesses des deux masses",
+        "y12": "les hauteurs des deux masses, comptées vers le haut depuis le point de suspension",
+        "L12": "les longueurs de la tige supérieure et de la tige inférieure",
+        "theta_mode": "l’amplitude de la tige supérieure dans le mode propre lent",
+        "c_damp": "l’amortissement de la page, par seconde",
+        "omega_d": "la pulsation de l’oscillation amortie",
+        "alpha_decay": "la vitesse à laquelle l’amplitude décroît"
       },
       "cases": {
         "sphere": {
@@ -4460,6 +4473,28 @@
             "reads": "Dans la cuvette, la bille oscille comme un pendule de longueur R sous g′ ; jusqu’au fond, elle met un quart de sa période, √(R/g′)·K(sin(φ₀/2)).",
             "why": "Vérifie la cuvette par laquelle la page montre que seule la cycloïde fait arriver toutes les billes ensemble : 0,696484 s depuis 59 cm, plus tard que dans la vallée. K est ici sommée comme une intégrale ; la somme de la page s’en écarte de 5 · 10⁻⁸.",
             "step": "La première source donne la période du pendule, 4K en unités de √(R/g′), la deuxième K, la troisième g′ = g/(1 + 2/5) pour la bille qui roule. La cuvette a le rayon 4r, la courbure de la cycloïde en son fond, et la bille part à la même hauteur h que dans la vallée : cos φ₀ = 1 − h/R."
+          }
+        },
+        "chaos": {
+          "slow_mode": {
+            "title": "Le mode propre lent",
+            "setting": "Deux tiges de 30 cm, deux masses de 500 g, sans amortissement ; en haut 1°, en bas √2° = 1,41°, lâchées depuis le repos.",
+            "reads": "Pour de petites oscillations, le pendule double a deux modes propres. Dans le lent, les deux tiges oscillent à l’unisson, l’inférieure √2 fois plus loin, à ω₀·√(2 − √2).",
+            "why": "Vérifie les équations du mouvement et la boucle des pas de temps de la page pour de petites oscillations : une oscillation en 1,43585 s. Comme 1° n’est pas infiniment petit, le pendule oscille 2,5 · 10⁻⁵ plus lentement."
+          },
+          "energy": {
+            "title": "L’énergie se conserve, même quand ça devient sauvage",
+            "setting": "Sans amortissement ; les deux tiges lâchées depuis le repos à 120° (« Sauvage »), pendant 20 s.",
+            "reads": "Sans frottement, la somme de l’énergie cinétique et potentielle des deux masses reste la même. Au début, tout est énergie potentielle : 2,2065 J, comptés depuis la hauteur du point de suspension.",
+            "why": "Vérifie la boucle des pas de temps là où elle a le plus à faire : après 20 000 pas de 1 ms, l’énergie est la même à 1,0 · 10⁻⁷ près. Calculée ici à partir des positions et des vitesses des masses, et non avec la formule d’énergie de la page.",
+            "step": "La deuxième source donne les positions et les vitesses des deux masses à partir des angles ; avec ½mv² et mgy, cela donne l’énergie qui, d’après la première, se conserve tant que rien ne freine."
+          },
+          "damping": {
+            "title": "L’amortissement fait décroître l’amplitude",
+            "setting": "Comme pour le mode propre lent, mais avec un amortissement de 0,1 par seconde ; relevé au septième point de retour de la tige supérieure.",
+            "reads": "Une oscillation amortie décroît en e^(−bt/2m). La page retranche de chaque accélération angulaire c fois la vitesse angulaire ; l’amplitude décroît donc en e^(−ct/2).",
+            "why": "Vérifie l’amortissement de la page : l’amplitude décroît au taux de 0,05 par seconde, moitié moins vite que l’amortissement réglé. L’écart de 5 · 10⁻⁵ vient de l’amplitude de 1°.",
+            "step": "La première source donne la solution de m·x″ + b·x′ + k·x = 0, ici avec b/m = c. Cela vaut pour le mode propre lent de la deuxième source, dont l’amortissement ne change pas la forme, car il freine les deux tiges de la même façon."
           }
         }
       },

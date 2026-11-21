@@ -3671,7 +3671,20 @@
         "phi_B": "the rolling circle’s angle at the finish",
         "r_cycloid": "radius of the circle that draws the cycloid",
         "R_bowl": "radius of the circular bowl",
-        "phi0_bowl": "starting angle in the bowl, from the bottom"
+        "phi0_bowl": "starting angle in the bowl, from the bottom",
+        "omega_slow": "the slow normal mode's angular frequency",
+        "omega0_pend": "the angular frequency of a simple pendulum of length L",
+        "length_rod": "the length of each of the two rods",
+        "theta12": "the upper and the lower rod's angles from the vertical",
+        "E_pend": "both weights' energy together",
+        "m12": "the upper and the lower weight's masses",
+        "v12": "the two weights' speeds",
+        "y12": "the two weights' heights, up from the pivot",
+        "L12": "the upper and the lower rod's lengths",
+        "theta_mode": "the upper rod's swing in the slow normal mode",
+        "c_damp": "the page's damping, per second",
+        "omega_d": "the damped oscillation's angular frequency",
+        "alpha_decay": "how fast the swing dies away"
       },
       "cases": {
         "sphere": {
@@ -4460,6 +4473,28 @@
             "reads": "In the bowl the ball swings like a pendulum of length R under g′; it needs a quarter of its period to the bottom, √(R/g′)·K(sin(φ₀/2)).",
             "why": "Checks the bowl by which the page shows that only the cycloid brings them all in together: 0.696484 s from 59 cm, later than in the valley. K is summed here as an integral; the page’s sum is 5 · 10⁻⁸ off.",
             "step": "The first source gives the pendulum’s period, 4K in units of √(R/g′), the second K, the third g′ = g/(1 + 2/5) for the rolling ball. The bowl has the radius 4r, the cycloid’s curvature at its bottom, and the ball starts at the same height h as in the valley: cos φ₀ = 1 − h/R."
+          }
+        },
+        "chaos": {
+          "slow_mode": {
+            "title": "The slow normal mode",
+            "setting": "Two 30 cm rods, two 500 g weights, no damping; 1° above, √2° = 1.41° below, let go from rest.",
+            "reads": "Swinging little, the double pendulum has two normal modes. In the slow one both rods swing in step, the lower √2 times as far, at ω₀·√(2 − √2).",
+            "why": "Checks the equations of motion and the page's time loop at small swings: one swing in 1.43585 s. As 1° is not infinitely small, the pendulum swings 2.5 · 10⁻⁵ slower."
+          },
+          "energy": {
+            "title": "The energy stays, even when it gets wild",
+            "setting": "No damping; both rods let go from rest at 120° (\"wild\"), for 20 s.",
+            "reads": "Without friction the sum of both weights' energy of motion and of height stays the same. At the start it is all height: 2.2065 J, counted from the height of the pivot.",
+            "why": "Checks the time loop where it has most to do: after 20 000 steps of 1 ms the energy is the same to 1.0 · 10⁻⁷. Worked out here from the weights' places and velocities, not with the page's energy formula.",
+            "step": "The second source gives the two weights' places and velocities from the angles; with ½mv² and mgy that is the energy the first says is kept, as long as nothing brakes."
+          },
+          "damping": {
+            "title": "The damping makes the swing die away",
+            "setting": "As for the slow normal mode, but with a damping of 0.1 a second; read at the upper rod's seventh turn.",
+            "reads": "A damped oscillation dies away as e^(−bt/2m). The page takes c times each angular velocity off its angular acceleration, so the swing falls as e^(−ct/2).",
+            "why": "Checks the page's damping: the swing falls at 0.05 a second, half the damping set. The 5 · 10⁻⁵ off comes from the 1° swing.",
+            "step": "The first source gives the solution of m·x″ + b·x′ + k·x = 0, here with b/m = c. It holds for the second source's slow normal mode, whose shape the damping leaves alone, as it brakes both rods alike."
           }
         }
       },

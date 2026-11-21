@@ -1125,8 +1125,10 @@ pushes it twice "the same" sees two different dances.
 
 **The model** (`domain/experiments/chaos.py`). Two point masses on light rods,
 Lagrange's equations in their usual closed form, stepped by the block's
-Runge–Kutta at 1 ms; the energy is the check (it drifts by less than 10⁻⁷ of
-itself in twenty wild seconds). Where a light upper arm under a heavy lower one
+Runge–Kutta at 1 ms; the energy is the check (in twenty wild seconds it drifts
+by less than 10⁻⁷ of (m₁ + m₂)·g·(L₁ + L₂), the scale `run` divides by; against
+the wild start's own 2.2 J that is 1.008 · 10⁻⁷, just over a ten-millionth,
+which the check case reads). Where a light upper arm under a heavy lower one
 whips round, the millisecond is cut into equal parts (`step_for`): as many as
 keep each arm's turn in a step within 0.035 rad, by a bound on its rate from the
 energy (all of it above the lowest hang as motion, through the inertia matrix's
@@ -2542,6 +2544,17 @@ the engine's own claim of a part in 10⁷. The engine imports the pit and the
 sphere's inertias, so a change to `pit.py` or `sphere.py` unchecks the race
 too. "Set it up" sets the build, which the valley shares; the race waits for
 its start, as at the exhibit.
+
+**The chaotic pendulum's** three (2026-11-21) check that the loop the page runs
+is the double pendulum's; chaos itself (the Lyapunov exponent, the gap) has no
+hand formula, so no case touches it. They hold the slow mode's period at small
+swings (let go at 1° and √2°, the mode's shape; 2.5 · 10⁻⁵ off from the
+amplitude's own effect), the energy over twenty wild seconds at 120°/120°
+(from the weights' positions and speeds, not the engine's `energy`; 1.008 · 10⁻⁷
+of itself, RK4's drift) and the damping, c·θ′ off each angular acceleration,
+which makes every mode decay at c/2. The start slider steps by whole degrees,
+so √2° is not on it: "Set it up" sets 1.414° exactly and the slider shows 1°.
+It sets the build and the start and lets go.
 
 **On the page** a section "Check it yourself" (`check-section.tsx`) lists the
 cases, each with its formula as an `Equation` (`check-formulas.ts`), both

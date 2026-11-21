@@ -3671,7 +3671,20 @@
         "phi_B": "el ángulo del círculo que rueda en la meta",
         "r_cycloid": "radio del círculo que dibuja la cicloide",
         "R_bowl": "radio del cuenco circular",
-        "phi0_bowl": "ángulo de salida en el cuenco, desde el fondo"
+        "phi0_bowl": "ángulo de salida en el cuenco, desde el fondo",
+        "omega_slow": "la frecuencia angular del modo propio lento",
+        "omega0_pend": "la frecuencia angular de un péndulo simple de longitud L",
+        "length_rod": "la longitud de cada una de las dos varillas",
+        "theta12": "los ángulos de la varilla superior y de la inferior respecto a la vertical",
+        "E_pend": "la energía de ambas pesas juntas",
+        "m12": "las masas de la pesa superior y de la inferior",
+        "v12": "las velocidades de las dos pesas",
+        "y12": "las alturas de las dos pesas, hacia arriba desde el punto de suspensión",
+        "L12": "las longitudes de la varilla superior y de la inferior",
+        "theta_mode": "la amplitud de la varilla superior en el modo propio lento",
+        "c_damp": "la amortiguación de la página, por segundo",
+        "omega_d": "la frecuencia angular de la oscilación amortiguada",
+        "alpha_decay": "lo rápido que se apaga la amplitud"
       },
       "cases": {
         "sphere": {
@@ -4460,6 +4473,28 @@
             "reads": "En el cuenco, la bola oscila como un péndulo de longitud R bajo g′; hasta el fondo tarda un cuarto de su periodo, √(R/g′)·K(sin(φ₀/2)).",
             "why": "Comprueba el cuenco con el que la página muestra que solo la cicloide hace llegar a todas a la vez: 0,696484 s desde 59 cm, más tarde que en el valle. Aquí K se suma como integral; la suma de la página se desvía 5 · 10⁻⁸.",
             "step": "La primera fuente da el periodo del péndulo, 4K en unidades de √(R/g′); la segunda, K; la tercera, g′ = g/(1 + 2/5) para la bola que rueda. El cuenco tiene el radio 4r, la curvatura de la cicloide en su fondo, y la bola sale a la misma altura h que en el valle: cos φ₀ = 1 − h/R."
+          }
+        },
+        "chaos": {
+          "slow_mode": {
+            "title": "El modo propio lento",
+            "setting": "Dos varillas de 30 cm, dos pesas de 500 g, sin amortiguación; arriba 1°, abajo √2° = 1,41°, soltadas desde el reposo.",
+            "reads": "Con oscilaciones pequeñas, el péndulo doble tiene dos modos propios. En el lento, ambas varillas oscilan al unísono, la inferior √2 veces más, con ω₀·√(2 − √2).",
+            "why": "Comprueba las ecuaciones del movimiento y el bucle de pasos de tiempo de la página con oscilaciones pequeñas: una oscilación en 1,43585 s. Como 1° no es infinitamente pequeño, el péndulo oscila 2,5 · 10⁻⁵ más despacio."
+          },
+          "energy": {
+            "title": "La energía se conserva, aunque se vuelva salvaje",
+            "setting": "Sin amortiguación; ambas varillas soltadas desde el reposo a 120° («Salvaje»), durante 20 s.",
+            "reads": "Sin rozamiento, la suma de la energía cinética y potencial de ambas pesas se mantiene igual. Al principio todo es energía potencial: 2,2065 J, contada desde la altura del punto de suspensión.",
+            "why": "Comprueba el bucle de pasos de tiempo donde más trabajo tiene: tras 20 000 pasos de 1 ms, la energía es la misma con una precisión de 1,0 · 10⁻⁷. Calculada aquí a partir de las posiciones y velocidades de las pesas, no con la fórmula de energía de la página.",
+            "step": "La segunda fuente da las posiciones y velocidades de las dos pesas a partir de los ángulos; con ½mv² y mgy, eso da la energía que, según la primera, se conserva mientras nada frene."
+          },
+          "damping": {
+            "title": "La amortiguación apaga la oscilación",
+            "setting": "Como en el modo propio lento, pero con una amortiguación de 0,1 por segundo; leído en el séptimo punto de retorno de la varilla superior.",
+            "reads": "Una oscilación amortiguada se apaga con e^(−bt/2m). La página resta de cada aceleración angular c por la velocidad angular; por eso la amplitud cae con e^(−ct/2).",
+            "why": "Comprueba la amortiguación de la página: la amplitud cae a razón de 0,05 por segundo, la mitad de la amortiguación ajustada. La desviación de 5 · 10⁻⁵ se debe a la amplitud de 1°.",
+            "step": "La primera fuente da la solución de m·x″ + b·x′ + k·x = 0, aquí con b/m = c. Eso vale para el modo propio lento de la segunda fuente, cuya forma no cambia con la amortiguación, porque esta frena por igual ambas varillas."
           }
         }
       },

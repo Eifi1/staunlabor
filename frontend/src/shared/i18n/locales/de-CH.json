@@ -3671,7 +3671,20 @@
         "phi_B": "Winkel des rollenden Kreises am Ziel",
         "r_cycloid": "Radius des Kreises, der die Zykloide zeichnet",
         "R_bowl": "Radius der Kreisschale",
-        "phi0_bowl": "Startwinkel in der Schale, ab dem Boden"
+        "phi0_bowl": "Startwinkel in der Schale, ab dem Boden",
+        "omega_slow": "Kreisfrequenz der langsamen Eigenschwingung",
+        "omega0_pend": "Kreisfrequenz eines einfachen Pendels der Länge L",
+        "length_rod": "Länge jeder der beiden Stangen",
+        "theta12": "Winkel der oberen und der unteren Stange, ab der Senkrechten",
+        "E_pend": "Energie beider Gewichte zusammen",
+        "m12": "Massen des oberen und des unteren Gewichts",
+        "v12": "Geschwindigkeiten der beiden Gewichte",
+        "y12": "Höhen der beiden Gewichte, ab der Aufhängung nach oben",
+        "L12": "Längen der oberen und der unteren Stange",
+        "theta_mode": "Ausschlag der oberen Stange in der langsamen Eigenschwingung",
+        "c_damp": "Dämpfung der Seite, pro Sekunde",
+        "omega_d": "Kreisfrequenz der gedämpften Schwingung",
+        "alpha_decay": "wie schnell der Ausschlag abklingt"
       },
       "cases": {
         "sphere": {
@@ -4460,6 +4473,28 @@
             "reads": "In der Schale schwingt die Kugel wie ein Pendel der Länge R unter g′; bis zum Boden braucht sie ein Viertel seiner Periode, √(R/g′)·K(sin(φ₀/2)).",
             "why": "Prüft die Schale, mit der die Seite zeigt, dass nur die Zykloide alle zugleich ankommen lässt: 0,696484 s aus 59 cm, später als im Tal. K ist hier als Integral summiert; die Summe der Seite liegt 5 · 10⁻⁸ daneben.",
             "step": "Die erste Quelle gibt die Periode des Pendels, 4K in Einheiten von √(R/g′), die zweite K, die dritte g′ = g/(1 + 2/5) für die rollende Kugel. Die Schale hat den Radius 4r, die Krümmung der Zykloide an ihrem Boden, und die Kugel startet auf derselben Höhe h wie im Tal: cos φ₀ = 1 − h/R."
+          }
+        },
+        "chaos": {
+          "slow_mode": {
+            "title": "Die langsame Eigenschwingung",
+            "setting": "Zwei Stangen von 30 cm, zwei Gewichte von 500 g, ohne Dämpfung; oben 1°, unten √2° = 1,41°, aus der Ruhe losgelassen.",
+            "reads": "Mit kleinen Ausschlägen hat das Doppelpendel zwei Eigenschwingungen. In der langsamen schwingen beide Stangen im gleichen Takt, die untere √2-mal so weit, mit ω₀·√(2 − √2).",
+            "why": "Prüft die Bewegungsgleichungen und die Zeitschleife der Seite bei kleinen Ausschlägen: eine Schwingung in 1,43585 s. Weil 1° nicht unendlich klein ist, schwingt das Pendel um 2,5 · 10⁻⁵ langsamer."
+          },
+          "energy": {
+            "title": "Die Energie bleibt, auch wenn es wild wird",
+            "setting": "Ohne Dämpfung; beide Stangen bei 120° aus der Ruhe losgelassen («wild»), 20 s lang.",
+            "reads": "Ohne Reibung bleibt die Summe aus Bewegungs- und Lageenergie beider Gewichte gleich. Am Anfang ist alles Lageenergie: 2,2065 J, gezählt ab der Höhe der Aufhängung.",
+            "why": "Prüft die Zeitschleife dort, wo sie am meisten zu tun hat: Nach 20 000 Schritten von 1 ms ist die Energie bis auf 1,0 · 10⁻⁷ dieselbe. Hier aus Orten und Geschwindigkeiten der Gewichte gerechnet, nicht mit der Energieformel der Seite.",
+            "step": "Die zweite Quelle gibt Orte und Geschwindigkeiten der beiden Gewichte aus den Winkeln; mit ½mv² und mgy ergibt das die Energie, die nach der ersten erhalten bleibt, solange nichts bremst."
+          },
+          "damping": {
+            "title": "Die Dämpfung lässt den Ausschlag abklingen",
+            "setting": "Wie bei der langsamen Eigenschwingung, aber mit einer Dämpfung von 0,1 pro Sekunde; gelesen an der siebten Umkehr der oberen Stange.",
+            "reads": "Eine gedämpfte Schwingung klingt mit e^(−bt/2m) ab. Die Seite zieht von jeder Winkelbeschleunigung c mal die Winkelgeschwindigkeit ab; der Ausschlag fällt darum mit e^(−ct/2).",
+            "why": "Prüft die Dämpfung der Seite: Der Ausschlag fällt mit 0,05 pro Sekunde, halb so schnell wie die eingestellte Dämpfung. Die 5 · 10⁻⁵ Abweichung kommen vom Ausschlag von 1°.",
+            "step": "Die erste Quelle gibt die Lösung von m·x″ + b·x′ + k·x = 0, hier mit b/m = c. Das gilt für die langsame Eigenschwingung der zweiten Quelle, deren Form die Dämpfung nicht ändert, weil sie beide Stangen gleich bremst."
           }
         }
       },

@@ -32,6 +32,7 @@ def test_the_exhibits_with_checks_are_these() -> None:
         "arch",
         "beats",
         "chair",
+        "chaos",
         "chladni",
         "circuit",
         "coil",

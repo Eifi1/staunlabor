@@ -131,6 +131,8 @@ const T_BOTTOM: CheckSymbol = { tex: "T", key: "T_bottom", unit: "s" };
 const D_RUN: CheckSymbol = { tex: "D", key: "D_run", unit: "m" };
 const H_DROP: CheckSymbol = { tex: "H", key: "H_drop", unit: "m" };
 const R_CYCLOID: CheckSymbol = { tex: "r", key: "r_cycloid", unit: "m" };
+const OMEGA_SLOW: CheckSymbol = { tex: String.raw`\omega_1`, key: "omega_slow", unit: "1/s" };
+const THETA12: CheckSymbol = { tex: String.raw`\theta_1, \theta_2`, key: "theta12", unit: "rad" };
 
 const ROD_STEADY: CheckFormula = {
   tex: String.raw`w = \frac{\Gamma\,\Omega^2 Y}{\sqrt{(\omega^2 - \Omega^2)^2 + (2\zeta\omega\Omega)^2}}, \qquad \Gamma = \frac{\int_0^1 \varphi\,d\xi}{\int_0^1 \varphi^2\,d\xi}`,
@@ -1030,6 +1032,42 @@ export const CHECK_FORMULAS: Record<string, Record<string, CheckFormula>> = {
         { tex: String.raw`\varphi_0`, key: "phi0_bowl", unit: "°" },
         R_CYCLOID,
         { tex: "h", key: "h_start", unit: "m" },
+      ],
+    },
+  },
+  chaos: {
+    slow_mode: {
+      tex: String.raw`T = \frac{2\pi}{\omega_1}, \qquad \omega_1 = \omega_0\sqrt{2 - \sqrt{2}}, \qquad \omega_0^2 = \frac{g}{L}, \qquad \theta_2 : \theta_1 = \sqrt{2}`,
+      symbols: [
+        { tex: "T", key: "T", unit: "s" },
+        OMEGA_SLOW,
+        { tex: String.raw`\omega_0`, key: "omega0_pend", unit: "1/s" },
+        { tex: "g", key: "g", unit: "m/s²" },
+        { tex: "L", key: "length_rod", unit: "m" },
+        THETA12,
+      ],
+    },
+    energy: {
+      tex: String.raw`E = \tfrac12 m_1 v_1^2 + \tfrac12 m_2 v_2^2 + m_1 g\,y_1 + m_2 g\,y_2, \qquad y_1 = -L_1\cos\theta_1, \quad y_2 = y_1 - L_2\cos\theta_2`,
+      symbols: [
+        { tex: "E", key: "E_pend", unit: "J" },
+        { tex: "m_1, m_2", key: "m12", unit: "kg" },
+        { tex: "v_1, v_2", key: "v12", unit: "m/s" },
+        { tex: "g", key: "g", unit: "m/s²" },
+        { tex: "y_1, y_2", key: "y12", unit: "m" },
+        { tex: "L_1, L_2", key: "L12", unit: "m" },
+        THETA12,
+      ],
+    },
+    damping: {
+      tex: String.raw`\ddot\theta + c\,\dot\theta + \omega_1^2\,\theta = 0 \;\Rightarrow\; \theta(t) = \theta_0\,e^{-ct/2}\cos(\omega t), \qquad \alpha = \frac{c}{2}`,
+      symbols: [
+        { tex: String.raw`\theta`, key: "theta_mode", unit: "rad" },
+        { tex: "c", key: "c_damp", unit: "1/s" },
+        OMEGA_SLOW,
+        { tex: String.raw`\theta_0`, key: "theta0", unit: "rad" },
+        { tex: String.raw`\omega`, key: "omega_d", unit: "1/s" },
+        { tex: String.raw`\alpha`, key: "alpha_decay", unit: "1/s" },
       ],
     },
   },
