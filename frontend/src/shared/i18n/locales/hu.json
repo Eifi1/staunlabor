@@ -3759,7 +3759,15 @@
         "cannon_c_drag": "egy sima gömb közegellenállási tényezője, 0,47",
         "cannon_h_drop": "a magasság, ahonnan a labda esik",
         "cannon_rho_air": "a levegő sűrűsége",
-        "cannon_v_inf": "határsebesség: ahol a levegő ugyanolyan erősen fékez, mint amilyen erősen a súly húz"
+        "cannon_v_inf": "határsebesség: ahol a levegő ugyanolyan erősen fékez, mint amilyen erősen a súly húz",
+        "harm_L": "az inga hossza",
+        "harm_T12": "a toll és a tábla periódusa",
+        "harm_L12": "a tollinga és a táblainga hossza",
+        "harm_xy": "a toll helye a táblán",
+        "harm_turn": "az idő, amely alatt az ábra egyszer körbefordul",
+        "harm_f12": "a toll és a tábla frekvenciája",
+        "harm_thetamax": "a kitérés a fordulópontokban",
+        "harm_c": "az inga súrlódása"
       },
       "cases": {
         "sphere": {
@@ -4735,6 +4743,36 @@
             "reads": "A labda m·v lendülettel érkezik, és m·v lendülettel távozik. A padló mindkettőt adja, 2·m·v-t, és ráadásul azt, amit a súly az ütközés alatt elvesz: m·g·τ-t.",
             "why": "Azt ellenőrzi, hogyan összegzi az oldal az erőt az ütközés alatt: 5,1319 N·s; ebből a súly része 0,8 %.",
             "step": "Az első forrás szerint az erőlökés a lendület megváltozása. A labdára a padló és a súly hat; veszteség nélkül olyan gyorsan távozik, ahogy érkezett, tehát a padló erőlökése 2mv plusz m·g szorozva a második forrásból vett időtartammal."
+          }
+        },
+        "harmonograph": {
+          "wide_slower": {
+            "title": "Nagyobb kitérés, lassabb lengés",
+            "setting": "A tollinga, 80 cm, 30°-kal kitérítve, súrlódás nélkül.",
+            "reads": "A pontos inga egy oda-vissza lengéshez 4K(sin(θ₀/2)) időt igényel √(L/g) egységekben; kis kitéréseknél ebből 2π√(L/g) lesz.",
+            "why": "A teljes sin θ-t ellenőrzi az oldal időléptető ciklusában: 1,8258 s, 1,7 %-kal lassabb, mint kis kitérésnél. K itt integrálként van összegezve, nem a számítómotor által használt számtani-mértani közép útján.",
+            "step": "Az első forrás olyan időegységben számolja az ingát, amelyben g/L = 1, a második definiálja K-t, a harmadik megadja az időegységet, 1/ω₀ = √(L/g)."
+          },
+          "closes": {
+            "title": "Pontosan 2:3: az ábra záródik",
+            "setting": "2:3 arány elhangolás nélkül, mindkét inga 12°-kal kitérítve, súrlódás nélkül.",
+            "reads": "A frekvenciák egész számú arányánál az ábra záródik; azonos kitérésnél a periódusok aránya pontosan √(L₁/L₂).",
+            "why": "Azt ellenőrzi, hogy az időléptető ciklus egy ütemben tartja a két ingát: a toll két lengése után, 3,599 s elteltével, a toll 9 · 10⁻¹² m-re van a kiindulópontjától.",
+            "step": "A második forrás megadja a 4K(sin(θ₀/2)) periódust √(L/g) egységekben: azonos kitérésnél K mindkettőre ugyanaz, és a periódusok aránya √(L₁/L₂) = 3/2. Az első forrás szerint az ábra ekkor záródik."
+          },
+          "turns": {
+            "title": "Különböző kitérések: az ábra fordul",
+            "setting": "2:3 arány, 0,67 %-kal elhangolva, mint az oldal megnyitásakor, de a toll 30°-kal, a tábla 5°-kal kitérítve, súrlódás nélkül.",
+            "reads": "Közvetlenül a 2:3 mellett az ábra megtartja alakját, és fordul, 1/|3f₁ − 2f₂| idő alatt egyszer; a frekvenciák a pontos ingák frekvenciái a saját kitérésüknél.",
+            "why": "Azt ellenőrzi, hogy a nagyobb kitérés lassabban leng: 25,7 s alatt egy fordulat. A kis kitérések frekvenciáival 89,7 s lenne, ez volt az első változat hibája.",
+            "step": "Az első forrás szerint egy kis elhangolás vándorlásra készteti az ábrát. Egy p:q aránynál ugyanaz az alak tér vissza, amint a fázis 2π/p-vel eltolódott, vagyis 1/|q·f₁ − p·f₂| után. A frekvenciák a második és a harmadik forrás periódusából adódnak."
+          },
+          "fades": {
+            "title": "A lengés lecseng",
+            "setting": "A tollinga 2°-kal kitérítve, az oldal súrlódásával, másodpercenként 0,02.",
+            "reads": "A c·θ′ súrlódással a kitérés e^(−ct/2) szerint cseng le, egy tizedére 2·ln 10/c idő után.",
+            "why": "A súrlódást ellenőrzi az időléptető ciklusban: 230,26 s, amíg a kitérés egy tizedére csökken. 2°-nál az inga nem egészen lineáris, és eleinte kicsit gyorsabban veszít energiát; innen az 1,4 · 10⁻⁵.",
+            "step": "A forrás a súrlódást 2ζω₀ alakban írja; itt ez c, így a ζω₀ lecsengési ráta c/2."
           }
         }
       },

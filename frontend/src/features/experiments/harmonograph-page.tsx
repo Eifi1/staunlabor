@@ -10,6 +10,7 @@ import { Figures, WidgetCard } from "@/shared/ui/widget";
 import { Equation } from "./equation";
 import { ExhibitFrame } from "./exhibit-frame";
 import { BuildPending } from "./build-pending";
+import { settingNumber, useCheckSetting } from "./check-setting";
 import { PreviewPending, type PreviewMode, type PreviewProps } from "./preview-mode";
 import { startsRunning } from "./play";
 import {
@@ -74,6 +75,29 @@ export function HarmonographPage() {
   const defaults = useExperimentsDefaults();
   const [build, setBuild] = useState<Harmonograph | null>(null);
   const h = build ?? defaults.data?.harmonograph ?? null;
+  // A check case's "Set it up": every setting is the build's, the board's
+  // length exact where the detune slider's steps would miss it; the drawing,
+  // built anew for it, starts over. One damping for both, as the build card.
+  useCheckSetting("harmonograph", (setting) => {
+    if (!h) return false;
+    const damping = settingNumber(setting, "damping_per_s", h.pen.damping_per_s);
+    setBuild({
+      pen: {
+        ...h.pen,
+        length_m: settingNumber(setting, "pen_length_m", h.pen.length_m),
+        amplitude_deg: settingNumber(setting, "pen_amplitude_deg", h.pen.amplitude_deg),
+        damping_per_s: damping,
+      },
+      board: {
+        ...h.board,
+        length_m: settingNumber(setting, "board_length_m", h.board.length_m),
+        amplitude_deg: settingNumber(setting, "board_amplitude_deg", h.board.amplitude_deg),
+        phase_deg: settingNumber(setting, "board_phase_deg", h.board.phase_deg),
+        damping_per_s: damping,
+      },
+    });
+    return true;
+  });
 
   return (
     <ExhibitFrame

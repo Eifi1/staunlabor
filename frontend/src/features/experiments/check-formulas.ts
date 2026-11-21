@@ -158,6 +158,11 @@ const V_IMPACT: CheckSymbol = { tex: "v", key: "v_impact", unit: "m/s" };
 const V_INF_CANNON: CheckSymbol = { tex: String.raw`v_\infty`, key: "cannon_v_inf", unit: "m/s" };
 const K_FLOOR: CheckSymbol = { tex: "K", key: "K_floor", unit: "N/m¹·⁵" };
 const TAU_CANNON: CheckSymbol = { tex: String.raw`\tau`, key: "tau_contact", unit: "s" };
+const H_T: CheckSymbol = { tex: "T", key: "T", unit: "s" };
+const H_L: CheckSymbol = { tex: "L", key: "harm_L", unit: "m" };
+const H_G: CheckSymbol = { tex: "g", key: "g", unit: "m/s²" };
+const H_K: CheckSymbol = { tex: "K", key: "K" };
+const H_THETA0: CheckSymbol = { tex: String.raw`\theta_0`, key: "theta0", unit: "°" };
 
 const ROD_STEADY: CheckFormula = {
   tex: String.raw`w = \frac{\Gamma\,\Omega^2 Y}{\sqrt{(\omega^2 - \Omega^2)^2 + (2\zeta\omega\Omega)^2}}, \qquad \Gamma = \frac{\int_0^1 \varphi\,d\xi}{\int_0^1 \varphi^2\,d\xi}`,
@@ -1318,6 +1323,39 @@ export const CHECK_FORMULAS: Record<string, Record<string, CheckFormula>> = {
     floor_impulse: {
       tex: String.raw`J = 2\,m v + m g\,\tau`,
       symbols: [{ tex: "J", key: "J_impulse", unit: "N·s" }, MASS, V_IMPACT, G, TAU_CANNON],
+    },
+  },
+  harmonograph: {
+    wide_slower: {
+      tex: String.raw`T = 4\sqrt{\frac{L}{g}}\;K\!\left(\sin\frac{\theta_0}{2}\right), \qquad K(k) = \int_0^{\pi/2} \frac{d\varphi}{\sqrt{1 - k^2 \sin^2\varphi}}`,
+      symbols: [H_T, H_L, H_G, H_K, H_THETA0],
+    },
+    closes: {
+      tex: String.raw`\frac{T_1}{T_2} = \sqrt{\frac{L_1}{L_2}} = \frac{3}{2} \;\Rightarrow\; (x, y)(2T_1) = (x, y)(0)`,
+      symbols: [
+        { tex: "T_1, T_2", key: "harm_T12", unit: "s" },
+        { tex: "L_1, L_2", key: "harm_L12", unit: "m" },
+        { tex: "x, y", key: "harm_xy", unit: "m" },
+      ],
+    },
+    turns: {
+      tex: String.raw`t_\text{turn} = \frac{1}{\lvert 3 f_1 - 2 f_2 \rvert}, \qquad f = \frac{1}{T(L, \theta_0)}`,
+      symbols: [
+        { tex: String.raw`t_\text{turn}`, key: "harm_turn", unit: "s" },
+        { tex: "f_1, f_2", key: "harm_f12", unit: "Hz" },
+        H_T,
+        H_L,
+        H_THETA0,
+      ],
+    },
+    fades: {
+      tex: String.raw`\theta_\text{max}(t) = \theta_0\,e^{-ct/2} \;\Rightarrow\; t_{1/10} = \frac{2 \ln 10}{c}`,
+      symbols: [
+        { tex: String.raw`\theta_\text{max}`, key: "harm_thetamax", unit: "°" },
+        H_THETA0,
+        { tex: "c", key: "harm_c", unit: "1/s" },
+        { tex: "t", key: "t", unit: "s" },
+      ],
     },
   },
 };

@@ -3759,7 +3759,15 @@
         "cannon_c_drag": "coeficiente de arrastre de una esfera lisa, 0,47",
         "cannon_h_drop": "altura desde la que cae la pelota",
         "cannon_rho_air": "densidad del aire",
-        "cannon_v_inf": "velocidad límite: donde el aire frena tanto como tira el peso"
+        "cannon_v_inf": "velocidad límite: donde el aire frena tanto como tira el peso",
+        "harm_L": "longitud del péndulo",
+        "harm_T12": "periodos del lápiz y del tablero",
+        "harm_L12": "longitudes de los péndulos del lápiz y del tablero",
+        "harm_xy": "lugar del lápiz sobre el tablero",
+        "harm_turn": "tiempo en que la figura da un giro",
+        "harm_f12": "frecuencias del lápiz y del tablero",
+        "harm_thetamax": "amplitud en los puntos de retorno",
+        "harm_c": "rozamiento del péndulo"
       },
       "cases": {
         "sphere": {
@@ -4735,6 +4743,36 @@
             "reads": "La pelota llega con m·v y se va con m·v. El suelo da ambas, 2·m·v, y además lo que el peso quita durante el choque: m·g·τ.",
             "why": "Comprueba cómo la página suma la fuerza a lo largo del choque: 5,1319 N·s; el peso supone el 0,8 % de ello.",
             "step": "La primera fuente da que el impulso es la variación de la cantidad de movimiento. Sobre la pelota actúan el suelo y el peso; sin pérdidas, se va tan deprisa como llegó, así que el impulso del suelo es 2mv más m·g por la duración tomada de la segunda."
+          }
+        },
+        "harmonograph": {
+          "wide_slower": {
+            "title": "Más amplitud, más lento",
+            "setting": "El péndulo del lápiz, 80 cm, apartado 30°, sin rozamiento.",
+            "reads": "El péndulo exacto tarda en ir y volver 4K(sin(θ₀/2)) en unidades de √(L/g); con amplitudes pequeñas eso se convierte en 2π√(L/g).",
+            "why": "Comprueba el sin θ completo en el bucle de pasos de tiempo de la página: 1,8258 s, un 1,7 % más lento que con una amplitud pequeña. Aquí K se suma como integral, no mediante la media aritmético-geométrica que usa el motor de cálculo.",
+            "step": "La primera fuente trata el péndulo en una escala de tiempo en la que g/L = 1, la segunda define K, la tercera da la unidad de tiempo, 1/ω₀ = √(L/g)."
+          },
+          "closes": {
+            "title": "Exactamente 2:3: la figura se cierra",
+            "setting": "Proporción 2:3 sin desafinación, ambos péndulos apartados 12°, sin rozamiento.",
+            "reads": "Con una proporción de números enteros entre las frecuencias, la figura se cierra; con la misma amplitud, los periodos están exactamente en la proporción √(L₁/L₂).",
+            "why": "Comprueba que el bucle de pasos de tiempo mantiene los dos péndulos al mismo compás: tras dos oscilaciones del lápiz, 3,599 s, este queda a 9 · 10⁻¹² m de donde empezó.",
+            "step": "La segunda fuente da el periodo 4K(sin(θ₀/2)) en unidades de √(L/g): con la misma amplitud, K es igual para ambos, y los periodos están en la proporción √(L₁/L₂) = 3/2. La primera dice que entonces la figura se cierra."
+          },
+          "turns": {
+            "title": "Amplitudes distintas: la figura gira",
+            "setting": "Proporción 2:3, desafinada un 0,67 % como al abrir la página, pero con el lápiz apartado 30° y el tablero 5°, sin rozamiento.",
+            "reads": "Muy cerca de 2:3 la figura conserva su forma y gira, una vez en 1/|3f₁ − 2f₂|; las frecuencias son las de los péndulos exactos con sus amplitudes.",
+            "why": "Comprueba que la oscilación más amplia es más lenta: una vez en 25,7 s. Con las frecuencias de las amplitudes pequeñas serían 89,7 s, el error de la primera versión.",
+            "step": "La primera fuente dice que una pequeña desafinación hace que la figura se desplace. Para una proporción p:q, la misma forma vuelve en cuanto la fase se ha desplazado 2π/p, es decir, tras 1/|q·f₁ − p·f₂|. Las frecuencias salen del periodo de la segunda y la tercera fuente."
+          },
+          "fades": {
+            "title": "La oscilación se apaga",
+            "setting": "El péndulo del lápiz apartado 2°, con el rozamiento de la página, 0,02 por segundo.",
+            "reads": "Con el rozamiento c·θ′ la amplitud se apaga como e^(−ct/2), hasta una décima tras 2·ln 10/c.",
+            "why": "Comprueba el rozamiento en el bucle de pasos de tiempo: 230,26 s hasta la décima. A 2° el péndulo no es del todo lineal y al principio pierde su energía algo más deprisa; de ahí la desviación de 1,4 · 10⁻⁵.",
+            "step": "La fuente escribe el rozamiento como 2ζω₀; aquí eso es c, así que la tasa de amortiguamiento ζω₀ es c/2."
           }
         }
       },

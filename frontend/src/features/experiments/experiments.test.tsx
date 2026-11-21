@@ -104,6 +104,7 @@ const UNCHECKED = {
     "cradle",
     "diver",
     "foucault",
+    "harmonograph",
     "levitation",
     "maxwell",
     "parabola",
@@ -1951,6 +1952,19 @@ describe("setting a check case up", () => {
     await setUp(0);
     await waitFor(() => expect(screen.getByRole("radio", { name: "3 balls" })).toBeChecked());
     expect(screen.getByRole("slider", { name: E.cannon.change.ball_2 }).getAttribute("aria-valuetext")).toMatch(/^5\b/);
+  });
+
+  it("tunes the harmonograph to exactly 2 : 3 at 12° each without friction, for the closed figure", async () => {
+    renderWithProviders(<HarmonographPage />);
+    await screen.findByRole("img", { name: E.harmonograph.views.drawing });
+    await setUp(1);
+    const slider = (name: string) => screen.getByRole("slider", { name }).getAttribute("aria-valuetext");
+    await waitFor(() => expect(slider(E.harmonograph.change.detune)).toMatch(/^0\.00\b/));
+    expect(slider(E.harmonograph.change.pen_amplitude)).toMatch(/^12\b/);
+    expect(slider(E.harmonograph.change.board_amplitude)).toMatch(/^12\b/);
+    await setUp(3);
+    await waitFor(() => expect(slider(E.harmonograph.change.damping)).toMatch(/^0\.020\b/));
+    expect(slider(E.harmonograph.change.pen_amplitude)).toMatch(/^2\b/);
   });
 
   it("pushes the ball round the well on its circle, with the felt's brake, for the brake's case", async () => {

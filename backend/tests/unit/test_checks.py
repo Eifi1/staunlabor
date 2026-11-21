@@ -44,6 +44,7 @@ def test_the_exhibits_with_checks_are_these() -> None:
         "cradle",
         "diver",
         "foucault",
+        "harmonograph",
         "levitation",
         "maxwell",
         "parabola",

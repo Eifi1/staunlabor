@@ -3759,7 +3759,15 @@
         "cannon_c_drag": "coefficiente di resistenza aerodinamica di una sfera liscia, 0,47",
         "cannon_h_drop": "altezza da cui cade la palla",
         "cannon_rho_air": "densità dell'aria",
-        "cannon_v_inf": "velocità limite: dove l'aria frena tanto quanto il peso tira"
+        "cannon_v_inf": "velocità limite: dove l'aria frena tanto quanto il peso tira",
+        "harm_L": "lunghezza del pendolo",
+        "harm_T12": "periodi della penna e della tavola",
+        "harm_L12": "lunghezze dei pendoli della penna e della tavola",
+        "harm_xy": "posto della penna sulla tavola",
+        "harm_turn": "tempo in cui la figura fa un giro",
+        "harm_f12": "frequenze della penna e della tavola",
+        "harm_thetamax": "ampiezza nei punti di inversione",
+        "harm_c": "attrito del pendolo"
       },
       "cases": {
         "sphere": {
@@ -4735,6 +4743,36 @@
             "reads": "La palla arriva con m·v e riparte con m·v. Il pavimento dà entrambe, 2·m·v, e in più ciò che il peso toglie durante l'urto: m·g·τ.",
             "why": "Verifica come la pagina somma la forza lungo l'urto: 5,1319 N·s; il peso ne costituisce lo 0,8 %.",
             "step": "La prima fonte stabilisce che l'impulso è la variazione della quantità di moto. Sulla palla agiscono il pavimento e il peso; senza perdite riparte veloce come è arrivata, quindi l'impulso del pavimento è 2mv più m·g per la durata presa dalla seconda."
+          }
+        },
+        "harmonograph": {
+          "wide_slower": {
+            "title": "Più ampio, più lento",
+            "setting": "Il pendolo della penna, 80 cm, scostato di 30°, senza attrito.",
+            "reads": "Il pendolo esatto impiega 4K(sin(θ₀/2)) per andata e ritorno, in unità di √(L/g); per piccole ampiezze diventa 2π√(L/g).",
+            "why": "Verifica il sin θ completo nel ciclo dei passi temporali della pagina: 1,8258 s, l'1,7 % più lento che con una piccola ampiezza. Qui K è sommato come integrale, non con la media aritmetico-geometrica usata dal motore di calcolo.",
+            "step": "La prima fonte tratta il pendolo in una scala dei tempi in cui g/L = 1, la seconda definisce K, la terza dà l'unità di tempo, 1/ω₀ = √(L/g)."
+          },
+          "closes": {
+            "title": "Esattamente 2:3: la figura si chiude",
+            "setting": "Rapporto 2:3 senza scordatura, entrambi i pendoli scostati di 12°, senza attrito.",
+            "reads": "Con un rapporto intero tra le frequenze la figura si chiude; a pari ampiezza, i periodi stanno esattamente come √(L₁/L₂).",
+            "why": "Verifica che il ciclo dei passi temporali tenga i due pendoli allo stesso ritmo: dopo due oscillazioni della penna, 3,599 s, questa si trova a 9 · 10⁻¹² m dal punto di partenza.",
+            "step": "La seconda fonte dà il periodo 4K(sin(θ₀/2)) in unità di √(L/g): a pari ampiezza K è lo stesso per entrambi, e i periodi stanno come √(L₁/L₂) = 3/2. La prima dice che allora la figura si chiude."
+          },
+          "turns": {
+            "title": "Ampiezze diverse: la figura ruota",
+            "setting": "Rapporto 2:3, scordato dello 0,67 % come all'apertura della pagina, ma con la penna scostata di 30° e la tavola di 5°, senza attrito.",
+            "reads": "Appena fuori da 2:3 la figura mantiene la sua forma e ruota, un giro in 1/|3f₁ − 2f₂|; le frequenze sono quelle dei pendoli esatti alle loro ampiezze.",
+            "why": "Verifica che l'oscillazione più ampia sia più lenta: un giro in 25,7 s. Con le frequenze delle piccole ampiezze sarebbero 89,7 s, l'errore della prima versione.",
+            "step": "La prima fonte dice che una piccola scordatura fa spostare la figura. Per un rapporto p:q la stessa forma ritorna non appena la fase si è spostata di 2π/p, quindi dopo 1/|q·f₁ − p·f₂|. Le frequenze vengono dal periodo della seconda e della terza fonte."
+          },
+          "fades": {
+            "title": "L'oscillazione si smorza",
+            "setting": "Il pendolo della penna scostato di 2°, con l'attrito della pagina, 0,02 al secondo.",
+            "reads": "Con l'attrito c·θ′ l'ampiezza si smorza come e^(−ct/2), fino a un decimo dopo 2·ln 10/c.",
+            "why": "Verifica l'attrito nel ciclo dei passi temporali: 230,26 s fino al decimo. A 2° il pendolo non è del tutto lineare e all'inizio perde la sua energia un po' più in fretta; da cui lo scarto di 1,4 · 10⁻⁵.",
+            "step": "La fonte scrive l'attrito come 2ζω₀; qui quello è c, quindi il tasso di smorzamento ζω₀ è c/2."
           }
         }
       },

@@ -2624,6 +2624,17 @@ only with a gap and no losses, and the rest (gravity in the contact, the
 contacts overlapping) has no clean bound. "Set it up" sets the stack, its
 height and its contacts; the reader drops.
 
+**The harmonograph's** four (2026-11-21) hold the pen's period at 30° to the
+exact pendulum's 4√(L/g)·K(sin 15°) (1.017 times the small swing's), an exact
+2 : 3 at 12° each closing on itself after two of the pen's periods (to
+10⁻¹¹ m; the first version's start widened the swing and missed by 14 µm), the
+detuned pair's turn of 25.675 s from the exact periods (the small swings'
+frequencies would give 89.7 s, the first version's mistake), and the swing's
+fade to a tenth in 2 ln 10/c. The fade is timed at 2°, where the pendulum's
+own non-linearity leaves 1.4 · 10⁻⁵, within 5 · 10⁻⁵. "Set it up" sets the
+build with the board's length exact, where the detune slider's 0.05 % steps
+would miss the page's opening 0.667 %, and the drawing starts over.
+
 **On the page** a section "Check it yourself" (`check-section.tsx`) lists the
 cases, each with its formula as an `Equation` (`check-formulas.ts`), both
 values to seven digits, the deviation, why the case would catch a mistake,

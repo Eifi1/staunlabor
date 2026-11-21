@@ -3759,7 +3759,15 @@
         "cannon_c_drag": "coefficient de traînée d’une sphère lisse, 0,47",
         "cannon_h_drop": "hauteur d’où tombe la balle",
         "cannon_rho_air": "masse volumique de l’air",
-        "cannon_v_inf": "vitesse limite : là où l’air freine aussi fort que le poids tire"
+        "cannon_v_inf": "vitesse limite : là où l’air freine aussi fort que le poids tire",
+        "harm_L": "longueur du pendule",
+        "harm_T12": "périodes du stylo et de la planche",
+        "harm_L12": "longueurs des pendules du stylo et de la planche",
+        "harm_xy": "place du stylo sur la planche",
+        "harm_turn": "temps en lequel la figure fait un tour",
+        "harm_f12": "fréquences du stylo et de la planche",
+        "harm_thetamax": "amplitude aux points de retour",
+        "harm_c": "frottement du pendule"
       },
       "cases": {
         "sphere": {
@@ -4735,6 +4743,36 @@
             "reads": "La balle arrive avec m·v et repart avec m·v. Le sol fournit les deux, 2·m·v, et en plus ce que le poids prend pendant le choc : m·g·τ.",
             "why": "Vérifie comment la page somme la force sur la durée du choc : 5,1319 N·s ; le poids en représente 0,8 %.",
             "step": "La première source établit que l’impulsion est la variation de la quantité de mouvement. Sur la balle agissent le sol et le poids ; sans perte, elle repart aussi vite qu’elle est arrivée, donc l’impulsion du sol vaut 2mv plus m·g fois la durée tirée de la seconde."
+          }
+        },
+        "harmonograph": {
+          "wide_slower": {
+            "title": "Plus d’amplitude, plus lent",
+            "setting": "Le pendule du stylo, 80 cm, écarté de 30°, sans frottement.",
+            "reads": "Le pendule exact met 4K(sin(θ₀/2)) pour un aller-retour, en unités de √(L/g) ; pour de petites amplitudes, cela devient 2π√(L/g).",
+            "why": "Vérifie le sin θ complet dans la boucle des pas de temps de la page : 1,8258 s, 1,7 % plus lent qu’avec une petite amplitude. K est ici sommée comme une intégrale, et non par la moyenne arithmético-géométrique qu’utilise le moteur de calcul.",
+            "step": "La première source traite le pendule dans une échelle de temps où g/L = 1, la deuxième définit K, la troisième donne l’unité de temps, 1/ω₀ = √(L/g)."
+          },
+          "closes": {
+            "title": "Exactement 2:3 : la figure se referme",
+            "setting": "Rapport 2:3 sans désaccord, les deux pendules écartés de 12°, sans frottement.",
+            "reads": "À un rapport entier des fréquences, la figure se referme ; pour une même amplitude, les périodes sont exactement dans le rapport √(L₁/L₂).",
+            "why": "Vérifie que la boucle des pas de temps garde les deux pendules en cadence : après deux oscillations du stylo, 3,599 s, il se trouve à 9 · 10⁻¹² m de son point de départ.",
+            "step": "La deuxième source donne la période 4K(sin(θ₀/2)) en unités de √(L/g) : à amplitude égale, K est le même pour les deux, et les périodes sont dans le rapport √(L₁/L₂) = 3/2. La première dit que la figure se referme alors."
+          },
+          "turns": {
+            "title": "Amplitudes différentes : la figure tourne",
+            "setting": "Rapport 2:3, désaccordé de 0,67 % comme à l’ouverture de la page, mais le stylo écarté de 30° et la planche de 5°, sans frottement.",
+            "reads": "Tout près de 2:3, la figure garde sa forme et tourne, un tour en 1/|3f₁ − 2f₂| ; les fréquences sont celles des pendules exacts à leurs amplitudes.",
+            "why": "Vérifie que l’oscillation la plus ample est plus lente : un tour en 25,7 s. Avec les fréquences des petites amplitudes, ce seraient 89,7 s, l’erreur de la première version.",
+            "step": "La première source dit qu’un léger désaccord fait se déplacer la figure. Pour un rapport p:q, la même forme revient dès que la phase s’est décalée de 2π/p, donc après 1/|q·f₁ − p·f₂|. Les fréquences viennent de la période donnée par la deuxième et la troisième source."
+          },
+          "fades": {
+            "title": "L’oscillation s’amortit",
+            "setting": "Le pendule du stylo écarté de 2°, avec le frottement de la page, 0,02 par seconde.",
+            "reads": "Avec le frottement c·θ′, l’amplitude s’amortit comme e^(−ct/2), jusqu’à un dixième après 2·ln 10/c.",
+            "why": "Vérifie le frottement dans la boucle des pas de temps : 230,26 s jusqu’au dixième. À 2°, le pendule n’est pas tout à fait linéaire et perd son énergie un peu plus vite au début ; d’où l’écart de 1,4 · 10⁻⁵.",
+            "step": "La source écrit le frottement sous la forme 2ζω₀ ; ici, c’est c, donc le taux d’amortissement ζω₀ vaut c/2."
           }
         }
       },

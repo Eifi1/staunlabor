@@ -1611,6 +1611,129 @@
    ]
   }
  ],
+ "harmonograph": [
+  {
+   "key": "wide_slower",
+   "unit": "s",
+   "expected": 1.8258286299,
+   "measured": 1.82582862988,
+   "deviation": 1.0074304196e-11,
+   "tolerance": 1e-09,
+   "derived": true,
+   "setting": {
+    "pen_length_m": 0.8,
+    "pen_amplitude_deg": 30.0,
+    "board_length_m": 0.35086180430682873,
+    "board_amplitude_deg": 5.0,
+    "board_phase_deg": 90.0,
+    "damping_per_s": 0.0
+   },
+   "sources": [
+    {
+     "cite": "NIST Digital Library of Mathematical Functions, §22.19(i), Eqs. 22.19.1–22.19.2",
+     "url": "https://dlmf.nist.gov/22.19",
+     "quote": "With appropriate scalings, Newton’s equation of motion for a pendulum … is d²θ(t)/dt² = −sin θ(t), … for an initial angular displacement α, with dθ/dt = 0 at time 0 … The period is 4K(sin(½α))."
+    },
+    {
+     "cite": "NIST Digital Library of Mathematical Functions, §19.2(ii), Eqs. 19.2.4 and 19.2.8",
+     "url": "https://dlmf.nist.gov/19.2",
+     "quote": "F(ϕ, k) = ∫₀^ϕ dθ/√(1 − k² sin²θ) … The cases with ϕ = π/2 are the complete integrals: K(k) = F(π/2, k)"
+    },
+    {
+     "cite": "OpenStax, University Physics Volume 1, §15.4 Pendulums, Eqs. 15.17–15.19",
+     "url": "https://openstax.org/books/university-physics-volume-1/pages/15-4-pendulums",
+     "quote": "d²θ/dt² = −(g/L)θ. (15.17) … The angular frequency is ω = √(g/L) (15.18) and the period is T = 2π√(L/g). (15.19)"
+    }
+   ]
+  },
+  {
+   "key": "closes",
+   "unit": "m",
+   "expected": 0.0,
+   "measured": 8.63596817833e-12,
+   "deviation": 8.63596817833e-12,
+   "tolerance": 1e-09,
+   "derived": true,
+   "setting": {
+    "pen_length_m": 0.8,
+    "pen_amplitude_deg": 12.0,
+    "board_length_m": 0.35555555555555557,
+    "board_amplitude_deg": 12.0,
+    "board_phase_deg": 90.0,
+    "damping_per_s": 0.0
+   },
+   "sources": [
+    {
+     "cite": "Wikipedia, “Lissajous curve”, introduction",
+     "url": "https://en.wikipedia.org/wiki/Lissajous_curve",
+     "quote": "A small change to one of the frequencies will mean the x oscillation after one cycle will be slightly out of synchronization with the y motion and so the ellipse will fail to close and trace a curve slightly adjacent during the next orbit showing as a precession of the ellipse. The pattern closes if the frequencies are whole number ratios i.e. a/b is rational."
+    },
+    {
+     "cite": "NIST Digital Library of Mathematical Functions, §22.19(i), Eqs. 22.19.1–22.19.2",
+     "url": "https://dlmf.nist.gov/22.19",
+     "quote": "With appropriate scalings, Newton’s equation of motion for a pendulum … is d²θ(t)/dt² = −sin θ(t), … for an initial angular displacement α, with dθ/dt = 0 at time 0 … The period is 4K(sin(½α))."
+    }
+   ]
+  },
+  {
+   "key": "turns",
+   "unit": "s",
+   "expected": 25.6753257046,
+   "measured": 25.675325715,
+   "deviation": 4.06451856259e-10,
+   "tolerance": 1e-08,
+   "derived": true,
+   "setting": {
+    "pen_length_m": 0.8,
+    "pen_amplitude_deg": 30.0,
+    "board_length_m": 0.35086180430682873,
+    "board_amplitude_deg": 5.0,
+    "board_phase_deg": 90.0,
+    "damping_per_s": 0.0
+   },
+   "sources": [
+    {
+     "cite": "Wikipedia, “Lissajous curve”, introduction",
+     "url": "https://en.wikipedia.org/wiki/Lissajous_curve",
+     "quote": "A small change to one of the frequencies will mean the x oscillation after one cycle will be slightly out of synchronization with the y motion and so the ellipse will fail to close and trace a curve slightly adjacent during the next orbit showing as a precession of the ellipse. The pattern closes if the frequencies are whole number ratios i.e. a/b is rational."
+    },
+    {
+     "cite": "NIST Digital Library of Mathematical Functions, §22.19(i), Eqs. 22.19.1–22.19.2",
+     "url": "https://dlmf.nist.gov/22.19",
+     "quote": "With appropriate scalings, Newton’s equation of motion for a pendulum … is d²θ(t)/dt² = −sin θ(t), … for an initial angular displacement α, with dθ/dt = 0 at time 0 … The period is 4K(sin(½α))."
+    },
+    {
+     "cite": "NIST Digital Library of Mathematical Functions, §19.2(ii), Eqs. 19.2.4 and 19.2.8",
+     "url": "https://dlmf.nist.gov/19.2",
+     "quote": "F(ϕ, k) = ∫₀^ϕ dθ/√(1 − k² sin²θ) … The cases with ϕ = π/2 are the complete integrals: K(k) = F(π/2, k)"
+    }
+   ]
+  },
+  {
+   "key": "fades",
+   "unit": "s",
+   "expected": 230.258509299,
+   "measured": 230.255290789,
+   "deviation": 1.39778140648e-05,
+   "tolerance": 5e-05,
+   "derived": true,
+   "setting": {
+    "pen_length_m": 0.8,
+    "pen_amplitude_deg": 2.0,
+    "board_length_m": 0.35086180430682873,
+    "board_amplitude_deg": 2.0,
+    "board_phase_deg": 90.0,
+    "damping_per_s": 0.02
+   },
+   "sources": [
+    {
+     "cite": "Wikipedia, “Harmonic oscillator”, §Damped harmonic oscillator",
+     "url": "https://en.wikipedia.org/wiki/Harmonic_oscillator",
+     "quote": "d²x/dt² + 2ζω₀ dx/dt + ω₀²x = 0, … Underdamped (ζ < 1): … the exponential decay of the underdamped harmonic oscillator is given by λ = ω₀ζ."
+    }
+   ]
+  }
+ ],
  "levitation": [
   {
    "key": "lift",

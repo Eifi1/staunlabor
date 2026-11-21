@@ -3759,7 +3759,15 @@
         "cannon_c_drag": "Widerstandsbeiwert einer glatten Kugel, 0,47",
         "cannon_h_drop": "Höhe, aus der der Ball fällt",
         "cannon_rho_air": "Dichte der Luft",
-        "cannon_v_inf": "Endgeschwindigkeit: wo die Luft so stark bremst, wie das Gewicht zieht"
+        "cannon_v_inf": "Endgeschwindigkeit: wo die Luft so stark bremst, wie das Gewicht zieht",
+        "harm_L": "Länge des Pendels",
+        "harm_T12": "Perioden von Stift und Brett",
+        "harm_L12": "Längen der Pendel von Stift und Brett",
+        "harm_xy": "Ort des Stifts auf dem Brett",
+        "harm_turn": "Zeit, in der sich die Figur einmal dreht",
+        "harm_f12": "Frequenzen von Stift und Brett",
+        "harm_thetamax": "Ausschlag an den Umkehrpunkten",
+        "harm_c": "Reibung des Pendels"
       },
       "cases": {
         "sphere": {
@@ -4735,6 +4743,36 @@
             "reads": "Die Kugel kommt mit m·v an und geht mit m·v. Der Boden gibt beides, 2·m·v, und dazu, was das Gewicht während des Stosses nimmt: m·g·τ.",
             "why": "Prüft, wie die Seite die Kraft über den Stoss summiert: 5,1319 N·s; das Gewicht macht davon 0,8 % aus.",
             "step": "Die erste Quelle gibt, dass der Impuls die Änderung der Bewegungsgrösse ist. Auf die Kugel wirken der Boden und das Gewicht; ohne Verlust geht sie so schnell, wie sie kam, also ist der Impuls des Bodens 2mv plus m·g mal die Dauer aus der zweiten."
+          }
+        },
+        "harmonograph": {
+          "wide_slower": {
+            "title": "Weiter ausgelenkt, langsamer",
+            "setting": "Das Stiftpendel, 80 cm, um 30° ausgelenkt, ohne Reibung.",
+            "reads": "Das genaue Pendel braucht für hin und zurück 4K(sin(θ₀/2)) in Einheiten von √(L/g); bei kleinen Ausschlägen wird daraus 2π√(L/g).",
+            "why": "Prüft das volle sin θ in der Zeitschleife der Seite: 1,8258 s, 1,7 % langsamer als bei kleinem Ausschlag. K ist hier als Integral summiert, nicht wie in der Engine über das arithmetisch-geometrische Mittel.",
+            "step": "Die erste Quelle rechnet das Pendel in einer Zeit, in der g/L = 1 ist, die zweite definiert K, die dritte gibt die Einheit der Zeit, 1/ω₀ = √(L/g)."
+          },
+          "closes": {
+            "title": "Genau 2:3: Die Figur schliesst sich",
+            "setting": "Verhältnis 2:3 ohne Verstimmung, beide Pendel um 12° ausgelenkt, ohne Reibung.",
+            "reads": "Bei einem ganzzahligen Verhältnis der Frequenzen schliesst sich die Figur; gleich weit ausgelenkt, stehen die Perioden genau wie √(L₁/L₂).",
+            "why": "Prüft, dass die Zeitschleife beide Pendel im selben Takt hält: Nach zwei Schwingungen des Stifts, 3,599 s, steht er 9 · 10⁻¹² m neben seinem Anfang.",
+            "step": "Die zweite Quelle gibt die Periode 4K(sin(θ₀/2)) in Einheiten von √(L/g): Bei gleichem Ausschlag ist K für beide gleich, und die Perioden stehen wie √(L₁/L₂) = 3/2. Die erste sagt, dass sich die Figur dann schliesst."
+          },
+          "turns": {
+            "title": "Verschieden weit ausgelenkt: Die Figur dreht sich",
+            "setting": "Verhältnis 2:3, um 0,67 % verstimmt wie beim Öffnen der Seite, aber der Stift um 30° und das Brett um 5° ausgelenkt, ohne Reibung.",
+            "reads": "Knapp neben 2:3 behält die Figur ihre Form und dreht sich, einmal in 1/|3f₁ − 2f₂|; die Frequenzen sind die der genauen Pendel bei ihren Ausschlägen.",
+            "why": "Prüft, dass der weitere Ausschlag langsamer schwingt: einmal in 25,7 s. Mit den Frequenzen kleiner Ausschläge wären es 89,7 s, der Fehler der ersten Fassung.",
+            "step": "Die erste Quelle sagt, dass eine kleine Verstimmung die Figur wandern lässt. Für ein Verhältnis p:q kehrt dieselbe Form wieder, sobald sich die Phase um 2π/p verschoben hat, also nach 1/|q·f₁ − p·f₂|. Die Frequenzen kommen aus der Periode der zweiten und dritten Quelle."
+          },
+          "fades": {
+            "title": "Die Schwingung klingt ab",
+            "setting": "Das Stiftpendel um 2° ausgelenkt, mit der Reibung der Seite, 0,02 pro Sekunde.",
+            "reads": "Mit der Reibung c·θ′ klingt der Ausschlag wie e^(−ct/2) ab, auf ein Zehntel nach 2·ln 10/c.",
+            "why": "Prüft die Reibung in der Zeitschleife: 230,26 s bis zum Zehntel. Bei 2° ist das Pendel nicht ganz linear und verliert seine Energie anfangs etwas schneller; daher 1,4 · 10⁻⁵.",
+            "step": "Die Quelle schreibt die Reibung als 2ζω₀; hier ist das c, die Abklingrate ζω₀ also c/2."
           }
         }
       },

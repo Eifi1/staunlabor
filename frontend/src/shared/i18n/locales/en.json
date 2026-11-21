@@ -3759,7 +3759,15 @@
         "cannon_c_drag": "a smooth sphere's drag coefficient, 0.47",
         "cannon_h_drop": "the height the ball falls from",
         "cannon_rho_air": "the air's density",
-        "cannon_v_inf": "terminal speed: where the air brakes as hard as the weight pulls"
+        "cannon_v_inf": "terminal speed: where the air brakes as hard as the weight pulls",
+        "harm_L": "the pendulum's length",
+        "harm_T12": "the periods of pen and board",
+        "harm_L12": "the lengths of the pen's and the board's pendulums",
+        "harm_xy": "the pen's place on the board",
+        "harm_turn": "time in which the figure turns once",
+        "harm_f12": "the frequencies of pen and board",
+        "harm_thetamax": "the swing at its turning points",
+        "harm_c": "the pendulum's friction"
       },
       "cases": {
         "sphere": {
@@ -4735,6 +4743,36 @@
             "reads": "The ball arrives with m·v and leaves with m·v. The floor gives both, 2·m·v, and what the weight takes during the strike besides: m·g·τ.",
             "why": "Checks how the page sums the force over the strike: 5.1319 N·s, the weight 0.8 % of it.",
             "step": "The first source gives that the impulse is the change of momentum. The floor and the weight act on the ball; without loss it leaves as fast as it came, so the floor's impulse is 2mv plus m·g times the duration from the second."
+          }
+        },
+        "harmonograph": {
+          "wide_slower": {
+            "title": "Wider, slower",
+            "setting": "The pen's pendulum, 80 cm, let go at 30°, no friction.",
+            "reads": "The exact pendulum takes 4K(sin(θ₀/2)) there and back in units of √(L/g); for small swings that becomes 2π√(L/g).",
+            "why": "Checks the full sin θ in the page's time loop: 1.8258 s, 1.7 % slower than a small swing. K is summed here as an integral, not by the arithmetic-geometric mean the engine uses.",
+            "step": "The first source works the pendulum in a time in which g/L = 1, the second defines K, the third gives the unit of time, 1/ω₀ = √(L/g)."
+          },
+          "closes": {
+            "title": "Exactly 2:3: the figure closes",
+            "setting": "Ratio 2:3 without detune, both pendulums let go at 12°, no friction.",
+            "reads": "At a whole-number ratio of the frequencies the figure closes; let go equally wide, the periods stand exactly as √(L₁/L₂).",
+            "why": "Checks that the time loop keeps both pendulums in step: after two of the pen's swings, 3.599 s, it stands 9 · 10⁻¹² m from where it began.",
+            "step": "The second source gives the period 4K(sin(θ₀/2)) in units of √(L/g): at equal swings K is the same for both, and the periods stand as √(L₁/L₂) = 3/2. The first says the figure then closes."
+          },
+          "turns": {
+            "title": "Let go unequally: the figure turns",
+            "setting": "Ratio 2:3, detuned by 0.67 % as the page opens, but the pen let go at 30° and the board at 5°, no friction.",
+            "reads": "Just off 2:3 the figure keeps its shape and turns, once in 1/|3f₁ − 2f₂|; the frequencies are the exact pendulums' at their swings.",
+            "why": "Checks that the wider swing is slower: once in 25.7 s. With the small swings' frequencies it would be 89.7 s, the first version's mistake.",
+            "step": "The first source says a small detune makes the figure wander. For a ratio p:q the same shape comes back once the phase has moved by 2π/p, so after 1/|q·f₁ − p·f₂|. The frequencies come from the period of the second and third sources."
+          },
+          "fades": {
+            "title": "The swing dies away",
+            "setting": "The pen's pendulum let go at 2°, with the page's friction, 0.02 a second.",
+            "reads": "With the friction c·θ′ the swing dies away as e^(−ct/2), to a tenth after 2·ln 10/c.",
+            "why": "Checks the friction in the time loop: 230.26 s to a tenth. At 2° the pendulum is not quite linear and sheds its energy a little faster at first; hence 1.4 · 10⁻⁵.",
+            "step": "The source writes the friction as 2ζω₀; here that is c, so the decay rate ζω₀ is c/2."
           }
         }
       },
