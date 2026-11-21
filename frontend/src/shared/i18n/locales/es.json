@@ -3663,7 +3663,15 @@
         "lc_E": "energía en el condensador y la bobina",
         "lc_q": "carga del condensador",
         "lc_q0": "carga al conmutar, C·U₀",
-        "lc_omega0": "frecuencia angular sin resistencia, 1/√(LC)"
+        "lc_omega0": "frecuencia angular sin resistencia, 1/√(LC)",
+        "T_race": "tiempo de la salida a la meta",
+        "T_bottom": "tiempo hasta el fondo",
+        "D_run": "distancia horizontal hasta la meta",
+        "H_drop": "desnivel hasta la meta",
+        "phi_B": "el ángulo del círculo que rueda en la meta",
+        "r_cycloid": "radio del círculo que dibuja la cicloide",
+        "R_bowl": "radio del cuenco circular",
+        "phi0_bowl": "ángulo de salida en el cuenco, desde el fondo"
       },
       "cases": {
         "sphere": {
@@ -4422,6 +4430,36 @@
             "reads": "Con R = 2√(L/C) las dos raíces coinciden; partiendo del reposo, la corriente es q₀ω₀²·t·e^(−ω₀t), máxima tras 1/ω₀, con q₀ω₀/e.",
             "why": "Comprueba la rama del cálculo que toma la página en el límite: 2,908 mA tras 0,158 s. En el control deslizante son 2530 Ω, justo por encima; allí el máximo queda 5 · 10⁻⁵ más bajo.",
             "step": "La primera fuente da el límite, donde √(1/LC) = R/2L; la segunda, las soluciones e^(st) con s = −ω₀(ζ ± i√(1 − ζ²)). En el límite, ζ = 1 y ambos s valen −ω₀; la segunda solución es entonces t·e^(−ω₀t). Partiendo del reposo, se obtiene la fórmula."
+          }
+        },
+        "race": {
+          "line": {
+            "title": "La recta: el plano inclinado",
+            "setting": "Una bola maciza; hasta la meta, 50 cm de desnivel y 120 cm de distancia horizontal.",
+            "reads": "En la recta, la bola rueda con una aceleración fija g′·H/L, partiendo del reposo: L = ½·a·T².",
+            "why": "Comprueba la suma de ds/v con la que la página calcula cada pista, en el caso más sencillo: 0,982374 s. Tras el cambio de variable de la página, aquí el sumando es constante; por eso la suma es exacta salvo por el redondeo.",
+            "step": "La primera fuente da la aceleración de una bola que rueda por un plano inclinado, g·sin θ/(1 + 2/5), con sin θ = H/L; la segunda, el recorrido desde el reposo, L = ½·a·T², con L² = D² + H²; la tercera, el momento de inercia de la bola maciza, 2/5·m·r²."
+          },
+          "cycloid": {
+            "title": "La cicloide: la pista más rápida",
+            "setting": "Como arriba: bola maciza, 50 cm de desnivel, 120 cm de distancia horizontal.",
+            "reads": "En la cicloide x = r(φ − sin φ), y = r(1 − cos φ), el ángulo del círculo que rueda avanza de manera uniforme con el tiempo: φ = t·√(g′/r). En la meta vale φ_B.",
+            "why": "Comprueba la pista más rápida y cómo la página hace pasar su cicloide por la meta: 0,747261 s. Cerca de la punta, en la salida, 1 − cos φ pierde cifras; de ahí el 3 · 10⁻¹¹.",
+            "step": "La primera fuente trata un cuerpo que se desliza sin rozamiento, bajo g. La bola que rueda solo siente g′ = g/(1 + 2/5) a lo largo de cualquier pista, según la segunda; así, ω = √(g′/r). φ_B es el ángulo en el que la distancia horizontal y el desnivel de la cicloide están en la proporción 120 a 50."
+          },
+          "tautochrone": {
+            "title": "El valle cicloidal: el mismo tiempo desde cualquier altura",
+            "setting": "El valle de la página, radio 30 cm, una bola maciza; leído en la más alta, soltada a 59 cm sobre el fondo.",
+            "reads": "En un valle cicloidal, una bola tarda π·√(r/g′) en llegar al fondo, la suelten donde la suelten.",
+            "why": "Comprueba la tabla de tiempos con la que la página mueve las bolas en el valle: 0,650151 s también desde 59 cm. La suma de la página con 1440 pasos se desvía 7 · 10⁻⁸, un error que disminuye con el cuadrado del paso.",
+            "step": "La primera fuente da el tiempo para un cuerpo que se desliza sin rozamiento, bajo g; la bola que rueda siente g′ = g/(1 + 2/5), según la segunda."
+          },
+          "bowl": {
+            "title": "El cuenco circular de al lado: cuanto más amplia, más lenta",
+            "setting": "El cuenco circular junto al valle, radio 1,2 m, cuatro veces el radio de la cicloide; la bola maciza desde 59 cm de altura.",
+            "reads": "En el cuenco, la bola oscila como un péndulo de longitud R bajo g′; hasta el fondo tarda un cuarto de su periodo, √(R/g′)·K(sin(φ₀/2)).",
+            "why": "Comprueba el cuenco con el que la página muestra que solo la cicloide hace llegar a todas a la vez: 0,696484 s desde 59 cm, más tarde que en el valle. Aquí K se suma como integral; la suma de la página se desvía 5 · 10⁻⁸.",
+            "step": "La primera fuente da el periodo del péndulo, 4K en unidades de √(R/g′); la segunda, K; la tercera, g′ = g/(1 + 2/5) para la bola que rueda. El cuenco tiene el radio 4r, la curvatura de la cicloide en su fondo, y la bola sale a la misma altura h que en el valle: cos φ₀ = 1 − h/R."
           }
         }
       },

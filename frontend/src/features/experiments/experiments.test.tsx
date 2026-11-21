@@ -105,6 +105,7 @@ const UNCHECKED = {
     "parabola",
     "peg",
     "plates",
+    "race",
     "resonance",
     "sky",
     "slits",
@@ -1823,6 +1824,17 @@ describe("setting a check case up", () => {
     expect(screen.getByRole("slider", { name: E.circuit.change.resistance }).getAttribute("aria-valuetext")).toMatch(
       /^2,?530\b/,
     );
+  });
+
+  it("lays the race's finish back at 120 cm out and 50 cm down, for the straight line's time", async () => {
+    renderWithProviders(<RacePage />);
+    await screen.findByRole("img", { name: E.race.play.view });
+    fireEvent.change(screen.getByRole("slider", { name: E.race.change.run }), { target: { value: "200" } });
+    await setUp(0);
+    await waitFor(() =>
+      expect(screen.getByRole("slider", { name: E.race.change.run }).getAttribute("aria-valuetext")).toMatch(/^120\b/),
+    );
+    expect(screen.getByRole("slider", { name: E.race.change.drop }).getAttribute("aria-valuetext")).toMatch(/^50\b/);
   });
 
   it("pushes the ball round the well on its circle, with the felt's brake, for the brake's case", async () => {

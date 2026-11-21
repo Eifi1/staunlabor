@@ -3663,7 +3663,15 @@
         "lc_E": "énergie dans le condensateur et la bobine",
         "lc_q": "charge du condensateur",
         "lc_q0": "charge au basculement, C·U₀",
-        "lc_omega0": "pulsation sans résistance, 1/√(LC)"
+        "lc_omega0": "pulsation sans résistance, 1/√(LC)",
+        "T_race": "temps du départ à l’arrivée",
+        "T_bottom": "temps jusqu’au fond",
+        "D_run": "distance horizontale jusqu’à l’arrivée",
+        "H_drop": "dénivelé jusqu’à l’arrivée",
+        "phi_B": "l’angle du cercle qui roule à l’arrivée",
+        "r_cycloid": "rayon du cercle qui trace la cycloïde",
+        "R_bowl": "rayon de la cuvette circulaire",
+        "phi0_bowl": "angle de départ dans la cuvette, depuis le fond"
       },
       "cases": {
         "sphere": {
@@ -4422,6 +4430,36 @@
             "reads": "Pour R = 2√(L/C), les deux racines se confondent ; en partant du repos, le courant vaut q₀ω₀²·t·e^(−ω₀t), maximal après 1/ω₀, à q₀ω₀/e.",
             "why": "Vérifie la branche du calcul que prend la page à la limite : 2,908 mA après 0,158 s. Sur le curseur, c’est 2530 Ω, juste au-dessus ; le maximum y est 5 · 10⁻⁵ plus bas.",
             "step": "La première source donne la limite, où √(1/LC) = R/2L, la deuxième les solutions e^(st) avec s = −ω₀(ζ ± i√(1 − ζ²)). À la limite, ζ = 1 et les deux s valent −ω₀ ; la seconde solution est alors t·e^(−ω₀t). En partant du repos, la formule s’ensuit."
+          }
+        },
+        "race": {
+          "line": {
+            "title": "La droite : le plan incliné",
+            "setting": "Une bille pleine ; jusqu’à l’arrivée, 50 cm de dénivelé et 120 cm de distance horizontale.",
+            "reads": "Sur la droite, la bille roule avec une accélération fixe g′·H/L, en partant du repos : L = ½·a·T².",
+            "why": "Vérifie la somme de ds/v par laquelle la page calcule chaque piste, dans le cas le plus simple : 0,982374 s. Après le changement de variable de la page, le terme sommé est ici constant ; la somme est donc juste à l’arrondi près.",
+            "step": "La première source donne l’accélération d’une bille qui roule sur un plan incliné, g·sin θ/(1 + 2/5), avec sin θ = H/L ; la deuxième la distance parcourue depuis le repos, L = ½·a·T², avec L² = D² + H² ; la troisième le moment d’inertie de la bille pleine, 2/5·m·r²."
+          },
+          "cycloid": {
+            "title": "La cycloïde : la piste la plus rapide",
+            "setting": "Comme ci-dessus : bille pleine, 50 cm de dénivelé, 120 cm de distance horizontale.",
+            "reads": "Sur la cycloïde x = r(φ − sin φ), y = r(1 − cos φ), l’angle du cercle qui roule avance uniformément avec le temps : φ = t·√(g′/r). À l’arrivée, il vaut φ_B.",
+            "why": "Vérifie la piste la plus rapide et la façon dont la page fait passer sa cycloïde par l’arrivée : 0,747261 s. Près de la pointe au départ, 1 − cos φ perd des chiffres, d’où les 3 · 10⁻¹¹.",
+            "step": "La première source traite un corps qui glisse sans frottement, sous g. La bille qui roule ne ressent le long de toute piste que g′ = g/(1 + 2/5), ce que donne la deuxième ; ainsi ω = √(g′/r). φ_B est l’angle auquel la distance horizontale et le dénivelé de la cycloïde sont dans le rapport de 120 à 50."
+          },
+          "tautochrone": {
+            "title": "La vallée cycloïdale : même durée de partout",
+            "setting": "La vallée de la page, rayon 30 cm, une bille pleine ; relevé sur la plus haute, lâchée à 59 cm au-dessus du fond.",
+            "reads": "Dans une vallée cycloïdale, une bille met π·√(r/g′) pour atteindre le fond, d’où qu’elle soit lâchée.",
+            "why": "Vérifie la table des temps selon laquelle la page fait rouler les billes dans la vallée : 0,650151 s, même depuis 59 cm. La somme de la page sur 1440 pas s’en écarte de 7 · 10⁻⁸, une erreur qui diminue avec le carré du pas.",
+            "step": "La première source donne le temps pour un corps qui glisse sans frottement, sous g ; la bille qui roule ressent g′ = g/(1 + 2/5), ce que donne la deuxième."
+          },
+          "bowl": {
+            "title": "La cuvette circulaire d’à côté : plus ample, plus lent",
+            "setting": "La cuvette circulaire à côté de la vallée, rayon 1,2 m, quatre fois le rayon de la cycloïde ; la bille pleine depuis 59 cm de hauteur.",
+            "reads": "Dans la cuvette, la bille oscille comme un pendule de longueur R sous g′ ; jusqu’au fond, elle met un quart de sa période, √(R/g′)·K(sin(φ₀/2)).",
+            "why": "Vérifie la cuvette par laquelle la page montre que seule la cycloïde fait arriver toutes les billes ensemble : 0,696484 s depuis 59 cm, plus tard que dans la vallée. K est ici sommée comme une intégrale ; la somme de la page s’en écarte de 5 · 10⁻⁸.",
+            "step": "La première source donne la période du pendule, 4K en unités de √(R/g′), la deuxième K, la troisième g′ = g/(1 + 2/5) pour la bille qui roule. La cuvette a le rayon 4r, la courbure de la cycloïde en son fond, et la bille part à la même hauteur h que dans la vallée : cos φ₀ = 1 − h/R."
           }
         }
       },

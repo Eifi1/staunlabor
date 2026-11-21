@@ -3663,7 +3663,15 @@
         "lc_E": "energy in capacitor and coil",
         "lc_q": "charge on the capacitor",
         "lc_q0": "charge at the throw, C·U₀",
-        "lc_omega0": "angular frequency without resistance, 1/√(LC)"
+        "lc_omega0": "angular frequency without resistance, 1/√(LC)",
+        "T_race": "time from the start to the finish",
+        "T_bottom": "time to the bottom",
+        "D_run": "run to the finish",
+        "H_drop": "drop to the finish",
+        "phi_B": "the rolling circle’s angle at the finish",
+        "r_cycloid": "radius of the circle that draws the cycloid",
+        "R_bowl": "radius of the circular bowl",
+        "phi0_bowl": "starting angle in the bowl, from the bottom"
       },
       "cases": {
         "sphere": {
@@ -4422,6 +4430,36 @@
             "reads": "At R = 2√(L/C) the two roots coincide; from rest the current is q₀ω₀²·t·e^(−ω₀t), strongest after 1/ω₀ at q₀ω₀/e.",
             "why": "Checks the branch of the calculation the page takes at the edge: 2.908 mA after 0.158 s. On the slider it is 2530 Ω, just above; there the peak lies 5 · 10⁻⁵ lower.",
             "step": "The first source gives the edge, where √(1/LC) = R/2L, the second the solutions e^(st) with s = −ω₀(ζ ± i√(1 − ζ²)). At the edge ζ = 1, and both s are −ω₀; the second solution is then t·e^(−ω₀t). Started from rest, the formula follows."
+          }
+        },
+        "race": {
+          "line": {
+            "title": "The line: the inclined plane",
+            "setting": "A solid ball, 50 cm down and 120 cm along to the finish.",
+            "reads": "On the straight track the ball rolls with a fixed acceleration g′·H/L, from rest: L = ½·a·T².",
+            "why": "Checks the sum over ds/v by which the page computes every track, in its simplest case: 0.982374 s. After the page's substitution the summand is constant here, so the sum is right but for rounding.",
+            "step": "The first source gives a rolling ball’s acceleration on an incline, g·sin θ/(1 + 2/5), with sin θ = H/L; the second the distance from rest, L = ½·a·T², with L² = D² + H²; the third the solid ball’s moment of inertia, 2/5·m·r²."
+          },
+          "cycloid": {
+            "title": "The cycloid: the fastest track",
+            "setting": "As above: a solid ball, 50 cm down, 120 cm along.",
+            "reads": "On the cycloid x = r(φ − sin φ), y = r(1 − cos φ) the rolling circle’s angle runs evenly with time: φ = t·√(g′/r). At the finish it is φ_B.",
+            "why": "Checks the fastest track and how the page lays its cycloid through the finish: 0.747261 s. Near the cusp at the start 1 − cos φ loses digits, hence 3 · 10⁻¹¹.",
+            "step": "The first source works a body sliding without friction under g. The rolling ball feels only g′ = g/(1 + 2/5) along any track, which the second gives; so ω = √(g′/r). φ_B is the angle at which the cycloid’s run and drop stand as 120 to 50."
+          },
+          "tautochrone": {
+            "title": "The cycloid valley: as long from anywhere",
+            "setting": "The page’s valley, radius 30 cm, a solid ball; read at the highest, let go 59 cm above the bottom.",
+            "reads": "In a cycloid valley a ball needs π·√(r/g′) to the bottom, wherever it is let go.",
+            "why": "Checks the time table by which the page runs the balls in the valley: 0.650151 s from 59 cm too. The page’s sum over 1440 steps is 7 · 10⁻⁸ off, an error that falls with the square of the step.",
+            "step": "The first source gives the time for a body sliding without friction under g; the rolling ball feels g′ = g/(1 + 2/5), which the second gives."
+          },
+          "bowl": {
+            "title": "The circular bowl beside it: wider is slower",
+            "setting": "The circular bowl beside the valley, radius 1.2 m, four times the cycloid’s radius; the solid ball from 59 cm up.",
+            "reads": "In the bowl the ball swings like a pendulum of length R under g′; it needs a quarter of its period to the bottom, √(R/g′)·K(sin(φ₀/2)).",
+            "why": "Checks the bowl by which the page shows that only the cycloid brings them all in together: 0.696484 s from 59 cm, later than in the valley. K is summed here as an integral; the page’s sum is 5 · 10⁻⁸ off.",
+            "step": "The first source gives the pendulum’s period, 4K in units of √(R/g′), the second K, the third g′ = g/(1 + 2/5) for the rolling ball. The bowl has the radius 4r, the cycloid’s curvature at its bottom, and the ball starts at the same height h as in the valley: cos φ₀ = 1 − h/R."
           }
         }
       },

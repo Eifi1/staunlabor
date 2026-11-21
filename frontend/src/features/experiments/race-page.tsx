@@ -10,6 +10,7 @@ import { Figures, WidgetCard } from "@/shared/ui/widget";
 import { Equation } from "./equation";
 import { ExhibitFrame } from "./exhibit-frame";
 import { BuildPending } from "./build-pending";
+import { settingNumber, useCheckSetting } from "./check-setting";
 import { MotionTable, VectorPlane, niceSpan } from "./race-motion";
 import { PreviewPending, type PreviewMode, type PreviewProps } from "./preview-mode";
 import { startsRunning } from "./play";
@@ -41,6 +42,20 @@ export function RacePage() {
   const defaults = useExperimentsDefaults();
   const [build, setBuild] = useState<RaceRequest | null>(null);
   const spec = build ?? defaults.data?.race ?? null;
+  // A check case's "Set it up": the build, which the valley shares. The race
+  // then waits for its start, as at the exhibit; its answer comes from the
+  // route, so no card could start it on the case's own times any sooner.
+  useCheckSetting("race", (setting) => {
+    if (!spec) return false;
+    const ball = setting.ball;
+    setBuild({
+      ...spec,
+      drop_m: settingNumber(setting, "drop_m", spec.drop_m),
+      run_m: settingNumber(setting, "run_m", spec.run_m),
+      ball: ball === "solid" || ball === "hollow" || ball === "sliding" ? ball : spec.ball,
+    });
+    return true;
+  });
   const analysis = useRace(spec);
   const data = analysis.data ?? null;
 

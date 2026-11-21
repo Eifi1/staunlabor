@@ -2530,6 +2530,19 @@ all but unreachable. The resistance slider steps by 10 Ω, so a reader gets
 2530 Ω (peak 4.7 · 10⁻⁵ lower); "Set it up" sets the exact value. It sets the
 build, which recharges the capacitor, and throws the switch.
 
+**The race's** four (2026-11-21) hold the straight line's time (0.982374 s),
+the brachistochrone's through the finish (0.747261 s, its end angle found by
+the case's own halving of (φ − sin φ)/(1 − cos φ) = D/H), and in the valley the
+cycloid's time from 59 cm to the bottom (0.650151 s, the time table the
+animation runs, not the closed form π√(r/g′)) and the circular bowl's from the
+same height (0.696484 s, through the pendulum's K). The last two sum smooth
+integrands by the trapezoid rule over 1440 intervals: 7 · 10⁻⁸ off at that
+count, a quarter of it at twice the count, so the error is the sum's, within
+the engine's own claim of a part in 10⁷. The engine imports the pit and the
+sphere's inertias, so a change to `pit.py` or `sphere.py` unchecks the race
+too. "Set it up" sets the build, which the valley shares; the race waits for
+its start, as at the exhibit.
+
 **On the page** a section "Check it yourself" (`check-section.tsx`) lists the
 cases, each with its formula as an `Equation` (`check-formulas.ts`), both
 values to seven digits, the deviation, why the case would catch a mistake,

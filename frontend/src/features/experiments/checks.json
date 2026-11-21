@@ -1840,6 +1840,122 @@
    ]
   }
  ],
+ "race": [
+  {
+   "key": "line",
+   "unit": "s",
+   "expected": 0.982374380754,
+   "measured": 0.982374380754,
+   "deviation": 1.61610375466e-14,
+   "tolerance": 1e-12,
+   "derived": true,
+   "setting": {
+    "drop_m": 0.5,
+    "run_m": 1.2,
+    "ball": "solid"
+   },
+   "sources": [
+    {
+     "cite": "OpenStax, University Physics Volume 1, §11.1 Rolling Motion, Eq. 11.4",
+     "url": "https://openstax.org/books/university-physics-volume-1/pages/11-1-rolling-motion",
+     "quote": "a_CM = mg sin θ / (m + I_CM/r²)"
+    },
+    {
+     "cite": "OpenStax, University Physics Volume 1, §3.4 Motion with Constant Acceleration, Eq. 3.13",
+     "url": "https://openstax.org/books/university-physics-volume-1/pages/3-4-motion-with-constant-acceleration",
+     "quote": "x = x₀ + v₀t + ½at² (constant a)"
+    },
+    {
+     "cite": "Wikipedia, “List of moments of inertia”, solid sphere (citing Serway, Physics for Scientists and Engineers)",
+     "url": "https://en.wikipedia.org/wiki/List_of_moments_of_inertia",
+     "quote": "I = 2/5 m r²"
+    }
+   ]
+  },
+  {
+   "key": "cycloid",
+   "unit": "s",
+   "expected": 0.74726098845,
+   "measured": 0.74726098847,
+   "deviation": 2.72065641605e-11,
+   "tolerance": 1e-10,
+   "derived": true,
+   "setting": {
+    "drop_m": 0.5,
+    "run_m": 1.2,
+    "ball": "solid"
+   },
+   "sources": [
+    {
+     "cite": "Wikipedia, “Brachistochrone curve”, §Johann Bernoulli’s solution",
+     "url": "https://en.wikipedia.org/wiki/Brachistochrone_curve",
+     "quote": "x = r(φ − sin φ), y = r(1 − cos φ) … In the brachistochrone problem, the motion of the body is given by the time evolution of the parameter: φ(t) = ωt, ω = √(g/r) where t is the time since the release of the body from the point (0,0)."
+    },
+    {
+     "cite": "OpenStax, University Physics Volume 1, §11.1 Rolling Motion, Eq. 11.4",
+     "url": "https://openstax.org/books/university-physics-volume-1/pages/11-1-rolling-motion",
+     "quote": "a_CM = mg sin θ / (m + I_CM/r²)"
+    }
+   ]
+  },
+  {
+   "key": "tautochrone",
+   "unit": "s",
+   "expected": 0.650150918007,
+   "measured": 0.650150965165,
+   "deviation": 7.25332597433e-08,
+   "tolerance": 1e-07,
+   "derived": true,
+   "setting": {
+    "drop_m": 0.5,
+    "run_m": 1.2,
+    "ball": "solid"
+   },
+   "sources": [
+    {
+     "cite": "Wikipedia, “Tautochrone curve”, introduction",
+     "url": "https://en.wikipedia.org/wiki/Tautochrone_curve",
+     "quote": "the curve for which the time taken by an object sliding without friction in uniform gravity to its lowest point is independent of its starting point on the curve. The curve is a cycloid, and the time is equal to π times the square root of the radius of the circle which generates the cycloid, divided by the square root of the acceleration of gravity."
+    },
+    {
+     "cite": "OpenStax, University Physics Volume 1, §11.1 Rolling Motion, Eq. 11.4",
+     "url": "https://openstax.org/books/university-physics-volume-1/pages/11-1-rolling-motion",
+     "quote": "a_CM = mg sin θ / (m + I_CM/r²)"
+    }
+   ]
+  },
+  {
+   "key": "bowl",
+   "unit": "s",
+   "expected": 0.696483601678,
+   "measured": 0.696483636442,
+   "deviation": 4.99143750183e-08,
+   "tolerance": 1e-07,
+   "derived": true,
+   "setting": {
+    "drop_m": 0.5,
+    "run_m": 1.2,
+    "ball": "solid"
+   },
+   "sources": [
+    {
+     "cite": "NIST Digital Library of Mathematical Functions, §22.19(i), Eq. 22.19.1 and after Eq. 22.19.2",
+     "url": "https://dlmf.nist.gov/22.19",
+     "quote": "With appropriate scalings, Newton’s equation of motion for a pendulum … is d²θ(t)/dt² = −sin θ(t) … The period is 4K(sin(½α))"
+    },
+    {
+     "cite": "NIST Digital Library of Mathematical Functions, §19.2(ii), Eqs. 19.2.4 and 19.2.8",
+     "url": "https://dlmf.nist.gov/19.2",
+     "quote": "F(φ,k) = ∫₀^φ dθ/√(1 − k² sin²θ) … K(k) = F(π/2,k)"
+    },
+    {
+     "cite": "OpenStax, University Physics Volume 1, §11.1 Rolling Motion, Eq. 11.4",
+     "url": "https://openstax.org/books/university-physics-volume-1/pages/11-1-rolling-motion",
+     "quote": "a_CM = mg sin θ / (m + I_CM/r²)"
+    }
+   ]
+  }
+ ],
  "resonance": [
   {
    "key": "tone",

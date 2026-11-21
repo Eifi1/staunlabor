@@ -126,6 +126,11 @@ const LC_Q: CheckSymbol = { tex: "q", key: "lc_q", unit: "C" };
 const LC_I: CheckSymbol = { tex: "i", key: "current", unit: "A" };
 const LC_U0: CheckSymbol = { tex: "U_0", key: "U", unit: "V" };
 const LC_T_NOW: CheckSymbol = { tex: "t", key: "t", unit: "s" };
+const T_RACE: CheckSymbol = { tex: "T", key: "T_race", unit: "s" };
+const T_BOTTOM: CheckSymbol = { tex: "T", key: "T_bottom", unit: "s" };
+const D_RUN: CheckSymbol = { tex: "D", key: "D_run", unit: "m" };
+const H_DROP: CheckSymbol = { tex: "H", key: "H_drop", unit: "m" };
+const R_CYCLOID: CheckSymbol = { tex: "r", key: "r_cycloid", unit: "m" };
 
 const ROD_STEADY: CheckFormula = {
   tex: String.raw`w = \frac{\Gamma\,\Omega^2 Y}{\sqrt{(\omega^2 - \Omega^2)^2 + (2\zeta\omega\Omega)^2}}, \qquad \Gamma = \frac{\int_0^1 \varphi\,d\xi}{\int_0^1 \varphi^2\,d\xi}`,
@@ -999,6 +1004,32 @@ export const CHECK_FORMULAS: Record<string, Record<string, CheckFormula>> = {
         { tex: String.raw`\omega_0`, key: "lc_omega0", unit: "1/s" },
         LC_T_NOW,
         LC_U0,
+      ],
+    },
+  },
+  race: {
+    line: {
+      tex: String.raw`T = \sqrt{\frac{2\,(D^2 + H^2)}{g'\,H}}, \qquad g' = \tfrac57\,g`,
+      symbols: [T_RACE, D_RUN, H_DROP, G_SHARE, G],
+    },
+    cycloid: {
+      tex: String.raw`T = \varphi_B\sqrt{\frac{r}{g'}}, \qquad \frac{\varphi_B - \sin\varphi_B}{1 - \cos\varphi_B} = \frac{D}{H}, \qquad r = \frac{H}{1 - \cos\varphi_B}`,
+      symbols: [T_RACE, { tex: String.raw`\varphi_B`, key: "phi_B" }, R_CYCLOID, G_SHARE, D_RUN, H_DROP],
+    },
+    tautochrone: {
+      tex: String.raw`T = \pi\sqrt{\frac{r}{g'}}`,
+      symbols: [T_BOTTOM, R_CYCLOID, G_SHARE],
+    },
+    bowl: {
+      tex: String.raw`T = \sqrt{\frac{R}{g'}}\;K\!\left(\sin\frac{\varphi_0}{2}\right), \qquad R = 4r, \qquad \cos\varphi_0 = 1 - \frac{h}{R}`,
+      symbols: [
+        T_BOTTOM,
+        { tex: "R", key: "R_bowl", unit: "m" },
+        G_SHARE,
+        { tex: "K", key: "K" },
+        { tex: String.raw`\varphi_0`, key: "phi0_bowl", unit: "°" },
+        R_CYCLOID,
+        { tex: "h", key: "h_start", unit: "m" },
       ],
     },
   },

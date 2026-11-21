@@ -822,7 +822,7 @@
         "hint": "Die echte Grösse des Exponats ist nicht veröffentlicht; angenommen ist eine Bahn für den Tisch. Jede Änderung startet das Rennen neu.",
         "drop": "Höhe bis zum Ziel",
         "run": "Weite bis zum Ziel",
-        "run_hint": "Ab π/2-mal der Höhe taucht die Zykloide unter das Ziel. Kürzer als 1.1-mal die Höhe würde der Buckel eine Kugel von seiner Kuppe werfen und der Kreisbogen über seinen eigenen Start zurückbiegen; darum endet die Weite dort.",
+        "run_hint": "Ab π/2-mal der Höhe taucht die Zykloide unter das Ziel. Kürzer als 1,1-mal die Höhe würde der Buckel eine Kugel von seiner Kuppe werfen und der Kreisbogen über seinen eigenen Start zurückbiegen; darum endet die Weite dort.",
         "ball": "Was läuft"
       },
       "valley": {
@@ -3663,7 +3663,15 @@
         "lc_E": "Energie in Kondensator und Spule",
         "lc_q": "Ladung auf dem Kondensator",
         "lc_q0": "Ladung beim Umlegen, C·U₀",
-        "lc_omega0": "Kreisfrequenz ohne Widerstand, 1/√(LC)"
+        "lc_omega0": "Kreisfrequenz ohne Widerstand, 1/√(LC)",
+        "T_race": "Zeit vom Start bis zum Ziel",
+        "T_bottom": "Zeit bis zum Boden",
+        "D_run": "Weite bis zum Ziel",
+        "H_drop": "Höhe bis zum Ziel",
+        "phi_B": "Winkel des rollenden Kreises am Ziel",
+        "r_cycloid": "Radius des Kreises, der die Zykloide zeichnet",
+        "R_bowl": "Radius der Kreisschale",
+        "phi0_bowl": "Startwinkel in der Schale, ab dem Boden"
       },
       "cases": {
         "sphere": {
@@ -4422,6 +4430,36 @@
             "reads": "Bei R = 2√(L/C) fallen die beiden Wurzeln zusammen; aus der Ruhe ist der Strom q₀ω₀²·t·e^(−ω₀t), am stärksten nach 1/ω₀ mit q₀ω₀/e.",
             "why": "Prüft den Zweig der Rechnung, den die Seite an der Grenze nimmt: 2,908 mA nach 0,158 s. Auf dem Regler sind es 2530 Ω, knapp darüber; dort liegt die Spitze 5 · 10⁻⁵ tiefer.",
             "step": "Die erste Quelle gibt die Grenze, wo √(1/LC) = R/2L, die zweite die Lösungen e^(st) mit s = −ω₀(ζ ± i√(1 − ζ²)). An der Grenze ist ζ = 1, und beide s sind −ω₀; die zweite Lösung ist dann t·e^(−ω₀t). Aus der Ruhe gestartet folgt die Formel."
+          }
+        },
+        "race": {
+          "line": {
+            "title": "Die Gerade: die schiefe Ebene",
+            "setting": "Eine Vollkugel, 50 cm tief und 120 cm weit bis zum Ziel.",
+            "reads": "Auf der Geraden rollt die Kugel mit fester Beschleunigung g′·H/L, aus der Ruhe: L = ½·a·T².",
+            "why": "Prüft die Summe über ds/v, mit der die Seite jede Bahn rechnet, am einfachsten Fall: 0,982374 s. Nach der Substitution der Seite ist der Summand hier fest, darum stimmt die Summe bis auf Rundung.",
+            "step": "Die erste Quelle gibt die Beschleunigung einer rollenden Kugel auf der schiefen Ebene, g·sin θ/(1 + 2/5), mit sin θ = H/L; die zweite die Strecke aus der Ruhe, L = ½·a·T², mit L² = D² + H²; die dritte das Trägheitsmoment der Vollkugel, 2/5·m·r²."
+          },
+          "cycloid": {
+            "title": "Die Zykloide: die schnellste Bahn",
+            "setting": "Wie oben: Vollkugel, 50 cm tief, 120 cm weit.",
+            "reads": "Auf der Zykloide x = r(φ − sin φ), y = r(1 − cos φ) läuft der Winkel des rollenden Kreises gleichmässig mit der Zeit: φ = t·√(g′/r). Am Ziel ist es φ_B.",
+            "why": "Prüft die schnellste Bahn und wie die Seite ihre Zykloide durch das Ziel legt: 0,747261 s. Nahe der Spitze am Start verliert 1 − cos φ Stellen, daher 3 · 10⁻¹¹.",
+            "step": "Die erste Quelle rechnet einen Körper, der reibungslos gleitet, unter g. Die rollende Kugel spürt entlang jeder Bahn nur g′ = g/(1 + 2/5), das gibt die zweite; so wird ω = √(g′/r). φ_B ist der Winkel, an dem sich Weite und Höhe der Zykloide wie 120 zu 50 verhalten."
+          },
+          "tautochrone": {
+            "title": "Das Zykloidental: von überall gleich lang",
+            "setting": "Das Tal der Seite, Radius 30 cm, eine Vollkugel; gelesen an der höchsten, die 59 cm über dem Boden losgelassen wird.",
+            "reads": "In einem Zykloidental braucht eine Kugel bis zum Boden π·√(r/g′), gleich, wo sie losgelassen wird.",
+            "why": "Prüft die Zeittabelle, nach der die Seite die Kugeln im Tal laufen lässt: 0,650151 s auch aus 59 cm. Die Summe der Seite über 1440 Schritte liegt 7 · 10⁻⁸ daneben, ein Fehler, der mit dem Quadrat der Schrittweite fällt.",
+            "step": "Die erste Quelle gibt die Zeit für einen Körper, der reibungslos gleitet, unter g; die rollende Kugel spürt g′ = g/(1 + 2/5), das gibt die zweite."
+          },
+          "bowl": {
+            "title": "Die Kreisschale daneben: weiter ist langsamer",
+            "setting": "Die Kreisschale neben dem Tal, Radius 1,2 m, viermal der Radius der Zykloide; die Vollkugel aus 59 cm Höhe.",
+            "reads": "In der Schale schwingt die Kugel wie ein Pendel der Länge R unter g′; bis zum Boden braucht sie ein Viertel seiner Periode, √(R/g′)·K(sin(φ₀/2)).",
+            "why": "Prüft die Schale, mit der die Seite zeigt, dass nur die Zykloide alle zugleich ankommen lässt: 0,696484 s aus 59 cm, später als im Tal. K ist hier als Integral summiert; die Summe der Seite liegt 5 · 10⁻⁸ daneben.",
+            "step": "Die erste Quelle gibt die Periode des Pendels, 4K in Einheiten von √(R/g′), die zweite K, die dritte g′ = g/(1 + 2/5) für die rollende Kugel. Die Schale hat den Radius 4r, die Krümmung der Zykloide an ihrem Boden, und die Kugel startet auf derselben Höhe h wie im Tal: cos φ₀ = 1 − h/R."
           }
         }
       },

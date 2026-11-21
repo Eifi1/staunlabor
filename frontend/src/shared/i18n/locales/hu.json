@@ -3663,7 +3663,15 @@
         "lc_E": "energia a kondenzátorban és a tekercsben",
         "lc_q": "a kondenzátor töltése",
         "lc_q0": "a töltés átkapcsoláskor, C·U₀",
-        "lc_omega0": "körfrekvencia ellenállás nélkül, 1/√(LC)"
+        "lc_omega0": "körfrekvencia ellenállás nélkül, 1/√(LC)",
+        "T_race": "idő a rajttól a célig",
+        "T_bottom": "idő az aljáig",
+        "D_run": "vízszintes távolság a célig",
+        "H_drop": "szintkülönbség a célig",
+        "phi_B": "a guruló kör szöge a célnál",
+        "r_cycloid": "a cikloist rajzoló kör sugara",
+        "R_bowl": "a köríves tál sugara",
+        "phi0_bowl": "indulási szög a tálban, az aljától mérve"
       },
       "cases": {
         "sphere": {
@@ -4422,6 +4430,36 @@
             "reads": "R = 2√(L/C)-nél a két gyök egybeesik; nyugalomból indulva az áram q₀ω₀²·t·e^(−ω₀t), és 1/ω₀ után a legerősebb, q₀ω₀/e.",
             "why": "A számításnak azt az ágát ellenőrzi, amelyet az oldal a határon használ: 2,908 mA 0,158 s után. A csúszkán 2530 Ω áll, épp e fölött; ott a csúcs 5 · 10⁻⁵-nel alacsonyabb.",
             "step": "Az első forrás megadja a határt, ahol √(1/LC) = R/2L, a második az e^(st) megoldásokat, ahol s = −ω₀(ζ ± i√(1 − ζ²)). A határon ζ = 1, és mindkét s értéke −ω₀; a második megoldás ekkor t·e^(−ω₀t). Nyugalomból indítva ebből következik a képlet."
+          }
+        },
+        "race": {
+          "line": {
+            "title": "Az egyenes: a lejtő",
+            "setting": "Tömör golyó; a célig 50 cm szintkülönbség és 120 cm vízszintes távolság.",
+            "reads": "Az egyenesen a golyó állandó g′·H/L gyorsulással gurul, nyugalomból indulva: L = ½·a·T².",
+            "why": "A ds/v összeget ellenőrzi, amellyel az oldal minden pályát kiszámol, a legegyszerűbb esetben: 0,982374 s. Az oldal helyettesítése után az összeadandó itt állandó, ezért az összeg a kerekítéstől eltekintve pontos.",
+            "step": "Az első forrás egy lejtőn guruló golyó gyorsulását adja meg, g·sin θ/(1 + 2/5), ahol sin θ = H/L; a második a nyugalomból megtett utat, L = ½·a·T², ahol L² = D² + H²; a harmadik a tömör golyó tehetetlenségi nyomatékát, 2/5·m·r²."
+          },
+          "cycloid": {
+            "title": "A ciklois: a leggyorsabb pálya",
+            "setting": "Mint fent: tömör golyó, 50 cm szintkülönbség, 120 cm vízszintes távolság.",
+            "reads": "Az x = r(φ − sin φ), y = r(1 − cos φ) cikloison a guruló kör szöge egyenletesen nő az idővel: φ = t·√(g′/r). A célnál ez φ_B.",
+            "why": "A leggyorsabb pályát ellenőrzi, és azt, hogyan vezeti át az oldal a cikloisát a célon: 0,747261 s. A rajtnál lévő csúcs közelében 1 − cos φ értékes jegyeket veszít, innen a 3 · 10⁻¹¹.",
+            "step": "Az első forrás egy súrlódás nélkül csúszó testet számol, g mellett. A guruló golyó bármely pálya mentén csak g′ = g/(1 + 2/5)-öt érez, ezt adja a második; így ω = √(g′/r). φ_B az a szög, amelynél a ciklois vízszintes távolsága és szintkülönbsége úgy aránylik egymáshoz, mint 120 az 50-hez."
+          },
+          "tautochrone": {
+            "title": "A cikloisvölgy: bárhonnan ugyanannyi idő",
+            "setting": "Az oldal völgye, sugara 30 cm, tömör golyó; a legmagasabbról leolvasva, amelyet 59 cm-rel az alj fölött engednek el.",
+            "reads": "Egy cikloisvölgyben a golyónak π·√(r/g′) idő kell az aljáig, bárhol engedik is el.",
+            "why": "Azt az időtáblát ellenőrzi, amely szerint az oldal a golyókat a völgyben futtatja: 0,650151 s 59 cm-ről is. Az oldal 1440 lépéses összege 7 · 10⁻⁸-nal tér el, és ez a hiba a lépésköz négyzetével csökken.",
+            "step": "Az első forrás egy súrlódás nélkül csúszó test idejét adja meg g mellett; a guruló golyó g′ = g/(1 + 2/5)-öt érez, ezt adja a második."
+          },
+          "bowl": {
+            "title": "A köríves tál mellette: a szélesebb lengés lassabb",
+            "setting": "A völgy melletti köríves tál, sugara 1,2 m, a ciklois sugarának négyszerese; a tömör golyó 59 cm magasról.",
+            "reads": "A tálban a golyó úgy leng, mint egy R hosszúságú inga g′ mellett; az aljáig periódusának negyede kell neki, √(R/g′)·K(sin(φ₀/2)).",
+            "why": "A tálat ellenőrzi, amellyel az oldal megmutatja, hogy csak a ciklois juttatja be mindet egyszerre: 0,696484 s 59 cm-ről, később, mint a völgyben. K itt integrálként van összegezve; az oldal összege 5 · 10⁻⁸-nal tér el.",
+            "step": "Az első forrás az inga periódusát adja meg, 4K-t √(R/g′) egységekben, a második K-t, a harmadik a guruló golyóra g′ = g/(1 + 2/5)-öt. A tál sugara 4r, ez felel meg a ciklois görbületének az alján, és a golyó ugyanabból a h magasságból indul, mint a völgyben: cos φ₀ = 1 − h/R."
           }
         }
       },
