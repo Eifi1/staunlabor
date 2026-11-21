@@ -2483,6 +2483,17 @@ the printed b the axis lies 2.1 mm lower everywhere and the speed case fails by
 Z = a cos α, not the printed b, so nobody should "fix" the engine to it. "Set
 it up" sets the build's six sliders and lets the cone go.
 
+**The beats'** three (2026-11-21) hold the silences to |f₂ − f₁| (read off the
+very sum the page draws and plays, at the crests of the mean tone), a gram at
+the prong's tip to 440/√1.2 = 401.663 Hz (the prong felt there as a quarter of
+its mass, from its clamped mode) and the gram a third up to 439.183 Hz, the
+page's 0.82 beats a second. No case holds the docs' "Rayleigh 0.04 % above the
+exact beam with a mass at its tip": the one fetchable source for that equation
+(Labuda et al., arXiv:1604.00601, App. B) prints the bare beam's equation with a
+sign the clamped-free beam does not have, so the comparison stays in
+`tests/unit/test_experiments.py`. "Set it up" sets the rider and strikes the
+forks; the sound stays as the reader left it.
+
 **On the page** a section "Check it yourself" (`check-section.tsx`) lists the
 cases, each with its formula as an `Equation` (`check-formulas.ts`), both
 values to seven digits, the deviation, why the case would catch a mistake,

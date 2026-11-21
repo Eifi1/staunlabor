@@ -3614,7 +3614,21 @@
         "dz_axis": "de combien l’axe descend",
         "l_rails": "longueur des rails, vue d’en haut",
         "a_roll": "rayon sur lequel roule le cône : de l’axe au contact",
-        "radius_cone": "rayon du cône au milieu"
+        "radius_cone": "rayon du cône au milieu",
+        "y_sum": "les deux sons ensemble",
+        "amp": "amplitude d’un son",
+        "f_avg": "hauteur moyenne",
+        "f12": "hauteurs des deux diapasons",
+        "f_beat": "battements par seconde",
+        "f_fork": "hauteur du diapason sans cavalier",
+        "f_rider": "hauteur avec le cavalier",
+        "m_felt": "masse de la branche telle qu’elle compte à la pointe",
+        "m_prong": "masse d’une branche",
+        "m_rider": "masse du cavalier sur une branche",
+        "mode": "forme du premier mode, 1 à la pointe",
+        "s_rider": "position du cavalier, de la base (0) à la pointe (1)",
+        "xi": "position sur la branche, de la base (0) à la pointe (1)",
+        "beta_L": "première racine de l’équation de la poutre encastrée, 1,8751"
       },
       "cases": {
         "sphere": {
@@ -4251,6 +4265,28 @@
             "reads": "Ce que l’axe perd en hauteur devient mouvement et rotation : ½(1 + I/(M a²))·v² = g·Δz, avec a le rayon sur lequel roule le cône, et I = (3/10)·M·R² pour deux cônes pleins.",
             "why": "Vérifie la boucle des pas de temps et le roulement sur le rayon a qui diminue : 28,5357 cm/s après une seconde, à 10⁻⁹ près. Plus on monte, plus l’énergie se trouve dans la rotation.",
             "step": "La première source donne l’énergie et, avec ses équations (7) et (8), où se trouve l’axe et sur quel rayon a roule le cône, les angles étant convertis comme ci-dessus à la vue d’en haut. La seconde donne le moment d’inertie d’un cône ; deux cônes égaux, base contre base, ont le même I/(M·R²)."
+          }
+        },
+        "beats": {
+          "beat_rate": {
+            "title": "Autant de battements que la différence",
+            "setting": "Le cavalier, 1 g sur chaque branche, à 30 % depuis la base ; les deux diapasons frappés en même temps, pendant dix secondes.",
+            "reads": "La somme de deux sons est le son moyen multiplié par une enveloppe lente, qui devient silencieuse |f₂ − f₁| fois par seconde.",
+            "why": "Vérifie le son que la page dessine et joue : 0,8173 silences par seconde, un toutes les 1,22 s, autant que la différence des deux hauteurs. Relevé aux crêtes du son moyen, là où la somme est égale à l’enveloppe."
+          },
+          "tip_rider": {
+            "title": "Le cavalier à la pointe",
+            "setting": "1 g sur chaque branche, tout au bout de la pointe.",
+            "reads": "Une branche vibre comme une poutre encastrée dans son premier mode. À sa pointe, elle agit comme si le quart de sa masse s’y trouvait, et le cavalier s’ajoute en entier. La même raideur porte plus de masse : f = f₀·√(M*/(M* + m)).",
+            "why": "Vérifie la masse avec laquelle la branche compte à sa pointe : 5 g de ses 20 g ; le diapason descend de 440 Hz à 401,66 Hz. Ici, le quart est sommé sur la forme du mode ; la page met ¼.",
+            "step": "La première source donne la forme du premier mode d’une poutre encastrée, la seconde comment trouver la masse effective à partir de l’énergie cinétique : M* = M·∫φ², avec φ = 1 à la pointe. Un cavalier à l’endroit s compte avec m·φ(s)². À raideur égale, la fréquence varie comme 1/√masse."
+          },
+          "rider_on_prong": {
+            "title": "Le cavalier plus bas",
+            "setting": "1 g sur chaque branche, à 30 % du chemin de la base à la pointe, comme au départ de la page.",
+            "reads": "Plus bas, la branche bouge moins : le cavalier ne compte qu’avec φ(s)², le carré de la forme du mode à sa position.",
+            "why": "Vérifie la forme du mode à l’intérieur de la branche : le second diapason sonne à 439,18 Hz au lieu de 440 Hz.",
+            "step": "Comme pour le cavalier à la pointe, avec φ(0,3) tiré de la forme du mode de la première source, divisée pour que φ vaille 1 à la pointe."
           }
         }
       },

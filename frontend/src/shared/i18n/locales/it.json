@@ -3614,7 +3614,21 @@
         "dz_axis": "di quanto scende l'asse",
         "l_rails": "lunghezza dei binari, vista dall'alto",
         "a_roll": "raggio su cui rotola il cono: dall'asse al contatto",
-        "radius_cone": "raggio del cono al centro"
+        "radius_cone": "raggio del cono al centro",
+        "y_sum": "i due suoni insieme",
+        "amp": "ampiezza di un suono",
+        "f_avg": "altezza media",
+        "f12": "altezze dei due diapason",
+        "f_beat": "battimenti al secondo",
+        "f_fork": "altezza del diapason senza cavaliere",
+        "f_rider": "altezza con il cavaliere",
+        "m_felt": "massa del rebbio come conta sulla punta",
+        "m_prong": "massa di un rebbio",
+        "m_rider": "massa del cavaliere su un rebbio",
+        "mode": "forma del primo modo, 1 sulla punta",
+        "s_rider": "posizione del cavaliere, dalla base (0) alla punta (1)",
+        "xi": "posizione sul rebbio, dalla base (0) alla punta (1)",
+        "beta_L": "prima radice dell'equazione della trave incastrata, 1,8751"
       },
       "cases": {
         "sphere": {
@@ -4251,6 +4265,28 @@
             "reads": "Ciò che l'asse perde in altezza diventa moto e rotazione: ½(1 + I/(M a²))·v² = g·Δz, con a il raggio su cui rotola il cono, e I = (3/10)·M·R² per due coni pieni.",
             "why": "Verifica il ciclo dei passi temporali e il rotolamento sul raggio a che si restringe: 28,5357 cm/s dopo un secondo, a meno di 10⁻⁹. Più si sale, più energia sta nella rotazione.",
             "step": "La prima fonte dà l'energia e, con le sue equazioni (7) e (8), dove sta l'asse e su quale raggio a rotola il cono, con gli angoli convertiti come sopra alla vista dall'alto. La seconda dà il momento d'inerzia di un cono; due coni uguali, base contro base, hanno lo stesso I/(M·R²)."
+          }
+        },
+        "beats": {
+          "beat_rate": {
+            "title": "Tanti battimenti quanta la differenza",
+            "setting": "Il cavaliere, 1 g su ogni rebbio, al 30 % dalla base; entrambi i diapason colpiti insieme, per dieci secondi.",
+            "reads": "La somma di due suoni è il suono medio per un inviluppo lento, che si fa silenzioso |f₂ − f₁| volte al secondo.",
+            "why": "Verifica il suono che la pagina disegna e riproduce: 0,8173 silenzi al secondo, uno ogni 1,22 s, tanti quanta la differenza tra le due altezze. Letto sulle creste del suono medio, dove la somma è uguale all'inviluppo."
+          },
+          "tip_rider": {
+            "title": "Il cavaliere sulla punta",
+            "setting": "1 g su ogni rebbio, proprio sulla punta.",
+            "reads": "Un rebbio oscilla come una trave incastrata nel suo primo modo. Sulla punta agisce come se vi sedesse un quarto della sua massa, e il cavaliere si aggiunge per intero. La stessa rigidezza porta più massa: f = f₀·√(M*/(M* + m)).",
+            "why": "Verifica con quale massa conta il rebbio sulla sua punta: 5 g dei suoi 20 g; il diapason scende da 440 Hz a 401,66 Hz. Qui il quarto è sommato sulla forma del modo, la pagina inserisce ¼.",
+            "step": "La prima fonte dà la forma del primo modo di una trave incastrata, la seconda come si trova la massa efficace dall'energia cinetica: M* = M·∫φ², con φ = 1 sulla punta. Un cavaliere nel punto s conta con m·φ(s)². A parità di rigidezza la frequenza va con 1/√massa."
+          },
+          "rider_on_prong": {
+            "title": "Il cavaliere più in basso",
+            "setting": "1 g su ogni rebbio, al 30 % del tratto dalla base alla punta, come all'avvio della pagina.",
+            "reads": "Più in basso il rebbio si muove meno: il cavaliere conta solo con φ(s)², il quadrato della forma del modo nel suo punto.",
+            "why": "Verifica la forma del modo all'interno del rebbio: il secondo diapason suona a 439,18 Hz invece di 440 Hz.",
+            "step": "Come per il cavaliere sulla punta, con φ(0,3) dalla forma del modo della prima fonte, divisa in modo che φ valga 1 sulla punta."
           }
         }
       },

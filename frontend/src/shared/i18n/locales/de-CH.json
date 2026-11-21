@@ -3614,7 +3614,21 @@
         "dz_axis": "wie weit die Achse fällt",
         "l_rails": "Länge der Schienen, von oben gesehen",
         "a_roll": "Radius, auf dem der Kegel rollt: von der Achse zur Berührung",
-        "radius_cone": "Radius des Kegels in der Mitte"
+        "radius_cone": "Radius des Kegels in der Mitte",
+        "y_sum": "die beiden Töne zusammen",
+        "amp": "Ausschlag eines Tons",
+        "f_avg": "mittlere Tonhöhe",
+        "f12": "Tonhöhen der beiden Gabeln",
+        "f_beat": "Schwebungen pro Sekunde",
+        "f_fork": "Tonhöhe der Gabel ohne Reiter",
+        "f_rider": "Tonhöhe mit dem Reiter",
+        "m_felt": "Masse der Zinke, wie sie an der Spitze zählt",
+        "m_prong": "Masse einer Zinke",
+        "m_rider": "Masse des Reiters auf einer Zinke",
+        "mode": "Form der ersten Schwingung, 1 an der Spitze",
+        "s_rider": "Ort des Reiters, von der Wurzel (0) bis zur Spitze (1)",
+        "xi": "Ort auf der Zinke, von der Wurzel (0) bis zur Spitze (1)",
+        "beta_L": "erste Wurzel der Gleichung des eingespannten Balkens, 1,8751"
       },
       "cases": {
         "sphere": {
@@ -4251,6 +4265,28 @@
             "reads": "Was die Achse an Höhe verliert, wird Bewegung und Drehung: ½(1 + I/(M a²))·v² = g·Δz, mit a dem Radius, auf dem der Kegel rollt, und I = (3/10)·M·R² für zwei Vollkegel.",
             "why": "Prüft die Zeitschleife und das Rollen auf dem schrumpfenden Radius a: 28,5357 cm/s nach einer Sekunde, auf 10⁻⁹ genau. Je weiter oben, desto mehr der Energie steckt in der Drehung.",
             "step": "Die erste Quelle gibt die Energie und mit ihren Gleichungen (7) und (8), wo die Achse steht und auf welchem Radius a der Kegel rollt, die Winkel wie oben auf die Sicht von oben umgerechnet. Die zweite gibt das Trägheitsmoment eines Kegels; zwei gleiche Kegel, Grundfläche an Grundfläche, haben dasselbe I/(M·R²)."
+          }
+        },
+        "beats": {
+          "beat_rate": {
+            "title": "So viele Schwebungen wie der Unterschied",
+            "setting": "Der Reiter mit 1 g auf jeder Zinke, 30 % von der Wurzel; beide Gabeln zugleich angeschlagen, zehn Sekunden lang.",
+            "reads": "Die Summe zweier Töne ist der mittlere Ton mal einer langsamen Hülle; diese wird |f₂ − f₁|-mal pro Sekunde still.",
+            "why": "Prüft den Klang, den die Seite zeichnet und spielt: 0,8173 Stillen pro Sekunde, eine alle 1,22 s, so viele wie der Unterschied der beiden Tonhöhen. Gelesen an den Kämmen des mittleren Tons, wo die Summe gleich der Hülle ist."
+          },
+          "tip_rider": {
+            "title": "Der Reiter an der Spitze",
+            "setting": "1 g auf jeder Zinke, ganz an der Spitze.",
+            "reads": "Eine Zinke schwingt wie ein eingespannter Balken in seiner ersten Form. An ihrer Spitze wirkt sie, als sässe ein Viertel ihrer Masse dort, und der Reiter kommt voll dazu. Dieselbe Steifigkeit trägt mehr Masse: f = f₀·√(M*/(M* + m)).",
+            "why": "Prüft, mit welcher Masse die Zinke an ihrer Spitze zählt: 5 g ihrer 20 g; die Gabel sinkt von 440 Hz auf 401,66 Hz. Hier ist das Viertel über die Schwingungsform summiert, die Seite setzt ¼ ein.",
+            "step": "Die erste Quelle gibt die Form der ersten Schwingung eines eingespannten Balkens, die zweite, wie man aus der Bewegungsenergie die wirksame Masse findet: M* = M·∫φ², mit φ = 1 an der Spitze. Ein Reiter an der Stelle s zählt mit m·φ(s)². Bei gleicher Steifigkeit geht die Frequenz mit 1/√Masse."
+          },
+          "rider_on_prong": {
+            "title": "Der Reiter weiter unten",
+            "setting": "1 g auf jeder Zinke, 30 % von der Wurzel zur Spitze, wie die Seite beginnt.",
+            "reads": "Weiter unten bewegt sich die Zinke weniger: Der Reiter zählt nur mit φ(s)², dem Quadrat der Schwingungsform an seiner Stelle.",
+            "why": "Prüft die Schwingungsform im Innern der Zinke: Die zweite Gabel klingt mit 439,18 Hz statt 440 Hz.",
+            "step": "Wie beim Reiter an der Spitze, mit φ(0,3) aus der Schwingungsform der ersten Quelle, so geteilt, dass φ an der Spitze 1 ist."
           }
         }
       },

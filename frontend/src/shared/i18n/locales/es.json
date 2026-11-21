@@ -3614,7 +3614,21 @@
         "dz_axis": "cuánto baja el eje",
         "l_rails": "longitud de los rieles, vista desde arriba",
         "a_roll": "radio sobre el que rueda el cono: del eje al contacto",
-        "radius_cone": "radio del cono en el centro"
+        "radius_cone": "radio del cono en el centro",
+        "y_sum": "los dos tonos juntos",
+        "amp": "amplitud de un tono",
+        "f_avg": "tono medio",
+        "f12": "tonos de los dos diapasones",
+        "f_beat": "batidos por segundo",
+        "f_fork": "tono del diapasón sin jinete",
+        "f_rider": "tono con el jinete",
+        "m_felt": "masa de la rama tal como cuenta en la punta",
+        "m_prong": "masa de una rama",
+        "m_rider": "masa del jinete en una rama",
+        "mode": "forma del primer modo, 1 en la punta",
+        "s_rider": "lugar del jinete, de la base (0) a la punta (1)",
+        "xi": "lugar en la rama, de la base (0) a la punta (1)",
+        "beta_L": "primera raíz de la ecuación de la viga empotrada, 1,8751"
       },
       "cases": {
         "sphere": {
@@ -4251,6 +4265,28 @@
             "reads": "Lo que el eje pierde en altura se convierte en movimiento y giro: ½(1 + I/(M a²))·v² = g·Δz, con a el radio sobre el que rueda el cono, e I = (3/10)·M·R² para dos conos macizos.",
             "why": "Comprueba el bucle de pasos de tiempo y la rodadura sobre el radio a, que se achica: 28,5357 cm/s al cabo de un segundo, con una precisión de 10⁻⁹. Cuanto más arriba, más parte de la energía está en el giro.",
             "step": "La primera fuente da la energía y, con sus ecuaciones (7) y (8), dónde está el eje y sobre qué radio a rueda el cono, con los ángulos convertidos como arriba a la vista desde arriba. La segunda da el momento de inercia de un cono; dos conos iguales, base contra base, tienen el mismo I/(M·R²)."
+          }
+        },
+        "beats": {
+          "beat_rate": {
+            "title": "Tantos batidos como la diferencia",
+            "setting": "El jinete, 1 g en cada rama, al 30 % desde la base; los dos diapasones golpeados a la vez, durante diez segundos.",
+            "reads": "La suma de dos tonos es el tono medio multiplicado por una envolvente lenta, que se queda en silencio |f₂ − f₁| veces por segundo.",
+            "why": "Comprueba el sonido que la página dibuja y reproduce: 0,8173 silencios por segundo, uno cada 1,22 s, tantos como la diferencia entre los dos tonos. Leído en las crestas del tono medio, donde la suma es igual a la envolvente."
+          },
+          "tip_rider": {
+            "title": "El jinete en la punta",
+            "setting": "1 g en cada rama, justo en la punta.",
+            "reads": "Una rama oscila como una viga empotrada en su primer modo. En su punta actúa como si allí estuviera una cuarta parte de su masa, y el jinete se suma por completo. La misma rigidez lleva más masa: f = f₀·√(M*/(M* + m)).",
+            "why": "Comprueba con qué masa cuenta la rama en su punta: 5 g de sus 20 g; el diapasón baja de 440 Hz a 401,66 Hz. Aquí la cuarta parte se suma sobre la forma del modo; la página pone ¼.",
+            "step": "La primera fuente da la forma del primer modo de una viga empotrada; la segunda, cómo se halla la masa efectiva a partir de la energía cinética: M* = M·∫φ², con φ = 1 en la punta. Un jinete en el lugar s cuenta con m·φ(s)². Con la misma rigidez, la frecuencia va con 1/√masa."
+          },
+          "rider_on_prong": {
+            "title": "El jinete más abajo",
+            "setting": "1 g en cada rama, al 30 % del camino de la base a la punta, como empieza la página.",
+            "reads": "Más abajo la rama se mueve menos: el jinete cuenta solo con φ(s)², el cuadrado de la forma del modo en su lugar.",
+            "why": "Comprueba la forma del modo en el interior de la rama: el segundo diapasón suena a 439,18 Hz en lugar de 440 Hz.",
+            "step": "Como con el jinete en la punta, con φ(0,3) tomado de la forma del modo de la primera fuente, dividida de modo que φ valga 1 en la punta."
           }
         }
       },

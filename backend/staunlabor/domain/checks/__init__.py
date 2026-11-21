@@ -91,6 +91,7 @@ def _registry() -> dict[str, tuple[tuple[Case, ...], tuple[str, ...]]]:
     # Imported here: each module imports this one for its dataclasses.
     from staunlabor.domain.checks import (
         arch,
+        beats,
         chair,
         chladni,
         coil,
@@ -113,6 +114,7 @@ def _registry() -> dict[str, tuple[tuple[Case, ...], tuple[str, ...]]]:
 
     return {
         "arch": (arch.CASES, arch.ENGINE),
+        "beats": (beats.CASES, beats.ENGINE),
         "chair": (chair.CASES, chair.ENGINE),
         "chladni": (chladni.CASES, chladni.ENGINE),
         "coil": (coil.CASES, coil.ENGINE),

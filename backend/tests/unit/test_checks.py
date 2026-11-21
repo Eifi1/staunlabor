@@ -30,6 +30,7 @@ def test_the_engine_meets_every_limiting_case_within_its_tolerance(
 def test_the_exhibits_with_checks_are_these() -> None:
     assert checks.exhibits() == (
         "arch",
+        "beats",
         "chair",
         "chladni",
         "coil",

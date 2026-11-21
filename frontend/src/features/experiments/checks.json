@@ -75,6 +75,78 @@
    ]
   }
  ],
+ "beats": [
+  {
+   "key": "beat_rate",
+   "unit": "Hz",
+   "expected": 0.817331022134,
+   "measured": 0.817331022138,
+   "deviation": 3.93881257082e-12,
+   "tolerance": 1e-09,
+   "derived": false,
+   "setting": {
+    "mass_kg": 0.001,
+    "position": 0.3
+   },
+   "sources": [
+    {
+     "cite": "OpenStax, University Physics Volume 1, §17.6 Beats, Eq. 17.17",
+     "url": "https://openstax.org/books/university-physics-volume-1/pages/17-6-beats",
+     "quote": "y(t) = 2A cos(2πf_avg t) cos(2π(|f₂ − f₁|/2) t), where the beat frequency is f_beat = |f₂ − f₁|."
+    }
+   ]
+  },
+  {
+   "key": "tip_rider",
+   "unit": "Hz",
+   "expected": 401.663208837,
+   "measured": 401.663208837,
+   "deviation": 0.0,
+   "tolerance": 1e-10,
+   "derived": true,
+   "setting": {
+    "mass_kg": 0.001,
+    "position": 1.0
+   },
+   "sources": [
+    {
+     "cite": "Wikipedia, “Euler–Bernoulli beam theory”, §“Example: Cantilevered beam”",
+     "url": "https://en.wikipedia.org/wiki/Euler%E2%80%93Bernoulli_beam_theory",
+     "quote": "non-trivial solutions are found to exist only if cosh(βₙL) cos(βₙL) + 1 = 0. … ŵₙ = A₁[(cosh βₙx − cos βₙx) + (cos βₙL + cosh βₙL)/(sin βₙL + sinh βₙL) (sin βₙx − sinh βₙx)]"
+    },
+    {
+     "cite": "Wikipedia, “Effective mass (spring–mass system)”, §“Uniform spring (homogeneous)”",
+     "url": "https://en.wikipedia.org/wiki/Effective_mass_(spring%E2%80%93mass_system)",
+     "quote": "The effective mass of the spring can be determined by finding its kinetic energy. … So the effective mass of the spring added to the mass of the load gives us the “effective total mass” of the system that must be used in the standard formula 2π√(m/k) to determine the period of oscillation."
+    }
+   ]
+  },
+  {
+   "key": "rider_on_prong",
+   "unit": "Hz",
+   "expected": 439.182668978,
+   "measured": 439.182668978,
+   "deviation": 0.0,
+   "tolerance": 1e-10,
+   "derived": true,
+   "setting": {
+    "mass_kg": 0.001,
+    "position": 0.3
+   },
+   "sources": [
+    {
+     "cite": "Wikipedia, “Euler–Bernoulli beam theory”, §“Example: Cantilevered beam”",
+     "url": "https://en.wikipedia.org/wiki/Euler%E2%80%93Bernoulli_beam_theory",
+     "quote": "non-trivial solutions are found to exist only if cosh(βₙL) cos(βₙL) + 1 = 0. … ŵₙ = A₁[(cosh βₙx − cos βₙx) + (cos βₙL + cosh βₙL)/(sin βₙL + sinh βₙL) (sin βₙx − sinh βₙx)]"
+    },
+    {
+     "cite": "Wikipedia, “Effective mass (spring–mass system)”, §“Uniform spring (homogeneous)”",
+     "url": "https://en.wikipedia.org/wiki/Effective_mass_(spring%E2%80%93mass_system)",
+     "quote": "The effective mass of the spring can be determined by finding its kinetic energy. … So the effective mass of the spring added to the mass of the load gives us the “effective total mass” of the system that must be used in the standard formula 2π√(m/k) to determine the period of oscillation."
+    }
+   ]
+  }
+ ],
  "chair": [
   {
    "key": "one_picture",

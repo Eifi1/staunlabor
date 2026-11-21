@@ -29,6 +29,7 @@ async def test_with_no_verdict_every_exhibit_with_cases_is_listed_and_none_is_ch
     assert answer.json() == {
         "with_cases": [
             "arch",
+            "beats",
             "chair",
             "chladni",
             "coil",

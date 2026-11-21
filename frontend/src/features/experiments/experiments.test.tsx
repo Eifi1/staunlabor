@@ -90,6 +90,7 @@ const wave = fixtures.wave as unknown as WaveFigures;
 const UNCHECKED = {
   with_cases: [
     "arch",
+    "beats",
     "chair",
     "chladni",
     "coil",
@@ -1762,6 +1763,19 @@ describe("setting a check case up", () => {
     await setUp(2);
     expect(await screen.findByRole("button", { name: E.cone.play.pause })).toBeInTheDocument();
     expect(screen.getByRole("slider", { name: E.cone.change.length }).getAttribute("aria-valuetext")).toMatch(/^30\b/);
+  });
+
+  it("slides the beats' rider to the prong's tip and strikes the forks, the sound left off", async () => {
+    renderWithProviders(<BeatsPage />);
+    await screen.findByRole("img", { name: E.beats.view });
+    await setUp(1);
+    await waitFor(() =>
+      expect(screen.getByRole("slider", { name: E.beats.change.position }).getAttribute("aria-valuetext")).toMatch(
+        /^100\b/,
+      ),
+    );
+    expect(screen.queryByText(E.beats.play.waiting)).not.toBeInTheDocument();
+    expect(screen.getByText(E.beats.play.no_sound)).toBeInTheDocument();
   });
 
   it("pushes the ball round the well on its circle, with the felt's brake, for the brake's case", async () => {

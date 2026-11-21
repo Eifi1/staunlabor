@@ -3614,7 +3614,21 @@
         "dz_axis": "how far the axis falls",
         "l_rails": "length of the rails, seen from above",
         "a_roll": "radius the cone rolls on: from the axis to the contact",
-        "radius_cone": "radius of the cone at the middle"
+        "radius_cone": "radius of the cone at the middle",
+        "y_sum": "the two tones together",
+        "amp": "one tone's amplitude",
+        "f_avg": "the mean pitch",
+        "f12": "the two forks' pitches",
+        "f_beat": "beats a second",
+        "f_fork": "the fork's pitch without the rider",
+        "f_rider": "the pitch with the rider",
+        "m_felt": "the prong's mass as it counts at the tip",
+        "m_prong": "one prong's mass",
+        "m_rider": "the rider's mass on one prong",
+        "mode": "the shape of the first mode, 1 at the tip",
+        "s_rider": "where the rider sits, from the root (0) to the tip (1)",
+        "xi": "a place on the prong, from the root (0) to the tip (1)",
+        "beta_L": "the first root of the clamped beam's equation, 1.8751"
       },
       "cases": {
         "sphere": {
@@ -4251,6 +4265,28 @@
             "reads": "What the axis loses in height becomes motion and spin: ½(1 + I/(M a²))·v² = g·Δz, with a the radius the cone rolls on, and I = (3/10)·M·R² for two solid cones.",
             "why": "Checks the time loop and the rolling on the shrinking radius a: 28.5357 cm/s after one second, to 10⁻⁹. The higher up, the more of the energy is in the spin.",
             "step": "The first source gives the energy and, with its equations (7) and (8), where the axis is and on what radius a the cone rolls, the angles converted as above to the view from above. The second gives a cone's moment of inertia; two equal cones, base to base, have the same I/(M·R²)."
+          }
+        },
+        "beats": {
+          "beat_rate": {
+            "title": "As many beats as the difference",
+            "setting": "The rider, 1 g on each prong, 30 % up from the root; both forks struck together, for ten seconds.",
+            "reads": "Two tones together are the mean tone times a slow envelope, which falls silent |f₂ − f₁| times a second.",
+            "why": "Checks the sound the page draws and plays: 0.8173 silences a second, one every 1.22 s, as many as the difference of the two pitches. Read at the crests of the mean tone, where the sum equals the envelope."
+          },
+          "tip_rider": {
+            "title": "The rider at the tip",
+            "setting": "1 g on each prong, right at the tip.",
+            "reads": "A prong swings like a clamped beam in its first mode. At its tip it acts as if a quarter of its mass sat there, and the rider adds in full. The same stiffness carries more mass: f = f₀·√(M*/(M* + m)).",
+            "why": "Checks the mass a prong counts with at its tip: 5 g of its 20 g; the fork drops from 440 Hz to 401.66 Hz. Here the quarter is summed over the mode's shape; the page puts in ¼.",
+            "step": "The first source gives the shape of a clamped beam's first mode, the second how a mass as felt is found from the energy of motion: M* = M·∫φ², with φ = 1 at the tip. A rider at s counts with m·φ(s)². At the same stiffness the frequency goes with 1/√mass."
+          },
+          "rider_on_prong": {
+            "title": "The rider further down",
+            "setting": "1 g on each prong, 30 % of the way from the root to the tip, as the page starts.",
+            "reads": "Further down the prong moves less: the rider counts only with φ(s)², the square of the mode's shape where it sits.",
+            "why": "Checks the mode's shape inside the prong: the second fork sounds at 439.18 Hz instead of 440 Hz.",
+            "step": "As for the rider at the tip, with φ(0.3) from the first source's mode shape, scaled so that φ is 1 at the tip."
           }
         }
       },

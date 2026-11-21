@@ -3614,7 +3614,21 @@
         "dz_axis": "mennyit süllyed a tengely",
         "l_rails": "a sínek hossza, felülről nézve",
         "a_roll": "a sugár, amelyen a kúp gurul: a tengelytől az érintkezésig",
-        "radius_cone": "a kúp sugara középen"
+        "radius_cone": "a kúp sugara középen",
+        "y_sum": "a két hang együtt",
+        "amp": "egy hang amplitúdója",
+        "f_avg": "átlagos hangmagasság",
+        "f12": "a két villa hangmagassága",
+        "f_beat": "lebegések másodpercenként",
+        "f_fork": "a villa hangmagassága lovas nélkül",
+        "f_rider": "a hangmagasság a lovassal",
+        "m_felt": "az ág tömege, ahogy a csúcson számít",
+        "m_prong": "egy ág tömege",
+        "m_rider": "a lovas tömege egy ágon",
+        "mode": "az első rezgési alak, a csúcson 1",
+        "s_rider": "a lovas helye, a tőtől (0) a csúcsig (1)",
+        "xi": "hely az ágon, a tőtől (0) a csúcsig (1)",
+        "beta_L": "a befogott tartó egyenletének első gyöke, 1,8751"
       },
       "cases": {
         "sphere": {
@@ -4251,6 +4265,28 @@
             "reads": "Amit a tengely magasságban veszít, az mozgássá és forgássá válik: ½(1 + I/(M a²))·v² = g·Δz, ahol a az a sugár, amelyen a kúp gurul, és két tömör kúpra I = (3/10)·M·R².",
             "why": "Az időléptető ciklust és a gurulást ellenőrzi a csökkenő a sugáron: 28,5357 cm/s egy másodperc után, 10⁻⁹ pontossággal. Minél feljebb, annál több energia van a forgásban.",
             "step": "Az első forrás megadja az energiát, és (7) és (8) egyenletével azt, hol áll a tengely, és mekkora az az a sugár, amelyen a kúp gurul; a szögeket a fentiek szerint a felülnézetre számoljuk át. A második egy kúp tehetetlenségi nyomatékát adja meg; két egyforma, alappal egymásnak illesztett kúpnak ugyanaz az I/(M·R²)."
+          }
+        },
+        "beats": {
+          "beat_rate": {
+            "title": "Annyi lebegés, amennyi a különbség",
+            "setting": "A lovas, 1 g minden ágon, a tőtől 30 %-nál; mindkét villa egyszerre megütve, tíz másodpercig.",
+            "reads": "Két hang összege az átlagos hang szorozva egy lassú burkolóval, amely másodpercenként |f₂ − f₁|-szer elcsendesedik.",
+            "why": "Azt a hangot ellenőrzi, amelyet az oldal rajzol és lejátszik: másodpercenként 0,8173 csend, 1,22 s-onként egy, annyi, amennyi a két hangmagasság különbsége. Az átlagos hang csúcsainál leolvasva, ahol az összeg egyenlő a burkolóval."
+          },
+          "tip_rider": {
+            "title": "A lovas a csúcson",
+            "setting": "1 g minden ágon, egészen a csúcson.",
+            "reads": "Egy ág úgy rezeg, mint egy befogott tartó az első rezgési alakjában. A csúcsán úgy hat, mintha tömegének negyede ülne ott, és a lovas teljes egészében hozzáadódik. Ugyanaz a merevség több tömeget hordoz: f = f₀·√(M*/(M* + m)).",
+            "why": "Azt ellenőrzi, mekkora tömeggel számít az ág a csúcsán: 20 g-jából 5 g-mal; a villa 440 Hz-ről 401,66 Hz-re süllyed. Itt a negyedet a rezgésalakon összegezve kapjuk, az oldal ¼-et helyettesít be.",
+            "step": "Az első forrás egy befogott tartó első rezgési alakját adja meg, a második azt, hogyan kapjuk meg a mozgási energiából a hatásos tömeget: M* = M·∫φ², ahol φ = 1 a csúcson. Egy s helyen ülő lovas m·φ(s)²-tel számít. Azonos merevség mellett a frekvencia 1/√tömeg szerint változik."
+          },
+          "rider_on_prong": {
+            "title": "A lovas lejjebb",
+            "setting": "1 g minden ágon, a tőtől a csúcsig tartó út 30 %-ánál, ahogy az oldal indul.",
+            "reads": "Lejjebb az ág kevésbé mozog: a lovas csak φ(s)²-tel számít, a rezgésalak négyzetével a saját helyén.",
+            "why": "A rezgésalakot ellenőrzi az ág belsejében: a második villa 439,18 Hz-en szól 440 Hz helyett.",
+            "step": "Mint a csúcson ülő lovasnál, φ(0,3)-mal az első forrás rezgésalakjából, úgy elosztva, hogy φ a csúcson 1 legyen."
           }
         }
       },

@@ -101,6 +101,14 @@ const ALPHA_CONE: CheckSymbol = { tex: String.raw`\alpha`, key: "alpha_cone", un
 const BETA_RAIL: CheckSymbol = { tex: String.raw`\beta`, key: "beta_rail", unit: "°" };
 const GAMMA_RAIL: CheckSymbol = { tex: String.raw`\gamma`, key: "gamma_rail", unit: "°" };
 const DZ_AXIS: CheckSymbol = { tex: String.raw`\Delta z`, key: "dz_axis", unit: "m" };
+const F_FORK: CheckSymbol = { tex: "f_0", key: "f_fork", unit: "Hz" };
+const F_RIDER: CheckSymbol = { tex: "f", key: "f_rider", unit: "Hz" };
+const M_FELT: CheckSymbol = { tex: "M^*", key: "m_felt", unit: "kg" };
+const M_PRONG: CheckSymbol = { tex: "M", key: "m_prong", unit: "kg" };
+const M_RIDER: CheckSymbol = { tex: "m", key: "m_rider", unit: "kg" };
+const MODE: CheckSymbol = { tex: String.raw`\varphi`, key: "mode" };
+const S_RIDER: CheckSymbol = { tex: "s", key: "s_rider" };
+const XI: CheckSymbol = { tex: String.raw`\xi`, key: "xi" };
 
 const ROD_STEADY: CheckFormula = {
   tex: String.raw`w = \frac{\Gamma\,\Omega^2 Y}{\sqrt{(\omega^2 - \Omega^2)^2 + (2\zeta\omega\Omega)^2}}, \qquad \Gamma = \frac{\int_0^1 \varphi\,d\xi}{\int_0^1 \varphi^2\,d\xi}`,
@@ -839,6 +847,27 @@ export const CHECK_FORMULAS: Record<string, Record<string, CheckFormula>> = {
         DZ_AXIS,
         { tex: "R", key: "radius_cone", unit: "m" },
       ],
+    },
+  },
+  beats: {
+    beat_rate: {
+      tex: String.raw`y(t) = 2A\cos(2\pi f_{\mathrm{avg}}\,t)\,\cos\!\left(2\pi\,\frac{|f_2 - f_1|}{2}\,t\right), \qquad f_{\mathrm{beat}} = |f_2 - f_1|`,
+      symbols: [
+        { tex: "y", key: "y_sum" },
+        { tex: "A", key: "amp" },
+        { tex: String.raw`f_{\mathrm{avg}}`, key: "f_avg", unit: "Hz" },
+        { tex: "f_1, f_2", key: "f12", unit: "Hz" },
+        { tex: "t", key: "t", unit: "s" },
+        { tex: String.raw`f_{\mathrm{beat}}`, key: "f_beat", unit: "Hz" },
+      ],
+    },
+    tip_rider: {
+      tex: String.raw`f = f_0\sqrt{\frac{M^*}{M^* + m\,\varphi(s)^2}}, \qquad M^* = M\int_0^1 \varphi(\xi)^2\,d\xi = \tfrac14\,M, \qquad \varphi(1) = 1`,
+      symbols: [F_RIDER, F_FORK, M_FELT, M_RIDER, MODE, S_RIDER, M_PRONG, XI],
+    },
+    rider_on_prong: {
+      tex: String.raw`f = f_0\sqrt{\frac{M^*}{M^* + m\,\varphi(s)^2}}, \qquad \varphi(\xi) \propto (\cosh\beta\xi - \cos\beta\xi) + \frac{\cos\beta + \cosh\beta}{\sin\beta + \sinh\beta}\,(\sin\beta\xi - \sinh\beta\xi), \qquad \cosh\beta\cos\beta + 1 = 0`,
+      symbols: [F_RIDER, F_FORK, M_FELT, M_RIDER, MODE, S_RIDER, XI, { tex: String.raw`\beta`, key: "beta_L" }],
     },
   },
 };
