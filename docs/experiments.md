@@ -2596,8 +2596,8 @@ length for a full half-second press to continuity with the moving hole's plus
 one ((A_eff/A_hole + 1)·d/D = 3.2803; the model's line above said 3.0, a figure
 from before that fix), and the ring's speed to Kelvin's formula for a thin
 core, Γ/(4πR)·(ln(8R/a) − ¼), on the engine's own circulation. The engine's
-docstring calls that speed Saffman's; Saffman's viscous ring has −0.558, and
-the number here is Kelvin's. The circulation itself, Γ = ½∫(u² − ẋ²)dt, the
+docstring called that speed Saffman's until 2026-11-21; Saffman's viscous ring
+has −0.558, and the number here is Kelvin's. The circulation itself, Γ = ½∫(u² − ẋ²)dt, the
 exhibit's central number, has no case: the slug model's sources are behind
 paywalls, and no quote was invented. "Set it up" sets the drum and a full
 press of half a second; the reader presses.

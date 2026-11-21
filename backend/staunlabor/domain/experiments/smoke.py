@@ -23,7 +23,7 @@ hole's moving edge, ``Γ = ½·∫(u² − ẋ²)·dt`` (taken in the room's fra
 the slug, ``∫u·dt``, is four hole diameters long — the formation
 number; what comes after is a trailing jet the ring does not take up. Its
 radius is 0.6 hole diameters and its core a third of that, as measured rings
-have them, and its speed is Saffman's for a ring of that core,
+have them, and its speed is Kelvin's for a thin ring of that core,
 ``U = Γ/(4πR)·(ln(8R/a) − ¼)``. Its Reynolds number ``Γ/ν`` says how turbulent
 it is.
 
@@ -251,7 +251,7 @@ def ring_of(exhibit: SmokeExhibit, times: tuple[float, ...], depths: tuple[float
 
 
 def ring_speed(circulation: float, radius: float, core: float) -> float:
-    """Saffman's speed for a ring of this core: ``Γ/(4πR)·(ln(8R/a) − ¼)``."""
+    """Kelvin's speed for a thin ring of this core: ``Γ/(4πR)·(ln(8R/a) − ¼)``."""
     return circulation / (4 * math.pi * radius) * (math.log(8 * radius / core) - 0.25)
 
 
