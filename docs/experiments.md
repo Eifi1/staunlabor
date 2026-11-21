@@ -2447,6 +2447,16 @@ to Kepler's third law under g·5/7, equal areas in equal times, the energy, and
 the felt's brake. A case without a setting shows no "Set it up" button
 (`check-section.tsx`).
 
+**The double slit's** five (2026-11-21) hold the stripes' spacing to λD/d,
+one slit's first dark beside the middle to a sin θ = λ, the middle of one slit
+at a quarter of two (amplitudes add, not brightnesses), the first bright stripe
+at the envelope's sinc²(πa/d) and the fifth order missing where it falls on the
+envelope's zero (d = 5a). The page measures the wall with sin θ = y/√(y² + D²),
+not the textbook's small angle, so the spacing between the first and second
+dark lies 1.1 · 10⁻⁵ over λD/d, inside the case's 3 · 10⁻⁵. "Set it up" sets
+the light, the covered slit, the wavelength and the build in one go, on the
+light's card.
+
 **On the page** a section "Check it yourself" (`check-section.tsx`) lists the
 cases, each with its formula as an `Equation` (`check-formulas.ts`), both
 values to seven digits, the deviation, why the case would catch a mistake,

@@ -3580,7 +3580,19 @@
         "v0_push": "velocidad del lanzamiento",
         "P_loss": "pérdida por segundo",
         "C_rr": "resistencia a la rodadura: la fracción del empuje de la pared que frena",
-        "alpha_wall": "pendiente de la pared"
+        "alpha_wall": "pendiente de la pared",
+        "D_wall": "distancia de la pared a las rendijas",
+        "d_slits": "separación entre los centros de las rendijas",
+        "a_slit": "anchura de una rendija",
+        "theta_beam": "ángulo respecto a la dirección del haz",
+        "m_order": "orden: el número de la franja",
+        "dy_stripes": "separación de las franjas en la pared",
+        "y_wall": "posición en la pared, desde el centro",
+        "I_one": "claridad en el centro con una rendija",
+        "I_two": "claridad en el centro con las dos",
+        "E_amp": "amplitud de la onda de una rendija",
+        "I_rel": "claridad, respecto al centro",
+        "beta_slit": "media diferencia de camino a lo largo de una rendija, como ángulo"
       },
       "cases": {
         "sphere": {
@@ -4130,6 +4142,41 @@
             "reads": "La resistencia a la rodadura frena con C·N contra el movimiento; eso cuesta C·N·v por segundo. N, el empuje de la pared, es la parte del peso perpendicular a la pared más lo que mantiene la bola en su círculo.",
             "why": "Comprueba el freno y el empuje de la pared del que procede: 8,6625 mW por kilogramo. Ya en el primer milisegundo la bola se frena un poco, y el freno con ella; y por debajo de 1 mm/s la página atenúa la resistencia hasta anularla: en conjunto, una desviación de 2 · 10⁻⁵.",
             "step": "La primera fuente da la resistencia a la rodadura C·N. La segunda calcula la curva peraltada: N·sin θ = mv²/r y N·cos θ = mg. Sumadas en la dirección perpendicular a la pared, dan N = mg·cos α + (mv²/r)·sin α; la adherencia de la bola que rueda está en el plano de la pared y no aporta nada perpendicular a ella."
+          }
+        },
+        "slits": {
+          "spacing": {
+            "title": "La separación de las franjas",
+            "setting": "La exposición: láser rojo, 650 nm, rendijas separadas 0,25 mm y de 0,05 mm de ancho, la pared 2 m detrás; de la primera franja oscura a la segunda.",
+            "reads": "Está oscuro donde los caminos desde las dos rendijas difieren en media longitud de onda, una y media, dos y media… Para ángulos pequeños, las franjas quedan separadas λ·D/d.",
+            "why": "Comprueba la separación de las rendijas en el patrón: 5,2 mm, medidos sobre el patrón que dibuja la página. La fórmula supone ángulos pequeños; por eso el patrón queda 1,1 · 10⁻⁵ más ancho.",
+            "step": "La fuente da las franjas oscuras en d·sin θ = (m + ½)λ y, para ángulos pequeños, las claras en y = mλD/d. Las oscuras quedan a mitad de camino entre las claras, así que están igual de separadas."
+          },
+          "one_slit_dark": {
+            "title": "Una rendija sola: la primera oscuridad",
+            "setting": "Como arriba, con una rendija tapada; la primera oscuridad junto al centro.",
+            "reads": "Una rendija sola está oscura donde los caminos desde sus dos bordes difieren en una longitud de onda entera: cada tira de la rendija tiene entonces otra que la anula.",
+            "why": "Comprueba la anchura de la rendija en el patrón: 26,002 mm junto al centro, tal como lo dibuja la página."
+          },
+          "quarter": {
+            "title": "Una rendija da un cuarto, no la mitad",
+            "setting": "Como arriba, con una rendija tapada; la claridad en el centro.",
+            "reads": "En el centro, las dos ondas llegan en fase: sus amplitudes se suman al doble, y la claridad es su cuadrado, cuatro veces la de una rendija.",
+            "why": "Comprueba que la página suma las ondas y solo después eleva al cuadrado, en lugar de sumar las claridades: una rendija da 0,25 del centro con dos.",
+            "step": "La primera fuente da que las amplitudes de ondas iguales en fase se suman; la segunda, que la claridad es su cuadrado: E² frente a (2E)²."
+          },
+          "first_bright": {
+            "title": "La primera franja clara es más débil",
+            "setting": "Como arriba, con las dos rendijas abiertas; la claridad de la primera franja clara junto al centro.",
+            "reads": "Cada rendija sola se vuelve más oscura hacia los lados. La primera franja clara del par está en d·sin θ = λ, y allí cada rendija da solo (sin β/β)² de su centro.",
+            "why": "Comprueba cómo la anchura de las rendijas atenúa las franjas: 0,8751 del centro con rendijas cuya separación es cinco veces su anchura."
+          },
+          "missing": {
+            "title": "Falta la quinta franja",
+            "setting": "Como arriba, con las dos rendijas abiertas; la claridad donde estaría la quinta franja clara.",
+            "reads": "La separación de las rendijas es cinco veces su anchura. Donde las dos se refuerzan por quinta vez, cada una sola está oscura, y no queda nada que reforzar.",
+            "why": "Comprueba que las franjas y la atenuación se calculan con el mismo ángulo: allí 10⁻³³, es decir, oscuro.",
+            "step": "La primera fuente da las franjas claras en d·sin θ = mλ; la segunda, la oscuridad de una rendija en a·sin θ = λ. Con d = 5a, la quinta franja clara y la primera oscuridad coinciden; la tercera lo llama un orden ausente."
           }
         }
       },

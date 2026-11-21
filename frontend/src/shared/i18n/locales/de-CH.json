@@ -3580,7 +3580,19 @@
         "v0_push": "Tempo des Anstosses",
         "P_loss": "Verlust pro Sekunde",
         "C_rr": "Rollwiderstand: Anteil des Drucks der Wand, der bremst",
-        "alpha_wall": "Neigung der Wand"
+        "alpha_wall": "Neigung der Wand",
+        "D_wall": "Abstand der Wand von den Spalten",
+        "d_slits": "Abstand der Spaltmitten",
+        "a_slit": "Breite eines Spalts",
+        "theta_beam": "Winkel zur Richtung des Strahls",
+        "m_order": "Ordnung: der wievielte Streifen",
+        "dy_stripes": "Abstand der Streifen auf der Wand",
+        "y_wall": "Ort auf der Wand, ab der Mitte",
+        "I_one": "Helligkeit in der Mitte mit einem Spalt",
+        "I_two": "Helligkeit in der Mitte mit beiden",
+        "E_amp": "Ausschlag der Welle eines Spalts",
+        "I_rel": "Helligkeit, gemessen an der Mitte",
+        "beta_slit": "halber Gangunterschied über einen Spalt, als Winkel"
       },
       "cases": {
         "sphere": {
@@ -4130,6 +4142,41 @@
             "reads": "Der Rollwiderstand bremst mit C·N gegen die Bewegung; das kostet C·N·v pro Sekunde. N, der Druck der Wand, ist der Anteil des Gewichts quer zur Wand und dazu, was die Kugel auf ihrem Kreis hält.",
             "why": "Prüft die Bremse und den Druck der Wand, aus dem sie kommt: 8,6625 mW pro Kilogramm. Schon in der ersten Millisekunde wird die Kugel ein wenig langsamer und die Bremse mit ihr, und unter 1 mm/s blendet die Seite den Widerstand aus: zusammen 2 · 10⁻⁵ Abweichung.",
             "step": "Die erste Quelle gibt den Rollwiderstand C·N. Die zweite rechnet die überhöhte Kurve: N·sin θ = mv²/r und N·cos θ = mg. Quer zur Wand zusammengezählt geben beide N = mg·cos α + (mv²/r)·sin α; die Haftreibung der rollenden Kugel liegt in der Wand und trägt quer zu ihr nichts bei."
+          }
+        },
+        "slits": {
+          "spacing": {
+            "title": "Der Abstand der Streifen",
+            "setting": "Das Exponat: roter Laser, 650 nm, Spalte 0,25 mm auseinander und 0,05 mm breit, die Wand 2 m dahinter; vom ersten dunklen Streifen zum zweiten.",
+            "reads": "Dunkel ist es, wo die Wege von den beiden Spalten um eine halbe Wellenlänge, anderthalb, zweieinhalb … verschieden sind. Bei kleinen Winkeln liegen die Streifen λ·D/d auseinander.",
+            "why": "Prüft den Abstand der Spalte im Muster: 5,2 mm, gemessen auf dem Muster, das die Seite zeichnet. Die Formel nimmt kleine Winkel, darum liegt das Muster 1,1 · 10⁻⁵ weiter.",
+            "step": "Die Quelle gibt die dunklen Streifen bei d·sin θ = (m + ½)λ und, für kleine Winkel, die hellen bei y = mλD/d. Die dunklen liegen mitten zwischen den hellen, also gleich weit auseinander."
+          },
+          "one_slit_dark": {
+            "title": "Ein Spalt allein: das erste Dunkel",
+            "setting": "Wie oben, ein Spalt abgedeckt; das erste Dunkel neben der Mitte.",
+            "reads": "Ein Spalt allein ist dunkel, wo sich die Wege von seinen beiden Rändern um eine ganze Wellenlänge unterscheiden: Jeder Streifen des Spalts hat dann einen, der ihn auslöscht.",
+            "why": "Prüft die Breite des Spalts im Muster: 26,002 mm neben der Mitte, wie die Seite es zeichnet."
+          },
+          "quarter": {
+            "title": "Ein Spalt gibt ein Viertel, nicht die Hälfte",
+            "setting": "Wie oben, ein Spalt abgedeckt; die Helligkeit in der Mitte.",
+            "reads": "In der Mitte kommen die beiden Wellen im Gleichtakt an: Ihre Ausschläge addieren sich zum doppelten, und die Helligkeit ist das Quadrat davon, viermal so viel wie von einem Spalt.",
+            "why": "Prüft, dass die Seite die Wellen addiert und erst dann quadriert, nicht die Helligkeiten addiert: ein Spalt 0,25 der Mitte von zweien.",
+            "step": "Die erste Quelle gibt, dass sich die Ausschläge gleicher Wellen im Gleichtakt addieren, die zweite, dass die Helligkeit ihr Quadrat ist: E² gegen (2E)²."
+          },
+          "first_bright": {
+            "title": "Der erste helle Streifen ist schwächer",
+            "setting": "Wie oben, beide Spalte offen; die Helligkeit des ersten hellen Streifens neben der Mitte.",
+            "reads": "Jeder Spalt allein wird zur Seite dunkler. Der erste helle Streifen des Paars liegt bei d·sin θ = λ, und dort gibt jeder Spalt nur (sin β/β)² seiner Mitte.",
+            "why": "Prüft, wie die Breite der Spalte die Streifen dämpft: 0,8751 der Mitte bei Spalten, die fünfmal so weit auseinander wie breit sind."
+          },
+          "missing": {
+            "title": "Der fünfte Streifen fehlt",
+            "setting": "Wie oben, beide Spalte offen; die Helligkeit dort, wo der fünfte helle Streifen läge.",
+            "reads": "Die Spalte liegen fünfmal so weit auseinander, wie sie breit sind. Wo die beiden sich zum fünften Mal verstärken, ist jeder allein dunkel, und es bleibt nichts zu verstärken.",
+            "why": "Prüft, dass Streifen und Dämpfung mit demselben Winkel gerechnet sind: dort 10⁻³³, also dunkel.",
+            "step": "Die erste Quelle gibt die hellen Streifen bei d·sin θ = mλ, die zweite das Dunkel eines Spalts bei a·sin θ = λ. Mit d = 5a fallen der fünfte helle und das erste Dunkel zusammen; die dritte nennt das eine fehlende Ordnung."
           }
         }
       },

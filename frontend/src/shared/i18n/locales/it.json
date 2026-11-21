@@ -3580,7 +3580,19 @@
         "v0_push": "velocità del lancio",
         "P_loss": "perdita al secondo",
         "C_rr": "resistenza al rotolamento: la frazione della spinta della parete che frena",
-        "alpha_wall": "pendenza della parete"
+        "alpha_wall": "pendenza della parete",
+        "D_wall": "distanza della parete dalle fenditure",
+        "d_slits": "distanza tra i centri delle fenditure",
+        "a_slit": "larghezza di una fenditura",
+        "theta_beam": "angolo rispetto alla direzione del fascio",
+        "m_order": "ordine: il numero della frangia",
+        "dy_stripes": "distanza delle frange sulla parete",
+        "y_wall": "posizione sulla parete, dal centro",
+        "I_one": "luminosità al centro con una fenditura",
+        "I_two": "luminosità al centro con entrambe",
+        "E_amp": "ampiezza dell'onda di una fenditura",
+        "I_rel": "luminosità, rispetto al centro",
+        "beta_slit": "metà della differenza di cammino attraverso una fenditura, come angolo"
       },
       "cases": {
         "sphere": {
@@ -4130,6 +4142,41 @@
             "reads": "La resistenza al rotolamento frena con C·N contro il moto; ciò costa C·N·v al secondo. N, la spinta della parete, è la parte del peso perpendicolare alla parete più ciò che tiene la pallina sul suo cerchio.",
             "why": "Verifica il freno e la spinta della parete da cui deriva: 8,6625 mW per chilogrammo. Già nel primo millisecondo la pallina rallenta un poco, e il freno con essa; e sotto 1 mm/s la pagina attenua la resistenza fino ad annullarla: insieme, uno scarto di 2 · 10⁻⁵.",
             "step": "La prima fonte dà la resistenza al rotolamento C·N. La seconda tratta la curva sopraelevata: N·sin θ = mv²/r e N·cos θ = mg. Sommate perpendicolarmente alla parete danno N = mg·cos α + (mv²/r)·sin α; l'aderenza della pallina che rotola giace nel piano della parete e non contribuisce perpendicolarmente a essa."
+          }
+        },
+        "slits": {
+          "spacing": {
+            "title": "La distanza delle frange",
+            "setting": "L'exhibit: laser rosso, 650 nm, fenditure distanti 0,25 mm e larghe 0,05 mm, la parete 2 m dietro; dalla prima frangia scura alla seconda.",
+            "reads": "È buio dove i cammini dalle due fenditure differiscono di mezza lunghezza d'onda, una e mezza, due e mezza… Per piccoli angoli le frange distano λ·D/d.",
+            "why": "Verifica la distanza delle fenditure nella figura: 5,2 mm, misurati sulla figura che disegna la pagina. La formula assume piccoli angoli, per questo la figura è più larga di 1,1 · 10⁻⁵.",
+            "step": "La fonte dà le frange scure a d·sin θ = (m + ½)λ e, per piccoli angoli, quelle chiare a y = mλD/d. Quelle scure stanno a metà tra quelle chiare, quindi sono altrettanto distanti."
+          },
+          "one_slit_dark": {
+            "title": "Una fenditura da sola: il primo buio",
+            "setting": "Come sopra, una fenditura coperta; il primo buio accanto al centro.",
+            "reads": "Una fenditura da sola è buia dove i cammini dai suoi due bordi differiscono di una lunghezza d'onda intera: ogni striscia della fenditura ne ha allora un'altra che la annulla.",
+            "why": "Verifica la larghezza della fenditura nella figura: 26,002 mm accanto al centro, come la disegna la pagina."
+          },
+          "quarter": {
+            "title": "Una fenditura dà un quarto, non la metà",
+            "setting": "Come sopra, una fenditura coperta; la luminosità al centro.",
+            "reads": "Al centro le due onde arrivano in fase: le loro ampiezze si sommano al doppio, e la luminosità ne è il quadrato, quattro volte quella di una fenditura.",
+            "why": "Verifica che la pagina sommi le onde e solo dopo elevi al quadrato, invece di sommare le luminosità: una fenditura dà 0,25 del centro con due.",
+            "step": "La prima fonte dà che le ampiezze di onde uguali in fase si sommano, la seconda che la luminosità ne è il quadrato: E² contro (2E)²."
+          },
+          "first_bright": {
+            "title": "La prima frangia chiara è più debole",
+            "setting": "Come sopra, entrambe le fenditure aperte; la luminosità della prima frangia chiara accanto al centro.",
+            "reads": "Ogni fenditura da sola diventa più buia verso i lati. La prima frangia chiara della coppia sta a d·sin θ = λ, e lì ogni fenditura dà solo (sin β/β)² del suo centro.",
+            "why": "Verifica come la larghezza delle fenditure attenua le frange: 0,8751 del centro per fenditure distanti cinque volte la loro larghezza."
+          },
+          "missing": {
+            "title": "Manca la quinta frangia",
+            "setting": "Come sopra, entrambe le fenditure aperte; la luminosità dove starebbe la quinta frangia chiara.",
+            "reads": "Le fenditure distano cinque volte la loro larghezza. Dove le due si rinforzano per la quinta volta, ciascuna da sola è buia, e non resta nulla da rinforzare.",
+            "why": "Verifica che frange e attenuazione siano calcolate con lo stesso angolo: lì 10⁻³³, cioè buio.",
+            "step": "La prima fonte dà le frange chiare a d·sin θ = mλ, la seconda il buio di una fenditura a a·sin θ = λ. Con d = 5a la quinta frangia chiara e il primo buio coincidono; la terza lo chiama un ordine mancante."
           }
         }
       },

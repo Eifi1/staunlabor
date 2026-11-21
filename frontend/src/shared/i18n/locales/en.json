@@ -3580,7 +3580,19 @@
         "v0_push": "speed of the push",
         "P_loss": "loss per second",
         "C_rr": "rolling resistance: the share of the wall’s push that brakes",
-        "alpha_wall": "slope of the wall"
+        "alpha_wall": "slope of the wall",
+        "D_wall": "the wall's distance from the slits",
+        "d_slits": "the spacing of the slits' middles",
+        "a_slit": "one slit's width",
+        "theta_beam": "angle from the beam's direction",
+        "m_order": "order: which stripe it is",
+        "dy_stripes": "the stripes' spacing on the wall",
+        "y_wall": "place on the wall, from the middle",
+        "I_one": "brightness in the middle with one slit",
+        "I_two": "brightness in the middle with both",
+        "E_amp": "the swing of one slit's wave",
+        "I_rel": "brightness, against the middle",
+        "beta_slit": "half the path difference across one slit, as an angle"
       },
       "cases": {
         "sphere": {
@@ -4130,6 +4142,41 @@
             "reads": "The rolling resistance brakes with C·N against the motion; that costs C·N·v a second. N, the wall’s push, is the weight’s share across the wall and what holds the ball on its circle.",
             "why": "Checks the brake and the wall’s push it comes from: 8.6625 mW per kilogram. Within the first millisecond the ball already slows a little and the brake with it, and below 1 mm/s the page fades the resistance out: together a deviation of 2 · 10⁻⁵.",
             "step": "The first source gives the rolling resistance C·N. The second works the banked curve: N·sin θ = mv²/r and N·cos θ = mg. Added up across the wall they give N = mg·cos α + (mv²/r)·sin α; the grip of the rolling ball lies in the wall and adds nothing across it."
+          }
+        },
+        "slits": {
+          "spacing": {
+            "title": "How far apart the stripes are",
+            "setting": "The exhibit: a red laser, 650 nm, slits 0.25 mm apart and 0.05 mm wide, the wall 2 m behind; from the first dark stripe to the second.",
+            "reads": "It is dark where the paths from the two slits differ by half a wavelength, one and a half, two and a half … At small angles the stripes lie λ·D/d apart.",
+            "why": "Checks the slits' spacing in the pattern: 5.2 mm, measured on the pattern the page draws. The formula takes small angles, so the pattern lies 1.1 · 10⁻⁵ wider.",
+            "step": "The source gives the dark stripes at d·sin θ = (m + ½)λ and, at small angles, the bright ones at y = mλD/d. The dark ones lie halfway between the bright ones, so just as far apart."
+          },
+          "one_slit_dark": {
+            "title": "One slit alone: the first dark",
+            "setting": "As above, one slit covered; the first dark beside the middle.",
+            "reads": "One slit alone is dark where the paths from its two edges differ by a whole wavelength: every strip of the slit then has another that cancels it.",
+            "why": "Checks the slit's width in the pattern: 26.002 mm beside the middle, as the page draws it."
+          },
+          "quarter": {
+            "title": "One slit gives a quarter, not half",
+            "setting": "As above, one slit covered; the brightness in the middle.",
+            "reads": "In the middle the two waves arrive in step: their swings add to twice one, and the brightness is its square, four times one slit's.",
+            "why": "Checks that the page adds the waves and squares after, rather than adding brightnesses: one slit 0.25 of the middle of two.",
+            "step": "The first source gives that equal waves in step add their swings, the second that the brightness is the square: E² against (2E)²."
+          },
+          "first_bright": {
+            "title": "The first bright stripe is fainter",
+            "setting": "As above, both slits open; the brightness of the first bright stripe beside the middle.",
+            "reads": "Each slit alone grows darker to the side. The pair's first bright stripe lies at d·sin θ = λ, and there each slit gives only (sin β/β)² of its middle.",
+            "why": "Checks how the slits' width dims the stripes: 0.8751 of the middle for slits five times as far apart as they are wide."
+          },
+          "missing": {
+            "title": "The fifth stripe is missing",
+            "setting": "As above, both slits open; the brightness where the fifth bright stripe would lie.",
+            "reads": "The slits lie five times as far apart as they are wide. Where the two reinforce each other for the fifth time, each alone is dark, and there is nothing to reinforce.",
+            "why": "Checks that the stripes and the dimming are computed at the same angle: 10⁻³³ there, that is dark.",
+            "step": "The first source gives the bright stripes at d·sin θ = mλ, the second a slit's dark at a·sin θ = λ. With d = 5a the fifth bright and the first dark coincide; the third calls this a missing order."
           }
         }
       },

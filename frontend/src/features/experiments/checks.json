@@ -1405,6 +1405,143 @@
    ]
   }
  ],
+ "slits": [
+  {
+   "key": "spacing",
+   "unit": "mm",
+   "expected": 5.2,
+   "measured": 5.20005712267,
+   "deviation": 1.09851296169e-05,
+   "tolerance": 3e-05,
+   "derived": true,
+   "setting": {
+    "light": "laser",
+    "nm": 650.0,
+    "slits": "both",
+    "spacing_m": 0.00025,
+    "width_m": 5e-05,
+    "distance_m": 2.0
+   },
+   "sources": [
+    {
+     "cite": "OpenStax, University Physics Volume 3, §3.2 Mathematics of Interference, Eq. 3.5 and 3.6",
+     "url": "https://openstax.org/books/university-physics-volume-3/pages/3-2-mathematics-of-interference",
+     "quote": "to obtain destructive interference for a double slit, the path length difference must be a half-integral multiple of the wavelength, or d sin θ = (m + ½)λ, for m = 0, ±1, ±2, ±3,… (destructive interference) … Equation 3.4 may then be written as d y_m/D = mλ or y_m = mλD/d."
+    }
+   ]
+  },
+  {
+   "key": "one_slit_dark",
+   "unit": "mm",
+   "expected": 26.0021972785,
+   "measured": 26.0021972785,
+   "deviation": 2.73262573985e-15,
+   "tolerance": 1e-07,
+   "derived": false,
+   "setting": {
+    "light": "laser",
+    "nm": 650.0,
+    "slits": "one",
+    "spacing_m": 0.00025,
+    "width_m": 5e-05,
+    "distance_m": 2.0
+   },
+   "sources": [
+    {
+     "cite": "OpenStax, University Physics Volume 3, §4.1 Single-Slit Diffraction, Eq. 4.1",
+     "url": "https://openstax.org/books/university-physics-volume-3/pages/4-1-single-slit-diffraction",
+     "quote": "Thus, to obtain destructive interference for a single slit, a sin θ = mλ, for m = ±1, ±2, ±3, ... (destructive)"
+    }
+   ]
+  },
+  {
+   "key": "quarter",
+   "unit": "",
+   "expected": 0.25,
+   "measured": 0.25,
+   "deviation": 0.0,
+   "tolerance": 1e-12,
+   "derived": true,
+   "setting": {
+    "light": "laser",
+    "nm": 650.0,
+    "slits": "one",
+    "spacing_m": 0.00025,
+    "width_m": 5e-05,
+    "distance_m": 2.0
+   },
+   "sources": [
+    {
+     "cite": "OpenStax, University Physics Volume 3, §3.1 Young's Double-Slit Interference, Figure 3.4",
+     "url": "https://openstax.org/books/university-physics-volume-3/pages/3-1-youngs-double-slit-interference",
+     "quote": "The amplitudes of waves add. (a) Pure constructive interference is obtained when identical waves are in phase."
+    },
+    {
+     "cite": "OpenStax, University Physics Volume 3, §4.2 Intensity in Single-Slit Diffraction, Eq. 4.4",
+     "url": "https://openstax.org/books/university-physics-volume-3/pages/4-2-intensity-in-single-slit-diffraction",
+     "quote": "The intensity is proportional to the square of the amplitude, so I = I0 (sin β/β)²"
+    }
+   ]
+  },
+  {
+   "key": "first_bright",
+   "unit": "",
+   "expected": 0.875140200083,
+   "measured": 0.875140200083,
+   "deviation": 0.0,
+   "tolerance": 1e-12,
+   "derived": false,
+   "setting": {
+    "light": "laser",
+    "nm": 650.0,
+    "slits": "both",
+    "spacing_m": 0.00025,
+    "width_m": 5e-05,
+    "distance_m": 2.0
+   },
+   "sources": [
+    {
+     "cite": "OpenStax, University Physics Volume 3, §4.3 Double-Slit Diffraction, Example 4.3",
+     "url": "https://openstax.org/books/university-physics-volume-3/pages/4-3-double-slit-diffraction",
+     "quote": "the bright interference fringes occur at d sin θ = mλ, or sin θ = mλ/d. From Equation 4.4, I = I0 (sin β/β)², where β = ϕ/2 = πa sin θ/λ. Substituting from above, β = πa sin θ/λ = πa/λ · mλ/d = mπa/d."
+    }
+   ]
+  },
+  {
+   "key": "missing",
+   "unit": "",
+   "expected": 0.0,
+   "measured": 1.51957436358e-33,
+   "deviation": 1.51957436358e-33,
+   "tolerance": 1e-12,
+   "derived": true,
+   "setting": {
+    "light": "laser",
+    "nm": 650.0,
+    "slits": "both",
+    "spacing_m": 0.00025,
+    "width_m": 5e-05,
+    "distance_m": 2.0
+   },
+   "sources": [
+    {
+     "cite": "OpenStax, University Physics Volume 3, §3.2 Mathematics of Interference, Eq. 3.4",
+     "url": "https://openstax.org/books/university-physics-volume-3/pages/3-2-mathematics-of-interference",
+     "quote": "we obtain constructive interference for a double slit when the path length difference is an integral multiple of the wavelength, or d sin θ = mλ, for m = 0, ±1, ±2, ±3,… (constructive interference)"
+    },
+    {
+     "cite": "OpenStax, University Physics Volume 3, §4.1 Single-Slit Diffraction, Eq. 4.1",
+     "url": "https://openstax.org/books/university-physics-volume-3/pages/4-1-single-slit-diffraction",
+     "quote": "Thus, to obtain destructive interference for a single slit, a sin θ = mλ, for m = ±1, ±2, ±3, ... (destructive)"
+    },
+    {
+     "cite": "OpenStax, University Physics Volume 3, §4.3 Double-Slit Diffraction",
+     "url": "https://openstax.org/books/university-physics-volume-3/pages/4-3-double-slit-diffraction",
+     "quote": "some of the maxima of interference from the two slits are missing if the maximum of the interference is in the same direction as the minimum of the diffraction. We refer to such a missing peak as a missing order."
+    }
+   ]
+  }
+ ],
  "sphere": [
   {
    "key": "small_swing",

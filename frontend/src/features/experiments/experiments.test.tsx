@@ -101,6 +101,7 @@ const UNCHECKED = {
     "plates",
     "resonance",
     "sky",
+    "slits",
     "sphere",
     "waterwheel",
     "wave",
@@ -1722,6 +1723,23 @@ describe("setting a check case up", () => {
         /^2\.09/,
       ),
     );
+  });
+
+  it("takes the double slit back to the red laser and covers one slit, then opens it again", async () => {
+    renderWithProviders(<SlitsPage />);
+    await screen.findByRole("img", { name: E.slits.wall_view });
+    fireEvent.change(screen.getByRole("slider", { name: E.slits.play.wavelength }), { target: { value: "532" } });
+    fireEvent.change(screen.getByRole("slider", { name: E.slits.change.spacing }), { target: { value: "0.5" } });
+    await setUp(1);
+    await waitFor(() => expect(screen.getByRole("switch", { name: E.slits.play.cover })).toBeChecked());
+    expect(screen.getByRole("slider", { name: E.slits.play.wavelength }).getAttribute("aria-valuetext")).toMatch(
+      /^650\b/,
+    );
+    expect(screen.getByRole("slider", { name: E.slits.change.spacing }).getAttribute("aria-valuetext")).toMatch(
+      /^0\.25\b/,
+    );
+    await setUp(0);
+    expect(await screen.findByText(E.slits.play.status_both.replace("{{spacing}}", "5.2"))).toBeInTheDocument();
   });
 
   it("pushes the ball round the well on its circle, with the felt's brake, for the brake's case", async () => {

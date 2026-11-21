@@ -82,6 +82,12 @@ const ROD_OMEGA: CheckSymbol = { tex: String.raw`\omega`, key: "rod_omega", unit
 const ROD_ZETA: CheckSymbol = { tex: String.raw`\zeta`, key: "rod_zeta" };
 const R_WELL: CheckSymbol = { tex: "r", key: "r_well", unit: "m" };
 const K_FUNNEL: CheckSymbol = { tex: "k", key: "k_funnel", unit: "m²" };
+const LAMBDA: CheckSymbol = { tex: String.raw`\lambda`, key: "lambda", unit: "nm" };
+const D_WALL: CheckSymbol = { tex: "D", key: "D_wall", unit: "m" };
+const D_SLITS: CheckSymbol = { tex: "d", key: "d_slits", unit: "m" };
+const A_SLIT: CheckSymbol = { tex: "a", key: "a_slit", unit: "m" };
+const THETA_BEAM: CheckSymbol = { tex: String.raw`\theta`, key: "theta_beam", unit: "°" };
+const ORDER: CheckSymbol = { tex: "m", key: "m_order" };
 
 const ROD_STEADY: CheckFormula = {
   tex: String.raw`w = \frac{\Gamma\,\Omega^2 Y}{\sqrt{(\omega^2 - \Omega^2)^2 + (2\zeta\omega\Omega)^2}}, \qquad \Gamma = \frac{\int_0^1 \varphi\,d\xi}{\int_0^1 \varphi^2\,d\xi}`,
@@ -728,6 +734,45 @@ export const CHECK_FORMULAS: Record<string, Record<string, CheckFormula>> = {
         R_WELL,
         K_FUNNEL,
       ],
+    },
+  },
+  slits: {
+    spacing: {
+      tex: String.raw`\Delta y = \frac{\lambda D}{d}, \qquad d \sin\theta = \left(m + \tfrac12\right)\lambda`,
+      symbols: [
+        { tex: String.raw`\Delta y`, key: "dy_stripes", unit: "m" },
+        LAMBDA,
+        D_WALL,
+        D_SLITS,
+        THETA_BEAM,
+        ORDER,
+      ],
+    },
+    one_slit_dark: {
+      tex: String.raw`a \sin\theta = \lambda, \qquad y = D \tan\theta`,
+      symbols: [A_SLIT, THETA_BEAM, LAMBDA, { tex: "y", key: "y_wall", unit: "m" }, D_WALL],
+    },
+    quarter: {
+      tex: String.raw`\frac{I_1}{I_2} = \frac{E^2}{(2E)^2} = \frac14`,
+      symbols: [
+        { tex: "I_1", key: "I_one" },
+        { tex: "I_2", key: "I_two" },
+        { tex: "E", key: "E_amp" },
+      ],
+    },
+    first_bright: {
+      tex: String.raw`\frac{I}{I_0} = \left(\frac{\sin\beta}{\beta}\right)^2, \qquad \beta = \frac{m \pi a}{d}, \quad m = 1`,
+      symbols: [
+        { tex: String.raw`I/I_0`, key: "I_rel" },
+        { tex: String.raw`\beta`, key: "beta_slit", unit: "rad" },
+        ORDER,
+        A_SLIT,
+        D_SLITS,
+      ],
+    },
+    missing: {
+      tex: String.raw`d \sin\theta = 5\lambda \quad\text{and}\quad a \sin\theta = \lambda \qquad (d = 5a)`,
+      symbols: [D_SLITS, A_SLIT, THETA_BEAM, LAMBDA],
     },
   },
 };

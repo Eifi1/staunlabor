@@ -41,6 +41,7 @@ def test_the_exhibits_with_checks_are_these() -> None:
         "plates",
         "resonance",
         "sky",
+        "slits",
         "sphere",
         "waterwheel",
         "wave",

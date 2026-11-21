@@ -3580,7 +3580,19 @@
         "v0_push": "a lökés sebessége",
         "P_loss": "másodpercenkénti veszteség",
         "C_rr": "gördülési ellenállás: a fal nyomóerejének fékező hányada",
-        "alpha_wall": "a fal lejtése"
+        "alpha_wall": "a fal lejtése",
+        "D_wall": "a fal távolsága a résektől",
+        "d_slits": "a rések közepének távolsága",
+        "a_slit": "egy rés szélessége",
+        "theta_beam": "szög a nyaláb irányához képest",
+        "m_order": "rend: hányadik csík",
+        "dy_stripes": "a csíkok távolsága a falon",
+        "y_wall": "hely a falon, a középtől",
+        "I_one": "világosság középen egy réssel",
+        "I_two": "világosság középen mindkét réssel",
+        "E_amp": "egy rés hullámának amplitúdója",
+        "I_rel": "világosság a középhez mérve",
+        "beta_slit": "a fél útkülönbség egy résen át, szögként kifejezve"
       },
       "cases": {
         "sphere": {
@@ -4130,6 +4142,41 @@
             "reads": "A gördülési ellenállás C·N erővel fékez a mozgással szemben; ez másodpercenként C·N·v-be kerül. N, a fal nyomóereje, a súlynak a falra merőleges része, és hozzá az, ami a golyót a körén tartja.",
             "why": "A fékezést és a fal nyomóerejét ellenőrzi, amelyből a fékezés származik: kilogrammonként 8,6625 mW. Már az első ezredmásodpercben kissé lelassul a golyó, és vele a fékezés is, 1 mm/s alatt pedig az oldal fokozatosan kikapcsolja az ellenállást: együtt 2 · 10⁻⁵ eltérés.",
             "step": "Az első forrás a C·N gördülési ellenállást adja meg. A második a döntött kanyart számolja: N·sin θ = mv²/r és N·cos θ = mg. A falra merőlegesen összeadva ezekből N = mg·cos α + (mv²/r)·sin α adódik; a guruló golyó tapadási súrlódása a fal síkjában hat, és merőlegesen semmit sem ad hozzá."
+          }
+        },
+        "slits": {
+          "spacing": {
+            "title": "A csíkok távolsága",
+            "setting": "A kiállítási tárgy: piros lézer, 650 nm, a rések 0,25 mm-re egymástól és 0,05 mm szélesek, a fal 2 m-rel mögöttük; az első sötét csíktól a másodikig.",
+            "reads": "Ott sötét, ahol a két réstől induló utak fél, másfél, két és fél… hullámhosszal különböznek. Kis szögeknél a csíkok λ·D/d távolságra vannak egymástól.",
+            "why": "A rések távolságát ellenőrzi a mintázatban: 5,2 mm, az oldal által rajzolt mintázaton mérve. A képlet kis szögeket feltételez, ezért a mintázat 1,1 · 10⁻⁵-nel szélesebb.",
+            "step": "A forrás a sötét csíkokat d·sin θ = (m + ½)λ-nál adja meg, kis szögekre pedig a világosakat y = mλD/d-nél. A sötétek félúton vannak a világosak között, tehát ugyanolyan távol egymástól."
+          },
+          "one_slit_dark": {
+            "title": "Egyetlen rés: az első sötét hely",
+            "setting": "Mint fent, az egyik rés letakarva; az első sötét hely a közép mellett.",
+            "reads": "Egyetlen rés ott sötét, ahol a két szélétől induló utak egy egész hullámhosszal különböznek: ekkor a rés minden sávjához van egy másik, amely kioltja.",
+            "why": "A rés szélességét ellenőrzi a mintázatban: 26,002 mm a közép mellett, ahogy az oldal rajzolja."
+          },
+          "quarter": {
+            "title": "Egy rés negyedet ad, nem felet",
+            "setting": "Mint fent, az egyik rés letakarva; a világosság középen.",
+            "reads": "Középen a két hullám egy ütemben érkezik: amplitúdóik kétszeresre adódnak össze, a világosság pedig ennek négyzete, az egy rés adta világosság négyszerese.",
+            "why": "Azt ellenőrzi, hogy az oldal a hullámokat adja össze, és csak utána emel négyzetre, nem a világosságokat adja össze: egy rés a két rés középső világosságának 0,25-ét adja.",
+            "step": "Az első forrás szerint az egy ütemben érkező egyforma hullámok amplitúdói összeadódnak, a második szerint a világosság ezek négyzete: E² szemben (2E)²-tel."
+          },
+          "first_bright": {
+            "title": "Az első világos csík halványabb",
+            "setting": "Mint fent, mindkét rés nyitva; az első világos csík világossága a közép mellett.",
+            "reads": "Minden rés egyedül oldalra haladva sötétebb lesz. A pár első világos csíkja d·sin θ = λ-nál van, és ott minden rés a saját középső világosságának csak (sin β/β)²-szeresét adja.",
+            "why": "Azt ellenőrzi, hogyan halványítja a rések szélessége a csíkokat: a közép 0,8751-e olyan réseknél, amelyek ötször olyan messze vannak egymástól, mint amilyen szélesek."
+          },
+          "missing": {
+            "title": "Az ötödik csík hiányzik",
+            "setting": "Mint fent, mindkét rés nyitva; a világosság ott, ahol az ötödik világos csík lenne.",
+            "reads": "A rések ötször olyan messze vannak egymástól, mint amilyen szélesek. Ahol a kettő ötödször erősíti egymást, ott mindegyik egyedül sötét, és nincs mit erősíteni.",
+            "why": "Azt ellenőrzi, hogy a csíkok és a halványodás ugyanazzal a szöggel van számolva: ott 10⁻³³, vagyis sötét.",
+            "step": "Az első forrás a világos csíkokat d·sin θ = mλ-nál adja meg, a második egy rés sötét helyét a·sin θ = λ-nál. d = 5a esetén az ötödik világos csík és az első sötét hely egybeesik; a harmadik ezt hiányzó rendnek nevezi."
           }
         }
       },

@@ -3580,7 +3580,19 @@
         "v0_push": "vitesse du lancer",
         "P_loss": "perte par seconde",
         "C_rr": "résistance au roulement : la part de la poussée de la paroi qui freine",
-        "alpha_wall": "pente de la paroi"
+        "alpha_wall": "pente de la paroi",
+        "D_wall": "distance du mur aux fentes",
+        "d_slits": "espacement des milieux des fentes",
+        "a_slit": "largeur d’une fente",
+        "theta_beam": "angle par rapport à la direction du faisceau",
+        "m_order": "ordre : le numéro de la frange",
+        "dy_stripes": "espacement des franges sur le mur",
+        "y_wall": "position sur le mur, depuis le milieu",
+        "I_one": "clarté au milieu avec une fente",
+        "I_two": "clarté au milieu avec les deux",
+        "E_amp": "amplitude de l’onde d’une fente",
+        "I_rel": "clarté, rapportée au milieu",
+        "beta_slit": "demi-différence de chemin à travers une fente, en angle"
       },
       "cases": {
         "sphere": {
@@ -4130,6 +4142,41 @@
             "reads": "La résistance au roulement freine avec C·N contre le mouvement ; cela coûte C·N·v par seconde. N, la poussée de la paroi, est la part du poids perpendiculaire à la paroi, plus ce qui maintient la bille sur son cercle.",
             "why": "Vérifie le freinage et la poussée de la paroi dont il découle : 8,6625 mW par kilogramme. Dès la première milliseconde, la bille ralentit un peu, et le freinage avec elle ; et en dessous de 1 mm/s, la page atténue la résistance jusqu’à l’annuler : ensemble, un écart de 2 · 10⁻⁵.",
             "step": "La première source donne la résistance au roulement C·N. La deuxième traite le virage relevé : N·sin θ = mv²/r et N·cos θ = mg. Additionnées perpendiculairement à la paroi, elles donnent N = mg·cos α + (mv²/r)·sin α ; l’adhérence de la bille qui roule se trouve dans le plan de la paroi et n’apporte rien perpendiculairement à elle."
+          }
+        },
+        "slits": {
+          "spacing": {
+            "title": "L’espacement des franges",
+            "setting": "L’exposition : laser rouge, 650 nm, fentes espacées de 0,25 mm et larges de 0,05 mm, le mur 2 m derrière ; de la première frange sombre à la deuxième.",
+            "reads": "Il fait sombre là où les chemins depuis les deux fentes diffèrent d’une demi-longueur d’onde, d’une et demie, de deux et demie… Pour de petits angles, les franges sont espacées de λ·D/d.",
+            "why": "Vérifie l’espacement des fentes dans la figure : 5,2 mm, mesurés sur la figure que dessine la page. La formule suppose de petits angles ; c’est pourquoi la figure est 1,1 · 10⁻⁵ plus large.",
+            "step": "La source donne les franges sombres en d·sin θ = (m + ½)λ et, pour de petits angles, les claires en y = mλD/d. Les sombres se trouvent à mi-chemin entre les claires, donc tout aussi espacées."
+          },
+          "one_slit_dark": {
+            "title": "Une fente seule : la première obscurité",
+            "setting": "Comme ci-dessus, une fente cachée ; la première obscurité à côté du milieu.",
+            "reads": "Une fente seule est sombre là où les chemins depuis ses deux bords diffèrent d’une longueur d’onde entière : chaque bande de la fente en a alors une autre qui l’annule.",
+            "why": "Vérifie la largeur de la fente dans la figure : 26,002 mm à côté du milieu, comme le dessine la page."
+          },
+          "quarter": {
+            "title": "Une fente donne un quart, pas la moitié",
+            "setting": "Comme ci-dessus, une fente cachée ; la clarté au milieu.",
+            "reads": "Au milieu, les deux ondes arrivent en phase : leurs amplitudes s’additionnent au double, et la clarté en est le carré, quatre fois celle d’une fente.",
+            "why": "Vérifie que la page additionne les ondes et n’élève au carré qu’ensuite, au lieu d’additionner les clartés : une fente donne 0,25 du milieu avec deux.",
+            "step": "La première source donne que les amplitudes d’ondes égales en phase s’additionnent, la deuxième que la clarté en est le carré : E² contre (2E)²."
+          },
+          "first_bright": {
+            "title": "La première frange claire est plus faible",
+            "setting": "Comme ci-dessus, les deux fentes ouvertes ; la clarté de la première frange claire à côté du milieu.",
+            "reads": "Chaque fente seule devient plus sombre vers les côtés. La première frange claire de la paire se trouve en d·sin θ = λ, et là chaque fente ne donne que (sin β/β)² de son milieu.",
+            "why": "Vérifie comment la largeur des fentes atténue les franges : 0,8751 du milieu pour des fentes cinq fois plus espacées que larges."
+          },
+          "missing": {
+            "title": "La cinquième frange manque",
+            "setting": "Comme ci-dessus, les deux fentes ouvertes ; la clarté là où se trouverait la cinquième frange claire.",
+            "reads": "Les fentes sont cinq fois plus espacées que larges. Là où les deux se renforcent pour la cinquième fois, chacune seule est sombre, et il n’y a rien à renforcer.",
+            "why": "Vérifie que les franges et l’atténuation sont calculées avec le même angle : 10⁻³³ à cet endroit, c’est-à-dire sombre.",
+            "step": "La première source donne les franges claires en d·sin θ = mλ, la deuxième l’obscurité d’une fente en a·sin θ = λ. Avec d = 5a, la cinquième frange claire et la première obscurité coïncident ; la troisième appelle cela un ordre manquant."
           }
         }
       },
