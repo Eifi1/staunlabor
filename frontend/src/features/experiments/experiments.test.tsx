@@ -95,6 +95,7 @@ const UNCHECKED = {
     "coil",
     "coriolis",
     "cradle",
+    "diver",
     "foucault",
     "maxwell",
     "peg",
@@ -1740,6 +1741,16 @@ describe("setting a check case up", () => {
     );
     await setUp(0);
     expect(await screen.findByText(E.slits.play.status_both.replace("{{spacing}}", "5.2"))).toBeInTheDocument();
+  });
+
+  it("gives the diver its air back and lets it go just under its hover depth, where it hovers for now", async () => {
+    renderWithProviders(<DiverPage />);
+    await screen.findByRole("img", { name: E.diver.view });
+    fireEvent.change(screen.getByRole("slider", { name: E.diver.change.air }), { target: { value: "2.2" } });
+    await setUp(3);
+    expect(await screen.findByText(E.diver.play.motion.hovers)).toBeInTheDocument();
+    expect(screen.getByRole("slider", { name: E.diver.play.squeeze }).getAttribute("aria-valuetext")).toMatch(/^10\b/);
+    expect(screen.getByRole("slider", { name: E.diver.change.air }).getAttribute("aria-valuetext")).toMatch(/^2\b/);
   });
 
   it("pushes the ball round the well on its circle, with the felt's brake, for the brake's case", async () => {

@@ -3592,7 +3592,20 @@
         "I_two": "Helligkeit in der Mitte mit beiden",
         "E_amp": "Ausschlag der Welle eines Spalts",
         "I_rel": "Helligkeit, gemessen an der Mitte",
-        "beta_slit": "halber Gangunterschied über einen Spalt, als Winkel"
+        "beta_slit": "halber Gangunterschied über einen Spalt, als Winkel",
+        "diver_reserve": "Auftrieb, der übrig ist, als Masse",
+        "diver_rho": "Dichte des Wassers, 998",
+        "diver_Vg": "Volumen des Glases",
+        "diver_V0": "Luftblase an der Oberfläche, ohne Druck",
+        "diver_m": "Masse des Glases",
+        "diver_p0": "Luftdruck an der Oberfläche, 101 325 Pa",
+        "diver_dp": "Druck der Hand",
+        "diver_Vstar": "Luftblase, mit der er schwebt",
+        "diver_H": "Wassertiefe der Flasche",
+        "diver_dz": "Abstand von der Schwebetiefe",
+        "diver_k": "wie stark der Abstand sich selbst verstärkt",
+        "diver_pstar": "Druck in der Schwebetiefe",
+        "diver_zstar": "Tiefe, in der er schweben würde"
       },
       "cases": {
         "sphere": {
@@ -4177,6 +4190,35 @@
             "reads": "Die Spalte liegen fünfmal so weit auseinander, wie sie breit sind. Wo die beiden sich zum fünften Mal verstärken, ist jeder allein dunkel, und es bleibt nichts zu verstärken.",
             "why": "Prüft, dass Streifen und Dämpfung mit demselben Winkel gerechnet sind: dort 10⁻³³, also dunkel.",
             "step": "Die erste Quelle gibt die hellen Streifen bei d·sin θ = mλ, die zweite das Dunkel eines Spalts bei a·sin θ = λ. Mit d = 5a fallen der fünfte helle und das erste Dunkel zusammen; die dritte nennt das eine fehlende Ordnung."
+          }
+        },
+        "diver": {
+          "reserve": {
+            "title": "Wie viel Auftrieb übrig ist",
+            "setting": "Der Taucher der Seite, 3 g Glas mit 1,2 cm³ und 2 cm³ Luft, an der Oberfläche, ohne Druck der Hand.",
+            "reads": "Er verdrängt Wasser für sein Glas und seine Luft; was dieses Wasser mehr wiegt als das Glas, hält ihn oben.",
+            "why": "Prüft den Auftrieb, den die Seite als Reserve zeigt: 0,1936 g."
+          },
+          "sinks_from_top": {
+            "title": "Der Druck, der ihn von oben sinken lässt",
+            "setting": "Der Taucher an der Oberfläche; die Hand drückt mit 10,90 kPa. Bei 10,85 kPa bleibt er oben.",
+            "reads": "Der Druck der Hand presst die Luftblase zusammen (bei gleicher Temperatur bleibt p·V gleich); er sinkt, sobald die Blase kleiner ist als m/ρ − V_g, die Blase, mit der er schwebt.",
+            "why": "Prüft Boyle und Auftrieb in der Zeitschleife der Seite: 10,884 kPa, gesucht als der Druck, ab dem ein einziger Schritt ihn von der Oberfläche wegzieht.",
+            "step": "Die erste Quelle gibt p·V gleich für die Luft, die zweite das Gleichgewicht von Auftrieb und Gewicht; zusammen ergeben sie den Druck, bei dem die Blase an der Oberfläche gerade noch trägt."
+          },
+          "rises_from_bottom": {
+            "title": "Der Druck, unter dem er vom Grund aufsteigt",
+            "setting": "Der Taucher liegt auf dem Grund der 30-cm-Flasche (zuerst fest drücken, bis er unten liegt); dann 7,90 kPa. Bei 7,95 kPa bleibt er liegen.",
+            "reads": "Unten drückt zusätzlich das Wasser mit ρ·g·H; er steigt, sobald die Hand um ρ·g·H weniger drückt als der Druck, der ihn oben sinken lässt.",
+            "why": "Prüft den Druck des Wassers in der Tiefe: 7,947 kPa, 2,936 kPa weniger als oben. Zwischen den beiden Drücken liegt die Tiefe, in der er schweben würde, in der Flasche.",
+            "step": "Wie oben, mit dem Druck in der Tiefe H aus der dritten Quelle."
+          },
+          "leaves_hover": {
+            "title": "Warum er nicht schwebt",
+            "setting": "Die Hand drückt mit 10 kPa; der Taucher ruhend einen Mikrometer unter der Tiefe, in der er schweben würde, 9,03 cm; fünf Sekunden lang.",
+            "reads": "Etwas tiefer ist die Blase etwas kleiner, und der fehlende Auftrieb zieht ihn weiter: Der Abstand wächst wie cosh(√k·t). Bewegt werden das Glas und das Wasser, das es mitnimmt, die Hälfte seines Volumens.",
+            "why": "Prüft, dass das Schweben instabil ist und wie schnell: Der Abstand wächst bald alle 1,71 s auf das e-fache. Die Abweichung von 1 · 10⁻⁵ kommt vom Widerstand des Wassers und von der Krümmung in Boyles Gesetz; beide wachsen mit dem Abstand.",
+            "step": "Die erste Quelle gibt, wie die Blase mit dem Druck schrumpft, die zweite den Druck in der Tiefe; für einen kleinen Schritt δz ist die Änderung linear. Die dritte gibt das mitbewegte Wasser einer Kugel, die Hälfte ihres Volumens, das die Seite für das Röhrchen übernimmt."
           }
         }
       },

@@ -3592,7 +3592,20 @@
         "I_two": "claridad en el centro con las dos",
         "E_amp": "amplitud de la onda de una rendija",
         "I_rel": "claridad, respecto al centro",
-        "beta_slit": "media diferencia de camino a lo largo de una rendija, como ángulo"
+        "beta_slit": "media diferencia de camino a lo largo de una rendija, como ángulo",
+        "diver_reserve": "empuje sobrante, como masa",
+        "diver_rho": "densidad del agua, 998",
+        "diver_Vg": "volumen del vidrio",
+        "diver_V0": "burbuja en la superficie, sin presión",
+        "diver_m": "masa del vidrio",
+        "diver_p0": "presión del aire en la superficie, 101 325 Pa",
+        "diver_dp": "presión de la mano",
+        "diver_Vstar": "burbuja con la que flota quieto",
+        "diver_H": "profundidad del agua en la botella",
+        "diver_dz": "distancia a la profundidad de equilibrio",
+        "diver_k": "cuánto se refuerza a sí misma la distancia",
+        "diver_pstar": "presión en la profundidad de equilibrio",
+        "diver_zstar": "profundidad en la que flotaría quieto"
       },
       "cases": {
         "sphere": {
@@ -4177,6 +4190,35 @@
             "reads": "La separación de las rendijas es cinco veces su anchura. Donde las dos se refuerzan por quinta vez, cada una sola está oscura, y no queda nada que reforzar.",
             "why": "Comprueba que las franjas y la atenuación se calculan con el mismo ángulo: allí 10⁻³³, es decir, oscuro.",
             "step": "La primera fuente da las franjas claras en d·sin θ = mλ; la segunda, la oscuridad de una rendija en a·sin θ = λ. Con d = 5a, la quinta franja clara y la primera oscuridad coinciden; la tercera lo llama un orden ausente."
+          }
+        },
+        "diver": {
+          "reserve": {
+            "title": "Cuánto empuje sobra",
+            "setting": "El ludión de la página, 3 g de vidrio con 1,2 cm³ y 2 cm³ de aire, en la superficie, sin presión de la mano.",
+            "reads": "Desplaza agua por su vidrio y por su aire; lo que esa agua pesa de más respecto al vidrio lo mantiene arriba.",
+            "why": "Comprueba el empuje que la página muestra como reserva: 0,1936 g."
+          },
+          "sinks_from_top": {
+            "title": "La presión que lo hunde desde arriba",
+            "setting": "El ludión en la superficie; la mano aprieta con 10,90 kPa. Con 10,85 kPa se queda arriba.",
+            "reads": "La presión de la mano comprime la burbuja (a temperatura constante, p·V se mantiene igual); se hunde en cuanto la burbuja es menor que m/ρ − V_g, la burbuja con la que flota quieto.",
+            "why": "Comprueba Boyle y el empuje en el bucle de pasos de tiempo de la página: 10,884 kPa, buscados como la presión a partir de la cual un solo paso lo separa de la superficie.",
+            "step": "La primera fuente da p·V constante para el aire; la segunda, el equilibrio entre empuje y peso; juntas dan la presión con la que la burbuja en la superficie todavía lo sostiene justo."
+          },
+          "rises_from_bottom": {
+            "title": "La presión bajo la cual sube desde el fondo",
+            "setting": "El ludión está en el fondo de la botella de 30 cm (primero apriete fuerte hasta que quede abajo); después, 7,90 kPa. Con 7,95 kPa se queda abajo.",
+            "reads": "Abajo, el agua aprieta además con ρ·g·H; sube en cuanto la mano aprieta ρ·g·H menos que la presión que lo hunde desde arriba.",
+            "why": "Comprueba la presión del agua en la profundidad: 7,947 kPa, 2,936 kPa menos que arriba. Entre las dos presiones, la profundidad en la que flotaría quieto queda dentro de la botella.",
+            "step": "Como arriba, con la presión a la profundidad H tomada de la tercera fuente."
+          },
+          "leaves_hover": {
+            "title": "Por qué no flota quieto",
+            "setting": "La mano aprieta con 10 kPa; el ludión, en reposo, un micrómetro por debajo de la profundidad en la que flotaría quieto, 9,03 cm; durante cinco segundos.",
+            "reads": "Un poco más abajo la burbuja es un poco más pequeña, y el empuje que falta lo arrastra más allá: la distancia crece como cosh(√k·t). Se mueven el vidrio y el agua que arrastra consigo, la mitad de su volumen.",
+            "why": "Comprueba que flotar quieto es inestable, y con qué rapidez: la distancia pronto se multiplica por e cada 1,71 s. La desviación de 1 · 10⁻⁵ viene de la resistencia del agua y de la curvatura de la ley de Boyle; ambas crecen con la distancia.",
+            "step": "La primera fuente da cómo se encoge la burbuja con la presión; la segunda, la presión en la profundidad; para un paso pequeño δz, el cambio es lineal. La tercera da el agua que arrastra consigo una esfera, la mitad de su volumen, que la página adopta para el tubito."
           }
         }
       },

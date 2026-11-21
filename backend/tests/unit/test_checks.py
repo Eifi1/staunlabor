@@ -35,6 +35,7 @@ def test_the_exhibits_with_checks_are_these() -> None:
         "coil",
         "coriolis",
         "cradle",
+        "diver",
         "foucault",
         "maxwell",
         "peg",

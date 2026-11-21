@@ -2457,6 +2457,18 @@ dark lies 1.1 · 10⁻⁵ over λD/d, inside the case's 3 · 10⁻⁵. "Set it u
 the light, the covered slit, the wavelength and the build in one go, on the
 light's card.
 
+**The Cartesian diver's** four (2026-11-21) hold its reserve of lift (the
+water it displaces, glass and air, less the glass's 3 g: 0.1936 g), the squeeze
+that sinks it from the surface (Boyle and Archimedes: 10.884 kPa, so the docs'
+10.9 sinks it and 10.85 does not), the squeeze under which it rises even from
+the bottom (ρgH less: 7.947 kPa) and how fast it leaves its hover depth. That
+last one lets the diver go at rest a micrometre under the hover depth and
+reads the growth of cosh(√k·t) over five seconds, with the added mass of half
+the glass's water; started further off, the drag bends the curve. The thresholds
+are found by bisection on one step of the engine's own loop. "Set it up" sets
+the hand and where the diver starts: at the surface, on the bottom, or that
+micrometre under the hover depth, which no hand on the slider could find.
+
 **On the page** a section "Check it yourself" (`check-section.tsx`) lists the
 cases, each with its formula as an `Equation` (`check-formulas.ts`), both
 values to seven digits, the deviation, why the case would catch a mistake,

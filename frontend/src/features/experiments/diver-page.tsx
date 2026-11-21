@@ -11,6 +11,7 @@ import { Figures, WidgetCard } from "@/shared/ui/widget";
 import { Equation } from "./equation";
 import { ExhibitFrame } from "./exhibit-frame";
 import { BuildPending } from "./build-pending";
+import { settingNumber, useCheckRequest, useCheckSetting } from "./check-setting";
 import { PreviewPending, type PreviewMode, type PreviewProps } from "./preview-mode";
 import { startsRunning } from "./play";
 import { STEP_S, bubbleM3, figures, hoverDepthM, liftN, step, type Bottle, type Diver } from "./simulate/diver";
@@ -23,6 +24,8 @@ const MOST_SQUEEZE_KPA = 25;
 const PREVIEW_SQUEEZE = { mean: 9400, swing: 1600, period: 10 } as const;
 /** Within this of its hover depth, and this slow, the diver is said to hover (for now). */
 const HOVERING = { depth: 0.005, speed: 0.003 } as const;
+/** The hover case's start below the hover depth, m: its micrometre (`domain/checks/diver.py`). */
+const HOVER_OFF_M = 1e-6;
 
 /** The drawing: the water's surface, the depth drawn, the bottle's sides; the diver, not to scale. */
 const VIEW = { width: 200, height: 290, surface: 40, span: 230, left: 55, right: 145, tube: 14, tall: 34 } as const;
@@ -57,6 +60,19 @@ export function DiverPage() {
   const [build, setBuild] = useState<{ diver: Diver; bottle: Bottle } | null>(null);
   const diver = build?.diver ?? data?.diver ?? null;
   const bottle = build?.bottle ?? (data ? { depth_m: data.depth_m } : null);
+  // A check case's "Set it up": the diver's air and the bottle's depth here;
+  // the play, built anew for them or already on them, sets the hand and where
+  // the diver starts.
+  const request = useCheckRequest("diver");
+  const [seen, setSeen] = useState<number | null>(null);
+  if (request && !request.done && request.nonce !== seen && diver && bottle) {
+    setSeen(request.nonce);
+    const air = settingNumber(request.setting, "air_m3", diver.air_m3);
+    const depth = settingNumber(request.setting, "depth_m", bottle.depth_m);
+    if (air !== diver.air_m3 || depth !== bottle.depth_m) {
+      setBuild({ diver: { ...diver, air_m3: air }, bottle: { depth_m: depth } });
+    }
+  }
   return (
     <ExhibitFrame
       exhibit="diver"
@@ -220,6 +236,31 @@ function DiverPlay({ diver, bottle, preview = false, paused = false }: { diver: 
     hand.current = squeezeKpa * 1000;
   }, [squeezeKpa]);
   const running = preview ? !paused : runningHere;
+  // A case's hand and start, once the page's diver and bottle are the case's:
+  // at the surface, on the bottom, or a micrometre below the hover depth, where
+  // only the case can put it.
+  useCheckSetting("diver", (setting) => {
+    if (preview) return false;
+    if (
+      settingNumber(setting, "air_m3", diver.air_m3) !== diver.air_m3 ||
+      settingNumber(setting, "depth_m", bottle.depth_m) !== bottle.depth_m
+    ) {
+      return false;
+    }
+    const kpa = settingNumber(setting, "squeeze_kpa", squeezeKpa);
+    const depth =
+      setting.start === "bottom"
+        ? bottle.depth_m
+        : setting.start === "hover"
+          ? hoverDepthM(diver, kpa * 1000) + HOVER_OFF_M
+          : 0;
+    setSqueeze(kpa);
+    hand.current = kpa * 1000;
+    motion.current = { depth, speed: 0, time: 0, carry: 0 };
+    setFrame({ depth, speed: 0, time: 0 });
+    setRunning(true);
+    return true;
+  });
 
   useEffect(() => {
     if (!running) return;

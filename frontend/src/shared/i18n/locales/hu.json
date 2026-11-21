@@ -3592,7 +3592,20 @@
         "I_two": "világosság középen mindkét réssel",
         "E_amp": "egy rés hullámának amplitúdója",
         "I_rel": "világosság a középhez mérve",
-        "beta_slit": "a fél útkülönbség egy résen át, szögként kifejezve"
+        "beta_slit": "a fél útkülönbség egy résen át, szögként kifejezve",
+        "diver_reserve": "megmaradó felhajtóerő, tömegként",
+        "diver_rho": "a víz sűrűsége, 998",
+        "diver_Vg": "az üveg térfogata",
+        "diver_V0": "a buborék a felszínen, nyomás nélkül",
+        "diver_m": "az üveg tömege",
+        "diver_p0": "légnyomás a felszínen, 101 325 Pa",
+        "diver_dp": "a kéz nyomása",
+        "diver_Vstar": "a buborék, amellyel lebeg",
+        "diver_H": "a víz mélysége a palackban",
+        "diver_dz": "távolság a lebegési mélységtől",
+        "diver_k": "mennyire erősíti önmagát a távolság",
+        "diver_pstar": "nyomás a lebegési mélységben",
+        "diver_zstar": "a mélység, ahol lebegne"
       },
       "cases": {
         "sphere": {
@@ -4177,6 +4190,35 @@
             "reads": "A rések ötször olyan messze vannak egymástól, mint amilyen szélesek. Ahol a kettő ötödször erősíti egymást, ott mindegyik egyedül sötét, és nincs mit erősíteni.",
             "why": "Azt ellenőrzi, hogy a csíkok és a halványodás ugyanazzal a szöggel van számolva: ott 10⁻³³, vagyis sötét.",
             "step": "Az első forrás a világos csíkokat d·sin θ = mλ-nál adja meg, a második egy rés sötét helyét a·sin θ = λ-nál. d = 5a esetén az ötödik világos csík és az első sötét hely egybeesik; a harmadik ezt hiányzó rendnek nevezi."
+          }
+        },
+        "diver": {
+          "reserve": {
+            "title": "Mennyi felhajtóerő marad",
+            "setting": "Az oldal búvára, 3 g üveg 1,2 cm³ térfogattal és 2 cm³ levegővel, a felszínen, a kéz nyomása nélkül.",
+            "reads": "Vizet szorít ki az üvege és a levegője helyén; amennyivel ez a víz többet nyom az üvegnél, az tartja fent.",
+            "why": "Azt a felhajtóerőt ellenőrzi, amelyet az oldal tartalékként mutat: 0,1936 g."
+          },
+          "sinks_from_top": {
+            "title": "A nyomás, amely fentről lesüllyeszti",
+            "setting": "A búvár a felszínen; a kéz 10,90 kPa-lal nyom. 10,85 kPa-nál fent marad.",
+            "reads": "A kéz nyomása összenyomja a buborékot (állandó hőmérsékleten p·V változatlan); lesüllyed, amint a buborék kisebb, mint m/ρ − V_g, vagyis az a buborék, amellyel lebeg.",
+            "why": "Boyle törvényét és a felhajtóerőt ellenőrzi az oldal időléptető ciklusában: 10,884 kPa, annak a nyomásnak keresve, amelytől egyetlen lépés elhúzza a felszíntől.",
+            "step": "Az első forrás szerint a levegőre p·V állandó, a második a felhajtóerő és a súly egyensúlyát adja meg; együtt azt a nyomást adják, amelynél a felszíni buborék még éppen fenntartja."
+          },
+          "rises_from_bottom": {
+            "title": "A nyomás, amely alatt a fenékről feljön",
+            "setting": "A búvár a 30 cm-es palack fenekén fekszik (előbb erősen nyomja, amíg le nem ér); aztán 7,90 kPa. 7,95 kPa-nál lent marad.",
+            "reads": "Lent a víz is nyom, ρ·g·H-val; feljön, amint a kéz ρ·g·H-val kevésbé nyom, mint az a nyomás, amely fentről lesüllyeszti.",
+            "why": "A víz nyomását ellenőrzi a mélyben: 7,947 kPa, 2,936 kPa-lal kevesebb, mint fent. A két nyomás között az a mélység, ahol lebegne, a palackon belül van.",
+            "step": "Mint fent, a H mélységbeli nyomással a harmadik forrásból."
+          },
+          "leaves_hover": {
+            "title": "Miért nem lebeg",
+            "setting": "A kéz 10 kPa-lal nyom; a búvár nyugalomban, egy mikrométerrel az alatt a mélység alatt, ahol lebegne, 9,03 cm; öt másodpercig.",
+            "reads": "Kicsit mélyebben a buborék kicsit kisebb, és a hiányzó felhajtóerő tovább húzza: a távolság cosh(√k·t) szerint nő. Az üveg mozog, és vele a víz, amelyet magával visz, a térfogatának fele.",
+            "why": "Azt ellenőrzi, hogy a lebegés instabil, és hogy milyen gyorsan: a távolság hamarosan 1,71 s-onként e-szeresére nő. Az 1 · 10⁻⁵ eltérés a víz ellenállásából és a Boyle-törvény görbületéből adódik; mindkettő a távolsággal nő.",
+            "step": "Az első forrás megadja, hogyan zsugorodik a buborék a nyomással, a második a nyomást a mélységben; kis δz lépésre a változás lineáris. A harmadik egy gömb által magával vitt vizet adja meg, a térfogata felét, amit az oldal a csőre is átvesz."
           }
         }
       },

@@ -3592,7 +3592,20 @@
         "I_two": "brightness in the middle with both",
         "E_amp": "the swing of one slit's wave",
         "I_rel": "brightness, against the middle",
-        "beta_slit": "half the path difference across one slit, as an angle"
+        "beta_slit": "half the path difference across one slit, as an angle",
+        "diver_reserve": "buoyancy to spare, as a mass",
+        "diver_rho": "the water's density, 998",
+        "diver_Vg": "the glass's volume",
+        "diver_V0": "the bubble at the surface, unsqueezed",
+        "diver_m": "the glass's mass",
+        "diver_p0": "air pressure at the surface, 101,325 Pa",
+        "diver_dp": "the hand's squeeze",
+        "diver_Vstar": "the bubble it hovers with",
+        "diver_H": "the bottle's depth of water",
+        "diver_dz": "distance from the hover depth",
+        "diver_k": "how strongly the distance feeds itself",
+        "diver_pstar": "pressure at the hover depth",
+        "diver_zstar": "the depth where it would hover"
       },
       "cases": {
         "sphere": {
@@ -4177,6 +4190,35 @@
             "reads": "The slits lie five times as far apart as they are wide. Where the two reinforce each other for the fifth time, each alone is dark, and there is nothing to reinforce.",
             "why": "Checks that the stripes and the dimming are computed at the same angle: 10⁻³³ there, that is dark.",
             "step": "The first source gives the bright stripes at d·sin θ = mλ, the second a slit's dark at a·sin θ = λ. With d = 5a the fifth bright and the first dark coincide; the third calls this a missing order."
+          }
+        },
+        "diver": {
+          "reserve": {
+            "title": "How much buoyancy is to spare",
+            "setting": "The page's diver, 3 g of glass of 1.2 cm³ and 2 cm³ of air, at the surface, the hand not squeezing.",
+            "reads": "It displaces water for its glass and its air; what that water weighs more than the glass keeps it up.",
+            "why": "Checks the buoyancy the page shows as the reserve: 0.1936 g."
+          },
+          "sinks_from_top": {
+            "title": "The squeeze that sinks it from the top",
+            "setting": "The diver at the surface; the hand squeezes with 10.90 kPa. At 10.85 kPa it stays up.",
+            "reads": "The hand's squeeze presses the bubble together (at one temperature p·V stays the same); it sinks once the bubble is smaller than m/ρ − V_g, the bubble it hovers with.",
+            "why": "Checks Boyle and buoyancy in the page's time loop: 10.884 kPa, found as the squeeze from which a single step pulls it off the surface.",
+            "step": "The first source gives p·V the same for the air, the second the balance of buoyancy and weight; together they give the squeeze at which the bubble at the surface just carries it."
+          },
+          "rises_from_bottom": {
+            "title": "The squeeze below which it rises from the bottom",
+            "setting": "The diver lies on the bottom of the 30 cm bottle (squeeze hard first until it lies there); then 7.90 kPa. At 7.95 kPa it stays down.",
+            "reads": "Down there the water presses too, with ρ·g·H; it rises once the hand squeezes ρ·g·H less than the squeeze that sinks it at the top.",
+            "why": "Checks the water's pressure at depth: 7.947 kPa, 2.936 kPa less than at the top. Between the two squeezes the depth where it would hover lies in the bottle.",
+            "step": "As above, with the pressure at depth H from the third source."
+          },
+          "leaves_hover": {
+            "title": "Why it does not hover",
+            "setting": "The hand squeezes with 10 kPa; the diver at rest a micrometre below the depth where it would hover, 9.03 cm; for five seconds.",
+            "reads": "A little deeper the bubble is a little smaller, and the missing buoyancy pulls it on: the distance grows as cosh(√k·t). What moves is the glass and the water it carries along, half its volume.",
+            "why": "Checks that hovering is unstable and how fast: the distance soon grows e-fold every 1.71 s. The 1 · 10⁻⁵ off comes from the water's drag and the curve of Boyle's law; both grow with the distance.",
+            "step": "The first source gives how the bubble shrinks with pressure, the second the pressure at depth; for a small step δz the change is linear. The third gives the water a sphere carries along, half its volume, which the page takes over for the tube."
           }
         }
       },

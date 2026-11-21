@@ -3592,7 +3592,20 @@
         "I_two": "luminosità al centro con entrambe",
         "E_amp": "ampiezza dell'onda di una fenditura",
         "I_rel": "luminosità, rispetto al centro",
-        "beta_slit": "metà della differenza di cammino attraverso una fenditura, come angolo"
+        "beta_slit": "metà della differenza di cammino attraverso una fenditura, come angolo",
+        "diver_reserve": "spinta che avanza, come massa",
+        "diver_rho": "densità dell'acqua, 998",
+        "diver_Vg": "volume del vetro",
+        "diver_V0": "bolla in superficie, senza pressione",
+        "diver_m": "massa del vetro",
+        "diver_p0": "pressione dell'aria in superficie, 101.325 Pa",
+        "diver_dp": "pressione della mano",
+        "diver_Vstar": "bolla con cui resta sospeso",
+        "diver_H": "profondità dell'acqua nella bottiglia",
+        "diver_dz": "distanza dalla profondità di equilibrio",
+        "diver_k": "quanto la distanza si autoalimenta",
+        "diver_pstar": "pressione alla profondità di equilibrio",
+        "diver_zstar": "profondità in cui resterebbe sospeso"
       },
       "cases": {
         "sphere": {
@@ -4177,6 +4190,35 @@
             "reads": "Le fenditure distano cinque volte la loro larghezza. Dove le due si rinforzano per la quinta volta, ciascuna da sola è buia, e non resta nulla da rinforzare.",
             "why": "Verifica che frange e attenuazione siano calcolate con lo stesso angolo: lì 10⁻³³, cioè buio.",
             "step": "La prima fonte dà le frange chiare a d·sin θ = mλ, la seconda il buio di una fenditura a a·sin θ = λ. Con d = 5a la quinta frangia chiara e il primo buio coincidono; la terza lo chiama un ordine mancante."
+          }
+        },
+        "diver": {
+          "reserve": {
+            "title": "Quanta spinta avanza",
+            "setting": "Il diavoletto della pagina, 3 g di vetro da 1,2 cm³ e 2 cm³ d'aria, in superficie, senza pressione della mano.",
+            "reads": "Sposta acqua per il suo vetro e per la sua aria; ciò che quell'acqua pesa più del vetro lo tiene su.",
+            "why": "Verifica la spinta che la pagina mostra come riserva: 0,1936 g."
+          },
+          "sinks_from_top": {
+            "title": "La pressione che lo fa affondare dall'alto",
+            "setting": "Il diavoletto in superficie; la mano preme con 10,90 kPa. Con 10,85 kPa resta su.",
+            "reads": "La pressione della mano comprime la bolla (a temperatura costante p·V resta uguale); affonda appena la bolla è più piccola di m/ρ − V_g, la bolla con cui resta sospeso.",
+            "why": "Verifica Boyle e la spinta nel ciclo dei passi temporali della pagina: 10,884 kPa, cercati come la pressione da cui un solo passo lo stacca dalla superficie.",
+            "step": "La prima fonte dà p·V costante per l'aria, la seconda l'equilibrio tra spinta e peso; insieme danno la pressione alla quale la bolla in superficie lo regge ancora appena."
+          },
+          "rises_from_bottom": {
+            "title": "La pressione sotto cui risale dal fondo",
+            "setting": "Il diavoletto giace sul fondo della bottiglia da 30 cm (prima premere forte finché è giù); poi 7,90 kPa. Con 7,95 kPa resta giù.",
+            "reads": "Giù l'acqua preme in più con ρ·g·H; risale appena la mano preme ρ·g·H in meno della pressione che lo fa affondare dall'alto.",
+            "why": "Verifica la pressione dell'acqua in profondità: 7,947 kPa, 2,936 kPa in meno che in alto. Tra le due pressioni, la profondità in cui resterebbe sospeso si trova nella bottiglia.",
+            "step": "Come sopra, con la pressione alla profondità H presa dalla terza fonte."
+          },
+          "leaves_hover": {
+            "title": "Perché non resta sospeso",
+            "setting": "La mano preme con 10 kPa; il diavoletto fermo un micrometro sotto la profondità in cui resterebbe sospeso, 9,03 cm; per cinque secondi.",
+            "reads": "Un po' più in basso la bolla è un po' più piccola, e la spinta che manca lo trascina oltre: la distanza cresce come cosh(√k·t). A muoversi sono il vetro e l'acqua che si trascina dietro, la metà del suo volume.",
+            "why": "Verifica che lo stato sospeso è instabile, e quanto in fretta: la distanza presto si moltiplica per e ogni 1,71 s. Lo scarto di 1 · 10⁻⁵ viene dalla resistenza dell'acqua e dalla curvatura della legge di Boyle; entrambe crescono con la distanza.",
+            "step": "La prima fonte dà come la bolla si restringe con la pressione, la seconda la pressione in profondità; per un piccolo passo δz la variazione è lineare. La terza dà l'acqua trascinata da una sfera, la metà del suo volume, che la pagina adotta per la provetta."
           }
         }
       },

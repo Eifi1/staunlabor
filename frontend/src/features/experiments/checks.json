@@ -690,6 +690,121 @@
    ]
   }
  ],
+ "diver": [
+  {
+   "key": "reserve",
+   "unit": "g",
+   "expected": 0.1936,
+   "measured": 0.1936,
+   "deviation": 4.01423614276e-15,
+   "tolerance": 1e-12,
+   "derived": false,
+   "setting": {
+    "air_m3": 2e-06,
+    "depth_m": 0.3,
+    "squeeze_kpa": 0.0,
+    "start": "surface"
+   },
+   "sources": [
+    {
+     "cite": "OpenStax, University Physics Volume 1, §14.4 Archimedes’ Principle and Buoyancy",
+     "url": "https://openstax.org/books/university-physics-volume-1/pages/14-4-archimedes-principle-and-buoyancy",
+     "quote": "Archimedes’ Principle The buoyant force on an object equals the weight of the fluid it displaces. In equation form, Archimedes’ principle is F_B = w_fl"
+    }
+   ]
+  },
+  {
+   "key": "sinks_from_top",
+   "unit": "kPa",
+   "expected": 10.8835552597,
+   "measured": 10.8835552597,
+   "deviation": 6.52859032557e-16,
+   "tolerance": 1e-12,
+   "derived": true,
+   "setting": {
+    "air_m3": 2e-06,
+    "depth_m": 0.3,
+    "squeeze_kpa": 10.9,
+    "start": "surface"
+   },
+   "sources": [
+    {
+     "cite": "OpenStax, Chemistry 2e, §9.2 Relating Pressure, Volume, Amount, and Temperature: The Ideal Gas Law",
+     "url": "https://openstax.org/books/chemistry-2e/pages/9-2-relating-pressure-volume-amount-and-temperature-the-ideal-gas-law",
+     "quote": "Boyle’s law: The volume of a given amount of gas held at constant temperature is inversely proportional to the pressure under which it is measured."
+    },
+    {
+     "cite": "OpenStax, University Physics Volume 1, §14.4 Archimedes’ Principle and Buoyancy",
+     "url": "https://openstax.org/books/university-physics-volume-1/pages/14-4-archimedes-principle-and-buoyancy",
+     "quote": "Archimedes’ Principle The buoyant force on an object equals the weight of the fluid it displaces. In equation form, Archimedes’ principle is F_B = w_fl"
+    }
+   ]
+  },
+  {
+   "key": "rises_from_bottom",
+   "unit": "kPa",
+   "expected": 7.94744424965,
+   "measured": 7.94744424926,
+   "deviation": 4.98844061326e-11,
+   "tolerance": 1e-09,
+   "derived": true,
+   "setting": {
+    "air_m3": 2e-06,
+    "depth_m": 0.3,
+    "squeeze_kpa": 7.9,
+    "start": "bottom"
+   },
+   "sources": [
+    {
+     "cite": "OpenStax, Chemistry 2e, §9.2 Relating Pressure, Volume, Amount, and Temperature: The Ideal Gas Law",
+     "url": "https://openstax.org/books/chemistry-2e/pages/9-2-relating-pressure-volume-amount-and-temperature-the-ideal-gas-law",
+     "quote": "Boyle’s law: The volume of a given amount of gas held at constant temperature is inversely proportional to the pressure under which it is measured."
+    },
+    {
+     "cite": "OpenStax, University Physics Volume 1, §14.4 Archimedes’ Principle and Buoyancy",
+     "url": "https://openstax.org/books/university-physics-volume-1/pages/14-4-archimedes-principle-and-buoyancy",
+     "quote": "Archimedes’ Principle The buoyant force on an object equals the weight of the fluid it displaces. In equation form, Archimedes’ principle is F_B = w_fl"
+    },
+    {
+     "cite": "OpenStax, University Physics Volume 1, §14.1, “Pressure in a fluid with a constant density”, Eq. 14.9",
+     "url": "https://openstax.org/books/university-physics-volume-1/pages/14-1-fluids-density-and-pressure",
+     "quote": "p = p₀ + ρgh. … Hence, pressure at a depth of fluid on the surface of Earth is equal to the atmospheric pressure plus ρgh if the density of the fluid is constant over the height"
+    }
+   ]
+  },
+  {
+   "key": "leaves_hover",
+   "unit": "1/s",
+   "expected": 0.585318557158,
+   "measured": 0.585312232336,
+   "deviation": 1.08057768398e-05,
+   "tolerance": 5e-05,
+   "derived": true,
+   "setting": {
+    "air_m3": 2e-06,
+    "depth_m": 0.3,
+    "squeeze_kpa": 10.0,
+    "start": "hover"
+   },
+   "sources": [
+    {
+     "cite": "OpenStax, Chemistry 2e, §9.2 Relating Pressure, Volume, Amount, and Temperature: The Ideal Gas Law",
+     "url": "https://openstax.org/books/chemistry-2e/pages/9-2-relating-pressure-volume-amount-and-temperature-the-ideal-gas-law",
+     "quote": "Boyle’s law: The volume of a given amount of gas held at constant temperature is inversely proportional to the pressure under which it is measured."
+    },
+    {
+     "cite": "OpenStax, University Physics Volume 1, §14.1, “Pressure in a fluid with a constant density”, Eq. 14.9",
+     "url": "https://openstax.org/books/university-physics-volume-1/pages/14-1-fluids-density-and-pressure",
+     "quote": "p = p₀ + ρgh. … Hence, pressure at a depth of fluid on the surface of Earth is equal to the atmospheric pressure plus ρgh if the density of the fluid is constant over the height"
+    },
+    {
+     "cite": "Wikipedia, “Added mass”",
+     "url": "https://en.wikipedia.org/wiki/Added_mass",
+     "quote": "One can show that the added mass for a sphere (of radius r) is ⅔πr³ρ_fluid, which is half the volume of the sphere times the density of the fluid."
+    }
+   ]
+  }
+ ],
  "foucault": [
   {
    "key": "winterthur",

@@ -88,6 +88,14 @@ const D_SLITS: CheckSymbol = { tex: "d", key: "d_slits", unit: "m" };
 const A_SLIT: CheckSymbol = { tex: "a", key: "a_slit", unit: "m" };
 const THETA_BEAM: CheckSymbol = { tex: String.raw`\theta`, key: "theta_beam", unit: "°" };
 const ORDER: CheckSymbol = { tex: "m", key: "m_order" };
+const D_RHO: CheckSymbol = { tex: String.raw`\rho`, key: "diver_rho", unit: "kg/m³" };
+const D_VG: CheckSymbol = { tex: "V_g", key: "diver_Vg", unit: "m³" };
+const D_V0: CheckSymbol = { tex: "V_0", key: "diver_V0", unit: "m³" };
+const D_M: CheckSymbol = { tex: "m", key: "diver_m", unit: "kg" };
+const D_P0: CheckSymbol = { tex: "p_0", key: "diver_p0", unit: "Pa" };
+const D_DP: CheckSymbol = { tex: String.raw`\Delta p`, key: "diver_dp", unit: "Pa" };
+const D_VSTAR: CheckSymbol = { tex: "V^*", key: "diver_Vstar", unit: "m³" };
+const D_G: CheckSymbol = { tex: "g", key: "g", unit: "m/s²" };
 
 const ROD_STEADY: CheckFormula = {
   tex: String.raw`w = \frac{\Gamma\,\Omega^2 Y}{\sqrt{(\omega^2 - \Omega^2)^2 + (2\zeta\omega\Omega)^2}}, \qquad \Gamma = \frac{\int_0^1 \varphi\,d\xi}{\int_0^1 \varphi^2\,d\xi}`,
@@ -773,6 +781,37 @@ export const CHECK_FORMULAS: Record<string, Record<string, CheckFormula>> = {
     missing: {
       tex: String.raw`d \sin\theta = 5\lambda \quad\text{and}\quad a \sin\theta = \lambda \qquad (d = 5a)`,
       symbols: [D_SLITS, A_SLIT, THETA_BEAM, LAMBDA],
+    },
+  },
+  diver: {
+    reserve: {
+      tex: String.raw`\Delta m = \rho\,(V_g + V_0) - m`,
+      symbols: [{ tex: String.raw`\Delta m`, key: "diver_reserve", unit: "kg" }, D_RHO, D_VG, D_V0, D_M],
+    },
+    sinks_from_top: {
+      tex: String.raw`p_0 V_0 = (p_0 + \Delta p)\,V^*, \qquad \rho\,(V_g + V^*) = m \;\Rightarrow\; \Delta p = \frac{p_0 V_0}{m/\rho - V_g} - p_0`,
+      symbols: [D_P0, D_V0, D_DP, D_VSTAR, D_RHO, D_VG, D_M],
+    },
+    rises_from_bottom: {
+      tex: String.raw`p_0 V_0 = (p_0 + \Delta p + \rho g H)\,V^* \;\Rightarrow\; \Delta p = \frac{p_0 V_0}{m/\rho - V_g} - p_0 - \rho g H`,
+      symbols: [D_P0, D_V0, D_DP, D_RHO, D_G, { tex: "H", key: "diver_H", unit: "m" }, D_VSTAR, D_M, D_VG],
+    },
+    leaves_hover: {
+      tex: String.raw`\delta z = \delta z_0 \cosh\!\left(\sqrt{k}\,t\right), \qquad k = \frac{\rho^2 g^2 V^*}{p^*\left(m + \tfrac12\rho\,(V_g + V^*)\right)}, \qquad p^* = p_0 + \Delta p + \rho g z^*`,
+      symbols: [
+        { tex: String.raw`\delta z`, key: "diver_dz", unit: "m" },
+        { tex: "t", key: "t", unit: "s" },
+        { tex: "k", key: "diver_k", unit: "1/s²" },
+        D_RHO,
+        D_G,
+        D_VSTAR,
+        { tex: "p^*", key: "diver_pstar", unit: "Pa" },
+        D_M,
+        D_VG,
+        D_P0,
+        D_DP,
+        { tex: "z^*", key: "diver_zstar", unit: "m" },
+      ],
     },
   },
 };

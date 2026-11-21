@@ -3592,7 +3592,20 @@
         "I_two": "clarté au milieu avec les deux",
         "E_amp": "amplitude de l’onde d’une fente",
         "I_rel": "clarté, rapportée au milieu",
-        "beta_slit": "demi-différence de chemin à travers une fente, en angle"
+        "beta_slit": "demi-différence de chemin à travers une fente, en angle",
+        "diver_reserve": "flottabilité restante, en masse",
+        "diver_rho": "masse volumique de l’eau, 998",
+        "diver_Vg": "volume du verre",
+        "diver_V0": "bulle à la surface, sans pression",
+        "diver_m": "masse du verre",
+        "diver_p0": "pression de l’air à la surface, 101 325 Pa",
+        "diver_dp": "pression de la main",
+        "diver_Vstar": "bulle avec laquelle il reste en suspens",
+        "diver_H": "profondeur d’eau de la bouteille",
+        "diver_dz": "distance à la profondeur d’équilibre",
+        "diver_k": "à quel point la distance s’amplifie elle-même",
+        "diver_pstar": "pression à la profondeur d’équilibre",
+        "diver_zstar": "profondeur où il resterait en suspens"
       },
       "cases": {
         "sphere": {
@@ -4177,6 +4190,35 @@
             "reads": "Les fentes sont cinq fois plus espacées que larges. Là où les deux se renforcent pour la cinquième fois, chacune seule est sombre, et il n’y a rien à renforcer.",
             "why": "Vérifie que les franges et l’atténuation sont calculées avec le même angle : 10⁻³³ à cet endroit, c’est-à-dire sombre.",
             "step": "La première source donne les franges claires en d·sin θ = mλ, la deuxième l’obscurité d’une fente en a·sin θ = λ. Avec d = 5a, la cinquième frange claire et la première obscurité coïncident ; la troisième appelle cela un ordre manquant."
+          }
+        },
+        "diver": {
+          "reserve": {
+            "title": "Combien de flottabilité il reste",
+            "setting": "Le ludion de la page, 3 g de verre de 1,2 cm³ et 2 cm³ d’air, à la surface, sans pression de la main.",
+            "reads": "Il déplace de l’eau pour son verre et pour son air ; ce que cette eau pèse de plus que le verre le maintient en haut.",
+            "why": "Vérifie la flottabilité que la page affiche comme réserve : 0,1936 g."
+          },
+          "sinks_from_top": {
+            "title": "La pression qui le fait couler depuis le haut",
+            "setting": "Le ludion à la surface ; la main presse avec 10,90 kPa. À 10,85 kPa, il reste en haut.",
+            "reads": "La pression de la main comprime la bulle (à température constante, p·V reste le même) ; il coule dès que la bulle est plus petite que m/ρ − V_g, la bulle avec laquelle il reste en suspens.",
+            "why": "Vérifie Boyle et la poussée dans la boucle des pas de temps de la page : 10,884 kPa, cherchés comme la pression à partir de laquelle un seul pas l’arrache à la surface.",
+            "step": "La première source donne p·V constant pour l’air, la deuxième l’équilibre entre poussée et poids ; ensemble, elles donnent la pression à laquelle la bulle à la surface le porte encore tout juste."
+          },
+          "rises_from_bottom": {
+            "title": "La pression sous laquelle il remonte du fond",
+            "setting": "Le ludion repose au fond de la bouteille de 30 cm (pressez d’abord fort jusqu’à ce qu’il soit en bas) ; puis 7,90 kPa. À 7,95 kPa, il reste au fond.",
+            "reads": "En bas, l’eau presse en plus avec ρ·g·H ; il remonte dès que la main presse de ρ·g·H de moins que la pression qui le fait couler depuis le haut.",
+            "why": "Vérifie la pression de l’eau en profondeur : 7,947 kPa, 2,936 kPa de moins qu’en haut. Entre les deux pressions, la profondeur où il resterait en suspens se trouve dans la bouteille.",
+            "step": "Comme ci-dessus, avec la pression à la profondeur H tirée de la troisième source."
+          },
+          "leaves_hover": {
+            "title": "Pourquoi il ne reste pas en suspens",
+            "setting": "La main presse avec 10 kPa ; le ludion au repos un micromètre sous la profondeur où il resterait en suspens, 9,03 cm ; pendant cinq secondes.",
+            "reads": "Un peu plus bas, la bulle est un peu plus petite, et la poussée qui manque l’entraîne plus loin : la distance croît comme cosh(√k·t). Ce qui bouge, c’est le verre et l’eau qu’il entraîne, la moitié de son volume.",
+            "why": "Vérifie que l’équilibre en suspens est instable, et à quelle vitesse : la distance est bientôt multipliée par e toutes les 1,71 s. L’écart de 1 · 10⁻⁵ vient de la résistance de l’eau et de la courbure de la loi de Boyle ; les deux croissent avec la distance.",
+            "step": "La première source donne comment la bulle rétrécit avec la pression, la deuxième la pression en profondeur ; pour un petit pas δz, la variation est linéaire. La troisième donne l’eau entraînée par une sphère, la moitié de son volume, que la page reprend pour le tube."
           }
         }
       },
