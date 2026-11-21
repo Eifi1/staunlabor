@@ -91,6 +91,7 @@ const UNCHECKED = {
   with_cases: [
     "arch",
     "beats",
+    "bounce",
     "chair",
     "chaos",
     "chladni",
@@ -1851,6 +1852,19 @@ describe("setting a check case up", () => {
     expect(screen.getByRole("slider", { name: E.chaos.play.upper }).getAttribute("aria-valuetext")).toMatch(/^1\b/);
     expect(screen.getByRole("slider", { name: E.chaos.play.lower }).getAttribute("aria-valuetext")).toMatch(/^1\b/);
     expect(await screen.findByRole("button", { name: E.chaos.play.pause })).toBeInTheDocument();
+  });
+
+  it("builds the steel ball at half its bounce, 5 cm up, after the table-tennis ball, for its rest", async () => {
+    renderWithProviders(<BouncePage />);
+    await screen.findByRole("img", { name: E.bounce.view });
+    await setUp(0);
+    await waitFor(() => expect(screen.getByRole("radio", { name: E.bounce.short.tennis })).toBeChecked());
+    await setUp(3);
+    await waitFor(() => expect(screen.getByRole("radio", { name: E.bounce.short.steel })).toBeChecked());
+    expect(screen.getByRole("slider", { name: E.bounce.change.restitution }).getAttribute("aria-valuetext")).toMatch(
+      /^0\.50\b/,
+    );
+    expect(screen.getByRole("slider", { name: E.bounce.change.height }).getAttribute("aria-valuetext")).toMatch(/^5\b/);
   });
 
   it("pushes the ball round the well on its circle, with the felt's brake, for the brake's case", async () => {

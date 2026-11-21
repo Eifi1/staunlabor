@@ -3684,7 +3684,19 @@
         "theta_mode": "l’amplitude de la tige supérieure dans le mode propre lent",
         "c_damp": "l’amortissement de la page, par seconde",
         "omega_d": "la pulsation de l’oscillation amortie",
-        "alpha_decay": "la vitesse à laquelle l’amplitude décroît"
+        "alpha_decay": "la vitesse à laquelle l’amplitude décroît",
+        "v_inf": "vitesse limite : celle où l’air freine autant que le poids tire",
+        "e_rest": "la part de la vitesse que rend un choc",
+        "u_up": "la vitesse après le premier choc",
+        "y_peak": "la hauteur de la première remontée",
+        "h_drop": "la hauteur d’où tombe la balle",
+        "rho_air": "la masse volumique de l’air",
+        "c_drag": "le coefficient de traînée d’une sphère lisse, 0,47",
+        "A_cross": "la section de la balle",
+        "t_land": "le temps jusqu’au premier choc",
+        "T_flight": "la durée du premier vol",
+        "t_f": "la constante de temps de l’air, v∞/g",
+        "T_still": "le temps jusqu’à ce que la balle s’immobilise"
       },
       "cases": {
         "sphere": {
@@ -4495,6 +4507,35 @@
             "reads": "Une oscillation amortie décroît en e^(−bt/2m). La page retranche de chaque accélération angulaire c fois la vitesse angulaire ; l’amplitude décroît donc en e^(−ct/2).",
             "why": "Vérifie l’amortissement de la page : l’amplitude décroît au taux de 0,05 par seconde, moitié moins vite que l’amortissement réglé. L’écart de 5 · 10⁻⁵ vient de l’amplitude de 1°.",
             "step": "La première source donne la solution de m·x″ + b·x′ + k·x = 0, ici avec b/m = c. Cela vaut pour le mode propre lent de la deuxième source, dont l’amortissement ne change pas la forme, car il freine les deux tiges de la même façon."
+          }
+        },
+        "bounce": {
+          "landing": {
+            "title": "La chute dans l’air",
+            "setting": "La balle de tennis de table (2,7 g, Ø 40 mm) depuis 30 cm ; le temps jusqu’au premier choc.",
+            "reads": "L’air freine avec le carré de la vitesse. La balle tombe donc de (v∞²/g)·ln cosh(gt/v∞) et s’approche de sa vitesse limite v∞, où l’air freine autant que le poids tire.",
+            "why": "Vérifie la chute dans l’air et la vitesse limite de la balle légère : 0,24898 s. La page résout le même mouvement sous une autre forme ; les deux concordent à 10⁻¹⁵ près."
+          },
+          "apex": {
+            "title": "La première remontée",
+            "setting": "Comme ci-dessus, e = 0,92 ; la hauteur après le premier choc.",
+            "reads": "La balle rebondit avec e fois la vitesse à laquelle elle est arrivée et monte, contre le poids et l’air, jusqu’à (v∞²/2g)·ln(1 + u²/v∞²).",
+            "why": "Vérifie le choc et la remontée dans l’air : 23,66 cm, le nombre que la page affiche comme hauteur du premier rebond.",
+            "step": "La première source donne la vitesse au choc à partir du temps de chute, la deuxième que la balle en récupère e, la troisième la hauteur d’un lancer vertical avec résistance de l’air ; là, μ = g/v∞²."
+          },
+          "flight": {
+            "title": "Le premier vol",
+            "setting": "Comme ci-dessus, e = 0,92 ; le temps du premier choc au deuxième.",
+            "reads": "À la montée, le poids et l’air freinent ensemble ; à la descente, ils agissent l’un contre l’autre. Le temps de montée et le temps de descente forment ensemble le vol.",
+            "why": "Vérifie le temps que la page affiche comme durée du premier rebond : 0,4394 s.",
+            "step": "La première source donne la vitesse au choc, la deuxième que la balle en récupère e. La troisième donne le temps de montée, t_f·arctan(u/v∞), et la hauteur ; à la descente, la balle tombe d’après elle de ln cosh(t/t_f)/μ, jusqu’à avoir parcouru toute la hauteur."
+          },
+          "still": {
+            "title": "Une infinité de rebonds, un temps fini",
+            "setting": "La bille d’acier avec e = 0,5 depuis 5 cm : si lente que l’air la freine à peine.",
+            "reads": "Chaque vol dure e fois le précédent. Une infinité de vols s’additionnent, comme une série géométrique, en un temps fini : √(2h/g)·(1 + e)/(1 − e).",
+            "why": "Vérifie la série de la page, qui somme sous forme fermée ses derniers rebonds, les plus courts : 0,3029 s. L’air, que la formule laisse de côté, représente 6 · 10⁻⁵.",
+            "step": "La première source donne le temps de chute, √(2h/g), et la vitesse en bas, √(2gh) ; la deuxième que chaque vol dure e fois le précédent. Le premier dure 2e·√(2gh)/g ; la série géométrique les additionne tous en 2e·√(2h/g)/(1 − e), à quoi s’ajoute la chute."
           }
         }
       },

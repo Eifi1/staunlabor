@@ -3684,7 +3684,19 @@
         "theta_mode": "Ausschlag der oberen Stange in der langsamen Eigenschwingung",
         "c_damp": "Dämpfung der Seite, pro Sekunde",
         "omega_d": "Kreisfrequenz der gedämpften Schwingung",
-        "alpha_decay": "wie schnell der Ausschlag abklingt"
+        "alpha_decay": "wie schnell der Ausschlag abklingt",
+        "v_inf": "Endgeschwindigkeit: wo die Luft so stark bremst, wie das Gewicht zieht",
+        "e_rest": "Anteil des Tempos, den ein Aufprall zurückgibt",
+        "u_up": "Tempo nach dem ersten Aufprall",
+        "y_peak": "Höhe des ersten Aufstiegs",
+        "h_drop": "Höhe, aus der der Ball fällt",
+        "rho_air": "Dichte der Luft",
+        "c_drag": "Widerstandsbeiwert einer glatten Kugel, 0,47",
+        "A_cross": "Querschnitt des Balls",
+        "t_land": "Zeit bis zum ersten Aufprall",
+        "T_flight": "Dauer des ersten Flugs",
+        "t_f": "Zeitkonstante der Luft, v∞/g",
+        "T_still": "Zeit, bis der Ball still liegt"
       },
       "cases": {
         "sphere": {
@@ -4495,6 +4507,35 @@
             "reads": "Eine gedämpfte Schwingung klingt mit e^(−bt/2m) ab. Die Seite zieht von jeder Winkelbeschleunigung c mal die Winkelgeschwindigkeit ab; der Ausschlag fällt darum mit e^(−ct/2).",
             "why": "Prüft die Dämpfung der Seite: Der Ausschlag fällt mit 0,05 pro Sekunde, halb so schnell wie die eingestellte Dämpfung. Die 5 · 10⁻⁵ Abweichung kommen vom Ausschlag von 1°.",
             "step": "Die erste Quelle gibt die Lösung von m·x″ + b·x′ + k·x = 0, hier mit b/m = c. Das gilt für die langsame Eigenschwingung der zweiten Quelle, deren Form die Dämpfung nicht ändert, weil sie beide Stangen gleich bremst."
+          }
+        },
+        "bounce": {
+          "landing": {
+            "title": "Der Fall durch die Luft",
+            "setting": "Der Tischtennisball (2,7 g, Ø 40 mm) aus 30 cm; die Zeit bis zum ersten Aufprall.",
+            "reads": "Die Luft bremst mit dem Quadrat des Tempos. Der Ball fällt darum um (v∞²/g)·ln cosh(gt/v∞) und nähert sich seiner Endgeschwindigkeit v∞, wo die Luft so stark bremst, wie das Gewicht zieht.",
+            "why": "Prüft den Fall durch die Luft und die Endgeschwindigkeit des leichten Balls: 0,24898 s. Die Seite löst dieselbe Bewegung in anderer Form auf; beide stimmen auf 10⁻¹⁵."
+          },
+          "apex": {
+            "title": "Der erste Aufstieg",
+            "setting": "Wie oben, e = 0,92; die Höhe nach dem ersten Aufprall.",
+            "reads": "Der Ball springt mit e mal dem Tempo zurück, mit dem er ankam, und steigt gegen Gewicht und Luft auf (v∞²/2g)·ln(1 + u²/v∞²).",
+            "why": "Prüft den Aufprall und den Aufstieg durch die Luft: 23,66 cm, die Zahl, die die Seite als ersten Aufstieg zeigt.",
+            "step": "Die erste Quelle gibt das Tempo beim Aufprall aus der Fallzeit, die zweite, dass der Ball e davon zurückbekommt, die dritte die Höhe eines senkrechten Wurfs mit Luftwiderstand; dort ist μ = g/v∞²."
+          },
+          "flight": {
+            "title": "Der erste Flug",
+            "setting": "Wie oben, e = 0,92; die Zeit vom ersten bis zum zweiten Aufprall.",
+            "reads": "Hinauf bremsen Gewicht und Luft zusammen, hinunter wirken sie gegeneinander. Die Zeit hinauf und die Zeit hinunter ergeben zusammen den Flug.",
+            "why": "Prüft die Zeit, die die Seite als ersten Flug zeigt: 0,4394 s.",
+            "step": "Die erste Quelle gibt das Tempo beim Aufprall, die zweite, dass der Ball e davon zurückbekommt. Die dritte gibt die Zeit hinauf, t_f·arctan(u/v∞), und die Höhe; hinunter fällt der Ball nach ihr um ln cosh(t/t_f)/μ, bis er die ganze Höhe gefallen ist."
+          },
+          "still": {
+            "title": "Unendlich viele Sprünge, endliche Zeit",
+            "setting": "Die Stahlkugel mit e = 0,5 aus 5 cm: so langsam, dass die Luft sie kaum bremst.",
+            "reads": "Jeder Flug dauert e-mal so lang wie der vorige. Unendlich viele Flüge summieren sich wie eine geometrische Reihe zu einer endlichen Zeit: √(2h/g)·(1 + e)/(1 − e).",
+            "why": "Prüft die Reihe der Seite, die ihre letzten, kürzesten Sprünge geschlossen aufsummiert: 0,3029 s. Die Luft, die die Formel weglässt, macht 6 · 10⁻⁵ aus.",
+            "step": "Die erste Quelle gibt die Fallzeit √(2h/g) und das Tempo unten, √(2gh); die zweite, dass jeder Flug e-mal so lang dauert wie der vorige. Der erste dauert 2e·√(2gh)/g; die geometrische Reihe summiert alle zu 2e·√(2h/g)/(1 − e), dazu kommt der Fall."
           }
         }
       },

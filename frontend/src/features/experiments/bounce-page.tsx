@@ -12,6 +12,7 @@ import { Figures, WidgetCard } from "@/shared/ui/widget";
 import { Equation } from "./equation";
 import { ExhibitFrame } from "./exhibit-frame";
 import { BuildPending } from "./build-pending";
+import { settingNumber, useCheckSetting } from "./check-setting";
 import { PreviewPending, type PreviewMode, type PreviewProps } from "./preview-mode";
 import { G, bounces, figures, state, type Bounces, type BouncingBall } from "./simulate/bounce";
 import { SIDE } from "./stage";
@@ -69,6 +70,18 @@ export function BouncePage() {
   const [build, setBuild] = useState<{ ball: BouncingBall; height: number } | null>(null);
   const height = build?.height ?? data?.height_m ?? null;
   const ball = build?.ball ?? data?.balls[0] ?? null;
+  // A check case's "Set it up": the build card's ball, its bounce and the
+  // height; a new height also holds the play card's two up at it again.
+  useCheckSetting("bounce", (setting) => {
+    if (!data || !ball || height === null) return false;
+    const kind = KINDS.indexOf(setting.kind as Kind);
+    const base = kind < 0 ? ball : data.balls[kind];
+    setBuild({
+      ball: { ...base, restitution: settingNumber(setting, "restitution", base.restitution) },
+      height: settingNumber(setting, "height_m", height),
+    });
+    return true;
+  });
   return (
     <ExhibitFrame
       exhibit="bounce"

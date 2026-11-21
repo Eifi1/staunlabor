@@ -3684,7 +3684,19 @@
         "theta_mode": "the upper rod's swing in the slow normal mode",
         "c_damp": "the page's damping, per second",
         "omega_d": "the damped oscillation's angular frequency",
-        "alpha_decay": "how fast the swing dies away"
+        "alpha_decay": "how fast the swing dies away",
+        "v_inf": "terminal speed: where the air brakes as hard as the weight pulls",
+        "e_rest": "the share of the speed a strike gives back",
+        "u_up": "the speed after the first strike",
+        "y_peak": "the first rise's height",
+        "h_drop": "the height the ball falls from",
+        "rho_air": "the air's density",
+        "c_drag": "a smooth sphere's drag coefficient, 0.47",
+        "A_cross": "the ball's cross-section",
+        "t_land": "the time to the first strike",
+        "T_flight": "the first flight's duration",
+        "t_f": "the air's time constant, v∞/g",
+        "T_still": "the time until the ball lies still"
       },
       "cases": {
         "sphere": {
@@ -4495,6 +4507,35 @@
             "reads": "A damped oscillation dies away as e^(−bt/2m). The page takes c times each angular velocity off its angular acceleration, so the swing falls as e^(−ct/2).",
             "why": "Checks the page's damping: the swing falls at 0.05 a second, half the damping set. The 5 · 10⁻⁵ off comes from the 1° swing.",
             "step": "The first source gives the solution of m·x″ + b·x′ + k·x = 0, here with b/m = c. It holds for the second source's slow normal mode, whose shape the damping leaves alone, as it brakes both rods alike."
+          }
+        },
+        "bounce": {
+          "landing": {
+            "title": "The fall through the air",
+            "setting": "The table-tennis ball (2.7 g, 40 mm across) from 30 cm; the time to the first strike.",
+            "reads": "The air brakes with the square of the speed. So the ball falls by (v∞²/g)·ln cosh(gt/v∞) and nears its terminal speed v∞, where the air brakes as hard as the weight pulls.",
+            "why": "Checks the fall through the air and the light ball's terminal speed: 0.24898 s. The page solves the same motion in another form; the two agree to 10⁻¹⁵."
+          },
+          "apex": {
+            "title": "The first rise",
+            "setting": "As above, e = 0.92; the height after the first strike.",
+            "reads": "The ball springs back at e times the speed it came in at, and rises against its weight and the air to (v∞²/2g)·ln(1 + u²/v∞²).",
+            "why": "Checks the strike and the rise through the air: 23.66 cm, the number the page shows as the first rise.",
+            "step": "The first source gives the speed at the strike from the time of the fall, the second that the ball gets e of it back, the third the height of a throw straight up with drag; there μ = g/v∞²."
+          },
+          "flight": {
+            "title": "The first flight",
+            "setting": "As above, e = 0.92; the time from the first strike to the second.",
+            "reads": "On the way up weight and air brake together, on the way down they work against each other. The time up and the time down make the flight.",
+            "why": "Checks the time the page shows as the first flight: 0.4394 s.",
+            "step": "The first source gives the speed at the strike, the second that the ball gets e of it back. The third gives the time up, t_f·arctan(u/v∞), and the height; down, the ball falls from there by ln cosh(t/t_f)/μ until it has fallen the whole height."
+          },
+          "still": {
+            "title": "Endless bounces, a finite time",
+            "setting": "The steel ball with e = 0.5 from 5 cm: so slow that the air hardly brakes it.",
+            "reads": "Each flight lasts e times the one before. Endlessly many flights add up like a geometric series to a finite time: √(2h/g)·(1 + e)/(1 − e).",
+            "why": "Checks the page's series, which sums its last, shortest bounces in closed form: 0.3029 s. The air, which the formula leaves out, makes 6 · 10⁻⁵.",
+            "step": "The first source gives the time of the drop, √(2h/g), and the speed at the bottom, √(2gh); the second that each flight lasts e times the one before. The first lasts 2e·√(2gh)/g; the geometric series sums them all to 2e·√(2h/g)/(1 − e), and the drop comes on top."
           }
         }
       },

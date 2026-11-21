@@ -133,6 +133,11 @@ const H_DROP: CheckSymbol = { tex: "H", key: "H_drop", unit: "m" };
 const R_CYCLOID: CheckSymbol = { tex: "r", key: "r_cycloid", unit: "m" };
 const OMEGA_SLOW: CheckSymbol = { tex: String.raw`\omega_1`, key: "omega_slow", unit: "1/s" };
 const THETA12: CheckSymbol = { tex: String.raw`\theta_1, \theta_2`, key: "theta12", unit: "rad" };
+const V_INF: CheckSymbol = { tex: String.raw`v_\infty`, key: "v_inf", unit: "m/s" };
+const E_REST: CheckSymbol = { tex: "e", key: "e_rest" };
+const U_UP: CheckSymbol = { tex: "u", key: "u_up", unit: "m/s" };
+const Y_PEAK: CheckSymbol = { tex: String.raw`y_{\mathrm{peak}}`, key: "y_peak", unit: "m" };
+const H_DROP_BOUNCE: CheckSymbol = { tex: "h", key: "h_drop", unit: "m" };
 
 const ROD_STEADY: CheckFormula = {
   tex: String.raw`w = \frac{\Gamma\,\Omega^2 Y}{\sqrt{(\omega^2 - \Omega^2)^2 + (2\zeta\omega\Omega)^2}}, \qquad \Gamma = \frac{\int_0^1 \varphi\,d\xi}{\int_0^1 \varphi^2\,d\xi}`,
@@ -1069,6 +1074,40 @@ export const CHECK_FORMULAS: Record<string, Record<string, CheckFormula>> = {
         { tex: String.raw`\omega`, key: "omega_d", unit: "1/s" },
         { tex: String.raw`\alpha`, key: "alpha_decay", unit: "1/s" },
       ],
+    },
+  },
+  bounce: {
+    landing: {
+      tex: String.raw`t = \frac{v_\infty}{g}\,\operatorname{arcosh}\!\left(e^{g h / v_\infty^2}\right), \qquad v_\infty = \sqrt{\frac{2 m g}{\rho\, C_D A}}`,
+      symbols: [
+        { tex: "t", key: "t", unit: "s" },
+        V_INF,
+        G,
+        H_DROP_BOUNCE,
+        { tex: "m", key: "m", unit: "kg" },
+        { tex: String.raw`\rho`, key: "rho_air", unit: "kg/m³" },
+        { tex: "C_D", key: "c_drag" },
+        { tex: "A", key: "A_cross", unit: "m²" },
+      ],
+    },
+    apex: {
+      tex: String.raw`y_{\mathrm{peak}} = \frac{v_\infty^2}{2g}\,\ln\!\left(1 + \frac{u^2}{v_\infty^2}\right), \qquad u = e\,v_\infty \tanh\frac{g\,t_1}{v_\infty}`,
+      symbols: [Y_PEAK, V_INF, G, U_UP, E_REST, { tex: "t_1", key: "t_land", unit: "s" }],
+    },
+    flight: {
+      tex: String.raw`T = t_f \arctan\frac{u}{v_\infty} + t_f \operatorname{arcosh}\!\left(e^{g\,y_{\mathrm{peak}}/v_\infty^2}\right), \qquad t_f = \frac{v_\infty}{g}`,
+      symbols: [
+        { tex: "T", key: "T_flight", unit: "s" },
+        { tex: "t_f", key: "t_f", unit: "s" },
+        U_UP,
+        V_INF,
+        Y_PEAK,
+        G,
+      ],
+    },
+    still: {
+      tex: String.raw`T_{\mathrm{still}} = \sqrt{\frac{2h}{g}} \cdot \frac{1 + e}{1 - e}`,
+      symbols: [{ tex: String.raw`T_{\mathrm{still}}`, key: "T_still", unit: "s" }, H_DROP_BOUNCE, G, E_REST],
     },
   },
 };

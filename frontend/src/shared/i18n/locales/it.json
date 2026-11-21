@@ -3684,7 +3684,19 @@
         "theta_mode": "l'ampiezza dell'asta superiore nel modo proprio lento",
         "c_damp": "lo smorzamento della pagina, al secondo",
         "omega_d": "la pulsazione dell'oscillazione smorzata",
-        "alpha_decay": "quanto rapidamente si spegne l'ampiezza"
+        "alpha_decay": "quanto rapidamente si spegne l'ampiezza",
+        "v_inf": "velocità limite: quella in cui l'aria frena tanto quanto tira il peso",
+        "e_rest": "la parte della velocità che un colpo restituisce",
+        "u_up": "la velocità dopo il primo colpo",
+        "y_peak": "l'altezza della prima risalita",
+        "h_drop": "l'altezza da cui cade la palla",
+        "rho_air": "la densità dell'aria",
+        "c_drag": "il coefficiente di resistenza di una sfera liscia, 0,47",
+        "A_cross": "la sezione della palla",
+        "t_land": "il tempo fino al primo colpo",
+        "T_flight": "la durata del primo volo",
+        "t_f": "la costante di tempo dell'aria, v∞/g",
+        "T_still": "il tempo finché la palla è ferma"
       },
       "cases": {
         "sphere": {
@@ -4495,6 +4507,35 @@
             "reads": "Un'oscillazione smorzata si spegne con e^(−bt/2m). La pagina sottrae da ogni accelerazione angolare c volte la velocità angolare; perciò l'ampiezza cala con e^(−ct/2).",
             "why": "Verifica lo smorzamento della pagina: l'ampiezza cala con un tasso di 0,05 al secondo, metà dello smorzamento impostato. Lo scarto di 5 · 10⁻⁵ viene dall'ampiezza di 1°.",
             "step": "La prima fonte dà la soluzione di m·x″ + b·x′ + k·x = 0, qui con b/m = c. Ciò vale per il modo proprio lento della seconda fonte, la cui forma lo smorzamento non cambia, perché frena allo stesso modo entrambe le aste."
+          }
+        },
+        "bounce": {
+          "landing": {
+            "title": "La caduta nell'aria",
+            "setting": "La pallina da ping-pong (2,7 g, Ø 40 mm) da 30 cm; il tempo fino al primo colpo.",
+            "reads": "L'aria frena con il quadrato della velocità. Perciò la pallina cade di (v∞²/g)·ln cosh(gt/v∞) e si avvicina alla sua velocità limite v∞, dove l'aria frena tanto quanto tira il peso.",
+            "why": "Verifica la caduta nell'aria e la velocità limite della pallina leggera: 0,24898 s. La pagina risolve lo stesso moto in un'altra forma; i due coincidono a meno di 10⁻¹⁵."
+          },
+          "apex": {
+            "title": "La prima risalita",
+            "setting": "Come sopra, e = 0,92; l'altezza dopo il primo colpo.",
+            "reads": "La pallina rimbalza con e volte la velocità con cui è arrivata e sale, contro il peso e l'aria, fino a (v∞²/2g)·ln(1 + u²/v∞²).",
+            "why": "Verifica il colpo e la risalita nell'aria: 23,66 cm, il numero che la pagina mostra come altezza del primo rimbalzo.",
+            "step": "La prima fonte dà la velocità al colpo a partire dal tempo di caduta, la seconda che la pallina ne riceve indietro e, la terza l'altezza di un lancio verticale con resistenza dell'aria; lì μ = g/v∞²."
+          },
+          "flight": {
+            "title": "Il primo volo",
+            "setting": "Come sopra, e = 0,92; il tempo dal primo al secondo colpo.",
+            "reads": "In salita peso e aria frenano insieme, in discesa agiscono l'uno contro l'altra. Il tempo di salita e quello di discesa formano insieme il volo.",
+            "why": "Verifica il tempo che la pagina mostra come durata del primo rimbalzo: 0,4394 s.",
+            "step": "La prima fonte dà la velocità al colpo, la seconda che la pallina ne riceve indietro e. La terza dà il tempo di salita, t_f·arctan(u/v∞), e l'altezza; in discesa, secondo essa, la pallina cade di ln cosh(t/t_f)/μ, finché non ha percorso tutta l'altezza."
+          },
+          "still": {
+            "title": "Infiniti rimbalzi, un tempo finito",
+            "setting": "La sfera d'acciaio con e = 0,5 da 5 cm: così lenta che l'aria la frena appena.",
+            "reads": "Ogni volo dura e volte il precedente. Infiniti voli si sommano, come una serie geometrica, in un tempo finito: √(2h/g)·(1 + e)/(1 − e).",
+            "why": "Verifica la serie della pagina, che somma in forma chiusa i suoi ultimi rimbalzi, i più brevi: 0,3029 s. L'aria, che la formula tralascia, conta per 6 · 10⁻⁵.",
+            "step": "La prima fonte dà il tempo di caduta, √(2h/g), e la velocità in basso, √(2gh); la seconda che ogni volo dura e volte il precedente. Il primo dura 2e·√(2gh)/g; la serie geometrica li somma tutti in 2e·√(2h/g)/(1 − e), a cui si aggiunge la caduta."
           }
         }
       },

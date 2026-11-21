@@ -2556,6 +2556,20 @@ which makes every mode decay at c/2. The start slider steps by whole degrees,
 so √2° is not on it: "Set it up" sets 1.414° exactly and the slider shows 1°.
 It sets the build and the start and lets go.
 
+**The bouncing ball's** four (2026-11-21) hold the table-tennis ball's first
+landing from 30 cm with quadratic drag (0.249 s, 0.7 % later than in a
+vacuum), its first apex (23.66 cm), its first flight (0.439 s) and the steel
+ball's time until still at half its bounce from 5 cm. The first three solve
+each formula in another form than the engine (arcosh where it takes atanh,
+ln(1 + …) where it takes `log1p`) and agree to 10⁻¹⁵, which confirms the
+engine's rewrites against cancellation. The last is the vacuum's geometric
+series, 2u/(g(1 − e)), at a height where the air is nearly nothing
+((v/v∞)² = 2.7 · 10⁻⁴): 5.7 · 10⁻⁵ off, within 3 · 10⁻⁴, a bound on the air's
+share rather than its first-order effect. No case holds the ITTF's 240–265 mm
+from 305 mm (the leaflet was not fetched). "Set it up" sets the build card's
+ball, its bounce and the height; the play card's two always race as the
+exhibit's presets, from that height.
+
 **On the page** a section "Check it yourself" (`check-section.tsx`) lists the
 cases, each with its formula as an `Equation` (`check-formulas.ts`), both
 values to seven digits, the deviation, why the case would catch a mistake,

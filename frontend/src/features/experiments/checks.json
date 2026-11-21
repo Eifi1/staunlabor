@@ -147,6 +147,117 @@
    ]
   }
  ],
+ "bounce": [
+  {
+   "key": "landing",
+   "unit": "s",
+   "expected": 0.248983734882,
+   "measured": 0.248983734882,
+   "deviation": 6.68852741617e-16,
+   "tolerance": 1e-12,
+   "derived": false,
+   "setting": {
+    "kind": "tennis",
+    "restitution": 0.92,
+    "height_m": 0.3
+   },
+   "sources": [
+    {
+     "cite": "Wikipedia, “Free fall”, §Uniform gravitational field with air resistance",
+     "url": "https://en.wikipedia.org/wiki/Free_fall",
+     "quote": "Assuming an object falling from rest and no change in air density with altitude …, the solution is: v(t) = v∞ tanh(gt/v∞), where the terminal speed is given by v∞ = √(2mg/(ρC_D A)). … y = y0 + (v∞²/g) ln cosh(gt/v∞)."
+    }
+   ]
+  },
+  {
+   "key": "apex",
+   "unit": "cm",
+   "expected": 23.6619217775,
+   "measured": 23.6619217775,
+   "deviation": 1.201158118e-15,
+   "tolerance": 1e-12,
+   "derived": true,
+   "setting": {
+    "kind": "tennis",
+    "restitution": 0.92,
+    "height_m": 0.3
+   },
+   "sources": [
+    {
+     "cite": "Wikipedia, “Free fall”, §Uniform gravitational field with air resistance",
+     "url": "https://en.wikipedia.org/wiki/Free_fall",
+     "quote": "Assuming an object falling from rest and no change in air density with altitude …, the solution is: v(t) = v∞ tanh(gt/v∞), where the terminal speed is given by v∞ = √(2mg/(ρC_D A)). … y = y0 + (v∞²/g) ln cosh(gt/v∞)."
+    },
+    {
+     "cite": "Wikipedia, “Bouncing ball”, §Impact",
+     "url": "https://en.wikipedia.org/wiki/Bouncing_ball",
+     "quote": "In the specific case where a ball impacts on an immovable surface, the COR simplifies to e = −v_f/v_i."
+    },
+    {
+     "cite": "Wikipedia, “Projectile motion”, §Trajectory of a projectile with Newton drag, Special cases (citing Greiner, Classical Mechanics, 2004, p. 181)",
+     "url": "https://en.wikipedia.org/wiki/Projectile_motion",
+     "quote": "Vertical motion upward: … v∞ ≡ √(g/μ) and t_f = 1/√(μg), t_peak ≡ t_f arctan(v_y,0/v∞) … and y_peak ≡ −(1/μ) ln cos(t_peak/t_f) = (1/(2μ)) ln(1 + (μ/g) v_y,0²) … Vertical motion downward: … y(t) = y_peak − (1/μ) ln(cosh((t − t_peak)/t_f))"
+    }
+   ]
+  },
+  {
+   "key": "flight",
+   "unit": "s",
+   "expected": 0.439352575544,
+   "measured": 0.439352575544,
+   "deviation": 2.52695235313e-16,
+   "tolerance": 1e-12,
+   "derived": true,
+   "setting": {
+    "kind": "tennis",
+    "restitution": 0.92,
+    "height_m": 0.3
+   },
+   "sources": [
+    {
+     "cite": "Wikipedia, “Free fall”, §Uniform gravitational field with air resistance",
+     "url": "https://en.wikipedia.org/wiki/Free_fall",
+     "quote": "Assuming an object falling from rest and no change in air density with altitude …, the solution is: v(t) = v∞ tanh(gt/v∞), where the terminal speed is given by v∞ = √(2mg/(ρC_D A)). … y = y0 + (v∞²/g) ln cosh(gt/v∞)."
+    },
+    {
+     "cite": "Wikipedia, “Bouncing ball”, §Impact",
+     "url": "https://en.wikipedia.org/wiki/Bouncing_ball",
+     "quote": "In the specific case where a ball impacts on an immovable surface, the COR simplifies to e = −v_f/v_i."
+    },
+    {
+     "cite": "Wikipedia, “Projectile motion”, §Trajectory of a projectile with Newton drag, Special cases (citing Greiner, Classical Mechanics, 2004, p. 181)",
+     "url": "https://en.wikipedia.org/wiki/Projectile_motion",
+     "quote": "Vertical motion upward: … v∞ ≡ √(g/μ) and t_f = 1/√(μg), t_peak ≡ t_f arctan(v_y,0/v∞) … and y_peak ≡ −(1/μ) ln cos(t_peak/t_f) = (1/(2μ)) ln(1 + (μ/g) v_y,0²) … Vertical motion downward: … y(t) = y_peak − (1/μ) ln(cosh((t − t_peak)/t_f))"
+    }
+   ]
+  },
+  {
+   "key": "still",
+   "unit": "s",
+   "expected": 0.302942996565,
+   "measured": 0.302925784743,
+   "deviation": 5.68153822375e-05,
+   "tolerance": 0.0003,
+   "derived": true,
+   "setting": {
+    "kind": "steel",
+    "restitution": 0.5,
+    "height_m": 0.05
+   },
+   "sources": [
+    {
+     "cite": "Wikipedia, “Free fall”, §Uniform gravitational field without air resistance",
+     "url": "https://en.wikipedia.org/wiki/Free_fall",
+     "quote": "If the initial velocity is zero, then the distance fallen from the initial position will grow as the square of the elapsed time: v(t) = −gt and y0 − y(t) = ½gt²."
+    },
+    {
+     "cite": "Wikipedia, “Bouncing ball”, §Impact",
+     "url": "https://en.wikipedia.org/wiki/Bouncing_ball",
+     "quote": "For a straight drop on the ground with no rotation, with only the force of gravity acting on the ball, the COR can be related to several other quantities by: e = |v_f/v_i| = √(K_f/K_i) = √(U_f/U_i) = √(H_f/H_i) = T_f/T_i = √(gT_f²/(8H_i))."
+    }
+   ]
+  }
+ ],
  "chair": [
   {
    "key": "one_picture",

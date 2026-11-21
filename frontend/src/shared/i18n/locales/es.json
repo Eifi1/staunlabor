@@ -3684,7 +3684,19 @@
         "theta_mode": "la amplitud de la varilla superior en el modo propio lento",
         "c_damp": "la amortiguación de la página, por segundo",
         "omega_d": "la frecuencia angular de la oscilación amortiguada",
-        "alpha_decay": "lo rápido que se apaga la amplitud"
+        "alpha_decay": "lo rápido que se apaga la amplitud",
+        "v_inf": "velocidad límite: aquella en la que el aire frena tanto como tira el peso",
+        "e_rest": "la parte de la velocidad que devuelve un golpe",
+        "u_up": "la velocidad tras el primer golpe",
+        "y_peak": "la altura de la primera subida",
+        "h_drop": "la altura desde la que cae la bola",
+        "rho_air": "la densidad del aire",
+        "c_drag": "el coeficiente de arrastre de una esfera lisa, 0,47",
+        "A_cross": "la sección de la bola",
+        "t_land": "el tiempo hasta el primer golpe",
+        "T_flight": "la duración del primer vuelo",
+        "t_f": "la constante de tiempo del aire, v∞/g",
+        "T_still": "el tiempo hasta que la bola queda quieta"
       },
       "cases": {
         "sphere": {
@@ -4495,6 +4507,35 @@
             "reads": "Una oscilación amortiguada se apaga con e^(−bt/2m). La página resta de cada aceleración angular c por la velocidad angular; por eso la amplitud cae con e^(−ct/2).",
             "why": "Comprueba la amortiguación de la página: la amplitud cae a razón de 0,05 por segundo, la mitad de la amortiguación ajustada. La desviación de 5 · 10⁻⁵ se debe a la amplitud de 1°.",
             "step": "La primera fuente da la solución de m·x″ + b·x′ + k·x = 0, aquí con b/m = c. Eso vale para el modo propio lento de la segunda fuente, cuya forma no cambia con la amortiguación, porque esta frena por igual ambas varillas."
+          }
+        },
+        "bounce": {
+          "landing": {
+            "title": "La caída a través del aire",
+            "setting": "La pelota de tenis de mesa (2,7 g, Ø 40 mm) desde 30 cm; el tiempo hasta el primer golpe.",
+            "reads": "El aire frena con el cuadrado de la velocidad. Por eso la pelota cae (v∞²/g)·ln cosh(gt/v∞) y se acerca a su velocidad límite v∞, en la que el aire frena tanto como tira el peso.",
+            "why": "Comprueba la caída a través del aire y la velocidad límite de la pelota ligera: 0,24898 s. La página resuelve el mismo movimiento de otra forma; ambos coinciden con una precisión de 10⁻¹⁵."
+          },
+          "apex": {
+            "title": "La primera subida",
+            "setting": "Como arriba, e = 0,92; la altura tras el primer golpe.",
+            "reads": "La pelota rebota con e veces la velocidad con la que llegó y sube, contra el peso y el aire, hasta (v∞²/2g)·ln(1 + u²/v∞²).",
+            "why": "Comprueba el golpe y la subida a través del aire: 23,66 cm, la cifra que la página muestra como altura del primer bote.",
+            "step": "La primera fuente da la velocidad en el golpe a partir del tiempo de caída; la segunda, que la pelota recupera e de ella; la tercera, la altura de un lanzamiento vertical con resistencia del aire; allí μ = g/v∞²."
+          },
+          "flight": {
+            "title": "El primer vuelo",
+            "setting": "Como arriba, e = 0,92; el tiempo del primer golpe al segundo.",
+            "reads": "Al subir, el peso y el aire frenan juntos; al bajar, actúan uno contra otro. El tiempo de subida y el de bajada forman juntos el vuelo.",
+            "why": "Comprueba el tiempo que la página muestra como duración del primer bote: 0,4394 s.",
+            "step": "La primera fuente da la velocidad en el golpe; la segunda, que la pelota recupera e de ella. La tercera da el tiempo de subida, t_f·arctan(u/v∞), y la altura; al bajar, según ella, la pelota cae ln cosh(t/t_f)/μ, hasta haber caído toda la altura."
+          },
+          "still": {
+            "title": "Infinitos botes, un tiempo finito",
+            "setting": "La bola de acero con e = 0,5 desde 5 cm: tan lenta que el aire apenas la frena.",
+            "reads": "Cada vuelo dura e veces lo que el anterior. Infinitos vuelos suman, como una serie geométrica, un tiempo finito: √(2h/g)·(1 + e)/(1 − e).",
+            "why": "Comprueba la serie de la página, que suma en forma cerrada sus últimos botes, los más cortos: 0,3029 s. El aire, que la fórmula omite, supone 6 · 10⁻⁵.",
+            "step": "La primera fuente da el tiempo de caída, √(2h/g), y la velocidad abajo, √(2gh); la segunda, que cada vuelo dura e veces lo que el anterior. El primero dura 2e·√(2gh)/g; la serie geométrica los suma todos en 2e·√(2h/g)/(1 − e), y a eso se añade la caída."
           }
         }
       },

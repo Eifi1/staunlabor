@@ -92,6 +92,7 @@ def _registry() -> dict[str, tuple[tuple[Case, ...], tuple[str, ...]]]:
     from staunlabor.domain.checks import (
         arch,
         beats,
+        bounce,
         chair,
         chaos,
         chladni,
@@ -120,6 +121,7 @@ def _registry() -> dict[str, tuple[tuple[Case, ...], tuple[str, ...]]]:
     return {
         "arch": (arch.CASES, arch.ENGINE),
         "beats": (beats.CASES, beats.ENGINE),
+        "bounce": (bounce.CASES, bounce.ENGINE),
         "chair": (chair.CASES, chair.ENGINE),
         "chaos": (chaos.CASES, chaos.ENGINE),
         "chladni": (chladni.CASES, chladni.ENGINE),

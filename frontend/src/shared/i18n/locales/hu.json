@@ -3684,7 +3684,19 @@
         "theta_mode": "a felső rúd kitérése a lassú sajátrezgésben",
         "c_damp": "az oldal csillapítása, másodpercenként",
         "omega_d": "a csillapított rezgés körfrekvenciája",
-        "alpha_decay": "milyen gyorsan cseng le a kitérés"
+        "alpha_decay": "milyen gyorsan cseng le a kitérés",
+        "v_inf": "határsebesség: ahol a levegő ugyanolyan erősen fékez, mint amennyire a súly húz",
+        "e_rest": "a sebességnek az a hányada, amelyet egy ütés visszaad",
+        "u_up": "a sebesség az első ütés után",
+        "y_peak": "az első emelkedés magassága",
+        "h_drop": "a magasság, ahonnan a golyó esik",
+        "rho_air": "a levegő sűrűsége",
+        "c_drag": "egy sima gömb ellenállási tényezője, 0,47",
+        "A_cross": "a golyó keresztmetszete",
+        "t_land": "az idő az első ütésig",
+        "T_flight": "az első repülés időtartama",
+        "t_f": "a levegő időállandója, v∞/g",
+        "T_still": "az idő, amíg a golyó megnyugszik"
       },
       "cases": {
         "sphere": {
@@ -4495,6 +4507,35 @@
             "reads": "Egy csillapított rezgés e^(−bt/2m) szerint cseng le. Az oldal minden szöggyorsulásból levonja a szögsebesség c-szeresét; ezért a kitérés e^(−ct/2) szerint csökken.",
             "why": "Az oldal csillapítását ellenőrzi: a kitérés másodpercenként 0,05-os ütemben csökken, feleannyira gyorsan, mint a beállított csillapítás. Az 5 · 10⁻⁵ eltérés az 1°-os kitérésből adódik.",
             "step": "Az első forrás megadja az m·x″ + b·x′ + k·x = 0 egyenlet megoldását, itt b/m = c-vel. Ez érvényes a második forrás lassú sajátrezgésére, amelynek alakját a csillapítás nem változtatja meg, mert mindkét rudat egyformán fékezi."
+          }
+        },
+        "bounce": {
+          "landing": {
+            "title": "Az esés a levegőben",
+            "setting": "A pingponglabda (2,7 g, Ø 40 mm) 30 cm-ről; az idő az első ütésig.",
+            "reads": "A levegő a sebesség négyzetével fékez. A labda ezért (v∞²/g)·ln cosh(gt/v∞) utat esik, és közelít a v∞ határsebességhez, ahol a levegő ugyanolyan erősen fékez, mint amennyire a súly húz.",
+            "why": "A levegőben való esést és a könnyű labda határsebességét ellenőrzi: 0,24898 s. Az oldal ugyanezt a mozgást más alakban oldja meg; a kettő 10⁻¹⁵ pontossággal egyezik."
+          },
+          "apex": {
+            "title": "Az első emelkedés",
+            "setting": "Mint fent, e = 0,92; a magasság az első ütés után.",
+            "reads": "A labda az érkezési sebességének e-szeresével pattan vissza, és a súly meg a levegő ellenében (v∞²/2g)·ln(1 + u²/v∞²) magasra emelkedik.",
+            "why": "Az ütést és a levegőben való emelkedést ellenőrzi: 23,66 cm, az a szám, amelyet az oldal az első pattanás magasságaként mutat.",
+            "step": "Az első forrás az esési időből megadja a sebességet az ütéskor, a második azt, hogy a labda ennek e-szeresét kapja vissza, a harmadik egy légellenállásos függőleges hajítás magasságát; ott μ = g/v∞²."
+          },
+          "flight": {
+            "title": "Az első repülés",
+            "setting": "Mint fent, e = 0,92; az idő az első ütéstől a másodikig.",
+            "reads": "Felfelé a súly és a levegő együtt fékez, lefelé egymás ellen hatnak. Az emelkedés és az esés ideje együtt adja a repülést.",
+            "why": "Azt az időt ellenőrzi, amelyet az oldal az első pattanás időtartamaként mutat: 0,4394 s.",
+            "step": "Az első forrás megadja a sebességet az ütéskor, a második azt, hogy a labda ennek e-szeresét kapja vissza. A harmadik megadja az emelkedés idejét, t_f·arctan(u/v∞), és a magasságot; lefelé a labda e forrás szerint ln cosh(t/t_f)/μ utat esik, amíg a teljes magasságot le nem esett."
+          },
+          "still": {
+            "title": "Végtelen sok pattanás, véges idő",
+            "setting": "Az acélgolyó e = 0,5-del 5 cm-ről: olyan lassú, hogy a levegő alig fékezi.",
+            "reads": "Minden repülés e-szer olyan hosszú, mint az előző. Végtelen sok repülés, akár egy mértani sor, véges idővé összegződik: √(2h/g)·(1 + e)/(1 − e).",
+            "why": "Az oldal sorát ellenőrzi, amely utolsó, legrövidebb pattanásait zárt alakban összegzi: 0,3029 s. A levegő, amelyet a képlet elhagy, 6 · 10⁻⁵-t tesz ki.",
+            "step": "Az első forrás megadja az esési időt, √(2h/g), és a sebességet lent, √(2gh); a második azt, hogy minden repülés e-szer olyan hosszú, mint az előző. Az első 2e·√(2gh)/g ideig tart; a mértani sor ezeket mind összegezve 2e·√(2h/g)/(1 − e)-t ad, ehhez jön még az esés."
           }
         }
       },
