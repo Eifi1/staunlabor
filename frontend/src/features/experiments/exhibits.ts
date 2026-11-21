@@ -73,9 +73,10 @@ export const TOPICS: readonly Topic[] = [
   "perception",
 ];
 
-/** The course's lessons an exhibit's computation stands on: the course on
- *  differential equations in Kurvenschmiede, public and free, where these
- *  exhibits were first built (`exhibit-frame.tsx`'s `lessonPath`). */
+/** The course's lessons an exhibit's computation stands on: the basics, the
+ *  course on differential equations whose lessons 0–6 moved here from
+ *  Kurvenschmiede, where these exhibits were first built, and live under
+ *  `/basics` (`docs/course.md`; `exhibit-frame.tsx`'s `lessonPath`). */
 export type CourseLesson = "first_order" | "second_order" | "numerics";
 
 export interface ExhibitEntry {
