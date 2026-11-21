@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url><loc>https://staunlabor.app/</loc></url>
+  <url><loc>https://staunlabor.app/exhibits</loc></url>
   <url><loc>https://staunlabor.app/chair</loc></url>
   <url><loc>https://staunlabor.app/coil</loc></url>
   <url><loc>https://staunlabor.app/sphere</loc></url>
@@ -9,5 +10,40 @@
   <url><loc>https://staunlabor.app/elephant</loc></url>
   <url><loc>https://staunlabor.app/smoke</loc></url>
   <url><loc>https://staunlabor.app/cannon</loc></url>
+  <url><loc>https://staunlabor.app/wave</loc></url>
+  <url><loc>https://staunlabor.app/harmonograph</loc></url>
+  <url><loc>https://staunlabor.app/cone</loc></url>
+  <url><loc>https://staunlabor.app/parabola</loc></url>
+  <url><loc>https://staunlabor.app/coupled</loc></url>
+  <url><loc>https://staunlabor.app/peg</loc></url>
+  <url><loc>https://staunlabor.app/maxwell</loc></url>
+  <url><loc>https://staunlabor.app/chaos</loc></url>
+  <url><loc>https://staunlabor.app/waterwheel</loc></url>
+  <url><loc>https://staunlabor.app/foucault</loc></url>
+  <url><loc>https://staunlabor.app/coriolis</loc></url>
+  <url><loc>https://staunlabor.app/cradle</loc></url>
+  <url><loc>https://staunlabor.app/well</loc></url>
+  <url><loc>https://staunlabor.app/resonance</loc></url>
+  <url><loc>https://staunlabor.app/gyroscope</loc></url>
+  <url><loc>https://staunlabor.app/arch</loc></url>
+  <url><loc>https://staunlabor.app/chladni</loc></url>
+  <url><loc>https://staunlabor.app/levitation</loc></url>
+  <url><loc>https://staunlabor.app/circuit</loc></url>
+  <url><loc>https://staunlabor.app/plates</loc></url>
+  <url><loc>https://staunlabor.app/bounce</loc></url>
+  <url><loc>https://staunlabor.app/overhang</loc></url>
+  <url><loc>https://staunlabor.app/diver</loc></url>
+  <url><loc>https://staunlabor.app/rainbow</loc></url>
+  <url><loc>https://staunlabor.app/sky</loc></url>
+  <url><loc>https://staunlabor.app/slits</loc></url>
+  <url><loc>https://staunlabor.app/beats</loc></url>
+  <url><loc>https://staunlabor.app/basics</loc></url>
+  <url><loc>https://staunlabor.app/basics/first-order</loc></url>
+  <url><loc>https://staunlabor.app/basics/second-order</loc></url>
+  <url><loc>https://staunlabor.app/basics/eigenvalues</loc></url>
+  <url><loc>https://staunlabor.app/basics/laplace</loc></url>
+  <url><loc>https://staunlabor.app/basics/numerics</loc></url>
+  <url><loc>https://staunlabor.app/basics/two-mass</loc></url>
+  <url><loc>https://staunlabor.app/basics/cheat-sheet</loc></url>
   <url><loc>https://staunlabor.app/about</loc></url>
 </urlset>

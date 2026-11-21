@@ -51,7 +51,7 @@ const unit = (a: Point3D): Point3D => {
 /** The viewpoint turned `yawDeg` round the vertical through the pivot and
  *  tilted `pitchDeg` over it, looking at the pivot. At zero and zero it is the
  *  hole. */
-export function cameraAt(yawDeg: number, pitchDeg: number): Camera {
+export function cameraAt(yawDeg: number, pitchDeg: number, eyeM = 0): Camera {
   const yaw = (yawDeg * Math.PI) / 180;
   const pitch = (pitchDeg * Math.PI) / 180;
   // The hole as seen from the pivot, tilted about the horizontal and then
@@ -65,7 +65,10 @@ export function cameraAt(yawDeg: number, pitchDeg: number): Camera {
   const forward = unit(sub(PIVOT, at));
   const right = unit(cross([0, 1, 0], forward));
   const up = cross(forward, right);
-  return { at, forward, right, up };
+  // The eye moved sideways by `eyeM`, still looking the same way: at the hole
+  // that is the parallax of the check, and at 65 mm the other eye.
+  const moved: Point3D = [at[0] + eyeM * right[0], at[1] + eyeM * right[1], at[2] + eyeM * right[2]];
+  return { at: moved, forward, right, up };
 }
 
 /** Where `p` lands on a screen a metre in front of the viewpoint, or null
@@ -98,6 +101,7 @@ export function OrbitView({
   peephole,
   yaw,
   pitch,
+  eye = 0,
   half,
   onTurn,
   label,
@@ -105,13 +109,15 @@ export function OrbitView({
   peephole: Peephole;
   yaw: number;
   pitch: number;
+  /** The eye moved sideways from the viewpoint, metres. */
+  eye?: number;
   half: number;
   onTurn: (yaw: number, pitch: number) => void;
   label: string;
 }) {
   const hex = useChartHex();
   const drag = useRef<{ x: number; y: number; yaw: number; pitch: number; mouse: boolean } | null>(null);
-  const camera = cameraAt(yaw, pitch);
+  const camera = cameraAt(yaw, pitch, eye);
   const colour = hex[HUE[peephole.figure.kind] % hex.length];
   const line = (a: Point3D, b: Point3D): [number, number, number, number] | null => {
     const pa = project(a, camera);

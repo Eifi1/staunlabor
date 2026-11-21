@@ -1,5 +1,5 @@
-"""The site's budgets, per address: the exhibits' calculations, and every
-account route.
+"""The site's budgets, per address: the calculations (the exhibits' and the
+course's), and every account route.
 
 Every route is public, so every route's cost is a stranger's to spend. The
 time simulations run in the browser and cost nothing here; the figures a slider
@@ -25,14 +25,22 @@ from fastapi import Request
 from staunlabor.settings import get_settings
 
 #: How long a slider holds still before a page asks again: **served** to the
-#: pages as ``settle_s`` on ``/experiments/defaults``, which debounce by it,
-#: because it is the number :data:`EXPERIMENT_RUNS` is derived from.
+#: pages as ``settle_s`` on ``/experiments/defaults`` and ``/course/defaults``,
+#: which debounce by it, because it is the number :data:`EXPERIMENT_RUNS` is
+#: derived from.
 PAGE_SETTLE_S = 0.150
 
-#: Ninety per ten seconds per address. A debounced slider makes at most
-#: ``1 + 10/0.150 = 67`` requests in ten seconds; the dearest routes take up to
-#: two hundred milliseconds, the most an address can keep one core busy for.
-EXPERIMENT_RUNS = Budget(90, 10)
+#: A hundred and eighty per ten seconds per address: two readers dragging a
+#: slider behind one address (an office, a proxy), each debounced to at most
+#: ``1 + 10/0.150 = 67`` requests in ten seconds, with room for their pages.
+#: It was ninety until 2026-11-20, when the load analysis found that a
+#: LinkedIn post's readers at work share their company's address (Marcel:
+#: "Budget pro Adresse lockern", approved). A kept answer costs nothing
+#: (``answer_cache``), so the front page's questions, the same for everyone,
+#: never reach it; it guards what costs: questions not yet asked. The course's
+#: routes spend it too (``api/course_router.py``): one window for every
+#: calculation, so asking two kinds of page buys an address no more.
+EXPERIMENT_RUNS = Budget(180, 10)
 
 
 #: Every account route, per address: sixty a minute. A person's page asks for

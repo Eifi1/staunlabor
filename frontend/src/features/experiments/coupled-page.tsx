@@ -13,6 +13,7 @@ import { ExhibitFrame } from "./exhibit-frame";
 import { BuildPending } from "./build-pending";
 import { PreviewPending, type PreviewMode, type PreviewProps } from "./preview-mode";
 import { startsRunning } from "./play";
+import { HeldAnswer, useHeld, type Held } from "./held";
 import {
   beatS,
   energies,
@@ -54,6 +55,7 @@ export function CoupledPage() {
   const { t } = useTranslation();
   const defaults = useExperimentsDefaults();
   const [build, setBuild] = useState<CoupledPendulums | null>(null);
+  const held = useHeld();
   const cp = build ?? defaults.data?.coupled ?? null;
   const fine = cp ? hangs(cp) : false;
   return (
@@ -74,7 +76,7 @@ export function CoupledPage() {
       ) : (
         <>
           {fine ? (
-            <CoupledPlay key={JSON.stringify(cp)} cp={cp} />
+            <CoupledPlay key={JSON.stringify(cp)} cp={cp} held={held} />
           ) : (
             <AlertBanner tone="warning">{t("experiments.coupled.refused")}</AlertBanner>
           )}
@@ -162,7 +164,12 @@ export function CoupledView({ cp, left, right }: { cp: CoupledPendulums; left: n
   );
 }
 
-function CoupledPlay({ cp, preview = false, paused = false }: { cp: CoupledPendulums } & PreviewMode) {
+function CoupledPlay({
+  cp,
+  held,
+  preview = false,
+  paused = false,
+}: { cp: CoupledPendulums; held?: Held } & PreviewMode) {
   const { t } = useTranslation();
   const hex = useChartHex();
   const sim = useRef({ y: startState("one", START_DEG), clock: 0, owed: 0 });
@@ -172,10 +179,15 @@ function CoupledPlay({ cp, preview = false, paused = false }: { cp: CoupledPendu
   const [y, setY] = useState<number[]>(() => startState("one", START_DEG));
   const running = preview ? !paused : runningHere;
   const speed = preview ? 3 : speedHere;
+  const show = held?.show;
 
   useEffect(() => {
     if (!running) return;
     const f = rhs(cp);
+    // Half a beat: the swing has gone over to the other pendulum once, and
+    // how long that takes is the page's question.
+    const beat = beatS(cp);
+    const over = beat === null ? null : beat / 2;
     let raf = 0;
     let last = performance.now();
     const tick = (now: number) => {
@@ -192,11 +204,12 @@ function CoupledPlay({ cp, preview = false, paused = false }: { cp: CoupledPendu
         s.clock += STEP_S;
       }
       setY(s.y);
+      if (over !== null && s.clock >= over) show?.();
       raf = requestAnimationFrame(tick);
     };
     raf = requestAnimationFrame(tick);
     return () => cancelAnimationFrame(raf);
-  }, [running, speed, cp]);
+  }, [running, speed, cp, show]);
 
   const letGo = (how: Start) => {
     sim.current = { y: startState(how, START_DEG), clock: 0, owed: 0 };
@@ -223,7 +236,7 @@ function CoupledPlay({ cp, preview = false, paused = false }: { cp: CoupledPendu
         </Button>
       }
     >
-      <div className={SIDE.grid}>
+      <div className={`${SIDE.grid} ${SIDE.cap.xl}`}>
         <div className={`${SIDE.top} space-y-2`}>
           <p className="text-sm text-secondary">{t("experiments.coupled.play.let_go")}</p>
           <div className="flex flex-wrap gap-2">
@@ -267,14 +280,17 @@ function CoupledPlay({ cp, preview = false, paused = false }: { cp: CoupledPendu
               </div>
             ))}
           </div>
-          <CoupledFigures cp={cp} />
+          <CoupledFigures cp={cp} held={!held?.shown} />
+          {held && <HeldAnswer held={held}>{null}</HeldAnswer>}
         </div>
       </div>
     </WidgetCard>
   );
 }
 
-function CoupledFigures({ cp }: { cp: CoupledPendulums }) {
+/** `held`: the beat and how much of the swing goes over answer the page's
+ *  question; the two modes' periods only lead to it. */
+function CoupledFigures({ cp, held }: { cp: CoupledPendulums; held: boolean }) {
   const { t } = useTranslation();
   const [w1, w2] = modeRates(cp);
   const beat = beatS(cp);
@@ -297,13 +313,14 @@ function CoupledFigures({ cp }: { cp: CoupledPendulums }) {
         },
         ...(beat === null
           ? []
-          : [{ key: "beat", label: t("experiments.coupled.figures.beat"), value: beat, digits: 1, unit: "s" }]),
+          : [{ key: "beat", label: t("experiments.coupled.figures.beat"), value: beat, digits: 1, unit: "s", held }]),
         {
           key: "share",
           label: t("experiments.coupled.figures.share"),
           value: exchangeShare(cp) * 100,
           digits: 0,
           unit: "%",
+          held,
         },
       ]}
     />

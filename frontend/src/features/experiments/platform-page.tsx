@@ -143,6 +143,8 @@ function PlatformPlay({ exhibit, preview = false, paused = false }: { exhibit: P
 
   const push = () => {
     if (sim.current) sim.current.momentum += Math.sign(sim.current.momentum || 1) * PUSH;
+    // A push is the reader asking to see it turn: paused (reduced motion), it starts the clock.
+    setRunning(true);
   };
   const restart = () => {
     sim.current = { momentum: 0, angle: 0, clock: 0 };

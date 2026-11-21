@@ -14,3 +14,6 @@ junit.xml
 *.tsbuildinfo
 # The backend's local feedback files (settings.feedback_files_dir).
 backend/var/
+
+# Short clips for posts, written by scripts/write-clips.mjs; never part of the site.
+clips/

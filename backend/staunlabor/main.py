@@ -1,8 +1,12 @@
 """The app: the exhibits' routes and the accounts' and their admin's (server-kit's)
 under ``/api/v1``, a health check, and the two answers an error can get.
 
-No middleware beyond CORS, which only the development server needs: in
-production the web service proxies ``/api`` on the site's own origin. The
+Three middlewares: the kept answers (``staunlabor.answer_cache``), one
+calculation per question and process; CORS, which only the development
+server needs (in production the web service proxies ``/api`` on the site's
+own origin); and the request log (``staunlabor.request_log``), one line per
+API call with the route, the status and the time it took, and nothing about
+who asked. The
 accounts' database is built with the app and connects only when an account
 route asks for it (``staunlabor.database``): the exhibits and the health check
 never do.
@@ -31,9 +35,13 @@ from fastapi.responses import JSONResponse
 
 from staunlabor import __version__
 from staunlabor.accounts import account_deps, admin_deps, jobs_deps
+from staunlabor.answer_cache import AnswerCacheMiddleware
+from staunlabor.api.course_router import router as course_router
 from staunlabor.api.experiments_router import router as experiments_router
 from staunlabor.database import Database
+from staunlabor.exhibit_checks import exhibit_checks_router
 from staunlabor.feedback import feedback_deps
+from staunlabor.request_log import RequestLogMiddleware
 from staunlabor.security import AccountLimiters, ExperimentsLimiters, limit_account_request
 from staunlabor.settings import Settings, get_settings
 from staunlabor.translations import translation_review_deps
@@ -121,18 +129,24 @@ def create_app() -> FastAPI:
     app.state.auth_limiters = AuthLimiters()
     app.state.feedback_limiters = FeedbackLimiters()
     app.state.database = Database(settings)
+    # Innermost of the three: a kept answer still gets CORS's headers on the
+    # development server and its line in the request log (answer_cache).
+    app.add_middleware(AnswerCacheMiddleware, prefix=API_PREFIX)
     app.add_middleware(
         CORSMiddleware,
         allow_origins=[settings.app_base_url.rstrip("/")],
         allow_methods=["GET", "POST"],
         allow_headers=["Content-Type"],
     )
+    app.add_middleware(RequestLogMiddleware, prefix=API_PREFIX)
 
     @app.get(f"{API_PREFIX}/health")
     async def health() -> dict[str, str]:
         return {"status": "ok", "version": __version__}
 
     app.include_router(experiments_router, prefix=API_PREFIX)
+    # The course's lessons, under the exhibits' calculation budget (course_router).
+    app.include_router(course_router, prefix=API_PREFIX)
     # Every account route spends the address's budget first, the kit's own
     # windows after it (security.ACCOUNT_REQUESTS).
     accounts = account_deps(app.state.database, settings)
@@ -156,6 +170,9 @@ def create_app() -> FastAPI:
     app.include_router(
         translation_review_router(translation_review_deps(accounts)), prefix=API_PREFIX, dependencies=budget
     )
+    # Which exhibits' calculations are checked: the public list every page asks
+    # for its notice, and an admin's verdict, kept with the code's fingerprint.
+    app.include_router(exhibit_checks_router(accounts), prefix=API_PREFIX)
     # The kit's refusals — the budget's 429 with its Retry-After — are
     # ValueErrors too; the kit's handlers answer them at their own status,
     # beside the engine's 400 below.

@@ -195,6 +195,8 @@ function SmokePlay({
   };
 
   const startPress = (source: "drag" | "button", now: number, pressDuration: number, pressDepth: number) => {
+    // A press is the reader asking to see a ring: paused (reduced motion), it starts the clock.
+    setRunning(true);
     const current = sim.current;
     current.press = {
       times: [now],
@@ -356,6 +358,7 @@ function SmokePlay({
             checked={auto}
             onCheckedChange={(on) => {
               setAuto(on);
+              if (on) setRunning(true);
               sim.current.autoAt = 0;
               sim.current.autoNext = 0;
             }}

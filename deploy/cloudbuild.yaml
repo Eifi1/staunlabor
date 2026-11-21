@@ -136,10 +136,19 @@ steps:
   # signing key, the daily call's token and the second factor's keys, each a
   # secret only staunlabor-run reads; the RP id is the site's host. A deployment
   # missing any of them refuses to start (main.check_deployment), and Cloud Run
-  # keeps the revision before. The pool is 1 + 1 a process (settings.py), so
-  # three instances hold six connections at most; the role's CONNECTION LIMIT
-  # (12, roles.sql) leaves room for the old revision beside the new one during
-  # a rollout, and caps a runaway whatever the code says. The Resend key is
+  # keeps the revision before. Since 2026-11-20 (the load analysis before the
+  # weekly LinkedIn posts; Marcel approved more instances and one kept warm)
+  # the backend runs 1 to 4 instances, one always on, so a post's first reader
+  # meets no cold start (about 4.4 s), at about 8–10 dollars a month at Cloud
+  # Run's idle rate. Its pool is one connection a process here
+  # (STAUNLABOR_DB_MAX_OVERFLOW=0; the only users are the checks, kept for a
+  # minute, and the accounts), so four instances hold four connections at
+  # most, eight during a rollout, when the old revision runs beside the new;
+  # the role's CONNECTION LIMIT (12, roles.sql) caps a runaway whatever the
+  # code says. Four, not the eight first planned: the shared instance
+  # keksdose-db is a db-f1-micro (about 25 connections), and its apps together
+  # already peaked near 25 in the week to 2026-11-20 (Marcel chose four that
+  # day; the answer cache spares the front page's calculations). The Resend key is
   # mounted only with _MAIL_BACKEND=resend: a mounted secret that does not
   # exist refuses the revision.
   #
@@ -169,9 +178,9 @@ steps:
           --allow-unauthenticated --ingress=internal \
           --service-account=${_RUN_SA} \
           --set-cloudsql-instances=${_INSTANCE} \
-          --min-instances=0 --max-instances=3 --concurrency=20 \
+          --min-instances=1 --max-instances=4 --concurrency=20 \
           --memory=512Mi --cpu=1 --cpu-boost --timeout=60 \
-          --set-env-vars="^|^STAUNLABOR_APP_BASE_URL=${_APP_BASE_URL}|STAUNLABOR_TRUSTED_PROXY_HOPS=3|STAUNLABOR_WEBAUTHN_RP_ID=staunlabor.app|STAUNLABOR_REGISTRATION_ALLOWLIST=${_REGISTRATION_ALLOWLIST}|STAUNLABOR_MAIL_BACKEND=${_MAIL_BACKEND}|STAUNLABOR_FEEDBACK_BUCKET=${_FEEDBACK_BUCKET}" \
+          --set-env-vars="^|^STAUNLABOR_APP_BASE_URL=${_APP_BASE_URL}|STAUNLABOR_TRUSTED_PROXY_HOPS=3|STAUNLABOR_WEBAUTHN_RP_ID=staunlabor.app|STAUNLABOR_REGISTRATION_ALLOWLIST=${_REGISTRATION_ALLOWLIST}|STAUNLABOR_MAIL_BACKEND=${_MAIL_BACKEND}|STAUNLABOR_FEEDBACK_BUCKET=${_FEEDBACK_BUCKET}|STAUNLABOR_DB_MAX_OVERFLOW=0" \
           --set-secrets="STAUNLABOR_EDGE_TOKEN=staunlabor-edge-token:latest,STAUNLABOR_DATABASE_URL=staunlabor-db-url-app:latest,STAUNLABOR_JWT_SECRET=staunlabor-jwt-secret:latest,STAUNLABOR_JOBS_TOKEN=staunlabor-jobs-token:latest,STAUNLABOR_TOTP_KEYS=staunlabor-totp-keys:latest$$MAIL_SECRET"
 
   # ── web (public; finds the backend host and proxies /api to it) ─────────
@@ -199,7 +208,7 @@ steps:
           --allow-unauthenticated \
           --network=default --subnet=default --vpc-egress=all-traffic \
           --service-account=${_WEB_SA} \
-          --min-instances=0 --max-instances=3 --memory=256Mi --cpu=1 \
+          --min-instances=0 --max-instances=10 --memory=256Mi --cpu=1 \
           --set-env-vars=BACKEND_HOST=$$BACKEND_HOST \
           --set-secrets=EDGE_TOKEN=staunlabor-edge-token:latest
 

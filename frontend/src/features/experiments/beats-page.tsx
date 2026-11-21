@@ -268,7 +268,7 @@ function BeatsPlay({ fork, rider, preview = false, paused = false }: { fork: For
         </Button>
       }
     >
-      <div className={SIDE.grid}>
+      <div className={`${SIDE.grid} ${SIDE.cap.xl}`}>
         <div className={SIDE.top}>
           <Switch
             label={t("experiments.beats.play.sound")}

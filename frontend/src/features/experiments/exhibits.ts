@@ -3,8 +3,8 @@
  * what the overview says about each besides its name: the physics it is about
  * (`topics`, the overview's filter), the course's lessons its computation
  * stands on (`lessons`, linked from the overview's card and from the page's
- * "How it is computed"), and the day it joins the experiment of the day
- * (`since`, `daily.ts`).
+ * "How it is computed"), and the day it joins the experiment of the week
+ * (`since`, `weekly.ts`).
  *
  * Only the built ones have a path, at the site's top level (`/cannon`); the
  * others are listed so the overview can say what is coming.
@@ -85,19 +85,25 @@ export interface ExhibitEntry {
   topics: readonly Topic[];
   /** Empty for an exhibit that is geometry, not a motion (the chair). */
   lessons: readonly CourseLesson[];
-  /** The day it joins the experiment of the day: the day it ships, never one
-   *  before (`daily.ts` says why). */
+  /** The day it joins the experiment of the week: the day it ships, never one
+   *  before (`weekly.ts` says why). */
   since: string;
 }
 
 export const OVERVIEW_PATH = "/";
 
+/** The page of every exhibit, the header's "Exhibits". */
+export const EXHIBITS_PATH = "/exhibits";
+
+/** Where the list of every exhibit was until 2026-11-20, the front page's
+ *  lower half: the front page sends a link to it on to `EXHIBITS_PATH`. */
+export const EXHIBITS_ANCHOR = "all-exhibits";
+
 /**
- * The day the second series joins the experiment of the day, and the day the
- * draw's maluses weaken (`daily.ts`): the day of the joint deploy, set when it
- * goes out (Marcel, 2026-11-15: the next deploy after the last kit versions are
- * released). Never a day before the deploy: a past day would redraw a round the
- * live site has already shown.
+ * The day the second series shipped, the joint deploy (Marcel, 2026-11-15: the
+ * next deploy after the last kit versions are released). It is before the
+ * experiment of the week's first Monday (`weekly.ts`), so the whole series is
+ * in its first round.
  */
 export const SECOND_SERIES = "2026-11-16";
 
@@ -324,8 +330,11 @@ export function exhibitEntry(exhibit: Exhibit): ExhibitEntry {
   return EXHIBITS.find((entry) => entry.exhibit === exhibit) ?? EXHIBITS[0];
 }
 
-/** The built exhibit whose page `pathname` is, if any. */
-export function exhibitAt(pathname: string): ExhibitEntry | undefined {
-  const path = pathname.replace(/\/+$/, "");
-  return EXHIBITS.find((entry) => entry.path === path);
-}
+/** The exhibits that are built, in the list's order, newest first. */
+export const BUILT: readonly ExhibitEntry[] = EXHIBITS.filter((entry) => entry.path);
+
+/** The topics some exhibit has: a chip, or a figure, for a topic with none
+ *  would promise what the page cannot show. */
+export const TOPICS_SHOWN: readonly Topic[] = TOPICS.filter((topic) =>
+  EXHIBITS.some((entry) => entry.topics.includes(topic)),
+);

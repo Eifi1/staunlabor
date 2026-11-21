@@ -15,6 +15,7 @@ import { PreviewPending, type PreviewMode, type PreviewProps } from "./preview-m
 import { G, fallTimeS, figures, motion, stream, type MagnetColumn, type Material, type Plate } from "./simulate/plates";
 import { SIDE } from "./stage";
 import { useExperimentsDefaults } from "./use-experiments";
+import { settingNumber, useCheckRequest } from "./check-setting";
 
 /** Real time, and a quarter of it for the plastic plate, which is gone in a blink. */
 const SPEEDS = { real: 1, slow: 0.25 } as const;
@@ -79,6 +80,28 @@ export function PlatesPage() {
   const data = defaults.data?.plates;
   const column = build?.column ?? data?.column ?? null;
   const plate = build?.plate ?? data?.plate ?? null;
+  // A check case's "Set it up": the column and the plate; a new column builds
+  // the race anew.
+  const request = useCheckRequest("plates");
+  const [seen, setSeen] = useState<number | null>(null);
+  if (request && !request.done && request.nonce !== seen && column && plate) {
+    setSeen(request.nonce);
+    const s = request.setting;
+    const material = typeof s.material === "string" ? (s.material as Plate["material"]) : plate.material;
+    setBuild({
+      column: {
+        ...column,
+        field_t: settingNumber(s, "field_t", column.field_t),
+        pitch_m: settingNumber(s, "pitch_m", column.pitch_m),
+      },
+      plate: {
+        ...plate,
+        material,
+        thickness_m: settingNumber(s, "thickness_m", plate.thickness_m),
+        tooth_m: settingNumber(s, "tooth_m", plate.tooth_m),
+      },
+    });
+  }
   return (
     <ExhibitFrame
       exhibit="plates"
@@ -453,7 +476,7 @@ function PlatesPlay({
         )
       }
     >
-      <div className={SIDE.grid}>
+      <div className={`${SIDE.grid} ${SIDE.cap["2xl"]}`}>
         <div className={`${SIDE.top} flex flex-wrap gap-4`}>
           <ToggleGroup
             label={t("experiments.plates.play.speed")}

@@ -22,13 +22,32 @@ models found before the engine was written, and what is left to build.
 
 Every exhibit gets one page in one shape:
 
-1. **At the exhibit** — a drawing of the setup and what the visitor does.
+1. **At the exhibit** — a drawing of the setup and what the visitor does: its
+   first paragraph, and the rest behind "More about the exhibit" (2026-11-19,
+   the review of the coil's page: two long paragraphs pushed the twin below
+   the fold).
 2. **Try it** — the exhibit's twin, played with a mouse or a finger.
 3. **What happens** — the derivation step by step, KaTeX, the engine's numbers.
 4. **The sweet spot** — the one insight that explains the trick, as a chart.
 5. **Change the exhibit** — sliders for its size, mass, voltage and so on.
 6. **Further** — the lessons it stands on, in the differential-equations
-   course at kurvenschmiede.app, which stayed there.
+   course under `/basics` (`docs/course.md`; at kurvenschmiede.app until
+   2026-11-20); at the foot, back to every exhibit and on to the next one in
+   the list's order.
+
+The prose reads at 75 characters a line at most (a paragraph across a wide
+screen ran to some 250); the figures, charts and equations keep the page's
+full width. The frame (`exhibit-frame.tsx`) owns all of this, so every page
+has it.
+
+On a wide screen (`2xl`, 1536 px and up) the controls stand in a column
+beside the views, and the two are capped as one group at the views' own width
+and centred (`SIDE.cap` in `stage.ts`, 2026-11-19). Before that, the views
+stood centred in all the width the column left them, with the column at the far
+edge: at 1920 px the sliders stood 400 to 620 px from the drawing on twenty
+pages. `stage.test.ts` holds every page's cap to its views' width. No drawing
+is taller than 60 % of the screen (`STAGE`). The gravity well and the water
+parabola, whose views fill the row, are capped the way the sphere's are.
 
 **How it is computed** (Marcel, 2026-11-07: "are these differential
 equations?"). Each exhibit that moves has a section between what happens and
@@ -38,7 +57,7 @@ the mechanics and the circuit) and the sphere's six (the ball centre's position
 and velocity), stepped by classical Runge–Kutta every 0.2 and 1 ms, the same
 steps in the browser; the platform's one, `dL/dt = −τ_f`, solved exactly. Each
 links to the course's lessons it stands on (first and second order,
-numerics), at kurvenschmiede.app.
+numerics), under `/basics`.
 
 **No formula stands alone** (Marcel, 2026-11-07: "if there are equations
 involved, are they also explained?"). Every one is an `Equation` block
@@ -49,82 +68,138 @@ means in words, and a legend of every symbol in it with its meaning and unit.
 
 The front page, `/`, is the overview. It was a grid of eight cards until
 2026-11-12, when Marcel asked for it to be redone now that there were "schon
-einige Experimente". Top to bottom (`overview-page.tsx`):
+einige Experimente". Since 2026-11-19 the first screen is the experiment of
+the day's alone (Marcel: "Das erste was ein neuer Nutzer auf staunlabor.app
+sieht soll das Experiment des Tages sein und nicht überladen werden"); since
+2026-11-20 it is the experiment of the **week** (Marcel: "Stelle auf
+Experiment of the week um"), and since the
+same day it is the "stage" Marcel chose of three drafts (a design canvas with
+an exhibition, a stage and a lab overview, each for a desktop and a phone):
+"Das zweite und passe es so an, dass das Experiment der Woche ganz zu sehen
+ist". The header stays at the top and holds the name, the three ways in
+(**Exponate** `/exhibits`, **Grundlagen** `/basics`, **Über** `/about`), the
+kit's `GlobalSearch` over the exhibits (Ctrl K), the language and the theme
+(`experiments-layout.tsx`); every page sits in a column of at most 1160 px
+(`page-shell.ts`). Top to bottom (`overview-page.tsx`):
 
-* **The experiment of the day**, playing by itself beside its name, its
-  summary and a question to guess at before opening it
-  (`experiments.exhibits.<x>.question`), with the button into the exhibit and
-  **"Earlier days"**: the last fourteen days in a dialog (`?dialog=history`,
-  so a phone's Back closes it), a still of each that plays while it is
-  pointed at or focused. Not on the page itself (Marcel, the same evening:
-  "Show the history only in a dialog on request. Not right away. That shall
-  be reserved for the experiment of the day"): anyplot.ai's plot of the day
-  stands alone on its landing, and APOD's or Wikipedia's picture of the day
-  keeps its archive a link away.
-* **Every exhibit**, filtered by topic chips (`TOPICS` in `exhibits.ts`: an
-  exhibit is about one or two — momentum, angular momentum, energy,
-  oscillation, flow, induction, perception), with "n of 8 tried on this
-  device" and a "Forget", and on each card its topics, a
-  tick once tried, "Today" on the day's, and "Builds on:" with links to the
-  course's lessons at kurvenschmiede.app — the list the page's "How it is computed" links to, kept
-  in `exhibits.ts` beside the topics since both read it. Since 2026-11-16
-  each built exhibit's card opens with its drawing (Marcel: the pictures
-  under the experiment of the day): its preview held still, playing while the
-  card is pointed at or has the focus, as the history's cards do, and fitted to
-  one height (`fitted-preview.tsx`), so the upright ones do not make their row
-  the longest. The live preview and not the link-preview picture: it draws in
-  the reader's language and appearance, and its code is about 5 kB a page
-  against 20–80 kB a picture; it mounts only once it scrolls near.
+* **The headline** across the page, "Erst *spielen*, dann *rechnen*."
+  (`experiments.overview.claim`, the two verbs in Fraunces italic), and one
+  line under it, what the site is (`experiments.overview.lead`, cut on
+  2026-11-20 to "Exponate wie im Science Center – zum Ausprobieren und
+  Nachrechnen.": the old one was "zu lang und nicht relevant für das
+  Experiment", Marcel). It replaced the week's question as the page's `h1`.
+* **The experiment of the week on a stage**, under the headline, as an
+  exhibit stands in a museum with its label under it: the drawing, playing, in
+  a box at most 52 rem wide whatever the window (Marcel: the picture should
+  stop growing with the screen), and under it the week, Monday to Sunday
+  ("23.–29. Nov."), the exhibit's name, the question to guess at (Fraunces,
+  24 px; the 36 px question in the middle of the screen "sieht schlecht aus"),
+  and the two ways on: into the exhibit, and to the page of all exhibits.
+  The whole stage fits the first screen (Marcel: "so, dass das Experiment der
+  Woche ganz zu sehen ist"): the drawing's height is the window's less what
+  stands above it and the caption below it, between 180 and 400 px, and no
+  more than half the stage's width (16 : 10 on a phone). Measured on
+  2026-11-20 the stage ends at 779 px of 900, 754 of 768, 675 of 844 and
+  653 of 667 (1440, 1366, 390 and 375 px wide). On a phone the drawing stands
+  above the question (Marcel, 2026-11-20, of three orders shown: "Bild über
+  Frage beim Handy"). The summary and the first paragraph at the exhibit,
+  which stood beside the drawing before, are the card's and the page's.
+* **The site in figures**, a band across the window (Marcel: "Wo ist die
+  bottom line mit den key facts zur Seite?"): the built exhibits, their
+  topics, the equations the pages write out (`facts.ts`, held to a count of
+  the pages' sources by `facts.test.ts`), the exhibits an admin has checked
+  (the server's answer; it replaced the sentence "n of 35 are checked"), and
+  the languages, in the kit's `StatTile`s; under them "0 Cookies · 0 Tracking
+  · kein Konto nötig · frei und quelloffen".
+* **Exponate**, a part of its own (Marcel: "nicht alle Exponate gleich sofort
+  … sondern nur eine Auswahl"): the six newest, the same cards as the list,
+  and the way to all of them.
+* **Grundlagen**, likewise, under them (Marcel: "Genauso wie die Grundlagen
+  unten drunter"): the three lessons the most exhibits build on, and the way
+  to the course, which moved in from Kurvenschmiede (`docs/course.md`).
 
-**The pick: random, with a memory** (`daily.ts`; Marcel chose it over a fixed
-rotation and over an admin's choice). From the epoch, 2026-11-12, the days are
-cut into rounds of one day per exhibit, so every exhibit has its turn before
-any has a second. A round is drawn day by day, by a generator seeded with the
-day the round starts, from the exhibits whose last turn is at least half a
-round back (four days with eight): a shuffle alone guards only its own round,
-and the first week drawn that way showed the chair on a Friday and again on
-the Sunday. Among those, Marcel's **bonus and malus** ("dass es
+**The page of every exhibit**, `/exhibits` (`exhibits-page.tsx`; Marcel:
+"es soll doch weiterhin eine separate Seite mit allen Exponaten geben"):
+filtered by topic chips (`TOPICS` in `exhibits.ts`: an exhibit is about one or
+two — momentum, angular momentum, energy, oscillation, equilibrium, flow,
+induction, light, perception), the filter in the address (`?topic=flow`), with
+"n of 35 tried on this device" and a "Forget" once one was tried (before,
+"0 of 35" read as homework). Each card (`exhibit-cards.tsx`), the whole of
+which opens the exhibit (its title is the link, stretched over it), shows its
+drawing, its summary, its topics, a tick once tried, "This week" on the
+week's, and "Builds on:" with links to the course's lessons, small and grey,
+for the technically minded. The drawing is the live preview, held still and
+playing while the card is pointed at or has the focus, fitted to one height
+(`fitted-preview.tsx`); not the link-preview picture, since it draws in the
+reader's language and appearance and its code is about 5 kB a page against
+20–80 kB a picture.
+
+The list grows as the reader scrolls (Marcel: "beim Scrollen mit Transition
+unten anheften, auch eine Art von Virtualisierung, die wichtig ist, wenn es
+mehr werden"): nine cards, then nine more each time its end comes within
+480 px, each new card rising into place. A card off screen is skipped by the
+browser's layout and paint (`content-visibility: auto`), and its drawing is
+not mounted until it comes within 200 px (`exhibit-preview.tsx`), so the
+page costs what is on the screen. How far a list grew is remembered per
+filter for the tab, so the way back from an exhibit lands where it was.
+
+**Back where one clicked.** Every way in is a page (Marcel: back with the
+mouse's side button should return to where one was before the click), and
+`app/scroll-memory.ts` does what the browser's own memory cannot for a
+single-page site: it keeps each history entry's position and, on the way
+back, scrolls there once the page is tall enough again (trying for a
+second), and starts every new page at its top. Measured on 2026-11-20 in
+Chromium: clicked at 800 px, back at 800 px; at 1100, back at 1100. A new
+page fades in (`page-in`), a reader whose system asks for less motion sees
+no fade, no rising card, no smooth scroll and no playing preview: on
+2026-11-20 that was the reason Marcel saw no transition at all, his
+Windows' animation effects being off. A link to the list's old place,
+`/#all-exhibits`, goes on to `/exhibits`.
+
+**The pick: random, with a memory** (`weekly.ts`; Marcel chose it over a fixed
+rotation and over an admin's choice). Since 2026-11-20 it is **one exhibit a
+week**, Monday to Sunday (Marcel: "Stelle auf Experiment of the week um");
+from 2026-11-12 it was one a day, drawn by the same rule. The weeks from the
+epoch on (`WEEKLY_EPOCH`, 2026-11-23, fixed once it ships, since moving it
+would change the week's exhibit under the readers) are cut into rounds of one week per
+exhibit, so every exhibit has its turn before any has a second. A round is
+drawn week by week, by a generator seeded with the round's number (moving the
+epoch moves only the dates), from the exhibits whose last turn is at least
+half a round back: a shuffle alone guards only its own round, and the first
+week drawn that way, still a day each, showed the chair on a Friday and again
+on the Sunday. Among those, Marcel's **bonus and malus** ("dass es
 unwahrscheinlicher wird, dass gleiche Experimente aufeinander folgen") lean
-the draw (`DAILY_WEIGHTS`): a quarter more weight per day waited beyond the
-spacing, half the weight for an exhibit about a topic yesterday's was about, a
-quarter for one that came right after yesterday's in the round before. Those
-are the second series' maluses (Marcel, 2026-11-15: "Tagesminus sollte weniger
-zählen"); the first series drew with a quarter and a tenth, and its rounds keep
-them, so the days the live site has shown keep their exhibit. Measured over
-400 rounds of all 35 (a plain shuffle, then the old maluses, in brackets):
-repeated pairs 0.44 a round (1.18; 0.27), repeated triples 0.008 (0.033;
-0.013), neighbours sharing a topic 17.5 days in a hundred (24.5; 12.8); with
-34, before the beats, 0.43 and 17.2, with 33, before the double slit, 0.39
-and 18.1. With eleven exhibits about energy,
-ten about oscillation and eight about angular momentum, the quarter held a
-topic back on most days.
-They were measured over 2000 rounds against a plain shuffle (`daily.ts` has
-the numbers): pairs of the round before repeated in order fall from 0.9 a round
-to 0.27, triples from 0.12 to 0.01, neighbours about one topic from 14.5 days in
-a hundred to 7.9. A stricter first version — six days apart, a full point of
-bonus a day — turned out a rotation in disguise, repeating triples five times
-as often as a shuffle, and was dropped the same evening. They are weights, so
+the draw (`WEEKLY_WEIGHTS`): a quarter more weight per week waited beyond the
+spacing, half the weight for an exhibit about a topic last week's was about, a
+quarter for one that came right after last week's in the round before. Those
+are the halved maluses (Marcel, 2026-11-15: "Tagesminus sollte weniger
+zählen"); the first eight were drawn with a quarter and a tenth. Measured over
+400 rounds of all 35 (a plain shuffle in brackets): repeated pairs 0.45 a
+round (1.20), repeated triples 0.013 (0.023), neighbours sharing a topic 17.4
+weeks in a hundred (24.7), a wait of more than a round and two weeks 35.7 % of
+turns (36.6 %). With eleven exhibits about energy, ten about oscillation and
+eight about angular momentum, the stronger maluses held a topic back on most
+turns. With the first eight, over 2000 rounds against a plain shuffle, the
+first maluses cut pairs of the round before repeated in order from 0.9 a round
+to 0.27, triples from 0.12 to 0.01, neighbours about one topic from 14.5 in a
+hundred to 7.9. A stricter first version — six apart, a full point of bonus
+each — turned out a rotation in disguise, repeating triples five times as
+often as a shuffle, and was dropped the same evening. They are weights, so
 "rarer" is not "never": the first two days, the smoke ring and then the
-elephant, are a 3 % draw that came up. With the second series the bonus weighs
-less, and less with every exhibit: with eight it cut the turns that come after
-more than a round and two days by a quarter, with fifteen by an eighth (1456
-against 1670 over 400 rounds), with sixteen by a tenth (2311 against 2555),
-with 26 by a twentieth (10259 against 10834 over 1200 rounds), with 27 to
-31 the same (10513 against 11135, 11237 against 11819, 11640 against 12183,
-12332 against 12882, 12771 against 13269), with 32 by a fortieth (13523
-against 13858), with 33 by a thirtieth (13847 against 14261), with 34 by a
-forty-fifth (14480 against 14809), with 35 by a thirty-sixth (14894 against
-15315);
-`daily.test.ts` now holds it only to a fiftieth. Its weight a day is fixed
-while a round grows longer, and stays so: Marcel weakened the maluses instead
-(2026-11-15).
-The day is Zurich's, so one day has one
-exhibit whoever asks; the pick needs no server, no table and no admin, and the
-history is the rule run backwards. A new exhibit joins at the first round that starts on or after its
-`since` day, never mid-round, which would redraw days already shown; so
-`since` is the day it **ships** (the second series': `SECOND_SERIES` in
-`exhibits.ts`, the day of the joint deploy, which also switches the weights) — a past date puts it into a round already
-under way on the live site.
+elephant, were a 3 % draw that came up. The bonus weighs less with every
+exhibit: with eight it cut the turns that come after more than a round and two
+more by a quarter, with fifteen by an eighth, with sixteen by a tenth, with 26
+by a twentieth, with 35 by a thirty-sixth (14966 against 15376 over 1200
+rounds); `weekly.test.ts` holds it only to a fiftieth. Its weight a turn is
+fixed while a round grows longer, and stays so: Marcel weakened the maluses
+instead (2026-11-15). The week is Zurich's, so one week has one exhibit
+whoever asks; the pick needs no server, no table and no admin, and the past
+weeks are the rule run backwards (the tests walk them; no page lists them). A new exhibit joins at the first round that starts
+on or after its `since` day, never mid-round, which would redraw weeks already
+shown; so `since` is the day it **ships** — a past date puts it into a round
+already under way on the live site. A round of 35 weeks is most of a year, so
+a new exhibit is first shown among the front page's newest (the third stage,
+`docs/plan.md`), not by this pick (Marcel agreed, 2026-11-20).
 
 **The previews are the pages' own auto modes** (`preview-mode.tsx`): each
 page's play component takes `preview` and `paused`, and in a preview it starts
@@ -230,6 +305,18 @@ turns of the same wire lower the current without lowering what a pass gains,
 because `Ψ` grows with the turns as fast as `1/R` falls (of thinner wire, as
 the first version said, `R` grows faster and a pass gains less); a first guess of 400
 turns at 3 V drew 455 mA, off the meter's scale. All of it is a slider.
+
+**The aim on the track** (the review of the coil's page, 2026-11-19: the
+start was unclear and "reached the top 0" in the figures too abstract). Over
+the track one line says the aim, "get the car up to both flags", and says it
+is done once it is. A flag lights when the car has reached it, and a dot marks
+on its ramp how high the car came at its last turn, so a better pass shows
+where the eye already is. A reader who asked for less motion finds the car
+standing still with "Let the car go" on the track itself, not only "Run" in
+the header. The track, the buttons and the meters stand in one column at most
+64rem wide: across a wide screen the buttons stood over 1000 px apart. The
+auto mode says only "let the rule press, and watch when it does"; how it
+presses is the trick's to show.
 
 **What it shows.**
 
@@ -760,10 +847,9 @@ number in a cycle; let go at the tuned swing the row is together after `Γ`
 groups in two angles; the skew curve's numbers above and its two sides; the
 short ones fall behind the most.
 
-**Joins the experiment of the day** on `SECOND_SERIES` in `exhibits.ts`, as
-every exhibit of the second series does: a placeholder (2026-12-01) set to the
-day of the joint deploy, the next deploy after the last kit versions are
-released (Marcel, 2026-11-15).
+**Joins the experiment of the week** with its first round, as every exhibit
+of the second series does: `SECOND_SERIES` in `exhibits.ts`, the day of the
+joint deploy (Marcel, 2026-11-15), is before `WEEKLY_EPOCH`.
 
 ## The harmonograph (`experiments.harmonograph`)
 
@@ -1545,7 +1631,7 @@ window's two edges and the balance. Topic "equilibrium". **No route**: the
 port's (`simulate/levitation.ts`), held to the engine exactly, the grid and
 the bisections included.
 
-**Joins the experiment of the day** on `SECOND_SERIES`, with the second series.
+**Joins the experiment of the week** on `SECOND_SERIES`, with the second series.
 
 **Left out, and said:** the spin itself (taken fast enough for the magnet to
 follow the field and slow enough for the axis to follow its turns; that speed
@@ -1606,7 +1692,7 @@ the coil and both together over time. Topics "oscillation" and "induction",
 lesson `second_order`. **No route**: the port's (`simulate/circuit.ts`), held
 to the engine exactly in all three regimes and a hair either side of the edge.
 
-**Joins the experiment of the day** on `SECOND_SERIES`, with the second series.
+**Joins the experiment of the week** on `SECOND_SERIES`, with the second series.
 
 **Left out, and said:** the iron core's losses (its magnetisation lags, eddy
 currents) and its saturation (a fixed `L`), the capacitors' leakage; the
@@ -1683,7 +1769,7 @@ plates' times over the field. Topic "induction", lesson `first_order`. **No
 route**: the port's (`simulate/plates.ts`), held to the engine to 10⁻⁹ over
 three columns and eight plates, the currents' stream function included.
 
-**Joins the experiment of the day** on `SECOND_SERIES`, with the second series.
+**Joins the experiment of the week** on `SECOND_SERIES`, with the second series.
 
 **Left out, and said:** the field's true shape and its fraying at the column's
 ends (its strength is an assumption), the currents' own field, the spine of
@@ -1748,7 +1834,7 @@ until still over the restitution for both, and without air
 heights, from a dull one with 10 strikes before the closed-form rest to one with
 723.
 
-**Joins the experiment of the day** on `SECOND_SERIES`, with the second series.
+**Joins the experiment of the week** on `SECOND_SERIES`, with the second series.
 
 **Left out, and said:** the restitution's dependence on the speed; the time on
 the plate at each strike (under 0.1 ms), which in reality ends the series with
@@ -1803,7 +1889,7 @@ stacks of 1 to 20, eight stacks that hold or tip, one a block off its footing,
 and nine reaches. The preview pushes the nine out to the furthest and back,
 every stack on the way holding (each condition is linear along it).
 
-**Joins the experiment of the day** on `SECOND_SERIES`, with the second series.
+**Joins the experiment of the week** on `SECOND_SERIES`, with the second series.
 
 **Left out, and said:** stacks with several blocks to a layer, some as
 counterweights, which reach further (Paterson and Zwick); friction (the blocks
@@ -1856,7 +1942,7 @@ the engine over six runs of 1500 steps (both ways off the hover depth, from the
 surface unsqueezed and squeezed hard, a deep bottle, a heavy wide diver in a
 short one), the bubble, the lift, the hover depths and the figures.
 
-**Joins the experiment of the day** on `SECOND_SERIES`, with the second series.
+**Joins the experiment of the week** on `SECOND_SERIES`, with the second series.
 
 **Left out, and said:** the water that must run into the tube before the
 bubble shrinks; the water's and the bottle's give; the air in the neck,
@@ -1944,7 +2030,7 @@ mapping, and four beads (glass, water, a dense one at 1.9, one without
 dispersion at 1.3): angles, shares, traced paths, profiles, the ring's colours
 and the figures.
 
-**Joins the experiment of the day** on `SECOND_SERIES`, with the second series.
+**Joins the experiment of the week** on `SECOND_SERIES`, with the second series.
 
 **Left out, and said:** the beads' size (in very small beads the waves widen
 the ring and add faint rings inside it); light reflected twice or more inside
@@ -2030,7 +2116,7 @@ cloudy one, a short clear wide one) at four places each, eight heights of the
 sun (one where the air mass is within a hair of 1) with the ozone and without,
 and the light scattered down at exactly one air and near it.
 
-**Joins the experiment of the day** on `SECOND_SERIES`, with the second series.
+**Joins the experiment of the week** on `SECOND_SERIES`, with the second series.
 
 **Left out, and said:** light scattered more than once (it whitens a very
 cloudy tube and the horizon); larger particles that scatter every colour
@@ -2103,7 +2189,7 @@ exhibit's, a wide pair near the wall, a far one, one barely wider apart than a
 slit) and three lasers: intensities, stripes, colours, both patterns and the
 figures.
 
-**Joins the experiment of the day** on `SECOND_SERIES`, with the second series.
+**Joins the experiment of the week** on `SECOND_SERIES`, with the second series.
 
 **Left out, and said:** the wall's nearness; the laser beam's width and
 spread, which make the stripes fade up and down; the slits' edges and
@@ -2158,7 +2244,7 @@ shape, three forks (the exhibit's, a low heavy one ringing long, a high light
 one ringing short) with five riders each, and the loudness and the sound over
 five seconds.
 
-**Joins the experiment of the day** on `SECOND_SERIES`, with the second series.
+**Joins the experiment of the week** on `SECOND_SERIES`, with the second series.
 
 **Left out, and said:** the sounding boxes and the room; the rider's own pull
 on the mode's shape; the prongs' coupling and the stem; the ear, which hears
@@ -2182,9 +2268,16 @@ and run no script, so each exhibit's route has its own copy of the page:
 * **The pictures**, `frontend/public/previews/<exhibit>.jpg` and
   `overview.jpg`, 1200 × 630 (Open Graph's large card), JPEG under 300 kB so
   WhatsApp shows them large. Each is a card (`preview-card.tsx`) with the
-  exhibit's own preview, the overview's still, beside its title, its question
-  and its address; the overview's card has the site's line beside four
-  previews. The still is the page's preview mode, played for a moment and held,
+  exhibit's own preview, the overview's still, beside its title, its question,
+  its summary and its address; the overview's card has the site's line beside
+  four previews. Since 2026-11-20 (Marcel: "eine feste Grösse für die
+  Vorschaubilder … annähernd gleich viel Text pro Exponat … Besser aufgeteilt
+  ist besser") the picture is one box of 600 × 534 on every card, the drawing
+  fitted into it with its own frames and grounds taken off: before, each
+  drawing brought a frame of its own size, a wide track a small strip in an
+  empty frame. And the summary joined the question: in German 177 to 325
+  characters of text a card (median 245), the column 60 to 88 % full where it
+  had been half empty. The still is the page's preview mode, played for a moment and held,
   so the picture cannot drift from the exhibit; a tall one is scaled down to
   fit. `scripts/write-previews.mjs` photographs the cards in a headless
   Chromium (Playwright) from a dev server of its own, and the pictures are
@@ -2202,16 +2295,204 @@ German only: a link preview's request names no language, and de-CH is the
 site's fallback. The pictures cost nothing to serve to speak of: a few
 megabytes in the web image, fetched when a link is shared.
 
-## The notice: the check still to come
+**No moving picture in a link's preview.** Marcel asked (2026-11-20) whether
+a link shared on LinkedIn could show the exhibit moving. It cannot, as far as
+anything published says: LinkedIn shows `og:image` as a still, does not read
+`og:video` for a site's own pages, and an animated GIF there stays on its
+first frame. A video uploaded into the post plays, with the link in its text.
+For that, `scripts/write-clips.mjs` writes `clips/<card>.mp4`: the same card,
+moving, ten seconds at 1920 × 1008, MP4 (H.264), the format every guide to
+LinkedIn's uploads agrees on. The page runs under Playwright's clock, paused,
+one frame's time per photograph, so the clip never stutters; Chromium's
+MediaRecorder encodes, so it needs no ffmpeg. The clips are not committed
+(`clips/` is ignored): nothing on the site uses them. The first clips ran
+about four times too fast (Marcel noticed on his phone): an installed clock
+keeps running in real time unless paused, and each screenshot's own time went
+into the clip. The script now pauses it and checks that the page's time over
+the frames equals the clip's length. A clip keeps its preview's pace, which
+for a few exhibits is faster than the exhibit's own: the pendulum wave twice,
+the coupled pendulums three times, the waterwheel and the well four times, the
+parabola and the harmonograph ten times, Foucault's pendulum 3600 times.
 
-On Marcel's word (2026-11-15) the overview and every exhibit's page carry a
-warning banner under their heading: the calculations still await their check,
-and figures and drawings may change (`experiments.unchecked`,
-`features/experiments/unchecked-notice.tsx`, placed by `ExhibitFrame` and the
-overview). Every figure is tested against the engine and the engine against
-independent counts, but no one outside has gone through the models. One
-component in two places: removing it once the check is done is one edit, and
-the two page tests that look for it go with it.
+## The check, exhibit by exhibit
+
+From 2026-11-15 the overview and every exhibit's page carried a warning
+banner under their heading: the calculations still await their check. Since
+2026-11-19 each exhibit says it in one line under its title, "not yet
+checked" or the day an admin checked it (`CheckStatus`,
+`unchecked-notice.tsx`), and the front page says how many are checked, below
+its first screen. The two reviews of that day (Marcel's Claude docs of the
+front page and of the coil's page) found that a warning in second place costs
+more trust than it earns, and asked for it where the calculation is.
+
+**The cases** (`backend/staunlabor/domain/checks/`, Marcel: "Für die
+anstehende Überprüfung und Nachvollziehen sind Edge Cases besonders
+geeignet"). Each is a limiting case a reader can work out by hand: what is
+set, the formula, its value by hand, the value the page computes (the time
+loop at the page's step, or the function the page calls), and the deviation
+allowed and why. Every case names its sources, where in them and the words
+verbatim, untranslated (Marcel, on a side agent's point that cases written by
+the agent who wrote the engine can share its mistakes: "Bitte
+Quellenangaben implementieren"); its expected value is computed from that
+formula in the case's module, not by the engine's closed forms. Where no
+source states the formula exactly as used, the case is marked "derived" and
+its words give the one step, so a reader checks the step rather than trust a
+citation. The first three exhibits have them: the sphere (eight), the coil
+(seven), the chair (four); Newton's cradle followed on 2026-11-20 (five), the
+first of the rest (Marcel: "Prüffälle für alle Exponate ergänzen"), drafted by
+subagents with every quote fetched and found verbatim and run against the
+engine before they went in. `tests/unit/test_checks.py` holds every case to its
+tolerance; their runs take seconds, so the pages read them from
+`checks.json` (`scripts/write-checks.py`, held current by
+`tests/unit/test_checks_file.py`).
+
+**Where the sources are thin**, and the cases say so: the hollow ball's
+frequency only through the general formula and the hollow sphere's moment of
+inertia; the ball's centre as a spherical pendulum under g/(1 + k) only
+through Routh's conserved spin, the reduction itself a step of ours; where
+the ball leaves the wall only through an educational site's string tension;
+Wheeler's formula as printed lies 0.28 % under the SI form the engine uses,
+within his own 1 %; the second eye's small-angle disparity overshoots the
+exact angle by 1.7 %.
+
+**The cradle's** five are all derived: no source states the first impact of
+a row as the page reads it, so each case puts two together (the pendulum's
+fall and the exchange of equal balls, Hertz's force and Patrício's deepest
+dent and contact time, arXiv:physics/0402036, whose equations are transcribed
+from the PDF's layout). Its energy case allows 4 · 10⁻⁵ over 2 s: the
+microsecond step loses up to 7 · 10⁻⁶ of the energy at each impact, where
+Hertz's force has no second derivative as a contact closes. Writing them found
+that Flores et al.'s damping parts a lone pair with about e, not e (0.947 for
+0.95, 0.47 for 0.50), so the restitution's hint says "about" (Marcel chose the
+word over an engine change).
+
+**The waterwheel's** five (2026-11-20) hold Lorenz's equations with b = 1 to
+Knill's eigenvalue at the origin, the steady turn √(b(ρ − 1)), the threshold
+of chaos σ(σ + b + 3)/(σ − b − 1) on the page's tile, the shrinking volume of
+states e^(−(σ + 1 + b)Kt), and Illing et al.'s own wheel equations in seconds
+(arXiv:1202.5508, which gives b = 1), integrated in the case. A test holds the
+case's sentence that any radius and brake with the same σ and ρ give the same
+rate. Its `volume` case is about a box of states, not the one wheel: "Set it
+up" sets the tap and the brake, and the box is the case's own.
+
+**The pendulum wave's** five (2026-11-20) hold the textbook lengths and the
+lengths tuned for 15° (the complete elliptic integral K, from the DLMF), the
+row together again after one cycle, the exact swing at a third of the cycle
+(Jacobi's sn, found in the case from its integral, in the engine by the
+arithmetic-geometric mean), and how far a textbook row comes back skewed.
+"Set it up" sets the row and, for the two read at a moment, stops the clock
+there.
+
+**The carousel's** four (2026-11-20) hold a throw at rest to its aim, the
+straight throw's miss on a turning platform, the Coriolis push 2Ωv at the
+throw, and the rolled ball's turn at 2/7 of the platform's rate. "Set it up"
+sets the platform's turn, the throw, what is thrown and the view, and throws.
+
+**The sky's** five (2026-11-20) hold the tube to Rayleigh's λ⁻⁴ (blue against
+red), the light kept between the side and the end, the air mass of a high sun,
+the noon sky without ozone and the ozone's share at the horizon. "Set it up"
+sets the tube on the page and the sun on the sun's card, each taking only its
+own cases.
+
+**The Chladni plate's** four (2026-11-20) hold its two lowest tones to Leissa's
+table (NASA SP-160, Table 4.65, after Iguchi), the sharpness of the lowest, and
+the fourth's swing. The engine finds a driven mode at λ = 281.11 (the 1186 Hz
+button) that the table leaves out between its 168.49 and 299.93; it stays at
+Ritz degrees 16, 20 and 24, and Ritz values are upper bounds, so the table
+skipped it, and the cases rest on the two lowest. "Set it up" sets the shaker
+to the case's tone, to the hundredth of a hertz.
+
+**The peg's** four (2026-11-20) hold the bob to the same height on both
+sides (Galileo, quoted for that alone: in the same passage he puts the loop at
+h > 2r, where it needs 2.5r), the caught swing's period, the loop at its very
+edge and the slack string just below it. The engine spots a slack string by
+its pull changing sign between the ends of a step, so right at the edge it can
+miss a dip below zero shorter than a step: a band of about 7 · 10⁻⁷ m in the
+peg's depth, which the loop case's tolerance of 2 · 10⁻⁶ covers.
+
+**Foucault's** four (2026-11-20) hold the plane's turn to sin φ times the
+Earth's rate against the stars, at Winterthur, at the pole and in the south,
+and the full turn's day. The engine's Earth rate lies 2 · 10⁻⁸ off the
+stellar day, in its eighth digit. Its drawing is scaled to the swing, so it
+has no gesture: pulled out further, everything would grow with it.
+
+**The falling plates'** five (2026-11-20) hold a plastic plate's free fall, a
+late start's fall with the engine's own mass and brake (as the coil's rise
+uses its L and R), the brake's growth with thickness, copper against aluminium
+by their conductivities, and fine teeth against the endless strip. That last
+one is the loosest: the engine lies 1.26 % under 1 − sinc²(kh/2), within
+1.5 %, the teeth's ends at the plate's edges taking about 0.63·h/W of the
+brake; a plate up to 50 cm wide would bring it to 0.25 %. Aluminium's
+conductivity is 3.77 · 10⁷ S/m, the value of Wikipedia's resistivity-density
+table (26.50 nΩ·m), not of its main table (28.2 nΩ·m).
+
+**The Maxwell wheel's** five (2026-11-20) hold its fall time and the bands'
+pull to the rolling fall under g/(1 + I/mr²), the climb back up, the jerk's
+duration and its peak at the bottom; "Set it up" builds the wheel and lets it
+go. **The arch's** three hold the thinnest semicircle that stands (40 stones
+at 0.10743 of the radius against Milankovitch's 0.1075; the case's source
+cites his dissertation of 1904, the line above his paper of 1907), the hanging chain's line inside a thin catenary arch, and the
+weight; the thinnest arch's 10.75 cm lies between the thickness slider's whole
+centimetres, so "Set it up" sets it exactly.
+
+**The resonance rods'** five (2026-11-20) hold a rod's tone to the clamped
+beam's first mode lowered towards Greenhill's buckling load (that lowering
+along a straight line is a step of ours, marked derived, and kept to the
+50 cm rod, where it differs by 5 · 10⁻⁵), the buckling length itself (which
+the page has no input for, so the case has no "Set it up"), the swing in step
+at a rod's beat, its neighbour's, and the growth from rest. The docs' simple
+rule for the growth, 1 − 1/e after 1/(2πζ) cycles, is 0.5 % off the exact
+solution the engine follows to 10⁻⁷. **The well's** four hold the circle's lap
+to Kepler's third law under g·5/7, equal areas in equal times, the energy, and
+the felt's brake. A case without a setting shows no "Set it up" button
+(`check-section.tsx`).
+
+**On the page** a section "Check it yourself" (`check-section.tsx`) lists the
+cases, each with its formula as an `Equation` (`check-formulas.ts`), both
+values to seven digits, the deviation, why the case would catch a mistake,
+and the sources linked and quoted. It is public and meant to teach (Marcel,
+the same day: "Wenn der Aufwand für Überprüfung getan wird kann der auch
+gleich zu Lehrzwecken dienen").
+
+**Set it up** (Marcel, the same day, on a side agent's note that many cases
+used values no slider reached: "Regler erweitern"). Every case has a button
+that sets the exhibit above to it and scrolls up to it (`check-setting.ts`);
+its setting is in the page's own inputs, written into `checks.json` by the
+case's module. The page sets the build while it renders, and the twin, built
+anew for it, sets how it starts. For that the sliders grew:
+- **the sphere** a fourth "who pushes", **No hand**: the ball let go at a
+  start angle (0–150°) and rolling sideways (0–8 m/s), and its sphere up to
+  1 m across;
+- **the coil** where the car is let go (from the coil's middle to the top of
+  the ramp), and its mass on a logarithmic slider from 50 g to 20 kg (the
+  route takes up to 20). The brake's case is a 15 kg car on the page's own
+  track, measured as the height it falls short on the other side, against
+  (1/R)·∫k²v dx with v from the drop alone (to 4 · 10⁻⁴);
+- **the chair** the eye moved sideways, 0.01 to 70 mm on a logarithmic slider
+  with a stop at zero: 0.16 mm is the parallax case, 65 mm the other eye; "one
+  picture" holds only below the engine's tolerance.
+
+**The verdict is an admin's** (Marcel chose a button over a commit): signed
+in as an admin, an exhibit with cases shows "Confirm as checked" and "Take
+the check back" (`PUT`/`DELETE /admin/experiments/checks/{exhibit}`). The
+verdict is stored with the fingerprint of the code it was given on
+(`staunlabor.domain.checks.fingerprint`: the exhibit's engine modules, the
+engine modules they import and its cases, without docstrings and comments),
+and `GET /experiments/checks` counts it only while that is still the
+deployed code's. An engine change brings "not yet checked" back by itself.
+The public answer gives the day and nothing of who checked (Marcel: only the
+date).
+
+**Refactors uncheck** (Marcel, 2026-11-19, on a side agent's note: "Das ist
+sinnvoll. Und sollte bei zukünftigen Refactorings berücksichtigt werden").
+The fingerprint changes with any code change in the exhibit's engine
+modules, a renamed variable or a function split as much as a new constant;
+only docstrings and comments are left out. A change to a helper several
+engines import unchecks all of them, and so does a change to the cases. So
+the refactors of the engine (the audit's) go before an exhibit is checked,
+and a change after says which exhibits it unchecks. The browser ports in
+`simulate/` are not in the fingerprint: they are held to the engine by
+`engine-cases.json`, not by the check.
 
 ## Checking the mathematics
 
@@ -2248,7 +2529,8 @@ below 1 cm/s.
 1. **The API**, done 2026-11-07: `GET /experiments/defaults`, `POST
    /experiments/sphere` (the orbits and the swing), `POST /experiments/coil`
    (the figures, Ψ and `k`), `GET /experiments/chair` (the three boxes), all
-   public under one budget (`security.EXPERIMENT_RUNS`, 90 per ten seconds;
+   public under one budget (`security.EXPERIMENT_RUNS`, 90 per ten seconds then,
+   180 since 2026-11-20, a kept answer free;
    the dearest was the chair at about 10 ms, and is now the race, `POST
    /experiments/race`, at about 45 ms with its velocities and accelerations
    written out; its pit runs in the browser). `tests/api/test_experiments_api.py` covers them.
@@ -2293,5 +2575,47 @@ below 1 cm/s.
    while the box turns, so the effect plays without a hand on it. Touch first: the sphere is circled
    with a finger, the coil has two big buttons, the eye is dragged. Every
    animation pauses, and starts paused for a reader who asked for reduced motion.
+   There, a twin's main action starts its clock: a push, a press, a let-go, a
+   tilt, a tone, a new rate, an automatic mode switched on (2026-11-19). The
+   reader is asking to see it move, and before this, on eight pages, the action
+   did nothing until the Run button in the header. Actions that only reset
+   leave the clock as it is. A play card's hint says what to do and what to
+   watch, never what will happen: the page's question is the reader's to answer
+   (2026-11-19: the hints of the waterwheel, of the smoke ring's and the
+   sphere's automatic modes and of the cone gave it away, the sphere's with
+   "a quarter turn ahead" and "up to about 4 Hz").
+
+   **The answer waits for a try** (`held.tsx`, 2026-11-19): nine play cards
+   showed the answer to their page's question from the first frame. Each now
+   holds it back until the exhibit has shown it, and says where it will stand,
+   with "Show the answer" for the reader who wants it at once. What "shown"
+   means is the page's: Foucault, an hour under the pendulum (the full turn and
+   the turn per hour); Coriolis, a throw at an aim of the reader's own (the
+   aim that hits, and the button that sets it); the peg, whatever follows the
+   catch (the outcome, the height a loop needs, the slack height and its line);
+   the cone, a roll to its end (the verdict, the axis's dashed path); the
+   elephant, the ball falling (its tilt limit); the overhang, a stack tipped
+   (the furthest reach, and its button); the coupled pendulums, half a beat
+   (the beat and the share that goes over); the cradle, the first second after
+   letting go (the speeds after the knock, the far share); the race, every
+   ball arrived in a race the reader started (the table by rank; before, the
+   tracks' own order, each place and time shown as its ball arrives). Once out,
+   an answer stays out for the visit, across new settings: hiding it again on
+   every slider would only be in the way. The cone still lies at the high end
+   of rails it will roll down (`start_for`, the engine's, with figures in the
+   prose): moving it would change the engine and its catalogue. The
+   resonance rods followed on 2026-11-20: their play card's beat started in
+   step with the third rod, the rods' frequencies stood under the drawing and
+   the chart drew every peak, so "Find the beat" was found before anybody
+   looked. The beat now starts at 1 Hz, below every rod (the overview's
+   preview stays in step), and the frequencies and the chart wait for a rod
+   swinging 2 cm, twenty times the table's millimetre, or a sweep.
+   **The goal on the drawing** (2026-11-20): three play cards asked for
+   something their drawing did not show. The sphere's side view names the
+   dashed equator "Goal: the equator"; the carousel rings the other seat and
+   names it "Target"; the overhang draws a line a whole block past the edge,
+   "Goal: 1 block length", which nine blocks pass (they reach 1.41) and four
+   are the fewest for, so it gives the furthest away no more than the
+   trick's own "four blocks for one length".
 4. **Seven languages**, the pages since, and the move to this site on
    2026-11-13 (`docs/plan.md`).

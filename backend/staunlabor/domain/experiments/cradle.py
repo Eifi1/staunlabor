@@ -9,8 +9,9 @@ along its arc ``x = L·θ``; neighbours push each other only where they overlap,
 by Hertz's law ``F = K·δ^{3/2}``, ``K = (4/3)·E*·√R*`` (two steel balls:
 ``E* = E/(2(1 − ν²))``, ``R* = r/2``), damped in the material, Hunt and
 Crossley's way: ``F = K·δ^{3/2}·(1 + α·δ')``, ``α = 8(1 − e)/(5e)`` per metre a
-second, so a lone pair meeting at 1 m/s parts with ``e`` of that speed (Flores
-et al.'s factor). Not the ball cannon's per-contact damping, which divides by
+second (Flores et al.'s factor), so a lone pair meeting at 1 m/s parts with
+about ``e`` of that speed: the factor is an approximation, near e for steel and
+further off for soft balls. Not the ball cannon's per-contact damping, which divides by
 the speed a contact closed at: the cradle's balls touch at rest, their contacts
 close at next to nothing, and that damping glued the row together. Stepped by
 Runge–Kutta: a millisecond while every ball swings free, a microsecond while

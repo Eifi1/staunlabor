@@ -24,7 +24,7 @@ import {
   surface,
   type Vessel,
 } from "./simulate/parabola";
-import { SIDE } from "./stage";
+import { SIDE, STAGE } from "./stage";
 import { useExperimentsDefaults } from "./use-experiments";
 
 /** Real time, or ten times faster: the water takes half a minute to follow. */
@@ -164,6 +164,12 @@ function ParabolaPlay({
 
   const s = surface(v, view.water);
   const tau = spinUpTimeS(v, Math.max(target, view.water));
+  /** A new rate is the reader asking to see the water follow: paused (reduced
+   *  motion), it starts the clock. */
+  const turn = (rate: number) => {
+    onTarget?.(rate);
+    setRunning(true);
+  };
   return (
     <WidgetCard
       title={t("experiments.parabola.play.title")}
@@ -174,14 +180,14 @@ function ParabolaPlay({
             {running ? <Pause className="size-4" aria-hidden /> : <Play className="size-4" aria-hidden />}
             {running ? t("experiments.parabola.play.pause") : t("experiments.parabola.play.run")}
           </Button>
-          <Button variant="secondary" size="sm" onClick={() => onTarget?.(0)}>
+          <Button variant="secondary" size="sm" onClick={() => turn(0)}>
             <RotateCcw className="size-4" aria-hidden />
             {t("experiments.parabola.play.stop")}
           </Button>
         </>
       }
     >
-      <div className={SIDE.grid}>
+      <div className={`${SIDE.grid} ${STAGE.twoWithSide}`}>
         <div className={`${SIDE.top} flex flex-wrap gap-4`}>
           <ToggleGroup
             label={t("experiments.parabola.play.frame")}
@@ -229,7 +235,7 @@ function ParabolaPlay({
             step={1}
             digits={0}
             hint={t("experiments.parabola.play.rate_hint")}
-            onChange={(x) => onTarget?.(x * RPM)}
+            onChange={(x) => turn(x * RPM)}
           />
           {s.spills && <AlertBanner tone="warning">{t("experiments.parabola.play.spills")}</AlertBanner>}
           <Figures

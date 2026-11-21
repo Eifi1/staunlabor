@@ -1,7 +1,11 @@
 /**
- * The pieces an exhibit's page is built from — a card with its title and what
- * to try, a row of figures. Nothing here uses an exhibit's words, so every
- * page shares it.
+ * The pieces an exhibit's page and a lesson of the course are built from — a
+ * card with its title and what to try, the controls beside what they drive, a
+ * row of figures, a slider with its number. Nothing here uses an exhibit's or a
+ * lesson's words, so every page shares it.
+ *
+ * `WidgetBody` and `Param` came with the course from Kurvenschmiede, whose
+ * `shared/ui/widget.tsx` they are; the exhibits lay out their own frame.
  */
 
 import type { ReactNode } from "react";
@@ -17,6 +21,7 @@ import {
 } from "@eifi1/ui-kit";
 import { useLocale } from "@/shared/i18n/use-locale";
 import { formatNumber } from "@/shared/lib/format";
+import { SliderField } from "@/shared/ui/slider-field";
 
 /** One experiment: its title, what to try, the controls and what they draw. */
 export function WidgetCard({
@@ -48,6 +53,16 @@ export function WidgetCard({
   );
 }
 
+/** Controls beside what they drive on a wide screen, above it on a narrow one. */
+export function WidgetBody({ controls, children }: { controls: ReactNode; children: ReactNode }) {
+  return (
+    <div className="grid grid-cols-1 gap-4 xl:grid-cols-[22rem_minmax(0,1fr)]">
+      <div className="space-y-4">{controls}</div>
+      <div className="min-w-0 space-y-3">{children}</div>
+    </div>
+  );
+}
+
 export interface Tile {
   key: string;
   label: string;
@@ -57,6 +72,9 @@ export interface Tile {
   tone?: StatTileTone;
   /** The bound the value is held to, said under it when it has crossed it. */
   note?: string;
+  /** A figure that answers the page's question: left out until the reader has
+   *  tried the exhibit (`features/experiments/held.tsx`). */
+  held?: boolean;
 }
 
 /** A widget's figures, as the kit's small tiles. A figure past its bound is in
@@ -73,21 +91,67 @@ export function Figures({ title, tiles }: { title?: string; tiles: Tile[] }) {
       {/* Hyphenated in the reader's language: the tile sets its label in
           capitals and German names these in one word. */}
       <StatTileGrid minTileWidth="8rem" lang={locale} className="gap-2 hyphens-auto">
-        {tiles.map((tile) => (
-          <StatTile
-            key={tile.key}
-            size="sm"
-            // The kit sets a small tile's label in capitals, and a capital ω
-            // is Ω, a capital η an H: a symbol's case is its meaning here.
-            label={<span className="normal-case">{tile.label}</span>}
-            value={tile.value ?? null}
-            format={(value) => formatNumber(value, tile.digits, locale)}
-            unit={tile.unit || undefined}
-            tone={tile.tone ?? "neutral"}
-            description={tile.note}
-          />
-        ))}
+        {tiles
+          .filter((tile) => !tile.held)
+          .map((tile) => (
+            <StatTile
+              key={tile.key}
+              size="sm"
+              // The kit sets a small tile's label in capitals, and a capital ω
+              // is Ω, a capital η an H: a symbol's case is its meaning here.
+              label={<span className="normal-case">{tile.label}</span>}
+              value={tile.value ?? null}
+              format={(value) => formatNumber(value, tile.digits, locale)}
+              unit={tile.unit || undefined}
+              tone={tile.tone ?? "neutral"}
+              description={tile.note}
+            />
+          ))}
       </StatTileGrid>
     </div>
+  );
+}
+
+/** A slider with its number: the site's `SliderField`, with the digits a
+ *  physical quantity needs. A logarithmic one has no "off" stop — a time
+ *  constant or a stiffness of zero is not a setting, it is a different
+ *  equation — and a linear one moves in two hundred steps unless told. */
+export function Param({
+  label,
+  unit,
+  value,
+  min,
+  max,
+  step,
+  digits,
+  log,
+  hint,
+  onChange,
+}: {
+  label: string;
+  unit: string;
+  value: number;
+  min: number;
+  max: number;
+  step?: number;
+  digits: number;
+  log?: boolean;
+  hint?: string;
+  onChange: (next: number) => void;
+}) {
+  return (
+    <SliderField
+      label={label}
+      unit={unit}
+      value={value}
+      min={min}
+      max={max}
+      step={step ?? (max - min) / 200}
+      digits={digits}
+      log={log}
+      zeroStop={false}
+      hint={hint}
+      onChange={onChange}
+    />
   );
 }

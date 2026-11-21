@@ -12,10 +12,12 @@ import { Figures, WidgetCard } from "@/shared/ui/widget";
 import { Equation } from "./equation";
 import { ExhibitFrame } from "./exhibit-frame";
 import { BuildPending } from "./build-pending";
+import { HeldAnswer, useHeld } from "./held";
 import { PreviewPending, type PreviewMode, type PreviewProps } from "./preview-mode";
 import { naturalHz, shape, start, steadyM, step, swingM, STEP_S, type Rack, type Shaking } from "./simulate/resonance";
 import { SIDE } from "./stage";
 import { useExperimentsDefaults } from "./use-experiments";
+import { settingNumber, useCheckSetting } from "./check-setting";
 
 const SPEEDS = [1, 4] as const;
 type Speed = (typeof SPEEDS)[number];
@@ -25,6 +27,13 @@ const LOWEST_HZ = 0.5;
 const HIGHEST_HZ = 7;
 const SWEEP_FROM_HZ = 1;
 const SWEEP_TO_HZ = 6.5;
+/** Where the play card's beat starts: low, where hardly anything moves. In
+ *  step with a rod, as the overview's preview is, it would be the answer to
+ *  the card's "Find the beat" before the reader had looked for it. */
+const PLAY_START_HZ = SWEEP_FROM_HZ;
+/** A swing this wide, twenty times the table's millimetre, is a rod plainly
+ *  found: the frequencies and the curves come out then. */
+const FOUND_M = 0.02;
 /** The sweep's pace: the one "The trick" quotes (half the swing, late). */
 const SWEEP_HZ_PER_S = 0.05;
 /** A sweep's recorded point every 100 ms of the run, and the chart redrawn
@@ -97,7 +106,9 @@ export function ResonancePreview({ paused }: PreviewProps) {
 const inStep = (rack: Rack) =>
   Math.round(naturalHz(rack, rack.lengths_m[Math.min(2, rack.lengths_m.length - 1)]) * 100) / 100;
 
-function RodsView({ rack, s }: { rack: Rack; s: Shaking }) {
+/** The rods; `labels` writes each one's own frequency under it, which is the
+ *  answer to the play card's search, so the card holds it back. */
+function RodsView({ rack, s, labels }: { rack: Rack; s: Shaking; labels: boolean }) {
   const { t } = useTranslation();
   const locale = useLocale();
   const hex = useChartHex();
@@ -139,15 +150,17 @@ function RodsView({ rack, s }: { rack: Rack; s: Shaking }) {
               vectorEffect="non-scaling-stroke"
             />
             <circle cx={base + s.q[i]} cy={-length} r={tallest * 0.012} fill={hex[i % hex.length]} />
-            <text
-              x={i * PITCH_M}
-              y={label * 1.3}
-              textAnchor="middle"
-              fontSize={label * 0.5}
-              className="fill-current text-secondary"
-            >
-              {`${formatNumber(naturalHz(rack, length), 2, locale)} Hz`}
-            </text>
+            {labels && (
+              <text
+                x={i * PITCH_M}
+                y={label * 1.3}
+                textAnchor="middle"
+                fontSize={label * 0.5}
+                className="fill-current text-secondary"
+              >
+                {`${formatNumber(naturalHz(rack, length), 2, locale)} Hz`}
+              </text>
+            )}
           </g>
         );
       })}
@@ -164,11 +177,14 @@ function ResonancePlay({
   const { t } = useTranslation();
   const locale = useLocale();
   const hex = useChartHex();
+  const first = preview ? inStep(rack) : PLAY_START_HZ;
   const begin = (drive: number): Sim => ({ s: start(rack), drive, sweeping: false, owed: 0, i: 0, recorded: [] });
-  const sim = useRef(begin(inStep(rack)));
-  const [frame, setFrame] = useState(() => ({ s: start(rack), drive: inStep(rack), sweeping: false }));
+  const sim = useRef(begin(first));
+  const [frame, setFrame] = useState(() => ({ s: start(rack), drive: first, sweeping: false }));
   const [recorded, setRecorded] = useState<Sim["recorded"]>([]);
-  const [chartDrive, setChartDrive] = useState(() => inStep(rack));
+  const [chartDrive, setChartDrive] = useState(first);
+  const held = useHeld();
+  const { show } = held;
   const [runningHere, setRunning] = useState(false);
   const [speedHere, setSpeed] = useState<Speed>(1);
   const [sound, setSound] = useState(false);
@@ -202,6 +218,7 @@ function ResonancePlay({
         }
       }
       setFrame({ s: m.s, drive: m.drive, sweeping: m.sweeping });
+      if (!preview && rack.lengths_m.some((_, rod) => swingM(m.s, rod, m.drive) >= FOUND_M)) show();
       if (noted) {
         setRecorded([...m.recorded]);
         setChartDrive(m.drive);
@@ -210,7 +227,7 @@ function ResonancePlay({
     };
     raf = requestAnimationFrame(tick);
     return () => cancelAnimationFrame(raf);
-  }, [running, speed, rack]);
+  }, [running, speed, rack, preview, show]);
 
   const swings = rack.lengths_m.map((_, rod) => swingM(frame.s, rod, frame.drive));
   const pitches = useMemo(() => rack.lengths_m.map((length) => naturalHz(rack, length) * OCTAVES_UP), [rack]);
@@ -269,7 +286,22 @@ function ResonancePlay({
     );
   }, [rack, steadyRows, recorded, chartDrive, hex, locale, t]);
 
-  const view = <RodsView rack={rack} s={frame.s} />;
+  // A check case's "Set it up": the table at the case's beat, to the
+  // hundred-thousandth of a hertz the slider's hundredths cannot reach, the
+  // rods at rest, and the run started.
+  useCheckSetting("resonance", (setting) => {
+    if (preview) return false;
+    const damping = settingNumber(setting, "damping_ratio", rack.damping_ratio);
+    if (damping !== rack.damping_ratio) onChange?.({ ...rack, damping_ratio: damping });
+    const hz = settingNumber(setting, "drive_hz", sim.current.drive);
+    sim.current = begin(hz);
+    setFrame({ s: sim.current.s, drive: hz, sweeping: false });
+    setChartDrive(hz);
+    setRecorded([]);
+    setRunning(true);
+    return true;
+  });
+  const view = <RodsView rack={rack} s={frame.s} labels={preview || held.shown} />;
   if (preview) return view;
 
   const setDrive = (hz: number) => {
@@ -289,6 +321,8 @@ function ResonancePlay({
     setRecorded([]);
     setChartDrive(SWEEP_FROM_HZ);
     setRunning(true);
+    // The sweep is a search of its own: its record is drawn over the curves.
+    show();
   };
   const widest = Math.max(...swings);
   return (
@@ -312,7 +346,7 @@ function ResonancePlay({
         </>
       }
     >
-      <div className={SIDE.grid}>
+      <div className={`${SIDE.grid} ${SIDE.cap.xl}`}>
         <div className={`${SIDE.top} flex flex-wrap gap-4`}>
           <ToggleGroup
             label={t("experiments.resonance.play.speed")}
@@ -376,12 +410,14 @@ function ResonancePlay({
           />
         </div>
       </div>
-      <figure className="space-y-1">
-        {chart}
-        <figcaption className="text-center text-caption text-muted">
-          {t("experiments.resonance.chart.caption")}
-        </figcaption>
-      </figure>
+      <HeldAnswer held={held}>
+        <figure className="space-y-1">
+          {chart}
+          <figcaption className="text-center text-caption text-muted">
+            {t("experiments.resonance.chart.caption")}
+          </figcaption>
+        </figure>
+      </HeldAnswer>
     </WidgetCard>
   );
 }

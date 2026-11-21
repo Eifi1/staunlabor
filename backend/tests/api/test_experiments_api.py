@@ -221,13 +221,27 @@ async def test_what_the_schema_refuses_is_a_422(client: AsyncClient, path: str, 
 async def test_the_budget_runs_out_and_says_when_to_come_back(client: AsyncClient):
     from staunlabor.security import EXPERIMENT_RUNS
 
-    allowed = [(await client.post(f"{API}/sphere", json={})).status_code for _ in range(EXPERIMENT_RUNS.max_hits)]
+    # A question each, never asked before: a kept answer would cost nothing.
+    allowed = [
+        (await client.post(f"{API}/sphere", json={"shell_radius_m": 0.05 + i / 1000})).status_code
+        for i in range(EXPERIMENT_RUNS.max_hits)
+    ]
     refused = await client.get(f"{API}/chair")
     assert allowed == [200] * EXPERIMENT_RUNS.max_hits
     assert refused.status_code == 429
     assert "Try again in" in refused.json()["detail"]
     # The defaults are free: they spend nothing of the budget.
     assert (await client.get(f"{API}/defaults")).status_code == 200
+
+
+async def test_an_office_behind_one_address_never_runs_out_on_the_same_questions(client: AsyncClient):
+    """Every front page asks its cards' default builds: once kept, they cost
+    no budget, so a crowd behind one address (an office, a proxy) loads the
+    page as often as it likes (answer_cache)."""
+    from staunlabor.security import EXPERIMENT_RUNS
+
+    asked = [(await client.post(f"{API}/sphere", json={})).status_code for _ in range(2 * EXPERIMENT_RUNS.max_hits)]
+    assert asked == [200] * (2 * EXPERIMENT_RUNS.max_hits)
 
 
 async def test_the_platform_answers_its_spins_and_curves(client: AsyncClient):

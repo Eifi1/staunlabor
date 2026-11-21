@@ -38,6 +38,7 @@ import {
 } from "./simulate/elephant";
 import { PreviewPending, type PreviewMode, type PreviewProps } from "./preview-mode";
 import { startsRunning } from "./play";
+import { HeldAnswer, useHeld } from "./held";
 import { STAGE } from "./stage";
 import { useElephantFigures, useExperimentsDefaults } from "./use-experiments";
 
@@ -148,6 +149,9 @@ function ElephantPlay({
   const locale = useLocale();
   const [tilt, setTilt] = useState(0);
   const [auto, setAuto] = useState(preview);
+  // How far it tilts before the ball falls, once the reader has seen it fall.
+  const held = useHeld();
+  const show = held.show;
   const [runningHere, setRunning] = useState(startsRunning);
   const running = preview ? !paused : runningHere;
   // The ball set on the trunk, once: a state's initialiser, so the render never
@@ -197,17 +201,21 @@ function ElephantPlay({
       }
       moveStreaks(el, current, dt);
       setView(viewOf(el, current));
+      if (current.down !== null) show();
       if (autoOn) setTilt(Math.round(current.tilt));
       raf = requestAnimationFrame(tick);
     };
     raf = requestAnimationFrame(tick);
     return () => cancelAnimationFrame(raf);
-  }, [running]);
+  }, [running, show]);
 
   const push = (sign: 1 | -1) => {
     if (sim.current.down !== null) return;
     const [x, y, vx, vy] = sim.current.state;
     sim.current.state = [x, y, vx + sign * PUSH_M_S, vy];
+    // A push or a tilt is the reader asking to see the ball answer: paused
+    // (reduced motion), it starts the clock.
+    setRunning(true);
   };
   const restart = () => {
     sim.current.state = startState(exhibit, tilt);
@@ -261,6 +269,7 @@ function ElephantPlay({
             onChange={(v) => {
               setAuto(false);
               setTilt(v);
+              setRunning(true);
             }}
           />
           <Switch
@@ -270,6 +279,7 @@ function ElephantPlay({
             onCheckedChange={(on) => {
               setAuto(on);
               if (on) {
+                setRunning(true);
                 sim.current.tilt = 0;
                 sim.current.state = startState(exhibit);
                 sim.current.down = null;
@@ -318,9 +328,12 @@ function ElephantPlay({
                 value: limit,
                 digits: 0,
                 unit: "°",
+                held: !held.shown,
               },
             ]}
           />
+          {/* The tile itself is the answer: until then, where it will be. */}
+          <HeldAnswer held={held}>{null}</HeldAnswer>
         </div>
       </div>
     </WidgetCard>

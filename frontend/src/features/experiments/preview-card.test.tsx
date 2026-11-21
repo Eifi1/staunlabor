@@ -15,10 +15,12 @@ afterEach(() => {
 });
 
 describe("the link-preview card", () => {
-  it("shows an exhibit's preview beside its title, its question and its address", () => {
+  it("shows an exhibit's preview beside its title, its question, its summary and its address", () => {
     renderWithProviders(<PreviewCard card="sky" held={false} />);
     expect(screen.getByRole("heading", { name: en.experiments.exhibits.sky.title })).toBeInTheDocument();
     expect(screen.getByText(en.experiments.exhibits.sky.question)).toBeInTheDocument();
+    // The summary too: title and question alone left most of the column empty.
+    expect(screen.getByText(en.experiments.exhibits.sky.summary)).toBeInTheDocument();
     expect(screen.getByText("staunlabor.app/sky")).toBeInTheDocument();
     expect(screen.getByTestId("preview-sky")).toHaveAttribute("data-held", "false");
   });

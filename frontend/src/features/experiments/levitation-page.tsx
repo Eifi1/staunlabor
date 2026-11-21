@@ -181,7 +181,7 @@ function LevitationPlay({ base, top, preview = false }: { base: Base; top: Top }
   return (
     <div className="space-y-6">
       <WidgetCard title={t("experiments.levitation.play.title")} hint={t("experiments.levitation.play.hint")}>
-        <div className={SIDE.grid}>
+        <div className={`${SIDE.grid} ${SIDE.cap.xl}`}>
           <div className={`${SIDE.views} mx-auto w-full max-w-xl space-y-2`}>
             {view}
             <p className={`text-sm font-medium ${hovering ? "text-primary" : "text-danger"}`} role="status">

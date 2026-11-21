@@ -21,6 +21,7 @@ import {
 } from "./simulate/arch";
 import { SIDE } from "./stage";
 import { useExperimentsDefaults } from "./use-experiments";
+import { settingNumber, useCheckSetting } from "./check-setting";
 
 const SHAPES: readonly Shape[] = ["semicircle", "pointed", "catenary"];
 const LINE_HUE = 0;
@@ -174,6 +175,20 @@ function ArchPlay({ arch, onChange, preview = false }: { arch: Arch; onChange?: 
   const [share, setShare] = useState(0);
   const [at, setAt] = useState(0.5);
   const [chain, setChain] = useState(false);
+  // A check case's "Set it up": the arch, its load and the chain beside it.
+  useCheckSetting("arch", (setting) => {
+    if (preview) return false;
+    const shape = setting.shape === "semicircle" || setting.shape === "catenary" ? setting.shape : arch.shape;
+    onChange?.({
+      ...arch,
+      shape,
+      thickness_m: settingNumber(setting, "thickness_m", arch.thickness_m),
+      blocks: settingNumber(setting, "blocks", arch.blocks),
+    });
+    setShare(settingNumber(setting, "share", share));
+    if (setting.chain === "on" || setting.chain === "off") setChain(setting.chain === "on");
+    return true;
+  });
   const own = useMemo(() => blocks(arch).reduce((sum, b) => sum + b.weight_n, 0), [arch]);
   const load = useMemo<Load>(() => ({ at, weight_n: share * own }), [at, share, own]);
   // A load dragged along asks for a new line at every notch: the slider must
@@ -185,7 +200,7 @@ function ArchPlay({ arch, onChange, preview = false }: { arch: Arch; onChange?: 
   if (preview) return view;
   return (
     <WidgetCard title={t("experiments.arch.play.title")} hint={t("experiments.arch.play.hint")}>
-      <div className={SIDE.grid}>
+      <div className={`${SIDE.grid} ${SIDE.cap.xl}`}>
         <div className={`${SIDE.top} flex flex-wrap gap-4`}>
           <ToggleGroup
             label={t("experiments.arch.play.shape")}

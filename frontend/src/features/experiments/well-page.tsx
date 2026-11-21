@@ -25,8 +25,9 @@ import {
   type Launch,
   type Ride,
 } from "./simulate/well";
-import { SIDE } from "./stage";
+import { SIDE, STAGE } from "./stage";
 import { useExperimentsDefaults } from "./use-experiments";
+import { settingNumber, useCheckSetting } from "./check-setting";
 
 const SPEEDS = [1, 4] as const;
 type Speed = (typeof SPEEDS)[number];
@@ -295,6 +296,23 @@ function WellPlay({
       <SideView f={f} ride={frame.ride} />
     </div>
   );
+  // A check case's "Set it up": the funnel's resistance and the push, and the
+  // ball pushed off at once.
+  useCheckSetting("well", (setting) => {
+    if (preview) return false;
+    const nextF = { ...f, rolling_resistance: settingNumber(setting, "rolling_resistance", f.rolling_resistance) };
+    const nextLaunch = {
+      speed_m_s: settingNumber(setting, "speed_m_s", launch.speed_m_s),
+      aim_deg: settingNumber(setting, "aim_deg", launch.aim_deg),
+    };
+    if (nextF.rolling_resistance !== f.rolling_resistance) onChange?.(nextF);
+    setLaunch(nextLaunch);
+    sim.current = launchFrom(nextF, nextLaunch);
+    setFrame({ ride: sim.current.ride, trail: [...sim.current.trail] });
+    setLaps([]);
+    setRunning(true);
+    return true;
+  });
   if (preview) return <TopView f={f} trail={frame.trail} ride={frame.ride} />;
 
   const reset = (nextF: Funnel, nextLaunch: Launch, go: boolean) => {
@@ -343,7 +361,7 @@ function WellPlay({
         </>
       }
     >
-      <div className={SIDE.grid}>
+      <div className={`${SIDE.grid} ${STAGE.twoWithSide}`}>
         <div className={`${SIDE.top} flex flex-wrap gap-4`}>
           <ToggleGroup
             label={t("experiments.well.play.speed")}

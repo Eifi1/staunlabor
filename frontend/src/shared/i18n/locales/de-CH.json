@@ -40,6 +40,16 @@
       "feedback": "Etwas falsch, unklar oder ein Exponat, das Sie sich wünschen?",
       "issues": "Auf GitHub melden",
       "source": "Quellcode ansehen"
+    },
+    "nav": {
+      "label": "Hauptnavigation",
+      "exhibits": "Exponate",
+      "basics": "Grundlagen",
+      "about": "Über"
+    },
+    "search": {
+      "trigger": "Exponat suchen",
+      "placeholder": "Exponat, Thema oder Frage …"
     }
   },
   "legal": {
@@ -68,7 +78,8 @@
         "entries": {
           "language": "Die gewählte Sprache",
           "look": "Das helle oder dunkle Erscheinungsbild",
-          "tried": "Welche Exponate Sie ausprobiert haben, damit die Übersicht sie abhakt"
+          "tried": "Welche Exponate Sie ausprobiert haben, damit die Übersicht sie abhakt",
+          "course": "Ihr Fortschritt im Kurs Differenzialgleichungen: die geöffneten Lektionen, die gelösten Übungen und die vorher abgegebenen Schätzungen"
         },
         "tail": "Nichts davon dient dazu, Sie zu verfolgen. Die Anmeldetoken schickt Ihr Browser mit jeder Anfrage an Ihr Konto mit; alles andere bleibt in Ihrem Browser. Beim Abmelden werden die Anmeldetoken entfernt, und alles verschwindet, wenn Sie die Daten der Seite in Ihrem Browser löschen."
       },
@@ -87,23 +98,17 @@
   },
   "experiments": {
     "title": "Experimente",
-    "area": "Die Experimente",
     "failed": "Das Exponat konnte nicht berechnet werden.",
     "overview": {
-      "short": "Übersicht",
-      "lead": "Exponate zum Anfassen, nachgerechnet. Spielen Sie den Besucher am Zwilling des Exponats und sehen Sie dann die Rechnung hinter dem, was Sie erlebt haben.",
+      "claim": "Erst <em>spielen</em>, dann <em>rechnen</em>.",
+      "lead": "Exponate wie im Science Center – zum Ausprobieren und Nachrechnen.",
       "how": "Jede Seite beginnt mit dem, was am Exponat steht, lässt Sie es ausprobieren und zeigt dann, was geschieht, und die eine Einsicht, die den Trick erklärt. Jede Zahl stammt aus dem Rechenkern der App und ist durch dessen Tests abgesichert.",
-      "open": "Exponat öffnen",
       "coming": "In Vorbereitung",
       "credit": "Die meisten Exponate sind inspiriert von Exponaten im Swiss Science Center Technorama, Winterthur.",
-      "daily": {
-        "eyebrow": "Experiment des Tages",
+      "week": {
+        "eyebrow": "Experiment der Woche",
         "open": "Ausprobieren",
-        "today": "Heute"
-      },
-      "history": {
-        "title": "Die Experimente der letzten Tage",
-        "open": "Frühere Tage"
+        "current": "Diese Woche"
       },
       "all": "Alle Exponate",
       "topics_label": "Nach Thema filtern",
@@ -114,7 +119,26 @@
         "mark": "Ausprobiert",
         "forget": "Vergessen"
       },
-      "builds_on": "Baut auf:"
+      "builds_on": "Baut auf:",
+      "facts": {
+        "label": "Staunlabor in Zahlen",
+        "exhibits": "Exponate",
+        "topics": "Themen",
+        "equations": "Gleichungen",
+        "checked": "Geprüft",
+        "languages": "Sprachen",
+        "promise": "0 Cookies · 0 Tracking · kein Konto nötig · frei und quelloffen"
+      },
+      "selection": {
+        "title": "Exponate",
+        "lead": "Die {{count}} neuesten. Eine Zeichnung bewegt sich, sobald Sie darauf zeigen.",
+        "all": "Alle {{count}} Exponate"
+      },
+      "basics": {
+        "title": "Grundlagen",
+        "lead": "Die Mathematik hinter den Exponaten, Schritt für Schritt: von der Bilanz bis zum Zweimassenschwinger.",
+        "all": "Zum Kurs"
+      }
     },
     "topics": {
       "momentum": "Impuls",
@@ -133,9 +157,13 @@
       "try_it": "Ausprobieren",
       "what_happens": "Was geschieht",
       "sweet_spot": "Der Trick",
-      "computed": "Wie es gerechnet wird"
+      "computed": "Wie es gerechnet wird",
+      "more_at": "Mehr zum Exponat",
+      "next": "Nächstes Exponat: {{name}}",
+      "onward": "Weitere Exponate",
+      "held": "Die Antwort steht hier, sobald Sie es ausprobiert haben.",
+      "show": "Antwort zeigen"
     },
-    "unchecked": "Die Prüfung der Berechnungen steht noch aus: Zahlen und Darstellungen auf diesen Seiten können sich noch ändern.",
     "play": {
       "pause": "Anhalten",
       "run": "Weiter"
@@ -203,8 +231,8 @@
       },
       "cone": {
         "short": "Doppelkegel",
-        "title": "Der Doppelkegel rollt bergauf",
-        "summary": "Zwei Schienen laufen auseinander und steigen dabei an. Ein Doppelkegel, unten aufgelegt, rollt von selbst hinauf.",
+        "title": "Der rollende Doppelkegel",
+        "summary": "Zwei Schienen laufen auseinander und steigen dabei an. Darauf liegt ein Doppelkegel – und wohin er rollt, ist nicht so klar, wie es aussieht.",
         "question": "Rollt ein Doppelkegel auf zwei ansteigenden Schienen hinauf oder hinunter – und was entscheidet es?"
       },
       "parabola": {
@@ -405,7 +433,9 @@
         "aligned": "Durch die Löcher: ein Stuhl, dreimal",
         "apart": "Von hier aus: drei verschiedene Dinge",
         "turn": "Drehen",
-        "tilt": "Kippen"
+        "tilt": "Kippen",
+        "eye": "Auge seitwärts verschoben",
+        "eye_hint": "Bei 65 mm sieht das andere Auge hin."
       }
     },
     "equation": {
@@ -422,6 +452,9 @@
         "pause": "Anhalten",
         "run": "Weiter",
         "restart": "Neu starten",
+        "let_go": "Wagen loslassen",
+        "aim": "Ziel: Bringen Sie den Wagen bis zu beiden Fahnen.",
+        "done": "Geschafft: Der Wagen war an beiden Fahnen.",
         "plus": "Taste +, zieht den Wagen in die Spule",
         "minus": "Taste −, stösst den Wagen aus der Spule",
         "plus_caption": "Hineinfahren",
@@ -431,14 +464,16 @@
         "tops": "Oben angekommen",
         "time": "Zeit",
         "autopilot": "Automatisch: perfektes Timing",
-        "autopilot_hint": "Plus vom Fuss der Rampe bis zur Mitte, minus von der Mitte bis zur anderen Rampe, umgeschaltet genau dann, wenn der Wagen die Mitte passiert – {{window}} cm auf jeder Seite. Die Kurve unter «Der Trick» zeigt, warum.",
+        "autopilot_hint": "Lassen Sie die Regel drücken und schauen Sie zu, wann sie es tut.",
         "speed": "Tempo",
         "speeds": {
           "1": "Echtzeit",
           "0_25": "¼",
           "0_1": "⅒"
         },
-        "keys": "Mit der Tastatur: + oder ← für plus halten, − oder → für minus."
+        "keys": "Mit der Tastatur: + oder ← für plus halten, − oder → für minus.",
+        "start": "Start: so weit links von der Spule",
+        "start_hint": "{{top}} cm: oben an der Rampe; {{half}} cm: auf halber Höhe."
       },
       "meter": {
         "label": "Das Messgerät, in Milliampere",
@@ -460,7 +495,8 @@
         "closed": "Das Messgerät bleibt zwischen den Tastendrücken angeschlossen",
         "closed_hint": "Am Exponat ist es so: Die Anzeige schlägt aus, wenn der Wagen hindurchrollt, und dieser Strom bremst den Wagen ein wenig.",
         "radius": "Rampenradius",
-        "radius_hint": "Jede Rampe ist ein Kreisbogen mit diesem Radius, der flach beim flachen Stück beginnt: Je kleiner, desto steiler und höher steigt sie auf derselben Länge."
+        "radius_hint": "Jede Rampe ist ein Kreisbogen mit diesem Radius, der flach beim flachen Stück beginnt: Je kleiner, desto steiler und höher steigt sie auf derselben Länge.",
+        "mass_hint": "Bis 20 kg: Ein schwerer Wagen wird in der Spule kaum langsamer."
       },
       "model": {
         "flux_intro": "Alles beginnt mit einer Kurve: wie viel vom Feld des Magneten durch die Windungen der Spule geht, wenn der Wagen an einer bestimmten Stelle steht.",
@@ -538,11 +574,12 @@
         "modes": {
           "hand": "Sie",
           "circle": "Ein gleichmässiger Kreis",
-          "perfect": "Automatisch: perfektes Timing"
+          "perfect": "Automatisch: perfektes Timing",
+          "release": "Ohne Hand"
         },
         "hint_hand": "Ziehen Sie in der Ansicht von oben: Die Hohlkugel folgt Ihrem Finger, wie eine Hand es täte. Kreisen Sie um die Mitte – zuerst langsam, etwa einmal pro Sekunde, dann schneller, wenn die Kugel steigt.",
         "hint_circle": "Die Hohlkugel wird auf einem Kreis von 2 cm im eingestellten Tempo geschoben. Ändern Sie das Tempo langsam, folgt die Kugel; ändern Sie es auf einmal, fällt sie zurück.",
-        "hint_perfect": "Die Hohlkugel wird immer eine Vierteldrehung vor der Kugel geschoben und wird genau so schneller, wie die Kugel steigt – das Timing richtig gemacht, bis etwa 4 Hz, so schnell, wie ein Arm kann.",
+        "hint_perfect": "Hier wird die Hohlkugel mit dem bestmöglichen Timing geschoben. Achten Sie darauf, wo die Hohlkugel steht, während die Kugel steigt, und wie schnell sie am Ende kreist.",
         "pause": "Anhalten",
         "run": "Weiter",
         "restart": "Neu starten",
@@ -555,13 +592,18 @@
         "your_tempo": "Ihr Tempo",
         "needed": "Tempo für diese Höhe",
         "lead": "Hohlkugel vor der Kugel",
-        "reading": "Unter {{f0}} Hz gibt es keinen Kreis: Die Kugel wackelt nur unten. Jede Höhe hat ihr eigenes Tempo – die Linie im Diagramm –, und je höher, desto schneller."
+        "reading": "Unter {{f0}} Hz gibt es keinen Kreis: Die Kugel wackelt nur unten. Jede Höhe hat ihr eigenes Tempo – die Linie im Diagramm –, und je höher, desto schneller.",
+        "hint_release": "Wählen Sie, wo die Kugel startet und wie schnell sie seitwärts rollt, und lassen Sie sie los: Die Hohlkugel bleibt still.",
+        "start_angle": "Start: Winkel ab dem tiefsten Punkt",
+        "start_speed": "Start: seitwärts mit",
+        "release": "Loslassen"
       },
       "views": {
         "top": "Die Hohlkugel von oben: ziehen, um sie zu schieben",
         "top_caption": "Von oben – hier schieben",
         "side": "Die Hohlkugel von der Seite: wie hoch die Kugel läuft",
-        "side_caption": "Von der Seite"
+        "side_caption": "Von der Seite",
+        "goal": "Ziel: Äquator"
       },
       "chart": {
         "circle": "Im Kreis",
@@ -751,7 +793,7 @@
       },
       "play": {
         "title": "Loslassen",
-        "hint": "Starten Sie das Rennen und schauen Sie, wo jede Kugel ist. Die Zeiten neben den Farben sind die des Rechenkerns, in der Reihenfolge, in der die Kugeln ankommen. Bei der Flagge endet jede Bahn, und die Kugel fliegt weiter in ein gepolstertes Auffangbecken, wo alle sechs zusammen landen.",
+        "hint": "Starten Sie das Rennen und schauen Sie, wo jede Kugel ist. Sobald eine Kugel ankommt, erscheinen ihr Platz und ihre Zeit, die des Rechenkerns. Bei der Flagge endet jede Bahn, und die Kugel fliegt weiter in ein gepolstertes Auffangbecken, wo alle sechs zusammen landen.",
         "start": "Start",
         "pause": "Anhalten",
         "run": "Weiter",
@@ -771,7 +813,7 @@
         "acceleration": "Beschleunigung",
         "velocity_label": "Die Geschwindigkeit jeder Kugel als Pfeil von einem Punkt aus",
         "acceleration_label": "Die Beschleunigung jeder Kugel als Pfeil von einem Punkt aus",
-        "table": "Zeit, Tempo und Beschleunigung jeder Kugel, nach Rang",
+        "table": "Zeit, Tempo und Beschleunigung jeder Kugel",
         "track": "Bahn",
         "time": "Zeit"
       },
@@ -952,7 +994,7 @@
       "play": {
         "title": "An der Trommel",
         "hint": "Ziehen Sie den Ring hinunter und lassen Sie los, schnell oder langsam, oder drücken Sie die Taste: Das Tempo entscheidet, ob ein Ring fliegt.",
-        "hint_auto": "Drei Drücke nacheinander: ein Stoss, eine halbe Sekunde und ein langsames Drücken – Wirbel, Ring und nichts.",
+        "hint_auto": "Drei Drücke nacheinander: ein Stoss, eine halbe Sekunde und ein langsames Drücken. Schauen Sie, was jeder aus dem Loch schickt.",
         "press": "Drücken",
         "pause": "Pause",
         "run": "Weiter",
@@ -1189,6 +1231,7 @@
         },
         "amplitude": "Ausschlag beim Loslassen",
         "amplitude_hint": "Die Längen sind auf {{tuned}}° abgestimmt. Weiter oder weniger weit losgelassen, finden die Pendel nach einem Zyklus nicht mehr ganz zusammen.",
+        "pull_hint": "Oder fassen Sie in der Ansicht vom Ende der Reihe eine Kugel mit der Maus oder dem Finger und ziehen Sie die ganze Reihe zur Seite. Beim Loslassen schwingen alle los.",
         "time": "Zeit",
         "cycles": "Zyklen",
         "spread": "Versatz nach einem Zyklus"
@@ -1344,8 +1387,8 @@
       "play": {
         "title": "Den Kegel loslassen",
         "hint_up": "Der Kegel liegt am tiefen Ende. Lassen Sie ihn los und schauen Sie, wohin er rollt.",
-        "hint_down": "Bei diesen Schienen rollt der Kegel hinunter; er liegt darum am hohen Ende. Lassen Sie ihn los.",
-        "hint_stays": "Bei genau dieser Neigung bleibt die Achse auf gleicher Höhe: Der Kegel bleibt liegen, wo er ist.",
+        "hint_down": "Der Kegel liegt am hohen Ende. Lassen Sie ihn los und schauen Sie, wohin er rollt.",
+        "hint_stays": "Der Kegel liegt am tiefen Ende. Lassen Sie ihn los und schauen Sie, wohin er rollt.",
         "let_go": "Loslassen",
         "pause": "Anhalten",
         "run": "Weiter",
@@ -1604,6 +1647,7 @@
       "play": {
         "title": "Das Pendel loslassen",
         "hint": "Ziehen Sie den Stift nach oben oder unten, oder wählen Sie unten einen der drei Fälle.",
+        "drag_hint": "Oder fassen Sie die Kugel mit der Maus oder dem Finger, lenken Sie sie aus und lassen Sie los.",
         "let_go": "Loslassen",
         "pause": "Anhalten",
         "run": "Weiter",
@@ -1844,7 +1888,7 @@
       },
       "play": {
         "title": "Den Hahn aufdrehen",
-        "hint": "Der Hahn entscheidet: zu wenig Wasser, und das Rad bleibt stehen; mehr, und es dreht gleichmässig; noch mehr, und es wird chaotisch.",
+        "hint": "Stellen Sie den Hahn auf wenig, auf mehr und auf viel Wasser und schauen Sie, was das Rad jeweils tut.",
         "pause": "Anhalten",
         "run": "Weiter",
         "restart": "Von vorn",
@@ -1852,6 +1896,7 @@
         "tap_hint": "ρ: wie viel Wasser zuläuft, gemessen an Lecks und Bremse.",
         "brake": "Bremse",
         "brake_hint": "σ: wie stark die Achse bremst, gemessen an der Trägheit des Rads und den Lecks.",
+        "turn_hint": "Oder drehen Sie mit der Maus oder dem Finger den Hebel am Hahn und den Knopf an der Achse, die Bremse. Beim Loslassen startet das Rad von vorn.",
         "speed": "Tempo",
         "speeds": {
           "1": "Echtzeit",
@@ -1978,6 +2023,7 @@
       "play": {
         "title": "Zielen und werfen",
         "hint": "Werfen Sie einmal gerade auf den anderen Sitz, dann schalten Sie auf «Von aussen»: Dort fliegt der Puck geradeaus.",
+        "sling_hint": "Oder ziehen Sie mit der Maus oder dem Finger vom eigenen Sitz zurück wie an einer Schleuder: Richtung und Länge geben Zielen und Tempo, Loslassen wirft. Am Rand fassen und anschieben dreht das Karussell.",
         "throw": "Werfen",
         "aim_lead": "Vorhalt einstellen",
         "frame": "Ansicht",
@@ -2020,7 +2066,8 @@
       },
       "computed": {
         "system": "Beide Bahnen sind geschlossen lösbar: der Puck auf einer Geraden, der Ball auf einem Kreis, beide von aussen gesehen und für den Mitfahrer zurückgedreht. Wo der Ball den Rand wieder erreicht, und wohin man zielen muss, um zu treffen, findet die Seite durch Halbieren. Der Test prüft die zurückgedrehte Bahn des Pucks gegen eine Schrittrechnung mit Coriolis- und Fliehkraft."
-      }
+      },
+      "target": "Ziel"
     },
     "cradle": {
       "at": {
@@ -2030,7 +2077,8 @@
       "view": "Das Kugelstosspendel von vorn: der Balken, die Fäden und die Kugeln",
       "play": {
         "title": "Anheben und loslassen",
-        "hint": "Lassen Sie eine Kugel fallen, dann zwei. Mit 0,1 mm Luft zwischen den Kugeln geht die Rechnung genau auf.",
+        "hint": "Lassen Sie eine Kugel fallen, dann zwei, und zählen Sie, wie viele am anderen Ende wegfliegen.",
+        "drag_hint": "Oder fassen Sie eine der linken Kugeln mit der Maus oder dem Finger, ziehen Sie sie hoch und lassen Sie los.",
         "let_go": "Loslassen",
         "pause": "Anhalten",
         "run": "Weiter",
@@ -2048,7 +2096,7 @@
         },
         "angle": "Auslenkung",
         "restitution": "Was ein Stoss zurückgibt",
-        "restitution_hint": "Der Anteil des Tempos, mit dem zwei Kugeln nach einem Stoss mit 1 m/s auseinandergehen. 1 heisst: kein Verlust.",
+        "restitution_hint": "Ungefähr der Anteil des Tempos, mit dem zwei Kugeln nach einem Stoss mit 1 m/s auseinandergehen. 1 heisst: kein Verlust.",
         "far": "Energie am anderen Ende",
         "far_hint": "Nach dem ersten Stoss: der Anteil der Energie, der in so vielen Kugeln am anderen Ende steckt, wie angehoben wurden.",
         "duration": "Dauer des Stosses",
@@ -2861,7 +2909,8 @@
         "system": "Die Seite prüft für jede Lage, ob der gemeinsame Schwerpunkt der Klötze von ihr an aufwärts über ihrer Auflage liegt; mehr braucht es für einen Stapel mit einem Klotz pro Lage nicht. Der weiteste Stapel ist von oben her gebaut, jeder Klotz um 1/(2k) hinaus.",
         "check": "Die Tests der Seite rechnen den Überhang mit exakten Brüchen nach und suchen blind unter je zwanzigtausend zufälligen Stapeln aus drei und aus vier Klötzen: Keiner, der hält, ragt weiter hinaus als der harmonische. Gerechnet wird in Ihrem Browser, mit denselben Formeln wie im Rechenkern der Seite.",
         "left_out": "Weggelassen: Stapel mit mehreren Klötzen in einer Lage, bei denen einige als Gegengewicht dienen – damit kommt man noch weiter (Paterson und Zwick); die Reibung, denn die Klötze rutschen hier nie, sie kippen nur; dass Holz nachgibt; das Zittern der Hand. Die Klötze sind 20 cm lang und 4 cm hoch."
-      }
+      },
+      "goal": "Ziel: 1 Klotzlänge"
     },
     "diver": {
       "at": {
@@ -3086,6 +3135,7 @@
         "hint": "Stellen Sie die Sonne höher oder tiefer. Die Luft ist ein solches trübes Rohr: Je tiefer die Sonne, desto länger ihr Weg durch die Luft.",
         "height": "Sonnenhöhe",
         "height_hint": "Wie hoch die Sonne über dem Horizont steht.",
+        "drag_hint": "Oder ziehen Sie die Sonne mit der Maus oder dem Finger über den Himmel.",
         "ozone": "Ozonschicht",
         "ozone_hint": "Sie schluckt vor allem oranges Licht. Schalten Sie sie aus, um den Himmel ohne sie zu sehen.",
         "ozone_takes": "Vom Orange (600 nm) schluckt das Ozon",
@@ -3289,6 +3339,1430 @@
         "system": "Die Seite rechnet die Frequenz der zweiten Gabel mit dem Verfahren von Rayleigh aus der Schwingungsform einer eingespannten Zinke (βL = 1,875) und addiert die beiden ausklingenden Schwingungen. Angenommen ist eine Gabel mit 440 Hz, Zinken von 20 g und einer Abklingzeit von 6 s.",
         "check": "Die Tests der Seite halten die Schwingungsform an ihre Gleichung, prüfen, dass die Zinke an der Spitze wie ein Viertel ihrer Masse wirkt, und vergleichen Rayleighs Schätzung mit der exakten Frequenz einer Zinke mit einer Masse an der Spitze: Für 1 g liegt sie weniger als 0,1 % zu hoch. Gerechnet wird in Ihrem Browser, mit denselben Formeln wie im Rechenkern der Seite.",
         "left_out": "Weggelassen: die Resonanzkästen und der Raum; dass der Reiter die Schwingungsform selbst ein wenig verändert; die Kopplung der beiden Zinken und der Stiel; das Ohr, das schnelle Schwebungen nicht mehr als An- und Abschwellen hört, sondern als Rauheit und schliesslich als zwei Töne."
+      }
+    },
+    "checks": {
+      "title": "Nachprüfen",
+      "intro": "Grenzfälle, die sich von Hand ausrechnen lassen. Zu jedem steht die Formel aus einer veröffentlichten Quelle, der Wert von Hand und der Wert, den diese Seite rechnet. Wo keine Quelle die Formel genau so nennt, steht «hergeleitet» und der eine Schritt dazu.",
+      "by_hand": "Von Hand",
+      "page": "Die Seite rechnet",
+      "deviation": "Abweichung {{value}}, erlaubt {{allowed}}",
+      "setting": "Einstellung",
+      "why": "Was der Fall prüft",
+      "derived": "hergeleitet",
+      "step": "Der Schritt",
+      "sources": "Quellen",
+      "original": "Zitat im Original",
+      "status": {
+        "unchecked": "Rechnungen noch nicht geprüft",
+        "checked": "Rechnungen geprüft am {{date}}",
+        "to_cases": "Nachprüfen"
+      },
+      "admin": {
+        "check": "Als geprüft bestätigen",
+        "uncheck": "Prüfung zurücknehmen",
+        "failed": "Das hat nicht geklappt. Bitte noch einmal versuchen."
+      },
+      "symbols": {
+        "f0": "Frequenz der kleinsten Schwingung",
+        "f": "Frequenz",
+        "g": "Fallbeschleunigung, 9,80665",
+        "k": "Trägheitsfaktor I/(m r²) der Kugel",
+        "rho": "Abstand der Kugelmitte von der Mitte der Hohlkugel, R − r",
+        "theta0": "Ausschlag, ab dem tiefsten Punkt",
+        "K": "vollständiges elliptisches Integral erster Art",
+        "theta": "Winkel ab dem tiefsten Punkt",
+        "Omega": "Umlaufrate des Kreises",
+        "gprime": "der Teil der Schwerkraft, der die Kugelmitte bewegt",
+        "omega": "Kreisfrequenz des Wippens",
+        "E": "Energie pro Kilogramm Kugel",
+        "v": "Geschwindigkeit",
+        "h": "Höhe über dem tiefsten Punkt",
+        "mu": "nötige Haftreibungszahl",
+        "m": "Masse",
+        "r": "Radius der Kugel",
+        "inertia": "Trägheitsmoment",
+        "N": "Druck der Wand",
+        "current": "Strom",
+        "U": "Spannung der Batterie",
+        "R": "Widerstand der Spule",
+        "L": "Induktivität",
+        "tau": "Zeitkonstante",
+        "t": "Zeit",
+        "a_in": "Radius der Spule, in Zoll",
+        "b_in": "Länge der Spule, in Zoll",
+        "n": "Windungen",
+        "Psi": "Fluss durch alle Windungen",
+        "dipole": "magnetisches Moment des Magneten",
+        "mu0": "magnetische Feldkonstante",
+        "a": "mittlerer Radius einer Windung",
+        "z": "Abstand einer Windung vom Magneten, entlang der Achse",
+        "Br": "Remanenz des Magneten",
+        "V": "Volumen des Magneten",
+        "Q": "Ladung durch das Messgerät",
+        "T": "Periode, hin und zurück",
+        "R_arc": "Radius der Rampenbögen",
+        "l": "Länge des flachen Stücks",
+        "v0": "Geschwindigkeit auf dem flachen Stück",
+        "dE": "Energieverlust in einem Durchgang",
+        "coupling": "Kopplung dΨ/dx: Volt pro m/s, Newton pro Ampere",
+        "x": "Ort des Wagens",
+        "W": "Verluste: Rollen, Funken, Endanschlag",
+        "Emech": "Bewegungs- und Lageenergie des Wagens",
+        "xy": "Ort im Bild",
+        "XYZ": "Ort des Punkts vom Auge aus, Z nach vorn",
+        "focal": "Abstand des Bildschirms vom Auge",
+        "P": "ein Punkt des Stuhls",
+        "eye": "das Auge im Guckloch",
+        "w": "die Verzerrung",
+        "delta": "Weg des Auges",
+        "alpha": "Sehschärfe, eine Bogenminute",
+        "phi": "Winkel zwischen Bewegung und Sehlinie",
+        "d12": "Abstände der beiden Enden vom Auge",
+        "eta": "Winkel zwischen den beiden Enden",
+        "b": "Augenabstand",
+        "h0": "Höhe, aus der der Wagen losgelassen wird",
+        "hx": "Höhe der Bahn am Ort x",
+        "v_in": "Tempo der fallenden Kugel unten",
+        "v_last": "Tempo der letzten Kugel nach dem Stoss",
+        "v_after": "Tempo der i-ten Kugel nach dem Stoss",
+        "v_i": "Tempo der i-ten Kugel",
+        "L_string": "Länge vom Aufhängepunkt bis zur Mitte der Kugel",
+        "theta_i": "Winkel der i-ten Kugel ab dem tiefsten Punkt",
+        "F_peak": "grösste Kraft zwischen zwei Kugeln",
+        "K_hertz": "Steifigkeit zweier Kugeln nach Hertz",
+        "hM": "tiefste Eindrückung",
+        "mu_red": "reduzierte Masse des Paars, m/2",
+        "E_star": "Steifigkeit des Stahls, E/(2(1 − ν²)) aus Elastizitätsmodul E und Querzahl ν",
+        "R_eff": "wirksamer Radius zweier gleicher Kugeln vom Durchmesser d, d/4",
+        "T_impact": "Dauer des Stosses durch die Reihe",
+        "tau_contact": "Dauer eines Kontakts",
+        "gap": "Luft zwischen zwei Kugeln",
+        "wheel_growth": "Wachstumsrate des Anstosses",
+        "wheel_leak": "Leckrate der Becher, 0,2 pro Sekunde",
+        "wheel_sigma": "Bremse gegen Trägheit und Lecks, ν/(K·I)",
+        "wheel_rho": "Hahn: Zufluss gegen Bremse und Lecks, π·g·r·q/(ν·K²)",
+        "wheel_b": "Lorenz' dritter Parameter; beim Wasserrad 1",
+        "wheel_rpm": "Drehzahl des Rads",
+        "wheel_rhoH": "Hahn, ab dem gleichmässiges Drehen nicht mehr stabil ist",
+        "wheel_volume": "Volumen einer kleinen Schachtel von Zuständen",
+        "wheel_ab": "wie das Wasser verteilt ist: seitlich und oben gegen unten",
+        "wheel_rate": "Drehrate des Rads",
+        "wheel_inflow": "Zufluss oben",
+        "wheel_nu": "Bremse der Achse",
+        "wheel_radius": "Radius des Rads",
+        "length": "Länge des Pendels, vom Aufhängepunkt bis zur Mitte der Kugel",
+        "cycle": "der Zyklus: die Zeit, bis alle wieder im Gleichtakt schwingen",
+        "swings": "Schwingungen des längsten Pendels im Zyklus",
+        "index": "die Nummer des Pendels, vom längsten an gezählt: 0, 1, 2, …",
+        "T0": "Periode der kleinsten Schwingung",
+        "theta_n": "Winkel des n-ten Pendels",
+        "sn": "Jacobis elliptische Funktion sn",
+        "omega0": "Kreisfrequenz der kleinsten Schwingung, √(g/L)",
+        "skew": "Versatz nach einem Zyklus, in Grad einer Schwingung",
+        "count": "Zahl der Pendel",
+        "miss": "wie weit der Wurf neben dem anderen Sitz ankommt, im Gegenuhrzeigersinn positiv",
+        "aim": "wie weit neben den anderen Sitz gezielt wird",
+        "lean": "Neigung der Bahn gegen den Durchmesser, von aussen gesehen",
+        "platform_rate": "Drehrate des Karussells",
+        "platform_radius": "Radius des Karussells",
+        "throw": "Tempo des Wurfs, gemessen auf dem Karussell",
+        "flight": "Flugzeit bis zum Rand",
+        "primed": "Beschleunigung, Geschwindigkeit und Ort, wie sie ein Mitfahrer misst",
+        "a_across": "Beschleunigung quer zum Wurf, wie sie ein Mitfahrer misst",
+        "n_up": "Senkrechte auf der Scheibe, nach oben",
+        "heading_rate": "wie schnell sich die Richtung des Balls dreht, von aussen gesehen",
+        "beta": "Streukoeffizient bei der Wellenlänge λ",
+        "lambda": "Wellenlänge",
+        "beta550": "Trübung der Röhre: der Streukoeffizient bei 550 nm",
+        "x_tube": "Ort entlang der Röhre, ab der Lampe",
+        "L_tube": "Länge der Röhre",
+        "air_mass": "Luftmasse: wie viel Luft das Sonnenlicht durchquert, gemessen an der Luft senkrecht",
+        "z_zenith": "Zenitwinkel der Sonne",
+        "h_sun": "Höhe der Sonne über dem Horizont",
+        "tau_air": "optische Dicke der Luft senkrecht, bei 550 nm 0,097",
+        "m3": "Luftmasse der Ozonschicht",
+        "R_earth": "Erdradius, 6371 km",
+        "H_ozone": "Höhe der Ozonschicht, 22 km",
+        "plate_lambda": "Frequenzparameter ωa²√(ρh/D)",
+        "plate_side": "Seitenlänge der Platte",
+        "plate_D": "Biegesteifigkeit der Platte",
+        "plate_rho": "Dichte des Stahls, 7850",
+        "plate_h": "Dicke der Platte",
+        "plate_E": "Elastizitätsmodul, 200 GPa",
+        "plate_nu": "Querdehnzahl, 0,3",
+        "plate_f12": "tiefster und zweiter angetriebener Ton",
+        "plate_Q": "Güte des Tons",
+        "plate_f1": "tiefster angetriebener Ton",
+        "plate_df": "Breite des Tons, zwischen den Punkten halber Energie",
+        "plate_zeta": "Dämpfungsgrad jeder Form, 0,002",
+        "plate_w0": "Schwingweite der Mitte auf dem Ton k",
+        "plate_phi0": "Ausschlag der Form k in der Mitte",
+        "plate_mu": "Masse der Form k, in Einheiten ρh·(a/2)²",
+        "plate_omega": "Kreisfrequenz des Tons k",
+        "plate_xi": "Ort auf der Platte, von −1 bis 1",
+        "h_start": "Starthöhe, über dem tiefsten Punkt",
+        "r_small": "Radius des kleinen Kreises: Fadenlänge weniger Tiefe des Stifts",
+        "phi_peg": "Winkel um den Stift, von unten gemessen",
+        "phi0_peg": "Ausschlag um den Stift",
+        "pull": "Zug des Fadens",
+        "depth": "Tiefe des Stifts unter der Aufhängung",
+        "plane_rate": "wie schnell sich die Schwingebene gegen den Boden dreht, im Uhrzeigersinn positiv",
+        "earth_rate": "Drehung der Erde gegenüber den Sternen",
+        "latitude": "geografische Breite, im Süden negativ",
+        "stellar_day": "eine Umdrehung der Erde gegenüber den Sternen",
+        "full_turn": "Zeit für eine ganze Runde der Schwingebene",
+        "foucault_length": "Länge des Pendels",
+        "drop": "Fallweg durch die Säule",
+        "vE": "Endgeschwindigkeit",
+        "cbar": "mittlere Bremskonstante: Bremskraft pro Geschwindigkeit",
+        "density": "Dichte",
+        "thickness": "Dicke der Platte",
+        "area": "Fläche der Platte",
+        "sigma": "elektrische Leitfähigkeit",
+        "B0": "Feld im Spalt, wo es am stärksten ist",
+        "sheet_share": "Anteil an der Bremse einer endlosen Platte",
+        "resistivity": "spezifischer Widerstand",
+        "field_k": "Wellenzahl des Felds entlang der Säule",
+        "tooth": "Höhe eines Zahns",
+        "field_period": "Periode des Felds: ein Nord- und ein Südmagnet",
+        "r_axle": "Radius der Achse",
+        "R_wheel": "Radius des Rads",
+        "L_band": "Länge der Bänder",
+        "T_pull": "Zug beider Bänder zusammen",
+        "omega_spin": "Drehrate des Rads",
+        "h_top": "höchster Punkt nach dem Ruck, über dem unteren Ende",
+        "dt_jerk": "Dauer des Rucks",
+        "s_band": "Steifigkeit beider Bänder zusammen",
+        "v_bottom": "Tempo des Rads, wenn die Bänder abgewickelt sind",
+        "F_band": "grösster Zug der Bänder",
+        "A_stretch": "Dehnung über die Lage hinaus, in der die Bänder das Gewicht tragen",
+        "arch_radius": "Radius der Mittellinie des Bogens",
+        "push": "Schub am Fuss, waagrecht",
+        "arch_weight": "Gewicht des ganzen Bogens",
+        "w_length": "Gewicht der Kette pro Meter",
+        "a_chain": "Parameter der Kettenlinie",
+        "half_span": "halbe Spannweite",
+        "rise": "Höhe des Bogens über seinen Füssen",
+        "stones": "Anzahl Steine",
+        "R_pm": "Radius des äusseren und des inneren Rands",
+        "arch_T0": "Zug der Kette im Scheitel, waagrecht",
+        "arch_density": "Dichte des Steins",
+        "arch_depth": "Tiefe des Bogens, quer zur Ansicht",
+        "arch_thickness": "Dicke der Steine",
+        "rod_beta": "erste Wurzel von cosh x·cos x = −1",
+        "rod_L": "Länge des Stabs",
+        "rod_EI": "Biegesteifigkeit des Stabs, E·πd⁴/64",
+        "rod_mu": "Masse des Stabs pro Meter",
+        "rod_load": "Gewicht gegen Steifigkeit, μgL³/(EI)",
+        "rod_qc": "Last, bei der der Stab knickt, 7,837",
+        "rod_B": "erste Nullstelle der Besselfunktion J₋₁/₃, 1,86635",
+        "rod_hc": "Länge, ab der der Stab unter seinem Gewicht knickt",
+        "rod_rho": "Dichte des Stahls, 7850",
+        "rod_A": "Querschnitt des Stabs",
+        "rod_w": "Schwingweite der Spitze gegen den Tisch",
+        "rod_Gamma": "Beteiligungsfaktor der ersten Schwingung, 1,566",
+        "rod_Omega": "Kreisfrequenz des Tischs",
+        "rod_Y": "Weg des Tischs zu jeder Seite, 1 mm",
+        "rod_omega": "Kreisfrequenz des Stabs",
+        "rod_zeta": "Dämpfungsgrad, 0,01",
+        "rod_phi": "Form der ersten Schwingung, 1 an der Spitze",
+        "rod_xi": "Ort entlang des Stabs, x/L",
+        "rod_tip": "Auslenkung der Spitze",
+        "rod_X": "stetige Schwingweite im Takt",
+        "rod_omega1": "Kreisfrequenz der abklingenden Schwingung",
+        "T_lap": "Zeit für eine Runde",
+        "r_well": "Abstand der Kugel von der Mitte",
+        "GM": "Stärke der Anziehung eines Sterns: Gravitationskonstante mal Masse",
+        "k_funnel": "Form des Trichters: Die Wand liegt bei z = −k/r",
+        "phidot": "Winkelgeschwindigkeit um die Mitte",
+        "r0_well": "Abstand beim Anstoss",
+        "v0_push": "Tempo des Anstosses",
+        "P_loss": "Verlust pro Sekunde",
+        "C_rr": "Rollwiderstand: Anteil des Drucks der Wand, der bremst",
+        "alpha_wall": "Neigung der Wand"
+      },
+      "cases": {
+        "sphere": {
+          "small_swing": {
+            "title": "Kleine Schwingung am Boden",
+            "setting": "Hohlkugel Ø 40 cm, Vollkugel Ø 4 cm, ohne Rollwiderstand und ohne Hand: um 2° ausgelenkt und losgelassen.",
+            "reads": "Rollend schwingt die Kugel wie ein Pendel der Länge ρ unter 5/7 der Schwerkraft; die anderen 2/7 drehen sie.",
+            "why": "Prüft das Rollen: Gleitend schwänge dieselbe Kugel mit 1,17 Hz. Die Abweichung von 0,008 % ist die des Ausschlags von 2°, denn die Formel gilt für den kleinsten."
+          },
+          "hollow_ball": {
+            "title": "Die Hohlkugel",
+            "setting": "Wie oben, aber mit einer dünnwandigen Hohlkugel als Kugel.",
+            "reads": "Dieselbe Formel mit k = 2/3: Eine Hohlkugel hat ihre Masse aussen und braucht mehr zum Drehen.",
+            "why": "Prüft, dass das Trägheitsmoment eingeht und nicht ein fester Faktor 5/7.",
+            "step": "Die erste Quelle gibt die Formel für jedes k = I/(m r²); eingesetzt ist k = 2/3 der Hohlkugel aus der zweiten."
+          },
+          "wide_swing": {
+            "title": "Weite Schwingung bis zur Waagrechten",
+            "setting": "Vollkugel, ohne Rollwiderstand, um 90° ausgelenkt und losgelassen.",
+            "reads": "Weit ausgelenkt schwingt ein Pendel langsamer, um den Faktor π/(2K) mit dem elliptischen Integral K.",
+            "why": "Prüft die Bewegungsgleichung weit weg von kleinen Winkeln: 0,84 Hz statt 0,99 Hz. K ist hier als Integral summiert, nicht wie in der Engine über das arithmetisch-geometrische Mittel.",
+            "step": "Die erste Quelle zeigt, dass die rollende Kugel genau die Pendelgleichung mit g/(1+k) erfüllt; die zweite gibt deren Periode für jeden Ausschlag."
+          },
+          "circle_any_size": {
+            "title": "Kreisbahn, gleich tief in jeder Kugel",
+            "setting": "Hohlkugel Ø 1 m statt 40 cm, Vollkugel Ø 4 cm, ohne Rollwiderstand: auf der Kreisbahn für 2 Hz gestartet und 10 s laufen gelassen.",
+            "reads": "Ein Kreis mit der Rate Ω liegt g′/Ω² unter dem Äquator, gleich wie gross die Kugel ist.",
+            "why": "Prüft die Bewegung im Raum, nicht nur in einer Ebene: Nach 10 s liegt die Kugel noch 4,4358 cm tief, wie in der 40-cm-Kugel.",
+            "step": "Für die rollende Kugel ist das ein Kegelpendel unter g′ = g/(1+k). Belegt ist, dass der Drall um die Normale erhalten bleibt (Routh). Dass die Kugelmitte dann wie ein Kugelpendel unter g′ läuft, folgt daraus in einem Schritt, den keine der Quellen ausschreibt."
+          },
+          "wobble": {
+            "title": "Das Wackeln einer schiefen Bahn",
+            "setting": "Vollkugel auf der Kreisbahn bei 60°, aber 0,3° zu hoch gestartet.",
+            "reads": "Eine leicht gestörte Kreisbahn wippt mit Ω·√(1 + 3cos²θ) auf und ab.",
+            "why": "Prüft, wie stabil die Kreisbahn ist; die Seite nennt das «noch nicht in der Ebene». 0,3° sind nicht unendlich klein, daher 0,02 % Abweichung.",
+            "step": "Die Quelle rechnet das Kugelpendel, mit dem Winkel ab der Senkrechten nach unten wie hier; für die rollende Kugel unter g′ = g/(1+k), wie bei der Kreisbahn."
+          },
+          "energy": {
+            "title": "Die Energie bleibt erhalten",
+            "setting": "Vollkugel bei 60° mit 0,3 m/s seitwärts gestartet, ohne Rollwiderstand und ohne Hand, 20 s lang.",
+            "reads": "Ohne Verluste bleibt die Summe aus Bewegung, Drehung und Höhe gleich; die Drehung trägt k-mal so viel wie die Bewegung.",
+            "why": "Prüft die Zeitschleife selbst: Nach 20 000 Schritten ist die Energie auf 10⁻¹¹ dieselbe."
+          },
+          "grip": {
+            "title": "Wie viel Haftung das Rollen braucht",
+            "setting": "Vollkugel um 60° ausgelenkt und losgelassen; gelesen am Umkehrpunkt.",
+            "reads": "Rollen ohne Rutschen braucht eine Haftreibung von mindestens tan θ/(1 + m r²/I), für die Vollkugel (2/7)·tan θ.",
+            "why": "Prüft die Reibung, die die Seite angibt: 0,49 bei 60°.",
+            "step": "Die Quelle rechnet die schiefe Ebene. Am Umkehrpunkt steht die Kugel still und liegt wie auf einer Ebene mit derselben Neigung."
+          },
+          "leaves_wall": {
+            "title": "Wo die Kugel von der Wand fällt",
+            "setting": "Vollkugel unten so schnell angestossen, dass sie ohne Wand bis 120° käme.",
+            "reads": "Die Wand drückt mit g·cos θ + 2g′(cos θ − cos θ₀). Wo das null wird, fällt die Kugel: bei cos θ = 2cos θ₀/(3 + k).",
+            "why": "Prüft die Kraft der Wand, an der die Seite merkt, dass die Kugel fällt: bei 107,1°.",
+            "step": "Die Quelle gibt die Fadenkraft des einfachen Pendels, mg(3cos θ − 2cos θ_m). Für die rollende Kugel trägt der Energiesatz den Faktor 1 + k; die Kraft quer zur Wand bleibt g·cos θ + v²/ρ."
+          }
+        },
+        "coil": {
+          "rl_rise": {
+            "title": "Der Strom steigt an",
+            "setting": "Plus gehalten, der Wagen oben an einer Rampe, weit weg von der Spule; gelesen nach vier Zeitkonstanten.",
+            "reads": "An einer Spannung steigt der Strom in einer Spule nur langsam, mit der Zeitkonstante τ = L/R.",
+            "why": "Prüft den Stromkreis der Seite: 94 mA nach 5 ms, 96 mA am Ende."
+          },
+          "wheeler": {
+            "title": "Die Induktivität der Spule",
+            "setting": "1600 Windungen, im Mittel Ø 60 mm, 50 mm lang.",
+            "reads": "Wheelers Formel von 1928, in Zoll und Mikrohenry, auf 1 % genau.",
+            "why": "Prüft die Induktivität: Die Seite rechnet 118,1 mH mit der SI-Form derselben Formel, Wheeler gedruckt gibt 117,8 mH. Die 0,28 % liegen in seinem eigenen Prozent, denn seine 9 und 10 sind gerundet."
+          },
+          "flux_centre": {
+            "title": "Der Fluss des Magneten in der Spule",
+            "setting": "Der Magnet, Ø 20 × 10 mm und 1,3 T, mitten in der Spule.",
+            "reads": "Jede Windung umfasst einen Teil des Flusses des kleinen Magneten; über alle 1600 Windungen einzeln summiert.",
+            "why": "Prüft die Kurve Ψ(x), aus der Spannung und Kraft kommen: Die Summe über die Windungen trifft die geschlossene Formel der Seite auf 10⁻⁷.",
+            "step": "Die erste Quelle gibt das Feld einer Leiterschleife auf ihrer Achse, die zweite, dass die Gegeninduktivität in beide Richtungen gleich ist: Der Fluss des Magneten durch die Schleife ist sein Moment mal dieses Feld pro Ampere. Die dritte schreibt dasselbe für eine Spule."
+          },
+          "charge": {
+            "title": "Die Ladung, gleich bei jedem Tempo",
+            "setting": "Ohne Tasten und ohne Rollwiderstand, von halber Rampenhöhe losgelassen; gezählt bis zur Mitte der Spule.",
+            "reads": "Durch das Messgerät fliesst die Flussänderung geteilt durch den Widerstand, gleich wie schnell der Wagen fährt.",
+            "why": "Prüft das Induktionsgesetz an der Zeitschleife: 888 µC. Die 0,1 % Abweichung: Die Spule hält in der Mitte noch L·i/R zurück, und die Seite zeichnet 200-mal pro Sekunde.",
+            "step": "Die Quelle gibt die Ladung einer Suchspule ohne Induktivität. Mit ihr gilt dasselbe, sobald der Strom am Anfang und am Ende null ist; in der Mitte ist er es fast."
+          },
+          "period": {
+            "title": "Ohne Spule: eine Schaukel auf Bögen",
+            "setting": "Spule offen, ohne Rollwiderstand, von halber Rampenhöhe losgelassen; die Zeit für hin und zurück.",
+            "reads": "Auf jedem Bogen schwingt der Wagen eine halbe Periode wie ein Pendel der Länge R; dazwischen quert er das flache Stück zweimal mit der Geschwindigkeit aus dem Fall.",
+            "why": "Prüft die Bahn und die Zeitschleife: 2,71554 s auf fünf Stellen.",
+            "step": "Die erste Quelle gibt die Bewegung auf einem Kreisbogen, mit β = 0 für einen Körper, der gleitet statt rollt; die zweite deren Periode für jeden Ausschlag."
+          },
+          "brake": {
+            "title": "Die Bremse der Spule",
+            "setting": "Ein hundertmal schwererer Wagen, 15 kg, damit er kaum langsamer wird; Spule geschlossen, ohne Rollwiderstand, von halber Rampenhöhe losgelassen. Gemessen bis zur ersten Umkehr rechts.",
+            "reads": "Die induzierte Spannung k·v treibt einen Strom, der mit k²v²/R bremst; über einen Durchgang (1/R)·∫k²v dx, mit der Geschwindigkeit v aus dem Fall allein.",
+            "why": "Prüft die Bremse nach Lenz, die den rollenden Wagen früher stehen lässt: 1,10 mJ auf dem Weg durch die Spule, gemessen als die Höhe, die dem schweren Wagen auf der anderen Seite fehlt.",
+            "step": "Die Quellen geben die Bremskraft eines Magneten in einer Spule und die Leistung eines bewegten Leiters; über den Weg summiert, mit der Geschwindigkeit aus dem Energiesatz, ergibt das den Verlust eines Durchgangs."
+          },
+          "energy_account": {
+            "title": "Die Energiebilanz geht auf",
+            "setting": "Zehn Sekunden mit Tasten nach der Regel: Plus beim Hineinfahren, Minus beim Hinausfahren.",
+            "reads": "Was die Batterie gibt, wird Wärme im Draht, Verlust beim Rollen, Funken beim Loslassen, Stoss am Ende, Bewegung und Höhe des Wagens und Energie im Feld der Spule.",
+            "why": "Prüft alles zusammen: 953 mJ aus der Batterie, bis auf 4 · 10⁻⁷ wiedergefunden.",
+            "step": "Die Quellen geben die Energie im Feld einer Spule und den Strom im Stromkreis; die Bilanz zählt die Posten nur zusammen."
+          }
+        },
+        "chair": {
+          "one_picture": {
+            "title": "Durch das Loch: ein Bild",
+            "setting": "Blick genau durch das Guckloch, ohne Drehung und ohne Neigung.",
+            "reads": "Ein Punkt (X, Y, Z) landet im Bild bei (f·X/Z, f·Y/Z); alle Punkte auf einer Sehlinie landen am selben Ort.",
+            "why": "Prüft, dass verzogener Stuhl und verstreute Stäbe Ecke für Ecke dasselbe Bild geben wie der Stuhl: Die Bilder liegen 10⁻¹⁶ auseinander, also gar nicht."
+          },
+          "straight_rods": {
+            "title": "Verzogen, aber gerade",
+            "setting": "Der verzogene Stuhl: je ein Punkt bei ¼, ½ und ¾ jedes Stabs.",
+            "reads": "Eine projektive Abbildung erhält gerade Linien: Der verzogene Stuhl hat gerade Stäbe, die sich an den Ecken treffen.",
+            "why": "Prüft die Verzerrung der Seite: Die Punkte liegen 10⁻¹⁶ m neben dem Stab, also auf ihm."
+          },
+          "parallax": {
+            "title": "Wie weit das Auge wandern darf",
+            "setting": "Die verstreuten Stäbe; das Auge seitwärts oder nach oben geschoben, bis die erste Ecke eine Bogenminute aufgeht.",
+            "reads": "Zwei Punkte auf einer Sehlinie in d₁ und d₂ gehen um δ·sin φ·|1/d₁ − 1/d₂| auseinander, wenn das Auge um δ wandert.",
+            "why": "Prüft die 0,16 mm, die die Seite nennt: weniger als das Guckloch. Die Seite sucht sie durch Halbieren, hier steht die Formel; beide treffen sich auf 4 · 10⁻⁵.",
+            "step": "Die Quelle gibt, wie schnell ein Punkt quer zur Sehlinie wandert, V·sin φ/d. Für zwei Punkte die Differenz, für einen kleinen Weg δ statt V·t."
+          },
+          "second_eye": {
+            "title": "Was das zweite Auge sieht",
+            "setting": "Die verstreuten Stäbe, das zweite Auge 65 mm neben dem ersten.",
+            "reads": "Für kleine Winkel gehen die Ecken um b·sin φ·|1/d₁ − 1/d₂| auseinander.",
+            "why": "Prüft die 6,6° der Seite, der Grund für das einzelne Guckloch. Die Formel liegt 1,7 % zu hoch, weil 65 mm bei Stäben einen halben Meter weit kein kleiner Schritt mehr sind; die Seite rechnet den Winkel genau.",
+            "step": "Die Quelle gibt die Disparität für kleine Winkel; die 65 mm sind der Augenabstand Erwachsener aus der zweiten (im Mittel um 63 mm)."
+          }
+        },
+        "cradle": {
+          "one_out": {
+            "title": "Eine hinein, eine hinaus",
+            "setting": "Fünf Kugeln mit 0,1 mm Luft, ohne Verlust (e = 1), eine um 30° angehoben und losgelassen; gelesen nach dem ersten Stoss.",
+            "reads": "Unten ist die erste Kugel so schnell wie ein Pendel, das aus 30° fällt. Mit Luft dazwischen trifft jede Kugel ihre Nachbarin für sich; gleiche Kugeln tauschen dabei ihr Tempo, bis es in der letzten ist.",
+            "why": "Prüft das Pendel und den Stoss zugleich: Die letzte Kugel fliegt mit 0,63 m/s davon, so schnell, wie die erste ankam. Die Abweichung von 3 · 10⁻⁶: Während des Stosses zieht die Schwerkraft weiter an den Kugeln, die den tiefsten Punkt schon verlassen.",
+            "step": "Die erste Quelle gibt das Tempo eines Pendels, das aus θ₀ bis zum tiefsten Punkt fällt. Nach der zweiten tauschen zwei gleiche Kugeln ihr Tempo; mit Luft dazwischen geschieht das viermal nacheinander."
+          },
+          "momentum": {
+            "title": "Der Impuls bleibt, auch mit Verlust",
+            "setting": "Das Exponat, wie es hängt: fünf Kugeln, die sich berühren, e = 0,95, eine um 30° angehoben und losgelassen; gelesen nach dem ersten Stoss.",
+            "reads": "Was eine Kugel der anderen gibt, verliert sie selbst. Die Summe der Tempi nach dem Stoss ist das Tempo, mit dem die erste ankam, auch wenn der Stoss Energie verliert und nicht alles in die letzte Kugel geht.",
+            "why": "Prüft, dass jede Kraft zwischen zwei Kugeln auf beide gleich stark wirkt, die Dämpfung eingeschlossen. Die Abweichung von 6 · 10⁻⁶ kommt von der Schwerkraft, die während des Stosses an den Kugeln zieht, die sich vom tiefsten Punkt entfernen.",
+            "step": "Unten heben sich Faden und Gewicht fast auf: Während des kurzen Stosses ist die Reihe fast ein abgeschlossenes System. Bei gleichen Massen wird aus der Summe der Impulse die Summe der Tempi; das Tempo der ersten gibt die zweite Quelle."
+          },
+          "energy": {
+            "title": "Ohne Verlust bleibt die Energie",
+            "setting": "Fünf Kugeln, die sich berühren, ohne Verlust (e = 1), eine um 30° angehoben und losgelassen; gelesen nach 2 s.",
+            "reads": "Jede Kugel trägt Bewegungs- und Lageenergie; ein Kontakt nach Hertz speichert, was er nimmt, und gibt es ganz zurück. Sobald keiner mehr drückt, ist die Summe wieder die vom Anfang: die Höhe, aus der die erste fiel.",
+            "why": "Prüft die Zeitschleife der Seite, eine Millisekunde pro Schritt und eine Mikrosekunde, solange sich zwei Kugeln berühren: Nach 2 s ist die Energie auf 10⁻⁵ dieselbe. Was abweicht, verfehlen die Mikrosekunden-Schritte dort, wo sich ein Kontakt schliesst.",
+            "step": "Die erste Quelle gibt die Energie eines Pendels: ½v² + gL(1 − cos θ) bleibt gleich. Die zweite gibt dem Kontakt nach Hertz eine elastische Energie, die nur von der Eindrückung abhängt; ohne Dämpfung gibt er also alles zurück, was er nimmt. Summiert über die Kugeln, sobald keiner mehr drückt."
+          },
+          "peak": {
+            "title": "Die grösste Kraft nach Hertz",
+            "setting": "Fünf Kugeln mit 0,1 mm Luft, ohne Verlust (e = 1), eine um 30° angehoben und losgelassen.",
+            "reads": "Zwei Kugeln drücken mit einer Kraft aufeinander, die mit der Eindrückung hoch 3/2 wächst. Am tiefsten ist die Eindrückung, wenn die ganze Bewegungsenergie des Paars in ihr steckt; dort ist die Kraft am grössten.",
+            "why": "Prüft die Steifigkeit nach Hertz aus Elastizitätsmodul, Querzahl und Radius: 879 N bei 18 µm Eindrückung. Die Seite liest die Kraft jede Mikrosekunde, also knapp neben ihrem Höhepunkt; daher die 4 · 10⁻⁵.",
+            "step": "Die erste Quelle gibt die Kraft für jede Eindrückung, die zweite die tiefste Eindrückung beim Stoss zweier Kugeln; eingesetzt ist diese in jene. Mit Luft trifft jedes Paar für sich, und ohne Verlust jedes mit demselben Tempo."
+          },
+          "duration": {
+            "title": "Wie lange der Stoss dauert",
+            "setting": "Fünf Kugeln mit 0,1 mm Luft, ohne Verlust (e = 1), eine um 30° angehoben und losgelassen.",
+            "reads": "Mit Luft treffen sich die vier Paare nacheinander. Jeder Kontakt dauert τ; dazwischen fliegt die gestossene Kugel durch die Luft, die ihr bleibt, zur nächsten.",
+            "why": "Prüft die Dauer, die die Seite angibt, von der ersten Berührung, bis sich der letzte Kontakt öffnet: von Hand 689 µs, davon 84 µs je Kontakt; die Seite zählt in ganzen Mikrosekunden und kommt auf 688.",
+            "step": "Die erste Quelle gibt die Dauer eines Kontakts. Der Schwerpunkt des Paars läuft mit v/2, also ist die gestossene Kugel am Ende ihres Kontakts v·τ/2 weiter und fliegt die übrige Luft s − v·τ/2 mit dem Tempo v, das sie nach der zweiten Quelle übernommen hat. Von Berührung zu Berührung vergehen so τ/2 + s/v, dreimal; dazu kommt der letzte Kontakt."
+          }
+        },
+        "waterwheel": {
+          "start": {
+            "title": "Der erste Anstoss wächst",
+            "setting": "Hahn ρ = 28, Bremse σ = 10, wie die Seite öffnet: das Rad aus dem Stand, oben voll, um einen Hauch angestossen; gemessen zwischen 1,5 s und 2,5 s.",
+            "reads": "Aus dem Stand wächst ein kleiner Anstoss mit dem grösseren Eigenwert der Gleichungen beim stehenden Rad, (−1 − σ + √((1 − σ)² + 4ρσ))/2 pro Leckzeit 1/K.",
+            "why": "Prüft Hahn und Bremse in der Zeitschleife, solange das Rad noch fast steht: 2,37 pro Sekunde, der Anstoss verdoppelt sich alle 0,29 s. Die Abweichung von 3 · 10⁻⁵ stammt zum grössten Teil vom zweiten, abklingenden Anteil, der nach 1,5 s noch nicht ganz verschwunden ist."
+          },
+          "steady": {
+            "title": "Wenig Wasser: gleichmässiges Drehen",
+            "setting": "Hahn ρ = 5, Bremse σ = 10; das Rad aus dem Stand, abgelesen am Ende der 200 s, die die Seite zeigt.",
+            "reads": "Über ρ = 1 kann das Rad gleichmässig drehen, mit x = √(b(ρ − 1)) in Einheiten der Lecks; beim Wasserrad ist b = 1.",
+            "why": "Prüft die nichtlinearen Glieder und das b des Rads: 3,82 U/min. Mit Lorenz' b = 8/3 für die Luft wären es 6,24 U/min.",
+            "step": "Die erste Quelle gibt das gleichmässige Drehen von Lorenz' Gleichungen für jedes b; dass beim Wasserrad b = 1 ist, steht in der zweiten. Zurück zum Rad: Drehrate Ω = K·x, eine Umdrehung sind 2π."
+          },
+          "threshold": {
+            "title": "Die Schwelle zum Chaos",
+            "setting": "Bremse σ = 15 statt 10; abgelesen an der Kachel «Chaos ab Hahn».",
+            "reads": "Oberhalb von ρ_H = σ(σ + b + 3)/(σ − b − 1) ist auch das gleichmässige Drehen nicht mehr stabil.",
+            "why": "Prüft die Schwelle, die die Seite nennt, mit dem b des Rads: 21,9 bei σ = 15. Mit Lorenz' b = 8/3 stünde dort 27,4.",
+            "step": "Die ersten beiden Quellen geben die Schwelle für jedes b; eingesetzt ist b = 1 des Wasserrads aus der dritten."
+          },
+          "volume": {
+            "title": "Ein Volumen von Zuständen schrumpft",
+            "setting": "Hahn ρ = 28, Bremse σ = 10: eine winzige Schachtel von Zuständen, 2 · 10⁻⁵ breit, um den Zustand des Rads nach 20 s, 2,5 s weitergerechnet wie auf der Seite.",
+            "reads": "Lorenz' Gleichungen ziehen jedes Volumen von Zuständen gleich schnell zusammen, mit e^(−(σ + 1 + b)·K·t), gleich wo das Rad gerade ist.",
+            "why": "Prüft die drei Dämpfungen auf einmal, Bremse, Lecks und das b des Rads, mitten im Chaos: Nach 2,5 s bleiben 0,248 % des Volumens. Die Abweichung von 2 · 10⁻⁵ ist der Fehler des Runge-Kutta-Verfahrens über diese 50 Schritte.",
+            "step": "Die Quellen geben das Schrumpfen für jedes b, in Lorenz' Zeit τ; eingesetzt sind b = 1 des Wasserrads aus der dritten und τ = K·t."
+          },
+          "wheel": {
+            "title": "Die Gleichungen des Rads selbst",
+            "setting": "Hahn ρ = 28, Bremse σ = 10, wie die Seite öffnet; abgelesen nach 12 s, nach den ersten beiden Umkehrungen.",
+            "reads": "Die Verteilung des Wassers dreht sich mit dem Rad, oben läuft Wasser zu, überall leckt es heraus; die Schwerkraft dreht das Rad, die Achse bremst. Hier in Sekunden gerechnet, für ein Rad mit 0,5 m Radius und einer Bremse von 1 N·m·s.",
+            "why": "Prüft, dass Lorenz' Gleichungen mit b = 1 das Rad sind, samt der Umrechnung in Umdrehungen: 19,04 U/min nach 12 s. Jeder andere Radius und jede andere Bremse mit demselben σ und ρ gibt dieselbe Zahl.",
+            "step": "Die Quelle schreibt die Bremse als κ + Q_tot·R² und die Schwerkraft am geneigten Rad als g·sin α; hier heissen sie ν und g. Trägheit und Zufluss folgen aus σ = ν/(K·I) und ρ = π·g·r·q/(ν·K²)."
+          }
+        },
+        "wave": {
+          "textbook_lengths": {
+            "title": "Die Längen nach der Lehrbuchformel",
+            "setting": "Fünfzehn Pendel, Zyklus 60 s, das längste 51-mal darin; abgestimmt auf 0°, also mit der Formel für kleine Ausschläge.",
+            "reads": "Ein Pendel, das im Zyklus Γ genau (N + n)-mal schwingt, hat die Periode Γ/(N + n); aus T = 2π√(L/g) folgt seine Länge.",
+            "why": "Prüft die Abstimmung der Reihe: Das kürzeste Pendel schwingt 65-mal in 60 s und ist 21,1659 cm lang. Eine falsch gezählte Nummer oder ein anderes g fiele hier auf."
+          },
+          "tuned_lengths": {
+            "title": "Abgestimmt auf 15°",
+            "setting": "Die Reihe der Seite: fünfzehn Pendel, 60 s, das längste 51-mal, abgestimmt auf 15°.",
+            "reads": "Ein Ausschlag von 15° dauert um den Faktor 2K/π länger als ein kleiner. Damit er trotzdem Γ/(N + n) dauert, ist das Pendel um das Quadrat dieses Faktors kürzer.",
+            "why": "Prüft, dass die Seite mit der genauen Periode abstimmt und nicht mit der Lehrbuchformel: Das längste Pendel ist 34,0875 cm lang. K ist hier als Integral summiert, nicht wie in der Engine über das arithmetisch-geometrische Mittel.",
+            "step": "Die erste Quelle gibt die Länge aus der Periode kleiner Ausschläge, die zweite die Periode für jeden Ausschlag: 4K, in Einheiten von √(L/g); die dritte definiert K als Integral. Als Periode kleiner Ausschläge ist darum Γ/(N + n)·π/(2K) einzusetzen."
+          },
+          "together": {
+            "title": "Nach einem Zyklus wieder beisammen",
+            "setting": "Die Reihe der Seite, bei 15° losgelassen; die Uhr auf 60 s, einen ganzen Zyklus.",
+            "reads": "Jedes Pendel hat im Zyklus eine ganze Zahl von Schwingungen hinter sich und steht wieder dort, wo es losgelassen wurde.",
+            "why": "Prüft die Uhr der Seite über eine ganze Minute: Alle fünfzehn stehen wieder bei 15°, keines mehr als 10⁻¹²° daneben. Die Seite rechnet jeden Zeitpunkt direkt aus, ohne Schritte; darum ist die sechzigste Sekunde so genau wie die erste."
+          },
+          "third": {
+            "title": "Nach einem Drittel des Zyklus",
+            "setting": "Die Reihe der Seite, bei 15° losgelassen; die Uhr auf 20 s, ein Drittel des Zyklus. Gelesen am zweiten Pendel, das im Zyklus 52-mal schwingt.",
+            "reads": "Das zweite Pendel hat 17⅓ Schwingungen hinter sich. Die genaue Lösung der Pendelgleichung, mit Jacobis Funktion sn, sagt, wo es ein Drittel einer Schwingung nach dem Loslassen steht.",
+            "why": "Prüft die Form der Schwingung zwischen den Umkehrpunkten, nicht nur ihre Dauer: −7,50807°, etwas weiter draussen als die Hälfte von 15°, die eine Kosinuskurve gäbe. sn ist hier aus seinem Integral gesucht, nicht wie in der Engine über das arithmetisch-geometrische Mittel.",
+            "step": "Die erste Quelle gibt die Lösung in einer Zeit, die in Einheiten von √(L/g) gemessen ist; eine Schwingung dauert dort 4K. Nach 17⅓ Schwingungen ist das Argument 17⅓·4K + K = 35·2K + K/3, nach der zweiten Quelle also sn = −sin φ mit F(φ) = K/3; die dritte gibt F als Integral."
+          },
+          "textbook_skew": {
+            "title": "Mit der Lehrbuchformel abgestimmt",
+            "setting": "Fünfzehn Pendel, 60 s, das längste 51-mal, abgestimmt auf 0° mit der Lehrbuchformel, aber bei 15° losgelassen.",
+            "reads": "Bei 15° dauert jede Schwingung um den Faktor 2K/π länger. Das n-te Pendel schafft im Zyklus nur (N + n)·π/(2K) Schwingungen; das kürzeste, mit den meisten, bleibt am weitesten zurück.",
+            "why": "Prüft den Versatz, den die Seite als Trick zeigt: Die Reihe kommt um 21,5821° schief zurück, so weit liegt das kürzeste Pendel hinter dem längsten, in Grad einer Schwingung.",
+            "step": "Die erste Quelle gibt die Abstimmung, die zweite die Periode bei 15°, die dritte K. Im Zyklus fehlen dem n-ten Pendel (N + n)(1 − π/(2K)) Schwingungen zu je 360°; das kürzeste hat c − 1 = 14 Schwingungen mehr als das längste."
+          }
+        },
+        "coriolis": {
+          "at_rest": {
+            "title": "Ohne Drehung: der Wurf als Sehne",
+            "setting": "Das Karussell steht still (0 U/min); der Puck mit 3 m/s, 30° neben den anderen Sitz gezielt.",
+            "reads": "Der Puck fliegt geradeaus, vom eigenen Sitz über eine Sehne zum Rand. Der Winkel am Rand zwischen Sehne und Durchmesser ist halb so gross wie der Winkel in der Mitte über demselben Bogen: Der Puck kommt 2 · 30° = 60° neben dem anderen Sitz an.",
+            "why": "Prüft, wohin das Zielen dreht und wo die Seite den Rand findet: Ohne Drehung bleibt nur Geometrie. Die Seite findet den Rand durch sechzigfaches Halbieren der Flugzeit; beide treffen sich auf 10⁻⁹.",
+            "step": "Ohne Kraft fliegt der Puck geradeaus (erste Quelle). Sein Weg und die Linie zum anderen Sitz gehen beide vom eigenen Sitz am Rand aus; nach Euklid ist der Winkel in der Mitte, zwischen dem anderen Sitz und dem Ende des Wegs, doppelt so gross (zweite Quelle)."
+          },
+          "straight_puck": {
+            "title": "Der gerade Wurf verfehlt um 86°",
+            "setting": "6 U/min, Radius 2 m; der Puck mit 3 m/s genau auf den anderen Sitz gezielt.",
+            "reads": "Von aussen fliegt der Puck geradeaus, mit dem Wurf u und quer dazu dem Tempo ΩR, mit dem der Werfer mitfährt. Seine Sehne ist um δ gegen den Durchmesser geneigt und endet 2δ vor dem anderen Sitz; der ist unterdessen um Ωt weitergefahren.",
+            "why": "Prüft beides, was den Wurf ablenkt: das Mitfahren des Werfers, δ = 22,7°, und das Weiterdrehen in den 1,13 s des Flugs. Zusammen 86,3° im Uhrzeigersinn, so wie es die Mitfahrer sehen.",
+            "step": "Die erste Quelle gibt die Geschwindigkeit von aussen, v₀ = v + Ω × r: den Wurf und quer dazu ΩR, also tan δ = ΩR/u. Nach Euklid endet die Sehne 2δ vor dem anderen Sitz und ist 2R·cos δ lang, denn im Halbkreis steht ein rechter Winkel; mit dem Tempo √(u² + Ω²R²) dauert der Flug t. Der Mitfahrer dreht alles um −Ωt zurück (vierte Quelle)."
+          },
+          "coriolis_push": {
+            "title": "Die Corioliskraft beim Loslassen",
+            "setting": "6 U/min, Radius 2 m; der Puck mit 3 m/s gerade auf den anderen Sitz, gelesen im Moment des Wurfs, mitfahrend.",
+            "reads": "Wer mitfährt, sieht den Puck quer zum Wurf beschleunigt, mit 2Ωu: die Corioliskraft pro Kilogramm. Die Fliehkraft zeigt beim Wurf längs der Wurflinie nach aussen und trägt quer nichts bei.",
+            "why": "Prüft das Zurückdrehen in die Sicht der Mitfahrer: 3,77 m/s² nach rechts, wie es eine Drehung im Gegenuhrzeigersinn verlangt. Gelesen an der Bahn der Seite als zweite Ableitung über drei Schritte von 1 ms; das Verfahren liegt 7 · 10⁻⁷ daneben.",
+            "step": "Die Quelle gibt die Bewegungsgleichung im gleichförmig drehenden System; ohne Kraft ist U = 0. Im Moment des Wurfs ist v′ der Wurf, senkrecht zu Ω, und r′ der Sitz auf der Wurflinie: Quer zu ihr bleibt allein 2Ωu."
+          },
+          "ball_turn": {
+            "title": "Der gerollte Ball dreht mit 2/7",
+            "setting": "6 U/min, Radius 2 m; der rollende Ball mit 3 m/s gerade auf den anderen Sitz, von aussen gesehen.",
+            "reads": "Rollend muss der Ball mit der Scheibe unter ihm Schritt halten. Die Reibung dreht seine Geschwindigkeit dabei stetig, mit Ω/(1 + m r²/I), bei einer vollen Kugel 2/7 der Drehrate: Von aussen fährt er einen Kreis.",
+            "why": "Prüft den Faktor des Rollens: 10,29° pro Sekunde statt der 36° des Karussells. Gelesen an der Richtung des ersten und des letzten Stücks der gezeichneten Bahn; bei einem Kreis zeigt jede Sehne genau in die Richtung, die der Ball in der Mitte ihres Bogens hat."
+          }
+        },
+        "sky": {
+          "rayleigh": {
+            "title": "Blau streut 4,4-mal so stark wie Rot",
+            "setting": "Die Röhre, wie sie ist: 1 m lang, Trübung 1,5 pro Meter.",
+            "reads": "Teilchen, die viel kleiner sind als die Wellenlänge, streuen umgekehrt proportional zur vierten Potenz der Wellenlänge: Blau bei 450 nm stärker als Rot bei 650 nm.",
+            "why": "Prüft die vierte Potenz, aus der alle Farben der Röhre kommen: 4,353-mal so stark."
+          },
+          "light_kept": {
+            "title": "Kein Licht geht verloren",
+            "setting": "Die Röhre, wie sie ist: 1 m lang, Trübung 1,5 pro Meter; blaues Licht, 450 nm.",
+            "reads": "Was auf einem Stück der Röhre fehlt, wird dort zur Seite gestreut: β mal das Licht, das noch da ist. Was entlang der ganzen Röhre zur Seite geht, und was am Ende hinauskommt, ergeben zusammen alles Licht der Lampe.",
+            "why": "Prüft, dass das Licht an der Seite und das am Ende zusammenpassen: Die Seite mit Simpsons Regel summiert und das Ende dazu, fehlen 4 · 10⁻¹⁴, also nichts.",
+            "step": "Die Quelle gibt den Verlust einer dünnen Schicht, μ·Φ·dz, und daraus e^(−μd). In der Röhre wird nichts verschluckt, also ist der Verlust jeder Schicht das, was sie zur Seite streut. Die Seite zieht davon noch ab, was das gestreute Licht auf dem Weg zur Wand verliert, e^(−βa); das ist hier wieder dazugezählt."
+          },
+          "high_sun": {
+            "title": "Hohe Sonne, flache Luft",
+            "setting": "Die Sonne 60° über dem Horizont.",
+            "reads": "Steht die Sonne hoch, spielt die Krümmung der Erde keine Rolle: Das Licht durchquert die Luft schräg, 1/sin h mal so viel wie senkrecht.",
+            "why": "Prüft die Luftmasse der Seite, nach Kasten und Young: 1,1540 statt 1,1547. Ihre Formel rechnet mit der gekrümmten Luft und der Brechung des Lichts und liegt darum 6 · 10⁻⁴ tiefer; ein Fehler in Winkel oder Einheit fiele hier weit heraus."
+          },
+          "sky_noon": {
+            "title": "Der Himmel über der Mittagssonne",
+            "setting": "Die Sonne senkrecht über uns, 90°, ohne Ozonschicht; grünes Licht, 550 nm.",
+            "reads": "Der Himmel senkrecht über uns ist Sonnenlicht, das auf dem Weg nach unten einmal gestreut wurde: in jeder Höhe gestreut und auf dem Rest des Wegs geschwächt. Steht die Sonne selbst senkrecht, ist das τ·e^(−τ).",
+            "why": "Prüft den Himmel der Seite an seinem Grenzfall: Die Formel wird bei m = 1 zu 0/0, und die Seite rechnet sie dort eigens. Die Abweichung von 1,4 · 10⁻⁵: Die Seite nimmt für die Sonne senkrecht die Luftmasse nach Kasten und Young, die dort nicht ganz 1 ist.",
+            "step": "Die Quelle gibt das Licht, das einmal gestreut nach unten kommt, für die Sonne beim Kosinus μ_sw und den Blick beim Kosinus μ. Senkrecht nach oben geschaut (μ = 1), mit der Sonne bei μ_sw = 1/m und am Boden der Luft (ζ = τ), wird daraus (e^(−τ) − e^(−mτ))/(m − 1), gemessen am Sonnenlicht und an der Streuung in Blickrichtung; ihr Grenzwert für μ → μ_sw gibt τ·e^(−τ)."
+          },
+          "ozone_horizon": {
+            "title": "Die Ozonschicht am Horizont",
+            "setting": "Die Sonne am Horizont, 0°, mit Ozonschicht.",
+            "reads": "Die Ozonschicht liegt als dünne Schale 22 km hoch. Ein Strahl vom Horizont durchquert sie schräg, aber nicht unendlich lang wie in flacher Luft: 12-mal so viel Ozon wie senkrecht.",
+            "why": "Prüft den Weg durch die Schale, mit dem die Seite das Orange der Abendsonne schwächt: 12,064, von Hand aus dem allgemeinen Integral, auf der Seite aus einer umgeformten Formel; beide gleich bis auf 10⁻¹⁴.",
+            "step": "Die Quelle gibt die Luftmasse für jede Dichte ρ(y) über der Höhe y. Liegt alles Ozon in einer dünnen Schale bei y = H, bleibt vom Integral der Bruch an der Stelle H, geteilt durch denselben Bruch senkrecht (z = 0). Der Zenitwinkel z ist 90° minus die Höhe der Sonne."
+          }
+        },
+        "chladni": {
+          "lowest_tone": {
+            "title": "Der tiefste Ton",
+            "setting": "Die Platte der Seite, 24 cm und 1 mm Stahl; der Rüttler auf dem tiefsten Ton, den er in der Mitte antreibt.",
+            "reads": "Leissas Tabelle gibt für die frei liegende quadratische Platte λ = ωa²√(ρh/D) = 24,2702 für die tiefste Schwingung, die zu beiden Mittellinien und beiden Diagonalen symmetrisch ist; in Hertz f = λ/(2πa²)·√(D/(ρh)).",
+            "why": "Prüft das Verfahren von Ritz, mit dem die Seite die Schwingungen sucht, und die Umrechnung in Hertz: 102,43 Hz. Tabelle und Seite treffen sich auf 4 · 10⁻⁸."
+          },
+          "second_tone": {
+            "title": "Der zweite Ton, kein Oberton",
+            "setting": "Der Rüttler auf dem zweiten Ton, 268,8 Hz.",
+            "reads": "Der zweite angetriebene Ton liegt nach Leissas Tabelle 63,6870/24,2702-mal so hoch wie der tiefste, gleich wie gross und wie dick die Platte ist.",
+            "why": "Prüft eine höhere Schwingung, unabhängig von Stahl und Grösse: 2,624-mal so hoch, kein ganzzahliges Vielfaches wie bei einer Saite. Die Abweichung von 1,4 · 10⁻⁵ liegt bei der Tabelle: Iguchis Reihe ist nach fünf Gliedern abgebrochen, und das Verfahren von Ritz liegt nie unter dem genauen Wert, hier aber unter der Tabelle."
+          },
+          "sharpness": {
+            "title": "Wie scharf ein Ton ist",
+            "setting": "Der Rüttler 0,2 Hz über dem tiefsten Ton, wo die Mitte noch 70,7 % so weit schwingt wie auf dem Ton.",
+            "reads": "Ein Ton ist Δf = f/Q breit, gemessen, wo die Energie auf die Hälfte fällt; mit der Dämpfung ζ ist Q = 1/(2ζ).",
+            "why": "Prüft die Dämpfung im Gesetz, nach dem die Seite die Platte antworten lässt: Mit ζ = 0,002 ist Q = 250, der tiefste Ton also nur 0,41 Hz breit.",
+            "step": "Die Quelle gibt Q für einen einzelnen Schwinger. Nahe am tiefsten Ton schwingt die Platte fast nur in dieser einen Form; die übrigen neun tragen 1,4 · 10⁻⁵ bei."
+          },
+          "fourth_tone": {
+            "title": "Der vierte Ton, gewogen mit seiner Masse",
+            "setting": "Der Rüttler auf dem vierten Ton, 711,1 Hz; abgelesen an der Kachel, wie weit die Mitte schwingt.",
+            "reads": "Auf ihrem Ton schwingt jede Form wie ein einzelner Schwinger, in der Mitte um φ(0)²·F/(μ·ω²·2ζ), mit μ = ∫φ² der Masse dieser Form. Gegen den tiefsten Ton fallen Kraft und Dämpfung heraus.",
+            "why": "Prüft, dass jede Form mit ihrer eigenen Masse eingeht: 4,70 % des tiefsten Tons. Ohne μ wären es 1,98 %, der Fehler der ersten Fassung. μ ist hier über die Platte integriert, nicht wie auf der Seite als Summe der Koeffizientenquadrate.",
+            "step": "Die Quelle rechnet ein System aus zwei Massen: Die Antwort ist die Summe der Formen, und jede antwortet auf ihrem Ton mit Q₁/K₁·1/(2ζ₁), Q₁ der Kraft auf die Form, K₁ ihrer Steifigkeit. Für die Platte wird die Summe über die Massen zum Integral: K = μ·ω² und Q = φ(0)·F für eine Kraft in der Mitte. Die Formen φ selbst sind die der Seite."
+          }
+        },
+        "peg": {
+          "same_height": {
+            "title": "Gleich hoch auf beiden Seiten",
+            "setting": "Faden 1 m, Stift 50 cm unter der Aufhängung, bei 30° losgelassen; sechs Sekunden lang.",
+            "reads": "Der Faden zieht quer zur Bewegung und leistet keine Arbeit: Am Stift steigt die Kugel wieder auf die Höhe L(1 − cos θ₀), von der sie losgelassen wurde.",
+            "why": "Prüft, dass der Stift beim Abfangen das Tempo der Kugel erhält und nicht ihre Winkelgeschwindigkeit: 13,3975 cm hoch. Die Seite liest die Kugel jede Millisekunde, und der Umkehrpunkt liegt zwischen zwei Lesungen: daher 2 · 10⁻⁷ Abweichung."
+          },
+          "period": {
+            "title": "Die Periode auf zwei Kreisen",
+            "setting": "Wie oben: Faden 1 m, Stift 50 cm tief, bei 30° losgelassen; gemessen vom ersten bis zum vierten Mal, da der Stift den Faden abfängt.",
+            "reads": "Hin schwingt die Kugel eine halbe Periode am ganzen Faden, zurück eine halbe um den Stift, jede mit ihrem eigenen Ausschlag.",
+            "why": "Prüft die beiden Bewegungsgleichungen und die Wechsel zwischen ihnen, die die Seite innerhalb ihres Schritts sucht: 1,755778 s, auf 10⁻⁹ genau. K ist hier als Integral summiert, nicht wie in der Engine über das arithmetisch-geometrische Mittel.",
+            "step": "Die erste Quelle gibt ω = √(g/L), die zweite die Pendelgleichung in der Zeit ω·t und ihre Periode 4K, die dritte K. Eine halbe Periode in Sekunden ist also 2√(ℓ/g)·K(sin(α/2)): einmal mit ℓ = L und α = θ₀, einmal mit ℓ = r und dem Ausschlag φ₀, der um den Stift dieselbe Höhe erreicht."
+          },
+          "loop": {
+            "title": "Ab welcher Tiefe die Kugel überschlägt",
+            "setting": "Faden 1 m, aus der Waagrechten losgelassen, der Stift 60 cm tief: an der Grenze. Gesucht ist die Grenze durch Halbieren zwischen 55 und 65 cm.",
+            "reads": "Oben am kleinen Kreis muss der Faden noch ziehen. Mit dem Tempo aus der Starthöhe heisst das h ≥ 5r/2; aus der Waagrechten, h = 1 m, also r ≤ 40 cm, der Stift mindestens 60 cm tief.",
+            "why": "Prüft den Überschlag in der Zeitschleife selbst, nicht die Formel der Seite: ab 59,99999 cm. Steckt der Stift knapp höher, wäre der Faden oben nur einen Augenblick schlaff, kürzer als ein Schritt; das sieht die Seite nicht, daher 2 · 10⁻⁷ Abweichung.",
+            "step": "Die Quelle gibt den Zug des Fadens, mg(3cos θ − 2cos θ_m), für ein Pendel, das bei θ_m umkehrt. Um den Stift ist der Radius r, und für cos θ_m steht die Starthöhe: 1 − h/r. Oben, bei cos θ = −1, ist der Zug mg(2h/r − 5)."
+          },
+          "slack": {
+            "title": "Wo der Faden schlaff wird",
+            "setting": "Faden 1 m, Stift 55 cm tief, aus der Waagrechten losgelassen: der Fall «Schlaffer Faden».",
+            "reads": "Der Faden wird schlaff, wo sein Zug null wird: v²/r + g·cos φ = 0. Mit dem Tempo aus der Starthöhe liegt das auf der Höhe (r + 2h)/3.",
+            "why": "Prüft, wo die Seite den freien Flug beginnen lässt: 81,6667 cm über dem tiefsten Punkt, auf 10⁻⁹ genau, denn die Seite sucht den Moment innerhalb ihres Schritts.",
+            "step": "Die Quelle gibt den Zug mg(3cos θ − 2cos θ_m) für ein Pendel, das bei θ_m umkehrt. Um den Stift steht für cos θ_m die Starthöhe: 1 − h/r. Null gesetzt gibt das cos φ = 2(1 − h/r)/3, und die Höhe r(1 − cos φ) = (r + 2h)/3."
+          }
+        },
+        "foucault": {
+          "winterthur": {
+            "title": "In Winterthur: 11,1° pro Stunde",
+            "setting": "Winterthur, 47,5° Nord; das Pendel 12 m lang, 50 cm ausgelenkt. Gelesen am ersten Umkehrpunkt nach einer Stunde.",
+            "reads": "Die Schwingebene dreht sich gegen den Boden mit Ω·sin φ, im Norden im Uhrzeigersinn: 360° · sin φ pro Umdrehung der Erde gegenüber den Sternen.",
+            "why": "Prüft die gezeichnete Schwingung selbst, nicht nur die Zahl daneben: Wo die Kugel nach einer Stunde umkehrt, liegt die Ebene 11,09° im Uhrzeigersinn gedreht. Die Abweichung von 2 · 10⁻⁸ ist die achte Stelle der Erddrehung, mit der die Seite rechnet, 7,2921150 · 10⁻⁵ pro Sekunde.",
+            "step": "Die erste Quelle gibt die Drehrate Ω·sin λ, die zweite den Sinn: im Norden im Uhrzeigersinn. Für Ω steht eine Umdrehung der Erde gegenüber den Sternen, 86 164,0989 s (dritte Quelle)."
+          },
+          "pole": {
+            "title": "Am Nordpol: eine Runde pro Erddrehung",
+            "setting": "Am Nordpol, 90° Nord; sonst wie in Winterthur.",
+            "reads": "Am Pol hält das Pendel seine Ebene gegenüber den Sternen, und die Erde dreht sich ganz darunter weg: eine Runde in einer Umdrehung der Erde gegenüber den Sternen.",
+            "why": "Prüft die Erddrehung, mit der die Seite rechnet: eine Runde in 23,934 h, gegenüber den Sternen gezählt und nicht gegenüber der Sonne.",
+            "step": "Am Pol dreht sich die Erde mit ihrem ganzen Ω unter dem Pendel (erste Quelle), einmal ganz herum gegenüber den Sternen in 86 164,0989 s (zweite Quelle)."
+          },
+          "south": {
+            "title": "In Sydney: andersherum",
+            "setting": "Sydney, 33,9° Süd; sonst wie in Winterthur.",
+            "reads": "Südlich des Äquators ist sin φ negativ: Die Ebene dreht sich im Gegenuhrzeigersinn.",
+            "why": "Prüft das Vorzeichen der Breite in der Zahl «Pro Stunde» der Seite: −8,39°, also 8,39° pro Stunde im Gegenuhrzeigersinn.",
+            "step": "Die erste Quelle zählt im Uhrzeigersinn und die Breiten im Süden negativ. Für den Tag steht wie oben eine Umdrehung der Erde gegenüber den Sternen (zweite Quelle)."
+          },
+          "period": {
+            "title": "Der Takt der Schwingung",
+            "setting": "Winterthur, das Pendel 12 m lang; gemessen vom Loslassen bis zum Umkehrpunkt nach einer Stunde, über alle halben Schwingungen dazwischen.",
+            "reads": "Ein Pendel mit kleinem Ausschlag schwingt mit T = 2π√(L/g), unabhängig von Masse und Ausschlag.",
+            "why": "Prüft Länge und Schwerkraft in der gezeichneten Schwingung: 6,9504 s. Die Drehung der Erde ändert sie nur um 2 · 10⁻⁹."
+          }
+        },
+        "plates": {
+          "free_fall": {
+            "title": "Die Kunststoffplatte fällt frei",
+            "setting": "Feld 0,15 T, Magnete 20 mm hoch; Ihre Platte aus Kunststoff, ohne Schlitze, 90 cm durch die Säule.",
+            "reads": "Was keinen Strom leitet, wird nicht gebremst: Die Platte fällt frei aus der Ruhe, s = ½·g·t².",
+            "why": "Prüft, dass ohne Leitfähigkeit keine Bremse bleibt, und die Fallhöhe der Säule: 0,43 s, wie die vierte Stoppuhr oben."
+          },
+          "late_start": {
+            "title": "Um eine Zeitkonstante später",
+            "setting": "Die geschlitzte Aluminiumplatte der Ausstellung: 3 mm dick, Zähne 8 mm hoch; Feld 0,15 T, Magnete 20 mm hoch.",
+            "reads": "Mit einer Bremse proportional zur Geschwindigkeit nähert sich die Platte ihrer Endgeschwindigkeit v_E = m·g/c̄ exponentiell, mit der Zeitkonstante τ = m/c̄. Bald fällt sie mit v_E, um τ hinter einer Platte, die schon mit v_E gestartet wäre.",
+            "why": "Prüft den Fall, nicht die Bremse: Mit Masse und Bremse der Seite sind es 1,710 s für 90 cm mit 52,6 cm/s und 54 ms dazu, zusammen 1,764 s. Ohne die Zeitkonstante wäre die Zeit 3 % zu kurz.",
+            "step": "Die Quelle gibt den Weg y = (mg/b)·t + (m²g/b²)·(e^(−bt/m) − 1), hier mit b = c̄. Nach 33 Zeitkonstanten ist die Exponentialfunktion weg: y = v_E·(t − τ), also t = s/v_E + τ."
+          },
+          "thickness": {
+            "title": "Die Dicke ändert nichts",
+            "setting": "Ihre Platte aus Aluminium, ohne Schlitze, 10 mm dick statt 3 mm; oben die Aluminiumplatte der Ausstellung mit 3 mm.",
+            "reads": "Eine dickere Platte führt mehr Strom und bremst stärker, ist aber im selben Mass schwerer: v_E und τ bleiben, und damit der ganze Fall.",
+            "why": "Prüft, dass die Dicke in Bremse und Masse gleich eingeht: Beide Platten brauchen 12,31 s, auf 10⁻¹² gleich.",
+            "step": "Nach der ersten Quelle ist der Strom pro Fläche, J = σ(E + v×B), in jeder Schicht der Platte derselbe; die Bremse c̄ wächst also mit der Dicke d wie die Masse m = ϱ·d·A. Nach der zweiten hängen v_E = mg/c̄ und τ = m/c̄ nur von ihrem Verhältnis ab."
+          },
+          "metals": {
+            "title": "Kupfer gegen Aluminium",
+            "setting": "Ihre Platte aus Kupfer, ohne Schlitze, 3 mm dick; dann dieselbe Platte aus Aluminium, wie die der Ausstellung.",
+            "reads": "Bei gleicher Platte zwischen gleichen Magneten verhalten sich die Endgeschwindigkeiten wie spezifischer Widerstand mal Dichte: Gut leiten bremst, schwer sein zieht.",
+            "why": "Prüft die Werte der Metalle und wie sie eingehen: Aluminium fällt mit 0,476 der Geschwindigkeit von Kupfer, die Tabelle selbst rundet auf 0,48. Die 0,1 % Abweichung: Die Seite rechnet mit Leitfähigkeiten auf drei Stellen, die Tabelle gibt Widerstände auf vier.",
+            "step": "Mit J = σ(E + v×B) wächst jeder Strom mit σ, sein Muster bleibt: Die Bremse ist σ·d·A·B₀²/2·η, mit η allein aus der Form. Gleich der Gewichtskraft ϱ·d·A·g gibt das v_E = ϱ·g/(σ·B₀²/2·η); bei gleicher Form fällt η heraus, und mit σ = 1/ρ bleibt ρ·ϱ, die Spalte der Tabelle."
+          },
+          "strip": {
+            "title": "Feine Zähne: der endlose Streifen",
+            "setting": "Magnete 10 mm hoch, also 20 mm eine Periode; Ihre Platte aus Aluminium, 1 mm dick, geschlitzt in Zähne 2 mm hoch.",
+            "reads": "Ein Zahn, viel breiter als hoch, führt Strom nur quer. Netto kann quer kein Strom fliessen, also treibt nur, was vom Mittelwert des Felds über den Zahn abweicht: Von der Bremse einer endlosen Platte bleibt der Anteil η = 1 − (sin(kh/2)/(kh/2))².",
+            "why": "Prüft, warum die Schlitze die Bremse nehmen: Von Hand bleiben 3,25 %, die Seite rechnet 3,21 %. Die 1,3 % Abweichung sind die Enden der Zähne: Die Formel gilt für endlos breite, die Platte ist 10 cm breit.",
+            "step": "Die erste Quelle gibt den Strom im bewegten Leiter, J = σ(E + v×B). Im endlos breiten Zahn fliesst er nur quer, und weil netto quer nichts fliessen kann, nimmt das Feld der Ladungen an den Enden den Mittelwert B̄ weg: J = σ·v·(B − B̄). Nach der zweiten ist die Wärme gleich der Bremsleistung; über die Lage zu den Polen gemittelt fehlt von B₀²/2 der Teil B₀²/2·(sin(kh/2)/(kh/2))², der Mittelwert im Quadrat."
+          }
+        },
+        "maxwell": {
+          "fall_time": {
+            "title": "Der langsame Fall",
+            "setting": "Das Rad der Seite: volle Scheibe, 0,5 kg, Radius 6,5 cm, Achse 5 mm, Bänder 60 cm lang, ohne Reibung der Bänder; die Zeit, bis sie abgewickelt sind.",
+            "reads": "Die Bänder zwingen das Rad, sich zu drehen, während es fällt. Weil die Achse so dünn ist, geht fast die ganze Lageenergie in die Drehung, und das Rad fällt wie in Zeitlupe.",
+            "why": "Prüft das Abrollen an der dünnen Achse und das Trägheitsmoment der Scheibe: 3,2345 s für 60 cm, auf 10⁻¹⁴ wie die Seite."
+          },
+          "pull": {
+            "title": "Die Bänder tragen fast das ganze Gewicht",
+            "setting": "Wie oben, gelesen nach 1 s Fall.",
+            "reads": "Weil das Rad so langsam fällt, ziehen die Bänder fast mit seinem ganzen Gewicht; was fehlt, beschleunigt den Fall.",
+            "why": "Prüft den Zug der Bänder, den die Seite zeigt: 4,846 N."
+          },
+          "back_up": {
+            "title": "Ohne Reibung zurück bis oben",
+            "setting": "Wie oben; gelesen am höchsten Punkt nach dem ersten Ruck.",
+            "reads": "Hinunter wird die Lageenergie zu Fall und Drehung, der Ruck gibt das Tempo unverändert zurück, und hinauf wird alles wieder Lageenergie.",
+            "why": "Prüft, dass Fall, Ruck und Steigen zusammenpassen: Das Rad kommt genau auf 60 cm zurück.",
+            "step": "Die erste Quelle gibt die Energie beim Fall, MgL = ½Mv² + ½Iω². Der Ruck ist eine Federschwingung, deren Energie nach der zweiten gleich bleibt: Das Rad verlässt ihn so schnell, wie es kam. Hinauf gilt die Rechnung der ersten rückwärts."
+          },
+          "jerk_time": {
+            "title": "Der Ruck: eine halbe Schwingung",
+            "setting": "Wie oben, die Bänder zusammen mit 10 kN/m; vom Ende der Bänder, bis das Rad wieder steigt.",
+            "reads": "Unten bremst nicht mehr das Abrollen das Rad, sondern die Bänder, die sich dehnen: Es schwingt an ihnen eine halbe Schwingung wie an einer Feder und kehrt um.",
+            "why": "Prüft den Ruck, die Zeit, in der die Bänder am stärksten ziehen: 22,2 ms. Die Bänder fangen dabei auch den Rest der Beschleunigung nach unten ab, darum dauert er 1,4 · 10⁻³ länger als die halbe Schwingung.",
+            "step": "Die Quelle gibt die Periode einer Masse an einer Feder. Der Ruck ist die Hälfte davon, solange das Rad so schnell ankommt, dass seine kleine Beschleunigung nach unten daneben nicht zählt."
+          },
+          "peak": {
+            "title": "Der grösste Zug im Ruck",
+            "setting": "Wie oben, die Bänder zusammen mit 10 kN/m; der grösste Zug während des Rucks.",
+            "reads": "In die Bänder geht nur die Energie des Fallens, ½Mv², nicht die der Drehung: Die läuft durch den Ruck weiter. Am tiefsten Punkt ziehen die Bänder mit dem Gewicht und dazu mit s·A.",
+            "why": "Prüft den Zug, den die Seite im Ruck zeigt: 31,14 N, über sechsmal das Gewicht von 4,90 N.",
+            "step": "Die erste Quelle gibt das Tempo v unten. Im Ruck schwingt das Rad an den Bändern um die Lage, in der sie sein Gewicht tragen; nach der zweiten steckt am tiefsten Punkt die Energie ½Mv² ganz in der Dehnung A über diese Lage hinaus: ½sA² = ½Mv²."
+          }
+        },
+        "arch": {
+          "milankovitch": {
+            "title": "Der dünnste Halbkreis, der steht",
+            "setting": "Halbkreis über 2 m, 40 Steine, ohne Last; die Dicke verringert, bis keine Stützlinie mehr in alle Steine passt.",
+            "reads": "Ein Halbkreisbogen aus Steinen ohne Mörtel steht nur, wenn er mindestens 0,1075 seines Radius dick ist: So hat es Milankovitch ausgerechnet, und Makris und Alexakis haben es bestätigt.",
+            "why": "Prüft, ob die Seite die Stützlinie in die Steine legt, wo es eben noch geht: Mit 40 Steinen steht der Bogen ab 0,10743 des Radius. Das sind 6 · 10⁻⁴ weniger als Milankovitchs Wert, der für Fugen an jeder Stelle gilt und auf vier Stellen gerundet ist."
+          },
+          "chain_push": {
+            "title": "Die umgedrehte Kette drückt, wie sie zieht",
+            "setting": "Kettenlinie über 2 m, 1 m hoch, nur 2 cm dick und aus 40 Steinen, ohne Last; die Kette eingeblendet.",
+            "reads": "Umgedreht wird der Zug der Kette zum Druck des Bogens. Waagrecht zieht die Kette überall gleich, mit T₀ = w·a; senkrecht trägt jeder Fuss das Gewicht der halben Kette, w·a·sinh(c/a). Der Schub am Fuss ist darum 1/(2·sinh(c/a)) des Gewichts.",
+            "why": "Prüft die Zahl «Schub am Fuss» der Seite: 20,68 % des Gewichts. 40 gerade Steine von 2 cm sind keine Kette; ihre Linie liegt 1,3 · 10⁻⁴ daneben.",
+            "step": "Die erste Quelle ist Hookes Satz: Wie die Kette hängt, steht der Bogen umgedreht. Die zweite gibt die Kette: waagrecht T₀ = w·a, senkrecht w·s mit s = a·sinh(x/a) bis zum Scheitel. Am Fuss, bei x = c, stehen also w·a und w·a·sinh(c/a); a folgt aus der Höhe, a·(cosh(c/a) − 1) = h."
+          },
+          "weight": {
+            "title": "Das Gewicht der Steine",
+            "setting": "Der Halbkreis der Seite: 2 m Spannweite, 25 cm dick, 16 Steine, 30 cm tief, 2400 kg/m³.",
+            "reads": "Jeder Stein ist entlang zweier Radien geschnitten, π/16 auseinander: das Dreieck bis zum äusseren Rand weniger das Dreieck bis zum inneren, ½(R₊² − R₋²)·sin(π/16).",
+            "why": "Prüft die Steine, aus denen die Seite Gewichte und Schwerpunkte nimmt: 561,86 kg, die Zahl «Gewicht des Bogens» der Seite.",
+            "step": "Die Quelle gibt die Fläche eines Dreiecks aus zwei Seiten und dem Winkel dazwischen. Ein Stein ist das Dreieck vom Mittelpunkt bis zum äusseren Rand, R₊ = R + t/2, weniger das bis zum inneren, R₋ = R − t/2; das mal Tiefe und Dichte."
+          }
+        },
+        "resonance": {
+          "tone": {
+            "title": "Der Ton des kürzesten Stabs",
+            "setting": "Der 50-cm-Stab, 2 mm Stahl; der Tisch genau in seinem Takt.",
+            "reads": "Ein unten eingespannter Stab schwingt mit ω₀ = (β₁L)²/L²·√(EI/μ), β₁L = 0,596864π. Sein Gewicht drückt ihn zusammen und macht ihn weicher: Zwischen keinem Gewicht und Greenhills Knicken fällt ω² hier auf einer Geraden.",
+            "why": "Prüft Wurzel, Steifigkeit und Gewicht im Ton, den die Seite unter jeden Stab schreibt: 5,58 Hz; das Gewicht nimmt 2,5 % von ω². Die Seite senkt ω² nach Rayleigh um 0,4 % steiler als die Gerade zu Greenhills genauem Knicken, daher 5 · 10⁻⁵.",
+            "step": "Die erste Quelle gibt den Ton ohne Gewicht, die zweite die Länge, bei der der Stab unter seinem Gewicht knickt und sein Ton auf null fällt. Dazwischen ist ω² als Gerade in der Last angenommen, eine Näherung; die Toleranz trägt sie."
+          },
+          "buckling": {
+            "title": "Zu lang für sein Gewicht",
+            "setting": "Ein einzelner Stab aus demselben 2-mm-Stahl, immer länger, bis die Rechnung ihn nicht mehr nimmt, weil er unter seinem Gewicht knickt.",
+            "reads": "Eine freistehende Säule knickt unter ihrem eigenen Gewicht, sobald sie höher ist als (9B²/4·EI/(ρgA))^(1/3), B die erste Nullstelle der Besselfunktion J₋₁/₃.",
+            "why": "Prüft, was das Gewicht dem Ton nimmt, dort, wo es ihn ganz nimmt: 1,720 m nach der Quelle, 1,723 m nach der Seite. Die Seite rechnet mit der Form der Schwingung statt der des Knickens; das hebt die Knicklast um 0,4 % und die Länge um ein Drittel davon."
+          },
+          "in_step": {
+            "title": "Im Takt: der Stab schwingt weit",
+            "setting": "Der Tisch genau im Takt des 80-cm-Stabs, 2,09 Hz, 1 mm hin und her, Dämpfung 0,01; zwei Minuten aus der Ruhe.",
+            "reads": "Der Tisch schiebt die Schwingung des Stabs mit Γ·Ω²·Y an, Γ = ∫φ/∫φ²; im Takt schwingt die Spitze stetig um Γ·Y/(2ζ).",
+            "why": "Prüft Zeitschleife, Anstoss und Dämpfung: 78,3 mm aus 1 mm Tisch. Γ = 1,566 ist hier aus der Form der Quelle summiert, nicht aus der Engine genommen.",
+            "step": "Die erste Quelle gibt den angetriebenen Schwinger, die zweite die Form der Schwingung, die dritte den Beteiligungsfaktor für eine Form mit der Masse eins; für eine Form mit 1 an der Spitze wird er ∫φ/∫φ²."
+          },
+          "neighbour": {
+            "title": "Daneben: der Nachbar rührt sich kaum",
+            "setting": "Wie oben; abgelesen am 90-cm-Stab, dessen eigener Takt 1,61 Hz ist.",
+            "reads": "Dieselbe Formel ausserhalb des Takts: Γ·r²·Y/√((1 − r²)² + (2ζr)²), r = Ω/ω.",
+            "why": "Prüft, dass der Tisch mit seiner Beschleunigung schiebt, Ω²·Y, und nicht mit einer festen Kraft: 3,86 mm; mit der Kraft ω²·Y wären es 2,30 mm. Nach zwei Minuten bleiben 6 · 10⁻⁶ vom Anlauf.",
+            "step": "Wie oben: der angetriebene Schwinger der ersten Quelle, mit der Form und dem Beteiligungsfaktor der beiden anderen."
+          },
+          "growth": {
+            "title": "Aus der Ruhe: wie schnell die Schwingung wächst",
+            "setting": "Der Tisch genau im Takt des 80-cm-Stabs, aus der Ruhe; gezählt, bis die Schwingung 1 − 1/e der stetigen erreicht.",
+            "reads": "Aus der Ruhe ist die Bewegung die stetige Schwingung plus eine, die mit e^(−ζωt) abklingt; ungefähr wächst sie wie 1 − e^(−ζωt), erreicht 1 − 1/e also nach etwa 1/(2πζ) = 15,9 Schwingungen.",
+            "why": "Prüft, wie die Zeitschleife Dämpfung und Anlauf verbindet: genau gerechnet 15,842 Schwingungen, 7,57 s bei 2,09 Hz. Die einfache Regel liegt 0,5 % darüber, weil der Anlauf selbst Glieder der Grösse ζ hat.",
+            "step": "Die Quelle gibt die Lösung als stetige Schwingung plus eine abklingende mit ω₁ = ω√(1 − ζ²) und der Rate ζω; deren zwei Konstanten sind hier so gewählt, dass Ort und Geschwindigkeit bei null beginnen."
+          }
+        },
+        "well": {
+          "kepler_period": {
+            "title": "Keplers drittes Gesetz im Trichter",
+            "setting": "Ohne Rollwiderstand, bei 36 cm mit dem Tempo der Kreisbahn angestossen, 0,4411 m/s («Kreisbahn»); gemessen die erste Runde.",
+            "reads": "Auf der Kreisbahn hält die Neigung der Wand die Kugel mit (5/7)·g·k/r² zur Mitte: ein umgekehrtes Quadrat wie die Schwerkraft eines Sterns. Darum gilt Keplers T² = 4π²r³/(GM), mit (5/7)·g·k an der Stelle von GM.",
+            "why": "Prüft die Bewegung zur Mitte hin und den Anteil 5/7 der rollenden Kugel: 5,127873 s für die Runde. Gleitend, ohne die 5/7, wäre sie schneller.",
+            "step": "Die erste Quelle gibt Keplers Gesetz für eine Anziehung GM/r² pro Kilogramm. Die zweite gibt, dass eine rollende Vollkugel am Hang nur g·sin α/(1 + 2/5) spürt, 5/7 des Gleitens, mit dem Trägheitsmoment 2/5·m·r² der Vollkugel aus der dritten. Auf dem Kreis hält dieser Teil die Kugel: (v²/r)·cos α = (5/7)·g·sin α, und mit tan α = k/r² ist das v²/r = (5/7)·g·k/r²."
+          },
+          "equal_areas": {
+            "title": "Gleiche Flächen in gleichen Zeiten",
+            "setting": "Ohne Rollwiderstand, bei 36 cm mit 0,30 m/s längs des Rands angestossen, langsamer als die Kreisbahn; gelesen nach 20 s.",
+            "reads": "Die Wand drückt in der Ebene durch die Achse, die Schwere zieht senkrecht: Nichts dreht die Kugel um die Achse. So bleibt r²·φ̇ gleich, das Doppelte der Fläche, die die Linie zur Mitte in einer Sekunde überstreicht.",
+            "why": "Prüft die Gleichung für den Umlauf, auf einer Rosette, die weit nach innen und wieder hinaus führt: Nach 20 s sind es 0,108 m²/s, auf 10⁻¹⁰ genau, wie beim Anstoss 0,36 m mal 0,30 m/s.",
+            "step": "Die Quelle leitet Keplers zweites Gesetz aus dem erhaltenen Drehimpuls her. Hier ist es der Drehimpuls um die Achse, mit dem Drall der rollenden Kugel (7/5)·r²·φ̇ pro Kilogramm; der Faktor 7/5 bleibt fest, also bleibt r²·φ̇."
+          },
+          "energy": {
+            "title": "Die Energie bleibt erhalten",
+            "setting": "Wie oben: ohne Rollwiderstand, bei 36 cm mit 0,30 m/s angestossen; nach 20 s, 20 000 Schritten.",
+            "reads": "Ohne Verluste bleibt die Summe aus Bewegung, Drehung und Höhe gleich; die Drehung der Vollkugel trägt 2/5 dessen, was die Bewegung trägt.",
+            "why": "Prüft die Zeitschleife über eine Rosette, die sich jede Runde weiterdreht: −0,209407 J/kg beim Anstoss und nach 20 s, auf 10⁻¹⁰ gleich."
+          },
+          "brake": {
+            "title": "Was der Rollwiderstand kostet",
+            "setting": "Rollwiderstand 0,002 wie auf der Seite, bei 36 cm auf der Kreisbahn angestossen; gelesen über den ersten Schritt.",
+            "reads": "Der Rollwiderstand bremst mit C·N gegen die Bewegung; das kostet C·N·v pro Sekunde. N, der Druck der Wand, ist der Anteil des Gewichts quer zur Wand und dazu, was die Kugel auf ihrem Kreis hält.",
+            "why": "Prüft die Bremse und den Druck der Wand, aus dem sie kommt: 8,6625 mW pro Kilogramm. Schon in der ersten Millisekunde wird die Kugel ein wenig langsamer und die Bremse mit ihr, und unter 1 mm/s blendet die Seite den Widerstand aus: zusammen 2 · 10⁻⁵ Abweichung.",
+            "step": "Die erste Quelle gibt den Rollwiderstand C·N. Die zweite rechnet die überhöhte Kurve: N·sin θ = mv²/r und N·cos θ = mg. Quer zur Wand zusammengezählt geben beide N = mg·cos α + (mv²/r)·sin α; die Haftreibung der rollenden Kugel liegt in der Wand und trägt quer zu ihr nichts bei."
+          }
+        }
+      },
+      "set_up": "Einstellen",
+      "set_up_hint": "Stellt das Exponat oben auf diesen Fall ein"
+    },
+    "list": {
+      "lead": "Jedes Exponat mit seiner Zeichnung, die sich bewegt, sobald Sie darauf zeigen. Nach Thema filtern oder alle durchgehen."
+    }
+  },
+  "course": {
+    "title": "Differenzialgleichungen",
+    "tagline": "Differenzialgleichungen technischer Systeme durch Ausprobieren verstehen: Jede Lektion verbindet einen realen Prüfstand mit einem Modell, das live rechnet, während Sie die Regler bewegen.",
+    "reset": "Zurücksetzen",
+    "failed": "Die Berechnung ist fehlgeschlagen.",
+    "lesson_n": "Lektion {{n}}",
+    "axis": {
+      "time": "Zeit",
+      "frequency": "Frequenz",
+      "angle": "Winkel",
+      "torque": "Moment"
+    },
+    "figure": {
+      "time_constant": "Zeitkonstante",
+      "overshoot": "Überschwingen",
+      "peak_time": "Zeitpunkt des Maximums",
+      "settling": "Einschwingzeit",
+      "phase": "Phase"
+    },
+    "frame": {
+      "question": "Die Frage",
+      "model": "Das Modell",
+      "assumptions": "Was das Modell weglässt",
+      "assumptions_hint": "Jedes Modell ist eine Entscheidung darüber, was hier keine Rolle spielt.",
+      "experiments": "Experimente",
+      "insights": "Was sich gezeigt hat",
+      "exercises": "Übungen",
+      "lesson_navigation": "Vorherige und nächste Lektion"
+    },
+    "lessons": {
+      "recipe": {
+        "title": "Das Rezept",
+        "summary": "Jede technische Differenzialgleichung entsteht aus einer Bilanz: Änderung = Zufluss − Abfluss."
+      },
+      "first_order": {
+        "title": "Systeme 1. Ordnung",
+        "summary": "Die Zeitkonstante: was sie bedeutet, wie man sie aus einer Messung abliest und wo sie überall vorkommt."
+      },
+      "second_order": {
+        "title": "Systeme 2. Ordnung",
+        "summary": "Eigenfrequenz und Dämpfung: Überschwingen, Resonanz und die Dämpfung aus einem Ausschwingversuch."
+      },
+      "eigenvalues": {
+        "title": "Eigenwerte und Polebene",
+        "summary": "Ein Eigenwert ist eine Abklingrate und eine Frequenz, ein Eigenvektor eine Bewegungsform."
+      },
+      "laplace": {
+        "title": "Laplace und Bode",
+        "summary": "Ableiten wird Multiplizieren mit s, Ketten werden Produkte, und eine Phase wird ein Zeitverzug."
+      },
+      "numerics": {
+        "title": "Numerische Lösung",
+        "summary": "Euler und Runge-Kutta: Schrittweite, Stabilität und warum steife Probleme implizite Verfahren wollen."
+      },
+      "two_mass": {
+        "title": "Der Zweimassenschwinger",
+        "summary": "Eigenformen, Antiresonanzen und warum eine Messwelle schon bei wenigen Hertz falsch misst."
+      },
+      "cheat_sheet": {
+        "title": "Spickzettel und Analogien",
+        "summary": "Der Kurs auf einer druckbaren Seite, jede Formel mit ihrem Widget verlinkt."
+      }
+    },
+    "overview": {
+      "why": "Hinter jedem Exponat steht eine Differenzialgleichung. Dieser Kurs ist ihr Fundament: was eine solche Gleichung ist, woher sie kommt und was sie über ein reales System aussagt.",
+      "how": "Jede Lektion folgt demselben Muster: eine Frage aus der Praxis, das Modell, das sie beantwortet, Experimente mit Schiebereglern, die Erkenntnis daraus und Übungen – zuerst schätzen, dann rechnen. Jede Zahl berechnet die eigene Rechenmaschine der App, geprüft gegen Referenzwerte.",
+      "lessons": "Die Lektionen",
+      "lessons_hint": "Ihr Fortschritt wird nur auf diesem Gerät gespeichert.",
+      "forget": "Fortschritt vergessen",
+      "progress": "Gelöste Übungen",
+      "solved": "{{solved}} von {{total}}",
+      "visited": "geöffnet",
+      "exercises_done": "{{done}} von {{total}} Übungen",
+      "surprises": "Überraschungen",
+      "surprises_hint": "Jede Schätzung, die um mehr als die Hälfte daneben lag – die Liste, die sich nachzulesen lohnt.",
+      "no_surprises": "Noch keine. Schätzen Sie, bevor Sie rechnen – was Sie überrascht, sammelt sich hier.",
+      "surprise_entry": "geschätzt {{estimate}} {{unit}}, die Lösung war {{answer}} {{unit}}"
+    },
+    "recipe": {
+      "title": "Das Rezept in acht Schritten",
+      "hint": "Jedes Modell dieses Kurses entsteht nach diesen Schritten.",
+      "steps": {
+        "question": {
+          "title": "Frage klären",
+          "body": "Was muss das Modell beantworten, und wie genau? Ein Modell ohne Frage kann nicht richtig sein."
+        },
+        "boundary": {
+          "title": "Systemgrenze und Annahmen",
+          "body": "Festlegen, was drinnen ist, was draussen bleibt und was vernachlässigt wird – und es aufschreiben."
+        },
+        "coordinate": {
+          "title": "Koordinate wählen und reduzieren",
+          "body": "Eine Koordinate pro Freiheitsgrad, alles andere über die Übersetzungen darauf reduziert."
+        },
+        "balance": {
+          "title": "Bilanz aufstellen",
+          "body": "Änderung = Zufluss − Abfluss: von Masse, Energie, Impuls oder Gas. Hier entsteht die Differenzialgleichung."
+        },
+        "normalise": {
+          "title": "Normieren",
+          "body": "In eine Standardform bringen – τ, ω₀, D –, damit sie mit jedem anderen System ihrer Art vergleichbar wird."
+        },
+        "solve": {
+          "title": "Lösen",
+          "body": "Geschlossen, wo es eine Lösung gibt, numerisch, wo nicht."
+        },
+        "check": {
+          "title": "Prüfen",
+          "body": "Einheiten, Grenzfälle, eine Handabschätzung, eine Messung. Ein ungeprüftes Ergebnis ist eine Vermutung mit Nachkommastellen."
+        },
+        "interpret": {
+          "title": "Interpretieren",
+          "body": "Die Antwort in die Sprache der Frage zurückübersetzen: eine Zeit, eine Kraft, eine Konstruktionsentscheidung."
+        }
+      },
+      "tank": {
+        "title": "Aus einer Bilanz wird ein PT1",
+        "hint": "Ein Behälter mit konstantem Zufluss und einem Abfluss, der mit dem Füllstand wächst. Ändern Sie Zufluss, Fläche oder Auslauf und sehen Sie zu, wie sich der Füllstand einstellt.",
+        "inflow": "Zufluss",
+        "area": "Behälterfläche",
+        "outflow": "Abfluss pro Meter Füllstand",
+        "level0": "Anfangsfüllstand",
+        "level": "Füllstand",
+        "outflow_series": "Abfluss",
+        "inflow_series": "Zufluss",
+        "flow": "Durchfluss",
+        "final": "Endfüllstand",
+        "insight": "Die Bilanz A·dh/dt = Zufluss − k·h ist ein PT1 mit τ = A/k: Ein grösserer Behälter oder ein engerer Auslauf macht es langsamer, und es stellt sich dort ein, wo der Abfluss den Zufluss erreicht."
+      }
+    },
+    "exercise": {
+      "solved": "Gelöst",
+      "estimate_label": "Ihre Schätzung ({{unit}})",
+      "estimate_bare": "Ihre Schätzung",
+      "estimate_submit": "Schätzung abgeben",
+      "estimate_why": "Zuerst schätzen: Das Antwortfeld öffnet sich, sobald Sie sich auf eine Zahl festgelegt haben.",
+      "your_estimate": "Ihre Schätzung: {{value}} {{unit}}",
+      "answer": "Ihre Antwort ({{unit}})",
+      "answer_bare": "Ihre Antwort",
+      "answer_n": "Antwort {{n}} ({{unit}})",
+      "answer_n_bare": "Antwort {{n}}",
+      "check": "Prüfen",
+      "empty": "Geben Sie zuerst einen Wert ein.",
+      "right": "Richtig.",
+      "wrong": "Noch nicht – versuchen Sie es nochmals oder nehmen Sie einen Hinweis.",
+      "surprise": "Ihre Schätzung lag {{pct}} % daneben: unter Überraschungen notiert.",
+      "estimate_close": "Ihre Schätzung lag {{pct}} % daneben.",
+      "hint": "Hinweis",
+      "show_solution": "Lösung zeigen",
+      "hide_solution": "Lösung ausblenden",
+      "solution": "Lösung"
+    },
+    "regime": {
+      "underdamped": "Unterdämpft (D < 1)",
+      "critical": "Aperiodischer Grenzfall (D = 1)",
+      "overdamped": "Überdämpft (D > 1)"
+    },
+    "poles": {
+      "stable": "stabil",
+      "unstable": "instabil"
+    },
+    "animation": {
+      "pause": "Animation anhalten",
+      "play": "Animation abspielen",
+      "slow": "Zeitlupe: eine Periode alle zwei Sekunden, unabhängig von der Frequenz.",
+      "twist": "Verdrillung jeder Feder"
+    },
+    "first_order": {
+      "question": "Ein Temperaturfühler wird von 20 °C in ein Bad von 80 °C getaucht. Ab wann darf man seiner Anzeige trauen – und was zeigt er nach acht Sekunden?",
+      "model": "Ein Speicher (die Wärmekapazität des Fühlers) und ein Widerstand (der Übergang vom Bad in den Fühler): Was hineinfliesst, füllt den Speicher, und der Fluss ist proportional zur verbleibenden Differenz. Als Bilanz geschrieben ist das ein PT1-Glied:",
+      "model_tau": "τ ist die Zeitkonstante. Nach einem τ ist 63 % des Wegs zurückgelegt, nach drei 95 %, nach fünf 99.3 % – egal, woraus das System besteht.",
+      "assumptions": {
+        "one_store": "Ein Speicher: Der Fühler hat überall dieselbe Temperatur, ohne Gefälle im Inneren.",
+        "linear": "Linear: Der Fluss ist proportional zur Differenz, also hängt τ nicht davon ab, wie weit es noch ist.",
+        "constant": "Konstante Parameter: τ ist bei 20 °C dasselbe wie bei 80 °C."
+      },
+      "insights": {
+        "settled": "Nach 5 τ sind 99.3 % des Sprungs erreicht: eingeschwungen, bei jedem System 1. Ordnung.",
+        "read": "τ liest man dort ab, wo die Antwort 63 % erreicht hat – oder wo die Starttangente den Endwert schneidet.",
+        "log": "Auf logarithmischer Achse ist der Restabstand eine Gerade mit der Steigung −1/τ; eine Messung, die dort nicht gerade ist, ist nicht 1. Ordnung."
+      },
+      "step": {
+        "title": "Die Sprungantwort",
+        "hint": "Verändern Sie τ und die beiden Werte. Die Markierungen liegen bei 1, 2, 3 und 5 τ; die gestrichelte Linie ist die Starttangente, die den Endwert genau bei τ schneidet."
+      },
+      "tau": "Zeitkonstante τ",
+      "start": "Startwert",
+      "final": "Endwert",
+      "at": "Ablesen zur Zeit t",
+      "analogy_label": "Dieselbe Gleichung als",
+      "analogy": {
+        "thermal": {
+          "name": "Temperatur",
+          "unit": "°C",
+          "quantity": "Temperatur"
+        },
+        "electrical": {
+          "name": "RC-Glied",
+          "unit": "V",
+          "quantity": "Kondensatorspannung"
+        },
+        "mechanical": {
+          "name": "Feder und Dämpfer",
+          "unit": "mm",
+          "quantity": "Weg"
+        },
+        "vacuum": {
+          "name": "Vakuumkammer",
+          "unit": "mbar",
+          "quantity": "Druck"
+        }
+      },
+      "view": "Achse",
+      "view_linear": "Linear",
+      "view_log": "Restabstand, logarithmisch",
+      "remaining": "Restabstand",
+      "tangent": "Starttangente",
+      "final_short": "Endwert",
+      "value_at": "Wert bei t = {{t}} s",
+      "fraction_at": "Anteil des Sprungs bei t",
+      "settled": "Eingeschwungen auf 99.3 % (5 τ)",
+      "measure": {
+        "title": "τ aus einer Messung ablesen",
+        "hint": "Eine verrauschte Messung mit unbekannter Zeitkonstante. Klicken Sie auf die Kurve, wo sie die 63-%-Linie kreuzt (oder setzen Sie den Marker unten), und vergleichen Sie dann.",
+        "another": "Neue Messung",
+        "series": "Gemessene Temperatur",
+        "yours": "Ihr τ",
+        "marker": "Ihre Ablesung von τ",
+        "marker_hint": "Wo die Messung die 63-%-Linie kreuzt, ist die Zeit gleich τ.",
+        "compare": "Vergleichen",
+        "result": "Sie haben {{yours}} s abgelesen; das wahre τ ist {{truth}} s ({{off}} % daneben)."
+      }
+    },
+    "second_order": {
+      "question": "Eine Drehmoment-Messwelle wird einmal angeschlagen und schwingt aus. Wie schnell schwingt sie, wie rasch beruhigt sie sich – und wie falsch misst sie, wenn das Signal in die Nähe ihrer Eigenfrequenz kommt?",
+      "model": "Eine Trägheit an einer Feder mit einem Dämpfer: das Newtonsche Gesetz für die Drehung. Zwei Zahlen sagen alles darüber – die Eigenkreisfrequenz ω₀ und das Dämpfungsmass D.",
+      "model_magnification": "Mit der Frequenz f angeregt, ist die Antwort die statische mal der Vergrösserungsfunktion V(η); und zwei aufeinanderfolgende Maxima eines freien Ausschwingens liefern D, ohne Trägheit oder Steifigkeit zu kennen:",
+      "assumptions": {
+        "lumped": "Eine konzentrierte Trägheit: Die verteilte Masse der Welle selbst fehlt; die konzentrierte ist ihre erste Eigenform, und auf die kommt es bei einer Messkette an.",
+        "viscous": "Viskose Dämpfung, proportional zur Geschwindigkeit; keine Reibung konstanter Grösse.",
+        "linear": "Eine lineare Feder über den ganzen Weg."
+      },
+      "insights": {
+        "peak": "D = 0.05 heisst Faktor 10 Überhöhung bei f₀: Die Welle schwingt auf das Zehnfache ihrer statischen Auslenkung auf.",
+        "chain": "Eine Messkette misst bis zu einem Fünftel ihrer Eigenfrequenz auf etwa 4 % genau: f₀ ≥ 5 × die höchste Nutzfrequenz.",
+        "mass": "Mehr Trägheit bei gleichem Dämpfer senkt neben f₀ auch D, denn D = d/(2√(c·J))."
+      },
+      "system": {
+        "title": "Die Sprungantwort",
+        "hint": "Stellen Sie die Welle über ihre Bauteile oder über ihre zwei Kennzahlen ein. Die gestrichelten Linien sind die Hüllkurve e^(−Dω₀t); die Farbe des Chips zeigt, welche der drei Lösungen vorliegt."
+      },
+      "describe": "Welle beschreiben durch",
+      "describe_parts": "Bauteile J, c, d",
+      "describe_numbers": "Kennzahlen f₀, D",
+      "inertia": "Trägheit J",
+      "stiffness": "Steifigkeit c",
+      "damping": "Dämpfung d",
+      "f0": "Eigenfrequenz f₀",
+      "ratio": "Dämpfungsmass D",
+      "torque_note": "Angeregt durch einen Momentensprung von {{torque}} N·m.",
+      "angle": "Winkel",
+      "envelope": "Hüllkurve",
+      "final": "Endwert",
+      "magnification": {
+        "title": "Vergrösserungsfunktion und Fehler einer Messkette",
+        "hint": "V(η) für Ihre Dämpfung (fett) und fünf Vergleichswerte. Verschieben Sie die Anregung und lesen Sie ab, um wie viel mehr sich die Welle bewegt als statisch – genau so weit liegt eine darauf gebaute Messkette daneben.",
+        "v": "Vergrösserung V",
+        "eta": "Frequenzverhältnis η = f/f₀",
+        "error": "Messfehler",
+        "error_note": "über 5 %: zu nahe an f₀",
+        "peak": "Grösste Vergrösserung"
+      },
+      "excitation": "Anregungsfrequenz f",
+      "decay": {
+        "title": "Dämpfung aus einem Ausschwingversuch",
+        "hint": "Eine angeschlagene Welle, mit Rauschen gemessen; ihre Dämpfung ist unbekannt. Klicken Sie zwei aufeinanderfolgende Maxima an, um Λ und D zu berechnen, und vergleichen Sie dann.",
+        "another": "Neuer Versuch",
+        "series": "Gemessenes Moment",
+        "not_successive": "Wählen Sie zwei benachbarte Maxima.",
+        "damping": "Dämpfungsmass D",
+        "compare": "Vergleichen",
+        "result": "Ihre zwei Maxima ergeben D = {{yours}}; das wahre D ist {{truth}}. Über alle {{n}} Perioden auf einmal gelesen ist D = {{overall}} – ein Logarithmus über viele Perioden ist die ruhigere Antwort."
+      }
+    },
+    "eigenvalues": {
+      "question": "Was sagen die zwei Zahlen, nach denen man ein System 2. Ordnung auflöst, eigentlich aus – und was tut ein System mit zwei gekoppelten Zuständen, wenn es sich bewegt?",
+      "model": "Ein lineares System ẋ = A·x bewegt sich als Summe seiner Eigenlösungen: Jeder Eigenwert λ sagt, wie schnell ein Anteil abklingt oder wächst und wie schnell er dreht, jeder Eigenvektor, in welche Richtung er sich bewegt.",
+      "model_pair": "Für eine Masse an Feder und Dämpfer hat die Matrix ein Eigenwertpaar, und es sind genau die Nullstellen der charakteristischen Gleichung aus Lektion 2:",
+      "assumptions": {
+        "linear": "Linear und zeitinvariant: A ist konstant. Ein nichtlineares System hat Eigenwerte nur um einen Arbeitspunkt.",
+        "minimal": "Pole und Eigenwerte stimmen überein, wenn das System ohne kürzbare Faktoren geschrieben ist; ein Pol, den eine Nullstelle kürzt, bleibt ein Eigenwert von A."
+      },
+      "insights": {
+        "parts": "λ = σ ± jω: Der Realteil σ bestimmt die Hüllkurve e^(σt), der Imaginärteil die Schwingfrequenz.",
+        "same": "det(A − λI) = 0 ist die charakteristische Gleichung aus Lektion 2: Pole, Eigenwerte und ihre Nullstellen sind dieselben Zahlen.",
+        "vectors": "Eine Trajektorie, die auf einem reellen Eigenvektor startet, bleibt auf dieser Geraden; jede andere ist eine Mischung der beiden Richtungen."
+      },
+      "scalar": {
+        "title": "Ein Eigenwert: ẋ = a·x",
+        "hint": "Schieben Sie a über null: negativ klingt ab, positiv wächst, und Zeitkonstante bzw. Verdopplungszeit sind bis auf einen Faktor 1/|a|."
+      },
+      "stable": "Stabil",
+      "unstable": "Instabil",
+      "marginal": "Grenzstabil",
+      "doubling": "Verdopplungszeit",
+      "poles": {
+        "title": "Pole und Sprungantwort",
+        "hint": "Stellen Sie f₀ und D ein oder ziehen Sie den oberen Pol in der Ebene. Der gestrichelte Halbkreis ist |λ| = ω₀; ein Paar darauf unterscheidet sich nur in der Dämpfung.",
+        "plane": "Die Polebene, Pole bei {{poles}} 1/s",
+        "response": "Sprungantwort"
+      },
+      "matrix": {
+        "title": "Ein 2×2-System und sein Phasenporträt",
+        "hint": "Bearbeiten Sie die Matrix oder starten Sie von einer Vorlage. Die gestrichelten Linien sind die reellen Eigenvektoren; zwölf Trajektorien starten auf dem gepunkteten Einheitskreis.",
+        "presets": {
+          "spring": "Feder-Masse-Dämpfer",
+          "saddle": "Sattel",
+          "centre": "Zentrum",
+          "spiral": "Strudel"
+        },
+        "kind": {
+          "saddle": "Sattel – instabil",
+          "stable_node": "Stabiler Knoten",
+          "unstable_node": "Instabiler Knoten",
+          "stable_focus": "Stabiler Strudel – abklingende Schwingung",
+          "unstable_focus": "Instabiler Strudel – aufklingende Schwingung",
+          "centre": "Zentrum – ungedämpfte Schwingung",
+          "degenerate": "Entartet – ein Eigenwert bei null"
+        },
+        "portrait": "Phasenporträt: {{kind}}",
+        "trace": "Spur",
+        "det": "Determinante",
+        "vectors": "Eigenvektoren"
+      }
+    },
+    "laplace": {
+      "question": "Eine Messkette ist eine Welle hinter einem Filter hinter einem Verstärker. Was macht die Kette mit einem 3-Hz-Signal – wie viel kleiner und wie viel später kommt es an?",
+      "model": "Die Laplace-Transformation macht aus dem Ableiten ein Multiplizieren mit s, aus einer Differenzialgleichung also eine algebraische. Jeder Block ist eine Übertragungsfunktion G(s); Blöcke in Reihe multiplizieren sich, und im Bode-Diagramm in Dezibel addieren sie sich.",
+      "model_delay": "Bei einer Frequenz f ist ein Phasenverzug ein Zeitverzug:",
+      "assumptions": {
+        "lti": "Lineare, zeitinvariante Blöcke; ein Verstärker in der Begrenzung ist keine Übertragungsfunktion.",
+        "steady": "Bode beschreibt den eingeschwungenen Zustand unter einem Sinus; das Anlaufen ist Sache der Sprungantwort.",
+        "dead_time": "Eine Totzeit bringt Phase, aber keinen Pol: e^(−sT) hat keinen, und keiner wird gezeichnet."
+      },
+      "insights": {
+        "product": "Blöcke in Reihe multiplizieren sich; im Bode-Diagramm in dB addieren sich ihre Kurven – die gestrichelten ergeben zusammen die ausgezogene.",
+        "final": "Der Endwert einer stabilen Sprungantwort ist G(0): aus der Übertragungsfunktion abgelesen, ohne etwas zu lösen.",
+        "lag": "Ein PT1 verzögert tiefe Frequenzen um etwa τ: Hinter einem 5-Hz-Filter kommt ein 3-Hz-Signal 28.7 ms zu spät, hinter einem 50-Hz-Filter ein 5-Hz-Signal 3.2 ms.",
+        "filter": "Moment und Winkel identisch filtern – oder offline vorwärts und rückwärts –, sonst zeichnet der Filter eine Hysterese, die der Prüfling nicht hat."
+      },
+      "steps": {
+        "title": "Laplace Schritt für Schritt",
+        "hint": "Die PT1-Sprungantwort auf dem Laplace-Weg gelöst: jede Zeile mit Ihren Zahlen.",
+        "transform": "Transformieren",
+        "solve": "Nach Y(s) auflösen",
+        "split": "In Partialbrüche zerlegen",
+        "back": "Zurücktransformieren"
+      },
+      "time_domain": "Zeitbereich",
+      "image_domain": "Bildbereich",
+      "chain": {
+        "title": "Ein Bode-Baukasten",
+        "hint": "Bis zu vier Glieder in Reihe. Die Summe ist ausgezogen, jedes Glied gestrichelt darunter; der Cursor zeigt Verstärkung, Phase und den Zeitverzug, den die Phase bedeutet.",
+        "block": "Glied {{n}}",
+        "remove": "Glied entfernen",
+        "add": "Glied hinzufügen",
+        "cursor": "Cursorfrequenz",
+        "total": "Kette",
+        "gain": "Verstärkung |G|",
+        "delay": "Zeitverzug",
+        "poles": "Pole der Kette",
+        "step": "Sprungantwort"
+      },
+      "kind": {
+        "proportional": "Verstärkung K",
+        "integrator": "Integrator K/s",
+        "first_order": "1. Ordnung (PT1)",
+        "second_order": "2. Ordnung (PT2)",
+        "dead_time": "Totzeit"
+      },
+      "magnitude": "Betrag",
+      "filter": {
+        "title": "Die Hysterese, die ein Filter erfindet",
+        "hint": "Ein Prüfling ohne Hysterese (Moment proportional zum Winkel), sinusförmig bewegt. Filtern Sie nur das Moment, erscheint eine Schleife; filtern Sie beides oder offline, ist sie weg. Geben Sie Reibung dazu, um eine echte überleben zu sehen.",
+        "frequency": "Anregungsfrequenz",
+        "corner": "Eckfrequenz des Filters",
+        "friction": "Echtes Reibband",
+        "mode": "Gefiltert",
+        "modes": {
+          "torque_only": "Nur Moment",
+          "both": "Moment und Winkel",
+          "zero_phase": "Beide, vorwärts und rückwärts"
+        },
+        "truth": "Wie es ist",
+        "measured": "Wie gemessen",
+        "apparent": "Gemessene Hysterese",
+        "true": "Wahre Hysterese"
+      }
+    },
+    "numerics": {
+      "question": "Die meisten Gleichungen der Praxis haben keine geschlossene Lösung, also schreitet ein Rechner sie ab. Wie gross darf der Schritt sein – und was macht ein Verfahren mit dem System, das es abschreitet?",
+      "model": "Euler nimmt die Steigung am Anfang jedes Schritts und hält sie den ganzen Schritt lang. RK4 wertet die Steigung viermal innerhalb des Schritts aus und bildet einen gewichteten Mittelwert:",
+      "model_stability": "Auf ẏ = λy multipliziert ein Verfahren die Lösung pro Schritt mit einem festen Faktor, und es ist nur stabil, solange dessen Betrag höchstens eins ist. Für Euler:",
+      "assumptions": {
+        "fixed": "Feste Schrittweite: Die Verfahren hier passen sie nicht an. Ein adaptives Verfahren (wie das, mit dem das Abpumpen gerechnet wird) wählt sie selbst.",
+        "rounding": "Rundungsfehler sind vernachlässigt: In doppelter Genauigkeit liegen sie weit unter jedem hier gezeigten Fehler."
+      },
+      "insights": {
+        "order": "Der Fehler von Euler fällt mit h, der von RK4 mit h⁴: Halbieren der Schrittweite halbiert den einen und teilt den anderen durch sechzehn.",
+        "energy": "Euler pumpt Energie in einen Schwinger: Bei h·ω₀ = 2D hebt er die Dämpfung genau auf – an der Messwelle ist das h = 1 ms, bei dem sie für immer mit vollem 1° weiterschwingt –, darüber schaukelt sie sich auf.",
+        "rule": "Faustregel für RK4: h höchstens ein Zwanzigstel der kürzesten Periode. Expliziter Euler braucht an einem schwach gedämpften Schwinger h·ω₀ < 2D, bei D = 0.05 ein Dreiundsechzigstel einer Periode.",
+        "stiff": "Steif heisst schnelle und langsame Dynamik zusammen: Ein 1-ms-Glied neben einem 10-s-Glied zwingt RK4 zu mehr als 10'000 Schritten über 30 s – für einen Anteil, der nach 5 ms verschwunden ist. Impliziter Euler ist bei jeder Schrittweite stabil."
+      },
+      "sensor": {
+        "title": "Euler, Heun und RK4 gegen die exakte Lösung",
+        "hint": "Der Fühler aus Lektion 1 (τ = 4 s, 20 → 80 °C). Vergrössern Sie den Schritt – über τ schiesst Euler über, über 2τ läuft er davon."
+      },
+      "step": "Schrittweite h",
+      "steps": "Anzahl Schritte",
+      "regime": {
+        "monotone": "Euler kriecht heran (h < τ)",
+        "one_step": "Euler landet in einem Schritt (h = τ)",
+        "alternating": "Euler schiesst über und wechselt das Vorzeichen (τ < h < 2τ)",
+        "neutral": "Euler wechselt für immer hin und her (h = 2τ)",
+        "diverging": "Euler läuft davon (h > 2τ)"
+      },
+      "euler_factor": "Euler-Faktor pro Schritt, 1 − h/τ",
+      "rk4_factor": "RK4-Faktor pro Schritt",
+      "method": {
+        "exact": "Exakt",
+        "euler": "Euler",
+        "heun": "Heun",
+        "rk4": "RK4",
+        "symplectic": "Symplektischer Euler",
+        "implicit": "Impliziter Euler"
+      },
+      "errors": {
+        "title": "Fehlertabelle",
+        "hint": "Der Wert jedes Schritts und sein Fehler.",
+        "euler": "Fehler Euler",
+        "rk4": "Fehler RK4"
+      },
+      "rk4_table": {
+        "title": "RK4 Schritt für Schritt",
+        "hint": "Wo jede der vier Steigungen ausgewertet wird und wie gross sie ist.",
+        "step": "Schritt {{n}}",
+        "slope": "Steigung"
+      },
+      "oscillator": {
+        "title": "Energiedrift beim Schwinger",
+        "hint": "Die Messwelle aus Lektion 2 (f₀ = 15.9 Hz, D = 0.05), aus 1° losgelassen, eine Sekunde, vier Verfahren. Oben die Amplitude auf logarithmischer Achse, unten der Winkel.",
+        "gain": "Euler-Verstärkung pro Schritt |1 + hλ|",
+        "neutral": "Schritt, bei dem Euler die Dämpfung aufhebt",
+        "amplitude": "Amplitude",
+        "final": "{{method}}: Amplitude nach 1 s",
+        "damping": "{{method}}: Dämpfung, die es zeigt"
+      },
+      "stiff": {
+        "title": "Steifigkeit",
+        "hint": "Zwei unabhängige Verzögerungen, 1 ms und 10 s, über 30 s. Gezeigt ist die langsame. Wählen Sie den Schritt grösser als 2.8 ms, und RK4 divergiert; impliziter Euler bleibt bei jeder Schrittweite stabil.",
+        "limit": "Grösster stabiler RK4-Schritt",
+        "min_steps": "Mindestens nötige RK4-Schritte",
+        "rk4_steps": "Gerechnete RK4-Schritte",
+        "diverged": "divergiert",
+        "implicit_steps": "Schritte impliziter Euler",
+        "exact": "Exakt",
+        "slow": "Langsamer Anteil"
+      }
+    },
+    "two_mass": {
+      "question": "Eine Drehmoment-Messwelle sitzt zwischen dem Motor und einem schweren Adapter am Prüfling. Warum misst sie bei 3 Hz 15 % zu wenig?",
+      "model": "Zwei Trägheiten an zwei Federn: der Motor J₁, die Messwelle c₁, die Säule oder der Adapter J₂, der Prüfling als Drehstab c₂ gegen das Gestell. In Matrixform:",
+      "model_reading": "Die Welle misst das Moment über sich selbst; der Prüfling trägt das Moment über den Drehstab. Dazwischen sitzt J₂, und was es braucht, um diese Trägheit zu beschleunigen, steckt in der Messung und nicht im Prüfling:",
+      "assumptions": {
+        "lumped": "Konzentrierte Trägheiten: Die Trägheit der Messwelle selbst fehlt (auf ihre Enden verteilt, verschöbe sie beide Eigenfrequenzen um einige Prozent).",
+        "torque": "Ein idealer Momentenantrieb: Der Stromregler des Motors ist nicht modelliert.",
+        "linear": "Lineare Federn und viskose Dämpfer."
+      },
+      "insights": {
+        "count": "n Trägheiten an Federn gegen das Gestell ergeben n Eigenfrequenzen; eine freie Kette bringt zusätzlich eine Starrkörperbewegung bei 0 Hz.",
+        "soft": "Die tiefe Eigenform ist alles, was auf der weichsten Feder schwingt: die ganze Trägheit auf den beiden Federn in Reihe ergibt von Hand 6.3 Hz, exakt sind es 6.94 Hz.",
+        "error": "Die Welle misst etwa das (1 − (f/f_a)²)-Fache dessen, was der Prüfling trägt, mit f_a = √(c₂/J₂)/2π: 2 % zu wenig bei 1 Hz, 15 % bei 3 Hz, 43 % bei 5 Hz mit dem Standardadapter."
+      },
+      "rig": {
+        "title": "Der Prüfstand unter sinusförmiger Anregung",
+        "hint": "Verschieben Sie die Anregung oder springen Sie zu einer Vorlage. Die Scheiben drehen sich in Zeitlupe mit den berechneten Phasen; die Balken zeigen, wie stark jede Feder verdrillt ist."
+      },
+      "excitation": "Anregungsfrequenz",
+      "presets": {
+        "three": "3 Hz",
+        "mode1": "Eigenform 1",
+        "absorber": "Tilgerpunkt",
+        "motor_still": "Motor steht",
+        "mode2": "Eigenform 2"
+      },
+      "parameters": "Parameter des Prüfstands",
+      "parameters_hint": "Trägheiten, Steifigkeiten und Dämpfungen, jede auf einem Regler.",
+      "j1": "Motorträgheit J₁",
+      "j2": "Adapterträgheit J₂",
+      "c1": "Messwelle c₁",
+      "c2": "Drehstab c₂",
+      "d1": "Dämpfung Messwelle d₁",
+      "d2": "Dämpfung Drehstab d₂",
+      "motor": "Motor",
+      "adapter": "Adapter",
+      "animation_label": "Die beiden Trägheiten bei {{f}} Hz, in Zeitlupe",
+      "in_phase": "Gleichsinnig",
+      "anti_phase": "Gegensinnig",
+      "error": "Messfehler",
+      "shaft_reads": "Was die Welle misst, M_W",
+      "object_carries": "Was der Prüfling trägt, M_T",
+      "per_motor_torque": "Moment pro Motormoment",
+      "modes": "Eigenformen",
+      "mode_f": "Eigenform {{n}}: Frequenz",
+      "mode_d": "Eigenform {{n}}: Dämpfung",
+      "mode_shape": "Eigenform {{n}}: φ₂/φ₁",
+      "hand": "Handabschätzung Eigenform 1",
+      "hand_deviation": "Handabschätzung liegt daneben um",
+      "compensation": {
+        "title": "Die Trägheit des Adapters kompensieren",
+        "hint": "M_T = M_W − J₂·φ̈₂, die Beschleunigung aus dem gemessenen Winkel zweimal differenziert. Erhöhen Sie das Rauschen: Die Korrektur verstärkt es mit dem Quadrat der Abtastrate, und ein Filter tauscht das gegen Verzug.",
+        "noise": "Winkelrauschen",
+        "rate": "Abtastrate",
+        "filter": "Beschleunigung glätten",
+        "filters": {
+          "none": "Nicht",
+          "lowpass": "Tiefpass",
+          "zero_phase": "Tiefpass in beide Richtungen (offline)"
+        },
+        "corrected": "Korrigiert, M_W − J₂·φ̈₂",
+        "raw_error": "Fehler ohne Korrektur",
+        "comp_error": "Fehler mit Korrektur",
+        "noise_price": "Rauschen, das die Korrektur bringt"
+      }
+    },
+    "cheat": {
+      "print": "Drucken",
+      "analogies": "Analogien",
+      "role": "Rolle",
+      "domains": {
+        "electrical": "Elektrik",
+        "mechanical": "Mechanik",
+        "thermal": "Thermik",
+        "vacuum": "Vakuum"
+      },
+      "roles": {
+        "drive": "Antrieb",
+        "flow": "Fluss",
+        "resistance": "Widerstand",
+        "store": "Speicher",
+        "inert": "Träger Speicher",
+        "tau": "Zeitkonstante"
+      },
+      "traps": "Fallen am Prüfstand",
+      "trap": {
+        "inertia": "Eine Trägheit zwischen Momentsensor und Prüfling steckt in der Messung: Der Fehler wächst mit (f/f_a)².",
+        "filter": "Moment und Winkel identisch filtern, sonst erfindet der Filter eine Hysterese."
+      },
+      "python": "In Python"
+    },
+    "exercises": {
+      "pt1_reading": {
+        "title": "Die Anzeige eines Fühlers",
+        "prompt": "Ein Fühler mit τ = {{tau}} s erfährt einen Sprung von {{start}} °C auf {{final}} °C. Was zeigt er nach {{t}} s an?",
+        "hint1": "Nach t/τ Zeitkonstanten fehlt noch der Anteil e^(−t/τ) des Sprungs.",
+        "hint2": "y(t) = y∞ + (y₀ − y∞)·e^(−t/τ).",
+        "solution": "{{t}} s sind {{t}}/{{tau}} Zeitkonstanten, also fehlt noch e^(−{{t}}/{{tau}}) des Sprungs: Der Fühler zeigt {{a1}} °C."
+      },
+      "decrement": {
+        "title": "Dämpfung aus zwei Maxima",
+        "prompt": "In einem Ausschwingversuch zeigt ein Maximum {{first}} N·m und das nächste {{second}} N·m. Wie gross ist das Dämpfungsmass D?",
+        "hint1": "Nehmen Sie den Logarithmus des Verhältnisses zweier aufeinanderfolgender Maxima: Λ = ln(xₙ/xₙ₊₁).",
+        "hint2": "D = Λ/√(4π² + Λ²) – für kleines Λ fast Λ/2π.",
+        "solution": "Λ = ln({{first}}/{{second}}), und D = Λ/√(4π² + Λ²) = {{a1}}."
+      },
+      "double_frequency": {
+        "title": "Doppelte Eigenfrequenz",
+        "prompt": "Um welchen Faktor muss die Steifigkeit wachsen, damit sich die Eigenfrequenz bei gleicher Trägheit mit {{factor}} multipliziert?",
+        "hint1": "Die Eigenfrequenz wächst mit der Wurzel der Steifigkeit.",
+        "hint2": "Quadrieren Sie den Faktor.",
+        "solution": "f₀ wächst mit √c, also muss die Steifigkeit um {{factor}}² = {{a1}} wachsen."
+      },
+      "filter_delay": {
+        "title": "Wie spät ein Filter ein Signal macht",
+        "prompt": "Ein Filter 1. Ordnung mit Eckfrequenz {{corner}} Hz überträgt ein {{f}}-Hz-Signal. Wie viel später kommt das Signal an?",
+        "hint1": "Die Phase eines PT1 ist −arctan(f/f_E).",
+        "hint2": "Eine Phase von φ Grad bei der Frequenz f ist ein Zeitverzug von φ/360° · 1/f.",
+        "solution": "φ = −arctan({{f}}/{{corner}}), und bei {{f}} Hz ist das ein Zeitverzug von {{a1}} ms."
+      },
+      "filter_phase": {
+        "title": "Phase und Zeitverzug eines zu nahen Filters",
+        "prompt": "Ein Filter 1. Ordnung mit Eckfrequenz {{corner}} Hz überträgt ein {{f}}-Hz-Signal. Wie gross ist seine Phase, und welchen Zeitverzug bedeutet das?",
+        "hint1": "φ = −arctan(f/f_E).",
+        "hint2": "Δt = −φ/360° · 1/f.",
+        "solution": "φ = −arctan({{f}}/{{corner}}) = {{a1}}°, bei {{f}} Hz ein Zeitverzug von {{a2}} ms – fast die ganze Zeitkonstante des Filters."
+      },
+      "euler_steps": {
+        "title": "Zwei Euler-Schritte von Hand",
+        "prompt": "Euler mit h = {{h}} s am Fühler mit τ = {{tau}} s, Sprung von {{start}} °C auf {{final}} °C. Was ergibt sich nach {{steps}} Schritten?",
+        "hint1": "Jeder Schritt addiert h mal die Steigung (y∞ − y)/τ am Anfang des Schritts.",
+        "hint2": "Der zweite Schritt beginnt beim Ergebnis des ersten.",
+        "solution": "Zwei Schritte y ← y + h·(y∞ − y)/τ ergeben {{a1}} °C – zu hoch, weil Euler die steilste Steigung, die am Anfang des Schritts, den ganzen Schritt lang hält."
+      },
+      "euler_gain": {
+        "title": "Euler am ungedämpften Schwinger",
+        "prompt": "Expliziter Euler an einem ungedämpften Schwinger mit h·ω₀ = {{ratio}}: Um welchen Faktor wächst die Amplitude pro Schritt?",
+        "hint1": "Euler multipliziert jeden Eigenanteil pro Schritt mit 1 + hλ.",
+        "hint2": "Ungedämpft ist λ = ±jω₀.",
+        "solution": "|1 + j·{{ratio}}| = √(1 + {{ratio}}²) = {{a1}} pro Schritt: ein halbes Prozent pro Schritt, über das Hundertfache in tausend Schritten."
+      },
+      "hand_estimate": {
+        "title": "Die tiefe Eigenform von Hand",
+        "prompt": "Schätzen Sie die tiefste Eigenfrequenz des Zweimassen-Prüfstands von Hand: die ganze Trägheit ({{j1}} + {{j2}} kg·m²) auf den beiden Federn ({{c1}} und {{c2}} N·m/rad) in Reihe.",
+        "hint1": "Federn in Reihe: 1/c = 1/c₁ + 1/c₂.",
+        "hint2": "f = √(c/J)/2π mit der ganzen Trägheit.",
+        "solution": "c = {{c1}}·{{c2}}/({{c1}} + {{c2}}) N·m/rad auf {{j1}} + {{j2}} kg·m² ergibt {{a1}} Hz. Exakt sind es 6.94 Hz: Der Motor schwingt nicht mit der vollen Amplitude mit, also wirkt weniger Trägheit, als die Schätzung annimmt."
+      },
+      "light_adapter": {
+        "title": "Ein leichterer Adapter",
+        "prompt": "Ein leichterer Adapter, J₂ = {{j2}} kg·m², am Drehstab c₂ = {{c2}} N·m/rad. Wie stark misst die Welle bei {{f}} Hz falsch?",
+        "hint1": "Bei f_a = √(c₂/J₂)/2π misst die Welle nichts.",
+        "hint2": "Der Messfehler ist etwa (f/f_a)².",
+        "solution": "f_a = √({{c2}}/{{j2}})/2π, und (f/f_a)² = {{a1}} % – ein leichterer Adapter schiebt f_a nach oben und den Fehler nach unten."
       }
     }
   },

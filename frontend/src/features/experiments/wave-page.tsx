@@ -14,6 +14,7 @@ import { ExhibitFrame } from "./exhibit-frame";
 import { BuildPending } from "./build-pending";
 import { PreviewPending, type PreviewMode, type PreviewProps } from "./preview-mode";
 import { startsRunning } from "./play";
+import { settingNumber, useCheckRequest, useCheckSetting, type CheckSetting } from "./check-setting";
 import { angleDeg, swing } from "./simulate/pendulum";
 import { fits, lengthsM, spreadDeg } from "./simulate/wave";
 import { SIDE } from "./stage";
@@ -46,6 +47,15 @@ export function WavePage() {
   const defaults = useExperimentsDefaults();
   const [build, setBuild] = useState<WaveRequest | null>(null);
   const wave = build ?? defaults.data?.wave ?? null;
+  // A check case's "Set it up": the row's build here; the play, built anew for
+  // it or already on it, sets the swing and the clock.
+  const request = useCheckRequest("wave");
+  const [seen, setSeen] = useState<number | null>(null);
+  if (request && !request.done && request.nonce !== seen && wave) {
+    setSeen(request.nonce);
+    const next = waveOf(wave, request.setting);
+    if (JSON.stringify(next) !== JSON.stringify(wave)) setBuild(next);
+  }
   const fine = wave ? fits(wave) : false;
   const figures = useWaveFigures(fine ? wave : null);
 
@@ -76,6 +86,18 @@ export function WavePage() {
       )}
     </ExhibitFrame>
   );
+}
+
+/** The build a case names, the rest as it is. */
+function waveOf(wave: WaveRequest, setting: CheckSetting): WaveRequest {
+  return {
+    ...wave,
+    count: settingNumber(setting, "count", wave.count),
+    cycle_s: settingNumber(setting, "cycle_s", wave.cycle_s),
+    longest_swings: settingNumber(setting, "longest_swings", wave.longest_swings),
+    tuned_deg: settingNumber(setting, "tuned_deg", wave.tuned_deg),
+    amplitude_deg: settingNumber(setting, "amplitude_deg", wave.amplitude_deg),
+  };
 }
 
 /** The row let go and left to run, for the overview's previews. */
@@ -122,9 +144,26 @@ function WavePlay({
     clock.current = to;
     setTime(to);
   };
+  // A case's swing and clock: once the play's row is the case's (a new row
+  // builds a new play), the swing as it says, and the clock where its tiles
+  // are read, or the start.
+  useCheckSetting("wave", (setting) => {
+    if (preview) return false;
+    const want = waveOf(wave, setting);
+    const same = (["count", "cycle_s", "longest_swings", "tuned_deg"] as const).every((k) => want[k] === wave[k]);
+    if (!same) return false;
+    if (want.amplitude_deg !== wave.amplitude_deg) onChange?.(want);
+    const at = settingNumber(setting, "time_s", 0);
+    jump(at);
+    setRunning(at === 0);
+    return true;
+  });
+  // The swing as the reader pulls the row aside, before it is let go.
+  const [draft, setDraft] = useState<number | null>(null);
+  const amplitude = draft ?? wave.amplitude_deg;
 
-  const angles = lengths.map((length) => angleDeg(length, wave.amplitude_deg, time));
-  const reach = Math.max(wave.amplitude_deg, 15);
+  const angles = lengths.map((length) => angleDeg(length, amplitude, time));
+  const reach = Math.max(amplitude, 15);
   const top = <WaveTopView lengthsM={lengths} anglesDeg={angles} spacingM={wave.spacing_m} reachDeg={reach} />;
   if (preview) return top;
 
@@ -166,10 +205,26 @@ function WavePlay({
             </figcaption>
           </figure>
           <figure className="mx-auto max-w-sm space-y-1">
-            <WaveSideView lengthsM={lengths} anglesDeg={angles} reachDeg={reach} />
+            <WaveSideView
+              lengthsM={lengths}
+              anglesDeg={angles}
+              reachDeg={reach}
+              onPull={(deg) => {
+                setRunning(false);
+                jump(0);
+                setDraft(deg);
+              }}
+              onLetGo={(deg) => {
+                setDraft(null);
+                onChange?.({ ...wave, amplitude_deg: deg });
+                jump(0);
+                setRunning(true);
+              }}
+            />
             <figcaption className="text-center text-caption text-muted">
               {t("experiments.wave.views.side_caption")}
             </figcaption>
+            <p className="text-sm text-secondary">{t("experiments.wave.play.pull_hint")}</p>
           </figure>
         </div>
         <div className={SIDE.column}>
@@ -194,7 +249,7 @@ function WavePlay({
           <SliderField
             label={t("experiments.wave.play.amplitude")}
             unit="°"
-            value={wave.amplitude_deg}
+            value={amplitude}
             min={1}
             max={45}
             step={1}

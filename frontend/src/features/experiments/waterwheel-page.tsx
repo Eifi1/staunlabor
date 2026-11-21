@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState, type PointerEvent } from "react";
 import { useTranslation } from "react-i18next";
 import { Pause, Play, RotateCcw } from "lucide-react";
 import { Button, LoadingState, ToggleGroup } from "@eifi1/ui-kit";
@@ -6,6 +6,7 @@ import { SeriesChart } from "@/shared/charts/series-chart";
 import { useLocale } from "@/shared/i18n/use-locale";
 import { formatNumber } from "@/shared/lib/format";
 import { useChartHex } from "@/shared/state/palette-store";
+import { holdTouch } from "@/shared/ui/grab";
 import { SliderField } from "@/shared/ui/slider-field";
 import { Figures, WidgetCard } from "@/shared/ui/widget";
 import { Equation } from "./equation";
@@ -13,6 +14,7 @@ import { ExhibitFrame } from "./exhibit-frame";
 import { BuildPending } from "./build-pending";
 import { PreviewPending, type PreviewMode, type PreviewProps } from "./preview-mode";
 import { startsRunning } from "./play";
+import { settingNumber, useCheckRequest, useCheckSetting } from "./check-setting";
 import {
   STEP_TAU,
   behaviour,
@@ -56,6 +58,19 @@ export function WaterwheelPage() {
   const defaults = useExperimentsDefaults();
   const [build, setBuild] = useState<WaterWheel | null>(null);
   const w = build ?? defaults.data?.waterwheel ?? null;
+  // A check case's "Set it up": the tap and the brake here; the play, built
+  // anew for them or already on them, starts the wheel from rest.
+  const request = useCheckRequest("waterwheel");
+  const [seen, setSeen] = useState<number | null>(null);
+  if (request && !request.done && request.nonce !== seen && w) {
+    setSeen(request.nonce);
+    const next = {
+      ...w,
+      sigma: settingNumber(request.setting, "sigma", w.sigma),
+      rho: settingNumber(request.setting, "rho", w.rho),
+    };
+    if (next.sigma !== w.sigma || next.rho !== w.rho) setBuild(next);
+  }
   // One run from rest for the play card's line and the chart: what the page
   // says the wheel does is what it does here, not what ρ_H alone suggests.
   const shown = useMemo(() => (w ? run(w, SHOWN_S) : null), [w]);
@@ -89,9 +104,91 @@ export function WaterwheelPreview({ paused }: PreviewProps) {
   return w ? <WaterwheelPlay w={w} preview paused={paused} /> : <PreviewPending />;
 }
 
-function WheelView({ w, angle, y, z }: { w: WaterWheel; angle: number; y: number; z: number }) {
+/** The tap's lever: its pivot on the tap, its length, and the tap's range,
+ *  shut (lever down) to the slider's 40 (lever across). */
+const LEVER = { x: 0.14, y: -1.49, length: 0.28, most: 40 };
+/** The brake's knob on a dial round the axle, from the slider's 4 at the lower
+ *  right to its 20 at the lower left: the brake is the axle's friction. */
+const DIAL = { radius: 0.3, from: 30, to: 150, least: 4, most: 20 };
+const TO_DEG = 180 / Math.PI;
+
+type Grip = "tap" | "brake";
+
+/**
+ * The wheel, drawn. Given `onDraft`, the tap's lever and the brake's knob can
+ * be turned by mouse or finger (Marcel, 2026-11-20: the exhibits "ähnlich
+ * interaktiv" as the cradle): the wheel runs on while they turn, and starts
+ * again from rest with the new tap and brake once they are let go, as the
+ * sliders start it.
+ */
+function WheelView({
+  w,
+  angle,
+  y,
+  z,
+  onDraft,
+  onCommit,
+}: {
+  w: WaterWheel;
+  angle: number;
+  y: number;
+  z: number;
+  onDraft?: (next: { rho: number; sigma: number }) => void;
+  onCommit?: (next: { rho: number; sigma: number }) => void;
+}) {
   const { t } = useTranslation();
   const hex = useChartHex();
+  // Which control the pointer holds: a ref for the handlers, which a move can
+  // reach before React has drawn the hold; the state for the cursor.
+  const [grip, setGrip] = useState<Grip | null>(null);
+  const gripped = useRef<Grip | null>(null);
+  const last = useRef<{ rho: number; sigma: number } | null>(null);
+  // The pointer in the drawing's units. The view box is not the box's shape,
+  // so the browser's own matrix maps it; a page without one (a test) has the
+  // box stand for the view box.
+  const at = (svg: SVGSVGElement, clientX: number, clientY: number) => {
+    const matrix = svg.getScreenCTM?.();
+    if (matrix) {
+      const p = new DOMPoint(clientX, clientY).matrixTransform(matrix.inverse());
+      return { x: p.x, y: p.y };
+    }
+    const box = svg.getBoundingClientRect();
+    if (!box.width || !box.height) return null;
+    return { x: -1.45 + ((clientX - box.left) / box.width) * 2.9, y: -1.55 + ((clientY - box.top) / box.height) * 3 };
+  };
+  const turn = (svg: SVGSVGElement, clientX: number, clientY: number, which: Grip) => {
+    const p = at(svg, clientX, clientY);
+    if (!p) return;
+    const half = (v: number) => Math.round(v * 2) / 2;
+    const next = { rho: w.rho, sigma: w.sigma };
+    if (which === "tap") {
+      const deg = Math.min(90, Math.max(0, Math.atan2(p.x - LEVER.x, p.y - LEVER.y) * TO_DEG));
+      next.rho = half((deg / 90) * LEVER.most);
+    } else {
+      const deg = Math.min(DIAL.to, Math.max(DIAL.from, Math.atan2(p.y, p.x) * TO_DEG));
+      next.sigma = half(DIAL.least + ((deg - DIAL.from) / (DIAL.to - DIAL.from)) * (DIAL.most - DIAL.least));
+    }
+    last.current = next;
+    onDraft?.(next);
+  };
+  const release = () => {
+    if (gripped.current === null) return;
+    gripped.current = null;
+    setGrip(null);
+    if (last.current) onCommit?.(last.current);
+  };
+  const take = (which: Grip, e: PointerEvent<SVGCircleElement>) => {
+    const svg = e.currentTarget.ownerSVGElement;
+    if (!onDraft || !svg) return;
+    svg.setPointerCapture?.(e.pointerId);
+    gripped.current = which;
+    setGrip(which);
+    turn(svg, e.clientX, e.clientY, which);
+  };
+  const lever = (w.rho / LEVER.most) * (Math.PI / 2);
+  const leverEnd = { x: LEVER.x + LEVER.length * Math.sin(lever), y: LEVER.y + LEVER.length * Math.cos(lever) };
+  const knob = (DIAL.from + ((w.sigma - DIAL.least) / (DIAL.most - DIAL.least)) * (DIAL.to - DIAL.from)) / TO_DEG;
+  const knobAt = { x: DIAL.radius * Math.cos(knob), y: DIAL.radius * Math.sin(knob) };
   const water = hex[WATER_HUE % hex.length];
   const wheel = hex[WHEEL_HUE % hex.length];
   const R = 1;
@@ -102,7 +199,12 @@ function WheelView({ w, angle, y, z }: { w: WaterWheel; angle: number; y: number
       viewBox="-1.45 -1.55 2.9 3"
       role="img"
       aria-label={t("experiments.waterwheel.views.wheel")}
-      className="aspect-square w-full rounded-lg border border-subtle bg-surface-2 text-muted"
+      className={`aspect-square w-full rounded-lg border border-subtle bg-surface-2 text-muted ${onDraft ? "select-none" : ""} ${grip ? "cursor-grabbing" : ""}`}
+      onPointerMove={(e: PointerEvent<SVGSVGElement>) => {
+        if (gripped.current) turn(e.currentTarget, e.clientX, e.clientY, gripped.current);
+      }}
+      onPointerUp={release}
+      onPointerCancel={release}
     >
       {/* The tap, and the water falling into the top. */}
       <rect x={-0.12} y={-1.55} width={0.24} height={0.12} className="fill-current" opacity={0.6} />
@@ -149,6 +251,46 @@ function WheelView({ w, angle, y, z }: { w: WaterWheel; angle: number; y: number
           </g>
         );
       })}
+      {onDraft && (
+        <>
+          {/* The brake's dial round the axle, and its knob. */}
+          <path
+            d={`M ${DIAL.radius * Math.cos(DIAL.from / TO_DEG)} ${DIAL.radius * Math.sin(DIAL.from / TO_DEG)} A ${DIAL.radius} ${DIAL.radius} 0 0 1 ${DIAL.radius * Math.cos(DIAL.to / TO_DEG)} ${DIAL.radius * Math.sin(DIAL.to / TO_DEG)}`}
+            fill="none"
+            stroke="currentColor"
+            strokeWidth={3}
+            opacity={0.5}
+            vectorEffect="non-scaling-stroke"
+          />
+          <circle
+            cx={knobAt.x}
+            cy={knobAt.y}
+            r={0.07}
+            className={`fill-current text-primary ${grip ? "" : "cursor-grab"}`}
+            ref={holdTouch}
+            onPointerDown={(e) => take("brake", e)}
+          />
+          {/* The tap's lever. */}
+          <line
+            x1={LEVER.x}
+            y1={LEVER.y}
+            x2={leverEnd.x}
+            y2={leverEnd.y}
+            stroke="currentColor"
+            strokeWidth={3}
+            strokeLinecap="round"
+            vectorEffect="non-scaling-stroke"
+          />
+          <circle
+            cx={leverEnd.x}
+            cy={leverEnd.y}
+            r={0.07}
+            className={`fill-current text-primary ${grip ? "" : "cursor-grab"}`}
+            ref={holdTouch}
+            onPointerDown={(e) => take("tap", e)}
+          />
+        </>
+      )}
     </svg>
   );
 }
@@ -220,12 +362,40 @@ function WaterwheelPlay({
     return () => cancelAnimationFrame(raf);
   }, [running, speed, w]);
 
-  const wheel = <WheelView w={w} angle={frame.angle} y={frame.y[1]} z={frame.y[2]} />;
-  if (preview) return wheel;
   const restart = () => {
     sim.current = { state: startWheel(), owed: 0, trail: [] };
     setFrame({ y: [1e-3, 0, 0], angle: 0, trail: [] });
   };
+  // A case whose tap and brake are already the page's builds no new play: this
+  // one starts the wheel from rest for it, and from rest is what the cases read.
+  useCheckSetting("waterwheel", (setting) => {
+    if (preview) return false;
+    if (settingNumber(setting, "sigma", w.sigma) !== w.sigma || settingNumber(setting, "rho", w.rho) !== w.rho) {
+      return false;
+    }
+    restart();
+    setRunning(true);
+    return true;
+  });
+  // The tap and brake as the reader turns them, before they are let go.
+  const [draft, setDraft] = useState<{ rho: number; sigma: number } | null>(null);
+  const shownW = draft ? { ...w, ...draft } : w;
+  const wheel = preview ? (
+    <WheelView w={w} angle={frame.angle} y={frame.y[1]} z={frame.y[2]} />
+  ) : (
+    <WheelView
+      w={shownW}
+      angle={frame.angle}
+      y={frame.y[1]}
+      z={frame.y[2]}
+      onDraft={setDraft}
+      onCommit={(next) => {
+        setDraft(null);
+        onChange?.({ ...w, ...next });
+      }}
+    />
+  );
+  if (preview) return wheel;
   const rate = frame.y[0] * w.leak_per_s * RPM;
   return (
     <WidgetCard
@@ -250,6 +420,7 @@ function WaterwheelPlay({
           <figcaption className="text-center text-caption text-muted">
             {t("experiments.waterwheel.views.wheel_caption")}
           </figcaption>
+          <p className="text-sm text-secondary">{t("experiments.waterwheel.play.turn_hint")}</p>
         </figure>
         <figure className="space-y-1">
           <ButterflyView trail={frame.trail} w={w} />
@@ -262,7 +433,7 @@ function WaterwheelPlay({
         <SliderField
           label={t("experiments.waterwheel.play.tap")}
           unit="ρ"
-          value={w.rho}
+          value={shownW.rho}
           min={0}
           max={40}
           step={0.5}
@@ -273,7 +444,7 @@ function WaterwheelPlay({
         <SliderField
           label={t("experiments.waterwheel.play.brake")}
           unit="σ"
-          value={w.sigma}
+          value={shownW.sigma}
           min={4}
           max={20}
           step={0.5}

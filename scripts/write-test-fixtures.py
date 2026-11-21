@@ -83,7 +83,7 @@ UNROUTED = (
 
 def _answer(response: Response) -> Any:
     # A refusal written into the file would be a page test's "engine answer".
-    # A 429 cannot happen (nine requests, a budget of ninety), so any status but
+    # A 429 cannot happen (nine requests, a budget of a hundred and eighty), so any status but
     # 200 is the app's fault and stops the write.
     if response.status_code != 200:
         raise SystemExit(

@@ -4,8 +4,11 @@ Guidance for Claude Code in this repository. Read the document a change
 touches before making it:
 
 * [`docs/experiments.md`](docs/experiments.md) — each exhibit: what it is, how
-  it is modelled, what checking the models found, the overview and the daily
+  it is modelled, what checking the models found, the overview and the weekly
   pick;
+* [`docs/course.md`](docs/course.md) — the basics, the course's lessons 0–6
+  that moved in from Kurvenschmiede: what moved, what was cut, the formula
+  rule's second step;
 * [`docs/translations.md`](docs/translations.md) — the seven languages, who
   wrote which, what a reviewer should look at;
 * [`docs/plan.md`](docs/plan.md) — the decisions this site was set up on;
@@ -18,15 +21,15 @@ document it points to.
 
 **Staunlabor** (staunlabor.app): hands-on exhibits, computed. The exhibits,
 each a page in one shape (at the exhibit, try it, what happens, how it is
-computed, the trick), and an overview with the experiment of the day. Free,
+computed, the trick), and an overview with the experiment of the week. Free,
 open source (code MIT, texts and drawings CC BY 4.0), **no cookies, no
 tracking, and no account needed for any exhibit**. A FastAPI backend holds the
 exhibits' engine behind a few public routes; a React SPA on `@eifi1/ui-kit`
 draws them. The second stage (`docs/plan.md`) adds invitation-only accounts on
 a database of its own, server-kit's account layer; the exhibits never touch it.
-It began as the "Experiments" area of Kurvenschmiede (`../kurvenschmiede`),
-whose differential-equations course the pages still link to at
-`https://kurvenschmiede.app/dynamics/...`.
+It began as the "Experiments" area of Kurvenschmiede (`../kurvenschmiede`);
+the first lessons of its differential-equations course moved here too, as the
+**basics** under `/basics` (`docs/course.md`).
 
 **The museum is the model, never the source.** Most exhibits are *inspired
 by* exhibits at the Swiss Science Center Technorama; the site says so in one
@@ -56,10 +59,13 @@ Test Task* is `npm run check`; `.vscode/tasks.json` has the rest, and
 
 ```bash
 cd backend && uv run pytest tests/unit/test_experiments.py -q
-cd frontend && npx vitest run src/features/experiments/daily.test.ts
+cd frontend && npx vitest run src/features/experiments/weekly.test.ts
 cd backend && uv run python ../scripts/write-experiments-cases.py         # after an engine change
 cd backend && uv run python ../scripts/write-test-fixtures.py             # after a change to a route's answer
+cd backend && uv run python ../scripts/write-checks.py                   # after a change to an engine with checks
+cd backend && uv run python ../scripts/write-course-fixtures.py           # after a change to the course's engine or routes
 node scripts/write-previews.mjs                                          # link-preview pictures, after a new exhibit
+node scripts/write-clips.mjs cone                                        # moving cards for posts, into clips/ (not committed)
 cd backend && uv run alembic revision -m "…" --rev-id 0002                # a new migration, written by hand
 ```
 
@@ -74,7 +80,13 @@ backend/staunlabor/
                         library only; raises ValueError, which main.py makes a 400
   domain/schemas/       pydantic wire shapes with the per-field bounds
   api/                  the routes: shapes in, schemas out, no physics
+  domain/course/        the course's engine (the basics, lessons 0–6), pure as the
+                        exhibits'; no exhibit imports it
   security.py           the request budgets, per address
+  answer_cache.py       the calculation routes' answers kept by question: one
+                        calculation per question and process, free of the budget
+  request_log.py        one JSON line per API call: route, status, time, CPU; nothing
+                        of the visitor's (deploy/grafana reads them as metrics)
   accounts.py           server-kit's account and admin routes wired: the stores, the mail,
                         the policy, roles, languages and review areas, the daily call's prune
   feedback.py           server-kit's feedback routes wired: feedback.sql's stores, the files
@@ -86,8 +98,10 @@ backend/alembic/        the migrations (0001: the accounts' tables, 0002: the fe
                         0003: the translation review's, 0004: two-factor sign-in's)
 frontend/src/
   app/                  routes (every page but the overview lazy), router link
-  features/experiments/ the pages, the views, the overview, the daily pick,
-                        simulate/ (the time loops, ported from the engine)
+  features/experiments/ the pages, the views, the overview, the page of every
+                        exhibit, the weekly pick, simulate/ (the time loops,
+                        ported from the engine)
+  features/course/      the basics: the course's lessons 0–6 and its cheat sheet
   features/site/        the footer, the about page, the imprint, the privacy policy
   shared/               api, i18n, state, charts, ui, lib (storage-keys.ts)
 ```
@@ -100,6 +114,12 @@ frontend/src/
   `scripts/write-experiments-cases.py` → `engine-cases.json`, checked from
   both sides (`tests/unit/test_experiments_browser.py`, `simulate.test.ts`).
   Change both sides and rewrite the cases in one commit.
+* **A checked exhibit's engine is changed only on purpose**: an admin's check
+  holds for the fingerprint of the exhibit's Python engine modules, those they
+  import and its cases (`domain/checks/`); any code change there, a pure
+  refactor too, brings "not yet checked" back. Do refactors of an engine
+  before its exhibit is checked, and name the exhibits a change unchecks
+  (Marcel, 2026-11-19). Docstrings, comments and `simulate/` do not count.
 * **The prose states only what a test asserts**: a figure in a catalogue
   sentence is one `tests/unit/test_experiments.py` checks.
 * **No formula stands alone**: every one is an `Equation` with a sentence and

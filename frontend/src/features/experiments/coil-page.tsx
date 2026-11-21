@@ -11,6 +11,7 @@ import { SliderField } from "@/shared/ui/slider-field";
 import { Figures, WidgetCard } from "@/shared/ui/widget";
 import { BUTTON_HUE, CoilTrack, Meter } from "./coil-track";
 import { PreviewPending, type PreviewMode, type PreviewProps } from "./preview-mode";
+import { useCheckRequest, useCheckSetting, settingNumber, type CheckSetting } from "./check-setting";
 import { startsRunning } from "./play";
 import { Equation } from "./equation";
 import { ExhibitFrame } from "./exhibit-frame";
@@ -18,6 +19,7 @@ import { BuildPending } from "./build-pending";
 import {
   RESISTANCE_FADE_M_S,
   STEP_S,
+  endOf,
   frame,
   pressOf,
   start,
@@ -64,9 +66,33 @@ interface View {
   press: Press;
   lastPeak: number | null;
   tops: number;
+  /** Which ramp the car last turned on, −1 left or +1 right: where the page
+   *  marks how high it came. */
+  peakSide: number;
+  /** The flags the car has reached since the start, left and right. */
+  reached: [boolean, boolean];
 }
 
-function viewOf(sim: CoilSim, press: Press): View {
+/** What the loop notices between frames: a new turn-around, a new top. */
+interface Marks {
+  peaks: number;
+  tops: number;
+  peakSide: number;
+  reached: [boolean, boolean];
+}
+
+const NO_MARKS: Marks = { peaks: 0, tops: 0, peakSide: 0, reached: [false, false] };
+
+/** After a step: a turn-around or a top since the last one is on the side the car is on. */
+function notice(marks: Marks, sim: CoilSim): Marks {
+  if (sim.peaks.length === marks.peaks && sim.tops === marks.tops) return marks;
+  const side = sim.y[0] < 0 ? -1 : 1;
+  const reached: [boolean, boolean] =
+    sim.tops > marks.tops ? (side < 0 ? [true, marks.reached[1]] : [marks.reached[0], true]) : marks.reached;
+  return { peaks: sim.peaks.length, tops: sim.tops, peakSide: side, reached };
+}
+
+function viewOf(sim: CoilSim, press: Press, marks: Marks = NO_MARKS): View {
   return {
     t: sim.n * STEP_S,
     x: sim.y[0],
@@ -74,6 +100,8 @@ function viewOf(sim: CoilSim, press: Press): View {
     press,
     lastPeak: sim.peaks.length > 0 ? sim.peaks[sim.peaks.length - 1] : null,
     tops: sim.tops,
+    peakSide: marks.peakSide,
+    reached: marks.reached,
   };
 }
 
@@ -86,11 +114,32 @@ function viewOf(sim: CoilSim, press: Press): View {
  * computes. The figures and the curves are the server's, for the build the
  * sliders describe.
  */
+/** The build a check case asks for, on the exhibit's defaults. */
+function coilOf(base: CoilExhibitRequest, setting: CheckSetting): CoilExhibitRequest {
+  return {
+    ...base,
+    idle: setting.idle === "open" ? "open" : setting.idle === "closed" ? "closed" : base.idle,
+    track: {
+      ...base.track,
+      car_mass_kg: settingNumber(setting, "car_mass_kg", base.track.car_mass_kg),
+      rolling_resistance: settingNumber(setting, "rolling_resistance", base.track.rolling_resistance),
+    },
+  };
+}
+
 export function CoilPage() {
   const { t } = useTranslation();
   const defaults = useExperimentsDefaults();
   const [build, setBuild] = useState<CoilExhibitRequest | null>(null);
   const exhibit = build ?? defaults.data?.coil ?? null;
+  // A check case's "Set it up": the build here; the twin, built anew for it,
+  // starts the car where the case lets it go.
+  const request = useCheckRequest("coil");
+  const [seen, setSeen] = useState<number | null>(null);
+  if (request && !request.done && request.nonce !== seen && defaults.data) {
+    setSeen(request.nonce);
+    setBuild(coilOf(defaults.data.coil, request.setting));
+  }
   const analysis = useCoilAnalysis(exhibit);
 
   return (
@@ -141,9 +190,12 @@ function CoilPlay({
   const { t } = useTranslation();
   const locale = useLocale();
   const ex = exhibit as CoilExhibit;
+  const halfway = -(ex.track.flat_length_m / 2 + ex.track.ramp_length_m / 2);
+  const [startX, setStartX] = useState(halfway);
   const sim = useRef<CoilSim | null>(null);
   if (sim.current === null) sim.current = start(ex);
   const held = useRef<Press>(0);
+  const marks = useRef<Marks>(NO_MARKS);
   const [view, setView] = useState<View>(() => viewOf(start(ex), 0));
   const [runningHere, setRunning] = useState(startsRunning);
   const running = preview ? !paused : runningHere;
@@ -172,8 +224,9 @@ function CoilPlay({
           ? pressOf(rule, current.n * STEP_S, current.y[0], current.y[1], current.crossedAt)
           : held.current;
         frame(ex, current, press);
+        marks.current = notice(marks.current, current);
       }
-      setView(viewOf(current, press));
+      setView(viewOf(current, press, marks.current));
       raf = requestAnimationFrame(tick);
     };
     raf = requestAnimationFrame(tick);
@@ -219,11 +272,23 @@ function CoilPlay({
       window.removeEventListener("keyup", up);
     };
   }, [autopilot, preview]);
-  const restart = () => {
-    sim.current = start(ex);
+  const restart = (from: number = startX) => {
+    sim.current = start(ex, from);
+    marks.current = NO_MARKS;
     hold(0);
     setView(viewOf(sim.current, 0));
   };
+  useCheckSetting("coil", (setting) => {
+    if (preview) return false;
+    // Built for another case: the page builds this twin anew, and the new one takes it.
+    if (JSON.stringify(coilOf(exhibit, setting)) !== JSON.stringify(exhibit)) return false;
+    const from = Math.max(-endOf(ex.track), Math.min(0, settingNumber(setting, "start_x_m", halfway)));
+    setStartX(from);
+    setAutopilot(setting.autopilot === "on");
+    restart(from);
+    setRunning(true);
+    return true;
+  });
   const top = topHeight(ex.track);
   const shownPress = autopilot ? view.press : pressed;
 
@@ -238,97 +303,140 @@ function CoilPlay({
             {running ? <Pause className="size-4" aria-hidden /> : <Play className="size-4" aria-hidden />}
             {running ? t("experiments.coil.play.pause") : t("experiments.coil.play.run")}
           </Button>
-          <Button variant="secondary" size="sm" onClick={restart}>
+          <Button variant="secondary" size="sm" onClick={() => restart()}>
             <RotateCcw className="size-4" aria-hidden />
             {t("experiments.coil.play.restart")}
           </Button>
         </>
       }
     >
-      {/* Who presses comes first, above the track, as on the sphere's page:
+      {/* One column at most 64rem wide: across a wide screen the two buttons
+          stood over 1000 px apart, too far for a hand on a mouse and an eye on
+          the coil (the review of 2026-11-19). */}
+      <div className="mx-auto flex w-full max-w-5xl flex-col gap-4">
+        {/* Who presses comes first, above the track, as on the sphere's page:
           under the readings it went unnoticed, and with it the perfect timing
           the auto mode offers. */}
-      <div className="flex flex-wrap items-end gap-x-6 gap-y-3">
-        <Switch
-          label={t("experiments.coil.play.autopilot")}
-          description={t("experiments.coil.play.autopilot_hint", {
-            window: formatNumber((ex.track.flat_length_m / 2) * 100, 0, locale),
-          })}
-          checked={autopilot}
-          onCheckedChange={(on) => {
-            setAutopilot(on);
-            hold(0);
-          }}
-        />
-        <ToggleGroup
-          label={t("experiments.coil.play.speed")}
-          labelPlacement="above"
-          size="sm"
-          value={String(speed)}
-          onChange={(v: string) => setSpeed(Number(v) as (typeof SPEEDS)[number])}
-          options={SPEEDS.map((s) => ({
-            value: String(s),
-            label: t(`experiments.coil.play.speeds.${String(s).replace(".", "_")}`),
-          }))}
-        />
-      </div>
-      <CoilTrack exhibit={exhibit} x={view.x} press={shownPress} />
-      {/* Left and right at every width, as at the exhibit: one hand, one button. */}
-      <div className="grid grid-cols-[1fr_auto_1fr] items-center gap-2 sm:gap-4">
-        <ExhibitButton
-          sign={1}
-          active={shownPress === 1}
-          disabled={autopilot}
-          label={t("experiments.coil.play.plus")}
-          caption={t("experiments.coil.play.plus_caption")}
-          onHold={hold}
-        />
-        <div className="flex flex-col items-center gap-1">
-          {/* What the car induces only: a button switches the coil from the
+        <div className="flex flex-wrap items-end gap-x-6 gap-y-3">
+          <Switch
+            label={t("experiments.coil.play.autopilot")}
+            description={t("experiments.coil.play.autopilot_hint")}
+            checked={autopilot}
+            onCheckedChange={(on) => {
+              setAutopilot(on);
+              hold(0);
+            }}
+          />
+          <SliderField
+            label={t("experiments.coil.play.start")}
+            unit="cm"
+            value={-startX * 100}
+            min={0}
+            max={endOf(ex.track) * 100}
+            step={0.5}
+            digits={1}
+            hint={t("experiments.coil.play.start_hint", {
+              top: formatNumber(endOf(ex.track) * 100, 0, locale),
+              half: formatNumber(-halfway * 100, 0, locale),
+            })}
+            onChange={(cm) => {
+              setStartX(-cm / 100);
+              restart(-cm / 100);
+            }}
+          />
+          <ToggleGroup
+            label={t("experiments.coil.play.speed")}
+            labelPlacement="above"
+            size="sm"
+            value={String(speed)}
+            onChange={(v: string) => setSpeed(Number(v) as (typeof SPEEDS)[number])}
+            options={SPEEDS.map((s) => ({
+              value: String(s),
+              label: t(`experiments.coil.play.speeds.${String(s).replace(".", "_")}`),
+            }))}
+          />
+        </div>
+        {/* The aim in words, where the eye is (the review of 2026-11-19: "Oben
+          angekommen 0" in the figures was too abstract). */}
+        <p className={`text-sm font-medium ${view.reached[0] && view.reached[1] ? "text-success" : "text-primary"}`}>
+          {t(view.reached[0] && view.reached[1] ? "experiments.coil.play.done" : "experiments.coil.play.aim")}
+        </p>
+        <div className="relative">
+          <CoilTrack
+            exhibit={exhibit}
+            x={view.x}
+            press={shownPress}
+            peak={view.lastPeak === null || view.peakSide === 0 ? null : { height: view.lastPeak, side: view.peakSide }}
+            reached={view.reached}
+          />
+          {/* Standing still at the start (a reader who asked for less motion):
+            the way to begin is on the track, not only in the header's "Run". */}
+          {!running && view.t === 0 && (
+            <div className="absolute inset-0 flex items-center justify-center">
+              <Button variant="accent" onClick={() => setRunning(true)}>
+                <Play className="size-4" aria-hidden />
+                {t("experiments.coil.play.let_go")}
+              </Button>
+            </div>
+          )}
+        </div>
+        {/* Left and right at every width, as at the exhibit: one hand, one button. */}
+        <div className="grid grid-cols-[1fr_auto_1fr] items-center gap-2 sm:gap-4">
+          <ExhibitButton
+            sign={1}
+            active={shownPress === 1}
+            disabled={autopilot}
+            label={t("experiments.coil.play.plus")}
+            caption={t("experiments.coil.play.plus_caption")}
+            onHold={hold}
+          />
+          <div className="flex flex-col items-center gap-1">
+            {/* What the car induces only: a button switches the coil from the
               meter to the battery, so the meter reads zero while one is held
               (at the exhibit, too, nothing shows while a button is pressed). */}
-          <Meter currentA={view.press === 0 ? view.i : 0} rangeA={meterRangeA} />
-          <span className="text-caption text-muted">{t("experiments.coil.meter.caption")}</span>
-          {/* The page's second meter, which the exhibit does not have: the
+            <Meter currentA={view.press === 0 ? view.i : 0} rangeA={meterRangeA} />
+            <span className="text-caption text-muted">{t("experiments.coil.meter.caption")}</span>
+            {/* The page's second meter, which the exhibit does not have: the
               current the buttons drive, while one is held — so one meter
               shows what the car induces and the other what the pushing does. */}
-          <Meter
-            currentA={view.press === 0 ? 0 : view.i}
-            rangeA={BUTTON_METER_RANGE_A}
-            label={t("experiments.coil.meter.buttons_label")}
+            <Meter
+              currentA={view.press === 0 ? 0 : view.i}
+              rangeA={BUTTON_METER_RANGE_A}
+              label={t("experiments.coil.meter.buttons_label")}
+            />
+            <span className="text-caption text-muted">{t("experiments.coil.meter.buttons_caption")}</span>
+          </div>
+          <ExhibitButton
+            sign={-1}
+            active={shownPress === -1}
+            disabled={autopilot}
+            label={t("experiments.coil.play.minus")}
+            caption={t("experiments.coil.play.minus_caption")}
+            onHold={hold}
           />
-          <span className="text-caption text-muted">{t("experiments.coil.meter.buttons_caption")}</span>
         </div>
-        <ExhibitButton
-          sign={-1}
-          active={shownPress === -1}
-          disabled={autopilot}
-          label={t("experiments.coil.play.minus")}
-          caption={t("experiments.coil.play.minus_caption")}
-          onHold={hold}
+        {!autopilot && <p className="text-center text-caption text-muted">{t("experiments.coil.play.keys")}</p>}
+        <Figures
+          tiles={[
+            {
+              key: "peak",
+              label: t("experiments.coil.play.last_peak"),
+              value: view.lastPeak === null ? null : view.lastPeak * 1000,
+              digits: 0,
+              unit: "mm",
+            },
+            { key: "top", label: t("experiments.coil.play.goal"), value: top * 1000, digits: 0, unit: "mm" },
+            {
+              key: "tops",
+              label: t("experiments.coil.play.tops"),
+              value: view.tops,
+              digits: 0,
+              tone: view.tops > 0 ? "success" : "neutral",
+            },
+            { key: "time", label: t("experiments.coil.play.time"), value: view.t, digits: 1, unit: "s" },
+          ]}
         />
       </div>
-      {!autopilot && <p className="text-center text-caption text-muted">{t("experiments.coil.play.keys")}</p>}
-      <Figures
-        tiles={[
-          {
-            key: "peak",
-            label: t("experiments.coil.play.last_peak"),
-            value: view.lastPeak === null ? null : view.lastPeak * 1000,
-            digits: 0,
-            unit: "mm",
-          },
-          { key: "top", label: t("experiments.coil.play.goal"), value: top * 1000, digits: 0, unit: "mm" },
-          {
-            key: "tops",
-            label: t("experiments.coil.play.tops"),
-            value: view.tops,
-            digits: 0,
-            tone: view.tops > 0 ? "success" : "neutral",
-          },
-          { key: "time", label: t("experiments.coil.play.time"), value: view.t, digits: 1, unit: "s" },
-        ]}
-      />
     </WidgetCard>
   );
 }
@@ -428,13 +536,15 @@ function CoilBuild({
         />
         <SliderField
           label={t("experiments.coil.change.mass")}
-          unit="g"
-          value={exhibit.track.car_mass_kg * 1000}
-          min={50}
-          max={500}
-          step={10}
-          digits={0}
-          onChange={(v) => onChange({ ...exhibit, track: { ...exhibit.track, car_mass_kg: v / 1000 } })}
+          unit="kg"
+          value={exhibit.track.car_mass_kg}
+          min={0.05}
+          max={20}
+          step={0.01}
+          digits={2}
+          log
+          hint={t("experiments.coil.change.mass_hint")}
+          onChange={(v) => onChange({ ...exhibit, track: { ...exhibit.track, car_mass_kg: v } })}
         />
         <SliderField
           label={t("experiments.coil.change.radius")}

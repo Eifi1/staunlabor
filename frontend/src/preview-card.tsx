@@ -1,7 +1,9 @@
 /**
  * The entry of `preview-card.html`: one link-preview card (`?card=sky`,
- * `?card=overview`), in German and light, its previews playing until
- * `scripts/write-previews.mjs` calls `holdStill()`.
+ * `?card=overview`), light, in German unless `?lang=en` asks for another of
+ * the seven (the link previews are German; `scripts/write-clips.mjs --lang`
+ * films the others), its previews playing until `scripts/write-previews.mjs`
+ * calls `holdStill()`.
  *
  * The dev server serves it and only the script opens it; the build leaves it
  * out (Vite builds `index.html` alone). Two marks on <html> are the script's
@@ -16,6 +18,7 @@ import { BrowserRouter } from "react-router";
 import { QueryClientProvider } from "@tanstack/react-query";
 import { changeLanguage, initI18n } from "@/shared/i18n/index";
 import { kitLabels } from "@/shared/i18n/kit-labels";
+import { FALLBACK_LOCALE, offered, tagOf } from "@/shared/i18n/languages";
 import { queryClient } from "@/shared/state/query-client";
 import { KitProviders } from "@/app/kit-providers";
 import { EXHIBITS } from "@/features/experiments/exhibits";
@@ -28,7 +31,9 @@ declare global {
   }
 }
 
-const LANGUAGE = "de-CH";
+/** German, the link previews' language (a preview's request names none), or
+ *  the one `?lang=` asks for. */
+const LANGUAGE = offered(new URLSearchParams(window.location.search).get("lang"), FALLBACK_LOCALE);
 
 function cardAsked(): Card {
   const asked = new URLSearchParams(window.location.search).get("card") ?? "overview";
@@ -75,7 +80,7 @@ void initI18n()
       <React.StrictMode>
         <BrowserRouter>
           <QueryClientProvider client={queryClient}>
-            <KitProviders labels={kitLabels(LANGUAGE)} locale={LANGUAGE} appName="Staunlabor">
+            <KitProviders labels={kitLabels(LANGUAGE)} locale={tagOf(LANGUAGE)} appName="Staunlabor">
               <Host card={cardAsked()} />
             </KitProviders>
           </QueryClientProvider>

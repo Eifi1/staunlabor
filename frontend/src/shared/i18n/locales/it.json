@@ -40,6 +40,16 @@
       "feedback": "Qualcosa di sbagliato o poco chiaro, o un exhibit che vorrebbe vedere?",
       "issues": "Lo segnali su GitHub",
       "source": "Consulti il codice sorgente"
+    },
+    "nav": {
+      "label": "Navigazione principale",
+      "exhibits": "Exhibit",
+      "basics": "Fondamenti",
+      "about": "Informazioni"
+    },
+    "search": {
+      "trigger": "Cerca un exhibit",
+      "placeholder": "Exhibit, tema o domanda …"
     }
   },
   "legal": {
@@ -68,7 +78,8 @@
         "entries": {
           "language": "La lingua scelta",
           "look": "Il tema chiaro o scuro",
-          "tried": "Quali exhibit ha provato, affinché la panoramica possa spuntarli"
+          "tried": "Quali exhibit ha provato, affinché la panoramica possa spuntarli",
+          "course": "Il Suo avanzamento nel corso sulle equazioni differenziali: le lezioni aperte, gli esercizi risolti e le stime fatte prima di calcolare"
         },
         "tail": "Niente di tutto ciò viene usato per tracciarLa. Il Suo browser invia i token di accesso con ogni richiesta al Suo account; tutto il resto rimane nel Suo browser. Uscendo dall'account i token di accesso vengono rimossi, e tutto questo scompare quando cancella i dati del sito nel Suo browser."
       },
@@ -87,23 +98,17 @@
   },
   "experiments": {
     "title": "Esperimenti",
-    "area": "Gli esperimenti",
     "failed": "Non è stato possibile calcolare l'exhibit.",
     "overview": {
-      "short": "Panoramica",
-      "lead": "Exhibit interattivi, calcolati. Faccia il visitatore davanti al gemello dell'exhibit, poi scopra il calcolo dietro ciò che ha provato.",
+      "claim": "Prima <em>giocare</em>, poi <em>calcolare</em>.",
+      "lead": "Exhibit come in un museo della scienza, da provare e da ricalcolare.",
       "how": "Ogni pagina comincia da ciò che si trova all'exhibit, Le permette di provarlo e poi mostra che cosa accade e l'idea che spiega il trucco. Ogni numero viene dal motore di calcolo dell'app ed è garantito dai suoi test.",
-      "open": "Apri l'exhibit",
       "coming": "In preparazione",
       "credit": "La maggior parte degli exhibit è ispirata agli exhibit dello Swiss Science Center Technorama, Winterthur.",
-      "daily": {
-        "eyebrow": "Esperimento del giorno",
+      "week": {
+        "eyebrow": "Esperimento della settimana",
         "open": "Lo provi",
-        "today": "Oggi"
-      },
-      "history": {
-        "title": "Gli esperimenti degli ultimi giorni",
-        "open": "Giorni precedenti"
+        "current": "Questa settimana"
       },
       "all": "Tutti gli exhibit",
       "topics_label": "Filtra per tema",
@@ -114,7 +119,26 @@
         "mark": "Provato",
         "forget": "Dimentica"
       },
-      "builds_on": "Si basa su:"
+      "builds_on": "Si basa su:",
+      "facts": {
+        "label": "Staunlabor in cifre",
+        "exhibits": "Exhibit",
+        "topics": "Temi",
+        "equations": "Equazioni",
+        "checked": "Verificati",
+        "languages": "Lingue",
+        "promise": "0 cookie · 0 tracciamento · senza account · libero e open source"
+      },
+      "selection": {
+        "title": "Exhibit",
+        "lead": "I {{count}} più recenti. Un disegno si muove appena lo indica.",
+        "all": "Tutti i {{count}} exhibit"
+      },
+      "basics": {
+        "title": "Fondamenti",
+        "lead": "La matematica dietro gli exhibit, passo dopo passo: dal bilancio all'oscillatore a due masse.",
+        "all": "Al corso"
+      }
     },
     "topics": {
       "momentum": "Quantità di moto",
@@ -133,9 +157,13 @@
       "try_it": "Lo provi",
       "what_happens": "Che cosa accade",
       "sweet_spot": "Il trucco",
-      "computed": "Come si calcola"
+      "computed": "Come si calcola",
+      "more_at": "Altro sull'exhibit",
+      "next": "Exhibit successivo: {{name}}",
+      "onward": "Altri exhibit",
+      "held": "La risposta compare qui non appena l'avrà provato.",
+      "show": "Mostra la risposta"
     },
-    "unchecked": "La verifica dei calcoli è ancora in sospeso: cifre e disegni di queste pagine possono ancora cambiare.",
     "play": {
       "pause": "Pausa",
       "run": "Continua"
@@ -203,8 +231,8 @@
       },
       "cone": {
         "short": "Doppio cono",
-        "title": "Il doppio cono sale in salita",
-        "summary": "Due binari si allargano e salgono. Un doppio cono posato in basso sale da solo.",
+        "title": "Il doppio cono che rotola",
+        "summary": "Due binari si allargano e salgono. Sopra c'è un doppio cono – e da che parte rotola è meno ovvio di quanto sembri.",
         "question": "Un doppio cono su due binari in salita rotola in su o in giù – e che cosa lo decide?"
       },
       "parabola": {
@@ -405,7 +433,9 @@
         "aligned": "Attraverso i fori: una sedia, tre volte",
         "apart": "Da qui: tre cose diverse",
         "turn": "Ruotare",
-        "tilt": "Inclinare"
+        "tilt": "Inclinare",
+        "eye": "Occhio spostato di lato",
+        "eye_hint": "A 65 mm guarda l'altro occhio."
       }
     },
     "equation": {
@@ -422,6 +452,9 @@
         "pause": "Pausa",
         "run": "Riprendi",
         "restart": "Ricomincia",
+        "let_go": "Lasciare andare il carrello",
+        "aim": "Obiettivo: porti il carrello fino a entrambe le bandierine.",
+        "done": "Fatto: il carrello ha raggiunto entrambe le bandierine.",
         "plus": "Pulsante +, tira il carrello nella bobina",
         "minus": "Pulsante −, spinge il carrello fuori dalla bobina",
         "plus_caption": "In entrata",
@@ -431,14 +464,16 @@
         "tops": "Cime raggiunte",
         "time": "Tempo",
         "autopilot": "Automatico: tempismo perfetto",
-        "autopilot_hint": "+ dal piede della rampa fino al centro, − dal centro fino all'altra rampa, con il passaggio dall'uno all'altro esattamente quando il carrello supera il centro — {{window}} cm per lato. La curva sotto “Il trucco” mostra perché.",
+        "autopilot_hint": "Lasci premere la regola e guardi quando lo fa.",
         "speed": "Velocità",
         "speeds": {
           "1": "Tempo reale",
           "0_25": "¼",
           "0_1": "⅒"
         },
-        "keys": "Da tastiera: tenga premuto + o ← per il più, − o → per il meno."
+        "keys": "Da tastiera: tenga premuto + o ← per il più, − o → per il meno.",
+        "start": "Partenza: a questa distanza a sinistra della bobina",
+        "start_hint": "{{top}} cm: in cima alla rampa; {{half}} cm: a metà altezza."
       },
       "meter": {
         "label": "L'amperometro, in milliampere",
@@ -460,7 +495,8 @@
         "closed": "L'amperometro resta collegato tra una pressione e l'altra",
         "closed_hint": "All'exhibit è così: la lettura si muove quando il carrello passa rotolando, e quella corrente frena un poco il carrello.",
         "radius": "Raggio della rampa",
-        "radius_hint": "Ogni rampa è un arco di questo raggio, che parte orizzontale dal tratto piano: più è piccolo, più la rampa sale ripida e in alto sulla stessa lunghezza."
+        "radius_hint": "Ogni rampa è un arco di questo raggio, che parte orizzontale dal tratto piano: più è piccolo, più la rampa sale ripida e in alto sulla stessa lunghezza.",
+        "mass_hint": "Fino a 20 kg: un carrello pesante rallenta appena nella bobina."
       },
       "model": {
         "flux_intro": "Tutto comincia da una curva: quanta parte del campo del magnete attraversa le spire della bobina, con il carrello in un dato punto.",
@@ -474,7 +510,7 @@
       },
       "symbols": {
         "psi": "flusso concatenato, il flusso del magnete attraverso tutte le spire",
-        "x": "la posizione del carrello, misurata dal centro della bobina",
+        "x": "la posizione del carrello, dal centro della bobina",
         "mu0": "la costante magnetica",
         "moment": "l'intensità del magnete (il suo momento di dipolo)",
         "turns": "il numero di spire",
@@ -538,11 +574,12 @@
         "modes": {
           "hand": "Lei",
           "circle": "Un cerchio regolare",
-          "perfect": "Automatico: tempismo perfetto"
+          "perfect": "Automatico: tempismo perfetto",
+          "release": "Senza mano"
         },
         "hint_hand": "Trascini nella vista dall'alto: la sfera segue il Suo dito come farebbe una mano. Giri attorno al centro — lentamente all'inizio, circa una volta al secondo, poi più in fretta man mano che la pallina sale.",
         "hint_circle": "La sfera viene spinta lungo un cerchio di 2 cm al ritmo che Lei imposta. Se cambia il ritmo lentamente, la pallina segue; se lo cambia di colpo, resta indietro.",
-        "hint_perfect": "La sfera viene spinta sempre un quarto di giro davanti alla pallina e accelera esattamente man mano che la pallina sale — il tempismo fatto bene, fino a circa 4 Hz, alla massima velocità di un braccio.",
+        "hint_perfect": "Qui la sfera viene spinta con il miglior tempismo possibile. Osservi dove si trova la sfera mentre la pallina sale, e quanto velocemente gira alla fine.",
         "pause": "Pausa",
         "run": "Riprendi",
         "restart": "Ricomincia",
@@ -555,13 +592,18 @@
         "your_tempo": "Il Suo ritmo",
         "needed": "Ritmo per questa altezza",
         "lead": "Sfera davanti alla pallina",
-        "reading": "Sotto {{f0}} Hz non c'è cerchio: la pallina traballa soltanto sul fondo. Ogni altezza ha il suo ritmo — la linea nel grafico — e più in alto, più veloce."
+        "reading": "Sotto {{f0}} Hz non c'è cerchio: la pallina traballa soltanto sul fondo. Ogni altezza ha il suo ritmo — la linea nel grafico — e più in alto, più veloce.",
+        "hint_release": "Scelga dove parte la pallina e quanto veloce rotola di lato, e la lasci andare: la sfera resta ferma.",
+        "start_angle": "Partenza: angolo dal punto più basso",
+        "start_speed": "Partenza: di lato a",
+        "release": "Lasciare"
       },
       "views": {
         "top": "La sfera dall'alto: trascini per spingerla",
         "top_caption": "Dall'alto — spinga qui",
         "side": "La sfera di lato: quanto in alto corre la pallina",
-        "side_caption": "Di lato"
+        "side_caption": "Di lato",
+        "goal": "Obiettivo: l’equatore"
       },
       "chart": {
         "circle": "In cerchio",
@@ -751,7 +793,7 @@
       },
       "play": {
         "title": "Le lasci andare",
-        "hint": "Avvii la corsa e osservi dove si trova ciascuna pallina. I tempi accanto ai colori sono quelli del motore di calcolo, nell'ordine in cui arrivano le palline. Alla bandierina ogni pista finisce e la pallina vola avanti fino a una vasca imbottita, dove finiscono tutte e sei insieme.",
+        "hint": "Avvii la corsa e osservi dove si trova ciascuna pallina. Appena una pallina arriva, compaiono il suo posto e il suo tempo, quello del motore di calcolo. Alla bandierina ogni pista finisce e la pallina vola avanti fino a una vasca imbottita, dove finiscono tutte e sei insieme.",
         "start": "Avvia",
         "pause": "Pausa",
         "run": "Riprendi",
@@ -771,7 +813,7 @@
         "acceleration": "Accelerazione",
         "velocity_label": "La velocità di ogni pallina come freccia da un unico punto",
         "acceleration_label": "L’accelerazione di ogni pallina come freccia da un unico punto",
-        "table": "Il tempo, la velocità e l’accelerazione di ogni pallina, per posizione",
+        "table": "Il tempo, la velocità e l’accelerazione di ogni pallina",
         "track": "Pista",
         "time": "Tempo"
       },
@@ -952,7 +994,7 @@
       "play": {
         "title": "Al tamburo",
         "hint": "Trascini giù l'anello rigido e lo lasci andare, in fretta o lentamente, oppure prema il pulsante: è la rapidità a decidere se un anello vola.",
-        "hint_auto": "Tre pressioni di seguito: un colpo secco, mezzo secondo e una spinta lenta — uno sbuffo informe, un anello e niente.",
+        "hint_auto": "Tre pressioni di seguito: un colpo secco, mezzo secondo e una spinta lenta. Guardi che cosa fa uscire ciascuna dal foro.",
         "press": "Premi",
         "pause": "Pausa",
         "run": "Riprendi",
@@ -1189,6 +1231,7 @@
         },
         "amplitude": "Ampiezza al rilascio",
         "amplitude_hint": "Le lunghezze sono accordate per {{tuned}}°. Lasciati più o meno lontano, dopo un ciclo i pendoli non si ritrovano più del tutto.",
+        "pull_hint": "Oppure afferri una sfera nella vista dall'estremità della fila con il mouse o con il dito e tiri di lato tutta la fila. Quando la lascia, oscillano tutte.",
         "time": "Tempo",
         "cycles": "Cicli",
         "spread": "Sfasamento dopo un ciclo"
@@ -1344,8 +1387,8 @@
       "play": {
         "title": "Lasciare andare il cono",
         "hint_up": "Il cono è all'estremità bassa. Lo lasci andare e guardi dove rotola.",
-        "hint_down": "Su questi binari il cono rotola in giù; per questo è all'estremità alta. Lo lasci andare.",
-        "hint_stays": "Proprio con questa pendenza l'asse resta alla stessa altezza: il cono resta dov'è.",
+        "hint_down": "Il cono è all'estremità alta. Lo lasci andare e guardi dove rotola.",
+        "hint_stays": "Il cono è all'estremità bassa. Lo lasci andare e guardi dove rotola.",
         "let_go": "Lasciare",
         "pause": "Pausa",
         "run": "Continua",
@@ -1604,6 +1647,7 @@
       "play": {
         "title": "Lasciare andare il pendolo",
         "hint": "Trascini il piolo in su o in giù, oppure scelga qui sotto uno dei tre casi.",
+        "drag_hint": "Oppure afferri la sfera con il mouse o con il dito, la sposti di lato e la lasci andare.",
         "let_go": "Lasciare",
         "pause": "Pausa",
         "run": "Continua",
@@ -1844,7 +1888,7 @@
       },
       "play": {
         "title": "Aprire il rubinetto",
-        "hint": "Decide il rubinetto: poca acqua e la ruota resta ferma; di più, e gira regolarmente; ancora di più, e diventa caotica.",
+        "hint": "Regoli il rubinetto su poca acqua, su di più e su molta, e guardi che cosa fa la ruota ogni volta.",
         "pause": "Pausa",
         "run": "Continua",
         "restart": "Dall'inizio",
@@ -1852,6 +1896,7 @@
         "tap_hint": "ρ: quanta acqua entra, misurata rispetto alle perdite e al freno.",
         "brake": "Freno",
         "brake_hint": "σ: quanto frena l'asse, misurato rispetto all'inerzia della ruota e alle perdite.",
+        "turn_hint": "Oppure giri con il mouse o con il dito la leva del rubinetto e la manopola sull'asse, il freno. Quando la lascia, la ruota riparte dall'inizio.",
         "speed": "Velocità",
         "speeds": {
           "1": "Tempo reale",
@@ -1978,6 +2023,7 @@
       "play": {
         "title": "Mirare e tirare",
         "hint": "Tiri una volta dritto verso l'altro sedile, poi passi a «Da fuori»: lì il disco va dritto.",
+        "sling_hint": "Oppure tiri indietro dal proprio sedile con il mouse o con il dito, come con una fionda: direzione e lunghezza danno la mira e la velocità, lasciare tira. Afferrare il bordo e spingere fa girare la giostra.",
         "throw": "Tirare",
         "aim_lead": "Mirare avanti",
         "frame": "Vista",
@@ -2020,7 +2066,8 @@
       },
       "computed": {
         "system": "Entrambe le traiettorie hanno una soluzione chiusa: il disco su una retta, la palla su un cerchio, entrambe viste da fuori e riportate indietro per chi gira. Dove la palla raggiunge di nuovo il bordo, e dove bisogna mirare per colpire, la pagina lo trova dimezzando. Il test confronta la traiettoria riportata del disco con un calcolo passo dopo passo con la forza di Coriolis e quella centrifuga."
-      }
+      },
+      "target": "Bersaglio"
     },
     "cradle": {
       "at": {
@@ -2030,7 +2077,8 @@
       "view": "Il pendolo di Newton visto di fronte: la barra, i fili e le sfere",
       "play": {
         "title": "Sollevare e lasciare",
-        "hint": "Lasci cadere una sfera, poi due. Con 0,1 mm d'aria tra le sfere i conti tornano esatti.",
+        "hint": "Lasci cadere una sfera, poi due, e conti quante ne volano via all'altra estremità.",
+        "drag_hint": "Oppure afferri una delle sfere a sinistra con il mouse o con il dito, la sollevi e la lasci andare.",
         "let_go": "Lasciare",
         "pause": "Pausa",
         "run": "Continuare",
@@ -2048,7 +2096,7 @@
         },
         "angle": "Deviazione",
         "restitution": "Quanto restituisce un urto",
-        "restitution_hint": "La frazione della loro velocità con cui due sfere si separano dopo un urto a 1 m/s. 1 significa: nessuna perdita.",
+        "restitution_hint": "Circa la frazione della loro velocità con cui due sfere si separano dopo un urto a 1 m/s. 1 significa: nessuna perdita.",
         "far": "Energia dall'altra parte",
         "far_hint": "Dopo il primo urto: la frazione dell'energia in tante sfere dall'altra parte quante ne sono state sollevate.",
         "duration": "Durata dell'urto",
@@ -2861,7 +2909,8 @@
         "system": "La pagina controlla a ogni strato se il baricentro dei blocchi da esso in su sta sopra il suo appoggio; per una pila di un blocco per strato non serve altro. La pila più lunga si costruisce dall’alto, ogni blocco 1/(2k) più in fuori.",
         "check": "I test della pagina ricalcolano lo sbalzo con frazioni esatte e cercano alla cieca tra ventimila pile casuali di tre e di quattro blocchi: nessuna che regga sporge più dell’armonica. Il calcolo avviene nel suo browser, con le stesse formule del motore di calcolo della pagina.",
         "left_out": "Tralasciato: pile con più blocchi per strato, alcuni da contrappeso, che arrivano ancora più lontano (Paterson e Zwick); l’attrito, perché qui i blocchi non scivolano mai, si ribaltano soltanto; il legno che cede; la mano che trema. I blocchi sono lunghi 20 cm e alti 4 cm."
-      }
+      },
+      "goal": "Obiettivo: 1 blocco intero"
     },
     "diver": {
       "at": {
@@ -3086,6 +3135,7 @@
         "hint": "Alzi o abbassi il sole. L’aria è un tubo torbido così: più il sole è basso, più lungo è il suo cammino attraverso l’aria.",
         "height": "Altezza del sole",
         "height_hint": "Quanto in alto sta il sole sopra l’orizzonte.",
+        "drag_hint": "Oppure sposti il sole nel cielo con il mouse o con il dito.",
         "ozone": "Strato di ozono",
         "ozone_hint": "Assorbe soprattutto la luce arancione. Lo disattivi per vedere il cielo senza di esso.",
         "ozone_takes": "Dell’arancione (600 nm), l’ozono assorbe",
@@ -3289,6 +3339,1430 @@
         "system": "La pagina calcola la frequenza del secondo diapason con il metodo di Rayleigh dalla forma del modo di un rebbio incastrato (βL = 1,875) e somma le due oscillazioni smorzate. Si assume un diapason da 440 Hz, rebbi da 20 g e un tempo di smorzamento di 6 s.",
         "check": "I test della pagina confrontano la forma del modo con la sua equazione, verificano che il rebbio agisca sulla punta come un quarto della sua massa, e confrontano la stima di Rayleigh con la frequenza esatta di un rebbio con una massa sulla punta: per 1 g risulta alta di meno dello 0,1 %. Il calcolo avviene nel suo browser, con le stesse formule del motore di calcolo della pagina.",
         "left_out": "Tralasciato: le casse di risonanza e la sala; che il cavaliere stesso modifica un po’ la forma del modo; l’accoppiamento dei due rebbi e il gambo; l’orecchio, che non sente più i battimenti rapidi come un crescere e svanire, ma come ruvidità e infine come due suoni."
+      }
+    },
+    "checks": {
+      "title": "Verifichi Lei stesso",
+      "intro": "Casi limite che si possono calcolare a mano. Per ciascuno sono indicati la formula tratta da una fonte pubblicata, il valore calcolato a mano e il valore che calcola questa pagina. Dove nessuna fonte riporta la formula esattamente così, compare «ricavata» insieme all'unico passaggio che vi conduce.",
+      "by_hand": "A mano",
+      "page": "La pagina calcola",
+      "deviation": "Scarto {{value}}, ammesso {{allowed}}",
+      "setting": "Impostazione",
+      "why": "Che cosa verifica il caso",
+      "derived": "ricavata",
+      "step": "Il passaggio",
+      "sources": "Fonti",
+      "original": "Citazione in originale",
+      "status": {
+        "unchecked": "Calcoli non ancora verificati",
+        "checked": "Calcoli verificati il {{date}}",
+        "to_cases": "Li verifichi Lei stesso"
+      },
+      "admin": {
+        "check": "Conferma come verificato",
+        "uncheck": "Annulla la verifica",
+        "failed": "Non ha funzionato. La preghiamo di riprovare."
+      },
+      "symbols": {
+        "f0": "frequenza della più piccola oscillazione",
+        "f": "frequenza",
+        "g": "accelerazione di gravità, 9,80665",
+        "k": "fattore d'inerzia I/(m r²) della pallina",
+        "rho": "distanza del centro della pallina dal centro della sfera, R − r",
+        "theta0": "ampiezza, dal fondo",
+        "K": "integrale ellittico completo di prima specie",
+        "theta": "angolo dal fondo",
+        "Omega": "velocità angolare del cerchio",
+        "gprime": "la parte della gravità che muove il centro",
+        "omega": "frequenza angolare del dondolio",
+        "E": "energia per chilogrammo di pallina",
+        "v": "velocità",
+        "h": "altezza sopra il punto più basso",
+        "mu": "coefficiente di aderenza necessario",
+        "m": "massa",
+        "r": "il raggio della pallina",
+        "inertia": "momento d'inerzia",
+        "N": "la spinta della parete",
+        "current": "corrente",
+        "U": "la tensione della batteria",
+        "R": "la resistenza della bobina",
+        "L": "induttanza",
+        "tau": "costante di tempo",
+        "t": "tempo",
+        "a_in": "il raggio della bobina, in pollici",
+        "b_in": "la lunghezza della bobina, in pollici",
+        "n": "spire",
+        "Psi": "flusso attraverso tutte le spire",
+        "dipole": "il momento magnetico del magnete",
+        "mu0": "la costante magnetica",
+        "a": "il raggio medio di una spira",
+        "z": "la distanza di una spira dal magnete, lungo l'asse",
+        "Br": "la rimanenza del magnete",
+        "V": "il volume del magnete",
+        "Q": "carica attraverso l'amperometro",
+        "T": "periodo, andata e ritorno",
+        "R_arc": "il raggio degli archi delle rampe",
+        "l": "lunghezza del tratto piano",
+        "v0": "velocità nel tratto piano",
+        "dE": "energia persa in un passaggio",
+        "coupling": "accoppiamento dΨ/dx: volt per m/s, newton per ampere",
+        "x": "la posizione del carrello",
+        "W": "perdite: rotolamento, scintille, finecorsa",
+        "Emech": "l'energia cinetica e potenziale del carrello",
+        "xy": "posizione nell'immagine",
+        "XYZ": "la posizione del punto rispetto all'occhio, Z in avanti",
+        "focal": "la distanza dello schermo dall'occhio",
+        "P": "un punto della sedia",
+        "eye": "l'occhio allo spioncino",
+        "w": "la deformazione",
+        "delta": "lo spostamento dell'occhio",
+        "alpha": "acuità visiva, un minuto d'arco",
+        "phi": "angolo tra lo spostamento e la linea di vista",
+        "d12": "le distanze delle due estremità dall'occhio",
+        "eta": "angolo tra le due estremità",
+        "b": "distanza tra gli occhi",
+        "h0": "altezza da cui viene lasciato il carrello",
+        "hx": "altezza della pista in x",
+        "v_in": "velocità della sfera che cade, in basso",
+        "v_last": "velocità dell'ultima sfera dopo l'urto",
+        "v_after": "velocità della i-esima sfera dopo l'urto",
+        "v_i": "velocità della i-esima sfera",
+        "L_string": "lunghezza dal punto di sospensione al centro della sfera",
+        "theta_i": "angolo della i-esima sfera dal punto più basso",
+        "F_peak": "forza massima tra due sfere",
+        "K_hertz": "rigidezza di due sfere secondo Hertz",
+        "hM": "schiacciamento massimo",
+        "mu_red": "massa ridotta della coppia, m/2",
+        "E_star": "rigidezza dell'acciaio, E/(2(1 − ν²)), da modulo di Young E e coefficiente di Poisson ν",
+        "R_eff": "raggio efficace di due sfere uguali di diametro d, d/4",
+        "T_impact": "durata dell'urto lungo la fila",
+        "tau_contact": "durata di un contatto",
+        "gap": "aria tra due sfere",
+        "wheel_growth": "tasso di crescita della spinta",
+        "wheel_leak": "tasso di perdita dei secchielli, 0,2 al secondo",
+        "wheel_sigma": "il freno rispetto a inerzia e perdite, ν/(K·I)",
+        "wheel_rho": "il rubinetto: la portata rispetto a freno e perdite, π·g·r·q/(ν·K²)",
+        "wheel_b": "il terzo parametro di Lorenz; per la ruota idraulica 1",
+        "wheel_rpm": "il numero di giri della ruota",
+        "wheel_rhoH": "il rubinetto oltre il quale la rotazione regolare non è più stabile",
+        "wheel_volume": "volume di una piccola scatola di stati",
+        "wheel_ab": "come è distribuita l'acqua: di lato, e sopra contro sotto",
+        "wheel_rate": "la rotazione della ruota",
+        "wheel_inflow": "la portata che entra in alto",
+        "wheel_nu": "il freno dell'asse",
+        "wheel_radius": "il raggio della ruota",
+        "length": "lunghezza del pendolo, dal punto di sospensione al centro della sfera",
+        "cycle": "il ciclo: il tempo finché tutti oscillano di nuovo all'unisono",
+        "swings": "oscillazioni del pendolo più lungo nel ciclo",
+        "index": "il numero del pendolo, contato dal più lungo: 0, 1, 2, …",
+        "T0": "periodo della più piccola oscillazione",
+        "theta_n": "angolo dell'n-esimo pendolo",
+        "sn": "la funzione ellittica sn di Jacobi",
+        "omega0": "pulsazione della più piccola oscillazione, √(g/L)",
+        "skew": "sfasamento dopo un ciclo, in gradi di un'oscillazione",
+        "count": "numero di pendoli",
+        "miss": "quanto accanto all'altro sedile arriva il tiro, positivo in senso antiorario",
+        "aim": "quanto si mira accanto all'altro sedile",
+        "lean": "inclinazione della traiettoria rispetto al diametro, vista da fuori",
+        "platform_rate": "la rotazione della giostra",
+        "platform_radius": "il raggio della giostra",
+        "throw": "velocità del tiro, misurata sulla giostra",
+        "flight": "tempo di volo fino al bordo",
+        "primed": "accelerazione, velocità e posizione come le misura chi gira",
+        "a_across": "accelerazione di traverso al tiro, come la misura chi gira",
+        "n_up": "la normale alla piattaforma, verso l'alto",
+        "heading_rate": "quanto velocemente ruota la direzione della palla, vista da fuori",
+        "beta": "coefficiente di diffusione alla lunghezza d'onda λ",
+        "lambda": "lunghezza d'onda",
+        "beta550": "torbidità del tubo: il coefficiente di diffusione a 550 nm",
+        "x_tube": "punto lungo il tubo, dalla lampada",
+        "L_tube": "lunghezza del tubo",
+        "air_mass": "massa d'aria: quanta aria attraversa la luce del sole, rispetto all'aria in verticale",
+        "z_zenith": "angolo zenitale del sole",
+        "h_sun": "altezza del sole sopra l'orizzonte",
+        "tau_air": "spessore ottico dell'aria in verticale, 0,097 a 550 nm",
+        "m3": "massa d'aria dello strato di ozono",
+        "R_earth": "raggio della Terra, 6371 km",
+        "H_ozone": "quota dello strato di ozono, 22 km",
+        "plate_lambda": "parametro di frequenza ωa²√(ρh/D)",
+        "plate_side": "il lato della lastra",
+        "plate_D": "la rigidezza flessionale della lastra",
+        "plate_rho": "densità dell'acciaio, 7850",
+        "plate_h": "lo spessore della lastra",
+        "plate_E": "modulo di Young, 200 GPa",
+        "plate_nu": "coefficiente di Poisson, 0,3",
+        "plate_f12": "il suono eccitato più grave e il secondo",
+        "plate_Q": "fattore di qualità del suono",
+        "plate_f1": "il suono eccitato più grave",
+        "plate_df": "larghezza del suono, tra i punti a metà energia",
+        "plate_zeta": "rapporto di smorzamento di ogni forma, 0,002",
+        "plate_w0": "ampiezza del centro sul suono k",
+        "plate_phi0": "spostamento della forma k al centro",
+        "plate_mu": "massa della forma k, in unità di ρh·(a/2)²",
+        "plate_omega": "pulsazione del suono k",
+        "plate_xi": "punto sulla lastra, da −1 a 1",
+        "h_start": "altezza di partenza, sopra il punto più basso",
+        "r_small": "raggio del cerchio piccolo: la lunghezza del filo meno la profondità del piolo",
+        "phi_peg": "angolo attorno al piolo, misurato dal basso",
+        "phi0_peg": "ampiezza attorno al piolo",
+        "pull": "trazione del filo",
+        "depth": "profondità del piolo sotto la sospensione",
+        "plane_rate": "quanto velocemente ruota il piano di oscillazione rispetto al pavimento, positivo in senso orario",
+        "earth_rate": "rotazione della Terra rispetto alle stelle",
+        "latitude": "latitudine, negativa a sud",
+        "stellar_day": "un giro della Terra rispetto alle stelle",
+        "full_turn": "tempo per un giro completo del piano di oscillazione",
+        "foucault_length": "lunghezza del pendolo",
+        "drop": "tratto di caduta attraverso la colonna",
+        "vE": "velocità limite",
+        "cbar": "costante di frenata media: forza frenante per unità di velocità",
+        "density": "densità",
+        "thickness": "spessore della piastra",
+        "area": "superficie della piastra",
+        "sigma": "conducibilità elettrica",
+        "B0": "campo nella fessura, dove è più forte",
+        "sheet_share": "parte della frenata di una lastra infinita",
+        "resistivity": "resistività",
+        "field_k": "numero d'onda del campo lungo la colonna",
+        "tooth": "altezza di un dente",
+        "field_period": "periodo del campo: un magnete nord e uno sud",
+        "r_axle": "raggio dell'asse",
+        "R_wheel": "raggio della ruota",
+        "L_band": "lunghezza dei nastri",
+        "T_pull": "trazione dei due nastri insieme",
+        "omega_spin": "velocità di rotazione della ruota",
+        "h_top": "punto più alto dopo lo strappo, sopra l'estremità inferiore",
+        "dt_jerk": "durata dello strappo",
+        "s_band": "rigidità dei due nastri insieme",
+        "v_bottom": "velocità della ruota quando i nastri sono srotolati",
+        "F_band": "trazione massima dei nastri",
+        "A_stretch": "allungamento oltre la posizione in cui i nastri reggono il peso",
+        "arch_radius": "raggio della linea mediana dell'arco",
+        "push": "spinta al piede, orizzontale",
+        "arch_weight": "peso dell'intero arco",
+        "w_length": "peso della catena per metro",
+        "a_chain": "parametro della catenaria",
+        "half_span": "metà della luce",
+        "rise": "altezza dell'arco sopra i suoi piedi",
+        "stones": "numero di pietre",
+        "R_pm": "raggio del bordo esterno e di quello interno",
+        "arch_T0": "trazione della catena al vertice, orizzontale",
+        "arch_density": "densità della pietra",
+        "arch_depth": "profondità dell'arco, perpendicolare alla vista",
+        "arch_thickness": "spessore delle pietre",
+        "rod_beta": "prima radice di cosh x·cos x = −1",
+        "rod_L": "lunghezza dell'asta",
+        "rod_EI": "rigidezza flessionale dell'asta, E·πd⁴/64",
+        "rod_mu": "massa dell'asta per metro",
+        "rod_load": "peso rispetto alla rigidezza, μgL³/(EI)",
+        "rod_qc": "carico al quale l'asta si inflette, 7,837",
+        "rod_B": "primo zero della funzione di Bessel J₋₁/₃, 1,86635",
+        "rod_hc": "lunghezza oltre la quale l'asta si inflette sotto il proprio peso",
+        "rod_rho": "densità dell'acciaio, 7850",
+        "rod_A": "sezione dell'asta",
+        "rod_w": "ampiezza della punta rispetto al tavolo",
+        "rod_Gamma": "fattore di partecipazione della prima oscillazione, 1,566",
+        "rod_Omega": "pulsazione del tavolo",
+        "rod_Y": "corsa del tavolo per lato, 1 mm",
+        "rod_omega": "pulsazione dell'asta",
+        "rod_zeta": "rapporto di smorzamento, 0,01",
+        "rod_phi": "forma della prima oscillazione, 1 in punta",
+        "rod_xi": "posizione lungo l'asta, x/L",
+        "rod_tip": "spostamento della punta",
+        "rod_X": "ampiezza stazionaria al passo",
+        "rod_omega1": "pulsazione dell'oscillazione che si smorza",
+        "T_lap": "durata di un giro",
+        "r_well": "distanza della pallina dal centro",
+        "GM": "intensità dell'attrazione di una stella: la costante di gravitazione per la sua massa",
+        "k_funnel": "forma dell'imbuto: la parete sta a z = −k/r",
+        "phidot": "velocità angolare attorno al centro",
+        "r0_well": "distanza al lancio",
+        "v0_push": "velocità del lancio",
+        "P_loss": "perdita al secondo",
+        "C_rr": "resistenza al rotolamento: la frazione della spinta della parete che frena",
+        "alpha_wall": "pendenza della parete"
+      },
+      "cases": {
+        "sphere": {
+          "small_swing": {
+            "title": "Una piccola oscillazione sul fondo",
+            "setting": "Sfera Ø 40 cm, pallina piena Ø 4 cm, senza resistenza al rotolamento e senza spinta della mano: lasciata andare a 2° su per la parete.",
+            "reads": "Rotolando, la pallina oscilla come un pendolo di lunghezza ρ sotto 5/7 della gravità; gli altri 2/7 la fanno girare.",
+            "why": "Verifica il rotolamento: scivolando, la stessa pallina oscillerebbe a 1,17 Hz. Lo scarto dello 0,008 % è dovuto all'oscillazione di 2° stessa, perché la formula vale per la più piccola."
+          },
+          "hollow_ball": {
+            "title": "La pallina cava",
+            "setting": "Come sopra, con una pallina cava a parete sottile.",
+            "reads": "La stessa formula con k = 2/3: una pallina cava ha la massa all'esterno e ci vuole di più per farla girare.",
+            "why": "Verifica che entri il momento d'inerzia, e non un 5/7 fisso.",
+            "step": "La prima fonte dà la formula per qualsiasi k = I/(m r²); vi si inserisce il k = 2/3 della pallina cava, preso dalla seconda."
+          },
+          "wide_swing": {
+            "title": "Un'ampia oscillazione fino all'orizzontale",
+            "setting": "Pallina piena, senza resistenza al rotolamento, lasciata andare a 90° su per la parete.",
+            "reads": "Con un'ampia oscillazione un pendolo rallenta, di un fattore π/(2K), con l'integrale ellittico K.",
+            "why": "Verifica l'equazione del moto lontano dai piccoli angoli: 0,84 Hz invece di 0,99 Hz. Qui K è sommato come integrale, non con la media aritmetico-geometrica usata dal motore di calcolo.",
+            "step": "La prima fonte mostra che la pallina che rotola obbedisce esattamente all'equazione del pendolo, con g/(1+k); la seconda ne dà il periodo per qualsiasi ampiezza."
+          },
+          "circle_any_size": {
+            "title": "Un cerchio, alla stessa profondità in ogni sfera",
+            "setting": "Sfera Ø 1 m invece di 40 cm, pallina piena Ø 4 cm, senza resistenza al rotolamento: avviata sul cerchio per 2 Hz e lasciata correre per 10 s.",
+            "reads": "Un cerchio con velocità angolare Ω sta g′/Ω² sotto l'equatore, qualunque sia la dimensione della sfera.",
+            "why": "Verifica il moto nello spazio, non solo in un piano: dopo 10 s la pallina è ancora 4,4358 cm più in basso, come nella sfera da 40 cm.",
+            "step": "Per la pallina che rotola è un pendolo conico sotto g′ = g/(1+k). Le fonti mostrano che la rotazione attorno alla normale si conserva (Routh). Che il centro si muova allora come un pendolo sferico sotto g′ ne segue in un passaggio che nessuna di esse scrive per esteso."
+          },
+          "wobble": {
+            "title": "Il dondolio di un cerchio inclinato",
+            "setting": "Pallina piena sul cerchio a 60°, ma avviata 0,3° troppo in alto.",
+            "reads": "Un cerchio leggermente perturbato sale e scende con Ω·√(1 + 3cos²θ).",
+            "why": "Verifica quanto è stabile il cerchio, ciò che la pagina chiama «non ancora nel piano». 0,3° non sono infinitamente piccoli, da cui lo scarto dello 0,02 %.",
+            "step": "La fonte tratta il pendolo sferico, con l'angolo misurato dalla verticale verso il basso, come qui; per la pallina che rotola, sotto g′ = g/(1+k), come per il cerchio."
+          },
+          "energy": {
+            "title": "L'energia si conserva",
+            "setting": "Pallina piena avviata a 60° con 0,3 m/s di lato, senza resistenza al rotolamento e senza spinta della mano, per 20 s.",
+            "reads": "Senza perdite, la somma di moto, rotazione e altezza resta la stessa; la rotazione porta k volte l'energia del moto.",
+            "why": "Verifica il ciclo dei passi temporali stesso: dopo 20.000 passi l'energia è la stessa a meno di 10⁻¹¹."
+          },
+          "grip": {
+            "title": "Quanta aderenza serve al rotolamento",
+            "setting": "Pallina piena lasciata andare a 60°; letto nel punto di inversione.",
+            "reads": "Rotolare senza scivolare richiede un'aderenza di almeno tan θ/(1 + m r²/I), (2/7)·tan θ per una pallina piena.",
+            "why": "Verifica l'attrito che indica la pagina: 0,49 a 60°.",
+            "step": "La fonte tratta il piano inclinato. Nel punto di inversione la pallina è ferma e poggia come su un piano inclinato della stessa pendenza."
+          },
+          "leaves_wall": {
+            "title": "Dove la pallina si stacca dalla parete",
+            "setting": "Pallina piena spinta sul fondo così veloce che senza la parete arriverebbe a 120°.",
+            "reads": "La parete spinge con g·cos θ + 2g′(cos θ − cos θ₀). Dove questo si annulla, la pallina cade: a cos θ = 2cos θ₀/(3 + k).",
+            "why": "Verifica la spinta della parete, da cui la pagina capisce che la pallina cade: a 107,1°.",
+            "step": "La fonte dà la tensione del filo del pendolo semplice, mg(3cos θ − 2cos θ_m). Per la pallina che rotola l'energia porta il fattore 1 + k; la spinta perpendicolare alla parete resta g·cos θ + v²/ρ."
+          }
+        },
+        "coil": {
+          "rl_rise": {
+            "title": "La corrente sale",
+            "setting": "Pulsante + premuto, il carrello in cima a una rampa, lontano dalla bobina; letto dopo quattro costanti di tempo.",
+            "reads": "Collegata a una tensione, la corrente in una bobina sale solo lentamente, con la costante di tempo τ = L/R.",
+            "why": "Verifica il circuito della pagina: 94 mA dopo 5 ms, 96 mA alla fine."
+          },
+          "wheeler": {
+            "title": "L'induttanza della bobina",
+            "setting": "1600 spire, 60 mm di diametro medio, 50 mm di lunghezza.",
+            "reads": "La formula di Wheeler del 1928, in pollici e microhenry, precisa all'1 %.",
+            "why": "Verifica l'induttanza: i 118,1 mH della pagina vengono dalla forma SI della stessa formula; quella di Wheeler, così come è stampata, dà 117,8 mH. Lo 0,28 % rientra nel suo stesso uno per cento, perché il suo 9 e il suo 10 sono arrotondati."
+          },
+          "flux_centre": {
+            "title": "Il flusso del magnete nella bobina",
+            "setting": "Il magnete, Ø 20 × 10 mm e 1,3 T, al centro della bobina.",
+            "reads": "Ogni spira abbraccia una parte del flusso del piccolo magnete; sommato spira per spira su tutte le 1600.",
+            "why": "Verifica la curva Ψ(x), da cui vengono la tensione e la forza: la somma sulle spire coincide con la formula chiusa della pagina a meno di 10⁻⁷.",
+            "step": "La prima fonte dà il campo di una spira sul suo asse, la seconda che la mutua induttanza è la stessa nei due versi: il flusso del magnete attraverso la spira è il suo momento per quel campo per ampere. La terza scrive lo stesso per una bobina."
+          },
+          "charge": {
+            "title": "La carica, la stessa a ogni velocità",
+            "setting": "Senza pulsanti e senza resistenza al rotolamento, lasciato andare da metà altezza di una rampa; contata fino al centro della bobina.",
+            "reads": "Attraverso l'amperometro passa la variazione di flusso divisa per la resistenza, a qualunque velocità vada il carrello.",
+            "why": "Verifica la legge di Faraday sul ciclo dei passi temporali: 888 µC. Lo scarto dello 0,1 %: al centro la bobina trattiene ancora L·i/R, e la pagina disegna 200 volte al secondo.",
+            "step": "La fonte dà la carica di una bobina esploratrice senza induttanza. Con l'induttanza vale lo stesso, purché la corrente sia nulla all'inizio e alla fine; al centro lo è quasi."
+          },
+          "period": {
+            "title": "Senza bobina: un'altalena su archi",
+            "setting": "Bobina aperta, senza resistenza al rotolamento, lasciato andare da metà altezza di una rampa; il tempo di andata e ritorno.",
+            "reads": "Su ogni arco il carrello oscilla per mezzo periodo come un pendolo di lunghezza R; fra l'uno e l'altro attraversa due volte il tratto piano alla velocità della discesa.",
+            "why": "Verifica il percorso e il ciclo dei passi temporali: 2,71554 s a cinque decimali.",
+            "step": "La prima fonte dà il moto su un arco di circonferenza, con β = 0 per un corpo che scivola invece di rotolare; la seconda il suo periodo per qualsiasi ampiezza."
+          },
+          "brake": {
+            "title": "Il freno della bobina",
+            "setting": "Un carrello cento volte più pesante, 15 kg, perché rallenti appena; bobina chiusa, senza resistenza al rotolamento, lasciato andare da metà rampa. Misurato fino alla prima inversione a destra.",
+            "reads": "La tensione indotta k·v spinge una corrente che frena con k²v²/R; in un passaggio (1/R)·∫k²v dx, con la velocità v data dalla sola discesa.",
+            "why": "Verifica il freno di Lenz, che ferma prima il carrello in corsa: 1,10 mJ attraverso la bobina, misurati come l'altezza che manca al carrello pesante dall'altra parte.",
+            "step": "Le fonti danno la forza frenante di un magnete in una bobina e la potenza di un conduttore in moto; sommate lungo il percorso, con la velocità ricavata dall'energia, danno la perdita di un passaggio."
+          },
+          "energy_account": {
+            "title": "Il bilancio energetico torna",
+            "setting": "Dieci secondi premendo secondo la regola: + in entrata, − in uscita.",
+            "reads": "Ciò che dà la batteria diventa calore nel filo, perdita per rotolamento, scintille al rilascio, l'urto al finecorsa, moto e altezza del carrello ed energia nel campo della bobina.",
+            "why": "Verifica tutto insieme: 953 mJ dalla batteria, ritrovati a meno di 4 · 10⁻⁷.",
+            "step": "Le fonti danno l'energia nel campo di una bobina e la corrente nel circuito; il bilancio si limita a sommare le voci."
+          }
+        },
+        "chair": {
+          "one_picture": {
+            "title": "Attraverso il foro: un'immagine",
+            "setting": "Guardando esattamente attraverso lo spioncino, senza rotazione né inclinazione.",
+            "reads": "Un punto (X, Y, Z) finisce nell'immagine in (f·X/Z, f·Y/Z); tutti i punti di una stessa linea di vista finiscono nello stesso posto.",
+            "why": "Verifica che la sedia deformata e le aste sparse diano, vertice per vertice, l'immagine della sedia: le immagini distano 10⁻¹⁶, cioè per niente."
+          },
+          "straight_rods": {
+            "title": "Deformata, ma diritta",
+            "setting": "La sedia deformata: un punto a ¼, ½ e ¾ di ogni asta.",
+            "reads": "Una trasformazione proiettiva conserva le rette: la sedia deformata ha aste diritte che si incontrano nei vertici.",
+            "why": "Verifica la deformazione della pagina: i punti stanno a 10⁻¹⁶ m dall'asta, cioè sopra di essa."
+          },
+          "parallax": {
+            "title": "Quanto può spostarsi l'occhio",
+            "setting": "Le aste sparse; l'occhio spostato di lato o verso l'alto finché il primo vertice si apre di un minuto d'arco.",
+            "reads": "Due punti su una stessa linea di vista, a d₁ e d₂, si separano di δ·sin φ·|1/d₁ − 1/d₂| quando l'occhio si sposta di δ.",
+            "why": "Verifica gli 0,16 mm che indica la pagina: meno dello spioncino. La pagina li trova per bisezione, qui c'è la formula; i due valori coincidono a meno di 4 · 10⁻⁵.",
+            "step": "La fonte dà quanto velocemente un punto si muove trasversalmente alla linea di vista, V·sin φ/d. Per due punti la differenza, per un piccolo spostamento δ al posto di V·t."
+          },
+          "second_eye": {
+            "title": "Che cosa vede il secondo occhio",
+            "setting": "Le aste sparse, il secondo occhio 65 mm accanto al primo.",
+            "reads": "Per piccoli angoli i vertici si separano di b·sin φ·|1/d₁ − 1/d₂|.",
+            "why": "Verifica i 6,6° della pagina, il motivo dell'unico spioncino. La formula dà l'1,7 % in più, perché 65 mm non sono un piccolo passo per aste a mezzo metro; la pagina calcola l'angolo esattamente.",
+            "step": "La fonte dà la disparità per piccoli angoli; i 65 mm sono la distanza tra gli occhi di un adulto, secondo la seconda (in media circa 63 mm)."
+          }
+        },
+        "cradle": {
+          "one_out": {
+            "title": "Ne entra una, ne esce una",
+            "setting": "Cinque sfere con 0,1 mm d'aria tra l'una e l'altra, senza perdite (e = 1), una sollevata di 30° e lasciata andare; letto dopo il primo urto.",
+            "reads": "In basso la prima sfera è veloce quanto un pendolo che cade da 30°. Con aria in mezzo, ogni sfera urta la sua vicina per conto proprio; sfere uguali si scambiano così la velocità, finché questa arriva nell'ultima.",
+            "why": "Verifica insieme il pendolo e l'urto: l'ultima sfera vola via a 0,63 m/s, veloce quanto è arrivata la prima. Lo scarto di 3 · 10⁻⁶: durante l'urto la gravità continua a tirare le sfere che stanno già lasciando il punto più basso.",
+            "step": "La prima fonte dà la velocità di un pendolo che cade da θ₀ fino al punto più basso. Secondo la seconda, due sfere uguali si scambiano la velocità; con aria in mezzo ciò accade quattro volte di seguito."
+          },
+          "momentum": {
+            "title": "La quantità di moto si conserva, anche con perdite",
+            "setting": "L'exhibit così com'è appeso: cinque sfere a contatto, e = 0,95, una sollevata di 30° e lasciata andare; letto dopo il primo urto.",
+            "reads": "Ciò che una sfera dà all'altra, lo perde essa stessa. La somma delle velocità dopo l'urto è la velocità con cui è arrivata la prima, anche se l'urto perde energia e non tutto passa nell'ultima sfera.",
+            "why": "Verifica che ogni forza tra due sfere agisca su entrambe con la stessa intensità, smorzamento compreso. Lo scarto di 6 · 10⁻⁶ viene dalla gravità, che durante l'urto tira le sfere che si allontanano dal punto più basso.",
+            "step": "In basso filo e peso quasi si compensano: durante il breve urto la fila è quasi un sistema chiuso. Con masse uguali la somma delle quantità di moto diventa la somma delle velocità; la velocità della prima la dà la seconda fonte."
+          },
+          "energy": {
+            "title": "Senza perdite, l'energia si conserva",
+            "setting": "Cinque sfere a contatto, senza perdite (e = 1), una sollevata di 30° e lasciata andare; letto dopo 2 s.",
+            "reads": "Ogni sfera porta energia cinetica e potenziale; un contatto di Hertz immagazzina ciò che prende e lo restituisce tutto. Appena nessun contatto preme più, la somma torna quella dell'inizio: l'altezza da cui è caduta la prima.",
+            "why": "Verifica il ciclo dei passi temporali della pagina, un millisecondo per passo e un microsecondo finché due sfere si toccano: dopo 2 s l'energia è la stessa a meno di 10⁻⁵. Lo scarto è ciò che i passi di un microsecondo mancano dove si chiude un contatto.",
+            "step": "La prima fonte dà l'energia di un pendolo: ½v² + gL(1 − cos θ) resta uguale. La seconda dà al contatto di Hertz un'energia elastica che dipende solo dallo schiacciamento; senza smorzamento, quindi, restituisce tutto ciò che prende. Sommato sulle sfere, appena nessun contatto preme più."
+          },
+          "peak": {
+            "title": "La forza massima secondo Hertz",
+            "setting": "Cinque sfere con 0,1 mm d'aria tra l'una e l'altra, senza perdite (e = 1), una sollevata di 30° e lasciata andare.",
+            "reads": "Due sfere si premono con una forza che cresce con lo schiacciamento elevato a 3/2. Lo schiacciamento è massimo quando tutta l'energia cinetica della coppia è in esso; lì la forza è massima.",
+            "why": "Verifica la rigidezza di Hertz a partire da modulo di Young, coefficiente di Poisson e raggio: 879 N con 18 µm di schiacciamento. La pagina legge la forza ogni microsecondo, quindi appena accanto al suo picco; da qui lo scarto di 4 · 10⁻⁵.",
+            "step": "La prima fonte dà la forza per ogni schiacciamento, la seconda lo schiacciamento massimo nell'urto di due sfere; questo si inserisce in quella. Con aria in mezzo ogni coppia si urta per conto proprio, e senza perdite ognuna alla stessa velocità."
+          },
+          "duration": {
+            "title": "Quanto dura l'urto",
+            "setting": "Cinque sfere con 0,1 mm d'aria tra l'una e l'altra, senza perdite (e = 1), una sollevata di 30° e lasciata andare.",
+            "reads": "Con aria in mezzo le quattro coppie si urtano una dopo l'altra. Ogni contatto dura τ; tra un contatto e l'altro la sfera colpita attraversa in volo l'aria che le resta fino alla successiva.",
+            "why": "Verifica la durata che indica la pagina, dal primo contatto finché si apre l'ultimo: a mano 689 µs, di cui 84 µs per ogni contatto; la pagina conta in microsecondi interi e arriva a 688.",
+            "step": "La prima fonte dà la durata di un contatto. Il baricentro della coppia avanza a v/2, quindi alla fine del suo contatto la sfera colpita è avanti di v·τ/2 e percorre l'aria rimanente s − v·τ/2 alla velocità v che ha ricevuto secondo la seconda fonte. Da un contatto al successivo passano così τ/2 + s/v, tre volte; poi si aggiunge l'ultimo contatto."
+          }
+        },
+        "waterwheel": {
+          "start": {
+            "title": "La prima spinta cresce",
+            "setting": "Rubinetto ρ = 28, freno σ = 10, come all'apertura della pagina: la ruota da ferma, piena in alto, spinta appena appena; misurato tra 1,5 s e 2,5 s.",
+            "reads": "Partendo da ferma, una piccola spinta cresce secondo il più grande autovalore delle equazioni con la ruota immobile, (−1 − σ + √((1 − σ)² + 4ρσ))/2 per tempo di perdita 1/K.",
+            "why": "Verifica rubinetto e freno nel ciclo dei passi temporali, finché la ruota è ancora quasi ferma: 2,37 al secondo, la spinta raddoppia ogni 0,29 s. Lo scarto di 3 · 10⁻⁵ viene per lo più dalla seconda parte, quella che si smorza, non ancora del tutto scomparsa dopo 1,5 s."
+          },
+          "steady": {
+            "title": "Poca acqua: rotazione regolare",
+            "setting": "Rubinetto ρ = 5, freno σ = 10; la ruota da ferma, letto alla fine dei 200 s che mostra la pagina.",
+            "reads": "Sopra ρ = 1 la ruota può girare regolarmente, con x = √(b(ρ − 1)) in unità delle perdite; per la ruota idraulica b = 1.",
+            "why": "Verifica i termini non lineari e la b della ruota: 3,82 giri/min. Con la b = 8/3 di Lorenz per l'aria sarebbero 6,24 giri/min.",
+            "step": "La prima fonte dà la rotazione regolare delle equazioni di Lorenz per qualsiasi b; che per la ruota idraulica b = 1 lo dice la seconda. Ritorno alla ruota: rotazione Ω = K·x, un giro vale 2π."
+          },
+          "threshold": {
+            "title": "La soglia del caos",
+            "setting": "Freno σ = 15 invece di 10; letto nel riquadro «Caos da un rubinetto di».",
+            "reads": "Sopra ρ_H = σ(σ + b + 3)/(σ − b − 1) nemmeno la rotazione regolare è più stabile.",
+            "why": "Verifica la soglia che indica la pagina, con la b della ruota: 21,9 con σ = 15. Con la b = 8/3 di Lorenz vi si leggerebbe 27,4.",
+            "step": "Le prime due fonti danno la soglia per qualsiasi b; vi si inserisce la b = 1 della ruota idraulica, presa dalla terza."
+          },
+          "volume": {
+            "title": "Un volume di stati si restringe",
+            "setting": "Rubinetto ρ = 28, freno σ = 10: una minuscola scatola di stati, larga 2 · 10⁻⁵, attorno allo stato della ruota dopo 20 s, calcolata per altri 2,5 s come nella pagina.",
+            "reads": "Le equazioni di Lorenz contraggono ogni volume di stati con la stessa rapidità, con e^(−(σ + 1 + b)·K·t), ovunque si trovi la ruota.",
+            "why": "Verifica i tre smorzamenti in una volta, freno, perdite e la b della ruota, in pieno caos: dopo 2,5 s resta lo 0,248 % del volume. Lo scarto di 2 · 10⁻⁵ è l'errore del metodo di Runge-Kutta su questi 50 passi.",
+            "step": "Le fonti danno la contrazione per qualsiasi b, nel tempo τ di Lorenz; vi si inseriscono la b = 1 della ruota idraulica, presa dalla terza, e τ = K·t."
+          },
+          "wheel": {
+            "title": "Le equazioni della ruota stessa",
+            "setting": "Rubinetto ρ = 28, freno σ = 10, come all'apertura della pagina; letto dopo 12 s, dopo le prime due inversioni.",
+            "reads": "La distribuzione dell'acqua gira con la ruota, l'acqua entra in alto e perde ovunque; la gravità fa girare la ruota, l'asse frena. Qui calcolato in secondi, per una ruota di 0,5 m di raggio e un freno di 1 N·m·s.",
+            "why": "Verifica che le equazioni di Lorenz con b = 1 siano la ruota, conversione in giri compresa: 19,04 giri/min dopo 12 s. Qualsiasi altro raggio e qualsiasi altro freno con gli stessi σ e ρ danno lo stesso numero.",
+            "step": "La fonte scrive il freno come κ + Q_tot·R² e la gravità sulla ruota inclinata come g·sin α; qui si chiamano ν e g. Inerzia e portata seguono da σ = ν/(K·I) e ρ = π·g·r·q/(ν·K²)."
+          }
+        },
+        "wave": {
+          "textbook_lengths": {
+            "title": "Le lunghezze secondo la formula dei libri",
+            "setting": "Quindici pendoli, ciclo di 60 s, il più lungo vi oscilla 51 volte; accordati per 0°, cioè con la formula per piccole oscillazioni.",
+            "reads": "Un pendolo che nel ciclo Γ oscilla esattamente N + n volte ha il periodo Γ/(N + n); da T = 2π√(L/g) segue la sua lunghezza.",
+            "why": "Verifica l'accordatura della fila: il pendolo più corto oscilla 65 volte in 60 s ed è lungo 21,1659 cm. Un numero contato male o un'altra g si noterebbe qui."
+          },
+          "tuned_lengths": {
+            "title": "Accordati per 15°",
+            "setting": "La fila della pagina: quindici pendoli, 60 s, il più lungo 51 volte, accordati per 15°.",
+            "reads": "Un'oscillazione di 15° dura più di una piccola, di un fattore 2K/π. Perché duri comunque Γ/(N + n), il pendolo è più corto del quadrato di questo fattore.",
+            "why": "Verifica che la pagina accordi con il periodo esatto e non con la formula dei libri: il pendolo più lungo è lungo 34,0875 cm. Qui K è sommato come integrale, non con la media aritmetico-geometrica usata dal motore di calcolo.",
+            "step": "La prima fonte dà la lunghezza dal periodo delle piccole oscillazioni, la seconda il periodo per qualsiasi ampiezza: 4K, in unità di √(L/g); la terza definisce K come integrale. Come periodo delle piccole oscillazioni va quindi inserito Γ/(N + n)·π/(2K)."
+          },
+          "together": {
+            "title": "Di nuovo insieme dopo un ciclo",
+            "setting": "La fila della pagina, lasciata andare a 15°; l'orologio a 60 s, un ciclo intero.",
+            "reads": "Nel ciclo ogni pendolo ha alle spalle un numero intero di oscillazioni ed è di nuovo dove è stato lasciato andare.",
+            "why": "Verifica l'orologio della pagina su un minuto intero: tutti e quindici sono di nuovo a 15°, nessuno scostato di più di 10⁻¹²°. La pagina calcola ogni istante direttamente, senza passi; per questo il sessantesimo secondo è esatto quanto il primo."
+          },
+          "third": {
+            "title": "Dopo un terzo del ciclo",
+            "setting": "La fila della pagina, lasciata andare a 15°; l'orologio a 20 s, un terzo del ciclo. Letto sul secondo pendolo, che nel ciclo oscilla 52 volte.",
+            "reads": "Il secondo pendolo ha alle spalle 17⅓ oscillazioni. La soluzione esatta dell'equazione del pendolo, con la funzione sn di Jacobi, dice dove si trova un terzo di oscillazione dopo il rilascio.",
+            "why": "Verifica la forma dell'oscillazione tra i punti di inversione, non solo la sua durata: −7,50807°, un po' più in fuori della metà di 15° che darebbe una cosinusoide. Qui sn è cercata a partire dal suo integrale, non con la media aritmetico-geometrica usata dal motore di calcolo.",
+            "step": "La prima fonte dà la soluzione in un tempo misurato in unità di √(L/g); lì un'oscillazione dura 4K. Dopo 17⅓ oscillazioni l'argomento è 17⅓·4K + K = 35·2K + K/3, quindi secondo la seconda fonte sn = −sin φ con F(φ) = K/3; la terza dà F come integrale."
+          },
+          "textbook_skew": {
+            "title": "Accordati con la formula dei libri",
+            "setting": "Quindici pendoli, 60 s, il più lungo 51 volte, accordati per 0° con la formula dei libri, ma lasciati andare a 15°.",
+            "reads": "A 15° ogni oscillazione dura di più, di un fattore 2K/π. L'n-esimo pendolo compie nel ciclo solo (N + n)·π/(2K) oscillazioni; il più corto, che ne fa di più, resta più indietro di tutti.",
+            "why": "Verifica lo sfasamento che la pagina mostra come trucco: la fila torna storta di 21,5821°, tanto è il ritardo del pendolo più corto rispetto al più lungo, in gradi di un'oscillazione.",
+            "step": "La prima fonte dà l'accordatura, la seconda il periodo a 15°, la terza K. Nel ciclo all'n-esimo pendolo mancano (N + n)(1 − π/(2K)) oscillazioni di 360° ciascuna; il più corto fa c − 1 = 14 oscillazioni più del più lungo."
+          }
+        },
+        "coriolis": {
+          "at_rest": {
+            "title": "Senza rotazione: il tiro come corda",
+            "setting": "La giostra è ferma (0 giri/min); il disco a 3 m/s, mirato 30° accanto all'altro sedile.",
+            "reads": "Il disco va dritto, dal proprio sedile lungo una corda fino al bordo. L'angolo al bordo tra corda e diametro è la metà dell'angolo al centro sullo stesso arco: il disco arriva 2 · 30° = 60° accanto all'altro sedile.",
+            "why": "Verifica in che verso gira la mira e dove la pagina trova il bordo: senza rotazione resta solo la geometria. La pagina trova il bordo dimezzando sessanta volte il tempo di volo; i due valori coincidono a meno di 10⁻⁹.",
+            "step": "Senza forze il disco va dritto (prima fonte). Il suo percorso e la linea verso l'altro sedile partono entrambi dal proprio sedile sul bordo; secondo Euclide l'angolo al centro, tra l'altro sedile e la fine del percorso, è il doppio (seconda fonte)."
+          },
+          "straight_puck": {
+            "title": "Il tiro dritto manca di 86°",
+            "setting": "6 giri/min, raggio 2 m; il disco a 3 m/s, mirato esattamente sull'altro sedile.",
+            "reads": "Visto da fuori il disco va dritto, con il tiro u e, di traverso, la velocità ΩR con cui il tiratore viene portato in giro. La sua corda è inclinata di δ rispetto al diametro e finisce 2δ prima dell'altro sedile, che nel frattempo è andato avanti di Ωt.",
+            "why": "Verifica entrambe le cose che deviano il tiro: il tiratore che gira con la giostra, δ = 22,7°, e la rotazione durante gli 1,13 s di volo. Insieme 86,3° in senso orario, come lo vede chi gira con la giostra.",
+            "step": "La prima fonte dà la velocità vista da fuori, v₀ = v + Ω × r: il tiro e, di traverso, ΩR, quindi tan δ = ΩR/u. Secondo Euclide la corda finisce 2δ prima dell'altro sedile ed è lunga 2R·cos δ, perché l'angolo inscritto in una semicirconferenza è retto; alla velocità √(u² + Ω²R²) il volo dura t. Chi gira con la giostra riporta indietro tutto di −Ωt (quarta fonte)."
+          },
+          "coriolis_push": {
+            "title": "La forza di Coriolis al rilascio",
+            "setting": "6 giri/min, raggio 2 m; il disco a 3 m/s dritto verso l'altro sedile, letto nel momento del tiro, girando con la giostra.",
+            "reads": "Chi gira con la giostra vede il disco accelerato di traverso al tiro, con 2Ωu: la forza di Coriolis per chilogrammo. Al momento del tiro la forza centrifuga punta verso l'esterno lungo la linea di tiro e di traverso non contribuisce nulla.",
+            "why": "Verifica il riportare indietro nella vista di chi gira con la giostra: 3,77 m/s² verso destra, come richiede una rotazione in senso antiorario. Letto sulla traiettoria della pagina come derivata seconda su tre passi di 1 ms; il metodo ha uno scarto di 7 · 10⁻⁷.",
+            "step": "La fonte dà l'equazione del moto in un sistema in rotazione uniforme; senza forze U = 0. Nel momento del tiro v′ è il tiro, perpendicolare a Ω, e r′ è il sedile, sulla linea di tiro: di traverso a essa resta solo 2Ωu."
+          },
+          "ball_turn": {
+            "title": "La palla che rotola gira a 2/7",
+            "setting": "6 giri/min, raggio 2 m; la palla che rotola, a 3 m/s dritta verso l'altro sedile, vista da fuori.",
+            "reads": "Rotolando, la palla deve tenere il passo con la piattaforma sotto di sé. L'attrito ne ruota così la velocità di continuo, con Ω/(1 + m r²/I), per una sfera piena 2/7 della rotazione: vista da fuori percorre un cerchio.",
+            "why": "Verifica il fattore del rotolamento: 10,29° al secondo invece dei 36° della giostra. Letto sulla direzione del primo e dell'ultimo tratto della traiettoria disegnata; su un cerchio ogni corda punta esattamente nella direzione che la palla ha a metà del suo arco."
+          }
+        },
+        "sky": {
+          "rayleigh": {
+            "title": "Il blu viene diffuso 4,4 volte più del rosso",
+            "setting": "Il tubo così com'è: lungo 1 m, torbidità 1,5 al metro.",
+            "reads": "Particelle molto più piccole della lunghezza d'onda diffondono in modo inversamente proporzionale alla quarta potenza della lunghezza d'onda: il blu a 450 nm più del rosso a 650 nm.",
+            "why": "Verifica la quarta potenza, da cui vengono tutti i colori del tubo: 4,353 volte più forte."
+          },
+          "light_kept": {
+            "title": "Nessuna luce va persa",
+            "setting": "Il tubo così com'è: lungo 1 m, torbidità 1,5 al metro; luce blu, 450 nm.",
+            "reads": "Ciò che manca su un tratto del tubo viene lì diffuso di lato: β per la luce che resta. Ciò che va di lato lungo tutto il tubo e ciò che esce in fondo danno insieme tutta la luce della lampada.",
+            "why": "Verifica che la luce di lato e quella in fondo combacino: sommata la luce di lato con la regola di Simpson e aggiunta quella in fondo, mancano 4 · 10⁻¹⁴, cioè niente.",
+            "step": "La fonte dà la perdita di uno strato sottile, μ·Φ·dz, e da essa e^(−μd). Nel tubo non viene assorbito nulla, quindi la perdita di ogni strato è ciò che esso diffonde di lato. La pagina vi sottrae ancora ciò che la luce diffusa perde sulla via fino alla parete, e^(−βa); qui è sommato di nuovo."
+          },
+          "high_sun": {
+            "title": "Sole alto, aria piatta",
+            "setting": "Il sole a 60° sopra l'orizzonte.",
+            "reads": "Con il sole alto la curvatura della Terra non conta: la luce attraversa l'aria di sbieco, 1/sin h volte tanto quanto in verticale.",
+            "why": "Verifica la massa d'aria della pagina, secondo Kasten e Young: 1,1540 invece di 1,1547. La loro formula tiene conto dell'aria curva e della rifrazione della luce, e perciò sta 6 · 10⁻⁴ più in basso; un errore nell'angolo o nell'unità salterebbe qui subito all'occhio."
+          },
+          "sky_noon": {
+            "title": "Il cielo sopra il sole di mezzogiorno",
+            "setting": "Il sole proprio sopra di noi, 90°, senza strato di ozono; luce verde, 550 nm.",
+            "reads": "Il cielo proprio sopra di noi è luce solare diffusa una volta durante la discesa: diffusa a ogni altezza e attenuata sul resto del cammino. Se il sole stesso è in verticale, questo vale τ·e^(−τ).",
+            "why": "Verifica il cielo della pagina nel suo caso limite: la formula diventa 0/0 per m = 1, e la pagina lì la calcola a parte. Lo scarto di 1,4 · 10⁻⁵: per il sole in verticale la pagina prende la massa d'aria secondo Kasten e Young, che lì non è proprio 1.",
+            "step": "La fonte dà la luce che arriva verso il basso dopo una sola diffusione, per il sole al coseno μ_sw e lo sguardo al coseno μ. Guardando in verticale verso l'alto (μ = 1), con il sole a μ_sw = 1/m e sul fondo dell'aria (ζ = τ), ne risulta (e^(−τ) − e^(−mτ))/(m − 1), riferito alla luce solare e alla diffusione nella direzione dello sguardo; il suo limite per μ → μ_sw dà τ·e^(−τ)."
+          },
+          "ozone_horizon": {
+            "title": "Lo strato di ozono all'orizzonte",
+            "setting": "Il sole all'orizzonte, 0°, con strato di ozono.",
+            "reads": "Lo strato di ozono è un guscio sottile a 22 km di quota. Un raggio dall'orizzonte lo attraversa di sbieco, ma non per un tratto infinito come in un'aria piatta: 12 volte tanto ozono quanto in verticale.",
+            "why": "Verifica il cammino attraverso il guscio, con cui la pagina attenua l'arancione del sole della sera: 12,064, a mano dall'integrale generale, nella pagina da una formula trasformata; i due coincidono a meno di 10⁻¹⁴.",
+            "step": "La fonte dà la massa d'aria per qualsiasi densità ρ(y) in funzione della quota y. Se tutto l'ozono sta in un guscio sottile a y = H, dell'integrale resta la frazione nel punto H, divisa per la stessa frazione in verticale (z = 0). L'angolo zenitale z è 90° meno l'altezza del sole."
+          }
+        },
+        "chladni": {
+          "lowest_tone": {
+            "title": "Il suono più grave",
+            "setting": "La lastra della pagina, 24 cm e 1 mm d'acciaio; il vibratore sul suono più grave che eccita al centro.",
+            "reads": "La tabella di Leissa dà per la lastra quadrata libera λ = ωa²√(ρh/D) = 24,2702 per la vibrazione più grave simmetrica rispetto a entrambe le linee mediane e a entrambe le diagonali; in hertz f = λ/(2πa²)·√(D/(ρh)).",
+            "why": "Verifica il metodo di Ritz, con cui la pagina cerca le vibrazioni, e la conversione in hertz: 102,43 Hz. Tabella e pagina coincidono a meno di 4 · 10⁻⁸."
+          },
+          "second_tone": {
+            "title": "Il secondo suono, non un armonico",
+            "setting": "Il vibratore sul secondo suono, 268,8 Hz.",
+            "reads": "Secondo la tabella di Leissa il secondo suono eccitato è 63,6870/24,2702 volte più alto del più grave, qualunque siano dimensioni e spessore della lastra.",
+            "why": "Verifica una vibrazione più alta, indipendente da acciaio e dimensioni: 2,624 volte più alto, non un multiplo intero come in una corda. Lo scarto di 1,4 · 10⁻⁵ sta nella tabella: la serie di Iguchi è troncata dopo cinque termini, e il metodo di Ritz non scende mai sotto il valore esatto, qui però scende sotto la tabella."
+          },
+          "sharpness": {
+            "title": "Quanto è netto un suono",
+            "setting": "Il vibratore 0,2 Hz sopra il suono più grave, dove il centro vibra ancora il 70,7 % di quanto vibra sul suono.",
+            "reads": "Un suono è largo Δf = f/Q, misurato dove l'energia scende alla metà; con lo smorzamento ζ, Q = 1/(2ζ).",
+            "why": "Verifica lo smorzamento nella legge con cui la pagina fa rispondere la lastra: con ζ = 0,002, Q = 250, quindi il suono più grave è largo solo 0,41 Hz.",
+            "step": "La fonte dà Q per un singolo oscillatore. Vicino al suono più grave la lastra vibra quasi solo in questa forma; le altre nove contribuiscono per 1,4 · 10⁻⁵."
+          },
+          "fourth_tone": {
+            "title": "Il quarto suono, pesato con la sua massa",
+            "setting": "Il vibratore sul quarto suono, 711,1 Hz; letto nel riquadro che indica quanto vibra il centro.",
+            "reads": "Sul suo suono ogni forma vibra come un singolo oscillatore, al centro di φ(0)²·F/(μ·ω²·2ζ), con μ = ∫φ² la massa di questa forma. Rispetto al suono più grave, forza e smorzamento si eliminano.",
+            "why": "Verifica che ogni forma entri con la propria massa: il 4,70 % del suono più grave. Senza μ sarebbe l'1,98 %, l'errore della prima versione. Qui μ è integrata sulla lastra, non come nella pagina come somma dei quadrati dei coefficienti.",
+            "step": "La fonte tratta un sistema di due masse: la risposta è la somma delle forme, e ognuna risponde sul suo suono con Q₁/K₁·1/(2ζ₁), con Q₁ la forza sulla forma e K₁ la sua rigidezza. Per la lastra la somma sulle masse diventa un integrale: K = μ·ω² e Q = φ(0)·F per una forza al centro. Le forme φ stesse sono quelle della pagina."
+          }
+        },
+        "peg": {
+          "same_height": {
+            "title": "Alla stessa altezza da entrambe le parti",
+            "setting": "Filo di 1 m, piolo 50 cm sotto la sospensione, lasciato andare a 30°; per sei secondi.",
+            "reads": "Il filo tira di traverso al moto e non compie lavoro: al piolo la sfera risale all'altezza L(1 − cos θ₀) da cui è stata lasciata.",
+            "why": "Verifica che il piolo, fermando il filo, conservi la velocità della sfera e non la sua velocità angolare: 13,3975 cm di altezza. La pagina legge la sfera ogni millisecondo, e il punto di inversione cade tra due letture: da qui lo scarto di 2 · 10⁻⁷."
+          },
+          "period": {
+            "title": "Il periodo su due cerchi",
+            "setting": "Come sopra: filo di 1 m, piolo 50 cm più in basso, lasciato andare a 30°; misurato dalla prima alla quarta volta in cui il piolo ferma il filo.",
+            "reads": "All'andata la sfera oscilla mezzo periodo sull'intero filo, al ritorno mezzo attorno al piolo, ciascuno con la propria ampiezza.",
+            "why": "Verifica le due equazioni del moto e i passaggi dall'una all'altra, che la pagina cerca all'interno del suo passo: 1,755778 s, a meno di 10⁻⁹. Qui K è sommato come integrale, non con la media aritmetico-geometrica usata dal motore di calcolo.",
+            "step": "La prima fonte dà ω = √(g/L), la seconda l'equazione del pendolo nel tempo ω·t e il suo periodo 4K, la terza K. Mezzo periodo in secondi è quindi 2√(ℓ/g)·K(sin(α/2)): una volta con ℓ = L e α = θ₀, una volta con ℓ = r e l'ampiezza φ₀ che attorno al piolo raggiunge la stessa altezza."
+          },
+          "loop": {
+            "title": "Da quale profondità la sfera fa il giro",
+            "setting": "Filo di 1 m, lasciato andare dall'orizzontale, il piolo 60 cm più in basso: al limite. Il limite è cercato per bisezione tra 55 e 65 cm.",
+            "reads": "In cima al cerchio piccolo il filo deve ancora tirare. Con la velocità data dall'altezza di partenza ciò significa h ≥ 5r/2; dall'orizzontale, h = 1 m, quindi r ≤ 40 cm, il piolo almeno 60 cm più in basso.",
+            "why": "Verifica il giro completo nel ciclo dei passi temporali stesso, non la formula della pagina: da 59,99999 cm. Con il piolo appena più in alto, il filo sarebbe allentato in cima solo per un istante, meno di un passo; la pagina non lo vede, da qui lo scarto di 2 · 10⁻⁷.",
+            "step": "La fonte dà la trazione del filo, mg(3cos θ − 2cos θ_m), per un pendolo che si inverte a θ_m. Attorno al piolo il raggio è r, e al posto di cos θ_m sta l'altezza di partenza: 1 − h/r. In cima, con cos θ = −1, la trazione è mg(2h/r − 5)."
+          },
+          "slack": {
+            "title": "Dove il filo si allenta",
+            "setting": "Filo di 1 m, piolo 55 cm più in basso, lasciato andare dall'orizzontale: il caso «Filo allentato».",
+            "reads": "Il filo si allenta dove la sua trazione si annulla: v²/r + g·cos φ = 0. Con la velocità data dall'altezza di partenza ciò avviene all'altezza (r + 2h)/3.",
+            "why": "Verifica dove la pagina fa iniziare il volo libero: 81,6667 cm sopra il punto più basso, a meno di 10⁻⁹, perché la pagina cerca il momento all'interno del suo passo.",
+            "step": "La fonte dà la trazione mg(3cos θ − 2cos θ_m) per un pendolo che si inverte a θ_m. Attorno al piolo, al posto di cos θ_m sta l'altezza di partenza: 1 − h/r. Posta uguale a zero, dà cos φ = 2(1 − h/r)/3, e l'altezza r(1 − cos φ) = (r + 2h)/3."
+          }
+        },
+        "foucault": {
+          "winterthur": {
+            "title": "A Winterthur: 11,1° all'ora",
+            "setting": "Winterthur, 47,5° nord; il pendolo lungo 12 m, scostato di 50 cm. Letto al primo punto di inversione dopo un'ora.",
+            "reads": "Il piano di oscillazione ruota rispetto al pavimento con Ω·sin φ, a nord in senso orario: 360° · sin φ per ogni giro della Terra rispetto alle stelle.",
+            "why": "Verifica l'oscillazione disegnata stessa, non solo il numero accanto: dove la sfera si inverte dopo un'ora, il piano è ruotato di 11,09° in senso orario. Lo scarto di 2 · 10⁻⁸ è l'ottava cifra della rotazione terrestre con cui calcola la pagina, 7,2921150 · 10⁻⁵ al secondo.",
+            "step": "La prima fonte dà la velocità di rotazione Ω·sin λ, la seconda il verso: a nord orario. Per Ω si prende un giro della Terra rispetto alle stelle, 86.164,0989 s (terza fonte)."
+          },
+          "pole": {
+            "title": "Al Polo Nord: un giro per ogni rotazione della Terra",
+            "setting": "Al Polo Nord, 90° nord; per il resto come a Winterthur.",
+            "reads": "Al polo il pendolo mantiene il suo piano rispetto alle stelle, e la Terra gli ruota sotto per intero: un giro in un giro della Terra rispetto alle stelle.",
+            "why": "Verifica la rotazione terrestre con cui calcola la pagina: un giro in 23,934 h, contato rispetto alle stelle e non rispetto al Sole.",
+            "step": "Al polo la Terra ruota sotto il pendolo con tutto il suo Ω (prima fonte), un giro completo rispetto alle stelle in 86.164,0989 s (seconda fonte)."
+          },
+          "south": {
+            "title": "A Sydney: al contrario",
+            "setting": "Sydney, 33,9° sud; per il resto come a Winterthur.",
+            "reads": "A sud dell'equatore sin φ è negativo: il piano ruota in senso antiorario.",
+            "why": "Verifica il segno della latitudine nel numero «All'ora» della pagina: −8,39°, cioè 8,39° all'ora in senso antiorario.",
+            "step": "La prima fonte conta in senso orario, e le latitudini a sud come negative. Per il giorno si prende, come sopra, un giro della Terra rispetto alle stelle (seconda fonte)."
+          },
+          "period": {
+            "title": "Il ritmo dell'oscillazione",
+            "setting": "Winterthur, il pendolo lungo 12 m; misurato dal rilascio fino al punto di inversione dopo un'ora, su tutte le mezze oscillazioni in mezzo.",
+            "reads": "Un pendolo con piccola ampiezza oscilla con T = 2π√(L/g), indipendentemente da massa e ampiezza.",
+            "why": "Verifica lunghezza e gravità nell'oscillazione disegnata: 6,9504 s. La rotazione della Terra la cambia solo di 2 · 10⁻⁹."
+          }
+        },
+        "plates": {
+          "free_fall": {
+            "title": "La piastra di plastica cade libera",
+            "setting": "Campo di 0,15 T, magneti alti 20 mm; la sua piastra di plastica, senza fenditure, 90 cm attraverso la colonna.",
+            "reads": "Ciò che non conduce corrente non viene frenato: la piastra cade libera partendo da ferma, s = ½·g·t².",
+            "why": "Verifica che senza conducibilità non resti alcun freno, e l'altezza di caduta della colonna: 0,43 s, come il quarto cronometro sopra."
+          },
+          "late_start": {
+            "title": "Una costante di tempo più tardi",
+            "setting": "La piastra di alluminio con le fenditure dell'exhibit: spessa 3 mm, denti alti 8 mm; campo di 0,15 T, magneti alti 20 mm.",
+            "reads": "Con un freno proporzionale alla velocità, la piastra si avvicina esponenzialmente alla sua velocità limite v_E = m·g/c̄, con la costante di tempo τ = m/c̄. Presto cade con v_E, τ dietro una piastra che fosse partita già con v_E.",
+            "why": "Verifica la caduta, non il freno: con massa e freno della pagina sono 1,710 s per 90 cm a 52,6 cm/s più 54 ms, in tutto 1,764 s. Senza la costante di tempo il tempo sarebbe troppo corto del 3 %.",
+            "step": "La fonte dà il percorso y = (mg/b)·t + (m²g/b²)·(e^(−bt/m) − 1), qui con b = c̄. Dopo 33 costanti di tempo l'esponenziale è sparito: y = v_E·(t − τ), quindi t = s/v_E + τ."
+          },
+          "thickness": {
+            "title": "Lo spessore non cambia nulla",
+            "setting": "La sua piastra di alluminio, senza fenditure, spessa 10 mm invece di 3 mm; sopra, la piastra di alluminio dell'exhibit, da 3 mm.",
+            "reads": "Una piastra più spessa porta più corrente e frena di più, ma è più pesante nella stessa misura: v_E e τ restano, e con esse l'intera caduta.",
+            "why": "Verifica che lo spessore entri allo stesso modo nel freno e nella massa: entrambe le piastre impiegano 12,31 s, uguali a meno di 10⁻¹².",
+            "step": "Secondo la prima fonte la corrente per unità di superficie, J = σ(E + v×B), è la stessa in ogni strato della piastra; il freno c̄ cresce quindi con lo spessore d come la massa m = ϱ·d·A. Secondo la seconda, v_E = mg/c̄ e τ = m/c̄ dipendono solo dal loro rapporto."
+          },
+          "metals": {
+            "title": "Rame contro alluminio",
+            "setting": "La sua piastra di rame, senza fenditure, spessa 3 mm; poi la stessa piastra di alluminio, come quella dell'exhibit.",
+            "reads": "Con la stessa piastra tra gli stessi magneti, le velocità limite stanno tra loro come resistività per densità: condurre bene frena, essere pesanti tira giù.",
+            "why": "Verifica i valori dei metalli e come entrano: l'alluminio cade a 0,476 volte la velocità del rame; la tabella stessa arrotonda a 0,48. Lo scarto dello 0,1 %: la pagina calcola con conducibilità a tre cifre, la tabella dà resistività a quattro.",
+            "step": "Con J = σ(E + v×B) ogni corrente cresce con σ e il suo disegno resta: il freno è σ·d·A·B₀²/2·η, con η dato solo dalla forma. Uguagliato alla forza peso ϱ·d·A·g, dà v_E = ϱ·g/(σ·B₀²/2·η); a parità di forma η si elide, e con σ = 1/ρ resta ρ·ϱ, la colonna della tabella."
+          },
+          "strip": {
+            "title": "Denti sottili: la striscia infinita",
+            "setting": "Magneti alti 10 mm, quindi un periodo di 20 mm; la sua piastra di alluminio, spessa 1 mm, tagliata in denti alti 2 mm.",
+            "reads": "Un dente molto più largo che alto porta corrente solo di traverso. Di traverso non può scorrere corrente netta, quindi spinge solo ciò che si scosta dalla media del campo sul dente: della frenata di una lastra infinita resta la parte η = 1 − (sin(kh/2)/(kh/2))².",
+            "why": "Verifica perché le fenditure tolgono il freno: a mano resta il 3,25 %, la pagina calcola il 3,21 %. Lo scarto dell'1,3 % sono le estremità dei denti: la formula vale per denti infinitamente larghi, la piastra è larga 10 cm.",
+            "step": "La prima fonte dà la corrente in un conduttore in moto, J = σ(E + v×B). In un dente infinitamente largo scorre solo di traverso, e poiché di traverso non può scorrere nulla di netto, il campo delle cariche alle estremità toglie la media B̄: J = σ·v·(B − B̄). Secondo la seconda il calore è uguale alla potenza frenante; mediando sulla posizione rispetto ai poli, a B₀²/2 manca la parte B₀²/2·(sin(kh/2)/(kh/2))², la media al quadrato."
+          }
+        },
+        "maxwell": {
+          "fall_time": {
+            "title": "La caduta lenta",
+            "setting": "La ruota della pagina: disco pieno, 0,5 kg, raggio 6,5 cm, asse 5 mm, nastri lunghi 60 cm, senza attrito dei nastri; il tempo finché sono srotolati.",
+            "reads": "I nastri costringono la ruota a girare mentre cade. Poiché l'asse è così sottile, quasi tutta l'energia potenziale va nella rotazione, e la ruota cade come al rallentatore.",
+            "why": "Verifica lo srotolamento sull'asse sottile e il momento d'inerzia del disco: 3,2345 s per 60 cm, come la pagina a meno di 10⁻¹⁴."
+          },
+          "pull": {
+            "title": "I nastri reggono quasi tutto il peso",
+            "setting": "Come sopra, letto dopo 1 s di caduta.",
+            "reads": "Poiché la ruota cade così lentamente, i nastri tirano con quasi tutto il suo peso; ciò che manca accelera la caduta.",
+            "why": "Verifica la trazione dei nastri che indica la pagina: 4,846 N."
+          },
+          "back_up": {
+            "title": "Senza attrito, di nuovo fino in cima",
+            "setting": "Come sopra; letto nel punto più alto dopo il primo strappo.",
+            "reads": "Scendendo, l'energia potenziale diventa caduta e rotazione, lo strappo restituisce la velocità invariata, e salendo tutto torna energia potenziale.",
+            "why": "Verifica che caduta, strappo e salita si accordino: la ruota torna esattamente a 60 cm.",
+            "step": "La prima fonte dà l'energia nella caduta, MgL = ½Mv² + ½Iω². Lo strappo è un'oscillazione di molla la cui energia, secondo la seconda, resta la stessa: la ruota ne esce veloce quanto vi è entrata. In salita vale il calcolo della prima, a ritroso."
+          },
+          "jerk_time": {
+            "title": "Lo strappo: mezza oscillazione",
+            "setting": "Come sopra, i nastri insieme a 10 kN/m; dalla fine dei nastri finché la ruota risale.",
+            "reads": "In basso non è più lo srotolamento a frenare la ruota, ma i nastri, che si allungano: la ruota compie su di essi mezza oscillazione come su una molla e si inverte.",
+            "why": "Verifica lo strappo, il tempo in cui i nastri tirano più forte: 22,2 ms. I nastri assorbono anche il resto dell'accelerazione verso il basso, per questo dura 1,4 · 10⁻³ in più della mezza oscillazione.",
+            "step": "La fonte dà il periodo di una massa appesa a una molla. Lo strappo ne è la metà, purché la ruota arrivi così veloce che la sua piccola accelerazione verso il basso, al confronto, non conti."
+          },
+          "peak": {
+            "title": "La trazione massima nello strappo",
+            "setting": "Come sopra, i nastri insieme a 10 kN/m; la trazione massima durante lo strappo.",
+            "reads": "Nei nastri va solo l'energia della caduta, ½Mv², non quella della rotazione: questa prosegue attraverso lo strappo. Nel punto più basso i nastri tirano con il peso e in più con s·A.",
+            "why": "Verifica la trazione che la pagina indica nello strappo: 31,14 N, più di sei volte il peso di 4,90 N.",
+            "step": "La prima fonte dà la velocità v in basso. Nello strappo la ruota oscilla sui nastri attorno alla posizione in cui questi ne reggono il peso; secondo la seconda, nel punto più basso l'energia ½Mv² sta tutta nell'allungamento A oltre questa posizione: ½sA² = ½Mv²."
+          }
+        },
+        "arch": {
+          "milankovitch": {
+            "title": "Il semicerchio più sottile che sta in piedi",
+            "setting": "Semicerchio di 2 m di luce, 40 pietre, senza carico; lo spessore ridotto finché nessuna linea delle pressioni sta più dentro tutte le pietre.",
+            "reads": "Un arco a tutto sesto di pietre senza malta sta in piedi solo se è spesso almeno 0,1075 del suo raggio: così ha calcolato Milankovitch, e Makris e Alexakis lo hanno confermato.",
+            "why": "Verifica che la pagina collochi la linea delle pressioni dentro le pietre là dove ci sta ancora appena: con 40 pietre l'arco sta in piedi da 0,10743 del raggio. Sono 6 · 10⁻⁴ in meno del valore di Milankovitch, che vale per giunti in qualunque punto ed è arrotondato a quattro decimali."
+          },
+          "chain_push": {
+            "title": "La catena capovolta spinge come tira",
+            "setting": "Arco a catenaria di 2 m di luce, alto 1 m, spesso solo 2 cm e fatto di 40 pietre, senza carico; la catena mostrata.",
+            "reads": "Capovolta, la trazione della catena diventa la spinta dell'arco. In orizzontale la catena tira ovunque allo stesso modo, con T₀ = w·a; in verticale ogni piede porta il peso di mezza catena, w·a·sinh(c/a). La spinta al piede è quindi 1/(2·sinh(c/a)) del peso.",
+            "why": "Verifica la cifra «Spinta al piede» della pagina: il 20,68 % del peso. Le 40 pietre diritte da 2 cm non sono una catena; la loro linea si scosta di 1,3 · 10⁻⁴.",
+            "step": "La prima fonte è la regola di Hooke: come pende la catena, così sta l'arco capovolto. La seconda dà la catena: in orizzontale T₀ = w·a, in verticale w·s con s = a·sinh(x/a) fino al vertice. Al piede, in x = c, si hanno quindi w·a e w·a·sinh(c/a); a si ricava dall'altezza, a·(cosh(c/a) − 1) = h."
+          },
+          "weight": {
+            "title": "Il peso delle pietre",
+            "setting": "Il semicerchio della pagina: 2 m di luce, spesso 25 cm, 16 pietre, profondo 30 cm, 2400 kg/m³.",
+            "reads": "Ogni pietra è tagliata lungo due raggi distanti π/16: il triangolo fino al bordo esterno meno il triangolo fino a quello interno, ½(R₊² − R₋²)·sin(π/16).",
+            "why": "Verifica le pietre da cui la pagina prende pesi e baricentri: 561,86 kg, la cifra «Peso dell'arco» della pagina.",
+            "step": "La fonte dà l'area di un triangolo a partire da due lati e dall'angolo compreso. Una pietra è il triangolo dal centro fino al bordo esterno, R₊ = R + t/2, meno quello fino al bordo interno, R₋ = R − t/2; il tutto per profondità e densità."
+          }
+        },
+        "resonance": {
+          "tone": {
+            "title": "Il tono dell'asta più corta",
+            "setting": "L'asta da 50 cm, acciaio da 2 mm; il tavolo esattamente al suo ritmo.",
+            "reads": "Un'asta fissata in basso oscilla con ω₀ = (β₁L)²/L²·√(EI/μ), β₁L = 0,596864π. Il suo peso la comprime e la ammorbidisce: tra peso nullo e il carico critico di Greenhill, ω² qui scende lungo una retta.",
+            "why": "Verifica radice, rigidezza e peso nel tono che la pagina scrive sotto ogni asta: 5,58 Hz; il peso toglie il 2,5 % di ω². La pagina, secondo Rayleigh, abbassa ω² con una pendenza dello 0,4 % maggiore della retta verso il carico critico esatto di Greenhill, da cui lo scarto di 5 · 10⁻⁵.",
+            "step": "La prima fonte dà il tono senza peso, la seconda la lunghezza alla quale l'asta si inflette sotto il proprio peso e il suo tono scende a zero. Nel mezzo, ω² è assunto come una retta in funzione del carico, un'approssimazione; la tolleranza la copre."
+          },
+          "buckling": {
+            "title": "Troppo lunga per il suo peso",
+            "setting": "Una singola asta dello stesso acciaio da 2 mm, sempre più lunga, finché il calcolo non la accetta più perché si inflette sotto il proprio peso.",
+            "reads": "Una colonna libera si inflette sotto il proprio peso appena è più alta di (9B²/4·EI/(ρgA))^(1/3), con B il primo zero della funzione di Bessel J₋₁/₃.",
+            "why": "Verifica ciò che il peso toglie al tono, là dove lo toglie del tutto: 1,720 m secondo la fonte, 1,723 m secondo la pagina. La pagina calcola con la forma dell'oscillazione invece che con quella dell'inflessione; ciò alza il carico critico dello 0,4 % e la lunghezza di un terzo di questo."
+          },
+          "in_step": {
+            "title": "Al passo: l'asta oscilla ampiamente",
+            "setting": "Il tavolo esattamente al ritmo dell'asta da 80 cm, 2,09 Hz, 1 mm per lato, smorzamento 0,01; due minuti a partire dalla quiete.",
+            "reads": "Il tavolo spinge l'oscillazione dell'asta con Γ·Ω²·Y, Γ = ∫φ/∫φ²; al passo la punta oscilla in modo stazionario con ampiezza Γ·Y/(2ζ).",
+            "why": "Verifica il ciclo dei passi temporali, la spinta e lo smorzamento: 78,3 mm da 1 mm di tavolo. Γ = 1,566 è qui sommato dalla forma della fonte, non preso dal motore di calcolo.",
+            "step": "La prima fonte dà l'oscillatore forzato, la seconda la forma dell'oscillazione, la terza il fattore di partecipazione per una forma di massa unitaria; per una forma che vale 1 in punta diventa ∫φ/∫φ²."
+          },
+          "neighbour": {
+            "title": "Accanto: la vicina si muove appena",
+            "setting": "Come sopra; letto sull'asta da 90 cm, il cui ritmo proprio è 1,61 Hz.",
+            "reads": "La stessa formula fuori ritmo: Γ·r²·Y/√((1 − r²)² + (2ζr)²), r = Ω/ω.",
+            "why": "Verifica che il tavolo spinga con la sua accelerazione, Ω²·Y, e non con una forza fissa: 3,86 mm; con la forza ω²·Y sarebbero 2,30 mm. Dopo due minuti resta 6 · 10⁻⁶ dell'avvio.",
+            "step": "Come sopra: l'oscillatore forzato della prima fonte, con la forma e il fattore di partecipazione delle altre due."
+          },
+          "growth": {
+            "title": "Dalla quiete: quanto in fretta cresce l'oscillazione",
+            "setting": "Il tavolo esattamente al ritmo dell'asta da 80 cm, a partire dalla quiete; contato finché l'oscillazione raggiunge 1 − 1/e di quella stazionaria.",
+            "reads": "Dalla quiete il moto è l'oscillazione stazionaria più una che si smorza con e^(−ζωt); approssimativamente cresce come 1 − e^(−ζωt), quindi raggiunge 1 − 1/e dopo circa 1/(2πζ) = 15,9 oscillazioni.",
+            "why": "Verifica come il ciclo dei passi temporali unisce smorzamento e avvio: calcolato esattamente, 15,842 oscillazioni, 7,57 s a 2,09 Hz. La regola semplice sta lo 0,5 % sopra, perché l'avvio stesso ha termini dell'ordine di ζ.",
+            "step": "La fonte dà la soluzione come oscillazione stazionaria più una che si smorza, con ω₁ = ω√(1 − ζ²) e il tasso ζω; le sue due costanti sono scelte qui in modo che posizione e velocità partano da zero."
+          }
+        },
+        "well": {
+          "kepler_period": {
+            "title": "La terza legge di Keplero nell'imbuto",
+            "setting": "Senza resistenza al rotolamento, lanciata a 36 cm con la velocità del cerchio, 0,4411 m/s («Cerchio»); misurato il primo giro.",
+            "reads": "Sul cerchio la pendenza della parete tira la pallina verso il centro con (5/7)·g·k/r²: un inverso del quadrato, come la gravità di una stella. Per questo vale la legge di Keplero T² = 4π²r³/(GM), con (5/7)·g·k al posto di GM.",
+            "why": "Verifica il moto verso il centro e la quota di 5/7 della pallina che rotola: 5,127873 s per il giro. Scivolando, senza il 5/7, sarebbe più veloce.",
+            "step": "La prima fonte dà la legge di Keplero per un'attrazione di GM/r² per chilogrammo. La seconda dà che una pallina piena che rotola su un pendio sente solo g·sin α/(1 + 2/5), i 5/7 dello scivolamento, con il momento d'inerzia 2/5·m·r² della pallina piena preso dalla terza. Sul cerchio questa parte tiene la pallina: (v²/r)·cos α = (5/7)·g·sin α, e con tan α = k/r² ciò dà v²/r = (5/7)·g·k/r²."
+          },
+          "equal_areas": {
+            "title": "Aree uguali in tempi uguali",
+            "setting": "Senza resistenza al rotolamento, lanciata a 36 cm lungo il bordo a 0,30 m/s, più lenta del cerchio; letto dopo 20 s.",
+            "reads": "La parete spinge nel piano che passa per l'asse, la gravità tira verso il basso: nulla fa girare la pallina attorno all'asse. Così r²·φ̇ resta uguale: il doppio dell'area che la linea verso il centro spazza in un secondo.",
+            "why": "Verifica l'equazione del giro attorno al centro, su una rosetta che si spinge molto verso l'interno e poi di nuovo fuori: dopo 20 s sono 0,108 m²/s, a meno di 10⁻¹⁰, come al lancio, 0,36 m per 0,30 m/s.",
+            "step": "La fonte ricava la seconda legge di Keplero dalla conservazione del momento angolare. Qui è il momento angolare attorno all'asse, con la rotazione della pallina che rotola, (7/5)·r²·φ̇ per chilogrammo; il fattore 7/5 resta fisso, quindi r²·φ̇ si conserva."
+          },
+          "energy": {
+            "title": "L'energia si conserva",
+            "setting": "Come sopra: senza resistenza al rotolamento, lanciata a 36 cm a 0,30 m/s; dopo 20 s, 20.000 passi.",
+            "reads": "Senza perdite la somma di moto, rotazione e altezza resta la stessa; la rotazione della pallina piena porta i 2/5 di ciò che porta il moto.",
+            "why": "Verifica il ciclo dei passi temporali lungo una rosetta che a ogni giro ruota un po' più avanti: −0,209407 J/kg al lancio e dopo 20 s, uguali a meno di 10⁻¹⁰."
+          },
+          "brake": {
+            "title": "Quanto costa la resistenza al rotolamento",
+            "setting": "Resistenza al rotolamento 0,002 come sulla pagina, lanciata a 36 cm sul cerchio; letto sul primo passo.",
+            "reads": "La resistenza al rotolamento frena con C·N contro il moto; ciò costa C·N·v al secondo. N, la spinta della parete, è la parte del peso perpendicolare alla parete più ciò che tiene la pallina sul suo cerchio.",
+            "why": "Verifica il freno e la spinta della parete da cui deriva: 8,6625 mW per chilogrammo. Già nel primo millisecondo la pallina rallenta un poco, e il freno con essa; e sotto 1 mm/s la pagina attenua la resistenza fino ad annullarla: insieme, uno scarto di 2 · 10⁻⁵.",
+            "step": "La prima fonte dà la resistenza al rotolamento C·N. La seconda tratta la curva sopraelevata: N·sin θ = mv²/r e N·cos θ = mg. Sommate perpendicolarmente alla parete danno N = mg·cos α + (mv²/r)·sin α; l'aderenza della pallina che rotola giace nel piano della parete e non contribuisce perpendicolarmente a essa."
+          }
+        }
+      },
+      "set_up": "Impostare",
+      "set_up_hint": "Imposta l'exhibit qui sopra su questo caso"
+    },
+    "list": {
+      "lead": "Ogni exhibit con il suo disegno, che si muove appena lo indica. Filtri per tema o li sfogli tutti."
+    }
+  },
+  "course": {
+    "title": "Equazioni differenziali",
+    "tagline": "Le equazioni differenziali dei sistemi tecnici, provandole: ogni lezione abbina un banco reale a un modello che calcola mentre Lei muove i cursori.",
+    "reset": "Ripristina",
+    "failed": "Il calcolo non è riuscito.",
+    "lesson_n": "Lezione {{n}}",
+    "axis": {
+      "time": "Tempo",
+      "frequency": "Frequenza",
+      "angle": "Angolo",
+      "torque": "Coppia"
+    },
+    "figure": {
+      "time_constant": "Costante di tempo",
+      "overshoot": "Sovraelongazione",
+      "peak_time": "Istante del picco",
+      "settling": "Tempo di assestamento",
+      "phase": "Fase"
+    },
+    "frame": {
+      "question": "La domanda",
+      "model": "Il modello",
+      "assumptions": "Che cosa trascura il modello",
+      "assumptions_hint": "Ogni modello è una decisione su che cosa qui non conta.",
+      "experiments": "Esperimenti",
+      "insights": "Che cosa è emerso",
+      "exercises": "Esercizi",
+      "lesson_navigation": "Lezione precedente e successiva"
+    },
+    "lessons": {
+      "recipe": {
+        "title": "La ricetta",
+        "summary": "Ogni equazione differenziale tecnica nasce da un bilancio: variazione = afflusso − deflusso."
+      },
+      "first_order": {
+        "title": "Sistemi del primo ordine",
+        "summary": "La costante di tempo: che cosa significa, come leggerla da una misura e dove compare."
+      },
+      "second_order": {
+        "title": "Sistemi del secondo ordine",
+        "summary": "Frequenza naturale e smorzamento: sovraelongazione, risonanza e lo smorzamento misurato da un'oscillazione libera."
+      },
+      "eigenvalues": {
+        "title": "Autovalori e piano dei poli",
+        "summary": "Un autovalore è una velocità di decadimento e una frequenza; un autovettore è un modo in cui il sistema si muove."
+      },
+      "laplace": {
+        "title": "Laplace e Bode",
+        "summary": "Derivare diventa moltiplicare per s, le catene diventano prodotti e una fase diventa un ritardo."
+      },
+      "numerics": {
+        "title": "Soluzione numerica",
+        "summary": "Euler e Runge–Kutta: passo, stabilità e perché i problemi stiff richiedono metodi impliciti."
+      },
+      "two_mass": {
+        "title": "L'oscillatore a due masse",
+        "summary": "Modi propri, antirisonanze e perché un albero torsiometrico misura male già a pochi hertz."
+      },
+      "cheat_sheet": {
+        "title": "Formulario e analogie",
+        "summary": "Il corso su una pagina stampabile, ogni formula collegata al suo widget."
+      }
+    },
+    "overview": {
+      "why": "Dietro ogni exhibit c'è un'equazione differenziale. Questo corso ne è il fondamento: che cos'è un'equazione del genere, da dove viene e che cosa dice su un sistema reale.",
+      "how": "Ogni lezione segue lo stesso schema: una domanda dalla pratica, il modello che vi risponde, esperimenti da condurre con i cursori, che cosa hanno mostrato, ed esercizi — prima stimare, poi calcolare. Ogni numero è calcolato dal motore di calcolo dell'app stessa e verificato rispetto a valori di riferimento.",
+      "lessons": "Le lezioni",
+      "lessons_hint": "Il Suo avanzamento viene conservato solo su questo dispositivo.",
+      "forget": "Dimentica il mio avanzamento",
+      "progress": "Esercizi risolti",
+      "solved": "{{solved}} di {{total}}",
+      "visited": "aperta",
+      "exercises_done": "{{done}} di {{total}} esercizi",
+      "surprises": "Sorprese",
+      "surprises_hint": "Ogni stima sbagliata di oltre la metà — l'elenco che vale la pena rileggere.",
+      "no_surprises": "Ancora nessuna. Stimi prima di calcolare, e quelle che La sorprendono si raccoglieranno qui.",
+      "surprise_entry": "stimato {{estimate}} {{unit}}, la risposta era {{answer}} {{unit}}"
+    },
+    "recipe": {
+      "title": "La ricetta: otto passi",
+      "hint": "Ogni modello di questo corso è scritto seguendo questi passi.",
+      "steps": {
+        "question": {
+          "title": "Chiarire la domanda",
+          "body": "A che cosa deve rispondere il modello, e con quale precisione? Un modello senza una domanda non ha modo di essere giusto."
+        },
+        "boundary": {
+          "title": "Confine del sistema e ipotesi",
+          "body": "Decidere che cosa sta dentro, che cosa sta fuori e che cosa si trascura — e metterlo per iscritto."
+        },
+        "coordinate": {
+          "title": "Scegliere una coordinata e ridurre",
+          "body": "Una coordinata per grado di libertà, tutto il resto ridotto su di essa attraverso le trasmissioni."
+        },
+        "balance": {
+          "title": "Scrivere il bilancio",
+          "body": "Variazione = afflusso − deflusso: di massa, energia, quantità di moto o gas. È da qui che nasce l'equazione differenziale."
+        },
+        "normalise": {
+          "title": "Normalizzare",
+          "body": "Portarla in una forma standard — τ, ω₀, D — così che si possa confrontare con ogni altro sistema dello stesso tipo."
+        },
+        "solve": {
+          "title": "Risolvere",
+          "body": "In forma chiusa dove esiste, numericamente dove non esiste."
+        },
+        "check": {
+          "title": "Verificare",
+          "body": "Unità, casi limite, una stima a mano, una misura. Un risultato che nessuno ha verificato è un'ipotesi con i decimali."
+        },
+        "interpret": {
+          "title": "Interpretare",
+          "body": "Tradurre la risposta nei termini della domanda: un tempo, una forza, una decisione di progetto."
+        }
+      },
+      "tank": {
+        "title": "Un bilancio diventa un ritardo del primo ordine",
+        "hint": "Un serbatoio con un afflusso costante e un deflusso che cresce con il livello. Modifichi l'afflusso, la sezione o lo scarico e osservi il livello assestarsi.",
+        "inflow": "Afflusso",
+        "area": "Sezione del serbatoio",
+        "outflow": "Deflusso per metro di livello",
+        "level0": "Livello iniziale",
+        "level": "Livello",
+        "outflow_series": "Deflusso",
+        "inflow_series": "Afflusso",
+        "flow": "Portata",
+        "final": "Livello finale",
+        "insight": "Il bilancio A·dh/dt = afflusso − k·h è un ritardo del primo ordine con τ = A/k: un serbatoio più grande o uno scarico più stretto lo rendono più lento, e il livello si assesta dove il deflusso eguaglia l'afflusso."
+      }
+    },
+    "exercise": {
+      "solved": "Risolto",
+      "estimate_label": "La Sua stima ({{unit}})",
+      "estimate_bare": "La Sua stima",
+      "estimate_submit": "Conferma la stima",
+      "estimate_why": "Prima la stima: il campo per la risposta si apre non appena avrà fissato un numero.",
+      "your_estimate": "La Sua stima: {{value}} {{unit}}",
+      "answer": "La Sua risposta ({{unit}})",
+      "answer_bare": "La Sua risposta",
+      "answer_n": "Risposta {{n}} ({{unit}})",
+      "answer_n_bare": "Risposta {{n}}",
+      "check": "Verifica",
+      "empty": "Inserisca prima un valore.",
+      "right": "Corretto.",
+      "wrong": "Non ancora — riprovi, oppure chieda un suggerimento.",
+      "surprise": "La Sua stima si discostava del {{pct}} %: annotata tra le Sorprese.",
+      "estimate_close": "La Sua stima si discostava del {{pct}} %.",
+      "hint": "Suggerimento",
+      "show_solution": "Mostra la soluzione",
+      "hide_solution": "Nascondi la soluzione",
+      "solution": "Soluzione"
+    },
+    "regime": {
+      "underdamped": "Sottosmorzato (D < 1)",
+      "critical": "Smorzamento critico (D = 1)",
+      "overdamped": "Sovrasmorzato (D > 1)"
+    },
+    "poles": {
+      "stable": "stabile",
+      "unstable": "instabile"
+    },
+    "animation": {
+      "pause": "Metti in pausa l'animazione",
+      "play": "Avvia l'animazione",
+      "slow": "Rallentatore: un periodo ogni due secondi, qualunque sia la frequenza.",
+      "twist": "Torsione di ciascuna molla"
+    },
+    "first_order": {
+      "question": "Un sensore di temperatura viene immerso da 20 °C in un bagno a 80 °C. Quando ci si può fidare della sua lettura — e che cosa indica dopo otto secondi?",
+      "model": "Un accumulo (la capacità termica del sensore) e una resistenza (lo scambio dal bagno al sensore): ciò che entra fa crescere l'accumulo, e il flusso è proporzionale alla differenza che resta. Scritto come bilancio, è un ritardo del primo ordine:",
+      "model_tau": "τ è la costante di tempo. Dopo un τ la risposta ha percorso il 63 % del cammino, dopo tre il 95 %, dopo cinque il 99,3 % — qualunque sia la natura del sistema.",
+      "assumptions": {
+        "one_store": "Un solo accumulo: il sensore ha ovunque la stessa temperatura, senza gradienti al suo interno.",
+        "linear": "Lineare: il flusso è proporzionale alla differenza, quindi τ non dipende da quanta strada resta da fare.",
+        "constant": "Parametri costanti: τ è lo stesso a 20 °C e a 80 °C."
+      },
+      "insights": {
+        "settled": "Dopo 5 τ la risposta ha percorso il 99,3 % del gradino: assestata, per ogni sistema del primo ordine.",
+        "read": "τ si legge su una misura dove la risposta ha percorso il 63 % — oppure dove la tangente iniziale raggiunge il valore finale.",
+        "log": "Su un asse logaritmico la distanza residua è una retta: la pendenza è −1/τ, e una misura che lì non è rettilinea non è del primo ordine."
+      },
+      "step": {
+        "title": "La risposta al gradino",
+        "hint": "Sposti τ e i due livelli. I segni sono a 1, 2, 3 e 5 τ; la linea tratteggiata è la tangente iniziale, che raggiunge il valore finale esattamente a τ."
+      },
+      "tau": "Costante di tempo τ",
+      "start": "Valore iniziale",
+      "final": "Valore finale",
+      "at": "Lettura all'istante t",
+      "analogy_label": "La stessa equazione di",
+      "analogy": {
+        "thermal": {
+          "name": "Temperatura",
+          "unit": "°C",
+          "quantity": "Temperatura"
+        },
+        "electrical": {
+          "name": "Circuito RC",
+          "unit": "V",
+          "quantity": "Tensione del condensatore"
+        },
+        "mechanical": {
+          "name": "Molla e smorzatore",
+          "unit": "mm",
+          "quantity": "Corsa"
+        },
+        "vacuum": {
+          "name": "Camera da vuoto",
+          "unit": "mbar",
+          "quantity": "Pressione"
+        }
+      },
+      "view": "Asse",
+      "view_linear": "Lineare",
+      "view_log": "Distanza residua, logaritmica",
+      "remaining": "Distanza residua",
+      "tangent": "Tangente iniziale",
+      "final_short": "valore finale",
+      "value_at": "Valore a t = {{t}} s",
+      "fraction_at": "Quota del gradino a t",
+      "settled": "Assestato al 99,3 % (5 τ)",
+      "measure": {
+        "title": "Leggere τ da una misura",
+        "hint": "Una misura rumorosa con una costante di tempo che Lei non conosce. Clicchi sulla curva dove attraversa la linea del 63 % (oppure imposti il marcatore qui sotto), poi confronti.",
+        "another": "Un'altra misura",
+        "series": "Temperatura misurata",
+        "yours": "il Suo τ",
+        "marker": "La Sua lettura di τ",
+        "marker_hint": "Dove la misura attraversa la linea del 63 %, il tempo è τ.",
+        "compare": "Confronta",
+        "result": "Lei ha letto {{yours}} s; il τ vero è {{truth}} s (scarto del {{off}} %)."
+      }
+    },
+    "second_order": {
+      "question": "Un albero torsiometrico viene colpito una volta e vibra. Con quale frequenza vibra, quanto in fretta si calma — e di quanto sbaglia una misura quando il segnale si avvicina alla sua frequenza naturale?",
+      "model": "Un'inerzia su una molla con uno smorzatore: la legge di Newton per la rotazione. Due numeri dicono tutto: la frequenza naturale ω₀ e il coefficiente di smorzamento D.",
+      "model_magnification": "Eccitata a una frequenza f, la risposta è quella statica moltiplicata per il fattore di amplificazione V(η); e due massimi successivi di un'oscillazione libera danno D senza conoscere né l'inerzia né la rigidezza:",
+      "assumptions": {
+        "lumped": "Un'unica inerzia concentrata: la massa distribuita dell'albero stesso è trascurata; l'inerzia concentrata ne è il primo modo, ed è quello che interessa a una catena di misura.",
+        "viscous": "Smorzamento viscoso, proporzionale alla velocità; nessun attrito di entità costante.",
+        "linear": "Una molla lineare su tutta la corsa."
+      },
+      "insights": {
+        "peak": "D = 0,05 significa un fattore di amplificazione di 10 a f₀: l'albero oscilla fino a dieci volte la sua deformazione statica.",
+        "chain": "Una catena di misura legge con un errore entro il 4 % circa fino a un quinto della sua frequenza naturale: f₀ ≥ 5 × la frequenza più alta di interesse.",
+        "mass": "Più inerzia con lo stesso smorzatore abbassa D oltre a f₀, perché D = d/(2√(c·J))."
+      },
+      "system": {
+        "title": "La risposta al gradino",
+        "hint": "Imposti l'albero tramite i suoi componenti o tramite i suoi due numeri. Le linee tratteggiate sono l'inviluppo e^(−Dω₀t); il colore dell'etichetta indica quale delle tre soluzioni è."
+      },
+      "describe": "Descrivere l'albero tramite",
+      "describe_parts": "I suoi componenti J, c, d",
+      "describe_numbers": "I suoi numeri f₀, D",
+      "inertia": "Inerzia J",
+      "stiffness": "Rigidezza c",
+      "damping": "Smorzamento d",
+      "f0": "Frequenza naturale f₀",
+      "ratio": "Coefficiente di smorzamento D",
+      "torque_note": "Eccitato da un gradino di coppia di {{torque}} N·m.",
+      "angle": "Angolo",
+      "envelope": "Inviluppo",
+      "final": "Valore finale",
+      "magnification": {
+        "title": "Fattore di amplificazione ed errore di una catena di misura",
+        "hint": "V(η) per il Suo smorzamento (in grassetto) e cinque riferimenti. Sposti l'eccitazione e legga di quanto l'albero si muove più della sua deformazione statica — che è di quanto sbaglia una catena di misura costruita su di esso.",
+        "v": "Amplificazione V",
+        "eta": "Rapporto di frequenza η = f/f₀",
+        "error": "Errore di lettura",
+        "error_note": "oltre il 5 %: troppo vicino a f₀",
+        "peak": "Amplificazione massima"
+      },
+      "excitation": "Frequenza di eccitazione f",
+      "decay": {
+        "title": "Lo smorzamento da una prova di oscillazione libera",
+        "hint": "Un albero colpito, misurato con rumore; il suo smorzamento è sconosciuto. Clicchi su due massimi successivi per calcolare Λ e D, poi confronti.",
+        "another": "Un'altra oscillazione",
+        "series": "Coppia misurata",
+        "not_successive": "Scelga due massimi adiacenti.",
+        "damping": "Coefficiente di smorzamento D",
+        "compare": "Confronta",
+        "result": "I Suoi due massimi danno D = {{yours}}; il D vero è {{truth}}. Letto su tutti i {{n}} periodi in una volta, D = {{overall}} — un solo logaritmo su molti periodi è la risposta più stabile."
+      }
+    },
+    "eigenvalues": {
+      "question": "Che cosa dicono davvero i due numeri per cui si risolve un sistema del secondo ordine — e che cosa fa un sistema con due stati accoppiati quando si muove?",
+      "model": "Un sistema lineare ẋ = A·x si muove come somma delle sue autosoluzioni: ogni autovalore λ dice quanto velocemente una parte decade o cresce e quanto velocemente ruota, ogni autovettore la direzione in cui si muove.",
+      "model_pair": "Per una massa su una molla con uno smorzatore la matrice ha una coppia di autovalori, che sono esattamente le radici dell'equazione caratteristica della lezione 2:",
+      "assumptions": {
+        "linear": "Lineare e tempo-invariante: A è costante. Un sistema non lineare ha autovalori solo attorno a un punto di funzionamento.",
+        "minimal": "Poli e autovalori coincidono quando il sistema è scritto senza fattori che si semplificano; un polo semplificato da uno zero resta comunque un autovalore di A."
+      },
+      "insights": {
+        "parts": "λ = σ ± jω: la parte reale σ determina l'inviluppo e^(σt), la parte immaginaria la frequenza di oscillazione.",
+        "same": "det(A − λI) = 0 è l'equazione caratteristica della lezione 2: poli, autovalori e le sue radici sono gli stessi numeri.",
+        "vectors": "Una traiettoria che parte su un autovettore reale resta su quella retta; ogni altra è una combinazione delle due direzioni."
+      },
+      "scalar": {
+        "title": "Un autovalore: ẋ = a·x",
+        "hint": "Porti a attraverso lo zero: negativo decade, positivo cresce, e la costante di tempo o il tempo di raddoppio è 1/|a| a meno di un fattore."
+      },
+      "stable": "Stabile",
+      "unstable": "Instabile",
+      "marginal": "Al limite",
+      "doubling": "Tempo di raddoppio",
+      "poles": {
+        "title": "Poli e risposta al gradino",
+        "hint": "Imposti f₀ e D, oppure trascini il polo superiore nel piano. La semicirconferenza tratteggiata è |λ| = ω₀; le coppie di poli su di essa differiscono tra loro solo nello smorzamento.",
+        "plane": "Il piano dei poli, poli a {{poles}} 1/s",
+        "response": "Risposta al gradino"
+      },
+      "matrix": {
+        "title": "Un sistema 2×2 e il suo ritratto di fase",
+        "hint": "Modifichi la matrice o parta da un preset. Le linee tratteggiate sono gli autovettori reali; dodici traiettorie partono dalla circonferenza unitaria punteggiata.",
+        "presets": {
+          "spring": "Massa–molla–smorzatore",
+          "saddle": "Sella",
+          "centre": "Centro",
+          "spiral": "Spirale"
+        },
+        "kind": {
+          "saddle": "Sella — instabile",
+          "stable_node": "Nodo stabile",
+          "unstable_node": "Nodo instabile",
+          "stable_focus": "Fuoco stabile — oscillazione smorzata",
+          "unstable_focus": "Fuoco instabile — oscillazione crescente",
+          "centre": "Centro — oscillazione non smorzata",
+          "degenerate": "Degenere — un autovalore nullo"
+        },
+        "portrait": "Ritratto di fase: {{kind}}",
+        "trace": "Traccia",
+        "det": "Determinante",
+        "vectors": "Autovettori"
+      }
+    },
+    "laplace": {
+      "question": "Una catena di misura è un albero dietro un filtro dietro un amplificatore. Che cosa fa la catena a un segnale a 3 Hz — di quanto lo riduce, e con quanto ritardo arriva?",
+      "model": "La trasformata di Laplace trasforma la derivazione in una moltiplicazione per s, così un'equazione differenziale diventa algebrica. Ogni blocco è una funzione di trasferimento G(s); i blocchi in serie si moltiplicano, e su un diagramma di Bode in decibel si sommano.",
+      "model_delay": "A una frequenza f, un ritardo di fase è un ritardo temporale:",
+      "assumptions": {
+        "lti": "Blocchi lineari e tempo-invarianti; un amplificatore che satura non è una funzione di trasferimento.",
+        "steady": "Bode descrive il regime stazionario sotto un seno; il transitorio iniziale è compito della risposta al gradino.",
+        "dead_time": "Un tempo morto aggiunge fase ma nessun polo: e^(−sT) non ne ha, e non ne viene disegnato nessuno."
+      },
+      "insights": {
+        "product": "I blocchi in serie si moltiplicano; su un diagramma di Bode in dB le loro curve si sommano — la somma delle curve tratteggiate è quella continua.",
+        "final": "Il valore finale di una risposta al gradino stabile è G(0): si legge dalla funzione di trasferimento senza risolvere nulla.",
+        "lag": "Un PT1 ritarda le basse frequenze di circa τ: dietro un filtro a 5 Hz un segnale a 3 Hz arriva con 28,7 ms di ritardo, dietro un filtro a 50 Hz un segnale a 5 Hz con 3,2 ms.",
+        "filter": "Filtri coppia e angolo in modo identico — oppure offline, in avanti e all'indietro — altrimenti il filtro disegna un'isteresi che il provino non ha."
+      },
+      "steps": {
+        "title": "Laplace, passo per passo",
+        "hint": "Il gradino del primo ordine risolto alla maniera di Laplace: ogni riga riporta i Suoi numeri.",
+        "transform": "Trasformare",
+        "solve": "Risolvere per Y(s)",
+        "split": "Scomporre in fratti semplici",
+        "back": "Antitrasformare"
+      },
+      "time_domain": "Dominio del tempo",
+      "image_domain": "Dominio di Laplace",
+      "chain": {
+        "title": "Un kit per costruire diagrammi di Bode",
+        "hint": "Fino a quattro blocchi in catena. Il totale è a tratto continuo, ogni blocco tratteggiato sotto di esso; il cursore legge guadagno, fase e il ritardo che quella fase significa.",
+        "block": "Blocco {{n}}",
+        "remove": "Rimuovi il blocco",
+        "add": "Aggiungi un blocco",
+        "cursor": "Frequenza del cursore",
+        "total": "Catena",
+        "gain": "Guadagno |G|",
+        "delay": "Ritardo",
+        "poles": "Poli della catena",
+        "step": "Risposta al gradino"
+      },
+      "kind": {
+        "proportional": "Guadagno K",
+        "integrator": "Integratore K/s",
+        "first_order": "Primo ordine (PT1)",
+        "second_order": "Secondo ordine (PT2)",
+        "dead_time": "Tempo morto"
+      },
+      "magnitude": "Modulo",
+      "filter": {
+        "title": "L'isteresi che un filtro inventa",
+        "hint": "Un provino senza isteresi (coppia proporzionale all'angolo), mosso in modo sinusoidale. Filtri solo la coppia e compare un ciclo; filtri entrambi, oppure offline, e sparisce. Aggiunga attrito per vederne sopravvivere uno vero.",
+        "frequency": "Frequenza di scansione",
+        "corner": "Frequenza di taglio del filtro",
+        "friction": "Banda d'attrito reale",
+        "mode": "Filtraggio",
+        "modes": {
+          "torque_only": "Solo la coppia",
+          "both": "Coppia e angolo",
+          "zero_phase": "Entrambi, in avanti e all'indietro"
+        },
+        "truth": "Com'è",
+        "measured": "Come misurato",
+        "apparent": "Isteresi misurata",
+        "true": "Isteresi vera"
+      }
+    },
+    "numerics": {
+      "question": "Nella pratica la maggior parte delle equazioni non ha una soluzione in forma chiusa, quindi un computer le percorre a passi. Quanto può essere grande il passo — e che cosa fa un metodo al sistema che sta integrando?",
+      "model": "Euler prende la pendenza all'inizio di ogni passo e la mantiene per tutto il passo. RK4 valuta la pendenza quattro volte all'interno del passo e ne prende una media pesata:",
+      "model_stability": "Su ẏ = λy un metodo moltiplica la soluzione per un fattore fisso a ogni passo, ed è stabile solo finché il modulo di quel fattore è al massimo uno. Per Euler:",
+      "assumptions": {
+        "fixed": "Un passo fisso: i metodi qui non lo adattano. Un metodo adattivo (come quello su cui gira il pompaggio) sceglie da sé il proprio.",
+        "rounding": "L'arrotondamento è trascurato: in doppia precisione è molto al di sotto di ogni errore mostrato qui."
+      },
+      "insights": {
+        "order": "L'errore di Euler cala con h, quello di RK4 con h⁴: dimezzare il passo dimezza l'uno e divide l'altro per sedici.",
+        "energy": "Euler pompa energia in un oscillatore: a h·ω₀ = 2D annulla esattamente lo smorzamento — sull'albero torsiometrico ciò corrisponde a h = 1 ms, che lo fa oscillare per sempre con il suo pieno 1° — e oltre quel valore l'oscillazione dell'albero cresce.",
+        "rule": "Regola pratica per RK4: h al massimo un ventesimo del periodo più breve. Euler esplicito su un oscillatore poco smorzato richiede h·ω₀ < 2D, che a D = 0,05 è un sessantatreesimo di periodo.",
+        "stiff": "Stiff significa dinamiche veloci e lente insieme: un ritardo di 1 ms accanto a uno di 10 s costringe RK4 a più di 10.000 passi su 30 s per una componente che si è esaurita dopo 5 ms. Euler implicito è stabile con qualsiasi passo."
+      },
+      "sensor": {
+        "title": "Euler, Heun e RK4 a confronto con la soluzione esatta",
+        "hint": "Il sensore della lezione 1 (τ = 4 s, 20 → 80 °C). Aumenti il passo — oltre τ Euler supera il valore finale, oltre 2τ diverge."
+      },
+      "step": "Passo h",
+      "steps": "Numero di passi",
+      "regime": {
+        "monotone": "Euler si avvicina dal basso (h < τ)",
+        "one_step": "Euler arriva in un solo passo (h = τ)",
+        "alternating": "Euler supera il valore finale e alterna (τ < h < 2τ)",
+        "neutral": "Euler alterna per sempre (h = 2τ)",
+        "diverging": "Euler diverge (h > 2τ)"
+      },
+      "euler_factor": "Fattore di Euler per passo, 1 − h/τ",
+      "rk4_factor": "Fattore di RK4 per passo",
+      "method": {
+        "exact": "Esatta",
+        "euler": "Euler",
+        "heun": "Heun",
+        "rk4": "RK4",
+        "symplectic": "Euler semi-implicito",
+        "implicit": "Euler implicito"
+      },
+      "errors": {
+        "title": "Tabella degli errori",
+        "hint": "Il valore di ogni passo e il suo errore.",
+        "euler": "Errore di Euler",
+        "rk4": "Errore di RK4"
+      },
+      "rk4_table": {
+        "title": "RK4 passo per passo",
+        "hint": "Dove viene valutata ciascuna delle quattro pendenze, e quanto vale.",
+        "step": "Passo {{n}}",
+        "slope": "Pendenza"
+      },
+      "oscillator": {
+        "title": "Deriva dell'energia su un oscillatore",
+        "hint": "L'albero torsiometrico della lezione 2 (f₀ = 15,9 Hz, D = 0,05) rilasciato da 1°, un secondo, quattro metodi. Sopra, l'ampiezza su un asse logaritmico; sotto, l'angolo.",
+        "gain": "Guadagno di Euler per passo |1 + hλ|",
+        "neutral": "Passo al quale Euler annulla lo smorzamento",
+        "amplitude": "Ampiezza",
+        "final": "{{method}}: ampiezza dopo 1 s",
+        "damping": "{{method}}: smorzamento che mostra"
+      },
+      "stiff": {
+        "title": "Problemi stiff",
+        "hint": "Due ritardi indipendenti, 1 ms e 10 s, su 30 s. È mostrato quello lento. Porti il passo oltre 2,8 ms e RK4 diverge; Euler implicito resta stabile con qualsiasi passo.",
+        "limit": "Passo RK4 stabile massimo",
+        "min_steps": "Passi RK4 necessari come minimo",
+        "rk4_steps": "Passi RK4 eseguiti",
+        "diverged": "divergente",
+        "implicit_steps": "Passi di Euler implicito",
+        "exact": "Esatta",
+        "slow": "Componente lenta"
+      }
+    },
+    "two_mass": {
+      "question": "Un albero torsiometrico è montato tra il motore e un adattatore pesante sul provino. Perché a 3 Hz legge il 15 % in meno?",
+      "model": "Due inerzie su due molle: il motore J₁, l'albero torsiometrico c₁, il piantone o l'adattatore J₂, il provino come barra di torsione c₂ verso il telaio. In forma matriciale:",
+      "model_reading": "L'albero legge la coppia che lo attraversa; il provino sopporta la coppia che attraversa la barra. Tra i due si trova J₂, e ciò che serve per accelerarlo è nella lettura e non nel provino:",
+      "assumptions": {
+        "lumped": "Inerzie concentrate: l'inerzia propria dell'albero è trascurata (ripartita tra le sue estremità sposterebbe entrambi i modi di qualche percento).",
+        "torque": "Un azionamento ideale in coppia: l'anello di corrente del motore non è modellato.",
+        "linear": "Molle lineari e smorzatori viscosi."
+      },
+      "insights": {
+        "count": "n inerzie su molle vincolate al telaio danno n frequenze naturali; una catena libera aggiunge un moto rigido a 0 Hz.",
+        "soft": "Il modo più basso è l'insieme che oscilla sulla molla più cedevole: tutta l'inerzia sulle due molle in serie dà a mano 6,3 Hz, contro 6,94 Hz esatti.",
+        "error": "L'albero legge circa 1 − (f/f_a)² volte la coppia che sopporta il provino, con f_a = √(c₂/J₂)/2π: il 2 % in meno a 1 Hz, il 15 % a 3 Hz, il 43 % a 5 Hz con l'adattatore predefinito."
+      },
+      "rig": {
+        "title": "Il banco sotto un'eccitazione sinusoidale",
+        "hint": "Sposti l'eccitazione o salti a un preset. I dischi ruotano al rallentatore con le fasi calcolate dal motore di calcolo; le barre mostrano quanto è attorcigliata ciascuna molla."
+      },
+      "excitation": "Frequenza di eccitazione",
+      "presets": {
+        "three": "3 Hz",
+        "mode1": "Modo 1",
+        "absorber": "Punto di assorbimento",
+        "motor_still": "Motore fermo",
+        "mode2": "Modo 2"
+      },
+      "parameters": "Parametri del banco",
+      "parameters_hint": "Inerzie, rigidezze e smorzamenti, ciascuno su un cursore.",
+      "j1": "Inerzia del motore J₁",
+      "j2": "Inerzia dell'adattatore J₂",
+      "c1": "Albero torsiometrico c₁",
+      "c2": "Barra di torsione c₂",
+      "d1": "Smorzamento dell'albero d₁",
+      "d2": "Smorzamento della barra d₂",
+      "motor": "Motore",
+      "adapter": "Adattatore",
+      "animation_label": "Le due inerzie a {{f}} Hz, al rallentatore",
+      "in_phase": "Ruotano nello stesso verso",
+      "anti_phase": "Ruotano in versi opposti",
+      "error": "Errore di lettura",
+      "shaft_reads": "Ciò che legge l'albero, M_W",
+      "object_carries": "Ciò che sopporta il provino, M_T",
+      "per_motor_torque": "Coppia per coppia motrice",
+      "modes": "Modi",
+      "mode_f": "Modo {{n}}: frequenza",
+      "mode_d": "Modo {{n}}: smorzamento",
+      "mode_shape": "Modo {{n}}: φ₂/φ₁",
+      "hand": "Stima a mano del modo 1",
+      "hand_deviation": "Scarto della stima a mano",
+      "compensation": {
+        "title": "Compensare l'inerzia dell'adattatore",
+        "hint": "M_T = M_W − J₂·φ̈₂, con l'accelerazione ottenuta derivando due volte l'angolo misurato. Aumenti il rumore: la correzione lo amplifica con il quadrato della frequenza di campionamento, e un filtro lo scambia con un ritardo.",
+        "noise": "Rumore sull'angolo",
+        "rate": "Frequenza di campionamento",
+        "filter": "Pulizia dell'accelerazione",
+        "filters": {
+          "none": "Nessuna",
+          "lowpass": "Passa-basso",
+          "zero_phase": "Passa-basso nei due sensi (offline)"
+        },
+        "corrected": "Corretta, M_W − J₂·φ̈₂",
+        "raw_error": "Errore senza la correzione",
+        "comp_error": "Errore con la correzione",
+        "noise_price": "Rumore aggiunto dalla correzione"
+      }
+    },
+    "cheat": {
+      "print": "Stampa",
+      "analogies": "Analogie",
+      "role": "Ruolo",
+      "domains": {
+        "electrical": "Elettrico",
+        "mechanical": "Meccanico",
+        "thermal": "Termico",
+        "vacuum": "Vuoto"
+      },
+      "roles": {
+        "drive": "Forzante",
+        "flow": "Flusso",
+        "resistance": "Resistenza",
+        "store": "Accumulo",
+        "inert": "Accumulo inerziale",
+        "tau": "Costante di tempo"
+      },
+      "traps": "Le trappole di un banco prova",
+      "trap": {
+        "inertia": "Un'inerzia tra il sensore di coppia e il provino entra nella lettura: l'errore cresce con (f/f_a)².",
+        "filter": "Filtri coppia e angolo in modo identico, altrimenti il filtro inventa un'isteresi."
+      },
+      "python": "In Python"
+    },
+    "exercises": {
+      "pt1_reading": {
+        "title": "La lettura di un sensore",
+        "prompt": "Un sensore con τ = {{tau}} s riceve un gradino da {{start}} °C a {{final}} °C. Che cosa legge dopo {{t}} s?",
+        "hint1": "Dopo t/τ costanti di tempo manca ancora la quota e^(−t/τ) del gradino.",
+        "hint2": "y(t) = y∞ + (y₀ − y∞)·e^(−t/τ).",
+        "solution": "{{t}} s sono {{t}}/{{tau}} costanti di tempo, quindi manca ancora e^(−{{t}}/{{tau}}) del gradino: il sensore legge {{a1}} °C."
+      },
+      "decrement": {
+        "title": "Lo smorzamento da due massimi",
+        "prompt": "In una prova di oscillazione libera un massimo vale {{first}} N·m e il successivo {{second}} N·m. Qual è il coefficiente di smorzamento D?",
+        "hint1": "Prenda il logaritmo del rapporto tra due massimi successivi: Λ = ln(xₙ/xₙ₊₁).",
+        "hint2": "D = Λ/√(4π² + Λ²) — per un Λ piccolo quasi Λ/2π.",
+        "solution": "Λ = ln({{first}}/{{second}}), e D = Λ/√(4π² + Λ²) = {{a1}}."
+      },
+      "double_frequency": {
+        "title": "Il doppio della frequenza naturale",
+        "prompt": "Di quale fattore deve crescere la rigidezza per moltiplicare la frequenza naturale per {{factor}}, a parità di inerzia?",
+        "hint1": "La frequenza naturale cresce con la radice quadrata della rigidezza.",
+        "hint2": "Elevi il fattore al quadrato.",
+        "solution": "f₀ cresce con √c, quindi la rigidezza deve crescere di {{factor}}² = {{a1}}."
+      },
+      "filter_delay": {
+        "title": "Di quanto un filtro ritarda un segnale",
+        "prompt": "Un filtro del primo ordine con frequenza di taglio a {{corner}} Hz porta un segnale a {{f}} Hz. Con quanto ritardo arriva il segnale?",
+        "hint1": "La fase di un ritardo del primo ordine è −arctan(f/f_E).",
+        "hint2": "Una fase di φ gradi a una frequenza f è un ritardo di φ/360° · 1/f.",
+        "solution": "φ = −arctan({{f}}/{{corner}}), e a {{f}} Hz ciò corrisponde a un ritardo di {{a1}} ms."
+      },
+      "filter_phase": {
+        "title": "Fase e ritardo di un filtro impostato troppo vicino",
+        "prompt": "Un filtro del primo ordine con frequenza di taglio a {{corner}} Hz porta un segnale a {{f}} Hz. Qual è la sua fase, e quale ritardo comporta?",
+        "hint1": "φ = −arctan(f/f_E).",
+        "hint2": "Δt = −φ/360° · 1/f.",
+        "solution": "φ = −arctan({{f}}/{{corner}}) = {{a1}}°, che a {{f}} Hz è un ritardo di {{a2}} ms — quasi l'intera costante di tempo del filtro."
+      },
+      "euler_steps": {
+        "title": "Due passi di Euler a mano",
+        "prompt": "Euler con h = {{h}} s sul sensore con τ = {{tau}} s, gradino da {{start}} °C a {{final}} °C. Che cosa dà dopo {{steps}} passi?",
+        "hint1": "Ogni passo aggiunge h volte la pendenza (y∞ − y)/τ presa all'inizio del passo.",
+        "hint2": "Il secondo passo parte dal risultato del primo.",
+        "solution": "Due passi di y ← y + h·(y∞ − y)/τ danno {{a1}} °C — troppo alto, perché Euler mantiene per tutto il passo la pendenza più ripida, quella all'inizio del passo."
+      },
+      "euler_gain": {
+        "title": "Euler su un oscillatore non smorzato",
+        "prompt": "Euler esplicito su un oscillatore non smorzato con h·ω₀ = {{ratio}}: di quale fattore cresce l'ampiezza a ogni passo?",
+        "hint1": "Euler moltiplica ogni autocomponente per 1 + hλ a ogni passo.",
+        "hint2": "Senza smorzamento, λ = ±jω₀.",
+        "solution": "|1 + j·{{ratio}}| = √(1 + {{ratio}}²) = {{a1}} per passo: mezzo percento a ogni passo, più di cento volte in mille passi."
+      },
+      "hand_estimate": {
+        "title": "Il modo più basso a mano",
+        "prompt": "Stimi a mano la frequenza naturale più bassa del banco a due masse: tutta la sua inerzia ({{j1}} + {{j2}} kg·m²) sulle due molle ({{c1}} e {{c2}} N·m/rad) in serie.",
+        "hint1": "Molle in serie: 1/c = 1/c₁ + 1/c₂.",
+        "hint2": "f = √(c/J)/2π con l'inerzia totale.",
+        "solution": "c = {{c1}}·{{c2}}/({{c1}} + {{c2}}) N·m/rad su {{j1}} + {{j2}} kg·m² dà {{a1}} Hz. Il modo esatto è a 6,94 Hz: il motore non oscilla con l'ampiezza piena, quindi partecipa meno inerzia di quanta ne supponga la stima."
+      },
+      "light_adapter": {
+        "title": "Un adattatore più leggero",
+        "prompt": "Un adattatore più leggero, J₂ = {{j2}} kg·m², sulla barra di torsione c₂ = {{c2}} N·m/rad. Di quanto sbaglia l'albero a {{f}} Hz?",
+        "hint1": "L'albero non legge nulla a f_a = √(c₂/J₂)/2π.",
+        "hint2": "L'errore di lettura è circa (f/f_a)².",
+        "solution": "f_a = √({{c2}}/{{j2}})/2π, e (f/f_a)² = {{a1}} % — un adattatore più leggero sposta f_a verso l'alto e l'errore verso il basso."
       }
     }
   },

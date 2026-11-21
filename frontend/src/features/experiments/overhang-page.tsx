@@ -15,6 +15,7 @@ import { PreviewPending, type PreviewProps } from "./preview-mode";
 import { MOST_BLOCKS, blocksFor, even, harmonic, holds, layers, overhang } from "./simulate/overhang";
 import { SIDE } from "./stage";
 import { useExperimentsDefaults } from "./use-experiments";
+import { HeldAnswer, useHeld } from "./held";
 
 /** The drawing: a block length in its units, the edge's place, the margins. */
 const VIEW = { width: 300, scale: 80, edge: 130, top: 22, bottom: 18, table: 12 } as const;
@@ -224,6 +225,23 @@ function StackView({
           {stack.map((layer, i) => (i >= tipping ? dot(layer, i) : null))}
         </g>
       )}
+      {/* A whole block past the edge: a goal to try for that does not give the
+          furthest away (nine reach 1.41 lengths; four are the fewest for one). */}
+      <line
+        x1={x(1)}
+        y1={14}
+        x2={x(1)}
+        y2={tableY}
+        stroke="currentColor"
+        strokeDasharray="2 3"
+        className="text-brand"
+        vectorEffect="non-scaling-stroke"
+      />
+      {/* To the right of the line, where no stack of nine reaches above the
+          blocks; on the left it ran through the edge's line. */}
+      <text x={x(1) + 2} y={19} fontSize={6} className="fill-current text-secondary">
+        {t("experiments.overhang.goal")}
+      </text>
       {reach > 0 && (
         <g fill="currentColor" fontSize={7}>
           <line x1={VIEW.edge} y1={12} x2={x(reach)} y2={12} stroke="currentColor" vectorEffect="non-scaling-stroke" />
@@ -240,6 +258,10 @@ function OverhangPlay({ blocks }: { blocks: OverhangRequest }) {
   const { t } = useTranslation();
   const locale = useLocale();
   const [lefts, setLefts] = useState<number[]>(() => flush(blocks.blocks));
+  // The furthest a stack can reach, and the button that builds it, once the
+  // reader has pushed a stack past what holds: they have found an edge of
+  // their own to set it against.
+  const held = useHeld();
   const n = lefts.length;
   const stack = layers(lefts);
   const standing = holds(lefts);
@@ -247,8 +269,11 @@ function OverhangPlay({ blocks }: { blocks: OverhangRequest }) {
   const tipping = stack.findIndex((layer) => layer.margin < -1e-12);
   const best = overhang(harmonic(n));
   const cm = (lengths: number) => formatNumber(lengths * blocks.length_m * 100, 1, locale);
-  const move = (index: number, left: number) =>
-    setLefts((now) => now.map((l, i) => (i === index ? Math.max(-2, Math.min(2, left)) : l)));
+  const move = (index: number, left: number) => {
+    const next = lefts.map((l, i) => (i === index ? Math.max(-2, Math.min(2, left)) : l));
+    setLefts(next);
+    if (!holds(next)) held.show();
+  };
   return (
     <WidgetCard
       title={t("experiments.overhang.play.title")}
@@ -261,13 +286,15 @@ function OverhangPlay({ blocks }: { blocks: OverhangRequest }) {
           <Button variant="secondary" size="sm" onClick={() => setLefts(even(n))}>
             {t("experiments.overhang.play.even")}
           </Button>
-          <Button variant="secondary" size="sm" onClick={() => setLefts(harmonic(n))}>
-            {t("experiments.overhang.play.furthest")}
-          </Button>
+          {held.shown && (
+            <Button variant="secondary" size="sm" onClick={() => setLefts(harmonic(n))}>
+              {t("experiments.overhang.play.furthest")}
+            </Button>
+          )}
         </>
       }
     >
-      <div className={SIDE.grid}>
+      <div className={`${SIDE.grid} ${SIDE.cap["2xl"]}`}>
         <div className={SIDE.top}>
           <SliderField
             label={t("experiments.overhang.play.count")}
@@ -313,6 +340,7 @@ function OverhangPlay({ blocks }: { blocks: OverhangRequest }) {
                 value: best * blocks.length_m * 100,
                 digits: 1,
                 unit: "cm",
+                held: !held.shown,
               },
               {
                 key: "even",
@@ -323,6 +351,7 @@ function OverhangPlay({ blocks }: { blocks: OverhangRequest }) {
               },
             ]}
           />
+          <HeldAnswer held={held}>{null}</HeldAnswer>
         </div>
       </div>
     </WidgetCard>

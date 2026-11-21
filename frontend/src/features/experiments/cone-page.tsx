@@ -13,6 +13,7 @@ import { Equation } from "./equation";
 import { ExhibitFrame } from "./exhibit-frame";
 import { BuildPending } from "./build-pending";
 import { PreviewPending, type PreviewMode, type PreviewProps } from "./preview-mode";
+import { HeldAnswer, useHeld, type Held } from "./held";
 import {
   axisHeightM,
   axisSlope,
@@ -56,6 +57,7 @@ export function ConePage() {
   const [build, setBuild] = useState<ConeExhibit | null>(null);
   const ex = build ?? defaults.data?.cone ?? null;
   const refused = ex ? refusal(ex) : null;
+  const held = useHeld();
 
   return (
     <ExhibitFrame
@@ -77,7 +79,7 @@ export function ConePage() {
           {refused ? (
             <AlertBanner tone="warning">{t(`experiments.cone.refused.${refused}`)}</AlertBanner>
           ) : (
-            <ConePlay key={JSON.stringify(ex)} ex={ex} />
+            <ConePlay key={JSON.stringify(ex)} ex={ex} held={held} />
           )}
           <ConeBuild ex={ex} onChange={setBuild} />
         </>
@@ -100,7 +102,7 @@ interface View {
   spin: number;
 }
 
-function ConePlay({ ex, preview = false, paused = false }: { ex: ConeExhibit } & PreviewMode) {
+function ConePlay({ ex, held, preview = false, paused = false }: { ex: ConeExhibit; held?: Held } & PreviewMode) {
   const { t } = useTranslation();
   const lay = (): RollState => ({ i: 0, x: startFor(ex), v: 0, stopped: false });
   const state = useRef<RollState>(lay());
@@ -111,6 +113,7 @@ function ConePlay({ ex, preview = false, paused = false }: { ex: ConeExhibit } &
   const [view, setView] = useState<View>(() => ({ x: startFor(ex), turnDeg: 0, speed: 0, spin: 0 }));
   const running = preview ? !paused : rolling;
   const speed = preview ? 1 : speedHere;
+  const show = held?.show;
 
   useEffect(() => {
     if (!running) return;
@@ -142,14 +145,18 @@ function ConePlay({ ex, preview = false, paused = false }: { ex: ConeExhibit } &
       const { x, v } = state.current;
       const motion = motionOf(ex, x, v);
       setView({ x, turnDeg: (turn.current * 180) / Math.PI, speed: motion.speed, spin: motion.spin });
-      if (state.current.stopped && !preview) setRolling(false);
+      if (state.current.stopped && !preview) {
+        setRolling(false);
+        // It has rolled as far as it goes: now the verdict says why.
+        show?.();
+      }
       raf = requestAnimationFrame(tick);
     };
     raf = requestAnimationFrame(tick);
     return () => cancelAnimationFrame(raf);
     // `lay` reads the build, which a new build remounts for.
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [running, speed, preview, ex]);
+  }, [running, speed, preview, ex, show]);
 
   const letGo = () => {
     state.current = lay();
@@ -157,12 +164,14 @@ function ConePlay({ ex, preview = false, paused = false }: { ex: ConeExhibit } &
     setRolling(true);
   };
 
-  const side = <ConeSideView ex={ex} x={view.x} turnDeg={view.turnDeg} />;
+  const side = <ConeSideView ex={ex} x={view.x} turnDeg={view.turnDeg} axisPath={preview || held?.shown} />;
   if (preview) return side;
   const where = verdict(ex);
   return (
     <WidgetCard
       title={t("experiments.cone.play.title")}
+      // The hint says where the cone lies, never where it will go: that is
+      // the question. "stays" lies at the low end too, so it reads as "up".
       hint={t(`experiments.cone.play.hint_${where}`)}
       actions={
         <>
@@ -205,7 +214,11 @@ function ConePlay({ ex, preview = false, paused = false }: { ex: ConeExhibit } &
           </div>
         </div>
         <div className={SIDE.column}>
-          <p className="text-sm font-medium text-primary">{t(`experiments.cone.play.verdict_${where}`)}</p>
+          {held && (
+            <HeldAnswer held={held}>
+              <p className="text-sm font-medium text-primary">{t(`experiments.cone.play.verdict_${where}`)}</p>
+            </HeldAnswer>
+          )}
           <Figures
             tiles={[
               {

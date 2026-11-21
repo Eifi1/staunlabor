@@ -274,7 +274,7 @@ function DiverPlay({ diver, bottle, preview = false, paused = false }: { diver: 
         </>
       }
     >
-      <div className={SIDE.grid}>
+      <div className={`${SIDE.grid} ${SIDE.cap.xs}`}>
         <div className={SIDE.top}>
           <SliderField
             label={t("experiments.diver.play.squeeze")}
@@ -285,7 +285,12 @@ function DiverPlay({ diver, bottle, preview = false, paused = false }: { diver: 
             step={0.05}
             digits={2}
             hint={t("experiments.diver.play.squeeze_hint")}
-            onChange={setSqueeze}
+            onChange={(kpa) => {
+              setSqueeze(kpa);
+              // A squeeze is the reader asking to see the diver answer: paused
+              // (reduced motion), it starts the clock.
+              setRunning(true);
+            }}
           />
         </div>
         <div className={`${SIDE.views} mx-auto w-full max-w-xs`}>

@@ -1,323 +1,326 @@
-import { useState } from "react";
-import { Link } from "react-router";
-import { useTranslation } from "react-i18next";
-import { ArrowRight, CalendarDays, Check, HelpCircle, RotateCcw } from "lucide-react";
-import {
-  Button,
-  Card,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-  Chip,
-  DialogFrame,
-  PageHeader,
-  ProgressBar,
-  SectionLabel,
-  TextLink,
-  useDialogParam,
-  usePageSeo,
-} from "@eifi1/ui-kit";
+import { useEffect, useState } from "react";
+import { useLocation, useNavigate } from "react-router";
+import { Trans, useTranslation } from "react-i18next";
+import { ArrowRight, LayoutGrid } from "lucide-react";
+import { ActionCard, Button, SectionLabel, StatTile, StatTileGrid, usePageSeo } from "@eifi1/ui-kit";
+import { LESSONS, BASICS_PATH } from "@/features/course/lessons";
+import { LANGUAGES } from "@/shared/i18n/languages";
 import { useLocale } from "@/shared/i18n/use-locale";
-import { PAGE_SHELL } from "@/shared/ui/page-shell";
-import { UncheckedNotice } from "./unchecked-notice";
-import { dailyExhibit, dailyHistory, dayIn, type DailyPick } from "./daily";
-import { EXHIBIT_MODULES } from "./exhibit-modules";
-import { ExhibitPreview } from "./exhibit-preview";
+import { CONTAINER } from "@/shared/ui/page-shell";
+import { useChecks } from "./checks";
+import { dayIn, weekOf, weeklyExhibit } from "./weekly";
+import { ExhibitGrid } from "./exhibit-cards";
+import { EQUATION_COUNT } from "./facts";
 import { FittedPreview } from "./fitted-preview";
-import { lessonPath } from "./exhibit-frame";
-import { EXHIBITS, TOPICS, exhibitEntry, type Exhibit, type ExhibitEntry, type Topic } from "./exhibits";
-import { useTried } from "./tried";
+import {
+  BUILT,
+  EXHIBITS_ANCHOR,
+  EXHIBITS_PATH,
+  TOPICS_SHOWN,
+  exhibitEntry,
+  type Exhibit,
+  type ExhibitEntry,
+} from "./exhibits";
 
-/** Two weeks back, in the dialog: long enough to find the one a friend
- *  mentioned, and every exhibit at least once. */
-const HISTORY_DAYS = 14;
-
-/** A day, `YYYY-MM-DD`, as the reader's language writes a short date. Formatted
- *  in UTC because the string is a calendar day, not an instant: in any other
- *  zone midnight UTC can fall on the day before. */
-function shortDay(day: string, locale: string): string {
-  return new Intl.DateTimeFormat(locale, { weekday: "short", day: "numeric", month: "short", timeZone: "UTC" }).format(
-    new Date(`${day}T00:00:00Z`),
-  );
+/** A week, by its Monday (`YYYY-MM-DD`), as the reader's language writes the
+ *  days from Monday to Sunday ("23.–29. Nov.", "Nov 23 – 29"). Formatted in
+ *  UTC because the strings are calendar days, not instants: in any other zone
+ *  midnight UTC can fall on the day before. */
+function weekSpan(monday: string, locale: string): string {
+  const start = new Date(`${monday}T00:00:00Z`);
+  const end = new Date(start.getTime() + 6 * 86_400_000);
+  return new Intl.DateTimeFormat(locale, { day: "numeric", month: "short", timeZone: "UTC" }).formatRange(start, end);
 }
 
 /**
- * The site's front page, the overview of the exhibits:
+ * The site's front page (Marcel chose the "stage" of three drafts on
+ * 2026-11-20, with the week's exhibit whole on the first screen):
  *
- * - **the experiment of the day**, playing by itself, with the question to
- *   guess at before opening it (`daily.ts` picks it: random, with a memory),
- *   and **the days before it** in a dialog, on request only: the page is the
- *   day's experiment's alone, as anyplot.ai shows its plot of the day alone,
- *   and an archive is a link away on APOD or Wikipedia's picture of the day;
- * - **every exhibit**, filtered by what it is about, ticked once tried on this
- *   device (`tried.ts`), and linked to the course's lessons its computation
- *   stands on.
+ * - **what the site is**, the page's headline across its width: "First play,
+ *   then compute", and one line under it;
+ * - **the experiment of the week** on a stage under it, playing by itself,
+ *   with the question to guess at and the two ways on (`weekly.ts` picks it:
+ *   random, with a memory). The weeks before it are not listed: the way on is
+ *   the list of every exhibit (Marcel, 2026-11-20: "gehe stattdessen gleich
+ *   auf die Seite mit den Experimenten anstelle des Dialogs");
+ * - **the site in figures**, a band across the window: exhibits, topics,
+ *   equations, checked, languages, and what the site does not do;
+ * - **the exhibits** as a part of their own: the newest few, each moving
+ *   once pointed at, and the way to the page of all of them (`exhibits-page.tsx`;
+ *   Marcel, 2026-11-20: "nicht alle Exponate gleich sofort … sondern nur eine
+ *   Auswahl, … weiterhin eine separate Seite mit allen Exponaten");
+ * - **the basics** under them, likewise: the lessons most exhibits build on,
+ *   and the way to the course (`features/course`), which moved here from
+ *   Kurvenschmiede (Marcel, 2026-11-20: "Genauso wie die Grundlagen unten
+ *   drunter").
  *
  * The museum is credited in one line, by name, with no logo and no photo:
  * every drawing on the site is its own (`docs/experiments.md`).
  */
 export function ExperimentsOverviewPage() {
   const { t } = useTranslation();
-  // The day the page was opened: a page left open past midnight keeps
-  // yesterday's exhibit until it is loaded again, which is what a reader
-  // looking at it would expect.
-  const [today] = useState(() => dayIn());
-  const daily = exhibitEntry(dailyExhibit(today));
+  // The week of the day the page was opened: a page left open past Sunday
+  // midnight keeps last week's exhibit until it is loaded again, which is what
+  // a reader looking at it would expect.
+  const [week] = useState(() => weekOf(dayIn()));
+  const current = exhibitEntry(weeklyExhibit(week));
   usePageSeo({
     canonicalPath: "/",
     title: `${t("app.name")} — ${t("app.tagline")}`,
     description: t("experiments.overview.lead"),
   });
+  const { hash } = useLocation();
+  const navigate = useNavigate();
+  // The list was this page's lower half until 2026-11-20, at `/#all-exhibits`:
+  // a link to it, kept somewhere, goes on to its page.
+  useEffect(() => {
+    if (hash === `#${EXHIBITS_ANCHOR}`) void navigate(EXHIBITS_PATH, { replace: true });
+  }, [hash, navigate]);
   return (
-    <div className={PAGE_SHELL}>
-      <PageHeader size="sm" title={t("app.name")} description={t("experiments.overview.lead")} />
-      <UncheckedNotice />
-      <DailyCard entry={daily} today={today} />
-      <AllExhibits daily={daily.exhibit} />
-      <p className="text-sm text-secondary">{t("experiments.overview.how")}</p>
-      <p className="text-caption text-muted">{t("experiments.overview.credit")}</p>
+    <>
+      <div className={`${CONTAINER} flex flex-col items-center pt-6 md:pt-9`}>
+        <Welcome />
+        <WeekStage entry={current} week={week} />
+      </div>
+      <Figures />
+      <div className={`${CONTAINER} flex flex-col gap-4 pt-10 pb-6 md:pt-14`}>
+        <Selection current={current.exhibit} />
+        <Basics />
+        <p className="text-sm text-secondary">{t("experiments.overview.how")}</p>
+        <p className="text-caption text-muted">{t("experiments.overview.credit")}</p>
+      </div>
+    </>
+  );
+}
+
+/** The page's headline, across the page under the header (Marcel,
+ *  2026-11-20: the line about the whole site was "zu lang und nicht relevant
+ *  für das Experiment", and belongs above everything instead). */
+function Welcome() {
+  const { t } = useTranslation();
+  return (
+    <div className="space-y-2 text-center md:space-y-2.5">
+      <h1 className="font-serif text-[2.125rem] leading-[1.06] font-semibold tracking-tight text-primary md:text-[3.5rem]">
+        <Trans i18nKey="experiments.overview.claim" components={{ em: <em className="font-medium text-brand" /> }} />
+      </h1>
+      <p className="mx-auto max-w-[40rem] text-base text-secondary md:text-lg">{t("experiments.overview.lead")}</p>
     </div>
   );
 }
 
-function DailyCard({ entry, today }: { entry: ExhibitEntry; today: string }) {
+/** The stage's picture: never lower than this, however low the window. */
+const STAGE_MIN = 180;
+/** Nor higher than this, however high: under a stage 52 rem wide, a picture
+ *  about twice as wide as high. */
+const STAGE_MAX = 400;
+/** Window left under the stage, where the band of figures begins. */
+const STAGE_GAP = 16;
+
+/**
+ * How high the stage's picture may be for the whole stage to fit the first
+ * screen (Marcel, 2026-11-20: "so, dass das Experiment der Woche ganz zu sehen
+ * ist"): the window's height less what stands above the stage and its
+ * caption below the picture, and no higher than the stage's width allows
+ * (2 : 1 when wide, 16 : 10 on a phone). Measured again when the window, the
+ * stage or the caption changes size, and once the fonts are in, which moves
+ * the stage down a line's worth.
+ */
+function useStageHeight(figure: HTMLElement | null, caption: HTMLElement | null): number {
+  const [height, setHeight] = useState(() =>
+    typeof window === "undefined"
+      ? 320
+      : Math.round(Math.min(STAGE_MAX, Math.max(STAGE_MIN, window.innerHeight - 440))),
+  );
+  useEffect(() => {
+    if (!figure || !caption) return;
+    const measure = () => {
+      const top = figure.getBoundingClientRect().top + window.scrollY;
+      const room = window.innerHeight - top - caption.offsetHeight - STAGE_GAP;
+      const wide = window.matchMedia?.("(min-width: 768px)").matches ?? true;
+      const byWidth = figure.clientWidth * (wide ? 0.5 : 0.625);
+      setHeight(Math.round(Math.min(STAGE_MAX, Math.max(STAGE_MIN, Math.min(room, byWidth)))));
+    };
+    const observer = typeof ResizeObserver === "function" ? new ResizeObserver(measure) : null;
+    observer?.observe(figure);
+    observer?.observe(caption);
+    window.addEventListener("resize", measure);
+    void document.fonts?.ready.then(measure);
+    return () => {
+      observer?.disconnect();
+      window.removeEventListener("resize", measure);
+    };
+  }, [figure, caption]);
+  return height;
+}
+
+/**
+ * The experiment of the week on a stage, as an exhibit stands in a museum
+ * with its label under it: the drawing, playing, in a box no wider than 52
+ * rem whatever the window (Marcel, 2026-11-20: the picture should stop
+ * growing with the screen); under it the week, the exhibit's name, the
+ * question to guess at, and the two ways on, beside the words when wide and
+ * under them on a phone, where the drawing stands above the question (Marcel,
+ * 2026-11-20: "Bild über Frage beim Handy"). The drawing's own frame is taken
+ * off: the stage is its frame.
+ */
+function WeekStage({ entry, week }: { entry: ExhibitEntry; week: string }) {
   const { t } = useTranslation();
   const locale = useLocale();
-  const tried = useTried((s) => s.tried.includes(entry.exhibit));
-  // In the address (`?dialog=history`), so a phone's Back closes it.
-  const [historyOpen, setHistoryOpen] = useDialogParam({ key: "dialog", value: "history" });
-  const history = dailyHistory(today, HISTORY_DAYS);
+  const [figure, setFigure] = useState<HTMLElement | null>(null);
+  const [caption, setCaption] = useState<HTMLElement | null>(null);
+  const height = useStageHeight(figure, caption);
   return (
-    <Card padding="md" density="compact" className="border-l-4 border-l-brand">
-      <div className="grid grid-cols-1 items-center gap-4 md:grid-cols-2">
-        <div className="mx-auto w-full max-w-md">
-          <ExhibitPreview exhibit={entry.exhibit} />
-        </div>
-        <div className="min-w-0 space-y-3">
-          <SectionLabel as="p">
-            {t("experiments.overview.daily.eyebrow")} · {shortDay(today, locale)}
-          </SectionLabel>
-          <CardTitle as="h2">{t(`experiments.exhibits.${entry.exhibit}.title`)}</CardTitle>
-          <p className="text-sm text-secondary">{t(`experiments.exhibits.${entry.exhibit}.summary`)}</p>
-          <p className="flex gap-2 text-sm text-primary">
-            <HelpCircle className="mt-0.5 size-4 shrink-0 text-brand" aria-hidden />
-            {t(`experiments.exhibits.${entry.exhibit}.question`)}
-          </p>
-          <TopicTags entry={entry} tried={tried} />
-          <div className="flex flex-wrap gap-2">
+    <section aria-labelledby="week" className="mt-5 w-full max-w-[52rem] md:mt-7">
+      <figure ref={setFigure} className="m-0 overflow-hidden rounded-2xl border border-subtle bg-surface">
+        <FittedPreview exhibit={entry.exhibit} height={height} plain box="w-full" frame="px-3 pt-3 md:px-6 md:pt-4" />
+        <figcaption
+          ref={setCaption}
+          className="flex flex-col gap-3 border-t border-subtle px-4 pt-3.5 pb-4 md:flex-row md:items-center md:justify-between md:gap-8 md:px-7 md:py-5"
+        >
+          <div className="min-w-0 space-y-1.5">
+            <SectionLabel as="p">
+              {t("experiments.overview.week.eyebrow")} · {weekSpan(week, locale)}
+            </SectionLabel>
+            <h2 id="week" className="text-base font-semibold text-brand">
+              {t(`experiments.exhibits.${entry.exhibit}.title`)}
+            </h2>
+            <p className="font-serif text-xl leading-snug font-semibold text-primary md:text-2xl">
+              {t(`experiments.exhibits.${entry.exhibit}.question`)}
+            </p>
+          </div>
+          <div className="flex gap-2 md:shrink-0 md:flex-col">
             {entry.path && (
-              <Button variant="accent" size="sm" href={entry.path}>
-                {t("experiments.overview.daily.open")}
+              <Button variant="accent" href={entry.path} className="flex-1 md:flex-none">
+                {t("experiments.overview.week.open")}
                 <ArrowRight className="size-4" aria-hidden />
               </Button>
             )}
-            {history.length > 0 && (
-              <Button variant="ghost" size="sm" onClick={() => setHistoryOpen(true)}>
-                <CalendarDays className="size-4" aria-hidden />
-                {t("experiments.overview.history.open")}
-              </Button>
-            )}
+            {/* A page of its own: the way back is the browser's (Marcel,
+                2026-11-20: back with the mouse's side button). */}
+            <Button variant="secondary" href={EXHIBITS_PATH} className="flex-1 md:flex-none">
+              <LayoutGrid className="size-4" aria-hidden />
+              {t("experiments.overview.all")}
+            </Button>
           </div>
-        </div>
-      </div>
-      <DialogFrame
-        open={historyOpen}
-        onClose={() => setHistoryOpen(false)}
-        size="xl"
-        title={t("experiments.overview.history.title")}
-        closeButton
-        closeLabel={t("common.close")}
-      >
-        <ol className="grid grid-cols-2 gap-3 sm:grid-cols-3 md:grid-cols-4">
-          {history.map((pick) => (
-            <li key={pick.day}>
-              <HistoryCard pick={pick} />
-            </li>
-          ))}
-        </ol>
-      </DialogFrame>
-    </Card>
+        </figcaption>
+      </figure>
+    </section>
   );
 }
 
-/** One day's exhibit: a still, which plays while it is pointed at or focused. */
-function HistoryCard({ pick }: { pick: DailyPick }) {
+/**
+ * The site in five figures, a band across the window under the stage
+ * (Marcel, 2026-11-20: "Wo ist die bottom line mit den key facts zur
+ * Seite?"), each counted where it is kept: the built exhibits and their
+ * topics, the equations the pages write out (`facts.ts`), the exhibits an
+ * admin has checked, from the server, and the languages. Under them, in one
+ * quiet line, what the site does not do. The kit's tiles, as UI-Kit advised;
+ * its `StatStrip`, proposed for 0.66, would draw them as one strip.
+ */
+function Figures() {
   const { t } = useTranslation();
   const locale = useLocale();
-  const [live, setLive] = useState(false);
-  const tried = useTried((s) => s.tried.includes(pick.exhibit));
-  const entry = exhibitEntry(pick.exhibit);
-  const title = t(`experiments.exhibits.${pick.exhibit}.short`);
-  const body = (
-    <>
-      <span className="flex items-center justify-between gap-1 text-caption text-muted">
-        {shortDay(pick.day, locale)}
-        {tried && <Check className="size-4 text-success" aria-label={t("experiments.overview.tried.mark")} />}
-      </span>
-      <ExhibitPreview exhibit={pick.exhibit} still={!live} />
-      <span className="mt-auto block truncate text-sm font-medium text-primary">{title}</span>
-    </>
-  );
-  // As tall as the row's tallest, the name at the foot: the drawings differ
-  // in shape — a wide track, a tall drop — and ragged cards read as broken.
-  const look = "flex h-full flex-col gap-2 rounded-lg border border-subtle bg-surface-1 p-2";
-  return entry.path ? (
-    <Link
-      to={entry.path}
-      className={`${look} transition-colors hover:border-brand`}
-      onPointerEnter={() => setLive(true)}
-      onPointerLeave={() => setLive(false)}
-      onFocus={() => setLive(true)}
-      onBlur={() => setLive(false)}
-    >
-      {body}
-    </Link>
-  ) : (
-    <div className={look}>{body}</div>
-  );
-}
-
-function AllExhibits({ daily }: { daily: Exhibit }) {
-  const { t } = useTranslation();
-  const tried = useTried((s) => s.tried);
-  const forget = useTried((s) => s.forget);
-  const [topic, setTopic] = useState<Topic | null>(null);
-  const built = EXHIBITS.filter((entry) => entry.path);
-  const shown = EXHIBITS.filter((entry) => topic === null || entry.topics.includes(topic));
-  // Only the topics some exhibit has: a chip that filters to nothing is a
-  // promise the page cannot keep.
-  const topics = TOPICS.filter((tp) => EXHIBITS.some((entry) => entry.topics.includes(tp)));
+  const checks = useChecks();
+  const checked = checks.data?.checked.filter((check) => BUILT.some((entry) => entry.exhibit === check.exhibit)).length;
   return (
-    <section aria-labelledby="all-exhibits" className="space-y-3">
-      <div className="flex flex-wrap items-end justify-between gap-3">
-        <SectionLabel as="h2" id="all-exhibits">
-          {t("experiments.overview.all")}
-        </SectionLabel>
-        {tried.length > 0 && (
-          <Button variant="ghost" size="sm" onClick={forget}>
-            <RotateCcw className="size-4" aria-hidden />
-            {t("experiments.overview.tried.forget")}
-          </Button>
-        )}
-      </div>
-      <ProgressBar
-        label={t("experiments.overview.tried.label")}
-        value={tried.length}
-        max={built.length}
-        showValue
-        formatValue={(v, max) => t("experiments.overview.tried.count", { tried: v, total: max })}
-        tone="success"
-      />
-      <div role="group" aria-label={t("experiments.overview.topics_label")} className="flex flex-wrap gap-2">
-        <Chip onClick={() => setTopic(null)} selected={topic === null}>
-          {t("experiments.overview.all_topics")}
-        </Chip>
-        {topics.map((tp) => (
-          <Chip key={tp} onClick={() => setTopic(topic === tp ? null : tp)} selected={topic === tp}>
-            {t(`experiments.topics.${tp}`)}
-          </Chip>
-        ))}
-      </div>
-      <div className="grid grid-cols-1 gap-3 md:grid-cols-2 xl:grid-cols-3">
-        {shown.map((entry) => (
-          <ExhibitCard
-            key={entry.exhibit}
-            entry={entry}
-            today={entry.exhibit === daily}
-            tried={tried.includes(entry.exhibit)}
+    <section
+      aria-label={t("experiments.overview.facts.label")}
+      className="mt-8 border-y border-subtle bg-surface md:mt-10"
+    >
+      <div className={`${CONTAINER} py-6 md:py-8`}>
+        <StatTileGrid minTileWidth="9rem" lang={locale}>
+          <StatTile label={t("experiments.overview.facts.exhibits")} value={BUILT.length} locale={locale} />
+          <StatTile label={t("experiments.overview.facts.topics")} value={TOPICS_SHOWN.length} locale={locale} />
+          <StatTile label={t("experiments.overview.facts.equations")} value={EQUATION_COUNT} locale={locale} />
+          <StatTile
+            label={t("experiments.overview.facts.checked")}
+            value={checks.isError ? null : checked}
+            loading={checks.isPending}
+            locale={locale}
           />
-        ))}
+          <StatTile label={t("experiments.overview.facts.languages")} value={LANGUAGES.length} locale={locale} />
+        </StatTileGrid>
+        <p className="mt-4 text-center text-sm text-muted">{t("experiments.overview.facts.promise")}</p>
       </div>
     </section>
   );
 }
 
-/** How tall a card's drawing is: one height for the row, the upright ones
- *  (the elephant, the diver) scaled down to it rather than making their card
- *  the longest in the grid. */
-const CARD_PREVIEW_HEIGHT = 200;
+/** How many exhibits the front page shows: two rows of three. */
+const SELECTION = 6;
 
-/** An exhibit in the list: its drawing, held still and playing while the card
- *  is pointed at or something in it has the focus, as the history's cards do;
- *  then what it is and the way in. A preview mounts only once it scrolls near
- *  (`ExhibitPreview`), so the list costs nothing below the fold. */
-function ExhibitCard({ entry, today, tried }: { entry: ExhibitEntry; today: boolean; tried: boolean }) {
+/**
+ * The exhibits as a part of the front page: a heading to be seen from afar,
+ * the newest few as cards, each moving once pointed at, and the way to all of
+ * them on a page of their own.
+ */
+function Selection({ current }: { current: Exhibit }) {
   const { t } = useTranslation();
-  const Icon = EXHIBIT_MODULES[entry.exhibit].icon;
-  const [live, setLive] = useState(false);
   return (
-    <Card
-      padding="md"
-      density="compact"
-      className="flex flex-col gap-3"
-      onPointerEnter={() => setLive(true)}
-      onPointerLeave={() => setLive(false)}
-      onFocus={() => setLive(true)}
-      onBlur={() => setLive(false)}
-    >
-      {entry.path && (
-        <FittedPreview
-          exhibit={entry.exhibit}
-          still={!live}
-          height={CARD_PREVIEW_HEIGHT}
-          box="rounded-lg bg-surface-2"
-        />
-      )}
-      <CardHeader>
-        <div className="flex items-start gap-2">
-          <Icon className="mt-0.5 size-5 shrink-0 text-brand" aria-hidden />
-          <div className="min-w-0 space-y-1">
-            <CardTitle as="h3">{t(`experiments.exhibits.${entry.exhibit}.title`)}</CardTitle>
-            {today && (
-              <Chip size="xs" tone="brand">
-                {t("experiments.overview.daily.today")}
-              </Chip>
-            )}
-            <CardDescription>{t(`experiments.exhibits.${entry.exhibit}.summary`)}</CardDescription>
-          </div>
+    <section aria-labelledby="exhibits" className="space-y-4">
+      <div className="flex flex-wrap items-end justify-between gap-x-6 gap-y-2">
+        <div className="space-y-1">
+          <h2 id="exhibits" className="font-serif text-3xl font-semibold text-primary md:text-4xl">
+            {t("experiments.overview.selection.title")}
+          </h2>
+          <p className="text-sm text-secondary md:text-base">
+            {t("experiments.overview.selection.lead", { count: SELECTION })}
+          </p>
         </div>
-      </CardHeader>
-      <TopicTags entry={entry} tried={tried} />
-      {entry.lessons.length > 0 && (
-        <p className="text-caption text-muted">
-          {t("experiments.overview.builds_on")}{" "}
-          {entry.lessons.map((lesson, i) => (
-            <span key={lesson}>
-              {i > 0 && ", "}
-              <TextLink href={lessonPath(lesson)}>{t(`experiments.computed.links.${lesson}`)}</TextLink>
-            </span>
-          ))}
-        </p>
-      )}
-      <div className="mt-auto">
-        {entry.path ? (
-          <Button variant="accent" size="sm" href={entry.path}>
-            {t("experiments.overview.open")}
-            <ArrowRight className="size-4" aria-hidden />
-          </Button>
-        ) : (
-          <Chip tone="neutral">{t("experiments.overview.coming")}</Chip>
-        )}
+        <Button variant="ghost" href={EXHIBITS_PATH}>
+          {t("experiments.overview.selection.all", { count: BUILT.length })}
+          <ArrowRight className="size-4" aria-hidden />
+        </Button>
       </div>
-    </Card>
+      <ExhibitGrid entries={BUILT.slice(0, SELECTION)} current={current} />
+    </section>
   );
 }
 
-/** What an exhibit is about, and whether it was tried here. */
-function TopicTags({ entry, tried }: { entry: ExhibitEntry; tried: boolean }) {
+/** The lessons the front page shows: the three the most exhibits build on,
+ *  in the course's order. */
+const LESSONS_SHOWN = LESSONS.filter((entry) =>
+  [...new Set(BUILT.flatMap((exhibit) => exhibit.lessons))]
+    .sort(
+      (a, b) =>
+        BUILT.filter((exhibit) => exhibit.lessons.includes(b)).length -
+        BUILT.filter((exhibit) => exhibit.lessons.includes(a)).length,
+    )
+    .slice(0, 3)
+    .some((lesson) => lesson === entry.lesson),
+);
+
+/**
+ * The basics as a part of the front page, under the exhibits: the lessons
+ * most exhibits stand on, each with what it teaches, and the way to the
+ * course.
+ */
+function Basics() {
   const { t } = useTranslation();
   return (
-    <div className="flex flex-wrap gap-1.5">
-      {entry.topics.map((tp) => (
-        <Chip key={tp} size="xs" tone="neutral">
-          {t(`experiments.topics.${tp}`)}
-        </Chip>
-      ))}
-      {tried && (
-        <Chip size="xs" tone="success" icon={Check}>
-          {t("experiments.overview.tried.mark")}
-        </Chip>
-      )}
-    </div>
+    <section aria-labelledby="basics" className="space-y-4 pt-6">
+      <div className="flex flex-wrap items-end justify-between gap-x-6 gap-y-2">
+        <div className="space-y-1">
+          <h2 id="basics" className="font-serif text-3xl font-semibold text-primary md:text-4xl">
+            {t("experiments.overview.basics.title")}
+          </h2>
+          <p className="text-sm text-secondary md:text-base">{t("experiments.overview.basics.lead")}</p>
+        </div>
+        <Button variant="ghost" href={BASICS_PATH}>
+          {t("experiments.overview.basics.all")}
+          <ArrowRight className="size-4" aria-hidden />
+        </Button>
+      </div>
+      <div className="grid grid-cols-1 gap-3 md:grid-cols-3">
+        {LESSONS_SHOWN.map((entry) => (
+          <ActionCard
+            key={entry.path}
+            href={entry.path}
+            title={`${entry.number} · ${t(`course.lessons.${entry.lesson}.title`)}`}
+            description={t(`course.lessons.${entry.lesson}.summary`)}
+          />
+        ))}
+      </div>
+    </section>
   );
 }

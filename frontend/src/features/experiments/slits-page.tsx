@@ -215,7 +215,7 @@ function SlitsPlay({
   const shown = figures(slits, nm);
   return (
     <WidgetCard title={t("experiments.slits.play.title")} hint={t("experiments.slits.play.hint")}>
-      <div className={SIDE.grid}>
+      <div className={`${SIDE.grid} ${SIDE.cap["3xl"]}`}>
         <div className={`${SIDE.top} space-y-4`}>
           <ToggleGroup
             label={t("experiments.slits.play.light")}

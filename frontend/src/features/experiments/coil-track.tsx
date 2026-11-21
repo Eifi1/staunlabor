@@ -21,7 +21,28 @@ export const BUTTON_HUE: Record<1 | -1, number> = { 1: 2, [-1]: 4 };
 const CAR_LENGTH_M = 0.06;
 const CAR_HEIGHT_M = 0.02;
 
-export function CoilTrack({ exhibit, x, press }: { exhibit: CoilExhibitRequest; x: number; press: Press }) {
+/** How far along a ramp's arc it is `h` high: the arc's `R·(1 − cos(s/R)) = h`
+ *  turned round. */
+function rampAlong(ex: CoilExhibit, h: number): number {
+  const r = ex.track.ramp_radius_m;
+  return Math.min(ex.track.ramp_length_m, r * Math.acos(Math.max(-1, Math.min(1, 1 - h / r))));
+}
+
+export function CoilTrack({
+  exhibit,
+  x,
+  press,
+  peak = null,
+  reached = [false, false],
+}: {
+  exhibit: CoilExhibitRequest;
+  x: number;
+  press: Press;
+  /** How high the car last came, and on which ramp (−1 left, +1 right). */
+  peak?: { height: number; side: number } | null;
+  /** The flags it has reached, left and right: lit, the others pale. */
+  reached?: [boolean, boolean];
+}) {
   const { t } = useTranslation();
   const hex = useChartHex();
   const ex = exhibit as CoilExhibit;
@@ -50,8 +71,8 @@ export function CoilTrack({ exhibit, x, press }: { exhibit: CoilExhibitRequest; 
       preserveAspectRatio="xMidYMid meet"
     >
       <polyline points={points} fill="none" stroke="currentColor" strokeWidth={2} vectorEffect="non-scaling-stroke" />
-      {[-end, end].map((at) => (
-        <g key={at}>
+      {[-end, end].map((at, side) => (
+        <g key={at} className={reached[side] ? "text-success" : "text-muted"}>
           <line
             x1={at}
             y1={-top}
@@ -63,10 +84,22 @@ export function CoilTrack({ exhibit, x, press }: { exhibit: CoilExhibitRequest; 
           />
           <polygon
             points={`${at},${-top - 0.02} ${at + Math.sign(at) * 0.02},${-top - 0.015} ${at},${-top - 0.01}`}
-            className="fill-current text-success"
+            className={`fill-current ${reached[side] ? "" : "opacity-40"}`}
           />
         </g>
       ))}
+      {/* How high the car last came: a mark on that ramp, so a pass that took
+          it higher shows where the eye already is. */}
+      {peak && peak.height > 0 && (
+        <g className="text-brand">
+          <circle
+            cx={peak.side * (ex.track.flat_length_m / 2 + rampAlong(ex, peak.height))}
+            cy={-peak.height}
+            r={0.006}
+            className="fill-current"
+          />
+        </g>
+      )}
       <rect
         x={-ex.coil.length_m / 2}
         y={-coilRadius}

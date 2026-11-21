@@ -13,6 +13,7 @@ import { ExhibitFrame } from "./exhibit-frame";
 import { BuildPending } from "./build-pending";
 import { PreviewPending, type PreviewMode, type PreviewProps } from "./preview-mode";
 import { startsRunning } from "./play";
+import { settingNumber, useCheckSetting } from "./check-setting";
 import { frequencyHz, modeGrids, response, responseFrom, type Mode, type Plate } from "./simulate/chladni";
 import { SIDE } from "./stage";
 import { useChladniModes, useExperimentsDefaults } from "./use-experiments";
@@ -193,6 +194,14 @@ function ChladniPlay({
     return () => cancelAnimationFrame(raf);
   }, [running, swing]);
 
+  // A check case's "Set it up": the shaker at the case's tone, to the hundredth
+  // of a hertz the slider's whole hertz cannot reach, and the sand moving.
+  useCheckSetting("chladni", (setting) => {
+    if (preview) return false;
+    setDrive(settingNumber(setting, "drive_hz", drive));
+    setRunning(true);
+    return true;
+  });
   const view = <SandView grains={grains} label={t("experiments.chladni.view")} />;
   if (preview) return view;
   const nearest = tones.reduce((best, f) =>
@@ -201,6 +210,13 @@ function ChladniPlay({
   const restrew = () => {
     sand.current = strew(GRAINS);
     setGrains([...sand.current]);
+    setRunning(true);
+  };
+  /** A tone, or fresh sand, is the reader asking to see the sand move: paused
+   *  (reduced motion), it starts the clock. */
+  const ring = (hz: number) => {
+    setDrive(hz);
+    setRunning(true);
   };
   return (
     <WidgetCard
@@ -219,7 +235,7 @@ function ChladniPlay({
         </>
       }
     >
-      <div className={SIDE.grid}>
+      <div className={`${SIDE.grid} ${SIDE.cap.md}`}>
         <div className={`${SIDE.top} space-y-2`}>
           <p className="text-sm font-medium text-primary">{t("experiments.chladni.play.tones")}</p>
           <div className="flex flex-wrap gap-2">
@@ -228,7 +244,7 @@ function ChladniPlay({
                 key={f}
                 variant={Math.abs(f - drive) < 0.5 ? "accent" : "secondary"}
                 size="sm"
-                onClick={() => setDrive(Math.round(f * 10) / 10)}
+                onClick={() => ring(Math.round(f * 10) / 10)}
               >
                 {`${formatNumber(f, 0, locale)} Hz`}
               </Button>
@@ -247,7 +263,7 @@ function ChladniPlay({
             digits={0}
             log
             hint={t("experiments.chladni.play.drive_hint")}
-            onChange={setDrive}
+            onChange={ring}
           />
           <Switch
             label={t("experiments.chladni.play.sound")}

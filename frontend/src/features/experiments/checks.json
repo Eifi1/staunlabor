@@ -1,0 +1,2039 @@
+{
+ "arch": [
+  {
+   "key": "milankovitch",
+   "unit": "",
+   "expected": 0.1075,
+   "measured": 0.107432006831,
+   "deviation": 0.000632494598692,
+   "tolerance": 0.001,
+   "derived": false,
+   "setting": {
+    "shape": "semicircle",
+    "thickness_m": 0.1075,
+    "blocks": 40.0,
+    "share": 0.0,
+    "chain": "off"
+   },
+   "sources": [
+    {
+     "cite": "G. Kampas, N. Kalapodis, T. McLean, C. Málaga-Chuquitaype, “Limit-state analysis of parabolic arches subjected to inertial loading in different gravitational fields using a variational formulation”, Engineering Structures, corrected proof, 111501, doi:10.1016/j.engstruct.2020.111501, §2, p. 2 (open-access copy, University of Greenwich)",
+     "url": "https://gala.gre.ac.uk/id/eprint/30314/3/30314%20KAMPAS_Limit-state_Analysis_of_Parabolic_Arches_%28OA%29_2020.pdf",
+     "quote": "Makris and Alexakis [27] confirmed Milankowitch’s [30] results about the dimensionless minimum thickness of semicircular arches which is t/R = 0.1075 (t: thickness, R: radius) using radial ruptures"
+    }
+   ]
+  },
+  {
+   "key": "chain_push",
+   "unit": "",
+   "expected": 0.206827546445,
+   "measured": 0.206800332959,
+   "deviation": 0.00013157573131,
+   "tolerance": 0.0003,
+   "derived": true,
+   "setting": {
+    "shape": "catenary",
+    "thickness_m": 0.02,
+    "blocks": 40.0,
+    "share": 0.0,
+    "chain": "on"
+   },
+   "sources": [
+    {
+     "cite": "Wikipedia, “Catenary”, §“History” (Hooke’s anagram, published 1705)",
+     "url": "https://en.wikipedia.org/wiki/Catenary",
+     "quote": "ut pendet continuum flexile, sic stabit contiguum rigidum inversum, meaning “As hangs a flexible cable so, inverted, stand the touching pieces of an arch.”"
+    },
+    {
+     "cite": "Wikipedia, “Catenary”, §“Analysis”: “Model of chains and arches” and “Derivation of equations for the curve”",
+     "url": "https://en.wikipedia.org/wiki/Catenary",
+     "quote": "It is convenient to write a = T₀/w which is the length of chain whose weight is equal in magnitude to the tension at c. … The horizontal component of the tension, T cos φ = T₀ is constant and the vertical component of the tension, T sin φ = ws is proportional to the length of chain between r and the vertex. … y = a sec φ = a cosh(x/a), and s = a tan φ = a sinh(x/a)."
+    }
+   ]
+  },
+  {
+   "key": "weight",
+   "unit": "kg",
+   "expected": 561.860127406,
+   "measured": 561.860127406,
+   "deviation": 0.0,
+   "tolerance": 1e-12,
+   "derived": true,
+   "setting": {
+    "shape": "semicircle",
+    "thickness_m": 0.25,
+    "blocks": 16.0,
+    "share": 0.0,
+    "chain": "off"
+   },
+   "sources": [
+    {
+     "cite": "OpenStax, Algebra and Trigonometry 2e, §10.1 Non-right Triangles: Law of Sines, “Area of an Oblique Triangle”",
+     "url": "https://openstax.org/books/algebra-and-trigonometry-2e/pages/10-1-non-right-triangles-law-of-sines",
+     "quote": "The formula for the area of an oblique triangle is given by Area = ½bc sin α = ½ac sin β = ½ab sin γ This is equivalent to one-half of the product of two sides and the sine of their included angle."
+    }
+   ]
+  }
+ ],
+ "chair": [
+  {
+   "key": "one_picture",
+   "unit": "",
+   "expected": 0.0,
+   "measured": 6.20633538312e-17,
+   "deviation": 6.20633538312e-17,
+   "tolerance": 1e-12,
+   "derived": false,
+   "setting": {
+    "yaw_deg": 0.0,
+    "pitch_deg": 0.0,
+    "eye_mm": 0.0
+   },
+   "sources": [
+    {
+     "cite": "R. Hartley, A. Zisserman, Multiple View Geometry in Computer Vision, Ch. 1, §1.2 (free sample chapter)",
+     "url": "https://www.robots.ox.ac.uk/~vgg/hzbook/hzbook2/HZintroduction.pdf",
+     "quote": "all points in a ray passing through the centre of projection projecting to the same point in an image"
+    },
+    {
+     "cite": "W. H. Ittelson, The Ames Demonstrations in Perception (Princeton UP, 1952), Ch. 8 “The Chair Demonstration”",
+     "url": "https://archive.org/details/amesdemonstratio00itte",
+     "quote": "three groups of strings in different arrangements and at different distances … they all produce the same image on the retina when viewed from the peepholes"
+    }
+   ]
+  },
+  {
+   "key": "straight_rods",
+   "unit": "m",
+   "expected": 0.0,
+   "measured": 1.65483301822e-16,
+   "deviation": 1.65483301822e-16,
+   "tolerance": 1e-12,
+   "derived": false,
+   "setting": {
+    "yaw_deg": 60.0,
+    "pitch_deg": 20.0,
+    "eye_mm": 0.0
+   },
+   "sources": [
+    {
+     "cite": "R. Hartley, A. Zisserman, Multiple View Geometry in Computer Vision, Ch. 1, §1.1",
+     "url": "https://www.robots.ox.ac.uk/~vgg/hzbook/hzbook2/HZintroduction.pdf",
+     "quote": "we may define a projective transformation of a plane as any mapping of the points on the plane that preserves straight lines"
+    }
+   ]
+  },
+  {
+   "key": "parallax",
+   "unit": "mm",
+   "expected": 0.162189423001,
+   "measured": 0.162183559726,
+   "deviation": 3.61507892697e-05,
+   "tolerance": 0.001,
+   "derived": true,
+   "setting": {
+    "yaw_deg": 0.0,
+    "pitch_deg": 0.0,
+    "eye_mm": 0.16
+   },
+   "sources": [
+    {
+     "cite": "J. J. Koenderink, “Optic flow”, Vision Research 26 (1986) 161, p. 164",
+     "url": "https://doi.org/10.1016/0042-6989(86)90078-7",
+     "quote": "introduce the distance to the patch (d) and define … the ‘specific transverse velocity’ A_t = V_t/d"
+    },
+    {
+     "cite": "M. Kalloniatis, C. Luu, Webvision, “Visual Acuity”, §2, Fig. 5",
+     "url": "https://www.webvision.pitt.edu/book/part-viii-psychophysics-of-vision/visual-acuity/",
+     "quote": "the minimum angle of resolution (MAR) is one minute of arc and the logMAR is 0"
+    }
+   ]
+  },
+  {
+   "key": "second_eye",
+   "unit": "°",
+   "expected": 6.6794326861,
+   "measured": 6.5636088777,
+   "deviation": 0.017340366142,
+   "tolerance": 0.02,
+   "derived": true,
+   "setting": {
+    "yaw_deg": 0.0,
+    "pitch_deg": 0.0,
+    "eye_mm": 65.0
+   },
+   "sources": [
+    {
+     "cite": "K. Stroyan, “Motion parallax is asymptotic to binocular disparity”, arXiv:1010.0575, Eq. (17), after Cormack & Fox (1985)",
+     "url": "https://arxiv.org/abs/1010.0575",
+     "quote": "B.D. ~ i d/(f(f+d))"
+    },
+    {
+     "cite": "N. A. Dodgson, “Variation and extrema of human interpupillary distance”, Proc. SPIE 5291 (2004) 36, abstract",
+     "url": "https://doi.org/10.1117/12.529999",
+     "quote": "mean adult IPD is around 63 mm, the vast majority of adults have IPDs in the range 50-75 mm"
+    }
+   ]
+  }
+ ],
+ "chladni": [
+  {
+   "key": "lowest_tone",
+   "unit": "Hz",
+   "expected": 102.432990894,
+   "measured": 102.432994686,
+   "deviation": 3.7011657268e-08,
+   "tolerance": 2e-06,
+   "derived": false,
+   "setting": {
+    "drive_hz": 102.4329946855643
+   },
+   "sources": [
+    {
+     "cite": "A. W. Leissa, Vibration of Plates, NASA SP-160 (1969), Table 4.65, p. 104 (after Iguchi, ref. 4.113)",
+     "url": "https://ntrs.nasa.gov/api/citations/19700009156/downloads/19700009156.pdf",
+     "quote": "Frequency Parameters and Mode Shapes for a Completely Free Square Plate; ν=0.3 … ωa²√(ρ/D) … Modes symmetric about coordinate axes, symmetric about diagonals … 24.2702 … 63.6870 … 122.4449 … 168.4888 … 299.9325"
+    },
+    {
+     "cite": "A. W. Leissa, Vibration of Plates, NASA SP-160 (1969), Ch. 1, Eqs. (1.1) and (1.2), p. 1",
+     "url": "https://ntrs.nasa.gov/api/citations/19700009156/downloads/19700009156.pdf",
+     "quote": "D∇⁴w + ρ ∂²w/∂t² = 0 (1.1) where D is the flexural rigidity and is defined by D = Eh³/12(1−ν²) (1.2) E is Young's modulus, h is the plate thickness, ν is Poisson's ratio, ρ is mass density per unit area of the plate"
+    }
+   ]
+  },
+  {
+   "key": "second_tone",
+   "unit": "",
+   "expected": 2.62408220781,
+   "measured": 2.62404638734,
+   "deviation": 1.36506661345e-05,
+   "tolerance": 5e-05,
+   "derived": false,
+   "setting": {
+    "drive_hz": 268.7889296491004
+   },
+   "sources": [
+    {
+     "cite": "A. W. Leissa, Vibration of Plates, NASA SP-160 (1969), Table 4.65, p. 104 (after Iguchi, ref. 4.113)",
+     "url": "https://ntrs.nasa.gov/api/citations/19700009156/downloads/19700009156.pdf",
+     "quote": "Frequency Parameters and Mode Shapes for a Completely Free Square Plate; ν=0.3 … ωa²√(ρ/D) … Modes symmetric about coordinate axes, symmetric about diagonals … 24.2702 … 63.6870 … 122.4449 … 168.4888 … 299.9325"
+    }
+   ]
+  },
+  {
+   "key": "sharpness",
+   "unit": "",
+   "expected": 250.0,
+   "measured": 249.994506887,
+   "deviation": 2.19724530835e-05,
+   "tolerance": 0.0001,
+   "derived": true,
+   "setting": {
+    "drive_hz": 102.63673083058401
+   },
+   "sources": [
+    {
+     "cite": "Wikipedia, “Q factor”, §Physical interpretation",
+     "url": "https://en.wikipedia.org/wiki/Q_factor",
+     "quote": "Starting from the stored energy definition, it can be shown that Q = 1/(2ζ), where ζ is the damping ratio."
+    },
+    {
+     "cite": "Wikipedia, “Q factor”, §Physical interpretation",
+     "url": "https://en.wikipedia.org/wiki/Q_factor",
+     "quote": "The width (bandwidth) of the resonance is given by (approximately): Δf = f_N/Q, where f_N is the natural frequency, and Δf, the bandwidth, is the width of the range of frequencies for which the energy is at least half its peak value."
+    }
+   ]
+  },
+  {
+   "key": "fourth_tone",
+   "unit": "%",
+   "expected": 4.70086155773,
+   "measured": 4.70114735237,
+   "deviation": 6.0796225968e-05,
+   "tolerance": 0.0002,
+   "derived": true,
+   "setting": {
+    "drive_hz": 711.0869139719288
+   },
+   "sources": [
+    {
+     "cite": "MIT OpenCourseWare 2.003SC Engineering Dynamics (Fall 2011), Recitation 12 Notes: Modal Analysis, p. 4",
+     "url": "https://ocw.mit.edu/courses/2-003sc-engineering-dynamics-fall-2011/650ea2d4579aa784f6e46044188560b0_MIT2_003SCF11_rec12note1.pdf",
+     "quote": "θ = Uq = [u]⁽¹⁾q₁(t) + [u]⁽²⁾q₂(t) … |q₁| = |Q₁| (1/K₁)/[(1 − ω²/ω₁²)² + (2ζ₁ω/ω₁)²]^(1/2) … |q₁| = (Q₁/K₁)·1/(2ζ₁)"
+    },
+    {
+     "cite": "A. W. Leissa, Vibration of Plates, NASA SP-160 (1969), Ch. 1, Eqs. (1.1) and (1.2), p. 1",
+     "url": "https://ntrs.nasa.gov/api/citations/19700009156/downloads/19700009156.pdf",
+     "quote": "D∇⁴w + ρ ∂²w/∂t² = 0 (1.1) where D is the flexural rigidity and is defined by D = Eh³/12(1−ν²) (1.2) E is Young's modulus, h is the plate thickness, ν is Poisson's ratio, ρ is mass density per unit area of the plate"
+    }
+   ]
+  }
+ ],
+ "coil": [
+  {
+   "key": "rl_rise",
+   "unit": "mA",
+   "expected": 93.9533879699,
+   "measured": 93.9533007726,
+   "deviation": 9.28090917264e-07,
+   "tolerance": 1e-05,
+   "derived": false,
+   "setting": {
+    "start_x_m": -0.4
+   },
+   "sources": [
+    {
+     "cite": "OpenStax, University Physics Volume 2, §14.4 RL Circuits, Eq. 14.24 and 14.25",
+     "url": "https://openstax.org/books/university-physics-volume-2/pages/14-4-rl-circuits",
+     "quote": "I(t) = ε/R (1 − e^(−t/τ_L)) … τ_L = L/R … the inductive time constant of the circuit"
+    }
+   ]
+  },
+  {
+   "key": "wheeler",
+   "unit": "mH",
+   "expected": 117.803456386,
+   "measured": 118.12762878,
+   "deviation": 0.00275180715068,
+   "tolerance": 0.01,
+   "derived": false,
+   "setting": {},
+   "sources": [
+    {
+     "cite": "H. A. Wheeler, “Simple inductance formulas for radio coils”, Proc. IRE 16 (1928) 1398, Eq. (2), p. 1399",
+     "url": "https://www.worldradiohistory.com/Archive-IRE/20s/IRE-1928-10.pdf",
+     "quote": "L = a²n²/(9a+10b) microhenries … This formula is correct to within 1 per cent for coils with b > 0.8 a."
+    }
+   ]
+  },
+  {
+   "key": "flux_centre",
+   "unit": "Wb",
+   "expected": 0.0836658660006,
+   "measured": 0.0836658620482,
+   "deviation": 4.72403236195e-08,
+   "tolerance": 1e-06,
+   "derived": true,
+   "setting": {
+    "start_x_m": 0.0
+   },
+   "sources": [
+    {
+     "cite": "OpenStax, University Physics Volume 2, §12.4 Magnetic Field of a Current Loop, Eq. 12.15",
+     "url": "https://openstax.org/books/university-physics-volume-2/pages/12-4-magnetic-field-of-a-current-loop",
+     "quote": "B = μ₀IR² / [2(y² + R²)^(3/2)]"
+    },
+    {
+     "cite": "OpenStax, University Physics Volume 2, §14.1 Mutual Inductance, after Eq. 14.2",
+     "url": "https://openstax.org/books/university-physics-volume-2/pages/14-1-mutual-inductance",
+     "quote": "we can show that M21 = M12"
+    },
+    {
+     "cite": "N. Samboy, Am. J. Phys. (2023), doi:10.1119/5.0141862, Eq. (2)",
+     "url": "https://arxiv.org/abs/2305.01813",
+     "quote": "Φ_tot = N_c kπR²R_c² / [2(R_c² + z²)^(3/2)]"
+    }
+   ]
+  },
+  {
+   "key": "charge",
+   "unit": "µC",
+   "expected": -888.064319959,
+   "measured": -887.166184194,
+   "deviation": 0.0010113408957,
+   "tolerance": 0.002,
+   "derived": true,
+   "setting": {
+    "rolling_resistance": 0.0,
+    "idle": "closed",
+    "start_x_m": -0.25
+   },
+   "sources": [
+    {
+     "cite": "J. Tatum, LibreTexts, Electricity and Magnetism, §10.4, Eq. 10.4.2",
+     "url": "https://phys.libretexts.org/Bookshelves/Electricity_and_Magnetism/Electricity_and_Magnetism_(Tatum)/10%3A_Electromagnetic_Induction/10.04%3A_Search_Coils",
+     "quote": "Q = NAB/(R+r)"
+    },
+    {
+     "cite": "OpenStax, University Physics Volume 2, §13.1 Faraday’s Law, Eq. 13.3",
+     "url": "https://openstax.org/books/university-physics-volume-2/pages/13-1-faradays-law",
+     "quote": "ε = −N dΦm/dt"
+    }
+   ]
+  },
+  {
+   "key": "period",
+   "unit": "s",
+   "expected": 2.71554060721,
+   "measured": 2.71554061149,
+   "deviation": 1.57501180935e-09,
+   "tolerance": 1e-05,
+   "derived": true,
+   "setting": {
+    "rolling_resistance": 0.0,
+    "idle": "open",
+    "start_x_m": -0.25
+   },
+   "sources": [
+    {
+     "cite": "LibreTexts, General Physics I (Prince George's CC), §44.5 “Ball Rolling in a Bowl”, with β = 0 for a body that slides",
+     "url": "https://phys.libretexts.org/Courses/Prince_Georges_Community_College/General_Physics_I%3A_Classical_Mechanics/44%3A_Rolling_Bodies/44.05%3A_Ball_Rolling_in_a_Bowl",
+     "quote": "d²θ/dt² = −g/((β+1)(R−r)) sin θ"
+    },
+    {
+     "cite": "NIST Digital Library of Mathematical Functions, §22.19(i)",
+     "url": "https://dlmf.nist.gov/22.19",
+     "quote": "The period is 4K(sin(α/2))"
+    }
+   ]
+  },
+  {
+   "key": "brake",
+   "unit": "µJ",
+   "expected": 1100.40769138,
+   "measured": 1099.94807977,
+   "deviation": 0.000417673935364,
+   "tolerance": 0.002,
+   "derived": true,
+   "setting": {
+    "car_mass_kg": 15.0,
+    "rolling_resistance": 0.0,
+    "idle": "closed",
+    "start_x_m": -0.25
+   },
+   "sources": [
+    {
+     "cite": "N. Derby, S. Olbert, “Cylindrical Magnets and Ideal Solenoids”, Am. J. Phys. 78 (2010) 229, §IV.B, Eq. 28",
+     "url": "https://arxiv.org/abs/0909.3880",
+     "quote": "F_drag = −(v_z/R_L) ∫ B_ρ² dz′"
+    },
+    {
+     "cite": "OpenStax, University Physics Volume 2, §13.3 Motional Emf, Eq. 13.7",
+     "url": "https://openstax.org/books/university-physics-volume-2/pages/13-3-motional-emf",
+     "quote": "P = I²R = B²l²v²/R"
+    }
+   ]
+  },
+  {
+   "key": "energy_account",
+   "unit": "mJ",
+   "expected": 952.957273912,
+   "measured": 952.957658867,
+   "deviation": 4.03958645207e-07,
+   "tolerance": 1e-05,
+   "derived": true,
+   "setting": {
+    "autopilot": "on"
+   },
+   "sources": [
+    {
+     "cite": "OpenStax, University Physics Volume 2, §14.3 Energy in a Magnetic Field, Eq. 14.22",
+     "url": "https://openstax.org/books/university-physics-volume-2/pages/14-3-energy-in-a-magnetic-field",
+     "quote": "U = ½LI²"
+    },
+    {
+     "cite": "OpenStax, University Physics Volume 2, §14.4 RL Circuits, Eq. 14.24 and 14.25",
+     "url": "https://openstax.org/books/university-physics-volume-2/pages/14-4-rl-circuits",
+     "quote": "I(t) = ε/R (1 − e^(−t/τ_L)) … τ_L = L/R … the inductive time constant of the circuit"
+    }
+   ]
+  }
+ ],
+ "coriolis": [
+  {
+   "key": "at_rest",
+   "unit": "°",
+   "expected": 60.0,
+   "measured": 60.0,
+   "deviation": 0.0,
+   "tolerance": 1e-09,
+   "derived": true,
+   "setting": {
+    "rpm": 0.0,
+    "speed_m_s": 3.0,
+    "aim_deg": 30.0,
+    "body": "puck",
+    "frame": "riding"
+   },
+   "sources": [
+    {
+     "cite": "OpenStax, University Physics Volume 1, §5.2 Newton’s First Law",
+     "url": "https://openstax.org/books/university-physics-volume-1/pages/5-2-newtons-first-law",
+     "quote": "A body at rest remains at rest or, if in motion, remains in motion at constant velocity unless acted on by a net external force."
+    },
+    {
+     "cite": "Euclid, Elements, Book III, Proposition 20 (D. E. Joyce’s edition, Clark University)",
+     "url": "https://mathcs.clarku.edu/~djoyce/java/elements/bookIII/propIII20.html",
+     "quote": "In a circle the angle at the center is double the angle at the circumference when the angles have the same circumference as base."
+    }
+   ]
+  },
+  {
+   "key": "straight_puck",
+   "unit": "°",
+   "expected": -86.2906647052,
+   "measured": -86.2906647052,
+   "deviation": 1.64685887677e-16,
+   "tolerance": 1e-09,
+   "derived": true,
+   "setting": {
+    "rpm": 6.0,
+    "speed_m_s": 3.0,
+    "aim_deg": 0.0,
+    "body": "puck",
+    "frame": "riding"
+   },
+   "sources": [
+    {
+     "cite": "M. Fowler, Graduate Classical Mechanics (LibreTexts), §29.2 “Uniformly Rotating Frame”",
+     "url": "https://phys.libretexts.org/Bookshelves/Classical_Mechanics/Graduate_Classical_Mechanics_(Fowler)/29%3A_Non-Inertial_Frame_and_Coriolis_Effect/29.02%3A_Uniformly_Rotating_Frame",
+     "quote": "For the important case of a frame having uniform rotation and no translation motion, m dv/dt = −∂U/∂r + 2m v × Ω + m(Ω × r) × Ω … The second term, 2m v × Ω Landau calls the Coriolis force … Remembering v₀ = v + Ω × r"
+    },
+    {
+     "cite": "Euclid, Elements, Book III, Proposition 20 (D. E. Joyce’s edition, Clark University)",
+     "url": "https://mathcs.clarku.edu/~djoyce/java/elements/bookIII/propIII20.html",
+     "quote": "In a circle the angle at the center is double the angle at the circumference when the angles have the same circumference as base."
+    },
+    {
+     "cite": "Euclid, Elements, Book III, Proposition 31 (D. E. Joyce’s edition, Clark University)",
+     "url": "https://mathcs.clarku.edu/~djoyce/java/elements/bookIII/propIII31.html",
+     "quote": "In a circle the angle in the semicircle is right"
+    },
+    {
+     "cite": "Wikipedia, “Rotating reference frame”, §“Relation between positions in the two frames”",
+     "url": "https://en.wikipedia.org/wiki/Rotating_reference_frame",
+     "quote": "whereas the reverse transformation is x′ = x cos(−θ(t)) − y sin(−θ(t)) y′ = x sin(−θ(t)) + y cos(−θ(t))"
+    }
+   ]
+  },
+  {
+   "key": "coriolis_push",
+   "unit": "m/s²",
+   "expected": 3.76991118431,
+   "measured": 3.76991391208,
+   "deviation": 7.23563012877e-07,
+   "tolerance": 2e-06,
+   "derived": true,
+   "setting": {
+    "rpm": 6.0,
+    "speed_m_s": 3.0,
+    "aim_deg": 0.0,
+    "body": "puck",
+    "frame": "riding"
+   },
+   "sources": [
+    {
+     "cite": "M. Fowler, Graduate Classical Mechanics (LibreTexts), §29.2 “Uniformly Rotating Frame”",
+     "url": "https://phys.libretexts.org/Bookshelves/Classical_Mechanics/Graduate_Classical_Mechanics_(Fowler)/29%3A_Non-Inertial_Frame_and_Coriolis_Effect/29.02%3A_Uniformly_Rotating_Frame",
+     "quote": "For the important case of a frame having uniform rotation and no translation motion, m dv/dt = −∂U/∂r + 2m v × Ω + m(Ω × r) × Ω … The second term, 2m v × Ω Landau calls the Coriolis force … Remembering v₀ = v + Ω × r"
+    }
+   ]
+  },
+  {
+   "key": "ball_turn",
+   "unit": "°/s",
+   "expected": 10.2857142857,
+   "measured": 10.2857142857,
+   "deviation": 1.95152536106e-13,
+   "tolerance": 1e-09,
+   "derived": false,
+   "setting": {
+    "rpm": 6.0,
+    "speed_m_s": 3.0,
+    "aim_deg": 0.0,
+    "body": "ball",
+    "frame": "outside"
+   },
+   "sources": [
+    {
+     "cite": "M. Fowler, Graduate Classical Mechanics (LibreTexts), §30.5 “Ball Rolling on Rotating Plane”, after E. A. Milne, Vectorial Mechanics",
+     "url": "https://phys.libretexts.org/Bookshelves/Classical_Mechanics/Graduate_Classical_Mechanics_(Fowler)/30%3A_A_Rolling_Sphere_on_a_Rotating_Plane/30.05%3A_Ball_Rolling_on_Rotating_Plane",
+     "quote": "(1 + a²m/I) r̈ = ω n̂ × ṙ … For a uniform sphere, I = 2/5 Ma², so ṙ = 2/7 ω n̂ × (r − r₀) So the ball rolling on the rotating plate goes around in a circle, which could be any circle."
+    }
+   ]
+  }
+ ],
+ "cradle": [
+  {
+   "key": "one_out",
+   "unit": "m/s",
+   "expected": 0.627815731081,
+   "measured": 0.627813795533,
+   "deviation": 3.08298795191e-06,
+   "tolerance": 1e-05,
+   "derived": true,
+   "setting": {
+    "balls": 1,
+    "angle_deg": 30.0,
+    "gap_m": 0.0001,
+    "restitution": 1.0
+   },
+   "sources": [
+    {
+     "cite": "javalab.org, “Force to move the pendulum”, “Total tension applied to the string”",
+     "url": "https://javalab.org/en/pendulum_en",
+     "quote": "The increased kinetic energy is equal to the reduced potential energy by the law of conservation of energy. ½mv² = mgl(cos θ – cos θ_m) ∴ v² = 2gl(cos θ – cos θ_m)"
+    },
+    {
+     "cite": "Wikipedia, “Elastic collision”, §One-dimensional Newtonian (citing Serway & Jewett, 2014, p. 258)",
+     "url": "https://en.wikipedia.org/wiki/Elastic_collision",
+     "quote": "If both masses are the same, we have a trivial solution: v_A2 = v_B1, v_B2 = v_A1. This simply corresponds to the bodies exchanging their initial velocities with each other."
+    }
+   ]
+  },
+  {
+   "key": "momentum",
+   "unit": "m/s",
+   "expected": 0.627815731081,
+   "measured": 0.6278122093,
+   "deviation": 5.60957741997e-06,
+   "tolerance": 1e-05,
+   "derived": true,
+   "setting": {
+    "balls": 1,
+    "angle_deg": 30.0,
+    "gap_m": 0.0,
+    "restitution": 0.95
+   },
+   "sources": [
+    {
+     "cite": "OpenStax, University Physics Volume 1, §9.3 Conservation of Linear Momentum, “Law of Conservation of Momentum”",
+     "url": "https://openstax.org/books/university-physics-volume-1/pages/9-3-conservation-of-linear-momentum",
+     "quote": "The total momentum of a closed system is conserved: ∑ p⃗_j = constant. … In a closed system, the total momentum never changes."
+    },
+    {
+     "cite": "javalab.org, “Force to move the pendulum”, “Total tension applied to the string”",
+     "url": "https://javalab.org/en/pendulum_en",
+     "quote": "The increased kinetic energy is equal to the reduced potential energy by the law of conservation of energy. ½mv² = mgl(cos θ – cos θ_m) ∴ v² = 2gl(cos θ – cos θ_m)"
+    }
+   ]
+  },
+  {
+   "key": "energy",
+   "unit": "J/kg",
+   "expected": 0.197076296097,
+   "measured": 0.197078302762,
+   "deviation": 1.01821754635e-05,
+   "tolerance": 4e-05,
+   "derived": true,
+   "setting": {
+    "balls": 1,
+    "angle_deg": 30.0,
+    "gap_m": 0.0,
+    "restitution": 1.0
+   },
+   "sources": [
+    {
+     "cite": "javalab.org, “Force to move the pendulum”, “Total tension applied to the string”",
+     "url": "https://javalab.org/en/pendulum_en",
+     "quote": "The increased kinetic energy is equal to the reduced potential energy by the law of conservation of energy. ½mv² = mgl(cos θ – cos θ_m) ∴ v² = 2gl(cos θ – cos θ_m)"
+    },
+    {
+     "cite": "P. Patrício, “The Hertz contact in chain elastic collisions”, arXiv:physics/0402036 (doi:10.1119/1.1778394), §I and §III.A, Eq. (5)",
+     "url": "https://arxiv.org/abs/physics/0402036",
+     "quote": "even in those cases where the interactions are elastic, i.e., with no loss of energy. … the elastic potential energy Ep depends on the combined deformation h as: Ep = 2/5 e r^½ h^{5/2}"
+    }
+   ]
+  },
+  {
+   "key": "peak",
+   "unit": "N",
+   "expected": 878.925167094,
+   "measured": 878.890798636,
+   "deviation": 3.91028257999e-05,
+   "tolerance": 0.0003,
+   "derived": true,
+   "setting": {
+    "balls": 1,
+    "angle_deg": 30.0,
+    "gap_m": 0.0001,
+    "restitution": 1.0
+   },
+   "sources": [
+    {
+     "cite": "Wikipedia, “Contact mechanics”, §Contact between a sphere and a half-space and §Contact between two spheres (citing Hertz, 1882)",
+     "url": "https://en.wikipedia.org/wiki/Contact_mechanics",
+     "quote": "The applied force F is related to the displacement d by F = 4/3 E* R^½ d^{3/2} where 1/E* = (1 − ν₁²)/E₁ + (1 − ν₂²)/E₂ … The equations are the same as for a sphere in contact with a half plane except that the effective radius R is defined as 1/R = 1/R₁ + 1/R₂"
+    },
+    {
+     "cite": "P. Patrício, “The Hertz contact in chain elastic collisions”, arXiv:physics/0402036, §III.A, Eq. (6) and (8)",
+     "url": "https://arxiv.org/abs/physics/0402036",
+     "quote": "Suppose ν is the relative velocity of the spheres before the collision, and µ = m1 m2 /(m1 + m2) their reduced mass. … The maximum height of deformation occurs when the relative velocity is zero and can be written: hM = (5µ/(4er^½))^{2/5} ν^{4/5}"
+    }
+   ]
+  },
+  {
+   "key": "duration",
+   "unit": "µs",
+   "expected": 688.816629519,
+   "measured": 688.0,
+   "deviation": 0.00118555430297,
+   "tolerance": 0.002,
+   "derived": true,
+   "setting": {
+    "balls": 1,
+    "angle_deg": 30.0,
+    "gap_m": 0.0001,
+    "restitution": 1.0
+   },
+   "sources": [
+    {
+     "cite": "P. Patrício, “The Hertz contact in chain elastic collisions”, arXiv:physics/0402036, §III.A, Eq. (9)",
+     "url": "https://arxiv.org/abs/physics/0402036",
+     "quote": "The collision time corresponds to the time in which the deformation goes from 0 to hM and back to 0 again. It is given by: τ = 2 (25µ²/(16e²rν))^{1/5} ∫₀¹ dx/√(1 − x^{5/2}) ≈ 3.21 (µ²/(e²rν))^{1/5}"
+    },
+    {
+     "cite": "Wikipedia, “Elastic collision”, §One-dimensional Newtonian (citing Serway & Jewett, 2014, p. 258)",
+     "url": "https://en.wikipedia.org/wiki/Elastic_collision",
+     "quote": "If both masses are the same, we have a trivial solution: v_A2 = v_B1, v_B2 = v_A1. This simply corresponds to the bodies exchanging their initial velocities with each other."
+    }
+   ]
+  }
+ ],
+ "foucault": [
+  {
+   "key": "winterthur",
+   "unit": "°/h",
+   "expected": 11.0894379523,
+   "measured": 11.0894377291,
+   "deviation": 2.01218028127e-08,
+   "tolerance": 1e-07,
+   "derived": true,
+   "setting": {
+    "length_m": 12.0,
+    "amplitude_m": 0.5,
+    "latitude_deg": 47.5,
+    "speed": 3600.0
+   },
+   "sources": [
+    {
+     "cite": "D. Cline, Variational Principles in Classical Mechanics (LibreTexts), §12.13 “Foucault pendulum”",
+     "url": "https://phys.libretexts.org/Bookshelves/Classical_Mechanics/Variational_Principles_in_Classical_Mechanics_(Cline)/12%3A_Non-inertial_Reference_Frames/12.13%3A_Foucault_pendulum",
+     "quote": "At lower latitudes, the pendulum precesses at the lower angular frequency Ω_z = Ω sin λ that goes to zero at the equator."
+    },
+    {
+     "cite": "Wikipedia, “Foucault pendulum”, §“Mechanism”",
+     "url": "https://en.wikipedia.org/wiki/Foucault_pendulum",
+     "quote": "the angular speed, ω (measured in clockwise degrees per sidereal day), is proportional to the sine of the latitude, φ: ω = 360° sin φ / day, where latitudes north and south of the equator are defined as positive and negative, respectively."
+    },
+    {
+     "cite": "Wikipedia, “Earth’s rotation”, §“Stellar and sidereal day” (after IERS)",
+     "url": "https://en.wikipedia.org/wiki/Earth%27s_rotation",
+     "quote": "Earth's rotation period relative to the International Celestial Reference Frame, called its stellar day by the International Earth Rotation and Reference Systems Service (IERS), is 86 164.098 903 691 seconds of mean solar time (UT1)"
+    }
+   ]
+  },
+  {
+   "key": "pole",
+   "unit": "h",
+   "expected": 23.9344719177,
+   "measured": 23.9344723992,
+   "deviation": 2.01185698133e-08,
+   "tolerance": 1e-07,
+   "derived": true,
+   "setting": {
+    "length_m": 12.0,
+    "amplitude_m": 0.5,
+    "latitude_deg": 90.0,
+    "speed": 3600.0
+   },
+   "sources": [
+    {
+     "cite": "D. Cline, Variational Principles in Classical Mechanics (LibreTexts), §12.13 “Foucault pendulum”",
+     "url": "https://phys.libretexts.org/Bookshelves/Classical_Mechanics/Variational_Principles_in_Classical_Mechanics_(Cline)/12%3A_Non-inertial_Reference_Frames/12.13%3A_Foucault_pendulum",
+     "quote": "At the north pole the earth rotates under the pendulum with angular velocity Ω and the axis of the pendulum is fixed in an inertial frame of reference."
+    },
+    {
+     "cite": "Wikipedia, “Earth’s rotation”, §“Stellar and sidereal day” (after IERS)",
+     "url": "https://en.wikipedia.org/wiki/Earth%27s_rotation",
+     "quote": "Earth's rotation period relative to the International Celestial Reference Frame, called its stellar day by the International Earth Rotation and Reference Systems Service (IERS), is 86 164.098 903 691 seconds of mean solar time (UT1)"
+    }
+   ]
+  },
+  {
+   "key": "south",
+   "unit": "°/h",
+   "expected": -8.38908165274,
+   "measured": -8.38908148396,
+   "deviation": 2.01185693388e-08,
+   "tolerance": 1e-07,
+   "derived": true,
+   "setting": {
+    "length_m": 12.0,
+    "amplitude_m": 0.5,
+    "latitude_deg": -33.9,
+    "speed": 3600.0
+   },
+   "sources": [
+    {
+     "cite": "Wikipedia, “Foucault pendulum”, §“Mechanism”",
+     "url": "https://en.wikipedia.org/wiki/Foucault_pendulum",
+     "quote": "the angular speed, ω (measured in clockwise degrees per sidereal day), is proportional to the sine of the latitude, φ: ω = 360° sin φ / day, where latitudes north and south of the equator are defined as positive and negative, respectively."
+    },
+    {
+     "cite": "Wikipedia, “Earth’s rotation”, §“Stellar and sidereal day” (after IERS)",
+     "url": "https://en.wikipedia.org/wiki/Earth%27s_rotation",
+     "quote": "Earth's rotation period relative to the International Celestial Reference Frame, called its stellar day by the International Earth Rotation and Reference Systems Service (IERS), is 86 164.098 903 691 seconds of mean solar time (UT1)"
+    }
+   ]
+  },
+  {
+   "key": "period",
+   "unit": "s",
+   "expected": 6.95040567109,
+   "measured": 6.95040565882,
+   "deviation": 1.76524332914e-09,
+   "tolerance": 1e-08,
+   "derived": false,
+   "setting": {
+    "length_m": 12.0,
+    "amplitude_m": 0.5,
+    "latitude_deg": 47.5,
+    "speed": 3600.0
+   },
+   "sources": [
+    {
+     "cite": "OpenStax, University Physics Volume 1, §15.4 Pendulums, Eq. 15.19",
+     "url": "https://openstax.org/books/university-physics-volume-1/pages/15-4-pendulums",
+     "quote": "and the period is T = 2π√(L/g)."
+    }
+   ]
+  }
+ ],
+ "maxwell": [
+  {
+   "key": "fall_time",
+   "unit": "s",
+   "expected": 3.23454608023,
+   "measured": 3.23454608023,
+   "deviation": 2.74591363879e-15,
+   "tolerance": 1e-09,
+   "derived": false,
+   "setting": {
+    "shape": "disc",
+    "mass_kg": 0.5,
+    "wheel_radius_m": 0.065,
+    "axle_radius_m": 0.005,
+    "drop_m": 0.6,
+    "loss": 0.0,
+    "stiffness_n_m": 10000.0
+   },
+   "sources": [
+    {
+     "cite": "UC Santa Barbara Physics, Lecture Demonstrations, 28.33 “Maxwell’s yo-yo”",
+     "url": "https://web.physics.ucsb.edu/~lecturedemonstrations/Composer/Pages/28.33.html",
+     "quote": "In this case, its moment of inertia is (1/2) MR², and the expressions above for v and t become … t = (1/r)√[L(2r² + R²)/g]"
+    }
+   ]
+  },
+  {
+   "key": "pull",
+   "unit": "N",
+   "expected": 4.84597616959,
+   "measured": 4.84597616959,
+   "deviation": 0.0,
+   "tolerance": 1e-12,
+   "derived": false,
+   "setting": {
+    "shape": "disc",
+    "mass_kg": 0.5,
+    "wheel_radius_m": 0.065,
+    "axle_radius_m": 0.005,
+    "drop_m": 0.6,
+    "loss": 0.0,
+    "stiffness_n_m": 10000.0
+   },
+   "sources": [
+    {
+     "cite": "UC Santa Barbara Physics, Lecture Demonstrations, 28.33 “Maxwell’s yo-yo”",
+     "url": "https://web.physics.ucsb.edu/~lecturedemonstrations/Composer/Pages/28.33.html",
+     "quote": "We can also write this as T = IMg/(Mr² + I), which may make it easier to see that when I >> M or r² is very small, or both, T ≈ Mg."
+    }
+   ]
+  },
+  {
+   "key": "back_up",
+   "unit": "m",
+   "expected": 0.6,
+   "measured": 0.6,
+   "deviation": 0.0,
+   "tolerance": 1e-09,
+   "derived": true,
+   "setting": {
+    "shape": "disc",
+    "mass_kg": 0.5,
+    "wheel_radius_m": 0.065,
+    "axle_radius_m": 0.005,
+    "drop_m": 0.6,
+    "loss": 0.0,
+    "stiffness_n_m": 10000.0
+   },
+   "sources": [
+    {
+     "cite": "UC Santa Barbara Physics, Lecture Demonstrations, 28.33 “Maxwell’s yo-yo”",
+     "url": "https://web.physics.ucsb.edu/~lecturedemonstrations/Composer/Pages/28.33.html",
+     "quote": "Thus the potential energy is converted into both linear and rotational kinetic energy thus: MgL = (1/2) Mv² + (1/2) Iω² … v = √[(2gL)/(1 + I/Mr²)]"
+    },
+    {
+     "cite": "OpenStax, University Physics Volume 1, §15.2 Energy in Simple Harmonic Motion",
+     "url": "https://openstax.org/books/university-physics-volume-1/pages/15-2-energy-in-simple-harmonic-motion",
+     "quote": "The kinetic energy is maximum and equal to K = ½mv² = ½mA²ω² = ½kA². … The total energy of the system is constant."
+    }
+   ]
+  },
+  {
+   "key": "jerk_time",
+   "unit": "ms",
+   "expected": 22.2144146908,
+   "measured": 22.2453308807,
+   "deviation": 0.00139171750945,
+   "tolerance": 0.002,
+   "derived": true,
+   "setting": {
+    "shape": "disc",
+    "mass_kg": 0.5,
+    "wheel_radius_m": 0.065,
+    "axle_radius_m": 0.005,
+    "drop_m": 0.6,
+    "loss": 0.0,
+    "stiffness_n_m": 10000.0
+   },
+   "sources": [
+    {
+     "cite": "OpenStax, University Physics Volume 1, §15.1 Simple Harmonic Motion, Eq. 15.10",
+     "url": "https://openstax.org/books/university-physics-volume-1/pages/15-1-simple-harmonic-motion",
+     "quote": "The angular frequency is defined as ω = 2π/T, which yields an equation for the period of the motion: T = 2π√(m/k)."
+    }
+   ]
+  },
+  {
+   "key": "peak",
+   "unit": "N",
+   "expected": 31.1366237806,
+   "measured": 31.1366864659,
+   "deviation": 2.01323369739e-06,
+   "tolerance": 1e-05,
+   "derived": true,
+   "setting": {
+    "shape": "disc",
+    "mass_kg": 0.5,
+    "wheel_radius_m": 0.065,
+    "axle_radius_m": 0.005,
+    "drop_m": 0.6,
+    "loss": 0.0,
+    "stiffness_n_m": 10000.0
+   },
+   "sources": [
+    {
+     "cite": "UC Santa Barbara Physics, Lecture Demonstrations, 28.33 “Maxwell’s yo-yo”",
+     "url": "https://web.physics.ucsb.edu/~lecturedemonstrations/Composer/Pages/28.33.html",
+     "quote": "Thus the potential energy is converted into both linear and rotational kinetic energy thus: MgL = (1/2) Mv² + (1/2) Iω² … v = √[(2gL)/(1 + I/Mr²)]"
+    },
+    {
+     "cite": "OpenStax, University Physics Volume 1, §15.2 Energy in Simple Harmonic Motion",
+     "url": "https://openstax.org/books/university-physics-volume-1/pages/15-2-energy-in-simple-harmonic-motion",
+     "quote": "The kinetic energy is maximum and equal to K = ½mv² = ½mA²ω² = ½kA². … The total energy of the system is constant."
+    }
+   ]
+  }
+ ],
+ "peg": [
+  {
+   "key": "same_height",
+   "unit": "cm",
+   "expected": 13.3974596216,
+   "measured": 13.3974568132,
+   "deviation": 2.09615741509e-07,
+   "tolerance": 5e-06,
+   "derived": false,
+   "setting": {
+    "length_m": 1.0,
+    "peg_depth_m": 0.5,
+    "start_deg": 30.0
+   },
+   "sources": [
+    {
+     "cite": "Galileo Galilei, Dialogues Concerning Two New Sciences, transl. H. Crew and A. de Salvio (Macmillan, 1914), Third Day, p. 171 (Ed. Naz. VIII, 206), Fig. 46",
+     "url": "https://archive.org/details/dialoguesconcern00galiuoft",
+     "quote": "you will observe with pleasure that the ball swings to the point G in the horizontal, and you would see the same thing happen if the obstacle were placed at some lower point, say at F, about which the ball would describe the arc BI, the rise of the ball always terminating exactly on the line CD."
+    },
+    {
+     "cite": "javalab.org, “Force to move the pendulum”, total tension applied to the string",
+     "url": "https://javalab.org/en/pendulum_en/",
+     "quote": "½mv² = mgl(cos θ – cos θ_m) ∴ v² = 2gl(cos θ – cos θ_m) … The total tension = Tension by gravity + Centripetal force … = mg(3cos θ – 2cos θ_m)"
+    }
+   ]
+  },
+  {
+   "key": "period",
+   "unit": "s",
+   "expected": 1.75577782205,
+   "measured": 1.75577782205,
+   "deviation": 1.53478036431e-12,
+   "tolerance": 1e-09,
+   "derived": true,
+   "setting": {
+    "length_m": 1.0,
+    "peg_depth_m": 0.5,
+    "start_deg": 30.0
+   },
+   "sources": [
+    {
+     "cite": "OpenStax, University Physics Volume 1, §15.4 Pendulums, Eqs. 15.18 and 15.19",
+     "url": "https://openstax.org/books/university-physics-volume-1/pages/15-4-pendulums",
+     "quote": "The angular frequency is ω = √(g/L) and the period is T = 2π√(L/g)."
+    },
+    {
+     "cite": "NIST Digital Library of Mathematical Functions, §22.19(i), Eq. 22.19.1 and after Eq. 22.19.2",
+     "url": "https://dlmf.nist.gov/22.19",
+     "quote": "With appropriate scalings, Newton’s equation of motion for a pendulum … is d²θ(t)/dt² = −sin θ(t) … The period is 4K(sin(½α))"
+    },
+    {
+     "cite": "NIST Digital Library of Mathematical Functions, §19.2(ii), Eqs. 19.2.4 and 19.2.8",
+     "url": "https://dlmf.nist.gov/19.2",
+     "quote": "F(φ,k) = ∫₀^φ dθ/√(1 − k² sin²θ) … K(k) = F(π/2,k)"
+    }
+   ]
+  },
+  {
+   "key": "loop",
+   "unit": "cm",
+   "expected": 60.0,
+   "measured": 59.9999887077,
+   "deviation": 1.88204770287e-07,
+   "tolerance": 2e-06,
+   "derived": true,
+   "setting": {
+    "length_m": 1.0,
+    "peg_depth_m": 0.6,
+    "start_deg": 90.0
+   },
+   "sources": [
+    {
+     "cite": "javalab.org, “Force to move the pendulum”, total tension applied to the string",
+     "url": "https://javalab.org/en/pendulum_en/",
+     "quote": "½mv² = mgl(cos θ – cos θ_m) ∴ v² = 2gl(cos θ – cos θ_m) … The total tension = Tension by gravity + Centripetal force … = mg(3cos θ – 2cos θ_m)"
+    }
+   ]
+  },
+  {
+   "key": "slack",
+   "unit": "cm",
+   "expected": 81.6666666667,
+   "measured": 81.6666666665,
+   "deviation": 1.8171912954e-12,
+   "tolerance": 1e-09,
+   "derived": true,
+   "setting": {
+    "length_m": 1.0,
+    "peg_depth_m": 0.55,
+    "start_deg": 90.0
+   },
+   "sources": [
+    {
+     "cite": "javalab.org, “Force to move the pendulum”, total tension applied to the string",
+     "url": "https://javalab.org/en/pendulum_en/",
+     "quote": "½mv² = mgl(cos θ – cos θ_m) ∴ v² = 2gl(cos θ – cos θ_m) … The total tension = Tension by gravity + Centripetal force … = mg(3cos θ – 2cos θ_m)"
+    }
+   ]
+  }
+ ],
+ "plates": [
+  {
+   "key": "free_fall",
+   "unit": "s",
+   "expected": 0.428426094369,
+   "measured": 0.428426094369,
+   "deviation": 0.0,
+   "tolerance": 1e-12,
+   "derived": false,
+   "setting": {
+    "field_t": 0.15,
+    "pitch_m": 0.04,
+    "material": "plastic",
+    "thickness_m": 0.003,
+    "tooth_m": 0.0
+   },
+   "sources": [
+    {
+     "cite": "OpenStax, University Physics Volume 1, §3.5 Free Fall, Eq. 3.16",
+     "url": "https://openstax.org/books/university-physics-volume-1/pages/3-5-free-fall",
+     "quote": "If an object is dropped, we know the initial velocity is zero when in free fall. … y = y₀ + v₀t − ½gt²"
+    }
+   ]
+  },
+  {
+   "key": "late_start",
+   "unit": "s",
+   "expected": 1.76389857505,
+   "measured": 1.76389857505,
+   "deviation": 1.25882864279e-16,
+   "tolerance": 1e-12,
+   "derived": true,
+   "setting": {
+    "field_t": 0.15,
+    "pitch_m": 0.04,
+    "material": "aluminium",
+    "thickness_m": 0.003,
+    "tooth_m": 0.008
+   },
+   "sources": [
+    {
+     "cite": "OpenStax, University Physics Volume 1, §6.4, “The Calculus of Velocity-Dependent Frictional Forces”",
+     "url": "https://openstax.org/books/university-physics-volume-1/pages/6-4-drag-force-and-terminal-speed",
+     "quote": "mg − bv = m dv/dt … v_T = mg/b … y = (mg/b)t + (m²g/b²)(e^(−bt/m) − 1)"
+    }
+   ]
+  },
+  {
+   "key": "thickness",
+   "unit": "",
+   "expected": 1.0,
+   "measured": 1.0,
+   "deviation": 0.0,
+   "tolerance": 1e-12,
+   "derived": true,
+   "setting": {
+    "field_t": 0.15,
+    "pitch_m": 0.04,
+    "material": "aluminium",
+    "thickness_m": 0.01,
+    "tooth_m": 0.0
+   },
+   "sources": [
+    {
+     "cite": "Wikipedia, “Ohm’s law”, §“Magnetic effects”",
+     "url": "https://en.wikipedia.org/wiki/Ohm%27s_law",
+     "quote": "If an external B-field is present and the conductor is not at rest but moving at velocity v, then an extra term must be added to account for the current induced by the Lorentz force on the charge carriers. J = σ(E + v × B)"
+    },
+    {
+     "cite": "OpenStax, University Physics Volume 1, §6.4, “The Calculus of Velocity-Dependent Frictional Forces”",
+     "url": "https://openstax.org/books/university-physics-volume-1/pages/6-4-drag-force-and-terminal-speed",
+     "quote": "mg − bv = m dv/dt … v_T = mg/b … y = (mg/b)t + (m²g/b²)(e^(−bt/m) − 1)"
+    }
+   ]
+  },
+  {
+   "key": "metals",
+   "unit": "",
+   "expected": 0.475893389239,
+   "measured": 0.476387836302,
+   "deviation": 0.00103898703769,
+   "tolerance": 0.002,
+   "derived": true,
+   "setting": {
+    "field_t": 0.15,
+    "pitch_m": 0.04,
+    "material": "copper",
+    "thickness_m": 0.003,
+    "tooth_m": 0.0
+   },
+   "sources": [
+    {
+     "cite": "Wikipedia, “Ohm’s law”, §“Magnetic effects”",
+     "url": "https://en.wikipedia.org/wiki/Ohm%27s_law",
+     "quote": "If an external B-field is present and the conductor is not at rest but moving at velocity v, then an extra term must be added to account for the current induced by the Lorentz force on the charge carriers. J = σ(E + v × B)"
+    },
+    {
+     "cite": "OpenStax, University Physics Volume 1, §6.4, “The Calculus of Velocity-Dependent Frictional Forces”",
+     "url": "https://openstax.org/books/university-physics-volume-1/pages/6-4-drag-force-and-terminal-speed",
+     "quote": "mg − bv = m dv/dt … v_T = mg/b … y = (mg/b)t + (m²g/b²)(e^(−bt/m) − 1)"
+    },
+    {
+     "cite": "Wikipedia, “Electrical resistivity and conductivity”, §7 “Resistivity-density product”, table (resistivity in nΩ·m, density in g/cm³)",
+     "url": "https://en.wikipedia.org/wiki/Electrical_resistivity_and_conductivity",
+     "quote": "Resistivity, density, and resistivity–density product of selected materials, and relative to copper (Cu) … Aluminium 26.50 1.579 2.70 0.301 72 0.48 … Copper 16.78 1 8.96 1 150 1"
+    }
+   ]
+  },
+  {
+   "key": "strip",
+   "unit": "",
+   "expected": 0.0324687907249,
+   "measured": 0.0320606210616,
+   "deviation": 0.0125711384449,
+   "tolerance": 0.015,
+   "derived": true,
+   "setting": {
+    "field_t": 0.15,
+    "pitch_m": 0.02,
+    "material": "aluminium",
+    "thickness_m": 0.001,
+    "tooth_m": 0.002
+   },
+   "sources": [
+    {
+     "cite": "Wikipedia, “Ohm’s law”, §“Magnetic effects”",
+     "url": "https://en.wikipedia.org/wiki/Ohm%27s_law",
+     "quote": "If an external B-field is present and the conductor is not at rest but moving at velocity v, then an extra term must be added to account for the current induced by the Lorentz force on the charge carriers. J = σ(E + v × B)"
+    },
+    {
+     "cite": "OpenStax, University Physics Volume 2, §13.3 Motional Emf, Eq. 13.6 and 13.7",
+     "url": "https://openstax.org/books/university-physics-volume-2/pages/13-3-motional-emf",
+     "quote": "The power dissipated is P = I²R = (Blv/R)²R = l²B²v²/R. In satisfying the principle of energy conservation, the produced and dissipated powers are equal."
+    }
+   ]
+  }
+ ],
+ "resonance": [
+  {
+   "key": "tone",
+   "unit": "Hz",
+   "expected": 5.57932856581,
+   "measured": 5.57962044147,
+   "deviation": 5.23137601865e-05,
+   "tolerance": 0.0001,
+   "derived": true,
+   "setting": {
+    "drive_hz": 5.579620441466105,
+    "damping_ratio": 0.01
+   },
+   "sources": [
+    {
+     "cite": "Wikipedia, “Euler–Bernoulli beam theory”, §Dynamic beam equation, Free vibration, “Example: Cantilevered beam”",
+     "url": "https://en.wikipedia.org/wiki/Euler%E2%80%93Bernoulli_beam_theory",
+     "quote": "cosh(β_n L) cos(β_n L) + 1 = 0. … The first four roots are β₁L = 0.596864π, … ω₁ = β₁²√(EI/μ) = (3.5160/L²)√(EI/μ)"
+    },
+    {
+     "cite": "Wikipedia, “Buckling”, §Self-buckling (citing Kato 1915, Ratzersdorfer 1936, Cox & McCarthy 1998)",
+     "url": "https://en.wikipedia.org/wiki/Buckling",
+     "quote": "A free-standing, vertical column, with density ρ, Young's modulus E, and cross-sectional area A, will buckle under its own weight if its height exceeds a certain critical value: h_crit = (9B²/4 · EI/(ρgA))^(1/3) … B is the first zero of the Bessel function of the first kind of order −1/3, which is equal to 1.86635086..."
+    }
+   ]
+  },
+  {
+   "key": "buckling",
+   "unit": "m",
+   "expected": 1.72021576783,
+   "measured": 1.72258061486,
+   "deviation": 0.0013747386112,
+   "tolerance": 0.002,
+   "derived": false,
+   "setting": {},
+   "sources": [
+    {
+     "cite": "Wikipedia, “Buckling”, §Self-buckling (citing Kato 1915, Ratzersdorfer 1936, Cox & McCarthy 1998)",
+     "url": "https://en.wikipedia.org/wiki/Buckling",
+     "quote": "A free-standing, vertical column, with density ρ, Young's modulus E, and cross-sectional area A, will buckle under its own weight if its height exceeds a certain critical value: h_crit = (9B²/4 · EI/(ρgA))^(1/3) … B is the first zero of the Bessel function of the first kind of order −1/3, which is equal to 1.86635086..."
+    }
+   ]
+  },
+  {
+   "key": "in_step",
+   "unit": "mm",
+   "expected": 78.2991770807,
+   "measured": 78.2991646892,
+   "deviation": 1.58257581384e-07,
+   "tolerance": 1e-05,
+   "derived": true,
+   "setting": {
+    "drive_hz": 2.0932527625364954,
+    "damping_ratio": 0.01
+   },
+   "sources": [
+    {
+     "cite": "Wikipedia, “Harmonic oscillator”, §Sinusoidal driving force",
+     "url": "https://en.wikipedia.org/wiki/Harmonic_oscillator",
+     "quote": "d²x/dt² + 2ζω₀ dx/dt + ω₀²x = (1/m)F₀ sin(ωt) … The steady-state solution is proportional to the driving force with an induced phase change φ: x(t) = F₀/(m Z_m ω) sin(ωt + φ), where Z_m = √((2ω₀ζ)² + (1/ω²)(ω₀² − ω²)²)"
+    },
+    {
+     "cite": "Wikipedia, “Euler–Bernoulli beam theory”, §Dynamic beam equation, Free vibration, “Example: Cantilevered beam”",
+     "url": "https://en.wikipedia.org/wiki/Euler%E2%80%93Bernoulli_beam_theory",
+     "quote": "ŵ_n = A₁[(cosh β_n x − cos β_n x) + (cos β_n L + cosh β_n L)/(sin β_n L + sinh β_n L)(sin β_n x − sinh β_n x)]"
+    },
+    {
+     "cite": "T. Irvine, “Effective Modal Mass & Modal Participation Factors”, Rev. I (Vibrationdata, 2015), App. C, Eq. (C-1), p. 18, and Table D-2, p. 20",
+     "url": "https://www.vibrationdata.com/tutorials2/ModalMass.pdf",
+     "quote": "The participation factor is Γ_n = ∫₀ᴸ m(x) Y_n(x) dx (C-1) … Table D-2. Bending Vibration, Fixed-Free Beam … 1 … [1.87510/L]² √(EI/ρ) … 0.7830 √(ρL) … 0.6131 ρL"
+    }
+   ]
+  },
+  {
+   "key": "neighbour",
+   "unit": "mm",
+   "expected": 3.86230764605,
+   "measured": 3.86233262283,
+   "deviation": 6.46680279279e-06,
+   "tolerance": 5e-05,
+   "derived": true,
+   "setting": {
+    "drive_hz": 2.0932527625364954,
+    "damping_ratio": 0.01
+   },
+   "sources": [
+    {
+     "cite": "Wikipedia, “Harmonic oscillator”, §Sinusoidal driving force",
+     "url": "https://en.wikipedia.org/wiki/Harmonic_oscillator",
+     "quote": "d²x/dt² + 2ζω₀ dx/dt + ω₀²x = (1/m)F₀ sin(ωt) … The steady-state solution is proportional to the driving force with an induced phase change φ: x(t) = F₀/(m Z_m ω) sin(ωt + φ), where Z_m = √((2ω₀ζ)² + (1/ω²)(ω₀² − ω²)²)"
+    },
+    {
+     "cite": "Wikipedia, “Euler–Bernoulli beam theory”, §Dynamic beam equation, Free vibration, “Example: Cantilevered beam”",
+     "url": "https://en.wikipedia.org/wiki/Euler%E2%80%93Bernoulli_beam_theory",
+     "quote": "ŵ_n = A₁[(cosh β_n x − cos β_n x) + (cos β_n L + cosh β_n L)/(sin β_n L + sinh β_n L)(sin β_n x − sinh β_n x)]"
+    },
+    {
+     "cite": "T. Irvine, “Effective Modal Mass & Modal Participation Factors”, Rev. I (Vibrationdata, 2015), App. C, Eq. (C-1), p. 18, and Table D-2, p. 20",
+     "url": "https://www.vibrationdata.com/tutorials2/ModalMass.pdf",
+     "quote": "The participation factor is Γ_n = ∫₀ᴸ m(x) Y_n(x) dx (C-1) … Table D-2. Bending Vibration, Fixed-Free Beam … 1 … [1.87510/L]² √(EI/ρ) … 0.7830 √(ρL) … 0.6131 ρL"
+    }
+   ]
+  },
+  {
+   "key": "growth",
+   "unit": "",
+   "expected": 15.8419584683,
+   "measured": 15.8419601965,
+   "deviation": 1.09092892738e-07,
+   "tolerance": 1e-05,
+   "derived": true,
+   "setting": {
+    "drive_hz": 2.0932527625364954,
+    "damping_ratio": 0.01
+   },
+   "sources": [
+    {
+     "cite": "Wikipedia, “Harmonic oscillator”, §Damped harmonic oscillator and §Sinusoidal driving force",
+     "url": "https://en.wikipedia.org/wiki/Harmonic_oscillator",
+     "quote": "The angular frequency of the underdamped harmonic oscillator is given by ω₁ = ω₀√(1 − ζ²), the exponential decay of the underdamped harmonic oscillator is given by λ = ω₀ζ. … The general solution is a sum of a transient solution that depends on initial conditions, and a steady state … The transient solutions are the same as the unforced (F₀ = 0) damped harmonic oscillator"
+    },
+    {
+     "cite": "Wikipedia, “Harmonic oscillator”, §Sinusoidal driving force",
+     "url": "https://en.wikipedia.org/wiki/Harmonic_oscillator",
+     "quote": "d²x/dt² + 2ζω₀ dx/dt + ω₀²x = (1/m)F₀ sin(ωt) … The steady-state solution is proportional to the driving force with an induced phase change φ: x(t) = F₀/(m Z_m ω) sin(ωt + φ), where Z_m = √((2ω₀ζ)² + (1/ω²)(ω₀² − ω²)²)"
+    }
+   ]
+  }
+ ],
+ "sky": [
+  {
+   "key": "rayleigh",
+   "unit": "",
+   "expected": 4.35314738607,
+   "measured": 4.35314738607,
+   "deviation": 4.08062645681e-16,
+   "tolerance": 1e-12,
+   "derived": false,
+   "setting": {
+    "cloudiness_per_m": 1.5,
+    "length_m": 1.0
+   },
+   "sources": [
+    {
+     "cite": "Wikipedia, “Rayleigh scattering”, introduction",
+     "url": "https://en.wikipedia.org/wiki/Rayleigh_scattering",
+     "quote": "the amount of scattering is inversely proportional to the fourth power of the wavelength (e.g., a blue color is scattered much more than a red color as light propagates through air)"
+    }
+   ]
+  },
+  {
+   "key": "light_kept",
+   "unit": "",
+   "expected": 1.0,
+   "measured": 1.0,
+   "deviation": 4.21884749358e-14,
+   "tolerance": 1e-11,
+   "derived": true,
+   "setting": {
+    "cloudiness_per_m": 1.5,
+    "length_m": 1.0
+   },
+   "sources": [
+    {
+     "cite": "Wikipedia, “Beer–Lambert law”, §Derivation and §History",
+     "url": "https://en.wikipedia.org/wiki/Beer%E2%80%93Lambert_law",
+     "quote": "The radiant flux of the light that emerges from a slice is reduced, compared to that of the light that entered, by dΦe(z) = −μ(z)Φe(z) dz, where μ is the (Napierian) attenuation coefficient … As long as μ is constant along a distance d, the exponential attenuation law, I = I0 e^{−μd} follows from integration."
+    }
+   ]
+  },
+  {
+   "key": "high_sun",
+   "unit": "",
+   "expected": 1.15470053838,
+   "measured": 1.15399223336,
+   "deviation": 0.000613410137116,
+   "tolerance": 0.001,
+   "derived": false,
+   "setting": {
+    "height_deg": 60.0
+   },
+   "sources": [
+    {
+     "cite": "Wikipedia, “Air mass (astronomy)”, §Plane-parallel atmosphere",
+     "url": "https://en.wikipedia.org/wiki/Air_mass_(astronomy)",
+     "quote": "When the zenith angle is small to moderate, a good approximation is given by assuming a homogeneous plane-parallel atmosphere (i.e., one in which density is constant and Earth's curvature is ignored). The air mass X then is simply the secant of the zenith angle z: X = sec z."
+    }
+   ]
+  },
+  {
+   "key": "sky_noon",
+   "unit": "",
+   "expected": 0.0880329325949,
+   "measured": 0.0880341622852,
+   "deviation": 1.39685250702e-05,
+   "tolerance": 3e-05,
+   "derived": true,
+   "setting": {
+    "height_deg": 90.0,
+    "ozone": "off"
+   },
+   "sources": [
+    {
+     "cite": "C. Mobley, Ocean Optics Web Book, “The Single-Scattering Approximation”, Eq. (14) and (16)",
+     "url": "https://www.oceanopticsbook.info/view/radiative-transfer-theory/level-2/the-single-scattering-approximation",
+     "quote": "L_d^(SSA)(ζ, μ, ϕ) = ω_o E_d(0) β̃(μ_sw, ϕ_sw → μ, ϕ) · 1/(μ_sw − μ) · (e^{−ζ/μ_sw} − e^{−ζ/μ}) (14) if μ > 0 and μ ≠ μ_sw … It is easy to show that lim_{μ→μ_sw} 1/(μ_sw − μ) (e^{−ζ/μ_sw} − e^{−ζ/μ}) = ζ/μ_sw² e^{−ζ/μ_sw}"
+    }
+   ]
+  },
+  {
+   "key": "ozone_horizon",
+   "unit": "",
+   "expected": 12.0642399448,
+   "measured": 12.0642399448,
+   "deviation": 7.36207522203e-15,
+   "tolerance": 1e-12,
+   "derived": true,
+   "setting": {
+    "height_deg": 0.0,
+    "ozone": "on"
+   },
+   "sources": [
+    {
+     "cite": "Wikipedia, “Air mass (astronomy)”, §Variable-density atmosphere",
+     "url": "https://en.wikipedia.org/wiki/Air_mass_(astronomy)",
+     "quote": "The absolute air mass for the geometrical light path discussed above, becomes, for a sea-level observer, σ = ∫₀^{y_atm} ρ (R_E + y) dy / √(R_E² cos² z + 2 R_E y + y²)"
+    }
+   ]
+  }
+ ],
+ "sphere": [
+  {
+   "key": "small_swing",
+   "unit": "Hz",
+   "expected": 0.992842133249,
+   "measured": 0.992766524381,
+   "deviation": 7.61539672156e-05,
+   "tolerance": 0.0002,
+   "derived": false,
+   "setting": {
+    "shell_radius_m": 0.2,
+    "ball_radius_m": 0.02,
+    "ball": "solid",
+    "rolling_resistance": 0.0,
+    "start_angle_deg": 2.0,
+    "start_speed_m_s": 0.0
+   },
+   "sources": [
+    {
+     "cite": "LibreTexts, General Physics I (Prince George's CC), §44.5 “Ball Rolling in a Bowl”",
+     "url": "https://phys.libretexts.org/Courses/Prince_Georges_Community_College/General_Physics_I%3A_Classical_Mechanics/44%3A_Rolling_Bodies/44.05%3A_Ball_Rolling_in_a_Bowl",
+     "quote": "d²θ/dt² = −g/((β+1)(R−r)) sin θ … L_eff = (β+1)(R−r) … T = 2π√(7(R−r)/5g)"
+    },
+    {
+     "cite": "OpenStax, University Physics Volume 1, §11.1 Rolling Motion, Eq. 11.4",
+     "url": "https://openstax.org/books/university-physics-volume-1/pages/11-1-rolling-motion",
+     "quote": "a_CM = mg sin θ / (m + I_CM/r²)"
+    }
+   ]
+  },
+  {
+   "key": "hollow_ball",
+   "unit": "Hz",
+   "expected": 0.909954845751,
+   "measured": 0.909885549231,
+   "deviation": 7.61538008932e-05,
+   "tolerance": 0.0002,
+   "derived": true,
+   "setting": {
+    "shell_radius_m": 0.2,
+    "ball_radius_m": 0.02,
+    "ball": "hollow",
+    "rolling_resistance": 0.0,
+    "start_angle_deg": 2.0,
+    "start_speed_m_s": 0.0
+   },
+   "sources": [
+    {
+     "cite": "LibreTexts, General Physics I (Prince George's CC), §44.5 “Ball Rolling in a Bowl”",
+     "url": "https://phys.libretexts.org/Courses/Prince_Georges_Community_College/General_Physics_I%3A_Classical_Mechanics/44%3A_Rolling_Bodies/44.05%3A_Ball_Rolling_in_a_Bowl",
+     "quote": "d²θ/dt² = −g/((β+1)(R−r)) sin θ … L_eff = (β+1)(R−r) … T = 2π√(7(R−r)/5g)"
+    },
+    {
+     "cite": "Wikipedia, “List of moments of inertia”, hollow sphere (citing Serway, Physics for Scientists and Engineers, 2nd ed., p. 202)",
+     "url": "https://en.wikipedia.org/wiki/List_of_moments_of_inertia",
+     "quote": "I = 2/3 m r²"
+    }
+   ]
+  },
+  {
+   "key": "wide_swing",
+   "unit": "Hz",
+   "expected": 0.841148846423,
+   "measured": 0.841148846476,
+   "deviation": 6.30005409505e-11,
+   "tolerance": 1e-05,
+   "derived": true,
+   "setting": {
+    "shell_radius_m": 0.2,
+    "ball_radius_m": 0.02,
+    "ball": "solid",
+    "rolling_resistance": 0.0,
+    "start_angle_deg": 90.0,
+    "start_speed_m_s": 0.0
+   },
+   "sources": [
+    {
+     "cite": "LibreTexts, General Physics I (Prince George's CC), §44.5 “Ball Rolling in a Bowl”",
+     "url": "https://phys.libretexts.org/Courses/Prince_Georges_Community_College/General_Physics_I%3A_Classical_Mechanics/44%3A_Rolling_Bodies/44.05%3A_Ball_Rolling_in_a_Bowl",
+     "quote": "d²θ/dt² = −g/((β+1)(R−r)) sin θ … L_eff = (β+1)(R−r) … T = 2π√(7(R−r)/5g)"
+    },
+    {
+     "cite": "NIST Digital Library of Mathematical Functions, §22.19(i), Eq. 22.19.1",
+     "url": "https://dlmf.nist.gov/22.19",
+     "quote": "The period is 4K(sin(α/2))"
+    },
+    {
+     "cite": "NIST Digital Library of Mathematical Functions, §19.8, Eq. 19.8.5",
+     "url": "https://dlmf.nist.gov/19.8",
+     "quote": "K(k) = π/(2M(1,k′))"
+    }
+   ]
+  },
+  {
+   "key": "circle_any_size",
+   "unit": "cm",
+   "expected": 4.43580975699,
+   "measured": 4.43580975473,
+   "deviation": 5.10111192452e-10,
+   "tolerance": 1e-05,
+   "derived": true,
+   "setting": {
+    "shell_radius_m": 0.5,
+    "ball_radius_m": 0.02,
+    "ball": "solid",
+    "rolling_resistance": 0.0,
+    "start_angle_deg": 84.69757657542213,
+    "start_speed_m_s": 6.006046310196329
+   },
+   "sources": [
+    {
+     "cite": "Wikipedia, “Conical pendulum” (citing Serway, Physics for Scientists and Engineers, 1986, p. 109)",
+     "url": "https://en.wikipedia.org/wiki/Conical_pendulum",
+     "quote": "t = 2π√(L cos θ / g)"
+    },
+    {
+     "cite": "Borisov, Mamaev, Kilin, “The rolling motion of a ball on a surface”, Regul. Chaotic Dyn. 7 (2002) 201, §3, Eq. 3.38 (Routh’s integrals)",
+     "url": "https://arxiv.org/abs/nlin/0303024",
+     "quote": "They possess the integrals H = ½(M, ω) + V(γ), F₁ = (M, γ) = c, F₂ = γ² = 1"
+    }
+   ]
+  },
+  {
+   "key": "wobble",
+   "unit": "Hz",
+   "expected": 1.85743755089,
+   "measured": 1.85774946921,
+   "deviation": 0.000167929376138,
+   "tolerance": 0.001,
+   "derived": true,
+   "setting": {
+    "shell_radius_m": 0.2,
+    "ball_radius_m": 0.02,
+    "ball": "solid",
+    "rolling_resistance": 0.0,
+    "start_angle_deg": 60.3,
+    "start_speed_m_s": 1.375239070125627
+   },
+   "sources": [
+    {
+     "cite": "Stony Brook University, Physics Comprehensive Exam, Spring 2020, Classical Mechanics 1, Eq. 25",
+     "url": "https://www.stonybrook.edu/commcms/grad-physics-astronomy/resources/_pdfs/ComprehensiveS2020.pdf",
+     "quote": "ω_c = √((g cos θ_c/ℓ)(4 + tan² θ_c))"
+    },
+    {
+     "cite": "Borisov, Mamaev, Kilin, “The rolling motion of a ball on a surface”, Regul. Chaotic Dyn. 7 (2002) 201, §3, Eq. 3.38 (Routh’s integrals)",
+     "url": "https://arxiv.org/abs/nlin/0303024",
+     "quote": "They possess the integrals H = ½(M, ω) + V(γ), F₁ = (M, γ) = c, F₂ = γ² = 1"
+    }
+   ]
+  },
+  {
+   "key": "energy",
+   "unit": "J/kg",
+   "expected": 0.9455985,
+   "measured": 0.945598499977,
+   "deviation": 2.43397059474e-11,
+   "tolerance": 1e-08,
+   "derived": false,
+   "setting": {
+    "shell_radius_m": 0.2,
+    "ball_radius_m": 0.02,
+    "ball": "solid",
+    "rolling_resistance": 0.0,
+    "start_angle_deg": 60.0,
+    "start_speed_m_s": 0.3
+   },
+   "sources": [
+    {
+     "cite": "OpenStax, University Physics Volume 1, §11.1, “Conservation of Mechanical Energy in Rolling Motion”",
+     "url": "https://openstax.org/books/university-physics-volume-1/pages/11-1-rolling-motion",
+     "quote": "the total mechanical energy of an object rolling is E_T = ½mv_CM² + ½I_CMω² + mgh"
+    }
+   ]
+  },
+  {
+   "key": "grip",
+   "unit": "",
+   "expected": 0.494871659305,
+   "measured": 0.494871659305,
+   "deviation": 1.12172823372e-16,
+   "tolerance": 1e-06,
+   "derived": true,
+   "setting": {
+    "shell_radius_m": 0.2,
+    "ball_radius_m": 0.02,
+    "ball": "solid",
+    "rolling_resistance": 0.0,
+    "start_angle_deg": 60.0,
+    "start_speed_m_s": 0.0
+   },
+   "sources": [
+    {
+     "cite": "OpenStax, University Physics Volume 1, §11.1, Example 11.1",
+     "url": "https://openstax.org/books/university-physics-volume-1/pages/11-1-rolling-motion",
+     "quote": "μ_s ≥ tan θ / (1 + mr²/I_CM)"
+    }
+   ]
+  },
+  {
+   "key": "leaves_wall",
+   "unit": "°",
+   "expected": 107.104635177,
+   "measured": 107.104635529,
+   "deviation": 3.28773665324e-09,
+   "tolerance": 0.0001,
+   "derived": true,
+   "setting": {
+    "shell_radius_m": 0.2,
+    "ball_radius_m": 0.02,
+    "ball": "solid",
+    "rolling_resistance": 0.0,
+    "start_angle_deg": 0.0,
+    "start_speed_m_s": 1.944881744477026
+   },
+   "sources": [
+    {
+     "cite": "javalab.org, “Force to move the pendulum”",
+     "url": "https://javalab.org/en/pendulum_en",
+     "quote": "½mv² = mgl(cos θ – cos θ_m) … = mg(3cos θ – 2cos θ_m)"
+    },
+    {
+     "cite": "OpenStax, University Physics Volume 1, §11.1, “Conservation of Mechanical Energy in Rolling Motion”",
+     "url": "https://openstax.org/books/university-physics-volume-1/pages/11-1-rolling-motion",
+     "quote": "the total mechanical energy of an object rolling is E_T = ½mv_CM² + ½I_CMω² + mgh"
+    }
+   ]
+  }
+ ],
+ "waterwheel": [
+  {
+   "key": "start",
+   "unit": "1/s",
+   "expected": 2.36554469023,
+   "measured": 2.3654773372,
+   "deviation": 2.84725259355e-05,
+   "tolerance": 0.0001,
+   "derived": false,
+   "setting": {
+    "sigma": 10.0,
+    "rho": 28.0
+   },
+   "sources": [
+    {
+     "cite": "O. Knill, “The Lorenz system”, Harvard Math 118r handout (spring 2005), “The origin” (s there is σ)",
+     "url": "https://abel.math.harvard.edu/archive/118r_spring_05/handouts/lorentz.pdf",
+     "quote": "At the equilibrium point (0, 0, 0), the Jacobean DF (0, 0, 0) is block diagonal. The eigenvalues are −b, (−1−s±√((1−s)²+4rs))/2."
+    },
+    {
+     "cite": "University of Warwick, CO903 Complexity and Chaos in Dynamical Systems, §4.1 Lorenz equations, “Linear stability of the origin”, p. 3",
+     "url": "https://warwick.ac.uk/fac/cross_fac/complexity/study/msc_and_phd/co903/co903online/chaos_lorenz13.pdf",
+     "quote": "The linearisation at the origin gives ẋ = σ(y − x), ẏ = rx − y, ż = −bz … with tr(A) = −σ − 1 < 0 and det(A) = σ(1 − r)."
+    }
+   ]
+  },
+  {
+   "key": "steady",
+   "unit": "1/min",
+   "expected": 3.81971863421,
+   "measured": 3.81972426352,
+   "deviation": 1.47375068625e-06,
+   "tolerance": 1e-05,
+   "derived": true,
+   "setting": {
+    "sigma": 10.0,
+    "rho": 5.0
+   },
+   "sources": [
+    {
+     "cite": "University of Warwick, CO903 Complexity and Chaos in Dynamical Systems, §4.1 Lorenz equations, “Fixed points”, p. 3",
+     "url": "https://warwick.ac.uk/fac/cross_fac/complexity/study/msc_and_phd/co903/co903online/chaos_lorenz13.pdf",
+     "quote": "a symmetric pair of fixed points C⁺ ≡ (x* = y* = √(b(r − 1)), z* = r − 1) C⁻ ≡ (x* = y* = −√(b(r − 1)), z* = r − 1) when r > 1."
+    },
+    {
+     "cite": "L. Illing, R. F. Fordyce, A. M. Saunders, R. Ormond, “Experiments with a Malkus-Lorenz water wheel: Chaos and Synchronization”, Am. J. Phys. (2012), doi:10.1119/1.3680533, §III.A, after Eq. (22) (p. 5 of arXiv:1202.5508v1)",
+     "url": "https://arxiv.org/abs/1202.5508",
+     "quote": "Equation (22) is identical to the Lorenz equations with the third parameter (often denoted as b) equal one."
+    }
+   ]
+  },
+  {
+   "key": "threshold",
+   "unit": "",
+   "expected": 21.9230769231,
+   "measured": 21.9230769231,
+   "deviation": 0.0,
+   "tolerance": 1e-12,
+   "derived": true,
+   "setting": {
+    "sigma": 15.0,
+    "rho": 28.0
+   },
+   "sources": [
+    {
+     "cite": "University of Warwick, CO903 Complexity and Chaos in Dynamical Systems, §4.1 Lorenz equations, “Stability of C⁺ and C⁻”, p. 3",
+     "url": "https://warwick.ac.uk/fac/cross_fac/complexity/study/msc_and_phd/co903/co903online/chaos_lorenz13.pdf",
+     "quote": "We can find that they are linearly stable for 1 < r < r_H = σ(σ + b + 3)/(σ − b − 1) (assuming σ − b − 1 > 0). At r = r_H - subcritical Hopf bifurcation"
+    },
+    {
+     "cite": "Wikipedia, “Lorenz system”, §Analysis (citing Hirsch, Smale, Devaney 2003, pp. 307–308)",
+     "url": "https://en.wikipedia.org/wiki/Lorenz_system",
+     "quote": "This pair of equilibrium points is stable only if ρ < σ (σ + β + 3)/(σ − β − 1)"
+    },
+    {
+     "cite": "L. Illing, R. F. Fordyce, A. M. Saunders, R. Ormond, “Experiments with a Malkus-Lorenz water wheel: Chaos and Synchronization”, Am. J. Phys. (2012), doi:10.1119/1.3680533, §III.A, after Eq. (22) (p. 5 of arXiv:1202.5508v1)",
+     "url": "https://arxiv.org/abs/1202.5508",
+     "quote": "Equation (22) is identical to the Lorenz equations with the third parameter (often denoted as b) equal one."
+    }
+   ]
+  },
+  {
+   "key": "volume",
+   "unit": "%",
+   "expected": 0.247875217667,
+   "measured": 0.24788120505,
+   "deviation": 2.41548274812e-05,
+   "tolerance": 0.0001,
+   "derived": true,
+   "setting": {
+    "sigma": 10.0,
+    "rho": 28.0
+   },
+   "sources": [
+    {
+     "cite": "University of Warwick, CO903 Complexity and Chaos in Dynamical Systems, §4.1 Lorenz equations, “Volume contraction”, p. 2",
+     "url": "https://warwick.ac.uk/fac/cross_fac/complexity/study/msc_and_phd/co903/co903online/chaos_lorenz13.pdf",
+     "quote": "Since the divergence is constant we have V̇ = −(σ + 1 + b)V with solution V(t) = V(0)e^(−(σ+1+b)t). Thus volumes in phase space shrink exponentially fast."
+    },
+    {
+     "cite": "O. Knill, “The Lorenz system”, Harvard Math 118r handout (spring 2005), “Volume”",
+     "url": "https://abel.math.harvard.edu/archive/118r_spring_05/handouts/lorentz.pdf",
+     "quote": "The Lorenz flow is dissipative: indeed, the divergence of F is negative. The flow contracts volume. div(F) = −1 − σ − b"
+    },
+    {
+     "cite": "L. Illing, R. F. Fordyce, A. M. Saunders, R. Ormond, “Experiments with a Malkus-Lorenz water wheel: Chaos and Synchronization”, Am. J. Phys. (2012), doi:10.1119/1.3680533, §III.A, after Eq. (22) (p. 5 of arXiv:1202.5508v1)",
+     "url": "https://arxiv.org/abs/1202.5508",
+     "quote": "Equation (22) is identical to the Lorenz equations with the third parameter (often denoted as b) equal one."
+    }
+   ]
+  },
+  {
+   "key": "wheel",
+   "unit": "1/min",
+   "expected": 19.0378439776,
+   "measured": 19.0378027326,
+   "deviation": 2.16647567191e-06,
+   "tolerance": 5e-05,
+   "derived": true,
+   "setting": {
+    "sigma": 10.0,
+    "rho": 28.0
+   },
+   "sources": [
+    {
+     "cite": "L. Illing, R. F. Fordyce, A. M. Saunders, R. Ormond, “Experiments with a Malkus-Lorenz water wheel: Chaos and Synchronization”, Am. J. Phys. (2012), doi:10.1119/1.3680533, §III.A, Eq. (19) (p. 4 of arXiv:1202.5508v1)",
+     "url": "https://arxiv.org/abs/1202.5508",
+     "quote": "dω/dt = −(κ + Q_tot R²)/I_tot ω(t) + π R g sin α/I_tot a₁(t), da₁/dt = −k a₁(t) + ω(t) b₁(t), db₁/dt = q₁ − k b₁(t) − ω(t) a₁(t)"
+    },
+    {
+     "cite": "L. Illing, R. F. Fordyce, A. M. Saunders, R. Ormond, “Experiments with a Malkus-Lorenz water wheel: Chaos and Synchronization”, Am. J. Phys. (2012), doi:10.1119/1.3680533, §III.A, after Eq. (22) (p. 5 of arXiv:1202.5508v1)",
+     "url": "https://arxiv.org/abs/1202.5508",
+     "quote": "Equation (22) is identical to the Lorenz equations with the third parameter (often denoted as b) equal one."
+    }
+   ]
+  }
+ ],
+ "wave": [
+  {
+   "key": "textbook_lengths",
+   "unit": "cm",
+   "expected": 21.1658993375,
+   "measured": 21.1658993375,
+   "deviation": 0.0,
+   "tolerance": 1e-12,
+   "derived": false,
+   "setting": {
+    "count": 15,
+    "cycle_s": 60.0,
+    "longest_swings": 51,
+    "tuned_deg": 0.0,
+    "amplitude_deg": 15.0
+   },
+   "sources": [
+    {
+     "cite": "Wikipedia, “Pendulum wave”, §Design (the period after Halliday, Resnick, Walker, Fundamentals of Physics, 5th ed., p. 381)",
+     "url": "https://en.wikipedia.org/wiki/Pendulum_wave",
+     "quote": "For small perturbations, the period of a pendulum is given by T = 2π√(L/g) … As t/n is the period of a pendulum completing n oscillations in t, t/n = 2π√(L/g) ∴ L = g(t/(2πn))²"
+    },
+    {
+     "cite": "Wikipedia, “Pendulum wave”, §Design (citing Harvard Natural Sciences Lecture Demonstrations, “Pendulum Waves”)",
+     "url": "https://en.wikipedia.org/wiki/Pendulum_wave",
+     "quote": "in a given time t, the first pendulum completes n oscillations, and each subsequent one completes one more oscillation than the previous. As all pendulums are started together, their relative phases change continuously, but after time t, they come back in sync and the sequence repeats."
+    }
+   ]
+  },
+  {
+   "key": "tuned_lengths",
+   "unit": "cm",
+   "expected": 34.0875400444,
+   "measured": 34.0875400444,
+   "deviation": 0.0,
+   "tolerance": 1e-12,
+   "derived": true,
+   "setting": {
+    "count": 15,
+    "cycle_s": 60.0,
+    "longest_swings": 51,
+    "tuned_deg": 15.0,
+    "amplitude_deg": 15.0
+   },
+   "sources": [
+    {
+     "cite": "Wikipedia, “Pendulum wave”, §Design (the period after Halliday, Resnick, Walker, Fundamentals of Physics, 5th ed., p. 381)",
+     "url": "https://en.wikipedia.org/wiki/Pendulum_wave",
+     "quote": "For small perturbations, the period of a pendulum is given by T = 2π√(L/g) … As t/n is the period of a pendulum completing n oscillations in t, t/n = 2π√(L/g) ∴ L = g(t/(2πn))²"
+    },
+    {
+     "cite": "NIST Digital Library of Mathematical Functions, §22.19(i), after Eq. 22.19.2",
+     "url": "https://dlmf.nist.gov/22.19",
+     "quote": "The period is 4K(sin(½α))"
+    },
+    {
+     "cite": "NIST Digital Library of Mathematical Functions, §19.2(ii), Eqs. 19.2.4 and 19.2.8",
+     "url": "https://dlmf.nist.gov/19.2",
+     "quote": "F(φ,k) = ∫₀^φ dθ/√(1 − k² sin²θ) … K(k) = F(π/2,k)"
+    }
+   ]
+  },
+  {
+   "key": "together",
+   "unit": "°",
+   "expected": 0.0,
+   "measured": 1.7763568394e-15,
+   "deviation": 1.7763568394e-15,
+   "tolerance": 1e-12,
+   "derived": false,
+   "setting": {
+    "count": 15,
+    "cycle_s": 60.0,
+    "longest_swings": 51,
+    "tuned_deg": 15.0,
+    "amplitude_deg": 15.0,
+    "time_s": 60.0
+   },
+   "sources": [
+    {
+     "cite": "Wikipedia, “Pendulum wave”, §Design (citing Harvard Natural Sciences Lecture Demonstrations, “Pendulum Waves”)",
+     "url": "https://en.wikipedia.org/wiki/Pendulum_wave",
+     "quote": "in a given time t, the first pendulum completes n oscillations, and each subsequent one completes one more oscillation than the previous. As all pendulums are started together, their relative phases change continuously, but after time t, they come back in sync and the sequence repeats."
+    },
+    {
+     "cite": "NIST Digital Library of Mathematical Functions, §22.19(i), after Eq. 22.19.2",
+     "url": "https://dlmf.nist.gov/22.19",
+     "quote": "The period is 4K(sin(½α))"
+    }
+   ]
+  },
+  {
+   "key": "third",
+   "unit": "°",
+   "expected": -7.50806647494,
+   "measured": -7.50806647494,
+   "deviation": 3.47791879924e-13,
+   "tolerance": 1e-11,
+   "derived": true,
+   "setting": {
+    "count": 15,
+    "cycle_s": 60.0,
+    "longest_swings": 51,
+    "tuned_deg": 15.0,
+    "amplitude_deg": 15.0,
+    "time_s": 20.0
+   },
+   "sources": [
+    {
+     "cite": "NIST Digital Library of Mathematical Functions, §22.19(i), Eqs. 22.19.1 and 22.19.2",
+     "url": "https://dlmf.nist.gov/22.19",
+     "quote": "d²θ(t)/dt² = −sin θ(t) … sin(½θ(t)) = sin(½α) sn(t + K, sin(½α)) … for an initial angular displacement α, with dθ/dt = 0 at time 0"
+    },
+    {
+     "cite": "NIST Digital Library of Mathematical Functions, §22.16(i), Eqs. 22.16.2 and 22.16.10–22.16.12",
+     "url": "https://dlmf.nist.gov/22.16",
+     "quote": "am(x + 2K,k) = am(x,k) + π … If −K ≤ x ≤ K, then the following four equations are equivalent: x = F(φ,k), am(x,k) = φ, sn(x,k) = sin φ = sin(am(x,k))"
+    },
+    {
+     "cite": "NIST Digital Library of Mathematical Functions, §19.2(ii), Eqs. 19.2.4 and 19.2.8",
+     "url": "https://dlmf.nist.gov/19.2",
+     "quote": "F(φ,k) = ∫₀^φ dθ/√(1 − k² sin²θ) … K(k) = F(π/2,k)"
+    }
+   ]
+  },
+  {
+   "key": "textbook_skew",
+   "unit": "°",
+   "expected": 21.5821034895,
+   "measured": 21.5821034895,
+   "deviation": 5.18533705191e-14,
+   "tolerance": 1e-11,
+   "derived": true,
+   "setting": {
+    "count": 15,
+    "cycle_s": 60.0,
+    "longest_swings": 51,
+    "tuned_deg": 0.0,
+    "amplitude_deg": 15.0
+   },
+   "sources": [
+    {
+     "cite": "Wikipedia, “Pendulum wave”, §Design (citing Harvard Natural Sciences Lecture Demonstrations, “Pendulum Waves”)",
+     "url": "https://en.wikipedia.org/wiki/Pendulum_wave",
+     "quote": "in a given time t, the first pendulum completes n oscillations, and each subsequent one completes one more oscillation than the previous. As all pendulums are started together, their relative phases change continuously, but after time t, they come back in sync and the sequence repeats."
+    },
+    {
+     "cite": "NIST Digital Library of Mathematical Functions, §22.19(i), after Eq. 22.19.2",
+     "url": "https://dlmf.nist.gov/22.19",
+     "quote": "The period is 4K(sin(½α))"
+    },
+    {
+     "cite": "NIST Digital Library of Mathematical Functions, §19.2(ii), Eqs. 19.2.4 and 19.2.8",
+     "url": "https://dlmf.nist.gov/19.2",
+     "quote": "F(φ,k) = ∫₀^φ dθ/√(1 − k² sin²θ) … K(k) = F(π/2,k)"
+    }
+   ]
+  }
+ ],
+ "well": [
+  {
+   "key": "kepler_period",
+   "unit": "s",
+   "expected": 5.12787345948,
+   "measured": 5.12787345948,
+   "deviation": 1.26959993608e-13,
+   "tolerance": 1e-10,
+   "derived": true,
+   "setting": {
+    "speed_m_s": 0.44110813740951194,
+    "aim_deg": 0.0,
+    "rolling_resistance": 0.0
+   },
+   "sources": [
+    {
+     "cite": "OpenStax, University Physics Volume 1, §13.5 Kepler’s Laws of Planetary Motion, Eq. 13.11",
+     "url": "https://openstax.org/books/university-physics-volume-1/pages/13-5-keplers-laws-of-planetary-motion",
+     "quote": "Kepler’s third law states that the square of the period is proportional to the cube of the semi-major axis of the orbit. … For a circular orbit, the semi-major axis (a) is the same as the radius for the orbit. … T² = (4π²/GM) a³"
+    },
+    {
+     "cite": "OpenStax, University Physics Volume 1, §11.1 Rolling Motion, Eq. 11.4",
+     "url": "https://openstax.org/books/university-physics-volume-1/pages/11-1-rolling-motion",
+     "quote": "a_CM = mg sin θ / (m + I_CM/r²)"
+    },
+    {
+     "cite": "Wikipedia, “List of moments of inertia”, solid sphere (citing Serway, Physics for Scientists and Engineers)",
+     "url": "https://en.wikipedia.org/wiki/List_of_moments_of_inertia",
+     "quote": "I = 2/5 m r²"
+    }
+   ]
+  },
+  {
+   "key": "equal_areas",
+   "unit": "m²/s",
+   "expected": 0.108,
+   "measured": 0.108,
+   "deviation": 5.94945903242e-14,
+   "tolerance": 1e-10,
+   "derived": true,
+   "setting": {
+    "speed_m_s": 0.3,
+    "aim_deg": 0.0,
+    "rolling_resistance": 0.0
+   },
+   "sources": [
+    {
+     "cite": "OpenStax, University Physics Volume 1, §13.5 Kepler’s Laws of Planetary Motion, “Kepler’s Second Law”",
+     "url": "https://openstax.org/books/university-physics-volume-1/pages/13-5-keplers-laws-of-planetary-motion",
+     "quote": "areal velocity = ΔA/Δt = L/2m. Since the angular momentum is constant, the areal velocity must also be constant. This is exactly Kepler’s second law."
+    }
+   ]
+  },
+  {
+   "key": "energy",
+   "unit": "J/kg",
+   "expected": -0.209406944444,
+   "measured": -0.209406944444,
+   "deviation": 4.38189541558e-13,
+   "tolerance": 1e-10,
+   "derived": false,
+   "setting": {
+    "speed_m_s": 0.3,
+    "aim_deg": 0.0,
+    "rolling_resistance": 0.0
+   },
+   "sources": [
+    {
+     "cite": "OpenStax, University Physics Volume 1, §11.1, “Conservation of Mechanical Energy in Rolling Motion”",
+     "url": "https://openstax.org/books/university-physics-volume-1/pages/11-1-rolling-motion",
+     "quote": "the total mechanical energy of an object rolling is E_T = ½mv_CM² + ½I_CMω² + mgh"
+    },
+    {
+     "cite": "Wikipedia, “List of moments of inertia”, solid sphere (citing Serway, Physics for Scientists and Engineers)",
+     "url": "https://en.wikipedia.org/wiki/List_of_moments_of_inertia",
+     "quote": "I = 2/5 m r²"
+    }
+   ]
+  },
+  {
+   "key": "brake",
+   "unit": "mW/kg",
+   "expected": 8.66262933622,
+   "measured": 8.66246817238,
+   "deviation": 1.86044937975e-05,
+   "tolerance": 3e-05,
+   "derived": true,
+   "setting": {
+    "speed_m_s": 0.44110813740951194,
+    "aim_deg": 0.0,
+    "rolling_resistance": 0.002
+   },
+   "sources": [
+    {
+     "cite": "Wikipedia, “Rolling resistance”, §Rolling resistance coefficient",
+     "url": "https://en.wikipedia.org/wiki/Rolling_resistance",
+     "quote": "The “rolling resistance coefficient” is defined by the following equation: F = C_rr N … N is the normal force, the force perpendicular to the surface on which the wheel is rolling."
+    },
+    {
+     "cite": "OpenStax, University Physics Volume 1, §6.3 Centripetal Force, “Banked curves”",
+     "url": "https://openstax.org/books/university-physics-volume-1/pages/6-3-centripetal-force",
+     "quote": "Only the normal force has a horizontal component, so this must equal the centripetal force, that is, N sin θ = mv²/r. … N cos θ = mg."
+    }
+   ]
+  }
+ ]
+}

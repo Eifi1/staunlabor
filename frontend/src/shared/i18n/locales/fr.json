@@ -40,6 +40,16 @@
       "feedback": "Une erreur, un point peu clair, ou une exposition que vous aimeriez voir ?",
       "issues": "Signalez-le sur GitHub",
       "source": "Voir le code source"
+    },
+    "nav": {
+      "label": "Navigation principale",
+      "exhibits": "Expositions",
+      "basics": "Bases",
+      "about": "À propos"
+    },
+    "search": {
+      "trigger": "Rechercher une exposition",
+      "placeholder": "Exposition, thème ou question …"
     }
   },
   "legal": {
@@ -68,7 +78,8 @@
         "entries": {
           "language": "La langue choisie",
           "look": "Le thème clair ou sombre",
-          "tried": "Les expositions que vous avez essayées, pour que l’aperçu puisse les cocher"
+          "tried": "Les expositions que vous avez essayées, pour que l’aperçu puisse les cocher",
+          "course": "Votre progression dans le cours sur les équations différentielles : les leçons que vous avez ouvertes, les exercices que vous avez résolus et les estimations que vous avez faites avant de calculer"
         },
         "tail": "Rien de tout cela ne sert à vous suivre. Votre navigateur envoie les jetons de connexion avec chaque requête vers votre compte ; le reste demeure dans votre navigateur. La déconnexion supprime les jetons de connexion, et tout cela disparaît lorsque vous effacez les données du site dans votre navigateur."
       },
@@ -87,23 +98,17 @@
   },
   "experiments": {
     "title": "Expériences",
-    "area": "Les expériences",
     "failed": "L’exposition n’a pas pu être calculée.",
     "overview": {
-      "short": "Aperçu",
-      "lead": "Des expositions interactives, calculées. Jouez le visiteur devant le jumeau de l’exposition, puis découvrez le calcul derrière ce que vous avez ressenti.",
+      "claim": "D’abord <em>jouer</em>, ensuite <em>calculer</em>.",
+      "lead": "Des expositions comme dans un centre de sciences, à essayer et à recalculer.",
       "how": "Chaque page commence par ce qui se trouve à l’exposition, vous laisse l’essayer, puis montre ce qui se passe et l’idée qui explique le tour. Chaque nombre vient du moteur de calcul de l’application et est garanti par ses tests.",
-      "open": "Ouvrir l’exposition",
       "coming": "En préparation",
       "credit": "La plupart des expositions s’inspirent d’expositions du Swiss Science Center Technorama, Winterthour.",
-      "daily": {
-        "eyebrow": "Expérience du jour",
+      "week": {
+        "eyebrow": "Expérience de la semaine",
         "open": "Essayez",
-        "today": "Aujourd’hui"
-      },
-      "history": {
-        "title": "Les expériences des derniers jours",
-        "open": "Jours précédents"
+        "current": "Cette semaine"
       },
       "all": "Toutes les expositions",
       "topics_label": "Filtrer par thème",
@@ -114,7 +119,26 @@
         "mark": "Essayée",
         "forget": "Oublier"
       },
-      "builds_on": "S’appuie sur :"
+      "builds_on": "S’appuie sur :",
+      "facts": {
+        "label": "Staunlabor en chiffres",
+        "exhibits": "Expositions",
+        "topics": "Thèmes",
+        "equations": "Équations",
+        "checked": "Vérifiées",
+        "languages": "Langues",
+        "promise": "0 cookie · 0 pistage · sans compte · libre et open source"
+      },
+      "selection": {
+        "title": "Expositions",
+        "lead": "Les {{count}} plus récentes. Un dessin s’anime dès que vous le pointez.",
+        "all": "Les {{count}} expositions"
+      },
+      "basics": {
+        "title": "Bases",
+        "lead": "Les mathématiques derrière les expositions, pas à pas : du bilan à l’oscillateur à deux masses.",
+        "all": "Vers le cours"
+      }
     },
     "topics": {
       "momentum": "Quantité de mouvement",
@@ -133,9 +157,13 @@
       "try_it": "Essayez",
       "what_happens": "Ce qui se passe",
       "sweet_spot": "Le tour",
-      "computed": "Comment c’est calculé"
+      "computed": "Comment c’est calculé",
+      "more_at": "En savoir plus sur l’exposition",
+      "next": "Exposition suivante : {{name}}",
+      "onward": "Autres expositions",
+      "held": "La réponse s'affiche ici dès que vous l'avez essayé.",
+      "show": "Afficher la réponse"
     },
-    "unchecked": "La vérification des calculs est encore en attente : les chiffres et les dessins de ces pages peuvent encore changer.",
     "play": {
       "pause": "Pause",
       "run": "Reprendre"
@@ -203,8 +231,8 @@
       },
       "cone": {
         "short": "Double cône",
-        "title": "Le double cône monte la pente",
-        "summary": "Deux rails s'écartent en montant. Un double cône posé en bas monte tout seul.",
+        "title": "Le double cône qui roule",
+        "summary": "Deux rails s'écartent en montant. Un double cône est posé dessus – et le sens dans lequel il roule est moins évident qu'il n'y paraît.",
         "question": "Un double cône sur deux rails qui montent roule-t-il vers le haut ou vers le bas – et qu'est-ce qui en décide ?"
       },
       "parabola": {
@@ -405,7 +433,9 @@
         "aligned": "Par les trous : une chaise, trois fois",
         "apart": "D’ici : trois choses différentes",
         "turn": "Tourner",
-        "tilt": "Incliner"
+        "tilt": "Incliner",
+        "eye": "Œil décalé de côté",
+        "eye_hint": "À 65 mm, c’est l’autre œil qui regarde."
       }
     },
     "equation": {
@@ -422,6 +452,9 @@
         "pause": "Pause",
         "run": "Reprendre",
         "restart": "Recommencer",
+        "let_go": "Lâcher la voiture",
+        "aim": "Le but : amener la voiture jusqu’aux deux drapeaux.",
+        "done": "Réussi : la voiture a atteint les deux drapeaux.",
         "plus": "Bouton +, attire la voiture dans la bobine",
         "minus": "Bouton −, repousse la voiture hors de la bobine",
         "plus_caption": "Entrée",
@@ -431,14 +464,16 @@
         "tops": "Sommets atteints",
         "time": "Temps",
         "autopilot": "Automatique : synchronisation parfaite",
-        "autopilot_hint": "+ du pied de la rampe jusqu’au milieu, − du milieu jusqu’à l’autre rampe, avec la commutation exactement quand la voiture passe le milieu — {{window}} cm de chaque côté. La courbe sous « Le tour » montre pourquoi.",
+        "autopilot_hint": "Laissez la règle appuyer et regardez quand elle le fait.",
         "speed": "Vitesse",
         "speeds": {
           "1": "Temps réel",
           "0_25": "¼",
           "0_1": "⅒"
         },
-        "keys": "Au clavier : maintenez + ou ← pour plus, − ou → pour moins."
+        "keys": "Au clavier : maintenez + ou ← pour plus, − ou → pour moins.",
+        "start": "Départ : à cette distance à gauche de la bobine",
+        "start_hint": "{{top}} cm : en haut de la rampe ; {{half}} cm : à mi-hauteur."
       },
       "meter": {
         "label": "L’ampèremètre, en milliampères",
@@ -460,7 +495,8 @@
         "closed": "L’ampèremètre reste branché entre les appuis",
         "closed_hint": "C’est le cas à l’exposition : l’affichage bouge quand la voiture passe en roulant, et ce courant freine un peu la voiture.",
         "radius": "Rayon de la rampe",
-        "radius_hint": "Chaque rampe est un arc de ce rayon, qui part à l’horizontale depuis le plat : plus il est petit, plus elle monte raide et haut sur la même longueur."
+        "radius_hint": "Chaque rampe est un arc de ce rayon, qui part à l’horizontale depuis le plat : plus il est petit, plus elle monte raide et haut sur la même longueur.",
+        "mass_hint": "Jusqu’à 20 kg : une voiture lourde ralentit à peine dans la bobine."
       },
       "model": {
         "flux_intro": "Tout part d’une courbe : la part du champ de l’aimant qui traverse les spires de la bobine, la voiture étant à un endroit donné.",
@@ -474,7 +510,7 @@
       },
       "symbols": {
         "psi": "flux totalisé, le flux de l’aimant à travers toutes les spires",
-        "x": "la position de la voiture, comptée depuis le milieu de la bobine",
+        "x": "la position de la voiture, du centre de la bobine",
         "mu0": "la constante magnétique",
         "moment": "la force de l’aimant (son moment dipolaire)",
         "turns": "le nombre de spires",
@@ -538,11 +574,12 @@
         "modes": {
           "hand": "Vous",
           "circle": "Un cercle régulier",
-          "perfect": "Automatique : synchronisation parfaite"
+          "perfect": "Automatique : synchronisation parfaite",
+          "release": "Sans la main"
         },
         "hint_hand": "Faites glisser dans la vue de dessus : la sphère suit votre doigt comme le ferait une main. Tournez autour du milieu — lentement d’abord, environ une fois par seconde, puis plus vite à mesure que la bille monte.",
         "hint_circle": "La sphère est poussée sur un cercle de 2 cm à la cadence que vous réglez. Changez la cadence lentement et la bille suit ; changez-la d’un coup et elle prend du retard.",
-        "hint_perfect": "La sphère est toujours poussée un quart de tour en avance sur la bille et accélère exactement à mesure que la bille monte — la synchronisation bien faite, jusqu’à environ 4 Hz, aussi vite que peut aller un bras.",
+        "hint_perfect": "Ici, la sphère est poussée avec la meilleure synchronisation possible. Observez où se trouve la sphère pendant que la bille monte, et à quelle vitesse elle tourne à la fin.",
         "pause": "Pause",
         "run": "Reprendre",
         "restart": "Recommencer",
@@ -555,13 +592,18 @@
         "your_tempo": "Votre cadence",
         "needed": "Cadence pour cette hauteur",
         "lead": "Avance de la sphère sur la bille",
-        "reading": "En dessous de {{f0}} Hz, il n’y a pas de cercle : la bille ne fait que vaciller au fond. Chaque hauteur a sa propre cadence — la ligne du graphique — et plus c’est haut, plus c’est rapide."
+        "reading": "En dessous de {{f0}} Hz, il n’y a pas de cercle : la bille ne fait que vaciller au fond. Chaque hauteur a sa propre cadence — la ligne du graphique — et plus c’est haut, plus c’est rapide.",
+        "hint_release": "Choisissez où la bille part et à quelle vitesse elle roule de côté, puis lâchez-la : la sphère reste immobile.",
+        "start_angle": "Départ : angle depuis le point le plus bas",
+        "start_speed": "Départ : de côté à",
+        "release": "Lâcher"
       },
       "views": {
         "top": "La sphère vue de dessus : faites glisser pour la pousser",
         "top_caption": "De dessus — poussez ici",
         "side": "La sphère vue de côté : à quelle hauteur roule la bille",
-        "side_caption": "De côté"
+        "side_caption": "De côté",
+        "goal": "Objectif : l’équateur"
       },
       "chart": {
         "circle": "En cercle",
@@ -751,7 +793,7 @@
       },
       "play": {
         "title": "Lâchez-les",
-        "hint": "Lancez la course et regardez où se trouve chaque bille. Les temps à côté des couleurs sont ceux du moteur de calcul, dans l’ordre d’arrivée des billes. Au drapeau, chaque piste s’arrête et la bille s’envole jusque dans une fosse rembourrée, où les six finissent ensemble.",
+        "hint": "Lancez la course et regardez où se trouve chaque bille. Dès qu'une bille arrive, sa place et son temps s'affichent, ceux du moteur de calcul. Au drapeau, chaque piste s’arrête et la bille s’envole jusque dans une fosse rembourrée, où les six finissent ensemble.",
         "start": "Démarrer",
         "pause": "Pause",
         "run": "Reprendre",
@@ -771,7 +813,7 @@
         "acceleration": "Accélération",
         "velocity_label": "La vitesse de chaque bille, en flèche partant d’un même point",
         "acceleration_label": "L’accélération de chaque bille, en flèche partant d’un même point",
-        "table": "Le temps, la vitesse et l’accélération de chaque bille, par rang",
+        "table": "Le temps, la vitesse et l’accélération de chaque bille",
         "track": "Piste",
         "time": "Temps"
       },
@@ -952,7 +994,7 @@
       "play": {
         "title": "Au tambour",
         "hint": "Faites glisser le cerclage vers le bas et relâchez, vite ou lentement, ou appuyez sur le bouton : c’est la vitesse qui décide si un anneau s’envole.",
-        "hint_auto": "Trois appuis à la suite : un coup sec, une demi-seconde et une poussée lente — une bouffée diffuse, un anneau, et rien.",
+        "hint_auto": "Trois appuis à la suite : un coup sec, une demi-seconde et une poussée lente. Regardez ce que chacun fait sortir du trou.",
         "press": "Appuyer",
         "pause": "Pause",
         "run": "Reprendre",
@@ -1189,6 +1231,7 @@
         },
         "amplitude": "Amplitude au lâcher",
         "amplitude_hint": "Les longueurs sont accordées pour {{tuned}}°. Lâchés plus ou moins loin, les pendules ne se retrouvent plus tout à fait après un cycle.",
+        "pull_hint": "Ou prenez une boule dans la vue depuis l'extrémité de la rangée avec la souris ou le doigt, et tirez toute la rangée de côté. En lâchant, toutes se mettent à osciller.",
         "time": "Temps",
         "cycles": "Cycles",
         "spread": "Décalage après un cycle"
@@ -1344,8 +1387,8 @@
       "play": {
         "title": "Lâcher le cône",
         "hint_up": "Le cône est à l'extrémité basse. Lâchez-le et regardez où il roule.",
-        "hint_down": "Sur ces rails le cône descend ; il est donc posé à l'extrémité haute. Lâchez-le.",
-        "hint_stays": "À exactement cette pente, l'axe reste à la même hauteur : le cône reste où il est.",
+        "hint_down": "Le cône est à l'extrémité haute. Lâchez-le et regardez où il roule.",
+        "hint_stays": "Le cône est à l'extrémité basse. Lâchez-le et regardez où il roule.",
         "let_go": "Lâcher",
         "pause": "Pause",
         "run": "Reprendre",
@@ -1604,6 +1647,7 @@
       "play": {
         "title": "Lâcher le pendule",
         "hint": "Faites glisser la cheville vers le haut ou le bas, ou choisissez plus bas l'un des trois cas.",
+        "drag_hint": "Ou prenez la boule avec la souris ou le doigt, écartez-la et lâchez-la.",
         "let_go": "Lâcher",
         "pause": "Pause",
         "run": "Reprendre",
@@ -1844,7 +1888,7 @@
       },
       "play": {
         "title": "Ouvrir le robinet",
-        "hint": "Le robinet décide : trop peu d'eau et la roue reste immobile ; davantage, et elle tourne régulièrement ; plus encore, et elle devient chaotique.",
+        "hint": "Réglez le robinet sur peu d'eau, sur davantage, puis sur beaucoup, et regardez ce que fait la roue à chaque fois.",
         "pause": "Pause",
         "run": "Reprendre",
         "restart": "Depuis le début",
@@ -1852,6 +1896,7 @@
         "tap_hint": "ρ : la quantité d'eau qui arrive, rapportée aux fuites et au frein.",
         "brake": "Frein",
         "brake_hint": "σ : la force du frein de l'axe, rapportée à l'inertie de la roue et aux fuites.",
+        "turn_hint": "Ou tournez avec la souris ou le doigt le levier du robinet et le bouton sur l'axe, le frein. En lâchant, la roue repart depuis le début.",
         "speed": "Vitesse",
         "speeds": {
           "1": "Temps réel",
@@ -1978,6 +2023,7 @@
       "play": {
         "title": "Viser et lancer",
         "hint": "Lancez une fois droit vers l'autre siège, puis passez à « De l'extérieur » : là, le palet va tout droit.",
+        "sling_hint": "Ou tirez en arrière depuis votre siège avec la souris ou le doigt, comme une fronde : la direction et la longueur donnent la visée et la vitesse, lâcher lance. Prendre le bord et pousser fait tourner le manège.",
         "throw": "Lancer",
         "aim_lead": "Viser en avant",
         "frame": "Vue",
@@ -2020,7 +2066,8 @@
       },
       "computed": {
         "system": "Les deux trajectoires ont une solution fermée : le palet sur une droite, la balle sur un cercle, toutes deux vues de l'extérieur et ramenées par rotation pour qui tourne avec. Où la balle atteint à nouveau le bord, et où il faut viser pour atteindre, la page le trouve par dichotomie. Le test confronte la trajectoire ramenée du palet à un calcul pas à pas avec les forces de Coriolis et centrifuge."
-      }
+      },
+      "target": "Cible"
     },
     "cradle": {
       "at": {
@@ -2030,7 +2077,8 @@
       "view": "Le pendule de Newton de face : la barre, les fils et les billes",
       "play": {
         "title": "Soulever et lâcher",
-        "hint": "Lâchez une bille, puis deux. Avec 0,1 mm d'air entre les billes, le compte tombe juste.",
+        "hint": "Lâchez une bille, puis deux, et comptez combien s'envolent à l'autre bout.",
+        "drag_hint": "Ou prenez une des billes de gauche avec la souris ou le doigt, tirez-la vers le haut et lâchez-la.",
         "let_go": "Lâcher",
         "pause": "Pause",
         "run": "Continuer",
@@ -2048,7 +2096,7 @@
         },
         "angle": "Écart",
         "restitution": "Ce que rend un choc",
-        "restitution_hint": "La part de leur vitesse avec laquelle deux billes se séparent après un choc à 1 m/s. 1 signifie : aucune perte.",
+        "restitution_hint": "Environ la part de leur vitesse avec laquelle deux billes se séparent après un choc à 1 m/s. 1 signifie : aucune perte.",
         "far": "Énergie à l'autre bout",
         "far_hint": "Après le premier choc : la part de l'énergie contenue dans autant de billes à l'autre bout qu'on en a soulevé.",
         "duration": "Durée du choc",
@@ -2861,7 +2909,8 @@
         "system": "La page vérifie à chaque étage si le centre de gravité des blocs à partir de lui vers le haut est au-dessus de son appui ; une pile d’un bloc par étage n’en demande pas plus. La pile la plus longue se construit par le haut, chaque bloc 1/(2k) plus loin.",
         "check": "Les tests de la page recalculent le porte-à-faux en fractions exactes et cherchent à l’aveugle parmi vingt mille piles aléatoires de trois et de quatre blocs : aucune qui tient ne dépasse plus loin que l’harmonique. Le calcul se fait dans votre navigateur, avec les mêmes formules que le moteur de calcul de la page.",
         "left_out": "Laissé de côté : les piles à plusieurs blocs par étage, dont certains servent de contrepoids, qui vont encore plus loin (Paterson et Zwick) ; le frottement, les blocs ne glissant jamais ici, ils ne font que basculer ; le bois qui cède ; la main qui tremble. Les blocs mesurent 20 cm de long et 4 cm de haut."
-      }
+      },
+      "goal": "Objectif : 1 bloc entier"
     },
     "diver": {
       "at": {
@@ -3086,6 +3135,7 @@
         "hint": "Montez ou descendez le soleil. L’air est un tel tube trouble : plus le soleil est bas, plus son chemin à travers l’air est long.",
         "height": "Hauteur du soleil",
         "height_hint": "À quelle hauteur le soleil se trouve au-dessus de l’horizon.",
+        "drag_hint": "Ou déplacez le soleil dans le ciel avec la souris ou le doigt.",
         "ozone": "Couche d’ozone",
         "ozone_hint": "Elle absorbe surtout la lumière orange. Désactivez-la pour voir le ciel sans elle.",
         "ozone_takes": "De l’orange (600 nm), l’ozone absorbe",
@@ -3289,6 +3339,1430 @@
         "system": "La page calcule la fréquence du second diapason par la méthode de Rayleigh à partir de la forme du mode d’une branche encastrée (βL = 1,875) et additionne les deux vibrations amorties. On suppose un diapason de 440 Hz, des branches de 20 g et un temps d’amortissement de 6 s.",
         "check": "Les tests de la page confrontent la forme du mode à son équation, vérifient que la branche agit à sa pointe comme le quart de sa masse, et comparent l’estimation de Rayleigh à la fréquence exacte d’une branche portant une masse à sa pointe : pour 1 g, elle est trop haute de moins de 0,1 %. Le calcul se fait dans votre navigateur, avec les mêmes formules que le moteur de calcul de la page.",
         "left_out": "Laissé de côté : les caisses de résonance et la salle ; le fait que le cavalier modifie lui-même un peu la forme du mode ; le couplage des deux branches et la tige ; l’oreille, qui n’entend plus les battements rapides comme un son qui enfle et s’éteint, mais comme une rugosité et enfin comme deux sons."
+      }
+    },
+    "checks": {
+      "title": "Vérifiez par vous-même",
+      "intro": "Des cas limites que l’on peut calculer à la main. Pour chacun figurent la formule tirée d’une source publiée, la valeur calculée à la main et la valeur que calcule cette page. Là où aucune source ne donne la formule exactement ainsi, il est indiqué « déduite », avec l’unique étape qui y mène.",
+      "by_hand": "À la main",
+      "page": "La page calcule",
+      "deviation": "Écart {{value}}, toléré {{allowed}}",
+      "setting": "Réglage",
+      "why": "Ce que le cas vérifie",
+      "derived": "déduite",
+      "step": "L’étape",
+      "sources": "Sources",
+      "original": "Citation originale",
+      "status": {
+        "unchecked": "Calculs pas encore vérifiés",
+        "checked": "Calculs vérifiés le {{date}}",
+        "to_cases": "Vérifiez-les vous-même"
+      },
+      "admin": {
+        "check": "Confirmer comme vérifié",
+        "uncheck": "Annuler la vérification",
+        "failed": "Cela n’a pas fonctionné. Veuillez réessayer."
+      },
+      "symbols": {
+        "f0": "fréquence de la plus petite oscillation",
+        "f": "fréquence",
+        "g": "accélération de la pesanteur, 9,80665",
+        "k": "facteur d’inertie I/(m r²) de la bille",
+        "rho": "distance du centre de la bille au centre de la sphère, R − r",
+        "theta0": "amplitude, depuis le bas",
+        "K": "intégrale elliptique complète de première espèce",
+        "theta": "angle depuis le bas",
+        "Omega": "vitesse angulaire du cercle",
+        "gprime": "la part de la pesanteur qui déplace le centre",
+        "omega": "pulsation du balancement",
+        "E": "énergie par kilogramme de bille",
+        "v": "vitesse",
+        "h": "hauteur au-dessus du point le plus bas",
+        "mu": "coefficient d’adhérence nécessaire",
+        "m": "masse",
+        "r": "le rayon de la bille",
+        "inertia": "moment d’inertie",
+        "N": "la poussée de la paroi",
+        "current": "courant",
+        "U": "la tension de la batterie",
+        "R": "la résistance de la bobine",
+        "L": "inductance",
+        "tau": "constante de temps",
+        "t": "temps",
+        "a_in": "le rayon de la bobine, en pouces",
+        "b_in": "la longueur de la bobine, en pouces",
+        "n": "spires",
+        "Psi": "flux à travers toutes les spires",
+        "dipole": "le moment magnétique de l’aimant",
+        "mu0": "la constante magnétique",
+        "a": "le rayon moyen d’une spire",
+        "z": "la distance d’une spire à l’aimant, le long de l’axe",
+        "Br": "la rémanence de l’aimant",
+        "V": "le volume de l’aimant",
+        "Q": "charge traversant l’ampèremètre",
+        "T": "période, aller et retour",
+        "R_arc": "le rayon des arcs des rampes",
+        "l": "longueur du plat",
+        "v0": "vitesse sur le plat",
+        "dE": "énergie perdue en un passage",
+        "coupling": "couplage dΨ/dx : volts par m/s, newtons par ampère",
+        "x": "la position de la voiture",
+        "W": "pertes : roulement, étincelles, butée",
+        "Emech": "l’énergie cinétique et potentielle de la voiture",
+        "xy": "position dans l’image",
+        "XYZ": "la position du point vue de l’œil, Z vers l’avant",
+        "focal": "la distance de l’écran à l’œil",
+        "P": "un point de la chaise",
+        "eye": "l’œil au judas",
+        "w": "la déformation",
+        "delta": "le déplacement de l’œil",
+        "alpha": "acuité visuelle, une minute d’arc",
+        "phi": "angle entre le déplacement et la ligne de visée",
+        "d12": "les distances des deux extrémités à l’œil",
+        "eta": "angle entre les deux extrémités",
+        "b": "écart entre les yeux",
+        "h0": "hauteur d’où la voiture est lâchée",
+        "hx": "hauteur de la piste en x",
+        "v_in": "vitesse de la bille qui tombe, en bas",
+        "v_last": "vitesse de la dernière bille après le choc",
+        "v_after": "vitesse de la i-ème bille après le choc",
+        "v_i": "vitesse de la i-ème bille",
+        "L_string": "longueur du point de suspension au centre de la bille",
+        "theta_i": "angle de la i-ème bille depuis le point le plus bas",
+        "F_peak": "force maximale entre deux billes",
+        "K_hertz": "raideur de deux billes selon Hertz",
+        "hM": "enfoncement le plus profond",
+        "mu_red": "masse réduite de la paire, m/2",
+        "E_star": "raideur de l’acier, E/(2(1 − ν²)), tirée du module d’Young E et du coefficient de Poisson ν",
+        "R_eff": "rayon effectif de deux billes égales de diamètre d, d/4",
+        "T_impact": "durée du choc à travers la rangée",
+        "tau_contact": "durée d’un contact",
+        "gap": "air entre deux billes",
+        "wheel_growth": "taux de croissance de l’impulsion",
+        "wheel_leak": "taux de fuite des godets, 0,2 par seconde",
+        "wheel_sigma": "le frein rapporté à l’inertie et aux fuites, ν/(K·I)",
+        "wheel_rho": "le robinet : le débit rapporté au frein et aux fuites, π·g·r·q/(ν·K²)",
+        "wheel_b": "le troisième paramètre de Lorenz ; 1 pour la roue à eau",
+        "wheel_rpm": "la vitesse de rotation de la roue",
+        "wheel_rhoH": "le robinet à partir duquel la rotation régulière n’est plus stable",
+        "wheel_volume": "volume d’une petite boîte d’états",
+        "wheel_ab": "la répartition de l’eau : sur le côté, et haut contre bas",
+        "wheel_rate": "la rotation de la roue",
+        "wheel_inflow": "le débit qui arrive en haut",
+        "wheel_nu": "le frein de l’axe",
+        "wheel_radius": "le rayon de la roue",
+        "length": "longueur du pendule, du point de suspension au centre de la boule",
+        "cycle": "le cycle : le temps jusqu’à ce que tous oscillent de nouveau à l’unisson",
+        "swings": "oscillations du pendule le plus long pendant le cycle",
+        "index": "le numéro du pendule, compté depuis le plus long : 0, 1, 2, …",
+        "T0": "période de la plus petite oscillation",
+        "theta_n": "angle du n-ième pendule",
+        "sn": "la fonction elliptique sn de Jacobi",
+        "omega0": "pulsation de la plus petite oscillation, √(g/L)",
+        "skew": "décalage après un cycle, en degrés d’oscillation",
+        "count": "nombre de pendules",
+        "miss": "de combien le lancer arrive à côté de l’autre siège, positif dans le sens antihoraire",
+        "aim": "de combien on vise à côté de l’autre siège",
+        "lean": "inclinaison de la trajectoire par rapport au diamètre, vue de l’extérieur",
+        "platform_rate": "la rotation du manège",
+        "platform_radius": "le rayon du manège",
+        "throw": "vitesse du lancer, mesurée sur le manège",
+        "flight": "temps de vol jusqu’au bord",
+        "primed": "accélération, vitesse et position telles que les mesure qui tourne avec",
+        "a_across": "accélération en travers du lancer, telle que la mesure qui tourne avec",
+        "n_up": "la normale à la plateforme, vers le haut",
+        "heading_rate": "la vitesse à laquelle tourne la direction de la balle, vue de l’extérieur",
+        "beta": "coefficient de diffusion à la longueur d’onde λ",
+        "lambda": "longueur d’onde",
+        "beta550": "turbidité du tube : le coefficient de diffusion à 550 nm",
+        "x_tube": "position le long du tube, depuis la lampe",
+        "L_tube": "longueur du tube",
+        "air_mass": "masse d’air : quantité d’air traversée par la lumière du soleil, rapportée à l’air à la verticale",
+        "z_zenith": "angle zénithal du soleil",
+        "h_sun": "hauteur du soleil au-dessus de l’horizon",
+        "tau_air": "épaisseur optique de l’air à la verticale, 0,097 à 550 nm",
+        "m3": "masse d’air de la couche d’ozone",
+        "R_earth": "rayon de la Terre, 6371 km",
+        "H_ozone": "altitude de la couche d’ozone, 22 km",
+        "plate_lambda": "paramètre de fréquence ωa²√(ρh/D)",
+        "plate_side": "le côté de la plaque",
+        "plate_D": "la rigidité en flexion de la plaque",
+        "plate_rho": "masse volumique de l’acier, 7850",
+        "plate_h": "l’épaisseur de la plaque",
+        "plate_E": "module d’Young, 200 GPa",
+        "plate_nu": "coefficient de Poisson, 0,3",
+        "plate_f12": "le son excité le plus grave et le deuxième",
+        "plate_Q": "facteur de qualité du son",
+        "plate_f1": "le son excité le plus grave",
+        "plate_df": "largeur du son, entre les points à mi-énergie",
+        "plate_zeta": "taux d’amortissement de chaque forme, 0,002",
+        "plate_w0": "amplitude du milieu sur le son k",
+        "plate_phi0": "déplacement de la forme k au milieu",
+        "plate_mu": "masse de la forme k, en unités de ρh·(a/2)²",
+        "plate_omega": "pulsation du son k",
+        "plate_xi": "position sur la plaque, de −1 à 1",
+        "h_start": "hauteur de départ, au-dessus du point le plus bas",
+        "r_small": "rayon du petit cercle : la longueur du fil moins la profondeur de la cheville",
+        "phi_peg": "angle autour de la cheville, mesuré depuis le bas",
+        "phi0_peg": "amplitude autour de la cheville",
+        "pull": "traction du fil",
+        "depth": "profondeur de la cheville sous la suspension",
+        "plane_rate": "la vitesse à laquelle le plan d’oscillation tourne par rapport au sol, positive dans le sens horaire",
+        "earth_rate": "rotation de la Terre par rapport aux étoiles",
+        "latitude": "latitude, négative au sud",
+        "stellar_day": "un tour de la Terre par rapport aux étoiles",
+        "full_turn": "temps d’un tour complet du plan d’oscillation",
+        "foucault_length": "longueur du pendule",
+        "drop": "distance de chute à travers la colonne",
+        "vE": "vitesse limite",
+        "cbar": "constante de freinage moyenne : force de freinage par unité de vitesse",
+        "density": "masse volumique",
+        "thickness": "épaisseur de la plaque",
+        "area": "surface de la plaque",
+        "sigma": "conductivité électrique",
+        "B0": "champ dans la fente, là où il est le plus fort",
+        "sheet_share": "part du freinage d’une plaque infinie",
+        "resistivity": "résistivité",
+        "field_k": "nombre d’onde du champ le long de la colonne",
+        "tooth": "hauteur d’une dent",
+        "field_period": "période du champ : un aimant nord et un aimant sud",
+        "r_axle": "rayon de l’axe",
+        "R_wheel": "rayon de la roue",
+        "L_band": "longueur des rubans",
+        "T_pull": "traction des deux rubans ensemble",
+        "omega_spin": "vitesse de rotation de la roue",
+        "h_top": "point le plus haut après l’à-coup, au-dessus de l’extrémité inférieure",
+        "dt_jerk": "durée de l’à-coup",
+        "s_band": "raideur des deux rubans ensemble",
+        "v_bottom": "vitesse de la roue quand les rubans sont déroulés",
+        "F_band": "traction maximale des rubans",
+        "A_stretch": "allongement au-delà de la position où les rubans portent le poids",
+        "arch_radius": "rayon de la ligne médiane de l’arc",
+        "push": "poussée au pied, horizontale",
+        "arch_weight": "poids de l’arc entier",
+        "w_length": "poids de la chaîne par mètre",
+        "a_chain": "paramètre de la chaînette",
+        "half_span": "demi-portée",
+        "rise": "hauteur de l’arc au-dessus de ses pieds",
+        "stones": "nombre de pierres",
+        "R_pm": "rayon du bord extérieur et du bord intérieur",
+        "arch_T0": "traction de la chaîne au sommet, horizontale",
+        "arch_density": "masse volumique de la pierre",
+        "arch_depth": "profondeur de l’arc, perpendiculaire à la vue",
+        "arch_thickness": "épaisseur des pierres",
+        "rod_beta": "première racine de cosh x·cos x = −1",
+        "rod_L": "longueur de la tige",
+        "rod_EI": "rigidité en flexion de la tige, E·πd⁴/64",
+        "rod_mu": "masse de la tige par mètre",
+        "rod_load": "poids rapporté à la raideur, μgL³/(EI)",
+        "rod_qc": "charge à laquelle la tige flambe, 7,837",
+        "rod_B": "premier zéro de la fonction de Bessel J₋₁/₃, 1,86635",
+        "rod_hc": "longueur à partir de laquelle la tige flambe sous son poids",
+        "rod_rho": "masse volumique de l’acier, 7850",
+        "rod_A": "section de la tige",
+        "rod_w": "amplitude de la pointe par rapport à la table",
+        "rod_Gamma": "facteur de participation de la première oscillation, 1,566",
+        "rod_Omega": "pulsation de la table",
+        "rod_Y": "course de la table de chaque côté, 1 mm",
+        "rod_omega": "pulsation de la tige",
+        "rod_zeta": "taux d’amortissement, 0,01",
+        "rod_phi": "forme de la première oscillation, 1 à la pointe",
+        "rod_xi": "position le long de la tige, x/L",
+        "rod_tip": "déviation de la pointe",
+        "rod_X": "amplitude stationnaire en phase",
+        "rod_omega1": "pulsation de l’oscillation qui s’éteint",
+        "T_lap": "durée d’un tour",
+        "r_well": "distance de la bille au centre",
+        "GM": "intensité de l’attraction d’une étoile : la constante gravitationnelle multipliée par sa masse",
+        "k_funnel": "forme de l’entonnoir : la paroi se trouve à z = −k/r",
+        "phidot": "vitesse angulaire autour du centre",
+        "r0_well": "distance au lancer",
+        "v0_push": "vitesse du lancer",
+        "P_loss": "perte par seconde",
+        "C_rr": "résistance au roulement : la part de la poussée de la paroi qui freine",
+        "alpha_wall": "pente de la paroi"
+      },
+      "cases": {
+        "sphere": {
+          "small_swing": {
+            "title": "Une petite oscillation au fond",
+            "setting": "Sphère Ø 40 cm, bille pleine Ø 4 cm, sans résistance au roulement ni poussée de la main : lâchée à 2° sur la paroi.",
+            "reads": "En roulant, la bille oscille comme un pendule de longueur ρ sous 5/7 de la pesanteur ; les 2/7 restants la font tourner.",
+            "why": "Vérifie le roulement : en glissant, la même bille oscillerait à 1,17 Hz. L’écart de 0,008 % vient de l’oscillation de 2° elle-même, car la formule vaut pour la plus petite."
+          },
+          "hollow_ball": {
+            "title": "La bille creuse",
+            "setting": "Comme ci-dessus, avec une bille creuse à paroi mince.",
+            "reads": "La même formule avec k = 2/3 : une bille creuse a sa masse à l’extérieur et il faut davantage pour la faire tourner.",
+            "why": "Vérifie que le moment d’inertie intervient, et non un facteur fixe de 5/7.",
+            "step": "La première source donne la formule pour tout k = I/(m r²) ; on y met le k = 2/3 de la bille creuse, tiré de la seconde."
+          },
+          "wide_swing": {
+            "title": "Une grande oscillation jusqu’à l’horizontale",
+            "setting": "Bille pleine, sans résistance au roulement, lâchée à 90° sur la paroi.",
+            "reads": "Avec une grande amplitude, un pendule ralentit, d’un facteur π/(2K), avec l’intégrale elliptique K.",
+            "why": "Vérifie l’équation du mouvement loin des petits angles : 0,84 Hz au lieu de 0,99 Hz. K est ici sommée comme une intégrale, et non par la moyenne arithmético-géométrique qu’utilise le moteur de calcul.",
+            "step": "La première source montre que la bille qui roule obéit exactement à l’équation du pendule, avec g/(1+k) ; la seconde donne sa période pour toute amplitude."
+          },
+          "circle_any_size": {
+            "title": "Un cercle à la même profondeur dans toute sphère",
+            "setting": "Sphère Ø 1 m au lieu de 40 cm, bille pleine Ø 4 cm, sans résistance au roulement : lancée sur le cercle de 2 Hz et laissée tourner 10 s.",
+            "reads": "Un cercle à la vitesse angulaire Ω se trouve g′/Ω² sous l’équateur, quelle que soit la taille de la sphère.",
+            "why": "Vérifie le mouvement dans l’espace, pas seulement dans un plan : après 10 s, la bille est toujours 4,4358 cm plus bas, comme dans la sphère de 40 cm.",
+            "step": "Pour la bille qui roule, c’est un pendule conique sous g′ = g/(1+k). Les sources montrent que la rotation autour de la normale se conserve (Routh). Que le centre se meuve alors comme un pendule sphérique sous g′ en découle en une étape qu’aucune d’elles n’écrit."
+          },
+          "wobble": {
+            "title": "Le balancement d’un cercle incliné",
+            "setting": "Bille pleine sur le cercle à 60°, mais lancée 0,3° trop haut.",
+            "reads": "Un cercle légèrement perturbé monte et descend à Ω·√(1 + 3cos²θ).",
+            "why": "Vérifie la stabilité du cercle, ce que la page appelle « pas encore dans le plan ». 0,3° n’est pas infiniment petit, d’où l’écart de 0,02 %.",
+            "step": "La source traite le pendule sphérique, avec l’angle compté depuis la verticale descendante, comme ici ; pour la bille qui roule, sous g′ = g/(1+k), comme pour le cercle."
+          },
+          "energy": {
+            "title": "L’énergie se conserve",
+            "setting": "Bille pleine lancée à 60° avec 0,3 m/s de côté, sans résistance au roulement ni poussée de la main, pendant 20 s.",
+            "reads": "Sans pertes, la somme du mouvement, de la rotation et de la hauteur reste la même ; la rotation porte k fois l’énergie du mouvement.",
+            "why": "Vérifie la boucle des pas de temps elle-même : après 20 000 pas, l’énergie est la même à 10⁻¹¹ près."
+          },
+          "grip": {
+            "title": "Quelle adhérence le roulement exige",
+            "setting": "Bille pleine lâchée à 60° ; relevé au point de retour.",
+            "reads": "Rouler sans glisser demande une adhérence d’au moins tan θ/(1 + m r²/I), soit (2/7)·tan θ pour une bille pleine.",
+            "why": "Vérifie le frottement qu’indique la page : 0,49 à 60°.",
+            "step": "La source traite le plan incliné. Au point de retour, la bille est immobile et repose comme sur un plan incliné de même pente."
+          },
+          "leaves_wall": {
+            "title": "Où la bille se détache de la paroi",
+            "setting": "Bille pleine lancée au fond si vite que, sans la paroi, elle atteindrait 120°.",
+            "reads": "La paroi pousse avec g·cos θ + 2g′(cos θ − cos θ₀). Là où cela s’annule, la bille tombe : à cos θ = 2cos θ₀/(3 + k).",
+            "why": "Vérifie la poussée de la paroi, par laquelle la page remarque que la bille tombe : à 107,1°.",
+            "step": "La source donne la tension du fil du pendule simple, mg(3cos θ − 2cos θ_m). Pour la bille qui roule, l’énergie porte le facteur 1 + k ; la poussée perpendiculaire à la paroi reste g·cos θ + v²/ρ."
+          }
+        },
+        "coil": {
+          "rl_rise": {
+            "title": "Le courant monte",
+            "setting": "Bouton + maintenu, la voiture au sommet d’une rampe, loin de la bobine ; relevé après quatre constantes de temps.",
+            "reads": "Sous une tension, le courant dans une bobine ne monte que lentement, avec la constante de temps τ = L/R.",
+            "why": "Vérifie le circuit de la page : 94 mA après 5 ms, 96 mA à la fin."
+          },
+          "wheeler": {
+            "title": "L’inductance de la bobine",
+            "setting": "1600 spires, 60 mm de diamètre moyen, 50 mm de long.",
+            "reads": "La formule de Wheeler de 1928, en pouces et en microhenrys, précise à 1 %.",
+            "why": "Vérifie l’inductance : les 118,1 mH de la page viennent de la forme SI de la même formule ; celle de Wheeler, telle qu’imprimée, donne 117,8 mH. Les 0,28 % restent dans son propre pour cent, car ses 9 et 10 sont arrondis."
+          },
+          "flux_centre": {
+            "title": "Le flux de l’aimant dans la bobine",
+            "setting": "L’aimant, Ø 20 × 10 mm et 1,3 T, au milieu de la bobine.",
+            "reads": "Chaque spire embrasse une part du flux du petit aimant ; sommé spire par spire sur les 1600.",
+            "why": "Vérifie la courbe Ψ(x), dont découlent la tension et la force : la somme sur les spires rejoint la formule fermée de la page à 10⁻⁷ près.",
+            "step": "La première source donne le champ d’une spire sur son axe, la deuxième que l’inductance mutuelle est la même dans les deux sens : le flux de l’aimant à travers la spire est son moment multiplié par ce champ par ampère. La troisième écrit la même chose pour une bobine."
+          },
+          "charge": {
+            "title": "La charge, la même à toute vitesse",
+            "setting": "Sans boutons ni résistance au roulement, lâchée à mi-hauteur d’une rampe ; comptée jusqu’au milieu de la bobine.",
+            "reads": "À travers l’ampèremètre passe la variation de flux divisée par la résistance, quelle que soit la vitesse de la voiture.",
+            "why": "Vérifie la loi de Faraday sur la boucle des pas de temps : 888 µC. L’écart de 0,1 % : au milieu, la bobine retient encore L·i/R, et la page dessine 200 fois par seconde.",
+            "step": "La source donne la charge d’une bobine exploratrice sans inductance. Avec inductance, il en va de même dès que le courant est nul au début et à la fin ; au milieu, il l’est presque."
+          },
+          "period": {
+            "title": "Sans la bobine : une balançoire sur des arcs",
+            "setting": "Bobine ouverte, sans résistance au roulement, lâchée à mi-hauteur d’une rampe ; le temps d’un aller-retour.",
+            "reads": "Sur chaque arc, la voiture oscille une demi-période comme un pendule de longueur R ; entre les deux, elle traverse deux fois le plat à la vitesse acquise dans la descente.",
+            "why": "Vérifie la piste et la boucle des pas de temps : 2,71554 s à cinq décimales.",
+            "step": "La première source donne le mouvement sur un arc de cercle, avec β = 0 pour un corps qui glisse au lieu de rouler ; la seconde, sa période pour toute amplitude."
+          },
+          "brake": {
+            "title": "Le frein de la bobine",
+            "setting": "Une voiture cent fois plus lourde, 15 kg, pour qu’elle ralentisse à peine ; bobine fermée, sans résistance au roulement, lâchée à mi-hauteur d’une rampe. Mesuré jusqu’à son premier demi-tour à droite.",
+            "reads": "La tension induite k·v fait circuler un courant qui freine avec k²v²/R ; sur un passage (1/R)·∫k²v dx, avec la vitesse v due à la seule descente.",
+            "why": "Vérifie le frein de Lenz, qui arrête plus tôt la voiture en roue libre : 1,10 mJ en traversant la bobine, mesurés comme la hauteur qui manque à la voiture lourde de l’autre côté.",
+            "step": "Les sources donnent la force de freinage d’un aimant dans une bobine et la puissance d’un conducteur en mouvement ; sommées le long du trajet, avec la vitesse tirée de l’énergie, elles donnent la perte d’un passage."
+          },
+          "energy_account": {
+            "title": "Le bilan énergétique tombe juste",
+            "setting": "Dix secondes d’appuis selon la règle : + en entrant, − en sortant.",
+            "reads": "Ce que donne la batterie devient chaleur dans le fil, perte au roulement, étincelles au relâchement, choc en butée, mouvement et hauteur de la voiture, et énergie dans le champ de la bobine.",
+            "why": "Vérifie tout ensemble : 953 mJ tirés de la batterie, retrouvés à 4 · 10⁻⁷ près.",
+            "step": "Les sources donnent l’énergie dans le champ d’une bobine et le courant dans le circuit ; le bilan ne fait qu’additionner les postes."
+          }
+        },
+        "chair": {
+          "one_picture": {
+            "title": "Par le trou : une image",
+            "setting": "Regard exactement par le judas, sans rotation ni inclinaison.",
+            "reads": "Un point (X, Y, Z) arrive dans l’image en (f·X/Z, f·Y/Z) ; tous les points d’une même ligne de visée arrivent au même endroit.",
+            "why": "Vérifie que la chaise déformée et les tiges dispersées donnent, coin par coin, l’image de la chaise : les images sont à 10⁻¹⁶ l’une de l’autre, c’est-à-dire pas du tout."
+          },
+          "straight_rods": {
+            "title": "Déformée, mais droite",
+            "setting": "La chaise déformée : un point à ¼, ½ et ¾ de chaque tige.",
+            "reads": "Une transformation projective conserve les droites : la chaise déformée a des tiges droites qui se rejoignent aux coins.",
+            "why": "Vérifie la déformation de la page : les points sont à 10⁻¹⁶ m de la tige, c’est-à-dire dessus."
+          },
+          "parallax": {
+            "title": "Jusqu’où l’œil peut bouger",
+            "setting": "Les tiges dispersées ; l’œil déplacé latéralement ou vers le haut jusqu’à ce que le premier coin s’ouvre d’une minute d’arc.",
+            "reads": "Deux points d’une même ligne de visée, à d₁ et d₂, s’écartent de δ·sin φ·|1/d₁ − 1/d₂| quand l’œil se déplace de δ.",
+            "why": "Vérifie les 0,16 mm qu’indique la page : moins que le judas. La page les trouve par dichotomie, ici c’est la formule ; les deux concordent à 4 · 10⁻⁵ près.",
+            "step": "La source donne la vitesse à laquelle un point se déplace perpendiculairement à la ligne de visée, V·sin φ/d. Pour deux points, la différence ; pour un petit déplacement, δ au lieu de V·t."
+          },
+          "second_eye": {
+            "title": "Ce que voit le second œil",
+            "setting": "Les tiges dispersées, le second œil à 65 mm à côté du premier.",
+            "reads": "Pour de petits angles, les coins s’écartent de b·sin φ·|1/d₁ − 1/d₂|.",
+            "why": "Vérifie les 6,6° de la page, la raison du judas unique. La formule donne 1,7 % de trop, car 65 mm ne sont pas un petit pas pour des tiges à un demi-mètre ; la page calcule l’angle exactement.",
+            "step": "La source donne la disparité pour de petits angles ; les 65 mm sont l’écart entre les yeux d’un adulte, d’après la seconde (environ 63 mm en moyenne)."
+          }
+        },
+        "cradle": {
+          "one_out": {
+            "title": "Une entre, une sort",
+            "setting": "Cinq billes séparées de 0,1 mm d’air, sans perte (e = 1), une soulevée de 30° et lâchée ; relevé après le premier choc.",
+            "reads": "En bas, la première bille va aussi vite qu’un pendule qui tombe de 30°. Avec de l’air entre elles, chaque bille heurte sa voisine séparément ; des billes égales échangent alors leur vitesse, jusqu’à ce qu’elle soit dans la dernière.",
+            "why": "Vérifie à la fois le pendule et le choc : la dernière bille s’envole à 0,63 m/s, aussi vite que la première est arrivée. L’écart de 3 · 10⁻⁶ : pendant le choc, la pesanteur continue de tirer sur les billes qui quittent déjà le point le plus bas.",
+            "step": "La première source donne la vitesse d’un pendule qui tombe de θ₀ jusqu’au point le plus bas. D’après la deuxième, deux billes égales échangent leur vitesse ; avec de l’air entre elles, cela se produit quatre fois de suite."
+          },
+          "momentum": {
+            "title": "La quantité de mouvement se conserve, même avec des pertes",
+            "setting": "L’exposition telle qu’elle est suspendue : cinq billes en contact, e = 0,95, une soulevée de 30° et lâchée ; relevé après le premier choc.",
+            "reads": "Ce qu’une bille donne à l’autre, elle le perd elle-même. La somme des vitesses après le choc est égale à la vitesse avec laquelle la première est arrivée, même si le choc perd de l’énergie et que tout ne passe pas dans la dernière bille.",
+            "why": "Vérifie que chaque force entre deux billes agit sur les deux avec la même intensité, amortissement compris. L’écart de 6 · 10⁻⁶ vient de la pesanteur, qui tire pendant le choc sur les billes qui s’éloignent du point le plus bas.",
+            "step": "En bas, le fil et le poids se compensent presque : pendant le bref choc, la rangée est presque un système fermé. Pour des masses égales, la somme des quantités de mouvement devient la somme des vitesses ; la vitesse de la première est donnée par la deuxième source."
+          },
+          "energy": {
+            "title": "Sans pertes, l’énergie se conserve",
+            "setting": "Cinq billes en contact, sans perte (e = 1), une soulevée de 30° et lâchée ; relevé après 2 s.",
+            "reads": "Chaque bille porte de l’énergie cinétique et potentielle ; un contact de Hertz stocke ce qu’il prend et le rend en entier. Dès qu’aucun contact ne presse plus, la somme redevient celle du début : la hauteur d’où la première est tombée.",
+            "why": "Vérifie la boucle des pas de temps de la page, une milliseconde par pas et une microseconde tant que deux billes se touchent : après 2 s, l’énergie est la même à 10⁻⁵ près. L’écart est ce que les pas d’une microseconde manquent là où un contact se ferme.",
+            "step": "La première source donne l’énergie d’un pendule : ½v² + gL(1 − cos θ) reste la même. La deuxième donne au contact de Hertz une énergie élastique qui ne dépend que de l’enfoncement ; sans amortissement, il rend donc tout ce qu’il prend. Sommé sur les billes, dès qu’aucun contact ne presse plus."
+          },
+          "peak": {
+            "title": "La force maximale selon Hertz",
+            "setting": "Cinq billes séparées de 0,1 mm d’air, sans perte (e = 1), une soulevée de 30° et lâchée.",
+            "reads": "Deux billes se pressent avec une force qui croît comme l’enfoncement à la puissance 3/2. L’enfoncement est le plus profond quand toute l’énergie cinétique de la paire s’y trouve ; c’est là que la force est la plus grande.",
+            "why": "Vérifie la raideur de Hertz tirée du module d’Young, du coefficient de Poisson et du rayon : 879 N pour un enfoncement de 18 µm. La page relève la force chaque microseconde, donc juste à côté de son maximum ; d’où l’écart de 4 · 10⁻⁵.",
+            "step": "La première source donne la force pour tout enfoncement, la deuxième l’enfoncement le plus profond quand deux billes se heurtent ; on met celui-ci dans celle-là. Avec de l’air, chaque paire se heurte séparément, et sans perte, chacune à la même vitesse."
+          },
+          "duration": {
+            "title": "Combien de temps dure le choc",
+            "setting": "Cinq billes séparées de 0,1 mm d’air, sans perte (e = 1), une soulevée de 30° et lâchée.",
+            "reads": "Avec de l’air, les quatre paires se heurtent l’une après l’autre. Chaque contact dure τ ; entre deux, la bille heurtée traverse l’air qui lui reste jusqu’à la suivante.",
+            "why": "Vérifie la durée qu’indique la page, du premier contact jusqu’à ce que le dernier s’ouvre : à la main 689 µs, dont 84 µs par contact ; la page compte en microsecondes entières et arrive à 688.",
+            "step": "La première source donne la durée d’un contact. Le centre de masse de la paire avance à v/2 ; à la fin de son contact, la bille heurtée est donc v·τ/2 plus loin et parcourt l’air restant s − v·τ/2 à la vitesse v qu’elle a reprise d’après la deuxième source. D’un contact au suivant, il s’écoule ainsi τ/2 + s/v, trois fois ; s’y ajoute le dernier contact."
+          }
+        },
+        "waterwheel": {
+          "start": {
+            "title": "La première impulsion grandit",
+            "setting": "Robinet ρ = 28, frein σ = 10, comme à l’ouverture de la page : la roue à l’arrêt, pleine en haut, poussée d’un rien ; mesuré entre 1,5 s et 2,5 s.",
+            "reads": "Depuis le repos, une petite impulsion grandit selon la plus grande valeur propre des équations à roue immobile, (−1 − σ + √((1 − σ)² + 4ρσ))/2 par temps de fuite 1/K.",
+            "why": "Vérifie le robinet et le frein dans la boucle des pas de temps, tant que la roue est encore presque immobile : 2,37 par seconde, l’impulsion double toutes les 0,29 s. L’écart de 3 · 10⁻⁵ vient pour l’essentiel de la seconde part, celle qui s’amortit, pas encore tout à fait disparue après 1,5 s."
+          },
+          "steady": {
+            "title": "Peu d’eau : rotation régulière",
+            "setting": "Robinet ρ = 5, frein σ = 10 ; la roue partant du repos, relevé à la fin des 200 s que montre la page.",
+            "reads": "Au-dessus de ρ = 1, la roue peut tourner régulièrement, à x = √(b(ρ − 1)) en unités des fuites ; pour la roue à eau, b = 1.",
+            "why": "Vérifie les termes non linéaires et le b de la roue : 3,82 tr/min. Avec le b = 8/3 de Lorenz pour l’air, ce serait 6,24 tr/min.",
+            "step": "La première source donne la rotation régulière des équations de Lorenz pour tout b ; que b = 1 pour la roue à eau figure dans la seconde. Retour à la roue : rotation Ω = K·x, un tour vaut 2π."
+          },
+          "threshold": {
+            "title": "Le seuil du chaos",
+            "setting": "Frein σ = 15 au lieu de 10 ; relevé dans l’encadré « Chaos dès un robinet de ».",
+            "reads": "Au-dessus de ρ_H = σ(σ + b + 3)/(σ − b − 1), même la rotation régulière n’est plus stable.",
+            "why": "Vérifie le seuil qu’indique la page, avec le b de la roue : 21,9 pour σ = 15. Avec le b = 8/3 de Lorenz, on y lirait 27,4.",
+            "step": "Les deux premières sources donnent le seuil pour tout b ; on y met le b = 1 de la roue à eau, tiré de la troisième."
+          },
+          "volume": {
+            "title": "Un volume d’états se contracte",
+            "setting": "Robinet ρ = 28, frein σ = 10 : une minuscule boîte d’états, large de 2 · 10⁻⁵, autour de l’état de la roue après 20 s, calculée 2,5 s de plus comme sur la page.",
+            "reads": "Les équations de Lorenz contractent tout volume d’états au même rythme, selon e^(−(σ + 1 + b)·K·t), où que se trouve la roue.",
+            "why": "Vérifie les trois amortissements à la fois, frein, fuites et le b de la roue, en plein chaos : après 2,5 s, il reste 0,248 % du volume. L’écart de 2 · 10⁻⁵ est l’erreur de la méthode de Runge-Kutta sur ces 50 pas.",
+            "step": "Les sources donnent la contraction pour tout b, dans le temps τ de Lorenz ; on y met le b = 1 de la roue à eau, tiré de la troisième, et τ = K·t."
+          },
+          "wheel": {
+            "title": "Les équations de la roue elle-même",
+            "setting": "Robinet ρ = 28, frein σ = 10, comme à l’ouverture de la page ; relevé après 12 s, passé les deux premiers changements de sens.",
+            "reads": "La répartition de l’eau tourne avec la roue, l’eau arrive en haut et fuit partout ; la pesanteur fait tourner la roue, l’axe freine. Calculé ici en secondes, pour une roue de 0,5 m de rayon et un frein de 1 N·m·s.",
+            "why": "Vérifie que les équations de Lorenz avec b = 1 sont bien la roue, conversion en tours comprise : 19,04 tr/min après 12 s. Tout autre rayon et tout autre frein ayant les mêmes σ et ρ donnent le même nombre.",
+            "step": "La source écrit le frein κ + Q_tot·R² et la pesanteur sur la roue inclinée g·sin α ; ici, ils s’appellent ν et g. L’inertie et le débit découlent de σ = ν/(K·I) et ρ = π·g·r·q/(ν·K²)."
+          }
+        },
+        "wave": {
+          "textbook_lengths": {
+            "title": "Les longueurs selon la formule des manuels",
+            "setting": "Quinze pendules, cycle de 60 s, le plus long y oscillant 51 fois ; accordés pour 0°, c’est-à-dire avec la formule des petites oscillations.",
+            "reads": "Un pendule qui oscille exactement N + n fois pendant le cycle Γ a la période Γ/(N + n) ; T = 2π√(L/g) en donne la longueur.",
+            "why": "Vérifie l’accord de la rangée : le pendule le plus court oscille 65 fois en 60 s et mesure 21,1659 cm. Un numéro mal compté ou un autre g se verrait ici."
+          },
+          "tuned_lengths": {
+            "title": "Accordés pour 15°",
+            "setting": "La rangée de la page : quinze pendules, 60 s, le plus long 51 fois, accordés pour 15°.",
+            "reads": "Une oscillation de 15° dure plus longtemps qu’une petite, d’un facteur 2K/π. Pour qu’elle dure malgré tout Γ/(N + n), le pendule est plus court du carré de ce facteur.",
+            "why": "Vérifie que la page accorde avec la période exacte et non avec la formule des manuels : le pendule le plus long mesure 34,0875 cm. K est ici sommée comme une intégrale, et non par la moyenne arithmético-géométrique qu’utilise le moteur de calcul.",
+            "step": "La première source donne la longueur à partir de la période des petites oscillations, la deuxième la période pour toute amplitude : 4K, en unités de √(L/g) ; la troisième définit K comme une intégrale. Comme période des petites oscillations, il faut donc y mettre Γ/(N + n)·π/(2K)."
+          },
+          "together": {
+            "title": "De nouveau ensemble après un cycle",
+            "setting": "La rangée de la page, lâchée à 15° ; l’horloge sur 60 s, un cycle entier.",
+            "reads": "Pendant le cycle, chaque pendule a un nombre entier d’oscillations derrière lui et se retrouve là où il a été lâché.",
+            "why": "Vérifie l’horloge de la page sur une minute entière : les quinze sont de nouveau à 15°, aucun à plus de 10⁻¹²° à côté. La page calcule chaque instant directement, sans pas ; c’est pourquoi la soixantième seconde est aussi exacte que la première."
+          },
+          "third": {
+            "title": "Après un tiers du cycle",
+            "setting": "La rangée de la page, lâchée à 15° ; l’horloge sur 20 s, un tiers du cycle. Relevé sur le deuxième pendule, qui oscille 52 fois pendant le cycle.",
+            "reads": "Le deuxième pendule a 17⅓ oscillations derrière lui. La solution exacte de l’équation du pendule, avec la fonction sn de Jacobi, dit où il se trouve un tiers d’oscillation après le lâcher.",
+            "why": "Vérifie la forme de l’oscillation entre les points de retour, pas seulement sa durée : −7,50807°, un peu plus à l’extérieur que la moitié de 15° que donnerait une courbe en cosinus. sn est ici cherchée à partir de son intégrale, et non par la moyenne arithmético-géométrique qu’utilise le moteur de calcul.",
+            "step": "La première source donne la solution dans un temps mesuré en unités de √(L/g) ; une oscillation y dure 4K. Après 17⅓ oscillations, l’argument vaut 17⅓·4K + K = 35·2K + K/3, donc, d’après la deuxième source, sn = −sin φ avec F(φ) = K/3 ; la troisième donne F comme une intégrale."
+          },
+          "textbook_skew": {
+            "title": "Accordés avec la formule des manuels",
+            "setting": "Quinze pendules, 60 s, le plus long 51 fois, accordés pour 0° avec la formule des manuels, mais lâchés à 15°.",
+            "reads": "À 15°, chaque oscillation dure plus longtemps d’un facteur 2K/π. Le n-ième pendule n’accomplit que (N + n)·π/(2K) oscillations pendant le cycle ; le plus court, qui en fait le plus, prend le plus de retard.",
+            "why": "Vérifie le décalage que la page montre comme truc : la rangée revient de travers de 21,5821° ; c’est le retard du pendule le plus court sur le plus long, en degrés d’oscillation.",
+            "step": "La première source donne l’accord, la deuxième la période à 15°, la troisième K. Pendant le cycle, il manque au n-ième pendule (N + n)(1 − π/(2K)) oscillations de 360° chacune ; le plus court fait c − 1 = 14 oscillations de plus que le plus long."
+          }
+        },
+        "coriolis": {
+          "at_rest": {
+            "title": "Sans rotation : le lancer comme une corde",
+            "setting": "Le manège est immobile (0 tr/min) ; le palet à 3 m/s, visé 30° à côté de l’autre siège.",
+            "reads": "Le palet va tout droit, de son propre siège le long d’une corde jusqu’au bord. L’angle au bord entre la corde et le diamètre vaut la moitié de l’angle au centre sur le même arc : le palet arrive 2 · 30° = 60° à côté de l’autre siège.",
+            "why": "Vérifie dans quel sens tourne la visée et où la page trouve le bord : sans rotation, il ne reste que de la géométrie. La page trouve le bord en divisant soixante fois par deux le temps de vol ; les deux concordent à 10⁻⁹ près.",
+            "step": "Sans force, le palet va tout droit (première source). Son chemin et la ligne vers l’autre siège partent tous deux du siège du lanceur, au bord ; d’après Euclide, l’angle au centre, entre l’autre siège et la fin du chemin, est deux fois plus grand (deuxième source)."
+          },
+          "straight_puck": {
+            "title": "Le lancer droit manque de 86°",
+            "setting": "6 tr/min, rayon 2 m ; le palet à 3 m/s, visé exactement sur l’autre siège.",
+            "reads": "Vu de l’extérieur, le palet va tout droit, avec le lancer u et, en travers, la vitesse ΩR à laquelle le lanceur est emporté. Sa corde est inclinée de δ par rapport au diamètre et finit 2δ avant l’autre siège ; celui-ci a entre-temps avancé de Ωt.",
+            "why": "Vérifie les deux causes qui dévient le lancer : le lanceur emporté avec le manège, δ = 22,7°, et la rotation pendant les 1,13 s de vol. Ensemble, 86,3° dans le sens horaire, tel que le voient ceux qui tournent avec.",
+            "step": "La première source donne la vitesse vue de l’extérieur, v₀ = v + Ω × r : le lancer et, en travers, ΩR, donc tan δ = ΩR/u. D’après Euclide, la corde finit 2δ avant l’autre siège et mesure 2R·cos δ, car l’angle inscrit dans un demi-cercle est droit ; à la vitesse √(u² + Ω²R²), le vol dure t. Qui tourne avec le manège ramène le tout par une rotation de −Ωt (quatrième source)."
+          },
+          "coriolis_push": {
+            "title": "La force de Coriolis au lâcher",
+            "setting": "6 tr/min, rayon 2 m ; le palet à 3 m/s droit vers l’autre siège, relevé au moment du lancer, en tournant avec le manège.",
+            "reads": "Qui tourne avec le manège voit le palet accéléré en travers du lancer, avec 2Ωu : la force de Coriolis par kilogramme. Au lancer, la force centrifuge pointe vers l’extérieur le long de la ligne du lancer et n’apporte rien en travers.",
+            "why": "Vérifie le retour par rotation dans la vue de ceux qui tournent avec : 3,77 m/s² vers la droite, comme l’exige une rotation dans le sens antihoraire. Relevé sur la trajectoire de la page comme dérivée seconde sur trois pas de 1 ms ; la méthode s’écarte de 7 · 10⁻⁷.",
+            "step": "La source donne l’équation du mouvement dans un référentiel en rotation uniforme ; sans force, U = 0. Au moment du lancer, v′ est le lancer, perpendiculaire à Ω, et r′ le siège, sur la ligne du lancer : en travers de celle-ci ne reste que 2Ωu."
+          },
+          "ball_turn": {
+            "title": "La balle qui roule tourne à 2/7",
+            "setting": "6 tr/min, rayon 2 m ; la balle qui roule, à 3 m/s droit vers l’autre siège, vue de l’extérieur.",
+            "reads": "En roulant, la balle doit suivre la plateforme sous elle. Le frottement tourne alors sa vitesse continûment, à Ω/(1 + m r²/I), soit 2/7 de la rotation pour une boule pleine : vue de l’extérieur, elle décrit un cercle.",
+            "why": "Vérifie le facteur du roulement : 10,29° par seconde au lieu des 36° du manège. Relevé sur la direction du premier et du dernier segment de la trajectoire dessinée ; sur un cercle, chaque corde pointe exactement dans la direction qu’a la balle au milieu de son arc."
+          }
+        },
+        "sky": {
+          "rayleigh": {
+            "title": "Le bleu est diffusé 4,4 fois plus que le rouge",
+            "setting": "Le tube tel qu’il est : 1 m de long, turbidité de 1,5 par mètre.",
+            "reads": "Des particules bien plus petites que la longueur d’onde diffusent en raison inverse de la puissance quatrième de la longueur d’onde : le bleu à 450 nm plus fortement que le rouge à 650 nm.",
+            "why": "Vérifie la puissance quatrième, d’où viennent toutes les couleurs du tube : 4,353 fois plus fort."
+          },
+          "light_kept": {
+            "title": "Aucune lumière ne se perd",
+            "setting": "Le tube tel qu’il est : 1 m de long, turbidité de 1,5 par mètre ; lumière bleue, 450 nm.",
+            "reads": "Ce qui manque sur un tronçon du tube y est diffusé sur le côté : β fois la lumière qui reste. Ce qui part sur le côté tout le long du tube et ce qui sort au bout donnent ensemble toute la lumière de la lampe.",
+            "why": "Vérifie que la lumière sur le côté et celle au bout concordent : le côté sommé par la règle de Simpson et le bout ajouté, il manque 4 · 10⁻¹⁴, c’est-à-dire rien.",
+            "step": "La source donne la perte d’une couche mince, μ·Φ·dz, et en tire e^(−μd). Dans le tube, rien n’est absorbé ; la perte de chaque couche est donc ce qu’elle diffuse sur le côté. La page en retire encore ce que la lumière diffusée perd en chemin jusqu’à la paroi, e^(−βa) ; ici, c’est rajouté."
+          },
+          "high_sun": {
+            "title": "Soleil haut, air plat",
+            "setting": "Le soleil à 60° au-dessus de l’horizon.",
+            "reads": "Quand le soleil est haut, la courbure de la Terre ne joue aucun rôle : la lumière traverse l’air en biais, 1/sin h fois autant qu’à la verticale.",
+            "why": "Vérifie la masse d’air de la page, selon Kasten et Young : 1,1540 au lieu de 1,1547. Leur formule tient compte de l’air courbé et de la réfraction de la lumière, et se trouve donc 6 · 10⁻⁴ plus bas ; une erreur d’angle ou d’unité ressortirait ici nettement."
+          },
+          "sky_noon": {
+            "title": "Le ciel au-dessus du soleil de midi",
+            "setting": "Le soleil à la verticale au-dessus de nous, 90°, sans couche d’ozone ; lumière verte, 550 nm.",
+            "reads": "Le ciel à la verticale au-dessus de nous est de la lumière du soleil diffusée une fois en descendant : diffusée à chaque altitude et affaiblie sur le reste du chemin. Quand le soleil lui-même est à la verticale, cela fait τ·e^(−τ).",
+            "why": "Vérifie le ciel de la page à son cas limite : la formule devient 0/0 pour m = 1, et la page la calcule là à part. L’écart de 1,4 · 10⁻⁵ : pour le soleil à la verticale, la page prend la masse d’air selon Kasten et Young, qui n’y vaut pas tout à fait 1.",
+            "step": "La source donne la lumière qui descend après une seule diffusion, pour le soleil au cosinus μ_sw et le regard au cosinus μ. En regardant à la verticale vers le haut (μ = 1), avec le soleil à μ_sw = 1/m et au fond de l’air (ζ = τ), on obtient (e^(−τ) − e^(−mτ))/(m − 1), rapporté à la lumière du soleil et à la diffusion dans la direction du regard ; sa limite pour μ → μ_sw donne τ·e^(−τ)."
+          },
+          "ozone_horizon": {
+            "title": "La couche d’ozone à l’horizon",
+            "setting": "Le soleil à l’horizon, 0°, avec couche d’ozone.",
+            "reads": "La couche d’ozone est une coquille mince à 22 km d’altitude. Un rayon venant de l’horizon la traverse en biais, mais pas sur une longueur infinie comme dans un air plat : 12 fois autant d’ozone qu’à la verticale.",
+            "why": "Vérifie le chemin à travers la coquille, par lequel la page affaiblit l’orange du soleil du soir : 12,064, à la main à partir de l’intégrale générale, sur la page à partir d’une formule transformée ; les deux concordent à 10⁻¹⁴ près.",
+            "step": "La source donne la masse d’air pour toute densité ρ(y) en fonction de l’altitude y. Si tout l’ozone se trouve dans une coquille mince en y = H, il reste de l’intégrale la fraction au point H, divisée par la même fraction à la verticale (z = 0). L’angle zénithal z vaut 90° moins la hauteur du soleil."
+          }
+        },
+        "chladni": {
+          "lowest_tone": {
+            "title": "Le son le plus grave",
+            "setting": "La plaque de la page, 24 cm et 1 mm d’acier ; le vibreur sur le son le plus grave qu’il excite au milieu.",
+            "reads": "La table de Leissa donne pour la plaque carrée libre λ = ωa²√(ρh/D) = 24,2702 pour la vibration la plus grave symétrique par rapport aux deux médianes et aux deux diagonales ; en hertz, f = λ/(2πa²)·√(D/(ρh)).",
+            "why": "Vérifie la méthode de Ritz, par laquelle la page cherche les vibrations, et la conversion en hertz : 102,43 Hz. La table et la page concordent à 4 · 10⁻⁸ près."
+          },
+          "second_tone": {
+            "title": "Le deuxième son, pas une harmonique",
+            "setting": "Le vibreur sur le deuxième son, 268,8 Hz.",
+            "reads": "D’après la table de Leissa, le deuxième son excité est 63,6870/24,2702 fois plus haut que le plus grave, quelles que soient la taille et l’épaisseur de la plaque.",
+            "why": "Vérifie une vibration plus haute, indépendante de l’acier et de la taille : 2,624 fois plus haut, pas un multiple entier comme sur une corde. L’écart de 1,4 · 10⁻⁵ vient de la table : la série d’Iguchi est tronquée après cinq termes, et la méthode de Ritz ne passe jamais sous la valeur exacte, mais ici elle passe sous la table."
+          },
+          "sharpness": {
+            "title": "La netteté d’un son",
+            "setting": "Le vibreur 0,2 Hz au-dessus du son le plus grave, là où le milieu vibre encore à 70,7 % de ce qu’il vibre sur le son.",
+            "reads": "Un son a une largeur Δf = f/Q, mesurée là où l’énergie tombe à la moitié ; avec l’amortissement ζ, Q = 1/(2ζ).",
+            "why": "Vérifie l’amortissement dans la loi selon laquelle la page fait répondre la plaque : avec ζ = 0,002, Q = 250, le son le plus grave n’a donc que 0,41 Hz de largeur.",
+            "step": "La source donne Q pour un oscillateur seul. Près du son le plus grave, la plaque vibre presque uniquement selon cette forme ; les neuf autres apportent 1,4 · 10⁻⁵."
+          },
+          "fourth_tone": {
+            "title": "Le quatrième son, pondéré par sa masse",
+            "setting": "Le vibreur sur le quatrième son, 711,1 Hz ; relevé dans l’encadré qui indique de combien vibre le milieu.",
+            "reads": "Sur son son, chaque forme vibre comme un oscillateur seul, au milieu de φ(0)²·F/(μ·ω²·2ζ), avec μ = ∫φ² la masse de cette forme. Rapportées au son le plus grave, la force et l’amortissement s’éliminent.",
+            "why": "Vérifie que chaque forme intervient avec sa propre masse : 4,70 % du son le plus grave. Sans μ, ce serait 1,98 %, l’erreur de la première version. μ est ici intégrée sur la plaque, et non, comme sur la page, sommée comme les carrés des coefficients.",
+            "step": "La source traite un système à deux masses : la réponse est la somme des formes, et chacune répond sur son son avec Q₁/K₁·1/(2ζ₁), Q₁ étant la force sur la forme et K₁ sa raideur. Pour la plaque, la somme sur les masses devient une intégrale : K = μ·ω² et Q = φ(0)·F pour une force au milieu. Les formes φ elles-mêmes sont celles de la page."
+          }
+        },
+        "peg": {
+          "same_height": {
+            "title": "Aussi haut des deux côtés",
+            "setting": "Fil de 1 m, cheville 50 cm sous la suspension, lâché à 30° ; pendant six secondes.",
+            "reads": "Le fil tire en travers du mouvement et ne fournit aucun travail : autour de la cheville, la boule remonte à la hauteur L(1 − cos θ₀) d’où elle a été lâchée.",
+            "why": "Vérifie que la cheville, en arrêtant le fil, conserve la vitesse de la boule et non sa vitesse angulaire : 13,3975 cm de haut. La page relève la boule chaque milliseconde, et le point de retour tombe entre deux relevés : d’où l’écart de 2 · 10⁻⁷."
+          },
+          "period": {
+            "title": "La période sur deux cercles",
+            "setting": "Comme ci-dessus : fil de 1 m, cheville 50 cm plus bas, lâché à 30° ; mesuré de la première à la quatrième fois où la cheville arrête le fil.",
+            "reads": "À l’aller, la boule oscille une demi-période sur tout le fil, au retour une demi-période autour de la cheville, chacune avec sa propre amplitude.",
+            "why": "Vérifie les deux équations du mouvement et les passages de l’une à l’autre, que la page cherche à l’intérieur de son pas : 1,755778 s, à 10⁻⁹ près. K est ici sommée comme une intégrale, et non par la moyenne arithmético-géométrique qu’utilise le moteur de calcul.",
+            "step": "La première source donne ω = √(g/L), la deuxième l’équation du pendule dans le temps ω·t et sa période 4K, la troisième K. Une demi-période en secondes vaut donc 2√(ℓ/g)·K(sin(α/2)) : une fois avec ℓ = L et α = θ₀, une fois avec ℓ = r et l’amplitude φ₀ qui atteint la même hauteur autour de la cheville."
+          },
+          "loop": {
+            "title": "À partir de quelle profondeur la boule fait le tour",
+            "setting": "Fil de 1 m, lâché depuis l’horizontale, la cheville 60 cm plus bas : à la limite. La limite est cherchée par dichotomie entre 55 et 65 cm.",
+            "reads": "En haut du petit cercle, le fil doit encore tirer. Avec la vitesse tirée de la hauteur de départ, cela veut dire h ≥ 5r/2 ; depuis l’horizontale, h = 1 m, donc r ≤ 40 cm, la cheville au moins 60 cm plus bas.",
+            "why": "Vérifie le tour complet dans la boucle des pas de temps elle-même, et non la formule de la page : dès 59,99999 cm. Avec la cheville à peine plus haut, le fil ne serait détendu en haut qu’un instant, moins qu’un pas ; la page ne le voit pas, d’où l’écart de 2 · 10⁻⁷.",
+            "step": "La source donne la traction du fil, mg(3cos θ − 2cos θ_m), pour un pendule qui rebrousse chemin en θ_m. Autour de la cheville, le rayon est r, et la hauteur de départ remplace cos θ_m : 1 − h/r. En haut, pour cos θ = −1, la traction vaut mg(2h/r − 5)."
+          },
+          "slack": {
+            "title": "Où le fil se détend",
+            "setting": "Fil de 1 m, cheville 55 cm plus bas, lâché depuis l’horizontale : le cas « Fil détendu ».",
+            "reads": "Le fil se détend là où sa traction s’annule : v²/r + g·cos φ = 0. Avec la vitesse tirée de la hauteur de départ, cela se produit à la hauteur (r + 2h)/3.",
+            "why": "Vérifie où la page fait commencer le vol libre : 81,6667 cm au-dessus du point le plus bas, à 10⁻⁹ près, car la page cherche l’instant à l’intérieur de son pas.",
+            "step": "La source donne la traction mg(3cos θ − 2cos θ_m) pour un pendule qui rebrousse chemin en θ_m. Autour de la cheville, la hauteur de départ remplace cos θ_m : 1 − h/r. Égalée à zéro, elle donne cos φ = 2(1 − h/r)/3, et la hauteur r(1 − cos φ) = (r + 2h)/3."
+          }
+        },
+        "foucault": {
+          "winterthur": {
+            "title": "À Winterthour : 11,1° par heure",
+            "setting": "Winterthour, 47,5° nord ; le pendule long de 12 m, écarté de 50 cm. Relevé au premier point de retour après une heure.",
+            "reads": "Le plan d’oscillation tourne par rapport au sol à Ω·sin φ, dans le sens horaire au nord : 360° · sin φ par tour de la Terre par rapport aux étoiles.",
+            "why": "Vérifie l’oscillation dessinée elle-même, pas seulement le nombre à côté : là où la boule rebrousse chemin après une heure, le plan est tourné de 11,09° dans le sens horaire. L’écart de 2 · 10⁻⁸ est le huitième chiffre de la rotation de la Terre avec laquelle calcule la page, 7,2921150 · 10⁻⁵ par seconde.",
+            "step": "La première source donne la vitesse de rotation Ω·sin λ, la deuxième son sens : horaire au nord. Pour Ω, on prend un tour de la Terre par rapport aux étoiles, 86 164,0989 s (troisième source)."
+          },
+          "pole": {
+            "title": "Au pôle Nord : un tour par rotation de la Terre",
+            "setting": "Au pôle Nord, 90° nord ; pour le reste, comme à Winterthour.",
+            "reads": "Au pôle, le pendule garde son plan par rapport aux étoiles, et la Terre tourne entièrement en dessous : un tour en un tour de la Terre par rapport aux étoiles.",
+            "why": "Vérifie la rotation de la Terre avec laquelle calcule la page : un tour en 23,934 h, compté par rapport aux étoiles et non par rapport au Soleil.",
+            "step": "Au pôle, la Terre tourne sous le pendule avec tout son Ω (première source), un tour complet par rapport aux étoiles en 86 164,0989 s (deuxième source)."
+          },
+          "south": {
+            "title": "À Sydney : dans l’autre sens",
+            "setting": "Sydney, 33,9° sud ; pour le reste, comme à Winterthour.",
+            "reads": "Au sud de l’équateur, sin φ est négatif : le plan tourne dans le sens antihoraire.",
+            "why": "Vérifie le signe de la latitude dans le nombre « Par heure » de la page : −8,39°, soit 8,39° par heure dans le sens antihoraire.",
+            "step": "La première source compte dans le sens horaire, et les latitudes au sud comme négatives. Pour le jour, on prend comme ci-dessus un tour de la Terre par rapport aux étoiles (deuxième source)."
+          },
+          "period": {
+            "title": "La cadence de l’oscillation",
+            "setting": "Winterthour, le pendule long de 12 m ; mesuré du lâcher jusqu’au point de retour après une heure, sur toutes les demi-oscillations entre les deux.",
+            "reads": "Un pendule de faible amplitude oscille avec T = 2π√(L/g), quelles que soient sa masse et son amplitude.",
+            "why": "Vérifie la longueur et la pesanteur dans l’oscillation dessinée : 6,9504 s. La rotation de la Terre ne la modifie que de 2 · 10⁻⁹."
+          }
+        },
+        "plates": {
+          "free_fall": {
+            "title": "La plaque en plastique tombe librement",
+            "setting": "Champ de 0,15 T, aimants de 20 mm de haut ; votre plaque en plastique, sans fentes, 90 cm à travers la colonne.",
+            "reads": "Ce qui ne conduit pas le courant n’est pas freiné : la plaque tombe librement depuis le repos, s = ½·g·t².",
+            "why": "Vérifie que sans conductivité il ne reste aucun frein, et la hauteur de chute de la colonne : 0,43 s, comme le quatrième chronomètre ci-dessus."
+          },
+          "late_start": {
+            "title": "Une constante de temps plus tard",
+            "setting": "La plaque d’aluminium entaillée de l’exposition : 3 mm d’épaisseur, dents de 8 mm de haut ; champ de 0,15 T, aimants de 20 mm de haut.",
+            "reads": "Avec un frein proportionnel à la vitesse, la plaque s’approche exponentiellement de sa vitesse limite v_E = m·g/c̄, avec la constante de temps τ = m/c̄. Elle tombe bientôt à v_E, avec τ de retard sur une plaque qui serait partie directement à v_E.",
+            "why": "Vérifie la chute, pas le frein : avec la masse et le frein de la page, cela fait 1,710 s pour 90 cm à 52,6 cm/s, plus 54 ms, soit 1,764 s en tout. Sans la constante de temps, le temps serait trop court de 3 %.",
+            "step": "La source donne le chemin y = (mg/b)·t + (m²g/b²)·(e^(−bt/m) − 1), ici avec b = c̄. Après 33 constantes de temps, l’exponentielle a disparu : y = v_E·(t − τ), donc t = s/v_E + τ."
+          },
+          "thickness": {
+            "title": "L’épaisseur ne change rien",
+            "setting": "Votre plaque en aluminium, sans fentes, de 10 mm d’épaisseur au lieu de 3 mm ; ci-dessus, la plaque d’aluminium de l’exposition, de 3 mm.",
+            "reads": "Une plaque plus épaisse conduit plus de courant et freine plus fort, mais elle est plus lourde dans la même mesure : v_E et τ restent, et avec eux toute la chute.",
+            "why": "Vérifie que l’épaisseur intervient de la même façon dans le frein et dans la masse : les deux plaques mettent 12,31 s, identiques à 10⁻¹² près.",
+            "step": "D’après la première source, le courant par unité de surface, J = σ(E + v×B), est le même dans chaque couche de la plaque ; le frein c̄ croît donc avec l’épaisseur d comme la masse m = ϱ·d·A. D’après la deuxième, v_E = mg/c̄ et τ = m/c̄ ne dépendent que de leur rapport."
+          },
+          "metals": {
+            "title": "Cuivre contre aluminium",
+            "setting": "Votre plaque en cuivre, sans fentes, de 3 mm d’épaisseur ; puis la même plaque en aluminium, comme celle de l’exposition.",
+            "reads": "Pour une même plaque entre les mêmes aimants, les vitesses limites sont dans le rapport de la résistivité multipliée par la masse volumique : bien conduire freine, être lourd entraîne.",
+            "why": "Vérifie les valeurs des métaux et la façon dont elles interviennent : l’aluminium tombe à 0,476 fois la vitesse du cuivre ; la table elle-même arrondit à 0,48. L’écart de 0,1 % : la page calcule avec des conductivités à trois chiffres, la table donne des résistivités à quatre.",
+            "step": "Avec J = σ(E + v×B), tout courant croît avec σ, et son motif reste le même : le frein vaut σ·d·A·B₀²/2·η, avec η issu de la seule forme. Égalé au poids ϱ·d·A·g, cela donne v_E = ϱ·g/(σ·B₀²/2·η) ; pour une même forme, η s’élimine, et avec σ = 1/ρ il reste ρ·ϱ, la colonne de la table."
+          },
+          "strip": {
+            "title": "Dents fines : la bande infinie",
+            "setting": "Aimants de 10 mm de haut, donc une période de 20 mm ; votre plaque en aluminium, de 1 mm d’épaisseur, entaillée en dents de 2 mm de haut.",
+            "reads": "Une dent bien plus large que haute ne conduit le courant qu’en travers. En travers, aucun courant net ne peut circuler ; seul pousse donc ce qui s’écarte de la moyenne du champ sur la dent : du freinage d’une plaque infinie reste la part η = 1 − (sin(kh/2)/(kh/2))².",
+            "why": "Vérifie pourquoi les fentes ôtent le frein : à la main, il reste 3,25 %, la page calcule 3,21 %. L’écart de 1,3 % vient des extrémités des dents : la formule vaut pour des dents infiniment larges, la plaque fait 10 cm de large.",
+            "step": "La première source donne le courant dans un conducteur en mouvement, J = σ(E + v×B). Dans une dent infiniment large, il ne circule qu’en travers, et comme rien de net ne peut circuler en travers, le champ des charges aux extrémités retire la moyenne B̄ : J = σ·v·(B − B̄). D’après la deuxième, la chaleur est égale à la puissance de freinage ; en moyenne sur la position par rapport aux pôles, il manque à B₀²/2 la part B₀²/2·(sin(kh/2)/(kh/2))², la moyenne au carré."
+          }
+        },
+        "maxwell": {
+          "fall_time": {
+            "title": "La chute lente",
+            "setting": "La roue de la page : disque plein, 0,5 kg, rayon 6,5 cm, axe 5 mm, rubans de 60 cm, sans frottement des rubans ; le temps jusqu’à ce qu’ils soient déroulés.",
+            "reads": "Les rubans obligent la roue à tourner pendant qu’elle tombe. Comme l’axe est si mince, presque toute l’énergie potentielle passe dans la rotation, et la roue tombe comme au ralenti.",
+            "why": "Vérifie le déroulement sur l’axe mince et le moment d’inertie du disque : 3,2345 s pour 60 cm, comme la page à 10⁻¹⁴ près."
+          },
+          "pull": {
+            "title": "Les rubans portent presque tout le poids",
+            "setting": "Comme ci-dessus, relevé après 1 s de chute.",
+            "reads": "Comme la roue tombe si lentement, les rubans tirent avec presque tout son poids ; ce qui manque accélère la chute.",
+            "why": "Vérifie la traction des rubans qu’indique la page : 4,846 N."
+          },
+          "back_up": {
+            "title": "Sans frottement, de retour jusqu’en haut",
+            "setting": "Comme ci-dessus ; relevé au point le plus haut après le premier à-coup.",
+            "reads": "En descendant, l’énergie potentielle devient chute et rotation, l’à-coup rend la vitesse inchangée, et en montant tout redevient énergie potentielle.",
+            "why": "Vérifie que la chute, l’à-coup et la montée s’accordent : la roue revient exactement à 60 cm.",
+            "step": "La première source donne l’énergie dans la chute, MgL = ½Mv² + ½Iω². L’à-coup est une oscillation de ressort dont l’énergie, d’après la seconde, reste la même : la roue en sort aussi vite qu’elle est arrivée. En montant, le calcul de la première vaut à rebours."
+          },
+          "jerk_time": {
+            "title": "L’à-coup : une demi-oscillation",
+            "setting": "Comme ci-dessus, les rubans ensemble à 10 kN/m ; de la fin des rubans jusqu’à ce que la roue remonte.",
+            "reads": "En bas, ce n’est plus le déroulement qui freine la roue, mais les rubans, qui s’allongent : elle y fait une demi-oscillation comme sur un ressort et fait demi-tour.",
+            "why": "Vérifie l’à-coup, le temps pendant lequel les rubans tirent le plus fort : 22,2 ms. Les rubans absorbent aussi le reste de l’accélération vers le bas ; c’est pourquoi il dure 1,4 · 10⁻³ de plus que la demi-oscillation.",
+            "step": "La source donne la période d’une masse suspendue à un ressort. L’à-coup en est la moitié, tant que la roue arrive assez vite pour que sa petite accélération vers le bas ne compte pas à côté."
+          },
+          "peak": {
+            "title": "La plus forte traction pendant l’à-coup",
+            "setting": "Comme ci-dessus, les rubans ensemble à 10 kN/m ; la plus forte traction pendant l’à-coup.",
+            "reads": "Seule l’énergie de la chute, ½Mv², passe dans les rubans, pas celle de la rotation : celle-ci continue à travers l’à-coup. Au point le plus bas, les rubans tirent avec le poids et, en plus, avec s·A.",
+            "why": "Vérifie la traction qu’indique la page pendant l’à-coup : 31,14 N, plus de six fois le poids de 4,90 N.",
+            "step": "La première source donne la vitesse v en bas. Pendant l’à-coup, la roue oscille sur les rubans autour de la position où ils portent son poids ; d’après la seconde, au point le plus bas l’énergie ½Mv² est tout entière dans l’allongement A au-delà de cette position : ½sA² = ½Mv²."
+          }
+        },
+        "arch": {
+          "milankovitch": {
+            "title": "Le demi-cercle le plus mince qui tienne",
+            "setting": "Demi-cercle de 2 m de portée, 40 pierres, sans charge ; l’épaisseur réduite jusqu’à ce qu’aucune ligne de pression ne tienne plus dans toutes les pierres.",
+            "reads": "Un arc en plein cintre en pierres sans mortier ne tient que s’il est épais d’au moins 0,1075 de son rayon : c’est ce qu’a calculé Milankovitch, et Makris et Alexakis l’ont confirmé.",
+            "why": "Vérifie que la page place la ligne de pression dans les pierres là où elle tient encore tout juste : avec 40 pierres, l’arc tient à partir de 0,10743 du rayon. C’est 6 · 10⁻⁴ de moins que la valeur de Milankovitch, qui vaut pour des joints placés n’importe où et est arrondie à quatre décimales."
+          },
+          "chain_push": {
+            "title": "La chaîne retournée pousse comme elle tire",
+            "setting": "Arc de chaînette de 2 m de portée, 1 m de haut, épais de 2 cm seulement et fait de 40 pierres, sans charge ; la chaîne affichée.",
+            "reads": "Retournée, la traction de la chaîne devient la poussée de l’arc. Horizontalement, la chaîne tire partout de la même façon, avec T₀ = w·a ; verticalement, chaque pied porte le poids de la moitié de la chaîne, w·a·sinh(c/a). La poussée au pied vaut donc 1/(2·sinh(c/a)) du poids.",
+            "why": "Vérifie le chiffre « Poussée au pied » de la page : 20,68 % du poids. Les 40 pierres droites de 2 cm ne sont pas une chaîne ; leur ligne s’écarte de 1,3 · 10⁻⁴.",
+            "step": "La première source est la règle de Hooke : comme pend la chaîne, ainsi se tient l’arc retourné. La seconde donne la chaîne : horizontalement T₀ = w·a, verticalement w·s avec s = a·sinh(x/a) jusqu’au sommet. Au pied, en x = c, on a donc w·a et w·a·sinh(c/a) ; a se déduit de la hauteur, a·(cosh(c/a) − 1) = h."
+          },
+          "weight": {
+            "title": "Le poids des pierres",
+            "setting": "Le demi-cercle de la page : 2 m de portée, 25 cm d’épaisseur, 16 pierres, 30 cm de profondeur, 2400 kg/m³.",
+            "reads": "Chaque pierre est taillée le long de deux rayons distants de π/16 : le triangle jusqu’au bord extérieur moins le triangle jusqu’au bord intérieur, ½(R₊² − R₋²)·sin(π/16).",
+            "why": "Vérifie les pierres dont la page tire les poids et les centres de gravité : 561,86 kg, le chiffre « Poids de l’arc » de la page.",
+            "step": "La source donne l’aire d’un triangle à partir de deux côtés et de l’angle qu’ils forment. Une pierre est le triangle allant du centre jusqu’au bord extérieur, R₊ = R + t/2, moins celui allant jusqu’au bord intérieur, R₋ = R − t/2 ; le tout multiplié par la profondeur et la masse volumique."
+          }
+        },
+        "resonance": {
+          "tone": {
+            "title": "La note de la tige la plus courte",
+            "setting": "La tige de 50 cm, acier de 2 mm ; la table exactement à son rythme.",
+            "reads": "Une tige fixée en bas oscille à ω₀ = (β₁L)²/L²·√(EI/μ), β₁L = 0,596864π. Son poids la comprime et l’assouplit : entre aucun poids et le flambage de Greenhill, ω² descend ici le long d’une droite.",
+            "why": "Vérifie la racine, la raideur et le poids dans la note que la page écrit sous chaque tige : 5,58 Hz ; le poids retire 2,5 % de ω². La page, selon Rayleigh, abaisse ω² avec une pente 0,4 % plus forte que la droite menant au flambage exact de Greenhill, d’où les 5 · 10⁻⁵.",
+            "step": "La première source donne la note sans poids, la seconde la longueur à laquelle la tige flambe sous son poids et sa note tombe à zéro. Entre les deux, ω² est pris comme une droite en fonction de la charge, une approximation ; la tolérance la couvre."
+          },
+          "buckling": {
+            "title": "Trop longue pour son poids",
+            "setting": "Une seule tige du même acier de 2 mm, de plus en plus longue, jusqu’à ce que le calcul la refuse parce qu’elle flambe sous son poids.",
+            "reads": "Une colonne libre flambe sous son propre poids dès qu’elle est plus haute que (9B²/4·EI/(ρgA))^(1/3), B étant le premier zéro de la fonction de Bessel J₋₁/₃.",
+            "why": "Vérifie ce que le poids enlève à la note, là où il l’enlève tout entière : 1,720 m d’après la source, 1,723 m d’après la page. La page calcule avec la forme de l’oscillation au lieu de celle du flambage ; cela relève la charge de flambage de 0,4 % et la longueur d’un tiers de cela."
+          },
+          "in_step": {
+            "title": "En phase : la tige oscille largement",
+            "setting": "La table exactement au rythme de la tige de 80 cm, 2,09 Hz, 1 mm de chaque côté, amortissement 0,01 ; deux minutes à partir du repos.",
+            "reads": "La table pousse l’oscillation de la tige avec Γ·Ω²·Y, Γ = ∫φ/∫φ² ; en phase, la pointe oscille de façon stationnaire avec une amplitude Γ·Y/(2ζ).",
+            "why": "Vérifie la boucle des pas de temps, la poussée et l’amortissement : 78,3 mm à partir de 1 mm de table. Γ = 1,566 est ici sommé à partir de la forme de la source, et non tiré du moteur de calcul.",
+            "step": "La première source donne l’oscillateur forcé, la deuxième la forme de l’oscillation, la troisième le facteur de participation pour une forme de masse unité ; pour une forme valant 1 à la pointe, il devient ∫φ/∫φ²."
+          },
+          "neighbour": {
+            "title": "À côté : la voisine bouge à peine",
+            "setting": "Comme ci-dessus ; relevé sur la tige de 90 cm, dont le rythme propre est de 1,61 Hz.",
+            "reads": "La même formule hors du rythme : Γ·r²·Y/√((1 − r²)² + (2ζr)²), r = Ω/ω.",
+            "why": "Vérifie que la table pousse avec son accélération, Ω²·Y, et non avec une force fixe : 3,86 mm ; avec la force ω²·Y, ce serait 2,30 mm. Après deux minutes, il reste 6 · 10⁻⁶ du démarrage.",
+            "step": "Comme ci-dessus : l’oscillateur forcé de la première source, avec la forme et le facteur de participation des deux autres."
+          },
+          "growth": {
+            "title": "À partir du repos : à quelle vitesse l’oscillation croît",
+            "setting": "La table exactement au rythme de la tige de 80 cm, à partir du repos ; compté jusqu’à ce que l’oscillation atteigne 1 − 1/e de l’oscillation stationnaire.",
+            "reads": "À partir du repos, le mouvement est l’oscillation stationnaire plus une autre qui s’éteint en e^(−ζωt) ; elle croît à peu près comme 1 − e^(−ζωt) et atteint donc 1 − 1/e après environ 1/(2πζ) = 15,9 oscillations.",
+            "why": "Vérifie comment la boucle des pas de temps relie l’amortissement et le démarrage : calculé exactement, 15,842 oscillations, 7,57 s à 2,09 Hz. La règle simple est 0,5 % au-dessus, car le démarrage lui-même a des termes de l’ordre de ζ.",
+            "step": "La source donne la solution comme l’oscillation stationnaire plus une oscillation qui s’éteint, à ω₁ = ω√(1 − ζ²) et au taux ζω ; ses deux constantes sont choisies ici pour que la position et la vitesse partent de zéro."
+          }
+        },
+        "well": {
+          "kepler_period": {
+            "title": "La troisième loi de Kepler dans l’entonnoir",
+            "setting": "Sans résistance au roulement, lancée à 36 cm à la vitesse du cercle, 0,4411 m/s (« Cercle ») ; mesuré sur le premier tour.",
+            "reads": "Sur le cercle, la pente de la paroi tire la bille vers le centre avec (5/7)·g·k/r² : un carré inverse, comme la gravité d’une étoile. C’est pourquoi la loi de Kepler T² = 4π²r³/(GM) s’applique, avec (5/7)·g·k à la place de GM.",
+            "why": "Vérifie le mouvement vers le centre et la part de 5/7 de la bille qui roule : 5,127873 s pour le tour. En glissant, sans le 5/7, elle serait plus rapide.",
+            "step": "La première source donne la loi de Kepler pour une attraction de GM/r² par kilogramme. La deuxième indique qu’une bille pleine qui roule sur une pente ne ressent que g·sin α/(1 + 2/5), soit 5/7 du glissement, avec le moment d’inertie 2/5·m·r² de la bille pleine tiré de la troisième. Sur le cercle, cette part retient la bille : (v²/r)·cos α = (5/7)·g·sin α, et avec tan α = k/r², cela donne v²/r = (5/7)·g·k/r²."
+          },
+          "equal_areas": {
+            "title": "Des aires égales en des temps égaux",
+            "setting": "Sans résistance au roulement, lancée à 36 cm le long du bord à 0,30 m/s, plus lentement que le cercle ; relevé après 20 s.",
+            "reads": "La paroi pousse dans le plan qui passe par l’axe, la pesanteur tire verticalement : rien ne fait tourner la bille autour de l’axe. Ainsi r²·φ̇ reste le même : le double de l’aire que la ligne vers le centre balaie en une seconde.",
+            "why": "Vérifie l’équation de la révolution autour du centre, sur une rosette qui va loin vers l’intérieur et ressort : après 20 s, on a 0,108 m²/s à 10⁻¹⁰ près, comme au lancer, 0,36 m fois 0,30 m/s.",
+            "step": "La source déduit la deuxième loi de Kepler de la conservation du moment cinétique. Ici, c’est le moment cinétique autour de l’axe, avec la rotation de la bille qui roule, (7/5)·r²·φ̇ par kilogramme ; le facteur 7/5 est fixe, donc r²·φ̇ se conserve."
+          },
+          "energy": {
+            "title": "L’énergie se conserve",
+            "setting": "Comme ci-dessus : sans résistance au roulement, lancée à 36 cm à 0,30 m/s ; après 20 s, soit 20 000 pas.",
+            "reads": "Sans pertes, la somme du mouvement, de la rotation et de la hauteur reste la même ; la rotation de la bille pleine porte 2/5 de ce que porte le mouvement.",
+            "why": "Vérifie la boucle des pas de temps sur une rosette qui tourne un peu plus à chaque tour : −0,209407 J/kg au lancer et après 20 s, identiques à 10⁻¹⁰ près."
+          },
+          "brake": {
+            "title": "Ce que coûte la résistance au roulement",
+            "setting": "Résistance au roulement 0,002 comme sur la page, lancée à 36 cm sur le cercle ; relevé sur le premier pas.",
+            "reads": "La résistance au roulement freine avec C·N contre le mouvement ; cela coûte C·N·v par seconde. N, la poussée de la paroi, est la part du poids perpendiculaire à la paroi, plus ce qui maintient la bille sur son cercle.",
+            "why": "Vérifie le freinage et la poussée de la paroi dont il découle : 8,6625 mW par kilogramme. Dès la première milliseconde, la bille ralentit un peu, et le freinage avec elle ; et en dessous de 1 mm/s, la page atténue la résistance jusqu’à l’annuler : ensemble, un écart de 2 · 10⁻⁵.",
+            "step": "La première source donne la résistance au roulement C·N. La deuxième traite le virage relevé : N·sin θ = mv²/r et N·cos θ = mg. Additionnées perpendiculairement à la paroi, elles donnent N = mg·cos α + (mv²/r)·sin α ; l’adhérence de la bille qui roule se trouve dans le plan de la paroi et n’apporte rien perpendiculairement à elle."
+          }
+        }
+      },
+      "set_up": "Régler",
+      "set_up_hint": "Règle l’exposition ci-dessus sur ce cas"
+    },
+    "list": {
+      "lead": "Chaque exposition avec son dessin, qui s’anime dès que vous le pointez. Filtrez par thème ou parcourez-les toutes."
+    }
+  },
+  "course": {
+    "title": "Équations différentielles",
+    "tagline": "Les équations différentielles des systèmes techniques, par la pratique : chaque leçon associe un banc réel à un modèle qui calcule pendant que vous déplacez les curseurs.",
+    "reset": "Réinitialiser",
+    "failed": "Le calcul a échoué.",
+    "lesson_n": "Leçon {{n}}",
+    "axis": {
+      "time": "Temps",
+      "frequency": "Fréquence",
+      "angle": "Angle",
+      "torque": "Couple"
+    },
+    "figure": {
+      "time_constant": "Constante de temps",
+      "overshoot": "Dépassement",
+      "peak_time": "Instant du pic",
+      "settling": "Temps d'établissement",
+      "phase": "Phase"
+    },
+    "frame": {
+      "question": "La question",
+      "model": "Le modèle",
+      "assumptions": "Ce que le modèle laisse de côté",
+      "assumptions_hint": "Tout modèle est une décision sur ce qui n'a pas d'importance ici.",
+      "experiments": "Expériences",
+      "insights": "Ce qu'elles ont montré",
+      "exercises": "Exercices",
+      "lesson_navigation": "Leçon précédente et leçon suivante"
+    },
+    "lessons": {
+      "recipe": {
+        "title": "La recette",
+        "summary": "Toute équation différentielle technique naît d'un bilan : variation = entrée − sortie."
+      },
+      "first_order": {
+        "title": "Systèmes du premier ordre",
+        "summary": "La constante de temps : ce qu'elle signifie, comment la lire sur une mesure, et où on la rencontre."
+      },
+      "second_order": {
+        "title": "Systèmes du second ordre",
+        "summary": "Fréquence propre et amortissement : dépassement, résonance, et amortissement mesuré sur une oscillation libre."
+      },
+      "eigenvalues": {
+        "title": "Valeurs propres et plan des pôles",
+        "summary": "Une valeur propre est un taux de décroissance et une fréquence ; un vecteur propre, une façon dont le système se déplace."
+      },
+      "laplace": {
+        "title": "Laplace et Bode",
+        "summary": "Dériver devient multiplier par s, les chaînes deviennent des produits, et une phase devient un retard."
+      },
+      "numerics": {
+        "title": "Résolution numérique",
+        "summary": "Euler et Runge–Kutta : pas, stabilité, et pourquoi les problèmes raides demandent des méthodes implicites."
+      },
+      "two_mass": {
+        "title": "L'oscillateur à deux masses",
+        "summary": "Modes propres, antirésonances, et pourquoi un arbre de mesure de couple se trompe dès quelques hertz."
+      },
+      "cheat_sheet": {
+        "title": "Aide-mémoire et analogies",
+        "summary": "Le cours sur une seule page imprimable, chaque formule reliée à son widget."
+      }
+    },
+    "overview": {
+      "why": "Derrière chaque exposition se trouve une équation différentielle. Ce cours en est le socle : ce qu'est une telle équation, d'où elle vient, et ce qu'elle dit d'un système réel.",
+      "how": "Chaque leçon suit le même schéma : une question tirée de la pratique, le modèle qui y répond, des expériences que vous menez avec des curseurs, ce qu'elles ont montré, et des exercices — d'abord estimer, ensuite calculer. Chaque nombre est calculé par le moteur de calcul de l'application elle-même et vérifié par rapport à des valeurs de référence.",
+      "lessons": "Les leçons",
+      "lessons_hint": "Votre progression n'est conservée que sur cet appareil.",
+      "forget": "Oublier ma progression",
+      "progress": "Exercices résolus",
+      "solved": "{{solved}} sur {{total}}",
+      "visited": "ouverte",
+      "exercises_done": "{{done}} exercices sur {{total}}",
+      "surprises": "Surprises",
+      "surprises_hint": "Chaque estimation qui s'écartait de plus de moitié — la liste qui vaut la peine d'être relue.",
+      "no_surprises": "Aucune pour l'instant. Estimez avant de calculer, et celles qui vous surprennent s'accumuleront ici.",
+      "surprise_entry": "vous aviez estimé {{estimate}} {{unit}}, la réponse était {{answer}} {{unit}}"
+    },
+    "recipe": {
+      "title": "La recette : huit étapes",
+      "hint": "Chaque modèle de ce cours est écrit selon ces étapes.",
+      "steps": {
+        "question": {
+          "title": "Clarifier la question",
+          "body": "À quoi le modèle doit-il répondre, et avec quelle précision ? Un modèle sans question n'a aucun moyen d'être juste."
+        },
+        "boundary": {
+          "title": "Frontière du système et hypothèses",
+          "body": "Décidez de ce qui est à l'intérieur, de ce qui est à l'extérieur et de ce qui est négligé — et notez-le."
+        },
+        "coordinate": {
+          "title": "Choisir une coordonnée et réduire",
+          "body": "Une coordonnée par degré de liberté, tout le reste ramené sur elle à travers les transmissions."
+        },
+        "balance": {
+          "title": "Écrire le bilan",
+          "body": "Variation = entrée − sortie : de masse, d'énergie, de quantité de mouvement ou de gaz. C'est de là que vient l'équation différentielle."
+        },
+        "normalise": {
+          "title": "Normaliser",
+          "body": "Mettez-la sous une forme standard — τ, ω₀, D — afin de pouvoir la comparer à tous les autres systèmes de son espèce."
+        },
+        "solve": {
+          "title": "Résoudre",
+          "body": "Sous forme analytique quand elle existe, numériquement sinon."
+        },
+        "check": {
+          "title": "Vérifier",
+          "body": "Unités, cas limites, une estimation à la main, une mesure. Un résultat que personne n'a vérifié est une supposition avec des décimales."
+        },
+        "interpret": {
+          "title": "Interpréter",
+          "body": "Retraduisez la réponse dans les termes de la question : un temps, une force, une décision de conception."
+        }
+      },
+      "tank": {
+        "title": "Un bilan devient un système du premier ordre",
+        "hint": "Un réservoir avec un débit d'entrée constant et un débit de sortie qui croît avec le niveau. Modifiez l'entrée, la section ou la sortie et observez le niveau se stabiliser.",
+        "inflow": "Débit d'entrée",
+        "area": "Section du réservoir",
+        "outflow": "Débit de sortie par mètre de niveau",
+        "level0": "Niveau initial",
+        "level": "Niveau",
+        "outflow_series": "Débit de sortie",
+        "inflow_series": "Débit d'entrée",
+        "flow": "Débit",
+        "final": "Niveau final",
+        "insight": "Le bilan A·dh/dt = entrée − k·h est un système du premier ordre avec τ = A/k : un réservoir plus grand ou une sortie plus étroite le rend plus lent, et il se stabilise là où la sortie égale l'entrée."
+      }
+    },
+    "exercise": {
+      "solved": "Résolu",
+      "estimate_label": "Votre estimation ({{unit}})",
+      "estimate_bare": "Votre estimation",
+      "estimate_submit": "Valider l'estimation",
+      "estimate_why": "Estimez d'abord : le champ de réponse s'ouvre une fois que vous vous êtes engagé sur un nombre.",
+      "your_estimate": "Votre estimation : {{value}} {{unit}}",
+      "answer": "Votre réponse ({{unit}})",
+      "answer_bare": "Votre réponse",
+      "answer_n": "Réponse {{n}} ({{unit}})",
+      "answer_n_bare": "Réponse {{n}}",
+      "check": "Vérifier",
+      "empty": "Saisissez d'abord une valeur.",
+      "right": "Correct.",
+      "wrong": "Pas encore — réessayez, ou demandez un indice.",
+      "surprise": "Votre estimation s'écartait de {{pct}} % : notée sous Surprises.",
+      "estimate_close": "Votre estimation s'écartait de {{pct}} %.",
+      "hint": "Indice",
+      "show_solution": "Afficher la solution",
+      "hide_solution": "Masquer la solution",
+      "solution": "Solution"
+    },
+    "regime": {
+      "underdamped": "Sous-amorti (D < 1)",
+      "critical": "Amortissement critique (D = 1)",
+      "overdamped": "Suramorti (D > 1)"
+    },
+    "poles": {
+      "stable": "stable",
+      "unstable": "instable"
+    },
+    "animation": {
+      "pause": "Mettre l'animation en pause",
+      "play": "Lancer l'animation",
+      "slow": "Ralenti : une période toutes les deux secondes, quelle que soit la fréquence.",
+      "twist": "Torsion de chaque ressort"
+    },
+    "first_order": {
+      "question": "Un capteur de température à 20 °C est plongé dans un bain à 80 °C. Quand pouvez-vous vous fier à sa mesure — et qu'indique-t-il au bout de huit secondes ?",
+      "model": "Un accumulateur (la capacité thermique du capteur) et une résistance (le transfert du bain vers le capteur) : tout ce qui entre fait monter l'accumulateur, et le flux est proportionnel à l'écart qui reste. Écrit sous forme de bilan, c'est un système du premier ordre :",
+      "model_tau": "τ est la constante de temps. Après un τ, la réponse a parcouru 63 % du chemin, après trois 95 %, après cinq 99.3 % — quelle que soit la nature du système.",
+      "assumptions": {
+        "one_store": "Un seul accumulateur : le capteur est partout à la même température, sans gradient à l'intérieur.",
+        "linear": "Linéaire : le flux est proportionnel à l'écart, donc τ ne dépend pas de la distance à parcourir.",
+        "constant": "Paramètres constants : τ est le même à 20 °C qu'à 80 °C."
+      },
+      "insights": {
+        "settled": "Après 5 τ, la réponse a parcouru 99.3 % de l'échelon : elle est établie, pour tout système du premier ordre.",
+        "read": "τ se lit sur une mesure là où la réponse a parcouru 63 % — ou là où la tangente à l'origine atteint la valeur finale.",
+        "log": "Sur un axe logarithmique, l'écart restant est une droite : la pente vaut −1/τ, et une mesure qui n'y est pas droite n'est pas du premier ordre."
+      },
+      "step": {
+        "title": "La réponse indicielle",
+        "hint": "Déplacez τ et les deux niveaux. Les repères sont à 1, 2, 3 et 5 τ ; la ligne en pointillés est la tangente à l'origine, qui atteint la valeur finale exactement à τ."
+      },
+      "tau": "Constante de temps τ",
+      "start": "Valeur initiale",
+      "final": "Valeur finale",
+      "at": "Lecture à l'instant t",
+      "analogy_label": "La même équation que",
+      "analogy": {
+        "thermal": {
+          "name": "Température",
+          "unit": "°C",
+          "quantity": "Température"
+        },
+        "electrical": {
+          "name": "Circuit RC",
+          "unit": "V",
+          "quantity": "Tension du condensateur"
+        },
+        "mechanical": {
+          "name": "Ressort et amortisseur",
+          "unit": "mm",
+          "quantity": "Déplacement"
+        },
+        "vacuum": {
+          "name": "Enceinte à vide",
+          "unit": "mbar",
+          "quantity": "Pression"
+        }
+      },
+      "view": "Axe",
+      "view_linear": "Linéaire",
+      "view_log": "Écart restant, logarithmique",
+      "remaining": "Écart restant",
+      "tangent": "Tangente à l'origine",
+      "final_short": "valeur finale",
+      "value_at": "Valeur à t = {{t}} s",
+      "fraction_at": "Part de l'échelon à t",
+      "settled": "Établi à 99.3 % (5 τ)",
+      "measure": {
+        "title": "Lire τ sur une mesure",
+        "hint": "Une mesure bruitée dont vous ne connaissez pas la constante de temps. Cliquez sur la courbe là où elle croise la ligne des 63 % (ou réglez le repère ci-dessous), puis comparez.",
+        "another": "Une autre mesure",
+        "series": "Température mesurée",
+        "yours": "votre τ",
+        "marker": "Votre lecture de τ",
+        "marker_hint": "Là où la mesure croise la ligne des 63 %, le temps vaut τ.",
+        "compare": "Comparer",
+        "result": "Vous avez lu {{yours}} s ; le vrai τ vaut {{truth}} s (écart de {{off}} %)."
+      }
+    },
+    "second_order": {
+      "question": "Un arbre de mesure de couple reçoit un coup et se met à vibrer. À quelle fréquence vibre-t-il, en combien de temps se calme-t-il — et de combien une mesure se trompe-t-elle quand le signal approche de sa fréquence propre ?",
+      "model": "Une inertie sur un ressort avec un amortisseur : la loi de Newton en rotation. Deux nombres disent tout à son sujet — la fréquence propre ω₀ et le taux d'amortissement D.",
+      "model_magnification": "Excitée à une fréquence f, la réponse vaut la réponse statique multipliée par le facteur d'amplification V(η) ; et deux maxima successifs d'une oscillation libre donnent D sans connaître ni l'inertie ni la raideur :",
+      "assumptions": {
+        "lumped": "Une seule inertie concentrée : la masse répartie de l'arbre lui-même est laissée de côté ; on en garde le premier mode, celui qui compte pour une chaîne de mesure.",
+        "viscous": "Amortissement visqueux, proportionnel à la vitesse ; pas de frottement d'amplitude constante.",
+        "linear": "Un ressort linéaire sur toute la course."
+      },
+      "insights": {
+        "peak": "D = 0.05 signifie un facteur d'amplification de 10 à f₀ : l'arbre vibre jusqu'à dix fois sa déformation statique.",
+        "chain": "Une chaîne de mesure reste juste à environ 4 % près jusqu'au cinquième de sa fréquence propre : f₀ ≥ 5 × la plus haute fréquence utile.",
+        "mass": "Plus d'inertie avec le même amortisseur abaisse D autant que f₀, car D = d/(2√(c·J))."
+      },
+      "system": {
+        "title": "La réponse indicielle",
+        "hint": "Définissez l'arbre par ses composants ou par ses deux nombres. Les lignes en pointillés sont l'enveloppe e^(−Dω₀t) ; la couleur de la pastille indique de laquelle des trois solutions il s'agit."
+      },
+      "describe": "Décrire l'arbre par",
+      "describe_parts": "Ses composants J, c, d",
+      "describe_numbers": "Ses nombres f₀, D",
+      "inertia": "Inertie J",
+      "stiffness": "Raideur c",
+      "damping": "Amortissement d",
+      "f0": "Fréquence propre f₀",
+      "ratio": "Taux d'amortissement D",
+      "torque_note": "Excité par un échelon de couple de {{torque}} N·m.",
+      "angle": "Angle",
+      "envelope": "Enveloppe",
+      "final": "Valeur finale",
+      "magnification": {
+        "title": "Facteur d'amplification et erreur d'une chaîne de mesure",
+        "hint": "V(η) pour votre amortissement (en gras) et cinq références. Déplacez l'excitation et lisez de combien l'arbre bouge plus que sa déformation statique — c'est de cela que se trompe une chaîne de mesure construite sur lui.",
+        "v": "Facteur d'amplification V",
+        "eta": "Rapport de fréquences η = f/f₀",
+        "error": "Erreur de mesure",
+        "error_note": "plus de 5 % : trop près de f₀",
+        "peak": "Facteur d'amplification maximal"
+      },
+      "excitation": "Fréquence d'excitation f",
+      "decay": {
+        "title": "L'amortissement d'après une oscillation libre",
+        "hint": "Un arbre frappé, mesuré avec du bruit ; son amortissement est inconnu. Cliquez sur deux maxima successifs pour calculer Λ et D, puis comparez.",
+        "another": "Une autre oscillation libre",
+        "series": "Couple mesuré",
+        "not_successive": "Choisissez deux maxima voisins.",
+        "damping": "Taux d'amortissement D",
+        "compare": "Comparer",
+        "result": "Vos deux maxima donnent D = {{yours}} ; le vrai D vaut {{truth}}. Lu sur l'ensemble des {{n}} périodes à la fois, D = {{overall}} — un seul logarithme sur de nombreuses périodes donne la réponse la plus stable."
+      }
+    },
+    "eigenvalues": {
+      "question": "Que disent vraiment les deux nombres que l'on calcule pour résoudre un système du second ordre — et que fait un système à deux états couplés lorsqu'il se met en mouvement ?",
+      "model": "Un système linéaire ẋ = A·x évolue comme une somme de ses solutions propres : chaque valeur propre λ indique à quelle vitesse une partie décroît ou croît et à quelle vitesse elle tourne, chaque vecteur propre la direction dans laquelle elle se déplace.",
+      "model_pair": "Pour une masse sur un ressort avec un amortisseur, la matrice a une paire de valeurs propres, et ce sont exactement les racines de l'équation caractéristique de la leçon 2 :",
+      "assumptions": {
+        "linear": "Linéaire et invariant dans le temps : A est constante. Un système non linéaire n'a de valeurs propres qu'autour d'un point de fonctionnement.",
+        "minimal": "Pôles et valeurs propres coïncident lorsque le système est écrit sans facteurs qui se simplifient ; un pôle simplifié par un zéro reste une valeur propre de A."
+      },
+      "insights": {
+        "parts": "λ = σ ± jω : la partie réelle σ fixe l'enveloppe e^(σt), la partie imaginaire la fréquence d'oscillation.",
+        "same": "det(A − λI) = 0 est l'équation caractéristique de la leçon 2 : les pôles, les valeurs propres et ses racines sont les mêmes nombres.",
+        "vectors": "Une trajectoire qui part sur un vecteur propre réel reste sur cette droite ; toute autre est un mélange des deux directions."
+      },
+      "scalar": {
+        "title": "Une valeur propre : ẋ = a·x",
+        "hint": "Faites passer a par zéro : négatif, cela décroît ; positif, cela croît ; et la constante de temps ou le temps de doublement vaut 1/|a| à un facteur près."
+      },
+      "stable": "Stable",
+      "unstable": "Instable",
+      "marginal": "À la limite",
+      "doubling": "Temps de doublement",
+      "poles": {
+        "title": "Pôles et réponse indicielle",
+        "hint": "Réglez f₀ et D, ou faites glisser le pôle supérieur dans le plan. Le demi-cercle en pointillés est |λ| = ω₀ ; deux paires situées dessus ne diffèrent que par l'amortissement.",
+        "plane": "Le plan des pôles, pôles en {{poles}} 1/s",
+        "response": "Réponse indicielle"
+      },
+      "matrix": {
+        "title": "Un système 2×2 et son portrait de phase",
+        "hint": "Modifiez la matrice ou partez d'un préréglage. Les lignes en tirets sont les vecteurs propres réels ; douze trajectoires partent du cercle unité en pointillés.",
+        "presets": {
+          "spring": "Ressort–masse–amortisseur",
+          "saddle": "Col",
+          "centre": "Centre",
+          "spiral": "Spirale"
+        },
+        "kind": {
+          "saddle": "Col — instable",
+          "stable_node": "Nœud stable",
+          "unstable_node": "Nœud instable",
+          "stable_focus": "Foyer stable — oscillation amortie",
+          "unstable_focus": "Foyer instable — oscillation croissante",
+          "centre": "Centre — oscillation non amortie",
+          "degenerate": "Dégénéré — une valeur propre nulle"
+        },
+        "portrait": "Portrait de phase : {{kind}}",
+        "trace": "Trace",
+        "det": "Déterminant",
+        "vectors": "Vecteurs propres"
+      }
+    },
+    "laplace": {
+      "question": "Une chaîne de mesure, c'est un arbre, un filtre et un amplificateur en série. Que fait la chaîne à un signal de 3 Hz — de combien est-il réduit, et avec quel retard arrive-t-il ?",
+      "model": "La transformée de Laplace change la dérivation en multiplication par s, de sorte qu'une équation différentielle devient une équation algébrique. Chaque bloc est une fonction de transfert G(s) ; des blocs en série se multiplient, et sur un diagramme de Bode en décibels ils s'additionnent.",
+      "model_delay": "À une fréquence f, un retard de phase est un retard dans le temps :",
+      "assumptions": {
+        "lti": "Blocs linéaires et invariants dans le temps ; un amplificateur qui sature n'est pas une fonction de transfert.",
+        "steady": "Bode décrit le régime permanent sous une excitation sinusoïdale ; le démarrage relève de la réponse indicielle.",
+        "dead_time": "Un temps mort ajoute de la phase mais aucun pôle : e^(−sT) n'en a pas, et aucun n'est tracé."
+      },
+      "insights": {
+        "product": "Des blocs en série se multiplient ; sur un diagramme de Bode en dB, leurs courbes s'additionnent — les courbes en pointillés ont pour somme la courbe en trait plein.",
+        "final": "La valeur finale d'une réponse indicielle stable est G(0) : elle se lit sur la fonction de transfert sans rien résoudre.",
+        "lag": "Un PT1 retarde les basses fréquences d'environ τ : derrière un filtre à 5 Hz, un signal de 3 Hz arrive avec 28.7 ms de retard ; derrière un filtre à 50 Hz, un signal de 5 Hz avec 3.2 ms.",
+        "filter": "Filtrez le couple et l'angle de façon identique — ou hors ligne, en avant et en arrière — sinon le filtre dessine une hystérésis que l'objet d'essai n'a pas."
+      },
+      "steps": {
+        "title": "Laplace, pas à pas",
+        "hint": "L'échelon du premier ordre résolu à la manière de Laplace : chaque ligne porte vos nombres.",
+        "transform": "Transformer",
+        "solve": "Résoudre pour Y(s)",
+        "split": "Décomposer en éléments simples",
+        "back": "Revenir au domaine temporel"
+      },
+      "time_domain": "Domaine temporel",
+      "image_domain": "Domaine de Laplace",
+      "chain": {
+        "title": "Un jeu de construction de Bode",
+        "hint": "Jusqu'à quatre blocs en chaîne. Le total est en trait plein, chaque bloc en pointillés en dessous ; le curseur lit le gain, la phase et le retard que représente la phase.",
+        "block": "Bloc {{n}}",
+        "remove": "Retirer le bloc",
+        "add": "Ajouter un bloc",
+        "cursor": "Fréquence du curseur",
+        "total": "Chaîne",
+        "gain": "Gain |G|",
+        "delay": "Retard",
+        "poles": "Pôles de la chaîne",
+        "step": "Réponse indicielle"
+      },
+      "kind": {
+        "proportional": "Gain K",
+        "integrator": "Intégrateur K/s",
+        "first_order": "Premier ordre (PT1)",
+        "second_order": "Second ordre (PT2)",
+        "dead_time": "Temps mort"
+      },
+      "magnitude": "Module",
+      "filter": {
+        "title": "L'hystérésis qu'invente un filtre",
+        "hint": "Un objet d'essai sans hystérésis (couple proportionnel à l'angle), soumis à un mouvement sinusoïdal. Filtrez seulement le couple et une boucle apparaît ; filtrez les deux, ou hors ligne, et elle disparaît. Ajoutez du frottement pour voir une hystérésis réelle subsister.",
+        "frequency": "Fréquence du mouvement",
+        "corner": "Fréquence de coupure du filtre",
+        "friction": "Bande de frottement réelle",
+        "mode": "Filtré",
+        "modes": {
+          "torque_only": "Couple seul",
+          "both": "Couple et angle",
+          "zero_phase": "Les deux, en avant et en arrière"
+        },
+        "truth": "Tel quel",
+        "measured": "Tel que mesuré",
+        "apparent": "Hystérésis mesurée",
+        "true": "Hystérésis réelle"
+      }
+    },
+    "numerics": {
+      "question": "La plupart des équations de la pratique n'ont pas de solution analytique, alors un ordinateur les parcourt pas à pas. Quelle taille de pas est permise — et que fait une méthode au système qu'elle parcourt ?",
+      "model": "Euler prend la pente au début de chaque pas et la conserve pendant tout le pas. RK4 évalue la pente quatre fois à l'intérieur du pas et en prend une moyenne pondérée :",
+      "model_stability": "Sur ẏ = λy, une méthode multiplie la solution par un facteur fixe à chaque pas, et elle n'est stable que tant que le module de ce facteur reste au plus égal à un. Pour Euler :",
+      "assumptions": {
+        "fixed": "Un pas fixe : les méthodes présentées ici ne l'adaptent pas. Une méthode adaptative (comme celle qu'utilise la mise sous vide) choisit le sien.",
+        "rounding": "Les arrondis sont ignorés : en double précision, ils sont bien inférieurs à toutes les erreurs montrées ici."
+      },
+      "insights": {
+        "order": "L'erreur d'Euler diminue avec h, celle de RK4 avec h⁴ : diviser le pas par deux divise l'une par deux et l'autre par seize.",
+        "energy": "Euler injecte de l'énergie dans un oscillateur : à h·ω₀ = 2D, il annule exactement l'amortissement — sur l'arbre de mesure, c'est h = 1 ms, qui le fait vibrer indéfiniment avec son plein 1° — et au-delà, ses oscillations s'amplifient.",
+        "rule": "Règle empirique pour RK4 : h au plus égal au vingtième de la plus courte période. Euler explicite sur un oscillateur faiblement amorti exige h·ω₀ < 2D, ce qui, à D = 0.05, représente un soixante-troisième de période.",
+        "stiff": "Raide signifie des dynamiques rapide et lente à la fois : un PT1 de 1 ms à côté d'un PT1 de 10 s oblige RK4 à faire plus de 10 000 pas sur 30 s pour une composante disparue au bout de 5 ms. Euler implicite est stable quel que soit le pas."
+      },
+      "sensor": {
+        "title": "Euler, Heun et RK4 face à la solution exacte",
+        "hint": "Le capteur de la leçon 1 (τ = 4 s, 20 → 80 °C). Agrandissez le pas — au-delà de τ, Euler dépasse ; au-delà de 2τ, il diverge."
+      },
+      "step": "Pas h",
+      "steps": "Nombre de pas",
+      "regime": {
+        "monotone": "Euler s'approche lentement (h < τ)",
+        "one_step": "Euler arrive en un seul pas (h = τ)",
+        "alternating": "Euler dépasse et alterne (τ < h < 2τ)",
+        "neutral": "Euler alterne indéfiniment (h = 2τ)",
+        "diverging": "Euler diverge (h > 2τ)"
+      },
+      "euler_factor": "Facteur d'Euler par pas, 1 − h/τ",
+      "rk4_factor": "Facteur de RK4 par pas",
+      "method": {
+        "exact": "Exacte",
+        "euler": "Euler",
+        "heun": "Heun",
+        "rk4": "RK4",
+        "symplectic": "Euler semi-implicite",
+        "implicit": "Euler implicite"
+      },
+      "errors": {
+        "title": "Tableau des erreurs",
+        "hint": "La valeur de chaque pas et son erreur.",
+        "euler": "Erreur d'Euler",
+        "rk4": "Erreur de RK4"
+      },
+      "rk4_table": {
+        "title": "RK4 pas à pas",
+        "hint": "Où chacune des quatre pentes est évaluée, et ce qu'elle vaut.",
+        "step": "Pas {{n}}",
+        "slope": "Pente"
+      },
+      "oscillator": {
+        "title": "Dérive d'énergie sur un oscillateur",
+        "hint": "L'arbre de mesure de la leçon 2 (f₀ = 15.9 Hz, D = 0.05) lâché depuis 1°, une seconde, quatre méthodes. En haut, l'amplitude sur un axe logarithmique ; en bas, l'angle.",
+        "gain": "Gain d'Euler par pas |1 + hλ|",
+        "neutral": "Pas auquel Euler annule l'amortissement",
+        "amplitude": "Amplitude",
+        "final": "{{method}} : amplitude après 1 s",
+        "damping": "{{method}} : amortissement apparent"
+      },
+      "stiff": {
+        "title": "Problèmes raides",
+        "hint": "Deux PT1 indépendants, 1 ms et 10 s, sur 30 s. Seul le lent est affiché. Prenez un pas supérieur à 2.8 ms et RK4 diverge ; Euler implicite reste stable quel que soit le pas.",
+        "limit": "Plus grand pas stable de RK4",
+        "min_steps": "Pas de RK4 nécessaires au minimum",
+        "rk4_steps": "Pas de RK4 effectués",
+        "diverged": "divergé",
+        "implicit_steps": "Pas d'Euler implicite",
+        "exact": "Exacte",
+        "slow": "Composante lente"
+      }
+    },
+    "two_mass": {
+      "question": "Un arbre de mesure de couple est placé entre le moteur et un adaptateur lourd sur l'objet d'essai. Pourquoi sa mesure est-elle 15 % trop faible à 3 Hz ?",
+      "model": "Deux inerties sur deux ressorts : le moteur J₁, l'arbre de mesure c₁, la colonne ou l'adaptateur J₂, l'objet d'essai comme barre de torsion c₂ vers le bâti. Sous forme matricielle :",
+      "model_reading": "L'arbre mesure le couple qui le traverse ; l'objet d'essai porte le couple qui traverse la barre. Entre les deux se trouve J₂, et ce qu'il faut pour l'accélérer figure dans la mesure et non dans l'objet d'essai :",
+      "assumptions": {
+        "lumped": "Inerties concentrées : l'inertie propre de l'arbre est laissée de côté (répartie entre ses deux extrémités, elle décalerait les deux modes de quelques pour cent).",
+        "torque": "Un entraînement en couple idéal : la boucle de courant du moteur n'est pas modélisée.",
+        "linear": "Ressorts linéaires et amortisseurs visqueux."
+      },
+      "insights": {
+        "count": "n inerties sur des ressorts liés au bâti donnent n fréquences propres ; une chaîne libre ajoute un mouvement de corps rigide à 0 Hz.",
+        "soft": "Le mode bas, c'est tout l'ensemble qui oscille sur le ressort le plus souple : toute l'inertie sur les deux ressorts en série donne 6.3 Hz à la main, contre 6.94 Hz en exact.",
+        "error": "L'arbre mesure environ 1 − (f/f_a)² fois le couple que porte l'objet d'essai, avec f_a = √(c₂/J₂)/2π : 2 % de moins à 1 Hz, 15 % à 3 Hz, 43 % à 5 Hz avec l'adaptateur par défaut."
+      },
+      "rig": {
+        "title": "Le banc sous une excitation sinusoïdale",
+        "hint": "Déplacez l'excitation ou passez à un préréglage. Les disques tournent au ralenti avec les phases calculées par le moteur de calcul ; les barres montrent la torsion de chaque ressort."
+      },
+      "excitation": "Fréquence d'excitation",
+      "presets": {
+        "three": "3 Hz",
+        "mode1": "Mode 1",
+        "absorber": "Point d'antirésonance",
+        "motor_still": "Moteur immobile",
+        "mode2": "Mode 2"
+      },
+      "parameters": "Paramètres du banc",
+      "parameters_hint": "Inerties, raideurs et amortissements, chacun sur un curseur.",
+      "j1": "Inertie du moteur J₁",
+      "j2": "Inertie de l'adaptateur J₂",
+      "c1": "Arbre de mesure c₁",
+      "c2": "Barre de torsion c₂",
+      "d1": "Amortissement de l'arbre d₁",
+      "d2": "Amortissement de la barre d₂",
+      "motor": "Moteur",
+      "adapter": "Adaptateur",
+      "animation_label": "Les deux inerties à {{f}} Hz, au ralenti",
+      "in_phase": "Tournent dans le même sens",
+      "anti_phase": "Tournent en sens opposés",
+      "error": "Erreur de mesure",
+      "shaft_reads": "Ce que mesure l'arbre, M_W",
+      "object_carries": "Ce que porte l'objet d'essai, M_T",
+      "per_motor_torque": "Couple par couple moteur",
+      "modes": "Modes propres",
+      "mode_f": "Mode {{n}} : fréquence",
+      "mode_d": "Mode {{n}} : amortissement",
+      "mode_shape": "Mode {{n}} : φ₂/φ₁",
+      "hand": "Estimation à la main du mode 1",
+      "hand_deviation": "Écart de l'estimation à la main",
+      "compensation": {
+        "title": "Compenser l'inertie de l'adaptateur",
+        "hint": "M_T = M_W − J₂·φ̈₂, avec l'accélération obtenue en dérivant deux fois l'angle mesuré. Augmentez le bruit : la correction l'amplifie du carré de la fréquence d'échantillonnage, et un filtre l'échange contre du retard.",
+        "noise": "Bruit sur l'angle",
+        "rate": "Fréquence d'échantillonnage",
+        "filter": "Nettoyage de l'accélération",
+        "filters": {
+          "none": "Aucun",
+          "lowpass": "Passe-bas",
+          "zero_phase": "Passe-bas dans les deux sens (hors ligne)"
+        },
+        "corrected": "Corrigé, M_W − J₂·φ̈₂",
+        "raw_error": "Erreur sans la correction",
+        "comp_error": "Erreur avec la correction",
+        "noise_price": "Bruit ajouté par la correction"
+      }
+    },
+    "cheat": {
+      "print": "Imprimer",
+      "analogies": "Analogies",
+      "role": "Rôle",
+      "domains": {
+        "electrical": "Électrique",
+        "mechanical": "Mécanique",
+        "thermal": "Thermique",
+        "vacuum": "Vide"
+      },
+      "roles": {
+        "drive": "Grandeur motrice",
+        "flow": "Flux",
+        "resistance": "Résistance",
+        "store": "Accumulateur",
+        "inert": "Accumulateur inertiel",
+        "tau": "Constante de temps"
+      },
+      "traps": "Les pièges d'un banc d'essai",
+      "trap": {
+        "inertia": "Une inertie entre le capteur de couple et l'objet d'essai figure dans la mesure : l'erreur croît avec (f/f_a)².",
+        "filter": "Filtrez le couple et l'angle de façon identique, sinon le filtre invente une hystérésis."
+      },
+      "python": "En Python"
+    },
+    "exercises": {
+      "pt1_reading": {
+        "title": "La mesure d'un capteur",
+        "prompt": "Un capteur avec τ = {{tau}} s subit un échelon de {{start}} °C à {{final}} °C. Qu'indique-t-il après {{t}} s ?",
+        "hint1": "Après t/τ constantes de temps, il manque encore la part e^(−t/τ) de l'échelon.",
+        "hint2": "y(t) = y∞ + (y₀ − y∞)·e^(−t/τ).",
+        "solution": "{{t}} s représentent {{t}}/{{tau}} constantes de temps, il manque donc encore e^(−{{t}}/{{tau}}) de l'échelon : le capteur indique {{a1}} °C."
+      },
+      "decrement": {
+        "title": "L'amortissement à partir de deux maxima",
+        "prompt": "Lors d'un essai d'oscillation libre, un maximum indique {{first}} N·m et le suivant {{second}} N·m. Quel est le taux d'amortissement D ?",
+        "hint1": "Prenez le logarithme du rapport de deux maxima successifs : Λ = ln(xₙ/xₙ₊₁).",
+        "hint2": "D = Λ/√(4π² + Λ²) — pour un petit Λ, presque Λ/2π.",
+        "solution": "Λ = ln({{first}}/{{second}}), et D = Λ/√(4π² + Λ²) = {{a1}}."
+      },
+      "double_frequency": {
+        "title": "Le double de la fréquence propre",
+        "prompt": "Par quel facteur la raideur doit-elle augmenter pour multiplier la fréquence propre par {{factor}}, l'inertie restant inchangée ?",
+        "hint1": "La fréquence propre croît avec la racine carrée de la raideur.",
+        "hint2": "Élevez le facteur au carré.",
+        "solution": "f₀ croît avec √c, donc la raideur doit augmenter d'un facteur {{factor}}² = {{a1}}."
+      },
+      "filter_delay": {
+        "title": "De combien un filtre retarde un signal",
+        "prompt": "Un filtre du premier ordre avec une coupure à {{corner}} Hz transmet un signal de {{f}} Hz. Avec quel retard le signal arrive-t-il ?",
+        "hint1": "La phase d'un système du premier ordre vaut −arctan(f/f_E).",
+        "hint2": "Une phase de φ degrés à une fréquence f correspond à un retard de φ/360° · 1/f.",
+        "solution": "φ = −arctan({{f}}/{{corner}}), et à {{f}} Hz cela correspond à un retard de {{a1}} ms."
+      },
+      "filter_phase": {
+        "title": "Phase et retard d'un filtre réglé trop près",
+        "prompt": "Un filtre du premier ordre avec une coupure à {{corner}} Hz transmet un signal de {{f}} Hz. Quelle est sa phase, et quel retard cela représente-t-il ?",
+        "hint1": "φ = −arctan(f/f_E).",
+        "hint2": "Δt = −φ/360° · 1/f.",
+        "solution": "φ = −arctan({{f}}/{{corner}}) = {{a1}}°, ce qui, à {{f}} Hz, correspond à un retard de {{a2}} ms — presque toute la constante de temps du filtre."
+      },
+      "euler_steps": {
+        "title": "Deux pas d'Euler à la main",
+        "prompt": "Euler avec h = {{h}} s sur le capteur de τ = {{tau}} s, soumis à un échelon de {{start}} °C à {{final}} °C. Que donne-t-il après {{steps}} pas ?",
+        "hint1": "Chaque pas ajoute h fois la pente (y∞ − y)/τ prise au début du pas.",
+        "hint2": "Le second pas part du résultat du premier.",
+        "solution": "Deux pas de y ← y + h·(y∞ − y)/τ donnent {{a1}} °C — trop haut, car Euler conserve pendant tout le pas la pente la plus raide, celle du début du pas."
+      },
+      "euler_gain": {
+        "title": "Euler sur un oscillateur non amorti",
+        "prompt": "Euler explicite sur un oscillateur non amorti avec h·ω₀ = {{ratio}} : par quel facteur l'amplitude croît-elle à chaque pas ?",
+        "hint1": "Euler multiplie chaque composante propre par 1 + hλ à chaque pas.",
+        "hint2": "Sans amortissement, λ = ±jω₀.",
+        "solution": "|1 + j·{{ratio}}| = √(1 + {{ratio}}²) = {{a1}} par pas : un demi-pour-cent à chaque pas, plus d'un facteur cent en mille pas."
+      },
+      "hand_estimate": {
+        "title": "Le mode bas à la main",
+        "prompt": "Estimez à la main la plus basse fréquence propre du banc à deux masses : toute son inertie ({{j1}} + {{j2}} kg·m²) sur les deux ressorts ({{c1}} et {{c2}} N·m/rad) en série.",
+        "hint1": "Ressorts en série : 1/c = 1/c₁ + 1/c₂.",
+        "hint2": "f = √(c/J)/2π avec l'inertie totale.",
+        "solution": "c = {{c1}}·{{c2}}/({{c1}} + {{c2}}) N·m/rad sur {{j1}} + {{j2}} kg·m² donne {{a1}} Hz. Le mode exact est à 6.94 Hz : le moteur n'oscille pas avec la pleine amplitude, donc moins d'inertie participe que ne le suppose l'estimation."
+      },
+      "light_adapter": {
+        "title": "Un adaptateur plus léger",
+        "prompt": "Un adaptateur plus léger, J₂ = {{j2}} kg·m², sur la barre de torsion c₂ = {{c2}} N·m/rad. De combien l'arbre se trompe-t-il à {{f}} Hz ?",
+        "hint1": "L'arbre ne mesure rien à f_a = √(c₂/J₂)/2π.",
+        "hint2": "L'erreur de mesure vaut environ (f/f_a)².",
+        "solution": "f_a = √({{c2}}/{{j2}})/2π, et (f/f_a)² = {{a1}} % — un adaptateur plus léger fait monter f_a et baisser l'erreur."
       }
     }
   },

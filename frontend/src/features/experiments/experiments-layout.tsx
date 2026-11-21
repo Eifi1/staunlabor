@@ -1,89 +1,84 @@
-import { Link, Outlet, useLocation, useNavigate } from "react-router";
+import { Link, NavLink, Outlet, useLocation } from "react-router";
+import { useScrollMemory } from "@/app/scroll-memory";
 import { useTranslation } from "react-i18next";
-import { LanguageMenu, NavPills, Select, ThemeToggle, usePhoneLayout, type NavPillItem } from "@eifi1/ui-kit";
+import { LanguageMenu, ThemeToggle } from "@eifi1/ui-kit";
 import { changeLanguage } from "@/shared/i18n/index";
 import { LANGUAGES } from "@/shared/i18n/languages";
 import { useLanguage } from "@/shared/i18n/use-locale";
 import { useTheme } from "@/shared/state/theme-store";
+import { CONTAINER } from "@/shared/ui/page-shell";
 import { SiteFooter } from "@/features/site/site-footer";
-import { EXHIBITS, OVERVIEW_PATH, exhibitAt } from "./exhibits";
+import { SiteSearch } from "@/features/site/site-search";
+import { BASICS_PATH } from "@/features/course/lessons";
+import { EXHIBITS_PATH, OVERVIEW_PATH } from "./exhibits";
+
+/** A link in the header's row: quiet until pointed at, and plain text once
+ *  it is the page shown. */
+const NAV_LINK =
+  "inline-flex min-h-11 items-center gap-1 rounded-md px-1 text-sm font-medium text-secondary hover:text-primary focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand aria-[current=page]:text-primary";
 
 /**
- * The site's frame: the name, a strip to move between the overview and the
- * exhibits, the language and the light or dark theme, and the footer.
+ * The site's frame: a header that stays at the top, the page, and the footer
+ * (Marcel's spec of 2026-11-20). The header holds the name, the three ways
+ * in (the exhibits, the basics they stand on, the page about the site), the
+ * search, the language and the light or dark theme; the account stays in the
+ * footer. On a phone the three links give way to the search: the footer
+ * names the about page too, and the front page leads to the others.
  *
- * On a phone the strip is a select naming the page the reader is on; from `md`
- * up it is the names in one row that scrolls sideways where they do not fit,
- * the current one scrolled into view. With the second series of exhibits the
- * names no longer fit a wide screen either, and a strip that wrapped pushed the
- * language and the theme onto a line of their own.
+ * Each way in is a page of its own, so the browser's back button returns to
+ * where the reader clicked (`useScrollMemory`); a new page fades in, unless
+ * the reader's system asks for less motion.
+ *
+ * The links are a plain row in the header until the kit's `TopBarNav` (0.66,
+ * proposed by UI-Kit on 2026-11-19) takes them.
  */
 export function ExperimentsLayout() {
   const { t } = useTranslation();
-  const { pathname } = useLocation();
-  const navigate = useNavigate();
-  const phone = usePhoneLayout();
   const language = useLanguage();
   const mode = useTheme((s) => s.mode);
   const setPreference = useTheme((s) => s.setPreference);
-  const here = pathname.replace(/\/+$/, "") || "/";
-  const current = here === OVERVIEW_PATH ? OVERVIEW_PATH : (exhibitAt(pathname)?.path ?? null);
-  const items: NavPillItem<string>[] = [
-    { value: OVERVIEW_PATH, label: t("experiments.overview.short"), href: OVERVIEW_PATH },
-    ...EXHIBITS.flatMap((entry) =>
-      entry.path
-        ? [{ value: entry.path, label: t(`experiments.exhibits.${entry.exhibit}.short`), href: entry.path }]
-        : [],
-    ),
-  ];
+  const { pathname } = useLocation();
+  useScrollMemory();
   return (
     <div className="flex min-h-dvh w-full flex-col bg-page">
-      <header className="flex shrink-0 flex-wrap items-center gap-x-3 gap-y-2 border-b border-subtle px-3 pt-3 pb-2 md:px-6 print:hidden">
-        <Link to="/" className="flex items-center gap-2 text-base font-semibold text-primary">
-          <img src="/favicon.svg" alt="" className="size-6" />
-          {t("app.name")}
-        </Link>
-        {phone ? (
-          <Select
-            aria-label={t("experiments.area")}
-            size="sm"
-            value={current ?? ""}
-            onChange={(e) => navigate(e.target.value)}
-            className="min-w-0 flex-1"
-          >
-            {current === null && <option value="">{t("experiments.overview.short")}</option>}
-            {items.map((item) => (
-              <option key={item.value} value={item.value}>
-                {item.label as string}
-              </option>
-            ))}
-          </Select>
-        ) : (
-          <NavPills
-            aria-label={t("experiments.area")}
-            size="sm"
-            layout="scroll"
-            items={items}
-            current={current}
-            className="min-w-0 flex-1"
-          />
-        )}
-        <div className="ml-auto flex shrink-0 items-center gap-1">
-          <LanguageMenu
-            options={[...LANGUAGES]}
-            current={language}
-            onChange={(code) => void changeLanguage(code, { remember: true })}
-          />
-          <ThemeToggle
-            mode={mode}
-            onChange={setPreference}
-            aria-label={t("common.theme_toggle")}
-            title={t("common.theme_toggle")}
-          />
+      <header className="sticky top-0 z-30 shrink-0 border-b border-subtle bg-page print:hidden">
+        <div className={`${CONTAINER} flex min-h-14 items-center gap-6`}>
+          <Link to={OVERVIEW_PATH} className="flex items-center gap-2 text-base font-semibold text-primary">
+            <img src="/favicon.svg" alt="" className="size-6" />
+            {t("app.name")}
+          </Link>
+          <nav aria-label={t("site.nav.label")} className="hidden items-center gap-5 md:flex">
+            <NavLink to={EXHIBITS_PATH} className={NAV_LINK}>
+              {t("site.nav.exhibits")}
+            </NavLink>
+            <NavLink to={BASICS_PATH} className={NAV_LINK}>
+              {t("site.nav.basics")}
+            </NavLink>
+            <NavLink to="/about" className={NAV_LINK}>
+              {t("site.nav.about")}
+            </NavLink>
+          </nav>
+          <div className="ml-auto flex shrink-0 items-center gap-1">
+            <SiteSearch />
+            <LanguageMenu
+              options={[...LANGUAGES]}
+              current={language}
+              onChange={(code) => void changeLanguage(code, { remember: true })}
+            />
+            <ThemeToggle
+              mode={mode}
+              onChange={setPreference}
+              aria-label={t("common.theme_toggle")}
+              title={t("common.theme_toggle")}
+            />
+          </div>
         </div>
       </header>
       <main className="flex w-full flex-1 flex-col">
-        <Outlet />
+        {/* Keyed by the page, so each new one comes in with the fade. */}
+        <div key={pathname} className="flex flex-1 flex-col motion-safe:animate-[page-in_240ms_ease-out]">
+          <Outlet />
+        </div>
       </main>
       <SiteFooter />
     </div>
