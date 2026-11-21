@@ -142,6 +142,11 @@ const SPIN_D: CheckSymbol = { tex: "d", key: "spin_d", unit: "m" };
 const SPIN_MT: CheckSymbol = { tex: "m_t", key: "spin_mt", unit: "kg" };
 const SPIN_MA: CheckSymbol = { tex: "m_a", key: "spin_ma", unit: "kg" };
 const SPIN_OMEGA: CheckSymbol = { tex: String.raw`\omega`, key: "spin_omega", unit: "1/s" };
+const KAPPA: CheckSymbol = { tex: String.raw`\kappa`, key: "kappa", unit: "1/s²" };
+const K_SPRING: CheckSymbol = { tex: "k", key: "k_spring", unit: "N/m" };
+const A_SPRING: CheckSymbol = { tex: "a", key: "a_spring", unit: "m" };
+const M: CheckSymbol = { tex: "m", key: "m", unit: "kg" };
+const T_PERIOD: CheckSymbol = { tex: "T", key: "T", unit: "s" };
 
 const ROD_STEADY: CheckFormula = {
   tex: String.raw`w = \frac{\Gamma\,\Omega^2 Y}{\sqrt{(\omega^2 - \Omega^2)^2 + (2\zeta\omega\Omega)^2}}, \qquad \Gamma = \frac{\int_0^1 \varphi\,d\xi}{\int_0^1 \varphi^2\,d\xi}`,
@@ -1144,6 +1149,51 @@ export const CHECK_FORMULAS: Record<string, Record<string, CheckFormula>> = {
         { tex: "L, L_0", key: "spin_L", unit: "kg·m²/s" },
         { tex: "t", key: "t", unit: "s" },
         { tex: String.raw`\tau_f`, key: "spin_tau", unit: "N·m" },
+      ],
+    },
+  },
+  coupled: {
+    together: {
+      tex: String.raw`T = 4\sqrt{\frac{L}{g}}\;K\!\left(\sin\frac{\theta_0}{2}\right)`,
+      symbols: [T_PERIOD, L_PENDULUM, G, { tex: "K", key: "K" }, THETA0],
+    },
+    against: {
+      tex: String.raw`T = 4\int_0^{\theta_0}\frac{d\theta}{\sqrt{2\,\bigl(V(\theta_0) - V(\theta)\bigr)}}, \qquad V(\theta) = -\frac{g}{L}\cos\theta + \kappa\sin^2\theta, \qquad \kappa = \frac{k\,a^2}{m\,L^2}`,
+      symbols: [
+        T_PERIOD,
+        THETA0,
+        THETA,
+        { tex: "V", key: "V_pot", unit: "1/s²" },
+        G,
+        L_PENDULUM,
+        KAPPA,
+        K_SPRING,
+        A_SPRING,
+        M,
+      ],
+    },
+    beat: {
+      tex: String.raw`T_{\text{beat}} = \frac{2\pi}{\omega_+ - \omega_-}, \qquad \omega_-^2 = \frac{g}{L}, \qquad \omega_+^2 = \frac{g}{L} + 2\kappa`,
+      symbols: [
+        { tex: String.raw`T_{\text{beat}}`, key: "T_beat", unit: "s" },
+        { tex: String.raw`\omega_-`, key: "omega_minus", unit: "1/s" },
+        { tex: String.raw`\omega_+`, key: "omega_plus", unit: "1/s" },
+        G,
+        L_PENDULUM,
+        KAPPA,
+      ],
+    },
+    energy: {
+      tex: String.raw`E = \sum_{i=1,2}\Bigl(\tfrac12\,m L^2\dot\theta_i^2 + m g L\,(1 - \cos\theta_i)\Bigr) + \tfrac12\,k\,a^2\,(\sin\theta_2 - \sin\theta_1)^2`,
+      symbols: [
+        { tex: "E", key: "E_pair", unit: "J" },
+        M,
+        L_PENDULUM,
+        { tex: String.raw`\dot\theta_i`, key: "thetadot_i", unit: "1/s" },
+        G,
+        { tex: String.raw`\theta_i`, key: "coupled_theta_i", unit: "°" },
+        K_SPRING,
+        A_SPRING,
       ],
     },
   },

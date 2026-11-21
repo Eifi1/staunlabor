@@ -3709,7 +3709,17 @@
         "spin_omega": "angular velocity",
         "spin_F": "the hands' pull on the bar",
         "spin_L": "angular momentum",
-        "spin_tau": "the bearing's friction, as a torque"
+        "spin_tau": "the bearing's friction, as a torque",
+        "V_pot": "potential energy of one pendulum, per m·L²",
+        "kappa": "coupling by the spring",
+        "k_spring": "spring constant",
+        "a_spring": "height of the spring below the pivots",
+        "T_beat": "time for over and back",
+        "omega_minus": "angular frequency in step",
+        "omega_plus": "angular frequency against each other",
+        "E_pair": "energy of both pendulums and the spring",
+        "thetadot_i": "angular velocity of the i-th pendulum",
+        "coupled_theta_i": "displacement of the i-th pendulum"
       },
       "cases": {
         "sphere": {
@@ -4577,6 +4587,35 @@
             "setting": "Pushed once, 17 kg·m²/s, leaning out, with 0.2 N·m of friction in the bearing.",
             "reads": "A steady torque takes the same from the angular momentum every second: it is used up after L/τ.",
             "why": "Checks the page's bearing: after 85 s the platform stands still."
+          }
+        },
+        "coupled": {
+          "together": {
+            "title": "In step, the spring rests",
+            "setting": "The page’s pendulums, 50 cm and 200 g each, a spring of 1 N/m 25 cm below the pivots, no damping; “Both alike”, 10° aside.",
+            "reads": "Swinging alike, the spring keeps its length: each pendulum swings as if alone, with the exact period 4K(sin(θ₀/2))·√(L/g).",
+            "why": "Checks the page’s time loop and that the spring does nothing in step: 1.421451 s at 10°. The tile “Period together” gives the small swing’s period; 10° swings a little slower.",
+            "step": "The first source gives ω = √(g/L), the second the pendulum’s equation in the time ω·t and its period 4K, the third K."
+          },
+          "against": {
+            "title": "Against each other, the spring works",
+            "setting": "The same pendulums, “Against each other”: both 10° aside, to opposite sides.",
+            "reads": "Against each other the spring’s middle stays put, and each pendulum swings in V(θ) = −(g/L)·cos θ + κ·sin²θ, with κ = k·a²/(m·L²). The period follows from the energy; for small swings it is the source’s angular frequency √(g/L + 2κ).",
+            "why": "Checks the spring’s force, its lever a·cos θ and that it acts on both pendulums: 1.339555 s at 10°, summed from the energy. The deviation of 2 · 10⁻¹⁰ is the time loop’s.",
+            "step": "The first source gives the potential energy of the bob and of the spring. The spring is stretched by a·(sin θ₂ − sin θ₁) = 2a·sin θ; per pendulum and m·L² the energy is ½θ̇² + V(θ), and from rest at θ₀ a period takes 4∫dθ/√(2(V(θ₀) − V(θ))). The second gives the small swing’s limit, with I = m·L² for a bob on a light rod."
+          },
+          "beat": {
+            "title": "Over and back",
+            "setting": "The same pendulums, “The left one only”; the tile “Over and back”.",
+            "reads": "A push to one pendulum is half of each mode. They drift apart at ω₋ = √(g/L) and ω₊ = √(g/L + 2κ), and the swing wanders over and back in 2π/(ω₊ − ω₋).",
+            "why": "Checks the page’s formula for the two rates, which for unequal pendulums too finds the roots of a 2×2 system: 22.94913 s for small swings.",
+            "step": "The source gives the two angular frequencies with the moment of inertia I about the pivot; for a bob on a light rod I = m·L², and k·l²/I becomes κ. Between two nodes of the beat lies 1/(f₁ − f₂)."
+          },
+          "energy": {
+            "title": "The energy is kept",
+            "setting": "The same pendulums, “The left one only” 10° aside; after 30 s, 30,000 steps.",
+            "reads": "Without damping the sum of both bobs’ motion and height and the spring’s stretch stays the same. At the start it is the left bob’s height, L(1 − cos 10°), and the spring, stretched by a·sin 10°.",
+            "why": "Checks the time loop and that the spring’s force fits its energy: 15.84081 mJ at the start and after 30 s, the same to 10⁻¹⁰."
           }
         }
       },

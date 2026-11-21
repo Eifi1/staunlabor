@@ -99,6 +99,7 @@ const UNCHECKED = {
     "coil",
     "cone",
     "coriolis",
+    "coupled",
     "cradle",
     "diver",
     "foucault",
@@ -1884,6 +1885,23 @@ describe("setting a check case up", () => {
       ),
     );
     expect(screen.getByRole("switch", { name: E.platform.play.auto })).not.toBeChecked();
+  });
+
+  it("hangs the coupled pendulums back as built and lets them go against each other, for that mode", async () => {
+    renderWithProviders(<CoupledPage />);
+    await screen.findByRole("img", { name: E.coupled.view });
+    fireEvent.change(screen.getByRole("slider", { name: E.coupled.change.right_length }), { target: { value: "30" } });
+    fireEvent.change(screen.getByRole("slider", { name: E.coupled.change.spring_at }), { target: { value: "40" } });
+    expect(await screen.findByText(E.coupled.refused)).toBeInTheDocument();
+    await setUp(1);
+    await waitFor(() => expect(screen.queryByText(E.coupled.refused)).toBeNull());
+    expect(screen.getByRole("slider", { name: E.coupled.change.right_length }).getAttribute("aria-valuetext")).toMatch(
+      /^50\b/,
+    );
+    expect(screen.getByRole("slider", { name: E.coupled.change.spring_at }).getAttribute("aria-valuetext")).toMatch(
+      /^25\b/,
+    );
+    expect(await screen.findByRole("button", { name: E.coupled.play.pause })).toBeInTheDocument();
   });
 
   it("pushes the ball round the well on its circle, with the felt's brake, for the brake's case", async () => {

@@ -3709,7 +3709,17 @@
         "spin_omega": "vitesse angulaire",
         "spin_F": "la traction des mains sur la barre",
         "spin_L": "moment cinétique",
-        "spin_tau": "le frottement du palier, sous forme de couple"
+        "spin_tau": "le frottement du palier, sous forme de couple",
+        "V_pot": "énergie potentielle d’un pendule, par m·L²",
+        "kappa": "couplage par le ressort",
+        "k_spring": "raideur du ressort",
+        "a_spring": "hauteur du ressort sous la suspension",
+        "T_beat": "durée de l’aller-retour",
+        "omega_minus": "pulsation à l’unisson",
+        "omega_plus": "pulsation en opposition",
+        "E_pair": "énergie des deux pendules et du ressort",
+        "thetadot_i": "vitesse angulaire du i-ème pendule",
+        "coupled_theta_i": "écart du i-ème pendule"
       },
       "cases": {
         "sphere": {
@@ -4577,6 +4587,35 @@
             "setting": "Une poussée, 17 kg·m²/s, penché vers l’extérieur, avec 0,2 N·m de frottement dans le palier.",
             "reads": "Un couple constant retire chaque seconde la même quantité au moment cinétique : celui-ci est épuisé après L/τ.",
             "why": "Vérifie le palier de la page : après 85 s, la plateforme s’arrête."
+          }
+        },
+        "coupled": {
+          "together": {
+            "title": "À l’unisson, le ressort se repose",
+            "setting": "Les pendules de la page, 50 cm et 200 g chacun, un ressort de 1 N/m à 25 cm sous la suspension, sans amortissement ; « Les deux pareil », écartés de 10°.",
+            "reads": "Si les deux oscillent pareil, le ressort garde sa longueur : chaque pendule oscille comme s’il était seul, avec la période exacte 4K(sin(θ₀/2))·√(L/g).",
+            "why": "Vérifie la boucle des pas de temps de la page et que le ressort ne fait rien à l’unisson : 1,421451 s à 10°. L’encadré « Période à l’unisson » donne la période des petites oscillations ; à 10°, l’oscillation est un peu plus lente.",
+            "step": "La première source donne ω = √(g/L), la deuxième l’équation du pendule dans le temps ω·t et sa période 4K, la troisième K."
+          },
+          "against": {
+            "title": "En opposition, le ressort travaille",
+            "setting": "Les mêmes pendules, « L’un contre l’autre » : tous deux écartés de 10°, de côtés opposés.",
+            "reads": "En opposition, le milieu du ressort reste immobile, et chaque pendule oscille dans V(θ) = −(g/L)·cos θ + κ·sin²θ, avec κ = k·a²/(m·L²). La période découle de l’énergie ; pour de petites oscillations, c’est la pulsation √(g/L + 2κ) de la source.",
+            "why": "Vérifie la force du ressort, son bras de levier a·cos θ et qu’il agit sur les deux pendules : 1,339555 s à 10°, sommé à partir de l’énergie. L’écart de 2 · 10⁻¹⁰ est celui de la boucle des pas de temps.",
+            "step": "La première source donne l’énergie potentielle de la boule et du ressort. Le ressort est allongé de a·(sin θ₂ − sin θ₁) = 2a·sin θ ; par pendule et par m·L², l’énergie vaut ½θ̇² + V(θ), et depuis le repos en θ₀ une période dure 4∫dθ/√(2(V(θ₀) − V(θ))). La deuxième donne le cas limite des petites oscillations, avec I = m·L² pour une boule au bout d’une tige légère."
+          },
+          "beat": {
+            "title": "Aller-retour",
+            "setting": "Les mêmes pendules, « Seulement le gauche » ; l’encadré « Aller-retour ».",
+            "reads": "Une poussée sur un pendule, c’est pour moitié chacun des deux modes d’oscillation. Ils se décalent à ω₋ = √(g/L) et ω₊ = √(g/L + 2κ), et l’oscillation fait l’aller-retour en 2π/(ω₊ − ω₋).",
+            "why": "Vérifie la formule de la page pour les deux pulsations, qui cherche, même pour des pendules différents, les racines d’un système 2×2 : 22,94913 s pour de petites oscillations.",
+            "step": "La source donne les deux pulsations avec le moment d’inertie I autour de la suspension ; pour une boule au bout d’une tige légère, I = m·L², et k·l²/I devient κ. Entre deux nœuds du battement s’écoule 1/(f₁ − f₂)."
+          },
+          "energy": {
+            "title": "L’énergie se conserve",
+            "setting": "Les mêmes pendules, « Seulement le gauche » écarté de 10° ; après 30 s, 30 000 pas.",
+            "reads": "Sans amortissement, la somme du mouvement et de la hauteur des deux boules et de l’allongement du ressort reste la même. Au début, ce sont la hauteur de la boule gauche, L(1 − cos 10°), et le ressort, allongé de a·sin 10°.",
+            "why": "Vérifie la boucle des pas de temps et que la force du ressort correspond à son énergie : 15,84081 mJ au début et après 30 s, identiques à 10⁻¹⁰ près."
           }
         }
       },

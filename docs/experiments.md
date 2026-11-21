@@ -2579,6 +2579,16 @@ pull at half a turn a second (124 N) and the bearing's stop after one push
 bearing's friction and the lean, from rest and without the auto mode; the
 push and the standing up are the reader's.
 
+**The coupled pendulums'** four (2026-11-21) hold the period in step and the
+period against each other, both timed on the page's own loop at its 10°
+against the exact periods at 10° (the lone pendulum's 4K√(L/g), and a
+quadrature of the mode's energy; the RK4 step leaves 2.5 · 10⁻¹⁰), the beat
+of 22.94913 s to Eyler's formula for equal pendulums, and the energy kept over
+30 s to 10⁻¹⁰. The tiles are small-swing figures: at 10° the loop's modes run
+0.19 % and 0.26 % slower, and the beat timed on the loop comes to about 23.0 s,
+which the page's "about" covers. "Set it up" sets the build and lets the pair
+go as the case says.
+
 **On the page** a section "Check it yourself" (`check-section.tsx`) lists the
 cases, each with its formula as an `Equation` (`check-formulas.ts`), both
 values to seven digits, the deviation, why the case would catch a mistake,

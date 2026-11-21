@@ -3709,7 +3709,17 @@
         "spin_omega": "velocidad angular",
         "spin_F": "la tracción de las manos en la barra",
         "spin_L": "momento angular",
-        "spin_tau": "el rozamiento del cojinete, como par"
+        "spin_tau": "el rozamiento del cojinete, como par",
+        "V_pot": "energía potencial de un péndulo, por m·L²",
+        "kappa": "acoplamiento por el muelle",
+        "k_spring": "constante del muelle",
+        "a_spring": "altura del muelle por debajo de la suspensión",
+        "T_beat": "tiempo de ida y vuelta",
+        "omega_minus": "frecuencia angular al unísono",
+        "omega_plus": "frecuencia angular uno contra otro",
+        "E_pair": "energía de ambos péndulos y del muelle",
+        "thetadot_i": "velocidad angular del péndulo i-ésimo",
+        "coupled_theta_i": "desplazamiento del péndulo i-ésimo"
       },
       "cases": {
         "sphere": {
@@ -4577,6 +4587,35 @@
             "setting": "Un empujón, 17 kg·m²/s, inclinado hacia fuera, con 0,2 N·m de rozamiento en el cojinete.",
             "reads": "Un par constante quita al momento angular lo mismo cada segundo: se agota al cabo de L/τ.",
             "why": "Comprueba el cojinete de la página: tras 85 s, la plataforma se para."
+          }
+        },
+        "coupled": {
+          "together": {
+            "title": "Al unísono, el muelle descansa",
+            "setting": "Los péndulos de la página, de 50 cm y 200 g cada uno, un muelle de 1 N/m a 25 cm por debajo de la suspensión, sin amortiguación; «Los dos igual», apartados 10°.",
+            "reads": "Si ambos oscilan igual, el muelle conserva su longitud: cada péndulo oscila como si estuviera solo, con el periodo exacto 4K(sin(θ₀/2))·√(L/g).",
+            "why": "Comprueba el bucle de pasos de tiempo de la página y que el muelle no hace nada al unísono: 1,421451 s a 10°. El recuadro «Periodo al unísono» da el periodo de las oscilaciones pequeñas; a 10° se oscila algo más despacio.",
+            "step": "La primera fuente da ω = √(g/L); la segunda, la ecuación del péndulo en el tiempo ω·t y su periodo 4K; la tercera, K."
+          },
+          "against": {
+            "title": "Uno contra otro, el muelle trabaja",
+            "setting": "Los mismos péndulos, «Uno contra otro»: ambos apartados 10°, hacia lados opuestos.",
+            "reads": "Uno contra otro, el centro del muelle queda en reposo, y cada péndulo oscila en V(θ) = −(g/L)·cos θ + κ·sin²θ, con κ = k·a²/(m·L²). El periodo se obtiene de la energía; para oscilaciones pequeñas corresponde a la frecuencia angular √(g/L + 2κ) de la fuente.",
+            "why": "Comprueba la fuerza del muelle, su brazo de palanca a·cos θ y que actúa sobre ambos péndulos: 1,339555 s a 10°, sumado a partir de la energía. La desviación de 2 · 10⁻¹⁰ es la del bucle de pasos de tiempo.",
+            "step": "La primera fuente da la energía potencial de la bola y del muelle. El muelle está estirado a·(sin θ₂ − sin θ₁) = 2a·sin θ; por péndulo y por m·L², la energía es ½θ̇² + V(θ), y partiendo del reposo en θ₀ un periodo dura 4∫dθ/√(2(V(θ₀) − V(θ))). La segunda da el caso límite de las oscilaciones pequeñas, con I = m·L² para una bola en una varilla ligera."
+          },
+          "beat": {
+            "title": "Ida y vuelta",
+            "setting": "Los mismos péndulos, «Solo el izquierdo»; el recuadro «Ida y vuelta».",
+            "reads": "Un empujón a un péndulo es, a partes iguales, los dos modos de oscilación. Se desfasan con ω₋ = √(g/L) y ω₊ = √(g/L + 2κ), y la oscilación va y vuelve en 2π/(ω₊ − ω₋).",
+            "why": "Comprueba la fórmula de la página para las dos frecuencias, que también para péndulos distintos busca las raíces de un sistema de 2×2: 22,94913 s para oscilaciones pequeñas.",
+            "step": "La fuente da las dos frecuencias angulares con el momento de inercia I respecto a la suspensión; para una bola en una varilla ligera, I = m·L², y k·l²/I se convierte en κ. Entre dos nodos del batido pasa 1/(f₁ − f₂)."
+          },
+          "energy": {
+            "title": "La energía se conserva",
+            "setting": "Los mismos péndulos, «Solo el izquierdo» apartado 10°; tras 30 s, 30 000 pasos.",
+            "reads": "Sin amortiguación, la suma del movimiento y la altura de ambas bolas y del estiramiento del muelle se mantiene igual. Al principio son la altura de la bola izquierda, L(1 − cos 10°), y el muelle, estirado a·sin 10°.",
+            "why": "Comprueba el bucle de pasos de tiempo y que la fuerza del muelle concuerda con su energía: 15,84081 mJ al principio y tras 30 s, iguales con una precisión de 10⁻¹⁰."
           }
         }
       },

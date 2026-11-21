@@ -3709,7 +3709,17 @@
         "spin_omega": "velocità angolare",
         "spin_F": "la trazione delle mani sulla barra",
         "spin_L": "momento angolare",
-        "spin_tau": "l'attrito del cuscinetto, come coppia"
+        "spin_tau": "l'attrito del cuscinetto, come coppia",
+        "V_pot": "energia potenziale di un pendolo, per m·L²",
+        "kappa": "accoppiamento tramite la molla",
+        "k_spring": "costante della molla",
+        "a_spring": "altezza della molla sotto la sospensione",
+        "T_beat": "tempo di andata e ritorno",
+        "omega_minus": "pulsazione all'unisono",
+        "omega_plus": "pulsazione in opposizione",
+        "E_pair": "energia dei due pendoli e della molla",
+        "thetadot_i": "velocità angolare dell'i-esimo pendolo",
+        "coupled_theta_i": "spostamento dell'i-esimo pendolo"
       },
       "cases": {
         "sphere": {
@@ -4577,6 +4587,35 @@
             "setting": "Una spinta, 17 kg·m²/s, inclinato in fuori, con 0,2 N·m di attrito nel cuscinetto.",
             "reads": "Una coppia costante toglie al momento angolare la stessa quantità ogni secondo: si esaurisce dopo L/τ.",
             "why": "Verifica il cuscinetto della pagina: dopo 85 s la piattaforma si ferma."
+          }
+        },
+        "coupled": {
+          "together": {
+            "title": "All'unisono la molla riposa",
+            "setting": "I pendoli della pagina, ciascuno di 50 cm e 200 g, una molla da 1 N/m 25 cm sotto la sospensione, senza smorzamento; «Entrambi uguali», scostati di 10°.",
+            "reads": "Se entrambi oscillano uguali, la molla resta lunga com'è: ogni pendolo oscilla come se fosse da solo, con il periodo esatto 4K(sin(θ₀/2))·√(L/g).",
+            "why": "Verifica il ciclo dei passi temporali della pagina e che all'unisono la molla non fa nulla: 1,421451 s a 10°. Il riquadro «Periodo all'unisono» indica il periodo delle piccole oscillazioni; a 10° si oscilla un po' più lentamente.",
+            "step": "La prima fonte dà ω = √(g/L), la seconda l'equazione del pendolo nel tempo ω·t e il suo periodo 4K, la terza K."
+          },
+          "against": {
+            "title": "In opposizione la molla lavora",
+            "setting": "Gli stessi pendoli, «Uno contro l'altro»: entrambi scostati di 10°, da parti opposte.",
+            "reads": "In opposizione il centro della molla resta fermo, e ogni pendolo oscilla in V(θ) = −(g/L)·cos θ + κ·sin²θ, con κ = k·a²/(m·L²). Il periodo segue dall'energia; per piccole oscillazioni è la pulsazione √(g/L + 2κ) della fonte.",
+            "why": "Verifica la forza della molla, il suo braccio a·cos θ e che agisca su entrambi i pendoli: 1,339555 s a 10°, sommato a partire dall'energia. Lo scarto di 2 · 10⁻¹⁰ è quello del ciclo dei passi temporali.",
+            "step": "La prima fonte dà l'energia potenziale della sfera e della molla. La molla è allungata di a·(sin θ₂ − sin θ₁) = 2a·sin θ; per pendolo e per m·L² l'energia è ½θ̇² + V(θ), e partendo da fermo a θ₀ un periodo dura 4∫dθ/√(2(V(θ₀) − V(θ))). La seconda dà il caso limite delle piccole oscillazioni, con I = m·L² per una sfera su un'asta leggera."
+          },
+          "beat": {
+            "title": "Andata e ritorno",
+            "setting": "Gli stessi pendoli, «Solo il sinistro»; il riquadro «Andata e ritorno».",
+            "reads": "Una spinta a un pendolo è per metà l'uno e per metà l'altro dei due modi di oscillazione. Si sfasano con ω₋ = √(g/L) e ω₊ = √(g/L + 2κ), e l'oscillazione va e torna in 2π/(ω₊ − ω₋).",
+            "why": "Verifica la formula della pagina per le due pulsazioni, che anche per pendoli diversi cerca le radici di un sistema 2×2: 22,94913 s per piccole oscillazioni.",
+            "step": "La fonte dà le due pulsazioni con il momento d'inerzia I rispetto alla sospensione; per una sfera su un'asta leggera I = m·L², e k·l²/I diventa κ. Tra due nodi del battimento passa 1/(f₁ − f₂)."
+          },
+          "energy": {
+            "title": "L'energia si conserva",
+            "setting": "Gli stessi pendoli, «Solo il sinistro» scostato di 10°; dopo 30 s, 30.000 passi.",
+            "reads": "Senza smorzamento la somma di moto e altezza delle due sfere e dell'allungamento della molla resta la stessa. All'inizio sono l'altezza della sfera sinistra, L(1 − cos 10°), e la molla, allungata di a·sin 10°.",
+            "why": "Verifica il ciclo dei passi temporali e che la forza della molla corrisponda alla sua energia: 15,84081 mJ all'inizio e dopo 30 s, uguali a meno di 10⁻¹⁰."
           }
         }
       },

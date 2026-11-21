@@ -3709,7 +3709,17 @@
         "spin_omega": "Winkelgeschwindigkeit",
         "spin_F": "Zug der Hände am Griff",
         "spin_L": "Drehimpuls",
-        "spin_tau": "Reibung im Lager, als Drehmoment"
+        "spin_tau": "Reibung im Lager, als Drehmoment",
+        "V_pot": "Lageenergie eines Pendels, pro m·L²",
+        "kappa": "Kopplung durch die Feder",
+        "k_spring": "Federkonstante",
+        "a_spring": "Höhe der Feder unter der Aufhängung",
+        "T_beat": "Zeit für hinüber und zurück",
+        "omega_minus": "Kreisfrequenz im Gleichtakt",
+        "omega_plus": "Kreisfrequenz gegeneinander",
+        "E_pair": "Energie beider Pendel und der Feder",
+        "thetadot_i": "Winkelgeschwindigkeit des i-ten Pendels",
+        "coupled_theta_i": "Auslenkung des i-ten Pendels"
       },
       "cases": {
         "sphere": {
@@ -4577,6 +4587,35 @@
             "setting": "Einmal angestossen, 17 kg·m²/s, hinausgelehnt, mit 0,2 N·m Reibung im Lager.",
             "reads": "Ein festes Drehmoment nimmt dem Drehimpuls in jeder Sekunde gleich viel: Er ist nach L/τ aufgebraucht.",
             "why": "Prüft das Lager der Seite: Nach 85 s steht die Scheibe still."
+          }
+        },
+        "coupled": {
+          "together": {
+            "title": "Im Gleichtakt ruht die Feder",
+            "setting": "Die Pendel der Seite, je 50 cm und 200 g, eine Feder von 1 N/m 25 cm unter der Aufhängung, ohne Dämpfung; «Beide gleich», 10° ausgelenkt.",
+            "reads": "Schwingen beide gleich, bleibt die Feder so lang, wie sie ist: Jedes Pendel schwingt wie allein, mit der genauen Periode 4K(sin(θ₀/2))·√(L/g).",
+            "why": "Prüft die Zeitschleife der Seite und dass die Feder im Gleichtakt nichts tut: 1,421451 s bei 10°. Die Kachel «Periode im Gleichtakt» nennt die Periode kleiner Ausschläge; 10° schwingen etwas langsamer.",
+            "step": "Die erste Quelle gibt ω = √(g/L), die zweite die Pendelgleichung in der Zeit ω·t und ihre Periode 4K, die dritte K."
+          },
+          "against": {
+            "title": "Gegeneinander arbeitet die Feder",
+            "setting": "Dieselben Pendel, «Gegeneinander»: beide 10° ausgelenkt, nach entgegengesetzten Seiten.",
+            "reads": "Gegeneinander bleibt die Mitte der Feder in Ruhe, und jedes Pendel schwingt in V(θ) = −(g/L)·cos θ + κ·sin²θ, mit κ = k·a²/(m·L²). Die Periode folgt aus der Energie; für kleine Ausschläge ist es die Kreisfrequenz √(g/L + 2κ) der Quelle.",
+            "why": "Prüft die Kraft der Feder, ihren Hebel a·cos θ und dass sie auf beide Pendel wirkt: 1,339555 s bei 10°, aus der Energie summiert. Die Abweichung von 2 · 10⁻¹⁰ ist die der Zeitschleife.",
+            "step": "Die erste Quelle gibt die Lageenergie der Kugel und der Feder. Die Feder ist um a·(sin θ₂ − sin θ₁) = 2a·sin θ gedehnt; pro Pendel und m·L² ist die Energie ½θ̇² + V(θ), und aus der Ruhe bei θ₀ dauert eine Periode 4∫dθ/√(2(V(θ₀) − V(θ))). Die zweite gibt den Grenzfall kleiner Ausschläge, mit I = m·L² für eine Kugel an einem leichten Stab."
+          },
+          "beat": {
+            "title": "Hinüber und zurück",
+            "setting": "Dieselben Pendel, «Nur das linke»; die Kachel «Hinüber und zurück».",
+            "reads": "Ein Stoss an ein Pendel ist je zur Hälfte beide Schwingungsformen. Sie laufen mit ω₋ = √(g/L) und ω₊ = √(g/L + 2κ) auseinander, und die Schwingung wandert in 2π/(ω₊ − ω₋) hinüber und zurück.",
+            "why": "Prüft die Formel der Seite für die beiden Raten, die auch für ungleiche Pendel die Wurzeln eines 2×2-Systems sucht: 22,94913 s für kleine Ausschläge.",
+            "step": "Die Quelle gibt die beiden Kreisfrequenzen mit dem Trägheitsmoment I um die Aufhängung; für eine Kugel an einem leichten Stab ist I = m·L², und k·l²/I wird κ. Zwischen zwei Knoten der Schwebung liegt 1/(f₁ − f₂)."
+          },
+          "energy": {
+            "title": "Die Energie bleibt erhalten",
+            "setting": "Dieselben Pendel, «Nur das linke» 10° ausgelenkt; nach 30 s, 30 000 Schritten.",
+            "reads": "Ohne Dämpfung bleibt die Summe aus Bewegung und Höhe beider Kugeln und der Dehnung der Feder gleich. Am Anfang sind es die Höhe der linken Kugel, L(1 − cos 10°), und die Feder, um a·sin 10° gedehnt.",
+            "why": "Prüft die Zeitschleife und dass die Kraft der Feder zu ihrer Energie passt: 15,84081 mJ am Anfang und nach 30 s, auf 10⁻¹⁰ gleich."
           }
         }
       },

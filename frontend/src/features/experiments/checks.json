@@ -1017,6 +1017,119 @@
    ]
   }
  ],
+ "coupled": [
+  {
+   "key": "together",
+   "unit": "s",
+   "expected": 1.42145143144,
+   "measured": 1.42145143146,
+   "deviation": 1.21315633628e-11,
+   "tolerance": 1e-09,
+   "derived": true,
+   "setting": {
+    "spring_n_m": 1.0,
+    "spring_at_m": 0.25,
+    "right_length_m": 0.5,
+    "mass_kg": 0.2,
+    "damping_per_s": 0.0,
+    "start": "together"
+   },
+   "sources": [
+    {
+     "cite": "OpenStax, University Physics Volume 1, §15.4 Pendulums, Eqs. 15.18 and 15.19",
+     "url": "https://openstax.org/books/university-physics-volume-1/pages/15-4-pendulums",
+     "quote": "The angular frequency is ω = √(g/L) and the period is T = 2π√(L/g)."
+    },
+    {
+     "cite": "NIST Digital Library of Mathematical Functions, §22.19(i), Eq. 22.19.1 and after Eq. 22.19.2",
+     "url": "https://dlmf.nist.gov/22.19",
+     "quote": "With appropriate scalings, Newton’s equation of motion for a pendulum … is d²θ(t)/dt² = −sin θ(t) … The period is 4K(sin(½α))"
+    },
+    {
+     "cite": "NIST Digital Library of Mathematical Functions, §19.2(ii), Eqs. 19.2.4 and 19.2.8",
+     "url": "https://dlmf.nist.gov/19.2",
+     "quote": "F(φ,k) = ∫₀^φ dθ/√(1 − k² sin²θ) … K(k) = F(π/2,k)"
+    }
+   ]
+  },
+  {
+   "key": "against",
+   "unit": "s",
+   "expected": 1.33955511402,
+   "measured": 1.33955511369,
+   "deviation": 2.45202910329e-10,
+   "tolerance": 1e-09,
+   "derived": true,
+   "setting": {
+    "spring_n_m": 1.0,
+    "spring_at_m": 0.25,
+    "right_length_m": 0.5,
+    "mass_kg": 0.2,
+    "damping_per_s": 0.0,
+    "start": "against"
+   },
+   "sources": [
+    {
+     "cite": "OpenStax, University Physics Volume 1, §8.1 Potential Energy of a System, Eqs. 8.5 and 8.7",
+     "url": "https://openstax.org/books/university-physics-volume-1/pages/8-1-potential-energy-of-a-system",
+     "quote": "U(y) = mgy + const. … U(x) = ½kx² + const."
+    },
+    {
+     "cite": "E. Eyler (after T. Moran, D. Hamilton), “Physics 258/259: Coupled Oscillators”, University of Connecticut, §I, Eqs. (14)–(15) and (16)",
+     "url": "https://www.phys.uconn.edu/~eyler/phys258/N/Coupled_Pendulums.pdf",
+     "quote": "ω−² = mgL/I, ω+² = (mgL + 2kl²)/I … the number of nodes per second in the beat note is equal to the difference of the two normal mode frequencies measured in Hz, f1 − f2 = (ω1 − ω2)/2π."
+    }
+   ]
+  },
+  {
+   "key": "beat",
+   "unit": "s",
+   "expected": 22.949129808,
+   "measured": 22.949129808,
+   "deviation": 0.0,
+   "tolerance": 1e-12,
+   "derived": true,
+   "setting": {
+    "spring_n_m": 1.0,
+    "spring_at_m": 0.25,
+    "right_length_m": 0.5,
+    "mass_kg": 0.2,
+    "damping_per_s": 0.0,
+    "start": "one"
+   },
+   "sources": [
+    {
+     "cite": "E. Eyler (after T. Moran, D. Hamilton), “Physics 258/259: Coupled Oscillators”, University of Connecticut, §I, Eqs. (14)–(15) and (16)",
+     "url": "https://www.phys.uconn.edu/~eyler/phys258/N/Coupled_Pendulums.pdf",
+     "quote": "ω−² = mgL/I, ω+² = (mgL + 2kl²)/I … the number of nodes per second in the beat note is equal to the difference of the two normal mode frequencies measured in Hz, f1 − f2 = (ω1 − ω2)/2π."
+    }
+   ]
+  },
+  {
+   "key": "energy",
+   "unit": "mJ",
+   "expected": 15.8408076925,
+   "measured": 15.8408076924,
+   "deviation": 3.81493550389e-12,
+   "tolerance": 1e-10,
+   "derived": false,
+   "setting": {
+    "spring_n_m": 1.0,
+    "spring_at_m": 0.25,
+    "right_length_m": 0.5,
+    "mass_kg": 0.2,
+    "damping_per_s": 0.0,
+    "start": "one"
+   },
+   "sources": [
+    {
+     "cite": "OpenStax, University Physics Volume 1, §8.1 Potential Energy of a System, Eqs. 8.5 and 8.7",
+     "url": "https://openstax.org/books/university-physics-volume-1/pages/8-1-potential-energy-of-a-system",
+     "quote": "U(y) = mgy + const. … U(x) = ½kx² + const."
+    }
+   ]
+  }
+ ],
  "cradle": [
   {
    "key": "one_out",

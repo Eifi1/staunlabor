@@ -3709,7 +3709,17 @@
         "spin_omega": "szögsebesség",
         "spin_F": "a kezek húzóereje a kapaszkodón",
         "spin_L": "perdület",
-        "spin_tau": "a csapágy súrlódása, nyomatékként"
+        "spin_tau": "a csapágy súrlódása, nyomatékként",
+        "V_pot": "egy inga helyzeti energiája, m·L²-re vetítve",
+        "kappa": "a rugó általi csatolás",
+        "k_spring": "rugóállandó",
+        "a_spring": "a rugó magassága a felfüggesztés alatt",
+        "T_beat": "az át és vissza vándorlás ideje",
+        "omega_minus": "körfrekvencia együtt lengve",
+        "omega_plus": "körfrekvencia egymás ellen lengve",
+        "E_pair": "a két inga és a rugó energiája",
+        "thetadot_i": "az i-edik inga szögsebessége",
+        "coupled_theta_i": "az i-edik inga kitérése"
       },
       "cases": {
         "sphere": {
@@ -4577,6 +4587,35 @@
             "setting": "Egy lökés, 17 kg·m²/s, kifelé dőlve, 0,2 N·m csapágysúrlódással.",
             "reads": "Egy állandó nyomaték minden másodpercben ugyanannyit vesz el a perdületből: L/τ után elfogy.",
             "why": "Az oldal csapágyát ellenőrzi: 85 s után a korong megáll."
+          }
+        },
+        "coupled": {
+          "together": {
+            "title": "Együtt lengve a rugó nyugszik",
+            "setting": "Az oldal ingái, egyenként 50 cm és 200 g, egy 1 N/m-es rugó 25 cm-rel a felfüggesztés alatt, csillapítás nélkül; „Mindkettő egyformán”, 10°-kal kitérítve.",
+            "reads": "Ha mindkettő egyformán leng, a rugó hossza nem változik: mindegyik inga úgy leng, mintha egyedül volna, a pontos 4K(sin(θ₀/2))·√(L/g) periódussal.",
+            "why": "Az oldal időléptető ciklusát ellenőrzi, és azt, hogy együtt lengve a rugó semmit sem tesz: 1,421451 s 10°-nál. A „Periódus együtt” mező a kis kitérések periódusát adja meg; 10°-nál a lengés kicsit lassabb.",
+            "step": "Az első forrás megadja: ω = √(g/L), a második az ingaegyenletet ω·t időben és annak periódusát, 4K-t, a harmadik K-t."
+          },
+          "against": {
+            "title": "Egymás ellen lengve a rugó dolgozik",
+            "setting": "Ugyanezek az ingák, „Egymás ellen”: mindkettő 10°-kal kitérítve, ellentétes oldalra.",
+            "reads": "Egymás ellen lengve a rugó közepe nyugalomban marad, és mindegyik inga a V(θ) = −(g/L)·cos θ + κ·sin²θ potenciálban leng, ahol κ = k·a²/(m·L²). A periódus az energiából következik; kis kitéréseknél ez a forrás √(g/L + 2κ) körfrekvenciája.",
+            "why": "A rugó erejét, a·cos θ erőkarját és azt ellenőrzi, hogy mindkét ingára hat: 1,339555 s 10°-nál, az energiából összegezve. A 2 · 10⁻¹⁰ eltérés az időléptető ciklusé.",
+            "step": "Az első forrás megadja a golyó és a rugó helyzeti energiáját. A rugó a·(sin θ₂ − sin θ₁) = 2a·sin θ-val nyúlik meg; ingánként és m·L²-re vetítve az energia ½θ̇² + V(θ), és θ₀-ból nyugalomból indulva egy periódus 4∫dθ/√(2(V(θ₀) − V(θ))) ideig tart. A második a kis kitérések határesetét adja meg, I = m·L²-tel egy könnyű rúdon lógó golyóra."
+          },
+          "beat": {
+            "title": "Át és vissza",
+            "setting": "Ugyanezek az ingák, „Csak a bal”; az „Át és vissza” mező.",
+            "reads": "Egy inga meglökése fele-fele arányban mindkét rezgésforma. Ezek ω₋ = √(g/L) és ω₊ = √(g/L + 2κ) körfrekvenciával csúsznak szét, és a lengés 2π/(ω₊ − ω₋) alatt vándorol át és vissza.",
+            "why": "Az oldal képletét ellenőrzi a két körfrekvenciára, amely különböző ingákra is egy 2×2-es rendszer gyökeit keresi: 22,94913 s kis kitérésekre.",
+            "step": "A forrás a két körfrekvenciát a felfüggesztésre vett I tehetetlenségi nyomatékkal adja meg; egy könnyű rúdon lógó golyóra I = m·L², és k·l²/I-ből κ lesz. A lebegés két csomópontja között 1/(f₁ − f₂) idő telik el."
+          },
+          "energy": {
+            "title": "Az energia megmarad",
+            "setting": "Ugyanezek az ingák, „Csak a bal”, 10°-kal kitérítve; 30 s, azaz 30 000 lépés után.",
+            "reads": "Csillapítás nélkül a két golyó mozgásának és magasságának, valamint a rugó megnyúlásának összege változatlan. Kezdetben ez a bal golyó magassága, L(1 − cos 10°), és a rugó, amely a·sin 10°-kal meg van nyúlva.",
+            "why": "Az időléptető ciklust ellenőrzi, és azt, hogy a rugó ereje illik az energiájához: 15,84081 mJ az elején és 30 s után, 10⁻¹⁰ pontossággal egyezik."
           }
         }
       },
