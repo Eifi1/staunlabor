@@ -2612,6 +2612,18 @@ rings of equal area lies 6.3 · 10⁻⁶ over the integral, within 2 · 10⁻⁵
 the ring count, not the formula (20,000 rings bring it to 10⁻⁷). "Set it up"
 sets the material and its index and, for the drawn ray, the ray's impact.
 
+**The ball cannon's** four (2026-11-21) hold the stack's speed at the floor
+(4.42019 m/s, the fall with quadratic drag) and three numbers of the bottom
+ball alone on a lossless floor, where the Flores damping is off and the contact
+is Hertz's own: its peak force (1325.2 N, with the weight's work in the dent,
+a step of ours marked derived: without it the hand lies 0.64 % low), its
+duration to Patrício's τ (the engine counts it in 10 µs steps: 9.5 · 10⁻⁴,
+within 2 · 10⁻³) and its impulse, 2mv plus the weight's share. No case holds
+the launch itself: the engine meets the textbook's one-after-another model
+only with a gap and no losses, and the rest (gravity in the contact, the
+contacts overlapping) has no clean bound. "Set it up" sets the stack, its
+height and its contacts; the reader drops.
+
 **On the page** a section "Check it yourself" (`check-section.tsx`) lists the
 cases, each with its formula as an `Equation` (`check-formulas.ts`), both
 values to seven digits, the deviation, why the case would catch a mistake,

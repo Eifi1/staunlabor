@@ -92,6 +92,7 @@ const UNCHECKED = {
     "arch",
     "beats",
     "bounce",
+    "cannon",
     "chair",
     "chaos",
     "chladni",
@@ -893,7 +894,8 @@ describe("the ball cannon", () => {
     // The contacts of the impact, with the force the floor pushes back with.
     expect(screen.getByRole("cell", { name: "Floor – 10 cm" })).toBeInTheDocument();
     expect(screen.getByRole("cell", { name: "1,237 N" })).toBeInTheDocument();
-    await waitFor(() => expect(screen.getAllByLabelText(E.equation.symbols)).toHaveLength(5));
+    // The page's five equations and its four check cases'.
+    await waitFor(() => expect(screen.getAllByLabelText(E.equation.symbols)).toHaveLength(9));
   });
 
   it("drops the stack in the browser when asked, and says what the top ball did", async () => {
@@ -1936,6 +1938,19 @@ describe("setting a check case up", () => {
     expect(
       screen.getByText(E.rainbow.play.inside.replace("{{angle}}", "16.8").replace("{{bow}}", "21.1")),
     ).toBeInTheDocument();
+  });
+
+  it("leaves the cannon's bottom ball alone on a lossless floor, then puts the exhibit's three back", async () => {
+    renderWithProviders(<CannonPage />);
+    await screen.findByRole("img", { name: E.cannon.view });
+    await setUp(1);
+    await waitFor(() => expect(screen.getByRole("radio", { name: "1 ball" })).toBeChecked());
+    expect(screen.getByRole("slider", { name: E.cannon.change.floor_e }).getAttribute("aria-valuetext")).toMatch(
+      /^1\.00\b/,
+    );
+    await setUp(0);
+    await waitFor(() => expect(screen.getByRole("radio", { name: "3 balls" })).toBeChecked());
+    expect(screen.getByRole("slider", { name: E.cannon.change.ball_2 }).getAttribute("aria-valuetext")).toMatch(/^5\b/);
   });
 
   it("pushes the ball round the well on its circle, with the felt's brake, for the brake's case", async () => {

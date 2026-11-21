@@ -3748,7 +3748,18 @@
         "impact": "punto de impacto, distancia al centro en radios de la perla",
         "back_share": "fracción de la luz que vuelve tras una reflexión",
         "reflectance": "fracción reflejada en una superficie, para las dos polarizaciones",
-        "rainbow_index": "índice de refracción"
+        "rainbow_index": "índice de refracción",
+        "v_impact": "velocidad de la pelota en el suelo",
+        "K_floor": "rigidez de la pelota y el suelo según Hertz",
+        "F_floor": "fuerza máxima del suelo",
+        "youngs": "módulo de Young de la goma",
+        "nu_poisson": "coeficiente de Poisson, 0,5 para la goma",
+        "J_impulse": "impulso que transmite el suelo",
+        "cannon_A_cross": "sección transversal de la pelota",
+        "cannon_c_drag": "coeficiente de arrastre de una esfera lisa, 0,47",
+        "cannon_h_drop": "altura desde la que cae la pelota",
+        "cannon_rho_air": "densidad del aire",
+        "cannon_v_inf": "velocidad límite: donde el aire frena tanto como tira el peso"
       },
       "cases": {
         "sphere": {
@@ -4695,6 +4706,35 @@
             "reads": "Cada rayo pierde en cada superficie lo que dicen las fórmulas de Fresnel: al entrar (1 − R), reflejado dentro R, al salir (1 − R). Para cada polarización por separado; las dos se promedian y se suman sobre la cara de la perla.",
             "why": "Comprueba la luz del anillo: el 5,5 % de la luz que toca la perla vuelve tras una reflexión. La página suma 2000 anillos de igual área; eso da 6 · 10⁻⁶ de más, porque la luz de los rayos rasantes cambia bruscamente en el borde.",
             "step": "La fuente da R para las dos polarizaciones. Dentro, el rayo toca la superficie con β y refleja tanto como fuera con i: las fórmulas no cambian si se intercambian los dos lados. Se promedia (1 − R)²·R y no R, porque cada polarización recorre por su cuenta el camino a través de las tres superficies."
+          }
+        },
+        "cannon": {
+          "impact": {
+            "title": "A qué velocidad llega la pila al suelo",
+            "setting": "La exposición: tres pelotas de 10, 7 y 5 cm, soltadas desde 1 m; la velocidad de la de abajo en el suelo.",
+            "reads": "El aire frena con el cuadrado de la velocidad. Por eso la pelota de abajo cae según las fórmulas de la caída con resistencia del aire, no tan deprisa como en el vacío.",
+            "why": "Comprueba la caída con la que empieza todo: 4,4202 m/s. La página calcula la caída paso a paso y busca el suelo dividiendo el paso a la mitad una y otra vez; las dos coinciden con una precisión de 10⁻¹⁴."
+          },
+          "floor_peak": {
+            "title": "Una pelota golpea el suelo: la fuerza máxima",
+            "setting": "Solo la pelota de abajo, 10 cm, 3 MPa, desde 1 m; el suelo lo devuelve todo (e = 1).",
+            "reads": "El aplastamiento es máximo cuando la energía de movimiento de la pelota y el trabajo de su peso en el camino hacia dentro están enteros en él. Ahí el suelo empuja con más fuerza: K·δ^(3/2).",
+            "why": "Comprueba la rigidez según Hertz para la pelota y el suelo: 1325 N con 10,7 mm de aplastamiento, como lo muestra la tabla de las fuerzas.",
+            "step": "La primera fuente da la fuerza de una esfera sobre un plano, con el suelo rígido (E₂ infinito). La segunda da la energía en el aplastamiento, (2/5)·K·δ^(5/2), y el balance de energía, al que aquí se añade el trabajo del peso m·g·δ."
+          },
+          "floor_time": {
+            "title": "Cuánto tiempo se queda la pelota en el suelo",
+            "setting": "Como arriba: solo la pelota de abajo, sin pérdidas, desde 1 m.",
+            "reads": "El choque dura hasta que la pelota se ha aplastado y ha recuperado su forma. Como el contacto de Hertz se vuelve más rígido con la profundidad, la duración depende solo débilmente de la velocidad, como v^(−1/5).",
+            "why": "Comprueba la duración de la tabla de las fuerzas: 7,113 ms a mano, 7,12 ms en la página, que cuenta en pasos de 10 µs.",
+            "step": "La primera fuente da la duración del choque de dos esferas con la masa reducida µ. El suelo es infinitamente pesado e infinitamente grande: µ = m, y e·r^½ pasa a ser el K de la esfera sobre el plano, tomado de la segunda."
+          },
+          "floor_impulse": {
+            "title": "El suelo invierte la cantidad de movimiento",
+            "setting": "Como arriba: solo la pelota de abajo, sin pérdidas, desde 1 m.",
+            "reads": "La pelota llega con m·v y se va con m·v. El suelo da ambas, 2·m·v, y además lo que el peso quita durante el choque: m·g·τ.",
+            "why": "Comprueba cómo la página suma la fuerza a lo largo del choque: 5,1319 N·s; el peso supone el 0,8 % de ello.",
+            "step": "La primera fuente da que el impulso es la variación de la cantidad de movimiento. Sobre la pelota actúan el suelo y el peso; sin pérdidas, se va tan deprisa como llegó, así que el impulso del suelo es 2mv más m·g por la duración tomada de la segunda."
           }
         }
       },

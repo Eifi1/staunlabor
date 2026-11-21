@@ -258,6 +258,125 @@
    ]
   }
  ],
+ "cannon": [
+  {
+   "key": "impact",
+   "unit": "m/s",
+   "expected": 4.42018901518,
+   "measured": 4.42018901518,
+   "deviation": 9.04215379688e-15,
+   "tolerance": 1e-10,
+   "derived": false,
+   "setting": {
+    "count": 3,
+    "drop_m": 1.0,
+    "gap_m": 0.0,
+    "floor_restitution": 0.85,
+    "ball_restitution": 0.85,
+    "youngs_mpa": 3.0,
+    "diameter_0_m": 0.1,
+    "diameter_1_m": 0.07,
+    "diameter_2_m": 0.05
+   },
+   "sources": [
+    {
+     "cite": "Wikipedia, “Free fall”, §Uniform gravitational field with air resistance",
+     "url": "https://en.wikipedia.org/wiki/Free_fall",
+     "quote": "Assuming an object falling from rest and no change in air density with altitude …, the solution is: v(t) = v∞ tanh(gt/v∞), where the terminal speed is given by v∞ = √(2mg/(ρC_D A)). … y = y0 + (v∞²/g) ln cosh(gt/v∞)."
+    }
+   ]
+  },
+  {
+   "key": "floor_peak",
+   "unit": "N",
+   "expected": 1325.24038071,
+   "measured": 1325.19026251,
+   "deviation": 3.78181941317e-05,
+   "tolerance": 0.0001,
+   "derived": true,
+   "setting": {
+    "count": 1,
+    "drop_m": 1.0,
+    "gap_m": 0.0,
+    "floor_restitution": 1.0,
+    "ball_restitution": 0.85,
+    "youngs_mpa": 3.0,
+    "diameter_0_m": 0.1
+   },
+   "sources": [
+    {
+     "cite": "Wikipedia, “Contact mechanics”, §Contact between a sphere and a half-space (citing Hertz, 1882)",
+     "url": "https://en.wikipedia.org/wiki/Contact_mechanics",
+     "quote": "An elastic sphere of radius R indents an elastic half-space where total deformation is d … The applied force F is related to the displacement d by F = 4/3 E* R^½ d^{3/2} where 1/E* = (1 − ν₁²)/E₁ + (1 − ν₂²)/E₂"
+    },
+    {
+     "cite": "P. Patrício, “The Hertz contact in chain elastic collisions”, arXiv:physics/0402036 (doi:10.1119/1.1778394), §III.A, Eq. (5) and (7)",
+     "url": "https://arxiv.org/abs/physics/0402036",
+     "quote": "the elastic potential energy Ep depends on the combined deformation h as: Ep = 2/5 e r^½ h^{5/2} … the energy conservation principle reads: ½µ(dh/dt)² + 2/5 e r^½ h^{5/2} = ½µν²"
+    }
+   ]
+  },
+  {
+   "key": "floor_time",
+   "unit": "ms",
+   "expected": 7.11327725662,
+   "measured": 7.12,
+   "deviation": 0.000945097896935,
+   "tolerance": 0.002,
+   "derived": true,
+   "setting": {
+    "count": 1,
+    "drop_m": 1.0,
+    "gap_m": 0.0,
+    "floor_restitution": 1.0,
+    "ball_restitution": 0.85,
+    "youngs_mpa": 3.0,
+    "diameter_0_m": 0.1
+   },
+   "sources": [
+    {
+     "cite": "P. Patrício, “The Hertz contact in chain elastic collisions”, arXiv:physics/0402036, §III.A, Eq. (9)",
+     "url": "https://arxiv.org/abs/physics/0402036",
+     "quote": "The collision time corresponds to the time in which the deformation goes from 0 to hM and back to 0 again. It is given by: τ = 2 (25µ²/(16e²rν))^{1/5} ∫₀¹ dx/√(1 − x^{5/2}) ≈ 3.21 (µ²/(e²rν))^{1/5}"
+    },
+    {
+     "cite": "Wikipedia, “Contact mechanics”, §Contact between a sphere and a half-space (citing Hertz, 1882)",
+     "url": "https://en.wikipedia.org/wiki/Contact_mechanics",
+     "quote": "An elastic sphere of radius R indents an elastic half-space where total deformation is d … The applied force F is related to the displacement d by F = 4/3 E* R^½ d^{3/2} where 1/E* = (1 − ν₁²)/E₁ + (1 − ν₂²)/E₂"
+    }
+   ]
+  },
+  {
+   "key": "floor_impulse",
+   "unit": "N·s",
+   "expected": 5.13186961368,
+   "measured": 5.13179985019,
+   "deviation": 1.35941653953e-05,
+   "tolerance": 0.0001,
+   "derived": true,
+   "setting": {
+    "count": 1,
+    "drop_m": 1.0,
+    "gap_m": 0.0,
+    "floor_restitution": 1.0,
+    "ball_restitution": 0.85,
+    "youngs_mpa": 3.0,
+    "diameter_0_m": 0.1
+   },
+   "sources": [
+    {
+     "cite": "OpenStax, University Physics Volume 1, §9.2 Impulse and Collisions, Eq. 9.7",
+     "url": "https://openstax.org/books/university-physics-volume-1/pages/9-2-impulse-and-collisions",
+     "quote": "Impulse-Momentum Theorem An impulse applied to a system changes the system’s momentum, and that change of momentum is exactly equal to the impulse that was applied: J⃗ = Δp⃗."
+    },
+    {
+     "cite": "P. Patrício, “The Hertz contact in chain elastic collisions”, arXiv:physics/0402036, §III.A, Eq. (9)",
+     "url": "https://arxiv.org/abs/physics/0402036",
+     "quote": "The collision time corresponds to the time in which the deformation goes from 0 to hM and back to 0 again. It is given by: τ = 2 (25µ²/(16e²rν))^{1/5} ∫₀¹ dx/√(1 − x^{5/2}) ≈ 3.21 (µ²/(e²rν))^{1/5}"
+    }
+   ]
+  }
+ ],
  "chair": [
   {
    "key": "one_picture",

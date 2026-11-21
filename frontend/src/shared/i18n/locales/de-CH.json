@@ -3748,7 +3748,18 @@
         "impact": "Auftreffpunkt, Abstand von der Mitte in Radien der Perle",
         "back_share": "Anteil des Lichts, der nach einer Spiegelung zurückkommt",
         "reflectance": "gespiegelter Anteil an einer Fläche, für die beiden Polarisationen",
-        "rainbow_index": "Brechzahl"
+        "rainbow_index": "Brechzahl",
+        "v_impact": "Tempo der Kugel am Boden",
+        "K_floor": "Steifigkeit von Kugel und Boden nach Hertz",
+        "F_floor": "grösste Kraft des Bodens",
+        "youngs": "Elastizitätsmodul des Gummis",
+        "nu_poisson": "Querzahl, 0,5 für Gummi",
+        "J_impulse": "Impuls, den der Boden überträgt",
+        "cannon_A_cross": "Querschnitt des Balls",
+        "cannon_c_drag": "Widerstandsbeiwert einer glatten Kugel, 0,47",
+        "cannon_h_drop": "Höhe, aus der der Ball fällt",
+        "cannon_rho_air": "Dichte der Luft",
+        "cannon_v_inf": "Endgeschwindigkeit: wo die Luft so stark bremst, wie das Gewicht zieht"
       },
       "cases": {
         "sphere": {
@@ -4695,6 +4706,35 @@
             "reads": "Jeder Strahl verliert an jeder Fläche, was Fresnels Formeln sagen: hinein (1 − R), innen gespiegelt R, hinaus (1 − R). Für jede Polarisation einzeln, die beiden gemittelt, über die Fläche der Perle summiert.",
             "why": "Prüft das Licht des Rings: 5,5 % des Lichts, das die Perle trifft, kommen nach einer Spiegelung zurück. Die Seite summiert 2000 Ringe gleicher Fläche; das liegt 6 · 10⁻⁶ zu hoch, weil sich das Licht der streifenden Strahlen am Rand steil ändert.",
             "step": "Die Quelle gibt R für beide Polarisationen. Innen trifft der Strahl die Fläche unter β und spiegelt so viel wie aussen unter i: Die Formeln bleiben gleich, wenn man die beiden Seiten vertauscht. Gemittelt wird (1 − R)²·R und nicht R, weil jede Polarisation den Weg durch alle drei Flächen für sich macht."
+          }
+        },
+        "cannon": {
+          "impact": {
+            "title": "Wie schnell der Stapel aufschlägt",
+            "setting": "Das Exponat: drei Kugeln von 10, 7 und 5 cm, aus 1 m fallen gelassen; das Tempo der untersten am Boden.",
+            "reads": "Die Luft bremst mit dem Quadrat des Tempos. Die unterste Kugel fällt darum nach den Formeln des Falls mit Luftwiderstand, nicht ganz so schnell wie im leeren Raum.",
+            "why": "Prüft den Fall, mit dem alles beginnt: 4,4202 m/s. Die Seite rechnet den Fall Schritt für Schritt und sucht den Boden durch Halbieren; beide stimmen auf 10⁻¹⁴."
+          },
+          "floor_peak": {
+            "title": "Eine Kugel trifft den Boden: die grösste Kraft",
+            "setting": "Nur die unterste Kugel, 10 cm, 3 MPa, aus 1 m; der Boden gibt alles zurück (e = 1).",
+            "reads": "Am tiefsten ist die Delle, wenn die Bewegungsenergie der Kugel und die Arbeit ihres Gewichts auf dem Weg hinein ganz in ihr stecken. Dort drückt der Boden am stärksten: K·δ^(3/2).",
+            "why": "Prüft die Steifigkeit nach Hertz für Kugel und Boden: 1325 N bei 10,7 mm Delle, wie die Tabelle der Kräfte sie zeigt.",
+            "step": "Die erste Quelle gibt die Kraft einer Kugel auf einer Ebene, der Boden starr (E₂ unendlich). Die zweite gibt die Energie in der Delle, (2/5)·K·δ^(5/2), und den Energiesatz, dem hier die Arbeit des Gewichts m·g·δ beigefügt ist."
+          },
+          "floor_time": {
+            "title": "Wie lange die Kugel am Boden bleibt",
+            "setting": "Wie oben: nur die unterste Kugel, ohne Verlust, aus 1 m.",
+            "reads": "Der Stoss dauert, bis die Delle sich gefüllt und wieder geleert hat. Weil Hertz' Kontakt mit der Tiefe steifer wird, hängt die Dauer nur schwach vom Tempo ab, mit v^(−1/5).",
+            "why": "Prüft die Dauer in der Tabelle der Kräfte: 7,113 ms von Hand, 7,12 ms auf der Seite, die in Schritten von 10 µs zählt.",
+            "step": "Die erste Quelle gibt die Dauer eines Stosses zweier Kugeln mit der reduzierten Masse µ. Der Boden ist unendlich schwer und unendlich gross: µ = m, und e·r^½ wird das K der Kugel auf der Ebene aus der zweiten."
+          },
+          "floor_impulse": {
+            "title": "Der Boden dreht den Impuls um",
+            "setting": "Wie oben: nur die unterste Kugel, ohne Verlust, aus 1 m.",
+            "reads": "Die Kugel kommt mit m·v an und geht mit m·v. Der Boden gibt beides, 2·m·v, und dazu, was das Gewicht während des Stosses nimmt: m·g·τ.",
+            "why": "Prüft, wie die Seite die Kraft über den Stoss summiert: 5,1319 N·s; das Gewicht macht davon 0,8 % aus.",
+            "step": "Die erste Quelle gibt, dass der Impuls die Änderung der Bewegungsgrösse ist. Auf die Kugel wirken der Boden und das Gewicht; ohne Verlust geht sie so schnell, wie sie kam, also ist der Impuls des Bodens 2mv plus m·g mal die Dauer aus der zweiten."
           }
         }
       },

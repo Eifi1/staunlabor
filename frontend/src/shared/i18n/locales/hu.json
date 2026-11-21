@@ -3748,7 +3748,18 @@
         "impact": "beesési pont: távolsága a középponttól, a gyöngy sugarában mérve",
         "back_share": "a fénynek az a része, amely egy visszaverődés után visszajön",
         "reflectance": "egy felületen visszavert hányad, a két polarizációra",
-        "rainbow_index": "törésmutató"
+        "rainbow_index": "törésmutató",
+        "v_impact": "a labda sebessége a padlónál",
+        "K_floor": "a labda és a padló merevsége Hertz szerint",
+        "F_floor": "a padló legnagyobb ereje",
+        "youngs": "a gumi Young-modulusa",
+        "nu_poisson": "Poisson-szám, gumira 0,5",
+        "J_impulse": "az erőlökés, amelyet a padló átad",
+        "cannon_A_cross": "a labda keresztmetszete",
+        "cannon_c_drag": "egy sima gömb közegellenállási tényezője, 0,47",
+        "cannon_h_drop": "a magasság, ahonnan a labda esik",
+        "cannon_rho_air": "a levegő sűrűsége",
+        "cannon_v_inf": "határsebesség: ahol a levegő ugyanolyan erősen fékez, mint amilyen erősen a súly húz"
       },
       "cases": {
         "sphere": {
@@ -4695,6 +4706,35 @@
             "reads": "Minden sugár minden felületen annyit veszít, amennyit Fresnel képletei mondanak: befelé (1 − R), belül visszaverve R, kifelé (1 − R). Mindkét polarizációra külön, a kettőt átlagolva, a gyöngy felületére összegezve.",
             "why": "A gyűrű fényét ellenőrzi: a gyöngyre eső fény 5,5 %-a jön vissza egy visszaverődés után. Az oldal 2000 egyenlő területű gyűrűt összegez; ez 6 · 10⁻⁶-nal túl magas, mert a súroló sugarak fénye a peremen meredeken változik.",
             "step": "A forrás mindkét polarizációra megadja R-t. Belül a sugár β szögben éri a felületet, és ugyanannyit ver vissza, mint kívül i szögben: a képletek nem változnak, ha a két oldalt felcseréljük. Az átlagolt mennyiség (1 − R)²·R, nem R, mert minden polarizáció külön teszi meg az utat mindhárom felületen át."
+          }
+        },
+        "cannon": {
+          "impact": {
+            "title": "Milyen gyorsan ér a padlóra a labdaoszlop",
+            "setting": "A kiállítási tárgy: három labda, 10, 7 és 5 cm-es, 1 m magasról leejtve; az alsó sebessége a padlónál.",
+            "reads": "A levegő a sebesség négyzetével fékez. Ezért az alsó labda a közegellenállással járó esés képletei szerint esik, nem egészen olyan gyorsan, mint légüres térben.",
+            "why": "Azt az esést ellenőrzi, amellyel minden kezdődik: 4,4202 m/s. Az oldal lépésenként számolja az esést, és ismételt felezéssel keresi meg a padlót; a kettő 10⁻¹⁴ pontossággal egyezik."
+          },
+          "floor_peak": {
+            "title": "Egy labda a padlónak ütközik: a legnagyobb erő",
+            "setting": "Csak az alsó labda, 10 cm, 3 MPa, 1 m magasról; a padló mindent visszaad (e = 1).",
+            "reads": "A benyomódás akkor a legmélyebb, amikor a labda mozgási energiája és súlyának a benyomódás útján végzett munkája teljes egészében benne van. Ott nyom a padló a legerősebben: K·δ^(3/2).",
+            "why": "A Hertz-féle merevséget ellenőrzi labdára és padlóra: 1325 N 10,7 mm-es benyomódásnál, ahogy az erők táblázata mutatja.",
+            "step": "Az első forrás egy gömb síkra ható erejét adja meg, merev padlóval (E₂ végtelen). A második a benyomódásban tárolt energiát adja meg, (2/5)·K·δ^(5/2), és az energiamérleget, amelyhez itt hozzá van adva a súly munkája, m·g·δ."
+          },
+          "floor_time": {
+            "title": "Mennyi ideig marad a labda a padlón",
+            "setting": "Mint fent: csak az alsó labda, veszteség nélkül, 1 m magasról.",
+            "reads": "Az ütközés addig tart, amíg a labda benyomódik, majd visszanyeri alakját. Mivel a Hertz-féle érintkezés a mélységgel merevebbé válik, az időtartam csak gyengén függ a sebességtől, v^(−1/5) szerint.",
+            "why": "Az erők táblázatában szereplő időtartamot ellenőrzi: kézzel 7,113 ms, az oldalon 7,12 ms, amely 10 µs-os lépésekben számol.",
+            "step": "Az első forrás két gömb ütközésének időtartamát adja meg a µ redukált tömeggel. A padló végtelenül nehéz és végtelenül nagy: µ = m, és e·r^½ helyére a második forrásból vett K kerül, a síkon fekvő gömbé."
+          },
+          "floor_impulse": {
+            "title": "A padló megfordítja a lendületet",
+            "setting": "Mint fent: csak az alsó labda, veszteség nélkül, 1 m magasról.",
+            "reads": "A labda m·v lendülettel érkezik, és m·v lendülettel távozik. A padló mindkettőt adja, 2·m·v-t, és ráadásul azt, amit a súly az ütközés alatt elvesz: m·g·τ-t.",
+            "why": "Azt ellenőrzi, hogyan összegzi az oldal az erőt az ütközés alatt: 5,1319 N·s; ebből a súly része 0,8 %.",
+            "step": "Az első forrás szerint az erőlökés a lendület megváltozása. A labdára a padló és a súly hat; veszteség nélkül olyan gyorsan távozik, ahogy érkezett, tehát a padló erőlökése 2mv plusz m·g szorozva a második forrásból vett időtartammal."
           }
         }
       },

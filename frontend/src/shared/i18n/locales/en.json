@@ -3748,7 +3748,18 @@
         "impact": "where the ray meets the bead, from its centre in radii",
         "back_share": "share of the light that comes back after one reflection",
         "reflectance": "share reflected at a surface, for the two polarisations",
-        "rainbow_index": "refractive index"
+        "rainbow_index": "refractive index",
+        "v_impact": "the ball's speed at the floor",
+        "K_floor": "ball and floor's stiffness, by Hertz",
+        "F_floor": "the floor's largest force",
+        "youngs": "the rubber's Young's modulus",
+        "nu_poisson": "Poisson's ratio, 0.5 for rubber",
+        "J_impulse": "the impulse the floor passes on",
+        "cannon_A_cross": "the ball's cross-section",
+        "cannon_c_drag": "a smooth sphere's drag coefficient, 0.47",
+        "cannon_h_drop": "the height the ball falls from",
+        "cannon_rho_air": "the air's density",
+        "cannon_v_inf": "terminal speed: where the air brakes as hard as the weight pulls"
       },
       "cases": {
         "sphere": {
@@ -4695,6 +4706,35 @@
             "reads": "Every ray loses at every surface what Fresnel's formulas say: in (1 − R), reflected inside R, out (1 − R). For each polarisation on its own, the two averaged, summed over the bead's face.",
             "why": "Checks the ring's light: 5.5 % of the light meeting the bead comes back after one reflection. The page sums 2000 rings of equal area; that is 6 · 10⁻⁶ high, as the grazing rays' light changes steeply at the rim.",
             "step": "The source gives R for both polarisations. Inside, the ray meets the surface at β and reflects as much as outside at i: the formulas stay the same with the two sides swapped. What is averaged is (1 − R)²·R, not R, as each polarisation makes its way through all three surfaces on its own."
+          }
+        },
+        "cannon": {
+          "impact": {
+            "title": "How fast the stack meets the floor",
+            "setting": "The exhibit: three balls of 10, 7 and 5 cm, dropped from 1 m; the bottom one's speed at the floor.",
+            "reads": "The air brakes with the square of the speed. So the bottom ball falls by the formulas of a fall with drag, not quite as fast as in a vacuum.",
+            "why": "Checks the fall everything begins with: 4.4202 m/s. The page steps the fall and finds the floor by halving; the two agree to 10⁻¹⁴."
+          },
+          "floor_peak": {
+            "title": "One ball meets the floor: the largest force",
+            "setting": "Only the bottom ball, 10 cm, 3 MPa, from 1 m; the floor gives everything back (e = 1).",
+            "reads": "The dent is deepest when the ball's energy of motion and its weight's work on the way in are all in it. There the floor pushes hardest: K·δ^(3/2).",
+            "why": "Checks Hertz's stiffness for a ball and the floor: 1325 N at a dent of 10.7 mm, as the table of forces shows it.",
+            "step": "The first source gives the force of a sphere on a plane, the floor rigid (E₂ endless). The second gives the energy in the dent, (2/5)·K·δ^(5/2), and the energy balance, to which the weight's work m·g·δ is added here."
+          },
+          "floor_time": {
+            "title": "How long the ball stays on the floor",
+            "setting": "As above: only the bottom ball, no loss, from 1 m.",
+            "reads": "The strike lasts until the dent has filled and emptied again. Since Hertz's contact grows stiffer with depth, the duration depends only weakly on the speed, as v^(−1/5).",
+            "why": "Checks the duration in the table of forces: 7.113 ms by hand, 7.12 ms on the page, which counts in steps of 10 µs.",
+            "step": "The first source gives the duration of two balls' strike with the reduced mass µ. The floor is endlessly heavy and endlessly large: µ = m, and e·r^½ becomes the K of the ball on the plane from the second."
+          },
+          "floor_impulse": {
+            "title": "The floor turns the momentum round",
+            "setting": "As above: only the bottom ball, no loss, from 1 m.",
+            "reads": "The ball arrives with m·v and leaves with m·v. The floor gives both, 2·m·v, and what the weight takes during the strike besides: m·g·τ.",
+            "why": "Checks how the page sums the force over the strike: 5.1319 N·s, the weight 0.8 % of it.",
+            "step": "The first source gives that the impulse is the change of momentum. The floor and the weight act on the ball; without loss it leaves as fast as it came, so the floor's impulse is 2mv plus m·g times the duration from the second."
           }
         }
       },

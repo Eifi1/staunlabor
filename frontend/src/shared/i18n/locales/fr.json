@@ -3748,7 +3748,18 @@
         "impact": "point d’impact, distance au centre en rayons de la bille",
         "back_share": "part de la lumière qui revient après une réflexion",
         "reflectance": "part réfléchie à une surface, pour les deux polarisations",
-        "rainbow_index": "indice de réfraction"
+        "rainbow_index": "indice de réfraction",
+        "v_impact": "vitesse de la balle au sol",
+        "K_floor": "raideur de la balle et du sol selon Hertz",
+        "F_floor": "force maximale du sol",
+        "youngs": "module d’Young du caoutchouc",
+        "nu_poisson": "coefficient de Poisson, 0,5 pour le caoutchouc",
+        "J_impulse": "impulsion que le sol transmet",
+        "cannon_A_cross": "section de la balle",
+        "cannon_c_drag": "coefficient de traînée d’une sphère lisse, 0,47",
+        "cannon_h_drop": "hauteur d’où tombe la balle",
+        "cannon_rho_air": "masse volumique de l’air",
+        "cannon_v_inf": "vitesse limite : là où l’air freine aussi fort que le poids tire"
       },
       "cases": {
         "sphere": {
@@ -4695,6 +4706,35 @@
             "reads": "Chaque rayon perd à chaque surface ce que disent les formules de Fresnel : à l’entrée (1 − R), réfléchi à l’intérieur R, à la sortie (1 − R). Pour chaque polarisation séparément, les deux moyennées, sommé sur la face de la bille.",
             "why": "Vérifie la lumière de l’anneau : 5,5 % de la lumière qui touche la bille revient après une réflexion. La page somme 2000 anneaux de même surface ; cela donne 6 · 10⁻⁶ de trop, car la lumière des rayons rasants varie brusquement au bord.",
             "step": "La source donne R pour les deux polarisations. À l’intérieur, le rayon touche la surface sous β et réfléchit autant qu’à l’extérieur sous i : les formules restent les mêmes quand on échange les deux côtés. On moyenne (1 − R)²·R et non R, car chaque polarisation fait pour elle-même le chemin à travers les trois surfaces."
+          }
+        },
+        "cannon": {
+          "impact": {
+            "title": "À quelle vitesse la pile touche le sol",
+            "setting": "L’exposition : trois balles de 10, 7 et 5 cm, lâchées de 1 m ; la vitesse de celle du bas au sol.",
+            "reads": "L’air freine avec le carré de la vitesse. La balle du bas tombe donc selon les formules de la chute avec résistance de l’air, pas tout à fait aussi vite que dans le vide.",
+            "why": "Vérifie la chute par laquelle tout commence : 4,4202 m/s. La page calcule la chute pas à pas et cherche le sol en coupant le pas en deux, encore et encore ; les deux concordent à 10⁻¹⁴ près."
+          },
+          "floor_peak": {
+            "title": "Une balle touche le sol : la force maximale",
+            "setting": "Seulement la balle du bas, 10 cm, 3 MPa, depuis 1 m ; le sol rend tout (e = 1).",
+            "reads": "L’écrasement est le plus profond quand l’énergie de mouvement de la balle et le travail de son poids sur le chemin de l’enfoncement y sont tout entiers. C’est là que le sol pousse le plus fort : K·δ^(3/2).",
+            "why": "Vérifie la raideur selon Hertz pour la balle et le sol : 1325 N pour un écrasement de 10,7 mm, comme le montre le tableau des forces.",
+            "step": "La première source donne la force d’une sphère sur un plan, le sol étant rigide (E₂ infini). La deuxième donne l’énergie dans l’écrasement, (2/5)·K·δ^(5/2), et le bilan d’énergie, auquel on ajoute ici le travail du poids m·g·δ."
+          },
+          "floor_time": {
+            "title": "Combien de temps la balle reste au sol",
+            "setting": "Comme ci-dessus : seulement la balle du bas, sans perte, depuis 1 m.",
+            "reads": "Le choc dure jusqu’à ce que la balle se soit écrasée puis ait repris sa forme. Comme le contact de Hertz devient plus raide avec la profondeur, la durée ne dépend que faiblement de la vitesse, comme v^(−1/5).",
+            "why": "Vérifie la durée dans le tableau des forces : 7,113 ms à la main, 7,12 ms sur la page, qui compte par pas de 10 µs.",
+            "step": "La première source donne la durée du choc de deux sphères avec la masse réduite µ. Le sol est infiniment lourd et infiniment grand : µ = m, et e·r^½ devient le K de la sphère sur le plan, tiré de la seconde."
+          },
+          "floor_impulse": {
+            "title": "Le sol renverse la quantité de mouvement",
+            "setting": "Comme ci-dessus : seulement la balle du bas, sans perte, depuis 1 m.",
+            "reads": "La balle arrive avec m·v et repart avec m·v. Le sol fournit les deux, 2·m·v, et en plus ce que le poids prend pendant le choc : m·g·τ.",
+            "why": "Vérifie comment la page somme la force sur la durée du choc : 5,1319 N·s ; le poids en représente 0,8 %.",
+            "step": "La première source établit que l’impulsion est la variation de la quantité de mouvement. Sur la balle agissent le sol et le poids ; sans perte, elle repart aussi vite qu’elle est arrivée, donc l’impulsion du sol vaut 2mv plus m·g fois la durée tirée de la seconde."
           }
         }
       },

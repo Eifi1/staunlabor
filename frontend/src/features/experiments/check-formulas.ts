@@ -154,6 +154,10 @@ const RING: CheckSymbol = { tex: String.raw`2\varphi`, key: "ring_angle", unit: 
 const BETA_RAINBOW: CheckSymbol = { tex: String.raw`\beta`, key: "refraction_angle", unit: "°" };
 const INCIDENCE: CheckSymbol = { tex: "i", key: "incidence_angle", unit: "°" };
 const INDEX_RAINBOW: CheckSymbol = { tex: "n", key: "rainbow_index" };
+const V_IMPACT: CheckSymbol = { tex: "v", key: "v_impact", unit: "m/s" };
+const V_INF_CANNON: CheckSymbol = { tex: String.raw`v_\infty`, key: "cannon_v_inf", unit: "m/s" };
+const K_FLOOR: CheckSymbol = { tex: "K", key: "K_floor", unit: "N/m¹·⁵" };
+const TAU_CANNON: CheckSymbol = { tex: String.raw`\tau`, key: "tau_contact", unit: "s" };
 
 const ROD_STEADY: CheckFormula = {
   tex: String.raw`w = \frac{\Gamma\,\Omega^2 Y}{\sqrt{(\omega^2 - \Omega^2)^2 + (2\zeta\omega\Omega)^2}}, \qquad \Gamma = \frac{\int_0^1 \varphi\,d\xi}{\int_0^1 \varphi^2\,d\xi}`,
@@ -1276,6 +1280,44 @@ export const CHECK_FORMULAS: Record<string, Record<string, CheckFormula>> = {
         BETA_RAINBOW,
         INDEX_RAINBOW,
       ],
+    },
+  },
+  cannon: {
+    impact: {
+      tex: String.raw`v = v_\infty \tanh\frac{g t}{v_\infty}, \qquad h = \frac{v_\infty^2}{g}\,\ln\cosh\frac{g t}{v_\infty}, \qquad v_\infty = \sqrt{\frac{2 m g}{\rho\, C_D A}}`,
+      symbols: [
+        V_IMPACT,
+        V_INF_CANNON,
+        G,
+        { tex: "t", key: "t", unit: "s" },
+        { tex: "h", key: "cannon_h_drop", unit: "m" },
+        MASS,
+        { tex: String.raw`\rho`, key: "cannon_rho_air", unit: "kg/m³" },
+        { tex: "C_D", key: "cannon_c_drag" },
+        { tex: "A", key: "cannon_A_cross", unit: "m²" },
+      ],
+    },
+    floor_peak: {
+      tex: String.raw`F_{\max} = K\,\delta^{3/2}, \qquad \tfrac25\,K\,\delta^{5/2} = \tfrac12\,m v^2 + m g\,\delta, \qquad K = \tfrac43\,\frac{E}{1 - \nu^2}\sqrt{R}`,
+      symbols: [
+        { tex: String.raw`F_{\max}`, key: "F_floor", unit: "N" },
+        K_FLOOR,
+        { tex: String.raw`\delta`, key: "hM", unit: "m" },
+        MASS,
+        V_IMPACT,
+        G,
+        { tex: "E", key: "youngs", unit: "Pa" },
+        { tex: String.raw`\nu`, key: "nu_poisson" },
+        { tex: "R", key: "r", unit: "m" },
+      ],
+    },
+    floor_time: {
+      tex: String.raw`\tau = 2\left(\frac{25\,m^2}{16\,K^2 v}\right)^{1/5} \int_0^1 \frac{dx}{\sqrt{1 - x^{5/2}}}`,
+      symbols: [TAU_CANNON, MASS, K_FLOOR, V_IMPACT],
+    },
+    floor_impulse: {
+      tex: String.raw`J = 2\,m v + m g\,\tau`,
+      symbols: [{ tex: "J", key: "J_impulse", unit: "N·s" }, MASS, V_IMPACT, G, TAU_CANNON],
     },
   },
 };

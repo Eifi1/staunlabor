@@ -3748,7 +3748,18 @@
         "impact": "punto d'impatto, distanza dal centro in raggi della perlina",
         "back_share": "frazione della luce che torna dopo una riflessione",
         "reflectance": "frazione riflessa su una superficie, per le due polarizzazioni",
-        "rainbow_index": "indice di rifrazione"
+        "rainbow_index": "indice di rifrazione",
+        "v_impact": "velocità della palla al pavimento",
+        "K_floor": "rigidezza di palla e pavimento secondo Hertz",
+        "F_floor": "forza massima del pavimento",
+        "youngs": "modulo di Young della gomma",
+        "nu_poisson": "coefficiente di Poisson, 0,5 per la gomma",
+        "J_impulse": "impulso che il pavimento trasmette",
+        "cannon_A_cross": "sezione trasversale della palla",
+        "cannon_c_drag": "coefficiente di resistenza aerodinamica di una sfera liscia, 0,47",
+        "cannon_h_drop": "altezza da cui cade la palla",
+        "cannon_rho_air": "densità dell'aria",
+        "cannon_v_inf": "velocità limite: dove l'aria frena tanto quanto il peso tira"
       },
       "cases": {
         "sphere": {
@@ -4695,6 +4706,35 @@
             "reads": "Ogni raggio perde a ogni superficie ciò che dicono le formule di Fresnel: entrando (1 − R), riflesso dentro R, uscendo (1 − R). Per ciascuna polarizzazione a sé, le due mediate, sommato sulla faccia della perlina.",
             "why": "Verifica la luce dell'anello: il 5,5 % della luce che colpisce la perlina torna dopo una riflessione. La pagina somma 2000 anelli di uguale area; il risultato è 6 · 10⁻⁶ troppo alto, perché la luce dei raggi radenti cambia bruscamente sul bordo.",
             "step": "La fonte dà R per entrambe le polarizzazioni. Dentro, il raggio colpisce la superficie con β e riflette quanto fuori con i: le formule restano le stesse scambiando i due lati. Si fa la media di (1 − R)²·R e non di R, perché ogni polarizzazione percorre per conto suo il cammino attraverso tutte e tre le superfici."
+          }
+        },
+        "cannon": {
+          "impact": {
+            "title": "A che velocità la pila colpisce il pavimento",
+            "setting": "L'exhibit: tre palle di 10, 7 e 5 cm, lasciate cadere da 1 m; la velocità di quella in basso al pavimento.",
+            "reads": "L'aria frena con il quadrato della velocità. Per questo la palla in basso cade secondo le formule della caduta con resistenza dell'aria, non proprio veloce come nel vuoto.",
+            "why": "Verifica la caduta con cui tutto comincia: 4,4202 m/s. La pagina calcola la caduta passo per passo e cerca il pavimento dimezzando il passo più volte; le due coincidono a meno di 10⁻¹⁴."
+          },
+          "floor_peak": {
+            "title": "Una palla colpisce il pavimento: la forza massima",
+            "setting": "Solo la palla in basso, 10 cm, 3 MPa, da 1 m; il pavimento restituisce tutto (e = 1).",
+            "reads": "Lo schiacciamento è massimo quando l'energia di moto della palla e il lavoro del suo peso lungo il percorso di schiacciamento sono tutti immagazzinati in esso. Lì il pavimento spinge più forte: K·δ^(3/2).",
+            "why": "Verifica la rigidezza secondo Hertz per palla e pavimento: 1325 N con 10,7 mm di schiacciamento, come mostra la tabella delle forze.",
+            "step": "La prima fonte dà la forza di una sfera su un piano, con il pavimento rigido (E₂ infinito). La seconda dà l'energia nello schiacciamento, (2/5)·K·δ^(5/2), e il bilancio energetico, a cui qui si aggiunge il lavoro del peso m·g·δ."
+          },
+          "floor_time": {
+            "title": "Quanto resta la palla sul pavimento",
+            "setting": "Come sopra: solo la palla in basso, senza perdite, da 1 m.",
+            "reads": "L'urto dura finché la palla si è schiacciata e ha ripreso la sua forma. Poiché il contatto di Hertz diventa più rigido con la profondità, la durata dipende solo debolmente dalla velocità, come v^(−1/5).",
+            "why": "Verifica la durata nella tabella delle forze: 7,113 ms a mano, 7,12 ms sulla pagina, che conta a passi di 10 µs.",
+            "step": "La prima fonte dà la durata dell'urto di due sfere con la massa ridotta µ. Il pavimento è infinitamente pesante e infinitamente grande: µ = m, ed e·r^½ diventa il K della sfera sul piano, preso dalla seconda."
+          },
+          "floor_impulse": {
+            "title": "Il pavimento inverte la quantità di moto",
+            "setting": "Come sopra: solo la palla in basso, senza perdite, da 1 m.",
+            "reads": "La palla arriva con m·v e riparte con m·v. Il pavimento dà entrambe, 2·m·v, e in più ciò che il peso toglie durante l'urto: m·g·τ.",
+            "why": "Verifica come la pagina somma la forza lungo l'urto: 5,1319 N·s; il peso ne costituisce lo 0,8 %.",
+            "step": "La prima fonte stabilisce che l'impulso è la variazione della quantità di moto. Sulla palla agiscono il pavimento e il peso; senza perdite riparte veloce come è arrivata, quindi l'impulso del pavimento è 2mv più m·g per la durata presa dalla seconda."
           }
         }
       },
