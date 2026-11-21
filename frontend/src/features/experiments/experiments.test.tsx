@@ -853,14 +853,23 @@ describe("the smoke ring", () => {
   });
 
   it("makes the ring of a press on the drum it began on, though the stroke is lowered mid-press", async () => {
-    renderWithProviders(<SmokePage />);
-    fireEvent.click(await screen.findByRole("button", { name: E.smoke.play.press }));
-    // Lowered under the depth already pressed: the ring is still the press's own.
-    fireEvent.change(screen.getByRole("slider", { name: E.smoke.change.stroke }), { target: { value: "2" } });
-    // The press takes half a second of real time on the page's own frames, which
-    // under coverage come so slowly that the verdict took 3.2 s alone and more
-    // in the full run: 3 s failed the pre-push check of 2026-11-19.
-    expect(await screen.findByText(E.smoke.play.verdict.ring, {}, { timeout: 8000 })).toBeInTheDocument();
+    // The page's frames on a fake clock: the half-second press ran on real
+    // time, and under the pre-push check's load the verdict missed 3 s
+    // (2026-11-19) and then 8 s (2026-11-21). Only the frames and their clock
+    // are faked, so the queries run as ever.
+    vi.useFakeTimers({ toFake: ["requestAnimationFrame", "cancelAnimationFrame", "performance"] });
+    try {
+      renderWithProviders(<SmokePage />);
+      fireEvent.click(await screen.findByRole("button", { name: E.smoke.play.press }));
+      // Lowered under the depth already pressed: the ring is still the press's own.
+      fireEvent.change(screen.getByRole("slider", { name: E.smoke.change.stroke }), { target: { value: "2" } });
+      await act(async () => {
+        vi.advanceTimersByTime(1500);
+      });
+      expect(screen.getByText(E.smoke.play.verdict.ring)).toBeInTheDocument();
+    } finally {
+      vi.useRealTimers();
+    }
   });
 
   it("says when no press can make a ring", async () => {
@@ -1135,6 +1144,23 @@ describe("Galileo's pendulum", () => {
     expect(await screen.findByText(E.peg.play.outcome_over_the_top)).toBeInTheDocument();
     fireEvent.click(screen.getByRole("button", { name: E.peg.sweet.cases.slack }));
     expect(await screen.findByText(E.peg.play.outcome_slack)).toBeInTheDocument();
+  });
+
+  it("shows the answer by itself once the bob has swung back past the peg", async () => {
+    // The swing on a fake clock, its frames and their time only: on real time
+    // it took some 5 s, past findBy's 10 s under the pre-push check's load.
+    vi.useFakeTimers({ toFake: ["requestAnimationFrame", "cancelAnimationFrame", "performance"] });
+    try {
+      renderWithProviders(<PegPage />);
+      await screen.findByRole("img", { name: E.peg.view });
+      expect(screen.queryByText(E.peg.play.outcome_same_height)).not.toBeInTheDocument();
+      await act(async () => {
+        vi.advanceTimersByTime(6000);
+      });
+      expect(screen.getByText(E.peg.play.outcome_same_height)).toBeInTheDocument();
+    } finally {
+      vi.useRealTimers();
+    }
   });
 
   it("moves the peg and pulls the bob out by mouse or finger, keeping hold to the end of the drag", async () => {
