@@ -1372,7 +1372,7 @@ wheels = [
 
 [[package]]
 name = "staunlabor"
-version = "0.1.10"
+version = "0.1.11"
 source = { virtual = "." }
 dependencies = [
     { name = "alembic" },

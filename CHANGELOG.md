@@ -2,6 +2,12 @@
 
 All notable changes to Staunlabor are documented in this file, generated from the commit messages by commit-and-tag-version at each release.
 
+## [0.1.11](https://github.com/Eifi1/staunlabor/compare/v0.1.10...v0.1.11) (2026-11-21)
+
+### Added
+
+* the stage landing, the basics, check cases for 16 exhibits and gestures by hand ([#6](https://github.com/Eifi1/staunlabor/issues/6)) ([1758b7f](https://github.com/Eifi1/staunlabor/commit/1758b7f74e4464bb6b9bffdcd24fdcc09a86bbf4))
+
 ## [0.1.10](https://github.com/Eifi1/staunlabor/compare/v0.1.9...v0.1.10) (2026-11-19)
 
 ### Fixed
