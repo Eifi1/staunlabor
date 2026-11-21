@@ -1127,6 +1127,10 @@ describe("Galileo's pendulum", () => {
   it("sets the three cases from the trick, and says what each does", async () => {
     renderWithProviders(<PegPage />);
     await screen.findByRole("img", { name: E.peg.view });
+    // The answer shown at once: left to the swing, it comes out only after the
+    // catch in real time, some 5 s a case, past findBy's 10 s under load
+    // (the pre-push hook, 2026-11-21).
+    showAnswer();
     fireEvent.click(screen.getByRole("button", { name: E.peg.sweet.cases.over_the_top }));
     expect(await screen.findByText(E.peg.play.outcome_over_the_top)).toBeInTheDocument();
     fireEvent.click(screen.getByRole("button", { name: E.peg.sweet.cases.slack }));
