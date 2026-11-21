@@ -3628,7 +3628,21 @@
         "mode": "forme du premier mode, 1 à la pointe",
         "s_rider": "position du cavalier, de la base (0) à la pointe (1)",
         "xi": "position sur la branche, de la base (0) à la pointe (1)",
-        "beta_L": "première racine de l’équation de la poutre encastrée, 1,8751"
+        "beta_L": "première racine de l’équation de la poutre encastrée, 1,8751",
+        "surface_height": "la hauteur de la surface au-dessus du fond",
+        "axis_distance": "distance à l’axe",
+        "steepness": "la pente du paraboloïde",
+        "centre_depth": "la profondeur de l’eau sur l’axe",
+        "vessel_rate": "la vitesse angulaire du récipient",
+        "fill_depth": "la hauteur de remplissage au repos",
+        "vessel_radius": "le rayon du récipient",
+        "dry_rate": "la vitesse angulaire à laquelle le centre s’assèche",
+        "rim_height": "la hauteur de la surface au bord",
+        "dry_radius": "rayon de la tache sèche",
+        "focus": "distance focale de la cuvette en tant que miroir",
+        "dish_depth": "la profondeur de la cuvette jusqu’à la distance r",
+        "water_rate": "la vitesse angulaire de l’eau",
+        "nu": "la viscosité de l’eau, 10⁻⁶ m²/s"
       },
       "cases": {
         "sphere": {
@@ -4287,6 +4301,40 @@
             "reads": "Plus bas, la branche bouge moins : le cavalier ne compte qu’avec φ(s)², le carré de la forme du mode à sa position.",
             "why": "Vérifie la forme du mode à l’intérieur de la branche : le second diapason sonne à 439,18 Hz au lieu de 440 Hz.",
             "step": "Comme pour le cavalier à la pointe, avec φ(0,3) tiré de la forme du mode de la première source, divisée pour que φ vaille 1 à la pointe."
+          }
+        },
+        "parabola": {
+          "centre": {
+            "title": "Le centre descend",
+            "setting": "Récipient Ø 30 cm, 30 cm de haut, rempli sur 10 cm ; plateau tournant à 90 tours par minute.",
+            "reads": "Si l’eau tourne d’un bloc, sa surface est un paraboloïde. Comme l’eau n’augmente pas, le centre descend de ω²R²/(4g) sous la hauteur de remplissage.",
+            "why": "Vérifie à la fois la forme et le volume : au centre, il reste 4,91 cm des 10 cm d’eau."
+          },
+          "dry_rate": {
+            "title": "À partir de quand le centre s’assèche",
+            "setting": "Le même récipient ; plateau tournant à 126 tours par minute, juste sous la limite.",
+            "reads": "Le centre atteint le fond quand il est descendu de toute la hauteur de remplissage : à ω₁ = (2/R)·√(h·g).",
+            "why": "Vérifie la limite à laquelle la page passe de la cuvette à l’anneau : ω₁ = 13,20 par seconde, 126,1 tours par minute."
+          },
+          "dry_rim": {
+            "title": "Sec au centre : le bord",
+            "setting": "Le même récipient ; plateau tournant à 160 tours par minute, au-delà de la limite de 126.",
+            "reads": "Quand le centre est sec, l’eau forme un anneau autour d’une tache sèche de rayon δ. La surface est le même paraboloïde, abaissé ; au bord, elle se trouve à α·(R² − δ²) de haut.",
+            "why": "Vérifie le second cas de la page, où c’est la tache sèche, et non la profondeur au centre, qui maintient le volume : 25,38 cm au bord. La page calcule R·ω·√(h/g), ici le chemin passe par δ ; les deux concordent à l’arrondi près.",
+            "step": "La source donne le rayon δ de la tache sèche et la surface z = α·(r² − δ²) ; au bord, r = R."
+          },
+          "mirror": {
+            "title": "La cuvette comme miroir",
+            "setting": "Le même récipient ; plateau tournant à 7 tours par minute, un tour en 8,6 s.",
+            "reads": "Une cuvette profonde de D jusqu’à la distance r réunit la lumière qui tombe verticalement en f = r²/(4D). L’eau a D = α·r², donc f = 1/(4α) = g/(2ω²), quelle que soit la taille du récipient.",
+            "why": "Vérifie la distance focale qu’affiche la page : 9,13 m au-dessus du point le plus bas de la cuvette."
+          },
+          "spin_up": {
+            "title": "L’eau suit avec retard",
+            "setting": "Le même récipient ; plateau tournant mis en marche depuis l’arrêt à 90 tours par minute, l’eau au repos. Relevé après un temps de mise en rotation, au pas de calcul de la page, 10 ms.",
+            "reads": "Le fond entraîne l’eau à travers une mince couche limite. Après le temps de mise en rotation τ = h/√(ν·ω_v), il lui manque encore la fraction 1/e de la vitesse du récipient.",
+            "why": "Vérifie la boucle des pas de temps et le temps de mise en rotation de la page : après 32,58 s, l’eau tourne à 63,2 % de la vitesse du récipient, à 56,9 des 90 tours par minute.",
+            "step": "La source traite un cylindre fermé de hauteur 2L, avec une couche d’Ekman en bas et une en haut. Par symétrie, son plan médian ne porte aucune contrainte de cisaillement, comme une surface libre plane : l’eau de profondeur h en est la moitié inférieure, L = h. La source traite de petits changements ; la page fait suivre les grands de la même façon, avec Ω la plus grande des deux vitesses."
           }
         }
       },

@@ -3628,7 +3628,21 @@
         "mode": "az első rezgési alak, a csúcson 1",
         "s_rider": "a lovas helye, a tőtől (0) a csúcsig (1)",
         "xi": "hely az ágon, a tőtől (0) a csúcsig (1)",
-        "beta_L": "a befogott tartó egyenletének első gyöke, 1,8751"
+        "beta_L": "a befogott tartó egyenletének első gyöke, 1,8751",
+        "surface_height": "a felszín magassága az alj fölött",
+        "axis_distance": "a tengelytől mért távolság",
+        "steepness": "a paraboloid meredeksége",
+        "centre_depth": "a víz mélysége a tengelyen",
+        "vessel_rate": "az edény szögsebessége",
+        "fill_depth": "a nyugalmi töltési magasság",
+        "vessel_radius": "az edény sugara",
+        "dry_rate": "a szögsebesség, amelynél a közepe kiszárad",
+        "rim_height": "a felszín magassága a peremen",
+        "dry_radius": "a száraz folt sugara",
+        "focus": "a teknő mint tükör fókusztávolsága",
+        "dish_depth": "a teknő mélysége r távolságig",
+        "water_rate": "a víz szögsebessége",
+        "nu": "a víz viszkozitása, 10⁻⁶ m²/s"
       },
       "cases": {
         "sphere": {
@@ -4287,6 +4301,40 @@
             "reads": "Lejjebb az ág kevésbé mozog: a lovas csak φ(s)²-tel számít, a rezgésalak négyzetével a saját helyén.",
             "why": "A rezgésalakot ellenőrzi az ág belsejében: a második villa 439,18 Hz-en szól 440 Hz helyett.",
             "step": "Mint a csúcson ülő lovasnál, φ(0,3)-mal az első forrás rezgésalakjából, úgy elosztva, hogy φ a csúcson 1 legyen."
+          }
+        },
+        "parabola": {
+          "centre": {
+            "title": "A közepe süllyed",
+            "setting": "Edény Ø 30 cm, 30 cm magas, 10 cm-ig töltve; forgótányér 90 fordulat/percre állítva.",
+            "reads": "Ha a víz egy tömbként forog, felszíne paraboloid. Mivel a víz nem lesz több, a közepe ω²R²/(4g)-vel a töltési magasság alá süllyed.",
+            "why": "Egyszerre ellenőrzi az alakot és a térfogatot: középen a 10 cm vízből még 4,91 cm áll."
+          },
+          "dry_rate": {
+            "title": "Mikortól szárad ki a közepe",
+            "setting": "Ugyanez az edény; forgótányér 126 fordulat/percre állítva, éppen a határ alatt.",
+            "reads": "A közepe akkor éri el az aljat, amikor a teljes töltési magassággal lesüllyedt: ω₁ = (2/R)·√(h·g)-nél.",
+            "why": "Azt a határt ellenőrzi, ahol az oldal a teknőről a gyűrűre vált: ω₁ = 13,20 per másodperc, 126,1 fordulat/perc."
+          },
+          "dry_rim": {
+            "title": "Középen száraz: a perem",
+            "setting": "Ugyanez az edény; forgótányér 160 fordulat/percre állítva, a 126-os határ fölött.",
+            "reads": "Ha a közepe száraz, a víz gyűrűben áll egy δ sugarú száraz folt körül. A felszín ugyanaz a paraboloid, lejjebb tolva; a peremen α·(R² − δ²) magasan áll.",
+            "why": "Az oldal második esetét ellenőrzi, amelyben a középső mélység helyett a száraz folt tartja a térfogatot: 25,38 cm a peremen. Az oldal R·ω·√(h/g)-t számol, itt az út δ-n át vezet; a kettő a kerekítéstől eltekintve egyezik.",
+            "step": "A forrás megadja a száraz folt δ sugarát és a z = α·(r² − δ²) felszínt; a peremen r = R."
+          },
+          "mirror": {
+            "title": "A teknő mint tükör",
+            "setting": "Ugyanez az edény; forgótányér 7 fordulat/percre állítva, egy fordulat 8,6 s alatt.",
+            "reads": "Az a teknő, amely r távolságig D mély, a függőlegesen beeső fényt f = r²/(4D) magasságban gyűjti össze. A víznél D = α·r², tehát f = 1/(4α) = g/(2ω²), bármekkora is az edény.",
+            "why": "Az oldal által mutatott fókusztávolságot ellenőrzi: 9,13 m a teknő legalsó pontja fölött."
+          },
+          "spin_up": {
+            "title": "A víz késve követi",
+            "setting": "Ugyanez az edény; a forgótányért álló helyzetből 90 fordulat/percre kapcsolják, a víz nyugalomban van. Egy felpörgési idő után leolvasva, az oldal 10 ms-os számítási lépésével.",
+            "reads": "Az alj egy vékony határrétegen át húzza magával a vizet. A τ = h/√(ν·ω_v) felpörgési idő után még az edény fordulatszámának 1/e része hiányzik neki.",
+            "why": "Az oldal időléptető ciklusát és felpörgési idejét ellenőrzi: 32,58 s után a víz az edény fordulatszámának 63,2 %-ával forog, a 90 fordulat/percből 56,9-cel.",
+            "step": "A forrás egy 2L magasságú zárt hengert számol, alul és felül egy-egy Ekman-réteggel. Középsíkja a szimmetria miatt nem visel nyírófeszültséget, ahogy egy sík szabad felszín sem: a h mélységű víz az alsó fele, L = h. A forrás kis változásokat számol; az oldal a nagyokat is így követteti, ahol Ω a két fordulatszám közül a nagyobb."
           }
         }
       },

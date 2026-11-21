@@ -2494,6 +2494,17 @@ sign the clamped-free beam does not have, so the comparison stays in
 `tests/unit/test_experiments.py`. "Set it up" sets the rider and strikes the
 forks; the sound stays as the reader left it.
 
+**The water parabola's** five (2026-11-21) hold the middle's depth at 90 rpm
+(the paraboloid's ω²/(2g) and the volume kept), the rate where the middle runs
+dry (126 rpm), the rim past it (through the dry patch's radius, another route
+than the engine's R·ω·√(h/g)), the focus of a slow dish at 7 rpm and the
+spin-up, run in the engine's own loop at the page's 10 ms step, to
+1 − e^(−t/τ) with τ = h/√(νΩ). That last one checks the model as the docs state
+it: Greenspan and Howard's small-change result applied to a start from rest.
+"Set it up" sets the vessel and the turntable; for the spin-up it also stops
+the water, with the table already at speed, which the page's own controls
+cannot do (they keep the water turning with the table).
+
 **On the page** a section "Check it yourself" (`check-section.tsx`) lists the
 cases, each with its formula as an `Equation` (`check-formulas.ts`), both
 values to seven digits, the deviation, why the case would catch a mistake,

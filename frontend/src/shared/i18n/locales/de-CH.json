@@ -3628,7 +3628,21 @@
         "mode": "Form der ersten Schwingung, 1 an der Spitze",
         "s_rider": "Ort des Reiters, von der Wurzel (0) bis zur Spitze (1)",
         "xi": "Ort auf der Zinke, von der Wurzel (0) bis zur Spitze (1)",
-        "beta_L": "erste Wurzel der Gleichung des eingespannten Balkens, 1,8751"
+        "beta_L": "erste Wurzel der Gleichung des eingespannten Balkens, 1,8751",
+        "surface_height": "Höhe der Oberfläche über dem Boden",
+        "axis_distance": "Abstand von der Achse",
+        "steepness": "Steilheit des Paraboloids",
+        "centre_depth": "Wassertiefe auf der Achse",
+        "vessel_rate": "Winkelgeschwindigkeit des Gefässes",
+        "fill_depth": "Füllhöhe in Ruhe",
+        "vessel_radius": "Radius des Gefässes",
+        "dry_rate": "Winkelgeschwindigkeit, bei der die Mitte trocken fällt",
+        "rim_height": "Höhe der Oberfläche am Rand",
+        "dry_radius": "Radius des trockenen Flecks",
+        "focus": "Brennweite der Mulde als Spiegel",
+        "dish_depth": "Tiefe der Mulde bis zum Abstand r",
+        "water_rate": "Winkelgeschwindigkeit des Wassers",
+        "nu": "Zähigkeit des Wassers, 10⁻⁶ m²/s"
       },
       "cases": {
         "sphere": {
@@ -4287,6 +4301,40 @@
             "reads": "Weiter unten bewegt sich die Zinke weniger: Der Reiter zählt nur mit φ(s)², dem Quadrat der Schwingungsform an seiner Stelle.",
             "why": "Prüft die Schwingungsform im Innern der Zinke: Die zweite Gabel klingt mit 439,18 Hz statt 440 Hz.",
             "step": "Wie beim Reiter an der Spitze, mit φ(0,3) aus der Schwingungsform der ersten Quelle, so geteilt, dass φ an der Spitze 1 ist."
+          }
+        },
+        "parabola": {
+          "centre": {
+            "title": "Die Mitte sinkt",
+            "setting": "Gefäss Ø 30 cm, 30 cm hoch, 10 cm hoch gefüllt; Drehteller auf 90 Umdrehungen pro Minute.",
+            "reads": "Dreht sich das Wasser als Ganzes, ist seine Oberfläche ein Paraboloid. Weil das Wasser nicht mehr wird, sinkt die Mitte um ω²R²/(4g) unter die Füllhöhe.",
+            "why": "Prüft die Form und das Volumen zusammen: In der Mitte stehen noch 4,91 cm der 10 cm Wasser."
+          },
+          "dry_rate": {
+            "title": "Ab wann die Mitte trocken fällt",
+            "setting": "Dasselbe Gefäss; Drehteller auf 126 Umdrehungen pro Minute, knapp unter der Grenze.",
+            "reads": "Die Mitte erreicht den Boden, wenn sie um die ganze Füllhöhe gesunken ist: bei ω₁ = (2/R)·√(h·g).",
+            "why": "Prüft die Grenze, an der die Seite von der Mulde zum Ring wechselt: ω₁ = 13,20 pro Sekunde, 126,1 Umdrehungen pro Minute."
+          },
+          "dry_rim": {
+            "title": "Trocken in der Mitte: der Rand",
+            "setting": "Dasselbe Gefäss; Drehteller auf 160 Umdrehungen pro Minute, über der Grenze von 126.",
+            "reads": "Ist die Mitte trocken, steht das Wasser in einem Ring um einen trockenen Fleck vom Radius δ. Die Oberfläche ist dasselbe Paraboloid, tiefer gelegt; am Rand steht sie α·(R² − δ²) hoch.",
+            "why": "Prüft den zweiten Fall der Seite, in dem der trockene Fleck statt der Tiefe in der Mitte das Volumen hält: 25,38 cm am Rand. Die Seite rechnet R·ω·√(h/g), hier geht der Weg über δ; beide treffen sich bis auf die Rundung.",
+            "step": "Die Quelle gibt den Radius δ des trockenen Flecks und die Oberfläche z = α·(r² − δ²); am Rand ist r = R."
+          },
+          "mirror": {
+            "title": "Die Mulde als Spiegel",
+            "setting": "Dasselbe Gefäss; Drehteller auf 7 Umdrehungen pro Minute, eine Umdrehung in 8,6 s.",
+            "reads": "Eine Mulde, die bis zum Abstand r um D tief ist, sammelt senkrecht einfallendes Licht in f = r²/(4D). Das Wasser hat D = α·r², also f = 1/(4α) = g/(2ω²), gleich wie gross das Gefäss ist.",
+            "why": "Prüft die Brennweite, die die Seite zeigt: 9,13 m über dem tiefsten Punkt der Mulde."
+          },
+          "spin_up": {
+            "title": "Das Wasser zieht nach",
+            "setting": "Dasselbe Gefäss; Drehteller aus dem Stand auf 90 Umdrehungen pro Minute, das Wasser in Ruhe. Gelesen nach einer Anlaufzeit, im Rechenschritt der Seite von 10 ms.",
+            "reads": "Der Boden zieht das Wasser über eine dünne Grenzschicht mit. Nach der Anlaufzeit τ = h/√(ν·ω_v) fehlt ihm noch der Anteil 1/e an der Drehzahl des Gefässes.",
+            "why": "Prüft die Zeitschleife und die Anlaufzeit der Seite: Nach 32,58 s dreht das Wasser mit 63,2 % der Drehzahl des Gefässes, mit 56,9 von 90 Umdrehungen pro Minute.",
+            "step": "Die Quelle rechnet einen geschlossenen Zylinder der Höhe 2L, mit einer Ekman-Schicht unten und einer oben. Seine Mittelebene trägt aus Symmetrie keine Schubspannung, wie eine flache freie Oberfläche: Das Wasser der Tiefe h ist die untere Hälfte, L = h. Die Quelle rechnet kleine Änderungen; die Seite lässt auch grosse so nachlaufen, mit Ω der grösseren der beiden Drehzahlen."
           }
         }
       },

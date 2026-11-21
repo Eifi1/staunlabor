@@ -3628,7 +3628,21 @@
         "mode": "forma del primo modo, 1 sulla punta",
         "s_rider": "posizione del cavaliere, dalla base (0) alla punta (1)",
         "xi": "posizione sul rebbio, dalla base (0) alla punta (1)",
-        "beta_L": "prima radice dell'equazione della trave incastrata, 1,8751"
+        "beta_L": "prima radice dell'equazione della trave incastrata, 1,8751",
+        "surface_height": "l'altezza della superficie sopra il fondo",
+        "axis_distance": "distanza dall'asse",
+        "steepness": "la ripidità del paraboloide",
+        "centre_depth": "la profondità dell'acqua sull'asse",
+        "vessel_rate": "la velocità angolare del recipiente",
+        "fill_depth": "l'altezza di riempimento a riposo",
+        "vessel_radius": "il raggio del recipiente",
+        "dry_rate": "la velocità angolare alla quale il centro resta all'asciutto",
+        "rim_height": "l'altezza della superficie al bordo",
+        "dry_radius": "raggio della macchia asciutta",
+        "focus": "distanza focale della conca come specchio",
+        "dish_depth": "la profondità della conca fino alla distanza r",
+        "water_rate": "la velocità angolare dell'acqua",
+        "nu": "la viscosità dell'acqua, 10⁻⁶ m²/s"
       },
       "cases": {
         "sphere": {
@@ -4287,6 +4301,40 @@
             "reads": "Più in basso il rebbio si muove meno: il cavaliere conta solo con φ(s)², il quadrato della forma del modo nel suo punto.",
             "why": "Verifica la forma del modo all'interno del rebbio: il secondo diapason suona a 439,18 Hz invece di 440 Hz.",
             "step": "Come per il cavaliere sulla punta, con φ(0,3) dalla forma del modo della prima fonte, divisa in modo che φ valga 1 sulla punta."
+          }
+        },
+        "parabola": {
+          "centre": {
+            "title": "Il centro scende",
+            "setting": "Recipiente Ø 30 cm, alto 30 cm, riempito per 10 cm; piatto girevole a 90 giri al minuto.",
+            "reads": "Se l'acqua gira tutta insieme, la sua superficie è un paraboloide. Poiché l'acqua non aumenta, il centro scende di ω²R²/(4g) sotto l'altezza di riempimento.",
+            "why": "Verifica insieme la forma e il volume: al centro restano 4,91 cm dei 10 cm d'acqua."
+          },
+          "dry_rate": {
+            "title": "Da quando il centro resta all'asciutto",
+            "setting": "Lo stesso recipiente; piatto girevole a 126 giri al minuto, appena sotto il limite.",
+            "reads": "Il centro raggiunge il fondo quando è sceso di tutta l'altezza di riempimento: a ω₁ = (2/R)·√(h·g).",
+            "why": "Verifica il limite al quale la pagina passa dalla conca all'anello: ω₁ = 13,20 al secondo, 126,1 giri al minuto."
+          },
+          "dry_rim": {
+            "title": "Asciutto al centro: il bordo",
+            "setting": "Lo stesso recipiente; piatto girevole a 160 giri al minuto, oltre il limite di 126.",
+            "reads": "Con il centro asciutto, l'acqua forma un anello attorno a una macchia asciutta di raggio δ. La superficie è lo stesso paraboloide, abbassato; al bordo sta ad α·(R² − δ²) di altezza.",
+            "why": "Verifica il secondo caso della pagina, in cui è la macchia asciutta, e non la profondità al centro, a mantenere il volume: 25,38 cm al bordo. La pagina calcola R·ω·√(h/g), qui la strada passa per δ; i due valori coincidono a meno dell'arrotondamento.",
+            "step": "La fonte dà il raggio δ della macchia asciutta e la superficie z = α·(r² − δ²); al bordo r = R."
+          },
+          "mirror": {
+            "title": "La conca come specchio",
+            "setting": "Lo stesso recipiente; piatto girevole a 7 giri al minuto, un giro in 8,6 s.",
+            "reads": "Una conca profonda D fino alla distanza r riunisce la luce che cade verticale in f = r²/(4D). L'acqua ha D = α·r², quindi f = 1/(4α) = g/(2ω²), qualunque sia la dimensione del recipiente.",
+            "why": "Verifica la distanza focale che mostra la pagina: 9,13 m sopra il punto più basso della conca."
+          },
+          "spin_up": {
+            "title": "L'acqua segue in ritardo",
+            "setting": "Lo stesso recipiente; piatto girevole acceso da fermo a 90 giri al minuto, l'acqua a riposo. Letto dopo un tempo di avvio, con il passo di calcolo della pagina, 10 ms.",
+            "reads": "Il fondo trascina l'acqua attraverso un sottile strato limite. Dopo il tempo di avvio τ = h/√(ν·ω_v) le manca ancora la frazione 1/e della velocità del recipiente.",
+            "why": "Verifica il ciclo dei passi temporali e il tempo di avvio della pagina: dopo 32,58 s l'acqua gira al 63,2 % della velocità del recipiente, a 56,9 dei 90 giri al minuto.",
+            "step": "La fonte tratta un cilindro chiuso di altezza 2L, con uno strato di Ekman in basso e uno in alto. Per simmetria il suo piano medio non porta sforzo di taglio, come una superficie libera piatta: l'acqua di profondità h ne è la metà inferiore, L = h. La fonte tratta piccole variazioni; la pagina fa seguire allo stesso modo anche quelle grandi, con Ω la maggiore delle due velocità."
           }
         }
       },

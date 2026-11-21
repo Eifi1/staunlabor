@@ -109,6 +109,10 @@ const M_RIDER: CheckSymbol = { tex: "m", key: "m_rider", unit: "kg" };
 const MODE: CheckSymbol = { tex: String.raw`\varphi`, key: "mode" };
 const S_RIDER: CheckSymbol = { tex: "s", key: "s_rider" };
 const XI: CheckSymbol = { tex: String.raw`\xi`, key: "xi" };
+const FILL: CheckSymbol = { tex: "h", key: "fill_depth", unit: "m" };
+const VESSEL_R: CheckSymbol = { tex: "R", key: "vessel_radius", unit: "m" };
+const RATE: CheckSymbol = { tex: String.raw`\omega`, key: "vessel_rate", unit: "1/s" };
+const ALPHA: CheckSymbol = { tex: String.raw`\alpha`, key: "steepness", unit: "1/m" };
 
 const ROD_STEADY: CheckFormula = {
   tex: String.raw`w = \frac{\Gamma\,\Omega^2 Y}{\sqrt{(\omega^2 - \Omega^2)^2 + (2\zeta\omega\Omega)^2}}, \qquad \Gamma = \frac{\int_0^1 \varphi\,d\xi}{\int_0^1 \varphi^2\,d\xi}`,
@@ -868,6 +872,59 @@ export const CHECK_FORMULAS: Record<string, Record<string, CheckFormula>> = {
     rider_on_prong: {
       tex: String.raw`f = f_0\sqrt{\frac{M^*}{M^* + m\,\varphi(s)^2}}, \qquad \varphi(\xi) \propto (\cosh\beta\xi - \cos\beta\xi) + \frac{\cos\beta + \cosh\beta}{\sin\beta + \sinh\beta}\,(\sin\beta\xi - \sinh\beta\xi), \qquad \cosh\beta\cos\beta + 1 = 0`,
       symbols: [F_RIDER, F_FORK, M_FELT, M_RIDER, MODE, S_RIDER, XI, { tex: String.raw`\beta`, key: "beta_L" }],
+    },
+  },
+  parabola: {
+    centre: {
+      tex: String.raw`z(r) = \alpha\,r^2 + d, \qquad \alpha = \frac{\omega^2}{2g}, \qquad d = h - \frac{\omega^2 R^2}{4g}`,
+      symbols: [
+        { tex: "z(r)", key: "surface_height", unit: "m" },
+        { tex: "r", key: "axis_distance", unit: "m" },
+        ALPHA,
+        { tex: "d", key: "centre_depth", unit: "m" },
+        RATE,
+        G,
+        FILL,
+        VESSEL_R,
+      ],
+    },
+    dry_rate: {
+      tex: String.raw`\omega_1 = \frac{2}{R}\sqrt{h\,g}`,
+      symbols: [{ tex: String.raw`\omega_1`, key: "dry_rate", unit: "1/s" }, VESSEL_R, FILL, G],
+    },
+    dry_rim: {
+      tex: String.raw`z(R) = \alpha\,\left(R^2 - \delta^2\right), \qquad \delta = R\sqrt{1 - \frac{2\sqrt{h\,g}}{R\,\omega}}, \qquad \alpha = \frac{\omega^2}{2g}`,
+      symbols: [
+        { tex: "z(R)", key: "rim_height", unit: "m" },
+        ALPHA,
+        VESSEL_R,
+        { tex: String.raw`\delta`, key: "dry_radius", unit: "m" },
+        FILL,
+        G,
+        RATE,
+      ],
+    },
+    mirror: {
+      tex: String.raw`f = \frac{r^2}{4D} = \frac{1}{4\alpha} = \frac{g}{2\,\omega^2}, \qquad D = \alpha\,r^2`,
+      symbols: [
+        { tex: "f", key: "focus", unit: "m" },
+        { tex: "r", key: "axis_distance", unit: "m" },
+        { tex: "D", key: "dish_depth", unit: "m" },
+        ALPHA,
+        G,
+        RATE,
+      ],
+    },
+    spin_up: {
+      tex: String.raw`\frac{\omega(t)}{\omega_v} = 1 - e^{-t/\tau}, \qquad \tau = \frac{h}{\sqrt{\nu\,\omega_v}}`,
+      symbols: [
+        { tex: String.raw`\omega(t)`, key: "water_rate", unit: "1/s" },
+        { tex: String.raw`\omega_v`, key: "vessel_rate", unit: "1/s" },
+        { tex: "t", key: "t", unit: "s" },
+        { tex: String.raw`\tau`, key: "tau", unit: "s" },
+        FILL,
+        { tex: String.raw`\nu`, key: "nu", unit: "m²/s" },
+      ],
     },
   },
 };

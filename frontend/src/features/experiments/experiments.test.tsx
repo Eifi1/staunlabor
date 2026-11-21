@@ -100,6 +100,7 @@ const UNCHECKED = {
     "diver",
     "foucault",
     "maxwell",
+    "parabola",
     "peg",
     "plates",
     "resonance",
@@ -1776,6 +1777,25 @@ describe("setting a check case up", () => {
     );
     expect(screen.queryByText(E.beats.play.waiting)).not.toBeInTheDocument();
     expect(screen.getByText(E.beats.play.no_sound)).toBeInTheDocument();
+  });
+
+  it("fills the parabola's vessel back to 10 cm and spins its table up to 90 rpm, for the spin-up", async () => {
+    renderWithProviders(<ParabolaPage />);
+    await screen.findByRole("img", { name: E.parabola.views.side });
+    fireEvent.change(screen.getByRole("slider", { name: E.parabola.change.fill }), { target: { value: "35" } });
+    expect(await screen.findAllByText(E.parabola.refused)).toHaveLength(2);
+    await setUp(4);
+    expect(await screen.findByRole("img", { name: E.parabola.views.side })).toBeInTheDocument();
+    expect(screen.getByRole("slider", { name: E.parabola.change.fill }).getAttribute("aria-valuetext")).toMatch(
+      /^10\b/,
+    );
+    expect(screen.getByRole("slider", { name: E.parabola.play.rate }).getAttribute("aria-valuetext")).toMatch(/^90\b/);
+    await setUp(2);
+    await waitFor(() =>
+      expect(screen.getByRole("slider", { name: E.parabola.play.rate }).getAttribute("aria-valuetext")).toMatch(
+        /^160\b/,
+      ),
+    );
   });
 
   it("pushes the ball round the well on its circle, with the felt's brake, for the brake's case", async () => {

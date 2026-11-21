@@ -1213,6 +1213,143 @@
    ]
   }
  ],
+ "parabola": [
+  {
+   "key": "centre",
+   "unit": "cm",
+   "expected": 4.90500096562,
+   "measured": 4.90500096562,
+   "deviation": 0.0,
+   "tolerance": 1e-12,
+   "derived": false,
+   "setting": {
+    "radius_m": 0.15,
+    "height_m": 0.3,
+    "fill_m": 0.1,
+    "rate_rad_s": 9.42477796076938,
+    "water": "turning"
+   },
+   "sources": [
+    {
+     "cite": "P. Menker, A. Herczyński, “Form of spinning liquids in diverse geometries”, Am. J. Phys. 88 (2020) 475, §II, Eq. (1) and (2)",
+     "url": "https://arxiv.org/abs/2208.05059",
+     "quote": "the surface will take the shape of the paraboloid of revolution given in cylindrical coordinates by z(r) = αr² + d, (1) where the rotation parameter α (steepness of the paraboloid) is defined as α = ω²/2g. (2)"
+    },
+    {
+     "cite": "P. Menker, A. Herczyński, “Form of spinning liquids in diverse geometries”, Am. J. Phys. 88 (2020) 475, §III.A, Eq. (3)",
+     "url": "https://arxiv.org/abs/2208.05059",
+     "quote": "Equating these two expressions and writing out the rotational parameter α explicitly yield d = h − ω²R²/4g. (3)"
+    }
+   ]
+  },
+  {
+   "key": "dry_rate",
+   "unit": "1/s",
+   "expected": 13.2038041656,
+   "measured": 13.2038041656,
+   "deviation": 0.0,
+   "tolerance": 1e-12,
+   "derived": false,
+   "setting": {
+    "radius_m": 0.15,
+    "height_m": 0.3,
+    "fill_m": 0.1,
+    "rate_rad_s": 13.194689145077131,
+    "water": "turning"
+   },
+   "sources": [
+    {
+     "cite": "P. Menker, A. Herczyński, “Form of spinning liquids in diverse geometries”, Am. J. Phys. 88 (2020) 475, §III.A, Eq. (6)",
+     "url": "https://arxiv.org/abs/2208.05059",
+     "quote": "Now setting either d = 0 in Eq. (3), or δ = 0 in Eqs. (4) or (5), gives the critical angular speed as ω₁ = (2/R)√(hg). (6)"
+    }
+   ]
+  },
+  {
+   "key": "dry_rim",
+   "unit": "cm",
+   "expected": 25.3792931324,
+   "measured": 25.3792931324,
+   "deviation": 2.79969474348e-16,
+   "tolerance": 1e-12,
+   "derived": true,
+   "setting": {
+    "radius_m": 0.15,
+    "height_m": 0.3,
+    "fill_m": 0.1,
+    "rate_rad_s": 16.755160819145562,
+    "water": "turning"
+   },
+   "sources": [
+    {
+     "cite": "P. Menker, A. Herczyński, “Form of spinning liquids in diverse geometries”, Am. J. Phys. 88 (2020) 475, §III.A, Eq. (5)",
+     "url": "https://arxiv.org/abs/2208.05059",
+     "quote": "For the supercritical case, with a dry patch of radius δ at the bottom, d = −αδ² and the free surface is given by z = α(r² − δ²). … whose physically meaningful solution (positive and smaller than R) is δ = R√(1 − 2√(hg)/(Rω)). (5)"
+    },
+    {
+     "cite": "P. Menker, A. Herczyński, “Form of spinning liquids in diverse geometries”, Am. J. Phys. 88 (2020) 475, §II, Eq. (1) and (2)",
+     "url": "https://arxiv.org/abs/2208.05059",
+     "quote": "the surface will take the shape of the paraboloid of revolution given in cylindrical coordinates by z(r) = αr² + d, (1) where the rotation parameter α (steepness of the paraboloid) is defined as α = ω²/2g. (2)"
+    }
+   ]
+  },
+  {
+   "key": "mirror",
+   "unit": "m",
+   "expected": 9.12509435724,
+   "measured": 9.12509435724,
+   "deviation": 0.0,
+   "tolerance": 1e-12,
+   "derived": false,
+   "setting": {
+    "radius_m": 0.15,
+    "height_m": 0.3,
+    "fill_m": 0.1,
+    "rate_rad_s": 0.7330382858376183,
+    "water": "turning"
+   },
+   "sources": [
+    {
+     "cite": "Wikipedia, “Liquid-mirror telescope”, §1.1 “Rotation speed and focal length”",
+     "url": "https://en.wikipedia.org/wiki/Liquid-mirror_telescope",
+     "quote": "Dividing this equation by the last one above it eliminates h and r and leads to 2fω² = g, which relates the angular velocity of the rotation of the liquid to the focal length of the paraboloid that is produced by the rotation."
+    },
+    {
+     "cite": "P. Menker, A. Herczyński, “Form of spinning liquids in diverse geometries”, Am. J. Phys. 88 (2020) 475, §II, Eq. (1) and (2)",
+     "url": "https://arxiv.org/abs/2208.05059",
+     "quote": "the surface will take the shape of the paraboloid of revolution given in cylindrical coordinates by z(r) = αr² + d, (1) where the rotation parameter α (steepness of the paraboloid) is defined as α = ω²/2g. (2)"
+    },
+    {
+     "cite": "Wikipedia, “Paraboloid”, §“Dimensions of a paraboloidal dish”",
+     "url": "https://en.wikipedia.org/wiki/Paraboloid",
+     "quote": "The dimensions of a symmetrical paraboloidal dish are related by the equation 4FD = R², where F is the focal length, D is the depth of the dish (measured along the axis of symmetry from the vertex to the plane of the rim), and R is the radius of the rim."
+    }
+   ]
+  },
+  {
+   "key": "spin_up",
+   "unit": "",
+   "expected": 0.632193952412,
+   "measured": 0.632193952412,
+   "deviation": 0.0,
+   "tolerance": 1e-12,
+   "derived": true,
+   "setting": {
+    "radius_m": 0.15,
+    "height_m": 0.3,
+    "fill_m": 0.1,
+    "rate_rad_s": 9.42477796076938,
+    "water": "rest"
+   },
+   "sources": [
+    {
+     "cite": "H. P. Greenspan, L. N. Howard, “On a time-dependent motion of a rotating fluid”, J. Fluid Mech. 17 (1963) 385, §3, p. 391–392, Eq. (3.21)",
+     "url": "https://empslocal.ex.ac.uk/people/staff/gv219/classics.d/Greenspan_Howard63.pdf",
+     "quote": "For large time, it follows from (3.18) and (3.19) that V_I ~ 1 − e^(−tR^(−½)) + O(t^(−½) e^(2it)) … the ‘spin-up time’ T (the time required for the interior flow to approach the final state of rigid rotation within e⁻¹) is R^½ in dimensionless units. Dimensionally T = (L²/νΩ)^½. (3.21)"
+    }
+   ]
+  }
+ ],
  "peg": [
   {
    "key": "same_height",

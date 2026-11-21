@@ -40,6 +40,7 @@ def test_the_exhibits_with_checks_are_these() -> None:
         "diver",
         "foucault",
         "maxwell",
+        "parabola",
         "peg",
         "plates",
         "resonance",

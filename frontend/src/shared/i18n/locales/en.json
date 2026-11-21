@@ -3628,7 +3628,21 @@
         "mode": "the shape of the first mode, 1 at the tip",
         "s_rider": "where the rider sits, from the root (0) to the tip (1)",
         "xi": "a place on the prong, from the root (0) to the tip (1)",
-        "beta_L": "the first root of the clamped beam's equation, 1.8751"
+        "beta_L": "the first root of the clamped beam's equation, 1.8751",
+        "surface_height": "the surface's height above the bottom",
+        "axis_distance": "distance from the axis",
+        "steepness": "the paraboloid's steepness",
+        "centre_depth": "the water's depth on the axis",
+        "vessel_rate": "the vessel's angular velocity",
+        "fill_depth": "the depth at rest",
+        "vessel_radius": "the vessel's radius",
+        "dry_rate": "the angular velocity at which the middle runs dry",
+        "rim_height": "the surface's height at the wall",
+        "dry_radius": "radius of the dry patch",
+        "focus": "focal length of the bowl as a mirror",
+        "dish_depth": "the bowl's depth out to the distance r",
+        "water_rate": "the water's angular velocity",
+        "nu": "the water's viscosity, 10⁻⁶ m²/s"
       },
       "cases": {
         "sphere": {
@@ -4287,6 +4301,40 @@
             "reads": "Further down the prong moves less: the rider counts only with φ(s)², the square of the mode's shape where it sits.",
             "why": "Checks the mode's shape inside the prong: the second fork sounds at 439.18 Hz instead of 440 Hz.",
             "step": "As for the rider at the tip, with φ(0.3) from the first source's mode shape, scaled so that φ is 1 at the tip."
+          }
+        },
+        "parabola": {
+          "centre": {
+            "title": "The middle sinks",
+            "setting": "Vessel Ø 30 cm, 30 cm high, filled 10 cm deep; turntable at 90 turns a minute.",
+            "reads": "Water turning as one body has a paraboloid for its surface. As the water does not become more, the middle sinks ω²R²/(4g) below the depth at rest.",
+            "why": "Checks the shape and the volume together: 4.91 cm of the 10 cm of water are left at the middle."
+          },
+          "dry_rate": {
+            "title": "When the middle runs dry",
+            "setting": "The same vessel; turntable at 126 turns a minute, just short of the limit.",
+            "reads": "The middle reaches the bottom once it has sunk by the whole depth at rest: at ω₁ = (2/R)·√(h·g).",
+            "why": "Checks the limit at which the page turns from a bowl to a ring: ω₁ = 13.20 a second, 126.1 turns a minute."
+          },
+          "dry_rim": {
+            "title": "Dry in the middle: the rim",
+            "setting": "The same vessel; turntable at 160 turns a minute, past the limit of 126.",
+            "reads": "With the middle dry, the water stands in a ring round a dry patch of radius δ. The surface is the same paraboloid, set lower; at the wall it stands α·(R² − δ²) high.",
+            "why": "Checks the page's second case, where the dry patch, not the depth at the middle, keeps the volume: 25.38 cm at the rim. The page computes R·ω·√(h/g), the way here goes through δ; the two meet but for rounding.",
+            "step": "The source gives the dry patch's radius δ and the surface z = α·(r² − δ²); at the wall r = R."
+          },
+          "mirror": {
+            "title": "The bowl as a mirror",
+            "setting": "The same vessel; turntable at 7 turns a minute, one turn in 8.6 s.",
+            "reads": "A dish that is D deep out to a distance r gathers light coming straight down at f = r²/(4D). The water has D = α·r², so f = 1/(4α) = g/(2ω²), whatever the vessel's size.",
+            "why": "Checks the focal length the page shows: 9.13 m above the bowl's lowest point."
+          },
+          "spin_up": {
+            "title": "The water lags behind",
+            "setting": "The same vessel; turntable switched from rest to 90 turns a minute, the water at rest. Read after one spin-up time, at the page's step of 10 ms.",
+            "reads": "The bottom drags the water along through a thin boundary layer. After the spin-up time τ = h/√(ν·ω_v) it still lacks the share 1/e of the vessel's speed.",
+            "why": "Checks the page's time loop and spin-up time: after 32.58 s the water turns at 63.2 % of the vessel's speed, 56.9 of 90 turns a minute.",
+            "step": "The source does a closed cylinder 2L high, with one Ekman layer at the bottom and one at the top. By symmetry its middle plane carries no shear, as a flat free surface does: water h deep is the lower half, L = h. The source does small changes; the page lets large ones lag the same way, with Ω the larger of the two speeds."
           }
         }
       },

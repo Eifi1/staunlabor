@@ -3628,7 +3628,21 @@
         "mode": "forma del primer modo, 1 en la punta",
         "s_rider": "lugar del jinete, de la base (0) a la punta (1)",
         "xi": "lugar en la rama, de la base (0) a la punta (1)",
-        "beta_L": "primera raíz de la ecuación de la viga empotrada, 1,8751"
+        "beta_L": "primera raíz de la ecuación de la viga empotrada, 1,8751",
+        "surface_height": "la altura de la superficie sobre el fondo",
+        "axis_distance": "distancia al eje",
+        "steepness": "la inclinación del paraboloide",
+        "centre_depth": "la profundidad del agua en el eje",
+        "vessel_rate": "la velocidad angular del recipiente",
+        "fill_depth": "la altura de llenado en reposo",
+        "vessel_radius": "el radio del recipiente",
+        "dry_rate": "la velocidad angular a la que el centro queda seco",
+        "rim_height": "la altura de la superficie en el borde",
+        "dry_radius": "radio de la mancha seca",
+        "focus": "distancia focal del cuenco como espejo",
+        "dish_depth": "la profundidad del cuenco hasta la distancia r",
+        "water_rate": "la velocidad angular del agua",
+        "nu": "la viscosidad del agua, 10⁻⁶ m²/s"
       },
       "cases": {
         "sphere": {
@@ -4287,6 +4301,40 @@
             "reads": "Más abajo la rama se mueve menos: el jinete cuenta solo con φ(s)², el cuadrado de la forma del modo en su lugar.",
             "why": "Comprueba la forma del modo en el interior de la rama: el segundo diapasón suena a 439,18 Hz en lugar de 440 Hz.",
             "step": "Como con el jinete en la punta, con φ(0,3) tomado de la forma del modo de la primera fuente, dividida de modo que φ valga 1 en la punta."
+          }
+        },
+        "parabola": {
+          "centre": {
+            "title": "El centro baja",
+            "setting": "Recipiente Ø 30 cm, 30 cm de alto, lleno hasta 10 cm; plato giratorio a 90 vueltas por minuto.",
+            "reads": "Si el agua gira como un todo, su superficie es un paraboloide. Como el agua no aumenta, el centro baja ω²R²/(4g) por debajo de la altura de llenado.",
+            "why": "Comprueba a la vez la forma y el volumen: en el centro quedan 4,91 cm de los 10 cm de agua."
+          },
+          "dry_rate": {
+            "title": "Cuándo queda seco el centro",
+            "setting": "El mismo recipiente; plato giratorio a 126 vueltas por minuto, justo por debajo del límite.",
+            "reads": "El centro llega al fondo cuando ha bajado toda la altura de llenado: a ω₁ = (2/R)·√(h·g).",
+            "why": "Comprueba el límite en el que la página pasa del cuenco al anillo: ω₁ = 13,20 por segundo, 126,1 vueltas por minuto."
+          },
+          "dry_rim": {
+            "title": "Seco en el centro: el borde",
+            "setting": "El mismo recipiente; plato giratorio a 160 vueltas por minuto, por encima del límite de 126.",
+            "reads": "Con el centro seco, el agua forma un anillo alrededor de una mancha seca de radio δ. La superficie es el mismo paraboloide, situado más abajo; en el borde está a α·(R² − δ²) de altura.",
+            "why": "Comprueba el segundo caso de la página, en el que es la mancha seca, y no la profundidad en el centro, la que mantiene el volumen: 25,38 cm en el borde. La página calcula R·ω·√(h/g); aquí el camino pasa por δ. Ambos coinciden salvo por el redondeo.",
+            "step": "La fuente da el radio δ de la mancha seca y la superficie z = α·(r² − δ²); en el borde, r = R."
+          },
+          "mirror": {
+            "title": "El cuenco como espejo",
+            "setting": "El mismo recipiente; plato giratorio a 7 vueltas por minuto, una vuelta en 8,6 s.",
+            "reads": "Un cuenco que tiene una profundidad D hasta la distancia r reúne la luz que cae vertical en f = r²/(4D). El agua tiene D = α·r², así que f = 1/(4α) = g/(2ω²), sea cual sea el tamaño del recipiente.",
+            "why": "Comprueba la distancia focal que muestra la página: 9,13 m sobre el punto más bajo del cuenco."
+          },
+          "spin_up": {
+            "title": "El agua sigue con retraso",
+            "setting": "El mismo recipiente; plato giratorio puesto desde el reposo a 90 vueltas por minuto, con el agua en reposo. Leído tras un tiempo de arranque, con el paso de cálculo de la página, 10 ms.",
+            "reads": "El fondo arrastra el agua a través de una fina capa límite. Tras el tiempo de arranque τ = h/√(ν·ω_v), aún le falta la fracción 1/e de la velocidad del recipiente.",
+            "why": "Comprueba el bucle de pasos de tiempo y el tiempo de arranque de la página: tras 32,58 s, el agua gira al 63,2 % de la velocidad del recipiente, a 56,9 de las 90 vueltas por minuto.",
+            "step": "La fuente trata un cilindro cerrado de altura 2L, con una capa de Ekman abajo y otra arriba. Por simetría, su plano medio no soporta esfuerzo cortante, igual que una superficie libre plana: el agua de profundidad h es la mitad inferior, L = h. La fuente trata cambios pequeños; la página hace que también los grandes se sigan así, con Ω la mayor de las dos velocidades."
           }
         }
       },
