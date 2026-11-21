@@ -9,6 +9,7 @@ import { Figures, WidgetCard } from "@/shared/ui/widget";
 import { Equation } from "./equation";
 import { ExhibitFrame } from "./exhibit-frame";
 import { BuildPending } from "./build-pending";
+import { settingNumber, useCheckSetting } from "./check-setting";
 import { PreviewPending, type PreviewMode } from "./preview-mode";
 import { hover, liftKg, type Base, type Hover, type Top } from "./simulate/levitation";
 import { SIDE } from "./stage";
@@ -157,6 +158,14 @@ function LevitationPlay({ base, top, preview = false }: { base: Base; top: Top }
   const hex = useChartHex();
   const [massG, setMassG] = useState(top.mass_kg * 1000);
   const [warmingK, setWarmingK] = useState(0);
+  // A check case's "Set it up": the top's mass and the warming, all the page
+  // lets a reader change.
+  useCheckSetting("levitation", (setting) => {
+    if (preview) return false;
+    setMassG(settingNumber(setting, "mass_kg", massG / 1000) * 1000);
+    setWarmingK(settingNumber(setting, "warming_k", warmingK));
+    return true;
+  });
   const tuned = useMemo<Top>(() => ({ ...top, mass_kg: massG / 1000 }), [top, massG]);
   // Dragged, the mass asks for a new balance at every notch: the slider must not wait.
   const shownTop = useDeferredValue(tuned);

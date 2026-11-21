@@ -30,17 +30,36 @@ def test_the_engine_meets_every_limiting_case_within_its_tolerance(
 def test_the_exhibits_with_checks_are_these() -> None:
     assert checks.exhibits() == (
         "arch",
+        "beats",
+        "bounce",
+        "cannon",
         "chair",
+        "chaos",
         "chladni",
+        "circuit",
         "coil",
+        "cone",
         "coriolis",
+        "coupled",
         "cradle",
+        "diver",
+        "elephant",
         "foucault",
+        "gyroscope",
+        "harmonograph",
+        "levitation",
         "maxwell",
+        "overhang",
+        "parabola",
         "peg",
         "plates",
+        "platform",
+        "race",
+        "rainbow",
         "resonance",
         "sky",
+        "slits",
+        "smoke",
         "sphere",
         "waterwheel",
         "wave",
@@ -102,10 +121,12 @@ def test_the_wave_at_a_third_of_its_cycle_is_farther_out_than_a_cosine_would_put
 
 
 def test_unknown_exhibits_have_no_checks() -> None:
+    # A name that is no exhibit: once every exhibit has its cases, none is left
+    # without.
     with pytest.raises(ValueError, match="no checks"):
-        checks.cases("cannon")
+        checks.cases("orrery")
     with pytest.raises(ValueError, match="no checks"):
-        checks.fingerprint("cannon")
+        checks.fingerprint("orrery")
 
 
 def test_a_fingerprint_is_the_same_twice_and_differs_between_exhibits() -> None:

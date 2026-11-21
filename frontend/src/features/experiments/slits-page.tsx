@@ -10,6 +10,7 @@ import { Figures, WidgetCard } from "@/shared/ui/widget";
 import { Equation } from "./equation";
 import { ExhibitFrame } from "./exhibit-frame";
 import { BuildPending } from "./build-pending";
+import { settingNumber, useCheckSetting } from "./check-setting";
 import { PreviewPending, type PreviewMode, type PreviewProps } from "./preview-mode";
 import { css, onScreen, type Rgb } from "./simulate/colour";
 import { LASER_NM, figures, intensity, laserColour, laserPattern, whitePattern, type Slits } from "./simulate/slits";
@@ -76,7 +77,7 @@ export function SlitsPage() {
         <BuildPending pending={defaults.isPending} error={defaults.error} />
       ) : (
         <>
-          <SlitsPlay slits={slits} nm={nm} onNm={setNm} />
+          <SlitsPlay slits={slits} nm={nm} onNm={setNm} onSlits={setSlits} />
           <SlitsBuild slits={slits} nm={nm} onChange={setSlits} />
         </>
       )}
@@ -188,11 +189,28 @@ function SlitsPlay({
   onNm,
   preview = false,
   paused = false,
-}: { slits: Slits; nm: number; onNm?: (nm: number) => void } & PreviewMode) {
+  onSlits,
+}: { slits: Slits; nm: number; onNm?: (nm: number) => void; onSlits?: (slits: Slits) => void } & PreviewMode) {
   const { t } = useTranslation();
   const locale = useLocale();
   const [light, setLight] = useState<Light>("laser");
   const [both, setBoth] = useState(true);
+  // A check case's "Set it up" takes the whole case here: the light and the
+  // covered slit are this card's, the build and the wavelength the page's. One
+  // taker, because a second would find the request already marked done.
+  useCheckSetting("slits", (setting) => {
+    if (preview) return false;
+    if (setting.light === "laser" || setting.light === "white") setLight(setting.light);
+    if (setting.slits === "both" || setting.slits === "one") setBoth(setting.slits === "both");
+    onNm?.(settingNumber(setting, "nm", nm));
+    onSlits?.({
+      ...slits,
+      spacing_m: settingNumber(setting, "spacing_m", slits.spacing_m),
+      width_m: settingNumber(setting, "width_m", slits.width_m),
+      distance_m: settingNumber(setting, "distance_m", slits.distance_m),
+    });
+    return true;
+  });
   const [time, setTime] = useState(0);
   useEffect(() => {
     if (!preview || paused) return;

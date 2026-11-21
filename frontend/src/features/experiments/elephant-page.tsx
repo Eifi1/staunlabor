@@ -22,6 +22,7 @@ import { ElephantView, JET_DRAWN_M, type Streak } from "./elephant-view";
 import { Equation } from "./equation";
 import { ExhibitFrame } from "./exhibit-frame";
 import { BuildPending } from "./build-pending";
+import { settingNumber, useCheckSetting } from "./check-setting";
 import {
   STEP_S,
   airSpeed,
@@ -223,6 +224,34 @@ function ElephantPlay({
     sim.current.tilt = tilt;
     setView(viewOf(exhibit, sim.current));
   };
+  // A check case's "Set it up" takes the whole case here: the build, the
+  // tilt, and the ball set back on the rim, as a change in the air would not.
+  useCheckSetting("elephant", (setting) => {
+    if (preview) return false;
+    const next: ElephantRequest = {
+      ...exhibit,
+      jet: {
+        ...exhibit.jet,
+        opening_m: settingNumber(setting, "opening_m", exhibit.jet.opening_m),
+        speed_m_s: settingNumber(setting, "speed_m_s", exhibit.jet.speed_m_s),
+      },
+      ball: {
+        ...exhibit.ball,
+        diameter_m: settingNumber(setting, "diameter_m", exhibit.ball.diameter_m),
+        mass_kg: settingNumber(setting, "mass_kg", exhibit.ball.mass_kg),
+      },
+      coanda: settingNumber(setting, "coanda", exhibit.coanda),
+    };
+    const nextTilt = settingNumber(setting, "tilt", tilt);
+    setAuto(false);
+    setTilt(nextTilt);
+    sim.current.state = startState(next, nextTilt);
+    sim.current.down = null;
+    sim.current.tilt = nextTilt;
+    setView(viewOf(next, sim.current));
+    onChange(next);
+    return true;
+  });
   const flow = exhibit.jet.speed_m_s * Math.PI * (exhibit.jet.opening_m ** 2 / 4) * 3600;
 
   if (preview) return <ElephantView elephant={exhibit} tiltDeg={view.tilt} ball={view.ball} streaks={view.streaks} />;

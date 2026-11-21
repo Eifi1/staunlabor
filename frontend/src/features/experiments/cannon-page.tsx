@@ -21,6 +21,7 @@ import { CannonView } from "./cannon-view";
 import { Equation } from "./equation";
 import { ExhibitFrame } from "./exhibit-frame";
 import { BuildPending } from "./build-pending";
+import { settingNumber, useCheckSetting } from "./check-setting";
 import {
   CONTACT_STEP_S,
   G,
@@ -63,6 +64,26 @@ export function CannonPage() {
   const [build, setBuild] = useState<BallStackRequest | null>(null);
   const stack = build ?? defaults.data?.cannon ?? null;
   const figures = useCannonFigures(stack);
+  // A check case's "Set it up": every setting is the build's, the balls
+  // spelt out one by one (`diameter_0_m` the bottom one); the reader drops.
+  useCheckSetting("cannon", (setting) => {
+    if (!stack) return false;
+    const count = settingNumber(setting, "count", stack.balls.length);
+    const balls = Array.from({ length: count }, (_, i) => ({
+      diameter_m: settingNumber(setting, `diameter_${i}_m`, stack.balls[i]?.diameter_m ?? 0.05),
+      density_kg_m3: stack.balls[i]?.density_kg_m3 ?? 1100,
+    }));
+    setBuild({
+      ...stack,
+      balls,
+      drop_m: settingNumber(setting, "drop_m", stack.drop_m),
+      gap_m: settingNumber(setting, "gap_m", stack.gap_m),
+      floor_restitution: settingNumber(setting, "floor_restitution", stack.floor_restitution),
+      ball_restitution: settingNumber(setting, "ball_restitution", stack.ball_restitution),
+      youngs_mpa: settingNumber(setting, "youngs_mpa", stack.youngs_mpa),
+    });
+    return true;
+  });
 
   return (
     <ExhibitFrame

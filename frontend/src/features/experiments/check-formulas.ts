@@ -82,6 +82,106 @@ const ROD_OMEGA: CheckSymbol = { tex: String.raw`\omega`, key: "rod_omega", unit
 const ROD_ZETA: CheckSymbol = { tex: String.raw`\zeta`, key: "rod_zeta" };
 const R_WELL: CheckSymbol = { tex: "r", key: "r_well", unit: "m" };
 const K_FUNNEL: CheckSymbol = { tex: "k", key: "k_funnel", unit: "m²" };
+const LAMBDA: CheckSymbol = { tex: String.raw`\lambda`, key: "lambda", unit: "nm" };
+const D_WALL: CheckSymbol = { tex: "D", key: "D_wall", unit: "m" };
+const D_SLITS: CheckSymbol = { tex: "d", key: "d_slits", unit: "m" };
+const A_SLIT: CheckSymbol = { tex: "a", key: "a_slit", unit: "m" };
+const THETA_BEAM: CheckSymbol = { tex: String.raw`\theta`, key: "theta_beam", unit: "°" };
+const ORDER: CheckSymbol = { tex: "m", key: "m_order" };
+const D_RHO: CheckSymbol = { tex: String.raw`\rho`, key: "diver_rho", unit: "kg/m³" };
+const D_VG: CheckSymbol = { tex: "V_g", key: "diver_Vg", unit: "m³" };
+const D_V0: CheckSymbol = { tex: "V_0", key: "diver_V0", unit: "m³" };
+const D_M: CheckSymbol = { tex: "m", key: "diver_m", unit: "kg" };
+const D_P0: CheckSymbol = { tex: "p_0", key: "diver_p0", unit: "Pa" };
+const D_DP: CheckSymbol = { tex: String.raw`\Delta p`, key: "diver_dp", unit: "Pa" };
+const D_VSTAR: CheckSymbol = { tex: "V^*", key: "diver_Vstar", unit: "m³" };
+const D_G: CheckSymbol = { tex: "g", key: "g", unit: "m/s²" };
+const DELTA: CheckSymbol = { tex: String.raw`\delta`, key: "delta_cone", unit: "°" };
+const ALPHA_CONE: CheckSymbol = { tex: String.raw`\alpha`, key: "alpha_cone", unit: "°" };
+const BETA_RAIL: CheckSymbol = { tex: String.raw`\beta`, key: "beta_rail", unit: "°" };
+const GAMMA_RAIL: CheckSymbol = { tex: String.raw`\gamma`, key: "gamma_rail", unit: "°" };
+const DZ_AXIS: CheckSymbol = { tex: String.raw`\Delta z`, key: "dz_axis", unit: "m" };
+const F_FORK: CheckSymbol = { tex: "f_0", key: "f_fork", unit: "Hz" };
+const F_RIDER: CheckSymbol = { tex: "f", key: "f_rider", unit: "Hz" };
+const M_FELT: CheckSymbol = { tex: "M^*", key: "m_felt", unit: "kg" };
+const M_PRONG: CheckSymbol = { tex: "M", key: "m_prong", unit: "kg" };
+const M_RIDER: CheckSymbol = { tex: "m", key: "m_rider", unit: "kg" };
+const MODE: CheckSymbol = { tex: String.raw`\varphi`, key: "mode" };
+const S_RIDER: CheckSymbol = { tex: "s", key: "s_rider" };
+const XI: CheckSymbol = { tex: String.raw`\xi`, key: "xi" };
+const FILL: CheckSymbol = { tex: "h", key: "fill_depth", unit: "m" };
+const VESSEL_R: CheckSymbol = { tex: "R", key: "vessel_radius", unit: "m" };
+const RATE: CheckSymbol = { tex: String.raw`\omega`, key: "vessel_rate", unit: "1/s" };
+const ALPHA: CheckSymbol = { tex: String.raw`\alpha`, key: "steepness", unit: "1/m" };
+const MU_TOP: CheckSymbol = { tex: String.raw`\mu`, key: "mu_top", unit: "A·m²" };
+const B_AXIS: CheckSymbol = { tex: "B", key: "B_axis", unit: "T" };
+const B1: CheckSymbol = { tex: "B'", key: "B1", unit: "T/m" };
+const B2: CheckSymbol = { tex: "B''", key: "B2", unit: "T/m²" };
+const FREQ: CheckSymbol = { tex: "f", key: "f", unit: "Hz" };
+const LC_T: CheckSymbol = { tex: "T", key: "T", unit: "s" };
+const LC_L: CheckSymbol = { tex: "L", key: "L", unit: "H" };
+const LC_C: CheckSymbol = { tex: "C", key: "lc_C", unit: "F" };
+const LC_R: CheckSymbol = { tex: "R", key: "lc_R", unit: "Ω" };
+const LC_Q: CheckSymbol = { tex: "q", key: "lc_q", unit: "C" };
+const LC_I: CheckSymbol = { tex: "i", key: "current", unit: "A" };
+const LC_U0: CheckSymbol = { tex: "U_0", key: "U", unit: "V" };
+const LC_T_NOW: CheckSymbol = { tex: "t", key: "t", unit: "s" };
+const T_RACE: CheckSymbol = { tex: "T", key: "T_race", unit: "s" };
+const T_BOTTOM: CheckSymbol = { tex: "T", key: "T_bottom", unit: "s" };
+const D_RUN: CheckSymbol = { tex: "D", key: "D_run", unit: "m" };
+const H_DROP: CheckSymbol = { tex: "H", key: "H_drop", unit: "m" };
+const R_CYCLOID: CheckSymbol = { tex: "r", key: "r_cycloid", unit: "m" };
+const OMEGA_SLOW: CheckSymbol = { tex: String.raw`\omega_1`, key: "omega_slow", unit: "1/s" };
+const THETA12: CheckSymbol = { tex: String.raw`\theta_1, \theta_2`, key: "theta12", unit: "rad" };
+const V_INF: CheckSymbol = { tex: String.raw`v_\infty`, key: "v_inf", unit: "m/s" };
+const E_REST: CheckSymbol = { tex: "e", key: "e_rest" };
+const U_UP: CheckSymbol = { tex: "u", key: "u_up", unit: "m/s" };
+const Y_PEAK: CheckSymbol = { tex: String.raw`y_{\mathrm{peak}}`, key: "y_peak", unit: "m" };
+const H_DROP_BOUNCE: CheckSymbol = { tex: "h", key: "h_drop", unit: "m" };
+const SPIN_D: CheckSymbol = { tex: "d", key: "spin_d", unit: "m" };
+const SPIN_MT: CheckSymbol = { tex: "m_t", key: "spin_mt", unit: "kg" };
+const SPIN_MA: CheckSymbol = { tex: "m_a", key: "spin_ma", unit: "kg" };
+const SPIN_OMEGA: CheckSymbol = { tex: String.raw`\omega`, key: "spin_omega", unit: "1/s" };
+const KAPPA: CheckSymbol = { tex: String.raw`\kappa`, key: "kappa", unit: "1/s²" };
+const K_SPRING: CheckSymbol = { tex: "k", key: "k_spring", unit: "N/m" };
+const A_SPRING: CheckSymbol = { tex: "a", key: "a_spring", unit: "m" };
+const M: CheckSymbol = { tex: "m", key: "m", unit: "kg" };
+const T_PERIOD: CheckSymbol = { tex: "T", key: "T", unit: "s" };
+const A_EFF: CheckSymbol = { tex: String.raw`A_{\mathrm{eff}}`, key: "a_eff", unit: "m²" };
+const A_HOLE: CheckSymbol = { tex: String.raw`A_{\mathrm{hole}}`, key: "a_hole", unit: "m²" };
+const HOLE_D: CheckSymbol = { tex: "D", key: "hole_d", unit: "m" };
+const RING: CheckSymbol = { tex: String.raw`2\varphi`, key: "ring_angle", unit: "°" };
+const BETA_RAINBOW: CheckSymbol = { tex: String.raw`\beta`, key: "refraction_angle", unit: "°" };
+const INCIDENCE: CheckSymbol = { tex: "i", key: "incidence_angle", unit: "°" };
+const INDEX_RAINBOW: CheckSymbol = { tex: "n", key: "rainbow_index" };
+const V_IMPACT: CheckSymbol = { tex: "v", key: "v_impact", unit: "m/s" };
+const V_INF_CANNON: CheckSymbol = { tex: String.raw`v_\infty`, key: "cannon_v_inf", unit: "m/s" };
+const K_FLOOR: CheckSymbol = { tex: "K", key: "K_floor", unit: "N/m¹·⁵" };
+const TAU_CANNON: CheckSymbol = { tex: String.raw`\tau`, key: "tau_contact", unit: "s" };
+const H_T: CheckSymbol = { tex: "T", key: "T", unit: "s" };
+const H_L: CheckSymbol = { tex: "L", key: "harm_L", unit: "m" };
+const H_G: CheckSymbol = { tex: "g", key: "g", unit: "m/s²" };
+const H_K: CheckSymbol = { tex: "K", key: "K" };
+const H_THETA0: CheckSymbol = { tex: String.raw`\theta_0`, key: "theta0", unit: "°" };
+const D_OVER: CheckSymbol = { tex: "d", key: "d_over", unit: "m" };
+const N_BLOCKS: CheckSymbol = { tex: "n", key: "n_blocks" };
+const L_BLOCK: CheckSymbol = { tex: String.raw`\ell`, key: "l_block", unit: "m" };
+const RHO_AIR: CheckSymbol = { tex: String.raw`\rho`, key: "elephant_rho_air", unit: "kg/m³" };
+const U0_JET: CheckSymbol = { tex: "U_0", key: "U0_jet", unit: "m/s" };
+const OPENING: CheckSymbol = { tex: "D", key: "opening_d", unit: "m" };
+const UC_JET: CheckSymbol = { tex: "u_c", key: "uc_jet", unit: "m/s" };
+const B_JET: CheckSymbol = { tex: "b", key: "b_jet", unit: "m" };
+const CD: CheckSymbol = { tex: "c_d", key: "cd" };
+const A_BALL: CheckSymbol = { tex: "A", key: "A_ball", unit: "m²" };
+const M_BALL: CheckSymbol = { tex: "m", key: "m_ball", unit: "kg" };
+const V_BALL: CheckSymbol = { tex: "V", key: "V_ball", unit: "m³" };
+const G_SYM: CheckSymbol = { tex: "g", key: "g", unit: "m/s²" };
+const AXLE_GYROSCOPE: CheckSymbol = { tex: "d", key: "axle_length", unit: "m" };
+const HOOP_R: CheckSymbol = { tex: "r", key: "hoop_radius", unit: "m" };
+const L3: CheckSymbol = { tex: "L_3", key: "spin_momentum", unit: "kg·m²/s" };
+const SPIN_GYROSCOPE: CheckSymbol = { tex: String.raw`\omega_3`, key: "spin_rate", unit: "1/s" };
+const I1: CheckSymbol = { tex: "I_1", key: "i1_pivot", unit: "kg·m²" };
+const ALPHA_GYROSCOPE: CheckSymbol = { tex: String.raw`\alpha`, key: "tilt_start", unit: "°" };
 
 const ROD_STEADY: CheckFormula = {
   tex: String.raw`w = \frac{\Gamma\,\Omega^2 Y}{\sqrt{(\omega^2 - \Omega^2)^2 + (2\zeta\omega\Omega)^2}}, \qquad \Gamma = \frac{\int_0^1 \varphi\,d\xi}{\int_0^1 \varphi^2\,d\xi}`,
@@ -727,6 +827,665 @@ export const CHECK_FORMULAS: Record<string, Record<string, CheckFormula>> = {
         { tex: String.raw`\alpha`, key: "alpha_wall", unit: "°" },
         R_WELL,
         K_FUNNEL,
+      ],
+    },
+  },
+  slits: {
+    spacing: {
+      tex: String.raw`\Delta y = \frac{\lambda D}{d}, \qquad d \sin\theta = \left(m + \tfrac12\right)\lambda`,
+      symbols: [
+        { tex: String.raw`\Delta y`, key: "dy_stripes", unit: "m" },
+        LAMBDA,
+        D_WALL,
+        D_SLITS,
+        THETA_BEAM,
+        ORDER,
+      ],
+    },
+    one_slit_dark: {
+      tex: String.raw`a \sin\theta = \lambda, \qquad y = D \tan\theta`,
+      symbols: [A_SLIT, THETA_BEAM, LAMBDA, { tex: "y", key: "y_wall", unit: "m" }, D_WALL],
+    },
+    quarter: {
+      tex: String.raw`\frac{I_1}{I_2} = \frac{E^2}{(2E)^2} = \frac14`,
+      symbols: [
+        { tex: "I_1", key: "I_one" },
+        { tex: "I_2", key: "I_two" },
+        { tex: "E", key: "E_amp" },
+      ],
+    },
+    first_bright: {
+      tex: String.raw`\frac{I}{I_0} = \left(\frac{\sin\beta}{\beta}\right)^2, \qquad \beta = \frac{m \pi a}{d}, \quad m = 1`,
+      symbols: [
+        { tex: String.raw`I/I_0`, key: "I_rel" },
+        { tex: String.raw`\beta`, key: "beta_slit", unit: "rad" },
+        ORDER,
+        A_SLIT,
+        D_SLITS,
+      ],
+    },
+    missing: {
+      tex: String.raw`d \sin\theta = 5\lambda \quad\text{and}\quad a \sin\theta = \lambda \qquad (d = 5a)`,
+      symbols: [D_SLITS, A_SLIT, THETA_BEAM, LAMBDA],
+    },
+  },
+  diver: {
+    reserve: {
+      tex: String.raw`\Delta m = \rho\,(V_g + V_0) - m`,
+      symbols: [{ tex: String.raw`\Delta m`, key: "diver_reserve", unit: "kg" }, D_RHO, D_VG, D_V0, D_M],
+    },
+    sinks_from_top: {
+      tex: String.raw`p_0 V_0 = (p_0 + \Delta p)\,V^*, \qquad \rho\,(V_g + V^*) = m \;\Rightarrow\; \Delta p = \frac{p_0 V_0}{m/\rho - V_g} - p_0`,
+      symbols: [D_P0, D_V0, D_DP, D_VSTAR, D_RHO, D_VG, D_M],
+    },
+    rises_from_bottom: {
+      tex: String.raw`p_0 V_0 = (p_0 + \Delta p + \rho g H)\,V^* \;\Rightarrow\; \Delta p = \frac{p_0 V_0}{m/\rho - V_g} - p_0 - \rho g H`,
+      symbols: [D_P0, D_V0, D_DP, D_RHO, D_G, { tex: "H", key: "diver_H", unit: "m" }, D_VSTAR, D_M, D_VG],
+    },
+    leaves_hover: {
+      tex: String.raw`\delta z = \delta z_0 \cosh\!\left(\sqrt{k}\,t\right), \qquad k = \frac{\rho^2 g^2 V^*}{p^*\left(m + \tfrac12\rho\,(V_g + V^*)\right)}, \qquad p^* = p_0 + \Delta p + \rho g z^*`,
+      symbols: [
+        { tex: String.raw`\delta z`, key: "diver_dz", unit: "m" },
+        { tex: "t", key: "t", unit: "s" },
+        { tex: "k", key: "diver_k", unit: "1/s²" },
+        D_RHO,
+        D_G,
+        D_VSTAR,
+        { tex: "p^*", key: "diver_pstar", unit: "Pa" },
+        D_M,
+        D_VG,
+        D_P0,
+        D_DP,
+        { tex: "z^*", key: "diver_zstar", unit: "m" },
+      ],
+    },
+  },
+  cone: {
+    axis_path: {
+      tex: String.raw`\sin\delta = \tan\beta\,\cos\gamma\,\tan\alpha, \qquad \Delta z = l\,\tan(\delta - \gamma)`,
+      symbols: [DELTA, BETA_RAIL, GAMMA_RAIL, ALPHA_CONE, DZ_AXIS, { tex: "l", key: "l_rails", unit: "m" }],
+    },
+    threshold: {
+      tex: String.raw`\sin(\delta - \gamma) = 0 \;\Rightarrow\; \tan\gamma^* = \tan\alpha\,\tan\beta`,
+      symbols: [DELTA, GAMMA_RAIL, { tex: String.raw`\gamma^*`, key: "gamma_star", unit: "°" }, ALPHA_CONE, BETA_RAIL],
+    },
+    speed: {
+      tex: String.raw`\tfrac12\left(1 + \frac{I}{M a^2}\right)v^2 = g\,\Delta z, \qquad I = \tfrac{3}{10}\,M R^2`,
+      symbols: [
+        { tex: "I", key: "inertia", unit: "kg·m²" },
+        { tex: "M", key: "m", unit: "kg" },
+        { tex: "a", key: "a_roll", unit: "m" },
+        { tex: "v", key: "v", unit: "m/s" },
+        G,
+        DZ_AXIS,
+        { tex: "R", key: "radius_cone", unit: "m" },
+      ],
+    },
+  },
+  beats: {
+    beat_rate: {
+      tex: String.raw`y(t) = 2A\cos(2\pi f_{\mathrm{avg}}\,t)\,\cos\!\left(2\pi\,\frac{|f_2 - f_1|}{2}\,t\right), \qquad f_{\mathrm{beat}} = |f_2 - f_1|`,
+      symbols: [
+        { tex: "y", key: "y_sum" },
+        { tex: "A", key: "amp" },
+        { tex: String.raw`f_{\mathrm{avg}}`, key: "f_avg", unit: "Hz" },
+        { tex: "f_1, f_2", key: "f12", unit: "Hz" },
+        { tex: "t", key: "t", unit: "s" },
+        { tex: String.raw`f_{\mathrm{beat}}`, key: "f_beat", unit: "Hz" },
+      ],
+    },
+    tip_rider: {
+      tex: String.raw`f = f_0\sqrt{\frac{M^*}{M^* + m\,\varphi(s)^2}}, \qquad M^* = M\int_0^1 \varphi(\xi)^2\,d\xi = \tfrac14\,M, \qquad \varphi(1) = 1`,
+      symbols: [F_RIDER, F_FORK, M_FELT, M_RIDER, MODE, S_RIDER, M_PRONG, XI],
+    },
+    rider_on_prong: {
+      tex: String.raw`f = f_0\sqrt{\frac{M^*}{M^* + m\,\varphi(s)^2}}, \qquad \varphi(\xi) \propto (\cosh\beta\xi - \cos\beta\xi) + \frac{\cos\beta + \cosh\beta}{\sin\beta + \sinh\beta}\,(\sin\beta\xi - \sinh\beta\xi), \qquad \cosh\beta\cos\beta + 1 = 0`,
+      symbols: [F_RIDER, F_FORK, M_FELT, M_RIDER, MODE, S_RIDER, XI, { tex: String.raw`\beta`, key: "beta_L" }],
+    },
+  },
+  parabola: {
+    centre: {
+      tex: String.raw`z(r) = \alpha\,r^2 + d, \qquad \alpha = \frac{\omega^2}{2g}, \qquad d = h - \frac{\omega^2 R^2}{4g}`,
+      symbols: [
+        { tex: "z(r)", key: "surface_height", unit: "m" },
+        { tex: "r", key: "axis_distance", unit: "m" },
+        ALPHA,
+        { tex: "d", key: "centre_depth", unit: "m" },
+        RATE,
+        G,
+        FILL,
+        VESSEL_R,
+      ],
+    },
+    dry_rate: {
+      tex: String.raw`\omega_1 = \frac{2}{R}\sqrt{h\,g}`,
+      symbols: [{ tex: String.raw`\omega_1`, key: "dry_rate", unit: "1/s" }, VESSEL_R, FILL, G],
+    },
+    dry_rim: {
+      tex: String.raw`z(R) = \alpha\,\left(R^2 - \delta^2\right), \qquad \delta = R\sqrt{1 - \frac{2\sqrt{h\,g}}{R\,\omega}}, \qquad \alpha = \frac{\omega^2}{2g}`,
+      symbols: [
+        { tex: "z(R)", key: "rim_height", unit: "m" },
+        ALPHA,
+        VESSEL_R,
+        { tex: String.raw`\delta`, key: "dry_radius", unit: "m" },
+        FILL,
+        G,
+        RATE,
+      ],
+    },
+    mirror: {
+      tex: String.raw`f = \frac{r^2}{4D} = \frac{1}{4\alpha} = \frac{g}{2\,\omega^2}, \qquad D = \alpha\,r^2`,
+      symbols: [
+        { tex: "f", key: "focus", unit: "m" },
+        { tex: "r", key: "axis_distance", unit: "m" },
+        { tex: "D", key: "dish_depth", unit: "m" },
+        ALPHA,
+        G,
+        RATE,
+      ],
+    },
+    spin_up: {
+      tex: String.raw`\frac{\omega(t)}{\omega_v} = 1 - e^{-t/\tau}, \qquad \tau = \frac{h}{\sqrt{\nu\,\omega_v}}`,
+      symbols: [
+        { tex: String.raw`\omega(t)`, key: "water_rate", unit: "1/s" },
+        { tex: String.raw`\omega_v`, key: "vessel_rate", unit: "1/s" },
+        { tex: "t", key: "t", unit: "s" },
+        { tex: String.raw`\tau`, key: "tau", unit: "s" },
+        FILL,
+        { tex: String.raw`\nu`, key: "nu", unit: "m²/s" },
+      ],
+    },
+  },
+  levitation: {
+    lift: {
+      tex: String.raw`m_{\mathrm{L}} = -\frac{\mu\,B'(z)}{g}, \qquad B(z) = \frac{\mu_0 M}{2}\int_0^t \left[\frac{R_2^2}{\left((z+s)^2 + R_2^2\right)^{3/2}} - \frac{R_1^2}{\left((z+s)^2 + R_1^2\right)^{3/2}}\right] ds`,
+      symbols: [
+        { tex: String.raw`m_{\mathrm{L}}`, key: "m_lift", unit: "kg" },
+        MU_TOP,
+        B1,
+        G,
+        B_AXIS,
+        { tex: String.raw`\mu_0`, key: "mu0", unit: "H/m" },
+        { tex: "M", key: "M_mag", unit: "A/m" },
+        { tex: "t", key: "t_ring", unit: "m" },
+        { tex: "z", key: "z_height", unit: "m" },
+        { tex: "s", key: "s_depth", unit: "m" },
+        { tex: "R_1", key: "R1_hole", unit: "m" },
+        { tex: "R_2", key: "R2_ring", unit: "m" },
+      ],
+    },
+    window_foot: {
+      tex: String.raw`B''(z_i) = 0`,
+      symbols: [B2, { tex: "z_i", key: "z_foot", unit: "m" }],
+    },
+    window_head: {
+      tex: String.raw`B'(z_2)^2 = 2\,B(z_2)\,B''(z_2)`,
+      symbols: [B_AXIS, B1, B2, { tex: "z_2", key: "z_head", unit: "m" }],
+    },
+    bob: {
+      tex: String.raw`f = \frac{1}{2\pi}\sqrt{\frac{\mu\,B''}{m}}, \qquad m g = -\mu\,B'`,
+      symbols: [FREQ, MU_TOP, B2, MASS, G, B1],
+    },
+    drift: {
+      tex: String.raw`f = \frac{1}{2\pi}\sqrt{\frac{\mu\,(B'^2 - 2BB'')}{4Bm}}, \qquad |B|(r) \approx B + \frac{r^2\,(B'^2 - 2BB'')}{8B}`,
+      symbols: [FREQ, MU_TOP, B_AXIS, B1, B2, MASS, { tex: "r", key: "r_axis", unit: "m" }],
+    },
+  },
+  circuit: {
+    period: {
+      tex: String.raw`T = \frac{2\pi}{\omega'}, \qquad \omega' = \sqrt{\frac{1}{LC} - \left(\frac{R}{2L}\right)^2}`,
+      symbols: [LC_T, { tex: String.raw`\omega'`, key: "lc_omega", unit: "1/s" }, LC_L, LC_C, LC_R],
+    },
+    energy_kept: {
+      tex: String.raw`\frac{E(T)}{E(0)} = e^{-RT/L}, \qquad E = \frac{q^2}{2C} + \frac{L\,i^2}{2}`,
+      symbols: [{ tex: "E", key: "lc_E", unit: "J" }, LC_T, LC_R, LC_L, LC_Q, LC_C, LC_I],
+    },
+    energy_account: {
+      tex: String.raw`\frac{q^2}{2C} + \frac{L\,i^2}{2} + \int_0^t R\,i^2\,dt' = \frac{C\,U_0^2}{2}`,
+      symbols: [LC_Q, LC_C, LC_L, LC_I, LC_R, LC_T_NOW, LC_U0],
+    },
+    edge: {
+      tex: String.raw`R = 2\sqrt{\frac{L}{C}}: \qquad i = q_0\,\omega_0^2\,t\,e^{-\omega_0 t}, \qquad i_{\max} = \frac{q_0\,\omega_0}{e}\ \text{at}\ t = \frac{1}{\omega_0}, \qquad q_0 = C\,U_0`,
+      symbols: [
+        LC_R,
+        LC_L,
+        LC_C,
+        LC_I,
+        { tex: "q_0", key: "lc_q0", unit: "C" },
+        { tex: String.raw`\omega_0`, key: "lc_omega0", unit: "1/s" },
+        LC_T_NOW,
+        LC_U0,
+      ],
+    },
+  },
+  race: {
+    line: {
+      tex: String.raw`T = \sqrt{\frac{2\,(D^2 + H^2)}{g'\,H}}, \qquad g' = \tfrac57\,g`,
+      symbols: [T_RACE, D_RUN, H_DROP, G_SHARE, G],
+    },
+    cycloid: {
+      tex: String.raw`T = \varphi_B\sqrt{\frac{r}{g'}}, \qquad \frac{\varphi_B - \sin\varphi_B}{1 - \cos\varphi_B} = \frac{D}{H}, \qquad r = \frac{H}{1 - \cos\varphi_B}`,
+      symbols: [T_RACE, { tex: String.raw`\varphi_B`, key: "phi_B" }, R_CYCLOID, G_SHARE, D_RUN, H_DROP],
+    },
+    tautochrone: {
+      tex: String.raw`T = \pi\sqrt{\frac{r}{g'}}`,
+      symbols: [T_BOTTOM, R_CYCLOID, G_SHARE],
+    },
+    bowl: {
+      tex: String.raw`T = \sqrt{\frac{R}{g'}}\;K\!\left(\sin\frac{\varphi_0}{2}\right), \qquad R = 4r, \qquad \cos\varphi_0 = 1 - \frac{h}{R}`,
+      symbols: [
+        T_BOTTOM,
+        { tex: "R", key: "R_bowl", unit: "m" },
+        G_SHARE,
+        { tex: "K", key: "K" },
+        { tex: String.raw`\varphi_0`, key: "phi0_bowl", unit: "°" },
+        R_CYCLOID,
+        { tex: "h", key: "h_start", unit: "m" },
+      ],
+    },
+  },
+  chaos: {
+    slow_mode: {
+      tex: String.raw`T = \frac{2\pi}{\omega_1}, \qquad \omega_1 = \omega_0\sqrt{2 - \sqrt{2}}, \qquad \omega_0^2 = \frac{g}{L}, \qquad \theta_2 : \theta_1 = \sqrt{2}`,
+      symbols: [
+        { tex: "T", key: "T", unit: "s" },
+        OMEGA_SLOW,
+        { tex: String.raw`\omega_0`, key: "omega0_pend", unit: "1/s" },
+        { tex: "g", key: "g", unit: "m/s²" },
+        { tex: "L", key: "length_rod", unit: "m" },
+        THETA12,
+      ],
+    },
+    energy: {
+      tex: String.raw`E = \tfrac12 m_1 v_1^2 + \tfrac12 m_2 v_2^2 + m_1 g\,y_1 + m_2 g\,y_2, \qquad y_1 = -L_1\cos\theta_1, \quad y_2 = y_1 - L_2\cos\theta_2`,
+      symbols: [
+        { tex: "E", key: "E_pend", unit: "J" },
+        { tex: "m_1, m_2", key: "m12", unit: "kg" },
+        { tex: "v_1, v_2", key: "v12", unit: "m/s" },
+        { tex: "g", key: "g", unit: "m/s²" },
+        { tex: "y_1, y_2", key: "y12", unit: "m" },
+        { tex: "L_1, L_2", key: "L12", unit: "m" },
+        THETA12,
+      ],
+    },
+    damping: {
+      tex: String.raw`\ddot\theta + c\,\dot\theta + \omega_1^2\,\theta = 0 \;\Rightarrow\; \theta(t) = \theta_0\,e^{-ct/2}\cos(\omega t), \qquad \alpha = \frac{c}{2}`,
+      symbols: [
+        { tex: String.raw`\theta`, key: "theta_mode", unit: "rad" },
+        { tex: "c", key: "c_damp", unit: "1/s" },
+        OMEGA_SLOW,
+        { tex: String.raw`\theta_0`, key: "theta0", unit: "rad" },
+        { tex: String.raw`\omega`, key: "omega_d", unit: "1/s" },
+        { tex: String.raw`\alpha`, key: "alpha_decay", unit: "1/s" },
+      ],
+    },
+  },
+  bounce: {
+    landing: {
+      tex: String.raw`t = \frac{v_\infty}{g}\,\operatorname{arcosh}\!\left(e^{g h / v_\infty^2}\right), \qquad v_\infty = \sqrt{\frac{2 m g}{\rho\, C_D A}}`,
+      symbols: [
+        { tex: "t", key: "t", unit: "s" },
+        V_INF,
+        G,
+        H_DROP_BOUNCE,
+        { tex: "m", key: "m", unit: "kg" },
+        { tex: String.raw`\rho`, key: "rho_air", unit: "kg/m³" },
+        { tex: "C_D", key: "c_drag" },
+        { tex: "A", key: "A_cross", unit: "m²" },
+      ],
+    },
+    apex: {
+      tex: String.raw`y_{\mathrm{peak}} = \frac{v_\infty^2}{2g}\,\ln\!\left(1 + \frac{u^2}{v_\infty^2}\right), \qquad u = e\,v_\infty \tanh\frac{g\,t_1}{v_\infty}`,
+      symbols: [Y_PEAK, V_INF, G, U_UP, E_REST, { tex: "t_1", key: "t_land", unit: "s" }],
+    },
+    flight: {
+      tex: String.raw`T = t_f \arctan\frac{u}{v_\infty} + t_f \operatorname{arcosh}\!\left(e^{g\,y_{\mathrm{peak}}/v_\infty^2}\right), \qquad t_f = \frac{v_\infty}{g}`,
+      symbols: [
+        { tex: "T", key: "T_flight", unit: "s" },
+        { tex: "t_f", key: "t_f", unit: "s" },
+        U_UP,
+        V_INF,
+        Y_PEAK,
+        G,
+      ],
+    },
+    still: {
+      tex: String.raw`T_{\mathrm{still}} = \sqrt{\frac{2h}{g}} \cdot \frac{1 + e}{1 - e}`,
+      symbols: [{ tex: String.raw`T_{\mathrm{still}}`, key: "T_still", unit: "s" }, H_DROP_BOUNCE, G, E_REST],
+    },
+  },
+  platform: {
+    leaning_inertia: {
+      tex: String.raw`I = \tfrac12 M R^2 + m_l k_l^2 + m_t\,(k_t^2 + d^2) + 2\,m_a\left(\tfrac{1}{12}\,d^2 + s^2 + \tfrac14\,d^2\right)`,
+      symbols: [
+        { tex: "I", key: "inertia", unit: "kg·m²" },
+        { tex: "M", key: "spin_M", unit: "kg" },
+        { tex: "R", key: "spin_R", unit: "m" },
+        { tex: "m_l", key: "spin_ml", unit: "kg" },
+        { tex: "k_l", key: "spin_kl", unit: "m" },
+        SPIN_MT,
+        { tex: "k_t", key: "spin_kt", unit: "m" },
+        SPIN_D,
+        SPIN_MA,
+        { tex: "s", key: "spin_s", unit: "m" },
+      ],
+    },
+    faster_upright: {
+      tex: String.raw`I_\text{up}\,\omega_\text{up} = I_\text{lean}\,\omega_\text{lean} \;\Rightarrow\; \frac{\omega_\text{up}}{\omega_\text{lean}} = \frac{I_\text{lean}}{I_\text{up}}`,
+      symbols: [{ tex: "I", key: "inertia", unit: "kg·m²" }, SPIN_OMEGA],
+    },
+    pull: {
+      tex: String.raw`F = \omega^2\left(m_t\,d + 2\,m_a\,\frac{d}{2}\right), \qquad \omega = \pi\ \mathrm{s^{-1}}`,
+      symbols: [{ tex: "F", key: "spin_F", unit: "N" }, SPIN_OMEGA, SPIN_MT, SPIN_D, SPIN_MA],
+    },
+    bearing_stops: {
+      tex: String.raw`\frac{dL}{dt} = -\tau_f \;\Rightarrow\; t = \frac{L_0}{\tau_f}`,
+      symbols: [
+        { tex: "L, L_0", key: "spin_L", unit: "kg·m²/s" },
+        { tex: "t", key: "t", unit: "s" },
+        { tex: String.raw`\tau_f`, key: "spin_tau", unit: "N·m" },
+      ],
+    },
+  },
+  coupled: {
+    together: {
+      tex: String.raw`T = 4\sqrt{\frac{L}{g}}\;K\!\left(\sin\frac{\theta_0}{2}\right)`,
+      symbols: [T_PERIOD, L_PENDULUM, G, { tex: "K", key: "K" }, THETA0],
+    },
+    against: {
+      tex: String.raw`T = 4\int_0^{\theta_0}\frac{d\theta}{\sqrt{2\,\bigl(V(\theta_0) - V(\theta)\bigr)}}, \qquad V(\theta) = -\frac{g}{L}\cos\theta + \kappa\sin^2\theta, \qquad \kappa = \frac{k\,a^2}{m\,L^2}`,
+      symbols: [
+        T_PERIOD,
+        THETA0,
+        THETA,
+        { tex: "V", key: "V_pot", unit: "1/s²" },
+        G,
+        L_PENDULUM,
+        KAPPA,
+        K_SPRING,
+        A_SPRING,
+        M,
+      ],
+    },
+    beat: {
+      tex: String.raw`T_{\text{beat}} = \frac{2\pi}{\omega_+ - \omega_-}, \qquad \omega_-^2 = \frac{g}{L}, \qquad \omega_+^2 = \frac{g}{L} + 2\kappa`,
+      symbols: [
+        { tex: String.raw`T_{\text{beat}}`, key: "T_beat", unit: "s" },
+        { tex: String.raw`\omega_-`, key: "omega_minus", unit: "1/s" },
+        { tex: String.raw`\omega_+`, key: "omega_plus", unit: "1/s" },
+        G,
+        L_PENDULUM,
+        KAPPA,
+      ],
+    },
+    energy: {
+      tex: String.raw`E = \sum_{i=1,2}\Bigl(\tfrac12\,m L^2\dot\theta_i^2 + m g L\,(1 - \cos\theta_i)\Bigr) + \tfrac12\,k\,a^2\,(\sin\theta_2 - \sin\theta_1)^2`,
+      symbols: [
+        { tex: "E", key: "E_pair", unit: "J" },
+        M,
+        L_PENDULUM,
+        { tex: String.raw`\dot\theta_i`, key: "thetadot_i", unit: "1/s" },
+        G,
+        { tex: String.raw`\theta_i`, key: "coupled_theta_i", unit: "°" },
+        K_SPRING,
+        A_SPRING,
+      ],
+    },
+  },
+  smoke: {
+    membrane_area: {
+      tex: String.raw`A_{\mathrm{eff}} = \pi\left(a^2 - r_h^2\right) + \int_a^R 2\pi r\,\frac{\ln(R/r)}{\ln(R/a)}\,dr, \qquad \frac{\partial^2 u}{\partial r^2} + \frac{1}{r}\frac{\partial u}{\partial r} = 0 \;\Rightarrow\; u = A + B\ln r`,
+      symbols: [
+        A_EFF,
+        { tex: "a", key: "ring_radius", unit: "m" },
+        { tex: "r_h", key: "hole_radius", unit: "m" },
+        { tex: "R", key: "drum_radius", unit: "m" },
+        { tex: "r", key: "r_skin", unit: "m" },
+        { tex: "u", key: "u_skin", unit: "m" },
+        { tex: "A, B", key: "AB_const" },
+      ],
+    },
+    slug_length: {
+      tex: String.raw`\frac{L}{D} = \left(\frac{A_{\mathrm{eff}}}{A_{\mathrm{hole}}} + 1\right)\frac{d}{D}`,
+      symbols: [
+        { tex: "L", key: "slug", unit: "m" },
+        HOLE_D,
+        A_EFF,
+        A_HOLE,
+        { tex: "d", key: "press_depth", unit: "m" },
+      ],
+    },
+    ring_speed: {
+      tex: String.raw`U = \frac{\Gamma}{4\pi R}\left(\ln\frac{8R}{a} - \frac14\right), \qquad R = 0.6\,D, \quad a = 0.35\,R`,
+      symbols: [
+        { tex: "U", key: "ring_u", unit: "m/s" },
+        { tex: String.raw`\Gamma`, key: "circulation", unit: "m²/s" },
+        { tex: "R", key: "ring_r", unit: "m" },
+        { tex: "a", key: "core_a", unit: "m" },
+        HOLE_D,
+      ],
+    },
+  },
+  rainbow: {
+    water: {
+      tex: String.raw`\varphi = 2\beta - \arcsin(n\sin\beta), \qquad \beta_{\max} = \arccos\frac{2\sqrt{n^2 - 1}}{\sqrt{3}\,n}`,
+      symbols: [RING, BETA_RAINBOW, INDEX_RAINBOW],
+    },
+    colours: {
+      tex: String.raw`\Delta = 2\varphi_{\max}\bigl(n(700\,\mathrm{nm})\bigr) - 2\varphi_{\max}\bigl(n(400\,\mathrm{nm})\bigr), \qquad n(\lambda) = A + \frac{B}{\lambda^2}, \qquad A = n_D - \frac{B}{\lambda_D^2}`,
+      symbols: [
+        { tex: String.raw`\Delta`, key: "ring_width", unit: "°" },
+        RING,
+        INDEX_RAINBOW,
+        { tex: String.raw`\lambda`, key: "wavelength", unit: "nm" },
+        { tex: "A", key: "cauchy_a" },
+        { tex: "B", key: "cauchy_b", unit: "nm²" },
+        { tex: "n_D", key: "index_d" },
+        { tex: String.raw`\lambda_D`, key: "sodium", unit: "nm" },
+      ],
+    },
+    drawn_ray: {
+      tex: String.raw`\theta = 2\varphi = 2\,(2\beta - i), \qquad \sin i = b, \qquad \sin\beta = \frac{b}{n}`,
+      symbols: [
+        { tex: String.raw`\theta`, key: "exit_angle", unit: "°" },
+        BETA_RAINBOW,
+        INCIDENCE,
+        { tex: "b", key: "impact" },
+        INDEX_RAINBOW,
+      ],
+    },
+    reflected: {
+      tex: String.raw`S = \int_0^1 \tfrac12\left[(1 - R_s)^2 R_s + (1 - R_p)^2 R_p\right] 2b\,db, \qquad R_s = \left(\frac{\cos i - n\cos\beta}{\cos i + n\cos\beta}\right)^2, \qquad R_p = \left(\frac{\cos\beta - n\cos i}{\cos\beta + n\cos i}\right)^2`,
+      symbols: [
+        { tex: "S", key: "back_share" },
+        { tex: "R_s, R_p", key: "reflectance" },
+        { tex: "b", key: "impact" },
+        INCIDENCE,
+        BETA_RAINBOW,
+        INDEX_RAINBOW,
+      ],
+    },
+  },
+  cannon: {
+    impact: {
+      tex: String.raw`v = v_\infty \tanh\frac{g t}{v_\infty}, \qquad h = \frac{v_\infty^2}{g}\,\ln\cosh\frac{g t}{v_\infty}, \qquad v_\infty = \sqrt{\frac{2 m g}{\rho\, C_D A}}`,
+      symbols: [
+        V_IMPACT,
+        V_INF_CANNON,
+        G,
+        { tex: "t", key: "t", unit: "s" },
+        { tex: "h", key: "cannon_h_drop", unit: "m" },
+        MASS,
+        { tex: String.raw`\rho`, key: "cannon_rho_air", unit: "kg/m³" },
+        { tex: "C_D", key: "cannon_c_drag" },
+        { tex: "A", key: "cannon_A_cross", unit: "m²" },
+      ],
+    },
+    floor_peak: {
+      tex: String.raw`F_{\max} = K\,\delta^{3/2}, \qquad \tfrac25\,K\,\delta^{5/2} = \tfrac12\,m v^2 + m g\,\delta, \qquad K = \tfrac43\,\frac{E}{1 - \nu^2}\sqrt{R}`,
+      symbols: [
+        { tex: String.raw`F_{\max}`, key: "F_floor", unit: "N" },
+        K_FLOOR,
+        { tex: String.raw`\delta`, key: "hM", unit: "m" },
+        MASS,
+        V_IMPACT,
+        G,
+        { tex: "E", key: "youngs", unit: "Pa" },
+        { tex: String.raw`\nu`, key: "nu_poisson" },
+        { tex: "R", key: "r", unit: "m" },
+      ],
+    },
+    floor_time: {
+      tex: String.raw`\tau = 2\left(\frac{25\,m^2}{16\,K^2 v}\right)^{1/5} \int_0^1 \frac{dx}{\sqrt{1 - x^{5/2}}}`,
+      symbols: [TAU_CANNON, MASS, K_FLOOR, V_IMPACT],
+    },
+    floor_impulse: {
+      tex: String.raw`J = 2\,m v + m g\,\tau`,
+      symbols: [{ tex: "J", key: "J_impulse", unit: "N·s" }, MASS, V_IMPACT, G, TAU_CANNON],
+    },
+  },
+  harmonograph: {
+    wide_slower: {
+      tex: String.raw`T = 4\sqrt{\frac{L}{g}}\;K\!\left(\sin\frac{\theta_0}{2}\right), \qquad K(k) = \int_0^{\pi/2} \frac{d\varphi}{\sqrt{1 - k^2 \sin^2\varphi}}`,
+      symbols: [H_T, H_L, H_G, H_K, H_THETA0],
+    },
+    closes: {
+      tex: String.raw`\frac{T_1}{T_2} = \sqrt{\frac{L_1}{L_2}} = \frac{3}{2} \;\Rightarrow\; (x, y)(2T_1) = (x, y)(0)`,
+      symbols: [
+        { tex: "T_1, T_2", key: "harm_T12", unit: "s" },
+        { tex: "L_1, L_2", key: "harm_L12", unit: "m" },
+        { tex: "x, y", key: "harm_xy", unit: "m" },
+      ],
+    },
+    turns: {
+      tex: String.raw`t_\text{turn} = \frac{1}{\lvert 3 f_1 - 2 f_2 \rvert}, \qquad f = \frac{1}{T(L, \theta_0)}`,
+      symbols: [
+        { tex: String.raw`t_\text{turn}`, key: "harm_turn", unit: "s" },
+        { tex: "f_1, f_2", key: "harm_f12", unit: "Hz" },
+        H_T,
+        H_L,
+        H_THETA0,
+      ],
+    },
+    fades: {
+      tex: String.raw`\theta_\text{max}(t) = \theta_0\,e^{-ct/2} \;\Rightarrow\; t_{1/10} = \frac{2 \ln 10}{c}`,
+      symbols: [
+        { tex: String.raw`\theta_\text{max}`, key: "harm_thetamax", unit: "°" },
+        H_THETA0,
+        { tex: "c", key: "harm_c", unit: "1/s" },
+        { tex: "t", key: "t", unit: "s" },
+      ],
+    },
+  },
+  overhang: {
+    nine: {
+      tex: String.raw`d = \ell\sum_{i=1}^{n}\frac{1}{2i} = \frac{H_n}{2}\,\ell`,
+      symbols: [D_OVER, L_BLOCK, N_BLOCKS, { tex: "H_n", key: "H_n" }],
+    },
+    knife_edge: {
+      tex: String.raw`\bar x_k = r_{k+1} \quad (k = 1, \ldots, n), \qquad r_{n+1} = 0`,
+      symbols: [
+        { tex: String.raw`\bar x_k`, key: "xbar_k", unit: "m" },
+        { tex: String.raw`r_{k+1}`, key: "r_edge", unit: "m" },
+        N_BLOCKS,
+      ],
+    },
+    even: {
+      tex: String.raw`s = \frac{1}{n + 1}, \qquad d = n\,s\,\ell = \frac{n}{n + 1}\,\ell`,
+      symbols: [{ tex: "s", key: "s_step" }, N_BLOCKS, D_OVER, L_BLOCK],
+    },
+    four_lengths: {
+      tex: String.raw`N = \min\Bigl\{\,n : \sum_{i=1}^{n}\frac{1}{2i} \ge 4\Bigr\}`,
+      symbols: [{ tex: "N", key: "N_blocks" }, N_BLOCKS],
+    },
+  },
+  elephant: {
+    momentum_flux: {
+      tex: String.raw`\dot M = \int_0^\infty 2\pi r\,\rho\,u^2\,dr = \rho\,U_0^2\,\frac{\pi D^2}{4}, \qquad u = u_c\,e^{-r^2/b^2}`,
+      symbols: [
+        { tex: String.raw`\dot M`, key: "m_flux", unit: "N" },
+        { tex: "r", key: "r_jet", unit: "m" },
+        RHO_AIR,
+        { tex: "u", key: "u_jet", unit: "m/s" },
+        U0_JET,
+        OPENING,
+        UC_JET,
+        B_JET,
+      ],
+    },
+    lift_off: {
+      tex: String.raw`\tfrac12\rho\,c_d\,A\,\langle u^2\rangle = (m - \rho V)\,g, \qquad \langle u^2\rangle = u_c^2\,\frac{b^2}{2r^2}\left(1 - e^{-2r^2/b^2}\right), \qquad u_c = \frac{U_0 D}{\sqrt{2}\,b}, \qquad b = \frac{D}{\sqrt{2}} + \frac{s}{\sqrt{2}\,B}`,
+      symbols: [
+        RHO_AIR,
+        CD,
+        A_BALL,
+        { tex: String.raw`\langle u^2\rangle`, key: "u2_mean", unit: "m²/s²" },
+        M_BALL,
+        V_BALL,
+        G_SYM,
+        UC_JET,
+        B_JET,
+        { tex: "r", key: "r", unit: "m" },
+        U0_JET,
+        OPENING,
+        { tex: "s", key: "s_jet", unit: "m" },
+        { tex: "B", key: "B_decay" },
+      ],
+    },
+    float_balance: {
+      tex: String.raw`\tfrac12\rho\,u^2\,c_d\,A = (m - \rho V)\,g \;\Rightarrow\; u = \sqrt{\frac{2\,(m - \rho V)\,g}{\rho\,c_d\,A}}`,
+      symbols: [RHO_AIR, { tex: "u", key: "u_ball", unit: "m/s" }, CD, A_BALL, M_BALL, V_BALL, G_SYM],
+    },
+  },
+  gyroscope: {
+    steady_turn: {
+      tex: String.raw`T = \frac{2\pi}{\Omega}, \qquad \Omega = \frac{m\,g\,d}{L_3}, \qquad L_3 = I_3\,\omega_3, \qquad I_3 = m\,r^2`,
+      symbols: [
+        { tex: "T", key: "round_time", unit: "s" },
+        { tex: String.raw`\Omega`, key: "precession", unit: "1/s" },
+        MASS,
+        G,
+        AXLE_GYROSCOPE,
+        L3,
+        { tex: "I_3", key: "i3_hoop", unit: "kg·m²" },
+        SPIN_GYROSCOPE,
+        HOOP_R,
+      ],
+    },
+    dip: {
+      tex: String.raw`\cos\alpha - \cos\beta = \frac{2\,m g d\,I_1}{L_3^2}\,\sin^2\beta, \qquad \alpha = 90^\circ, \qquad I_1 = \tfrac12\,m r^2 + m d^2`,
+      symbols: [
+        ALPHA_GYROSCOPE,
+        { tex: String.raw`\beta`, key: "tilt_lowest", unit: "°" },
+        MASS,
+        G,
+        AXLE_GYROSCOPE,
+        I1,
+        L3,
+        HOOP_R,
+      ],
+    },
+    nods: {
+      tex: String.raw`\dot\theta^2 = B\,(\cos\alpha - \cos\theta) - \left[\frac{L_3\,(\cos\alpha - \cos\theta)}{I_1 \sin\theta}\right]^2 \approx B\,x - \left(\frac{L_3}{I_1}\right)^2 x^2, \qquad f = \frac{L_3}{2\pi\,I_1}`,
+      symbols: [
+        { tex: String.raw`\theta`, key: "axle_tilt", unit: "rad" },
+        { tex: "B", key: "top_b", unit: "1/s²" },
+        ALPHA_GYROSCOPE,
+        L3,
+        I1,
+        { tex: "x", key: "below_level", unit: "rad" },
+        { tex: "f", key: "f", unit: "1/s" },
+      ],
+    },
+    suitcase: {
+      tex: String.raw`\vec\tau = \vec\Omega \times \vec L, \qquad \tau = \Omega\,L_3, \qquad L_3 = m\,r^2\,\omega_3`,
+      symbols: [
+        { tex: String.raw`\tau`, key: "torque", unit: "N·m" },
+        { tex: String.raw`\Omega`, key: "suitcase_turn", unit: "1/s" },
+        L3,
+        MASS,
+        HOOP_R,
+        SPIN_GYROSCOPE,
       ],
     },
   },

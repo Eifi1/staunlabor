@@ -75,6 +75,308 @@
    ]
   }
  ],
+ "beats": [
+  {
+   "key": "beat_rate",
+   "unit": "Hz",
+   "expected": 0.817331022134,
+   "measured": 0.817331022138,
+   "deviation": 3.93881257082e-12,
+   "tolerance": 1e-09,
+   "derived": false,
+   "setting": {
+    "mass_kg": 0.001,
+    "position": 0.3
+   },
+   "sources": [
+    {
+     "cite": "OpenStax, University Physics Volume 1, §17.6 Beats, Eq. 17.17",
+     "url": "https://openstax.org/books/university-physics-volume-1/pages/17-6-beats",
+     "quote": "y(t) = 2A cos(2πf_avg t) cos(2π(|f₂ − f₁|/2) t), where the beat frequency is f_beat = |f₂ − f₁|."
+    }
+   ]
+  },
+  {
+   "key": "tip_rider",
+   "unit": "Hz",
+   "expected": 401.663208837,
+   "measured": 401.663208837,
+   "deviation": 0.0,
+   "tolerance": 1e-10,
+   "derived": true,
+   "setting": {
+    "mass_kg": 0.001,
+    "position": 1.0
+   },
+   "sources": [
+    {
+     "cite": "Wikipedia, “Euler–Bernoulli beam theory”, §“Example: Cantilevered beam”",
+     "url": "https://en.wikipedia.org/wiki/Euler%E2%80%93Bernoulli_beam_theory",
+     "quote": "non-trivial solutions are found to exist only if cosh(βₙL) cos(βₙL) + 1 = 0. … ŵₙ = A₁[(cosh βₙx − cos βₙx) + (cos βₙL + cosh βₙL)/(sin βₙL + sinh βₙL) (sin βₙx − sinh βₙx)]"
+    },
+    {
+     "cite": "Wikipedia, “Effective mass (spring–mass system)”, §“Uniform spring (homogeneous)”",
+     "url": "https://en.wikipedia.org/wiki/Effective_mass_(spring%E2%80%93mass_system)",
+     "quote": "The effective mass of the spring can be determined by finding its kinetic energy. … So the effective mass of the spring added to the mass of the load gives us the “effective total mass” of the system that must be used in the standard formula 2π√(m/k) to determine the period of oscillation."
+    }
+   ]
+  },
+  {
+   "key": "rider_on_prong",
+   "unit": "Hz",
+   "expected": 439.182668978,
+   "measured": 439.182668978,
+   "deviation": 0.0,
+   "tolerance": 1e-10,
+   "derived": true,
+   "setting": {
+    "mass_kg": 0.001,
+    "position": 0.3
+   },
+   "sources": [
+    {
+     "cite": "Wikipedia, “Euler–Bernoulli beam theory”, §“Example: Cantilevered beam”",
+     "url": "https://en.wikipedia.org/wiki/Euler%E2%80%93Bernoulli_beam_theory",
+     "quote": "non-trivial solutions are found to exist only if cosh(βₙL) cos(βₙL) + 1 = 0. … ŵₙ = A₁[(cosh βₙx − cos βₙx) + (cos βₙL + cosh βₙL)/(sin βₙL + sinh βₙL) (sin βₙx − sinh βₙx)]"
+    },
+    {
+     "cite": "Wikipedia, “Effective mass (spring–mass system)”, §“Uniform spring (homogeneous)”",
+     "url": "https://en.wikipedia.org/wiki/Effective_mass_(spring%E2%80%93mass_system)",
+     "quote": "The effective mass of the spring can be determined by finding its kinetic energy. … So the effective mass of the spring added to the mass of the load gives us the “effective total mass” of the system that must be used in the standard formula 2π√(m/k) to determine the period of oscillation."
+    }
+   ]
+  }
+ ],
+ "bounce": [
+  {
+   "key": "landing",
+   "unit": "s",
+   "expected": 0.248983734882,
+   "measured": 0.248983734882,
+   "deviation": 6.68852741617e-16,
+   "tolerance": 1e-12,
+   "derived": false,
+   "setting": {
+    "kind": "tennis",
+    "restitution": 0.92,
+    "height_m": 0.3
+   },
+   "sources": [
+    {
+     "cite": "Wikipedia, “Free fall”, §Uniform gravitational field with air resistance",
+     "url": "https://en.wikipedia.org/wiki/Free_fall",
+     "quote": "Assuming an object falling from rest and no change in air density with altitude …, the solution is: v(t) = v∞ tanh(gt/v∞), where the terminal speed is given by v∞ = √(2mg/(ρC_D A)). … y = y0 + (v∞²/g) ln cosh(gt/v∞)."
+    }
+   ]
+  },
+  {
+   "key": "apex",
+   "unit": "cm",
+   "expected": 23.6619217775,
+   "measured": 23.6619217775,
+   "deviation": 1.201158118e-15,
+   "tolerance": 1e-12,
+   "derived": true,
+   "setting": {
+    "kind": "tennis",
+    "restitution": 0.92,
+    "height_m": 0.3
+   },
+   "sources": [
+    {
+     "cite": "Wikipedia, “Free fall”, §Uniform gravitational field with air resistance",
+     "url": "https://en.wikipedia.org/wiki/Free_fall",
+     "quote": "Assuming an object falling from rest and no change in air density with altitude …, the solution is: v(t) = v∞ tanh(gt/v∞), where the terminal speed is given by v∞ = √(2mg/(ρC_D A)). … y = y0 + (v∞²/g) ln cosh(gt/v∞)."
+    },
+    {
+     "cite": "Wikipedia, “Bouncing ball”, §Impact",
+     "url": "https://en.wikipedia.org/wiki/Bouncing_ball",
+     "quote": "In the specific case where a ball impacts on an immovable surface, the COR simplifies to e = −v_f/v_i."
+    },
+    {
+     "cite": "Wikipedia, “Projectile motion”, §Trajectory of a projectile with Newton drag, Special cases (citing Greiner, Classical Mechanics, 2004, p. 181)",
+     "url": "https://en.wikipedia.org/wiki/Projectile_motion",
+     "quote": "Vertical motion upward: … v∞ ≡ √(g/μ) and t_f = 1/√(μg), t_peak ≡ t_f arctan(v_y,0/v∞) … and y_peak ≡ −(1/μ) ln cos(t_peak/t_f) = (1/(2μ)) ln(1 + (μ/g) v_y,0²) … Vertical motion downward: … y(t) = y_peak − (1/μ) ln(cosh((t − t_peak)/t_f))"
+    }
+   ]
+  },
+  {
+   "key": "flight",
+   "unit": "s",
+   "expected": 0.439352575544,
+   "measured": 0.439352575544,
+   "deviation": 2.52695235313e-16,
+   "tolerance": 1e-12,
+   "derived": true,
+   "setting": {
+    "kind": "tennis",
+    "restitution": 0.92,
+    "height_m": 0.3
+   },
+   "sources": [
+    {
+     "cite": "Wikipedia, “Free fall”, §Uniform gravitational field with air resistance",
+     "url": "https://en.wikipedia.org/wiki/Free_fall",
+     "quote": "Assuming an object falling from rest and no change in air density with altitude …, the solution is: v(t) = v∞ tanh(gt/v∞), where the terminal speed is given by v∞ = √(2mg/(ρC_D A)). … y = y0 + (v∞²/g) ln cosh(gt/v∞)."
+    },
+    {
+     "cite": "Wikipedia, “Bouncing ball”, §Impact",
+     "url": "https://en.wikipedia.org/wiki/Bouncing_ball",
+     "quote": "In the specific case where a ball impacts on an immovable surface, the COR simplifies to e = −v_f/v_i."
+    },
+    {
+     "cite": "Wikipedia, “Projectile motion”, §Trajectory of a projectile with Newton drag, Special cases (citing Greiner, Classical Mechanics, 2004, p. 181)",
+     "url": "https://en.wikipedia.org/wiki/Projectile_motion",
+     "quote": "Vertical motion upward: … v∞ ≡ √(g/μ) and t_f = 1/√(μg), t_peak ≡ t_f arctan(v_y,0/v∞) … and y_peak ≡ −(1/μ) ln cos(t_peak/t_f) = (1/(2μ)) ln(1 + (μ/g) v_y,0²) … Vertical motion downward: … y(t) = y_peak − (1/μ) ln(cosh((t − t_peak)/t_f))"
+    }
+   ]
+  },
+  {
+   "key": "still",
+   "unit": "s",
+   "expected": 0.302942996565,
+   "measured": 0.302925784743,
+   "deviation": 5.68153822375e-05,
+   "tolerance": 0.0003,
+   "derived": true,
+   "setting": {
+    "kind": "steel",
+    "restitution": 0.5,
+    "height_m": 0.05
+   },
+   "sources": [
+    {
+     "cite": "Wikipedia, “Free fall”, §Uniform gravitational field without air resistance",
+     "url": "https://en.wikipedia.org/wiki/Free_fall",
+     "quote": "If the initial velocity is zero, then the distance fallen from the initial position will grow as the square of the elapsed time: v(t) = −gt and y0 − y(t) = ½gt²."
+    },
+    {
+     "cite": "Wikipedia, “Bouncing ball”, §Impact",
+     "url": "https://en.wikipedia.org/wiki/Bouncing_ball",
+     "quote": "For a straight drop on the ground with no rotation, with only the force of gravity acting on the ball, the COR can be related to several other quantities by: e = |v_f/v_i| = √(K_f/K_i) = √(U_f/U_i) = √(H_f/H_i) = T_f/T_i = √(gT_f²/(8H_i))."
+    }
+   ]
+  }
+ ],
+ "cannon": [
+  {
+   "key": "impact",
+   "unit": "m/s",
+   "expected": 4.42018901518,
+   "measured": 4.42018901518,
+   "deviation": 9.04215379688e-15,
+   "tolerance": 1e-10,
+   "derived": false,
+   "setting": {
+    "count": 3,
+    "drop_m": 1.0,
+    "gap_m": 0.0,
+    "floor_restitution": 0.85,
+    "ball_restitution": 0.85,
+    "youngs_mpa": 3.0,
+    "diameter_0_m": 0.1,
+    "diameter_1_m": 0.07,
+    "diameter_2_m": 0.05
+   },
+   "sources": [
+    {
+     "cite": "Wikipedia, “Free fall”, §Uniform gravitational field with air resistance",
+     "url": "https://en.wikipedia.org/wiki/Free_fall",
+     "quote": "Assuming an object falling from rest and no change in air density with altitude …, the solution is: v(t) = v∞ tanh(gt/v∞), where the terminal speed is given by v∞ = √(2mg/(ρC_D A)). … y = y0 + (v∞²/g) ln cosh(gt/v∞)."
+    }
+   ]
+  },
+  {
+   "key": "floor_peak",
+   "unit": "N",
+   "expected": 1325.24038071,
+   "measured": 1325.19026251,
+   "deviation": 3.78181941317e-05,
+   "tolerance": 0.0001,
+   "derived": true,
+   "setting": {
+    "count": 1,
+    "drop_m": 1.0,
+    "gap_m": 0.0,
+    "floor_restitution": 1.0,
+    "ball_restitution": 0.85,
+    "youngs_mpa": 3.0,
+    "diameter_0_m": 0.1
+   },
+   "sources": [
+    {
+     "cite": "Wikipedia, “Contact mechanics”, §Contact between a sphere and a half-space (citing Hertz, 1882)",
+     "url": "https://en.wikipedia.org/wiki/Contact_mechanics",
+     "quote": "An elastic sphere of radius R indents an elastic half-space where total deformation is d … The applied force F is related to the displacement d by F = 4/3 E* R^½ d^{3/2} where 1/E* = (1 − ν₁²)/E₁ + (1 − ν₂²)/E₂"
+    },
+    {
+     "cite": "P. Patrício, “The Hertz contact in chain elastic collisions”, arXiv:physics/0402036 (doi:10.1119/1.1778394), §III.A, Eq. (5) and (7)",
+     "url": "https://arxiv.org/abs/physics/0402036",
+     "quote": "the elastic potential energy Ep depends on the combined deformation h as: Ep = 2/5 e r^½ h^{5/2} … the energy conservation principle reads: ½µ(dh/dt)² + 2/5 e r^½ h^{5/2} = ½µν²"
+    }
+   ]
+  },
+  {
+   "key": "floor_time",
+   "unit": "ms",
+   "expected": 7.11327725662,
+   "measured": 7.12,
+   "deviation": 0.000945097896935,
+   "tolerance": 0.002,
+   "derived": true,
+   "setting": {
+    "count": 1,
+    "drop_m": 1.0,
+    "gap_m": 0.0,
+    "floor_restitution": 1.0,
+    "ball_restitution": 0.85,
+    "youngs_mpa": 3.0,
+    "diameter_0_m": 0.1
+   },
+   "sources": [
+    {
+     "cite": "P. Patrício, “The Hertz contact in chain elastic collisions”, arXiv:physics/0402036, §III.A, Eq. (9)",
+     "url": "https://arxiv.org/abs/physics/0402036",
+     "quote": "The collision time corresponds to the time in which the deformation goes from 0 to hM and back to 0 again. It is given by: τ = 2 (25µ²/(16e²rν))^{1/5} ∫₀¹ dx/√(1 − x^{5/2}) ≈ 3.21 (µ²/(e²rν))^{1/5}"
+    },
+    {
+     "cite": "Wikipedia, “Contact mechanics”, §Contact between a sphere and a half-space (citing Hertz, 1882)",
+     "url": "https://en.wikipedia.org/wiki/Contact_mechanics",
+     "quote": "An elastic sphere of radius R indents an elastic half-space where total deformation is d … The applied force F is related to the displacement d by F = 4/3 E* R^½ d^{3/2} where 1/E* = (1 − ν₁²)/E₁ + (1 − ν₂²)/E₂"
+    }
+   ]
+  },
+  {
+   "key": "floor_impulse",
+   "unit": "N·s",
+   "expected": 5.13186961368,
+   "measured": 5.13179985019,
+   "deviation": 1.35941653953e-05,
+   "tolerance": 0.0001,
+   "derived": true,
+   "setting": {
+    "count": 1,
+    "drop_m": 1.0,
+    "gap_m": 0.0,
+    "floor_restitution": 1.0,
+    "ball_restitution": 0.85,
+    "youngs_mpa": 3.0,
+    "diameter_0_m": 0.1
+   },
+   "sources": [
+    {
+     "cite": "OpenStax, University Physics Volume 1, §9.2 Impulse and Collisions, Eq. 9.7",
+     "url": "https://openstax.org/books/university-physics-volume-1/pages/9-2-impulse-and-collisions",
+     "quote": "Impulse-Momentum Theorem An impulse applied to a system changes the system’s momentum, and that change of momentum is exactly equal to the impulse that was applied: J⃗ = Δp⃗."
+    },
+    {
+     "cite": "P. Patrício, “The Hertz contact in chain elastic collisions”, arXiv:physics/0402036, §III.A, Eq. (9)",
+     "url": "https://arxiv.org/abs/physics/0402036",
+     "quote": "The collision time corresponds to the time in which the deformation goes from 0 to hM and back to 0 again. It is given by: τ = 2 (25µ²/(16e²rν))^{1/5} ∫₀¹ dx/√(1 − x^{5/2}) ≈ 3.21 (µ²/(e²rν))^{1/5}"
+    }
+   ]
+  }
+ ],
  "chair": [
   {
    "key": "one_picture",
@@ -176,6 +478,93 @@
    ]
   }
  ],
+ "chaos": [
+  {
+   "key": "slow_mode",
+   "unit": "s",
+   "expected": 1.43585472508,
+   "measured": 1.43589059268,
+   "deviation": 2.49799698327e-05,
+   "tolerance": 0.0001,
+   "derived": false,
+   "setting": {
+    "length1_m": 0.3,
+    "length2_m": 0.3,
+    "mass1_kg": 0.5,
+    "mass2_kg": 0.5,
+    "damping_per_s": 0.0,
+    "upper": 1.0,
+    "lower": 1.4142135623730951
+   },
+   "sources": [
+    {
+     "cite": "S. Anlage, University of Maryland, Phys 410 (Fall 2015), Lecture #23 Summary, p. 3",
+     "url": "https://www.physics.umd.edu/courses/Phys410/Anlage_Fall15/Phys%20410%20F15%20Lecture%2023%20Summary.pdf",
+     "quote": "We then considered the special case of a double pendulum with equal masses (m) and equal lengths (L), and introduce the natural frequency (ω₀² ≡ g/L). The determinant yields two normal mode frequency solutions: ω₁ = ω₀√(2 − √2), and ω₂ = ω₀√(2 + √2). … The first is of the form φ = A₁(1, √2) cos(ω₁t − δ₁)"
+    }
+   ]
+  },
+  {
+   "key": "energy",
+   "unit": "J",
+   "expected": 2.20649625,
+   "measured": 2.20649602764,
+   "deviation": 1.00773297093e-07,
+   "tolerance": 1e-06,
+   "derived": true,
+   "setting": {
+    "length1_m": 0.3,
+    "length2_m": 0.3,
+    "mass1_kg": 0.5,
+    "mass2_kg": 0.5,
+    "damping_per_s": 0.0,
+    "upper": 120.0,
+    "lower": 120.0
+   },
+   "sources": [
+    {
+     "cite": "OpenStax, University Physics Volume 1, §8.3 Conservation of Energy",
+     "url": "https://openstax.org/books/university-physics-volume-1/pages/8-3-conservation-of-energy",
+     "quote": "The mechanical energy E of a particle stays constant unless forces outside the system or non-conservative forces do work on it"
+    },
+    {
+     "cite": "myPhysicsLab, “Double Pendulum”, §“Kinematics of the Double Pendulum”",
+     "url": "https://www.myphysicslab.com/pendulum/double-pendulum-en.html",
+     "quote": "x₁ = L₁ sin θ₁ y₁ = −L₁ cos θ₁ x₂ = x₁ + L₂ sin θ₂ y₂ = y₁ − L₂ cos θ₂ The velocity is the derivative with respect to time of the position. x₁' = θ₁' L₁ cos θ₁ y₁' = θ₁' L₁ sin θ₁ x₂' = x₁' + θ₂' L₂ cos θ₂ y₂' = y₁' + θ₂' L₂ sin θ₂"
+    }
+   ]
+  },
+  {
+   "key": "damping",
+   "unit": "1/s",
+   "expected": 0.05,
+   "measured": 0.0500023119077,
+   "deviation": 4.62381533499e-05,
+   "tolerance": 0.0002,
+   "derived": true,
+   "setting": {
+    "length1_m": 0.3,
+    "length2_m": 0.3,
+    "mass1_kg": 0.5,
+    "mass2_kg": 0.5,
+    "damping_per_s": 0.1,
+    "upper": 1.0,
+    "lower": 1.4142135623730951
+   },
+   "sources": [
+    {
+     "cite": "OpenStax, University Physics Volume 1, §15.5 Damped Oscillations, Eq. 15.23 and 15.24",
+     "url": "https://openstax.org/books/university-physics-volume-1/pages/15-5-damped-oscillations",
+     "quote": "m d²x/dt² + b dx/dt + kx = 0. … The solution is x(t) = A₀e^(−bt/2m) cos(ωt + ϕ)."
+    },
+    {
+     "cite": "S. Anlage, University of Maryland, Phys 410 (Fall 2015), Lecture #23 Summary, p. 3",
+     "url": "https://www.physics.umd.edu/courses/Phys410/Anlage_Fall15/Phys%20410%20F15%20Lecture%2023%20Summary.pdf",
+     "quote": "We then considered the special case of a double pendulum with equal masses (m) and equal lengths (L), and introduce the natural frequency (ω₀² ≡ g/L). The determinant yields two normal mode frequency solutions: ω₁ = ω₀√(2 − √2), and ω₂ = ω₀√(2 + √2). … The first is of the form φ = A₁(1, √2) cos(ω₁t − δ₁)"
+    }
+   ]
+  }
+ ],
  "chladni": [
   {
    "key": "lowest_tone",
@@ -265,6 +654,111 @@
      "cite": "A. W. Leissa, Vibration of Plates, NASA SP-160 (1969), Ch. 1, Eqs. (1.1) and (1.2), p. 1",
      "url": "https://ntrs.nasa.gov/api/citations/19700009156/downloads/19700009156.pdf",
      "quote": "D∇⁴w + ρ ∂²w/∂t² = 0 (1.1) where D is the flexural rigidity and is defined by D = Eh³/12(1−ν²) (1.2) E is Young's modulus, h is the plate thickness, ν is Poisson's ratio, ρ is mass density per unit area of the plate"
+    }
+   ]
+  }
+ ],
+ "circuit": [
+  {
+   "key": "period",
+   "unit": "s",
+   "expected": 0.994088097122,
+   "measured": 0.994088097122,
+   "deviation": 2.23365117808e-16,
+   "tolerance": 1e-12,
+   "derived": false,
+   "setting": {
+    "inductance_h": 200.0,
+    "capacitance_f": 0.000125,
+    "resistance_ohm": 90.0,
+    "voltage_v": 10.0
+   },
+   "sources": [
+    {
+     "cite": "OpenStax, University Physics Volume 2, §14.6 RLC Series Circuits, Eqs. 14.45 and 14.46",
+     "url": "https://openstax.org/books/university-physics-volume-2/pages/14-6-rlc-series-circuits",
+     "quote": "q(t) = q₀e^(−Rt/2L) cos(ω′t + ϕ) (14.45) where the angular frequency of the oscillations is given by ω′ = √(1/LC − (R/2L)²) (14.46)"
+    }
+   ]
+  },
+  {
+   "key": "energy_kept",
+   "unit": "",
+   "expected": 0.639326728096,
+   "measured": 0.639326728096,
+   "deviation": 3.47310060986e-16,
+   "tolerance": 1e-12,
+   "derived": true,
+   "setting": {
+    "inductance_h": 200.0,
+    "capacitance_f": 0.000125,
+    "resistance_ohm": 90.0,
+    "voltage_v": 10.0
+   },
+   "sources": [
+    {
+     "cite": "OpenStax, University Physics Volume 2, §14.6 RLC Series Circuits, Eqs. 14.45 and 14.46",
+     "url": "https://openstax.org/books/university-physics-volume-2/pages/14-6-rlc-series-circuits",
+     "quote": "q(t) = q₀e^(−Rt/2L) cos(ω′t + ϕ) (14.45) where the angular frequency of the oscillations is given by ω′ = √(1/LC − (R/2L)²) (14.46)"
+    },
+    {
+     "cite": "OpenStax, University Physics Volume 2, §14.5 Oscillations in an LC Circuit, before Eq. 14.36",
+     "url": "https://openstax.org/books/university-physics-volume-2/pages/14-5-oscillations-in-an-lc-circuit",
+     "quote": "At an arbitrary time when the capacitor charge is q(t) and the current is i(t), the total energy U in the circuit is given by q²(t)/2C + Li²(t)/2."
+    }
+   ]
+  },
+  {
+   "key": "energy_account",
+   "unit": "mJ",
+   "expected": 6.25,
+   "measured": 6.25,
+   "deviation": 3.0837554732e-14,
+   "tolerance": 1e-09,
+   "derived": true,
+   "setting": {
+    "inductance_h": 200.0,
+    "capacitance_f": 0.000125,
+    "resistance_ohm": 90.0,
+    "voltage_v": 10.0
+   },
+   "sources": [
+    {
+     "cite": "OpenStax, University Physics Volume 2, §14.6 RLC Series Circuits, Eq. 14.43",
+     "url": "https://openstax.org/books/university-physics-volume-2/pages/14-6-rlc-series-circuits",
+     "quote": "When the switch is closed in the RLC circuit of Figure 14.17 (a), the capacitor begins to discharge and electromagnetic energy is dissipated by the resistor at a rate i²R. With U given by Equation 14.37, we have dU/dt = (q/C)(dq/dt) + Li(di/dt) = −i²R (14.43)"
+    },
+    {
+     "cite": "OpenStax, University Physics Volume 2, §14.5 Oscillations in an LC Circuit, before Eq. 14.36",
+     "url": "https://openstax.org/books/university-physics-volume-2/pages/14-5-oscillations-in-an-lc-circuit",
+     "quote": "At an arbitrary time when the capacitor charge is q(t) and the current is i(t), the total energy U in the circuit is given by q²(t)/2C + Li²(t)/2."
+    }
+   ]
+  },
+  {
+   "key": "edge",
+   "unit": "mA",
+   "expected": 2.90834234613,
+   "measured": 2.90834234613,
+   "deviation": 0.0,
+   "tolerance": 1e-12,
+   "derived": true,
+   "setting": {
+    "inductance_h": 200.0,
+    "capacitance_f": 0.000125,
+    "resistance_ohm": 2529.8221281347037,
+    "voltage_v": 10.0
+   },
+   "sources": [
+    {
+     "cite": "OpenStax, University Physics Volume 2, §14.6 RLC Series Circuits, after Eq. 14.44",
+     "url": "https://openstax.org/books/university-physics-volume-2/pages/14-6-rlc-series-circuits",
+     "quote": "the result can be underdamped (√(k/m) > b/2m), critically damped (√(k/m) = b/2m), or overdamped (√(k/m) < b/2m). By analogy, the solution q(t) to the RLC differential equation has the same feature. … By replacing m by L, b by R, k by 1/C, and x by q in Equation 14.44"
+    },
+    {
+     "cite": "Wikipedia, “Damping”, §Damping ratio",
+     "url": "https://en.wikipedia.org/wiki/Damping",
+     "quote": "It can be solved with the approach x(t) = Ce^(st), where C and s are both complex constants, with s satisfying s = −ω_n(ζ ± i√(1 − ζ²)). … The case where ζ = 1 is the border between the overdamped and underdamped cases, and is referred to as critically damped."
     }
    ]
   }
@@ -439,6 +933,95 @@
    ]
   }
  ],
+ "cone": [
+  {
+   "key": "axis_path",
+   "unit": "cm",
+   "expected": 1.88425686946,
+   "measured": 1.88425686946,
+   "deviation": 1.17842003669e-16,
+   "tolerance": 1e-12,
+   "derived": true,
+   "setting": {
+    "radius_m": 0.06,
+    "cone_deg": 20.0,
+    "spread_deg": 20.0,
+    "slope_deg": 4.0,
+    "start_half_gap_m": 0.03,
+    "length_m": 0.3
+   },
+   "sources": [
+    {
+     "cite": "S. C. Gandhi, C. J. Efthimiou, “The ascending double cone: a closer look at a familiar demonstration”, Eur. J. Phys. 26 (2005) 681, arXiv:physics/0501135, §2, Eq. (4)",
+     "url": "https://arxiv.org/abs/physics/0501135",
+     "quote": "sin α = tan φ tan ψ"
+    },
+    {
+     "cite": "S. C. Gandhi, C. J. Efthimiou, arXiv:physics/0501135, §4, Eq. (9) and after",
+     "url": "https://arxiv.org/abs/physics/0501135",
+     "quote": "Equation (9) implies that the CM is constrained to move along a line on the zy-plane with slope λ and intercept b. … the CM’s path is a line declined (inclined if α < θ) below the horizontal by an angle α − θ"
+    }
+   ]
+  },
+  {
+   "key": "threshold",
+   "unit": "°",
+   "expected": 7.54628044289,
+   "measured": 7.54628044289,
+   "deviation": 0.0,
+   "tolerance": 1e-12,
+   "derived": true,
+   "setting": {
+    "radius_m": 0.06,
+    "cone_deg": 20.0,
+    "spread_deg": 20.0,
+    "slope_deg": 4.0,
+    "start_half_gap_m": 0.03,
+    "length_m": 0.3
+   },
+   "sources": [
+    {
+     "cite": "S. C. Gandhi, C. J. Efthimiou, arXiv:physics/0501135, §5, before Eq. (11)",
+     "url": "https://arxiv.org/abs/physics/0501135",
+     "quote": "For the cone to roll up the ramp, the potential must be a decreasing function of q, that is sin(α − θ) > 0."
+    },
+    {
+     "cite": "S. C. Gandhi, C. J. Efthimiou, “The ascending double cone: a closer look at a familiar demonstration”, Eur. J. Phys. 26 (2005) 681, arXiv:physics/0501135, §2, Eq. (4)",
+     "url": "https://arxiv.org/abs/physics/0501135",
+     "quote": "sin α = tan φ tan ψ"
+    }
+   ]
+  },
+  {
+   "key": "speed",
+   "unit": "cm/s",
+   "expected": 28.53570253,
+   "measured": 28.53570253,
+   "deviation": 3.797270002e-14,
+   "tolerance": 1e-09,
+   "derived": true,
+   "setting": {
+    "radius_m": 0.06,
+    "cone_deg": 20.0,
+    "spread_deg": 20.0,
+    "slope_deg": 4.0,
+    "start_half_gap_m": 0.03,
+    "length_m": 0.3
+   },
+   "sources": [
+    {
+     "cite": "S. C. Gandhi, C. J. Efthimiou, arXiv:physics/0501135, §4, Eqs. (7) and (8), and §5, Eq. (12)",
+     "url": "https://arxiv.org/abs/physics/0501135",
+     "quote": "Z_CM = a cos α. … a = L tan ψ − Y_P sin α. … Y_P = (Y_CM − L tan ψ sin α)/cos² α. … E = T + U = ½[m + I/(L tan ψ − q tan α)²] q̇² − mgq sin(α − θ)."
+    },
+    {
+     "cite": "Wikipedia, “List of moments of inertia”, right circular cone (citing Beer, Johnston, Vector Mechanics for Engineers, 4th ed., p. 911)",
+     "url": "https://en.wikipedia.org/wiki/List_of_moments_of_inertia",
+     "quote": "I_z = 3/10 mr²"
+    }
+   ]
+  }
+ ],
  "coriolis": [
   {
    "key": "at_rest",
@@ -549,6 +1132,119 @@
      "cite": "M. Fowler, Graduate Classical Mechanics (LibreTexts), §30.5 “Ball Rolling on Rotating Plane”, after E. A. Milne, Vectorial Mechanics",
      "url": "https://phys.libretexts.org/Bookshelves/Classical_Mechanics/Graduate_Classical_Mechanics_(Fowler)/30%3A_A_Rolling_Sphere_on_a_Rotating_Plane/30.05%3A_Ball_Rolling_on_Rotating_Plane",
      "quote": "(1 + a²m/I) r̈ = ω n̂ × ṙ … For a uniform sphere, I = 2/5 Ma², so ṙ = 2/7 ω n̂ × (r − r₀) So the ball rolling on the rotating plate goes around in a circle, which could be any circle."
+    }
+   ]
+  }
+ ],
+ "coupled": [
+  {
+   "key": "together",
+   "unit": "s",
+   "expected": 1.42145143144,
+   "measured": 1.42145143146,
+   "deviation": 1.21315633628e-11,
+   "tolerance": 1e-09,
+   "derived": true,
+   "setting": {
+    "spring_n_m": 1.0,
+    "spring_at_m": 0.25,
+    "right_length_m": 0.5,
+    "mass_kg": 0.2,
+    "damping_per_s": 0.0,
+    "start": "together"
+   },
+   "sources": [
+    {
+     "cite": "OpenStax, University Physics Volume 1, §15.4 Pendulums, Eqs. 15.18 and 15.19",
+     "url": "https://openstax.org/books/university-physics-volume-1/pages/15-4-pendulums",
+     "quote": "The angular frequency is ω = √(g/L) and the period is T = 2π√(L/g)."
+    },
+    {
+     "cite": "NIST Digital Library of Mathematical Functions, §22.19(i), Eq. 22.19.1 and after Eq. 22.19.2",
+     "url": "https://dlmf.nist.gov/22.19",
+     "quote": "With appropriate scalings, Newton’s equation of motion for a pendulum … is d²θ(t)/dt² = −sin θ(t) … The period is 4K(sin(½α))"
+    },
+    {
+     "cite": "NIST Digital Library of Mathematical Functions, §19.2(ii), Eqs. 19.2.4 and 19.2.8",
+     "url": "https://dlmf.nist.gov/19.2",
+     "quote": "F(φ,k) = ∫₀^φ dθ/√(1 − k² sin²θ) … K(k) = F(π/2,k)"
+    }
+   ]
+  },
+  {
+   "key": "against",
+   "unit": "s",
+   "expected": 1.33955511402,
+   "measured": 1.33955511369,
+   "deviation": 2.45202910329e-10,
+   "tolerance": 1e-09,
+   "derived": true,
+   "setting": {
+    "spring_n_m": 1.0,
+    "spring_at_m": 0.25,
+    "right_length_m": 0.5,
+    "mass_kg": 0.2,
+    "damping_per_s": 0.0,
+    "start": "against"
+   },
+   "sources": [
+    {
+     "cite": "OpenStax, University Physics Volume 1, §8.1 Potential Energy of a System, Eqs. 8.5 and 8.7",
+     "url": "https://openstax.org/books/university-physics-volume-1/pages/8-1-potential-energy-of-a-system",
+     "quote": "U(y) = mgy + const. … U(x) = ½kx² + const."
+    },
+    {
+     "cite": "E. Eyler (after T. Moran, D. Hamilton), “Physics 258/259: Coupled Oscillators”, University of Connecticut, §I, Eqs. (14)–(15) and (16)",
+     "url": "https://www.phys.uconn.edu/~eyler/phys258/N/Coupled_Pendulums.pdf",
+     "quote": "ω−² = mgL/I, ω+² = (mgL + 2kl²)/I … the number of nodes per second in the beat note is equal to the difference of the two normal mode frequencies measured in Hz, f1 − f2 = (ω1 − ω2)/2π."
+    }
+   ]
+  },
+  {
+   "key": "beat",
+   "unit": "s",
+   "expected": 22.949129808,
+   "measured": 22.949129808,
+   "deviation": 0.0,
+   "tolerance": 1e-12,
+   "derived": true,
+   "setting": {
+    "spring_n_m": 1.0,
+    "spring_at_m": 0.25,
+    "right_length_m": 0.5,
+    "mass_kg": 0.2,
+    "damping_per_s": 0.0,
+    "start": "one"
+   },
+   "sources": [
+    {
+     "cite": "E. Eyler (after T. Moran, D. Hamilton), “Physics 258/259: Coupled Oscillators”, University of Connecticut, §I, Eqs. (14)–(15) and (16)",
+     "url": "https://www.phys.uconn.edu/~eyler/phys258/N/Coupled_Pendulums.pdf",
+     "quote": "ω−² = mgL/I, ω+² = (mgL + 2kl²)/I … the number of nodes per second in the beat note is equal to the difference of the two normal mode frequencies measured in Hz, f1 − f2 = (ω1 − ω2)/2π."
+    }
+   ]
+  },
+  {
+   "key": "energy",
+   "unit": "mJ",
+   "expected": 15.8408076925,
+   "measured": 15.8408076924,
+   "deviation": 3.81493550389e-12,
+   "tolerance": 1e-10,
+   "derived": false,
+   "setting": {
+    "spring_n_m": 1.0,
+    "spring_at_m": 0.25,
+    "right_length_m": 0.5,
+    "mass_kg": 0.2,
+    "damping_per_s": 0.0,
+    "start": "one"
+   },
+   "sources": [
+    {
+     "cite": "OpenStax, University Physics Volume 1, §8.1 Potential Energy of a System, Eqs. 8.5 and 8.7",
+     "url": "https://openstax.org/books/university-physics-volume-1/pages/8-1-potential-energy-of-a-system",
+     "quote": "U(y) = mgy + const. … U(x) = ½kx² + const."
     }
    ]
   }
@@ -690,6 +1386,220 @@
    ]
   }
  ],
+ "diver": [
+  {
+   "key": "reserve",
+   "unit": "g",
+   "expected": 0.1936,
+   "measured": 0.1936,
+   "deviation": 4.01423614276e-15,
+   "tolerance": 1e-12,
+   "derived": false,
+   "setting": {
+    "air_m3": 2e-06,
+    "depth_m": 0.3,
+    "squeeze_kpa": 0.0,
+    "start": "surface"
+   },
+   "sources": [
+    {
+     "cite": "OpenStax, University Physics Volume 1, §14.4 Archimedes’ Principle and Buoyancy",
+     "url": "https://openstax.org/books/university-physics-volume-1/pages/14-4-archimedes-principle-and-buoyancy",
+     "quote": "Archimedes’ Principle The buoyant force on an object equals the weight of the fluid it displaces. In equation form, Archimedes’ principle is F_B = w_fl"
+    }
+   ]
+  },
+  {
+   "key": "sinks_from_top",
+   "unit": "kPa",
+   "expected": 10.8835552597,
+   "measured": 10.8835552597,
+   "deviation": 6.52859032557e-16,
+   "tolerance": 1e-12,
+   "derived": true,
+   "setting": {
+    "air_m3": 2e-06,
+    "depth_m": 0.3,
+    "squeeze_kpa": 10.9,
+    "start": "surface"
+   },
+   "sources": [
+    {
+     "cite": "OpenStax, Chemistry 2e, §9.2 Relating Pressure, Volume, Amount, and Temperature: The Ideal Gas Law",
+     "url": "https://openstax.org/books/chemistry-2e/pages/9-2-relating-pressure-volume-amount-and-temperature-the-ideal-gas-law",
+     "quote": "Boyle’s law: The volume of a given amount of gas held at constant temperature is inversely proportional to the pressure under which it is measured."
+    },
+    {
+     "cite": "OpenStax, University Physics Volume 1, §14.4 Archimedes’ Principle and Buoyancy",
+     "url": "https://openstax.org/books/university-physics-volume-1/pages/14-4-archimedes-principle-and-buoyancy",
+     "quote": "Archimedes’ Principle The buoyant force on an object equals the weight of the fluid it displaces. In equation form, Archimedes’ principle is F_B = w_fl"
+    }
+   ]
+  },
+  {
+   "key": "rises_from_bottom",
+   "unit": "kPa",
+   "expected": 7.94744424965,
+   "measured": 7.94744424926,
+   "deviation": 4.98844061326e-11,
+   "tolerance": 1e-09,
+   "derived": true,
+   "setting": {
+    "air_m3": 2e-06,
+    "depth_m": 0.3,
+    "squeeze_kpa": 7.9,
+    "start": "bottom"
+   },
+   "sources": [
+    {
+     "cite": "OpenStax, Chemistry 2e, §9.2 Relating Pressure, Volume, Amount, and Temperature: The Ideal Gas Law",
+     "url": "https://openstax.org/books/chemistry-2e/pages/9-2-relating-pressure-volume-amount-and-temperature-the-ideal-gas-law",
+     "quote": "Boyle’s law: The volume of a given amount of gas held at constant temperature is inversely proportional to the pressure under which it is measured."
+    },
+    {
+     "cite": "OpenStax, University Physics Volume 1, §14.4 Archimedes’ Principle and Buoyancy",
+     "url": "https://openstax.org/books/university-physics-volume-1/pages/14-4-archimedes-principle-and-buoyancy",
+     "quote": "Archimedes’ Principle The buoyant force on an object equals the weight of the fluid it displaces. In equation form, Archimedes’ principle is F_B = w_fl"
+    },
+    {
+     "cite": "OpenStax, University Physics Volume 1, §14.1, “Pressure in a fluid with a constant density”, Eq. 14.9",
+     "url": "https://openstax.org/books/university-physics-volume-1/pages/14-1-fluids-density-and-pressure",
+     "quote": "p = p₀ + ρgh. … Hence, pressure at a depth of fluid on the surface of Earth is equal to the atmospheric pressure plus ρgh if the density of the fluid is constant over the height"
+    }
+   ]
+  },
+  {
+   "key": "leaves_hover",
+   "unit": "1/s",
+   "expected": 0.585318557158,
+   "measured": 0.585312232336,
+   "deviation": 1.08057768398e-05,
+   "tolerance": 5e-05,
+   "derived": true,
+   "setting": {
+    "air_m3": 2e-06,
+    "depth_m": 0.3,
+    "squeeze_kpa": 10.0,
+    "start": "hover"
+   },
+   "sources": [
+    {
+     "cite": "OpenStax, Chemistry 2e, §9.2 Relating Pressure, Volume, Amount, and Temperature: The Ideal Gas Law",
+     "url": "https://openstax.org/books/chemistry-2e/pages/9-2-relating-pressure-volume-amount-and-temperature-the-ideal-gas-law",
+     "quote": "Boyle’s law: The volume of a given amount of gas held at constant temperature is inversely proportional to the pressure under which it is measured."
+    },
+    {
+     "cite": "OpenStax, University Physics Volume 1, §14.1, “Pressure in a fluid with a constant density”, Eq. 14.9",
+     "url": "https://openstax.org/books/university-physics-volume-1/pages/14-1-fluids-density-and-pressure",
+     "quote": "p = p₀ + ρgh. … Hence, pressure at a depth of fluid on the surface of Earth is equal to the atmospheric pressure plus ρgh if the density of the fluid is constant over the height"
+    },
+    {
+     "cite": "Wikipedia, “Added mass”",
+     "url": "https://en.wikipedia.org/wiki/Added_mass",
+     "quote": "One can show that the added mass for a sphere (of radius r) is ⅔πr³ρ_fluid, which is half the volume of the sphere times the density of the fluid."
+    }
+   ]
+  }
+ ],
+ "elephant": [
+  {
+   "key": "momentum_flux",
+   "unit": "N",
+   "expected": 1.98155956625,
+   "measured": 1.98155956625,
+   "deviation": 2.66804093771e-13,
+   "tolerance": 1e-10,
+   "derived": true,
+   "setting": {
+    "opening_m": 0.1,
+    "speed_m_s": 14.5,
+    "diameter_m": 0.15,
+    "mass_kg": 0.03,
+    "coanda": 1.0,
+    "tilt": 0.0
+   },
+   "sources": [
+    {
+     "cite": "Stern Lab, University of Iowa, lecture notes “Chapter 7: Free Shear Flows: Jets, Mixing Layers and Wakes (Pope)”, Part 1: Round and 2D Jets, p. 3",
+     "url": "https://stern.lab.uiowa.edu/sites/stern.lab.uiowa.edu/files/2025-11/Chapter-7-Free-Shear-Flows-Part-1-final.pdf",
+     "quote": "Therefore, momentum flux of the mean flow is independent of x: Ṁ = ∫₀^∞ 2πrρU² dr = constant ≠ f(x) … i.e., r₁/₂(x)~x and U₀(x)~x⁻¹ consistent with momentum flux being constant"
+    }
+   ]
+  },
+  {
+   "key": "lift_off",
+   "unit": "m/s",
+   "expected": 12.0663556339,
+   "measured": 12.07254448,
+   "deviation": 0.000512901022791,
+   "tolerance": 0.001,
+   "derived": true,
+   "setting": {
+    "opening_m": 0.1,
+    "speed_m_s": 14.5,
+    "diameter_m": 0.15,
+    "mass_kg": 0.03,
+    "coanda": 1.0,
+    "tilt": 0.0
+   },
+   "sources": [
+    {
+     "cite": "Stern Lab, University of Iowa, lecture notes “Chapter 7: Free Shear Flows: Jets, Mixing Layers and Wakes (Pope)”, Part 1: Round and 2D Jets, p. 3",
+     "url": "https://stern.lab.uiowa.edu/sites/stern.lab.uiowa.edu/files/2025-11/Chapter-7-Free-Shear-Flows-Part-1-final.pdf",
+     "quote": "Therefore, momentum flux of the mean flow is independent of x: Ṁ = ∫₀^∞ 2πrρU² dr = constant ≠ f(x) … i.e., r₁/₂(x)~x and U₀(x)~x⁻¹ consistent with momentum flux being constant"
+    },
+    {
+     "cite": "Wikipedia, “Drag equation”",
+     "url": "https://en.wikipedia.org/wiki/Drag_equation",
+     "quote": "F_d = ½ρu²c_dA where F_d is the drag force, which is by definition the force component in the direction of the flow velocity, ρ is the mass density of the fluid, u is the flow velocity relative to the object, A is the reference area, and c_d is the drag coefficient"
+    },
+    {
+     "cite": "Wikipedia, “Drag coefficient”, §“Drag coefficient examples”",
+     "url": "https://en.wikipedia.org/wiki/Drag_coefficient",
+     "quote": "A smooth sphere, for example, has a c_d that varies from high values for laminar flow to 0.47 for turbulent flow."
+    },
+    {
+     "cite": "OpenStax, University Physics Volume 1, §14.4 Archimedes’ Principle and Buoyancy",
+     "url": "https://openstax.org/books/university-physics-volume-1/pages/14-4-archimedes-principle-and-buoyancy",
+     "quote": "Archimedes’ Principle The buoyant force on an object equals the weight of the fluid it displaces. In equation form, Archimedes’ principle is F_B = w_fl"
+    }
+   ]
+  },
+  {
+   "key": "float_balance",
+   "unit": "m/s",
+   "expected": 7.40698541978,
+   "measured": 7.40698541986,
+   "deviation": 1.04014327414e-11,
+   "tolerance": 1e-08,
+   "derived": false,
+   "setting": {
+    "opening_m": 0.1,
+    "speed_m_s": 14.5,
+    "diameter_m": 0.15,
+    "mass_kg": 0.03,
+    "coanda": 1.0,
+    "tilt": 0.0
+   },
+   "sources": [
+    {
+     "cite": "Wikipedia, “Drag equation”",
+     "url": "https://en.wikipedia.org/wiki/Drag_equation",
+     "quote": "F_d = ½ρu²c_dA where F_d is the drag force, which is by definition the force component in the direction of the flow velocity, ρ is the mass density of the fluid, u is the flow velocity relative to the object, A is the reference area, and c_d is the drag coefficient"
+    },
+    {
+     "cite": "Wikipedia, “Drag coefficient”, §“Drag coefficient examples”",
+     "url": "https://en.wikipedia.org/wiki/Drag_coefficient",
+     "quote": "A smooth sphere, for example, has a c_d that varies from high values for laminar flow to 0.47 for turbulent flow."
+    },
+    {
+     "cite": "OpenStax, University Physics Volume 1, §14.4 Archimedes’ Principle and Buoyancy",
+     "url": "https://openstax.org/books/university-physics-volume-1/pages/14-4-archimedes-principle-and-buoyancy",
+     "quote": "Archimedes’ Principle The buoyant force on an object equals the weight of the fluid it displaces. In equation form, Archimedes’ principle is F_B = w_fl"
+    }
+   ]
+  }
+ ],
  "foucault": [
   {
    "key": "winterthur",
@@ -796,6 +1706,395 @@
      "cite": "OpenStax, University Physics Volume 1, §15.4 Pendulums, Eq. 15.19",
      "url": "https://openstax.org/books/university-physics-volume-1/pages/15-4-pendulums",
      "quote": "and the period is T = 2π√(L/g)."
+    }
+   ]
+  }
+ ],
+ "gyroscope": [
+  {
+   "key": "steady_turn",
+   "unit": "s",
+   "expected": 8.05135649878,
+   "measured": 8.05135649878,
+   "deviation": 9.72970661894e-14,
+   "tolerance": 1e-11,
+   "derived": true,
+   "setting": {
+    "rpm": 200.0,
+    "tilt_deg": 90.0,
+    "start": "steady"
+   },
+   "sources": [
+    {
+     "cite": "OpenStax, University Physics Volume 1, §11.4 Precession of a Gyroscope, Eq. 11.12",
+     "url": "https://openstax.org/books/university-physics-volume-1/pages/11-4-precession-of-a-gyroscope",
+     "quote": "The precession angular velocity is ω_P = dϕ/dt and from this equation we see that ω_P = rMg/L … or, since L = Iω, ω_P = rMg/(Iω). (11.12) In this derivation, we assumed that ω_P ≪ ω"
+    },
+    {
+     "cite": "J. Tatum, LibreTexts, Classical Mechanics, §4.10 The Top, Eq. 4.10.29 and 4.10.30",
+     "url": "https://phys.libretexts.org/Bookshelves/Classical_Mechanics/Classical_Mechanics_(Tatum)/04%3A_Rigid_Body_Rotation/4.10%3A_The_Top",
+     "quote": "Therefore, in vector notation, τ = Ω × L (4.10.29) Note that the magnitude of τ is Mgl sinθ and the magnitude of Ω × L is ΩL sinθ, so that the rate of precession is Ω = Mgl/L (4.10.30) and is independent of θ."
+    },
+    {
+     "cite": "Wikipedia, “List of moments of inertia”, thin circular loop",
+     "url": "https://en.wikipedia.org/wiki/List_of_moments_of_inertia",
+     "quote": "Thin circular loop of radius r and mass m. I_z = m r² I_x = I_y = ½ m r²"
+    }
+   ]
+  },
+  {
+   "key": "dip",
+   "unit": "°",
+   "expected": 3.19404261744,
+   "measured": 3.19404260108,
+   "deviation": 5.1209915817e-09,
+   "tolerance": 0.0001,
+   "derived": true,
+   "setting": {
+    "rpm": 200.0,
+    "tilt_deg": 90.0,
+    "start": "rest"
+   },
+   "sources": [
+    {
+     "cite": "J. Tatum, LibreTexts, Classical Mechanics, §4.10 The Top, Eq. 4.10.25",
+     "url": "https://phys.libretexts.org/Bookshelves/Classical_Mechanics/Classical_Mechanics_(Tatum)/04%3A_Rigid_Body_Rotation/4.10%3A_The_Top",
+     "quote": "It corresponds to just letting the top drop when you let it go, without giving it either a forward or a backward push. … cos α − cos β = (2MglI₁/L₃²) sin²β, (4.10.25) from which we see that the greater L₃, the smaller the difference between α and β - i.e. the smaller the amplitute of the nutation."
+    },
+    {
+     "cite": "Wikipedia, “List of moments of inertia”, thin circular loop",
+     "url": "https://en.wikipedia.org/wiki/List_of_moments_of_inertia",
+     "quote": "Thin circular loop of radius r and mass m. I_z = m r² I_x = I_y = ½ m r²"
+    },
+    {
+     "cite": "OpenStax, University Physics Volume 1, §10.5 Calculating Moments of Inertia, Eq. 10.20",
+     "url": "https://openstax.org/books/university-physics-volume-1/pages/10-5-calculating-moments-of-inertia",
+     "quote": "Let m be the mass of an object and let d be the distance from an axis through the object’s center of mass to a new axis. Then we have I_parallel-axis = I_center of mass + md². (10.20)"
+    }
+   ]
+  },
+  {
+   "key": "nods",
+   "unit": "1/s",
+   "expected": 13.3333333333,
+   "measured": 13.3337138462,
+   "deviation": 2.85384614054e-05,
+   "tolerance": 0.0001,
+   "derived": true,
+   "setting": {
+    "rpm": 600.0,
+    "tilt_deg": 90.0,
+    "start": "rest"
+   },
+   "sources": [
+    {
+     "cite": "J. Tatum, LibreTexts, Classical Mechanics, §4.10 The Top, Eq. 4.10.15 and 4.10.22",
+     "url": "https://phys.libretexts.org/Bookshelves/Classical_Mechanics/Classical_Mechanics_(Tatum)/04%3A_Rigid_Body_Rotation/4.10%3A_The_Top",
+     "quote": "B = 2Mgl/I₁ (4.10.15) … In the case Equation 4.10.13 becomes θ̇² = B(cos α − cos θ) − [L₃(cos α − cos θ)/(I₁ sin θ)]² (4.10.22)"
+    },
+    {
+     "cite": "Wikipedia, “List of moments of inertia”, thin circular loop",
+     "url": "https://en.wikipedia.org/wiki/List_of_moments_of_inertia",
+     "quote": "Thin circular loop of radius r and mass m. I_z = m r² I_x = I_y = ½ m r²"
+    },
+    {
+     "cite": "OpenStax, University Physics Volume 1, §10.5 Calculating Moments of Inertia, Eq. 10.20",
+     "url": "https://openstax.org/books/university-physics-volume-1/pages/10-5-calculating-moments-of-inertia",
+     "quote": "Let m be the mass of an object and let d be the distance from an axis through the object’s center of mass to a new axis. Then we have I_parallel-axis = I_center of mass + md². (10.20)"
+    }
+   ]
+  },
+  {
+   "key": "suitcase",
+   "unit": "N·m",
+   "expected": 5.92176264065,
+   "measured": 5.92176264065,
+   "deviation": 0.0,
+   "tolerance": 1e-12,
+   "derived": true,
+   "setting": {
+    "rpm": 200.0
+   },
+   "sources": [
+    {
+     "cite": "J. Tatum, LibreTexts, Classical Mechanics, §4.10 The Top, Eq. 4.10.29 and 4.10.30",
+     "url": "https://phys.libretexts.org/Bookshelves/Classical_Mechanics/Classical_Mechanics_(Tatum)/04%3A_Rigid_Body_Rotation/4.10%3A_The_Top",
+     "quote": "Therefore, in vector notation, τ = Ω × L (4.10.29) Note that the magnitude of τ is Mgl sinθ and the magnitude of Ω × L is ΩL sinθ, so that the rate of precession is Ω = Mgl/L (4.10.30) and is independent of θ."
+    },
+    {
+     "cite": "Wikipedia, “List of moments of inertia”, thin circular loop",
+     "url": "https://en.wikipedia.org/wiki/List_of_moments_of_inertia",
+     "quote": "Thin circular loop of radius r and mass m. I_z = m r² I_x = I_y = ½ m r²"
+    }
+   ]
+  }
+ ],
+ "harmonograph": [
+  {
+   "key": "wide_slower",
+   "unit": "s",
+   "expected": 1.8258286299,
+   "measured": 1.82582862988,
+   "deviation": 1.0074304196e-11,
+   "tolerance": 1e-09,
+   "derived": true,
+   "setting": {
+    "pen_length_m": 0.8,
+    "pen_amplitude_deg": 30.0,
+    "board_length_m": 0.35086180430682873,
+    "board_amplitude_deg": 5.0,
+    "board_phase_deg": 90.0,
+    "damping_per_s": 0.0
+   },
+   "sources": [
+    {
+     "cite": "NIST Digital Library of Mathematical Functions, §22.19(i), Eqs. 22.19.1–22.19.2",
+     "url": "https://dlmf.nist.gov/22.19",
+     "quote": "With appropriate scalings, Newton’s equation of motion for a pendulum … is d²θ(t)/dt² = −sin θ(t), … for an initial angular displacement α, with dθ/dt = 0 at time 0 … The period is 4K(sin(½α))."
+    },
+    {
+     "cite": "NIST Digital Library of Mathematical Functions, §19.2(ii), Eqs. 19.2.4 and 19.2.8",
+     "url": "https://dlmf.nist.gov/19.2",
+     "quote": "F(ϕ, k) = ∫₀^ϕ dθ/√(1 − k² sin²θ) … The cases with ϕ = π/2 are the complete integrals: K(k) = F(π/2, k)"
+    },
+    {
+     "cite": "OpenStax, University Physics Volume 1, §15.4 Pendulums, Eqs. 15.17–15.19",
+     "url": "https://openstax.org/books/university-physics-volume-1/pages/15-4-pendulums",
+     "quote": "d²θ/dt² = −(g/L)θ. (15.17) … The angular frequency is ω = √(g/L) (15.18) and the period is T = 2π√(L/g). (15.19)"
+    }
+   ]
+  },
+  {
+   "key": "closes",
+   "unit": "m",
+   "expected": 0.0,
+   "measured": 8.63596817833e-12,
+   "deviation": 8.63596817833e-12,
+   "tolerance": 1e-09,
+   "derived": true,
+   "setting": {
+    "pen_length_m": 0.8,
+    "pen_amplitude_deg": 12.0,
+    "board_length_m": 0.35555555555555557,
+    "board_amplitude_deg": 12.0,
+    "board_phase_deg": 90.0,
+    "damping_per_s": 0.0
+   },
+   "sources": [
+    {
+     "cite": "Wikipedia, “Lissajous curve”, introduction",
+     "url": "https://en.wikipedia.org/wiki/Lissajous_curve",
+     "quote": "A small change to one of the frequencies will mean the x oscillation after one cycle will be slightly out of synchronization with the y motion and so the ellipse will fail to close and trace a curve slightly adjacent during the next orbit showing as a precession of the ellipse. The pattern closes if the frequencies are whole number ratios i.e. a/b is rational."
+    },
+    {
+     "cite": "NIST Digital Library of Mathematical Functions, §22.19(i), Eqs. 22.19.1–22.19.2",
+     "url": "https://dlmf.nist.gov/22.19",
+     "quote": "With appropriate scalings, Newton’s equation of motion for a pendulum … is d²θ(t)/dt² = −sin θ(t), … for an initial angular displacement α, with dθ/dt = 0 at time 0 … The period is 4K(sin(½α))."
+    }
+   ]
+  },
+  {
+   "key": "turns",
+   "unit": "s",
+   "expected": 25.6753257046,
+   "measured": 25.675325715,
+   "deviation": 4.06451856259e-10,
+   "tolerance": 1e-08,
+   "derived": true,
+   "setting": {
+    "pen_length_m": 0.8,
+    "pen_amplitude_deg": 30.0,
+    "board_length_m": 0.35086180430682873,
+    "board_amplitude_deg": 5.0,
+    "board_phase_deg": 90.0,
+    "damping_per_s": 0.0
+   },
+   "sources": [
+    {
+     "cite": "Wikipedia, “Lissajous curve”, introduction",
+     "url": "https://en.wikipedia.org/wiki/Lissajous_curve",
+     "quote": "A small change to one of the frequencies will mean the x oscillation after one cycle will be slightly out of synchronization with the y motion and so the ellipse will fail to close and trace a curve slightly adjacent during the next orbit showing as a precession of the ellipse. The pattern closes if the frequencies are whole number ratios i.e. a/b is rational."
+    },
+    {
+     "cite": "NIST Digital Library of Mathematical Functions, §22.19(i), Eqs. 22.19.1–22.19.2",
+     "url": "https://dlmf.nist.gov/22.19",
+     "quote": "With appropriate scalings, Newton’s equation of motion for a pendulum … is d²θ(t)/dt² = −sin θ(t), … for an initial angular displacement α, with dθ/dt = 0 at time 0 … The period is 4K(sin(½α))."
+    },
+    {
+     "cite": "NIST Digital Library of Mathematical Functions, §19.2(ii), Eqs. 19.2.4 and 19.2.8",
+     "url": "https://dlmf.nist.gov/19.2",
+     "quote": "F(ϕ, k) = ∫₀^ϕ dθ/√(1 − k² sin²θ) … The cases with ϕ = π/2 are the complete integrals: K(k) = F(π/2, k)"
+    }
+   ]
+  },
+  {
+   "key": "fades",
+   "unit": "s",
+   "expected": 230.258509299,
+   "measured": 230.255290789,
+   "deviation": 1.39778140648e-05,
+   "tolerance": 5e-05,
+   "derived": true,
+   "setting": {
+    "pen_length_m": 0.8,
+    "pen_amplitude_deg": 2.0,
+    "board_length_m": 0.35086180430682873,
+    "board_amplitude_deg": 2.0,
+    "board_phase_deg": 90.0,
+    "damping_per_s": 0.02
+   },
+   "sources": [
+    {
+     "cite": "Wikipedia, “Harmonic oscillator”, §Damped harmonic oscillator",
+     "url": "https://en.wikipedia.org/wiki/Harmonic_oscillator",
+     "quote": "d²x/dt² + 2ζω₀ dx/dt + ω₀²x = 0, … Underdamped (ζ < 1): … the exponential decay of the underdamped harmonic oscillator is given by λ = ω₀ζ."
+    }
+   ]
+  }
+ ],
+ "levitation": [
+  {
+   "key": "lift",
+   "unit": "g",
+   "expected": 23.5888970516,
+   "measured": 23.5888970516,
+   "deviation": 5.54695052099e-13,
+   "tolerance": 1e-10,
+   "derived": true,
+   "setting": {
+    "mass_kg": 0.0235,
+    "warming_k": 0.0
+   },
+   "sources": [
+    {
+     "cite": "OpenStax, University Physics Volume 2, §12.4 Magnetic Field of a Current Loop, Eq. 12.15",
+     "url": "https://openstax.org/books/university-physics-volume-2/pages/12-4-magnetic-field-of-a-current-loop",
+     "quote": "B = μ₀IR² / [2(y² + R²)^(3/2)]"
+    },
+    {
+     "cite": "Wikipedia, “Magnetization”, §Magnetization current",
+     "url": "https://en.wikipedia.org/wiki/Magnetization",
+     "quote": "The magnetization M makes a contribution to the current density J, known as the magnetization current. … J_m = ∇ × M and for the bound surface current: K_m = M × n̂"
+    },
+    {
+     "cite": "M. V. Berry, A. K. Geim, “Of flying frogs and levitrons”, Eur. J. Phys. 18 (1997) 307, §2, Eq. (5)",
+     "url": "https://obelix.physik.uni-bielefeld.de/~schnack/Herbstakademie/CD-2008/frog-ejp.pdf",
+     "quote": "For the Levitron™, m is approximately antiparallel to B(r), so this angle is close to 180°, and the energy is E(r) = mgz − m · B(r) ≈ mgz + |m|B(r)."
+    }
+   ]
+  },
+  {
+   "key": "window_foot",
+   "unit": "cm",
+   "expected": 4.35870803985,
+   "measured": 4.35870803984,
+   "deviation": 5.53034571031e-13,
+   "tolerance": 1e-10,
+   "derived": true,
+   "setting": {
+    "mass_kg": 0.0235,
+    "warming_k": 0.0
+   },
+   "sources": [
+    {
+     "cite": "M. V. Berry, A. K. Geim, “Of flying frogs and levitrons”, Eur. J. Phys. 18 (1997) 307, §3 Eq. (16) and §4",
+     "url": "https://obelix.physik.uni-bielefeld.de/~schnack/Herbstakademie/CD-2008/frog-ejp.pdf",
+     "quote": "D2(z) ≡ B′(z)² − 2B(z)B″(z) > 0 (horizontal stability). For the Levitron™, where the magnetic energy (5) depends on B(r) rather than B²(r), a similar analysis leads to the same horizontal stability condition, and the simpler vertical stability condition B″(r) > 0. … there is an inflection point at some height zi, that is B″(zi) = 0. … In the Levitron™, the stable zone is zi < z < z2"
+    },
+    {
+     "cite": "OpenStax, University Physics Volume 2, §12.4 Magnetic Field of a Current Loop, Eq. 12.15",
+     "url": "https://openstax.org/books/university-physics-volume-2/pages/12-4-magnetic-field-of-a-current-loop",
+     "quote": "B = μ₀IR² / [2(y² + R²)^(3/2)]"
+    },
+    {
+     "cite": "Wikipedia, “Magnetization”, §Magnetization current",
+     "url": "https://en.wikipedia.org/wiki/Magnetization",
+     "quote": "The magnetization M makes a contribution to the current density J, known as the magnetization current. … J_m = ∇ × M and for the bound surface current: K_m = M × n̂"
+    }
+   ]
+  },
+  {
+   "key": "window_head",
+   "unit": "cm",
+   "expected": 4.80518783009,
+   "measured": 4.80518783009,
+   "deviation": 4.79837887523e-13,
+   "tolerance": 1e-10,
+   "derived": true,
+   "setting": {
+    "mass_kg": 0.0235,
+    "warming_k": 0.0
+   },
+   "sources": [
+    {
+     "cite": "M. V. Berry, A. K. Geim, “Of flying frogs and levitrons”, Eur. J. Phys. 18 (1997) 307, §3 Eq. (16) and §4",
+     "url": "https://obelix.physik.uni-bielefeld.de/~schnack/Herbstakademie/CD-2008/frog-ejp.pdf",
+     "quote": "D2(z) ≡ B′(z)² − 2B(z)B″(z) > 0 (horizontal stability). For the Levitron™, where the magnetic energy (5) depends on B(r) rather than B²(r), a similar analysis leads to the same horizontal stability condition, and the simpler vertical stability condition B″(r) > 0. … there is an inflection point at some height zi, that is B″(zi) = 0. … In the Levitron™, the stable zone is zi < z < z2"
+    },
+    {
+     "cite": "OpenStax, University Physics Volume 2, §12.4 Magnetic Field of a Current Loop, Eq. 12.15",
+     "url": "https://openstax.org/books/university-physics-volume-2/pages/12-4-magnetic-field-of-a-current-loop",
+     "quote": "B = μ₀IR² / [2(y² + R²)^(3/2)]"
+    },
+    {
+     "cite": "Wikipedia, “Magnetization”, §Magnetization current",
+     "url": "https://en.wikipedia.org/wiki/Magnetization",
+     "quote": "The magnetization M makes a contribution to the current density J, known as the magnetization current. … J_m = ∇ × M and for the bound surface current: K_m = M × n̂"
+    }
+   ]
+  },
+  {
+   "key": "bob",
+   "unit": "Hz",
+   "expected": 1.46643470525,
+   "measured": 1.46643470527,
+   "deviation": 1.19673213457e-11,
+   "tolerance": 1e-09,
+   "derived": true,
+   "setting": {
+    "mass_kg": 0.0235,
+    "warming_k": 0.0
+   },
+   "sources": [
+    {
+     "cite": "M. V. Berry, A. K. Geim, “Of flying frogs and levitrons”, Eur. J. Phys. 18 (1997) 307, §2, Eq. (5)",
+     "url": "https://obelix.physik.uni-bielefeld.de/~schnack/Herbstakademie/CD-2008/frog-ejp.pdf",
+     "quote": "For the Levitron™, m is approximately antiparallel to B(r), so this angle is close to 180°, and the energy is E(r) = mgz − m · B(r) ≈ mgz + |m|B(r)."
+    },
+    {
+     "cite": "OpenStax, University Physics Volume 1, §15.1 Simple Harmonic Motion, Eq. 15.9",
+     "url": "https://openstax.org/books/university-physics-volume-1/pages/15-1-simple-harmonic-motion",
+     "quote": "ω = √(k/m). The angular frequency depends only on the force constant and the mass, and not the amplitude."
+    }
+   ]
+  },
+  {
+   "key": "drift",
+   "unit": "Hz",
+   "expected": 0.636131325182,
+   "measured": 0.636131325163,
+   "deviation": 2.93401386989e-11,
+   "tolerance": 1e-09,
+   "derived": true,
+   "setting": {
+    "mass_kg": 0.0235,
+    "warming_k": 0.0
+   },
+   "sources": [
+    {
+     "cite": "M. V. Berry, A. K. Geim, “Of flying frogs and levitrons”, Eur. J. Phys. 18 (1997) 307, §3, Eq. (12) and (15)",
+     "url": "https://obelix.physik.uni-bielefeld.de/~schnack/Herbstakademie/CD-2008/frog-ejp.pdf",
+     "quote": "φn(z) ≡ ∂zⁿΦ(0, 0, z). … From (11), the field strength can now be written B²(r) = φ1²(z) + ¼(x² + y²)(φ2²(z) − 2φ1(z)φ3(z)) + …"
+    },
+    {
+     "cite": "M. V. Berry, A. K. Geim, “Of flying frogs and levitrons”, Eur. J. Phys. 18 (1997) 307, §2, Eq. (5)",
+     "url": "https://obelix.physik.uni-bielefeld.de/~schnack/Herbstakademie/CD-2008/frog-ejp.pdf",
+     "quote": "For the Levitron™, m is approximately antiparallel to B(r), so this angle is close to 180°, and the energy is E(r) = mgz − m · B(r) ≈ mgz + |m|B(r)."
+    },
+    {
+     "cite": "OpenStax, University Physics Volume 1, §15.1 Simple Harmonic Motion, Eq. 15.9",
+     "url": "https://openstax.org/books/university-physics-volume-1/pages/15-1-simple-harmonic-motion",
+     "quote": "ω = √(k/m). The angular frequency depends only on the force constant and the mass, and not the amplitude."
     }
    ]
   }
@@ -933,6 +2232,226 @@
      "cite": "OpenStax, University Physics Volume 1, §15.2 Energy in Simple Harmonic Motion",
      "url": "https://openstax.org/books/university-physics-volume-1/pages/15-2-energy-in-simple-harmonic-motion",
      "quote": "The kinetic energy is maximum and equal to K = ½mv² = ½mA²ω² = ½kA². … The total energy of the system is constant."
+    }
+   ]
+  }
+ ],
+ "overhang": [
+  {
+   "key": "nine",
+   "unit": "cm",
+   "expected": 28.2896825397,
+   "measured": 28.2896825397,
+   "deviation": 0.0,
+   "tolerance": 1e-12,
+   "derived": false,
+   "setting": {},
+   "sources": [
+    {
+     "cite": "Wikipedia, “Block-stacking problem”, §Variants, Single-wide",
+     "url": "https://en.wikipedia.org/wiki/Block-stacking_problem",
+     "quote": "the solution to the single-wide problem is that the maximum overhang is given by ∑_{i=1}^{N} 1/(2i) times the width of a block. This sum is one half of the corresponding partial sum of the harmonic series."
+    },
+    {
+     "cite": "M. Paterson, U. Zwick, “Overhang”, arXiv:0710.2357, abstract (Amer. Math. Monthly)",
+     "url": "https://arxiv.org/abs/0710.2357",
+     "quote": "How far off the edge of the table can we reach by stacking n identical, homogeneous, frictionless blocks of length 1? A classical solution achieves an overhang of 1/2 H_n, where H_n ~ ln n is the nth harmonic number."
+    }
+   ]
+  },
+  {
+   "key": "knife_edge",
+   "unit": "",
+   "expected": 0.0,
+   "measured": 1.11022302463e-16,
+   "deviation": 1.11022302463e-16,
+   "tolerance": 1e-12,
+   "derived": false,
+   "setting": {},
+   "sources": [
+    {
+     "cite": "Wikipedia, “Block-stacking problem”, §Proof of solution of single-wide variant",
+     "url": "https://en.wikipedia.org/wiki/Block-stacking_problem",
+     "quote": "For k blocks, the center of mass of the k-block system must lie above the table's edge, and the center of mass of the k−1 top blocks must lie above the edge of the first for static equilibrium."
+    }
+   ]
+  },
+  {
+   "key": "even",
+   "unit": "cm",
+   "expected": 18.0,
+   "measured": 18.0,
+   "deviation": 0.0,
+   "tolerance": 1e-12,
+   "derived": true,
+   "setting": {
+    "blocks": 9,
+    "stack": "even"
+   },
+   "sources": [
+    {
+     "cite": "Wikipedia, “Block-stacking problem”, §Proof of solution of single-wide variant",
+     "url": "https://en.wikipedia.org/wiki/Block-stacking_problem",
+     "quote": "For k blocks, the center of mass of the k-block system must lie above the table's edge, and the center of mass of the k−1 top blocks must lie above the edge of the first for static equilibrium."
+    }
+   ]
+  },
+  {
+   "key": "four_lengths",
+   "unit": "",
+   "expected": 1674.0,
+   "measured": 1674.0,
+   "deviation": 0.0,
+   "tolerance": 0.0,
+   "derived": false,
+   "setting": {},
+   "sources": [
+    {
+     "cite": "Wikipedia, “Block-stacking problem”, §Variants, Single-wide (citing OEIS A014537)",
+     "url": "https://en.wikipedia.org/wiki/Block-stacking_problem",
+     "quote": "The number of blocks required to reach at least N block-lengths past the edge of the table is 4, 31, 227, 1674, 12367, 91380, ..."
+    },
+    {
+     "cite": "Wikipedia, “Block-stacking problem”, §Variants, Single-wide",
+     "url": "https://en.wikipedia.org/wiki/Block-stacking_problem",
+     "quote": "the solution to the single-wide problem is that the maximum overhang is given by ∑_{i=1}^{N} 1/(2i) times the width of a block. This sum is one half of the corresponding partial sum of the harmonic series."
+    }
+   ]
+  }
+ ],
+ "parabola": [
+  {
+   "key": "centre",
+   "unit": "cm",
+   "expected": 4.90500096562,
+   "measured": 4.90500096562,
+   "deviation": 0.0,
+   "tolerance": 1e-12,
+   "derived": false,
+   "setting": {
+    "radius_m": 0.15,
+    "height_m": 0.3,
+    "fill_m": 0.1,
+    "rate_rad_s": 9.42477796076938,
+    "water": "turning"
+   },
+   "sources": [
+    {
+     "cite": "P. Menker, A. Herczyński, “Form of spinning liquids in diverse geometries”, Am. J. Phys. 88 (2020) 475, §II, Eq. (1) and (2)",
+     "url": "https://arxiv.org/abs/2208.05059",
+     "quote": "the surface will take the shape of the paraboloid of revolution given in cylindrical coordinates by z(r) = αr² + d, (1) where the rotation parameter α (steepness of the paraboloid) is defined as α = ω²/2g. (2)"
+    },
+    {
+     "cite": "P. Menker, A. Herczyński, “Form of spinning liquids in diverse geometries”, Am. J. Phys. 88 (2020) 475, §III.A, Eq. (3)",
+     "url": "https://arxiv.org/abs/2208.05059",
+     "quote": "Equating these two expressions and writing out the rotational parameter α explicitly yield d = h − ω²R²/4g. (3)"
+    }
+   ]
+  },
+  {
+   "key": "dry_rate",
+   "unit": "1/s",
+   "expected": 13.2038041656,
+   "measured": 13.2038041656,
+   "deviation": 0.0,
+   "tolerance": 1e-12,
+   "derived": false,
+   "setting": {
+    "radius_m": 0.15,
+    "height_m": 0.3,
+    "fill_m": 0.1,
+    "rate_rad_s": 13.194689145077131,
+    "water": "turning"
+   },
+   "sources": [
+    {
+     "cite": "P. Menker, A. Herczyński, “Form of spinning liquids in diverse geometries”, Am. J. Phys. 88 (2020) 475, §III.A, Eq. (6)",
+     "url": "https://arxiv.org/abs/2208.05059",
+     "quote": "Now setting either d = 0 in Eq. (3), or δ = 0 in Eqs. (4) or (5), gives the critical angular speed as ω₁ = (2/R)√(hg). (6)"
+    }
+   ]
+  },
+  {
+   "key": "dry_rim",
+   "unit": "cm",
+   "expected": 25.3792931324,
+   "measured": 25.3792931324,
+   "deviation": 2.79969474348e-16,
+   "tolerance": 1e-12,
+   "derived": true,
+   "setting": {
+    "radius_m": 0.15,
+    "height_m": 0.3,
+    "fill_m": 0.1,
+    "rate_rad_s": 16.755160819145562,
+    "water": "turning"
+   },
+   "sources": [
+    {
+     "cite": "P. Menker, A. Herczyński, “Form of spinning liquids in diverse geometries”, Am. J. Phys. 88 (2020) 475, §III.A, Eq. (5)",
+     "url": "https://arxiv.org/abs/2208.05059",
+     "quote": "For the supercritical case, with a dry patch of radius δ at the bottom, d = −αδ² and the free surface is given by z = α(r² − δ²). … whose physically meaningful solution (positive and smaller than R) is δ = R√(1 − 2√(hg)/(Rω)). (5)"
+    },
+    {
+     "cite": "P. Menker, A. Herczyński, “Form of spinning liquids in diverse geometries”, Am. J. Phys. 88 (2020) 475, §II, Eq. (1) and (2)",
+     "url": "https://arxiv.org/abs/2208.05059",
+     "quote": "the surface will take the shape of the paraboloid of revolution given in cylindrical coordinates by z(r) = αr² + d, (1) where the rotation parameter α (steepness of the paraboloid) is defined as α = ω²/2g. (2)"
+    }
+   ]
+  },
+  {
+   "key": "mirror",
+   "unit": "m",
+   "expected": 9.12509435724,
+   "measured": 9.12509435724,
+   "deviation": 0.0,
+   "tolerance": 1e-12,
+   "derived": false,
+   "setting": {
+    "radius_m": 0.15,
+    "height_m": 0.3,
+    "fill_m": 0.1,
+    "rate_rad_s": 0.7330382858376183,
+    "water": "turning"
+   },
+   "sources": [
+    {
+     "cite": "Wikipedia, “Liquid-mirror telescope”, §1.1 “Rotation speed and focal length”",
+     "url": "https://en.wikipedia.org/wiki/Liquid-mirror_telescope",
+     "quote": "Dividing this equation by the last one above it eliminates h and r and leads to 2fω² = g, which relates the angular velocity of the rotation of the liquid to the focal length of the paraboloid that is produced by the rotation."
+    },
+    {
+     "cite": "P. Menker, A. Herczyński, “Form of spinning liquids in diverse geometries”, Am. J. Phys. 88 (2020) 475, §II, Eq. (1) and (2)",
+     "url": "https://arxiv.org/abs/2208.05059",
+     "quote": "the surface will take the shape of the paraboloid of revolution given in cylindrical coordinates by z(r) = αr² + d, (1) where the rotation parameter α (steepness of the paraboloid) is defined as α = ω²/2g. (2)"
+    },
+    {
+     "cite": "Wikipedia, “Paraboloid”, §“Dimensions of a paraboloidal dish”",
+     "url": "https://en.wikipedia.org/wiki/Paraboloid",
+     "quote": "The dimensions of a symmetrical paraboloidal dish are related by the equation 4FD = R², where F is the focal length, D is the depth of the dish (measured along the axis of symmetry from the vertex to the plane of the rim), and R is the radius of the rim."
+    }
+   ]
+  },
+  {
+   "key": "spin_up",
+   "unit": "",
+   "expected": 0.632193952412,
+   "measured": 0.632193952412,
+   "deviation": 0.0,
+   "tolerance": 1e-12,
+   "derived": true,
+   "setting": {
+    "radius_m": 0.15,
+    "height_m": 0.3,
+    "fill_m": 0.1,
+    "rate_rad_s": 9.42477796076938,
+    "water": "rest"
+   },
+   "sources": [
+    {
+     "cite": "H. P. Greenspan, L. N. Howard, “On a time-dependent motion of a rotating fluid”, J. Fluid Mech. 17 (1963) 385, §3, p. 391–392, Eq. (3.21)",
+     "url": "https://empslocal.ex.ac.uk/people/staff/gv219/classics.d/Greenspan_Howard63.pdf",
+     "quote": "For large time, it follows from (3.18) and (3.19) that V_I ~ 1 − e^(−tR^(−½)) + O(t^(−½) e^(2it)) … the ‘spin-up time’ T (the time required for the interior flow to approach the final state of rigid rotation within e⁻¹) is R^½ in dimensionless units. Dimensionally T = (L²/νΩ)^½. (3.21)"
     }
    ]
   }
@@ -1175,6 +2694,312 @@
    ]
   }
  ],
+ "platform": [
+  {
+   "key": "leaning_inertia",
+   "unit": "kg·m²",
+   "expected": 5.3412,
+   "measured": 5.3412,
+   "deviation": 0.0,
+   "tolerance": 1e-12,
+   "derived": true,
+   "setting": {
+    "lean_m": 0.3,
+    "friction_n_m": 0.2
+   },
+   "sources": [
+    {
+     "cite": "OpenStax, University Physics Volume 1, §10.5 Calculating Moments of Inertia, Eq. 10.20",
+     "url": "https://openstax.org/books/university-physics-volume-1/pages/10-5-calculating-moments-of-inertia",
+     "quote": "Let m be the mass of an object and let d be the distance from an axis through the object’s center of mass to a new axis. Then we have I_parallel-axis = I_center of mass + md². … I_end = I_center of mass + md² = (1/12)mL² + m(L/2)² = (1/12 + 1/4)mL² = (1/3)mL²."
+    },
+    {
+     "cite": "OpenStax, University Physics Volume 1, §10.5, “A uniform thin disk about an axis through the center”, and Eq. 10.21",
+     "url": "https://openstax.org/books/university-physics-volume-1/pages/10-5-calculating-moments-of-inertia",
+     "quote": "I = ∫₀ᴿ r²σ(2πr)dr = … = (1/2)mR². … a compound object’s moment of inertia can be found from the sum of each part of the object: I_total = Σᵢ Iᵢ."
+    }
+   ]
+  },
+  {
+   "key": "faster_upright",
+   "unit": "",
+   "expected": 3.20561757292,
+   "measured": 3.20561757292,
+   "deviation": 1.38534681617e-16,
+   "tolerance": 1e-12,
+   "derived": false,
+   "setting": {
+    "lean_m": 0.3,
+    "friction_n_m": 0.0
+   },
+   "sources": [
+    {
+     "cite": "OpenStax, University Physics Volume 1, §11.3 Conservation of Angular Momentum, Eqs. 11.10–11.11 and Example 11.8",
+     "url": "https://openstax.org/books/university-physics-volume-1/pages/11-3-conservation-of-angular-momentum",
+     "quote": "The angular momentum of a system of particles around a point in a fixed inertial reference frame is conserved if there is no net external torque around that point … Conservation of angular momentum: I_f ω_f = I₀ω₀"
+    },
+    {
+     "cite": "OpenStax, University Physics Volume 1, §10.5 Calculating Moments of Inertia, Eq. 10.20",
+     "url": "https://openstax.org/books/university-physics-volume-1/pages/10-5-calculating-moments-of-inertia",
+     "quote": "Let m be the mass of an object and let d be the distance from an axis through the object’s center of mass to a new axis. Then we have I_parallel-axis = I_center of mass + md². … I_end = I_center of mass + md² = (1/12)mL² + m(L/2)² = (1/12 + 1/4)mL² = (1/3)mL²."
+    },
+    {
+     "cite": "OpenStax, University Physics Volume 1, §10.5, “A uniform thin disk about an axis through the center”, and Eq. 10.21",
+     "url": "https://openstax.org/books/university-physics-volume-1/pages/10-5-calculating-moments-of-inertia",
+     "quote": "I = ∫₀ᴿ r²σ(2πr)dr = … = (1/2)mR². … a compound object’s moment of inertia can be found from the sum of each part of the object: I_total = Σᵢ Iᵢ."
+    }
+   ]
+  },
+  {
+   "key": "pull",
+   "unit": "N",
+   "expected": 124.357015454,
+   "measured": 124.357015454,
+   "deviation": 3.42823957218e-16,
+   "tolerance": 1e-12,
+   "derived": true,
+   "setting": {
+    "lean_m": 0.3,
+    "friction_n_m": 0.2
+   },
+   "sources": [
+    {
+     "cite": "OpenStax, University Physics Volume 1, §6.3 Centripetal Force, Eq. 6.3",
+     "url": "https://openstax.org/books/university-physics-volume-1/pages/6-3-centripetal-force",
+     "quote": "we get two expressions for the centripetal force F_c in terms of mass, velocity, angular velocity, and radius of curvature: F_c = mv²/r; F_c = mrω²."
+    }
+   ]
+  },
+  {
+   "key": "bearing_stops",
+   "unit": "s",
+   "expected": 85.0,
+   "measured": 85.0,
+   "deviation": 5.80137245432e-14,
+   "tolerance": 1e-12,
+   "derived": false,
+   "setting": {
+    "lean_m": 0.3,
+    "friction_n_m": 0.2
+   },
+   "sources": [
+    {
+     "cite": "OpenStax, University Physics Volume 1, §11.2 Angular Momentum, Eq. 11.8",
+     "url": "https://openstax.org/books/university-physics-volume-1/pages/11-2-angular-momentum",
+     "quote": "dL/dt = Στ. (11.8) Equation 11.8 states that the rate of change of the total angular momentum of a system is equal to the net external torque"
+    }
+   ]
+  }
+ ],
+ "race": [
+  {
+   "key": "line",
+   "unit": "s",
+   "expected": 0.982374380754,
+   "measured": 0.982374380754,
+   "deviation": 1.61610375466e-14,
+   "tolerance": 1e-12,
+   "derived": true,
+   "setting": {
+    "drop_m": 0.5,
+    "run_m": 1.2,
+    "ball": "solid"
+   },
+   "sources": [
+    {
+     "cite": "OpenStax, University Physics Volume 1, §11.1 Rolling Motion, Eq. 11.4",
+     "url": "https://openstax.org/books/university-physics-volume-1/pages/11-1-rolling-motion",
+     "quote": "a_CM = mg sin θ / (m + I_CM/r²)"
+    },
+    {
+     "cite": "OpenStax, University Physics Volume 1, §3.4 Motion with Constant Acceleration, Eq. 3.13",
+     "url": "https://openstax.org/books/university-physics-volume-1/pages/3-4-motion-with-constant-acceleration",
+     "quote": "x = x₀ + v₀t + ½at² (constant a)"
+    },
+    {
+     "cite": "Wikipedia, “List of moments of inertia”, solid sphere (citing Serway, Physics for Scientists and Engineers)",
+     "url": "https://en.wikipedia.org/wiki/List_of_moments_of_inertia",
+     "quote": "I = 2/5 m r²"
+    }
+   ]
+  },
+  {
+   "key": "cycloid",
+   "unit": "s",
+   "expected": 0.74726098845,
+   "measured": 0.74726098847,
+   "deviation": 2.72065641605e-11,
+   "tolerance": 1e-10,
+   "derived": true,
+   "setting": {
+    "drop_m": 0.5,
+    "run_m": 1.2,
+    "ball": "solid"
+   },
+   "sources": [
+    {
+     "cite": "Wikipedia, “Brachistochrone curve”, §Johann Bernoulli’s solution",
+     "url": "https://en.wikipedia.org/wiki/Brachistochrone_curve",
+     "quote": "x = r(φ − sin φ), y = r(1 − cos φ) … In the brachistochrone problem, the motion of the body is given by the time evolution of the parameter: φ(t) = ωt, ω = √(g/r) where t is the time since the release of the body from the point (0,0)."
+    },
+    {
+     "cite": "OpenStax, University Physics Volume 1, §11.1 Rolling Motion, Eq. 11.4",
+     "url": "https://openstax.org/books/university-physics-volume-1/pages/11-1-rolling-motion",
+     "quote": "a_CM = mg sin θ / (m + I_CM/r²)"
+    }
+   ]
+  },
+  {
+   "key": "tautochrone",
+   "unit": "s",
+   "expected": 0.650150918007,
+   "measured": 0.650150965165,
+   "deviation": 7.25332597433e-08,
+   "tolerance": 1e-07,
+   "derived": true,
+   "setting": {
+    "drop_m": 0.5,
+    "run_m": 1.2,
+    "ball": "solid"
+   },
+   "sources": [
+    {
+     "cite": "Wikipedia, “Tautochrone curve”, introduction",
+     "url": "https://en.wikipedia.org/wiki/Tautochrone_curve",
+     "quote": "the curve for which the time taken by an object sliding without friction in uniform gravity to its lowest point is independent of its starting point on the curve. The curve is a cycloid, and the time is equal to π times the square root of the radius of the circle which generates the cycloid, divided by the square root of the acceleration of gravity."
+    },
+    {
+     "cite": "OpenStax, University Physics Volume 1, §11.1 Rolling Motion, Eq. 11.4",
+     "url": "https://openstax.org/books/university-physics-volume-1/pages/11-1-rolling-motion",
+     "quote": "a_CM = mg sin θ / (m + I_CM/r²)"
+    }
+   ]
+  },
+  {
+   "key": "bowl",
+   "unit": "s",
+   "expected": 0.696483601678,
+   "measured": 0.696483636442,
+   "deviation": 4.99143750183e-08,
+   "tolerance": 1e-07,
+   "derived": true,
+   "setting": {
+    "drop_m": 0.5,
+    "run_m": 1.2,
+    "ball": "solid"
+   },
+   "sources": [
+    {
+     "cite": "NIST Digital Library of Mathematical Functions, §22.19(i), Eq. 22.19.1 and after Eq. 22.19.2",
+     "url": "https://dlmf.nist.gov/22.19",
+     "quote": "With appropriate scalings, Newton’s equation of motion for a pendulum … is d²θ(t)/dt² = −sin θ(t) … The period is 4K(sin(½α))"
+    },
+    {
+     "cite": "NIST Digital Library of Mathematical Functions, §19.2(ii), Eqs. 19.2.4 and 19.2.8",
+     "url": "https://dlmf.nist.gov/19.2",
+     "quote": "F(φ,k) = ∫₀^φ dθ/√(1 − k² sin²θ) … K(k) = F(π/2,k)"
+    },
+    {
+     "cite": "OpenStax, University Physics Volume 1, §11.1 Rolling Motion, Eq. 11.4",
+     "url": "https://openstax.org/books/university-physics-volume-1/pages/11-1-rolling-motion",
+     "quote": "a_CM = mg sin θ / (m + I_CM/r²)"
+    }
+   ]
+  }
+ ],
+ "rainbow": [
+  {
+   "key": "water",
+   "unit": "°",
+   "expected": 42.0781073802,
+   "measured": 42.0781073802,
+   "deviation": 5.0658842329e-16,
+   "tolerance": 1e-12,
+   "derived": false,
+   "setting": {
+    "index": 1.333,
+    "dispersion_nm2": 3140.0
+   },
+   "sources": [
+    {
+     "cite": "Wikipedia, “Rainbow”, §3.1 “Mathematical derivation”",
+     "url": "https://en.wikipedia.org/wiki/Rainbow",
+     "quote": "Given a spherical raindrop, and defining the perceived angle of the rainbow as 2φ, and the angle of the internal reflection as 2β, the angle of incidence of the Sun's rays with respect to the drop's surface normal is 2β − φ. Since the angle of refraction is β, Snell's law gives sin(2β − φ) = n sin β, where n = 1.333 is the refractive index of water (for green light). Solving for φ yields φ = 2β − arcsin(n sin β). … Solving for β yields β_max = arccos(2√(−1 + n²)/(√3 n)) ≈ 40.2°. Substituting back into the earlier equation for φ yields 2φ_max ≈ 42° as the radius angle of the rainbow."
+    }
+   ]
+  },
+  {
+   "key": "colours",
+   "unit": "°",
+   "expected": 1.49181364449,
+   "measured": 1.49181364449,
+   "deviation": 0.0,
+   "tolerance": 1e-11,
+   "derived": true,
+   "setting": {
+    "index": 1.52,
+    "dispersion_nm2": 4200.0
+   },
+   "sources": [
+    {
+     "cite": "Wikipedia, “Rainbow”, §3.1 “Mathematical derivation”",
+     "url": "https://en.wikipedia.org/wiki/Rainbow",
+     "quote": "Given a spherical raindrop, and defining the perceived angle of the rainbow as 2φ, and the angle of the internal reflection as 2β, the angle of incidence of the Sun's rays with respect to the drop's surface normal is 2β − φ. Since the angle of refraction is β, Snell's law gives sin(2β − φ) = n sin β, where n = 1.333 is the refractive index of water (for green light). Solving for φ yields φ = 2β − arcsin(n sin β). … Solving for β yields β_max = arccos(2√(−1 + n²)/(√3 n)) ≈ 40.2°. Substituting back into the earlier equation for φ yields 2φ_max ≈ 42° as the radius angle of the rainbow."
+    },
+    {
+     "cite": "Wikipedia, “Rainbow”, §3 “Explanation”",
+     "url": "https://en.wikipedia.org/wiki/Rainbow",
+     "quote": "Due to this angle, blue is seen on the inside of the arc of the primary rainbow, and red on the outside."
+    },
+    {
+     "cite": "Wikipedia, “Cauchy’s equation”, §“Formulation”",
+     "url": "https://en.wikipedia.org/wiki/Cauchy%27s_equation",
+     "quote": "Usually, it is sufficient to use a two-term form of the equation: n(λ) = A + B/λ², where the coefficients A and B are determined specifically for this form of the equation."
+    }
+   ]
+  },
+  {
+   "key": "drawn_ray",
+   "unit": "°",
+   "expected": 16.8195899885,
+   "measured": 16.8195899885,
+   "deviation": 4.22449498617e-15,
+   "tolerance": 1e-12,
+   "derived": false,
+   "setting": {
+    "index": 1.52,
+    "dispersion_nm2": 4200.0,
+    "impact": 0.5
+   },
+   "sources": [
+    {
+     "cite": "Wikipedia, “Rainbow”, §3.1 “Mathematical derivation”",
+     "url": "https://en.wikipedia.org/wiki/Rainbow",
+     "quote": "Given a spherical raindrop, and defining the perceived angle of the rainbow as 2φ, and the angle of the internal reflection as 2β, the angle of incidence of the Sun's rays with respect to the drop's surface normal is 2β − φ. Since the angle of refraction is β, Snell's law gives sin(2β − φ) = n sin β, where n = 1.333 is the refractive index of water (for green light). Solving for φ yields φ = 2β − arcsin(n sin β). … Solving for β yields β_max = arccos(2√(−1 + n²)/(√3 n)) ≈ 40.2°. Substituting back into the earlier equation for φ yields 2φ_max ≈ 42° as the radius angle of the rainbow."
+    }
+   ]
+  },
+  {
+   "key": "reflected",
+   "unit": "",
+   "expected": 0.0554772974555,
+   "measured": 0.0554776486054,
+   "deviation": 6.32961434767e-06,
+   "tolerance": 2e-05,
+   "derived": true,
+   "setting": {
+    "index": 1.52,
+    "dispersion_nm2": 4200.0
+   },
+   "sources": [
+    {
+     "cite": "Wikipedia, “Fresnel equations”, §3 “Power (intensity) reflection and transmission coefficients”",
+     "url": "https://en.wikipedia.org/wiki/Fresnel_equations",
+     "quote": "Making this substitution, we obtain equations using the refractive indices: R_s = |(n₁ cos θ_i − n₂ cos θ_t)/(n₁ cos θ_i + n₂ cos θ_t)|² … R_p = |(n₁ cos θ_t − n₂ cos θ_i)/(n₁ cos θ_t + n₂ cos θ_i)|² … That means that there is an equal amount of power in the s and p polarizations, so that the effective reflectivity of the material is just the average of the two reflectivities"
+    }
+   ]
+  }
+ ],
  "resonance": [
   {
    "key": "tone",
@@ -1401,6 +3226,227 @@
      "cite": "Wikipedia, “Air mass (astronomy)”, §Variable-density atmosphere",
      "url": "https://en.wikipedia.org/wiki/Air_mass_(astronomy)",
      "quote": "The absolute air mass for the geometrical light path discussed above, becomes, for a sea-level observer, σ = ∫₀^{y_atm} ρ (R_E + y) dy / √(R_E² cos² z + 2 R_E y + y²)"
+    }
+   ]
+  }
+ ],
+ "slits": [
+  {
+   "key": "spacing",
+   "unit": "mm",
+   "expected": 5.2,
+   "measured": 5.20005712267,
+   "deviation": 1.09851296169e-05,
+   "tolerance": 3e-05,
+   "derived": true,
+   "setting": {
+    "light": "laser",
+    "nm": 650.0,
+    "slits": "both",
+    "spacing_m": 0.00025,
+    "width_m": 5e-05,
+    "distance_m": 2.0
+   },
+   "sources": [
+    {
+     "cite": "OpenStax, University Physics Volume 3, §3.2 Mathematics of Interference, Eq. 3.5 and 3.6",
+     "url": "https://openstax.org/books/university-physics-volume-3/pages/3-2-mathematics-of-interference",
+     "quote": "to obtain destructive interference for a double slit, the path length difference must be a half-integral multiple of the wavelength, or d sin θ = (m + ½)λ, for m = 0, ±1, ±2, ±3,… (destructive interference) … Equation 3.4 may then be written as d y_m/D = mλ or y_m = mλD/d."
+    }
+   ]
+  },
+  {
+   "key": "one_slit_dark",
+   "unit": "mm",
+   "expected": 26.0021972785,
+   "measured": 26.0021972785,
+   "deviation": 2.73262573985e-15,
+   "tolerance": 1e-07,
+   "derived": false,
+   "setting": {
+    "light": "laser",
+    "nm": 650.0,
+    "slits": "one",
+    "spacing_m": 0.00025,
+    "width_m": 5e-05,
+    "distance_m": 2.0
+   },
+   "sources": [
+    {
+     "cite": "OpenStax, University Physics Volume 3, §4.1 Single-Slit Diffraction, Eq. 4.1",
+     "url": "https://openstax.org/books/university-physics-volume-3/pages/4-1-single-slit-diffraction",
+     "quote": "Thus, to obtain destructive interference for a single slit, a sin θ = mλ, for m = ±1, ±2, ±3, ... (destructive)"
+    }
+   ]
+  },
+  {
+   "key": "quarter",
+   "unit": "",
+   "expected": 0.25,
+   "measured": 0.25,
+   "deviation": 0.0,
+   "tolerance": 1e-12,
+   "derived": true,
+   "setting": {
+    "light": "laser",
+    "nm": 650.0,
+    "slits": "one",
+    "spacing_m": 0.00025,
+    "width_m": 5e-05,
+    "distance_m": 2.0
+   },
+   "sources": [
+    {
+     "cite": "OpenStax, University Physics Volume 3, §3.1 Young's Double-Slit Interference, Figure 3.4",
+     "url": "https://openstax.org/books/university-physics-volume-3/pages/3-1-youngs-double-slit-interference",
+     "quote": "The amplitudes of waves add. (a) Pure constructive interference is obtained when identical waves are in phase."
+    },
+    {
+     "cite": "OpenStax, University Physics Volume 3, §4.2 Intensity in Single-Slit Diffraction, Eq. 4.4",
+     "url": "https://openstax.org/books/university-physics-volume-3/pages/4-2-intensity-in-single-slit-diffraction",
+     "quote": "The intensity is proportional to the square of the amplitude, so I = I0 (sin β/β)²"
+    }
+   ]
+  },
+  {
+   "key": "first_bright",
+   "unit": "",
+   "expected": 0.875140200083,
+   "measured": 0.875140200083,
+   "deviation": 0.0,
+   "tolerance": 1e-12,
+   "derived": false,
+   "setting": {
+    "light": "laser",
+    "nm": 650.0,
+    "slits": "both",
+    "spacing_m": 0.00025,
+    "width_m": 5e-05,
+    "distance_m": 2.0
+   },
+   "sources": [
+    {
+     "cite": "OpenStax, University Physics Volume 3, §4.3 Double-Slit Diffraction, Example 4.3",
+     "url": "https://openstax.org/books/university-physics-volume-3/pages/4-3-double-slit-diffraction",
+     "quote": "the bright interference fringes occur at d sin θ = mλ, or sin θ = mλ/d. From Equation 4.4, I = I0 (sin β/β)², where β = ϕ/2 = πa sin θ/λ. Substituting from above, β = πa sin θ/λ = πa/λ · mλ/d = mπa/d."
+    }
+   ]
+  },
+  {
+   "key": "missing",
+   "unit": "",
+   "expected": 0.0,
+   "measured": 1.51957436358e-33,
+   "deviation": 1.51957436358e-33,
+   "tolerance": 1e-12,
+   "derived": true,
+   "setting": {
+    "light": "laser",
+    "nm": 650.0,
+    "slits": "both",
+    "spacing_m": 0.00025,
+    "width_m": 5e-05,
+    "distance_m": 2.0
+   },
+   "sources": [
+    {
+     "cite": "OpenStax, University Physics Volume 3, §3.2 Mathematics of Interference, Eq. 3.4",
+     "url": "https://openstax.org/books/university-physics-volume-3/pages/3-2-mathematics-of-interference",
+     "quote": "we obtain constructive interference for a double slit when the path length difference is an integral multiple of the wavelength, or d sin θ = mλ, for m = 0, ±1, ±2, ±3,… (constructive interference)"
+    },
+    {
+     "cite": "OpenStax, University Physics Volume 3, §4.1 Single-Slit Diffraction, Eq. 4.1",
+     "url": "https://openstax.org/books/university-physics-volume-3/pages/4-1-single-slit-diffraction",
+     "quote": "Thus, to obtain destructive interference for a single slit, a sin θ = mλ, for m = ±1, ±2, ±3, ... (destructive)"
+    },
+    {
+     "cite": "OpenStax, University Physics Volume 3, §4.3 Double-Slit Diffraction",
+     "url": "https://openstax.org/books/university-physics-volume-3/pages/4-3-double-slit-diffraction",
+     "quote": "some of the maxima of interference from the two slits are missing if the maximum of the interference is in the same direction as the minimum of the diffraction. We refer to such a missing peak as a missing order."
+    }
+   ]
+  }
+ ],
+ "smoke": [
+  {
+   "key": "membrane_area",
+   "unit": "",
+   "expected": 11.3009548951,
+   "measured": 11.3009548951,
+   "deviation": 1.10030506194e-15,
+   "tolerance": 1e-10,
+   "derived": true,
+   "setting": {
+    "diameter_m": 1.9,
+    "hole_m": 0.3,
+    "ring_m": 0.4,
+    "stroke_m": 0.08,
+    "duration": 0.5,
+    "depth": 0.08
+   },
+   "sources": [
+    {
+     "cite": "Wikipedia, “Vibrations of a circular membrane”, §“The axisymmetric case”",
+     "url": "https://en.wikipedia.org/wiki/Vibrations_of_a_circular_membrane",
+     "quote": "Then, the function u does not depend on the angle θ, and the wave equation simplifies to ∂²u/∂t² = c²(∂²u/∂r² + (1/r) ∂u/∂r)."
+    }
+   ]
+  },
+  {
+   "key": "slug_length",
+   "unit": "",
+   "expected": 3.2802546387,
+   "measured": 3.2802546387,
+   "deviation": 2.03073812294e-15,
+   "tolerance": 1e-10,
+   "derived": true,
+   "setting": {
+    "diameter_m": 1.9,
+    "hole_m": 0.3,
+    "ring_m": 0.4,
+    "stroke_m": 0.08,
+    "duration": 0.5,
+    "depth": 0.08
+   },
+   "sources": [
+    {
+     "cite": "OpenStax, University Physics Volume 1, §14.5 Fluid Dynamics, Eq. 14.14",
+     "url": "https://openstax.org/books/university-physics-volume-1/pages/14-5-fluid-dynamics",
+     "quote": "Q₁ = Q₂, A₁v₁ = A₂v₂. 14.14 This is called the equation of continuity and is valid for any incompressible fluid (with constant density)."
+    },
+    {
+     "cite": "OpenStax, University Physics Volume 1, §4.5 Relative Motion in One and Two Dimensions, Eq. 4.35",
+     "url": "https://openstax.org/books/university-physics-volume-1/pages/4-5-relative-motion-in-one-and-two-dimensions",
+     "quote": "The velocity of a particle relative to S is equal to its velocity relative to S′ plus the velocity of S′ relative to S."
+    },
+    {
+     "cite": "Wikipedia, “Vibrations of a circular membrane”, §“The axisymmetric case”",
+     "url": "https://en.wikipedia.org/wiki/Vibrations_of_a_circular_membrane",
+     "quote": "Then, the function u does not depend on the angle θ, and the wave equation simplifies to ∂²u/∂t² = c²(∂²u/∂r² + (1/r) ∂u/∂r)."
+    }
+   ]
+  },
+  {
+   "key": "ring_speed",
+   "unit": "m/s",
+   "expected": 1.51072471299,
+   "measured": 1.51072471299,
+   "deviation": 0.0,
+   "tolerance": 1e-12,
+   "derived": false,
+   "setting": {
+    "diameter_m": 1.9,
+    "hole_m": 0.3,
+    "ring_m": 0.4,
+    "stroke_m": 0.08,
+    "duration": 0.5,
+    "depth": 0.08
+   },
+   "sources": [
+    {
+     "cite": "Wikipedia, “Vortex ring”, §“Thin-core vortex rings” (Kelvin, in Tait’s translation of Helmholtz)",
+     "url": "https://en.wikipedia.org/wiki/Vortex_ring",
+     "quote": "which finally results in the well-known expression found by Kelvin and published in the English translation by Tait of von Helmholtz's paper: U = Γ/(4πR) (ln(8R/a) − 1/4)"
     }
    ]
   }

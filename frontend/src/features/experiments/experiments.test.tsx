@@ -63,8 +63,10 @@ import { ballState, pitEntries, positionAt, raceLayout, swingAt } from "./race-v
 import { run as runPit } from "./simulate/pit";
 import { HOLE, cameraAt, frameOf, project } from "./chair-views";
 import { weeklyExhibit } from "./weekly";
+import { CheckSection } from "./check-section";
+import { CheckStatus } from "./unchecked-notice";
 import { ExhibitPreview } from "./exhibit-preview";
-import { EXHIBITS, exhibitEntry } from "./exhibits";
+import { EXHIBITS, exhibitEntry, type Exhibit } from "./exhibits";
 import { EQUATION_COUNT } from "./facts";
 import { ExperimentsLayout } from "./experiments-layout";
 import { ExperimentsOverviewPage } from "./overview-page";
@@ -90,17 +92,36 @@ const wave = fixtures.wave as unknown as WaveFigures;
 const UNCHECKED = {
   with_cases: [
     "arch",
+    "beats",
+    "bounce",
+    "cannon",
     "chair",
+    "chaos",
     "chladni",
+    "circuit",
     "coil",
+    "cone",
     "coriolis",
+    "coupled",
     "cradle",
+    "diver",
+    "elephant",
     "foucault",
+    "gyroscope",
+    "harmonograph",
+    "levitation",
     "maxwell",
+    "overhang",
+    "parabola",
     "peg",
     "plates",
+    "platform",
+    "race",
+    "rainbow",
     "resonance",
     "sky",
+    "slits",
+    "smoke",
     "sphere",
     "waterwheel",
     "wave",
@@ -801,8 +822,9 @@ describe("the elephant", () => {
     ).toBeInTheDocument();
     expect(screen.getByText(/How far the trunk can tilt: up to 32°/)).toBeInTheDocument();
     expect(screen.getByText(/from 12\.1 m\/s on/)).toBeInTheDocument();
-    // Every equation with a letter in it explains them: all but the balance, which reuses the others'.
-    await waitFor(() => expect(screen.getAllByLabelText(E.equation.symbols)).toHaveLength(7));
+    // Every equation with a letter in it explains them: all but the balance, which reuses the others',
+    // seven, and the three check cases'.
+    await waitFor(() => expect(screen.getAllByLabelText(E.equation.symbols)).toHaveLength(10));
   });
 
   it("says a ball the air cannot lift does not float, and from what air speed it would", async () => {
@@ -825,19 +847,29 @@ describe("the smoke ring", () => {
     expect(screen.getByText(E.smoke.play.verdict.none)).toBeInTheDocument();
     // The engine's window for a full press of the default drum: 0.21 to 1.3 s, best 0.5.
     expect(await screen.findByText(/between 0\.21 s and 1\.3 s, best at about 0\.5 s/)).toBeInTheDocument();
-    // Every equation with a letter in it explains them.
-    await waitFor(() => expect(screen.getAllByLabelText(E.equation.symbols)).toHaveLength(8));
+    // Every equation with a letter in it explains them: the page's eight and
+    // its three check cases'.
+    await waitFor(() => expect(screen.getAllByLabelText(E.equation.symbols)).toHaveLength(11));
   });
 
   it("makes the ring of a press on the drum it began on, though the stroke is lowered mid-press", async () => {
-    renderWithProviders(<SmokePage />);
-    fireEvent.click(await screen.findByRole("button", { name: E.smoke.play.press }));
-    // Lowered under the depth already pressed: the ring is still the press's own.
-    fireEvent.change(screen.getByRole("slider", { name: E.smoke.change.stroke }), { target: { value: "2" } });
-    // The press takes half a second of real time on the page's own frames, which
-    // under coverage come so slowly that the verdict took 3.2 s alone and more
-    // in the full run: 3 s failed the pre-push check of 2026-11-19.
-    expect(await screen.findByText(E.smoke.play.verdict.ring, {}, { timeout: 8000 })).toBeInTheDocument();
+    // The page's frames on a fake clock: the half-second press ran on real
+    // time, and under the pre-push check's load the verdict missed 3 s
+    // (2026-11-19) and then 8 s (2026-11-21). Only the frames and their clock
+    // are faked, so the queries run as ever.
+    vi.useFakeTimers({ toFake: ["requestAnimationFrame", "cancelAnimationFrame", "performance"] });
+    try {
+      renderWithProviders(<SmokePage />);
+      fireEvent.click(await screen.findByRole("button", { name: E.smoke.play.press }));
+      // Lowered under the depth already pressed: the ring is still the press's own.
+      fireEvent.change(screen.getByRole("slider", { name: E.smoke.change.stroke }), { target: { value: "2" } });
+      await act(async () => {
+        vi.advanceTimersByTime(1500);
+      });
+      expect(screen.getByText(E.smoke.play.verdict.ring)).toBeInTheDocument();
+    } finally {
+      vi.useRealTimers();
+    }
   });
 
   it("says when no press can make a ring", async () => {
@@ -878,7 +910,8 @@ describe("the ball cannon", () => {
     // The contacts of the impact, with the force the floor pushes back with.
     expect(screen.getByRole("cell", { name: "Floor – 10 cm" })).toBeInTheDocument();
     expect(screen.getByRole("cell", { name: "1,237 N" })).toBeInTheDocument();
-    await waitFor(() => expect(screen.getAllByLabelText(E.equation.symbols)).toHaveLength(5));
+    // The page's five equations and its four check cases'.
+    await waitFor(() => expect(screen.getAllByLabelText(E.equation.symbols)).toHaveLength(9));
   });
 
   it("drops the stack in the browser when asked, and says what the top ball did", async () => {
@@ -1103,10 +1136,31 @@ describe("Galileo's pendulum", () => {
   it("sets the three cases from the trick, and says what each does", async () => {
     renderWithProviders(<PegPage />);
     await screen.findByRole("img", { name: E.peg.view });
+    // The answer shown at once: left to the swing, it comes out only after the
+    // catch in real time, some 5 s a case, past findBy's 10 s under load
+    // (the pre-push hook, 2026-11-21).
+    showAnswer();
     fireEvent.click(screen.getByRole("button", { name: E.peg.sweet.cases.over_the_top }));
     expect(await screen.findByText(E.peg.play.outcome_over_the_top)).toBeInTheDocument();
     fireEvent.click(screen.getByRole("button", { name: E.peg.sweet.cases.slack }));
     expect(await screen.findByText(E.peg.play.outcome_slack)).toBeInTheDocument();
+  });
+
+  it("shows the answer by itself once the bob has swung back past the peg", async () => {
+    // The swing on a fake clock, its frames and their time only: on real time
+    // it took some 5 s, past findBy's 10 s under the pre-push check's load.
+    vi.useFakeTimers({ toFake: ["requestAnimationFrame", "cancelAnimationFrame", "performance"] });
+    try {
+      renderWithProviders(<PegPage />);
+      await screen.findByRole("img", { name: E.peg.view });
+      expect(screen.queryByText(E.peg.play.outcome_same_height)).not.toBeInTheDocument();
+      await act(async () => {
+        vi.advanceTimersByTime(6000);
+      });
+      expect(screen.getByText(E.peg.play.outcome_same_height)).toBeInTheDocument();
+    } finally {
+      vi.useRealTimers();
+    }
   });
 
   it("moves the peg and pulls the bob out by mouse or finger, keeping hold to the end of the drag", async () => {
@@ -1167,21 +1221,51 @@ describe("the chaotic pendulum", () => {
       expect(screen.getByRole("button", { name: E.chaos.play.presets[name] })).toBeInTheDocument();
     }
     // Wild, the exponent is measured and the gap doubles in a fraction of a second.
-    expect(
-      await screen.findByText(
-        /Measured for this start over half a minute: λ ≈ \d\.\d a second – a single stretch of path, so a few tenths more or less\. A difference thus doubles about every \d\.\d\d s/,
-        {},
-        { timeout: 8000 },
-      ),
-    ).toBeInTheDocument();
+    // The measure waits for a 300 ms pause (useDebounce): on a fake clock, as
+    // the gentle start's below. Away to gentle and back clears the load's own
+    // wait, armed on the real clock, and arms the wild one on the fake.
+    vi.useFakeTimers({
+      toFake: ["setTimeout", "clearTimeout", "requestAnimationFrame", "cancelAnimationFrame", "performance"],
+      shouldClearNativeTimers: true,
+    });
+    try {
+      fireEvent.click(screen.getByRole("button", { name: E.chaos.play.presets.gentle }));
+      fireEvent.click(screen.getByRole("button", { name: E.chaos.play.presets.wild }));
+      await act(async () => {
+        vi.advanceTimersByTime(300);
+      });
+      expect(
+        screen.getByText(
+          /Measured for this start over half a minute: λ ≈ \d\.\d a second – a single stretch of path, so a few tenths more or less\. A difference thus doubles about every \d\.\d\d s/,
+        ),
+      ).toBeInTheDocument();
+    } finally {
+      vi.useRealTimers();
+    }
     expect(screen.getAllByLabelText(E.equation.symbols).length).toBeGreaterThanOrEqual(4);
   }, 15000);
 
   it("calls a gentle start predictable", async () => {
     renderWithProviders(<ChaosPage />);
     await screen.findByRole("img", { name: E.chaos.view });
-    fireEvent.click(screen.getByRole("button", { name: E.chaos.play.presets.gentle }));
-    expect(await screen.findByText(/practically zero/, {}, { timeout: 8000 })).toBeInTheDocument();
+    // The measure waits for a 300 ms pause in the start (useDebounce) and then
+    // runs at once: on a fake clock from here, with the frames, so neither the
+    // wait nor the swing behind it takes real time under the pre-push check's
+    // load. The load's own debounce, armed on the real clock, is cleared by the
+    // click (`shouldClearNativeTimers`) rather than landing outside act().
+    vi.useFakeTimers({
+      toFake: ["setTimeout", "clearTimeout", "requestAnimationFrame", "cancelAnimationFrame", "performance"],
+      shouldClearNativeTimers: true,
+    });
+    try {
+      fireEvent.click(screen.getByRole("button", { name: E.chaos.play.presets.gentle }));
+      await act(async () => {
+        vi.advanceTimersByTime(300);
+      });
+      expect(screen.getByText(/practically zero/)).toBeInTheDocument();
+    } finally {
+      vi.useRealTimers();
+    }
   }, 15000);
 });
 
@@ -1532,11 +1616,30 @@ describe("the Chladni figures", () => {
 
 describe("the check of the calculations", () => {
   it("says in one line under an exhibit's title that it is not yet checked, with no cases where it has none", async () => {
-    // The gyroscope is among the last to get its cases (docs/experiments.md).
-    renderWithProviders(<GyroscopePage />);
+    // Every exhibit has its cases since the gyroscope's (2026-11-21): a name
+    // that is no exhibit stands for one that ships before its cases.
+    const none = "orrery" as Exhibit;
+    renderWithProviders(
+      <>
+        <CheckStatus exhibit={none} />
+        <CheckSection exhibit={none} />
+      </>,
+    );
     expect(await screen.findByText(E.checks.status.unchecked)).toBeInTheDocument();
     expect(screen.queryByRole("link", { name: E.checks.status.to_cases })).toBeNull();
     expect(screen.queryByRole("heading", { name: E.checks.title })).toBeNull();
+  });
+
+  it("gives a case with nothing to set no button: the overhang's furthest stack, which the page holds back", async () => {
+    renderWithProviders(<OverhangPage />);
+    const titled = (title: string) => (name: string) => name.endsWith(title);
+    const cases = E.checks.cases.overhang;
+    const furthest = await screen.findByRole("heading", { level: 3, name: titled(cases.nine.title) });
+    expect(within(furthest.closest("li") as HTMLElement).queryByRole("button", { name: E.checks.set_up })).toBeNull();
+    const even = screen.getByRole("heading", { level: 3, name: titled(cases.even.title) });
+    expect(
+      within(even.closest("li") as HTMLElement).getByRole("button", { name: E.checks.set_up }),
+    ).toBeInTheDocument();
   });
 
   it("shows an exhibit's cases: formula, the value by hand and the page's, and the source quoted", async () => {
@@ -1724,6 +1827,276 @@ describe("setting a check case up", () => {
     );
   });
 
+  it("takes the double slit back to the red laser and covers one slit, then opens it again", async () => {
+    renderWithProviders(<SlitsPage />);
+    await screen.findByRole("img", { name: E.slits.wall_view });
+    fireEvent.change(screen.getByRole("slider", { name: E.slits.play.wavelength }), { target: { value: "532" } });
+    fireEvent.change(screen.getByRole("slider", { name: E.slits.change.spacing }), { target: { value: "0.5" } });
+    await setUp(1);
+    await waitFor(() => expect(screen.getByRole("switch", { name: E.slits.play.cover })).toBeChecked());
+    expect(screen.getByRole("slider", { name: E.slits.play.wavelength }).getAttribute("aria-valuetext")).toMatch(
+      /^650\b/,
+    );
+    expect(screen.getByRole("slider", { name: E.slits.change.spacing }).getAttribute("aria-valuetext")).toMatch(
+      /^0\.25\b/,
+    );
+    await setUp(0);
+    expect(await screen.findByText(E.slits.play.status_both.replace("{{spacing}}", "5.2"))).toBeInTheDocument();
+  });
+
+  it("gives the diver its air back and lets it go just under its hover depth, where it hovers for now", async () => {
+    renderWithProviders(<DiverPage />);
+    await screen.findByRole("img", { name: E.diver.view });
+    fireEvent.change(screen.getByRole("slider", { name: E.diver.change.air }), { target: { value: "2.2" } });
+    await setUp(3);
+    expect(await screen.findByText(E.diver.play.motion.hovers)).toBeInTheDocument();
+    expect(screen.getByRole("slider", { name: E.diver.play.squeeze }).getAttribute("aria-valuetext")).toMatch(/^10\b/);
+    expect(screen.getByRole("slider", { name: E.diver.change.air }).getAttribute("aria-valuetext")).toMatch(/^2\b/);
+  });
+
+  it("puts the double cone's rails back from too long to the exhibit's and lets the cone go", async () => {
+    renderWithProviders(<ConePage />);
+    await screen.findByRole("img", { name: E.cone.views.side });
+    fireEvent.change(screen.getByRole("slider", { name: E.cone.change.length }), { target: { value: "50" } });
+    expect(await screen.findByText(E.cone.refused.fall_through)).toBeInTheDocument();
+    await setUp(2);
+    expect(await screen.findByRole("button", { name: E.cone.play.pause })).toBeInTheDocument();
+    expect(screen.getByRole("slider", { name: E.cone.change.length }).getAttribute("aria-valuetext")).toMatch(/^30\b/);
+  });
+
+  it("slides the beats' rider to the prong's tip and strikes the forks, the sound left off", async () => {
+    renderWithProviders(<BeatsPage />);
+    await screen.findByRole("img", { name: E.beats.view });
+    await setUp(1);
+    await waitFor(() =>
+      expect(screen.getByRole("slider", { name: E.beats.change.position }).getAttribute("aria-valuetext")).toMatch(
+        /^100\b/,
+      ),
+    );
+    expect(screen.queryByText(E.beats.play.waiting)).not.toBeInTheDocument();
+    expect(screen.getByText(E.beats.play.no_sound)).toBeInTheDocument();
+  });
+
+  it("fills the parabola's vessel back to 10 cm and spins its table up to 90 rpm, for the spin-up", async () => {
+    renderWithProviders(<ParabolaPage />);
+    await screen.findByRole("img", { name: E.parabola.views.side });
+    fireEvent.change(screen.getByRole("slider", { name: E.parabola.change.fill }), { target: { value: "35" } });
+    expect(await screen.findAllByText(E.parabola.refused)).toHaveLength(2);
+    await setUp(4);
+    expect(await screen.findByRole("img", { name: E.parabola.views.side })).toBeInTheDocument();
+    expect(screen.getByRole("slider", { name: E.parabola.change.fill }).getAttribute("aria-valuetext")).toMatch(
+      /^10\b/,
+    );
+    expect(screen.getByRole("slider", { name: E.parabola.play.rate }).getAttribute("aria-valuetext")).toMatch(/^90\b/);
+    await setUp(2);
+    await waitFor(() =>
+      expect(screen.getByRole("slider", { name: E.parabola.play.rate }).getAttribute("aria-valuetext")).toMatch(
+        /^160\b/,
+      ),
+    );
+  });
+
+  it("tunes the floating top back to 23.5 g in a room not warmed, where it hovers again", async () => {
+    renderWithProviders(<LevitationPage />);
+    await screen.findByRole("img", { name: E.levitation.view });
+    fireEvent.change(screen.getByRole("slider", { name: E.levitation.play.mass }), { target: { value: "24" } });
+    fireEvent.change(screen.getByRole("slider", { name: E.levitation.play.warming }), { target: { value: "3.5" } });
+    expect(await screen.findByText(E.levitation.play.lands)).toBeInTheDocument();
+    await setUp(3);
+    expect(await screen.findByText(E.levitation.play.hovers)).toBeInTheDocument();
+    expect(screen.getByRole("slider", { name: E.levitation.play.warming }).getAttribute("aria-valuetext")).toMatch(
+      /^0\b/,
+    );
+  });
+
+  it("sets the slow circuit's resistance to its edge, between the 10 Ω steps, and throws the switch", async () => {
+    renderWithProviders(<CircuitPage />);
+    await screen.findByRole("img", { name: E.circuit.view });
+    await setUp(3);
+    expect(await screen.findByRole("button", { name: E.circuit.play.pause })).toBeInTheDocument();
+    // 2√(L/C) = 2529.82 Ω, where rounding puts the engine a hair on the creeping side.
+    expect(screen.getByText(E.circuit.change.creeps)).toBeInTheDocument();
+    expect(screen.getByRole("slider", { name: E.circuit.change.resistance }).getAttribute("aria-valuetext")).toMatch(
+      /^2,?530\b/,
+    );
+  });
+
+  it("lays the race's finish back at 120 cm out and 50 cm down, for the straight line's time", async () => {
+    renderWithProviders(<RacePage />);
+    await screen.findByRole("img", { name: E.race.play.view });
+    fireEvent.change(screen.getByRole("slider", { name: E.race.change.run }), { target: { value: "200" } });
+    await setUp(0);
+    await waitFor(() =>
+      expect(screen.getByRole("slider", { name: E.race.change.run }).getAttribute("aria-valuetext")).toMatch(/^120\b/),
+    );
+    expect(screen.getByRole("slider", { name: E.race.change.drop }).getAttribute("aria-valuetext")).toMatch(/^50\b/);
+  });
+
+  it("lets the double pendulum go in its slow mode, damped, for the damping's case", async () => {
+    renderWithProviders(<ChaosPage />);
+    await screen.findByRole("img", { name: E.chaos.view });
+    await setUp(2);
+    await waitFor(() =>
+      expect(screen.getByRole("slider", { name: E.chaos.change.damping }).getAttribute("aria-valuetext")).toMatch(
+        /^0\.10\b/,
+      ),
+    );
+    // The lower arm at √2°, shown to the slider's whole degree.
+    expect(screen.getByRole("slider", { name: E.chaos.play.upper }).getAttribute("aria-valuetext")).toMatch(/^1\b/);
+    expect(screen.getByRole("slider", { name: E.chaos.play.lower }).getAttribute("aria-valuetext")).toMatch(/^1\b/);
+    expect(await screen.findByRole("button", { name: E.chaos.play.pause })).toBeInTheDocument();
+  });
+
+  it("builds the steel ball at half its bounce, 5 cm up, after the table-tennis ball, for its rest", async () => {
+    renderWithProviders(<BouncePage />);
+    await screen.findByRole("img", { name: E.bounce.view });
+    await setUp(0);
+    await waitFor(() => expect(screen.getByRole("radio", { name: E.bounce.short.tennis })).toBeChecked());
+    await setUp(3);
+    await waitFor(() => expect(screen.getByRole("radio", { name: E.bounce.short.steel })).toBeChecked());
+    expect(screen.getByRole("slider", { name: E.bounce.change.restitution }).getAttribute("aria-valuetext")).toMatch(
+      /^0\.50\b/,
+    );
+    expect(screen.getByRole("slider", { name: E.bounce.change.height }).getAttribute("aria-valuetext")).toMatch(/^5\b/);
+  });
+
+  it("takes the platform's bearing off and leans the visitor out, for the faster-upright case", async () => {
+    renderWithProviders(<PlatformPage />);
+    await screen.findByRole("img", { name: E.platform.view });
+    fireEvent.change(screen.getByRole("slider", { name: E.platform.play.lean }), { target: { value: "10" } });
+    await setUp(1);
+    await waitFor(() =>
+      expect(screen.getByRole("slider", { name: E.platform.change.friction }).getAttribute("aria-valuetext")).toMatch(
+        /^0\b/,
+      ),
+    );
+    await waitFor(() =>
+      expect(screen.getByRole("slider", { name: E.platform.play.lean }).getAttribute("aria-valuetext")).toMatch(
+        /^30\b/,
+      ),
+    );
+    expect(screen.getByRole("switch", { name: E.platform.play.auto })).not.toBeChecked();
+  });
+
+  it("hangs the coupled pendulums back as built and lets them go against each other, for that mode", async () => {
+    renderWithProviders(<CoupledPage />);
+    await screen.findByRole("img", { name: E.coupled.view });
+    fireEvent.change(screen.getByRole("slider", { name: E.coupled.change.right_length }), { target: { value: "30" } });
+    fireEvent.change(screen.getByRole("slider", { name: E.coupled.change.spring_at }), { target: { value: "40" } });
+    expect(await screen.findByText(E.coupled.refused)).toBeInTheDocument();
+    await setUp(1);
+    await waitFor(() => expect(screen.queryByText(E.coupled.refused)).toBeNull());
+    expect(screen.getByRole("slider", { name: E.coupled.change.right_length }).getAttribute("aria-valuetext")).toMatch(
+      /^50\b/,
+    );
+    expect(screen.getByRole("slider", { name: E.coupled.change.spring_at }).getAttribute("aria-valuetext")).toMatch(
+      /^25\b/,
+    );
+    expect(await screen.findByRole("button", { name: E.coupled.play.pause })).toBeInTheDocument();
+  });
+
+  it("puts the smoke drum back as built and sets a full half-second press, for the slug's length", async () => {
+    renderWithProviders(<SmokePage />);
+    await screen.findByRole("img", { name: E.smoke.view });
+    fireEvent.change(screen.getByRole("slider", { name: E.smoke.change.stroke }), { target: { value: "5" } });
+    fireEvent.change(screen.getByRole("slider", { name: E.smoke.play.duration }), { target: { value: "1.5" } });
+    await setUp(1);
+    await waitFor(() =>
+      expect(screen.getByRole("slider", { name: E.smoke.change.stroke }).getAttribute("aria-valuetext")).toMatch(
+        /^8\b/,
+      ),
+    );
+    expect(screen.getByRole("slider", { name: E.smoke.play.duration }).getAttribute("aria-valuetext")).toMatch(
+      /^0\.50\b/,
+    );
+    expect(screen.getByRole("slider", { name: E.smoke.play.depth }).getAttribute("aria-valuetext")).toMatch(/^8\b/);
+  });
+
+  it("makes the bead a water drop, then glass with the ray halfway out, for the rainbow's cases", async () => {
+    renderWithProviders(<RainbowPage />);
+    await screen.findByRole("img", { name: E.rainbow.bead_view });
+    fireEvent.change(screen.getByRole("slider", { name: E.rainbow.play.impact }), { target: { value: "90" } });
+    await setUp(0);
+    const kind = screen.getByRole("radiogroup", { name: E.rainbow.change.kind });
+    await waitFor(() => expect(within(kind).getByRole("radio", { name: E.rainbow.change.kinds.water })).toBeChecked());
+    await setUp(2);
+    await waitFor(() => expect(within(kind).getByRole("radio", { name: E.rainbow.change.kinds.glass })).toBeChecked());
+    expect(
+      screen.getByText(E.rainbow.play.inside.replace("{{angle}}", "16.8").replace("{{bow}}", "21.1")),
+    ).toBeInTheDocument();
+  });
+
+  it("leaves the cannon's bottom ball alone on a lossless floor, then puts the exhibit's three back", async () => {
+    renderWithProviders(<CannonPage />);
+    await screen.findByRole("img", { name: E.cannon.view });
+    await setUp(1);
+    await waitFor(() => expect(screen.getByRole("radio", { name: "1 ball" })).toBeChecked());
+    expect(screen.getByRole("slider", { name: E.cannon.change.floor_e }).getAttribute("aria-valuetext")).toMatch(
+      /^1\.00\b/,
+    );
+    await setUp(0);
+    await waitFor(() => expect(screen.getByRole("radio", { name: "3 balls" })).toBeChecked());
+    expect(screen.getByRole("slider", { name: E.cannon.change.ball_2 }).getAttribute("aria-valuetext")).toMatch(/^5\b/);
+  });
+
+  it("tunes the harmonograph to exactly 2 : 3 at 12° each without friction, for the closed figure", async () => {
+    renderWithProviders(<HarmonographPage />);
+    await screen.findByRole("img", { name: E.harmonograph.views.drawing });
+    await setUp(1);
+    const slider = (name: string) => screen.getByRole("slider", { name }).getAttribute("aria-valuetext");
+    await waitFor(() => expect(slider(E.harmonograph.change.detune)).toMatch(/^0\.00\b/));
+    expect(slider(E.harmonograph.change.pen_amplitude)).toMatch(/^12\b/);
+    expect(slider(E.harmonograph.change.board_amplitude)).toMatch(/^12\b/);
+    await setUp(3);
+    await waitFor(() => expect(slider(E.harmonograph.change.damping)).toMatch(/^0\.020\b/));
+    expect(slider(E.harmonograph.change.pen_amplitude)).toMatch(/^2\b/);
+  });
+
+  it("stacks nine blocks in even steps, and offers no button for the furthest stack it holds back", async () => {
+    renderWithProviders(<OverhangPage />);
+    await screen.findByRole("group", { name: E.overhang.view });
+    // Four cases: the furthest stack's two and the count's set nothing.
+    expect(await screen.findAllByRole("button", { name: E.checks.set_up })).toHaveLength(1);
+    fireEvent.change(screen.getByRole("slider", { name: E.overhang.play.count }), { target: { value: "3" } });
+    await setUp(0);
+    await waitFor(() =>
+      expect(screen.getByRole("slider", { name: E.overhang.play.count }).getAttribute("aria-valuetext")).toMatch(
+        /^9\b/,
+      ),
+    );
+    expect(screen.getByText(/It reaches 18\.0 cm out over the edge/)).toBeInTheDocument();
+    expect(screen.queryByRole("button", { name: E.overhang.play.furthest })).toBeNull();
+  });
+
+  it("puts the elephant's trunk upright with the exhibit's air and ball, the ball back on the rim", async () => {
+    renderWithProviders(<ElephantPage />);
+    await screen.findByRole("img", { name: E.elephant.view });
+    fireEvent.change(screen.getByRole("slider", { name: E.elephant.play.air }), { target: { value: "20" } });
+    fireEvent.change(screen.getByRole("slider", { name: E.elephant.play.tilt }), { target: { value: "10" } });
+    await setUp(0);
+    await waitFor(() =>
+      expect(screen.getByRole("slider", { name: E.elephant.play.air }).getAttribute("aria-valuetext")).toMatch(
+        /^14\.5\b/,
+      ),
+    );
+    expect(screen.getByRole("slider", { name: E.elephant.play.tilt }).getAttribute("aria-valuetext")).toMatch(/^0\b/);
+    expect(screen.getByRole("switch", { name: E.elephant.play.auto })).not.toBeChecked();
+  });
+
+  it("spins the gyroscope's wheel to 600 rpm and lets it go level from rest, for its nods", async () => {
+    renderWithProviders(<GyroscopePage />);
+    await screen.findByRole("img", { name: E.gyroscope.view });
+    await setUp(2);
+    await waitFor(() =>
+      expect(screen.getByRole("slider", { name: E.gyroscope.play.rpm }).getAttribute("aria-valuetext")).toMatch(
+        /^600\b/,
+      ),
+    );
+    expect(screen.getByRole("slider", { name: E.gyroscope.play.tilt }).getAttribute("aria-valuetext")).toMatch(/^90\b/);
+    expect(screen.getByRole("radio", { name: E.gyroscope.play.starts.rest })).toBeChecked();
+    expect(await screen.findByRole("button", { name: E.gyroscope.play.pause })).toBeInTheDocument();
+  });
+
   it("pushes the ball round the well on its circle, with the felt's brake, for the brake's case", async () => {
     renderWithProviders(<WellPage />);
     await screen.findByRole("img", { name: E.well.view_top });
@@ -1900,16 +2273,27 @@ describe("the overhang", () => {
 
 describe("the Cartesian diver", () => {
   it("floats until squeezed, then sinks, pauses and goes back to the surface", async () => {
-    renderWithProviders(<DiverPage />);
-    expect(await screen.findByRole("img", { name: E.diver.view })).toBeInTheDocument();
-    expect(screen.getByText(E.diver.play.motion.floats)).toBeInTheDocument();
-    fireEvent.change(screen.getByRole("slider", { name: E.diver.play.squeeze }), { target: { value: "20" } });
-    // The sinking runs on the page's frames, slow under coverage, as the smoke ring's press.
-    expect(await screen.findByText(E.diver.play.motion.sinks, undefined, { timeout: 8000 })).toBeInTheDocument();
-    fireEvent.click(screen.getByRole("button", { name: E.diver.play.pause }));
-    expect(screen.getByRole("button", { name: E.diver.play.run })).toBeInTheDocument();
-    fireEvent.click(screen.getByRole("button", { name: E.diver.play.surface }));
-    expect(screen.getAllByLabelText(E.equation.symbols).length).toBeGreaterThanOrEqual(4);
+    // The frames on a fake clock, as the smoke ring's press: two seconds of
+    // sinking in no real time, and no frames running behind the test under the
+    // pre-push check's load. "Sinks" itself follows from the squeeze at once
+    // (no lift at the surface); after the two seconds it is still sinking.
+    vi.useFakeTimers({ toFake: ["requestAnimationFrame", "cancelAnimationFrame", "performance"] });
+    try {
+      renderWithProviders(<DiverPage />);
+      expect(await screen.findByRole("img", { name: E.diver.view })).toBeInTheDocument();
+      expect(screen.getByText(E.diver.play.motion.floats)).toBeInTheDocument();
+      fireEvent.change(screen.getByRole("slider", { name: E.diver.play.squeeze }), { target: { value: "20" } });
+      await act(async () => {
+        vi.advanceTimersByTime(2000);
+      });
+      expect(screen.getByText(E.diver.play.motion.sinks)).toBeInTheDocument();
+      fireEvent.click(screen.getByRole("button", { name: E.diver.play.pause }));
+      expect(screen.getByRole("button", { name: E.diver.play.run })).toBeInTheDocument();
+      fireEvent.click(screen.getByRole("button", { name: E.diver.play.surface }));
+      expect(screen.getAllByLabelText(E.equation.symbols).length).toBeGreaterThanOrEqual(4);
+    } finally {
+      vi.useRealTimers();
+    }
   });
 
   it("names the squeeze that sinks it, 10.9 kPa, and more with more air", async () => {

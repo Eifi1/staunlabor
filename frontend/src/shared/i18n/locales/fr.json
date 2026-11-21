@@ -3580,7 +3580,233 @@
         "v0_push": "vitesse du lancer",
         "P_loss": "perte par seconde",
         "C_rr": "résistance au roulement : la part de la poussée de la paroi qui freine",
-        "alpha_wall": "pente de la paroi"
+        "alpha_wall": "pente de la paroi",
+        "D_wall": "distance du mur aux fentes",
+        "d_slits": "espacement des milieux des fentes",
+        "a_slit": "largeur d’une fente",
+        "theta_beam": "angle par rapport à la direction du faisceau",
+        "m_order": "ordre : le numéro de la frange",
+        "dy_stripes": "espacement des franges sur le mur",
+        "y_wall": "position sur le mur, depuis le milieu",
+        "I_one": "clarté au milieu avec une fente",
+        "I_two": "clarté au milieu avec les deux",
+        "E_amp": "amplitude de l’onde d’une fente",
+        "I_rel": "clarté, rapportée au milieu",
+        "beta_slit": "demi-différence de chemin à travers une fente, en angle",
+        "diver_reserve": "flottabilité restante, en masse",
+        "diver_rho": "masse volumique de l’eau, 998",
+        "diver_Vg": "volume du verre",
+        "diver_V0": "bulle à la surface, sans pression",
+        "diver_m": "masse du verre",
+        "diver_p0": "pression de l’air à la surface, 101 325 Pa",
+        "diver_dp": "pression de la main",
+        "diver_Vstar": "bulle avec laquelle il reste en suspens",
+        "diver_H": "profondeur d’eau de la bouteille",
+        "diver_dz": "distance à la profondeur d’équilibre",
+        "diver_k": "à quel point la distance s’amplifie elle-même",
+        "diver_pstar": "pression à la profondeur d’équilibre",
+        "diver_zstar": "profondeur où il resterait en suspens",
+        "delta_cone": "inclinaison de la ligne allant de l’axe au contact, par rapport à la normale au plan des rails",
+        "alpha_cone": "angle du cône, entre surface et axe",
+        "beta_rail": "écartement de chaque rail, vu d’en haut",
+        "gamma_rail": "pente des rails",
+        "gamma_star": "pente limite",
+        "dz_axis": "de combien l’axe descend",
+        "l_rails": "longueur des rails, vue d’en haut",
+        "a_roll": "rayon sur lequel roule le cône : de l’axe au contact",
+        "radius_cone": "rayon du cône au milieu",
+        "y_sum": "les deux sons ensemble",
+        "amp": "amplitude d’un son",
+        "f_avg": "hauteur moyenne",
+        "f12": "hauteurs des deux diapasons",
+        "f_beat": "battements par seconde",
+        "f_fork": "hauteur du diapason sans cavalier",
+        "f_rider": "hauteur avec le cavalier",
+        "m_felt": "masse de la branche telle qu’elle compte à la pointe",
+        "m_prong": "masse d’une branche",
+        "m_rider": "masse du cavalier sur une branche",
+        "mode": "forme du premier mode, 1 à la pointe",
+        "s_rider": "position du cavalier, de la base (0) à la pointe (1)",
+        "xi": "position sur la branche, de la base (0) à la pointe (1)",
+        "beta_L": "première racine de l’équation de la poutre encastrée, 1,8751",
+        "surface_height": "la hauteur de la surface au-dessus du fond",
+        "axis_distance": "distance à l’axe",
+        "steepness": "la pente du paraboloïde",
+        "centre_depth": "la profondeur de l’eau sur l’axe",
+        "vessel_rate": "la vitesse angulaire du récipient",
+        "fill_depth": "la hauteur de remplissage au repos",
+        "vessel_radius": "le rayon du récipient",
+        "dry_rate": "la vitesse angulaire à laquelle le centre s’assèche",
+        "rim_height": "la hauteur de la surface au bord",
+        "dry_radius": "rayon de la tache sèche",
+        "focus": "distance focale de la cuvette en tant que miroir",
+        "dish_depth": "la profondeur de la cuvette jusqu’à la distance r",
+        "water_rate": "la vitesse angulaire de l’eau",
+        "nu": "la viscosité de l’eau, 10⁻⁶ m²/s",
+        "m_lift": "la charge que porte l’anneau, exprimée en masse",
+        "mu_top": "le moment magnétique de la toupie",
+        "B_axis": "le champ sur l’axe",
+        "B1": "la pente du champ sur l’axe, vers le haut",
+        "B2": "la courbure du champ sur l’axe",
+        "M_mag": "l’aimantation de l’anneau",
+        "t_ring": "la hauteur de l’anneau",
+        "z_height": "hauteur au-dessus de l’anneau",
+        "s_depth": "profondeur dans l’anneau, sous sa face supérieure",
+        "R1_hole": "le rayon du trou",
+        "R2_ring": "le rayon de l’anneau",
+        "z_foot": "le pied de la fenêtre, le point d’inflexion du champ",
+        "z_head": "l’extrémité supérieure de la fenêtre",
+        "r_axis": "distance à l’axe",
+        "lc_omega": "pulsation de l’oscillation amortie",
+        "lc_C": "la capacité du condensateur",
+        "lc_R": "la résistance de tout le circuit, surtout celle de la bobine",
+        "lc_E": "énergie dans le condensateur et la bobine",
+        "lc_q": "charge du condensateur",
+        "lc_q0": "charge au basculement, C·U₀",
+        "lc_omega0": "pulsation sans résistance, 1/√(LC)",
+        "T_race": "temps du départ à l’arrivée",
+        "T_bottom": "temps jusqu’au fond",
+        "D_run": "distance horizontale jusqu’à l’arrivée",
+        "H_drop": "dénivelé jusqu’à l’arrivée",
+        "phi_B": "l’angle du cercle qui roule à l’arrivée",
+        "r_cycloid": "rayon du cercle qui trace la cycloïde",
+        "R_bowl": "rayon de la cuvette circulaire",
+        "phi0_bowl": "angle de départ dans la cuvette, depuis le fond",
+        "omega_slow": "la pulsation du mode propre lent",
+        "omega0_pend": "la pulsation d’un pendule simple de longueur L",
+        "length_rod": "la longueur de chacune des deux tiges",
+        "theta12": "les angles de la tige supérieure et de la tige inférieure par rapport à la verticale",
+        "E_pend": "l’énergie des deux masses ensemble",
+        "m12": "les masses supérieure et inférieure",
+        "v12": "les vitesses des deux masses",
+        "y12": "les hauteurs des deux masses, comptées vers le haut depuis le point de suspension",
+        "L12": "les longueurs de la tige supérieure et de la tige inférieure",
+        "theta_mode": "l’amplitude de la tige supérieure dans le mode propre lent",
+        "c_damp": "l’amortissement de la page, par seconde",
+        "omega_d": "la pulsation de l’oscillation amortie",
+        "alpha_decay": "la vitesse à laquelle l’amplitude décroît",
+        "v_inf": "vitesse limite : celle où l’air freine autant que le poids tire",
+        "e_rest": "la part de la vitesse que rend un choc",
+        "u_up": "la vitesse après le premier choc",
+        "y_peak": "la hauteur de la première remontée",
+        "h_drop": "la hauteur d’où tombe la balle",
+        "rho_air": "la masse volumique de l’air",
+        "c_drag": "le coefficient de traînée d’une sphère lisse, 0,47",
+        "A_cross": "la section de la balle",
+        "t_land": "le temps jusqu’au premier choc",
+        "T_flight": "la durée du premier vol",
+        "t_f": "la constante de temps de l’air, v∞/g",
+        "T_still": "le temps jusqu’à ce que la balle s’immobilise",
+        "spin_M": "la masse de la plateforme",
+        "spin_R": "le rayon de la plateforme",
+        "spin_ml": "la masse des jambes",
+        "spin_kl": "le rayon de giration des jambes",
+        "spin_mt": "la masse du tronc et de la tête",
+        "spin_kt": "le rayon de giration du tronc",
+        "spin_d": "de combien le tronc se penche vers l’extérieur",
+        "spin_ma": "la masse d’un bras",
+        "spin_s": "la distance de chaque main à l’axe",
+        "spin_omega": "vitesse angulaire",
+        "spin_F": "la traction des mains sur la barre",
+        "spin_L": "moment cinétique",
+        "spin_tau": "le frottement du palier, sous forme de couple",
+        "V_pot": "énergie potentielle d’un pendule, par m·L²",
+        "kappa": "couplage par le ressort",
+        "k_spring": "raideur du ressort",
+        "a_spring": "hauteur du ressort sous la suspension",
+        "T_beat": "durée de l’aller-retour",
+        "omega_minus": "pulsation à l’unisson",
+        "omega_plus": "pulsation en opposition",
+        "E_pair": "énergie des deux pendules et du ressort",
+        "thetadot_i": "vitesse angulaire du i-ème pendule",
+        "coupled_theta_i": "écart du i-ème pendule",
+        "a_eff": "volume que le tambour perd par mètre d’enfoncement",
+        "a_hole": "surface du trou",
+        "ring_radius": "rayon du cerclage que l’on enfonce",
+        "hole_radius": "rayon du trou",
+        "drum_radius": "rayon du tambour",
+        "r_skin": "distance au centre du tambour",
+        "u_skin": "profondeur de la peau à cet endroit",
+        "AB_const": "deux constantes, fixées par le bord et le cerclage",
+        "slug": "longueur de la colonne d’air",
+        "hole_d": "diamètre du trou",
+        "press_depth": "enfoncement du cerclage",
+        "ring_u": "vitesse de l’anneau de fumée",
+        "circulation": "circulation de l’anneau",
+        "ring_r": "rayon de l’anneau de fumée",
+        "core_a": "rayon de son noyau",
+        "ring_angle": "rayon de l’anneau, comme angle par rapport au chemin de retour vers la lampe",
+        "refraction_angle": "angle de réfraction",
+        "incidence_angle": "angle d’incidence",
+        "ring_width": "largeur de l’anneau",
+        "wavelength": "longueur d’onde",
+        "cauchy_a": "coefficient de Cauchy A",
+        "cauchy_b": "étalement des couleurs (coefficient de Cauchy B)",
+        "index_d": "indice de réfraction pour la lumière jaune (raie du sodium)",
+        "sodium": "longueur d’onde de la raie du sodium, 589,3",
+        "exit_angle": "angle de sortie, par rapport au chemin de retour vers la lampe",
+        "impact": "point d’impact, distance au centre en rayons de la bille",
+        "back_share": "part de la lumière qui revient après une réflexion",
+        "reflectance": "part réfléchie à une surface, pour les deux polarisations",
+        "rainbow_index": "indice de réfraction",
+        "v_impact": "vitesse de la balle au sol",
+        "K_floor": "raideur de la balle et du sol selon Hertz",
+        "F_floor": "force maximale du sol",
+        "youngs": "module d’Young du caoutchouc",
+        "nu_poisson": "coefficient de Poisson, 0,5 pour le caoutchouc",
+        "J_impulse": "impulsion que le sol transmet",
+        "cannon_A_cross": "section de la balle",
+        "cannon_c_drag": "coefficient de traînée d’une sphère lisse, 0,47",
+        "cannon_h_drop": "hauteur d’où tombe la balle",
+        "cannon_rho_air": "masse volumique de l’air",
+        "cannon_v_inf": "vitesse limite : là où l’air freine aussi fort que le poids tire",
+        "harm_L": "longueur du pendule",
+        "harm_T12": "périodes du stylo et de la planche",
+        "harm_L12": "longueurs des pendules du stylo et de la planche",
+        "harm_xy": "place du stylo sur la planche",
+        "harm_turn": "temps en lequel la figure fait un tour",
+        "harm_f12": "fréquences du stylo et de la planche",
+        "harm_thetamax": "amplitude aux points de retour",
+        "harm_c": "frottement du pendule",
+        "d_over": "de combien le bloc du haut dépasse le bord de la table",
+        "n_blocks": "nombre de blocs",
+        "l_block": "longueur d’un bloc",
+        "H_n": "nombre harmonique 1 + 1/2 + … + 1/n",
+        "xbar_k": "centre de gravité des k blocs du haut",
+        "r_edge": "bord du bloc du dessous ; pour le plus bas, le bord de la table",
+        "s_step": "marche, en longueurs",
+        "N_blocks": "nombre de blocs nécessaire",
+        "m_flux": "quantité de mouvement que le jet emporte vers le haut chaque seconde",
+        "r_jet": "distance à l’axe du jet",
+        "u_jet": "vitesse de l’air dans le jet",
+        "U0_jet": "vitesse de l’air à l’ouverture",
+        "opening_d": "diamètre de l’ouverture de la trompe",
+        "uc_jet": "vitesse de l’air sur l’axe du jet",
+        "b_jet": "largeur du jet",
+        "cd": "coefficient de traînée d’une sphère, 0,47",
+        "A_ball": "section du ballon",
+        "u2_mean": "moyenne de u² sur la section du ballon",
+        "m_ball": "masse du ballon",
+        "V_ball": "volume du ballon",
+        "s_jet": "hauteur du centre du ballon au-dessus de l’ouverture",
+        "B_decay": "constante de décroissance du jet rond, ici 6",
+        "u_ball": "vitesse de l’air au niveau du ballon",
+        "elephant_rho_air": "masse volumique de l’air",
+        "round_time": "temps d’un tour autour du fil",
+        "precession": "vitesse à laquelle l’axe tourne autour du fil",
+        "axle_length": "distance du fil au centre de la roue",
+        "hoop_radius": "rayon du cerceau",
+        "spin_momentum": "moment cinétique de la roue autour de son axe",
+        "i3_hoop": "moment d’inertie autour de l’axe",
+        "spin_rate": "vitesse de rotation de la roue sur son axe",
+        "i1_pivot": "moment d’inertie en travers de l’axe, autour de son extrémité",
+        "tilt_start": "inclinaison de l’axe au lâcher, par rapport à la verticale vers le haut",
+        "tilt_lowest": "inclinaison de l’axe au point le plus bas",
+        "axle_tilt": "inclinaison de l’axe par rapport à la verticale vers le haut",
+        "top_b": "2mgd/I₁",
+        "below_level": "de combien l’axe est sous l’horizontale",
+        "torque": "couple que fournissent les mains",
+        "suitcase_turn": "vitesse à laquelle on tourne la valise"
       },
       "cases": {
         "sphere": {
@@ -4130,6 +4356,541 @@
             "reads": "La résistance au roulement freine avec C·N contre le mouvement ; cela coûte C·N·v par seconde. N, la poussée de la paroi, est la part du poids perpendiculaire à la paroi, plus ce qui maintient la bille sur son cercle.",
             "why": "Vérifie le freinage et la poussée de la paroi dont il découle : 8,6625 mW par kilogramme. Dès la première milliseconde, la bille ralentit un peu, et le freinage avec elle ; et en dessous de 1 mm/s, la page atténue la résistance jusqu’à l’annuler : ensemble, un écart de 2 · 10⁻⁵.",
             "step": "La première source donne la résistance au roulement C·N. La deuxième traite le virage relevé : N·sin θ = mv²/r et N·cos θ = mg. Additionnées perpendiculairement à la paroi, elles donnent N = mg·cos α + (mv²/r)·sin α ; l’adhérence de la bille qui roule se trouve dans le plan de la paroi et n’apporte rien perpendiculairement à elle."
+          }
+        },
+        "slits": {
+          "spacing": {
+            "title": "L’espacement des franges",
+            "setting": "L’exposition : laser rouge, 650 nm, fentes espacées de 0,25 mm et larges de 0,05 mm, le mur 2 m derrière ; de la première frange sombre à la deuxième.",
+            "reads": "Il fait sombre là où les chemins depuis les deux fentes diffèrent d’une demi-longueur d’onde, d’une et demie, de deux et demie… Pour de petits angles, les franges sont espacées de λ·D/d.",
+            "why": "Vérifie l’espacement des fentes dans la figure : 5,2 mm, mesurés sur la figure que dessine la page. La formule suppose de petits angles ; c’est pourquoi la figure est 1,1 · 10⁻⁵ plus large.",
+            "step": "La source donne les franges sombres en d·sin θ = (m + ½)λ et, pour de petits angles, les claires en y = mλD/d. Les sombres se trouvent à mi-chemin entre les claires, donc tout aussi espacées."
+          },
+          "one_slit_dark": {
+            "title": "Une fente seule : la première obscurité",
+            "setting": "Comme ci-dessus, une fente cachée ; la première obscurité à côté du milieu.",
+            "reads": "Une fente seule est sombre là où les chemins depuis ses deux bords diffèrent d’une longueur d’onde entière : chaque bande de la fente en a alors une autre qui l’annule.",
+            "why": "Vérifie la largeur de la fente dans la figure : 26,002 mm à côté du milieu, comme le dessine la page."
+          },
+          "quarter": {
+            "title": "Une fente donne un quart, pas la moitié",
+            "setting": "Comme ci-dessus, une fente cachée ; la clarté au milieu.",
+            "reads": "Au milieu, les deux ondes arrivent en phase : leurs amplitudes s’additionnent au double, et la clarté en est le carré, quatre fois celle d’une fente.",
+            "why": "Vérifie que la page additionne les ondes et n’élève au carré qu’ensuite, au lieu d’additionner les clartés : une fente donne 0,25 du milieu avec deux.",
+            "step": "La première source donne que les amplitudes d’ondes égales en phase s’additionnent, la deuxième que la clarté en est le carré : E² contre (2E)²."
+          },
+          "first_bright": {
+            "title": "La première frange claire est plus faible",
+            "setting": "Comme ci-dessus, les deux fentes ouvertes ; la clarté de la première frange claire à côté du milieu.",
+            "reads": "Chaque fente seule devient plus sombre vers les côtés. La première frange claire de la paire se trouve en d·sin θ = λ, et là chaque fente ne donne que (sin β/β)² de son milieu.",
+            "why": "Vérifie comment la largeur des fentes atténue les franges : 0,8751 du milieu pour des fentes cinq fois plus espacées que larges."
+          },
+          "missing": {
+            "title": "La cinquième frange manque",
+            "setting": "Comme ci-dessus, les deux fentes ouvertes ; la clarté là où se trouverait la cinquième frange claire.",
+            "reads": "Les fentes sont cinq fois plus espacées que larges. Là où les deux se renforcent pour la cinquième fois, chacune seule est sombre, et il n’y a rien à renforcer.",
+            "why": "Vérifie que les franges et l’atténuation sont calculées avec le même angle : 10⁻³³ à cet endroit, c’est-à-dire sombre.",
+            "step": "La première source donne les franges claires en d·sin θ = mλ, la deuxième l’obscurité d’une fente en a·sin θ = λ. Avec d = 5a, la cinquième frange claire et la première obscurité coïncident ; la troisième appelle cela un ordre manquant."
+          }
+        },
+        "diver": {
+          "reserve": {
+            "title": "Combien de flottabilité il reste",
+            "setting": "Le ludion de la page, 3 g de verre de 1,2 cm³ et 2 cm³ d’air, à la surface, sans pression de la main.",
+            "reads": "Il déplace de l’eau pour son verre et pour son air ; ce que cette eau pèse de plus que le verre le maintient en haut.",
+            "why": "Vérifie la flottabilité que la page affiche comme réserve : 0,1936 g."
+          },
+          "sinks_from_top": {
+            "title": "La pression qui le fait couler depuis le haut",
+            "setting": "Le ludion à la surface ; la main presse avec 10,90 kPa. À 10,85 kPa, il reste en haut.",
+            "reads": "La pression de la main comprime la bulle (à température constante, p·V reste le même) ; il coule dès que la bulle est plus petite que m/ρ − V_g, la bulle avec laquelle il reste en suspens.",
+            "why": "Vérifie Boyle et la poussée dans la boucle des pas de temps de la page : 10,884 kPa, cherchés comme la pression à partir de laquelle un seul pas l’arrache à la surface.",
+            "step": "La première source donne p·V constant pour l’air, la deuxième l’équilibre entre poussée et poids ; ensemble, elles donnent la pression à laquelle la bulle à la surface le porte encore tout juste."
+          },
+          "rises_from_bottom": {
+            "title": "La pression sous laquelle il remonte du fond",
+            "setting": "Le ludion repose au fond de la bouteille de 30 cm (pressez d’abord fort jusqu’à ce qu’il soit en bas) ; puis 7,90 kPa. À 7,95 kPa, il reste au fond.",
+            "reads": "En bas, l’eau presse en plus avec ρ·g·H ; il remonte dès que la main presse de ρ·g·H de moins que la pression qui le fait couler depuis le haut.",
+            "why": "Vérifie la pression de l’eau en profondeur : 7,947 kPa, 2,936 kPa de moins qu’en haut. Entre les deux pressions, la profondeur où il resterait en suspens se trouve dans la bouteille.",
+            "step": "Comme ci-dessus, avec la pression à la profondeur H tirée de la troisième source."
+          },
+          "leaves_hover": {
+            "title": "Pourquoi il ne reste pas en suspens",
+            "setting": "La main presse avec 10 kPa ; le ludion au repos un micromètre sous la profondeur où il resterait en suspens, 9,03 cm ; pendant cinq secondes.",
+            "reads": "Un peu plus bas, la bulle est un peu plus petite, et la poussée qui manque l’entraîne plus loin : la distance croît comme cosh(√k·t). Ce qui bouge, c’est le verre et l’eau qu’il entraîne, la moitié de son volume.",
+            "why": "Vérifie que l’équilibre en suspens est instable, et à quelle vitesse : la distance est bientôt multipliée par e toutes les 1,71 s. L’écart de 1 · 10⁻⁵ vient de la résistance de l’eau et de la courbure de la loi de Boyle ; les deux croissent avec la distance.",
+            "step": "La première source donne comment la bulle rétrécit avec la pression, la deuxième la pression en profondeur ; pour un petit pas δz, la variation est linéaire. La troisième donne l’eau entraînée par une sphère, la moitié de son volume, que la page reprend pour le tube."
+          }
+        },
+        "cone": {
+          "axis_path": {
+            "title": "L’axe descend, les rails montent",
+            "setting": "L’objet standard : rayon 6 cm, angle du cône 20°, écartement 20°, pente 4°, rails de 30 cm de long et écartés de 6 cm en bas.",
+            "reads": "La ligne allant de l’axe au contact est inclinée de l’angle δ, avec sin δ = tan β·cos γ·tan α. L’axe suit donc une droite qui descend de δ − γ.",
+            "why": "Vérifie le contact exact, que le moteur de calcul cherche par un autre chemin, par la distance du rail au cône : sur 30 cm, l’axe descend de 1,88426 cm ; les deux chemins concordent à 10⁻¹² près.",
+            "step": "La source mesure ses angles dans le plan des rails et appelle α ce qui est ici δ. Ce plan monte de γ ; un rail qui, vu d’en haut, s’écarte de tan β par mètre s’écarte de tan β·cos γ dans le plan. Avec tan φ = tan β·cos γ et l’angle du cône α comme ψ, on obtient sin δ, et vu d’en haut l’axe descend de l·tan(δ − γ) sur la longueur l."
+          },
+          "threshold": {
+            "title": "La limite entre monter et descendre",
+            "setting": "Le cône et l’écartement de l’objet standard ; on cherche par dichotomie entre 0° et 15° la pente à laquelle l’axe garde la même hauteur sur toute la longueur.",
+            "reads": "Le cône monte tant que δ est plus grand que la pente γ ; à la limite, les deux sont égaux. On en tire la condition des manuels, tan γ* = tan α·tan β, ici exacte.",
+            "why": "Vérifie la limite qu’indique la page : 7,54628°. Elle est cherchée avec le contact exact du moteur de calcul, et non avec la formule de la page ; les deux concordent à 10⁻¹² près.",
+            "step": "La première source donne la condition sin(δ − γ) > 0, donc δ = γ à la limite ; la seconde sin δ = tan φ·tan ψ, convertie comme ci-dessus en tan β·cos γ·tan α. Avec δ = γ, sin γ = tan β·cos γ·tan α, donc tan γ = tan α·tan β."
+          },
+          "speed": {
+            "title": "La vitesse tirée de l’énergie",
+            "setting": "L’objet standard, lâché à l’extrémité basse ; relevé après une seconde.",
+            "reads": "Ce que l’axe perd en hauteur devient mouvement et rotation : ½(1 + I/(M a²))·v² = g·Δz, avec a le rayon sur lequel roule le cône, et I = (3/10)·M·R² pour deux cônes pleins.",
+            "why": "Vérifie la boucle des pas de temps et le roulement sur le rayon a qui diminue : 28,5357 cm/s après une seconde, à 10⁻⁹ près. Plus on monte, plus l’énergie se trouve dans la rotation.",
+            "step": "La première source donne l’énergie et, avec ses équations (7) et (8), où se trouve l’axe et sur quel rayon a roule le cône, les angles étant convertis comme ci-dessus à la vue d’en haut. La seconde donne le moment d’inertie d’un cône ; deux cônes égaux, base contre base, ont le même I/(M·R²)."
+          }
+        },
+        "beats": {
+          "beat_rate": {
+            "title": "Autant de battements que la différence",
+            "setting": "Le cavalier, 1 g sur chaque branche, à 30 % depuis la base ; les deux diapasons frappés en même temps, pendant dix secondes.",
+            "reads": "La somme de deux sons est le son moyen multiplié par une enveloppe lente, qui devient silencieuse |f₂ − f₁| fois par seconde.",
+            "why": "Vérifie le son que la page dessine et joue : 0,8173 silences par seconde, un toutes les 1,22 s, autant que la différence des deux hauteurs. Relevé aux crêtes du son moyen, là où la somme est égale à l’enveloppe."
+          },
+          "tip_rider": {
+            "title": "Le cavalier à la pointe",
+            "setting": "1 g sur chaque branche, tout au bout de la pointe.",
+            "reads": "Une branche vibre comme une poutre encastrée dans son premier mode. À sa pointe, elle agit comme si le quart de sa masse s’y trouvait, et le cavalier s’ajoute en entier. La même raideur porte plus de masse : f = f₀·√(M*/(M* + m)).",
+            "why": "Vérifie la masse avec laquelle la branche compte à sa pointe : 5 g de ses 20 g ; le diapason descend de 440 Hz à 401,66 Hz. Ici, le quart est sommé sur la forme du mode ; la page met ¼.",
+            "step": "La première source donne la forme du premier mode d’une poutre encastrée, la seconde comment trouver la masse effective à partir de l’énergie cinétique : M* = M·∫φ², avec φ = 1 à la pointe. Un cavalier à l’endroit s compte avec m·φ(s)². À raideur égale, la fréquence varie comme 1/√masse."
+          },
+          "rider_on_prong": {
+            "title": "Le cavalier plus bas",
+            "setting": "1 g sur chaque branche, à 30 % du chemin de la base à la pointe, comme au départ de la page.",
+            "reads": "Plus bas, la branche bouge moins : le cavalier ne compte qu’avec φ(s)², le carré de la forme du mode à sa position.",
+            "why": "Vérifie la forme du mode à l’intérieur de la branche : le second diapason sonne à 439,18 Hz au lieu de 440 Hz.",
+            "step": "Comme pour le cavalier à la pointe, avec φ(0,3) tiré de la forme du mode de la première source, divisée pour que φ vaille 1 à la pointe."
+          }
+        },
+        "parabola": {
+          "centre": {
+            "title": "Le centre descend",
+            "setting": "Récipient Ø 30 cm, 30 cm de haut, rempli sur 10 cm ; plateau tournant à 90 tours par minute.",
+            "reads": "Si l’eau tourne d’un bloc, sa surface est un paraboloïde. Comme l’eau n’augmente pas, le centre descend de ω²R²/(4g) sous la hauteur de remplissage.",
+            "why": "Vérifie à la fois la forme et le volume : au centre, il reste 4,91 cm des 10 cm d’eau."
+          },
+          "dry_rate": {
+            "title": "À partir de quand le centre s’assèche",
+            "setting": "Le même récipient ; plateau tournant à 126 tours par minute, juste sous la limite.",
+            "reads": "Le centre atteint le fond quand il est descendu de toute la hauteur de remplissage : à ω₁ = (2/R)·√(h·g).",
+            "why": "Vérifie la limite à laquelle la page passe de la cuvette à l’anneau : ω₁ = 13,20 par seconde, 126,1 tours par minute."
+          },
+          "dry_rim": {
+            "title": "Sec au centre : le bord",
+            "setting": "Le même récipient ; plateau tournant à 160 tours par minute, au-delà de la limite de 126.",
+            "reads": "Quand le centre est sec, l’eau forme un anneau autour d’une tache sèche de rayon δ. La surface est le même paraboloïde, abaissé ; au bord, elle se trouve à α·(R² − δ²) de haut.",
+            "why": "Vérifie le second cas de la page, où c’est la tache sèche, et non la profondeur au centre, qui maintient le volume : 25,38 cm au bord. La page calcule R·ω·√(h/g), ici le chemin passe par δ ; les deux concordent à l’arrondi près.",
+            "step": "La source donne le rayon δ de la tache sèche et la surface z = α·(r² − δ²) ; au bord, r = R."
+          },
+          "mirror": {
+            "title": "La cuvette comme miroir",
+            "setting": "Le même récipient ; plateau tournant à 7 tours par minute, un tour en 8,6 s.",
+            "reads": "Une cuvette profonde de D jusqu’à la distance r réunit la lumière qui tombe verticalement en f = r²/(4D). L’eau a D = α·r², donc f = 1/(4α) = g/(2ω²), quelle que soit la taille du récipient.",
+            "why": "Vérifie la distance focale qu’affiche la page : 9,13 m au-dessus du point le plus bas de la cuvette."
+          },
+          "spin_up": {
+            "title": "L’eau suit avec retard",
+            "setting": "Le même récipient ; plateau tournant mis en marche depuis l’arrêt à 90 tours par minute, l’eau au repos. Relevé après un temps de mise en rotation, au pas de calcul de la page, 10 ms.",
+            "reads": "Le fond entraîne l’eau à travers une mince couche limite. Après le temps de mise en rotation τ = h/√(ν·ω_v), il lui manque encore la fraction 1/e de la vitesse du récipient.",
+            "why": "Vérifie la boucle des pas de temps et le temps de mise en rotation de la page : après 32,58 s, l’eau tourne à 63,2 % de la vitesse du récipient, à 56,9 des 90 tours par minute.",
+            "step": "La source traite un cylindre fermé de hauteur 2L, avec une couche d’Ekman en bas et une en haut. Par symétrie, son plan médian ne porte aucune contrainte de cisaillement, comme une surface libre plane : l’eau de profondeur h en est la moitié inférieure, L = h. La source traite de petits changements ; la page fait suivre les grands de la même façon, avec Ω la plus grande des deux vitesses."
+          }
+        },
+        "levitation": {
+          "lift": {
+            "title": "La charge que porte l’anneau",
+            "setting": "L’anneau de la page (Ø extérieur 10 cm, trou Ø 3 cm, 1,5 cm de haut, en ferrite) et l’aimant de la toupie, de 0,64 A·m² ; la charge à 4,6 cm au-dessus de l’anneau.",
+            "reads": "La toupie s’oriente contre le champ et est poussée vers là où il est plus faible : vers le haut, avec μ fois la pente du champ. Le champ de l’anneau est ici sommé spire par spire.",
+            "why": "Vérifie le champ de l’anneau sur son axe, dont découle tout le reste : 23,589 g de charge à 4,6 cm de hauteur. La page calcule le champ par une formule fermée, ici il est sommé ; les deux concordent à 10⁻¹² près.",
+            "step": "La deuxième source fait de l’aimantation M un courant de M par mètre de hauteur autour de la paroi extérieure de l’anneau, et le courant opposé autour de son trou. Chaque mince couche de ce courant est une spire ; la première source donne son champ sur l’axe, ici sommé sur la hauteur de l’anneau et dérivé par rapport à z. La troisième donne l’énergie mgz + μB et donc la force −μB′."
+          },
+          "window_foot": {
+            "title": "Le pied de la fenêtre",
+            "setting": "L’anneau de la page ; la hauteur la plus basse à laquelle une toupie peut flotter.",
+            "reads": "Vers le haut et le bas, la toupie ne tient que là où le champ faiblit de plus en plus lentement vers le haut, B″ > 0. La limite est le point d’inflexion du champ, B″ = 0.",
+            "why": "Vérifie l’extrémité inférieure de la fenêtre : 4,3587 cm, comme la page la trouve avec sa grille et par dichotomie.",
+            "step": "La première source donne les conditions et dit que la fenêtre commence au point d’inflexion. B″ vient ici du champ sommé spire par spire (deuxième et troisième sources), son zéro par dichotomie."
+          },
+          "window_head": {
+            "title": "L’extrémité supérieure de la fenêtre",
+            "setting": "L’anneau de la page ; la hauteur la plus élevée à laquelle une toupie peut flotter.",
+            "reads": "Sur le côté, la toupie ne tient que tant que B′² > 2·B·B″ ; au-dessus, elle glisse sur le côté.",
+            "why": "Vérifie l’extrémité supérieure de la fenêtre : 4,8052 cm. La fenêtre n’a donc que 4,5 mm de haut.",
+            "step": "La première source donne la condition de maintien sur le côté. B, B′ et B″ viennent ici du champ sommé spire par spire, la limite par dichotomie."
+          },
+          "bob": {
+            "title": "L’oscillation de haut en bas",
+            "setting": "La toupie de la page, 23,5 g, sans réchauffement ; là où elle flotte.",
+            "reads": "Là où le poids rencontre la charge, l’énergie mgz + μB est la plus basse. Sa courbure μB″ agit comme un ressort, et la toupie oscille de haut en bas à la fréquence de ce ressort.",
+            "why": "Vérifie la fréquence de l’oscillation qu’indique la page : 1,466 Hz, à la hauteur cherchée ici dans le champ sommé.",
+            "step": "La première source donne l’énergie mgz + μB. Sa dérivée seconde par rapport à la hauteur est μB″, la raideur du ressort ; la seconde donne alors ω = √(k/m)."
+          },
+          "drift": {
+            "title": "Tourner autour de l’axe",
+            "setting": "La toupie de la page, 23,5 g, sans réchauffement ; là où elle flotte.",
+            "reads": "À côté de l’axe, le champ est plus intense, de r²(B′² − 2BB″)/(8B). La toupie est repoussée vers l’axe et tourne lentement autour de lui.",
+            "why": "Vérifie comment la page obtient le champ à côté de l’axe à partir du champ sur l’axe : 0,636 Hz.",
+            "step": "La première source donne le carré du champ à côté de l’axe à partir des dérivées sur l’axe. Sa racine, pour r petit, vaut B + r²(B′² − 2BB″)/(8B) ; dérivée deux fois par rapport à r et multipliée par μ, elle donne la raideur latérale, et la troisième source la fréquence."
+          }
+        },
+        "circuit": {
+          "period": {
+            "title": "Un aller-retour",
+            "setting": "Le circuit de la page : 200 H, 125 µF, 90 Ω, 10 V ; l’inverseur basculé.",
+            "reads": "Un circuit oscillant avec résistance oscille à ω′ = √(1/LC − (R/2L)²), un peu plus lentement que sans.",
+            "why": "Vérifie le temps que met l’aiguille pour un aller-retour : 0,9941 s, mesuré entre son premier et son troisième passage par zéro."
+          },
+          "energy_kept": {
+            "title": "Ce qu’une oscillation garde de l’énergie",
+            "setting": "Comme ci-dessus ; on compare l’instant du basculement et une période plus tard.",
+            "reads": "Après une période, la charge est revenue, seulement multipliée par e^(−RT/2L), et le courant est nul : l’énergie q²/2C est tombée à e^(−RT/L) fois sa valeur de départ.",
+            "why": "Vérifie que l’amortissement et l’oscillation s’accordent : 63,9 % restent dans le condensateur et la bobine. Si la période de la page était fausse, le courant ne serait pas nul une période plus tard, et la part serait différente.",
+            "step": "La première source donne la charge, la deuxième l’énergie dans le condensateur et la bobine. Après une période complète, le cosinus se répète, seulement multiplié par e^(−RT/2L)."
+          },
+          "energy_account": {
+            "title": "L’énergie ne se perd pas",
+            "setting": "Comme ci-dessus ; dix secondes après le basculement.",
+            "reads": "Ce qui manque au condensateur et à la bobine est devenu chaleur dans le fil, avec la puissance R·i².",
+            "why": "Vérifie la barre de la page, qui montre la chaleur comme le reste : 6,25 mJ tirés de la pile, dont 1,1 % se trouvent encore dans le condensateur et la bobine après 10 s ; le reste est la chaleur, sommée ici à partir du courant, à 3 · 10⁻¹⁴ près.",
+            "step": "La première source dit à quelle vitesse le fil consume l’énergie, la deuxième de quoi elle se compose ; sommé dans le temps, cela donne le bilan."
+          },
+          "edge": {
+            "title": "À la limite : plus d’oscillation",
+            "setting": "Résistance 2√(L/C) = 2529,8 Ω au lieu de 90 Ω, sinon comme ci-dessus.",
+            "reads": "Pour R = 2√(L/C), les deux racines se confondent ; en partant du repos, le courant vaut q₀ω₀²·t·e^(−ω₀t), maximal après 1/ω₀, à q₀ω₀/e.",
+            "why": "Vérifie la branche du calcul que prend la page à la limite : 2,908 mA après 0,158 s. Sur le curseur, c’est 2530 Ω, juste au-dessus ; le maximum y est 5 · 10⁻⁵ plus bas.",
+            "step": "La première source donne la limite, où √(1/LC) = R/2L, la deuxième les solutions e^(st) avec s = −ω₀(ζ ± i√(1 − ζ²)). À la limite, ζ = 1 et les deux s valent −ω₀ ; la seconde solution est alors t·e^(−ω₀t). En partant du repos, la formule s’ensuit."
+          }
+        },
+        "race": {
+          "line": {
+            "title": "La droite : le plan incliné",
+            "setting": "Une bille pleine ; jusqu’à l’arrivée, 50 cm de dénivelé et 120 cm de distance horizontale.",
+            "reads": "Sur la droite, la bille roule avec une accélération fixe g′·H/L, en partant du repos : L = ½·a·T².",
+            "why": "Vérifie la somme de ds/v par laquelle la page calcule chaque piste, dans le cas le plus simple : 0,982374 s. Après le changement de variable de la page, le terme sommé est ici constant ; la somme est donc juste à l’arrondi près.",
+            "step": "La première source donne l’accélération d’une bille qui roule sur un plan incliné, g·sin θ/(1 + 2/5), avec sin θ = H/L ; la deuxième la distance parcourue depuis le repos, L = ½·a·T², avec L² = D² + H² ; la troisième le moment d’inertie de la bille pleine, 2/5·m·r²."
+          },
+          "cycloid": {
+            "title": "La cycloïde : la piste la plus rapide",
+            "setting": "Comme ci-dessus : bille pleine, 50 cm de dénivelé, 120 cm de distance horizontale.",
+            "reads": "Sur la cycloïde x = r(φ − sin φ), y = r(1 − cos φ), l’angle du cercle qui roule avance uniformément avec le temps : φ = t·√(g′/r). À l’arrivée, il vaut φ_B.",
+            "why": "Vérifie la piste la plus rapide et la façon dont la page fait passer sa cycloïde par l’arrivée : 0,747261 s. Près de la pointe au départ, 1 − cos φ perd des chiffres, d’où les 3 · 10⁻¹¹.",
+            "step": "La première source traite un corps qui glisse sans frottement, sous g. La bille qui roule ne ressent le long de toute piste que g′ = g/(1 + 2/5), ce que donne la deuxième ; ainsi ω = √(g′/r). φ_B est l’angle auquel la distance horizontale et le dénivelé de la cycloïde sont dans le rapport de 120 à 50."
+          },
+          "tautochrone": {
+            "title": "La vallée cycloïdale : même durée de partout",
+            "setting": "La vallée de la page, rayon 30 cm, une bille pleine ; relevé sur la plus haute, lâchée à 59 cm au-dessus du fond.",
+            "reads": "Dans une vallée cycloïdale, une bille met π·√(r/g′) pour atteindre le fond, d’où qu’elle soit lâchée.",
+            "why": "Vérifie la table des temps selon laquelle la page fait rouler les billes dans la vallée : 0,650151 s, même depuis 59 cm. La somme de la page sur 1440 pas s’en écarte de 7 · 10⁻⁸, une erreur qui diminue avec le carré du pas.",
+            "step": "La première source donne le temps pour un corps qui glisse sans frottement, sous g ; la bille qui roule ressent g′ = g/(1 + 2/5), ce que donne la deuxième."
+          },
+          "bowl": {
+            "title": "La cuvette circulaire d’à côté : plus ample, plus lent",
+            "setting": "La cuvette circulaire à côté de la vallée, rayon 1,2 m, quatre fois le rayon de la cycloïde ; la bille pleine depuis 59 cm de hauteur.",
+            "reads": "Dans la cuvette, la bille oscille comme un pendule de longueur R sous g′ ; jusqu’au fond, elle met un quart de sa période, √(R/g′)·K(sin(φ₀/2)).",
+            "why": "Vérifie la cuvette par laquelle la page montre que seule la cycloïde fait arriver toutes les billes ensemble : 0,696484 s depuis 59 cm, plus tard que dans la vallée. K est ici sommée comme une intégrale ; la somme de la page s’en écarte de 5 · 10⁻⁸.",
+            "step": "La première source donne la période du pendule, 4K en unités de √(R/g′), la deuxième K, la troisième g′ = g/(1 + 2/5) pour la bille qui roule. La cuvette a le rayon 4r, la courbure de la cycloïde en son fond, et la bille part à la même hauteur h que dans la vallée : cos φ₀ = 1 − h/R."
+          }
+        },
+        "chaos": {
+          "slow_mode": {
+            "title": "Le mode propre lent",
+            "setting": "Deux tiges de 30 cm, deux masses de 500 g, sans amortissement ; en haut 1°, en bas √2° = 1,41°, lâchées depuis le repos.",
+            "reads": "Pour de petites oscillations, le pendule double a deux modes propres. Dans le lent, les deux tiges oscillent à l’unisson, l’inférieure √2 fois plus loin, à ω₀·√(2 − √2).",
+            "why": "Vérifie les équations du mouvement et la boucle des pas de temps de la page pour de petites oscillations : une oscillation en 1,43585 s. Comme 1° n’est pas infiniment petit, le pendule oscille 2,5 · 10⁻⁵ plus lentement."
+          },
+          "energy": {
+            "title": "L’énergie se conserve, même quand ça devient sauvage",
+            "setting": "Sans amortissement ; les deux tiges lâchées depuis le repos à 120° (« Sauvage »), pendant 20 s.",
+            "reads": "Sans frottement, la somme de l’énergie cinétique et potentielle des deux masses reste la même. Au début, tout est énergie potentielle : 2,2065 J, comptés depuis la hauteur du point de suspension.",
+            "why": "Vérifie la boucle des pas de temps là où elle a le plus à faire : après 20 000 pas de 1 ms, l’énergie est la même à 1,0 · 10⁻⁷ près. Calculée ici à partir des positions et des vitesses des masses, et non avec la formule d’énergie de la page.",
+            "step": "La deuxième source donne les positions et les vitesses des deux masses à partir des angles ; avec ½mv² et mgy, cela donne l’énergie qui, d’après la première, se conserve tant que rien ne freine."
+          },
+          "damping": {
+            "title": "L’amortissement fait décroître l’amplitude",
+            "setting": "Comme pour le mode propre lent, mais avec un amortissement de 0,1 par seconde ; relevé au septième point de retour de la tige supérieure.",
+            "reads": "Une oscillation amortie décroît en e^(−bt/2m). La page retranche de chaque accélération angulaire c fois la vitesse angulaire ; l’amplitude décroît donc en e^(−ct/2).",
+            "why": "Vérifie l’amortissement de la page : l’amplitude décroît au taux de 0,05 par seconde, moitié moins vite que l’amortissement réglé. L’écart de 5 · 10⁻⁵ vient de l’amplitude de 1°.",
+            "step": "La première source donne la solution de m·x″ + b·x′ + k·x = 0, ici avec b/m = c. Cela vaut pour le mode propre lent de la deuxième source, dont l’amortissement ne change pas la forme, car il freine les deux tiges de la même façon."
+          }
+        },
+        "bounce": {
+          "landing": {
+            "title": "La chute dans l’air",
+            "setting": "La balle de tennis de table (2,7 g, Ø 40 mm) depuis 30 cm ; le temps jusqu’au premier choc.",
+            "reads": "L’air freine avec le carré de la vitesse. La balle tombe donc de (v∞²/g)·ln cosh(gt/v∞) et s’approche de sa vitesse limite v∞, où l’air freine autant que le poids tire.",
+            "why": "Vérifie la chute dans l’air et la vitesse limite de la balle légère : 0,24898 s. La page résout le même mouvement sous une autre forme ; les deux concordent à 10⁻¹⁵ près."
+          },
+          "apex": {
+            "title": "La première remontée",
+            "setting": "Comme ci-dessus, e = 0,92 ; la hauteur après le premier choc.",
+            "reads": "La balle rebondit avec e fois la vitesse à laquelle elle est arrivée et monte, contre le poids et l’air, jusqu’à (v∞²/2g)·ln(1 + u²/v∞²).",
+            "why": "Vérifie le choc et la remontée dans l’air : 23,66 cm, le nombre que la page affiche comme hauteur du premier rebond.",
+            "step": "La première source donne la vitesse au choc à partir du temps de chute, la deuxième que la balle en récupère e, la troisième la hauteur d’un lancer vertical avec résistance de l’air ; là, μ = g/v∞²."
+          },
+          "flight": {
+            "title": "Le premier vol",
+            "setting": "Comme ci-dessus, e = 0,92 ; le temps du premier choc au deuxième.",
+            "reads": "À la montée, le poids et l’air freinent ensemble ; à la descente, ils agissent l’un contre l’autre. Le temps de montée et le temps de descente forment ensemble le vol.",
+            "why": "Vérifie le temps que la page affiche comme durée du premier rebond : 0,4394 s.",
+            "step": "La première source donne la vitesse au choc, la deuxième que la balle en récupère e. La troisième donne le temps de montée, t_f·arctan(u/v∞), et la hauteur ; à la descente, la balle tombe d’après elle de ln cosh(t/t_f)/μ, jusqu’à avoir parcouru toute la hauteur."
+          },
+          "still": {
+            "title": "Une infinité de rebonds, un temps fini",
+            "setting": "La bille d’acier avec e = 0,5 depuis 5 cm : si lente que l’air la freine à peine.",
+            "reads": "Chaque vol dure e fois le précédent. Une infinité de vols s’additionnent, comme une série géométrique, en un temps fini : √(2h/g)·(1 + e)/(1 − e).",
+            "why": "Vérifie la série de la page, qui somme sous forme fermée ses derniers rebonds, les plus courts : 0,3029 s. L’air, que la formule laisse de côté, représente 6 · 10⁻⁵.",
+            "step": "La première source donne le temps de chute, √(2h/g), et la vitesse en bas, √(2gh) ; la deuxième que chaque vol dure e fois le précédent. Le premier dure 2e·√(2gh)/g ; la série géométrique les additionne tous en 2e·√(2h/g)/(1 − e), à quoi s’ajoute la chute."
+          }
+        },
+        "platform": {
+          "leaning_inertia": {
+            "title": "Le moment d’inertie, morceau par morceau",
+            "setting": "Le visiteur de la page, 70 kg, penché de 30 cm vers l’extérieur, les mains sur la barre ; la plateforme 15 kg, 60 cm.",
+            "reads": "Chaque morceau selon sa forme : la plateforme ½MR², les jambes sur l’axe, le tronc à d vers l’extérieur, chaque bras une tige de la barre à l’épaule, d²/12 autour de son milieu, puis déplacée jusque-là.",
+            "why": "Vérifie le moment d’inertie qu’affiche la page : 5,34 kg·m² penché vers l’extérieur. Les bras sont calculés ici avec le théorème de Huygens-Steiner, et non comme s² + d²/3 à la manière du moteur de calcul.",
+            "step": "La première source donne le théorème de Huygens-Steiner et la tige autour de son milieu, mL²/12, la deuxième le disque et le fait que les morceaux s’additionnent pour donner le tout."
+          },
+          "faster_upright": {
+            "title": "Redressé, ça tourne plus vite",
+            "setting": "Sans frottement dans le palier : une poussée, penché vers l’extérieur, puis redressé en 1,5 s au bout de 2 s.",
+            "reads": "Sans couple extérieur, le moment cinétique I·ω reste le même : la vitesse de rotation augmente dans la mesure même où le moment d’inertie diminue.",
+            "why": "Vérifie le déroulement de la page par rapport à la conservation du moment cinétique : 3,21 fois plus vite, le moment d’inertie étant tombé de 5,34 à 1,67 kg·m²."
+          },
+          "pull": {
+            "title": "Ce que retiennent les mains sur la barre",
+            "setting": "Penché vers l’extérieur, un demi-tour par seconde.",
+            "reads": "Ce qui parcourt un cercle a besoin de la force m·r·ω² vers le centre ; pour le tronc et les bras, à l’endroit de leurs centres de masse : le tronc à d vers l’extérieur, chaque bras à d/2.",
+            "why": "Vérifie la traction sur la barre que la page indique pour un demi-tour par seconde : 124,4 N.",
+            "step": "La source donne la force pour une masse sur un cercle. Sommée sur un corps, c’est la distance de son centre de masse qui compte ; un bras va de la barre à l’épaule, son centre de masse se trouve donc à d/2 vers l’extérieur."
+          },
+          "bearing_stops": {
+            "title": "Le palier la freine",
+            "setting": "Une poussée, 17 kg·m²/s, penché vers l’extérieur, avec 0,2 N·m de frottement dans le palier.",
+            "reads": "Un couple constant retire chaque seconde la même quantité au moment cinétique : celui-ci est épuisé après L/τ.",
+            "why": "Vérifie le palier de la page : après 85 s, la plateforme s’arrête."
+          }
+        },
+        "coupled": {
+          "together": {
+            "title": "À l’unisson, le ressort se repose",
+            "setting": "Les pendules de la page, 50 cm et 200 g chacun, un ressort de 1 N/m à 25 cm sous la suspension, sans amortissement ; « Les deux pareil », écartés de 10°.",
+            "reads": "Si les deux oscillent pareil, le ressort garde sa longueur : chaque pendule oscille comme s’il était seul, avec la période exacte 4K(sin(θ₀/2))·√(L/g).",
+            "why": "Vérifie la boucle des pas de temps de la page et que le ressort ne fait rien à l’unisson : 1,421451 s à 10°. L’encadré « Période à l’unisson » donne la période des petites oscillations ; à 10°, l’oscillation est un peu plus lente.",
+            "step": "La première source donne ω = √(g/L), la deuxième l’équation du pendule dans le temps ω·t et sa période 4K, la troisième K."
+          },
+          "against": {
+            "title": "En opposition, le ressort travaille",
+            "setting": "Les mêmes pendules, « L’un contre l’autre » : tous deux écartés de 10°, de côtés opposés.",
+            "reads": "En opposition, le milieu du ressort reste immobile, et chaque pendule oscille dans V(θ) = −(g/L)·cos θ + κ·sin²θ, avec κ = k·a²/(m·L²). La période découle de l’énergie ; pour de petites oscillations, c’est la pulsation √(g/L + 2κ) de la source.",
+            "why": "Vérifie la force du ressort, son bras de levier a·cos θ et qu’il agit sur les deux pendules : 1,339555 s à 10°, sommé à partir de l’énergie. L’écart de 2 · 10⁻¹⁰ est celui de la boucle des pas de temps.",
+            "step": "La première source donne l’énergie potentielle de la boule et du ressort. Le ressort est allongé de a·(sin θ₂ − sin θ₁) = 2a·sin θ ; par pendule et par m·L², l’énergie vaut ½θ̇² + V(θ), et depuis le repos en θ₀ une période dure 4∫dθ/√(2(V(θ₀) − V(θ))). La deuxième donne le cas limite des petites oscillations, avec I = m·L² pour une boule au bout d’une tige légère."
+          },
+          "beat": {
+            "title": "Aller-retour",
+            "setting": "Les mêmes pendules, « Seulement le gauche » ; l’encadré « Aller-retour ».",
+            "reads": "Une poussée sur un pendule, c’est pour moitié chacun des deux modes d’oscillation. Ils se décalent à ω₋ = √(g/L) et ω₊ = √(g/L + 2κ), et l’oscillation fait l’aller-retour en 2π/(ω₊ − ω₋).",
+            "why": "Vérifie la formule de la page pour les deux pulsations, qui cherche, même pour des pendules différents, les racines d’un système 2×2 : 22,94913 s pour de petites oscillations.",
+            "step": "La source donne les deux pulsations avec le moment d’inertie I autour de la suspension ; pour une boule au bout d’une tige légère, I = m·L², et k·l²/I devient κ. Entre deux nœuds du battement s’écoule 1/(f₁ − f₂)."
+          },
+          "energy": {
+            "title": "L’énergie se conserve",
+            "setting": "Les mêmes pendules, « Seulement le gauche » écarté de 10° ; après 30 s, 30 000 pas.",
+            "reads": "Sans amortissement, la somme du mouvement et de la hauteur des deux boules et de l’allongement du ressort reste la même. Au début, ce sont la hauteur de la boule gauche, L(1 − cos 10°), et le ressort, allongé de a·sin 10°.",
+            "why": "Vérifie la boucle des pas de temps et que la force du ressort correspond à son énergie : 15,84081 mJ au début et après 30 s, identiques à 10⁻¹⁰ près."
+          }
+        },
+        "smoke": {
+          "membrane_area": {
+            "title": "Combien d’air un appui chasse",
+            "setting": "Le tambour de la page : 1,9 m de large, un trou de 30 cm dans un cerclage de 40 cm.",
+            "reads": "Le cerclage entraîne la peau vers le bas ; entre le cerclage et le bord, la peau tendue prend la forme w(r) = x·ln(R/r)/ln(R/a). Sommé anneau par anneau, le tambour perd 0,80 m² par mètre d’enfoncement, 11,3 fois la surface du trou.",
+            "why": "Vérifie le chiffre « Air sortant, par vitesse de la main » de la page : 11,30. Ici, la peau est sommée en 4000 anneaux ; la page calcule l’intégrale sous forme fermée.",
+            "step": "Quand la peau est au repos, le membre de gauche de l’équation de la source disparaît : u″ + u′/r = 0, donc (r·u′)′ = 0 et u = A + B·ln r. Au bord, u = 0 ; au cerclage, u vaut l’enfoncement."
+          },
+          "slug_length": {
+            "title": "La colonne d’air d’un appui complet",
+            "setting": "Comme ci-dessus ; un appui complet de 8 cm en une demi-seconde.",
+            "reads": "Ce que perd le tambour doit passer par le trou : 11,3 fois plus vite que la main. Comme le trou descend avec la main, l’air en sort à 12,3 fois la vitesse de la main ; sur tout l’appui, la colonne devient 12,3 fois plus longue que la course de la main.",
+            "why": "Vérifie le chiffre « Colonne d’air, en diamètres de trou » de la page : 98 cm d’air, 3,28 diamètres de trou.",
+            "step": "La première source donne la continuité, A₁v₁ = A₂v₂ ; la deuxième, que la vitesse par rapport au trou est celle dans la salle plus celle du trou. La surface A_eff est celle du cas ci-dessus, avec la forme de la peau tirée de la troisième source."
+          },
+          "ring_speed": {
+            "title": "La vitesse de l’anneau",
+            "setting": "Comme ci-dessus ; l’anneau d’un appui complet d’une demi-seconde.",
+            "reads": "Un anneau tourbillonnaire à noyau mince vole à U = Γ/(4πR)·(ln(8R/a) − ¼) : la formule de Kelvin. La page prend un anneau large de 0,6 diamètre de trou et un noyau de 0,35 fois cette largeur.",
+            "why": "Vérifie la formule par laquelle la page fixe le vol et le « trop lent » : 1,511 m/s à partir de la circulation que la page trouve pour cet appui. La circulation elle-même, ce cas ne la vérifie pas."
+          }
+        },
+        "rainbow": {
+          "water": {
+            "title": "L’arc-en-ciel dans le ciel : 42°",
+            "setting": "Goutte d’eau : indice de réfraction 1,333.",
+            "reads": "L’anneau est fait par le rayon qui ressort le plus loin du chemin de retour vers la lampe : à 2φ de celui-ci, avec φ = 2β − arcsin(n·sin β), maximal pour cos β = 2√(n² − 1)/(√3·n).",
+            "why": "Vérifie le rayon de l’anneau : 42,08° pour l’eau, l’arc-en-ciel dans le ciel. La page trouve le rayon de l’arc-en-ciel par l’angle d’incidence, la source par l’angle de réfraction ; les deux tombent sur le même rayon."
+          },
+          "colours": {
+            "title": "Rouge à l’extérieur, violet à l’intérieur",
+            "setting": "Bille de verre : indice de réfraction 1,52 en lumière jaune, coefficient de Cauchy 4200 nm².",
+            "reads": "La lumière bleue est plus réfractée que la rouge, n(λ) = A + B/λ², et son anneau est plus petit. La largeur de l’anneau est la différence des rayons à 700 nm et à 400 nm.",
+            "why": "Vérifie les couleurs : le bord rouge est à l’extérieur, et l’anneau de la bille de verre est large de 1,49°.",
+            "step": "La troisième source donne n(λ) = A + B/λ² ; A est choisi pour que n à la raie du sodium, 589,3 nm, soit l’indice de réfraction de la bille. Pour 700 nm et pour 400 nm, mis dans la formule de la première."
+          },
+          "drawn_ray": {
+            "title": "Le rayon dessiné",
+            "setting": "Bille de verre ; le rayon touche la bille à mi-rayon.",
+            "reads": "Avec sin i = b et sin β = b/n, chaque rayon quitte la bille sous θ = 2φ = 2·(2β − i) par rapport au chemin de retour vers la lampe.",
+            "why": "Vérifie le dessin : la page suit le rayon avec des vecteurs à travers réfraction, réflexion et réfraction, et il sort sous 16,82°, comme le dit la formule."
+          },
+          "reflected": {
+            "title": "Combien de lumière revient",
+            "setting": "Bille de verre, indice de réfraction 1,52 ; sur toute la face de la bille.",
+            "reads": "Chaque rayon perd à chaque surface ce que disent les formules de Fresnel : à l’entrée (1 − R), réfléchi à l’intérieur R, à la sortie (1 − R). Pour chaque polarisation séparément, les deux moyennées, sommé sur la face de la bille.",
+            "why": "Vérifie la lumière de l’anneau : 5,5 % de la lumière qui touche la bille revient après une réflexion. La page somme 2000 anneaux de même surface ; cela donne 6 · 10⁻⁶ de trop, car la lumière des rayons rasants varie brusquement au bord.",
+            "step": "La source donne R pour les deux polarisations. À l’intérieur, le rayon touche la surface sous β et réfléchit autant qu’à l’extérieur sous i : les formules restent les mêmes quand on échange les deux côtés. On moyenne (1 − R)²·R et non R, car chaque polarisation fait pour elle-même le chemin à travers les trois surfaces."
+          }
+        },
+        "cannon": {
+          "impact": {
+            "title": "À quelle vitesse la pile touche le sol",
+            "setting": "L’exposition : trois balles de 10, 7 et 5 cm, lâchées de 1 m ; la vitesse de celle du bas au sol.",
+            "reads": "L’air freine avec le carré de la vitesse. La balle du bas tombe donc selon les formules de la chute avec résistance de l’air, pas tout à fait aussi vite que dans le vide.",
+            "why": "Vérifie la chute par laquelle tout commence : 4,4202 m/s. La page calcule la chute pas à pas et cherche le sol en coupant le pas en deux, encore et encore ; les deux concordent à 10⁻¹⁴ près."
+          },
+          "floor_peak": {
+            "title": "Une balle touche le sol : la force maximale",
+            "setting": "Seulement la balle du bas, 10 cm, 3 MPa, depuis 1 m ; le sol rend tout (e = 1).",
+            "reads": "L’écrasement est le plus profond quand l’énergie de mouvement de la balle et le travail de son poids sur le chemin de l’enfoncement y sont tout entiers. C’est là que le sol pousse le plus fort : K·δ^(3/2).",
+            "why": "Vérifie la raideur selon Hertz pour la balle et le sol : 1325 N pour un écrasement de 10,7 mm, comme le montre le tableau des forces.",
+            "step": "La première source donne la force d’une sphère sur un plan, le sol étant rigide (E₂ infini). La deuxième donne l’énergie dans l’écrasement, (2/5)·K·δ^(5/2), et le bilan d’énergie, auquel on ajoute ici le travail du poids m·g·δ."
+          },
+          "floor_time": {
+            "title": "Combien de temps la balle reste au sol",
+            "setting": "Comme ci-dessus : seulement la balle du bas, sans perte, depuis 1 m.",
+            "reads": "Le choc dure jusqu’à ce que la balle se soit écrasée puis ait repris sa forme. Comme le contact de Hertz devient plus raide avec la profondeur, la durée ne dépend que faiblement de la vitesse, comme v^(−1/5).",
+            "why": "Vérifie la durée dans le tableau des forces : 7,113 ms à la main, 7,12 ms sur la page, qui compte par pas de 10 µs.",
+            "step": "La première source donne la durée du choc de deux sphères avec la masse réduite µ. Le sol est infiniment lourd et infiniment grand : µ = m, et e·r^½ devient le K de la sphère sur le plan, tiré de la seconde."
+          },
+          "floor_impulse": {
+            "title": "Le sol renverse la quantité de mouvement",
+            "setting": "Comme ci-dessus : seulement la balle du bas, sans perte, depuis 1 m.",
+            "reads": "La balle arrive avec m·v et repart avec m·v. Le sol fournit les deux, 2·m·v, et en plus ce que le poids prend pendant le choc : m·g·τ.",
+            "why": "Vérifie comment la page somme la force sur la durée du choc : 5,1319 N·s ; le poids en représente 0,8 %.",
+            "step": "La première source établit que l’impulsion est la variation de la quantité de mouvement. Sur la balle agissent le sol et le poids ; sans perte, elle repart aussi vite qu’elle est arrivée, donc l’impulsion du sol vaut 2mv plus m·g fois la durée tirée de la seconde."
+          }
+        },
+        "harmonograph": {
+          "wide_slower": {
+            "title": "Plus d’amplitude, plus lent",
+            "setting": "Le pendule du stylo, 80 cm, écarté de 30°, sans frottement.",
+            "reads": "Le pendule exact met 4K(sin(θ₀/2)) pour un aller-retour, en unités de √(L/g) ; pour de petites amplitudes, cela devient 2π√(L/g).",
+            "why": "Vérifie le sin θ complet dans la boucle des pas de temps de la page : 1,8258 s, 1,7 % plus lent qu’avec une petite amplitude. K est ici sommée comme une intégrale, et non par la moyenne arithmético-géométrique qu’utilise le moteur de calcul.",
+            "step": "La première source traite le pendule dans une échelle de temps où g/L = 1, la deuxième définit K, la troisième donne l’unité de temps, 1/ω₀ = √(L/g)."
+          },
+          "closes": {
+            "title": "Exactement 2:3 : la figure se referme",
+            "setting": "Rapport 2:3 sans désaccord, les deux pendules écartés de 12°, sans frottement.",
+            "reads": "À un rapport entier des fréquences, la figure se referme ; pour une même amplitude, les périodes sont exactement dans le rapport √(L₁/L₂).",
+            "why": "Vérifie que la boucle des pas de temps garde les deux pendules en cadence : après deux oscillations du stylo, 3,599 s, il se trouve à 9 · 10⁻¹² m de son point de départ.",
+            "step": "La deuxième source donne la période 4K(sin(θ₀/2)) en unités de √(L/g) : à amplitude égale, K est le même pour les deux, et les périodes sont dans le rapport √(L₁/L₂) = 3/2. La première dit que la figure se referme alors."
+          },
+          "turns": {
+            "title": "Amplitudes différentes : la figure tourne",
+            "setting": "Rapport 2:3, désaccordé de 0,67 % comme à l’ouverture de la page, mais le stylo écarté de 30° et la planche de 5°, sans frottement.",
+            "reads": "Tout près de 2:3, la figure garde sa forme et tourne, un tour en 1/|3f₁ − 2f₂| ; les fréquences sont celles des pendules exacts à leurs amplitudes.",
+            "why": "Vérifie que l’oscillation la plus ample est plus lente : un tour en 25,7 s. Avec les fréquences des petites amplitudes, ce seraient 89,7 s, l’erreur de la première version.",
+            "step": "La première source dit qu’un léger désaccord fait se déplacer la figure. Pour un rapport p:q, la même forme revient dès que la phase s’est décalée de 2π/p, donc après 1/|q·f₁ − p·f₂|. Les fréquences viennent de la période donnée par la deuxième et la troisième source."
+          },
+          "fades": {
+            "title": "L’oscillation s’amortit",
+            "setting": "Le pendule du stylo écarté de 2°, avec le frottement de la page, 0,02 par seconde.",
+            "reads": "Avec le frottement c·θ′, l’amplitude s’amortit comme e^(−ct/2), jusqu’à un dixième après 2·ln 10/c.",
+            "why": "Vérifie le frottement dans la boucle des pas de temps : 230,26 s jusqu’au dixième. À 2°, le pendule n’est pas tout à fait linéaire et perd son énergie un peu plus vite au début ; d’où l’écart de 1,4 · 10⁻⁵.",
+            "step": "La source écrit le frottement sous la forme 2ζω₀ ; ici, c’est c, donc le taux d’amortissement ζω₀ vaut c/2."
+          }
+        },
+        "overhang": {
+          "nine": {
+            "title": "Neuf blocs, aussi loin que possible",
+            "setting": "Neuf blocs de 20 cm, la pile « Le plus loin ».",
+            "reads": "En construisant par le haut, le k-ième bloc dépasse le suivant de 1/(2k) longueur ; ensemble, cela fait ∑1/(2i) longueurs, la moitié de la somme harmonique.",
+            "why": "Vérifie la pile la plus longue de la page, et qu’elle tient : 28,2897 cm, 1,41448 longueur, plus d’une entière."
+          },
+          "knife_edge": {
+            "title": "Chaque étage sur son bord",
+            "setting": "La pile la plus longue de neuf blocs.",
+            "reads": "Le centre de gravité des k blocs du haut se trouve exactement au-dessus du bord du bloc du dessous, celui des neuf exactement au-dessus du bord de la table.",
+            "why": "Vérifie que la pile la plus longue repose sur tous ses bords à la fois : aucun centre de gravité n’est à plus de 10⁻¹² longueur de son bord. C’est pourquoi la moindre poussée vers l’extérieur la fait basculer."
+          },
+          "even": {
+            "title": "En marches égales",
+            "setting": "Neuf blocs, « Marches égales ».",
+            "reads": "Des marches égales s, le bloc du bas dépassant le bord de s : le centre de gravité de tous les blocs ne doit pas dépasser le bord de la table. Il en découle s = 1/(n + 1), et le bloc du haut dépasse de n/(n + 1) longueur.",
+            "why": "Vérifie la pile que la plupart construisent, et qu’elle tient : 18 cm, 9/10 de longueur, jamais une entière.",
+            "step": "La source exige que le centre de gravité de tous les blocs soit au-dessus du bord de la table. Les milieux des blocs sont à i·s − ½ longueur ; leur moyenne, (n + 1)·s/2 − ½, tombe exactement sur le bord pour s = 1/(n + 1). Les étages supérieurs tiennent alors d’eux-mêmes : leur centre de gravité est en deçà du bord du dessous."
+          },
+          "four_lengths": {
+            "title": "Quatre longueurs",
+            "setting": "Autant de blocs qu’il en faut pour que la pile la plus longue dépasse le bord de quatre longueurs ; le nombre figure sous « Le tour ».",
+            "reads": "La pile la plus longue de n blocs dépasse de ∑1/(2i) longueurs. La somme croît sans fin, mais seulement comme un logarithme.",
+            "why": "Vérifie le nombre que la page donne sous « Le tour » : 1674 blocs pour quatre longueurs, comptés ici en fractions exactes ; 1673 ne suffisent pas tout à fait."
+          }
+        },
+        "elephant": {
+          "momentum_flux": {
+            "title": "Le jet garde sa quantité de mouvement",
+            "setting": "L’éléphant de la page : 14,5 m/s par une trompe de 10 cm ; relevé à la hauteur où flotte le ballon.",
+            "reads": "Un jet libre s’élargit et ralentit, mais la quantité de mouvement qu’il emporte vers le haut chaque seconde, ∫2πr·ρ·u² dr, reste celle que l’ouverture y met : ρ·U₀²·πD²/4.",
+            "why": "Vérifie le jet dont la page tire la poussée et l’aspiration : 1,98 N à l’ouverture, autant 36 cm plus haut.",
+            "step": "La source montre que le flux de quantité de mouvement d’un jet rond ne change pas avec la hauteur. À l’ouverture, l’air s’écoule uniformément à U₀ à travers la surface πD²/4 ; plus haut, le jet a le profil de la page, u_c·e^(−r²/b²), ici sommé anneau par anneau."
+          },
+          "lift_off": {
+            "title": "À partir de quel courant d’air le ballon décolle",
+            "setting": "Comme ci-dessus ; le ballon repose sur le bord de la trompe.",
+            "reads": "Le ballon décolle dès que la traînée ½·ρ·⟨u²⟩·c_d·A dépasse son poids diminué de la poussée d’Archimède. ⟨u²⟩ est la moyenne sur sa section, ici intégrée sous forme fermée ; elle croît avec U₀².",
+            "why": "Vérifie le chiffre « Décolle à partir de » de la page : 12,07 m/s. La page somme la section en 288 points, ici elle est intégrée exactement ; les deux diffèrent de 5 · 10⁻⁴.",
+            "step": "La première source donne la quantité de mouvement conservée, dont la page tire la vitesse sur l’axe, u_c = U₀·D/(√2·b), pour la largeur b = D/√2 + s/(√2·6). Moyenné sur un disque de rayon r, cela donne ⟨u²⟩ = u_c²·b²/(2r²)·(1 − e^(−2r²/b²)). Les autres sources donnent la traînée, avec c_d = 0,47 pour une sphère, et la poussée d’Archimède."
+          },
+          "float_balance": {
+            "title": "Où le ballon flotte",
+            "setting": "Comme ci-dessus ; le ballon laissé à lui-même depuis le bord pendant 20 s.",
+            "reads": "Le ballon s’immobilise là où la traînée porte son poids diminué de la poussée d’Archimède : là où l’air au niveau du ballon va à u = √(2(m − ρV)g/(ρ·c_d·A)).",
+            "why": "Vérifie la boucle des pas de temps de la page : elle fait flotter le ballon là où l’air à son niveau va à 7,407 m/s, comme demandé. Après 20 s, l’oscillation s’est éteinte à 10⁻¹¹ près."
+          }
+        },
+        "gyroscope": {
+          "steady_turn": {
+            "title": "Déjà en rond : un tour du fil",
+            "setting": "Un cerceau de 2 kg et Ø 60 cm sur un axe de 15 cm ; 200 tours par minute, lâché à l’horizontale et déjà en rond ; pendant 8 s.",
+            "reads": "Le couple de la pesanteur fait tourner le moment cinétique de la roue au lieu de la faire basculer : l’axe tourne autour du fil à Ω = m·g·d/L₃.",
+            "why": "Vérifie la boucle des pas de temps dans son cas le plus simple : l’axe met 8,05 s pour un tour. À l’horizontale, l’approximation de la source est exacte, car le terme qu’elle omet va avec cos θ.",
+            "step": "La première source donne ω_P = rMg/(Iω), la deuxième la même chose à partir de τ = Ω × L ; on y met le I₃ = m·r² du cerceau, tiré de la troisième."
+          },
+          "dip": {
+            "title": "Lâchée au repos : de combien l’axe descend",
+            "setting": "La même roue, 200 tours par minute, lâchée à l’horizontale et au repos ; pendant 3 s.",
+            "reads": "Une fois la roue lâchée, l’axe descend jusqu’à ce que l’énergie et les deux moments cinétiques conservés ne le permettent plus, puis remonte en hochant. Au point le plus bas, cos α − cos β = (2mgd·I₁/L₃²)·sin²β.",
+            "why": "Vérifie l’équation du mouvement, y compris le moment d’inertie en travers de l’axe : l’axe descend de 3,19°, comme l’indique la page.",
+            "step": "La source donne cette équation pour une toupie lâchée sans élan. Avec α = 90°, cos α = 0, et il reste une équation du second degré en u = cos β. I₁ est celui du cerceau autour d’un diamètre, ½·m·r², déplacé de d le long de l’axe (théorème de Huygens) : ½·m·r² + m·d²."
+          },
+          "nods": {
+            "title": "Le hochement",
+            "setting": "La même roue, 600 tours par minute, lâchée à l’horizontale et au repos ; les hochements comptés sur 3 s.",
+            "reads": "Pour de petites amplitudes, le hochement est une oscillation de pulsation L₃/I₁, soit L₃/(2π·I₁) hochements par seconde.",
+            "why": "Vérifie à quelle vitesse l’axe hoche dans la boucle des pas de temps : 13,33 fois par seconde. La formule vaut pour les plus petites amplitudes, d’où la rotation la plus rapide de la page ; la boucle des pas de temps hoche 3 · 10⁻⁵ plus vite, car son axe descend tout de même un peu.",
+            "step": "La source donne θ̇² pour une toupie lâchée sans élan. Avec α = 90° et x = θ − 90° petit, cela devient θ̇² ≈ B·x − (L₃/I₁)²·x² : une oscillation harmonique autour de x = B·I₁²/(2L₃²), de pulsation L₃/I₁."
+          },
+          "suitcase": {
+            "title": "La valise au coin",
+            "setting": "La même roue, 200 tours par minute, l’axe horizontal ; la valise tournée d’un quart de tour par seconde autour de la verticale.",
+            "reads": "Qui tourne l’axe horizontal à Ω autour de la verticale tourne son moment cinétique : il faut pour cela le couple τ = Ω × L, en travers de la rotation.",
+            "why": "Vérifie le couple qu’indique la page, avec la vitesse de rotation et l’angle dans leurs unités : 5,92 N·m.",
+            "step": "La source donne τ = Ω × L, de norme Ω·L·sin θ ; l’axe est horizontal, sin θ = 1, et L = I₃·ω₃ avec le I₃ = m·r² du cerceau, tiré de la seconde."
           }
         }
       },

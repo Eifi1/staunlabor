@@ -11,6 +11,7 @@ import { Figures, WidgetCard } from "@/shared/ui/widget";
 import { Equation } from "./equation";
 import { ExhibitFrame } from "./exhibit-frame";
 import { BuildPending } from "./build-pending";
+import { settingNumber, useCheckRequest, useCheckSetting, type CheckSetting } from "./check-setting";
 import { PreviewPending, type PreviewMode, type PreviewProps } from "./preview-mode";
 import { startsRunning } from "./play";
 import { HeldAnswer, useHeld, type Held } from "./held";
@@ -45,6 +46,20 @@ export function hangs(cp: CoupledPendulums): boolean {
   return cp.spring_at_m > 0 && cp.spring_at_m <= Math.min(cp.left.length_m, cp.right.length_m);
 }
 
+/** A check case's build: the spring, its height, the right pendulum's length,
+ *  both bobs' mass (the build card sets them together) and the damping. */
+function caseBuild(cp: CoupledPendulums, setting: CheckSetting): CoupledPendulums {
+  const mass = settingNumber(setting, "mass_kg", cp.left.mass_kg);
+  return {
+    ...cp,
+    spring_n_m: settingNumber(setting, "spring_n_m", cp.spring_n_m),
+    spring_at_m: settingNumber(setting, "spring_at_m", cp.spring_at_m),
+    damping_per_s: settingNumber(setting, "damping_per_s", cp.damping_per_s),
+    left: { ...cp.left, mass_kg: mass },
+    right: { ...cp.right, mass_kg: mass, length_m: settingNumber(setting, "right_length_m", cp.right.length_m) },
+  };
+}
+
 /**
  * The coupled pendulums (`experiments.coupled`): the pair stepped by the
  * browser port (`simulate/coupled.ts`, held to the engine by
@@ -58,6 +73,15 @@ export function CoupledPage() {
   const held = useHeld();
   const cp = build ?? defaults.data?.coupled ?? null;
   const fine = cp ? hangs(cp) : false;
+  // A check case's "Set it up": the build here, which builds the play anew;
+  // how the pair is let go is the play's, once it is built.
+  const request = useCheckRequest("coupled");
+  const [seen, setSeen] = useState<number | null>(null);
+  if (request && !request.done && request.nonce !== seen && cp) {
+    setSeen(request.nonce);
+    const next = caseBuild(cp, request.setting);
+    if (JSON.stringify(next) !== JSON.stringify(cp)) setBuild(next);
+  }
   return (
     <ExhibitFrame
       exhibit="coupled"
@@ -217,6 +241,13 @@ function CoupledPlay({
     setY(sim.current.y);
     setRunning(true);
   };
+  useCheckSetting("coupled", (setting) => {
+    if (preview) return false;
+    if (JSON.stringify(caseBuild(cp, setting)) !== JSON.stringify(cp)) return false;
+    const how = STARTS.find((s) => s === setting.start);
+    if (how) letGo(how);
+    return true;
+  });
 
   const view = <CoupledView cp={cp} left={y[0]} right={y[1]} />;
   if (preview) return view;

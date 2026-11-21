@@ -12,6 +12,7 @@ import { Figures, WidgetCard } from "@/shared/ui/widget";
 import { Equation } from "./equation";
 import { ExhibitFrame } from "./exhibit-frame";
 import { BuildPending } from "./build-pending";
+import { settingNumber, useCheckSetting } from "./check-setting";
 import { CORE_SHARE, SAMPLES_PER_S, flight, pressDepth, ringOf, type Flight, type Ring } from "./simulate/smoke";
 import { SmokeView, type Puff } from "./smoke-view";
 import { PreviewPending, type PreviewMode, type PreviewProps } from "./preview-mode";
@@ -110,7 +111,7 @@ export function SmokePage() {
         <BuildPending pending={defaults.isPending} error={defaults.error} />
       ) : (
         <>
-          <SmokePlay exhibit={exhibit} figures={figures.data ?? null} />
+          <SmokePlay exhibit={exhibit} figures={figures.data ?? null} onExhibit={setBuild} />
           <SmokeBuild exhibit={exhibit} onChange={setBuild} />
         </>
       )}
@@ -146,7 +147,12 @@ function SmokePlay({
   figures,
   preview = false,
   paused = false,
-}: { exhibit: SmokeExhibitRequest; figures: SmokeFigures | null } & PreviewMode) {
+  onExhibit,
+}: {
+  exhibit: SmokeExhibitRequest;
+  figures: SmokeFigures | null;
+  onExhibit?: (next: SmokeExhibitRequest) => void;
+} & PreviewMode) {
   const { t } = useTranslation();
   const locale = useLocale();
   const stroke = exhibit.drum.stroke_m;
@@ -175,6 +181,24 @@ function SmokePlay({
       ? [figures.fastest_s / 2, figures.best_s, figures.slowest_s * 1.5]
       : AUTO_FALLBACK;
   const latest = useRef({ exhibit, auto, autoPresses });
+  // A check case's "Set it up" takes the whole case here: the press is this
+  // card's, the drum the build's. The reader presses.
+  useCheckSetting("smoke", (setting) => {
+    if (preview) return false;
+    const drum = exhibit.drum;
+    const next = {
+      ...drum,
+      diameter_m: settingNumber(setting, "diameter_m", drum.diameter_m),
+      hole_m: settingNumber(setting, "hole_m", drum.hole_m),
+      ring_m: settingNumber(setting, "ring_m", drum.ring_m),
+      stroke_m: settingNumber(setting, "stroke_m", drum.stroke_m),
+    };
+    setAuto(false);
+    setDuration(settingNumber(setting, "duration", duration));
+    setDepth(settingNumber(setting, "depth", depth));
+    if (JSON.stringify(next) !== JSON.stringify(drum)) onExhibit?.({ ...exhibit, drum: next });
+    return true;
+  });
   useEffect(() => {
     latest.current = { exhibit, auto, autoPresses };
   });

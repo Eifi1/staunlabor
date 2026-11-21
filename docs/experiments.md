@@ -622,8 +622,9 @@ down, at most about 8 cm. Marcel's observations:
 - **The ring** is the slug model's: circulation `Γ = ½∫(u² − ẋ²)dt`, what
   leaves the hole's moving edge, taken up only
   until the slug is four hole diameters long (the formation number; a full
-  press here is 3.0). Its radius is 0.6 hole diameters and its core 0.35 of
-  that; it flies at Saffman's speed and has Reynolds number `Γ/ν`.
+  press here is 3.3, the moving hole's ratio plus one). Its radius is 0.6 hole
+  diameters and its core 0.35 of that; it flies at Kelvin's speed for a thin
+  core, `Γ/(4πR)·(ln(8R/a) − ¼)`, and has Reynolds number `Γ/ν`.
 - **Too fast, too slow:** both the circulation and the speed grow in
   proportion to the pace of the press. So the two failures are two thresholds on
   one scale: past `Re = 1.9·10⁵` the ring is turbulent and smears; slower than
@@ -1125,8 +1126,10 @@ pushes it twice "the same" sees two different dances.
 
 **The model** (`domain/experiments/chaos.py`). Two point masses on light rods,
 Lagrange's equations in their usual closed form, stepped by the block's
-Runge–Kutta at 1 ms; the energy is the check (it drifts by less than 10⁻⁷ of
-itself in twenty wild seconds). Where a light upper arm under a heavy lower one
+Runge–Kutta at 1 ms; the energy is the check (in twenty wild seconds it drifts
+by less than 10⁻⁷ of (m₁ + m₂)·g·(L₁ + L₂), the scale `run` divides by; against
+the wild start's own 2.2 J that is 1.008 · 10⁻⁷, just over a ten-millionth,
+which the check case reads). Where a light upper arm under a heavy lower one
 whips round, the millisecond is cut into equal parts (`step_for`): as many as
 keep each arm's turn in a step within 0.035 rad, by a bound on its rate from the
 energy (all of it above the lowest hang as motion, through the inertia matrix's
@@ -2446,6 +2449,225 @@ solution the engine follows to 10⁻⁷. **The well's** four hold the circle's l
 to Kepler's third law under g·5/7, equal areas in equal times, the energy, and
 the felt's brake. A case without a setting shows no "Set it up" button
 (`check-section.tsx`).
+
+**The double slit's** five (2026-11-21) hold the stripes' spacing to λD/d,
+one slit's first dark beside the middle to a sin θ = λ, the middle of one slit
+at a quarter of two (amplitudes add, not brightnesses), the first bright stripe
+at the envelope's sinc²(πa/d) and the fifth order missing where it falls on the
+envelope's zero (d = 5a). The page measures the wall with sin θ = y/√(y² + D²),
+not the textbook's small angle, so the spacing between the first and second
+dark lies 1.1 · 10⁻⁵ over λD/d, inside the case's 3 · 10⁻⁵. "Set it up" sets
+the light, the covered slit, the wavelength and the build in one go, on the
+light's card.
+
+**The Cartesian diver's** four (2026-11-21) hold its reserve of lift (the
+water it displaces, glass and air, less the glass's 3 g: 0.1936 g), the squeeze
+that sinks it from the surface (Boyle and Archimedes: 10.884 kPa, so the docs'
+10.9 sinks it and 10.85 does not), the squeeze under which it rises even from
+the bottom (ρgH less: 7.947 kPa) and how fast it leaves its hover depth. That
+last one lets the diver go at rest a micrometre under the hover depth and
+reads the growth of cosh(√k·t) over five seconds, with the added mass of half
+the glass's water; started further off, the drag bends the curve. The thresholds
+are found by bisection on one step of the engine's own loop. "Set it up" sets
+the hand and where the diver starts: at the surface, on the bottom, or that
+micrometre under the hover depth, which no hand on the slider could find.
+
+**The double cone's** three (2026-11-21) hold the axis's path, the slope
+where the cone stops rolling up (7.54628°, found by halving the rails' rise on
+the sign of the engine's own fall, not by its closed form) and the speed after
+a second's roll, against Gandhi and Efthimiou (Eur. J. Phys. 26 (2005) 681),
+who reach the contact by another route: the cone's surface square to the rail.
+Their angles lie in the rails' plane; the cases convert them (θ = γ, ψ = α,
+tan φ = tan β·cos γ). **The paper has a slip**: after its Eq. (9) it prints the
+path's intercept as b = L tan ψ(cos α − tan α sin α), while its own Eqs. (7),
+(8) and Z = a cos α give b = L tan ψ/cos α, a plus where the minus stands. With
+the printed b the axis lies 2.1 mm lower everywhere and the speed case fails by
+5 · 10⁻⁴; with (7) and (8) it agrees to 10⁻¹⁴. The cases quote (7), (8) and
+Z = a cos α, not the printed b, so nobody should "fix" the engine to it. "Set
+it up" sets the build's six sliders and lets the cone go.
+
+**The beats'** three (2026-11-21) hold the silences to |f₂ − f₁| (read off the
+very sum the page draws and plays, at the crests of the mean tone), a gram at
+the prong's tip to 440/√1.2 = 401.663 Hz (the prong felt there as a quarter of
+its mass, from its clamped mode) and the gram a third up to 439.183 Hz, the
+page's 0.82 beats a second. No case holds the docs' "Rayleigh 0.04 % above the
+exact beam with a mass at its tip": the one fetchable source for that equation
+(Labuda et al., arXiv:1604.00601, App. B) prints the bare beam's equation with a
+sign the clamped-free beam does not have, so the comparison stays in
+`tests/unit/test_experiments.py`. "Set it up" sets the rider and strikes the
+forks; the sound stays as the reader left it.
+
+**The water parabola's** five (2026-11-21) hold the middle's depth at 90 rpm
+(the paraboloid's ω²/(2g) and the volume kept), the rate where the middle runs
+dry (126 rpm), the rim past it (through the dry patch's radius, another route
+than the engine's R·ω·√(h/g)), the focus of a slow dish at 7 rpm and the
+spin-up, run in the engine's own loop at the page's 10 ms step, to
+1 − e^(−t/τ) with τ = h/√(νΩ). That last one checks the model as the docs state
+it: Greenspan and Howard's small-change result applied to a start from rest.
+"Set it up" sets the vessel and the turntable; for the spin-up it also stops
+the water, with the table already at speed, which the page's own controls
+cannot do (they keep the water turning with the table).
+
+**The floating top's** five (2026-11-21) hold the lift at 4.6 cm, the window's
+foot (where B″ turns positive) and head (where B′² = 2BB″, Berry and Geim's
+horizontal condition), the bob's and the drift's frequencies at the balance.
+The hand side builds the ring's field another way than the engine: loop by loop
+from its bound surface currents (K = M × n̂) with OpenStax's loop formula, summed
+by Simpson's rule, with its own bisections for the edges and the balance; the
+two agree to 5 · 10⁻¹³. Berry and Geim's paper (Eur. J. Phys. 18 (1997) 307) is
+cited from a copy on a University of Bielefeld course page, not the publisher's
+site, so that link may not last. The ring is illustrative: the cases check the
+computation, not a real top's numbers. "Set it up" sets the top's mass and the
+warming.
+
+**The slow LC circuit's** four (2026-11-21) hold the period to 2π/ω′ with the
+damping's share (without it 0.9935 s, not 0.9941), the energy kept over one
+period (e^(−RT/L), the docs' 64 %), the account after ten seconds (what is
+stored plus the wire's heat R∫i²dt, summed by the case on the page's current,
+is the start's 6.25 mJ: the heat bar the page draws as the rest is the Joule
+heat) and the strongest current at the edge, R = 2√(L/C) = 2529.822 Ω, against
+q₀ω₀/e. In floating point γ lands one ulp above ω₀ there, so the engine takes
+its creeping branch (β ≈ 10⁻⁷/s, kept exact by expm1) and the page says
+"creeps", not "critical", at the exact edge; the engine's critical branch is
+all but unreachable. The resistance slider steps by 10 Ω, so a reader gets
+2530 Ω (peak 4.7 · 10⁻⁵ lower); "Set it up" sets the exact value. It sets the
+build, which recharges the capacitor, and throws the switch.
+
+**The race's** four (2026-11-21) hold the straight line's time (0.982374 s),
+the brachistochrone's through the finish (0.747261 s, its end angle found by
+the case's own halving of (φ − sin φ)/(1 − cos φ) = D/H), and in the valley the
+cycloid's time from 59 cm to the bottom (0.650151 s, the time table the
+animation runs, not the closed form π√(r/g′)) and the circular bowl's from the
+same height (0.696484 s, through the pendulum's K). The last two sum smooth
+integrands by the trapezoid rule over 1440 intervals: 7 · 10⁻⁸ off at that
+count, a quarter of it at twice the count, so the error is the sum's, within
+the engine's own claim of a part in 10⁷. The engine imports the pit and the
+sphere's inertias, so a change to `pit.py` or `sphere.py` unchecks the race
+too. "Set it up" sets the build, which the valley shares; the race waits for
+its start, as at the exhibit.
+
+**The chaotic pendulum's** three (2026-11-21) check that the loop the page runs
+is the double pendulum's; chaos itself (the Lyapunov exponent, the gap) has no
+hand formula, so no case touches it. They hold the slow mode's period at small
+swings (let go at 1° and √2°, the mode's shape; 2.5 · 10⁻⁵ off from the
+amplitude's own effect), the energy over twenty wild seconds at 120°/120°
+(from the weights' positions and speeds, not the engine's `energy`; 1.008 · 10⁻⁷
+of itself, RK4's drift) and the damping, c·θ′ off each angular acceleration,
+which makes every mode decay at c/2. The start slider steps by whole degrees,
+so √2° is not on it: "Set it up" sets 1.414° exactly and the slider shows 1°.
+It sets the build and the start and lets go.
+
+**The bouncing ball's** four (2026-11-21) hold the table-tennis ball's first
+landing from 30 cm with quadratic drag (0.249 s, 0.7 % later than in a
+vacuum), its first apex (23.66 cm), its first flight (0.439 s) and the steel
+ball's time until still at half its bounce from 5 cm. The first three solve
+each formula in another form than the engine (arcosh where it takes atanh,
+ln(1 + …) where it takes `log1p`) and agree to 10⁻¹⁵, which confirms the
+engine's rewrites against cancellation. The last is the vacuum's geometric
+series, 2u/(g(1 − e)), at a height where the air is nearly nothing
+((v/v∞)² = 2.7 · 10⁻⁴): 5.7 · 10⁻⁵ off, within 3 · 10⁻⁴, a bound on the air's
+share rather than its first-order effect. No case holds the ITTF's 240–265 mm
+from 305 mm (the leaflet was not fetched). "Set it up" sets the build card's
+ball, its bounce and the height; the play card's two always race as the
+exhibit's presets, from that height.
+
+**The spinning platform's** four (2026-11-21) hold the moment of inertia
+leaning out (5.3412 kg·m², the arms summed by the parallel-axis theorem from
+the rod's middle where the engine writes m(s² + d²/3)), the rate standing up
+against the rate leaning out (the momentum kept, 3.2056 times), the hands'
+pull at half a turn a second (124 N) and the bearing's stop after one push
+(L/τ = 85 s). All four agree to 10⁻¹³ or better. "Set it up" sets the
+bearing's friction and the lean, from rest and without the auto mode; the
+push and the standing up are the reader's.
+
+**The coupled pendulums'** four (2026-11-21) hold the period in step and the
+period against each other, both timed on the page's own loop at its 10°
+against the exact periods at 10° (the lone pendulum's 4K√(L/g), and a
+quadrature of the mode's energy; the RK4 step leaves 2.5 · 10⁻¹⁰), the beat
+of 22.94913 s to Eyler's formula for equal pendulums, and the energy kept over
+30 s to 10⁻¹⁰. The tiles are small-swing figures: at 10° the loop's modes run
+0.19 % and 0.26 % slower, and the beat timed on the loop comes to about 23.0 s,
+which the page's "about" covers. "Set it up" sets the build and lets the pair
+go as the case says.
+
+**The smoke ring's** three (2026-11-21) hold the drum's effective area to a
+Simpson sum over the stretched skin's log profile (11.3 holes), the slug's
+length for a full half-second press to continuity with the moving hole's plus
+one ((A_eff/A_hole + 1)·d/D = 3.2803; the model's line above said 3.0, a figure
+from before that fix), and the ring's speed to Kelvin's formula for a thin
+core, Γ/(4πR)·(ln(8R/a) − ¼), on the engine's own circulation. The engine's
+docstring called that speed Saffman's until 2026-11-21; Saffman's viscous ring
+has −0.558, and the number here is Kelvin's. The circulation itself, Γ = ½∫(u² − ẋ²)dt, the
+exhibit's central number, has no case: the slug model's sources are behind
+paywalls, and no quote was invented. "Set it up" sets the drum and a full
+press of half a second; the reader presses.
+
+**The glass-bead rainbow's** four (2026-11-21) hold a water drop's ring at
+42.0781° by the source's route (the extremum cos β = 2√(n² − 1)/(√3 n)), not
+the engine's, the glass ring's width of 1.4918° to Cauchy's dispersion between
+700 and 400 nm, the drawn ray halfway out (16.8196°, the traced vector against
+the tiles' angle formula) and the light back after one reflection to Fresnel's
+formulas. That last one is the loosest: the engine's midpoint sum over 2000
+rings of equal area lies 6.3 · 10⁻⁶ over the integral, within 2 · 10⁻⁵; it is
+the ring count, not the formula (20,000 rings bring it to 10⁻⁷). "Set it up"
+sets the material and its index and, for the drawn ray, the ray's impact.
+
+**The ball cannon's** four (2026-11-21) hold the stack's speed at the floor
+(4.42019 m/s, the fall with quadratic drag) and three numbers of the bottom
+ball alone on a lossless floor, where the Flores damping is off and the contact
+is Hertz's own: its peak force (1325.2 N, with the weight's work in the dent,
+a step of ours marked derived: without it the hand lies 0.64 % low), its
+duration to Patrício's τ (the engine counts it in 10 µs steps: 9.5 · 10⁻⁴,
+within 2 · 10⁻³) and its impulse, 2mv plus the weight's share. No case holds
+the launch itself: the engine meets the textbook's one-after-another model
+only with a gap and no losses, and the rest (gravity in the contact, the
+contacts overlapping) has no clean bound. "Set it up" sets the stack, its
+height and its contacts; the reader drops.
+
+**The harmonograph's** four (2026-11-21) hold the pen's period at 30° to the
+exact pendulum's 4√(L/g)·K(sin 15°) (1.017 times the small swing's), an exact
+2 : 3 at 12° each closing on itself after two of the pen's periods (to
+10⁻¹¹ m; the first version's start widened the swing and missed by 14 µm), the
+detuned pair's turn of 25.675 s from the exact periods (the small swings'
+frequencies would give 89.7 s, the first version's mistake), and the swing's
+fade to a tenth in 2 ln 10/c. The fade is timed at 2°, where the pendulum's
+own non-linearity leaves 1.4 · 10⁻⁵, within 5 · 10⁻⁵. "Set it up" sets the
+build with the board's length exact, where the detune slider's 0.05 % steps
+would miss the page's opening 0.667 %, and the drawing starts over.
+
+**The overhang's** four (2026-11-21) hold nine blocks' furthest reach to half
+the harmonic number as an exact fraction (7129/5040 lengths, 28.2897 cm), every
+layer of that stack exactly at its limit (to 10⁻¹⁶), nine blocks in even steps
+at 9/10 of a length (18 cm), and the 1674 blocks it takes to reach four lengths
+(the engine's float sum is safe there: half the harmonic number passes 4 by
+2.4 · 10⁻⁴ at 1674 and misses it by 5.6 · 10⁻⁵ at 1673). Only the even stack
+has "Set it up": the furthest stack is the page's held answer, shown once the
+reader has tipped a stack, so its two cases set nothing, and the count of 1674
+is a figure in the trick.
+
+**The elephant's** three (2026-11-21) hold the jet's momentum, summed over the
+engine's Gaussian profile where the ball floats, to the trunk's ρU₀²πD²/4
+(1.98 N, to 10⁻¹³: the centre speed and the width keep it together), the
+lift-off speed from the closed-form mean of u² over the ball at rest on the rim
+(12.0664 m/s against the route's 12.0725) and the speed of the air at the
+floating ball to drag = weight − buoyancy (7.407 m/s, after 20 s of the
+page's loop). The lift-off's 5.1 · 10⁻⁴ is the model's 288-point rule, which
+lies 10⁻³ high in ⟨u²⟩ at the rest height, within 10⁻³; the jet's B = 6 and
+its Gaussian are the model's choices, not sourced numbers. "Set it up" sets
+the build, the trunk upright and the ball back on the rim.
+
+**The gyroscope's** four (2026-11-21) hold the steady turn's time round the
+string, level at 200 rpm, to L₃/(m·g·d) (8.0514 s; level, the slow root is
+exactly that, so OpenStax's ω_P ≪ ω costs nothing), the axle's dip let go
+from rest to the kept quantities (3.1940°), the nod's rate to L₃/I₁ and the
+suitcase's torque at a quarter turn a second (5.92 N·m). The moments of
+inertia are worked out in the cases from the hoop's and the parallel-axis
+theorem, not read from the engine. The nods are counted at 600 rpm, the
+slider's top: at 200 rpm the dip of 3.2° is no longer small and quickens the
+nod by 0.23 %; at 600 it leaves 2.9 · 10⁻⁵, within 10⁻⁴. "Set it up" sets the
+spin and the release and lets the wheel go; the suitcase's sets the spin only.
+With the gyroscope every exhibit has its cases; a case with nothing to set
+(the overhang's furthest stack, the resonance's buckling rod) shows no button.
 
 **On the page** a section "Check it yourself" (`check-section.tsx`) lists the
 cases, each with its formula as an `Equation` (`check-formulas.ts`), both

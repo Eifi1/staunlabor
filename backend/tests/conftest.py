@@ -127,21 +127,37 @@ async def _maintenance(*statements: str) -> None:
 
 
 async def drop_database(name: str) -> None:
-    """``DROP … WITH (FORCE)``, so a connection a crashed run left open cannot
-    keep it. FORCE terminates every session on the database, an autovacuum
-    worker's too, which the role may not signal: that refusal is a race with the
-    autovacuum launcher, so it is tried again. Usually over in milliseconds; under
-    the full gate's load a worker on a freshly migrated database outlasted the
-    two seconds this once allowed (2026-11-21), so it now waits up to ten."""
-    attempts = 20
+    """The role's own sessions on it ended, then a plain ``DROP``.
+
+    ``WITH (FORCE)`` ended every session, an autovacuum worker's too, which the
+    role may not signal: under the full gate's load a worker on a freshly
+    migrated database outlasted ten seconds of retries (2026-11-21). A plain
+    DROP asks an autovacuum worker to stop by itself and waits for it
+    (PostgreSQL's ``CountOtherDBBackends``, up to five seconds), so only the
+    role's own leftovers, a crashed run's connections, need ending first, and
+    those the role may end. A session just ended can linger a moment, so a DROP
+    refused as "being accessed by other users" is tried again."""
+    engine = create_async_engine(MAINTENANCE_URL, isolation_level="AUTOCOMMIT")
+    try:
+        async with engine.connect() as connection:
+            await connection.execute(
+                text(
+                    "SELECT pg_terminate_backend(pid) FROM pg_stat_activity"
+                    " WHERE datname = :name AND usename = current_user AND pid <> pg_backend_pid()"
+                ),
+                {"name": name},
+            )
+    finally:
+        await engine.dispose()
+    attempts = 5
     for attempt in range(attempts):
         try:
-            await _maintenance(f'DROP DATABASE IF EXISTS "{name}" WITH (FORCE)')
+            await _maintenance(f'DROP DATABASE IF EXISTS "{name}"')
             return
         except DBAPIError as exc:
-            if attempt == attempts - 1 or not isinstance(exc.orig, asyncpg.exceptions.InsufficientPrivilegeError):
+            if attempt == attempts - 1 or not isinstance(exc.orig, asyncpg.exceptions.ObjectInUseError):
                 raise
-            await asyncio.sleep(0.5)
+            await asyncio.sleep(1)
 
 
 def _owner_is_gone(pid: int) -> bool:

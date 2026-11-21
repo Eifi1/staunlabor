@@ -10,6 +10,7 @@ import { Figures, WidgetCard } from "@/shared/ui/widget";
 import { Equation } from "./equation";
 import { ExhibitFrame } from "./exhibit-frame";
 import { BuildPending } from "./build-pending";
+import { settingNumber, useCheckSetting } from "./check-setting";
 import { PreviewPending, type PreviewMode, type PreviewProps } from "./preview-mode";
 import {
   HANGING_DEG,
@@ -290,6 +291,25 @@ function GyroscopePlay({
     return () => cancelAnimationFrame(raf);
   }, [running, speed, w, release, preview]);
 
+  // A check case's "Set it up" takes the whole case here: the spin is the
+  // build's, the release this card's. A case that says how the wheel is let
+  // go lets it go; the suitcase's sets the spin only.
+  useCheckSetting("gyroscope", (setting) => {
+    if (preview) return false;
+    const nextW = { ...w, rpm: settingNumber(setting, "rpm", w.rpm) };
+    const go = setting.start === "rest" || setting.start === "steady";
+    const nextRelease = {
+      tilt_deg: settingNumber(setting, "tilt_deg", release.tilt_deg),
+      steady: go ? setting.start === "steady" : release.steady,
+    };
+    onChange?.(nextW);
+    setRelease(nextRelease);
+    sim.current = letGo(nextW, nextRelease);
+    const m = sim.current;
+    setFrame({ y: m.y, trace: [...m.trace], deepest: m.deepest, dropped: m.dropped });
+    setRunning(go);
+    return true;
+  });
   const view = <WheelView w={w} y={frame.y} />;
   if (preview) return view;
 

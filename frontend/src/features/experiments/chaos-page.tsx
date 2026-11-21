@@ -11,6 +11,7 @@ import { Figures, WidgetCard } from "@/shared/ui/widget";
 import { Equation } from "./equation";
 import { ExhibitFrame } from "./exhibit-frame";
 import { BuildPending } from "./build-pending";
+import { settingNumber, useCheckRequest, useCheckSetting, type CheckSetting } from "./check-setting";
 import { PreviewPending, type PreviewMode, type PreviewProps } from "./preview-mode";
 import {
   lyapunov,
@@ -66,6 +67,25 @@ const MEASURE_S = 30;
  * a logarithmic scale and the Lyapunov exponent measured for the start on
  * screen. No route.
  */
+/** The build and the start a check case's setting asks for, the rest as they are. */
+function chaosOf(dp: DoublePendulum, start: Start, setting: CheckSetting): { dp: DoublePendulum; start: Start } {
+  return {
+    dp: {
+      ...dp,
+      length1_m: settingNumber(setting, "length1_m", dp.length1_m),
+      length2_m: settingNumber(setting, "length2_m", dp.length2_m),
+      mass1_kg: settingNumber(setting, "mass1_kg", dp.mass1_kg),
+      mass2_kg: settingNumber(setting, "mass2_kg", dp.mass2_kg),
+      damping_per_s: settingNumber(setting, "damping_per_s", dp.damping_per_s),
+    },
+    start: {
+      ...start,
+      upper: settingNumber(setting, "upper", start.upper),
+      lower: settingNumber(setting, "lower", start.lower),
+    },
+  };
+}
+
 export function ChaosPage() {
   const { t } = useTranslation();
   const defaults = useExperimentsDefaults();
@@ -73,6 +93,17 @@ export function ChaosPage() {
   const [start, setStart] = useState<Start>(PRESETS.wild);
   const [nudge, setNudge] = useState<Nudge>(0.001);
   const dp = build ?? defaults.data?.chaos ?? null;
+  // A check case's "Set it up": the build and the start here (the slow mode's
+  // lower arm at √2°, finer than the start slider's whole degrees); the play,
+  // built anew for them or already on them, lets go.
+  const request = useCheckRequest("chaos");
+  const [seen, setSeen] = useState<number | null>(null);
+  if (request && !request.done && request.nonce !== seen && dp) {
+    setSeen(request.nonce);
+    const next = chaosOf(dp, start, request.setting);
+    if (JSON.stringify(next.dp) !== JSON.stringify(dp)) setBuild(next.dp);
+    if (JSON.stringify(next.start) !== JSON.stringify(start)) setStart(next.start);
+  }
   return (
     <ExhibitFrame
       exhibit="chaos"
@@ -237,6 +268,13 @@ function ChaosPlay({
     // `begin` reads the start and the nudge, which a new start remounts for.
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [running, speed, dp, preview, start.upper, start.lower]);
+  useCheckSetting("chaos", (setting) => {
+    if (preview || JSON.stringify(chaosOf(dp, start, setting)) !== JSON.stringify({ dp, start })) return false;
+    sim.current = begin();
+    setFrame({ ...sim.current });
+    setRunning(true);
+    return true;
+  });
 
   const view = <ChaosView dp={dp} main={frame.a} twin={frame.b} trail={frame.trail} />;
   if (preview) return view;

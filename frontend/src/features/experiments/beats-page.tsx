@@ -12,6 +12,7 @@ import { Figures, WidgetCard } from "@/shared/ui/widget";
 import { Equation } from "./equation";
 import { ExhibitFrame } from "./exhibit-frame";
 import { BuildPending } from "./build-pending";
+import { settingNumber, useCheckSetting } from "./check-setting";
 import { PreviewPending, type PreviewMode, type PreviewProps } from "./preview-mode";
 import { figures, frequencyHz, loudness, sound, type Fork, type Rider } from "./simulate/beats";
 import { SIDE } from "./stage";
@@ -66,7 +67,7 @@ export function BeatsPage() {
         <BuildPending pending={defaults.isPending} error={defaults.error} />
       ) : (
         <>
-          <BeatsPlay fork={fork} rider={rider} />
+          <BeatsPlay fork={fork} rider={rider} onRider={setRider} />
           <BeatsBuild fork={fork} rider={rider} onChange={setRider} />
         </>
       )}
@@ -213,7 +214,13 @@ function LoudnessView({ fork, f2, t, ringing }: { fork: Fork; f2: number; t: num
   );
 }
 
-function BeatsPlay({ fork, rider, preview = false, paused = false }: { fork: Fork; rider: Rider } & PreviewMode) {
+function BeatsPlay({
+  fork,
+  rider,
+  onRider,
+  preview = false,
+  paused = false,
+}: { fork: Fork; rider: Rider; onRider?: (next: Rider) => void } & PreviewMode) {
   const { t } = useTranslation();
   const locale = useLocale();
   // Each strike starts the clock again from it: counted, so a second strike in the same frame still restarts.
@@ -225,6 +232,20 @@ function BeatsPlay({ fork, rider, preview = false, paused = false }: { fork: For
   const f2 = frequencyHz(fork, rider);
   const ringing = strikes > 0;
   const silentAfter = fork.decay_s * Math.log(1 / SILENT);
+  // A check case's "Set it up": the rider, which is the build card's, and a
+  // strike. The sound stays as the reader left it: off until they turn it on.
+  useCheckSetting("beats", (setting) => {
+    if (preview) return false;
+    onRider?.({
+      ...rider,
+      mass_kg: settingNumber(setting, "mass_kg", rider.mass_kg),
+      position: settingNumber(setting, "position", rider.position),
+    });
+    struck.current = clock.current;
+    setTime(0);
+    setStrikes((n) => n + 1);
+    return true;
+  });
 
   useEffect(() => {
     if (strikes === 0 || (preview && paused)) return;

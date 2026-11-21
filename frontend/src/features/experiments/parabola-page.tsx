@@ -11,6 +11,7 @@ import { Figures, WidgetCard } from "@/shared/ui/widget";
 import { Equation } from "./equation";
 import { ExhibitFrame } from "./exhibit-frame";
 import { BuildPending } from "./build-pending";
+import { settingNumber, useCheckRequest, useCheckSetting, type CheckSetting } from "./check-setting";
 import { ParabolaSideView, ParabolaTopView } from "./parabola-views";
 import { PreviewPending, type PreviewMode, type PreviewProps } from "./preview-mode";
 import { startsRunning } from "./play";
@@ -60,12 +61,31 @@ export function wellFilled(v: Vessel): boolean {
  * engine by `simulate.test.ts`): no route, since the water follows the
  * turntable frame by frame.
  */
+/** The vessel a check case's setting asks for, the rest as `v`. */
+function vesselOf(v: Vessel, setting: CheckSetting): Vessel {
+  return {
+    ...v,
+    radius_m: settingNumber(setting, "radius_m", v.radius_m),
+    height_m: settingNumber(setting, "height_m", v.height_m),
+    fill_m: settingNumber(setting, "fill_m", v.fill_m),
+  };
+}
+
 export function ParabolaPage() {
   const { t } = useTranslation();
   const defaults = useExperimentsDefaults();
   const [build, setBuild] = useState<Vessel | null>(null);
   const v = build ?? defaults.data?.parabola ?? null;
   const [rate, setRate] = useState(START_RPM * RPM);
+  // A check case's "Set it up": the vessel here; the play, built anew for it
+  // or already on it, sets the turntable and the water.
+  const request = useCheckRequest("parabola");
+  const [seen, setSeen] = useState<number | null>(null);
+  if (request && !request.done && request.nonce !== seen && v) {
+    setSeen(request.nonce);
+    const next = vesselOf(v, request.setting);
+    if (JSON.stringify(next) !== JSON.stringify(v)) setBuild(next);
+  }
 
   return (
     <ExhibitFrame
@@ -126,6 +146,18 @@ function ParabolaPlay({
   const [view, setView] = useState<View>(() => ({ water: preview ? 0 : target, vesselAngle: 0, waterAngle: 0 }));
   const running = preview ? !paused : runningHere;
   const speed = preview ? PREVIEW_SPEED : speedHere;
+  // A case's turntable, and its water: turning with the table, as the page
+  // keeps it, or at rest with the table already at speed, for the spin-up.
+  useCheckSetting("parabola", (setting) => {
+    if (preview || JSON.stringify(vesselOf(v, setting)) !== JSON.stringify(v)) return false;
+    const rate = settingNumber(setting, "rate_rad_s", target);
+    const water = setting.water === "rest" ? 0 : rate;
+    sim.current = { ...sim.current, water, clock: 0, owed: 0 };
+    setView((shown) => ({ ...shown, water }));
+    onTarget?.(rate);
+    setRunning(true);
+    return true;
+  });
 
   useEffect(() => {
     if (!running) return;

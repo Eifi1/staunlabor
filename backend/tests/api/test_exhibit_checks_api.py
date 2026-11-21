@@ -29,17 +29,36 @@ async def test_with_no_verdict_every_exhibit_with_cases_is_listed_and_none_is_ch
     assert answer.json() == {
         "with_cases": [
             "arch",
+            "beats",
+            "bounce",
+            "cannon",
             "chair",
+            "chaos",
             "chladni",
+            "circuit",
             "coil",
+            "cone",
             "coriolis",
+            "coupled",
             "cradle",
+            "diver",
+            "elephant",
             "foucault",
+            "gyroscope",
+            "harmonograph",
+            "levitation",
             "maxwell",
+            "overhang",
+            "parabola",
             "peg",
             "plates",
+            "platform",
+            "race",
+            "rainbow",
             "resonance",
             "sky",
+            "slits",
+            "smoke",
             "sphere",
             "waterwheel",
             "wave",
@@ -83,7 +102,8 @@ async def test_a_member_and_a_stranger_cannot_check_anything(accounts: AsyncClie
 
 async def test_an_exhibit_without_cases_cannot_be_checked(accounts: AsyncClient) -> None:
     admin = await first_admin(accounts)
-    refused = await accounts.put(admin_path("cannon"), headers=bearer(admin["access_token"]))
+    # A name that is no exhibit, as every exhibit has its cases.
+    refused = await accounts.put(admin_path("orrery"), headers=bearer(admin["access_token"]))
     assert refused.status_code == 400
     assert "no checks" in refused.json()["detail"]
 

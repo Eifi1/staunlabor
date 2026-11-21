@@ -822,7 +822,7 @@
         "hint": "Die echte Grösse des Exponats ist nicht veröffentlicht; angenommen ist eine Bahn für den Tisch. Jede Änderung startet das Rennen neu.",
         "drop": "Höhe bis zum Ziel",
         "run": "Weite bis zum Ziel",
-        "run_hint": "Ab π/2-mal der Höhe taucht die Zykloide unter das Ziel. Kürzer als 1.1-mal die Höhe würde der Buckel eine Kugel von seiner Kuppe werfen und der Kreisbogen über seinen eigenen Start zurückbiegen; darum endet die Weite dort.",
+        "run_hint": "Ab π/2-mal der Höhe taucht die Zykloide unter das Ziel. Kürzer als 1,1-mal die Höhe würde der Buckel eine Kugel von seiner Kuppe werfen und der Kreisbogen über seinen eigenen Start zurückbiegen; darum endet die Weite dort.",
         "ball": "Was läuft"
       },
       "valley": {
@@ -3580,7 +3580,233 @@
         "v0_push": "Tempo des Anstosses",
         "P_loss": "Verlust pro Sekunde",
         "C_rr": "Rollwiderstand: Anteil des Drucks der Wand, der bremst",
-        "alpha_wall": "Neigung der Wand"
+        "alpha_wall": "Neigung der Wand",
+        "D_wall": "Abstand der Wand von den Spalten",
+        "d_slits": "Abstand der Spaltmitten",
+        "a_slit": "Breite eines Spalts",
+        "theta_beam": "Winkel zur Richtung des Strahls",
+        "m_order": "Ordnung: der wievielte Streifen",
+        "dy_stripes": "Abstand der Streifen auf der Wand",
+        "y_wall": "Ort auf der Wand, ab der Mitte",
+        "I_one": "Helligkeit in der Mitte mit einem Spalt",
+        "I_two": "Helligkeit in der Mitte mit beiden",
+        "E_amp": "Ausschlag der Welle eines Spalts",
+        "I_rel": "Helligkeit, gemessen an der Mitte",
+        "beta_slit": "halber Gangunterschied über einen Spalt, als Winkel",
+        "diver_reserve": "Auftrieb, der übrig ist, als Masse",
+        "diver_rho": "Dichte des Wassers, 998",
+        "diver_Vg": "Volumen des Glases",
+        "diver_V0": "Luftblase an der Oberfläche, ohne Druck",
+        "diver_m": "Masse des Glases",
+        "diver_p0": "Luftdruck an der Oberfläche, 101 325 Pa",
+        "diver_dp": "Druck der Hand",
+        "diver_Vstar": "Luftblase, mit der er schwebt",
+        "diver_H": "Wassertiefe der Flasche",
+        "diver_dz": "Abstand von der Schwebetiefe",
+        "diver_k": "wie stark der Abstand sich selbst verstärkt",
+        "diver_pstar": "Druck in der Schwebetiefe",
+        "diver_zstar": "Tiefe, in der er schweben würde",
+        "delta_cone": "Neigung der Linie von der Achse zur Berührung, gegen die Senkrechte auf die Ebene der Schienen",
+        "alpha_cone": "Kegelwinkel, zwischen Mantel und Achse",
+        "beta_rail": "Spreizung jeder Schiene, von oben gesehen",
+        "gamma_rail": "Steigung der Schienen",
+        "gamma_star": "Grenzsteigung",
+        "dz_axis": "wie weit die Achse fällt",
+        "l_rails": "Länge der Schienen, von oben gesehen",
+        "a_roll": "Radius, auf dem der Kegel rollt: von der Achse zur Berührung",
+        "radius_cone": "Radius des Kegels in der Mitte",
+        "y_sum": "die beiden Töne zusammen",
+        "amp": "Ausschlag eines Tons",
+        "f_avg": "mittlere Tonhöhe",
+        "f12": "Tonhöhen der beiden Gabeln",
+        "f_beat": "Schwebungen pro Sekunde",
+        "f_fork": "Tonhöhe der Gabel ohne Reiter",
+        "f_rider": "Tonhöhe mit dem Reiter",
+        "m_felt": "Masse der Zinke, wie sie an der Spitze zählt",
+        "m_prong": "Masse einer Zinke",
+        "m_rider": "Masse des Reiters auf einer Zinke",
+        "mode": "Form der ersten Schwingung, 1 an der Spitze",
+        "s_rider": "Ort des Reiters, von der Wurzel (0) bis zur Spitze (1)",
+        "xi": "Ort auf der Zinke, von der Wurzel (0) bis zur Spitze (1)",
+        "beta_L": "erste Wurzel der Gleichung des eingespannten Balkens, 1,8751",
+        "surface_height": "Höhe der Oberfläche über dem Boden",
+        "axis_distance": "Abstand von der Achse",
+        "steepness": "Steilheit des Paraboloids",
+        "centre_depth": "Wassertiefe auf der Achse",
+        "vessel_rate": "Winkelgeschwindigkeit des Gefässes",
+        "fill_depth": "Füllhöhe in Ruhe",
+        "vessel_radius": "Radius des Gefässes",
+        "dry_rate": "Winkelgeschwindigkeit, bei der die Mitte trocken fällt",
+        "rim_height": "Höhe der Oberfläche am Rand",
+        "dry_radius": "Radius des trockenen Flecks",
+        "focus": "Brennweite der Mulde als Spiegel",
+        "dish_depth": "Tiefe der Mulde bis zum Abstand r",
+        "water_rate": "Winkelgeschwindigkeit des Wassers",
+        "nu": "Zähigkeit des Wassers, 10⁻⁶ m²/s",
+        "m_lift": "Last, die der Ring trägt, als Masse",
+        "mu_top": "magnetisches Moment des Kreisels",
+        "B_axis": "Feld auf der Achse",
+        "B1": "Steigung des Felds auf der Achse, nach oben",
+        "B2": "Krümmung des Felds auf der Achse",
+        "M_mag": "Magnetisierung des Rings",
+        "t_ring": "Höhe des Rings",
+        "z_height": "Höhe über dem Ring",
+        "s_depth": "Tiefe im Ring, unter seiner Oberseite",
+        "R1_hole": "Radius des Lochs",
+        "R2_ring": "Radius des Rings",
+        "z_foot": "Fuss des Fensters, Wendepunkt des Felds",
+        "z_head": "oberes Ende des Fensters",
+        "r_axis": "Abstand von der Achse",
+        "lc_omega": "Kreisfrequenz der gedämpften Schwingung",
+        "lc_C": "Kapazität des Kondensators",
+        "lc_R": "Widerstand des ganzen Kreises, vor allem der Spule",
+        "lc_E": "Energie in Kondensator und Spule",
+        "lc_q": "Ladung auf dem Kondensator",
+        "lc_q0": "Ladung beim Umlegen, C·U₀",
+        "lc_omega0": "Kreisfrequenz ohne Widerstand, 1/√(LC)",
+        "T_race": "Zeit vom Start bis zum Ziel",
+        "T_bottom": "Zeit bis zum Boden",
+        "D_run": "Weite bis zum Ziel",
+        "H_drop": "Höhe bis zum Ziel",
+        "phi_B": "Winkel des rollenden Kreises am Ziel",
+        "r_cycloid": "Radius des Kreises, der die Zykloide zeichnet",
+        "R_bowl": "Radius der Kreisschale",
+        "phi0_bowl": "Startwinkel in der Schale, ab dem Boden",
+        "omega_slow": "Kreisfrequenz der langsamen Eigenschwingung",
+        "omega0_pend": "Kreisfrequenz eines einfachen Pendels der Länge L",
+        "length_rod": "Länge jeder der beiden Stangen",
+        "theta12": "Winkel der oberen und der unteren Stange, ab der Senkrechten",
+        "E_pend": "Energie beider Gewichte zusammen",
+        "m12": "Massen des oberen und des unteren Gewichts",
+        "v12": "Geschwindigkeiten der beiden Gewichte",
+        "y12": "Höhen der beiden Gewichte, ab der Aufhängung nach oben",
+        "L12": "Längen der oberen und der unteren Stange",
+        "theta_mode": "Ausschlag der oberen Stange in der langsamen Eigenschwingung",
+        "c_damp": "Dämpfung der Seite, pro Sekunde",
+        "omega_d": "Kreisfrequenz der gedämpften Schwingung",
+        "alpha_decay": "wie schnell der Ausschlag abklingt",
+        "v_inf": "Endgeschwindigkeit: wo die Luft so stark bremst, wie das Gewicht zieht",
+        "e_rest": "Anteil des Tempos, den ein Aufprall zurückgibt",
+        "u_up": "Tempo nach dem ersten Aufprall",
+        "y_peak": "Höhe des ersten Aufstiegs",
+        "h_drop": "Höhe, aus der der Ball fällt",
+        "rho_air": "Dichte der Luft",
+        "c_drag": "Widerstandsbeiwert einer glatten Kugel, 0,47",
+        "A_cross": "Querschnitt des Balls",
+        "t_land": "Zeit bis zum ersten Aufprall",
+        "T_flight": "Dauer des ersten Flugs",
+        "t_f": "Zeitkonstante der Luft, v∞/g",
+        "T_still": "Zeit, bis der Ball still liegt",
+        "spin_M": "Masse der Scheibe",
+        "spin_R": "Radius der Scheibe",
+        "spin_ml": "Masse der Beine",
+        "spin_kl": "Trägheitsradius der Beine",
+        "spin_mt": "Masse von Rumpf und Kopf",
+        "spin_kt": "Trägheitsradius des Rumpfs",
+        "spin_d": "wie weit der Rumpf hinausgelehnt ist",
+        "spin_ma": "Masse eines Arms",
+        "spin_s": "Abstand jeder Hand von der Achse",
+        "spin_omega": "Winkelgeschwindigkeit",
+        "spin_F": "Zug der Hände am Griff",
+        "spin_L": "Drehimpuls",
+        "spin_tau": "Reibung im Lager, als Drehmoment",
+        "V_pot": "Lageenergie eines Pendels, pro m·L²",
+        "kappa": "Kopplung durch die Feder",
+        "k_spring": "Federkonstante",
+        "a_spring": "Höhe der Feder unter der Aufhängung",
+        "T_beat": "Zeit für hinüber und zurück",
+        "omega_minus": "Kreisfrequenz im Gleichtakt",
+        "omega_plus": "Kreisfrequenz gegeneinander",
+        "E_pair": "Energie beider Pendel und der Feder",
+        "thetadot_i": "Winkelgeschwindigkeit des i-ten Pendels",
+        "coupled_theta_i": "Auslenkung des i-ten Pendels",
+        "a_eff": "Volumen, das die Trommel pro Meter Druck verliert",
+        "a_hole": "Fläche des Lochs",
+        "ring_radius": "Radius des Rings, den man drückt",
+        "hole_radius": "Radius des Lochs",
+        "drum_radius": "Radius der Trommel",
+        "r_skin": "Abstand von der Mitte der Trommel",
+        "u_skin": "wie tief die Haut dort liegt",
+        "AB_const": "zwei Konstanten, aus Rand und Ring bestimmt",
+        "slug": "Länge des Luftpfropfens",
+        "hole_d": "Durchmesser des Lochs",
+        "press_depth": "wie tief der Ring gedrückt wird",
+        "ring_u": "Tempo des Rauchrings",
+        "circulation": "Zirkulation des Rings",
+        "ring_r": "Radius des Rauchrings",
+        "core_a": "Radius seines Kerns",
+        "ring_angle": "Radius des Rings, als Winkel vom Weg zurück zur Lampe",
+        "refraction_angle": "Brechungswinkel",
+        "incidence_angle": "Einfallswinkel",
+        "ring_width": "Breite des Rings",
+        "wavelength": "Wellenlänge",
+        "cauchy_a": "Cauchy-Koeffizient A",
+        "cauchy_b": "Auffächerung der Farben (Cauchy-Koeffizient B)",
+        "index_d": "Brechzahl bei gelbem Licht (Natriumlinie)",
+        "sodium": "Wellenlänge der Natriumlinie, 589,3",
+        "exit_angle": "Austrittswinkel, gegen den Weg zurück zur Lampe",
+        "impact": "Auftreffpunkt, Abstand von der Mitte in Radien der Perle",
+        "back_share": "Anteil des Lichts, der nach einer Spiegelung zurückkommt",
+        "reflectance": "gespiegelter Anteil an einer Fläche, für die beiden Polarisationen",
+        "rainbow_index": "Brechzahl",
+        "v_impact": "Tempo der Kugel am Boden",
+        "K_floor": "Steifigkeit von Kugel und Boden nach Hertz",
+        "F_floor": "grösste Kraft des Bodens",
+        "youngs": "Elastizitätsmodul des Gummis",
+        "nu_poisson": "Querzahl, 0,5 für Gummi",
+        "J_impulse": "Impuls, den der Boden überträgt",
+        "cannon_A_cross": "Querschnitt des Balls",
+        "cannon_c_drag": "Widerstandsbeiwert einer glatten Kugel, 0,47",
+        "cannon_h_drop": "Höhe, aus der der Ball fällt",
+        "cannon_rho_air": "Dichte der Luft",
+        "cannon_v_inf": "Endgeschwindigkeit: wo die Luft so stark bremst, wie das Gewicht zieht",
+        "harm_L": "Länge des Pendels",
+        "harm_T12": "Perioden von Stift und Brett",
+        "harm_L12": "Längen der Pendel von Stift und Brett",
+        "harm_xy": "Ort des Stifts auf dem Brett",
+        "harm_turn": "Zeit, in der sich die Figur einmal dreht",
+        "harm_f12": "Frequenzen von Stift und Brett",
+        "harm_thetamax": "Ausschlag an den Umkehrpunkten",
+        "harm_c": "Reibung des Pendels",
+        "d_over": "wie weit der oberste Klotz über die Tischkante reicht",
+        "n_blocks": "Zahl der Klötze",
+        "l_block": "Länge eines Klotzes",
+        "H_n": "harmonische Zahl 1 + 1/2 + … + 1/n",
+        "xbar_k": "Schwerpunkt der obersten k Klötze",
+        "r_edge": "Kante des Klotzes darunter; für den untersten die Tischkante",
+        "s_step": "Stufe, in Längen",
+        "N_blocks": "nötige Zahl der Klötze",
+        "m_flux": "Impuls, den der Strahl pro Sekunde nach oben trägt",
+        "r_jet": "Abstand von der Achse des Strahls",
+        "u_jet": "Tempo der Luft im Strahl",
+        "U0_jet": "Tempo der Luft an der Öffnung",
+        "opening_d": "Durchmesser der Öffnung des Rüssels",
+        "uc_jet": "Tempo der Luft auf der Achse des Strahls",
+        "b_jet": "Breite des Strahls",
+        "cd": "Widerstandsbeiwert einer Kugel, 0,47",
+        "A_ball": "Querschnitt des Balls",
+        "u2_mean": "Mittel von u² über den Querschnitt des Balls",
+        "m_ball": "Masse des Balls",
+        "V_ball": "Volumen des Balls",
+        "s_jet": "Höhe der Ballmitte über der Öffnung",
+        "B_decay": "Abklingkonstante des runden Strahls, hier 6",
+        "u_ball": "Tempo der Luft am Ball",
+        "elephant_rho_air": "Dichte der Luft",
+        "round_time": "Zeit für eine Runde um den Faden",
+        "precession": "wie schnell die Achse um den Faden wandert",
+        "axle_length": "Abstand vom Faden bis zur Mitte des Rads",
+        "hoop_radius": "Radius des Reifens",
+        "spin_momentum": "Drehimpuls des Rads um seine Achse",
+        "i3_hoop": "Trägheitsmoment um die Achse",
+        "spin_rate": "wie schnell das Rad auf seiner Achse dreht",
+        "i1_pivot": "Trägheitsmoment quer zur Achse, um ihr Ende",
+        "tilt_start": "Neigung der Achse beim Loslassen, gegen die Senkrechte nach oben",
+        "tilt_lowest": "Neigung der Achse am tiefsten Punkt",
+        "axle_tilt": "Neigung der Achse gegen die Senkrechte nach oben",
+        "top_b": "2mgd/I₁",
+        "below_level": "wie weit die Achse unter der Waagrechten steht",
+        "torque": "Drehmoment, das die Hände aufbringen",
+        "suitcase_turn": "wie schnell der Koffer gedreht wird"
       },
       "cases": {
         "sphere": {
@@ -4130,6 +4356,541 @@
             "reads": "Der Rollwiderstand bremst mit C·N gegen die Bewegung; das kostet C·N·v pro Sekunde. N, der Druck der Wand, ist der Anteil des Gewichts quer zur Wand und dazu, was die Kugel auf ihrem Kreis hält.",
             "why": "Prüft die Bremse und den Druck der Wand, aus dem sie kommt: 8,6625 mW pro Kilogramm. Schon in der ersten Millisekunde wird die Kugel ein wenig langsamer und die Bremse mit ihr, und unter 1 mm/s blendet die Seite den Widerstand aus: zusammen 2 · 10⁻⁵ Abweichung.",
             "step": "Die erste Quelle gibt den Rollwiderstand C·N. Die zweite rechnet die überhöhte Kurve: N·sin θ = mv²/r und N·cos θ = mg. Quer zur Wand zusammengezählt geben beide N = mg·cos α + (mv²/r)·sin α; die Haftreibung der rollenden Kugel liegt in der Wand und trägt quer zu ihr nichts bei."
+          }
+        },
+        "slits": {
+          "spacing": {
+            "title": "Der Abstand der Streifen",
+            "setting": "Das Exponat: roter Laser, 650 nm, Spalte 0,25 mm auseinander und 0,05 mm breit, die Wand 2 m dahinter; vom ersten dunklen Streifen zum zweiten.",
+            "reads": "Dunkel ist es, wo die Wege von den beiden Spalten um eine halbe Wellenlänge, anderthalb, zweieinhalb … verschieden sind. Bei kleinen Winkeln liegen die Streifen λ·D/d auseinander.",
+            "why": "Prüft den Abstand der Spalte im Muster: 5,2 mm, gemessen auf dem Muster, das die Seite zeichnet. Die Formel nimmt kleine Winkel, darum liegt das Muster 1,1 · 10⁻⁵ weiter.",
+            "step": "Die Quelle gibt die dunklen Streifen bei d·sin θ = (m + ½)λ und, für kleine Winkel, die hellen bei y = mλD/d. Die dunklen liegen mitten zwischen den hellen, also gleich weit auseinander."
+          },
+          "one_slit_dark": {
+            "title": "Ein Spalt allein: das erste Dunkel",
+            "setting": "Wie oben, ein Spalt abgedeckt; das erste Dunkel neben der Mitte.",
+            "reads": "Ein Spalt allein ist dunkel, wo sich die Wege von seinen beiden Rändern um eine ganze Wellenlänge unterscheiden: Jeder Streifen des Spalts hat dann einen, der ihn auslöscht.",
+            "why": "Prüft die Breite des Spalts im Muster: 26,002 mm neben der Mitte, wie die Seite es zeichnet."
+          },
+          "quarter": {
+            "title": "Ein Spalt gibt ein Viertel, nicht die Hälfte",
+            "setting": "Wie oben, ein Spalt abgedeckt; die Helligkeit in der Mitte.",
+            "reads": "In der Mitte kommen die beiden Wellen im Gleichtakt an: Ihre Ausschläge addieren sich zum doppelten, und die Helligkeit ist das Quadrat davon, viermal so viel wie von einem Spalt.",
+            "why": "Prüft, dass die Seite die Wellen addiert und erst dann quadriert, nicht die Helligkeiten addiert: ein Spalt 0,25 der Mitte von zweien.",
+            "step": "Die erste Quelle gibt, dass sich die Ausschläge gleicher Wellen im Gleichtakt addieren, die zweite, dass die Helligkeit ihr Quadrat ist: E² gegen (2E)²."
+          },
+          "first_bright": {
+            "title": "Der erste helle Streifen ist schwächer",
+            "setting": "Wie oben, beide Spalte offen; die Helligkeit des ersten hellen Streifens neben der Mitte.",
+            "reads": "Jeder Spalt allein wird zur Seite dunkler. Der erste helle Streifen des Paars liegt bei d·sin θ = λ, und dort gibt jeder Spalt nur (sin β/β)² seiner Mitte.",
+            "why": "Prüft, wie die Breite der Spalte die Streifen dämpft: 0,8751 der Mitte bei Spalten, die fünfmal so weit auseinander wie breit sind."
+          },
+          "missing": {
+            "title": "Der fünfte Streifen fehlt",
+            "setting": "Wie oben, beide Spalte offen; die Helligkeit dort, wo der fünfte helle Streifen läge.",
+            "reads": "Die Spalte liegen fünfmal so weit auseinander, wie sie breit sind. Wo die beiden sich zum fünften Mal verstärken, ist jeder allein dunkel, und es bleibt nichts zu verstärken.",
+            "why": "Prüft, dass Streifen und Dämpfung mit demselben Winkel gerechnet sind: dort 10⁻³³, also dunkel.",
+            "step": "Die erste Quelle gibt die hellen Streifen bei d·sin θ = mλ, die zweite das Dunkel eines Spalts bei a·sin θ = λ. Mit d = 5a fallen der fünfte helle und das erste Dunkel zusammen; die dritte nennt das eine fehlende Ordnung."
+          }
+        },
+        "diver": {
+          "reserve": {
+            "title": "Wie viel Auftrieb übrig ist",
+            "setting": "Der Taucher der Seite, 3 g Glas mit 1,2 cm³ und 2 cm³ Luft, an der Oberfläche, ohne Druck der Hand.",
+            "reads": "Er verdrängt Wasser für sein Glas und seine Luft; was dieses Wasser mehr wiegt als das Glas, hält ihn oben.",
+            "why": "Prüft den Auftrieb, den die Seite als Reserve zeigt: 0,1936 g."
+          },
+          "sinks_from_top": {
+            "title": "Der Druck, der ihn von oben sinken lässt",
+            "setting": "Der Taucher an der Oberfläche; die Hand drückt mit 10,90 kPa. Bei 10,85 kPa bleibt er oben.",
+            "reads": "Der Druck der Hand presst die Luftblase zusammen (bei gleicher Temperatur bleibt p·V gleich); er sinkt, sobald die Blase kleiner ist als m/ρ − V_g, die Blase, mit der er schwebt.",
+            "why": "Prüft Boyle und Auftrieb in der Zeitschleife der Seite: 10,884 kPa, gesucht als der Druck, ab dem ein einziger Schritt ihn von der Oberfläche wegzieht.",
+            "step": "Die erste Quelle gibt p·V gleich für die Luft, die zweite das Gleichgewicht von Auftrieb und Gewicht; zusammen ergeben sie den Druck, bei dem die Blase an der Oberfläche gerade noch trägt."
+          },
+          "rises_from_bottom": {
+            "title": "Der Druck, unter dem er vom Grund aufsteigt",
+            "setting": "Der Taucher liegt auf dem Grund der 30-cm-Flasche (zuerst fest drücken, bis er unten liegt); dann 7,90 kPa. Bei 7,95 kPa bleibt er liegen.",
+            "reads": "Unten drückt zusätzlich das Wasser mit ρ·g·H; er steigt, sobald die Hand um ρ·g·H weniger drückt als der Druck, der ihn oben sinken lässt.",
+            "why": "Prüft den Druck des Wassers in der Tiefe: 7,947 kPa, 2,936 kPa weniger als oben. Zwischen den beiden Drücken liegt die Tiefe, in der er schweben würde, in der Flasche.",
+            "step": "Wie oben, mit dem Druck in der Tiefe H aus der dritten Quelle."
+          },
+          "leaves_hover": {
+            "title": "Warum er nicht schwebt",
+            "setting": "Die Hand drückt mit 10 kPa; der Taucher ruhend einen Mikrometer unter der Tiefe, in der er schweben würde, 9,03 cm; fünf Sekunden lang.",
+            "reads": "Etwas tiefer ist die Blase etwas kleiner, und der fehlende Auftrieb zieht ihn weiter: Der Abstand wächst wie cosh(√k·t). Bewegt werden das Glas und das Wasser, das es mitnimmt, die Hälfte seines Volumens.",
+            "why": "Prüft, dass das Schweben instabil ist und wie schnell: Der Abstand wächst bald alle 1,71 s auf das e-fache. Die Abweichung von 1 · 10⁻⁵ kommt vom Widerstand des Wassers und von der Krümmung in Boyles Gesetz; beide wachsen mit dem Abstand.",
+            "step": "Die erste Quelle gibt, wie die Blase mit dem Druck schrumpft, die zweite den Druck in der Tiefe; für einen kleinen Schritt δz ist die Änderung linear. Die dritte gibt das mitbewegte Wasser einer Kugel, die Hälfte ihres Volumens, das die Seite für das Röhrchen übernimmt."
+          }
+        },
+        "cone": {
+          "axis_path": {
+            "title": "Die Achse fällt, die Schienen steigen",
+            "setting": "Das Standard-Exponat: Radius 6 cm, Kegelwinkel 20°, Spreizung 20°, Steigung 4°, Schienen 30 cm lang und unten 6 cm auseinander.",
+            "reads": "Die Linie von der Achse zur Berührung steht um den Winkel δ schief, mit sin δ = tan β·cos γ·tan α. Die Achse läuft darum auf einer Geraden, die um δ − γ fällt.",
+            "why": "Prüft die genaue Berührung, die der Rechenkern auf anderem Weg sucht, über den Abstand der Schiene vom Kegel: Auf 30 cm fällt die Achse um 1,88426 cm; beide Wege treffen sich auf 10⁻¹².",
+            "step": "Die Quelle misst ihre Winkel in der Ebene der Schienen und nennt δ ihr α. Diese Ebene steigt mit γ; eine Schiene, die sich von oben gesehen um tan β pro Meter spreizt, spreizt sich in der Ebene um tan β·cos γ. Mit tan φ = tan β·cos γ und dem Kegelwinkel α als ψ folgt sin δ, und von oben gesehen fällt die Achse auf der Länge l um l·tan(δ − γ)."
+          },
+          "threshold": {
+            "title": "Die Grenze zwischen hinauf und hinunter",
+            "setting": "Kegel und Spreizung des Standard-Exponats; gesucht ist die Steigung, bei der die Achse auf der ganzen Länge gleich hoch bleibt, durch Halbieren zwischen 0° und 15°.",
+            "reads": "Der Kegel rollt hinauf, solange δ grösser ist als die Steigung γ; an der Grenze sind beide gleich. Daraus folgt die Lehrbuchbedingung tan γ* = tan α·tan β, hier genau.",
+            "why": "Prüft die Grenze, die die Seite nennt: 7,54628°. Gesucht ist sie an der genauen Berührung des Rechenkerns, nicht mit der Formel der Seite; beide treffen sich auf 10⁻¹².",
+            "step": "Die erste Quelle gibt die Bedingung sin(δ − γ) > 0, an der Grenze also δ = γ; die zweite sin δ = tan φ·tan ψ, umgerechnet wie oben tan β·cos γ·tan α. Mit δ = γ ist sin γ = tan β·cos γ·tan α, also tan γ = tan α·tan β."
+          },
+          "speed": {
+            "title": "Das Tempo aus der Energie",
+            "setting": "Das Standard-Exponat, am tiefen Ende losgelassen; gelesen nach einer Sekunde.",
+            "reads": "Was die Achse an Höhe verliert, wird Bewegung und Drehung: ½(1 + I/(M a²))·v² = g·Δz, mit a dem Radius, auf dem der Kegel rollt, und I = (3/10)·M·R² für zwei Vollkegel.",
+            "why": "Prüft die Zeitschleife und das Rollen auf dem schrumpfenden Radius a: 28,5357 cm/s nach einer Sekunde, auf 10⁻⁹ genau. Je weiter oben, desto mehr der Energie steckt in der Drehung.",
+            "step": "Die erste Quelle gibt die Energie und mit ihren Gleichungen (7) und (8), wo die Achse steht und auf welchem Radius a der Kegel rollt, die Winkel wie oben auf die Sicht von oben umgerechnet. Die zweite gibt das Trägheitsmoment eines Kegels; zwei gleiche Kegel, Grundfläche an Grundfläche, haben dasselbe I/(M·R²)."
+          }
+        },
+        "beats": {
+          "beat_rate": {
+            "title": "So viele Schwebungen wie der Unterschied",
+            "setting": "Der Reiter mit 1 g auf jeder Zinke, 30 % von der Wurzel; beide Gabeln zugleich angeschlagen, zehn Sekunden lang.",
+            "reads": "Die Summe zweier Töne ist der mittlere Ton mal einer langsamen Hülle; diese wird |f₂ − f₁|-mal pro Sekunde still.",
+            "why": "Prüft den Klang, den die Seite zeichnet und spielt: 0,8173 Stillen pro Sekunde, eine alle 1,22 s, so viele wie der Unterschied der beiden Tonhöhen. Gelesen an den Kämmen des mittleren Tons, wo die Summe gleich der Hülle ist."
+          },
+          "tip_rider": {
+            "title": "Der Reiter an der Spitze",
+            "setting": "1 g auf jeder Zinke, ganz an der Spitze.",
+            "reads": "Eine Zinke schwingt wie ein eingespannter Balken in seiner ersten Form. An ihrer Spitze wirkt sie, als sässe ein Viertel ihrer Masse dort, und der Reiter kommt voll dazu. Dieselbe Steifigkeit trägt mehr Masse: f = f₀·√(M*/(M* + m)).",
+            "why": "Prüft, mit welcher Masse die Zinke an ihrer Spitze zählt: 5 g ihrer 20 g; die Gabel sinkt von 440 Hz auf 401,66 Hz. Hier ist das Viertel über die Schwingungsform summiert, die Seite setzt ¼ ein.",
+            "step": "Die erste Quelle gibt die Form der ersten Schwingung eines eingespannten Balkens, die zweite, wie man aus der Bewegungsenergie die wirksame Masse findet: M* = M·∫φ², mit φ = 1 an der Spitze. Ein Reiter an der Stelle s zählt mit m·φ(s)². Bei gleicher Steifigkeit geht die Frequenz mit 1/√Masse."
+          },
+          "rider_on_prong": {
+            "title": "Der Reiter weiter unten",
+            "setting": "1 g auf jeder Zinke, 30 % von der Wurzel zur Spitze, wie die Seite beginnt.",
+            "reads": "Weiter unten bewegt sich die Zinke weniger: Der Reiter zählt nur mit φ(s)², dem Quadrat der Schwingungsform an seiner Stelle.",
+            "why": "Prüft die Schwingungsform im Innern der Zinke: Die zweite Gabel klingt mit 439,18 Hz statt 440 Hz.",
+            "step": "Wie beim Reiter an der Spitze, mit φ(0,3) aus der Schwingungsform der ersten Quelle, so geteilt, dass φ an der Spitze 1 ist."
+          }
+        },
+        "parabola": {
+          "centre": {
+            "title": "Die Mitte sinkt",
+            "setting": "Gefäss Ø 30 cm, 30 cm hoch, 10 cm hoch gefüllt; Drehteller auf 90 Umdrehungen pro Minute.",
+            "reads": "Dreht sich das Wasser als Ganzes, ist seine Oberfläche ein Paraboloid. Weil das Wasser nicht mehr wird, sinkt die Mitte um ω²R²/(4g) unter die Füllhöhe.",
+            "why": "Prüft die Form und das Volumen zusammen: In der Mitte stehen noch 4,91 cm der 10 cm Wasser."
+          },
+          "dry_rate": {
+            "title": "Ab wann die Mitte trocken fällt",
+            "setting": "Dasselbe Gefäss; Drehteller auf 126 Umdrehungen pro Minute, knapp unter der Grenze.",
+            "reads": "Die Mitte erreicht den Boden, wenn sie um die ganze Füllhöhe gesunken ist: bei ω₁ = (2/R)·√(h·g).",
+            "why": "Prüft die Grenze, an der die Seite von der Mulde zum Ring wechselt: ω₁ = 13,20 pro Sekunde, 126,1 Umdrehungen pro Minute."
+          },
+          "dry_rim": {
+            "title": "Trocken in der Mitte: der Rand",
+            "setting": "Dasselbe Gefäss; Drehteller auf 160 Umdrehungen pro Minute, über der Grenze von 126.",
+            "reads": "Ist die Mitte trocken, steht das Wasser in einem Ring um einen trockenen Fleck vom Radius δ. Die Oberfläche ist dasselbe Paraboloid, tiefer gelegt; am Rand steht sie α·(R² − δ²) hoch.",
+            "why": "Prüft den zweiten Fall der Seite, in dem der trockene Fleck statt der Tiefe in der Mitte das Volumen hält: 25,38 cm am Rand. Die Seite rechnet R·ω·√(h/g), hier geht der Weg über δ; beide treffen sich bis auf die Rundung.",
+            "step": "Die Quelle gibt den Radius δ des trockenen Flecks und die Oberfläche z = α·(r² − δ²); am Rand ist r = R."
+          },
+          "mirror": {
+            "title": "Die Mulde als Spiegel",
+            "setting": "Dasselbe Gefäss; Drehteller auf 7 Umdrehungen pro Minute, eine Umdrehung in 8,6 s.",
+            "reads": "Eine Mulde, die bis zum Abstand r um D tief ist, sammelt senkrecht einfallendes Licht in f = r²/(4D). Das Wasser hat D = α·r², also f = 1/(4α) = g/(2ω²), gleich wie gross das Gefäss ist.",
+            "why": "Prüft die Brennweite, die die Seite zeigt: 9,13 m über dem tiefsten Punkt der Mulde."
+          },
+          "spin_up": {
+            "title": "Das Wasser zieht nach",
+            "setting": "Dasselbe Gefäss; Drehteller aus dem Stand auf 90 Umdrehungen pro Minute, das Wasser in Ruhe. Gelesen nach einer Anlaufzeit, im Rechenschritt der Seite von 10 ms.",
+            "reads": "Der Boden zieht das Wasser über eine dünne Grenzschicht mit. Nach der Anlaufzeit τ = h/√(ν·ω_v) fehlt ihm noch der Anteil 1/e an der Drehzahl des Gefässes.",
+            "why": "Prüft die Zeitschleife und die Anlaufzeit der Seite: Nach 32,58 s dreht das Wasser mit 63,2 % der Drehzahl des Gefässes, mit 56,9 von 90 Umdrehungen pro Minute.",
+            "step": "Die Quelle rechnet einen geschlossenen Zylinder der Höhe 2L, mit einer Ekman-Schicht unten und einer oben. Seine Mittelebene trägt aus Symmetrie keine Schubspannung, wie eine flache freie Oberfläche: Das Wasser der Tiefe h ist die untere Hälfte, L = h. Die Quelle rechnet kleine Änderungen; die Seite lässt auch grosse so nachlaufen, mit Ω der grösseren der beiden Drehzahlen."
+          }
+        },
+        "levitation": {
+          "lift": {
+            "title": "Die Last, die der Ring trägt",
+            "setting": "Der Ring der Seite (aussen Ø 10 cm, Loch Ø 3 cm, 1,5 cm hoch, Ferrit) und der Magnet des Kreisels mit 0,64 A·m²; die Last 4,6 cm über dem Ring.",
+            "reads": "Der Kreisel steht gegen das Feld und wird dorthin gedrückt, wo es schwächer ist: nach oben, mit μ mal dem Gefälle des Felds. Das Feld des Rings ist hier Schleife für Schleife summiert.",
+            "why": "Prüft das Feld des Rings auf seiner Achse, aus dem alles andere kommt: 23,589 g Last in 4,6 cm Höhe. Die Seite rechnet das Feld geschlossen, hier ist es summiert; beide stimmen auf 10⁻¹².",
+            "step": "Die zweite Quelle macht aus der Magnetisierung M einen Strom von M pro Meter Höhe um die Aussenwand des Rings und den entgegengesetzten um sein Loch. Jede dünne Schicht davon ist eine Leiterschleife; die erste Quelle gibt deren Feld auf der Achse, hier über die Höhe des Rings summiert und nach z abgeleitet. Die dritte gibt die Energie mgz + μB und damit die Kraft −μB′."
+          },
+          "window_foot": {
+            "title": "Der Fuss des Fensters",
+            "setting": "Der Ring der Seite; die tiefste Höhe, in der ein Kreisel schweben kann.",
+            "reads": "Auf und ab hält der Kreisel nur, wo das Feld nach oben immer langsamer abnimmt, B″ > 0. Die Grenze ist der Wendepunkt des Felds, B″ = 0.",
+            "why": "Prüft das untere Ende des Fensters: 4,3587 cm, wie die Seite es mit Raster und Halbieren findet.",
+            "step": "Die erste Quelle gibt die Bedingungen und sagt, dass das Fenster beim Wendepunkt beginnt. B″ kommt hier aus dem Feld, Schleife für Schleife summiert (zweite und dritte Quelle), seine Nullstelle durch Halbieren."
+          },
+          "window_head": {
+            "title": "Das obere Ende des Fensters",
+            "setting": "Der Ring der Seite; die höchste Höhe, in der ein Kreisel schweben kann.",
+            "reads": "Seitwärts hält der Kreisel nur, solange B′² > 2·B·B″; darüber gleitet er zur Seite weg.",
+            "why": "Prüft das obere Ende des Fensters: 4,8052 cm. Das Fenster ist damit nur 4,5 mm hoch.",
+            "step": "Die erste Quelle gibt die Bedingung für den Halt zur Seite. B, B′ und B″ kommen hier aus dem Feld, Schleife für Schleife summiert, die Grenze durch Halbieren."
+          },
+          "bob": {
+            "title": "Das Wippen auf und ab",
+            "setting": "Der Kreisel der Seite, 23,5 g, ohne Erwärmung; dort, wo er schwebt.",
+            "reads": "Wo das Gewicht die Last trifft, ist die Energie mgz + μB am tiefsten. Ihre Krümmung μB″ wirkt wie eine Feder, und der Kreisel wippt mit deren Frequenz.",
+            "why": "Prüft die Frequenz des Wippens, die die Seite angibt: 1,466 Hz, an der Höhe, die hier im summierten Feld gesucht ist.",
+            "step": "Die erste Quelle gibt die Energie mgz + μB. Ihre zweite Ableitung nach der Höhe ist μB″, die Federkonstante; die zweite gibt dazu ω = √(k/m)."
+          },
+          "drift": {
+            "title": "Das Kreisen um die Achse",
+            "setting": "Der Kreisel der Seite, 23,5 g, ohne Erwärmung; dort, wo er schwebt.",
+            "reads": "Neben der Achse ist das Feld stärker, um r²(B′² − 2BB″)/(8B). Der Kreisel wird zur Achse zurückgedrückt und kreist langsam um sie.",
+            "why": "Prüft, wie die Seite das Feld neben der Achse aus dem Feld auf ihr gewinnt: 0,636 Hz.",
+            "step": "Die erste Quelle gibt das Quadrat des Felds neben der Achse aus den Ableitungen auf ihr. Seine Wurzel ist für kleine r B + r²(B′² − 2BB″)/(8B); zweimal nach r abgeleitet und mal μ ergibt das die Federkonstante zur Seite, die dritte Quelle die Frequenz."
+          }
+        },
+        "circuit": {
+          "period": {
+            "title": "Einmal hin und zurück",
+            "setting": "Die Schaltung der Seite: 200 H, 125 µF, 90 Ω, 10 V; der Schalter umgelegt.",
+            "reads": "Ein Schwingkreis mit Widerstand schwingt mit ω′ = √(1/LC − (R/2L)²), etwas langsamer als ohne.",
+            "why": "Prüft die Zeit, die die Nadel für hin und zurück braucht: 0,9941 s, gemessen zwischen ihrem ersten und dritten Durchgang durch null."
+          },
+          "energy_kept": {
+            "title": "Was eine Schwingung von der Energie behält",
+            "setting": "Wie oben; verglichen werden der Moment des Umlegens und eine Periode später.",
+            "reads": "Nach einer Periode ist die Ladung wieder da, nur e^(−RT/2L)-mal so gross, und der Strom ist null: Die Energie q²/2C ist auf e^(−RT/L) gefallen.",
+            "why": "Prüft, dass Abklingen und Schwingen zusammenpassen: 63,9 % bleiben in Kondensator und Spule. Läge die Periode der Seite daneben, stünde der Strom eine Periode später nicht auf null, und der Anteil wiche ab.",
+            "step": "Die erste Quelle gibt die Ladung, die zweite die Energie in Kondensator und Spule. Nach einer vollen Periode wiederholt sich der Kosinus, nur um e^(−RT/2L) kleiner."
+          },
+          "energy_account": {
+            "title": "Die Energie geht nicht verloren",
+            "setting": "Wie oben; zehn Sekunden nach dem Umlegen.",
+            "reads": "Was in Kondensator und Spule fehlt, ist im Draht zu Wärme geworden, mit der Leistung R·i².",
+            "why": "Prüft den Balken der Seite, der die Wärme als Rest zeigt: 6,25 mJ aus der Batterie, nach 10 s noch 1,1 % davon in Kondensator und Spule; der Rest ist die Wärme, hier über den Strom summiert, auf 3 · 10⁻¹⁴ genau.",
+            "step": "Die erste Quelle sagt, wie schnell der Draht die Energie aufzehrt, die zweite, woraus sie besteht; über die Zeit summiert ergibt das die Bilanz."
+          },
+          "edge": {
+            "title": "An der Grenze: Es schwingt nicht mehr",
+            "setting": "Widerstand 2√(L/C) = 2529,8 Ω statt 90 Ω, sonst wie oben.",
+            "reads": "Bei R = 2√(L/C) fallen die beiden Wurzeln zusammen; aus der Ruhe ist der Strom q₀ω₀²·t·e^(−ω₀t), am stärksten nach 1/ω₀ mit q₀ω₀/e.",
+            "why": "Prüft den Zweig der Rechnung, den die Seite an der Grenze nimmt: 2,908 mA nach 0,158 s. Auf dem Regler sind es 2530 Ω, knapp darüber; dort liegt die Spitze 5 · 10⁻⁵ tiefer.",
+            "step": "Die erste Quelle gibt die Grenze, wo √(1/LC) = R/2L, die zweite die Lösungen e^(st) mit s = −ω₀(ζ ± i√(1 − ζ²)). An der Grenze ist ζ = 1, und beide s sind −ω₀; die zweite Lösung ist dann t·e^(−ω₀t). Aus der Ruhe gestartet folgt die Formel."
+          }
+        },
+        "race": {
+          "line": {
+            "title": "Die Gerade: die schiefe Ebene",
+            "setting": "Eine Vollkugel, 50 cm tief und 120 cm weit bis zum Ziel.",
+            "reads": "Auf der Geraden rollt die Kugel mit fester Beschleunigung g′·H/L, aus der Ruhe: L = ½·a·T².",
+            "why": "Prüft die Summe über ds/v, mit der die Seite jede Bahn rechnet, am einfachsten Fall: 0,982374 s. Nach der Substitution der Seite ist der Summand hier fest, darum stimmt die Summe bis auf Rundung.",
+            "step": "Die erste Quelle gibt die Beschleunigung einer rollenden Kugel auf der schiefen Ebene, g·sin θ/(1 + 2/5), mit sin θ = H/L; die zweite die Strecke aus der Ruhe, L = ½·a·T², mit L² = D² + H²; die dritte das Trägheitsmoment der Vollkugel, 2/5·m·r²."
+          },
+          "cycloid": {
+            "title": "Die Zykloide: die schnellste Bahn",
+            "setting": "Wie oben: Vollkugel, 50 cm tief, 120 cm weit.",
+            "reads": "Auf der Zykloide x = r(φ − sin φ), y = r(1 − cos φ) läuft der Winkel des rollenden Kreises gleichmässig mit der Zeit: φ = t·√(g′/r). Am Ziel ist es φ_B.",
+            "why": "Prüft die schnellste Bahn und wie die Seite ihre Zykloide durch das Ziel legt: 0,747261 s. Nahe der Spitze am Start verliert 1 − cos φ Stellen, daher 3 · 10⁻¹¹.",
+            "step": "Die erste Quelle rechnet einen Körper, der reibungslos gleitet, unter g. Die rollende Kugel spürt entlang jeder Bahn nur g′ = g/(1 + 2/5), das gibt die zweite; so wird ω = √(g′/r). φ_B ist der Winkel, an dem sich Weite und Höhe der Zykloide wie 120 zu 50 verhalten."
+          },
+          "tautochrone": {
+            "title": "Das Zykloidental: von überall gleich lang",
+            "setting": "Das Tal der Seite, Radius 30 cm, eine Vollkugel; gelesen an der höchsten, die 59 cm über dem Boden losgelassen wird.",
+            "reads": "In einem Zykloidental braucht eine Kugel bis zum Boden π·√(r/g′), gleich, wo sie losgelassen wird.",
+            "why": "Prüft die Zeittabelle, nach der die Seite die Kugeln im Tal laufen lässt: 0,650151 s auch aus 59 cm. Die Summe der Seite über 1440 Schritte liegt 7 · 10⁻⁸ daneben, ein Fehler, der mit dem Quadrat der Schrittweite fällt.",
+            "step": "Die erste Quelle gibt die Zeit für einen Körper, der reibungslos gleitet, unter g; die rollende Kugel spürt g′ = g/(1 + 2/5), das gibt die zweite."
+          },
+          "bowl": {
+            "title": "Die Kreisschale daneben: weiter ist langsamer",
+            "setting": "Die Kreisschale neben dem Tal, Radius 1,2 m, viermal der Radius der Zykloide; die Vollkugel aus 59 cm Höhe.",
+            "reads": "In der Schale schwingt die Kugel wie ein Pendel der Länge R unter g′; bis zum Boden braucht sie ein Viertel seiner Periode, √(R/g′)·K(sin(φ₀/2)).",
+            "why": "Prüft die Schale, mit der die Seite zeigt, dass nur die Zykloide alle zugleich ankommen lässt: 0,696484 s aus 59 cm, später als im Tal. K ist hier als Integral summiert; die Summe der Seite liegt 5 · 10⁻⁸ daneben.",
+            "step": "Die erste Quelle gibt die Periode des Pendels, 4K in Einheiten von √(R/g′), die zweite K, die dritte g′ = g/(1 + 2/5) für die rollende Kugel. Die Schale hat den Radius 4r, die Krümmung der Zykloide an ihrem Boden, und die Kugel startet auf derselben Höhe h wie im Tal: cos φ₀ = 1 − h/R."
+          }
+        },
+        "chaos": {
+          "slow_mode": {
+            "title": "Die langsame Eigenschwingung",
+            "setting": "Zwei Stangen von 30 cm, zwei Gewichte von 500 g, ohne Dämpfung; oben 1°, unten √2° = 1,41°, aus der Ruhe losgelassen.",
+            "reads": "Mit kleinen Ausschlägen hat das Doppelpendel zwei Eigenschwingungen. In der langsamen schwingen beide Stangen im gleichen Takt, die untere √2-mal so weit, mit ω₀·√(2 − √2).",
+            "why": "Prüft die Bewegungsgleichungen und die Zeitschleife der Seite bei kleinen Ausschlägen: eine Schwingung in 1,43585 s. Weil 1° nicht unendlich klein ist, schwingt das Pendel um 2,5 · 10⁻⁵ langsamer."
+          },
+          "energy": {
+            "title": "Die Energie bleibt, auch wenn es wild wird",
+            "setting": "Ohne Dämpfung; beide Stangen bei 120° aus der Ruhe losgelassen («wild»), 20 s lang.",
+            "reads": "Ohne Reibung bleibt die Summe aus Bewegungs- und Lageenergie beider Gewichte gleich. Am Anfang ist alles Lageenergie: 2,2065 J, gezählt ab der Höhe der Aufhängung.",
+            "why": "Prüft die Zeitschleife dort, wo sie am meisten zu tun hat: Nach 20 000 Schritten von 1 ms ist die Energie bis auf 1,0 · 10⁻⁷ dieselbe. Hier aus Orten und Geschwindigkeiten der Gewichte gerechnet, nicht mit der Energieformel der Seite.",
+            "step": "Die zweite Quelle gibt Orte und Geschwindigkeiten der beiden Gewichte aus den Winkeln; mit ½mv² und mgy ergibt das die Energie, die nach der ersten erhalten bleibt, solange nichts bremst."
+          },
+          "damping": {
+            "title": "Die Dämpfung lässt den Ausschlag abklingen",
+            "setting": "Wie bei der langsamen Eigenschwingung, aber mit einer Dämpfung von 0,1 pro Sekunde; gelesen an der siebten Umkehr der oberen Stange.",
+            "reads": "Eine gedämpfte Schwingung klingt mit e^(−bt/2m) ab. Die Seite zieht von jeder Winkelbeschleunigung c mal die Winkelgeschwindigkeit ab; der Ausschlag fällt darum mit e^(−ct/2).",
+            "why": "Prüft die Dämpfung der Seite: Der Ausschlag fällt mit 0,05 pro Sekunde, halb so schnell wie die eingestellte Dämpfung. Die 5 · 10⁻⁵ Abweichung kommen vom Ausschlag von 1°.",
+            "step": "Die erste Quelle gibt die Lösung von m·x″ + b·x′ + k·x = 0, hier mit b/m = c. Das gilt für die langsame Eigenschwingung der zweiten Quelle, deren Form die Dämpfung nicht ändert, weil sie beide Stangen gleich bremst."
+          }
+        },
+        "bounce": {
+          "landing": {
+            "title": "Der Fall durch die Luft",
+            "setting": "Der Tischtennisball (2,7 g, Ø 40 mm) aus 30 cm; die Zeit bis zum ersten Aufprall.",
+            "reads": "Die Luft bremst mit dem Quadrat des Tempos. Der Ball fällt darum um (v∞²/g)·ln cosh(gt/v∞) und nähert sich seiner Endgeschwindigkeit v∞, wo die Luft so stark bremst, wie das Gewicht zieht.",
+            "why": "Prüft den Fall durch die Luft und die Endgeschwindigkeit des leichten Balls: 0,24898 s. Die Seite löst dieselbe Bewegung in anderer Form auf; beide stimmen auf 10⁻¹⁵."
+          },
+          "apex": {
+            "title": "Der erste Aufstieg",
+            "setting": "Wie oben, e = 0,92; die Höhe nach dem ersten Aufprall.",
+            "reads": "Der Ball springt mit e mal dem Tempo zurück, mit dem er ankam, und steigt gegen Gewicht und Luft auf (v∞²/2g)·ln(1 + u²/v∞²).",
+            "why": "Prüft den Aufprall und den Aufstieg durch die Luft: 23,66 cm, die Zahl, die die Seite als ersten Aufstieg zeigt.",
+            "step": "Die erste Quelle gibt das Tempo beim Aufprall aus der Fallzeit, die zweite, dass der Ball e davon zurückbekommt, die dritte die Höhe eines senkrechten Wurfs mit Luftwiderstand; dort ist μ = g/v∞²."
+          },
+          "flight": {
+            "title": "Der erste Flug",
+            "setting": "Wie oben, e = 0,92; die Zeit vom ersten bis zum zweiten Aufprall.",
+            "reads": "Hinauf bremsen Gewicht und Luft zusammen, hinunter wirken sie gegeneinander. Die Zeit hinauf und die Zeit hinunter ergeben zusammen den Flug.",
+            "why": "Prüft die Zeit, die die Seite als ersten Flug zeigt: 0,4394 s.",
+            "step": "Die erste Quelle gibt das Tempo beim Aufprall, die zweite, dass der Ball e davon zurückbekommt. Die dritte gibt die Zeit hinauf, t_f·arctan(u/v∞), und die Höhe; hinunter fällt der Ball nach ihr um ln cosh(t/t_f)/μ, bis er die ganze Höhe gefallen ist."
+          },
+          "still": {
+            "title": "Unendlich viele Sprünge, endliche Zeit",
+            "setting": "Die Stahlkugel mit e = 0,5 aus 5 cm: so langsam, dass die Luft sie kaum bremst.",
+            "reads": "Jeder Flug dauert e-mal so lang wie der vorige. Unendlich viele Flüge summieren sich wie eine geometrische Reihe zu einer endlichen Zeit: √(2h/g)·(1 + e)/(1 − e).",
+            "why": "Prüft die Reihe der Seite, die ihre letzten, kürzesten Sprünge geschlossen aufsummiert: 0,3029 s. Die Luft, die die Formel weglässt, macht 6 · 10⁻⁵ aus.",
+            "step": "Die erste Quelle gibt die Fallzeit √(2h/g) und das Tempo unten, √(2gh); die zweite, dass jeder Flug e-mal so lang dauert wie der vorige. Der erste dauert 2e·√(2gh)/g; die geometrische Reihe summiert alle zu 2e·√(2h/g)/(1 − e), dazu kommt der Fall."
+          }
+        },
+        "platform": {
+          "leaning_inertia": {
+            "title": "Das Trägheitsmoment, Stück für Stück",
+            "setting": "Der Besucher der Seite, 70 kg, 30 cm hinausgelehnt, die Hände am Griff; die Scheibe 15 kg, 60 cm.",
+            "reads": "Jedes Stück nach seiner Form: die Scheibe ½MR², die Beine auf der Achse, der Rumpf um d hinaus, jeder Arm ein Stab vom Griff bis zur Schulter, d²/12 um seine Mitte und dorthin verschoben.",
+            "why": "Prüft das Trägheitsmoment, das die Seite zeigt: 5,34 kg·m² hinausgelehnt. Die Arme sind hier mit dem Steinerschen Satz gerechnet, nicht wie in der Engine als s² + d²/3.",
+            "step": "Die erste Quelle gibt den Steinerschen Satz und den Stab um seine Mitte, mL²/12, die zweite die Scheibe und dass sich die Stücke zum Ganzen summieren."
+          },
+          "faster_upright": {
+            "title": "Aufrecht dreht es schneller",
+            "setting": "Ohne Reibung im Lager: einmal angestossen, hinausgelehnt, nach 2 s in 1,5 s aufgerichtet.",
+            "reads": "Ohne Drehmoment von aussen bleibt der Drehimpuls I·ω gleich: Die Drehzahl steigt im selben Mass, wie das Trägheitsmoment fällt.",
+            "why": "Prüft den Lauf der Seite gegen die Erhaltung des Drehimpulses: 3,21-mal so schnell, das Trägheitsmoment von 5,34 auf 1,67 kg·m² gefallen."
+          },
+          "pull": {
+            "title": "Was die Hände am Griff halten",
+            "setting": "Hinausgelehnt, eine halbe Umdrehung pro Sekunde.",
+            "reads": "Was auf einem Kreis läuft, braucht die Kraft m·r·ω² zur Mitte; für Rumpf und Arme am Ort ihrer Schwerpunkte, der Rumpf d hinaus, jeder Arm d/2.",
+            "why": "Prüft den Zug am Griff, den die Seite für die halbe Umdrehung nennt: 124,4 N.",
+            "step": "Die Quelle gibt die Kraft für eine Masse auf einem Kreis. Summiert über einen Körper zählt der Abstand seines Schwerpunkts; ein Arm reicht vom Griff bis zur Schulter, sein Schwerpunkt liegt also d/2 hinaus."
+          },
+          "bearing_stops": {
+            "title": "Das Lager bremst es",
+            "setting": "Einmal angestossen, 17 kg·m²/s, hinausgelehnt, mit 0,2 N·m Reibung im Lager.",
+            "reads": "Ein festes Drehmoment nimmt dem Drehimpuls in jeder Sekunde gleich viel: Er ist nach L/τ aufgebraucht.",
+            "why": "Prüft das Lager der Seite: Nach 85 s steht die Scheibe still."
+          }
+        },
+        "coupled": {
+          "together": {
+            "title": "Im Gleichtakt ruht die Feder",
+            "setting": "Die Pendel der Seite, je 50 cm und 200 g, eine Feder von 1 N/m 25 cm unter der Aufhängung, ohne Dämpfung; «Beide gleich», 10° ausgelenkt.",
+            "reads": "Schwingen beide gleich, bleibt die Feder so lang, wie sie ist: Jedes Pendel schwingt wie allein, mit der genauen Periode 4K(sin(θ₀/2))·√(L/g).",
+            "why": "Prüft die Zeitschleife der Seite und dass die Feder im Gleichtakt nichts tut: 1,421451 s bei 10°. Die Kachel «Periode im Gleichtakt» nennt die Periode kleiner Ausschläge; 10° schwingen etwas langsamer.",
+            "step": "Die erste Quelle gibt ω = √(g/L), die zweite die Pendelgleichung in der Zeit ω·t und ihre Periode 4K, die dritte K."
+          },
+          "against": {
+            "title": "Gegeneinander arbeitet die Feder",
+            "setting": "Dieselben Pendel, «Gegeneinander»: beide 10° ausgelenkt, nach entgegengesetzten Seiten.",
+            "reads": "Gegeneinander bleibt die Mitte der Feder in Ruhe, und jedes Pendel schwingt in V(θ) = −(g/L)·cos θ + κ·sin²θ, mit κ = k·a²/(m·L²). Die Periode folgt aus der Energie; für kleine Ausschläge ist es die Kreisfrequenz √(g/L + 2κ) der Quelle.",
+            "why": "Prüft die Kraft der Feder, ihren Hebel a·cos θ und dass sie auf beide Pendel wirkt: 1,339555 s bei 10°, aus der Energie summiert. Die Abweichung von 2 · 10⁻¹⁰ ist die der Zeitschleife.",
+            "step": "Die erste Quelle gibt die Lageenergie der Kugel und der Feder. Die Feder ist um a·(sin θ₂ − sin θ₁) = 2a·sin θ gedehnt; pro Pendel und m·L² ist die Energie ½θ̇² + V(θ), und aus der Ruhe bei θ₀ dauert eine Periode 4∫dθ/√(2(V(θ₀) − V(θ))). Die zweite gibt den Grenzfall kleiner Ausschläge, mit I = m·L² für eine Kugel an einem leichten Stab."
+          },
+          "beat": {
+            "title": "Hinüber und zurück",
+            "setting": "Dieselben Pendel, «Nur das linke»; die Kachel «Hinüber und zurück».",
+            "reads": "Ein Stoss an ein Pendel ist je zur Hälfte beide Schwingungsformen. Sie laufen mit ω₋ = √(g/L) und ω₊ = √(g/L + 2κ) auseinander, und die Schwingung wandert in 2π/(ω₊ − ω₋) hinüber und zurück.",
+            "why": "Prüft die Formel der Seite für die beiden Raten, die auch für ungleiche Pendel die Wurzeln eines 2×2-Systems sucht: 22,94913 s für kleine Ausschläge.",
+            "step": "Die Quelle gibt die beiden Kreisfrequenzen mit dem Trägheitsmoment I um die Aufhängung; für eine Kugel an einem leichten Stab ist I = m·L², und k·l²/I wird κ. Zwischen zwei Knoten der Schwebung liegt 1/(f₁ − f₂)."
+          },
+          "energy": {
+            "title": "Die Energie bleibt erhalten",
+            "setting": "Dieselben Pendel, «Nur das linke» 10° ausgelenkt; nach 30 s, 30 000 Schritten.",
+            "reads": "Ohne Dämpfung bleibt die Summe aus Bewegung und Höhe beider Kugeln und der Dehnung der Feder gleich. Am Anfang sind es die Höhe der linken Kugel, L(1 − cos 10°), und die Feder, um a·sin 10° gedehnt.",
+            "why": "Prüft die Zeitschleife und dass die Kraft der Feder zu ihrer Energie passt: 15,84081 mJ am Anfang und nach 30 s, auf 10⁻¹⁰ gleich."
+          }
+        },
+        "smoke": {
+          "membrane_area": {
+            "title": "Wie viel Luft ein Druck verdrängt",
+            "setting": "Die Trommel der Seite: 1,9 m breit, ein Loch von 30 cm in einem Ring von 40 cm.",
+            "reads": "Der Ring drückt die Haut mit; zwischen Ring und Rand nimmt die gespannte Haut die Form w(r) = x·ln(R/r)/ln(R/a) an. Ring für Ring summiert, verliert die Trommel pro Meter Druck 0,80 m², 11,3-mal die Fläche des Lochs.",
+            "why": "Prüft die Zahl «Luft heraus pro Handtempo» der Seite: 11,30. Hier ist die Haut in 4000 Ringen summiert; die Seite rechnet das Integral geschlossen.",
+            "step": "Ruht die Haut, fällt in der Gleichung der Quelle die linke Seite weg: u″ + u′/r = 0, also (r·u′)′ = 0 und u = A + B·ln r. Am Rand ist u = 0, am Ring so tief wie der Druck."
+          },
+          "slug_length": {
+            "title": "Der Luftpfropfen eines vollen Drucks",
+            "setting": "Wie oben; ein voller Druck von 8 cm in einer halben Sekunde.",
+            "reads": "Was die Trommel verliert, muss durch das Loch: 11,3-mal so schnell wie die Hand. Weil das Loch mit der Hand hinuntergeht, verlässt die Luft es mit 12,3-mal dem Tempo der Hand; über den ganzen Druck wird der Pfropfen 12,3-mal so lang wie der Weg der Hand.",
+            "why": "Prüft die Zahl «Luftpfropfen in Lochdurchmessern» der Seite: 98 cm Luft, 3,28 Lochdurchmesser.",
+            "step": "Die erste Quelle gibt die Kontinuität, A₁v₁ = A₂v₂; die zweite, dass die Geschwindigkeit gegen das Loch die im Raum plus die des Lochs ist. Die Fläche A_eff ist die aus dem Fall oben, mit der Form der Haut aus der dritten Quelle."
+          },
+          "ring_speed": {
+            "title": "Das Tempo des Rings",
+            "setting": "Wie oben; der Ring aus einem vollen Druck von einer halben Sekunde.",
+            "reads": "Ein Wirbelring mit dünnem Kern fliegt mit U = Γ/(4πR)·(ln(8R/a) − ¼): Kelvins Formel. Die Seite nimmt den Ring 0,6 Lochdurchmesser weit und seinen Kern 0,35 davon.",
+            "why": "Prüft die Formel, mit der die Seite den Flug und das «zu langsam» bestimmt: 1,511 m/s aus der Zirkulation, die die Seite für diesen Druck findet. Die Zirkulation selbst prüft dieser Fall nicht."
+          }
+        },
+        "rainbow": {
+          "water": {
+            "title": "Der Regenbogen am Himmel: 42°",
+            "setting": "Wassertropfen: Brechzahl 1,333.",
+            "reads": "Den Ring macht der Strahl, der am weitesten neben dem Weg zurück zur Lampe herauskommt: 2φ daneben, mit φ = 2β − arcsin(n·sin β), am grössten bei cos β = 2√(n² − 1)/(√3·n).",
+            "why": "Prüft den Radius des Rings: 42,08° für Wasser, der Regenbogen am Himmel. Die Seite findet den Regenbogenstrahl über den Einfallswinkel, die Quelle über den Brechungswinkel; beide treffen denselben Strahl."
+          },
+          "colours": {
+            "title": "Rot aussen, Violett innen",
+            "setting": "Glasperle: Brechzahl 1,52 bei gelbem Licht, Cauchy-Koeffizient 4200 nm².",
+            "reads": "Blaues Licht wird stärker gebrochen als rotes, n(λ) = A + B/λ², und sein Ring ist kleiner. Die Breite des Rings ist der Unterschied der Radien bei 700 nm und bei 400 nm.",
+            "why": "Prüft die Farben: Der rote Rand liegt aussen, und der Ring der Glasperle ist 1,49° breit.",
+            "step": "Die dritte Quelle gibt n(λ) = A + B/λ²; A ist so gewählt, dass n bei der Natriumlinie, 589,3 nm, die Brechzahl der Perle ist. Für 700 nm und für 400 nm eingesetzt in die Formel der ersten."
+          },
+          "drawn_ray": {
+            "title": "Der gezeichnete Strahl",
+            "setting": "Glasperle; der Strahl trifft die Perle auf halbem Radius.",
+            "reads": "Mit sin i = b und sin β = b/n verlässt jeder Strahl die Perle unter θ = 2φ = 2·(2β − i) gegen den Weg zurück zur Lampe.",
+            "why": "Prüft die Zeichnung: Die Seite verfolgt den Strahl mit Vektoren durch Brechung, Spiegelung und Brechung, und er tritt unter 16,82° aus, wie die Formel sagt."
+          },
+          "reflected": {
+            "title": "Wie viel Licht zurückkommt",
+            "setting": "Glasperle, Brechzahl 1,52; über die ganze Fläche der Perle.",
+            "reads": "Jeder Strahl verliert an jeder Fläche, was Fresnels Formeln sagen: hinein (1 − R), innen gespiegelt R, hinaus (1 − R). Für jede Polarisation einzeln, die beiden gemittelt, über die Fläche der Perle summiert.",
+            "why": "Prüft das Licht des Rings: 5,5 % des Lichts, das die Perle trifft, kommen nach einer Spiegelung zurück. Die Seite summiert 2000 Ringe gleicher Fläche; das liegt 6 · 10⁻⁶ zu hoch, weil sich das Licht der streifenden Strahlen am Rand steil ändert.",
+            "step": "Die Quelle gibt R für beide Polarisationen. Innen trifft der Strahl die Fläche unter β und spiegelt so viel wie aussen unter i: Die Formeln bleiben gleich, wenn man die beiden Seiten vertauscht. Gemittelt wird (1 − R)²·R und nicht R, weil jede Polarisation den Weg durch alle drei Flächen für sich macht."
+          }
+        },
+        "cannon": {
+          "impact": {
+            "title": "Wie schnell der Stapel aufschlägt",
+            "setting": "Das Exponat: drei Kugeln von 10, 7 und 5 cm, aus 1 m fallen gelassen; das Tempo der untersten am Boden.",
+            "reads": "Die Luft bremst mit dem Quadrat des Tempos. Die unterste Kugel fällt darum nach den Formeln des Falls mit Luftwiderstand, nicht ganz so schnell wie im leeren Raum.",
+            "why": "Prüft den Fall, mit dem alles beginnt: 4,4202 m/s. Die Seite rechnet den Fall Schritt für Schritt und sucht den Boden durch Halbieren; beide stimmen auf 10⁻¹⁴."
+          },
+          "floor_peak": {
+            "title": "Eine Kugel trifft den Boden: die grösste Kraft",
+            "setting": "Nur die unterste Kugel, 10 cm, 3 MPa, aus 1 m; der Boden gibt alles zurück (e = 1).",
+            "reads": "Am tiefsten ist die Delle, wenn die Bewegungsenergie der Kugel und die Arbeit ihres Gewichts auf dem Weg hinein ganz in ihr stecken. Dort drückt der Boden am stärksten: K·δ^(3/2).",
+            "why": "Prüft die Steifigkeit nach Hertz für Kugel und Boden: 1325 N bei 10,7 mm Delle, wie die Tabelle der Kräfte sie zeigt.",
+            "step": "Die erste Quelle gibt die Kraft einer Kugel auf einer Ebene, der Boden starr (E₂ unendlich). Die zweite gibt die Energie in der Delle, (2/5)·K·δ^(5/2), und den Energiesatz, dem hier die Arbeit des Gewichts m·g·δ beigefügt ist."
+          },
+          "floor_time": {
+            "title": "Wie lange die Kugel am Boden bleibt",
+            "setting": "Wie oben: nur die unterste Kugel, ohne Verlust, aus 1 m.",
+            "reads": "Der Stoss dauert, bis die Delle sich gefüllt und wieder geleert hat. Weil Hertz' Kontakt mit der Tiefe steifer wird, hängt die Dauer nur schwach vom Tempo ab, mit v^(−1/5).",
+            "why": "Prüft die Dauer in der Tabelle der Kräfte: 7,113 ms von Hand, 7,12 ms auf der Seite, die in Schritten von 10 µs zählt.",
+            "step": "Die erste Quelle gibt die Dauer eines Stosses zweier Kugeln mit der reduzierten Masse µ. Der Boden ist unendlich schwer und unendlich gross: µ = m, und e·r^½ wird das K der Kugel auf der Ebene aus der zweiten."
+          },
+          "floor_impulse": {
+            "title": "Der Boden dreht den Impuls um",
+            "setting": "Wie oben: nur die unterste Kugel, ohne Verlust, aus 1 m.",
+            "reads": "Die Kugel kommt mit m·v an und geht mit m·v. Der Boden gibt beides, 2·m·v, und dazu, was das Gewicht während des Stosses nimmt: m·g·τ.",
+            "why": "Prüft, wie die Seite die Kraft über den Stoss summiert: 5,1319 N·s; das Gewicht macht davon 0,8 % aus.",
+            "step": "Die erste Quelle gibt, dass der Impuls die Änderung der Bewegungsgrösse ist. Auf die Kugel wirken der Boden und das Gewicht; ohne Verlust geht sie so schnell, wie sie kam, also ist der Impuls des Bodens 2mv plus m·g mal die Dauer aus der zweiten."
+          }
+        },
+        "harmonograph": {
+          "wide_slower": {
+            "title": "Weiter ausgelenkt, langsamer",
+            "setting": "Das Stiftpendel, 80 cm, um 30° ausgelenkt, ohne Reibung.",
+            "reads": "Das genaue Pendel braucht für hin und zurück 4K(sin(θ₀/2)) in Einheiten von √(L/g); bei kleinen Ausschlägen wird daraus 2π√(L/g).",
+            "why": "Prüft das volle sin θ in der Zeitschleife der Seite: 1,8258 s, 1,7 % langsamer als bei kleinem Ausschlag. K ist hier als Integral summiert, nicht wie in der Engine über das arithmetisch-geometrische Mittel.",
+            "step": "Die erste Quelle rechnet das Pendel in einer Zeit, in der g/L = 1 ist, die zweite definiert K, die dritte gibt die Einheit der Zeit, 1/ω₀ = √(L/g)."
+          },
+          "closes": {
+            "title": "Genau 2:3: Die Figur schliesst sich",
+            "setting": "Verhältnis 2:3 ohne Verstimmung, beide Pendel um 12° ausgelenkt, ohne Reibung.",
+            "reads": "Bei einem ganzzahligen Verhältnis der Frequenzen schliesst sich die Figur; gleich weit ausgelenkt, stehen die Perioden genau wie √(L₁/L₂).",
+            "why": "Prüft, dass die Zeitschleife beide Pendel im selben Takt hält: Nach zwei Schwingungen des Stifts, 3,599 s, steht er 9 · 10⁻¹² m neben seinem Anfang.",
+            "step": "Die zweite Quelle gibt die Periode 4K(sin(θ₀/2)) in Einheiten von √(L/g): Bei gleichem Ausschlag ist K für beide gleich, und die Perioden stehen wie √(L₁/L₂) = 3/2. Die erste sagt, dass sich die Figur dann schliesst."
+          },
+          "turns": {
+            "title": "Verschieden weit ausgelenkt: Die Figur dreht sich",
+            "setting": "Verhältnis 2:3, um 0,67 % verstimmt wie beim Öffnen der Seite, aber der Stift um 30° und das Brett um 5° ausgelenkt, ohne Reibung.",
+            "reads": "Knapp neben 2:3 behält die Figur ihre Form und dreht sich, einmal in 1/|3f₁ − 2f₂|; die Frequenzen sind die der genauen Pendel bei ihren Ausschlägen.",
+            "why": "Prüft, dass der weitere Ausschlag langsamer schwingt: einmal in 25,7 s. Mit den Frequenzen kleiner Ausschläge wären es 89,7 s, der Fehler der ersten Fassung.",
+            "step": "Die erste Quelle sagt, dass eine kleine Verstimmung die Figur wandern lässt. Für ein Verhältnis p:q kehrt dieselbe Form wieder, sobald sich die Phase um 2π/p verschoben hat, also nach 1/|q·f₁ − p·f₂|. Die Frequenzen kommen aus der Periode der zweiten und dritten Quelle."
+          },
+          "fades": {
+            "title": "Die Schwingung klingt ab",
+            "setting": "Das Stiftpendel um 2° ausgelenkt, mit der Reibung der Seite, 0,02 pro Sekunde.",
+            "reads": "Mit der Reibung c·θ′ klingt der Ausschlag wie e^(−ct/2) ab, auf ein Zehntel nach 2·ln 10/c.",
+            "why": "Prüft die Reibung in der Zeitschleife: 230,26 s bis zum Zehntel. Bei 2° ist das Pendel nicht ganz linear und verliert seine Energie anfangs etwas schneller; daher 1,4 · 10⁻⁵.",
+            "step": "Die Quelle schreibt die Reibung als 2ζω₀; hier ist das c, die Abklingrate ζω₀ also c/2."
+          }
+        },
+        "overhang": {
+          "nine": {
+            "title": "Neun Klötze, so weit es geht",
+            "setting": "Neun Klötze von 20 cm, der Stapel «Am weitesten».",
+            "reads": "Von oben gebaut ragt der k-te Klotz 1/(2k) Länge über den nächsten hinaus; zusammen sind es ∑1/(2i) Längen, die halbe harmonische Summe.",
+            "why": "Prüft den weitesten Stapel der Seite, und dass er hält: 28,2897 cm, 1,41448 Längen, mehr als eine ganze."
+          },
+          "knife_edge": {
+            "title": "Jede Lage auf ihrer Kante",
+            "setting": "Der weiteste Stapel aus neun Klötzen.",
+            "reads": "Der Schwerpunkt der obersten k Klötze liegt genau über der Kante des Klotzes darunter, der Schwerpunkt aller neun genau über der Tischkante.",
+            "why": "Prüft, dass der weiteste Stapel auf jeder Kante zugleich steht: Kein Schwerpunkt liegt weiter als 10⁻¹² Länge neben seiner Kante. Darum kippt er beim kleinsten Schub nach aussen."
+          },
+          "even": {
+            "title": "In gleichen Stufen",
+            "setting": "Neun Klötze, «Gleiche Stufen».",
+            "reads": "Gleiche Stufen s, der unterste Klotz s über der Kante: Der Schwerpunkt aller Klötze darf nicht über die Tischkante hinaus. Daraus folgt s = 1/(n + 1), und der oberste reicht n/(n + 1) Länge hinaus.",
+            "why": "Prüft den Stapel, den die meisten bauen, und dass er hält: 18 cm, 9/10 einer Länge, nie eine ganze.",
+            "step": "Die Quelle verlangt, dass der Schwerpunkt aller Klötze über der Tischkante liegt. Die Mitten der Klötze liegen bei i·s − ½ Länge; ihr Mittel, (n + 1)·s/2 − ½, liegt bei s = 1/(n + 1) genau auf der Kante. Die oberen Lagen halten dann von selbst: Ihr Schwerpunkt liegt innerhalb der Kante darunter."
+          },
+          "four_lengths": {
+            "title": "Vier Längen weit",
+            "setting": "So viele Klötze, bis der weiteste Stapel vier Längen über die Kante reicht; die Zahl steht beim Trick.",
+            "reads": "Der weiteste Stapel aus n Klötzen reicht ∑1/(2i) Längen hinaus. Die Summe wächst ohne Ende, aber nur wie ein Logarithmus.",
+            "why": "Prüft die Zahl, die die Seite beim Trick nennt: 1674 Klötze für vier Längen, hier mit genauen Brüchen gezählt; 1673 reichen nicht ganz."
+          }
+        },
+        "elephant": {
+          "momentum_flux": {
+            "title": "Der Strahl behält seinen Impuls",
+            "setting": "Der Elefant der Seite: 14,5 m/s aus einem Rüssel von 10 cm; gelesen auf der Höhe, auf der der Ball schwebt.",
+            "reads": "Ein freier Strahl wird breiter und langsamer, aber was er pro Sekunde an Impuls nach oben trägt, ∫2πr·ρ·u² dr, bleibt das, was die Öffnung hineingibt: ρ·U₀²·πD²/4.",
+            "why": "Prüft den Strahl, aus dem die Seite Schub und Sog nimmt: 1,98 N an der Öffnung, gleich viel 36 cm darüber.",
+            "step": "Die Quelle zeigt, dass sich der Impulsfluss eines runden Strahls mit der Höhe nicht ändert. An der Öffnung strömt die Luft gleichmässig mit U₀ durch die Fläche πD²/4; weiter oben hat der Strahl das Profil der Seite, u_c·e^(−r²/b²), hier Ring für Ring summiert."
+          },
+          "lift_off": {
+            "title": "Ab welchem Luftstrom der Ball abhebt",
+            "setting": "Wie oben; der Ball liegt auf dem Rand des Rüssels.",
+            "reads": "Der Ball hebt ab, sobald der Luftwiderstand ½·ρ·⟨u²⟩·c_d·A sein Gewicht weniger den Auftrieb übersteigt. ⟨u²⟩ ist das Mittel über seinen Querschnitt, hier geschlossen integriert; es wächst mit U₀².",
+            "why": "Prüft die Zahl «Hebt ab ab» der Seite: 12,07 m/s. Die Seite summiert den Querschnitt an 288 Punkten, hier ist er genau integriert; die beiden liegen 5 · 10⁻⁴ auseinander.",
+            "step": "Die erste Quelle gibt den erhaltenen Impuls, aus dem die Seite die Geschwindigkeit auf der Achse nimmt, u_c = U₀·D/(√2·b), bei der Breite b = D/√2 + s/(√2·6). Über eine Kreisscheibe vom Radius r gemittelt, ergibt das ⟨u²⟩ = u_c²·b²/(2r²)·(1 − e^(−2r²/b²)). Die anderen Quellen geben den Luftwiderstand, mit c_d = 0,47 für eine Kugel, und den Auftrieb."
+          },
+          "float_balance": {
+            "title": "Wo der Ball schwebt",
+            "setting": "Wie oben; der Ball vom Rand aus 20 s sich selbst überlassen.",
+            "reads": "Der Ball kommt dort zur Ruhe, wo der Luftwiderstand sein Gewicht weniger den Auftrieb trägt: wo die Luft am Ball u = √(2(m − ρV)g/(ρ·c_d·A)) schnell ist.",
+            "why": "Prüft die Zeitschleife der Seite: Sie lässt den Ball dort schweben, wo die Luft an ihm 7,407 m/s schnell ist, wie verlangt. Nach 20 s ist das Wippen auf 10⁻¹¹ abgeklungen."
+          }
+        },
+        "gyroscope": {
+          "steady_turn": {
+            "title": "Schon im Kreis: einmal um den Faden",
+            "setting": "Ein Reifen von 2 kg und Ø 60 cm an einer Achse von 15 cm; 200 Umdrehungen pro Minute, waagrecht und schon im Kreis losgelassen; 8 s lang.",
+            "reads": "Das Drehmoment der Schwerkraft dreht den Drehimpuls des Rads, statt das Rad zu kippen: Die Achse wandert mit Ω = m·g·d/L₃ um den Faden.",
+            "why": "Prüft die Zeitschleife an ihrem einfachsten Fall: Die Achse braucht 8,05 s für eine Runde. Waagrecht ist die Näherung der Quelle exakt, denn das Glied, das sie weglässt, geht mit cos θ.",
+            "step": "Die erste Quelle gibt ω_P = rMg/(Iω), die zweite dasselbe aus τ = Ω × L; eingesetzt ist I₃ = m·r² des Reifens aus der dritten."
+          },
+          "dip": {
+            "title": "In Ruhe losgelassen: wie tief die Achse sinkt",
+            "setting": "Dasselbe Rad, 200 Umdrehungen pro Minute, waagrecht und in Ruhe losgelassen; 3 s lang.",
+            "reads": "Losgelassen sinkt die Achse, bis die Energie und die beiden erhaltenen Drehimpulse es nicht weiter erlauben, und nickt zurück. Am tiefsten Punkt gilt cos α − cos β = (2mgd·I₁/L₃²)·sin²β.",
+            "why": "Prüft die Bewegungsgleichung samt dem Trägheitsmoment quer zur Achse: Die Achse sinkt um 3,19°, wie die Seite anzeigt.",
+            "step": "Die Quelle gibt diese Gleichung für einen Kreisel, der ohne Stoss losgelassen wird. Mit α = 90° ist cos α = 0, und für u = cos β bleibt eine quadratische Gleichung. I₁ ist der Reifen um einen Durchmesser, ½·m·r², um d entlang der Achse verschoben (Steiner): ½·m·r² + m·d²."
+          },
+          "nods": {
+            "title": "Das Nicken",
+            "setting": "Dasselbe Rad, 600 Umdrehungen pro Minute, waagrecht und in Ruhe losgelassen; die Nicker über 3 s gezählt.",
+            "reads": "Für kleine Ausschläge ist das Nicken eine Schwingung mit der Kreisfrequenz L₃/I₁, also L₃/(2π·I₁) Nicker pro Sekunde.",
+            "why": "Prüft, wie schnell die Achse in der Zeitschleife nickt: 13,33 Mal pro Sekunde. Die Formel gilt für die kleinsten Ausschläge, darum die schnellste Drehzahl der Seite; die Zeitschleife nickt 3 · 10⁻⁵ schneller, weil ihre Achse doch ein wenig sinkt.",
+            "step": "Die Quelle gibt θ̇² für einen Kreisel, der ohne Stoss losgelassen wird. Mit α = 90° und x = θ − 90° klein wird daraus θ̇² ≈ B·x − (L₃/I₁)²·x²: eine harmonische Schwingung um x = B·I₁²/(2L₃²) mit der Kreisfrequenz L₃/I₁."
+          },
+          "suitcase": {
+            "title": "Der Koffer um die Ecke",
+            "setting": "Dasselbe Rad, 200 Umdrehungen pro Minute, die Achse waagrecht; der Koffer eine Vierteldrehung pro Sekunde um die Senkrechte gedreht.",
+            "reads": "Wer die waagrechte Achse mit Ω um die Senkrechte dreht, dreht ihren Drehimpuls: Das braucht das Drehmoment τ = Ω × L, quer zur Drehung.",
+            "why": "Prüft das Drehmoment, das die Seite nennt, mit Drehzahl und Winkel in ihren Einheiten: 5,92 N·m.",
+            "step": "Die Quelle gibt τ = Ω × L, dem Betrag nach Ω·L·sin θ; die Achse ist waagrecht, sin θ = 1, und L = I₃·ω₃ mit I₃ = m·r² des Reifens aus der zweiten."
           }
         }
       },

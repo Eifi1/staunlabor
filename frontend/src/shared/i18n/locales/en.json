@@ -3580,7 +3580,233 @@
         "v0_push": "speed of the push",
         "P_loss": "loss per second",
         "C_rr": "rolling resistance: the share of the wall’s push that brakes",
-        "alpha_wall": "slope of the wall"
+        "alpha_wall": "slope of the wall",
+        "D_wall": "the wall's distance from the slits",
+        "d_slits": "the spacing of the slits' middles",
+        "a_slit": "one slit's width",
+        "theta_beam": "angle from the beam's direction",
+        "m_order": "order: which stripe it is",
+        "dy_stripes": "the stripes' spacing on the wall",
+        "y_wall": "place on the wall, from the middle",
+        "I_one": "brightness in the middle with one slit",
+        "I_two": "brightness in the middle with both",
+        "E_amp": "the swing of one slit's wave",
+        "I_rel": "brightness, against the middle",
+        "beta_slit": "half the path difference across one slit, as an angle",
+        "diver_reserve": "buoyancy to spare, as a mass",
+        "diver_rho": "the water's density, 998",
+        "diver_Vg": "the glass's volume",
+        "diver_V0": "the bubble at the surface, unsqueezed",
+        "diver_m": "the glass's mass",
+        "diver_p0": "air pressure at the surface, 101,325 Pa",
+        "diver_dp": "the hand's squeeze",
+        "diver_Vstar": "the bubble it hovers with",
+        "diver_H": "the bottle's depth of water",
+        "diver_dz": "distance from the hover depth",
+        "diver_k": "how strongly the distance feeds itself",
+        "diver_pstar": "pressure at the hover depth",
+        "diver_zstar": "the depth where it would hover",
+        "delta_cone": "tilt of the line from the axis to the contact, against the normal to the rails' plane",
+        "alpha_cone": "cone angle, between surface and axis",
+        "beta_rail": "spread of each rail, seen from above",
+        "gamma_rail": "slope of the rails",
+        "gamma_star": "boundary slope",
+        "dz_axis": "how far the axis falls",
+        "l_rails": "length of the rails, seen from above",
+        "a_roll": "radius the cone rolls on: from the axis to the contact",
+        "radius_cone": "radius of the cone at the middle",
+        "y_sum": "the two tones together",
+        "amp": "one tone's amplitude",
+        "f_avg": "the mean pitch",
+        "f12": "the two forks' pitches",
+        "f_beat": "beats a second",
+        "f_fork": "the fork's pitch without the rider",
+        "f_rider": "the pitch with the rider",
+        "m_felt": "the prong's mass as it counts at the tip",
+        "m_prong": "one prong's mass",
+        "m_rider": "the rider's mass on one prong",
+        "mode": "the shape of the first mode, 1 at the tip",
+        "s_rider": "where the rider sits, from the root (0) to the tip (1)",
+        "xi": "a place on the prong, from the root (0) to the tip (1)",
+        "beta_L": "the first root of the clamped beam's equation, 1.8751",
+        "surface_height": "the surface's height above the bottom",
+        "axis_distance": "distance from the axis",
+        "steepness": "the paraboloid's steepness",
+        "centre_depth": "the water's depth on the axis",
+        "vessel_rate": "the vessel's angular velocity",
+        "fill_depth": "the depth at rest",
+        "vessel_radius": "the vessel's radius",
+        "dry_rate": "the angular velocity at which the middle runs dry",
+        "rim_height": "the surface's height at the wall",
+        "dry_radius": "radius of the dry patch",
+        "focus": "focal length of the bowl as a mirror",
+        "dish_depth": "the bowl's depth out to the distance r",
+        "water_rate": "the water's angular velocity",
+        "nu": "the water's viscosity, 10⁻⁶ m²/s",
+        "m_lift": "the load the ring carries, as a mass",
+        "mu_top": "the top's magnetic moment",
+        "B_axis": "the field on the axis",
+        "B1": "the field's slope on the axis, upwards",
+        "B2": "the field's curvature on the axis",
+        "M_mag": "the ring's magnetisation",
+        "t_ring": "the ring's height",
+        "z_height": "height above the ring",
+        "s_depth": "depth in the ring, below its top face",
+        "R1_hole": "the hole's radius",
+        "R2_ring": "the ring's radius",
+        "z_foot": "the window's foot, the field's inflection point",
+        "z_head": "the window's head",
+        "r_axis": "distance from the axis",
+        "lc_omega": "angular frequency of the damped swing",
+        "lc_C": "the capacitor's capacitance",
+        "lc_R": "the whole loop's resistance, mostly the coil's",
+        "lc_E": "energy in capacitor and coil",
+        "lc_q": "charge on the capacitor",
+        "lc_q0": "charge at the throw, C·U₀",
+        "lc_omega0": "angular frequency without resistance, 1/√(LC)",
+        "T_race": "time from the start to the finish",
+        "T_bottom": "time to the bottom",
+        "D_run": "run to the finish",
+        "H_drop": "drop to the finish",
+        "phi_B": "the rolling circle’s angle at the finish",
+        "r_cycloid": "radius of the circle that draws the cycloid",
+        "R_bowl": "radius of the circular bowl",
+        "phi0_bowl": "starting angle in the bowl, from the bottom",
+        "omega_slow": "the slow normal mode's angular frequency",
+        "omega0_pend": "the angular frequency of a simple pendulum of length L",
+        "length_rod": "the length of each of the two rods",
+        "theta12": "the upper and the lower rod's angles from the vertical",
+        "E_pend": "both weights' energy together",
+        "m12": "the upper and the lower weight's masses",
+        "v12": "the two weights' speeds",
+        "y12": "the two weights' heights, up from the pivot",
+        "L12": "the upper and the lower rod's lengths",
+        "theta_mode": "the upper rod's swing in the slow normal mode",
+        "c_damp": "the page's damping, per second",
+        "omega_d": "the damped oscillation's angular frequency",
+        "alpha_decay": "how fast the swing dies away",
+        "v_inf": "terminal speed: where the air brakes as hard as the weight pulls",
+        "e_rest": "the share of the speed a strike gives back",
+        "u_up": "the speed after the first strike",
+        "y_peak": "the first rise's height",
+        "h_drop": "the height the ball falls from",
+        "rho_air": "the air's density",
+        "c_drag": "a smooth sphere's drag coefficient, 0.47",
+        "A_cross": "the ball's cross-section",
+        "t_land": "the time to the first strike",
+        "T_flight": "the first flight's duration",
+        "t_f": "the air's time constant, v∞/g",
+        "T_still": "the time until the ball lies still",
+        "spin_M": "the platform's mass",
+        "spin_R": "the platform's radius",
+        "spin_ml": "the legs' mass",
+        "spin_kl": "the legs' radius of gyration",
+        "spin_mt": "the mass of trunk and head",
+        "spin_kt": "the trunk's radius of gyration",
+        "spin_d": "how far the trunk leans out",
+        "spin_ma": "one arm's mass",
+        "spin_s": "each hand's distance from the axis",
+        "spin_omega": "angular velocity",
+        "spin_F": "the hands' pull on the bar",
+        "spin_L": "angular momentum",
+        "spin_tau": "the bearing's friction, as a torque",
+        "V_pot": "potential energy of one pendulum, per m·L²",
+        "kappa": "coupling by the spring",
+        "k_spring": "spring constant",
+        "a_spring": "height of the spring below the pivots",
+        "T_beat": "time for over and back",
+        "omega_minus": "angular frequency in step",
+        "omega_plus": "angular frequency against each other",
+        "E_pair": "energy of both pendulums and the spring",
+        "thetadot_i": "angular velocity of the i-th pendulum",
+        "coupled_theta_i": "displacement of the i-th pendulum",
+        "a_eff": "the volume the drum loses per metre of press",
+        "a_hole": "the hole's area",
+        "ring_radius": "the radius of the ring that is pressed",
+        "hole_radius": "the hole's radius",
+        "drum_radius": "the drum's radius",
+        "r_skin": "distance from the drum's middle",
+        "u_skin": "how deep the skin lies there",
+        "AB_const": "two constants, set by the rim and the ring",
+        "slug": "the slug of air's length",
+        "hole_d": "the hole's diameter",
+        "press_depth": "how far the ring is pressed down",
+        "ring_u": "the smoke ring's speed",
+        "circulation": "the ring's circulation",
+        "ring_r": "the smoke ring's radius",
+        "core_a": "its core's radius",
+        "ring_angle": "the ring's radius, as an angle from the way back to the lamp",
+        "refraction_angle": "angle of refraction",
+        "incidence_angle": "angle of incidence",
+        "ring_width": "the ring's width",
+        "wavelength": "wavelength",
+        "cauchy_a": "Cauchy coefficient A",
+        "cauchy_b": "how far the colours fan out (Cauchy coefficient B)",
+        "index_d": "index in yellow light (the sodium line)",
+        "sodium": "wavelength of the sodium line, 589.3",
+        "exit_angle": "angle out, from the way back to the lamp",
+        "impact": "where the ray meets the bead, from its centre in radii",
+        "back_share": "share of the light that comes back after one reflection",
+        "reflectance": "share reflected at a surface, for the two polarisations",
+        "rainbow_index": "refractive index",
+        "v_impact": "the ball's speed at the floor",
+        "K_floor": "ball and floor's stiffness, by Hertz",
+        "F_floor": "the floor's largest force",
+        "youngs": "the rubber's Young's modulus",
+        "nu_poisson": "Poisson's ratio, 0.5 for rubber",
+        "J_impulse": "the impulse the floor passes on",
+        "cannon_A_cross": "the ball's cross-section",
+        "cannon_c_drag": "a smooth sphere's drag coefficient, 0.47",
+        "cannon_h_drop": "the height the ball falls from",
+        "cannon_rho_air": "the air's density",
+        "cannon_v_inf": "terminal speed: where the air brakes as hard as the weight pulls",
+        "harm_L": "the pendulum's length",
+        "harm_T12": "the periods of pen and board",
+        "harm_L12": "the lengths of the pen's and the board's pendulums",
+        "harm_xy": "the pen's place on the board",
+        "harm_turn": "time in which the figure turns once",
+        "harm_f12": "the frequencies of pen and board",
+        "harm_thetamax": "the swing at its turning points",
+        "harm_c": "the pendulum's friction",
+        "d_over": "how far the top block reaches past the table’s edge",
+        "n_blocks": "number of blocks",
+        "l_block": "length of a block",
+        "H_n": "harmonic number 1 + 1/2 + … + 1/n",
+        "xbar_k": "centre of mass of the top k blocks",
+        "r_edge": "edge of the block below; for the lowest, the table’s edge",
+        "s_step": "step, in lengths",
+        "N_blocks": "number of blocks needed",
+        "m_flux": "the momentum the jet carries up each second",
+        "r_jet": "distance from the jet's axis",
+        "u_jet": "the air's speed in the jet",
+        "U0_jet": "the air's speed at the opening",
+        "opening_d": "the trunk opening's diameter",
+        "uc_jet": "the air's speed on the jet's axis",
+        "b_jet": "the jet's width",
+        "cd": "a sphere's drag coefficient, 0.47",
+        "A_ball": "the ball's cross-section",
+        "u2_mean": "the mean of u² over the ball's cross-section",
+        "m_ball": "the ball's mass",
+        "V_ball": "the ball's volume",
+        "s_jet": "the ball centre's height above the opening",
+        "B_decay": "the round jet's decay constant, here 6",
+        "u_ball": "the air's speed at the ball",
+        "elephant_rho_air": "the air's density",
+        "round_time": "time to go once round the string",
+        "precession": "how fast the axle wanders round the string",
+        "axle_length": "distance from the string to the wheel's middle",
+        "hoop_radius": "the hoop's radius",
+        "spin_momentum": "the wheel's angular momentum about its axle",
+        "i3_hoop": "moment of inertia about the axle",
+        "spin_rate": "how fast the wheel spins on its axle",
+        "i1_pivot": "moment of inertia across the axle, about its end",
+        "tilt_start": "the axle's tilt when let go, from the upward vertical",
+        "tilt_lowest": "the axle's tilt at its lowest point",
+        "axle_tilt": "the axle's tilt from the upward vertical",
+        "top_b": "2mgd/I₁",
+        "below_level": "how far the axle is below the level",
+        "torque": "torque the hands supply",
+        "suitcase_turn": "how fast the suitcase is turned"
       },
       "cases": {
         "sphere": {
@@ -4130,6 +4356,541 @@
             "reads": "The rolling resistance brakes with C·N against the motion; that costs C·N·v a second. N, the wall’s push, is the weight’s share across the wall and what holds the ball on its circle.",
             "why": "Checks the brake and the wall’s push it comes from: 8.6625 mW per kilogram. Within the first millisecond the ball already slows a little and the brake with it, and below 1 mm/s the page fades the resistance out: together a deviation of 2 · 10⁻⁵.",
             "step": "The first source gives the rolling resistance C·N. The second works the banked curve: N·sin θ = mv²/r and N·cos θ = mg. Added up across the wall they give N = mg·cos α + (mv²/r)·sin α; the grip of the rolling ball lies in the wall and adds nothing across it."
+          }
+        },
+        "slits": {
+          "spacing": {
+            "title": "How far apart the stripes are",
+            "setting": "The exhibit: a red laser, 650 nm, slits 0.25 mm apart and 0.05 mm wide, the wall 2 m behind; from the first dark stripe to the second.",
+            "reads": "It is dark where the paths from the two slits differ by half a wavelength, one and a half, two and a half … At small angles the stripes lie λ·D/d apart.",
+            "why": "Checks the slits' spacing in the pattern: 5.2 mm, measured on the pattern the page draws. The formula takes small angles, so the pattern lies 1.1 · 10⁻⁵ wider.",
+            "step": "The source gives the dark stripes at d·sin θ = (m + ½)λ and, at small angles, the bright ones at y = mλD/d. The dark ones lie halfway between the bright ones, so just as far apart."
+          },
+          "one_slit_dark": {
+            "title": "One slit alone: the first dark",
+            "setting": "As above, one slit covered; the first dark beside the middle.",
+            "reads": "One slit alone is dark where the paths from its two edges differ by a whole wavelength: every strip of the slit then has another that cancels it.",
+            "why": "Checks the slit's width in the pattern: 26.002 mm beside the middle, as the page draws it."
+          },
+          "quarter": {
+            "title": "One slit gives a quarter, not half",
+            "setting": "As above, one slit covered; the brightness in the middle.",
+            "reads": "In the middle the two waves arrive in step: their swings add to twice one, and the brightness is its square, four times one slit's.",
+            "why": "Checks that the page adds the waves and squares after, rather than adding brightnesses: one slit 0.25 of the middle of two.",
+            "step": "The first source gives that equal waves in step add their swings, the second that the brightness is the square: E² against (2E)²."
+          },
+          "first_bright": {
+            "title": "The first bright stripe is fainter",
+            "setting": "As above, both slits open; the brightness of the first bright stripe beside the middle.",
+            "reads": "Each slit alone grows darker to the side. The pair's first bright stripe lies at d·sin θ = λ, and there each slit gives only (sin β/β)² of its middle.",
+            "why": "Checks how the slits' width dims the stripes: 0.8751 of the middle for slits five times as far apart as they are wide."
+          },
+          "missing": {
+            "title": "The fifth stripe is missing",
+            "setting": "As above, both slits open; the brightness where the fifth bright stripe would lie.",
+            "reads": "The slits lie five times as far apart as they are wide. Where the two reinforce each other for the fifth time, each alone is dark, and there is nothing to reinforce.",
+            "why": "Checks that the stripes and the dimming are computed at the same angle: 10⁻³³ there, that is dark.",
+            "step": "The first source gives the bright stripes at d·sin θ = mλ, the second a slit's dark at a·sin θ = λ. With d = 5a the fifth bright and the first dark coincide; the third calls this a missing order."
+          }
+        },
+        "diver": {
+          "reserve": {
+            "title": "How much buoyancy is to spare",
+            "setting": "The page's diver, 3 g of glass of 1.2 cm³ and 2 cm³ of air, at the surface, the hand not squeezing.",
+            "reads": "It displaces water for its glass and its air; what that water weighs more than the glass keeps it up.",
+            "why": "Checks the buoyancy the page shows as the reserve: 0.1936 g."
+          },
+          "sinks_from_top": {
+            "title": "The squeeze that sinks it from the top",
+            "setting": "The diver at the surface; the hand squeezes with 10.90 kPa. At 10.85 kPa it stays up.",
+            "reads": "The hand's squeeze presses the bubble together (at one temperature p·V stays the same); it sinks once the bubble is smaller than m/ρ − V_g, the bubble it hovers with.",
+            "why": "Checks Boyle and buoyancy in the page's time loop: 10.884 kPa, found as the squeeze from which a single step pulls it off the surface.",
+            "step": "The first source gives p·V the same for the air, the second the balance of buoyancy and weight; together they give the squeeze at which the bubble at the surface just carries it."
+          },
+          "rises_from_bottom": {
+            "title": "The squeeze below which it rises from the bottom",
+            "setting": "The diver lies on the bottom of the 30 cm bottle (squeeze hard first until it lies there); then 7.90 kPa. At 7.95 kPa it stays down.",
+            "reads": "Down there the water presses too, with ρ·g·H; it rises once the hand squeezes ρ·g·H less than the squeeze that sinks it at the top.",
+            "why": "Checks the water's pressure at depth: 7.947 kPa, 2.936 kPa less than at the top. Between the two squeezes the depth where it would hover lies in the bottle.",
+            "step": "As above, with the pressure at depth H from the third source."
+          },
+          "leaves_hover": {
+            "title": "Why it does not hover",
+            "setting": "The hand squeezes with 10 kPa; the diver at rest a micrometre below the depth where it would hover, 9.03 cm; for five seconds.",
+            "reads": "A little deeper the bubble is a little smaller, and the missing buoyancy pulls it on: the distance grows as cosh(√k·t). What moves is the glass and the water it carries along, half its volume.",
+            "why": "Checks that hovering is unstable and how fast: the distance soon grows e-fold every 1.71 s. The 1 · 10⁻⁵ off comes from the water's drag and the curve of Boyle's law; both grow with the distance.",
+            "step": "The first source gives how the bubble shrinks with pressure, the second the pressure at depth; for a small step δz the change is linear. The third gives the water a sphere carries along, half its volume, which the page takes over for the tube."
+          }
+        },
+        "cone": {
+          "axis_path": {
+            "title": "The axis falls, the rails rise",
+            "setting": "The standard exhibit: radius 6 cm, cone angle 20°, spread 20°, slope 4°, rails 30 cm long and 6 cm apart at the bottom.",
+            "reads": "The line from the axis to the contact is tilted by the angle δ, with sin δ = tan β·cos γ·tan α. So the axis runs on a straight line that falls by δ − γ.",
+            "why": "Checks the exact contact, which the engine finds another way, by the rail's distance from the cone: over 30 cm the axis falls by 1.88426 cm; the two ways meet to 10⁻¹².",
+            "step": "The source measures its angles in the rails' plane and calls δ its α. That plane rises at γ; a rail that spreads by tan β per metre seen from above spreads by tan β·cos γ in the plane. With tan φ = tan β·cos γ and the cone angle α as ψ, sin δ follows, and seen from above the axis falls over the length l by l·tan(δ − γ)."
+          },
+          "threshold": {
+            "title": "The boundary between up and down",
+            "setting": "The standard exhibit's cone and spread; the slope at which the axis keeps the same height all along is found by halving between 0° and 15°.",
+            "reads": "The cone rolls up as long as δ is greater than the slope γ; at the boundary the two are equal. That gives the textbook's condition tan γ* = tan α·tan β, here exactly.",
+            "why": "Checks the boundary the page names: 7.54628°. It is found on the engine's exact contact, not with the page's formula; the two meet to 10⁻¹².",
+            "step": "The first source gives the condition sin(δ − γ) > 0, at the boundary therefore δ = γ; the second sin δ = tan φ·tan ψ, converted as above to tan β·cos γ·tan α. With δ = γ, sin γ = tan β·cos γ·tan α, so tan γ = tan α·tan β."
+          },
+          "speed": {
+            "title": "The speed from the energy",
+            "setting": "The standard exhibit, let go at the low end; read after one second.",
+            "reads": "What the axis loses in height becomes motion and spin: ½(1 + I/(M a²))·v² = g·Δz, with a the radius the cone rolls on, and I = (3/10)·M·R² for two solid cones.",
+            "why": "Checks the time loop and the rolling on the shrinking radius a: 28.5357 cm/s after one second, to 10⁻⁹. The higher up, the more of the energy is in the spin.",
+            "step": "The first source gives the energy and, with its equations (7) and (8), where the axis is and on what radius a the cone rolls, the angles converted as above to the view from above. The second gives a cone's moment of inertia; two equal cones, base to base, have the same I/(M·R²)."
+          }
+        },
+        "beats": {
+          "beat_rate": {
+            "title": "As many beats as the difference",
+            "setting": "The rider, 1 g on each prong, 30 % up from the root; both forks struck together, for ten seconds.",
+            "reads": "Two tones together are the mean tone times a slow envelope, which falls silent |f₂ − f₁| times a second.",
+            "why": "Checks the sound the page draws and plays: 0.8173 silences a second, one every 1.22 s, as many as the difference of the two pitches. Read at the crests of the mean tone, where the sum equals the envelope."
+          },
+          "tip_rider": {
+            "title": "The rider at the tip",
+            "setting": "1 g on each prong, right at the tip.",
+            "reads": "A prong swings like a clamped beam in its first mode. At its tip it acts as if a quarter of its mass sat there, and the rider adds in full. The same stiffness carries more mass: f = f₀·√(M*/(M* + m)).",
+            "why": "Checks the mass a prong counts with at its tip: 5 g of its 20 g; the fork drops from 440 Hz to 401.66 Hz. Here the quarter is summed over the mode's shape; the page puts in ¼.",
+            "step": "The first source gives the shape of a clamped beam's first mode, the second how a mass as felt is found from the energy of motion: M* = M·∫φ², with φ = 1 at the tip. A rider at s counts with m·φ(s)². At the same stiffness the frequency goes with 1/√mass."
+          },
+          "rider_on_prong": {
+            "title": "The rider further down",
+            "setting": "1 g on each prong, 30 % of the way from the root to the tip, as the page starts.",
+            "reads": "Further down the prong moves less: the rider counts only with φ(s)², the square of the mode's shape where it sits.",
+            "why": "Checks the mode's shape inside the prong: the second fork sounds at 439.18 Hz instead of 440 Hz.",
+            "step": "As for the rider at the tip, with φ(0.3) from the first source's mode shape, scaled so that φ is 1 at the tip."
+          }
+        },
+        "parabola": {
+          "centre": {
+            "title": "The middle sinks",
+            "setting": "Vessel Ø 30 cm, 30 cm high, filled 10 cm deep; turntable at 90 turns a minute.",
+            "reads": "Water turning as one body has a paraboloid for its surface. As the water does not become more, the middle sinks ω²R²/(4g) below the depth at rest.",
+            "why": "Checks the shape and the volume together: 4.91 cm of the 10 cm of water are left at the middle."
+          },
+          "dry_rate": {
+            "title": "When the middle runs dry",
+            "setting": "The same vessel; turntable at 126 turns a minute, just short of the limit.",
+            "reads": "The middle reaches the bottom once it has sunk by the whole depth at rest: at ω₁ = (2/R)·√(h·g).",
+            "why": "Checks the limit at which the page turns from a bowl to a ring: ω₁ = 13.20 a second, 126.1 turns a minute."
+          },
+          "dry_rim": {
+            "title": "Dry in the middle: the rim",
+            "setting": "The same vessel; turntable at 160 turns a minute, past the limit of 126.",
+            "reads": "With the middle dry, the water stands in a ring round a dry patch of radius δ. The surface is the same paraboloid, set lower; at the wall it stands α·(R² − δ²) high.",
+            "why": "Checks the page's second case, where the dry patch, not the depth at the middle, keeps the volume: 25.38 cm at the rim. The page computes R·ω·√(h/g), the way here goes through δ; the two meet but for rounding.",
+            "step": "The source gives the dry patch's radius δ and the surface z = α·(r² − δ²); at the wall r = R."
+          },
+          "mirror": {
+            "title": "The bowl as a mirror",
+            "setting": "The same vessel; turntable at 7 turns a minute, one turn in 8.6 s.",
+            "reads": "A dish that is D deep out to a distance r gathers light coming straight down at f = r²/(4D). The water has D = α·r², so f = 1/(4α) = g/(2ω²), whatever the vessel's size.",
+            "why": "Checks the focal length the page shows: 9.13 m above the bowl's lowest point."
+          },
+          "spin_up": {
+            "title": "The water lags behind",
+            "setting": "The same vessel; turntable switched from rest to 90 turns a minute, the water at rest. Read after one spin-up time, at the page's step of 10 ms.",
+            "reads": "The bottom drags the water along through a thin boundary layer. After the spin-up time τ = h/√(ν·ω_v) it still lacks the share 1/e of the vessel's speed.",
+            "why": "Checks the page's time loop and spin-up time: after 32.58 s the water turns at 63.2 % of the vessel's speed, 56.9 of 90 turns a minute.",
+            "step": "The source does a closed cylinder 2L high, with one Ekman layer at the bottom and one at the top. By symmetry its middle plane carries no shear, as a flat free surface does: water h deep is the lower half, L = h. The source does small changes; the page lets large ones lag the same way, with Ω the larger of the two speeds."
+          }
+        },
+        "levitation": {
+          "lift": {
+            "title": "The load the ring carries",
+            "setting": "The page's ring (10 cm across, a 3 cm hole, 1.5 cm high, ferrite) and the top's magnet of 0.64 A·m²; the load 4.6 cm above the ring.",
+            "reads": "The top stands against the field and is pushed towards where it is weaker: upwards, with μ times the field's slope. The ring's field is summed here loop by loop.",
+            "why": "Checks the ring's field on its axis, which everything else comes from: a load of 23.589 g at 4.6 cm. The page computes the field in closed form, here it is summed; the two agree to 10⁻¹².",
+            "step": "The second source turns the magnetisation M into a current of M per metre of height round the ring's outer wall and the opposite one round its hole. Each thin layer of it is a loop; the first source gives its field on the axis, summed here over the ring's height and differentiated in z. The third gives the energy mgz + μB, and so the force −μB′."
+          },
+          "window_foot": {
+            "title": "The window's foot",
+            "setting": "The page's ring; the lowest height a top can float at.",
+            "reads": "Up and down the top holds only where the field falls ever more slowly upwards, B″ > 0. The limit is the field's inflection point, B″ = 0.",
+            "why": "Checks the window's lower end: 4.3587 cm, as the page finds it by its grid and bisection.",
+            "step": "The first source gives the conditions and says the window begins at the inflection point. B″ comes here from the field summed loop by loop (second and third sources), its zero by bisection."
+          },
+          "window_head": {
+            "title": "The window's head",
+            "setting": "The page's ring; the highest height a top can float at.",
+            "reads": "Sideways the top holds only while B′² > 2·B·B″; above, it slides off to the side.",
+            "why": "Checks the window's upper end: 4.8052 cm. The window is thus only 4.5 mm high.",
+            "step": "The first source gives the condition for holding sideways. B, B′ and B″ come here from the field summed loop by loop, the limit by bisection."
+          },
+          "bob": {
+            "title": "Bobbing up and down",
+            "setting": "The page's top, 23.5 g, no warming; where it floats.",
+            "reads": "Where the weight meets the load, the energy mgz + μB is lowest. Its curvature μB″ acts as a spring, and the top bobs at that spring's frequency.",
+            "why": "Checks the bobbing frequency the page gives: 1.466 Hz, at the height found here in the summed field.",
+            "step": "The first source gives the energy mgz + μB. Its second derivative in height is μB″, the spring constant; the second gives ω = √(k/m)."
+          },
+          "drift": {
+            "title": "Drifting round the axis",
+            "setting": "The page's top, 23.5 g, no warming; where it floats.",
+            "reads": "Beside the axis the field is stronger, by r²(B′² − 2BB″)/(8B). The top is pushed back towards the axis and slowly circles it.",
+            "why": "Checks how the page gets the field beside the axis from the field on it: 0.636 Hz.",
+            "step": "The first source gives the field's square beside the axis from the derivatives on it. Its square root for small r is B + r²(B′² − 2BB″)/(8B); differentiated twice in r and times μ that is the spring constant sideways, and the third source gives the frequency."
+          }
+        },
+        "circuit": {
+          "period": {
+            "title": "There and back once",
+            "setting": "The page's circuit: 200 H, 125 µF, 90 Ω, 10 V; the switch thrown.",
+            "reads": "A circuit with resistance swings at ω′ = √(1/LC − (R/2L)²), a little slower than without.",
+            "why": "Checks the time the needle takes there and back: 0.9941 s, measured between its first and third pass through zero."
+          },
+          "energy_kept": {
+            "title": "What one swing keeps of the energy",
+            "setting": "As above; compared are the moment of the throw and one period later.",
+            "reads": "After one period the charge is back, only e^(−RT/2L) times as large, and the current is zero: the energy q²/2C has fallen to e^(−RT/L).",
+            "why": "Checks that decay and swing fit together: 63.9 % stays in capacitor and coil. Were the page's period off, the current would not be at zero a period later, and the share would differ.",
+            "step": "The first source gives the charge, the second the energy in capacitor and coil. After a full period the cosine repeats, only e^(−RT/2L) smaller."
+          },
+          "energy_account": {
+            "title": "No energy goes missing",
+            "setting": "As above; ten seconds after the throw.",
+            "reads": "What is missing from capacitor and coil has become heat in the wire, at the power R·i².",
+            "why": "Checks the page's bar, which shows the heat as what is left: 6.25 mJ from the battery, after 10 s still 1.1 % of it in capacitor and coil; the rest is the heat, summed here over the current, to 3 · 10⁻¹⁴.",
+            "step": "The first source says how fast the wire eats the energy, the second what it consists of; summed over time that gives the account."
+          },
+          "edge": {
+            "title": "At the edge: it swings no more",
+            "setting": "Resistance 2√(L/C) = 2529.8 Ω instead of 90 Ω, otherwise as above.",
+            "reads": "At R = 2√(L/C) the two roots coincide; from rest the current is q₀ω₀²·t·e^(−ω₀t), strongest after 1/ω₀ at q₀ω₀/e.",
+            "why": "Checks the branch of the calculation the page takes at the edge: 2.908 mA after 0.158 s. On the slider it is 2530 Ω, just above; there the peak lies 5 · 10⁻⁵ lower.",
+            "step": "The first source gives the edge, where √(1/LC) = R/2L, the second the solutions e^(st) with s = −ω₀(ζ ± i√(1 − ζ²)). At the edge ζ = 1, and both s are −ω₀; the second solution is then t·e^(−ω₀t). Started from rest, the formula follows."
+          }
+        },
+        "race": {
+          "line": {
+            "title": "The line: the inclined plane",
+            "setting": "A solid ball, 50 cm down and 120 cm along to the finish.",
+            "reads": "On the straight track the ball rolls with a fixed acceleration g′·H/L, from rest: L = ½·a·T².",
+            "why": "Checks the sum over ds/v by which the page computes every track, in its simplest case: 0.982374 s. After the page's substitution the summand is constant here, so the sum is right but for rounding.",
+            "step": "The first source gives a rolling ball’s acceleration on an incline, g·sin θ/(1 + 2/5), with sin θ = H/L; the second the distance from rest, L = ½·a·T², with L² = D² + H²; the third the solid ball’s moment of inertia, 2/5·m·r²."
+          },
+          "cycloid": {
+            "title": "The cycloid: the fastest track",
+            "setting": "As above: a solid ball, 50 cm down, 120 cm along.",
+            "reads": "On the cycloid x = r(φ − sin φ), y = r(1 − cos φ) the rolling circle’s angle runs evenly with time: φ = t·√(g′/r). At the finish it is φ_B.",
+            "why": "Checks the fastest track and how the page lays its cycloid through the finish: 0.747261 s. Near the cusp at the start 1 − cos φ loses digits, hence 3 · 10⁻¹¹.",
+            "step": "The first source works a body sliding without friction under g. The rolling ball feels only g′ = g/(1 + 2/5) along any track, which the second gives; so ω = √(g′/r). φ_B is the angle at which the cycloid’s run and drop stand as 120 to 50."
+          },
+          "tautochrone": {
+            "title": "The cycloid valley: as long from anywhere",
+            "setting": "The page’s valley, radius 30 cm, a solid ball; read at the highest, let go 59 cm above the bottom.",
+            "reads": "In a cycloid valley a ball needs π·√(r/g′) to the bottom, wherever it is let go.",
+            "why": "Checks the time table by which the page runs the balls in the valley: 0.650151 s from 59 cm too. The page’s sum over 1440 steps is 7 · 10⁻⁸ off, an error that falls with the square of the step.",
+            "step": "The first source gives the time for a body sliding without friction under g; the rolling ball feels g′ = g/(1 + 2/5), which the second gives."
+          },
+          "bowl": {
+            "title": "The circular bowl beside it: wider is slower",
+            "setting": "The circular bowl beside the valley, radius 1.2 m, four times the cycloid’s radius; the solid ball from 59 cm up.",
+            "reads": "In the bowl the ball swings like a pendulum of length R under g′; it needs a quarter of its period to the bottom, √(R/g′)·K(sin(φ₀/2)).",
+            "why": "Checks the bowl by which the page shows that only the cycloid brings them all in together: 0.696484 s from 59 cm, later than in the valley. K is summed here as an integral; the page’s sum is 5 · 10⁻⁸ off.",
+            "step": "The first source gives the pendulum’s period, 4K in units of √(R/g′), the second K, the third g′ = g/(1 + 2/5) for the rolling ball. The bowl has the radius 4r, the cycloid’s curvature at its bottom, and the ball starts at the same height h as in the valley: cos φ₀ = 1 − h/R."
+          }
+        },
+        "chaos": {
+          "slow_mode": {
+            "title": "The slow normal mode",
+            "setting": "Two 30 cm rods, two 500 g weights, no damping; 1° above, √2° = 1.41° below, let go from rest.",
+            "reads": "Swinging little, the double pendulum has two normal modes. In the slow one both rods swing in step, the lower √2 times as far, at ω₀·√(2 − √2).",
+            "why": "Checks the equations of motion and the page's time loop at small swings: one swing in 1.43585 s. As 1° is not infinitely small, the pendulum swings 2.5 · 10⁻⁵ slower."
+          },
+          "energy": {
+            "title": "The energy stays, even when it gets wild",
+            "setting": "No damping; both rods let go from rest at 120° (\"wild\"), for 20 s.",
+            "reads": "Without friction the sum of both weights' energy of motion and of height stays the same. At the start it is all height: 2.2065 J, counted from the height of the pivot.",
+            "why": "Checks the time loop where it has most to do: after 20 000 steps of 1 ms the energy is the same to 1.0 · 10⁻⁷. Worked out here from the weights' places and velocities, not with the page's energy formula.",
+            "step": "The second source gives the two weights' places and velocities from the angles; with ½mv² and mgy that is the energy the first says is kept, as long as nothing brakes."
+          },
+          "damping": {
+            "title": "The damping makes the swing die away",
+            "setting": "As for the slow normal mode, but with a damping of 0.1 a second; read at the upper rod's seventh turn.",
+            "reads": "A damped oscillation dies away as e^(−bt/2m). The page takes c times each angular velocity off its angular acceleration, so the swing falls as e^(−ct/2).",
+            "why": "Checks the page's damping: the swing falls at 0.05 a second, half the damping set. The 5 · 10⁻⁵ off comes from the 1° swing.",
+            "step": "The first source gives the solution of m·x″ + b·x′ + k·x = 0, here with b/m = c. It holds for the second source's slow normal mode, whose shape the damping leaves alone, as it brakes both rods alike."
+          }
+        },
+        "bounce": {
+          "landing": {
+            "title": "The fall through the air",
+            "setting": "The table-tennis ball (2.7 g, 40 mm across) from 30 cm; the time to the first strike.",
+            "reads": "The air brakes with the square of the speed. So the ball falls by (v∞²/g)·ln cosh(gt/v∞) and nears its terminal speed v∞, where the air brakes as hard as the weight pulls.",
+            "why": "Checks the fall through the air and the light ball's terminal speed: 0.24898 s. The page solves the same motion in another form; the two agree to 10⁻¹⁵."
+          },
+          "apex": {
+            "title": "The first rise",
+            "setting": "As above, e = 0.92; the height after the first strike.",
+            "reads": "The ball springs back at e times the speed it came in at, and rises against its weight and the air to (v∞²/2g)·ln(1 + u²/v∞²).",
+            "why": "Checks the strike and the rise through the air: 23.66 cm, the number the page shows as the first rise.",
+            "step": "The first source gives the speed at the strike from the time of the fall, the second that the ball gets e of it back, the third the height of a throw straight up with drag; there μ = g/v∞²."
+          },
+          "flight": {
+            "title": "The first flight",
+            "setting": "As above, e = 0.92; the time from the first strike to the second.",
+            "reads": "On the way up weight and air brake together, on the way down they work against each other. The time up and the time down make the flight.",
+            "why": "Checks the time the page shows as the first flight: 0.4394 s.",
+            "step": "The first source gives the speed at the strike, the second that the ball gets e of it back. The third gives the time up, t_f·arctan(u/v∞), and the height; down, the ball falls from there by ln cosh(t/t_f)/μ until it has fallen the whole height."
+          },
+          "still": {
+            "title": "Endless bounces, a finite time",
+            "setting": "The steel ball with e = 0.5 from 5 cm: so slow that the air hardly brakes it.",
+            "reads": "Each flight lasts e times the one before. Endlessly many flights add up like a geometric series to a finite time: √(2h/g)·(1 + e)/(1 − e).",
+            "why": "Checks the page's series, which sums its last, shortest bounces in closed form: 0.3029 s. The air, which the formula leaves out, makes 6 · 10⁻⁵.",
+            "step": "The first source gives the time of the drop, √(2h/g), and the speed at the bottom, √(2gh); the second that each flight lasts e times the one before. The first lasts 2e·√(2gh)/g; the geometric series sums them all to 2e·√(2h/g)/(1 − e), and the drop comes on top."
+          }
+        },
+        "platform": {
+          "leaning_inertia": {
+            "title": "The moment of inertia, piece by piece",
+            "setting": "The page's visitor, 70 kg, leaning out 30 cm, hands on the bar; the platform 15 kg, 60 cm.",
+            "reads": "Each piece by its shape: the platform ½MR², the legs on the axis, the trunk d out, each arm a rod from the bar to the shoulder, d²/12 about its middle and shifted there.",
+            "why": "Checks the moment of inertia the page shows: 5.34 kg·m² leaning out. The arms are worked out here with the parallel-axis theorem, not as s² + d²/3 as in the engine.",
+            "step": "The first source gives the parallel-axis theorem and the rod about its middle, mL²/12, the second the disc and that the pieces add up to the whole."
+          },
+          "faster_upright": {
+            "title": "Upright it turns faster",
+            "setting": "No friction in the bearing: pushed once, leaning out, standing up after 2 s over 1.5 s.",
+            "reads": "With no torque from outside the angular momentum I·ω stays the same: the rate rises in the measure the moment of inertia falls.",
+            "why": "Checks the page's run against the conservation of angular momentum: 3.21 times as fast, the moment of inertia fallen from 5.34 to 1.67 kg·m²."
+          },
+          "pull": {
+            "title": "What the hands hold on the bar",
+            "setting": "Leaning out, half a turn a second.",
+            "reads": "What runs on a circle needs the force m·r·ω² towards the middle; for trunk and arms at their centres of mass, the trunk d out, each arm d/2.",
+            "why": "Checks the pull on the bar the page gives for half a turn: 124.4 N.",
+            "step": "The source gives the force for a mass on a circle. Summed over a body, the distance of its centre of mass counts; an arm reaches from the bar to the shoulder, so its centre lies d/2 out."
+          },
+          "bearing_stops": {
+            "title": "The bearing brakes it",
+            "setting": "Pushed once, 17 kg·m²/s, leaning out, with 0.2 N·m of friction in the bearing.",
+            "reads": "A steady torque takes the same from the angular momentum every second: it is used up after L/τ.",
+            "why": "Checks the page's bearing: after 85 s the platform stands still."
+          }
+        },
+        "coupled": {
+          "together": {
+            "title": "In step, the spring rests",
+            "setting": "The page’s pendulums, 50 cm and 200 g each, a spring of 1 N/m 25 cm below the pivots, no damping; “Both alike”, 10° aside.",
+            "reads": "Swinging alike, the spring keeps its length: each pendulum swings as if alone, with the exact period 4K(sin(θ₀/2))·√(L/g).",
+            "why": "Checks the page’s time loop and that the spring does nothing in step: 1.421451 s at 10°. The tile “Period together” gives the small swing’s period; 10° swings a little slower.",
+            "step": "The first source gives ω = √(g/L), the second the pendulum’s equation in the time ω·t and its period 4K, the third K."
+          },
+          "against": {
+            "title": "Against each other, the spring works",
+            "setting": "The same pendulums, “Against each other”: both 10° aside, to opposite sides.",
+            "reads": "Against each other the spring’s middle stays put, and each pendulum swings in V(θ) = −(g/L)·cos θ + κ·sin²θ, with κ = k·a²/(m·L²). The period follows from the energy; for small swings it is the source’s angular frequency √(g/L + 2κ).",
+            "why": "Checks the spring’s force, its lever a·cos θ and that it acts on both pendulums: 1.339555 s at 10°, summed from the energy. The deviation of 2 · 10⁻¹⁰ is the time loop’s.",
+            "step": "The first source gives the potential energy of the bob and of the spring. The spring is stretched by a·(sin θ₂ − sin θ₁) = 2a·sin θ; per pendulum and m·L² the energy is ½θ̇² + V(θ), and from rest at θ₀ a period takes 4∫dθ/√(2(V(θ₀) − V(θ))). The second gives the small swing’s limit, with I = m·L² for a bob on a light rod."
+          },
+          "beat": {
+            "title": "Over and back",
+            "setting": "The same pendulums, “The left one only”; the tile “Over and back”.",
+            "reads": "A push to one pendulum is half of each mode. They drift apart at ω₋ = √(g/L) and ω₊ = √(g/L + 2κ), and the swing wanders over and back in 2π/(ω₊ − ω₋).",
+            "why": "Checks the page’s formula for the two rates, which for unequal pendulums too finds the roots of a 2×2 system: 22.94913 s for small swings.",
+            "step": "The source gives the two angular frequencies with the moment of inertia I about the pivot; for a bob on a light rod I = m·L², and k·l²/I becomes κ. Between two nodes of the beat lies 1/(f₁ − f₂)."
+          },
+          "energy": {
+            "title": "The energy is kept",
+            "setting": "The same pendulums, “The left one only” 10° aside; after 30 s, 30,000 steps.",
+            "reads": "Without damping the sum of both bobs’ motion and height and the spring’s stretch stays the same. At the start it is the left bob’s height, L(1 − cos 10°), and the spring, stretched by a·sin 10°.",
+            "why": "Checks the time loop and that the spring’s force fits its energy: 15.84081 mJ at the start and after 30 s, the same to 10⁻¹⁰."
+          }
+        },
+        "smoke": {
+          "membrane_area": {
+            "title": "How much air a press pushes out",
+            "setting": "The page's drum: 1.9 m across, a 30 cm hole in a 40 cm ring.",
+            "reads": "The ring presses the skin down with it; between the ring and the rim the stretched skin takes the shape w(r) = x·ln(R/r)/ln(R/a). Added up ring by ring, the drum loses 0.80 m² per metre of press, 11.3 times the hole's area.",
+            "why": "Checks the page's figure \"air out per hand speed\": 11.30. Here the skin is summed in 4000 rings; the page works the integral out in closed form.",
+            "step": "With the skin at rest the left side of the source's equation drops out: u″ + u′/r = 0, so (r·u′)′ = 0 and u = A + B·ln r. At the rim u = 0, at the ring as deep as the press."
+          },
+          "slug_length": {
+            "title": "The slug of air of a full press",
+            "setting": "As above; a full press of 8 cm in half a second.",
+            "reads": "What the drum loses must go through the hole: 11.3 times as fast as the hand. As the hole goes down with the hand, the air leaves it at 12.3 times the hand's speed; over the whole press the slug grows 12.3 times as long as the hand's way.",
+            "why": "Checks the page's figure \"slug in hole diameters\": 98 cm of air, 3.28 hole diameters.",
+            "step": "The first source gives continuity, A₁v₁ = A₂v₂; the second that the speed against the hole is the speed in the room plus the hole's. The area A_eff is the one from the case above, with the skin's shape from the third source."
+          },
+          "ring_speed": {
+            "title": "The ring's speed",
+            "setting": "As above; the ring from a full press of half a second.",
+            "reads": "A vortex ring with a thin core flies at U = Γ/(4πR)·(ln(8R/a) − ¼): Kelvin's formula. The page takes the ring 0.6 hole diameters wide and its core 0.35 of that.",
+            "why": "Checks the formula the page sets the flight and \"too slow\" by: 1.511 m/s from the circulation the page finds for this press. The circulation itself this case does not check."
+          }
+        },
+        "rainbow": {
+          "water": {
+            "title": "The rainbow in the sky: 42°",
+            "setting": "Water drop: index 1.333.",
+            "reads": "The ring is made by the ray that comes out furthest from the way back to the lamp: 2φ from it, with φ = 2β − arcsin(n·sin β), largest at cos β = 2√(n² − 1)/(√3·n).",
+            "why": "Checks the ring's radius: 42.08° for water, the rainbow in the sky. The page finds the rainbow ray by the angle of incidence, the source by the angle of refraction; both find the same ray."
+          },
+          "colours": {
+            "title": "Red outside, violet inside",
+            "setting": "Glass bead: index 1.52 in yellow light, Cauchy coefficient 4200 nm².",
+            "reads": "Blue light is refracted more than red, n(λ) = A + B/λ², and its ring is smaller. The ring's width is the difference of the radii at 700 nm and at 400 nm.",
+            "why": "Checks the colours: the red edge is outside, and the glass bead's ring is 1.49° wide.",
+            "step": "The third source gives n(λ) = A + B/λ²; A is chosen so that n at the sodium line, 589.3 nm, is the bead's index. Put in at 700 nm and at 400 nm, into the first source's formula."
+          },
+          "drawn_ray": {
+            "title": "The ray as drawn",
+            "setting": "Glass bead; the ray meets the bead half its radius out.",
+            "reads": "With sin i = b and sin β = b/n, every ray leaves the bead at θ = 2φ = 2·(2β − i) from the way back to the lamp.",
+            "why": "Checks the drawing: the page follows the ray with vectors through refraction, reflection and refraction, and it leaves at 16.82°, as the formula says."
+          },
+          "reflected": {
+            "title": "How much light comes back",
+            "setting": "Glass bead, index 1.52; over the bead's whole face.",
+            "reads": "Every ray loses at every surface what Fresnel's formulas say: in (1 − R), reflected inside R, out (1 − R). For each polarisation on its own, the two averaged, summed over the bead's face.",
+            "why": "Checks the ring's light: 5.5 % of the light meeting the bead comes back after one reflection. The page sums 2000 rings of equal area; that is 6 · 10⁻⁶ high, as the grazing rays' light changes steeply at the rim.",
+            "step": "The source gives R for both polarisations. Inside, the ray meets the surface at β and reflects as much as outside at i: the formulas stay the same with the two sides swapped. What is averaged is (1 − R)²·R, not R, as each polarisation makes its way through all three surfaces on its own."
+          }
+        },
+        "cannon": {
+          "impact": {
+            "title": "How fast the stack meets the floor",
+            "setting": "The exhibit: three balls of 10, 7 and 5 cm, dropped from 1 m; the bottom one's speed at the floor.",
+            "reads": "The air brakes with the square of the speed. So the bottom ball falls by the formulas of a fall with drag, not quite as fast as in a vacuum.",
+            "why": "Checks the fall everything begins with: 4.4202 m/s. The page steps the fall and finds the floor by halving; the two agree to 10⁻¹⁴."
+          },
+          "floor_peak": {
+            "title": "One ball meets the floor: the largest force",
+            "setting": "Only the bottom ball, 10 cm, 3 MPa, from 1 m; the floor gives everything back (e = 1).",
+            "reads": "The dent is deepest when the ball's energy of motion and its weight's work on the way in are all in it. There the floor pushes hardest: K·δ^(3/2).",
+            "why": "Checks Hertz's stiffness for a ball and the floor: 1325 N at a dent of 10.7 mm, as the table of forces shows it.",
+            "step": "The first source gives the force of a sphere on a plane, the floor rigid (E₂ endless). The second gives the energy in the dent, (2/5)·K·δ^(5/2), and the energy balance, to which the weight's work m·g·δ is added here."
+          },
+          "floor_time": {
+            "title": "How long the ball stays on the floor",
+            "setting": "As above: only the bottom ball, no loss, from 1 m.",
+            "reads": "The strike lasts until the dent has filled and emptied again. Since Hertz's contact grows stiffer with depth, the duration depends only weakly on the speed, as v^(−1/5).",
+            "why": "Checks the duration in the table of forces: 7.113 ms by hand, 7.12 ms on the page, which counts in steps of 10 µs.",
+            "step": "The first source gives the duration of two balls' strike with the reduced mass µ. The floor is endlessly heavy and endlessly large: µ = m, and e·r^½ becomes the K of the ball on the plane from the second."
+          },
+          "floor_impulse": {
+            "title": "The floor turns the momentum round",
+            "setting": "As above: only the bottom ball, no loss, from 1 m.",
+            "reads": "The ball arrives with m·v and leaves with m·v. The floor gives both, 2·m·v, and what the weight takes during the strike besides: m·g·τ.",
+            "why": "Checks how the page sums the force over the strike: 5.1319 N·s, the weight 0.8 % of it.",
+            "step": "The first source gives that the impulse is the change of momentum. The floor and the weight act on the ball; without loss it leaves as fast as it came, so the floor's impulse is 2mv plus m·g times the duration from the second."
+          }
+        },
+        "harmonograph": {
+          "wide_slower": {
+            "title": "Wider, slower",
+            "setting": "The pen's pendulum, 80 cm, let go at 30°, no friction.",
+            "reads": "The exact pendulum takes 4K(sin(θ₀/2)) there and back in units of √(L/g); for small swings that becomes 2π√(L/g).",
+            "why": "Checks the full sin θ in the page's time loop: 1.8258 s, 1.7 % slower than a small swing. K is summed here as an integral, not by the arithmetic-geometric mean the engine uses.",
+            "step": "The first source works the pendulum in a time in which g/L = 1, the second defines K, the third gives the unit of time, 1/ω₀ = √(L/g)."
+          },
+          "closes": {
+            "title": "Exactly 2:3: the figure closes",
+            "setting": "Ratio 2:3 without detune, both pendulums let go at 12°, no friction.",
+            "reads": "At a whole-number ratio of the frequencies the figure closes; let go equally wide, the periods stand exactly as √(L₁/L₂).",
+            "why": "Checks that the time loop keeps both pendulums in step: after two of the pen's swings, 3.599 s, it stands 9 · 10⁻¹² m from where it began.",
+            "step": "The second source gives the period 4K(sin(θ₀/2)) in units of √(L/g): at equal swings K is the same for both, and the periods stand as √(L₁/L₂) = 3/2. The first says the figure then closes."
+          },
+          "turns": {
+            "title": "Let go unequally: the figure turns",
+            "setting": "Ratio 2:3, detuned by 0.67 % as the page opens, but the pen let go at 30° and the board at 5°, no friction.",
+            "reads": "Just off 2:3 the figure keeps its shape and turns, once in 1/|3f₁ − 2f₂|; the frequencies are the exact pendulums' at their swings.",
+            "why": "Checks that the wider swing is slower: once in 25.7 s. With the small swings' frequencies it would be 89.7 s, the first version's mistake.",
+            "step": "The first source says a small detune makes the figure wander. For a ratio p:q the same shape comes back once the phase has moved by 2π/p, so after 1/|q·f₁ − p·f₂|. The frequencies come from the period of the second and third sources."
+          },
+          "fades": {
+            "title": "The swing dies away",
+            "setting": "The pen's pendulum let go at 2°, with the page's friction, 0.02 a second.",
+            "reads": "With the friction c·θ′ the swing dies away as e^(−ct/2), to a tenth after 2·ln 10/c.",
+            "why": "Checks the friction in the time loop: 230.26 s to a tenth. At 2° the pendulum is not quite linear and sheds its energy a little faster at first; hence 1.4 · 10⁻⁵.",
+            "step": "The source writes the friction as 2ζω₀; here that is c, so the decay rate ζω₀ is c/2."
+          }
+        },
+        "overhang": {
+          "nine": {
+            "title": "Nine blocks, as far as it goes",
+            "setting": "Nine blocks of 20 cm, the stack “Furthest”.",
+            "reads": "Built from the top, the k-th block juts 1/(2k) of a length over the next; together that is ∑1/(2i) lengths, half the harmonic sum.",
+            "why": "Checks the page’s furthest stack, and that it holds: 28.2897 cm, 1.41448 lengths, more than a whole one."
+          },
+          "knife_edge": {
+            "title": "Every layer on its edge",
+            "setting": "The furthest stack of nine blocks.",
+            "reads": "The centre of mass of the top k blocks lies exactly over the edge of the block below, that of all nine exactly over the table’s edge.",
+            "why": "Checks that the furthest stack stands on every edge at once: no centre of mass lies more than 10⁻¹² of a length off its edge. So the smallest push outwards tips it."
+          },
+          "even": {
+            "title": "In even steps",
+            "setting": "Nine blocks, “Even steps”.",
+            "reads": "Even steps s, the lowest block s over the edge: the centre of mass of all the blocks must not pass the table’s edge. That gives s = 1/(n + 1), and the top one reaches n/(n + 1) of a length out.",
+            "why": "Checks the stack most people build, and that it holds: 18 cm, 9/10 of a length, never a whole one.",
+            "step": "The source asks for the centre of mass of all the blocks to lie over the table’s edge. The blocks’ middles lie at i·s − ½ of a length; their mean, (n + 1)·s/2 − ½, sits right on the edge at s = 1/(n + 1). The upper layers then hold by themselves: their centre lies inside the edge below."
+          },
+          "four_lengths": {
+            "title": "Four lengths out",
+            "setting": "As many blocks as it takes for the furthest stack to reach four lengths past the edge; the number is beside the trick.",
+            "reads": "The furthest stack of n blocks reaches ∑1/(2i) lengths out. The sum grows without end, but only like a logarithm.",
+            "why": "Checks the number the page gives beside the trick: 1674 blocks for four lengths, counted here with exact fractions; 1673 fall just short."
+          }
+        },
+        "elephant": {
+          "momentum_flux": {
+            "title": "The jet keeps its momentum",
+            "setting": "The page's elephant: 14.5 m/s out of a 10 cm trunk; read at the height the ball floats at.",
+            "reads": "A free jet grows wider and slower, but the momentum it carries up each second, ∫2πr·ρ·u² dr, stays what the opening puts in: ρ·U₀²·πD²/4.",
+            "why": "Checks the jet the page takes its push and suction from: 1.98 N at the opening, as much 36 cm above it.",
+            "step": "The source shows that a round jet's momentum flux does not change with height. At the opening the air flows evenly at U₀ through the area πD²/4; further up the jet has the page's profile, u_c·e^(−r²/b²), here summed ring by ring."
+          },
+          "lift_off": {
+            "title": "How much air lifts the ball off",
+            "setting": "As above; the ball lies on the trunk's rim.",
+            "reads": "The ball lifts off once the drag ½·ρ·⟨u²⟩·c_d·A exceeds its weight less the buoyancy. ⟨u²⟩ is the mean over its cross-section, here integrated in closed form; it grows with U₀².",
+            "why": "Checks the page's figure \"Lifts off from\": 12.07 m/s. The page sums the cross-section at 288 points, here it is integrated exactly; the two lie 5 · 10⁻⁴ apart.",
+            "step": "The first source gives the momentum kept, from which the page takes the speed on the axis, u_c = U₀·D/(√2·b), at the width b = D/√2 + s/(√2·6). Averaged over a disc of radius r that gives ⟨u²⟩ = u_c²·b²/(2r²)·(1 − e^(−2r²/b²)). The other sources give the drag, with c_d = 0.47 for a sphere, and the buoyancy."
+          },
+          "float_balance": {
+            "title": "Where the ball floats",
+            "setting": "As above; the ball left to itself from the rim for 20 s.",
+            "reads": "The ball comes to rest where the drag carries its weight less the buoyancy: where the air at the ball is u = √(2(m − ρV)g/(ρ·c_d·A)) fast.",
+            "why": "Checks the page's time loop: it lets the ball float where the air at it is 7.407 m/s, as demanded. After 20 s the bob has died away to 10⁻¹¹."
+          }
+        },
+        "gyroscope": {
+          "steady_turn": {
+            "title": "Already circling: once round the string",
+            "setting": "A hoop of 2 kg and Ø 60 cm on an axle of 15 cm; 200 turns a minute, let go level and already circling; for 8 s.",
+            "reads": "Gravity's torque turns the wheel's angular momentum instead of tipping the wheel: the axle wanders round the string at Ω = m·g·d/L₃.",
+            "why": "Checks the time loop at its simplest: the axle takes 8.05 s for a round. Level, the source's approximation is exact, as the term it leaves out goes with cos θ.",
+            "step": "The first source gives ω_P = rMg/(Iω), the second the same from τ = Ω × L; put in is the hoop's I₃ = m·r² from the third."
+          },
+          "dip": {
+            "title": "Let go at rest: how far the axle sinks",
+            "setting": "The same wheel, 200 turns a minute, let go level and at rest; for 3 s.",
+            "reads": "Let go, the axle sinks until energy and the two kept angular momenta allow no further, and nods back. At the lowest point cos α − cos β = (2mgd·I₁/L₃²)·sin²β.",
+            "why": "Checks the equation of motion, the moment of inertia across the axle included: the axle sinks by 3.19°, as the page shows.",
+            "step": "The source gives this equation for a top let go without a push. With α = 90°, cos α = 0, and what is left is a quadratic for u = cos β. I₁ is the hoop's about a diameter, ½·m·r², moved d along the axle (parallel axes): ½·m·r² + m·d²."
+          },
+          "nods": {
+            "title": "The nod",
+            "setting": "The same wheel, 600 turns a minute, let go level and at rest; the nods counted over 3 s.",
+            "reads": "For small swings the nod is an oscillation at the angular frequency L₃/I₁, so L₃/(2π·I₁) nods a second.",
+            "why": "Checks how fast the axle nods in the time loop: 13.33 times a second. The formula is for the smallest swings, hence the page's fastest spin; the time loop nods 3 · 10⁻⁵ faster, as its axle does sink a little.",
+            "step": "The source gives θ̇² for a top let go without a push. With α = 90° and x = θ − 90° small it becomes θ̇² ≈ B·x − (L₃/I₁)²·x²: a harmonic oscillation about x = B·I₁²/(2L₃²) at the angular frequency L₃/I₁."
+          },
+          "suitcase": {
+            "title": "The suitcase round the corner",
+            "setting": "The same wheel, 200 turns a minute, the axle level; the suitcase turned a quarter turn a second about the vertical.",
+            "reads": "Whoever turns the level axle at Ω about the vertical turns its angular momentum: that takes the torque τ = Ω × L, across the turn.",
+            "why": "Checks the torque the page gives, with spin and angle in their units: 5.92 N·m.",
+            "step": "The source gives τ = Ω × L, in size Ω·L·sin θ; the axle is level, sin θ = 1, and L = I₃·ω₃ with the hoop's I₃ = m·r² from the second."
           }
         }
       },

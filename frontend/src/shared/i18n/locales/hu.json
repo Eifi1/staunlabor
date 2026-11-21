@@ -3580,7 +3580,233 @@
         "v0_push": "a lökés sebessége",
         "P_loss": "másodpercenkénti veszteség",
         "C_rr": "gördülési ellenállás: a fal nyomóerejének fékező hányada",
-        "alpha_wall": "a fal lejtése"
+        "alpha_wall": "a fal lejtése",
+        "D_wall": "a fal távolsága a résektől",
+        "d_slits": "a rések közepének távolsága",
+        "a_slit": "egy rés szélessége",
+        "theta_beam": "szög a nyaláb irányához képest",
+        "m_order": "rend: hányadik csík",
+        "dy_stripes": "a csíkok távolsága a falon",
+        "y_wall": "hely a falon, a középtől",
+        "I_one": "világosság középen egy réssel",
+        "I_two": "világosság középen mindkét réssel",
+        "E_amp": "egy rés hullámának amplitúdója",
+        "I_rel": "világosság a középhez mérve",
+        "beta_slit": "a fél útkülönbség egy résen át, szögként kifejezve",
+        "diver_reserve": "megmaradó felhajtóerő, tömegként",
+        "diver_rho": "a víz sűrűsége, 998",
+        "diver_Vg": "az üveg térfogata",
+        "diver_V0": "a buborék a felszínen, nyomás nélkül",
+        "diver_m": "az üveg tömege",
+        "diver_p0": "légnyomás a felszínen, 101 325 Pa",
+        "diver_dp": "a kéz nyomása",
+        "diver_Vstar": "a buborék, amellyel lebeg",
+        "diver_H": "a víz mélysége a palackban",
+        "diver_dz": "távolság a lebegési mélységtől",
+        "diver_k": "mennyire erősíti önmagát a távolság",
+        "diver_pstar": "nyomás a lebegési mélységben",
+        "diver_zstar": "a mélység, ahol lebegne",
+        "delta_cone": "a tengelytől az érintkezésig húzott vonal dőlése a sínek síkjának normálisához képest",
+        "alpha_cone": "kúpszög, a palást és a tengely között",
+        "beta_rail": "minden sín szétnyílása, felülről nézve",
+        "gamma_rail": "a sínek emelkedése",
+        "gamma_star": "határemelkedés",
+        "dz_axis": "mennyit süllyed a tengely",
+        "l_rails": "a sínek hossza, felülről nézve",
+        "a_roll": "a sugár, amelyen a kúp gurul: a tengelytől az érintkezésig",
+        "radius_cone": "a kúp sugara középen",
+        "y_sum": "a két hang együtt",
+        "amp": "egy hang amplitúdója",
+        "f_avg": "átlagos hangmagasság",
+        "f12": "a két villa hangmagassága",
+        "f_beat": "lebegések másodpercenként",
+        "f_fork": "a villa hangmagassága lovas nélkül",
+        "f_rider": "a hangmagasság a lovassal",
+        "m_felt": "az ág tömege, ahogy a csúcson számít",
+        "m_prong": "egy ág tömege",
+        "m_rider": "a lovas tömege egy ágon",
+        "mode": "az első rezgési alak, a csúcson 1",
+        "s_rider": "a lovas helye, a tőtől (0) a csúcsig (1)",
+        "xi": "hely az ágon, a tőtől (0) a csúcsig (1)",
+        "beta_L": "a befogott tartó egyenletének első gyöke, 1,8751",
+        "surface_height": "a felszín magassága az alj fölött",
+        "axis_distance": "a tengelytől mért távolság",
+        "steepness": "a paraboloid meredeksége",
+        "centre_depth": "a víz mélysége a tengelyen",
+        "vessel_rate": "az edény szögsebessége",
+        "fill_depth": "a nyugalmi töltési magasság",
+        "vessel_radius": "az edény sugara",
+        "dry_rate": "a szögsebesség, amelynél a közepe kiszárad",
+        "rim_height": "a felszín magassága a peremen",
+        "dry_radius": "a száraz folt sugara",
+        "focus": "a teknő mint tükör fókusztávolsága",
+        "dish_depth": "a teknő mélysége r távolságig",
+        "water_rate": "a víz szögsebessége",
+        "nu": "a víz viszkozitása, 10⁻⁶ m²/s",
+        "m_lift": "a gyűrű által megtartott teher, tömegként",
+        "mu_top": "a pörgettyű mágneses momentuma",
+        "B_axis": "a tér a tengelyen",
+        "B1": "a tér meredeksége a tengelyen, felfelé",
+        "B2": "a tér görbülete a tengelyen",
+        "M_mag": "a gyűrű mágnesezettsége",
+        "t_ring": "a gyűrű magassága",
+        "z_height": "magasság a gyűrű fölött",
+        "s_depth": "mélység a gyűrűben, a felső lapja alatt",
+        "R1_hole": "a lyuk sugara",
+        "R2_ring": "a gyűrű sugara",
+        "z_foot": "az ablak alja, a tér inflexiós pontja",
+        "z_head": "az ablak felső széle",
+        "r_axis": "a tengelytől mért távolság",
+        "lc_omega": "a csillapított rezgés körfrekvenciája",
+        "lc_C": "a kondenzátor kapacitása",
+        "lc_R": "az egész kör ellenállása, főleg a tekercsé",
+        "lc_E": "energia a kondenzátorban és a tekercsben",
+        "lc_q": "a kondenzátor töltése",
+        "lc_q0": "a töltés átkapcsoláskor, C·U₀",
+        "lc_omega0": "körfrekvencia ellenállás nélkül, 1/√(LC)",
+        "T_race": "idő a rajttól a célig",
+        "T_bottom": "idő az aljáig",
+        "D_run": "vízszintes távolság a célig",
+        "H_drop": "szintkülönbség a célig",
+        "phi_B": "a guruló kör szöge a célnál",
+        "r_cycloid": "a cikloist rajzoló kör sugara",
+        "R_bowl": "a köríves tál sugara",
+        "phi0_bowl": "indulási szög a tálban, az aljától mérve",
+        "omega_slow": "a lassú sajátrezgés körfrekvenciája",
+        "omega0_pend": "egy L hosszúságú egyszerű inga körfrekvenciája",
+        "length_rod": "mindkét rúd hossza",
+        "theta12": "a felső és az alsó rúd szöge a függőlegestől",
+        "E_pend": "a két nehezék együttes energiája",
+        "m12": "a felső és az alsó nehezék tömege",
+        "v12": "a két nehezék sebessége",
+        "y12": "a két nehezék magassága a felfüggesztési ponttól felfelé mérve",
+        "L12": "a felső és az alsó rúd hossza",
+        "theta_mode": "a felső rúd kitérése a lassú sajátrezgésben",
+        "c_damp": "az oldal csillapítása, másodpercenként",
+        "omega_d": "a csillapított rezgés körfrekvenciája",
+        "alpha_decay": "milyen gyorsan cseng le a kitérés",
+        "v_inf": "határsebesség: ahol a levegő ugyanolyan erősen fékez, mint amennyire a súly húz",
+        "e_rest": "a sebességnek az a hányada, amelyet egy ütés visszaad",
+        "u_up": "a sebesség az első ütés után",
+        "y_peak": "az első emelkedés magassága",
+        "h_drop": "a magasság, ahonnan a golyó esik",
+        "rho_air": "a levegő sűrűsége",
+        "c_drag": "egy sima gömb ellenállási tényezője, 0,47",
+        "A_cross": "a golyó keresztmetszete",
+        "t_land": "az idő az első ütésig",
+        "T_flight": "az első repülés időtartama",
+        "t_f": "a levegő időállandója, v∞/g",
+        "T_still": "az idő, amíg a golyó megnyugszik",
+        "spin_M": "a korong tömege",
+        "spin_R": "a korong sugara",
+        "spin_ml": "a lábak tömege",
+        "spin_kl": "a lábak tehetetlenségi sugara",
+        "spin_mt": "a törzs és a fej tömege",
+        "spin_kt": "a törzs tehetetlenségi sugara",
+        "spin_d": "mennyire dől ki a törzs",
+        "spin_ma": "egy kar tömege",
+        "spin_s": "mindkét kéz távolsága a tengelytől",
+        "spin_omega": "szögsebesség",
+        "spin_F": "a kezek húzóereje a kapaszkodón",
+        "spin_L": "perdület",
+        "spin_tau": "a csapágy súrlódása, nyomatékként",
+        "V_pot": "egy inga helyzeti energiája, m·L²-re vetítve",
+        "kappa": "a rugó általi csatolás",
+        "k_spring": "rugóállandó",
+        "a_spring": "a rugó magassága a felfüggesztés alatt",
+        "T_beat": "az át és vissza vándorlás ideje",
+        "omega_minus": "körfrekvencia együtt lengve",
+        "omega_plus": "körfrekvencia egymás ellen lengve",
+        "E_pair": "a két inga és a rugó energiája",
+        "thetadot_i": "az i-edik inga szögsebessége",
+        "coupled_theta_i": "az i-edik inga kitérése",
+        "a_eff": "a térfogat, amelyet a dob a lenyomás egy méterére veszít",
+        "a_hole": "a lyuk területe",
+        "ring_radius": "a lenyomott gyűrű sugara",
+        "hole_radius": "a lyuk sugara",
+        "drum_radius": "a dob sugara",
+        "r_skin": "távolság a dob közepétől",
+        "u_skin": "milyen mélyen van ott a bőr",
+        "AB_const": "két állandó, a peremből és a gyűrűből meghatározva",
+        "slug": "a légoszlop hossza",
+        "hole_d": "a lyuk átmérője",
+        "press_depth": "milyen mélyre nyomják le a gyűrűt",
+        "ring_u": "a füstkarika sebessége",
+        "circulation": "a karika cirkulációja",
+        "ring_r": "a füstkarika sugara",
+        "core_a": "a magjának sugara",
+        "ring_angle": "a gyűrű sugara, a lámpához visszavezető úttól mért szögként",
+        "refraction_angle": "törési szög",
+        "incidence_angle": "beesési szög",
+        "ring_width": "a gyűrű szélessége",
+        "wavelength": "hullámhossz",
+        "cauchy_a": "az A Cauchy-együttható",
+        "cauchy_b": "a színek szétválása (a B Cauchy-együttható)",
+        "index_d": "törésmutató sárga fényre (nátriumvonal)",
+        "sodium": "a nátriumvonal hullámhossza, 589,3",
+        "exit_angle": "kilépési szög a lámpához visszavezető úthoz képest",
+        "impact": "beesési pont: távolsága a középponttól, a gyöngy sugarában mérve",
+        "back_share": "a fénynek az a része, amely egy visszaverődés után visszajön",
+        "reflectance": "egy felületen visszavert hányad, a két polarizációra",
+        "rainbow_index": "törésmutató",
+        "v_impact": "a labda sebessége a padlónál",
+        "K_floor": "a labda és a padló merevsége Hertz szerint",
+        "F_floor": "a padló legnagyobb ereje",
+        "youngs": "a gumi Young-modulusa",
+        "nu_poisson": "Poisson-szám, gumira 0,5",
+        "J_impulse": "az erőlökés, amelyet a padló átad",
+        "cannon_A_cross": "a labda keresztmetszete",
+        "cannon_c_drag": "egy sima gömb közegellenállási tényezője, 0,47",
+        "cannon_h_drop": "a magasság, ahonnan a labda esik",
+        "cannon_rho_air": "a levegő sűrűsége",
+        "cannon_v_inf": "határsebesség: ahol a levegő ugyanolyan erősen fékez, mint amilyen erősen a súly húz",
+        "harm_L": "az inga hossza",
+        "harm_T12": "a toll és a tábla periódusa",
+        "harm_L12": "a tollinga és a táblainga hossza",
+        "harm_xy": "a toll helye a táblán",
+        "harm_turn": "az idő, amely alatt az ábra egyszer körbefordul",
+        "harm_f12": "a toll és a tábla frekvenciája",
+        "harm_thetamax": "a kitérés a fordulópontokban",
+        "harm_c": "az inga súrlódása",
+        "d_over": "milyen messzire nyúlik túl a legfelső hasáb az asztal élén",
+        "n_blocks": "a hasábok száma",
+        "l_block": "egy hasáb hossza",
+        "H_n": "harmonikus szám, 1 + 1/2 + … + 1/n",
+        "xbar_k": "a felső k hasáb tömegközéppontja",
+        "r_edge": "az alatta lévő hasáb éle; a legalsónál az asztal éle",
+        "s_step": "lépcső, hosszban mérve",
+        "N_blocks": "a szükséges hasábok száma",
+        "m_flux": "az impulzus, amelyet a légsugár másodpercenként felfelé visz",
+        "r_jet": "távolság a légsugár tengelyétől",
+        "u_jet": "a levegő sebessége a légsugárban",
+        "U0_jet": "a levegő sebessége a nyílásnál",
+        "opening_d": "az ormány nyílásának átmérője",
+        "uc_jet": "a levegő sebessége a légsugár tengelyén",
+        "b_jet": "a légsugár szélessége",
+        "cd": "egy gömb közegellenállási tényezője, 0,47",
+        "A_ball": "a labda keresztmetszete",
+        "u2_mean": "u² átlaga a labda keresztmetszetére",
+        "m_ball": "a labda tömege",
+        "V_ball": "a labda térfogata",
+        "s_jet": "a labda középpontjának magassága a nyílás fölött",
+        "B_decay": "a kör keresztmetszetű légsugár lecsengési állandója, itt 6",
+        "u_ball": "a levegő sebessége a labdánál",
+        "elephant_rho_air": "a levegő sűrűsége",
+        "round_time": "egy kör ideje a fonál körül",
+        "precession": "milyen gyorsan vándorol a tengely a fonál körül",
+        "axle_length": "a fonál és a kerék közepe közti távolság",
+        "hoop_radius": "az abroncs sugara",
+        "spin_momentum": "a kerék perdülete a tengelye körül",
+        "i3_hoop": "tehetetlenségi nyomaték a tengely körül",
+        "spin_rate": "milyen gyorsan forog a kerék a tengelyén",
+        "i1_pivot": "a tengelyre merőleges tehetetlenségi nyomaték a tengely végére",
+        "tilt_start": "a tengely dőlése elengedéskor, a felfelé mutató függőlegeshez képest",
+        "tilt_lowest": "a tengely dőlése a legmélyebb pontban",
+        "axle_tilt": "a tengely dőlése a felfelé mutató függőlegeshez képest",
+        "top_b": "2mgd/I₁",
+        "below_level": "mennyivel van a tengely a vízszintes alatt",
+        "torque": "a kezek által kifejtett forgatónyomaték",
+        "suitcase_turn": "milyen gyorsan fordítják a bőröndöt"
       },
       "cases": {
         "sphere": {
@@ -4130,6 +4356,541 @@
             "reads": "A gördülési ellenállás C·N erővel fékez a mozgással szemben; ez másodpercenként C·N·v-be kerül. N, a fal nyomóereje, a súlynak a falra merőleges része, és hozzá az, ami a golyót a körén tartja.",
             "why": "A fékezést és a fal nyomóerejét ellenőrzi, amelyből a fékezés származik: kilogrammonként 8,6625 mW. Már az első ezredmásodpercben kissé lelassul a golyó, és vele a fékezés is, 1 mm/s alatt pedig az oldal fokozatosan kikapcsolja az ellenállást: együtt 2 · 10⁻⁵ eltérés.",
             "step": "Az első forrás a C·N gördülési ellenállást adja meg. A második a döntött kanyart számolja: N·sin θ = mv²/r és N·cos θ = mg. A falra merőlegesen összeadva ezekből N = mg·cos α + (mv²/r)·sin α adódik; a guruló golyó tapadási súrlódása a fal síkjában hat, és merőlegesen semmit sem ad hozzá."
+          }
+        },
+        "slits": {
+          "spacing": {
+            "title": "A csíkok távolsága",
+            "setting": "A kiállítási tárgy: piros lézer, 650 nm, a rések 0,25 mm-re egymástól és 0,05 mm szélesek, a fal 2 m-rel mögöttük; az első sötét csíktól a másodikig.",
+            "reads": "Ott sötét, ahol a két réstől induló utak fél, másfél, két és fél… hullámhosszal különböznek. Kis szögeknél a csíkok λ·D/d távolságra vannak egymástól.",
+            "why": "A rések távolságát ellenőrzi a mintázatban: 5,2 mm, az oldal által rajzolt mintázaton mérve. A képlet kis szögeket feltételez, ezért a mintázat 1,1 · 10⁻⁵-nel szélesebb.",
+            "step": "A forrás a sötét csíkokat d·sin θ = (m + ½)λ-nál adja meg, kis szögekre pedig a világosakat y = mλD/d-nél. A sötétek félúton vannak a világosak között, tehát ugyanolyan távol egymástól."
+          },
+          "one_slit_dark": {
+            "title": "Egyetlen rés: az első sötét hely",
+            "setting": "Mint fent, az egyik rés letakarva; az első sötét hely a közép mellett.",
+            "reads": "Egyetlen rés ott sötét, ahol a két szélétől induló utak egy egész hullámhosszal különböznek: ekkor a rés minden sávjához van egy másik, amely kioltja.",
+            "why": "A rés szélességét ellenőrzi a mintázatban: 26,002 mm a közép mellett, ahogy az oldal rajzolja."
+          },
+          "quarter": {
+            "title": "Egy rés negyedet ad, nem felet",
+            "setting": "Mint fent, az egyik rés letakarva; a világosság középen.",
+            "reads": "Középen a két hullám egy ütemben érkezik: amplitúdóik kétszeresre adódnak össze, a világosság pedig ennek négyzete, az egy rés adta világosság négyszerese.",
+            "why": "Azt ellenőrzi, hogy az oldal a hullámokat adja össze, és csak utána emel négyzetre, nem a világosságokat adja össze: egy rés a két rés középső világosságának 0,25-ét adja.",
+            "step": "Az első forrás szerint az egy ütemben érkező egyforma hullámok amplitúdói összeadódnak, a második szerint a világosság ezek négyzete: E² szemben (2E)²-tel."
+          },
+          "first_bright": {
+            "title": "Az első világos csík halványabb",
+            "setting": "Mint fent, mindkét rés nyitva; az első világos csík világossága a közép mellett.",
+            "reads": "Minden rés egyedül oldalra haladva sötétebb lesz. A pár első világos csíkja d·sin θ = λ-nál van, és ott minden rés a saját középső világosságának csak (sin β/β)²-szeresét adja.",
+            "why": "Azt ellenőrzi, hogyan halványítja a rések szélessége a csíkokat: a közép 0,8751-e olyan réseknél, amelyek ötször olyan messze vannak egymástól, mint amilyen szélesek."
+          },
+          "missing": {
+            "title": "Az ötödik csík hiányzik",
+            "setting": "Mint fent, mindkét rés nyitva; a világosság ott, ahol az ötödik világos csík lenne.",
+            "reads": "A rések ötször olyan messze vannak egymástól, mint amilyen szélesek. Ahol a kettő ötödször erősíti egymást, ott mindegyik egyedül sötét, és nincs mit erősíteni.",
+            "why": "Azt ellenőrzi, hogy a csíkok és a halványodás ugyanazzal a szöggel van számolva: ott 10⁻³³, vagyis sötét.",
+            "step": "Az első forrás a világos csíkokat d·sin θ = mλ-nál adja meg, a második egy rés sötét helyét a·sin θ = λ-nál. d = 5a esetén az ötödik világos csík és az első sötét hely egybeesik; a harmadik ezt hiányzó rendnek nevezi."
+          }
+        },
+        "diver": {
+          "reserve": {
+            "title": "Mennyi felhajtóerő marad",
+            "setting": "Az oldal búvára, 3 g üveg 1,2 cm³ térfogattal és 2 cm³ levegővel, a felszínen, a kéz nyomása nélkül.",
+            "reads": "Vizet szorít ki az üvege és a levegője helyén; amennyivel ez a víz többet nyom az üvegnél, az tartja fent.",
+            "why": "Azt a felhajtóerőt ellenőrzi, amelyet az oldal tartalékként mutat: 0,1936 g."
+          },
+          "sinks_from_top": {
+            "title": "A nyomás, amely fentről lesüllyeszti",
+            "setting": "A búvár a felszínen; a kéz 10,90 kPa-lal nyom. 10,85 kPa-nál fent marad.",
+            "reads": "A kéz nyomása összenyomja a buborékot (állandó hőmérsékleten p·V változatlan); lesüllyed, amint a buborék kisebb, mint m/ρ − V_g, vagyis az a buborék, amellyel lebeg.",
+            "why": "Boyle törvényét és a felhajtóerőt ellenőrzi az oldal időléptető ciklusában: 10,884 kPa, annak a nyomásnak keresve, amelytől egyetlen lépés elhúzza a felszíntől.",
+            "step": "Az első forrás szerint a levegőre p·V állandó, a második a felhajtóerő és a súly egyensúlyát adja meg; együtt azt a nyomást adják, amelynél a felszíni buborék még éppen fenntartja."
+          },
+          "rises_from_bottom": {
+            "title": "A nyomás, amely alatt a fenékről feljön",
+            "setting": "A búvár a 30 cm-es palack fenekén fekszik (előbb erősen nyomja, amíg le nem ér); aztán 7,90 kPa. 7,95 kPa-nál lent marad.",
+            "reads": "Lent a víz is nyom, ρ·g·H-val; feljön, amint a kéz ρ·g·H-val kevésbé nyom, mint az a nyomás, amely fentről lesüllyeszti.",
+            "why": "A víz nyomását ellenőrzi a mélyben: 7,947 kPa, 2,936 kPa-lal kevesebb, mint fent. A két nyomás között az a mélység, ahol lebegne, a palackon belül van.",
+            "step": "Mint fent, a H mélységbeli nyomással a harmadik forrásból."
+          },
+          "leaves_hover": {
+            "title": "Miért nem lebeg",
+            "setting": "A kéz 10 kPa-lal nyom; a búvár nyugalomban, egy mikrométerrel az alatt a mélység alatt, ahol lebegne, 9,03 cm; öt másodpercig.",
+            "reads": "Kicsit mélyebben a buborék kicsit kisebb, és a hiányzó felhajtóerő tovább húzza: a távolság cosh(√k·t) szerint nő. Az üveg mozog, és vele a víz, amelyet magával visz, a térfogatának fele.",
+            "why": "Azt ellenőrzi, hogy a lebegés instabil, és hogy milyen gyorsan: a távolság hamarosan 1,71 s-onként e-szeresére nő. Az 1 · 10⁻⁵ eltérés a víz ellenállásából és a Boyle-törvény görbületéből adódik; mindkettő a távolsággal nő.",
+            "step": "Az első forrás megadja, hogyan zsugorodik a buborék a nyomással, a második a nyomást a mélységben; kis δz lépésre a változás lineáris. A harmadik egy gömb által magával vitt vizet adja meg, a térfogata felét, amit az oldal a csőre is átvesz."
+          }
+        },
+        "cone": {
+          "axis_path": {
+            "title": "A tengely süllyed, a sínek emelkednek",
+            "setting": "Az alapkiállítás: sugár 6 cm, kúpszög 20°, szétnyílás 20°, emelkedés 4°, a sínek 30 cm hosszúak, és lent 6 cm-re vannak egymástól.",
+            "reads": "A tengelytől az érintkezésig húzott vonal δ szöggel ferde, ahol sin δ = tan β·cos γ·tan α. A tengely ezért egy δ − γ szöggel lejtő egyenesen halad.",
+            "why": "A pontos érintkezést ellenőrzi, amelyet a számítómag más úton keres, a sín és a kúp távolságán keresztül: 30 cm-en a tengely 1,88426 cm-t süllyed; a két út 10⁻¹² pontossággal egyezik.",
+            "step": "A forrás a szögeit a sínek síkjában méri, és azt nevezi α-nak, ami itt δ. Ez a sík γ szöggel emelkedik; egy sín, amely felülről nézve méterenként tan β-val nyílik szét, a síkban tan β·cos γ-val nyílik szét. tan φ = tan β·cos γ mellett, ψ helyén az α kúpszöggel adódik sin δ, és felülről nézve a tengely az l hosszon l·tan(δ − γ)-t süllyed."
+          },
+          "threshold": {
+            "title": "A határ fel és le között",
+            "setting": "Az alapkiállítás kúpja és szétnyílása; azt az emelkedést keressük felezéssel 0° és 15° között, amelynél a tengely a teljes hosszon ugyanolyan magasan marad.",
+            "reads": "A kúp addig gurul felfelé, amíg δ nagyobb a γ emelkedésnél; a határon a kettő egyenlő. Ebből következik a tankönyvi feltétel, tan γ* = tan α·tan β, itt pontosan.",
+            "why": "Az oldal által megadott határt ellenőrzi: 7,54628°. A számítómag pontos érintkezésével keressük, nem az oldal képletével; a kettő 10⁻¹² pontossággal egyezik.",
+            "step": "Az első forrás a sin(δ − γ) > 0 feltételt adja meg, a határon tehát δ = γ; a második a sin δ = tan φ·tan ψ összefüggést, amely a fentiek szerint átszámolva tan β·cos γ·tan α. δ = γ esetén sin γ = tan β·cos γ·tan α, vagyis tan γ = tan α·tan β."
+          },
+          "speed": {
+            "title": "A sebesség az energiából",
+            "setting": "Az alapkiállítás, az alacsony végen elengedve; egy másodperc után leolvasva.",
+            "reads": "Amit a tengely magasságban veszít, az mozgássá és forgássá válik: ½(1 + I/(M a²))·v² = g·Δz, ahol a az a sugár, amelyen a kúp gurul, és két tömör kúpra I = (3/10)·M·R².",
+            "why": "Az időléptető ciklust és a gurulást ellenőrzi a csökkenő a sugáron: 28,5357 cm/s egy másodperc után, 10⁻⁹ pontossággal. Minél feljebb, annál több energia van a forgásban.",
+            "step": "Az első forrás megadja az energiát, és (7) és (8) egyenletével azt, hol áll a tengely, és mekkora az az a sugár, amelyen a kúp gurul; a szögeket a fentiek szerint a felülnézetre számoljuk át. A második egy kúp tehetetlenségi nyomatékát adja meg; két egyforma, alappal egymásnak illesztett kúpnak ugyanaz az I/(M·R²)."
+          }
+        },
+        "beats": {
+          "beat_rate": {
+            "title": "Annyi lebegés, amennyi a különbség",
+            "setting": "A lovas, 1 g minden ágon, a tőtől 30 %-nál; mindkét villa egyszerre megütve, tíz másodpercig.",
+            "reads": "Két hang összege az átlagos hang szorozva egy lassú burkolóval, amely másodpercenként |f₂ − f₁|-szer elcsendesedik.",
+            "why": "Azt a hangot ellenőrzi, amelyet az oldal rajzol és lejátszik: másodpercenként 0,8173 csend, 1,22 s-onként egy, annyi, amennyi a két hangmagasság különbsége. Az átlagos hang csúcsainál leolvasva, ahol az összeg egyenlő a burkolóval."
+          },
+          "tip_rider": {
+            "title": "A lovas a csúcson",
+            "setting": "1 g minden ágon, egészen a csúcson.",
+            "reads": "Egy ág úgy rezeg, mint egy befogott tartó az első rezgési alakjában. A csúcsán úgy hat, mintha tömegének negyede ülne ott, és a lovas teljes egészében hozzáadódik. Ugyanaz a merevség több tömeget hordoz: f = f₀·√(M*/(M* + m)).",
+            "why": "Azt ellenőrzi, mekkora tömeggel számít az ág a csúcsán: 20 g-jából 5 g-mal; a villa 440 Hz-ről 401,66 Hz-re süllyed. Itt a negyedet a rezgésalakon összegezve kapjuk, az oldal ¼-et helyettesít be.",
+            "step": "Az első forrás egy befogott tartó első rezgési alakját adja meg, a második azt, hogyan kapjuk meg a mozgási energiából a hatásos tömeget: M* = M·∫φ², ahol φ = 1 a csúcson. Egy s helyen ülő lovas m·φ(s)²-tel számít. Azonos merevség mellett a frekvencia 1/√tömeg szerint változik."
+          },
+          "rider_on_prong": {
+            "title": "A lovas lejjebb",
+            "setting": "1 g minden ágon, a tőtől a csúcsig tartó út 30 %-ánál, ahogy az oldal indul.",
+            "reads": "Lejjebb az ág kevésbé mozog: a lovas csak φ(s)²-tel számít, a rezgésalak négyzetével a saját helyén.",
+            "why": "A rezgésalakot ellenőrzi az ág belsejében: a második villa 439,18 Hz-en szól 440 Hz helyett.",
+            "step": "Mint a csúcson ülő lovasnál, φ(0,3)-mal az első forrás rezgésalakjából, úgy elosztva, hogy φ a csúcson 1 legyen."
+          }
+        },
+        "parabola": {
+          "centre": {
+            "title": "A közepe süllyed",
+            "setting": "Edény Ø 30 cm, 30 cm magas, 10 cm-ig töltve; forgótányér 90 fordulat/percre állítva.",
+            "reads": "Ha a víz egy tömbként forog, felszíne paraboloid. Mivel a víz nem lesz több, a közepe ω²R²/(4g)-vel a töltési magasság alá süllyed.",
+            "why": "Egyszerre ellenőrzi az alakot és a térfogatot: középen a 10 cm vízből még 4,91 cm áll."
+          },
+          "dry_rate": {
+            "title": "Mikortól szárad ki a közepe",
+            "setting": "Ugyanez az edény; forgótányér 126 fordulat/percre állítva, éppen a határ alatt.",
+            "reads": "A közepe akkor éri el az aljat, amikor a teljes töltési magassággal lesüllyedt: ω₁ = (2/R)·√(h·g)-nél.",
+            "why": "Azt a határt ellenőrzi, ahol az oldal a teknőről a gyűrűre vált: ω₁ = 13,20 per másodperc, 126,1 fordulat/perc."
+          },
+          "dry_rim": {
+            "title": "Középen száraz: a perem",
+            "setting": "Ugyanez az edény; forgótányér 160 fordulat/percre állítva, a 126-os határ fölött.",
+            "reads": "Ha a közepe száraz, a víz gyűrűben áll egy δ sugarú száraz folt körül. A felszín ugyanaz a paraboloid, lejjebb tolva; a peremen α·(R² − δ²) magasan áll.",
+            "why": "Az oldal második esetét ellenőrzi, amelyben a középső mélység helyett a száraz folt tartja a térfogatot: 25,38 cm a peremen. Az oldal R·ω·√(h/g)-t számol, itt az út δ-n át vezet; a kettő a kerekítéstől eltekintve egyezik.",
+            "step": "A forrás megadja a száraz folt δ sugarát és a z = α·(r² − δ²) felszínt; a peremen r = R."
+          },
+          "mirror": {
+            "title": "A teknő mint tükör",
+            "setting": "Ugyanez az edény; forgótányér 7 fordulat/percre állítva, egy fordulat 8,6 s alatt.",
+            "reads": "Az a teknő, amely r távolságig D mély, a függőlegesen beeső fényt f = r²/(4D) magasságban gyűjti össze. A víznél D = α·r², tehát f = 1/(4α) = g/(2ω²), bármekkora is az edény.",
+            "why": "Az oldal által mutatott fókusztávolságot ellenőrzi: 9,13 m a teknő legalsó pontja fölött."
+          },
+          "spin_up": {
+            "title": "A víz késve követi",
+            "setting": "Ugyanez az edény; a forgótányért álló helyzetből 90 fordulat/percre kapcsolják, a víz nyugalomban van. Egy felpörgési idő után leolvasva, az oldal 10 ms-os számítási lépésével.",
+            "reads": "Az alj egy vékony határrétegen át húzza magával a vizet. A τ = h/√(ν·ω_v) felpörgési idő után még az edény fordulatszámának 1/e része hiányzik neki.",
+            "why": "Az oldal időléptető ciklusát és felpörgési idejét ellenőrzi: 32,58 s után a víz az edény fordulatszámának 63,2 %-ával forog, a 90 fordulat/percből 56,9-cel.",
+            "step": "A forrás egy 2L magasságú zárt hengert számol, alul és felül egy-egy Ekman-réteggel. Középsíkja a szimmetria miatt nem visel nyírófeszültséget, ahogy egy sík szabad felszín sem: a h mélységű víz az alsó fele, L = h. A forrás kis változásokat számol; az oldal a nagyokat is így követteti, ahol Ω a két fordulatszám közül a nagyobb."
+          }
+        },
+        "levitation": {
+          "lift": {
+            "title": "A teher, amelyet a gyűrű megtart",
+            "setting": "Az oldal gyűrűje (külső Ø 10 cm, lyuk Ø 3 cm, 1,5 cm magas, ferrit) és a pörgettyű 0,64 A·m²-es mágnese; a teher 4,6 cm-rel a gyűrű fölött.",
+            "reads": "A pörgettyű a térrel szemben áll, és arra tolódik, amerre a tér gyengébb: felfelé, a tér esésének μ-szörösével. A gyűrű terét itt hurokról hurokra összegezzük.",
+            "why": "A gyűrű tengelyén lévő teret ellenőrzi, amelyből minden más származik: 23,589 g teher 4,6 cm magasságban. Az oldal zárt alakban számolja a teret, itt összegezve van; a kettő 10⁻¹² pontossággal egyezik.",
+            "step": "A második forrás az M mágnesezettséget a gyűrű külső fala körül folyó, magasságméterenként M erősségű árammá alakítja, a lyuka körül pedig ellentétes irányúvá. Ennek minden vékony rétege egy vezetőhurok; az első forrás megadja ennek terét a tengelyen, amelyet itt a gyűrű magasságán összegzünk és z szerint deriválunk. A harmadik megadja az mgz + μB energiát, és ezzel a −μB′ erőt."
+          },
+          "window_foot": {
+            "title": "Az ablak alja",
+            "setting": "Az oldal gyűrűje; a legkisebb magasság, ahol pörgettyű lebeghet.",
+            "reads": "Fel-le irányban a pörgettyű csak ott marad meg, ahol a tér felfelé egyre lassabban gyengül, B″ > 0. A határ a tér inflexiós pontja, B″ = 0.",
+            "why": "Az ablak alsó szélét ellenőrzi: 4,3587 cm, ahogy az oldal rácson és felezéssel megtalálja.",
+            "step": "Az első forrás megadja a feltételeket, és kimondja, hogy az ablak az inflexiós pontnál kezdődik. B″ itt a hurokról hurokra összegzett térből adódik (második és harmadik forrás), zérushelye felezéssel."
+          },
+          "window_head": {
+            "title": "Az ablak felső széle",
+            "setting": "Az oldal gyűrűje; a legnagyobb magasság, ahol pörgettyű lebeghet.",
+            "reads": "Oldalirányban a pörgettyű csak addig marad meg, amíg B′² > 2·B·B″; e fölött oldalra elcsúszik.",
+            "why": "Az ablak felső szélét ellenőrzi: 4,8052 cm. Az ablak tehát csak 4,5 mm magas.",
+            "step": "Az első forrás megadja az oldalirányú megtartás feltételét. B, B′ és B″ itt a hurokról hurokra összegzett térből adódik, a határ felezéssel."
+          },
+          "bob": {
+            "title": "A fel-le mozgás",
+            "setting": "Az oldal pörgettyűje, 23,5 g, melegedés nélkül; ott, ahol lebeg.",
+            "reads": "Ahol a súly és a teher találkozik, az mgz + μB energia a legkisebb. Görbülete, μB″ rugóként hat, és a pörgettyű ennek a rugónak a frekvenciájával mozog fel és le.",
+            "why": "Az oldal által megadott fel-le mozgás frekvenciáját ellenőrzi: 1,466 Hz, abban a magasságban, amelyet itt az összegzett térben keresünk meg.",
+            "step": "Az első forrás megadja az mgz + μB energiát. Ennek magasság szerinti második deriváltja μB″, a rugóállandó; a második forrás ehhez megadja: ω = √(k/m)."
+          },
+          "drift": {
+            "title": "Körözés a tengely körül",
+            "setting": "Az oldal pörgettyűje, 23,5 g, melegedés nélkül; ott, ahol lebeg.",
+            "reads": "A tengely mellett a tér erősebb, r²(B′² − 2BB″)/(8B)-vel. A pörgettyűt a tér visszanyomja a tengely felé, és az lassan köröz körülötte.",
+            "why": "Azt ellenőrzi, hogyan kapja meg az oldal a tengely melletti teret a tengelyen lévőből: 0,636 Hz.",
+            "step": "Az első forrás a tengely melletti tér négyzetét a tengelyen vett deriváltakból adja meg. Ennek gyöke kis r-re B + r²(B′² − 2BB″)/(8B); kétszer r szerint deriválva és μ-vel szorozva ez adja az oldalirányú rugóállandót, a harmadik forrás pedig a frekvenciát."
+          }
+        },
+        "circuit": {
+          "period": {
+            "title": "Egyszer oda és vissza",
+            "setting": "Az oldal rezgőköre: 200 H, 125 µF, 90 Ω, 10 V; a kapcsoló átkapcsolva.",
+            "reads": "Egy ellenállásos rezgőkör ω′ = √(1/LC − (R/2L)²) körfrekvenciával leng, kicsit lassabban, mint ellenállás nélkül.",
+            "why": "Azt az időt ellenőrzi, amely alatt a mutató oda és vissza leng: 0,9941 s, az első és a harmadik nullán való áthaladása között mérve."
+          },
+          "energy_kept": {
+            "title": "Mennyit tart meg egy rezgés az energiából",
+            "setting": "Mint fent; az átkapcsolás pillanatát és az egy rezgésidővel későbbi pillanatot hasonlítjuk össze.",
+            "reads": "Egy rezgésidő után a töltés ismét ott van, csak e^(−RT/2L)-szeres nagyságban, és az áram nulla: a q²/2C energia e^(−RT/L)-szeresére csökkent.",
+            "why": "Azt ellenőrzi, hogy a lecsengés és a rezgés összeillik: 63,9 % marad a kondenzátorban és a tekercsben. Ha az oldal rezgésideje hibás volna, egy rezgésidővel később az áram nem állna nullán, és az arány eltérne.",
+            "step": "Az első forrás a töltést adja meg, a második az energiát a kondenzátorban és a tekercsben. Egy teljes rezgésidő után a koszinusz megismétlődik, csak e^(−RT/2L)-szeresére csökkenve."
+          },
+          "energy_account": {
+            "title": "Az energia nem vész el",
+            "setting": "Mint fent; tíz másodperccel az átkapcsolás után.",
+            "reads": "Ami a kondenzátorból és a tekercsből hiányzik, az a huzalban hővé vált, R·i² teljesítménnyel.",
+            "why": "Az oldal sávját ellenőrzi, amely a hőt maradékként mutatja: 6,25 mJ az elemből, amelynek 10 s után még 1,1 %-a van a kondenzátorban és a tekercsben; a maradék a hő, itt az áramból összegezve, 3 · 10⁻¹⁴ pontossággal.",
+            "step": "Az első forrás megmondja, milyen gyorsan emészti fel a huzal az energiát, a második, hogy miből áll; az időre összegezve ez adja a mérleget."
+          },
+          "edge": {
+            "title": "A határon: már nem leng",
+            "setting": "Ellenállás 2√(L/C) = 2529,8 Ω 90 Ω helyett, egyébként mint fent.",
+            "reads": "R = 2√(L/C)-nél a két gyök egybeesik; nyugalomból indulva az áram q₀ω₀²·t·e^(−ω₀t), és 1/ω₀ után a legerősebb, q₀ω₀/e.",
+            "why": "A számításnak azt az ágát ellenőrzi, amelyet az oldal a határon használ: 2,908 mA 0,158 s után. A csúszkán 2530 Ω áll, épp e fölött; ott a csúcs 5 · 10⁻⁵-nel alacsonyabb.",
+            "step": "Az első forrás megadja a határt, ahol √(1/LC) = R/2L, a második az e^(st) megoldásokat, ahol s = −ω₀(ζ ± i√(1 − ζ²)). A határon ζ = 1, és mindkét s értéke −ω₀; a második megoldás ekkor t·e^(−ω₀t). Nyugalomból indítva ebből következik a képlet."
+          }
+        },
+        "race": {
+          "line": {
+            "title": "Az egyenes: a lejtő",
+            "setting": "Tömör golyó; a célig 50 cm szintkülönbség és 120 cm vízszintes távolság.",
+            "reads": "Az egyenesen a golyó állandó g′·H/L gyorsulással gurul, nyugalomból indulva: L = ½·a·T².",
+            "why": "A ds/v összeget ellenőrzi, amellyel az oldal minden pályát kiszámol, a legegyszerűbb esetben: 0,982374 s. Az oldal helyettesítése után az összeadandó itt állandó, ezért az összeg a kerekítéstől eltekintve pontos.",
+            "step": "Az első forrás egy lejtőn guruló golyó gyorsulását adja meg, g·sin θ/(1 + 2/5), ahol sin θ = H/L; a második a nyugalomból megtett utat, L = ½·a·T², ahol L² = D² + H²; a harmadik a tömör golyó tehetetlenségi nyomatékát, 2/5·m·r²."
+          },
+          "cycloid": {
+            "title": "A ciklois: a leggyorsabb pálya",
+            "setting": "Mint fent: tömör golyó, 50 cm szintkülönbség, 120 cm vízszintes távolság.",
+            "reads": "Az x = r(φ − sin φ), y = r(1 − cos φ) cikloison a guruló kör szöge egyenletesen nő az idővel: φ = t·√(g′/r). A célnál ez φ_B.",
+            "why": "A leggyorsabb pályát ellenőrzi, és azt, hogyan vezeti át az oldal a cikloisát a célon: 0,747261 s. A rajtnál lévő csúcs közelében 1 − cos φ értékes jegyeket veszít, innen a 3 · 10⁻¹¹.",
+            "step": "Az első forrás egy súrlódás nélkül csúszó testet számol, g mellett. A guruló golyó bármely pálya mentén csak g′ = g/(1 + 2/5)-öt érez, ezt adja a második; így ω = √(g′/r). φ_B az a szög, amelynél a ciklois vízszintes távolsága és szintkülönbsége úgy aránylik egymáshoz, mint 120 az 50-hez."
+          },
+          "tautochrone": {
+            "title": "A cikloisvölgy: bárhonnan ugyanannyi idő",
+            "setting": "Az oldal völgye, sugara 30 cm, tömör golyó; a legmagasabbról leolvasva, amelyet 59 cm-rel az alj fölött engednek el.",
+            "reads": "Egy cikloisvölgyben a golyónak π·√(r/g′) idő kell az aljáig, bárhol engedik is el.",
+            "why": "Azt az időtáblát ellenőrzi, amely szerint az oldal a golyókat a völgyben futtatja: 0,650151 s 59 cm-ről is. Az oldal 1440 lépéses összege 7 · 10⁻⁸-nal tér el, és ez a hiba a lépésköz négyzetével csökken.",
+            "step": "Az első forrás egy súrlódás nélkül csúszó test idejét adja meg g mellett; a guruló golyó g′ = g/(1 + 2/5)-öt érez, ezt adja a második."
+          },
+          "bowl": {
+            "title": "A köríves tál mellette: a szélesebb lengés lassabb",
+            "setting": "A völgy melletti köríves tál, sugara 1,2 m, a ciklois sugarának négyszerese; a tömör golyó 59 cm magasról.",
+            "reads": "A tálban a golyó úgy leng, mint egy R hosszúságú inga g′ mellett; az aljáig periódusának negyede kell neki, √(R/g′)·K(sin(φ₀/2)).",
+            "why": "A tálat ellenőrzi, amellyel az oldal megmutatja, hogy csak a ciklois juttatja be mindet egyszerre: 0,696484 s 59 cm-ről, később, mint a völgyben. K itt integrálként van összegezve; az oldal összege 5 · 10⁻⁸-nal tér el.",
+            "step": "Az első forrás az inga periódusát adja meg, 4K-t √(R/g′) egységekben, a második K-t, a harmadik a guruló golyóra g′ = g/(1 + 2/5)-öt. A tál sugara 4r, ez felel meg a ciklois görbületének az alján, és a golyó ugyanabból a h magasságból indul, mint a völgyben: cos φ₀ = 1 − h/R."
+          }
+        },
+        "chaos": {
+          "slow_mode": {
+            "title": "A lassú sajátrezgés",
+            "setting": "Két 30 cm-es rúd, két 500 g-os nehezék, csillapítás nélkül; fent 1°, lent √2° = 1,41°, nyugalomból elengedve.",
+            "reads": "Kis kitéréseknél a kettős ingának két sajátrezgése van. A lassúban mindkét rúd együtt leng, az alsó √2-szer akkora kitéréssel, ω₀·√(2 − √2) körfrekvenciával.",
+            "why": "A mozgásegyenleteket és az oldal időléptető ciklusát ellenőrzi kis kitéréseknél: egy lengés 1,43585 s alatt. Mivel 1° nem végtelenül kicsi, az inga 2,5 · 10⁻⁵-nel lassabban leng."
+          },
+          "energy": {
+            "title": "Az energia megmarad, akkor is, ha vad lesz a mozgás",
+            "setting": "Csillapítás nélkül; mindkét rúd 120°-ról nyugalomból elengedve („Vad”), 20 s-ig.",
+            "reads": "Súrlódás nélkül a két nehezék mozgási és helyzeti energiájának összege változatlan. Kezdetben minden helyzeti energia: 2,2065 J, a felfüggesztési pont magasságától számítva.",
+            "why": "Az időléptető ciklust ott ellenőrzi, ahol a legtöbb dolga van: 20 000 darab 1 ms-os lépés után az energia 1,0 · 10⁻⁷ pontossággal ugyanannyi. Itt a nehezékek helyéből és sebességéből számolva, nem az oldal energiaképletével.",
+            "step": "A második forrás a szögekből megadja a két nehezék helyét és sebességét; ½mv²-tel és mgy-nal ebből adódik az energia, amely az első szerint megmarad, amíg semmi sem fékez."
+          },
+          "damping": {
+            "title": "A csillapítás lecsengeti a kitérést",
+            "setting": "Mint a lassú sajátrezgésnél, de másodpercenként 0,1 csillapítással; a felső rúd hetedik fordulópontjában leolvasva.",
+            "reads": "Egy csillapított rezgés e^(−bt/2m) szerint cseng le. Az oldal minden szöggyorsulásból levonja a szögsebesség c-szeresét; ezért a kitérés e^(−ct/2) szerint csökken.",
+            "why": "Az oldal csillapítását ellenőrzi: a kitérés másodpercenként 0,05-os ütemben csökken, feleannyira gyorsan, mint a beállított csillapítás. Az 5 · 10⁻⁵ eltérés az 1°-os kitérésből adódik.",
+            "step": "Az első forrás megadja az m·x″ + b·x′ + k·x = 0 egyenlet megoldását, itt b/m = c-vel. Ez érvényes a második forrás lassú sajátrezgésére, amelynek alakját a csillapítás nem változtatja meg, mert mindkét rudat egyformán fékezi."
+          }
+        },
+        "bounce": {
+          "landing": {
+            "title": "Az esés a levegőben",
+            "setting": "A pingponglabda (2,7 g, Ø 40 mm) 30 cm-ről; az idő az első ütésig.",
+            "reads": "A levegő a sebesség négyzetével fékez. A labda ezért (v∞²/g)·ln cosh(gt/v∞) utat esik, és közelít a v∞ határsebességhez, ahol a levegő ugyanolyan erősen fékez, mint amennyire a súly húz.",
+            "why": "A levegőben való esést és a könnyű labda határsebességét ellenőrzi: 0,24898 s. Az oldal ugyanezt a mozgást más alakban oldja meg; a kettő 10⁻¹⁵ pontossággal egyezik."
+          },
+          "apex": {
+            "title": "Az első emelkedés",
+            "setting": "Mint fent, e = 0,92; a magasság az első ütés után.",
+            "reads": "A labda az érkezési sebességének e-szeresével pattan vissza, és a súly meg a levegő ellenében (v∞²/2g)·ln(1 + u²/v∞²) magasra emelkedik.",
+            "why": "Az ütést és a levegőben való emelkedést ellenőrzi: 23,66 cm, az a szám, amelyet az oldal az első pattanás magasságaként mutat.",
+            "step": "Az első forrás az esési időből megadja a sebességet az ütéskor, a második azt, hogy a labda ennek e-szeresét kapja vissza, a harmadik egy légellenállásos függőleges hajítás magasságát; ott μ = g/v∞²."
+          },
+          "flight": {
+            "title": "Az első repülés",
+            "setting": "Mint fent, e = 0,92; az idő az első ütéstől a másodikig.",
+            "reads": "Felfelé a súly és a levegő együtt fékez, lefelé egymás ellen hatnak. Az emelkedés és az esés ideje együtt adja a repülést.",
+            "why": "Azt az időt ellenőrzi, amelyet az oldal az első pattanás időtartamaként mutat: 0,4394 s.",
+            "step": "Az első forrás megadja a sebességet az ütéskor, a második azt, hogy a labda ennek e-szeresét kapja vissza. A harmadik megadja az emelkedés idejét, t_f·arctan(u/v∞), és a magasságot; lefelé a labda e forrás szerint ln cosh(t/t_f)/μ utat esik, amíg a teljes magasságot le nem esett."
+          },
+          "still": {
+            "title": "Végtelen sok pattanás, véges idő",
+            "setting": "Az acélgolyó e = 0,5-del 5 cm-ről: olyan lassú, hogy a levegő alig fékezi.",
+            "reads": "Minden repülés e-szer olyan hosszú, mint az előző. Végtelen sok repülés, akár egy mértani sor, véges idővé összegződik: √(2h/g)·(1 + e)/(1 − e).",
+            "why": "Az oldal sorát ellenőrzi, amely utolsó, legrövidebb pattanásait zárt alakban összegzi: 0,3029 s. A levegő, amelyet a képlet elhagy, 6 · 10⁻⁵-t tesz ki.",
+            "step": "Az első forrás megadja az esési időt, √(2h/g), és a sebességet lent, √(2gh); a második azt, hogy minden repülés e-szer olyan hosszú, mint az előző. Az első 2e·√(2gh)/g ideig tart; a mértani sor ezeket mind összegezve 2e·√(2h/g)/(1 − e)-t ad, ehhez jön még az esés."
+          }
+        },
+        "platform": {
+          "leaning_inertia": {
+            "title": "A tehetetlenségi nyomaték, darabról darabra",
+            "setting": "Az oldal látogatója, 70 kg, 30 cm-re kifelé dőlve, kezével a kapaszkodón; a korong 15 kg, 60 cm.",
+            "reads": "Minden darab az alakja szerint: a korong ½MR², a lábak a tengelyen, a törzs d-vel kijjebb, minden kar egy rúd a kapaszkodótól a vállig, d²/12 a közepe körül, és odáig eltolva.",
+            "why": "Az oldal által mutatott tehetetlenségi nyomatékot ellenőrzi: 5,34 kg·m² kifelé dőlve. A karokat itt a Steiner-tétellel számoljuk, nem s² + d²/3 alakban, ahogy a számítómotor.",
+            "step": "Az első forrás megadja a Steiner-tételt és a közepe körül forgó rúd nyomatékát, mL²/12, a második a tárcsáét, és azt, hogy a darabok az egészre összeadódnak."
+          },
+          "faster_upright": {
+            "title": "Egyenesen állva gyorsabban forog",
+            "setting": "Csapágysúrlódás nélkül: egy lökés, kifelé dőlve, 2 s után 1,5 s alatt felegyenesedve.",
+            "reads": "Külső nyomaték nélkül az I·ω perdület változatlan: a fordulatszám ugyanolyan arányban nő, ahogy a tehetetlenségi nyomaték csökken.",
+            "why": "Az oldal futását a perdületmegmaradáshoz méri: 3,21-szer gyorsabb, a tehetetlenségi nyomaték 5,34-ről 1,67 kg·m²-re csökkent."
+          },
+          "pull": {
+            "title": "Amit a kezek a kapaszkodón tartanak",
+            "setting": "Kifelé dőlve, másodpercenként fél fordulat.",
+            "reads": "Ami körpályán fut, annak m·r·ω² erő kell a középpont felé; a törzsnél és a karoknál a tömegközéppontjuk helyén: a törzs d-vel kint, minden kar d/2-vel.",
+            "why": "A kapaszkodón ébredő húzóerőt ellenőrzi, amelyet az oldal a másodpercenkénti fél fordulatra megad: 124,4 N.",
+            "step": "A forrás egy körpályán mozgó tömegre adja meg az erőt. Egy testre összegezve a tömegközéppontjának távolsága számít; egy kar a kapaszkodótól a vállig ér, így tömegközéppontja d/2-vel van kint."
+          },
+          "bearing_stops": {
+            "title": "A csapágy lefékezi",
+            "setting": "Egy lökés, 17 kg·m²/s, kifelé dőlve, 0,2 N·m csapágysúrlódással.",
+            "reads": "Egy állandó nyomaték minden másodpercben ugyanannyit vesz el a perdületből: L/τ után elfogy.",
+            "why": "Az oldal csapágyát ellenőrzi: 85 s után a korong megáll."
+          }
+        },
+        "coupled": {
+          "together": {
+            "title": "Együtt lengve a rugó nyugszik",
+            "setting": "Az oldal ingái, egyenként 50 cm és 200 g, egy 1 N/m-es rugó 25 cm-rel a felfüggesztés alatt, csillapítás nélkül; „Mindkettő egyformán”, 10°-kal kitérítve.",
+            "reads": "Ha mindkettő egyformán leng, a rugó hossza nem változik: mindegyik inga úgy leng, mintha egyedül volna, a pontos 4K(sin(θ₀/2))·√(L/g) periódussal.",
+            "why": "Az oldal időléptető ciklusát ellenőrzi, és azt, hogy együtt lengve a rugó semmit sem tesz: 1,421451 s 10°-nál. A „Periódus együtt” mező a kis kitérések periódusát adja meg; 10°-nál a lengés kicsit lassabb.",
+            "step": "Az első forrás megadja: ω = √(g/L), a második az ingaegyenletet ω·t időben és annak periódusát, 4K-t, a harmadik K-t."
+          },
+          "against": {
+            "title": "Egymás ellen lengve a rugó dolgozik",
+            "setting": "Ugyanezek az ingák, „Egymás ellen”: mindkettő 10°-kal kitérítve, ellentétes oldalra.",
+            "reads": "Egymás ellen lengve a rugó közepe nyugalomban marad, és mindegyik inga a V(θ) = −(g/L)·cos θ + κ·sin²θ potenciálban leng, ahol κ = k·a²/(m·L²). A periódus az energiából következik; kis kitéréseknél ez a forrás √(g/L + 2κ) körfrekvenciája.",
+            "why": "A rugó erejét, a·cos θ erőkarját és azt ellenőrzi, hogy mindkét ingára hat: 1,339555 s 10°-nál, az energiából összegezve. A 2 · 10⁻¹⁰ eltérés az időléptető ciklusé.",
+            "step": "Az első forrás megadja a golyó és a rugó helyzeti energiáját. A rugó a·(sin θ₂ − sin θ₁) = 2a·sin θ-val nyúlik meg; ingánként és m·L²-re vetítve az energia ½θ̇² + V(θ), és θ₀-ból nyugalomból indulva egy periódus 4∫dθ/√(2(V(θ₀) − V(θ))) ideig tart. A második a kis kitérések határesetét adja meg, I = m·L²-tel egy könnyű rúdon lógó golyóra."
+          },
+          "beat": {
+            "title": "Át és vissza",
+            "setting": "Ugyanezek az ingák, „Csak a bal”; az „Át és vissza” mező.",
+            "reads": "Egy inga meglökése fele-fele arányban mindkét rezgésforma. Ezek ω₋ = √(g/L) és ω₊ = √(g/L + 2κ) körfrekvenciával csúsznak szét, és a lengés 2π/(ω₊ − ω₋) alatt vándorol át és vissza.",
+            "why": "Az oldal képletét ellenőrzi a két körfrekvenciára, amely különböző ingákra is egy 2×2-es rendszer gyökeit keresi: 22,94913 s kis kitérésekre.",
+            "step": "A forrás a két körfrekvenciát a felfüggesztésre vett I tehetetlenségi nyomatékkal adja meg; egy könnyű rúdon lógó golyóra I = m·L², és k·l²/I-ből κ lesz. A lebegés két csomópontja között 1/(f₁ − f₂) idő telik el."
+          },
+          "energy": {
+            "title": "Az energia megmarad",
+            "setting": "Ugyanezek az ingák, „Csak a bal”, 10°-kal kitérítve; 30 s, azaz 30 000 lépés után.",
+            "reads": "Csillapítás nélkül a két golyó mozgásának és magasságának, valamint a rugó megnyúlásának összege változatlan. Kezdetben ez a bal golyó magassága, L(1 − cos 10°), és a rugó, amely a·sin 10°-kal meg van nyúlva.",
+            "why": "Az időléptető ciklust ellenőrzi, és azt, hogy a rugó ereje illik az energiájához: 15,84081 mJ az elején és 30 s után, 10⁻¹⁰ pontossággal egyezik."
+          }
+        },
+        "smoke": {
+          "membrane_area": {
+            "title": "Mennyi levegőt szorít ki egy lenyomás",
+            "setting": "Az oldal dobja: 1,9 m széles, egy 30 cm-es lyuk egy 40 cm-es gyűrűben.",
+            "reads": "A gyűrű magával nyomja a bőrt; a gyűrű és a perem között a kifeszített bőr w(r) = x·ln(R/r)/ln(R/a) alakot vesz fel. Körgyűrűnként összegezve a dob a lenyomás minden méterére 0,80 m²-t veszít, a lyuk területének 11,3-szeresét.",
+            "why": "Az oldal „Kiáramló levegő a kéz sebességéhez képest” értékét ellenőrzi: 11,30. Itt a bőr 4000 körgyűrűre van összegezve; az oldal zárt alakban számolja ki az integrált.",
+            "step": "Ha a bőr nyugalomban van, a forrás egyenletéből kiesik a bal oldal: u″ + u′/r = 0, tehát (r·u′)′ = 0 és u = A + B·ln r. A peremen u = 0, a gyűrűnél pedig akkora, amilyen mély a lenyomás."
+          },
+          "slug_length": {
+            "title": "Egy teljes lenyomás légoszlopa",
+            "setting": "Mint fent; egy teljes, 8 cm-es lenyomás fél másodperc alatt.",
+            "reads": "Amit a dob veszít, annak át kell jutnia a lyukon: 11,3-szer olyan gyorsan, mint a kéz. Mivel a lyuk a kézzel együtt lefelé halad, a levegő a kéz sebességének 12,3-szeresével hagyja el; a teljes lenyomás alatt a légoszlop 12,3-szer olyan hosszú lesz, mint a kéz útja.",
+            "why": "Az oldal „Kitolt légoszlop lyukátmérőben” értékét ellenőrzi: 98 cm levegő, 3,28 lyukátmérő.",
+            "step": "Az első forrás a kontinuitást adja meg, A₁v₁ = A₂v₂; a második azt, hogy a lyukhoz mért sebesség a teremben mért sebesség plusz a lyuké. Az A_eff terület a fenti esetből való, a bőr alakjával a harmadik forrásból."
+          },
+          "ring_speed": {
+            "title": "A karika sebessége",
+            "setting": "Mint fent; a karika egy teljes, fél másodperces lenyomásból.",
+            "reads": "Egy vékony magú örvénygyűrű U = Γ/(4πR)·(ln(8R/a) − ¼) sebességgel repül: ez Kelvin képlete. Az oldal a karikát 0,6 lyukátmérő szélesnek veszi, a magját pedig ennek 0,35-szorosának.",
+            "why": "Azt a képletet ellenőrzi, amellyel az oldal a repülést és a „túl lassú” ítéletet meghatározza: 1,511 m/s abból a cirkulációból, amelyet az oldal erre a lenyomásra kap. Magát a cirkulációt ez az eset nem ellenőrzi."
+          }
+        },
+        "rainbow": {
+          "water": {
+            "title": "A szivárvány az égen: 42°",
+            "setting": "Vízcsepp: törésmutató 1,333.",
+            "reads": "A gyűrűt az a sugár hozza létre, amely a lámpához visszavezető úttól a legmesszebb lép ki: attól 2φ-re, ahol φ = 2β − arcsin(n·sin β), és ez cos β = 2√(n² − 1)/(√3·n)-nél a legnagyobb.",
+            "why": "A gyűrű sugarát ellenőrzi: vízre 42,08°, ez a szivárvány az égen. Az oldal a beesési szög felől keresi meg a szivárványsugarat, a forrás a törési szög felől; mindkettő ugyanazt a sugarat találja meg."
+          },
+          "colours": {
+            "title": "Kívül piros, belül ibolya",
+            "setting": "Üveggyöngy: törésmutató 1,52 sárga fényre, Cauchy-együttható 4200 nm².",
+            "reads": "A kék fény jobban megtörik, mint a piros, n(λ) = A + B/λ², és a gyűrűje kisebb. A gyűrű szélessége a 700 nm-en és a 400 nm-en vett sugarak különbsége.",
+            "why": "A színeket ellenőrzi: a piros szél kívül van, és az üveggyöngy gyűrűje 1,49° széles.",
+            "step": "A harmadik forrás adja meg az n(λ) = A + B/λ² összefüggést; A úgy van megválasztva, hogy n a nátriumvonalnál, 589,3 nm-en, a gyöngy törésmutatója legyen. 700 nm-re és 400 nm-re behelyettesítve az első forrás képletébe."
+          },
+          "drawn_ray": {
+            "title": "A megrajzolt sugár",
+            "setting": "Üveggyöngy; a fénysugár a középponttól fél sugárnyira éri a gyöngyöt.",
+            "reads": "Ha sin i = b és sin β = b/n, akkor minden sugár θ = 2φ = 2·(2β − i) szögben hagyja el a gyöngyöt a lámpához visszavezető úthoz képest.",
+            "why": "A rajzot ellenőrzi: az oldal vektorokkal követi a sugarat törésen, visszaverődésen és újabb törésen át, és a sugár 16,82°-ban lép ki, ahogy a képlet mondja."
+          },
+          "reflected": {
+            "title": "Mennyi fény jön vissza",
+            "setting": "Üveggyöngy, törésmutató 1,52; a gyöngy teljes felületére.",
+            "reads": "Minden sugár minden felületen annyit veszít, amennyit Fresnel képletei mondanak: befelé (1 − R), belül visszaverve R, kifelé (1 − R). Mindkét polarizációra külön, a kettőt átlagolva, a gyöngy felületére összegezve.",
+            "why": "A gyűrű fényét ellenőrzi: a gyöngyre eső fény 5,5 %-a jön vissza egy visszaverődés után. Az oldal 2000 egyenlő területű gyűrűt összegez; ez 6 · 10⁻⁶-nal túl magas, mert a súroló sugarak fénye a peremen meredeken változik.",
+            "step": "A forrás mindkét polarizációra megadja R-t. Belül a sugár β szögben éri a felületet, és ugyanannyit ver vissza, mint kívül i szögben: a képletek nem változnak, ha a két oldalt felcseréljük. Az átlagolt mennyiség (1 − R)²·R, nem R, mert minden polarizáció külön teszi meg az utat mindhárom felületen át."
+          }
+        },
+        "cannon": {
+          "impact": {
+            "title": "Milyen gyorsan ér a padlóra a labdaoszlop",
+            "setting": "A kiállítási tárgy: három labda, 10, 7 és 5 cm-es, 1 m magasról leejtve; az alsó sebessége a padlónál.",
+            "reads": "A levegő a sebesség négyzetével fékez. Ezért az alsó labda a közegellenállással járó esés képletei szerint esik, nem egészen olyan gyorsan, mint légüres térben.",
+            "why": "Azt az esést ellenőrzi, amellyel minden kezdődik: 4,4202 m/s. Az oldal lépésenként számolja az esést, és ismételt felezéssel keresi meg a padlót; a kettő 10⁻¹⁴ pontossággal egyezik."
+          },
+          "floor_peak": {
+            "title": "Egy labda a padlónak ütközik: a legnagyobb erő",
+            "setting": "Csak az alsó labda, 10 cm, 3 MPa, 1 m magasról; a padló mindent visszaad (e = 1).",
+            "reads": "A benyomódás akkor a legmélyebb, amikor a labda mozgási energiája és súlyának a benyomódás útján végzett munkája teljes egészében benne van. Ott nyom a padló a legerősebben: K·δ^(3/2).",
+            "why": "A Hertz-féle merevséget ellenőrzi labdára és padlóra: 1325 N 10,7 mm-es benyomódásnál, ahogy az erők táblázata mutatja.",
+            "step": "Az első forrás egy gömb síkra ható erejét adja meg, merev padlóval (E₂ végtelen). A második a benyomódásban tárolt energiát adja meg, (2/5)·K·δ^(5/2), és az energiamérleget, amelyhez itt hozzá van adva a súly munkája, m·g·δ."
+          },
+          "floor_time": {
+            "title": "Mennyi ideig marad a labda a padlón",
+            "setting": "Mint fent: csak az alsó labda, veszteség nélkül, 1 m magasról.",
+            "reads": "Az ütközés addig tart, amíg a labda benyomódik, majd visszanyeri alakját. Mivel a Hertz-féle érintkezés a mélységgel merevebbé válik, az időtartam csak gyengén függ a sebességtől, v^(−1/5) szerint.",
+            "why": "Az erők táblázatában szereplő időtartamot ellenőrzi: kézzel 7,113 ms, az oldalon 7,12 ms, amely 10 µs-os lépésekben számol.",
+            "step": "Az első forrás két gömb ütközésének időtartamát adja meg a µ redukált tömeggel. A padló végtelenül nehéz és végtelenül nagy: µ = m, és e·r^½ helyére a második forrásból vett K kerül, a síkon fekvő gömbé."
+          },
+          "floor_impulse": {
+            "title": "A padló megfordítja a lendületet",
+            "setting": "Mint fent: csak az alsó labda, veszteség nélkül, 1 m magasról.",
+            "reads": "A labda m·v lendülettel érkezik, és m·v lendülettel távozik. A padló mindkettőt adja, 2·m·v-t, és ráadásul azt, amit a súly az ütközés alatt elvesz: m·g·τ-t.",
+            "why": "Azt ellenőrzi, hogyan összegzi az oldal az erőt az ütközés alatt: 5,1319 N·s; ebből a súly része 0,8 %.",
+            "step": "Az első forrás szerint az erőlökés a lendület megváltozása. A labdára a padló és a súly hat; veszteség nélkül olyan gyorsan távozik, ahogy érkezett, tehát a padló erőlökése 2mv plusz m·g szorozva a második forrásból vett időtartammal."
+          }
+        },
+        "harmonograph": {
+          "wide_slower": {
+            "title": "Nagyobb kitérés, lassabb lengés",
+            "setting": "A tollinga, 80 cm, 30°-kal kitérítve, súrlódás nélkül.",
+            "reads": "A pontos inga egy oda-vissza lengéshez 4K(sin(θ₀/2)) időt igényel √(L/g) egységekben; kis kitéréseknél ebből 2π√(L/g) lesz.",
+            "why": "A teljes sin θ-t ellenőrzi az oldal időléptető ciklusában: 1,8258 s, 1,7 %-kal lassabb, mint kis kitérésnél. K itt integrálként van összegezve, nem a számítómotor által használt számtani-mértani közép útján.",
+            "step": "Az első forrás olyan időegységben számolja az ingát, amelyben g/L = 1, a második definiálja K-t, a harmadik megadja az időegységet, 1/ω₀ = √(L/g)."
+          },
+          "closes": {
+            "title": "Pontosan 2:3: az ábra záródik",
+            "setting": "2:3 arány elhangolás nélkül, mindkét inga 12°-kal kitérítve, súrlódás nélkül.",
+            "reads": "A frekvenciák egész számú arányánál az ábra záródik; azonos kitérésnél a periódusok aránya pontosan √(L₁/L₂).",
+            "why": "Azt ellenőrzi, hogy az időléptető ciklus egy ütemben tartja a két ingát: a toll két lengése után, 3,599 s elteltével, a toll 9 · 10⁻¹² m-re van a kiindulópontjától.",
+            "step": "A második forrás megadja a 4K(sin(θ₀/2)) periódust √(L/g) egységekben: azonos kitérésnél K mindkettőre ugyanaz, és a periódusok aránya √(L₁/L₂) = 3/2. Az első forrás szerint az ábra ekkor záródik."
+          },
+          "turns": {
+            "title": "Különböző kitérések: az ábra fordul",
+            "setting": "2:3 arány, 0,67 %-kal elhangolva, mint az oldal megnyitásakor, de a toll 30°-kal, a tábla 5°-kal kitérítve, súrlódás nélkül.",
+            "reads": "Közvetlenül a 2:3 mellett az ábra megtartja alakját, és fordul, 1/|3f₁ − 2f₂| idő alatt egyszer; a frekvenciák a pontos ingák frekvenciái a saját kitérésüknél.",
+            "why": "Azt ellenőrzi, hogy a nagyobb kitérés lassabban leng: 25,7 s alatt egy fordulat. A kis kitérések frekvenciáival 89,7 s lenne, ez volt az első változat hibája.",
+            "step": "Az első forrás szerint egy kis elhangolás vándorlásra készteti az ábrát. Egy p:q aránynál ugyanaz az alak tér vissza, amint a fázis 2π/p-vel eltolódott, vagyis 1/|q·f₁ − p·f₂| után. A frekvenciák a második és a harmadik forrás periódusából adódnak."
+          },
+          "fades": {
+            "title": "A lengés lecseng",
+            "setting": "A tollinga 2°-kal kitérítve, az oldal súrlódásával, másodpercenként 0,02.",
+            "reads": "A c·θ′ súrlódással a kitérés e^(−ct/2) szerint cseng le, egy tizedére 2·ln 10/c idő után.",
+            "why": "A súrlódást ellenőrzi az időléptető ciklusban: 230,26 s, amíg a kitérés egy tizedére csökken. 2°-nál az inga nem egészen lineáris, és eleinte kicsit gyorsabban veszít energiát; innen az 1,4 · 10⁻⁵.",
+            "step": "A forrás a súrlódást 2ζω₀ alakban írja; itt ez c, így a ζω₀ lecsengési ráta c/2."
+          }
+        },
+        "overhang": {
+          "nine": {
+            "title": "Kilenc hasáb, ameddig csak lehet",
+            "setting": "Kilenc 20 cm-es hasáb, „A legmesszebb” torony.",
+            "reads": "Felülről építve a k-adik hasáb 1/(2k) hosszal nyúlik túl a következőn; együtt ez ∑1/(2i) hossz, a harmonikus összeg fele.",
+            "why": "Az oldal legmesszebb nyúló tornyát ellenőrzi, és azt, hogy megáll: 28,2897 cm, 1,41448 hossz, több mint egy egész."
+          },
+          "knife_edge": {
+            "title": "Minden réteg a saját élén",
+            "setting": "A legmesszebb nyúló, kilenc hasábból álló torony.",
+            "reads": "A felső k hasáb tömegközéppontja pontosan az alatta lévő hasáb éle fölött van, mind a kilencé pontosan az asztal éle fölött.",
+            "why": "Azt ellenőrzi, hogy a legmesszebb nyúló torony egyszerre minden élen áll: egyetlen tömegközéppont sincs 10⁻¹² hossznál messzebb a saját élétől. Ezért a legkisebb kifelé irányuló lökéstől is felborul."
+          },
+          "even": {
+            "title": "Egyenlő lépcsőkben",
+            "setting": "Kilenc hasáb, „Egyenlő lépcsők”.",
+            "reads": "Egyenlő s lépcsők, a legalsó hasáb s-sel nyúlik túl az élen: az összes hasáb tömegközéppontja nem kerülhet túl az asztal élén. Ebből s = 1/(n + 1) következik, és a legfelső n/(n + 1) hosszal nyúlik ki.",
+            "why": "A legtöbbek által épített tornyot ellenőrzi, és azt, hogy megáll: 18 cm, egy hossz 9/10 része, soha nem egy egész.",
+            "step": "A forrás azt követeli, hogy az összes hasáb tömegközéppontja az asztal éle fölött legyen. A hasábok közepe i·s − ½ hossznál van; ezek átlaga, (n + 1)·s/2 − ½, s = 1/(n + 1)-nél pontosan az élre esik. A felső rétegek ekkor maguktól megállnak: tömegközéppontjuk az alattuk lévő élen belül van."
+          },
+          "four_lengths": {
+            "title": "Négy hossznyira",
+            "setting": "Annyi hasáb, hogy a legmesszebb nyúló torony négy hosszal nyúljon túl az élen; a szám „A trükk” résznél áll.",
+            "reads": "Az n hasábból álló, legmesszebb nyúló torony ∑1/(2i) hosszal nyúlik ki. Az összeg vég nélkül nő, de csak úgy, mint egy logaritmus.",
+            "why": "Azt a számot ellenőrzi, amelyet az oldal „A trükk” résznél megad: 1674 hasáb négy hosszhoz, itt pontos törtekkel számolva; 1673 nem egészen elég."
+          }
+        },
+        "elephant": {
+          "momentum_flux": {
+            "title": "A légsugár megtartja az impulzusát",
+            "setting": "Az oldal elefántja: 14,5 m/s egy 10 cm-es ormányból; azon a magasságon leolvasva, ahol a labda lebeg.",
+            "reads": "A szabad légsugár szélesebb és lassabb lesz, de az az impulzus, amelyet másodpercenként felfelé visz, ∫2πr·ρ·u² dr, ugyanannyi marad, amennyit a nyílás beletesz: ρ·U₀²·πD²/4.",
+            "why": "Azt a légsugarat ellenőrzi, amelyből az oldal a tolóerőt és a szívóhatást veszi: 1,98 N a nyílásnál, ugyanennyi 36 cm-rel feljebb.",
+            "step": "A forrás megmutatja, hogy egy kör keresztmetszetű légsugár impulzusárama nem változik a magassággal. A nyílásnál a levegő egyenletesen, U₀ sebességgel áramlik át a πD²/4 felületen; feljebb a légsugár az oldal profilját követi, u_c·e^(−r²/b²), itt körgyűrűnként összegezve."
+          },
+          "lift_off": {
+            "title": "Mekkora légáramnál emelkedik fel a labda",
+            "setting": "Mint fent; a labda az ormány peremén fekszik.",
+            "reads": "A labda felemelkedik, amint a ½·ρ·⟨u²⟩·c_d·A közegellenállási erő meghaladja a felhajtóerővel csökkentett súlyát. ⟨u²⟩ a keresztmetszetére vett átlag, itt zárt alakban integrálva; U₀²-tel nő.",
+            "why": "Az oldal „Felemelkedési küszöb” értékét ellenőrzi: 12,07 m/s. Az oldal a keresztmetszetet 288 pontban összegzi, itt pontosan integráljuk; a kettő 5 · 10⁻⁴-nel tér el egymástól.",
+            "step": "Az első forrás a megmaradó impulzust adja meg, amelyből az oldal a tengely menti sebességet veszi, u_c = U₀·D/(√2·b), b = D/√2 + s/(√2·6) szélességnél. Egy r sugarú körlapra átlagolva ebből ⟨u²⟩ = u_c²·b²/(2r²)·(1 − e^(−2r²/b²)) adódik. A többi forrás a közegellenállást adja meg, gömbre c_d = 0,47 értékkel, valamint a felhajtóerőt."
+          },
+          "float_balance": {
+            "title": "Hol lebeg a labda",
+            "setting": "Mint fent; a labda a peremről indulva 20 s-ig magára hagyva.",
+            "reads": "A labda ott nyugszik meg, ahol a közegellenállás tartja a felhajtóerővel csökkentett súlyát: ahol a levegő sebessége a labdánál u = √(2(m − ρV)g/(ρ·c_d·A)).",
+            "why": "Az oldal időléptető ciklusát ellenőrzi: ott tartja lebegve a labdát, ahol a levegő sebessége nála 7,407 m/s, ahogy kell. 20 s után a fel-le lengés 10⁻¹¹-re csengett le."
+          }
+        },
+        "gyroscope": {
+          "steady_turn": {
+            "title": "Már körben: egyszer a fonál körül",
+            "setting": "Egy 2 kg-os, Ø 60 cm-es abroncs egy 15 cm-es tengelyen; percenként 200 fordulat, vízszintesen és már körben járva elengedve; 8 s-ig.",
+            "reads": "A gravitáció forgatónyomatéka a kerék perdületét fordítja el, ahelyett hogy a kereket billentené: a tengely Ω = m·g·d/L₃ szögsebességgel vándorol a fonál körül.",
+            "why": "Az időléptető ciklust a legegyszerűbb esetén ellenőrzi: a tengelynek 8,05 s kell egy körhöz. Vízszintes tengelynél a forrás közelítése pontos, mert az elhagyott tag cos θ-val arányos.",
+            "step": "Az első forrás ω_P = rMg/(Iω)-t ad, a második ugyanezt τ = Ω × L-ből; behelyettesítve az abroncs I₃ = m·r² értéke a harmadik forrásból."
+          },
+          "dip": {
+            "title": "Nyugalomból elengedve: mennyit süllyed a tengely",
+            "setting": "Ugyanaz a kerék, percenként 200 fordulat, vízszintesen és nyugalomból elengedve; 3 s-ig.",
+            "reads": "Elengedve a tengely addig süllyed, amíg az energia és a két megmaradó perdület engedi, aztán bólintva visszajön. A legmélyebb pontban cos α − cos β = (2mgd·I₁/L₃²)·sin²β.",
+            "why": "A mozgásegyenletet ellenőrzi, a tengelyre merőleges tehetetlenségi nyomatékkal együtt: a tengely 3,19°-ot süllyed, ahogy az oldal mutatja.",
+            "step": "A forrás ezt az egyenletet lökés nélkül elengedett pörgettyűre adja meg. α = 90°-nál cos α = 0, és u = cos β-ra egy másodfokú egyenlet marad. I₁ az abroncs egy átmérőre vett tehetetlenségi nyomatéka, ½·m·r², a tengely mentén d-vel eltolva (Steiner-tétel): ½·m·r² + m·d²."
+          },
+          "nods": {
+            "title": "A bólogatás",
+            "setting": "Ugyanaz a kerék, percenként 600 fordulat, vízszintesen és nyugalomból elengedve; a bólintások 3 s alatt megszámolva.",
+            "reads": "Kis kitéréseknél a bólogatás L₃/I₁ körfrekvenciájú rezgés, vagyis másodpercenként L₃/(2π·I₁) bólintás.",
+            "why": "Azt ellenőrzi, milyen gyorsan bólogat a tengely az időléptető ciklusban: másodpercenként 13,33-szor. A képlet a legkisebb kitérésekre érvényes, ezért az oldal leggyorsabb fordulatszáma; az időléptető ciklus 3 · 10⁻⁵-nel gyorsabban bólogat, mert a tengelye mégis süllyed egy kicsit.",
+            "step": "A forrás θ̇²-et adja meg lökés nélkül elengedett pörgettyűre. α = 90°-nál és kis x = θ − 90° mellett ebből θ̇² ≈ B·x − (L₃/I₁)²·x² lesz: harmonikus rezgés x = B·I₁²/(2L₃²) körül, L₃/I₁ körfrekvenciával."
+          },
+          "suitcase": {
+            "title": "A bőrönd a sarkon",
+            "setting": "Ugyanaz a kerék, percenként 200 fordulat, vízszintes tengellyel; a bőröndöt másodpercenként negyed fordulattal fordítják a függőleges körül.",
+            "reads": "Aki a vízszintes tengelyt Ω szögsebességgel fordítja a függőleges körül, az a perdületét fordítja: ehhez a fordításra merőleges τ = Ω × L forgatónyomaték kell.",
+            "why": "Az oldal által megadott forgatónyomatékot ellenőrzi, a fordulatszámot és a szöget a saját egységeikben véve: 5,92 N·m.",
+            "step": "A forrás τ = Ω × L-t adja meg, nagysága Ω·L·sin θ; a tengely vízszintes, sin θ = 1, és L = I₃·ω₃, ahol az abroncs I₃ = m·r² értéke a második forrásból való."
           }
         }
       },

@@ -11,6 +11,7 @@ import { Figures, WidgetCard } from "@/shared/ui/widget";
 import { Equation } from "./equation";
 import { ExhibitFrame } from "./exhibit-frame";
 import { BuildPending } from "./build-pending";
+import { settingNumber, useCheckSetting } from "./check-setting";
 import { PreviewPending, type PreviewMode, type PreviewProps } from "./preview-mode";
 import { css, linearRgb, matching, onScreen, type Rgb } from "./simulate/colour";
 import {
@@ -95,7 +96,7 @@ export function RainbowPage() {
         <BuildPending pending={defaults.isPending} error={defaults.error} />
       ) : (
         <>
-          <RainbowPlay bead={bead} />
+          <RainbowPlay bead={bead} onBead={setBead} />
           <RainbowBuild bead={bead} presets={data} onChange={setBead} />
         </>
       )}
@@ -264,12 +265,30 @@ function WallView({ colours, angleDeg }: { colours: readonly Rgb[]; angleDeg: nu
   );
 }
 
-function RainbowPlay({ bead, preview = false, paused = false }: { bead: Bead } & PreviewMode) {
+function RainbowPlay({
+  bead,
+  onBead,
+  preview = false,
+  paused = false,
+}: { bead: Bead; onBead?: (next: Bead) => void } & PreviewMode) {
   const { t } = useTranslation();
   const locale = useLocale();
   const n = indexAt(bead, SODIUM_NM);
   const bow = rainbowImpact(n);
   const [chosen, setImpact] = useState(0.5);
+  // A check case's "Set it up" takes the whole case here: the ray's impact is
+  // this card's, the bead the build's (its index and dispersion together, as
+  // the material toggle tells water from glass by the dispersion).
+  useCheckSetting("rainbow", (setting) => {
+    if (preview) return false;
+    if (typeof setting.impact === "number") setImpact(setting.impact);
+    onBead?.({
+      ...bead,
+      index: settingNumber(setting, "index", bead.index),
+      dispersion_nm2: settingNumber(setting, "dispersion_nm2", bead.dispersion_nm2),
+    });
+    return true;
+  });
   const [split, setSplit] = useState(false);
   const [time, setTime] = useState(0);
   useEffect(() => {
