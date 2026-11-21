@@ -3719,7 +3719,22 @@
         "omega_plus": "pulsation en opposition",
         "E_pair": "énergie des deux pendules et du ressort",
         "thetadot_i": "vitesse angulaire du i-ème pendule",
-        "coupled_theta_i": "écart du i-ème pendule"
+        "coupled_theta_i": "écart du i-ème pendule",
+        "a_eff": "volume que le tambour perd par mètre d’enfoncement",
+        "a_hole": "surface du trou",
+        "ring_radius": "rayon du cerclage que l’on enfonce",
+        "hole_radius": "rayon du trou",
+        "drum_radius": "rayon du tambour",
+        "r_skin": "distance au centre du tambour",
+        "u_skin": "profondeur de la peau à cet endroit",
+        "AB_const": "deux constantes, fixées par le bord et le cerclage",
+        "slug": "longueur de la colonne d’air",
+        "hole_d": "diamètre du trou",
+        "press_depth": "enfoncement du cerclage",
+        "ring_u": "vitesse de l’anneau de fumée",
+        "circulation": "circulation de l’anneau",
+        "ring_r": "rayon de l’anneau de fumée",
+        "core_a": "rayon de son noyau"
       },
       "cases": {
         "sphere": {
@@ -4616,6 +4631,28 @@
             "setting": "Les mêmes pendules, « Seulement le gauche » écarté de 10° ; après 30 s, 30 000 pas.",
             "reads": "Sans amortissement, la somme du mouvement et de la hauteur des deux boules et de l’allongement du ressort reste la même. Au début, ce sont la hauteur de la boule gauche, L(1 − cos 10°), et le ressort, allongé de a·sin 10°.",
             "why": "Vérifie la boucle des pas de temps et que la force du ressort correspond à son énergie : 15,84081 mJ au début et après 30 s, identiques à 10⁻¹⁰ près."
+          }
+        },
+        "smoke": {
+          "membrane_area": {
+            "title": "Combien d’air un appui chasse",
+            "setting": "Le tambour de la page : 1,9 m de large, un trou de 30 cm dans un cerclage de 40 cm.",
+            "reads": "Le cerclage entraîne la peau vers le bas ; entre le cerclage et le bord, la peau tendue prend la forme w(r) = x·ln(R/r)/ln(R/a). Sommé anneau par anneau, le tambour perd 0,80 m² par mètre d’enfoncement, 11,3 fois la surface du trou.",
+            "why": "Vérifie le chiffre « Air sortant, par vitesse de la main » de la page : 11,30. Ici, la peau est sommée en 4000 anneaux ; la page calcule l’intégrale sous forme fermée.",
+            "step": "Quand la peau est au repos, le membre de gauche de l’équation de la source disparaît : u″ + u′/r = 0, donc (r·u′)′ = 0 et u = A + B·ln r. Au bord, u = 0 ; au cerclage, u vaut l’enfoncement."
+          },
+          "slug_length": {
+            "title": "La colonne d’air d’un appui complet",
+            "setting": "Comme ci-dessus ; un appui complet de 8 cm en une demi-seconde.",
+            "reads": "Ce que perd le tambour doit passer par le trou : 11,3 fois plus vite que la main. Comme le trou descend avec la main, l’air en sort à 12,3 fois la vitesse de la main ; sur tout l’appui, la colonne devient 12,3 fois plus longue que la course de la main.",
+            "why": "Vérifie le chiffre « Colonne d’air, en diamètres de trou » de la page : 98 cm d’air, 3,28 diamètres de trou.",
+            "step": "La première source donne la continuité, A₁v₁ = A₂v₂ ; la deuxième, que la vitesse par rapport au trou est celle dans la salle plus celle du trou. La surface A_eff est celle du cas ci-dessus, avec la forme de la peau tirée de la troisième source."
+          },
+          "ring_speed": {
+            "title": "La vitesse de l’anneau",
+            "setting": "Comme ci-dessus ; l’anneau d’un appui complet d’une demi-seconde.",
+            "reads": "Un anneau tourbillonnaire à noyau mince vole à U = Γ/(4πR)·(ln(8R/a) − ¼) : la formule de Kelvin. La page prend un anneau large de 0,6 diamètre de trou et un noyau de 0,35 fois cette largeur.",
+            "why": "Vérifie la formule par laquelle la page fixe le vol et le « trop lent » : 1,511 m/s à partir de la circulation que la page trouve pour cet appui. La circulation elle-même, ce cas ne la vérifie pas."
           }
         }
       },

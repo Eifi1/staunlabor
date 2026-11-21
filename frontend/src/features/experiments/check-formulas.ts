@@ -147,6 +147,9 @@ const K_SPRING: CheckSymbol = { tex: "k", key: "k_spring", unit: "N/m" };
 const A_SPRING: CheckSymbol = { tex: "a", key: "a_spring", unit: "m" };
 const M: CheckSymbol = { tex: "m", key: "m", unit: "kg" };
 const T_PERIOD: CheckSymbol = { tex: "T", key: "T", unit: "s" };
+const A_EFF: CheckSymbol = { tex: String.raw`A_{\mathrm{eff}}`, key: "a_eff", unit: "m²" };
+const A_HOLE: CheckSymbol = { tex: String.raw`A_{\mathrm{hole}}`, key: "a_hole", unit: "m²" };
+const HOLE_D: CheckSymbol = { tex: "D", key: "hole_d", unit: "m" };
 
 const ROD_STEADY: CheckFormula = {
   tex: String.raw`w = \frac{\Gamma\,\Omega^2 Y}{\sqrt{(\omega^2 - \Omega^2)^2 + (2\zeta\omega\Omega)^2}}, \qquad \Gamma = \frac{\int_0^1 \varphi\,d\xi}{\int_0^1 \varphi^2\,d\xi}`,
@@ -1194,6 +1197,40 @@ export const CHECK_FORMULAS: Record<string, Record<string, CheckFormula>> = {
         { tex: String.raw`\theta_i`, key: "coupled_theta_i", unit: "°" },
         K_SPRING,
         A_SPRING,
+      ],
+    },
+  },
+  smoke: {
+    membrane_area: {
+      tex: String.raw`A_{\mathrm{eff}} = \pi\left(a^2 - r_h^2\right) + \int_a^R 2\pi r\,\frac{\ln(R/r)}{\ln(R/a)}\,dr, \qquad \frac{\partial^2 u}{\partial r^2} + \frac{1}{r}\frac{\partial u}{\partial r} = 0 \;\Rightarrow\; u = A + B\ln r`,
+      symbols: [
+        A_EFF,
+        { tex: "a", key: "ring_radius", unit: "m" },
+        { tex: "r_h", key: "hole_radius", unit: "m" },
+        { tex: "R", key: "drum_radius", unit: "m" },
+        { tex: "r", key: "r_skin", unit: "m" },
+        { tex: "u", key: "u_skin", unit: "m" },
+        { tex: "A, B", key: "AB_const" },
+      ],
+    },
+    slug_length: {
+      tex: String.raw`\frac{L}{D} = \left(\frac{A_{\mathrm{eff}}}{A_{\mathrm{hole}}} + 1\right)\frac{d}{D}`,
+      symbols: [
+        { tex: "L", key: "slug", unit: "m" },
+        HOLE_D,
+        A_EFF,
+        A_HOLE,
+        { tex: "d", key: "press_depth", unit: "m" },
+      ],
+    },
+    ring_speed: {
+      tex: String.raw`U = \frac{\Gamma}{4\pi R}\left(\ln\frac{8R}{a} - \frac14\right), \qquad R = 0.6\,D, \quad a = 0.35\,R`,
+      symbols: [
+        { tex: "U", key: "ring_u", unit: "m/s" },
+        { tex: String.raw`\Gamma`, key: "circulation", unit: "m²/s" },
+        { tex: "R", key: "ring_r", unit: "m" },
+        { tex: "a", key: "core_a", unit: "m" },
+        HOLE_D,
       ],
     },
   },

@@ -622,8 +622,9 @@ down, at most about 8 cm. Marcel's observations:
 - **The ring** is the slug model's: circulation `Γ = ½∫(u² − ẋ²)dt`, what
   leaves the hole's moving edge, taken up only
   until the slug is four hole diameters long (the formation number; a full
-  press here is 3.0). Its radius is 0.6 hole diameters and its core 0.35 of
-  that; it flies at Saffman's speed and has Reynolds number `Γ/ν`.
+  press here is 3.3, the moving hole's ratio plus one). Its radius is 0.6 hole
+  diameters and its core 0.35 of that; it flies at Kelvin's speed for a thin
+  core, `Γ/(4πR)·(ln(8R/a) − ¼)`, and has Reynolds number `Γ/ν`.
 - **Too fast, too slow:** both the circulation and the speed grow in
   proportion to the pace of the press. So the two failures are two thresholds on
   one scale: past `Re = 1.9·10⁵` the ring is turbulent and smears; slower than
@@ -2588,6 +2589,18 @@ of 22.94913 s to Eyler's formula for equal pendulums, and the energy kept over
 0.19 % and 0.26 % slower, and the beat timed on the loop comes to about 23.0 s,
 which the page's "about" covers. "Set it up" sets the build and lets the pair
 go as the case says.
+
+**The smoke ring's** three (2026-11-21) hold the drum's effective area to a
+Simpson sum over the stretched skin's log profile (11.3 holes), the slug's
+length for a full half-second press to continuity with the moving hole's plus
+one ((A_eff/A_hole + 1)·d/D = 3.2803; the model's line above said 3.0, a figure
+from before that fix), and the ring's speed to Kelvin's formula for a thin
+core, Γ/(4πR)·(ln(8R/a) − ¼), on the engine's own circulation. The engine's
+docstring calls that speed Saffman's; Saffman's viscous ring has −0.558, and
+the number here is Kelvin's. The circulation itself, Γ = ½∫(u² − ẋ²)dt, the
+exhibit's central number, has no case: the slug model's sources are behind
+paywalls, and no quote was invented. "Set it up" sets the drum and a full
+press of half a second; the reader presses.
 
 **On the page** a section "Check it yourself" (`check-section.tsx`) lists the
 cases, each with its formula as an `Equation` (`check-formulas.ts`), both

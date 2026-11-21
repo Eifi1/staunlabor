@@ -3719,7 +3719,22 @@
         "omega_plus": "pulsazione in opposizione",
         "E_pair": "energia dei due pendoli e della molla",
         "thetadot_i": "velocità angolare dell'i-esimo pendolo",
-        "coupled_theta_i": "spostamento dell'i-esimo pendolo"
+        "coupled_theta_i": "spostamento dell'i-esimo pendolo",
+        "a_eff": "volume che il tamburo perde per metro di pressione",
+        "a_hole": "area del foro",
+        "ring_radius": "raggio dell'anello rigido che si preme",
+        "hole_radius": "raggio del foro",
+        "drum_radius": "raggio del tamburo",
+        "r_skin": "distanza dal centro del tamburo",
+        "u_skin": "quanto è abbassata lì la membrana",
+        "AB_const": "due costanti, fissate dal bordo e dall'anello rigido",
+        "slug": "lunghezza della colonna d'aria",
+        "hole_d": "diametro del foro",
+        "press_depth": "quanto è premuto l'anello rigido",
+        "ring_u": "velocità dell'anello di fumo",
+        "circulation": "circolazione dell'anello",
+        "ring_r": "raggio dell'anello di fumo",
+        "core_a": "raggio del suo nucleo"
       },
       "cases": {
         "sphere": {
@@ -4616,6 +4631,28 @@
             "setting": "Gli stessi pendoli, «Solo il sinistro» scostato di 10°; dopo 30 s, 30.000 passi.",
             "reads": "Senza smorzamento la somma di moto e altezza delle due sfere e dell'allungamento della molla resta la stessa. All'inizio sono l'altezza della sfera sinistra, L(1 − cos 10°), e la molla, allungata di a·sin 10°.",
             "why": "Verifica il ciclo dei passi temporali e che la forza della molla corrisponda alla sua energia: 15,84081 mJ all'inizio e dopo 30 s, uguali a meno di 10⁻¹⁰."
+          }
+        },
+        "smoke": {
+          "membrane_area": {
+            "title": "Quanta aria sposta una pressione",
+            "setting": "Il tamburo della pagina: largo 1,9 m, un foro di 30 cm in un anello rigido di 40 cm.",
+            "reads": "L'anello rigido trascina giù con sé la membrana; tra l'anello rigido e il bordo la membrana tesa assume la forma w(r) = x·ln(R/r)/ln(R/a). Sommando corona per corona, il tamburo perde 0,80 m² per metro di pressione, 11,3 volte l'area del foro.",
+            "why": "Verifica il numero «Aria in uscita, per velocità della mano» della pagina: 11,30. Qui la membrana è sommata su 4000 corone circolari; la pagina calcola l'integrale in forma chiusa.",
+            "step": "Con la membrana a riposo, nell'equazione della fonte il membro di sinistra si annulla: u″ + u′/r = 0, quindi (r·u′)′ = 0 e u = A + B·ln r. Al bordo u = 0, all'anello rigido u è pari a quanto è premuto."
+          },
+          "slug_length": {
+            "title": "La colonna d'aria di una pressione completa",
+            "setting": "Come sopra; una pressione completa di 8 cm in mezzo secondo.",
+            "reads": "Ciò che il tamburo perde deve passare dal foro: 11,3 volte più veloce della mano. Poiché il foro scende con la mano, l'aria ne esce a 12,3 volte la velocità della mano; nell'arco dell'intera pressione la colonna diventa 12,3 volte più lunga del percorso della mano.",
+            "why": "Verifica il numero «Colonna d'aria, in diametri del foro» della pagina: 98 cm d'aria, 3,28 diametri del foro.",
+            "step": "La prima fonte dà la continuità, A₁v₁ = A₂v₂; la seconda, che la velocità rispetto al foro è quella nella sala più quella del foro. L'area A_eff è quella del caso precedente, con la forma della membrana presa dalla terza fonte."
+          },
+          "ring_speed": {
+            "title": "La velocità dell'anello",
+            "setting": "Come sopra; l'anello di una pressione completa di mezzo secondo.",
+            "reads": "Un anello vorticoso con nucleo sottile vola a U = Γ/(4πR)·(ln(8R/a) − ¼): la formula di Kelvin. La pagina prende l'anello largo 0,6 diametri del foro e il suo nucleo pari a 0,35 volte questa larghezza.",
+            "why": "Verifica la formula con cui la pagina determina il volo e il «troppo lento»: 1,511 m/s dalla circolazione che la pagina trova per questa pressione. La circolazione in sé questo caso non la verifica."
           }
         }
       },

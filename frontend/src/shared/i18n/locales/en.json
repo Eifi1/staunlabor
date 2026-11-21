@@ -3719,7 +3719,22 @@
         "omega_plus": "angular frequency against each other",
         "E_pair": "energy of both pendulums and the spring",
         "thetadot_i": "angular velocity of the i-th pendulum",
-        "coupled_theta_i": "displacement of the i-th pendulum"
+        "coupled_theta_i": "displacement of the i-th pendulum",
+        "a_eff": "the volume the drum loses per metre of press",
+        "a_hole": "the hole's area",
+        "ring_radius": "the radius of the ring that is pressed",
+        "hole_radius": "the hole's radius",
+        "drum_radius": "the drum's radius",
+        "r_skin": "distance from the drum's middle",
+        "u_skin": "how deep the skin lies there",
+        "AB_const": "two constants, set by the rim and the ring",
+        "slug": "the slug of air's length",
+        "hole_d": "the hole's diameter",
+        "press_depth": "how far the ring is pressed down",
+        "ring_u": "the smoke ring's speed",
+        "circulation": "the ring's circulation",
+        "ring_r": "the smoke ring's radius",
+        "core_a": "its core's radius"
       },
       "cases": {
         "sphere": {
@@ -4616,6 +4631,28 @@
             "setting": "The same pendulums, “The left one only” 10° aside; after 30 s, 30,000 steps.",
             "reads": "Without damping the sum of both bobs’ motion and height and the spring’s stretch stays the same. At the start it is the left bob’s height, L(1 − cos 10°), and the spring, stretched by a·sin 10°.",
             "why": "Checks the time loop and that the spring’s force fits its energy: 15.84081 mJ at the start and after 30 s, the same to 10⁻¹⁰."
+          }
+        },
+        "smoke": {
+          "membrane_area": {
+            "title": "How much air a press pushes out",
+            "setting": "The page's drum: 1.9 m across, a 30 cm hole in a 40 cm ring.",
+            "reads": "The ring presses the skin down with it; between the ring and the rim the stretched skin takes the shape w(r) = x·ln(R/r)/ln(R/a). Added up ring by ring, the drum loses 0.80 m² per metre of press, 11.3 times the hole's area.",
+            "why": "Checks the page's figure \"air out per hand speed\": 11.30. Here the skin is summed in 4000 rings; the page works the integral out in closed form.",
+            "step": "With the skin at rest the left side of the source's equation drops out: u″ + u′/r = 0, so (r·u′)′ = 0 and u = A + B·ln r. At the rim u = 0, at the ring as deep as the press."
+          },
+          "slug_length": {
+            "title": "The slug of air of a full press",
+            "setting": "As above; a full press of 8 cm in half a second.",
+            "reads": "What the drum loses must go through the hole: 11.3 times as fast as the hand. As the hole goes down with the hand, the air leaves it at 12.3 times the hand's speed; over the whole press the slug grows 12.3 times as long as the hand's way.",
+            "why": "Checks the page's figure \"slug in hole diameters\": 98 cm of air, 3.28 hole diameters.",
+            "step": "The first source gives continuity, A₁v₁ = A₂v₂; the second that the speed against the hole is the speed in the room plus the hole's. The area A_eff is the one from the case above, with the skin's shape from the third source."
+          },
+          "ring_speed": {
+            "title": "The ring's speed",
+            "setting": "As above; the ring from a full press of half a second.",
+            "reads": "A vortex ring with a thin core flies at U = Γ/(4πR)·(ln(8R/a) − ¼): Kelvin's formula. The page takes the ring 0.6 hole diameters wide and its core 0.35 of that.",
+            "why": "Checks the formula the page sets the flight and \"too slow\" by: 1.511 m/s from the circulation the page finds for this press. The circulation itself this case does not check."
           }
         }
       },

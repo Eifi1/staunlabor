@@ -3719,7 +3719,22 @@
         "omega_plus": "frecuencia angular uno contra otro",
         "E_pair": "energía de ambos péndulos y del muelle",
         "thetadot_i": "velocidad angular del péndulo i-ésimo",
-        "coupled_theta_i": "desplazamiento del péndulo i-ésimo"
+        "coupled_theta_i": "desplazamiento del péndulo i-ésimo",
+        "a_eff": "volumen que pierde el tambor por metro de pulsación",
+        "a_hole": "área del agujero",
+        "ring_radius": "radio del aro que se presiona",
+        "hole_radius": "radio del agujero",
+        "drum_radius": "radio del tambor",
+        "r_skin": "distancia al centro del tambor",
+        "u_skin": "cuánto se hunde allí la membrana",
+        "AB_const": "dos constantes, fijadas por el borde y el aro",
+        "slug": "longitud de la columna de aire",
+        "hole_d": "diámetro del agujero",
+        "press_depth": "cuánto se hunde el aro",
+        "ring_u": "velocidad del anillo de humo",
+        "circulation": "circulación del anillo",
+        "ring_r": "radio del anillo de humo",
+        "core_a": "radio de su núcleo"
       },
       "cases": {
         "sphere": {
@@ -4616,6 +4631,28 @@
             "setting": "Los mismos péndulos, «Solo el izquierdo» apartado 10°; tras 30 s, 30 000 pasos.",
             "reads": "Sin amortiguación, la suma del movimiento y la altura de ambas bolas y del estiramiento del muelle se mantiene igual. Al principio son la altura de la bola izquierda, L(1 − cos 10°), y el muelle, estirado a·sin 10°.",
             "why": "Comprueba el bucle de pasos de tiempo y que la fuerza del muelle concuerda con su energía: 15,84081 mJ al principio y tras 30 s, iguales con una precisión de 10⁻¹⁰."
+          }
+        },
+        "smoke": {
+          "membrane_area": {
+            "title": "Cuánto aire expulsa una pulsación",
+            "setting": "El tambor de la página: 1,9 m de ancho, un agujero de 30 cm en un aro de 40 cm.",
+            "reads": "El aro hunde la membrana consigo; entre el aro y el borde, la membrana tensada adopta la forma w(r) = x·ln(R/r)/ln(R/a). Sumado anillo a anillo, el tambor pierde 0,80 m² por metro de pulsación, 11,3 veces el área del agujero.",
+            "why": "Comprueba la cifra «Salida de aire por velocidad de la mano» de la página: 11,30. Aquí la membrana se suma en 4000 anillos; la página calcula la integral en forma cerrada.",
+            "step": "Con la membrana en reposo, el lado izquierdo de la ecuación de la fuente desaparece: u″ + u′/r = 0, es decir, (r·u′)′ = 0 y u = A + B·ln r. En el borde u = 0; en el aro, tanto como se hunde con la pulsación."
+          },
+          "slug_length": {
+            "title": "La columna de aire de una pulsación completa",
+            "setting": "Como arriba; una pulsación completa de 8 cm en medio segundo.",
+            "reads": "Lo que pierde el tambor tiene que salir por el agujero: 11,3 veces más rápido que la mano. Como el agujero baja con la mano, el aire sale de él a 12,3 veces la velocidad de la mano; a lo largo de toda la pulsación, la columna llega a ser 12,3 veces más larga que el recorrido de la mano.",
+            "why": "Comprueba la cifra «Columna de aire, en diámetros del agujero» de la página: 98 cm de aire, 3,28 diámetros del agujero.",
+            "step": "La primera fuente da la continuidad, A₁v₁ = A₂v₂; la segunda, que la velocidad respecto al agujero es la velocidad en la sala más la del agujero. El área A_eff es la del caso anterior, con la forma de la membrana tomada de la tercera fuente."
+          },
+          "ring_speed": {
+            "title": "La velocidad del anillo",
+            "setting": "Como arriba; el anillo de una pulsación completa de medio segundo.",
+            "reads": "Un anillo de vórtice de núcleo delgado vuela a U = Γ/(4πR)·(ln(8R/a) − ¼): la fórmula de Kelvin. La página toma el anillo de 0,6 diámetros del agujero de ancho y su núcleo, de 0,35 veces esa medida.",
+            "why": "Comprueba la fórmula con la que la página determina el vuelo y el «demasiado lento»: 1,511 m/s a partir de la circulación que la página halla para esta pulsación. La circulación misma no la comprueba este caso."
           }
         }
       },

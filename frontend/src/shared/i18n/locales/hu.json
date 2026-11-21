@@ -3719,7 +3719,22 @@
         "omega_plus": "körfrekvencia egymás ellen lengve",
         "E_pair": "a két inga és a rugó energiája",
         "thetadot_i": "az i-edik inga szögsebessége",
-        "coupled_theta_i": "az i-edik inga kitérése"
+        "coupled_theta_i": "az i-edik inga kitérése",
+        "a_eff": "a térfogat, amelyet a dob a lenyomás egy méterére veszít",
+        "a_hole": "a lyuk területe",
+        "ring_radius": "a lenyomott gyűrű sugara",
+        "hole_radius": "a lyuk sugara",
+        "drum_radius": "a dob sugara",
+        "r_skin": "távolság a dob közepétől",
+        "u_skin": "milyen mélyen van ott a bőr",
+        "AB_const": "két állandó, a peremből és a gyűrűből meghatározva",
+        "slug": "a légoszlop hossza",
+        "hole_d": "a lyuk átmérője",
+        "press_depth": "milyen mélyre nyomják le a gyűrűt",
+        "ring_u": "a füstkarika sebessége",
+        "circulation": "a karika cirkulációja",
+        "ring_r": "a füstkarika sugara",
+        "core_a": "a magjának sugara"
       },
       "cases": {
         "sphere": {
@@ -4616,6 +4631,28 @@
             "setting": "Ugyanezek az ingák, „Csak a bal”, 10°-kal kitérítve; 30 s, azaz 30 000 lépés után.",
             "reads": "Csillapítás nélkül a két golyó mozgásának és magasságának, valamint a rugó megnyúlásának összege változatlan. Kezdetben ez a bal golyó magassága, L(1 − cos 10°), és a rugó, amely a·sin 10°-kal meg van nyúlva.",
             "why": "Az időléptető ciklust ellenőrzi, és azt, hogy a rugó ereje illik az energiájához: 15,84081 mJ az elején és 30 s után, 10⁻¹⁰ pontossággal egyezik."
+          }
+        },
+        "smoke": {
+          "membrane_area": {
+            "title": "Mennyi levegőt szorít ki egy lenyomás",
+            "setting": "Az oldal dobja: 1,9 m széles, egy 30 cm-es lyuk egy 40 cm-es gyűrűben.",
+            "reads": "A gyűrű magával nyomja a bőrt; a gyűrű és a perem között a kifeszített bőr w(r) = x·ln(R/r)/ln(R/a) alakot vesz fel. Körgyűrűnként összegezve a dob a lenyomás minden méterére 0,80 m²-t veszít, a lyuk területének 11,3-szeresét.",
+            "why": "Az oldal „Kiáramló levegő a kéz sebességéhez képest” értékét ellenőrzi: 11,30. Itt a bőr 4000 körgyűrűre van összegezve; az oldal zárt alakban számolja ki az integrált.",
+            "step": "Ha a bőr nyugalomban van, a forrás egyenletéből kiesik a bal oldal: u″ + u′/r = 0, tehát (r·u′)′ = 0 és u = A + B·ln r. A peremen u = 0, a gyűrűnél pedig akkora, amilyen mély a lenyomás."
+          },
+          "slug_length": {
+            "title": "Egy teljes lenyomás légoszlopa",
+            "setting": "Mint fent; egy teljes, 8 cm-es lenyomás fél másodperc alatt.",
+            "reads": "Amit a dob veszít, annak át kell jutnia a lyukon: 11,3-szer olyan gyorsan, mint a kéz. Mivel a lyuk a kézzel együtt lefelé halad, a levegő a kéz sebességének 12,3-szeresével hagyja el; a teljes lenyomás alatt a légoszlop 12,3-szer olyan hosszú lesz, mint a kéz útja.",
+            "why": "Az oldal „Kitolt légoszlop lyukátmérőben” értékét ellenőrzi: 98 cm levegő, 3,28 lyukátmérő.",
+            "step": "Az első forrás a kontinuitást adja meg, A₁v₁ = A₂v₂; a második azt, hogy a lyukhoz mért sebesség a teremben mért sebesség plusz a lyuké. Az A_eff terület a fenti esetből való, a bőr alakjával a harmadik forrásból."
+          },
+          "ring_speed": {
+            "title": "A karika sebessége",
+            "setting": "Mint fent; a karika egy teljes, fél másodperces lenyomásból.",
+            "reads": "Egy vékony magú örvénygyűrű U = Γ/(4πR)·(ln(8R/a) − ¼) sebességgel repül: ez Kelvin képlete. Az oldal a karikát 0,6 lyukátmérő szélesnek veszi, a magját pedig ennek 0,35-szorosának.",
+            "why": "Azt a képletet ellenőrzi, amellyel az oldal a repülést és a „túl lassú” ítéletet meghatározza: 1,511 m/s abból a cirkulációból, amelyet az oldal erre a lenyomásra kap. Magát a cirkulációt ez az eset nem ellenőrzi."
           }
         }
       },

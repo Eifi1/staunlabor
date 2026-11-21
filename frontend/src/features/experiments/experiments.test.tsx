@@ -113,6 +113,7 @@ const UNCHECKED = {
     "resonance",
     "sky",
     "slits",
+    "smoke",
     "sphere",
     "waterwheel",
     "wave",
@@ -837,8 +838,9 @@ describe("the smoke ring", () => {
     expect(screen.getByText(E.smoke.play.verdict.none)).toBeInTheDocument();
     // The engine's window for a full press of the default drum: 0.21 to 1.3 s, best 0.5.
     expect(await screen.findByText(/between 0\.21 s and 1\.3 s, best at about 0\.5 s/)).toBeInTheDocument();
-    // Every equation with a letter in it explains them.
-    await waitFor(() => expect(screen.getAllByLabelText(E.equation.symbols)).toHaveLength(8));
+    // Every equation with a letter in it explains them: the page's eight and
+    // its three check cases'.
+    await waitFor(() => expect(screen.getAllByLabelText(E.equation.symbols)).toHaveLength(11));
   });
 
   it("makes the ring of a press on the drum it began on, though the stroke is lowered mid-press", async () => {
@@ -1902,6 +1904,23 @@ describe("setting a check case up", () => {
       /^25\b/,
     );
     expect(await screen.findByRole("button", { name: E.coupled.play.pause })).toBeInTheDocument();
+  });
+
+  it("puts the smoke drum back as built and sets a full half-second press, for the slug's length", async () => {
+    renderWithProviders(<SmokePage />);
+    await screen.findByRole("img", { name: E.smoke.view });
+    fireEvent.change(screen.getByRole("slider", { name: E.smoke.change.stroke }), { target: { value: "5" } });
+    fireEvent.change(screen.getByRole("slider", { name: E.smoke.play.duration }), { target: { value: "1.5" } });
+    await setUp(1);
+    await waitFor(() =>
+      expect(screen.getByRole("slider", { name: E.smoke.change.stroke }).getAttribute("aria-valuetext")).toMatch(
+        /^8\b/,
+      ),
+    );
+    expect(screen.getByRole("slider", { name: E.smoke.play.duration }).getAttribute("aria-valuetext")).toMatch(
+      /^0\.50\b/,
+    );
+    expect(screen.getByRole("slider", { name: E.smoke.play.depth }).getAttribute("aria-valuetext")).toMatch(/^8\b/);
   });
 
   it("pushes the ball round the well on its circle, with the felt's brake, for the brake's case", async () => {

@@ -2731,6 +2731,90 @@
    ]
   }
  ],
+ "smoke": [
+  {
+   "key": "membrane_area",
+   "unit": "",
+   "expected": 11.3009548951,
+   "measured": 11.3009548951,
+   "deviation": 1.10030506194e-15,
+   "tolerance": 1e-10,
+   "derived": true,
+   "setting": {
+    "diameter_m": 1.9,
+    "hole_m": 0.3,
+    "ring_m": 0.4,
+    "stroke_m": 0.08,
+    "duration": 0.5,
+    "depth": 0.08
+   },
+   "sources": [
+    {
+     "cite": "Wikipedia, “Vibrations of a circular membrane”, §“The axisymmetric case”",
+     "url": "https://en.wikipedia.org/wiki/Vibrations_of_a_circular_membrane",
+     "quote": "Then, the function u does not depend on the angle θ, and the wave equation simplifies to ∂²u/∂t² = c²(∂²u/∂r² + (1/r) ∂u/∂r)."
+    }
+   ]
+  },
+  {
+   "key": "slug_length",
+   "unit": "",
+   "expected": 3.2802546387,
+   "measured": 3.2802546387,
+   "deviation": 2.03073812294e-15,
+   "tolerance": 1e-10,
+   "derived": true,
+   "setting": {
+    "diameter_m": 1.9,
+    "hole_m": 0.3,
+    "ring_m": 0.4,
+    "stroke_m": 0.08,
+    "duration": 0.5,
+    "depth": 0.08
+   },
+   "sources": [
+    {
+     "cite": "OpenStax, University Physics Volume 1, §14.5 Fluid Dynamics, Eq. 14.14",
+     "url": "https://openstax.org/books/university-physics-volume-1/pages/14-5-fluid-dynamics",
+     "quote": "Q₁ = Q₂, A₁v₁ = A₂v₂. 14.14 This is called the equation of continuity and is valid for any incompressible fluid (with constant density)."
+    },
+    {
+     "cite": "OpenStax, University Physics Volume 1, §4.5 Relative Motion in One and Two Dimensions, Eq. 4.35",
+     "url": "https://openstax.org/books/university-physics-volume-1/pages/4-5-relative-motion-in-one-and-two-dimensions",
+     "quote": "The velocity of a particle relative to S is equal to its velocity relative to S′ plus the velocity of S′ relative to S."
+    },
+    {
+     "cite": "Wikipedia, “Vibrations of a circular membrane”, §“The axisymmetric case”",
+     "url": "https://en.wikipedia.org/wiki/Vibrations_of_a_circular_membrane",
+     "quote": "Then, the function u does not depend on the angle θ, and the wave equation simplifies to ∂²u/∂t² = c²(∂²u/∂r² + (1/r) ∂u/∂r)."
+    }
+   ]
+  },
+  {
+   "key": "ring_speed",
+   "unit": "m/s",
+   "expected": 1.51072471299,
+   "measured": 1.51072471299,
+   "deviation": 0.0,
+   "tolerance": 1e-12,
+   "derived": false,
+   "setting": {
+    "diameter_m": 1.9,
+    "hole_m": 0.3,
+    "ring_m": 0.4,
+    "stroke_m": 0.08,
+    "duration": 0.5,
+    "depth": 0.08
+   },
+   "sources": [
+    {
+     "cite": "Wikipedia, “Vortex ring”, §“Thin-core vortex rings” (Kelvin, in Tait’s translation of Helmholtz)",
+     "url": "https://en.wikipedia.org/wiki/Vortex_ring",
+     "quote": "which finally results in the well-known expression found by Kelvin and published in the English translation by Tait of von Helmholtz's paper: U = Γ/(4πR) (ln(8R/a) − 1/4)"
+    }
+   ]
+  }
+ ],
  "sphere": [
   {
    "key": "small_swing",

@@ -3719,7 +3719,22 @@
         "omega_plus": "Kreisfrequenz gegeneinander",
         "E_pair": "Energie beider Pendel und der Feder",
         "thetadot_i": "Winkelgeschwindigkeit des i-ten Pendels",
-        "coupled_theta_i": "Auslenkung des i-ten Pendels"
+        "coupled_theta_i": "Auslenkung des i-ten Pendels",
+        "a_eff": "Volumen, das die Trommel pro Meter Druck verliert",
+        "a_hole": "Fläche des Lochs",
+        "ring_radius": "Radius des Rings, den man drückt",
+        "hole_radius": "Radius des Lochs",
+        "drum_radius": "Radius der Trommel",
+        "r_skin": "Abstand von der Mitte der Trommel",
+        "u_skin": "wie tief die Haut dort liegt",
+        "AB_const": "zwei Konstanten, aus Rand und Ring bestimmt",
+        "slug": "Länge des Luftpfropfens",
+        "hole_d": "Durchmesser des Lochs",
+        "press_depth": "wie tief der Ring gedrückt wird",
+        "ring_u": "Tempo des Rauchrings",
+        "circulation": "Zirkulation des Rings",
+        "ring_r": "Radius des Rauchrings",
+        "core_a": "Radius seines Kerns"
       },
       "cases": {
         "sphere": {
@@ -4616,6 +4631,28 @@
             "setting": "Dieselben Pendel, «Nur das linke» 10° ausgelenkt; nach 30 s, 30 000 Schritten.",
             "reads": "Ohne Dämpfung bleibt die Summe aus Bewegung und Höhe beider Kugeln und der Dehnung der Feder gleich. Am Anfang sind es die Höhe der linken Kugel, L(1 − cos 10°), und die Feder, um a·sin 10° gedehnt.",
             "why": "Prüft die Zeitschleife und dass die Kraft der Feder zu ihrer Energie passt: 15,84081 mJ am Anfang und nach 30 s, auf 10⁻¹⁰ gleich."
+          }
+        },
+        "smoke": {
+          "membrane_area": {
+            "title": "Wie viel Luft ein Druck verdrängt",
+            "setting": "Die Trommel der Seite: 1,9 m breit, ein Loch von 30 cm in einem Ring von 40 cm.",
+            "reads": "Der Ring drückt die Haut mit; zwischen Ring und Rand nimmt die gespannte Haut die Form w(r) = x·ln(R/r)/ln(R/a) an. Ring für Ring summiert, verliert die Trommel pro Meter Druck 0,80 m², 11,3-mal die Fläche des Lochs.",
+            "why": "Prüft die Zahl «Luft heraus pro Handtempo» der Seite: 11,30. Hier ist die Haut in 4000 Ringen summiert; die Seite rechnet das Integral geschlossen.",
+            "step": "Ruht die Haut, fällt in der Gleichung der Quelle die linke Seite weg: u″ + u′/r = 0, also (r·u′)′ = 0 und u = A + B·ln r. Am Rand ist u = 0, am Ring so tief wie der Druck."
+          },
+          "slug_length": {
+            "title": "Der Luftpfropfen eines vollen Drucks",
+            "setting": "Wie oben; ein voller Druck von 8 cm in einer halben Sekunde.",
+            "reads": "Was die Trommel verliert, muss durch das Loch: 11,3-mal so schnell wie die Hand. Weil das Loch mit der Hand hinuntergeht, verlässt die Luft es mit 12,3-mal dem Tempo der Hand; über den ganzen Druck wird der Pfropfen 12,3-mal so lang wie der Weg der Hand.",
+            "why": "Prüft die Zahl «Luftpfropfen in Lochdurchmessern» der Seite: 98 cm Luft, 3,28 Lochdurchmesser.",
+            "step": "Die erste Quelle gibt die Kontinuität, A₁v₁ = A₂v₂; die zweite, dass die Geschwindigkeit gegen das Loch die im Raum plus die des Lochs ist. Die Fläche A_eff ist die aus dem Fall oben, mit der Form der Haut aus der dritten Quelle."
+          },
+          "ring_speed": {
+            "title": "Das Tempo des Rings",
+            "setting": "Wie oben; der Ring aus einem vollen Druck von einer halben Sekunde.",
+            "reads": "Ein Wirbelring mit dünnem Kern fliegt mit U = Γ/(4πR)·(ln(8R/a) − ¼): Kelvins Formel. Die Seite nimmt den Ring 0,6 Lochdurchmesser weit und seinen Kern 0,35 davon.",
+            "why": "Prüft die Formel, mit der die Seite den Flug und das «zu langsam» bestimmt: 1,511 m/s aus der Zirkulation, die die Seite für diesen Druck findet. Die Zirkulation selbst prüft dieser Fall nicht."
           }
         }
       },
