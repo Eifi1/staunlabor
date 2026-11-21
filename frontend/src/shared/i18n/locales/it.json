@@ -3767,7 +3767,15 @@
         "harm_turn": "tempo in cui la figura fa un giro",
         "harm_f12": "frequenze della penna e della tavola",
         "harm_thetamax": "ampiezza nei punti di inversione",
-        "harm_c": "attrito del pendolo"
+        "harm_c": "attrito del pendolo",
+        "d_over": "quanto il blocco in cima sporge oltre il bordo del tavolo",
+        "n_blocks": "numero di blocchi",
+        "l_block": "lunghezza di un blocco",
+        "H_n": "numero armonico 1 + 1/2 + … + 1/n",
+        "xbar_k": "baricentro dei k blocchi in cima",
+        "r_edge": "bordo del blocco sotto; per il più basso, il bordo del tavolo",
+        "s_step": "gradino, in lunghezze",
+        "N_blocks": "numero di blocchi necessario"
       },
       "cases": {
         "sphere": {
@@ -4773,6 +4781,33 @@
             "reads": "Con l'attrito c·θ′ l'ampiezza si smorza come e^(−ct/2), fino a un decimo dopo 2·ln 10/c.",
             "why": "Verifica l'attrito nel ciclo dei passi temporali: 230,26 s fino al decimo. A 2° il pendolo non è del tutto lineare e all'inizio perde la sua energia un po' più in fretta; da cui lo scarto di 1,4 · 10⁻⁵.",
             "step": "La fonte scrive l'attrito come 2ζω₀; qui quello è c, quindi il tasso di smorzamento ζω₀ è c/2."
+          }
+        },
+        "overhang": {
+          "nine": {
+            "title": "Nove blocchi, il più lontano possibile",
+            "setting": "Nove blocchi da 20 cm, la pila «Il più lontano».",
+            "reads": "Costruendo dall'alto, il k-esimo blocco sporge di 1/(2k) di lunghezza sul successivo; insieme fanno ∑1/(2i) lunghezze, metà della somma armonica.",
+            "why": "Verifica la pila più lunga della pagina, e che regga: 28,2897 cm, 1,41448 lunghezze, più di una intera."
+          },
+          "knife_edge": {
+            "title": "Ogni strato sul suo bordo",
+            "setting": "La pila più lunga di nove blocchi.",
+            "reads": "Il baricentro dei k blocchi in cima sta esattamente sopra il bordo del blocco sotto, quello di tutti e nove esattamente sopra il bordo del tavolo.",
+            "why": "Verifica che la pila più lunga poggi su ogni bordo contemporaneamente: nessun baricentro è a più di 10⁻¹² di lunghezza dal suo bordo. Per questo la minima spinta verso l'esterno la fa ribaltare."
+          },
+          "even": {
+            "title": "A gradini uguali",
+            "setting": "Nove blocchi, «Gradini uguali».",
+            "reads": "Gradini uguali s, il blocco in basso sporge di s oltre il bordo: il baricentro di tutti i blocchi non può andare oltre il bordo del tavolo. Ne segue s = 1/(n + 1), e quello in cima sporge di n/(n + 1) di lunghezza.",
+            "why": "Verifica la pila che costruiscono quasi tutti, e che regga: 18 cm, 9/10 di lunghezza, mai una intera.",
+            "step": "La fonte richiede che il baricentro di tutti i blocchi stia sopra il bordo del tavolo. I centri dei blocchi sono a i·s − ½ lunghezza; la loro media, (n + 1)·s/2 − ½, cade esattamente sul bordo per s = 1/(n + 1). Gli strati superiori reggono allora da soli: il loro baricentro sta entro il bordo sotto."
+          },
+          "four_lengths": {
+            "title": "Quattro lunghezze",
+            "setting": "Tanti blocchi quanti servono perché la pila più lunga sporga di quattro lunghezze oltre il bordo; il numero è in «Il trucco».",
+            "reads": "La pila più lunga di n blocchi sporge di ∑1/(2i) lunghezze. La somma cresce senza fine, ma solo come un logaritmo.",
+            "why": "Verifica il numero che la pagina dà in «Il trucco»: 1674 blocchi per quattro lunghezze, contati qui con frazioni esatte; 1673 non bastano del tutto."
           }
         }
       },

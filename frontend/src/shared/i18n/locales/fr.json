@@ -3767,7 +3767,15 @@
         "harm_turn": "temps en lequel la figure fait un tour",
         "harm_f12": "fréquences du stylo et de la planche",
         "harm_thetamax": "amplitude aux points de retour",
-        "harm_c": "frottement du pendule"
+        "harm_c": "frottement du pendule",
+        "d_over": "de combien le bloc du haut dépasse le bord de la table",
+        "n_blocks": "nombre de blocs",
+        "l_block": "longueur d’un bloc",
+        "H_n": "nombre harmonique 1 + 1/2 + … + 1/n",
+        "xbar_k": "centre de gravité des k blocs du haut",
+        "r_edge": "bord du bloc du dessous ; pour le plus bas, le bord de la table",
+        "s_step": "marche, en longueurs",
+        "N_blocks": "nombre de blocs nécessaire"
       },
       "cases": {
         "sphere": {
@@ -4773,6 +4781,33 @@
             "reads": "Avec le frottement c·θ′, l’amplitude s’amortit comme e^(−ct/2), jusqu’à un dixième après 2·ln 10/c.",
             "why": "Vérifie le frottement dans la boucle des pas de temps : 230,26 s jusqu’au dixième. À 2°, le pendule n’est pas tout à fait linéaire et perd son énergie un peu plus vite au début ; d’où l’écart de 1,4 · 10⁻⁵.",
             "step": "La source écrit le frottement sous la forme 2ζω₀ ; ici, c’est c, donc le taux d’amortissement ζω₀ vaut c/2."
+          }
+        },
+        "overhang": {
+          "nine": {
+            "title": "Neuf blocs, aussi loin que possible",
+            "setting": "Neuf blocs de 20 cm, la pile « Le plus loin ».",
+            "reads": "En construisant par le haut, le k-ième bloc dépasse le suivant de 1/(2k) longueur ; ensemble, cela fait ∑1/(2i) longueurs, la moitié de la somme harmonique.",
+            "why": "Vérifie la pile la plus longue de la page, et qu’elle tient : 28,2897 cm, 1,41448 longueur, plus d’une entière."
+          },
+          "knife_edge": {
+            "title": "Chaque étage sur son bord",
+            "setting": "La pile la plus longue de neuf blocs.",
+            "reads": "Le centre de gravité des k blocs du haut se trouve exactement au-dessus du bord du bloc du dessous, celui des neuf exactement au-dessus du bord de la table.",
+            "why": "Vérifie que la pile la plus longue repose sur tous ses bords à la fois : aucun centre de gravité n’est à plus de 10⁻¹² longueur de son bord. C’est pourquoi la moindre poussée vers l’extérieur la fait basculer."
+          },
+          "even": {
+            "title": "En marches égales",
+            "setting": "Neuf blocs, « Marches égales ».",
+            "reads": "Des marches égales s, le bloc du bas dépassant le bord de s : le centre de gravité de tous les blocs ne doit pas dépasser le bord de la table. Il en découle s = 1/(n + 1), et le bloc du haut dépasse de n/(n + 1) longueur.",
+            "why": "Vérifie la pile que la plupart construisent, et qu’elle tient : 18 cm, 9/10 de longueur, jamais une entière.",
+            "step": "La source exige que le centre de gravité de tous les blocs soit au-dessus du bord de la table. Les milieux des blocs sont à i·s − ½ longueur ; leur moyenne, (n + 1)·s/2 − ½, tombe exactement sur le bord pour s = 1/(n + 1). Les étages supérieurs tiennent alors d’eux-mêmes : leur centre de gravité est en deçà du bord du dessous."
+          },
+          "four_lengths": {
+            "title": "Quatre longueurs",
+            "setting": "Autant de blocs qu’il en faut pour que la pile la plus longue dépasse le bord de quatre longueurs ; le nombre figure sous « Le tour ».",
+            "reads": "La pile la plus longue de n blocs dépasse de ∑1/(2i) longueurs. La somme croît sans fin, mais seulement comme un logarithme.",
+            "why": "Vérifie le nombre que la page donne sous « Le tour » : 1674 blocs pour quatre longueurs, comptés ici en fractions exactes ; 1673 ne suffisent pas tout à fait."
           }
         }
       },

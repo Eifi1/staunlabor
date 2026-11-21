@@ -3767,7 +3767,15 @@
         "harm_turn": "tiempo en que la figura da un giro",
         "harm_f12": "frecuencias del lápiz y del tablero",
         "harm_thetamax": "amplitud en los puntos de retorno",
-        "harm_c": "rozamiento del péndulo"
+        "harm_c": "rozamiento del péndulo",
+        "d_over": "cuánto sobresale el bloque de arriba del borde de la mesa",
+        "n_blocks": "número de bloques",
+        "l_block": "longitud de un bloque",
+        "H_n": "número armónico 1 + 1/2 + … + 1/n",
+        "xbar_k": "centro de masa de los k bloques de arriba",
+        "r_edge": "borde del bloque de abajo; para el más bajo, el borde de la mesa",
+        "s_step": "peldaño, en longitudes",
+        "N_blocks": "número de bloques necesario"
       },
       "cases": {
         "sphere": {
@@ -4773,6 +4781,33 @@
             "reads": "Con el rozamiento c·θ′ la amplitud se apaga como e^(−ct/2), hasta una décima tras 2·ln 10/c.",
             "why": "Comprueba el rozamiento en el bucle de pasos de tiempo: 230,26 s hasta la décima. A 2° el péndulo no es del todo lineal y al principio pierde su energía algo más deprisa; de ahí la desviación de 1,4 · 10⁻⁵.",
             "step": "La fuente escribe el rozamiento como 2ζω₀; aquí eso es c, así que la tasa de amortiguamiento ζω₀ es c/2."
+          }
+        },
+        "overhang": {
+          "nine": {
+            "title": "Nueve bloques, lo más lejos posible",
+            "setting": "Nueve bloques de 20 cm, la pila «Lo más lejos».",
+            "reads": "Construyendo desde arriba, el bloque k sobresale 1/(2k) de longitud sobre el siguiente; en total son ∑1/(2i) longitudes, la mitad de la suma armónica.",
+            "why": "Comprueba la pila más lejana de la página, y que aguanta: 28,2897 cm, 1,41448 longitudes, más de una entera."
+          },
+          "knife_edge": {
+            "title": "Cada capa sobre su borde",
+            "setting": "La pila más lejana de nueve bloques.",
+            "reads": "El centro de masa de los k bloques de arriba queda exactamente sobre el borde del bloque de abajo, y el de los nueve, exactamente sobre el borde de la mesa.",
+            "why": "Comprueba que la pila más lejana descansa a la vez sobre cada borde: ningún centro de masa queda a más de 10⁻¹² de longitud de su borde. Por eso el menor empujón hacia fuera la hace volcar."
+          },
+          "even": {
+            "title": "En peldaños iguales",
+            "setting": "Nueve bloques, «Peldaños iguales».",
+            "reads": "Peldaños iguales s, el bloque de abajo s más allá del borde: el centro de masa de todos los bloques no puede pasar del borde de la mesa. De ahí sale s = 1/(n + 1), y el de arriba sobresale n/(n + 1) de longitud.",
+            "why": "Comprueba la pila que construye la mayoría, y que aguanta: 18 cm, 9/10 de longitud, nunca una entera.",
+            "step": "La fuente exige que el centro de masa de todos los bloques quede sobre el borde de la mesa. Los centros de los bloques están en i·s − ½ de longitud; su media, (n + 1)·s/2 − ½, cae justo en el borde con s = 1/(n + 1). Las capas de arriba aguantan entonces por sí solas: su centro de masa queda dentro del borde de abajo."
+          },
+          "four_lengths": {
+            "title": "Cuatro longitudes",
+            "setting": "Tantos bloques como hagan falta para que la pila más lejana sobresalga cuatro longitudes del borde; el número figura en «El truco».",
+            "reads": "La pila más lejana de n bloques sobresale ∑1/(2i) longitudes. La suma crece sin fin, pero solo como un logaritmo.",
+            "why": "Comprueba el número que da la página en «El truco»: 1674 bloques para cuatro longitudes, contados aquí con fracciones exactas; con 1673 no llega del todo."
           }
         }
       },

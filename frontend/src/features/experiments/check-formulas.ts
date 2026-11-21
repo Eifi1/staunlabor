@@ -163,6 +163,9 @@ const H_L: CheckSymbol = { tex: "L", key: "harm_L", unit: "m" };
 const H_G: CheckSymbol = { tex: "g", key: "g", unit: "m/s²" };
 const H_K: CheckSymbol = { tex: "K", key: "K" };
 const H_THETA0: CheckSymbol = { tex: String.raw`\theta_0`, key: "theta0", unit: "°" };
+const D_OVER: CheckSymbol = { tex: "d", key: "d_over", unit: "m" };
+const N_BLOCKS: CheckSymbol = { tex: "n", key: "n_blocks" };
+const L_BLOCK: CheckSymbol = { tex: String.raw`\ell`, key: "l_block", unit: "m" };
 
 const ROD_STEADY: CheckFormula = {
   tex: String.raw`w = \frac{\Gamma\,\Omega^2 Y}{\sqrt{(\omega^2 - \Omega^2)^2 + (2\zeta\omega\Omega)^2}}, \qquad \Gamma = \frac{\int_0^1 \varphi\,d\xi}{\int_0^1 \varphi^2\,d\xi}`,
@@ -1356,6 +1359,28 @@ export const CHECK_FORMULAS: Record<string, Record<string, CheckFormula>> = {
         { tex: "c", key: "harm_c", unit: "1/s" },
         { tex: "t", key: "t", unit: "s" },
       ],
+    },
+  },
+  overhang: {
+    nine: {
+      tex: String.raw`d = \ell\sum_{i=1}^{n}\frac{1}{2i} = \frac{H_n}{2}\,\ell`,
+      symbols: [D_OVER, L_BLOCK, N_BLOCKS, { tex: "H_n", key: "H_n" }],
+    },
+    knife_edge: {
+      tex: String.raw`\bar x_k = r_{k+1} \quad (k = 1, \ldots, n), \qquad r_{n+1} = 0`,
+      symbols: [
+        { tex: String.raw`\bar x_k`, key: "xbar_k", unit: "m" },
+        { tex: String.raw`r_{k+1}`, key: "r_edge", unit: "m" },
+        N_BLOCKS,
+      ],
+    },
+    even: {
+      tex: String.raw`s = \frac{1}{n + 1}, \qquad d = n\,s\,\ell = \frac{n}{n + 1}\,\ell`,
+      symbols: [{ tex: "s", key: "s_step" }, N_BLOCKS, D_OVER, L_BLOCK],
+    },
+    four_lengths: {
+      tex: String.raw`N = \min\Bigl\{\,n : \sum_{i=1}^{n}\frac{1}{2i} \ge 4\Bigr\}`,
+      symbols: [{ tex: "N", key: "N_blocks" }, N_BLOCKS],
     },
   },
 };

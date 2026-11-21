@@ -3767,7 +3767,15 @@
         "harm_turn": "Zeit, in der sich die Figur einmal dreht",
         "harm_f12": "Frequenzen von Stift und Brett",
         "harm_thetamax": "Ausschlag an den Umkehrpunkten",
-        "harm_c": "Reibung des Pendels"
+        "harm_c": "Reibung des Pendels",
+        "d_over": "wie weit der oberste Klotz über die Tischkante reicht",
+        "n_blocks": "Zahl der Klötze",
+        "l_block": "Länge eines Klotzes",
+        "H_n": "harmonische Zahl 1 + 1/2 + … + 1/n",
+        "xbar_k": "Schwerpunkt der obersten k Klötze",
+        "r_edge": "Kante des Klotzes darunter; für den untersten die Tischkante",
+        "s_step": "Stufe, in Längen",
+        "N_blocks": "nötige Zahl der Klötze"
       },
       "cases": {
         "sphere": {
@@ -4773,6 +4781,33 @@
             "reads": "Mit der Reibung c·θ′ klingt der Ausschlag wie e^(−ct/2) ab, auf ein Zehntel nach 2·ln 10/c.",
             "why": "Prüft die Reibung in der Zeitschleife: 230,26 s bis zum Zehntel. Bei 2° ist das Pendel nicht ganz linear und verliert seine Energie anfangs etwas schneller; daher 1,4 · 10⁻⁵.",
             "step": "Die Quelle schreibt die Reibung als 2ζω₀; hier ist das c, die Abklingrate ζω₀ also c/2."
+          }
+        },
+        "overhang": {
+          "nine": {
+            "title": "Neun Klötze, so weit es geht",
+            "setting": "Neun Klötze von 20 cm, der Stapel «Am weitesten».",
+            "reads": "Von oben gebaut ragt der k-te Klotz 1/(2k) Länge über den nächsten hinaus; zusammen sind es ∑1/(2i) Längen, die halbe harmonische Summe.",
+            "why": "Prüft den weitesten Stapel der Seite, und dass er hält: 28,2897 cm, 1,41448 Längen, mehr als eine ganze."
+          },
+          "knife_edge": {
+            "title": "Jede Lage auf ihrer Kante",
+            "setting": "Der weiteste Stapel aus neun Klötzen.",
+            "reads": "Der Schwerpunkt der obersten k Klötze liegt genau über der Kante des Klotzes darunter, der Schwerpunkt aller neun genau über der Tischkante.",
+            "why": "Prüft, dass der weiteste Stapel auf jeder Kante zugleich steht: Kein Schwerpunkt liegt weiter als 10⁻¹² Länge neben seiner Kante. Darum kippt er beim kleinsten Schub nach aussen."
+          },
+          "even": {
+            "title": "In gleichen Stufen",
+            "setting": "Neun Klötze, «Gleiche Stufen».",
+            "reads": "Gleiche Stufen s, der unterste Klotz s über der Kante: Der Schwerpunkt aller Klötze darf nicht über die Tischkante hinaus. Daraus folgt s = 1/(n + 1), und der oberste reicht n/(n + 1) Länge hinaus.",
+            "why": "Prüft den Stapel, den die meisten bauen, und dass er hält: 18 cm, 9/10 einer Länge, nie eine ganze.",
+            "step": "Die Quelle verlangt, dass der Schwerpunkt aller Klötze über der Tischkante liegt. Die Mitten der Klötze liegen bei i·s − ½ Länge; ihr Mittel, (n + 1)·s/2 − ½, liegt bei s = 1/(n + 1) genau auf der Kante. Die oberen Lagen halten dann von selbst: Ihr Schwerpunkt liegt innerhalb der Kante darunter."
+          },
+          "four_lengths": {
+            "title": "Vier Längen weit",
+            "setting": "So viele Klötze, bis der weiteste Stapel vier Längen über die Kante reicht; die Zahl steht beim Trick.",
+            "reads": "Der weiteste Stapel aus n Klötzen reicht ∑1/(2i) Längen hinaus. Die Summe wächst ohne Ende, aber nur wie ein Logarithmus.",
+            "why": "Prüft die Zahl, die die Seite beim Trick nennt: 1674 Klötze für vier Längen, hier mit genauen Brüchen gezählt; 1673 reichen nicht ganz."
           }
         }
       },

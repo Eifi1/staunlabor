@@ -47,6 +47,7 @@ def test_the_exhibits_with_checks_are_these() -> None:
         "harmonograph",
         "levitation",
         "maxwell",
+        "overhang",
         "parabola",
         "peg",
         "plates",

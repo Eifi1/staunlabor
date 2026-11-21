@@ -3767,7 +3767,15 @@
         "harm_turn": "time in which the figure turns once",
         "harm_f12": "the frequencies of pen and board",
         "harm_thetamax": "the swing at its turning points",
-        "harm_c": "the pendulum's friction"
+        "harm_c": "the pendulum's friction",
+        "d_over": "how far the top block reaches past the table’s edge",
+        "n_blocks": "number of blocks",
+        "l_block": "length of a block",
+        "H_n": "harmonic number 1 + 1/2 + … + 1/n",
+        "xbar_k": "centre of mass of the top k blocks",
+        "r_edge": "edge of the block below; for the lowest, the table’s edge",
+        "s_step": "step, in lengths",
+        "N_blocks": "number of blocks needed"
       },
       "cases": {
         "sphere": {
@@ -4773,6 +4781,33 @@
             "reads": "With the friction c·θ′ the swing dies away as e^(−ct/2), to a tenth after 2·ln 10/c.",
             "why": "Checks the friction in the time loop: 230.26 s to a tenth. At 2° the pendulum is not quite linear and sheds its energy a little faster at first; hence 1.4 · 10⁻⁵.",
             "step": "The source writes the friction as 2ζω₀; here that is c, so the decay rate ζω₀ is c/2."
+          }
+        },
+        "overhang": {
+          "nine": {
+            "title": "Nine blocks, as far as it goes",
+            "setting": "Nine blocks of 20 cm, the stack “Furthest”.",
+            "reads": "Built from the top, the k-th block juts 1/(2k) of a length over the next; together that is ∑1/(2i) lengths, half the harmonic sum.",
+            "why": "Checks the page’s furthest stack, and that it holds: 28.2897 cm, 1.41448 lengths, more than a whole one."
+          },
+          "knife_edge": {
+            "title": "Every layer on its edge",
+            "setting": "The furthest stack of nine blocks.",
+            "reads": "The centre of mass of the top k blocks lies exactly over the edge of the block below, that of all nine exactly over the table’s edge.",
+            "why": "Checks that the furthest stack stands on every edge at once: no centre of mass lies more than 10⁻¹² of a length off its edge. So the smallest push outwards tips it."
+          },
+          "even": {
+            "title": "In even steps",
+            "setting": "Nine blocks, “Even steps”.",
+            "reads": "Even steps s, the lowest block s over the edge: the centre of mass of all the blocks must not pass the table’s edge. That gives s = 1/(n + 1), and the top one reaches n/(n + 1) of a length out.",
+            "why": "Checks the stack most people build, and that it holds: 18 cm, 9/10 of a length, never a whole one.",
+            "step": "The source asks for the centre of mass of all the blocks to lie over the table’s edge. The blocks’ middles lie at i·s − ½ of a length; their mean, (n + 1)·s/2 − ½, sits right on the edge at s = 1/(n + 1). The upper layers then hold by themselves: their centre lies inside the edge below."
+          },
+          "four_lengths": {
+            "title": "Four lengths out",
+            "setting": "As many blocks as it takes for the furthest stack to reach four lengths past the edge; the number is beside the trick.",
+            "reads": "The furthest stack of n blocks reaches ∑1/(2i) lengths out. The sum grows without end, but only like a logarithm.",
+            "why": "Checks the number the page gives beside the trick: 1674 blocks for four lengths, counted here with exact fractions; 1673 fall just short."
           }
         }
       },

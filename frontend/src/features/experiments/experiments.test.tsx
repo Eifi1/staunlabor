@@ -107,6 +107,7 @@ const UNCHECKED = {
     "harmonograph",
     "levitation",
     "maxwell",
+    "overhang",
     "parabola",
     "peg",
     "plates",
@@ -1965,6 +1966,22 @@ describe("setting a check case up", () => {
     await setUp(3);
     await waitFor(() => expect(slider(E.harmonograph.change.damping)).toMatch(/^0\.020\b/));
     expect(slider(E.harmonograph.change.pen_amplitude)).toMatch(/^2\b/);
+  });
+
+  it("stacks nine blocks in even steps, and offers no button for the furthest stack it holds back", async () => {
+    renderWithProviders(<OverhangPage />);
+    await screen.findByRole("group", { name: E.overhang.view });
+    // Four cases: the furthest stack's two and the count's set nothing.
+    expect(await screen.findAllByRole("button", { name: E.checks.set_up })).toHaveLength(1);
+    fireEvent.change(screen.getByRole("slider", { name: E.overhang.play.count }), { target: { value: "3" } });
+    await setUp(0);
+    await waitFor(() =>
+      expect(screen.getByRole("slider", { name: E.overhang.play.count }).getAttribute("aria-valuetext")).toMatch(
+        /^9\b/,
+      ),
+    );
+    expect(screen.getByText(/It reaches 18\.0 cm out over the edge/)).toBeInTheDocument();
+    expect(screen.queryByRole("button", { name: E.overhang.play.furthest })).toBeNull();
   });
 
   it("pushes the ball round the well on its circle, with the felt's brake, for the brake's case", async () => {

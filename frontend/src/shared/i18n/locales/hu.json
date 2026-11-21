@@ -3767,7 +3767,15 @@
         "harm_turn": "az idő, amely alatt az ábra egyszer körbefordul",
         "harm_f12": "a toll és a tábla frekvenciája",
         "harm_thetamax": "a kitérés a fordulópontokban",
-        "harm_c": "az inga súrlódása"
+        "harm_c": "az inga súrlódása",
+        "d_over": "milyen messzire nyúlik túl a legfelső hasáb az asztal élén",
+        "n_blocks": "a hasábok száma",
+        "l_block": "egy hasáb hossza",
+        "H_n": "harmonikus szám, 1 + 1/2 + … + 1/n",
+        "xbar_k": "a felső k hasáb tömegközéppontja",
+        "r_edge": "az alatta lévő hasáb éle; a legalsónál az asztal éle",
+        "s_step": "lépcső, hosszban mérve",
+        "N_blocks": "a szükséges hasábok száma"
       },
       "cases": {
         "sphere": {
@@ -4773,6 +4781,33 @@
             "reads": "A c·θ′ súrlódással a kitérés e^(−ct/2) szerint cseng le, egy tizedére 2·ln 10/c idő után.",
             "why": "A súrlódást ellenőrzi az időléptető ciklusban: 230,26 s, amíg a kitérés egy tizedére csökken. 2°-nál az inga nem egészen lineáris, és eleinte kicsit gyorsabban veszít energiát; innen az 1,4 · 10⁻⁵.",
             "step": "A forrás a súrlódást 2ζω₀ alakban írja; itt ez c, így a ζω₀ lecsengési ráta c/2."
+          }
+        },
+        "overhang": {
+          "nine": {
+            "title": "Kilenc hasáb, ameddig csak lehet",
+            "setting": "Kilenc 20 cm-es hasáb, „A legmesszebb” torony.",
+            "reads": "Felülről építve a k-adik hasáb 1/(2k) hosszal nyúlik túl a következőn; együtt ez ∑1/(2i) hossz, a harmonikus összeg fele.",
+            "why": "Az oldal legmesszebb nyúló tornyát ellenőrzi, és azt, hogy megáll: 28,2897 cm, 1,41448 hossz, több mint egy egész."
+          },
+          "knife_edge": {
+            "title": "Minden réteg a saját élén",
+            "setting": "A legmesszebb nyúló, kilenc hasábból álló torony.",
+            "reads": "A felső k hasáb tömegközéppontja pontosan az alatta lévő hasáb éle fölött van, mind a kilencé pontosan az asztal éle fölött.",
+            "why": "Azt ellenőrzi, hogy a legmesszebb nyúló torony egyszerre minden élen áll: egyetlen tömegközéppont sincs 10⁻¹² hossznál messzebb a saját élétől. Ezért a legkisebb kifelé irányuló lökéstől is felborul."
+          },
+          "even": {
+            "title": "Egyenlő lépcsőkben",
+            "setting": "Kilenc hasáb, „Egyenlő lépcsők”.",
+            "reads": "Egyenlő s lépcsők, a legalsó hasáb s-sel nyúlik túl az élen: az összes hasáb tömegközéppontja nem kerülhet túl az asztal élén. Ebből s = 1/(n + 1) következik, és a legfelső n/(n + 1) hosszal nyúlik ki.",
+            "why": "A legtöbbek által épített tornyot ellenőrzi, és azt, hogy megáll: 18 cm, egy hossz 9/10 része, soha nem egy egész.",
+            "step": "A forrás azt követeli, hogy az összes hasáb tömegközéppontja az asztal éle fölött legyen. A hasábok közepe i·s − ½ hossznál van; ezek átlaga, (n + 1)·s/2 − ½, s = 1/(n + 1)-nél pontosan az élre esik. A felső rétegek ekkor maguktól megállnak: tömegközéppontjuk az alattuk lévő élen belül van."
+          },
+          "four_lengths": {
+            "title": "Négy hossznyira",
+            "setting": "Annyi hasáb, hogy a legmesszebb nyúló torony négy hosszal nyúljon túl az élen; a szám „A trükk” résznél áll.",
+            "reads": "Az n hasábból álló, legmesszebb nyúló torony ∑1/(2i) hosszal nyúlik ki. Az összeg vég nélkül nő, de csak úgy, mint egy logaritmus.",
+            "why": "Azt a számot ellenőrzi, amelyet az oldal „A trükk” résznél megad: 1674 hasáb négy hosszhoz, itt pontos törtekkel számolva; 1673 nem egészen elég."
           }
         }
       },

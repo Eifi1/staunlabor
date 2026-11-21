@@ -11,6 +11,7 @@ import { Figures, WidgetCard } from "@/shared/ui/widget";
 import { Equation } from "./equation";
 import { ExhibitFrame } from "./exhibit-frame";
 import { BuildPending } from "./build-pending";
+import { settingNumber, useCheckSetting } from "./check-setting";
 import { PreviewPending, type PreviewProps } from "./preview-mode";
 import { MOST_BLOCKS, blocksFor, even, harmonic, holds, layers, overhang } from "./simulate/overhang";
 import { SIDE } from "./stage";
@@ -269,6 +270,13 @@ function OverhangPlay({ blocks }: { blocks: OverhangRequest }) {
   const tipping = stack.findIndex((layer) => layer.margin < -1e-12);
   const best = overhang(harmonic(n));
   const cm = (lengths: number) => formatNumber(lengths * blocks.length_m * 100, 1, locale);
+  // A check case's "Set it up": the number of blocks in equal steps. The
+  // furthest stack is the held answer above, so its cases set nothing.
+  useCheckSetting("overhang", (setting) => {
+    const count = Math.round(settingNumber(setting, "blocks", n));
+    setLefts(setting.stack === "even" ? even(count) : flush(count));
+    return true;
+  });
   const move = (index: number, left: number) => {
     const next = lefts.map((l, i) => (i === index ? Math.max(-2, Math.min(2, left)) : l));
     setLefts(next);

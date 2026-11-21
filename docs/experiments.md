@@ -2635,6 +2635,16 @@ own non-linearity leaves 1.4 · 10⁻⁵, within 5 · 10⁻⁵. "Set it up" sets
 build with the board's length exact, where the detune slider's 0.05 % steps
 would miss the page's opening 0.667 %, and the drawing starts over.
 
+**The overhang's** four (2026-11-21) hold nine blocks' furthest reach to half
+the harmonic number as an exact fraction (7129/5040 lengths, 28.2897 cm), every
+layer of that stack exactly at its limit (to 10⁻¹⁶), nine blocks in even steps
+at 9/10 of a length (18 cm), and the 1674 blocks it takes to reach four lengths
+(the engine's float sum is safe there: half the harmonic number passes 4 by
+2.4 · 10⁻⁴ at 1674 and misses it by 5.6 · 10⁻⁵ at 1673). Only the even stack
+has "Set it up": the furthest stack is the page's held answer, shown once the
+reader has tipped a stack, so its two cases set nothing, and the count of 1674
+is a figure in the trick.
+
 **On the page** a section "Check it yourself" (`check-section.tsx`) lists the
 cases, each with its formula as an `Equation` (`check-formulas.ts`), both
 values to seven digits, the deviation, why the case would catch a mistake,

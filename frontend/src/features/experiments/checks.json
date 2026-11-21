@@ -2018,6 +2018,89 @@
    ]
   }
  ],
+ "overhang": [
+  {
+   "key": "nine",
+   "unit": "cm",
+   "expected": 28.2896825397,
+   "measured": 28.2896825397,
+   "deviation": 0.0,
+   "tolerance": 1e-12,
+   "derived": false,
+   "setting": {},
+   "sources": [
+    {
+     "cite": "Wikipedia, “Block-stacking problem”, §Variants, Single-wide",
+     "url": "https://en.wikipedia.org/wiki/Block-stacking_problem",
+     "quote": "the solution to the single-wide problem is that the maximum overhang is given by ∑_{i=1}^{N} 1/(2i) times the width of a block. This sum is one half of the corresponding partial sum of the harmonic series."
+    },
+    {
+     "cite": "M. Paterson, U. Zwick, “Overhang”, arXiv:0710.2357, abstract (Amer. Math. Monthly)",
+     "url": "https://arxiv.org/abs/0710.2357",
+     "quote": "How far off the edge of the table can we reach by stacking n identical, homogeneous, frictionless blocks of length 1? A classical solution achieves an overhang of 1/2 H_n, where H_n ~ ln n is the nth harmonic number."
+    }
+   ]
+  },
+  {
+   "key": "knife_edge",
+   "unit": "",
+   "expected": 0.0,
+   "measured": 1.11022302463e-16,
+   "deviation": 1.11022302463e-16,
+   "tolerance": 1e-12,
+   "derived": false,
+   "setting": {},
+   "sources": [
+    {
+     "cite": "Wikipedia, “Block-stacking problem”, §Proof of solution of single-wide variant",
+     "url": "https://en.wikipedia.org/wiki/Block-stacking_problem",
+     "quote": "For k blocks, the center of mass of the k-block system must lie above the table's edge, and the center of mass of the k−1 top blocks must lie above the edge of the first for static equilibrium."
+    }
+   ]
+  },
+  {
+   "key": "even",
+   "unit": "cm",
+   "expected": 18.0,
+   "measured": 18.0,
+   "deviation": 0.0,
+   "tolerance": 1e-12,
+   "derived": true,
+   "setting": {
+    "blocks": 9,
+    "stack": "even"
+   },
+   "sources": [
+    {
+     "cite": "Wikipedia, “Block-stacking problem”, §Proof of solution of single-wide variant",
+     "url": "https://en.wikipedia.org/wiki/Block-stacking_problem",
+     "quote": "For k blocks, the center of mass of the k-block system must lie above the table's edge, and the center of mass of the k−1 top blocks must lie above the edge of the first for static equilibrium."
+    }
+   ]
+  },
+  {
+   "key": "four_lengths",
+   "unit": "",
+   "expected": 1674.0,
+   "measured": 1674.0,
+   "deviation": 0.0,
+   "tolerance": 0.0,
+   "derived": false,
+   "setting": {},
+   "sources": [
+    {
+     "cite": "Wikipedia, “Block-stacking problem”, §Variants, Single-wide (citing OEIS A014537)",
+     "url": "https://en.wikipedia.org/wiki/Block-stacking_problem",
+     "quote": "The number of blocks required to reach at least N block-lengths past the edge of the table is 4, 31, 227, 1674, 12367, 91380, ..."
+    },
+    {
+     "cite": "Wikipedia, “Block-stacking problem”, §Variants, Single-wide",
+     "url": "https://en.wikipedia.org/wiki/Block-stacking_problem",
+     "quote": "the solution to the single-wide problem is that the maximum overhang is given by ∑_{i=1}^{N} 1/(2i) times the width of a block. This sum is one half of the corresponding partial sum of the harmonic series."
+    }
+   ]
+  }
+ ],
  "parabola": [
   {
    "key": "centre",
