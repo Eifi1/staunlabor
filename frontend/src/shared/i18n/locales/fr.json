@@ -3696,7 +3696,20 @@
         "t_land": "le temps jusqu’au premier choc",
         "T_flight": "la durée du premier vol",
         "t_f": "la constante de temps de l’air, v∞/g",
-        "T_still": "le temps jusqu’à ce que la balle s’immobilise"
+        "T_still": "le temps jusqu’à ce que la balle s’immobilise",
+        "spin_M": "la masse de la plateforme",
+        "spin_R": "le rayon de la plateforme",
+        "spin_ml": "la masse des jambes",
+        "spin_kl": "le rayon de giration des jambes",
+        "spin_mt": "la masse du tronc et de la tête",
+        "spin_kt": "le rayon de giration du tronc",
+        "spin_d": "de combien le tronc se penche vers l’extérieur",
+        "spin_ma": "la masse d’un bras",
+        "spin_s": "la distance de chaque main à l’axe",
+        "spin_omega": "vitesse angulaire",
+        "spin_F": "la traction des mains sur la barre",
+        "spin_L": "moment cinétique",
+        "spin_tau": "le frottement du palier, sous forme de couple"
       },
       "cases": {
         "sphere": {
@@ -4536,6 +4549,34 @@
             "reads": "Chaque vol dure e fois le précédent. Une infinité de vols s’additionnent, comme une série géométrique, en un temps fini : √(2h/g)·(1 + e)/(1 − e).",
             "why": "Vérifie la série de la page, qui somme sous forme fermée ses derniers rebonds, les plus courts : 0,3029 s. L’air, que la formule laisse de côté, représente 6 · 10⁻⁵.",
             "step": "La première source donne le temps de chute, √(2h/g), et la vitesse en bas, √(2gh) ; la deuxième que chaque vol dure e fois le précédent. Le premier dure 2e·√(2gh)/g ; la série géométrique les additionne tous en 2e·√(2h/g)/(1 − e), à quoi s’ajoute la chute."
+          }
+        },
+        "platform": {
+          "leaning_inertia": {
+            "title": "Le moment d’inertie, morceau par morceau",
+            "setting": "Le visiteur de la page, 70 kg, penché de 30 cm vers l’extérieur, les mains sur la barre ; la plateforme 15 kg, 60 cm.",
+            "reads": "Chaque morceau selon sa forme : la plateforme ½MR², les jambes sur l’axe, le tronc à d vers l’extérieur, chaque bras une tige de la barre à l’épaule, d²/12 autour de son milieu, puis déplacée jusque-là.",
+            "why": "Vérifie le moment d’inertie qu’affiche la page : 5,34 kg·m² penché vers l’extérieur. Les bras sont calculés ici avec le théorème de Huygens-Steiner, et non comme s² + d²/3 à la manière du moteur de calcul.",
+            "step": "La première source donne le théorème de Huygens-Steiner et la tige autour de son milieu, mL²/12, la deuxième le disque et le fait que les morceaux s’additionnent pour donner le tout."
+          },
+          "faster_upright": {
+            "title": "Redressé, ça tourne plus vite",
+            "setting": "Sans frottement dans le palier : une poussée, penché vers l’extérieur, puis redressé en 1,5 s au bout de 2 s.",
+            "reads": "Sans couple extérieur, le moment cinétique I·ω reste le même : la vitesse de rotation augmente dans la mesure même où le moment d’inertie diminue.",
+            "why": "Vérifie le déroulement de la page par rapport à la conservation du moment cinétique : 3,21 fois plus vite, le moment d’inertie étant tombé de 5,34 à 1,67 kg·m²."
+          },
+          "pull": {
+            "title": "Ce que retiennent les mains sur la barre",
+            "setting": "Penché vers l’extérieur, un demi-tour par seconde.",
+            "reads": "Ce qui parcourt un cercle a besoin de la force m·r·ω² vers le centre ; pour le tronc et les bras, à l’endroit de leurs centres de masse : le tronc à d vers l’extérieur, chaque bras à d/2.",
+            "why": "Vérifie la traction sur la barre que la page indique pour un demi-tour par seconde : 124,4 N.",
+            "step": "La source donne la force pour une masse sur un cercle. Sommée sur un corps, c’est la distance de son centre de masse qui compte ; un bras va de la barre à l’épaule, son centre de masse se trouve donc à d/2 vers l’extérieur."
+          },
+          "bearing_stops": {
+            "title": "Le palier la freine",
+            "setting": "Une poussée, 17 kg·m²/s, penché vers l’extérieur, avec 0,2 N·m de frottement dans le palier.",
+            "reads": "Un couple constant retire chaque seconde la même quantité au moment cinétique : celui-ci est épuisé après L/τ.",
+            "why": "Vérifie le palier de la page : après 85 s, la plateforme s’arrête."
           }
         }
       },

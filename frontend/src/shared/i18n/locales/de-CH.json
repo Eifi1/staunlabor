@@ -3696,7 +3696,20 @@
         "t_land": "Zeit bis zum ersten Aufprall",
         "T_flight": "Dauer des ersten Flugs",
         "t_f": "Zeitkonstante der Luft, v∞/g",
-        "T_still": "Zeit, bis der Ball still liegt"
+        "T_still": "Zeit, bis der Ball still liegt",
+        "spin_M": "Masse der Scheibe",
+        "spin_R": "Radius der Scheibe",
+        "spin_ml": "Masse der Beine",
+        "spin_kl": "Trägheitsradius der Beine",
+        "spin_mt": "Masse von Rumpf und Kopf",
+        "spin_kt": "Trägheitsradius des Rumpfs",
+        "spin_d": "wie weit der Rumpf hinausgelehnt ist",
+        "spin_ma": "Masse eines Arms",
+        "spin_s": "Abstand jeder Hand von der Achse",
+        "spin_omega": "Winkelgeschwindigkeit",
+        "spin_F": "Zug der Hände am Griff",
+        "spin_L": "Drehimpuls",
+        "spin_tau": "Reibung im Lager, als Drehmoment"
       },
       "cases": {
         "sphere": {
@@ -4536,6 +4549,34 @@
             "reads": "Jeder Flug dauert e-mal so lang wie der vorige. Unendlich viele Flüge summieren sich wie eine geometrische Reihe zu einer endlichen Zeit: √(2h/g)·(1 + e)/(1 − e).",
             "why": "Prüft die Reihe der Seite, die ihre letzten, kürzesten Sprünge geschlossen aufsummiert: 0,3029 s. Die Luft, die die Formel weglässt, macht 6 · 10⁻⁵ aus.",
             "step": "Die erste Quelle gibt die Fallzeit √(2h/g) und das Tempo unten, √(2gh); die zweite, dass jeder Flug e-mal so lang dauert wie der vorige. Der erste dauert 2e·√(2gh)/g; die geometrische Reihe summiert alle zu 2e·√(2h/g)/(1 − e), dazu kommt der Fall."
+          }
+        },
+        "platform": {
+          "leaning_inertia": {
+            "title": "Das Trägheitsmoment, Stück für Stück",
+            "setting": "Der Besucher der Seite, 70 kg, 30 cm hinausgelehnt, die Hände am Griff; die Scheibe 15 kg, 60 cm.",
+            "reads": "Jedes Stück nach seiner Form: die Scheibe ½MR², die Beine auf der Achse, der Rumpf um d hinaus, jeder Arm ein Stab vom Griff bis zur Schulter, d²/12 um seine Mitte und dorthin verschoben.",
+            "why": "Prüft das Trägheitsmoment, das die Seite zeigt: 5,34 kg·m² hinausgelehnt. Die Arme sind hier mit dem Steinerschen Satz gerechnet, nicht wie in der Engine als s² + d²/3.",
+            "step": "Die erste Quelle gibt den Steinerschen Satz und den Stab um seine Mitte, mL²/12, die zweite die Scheibe und dass sich die Stücke zum Ganzen summieren."
+          },
+          "faster_upright": {
+            "title": "Aufrecht dreht es schneller",
+            "setting": "Ohne Reibung im Lager: einmal angestossen, hinausgelehnt, nach 2 s in 1,5 s aufgerichtet.",
+            "reads": "Ohne Drehmoment von aussen bleibt der Drehimpuls I·ω gleich: Die Drehzahl steigt im selben Mass, wie das Trägheitsmoment fällt.",
+            "why": "Prüft den Lauf der Seite gegen die Erhaltung des Drehimpulses: 3,21-mal so schnell, das Trägheitsmoment von 5,34 auf 1,67 kg·m² gefallen."
+          },
+          "pull": {
+            "title": "Was die Hände am Griff halten",
+            "setting": "Hinausgelehnt, eine halbe Umdrehung pro Sekunde.",
+            "reads": "Was auf einem Kreis läuft, braucht die Kraft m·r·ω² zur Mitte; für Rumpf und Arme am Ort ihrer Schwerpunkte, der Rumpf d hinaus, jeder Arm d/2.",
+            "why": "Prüft den Zug am Griff, den die Seite für die halbe Umdrehung nennt: 124,4 N.",
+            "step": "Die Quelle gibt die Kraft für eine Masse auf einem Kreis. Summiert über einen Körper zählt der Abstand seines Schwerpunkts; ein Arm reicht vom Griff bis zur Schulter, sein Schwerpunkt liegt also d/2 hinaus."
+          },
+          "bearing_stops": {
+            "title": "Das Lager bremst es",
+            "setting": "Einmal angestossen, 17 kg·m²/s, hinausgelehnt, mit 0,2 N·m Reibung im Lager.",
+            "reads": "Ein festes Drehmoment nimmt dem Drehimpuls in jeder Sekunde gleich viel: Er ist nach L/τ aufgebraucht.",
+            "why": "Prüft das Lager der Seite: Nach 85 s steht die Scheibe still."
           }
         }
       },

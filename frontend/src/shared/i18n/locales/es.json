@@ -3696,7 +3696,20 @@
         "t_land": "el tiempo hasta el primer golpe",
         "T_flight": "la duración del primer vuelo",
         "t_f": "la constante de tiempo del aire, v∞/g",
-        "T_still": "el tiempo hasta que la bola queda quieta"
+        "T_still": "el tiempo hasta que la bola queda quieta",
+        "spin_M": "la masa de la plataforma",
+        "spin_R": "el radio de la plataforma",
+        "spin_ml": "la masa de las piernas",
+        "spin_kl": "el radio de giro de las piernas",
+        "spin_mt": "la masa del tronco y la cabeza",
+        "spin_kt": "el radio de giro del tronco",
+        "spin_d": "cuánto se inclina el tronco hacia fuera",
+        "spin_ma": "la masa de un brazo",
+        "spin_s": "la distancia de cada mano al eje",
+        "spin_omega": "velocidad angular",
+        "spin_F": "la tracción de las manos en la barra",
+        "spin_L": "momento angular",
+        "spin_tau": "el rozamiento del cojinete, como par"
       },
       "cases": {
         "sphere": {
@@ -4536,6 +4549,34 @@
             "reads": "Cada vuelo dura e veces lo que el anterior. Infinitos vuelos suman, como una serie geométrica, un tiempo finito: √(2h/g)·(1 + e)/(1 − e).",
             "why": "Comprueba la serie de la página, que suma en forma cerrada sus últimos botes, los más cortos: 0,3029 s. El aire, que la fórmula omite, supone 6 · 10⁻⁵.",
             "step": "La primera fuente da el tiempo de caída, √(2h/g), y la velocidad abajo, √(2gh); la segunda, que cada vuelo dura e veces lo que el anterior. El primero dura 2e·√(2gh)/g; la serie geométrica los suma todos en 2e·√(2h/g)/(1 − e), y a eso se añade la caída."
+          }
+        },
+        "platform": {
+          "leaning_inertia": {
+            "title": "El momento de inercia, pieza a pieza",
+            "setting": "El visitante de la página, 70 kg, inclinado 30 cm hacia fuera, con las manos en la barra; la plataforma, 15 kg, 60 cm.",
+            "reads": "Cada pieza según su forma: la plataforma, ½MR²; las piernas, en el eje; el tronco, d hacia fuera; cada brazo, una varilla de la barra al hombro, d²/12 alrededor de su centro y desplazada hasta allí.",
+            "why": "Comprueba el momento de inercia que muestra la página: 5,34 kg·m² inclinado hacia fuera. Aquí los brazos se calculan con el teorema de Steiner, no como s² + d²/3, como hace el motor de cálculo.",
+            "step": "La primera fuente da el teorema de Steiner y la varilla alrededor de su centro, mL²/12; la segunda, el disco y que las piezas se suman para dar el total."
+          },
+          "faster_upright": {
+            "title": "Erguido gira más deprisa",
+            "setting": "Sin rozamiento en el cojinete: un empujón, inclinado hacia fuera, y tras 2 s erguido en 1,5 s.",
+            "reads": "Sin par externo, el momento angular I·ω se mantiene igual: la velocidad de giro sube en la misma medida en que baja el momento de inercia.",
+            "why": "Comprueba la marcha de la página frente a la conservación del momento angular: 3,21 veces más rápido, con el momento de inercia bajado de 5,34 a 1,67 kg·m²."
+          },
+          "pull": {
+            "title": "Lo que sostienen las manos en la barra",
+            "setting": "Inclinado hacia fuera, media vuelta por segundo.",
+            "reads": "Lo que recorre un círculo necesita la fuerza m·r·ω² hacia el centro; para el tronco y los brazos, en sus centros de masas: el tronco, d hacia fuera; cada brazo, d/2.",
+            "why": "Comprueba la tracción en la barra que la página indica para media vuelta por segundo: 124,4 N.",
+            "step": "La fuente da la fuerza para una masa en un círculo. Sumada sobre un cuerpo, cuenta la distancia de su centro de masas; un brazo va de la barra al hombro, así que su centro de masas queda d/2 hacia fuera."
+          },
+          "bearing_stops": {
+            "title": "El cojinete la frena",
+            "setting": "Un empujón, 17 kg·m²/s, inclinado hacia fuera, con 0,2 N·m de rozamiento en el cojinete.",
+            "reads": "Un par constante quita al momento angular lo mismo cada segundo: se agota al cabo de L/τ.",
+            "why": "Comprueba el cojinete de la página: tras 85 s, la plataforma se para."
           }
         }
       },

@@ -46,6 +46,7 @@ async def test_with_no_verdict_every_exhibit_with_cases_is_listed_and_none_is_ch
             "parabola",
             "peg",
             "plates",
+            "platform",
             "race",
             "resonance",
             "sky",

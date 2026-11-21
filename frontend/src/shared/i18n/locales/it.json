@@ -3696,7 +3696,20 @@
         "t_land": "il tempo fino al primo colpo",
         "T_flight": "la durata del primo volo",
         "t_f": "la costante di tempo dell'aria, v∞/g",
-        "T_still": "il tempo finché la palla è ferma"
+        "T_still": "il tempo finché la palla è ferma",
+        "spin_M": "la massa della piattaforma",
+        "spin_R": "il raggio della piattaforma",
+        "spin_ml": "la massa delle gambe",
+        "spin_kl": "il raggio d'inerzia delle gambe",
+        "spin_mt": "la massa di tronco e testa",
+        "spin_kt": "il raggio d'inerzia del tronco",
+        "spin_d": "quanto il tronco si sporge in fuori",
+        "spin_ma": "la massa di un braccio",
+        "spin_s": "la distanza di ciascuna mano dall'asse",
+        "spin_omega": "velocità angolare",
+        "spin_F": "la trazione delle mani sulla barra",
+        "spin_L": "momento angolare",
+        "spin_tau": "l'attrito del cuscinetto, come coppia"
       },
       "cases": {
         "sphere": {
@@ -4536,6 +4549,34 @@
             "reads": "Ogni volo dura e volte il precedente. Infiniti voli si sommano, come una serie geometrica, in un tempo finito: √(2h/g)·(1 + e)/(1 − e).",
             "why": "Verifica la serie della pagina, che somma in forma chiusa i suoi ultimi rimbalzi, i più brevi: 0,3029 s. L'aria, che la formula tralascia, conta per 6 · 10⁻⁵.",
             "step": "La prima fonte dà il tempo di caduta, √(2h/g), e la velocità in basso, √(2gh); la seconda che ogni volo dura e volte il precedente. Il primo dura 2e·√(2gh)/g; la serie geometrica li somma tutti in 2e·√(2h/g)/(1 − e), a cui si aggiunge la caduta."
+          }
+        },
+        "platform": {
+          "leaning_inertia": {
+            "title": "Il momento d'inerzia, pezzo per pezzo",
+            "setting": "Il visitatore della pagina, 70 kg, inclinato in fuori di 30 cm, le mani sulla barra; la piattaforma 15 kg, 60 cm.",
+            "reads": "Ogni pezzo secondo la sua forma: la piattaforma ½MR², le gambe sull'asse, il tronco spostato di d in fuori, ogni braccio un'asta dalla barra alla spalla, d²/12 attorno al suo centro e spostata fin lì.",
+            "why": "Verifica il momento d'inerzia che mostra la pagina: 5,34 kg·m² inclinato in fuori. Qui le braccia sono calcolate con il teorema di Huygens-Steiner, non come s² + d²/3 come nel motore di calcolo.",
+            "step": "La prima fonte dà il teorema di Huygens-Steiner e l'asta attorno al suo centro, mL²/12, la seconda il disco e il fatto che i pezzi si sommano nel tutto."
+          },
+          "faster_upright": {
+            "title": "Dritto gira più veloce",
+            "setting": "Senza attrito nel cuscinetto: una spinta, inclinato in fuori, dopo 2 s raddrizzato in 1,5 s.",
+            "reads": "Senza coppia esterna il momento angolare I·ω resta lo stesso: la velocità di rotazione sale nella stessa misura in cui scende il momento d'inerzia.",
+            "why": "Verifica l'andamento della pagina rispetto alla conservazione del momento angolare: 3,21 volte più veloce, con il momento d'inerzia sceso da 5,34 a 1,67 kg·m²."
+          },
+          "pull": {
+            "title": "Ciò che reggono le mani sulla barra",
+            "setting": "Inclinato in fuori, mezzo giro al secondo.",
+            "reads": "Ciò che percorre un cerchio ha bisogno della forza m·r·ω² verso il centro; per tronco e braccia, nella posizione dei loro baricentri: il tronco d in fuori, ogni braccio d/2.",
+            "why": "Verifica la trazione sulla barra che la pagina indica per mezzo giro al secondo: 124,4 N.",
+            "step": "La fonte dà la forza per una massa su un cerchio. Sommando su un corpo conta la distanza del suo baricentro; un braccio va dalla barra alla spalla, quindi il suo baricentro sta d/2 in fuori."
+          },
+          "bearing_stops": {
+            "title": "Il cuscinetto la frena",
+            "setting": "Una spinta, 17 kg·m²/s, inclinato in fuori, con 0,2 N·m di attrito nel cuscinetto.",
+            "reads": "Una coppia costante toglie al momento angolare la stessa quantità ogni secondo: si esaurisce dopo L/τ.",
+            "why": "Verifica il cuscinetto della pagina: dopo 85 s la piattaforma si ferma."
           }
         }
       },

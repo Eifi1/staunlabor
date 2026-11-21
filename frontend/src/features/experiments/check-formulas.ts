@@ -138,6 +138,10 @@ const E_REST: CheckSymbol = { tex: "e", key: "e_rest" };
 const U_UP: CheckSymbol = { tex: "u", key: "u_up", unit: "m/s" };
 const Y_PEAK: CheckSymbol = { tex: String.raw`y_{\mathrm{peak}}`, key: "y_peak", unit: "m" };
 const H_DROP_BOUNCE: CheckSymbol = { tex: "h", key: "h_drop", unit: "m" };
+const SPIN_D: CheckSymbol = { tex: "d", key: "spin_d", unit: "m" };
+const SPIN_MT: CheckSymbol = { tex: "m_t", key: "spin_mt", unit: "kg" };
+const SPIN_MA: CheckSymbol = { tex: "m_a", key: "spin_ma", unit: "kg" };
+const SPIN_OMEGA: CheckSymbol = { tex: String.raw`\omega`, key: "spin_omega", unit: "1/s" };
 
 const ROD_STEADY: CheckFormula = {
   tex: String.raw`w = \frac{\Gamma\,\Omega^2 Y}{\sqrt{(\omega^2 - \Omega^2)^2 + (2\zeta\omega\Omega)^2}}, \qquad \Gamma = \frac{\int_0^1 \varphi\,d\xi}{\int_0^1 \varphi^2\,d\xi}`,
@@ -1108,6 +1112,39 @@ export const CHECK_FORMULAS: Record<string, Record<string, CheckFormula>> = {
     still: {
       tex: String.raw`T_{\mathrm{still}} = \sqrt{\frac{2h}{g}} \cdot \frac{1 + e}{1 - e}`,
       symbols: [{ tex: String.raw`T_{\mathrm{still}}`, key: "T_still", unit: "s" }, H_DROP_BOUNCE, G, E_REST],
+    },
+  },
+  platform: {
+    leaning_inertia: {
+      tex: String.raw`I = \tfrac12 M R^2 + m_l k_l^2 + m_t\,(k_t^2 + d^2) + 2\,m_a\left(\tfrac{1}{12}\,d^2 + s^2 + \tfrac14\,d^2\right)`,
+      symbols: [
+        { tex: "I", key: "inertia", unit: "kg·m²" },
+        { tex: "M", key: "spin_M", unit: "kg" },
+        { tex: "R", key: "spin_R", unit: "m" },
+        { tex: "m_l", key: "spin_ml", unit: "kg" },
+        { tex: "k_l", key: "spin_kl", unit: "m" },
+        SPIN_MT,
+        { tex: "k_t", key: "spin_kt", unit: "m" },
+        SPIN_D,
+        SPIN_MA,
+        { tex: "s", key: "spin_s", unit: "m" },
+      ],
+    },
+    faster_upright: {
+      tex: String.raw`I_\text{up}\,\omega_\text{up} = I_\text{lean}\,\omega_\text{lean} \;\Rightarrow\; \frac{\omega_\text{up}}{\omega_\text{lean}} = \frac{I_\text{lean}}{I_\text{up}}`,
+      symbols: [{ tex: "I", key: "inertia", unit: "kg·m²" }, SPIN_OMEGA],
+    },
+    pull: {
+      tex: String.raw`F = \omega^2\left(m_t\,d + 2\,m_a\,\frac{d}{2}\right), \qquad \omega = \pi\ \mathrm{s^{-1}}`,
+      symbols: [{ tex: "F", key: "spin_F", unit: "N" }, SPIN_OMEGA, SPIN_MT, SPIN_D, SPIN_MA],
+    },
+    bearing_stops: {
+      tex: String.raw`\frac{dL}{dt} = -\tau_f \;\Rightarrow\; t = \frac{L_0}{\tau_f}`,
+      symbols: [
+        { tex: "L, L_0", key: "spin_L", unit: "kg·m²/s" },
+        { tex: "t", key: "t", unit: "s" },
+        { tex: String.raw`\tau_f`, key: "spin_tau", unit: "N·m" },
+      ],
     },
   },
 };

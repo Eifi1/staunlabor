@@ -107,6 +107,7 @@ const UNCHECKED = {
     "parabola",
     "peg",
     "plates",
+    "platform",
     "race",
     "resonance",
     "sky",
@@ -1865,6 +1866,24 @@ describe("setting a check case up", () => {
       /^0\.50\b/,
     );
     expect(screen.getByRole("slider", { name: E.bounce.change.height }).getAttribute("aria-valuetext")).toMatch(/^5\b/);
+  });
+
+  it("takes the platform's bearing off and leans the visitor out, for the faster-upright case", async () => {
+    renderWithProviders(<PlatformPage />);
+    await screen.findByRole("img", { name: E.platform.view });
+    fireEvent.change(screen.getByRole("slider", { name: E.platform.play.lean }), { target: { value: "10" } });
+    await setUp(1);
+    await waitFor(() =>
+      expect(screen.getByRole("slider", { name: E.platform.change.friction }).getAttribute("aria-valuetext")).toMatch(
+        /^0\b/,
+      ),
+    );
+    await waitFor(() =>
+      expect(screen.getByRole("slider", { name: E.platform.play.lean }).getAttribute("aria-valuetext")).toMatch(
+        /^30\b/,
+      ),
+    );
+    expect(screen.getByRole("switch", { name: E.platform.play.auto })).not.toBeChecked();
   });
 
   it("pushes the ball round the well on its circle, with the felt's brake, for the brake's case", async () => {

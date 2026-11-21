@@ -12,6 +12,7 @@ import { Figures, WidgetCard } from "@/shared/ui/widget";
 import { Equation } from "./equation";
 import { ExhibitFrame } from "./exhibit-frame";
 import { BuildPending } from "./build-pending";
+import { settingNumber, useCheckRequest, useCheckSetting } from "./check-setting";
 import { PlatformView } from "./platform-view";
 import { frictionStep, inertia, pullN, run, type Move, type Posture } from "./simulate/platform";
 import { PreviewPending, type PreviewMode, type PreviewProps } from "./preview-mode";
@@ -70,6 +71,17 @@ export function PlatformPage() {
   const [build, setBuild] = useState<PlatformExhibitRequest | null>(null);
   const exhibit = build ?? defaults.data?.platform ?? null;
   const figures = usePlatformFigures(exhibit);
+  // A check case's "Set it up": the bearing's friction here, which builds the
+  // play anew; the lean is the play's, which takes the case once it is built.
+  const request = useCheckRequest("platform");
+  const [seen, setSeen] = useState<number | null>(null);
+  if (request && !request.done && request.nonce !== seen && exhibit) {
+    setSeen(request.nonce);
+    const friction = settingNumber(request.setting, "friction_n_m", exhibit.platform.friction_n_m);
+    if (friction !== exhibit.platform.friction_n_m) {
+      setBuild({ ...exhibit, platform: { ...exhibit.platform, friction_n_m: friction } });
+    }
+  }
 
   return (
     <ExhibitFrame
@@ -150,6 +162,18 @@ function PlatformPlay({ exhibit, preview = false, paused = false }: { exhibit: P
     sim.current = { momentum: 0, angle: 0, clock: 0 };
     setView({ angle: 0, momentum: 0, posture: { lean_m: lean } });
   };
+  // The case's lean, from rest and without the auto mode, once the page has
+  // built the case's bearing: the push and the standing up are the reader's.
+  useCheckSetting("platform", (setting) => {
+    if (preview) return false;
+    if (settingNumber(setting, "friction_n_m", platform.friction_n_m) !== platform.friction_n_m) return false;
+    const next = settingNumber(setting, "lean_m", lean);
+    setAuto(false);
+    setLean(next);
+    sim.current = { momentum: 0, angle: 0, clock: 0 };
+    setView({ angle: 0, momentum: 0, posture: { lean_m: next } });
+    return true;
+  });
 
   const parts = inertia(body, platform, view.posture);
   const omega = view.momentum / parts.total;

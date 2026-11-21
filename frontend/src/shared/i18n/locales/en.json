@@ -3696,7 +3696,20 @@
         "t_land": "the time to the first strike",
         "T_flight": "the first flight's duration",
         "t_f": "the air's time constant, v∞/g",
-        "T_still": "the time until the ball lies still"
+        "T_still": "the time until the ball lies still",
+        "spin_M": "the platform's mass",
+        "spin_R": "the platform's radius",
+        "spin_ml": "the legs' mass",
+        "spin_kl": "the legs' radius of gyration",
+        "spin_mt": "the mass of trunk and head",
+        "spin_kt": "the trunk's radius of gyration",
+        "spin_d": "how far the trunk leans out",
+        "spin_ma": "one arm's mass",
+        "spin_s": "each hand's distance from the axis",
+        "spin_omega": "angular velocity",
+        "spin_F": "the hands' pull on the bar",
+        "spin_L": "angular momentum",
+        "spin_tau": "the bearing's friction, as a torque"
       },
       "cases": {
         "sphere": {
@@ -4536,6 +4549,34 @@
             "reads": "Each flight lasts e times the one before. Endlessly many flights add up like a geometric series to a finite time: √(2h/g)·(1 + e)/(1 − e).",
             "why": "Checks the page's series, which sums its last, shortest bounces in closed form: 0.3029 s. The air, which the formula leaves out, makes 6 · 10⁻⁵.",
             "step": "The first source gives the time of the drop, √(2h/g), and the speed at the bottom, √(2gh); the second that each flight lasts e times the one before. The first lasts 2e·√(2gh)/g; the geometric series sums them all to 2e·√(2h/g)/(1 − e), and the drop comes on top."
+          }
+        },
+        "platform": {
+          "leaning_inertia": {
+            "title": "The moment of inertia, piece by piece",
+            "setting": "The page's visitor, 70 kg, leaning out 30 cm, hands on the bar; the platform 15 kg, 60 cm.",
+            "reads": "Each piece by its shape: the platform ½MR², the legs on the axis, the trunk d out, each arm a rod from the bar to the shoulder, d²/12 about its middle and shifted there.",
+            "why": "Checks the moment of inertia the page shows: 5.34 kg·m² leaning out. The arms are worked out here with the parallel-axis theorem, not as s² + d²/3 as in the engine.",
+            "step": "The first source gives the parallel-axis theorem and the rod about its middle, mL²/12, the second the disc and that the pieces add up to the whole."
+          },
+          "faster_upright": {
+            "title": "Upright it turns faster",
+            "setting": "No friction in the bearing: pushed once, leaning out, standing up after 2 s over 1.5 s.",
+            "reads": "With no torque from outside the angular momentum I·ω stays the same: the rate rises in the measure the moment of inertia falls.",
+            "why": "Checks the page's run against the conservation of angular momentum: 3.21 times as fast, the moment of inertia fallen from 5.34 to 1.67 kg·m²."
+          },
+          "pull": {
+            "title": "What the hands hold on the bar",
+            "setting": "Leaning out, half a turn a second.",
+            "reads": "What runs on a circle needs the force m·r·ω² towards the middle; for trunk and arms at their centres of mass, the trunk d out, each arm d/2.",
+            "why": "Checks the pull on the bar the page gives for half a turn: 124.4 N.",
+            "step": "The source gives the force for a mass on a circle. Summed over a body, the distance of its centre of mass counts; an arm reaches from the bar to the shoulder, so its centre lies d/2 out."
+          },
+          "bearing_stops": {
+            "title": "The bearing brakes it",
+            "setting": "Pushed once, 17 kg·m²/s, leaning out, with 0.2 N·m of friction in the bearing.",
+            "reads": "A steady torque takes the same from the angular momentum every second: it is used up after L/τ.",
+            "why": "Checks the page's bearing: after 85 s the platform stands still."
           }
         }
       },

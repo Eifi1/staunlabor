@@ -2570,6 +2570,15 @@ from 305 mm (the leaflet was not fetched). "Set it up" sets the build card's
 ball, its bounce and the height; the play card's two always race as the
 exhibit's presets, from that height.
 
+**The spinning platform's** four (2026-11-21) hold the moment of inertia
+leaning out (5.3412 kg·m², the arms summed by the parallel-axis theorem from
+the rod's middle where the engine writes m(s² + d²/3)), the rate standing up
+against the rate leaning out (the momentum kept, 3.2056 times), the hands'
+pull at half a turn a second (124 N) and the bearing's stop after one push
+(L/τ = 85 s). All four agree to 10⁻¹³ or better. "Set it up" sets the
+bearing's friction and the lean, from rest and without the auto mode; the
+push and the standing up are the reader's.
+
 **On the page** a section "Check it yourself" (`check-section.tsx`) lists the
 cases, each with its formula as an `Equation` (`check-formulas.ts`), both
 values to seven digits, the deviation, why the case would catch a mistake,

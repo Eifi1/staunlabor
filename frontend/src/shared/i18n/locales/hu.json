@@ -3696,7 +3696,20 @@
         "t_land": "az idő az első ütésig",
         "T_flight": "az első repülés időtartama",
         "t_f": "a levegő időállandója, v∞/g",
-        "T_still": "az idő, amíg a golyó megnyugszik"
+        "T_still": "az idő, amíg a golyó megnyugszik",
+        "spin_M": "a korong tömege",
+        "spin_R": "a korong sugara",
+        "spin_ml": "a lábak tömege",
+        "spin_kl": "a lábak tehetetlenségi sugara",
+        "spin_mt": "a törzs és a fej tömege",
+        "spin_kt": "a törzs tehetetlenségi sugara",
+        "spin_d": "mennyire dől ki a törzs",
+        "spin_ma": "egy kar tömege",
+        "spin_s": "mindkét kéz távolsága a tengelytől",
+        "spin_omega": "szögsebesség",
+        "spin_F": "a kezek húzóereje a kapaszkodón",
+        "spin_L": "perdület",
+        "spin_tau": "a csapágy súrlódása, nyomatékként"
       },
       "cases": {
         "sphere": {
@@ -4536,6 +4549,34 @@
             "reads": "Minden repülés e-szer olyan hosszú, mint az előző. Végtelen sok repülés, akár egy mértani sor, véges idővé összegződik: √(2h/g)·(1 + e)/(1 − e).",
             "why": "Az oldal sorát ellenőrzi, amely utolsó, legrövidebb pattanásait zárt alakban összegzi: 0,3029 s. A levegő, amelyet a képlet elhagy, 6 · 10⁻⁵-t tesz ki.",
             "step": "Az első forrás megadja az esési időt, √(2h/g), és a sebességet lent, √(2gh); a második azt, hogy minden repülés e-szer olyan hosszú, mint az előző. Az első 2e·√(2gh)/g ideig tart; a mértani sor ezeket mind összegezve 2e·√(2h/g)/(1 − e)-t ad, ehhez jön még az esés."
+          }
+        },
+        "platform": {
+          "leaning_inertia": {
+            "title": "A tehetetlenségi nyomaték, darabról darabra",
+            "setting": "Az oldal látogatója, 70 kg, 30 cm-re kifelé dőlve, kezével a kapaszkodón; a korong 15 kg, 60 cm.",
+            "reads": "Minden darab az alakja szerint: a korong ½MR², a lábak a tengelyen, a törzs d-vel kijjebb, minden kar egy rúd a kapaszkodótól a vállig, d²/12 a közepe körül, és odáig eltolva.",
+            "why": "Az oldal által mutatott tehetetlenségi nyomatékot ellenőrzi: 5,34 kg·m² kifelé dőlve. A karokat itt a Steiner-tétellel számoljuk, nem s² + d²/3 alakban, ahogy a számítómotor.",
+            "step": "Az első forrás megadja a Steiner-tételt és a közepe körül forgó rúd nyomatékát, mL²/12, a második a tárcsáét, és azt, hogy a darabok az egészre összeadódnak."
+          },
+          "faster_upright": {
+            "title": "Egyenesen állva gyorsabban forog",
+            "setting": "Csapágysúrlódás nélkül: egy lökés, kifelé dőlve, 2 s után 1,5 s alatt felegyenesedve.",
+            "reads": "Külső nyomaték nélkül az I·ω perdület változatlan: a fordulatszám ugyanolyan arányban nő, ahogy a tehetetlenségi nyomaték csökken.",
+            "why": "Az oldal futását a perdületmegmaradáshoz méri: 3,21-szer gyorsabb, a tehetetlenségi nyomaték 5,34-ről 1,67 kg·m²-re csökkent."
+          },
+          "pull": {
+            "title": "Amit a kezek a kapaszkodón tartanak",
+            "setting": "Kifelé dőlve, másodpercenként fél fordulat.",
+            "reads": "Ami körpályán fut, annak m·r·ω² erő kell a középpont felé; a törzsnél és a karoknál a tömegközéppontjuk helyén: a törzs d-vel kint, minden kar d/2-vel.",
+            "why": "A kapaszkodón ébredő húzóerőt ellenőrzi, amelyet az oldal a másodpercenkénti fél fordulatra megad: 124,4 N.",
+            "step": "A forrás egy körpályán mozgó tömegre adja meg az erőt. Egy testre összegezve a tömegközéppontjának távolsága számít; egy kar a kapaszkodótól a vállig ér, így tömegközéppontja d/2-vel van kint."
+          },
+          "bearing_stops": {
+            "title": "A csapágy lefékezi",
+            "setting": "Egy lökés, 17 kg·m²/s, kifelé dőlve, 0,2 N·m csapágysúrlódással.",
+            "reads": "Egy állandó nyomaték minden másodpercben ugyanannyit vesz el a perdületből: L/τ után elfogy.",
+            "why": "Az oldal csapágyát ellenőrzi: 85 s után a korong megáll."
           }
         }
       },

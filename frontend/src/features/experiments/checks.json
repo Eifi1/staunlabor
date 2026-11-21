@@ -2038,6 +2038,103 @@
    ]
   }
  ],
+ "platform": [
+  {
+   "key": "leaning_inertia",
+   "unit": "kg·m²",
+   "expected": 5.3412,
+   "measured": 5.3412,
+   "deviation": 0.0,
+   "tolerance": 1e-12,
+   "derived": true,
+   "setting": {
+    "lean_m": 0.3,
+    "friction_n_m": 0.2
+   },
+   "sources": [
+    {
+     "cite": "OpenStax, University Physics Volume 1, §10.5 Calculating Moments of Inertia, Eq. 10.20",
+     "url": "https://openstax.org/books/university-physics-volume-1/pages/10-5-calculating-moments-of-inertia",
+     "quote": "Let m be the mass of an object and let d be the distance from an axis through the object’s center of mass to a new axis. Then we have I_parallel-axis = I_center of mass + md². … I_end = I_center of mass + md² = (1/12)mL² + m(L/2)² = (1/12 + 1/4)mL² = (1/3)mL²."
+    },
+    {
+     "cite": "OpenStax, University Physics Volume 1, §10.5, “A uniform thin disk about an axis through the center”, and Eq. 10.21",
+     "url": "https://openstax.org/books/university-physics-volume-1/pages/10-5-calculating-moments-of-inertia",
+     "quote": "I = ∫₀ᴿ r²σ(2πr)dr = … = (1/2)mR². … a compound object’s moment of inertia can be found from the sum of each part of the object: I_total = Σᵢ Iᵢ."
+    }
+   ]
+  },
+  {
+   "key": "faster_upright",
+   "unit": "",
+   "expected": 3.20561757292,
+   "measured": 3.20561757292,
+   "deviation": 1.38534681617e-16,
+   "tolerance": 1e-12,
+   "derived": false,
+   "setting": {
+    "lean_m": 0.3,
+    "friction_n_m": 0.0
+   },
+   "sources": [
+    {
+     "cite": "OpenStax, University Physics Volume 1, §11.3 Conservation of Angular Momentum, Eqs. 11.10–11.11 and Example 11.8",
+     "url": "https://openstax.org/books/university-physics-volume-1/pages/11-3-conservation-of-angular-momentum",
+     "quote": "The angular momentum of a system of particles around a point in a fixed inertial reference frame is conserved if there is no net external torque around that point … Conservation of angular momentum: I_f ω_f = I₀ω₀"
+    },
+    {
+     "cite": "OpenStax, University Physics Volume 1, §10.5 Calculating Moments of Inertia, Eq. 10.20",
+     "url": "https://openstax.org/books/university-physics-volume-1/pages/10-5-calculating-moments-of-inertia",
+     "quote": "Let m be the mass of an object and let d be the distance from an axis through the object’s center of mass to a new axis. Then we have I_parallel-axis = I_center of mass + md². … I_end = I_center of mass + md² = (1/12)mL² + m(L/2)² = (1/12 + 1/4)mL² = (1/3)mL²."
+    },
+    {
+     "cite": "OpenStax, University Physics Volume 1, §10.5, “A uniform thin disk about an axis through the center”, and Eq. 10.21",
+     "url": "https://openstax.org/books/university-physics-volume-1/pages/10-5-calculating-moments-of-inertia",
+     "quote": "I = ∫₀ᴿ r²σ(2πr)dr = … = (1/2)mR². … a compound object’s moment of inertia can be found from the sum of each part of the object: I_total = Σᵢ Iᵢ."
+    }
+   ]
+  },
+  {
+   "key": "pull",
+   "unit": "N",
+   "expected": 124.357015454,
+   "measured": 124.357015454,
+   "deviation": 3.42823957218e-16,
+   "tolerance": 1e-12,
+   "derived": true,
+   "setting": {
+    "lean_m": 0.3,
+    "friction_n_m": 0.2
+   },
+   "sources": [
+    {
+     "cite": "OpenStax, University Physics Volume 1, §6.3 Centripetal Force, Eq. 6.3",
+     "url": "https://openstax.org/books/university-physics-volume-1/pages/6-3-centripetal-force",
+     "quote": "we get two expressions for the centripetal force F_c in terms of mass, velocity, angular velocity, and radius of curvature: F_c = mv²/r; F_c = mrω²."
+    }
+   ]
+  },
+  {
+   "key": "bearing_stops",
+   "unit": "s",
+   "expected": 85.0,
+   "measured": 85.0,
+   "deviation": 5.80137245432e-14,
+   "tolerance": 1e-12,
+   "derived": false,
+   "setting": {
+    "lean_m": 0.3,
+    "friction_n_m": 0.2
+   },
+   "sources": [
+    {
+     "cite": "OpenStax, University Physics Volume 1, §11.2 Angular Momentum, Eq. 11.8",
+     "url": "https://openstax.org/books/university-physics-volume-1/pages/11-2-angular-momentum",
+     "quote": "dL/dt = Στ. (11.8) Equation 11.8 states that the rate of change of the total angular momentum of a system is equal to the net external torque"
+    }
+   ]
+  }
+ ],
  "race": [
   {
    "key": "line",
