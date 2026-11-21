@@ -103,6 +103,7 @@ const UNCHECKED = {
     "coupled",
     "cradle",
     "diver",
+    "elephant",
     "foucault",
     "harmonograph",
     "levitation",
@@ -818,8 +819,9 @@ describe("the elephant", () => {
     ).toBeInTheDocument();
     expect(screen.getByText(/How far the trunk can tilt: up to 32°/)).toBeInTheDocument();
     expect(screen.getByText(/from 12\.1 m\/s on/)).toBeInTheDocument();
-    // Every equation with a letter in it explains them: all but the balance, which reuses the others'.
-    await waitFor(() => expect(screen.getAllByLabelText(E.equation.symbols)).toHaveLength(7));
+    // Every equation with a letter in it explains them: all but the balance, which reuses the others',
+    // seven, and the three check cases'.
+    await waitFor(() => expect(screen.getAllByLabelText(E.equation.symbols)).toHaveLength(10));
   });
 
   it("says a ball the air cannot lift does not float, and from what air speed it would", async () => {
@@ -1982,6 +1984,21 @@ describe("setting a check case up", () => {
     );
     expect(screen.getByText(/It reaches 18\.0 cm out over the edge/)).toBeInTheDocument();
     expect(screen.queryByRole("button", { name: E.overhang.play.furthest })).toBeNull();
+  });
+
+  it("puts the elephant's trunk upright with the exhibit's air and ball, the ball back on the rim", async () => {
+    renderWithProviders(<ElephantPage />);
+    await screen.findByRole("img", { name: E.elephant.view });
+    fireEvent.change(screen.getByRole("slider", { name: E.elephant.play.air }), { target: { value: "20" } });
+    fireEvent.change(screen.getByRole("slider", { name: E.elephant.play.tilt }), { target: { value: "10" } });
+    await setUp(0);
+    await waitFor(() =>
+      expect(screen.getByRole("slider", { name: E.elephant.play.air }).getAttribute("aria-valuetext")).toMatch(
+        /^14\.5\b/,
+      ),
+    );
+    expect(screen.getByRole("slider", { name: E.elephant.play.tilt }).getAttribute("aria-valuetext")).toMatch(/^0\b/);
+    expect(screen.getByRole("switch", { name: E.elephant.play.auto })).not.toBeChecked();
   });
 
   it("pushes the ball round the well on its circle, with the felt's brake, for the brake's case", async () => {

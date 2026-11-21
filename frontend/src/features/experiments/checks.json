@@ -1501,6 +1501,105 @@
    ]
   }
  ],
+ "elephant": [
+  {
+   "key": "momentum_flux",
+   "unit": "N",
+   "expected": 1.98155956625,
+   "measured": 1.98155956625,
+   "deviation": 2.66804093771e-13,
+   "tolerance": 1e-10,
+   "derived": true,
+   "setting": {
+    "opening_m": 0.1,
+    "speed_m_s": 14.5,
+    "diameter_m": 0.15,
+    "mass_kg": 0.03,
+    "coanda": 1.0,
+    "tilt": 0.0
+   },
+   "sources": [
+    {
+     "cite": "Stern Lab, University of Iowa, lecture notes “Chapter 7: Free Shear Flows: Jets, Mixing Layers and Wakes (Pope)”, Part 1: Round and 2D Jets, p. 3",
+     "url": "https://stern.lab.uiowa.edu/sites/stern.lab.uiowa.edu/files/2025-11/Chapter-7-Free-Shear-Flows-Part-1-final.pdf",
+     "quote": "Therefore, momentum flux of the mean flow is independent of x: Ṁ = ∫₀^∞ 2πrρU² dr = constant ≠ f(x) … i.e., r₁/₂(x)~x and U₀(x)~x⁻¹ consistent with momentum flux being constant"
+    }
+   ]
+  },
+  {
+   "key": "lift_off",
+   "unit": "m/s",
+   "expected": 12.0663556339,
+   "measured": 12.07254448,
+   "deviation": 0.000512901022791,
+   "tolerance": 0.001,
+   "derived": true,
+   "setting": {
+    "opening_m": 0.1,
+    "speed_m_s": 14.5,
+    "diameter_m": 0.15,
+    "mass_kg": 0.03,
+    "coanda": 1.0,
+    "tilt": 0.0
+   },
+   "sources": [
+    {
+     "cite": "Stern Lab, University of Iowa, lecture notes “Chapter 7: Free Shear Flows: Jets, Mixing Layers and Wakes (Pope)”, Part 1: Round and 2D Jets, p. 3",
+     "url": "https://stern.lab.uiowa.edu/sites/stern.lab.uiowa.edu/files/2025-11/Chapter-7-Free-Shear-Flows-Part-1-final.pdf",
+     "quote": "Therefore, momentum flux of the mean flow is independent of x: Ṁ = ∫₀^∞ 2πrρU² dr = constant ≠ f(x) … i.e., r₁/₂(x)~x and U₀(x)~x⁻¹ consistent with momentum flux being constant"
+    },
+    {
+     "cite": "Wikipedia, “Drag equation”",
+     "url": "https://en.wikipedia.org/wiki/Drag_equation",
+     "quote": "F_d = ½ρu²c_dA where F_d is the drag force, which is by definition the force component in the direction of the flow velocity, ρ is the mass density of the fluid, u is the flow velocity relative to the object, A is the reference area, and c_d is the drag coefficient"
+    },
+    {
+     "cite": "Wikipedia, “Drag coefficient”, §“Drag coefficient examples”",
+     "url": "https://en.wikipedia.org/wiki/Drag_coefficient",
+     "quote": "A smooth sphere, for example, has a c_d that varies from high values for laminar flow to 0.47 for turbulent flow."
+    },
+    {
+     "cite": "OpenStax, University Physics Volume 1, §14.4 Archimedes’ Principle and Buoyancy",
+     "url": "https://openstax.org/books/university-physics-volume-1/pages/14-4-archimedes-principle-and-buoyancy",
+     "quote": "Archimedes’ Principle The buoyant force on an object equals the weight of the fluid it displaces. In equation form, Archimedes’ principle is F_B = w_fl"
+    }
+   ]
+  },
+  {
+   "key": "float_balance",
+   "unit": "m/s",
+   "expected": 7.40698541978,
+   "measured": 7.40698541986,
+   "deviation": 1.04014327414e-11,
+   "tolerance": 1e-08,
+   "derived": false,
+   "setting": {
+    "opening_m": 0.1,
+    "speed_m_s": 14.5,
+    "diameter_m": 0.15,
+    "mass_kg": 0.03,
+    "coanda": 1.0,
+    "tilt": 0.0
+   },
+   "sources": [
+    {
+     "cite": "Wikipedia, “Drag equation”",
+     "url": "https://en.wikipedia.org/wiki/Drag_equation",
+     "quote": "F_d = ½ρu²c_dA where F_d is the drag force, which is by definition the force component in the direction of the flow velocity, ρ is the mass density of the fluid, u is the flow velocity relative to the object, A is the reference area, and c_d is the drag coefficient"
+    },
+    {
+     "cite": "Wikipedia, “Drag coefficient”, §“Drag coefficient examples”",
+     "url": "https://en.wikipedia.org/wiki/Drag_coefficient",
+     "quote": "A smooth sphere, for example, has a c_d that varies from high values for laminar flow to 0.47 for turbulent flow."
+    },
+    {
+     "cite": "OpenStax, University Physics Volume 1, §14.4 Archimedes’ Principle and Buoyancy",
+     "url": "https://openstax.org/books/university-physics-volume-1/pages/14-4-archimedes-principle-and-buoyancy",
+     "quote": "Archimedes’ Principle The buoyant force on an object equals the weight of the fluid it displaces. In equation form, Archimedes’ principle is F_B = w_fl"
+    }
+   ]
+  }
+ ],
  "foucault": [
   {
    "key": "winterthur",

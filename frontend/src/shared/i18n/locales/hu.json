@@ -3775,7 +3775,23 @@
         "xbar_k": "a felső k hasáb tömegközéppontja",
         "r_edge": "az alatta lévő hasáb éle; a legalsónál az asztal éle",
         "s_step": "lépcső, hosszban mérve",
-        "N_blocks": "a szükséges hasábok száma"
+        "N_blocks": "a szükséges hasábok száma",
+        "m_flux": "az impulzus, amelyet a légsugár másodpercenként felfelé visz",
+        "r_jet": "távolság a légsugár tengelyétől",
+        "u_jet": "a levegő sebessége a légsugárban",
+        "U0_jet": "a levegő sebessége a nyílásnál",
+        "opening_d": "az ormány nyílásának átmérője",
+        "uc_jet": "a levegő sebessége a légsugár tengelyén",
+        "b_jet": "a légsugár szélessége",
+        "cd": "egy gömb közegellenállási tényezője, 0,47",
+        "A_ball": "a labda keresztmetszete",
+        "u2_mean": "u² átlaga a labda keresztmetszetére",
+        "m_ball": "a labda tömege",
+        "V_ball": "a labda térfogata",
+        "s_jet": "a labda középpontjának magassága a nyílás fölött",
+        "B_decay": "a kör keresztmetszetű légsugár lecsengési állandója, itt 6",
+        "u_ball": "a levegő sebessége a labdánál",
+        "elephant_rho_air": "a levegő sűrűsége"
       },
       "cases": {
         "sphere": {
@@ -4808,6 +4824,28 @@
             "setting": "Annyi hasáb, hogy a legmesszebb nyúló torony négy hosszal nyúljon túl az élen; a szám „A trükk” résznél áll.",
             "reads": "Az n hasábból álló, legmesszebb nyúló torony ∑1/(2i) hosszal nyúlik ki. Az összeg vég nélkül nő, de csak úgy, mint egy logaritmus.",
             "why": "Azt a számot ellenőrzi, amelyet az oldal „A trükk” résznél megad: 1674 hasáb négy hosszhoz, itt pontos törtekkel számolva; 1673 nem egészen elég."
+          }
+        },
+        "elephant": {
+          "momentum_flux": {
+            "title": "A légsugár megtartja az impulzusát",
+            "setting": "Az oldal elefántja: 14,5 m/s egy 10 cm-es ormányból; azon a magasságon leolvasva, ahol a labda lebeg.",
+            "reads": "A szabad légsugár szélesebb és lassabb lesz, de az az impulzus, amelyet másodpercenként felfelé visz, ∫2πr·ρ·u² dr, ugyanannyi marad, amennyit a nyílás beletesz: ρ·U₀²·πD²/4.",
+            "why": "Azt a légsugarat ellenőrzi, amelyből az oldal a tolóerőt és a szívóhatást veszi: 1,98 N a nyílásnál, ugyanennyi 36 cm-rel feljebb.",
+            "step": "A forrás megmutatja, hogy egy kör keresztmetszetű légsugár impulzusárama nem változik a magassággal. A nyílásnál a levegő egyenletesen, U₀ sebességgel áramlik át a πD²/4 felületen; feljebb a légsugár az oldal profilját követi, u_c·e^(−r²/b²), itt körgyűrűnként összegezve."
+          },
+          "lift_off": {
+            "title": "Mekkora légáramnál emelkedik fel a labda",
+            "setting": "Mint fent; a labda az ormány peremén fekszik.",
+            "reads": "A labda felemelkedik, amint a ½·ρ·⟨u²⟩·c_d·A közegellenállási erő meghaladja a felhajtóerővel csökkentett súlyát. ⟨u²⟩ a keresztmetszetére vett átlag, itt zárt alakban integrálva; U₀²-tel nő.",
+            "why": "Az oldal „Felemelkedési küszöb” értékét ellenőrzi: 12,07 m/s. Az oldal a keresztmetszetet 288 pontban összegzi, itt pontosan integráljuk; a kettő 5 · 10⁻⁴-nel tér el egymástól.",
+            "step": "Az első forrás a megmaradó impulzust adja meg, amelyből az oldal a tengely menti sebességet veszi, u_c = U₀·D/(√2·b), b = D/√2 + s/(√2·6) szélességnél. Egy r sugarú körlapra átlagolva ebből ⟨u²⟩ = u_c²·b²/(2r²)·(1 − e^(−2r²/b²)) adódik. A többi forrás a közegellenállást adja meg, gömbre c_d = 0,47 értékkel, valamint a felhajtóerőt."
+          },
+          "float_balance": {
+            "title": "Hol lebeg a labda",
+            "setting": "Mint fent; a labda a peremről indulva 20 s-ig magára hagyva.",
+            "reads": "A labda ott nyugszik meg, ahol a közegellenállás tartja a felhajtóerővel csökkentett súlyát: ahol a levegő sebessége a labdánál u = √(2(m − ρV)g/(ρ·c_d·A)).",
+            "why": "Az oldal időléptető ciklusát ellenőrzi: ott tartja lebegve a labdát, ahol a levegő sebessége nála 7,407 m/s, ahogy kell. 20 s után a fel-le lengés 10⁻¹¹-re csengett le."
           }
         }
       },

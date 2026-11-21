@@ -3775,7 +3775,23 @@
         "xbar_k": "baricentro dei k blocchi in cima",
         "r_edge": "bordo del blocco sotto; per il più basso, il bordo del tavolo",
         "s_step": "gradino, in lunghezze",
-        "N_blocks": "numero di blocchi necessario"
+        "N_blocks": "numero di blocchi necessario",
+        "m_flux": "quantità di moto che il getto porta verso l'alto ogni secondo",
+        "r_jet": "distanza dall'asse del getto",
+        "u_jet": "velocità dell'aria nel getto",
+        "U0_jet": "velocità dell'aria all'apertura",
+        "opening_d": "diametro dell'apertura della proboscide",
+        "uc_jet": "velocità dell'aria sull'asse del getto",
+        "b_jet": "larghezza del getto",
+        "cd": "coefficiente di resistenza aerodinamica di una sfera, 0,47",
+        "A_ball": "sezione trasversale della palla",
+        "u2_mean": "media di u² sulla sezione trasversale della palla",
+        "m_ball": "massa della palla",
+        "V_ball": "volume della palla",
+        "s_jet": "altezza del centro della palla sopra l'apertura",
+        "B_decay": "costante di decadimento del getto circolare, qui 6",
+        "u_ball": "velocità dell'aria all'altezza della palla",
+        "elephant_rho_air": "densità dell'aria"
       },
       "cases": {
         "sphere": {
@@ -4808,6 +4824,28 @@
             "setting": "Tanti blocchi quanti servono perché la pila più lunga sporga di quattro lunghezze oltre il bordo; il numero è in «Il trucco».",
             "reads": "La pila più lunga di n blocchi sporge di ∑1/(2i) lunghezze. La somma cresce senza fine, ma solo come un logaritmo.",
             "why": "Verifica il numero che la pagina dà in «Il trucco»: 1674 blocchi per quattro lunghezze, contati qui con frazioni esatte; 1673 non bastano del tutto."
+          }
+        },
+        "elephant": {
+          "momentum_flux": {
+            "title": "Il getto conserva la sua quantità di moto",
+            "setting": "L'elefante della pagina: 14,5 m/s da una proboscide di 10 cm; letto all'altezza a cui la palla resta sospesa.",
+            "reads": "Un getto libero si allarga e rallenta, ma la quantità di moto che porta verso l'alto ogni secondo, ∫2πr·ρ·u² dr, resta quella che vi immette l'apertura: ρ·U₀²·πD²/4.",
+            "why": "Verifica il getto da cui la pagina ricava spinta e risucchio: 1,98 N all'apertura, altrettanti 36 cm più in alto.",
+            "step": "La fonte mostra che il flusso di quantità di moto di un getto circolare non cambia con l'altezza. All'apertura l'aria scorre uniformemente a U₀ attraverso l'area πD²/4; più in alto il getto ha il profilo della pagina, u_c·e^(−r²/b²), qui sommato corona per corona."
+          },
+          "lift_off": {
+            "title": "Con quale flusso d'aria la palla si stacca",
+            "setting": "Come sopra; la palla poggia sul bordo della proboscide.",
+            "reads": "La palla si stacca appena la resistenza aerodinamica ½·ρ·⟨u²⟩·c_d·A supera il suo peso meno la spinta di Archimede. ⟨u²⟩ è la media sulla sua sezione trasversale, qui integrata in forma chiusa; cresce con U₀².",
+            "why": "Verifica il numero «Si stacca a partire da» della pagina: 12,07 m/s. La pagina somma la sezione trasversale su 288 punti, qui è integrata esattamente; le due differiscono di 5 · 10⁻⁴.",
+            "step": "La prima fonte dà la quantità di moto conservata, da cui la pagina ricava la velocità sull'asse, u_c = U₀·D/(√2·b), con la larghezza b = D/√2 + s/(√2·6). Mediato su un disco di raggio r, ciò dà ⟨u²⟩ = u_c²·b²/(2r²)·(1 − e^(−2r²/b²)). Le altre fonti danno la resistenza aerodinamica, con c_d = 0,47 per una sfera, e la spinta di Archimede."
+          },
+          "float_balance": {
+            "title": "Dove la palla resta sospesa",
+            "setting": "Come sopra; la palla lasciata a sé stessa dal bordo per 20 s.",
+            "reads": "La palla si ferma dove la resistenza aerodinamica sostiene il suo peso meno la spinta di Archimede: dove l'aria all'altezza della palla va a u = √(2(m − ρV)g/(ρ·c_d·A)).",
+            "why": "Verifica il ciclo dei passi temporali della pagina: tiene la palla sospesa dove l'aria va a 7,407 m/s, come richiesto. Dopo 20 s l'oscillazione si è smorzata fino a 10⁻¹¹."
           }
         }
       },

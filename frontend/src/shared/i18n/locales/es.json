@@ -3775,7 +3775,23 @@
         "xbar_k": "centro de masa de los k bloques de arriba",
         "r_edge": "borde del bloque de abajo; para el más bajo, el borde de la mesa",
         "s_step": "peldaño, en longitudes",
-        "N_blocks": "número de bloques necesario"
+        "N_blocks": "número de bloques necesario",
+        "m_flux": "cantidad de movimiento que el chorro lleva hacia arriba cada segundo",
+        "r_jet": "distancia al eje del chorro",
+        "u_jet": "velocidad del aire en el chorro",
+        "U0_jet": "velocidad del aire en la abertura",
+        "opening_d": "diámetro de la abertura de la trompa",
+        "uc_jet": "velocidad del aire en el eje del chorro",
+        "b_jet": "anchura del chorro",
+        "cd": "coeficiente de arrastre de una esfera, 0,47",
+        "A_ball": "sección transversal de la pelota",
+        "u2_mean": "media de u² sobre la sección transversal de la pelota",
+        "m_ball": "masa de la pelota",
+        "V_ball": "volumen de la pelota",
+        "s_jet": "altura del centro de la pelota sobre la abertura",
+        "B_decay": "constante de decaimiento del chorro redondo, aquí 6",
+        "u_ball": "velocidad del aire en la pelota",
+        "elephant_rho_air": "densidad del aire"
       },
       "cases": {
         "sphere": {
@@ -4808,6 +4824,28 @@
             "setting": "Tantos bloques como hagan falta para que la pila más lejana sobresalga cuatro longitudes del borde; el número figura en «El truco».",
             "reads": "La pila más lejana de n bloques sobresale ∑1/(2i) longitudes. La suma crece sin fin, pero solo como un logaritmo.",
             "why": "Comprueba el número que da la página en «El truco»: 1674 bloques para cuatro longitudes, contados aquí con fracciones exactas; con 1673 no llega del todo."
+          }
+        },
+        "elephant": {
+          "momentum_flux": {
+            "title": "El chorro conserva su cantidad de movimiento",
+            "setting": "El elefante de la página: 14,5 m/s por una trompa de 10 cm; leído a la altura a la que flota la pelota.",
+            "reads": "Un chorro libre se hace más ancho y más lento, pero la cantidad de movimiento que lleva hacia arriba cada segundo, ∫2πr·ρ·u² dr, sigue siendo la que le da la abertura: ρ·U₀²·πD²/4.",
+            "why": "Comprueba el chorro del que la página saca el empuje y la succión: 1,98 N en la abertura, lo mismo 36 cm más arriba.",
+            "step": "La fuente muestra que el flujo de cantidad de movimiento de un chorro redondo no cambia con la altura. En la abertura el aire fluye uniformemente a U₀ a través del área πD²/4; más arriba el chorro tiene el perfil de la página, u_c·e^(−r²/b²), aquí sumado anillo a anillo."
+          },
+          "lift_off": {
+            "title": "Con qué corriente de aire despega la pelota",
+            "setting": "Como arriba; la pelota descansa sobre el borde de la trompa.",
+            "reads": "La pelota despega en cuanto la fuerza de arrastre ½·ρ·⟨u²⟩·c_d·A supera su peso menos el empuje de Arquímedes. ⟨u²⟩ es la media sobre su sección transversal, aquí integrada en forma cerrada; crece con U₀².",
+            "why": "Comprueba la cifra «Despega a partir de» de la página: 12,07 m/s. La página suma la sección transversal en 288 puntos, aquí se integra exactamente; las dos difieren en 5 · 10⁻⁴.",
+            "step": "La primera fuente da la cantidad de movimiento conservada, de la que la página saca la velocidad en el eje, u_c = U₀·D/(√2·b), con la anchura b = D/√2 + s/(√2·6). Promediado sobre un disco de radio r, eso da ⟨u²⟩ = u_c²·b²/(2r²)·(1 − e^(−2r²/b²)). Las otras fuentes dan la fuerza de arrastre, con c_d = 0,47 para una esfera, y el empuje de Arquímedes."
+          },
+          "float_balance": {
+            "title": "Dónde flota la pelota",
+            "setting": "Como arriba; la pelota, dejada a su aire desde el borde durante 20 s.",
+            "reads": "La pelota se queda quieta donde la fuerza de arrastre sostiene su peso menos el empuje de Arquímedes: donde el aire en la pelota va a u = √(2(m − ρV)g/(ρ·c_d·A)).",
+            "why": "Comprueba el bucle de pasos de tiempo de la página: hace flotar la pelota donde el aire en ella va a 7,407 m/s, como se exige. Tras 20 s, la oscilación se ha apagado hasta 10⁻¹¹."
           }
         }
       },

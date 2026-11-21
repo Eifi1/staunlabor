@@ -3775,7 +3775,23 @@
         "xbar_k": "centre de gravité des k blocs du haut",
         "r_edge": "bord du bloc du dessous ; pour le plus bas, le bord de la table",
         "s_step": "marche, en longueurs",
-        "N_blocks": "nombre de blocs nécessaire"
+        "N_blocks": "nombre de blocs nécessaire",
+        "m_flux": "quantité de mouvement que le jet emporte vers le haut chaque seconde",
+        "r_jet": "distance à l’axe du jet",
+        "u_jet": "vitesse de l’air dans le jet",
+        "U0_jet": "vitesse de l’air à l’ouverture",
+        "opening_d": "diamètre de l’ouverture de la trompe",
+        "uc_jet": "vitesse de l’air sur l’axe du jet",
+        "b_jet": "largeur du jet",
+        "cd": "coefficient de traînée d’une sphère, 0,47",
+        "A_ball": "section du ballon",
+        "u2_mean": "moyenne de u² sur la section du ballon",
+        "m_ball": "masse du ballon",
+        "V_ball": "volume du ballon",
+        "s_jet": "hauteur du centre du ballon au-dessus de l’ouverture",
+        "B_decay": "constante de décroissance du jet rond, ici 6",
+        "u_ball": "vitesse de l’air au niveau du ballon",
+        "elephant_rho_air": "masse volumique de l’air"
       },
       "cases": {
         "sphere": {
@@ -4808,6 +4824,28 @@
             "setting": "Autant de blocs qu’il en faut pour que la pile la plus longue dépasse le bord de quatre longueurs ; le nombre figure sous « Le tour ».",
             "reads": "La pile la plus longue de n blocs dépasse de ∑1/(2i) longueurs. La somme croît sans fin, mais seulement comme un logarithme.",
             "why": "Vérifie le nombre que la page donne sous « Le tour » : 1674 blocs pour quatre longueurs, comptés ici en fractions exactes ; 1673 ne suffisent pas tout à fait."
+          }
+        },
+        "elephant": {
+          "momentum_flux": {
+            "title": "Le jet garde sa quantité de mouvement",
+            "setting": "L’éléphant de la page : 14,5 m/s par une trompe de 10 cm ; relevé à la hauteur où flotte le ballon.",
+            "reads": "Un jet libre s’élargit et ralentit, mais la quantité de mouvement qu’il emporte vers le haut chaque seconde, ∫2πr·ρ·u² dr, reste celle que l’ouverture y met : ρ·U₀²·πD²/4.",
+            "why": "Vérifie le jet dont la page tire la poussée et l’aspiration : 1,98 N à l’ouverture, autant 36 cm plus haut.",
+            "step": "La source montre que le flux de quantité de mouvement d’un jet rond ne change pas avec la hauteur. À l’ouverture, l’air s’écoule uniformément à U₀ à travers la surface πD²/4 ; plus haut, le jet a le profil de la page, u_c·e^(−r²/b²), ici sommé anneau par anneau."
+          },
+          "lift_off": {
+            "title": "À partir de quel courant d’air le ballon décolle",
+            "setting": "Comme ci-dessus ; le ballon repose sur le bord de la trompe.",
+            "reads": "Le ballon décolle dès que la traînée ½·ρ·⟨u²⟩·c_d·A dépasse son poids diminué de la poussée d’Archimède. ⟨u²⟩ est la moyenne sur sa section, ici intégrée sous forme fermée ; elle croît avec U₀².",
+            "why": "Vérifie le chiffre « Décolle à partir de » de la page : 12,07 m/s. La page somme la section en 288 points, ici elle est intégrée exactement ; les deux diffèrent de 5 · 10⁻⁴.",
+            "step": "La première source donne la quantité de mouvement conservée, dont la page tire la vitesse sur l’axe, u_c = U₀·D/(√2·b), pour la largeur b = D/√2 + s/(√2·6). Moyenné sur un disque de rayon r, cela donne ⟨u²⟩ = u_c²·b²/(2r²)·(1 − e^(−2r²/b²)). Les autres sources donnent la traînée, avec c_d = 0,47 pour une sphère, et la poussée d’Archimède."
+          },
+          "float_balance": {
+            "title": "Où le ballon flotte",
+            "setting": "Comme ci-dessus ; le ballon laissé à lui-même depuis le bord pendant 20 s.",
+            "reads": "Le ballon s’immobilise là où la traînée porte son poids diminué de la poussée d’Archimède : là où l’air au niveau du ballon va à u = √(2(m − ρV)g/(ρ·c_d·A)).",
+            "why": "Vérifie la boucle des pas de temps de la page : elle fait flotter le ballon là où l’air à son niveau va à 7,407 m/s, comme demandé. Après 20 s, l’oscillation s’est éteinte à 10⁻¹¹ près."
           }
         }
       },

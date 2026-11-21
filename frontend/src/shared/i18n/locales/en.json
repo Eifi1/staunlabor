@@ -3775,7 +3775,23 @@
         "xbar_k": "centre of mass of the top k blocks",
         "r_edge": "edge of the block below; for the lowest, the table’s edge",
         "s_step": "step, in lengths",
-        "N_blocks": "number of blocks needed"
+        "N_blocks": "number of blocks needed",
+        "m_flux": "the momentum the jet carries up each second",
+        "r_jet": "distance from the jet's axis",
+        "u_jet": "the air's speed in the jet",
+        "U0_jet": "the air's speed at the opening",
+        "opening_d": "the trunk opening's diameter",
+        "uc_jet": "the air's speed on the jet's axis",
+        "b_jet": "the jet's width",
+        "cd": "a sphere's drag coefficient, 0.47",
+        "A_ball": "the ball's cross-section",
+        "u2_mean": "the mean of u² over the ball's cross-section",
+        "m_ball": "the ball's mass",
+        "V_ball": "the ball's volume",
+        "s_jet": "the ball centre's height above the opening",
+        "B_decay": "the round jet's decay constant, here 6",
+        "u_ball": "the air's speed at the ball",
+        "elephant_rho_air": "the air's density"
       },
       "cases": {
         "sphere": {
@@ -4808,6 +4824,28 @@
             "setting": "As many blocks as it takes for the furthest stack to reach four lengths past the edge; the number is beside the trick.",
             "reads": "The furthest stack of n blocks reaches ∑1/(2i) lengths out. The sum grows without end, but only like a logarithm.",
             "why": "Checks the number the page gives beside the trick: 1674 blocks for four lengths, counted here with exact fractions; 1673 fall just short."
+          }
+        },
+        "elephant": {
+          "momentum_flux": {
+            "title": "The jet keeps its momentum",
+            "setting": "The page's elephant: 14.5 m/s out of a 10 cm trunk; read at the height the ball floats at.",
+            "reads": "A free jet grows wider and slower, but the momentum it carries up each second, ∫2πr·ρ·u² dr, stays what the opening puts in: ρ·U₀²·πD²/4.",
+            "why": "Checks the jet the page takes its push and suction from: 1.98 N at the opening, as much 36 cm above it.",
+            "step": "The source shows that a round jet's momentum flux does not change with height. At the opening the air flows evenly at U₀ through the area πD²/4; further up the jet has the page's profile, u_c·e^(−r²/b²), here summed ring by ring."
+          },
+          "lift_off": {
+            "title": "How much air lifts the ball off",
+            "setting": "As above; the ball lies on the trunk's rim.",
+            "reads": "The ball lifts off once the drag ½·ρ·⟨u²⟩·c_d·A exceeds its weight less the buoyancy. ⟨u²⟩ is the mean over its cross-section, here integrated in closed form; it grows with U₀².",
+            "why": "Checks the page's figure \"Lifts off from\": 12.07 m/s. The page sums the cross-section at 288 points, here it is integrated exactly; the two lie 5 · 10⁻⁴ apart.",
+            "step": "The first source gives the momentum kept, from which the page takes the speed on the axis, u_c = U₀·D/(√2·b), at the width b = D/√2 + s/(√2·6). Averaged over a disc of radius r that gives ⟨u²⟩ = u_c²·b²/(2r²)·(1 − e^(−2r²/b²)). The other sources give the drag, with c_d = 0.47 for a sphere, and the buoyancy."
+          },
+          "float_balance": {
+            "title": "Where the ball floats",
+            "setting": "As above; the ball left to itself from the rim for 20 s.",
+            "reads": "The ball comes to rest where the drag carries its weight less the buoyancy: where the air at the ball is u = √(2(m − ρV)g/(ρ·c_d·A)) fast.",
+            "why": "Checks the page's time loop: it lets the ball float where the air at it is 7.407 m/s, as demanded. After 20 s the bob has died away to 10⁻¹¹."
           }
         }
       },

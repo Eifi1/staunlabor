@@ -3775,7 +3775,23 @@
         "xbar_k": "Schwerpunkt der obersten k Klötze",
         "r_edge": "Kante des Klotzes darunter; für den untersten die Tischkante",
         "s_step": "Stufe, in Längen",
-        "N_blocks": "nötige Zahl der Klötze"
+        "N_blocks": "nötige Zahl der Klötze",
+        "m_flux": "Impuls, den der Strahl pro Sekunde nach oben trägt",
+        "r_jet": "Abstand von der Achse des Strahls",
+        "u_jet": "Tempo der Luft im Strahl",
+        "U0_jet": "Tempo der Luft an der Öffnung",
+        "opening_d": "Durchmesser der Öffnung des Rüssels",
+        "uc_jet": "Tempo der Luft auf der Achse des Strahls",
+        "b_jet": "Breite des Strahls",
+        "cd": "Widerstandsbeiwert einer Kugel, 0,47",
+        "A_ball": "Querschnitt des Balls",
+        "u2_mean": "Mittel von u² über den Querschnitt des Balls",
+        "m_ball": "Masse des Balls",
+        "V_ball": "Volumen des Balls",
+        "s_jet": "Höhe der Ballmitte über der Öffnung",
+        "B_decay": "Abklingkonstante des runden Strahls, hier 6",
+        "u_ball": "Tempo der Luft am Ball",
+        "elephant_rho_air": "Dichte der Luft"
       },
       "cases": {
         "sphere": {
@@ -4808,6 +4824,28 @@
             "setting": "So viele Klötze, bis der weiteste Stapel vier Längen über die Kante reicht; die Zahl steht beim Trick.",
             "reads": "Der weiteste Stapel aus n Klötzen reicht ∑1/(2i) Längen hinaus. Die Summe wächst ohne Ende, aber nur wie ein Logarithmus.",
             "why": "Prüft die Zahl, die die Seite beim Trick nennt: 1674 Klötze für vier Längen, hier mit genauen Brüchen gezählt; 1673 reichen nicht ganz."
+          }
+        },
+        "elephant": {
+          "momentum_flux": {
+            "title": "Der Strahl behält seinen Impuls",
+            "setting": "Der Elefant der Seite: 14,5 m/s aus einem Rüssel von 10 cm; gelesen auf der Höhe, auf der der Ball schwebt.",
+            "reads": "Ein freier Strahl wird breiter und langsamer, aber was er pro Sekunde an Impuls nach oben trägt, ∫2πr·ρ·u² dr, bleibt das, was die Öffnung hineingibt: ρ·U₀²·πD²/4.",
+            "why": "Prüft den Strahl, aus dem die Seite Schub und Sog nimmt: 1,98 N an der Öffnung, gleich viel 36 cm darüber.",
+            "step": "Die Quelle zeigt, dass sich der Impulsfluss eines runden Strahls mit der Höhe nicht ändert. An der Öffnung strömt die Luft gleichmässig mit U₀ durch die Fläche πD²/4; weiter oben hat der Strahl das Profil der Seite, u_c·e^(−r²/b²), hier Ring für Ring summiert."
+          },
+          "lift_off": {
+            "title": "Ab welchem Luftstrom der Ball abhebt",
+            "setting": "Wie oben; der Ball liegt auf dem Rand des Rüssels.",
+            "reads": "Der Ball hebt ab, sobald der Luftwiderstand ½·ρ·⟨u²⟩·c_d·A sein Gewicht weniger den Auftrieb übersteigt. ⟨u²⟩ ist das Mittel über seinen Querschnitt, hier geschlossen integriert; es wächst mit U₀².",
+            "why": "Prüft die Zahl «Hebt ab ab» der Seite: 12,07 m/s. Die Seite summiert den Querschnitt an 288 Punkten, hier ist er genau integriert; die beiden liegen 5 · 10⁻⁴ auseinander.",
+            "step": "Die erste Quelle gibt den erhaltenen Impuls, aus dem die Seite die Geschwindigkeit auf der Achse nimmt, u_c = U₀·D/(√2·b), bei der Breite b = D/√2 + s/(√2·6). Über eine Kreisscheibe vom Radius r gemittelt, ergibt das ⟨u²⟩ = u_c²·b²/(2r²)·(1 − e^(−2r²/b²)). Die anderen Quellen geben den Luftwiderstand, mit c_d = 0,47 für eine Kugel, und den Auftrieb."
+          },
+          "float_balance": {
+            "title": "Wo der Ball schwebt",
+            "setting": "Wie oben; der Ball vom Rand aus 20 s sich selbst überlassen.",
+            "reads": "Der Ball kommt dort zur Ruhe, wo der Luftwiderstand sein Gewicht weniger den Auftrieb trägt: wo die Luft am Ball u = √(2(m − ρV)g/(ρ·c_d·A)) schnell ist.",
+            "why": "Prüft die Zeitschleife der Seite: Sie lässt den Ball dort schweben, wo die Luft an ihm 7,407 m/s schnell ist, wie verlangt. Nach 20 s ist das Wippen auf 10⁻¹¹ abgeklungen."
           }
         }
       },

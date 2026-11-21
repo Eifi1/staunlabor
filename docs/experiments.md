@@ -2645,6 +2645,17 @@ has "Set it up": the furthest stack is the page's held answer, shown once the
 reader has tipped a stack, so its two cases set nothing, and the count of 1674
 is a figure in the trick.
 
+**The elephant's** three (2026-11-21) hold the jet's momentum, summed over the
+engine's Gaussian profile where the ball floats, to the trunk's ρU₀²πD²/4
+(1.98 N, to 10⁻¹³: the centre speed and the width keep it together), the
+lift-off speed from the closed-form mean of u² over the ball at rest on the rim
+(12.0664 m/s against the route's 12.0725) and the speed of the air at the
+floating ball to drag = weight − buoyancy (7.407 m/s, after 20 s of the
+page's loop). The lift-off's 5.1 · 10⁻⁴ is the model's 288-point rule, which
+lies 10⁻³ high in ⟨u²⟩ at the rest height, within 10⁻³; the jet's B = 6 and
+its Gaussian are the model's choices, not sourced numbers. "Set it up" sets
+the build, the trunk upright and the ball back on the rim.
+
 **On the page** a section "Check it yourself" (`check-section.tsx`) lists the
 cases, each with its formula as an `Equation` (`check-formulas.ts`), both
 values to seven digits, the deviation, why the case would catch a mistake,

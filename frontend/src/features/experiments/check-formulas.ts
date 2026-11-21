@@ -166,6 +166,16 @@ const H_THETA0: CheckSymbol = { tex: String.raw`\theta_0`, key: "theta0", unit: 
 const D_OVER: CheckSymbol = { tex: "d", key: "d_over", unit: "m" };
 const N_BLOCKS: CheckSymbol = { tex: "n", key: "n_blocks" };
 const L_BLOCK: CheckSymbol = { tex: String.raw`\ell`, key: "l_block", unit: "m" };
+const RHO_AIR: CheckSymbol = { tex: String.raw`\rho`, key: "elephant_rho_air", unit: "kg/m³" };
+const U0_JET: CheckSymbol = { tex: "U_0", key: "U0_jet", unit: "m/s" };
+const OPENING: CheckSymbol = { tex: "D", key: "opening_d", unit: "m" };
+const UC_JET: CheckSymbol = { tex: "u_c", key: "uc_jet", unit: "m/s" };
+const B_JET: CheckSymbol = { tex: "b", key: "b_jet", unit: "m" };
+const CD: CheckSymbol = { tex: "c_d", key: "cd" };
+const A_BALL: CheckSymbol = { tex: "A", key: "A_ball", unit: "m²" };
+const M_BALL: CheckSymbol = { tex: "m", key: "m_ball", unit: "kg" };
+const V_BALL: CheckSymbol = { tex: "V", key: "V_ball", unit: "m³" };
+const G_SYM: CheckSymbol = { tex: "g", key: "g", unit: "m/s²" };
 
 const ROD_STEADY: CheckFormula = {
   tex: String.raw`w = \frac{\Gamma\,\Omega^2 Y}{\sqrt{(\omega^2 - \Omega^2)^2 + (2\zeta\omega\Omega)^2}}, \qquad \Gamma = \frac{\int_0^1 \varphi\,d\xi}{\int_0^1 \varphi^2\,d\xi}`,
@@ -1381,6 +1391,44 @@ export const CHECK_FORMULAS: Record<string, Record<string, CheckFormula>> = {
     four_lengths: {
       tex: String.raw`N = \min\Bigl\{\,n : \sum_{i=1}^{n}\frac{1}{2i} \ge 4\Bigr\}`,
       symbols: [{ tex: "N", key: "N_blocks" }, N_BLOCKS],
+    },
+  },
+  elephant: {
+    momentum_flux: {
+      tex: String.raw`\dot M = \int_0^\infty 2\pi r\,\rho\,u^2\,dr = \rho\,U_0^2\,\frac{\pi D^2}{4}, \qquad u = u_c\,e^{-r^2/b^2}`,
+      symbols: [
+        { tex: String.raw`\dot M`, key: "m_flux", unit: "N" },
+        { tex: "r", key: "r_jet", unit: "m" },
+        RHO_AIR,
+        { tex: "u", key: "u_jet", unit: "m/s" },
+        U0_JET,
+        OPENING,
+        UC_JET,
+        B_JET,
+      ],
+    },
+    lift_off: {
+      tex: String.raw`\tfrac12\rho\,c_d\,A\,\langle u^2\rangle = (m - \rho V)\,g, \qquad \langle u^2\rangle = u_c^2\,\frac{b^2}{2r^2}\left(1 - e^{-2r^2/b^2}\right), \qquad u_c = \frac{U_0 D}{\sqrt{2}\,b}, \qquad b = \frac{D}{\sqrt{2}} + \frac{s}{\sqrt{2}\,B}`,
+      symbols: [
+        RHO_AIR,
+        CD,
+        A_BALL,
+        { tex: String.raw`\langle u^2\rangle`, key: "u2_mean", unit: "m²/s²" },
+        M_BALL,
+        V_BALL,
+        G_SYM,
+        UC_JET,
+        B_JET,
+        { tex: "r", key: "r", unit: "m" },
+        U0_JET,
+        OPENING,
+        { tex: "s", key: "s_jet", unit: "m" },
+        { tex: "B", key: "B_decay" },
+      ],
+    },
+    float_balance: {
+      tex: String.raw`\tfrac12\rho\,u^2\,c_d\,A = (m - \rho V)\,g \;\Rightarrow\; u = \sqrt{\frac{2\,(m - \rho V)\,g}{\rho\,c_d\,A}}`,
+      symbols: [RHO_AIR, { tex: "u", key: "u_ball", unit: "m/s" }, CD, A_BALL, M_BALL, V_BALL, G_SYM],
     },
   },
 };
