@@ -1221,21 +1221,51 @@ describe("the chaotic pendulum", () => {
       expect(screen.getByRole("button", { name: E.chaos.play.presets[name] })).toBeInTheDocument();
     }
     // Wild, the exponent is measured and the gap doubles in a fraction of a second.
-    expect(
-      await screen.findByText(
-        /Measured for this start over half a minute: λ ≈ \d\.\d a second – a single stretch of path, so a few tenths more or less\. A difference thus doubles about every \d\.\d\d s/,
-        {},
-        { timeout: 8000 },
-      ),
-    ).toBeInTheDocument();
+    // The measure waits for a 300 ms pause (useDebounce): on a fake clock, as
+    // the gentle start's below. Away to gentle and back clears the load's own
+    // wait, armed on the real clock, and arms the wild one on the fake.
+    vi.useFakeTimers({
+      toFake: ["setTimeout", "clearTimeout", "requestAnimationFrame", "cancelAnimationFrame", "performance"],
+      shouldClearNativeTimers: true,
+    });
+    try {
+      fireEvent.click(screen.getByRole("button", { name: E.chaos.play.presets.gentle }));
+      fireEvent.click(screen.getByRole("button", { name: E.chaos.play.presets.wild }));
+      await act(async () => {
+        vi.advanceTimersByTime(300);
+      });
+      expect(
+        screen.getByText(
+          /Measured for this start over half a minute: λ ≈ \d\.\d a second – a single stretch of path, so a few tenths more or less\. A difference thus doubles about every \d\.\d\d s/,
+        ),
+      ).toBeInTheDocument();
+    } finally {
+      vi.useRealTimers();
+    }
     expect(screen.getAllByLabelText(E.equation.symbols).length).toBeGreaterThanOrEqual(4);
   }, 15000);
 
   it("calls a gentle start predictable", async () => {
     renderWithProviders(<ChaosPage />);
     await screen.findByRole("img", { name: E.chaos.view });
-    fireEvent.click(screen.getByRole("button", { name: E.chaos.play.presets.gentle }));
-    expect(await screen.findByText(/practically zero/, {}, { timeout: 8000 })).toBeInTheDocument();
+    // The measure waits for a 300 ms pause in the start (useDebounce) and then
+    // runs at once: on a fake clock from here, with the frames, so neither the
+    // wait nor the swing behind it takes real time under the pre-push check's
+    // load. The load's own debounce, armed on the real clock, is cleared by the
+    // click (`shouldClearNativeTimers`) rather than landing outside act().
+    vi.useFakeTimers({
+      toFake: ["setTimeout", "clearTimeout", "requestAnimationFrame", "cancelAnimationFrame", "performance"],
+      shouldClearNativeTimers: true,
+    });
+    try {
+      fireEvent.click(screen.getByRole("button", { name: E.chaos.play.presets.gentle }));
+      await act(async () => {
+        vi.advanceTimersByTime(300);
+      });
+      expect(screen.getByText(/practically zero/)).toBeInTheDocument();
+    } finally {
+      vi.useRealTimers();
+    }
   }, 15000);
 });
 
@@ -2243,16 +2273,27 @@ describe("the overhang", () => {
 
 describe("the Cartesian diver", () => {
   it("floats until squeezed, then sinks, pauses and goes back to the surface", async () => {
-    renderWithProviders(<DiverPage />);
-    expect(await screen.findByRole("img", { name: E.diver.view })).toBeInTheDocument();
-    expect(screen.getByText(E.diver.play.motion.floats)).toBeInTheDocument();
-    fireEvent.change(screen.getByRole("slider", { name: E.diver.play.squeeze }), { target: { value: "20" } });
-    // The sinking runs on the page's frames, slow under coverage, as the smoke ring's press.
-    expect(await screen.findByText(E.diver.play.motion.sinks, undefined, { timeout: 8000 })).toBeInTheDocument();
-    fireEvent.click(screen.getByRole("button", { name: E.diver.play.pause }));
-    expect(screen.getByRole("button", { name: E.diver.play.run })).toBeInTheDocument();
-    fireEvent.click(screen.getByRole("button", { name: E.diver.play.surface }));
-    expect(screen.getAllByLabelText(E.equation.symbols).length).toBeGreaterThanOrEqual(4);
+    // The frames on a fake clock, as the smoke ring's press: two seconds of
+    // sinking in no real time, and no frames running behind the test under the
+    // pre-push check's load. "Sinks" itself follows from the squeeze at once
+    // (no lift at the surface); after the two seconds it is still sinking.
+    vi.useFakeTimers({ toFake: ["requestAnimationFrame", "cancelAnimationFrame", "performance"] });
+    try {
+      renderWithProviders(<DiverPage />);
+      expect(await screen.findByRole("img", { name: E.diver.view })).toBeInTheDocument();
+      expect(screen.getByText(E.diver.play.motion.floats)).toBeInTheDocument();
+      fireEvent.change(screen.getByRole("slider", { name: E.diver.play.squeeze }), { target: { value: "20" } });
+      await act(async () => {
+        vi.advanceTimersByTime(2000);
+      });
+      expect(screen.getByText(E.diver.play.motion.sinks)).toBeInTheDocument();
+      fireEvent.click(screen.getByRole("button", { name: E.diver.play.pause }));
+      expect(screen.getByRole("button", { name: E.diver.play.run })).toBeInTheDocument();
+      fireEvent.click(screen.getByRole("button", { name: E.diver.play.surface }));
+      expect(screen.getAllByLabelText(E.equation.symbols).length).toBeGreaterThanOrEqual(4);
+    } finally {
+      vi.useRealTimers();
+    }
   });
 
   it("names the squeeze that sinks it, 10.9 kPa, and more with more air", async () => {
