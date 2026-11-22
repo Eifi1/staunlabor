@@ -20,10 +20,11 @@ from __future__ import annotations
 
 from typing import Annotated, Any
 
-from pydantic import BaseModel, BeforeValidator, ConfigDict, Field, model_validator
+from pydantic import BaseModel, BeforeValidator, Field, model_validator
 
 from staunlabor.domain.course import (
     MAX_BLOCKS,
+    MAX_SENSOR_STEPS,
     AnalogyKind,
     Block,
     BlockKind,
@@ -36,6 +37,7 @@ from staunlabor.domain.course import (
     Regime,
     TwoMassParameters,
 )
+from staunlabor.domain.schemas._base import _In, _Out
 
 
 def _complex(value: Any) -> Any:
@@ -51,14 +53,6 @@ class ComplexOut(BaseModel):
 
 #: A complex number on the wire.
 Cx = Annotated[ComplexOut, BeforeValidator(_complex)]
-
-
-class _Out(BaseModel):
-    model_config = ConfigDict(from_attributes=True)
-
-
-class _In(BaseModel):
-    model_config = ConfigDict(extra="forbid", from_attributes=True)
 
 
 #: A seed for the noisy exercises; any non-negative integer draws a curve.
@@ -425,7 +419,7 @@ class SensorRunIn(_In):
     start: float = Field(ge=-1e4, le=1e4, default=20.0)
     final: float = Field(ge=-1e4, le=1e4, default=80.0)
     step_s: float = Field(gt=0, le=1000)
-    steps: int = Field(ge=1, le=200)
+    steps: int = Field(ge=1, le=MAX_SENSOR_STEPS)
 
 
 class ErrorRowOut(_Out):

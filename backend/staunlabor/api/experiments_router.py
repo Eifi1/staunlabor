@@ -36,32 +36,26 @@ from staunlabor.domain.experiments import (
     STEEL,
     TABLE_TENNIS,
     WATER_DROP,
-    Ball,
     BallStack,
     Body,
     Bottle,
     Carousel,
     ChladniPlate,
     Circuit,
-    Coil,
     CoilExhibit,
     ConeExhibit,
     CoupledPendulums,
     Cradle,
     Diver,
     DoublePendulum,
-    Drum,
     Elephant,
-    FloatingBall,
     Fork,
     FoucaultPendulum,
     Funnel,
     GyroWheel,
     Harmonograph,
-    Jet,
     LevitationBase,
     LevitationTop,
-    Magnet,
     MagnetColumn,
     MaxwellWheel,
     PegPendulum,
@@ -71,13 +65,11 @@ from staunlabor.domain.experiments import (
     Race,
     ResonanceRack,
     Rider,
-    Room,
     SkyTube,
     Slits,
     SmokeExhibit,
     Sphere,
     StoneArch,
-    Track,
     Vessel,
     WaterWheel,
     cannon_figures,
@@ -148,16 +140,6 @@ from staunlabor.security import PAGE_SETTLE_S, limit_run
 router = APIRouter(prefix="/experiments", tags=["experiments"])
 
 
-def _exhibit(payload: CoilExhibitIn) -> CoilExhibit:
-    return CoilExhibit(
-        magnet=Magnet(**payload.magnet.model_dump()),
-        coil=Coil(**payload.coil.model_dump()),
-        track=Track(**payload.track.model_dump()),
-        supply_v=payload.supply_v,
-        idle=payload.idle,
-    )
-
-
 @router.get("/defaults", response_model=ExperimentsDefaultsOut)
 async def defaults() -> ExperimentsDefaultsOut:
     return ExperimentsDefaultsOut(
@@ -193,8 +175,8 @@ async def defaults() -> ExperimentsDefaultsOut:
         overhang=OverhangIn(blocks=EXHIBIT_BLOCKS, length_m=BLOCK_LENGTH_M, height_m=BLOCK_HEIGHT_M),
         diver=DiverExhibitIn.model_validate({"diver": asdict(Diver()), "depth_m": Bottle().depth_m}),
         rainbow=RainbowIn.model_validate({"glass": asdict(GLASS_BEAD), "water": asdict(WATER_DROP)}),
-        sky=SkyTubeIn.model_validate(asdict(SkyTube())),
-        slits=SlitsIn.model_validate(asdict(Slits())),
+        sky=SkyTubeIn.model_validate(SkyTube()),
+        slits=SlitsIn.model_validate(Slits()),
         beats=BeatsIn.model_validate({"fork": asdict(Fork()), "rider": asdict(Rider())}),
         chladni=ChladniPlateIn.model_validate(ChladniPlate()),
         meter_range_a=METER_RANGE_A,
@@ -209,7 +191,7 @@ def sphere(payload: SphereIn) -> SphereFiguresOut:
 
 @router.post("/coil", response_model=CoilAnalysisOut, dependencies=[Depends(limit_run)])
 def coil(payload: CoilExhibitIn) -> CoilAnalysisOut:
-    return CoilAnalysisOut.model_validate(coil_analysis(_exhibit(payload)))
+    return CoilAnalysisOut.model_validate(coil_analysis(payload.to_domain()))
 
 
 @router.get("/chair", response_model=ChairAnalysisOut, dependencies=[Depends(limit_run)])
@@ -239,9 +221,7 @@ def chladni() -> ChladniModesOut:
 
 @router.post("/platform", response_model=PlatformFiguresOut, dependencies=[Depends(limit_run)])
 def platform(payload: PlatformExhibitIn) -> PlatformFiguresOut:
-    return PlatformFiguresOut.model_validate(
-        platform_figures(Body(**payload.body.model_dump()), Platform(**payload.platform.model_dump()))
-    )
+    return PlatformFiguresOut.model_validate(platform_figures(*payload.to_domain()))
 
 
 @router.post("/race", response_model=RaceAnalysisOut, dependencies=[Depends(limit_run)])
@@ -254,29 +234,17 @@ def race(payload: RaceIn) -> RaceAnalysisOut:
 
 @router.post("/elephant", response_model=ElephantFiguresOut, dependencies=[Depends(limit_run)])
 def elephant(payload: ElephantIn) -> ElephantFiguresOut:
-    spec = Elephant(
-        jet=Jet(**payload.jet.model_dump()), ball=FloatingBall(**payload.ball.model_dump()), coanda=payload.coanda
-    )
-    return ElephantFiguresOut.model_validate(elephant_figures(spec))
+    return ElephantFiguresOut.model_validate(elephant_figures(payload.to_domain()))
 
 
 @router.post("/smoke", response_model=SmokeFiguresOut, dependencies=[Depends(limit_run)])
 def smoke(payload: SmokeExhibitIn) -> SmokeFiguresOut:
-    spec = SmokeExhibit(drum=Drum(**payload.drum.model_dump()), room=Room(**payload.room.model_dump()))
-    return SmokeFiguresOut.model_validate(smoke_figures(spec))
+    return SmokeFiguresOut.model_validate(smoke_figures(payload.to_domain()))
 
 
 @router.post("/cannon", response_model=CannonFiguresOut, dependencies=[Depends(limit_run)])
 def cannon(payload: BallStackIn) -> CannonFiguresOut:
-    spec = BallStack(
-        balls=tuple(Ball(**ball.model_dump()) for ball in payload.balls),
-        drop_m=payload.drop_m,
-        gap_m=payload.gap_m,
-        floor_restitution=payload.floor_restitution,
-        ball_restitution=payload.ball_restitution,
-        youngs_mpa=payload.youngs_mpa,
-    )
-    return CannonFiguresOut.model_validate(cannon_figures(spec))
+    return CannonFiguresOut.model_validate(cannon_figures(payload.to_domain()))
 
 
 @router.post("/wave", response_model=WaveFiguresOut, dependencies=[Depends(limit_run)])
