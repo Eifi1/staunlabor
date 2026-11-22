@@ -5,7 +5,7 @@ import { AlertBanner, Button, LoadingState, ToggleGroup } from "@eifi1/ui-kit";
 import { SeriesChart } from "@/shared/charts/series-chart";
 import { useLocale } from "@/shared/i18n/use-locale";
 import { formatNumber } from "@/shared/lib/format";
-import { useChartHex } from "@/shared/state/palette-store";
+import { useChartHue } from "@/shared/state/palette-store";
 import { SliderField } from "@/shared/ui/slider-field";
 import { Figures, WidgetCard } from "@/shared/ui/widget";
 import { Equation } from "./equation";
@@ -27,7 +27,7 @@ import {
   type Start,
 } from "./simulate/coupled";
 import { STEP_S, rk4 } from "./simulate/pendulum";
-import { SIDE } from "./stage";
+import { SIDE, STAGE, VIEW_FRAME } from "./stage";
 import { useExperimentsDefaults } from "./use-experiments";
 
 /** How far a pendulum is pulled aside: wide enough to see, small enough that the
@@ -121,7 +121,7 @@ export function CoupledPreview({ paused }: PreviewProps) {
 /** The pair from the front: the bar, two rods and bobs, and the spring between. */
 export function CoupledView({ cp, left, right }: { cp: CoupledPendulums; left: number; right: number }) {
   const { t } = useTranslation();
-  const hex = useChartHex();
+  const hue = useChartHue();
   const longest = Math.max(cp.left.length_m, cp.right.length_m);
   const gap = Math.max(0.6 * longest, 0.2);
   const bob = longest * 0.06;
@@ -152,7 +152,7 @@ export function CoupledView({ cp, left, right }: { cp: CoupledPendulums; left: n
       viewBox={`${-half} ${-bob * 2} ${2 * half} ${longest + bob * 4}`}
       role="img"
       aria-label={t("experiments.coupled.view")}
-      className="max-h-[60dvh] w-full rounded-lg border border-subtle bg-surface-2 text-muted"
+      className={`${STAGE.wide} ${VIEW_FRAME}`}
     >
       <line
         x1={-half * 0.8}
@@ -167,7 +167,7 @@ export function CoupledView({ cp, left, right }: { cp: CoupledPendulums; left: n
       {[
         [pivots[0], b1, LEFT_HUE],
         [pivots[1], b2, RIGHT_HUE],
-      ].map(([pivot, end, hue]) => {
+      ].map(([pivot, end, index]) => {
         const [x, y] = end as [number, number];
         return (
           <g key={pivot as number}>
@@ -180,7 +180,7 @@ export function CoupledView({ cp, left, right }: { cp: CoupledPendulums; left: n
               strokeWidth={2}
               vectorEffect="non-scaling-stroke"
             />
-            <circle cx={x} cy={y} r={bob} fill={hex[(hue as number) % hex.length]} />
+            <circle cx={x} cy={y} r={bob} fill={hue(index as number)} />
           </g>
         );
       })}
@@ -195,7 +195,7 @@ function CoupledPlay({
   paused = false,
 }: { cp: CoupledPendulums; held?: Held } & PreviewMode) {
   const { t } = useTranslation();
-  const hex = useChartHex();
+  const hue = useChartHue();
   const sim = useRef({ y: startState("one", START_DEG), clock: 0, owed: 0 });
   const [runningHere, setRunning] = useState(startsRunning);
   const [speedHere, setSpeed] = useState<Speed>(1);
@@ -293,7 +293,7 @@ function CoupledPlay({
             {[
               [t("experiments.coupled.play.left"), e1, LEFT_HUE],
               [t("experiments.coupled.play.right"), e2, RIGHT_HUE],
-            ].map(([label, energy, hue]) => (
+            ].map(([label, energy, index]) => (
               <div key={label as string} className="space-y-1">
                 <div className="flex justify-between text-sm text-secondary">
                   <span>{label as string}</span>
@@ -304,7 +304,7 @@ function CoupledPlay({
                     className="h-2 rounded-full"
                     style={{
                       width: `${Math.min(100, (100 * (energy as number)) / total)}%`,
-                      background: hex[(hue as number) % hex.length],
+                      background: hue(index as number),
                     }}
                   />
                 </div>
@@ -458,7 +458,7 @@ function CoupledModel() {
 function CoupledTrick({ cp }: { cp: CoupledPendulums | null }) {
   const { t } = useTranslation();
   const locale = useLocale();
-  const hex = useChartHex();
+  const hue = useChartHue();
   const rows = useMemo(() => {
     if (!cp) return [];
     const beat = beatS(cp) ?? 20;
@@ -476,8 +476,8 @@ function CoupledTrick({ cp }: { cp: CoupledPendulums | null }) {
       <SeriesChart
         rows={rows}
         series={[
-          { key: "left", label: t("experiments.coupled.play.left"), color: hex[LEFT_HUE % hex.length] },
-          { key: "right", label: t("experiments.coupled.play.right"), color: hex[RIGHT_HUE % hex.length] },
+          { key: "left", label: t("experiments.coupled.play.left"), color: hue(LEFT_HUE) },
+          { key: "right", label: t("experiments.coupled.play.right"), color: hue(RIGHT_HUE) },
         ]}
         axes={[
           {

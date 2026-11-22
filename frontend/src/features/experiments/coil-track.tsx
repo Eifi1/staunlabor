@@ -11,7 +11,7 @@
 
 import { useTranslation } from "react-i18next";
 import type { CoilExhibitRequest } from "@/shared/types";
-import { useChartHex } from "@/shared/state/palette-store";
+import { useChartHue } from "@/shared/state/palette-store";
 import { endOf, height, slope, topHeight, type CoilExhibit, type Press } from "./simulate/coil";
 import { STAGE } from "./stage";
 
@@ -44,7 +44,7 @@ export function CoilTrack({
   reached?: [boolean, boolean];
 }) {
   const { t } = useTranslation();
-  const hex = useChartHex();
+  const hue = useChartHue();
   const ex = exhibit as CoilExhibit;
   const end = endOf(ex.track);
   const top = topHeight(ex.track);
@@ -59,7 +59,7 @@ export function CoilTrack({
   }).join(" ");
   const carY = height(ex, x);
   const tilt = (-Math.asin(Math.max(-1, Math.min(1, slope(ex, x)))) * 180) / Math.PI;
-  const tint = press === 0 ? "none" : hex[BUTTON_HUE[press] % hex.length];
+  const tint = press === 0 ? "none" : hue(BUTTON_HUE[press]);
   const windings = 9;
 
   return (
@@ -143,7 +143,7 @@ export function CoilTrack({
           y={-CAR_HEIGHT_M + 0.002}
           width={2 * ex.magnet.length_m}
           height={CAR_HEIGHT_M - 0.008}
-          fill={hex[3 % hex.length]}
+          fill={hue(3)}
         />
         {[-CAR_LENGTH_M / 3, CAR_LENGTH_M / 3].map((at) => (
           <circle key={at} cx={at} cy={-0.003} r={0.004} className="fill-current text-primary" />

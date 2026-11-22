@@ -5,7 +5,7 @@ import { AlertBanner, Button, LoadingState, ToggleGroup } from "@eifi1/ui-kit";
 import { SeriesChart } from "@/shared/charts/series-chart";
 import { useLocale } from "@/shared/i18n/use-locale";
 import { formatNumber } from "@/shared/lib/format";
-import { useChartHex } from "@/shared/state/palette-store";
+import { useChartHue } from "@/shared/state/palette-store";
 import { SliderField } from "@/shared/ui/slider-field";
 import { Figures, WidgetCard } from "@/shared/ui/widget";
 import { Equation } from "./equation";
@@ -24,7 +24,7 @@ import {
   type Shape,
 } from "./simulate/maxwell";
 import { G } from "./simulate/pendulum";
-import { SIDE } from "./stage";
+import { SIDE, STAGE, VIEW_FRAME } from "./stage";
 import { useExperimentsDefaults } from "./use-experiments";
 import { settingNumber, useCheckRequest, useCheckSetting, type CheckSetting } from "./check-setting";
 
@@ -113,8 +113,8 @@ export function MaxwellPreview({ paused }: PreviewProps) {
 /** The wheel from the front on its two strings, at true scale. */
 function MaxwellView({ w, height, turns }: { w: MaxwellWheel; height: number; turns: number }) {
   const { t } = useTranslation();
-  const hex = useChartHex();
-  const colour = hex[WHEEL_HUE % hex.length];
+  const hue = useChartHue();
+  const colour = hue(WHEEL_HUE);
   const R = w.wheel_radius_m;
   const margin = R * 0.4;
   const below = w.drop_m - height;
@@ -126,7 +126,7 @@ function MaxwellView({ w, height, turns }: { w: MaxwellWheel; height: number; tu
       viewBox={`${-width / 2} ${-margin} ${width} ${w.drop_m + R + 2 * margin}`}
       role="img"
       aria-label={t("experiments.maxwell.view")}
-      className="max-h-[60dvh] w-full rounded-lg border border-subtle bg-surface-2 text-muted"
+      className={`${STAGE.wide} ${VIEW_FRAME}`}
     >
       <line
         x1={-width / 2 + margin / 2}
@@ -190,7 +190,7 @@ function MaxwellView({ w, height, turns }: { w: MaxwellWheel; height: number; tu
 function MaxwellPlay({ w, preview = false, paused = false }: { w: MaxwellWheel } & PreviewMode) {
   const { t } = useTranslation();
   const locale = useLocale();
-  const hex = useChartHex();
+  const hue = useChartHue();
   const clock = useRef(0);
   const [time, setTime] = useState(0);
   const [runningHere, setRunning] = useState(preview);
@@ -304,7 +304,7 @@ function MaxwellPlay({ w, preview = false, paused = false }: { w: MaxwellWheel }
             {[
               [t("experiments.maxwell.play.translation"), translation, TRANSLATION_HUE],
               [t("experiments.maxwell.play.rotation"), rotation, ROTATION_HUE],
-            ].map(([label, energy, hue]) => (
+            ].map(([label, energy, index]) => (
               <div key={label as string} className="space-y-1">
                 <div className="flex justify-between text-sm text-secondary">
                   <span>{label as string}</span>
@@ -315,7 +315,7 @@ function MaxwellPlay({ w, preview = false, paused = false }: { w: MaxwellWheel }
                     className="h-2 rounded-full"
                     style={{
                       width: `${(100 * (energy as number)) / most}%`,
-                      background: hex[(hue as number) % hex.length],
+                      background: hue(index as number),
                     }}
                   />
                 </div>
@@ -445,7 +445,7 @@ function MaxwellModel() {
 function MaxwellTrick({ w }: { w: MaxwellWheel | null }) {
   const { t } = useTranslation();
   const locale = useLocale();
-  const hex = useChartHex();
+  const hue = useChartHue();
   const s = (key: string) => t(`experiments.maxwell.symbols.${key}`);
   const rows = useMemo(() => {
     if (!w) return [];
@@ -478,13 +478,13 @@ function MaxwellTrick({ w }: { w: MaxwellWheel | null }) {
           {
             key: "height",
             label: t("experiments.maxwell.chart.height"),
-            color: hex[WHEEL_HUE % hex.length],
+            color: hue(WHEEL_HUE),
             axis: "height",
           },
           {
             key: "tension",
             label: t("experiments.maxwell.chart.tension"),
-            color: hex[TRANSLATION_HUE % hex.length],
+            color: hue(TRANSLATION_HUE),
             axis: "tension",
           },
         ]}

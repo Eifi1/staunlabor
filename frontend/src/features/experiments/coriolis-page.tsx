@@ -4,7 +4,7 @@ import { Crosshair, Pause, Play, Send } from "lucide-react";
 import { Button, ToggleGroup } from "@eifi1/ui-kit";
 import { useLocale } from "@/shared/i18n/use-locale";
 import { formatNumber } from "@/shared/lib/format";
-import { useChartHex } from "@/shared/state/palette-store";
+import { useChartHue } from "@/shared/state/palette-store";
 import { holdTouch } from "@/shared/ui/grab";
 import { SliderField } from "@/shared/ui/slider-field";
 import { Figures, WidgetCard } from "@/shared/ui/widget";
@@ -16,7 +16,7 @@ import { startsRunning } from "./play";
 import { settingNumber, useCheckSetting } from "./check-setting";
 import { HeldAnswer, useHeld } from "./held";
 import { leadDeg, path, rateOf, type Body, type Carousel, type Throw } from "./simulate/coriolis";
-import { SIDE } from "./stage";
+import { SIDE, VIEW_FRAME } from "./stage";
 import { useExperimentsDefaults } from "./use-experiments";
 
 type Frame = "outside" | "riding";
@@ -106,7 +106,7 @@ function CarouselView({
   hands?: Hands;
 }) {
   const { t } = useTranslation();
-  const hex = useChartHex();
+  const hue = useChartHue();
   // What the pointer holds: a ref for the handlers, which a move can reach
   // before React has drawn the hold; the state for the band and the cursor.
   const [held, setHeld] = useState<"sling" | "rim" | null>(null);
@@ -215,7 +215,7 @@ function CarouselView({
       viewBox={`${-reach} ${-reach} ${2 * reach} ${2 * reach}`}
       role="img"
       aria-label={t("experiments.coriolis.view")}
-      className={`aspect-square w-full rounded-lg border border-subtle bg-surface-2 text-muted ${hands ? "select-none" : ""} ${held ? "cursor-grabbing" : ""}`}
+      className={`aspect-square ${VIEW_FRAME} ${hands ? "select-none" : ""} ${held ? "cursor-grabbing" : ""}`}
       onPointerMove={(e: PointerEvent<SVGSVGElement>) => move(e.currentTarget, e.clientX, e.clientY)}
       onPointerUp={release}
       onPointerCancel={release}
@@ -242,7 +242,7 @@ function CarouselView({
         y1={-ty}
         x2={tx + reachOfAim * Math.cos(aim)}
         y2={-(ty + reachOfAim * Math.sin(aim))}
-        stroke={hex[BALL_HUE % hex.length]}
+        stroke={hue(BALL_HUE)}
         strokeWidth={2}
         strokeDasharray="3 3"
         vectorEffect="non-scaling-stroke"
@@ -253,7 +253,7 @@ function CarouselView({
           .map((x, i) => `${x},${-ys[i]}`)
           .join(" ")}
         fill="none"
-        stroke={hex[BALL_HUE % hex.length]}
+        stroke={hue(BALL_HUE)}
         strokeWidth={2}
         vectorEffect="non-scaling-stroke"
       />
@@ -261,7 +261,7 @@ function CarouselView({
         [tx, ty],
         [cx, cy],
       ].map(([x, y], k) => (
-        <circle key={k} cx={x} cy={-y} r={R * 0.06} fill={hex[SEAT_HUE % hex.length]} />
+        <circle key={k} cx={x} cy={-y} r={R * 0.06} fill={hue(SEAT_HUE)} />
       ))}
       {/* The other seat, ringed and named: what the throw is for. */}
       <circle
@@ -269,7 +269,7 @@ function CarouselView({
         cy={-cy}
         r={R * 0.11}
         fill="none"
-        stroke={hex[SEAT_HUE % hex.length]}
+        stroke={hue(SEAT_HUE)}
         strokeDasharray="3 2"
         vectorEffect="non-scaling-stroke"
       />
@@ -283,7 +283,7 @@ function CarouselView({
       >
         {t("experiments.coriolis.target")}
       </text>
-      {last >= 0 && <circle cx={xs[last]} cy={-ys[last]} r={R * 0.04} fill={hex[BALL_HUE % hex.length]} />}
+      {last >= 0 && <circle cx={xs[last]} cy={-ys[last]} r={R * 0.04} fill={hue(BALL_HUE)} />}
       {hands && (
         <>
           {/* The rim, to push the platform round: a band along it, unseen. */}

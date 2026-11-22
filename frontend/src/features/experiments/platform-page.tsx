@@ -5,7 +5,7 @@ import { Button, LoadingState, Switch } from "@eifi1/ui-kit";
 import { SeriesChart } from "@/shared/charts/series-chart";
 import { useLocale } from "@/shared/i18n/use-locale";
 import { formatNumber } from "@/shared/lib/format";
-import { useChartHex } from "@/shared/state/palette-store";
+import { useChartHue } from "@/shared/state/palette-store";
 import type { PlatformExhibitRequest, PlatformFigures } from "@/shared/types";
 import { SliderField } from "@/shared/ui/slider-field";
 import { Figures, WidgetCard } from "@/shared/ui/widget";
@@ -403,7 +403,7 @@ function PlatformTrick({
 }) {
   const { t } = useTranslation();
   const locale = useLocale();
-  const hex = useChartHex();
+  const hue = useChartHue();
   const s = (key: string) => t(`experiments.platform.symbols.${key}`);
   const leanRows = useMemo(
     () => (figures ? figures.lean_curve.map((p) => ({ lean: p.lean_m * 100, rate: p.rev_per_s })) : []),
@@ -446,11 +446,11 @@ function PlatformTrick({
       <SeriesChart
         rows={replay}
         series={[
-          { key: "rate", label: t("experiments.platform.chart.rate"), color: hex[2 % hex.length], axis: "rate" },
+          { key: "rate", label: t("experiments.platform.chart.rate"), color: hue(2), axis: "rate" },
           {
             key: "momentum",
             label: t("experiments.platform.play.momentum"),
-            color: hex[6 % hex.length],
+            color: hue(6),
             axis: "momentum",
             dash: 1,
           },
@@ -473,7 +473,7 @@ function PlatformTrick({
       />
       <SeriesChart
         rows={leanRows}
-        series={[{ key: "rate", label: t("experiments.platform.chart.rate"), color: hex[3 % hex.length] }]}
+        series={[{ key: "rate", label: t("experiments.platform.chart.rate"), color: hue(3) }]}
         axes={[{ id: "y", title: rate, format: (v) => formatNumber(v, 1, locale) }]}
         x={{
           key: "lean",

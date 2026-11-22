@@ -5,7 +5,7 @@ import { Button, ToggleGroup } from "@eifi1/ui-kit";
 import { SeriesChart } from "@/shared/charts/series-chart";
 import { useLocale } from "@/shared/i18n/use-locale";
 import { formatNumber } from "@/shared/lib/format";
-import { useChartHex } from "@/shared/state/palette-store";
+import { useChartHue } from "@/shared/state/palette-store";
 import { SliderField } from "@/shared/ui/slider-field";
 import { Figures, WidgetCard } from "@/shared/ui/widget";
 import { Equation } from "./equation";
@@ -25,7 +25,7 @@ import {
   type Launch,
   type Ride,
 } from "./simulate/well";
-import { SIDE, STAGE } from "./stage";
+import { SIDE, STAGE, VIEW_FRAME } from "./stage";
 import { useExperimentsDefaults } from "./use-experiments";
 import { settingNumber, useCheckSetting } from "./check-setting";
 
@@ -106,7 +106,7 @@ export function WellPreview({ paused }: PreviewProps) {
 
 function TopView({ f, trail, ride }: { f: Funnel; trail: Array<[number, number]>; ride: Ride }) {
   const { t } = useTranslation();
-  const hex = useChartHex();
+  const hue = useChartHue();
   const R = f.rim_m;
   const reach = R * 1.05;
   // Rings a fixed height apart: they crowd where the wall is steep.
@@ -119,7 +119,7 @@ function TopView({ f, trail, ride }: { f: Funnel; trail: Array<[number, number]>
       viewBox={`${-reach} ${-reach} ${2 * reach} ${2 * reach}`}
       role="img"
       aria-label={t("experiments.well.view_top")}
-      className="aspect-square w-full rounded-lg border border-subtle bg-surface-2 text-muted"
+      className={`aspect-square ${VIEW_FRAME}`}
     >
       {rings.map((ring) => (
         <circle
@@ -136,13 +136,13 @@ function TopView({ f, trail, ride }: { f: Funnel; trail: Array<[number, number]>
       <polyline
         points={trail.map(([tr, tp]) => `${tr * Math.cos(tp)},${-tr * Math.sin(tp)}`).join(" ")}
         fill="none"
-        stroke={hex[BALL_HUE % hex.length]}
+        stroke={hue(BALL_HUE)}
         strokeWidth={1.5}
         opacity={0.8}
         vectorEffect="non-scaling-stroke"
       />
       {ride.outcome !== "hole" && (
-        <circle cx={r * Math.cos(phi)} cy={-r * Math.sin(phi)} r={R * 0.03} fill={hex[BALL_HUE % hex.length]} />
+        <circle cx={r * Math.cos(phi)} cy={-r * Math.sin(phi)} r={R * 0.03} fill={hue(BALL_HUE)} />
       )}
     </svg>
   );
@@ -150,7 +150,7 @@ function TopView({ f, trail, ride }: { f: Funnel; trail: Array<[number, number]>
 
 function SideView({ f, ride }: { f: Funnel; ride: Ride }) {
   const { t } = useTranslation();
-  const hex = useChartHex();
+  const hue = useChartHue();
   const R = f.rim_m;
   const deep = -heightM(f, f.hole_m);
   const pad = R * 0.05;
@@ -166,7 +166,7 @@ function SideView({ f, ride }: { f: Funnel; ride: Ride }) {
       viewBox={`${-R - pad} ${-pad} ${2 * (R + pad)} ${deep + 2 * pad}`}
       role="img"
       aria-label={t("experiments.well.view_side")}
-      className="w-full rounded-lg border border-subtle bg-surface-2 text-muted"
+      className={VIEW_FRAME}
     >
       <line
         x1={-R - pad}
@@ -189,7 +189,7 @@ function SideView({ f, ride }: { f: Funnel; ride: Ride }) {
         />
       ))}
       {ride.outcome !== "hole" && (
-        <circle cx={r * Math.cos(phi)} cy={-heightM(f, r)} r={R * 0.03} fill={hex[BALL_HUE % hex.length]} />
+        <circle cx={r * Math.cos(phi)} cy={-heightM(f, r)} r={R * 0.03} fill={hue(BALL_HUE)} />
       )}
     </svg>
   );
@@ -203,7 +203,7 @@ function WellPlay({
 }: { f: Funnel; onChange?: (next: Funnel) => void } & PreviewMode) {
   const { t } = useTranslation();
   const locale = useLocale();
-  const hex = useChartHex();
+  const hue = useChartHue();
   const [launch, setLaunch] = useState<Launch>(() => circular(f));
   const sim = useRef(launchFrom(f, launch));
   const [frame, setFrame] = useState(() => {
@@ -266,11 +266,11 @@ function WellPlay({
       <SeriesChart
         rows={rows}
         series={[
-          { key: "lap", label: t("experiments.well.chart.lap"), color: hex[BALL_HUE % hex.length] },
+          { key: "lap", label: t("experiments.well.chart.lap"), color: hue(BALL_HUE) },
           {
             key: "kepler",
             label: t("experiments.well.chart.kepler"),
-            color: hex[KEPLER_HUE % hex.length],
+            color: hue(KEPLER_HUE),
             dashed: true,
           },
         ]}
@@ -288,7 +288,7 @@ function WellPlay({
         }}
       />
     );
-  }, [laps, f, hex, locale, t]);
+  }, [laps, f, hue, locale, t]);
 
   const views = (
     <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 sm:items-center">

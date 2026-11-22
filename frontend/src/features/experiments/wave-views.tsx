@@ -11,8 +11,9 @@
 
 import { useRef, useState, type PointerEvent } from "react";
 import { useTranslation } from "react-i18next";
-import { useChartHex } from "@/shared/state/palette-store";
+import { useChartHue } from "@/shared/state/palette-store";
 import { holdTouch } from "@/shared/ui/grab";
+import { STAGE, VIEW_FRAME } from "./stage";
 
 /** The bobs' hue: the palette's hue for what moves by itself. */
 const BOB_HUE = 2;
@@ -33,8 +34,8 @@ export function WaveTopView({
   reachDeg: number;
 }) {
   const { t } = useTranslation();
-  const hex = useChartHex();
-  const colour = hex[BOB_HUE % hex.length];
+  const hue = useChartHue();
+  const colour = hue(BOB_HUE);
   const bob = spacingM * 0.3;
   const row = (lengthsM.length - 1) * spacingM;
   const reach = Math.max(lengthsM[0] * sinDeg(Math.max(reachDeg, 5)), spacingM) + bob * 1.5;
@@ -45,7 +46,7 @@ export function WaveTopView({
       viewBox={`${-margin} ${-reach} ${row + 2 * margin} ${2 * reach}`}
       role="img"
       aria-label={t("experiments.wave.views.top")}
-      className="max-h-[60dvh] w-full rounded-lg border border-subtle bg-surface-2 text-muted"
+      className={`${STAGE.wide} ${VIEW_FRAME}`}
     >
       {/* The bar the pendulums hang from, seen from above: a line along the row. */}
       <line
@@ -105,13 +106,13 @@ export function WaveSideView({
   onLetGo?: (deg: number) => void;
 }) {
   const { t } = useTranslation();
-  const hex = useChartHex();
+  const hue = useChartHue();
   // Whether the pointer holds the row: a ref for the handlers, which a move
   // can reach before React has drawn the hold; the state for the cursor.
   const [holding, setHolding] = useState(false);
   const grabbed = useRef(false);
   const last = useRef<number | null>(null);
-  const colour = hex[BOB_HUE % hex.length];
+  const colour = hue(BOB_HUE);
   const longest = lengthsM[0];
   const bob = longest * 0.035;
   const half = Math.max(longest * sinDeg(Math.max(reachDeg, 5)), longest * 0.3) + bob * 2;
@@ -149,7 +150,7 @@ export function WaveSideView({
       viewBox={`${-half} ${top} ${2 * half} ${bottom - top}`}
       role="img"
       aria-label={t("experiments.wave.views.side")}
-      className={`max-h-[60dvh] w-full rounded-lg border border-subtle bg-surface-2 text-muted ${onPull ? "select-none" : ""} ${holding ? "cursor-grabbing" : ""}`}
+      className={`${STAGE.wide} ${VIEW_FRAME} ${onPull ? "select-none" : ""} ${holding ? "cursor-grabbing" : ""}`}
       onPointerMove={(e: PointerEvent<SVGSVGElement>) => {
         if (grabbed.current) pull(e.currentTarget, e.clientX, e.clientY);
       }}

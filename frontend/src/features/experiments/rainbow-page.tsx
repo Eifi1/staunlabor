@@ -5,7 +5,7 @@ import { Button, Switch, ToggleGroup } from "@eifi1/ui-kit";
 import { SeriesChart } from "@/shared/charts/series-chart";
 import { useLocale } from "@/shared/i18n/use-locale";
 import { formatNumber } from "@/shared/lib/format";
-import { useChartHex } from "@/shared/state/palette-store";
+import { useChartHue } from "@/shared/state/palette-store";
 import { SliderField } from "@/shared/ui/slider-field";
 import { Figures, WidgetCard } from "@/shared/ui/widget";
 import { Equation } from "./equation";
@@ -129,7 +129,7 @@ function rayPoints(n: number, b: number): string {
 function BeadView({ bead, impact, split }: { bead: Bead; impact: number; split: boolean }) {
   const { t } = useTranslation();
   const locale = useLocale();
-  const hex = useChartHex();
+  const hue = useChartHue();
   const n = indexAt(bead, SODIUM_NM);
   const fan = Array.from({ length: FAN }, (_, k) => (k + 0.5) / FAN);
   const path = trace(n, impact);
@@ -157,7 +157,7 @@ function BeadView({ bead, impact, split }: { bead: Bead; impact: number; split: 
         ))}
         <polyline
           points={rayPoints(n, bow)}
-          stroke={hex[ANGLE_HUE % hex.length]}
+          stroke={hue(ANGLE_HUE)}
           strokeOpacity={0.9}
           strokeWidth={1.2}
           strokeDasharray="5 4"
@@ -411,7 +411,7 @@ function RainbowBuild({
 }) {
   const { t } = useTranslation();
   const locale = useLocale();
-  const hex = useChartHex();
+  const hue = useChartHue();
   const kind: Kind = bead.dispersion_nm2 === presets.water.dispersion_nm2 ? "water" : "glass";
   const shown = useMemo(() => figures(bead), [bead]);
   const rows = useMemo(() => {
@@ -485,8 +485,8 @@ function RainbowBuild({
       <SeriesChart
         rows={rows}
         series={[
-          { key: "violet", label: t("experiments.rainbow.chart.violet"), color: hex[VIOLET_HUE % hex.length] },
-          { key: "red", label: t("experiments.rainbow.chart.red"), color: hex[RED_HUE % hex.length] },
+          { key: "violet", label: t("experiments.rainbow.chart.violet"), color: hue(VIOLET_HUE) },
+          { key: "red", label: t("experiments.rainbow.chart.red"), color: hue(RED_HUE) },
         ]}
         axes={[
           {
@@ -548,7 +548,7 @@ function RainbowModel() {
 function RainbowTrick() {
   const { t } = useTranslation();
   const locale = useLocale();
-  const hex = useChartHex();
+  const hue = useChartHue();
   const rows = useMemo(
     () =>
       Array.from({ length: CHART_POINTS }, (_, k) => {
@@ -565,7 +565,7 @@ function RainbowTrick() {
       <p className="text-sm text-secondary">{t("experiments.rainbow.chart.angle_hint")}</p>
       <SeriesChart
         rows={rows}
-        series={[{ key: "angle", label: t("experiments.rainbow.chart.angle"), color: hex[ANGLE_HUE % hex.length] }]}
+        series={[{ key: "angle", label: t("experiments.rainbow.chart.angle"), color: hue(ANGLE_HUE) }]}
         axes={[
           {
             id: "y",

@@ -5,7 +5,7 @@ import { Button, LoadingState, ToggleGroup } from "@eifi1/ui-kit";
 import { SeriesChart } from "@/shared/charts/series-chart";
 import { useLocale } from "@/shared/i18n/use-locale";
 import { formatNumber } from "@/shared/lib/format";
-import { useChartHex } from "@/shared/state/palette-store";
+import { useChartHue } from "@/shared/state/palette-store";
 import { holdTouch } from "@/shared/ui/grab";
 import { SliderField } from "@/shared/ui/slider-field";
 import { Figures, WidgetCard } from "@/shared/ui/widget";
@@ -28,7 +28,7 @@ import {
   type WaterWheel,
   type WheelTurns,
 } from "./simulate/waterwheel";
-import { STAGE } from "./stage";
+import { STAGE, VIEW_FRAME } from "./stage";
 import { useExperimentsDefaults } from "./use-experiments";
 
 const SPEEDS = [1, 4] as const;
@@ -137,7 +137,7 @@ function WheelView({
   onCommit?: (next: { rho: number; sigma: number }) => void;
 }) {
   const { t } = useTranslation();
-  const hex = useChartHex();
+  const hue = useChartHue();
   // Which control the pointer holds: a ref for the handlers, which a move can
   // reach before React has drawn the hold; the state for the cursor.
   const [grip, setGrip] = useState<Grip | null>(null);
@@ -189,8 +189,8 @@ function WheelView({
   const leverEnd = { x: LEVER.x + LEVER.length * Math.sin(lever), y: LEVER.y + LEVER.length * Math.cos(lever) };
   const knob = (DIAL.from + ((w.sigma - DIAL.least) / (DIAL.most - DIAL.least)) * (DIAL.to - DIAL.from)) / TO_DEG;
   const knobAt = { x: DIAL.radius * Math.cos(knob), y: DIAL.radius * Math.sin(knob) };
-  const water = hex[WATER_HUE % hex.length];
-  const wheel = hex[WHEEL_HUE % hex.length];
+  const water = hue(WATER_HUE);
+  const wheel = hue(WHEEL_HUE);
   const R = 1;
   const cup = 0.22;
   const stream = Math.min(0.08, 0.01 + w.rho * 0.002);
@@ -199,7 +199,7 @@ function WheelView({
       viewBox="-1.45 -1.55 2.9 3"
       role="img"
       aria-label={t("experiments.waterwheel.views.wheel")}
-      className={`aspect-square w-full rounded-lg border border-subtle bg-surface-2 text-muted ${onDraft ? "select-none" : ""} ${grip ? "cursor-grabbing" : ""}`}
+      className={`aspect-square ${VIEW_FRAME} ${onDraft ? "select-none" : ""} ${grip ? "cursor-grabbing" : ""}`}
       onPointerMove={(e: PointerEvent<SVGSVGElement>) => {
         if (gripped.current) turn(e.currentTarget, e.clientX, e.clientY, gripped.current);
       }}
@@ -297,7 +297,7 @@ function WheelView({
 
 function ButterflyView({ trail, w }: { trail: Array<[number, number]>; w: WaterWheel }) {
   const { t } = useTranslation();
-  const hex = useChartHex();
+  const hue = useChartHue();
   const spread = Math.max(10, Math.sqrt(Math.max(w.rho, 1)) * 4);
   const top = Math.max(20, w.rho * 1.9);
   const last = trail[trail.length - 1];
@@ -306,12 +306,12 @@ function ButterflyView({ trail, w }: { trail: Array<[number, number]>; w: WaterW
       viewBox={`${-spread} ${-top} ${2 * spread} ${top * 1.05}`}
       role="img"
       aria-label={t("experiments.waterwheel.views.butterfly")}
-      className="aspect-square w-full rounded-lg border border-subtle bg-surface-2 text-muted"
+      className={`aspect-square ${VIEW_FRAME}`}
     >
       <polyline
         points={trail.map(([x, z]) => `${x},${-z}`).join(" ")}
         fill="none"
-        stroke={hex[WHEEL_HUE % hex.length]}
+        stroke={hue(WHEEL_HUE)}
         opacity={0.6}
         strokeWidth={1}
         vectorEffect="non-scaling-stroke"
@@ -533,7 +533,7 @@ function WaterwheelTrick({
 }) {
   const { t } = useTranslation();
   const locale = useLocale();
-  const hex = useChartHex();
+  const hue = useChartHue();
   const runs = useMemo(
     () =>
       shown && {
@@ -549,7 +549,7 @@ function WaterwheelTrick({
       <p>{t("experiments.waterwheel.sweet.lorenz")}</p>
       <SeriesChart
         rows={runs.rows}
-        series={[{ key: "rate", label: t("experiments.waterwheel.play.rate"), color: hex[WHEEL_HUE % hex.length] }]}
+        series={[{ key: "rate", label: t("experiments.waterwheel.play.rate"), color: hue(WHEEL_HUE) }]}
         axes={[
           {
             id: "y",

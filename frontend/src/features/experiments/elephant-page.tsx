@@ -14,7 +14,7 @@ import {
 import { SeriesChart } from "@/shared/charts/series-chart";
 import { useLocale } from "@/shared/i18n/use-locale";
 import { formatNumber } from "@/shared/lib/format";
-import { useChartHex } from "@/shared/state/palette-store";
+import { useChartHue } from "@/shared/state/palette-store";
 import type { ElephantFigures, ElephantRequest } from "@/shared/types";
 import { SliderField } from "@/shared/ui/slider-field";
 import { Figures, WidgetCard } from "@/shared/ui/widget";
@@ -30,6 +30,7 @@ import {
   cover,
   displacedKg,
   fallen,
+  G,
   jetCoordinates,
   startState,
   step,
@@ -375,7 +376,7 @@ function drop(el: ElephantRequest, state: State): State {
   const [x, y, vx, vy] = state;
   const floor = FLOOR_M + el.ball.diameter_m / 2;
   if (y <= floor) return [x, floor, 0, 0];
-  const nvy = vy - 9.80665 * STEP_S;
+  const nvy = vy - G * STEP_S;
   return [x + vx * STEP_S, Math.max(floor, y + nvy * STEP_S), vx * 0.999, nvy];
 }
 
@@ -585,7 +586,7 @@ function ElephantComputed() {
 function ElephantTrick({ figures, exhibit }: { figures: ElephantFigures | null; exhibit: ElephantRequest | null }) {
   const { t } = useTranslation();
   const locale = useLocale();
-  const hex = useChartHex();
+  const hue = useChartHue();
   const net = figures ? figures.weight_n - figures.buoyancy_n : 0;
   const liftRows = useMemo(
     () => (figures ? figures.lift_curve.map((p) => ({ h: p.height_m * 100, lift: p.lift_n, weight: net })) : []),
@@ -620,12 +621,12 @@ function ElephantTrick({ figures, exhibit }: { figures: ElephantFigures | null; 
   const force = `${t("experiments.elephant.chart.force")} (N)`;
   // Two lines in one plot each, so each says which is which beneath it.
   const liftSeries = [
-    { key: "lift", label: t("experiments.elephant.chart.lift"), color: hex[2 % hex.length] },
-    { key: "weight", label: t("experiments.elephant.chart.weight"), color: hex[6 % hex.length], dash: 1 },
+    { key: "lift", label: t("experiments.elephant.chart.lift"), color: hue(2) },
+    { key: "weight", label: t("experiments.elephant.chart.weight"), color: hue(6), dash: 1 },
   ];
   const tiltSeries = [
-    { key: "sink", label: t("experiments.elephant.chart.sink"), color: hex[2 % hex.length] },
-    { key: "sag", label: t("experiments.elephant.chart.sag"), color: hex[4 % hex.length], dash: 1 },
+    { key: "sink", label: t("experiments.elephant.chart.sink"), color: hue(2) },
+    { key: "sag", label: t("experiments.elephant.chart.sag"), color: hue(4), dash: 1 },
   ];
   return (
     <>
@@ -651,14 +652,14 @@ function ElephantTrick({ figures, exhibit }: { figures: ElephantFigures | null; 
           <p>{t("experiments.elephant.sweet.middle", { offset: n(strongest.offset_m * 100, 0) })}</p>
           <SeriesChart
             rows={sideRows}
-            series={[{ key: "side", label: t("experiments.elephant.chart.side"), color: hex[3 % hex.length] }]}
+            series={[{ key: "side", label: t("experiments.elephant.chart.side"), color: hue(3) }]}
             axes={[{ id: "y", title: force, format: (v) => n(v, 2), includeZero: true }]}
             x={{ key: "off", title: `${t("experiments.elephant.chart.offset")} (cm)`, format: (v) => n(v, 0) }}
           />
           <p>{t("experiments.elephant.sweet.rise")}</p>
           <SeriesChart
             rows={riseRows}
-            series={[{ key: "h", label: t("experiments.elephant.chart.height"), color: hex[2 % hex.length] }]}
+            series={[{ key: "h", label: t("experiments.elephant.chart.height"), color: hue(2) }]}
             axes={[{ id: "y", title: `${t("experiments.elephant.chart.height")} (cm)`, format: (v) => n(v, 0) }]}
             x={{ key: "t", title: `${t("experiments.elephant.chart.time")} (s)`, format: (v) => n(v, 0) }}
           />

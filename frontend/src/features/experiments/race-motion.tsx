@@ -23,7 +23,7 @@
 import { useTranslation } from "react-i18next";
 import { useLocale } from "@/shared/i18n/use-locale";
 import { formatNumber } from "@/shared/lib/format";
-import { useChartHex } from "@/shared/state/palette-store";
+import { useChartHue } from "@/shared/state/palette-store";
 import type { CurveKind, RaceTrack } from "@/shared/types";
 import { TRACK_HUE, type BallState } from "./race-views";
 
@@ -70,7 +70,7 @@ export function VectorPlane({
   label: string;
 }) {
   const locale = useLocale();
-  const hex = useChartHex();
+  const hue = useChartHue();
   const half = W / 2 - PAD;
   const sx = (x: number) => W / 2 + (x / span) * half;
   const sy = (y: number) => H / 2 - (y / span) * half;
@@ -109,7 +109,7 @@ export function VectorPlane({
       {vectors.map(({ kind, value }) => {
         const [x, y] = value;
         const length = Math.hypot(x, y);
-        const colour = hex[TRACK_HUE[kind] % hex.length];
+        const colour = hue(TRACK_HUE[kind]);
         if (length < span * 0.01) return <circle key={kind} cx={W / 2} cy={H / 2} r={3} fill={colour} />;
         // Off the scale (a knock in the pit): drawn to the edge, dashed, and the
         // table gives its size.
@@ -156,7 +156,7 @@ export function MotionTable({
 }) {
   const { t } = useTranslation();
   const locale = useLocale();
-  const hex = useChartHex();
+  const hue = useChartHue();
   // A component that rounds to nothing shows as 0, not −0.0.
   const n = (value: number, digits: number) =>
     formatNumber(Math.abs(value) < 0.5 * 10 ** -digits ? 0 : value, digits, locale);
@@ -204,7 +204,7 @@ export function MotionTable({
                     <span
                       aria-hidden
                       className="inline-block size-3 shrink-0 rounded-full"
-                      style={{ backgroundColor: hex[TRACK_HUE[track.kind] % hex.length] }}
+                      style={{ backgroundColor: hue(TRACK_HUE[track.kind]) }}
                     />
                     <span className="whitespace-nowrap text-primary">{t(`experiments.race.curves.${track.kind}`)}</span>
                   </span>

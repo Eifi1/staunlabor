@@ -4,7 +4,7 @@ import { Hand, Pause, Play } from "lucide-react";
 import { Button, ToggleGroup } from "@eifi1/ui-kit";
 import { useLocale } from "@/shared/i18n/use-locale";
 import { formatNumber } from "@/shared/lib/format";
-import { useChartHex } from "@/shared/state/palette-store";
+import { useChartHue } from "@/shared/state/palette-store";
 import { SliderField } from "@/shared/ui/slider-field";
 import { Figures, WidgetCard } from "@/shared/ui/widget";
 import { Equation } from "./equation";
@@ -26,7 +26,7 @@ import {
   type State,
   type Wheel,
 } from "./simulate/gyroscope";
-import { SIDE } from "./stage";
+import { SIDE, VIEW_FRAME } from "./stage";
 import { useExperimentsDefaults } from "./use-experiments";
 
 const SPEEDS = [1, 0.25] as const;
@@ -124,7 +124,7 @@ export function GyroscopePreview({ paused }: PreviewProps) {
 
 function WheelView({ w, y }: { w: Wheel; y: State }) {
   const { t } = useTranslation();
-  const hex = useChartHex();
+  const hue = useChartHue();
   const [theta, , phi, psi] = y;
   const axis: [number, number, number] = [
     Math.sin(theta) * Math.cos(phi),
@@ -154,7 +154,7 @@ function WheelView({ w, y }: { w: Wheel; y: State }) {
       viewBox={`${-reach} ${-reach * 1.3} ${2 * reach} ${2.4 * reach}`}
       role="img"
       aria-label={t("experiments.gyroscope.view")}
-      className="aspect-square w-full rounded-lg border border-subtle bg-surface-2 text-muted"
+      className={`aspect-square ${VIEW_FRAME}`}
     >
       {/* The string, from above the picture to the axle's end. */}
       <line x1={0} y1={-reach * 1.3} x2={0} y2={0} stroke="currentColor" vectorEffect="non-scaling-stroke" />
@@ -177,20 +177,14 @@ function WheelView({ w, y }: { w: Wheel; y: State }) {
             y1={cy}
             x2={sx}
             y2={sy}
-            stroke={k === 0 ? hex[SPOKE_HUE % hex.length] : "currentColor"}
+            stroke={k === 0 ? hue(SPOKE_HUE) : "currentColor"}
             strokeWidth={k === 0 ? 2.5 : 1}
             opacity={k === 0 ? 1 : 0.6}
             vectorEffect="non-scaling-stroke"
           />
         );
       })}
-      <polyline
-        points={ring}
-        fill="none"
-        stroke={hex[WHEEL_HUE % hex.length]}
-        strokeWidth={3}
-        vectorEffect="non-scaling-stroke"
-      />
+      <polyline points={ring} fill="none" stroke={hue(WHEEL_HUE)} strokeWidth={3} vectorEffect="non-scaling-stroke" />
       <circle r={reach * 0.02} className="fill-current text-primary" />
     </svg>
   );
@@ -200,7 +194,7 @@ function WheelView({ w, y }: { w: Wheel; y: State }) {
  *  arches with points where it stood still. */
 function TraceView({ trace, from }: { trace: Array<[number, number]>; from: number }) {
   const { t } = useTranslation();
-  const hex = useChartHex();
+  const hue = useChartHue();
   const last = trace.length ? trace[trace.length - 1][0] : 0;
   const deepest = Math.max(1, ...trace.map(([, tilt]) => Math.abs(tilt - from))) * 1.15;
   const points = trace
@@ -213,7 +207,7 @@ function TraceView({ trace, from }: { trace: Array<[number, number]>; from: numb
       role="img"
       aria-label={t("experiments.gyroscope.trace")}
       preserveAspectRatio="none"
-      className="h-28 w-full rounded-lg border border-subtle bg-surface-2 text-muted"
+      className={`h-28 ${VIEW_FRAME}`}
     >
       <line
         x1={0}
@@ -224,13 +218,7 @@ function TraceView({ trace, from }: { trace: Array<[number, number]>; from: numb
         strokeDasharray="4 4"
         vectorEffect="non-scaling-stroke"
       />
-      <polyline
-        points={points}
-        fill="none"
-        stroke={hex[WHEEL_HUE % hex.length]}
-        strokeWidth={2}
-        vectorEffect="non-scaling-stroke"
-      />
+      <polyline points={points} fill="none" stroke={hue(WHEEL_HUE)} strokeWidth={2} vectorEffect="non-scaling-stroke" />
     </svg>
   );
 }

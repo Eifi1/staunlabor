@@ -13,7 +13,7 @@ import {
 import { SeriesChart } from "@/shared/charts/series-chart";
 import { useLocale } from "@/shared/i18n/use-locale";
 import { formatNumber } from "@/shared/lib/format";
-import { useChartHex } from "@/shared/state/palette-store";
+import { useChartHue } from "@/shared/state/palette-store";
 import type { BallStackRequest, CannonContact, CannonFigures, CannonImpact } from "@/shared/types";
 import { SliderField } from "@/shared/ui/slider-field";
 import { Figures, WidgetCard } from "@/shared/ui/widget";
@@ -483,7 +483,7 @@ function ContactTable({ stack, contacts }: { stack: Pick<BallStack, "balls">; co
 function ForceChart({ stack, impact }: { stack: Pick<BallStack, "balls">; impact: CannonImpact }) {
   const { t } = useTranslation();
   const locale = useLocale();
-  const hex = useChartHex();
+  const hue = useChartHue();
   const names = useContactNames(stack);
   const rows = useMemo(
     () =>
@@ -494,7 +494,7 @@ function ForceChart({ stack, impact }: { stack: Pick<BallStack, "balls">; impact
       }),
     [impact],
   );
-  const series = names.map((label, c) => ({ key: `f${c}`, label, color: hex[(2 * c) % hex.length] }));
+  const series = names.map((label, c) => ({ key: `f${c}`, label, color: hue(2 * c) }));
   return (
     <>
       <SeriesChart

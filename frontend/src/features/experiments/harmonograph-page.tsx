@@ -4,7 +4,7 @@ import { Download, FastForward, Pause, Play, RotateCcw } from "lucide-react";
 import { Button, LoadingState, ToggleGroup } from "@eifi1/ui-kit";
 import { useLocale } from "@/shared/i18n/use-locale";
 import { formatNumber } from "@/shared/lib/format";
-import { useChartHex } from "@/shared/state/palette-store";
+import { useChartHue } from "@/shared/state/palette-store";
 import { SliderField } from "@/shared/ui/slider-field";
 import { Figures, WidgetCard } from "@/shared/ui/widget";
 import { Equation } from "./equation";
@@ -138,8 +138,8 @@ function toCanvas(extent: number, [x, y]: [number, number]): [number, number] {
 
 function HarmonographPlay({ h, preview = false, paused = false }: { h: Harmonograph } & PreviewMode) {
   const { t } = useTranslation();
-  const hex = useChartHex();
-  const ink = hex[INK_HUE % hex.length];
+  const hue = useChartHue();
+  const ink = hue(INK_HUE);
   const canvas = useRef<HTMLCanvasElement | null>(null);
   const drawing = useRef<DrawingState>(startDrawing(h));
   const [runningHere, setRunning] = useState(startsRunning);

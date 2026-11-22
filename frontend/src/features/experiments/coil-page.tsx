@@ -5,7 +5,7 @@ import { Button, LoadingState, Switch, ToggleGroup } from "@eifi1/ui-kit";
 import { SeriesChart } from "@/shared/charts/series-chart";
 import { useLocale } from "@/shared/i18n/use-locale";
 import { formatNumber } from "@/shared/lib/format";
-import { useChartHex } from "@/shared/state/palette-store";
+import { useChartHue } from "@/shared/state/palette-store";
 import type { CoilExhibitRequest } from "@/shared/types";
 import { SliderField } from "@/shared/ui/slider-field";
 import { Figures, WidgetCard } from "@/shared/ui/widget";
@@ -458,8 +458,8 @@ function ExhibitButton({
   caption: string;
   onHold: (press: Press) => void;
 }) {
-  const hex = useChartHex();
-  const colour = hex[BUTTON_HUE[sign] % hex.length];
+  const hue = useChartHue();
+  const colour = hue(BUTTON_HUE[sign]);
   return (
     <div className="flex flex-col items-center gap-1">
       <Button
@@ -584,7 +584,7 @@ type Analysis = NonNullable<ReturnType<typeof useCoilAnalysis>["data"]>;
 function CoilModel({ exhibit, analysis }: { exhibit: CoilExhibitRequest | null; analysis: Analysis | null }) {
   const { t } = useTranslation();
   const locale = useLocale();
-  const hex = useChartHex();
+  const hue = useChartHue();
   const s = (key: string) => t(`experiments.coil.symbols.${key}`);
   const rows = useMemo(
     () =>
@@ -622,8 +622,8 @@ function CoilModel({ exhibit, analysis }: { exhibit: CoilExhibitRequest | null; 
         <SeriesChart
           rows={rows}
           series={[
-            { key: "psi", label: s("psi"), color: hex[2 % hex.length], axis: "psi" },
-            { key: "k", label: s("k"), color: hex[3 % hex.length], axis: "k" },
+            { key: "psi", label: s("psi"), color: hue(2), axis: "psi" },
+            { key: "k", label: s("k"), color: hue(3), axis: "k" },
           ]}
           axes={[
             { id: "psi", title: `Ψ (mWb)`, orientation: "left", format: (v) => formatNumber(v, 0, locale) },
@@ -680,7 +680,7 @@ function CoilModel({ exhibit, analysis }: { exhibit: CoilExhibitRequest | null; 
 function CoilTrick({ exhibit, analysis }: { exhibit: CoilExhibitRequest | null; analysis: Analysis | null }) {
   const { t } = useTranslation();
   const locale = useLocale();
-  const hex = useChartHex();
+  const hue = useChartHue();
   const s = (key: string) => t(`experiments.coil.symbols.${key}`);
   const fig = analysis?.figures ?? null;
   const speed = fig?.speed_for_top_m_s ?? null;
@@ -706,7 +706,7 @@ function CoilTrick({ exhibit, analysis }: { exhibit: CoilExhibitRequest | null; 
       {timing.length > 0 && (
         <SeriesChart
           rows={timing}
-          series={[{ key: "gain", label: t("experiments.coil.sweet.gain"), color: hex[2 % hex.length] }]}
+          series={[{ key: "gain", label: t("experiments.coil.sweet.gain"), color: hue(2) }]}
           axes={[
             {
               id: "y",

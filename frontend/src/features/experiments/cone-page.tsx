@@ -5,7 +5,7 @@ import { AlertBanner, Button, LoadingState, ToggleGroup } from "@eifi1/ui-kit";
 import { SeriesChart } from "@/shared/charts/series-chart";
 import { useLocale } from "@/shared/i18n/use-locale";
 import { formatNumber } from "@/shared/lib/format";
-import { useChartHex } from "@/shared/state/palette-store";
+import { useChartHue } from "@/shared/state/palette-store";
 import { SliderField } from "@/shared/ui/slider-field";
 import { Figures, WidgetCard } from "@/shared/ui/widget";
 import { ConeFrontView, ConeSideView } from "./cone-views";
@@ -414,7 +414,7 @@ function ConeModel() {
 function ConeTrick({ ex }: { ex: ConeExhibit | null }) {
   const { t } = useTranslation();
   const locale = useLocale();
-  const hex = useChartHex();
+  const hue = useChartHue();
   const rows = useMemo(() => {
     if (!ex) return [];
     const n = 30;
@@ -440,8 +440,8 @@ function ConeTrick({ ex }: { ex: ConeExhibit | null }) {
       <SeriesChart
         rows={rows}
         series={[
-          { key: "rail", label: t("experiments.cone.chart.rail"), color: hex[6 % hex.length] },
-          { key: "axis", label: t("experiments.cone.chart.axis"), color: hex[2 % hex.length], dash: 1 },
+          { key: "rail", label: t("experiments.cone.chart.rail"), color: hue(6) },
+          { key: "axis", label: t("experiments.cone.chart.axis"), color: hue(2), dash: 1 },
         ]}
         axes={[
           { id: "y", title: `${t("experiments.cone.chart.height")} (cm)`, format: (v) => formatNumber(v, 1, locale) },

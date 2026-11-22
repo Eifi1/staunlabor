@@ -4,7 +4,7 @@ import { AlertBanner, LoadingState, Switch, ToggleGroup } from "@eifi1/ui-kit";
 import { SeriesChart } from "@/shared/charts/series-chart";
 import { useLocale } from "@/shared/i18n/use-locale";
 import { formatNumber } from "@/shared/lib/format";
-import { useChartHex } from "@/shared/state/palette-store";
+import { useChartHue } from "@/shared/state/palette-store";
 import { SliderField } from "@/shared/ui/slider-field";
 import { Figures, WidgetCard } from "@/shared/ui/widget";
 import { Equation } from "./equation";
@@ -322,7 +322,7 @@ function SlitsPlay({
 function SlitsBuild({ slits, nm, onChange }: { slits: Slits; nm: number; onChange: (next: Slits) => void }) {
   const { t } = useTranslation();
   const locale = useLocale();
-  const hex = useChartHex();
+  const hue = useChartHue();
   const rows = useMemo(() => {
     const span = spanOf(slits);
     return Array.from({ length: CHART_POINTS }, (_, k) => {
@@ -372,8 +372,8 @@ function SlitsBuild({ slits, nm, onChange }: { slits: Slits; nm: number; onChang
       <SeriesChart
         rows={rows}
         series={[
-          { key: "both", label: t("experiments.slits.chart.both"), color: hex[BOTH_HUE % hex.length] },
-          { key: "one", label: t("experiments.slits.chart.one"), color: hex[ONE_HUE % hex.length] },
+          { key: "both", label: t("experiments.slits.chart.both"), color: hue(BOTH_HUE) },
+          { key: "one", label: t("experiments.slits.chart.one"), color: hue(ONE_HUE) },
         ]}
         axes={[
           {

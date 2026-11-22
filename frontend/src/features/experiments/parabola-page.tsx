@@ -5,7 +5,7 @@ import { AlertBanner, Button, LoadingState, ToggleGroup } from "@eifi1/ui-kit";
 import { SeriesChart } from "@/shared/charts/series-chart";
 import { useLocale } from "@/shared/i18n/use-locale";
 import { formatNumber } from "@/shared/lib/format";
-import { useChartHex } from "@/shared/state/palette-store";
+import { useChartHue } from "@/shared/state/palette-store";
 import { SliderField } from "@/shared/ui/slider-field";
 import { Figures, WidgetCard } from "@/shared/ui/widget";
 import { Equation } from "./equation";
@@ -375,7 +375,7 @@ function ParabolaModel() {
 function ParabolaTrick({ v, rate, refused = false }: { v: Vessel | null; rate: number; refused?: boolean }) {
   const { t } = useTranslation();
   const locale = useLocale();
-  const hex = useChartHex();
+  const hue = useChartHue();
   const s = (key: string) => t(`experiments.parabola.symbols.${key}`);
   const rows = useMemo(() => {
     if (!v) return [];
@@ -412,8 +412,8 @@ function ParabolaTrick({ v, rate, refused = false }: { v: Vessel | null; rate: n
       <SeriesChart
         rows={rows}
         series={[
-          { key: "rim", label: t("experiments.parabola.chart.rim"), color: hex[0 % hex.length] },
-          { key: "centre", label: t("experiments.parabola.chart.centre"), color: hex[2 % hex.length], dash: 1 },
+          { key: "rim", label: t("experiments.parabola.chart.rim"), color: hue(0) },
+          { key: "centre", label: t("experiments.parabola.chart.centre"), color: hue(2), dash: 1 },
         ]}
         axes={[
           {
@@ -471,8 +471,8 @@ function ParabolaTrick({ v, rate, refused = false }: { v: Vessel | null; rate: n
           <SeriesChart
             rows={spinUp}
             series={[
-              { key: "vessel", label: t("experiments.parabola.chart.vessel"), color: hex[6 % hex.length], dash: 1 },
-              { key: "water", label: t("experiments.parabola.play.water"), color: hex[0 % hex.length] },
+              { key: "vessel", label: t("experiments.parabola.chart.vessel"), color: hue(6), dash: 1 },
+              { key: "water", label: t("experiments.parabola.play.water"), color: hue(0) },
             ]}
             axes={[
               {

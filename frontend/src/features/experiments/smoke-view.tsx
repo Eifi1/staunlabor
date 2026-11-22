@@ -11,8 +11,9 @@
 
 import type { PointerEvent as ReactPointerEvent, Ref } from "react";
 import { useTranslation } from "react-i18next";
-import { useChartHex } from "@/shared/state/palette-store";
+import { useChartHue } from "@/shared/state/palette-store";
 import type { Drum } from "./simulate/smoke";
+import { VIEW_FRAME } from "./stage";
 
 /** How far the drawing reaches, metres. */
 const LEFT = -1.15;
@@ -63,7 +64,7 @@ export function SmokeView({
   onPointerUp?: (event: ReactPointerEvent<SVGSVGElement>) => void;
 }) {
   const { t } = useTranslation();
-  const hex = useChartHex();
+  const hue = useChartHue();
   const big = drum.diameter_m / 2;
   const a = drum.ring_m / 2;
   const h = drum.hole_m / 2;
@@ -80,7 +81,7 @@ export function SmokeView({
   ]
     .map(toSvg)
     .join(" ");
-  const smoke = hex[6 % hex.length];
+  const smoke = hue(6);
   const handY = -pressM + 0.035;
   return (
     <svg
@@ -88,7 +89,7 @@ export function SmokeView({
       viewBox={`${LEFT} ${-TOP} ${RIGHT - LEFT} ${TOP - FLOOR}`}
       role="img"
       aria-label={t("experiments.smoke.view")}
-      className="aspect-[230/290] w-full touch-none select-none rounded-lg border border-subtle bg-surface-2 text-muted"
+      className={`aspect-[230/290] touch-none select-none ${VIEW_FRAME}`}
       onPointerDown={onPointerDown}
       onPointerMove={onPointerMove}
       onPointerUp={onPointerUp}

@@ -5,7 +5,7 @@ import { Button, StaticLegend, ToggleGroup, seriesLegendEntries } from "@eifi1/u
 import { SeriesChart } from "@/shared/charts/series-chart";
 import { useLocale } from "@/shared/i18n/use-locale";
 import { formatNumber } from "@/shared/lib/format";
-import { useChartHex } from "@/shared/state/palette-store";
+import { useChartHue } from "@/shared/state/palette-store";
 import { holdTouch } from "@/shared/ui/grab";
 import { SliderField } from "@/shared/ui/slider-field";
 import { Figures, WidgetCard } from "@/shared/ui/widget";
@@ -14,7 +14,7 @@ import { ExhibitFrame } from "./exhibit-frame";
 import { BuildPending } from "./build-pending";
 import { PreviewPending, type PreviewMode, type PreviewProps } from "./preview-mode";
 import { impact, start, step, STEP_S, type Cradle, type Pull } from "./simulate/cradle";
-import { SIDE } from "./stage";
+import { SIDE, VIEW_FRAME } from "./stage";
 import { useExperimentsDefaults } from "./use-experiments";
 import { HeldAnswer, useHeld } from "./held";
 import { settingNumber, useCheckSetting } from "./check-setting";
@@ -129,7 +129,7 @@ function CradleView({
   onLetGo?: (pull: Pull) => void;
 }) {
   const { t } = useTranslation();
-  const hex = useChartHex();
+  const hue = useChartHue();
   // How many balls the pointer holds lifted, while it does.
   // A ref for the handlers, which a move can reach before React has drawn the
   // hold; the state for the cursor.
@@ -173,7 +173,7 @@ function CradleView({
       viewBox={`${-reach} ${top} ${2 * reach} ${bottom - top}`}
       role="img"
       aria-label={t("experiments.cradle.view")}
-      className={`w-full rounded-lg border border-subtle bg-surface-2 text-muted ${onPull ? "select-none" : ""} ${held !== null ? "cursor-grabbing" : ""}`}
+      className={`${VIEW_FRAME} ${onPull ? "select-none" : ""} ${held !== null ? "cursor-grabbing" : ""}`}
       onPointerMove={(e: PointerEvent<SVGSVGElement>) => {
         if (holding.current !== null) follow(e.currentTarget, e.clientX, e.clientY, holding.current);
       }}
@@ -201,7 +201,7 @@ function CradleView({
               cx={x}
               cy={y}
               r={d / 2}
-              fill={hex[i % hex.length]}
+              fill={hue(i)}
               stroke="currentColor"
               vectorEffect="non-scaling-stroke"
               className={onPull && i < cr.count - 1 && held === null ? "cursor-grab" : undefined}
@@ -230,7 +230,7 @@ function CradlePlay({
 }: { cr: Cradle; onChange?: (next: Cradle) => void } & PreviewMode) {
   const { t } = useTranslation();
   const locale = useLocale();
-  const hex = useChartHex();
+  const hue = useChartHue();
   const [pull, setPull] = useState<Pull>({ balls: 1, angle_deg: 30 });
   const sim = useRef(begin(cr, pull));
   const [th, setTh] = useState(() => start(cr, pull)[0]);
@@ -316,7 +316,7 @@ function CradlePlay({
     const series = Array.from({ length: cr.count }, (_, b) => ({
       key: `b${b}`,
       label: t("experiments.cradle.play.ball", { n: b + 1 }),
-      color: hex[b % hex.length],
+      color: hue(b),
     }));
     return (
       <>
@@ -339,7 +339,7 @@ function CradlePlay({
         <StaticLegend entries={seriesLegendEntries(series)} />
       </>
     );
-  }, [rows, cr.count, hex, locale, t]);
+  }, [rows, cr.count, hue, locale, t]);
 
   // A new setting hangs the balls up again, lifted as set: the reader lets go.
   const reset = (nextCr: Cradle, nextPull: Pull, go: boolean) => {

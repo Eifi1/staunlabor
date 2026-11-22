@@ -4,7 +4,7 @@ import { Button } from "@eifi1/ui-kit";
 import { SeriesChart } from "@/shared/charts/series-chart";
 import { useLocale } from "@/shared/i18n/use-locale";
 import { formatNumber } from "@/shared/lib/format";
-import { useChartHex } from "@/shared/state/palette-store";
+import { useChartHue } from "@/shared/state/palette-store";
 import type { OverhangRequest } from "@/shared/types";
 import { SliderField } from "@/shared/ui/slider-field";
 import { Figures, WidgetCard } from "@/shared/ui/widget";
@@ -14,7 +14,7 @@ import { BuildPending } from "./build-pending";
 import { settingNumber, useCheckSetting } from "./check-setting";
 import { PreviewPending, type PreviewProps } from "./preview-mode";
 import { MOST_BLOCKS, blocksFor, even, harmonic, holds, layers, overhang } from "./simulate/overhang";
-import { SIDE } from "./stage";
+import { SIDE, VIEW_FRAME } from "./stage";
 import { useExperimentsDefaults } from "./use-experiments";
 import { HeldAnswer, useHeld } from "./held";
 
@@ -105,7 +105,7 @@ function StackView({
 }) {
   const { t } = useTranslation();
   const locale = useLocale();
-  const hex = useChartHex();
+  const hue = useChartHue();
   const svg = useRef<SVGSVGElement>(null);
   const drag = useRef<{ index: number; startX: number; startLeft: number } | null>(null);
   const n = lefts.length;
@@ -195,7 +195,7 @@ function StackView({
       cx={x(layer.centre)}
       cy={tableY - i * h}
       r={2.2}
-      fill={hex[(layer.margin >= -1e-12 ? HOLD_HUE : TIP_HUE) % hex.length]}
+      fill={hue(layer.margin >= -1e-12 ? HOLD_HUE : TIP_HUE)}
     />
   );
 
@@ -205,7 +205,7 @@ function StackView({
       viewBox={`0 0 ${VIEW.width} ${height}`}
       role="group"
       aria-label={t("experiments.overhang.view")}
-      className="w-full select-none rounded-lg border border-subtle bg-surface-2 text-muted"
+      className={`select-none ${VIEW_FRAME}`}
     >
       <rect x={0} y={tableY} width={VIEW.edge} height={VIEW.table} className="fill-current" fillOpacity={0.45} />
       <line
@@ -410,7 +410,7 @@ function OverhangModel() {
 function OverhangTrick() {
   const { t } = useTranslation();
   const locale = useLocale();
-  const hex = useChartHex();
+  const hue = useChartHue();
   const rows = useMemo(
     () =>
       Array.from({ length: MOST_BLOCKS }, (_, k) => ({
@@ -437,8 +437,8 @@ function OverhangTrick() {
       <SeriesChart
         rows={rows}
         series={[
-          { key: "furthest", label: t("experiments.overhang.chart.furthest"), color: hex[HARMONIC_HUE % hex.length] },
-          { key: "even", label: t("experiments.overhang.chart.even"), color: hex[EVEN_HUE % hex.length], dashed: true },
+          { key: "furthest", label: t("experiments.overhang.chart.furthest"), color: hue(HARMONIC_HUE) },
+          { key: "even", label: t("experiments.overhang.chart.even"), color: hue(EVEN_HUE), dashed: true },
         ]}
         axes={[
           {

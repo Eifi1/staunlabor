@@ -6,7 +6,7 @@ import { SeriesChart } from "@/shared/charts/series-chart";
 import { useLocale } from "@/shared/i18n/use-locale";
 import { formatNumber } from "@/shared/lib/format";
 import { useClicks } from "@/shared/lib/use-clicks";
-import { useChartHex } from "@/shared/state/palette-store";
+import { useChartHue } from "@/shared/state/palette-store";
 import { SliderField } from "@/shared/ui/slider-field";
 import { Figures, WidgetCard } from "@/shared/ui/widget";
 import { Equation } from "./equation";
@@ -15,7 +15,7 @@ import { BuildPending } from "./build-pending";
 import { settingNumber, useCheckSetting } from "./check-setting";
 import { PreviewPending, type PreviewMode, type PreviewProps } from "./preview-mode";
 import { G, bounces, figures, state, type Bounces, type BouncingBall } from "./simulate/bounce";
-import { SIDE } from "./stage";
+import { SIDE, VIEW_FRAME } from "./stage";
 import { useExperimentsDefaults } from "./use-experiments";
 
 /** Real time, and a quarter of it for the last quick bounces. */
@@ -126,14 +126,14 @@ export function BouncePreview({ paused }: PreviewProps) {
 function DropView({ balls, height, heights }: { balls: BouncingBall[]; height: number; heights: number[] }) {
   const { t } = useTranslation();
   const locale = useLocale();
-  const hex = useChartHex();
+  const hue = useChartHue();
   const scale = VIEW.span / height;
   return (
     <svg
       viewBox={`0 0 ${VIEW.width} ${VIEW.height}`}
       role="img"
       aria-label={t("experiments.bounce.view")}
-      className="w-full rounded-lg border border-subtle bg-surface-2 text-muted"
+      className={VIEW_FRAME}
     >
       <line
         x1={20}
@@ -157,8 +157,8 @@ function DropView({ balls, height, heights }: { balls: BouncingBall[]; height: n
               cx={x}
               cy={VIEW.plate - heights[i] * scale - r}
               r={r}
-              fill={kind === "steel" ? hex[HUE.steel % hex.length] : "var(--bg-surface)"}
-              stroke={hex[HUE[kind] % hex.length]}
+              fill={kind === "steel" ? hue(HUE.steel) : "var(--bg-surface)"}
+              stroke={hue(HUE[kind])}
               strokeWidth={1.5}
               vectorEffect="non-scaling-stroke"
             />
@@ -175,14 +175,14 @@ function DropView({ balls, height, heights }: { balls: BouncingBall[]; height: n
 /** Every strike on a time line, one row a ball: the rhythm, seen. */
 function RhythmStrip({ runs, time, span }: { runs: Bounces[]; time: number; span: number }) {
   const { t } = useTranslation();
-  const hex = useChartHex();
+  const hue = useChartHue();
   const at = (s: number) => STRIP.left + ((STRIP.right - STRIP.left) * Math.min(s, span)) / span;
   return (
     <svg
       viewBox={`0 0 ${STRIP.width} ${STRIP.height}`}
       role="img"
       aria-label={t("experiments.bounce.strip")}
-      className="w-full rounded-lg border border-subtle bg-surface-2 text-muted"
+      className={VIEW_FRAME}
     >
       {runs.map((run, i) => {
         const kind = KINDS[i];
@@ -200,7 +200,7 @@ function RhythmStrip({ runs, time, span }: { runs: Bounces[]; time: number; span
                 y1={y - 6}
                 x2={at(s)}
                 y2={y + 6}
-                stroke={hex[HUE[kind] % hex.length]}
+                stroke={hue(HUE[kind])}
                 strokeOpacity={s <= time ? 1 : 0.25}
                 vectorEffect="non-scaling-stroke"
               />
@@ -399,7 +399,7 @@ function BounceBuild({
 }) {
   const { t } = useTranslation();
   const locale = useLocale();
-  const hex = useChartHex();
+  const hue = useChartHue();
   const kind: Kind =
     ball.mass_kg === presets[1].mass_kg && ball.diameter_m === presets[1].diameter_m ? "tennis" : "steel";
   const shown = useMemo(() => figures(ball, height), [ball, height]);
@@ -485,7 +485,7 @@ function BounceBuild({
       />
       <SeriesChart
         rows={rows}
-        series={[{ key: "height", label: t("experiments.bounce.chart.height"), color: hex[HUE[kind] % hex.length] }]}
+        series={[{ key: "height", label: t("experiments.bounce.chart.height"), color: hue(HUE[kind]) }]}
         axes={[
           {
             id: "y",
@@ -551,7 +551,7 @@ function BounceModel() {
 function BounceTrick({ balls, height }: { balls: BouncingBall[]; height: number }) {
   const { t } = useTranslation();
   const locale = useLocale();
-  const hex = useChartHex();
+  const hue = useChartHue();
   const rows = useMemo(() => {
     const drop = Math.sqrt((2 * height) / G);
     return RESTITUTIONS.map((e) => ({
@@ -571,11 +571,11 @@ function BounceTrick({ balls, height }: { balls: BouncingBall[]; height: number 
       <SeriesChart
         rows={rows}
         series={[
-          ...KINDS.map((k) => ({ key: k, label: t(`experiments.bounce.short.${k}`), color: hex[HUE[k] % hex.length] })),
+          ...KINDS.map((k) => ({ key: k, label: t(`experiments.bounce.short.${k}`), color: hue(HUE[k]) })),
           {
             key: "none",
             label: t("experiments.bounce.chart.no_air"),
-            color: hex[NO_AIR_HUE % hex.length],
+            color: hue(NO_AIR_HUE),
             dashed: true,
           },
         ]}

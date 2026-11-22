@@ -4,7 +4,7 @@ import { Hand, Pause, Play } from "lucide-react";
 import { AlertBanner, Button, ToggleGroup } from "@eifi1/ui-kit";
 import { useLocale } from "@/shared/i18n/use-locale";
 import { formatNumber } from "@/shared/lib/format";
-import { useChartHex } from "@/shared/state/palette-store";
+import { useChartHue } from "@/shared/state/palette-store";
 import { holdTouch } from "@/shared/ui/grab";
 import { SliderField } from "@/shared/ui/slider-field";
 import { Figures, WidgetCard } from "@/shared/ui/widget";
@@ -29,7 +29,7 @@ import {
   type PegState,
 } from "./simulate/peg";
 import { STEP_S } from "./simulate/pendulum";
-import { SIDE } from "./stage";
+import { SIDE, STAGE, VIEW_FRAME } from "./stage";
 import { useExperimentsDefaults } from "./use-experiments";
 
 const SPEEDS = [1, 0.25] as const;
@@ -147,8 +147,8 @@ function PegView({
   hideSlack?: boolean;
 }) {
   const { t } = useTranslation();
-  const hex = useChartHex();
-  const colour = hex[BOB_HUE % hex.length];
+  const hue = useChartHue();
+  const colour = hue(BOB_HUE);
   const svg = useRef<SVGSVGElement | null>(null);
   // What the pointer holds: a ref for the handlers, which a move can reach
   // before React has drawn the hold; the state for the cursor.
@@ -220,7 +220,7 @@ function PegView({
       viewBox={`${-(length + margin)} ${-margin} ${2 * (length + margin)} ${length + 2 * margin}`}
       role="img"
       aria-label={t("experiments.peg.view")}
-      className={`max-h-[60dvh] w-full rounded-lg border border-subtle bg-surface-2 text-muted ${onPeg || onPull ? "select-none" : ""}`}
+      className={`${STAGE.wide} ${VIEW_FRAME} ${onPeg || onPull ? "select-none" : ""}`}
       onPointerMove={(e) => {
         if (holding.current) follow(e.clientX, e.clientY);
       }}

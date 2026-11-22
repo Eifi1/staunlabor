@@ -6,7 +6,7 @@ import { SeriesChart } from "@/shared/charts/series-chart";
 import { useLocale } from "@/shared/i18n/use-locale";
 import { formatNumber } from "@/shared/lib/format";
 import { useTones } from "@/shared/lib/use-tones";
-import { useChartHex } from "@/shared/state/palette-store";
+import { useChartHue } from "@/shared/state/palette-store";
 import { SliderField } from "@/shared/ui/slider-field";
 import { Figures, WidgetCard } from "@/shared/ui/widget";
 import { Equation } from "./equation";
@@ -15,7 +15,7 @@ import { BuildPending } from "./build-pending";
 import { HeldAnswer, useHeld } from "./held";
 import { PreviewPending, type PreviewMode, type PreviewProps } from "./preview-mode";
 import { naturalHz, shape, start, steadyM, step, swingM, STEP_S, type Rack, type Shaking } from "./simulate/resonance";
-import { SIDE } from "./stage";
+import { SIDE, VIEW_FRAME } from "./stage";
 import { useExperimentsDefaults } from "./use-experiments";
 import { settingNumber, useCheckSetting } from "./check-setting";
 
@@ -111,7 +111,7 @@ const inStep = (rack: Rack) =>
 function RodsView({ rack, s, labels }: { rack: Rack; s: Shaking; labels: boolean }) {
   const { t } = useTranslation();
   const locale = useLocale();
-  const hex = useChartHex();
+  const hue = useChartHue();
   const n = rack.lengths_m.length;
   const tallest = Math.max(...rack.lengths_m);
   const width = n * PITCH_M;
@@ -123,7 +123,7 @@ function RodsView({ rack, s, labels }: { rack: Rack; s: Shaking; labels: boolean
       viewBox={`${-PITCH_M / 2} ${-tallest * 1.08} ${width} ${tallest * 1.08 + label * 1.6}`}
       role="img"
       aria-label={t("experiments.resonance.view")}
-      className="w-full rounded-lg border border-subtle bg-surface-2 text-muted"
+      className={VIEW_FRAME}
     >
       <rect
         x={-PITCH_M * 0.45 + table}
@@ -144,12 +144,12 @@ function RodsView({ rack, s, labels }: { rack: Rack; s: Shaking; labels: boolean
             <polyline
               points={points}
               fill="none"
-              stroke={hex[i % hex.length]}
+              stroke={hue(i)}
               strokeWidth={3}
               strokeLinecap="round"
               vectorEffect="non-scaling-stroke"
             />
-            <circle cx={base + s.q[i]} cy={-length} r={tallest * 0.012} fill={hex[i % hex.length]} />
+            <circle cx={base + s.q[i]} cy={-length} r={tallest * 0.012} fill={hue(i)} />
             {labels && (
               <text
                 x={i * PITCH_M}
@@ -176,7 +176,7 @@ function ResonancePlay({
 }: { rack: Rack; onChange?: (next: Rack) => void } & PreviewMode) {
   const { t } = useTranslation();
   const locale = useLocale();
-  const hex = useChartHex();
+  const hue = useChartHue();
   const first = preview ? inStep(rack) : PLAY_START_HZ;
   const begin = (drive: number): Sim => ({ s: start(rack), drive, sweeping: false, owed: 0, i: 0, recorded: [] });
   const sim = useRef(begin(first));
@@ -253,12 +253,12 @@ function ResonancePlay({
     const steady = rack.lengths_m.map((length, rod) => ({
       key: `s${rod}`,
       label: t("experiments.resonance.play.rod", { n: rod + 1, hz: formatNumber(naturalHz(rack, length), 2, locale) }),
-      color: hex[rod % hex.length],
+      color: hue(rod),
     }));
     const measured = rack.lengths_m.map((_, rod) => ({
       key: `m${rod}`,
       label: t("experiments.resonance.chart.swept", { n: rod + 1 }),
-      color: hex[rod % hex.length],
+      color: hue(rod),
       dashed: true,
     }));
     return (
@@ -284,7 +284,7 @@ function ResonancePlay({
         <StaticLegend entries={seriesLegendEntries(steady)} />
       </>
     );
-  }, [rack, steadyRows, recorded, chartDrive, hex, locale, t]);
+  }, [rack, steadyRows, recorded, chartDrive, hue, locale, t]);
 
   // A check case's "Set it up": the table at the case's beat, to the
   // hundred-thousandth of a hertz the slider's hundredths cannot reach, the

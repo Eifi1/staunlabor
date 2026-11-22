@@ -5,7 +5,7 @@ import { Button, LoadingState, ToggleGroup } from "@eifi1/ui-kit";
 import { SeriesChart } from "@/shared/charts/series-chart";
 import { useLocale } from "@/shared/i18n/use-locale";
 import { formatNumber } from "@/shared/lib/format";
-import { useChartHex } from "@/shared/state/palette-store";
+import { useChartHue } from "@/shared/state/palette-store";
 import type { CircuitRequest } from "@/shared/types";
 import { SliderField } from "@/shared/ui/slider-field";
 import { Figures, WidgetCard } from "@/shared/ui/widget";
@@ -15,7 +15,7 @@ import { BuildPending } from "./build-pending";
 import { settingNumber, useCheckRequest, useCheckSetting, type CheckSetting } from "./check-setting";
 import { PreviewPending, type PreviewMode, type PreviewProps } from "./preview-mode";
 import { energies, figures, rates, state, type Circuit } from "./simulate/circuit";
-import { SIDE } from "./stage";
+import { SIDE, VIEW_FRAME } from "./stage";
 import { useExperimentsDefaults } from "./use-experiments";
 
 /** Real time, and a quarter of it for a quick circuit whose needle would blur. */
@@ -131,18 +131,13 @@ export function CircuitPreview({ paused }: PreviewProps) {
 /** `charge` is `q/q₀` (−1 to 1), `needle` the current over the meter's range (clamped). */
 function CircuitView({ charge, needle, thrown }: { charge: number; needle: number; thrown: boolean }) {
   const { t } = useTranslation();
-  const hex = useChartHex();
+  const hue = useChartHue();
   const lever = thrown ? [136, 26] : [84, 26];
   const angle = Math.max(-1, Math.min(1, needle)) * NEEDLE_DEG;
   const sign = charge >= 0 ? ["+", "−"] : ["−", "+"];
   const loops = Array.from({ length: 6 }, () => "a 4 4 0 0 1 0 8").join(" ");
   return (
-    <svg
-      viewBox="0 0 260 150"
-      role="img"
-      aria-label={t("experiments.circuit.view")}
-      className="w-full rounded-lg border border-subtle bg-surface-2 text-muted"
-    >
+    <svg viewBox="0 0 260 150" role="img" aria-label={t("experiments.circuit.view")} className={VIEW_FRAME}>
       <g fill="none" stroke="currentColor" strokeWidth={1.5} vectorEffect="non-scaling-stroke">
         {/* The battery's branch, the capacitor's and the coil's, and the wire under them all. */}
         <polyline points="82,24 30,24 30,74" />
@@ -155,11 +150,7 @@ function CircuitView({ charge, needle, thrown }: { charge: number; needle: numbe
         <polyline points="30,130 153,130" />
         <polyline points="187,130 230,130" />
         {/* The coil, with its iron core beside it. */}
-        <path
-          d={`M 230 40 ${loops}`}
-          stroke={hex[COIL_HUE % hex.length]}
-          strokeOpacity={0.35 + 0.65 * Math.abs(needle)}
-        />
+        <path d={`M 230 40 ${loops}`} stroke={hue(COIL_HUE)} strokeOpacity={0.35 + 0.65 * Math.abs(needle)} />
         <rect x={224} y={96} width={12} height={16} />
       </g>
       <g stroke="currentColor" strokeWidth={3} vectorEffect="non-scaling-stroke">
@@ -171,7 +162,7 @@ function CircuitView({ charge, needle, thrown }: { charge: number; needle: numbe
         <line x1={245} y1={38} x2={245} y2={90} strokeWidth={1.5} />
       </g>
       {/* The charge on the plates: the signs fade as it flows off and come back the other way round. */}
-      <g fontSize={9} textAnchor="middle" fill={hex[CAPACITOR_HUE % hex.length]} fillOpacity={Math.abs(charge)}>
+      <g fontSize={9} textAnchor="middle" fill={hue(CAPACITOR_HUE)} fillOpacity={Math.abs(charge)}>
         {[100, 110, 120].map((x) => (
           <text key={`top-${x}`} x={x} y={68}>
             {sign[0]}
@@ -261,12 +252,7 @@ function TwinView({ charge }: { charge: number }) {
     return `${x},${y}`;
   }).join(" ");
   return (
-    <svg
-      viewBox="0 0 260 44"
-      role="img"
-      aria-label={t("experiments.circuit.twin")}
-      className="w-full rounded-lg border border-subtle bg-surface-2 text-muted"
-    >
+    <svg viewBox="0 0 260 44" role="img" aria-label={t("experiments.circuit.twin")} className={VIEW_FRAME}>
       <rect x={6} y={8} width={6} height={32} className="fill-current" fillOpacity={0.4} />
       <line x1={12} y1={40} x2={254} y2={40} stroke="currentColor" vectorEffect="non-scaling-stroke" />
       <line
@@ -288,13 +274,13 @@ function TwinView({ charge }: { charge: number }) {
 function EnergyBar({ circuit, time }: { circuit: Circuit; time: number }) {
   const { t } = useTranslation();
   const locale = useLocale();
-  const hex = useChartHex();
+  const hue = useChartHue();
   const total = figures(circuit).energy_j;
   const [inCapacitor, inCoil] = time < 0 ? [total, 0] : energies(circuit, time);
   const parts = [
-    { key: "capacitor", share: inCapacitor / total, color: hex[CAPACITOR_HUE % hex.length] },
-    { key: "coil", share: inCoil / total, color: hex[COIL_HUE % hex.length] },
-    { key: "heat", share: Math.max(0, 1 - (inCapacitor + inCoil) / total), color: hex[HEAT_HUE % hex.length] },
+    { key: "capacitor", share: inCapacitor / total, color: hue(CAPACITOR_HUE) },
+    { key: "coil", share: inCoil / total, color: hue(COIL_HUE) },
+    { key: "heat", share: Math.max(0, 1 - (inCapacitor + inCoil) / total), color: hue(HEAT_HUE) },
   ];
   const said = parts.map(
     (p) => `${t(`experiments.circuit.play.${p.key}`)} ${formatNumber(p.share * 100, 0, locale)} %`,
@@ -467,7 +453,7 @@ function CircuitPlay({ circuit, preview = false, paused = false }: { circuit: Ci
 function CircuitBuild({ circuit, onChange }: { circuit: Circuit; onChange: (next: Circuit) => void }) {
   const { t } = useTranslation();
   const locale = useLocale();
-  const hex = useChartHex();
+  const hue = useChartHue();
   const shown = figures(circuit);
   const span = chartSpanS(circuit);
   const rows = useMemo(
@@ -558,7 +544,7 @@ function CircuitBuild({ circuit, onChange }: { circuit: Circuit; onChange: (next
       />
       <SeriesChart
         rows={rows}
-        series={[{ key: "current", label: t("experiments.circuit.chart.current"), color: hex[COIL_HUE % hex.length] }]}
+        series={[{ key: "current", label: t("experiments.circuit.chart.current"), color: hue(COIL_HUE) }]}
         axes={[
           {
             id: "y",
@@ -637,7 +623,7 @@ function CircuitModel() {
 function CircuitTrick({ circuit }: { circuit: Circuit }) {
   const { t } = useTranslation();
   const locale = useLocale();
-  const hex = useChartHex();
+  const hue = useChartHue();
   const span = chartSpanS(circuit);
   const rows = useMemo(
     () =>
@@ -658,9 +644,9 @@ function CircuitTrick({ circuit }: { circuit: Circuit }) {
       <SeriesChart
         rows={rows}
         series={[
-          { key: "capacitor", label: t("experiments.circuit.chart.capacitor"), color: hex[CAPACITOR_HUE % hex.length] },
-          { key: "coil", label: t("experiments.circuit.chart.coil"), color: hex[COIL_HUE % hex.length] },
-          { key: "left", label: t("experiments.circuit.chart.left"), color: hex[LEFT_HUE % hex.length], dashed: true },
+          { key: "capacitor", label: t("experiments.circuit.chart.capacitor"), color: hue(CAPACITOR_HUE) },
+          { key: "coil", label: t("experiments.circuit.chart.coil"), color: hue(COIL_HUE) },
+          { key: "left", label: t("experiments.circuit.chart.left"), color: hue(LEFT_HUE), dashed: true },
         ]}
         axes={[
           {

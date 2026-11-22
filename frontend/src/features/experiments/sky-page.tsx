@@ -4,7 +4,7 @@ import { Switch } from "@eifi1/ui-kit";
 import { SeriesChart } from "@/shared/charts/series-chart";
 import { useLocale } from "@/shared/i18n/use-locale";
 import { formatNumber } from "@/shared/lib/format";
-import { useChartHex } from "@/shared/state/palette-store";
+import { useChartHue } from "@/shared/state/palette-store";
 import { holdTouch } from "@/shared/ui/grab";
 import { SliderField } from "@/shared/ui/slider-field";
 import { Figures, WidgetCard } from "@/shared/ui/widget";
@@ -331,7 +331,7 @@ function TubeFigures({ tube }: { tube: Tube }) {
 function TubeBuild({ tube, onChange }: { tube: Tube; onChange: (next: Tube) => void }) {
   const { t } = useTranslation();
   const locale = useLocale();
-  const hex = useChartHex();
+  const hue = useChartHue();
   const rows = useMemo(
     () =>
       Array.from({ length: CHART_POINTS }, (_, k) => {
@@ -364,9 +364,9 @@ function TubeBuild({ tube, onChange }: { tube: Tube; onChange: (next: Tube) => v
       <SeriesChart
         rows={rows}
         series={[
-          { key: "blue", label: t("experiments.sky.chart.blue"), color: hex[BLUE_HUE % hex.length] },
-          { key: "green", label: t("experiments.sky.chart.green"), color: hex[GREEN_HUE % hex.length] },
-          { key: "red", label: t("experiments.sky.chart.red"), color: hex[RED_HUE % hex.length] },
+          { key: "blue", label: t("experiments.sky.chart.blue"), color: hue(BLUE_HUE) },
+          { key: "green", label: t("experiments.sky.chart.green"), color: hue(GREEN_HUE) },
+          { key: "red", label: t("experiments.sky.chart.red"), color: hue(RED_HUE) },
         ]}
         axes={[
           {
@@ -613,7 +613,7 @@ function SkyModel() {
 function SkyTrick() {
   const { t } = useTranslation();
   const locale = useLocale();
-  const hex = useChartHex();
+  const hue = useChartHue();
   const rows = useMemo(
     () =>
       Array.from({ length: CHART_POINTS }, (_, k) => {
@@ -633,8 +633,8 @@ function SkyTrick() {
       <SeriesChart
         rows={rows}
         series={[
-          { key: "blue", label: t("experiments.sky.chart.blue"), color: hex[BLUE_HUE % hex.length] },
-          { key: "red", label: t("experiments.sky.chart.red"), color: hex[RED_HUE % hex.length] },
+          { key: "blue", label: t("experiments.sky.chart.blue"), color: hue(BLUE_HUE) },
+          { key: "red", label: t("experiments.sky.chart.red"), color: hue(RED_HUE) },
         ]}
         axes={[
           {

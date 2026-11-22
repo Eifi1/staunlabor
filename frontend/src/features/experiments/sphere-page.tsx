@@ -5,7 +5,7 @@ import { Button, LoadingState, ToggleGroup } from "@eifi1/ui-kit";
 import { SeriesChart } from "@/shared/charts/series-chart";
 import { useLocale } from "@/shared/i18n/use-locale";
 import { formatNumber } from "@/shared/lib/format";
-import { useChartHex } from "@/shared/state/palette-store";
+import { useChartHue } from "@/shared/state/palette-store";
 import type { Orbit, SphereFigures, SphereRequest } from "@/shared/types";
 import { SliderField } from "@/shared/ui/slider-field";
 import { Figures, WidgetCard } from "@/shared/ui/widget";
@@ -422,7 +422,7 @@ function SpherePlay({
 function BackboneChart({ figures, angle, tempoHz }: { figures: SphereFigures; angle: number; tempoHz: number }) {
   const { t } = useTranslation();
   const locale = useLocale();
-  const hex = useChartHex();
+  const hue = useChartHue();
   const [point, setPoint] = useState<{ angle: number; tempo: number } | null>(null);
   const latest = useRef({ angle, tempo: tempoHz });
   useEffect(() => {
@@ -447,8 +447,8 @@ function BackboneChart({ figures, angle, tempoHz }: { figures: SphereFigures; an
       rows={rows}
       connectNulls
       series={[
-        { key: "circle", label: t("experiments.sphere.chart.circle"), color: hex[2 % hex.length] },
-        { key: "swing", label: t("experiments.sphere.chart.swing"), color: hex[6 % hex.length], dash: 1 },
+        { key: "circle", label: t("experiments.sphere.chart.circle"), color: hue(2) },
+        { key: "swing", label: t("experiments.sphere.chart.swing"), color: hue(6), dash: 1 },
       ]}
       axes={[
         {

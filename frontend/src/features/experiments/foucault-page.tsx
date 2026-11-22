@@ -5,7 +5,7 @@ import { Button, LoadingState, ToggleGroup } from "@eifi1/ui-kit";
 import { SeriesChart } from "@/shared/charts/series-chart";
 import { useLocale } from "@/shared/i18n/use-locale";
 import { formatNumber } from "@/shared/lib/format";
-import { useChartHex } from "@/shared/state/palette-store";
+import { useChartHue } from "@/shared/state/palette-store";
 import { SliderField } from "@/shared/ui/slider-field";
 import { Figures, WidgetCard } from "@/shared/ui/widget";
 import { Equation } from "./equation";
@@ -25,7 +25,7 @@ import {
   position,
   type FoucaultPendulum,
 } from "./simulate/foucault";
-import { SIDE } from "./stage";
+import { SIDE, VIEW_FRAME } from "./stage";
 import { useExperimentsDefaults } from "./use-experiments";
 
 /** Real time, a minute a second, ten minutes a second, an hour a second. */
@@ -123,7 +123,7 @@ function foucaultOf(p: FoucaultPendulum, setting: CheckSetting): FoucaultPendulu
 
 function FoucaultView({ p, time, trail }: { p: FoucaultPendulum; time: number; trail: Array<[number, number]> }) {
   const { t } = useTranslation();
-  const hex = useChartHex();
+  const hue = useChartHue();
   const A = p.amplitude_m;
   const reach = A * 1.3;
   const turned = planeDeg(p, time);
@@ -136,7 +136,7 @@ function FoucaultView({ p, time, trail }: { p: FoucaultPendulum; time: number; t
       viewBox={`${-reach} ${-reach} ${2 * reach} ${2 * reach}`}
       role="img"
       aria-label={t("experiments.foucault.view")}
-      className="aspect-square w-full rounded-lg border border-subtle bg-surface-2 text-muted"
+      className={`aspect-square ${VIEW_FRAME}`}
     >
       <circle r={ring * 1.06} fill="none" stroke="currentColor" opacity={0.3} vectorEffect="non-scaling-stroke" />
       <line
@@ -155,7 +155,7 @@ function FoucaultView({ p, time, trail }: { p: FoucaultPendulum; time: number; t
         const cx = ring * Math.cos(a);
         const cy = -ring * Math.sin(a);
         const down = knocked(deg, turned);
-        const colour = hex[PIN_HUE % hex.length];
+        const colour = hue(PIN_HUE);
         return down ? (
           <line
             key={k}
@@ -176,12 +176,12 @@ function FoucaultView({ p, time, trail }: { p: FoucaultPendulum; time: number; t
       <polyline
         points={trail.map(([x, y]) => `${x},${-y}`).join(" ")}
         fill="none"
-        stroke={hex[BOB_HUE % hex.length]}
+        stroke={hue(BOB_HUE)}
         opacity={0.35}
         strokeWidth={1}
         vectorEffect="non-scaling-stroke"
       />
-      <circle cx={bx} cy={-by} r={A * 0.05} fill={hex[BOB_HUE % hex.length]} />
+      <circle cx={bx} cy={-by} r={A * 0.05} fill={hue(BOB_HUE)} />
       <circle r={A * 0.012} className="fill-current text-primary" />
     </svg>
   );
@@ -393,7 +393,7 @@ function FoucaultModel() {
 function FoucaultTrick({ p }: { p: FoucaultPendulum | null }) {
   const { t } = useTranslation();
   const locale = useLocale();
-  const hex = useChartHex();
+  const hue = useChartHue();
   const rows = useMemo(
     () => (p ? latitudeCurve(p).map((c) => ({ lat: c.latitude_deg, rate: c.degrees_per_hour })) : []),
     [p],
@@ -408,7 +408,7 @@ function FoucaultTrick({ p }: { p: FoucaultPendulum | null }) {
       </p>
       <SeriesChart
         rows={rows}
-        series={[{ key: "rate", label: t("experiments.foucault.chart.rate"), color: hex[BOB_HUE % hex.length] }]}
+        series={[{ key: "rate", label: t("experiments.foucault.chart.rate"), color: hue(BOB_HUE) }]}
         axes={[
           {
             id: "y",

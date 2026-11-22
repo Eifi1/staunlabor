@@ -5,7 +5,7 @@ import { Button, LoadingState, ToggleGroup, useDebounce } from "@eifi1/ui-kit";
 import { SeriesChart } from "@/shared/charts/series-chart";
 import { useLocale } from "@/shared/i18n/use-locale";
 import { formatNumber, formatPowerOfTen } from "@/shared/lib/format";
-import { useChartHex } from "@/shared/state/palette-store";
+import { useChartHue } from "@/shared/state/palette-store";
 import { SliderField } from "@/shared/ui/slider-field";
 import { Figures, WidgetCard } from "@/shared/ui/widget";
 import { Equation } from "./equation";
@@ -25,7 +25,7 @@ import {
   type DoublePendulum,
 } from "./simulate/chaos";
 import { rk4 } from "./simulate/pendulum";
-import { SIDE } from "./stage";
+import { SIDE, VIEW_FRAME } from "./stage";
 import { useExperimentsDefaults } from "./use-experiments";
 
 /** Where the arms start, in degrees from hanging straight down. */
@@ -160,12 +160,12 @@ function ChaosView({
   trail: Array<[number, number]>;
 }) {
   const { t } = useTranslation();
-  const hex = useChartHex();
+  const hue = useChartHue();
   const reach = (dp.length1_m + dp.length2_m) * 1.1;
   const bob = reach * 0.035;
-  const draw = (y: readonly number[], hue: number, opacity: number) => {
+  const draw = (y: readonly number[], index: number, opacity: number) => {
     const [p1, p2] = arms(dp, y);
-    const colour = hex[hue % hex.length];
+    const colour = hue(index);
     return (
       <g opacity={opacity}>
         <polyline
@@ -186,12 +186,12 @@ function ChaosView({
       viewBox={`${-reach} ${-reach} ${2 * reach} ${2 * reach}`}
       role="img"
       aria-label={t("experiments.chaos.view")}
-      className="aspect-square w-full rounded-lg border border-subtle bg-surface-2 text-muted"
+      className={`aspect-square ${VIEW_FRAME}`}
     >
       <polyline
         points={trail.map(([x, y]) => `${x},${y}`).join(" ")}
         fill="none"
-        stroke={hex[MAIN_HUE % hex.length]}
+        stroke={hue(MAIN_HUE)}
         opacity={0.3}
         strokeWidth={1.5}
         vectorEffect="non-scaling-stroke"
@@ -461,7 +461,7 @@ function ChaosModel() {
 function ChaosTrick({ dp, start, nudge }: { dp: DoublePendulum | null; start: Start; nudge: Nudge }) {
   const { t } = useTranslation();
   const locale = useLocale();
-  const hex = useChartHex();
+  const hue = useChartHue();
   // Asked again only once the sliders have held still: a measurement is half a
   // minute of two pendulums stepped a millisecond at a time.
   const settled = useDebounce({ dp, start, nudge }, 300, { key: JSON.stringify({ dp, start, nudge }) });
@@ -483,7 +483,7 @@ function ChaosTrick({ dp, start, nudge }: { dp: DoublePendulum | null; start: St
       <p>{t("experiments.chaos.sweet.gap")}</p>
       <SeriesChart
         rows={measured.rows}
-        series={[{ key: "gap", label: t("experiments.chaos.chart.gap"), color: hex[MAIN_HUE % hex.length] }]}
+        series={[{ key: "gap", label: t("experiments.chaos.chart.gap"), color: hue(MAIN_HUE) }]}
         axes={[
           {
             id: "y",

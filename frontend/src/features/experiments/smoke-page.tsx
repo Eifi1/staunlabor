@@ -5,7 +5,7 @@ import { AlertBanner, Button, Chip, LoadingState, StaticLegend, Switch, seriesLe
 import { SeriesChart } from "@/shared/charts/series-chart";
 import { useLocale } from "@/shared/i18n/use-locale";
 import { formatNumber } from "@/shared/lib/format";
-import { useChartHex } from "@/shared/state/palette-store";
+import { useChartHue } from "@/shared/state/palette-store";
 import type { SmokeExhibitRequest, SmokeFigures } from "@/shared/types";
 import { SliderField } from "@/shared/ui/slider-field";
 import { Figures, WidgetCard } from "@/shared/ui/widget";
@@ -660,7 +660,7 @@ function SmokeComputed() {
 function SmokeTrick({ figures, exhibit }: { figures: SmokeFigures | null; exhibit: SmokeExhibitRequest | null }) {
   const { t } = useTranslation();
   const locale = useLocale();
-  const hex = useChartHex();
+  const hue = useChartHue();
   const rows = useMemo(
     () =>
       figures
@@ -683,12 +683,12 @@ function SmokeTrick({ figures, exhibit }: { figures: SmokeFigures | null; exhibi
     );
   // Each curve beside the threshold it crosses: where they meet is the window's end.
   const reSeries = [
-    { key: "re", label: t("experiments.smoke.chart.reynolds"), color: hex[4 % hex.length] },
-    { key: "threshold", label: t("experiments.smoke.chart.threshold"), color: hex[6 % hex.length], dash: 1 },
+    { key: "re", label: t("experiments.smoke.chart.reynolds"), color: hue(4) },
+    { key: "threshold", label: t("experiments.smoke.chart.threshold"), color: hue(6), dash: 1 },
   ];
   const speedSeries = [
-    { key: "speed", label: t("experiments.smoke.chart.speed"), color: hex[2 % hex.length] },
-    { key: "draught", label: t("experiments.smoke.chart.draught"), color: hex[6 % hex.length], dash: 1 },
+    { key: "speed", label: t("experiments.smoke.chart.speed"), color: hue(2) },
+    { key: "draught", label: t("experiments.smoke.chart.draught"), color: hue(6), dash: 1 },
   ];
   const x = {
     key: "d" as const,
@@ -732,7 +732,7 @@ function SmokeTrick({ figures, exhibit }: { figures: SmokeFigures | null; exhibi
       </p>
       <SeriesChart
         rows={rows}
-        series={[{ key: "force", label: t("experiments.smoke.chart.force"), color: hex[6 % hex.length] }]}
+        series={[{ key: "force", label: t("experiments.smoke.chart.force"), color: hue(6) }]}
         axes={[
           { id: "y", title: `${t("experiments.smoke.chart.force")} (N)`, format: (v) => n(v, 0), includeZero: true },
         ]}

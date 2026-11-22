@@ -12,9 +12,10 @@
  */
 
 import { useTranslation } from "react-i18next";
-import { useChartHex } from "@/shared/state/palette-store";
+import { useChartHue } from "@/shared/state/palette-store";
 import { heightAt, profile, surface, type Vessel } from "./simulate/parabola";
 import { G } from "./simulate/pendulum";
+import { STAGE, VIEW_FRAME } from "./stage";
 
 /** The water's hue, as the elephant's air. */
 const WATER_HUE = 0;
@@ -34,9 +35,9 @@ const SPECKS: ReadonlyArray<readonly [number, number]> = [
 
 export function ParabolaSideView({ v, rate }: { v: Vessel; rate: number }) {
   const { t } = useTranslation();
-  const hex = useChartHex();
-  const water = hex[WATER_HUE % hex.length];
-  const light = hex[LIGHT_HUE % hex.length];
+  const hue = useChartHue();
+  const water = hue(WATER_HUE);
+  const light = hue(LIGHT_HUE);
   const s = surface(v, rate);
   const heights = profile(v, rate);
   const n = heights.length - 1;
@@ -61,7 +62,7 @@ export function ParabolaSideView({ v, rate }: { v: Vessel; rate: number }) {
       viewBox={`${left} ${-top} ${width} ${top + wall * 2}`}
       role="img"
       aria-label={t("experiments.parabola.views.side")}
-      className="max-h-[60dvh] w-full rounded-lg border border-subtle bg-surface-2 text-muted"
+      className={`${STAGE.wide} ${VIEW_FRAME}`}
     >
       <polygon points={polygon} fill={water} opacity={0.45} />
       <polyline
@@ -119,15 +120,15 @@ export function ParabolaTopView({
   waterAngle: number;
 }) {
   const { t } = useTranslation();
-  const hex = useChartHex();
-  const water = hex[WATER_HUE % hex.length];
+  const hue = useChartHue();
+  const water = hue(WATER_HUE);
   const extent = v.radius_m * 1.12;
   return (
     <svg
       viewBox={`${-extent} ${-extent} ${2 * extent} ${2 * extent}`}
       role="img"
       aria-label={t("experiments.parabola.views.top")}
-      className="aspect-square w-full rounded-lg border border-subtle bg-surface-2 text-muted"
+      className={`aspect-square ${VIEW_FRAME}`}
     >
       <circle r={v.radius_m} fill={water} opacity={0.2} />
       <circle r={v.radius_m} fill="none" stroke="currentColor" strokeWidth={3} vectorEffect="non-scaling-stroke" />
