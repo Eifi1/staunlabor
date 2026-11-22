@@ -18,7 +18,8 @@ import math
 from dataclasses import dataclass
 from enum import StrEnum
 
-from staunlabor.domain.course.lti import log_decrement
+from staunlabor.domain.course.chain import series_stiffness
+from staunlabor.domain.course.lti import log_decrement, step_pt1
 from staunlabor.domain.course.ode import euler
 
 
@@ -60,10 +61,6 @@ class Exercise:
     estimate_first: bool = False
 
 
-def _pt1_at(tau: float, start: float, final: float, t: float) -> float:
-    return final + (start - final) * math.exp(-t / tau)
-
-
 def _delay_ms(corner_hz: float, f_hz: float) -> tuple[float, float]:
     phase = -math.degrees(math.atan(f_hz / corner_hz))
     return phase, -phase / 360 / f_hz * 1000
@@ -84,14 +81,14 @@ def exercises() -> tuple[Exercise, ...]:
         lambda _t, y: ((u51["final"] - y[0]) / u51["tau"],), (u51["start"],), u51["h"], u51["h"] * u51["steps"]
     )
     phase42, delay42 = _delay_ms(u42["corner"], u42["f"])
-    series = u61["c1"] * u61["c2"] / (u61["c1"] + u61["c2"])
+    series = series_stiffness(u61["c1"], u61["c2"])
     f_a = math.sqrt(u62["c2"] / u62["j2"]) / (2 * math.pi)
     return (
         Exercise(
             "pt1_reading",
             Lesson.first_order,
             u11,
-            (Answer(_pt1_at(u11["tau"], u11["start"], u11["final"], u11["t"]), "°C", absolute=0.2),),
+            (Answer(step_pt1(u11["t"], u11["tau"], u11["start"], u11["final"]), "°C", absolute=0.2),),
             estimate_first=True,
         ),
         Exercise(

@@ -21,6 +21,7 @@ from dataclasses import dataclass
 from staunlabor.domain.course.lti import (
     Regime,
     SecondOrderFigures,
+    free_decay,
     linspace,
     log_decrement,
     logspace,
@@ -231,14 +232,14 @@ def decay_test(seed: int) -> DecayTest:
     w0 = 2 * math.pi * f0
     wd = w0 * math.sqrt(1 - d * d)
     sigma = d * w0
-    t_end = min(12 / f0 / 1, 3.5 / sigma) if sigma > 0 else 12 / f0
+    t_end = min(12 / f0, 3.5 / sigma) if sigma > 0 else 12 / f0
     t_end = max(t_end, 6 / f0)
     rate = 40 * f0
     n = int(t_end * rate) + 1
     ts = [k / rate for k in range(n)]
 
     def clean(t: float) -> float:
-        return amplitude * math.exp(-sigma * t) * (math.cos(wd * t) + sigma / wd * math.sin(wd * t))
+        return free_decay(t, amplitude, sigma, wd)
 
     values = [clean(t) + rng.gauss(0.0, noise) for t in ts]
     # The maxima of the clean decay are at multiples of the damped period;

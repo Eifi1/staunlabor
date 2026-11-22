@@ -30,7 +30,7 @@ import math
 from dataclasses import dataclass
 from enum import StrEnum
 
-from staunlabor.domain.course.lti import linspace
+from staunlabor.domain.course.lti import free_decay, linspace, step_pt1
 from staunlabor.domain.course.ode import (
     Rk4Step,
     Trace,
@@ -125,7 +125,7 @@ def sensor_methods(time_constant_s: float, start: float, final: float, step_s: f
     rk = rk4(f, (start,), step_s, t_end)
 
     def exact(t: float) -> float:
-        return final + (start - final) * math.exp(-t / tau)
+        return step_pt1(t, tau, start, final)
 
     rows = tuple(
         ErrorRow(t, exact(t), e, h_, r)
@@ -227,7 +227,7 @@ def oscillator_methods(
         OscillatorMethod.rk4: rk4(f, (start_deg, 0.0), step_s, duration_s, sample_every=every),
     }
     ts = linspace(0.0, duration_s, min(MAX_POINTS, 4 * n + 1))
-    xs = [start_deg * math.exp(-sigma * t) * (math.cos(wd * t) + sigma / wd * math.sin(wd * t)) for t in ts]
+    xs = [free_decay(t, start_deg, sigma, wd) for t in ts]
     vs = [-start_deg * w0 * w0 / wd * math.exp(-sigma * t) * math.sin(wd * t) for t in ts]
     traces = {OscillatorMethod.exact: Trace(tuple(ts), (tuple(xs), tuple(vs))), **traces}
     runs = []

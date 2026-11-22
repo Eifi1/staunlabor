@@ -26,7 +26,7 @@ from dataclasses import dataclass
 from enum import StrEnum
 
 from staunlabor.domain.course.linalg import expm
-from staunlabor.domain.course.lti import Tf, linspace, logspace, response, roots, series, static_gain
+from staunlabor.domain.course.lti import Tf, linspace, logspace, lowpass, response, roots, series, static_gain
 
 CURVE_POINTS = 401
 BODE_POINTS = 400
@@ -176,8 +176,16 @@ def _block_magnitude_db(block: Block, w: float) -> float:
     tf = _tf(block)
     if tf is None:
         return 0.0
-    v = abs(response(tf, w))
-    return 20 * math.log10(v) if v > 0 else -400.0
+    return _db(abs(response(tf, w)))
+
+
+#: What a zero gain is drawn at: far below any axis, and finite, which JSON needs.
+_DB_FLOOR = -400.0
+
+
+def _db(v: float) -> float:
+    """A magnitude in decibels, ``20·log₁₀ v``, :data:`_DB_FLOOR` for none."""
+    return 20 * math.log10(v) if v > 0 else _DB_FLOOR
 
 
 def _state_space(blocks: list[Block]) -> tuple[list[list[float]], list[float], list[float], float]:
@@ -272,13 +280,43 @@ def chain_response(
         block_curves.append(BlockCurve(tuple(mags), tuple(phases)))
     mag = [sum(curve.magnitude_db[i] for curve in block_curves) for i in range(len(freqs))]
     phase = [sum(curve.phase_deg[i] for curve in block_curves) for i in range(len(freqs))]
+    gain0 = static_gain(total)
+    horizon = t_end_s if t_end_s is not None else min(1000.0, max(1e-3, 6 * _time_scale(blocks))) + dead
+    ts, step = _step_response(blocks, horizon, dead)
+    return ChainResponse(
+        frequency_hz=tuple(freqs),
+        magnitude_db=tuple(mag),
+        phase_deg=tuple(phase),
+        blocks=tuple(block_curves),
+        poles=tuple(poles),
+        static_gain=gain0 if math.isfinite(gain0) else None,
+        dead_time_s=dead,
+        cursor=_cursor(blocks, total, cursor_hz),
+        time_s=tuple(ts),
+        step=tuple(step),
+    )
+
+
+def _cursor(blocks: list[Block], total: Tf, cursor_hz: float) -> Cursor:
+    """The chain read at one frequency: the product's gain, the blocks' phases
+    summed (a dead time's included, which the product leaves out)."""
     wc = 2 * math.pi * cursor_hz
     g = abs(response(total, wc))
     ph = sum(_block_phase(b, wc) for b in blocks)
-    gain0 = static_gain(total)
+    return Cursor(
+        frequency_hz=cursor_hz,
+        magnitude=g,
+        magnitude_db=_db(g),
+        phase_deg=ph,
+        delay_s=-ph / 360 / cursor_hz,
+    )
 
+
+def _step_response(blocks: list[Block], horizon: float, dead: float) -> tuple[list[float], list[float]]:
+    """The chain's unit step response over ``[0, horizon]``, exact at every
+    sample: the cascade's state space stepped by its matrix exponential, then
+    shifted by the dead time."""
     a, b, c, d = _state_space(blocks)
-    horizon = t_end_s if t_end_s is not None else min(1000.0, max(1e-3, 6 * _time_scale(blocks))) + dead
     ts = linspace(0.0, horizon, CURVE_POINTS)
     h = ts[1] - ts[0]
     n = len(a)
@@ -296,25 +334,7 @@ def chain_response(
         if n:
             x = [sum(phi[i][j] * x[j] for j in range(n)) + gamma[i] for i in range(n)]
     # The dead time shifts the whole response; before it, nothing has arrived.
-    step = [0.0 if t < dead else _shifted(y_free, ts, t - dead) for t in ts]
-    return ChainResponse(
-        frequency_hz=tuple(freqs),
-        magnitude_db=tuple(mag),
-        phase_deg=tuple(phase),
-        blocks=tuple(block_curves),
-        poles=tuple(poles),
-        static_gain=gain0 if math.isfinite(gain0) else None,
-        dead_time_s=dead,
-        cursor=Cursor(
-            frequency_hz=cursor_hz,
-            magnitude=g,
-            magnitude_db=20 * math.log10(g) if g > 0 else -400.0,
-            phase_deg=ph,
-            delay_s=-ph / 360 / cursor_hz,
-        ),
-        time_s=tuple(ts),
-        step=tuple(step),
-    )
+    return ts, [0.0 if t < dead else _shifted(y_free, ts, t - dead) for t in ts]
 
 
 def _shifted(values: list[float], ts: list[float], t: float) -> float:
@@ -364,18 +384,6 @@ class FilterLoop:
 _PERIODS = 9
 
 
-def _pt1(values: list[float], h: float, tau: float) -> list[float]:
-    """A first-order low-pass sampled exactly for a held input, starting at the
-    first value so it begins settled."""
-    a = math.exp(-h / tau)
-    out = []
-    y = values[0]
-    for u in values:
-        y = a * y + (1 - a) * u
-        out.append(y)
-    return out
-
-
 def _width_at_zero(angle: list[float], torque: list[float]) -> float:
     """The torque gap between the rising and the falling branch where the angle
     crosses zero, by linear interpolation at each crossing."""
@@ -421,13 +429,14 @@ def filter_loop(
     rate_sign = [math.copysign(1.0, math.cos(w * t)) for t in ts]
     torque = [stiffness_nm_per_deg * a + friction_nm * s for a, s in zip(angle, rate_sign, strict=True)]
     tau = 1 / (2 * math.pi * corner_hz)
+    pole = math.exp(-h / tau)
     if mode is FilterMode.torque_only:
-        m_angle, m_torque = angle, _pt1(torque, h, tau)
+        m_angle, m_torque = angle, lowpass(torque, pole)
     elif mode is FilterMode.both:
-        m_angle, m_torque = _pt1(angle, h, tau), _pt1(torque, h, tau)
+        m_angle, m_torque = lowpass(angle, pole), lowpass(torque, pole)
     else:
-        m_angle = _pt1(_pt1(angle, h, tau)[::-1], h, tau)[::-1]
-        m_torque = _pt1(_pt1(torque, h, tau)[::-1], h, tau)[::-1]
+        m_angle = lowpass(lowpass(angle, pole)[::-1], pole)[::-1]
+        m_torque = lowpass(lowpass(torque, pole)[::-1], pole)[::-1]
     # The middle period: far from both ends of a record a filter ran over twice.
     lo = (_PERIODS // 2) * per_period
     hi = lo + per_period + 1
