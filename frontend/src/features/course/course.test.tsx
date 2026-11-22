@@ -11,9 +11,8 @@ import type { ComponentType } from "react";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { fireEvent, screen, waitFor, within } from "@testing-library/react";
 import en from "@/shared/i18n/locales/en.json";
-import { api } from "@/shared/api/client";
 import { STORAGE } from "@/shared/lib/storage-keys";
-import { mockApi } from "@/test/api-mock";
+import { mockCourse, posted } from "@/test/course";
 import { renderWithProviders } from "@/test/render";
 import type { Exercise } from "@/shared/types";
 import { CheatSheetPage } from "./cheat-sheet";
@@ -33,35 +32,7 @@ import fixtures from "./test-fixtures.json";
 
 const C = en.course;
 
-/** The engine's answers, at the routes the backend serves them on. */
-const ROUTES = {
-  "GET /course/defaults": fixtures.defaults,
-  "POST /course/tank": fixtures.tank,
-  "POST /course/first-order": fixtures.first_order,
-  "POST /course/first-order/measurement": fixtures.measurement,
-  "POST /course/second-order": fixtures.second_order,
-  "POST /course/second-order/decay": fixtures.decay,
-  "POST /course/eigen/scalar": fixtures.scalar,
-  "POST /course/eigen/poles": fixtures.poles,
-  "POST /course/eigen/matrix": fixtures.matrix,
-  "POST /course/laplace": fixtures.laplace,
-  "POST /course/laplace/chain": fixtures.chain,
-  "POST /course/laplace/filter-loop": fixtures.filter_loop,
-  "POST /course/numerics/sensor": fixtures.sensor,
-  "POST /course/numerics/oscillator": fixtures.oscillator,
-  "POST /course/numerics/stiff": fixtures.stiff,
-  "POST /course/two-mass": fixtures.two_mass,
-  "POST /course/two-mass/compensation": fixtures.compensation,
-};
-
-const posted = (path: string) =>
-  (api.post as ReturnType<typeof vi.fn>).mock.calls.filter(([url]) => url === path).map(([, body]) => body);
-
-beforeEach(() => {
-  mockApi(ROUTES);
-  localStorage.removeItem(STORAGE.courseProgress);
-  useCourseProgress.getState().forget();
-});
+beforeEach(mockCourse);
 afterEach(() => vi.restoreAllMocks());
 
 /** Each lesson, the question it opens on, and one thing only its widgets draw. */

@@ -26,7 +26,7 @@ import { LessonFrame } from "./lesson-frame";
 import { log10, logAxis, logX } from "@/shared/charts/log-axis";
 import { Failed, Figures, Param, WidgetBody, WidgetCard } from "./parts";
 import { Tex } from "@/shared/ui/tex";
-import { useComputed, useCourseDefaults } from "./use-dynamics";
+import { useComputed, useCourseDefaults } from "./use-course";
 
 const FALLBACK: TwoMassParameters = {
   motor_inertia: 0.01,

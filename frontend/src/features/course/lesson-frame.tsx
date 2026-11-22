@@ -23,7 +23,7 @@ import { ExerciseCard } from "./exercise";
 import { lessonEntry, neighbours } from "./lessons";
 import { Assumptions } from "./parts";
 import { useCourseProgress } from "./progress";
-import { useCourseDefaults } from "./use-dynamics";
+import { useCourseDefaults } from "./use-course";
 
 export function LessonFrame({
   lesson,

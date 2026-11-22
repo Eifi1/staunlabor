@@ -25,7 +25,7 @@ import { LessonFrame } from "./lesson-frame";
 import { log10, logAxis } from "@/shared/charts/log-axis";
 import { Failed, Figures, Param, WidgetBody, WidgetCard } from "./parts";
 import { Tex, texNumber } from "@/shared/ui/tex";
-import { useComputed } from "./use-dynamics";
+import { useComputed } from "./use-course";
 
 const STEP: FirstOrderRequest = { time_constant_s: 4, start: 20, final: 80, at_s: 8 };
 

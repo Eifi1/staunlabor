@@ -38,7 +38,7 @@ import { logX } from "@/shared/charts/log-axis";
 import { Failed, Figures, Param, WidgetBody, WidgetCard } from "./parts";
 import { PolePlane } from "./pole-plane";
 import { Tex, texNumber } from "@/shared/ui/tex";
-import { useComputed } from "./use-dynamics";
+import { useComputed } from "./use-course";
 
 const LAPLACE: LaplaceRequest = { time_constant_s: 2, gain: 1, step: 3, start: 0 };
 const KINDS: BlockKind[] = ["proportional", "integrator", "first_order", "second_order", "dead_time"];

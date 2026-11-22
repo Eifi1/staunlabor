@@ -37,7 +37,7 @@ import { LessonNavigation, useLesson } from "./lesson-frame";
 import { Failed, Figures, Param, WidgetBody, WidgetCard } from "./parts";
 import { useCourseProgress } from "./progress";
 import { Tex, texNumber } from "@/shared/ui/tex";
-import { useComputed, useCourseDefaults } from "./use-dynamics";
+import { useComputed, useCourseDefaults } from "./use-course";
 
 /** The recipe's eight steps, in order. */
 const RECIPE = ["question", "boundary", "coordinate", "balance", "normalise", "solve", "check", "interpret"] as const;

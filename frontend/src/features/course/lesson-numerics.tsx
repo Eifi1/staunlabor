@@ -23,7 +23,7 @@ import { LessonFrame } from "./lesson-frame";
 import { log10, logAxis } from "@/shared/charts/log-axis";
 import { Failed, Figures, Param, WidgetBody, WidgetCard } from "./parts";
 import { Tex } from "@/shared/ui/tex";
-import { useComputed } from "./use-dynamics";
+import { useComputed } from "./use-course";
 
 const REGIME_TONE: Record<EulerRegime, "success" | "info" | "warning" | "danger"> = {
   monotone: "success",

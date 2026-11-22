@@ -24,7 +24,7 @@ import { Button, Card, CardHeader, CardTitle, Input, SectionLabel } from "@eifi1
 import { useLocale } from "@/shared/i18n/use-locale";
 import { formatSig } from "@/shared/lib/format";
 import type { Answer, Exercise } from "@/shared/types";
-import { SURPRISE_SHARE, useCourseProgress } from "./progress";
+import { estimateMiss, isSurprise, useCourseProgress } from "./progress";
 import { Tex } from "@/shared/ui/tex";
 import { solutionTex } from "./solutions";
 
@@ -103,10 +103,7 @@ export function ExerciseCard({ exercise }: { exercise: Exercise }) {
     setVerdict(right ? "right" : "wrong");
   };
 
-  const offBy =
-    record?.estimate != null && first.value !== 0
-      ? Math.abs(record.estimate - first.value) / Math.abs(first.value)
-      : null;
+  const offBy = record?.estimate != null ? estimateMiss(record.estimate, first.value) : null;
 
   return (
     <Card padding="md" density="compact" className="space-y-3">
@@ -179,7 +176,7 @@ export function ExerciseCard({ exercise }: { exercise: Exercise }) {
           )}
           {verdict !== null && offBy !== null && (
             <p className="text-xs text-muted">
-              {offBy > SURPRISE_SHARE
+              {isSurprise(offBy)
                 ? t("course.exercise.surprise", { pct: formatSig(offBy * 100, locale, 2) })
                 : t("course.exercise.estimate_close", { pct: formatSig(offBy * 100, locale, 2) })}
             </p>
