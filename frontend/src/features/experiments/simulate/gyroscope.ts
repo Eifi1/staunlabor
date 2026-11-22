@@ -9,7 +9,8 @@
  * samples it the engine's way. A change to the physics is made in Python first.
  */
 
-import { G } from "./pendulum";
+import { G } from "./constants";
+import { TO_DEG, TO_RAD } from "./python";
 
 export const STEP_S = 1e-3;
 
@@ -36,10 +37,7 @@ export interface Motion {
   l3: number;
 }
 
-const TO_RAD = Math.PI / 180.0;
-const TO_DEG = 180.0 / Math.PI;
-
-export const spinRadS = (w: Wheel) => (w.rpm * 2 * Math.PI) / 60;
+const spinRadS = (w: Wheel) => (w.rpm * 2 * Math.PI) / 60;
 const i3 = (w: Wheel) => w.mass_kg * w.radius_m ** 2;
 const i1 = (w: Wheel) => (w.mass_kg * w.radius_m ** 2) / 2 + w.mass_kg * w.axle_m ** 2;
 const torque = (w: Wheel) => w.mass_kg * G * w.axle_m;
@@ -74,7 +72,7 @@ export function start(w: Wheel, release: Release): [State, Motion] {
 }
 
 /** φ̇ from the kept momenta. */
-export const turnRate = (w: Wheel, m: Motion, theta: number) =>
+const turnRate = (w: Wheel, m: Motion, theta: number) =>
   (m.p_phi - m.l3 * Math.cos(theta)) / (i1(w) * Math.sin(theta) ** 2);
 
 function rates(w: Wheel, m: Motion, y: State): State {

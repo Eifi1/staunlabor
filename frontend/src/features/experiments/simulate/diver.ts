@@ -7,9 +7,10 @@
  * frame. There is no route; a change to the physics is made in Python first.
  */
 
-export const G = 9.80665;
-export const WATER_DENSITY = 998.0;
-export const SURFACE_PA = 101325.0;
+import { G } from "./constants";
+
+const WATER_DENSITY = 998.0;
+const SURFACE_PA = 101325.0;
 const DRAG_COEFFICIENT = 1.0;
 /** The step the motion is integrated with, s. */
 export const STEP_S = 0.002;

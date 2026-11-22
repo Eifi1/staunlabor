@@ -21,7 +21,6 @@ import {
   RED_NM,
   SODIUM_NM,
   VIOLET_NM,
-  degrees,
   exitAngle,
   figures,
   indexAt,
@@ -33,6 +32,7 @@ import {
 } from "./simulate/rainbow";
 import { SIDE } from "./stage";
 import { useExperimentsDefaults } from "./use-experiments";
+import { degrees } from "./simulate/python";
 
 /** The rays of the fan, evenly across the bead's face from its centre to near its rim. */
 const FAN = 19;

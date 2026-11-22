@@ -2785,6 +2785,17 @@ race, rainbow, resonance, sky, slits, smoke, sphere, waterwheel, wave, well.
 From now on a change to the pendulum's own physics unchecks only the pendulum
 wave and the harmonograph.
 
+The browser's ports followed the same day (frontend only, so nothing
+unchecked): `simulate/constants.ts` and `simulate/numerics.ts` mirror the two
+modules (the same steps shared and the same ones left written out, chaos,
+coupled and peg calling `checkRun`), and `simulate/python.ts` holds the
+Python built-ins every port copies to the last bit (`roundHalfEven`, the
+degree conversions, `fmod`, Python's `%`, `copysign`), where each port had
+its own and the pendulum took its rounding from the sphere. `engine-cases.json`
+now carries what its cases were asked at (`inputs`, and each run's
+`duration_s` and sampling `every`), so `simulate.test.ts` no longer keeps
+copies of those lists; every number it held before stayed as it was.
+
 ## Checking the mathematics
 
 Before the engine was written each model was checked independently with SciPy

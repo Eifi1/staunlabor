@@ -39,7 +39,7 @@ export interface Tube {
   cloudiness_per_m: number;
 }
 
-export function scattering(cloudiness: number, nm: number): number {
+function scattering(cloudiness: number, nm: number): number {
   return cloudiness * (REFERENCE_NM / nm) ** 4;
 }
 

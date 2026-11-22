@@ -12,12 +12,13 @@ import { Equation } from "./equation";
 import { ExhibitFrame } from "./exhibit-frame";
 import { BuildPending } from "./build-pending";
 import { PreviewPending, type PreviewMode, type PreviewProps } from "./preview-mode";
-import { G, fallTimeS, figures, motion, stream, type MagnetColumn, type Material, type Plate } from "./simulate/plates";
+import { fallTimeS, figures, motion, stream, type MagnetColumn, type Material, type Plate } from "./simulate/plates";
 import { SIDE, VIEW_FRAME } from "./stage";
 import { useExperimentsDefaults } from "./use-experiments";
 import { settingNumber, useTakeCheckRequest } from "./check-setting";
 import { useFrameLoop, useRunning } from "./play";
 import { RestartButton, RunPauseButton, SpeedToggle } from "./play-controls";
+import { G } from "./simulate/constants";
 
 /** Real time, and a quarter of it for the plastic plate, which is gone in a blink. */
 const SPEEDS = [1, 0.25] as const;

@@ -17,8 +17,9 @@ import { useFrameLoop, useRunning } from "./play";
 import { RunPauseButton, SpeedToggle } from "./play-controls";
 import { HeldAnswer, useHeld } from "./held";
 import { RaceView, ValleyView, ballState, pitEntries, raceLayout, type BallState } from "./race-views";
-import { G as PIT_G, run as runPit } from "./simulate/pit";
+import { run as runPit } from "./simulate/pit";
 import { useExperimentsDefaults, useRace } from "./use-experiments";
+import { G as PIT_G } from "./simulate/constants";
 
 /** How much slower than life the race may run: it is over in a second. */
 const SPEEDS = [1, 0.25, 0.1] as const;

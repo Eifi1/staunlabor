@@ -76,7 +76,7 @@ export interface SlitsFigures {
 }
 
 /** The engine's: how many times a²/λ away the wall must be for Fraunhofer to hold to a per cent. */
-export const FAR = 35.0;
+const FAR = 35.0;
 
 export function figures(slits: Slits, nm: number): SlitsFigures {
   const firstDark = darkM(slits, nm, 0);

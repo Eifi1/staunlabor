@@ -27,9 +27,9 @@ import {
   twinOf,
   type DoublePendulum,
 } from "./simulate/chaos";
-import { rk4 } from "./simulate/pendulum";
 import { SIDE, VIEW_FRAME } from "./stage";
 import { useExperimentsDefaults } from "./use-experiments";
+import { rk4 } from "./simulate/numerics";
 
 /** Where the arms start, in degrees from hanging straight down. */
 interface Start {

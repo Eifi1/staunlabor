@@ -13,13 +13,14 @@
  * every frame — the same steps, carried on from where the last frame stopped.
  */
 
-import { roundHalfEven } from "./sphere";
-import { MAX_DURATION_S, STEP_S, angleDeg, naturalRate, periodS, rk4, sampleEvery, swingRhs } from "./pendulum";
+import { angleDeg, naturalRate, periodS, swingRhs } from "./pendulum";
+import { MAX_DURATION_S, rk4, sampleEvery, STEP_S } from "./numerics";
+import { radians, roundHalfEven } from "./python";
 
 /** The ratios a picture is said to be near: p:q with both at most this. */
-export const MAX_RATIO_TERM = 6;
+const MAX_RATIO_TERM = 6;
 /** A swing has died away once it is down to this share of its start. */
-export const FADED = 0.1;
+const FADED = 0.1;
 
 /** The engine's `HarmonographPendulum`. */
 export interface HarmonographPendulum {
@@ -34,9 +35,6 @@ export interface Harmonograph {
   pen: HarmonographPendulum;
   board: HarmonographPendulum;
 }
-
-const TO_RAD = Math.PI / 180.0;
-const radians = (deg: number) => deg * TO_RAD;
 
 /** The pendulum's angle and rate at `t = 0`: the exact pendulum let go at its
  *  swing, a share `φ/360°` of its period on. */
@@ -119,7 +117,7 @@ export function draw(h: Harmonograph, durationS: number, stepS = STEP_S): Harmon
 }
 
 /** The engine's: beats per second at the swing it is let go at, 1/T(L, θ₀). */
-export function frequencyHz(p: HarmonographPendulum): number {
+function frequencyHz(p: HarmonographPendulum): number {
   return 1 / periodS(p.length_m, p.amplitude_deg);
 }
 
@@ -128,7 +126,7 @@ function gcd(a: number, b: number): number {
 }
 
 /** The simple ratio `p:q` nearest to `penHz : boardHz`, in lowest terms. */
-export function nearestRatio(penHz: number, boardHz: number): [number, number] {
+function nearestRatio(penHz: number, boardHz: number): [number, number] {
   const target = boardHz / penHz;
   let best: [number, number] = [1, 1];
   let bestError = Infinity;

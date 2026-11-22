@@ -30,9 +30,9 @@ import {
   type PegPendulum,
   type PegState,
 } from "./simulate/peg";
-import { STEP_S } from "./simulate/pendulum";
 import { SIDE, STAGE, VIEW_FRAME } from "./stage";
 import { useExperimentsDefaults } from "./use-experiments";
+import { STEP_S } from "./simulate/numerics";
 
 const SPEEDS = [1, 0.25] as const;
 type Speed = (typeof SPEEDS)[number];

@@ -19,10 +19,10 @@ import {
   type Shape,
   type Thrust,
 } from "./simulate/arch";
-import { G } from "./simulate/pendulum";
 import { SIDE, VIEW_FRAME } from "./stage";
 import { useExperimentsDefaults } from "./use-experiments";
 import { settingNumber, useCheckSetting } from "./check-setting";
+import { G } from "./simulate/constants";
 
 const SHAPES: readonly Shape[] = ["semicircle", "pointed", "catenary"];
 const LINE_HUE = 0;

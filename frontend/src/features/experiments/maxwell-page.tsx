@@ -23,12 +23,12 @@ import {
   type MaxwellWheel,
   type Shape,
 } from "./simulate/maxwell";
-import { G } from "./simulate/pendulum";
 import { SIDE, STAGE, VIEW_FRAME } from "./stage";
 import { useExperimentsDefaults } from "./use-experiments";
 import { sameBuild, settingNumber, useCheckSetting, useTakeCheckRequest, type CheckSetting } from "./check-setting";
 import { useFrameLoop, useRunning } from "./play";
 import { RunPauseButton, SpeedToggle } from "./play-controls";
+import { G } from "./simulate/constants";
 
 /** Real time, a quarter, and a twentieth: the jerk at the bottom lasts some
  *  hundredths of a second, which only the slowest shows. */

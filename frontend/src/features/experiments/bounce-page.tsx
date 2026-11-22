@@ -16,9 +16,10 @@ import { settingNumber, useCheckSetting } from "./check-setting";
 import { useFrameLoop, useRunning } from "./play";
 import { RestartButton, RunPauseButton, SoundSwitch, SpeedToggle } from "./play-controls";
 import { PreviewPending, type PreviewMode, type PreviewProps } from "./preview-mode";
-import { G, bounces, figures, state, type Bounces, type BouncingBall } from "./simulate/bounce";
+import { bounces, figures, state, type Bounces, type BouncingBall } from "./simulate/bounce";
 import { SIDE, VIEW_FRAME } from "./stage";
 import { useExperimentsDefaults } from "./use-experiments";
+import { G } from "./simulate/constants";
 
 /** Real time, and a quarter of it for the last quick bounces. */
 const SPEEDS = [1, 0.25] as const;

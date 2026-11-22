@@ -14,8 +14,8 @@
 import { useTranslation } from "react-i18next";
 import { useChartHue } from "@/shared/state/palette-store";
 import { heightAt, profile, surface, type Vessel } from "./simulate/parabola";
-import { G } from "./simulate/pendulum";
 import { STAGE, VIEW_FRAME } from "./stage";
+import { G } from "./simulate/constants";
 
 /** The water's hue, as the elephant's air. */
 const WATER_HUE = 0;

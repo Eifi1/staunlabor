@@ -23,7 +23,7 @@ export interface PendulumWave {
 }
 
 /** `N + n`: the swings each pendulum makes in a cycle, longest first. */
-export function swings(wave: PendulumWave): number[] {
+function swings(wave: PendulumWave): number[] {
   return Array.from({ length: wave.count }, (_, n) => wave.longest_swings + n);
 }
 

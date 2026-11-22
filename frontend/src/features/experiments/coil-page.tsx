@@ -18,7 +18,6 @@ import { Equation } from "./equation";
 import { ExhibitFrame } from "./exhibit-frame";
 import { BuildPending } from "./build-pending";
 import {
-  RESISTANCE_FADE_M_S,
   STEP_S,
   endOf,
   frame,
@@ -32,6 +31,7 @@ import {
   type PressRule,
 } from "./simulate/coil";
 import { useCoilAnalysis, useExperimentsDefaults } from "./use-experiments";
+import { RESISTANCE_FADE_M_S } from "./simulate/constants";
 
 /** The auto mode's rule: perfect timing. Plus from the foot of one ramp to
  *  the middle, minus from the middle to the foot of the other — switched

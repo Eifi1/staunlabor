@@ -137,7 +137,7 @@ export function matching(nm: number): Rgb {
 /** The observer at every wavelength, once: the same numbers `matching` gives. */
 const MATCHING = WAVELENGTHS_NM.map(matching);
 
-export function planck(nm: number, kelvin: number): number {
+function planck(nm: number, kelvin: number): number {
   const lam = nm * 1e-9;
   const ref = PLANCK_REFERENCE_NM * 1e-9;
   return ((ref / lam) ** 5 * Math.expm1(C2 / (ref * kelvin))) / Math.expm1(C2 / (lam * kelvin));

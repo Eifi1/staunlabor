@@ -9,8 +9,8 @@
  * samples it the engine's way. A change to the physics is made in Python first.
  */
 
-import { G } from "./pendulum";
-import { RESISTANCE_FADE_M_S } from "./sphere";
+import { G, RESISTANCE_FADE_M_S } from "./constants";
+import { TO_RAD } from "./python";
 
 /** 1/(1 + 2/5): the share of a push along the wall that moves a rolling ball. */
 const SHARE = 5 / 7;
@@ -34,8 +34,6 @@ export interface Launch {
 
 /** (r, ṙ, φ, φ̇): m, m/s, rad, rad/s. */
 export type State = [number, number, number, number];
-
-const TO_RAD = Math.PI / 180.0;
 
 export const startM = (f: Funnel) => START_SHARE * f.rim_m;
 

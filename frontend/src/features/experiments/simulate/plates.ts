@@ -9,14 +9,15 @@
  * route; a change to the physics is made in Python first.
  */
 
-export const G = 9.80665;
+import { G } from "./constants";
+
 /** The magnetic constant, in V·s/(A·m). */
-export const MU0 = 4e-7 * Math.PI;
+const MU0 = 4e-7 * Math.PI;
 
 export type Material = "copper" | "aluminium" | "brass" | "plastic";
 
 /** Conductivity (S/m) and density (kg/m³), as the engine's `MATERIALS`. */
-export const MATERIALS: Record<Material, [number, number]> = {
+const MATERIALS: Record<Material, [number, number]> = {
   copper: [5.96e7, 8960.0],
   aluminium: [3.77e7, 2700.0],
   brass: [1.5e7, 8500.0],

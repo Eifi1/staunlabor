@@ -30,7 +30,6 @@ import {
   cover,
   displacedKg,
   fallen,
-  G,
   jetCoordinates,
   startState,
   step,
@@ -44,6 +43,7 @@ import { RestartButton, RunPauseButton } from "./play-controls";
 import { HeldAnswer, useHeld } from "./held";
 import { STAGE } from "./stage";
 import { useElephantFigures, useExperimentsDefaults } from "./use-experiments";
+import { G } from "./simulate/constants";
 
 /** A push across: the ball given this speed sideways, about what a flick of a finger gives. */
 const PUSH_M_S = 0.8;

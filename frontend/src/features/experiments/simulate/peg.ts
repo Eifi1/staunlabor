@@ -10,11 +10,12 @@
  * is made in Python first.
  */
 
-import { MAX_DURATION_S, STEP_S, G, rk4, sampleEvery, type Rhs } from "./pendulum";
-import { roundHalfEven } from "./sphere";
+import { G } from "./constants";
+import { checkRun, type Rhs, rk4, sampleEvery, STEP_S } from "./numerics";
+import { roundHalfEven, TO_RAD } from "./python";
 
 /** Halvings that find an event within its step. */
-export const BISECTIONS = 40;
+const BISECTIONS = 40;
 
 export type Mode = "big" | "small" | "free";
 export type Event = "caught" | "released" | "slack" | "taut" | "over_the_top" | "wound";
@@ -37,8 +38,6 @@ export interface PegState {
 
 /** What happened in a step: when, what, and where the bob was. */
 export type Happening = [number, Event, number, number];
-
-const TO_RAD = Math.PI / 180.0;
 
 export const smallRadiusM = (p: PegPendulum) => p.length_m - p.peg_depth_m;
 
@@ -211,9 +210,7 @@ export interface PegRun {
 const MODE_CODE: Record<Mode, number> = { big: 0, small: 1, free: 2 };
 
 export function run(p: PegPendulum, durationS: number, stepS = STEP_S): PegRun {
-  if (!(stepS > 0 && stepS <= 0.01)) throw new RangeError("the step lies between 0 and 10 ms");
-  if (!(durationS > 0 && durationS <= MAX_DURATION_S))
-    throw new RangeError(`a run lasts more than nothing and at most ${MAX_DURATION_S} s`);
+  checkRun(durationS, stepS);
   let s = start(p);
   const steps = roundHalfEven(durationS / stepS);
   const every = sampleEvery(stepS);

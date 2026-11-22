@@ -22,9 +22,9 @@ import {
   type DrawingState,
   type Harmonograph,
 } from "./simulate/harmonograph";
-import { MAX_DURATION_S, STEP_S } from "./simulate/pendulum";
 import { STAGE } from "./stage";
 import { useExperimentsDefaults } from "./use-experiments";
+import { MAX_DURATION_S, STEP_S } from "./simulate/numerics";
 
 /** How much faster than real time the pen may draw. A real drawing takes some
  *  minutes; at twenty times it is done in a quarter of one. */

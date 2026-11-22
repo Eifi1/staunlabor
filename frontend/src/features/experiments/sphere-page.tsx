@@ -12,15 +12,7 @@ import { Figures, WidgetCard } from "@/shared/ui/widget";
 import { Equation } from "./equation";
 import { ExhibitFrame } from "./exhibit-frame";
 import { BuildPending } from "./build-pending";
-import {
-  RESISTANCE_FADE_M_S,
-  STEP_S,
-  angleOf,
-  handStep,
-  startState,
-  type SphereParameters,
-  type SphereState,
-} from "./simulate/sphere";
+import { angleOf, handStep, startState, type SphereParameters, type SphereState } from "./simulate/sphere";
 import {
   type Hand,
   autopilotTarget,
@@ -38,6 +30,8 @@ import { useFrameLoop, useRunning } from "./play";
 import { RestartButton, RunPauseButton } from "./play-controls";
 import { SIDE, STAGE } from "./stage";
 import { useExperimentsDefaults, useSphereFigures } from "./use-experiments";
+import { RESISTANCE_FADE_M_S } from "./simulate/constants";
+import { STEP_S } from "./simulate/numerics";
 
 /** Who pushes the sphere: the reader's finger, a steady circle at a chosen
  *  tempo, or the auto mode with perfect timing. */

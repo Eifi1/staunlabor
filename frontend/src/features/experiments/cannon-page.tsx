@@ -25,7 +25,6 @@ import { BuildPending } from "./build-pending";
 import { settingNumber, useCheckSetting } from "./check-setting";
 import {
   CONTACT_STEP_S,
-  G,
   IMPACT_EVERY,
   IMPACT_WINDOW_S,
   MAX_S,
@@ -42,6 +41,7 @@ import { useFrameLoop, useRunning } from "./play";
 import { RestartButton, RunPauseButton } from "./play-controls";
 import { STAGE } from "./stage";
 import { useCannonFigures, useExperimentsDefaults } from "./use-experiments";
+import { G } from "./simulate/constants";
 
 /** Between the auto mode's drops, seconds. */
 const AUTO_GAP_S = 1.2;

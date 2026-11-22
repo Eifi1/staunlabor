@@ -31,9 +31,9 @@ import {
   type ConeExhibit,
   type RollState,
 } from "./simulate/cone";
-import { STEP_S } from "./simulate/pendulum";
 import { SIDE } from "./stage";
 import { useExperimentsDefaults } from "./use-experiments";
+import { STEP_S } from "./simulate/numerics";
 
 /** Real time, or four times slower: the roll takes a second and a half. */
 const SPEEDS = [1, 0.25] as const;

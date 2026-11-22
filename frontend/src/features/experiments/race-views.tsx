@@ -19,9 +19,10 @@
  */
 
 import type { CurveKind, RaceBasin, RacePath, RaceRun, RaceTrack, ValleyStart } from "@/shared/types";
-import { G, type Entry, type PitBall, type PitRun } from "./simulate/pit";
+import { type Entry, type PitBall, type PitRun } from "./simulate/pit";
 import { STAGE, VIEW_FRAME } from "./stage";
 import { useChartHue } from "@/shared/state/palette-store";
+import { G } from "./simulate/constants";
 
 /** Which palette hue each track is drawn in. */
 export const TRACK_HUE: Record<CurveKind, number> = {

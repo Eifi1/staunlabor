@@ -9,14 +9,14 @@
  * change to the physics is made in Python first.
  */
 
-import { roundHalfEven } from "./sphere";
+import { pyMod, roundHalfEven, TO_DEG, TO_RAD } from "./python";
 
 /** I/(m·a²) for a solid ball. */
-export const SOLID_BALL = 2 / 5;
+const SOLID_BALL = 2 / 5;
 /** Samples a path returns per second. */
-export const SAMPLES_PER_S = 100;
+const SAMPLES_PER_S = 100;
 /** The longest a throw is followed. */
-export const LONGEST_S = 20.0;
+const LONGEST_S = 20.0;
 
 export type Body = "puck" | "ball";
 
@@ -31,9 +31,6 @@ export interface Throw {
   body: Body;
 }
 
-const TO_RAD = Math.PI / 180.0;
-const TO_DEG = 180.0 / Math.PI;
-
 export const rateOf = (c: Carousel) => (c.rpm * 2 * Math.PI) / 60;
 
 function turn(x: number, y: number, angle: number): [number, number] {
@@ -42,7 +39,7 @@ function turn(x: number, y: number, angle: number): [number, number] {
   return [x * c - y * s, x * s + y * c];
 }
 
-export function start(c: Carousel, t: Throw): [[number, number], [number, number]] {
+function start(c: Carousel, t: Throw): [[number, number], [number, number]] {
   const [ux, uy] = turn(-t.speed_m_s, 0.0, t.aim_deg * TO_RAD);
   return [
     [c.radius_m, 0.0],
@@ -50,7 +47,7 @@ export function start(c: Carousel, t: Throw): [[number, number], [number, number
   ];
 }
 
-export function outside(c: Carousel, th: Throw, t: number): [number, number] {
+function outside(c: Carousel, th: Throw, t: number): [number, number] {
   const [[x0, y0], [vx, vy]] = start(c, th);
   if (th.body === "puck") return [x0 + vx * t, y0 + vy * t];
   const w = (SOLID_BALL / (1 + SOLID_BALL)) * rateOf(c);
@@ -60,12 +57,12 @@ export function outside(c: Carousel, th: Throw, t: number): [number, number] {
   return [x0 + (vx * s - vy * (1 - k)) / w, y0 + (vy * s + vx * (1 - k)) / w];
 }
 
-export function turning(c: Carousel, th: Throw, t: number): [number, number] {
+function turning(c: Carousel, th: Throw, t: number): [number, number] {
   const [x, y] = outside(c, th, t);
   return turn(x, y, -rateOf(c) * t);
 }
 
-export function leavesS(c: Carousel, th: Throw): number {
+function leavesS(c: Carousel, th: Throw): number {
   const out = (t: number) => {
     const [x, y] = outside(c, th, t);
     return x * x + y * y > c.radius_m ** 2;
@@ -84,10 +81,7 @@ export function leavesS(c: Carousel, th: Throw): number {
   return hi;
 }
 
-/** Python's `%` for floats: the remainder with the sign of the divisor. */
-const pyMod = (a: number, b: number) => ((a % b) + b) % b;
-
-export function missDeg(c: Carousel, th: Throw): number {
+function missDeg(c: Carousel, th: Throw): number {
   const [x, y] = turning(c, th, leavesS(c, th));
   return pyMod(Math.atan2(y, x) * TO_DEG, 360) - 180;
 }

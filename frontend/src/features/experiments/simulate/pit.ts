@@ -14,9 +14,9 @@
  * budget has no room for — and looks the running time up in its samples.
  */
 
-import { roundHalfEven } from "./sphere";
+import { G } from "./constants";
+import { roundHalfEven } from "./python";
 
-export const G = 9.80665;
 export const STIFFNESS = 1.0e6;
 export const LINING_RESTITUTION = 0.3;
 export const BALL_RESTITUTION = 0.6;
@@ -114,7 +114,7 @@ function side(ax: number, ay: number, bx: number, by: number, radius: number, x:
 
 /** Where a ball at `(x, y)` presses into the lining: how deep, and the
  *  direction the lining pushes it. */
-export function touching(bowl: Basin, radius: number, x: number, y: number): Contact[] {
+function touching(bowl: Basin, radius: number, x: number, y: number): Contact[] {
   const contacts: Contact[] = [];
   const s = Math.sin(bowl.slope_rad);
   const c = Math.cos(bowl.slope_rad);

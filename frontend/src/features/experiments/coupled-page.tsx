@@ -26,9 +26,9 @@ import {
   type CoupledPendulums,
   type Start,
 } from "./simulate/coupled";
-import { STEP_S, rk4 } from "./simulate/pendulum";
 import { SIDE, STAGE, VIEW_FRAME } from "./stage";
 import { useExperimentsDefaults } from "./use-experiments";
+import { rk4, STEP_S } from "./simulate/numerics";
 
 /** How far a pendulum is pulled aside: wide enough to see, small enough that the
  *  modes are the small swing's. */

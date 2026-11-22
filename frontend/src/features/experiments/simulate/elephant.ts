@@ -11,9 +11,9 @@
  * sequences.
  */
 
-import { roundHalfEven } from "./sphere";
+import { G } from "./constants";
+import { roundHalfEven } from "./python";
 
-export const G = 9.80665;
 export const RHO = 1.2;
 export const DRAG = 0.47;
 export const DECAY = 6.0;
@@ -48,14 +48,14 @@ const areaOf = (ball: FloatingBall) => Math.PI * radiusOf(ball) ** 2;
 export const displacedKg = (ball: FloatingBall) => ((RHO * 4) / 3) * Math.PI * radiusOf(ball) ** 3;
 
 /** What the engine refuses, refused here too: the page keeps its sliders inside. */
-export function checkElephant(el: Elephant): void {
-  if (el.jet.opening_m <= 0) throw new Error("an opening needs a size");
-  if (el.jet.speed_m_s < 0) throw new Error("the air cannot blow backwards");
-  if (el.ball.diameter_m <= 0 || el.ball.mass_kg <= 0) throw new Error("a ball needs a size and a mass");
+function checkElephant(el: Elephant): void {
+  if (el.jet.opening_m <= 0) throw new RangeError("an opening needs a size");
+  if (el.jet.speed_m_s < 0) throw new RangeError("the air cannot blow backwards");
+  if (el.ball.diameter_m <= 0 || el.ball.mass_kg <= 0) throw new RangeError("a ball needs a size and a mass");
   if (el.ball.mass_kg <= displacedKg(el.ball))
-    throw new Error("a ball lighter than the air it displaces rises on its own");
-  if (el.ball.diameter_m <= el.jet.opening_m) throw new Error("the ball has to be wider than the opening it sits on");
-  if (el.coanda < 0) throw new Error("the air does not push the ball out of the jet");
+    throw new RangeError("a ball lighter than the air it displaces rises on its own");
+  if (el.ball.diameter_m <= el.jet.opening_m) throw new RangeError("the ball has to be wider than the opening it sits on");
+  if (el.coanda < 0) throw new RangeError("the air does not push the ball out of the jet");
 }
 
 // ── the jet ──────────────────────────────────────────────────────────────────
@@ -64,7 +64,7 @@ export function width(jet: Jet, s: number): number {
   return jet.opening_m / Math.sqrt(2) + SPREAD * s;
 }
 
-export function centreSpeed(jet: Jet, s: number): number {
+function centreSpeed(jet: Jet, s: number): number {
   return (jet.speed_m_s * jet.opening_m) / (Math.sqrt(2) * width(jet, s));
 }
 
@@ -76,7 +76,7 @@ export function airSpeed(jet: Jet, s: number, r: number): number {
 
 /** The rule's nodes as [radius share, cos, sin], in the engine's order: half the
  *  spokes, each summed with the node opposite it. */
-export const NODES: readonly (readonly [number, number, number])[] = Array.from(
+const NODES: readonly (readonly [number, number, number])[] = Array.from(
   { length: (RINGS * SPOKES) / 2 },
   (_, k) => {
     const i = Math.floor(k / (SPOKES / 2));
@@ -125,13 +125,13 @@ export function axes(tiltDeg: number): [[number, number], [number, number]] {
   ];
 }
 
-export function restHeight(el: Elephant): number {
+function restHeight(el: Elephant): number {
   const r = radiusOf(el.ball);
   const half = el.jet.opening_m / 2;
   return Math.sqrt(r * r - half * half);
 }
 
-export function netWeightN(el: Elephant): number {
+function netWeightN(el: Elephant): number {
   return (el.ball.mass_kg - displacedKg(el.ball)) * G;
 }
 
@@ -160,7 +160,7 @@ export function acceleration(el: Elephant, tiltDeg: number, state: State): [numb
   return [fx / inertia, fy / inertia];
 }
 
-export function seat(el: Elephant, tiltDeg: number, state: State): State {
+function seat(el: Elephant, tiltDeg: number, state: State): State {
   let [x, y, vx, vy] = state;
   const [[ax, ay], [nx, ny]] = axes(tiltDeg);
   const s = x * ax + y * ay;
@@ -218,7 +218,7 @@ export interface Move {
   nudge_m_s: number;
 }
 
-export function tiltAt(moves: readonly Move[], t: number): number {
+function tiltAt(moves: readonly Move[], t: number): number {
   let tilt = 0;
   for (const move of moves) {
     if (t <= move.at_s) break;
@@ -239,9 +239,9 @@ export interface ElephantRun {
 
 export function run(el: Elephant, moves: readonly Move[], durationS: number): ElephantRun {
   checkElephant(el);
-  if (!(durationS > 0 && durationS <= MAX_DURATION_S)) throw new Error(`a run lasts between 0 and ${MAX_DURATION_S} s`);
+  if (!(durationS > 0 && durationS <= MAX_DURATION_S)) throw new RangeError(`a run lasts between 0 and ${MAX_DURATION_S} s`);
   for (const move of moves) {
-    if (Math.abs(move.tilt_deg) > MAX_TILT_DEG) throw new Error(`the trunk tilts at most ${MAX_TILT_DEG}°`);
+    if (Math.abs(move.tilt_deg) > MAX_TILT_DEG) throw new RangeError(`the trunk tilts at most ${MAX_TILT_DEG}°`);
   }
   const steps = roundHalfEven(durationS / STEP_S);
   const every = roundHalfEven(1 / (SAMPLES_PER_S * STEP_S));

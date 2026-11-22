@@ -24,6 +24,9 @@ import * as sky from "./sky";
 import * as slits from "./slits";
 import * as beats from "./beats";
 import * as coil from "./coil";
+import * as shared from "./constants";
+import * as numerics from "./numerics";
+import { TO_DEG, roundHalfEven } from "./python";
 import * as cone from "./cone";
 import * as coriolis from "./coriolis";
 import * as coupled from "./coupled";
@@ -68,61 +71,91 @@ const isThinned = (value: unknown): value is Thinned =>
 const close = (a: number, b: number, scale = 0) =>
   Math.abs(a - b) <= 1e-9 * Math.max(Math.abs(a), Math.abs(b), scale) + 1e-300;
 
+/** A number (or a name) the engine answered, where it stands, the port's
+ *  value there, and the scale of the curve it is a point of (0 off a curve). */
+interface Leaf {
+  where: string;
+  engine: unknown;
+  port: unknown;
+  scale: number;
+}
+
+/** The engine's answer and the port's walked together: every leaf to
+ *  compare, and every place the two differ in shape (a missing key, a curve
+ *  of another length), which no leaf can show. One walk for `differences` and
+ *  `worst`, so a curve is scaled the same way in both. */
+function compared(engine: unknown, port: unknown): { leaves: Leaf[]; shape: string[] } {
+  const leaves: Leaf[] = [];
+  const shape: string[] = [];
+  const walk = (e: unknown, p: unknown, where: string) => {
+    if (isThinned(e)) {
+      if (!Array.isArray(p)) return void shape.push(`${where}: not a curve here`);
+      if (p.length !== e.length) return void shape.push(`${where}: ${p.length} points here, ${e.length} in the engine`);
+      const scale = Math.max(...e.values.map(Math.abs));
+      e.at.forEach((i, k) => leaves.push({ where: `${where}[${i}]`, engine: e.values[k], port: p[i], scale }));
+    } else if (Array.isArray(e)) {
+      if (!Array.isArray(p) || p.length !== e.length)
+        return void shape.push(`${where}: ${JSON.stringify(p)?.slice(0, 80)} here`);
+      e.forEach((item, i) => walk(item, p[i], `${where}[${i}]`));
+    } else if (typeof e === "object" && e !== null) {
+      if (typeof p !== "object" || p === null) return void shape.push(`${where}: ${String(p)} here`);
+      const a = Object.keys(e).sort();
+      const b = Object.keys(p).sort();
+      if (a.join() !== b.join())
+        return void shape.push(`${where}: keys ${b.join(", ")} here, ${a.join(", ")} in the engine`);
+      for (const key of a)
+        walk((e as Record<string, unknown>)[key], (p as Record<string, unknown>)[key], `${where}.${key}`);
+    } else {
+      leaves.push({ where, engine: e, port: p, scale: 0 });
+    }
+  };
+  walk(engine, port, "");
+  return { leaves, shape };
+}
+
 /** Every place the port and the engine disagree, by path. */
-function differences(engine: unknown, port: unknown, where = ""): string[] {
-  if (isThinned(engine)) {
-    if (!Array.isArray(port)) return [`${where}: not a curve here`];
-    if (port.length !== engine.length) return [`${where}: ${port.length} points here, ${engine.length} in the engine`];
-    const scale = Math.max(...engine.values.map(Math.abs));
-    return engine.at.flatMap((i, k) =>
-      close(port[i] as number, engine.values[k], scale)
-        ? []
-        : [`${where}[${i}]: ${port[i]} here, ${engine.values[k]} in the engine`],
-    );
-  }
-  if (Array.isArray(engine)) {
-    if (!Array.isArray(port) || port.length !== engine.length)
-      return [`${where}: ${JSON.stringify(port)?.slice(0, 80)} here`];
-    return engine.flatMap((item, i) => differences(item, port[i], `${where}[${i}]`));
-  }
-  if (typeof engine === "object" && engine !== null) {
-    if (typeof port !== "object" || port === null) return [`${where}: ${String(port)} here`];
-    const a = Object.keys(engine).sort();
-    const b = Object.keys(port).sort();
-    if (a.join() !== b.join()) return [`${where}: keys ${b.join(", ")} here, ${a.join(", ")} in the engine`];
-    return a.flatMap((key) =>
-      differences((engine as Record<string, unknown>)[key], (port as Record<string, unknown>)[key], `${where}.${key}`),
-    );
-  }
-  if (typeof engine === "number" && typeof port === "number")
-    return close(port, engine) ? [] : [`${where}: ${port} here, ${engine} in the engine`];
-  return engine === port ? [] : [`${where}: ${String(port)} here, ${String(engine)} in the engine`];
+function differences(engine: unknown, port: unknown): string[] {
+  const { leaves, shape } = compared(engine, port);
+  return [
+    ...shape,
+    ...leaves.flatMap(({ where, engine: e, port: p, scale }) => {
+      const same = typeof e === "number" && typeof p === "number" ? close(p, e, scale) : e === p;
+      return same ? [] : [`${where}: ${String(p)} here, ${String(e)} in the engine`];
+    }),
+  ];
 }
 
 /** The largest relative difference over every number the cases compare. */
 function worst(engine: unknown, port: unknown): number {
-  if (isThinned(engine)) {
-    const scale = Math.max(...engine.values.map(Math.abs));
-    return Math.max(
-      0,
-      ...engine.at.map((i, k) => {
-        const a = (port as number[])[i];
-        const b = engine.values[k];
-        return Math.abs(a - b) / Math.max(Math.abs(a), Math.abs(b), scale, 1e-300);
-      }),
-    );
+  return compared(engine, port).leaves.reduce(
+    (most, { engine: e, port: p, scale }) =>
+      typeof e === "number" && typeof p === "number"
+        ? Math.max(most, Math.abs(e - p) / Math.max(Math.abs(e), Math.abs(p), scale, 1e-300))
+        : most,
+    0,
+  );
+}
+
+/**
+ * Every constant the engine wrote for a module against the port's of the
+ * same name: the port's own, else the first of the shared modules named
+ * after it that has one (`constants.ts`, `numerics.ts`), as the engine's
+ * module imports it from `constants.py` or `numerics.py`. Keyed
+ * by what the engine wrote, so a constant the engine gains is compared
+ * without a line here; one the port does without (it is only the server's)
+ * is named in `notPorted`, and stays unported.
+ */
+function expectEngineConstants(ports: object[], engine: Record<string, unknown>, notPorted: string[] = []) {
+  const sources = ports as Record<string, unknown>[];
+  for (const [name, value] of Object.entries(engine)) {
+    const source = sources.find((s) => name in s);
+    if (notPorted.includes(name)) {
+      expect(source, `${name} is ported after all: take it out of notPorted`).toBeUndefined();
+      continue;
+    }
+    expect(source, `${name}: not in the port`).toBeDefined();
+    expect(differences(value, source![name]), name).toEqual([]);
   }
-  if (Array.isArray(engine)) return Math.max(0, ...engine.map((item, i) => worst(item, (port as unknown[])[i])));
-  if (typeof engine === "object" && engine !== null)
-    return Math.max(
-      0,
-      ...Object.keys(engine).map((key) =>
-        worst((engine as Record<string, unknown>)[key], (port as Record<string, unknown>)[key]),
-      ),
-    );
-  if (typeof engine === "number" && typeof port === "number")
-    return Math.abs(engine - port) / Math.max(Math.abs(engine), Math.abs(port), 1e-300);
-  return 0;
 }
 
 const visitorOf = (v: (typeof cases.coil)[number]["visitor"]): coil.Visitor => {
@@ -147,36 +180,8 @@ const coilRun = (c: (typeof cases.coil)[number]) =>
 
 describe("the port", () => {
   it("runs on the engine's constants", () => {
-    const s = cases.constants.sphere;
-    expect([
-      sphere.G,
-      sphere.SOLID,
-      sphere.HOLLOW,
-      sphere.RESISTANCE_FADE_M_S,
-      sphere.STEP_S,
-      sphere.SAMPLES_PER_S,
-      sphere.MAX_DURATION_S,
-    ]).toEqual([s.G, s.SOLID, s.HOLLOW, s.RESISTANCE_FADE_M_S, s.STEP_S, s.SAMPLES_PER_S, s.MAX_DURATION_S]);
-    const c = cases.constants.coil;
-    expect([
-      coil.G,
-      coil.MU0,
-      coil.RESISTANCE_FADE_M_S,
-      coil.STEP_S,
-      coil.SAMPLES_PER_S,
-      coil.MAX_DURATION_S,
-      coil.STEEPEST_RAD,
-      coil.STANDING_M_S,
-    ]).toEqual([
-      c.G,
-      c.MU0,
-      c.RESISTANCE_FADE_M_S,
-      c.STEP_S,
-      c.SAMPLES_PER_S,
-      c.MAX_DURATION_S,
-      c.STEEPEST_RAD,
-      c.STANDING_M_S,
-    ]);
+    expectEngineConstants([sphere, shared], cases.constants.sphere);
+    expectEngineConstants([coil, shared], cases.constants.coil);
   });
 
   it.each(cases.sphere.map((c) => [c.name, c] as const))("runs the ball as the engine does: %s", (_name, c) => {
@@ -194,23 +199,7 @@ describe("the port", () => {
   });
 
   it("runs on the pit's constants", () => {
-    const c = cases.constants.pit;
-    expect([pit.G, pit.STIFFNESS, pit.LINING_RESTITUTION, pit.BALL_RESTITUTION, pit.FRICTION]).toEqual([
-      c.G,
-      c.STIFFNESS,
-      c.LINING_RESTITUTION,
-      c.BALL_RESTITUTION,
-      c.FRICTION,
-    ]);
-    expect([
-      pit.SLIP_DAMPING,
-      pit.ROLLING,
-      pit.DT,
-      pit.EVERY,
-      pit.STILL_M_S,
-      pit.STILL_FOR_S,
-      pit.LONGEST_AFTER_S,
-    ]).toEqual([c.SLIP_DAMPING, c.ROLLING, c.DT, c.EVERY, c.STILL_M_S, c.STILL_FOR_S, c.LONGEST_AFTER_S]);
+    expectEngineConstants([pit, shared], cases.constants.pit);
   });
 
   // Balls knocking into balls is chaotic: a last bit rounded the other way
@@ -317,8 +306,7 @@ describe("a page's frames", () => {
 
 describe("the platform's port", () => {
   it("runs on the engine's constants", () => {
-    const c = cases.constants.platform;
-    expect([platform.SAMPLES_PER_S, platform.MAX_DURATION_S]).toEqual([c.SAMPLES_PER_S, c.MAX_DURATION_S]);
+    expectEngineConstants([platform], cases.constants.platform);
   });
 
   it.each(cases.platform.map((c) => [c.name, c] as const))("replays %s as the engine does", (_name, c) => {
@@ -342,31 +330,8 @@ describe("the platform's port", () => {
 
 describe("the elephant's port", () => {
   it("runs on the engine's constants", () => {
-    const c = cases.constants.elephant;
-    expect([
-      elephant.G,
-      elephant.RHO,
-      elephant.DRAG,
-      elephant.DECAY,
-      elephant.RINGS,
-      elephant.SPOKES,
-      elephant.STEP_S,
-      elephant.SAMPLES_PER_S,
-      elephant.MAX_DURATION_S,
-      elephant.MAX_TILT_DEG,
-    ]).toEqual([
-      c.G,
-      c.RHO,
-      c.DRAG,
-      c.DECAY,
-      c.RINGS,
-      c.SPOKES,
-      c.STEP_S,
-      c.SAMPLES_PER_S,
-      c.MAX_DURATION_S,
-      c.MAX_TILT_DEG,
-    ]);
-    expect(differences(c.SPREAD, elephant.SPREAD)).toEqual([]);
+    // ν is the server's alone: the figures the page fetches (`elephant.py`).
+    expectEngineConstants([elephant, shared], cases.constants.elephant, ["NU"]);
   });
 
   it.each(cases.elephant.map((c) => [c.name, c] as const))("replays %s as the engine does", (_name, c) => {
@@ -392,30 +357,8 @@ describe("the elephant's port", () => {
 
 describe("the smoke ring's port", () => {
   it("runs on the engine's constants", () => {
-    const c = cases.constants.smoke;
-    expect([
-      smoke.RHO,
-      smoke.NU,
-      smoke.FORMATION,
-      smoke.RING_SHARE,
-      smoke.CORE_SHARE,
-      smoke.TURBULENT_GROWTH,
-      smoke.FLIGHT_STEP_S,
-      smoke.SAMPLES_PER_S,
-      smoke.MAX_FLIGHT_S,
-      smoke.CEILING_M,
-    ]).toEqual([
-      c.RHO,
-      c.NU,
-      c.FORMATION,
-      c.RING_SHARE,
-      c.CORE_SHARE,
-      c.TURBULENT_GROWTH,
-      c.FLIGHT_STEP_S,
-      c.SAMPLES_PER_S,
-      c.MAX_FLIGHT_S,
-      c.CEILING_M,
-    ]);
+    // The press's sampling step is the server's alone: the page samples its own presses.
+    expectEngineConstants([smoke], cases.constants.smoke, ["STEP_S"]);
   });
 
   it.each(cases.smoke.map((c) => [c.name, c] as const))("makes the ring of %s as the engine does", (_name, c) => {
@@ -446,40 +389,7 @@ describe("the smoke ring's port", () => {
 
 describe("the ball cannon's port", () => {
   it("runs on the engine's constants", () => {
-    const c = cases.constants.cannon;
-    expect([
-      cannon.G,
-      cannon.RHO,
-      cannon.CD,
-      cannon.POISSON,
-      cannon.STEP_S,
-      cannon.SUBSTEPS,
-      cannon.CONTACT_STEP_S,
-      cannon.SAMPLES_PER_S,
-      cannon.MAX_S,
-      cannon.MIN_CLOSING_M_S,
-      cannon.RESTING_M_S,
-      cannon.RESTING_SWING,
-      cannon.IMPACT_EVERY,
-      cannon.IMPACT_WINDOW_S,
-      cannon.LAUNCH_WINDOW_S,
-    ]).toEqual([
-      c.G,
-      c.RHO,
-      c.CD,
-      c.POISSON,
-      c.STEP_S,
-      c.SUBSTEPS,
-      c.CONTACT_STEP_S,
-      c.SAMPLES_PER_S,
-      c.MAX_S,
-      c.MIN_CLOSING_M_S,
-      c.RESTING_M_S,
-      c.RESTING_SWING,
-      c.IMPACT_EVERY,
-      c.IMPACT_WINDOW_S,
-      c.LAUNCH_WINDOW_S,
-    ]);
+    expectEngineConstants([cannon, shared], cases.constants.cannon);
   });
 
   it.each(cases.cannon.map((c) => [c.name, c] as const))("drops %s as the engine does", (_name, c) => {
@@ -500,13 +410,7 @@ describe("the ball cannon's port", () => {
 
 describe("the pendulum's port", () => {
   it("runs on the engine's constants", () => {
-    const c = cases.constants.pendulum;
-    expect([pendulum.G, pendulum.STEP_S, pendulum.SAMPLES_PER_S, pendulum.MAX_DURATION_S]).toEqual([
-      c.G,
-      c.STEP_S,
-      c.SAMPLES_PER_S,
-      c.MAX_DURATION_S,
-    ]);
+    expectEngineConstants([pendulum, shared, numerics], cases.constants.pendulum);
   });
 
   it("computes Jacobi's functions as the engine does", () => {
@@ -734,7 +638,7 @@ describe("the waterwheel's port", () => {
 
 describe("Foucault's pendulum's port", () => {
   it("swings and turns as the engine does, from the pole to the south", () => {
-    const times = [0.0, 1.3, 3600.0, 86400.0];
+    const times = cases.inputs.foucault_times;
     for (const c of cases.foucault) {
       expect(differences(c.degrees_per_hour, foucault.degreesPerHour(c.p))).toEqual([]);
       expect(differences(c.full_turn_h, foucault.fullTurnH(c.p))).toEqual([]);
@@ -767,17 +671,17 @@ describe("the Coriolis carousel's port", () => {
 });
 
 /** The engine's `run`, sampled from the port's steps as the engine samples
- *  its own: every tenth millisecond, each ball's angle in degrees. */
-function cradleRun(cr: cradle.Cradle, pull: cradle.Pull, durationS: number) {
-  let [th, w] = cradle.start(cr, pull);
-  const steps = Math.round(durationS / cradle.STEP_S);
+ *  its own (every `every` steps, as the case says), each ball's angle in degrees. */
+function cradleRun(c: (typeof cases.cradle)[number]) {
+  let [th, w] = cradle.start(c.cr, c.pull);
+  const steps = roundHalfEven(c.duration_s / cradle.STEP_S);
   const out = { t: [] as number[], angles_deg: th.map(() => [] as number[]) };
   for (let i = 0; i <= steps; i++) {
-    if (i % 10 === 0) {
+    if (i % c.every === 0) {
       out.t.push(i * cradle.STEP_S);
-      th.forEach((a, b) => out.angles_deg[b].push((a * 180) / Math.PI));
+      th.forEach((a, b) => out.angles_deg[b].push(a * TO_DEG));
     }
-    if (i < steps) [th, w] = cradle.step(cr, th, w);
+    if (i < steps) [th, w] = cradle.step(c.cr, th, w);
   }
   return out;
 }
@@ -786,19 +690,20 @@ describe("Newton's cradle's port", () => {
   it("meets and swings as the engine does", () => {
     for (const c of cases.cradle) {
       expect(differences(c.impact, cradle.impact(c.cr, c.pull))).toEqual([]);
-      expect(differences(c.run, cradleRun(c.cr, c.pull, 1.0))).toEqual([]);
+      expect(differences(c.run, cradleRun(c))).toEqual([]);
     }
   });
 });
 
 /** The engine's `run`, sampled from the port's steps as the engine samples its
- *  own: every twentieth millisecond, and the moment the ride ends. */
-function wellRun(f: well.Funnel, launch: well.Launch, durationS: number) {
-  let ride = well.begin(f, launch);
-  const steps = Math.round(durationS / well.STEP_S);
+ *  own: every `every` steps, and the moment the ride ends. */
+function wellRun(c: (typeof cases.well)[number]) {
+  const f = c.f;
+  let ride = well.begin(f, c.launch);
+  const steps = roundHalfEven(c.duration_s / well.STEP_S);
   const out = { t: [] as number[], r_m: [] as number[], phi_rad: [] as number[], laps: [] as well.Lap[] };
   for (let i = 0; i <= steps; i++) {
-    if (i % 20 === 0) {
+    if (i % c.every === 0) {
       out.t.push(ride.t);
       out.r_m.push(ride.y[0]);
       out.phi_rad.push(ride.y[2]);
@@ -821,20 +726,21 @@ describe("the gravity well's port", () => {
     for (const c of cases.well) {
       const circular = c.circular.map(([r]: number[]) => [r, well.circularSpeed(c.f, r), well.circularPeriod(c.f, r)]);
       expect(differences(c.circular, circular)).toEqual([]);
-      expect(differences(c.run, wellRun(c.f, c.launch, 20.0))).toEqual([]);
+      expect(differences(c.run, wellRun(c))).toEqual([]);
     }
   });
 });
 
 /** The engine's `run`, sampled from the port's steps as the engine samples its
- *  own: every twentieth millisecond, the drive moving by the sweep. */
-function resonanceRun(rack: resonance.Rack, driveHz: number, durationS: number, sweep: number) {
+ *  own: every `every` steps, the drive moving by the sweep. */
+function resonanceRun(c: (typeof cases.resonance)[number]) {
+  const { rack, drive_hz: driveHz, sweep_hz_per_s: sweep } = c;
   let s = resonance.start(rack);
-  const steps = Math.round(durationS / resonance.STEP_S);
+  const steps = roundHalfEven(c.duration_s / resonance.STEP_S);
   const out = { t: [] as number[], drive_hz: [] as number[], tips_m: rack.lengths_m.map(() => [] as number[]) };
   for (let i = 0; i <= steps; i++) {
     const f = driveHz + sweep * i * resonance.STEP_S;
-    if (i % 20 === 0) {
+    if (i % c.every === 0) {
       out.t.push(s.t);
       out.drive_hz.push(f);
       s.q.forEach((q, rod) => out.tips_m[rod].push(q));
@@ -852,7 +758,7 @@ describe("the resonance rods' port", () => {
         BETA1: resonance.BETA1,
         GAMMA: resonance.GAMMA,
         LAMBDA: resonance.LAMBDA,
-        G: resonance.G,
+        G: shared.G,
         shape: k.shape.map((_: number, i: number) => resonance.shape(i / 10)),
       }),
     ).toEqual([]);
@@ -870,17 +776,19 @@ describe("the resonance rods' port", () => {
           lengths.map((L) => resonance.steadyM(c.rack, L, c.drive_hz)),
         ),
       ).toEqual([]);
-      expect(differences(c.run, resonanceRun(c.rack, c.drive_hz, 10.0, c.sweep_hz_per_s))).toEqual([]);
+      expect(differences(c.run, resonanceRun(c))).toEqual([]);
     }
   });
 });
 
 /** The engine's `run`, sampled from the port's steps as the engine samples its
- *  own: every twentieth millisecond, stopping where the axle hangs down. */
-function gyroscopeRun(w: gyroscope.Wheel, release: gyroscope.Release, durationS: number) {
-  let [y] = gyroscope.start(w, release);
-  const [, m] = gyroscope.start(w, release);
-  const steps = Math.round(durationS / gyroscope.STEP_S);
+ *  own: every `every` steps, stopping where the axle hangs down. */
+function gyroscopeRun(c: (typeof cases.gyroscope)[number]) {
+  const w = c.wheel;
+  const started = gyroscope.start(w, c.release);
+  let y = started[0];
+  const m = started[1];
+  const steps = roundHalfEven(c.duration_s / gyroscope.STEP_S);
   const out = {
     t: [] as number[],
     tilt_deg: [] as number[],
@@ -888,10 +796,10 @@ function gyroscopeRun(w: gyroscope.Wheel, release: gyroscope.Release, durationS:
     dropped_s: null as number | null,
   };
   for (let i = 0; i <= steps; i++) {
-    if (i % 20 === 0) {
+    if (i % c.every === 0) {
       out.t.push(i * gyroscope.STEP_S);
       out.tilt_deg.push(gyroscope.tiltDeg(y));
-      out.turn_deg.push((y[2] * 180) / Math.PI);
+      out.turn_deg.push(y[2] * TO_DEG);
     }
     if (gyroscope.tiltDeg(y) >= gyroscope.HANGING_DEG) {
       out.dropped_s = i * gyroscope.STEP_S;
@@ -915,14 +823,14 @@ describe("the gyroscope wheel's port", () => {
         ];
         expect(differences(c.rates, rates)).toEqual([]);
       }
-      expect(differences(c.run, gyroscopeRun(c.wheel, c.release, 5.0))).toEqual([]);
+      expect(differences(c.run, gyroscopeRun(c))).toEqual([]);
     }
   });
 });
 
 describe("the floating top's port", () => {
   it("finds the field, the window and the balance as the engine does", () => {
-    const heights = [0.0, 0.004, 0.02, 0.0436, 0.046, 0.0481, 0.07, 0.15];
+    const heights = cases.inputs.levitation_heights;
     for (const c of cases.levitation) {
       expect(
         differences(
@@ -951,7 +859,7 @@ describe("the floating top's port", () => {
 
 describe("the slow LC circuit's port", () => {
   it("swings, creeps or stands between as the engine does, charge, current, energies and figures", () => {
-    const times = [0.0, 0.05, 0.2429, 0.5, 1.0, 2.5, 7.0, 15.0];
+    const times = cases.inputs.circuit_times;
     for (const c of cases.circuit) {
       expect(circuit.regime(c.circuit)).toBe(c.regime);
       expect(differences(c.rates, circuit.rates(c.circuit))).toEqual([]);
@@ -981,15 +889,7 @@ describe("the slow LC circuit's port", () => {
 
 describe("the falling plates' port", () => {
   it("brakes, falls and draws the currents as the engine does", () => {
-    const times = [0.0, 0.003, 0.02, 0.1, 0.5, 2.0, 9.0];
-    const depths = [0.0, 0.0137, 0.2];
-    const points = [
-      [0.0, 0.004],
-      [0.02, 0.031],
-      [-0.045, 0.0602],
-      [0.0, 0.0085],
-      [0.049, 0.119],
-    ];
+    const { times, depths, points, terms } = cases.inputs.plates;
     for (const c of cases.plates) {
       const column = c.column as plates.MagnetColumn;
       const plate = c.plate as plates.Plate;
@@ -1012,7 +912,7 @@ describe("the falling plates' port", () => {
       expect(
         differences(
           c.stream,
-          depths.flatMap((s) => points.map(([x, y]) => plates.stream(column, plate, s, 0.3, x, y, 16))),
+          depths.flatMap((s) => points.map(([x, y]) => plates.stream(column, plate, s, 0.3, x, y, terms))),
         ),
       ).toEqual([]);
     }
@@ -1026,7 +926,7 @@ describe("the falling plates' port", () => {
 
 describe("the bouncing ball's port", () => {
   it("strikes, flies and comes to rest as the engine does", () => {
-    const times = [0.0, 0.05, 0.2, 0.26, 0.5, 0.9, 1.7, 3.3, 6.0, 30.0];
+    const times = cases.inputs.bounce_times;
     for (const c of cases.bounce) {
       const ball = c.ball as bounce.BouncingBall;
       const run = bounce.bounces(ball, c.height_m);
@@ -1074,8 +974,7 @@ describe("the overhang's port", () => {
 
 describe("the Cartesian diver's port", () => {
   it("shrinks the bubble, finds the hover depth and steps as the engine does", () => {
-    const squeezes = [0.0, 5000.0, 9000.0, 10883.5, 15000.0];
-    const depths = [0.0, 0.07, 0.3, 1.2];
+    const { squeezes, depths } = cases.inputs.diver;
     for (const c of cases.diver) {
       const d = c.diver as diver.Diver;
       const b = c.bottle as diver.Bottle;
@@ -1114,7 +1013,7 @@ describe("the Cartesian diver's port", () => {
 describe("the colour port", () => {
   it("weighs a spectrum by the observer and shows it as the engine does", () => {
     const c = cases.colour;
-    const wavelengths = [380.0, 437.0, 442.0, 501.1, 555.0, 568.8, 599.8, 700.0, 780.0];
+    const wavelengths = cases.inputs.colour_wavelengths;
     expect(
       differences(
         c.matching,
@@ -1145,8 +1044,7 @@ describe("the colour port", () => {
 
 describe("the glass-bead rainbow's port", () => {
   it("traces the rays, spreads their light and colours the ring as the engine does", () => {
-    const impacts = [0.0, 0.2, 0.5, 0.75, 0.9, 0.99];
-    const wavelengths = [400.0, 589.3, 700.0];
+    const { impacts, wavelengths } = cases.inputs.rainbow;
     for (const c of cases.rainbow) {
       const bead = c.bead as rainbow.Bead;
       const n = rainbow.indexAt(bead, rainbow.SODIUM_NM);
@@ -1212,7 +1110,7 @@ describe("the blue sky's port", () => {
 
 describe("the double slit's port", () => {
   it("lights the wall behind two slits, and one, under a laser and white light as the engine does", () => {
-    const nms = [405.0, 532.0, 650.0];
+    const nms = cases.inputs.slits_nm;
     for (const c of cases.slits) {
       const s = c.slits as slits.Slits;
       const span = (1.5 * 700e-9 * s.distance_m) / s.width_m;
@@ -1249,7 +1147,8 @@ describe("the beats' port", () => {
         Array.from({ length: 11 }, (_, k) => beats.modeShape(k / 10)),
       ),
     ).toEqual([]);
-    const times = Array.from({ length: 20001 }, (_, k) => (5.0 * k) / 20000);
+    const { span_s: span, steps } = cases.inputs.beats_times;
+    const times = Array.from({ length: steps + 1 }, (_, k) => (span * k) / steps);
     for (const f of c.forks) {
       const fork = f.fork as beats.Fork;
       const second = beats.frequencyHz(fork, f.riders[2].rider as beats.Rider);
@@ -1283,7 +1182,7 @@ describe("the arch's port", () => {
 describe("the Chladni plate's port", () => {
   it("evaluates the route's modes, the tones and the plate's answer as the engine does", () => {
     const c = cases.chladni;
-    const points = [-1.0, -0.6, 0.0, 0.35, 1.0];
+    const { points, tones_hz: tones } = cases.inputs.chladni;
     const modes: chladni.Mode[] = c.modes.map((mode: { lam: number; terms: number[][] }) => ({
       lam: mode.lam,
       m: mode.terms.map((t) => t[0]),
@@ -1306,9 +1205,7 @@ describe("the Chladni plate's port", () => {
         modes.map((mode) => chladni.frequencyHz(c.plate, mode.lam)),
       ),
     ).toEqual([]);
-    const responses = [101.0, 102.4, 180.0, 517.0].map((f) =>
-      points.map((x) => chladni.response(c.plate, modes, c.degree, f, x, 0.2)),
-    );
+    const responses = tones.map((f) => points.map((x) => chladni.response(c.plate, modes, c.degree, f, x, 0.2)));
     expect(differences(c.responses, responses)).toEqual([]);
     // The grid is the same sum, its polynomials worked out once a line.
     const grid = chladni.modeGrids(modes.slice(0, 1), c.degree, 5)[0];
