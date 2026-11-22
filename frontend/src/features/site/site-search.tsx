@@ -3,6 +3,7 @@ import { GlobalSearch, type SearchEntry } from "@eifi1/ui-kit";
 import { Info } from "lucide-react";
 import { EXHIBIT_MODULES } from "@/features/experiments/exhibit-modules";
 import { EXHIBITS } from "@/features/experiments/exhibits";
+import { SITE_PATHS } from "@/shared/lib/site-paths";
 
 /** How many of the newest exhibits the empty search suggests: the list's
  *  first, which are the newest. */
@@ -37,7 +38,7 @@ export function SiteSearch() {
       id: "about",
       title: t("site.about.title"),
       group: t("site.footer.label"),
-      href: "/about",
+      href: SITE_PATHS.about,
       icon: <Info className="size-4" aria-hidden />,
     },
   ];

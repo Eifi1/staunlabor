@@ -68,7 +68,6 @@ import { CheckStatus } from "./unchecked-notice";
 import { ExhibitPreview } from "./exhibit-preview";
 import { EXHIBITS, exhibitEntry, type Exhibit } from "./exhibits";
 import { EQUATION_COUNT } from "./facts";
-import { ExperimentsLayout } from "./experiments-layout";
 import { ExperimentsOverviewPage } from "./overview-page";
 import { ExhibitsPage } from "./exhibits-page";
 import { AppRoutes } from "@/app/routes";
@@ -385,37 +384,6 @@ describe("a preview", () => {
 });
 
 describe("the area", () => {
-  it("has the name, the three ways in, the search, the language and the theme in its header", () => {
-    renderWithProviders(<ExperimentsLayout />, { initialEntries: ["/chair"] });
-    const header = screen.getByRole("banner");
-    expect(within(header).getByRole("link", { name: en.app.name })).toHaveAttribute("href", "/");
-    const nav = within(header).getByRole("navigation", { name: en.site.nav.label });
-    expect(
-      within(nav)
-        .getAllByRole("link")
-        .map((link) => [link.textContent, link.getAttribute("href")]),
-    ).toEqual([
-      [en.site.nav.exhibits, "/exhibits"],
-      [en.site.nav.basics, "/basics"],
-      [en.site.nav.about, "/about"],
-    ]);
-    expect(within(header).getByRole("button", { name: new RegExp(en.site.search.trigger) })).toBeInTheDocument();
-    // Still no strip of thirty-five exhibits (Marcel, 2026-11-19).
-    expect(within(header).getAllByRole("link")).toHaveLength(4);
-  });
-
-  it("finds an exhibit by its question in the header's search", async () => {
-    renderWithProviders(<ExperimentsLayout />, { initialEntries: ["/chair"] });
-    fireEvent.click(
-      within(screen.getByRole("banner")).getByRole("button", { name: new RegExp(en.site.search.trigger) }),
-    );
-    const field = await screen.findByPlaceholderText(en.site.search.placeholder);
-    fireEvent.change(field, { target: { value: E.exhibits.smoke.question } });
-    // A row of the palette, and a real link to the page.
-    const found = await screen.findByRole("option", { name: new RegExp(E.exhibits.smoke.title) });
-    expect(found).toHaveAttribute("href", "/smoke");
-  });
-
   it("links every exhibit's page back to the list on the front page, and on to the next exhibit", async () => {
     renderWithProviders(<ChairPage />);
     const back = await screen.findAllByRole("link", { name: E.overview.all });

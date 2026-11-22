@@ -83,7 +83,7 @@ an exhibition, a stage and a lab overview, each for a desktop and a phone):
 ist". The header stays at the top and holds the name, the three ways in
 (**Exponate** `/exhibits`, **Grundlagen** `/basics`, **Über** `/about`), the
 kit's `GlobalSearch` over the exhibits (Ctrl K), the language and the theme
-(`experiments-layout.tsx`); every page sits in a column of at most 1160 px
+(`features/site/site-layout.tsx`); every page sits in a column of at most 1160 px
 (`page-shell.ts`). Top to bottom (`overview-page.tsx`):
 
 * **The headline** across the page, "Erst *spielen*, dann *rechnen*."

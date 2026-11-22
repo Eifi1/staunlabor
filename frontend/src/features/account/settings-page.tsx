@@ -11,6 +11,7 @@ import {
   AccountTwoFactorSection,
   useCurrentUser,
 } from "@eifi1/ui-kit/accounts";
+import { ACCOUNT_PATHS } from "@/shared/lib/site-paths";
 import { useRoles } from "./roles";
 
 /** The account's settings: the kit's sections, wired to server-kit's routes. The second
@@ -29,15 +30,15 @@ export function SettingsPage() {
         <nav aria-label={t("account.more")} className="flex flex-wrap gap-x-6 gap-y-2 text-sm">
           {role === "ADMIN" ? (
             <>
-              <Link className="underline underline-offset-2" to="/admin">
+              <Link className="underline underline-offset-2" to={ACCOUNT_PATHS.admin}>
                 {t("account.admin")}
               </Link>
-              <Link className="underline underline-offset-2" to="/feedback">
+              <Link className="underline underline-offset-2" to={ACCOUNT_PATHS.feedback}>
                 {t("account.feedback")}
               </Link>
             </>
           ) : null}
-          <Link className="underline underline-offset-2" to="/translations">
+          <Link className="underline underline-offset-2" to={ACCOUNT_PATHS.translations}>
             {t("account.reviewTranslations")}
           </Link>
         </nav>
