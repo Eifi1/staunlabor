@@ -38,7 +38,7 @@ import math
 from dataclasses import dataclass
 from typing import Literal
 
-from staunlabor.domain.experiments.pendulum import G
+from staunlabor.domain.experiments.constants import G
 
 Shape = Literal["semicircle", "pointed", "catenary"]
 

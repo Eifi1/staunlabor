@@ -166,6 +166,45 @@ def test_a_helper_the_checks_share_moves_the_fingerprint_of_every_exhibit_using_
     assert checks.fingerprint("chair") == chair
 
 
+def test_the_checks_own_hand_formulas_are_in_the_fingerprint_of_every_exhibit_whose_cases_use_them(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    # checks/_hand.py is real now: gravity, the elliptic sums and the halving
+    # that 24 check modules import. Touching it must uncheck them, not chair.
+    real = checks._source
+    before = {exhibit: checks.fingerprint(exhibit) for exhibit in ("peg", "wave", "beats", "chair")}
+
+    def source(module: str) -> str:
+        text = real(module)
+        return text + "\nSUM_STEPS = 20001\n" if module == "staunlabor.domain.checks._hand" else text
+
+    monkeypatch.setattr(checks, "_source", source)
+    assert checks.fingerprint("peg") != before["peg"]
+    assert checks.fingerprint("wave") != before["wave"]
+    assert checks.fingerprint("beats") != before["beats"]
+    assert checks.fingerprint("chair") == before["chair"]
+
+
+def test_a_change_to_the_pendulum_s_physics_no_longer_unchecks_the_exhibits_that_only_step(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    # The stepping moved to numerics.py and gravity to constants.py: the
+    # pendulum's own AGM reaches the pendulum wave and the harmonograph, and
+    # no longer the fifteen exhibits that imported it for G or rk4.
+    real = checks._source
+    before = {exhibit: checks.fingerprint(exhibit) for exhibit in ("wave", "harmonograph", "chaos", "well", "arch")}
+
+    def source(module: str) -> str:
+        text = real(module)
+        return text + "\n_AGM_TOLERANCE = 2e-15\n" if module == "staunlabor.domain.experiments.pendulum" else text
+
+    monkeypatch.setattr(checks, "_source", source)
+    assert checks.fingerprint("wave") != before["wave"]
+    assert checks.fingerprint("harmonograph") != before["harmonograph"]
+    for exhibit in ("chaos", "well", "arch"):
+        assert checks.fingerprint(exhibit) == before[exhibit]
+
+
 def test_the_dataclasses_a_check_imports_are_no_module_of_its_fingerprint() -> None:
     text = "from staunlabor.domain.checks import Case, Source\nfrom . import coupled\nfrom ._hand import k\n"
     assert checks._imports(text, "staunlabor.domain.checks") == {

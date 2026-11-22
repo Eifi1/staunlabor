@@ -11,8 +11,6 @@ import math
 from staunlabor.domain.checks import Case, Source
 from staunlabor.domain.experiments import platform as engine
 
-ENGINE = ("platform",)
-
 _PARALLEL = Source(
     cite="OpenStax, University Physics Volume 1, §10.5 Calculating Moments of Inertia, Eq. 10.20",
     url="https://openstax.org/books/university-physics-volume-1/pages/10-5-calculating-moments-of-inertia",

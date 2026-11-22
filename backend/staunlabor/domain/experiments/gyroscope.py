@@ -37,7 +37,7 @@ from __future__ import annotations
 import math
 from dataclasses import dataclass
 
-from staunlabor.domain.experiments.pendulum import G
+from staunlabor.domain.experiments.constants import G
 
 STEP_S = 1e-3
 

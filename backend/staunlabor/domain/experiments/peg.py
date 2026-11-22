@@ -47,7 +47,8 @@ import math
 from collections.abc import Callable
 from dataclasses import dataclass, replace
 
-from staunlabor.domain.experiments.pendulum import MAX_DURATION_S, STEP_S, G, rk4, sample_every
+from staunlabor.domain.experiments.constants import G
+from staunlabor.domain.experiments.numerics import STEP_S, check_run, rk4, sample_every
 
 #: Halvings that find an event within its step: 2⁻⁴⁰ of a millisecond.
 BISECTIONS = 40
@@ -277,10 +278,7 @@ _MODE_CODE = {Mode.BIG: 0, Mode.SMALL: 1, Mode.FREE: 2}
 
 
 def run(p: PegPendulum, duration_s: float, step_s: float = STEP_S) -> PegRun:
-    if not 0 < step_s <= 0.01:
-        raise ValueError("the step lies between 0 and 10 ms")
-    if not 0 < duration_s <= MAX_DURATION_S:
-        raise ValueError(f"a run lasts more than nothing and at most {MAX_DURATION_S:g} s")
+    check_run(duration_s, step_s)
     s = start(p)
     steps = round(duration_s / step_s)
     every = sample_every(step_s)

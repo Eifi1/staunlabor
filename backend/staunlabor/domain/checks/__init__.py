@@ -26,7 +26,7 @@ import ast
 import hashlib
 import importlib.util
 from collections.abc import Callable, Mapping
-from dataclasses import dataclass, field
+from dataclasses import dataclass
 from pathlib import Path
 
 __all__ = [
@@ -66,10 +66,11 @@ class Case:
     #: The relative deviation allowed; the case's words say where it comes from.
     tolerance: float
     sources: tuple[Source, ...]
+    #: What the case sets, in the engine's own inputs; required, so a new case
+    #: cannot leave its page without the inputs it was computed for.
+    setting: Mapping[str, float | str]
     #: No source states the formula as used; the case's words give the step.
     derived: bool = False
-    #: What the case sets, in the engine's own inputs.
-    setting: Mapping[str, float | str] = field(default_factory=dict)
 
 
 @dataclass(frozen=True)
@@ -85,9 +86,10 @@ class Result:
     tolerance: float
     derived: bool
     sources: tuple[Source, ...]
+    setting: Mapping[str, float | str]
 
 
-def _registry() -> dict[str, tuple[tuple[Case, ...], tuple[str, ...]]]:
+def _registry() -> dict[str, tuple[Case, ...]]:
     # Imported here: each module imports this one for its dataclasses.
     from staunlabor.domain.checks import (
         arch,
@@ -128,41 +130,41 @@ def _registry() -> dict[str, tuple[tuple[Case, ...], tuple[str, ...]]]:
     )
 
     return {
-        "arch": (arch.CASES, arch.ENGINE),
-        "beats": (beats.CASES, beats.ENGINE),
-        "bounce": (bounce.CASES, bounce.ENGINE),
-        "cannon": (cannon.CASES, cannon.ENGINE),
-        "chair": (chair.CASES, chair.ENGINE),
-        "chaos": (chaos.CASES, chaos.ENGINE),
-        "chladni": (chladni.CASES, chladni.ENGINE),
-        "circuit": (circuit.CASES, circuit.ENGINE),
-        "coil": (coil.CASES, coil.ENGINE),
-        "cone": (cone.CASES, cone.ENGINE),
-        "coriolis": (coriolis.CASES, coriolis.ENGINE),
-        "coupled": (coupled.CASES, coupled.ENGINE),
-        "cradle": (cradle.CASES, cradle.ENGINE),
-        "diver": (diver.CASES, diver.ENGINE),
-        "elephant": (elephant.CASES, elephant.ENGINE),
-        "foucault": (foucault.CASES, foucault.ENGINE),
-        "gyroscope": (gyroscope.CASES, gyroscope.ENGINE),
-        "harmonograph": (harmonograph.CASES, harmonograph.ENGINE),
-        "levitation": (levitation.CASES, levitation.ENGINE),
-        "maxwell": (maxwell.CASES, maxwell.ENGINE),
-        "overhang": (overhang.CASES, overhang.ENGINE),
-        "parabola": (parabola.CASES, parabola.ENGINE),
-        "peg": (peg.CASES, peg.ENGINE),
-        "plates": (plates.CASES, plates.ENGINE),
-        "platform": (platform.CASES, platform.ENGINE),
-        "race": (race.CASES, race.ENGINE),
-        "rainbow": (rainbow.CASES, rainbow.ENGINE),
-        "resonance": (resonance.CASES, resonance.ENGINE),
-        "sky": (sky.CASES, sky.ENGINE),
-        "slits": (slits.CASES, slits.ENGINE),
-        "smoke": (smoke.CASES, smoke.ENGINE),
-        "sphere": (sphere.CASES, sphere.ENGINE),
-        "waterwheel": (waterwheel.CASES, waterwheel.ENGINE),
-        "wave": (wave.CASES, wave.ENGINE),
-        "well": (well.CASES, well.ENGINE),
+        "arch": arch.CASES,
+        "beats": beats.CASES,
+        "bounce": bounce.CASES,
+        "cannon": cannon.CASES,
+        "chair": chair.CASES,
+        "chaos": chaos.CASES,
+        "chladni": chladni.CASES,
+        "circuit": circuit.CASES,
+        "coil": coil.CASES,
+        "cone": cone.CASES,
+        "coriolis": coriolis.CASES,
+        "coupled": coupled.CASES,
+        "cradle": cradle.CASES,
+        "diver": diver.CASES,
+        "elephant": elephant.CASES,
+        "foucault": foucault.CASES,
+        "gyroscope": gyroscope.CASES,
+        "harmonograph": harmonograph.CASES,
+        "levitation": levitation.CASES,
+        "maxwell": maxwell.CASES,
+        "overhang": overhang.CASES,
+        "parabola": parabola.CASES,
+        "peg": peg.CASES,
+        "plates": plates.CASES,
+        "platform": platform.CASES,
+        "race": race.CASES,
+        "rainbow": rainbow.CASES,
+        "resonance": resonance.CASES,
+        "sky": sky.CASES,
+        "slits": slits.CASES,
+        "smoke": smoke.CASES,
+        "sphere": sphere.CASES,
+        "waterwheel": waterwheel.CASES,
+        "wave": wave.CASES,
+        "well": well.CASES,
     }
 
 
@@ -175,7 +177,7 @@ def cases(exhibit: str) -> tuple[Case, ...]:
     entry = _registry().get(exhibit)
     if entry is None:
         raise ValueError(f"no checks for {exhibit!r}")
-    return entry[0]
+    return entry
 
 
 def results(exhibit: str) -> tuple[Result, ...]:
@@ -195,6 +197,7 @@ def results(exhibit: str) -> tuple[Result, ...]:
                 tolerance=case.tolerance,
                 derived=case.derived,
                 sources=case.sources,
+                setting=case.setting,
             )
         )
     return tuple(out)
@@ -263,15 +266,16 @@ def _imports(text: str, package: str) -> set[str]:
 
 
 def fingerprint(exhibit: str) -> str:
-    """What a check of ``exhibit`` holds for: the code of its cases, of its
-    engine modules, and of every module either imports, the engine's and the
-    checks' shared helpers alike. An admin's check is stored with it; once it
-    differs, the exhibit counts as unchecked again."""
-    entry = _registry().get(exhibit)
-    if entry is None:
+    """What a check of ``exhibit`` holds for: the code of its cases and of
+    every module they import, and so on down, the engine's modules and the
+    checks' shared helpers alike. The walk starts at the check module alone:
+    its ``from staunlabor.domain.experiments import … as engine`` names the
+    engine it measures, so no second list of engine modules can fall out of
+    step with what the cases really run. An admin's check is stored with it;
+    once it differs, the exhibit counts as unchecked again."""
+    if exhibit not in _registry():
         raise ValueError(f"no checks for {exhibit!r}")
-    engine = entry[1]
-    todo = [f"{_CHECKS}.{exhibit}", *(f"{_ENGINE}.{name}" for name in engine)]
+    todo = [f"{_CHECKS}.{exhibit}"]
     seen: dict[str, str] = {}
     while todo:
         module = todo.pop()

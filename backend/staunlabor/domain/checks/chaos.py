@@ -15,12 +15,8 @@ import itertools
 import math
 
 from staunlabor.domain.checks import Case, Source
+from staunlabor.domain.checks._hand import G
 from staunlabor.domain.experiments import chaos as engine
-
-ENGINE = ("chaos",)
-
-#: Standard gravity, as the engine takes it.
-G = 9.80665
 
 _MODES = Source(
     cite="S. Anlage, University of Maryland, Phys 410 (Fall 2015), Lecture #23 Summary, p. 3",

@@ -35,7 +35,7 @@ from __future__ import annotations
 import math
 from dataclasses import dataclass
 
-from staunlabor.domain.experiments.pendulum import G
+from staunlabor.domain.experiments.constants import G
 
 #: The Earth's turn against the stars, rad/s: once in a sidereal day.
 EARTH_RATE = 7.2921150e-5

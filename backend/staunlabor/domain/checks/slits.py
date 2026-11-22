@@ -15,8 +15,6 @@ from collections.abc import Callable
 from staunlabor.domain.checks import Case, Source
 from staunlabor.domain.experiments import slits as engine
 
-ENGINE = ("slits",)
-
 _YOUNG = Source(
     cite="OpenStax, University Physics Volume 3, §3.2 Mathematics of Interference, Eq. 3.5 and 3.6",
     url="https://openstax.org/books/university-physics-volume-3/pages/3-2-mathematics-of-interference",

@@ -62,6 +62,8 @@ import math
 from dataclasses import dataclass
 from enum import StrEnum
 
+from staunlabor.domain.experiments.numerics import rk4
+
 RHO = 1.2
 NU = 1.5e-5
 #: A slug longer than this many hole diameters leaves the rest behind as a trailing jet.
@@ -290,8 +292,10 @@ def flight(exhibit: SmokeExhibit, ring: Ring, duration_s: float) -> Flight:
             return ring_speed(g0 * (r0 / r) ** 2, r, CORE_SHARE * r)
         return ring_speed(g0, r0, math.sqrt(a0 * a0 + 4 * NU * t))
 
-    def f(t: float, r: float) -> tuple[float, float]:
-        u = speed(t, r)
+    def f(t: float, y: tuple[float, ...]) -> tuple[float, ...]:
+        # (z, r)' = (u, growth): the ring's height and radius; the speed
+        # depends on the radius alone, so the height rides along.
+        u = speed(t, y[1])
         return u, TURBULENT_GROWTH * u if turbulent else 0.0
 
     steps = round(duration_s / FLIGHT_STEP_S)
@@ -310,12 +314,7 @@ def flight(exhibit: SmokeExhibit, ring: Ring, duration_s: float) -> Flight:
             out["u"].append(speed(t, r))
         if last:
             break
-        k1 = f(t, r)
-        k2 = f(t + h / 2, r + h / 2 * k1[1])
-        k3 = f(t + h / 2, r + h / 2 * k2[1])
-        k4 = f(t + h, r + h * k3[1])
-        z += h / 6 * (k1[0] + 2 * k2[0] + 2 * k3[0] + k4[0])
-        r += h / 6 * (k1[1] + 2 * k2[1] + 2 * k3[1] + k4[1])
+        z, r = rk4(f, t, (z, r), h)
     return Flight(
         t=tuple(out["t"]),
         x_m=tuple(out["x"]),

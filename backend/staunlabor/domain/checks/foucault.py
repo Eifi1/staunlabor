@@ -13,12 +13,9 @@ from __future__ import annotations
 import math
 
 from staunlabor.domain.checks import Case, Source
+from staunlabor.domain.checks._hand import G
 from staunlabor.domain.experiments import foucault as engine
 
-ENGINE = ("foucault",)
-
-#: Standard gravity, as the engine takes it.
-G = 9.80665
 #: The Earth's turn against the stars (the IERS's stellar day), in seconds.
 STELLAR_DAY_S = 86164.098903691
 

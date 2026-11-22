@@ -10,12 +10,8 @@ from __future__ import annotations
 import math
 
 from staunlabor.domain.checks import Case, Source
+from staunlabor.domain.checks._hand import G, bisect, elliptic_k_by_sum
 from staunlabor.domain.experiments import peg as engine
-
-ENGINE = ("peg",)
-
-#: Standard gravity, as the engine takes it.
-G = 9.80665
 
 _GALILEO = Source(
     cite="Galileo Galilei, Dialogues Concerning Two New Sciences, transl. H. Crew and A. de Salvio (Macmillan, 1914), "
@@ -63,13 +59,6 @@ def _height(p: engine.PegPendulum) -> float:
     return p.length_m * (1 - math.cos(math.radians(p.start_deg)))
 
 
-def _k_by_sum(modulus: float, n: int = 20000) -> float:
-    """K(k) = ∫₀^{π/2} dφ/√(1 − k² sin²φ) by the midpoint rule: a reader's own
-    integral, not the engine's arithmetic-geometric mean."""
-    h = math.pi / 2 / n
-    return h * sum(1 / math.sqrt(1 - (modulus * math.sin((j + 0.5) * h)) ** 2) for j in range(n))
-
-
 def _period_hand(p: engine.PegPendulum) -> float:
     """Half a swing on the whole string at θ₀, half a swing round the peg at
     the angle φ₀ the same height asks for: r(1 − cos φ₀) = L(1 − cos θ₀).
@@ -77,8 +66,8 @@ def _period_hand(p: engine.PegPendulum) -> float:
     r = p.small_radius_m
     theta0 = math.radians(p.start_deg)
     phi0 = math.acos(1 - _height(p) / r)
-    big = 2 * math.sqrt(p.length_m / G) * _k_by_sum(math.sin(theta0 / 2))
-    small = 2 * math.sqrt(r / G) * _k_by_sum(math.sin(phi0 / 2))
+    big = 2 * math.sqrt(p.length_m / G) * elliptic_k_by_sum(math.sin(theta0 / 2))
+    small = 2 * math.sqrt(r / G) * elliptic_k_by_sum(math.sin(phi0 / 2))
     return big + small
 
 
@@ -111,13 +100,7 @@ def _loop_edge_cm() -> float:
     lo, hi = 0.55, 0.65
     assert not _goes_over(lo)
     assert _goes_over(hi)
-    for _ in range(30):
-        mid = (lo + hi) / 2
-        if _goes_over(mid):
-            hi = mid
-        else:
-            lo = mid
-    return (lo + hi) / 2 * 100
+    return bisect(lambda r: not _goes_over(r), lo, hi, 30) * 100
 
 
 def _slack_run_cm(p: engine.PegPendulum) -> float:

@@ -15,8 +15,6 @@ import math
 from staunlabor.domain.checks import Case, Source
 from staunlabor.domain.experiments import coriolis as engine
 
-ENGINE = ("coriolis",)
-
 _NEWTON = Source(
     cite="OpenStax, University Physics Volume 1, §5.2 Newton’s First Law",
     url="https://openstax.org/books/university-physics-volume-1/pages/5-2-newtons-first-law",

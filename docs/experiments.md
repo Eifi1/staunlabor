@@ -802,6 +802,8 @@ written once (`domain/experiments/pendulum.py`, ported to
   second; the period `T = T₀·2K(k²)/π`;
 - **stepped**, by classical Runge–Kutta over any system at a fixed step (1 ms),
   for what has no closed form: damping, a peg, a spring between two pendulums.
+  The step itself has lived in `numerics.py` since 2026-11-22 (see "Shared
+  code out of the pendulum" below).
 
 **Checked by** `tests/unit/test_experiments.py`: Jacobi's identities, its limits
 (sin and cos at `m = 0`, tanh and sech at `m = 1`) and its slope; `K(½)` from
@@ -2702,8 +2704,9 @@ anew for it, sets how it starts. For that the sliders grew:
 in as an admin, an exhibit with cases shows "Confirm as checked" and "Take
 the check back" (`PUT`/`DELETE /admin/experiments/checks/{exhibit}`). The
 verdict is stored with the fingerprint of the code it was given on
-(`staunlabor.domain.checks.fingerprint`: the exhibit's engine modules, the
-engine modules they import and its cases, without docstrings and comments),
+(`staunlabor.domain.checks.fingerprint`: the exhibit's check module and every
+module it imports, and so on down, engine modules and the checks' shared
+`checks/_hand.py` alike, without docstrings and comments),
 and `GET /experiments/checks` counts it only while that is still the
 deployed code's. An engine change brings "not yet checked" back by itself.
 The public answer gives the day and nothing of who checked (Marcel: only the
@@ -2719,6 +2722,48 @@ the refactors of the engine (the audit's) go before an exhibit is checked,
 and a change after says which exhibits it unchecks. The browser ports in
 `simulate/` are not in the fingerprint: they are held to the engine by
 `engine-cases.json`, not by the check.
+
+**Shared code out of the pendulum** (2026-11-22, Marcel's go-ahead while no
+exhibit was yet checked, so that every exhibit is unchecked once and for
+nothing). `pendulum.py` had held, besides the pendulum's physics, gravity, the
+general RK4 step, the sampling and the run bounds, and fifteen engine modules
+imported it for those; since the fingerprint follows imports, a change to the
+pendulum's AGM would have unchecked all fifteen, though only the pendulum wave
+and the harmonograph use it. Now:
+
+- `experiments/constants.py` holds what several exhibits share and none owns:
+  `G`, `SOLID_BALL_INERTIA` (2/5), `HOLLOW_BALL_INERTIA` (2/3),
+  `RESISTANCE_FADE_M_S`. It is **meant never to change**; everything an exhibit
+  might tune stays in its own module. The ten modules that wrote `G` out, and
+  sphere, coriolis, race, coil and well for the others, import it; the well no
+  longer imports the sphere, the race no longer the sphere (`well.SHARE` is
+  `1/(1 + SOLID_BALL_INERTIA)`, the same bits as 5/7).
+- `experiments/numerics.py` holds `rk4`, `rk4_second_order` (the two-list
+  form of the cannon's and the cradle's contact steps), `sample_every`,
+  `check_run` and the pendulums' `STEP_S`, `SAMPLES_PER_S`, `MAX_DURATION_S`.
+  The coil, the sphere and the smoke ring now take the shared `rk4`, the cannon
+  and the cradle `rk4_second_order`; the funnel, the gyroscope, the elephant,
+  the diver, the cannon's free flight and the resonance rack keep their step
+  written out, because the generic one cost them 20 % to twice the time
+  (measured old against new in one process) under a request's budget.
+- `checks/_hand.py` holds the checks' own `G`, `elliptic_k_by_sum` /
+  `elliptic_f_by_sum` (the midpoint sum, 20 000 steps) and `bisect`, kept
+  apart from the engine on purpose. 24 check modules took `G` from it, seven
+  their K sum, twelve their plain halving; the halvings that differ (the
+  arch's thickness returning `hi`, Maxwell's early stop, every golden-section
+  search) stay as they were.
+- The checks' `ENGINE` tuples are gone: the fingerprint walks from the check
+  module alone, whose `import … as engine` names the same modules.
+
+Every number stayed to the bit: the four writers' files (`engine-cases.json`,
+the two `test-fixtures.json`, `checks.json`) came out unchanged, and the
+check results agreed to the last bit. The commit unchecks all 35 exhibits
+with checks: arch, beats, bounce, cannon, chair, chaos, chladni, circuit,
+coil, cone, coriolis, coupled, cradle, diver, elephant, foucault, gyroscope,
+harmonograph, levitation, maxwell, overhang, parabola, peg, plates, platform,
+race, rainbow, resonance, sky, slits, smoke, sphere, waterwheel, wave, well.
+From now on a change to the pendulum's own physics unchecks only the pendulum
+wave and the harmonograph.
 
 ## Checking the mathematics
 

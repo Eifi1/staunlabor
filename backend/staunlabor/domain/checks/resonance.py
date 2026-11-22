@@ -10,11 +10,9 @@ import math
 from functools import lru_cache
 
 from staunlabor.domain.checks import Case, Source
+from staunlabor.domain.checks._hand import G, bisect
 from staunlabor.domain.experiments import resonance as engine
 
-ENGINE = ("resonance",)
-
-G = 9.80665
 #: The clamped-free beam's first root, as the source prints it: β₁L = 0.596864π.
 BETA1_L = 0.596864 * math.pi
 #: The first zero of the Bessel function J₋₁/₃, as the source prints it.
@@ -99,16 +97,15 @@ def _greenhill_m(rack: engine.Rack) -> float:
 def _longest_m(rack: engine.Rack) -> float:
     """The longest rod of the rack's steel the engine takes before it refuses
     one that buckles under its own weight: bisection on its refusal."""
-    lo, hi = 1.0, 2.0
-    for _ in range(60):
-        mid = (lo + hi) / 2
+
+    def taken(length_m: float) -> bool:
         try:
-            engine.Rack(lengths_m=(mid,), diameter_m=rack.diameter_m)
+            engine.Rack(lengths_m=(length_m,), diameter_m=rack.diameter_m)
         except ValueError:
-            hi = mid
-        else:
-            lo = mid
-    return (lo + hi) / 2
+            return False
+        return True
+
+    return bisect(taken, 1.0, 2.0, 60)
 
 
 def _mode(xi: float) -> float:
@@ -161,14 +158,7 @@ def _growth_hand_cycles(zeta: float) -> float:
         return math.hypot(q, v)
 
     # The width rises past 1 − 1/e once, near t = 1/ζ; search a cycle each side.
-    lo, hi = 1 / zeta - 2 * math.pi, 1 / zeta + 2 * math.pi
-    for _ in range(80):
-        mid = (lo + hi) / 2
-        if width(mid) < _GROWN:
-            lo = mid
-        else:
-            hi = mid
-    return (lo + hi) / 2 / (2 * math.pi)
+    return bisect(lambda t: width(t) < _GROWN, 1 / zeta - 2 * math.pi, 1 / zeta + 2 * math.pi, 80) / (2 * math.pi)
 
 
 @lru_cache(maxsize=1)

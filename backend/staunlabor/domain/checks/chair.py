@@ -10,8 +10,6 @@ import math
 from staunlabor.domain.checks import Case, Source
 from staunlabor.domain.experiments import perspective as engine
 
-ENGINE = ("perspective",)
-
 _PROJECTION = Source(
     cite="R. Hartley, A. Zisserman, Multiple View Geometry in Computer Vision, Ch. 1, §1.2 (free sample chapter)",
     url="https://www.robots.ox.ac.uk/~vgg/hzbook/hzbook2/HZintroduction.pdf",

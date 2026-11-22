@@ -37,6 +37,8 @@ from __future__ import annotations
 import math
 from dataclasses import dataclass
 
+from staunlabor.domain.experiments.constants import G
+
 
 def _first_root() -> float:
     """β₁: the first root of cosh β·cos β + 1, by bisection."""
@@ -102,7 +104,6 @@ def _softening() -> float:
 
 
 LAMBDA = _softening()
-G = 9.80665
 
 STEP_S = 1e-3
 

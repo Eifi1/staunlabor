@@ -12,11 +12,9 @@ from __future__ import annotations
 import math
 
 from staunlabor.domain.checks import Case, Source
+from staunlabor.domain.checks._hand import G
 from staunlabor.domain.experiments import waterwheel as engine
 
-ENGINE = ("waterwheel",)
-
-G = 9.80665
 #: The wheel's b, from the wheel's own equations (Illing et al.), not the
 #: engine's constant: Lorenz's air has 8/3.
 B_WHEEL = 1.0

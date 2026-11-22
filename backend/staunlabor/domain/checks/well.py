@@ -11,12 +11,8 @@ from __future__ import annotations
 import math
 
 from staunlabor.domain.checks import Case, Source
+from staunlabor.domain.checks._hand import G
 from staunlabor.domain.experiments import well as engine
-
-ENGINE = ("well",)
-
-#: Standard gravity, as the engine takes it.
-G = 9.80665
 
 _KEPLER3 = Source(
     cite="OpenStax, University Physics Volume 1, §13.5 Kepler’s Laws of Planetary Motion, Eq. 13.11",

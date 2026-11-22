@@ -12,12 +12,8 @@ from __future__ import annotations
 import math
 
 from staunlabor.domain.checks import Case, Source
+from staunlabor.domain.checks._hand import G, bisect, elliptic_k_by_sum
 from staunlabor.domain.experiments import race as engine
-
-ENGINE = ("race",)
-
-#: Standard gravity, as the engine takes it.
-G = 9.80665
 
 _INCLINE = Source(
     cite="OpenStax, University Physics Volume 1, §11.1 Rolling Motion, Eq. 11.4",
@@ -81,14 +77,7 @@ def _line_hand() -> float:
 def _cycloid_angle(run: float, drop: float) -> float:
     """The angle φ_B at which r(φ − sin φ) : r(1 − cos φ) is run : drop, by
     halving: the ratio grows from 0 to ∞ as φ goes from 0 to 2π."""
-    lo, hi = 1e-6, 2 * math.pi - 1e-6
-    for _ in range(100):
-        mid = (lo + hi) / 2
-        if (mid - math.sin(mid)) / (1 - math.cos(mid)) < run / drop:
-            lo = mid
-        else:
-            hi = mid
-    return (lo + hi) / 2
+    return bisect(lambda phi: (phi - math.sin(phi)) / (1 - math.cos(phi)) < run / drop, 1e-6, 2 * math.pi - 1e-6, 100)
 
 
 def _cycloid_hand() -> float:
@@ -107,12 +96,6 @@ def _valley_start() -> engine.ValleyStart:
     return engine.valley(engine.RaceBall.SOLID).starts[_HIGHEST]
 
 
-def _k_by_sum(modulus: float, n: int = 20000) -> float:
-    """K(k) = ∫₀^{π/2} dφ/√(1 − k² sin²φ) by the midpoint rule."""
-    h = math.pi / 2 / n
-    return h * sum(1 / math.sqrt(1 - (modulus * math.sin((j + 0.5) * h)) ** 2) for j in range(n))
-
-
 def _bowl_hand() -> float:
     """A quarter of the pendulum's period 4K(sin(½φ₀)) in units of √(R/g′):
     the bowl of radius R = 4r, from the height the valley's highest ball starts
@@ -121,7 +104,7 @@ def _bowl_hand() -> float:
     big_r = 4 * r
     height = r * (1 + math.cos(engine.VALLEY_STARTS[_HIGHEST]))
     phi0 = math.acos(1 - height / big_r)
-    return math.sqrt(big_r / (_SHARE * G)) * _k_by_sum(math.sin(phi0 / 2))
+    return math.sqrt(big_r / (_SHARE * G)) * elliptic_k_by_sum(math.sin(phi0 / 2))
 
 
 def _setting() -> dict[str, float | str]:

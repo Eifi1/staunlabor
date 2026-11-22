@@ -13,12 +13,8 @@ from __future__ import annotations
 import math
 
 from staunlabor.domain.checks import Case, Source
+from staunlabor.domain.checks._hand import G
 from staunlabor.domain.experiments import gyroscope as engine
-
-ENGINE = ("gyroscope",)
-
-#: Standard gravity, as the engine takes it.
-G = 9.80665
 
 _PRECESSION = Source(
     cite="OpenStax, University Physics Volume 1, §11.4 Precession of a Gyroscope, Eq. 11.12",

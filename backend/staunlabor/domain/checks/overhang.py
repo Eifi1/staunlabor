@@ -13,8 +13,6 @@ from fractions import Fraction
 from staunlabor.domain.checks import Case, Source
 from staunlabor.domain.experiments import overhang as engine
 
-ENGINE = ("overhang",)
-
 _SUM = Source(
     cite="Wikipedia, “Block-stacking problem”, §Variants, Single-wide",
     url="https://en.wikipedia.org/wiki/Block-stacking_problem",

@@ -44,7 +44,8 @@ from __future__ import annotations
 import math
 from dataclasses import dataclass
 
-from staunlabor.domain.experiments.pendulum import MAX_DURATION_S, STEP_S, G, rk4, sample_every
+from staunlabor.domain.experiments.constants import G
+from staunlabor.domain.experiments.numerics import MAX_DURATION_S, STEP_S, rk4, sample_every
 
 #: I/(M·R²) of a double cone, two solid cones base to base, about its axis.
 SPIN_SHARE = 3 / 10

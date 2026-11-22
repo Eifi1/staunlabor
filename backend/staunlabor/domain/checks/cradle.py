@@ -12,12 +12,9 @@ from __future__ import annotations
 import math
 
 from staunlabor.domain.checks import Case, Source
+from staunlabor.domain.checks._hand import G
 from staunlabor.domain.experiments import cradle as engine
 
-ENGINE = ("cradle",)
-
-#: Standard gravity, as the engine takes it.
-G = 9.80665
 #: Steel's Poisson's ratio, as the engine takes it.
 NU = 0.29
 #: The page's "0.1 mm of air".

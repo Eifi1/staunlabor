@@ -56,6 +56,7 @@ elephant = importlib.import_module("staunlabor.domain.experiments.elephant")
 smoke = importlib.import_module("staunlabor.domain.experiments.smoke")
 cannon = importlib.import_module("staunlabor.domain.experiments.cannon")
 pendulum = importlib.import_module("staunlabor.domain.experiments.pendulum")
+numerics = importlib.import_module("staunlabor.domain.experiments.numerics")
 wave = importlib.import_module("staunlabor.domain.experiments.wave")
 harmonograph = importlib.import_module("staunlabor.domain.experiments.harmonograph")
 cone = importlib.import_module("staunlabor.domain.experiments.cone")
@@ -790,8 +791,13 @@ def _visitor(visitor: Any) -> Any:
 def _pendulum_cases(out: dict[str, Any]) -> None:
     """The pendulum block and the exhibits on it: Jacobi's functions, the exact
     angle, the stepped swing, the wave's lengths and lags."""
+    # The pendulum's constants as `pendulum.ts` spells them; the sampling and
+    # the longest run have moved to `numerics.py`, which every stepped run shares.
     out["constants"]["pendulum"] = {
-        name: getattr(pendulum, name) for name in ("G", "STEP_S", "SAMPLES_PER_S", "MAX_DURATION_S")
+        "G": pendulum.G,
+        "STEP_S": pendulum.STEP_S,
+        "SAMPLES_PER_S": numerics.SAMPLES_PER_S,
+        "MAX_DURATION_S": numerics.MAX_DURATION_S,
     }
     for u, m in JACOBI_POINTS:
         out["jacobi"].append({"u": u, "m": m, "sncndn": list(pendulum.jacobi(u, m))})

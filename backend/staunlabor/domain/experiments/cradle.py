@@ -36,7 +36,8 @@ from __future__ import annotations
 import math
 from dataclasses import dataclass
 
-from staunlabor.domain.experiments.pendulum import G
+from staunlabor.domain.experiments.constants import G
+from staunlabor.domain.experiments.numerics import rk4_second_order
 
 #: Steel's Poisson's ratio.
 POISSON = 0.29
@@ -147,20 +148,7 @@ def _rates(cr: Cradle, th: list[float], w: list[float]) -> list[float]:
 
 
 def _rk4(cr: Cradle, th: list[float], w: list[float], h: float) -> tuple[list[float], list[float]]:
-    n = cr.count
-    a1 = _rates(cr, th, w)
-    t2 = [th[i] + h / 2 * w[i] for i in range(n)]
-    w2 = [w[i] + h / 2 * a1[i] for i in range(n)]
-    a2 = _rates(cr, t2, w2)
-    t3 = [th[i] + h / 2 * w2[i] for i in range(n)]
-    w3 = [w[i] + h / 2 * a2[i] for i in range(n)]
-    a3 = _rates(cr, t3, w3)
-    t4 = [th[i] + h * w3[i] for i in range(n)]
-    w4 = [w[i] + h * a3[i] for i in range(n)]
-    a4 = _rates(cr, t4, w4)
-    nt = [th[i] + h / 6 * (w[i] + 2 * w2[i] + 2 * w3[i] + w4[i]) for i in range(n)]
-    nw = [w[i] + h / 6 * (a1[i] + 2 * a2[i] + 2 * a3[i] + a4[i]) for i in range(n)]
-    return nt, nw
+    return rk4_second_order(lambda a, r: _rates(cr, a, r), th, w, h)
 
 
 def _near(cr: Cradle, th: list[float], w: list[float]) -> bool:

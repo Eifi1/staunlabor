@@ -35,7 +35,8 @@ from __future__ import annotations
 import math
 from dataclasses import dataclass
 
-from staunlabor.domain.experiments.pendulum import MAX_DURATION_S, G, rk4, sample_every
+from staunlabor.domain.experiments.constants import G
+from staunlabor.domain.experiments.numerics import MAX_DURATION_S, rk4, sample_every
 
 #: Water's kinematic viscosity at 20 °C, m²/s.
 NU = 1.0e-6

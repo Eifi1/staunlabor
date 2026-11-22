@@ -62,7 +62,8 @@ from __future__ import annotations
 import math
 from dataclasses import dataclass
 
-G = 9.80665
+from staunlabor.domain.experiments.constants import G
+
 #: Air at about 20 °C, kg/m³, and its kinematic viscosity, m²/s.
 RHO = 1.2
 NU = 1.5e-5

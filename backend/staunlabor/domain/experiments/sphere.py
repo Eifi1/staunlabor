@@ -53,17 +53,12 @@ import math
 from dataclasses import dataclass
 from enum import StrEnum
 
-#: Standard gravity.
-G = 9.80665
+from staunlabor.domain.experiments.constants import HOLLOW_BALL_INERTIA, RESISTANCE_FADE_M_S, SOLID_BALL_INERTIA, G
+from staunlabor.domain.experiments.numerics import rk4
 
 #: I/(m·r²) for the two balls the page offers.
-SOLID = 2 / 5
-HOLLOW = 2 / 3
-
-#: The speed below which rolling resistance fades in rather than switching
-#: sign: a ball at rest has no direction to resist, and a hard switch would
-#: chatter. One millimetre a second is far below anything the page draws.
-RESISTANCE_FADE_M_S = 1e-3
+SOLID = SOLID_BALL_INERTIA
+HOLLOW = HOLLOW_BALL_INERTIA
 
 #: The integration step. 1 ms is 160 steps per revolution at 6 Hz, past which
 #: nobody's hand goes; the test holds it against half that step.
@@ -364,11 +359,7 @@ def step(sphere: Sphere, drive: Drive, t: float, y: tuple[float, ...], h: float)
         acc, _ = acceleration(sphere, (yy[0], yy[1], yy[2]), (yy[3], yy[4], yy[5]), ax, ay)
         return (yy[3], yy[4], yy[5], acc[0], acc[1], acc[2])
 
-    k1 = f(t, y)
-    k2 = f(t + h / 2, tuple(y[i] + h / 2 * k1[i] for i in range(6)))
-    k3 = f(t + h / 2, tuple(y[i] + h / 2 * k2[i] for i in range(6)))
-    k4 = f(t + h, tuple(y[i] + h * k3[i] for i in range(6)))
-    n = tuple(y[i] + h / 6 * (k1[i] + 2 * k2[i] + 2 * k3[i] + k4[i]) for i in range(6))
+    n = rk4(f, t, y, h)
     rho = sphere.path_radius_m
     r = math.sqrt(n[0] * n[0] + n[1] * n[1] + n[2] * n[2])
     px, py, pz = n[0] * rho / r, n[1] * rho / r, n[2] * rho / r

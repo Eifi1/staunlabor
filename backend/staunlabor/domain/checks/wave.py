@@ -12,13 +12,9 @@ from __future__ import annotations
 import math
 
 from staunlabor.domain.checks import Case, Source
+from staunlabor.domain.checks._hand import G, bisect, elliptic_f_by_sum, elliptic_k_by_sum
 from staunlabor.domain.experiments import pendulum
 from staunlabor.domain.experiments import wave as engine
-
-ENGINE = ("wave", "pendulum")
-
-#: Standard gravity, as the engine takes it.
-G = 9.80665
 
 _DESIGN = Source(
     cite="Wikipedia, “Pendulum wave”, §Design (citing Harvard Natural Sciences Lecture Demonstrations, “Pendulum Waves”)",
@@ -63,36 +59,15 @@ _ROW = engine.PendulumWave()
 #: The same row tuned by the textbook's formula, for the smallest swing.
 _TEXTBOOK = engine.PendulumWave(tuned_deg=0.0)
 
-#: Steps of the midpoint sums: far more than the integrands, smooth and gently
-#: curved, need for the last digits.
-_N = 20000
-
-
-def _f_by_sum(phi: float, modulus: float) -> float:
-    """F(φ, k) = ∫₀^φ dθ/√(1 − k² sin²θ) by the midpoint rule: a reader's own
-    integral, not the engine's arithmetic-geometric mean."""
-    h = phi / _N
-    return h * sum(1 / math.sqrt(1 - (modulus * math.sin((j + 0.5) * h)) ** 2) for j in range(_N))
-
-
-def _k_by_sum(modulus: float) -> float:
-    return _f_by_sum(math.pi / 2, modulus)
-
 
 def _sn(u: float, modulus: float) -> float:
     """sn(u, k) as DLMF defines it: for u in [−K, K], sin φ with F(φ, k) = u,
     φ found by halving; beyond, carried on by am(u + 2K) = am(u) + π."""
-    quarter = _k_by_sum(modulus)
+    quarter = elliptic_k_by_sum(modulus)
     turns = math.floor((u + quarter) / (2 * quarter))
     x = u - 2 * quarter * turns
-    lo, hi = -math.pi / 2, math.pi / 2
-    for _ in range(50):
-        mid = (lo + hi) / 2
-        if math.copysign(_f_by_sum(abs(mid), modulus), mid) < x:
-            lo = mid
-        else:
-            hi = mid
-    return math.sin((lo + hi) / 2 + turns * math.pi)
+    phi = bisect(lambda p: math.copysign(elliptic_f_by_sum(abs(p), modulus), p) < x, -math.pi / 2, math.pi / 2, 50)
+    return math.sin(phi + turns * math.pi)
 
 
 def _modulus(amplitude_deg: float) -> float:
@@ -101,7 +76,7 @@ def _modulus(amplitude_deg: float) -> float:
 
 def _factor(amplitude_deg: float) -> float:
     """T/T₀ = 4K(sin(½α))/(2π): how much longer the swing takes than a small one."""
-    return 2 * _k_by_sum(_modulus(amplitude_deg)) / math.pi
+    return 2 * elliptic_k_by_sum(_modulus(amplitude_deg)) / math.pi
 
 
 def _textbook_cm(wave: engine.PendulumWave, n: int) -> float:
@@ -134,7 +109,7 @@ def _third_hand_deg() -> float:
     ω₀ = √(g/L), its 52 swings in Γ take 52·4K, so at Γ/3 the argument is
     52·4K/3 + K."""
     k = _modulus(_ROW.amplitude_deg)
-    quarter = _k_by_sum(k)
+    quarter = elliptic_k_by_sum(k)
     u = (_ROW.longest_swings + _SECOND) * 4 * quarter / 3 + quarter
     return math.degrees(2 * math.asin(k * _sn(u, k)))
 

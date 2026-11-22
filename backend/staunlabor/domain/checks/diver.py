@@ -10,11 +10,9 @@ import math
 from collections.abc import Callable
 
 from staunlabor.domain.checks import Case, Source
+from staunlabor.domain.checks._hand import G, bisect
 from staunlabor.domain.experiments import diver as engine
 
-ENGINE = ("diver",)
-
-G = 9.80665
 #: Water at 20 °C and the air's pressure at the surface, as the engine takes them.
 RHO = 998.0
 P0 = 101325.0
@@ -69,15 +67,8 @@ def _sinking_hand_kpa(diver: engine.Diver, depth_m: float) -> float:
 def _threshold_kpa(moves: Callable[[float], bool]) -> float:
     """The squeeze, by bisection between 0 and 25 kPa, where one step of the
     page's time loop changes its answer to ``moves``."""
-    lo, hi = 0.0, 25_000.0
-    above = moves(hi)
-    for _ in range(60):
-        mid = (lo + hi) / 2
-        if moves(mid) == above:
-            hi = mid
-        else:
-            lo = mid
-    return (lo + hi) / 2 / 1000
+    above = moves(25_000.0)
+    return bisect(lambda pa: moves(pa) != above, 0.0, 25_000.0, 60) / 1000
 
 
 def _sinking_run_kpa() -> float:

@@ -47,8 +47,7 @@ from __future__ import annotations
 import math
 from dataclasses import dataclass
 
-#: Standard gravity, as the race uses.
-G = 9.80665
+from staunlabor.domain.experiments.constants import G
 
 #: The balls' radius as a share of the race's size, the larger of its run and
 #: drop: the size the page has always drawn them at. The race itself treats a

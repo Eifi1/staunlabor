@@ -12,13 +12,11 @@ from __future__ import annotations
 import math
 
 from staunlabor.domain.checks import Case, Source
+from staunlabor.domain.checks._hand import G, bisect
 from staunlabor.domain.experiments import cannon as engine
 
-ENGINE = ("cannon",)
-
-#: Standard gravity; the air's density and a sphere's drag coefficient;
-#: rubber's Poisson's ratio: all as the engine takes them.
-G = 9.80665
+#: The air's density and a sphere's drag coefficient; rubber's Poisson's
+#: ratio: all as the engine takes them.
 AIR_DENSITY = 1.2
 DRAG_COEFFICIENT = 0.47
 NU = 0.5
@@ -87,14 +85,7 @@ def _deepest_m(stack: engine.BallStack) -> float:
     """Where the ball's energy ½mv², and the weight's work m·g·δ on the way in,
     are all in the dent, (2/5)·K·δ^{5/2}: by bisection."""
     m, k, v = _mass(stack.balls[0]), _floor_k(stack), _impact_m_s(stack)
-    low, high = 0.0, stack.balls[0].diameter_m / 2
-    for _ in range(200):
-        mid = (low + high) / 2
-        if 0.4 * k * mid**2.5 < 0.5 * m * v * v + m * G * mid:
-            low = mid
-        else:
-            high = mid
-    return (low + high) / 2
+    return bisect(lambda d: 0.4 * k * d**2.5 < 0.5 * m * v * v + m * G * d, 0.0, stack.balls[0].diameter_m / 2, 200)
 
 
 def _contact_s(stack: engine.BallStack) -> float:

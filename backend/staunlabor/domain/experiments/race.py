@@ -62,11 +62,8 @@ from dataclasses import dataclass
 from enum import StrEnum
 
 from staunlabor.domain.experiments import pit
+from staunlabor.domain.experiments.constants import HOLLOW_BALL_INERTIA, SOLID_BALL_INERTIA, G
 from staunlabor.domain.experiments.pit import Basin
-from staunlabor.domain.experiments.sphere import HOLLOW, SOLID
-
-#: Standard gravity.
-G = 9.80665
 
 #: Trapezoid intervals per track: a multiple of the sample intervals. The
 #: integrand, after the substitution, is smooth and bounded, and at this many
@@ -104,7 +101,7 @@ class CurveKind(StrEnum):
     HUMP = "hump"
 
 
-INERTIA = {RaceBall.SOLID: SOLID, RaceBall.HOLLOW: HOLLOW, RaceBall.SLIDING: 0.0}
+INERTIA = {RaceBall.SOLID: SOLID_BALL_INERTIA, RaceBall.HOLLOW: HOLLOW_BALL_INERTIA, RaceBall.SLIDING: 0.0}
 
 
 #: The shortest run the race allows, as a share of the drop. Shorter, two

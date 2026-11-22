@@ -12,13 +12,9 @@ from __future__ import annotations
 import math
 
 from staunlabor.domain.checks import Case, Source
+from staunlabor.domain.checks._hand import G, elliptic_k_by_sum
 from staunlabor.domain.experiments import coupled as engine
-from staunlabor.domain.experiments import pendulum
-
-ENGINE = ("coupled",)
-
-#: Standard gravity, as the engine takes it.
-G = 9.80665
+from staunlabor.domain.experiments import numerics
 
 _MODES = Source(
     cite="E. Eyler (after T. Moran, D. Hamilton), “Physics 258/259: Coupled Oscillators”, University of Connecticut, "
@@ -66,9 +62,9 @@ def _period_run(start: engine.Start, seconds: float = 12.0) -> float:
     upward crossings of the vertical, interpolated within the step."""
     f = engine.rhs(_PAIR)
     y = engine.start_state(start, _START_DEG)
-    h, t, ups = pendulum.STEP_S, 0.0, []
+    h, t, ups = numerics.STEP_S, 0.0, []
     for _ in range(round(seconds / h)):
-        nxt = pendulum.rk4(f, t, y, h)
+        nxt = numerics.rk4(f, t, y, h)
         t += h
         if y[0] < 0 <= nxt[0]:
             ups.append(t - h * nxt[0] / (nxt[0] - y[0]))
@@ -76,16 +72,10 @@ def _period_run(start: engine.Start, seconds: float = 12.0) -> float:
     return (ups[-1] - ups[0]) / (len(ups) - 1)
 
 
-def _k_by_sum(modulus: float, n: int = 20000) -> float:
-    """K(k) = ∫₀^{π/2} dφ/√(1 − k² sin²φ) by the midpoint rule."""
-    h = math.pi / 2 / n
-    return h * sum(1 / math.sqrt(1 - (modulus * math.sin((j + 0.5) * h)) ** 2) for j in range(n))
-
-
 def _together_hand() -> float:
     """The spring idle, each pendulum alone: 4K(sin(½θ₀)) in units of √(L/g)."""
     theta0 = math.radians(_START_DEG)
-    return 4 * math.sqrt(_PAIR.left.length_m / G) * _k_by_sum(math.sin(theta0 / 2))
+    return 4 * math.sqrt(_PAIR.left.length_m / G) * elliptic_k_by_sum(math.sin(theta0 / 2))
 
 
 def _against_hand(n: int = 80000) -> float:
@@ -139,9 +129,9 @@ def _energy_hand() -> float:
 def _energy_run(seconds: float = 30.0) -> float:
     f = engine.rhs(_PAIR)
     y = engine.start_state(engine.Start.ONE, _START_DEG)
-    h = pendulum.STEP_S
+    h = numerics.STEP_S
     for i in range(round(seconds / h)):
-        y = pendulum.rk4(f, i * h, y, h)
+        y = numerics.rk4(f, i * h, y, h)
     return _energy(y)
 
 

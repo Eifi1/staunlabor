@@ -1,13 +1,15 @@
-"""The pendulum: the block every swinging exhibit stands on.
+"""The plane pendulum: its exact swing and its stepped one.
 
 A plane pendulum — a small bob on a light rod or string of length ``L`` — obeys
 
     θ'' = −(g/L)·sin θ − c·θ'
 
-with ``c`` its damping per second. The exhibits built on it (the pendulum wave,
-the harmonograph, the coupled pendulums, Galileo's interrupted pendulum) each
-add something, and this module answers the pendulum itself in two ways, each
-the other's check:
+with ``c`` its damping per second. The pendulum wave tunes its row by this
+module's exact period and the harmonograph swings its pendulums by it; the
+other swinging exhibits (the coupled pendulums, Galileo's interrupted
+pendulum, the double pendulum) write their own equations and share only the
+stepping, which lives in ``numerics.py``. This module answers the pendulum in
+two ways, each the other's check:
 
 * **Exactly**, undamped and released from rest at ``θ₀``:
   ``sin(θ/2) = k·cd(ω₀·t | m)``, with ``k = sin(θ₀/2)``, ``m = k²``,
@@ -16,10 +18,9 @@ the other's check:
   Landen transformation). The period is ``T = 4·K(m)/ω₀``, which grows with the
   swing: ``T₀·(1 + θ₀²/16 + 11·θ₀⁴/3072 + …)``. A page can ask for any instant
   without stepping to it — the pendulum wave's "a minute later" is one call.
-* **Stepped**: :func:`rk4`, classical Runge–Kutta over any system of
-  first-order equations at a fixed step, for what has no closed form: damping,
-  a peg that shortens the string, a spring between two pendulums.
-  ``tests/unit/test_experiments.py`` holds the two together.
+* **Stepped**: :func:`swing`, the same equation stepped by ``numerics.rk4``
+  (classical Runge–Kutta at a fixed step), which takes damping too, where no
+  closed form does. ``tests/unit/test_experiments.py`` holds the two together.
 
 Both are ported to ``frontend/src/features/experiments/simulate/pendulum.ts``
 line for line and held to this module by ``engine-cases.json``.
@@ -32,26 +33,13 @@ and where an exhibit needs more its module says so.
 from __future__ import annotations
 
 import math
-from collections.abc import Callable
 from dataclasses import dataclass
 
-#: Standard gravity.
-G = 9.80665
-
-#: The step the stepped pendulums take: 1 ms is a thousand steps a second, and
-#: the shortest pendulum here swings in about half a second.
-STEP_S = 1e-3
-
-#: Samples a run returns per second, whatever its step.
-SAMPLES_PER_S = 50
-
-#: The longest run the engine takes, so a request cannot ask for an hour.
-MAX_DURATION_S = 300.0
+from staunlabor.domain.experiments.constants import G
+from staunlabor.domain.experiments.numerics import STEP_S, Rhs, check_run, rk4, sample_every
 
 #: Where the AGM's sequences have met: a few units of the last place.
 _AGM_TOLERANCE = 1e-15
-
-Rhs = Callable[[float, tuple[float, ...]], tuple[float, ...]]
 
 
 def agm(a: float, b: float) -> float:
@@ -159,16 +147,6 @@ def angle_deg(length_m: float, amplitude_deg: float, t: float, g: float = G) -> 
     return math.degrees(2 * math.asin(max(-1.0, min(1.0, k * cn / dn))))
 
 
-def rk4(f: Rhs, t: float, y: tuple[float, ...], h: float) -> tuple[float, ...]:
-    """One classical Runge–Kutta step of ``y' = f(t, y)``."""
-    n = len(y)
-    k1 = f(t, y)
-    k2 = f(t + h / 2, tuple(y[i] + h / 2 * k1[i] for i in range(n)))
-    k3 = f(t + h / 2, tuple(y[i] + h / 2 * k2[i] for i in range(n)))
-    k4 = f(t + h, tuple(y[i] + h * k3[i] for i in range(n)))
-    return tuple(y[i] + h / 6 * (k1[i] + 2 * k2[i] + 2 * k3[i] + k4[i]) for i in range(n))
-
-
 def swing_rhs(length_m: float, damping_per_s: float = 0.0, g: float = G) -> Rhs:
     """``(θ, θ')' = (θ', −(g/L)·sin θ − c·θ')``: one pendulum as a system."""
     w2 = natural_rate(length_m, g) ** 2
@@ -188,18 +166,6 @@ class SwingRun:
     rate_deg_s: tuple[float, ...]
 
 
-def _check_run(duration_s: float, step_s: float) -> None:
-    if not 0 < step_s <= 0.01:
-        raise ValueError("the step lies between 0 and 10 ms")
-    if not 0 < duration_s <= MAX_DURATION_S:
-        raise ValueError(f"a run lasts more than nothing and at most {MAX_DURATION_S:g} s")
-
-
-def sample_every(step_s: float) -> int:
-    """Steps between two samples: :data:`SAMPLES_PER_S` a second."""
-    return max(1, round(1 / (SAMPLES_PER_S * step_s)))
-
-
 def swing(
     length_m: float,
     amplitude_deg: float,
@@ -210,7 +176,7 @@ def swing(
 ) -> SwingRun:
     """One pendulum released from rest at ``amplitude_deg``, stepped by
     :func:`rk4` for ``duration_s``."""
-    _check_run(duration_s, step_s)
+    check_run(duration_s, step_s)
     if damping_per_s < 0:
         raise ValueError("damping cannot be negative")
     _modulus(amplitude_deg)

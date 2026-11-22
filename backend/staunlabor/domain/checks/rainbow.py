@@ -13,8 +13,6 @@ import math
 from staunlabor.domain.checks import Case, Source
 from staunlabor.domain.experiments import rainbow as engine
 
-ENGINE = ("rainbow",)
-
 _DESCARTES = Source(
     cite="Wikipedia, “Rainbow”, §3.1 “Mathematical derivation”",
     url="https://en.wikipedia.org/wiki/Rainbow",
