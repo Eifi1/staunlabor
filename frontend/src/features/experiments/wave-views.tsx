@@ -13,6 +13,7 @@ import { useRef, useState, type PointerEvent } from "react";
 import { useTranslation } from "react-i18next";
 import { useChartHue } from "@/shared/state/palette-store";
 import { holdTouch } from "@/shared/ui/grab";
+import { svgPoint } from "@/shared/ui/svg-point";
 import { STAGE, VIEW_FRAME } from "./stage";
 
 /** The bobs' hue: the palette's hue for what moves by itself. */
@@ -119,22 +120,12 @@ export function WaveSideView({
   const top = -bob * 2;
   const bottom = longest + bob * 2;
   // The pointer's angle from the bar. The box may be narrower than the view
-  // box (its height is capped), so the browser's own matrix maps it; a page
-  // without one (a test) has the box stand for the view box.
+  // box (its height is capped), so the browser's own matrix maps it
+  // (`svgPoint`); a page without one (a test) has the box stand for the view box.
   const pull = (svg: SVGSVGElement, clientX: number, clientY: number) => {
-    let x: number;
-    let y: number;
-    const matrix = svg.getScreenCTM?.();
-    if (matrix) {
-      const p = new DOMPoint(clientX, clientY).matrixTransform(matrix.inverse());
-      x = p.x;
-      y = p.y;
-    } else {
-      const box = svg.getBoundingClientRect();
-      if (!box.width || !box.height) return;
-      x = -half + ((clientX - box.left) / box.width) * 2 * half;
-      y = top + ((clientY - box.top) / box.height) * (bottom - top);
-    }
+    const p = svgPoint(svg, clientX, clientY);
+    if (!p) return;
+    const [x, y] = p;
     const deg = Math.round(Math.min(45, Math.max(1, Math.abs(Math.atan2(x, Math.max(y, bob))) * (180 / Math.PI))));
     last.current = deg;
     onPull?.(deg);

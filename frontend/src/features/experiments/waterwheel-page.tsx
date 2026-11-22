@@ -1,20 +1,21 @@
-import { useEffect, useMemo, useRef, useState, type PointerEvent } from "react";
+import { useMemo, useRef, useState, type PointerEvent } from "react";
 import { useTranslation } from "react-i18next";
-import { Pause, Play, RotateCcw } from "lucide-react";
-import { Button, LoadingState, ToggleGroup } from "@eifi1/ui-kit";
+import { LoadingState } from "@eifi1/ui-kit";
 import { SeriesChart } from "@/shared/charts/series-chart";
 import { useLocale } from "@/shared/i18n/use-locale";
 import { formatNumber } from "@/shared/lib/format";
 import { useChartHue } from "@/shared/state/palette-store";
 import { holdTouch } from "@/shared/ui/grab";
+import { svgPoint } from "@/shared/ui/svg-point";
 import { SliderField } from "@/shared/ui/slider-field";
 import { Figures, WidgetCard } from "@/shared/ui/widget";
 import { Equation } from "./equation";
 import { ExhibitFrame } from "./exhibit-frame";
 import { BuildPending } from "./build-pending";
 import { PreviewPending, type PreviewMode, type PreviewProps } from "./preview-mode";
-import { startsRunning } from "./play";
-import { settingNumber, useCheckRequest, useCheckSetting } from "./check-setting";
+import { useFrameLoop, useRunning } from "./play";
+import { RestartButton, RunPauseButton, SpeedToggle } from "./play-controls";
+import { settingNumber, useCheckSetting, useTakeCheckRequest } from "./check-setting";
 import {
   STEP_TAU,
   behaviour,
@@ -60,17 +61,14 @@ export function WaterwheelPage() {
   const w = build ?? defaults.data?.waterwheel ?? null;
   // A check case's "Set it up": the tap and the brake here; the play, built
   // anew for them or already on them, starts the wheel from rest.
-  const request = useCheckRequest("waterwheel");
-  const [seen, setSeen] = useState<number | null>(null);
-  if (request && !request.done && request.nonce !== seen && w) {
-    setSeen(request.nonce);
+  useTakeCheckRequest("waterwheel", w, (setting, current) => {
     const next = {
-      ...w,
-      sigma: settingNumber(request.setting, "sigma", w.sigma),
-      rho: settingNumber(request.setting, "rho", w.rho),
+      ...current,
+      sigma: settingNumber(setting, "sigma", current.sigma),
+      rho: settingNumber(setting, "rho", current.rho),
     };
-    if (next.sigma !== w.sigma || next.rho !== w.rho) setBuild(next);
-  }
+    if (next.sigma !== current.sigma || next.rho !== current.rho) setBuild(next);
+  });
   // One run from rest for the play card's line and the chart: what the page
   // says the wheel does is what it does here, not what ρ_H alone suggests.
   const shown = useMemo(() => (w ? run(w, SHOWN_S) : null), [w]);
@@ -147,14 +145,8 @@ function WheelView({
   // so the browser's own matrix maps it; a page without one (a test) has the
   // box stand for the view box.
   const at = (svg: SVGSVGElement, clientX: number, clientY: number) => {
-    const matrix = svg.getScreenCTM?.();
-    if (matrix) {
-      const p = new DOMPoint(clientX, clientY).matrixTransform(matrix.inverse());
-      return { x: p.x, y: p.y };
-    }
-    const box = svg.getBoundingClientRect();
-    if (!box.width || !box.height) return null;
-    return { x: -1.45 + ((clientX - box.left) / box.width) * 2.9, y: -1.55 + ((clientY - box.top) / box.height) * 3 };
+    const p = svgPoint(svg, clientX, clientY);
+    return p ? { x: p[0], y: p[1] } : null;
   };
   const turn = (svg: SVGSVGElement, clientX: number, clientY: number, which: Grip) => {
     const p = at(svg, clientX, clientY);
@@ -330,37 +322,26 @@ function WaterwheelPlay({
 }: { w: WaterWheel; kind?: Behaviour | null; onChange?: (next: WaterWheel) => void } & PreviewMode) {
   const { t } = useTranslation();
   const sim = useRef({ state: startWheel(), owed: 0, trail: [] as Array<[number, number]> });
-  const [runningHere, setRunning] = useState(startsRunning);
+  const { running, setRunning } = useRunning({ preview, paused });
   const [speedHere, setSpeed] = useState<Speed>(1);
   const [frame, setFrame] = useState(() => ({ y: [1e-3, 0, 0], angle: 0, trail: [] as Array<[number, number]> }));
-  const running = preview ? !paused : runningHere;
   const speed = preview ? 4 : speedHere;
 
-  useEffect(() => {
-    if (!running) return;
+  useFrameLoop(running, (dt) => {
     const keep = Math.round((TRAIL_S * w.leak_per_s) / (STEP_TAU * 2));
-    let raf = 0;
-    let last = performance.now();
-    const tick = (now: number) => {
-      const dt = Math.max(0, Math.min(0.05, (now - last) / 1000));
-      last = now;
-      const s = sim.current;
-      s.owed += (dt * speed * w.leak_per_s) / STEP_TAU;
-      const steps = Math.floor(s.owed);
-      s.owed -= steps;
-      for (let k = 0; k < steps; k++) {
-        stepWheel(w, s.state);
-        if (s.state.i % 2 === 0) {
-          s.trail.push([s.state.y[0], s.state.y[2]]);
-          if (s.trail.length > keep) s.trail.shift();
-        }
+    const s = sim.current;
+    s.owed += (dt * speed * w.leak_per_s) / STEP_TAU;
+    const steps = Math.floor(s.owed);
+    s.owed -= steps;
+    for (let k = 0; k < steps; k++) {
+      stepWheel(w, s.state);
+      if (s.state.i % 2 === 0) {
+        s.trail.push([s.state.y[0], s.state.y[2]]);
+        if (s.trail.length > keep) s.trail.shift();
       }
-      setFrame({ y: s.state.y, angle: s.state.angle, trail: [...s.trail] });
-      raf = requestAnimationFrame(tick);
-    };
-    raf = requestAnimationFrame(tick);
-    return () => cancelAnimationFrame(raf);
-  }, [running, speed, w]);
+    }
+    setFrame({ y: s.state.y, angle: s.state.angle, trail: [...s.trail] });
+  });
 
   const restart = () => {
     sim.current = { state: startWheel(), owed: 0, trail: [] };
@@ -403,14 +384,8 @@ function WaterwheelPlay({
       hint={t("experiments.waterwheel.play.hint")}
       actions={
         <>
-          <Button variant="secondary" size="sm" onClick={() => setRunning(!running)}>
-            {running ? <Pause className="size-4" aria-hidden /> : <Play className="size-4" aria-hidden />}
-            {running ? t("experiments.waterwheel.play.pause") : t("experiments.waterwheel.play.run")}
-          </Button>
-          <Button variant="secondary" size="sm" onClick={restart}>
-            <RotateCcw className="size-4" aria-hidden />
-            {t("experiments.waterwheel.play.restart")}
-          </Button>
+          <RunPauseButton running={running} onToggle={() => setRunning(!running)} />
+          <RestartButton onClick={restart} />
         </>
       }
     >
@@ -453,14 +428,7 @@ function WaterwheelPlay({
           onChange={(v) => onChange?.({ ...w, sigma: v })}
         />
       </div>
-      <ToggleGroup
-        label={t("experiments.waterwheel.play.speed")}
-        labelPlacement="above"
-        size="sm"
-        value={String(speed)}
-        onChange={(v: string) => setSpeed(Number(v) as Speed)}
-        options={SPEEDS.map((v) => ({ value: String(v), label: t(`experiments.waterwheel.play.speeds.${v}`) }))}
-      />
+      <SpeedToggle speeds={SPEEDS} value={speed} onChange={setSpeed} />
       {kind && <p className="text-sm font-medium text-primary">{t(`experiments.waterwheel.play.regime_${kind}`)}</p>}
       <Figures
         tiles={[

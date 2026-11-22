@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useRef, useState, type KeyboardEvent } from "react";
 import { useTranslation } from "react-i18next";
-import { Pause, Play, RotateCcw } from "lucide-react";
-import { Button, LoadingState, Switch, ToggleGroup } from "@eifi1/ui-kit";
+import { Play } from "lucide-react";
+import { Button, LoadingState, Switch } from "@eifi1/ui-kit";
 import { SeriesChart } from "@/shared/charts/series-chart";
 import { useLocale } from "@/shared/i18n/use-locale";
 import { formatNumber } from "@/shared/lib/format";
@@ -11,8 +11,9 @@ import { SliderField } from "@/shared/ui/slider-field";
 import { Figures, WidgetCard } from "@/shared/ui/widget";
 import { BUTTON_HUE, CoilTrack, Meter } from "./coil-track";
 import { PreviewPending, type PreviewMode, type PreviewProps } from "./preview-mode";
-import { useCheckRequest, useCheckSetting, settingNumber, type CheckSetting } from "./check-setting";
-import { startsRunning } from "./play";
+import { sameBuild, settingNumber, useCheckSetting, useTakeCheckRequest, type CheckSetting } from "./check-setting";
+import { useFrameLoop, useRunning } from "./play";
+import { RestartButton, RunPauseButton, SpeedToggle } from "./play-controls";
 import { Equation } from "./equation";
 import { ExhibitFrame } from "./exhibit-frame";
 import { BuildPending } from "./build-pending";
@@ -134,12 +135,9 @@ export function CoilPage() {
   const exhibit = build ?? defaults.data?.coil ?? null;
   // A check case's "Set it up": the build here; the twin, built anew for it,
   // starts the car where the case lets it go.
-  const request = useCheckRequest("coil");
-  const [seen, setSeen] = useState<number | null>(null);
-  if (request && !request.done && request.nonce !== seen && defaults.data) {
-    setSeen(request.nonce);
-    setBuild(coilOf(defaults.data.coil, request.setting));
-  }
+  // The case on the defaults, not on the build as the reader left it, and set
+  // always: a case is the exhibit as it stands with the case's changes.
+  useTakeCheckRequest("coil", defaults.data, (setting, data) => setBuild(coilOf(data.coil, setting)));
   const analysis = useCoilAnalysis(exhibit);
 
   return (
@@ -197,8 +195,7 @@ function CoilPlay({
   const held = useRef<Press>(0);
   const marks = useRef<Marks>(NO_MARKS);
   const [view, setView] = useState<View>(() => viewOf(start(ex), 0));
-  const [runningHere, setRunning] = useState(startsRunning);
-  const running = preview ? !paused : runningHere;
+  const { running, setRunning } = useRunning({ preview, paused });
   const [speed, setSpeed] = useState<(typeof SPEEDS)[number]>(1);
   const [autopilot, setAutopilot] = useState(preview);
   const [pressed, setPressed] = useState<Press>(0);
@@ -207,31 +204,21 @@ function CoilPlay({
   // passed asks for, at the chosen speed, each with the button as it is held
   // (or as the rule would press). A frame that took long — a background tab —
   // counts as at most a twentieth of a second, so the car never jumps.
-  useEffect(() => {
-    if (!running) return;
-    let raf = 0;
-    let last = performance.now();
-    const rule = perfectRule(ex);
-    const tick = (now: number) => {
-      const current = sim.current;
-      if (!current) return;
-      const dt = Math.min(0.05, (now - last) / 1000);
-      last = now;
-      const steps = Math.round((dt * speed) / STEP_S);
-      let press: Press = 0;
-      for (let k = 0; k < steps; k++) {
-        press = autopilot
-          ? pressOf(rule, current.n * STEP_S, current.y[0], current.y[1], current.crossedAt)
-          : held.current;
-        frame(ex, current, press);
-        marks.current = notice(marks.current, current);
-      }
-      setView(viewOf(current, press, marks.current));
-      raf = requestAnimationFrame(tick);
-    };
-    raf = requestAnimationFrame(tick);
-    return () => cancelAnimationFrame(raf);
-  }, [running, speed, autopilot, ex]);
+  const rule = useMemo(() => perfectRule(ex), [ex]);
+  useFrameLoop(running, (dt) => {
+    const current = sim.current;
+    if (!current) return;
+    const steps = Math.round((dt * speed) / STEP_S);
+    let press: Press = 0;
+    for (let k = 0; k < steps; k++) {
+      press = autopilot
+        ? pressOf(rule, current.n * STEP_S, current.y[0], current.y[1], current.crossedAt)
+        : held.current;
+      frame(ex, current, press);
+      marks.current = notice(marks.current, current);
+    }
+    setView(viewOf(current, press, marks.current));
+  });
 
   const hold = (press: Press) => {
     held.current = press;
@@ -281,7 +268,7 @@ function CoilPlay({
   useCheckSetting("coil", (setting) => {
     if (preview) return false;
     // Built for another case: the page builds this twin anew, and the new one takes it.
-    if (JSON.stringify(coilOf(exhibit, setting)) !== JSON.stringify(exhibit)) return false;
+    if (!sameBuild(coilOf(exhibit, setting), exhibit)) return false;
     const from = Math.max(-endOf(ex.track), Math.min(0, settingNumber(setting, "start_x_m", halfway)));
     setStartX(from);
     setAutopilot(setting.autopilot === "on");
@@ -299,14 +286,8 @@ function CoilPlay({
       hint={t("experiments.coil.play.hint")}
       actions={
         <>
-          <Button variant="secondary" size="sm" onClick={() => setRunning(!running)}>
-            {running ? <Pause className="size-4" aria-hidden /> : <Play className="size-4" aria-hidden />}
-            {running ? t("experiments.coil.play.pause") : t("experiments.coil.play.run")}
-          </Button>
-          <Button variant="secondary" size="sm" onClick={() => restart()}>
-            <RotateCcw className="size-4" aria-hidden />
-            {t("experiments.coil.play.restart")}
-          </Button>
+          <RunPauseButton running={running} onToggle={() => setRunning(!running)} />
+          <RestartButton onClick={() => restart()} />
         </>
       }
     >
@@ -344,17 +325,7 @@ function CoilPlay({
               restart(-cm / 100);
             }}
           />
-          <ToggleGroup
-            label={t("experiments.coil.play.speed")}
-            labelPlacement="above"
-            size="sm"
-            value={String(speed)}
-            onChange={(v: string) => setSpeed(Number(v) as (typeof SPEEDS)[number])}
-            options={SPEEDS.map((s) => ({
-              value: String(s),
-              label: t(`experiments.coil.play.speeds.${String(s).replace(".", "_")}`),
-            }))}
-          />
+          <SpeedToggle speeds={SPEEDS} value={speed} onChange={setSpeed} />
         </div>
         {/* The aim in words, where the eye is (the review of 2026-11-19: "Oben
           angekommen 0" in the figures was too abstract). */}

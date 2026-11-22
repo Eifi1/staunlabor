@@ -46,7 +46,11 @@ and centred (`SIDE.cap` in `stage.ts`, 2026-11-19). Before that, the views
 stood centred in all the width the column left them, with the column at the far
 edge: at 1920 px the sliders stood 400 to 620 px from the drawing on twenty
 pages. `stage.test.ts` holds every page's cap to its views' width. No drawing
-is taller than 60 % of the screen (`STAGE`). The gravity well and the water
+is taller than 60 % of the screen (`STAGE`), and only `stage.ts` spells that
+share: eight drawings had written `max-h-[60dvh]` themselves and would have
+kept it when the share changed, so they take `STAGE.wide` and `stage.test.ts`
+fails on a `60dvh` anywhere else (2026-11-22). The frame they stand in is
+`VIEW_FRAME`, one string for the 35 drawings that repeated it. The gravity well and the water
 parabola, whose views fill the row, are capped the way the sphere's are.
 
 **How it is computed** (Marcel, 2026-11-07: "are these differential
@@ -210,8 +214,8 @@ page's play component takes `preview` and `paused`, and in a preview it starts
 in its auto mode, draws its views only — no buttons, sliders or figures — and
 runs while `paused` is false. The motion on the overview is the motion on the
 page, from the same browser port, so it cannot drift from what it advertises.
-The chair, whose turning lives in its page rather than a play component, has
-a `ChairPreview` of its own over the same `autoView`. One table,
+The chair, whose turning lived in its page with a `ChairPreview` of its own
+beside it, has a `ChairPlay` like the others since 2026-11-22. One table,
 `exhibit-modules.ts`, names each exhibit's page module, its `<X>Page`, its
 `<X>Preview` and its card's icon; the routes, the previews and the cards all
 read it, so a new exhibit is one line there. `exhibit-preview.tsx` takes each
@@ -220,6 +224,21 @@ anyway — mounts it once it comes near the screen, stops it off screen, and
 shows the first frame as a still under `prefers-reduced-motion` or where that
 cannot be read. The coil's keyboard (its two buttons on `+`/`−` and the
 arrows) is off in a preview: the keys belong to the page it stands on.
+
+**One clock, one set of buttons** (2026-11-22). Every twin's frame loop is
+`useFrameLoop` in `play.ts`: it owns the `requestAnimationFrame`, clamps a
+frame's step to [0, 0.05] s and always calls the page's latest step, so a new
+speed or build does not restart it. Thirty-three pages had written the loop
+out by hand, and seven had lost the zero guard, so a frame stamped before the
+loop began could step their time backwards. `useRunning` holds who runs the
+clock (the page's Run/Pause, or the overview's `paused`). The header's
+Run/Pause and Restart, the sound switch and the speed choice are
+`play-controls.tsx`, on the shared `experiments.play.*` words, where each
+exhibit had kept its own and they had drifted ("Anhalten" and "Pause"; a
+quarter speed as "Zeitlupe (¼)", "¼" and "4× langsamer"). A speed is named
+by its factor; Foucault's time-lapse ("1 min pro s") keeps its own labels.
+A check case's "Set it up" reaches the page through `useTakeCheckRequest`
+in `check-setting.ts`, which remembers the request it took.
 
 **Tried, not opened** (`tried.ts`, `STORAGE.experimentsTried`, a line of the
 privacy page in all seven languages): an exhibit counts once the reader does

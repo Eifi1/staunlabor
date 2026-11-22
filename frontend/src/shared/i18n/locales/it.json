@@ -166,7 +166,23 @@
     },
     "play": {
       "pause": "Pausa",
-      "run": "Continua"
+      "run": "Continua",
+      "restart": "Ricomincia",
+      "speed": "Velocità",
+      "speeds": {
+        "0_05": "Rallentatore (1/20)",
+        "0_1": "Rallentatore (⅒)",
+        "0_25": "Rallentatore (¼)",
+        "1": "Tempo reale",
+        "2": "Doppia",
+        "3": "Tripla",
+        "4": "Quadrupla",
+        "5": "Quintupla",
+        "10": "Dieci volte",
+        "20": "Venti volte"
+      },
+      "sound": "Suono",
+      "no_sound": "Questo browser non può produrre suoni."
     },
     "exhibits": {
       "chair": {
@@ -449,9 +465,6 @@
       "play": {
         "title": "Ai pulsanti",
         "hint": "Tenga premuto + mentre il carrello entra nella bobina, e − appena ha superato il centro. Troppo difficile a piena velocità? Lo rallenti, oppure lasci premere la regola e osservi quando lo fa.",
-        "pause": "Pausa",
-        "run": "Riprendi",
-        "restart": "Ricomincia",
         "let_go": "Lasciare andare il carrello",
         "aim": "Obiettivo: porti il carrello fino a entrambe le bandierine.",
         "done": "Fatto: il carrello ha raggiunto entrambe le bandierine.",
@@ -465,12 +478,6 @@
         "time": "Tempo",
         "autopilot": "Automatico: tempismo perfetto",
         "autopilot_hint": "Lasci premere la regola e guardi quando lo fa.",
-        "speed": "Velocità",
-        "speeds": {
-          "1": "Tempo reale",
-          "0_25": "¼",
-          "0_1": "⅒"
-        },
         "keys": "Da tastiera: tenga premuto + o ← per il più, − o → per il meno.",
         "start": "Partenza: a questa distanza a sinistra della bobina",
         "start_hint": "{{top}} cm: in cima alla rampa; {{half}} cm: a metà altezza."
@@ -580,9 +587,6 @@
         "hint_hand": "Trascini nella vista dall'alto: la sfera segue il Suo dito come farebbe una mano. Giri attorno al centro — lentamente all'inizio, circa una volta al secondo, poi più in fretta man mano che la pallina sale.",
         "hint_circle": "La sfera viene spinta lungo un cerchio di 2 cm al ritmo che Lei imposta. Se cambia il ritmo lentamente, la pallina segue; se lo cambia di colpo, resta indietro.",
         "hint_perfect": "Qui la sfera viene spinta con il miglior tempismo possibile. Osservi dove si trova la sfera mentre la pallina sale, e quanto velocemente gira alla fine.",
-        "pause": "Pausa",
-        "run": "Riprendi",
-        "restart": "Ricomincia",
         "tempo": "Ritmo",
         "change": "Cambiare il ritmo",
         "slowly": "Lentamente",
@@ -689,9 +693,6 @@
         "hint": "Spinga per avviare la rotazione, poi si sporga in fuori o si raddrizzi. La piattaforma gira tanto più in fretta quanto più Lei sta dritto.",
         "hint_auto": "Il visitatore si sporge in fuori, si raddrizza, tiene la posizione e si sporge di nuovo, più e più volte — osservi come la velocità lo segue.",
         "push": "Spingi",
-        "pause": "Pausa",
-        "run": "Riprendi",
-        "restart": "Ricomincia",
         "auto": "Automatico: sporgersi e raddrizzarsi",
         "auto_hint": "Tre secondi inclinato in fuori, due e mezzo dritto, e di nuovo inclinato — con una spinta se la piattaforma è ferma.",
         "lean": "Inclinazione verso l'esterno",
@@ -795,17 +796,9 @@
         "title": "Le lasci andare",
         "hint": "Avvii la corsa e osservi dove si trova ciascuna pallina. Appena una pallina arriva, compaiono il suo posto e il suo tempo, quello del motore di calcolo. Alla bandierina ogni pista finisce e la pallina vola avanti fino a una vasca imbottita, dove finiscono tutte e sei insieme.",
         "start": "Avvia",
-        "pause": "Pausa",
-        "run": "Riprendi",
         "view": "Sei piste da un'unica partenza a un unico traguardo, con una pallina su ciascuna",
         "auto": "Automatico: una corsa dopo l'altra",
-        "auto_hint": "La corsa riparte poco dopo l'arrivo dell'ultima pallina.",
-        "speed": "Velocità",
-        "speeds": {
-          "1": "Tempo reale",
-          "0_25": "¼",
-          "0_1": "⅒"
-        }
+        "auto_hint": "La corsa riparte poco dopo l'arrivo dell'ultima pallina."
       },
       "motion": {
         "hint": "La velocità e l’accelerazione di ogni pallina, come frecce da un unico punto e come numeri: x verso destra, y verso l’alto. Sulla sua pista la gravità accelera la pallina lungo di essa e la pista la fa curvare; in aria ogni pallina cade con la sola g, tutte le frecce uguali; nella vasca ogni urto contro l’imbottitura o un’altra pallina è uno strappo ben oltre la scala — la media su 5 ms, disegnata tratteggiata, il suo valore nella tabella.",
@@ -885,9 +878,6 @@
         "title": "Sulla proboscide",
         "hint": "La palla poggia sulla proboscide finché l'aria non la solleva. Cambi l'aria, inclini la proboscide o spinga la palla, e osservi dove l'aria la trattiene, e quando non ci riesce più.",
         "hint_auto": "La proboscide si inclina sempre di più, finché l'aria non riesce più a trattenere la palla; poi la palla viene rimessa sulla proboscide.",
-        "pause": "Pausa",
-        "run": "Riprendi",
-        "restart": "Ricomincia",
         "push_left": "Spingi a sinistra",
         "push_right": "Spingi a destra",
         "air": "Aria che esce dalla proboscide",
@@ -996,9 +986,6 @@
         "hint": "Trascini giù l'anello rigido e lo lasci andare, in fretta o lentamente, oppure prema il pulsante: è la rapidità a decidere se un anello vola.",
         "hint_auto": "Tre pressioni di seguito: un colpo secco, mezzo secondo e una spinta lenta. Guardi che cosa fa uscire ciascuna dal foro.",
         "press": "Premi",
-        "pause": "Pausa",
-        "run": "Riprendi",
-        "restart": "Ricomincia",
         "auto": "Automatico: tre pressioni",
         "auto_hint": "Un colpo secco di {{fast}} s, una pressione di {{best}} s e una spinta lenta di {{slow}} s, uno dopo l'altro.",
         "duration": "Durata della pressione",
@@ -1108,9 +1095,6 @@
         "title": "Al filo",
         "hint": "Trascini la pila verso l'alto nel disegno e la lasci andare, oppure imposti l'altezza e prema “Lascia cadere”: la risalita della palla piccola è segnata a destra, e sotto compaiono le forze dell'impatto.",
         "hint_auto": "Una palla, poi due, poi tre, ogni volta dalla stessa altezza: osservi come cresce la risalita della palla in cima.",
-        "pause": "Pausa",
-        "run": "Riprendi",
-        "restart": "Ricomincia",
         "height": "Altezza della palla in basso",
         "drop": "Lascia cadere",
         "drag": "Oppure trascini la pila verso l'alto nel disegno e la lasci andare.",
@@ -1213,15 +1197,6 @@
       "play": {
         "title": "Lasciare oscillare la fila",
         "hint": "L'orologio corre. Salti a una frazione del ciclo, oppure cambi da quanto lontano vengono lasciati i pendoli.",
-        "pause": "Pausa",
-        "run": "Continua",
-        "restart": "Dall'inizio",
-        "speed": "Velocità",
-        "speeds": {
-          "1": "Tempo reale",
-          "2": "Doppia",
-          "5": "Quintupla"
-        },
         "jump": "Salta a:",
         "jumps": {
           "2": "½ ciclo",
@@ -1308,17 +1283,9 @@
       "play": {
         "title": "Lasciare disegnare",
         "hint": "La penna disegna in accelerato. Cambi qui sotto il rapporto dei pendoli, e comincia un nuovo disegno.",
-        "pause": "Pausa",
-        "run": "Continua",
         "finish": "Completare il disegno",
         "restart": "Ridisegnare",
         "save": "Salvare l'immagine",
-        "speed": "Velocità",
-        "speeds": {
-          "1": "Tempo reale",
-          "5": "Quintupla",
-          "20": "Venti volte"
-        },
         "time": "Disegnato",
         "ratio": "Vicino al rapporto {{p}} : {{q}} (penna : tavola)",
         "detune": "Scarto",
@@ -1390,13 +1357,6 @@
         "hint_down": "Il cono è all'estremità alta. Lo lasci andare e guardi dove rotola.",
         "hint_stays": "Il cono è all'estremità bassa. Lo lasci andare e guardi dove rotola.",
         "let_go": "Lasciare",
-        "pause": "Pausa",
-        "run": "Continua",
-        "speed": "Velocità",
-        "speeds": {
-          "100": "Tempo reale",
-          "25": "Rallentatore (¼)"
-        },
         "verdict_up": "I binari salgono, l'asse del cono scende: rotola in su.",
         "verdict_down": "I binari salgono più di quanto il cono si abbassi: rotola in giù.",
         "verdict_stays": "Asse esattamente orizzontale: il cono resta fermo.",
@@ -1480,18 +1440,11 @@
       "play": {
         "title": "Far girare il piatto",
         "hint": "Imposti la velocità. Il recipiente segue subito, l'acqua ha bisogno del suo tempo – in accelerato la si vede recuperare.",
-        "pause": "Pausa",
-        "run": "Continua",
         "stop": "Spegnere il piatto",
         "frame": "Vista dall'alto",
         "frames": {
           "outside": "Da fuori",
           "turning": "Girando insieme"
-        },
-        "speed": "Velocità",
-        "speeds": {
-          "1": "Tempo reale",
-          "10": "Dieci volte"
         },
         "rate": "Velocità del piatto",
         "rpm": "giri/min",
@@ -1571,18 +1524,11 @@
       "play": {
         "title": "Spingere i pendoli",
         "hint": "Scelga come vengono lasciati andare i pendoli. Le barre mostrano quanta energia c'è in ciascuno in questo momento.",
-        "pause": "Pausa",
-        "run": "Continua",
         "let_go": "Lasciare:",
         "starts": {
           "one": "Solo il sinistro",
           "together": "Entrambi uguali",
           "against": "Uno contro l'altro"
-        },
-        "speed": "Velocità",
-        "speeds": {
-          "1": "Tempo reale",
-          "3": "Tripla"
         },
         "energy": "Energia dei due pendoli",
         "left": "Pendolo sinistro",
@@ -1649,13 +1595,6 @@
         "hint": "Trascini il piolo in su o in giù, oppure scelga qui sotto uno dei tre casi.",
         "drag_hint": "Oppure afferri la sfera con il mouse o con il dito, la sposti di lato e la lasci andare.",
         "let_go": "Lasciare",
-        "pause": "Pausa",
-        "run": "Continua",
-        "speed": "Velocità",
-        "speeds": {
-          "100": "Tempo reale",
-          "25": "Rallentatore (¼)"
-        },
         "outcome_same_height": "Al piolo la sfera sale esattamente quanto dall'altra parte.",
         "outcome_slack": "Troppo slancio per il cerchio piccolo, troppo poco per il giro: il filo si allenta.",
         "outcome_over_the_top": "Slancio sufficiente: la sfera fa il giro attorno al piolo.",
@@ -1725,14 +1664,6 @@
         "title": "Lasciare andare la ruota",
         "hint": "Al rallentatore più lento si vede lo strappo in basso: i nastri si allungano di pochi millimetri e rilanciano la ruota.",
         "let_go": "Lasciare",
-        "pause": "Pausa",
-        "run": "Continua",
-        "speed": "Velocità",
-        "speeds": {
-          "100": "Tempo reale",
-          "25": "Rallentatore (¼)",
-          "5": "Molto lento (1/20)"
-        },
         "phases": {
           "down": "Si sta srotolando.",
           "jerk": "In basso: i nastri si allungano e la rilanciano.",
@@ -1812,8 +1743,6 @@
         "title": "Lasciare andare due pendoli",
         "hint": "Il pendolo deciso e il suo gemello più pallido partono quasi uguali. Osservi quando si separano.",
         "let_go": "Lasciare",
-        "pause": "Pausa",
-        "run": "Continua",
         "presets_label": "Partenza:",
         "presets": {
           "gentle": "Dolce",
@@ -1823,11 +1752,6 @@
         "upper": "Braccio superiore alla partenza",
         "lower": "Braccio inferiore alla partenza",
         "nudge": "Differenza del gemello",
-        "speed": "Velocità",
-        "speeds": {
-          "100": "Tempo reale",
-          "25": "Rallentatore (¼)"
-        },
         "time": "Tempo",
         "gap": "Distanza tra i due: {{gap}}"
       },
@@ -1889,19 +1813,11 @@
       "play": {
         "title": "Aprire il rubinetto",
         "hint": "Regoli il rubinetto su poca acqua, su di più e su molta, e guardi che cosa fa la ruota ogni volta.",
-        "pause": "Pausa",
-        "run": "Continua",
-        "restart": "Dall'inizio",
         "tap": "Rubinetto",
         "tap_hint": "ρ: quanta acqua entra, misurata rispetto alle perdite e al freno.",
         "brake": "Freno",
         "brake_hint": "σ: quanto frena l'asse, misurato rispetto all'inerzia della ruota e alle perdite.",
         "turn_hint": "Oppure giri con il mouse o con il dito la leva del rubinetto e la manopola sull'asse, il freno. Quando la lascia, la ruota riparte dall'inizio.",
-        "speed": "Velocità",
-        "speeds": {
-          "1": "Tempo reale",
-          "4": "Quadrupla"
-        },
         "regime_still": "Troppo poca acqua: le perdite la portano via prima che il secchiello in alto diventi abbastanza pesante. La ruota sta ferma.",
         "regime_steady": "La ruota gira regolarmente in un verso – quale, lo decide la prima piccola spinta.",
         "regime_chaotic": "Caos: la ruota non trova alcuna rotazione regolare. Cambia verso senza seguire uno schema.",
@@ -1955,9 +1871,6 @@
       "play": {
         "title": "Lasciar girare la Terra",
         "hint": "In accelerato si vede il piano avanzare e i birilli cadere. Scelga un altro luogo, e il ritmo cambia.",
-        "pause": "Pausa",
-        "run": "Continua",
-        "restart": "Dall'inizio",
         "places_label": "Luogo:",
         "places": {
           "winterthur": "Winterthur",
@@ -2080,19 +1993,11 @@
         "hint": "Lasci cadere una sfera, poi due, e conti quante ne volano via all'altra estremità.",
         "drag_hint": "Oppure afferri una delle sfere a sinistra con il mouse o con il dito, la sollevi e la lasci andare.",
         "let_go": "Lasciare",
-        "pause": "Pausa",
-        "run": "Continuare",
         "lifted": "Sfere sollevate",
         "spacing": "Tra le sfere",
         "spacings": {
           "touching": "A contatto",
           "gap": "0,1 mm d'aria"
-        },
-        "speed": "Velocità",
-        "speeds": {
-          "100": "Tempo reale",
-          "25": "4× più lento",
-          "10": "10× più lento"
         },
         "angle": "Deviazione",
         "restitution": "Quanto restituisce un urto",
@@ -2153,13 +2058,6 @@
         "hint": "«Cerchio» lancia la pallina esattamente alla velocità che la terrebbe su un cerchio senza attrito. Con l'attrito scende giro dopo giro; il grafico confronta ogni giro con Keplero.",
         "launch": "Lanciare",
         "circle": "Cerchio",
-        "pause": "Pausa",
-        "run": "Continuare",
-        "speed": "Velocità",
-        "speeds": {
-          "1": "Tempo reale",
-          "4": "4× più veloce"
-        },
         "push": "Velocità del lancio",
         "aim": "Direzione",
         "aim_hint": "Rispetto alla direzione del bordo, positiva verso il buco.",
@@ -2220,19 +2118,12 @@
         "stop": "Fermare",
         "sweep": "Scorrere",
         "calm": "A riposo",
-        "speed": "Velocità",
-        "speeds": {
-          "1": "Tempo reale",
-          "4": "4× più veloce"
-        },
         "beat": "Ritmo del tavolo",
         "beat_hint": "Quante volte al secondo il tavolo va avanti e indietro.",
         "sweeping": "Il ritmo sale di 0,05 Hz al secondo; sposti il cursore per fermarlo.",
         "damping": "Smorzamento",
         "damping_hint": "Quanto in fretta un'asta torna da sola a riposo: la frazione dello smorzamento a cui non oscillerebbe più.",
-        "sound": "Suono",
         "sound_hint": "Ogni asta suona alla sua frequenza propria, sette ottave più in alto, tanto forte quanto oscilla.",
-        "no_sound": "Questo browser non può produrre suoni.",
         "widest": "Oscillazione massima",
         "table": "Il tavolo, avanti e indietro",
         "rod": "Asta {{n}} ({{hz}} Hz)"
@@ -2289,17 +2180,10 @@
         "title": "Far girare e lasciare",
         "hint": "Lasci andare la ruota una volta ferma, poi a 200 giri/min. Mostrato quattro volte più lento, si vede l'asse annuire.",
         "let_go": "Lasciare",
-        "pause": "Pausa",
-        "run": "Continuare",
         "start": "Al rilascio",
         "starts": {
           "rest": "Ferma",
           "steady": "Già in cerchio"
-        },
-        "speed": "Velocità",
-        "speeds": {
-          "100": "Tempo reale",
-          "25": "4× più lento"
         },
         "rpm": "Rotazione della ruota",
         "rpm_unit": "giri/min",
@@ -2412,9 +2296,7 @@
         "tones": "I suoni a cui la lastra suona",
         "drive": "Suono del vibratore",
         "drive_hint": "Logaritmico: ogni passo uguale è un uguale intervallo musicale.",
-        "sound": "Suono",
         "sound_hint": "Il suono del vibratore, forte quando la lastra suona, piano tra un suono e l'altro.",
-        "no_sound": "Questo browser non può produrre suoni.",
         "nearest": "Suono più vicino della lastra",
         "swing": "Vibrazione al centro",
         "swing_hint": "Quanto forte vibra il centro della lastra, rispetto alla sua vibrazione al suono più grave."
@@ -2528,16 +2410,9 @@
         "title": "Caricare e commutare",
         "hint": "Il condensatore è carico. Sposti il deviatore sulla bobina e osservi l’ago. La molla sotto segue la stessa equazione.",
         "throw": "Commutare",
-        "pause": "Fermare",
-        "run": "Continuare",
         "recharge": "Ricaricare",
         "charged": "Il condensatore è carico a {{voltage}} V; il deviatore è sulla batteria.",
         "caption": "Sopra il circuito, con un amperometro da ±{{range}} mA; sotto la molla con la massa L, la rigidità 1/C e l’attrito R.",
-        "speed": "Velocità",
-        "speeds": {
-          "real": "Tempo reale",
-          "slow": "Rallentatore (¼)"
-        },
         "energy": "Dove si trova l’energia",
         "capacitor": "nel condensatore",
         "coil": "nella bobina",
@@ -2644,14 +2519,7 @@
         "title": "Lasciarle cadere",
         "hint": "Le quattro piastre sono appese in cima alle fessure. Le lasci andare insieme e guardi quale arriva prima in fondo. Accanto vede una piastra da vicino, con le sue correnti parassite.",
         "drop": "Lasciare",
-        "pause": "Fermare",
-        "run": "Continuare",
         "top": "Di nuovo in cima",
-        "speed": "Velocità",
-        "speeds": {
-          "real": "Tempo reale",
-          "slow": "Rallentatore (¼)"
-        },
         "look": "Da vicino",
         "caption": "La colonna di fronte, schematica: i magneti accanto a ogni fessura, nord e sud alternati; {{drop}} cm di caduta, {{field}} T nella fessura.",
         "closeup_caption": "Viaggiando con la piastra: dietro di lei passano nord e sud, dentro di lei girano le correnti parassite.",
@@ -2768,17 +2636,8 @@
         "title": "Lasciarle cadere",
         "hint": "Le due palle pendono sopra la piastra. Le lasci andare e ascolti: con il suono acceso, ogni colpo fa clic. Sotto, ogni colpo su un asse del tempo.",
         "drop": "Lasciare",
-        "pause": "Fermare",
-        "run": "Continuare",
         "top": "Sollevarle di nuovo",
-        "speed": "Velocità",
-        "speeds": {
-          "real": "Tempo reale",
-          "slow": "Rallentatore (¼)"
-        },
-        "sound": "Suono",
         "sound_hint": "Un clic a ogni colpo, forte quanto il colpo. Muto finché non lo accende.",
-        "no_sound": "Il suo browser non può produrre suoni qui.",
         "waiting": "Le palle pendono sopra la piastra e aspettano.",
         "caption": "Le palle in grandezza reale sopra la piastra, da {{height}} cm; sotto, ogni colpo sull’asse del tempo, finché entrambe sono ferme.",
         "time": "Tempo",
@@ -2922,8 +2781,6 @@
       "play": {
         "title": "Stringere la bottiglia",
         "hint": "Stringa la bottiglia con il cursore. Provi a tenere il diavoletto sospeso a metà.",
-        "pause": "Fermare",
-        "run": "Continuare",
         "surface": "In superficie",
         "squeeze": "Pressione della mano",
         "squeeze_hint": "Di quanto la mano aumenta la pressione nella bottiglia.",
@@ -3277,9 +3134,7 @@
         "title": "Colpire i diapason",
         "hint": "Colpisca entrambi i diapason e veda – o senta – il suono crescere e svanire.",
         "strike": "Colpire",
-        "sound": "Suono",
         "sound_hint": "Riproduce i due diapason; il suo orecchio sente da solo i battimenti.",
-        "no_sound": "Il suo browser non può produrre suoni qui.",
         "caption": "In alto i diapason e il loro suono insieme al rallentatore; in basso l’intensità dal colpo: continua i due insieme, tratteggiata uno solo.",
         "slow": "Il suono adesso, {{ms}} ms al rallentatore",
         "waiting": "I diapason tacciono. Li colpisca.",

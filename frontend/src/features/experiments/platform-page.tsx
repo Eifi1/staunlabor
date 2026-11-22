@@ -1,6 +1,6 @@
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useMemo, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { Hand, Pause, Play, RotateCcw } from "lucide-react";
+import { Hand } from "lucide-react";
 import { Button, LoadingState, Switch } from "@eifi1/ui-kit";
 import { SeriesChart } from "@/shared/charts/series-chart";
 import { useLocale } from "@/shared/i18n/use-locale";
@@ -12,11 +12,12 @@ import { Figures, WidgetCard } from "@/shared/ui/widget";
 import { Equation } from "./equation";
 import { ExhibitFrame } from "./exhibit-frame";
 import { BuildPending } from "./build-pending";
-import { settingNumber, useCheckRequest, useCheckSetting } from "./check-setting";
+import { settingNumber, useCheckSetting, useTakeCheckRequest } from "./check-setting";
 import { PlatformView } from "./platform-view";
 import { frictionStep, inertia, pullN, run, type Move, type Posture } from "./simulate/platform";
 import { PreviewPending, type PreviewMode, type PreviewProps } from "./preview-mode";
-import { startsRunning } from "./play";
+import { useFrameLoop, useRunning } from "./play";
+import { RestartButton, RunPauseButton } from "./play-controls";
 import { STAGE } from "./stage";
 import { useExperimentsDefaults, usePlatformFigures } from "./use-experiments";
 
@@ -73,15 +74,12 @@ export function PlatformPage() {
   const figures = usePlatformFigures(exhibit);
   // A check case's "Set it up": the bearing's friction here, which builds the
   // play anew; the lean is the play's, which takes the case once it is built.
-  const request = useCheckRequest("platform");
-  const [seen, setSeen] = useState<number | null>(null);
-  if (request && !request.done && request.nonce !== seen && exhibit) {
-    setSeen(request.nonce);
-    const friction = settingNumber(request.setting, "friction_n_m", exhibit.platform.friction_n_m);
-    if (friction !== exhibit.platform.friction_n_m) {
-      setBuild({ ...exhibit, platform: { ...exhibit.platform, friction_n_m: friction } });
+  useTakeCheckRequest("platform", exhibit, (setting, current) => {
+    const friction = settingNumber(setting, "friction_n_m", current.platform.friction_n_m);
+    if (friction !== current.platform.friction_n_m) {
+      setBuild({ ...current, platform: { ...current.platform, friction_n_m: friction } });
     }
-  }
+  });
 
   return (
     <ExhibitFrame
@@ -123,35 +121,24 @@ function PlatformPlay({ exhibit, preview = false, paused = false }: { exhibit: P
   if (sim.current === null) sim.current = { momentum: 0, angle: 0, clock: 0 };
   const [lean, setLean] = useState(LEANING.lean_m);
   const [auto, setAuto] = useState(preview);
-  const [runningHere, setRunning] = useState(startsRunning);
-  const running = preview ? !paused : runningHere;
+  const { running, setRunning } = useRunning({ preview, paused });
   const [view, setView] = useState<View>({ angle: 0, momentum: 0, posture: LEANING });
   const body = exhibit.body;
   const platform = exhibit.platform;
 
   // Every frame: the bearing takes its share of the momentum, the lean is the
   // reader's (or the auto mode's), and the platform turns by L/I.
-  useEffect(() => {
-    if (!running) return;
-    let raf = 0;
-    let last = performance.now();
-    const tick = (now: number) => {
-      const current = sim.current;
-      if (!current) return;
-      const dt = Math.min(0.05, (now - last) / 1000);
-      last = now;
-      current.clock += dt;
-      if (auto && current.momentum === 0) current.momentum = PUSH;
-      const posture = auto ? autoPosture(current.clock) : { lean_m: lean };
-      const omega = current.momentum / inertia(body, platform, posture).total;
-      current.angle += omega * dt;
-      current.momentum = frictionStep(current.momentum, platform.friction_n_m, dt);
-      setView({ angle: current.angle, momentum: current.momentum, posture });
-      raf = requestAnimationFrame(tick);
-    };
-    raf = requestAnimationFrame(tick);
-    return () => cancelAnimationFrame(raf);
-  }, [running, auto, lean, body, platform]);
+  useFrameLoop(running, (dt) => {
+    const current = sim.current;
+    if (!current) return;
+    current.clock += dt;
+    if (auto && current.momentum === 0) current.momentum = PUSH;
+    const posture = auto ? autoPosture(current.clock) : { lean_m: lean };
+    const omega = current.momentum / inertia(body, platform, posture).total;
+    current.angle += omega * dt;
+    current.momentum = frictionStep(current.momentum, platform.friction_n_m, dt);
+    setView({ angle: current.angle, momentum: current.momentum, posture });
+  });
 
   const push = () => {
     if (sim.current) sim.current.momentum += Math.sign(sim.current.momentum || 1) * PUSH;
@@ -190,14 +177,8 @@ function PlatformPlay({ exhibit, preview = false, paused = false }: { exhibit: P
             <Hand className="size-4" aria-hidden />
             {t("experiments.platform.play.push")}
           </Button>
-          <Button variant="secondary" size="sm" onClick={() => setRunning(!running)}>
-            {running ? <Pause className="size-4" aria-hidden /> : <Play className="size-4" aria-hidden />}
-            {running ? t("experiments.platform.play.pause") : t("experiments.platform.play.run")}
-          </Button>
-          <Button variant="secondary" size="sm" onClick={restart}>
-            <RotateCcw className="size-4" aria-hidden />
-            {t("experiments.platform.play.restart")}
-          </Button>
+          <RunPauseButton running={running} onToggle={() => setRunning(!running)} />
+          <RestartButton onClick={restart} />
         </>
       }
     >

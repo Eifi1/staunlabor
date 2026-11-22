@@ -1,6 +1,6 @@
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useMemo, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { Download, FastForward, Pause, Play, RotateCcw } from "lucide-react";
+import { Download, FastForward } from "lucide-react";
 import { Button, LoadingState, ToggleGroup } from "@eifi1/ui-kit";
 import { useLocale } from "@/shared/i18n/use-locale";
 import { formatNumber } from "@/shared/lib/format";
@@ -12,7 +12,8 @@ import { ExhibitFrame } from "./exhibit-frame";
 import { BuildPending } from "./build-pending";
 import { settingNumber, useCheckSetting } from "./check-setting";
 import { PreviewPending, type PreviewMode, type PreviewProps } from "./preview-mode";
-import { startsRunning } from "./play";
+import { useFrameLoop, useRunning } from "./play";
+import { RestartButton, RunPauseButton, SpeedToggle } from "./play-controls";
 import {
   advance,
   figures as harmonographFigures,
@@ -142,11 +143,10 @@ function HarmonographPlay({ h, preview = false, paused = false }: { h: Harmonogr
   const ink = hue(INK_HUE);
   const canvas = useRef<HTMLCanvasElement | null>(null);
   const drawing = useRef<DrawingState>(startDrawing(h));
-  const [runningHere, setRunning] = useState(startsRunning);
+  const { running, setRunning } = useRunning({ preview, paused });
   const [speedHere, setSpeed] = useState<Speed>(5);
   const [time, setTime] = useState(0);
   const [pen, setPen] = useState<[number, number]>(() => penAt(h, startDrawing(h)));
-  const running = preview ? !paused : runningHere;
   const speed = preview ? PREVIEW_SPEED : speedHere;
   const extent = extentOf(h);
   const maxSteps = Math.round(MAX_DURATION_S / STEP_S);
@@ -176,31 +176,19 @@ function HarmonographPlay({ h, preview = false, paused = false }: { h: Harmonogr
     setPen(penAt(h, drawing.current));
   };
 
-  useEffect(() => {
-    if (!running) return;
-    let raf = 0;
-    let last = performance.now();
-    let owed = 0;
-    const tick = (now: number) => {
-      // A frame's timestamp can lie a little before the effect started: never a
-      // step back in time.
-      const dt = Math.max(0, Math.min(0.05, (now - last) / 1000));
-      last = now;
-      owed += (dt * speed) / STEP_S;
-      const steps = Math.floor(owed);
-      owed -= steps;
-      if (preview && drawing.current.i * STEP_S >= PREVIEW_LOOP_S) {
-        drawing.current = startDrawing(h);
-        canvas.current?.getContext("2d")?.clearRect(0, 0, CANVAS_PX, CANVAS_PX);
-      }
-      drawOn(steps);
-      raf = requestAnimationFrame(tick);
-    };
-    raf = requestAnimationFrame(tick);
-    return () => cancelAnimationFrame(raf);
-    // drawOn reads the refs and the build, which a new build remounts for.
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [running, speed, preview]);
+  // The steps owed to the clock: a frame at five times real speed is not a
+  // whole number of steps, and the rest carries to the next frame.
+  const owed = useRef(0);
+  useFrameLoop(running, (dt) => {
+    owed.current += (dt * speed) / STEP_S;
+    const steps = Math.floor(owed.current);
+    owed.current -= steps;
+    if (preview && drawing.current.i * STEP_S >= PREVIEW_LOOP_S) {
+      drawing.current = startDrawing(h);
+      canvas.current?.getContext("2d")?.clearRect(0, 0, CANVAS_PX, CANVAS_PX);
+    }
+    drawOn(steps);
+  });
 
   /** The picture as a PNG, on the page's own background, made in the browser. */
   const save = () => {
@@ -251,18 +239,12 @@ function HarmonographPlay({ h, preview = false, paused = false }: { h: Harmonogr
       hint={t("experiments.harmonograph.play.hint")}
       actions={
         <>
-          <Button variant="secondary" size="sm" disabled={done} onClick={() => setRunning(!running)}>
-            {running ? <Pause className="size-4" aria-hidden /> : <Play className="size-4" aria-hidden />}
-            {running ? t("experiments.harmonograph.play.pause") : t("experiments.harmonograph.play.run")}
-          </Button>
+          <RunPauseButton running={running} disabled={done} onToggle={() => setRunning(!running)} />
           <Button variant="secondary" size="sm" disabled={done} onClick={() => drawOn(maxSteps)}>
             <FastForward className="size-4" aria-hidden />
             {t("experiments.harmonograph.play.finish")}
           </Button>
-          <Button variant="secondary" size="sm" onClick={restart}>
-            <RotateCcw className="size-4" aria-hidden />
-            {t("experiments.harmonograph.play.restart")}
-          </Button>
+          <RestartButton onClick={restart} label={t("experiments.harmonograph.play.restart")} />
           <Button variant="secondary" size="sm" onClick={save}>
             <Download className="size-4" aria-hidden />
             {t("experiments.harmonograph.play.save")}
@@ -278,15 +260,7 @@ function HarmonographPlay({ h, preview = false, paused = false }: { h: Harmonogr
           </figcaption>
         </figure>
         <div className="space-y-4">
-          <ToggleGroup
-            label={t("experiments.harmonograph.play.speed")}
-            labelPlacement="above"
-            size="sm"
-            overflow="wrap"
-            value={String(speed)}
-            onChange={(v: string) => setSpeed(Number(v) as Speed)}
-            options={SPEEDS.map((s) => ({ value: String(s), label: t(`experiments.harmonograph.play.speeds.${s}`) }))}
-          />
+          <SpeedToggle speeds={SPEEDS} value={speedHere} onChange={setSpeed} />
           <Figures
             tiles={[{ key: "time", label: t("experiments.harmonograph.play.time"), value: time, digits: 0, unit: "s" }]}
           />

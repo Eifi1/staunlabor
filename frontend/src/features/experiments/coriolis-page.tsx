@@ -1,18 +1,20 @@
-import { useEffect, useMemo, useRef, useState, type PointerEvent } from "react";
+import { useMemo, useRef, useState, type PointerEvent } from "react";
 import { useTranslation } from "react-i18next";
-import { Crosshair, Pause, Play, Send } from "lucide-react";
+import { Crosshair, Send } from "lucide-react";
 import { Button, ToggleGroup } from "@eifi1/ui-kit";
 import { useLocale } from "@/shared/i18n/use-locale";
 import { formatNumber } from "@/shared/lib/format";
 import { useChartHue } from "@/shared/state/palette-store";
 import { holdTouch } from "@/shared/ui/grab";
+import { svgPoint } from "@/shared/ui/svg-point";
 import { SliderField } from "@/shared/ui/slider-field";
 import { Figures, WidgetCard } from "@/shared/ui/widget";
 import { Equation } from "./equation";
 import { ExhibitFrame } from "./exhibit-frame";
 import { BuildPending } from "./build-pending";
 import { PreviewPending, type PreviewMode, type PreviewProps } from "./preview-mode";
-import { startsRunning } from "./play";
+import { useFrameLoop, useRunning } from "./play";
+import { RunPauseButton } from "./play-controls";
 import { settingNumber, useCheckSetting } from "./check-setting";
 import { HeldAnswer, useHeld } from "./held";
 import { leadDeg, path, rateOf, type Body, type Carousel, type Throw } from "./simulate/coriolis";
@@ -131,17 +133,8 @@ function CarouselView({
   const last = upto - 1;
   // The pointer in the drawing's metres, y up as the platform's.
   const at = (svg: SVGSVGElement, clientX: number, clientY: number): [number, number] | null => {
-    const matrix = svg.getScreenCTM?.();
-    if (matrix) {
-      const p = new DOMPoint(clientX, clientY).matrixTransform(matrix.inverse());
-      return [p.x, -p.y];
-    }
-    const box = svg.getBoundingClientRect();
-    if (!box.width || !box.height) return null;
-    return [
-      -reach + ((clientX - box.left) / box.width) * 2 * reach,
-      reach - ((clientY - box.top) / box.height) * 2 * reach,
-    ];
+    const p = svgPoint(svg, clientX, clientY);
+    return p && [p[0], -p[1]];
   };
   const pullTo = (p: [number, number]) => {
     // The throw points from the pull back through the seat.
@@ -335,7 +328,7 @@ function CoriolisPlay({
   const [throwOf, setThrow] = useState<Throw>({ speed_m_s: 3, aim_deg: 0, body: "puck" });
   const [frameHere, setFrame] = useState<Frame>("riding");
   const [time, setTime] = useState(0);
-  const [runningHere, setRunning] = useState(startsRunning);
+  const { running, setRunning } = useRunning({ preview, paused });
   const clock = useRef(0);
   // The aim that hits, and the button that sets it, once the reader has thrown
   // with an aim of their own: before, the twin throws straight at the other seat.
@@ -343,24 +336,13 @@ function CoriolisPlay({
   const frame = preview ? "riding" : frameHere;
   const route = useMemo(() => path(c, throwOf), [c, throwOf]);
   const lead = useMemo(() => leadDeg(c, throwOf.speed_m_s, throwOf.body), [c, throwOf.speed_m_s, throwOf.body]);
-  const running = preview ? !paused : runningHere;
 
-  useEffect(() => {
-    if (!running) return;
-    let raf = 0;
-    let last = performance.now();
-    const tick = (now: number) => {
-      const dt = Math.max(0, Math.min(0.05, (now - last) / 1000));
-      last = now;
-      clock.current += dt;
-      // Replayed over and over: the throw, a moment at its end, again.
-      if (clock.current > route.leaves_s + REST_S) clock.current = 0;
-      setTime(clock.current);
-      raf = requestAnimationFrame(tick);
-    };
-    raf = requestAnimationFrame(tick);
-    return () => cancelAnimationFrame(raf);
-  }, [running, route.leaves_s]);
+  useFrameLoop(running, (dt) => {
+    clock.current += dt;
+    // Replayed over and over: the throw, a moment at its end, again.
+    if (clock.current > route.leaves_s + REST_S) clock.current = 0;
+    setTime(clock.current);
+  });
 
   // A throw is thrown to be watched: it sets the carousel going.
   const throwAgain = (aimDeg = throwOf.aim_deg) => {
@@ -440,10 +422,7 @@ function CoriolisPlay({
               {t("experiments.coriolis.play.aim_lead")}
             </Button>
           )}
-          <Button variant="secondary" size="sm" onClick={() => setRunning(!running)}>
-            {running ? <Pause className="size-4" aria-hidden /> : <Play className="size-4" aria-hidden />}
-            {running ? t("experiments.play.pause") : t("experiments.play.run")}
-          </Button>
+          <RunPauseButton running={running} onToggle={() => setRunning(!running)} />
         </>
       }
     >

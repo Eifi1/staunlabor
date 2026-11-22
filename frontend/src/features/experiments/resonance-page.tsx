@@ -1,7 +1,7 @@
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useMemo, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Pause, Play, RotateCcw, TrendingUp } from "lucide-react";
-import { Button, StaticLegend, Switch, ToggleGroup, seriesLegendEntries } from "@eifi1/ui-kit";
+import { Button, StaticLegend, seriesLegendEntries } from "@eifi1/ui-kit";
 import { SeriesChart } from "@/shared/charts/series-chart";
 import { useLocale } from "@/shared/i18n/use-locale";
 import { formatNumber } from "@/shared/lib/format";
@@ -14,6 +14,8 @@ import { ExhibitFrame } from "./exhibit-frame";
 import { BuildPending } from "./build-pending";
 import { HeldAnswer, useHeld } from "./held";
 import { PreviewPending, type PreviewMode, type PreviewProps } from "./preview-mode";
+import { useFrameLoop, useRunning } from "./play";
+import { SoundSwitch, SpeedToggle } from "./play-controls";
 import { naturalHz, shape, start, steadyM, step, swingM, STEP_S, type Rack, type Shaking } from "./simulate/resonance";
 import { SIDE, VIEW_FRAME } from "./stage";
 import { useExperimentsDefaults } from "./use-experiments";
@@ -185,49 +187,38 @@ function ResonancePlay({
   const [chartDrive, setChartDrive] = useState(first);
   const held = useHeld();
   const { show } = held;
-  const [runningHere, setRunning] = useState(false);
+  const { running, setRunning } = useRunning({ preview, paused, initially: false });
   const [speedHere, setSpeed] = useState<Speed>(1);
   const [sound, setSound] = useState(false);
-  const running = preview ? !paused : runningHere;
   const speed = preview ? 1 : speedHere;
 
-  useEffect(() => {
-    if (!running) return;
-    let raf = 0;
-    let last = performance.now();
-    const tick = (now: number) => {
-      const dt = Math.max(0, Math.min(0.05, (now - last) / 1000));
-      last = now;
-      const m = sim.current;
-      m.owed += (dt * speed) / STEP_S;
-      let noted = false;
-      while (m.owed >= 1) {
-        m.s = step(rack, m.s, m.drive);
-        m.owed -= 1;
-        m.i += 1;
-        if (m.sweeping) {
-          m.drive += SWEEP_HZ_PER_S * STEP_S;
-          if (m.i % RECORD_EVERY === 0) {
-            m.recorded.push({ hz: m.drive, swings: rack.lengths_m.map((_, rod) => swingM(m.s, rod, m.drive)) });
-          }
-          if (m.i % REDRAW_EVERY === 0) noted = true;
-          if (m.drive >= SWEEP_TO_HZ) {
-            m.sweeping = false;
-            noted = true;
-          }
+  useFrameLoop(running, (dt) => {
+    const m = sim.current;
+    m.owed += (dt * speed) / STEP_S;
+    let noted = false;
+    while (m.owed >= 1) {
+      m.s = step(rack, m.s, m.drive);
+      m.owed -= 1;
+      m.i += 1;
+      if (m.sweeping) {
+        m.drive += SWEEP_HZ_PER_S * STEP_S;
+        if (m.i % RECORD_EVERY === 0) {
+          m.recorded.push({ hz: m.drive, swings: rack.lengths_m.map((_, rod) => swingM(m.s, rod, m.drive)) });
+        }
+        if (m.i % REDRAW_EVERY === 0) noted = true;
+        if (m.drive >= SWEEP_TO_HZ) {
+          m.sweeping = false;
+          noted = true;
         }
       }
-      setFrame({ s: m.s, drive: m.drive, sweeping: m.sweeping });
-      if (!preview && rack.lengths_m.some((_, rod) => swingM(m.s, rod, m.drive) >= FOUND_M)) show();
-      if (noted) {
-        setRecorded([...m.recorded]);
-        setChartDrive(m.drive);
-      }
-      raf = requestAnimationFrame(tick);
-    };
-    raf = requestAnimationFrame(tick);
-    return () => cancelAnimationFrame(raf);
-  }, [running, speed, rack, preview, show]);
+    }
+    setFrame({ s: m.s, drive: m.drive, sweeping: m.sweeping });
+    if (!preview && rack.lengths_m.some((_, rod) => swingM(m.s, rod, m.drive) >= FOUND_M)) show();
+    if (noted) {
+      setRecorded([...m.recorded]);
+      setChartDrive(m.drive);
+    }
+  });
 
   const swings = rack.lengths_m.map((_, rod) => swingM(frame.s, rod, frame.drive));
   const pitches = useMemo(() => rack.lengths_m.map((length) => naturalHz(rack, length) * OCTAVES_UP), [rack]);
@@ -348,14 +339,7 @@ function ResonancePlay({
     >
       <div className={`${SIDE.grid} ${SIDE.cap.xl}`}>
         <div className={`${SIDE.top} flex flex-wrap gap-4`}>
-          <ToggleGroup
-            label={t("experiments.resonance.play.speed")}
-            labelPlacement="above"
-            size="sm"
-            value={String(speed)}
-            onChange={(v: string) => setSpeed(Number(v) as Speed)}
-            options={SPEEDS.map((v) => ({ value: String(v), label: t(`experiments.resonance.play.speeds.${v}`) }))}
-          />
+          <SpeedToggle speeds={SPEEDS} value={speed} onChange={setSpeed} />
         </div>
         <div className={`${SIDE.views} mx-auto w-full max-w-xl`}>{view}</div>
         <div className={SIDE.column}>
@@ -381,14 +365,11 @@ function ResonancePlay({
             hint={t("experiments.resonance.play.damping_hint")}
             onChange={(v) => onChange?.({ ...rack, damping_ratio: v })}
           />
-          <Switch
-            label={t("experiments.resonance.play.sound")}
-            description={
-              tones.available ? t("experiments.resonance.play.sound_hint") : t("experiments.resonance.play.no_sound")
-            }
+          <SoundSwitch
             checked={sound}
-            disabled={!tones.available}
-            onCheckedChange={setSound}
+            onChange={setSound}
+            available={tones.available}
+            hint={t("experiments.resonance.play.sound_hint")}
           />
           <Figures
             tiles={[

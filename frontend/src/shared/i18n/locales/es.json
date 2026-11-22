@@ -166,7 +166,23 @@
     },
     "play": {
       "pause": "Pausa",
-      "run": "Seguir"
+      "run": "Seguir",
+      "restart": "Empezar de nuevo",
+      "speed": "Velocidad",
+      "speeds": {
+        "0_05": "Cámara lenta (1/20)",
+        "0_1": "Cámara lenta (⅒)",
+        "0_25": "Cámara lenta (¼)",
+        "1": "Tiempo real",
+        "2": "Doble",
+        "3": "Triple",
+        "4": "Cuádruple",
+        "5": "Quíntuple",
+        "10": "Diez veces",
+        "20": "Veinte veces"
+      },
+      "sound": "Sonido",
+      "no_sound": "Este navegador no puede producir sonidos."
     },
     "exhibits": {
       "chair": {
@@ -449,9 +465,6 @@
       "play": {
         "title": "En los botones",
         "hint": "Mantenga pulsado + mientras el coche entra en la bobina, y − en cuanto haya pasado el centro. ¿Demasiado difícil a toda velocidad? Ralentícelo, o deje que pulse la regla y observe cuándo lo hace.",
-        "pause": "Pausa",
-        "run": "Continuar",
-        "restart": "Empezar de nuevo",
         "let_go": "Soltar el coche",
         "aim": "Objetivo: lleve el coche hasta las dos banderas.",
         "done": "Conseguido: el coche ha llegado a las dos banderas.",
@@ -465,12 +478,6 @@
         "time": "Tiempo",
         "autopilot": "Automático: sincronización perfecta",
         "autopilot_hint": "Deje que la regla pulse y observe cuándo lo hace.",
-        "speed": "Velocidad",
-        "speeds": {
-          "1": "Tiempo real",
-          "0_25": "¼",
-          "0_1": "⅒"
-        },
         "keys": "Con el teclado: mantenga pulsado + o ← para más, − o → para menos.",
         "start": "Inicio: a esta distancia a la izquierda de la bobina",
         "start_hint": "{{top}} cm: arriba de la rampa; {{half}} cm: a media altura."
@@ -580,9 +587,6 @@
         "hint_hand": "Arrastre en la vista desde arriba: la esfera sigue su dedo como lo haría una mano. Describa círculos alrededor del centro — despacio al principio, más o menos una vez por segundo, y después más deprisa a medida que sube la bola.",
         "hint_circle": "La esfera se empuja por un círculo de 2 cm al ritmo que usted fije. Cambie el ritmo despacio y la bola lo sigue; cámbielo de golpe y se queda atrás.",
         "hint_perfect": "Aquí la esfera se empuja con la mejor sincronización posible. Fíjese en dónde está la esfera mientras la bola sube y en lo rápido que gira al final.",
-        "pause": "Pausa",
-        "run": "Continuar",
-        "restart": "Empezar de nuevo",
         "tempo": "Ritmo",
         "change": "Cambiar el ritmo",
         "slowly": "Despacio",
@@ -689,9 +693,6 @@
         "hint": "Dé un empujón para ponerla a girar; después inclínese hacia fuera o enderécese. La plataforma gira tanto más deprisa cuanto más erguido esté usted.",
         "hint_auto": "El visitante se inclina hacia fuera, se endereza, se mantiene así y vuelve a inclinarse, una y otra vez — observe cómo le sigue la velocidad.",
         "push": "Empujar",
-        "pause": "Pausa",
-        "run": "Continuar",
-        "restart": "Empezar de nuevo",
         "auto": "Automático: inclinarse y enderezarse",
         "auto_hint": "Tres segundos inclinado hacia fuera, dos y medio erguido, y otra vez inclinado — con un empujón si la plataforma está parada.",
         "lean": "Inclinación hacia fuera",
@@ -795,17 +796,9 @@
         "title": "Suéltelas",
         "hint": "Inicie la carrera y observe dónde está cada bola. En cuanto llega una bola, aparecen su puesto y su tiempo, el del motor de cálculo. En la bandera termina cada pista, y la bola sigue volando hasta un foso acolchado, donde acaban juntas las seis.",
         "start": "Iniciar",
-        "pause": "Pausa",
-        "run": "Continuar",
         "view": "Seis pistas de una misma salida a una misma meta, con una bola en cada una",
         "auto": "Automático: carrera tras carrera",
-        "auto_hint": "La carrera vuelve a empezar un momento después de que llegue la última bola.",
-        "speed": "Velocidad",
-        "speeds": {
-          "1": "Tiempo real",
-          "0_25": "¼",
-          "0_1": "⅒"
-        }
+        "auto_hint": "La carrera vuelve a empezar un momento después de que llegue la última bola."
       },
       "motion": {
         "hint": "La velocidad y la aceleración de cada bola, como flechas desde un mismo punto y como números: x hacia la derecha, y hacia arriba. En su pista, la gravedad acelera la bola a lo largo de ella y la pista la hace girar; en el aire, todas las bolas caen solo con g, todas las flechas iguales; en el foso, cada choque contra el acolchado o contra otra bola es una sacudida muy por encima de la escala: la media en 5 ms, dibujada a trazos, con su valor en la tabla.",
@@ -885,9 +878,6 @@
         "title": "En la trompa",
         "hint": "La pelota descansa sobre la trompa hasta que el aire la levanta. Cambie el aire, incline la trompa o empuje la pelota, y observe dónde la sostiene el aire y cuándo ya no puede.",
         "hint_auto": "La trompa se inclina cada vez más, hasta que el aire ya no puede sostener la pelota; después la pelota se vuelve a colocar sobre la trompa.",
-        "pause": "Pausa",
-        "run": "Continuar",
-        "restart": "Empezar de nuevo",
         "push_left": "Empujar a la izquierda",
         "push_right": "Empujar a la derecha",
         "air": "Aire que sale de la trompa",
@@ -996,9 +986,6 @@
         "hint": "Arrastre el aro hacia abajo y suéltelo, rápido o despacio, o pulse el botón: la rapidez decide si vuela un anillo.",
         "hint_auto": "Tres pulsaciones seguidas: un golpe seco, medio segundo y un empuje lento. Observe qué saca cada una por el agujero.",
         "press": "Presionar",
-        "pause": "Pausa",
-        "run": "Continuar",
-        "restart": "Empezar de nuevo",
         "auto": "Automático: tres pulsaciones",
         "auto_hint": "Un golpe seco de {{fast}} s, una pulsación de {{best}} s y un empuje lento de {{slow}} s, uno tras otro.",
         "duration": "Duración de la pulsación",
@@ -1108,9 +1095,6 @@
         "title": "En el alambre",
         "hint": "Arrastre la pila hacia arriba en el dibujo y suéltela, o ajuste la altura y pulse «Dejar caer»: la subida de la pelota pequeña se marca a la derecha, y debajo aparecen las fuerzas del impacto.",
         "hint_auto": "Una pelota, luego dos, luego tres, cada vez desde la misma altura: observe cómo crece la subida de la pelota de arriba.",
-        "pause": "Pausa",
-        "run": "Continuar",
-        "restart": "Empezar de nuevo",
         "height": "Altura de la pelota de abajo",
         "drop": "Dejar caer",
         "drag": "O arrastre la pila hacia arriba en el dibujo y suéltela.",
@@ -1213,15 +1197,6 @@
       "play": {
         "title": "Deje oscilar la fila",
         "hint": "El reloj corre. Salte a una fracción del ciclo o cambie desde dónde se sueltan los péndulos.",
-        "pause": "Pausa",
-        "run": "Seguir",
-        "restart": "Desde el principio",
-        "speed": "Velocidad",
-        "speeds": {
-          "1": "Tiempo real",
-          "2": "Doble",
-          "5": "Quíntuple"
-        },
         "jump": "Saltar a:",
         "jumps": {
           "2": "½ ciclo",
@@ -1308,17 +1283,9 @@
       "play": {
         "title": "Dejar dibujar",
         "hint": "El lápiz dibuja a cámara rápida. Cambie abajo la proporción de los péndulos y empieza un dibujo nuevo.",
-        "pause": "Pausa",
-        "run": "Seguir",
         "finish": "Terminar el dibujo",
         "restart": "Dibujar de nuevo",
         "save": "Guardar imagen",
-        "speed": "Velocidad",
-        "speeds": {
-          "1": "Tiempo real",
-          "5": "Quíntuple",
-          "20": "Veinte veces"
-        },
         "time": "Dibujado",
         "ratio": "Cerca de la proporción {{p}} : {{q}} (lápiz : tablero)",
         "detune": "Desviación",
@@ -1390,13 +1357,6 @@
         "hint_down": "El cono está en el extremo alto. Suéltelo y mire hacia dónde rueda.",
         "hint_stays": "El cono está en el extremo bajo. Suéltelo y mire hacia dónde rueda.",
         "let_go": "Soltar",
-        "pause": "Pausa",
-        "run": "Seguir",
-        "speed": "Velocidad",
-        "speeds": {
-          "100": "Tiempo real",
-          "25": "Cámara lenta (¼)"
-        },
         "verdict_up": "Los rieles suben, el eje del cono baja: rueda hacia arriba.",
         "verdict_down": "Los rieles suben más de lo que baja el cono: rueda hacia abajo.",
         "verdict_stays": "Eje exactamente horizontal: el cono se queda quieto.",
@@ -1480,18 +1440,11 @@
       "play": {
         "title": "Girar el plato",
         "hint": "Ajuste la velocidad. El recipiente la sigue al instante, el agua necesita su tiempo – a cámara rápida se ve cómo lo alcanza.",
-        "pause": "Pausa",
-        "run": "Seguir",
         "stop": "Apagar el plato",
         "frame": "Vista desde arriba",
         "frames": {
           "outside": "Desde fuera",
           "turning": "Girando con él"
-        },
-        "speed": "Velocidad",
-        "speeds": {
-          "1": "Tiempo real",
-          "10": "Diez veces"
         },
         "rate": "Velocidad del plato",
         "rpm": "rpm",
@@ -1571,18 +1524,11 @@
       "play": {
         "title": "Empujar los péndulos",
         "hint": "Elija cómo se sueltan los péndulos. Las barras muestran cuánta energía hay ahora en cada uno.",
-        "pause": "Pausa",
-        "run": "Seguir",
         "let_go": "Soltar:",
         "starts": {
           "one": "Solo el izquierdo",
           "together": "Los dos igual",
           "against": "Uno contra otro"
-        },
-        "speed": "Velocidad",
-        "speeds": {
-          "1": "Tiempo real",
-          "3": "Triple"
         },
         "energy": "Energía de los dos péndulos",
         "left": "Péndulo izquierdo",
@@ -1649,13 +1595,6 @@
         "hint": "Arrastre el clavo hacia arriba o hacia abajo, o elija abajo uno de los tres casos.",
         "drag_hint": "O tome la bola con el ratón o con el dedo, apártela y suéltela.",
         "let_go": "Soltar",
-        "pause": "Pausa",
-        "run": "Seguir",
-        "speed": "Velocidad",
-        "speeds": {
-          "100": "Tiempo real",
-          "25": "Cámara lenta (¼)"
-        },
         "outcome_same_height": "En el clavo la bola sube exactamente tan alto como al otro lado.",
         "outcome_slack": "Demasiado impulso para el círculo pequeño, demasiado poco para dar la vuelta: el hilo se afloja.",
         "outcome_over_the_top": "Impulso suficiente: la bola da la vuelta alrededor del clavo.",
@@ -1725,14 +1664,6 @@
         "title": "Soltar la rueda",
         "hint": "A la cámara más lenta se ve el tirón de abajo: las cintas se estiran unos milímetros y lanzan la rueda de vuelta.",
         "let_go": "Soltar",
-        "pause": "Pausa",
-        "run": "Seguir",
-        "speed": "Velocidad",
-        "speeds": {
-          "100": "Tiempo real",
-          "25": "Cámara lenta (¼)",
-          "5": "Muy lenta (1/20)"
-        },
         "phases": {
           "down": "Se está desenrollando.",
           "jerk": "Abajo: las cintas se estiran y la lanzan de vuelta.",
@@ -1812,8 +1743,6 @@
         "title": "Soltar dos péndulos",
         "hint": "El péndulo intenso y su gemelo más pálido empiezan casi igual. Fíjese en cuándo se separan.",
         "let_go": "Soltar",
-        "pause": "Pausa",
-        "run": "Seguir",
         "presets_label": "Inicio:",
         "presets": {
           "gentle": "Suave",
@@ -1823,11 +1752,6 @@
         "upper": "Brazo superior al inicio",
         "lower": "Brazo inferior al inicio",
         "nudge": "Diferencia del gemelo",
-        "speed": "Velocidad",
-        "speeds": {
-          "100": "Tiempo real",
-          "25": "Cámara lenta (¼)"
-        },
         "time": "Tiempo",
         "gap": "Distancia entre los dos: {{gap}}"
       },
@@ -1889,19 +1813,11 @@
       "play": {
         "title": "Abrir el grifo",
         "hint": "Ponga el grifo con poca agua, con más y con mucha, y observe qué hace la rueda cada vez.",
-        "pause": "Pausa",
-        "run": "Seguir",
-        "restart": "Desde el principio",
         "tap": "Grifo",
         "tap_hint": "ρ: cuánta agua entra, medida frente a las fugas y el freno.",
         "brake": "Freno",
         "brake_hint": "σ: cuánto frena el eje, medido frente a la inercia de la rueda y las fugas.",
         "turn_hint": "O gire con el ratón o con el dedo la palanca del grifo y el botón del eje, el freno. Al soltar, la rueda empieza desde el principio.",
-        "speed": "Velocidad",
-        "speeds": {
-          "1": "Tiempo real",
-          "4": "Cuádruple"
-        },
         "regime_still": "Poca agua: las fugas se la llevan antes de que el cubo de arriba pese lo bastante. La rueda está quieta.",
         "regime_steady": "La rueda gira de forma regular en un sentido – cuál, lo decide el primer pequeño empujón.",
         "regime_chaotic": "Caos: la rueda no encuentra ningún giro regular. Cambia de sentido sin seguir un patrón.",
@@ -1955,9 +1871,6 @@
       "play": {
         "title": "Dejar girar la Tierra",
         "hint": "A cámara rápida se ve cómo avanza el plano y caen los bolos. Elija otro lugar y el ritmo cambia.",
-        "pause": "Pausa",
-        "run": "Seguir",
-        "restart": "Desde el principio",
         "places_label": "Lugar:",
         "places": {
           "winterthur": "Winterthur",
@@ -2080,19 +1993,11 @@
         "hint": "Deje caer una bola, luego dos, y cuente cuántas salen volando por el otro extremo.",
         "drag_hint": "O tome una de las bolas de la izquierda con el ratón o con el dedo, levántela y suéltela.",
         "let_go": "Soltar",
-        "pause": "Pausa",
-        "run": "Seguir",
         "lifted": "Bolas levantadas",
         "spacing": "Entre las bolas",
         "spacings": {
           "touching": "Se tocan",
           "gap": "0,1 mm de aire"
-        },
-        "speed": "Velocidad",
-        "speeds": {
-          "100": "Tiempo real",
-          "25": "4× más lento",
-          "10": "10× más lento"
         },
         "angle": "Desviación",
         "restitution": "Lo que devuelve un choque",
@@ -2153,13 +2058,6 @@
         "hint": "«Círculo» lanza la bola justo a la velocidad que la mantendría en un círculo sin fricción. Con fricción baja vuelta a vuelta; el gráfico compara cada vuelta con Kepler.",
         "launch": "Lanzar",
         "circle": "Círculo",
-        "pause": "Pausa",
-        "run": "Seguir",
-        "speed": "Velocidad",
-        "speeds": {
-          "1": "Tiempo real",
-          "4": "4× más rápido"
-        },
         "push": "Velocidad del lanzamiento",
         "aim": "Dirección",
         "aim_hint": "Respecto a la dirección del borde, positiva hacia el agujero.",
@@ -2220,19 +2118,12 @@
         "stop": "Parar",
         "sweep": "Barrer",
         "calm": "Calmar",
-        "speed": "Velocidad",
-        "speeds": {
-          "1": "Tiempo real",
-          "4": "4× más rápido"
-        },
         "beat": "Ritmo de la mesa",
         "beat_hint": "Cuántas veces por segundo va y viene la mesa.",
         "sweeping": "El ritmo sube 0,05 Hz por segundo; mueva el regulador para detenerlo.",
         "damping": "Amortiguación",
         "damping_hint": "Lo rápido que una varilla se detiene sola: la fracción de la amortiguación con la que ya no oscilaría.",
-        "sound": "Sonido",
         "sound_hint": "Cada varilla suena con su frecuencia propia, siete octavas más alta, tan fuerte como oscila.",
-        "no_sound": "Este navegador no puede producir sonidos.",
         "widest": "Mayor oscilación",
         "table": "La mesa, de ida y vuelta",
         "rod": "Varilla {{n}} ({{hz}} Hz)"
@@ -2289,17 +2180,10 @@
         "title": "Girar y soltar",
         "hint": "Suelte la rueda una vez quieta, luego a 200 rpm. Mostrado cuatro veces más lento, se ve cabecear el eje.",
         "let_go": "Soltar",
-        "pause": "Pausa",
-        "run": "Seguir",
         "start": "Al soltar",
         "starts": {
           "rest": "En reposo",
           "steady": "Ya girando en círculo"
-        },
-        "speed": "Velocidad",
-        "speeds": {
-          "100": "Tiempo real",
-          "25": "4× más lento"
         },
         "rpm": "Giro de la rueda",
         "rpm_unit": "rpm",
@@ -2412,9 +2296,7 @@
         "tones": "Los tonos con los que suena la placa",
         "drive": "Tono del vibrador",
         "drive_hint": "Logarítmico: cada paso igual es un intervalo musical igual.",
-        "sound": "Sonido",
         "sound_hint": "El tono del vibrador, fuerte cuando la placa suena, suave entre medias.",
-        "no_sound": "Este navegador no puede producir sonidos.",
         "nearest": "Tono más cercano de la placa",
         "swing": "Vibración en el centro",
         "swing_hint": "Con qué fuerza vibra el centro de la placa, comparado con su vibración en el tono más grave."
@@ -2528,16 +2410,9 @@
         "title": "Cargar y conmutar",
         "hint": "El condensador está cargado. Pase el conmutador a la bobina y observe la aguja. El muelle de abajo obedece la misma ecuación.",
         "throw": "Conmutar",
-        "pause": "Detener",
-        "run": "Seguir",
         "recharge": "Cargar de nuevo",
         "charged": "El condensador está cargado a {{voltage}} V; el conmutador está en la batería.",
         "caption": "Arriba, el circuito, con un amperímetro de ±{{range}} mA; abajo, el muelle con la masa L, la rigidez 1/C y el rozamiento R.",
-        "speed": "Velocidad",
-        "speeds": {
-          "real": "Tiempo real",
-          "slow": "Cámara lenta (¼)"
-        },
         "energy": "Dónde está la energía",
         "capacitor": "en el condensador",
         "coil": "en la bobina",
@@ -2644,14 +2519,7 @@
         "title": "Dejarlas caer",
         "hint": "Las cuatro placas cuelgan arriba en sus ranuras. Suéltelas a la vez y observe cuál llega primero abajo. Al lado ve una placa de cerca, con sus corrientes de Foucault.",
         "drop": "Soltar",
-        "pause": "Detener",
-        "run": "Seguir",
         "top": "Volver arriba",
-        "speed": "Velocidad",
-        "speeds": {
-          "real": "Tiempo real",
-          "slow": "Cámara lenta (¼)"
-        },
         "look": "De cerca",
         "caption": "La columna de frente, esquemática: los imanes junto a cada ranura, norte y sur alternándose; {{drop}} cm de caída, {{field}} T en la ranura.",
         "closeup_caption": "Viajando con la placa: detrás de ella pasan norte y sur, y en ella circulan las corrientes de Foucault.",
@@ -2768,17 +2636,8 @@
         "title": "Dejarlas caer",
         "hint": "Las dos bolas cuelgan sobre la placa. Suéltelas y escuche: con el sonido activado, cada golpe hace clic. Debajo, cada golpe sobre un eje de tiempo.",
         "drop": "Soltar",
-        "pause": "Detener",
-        "run": "Seguir",
         "top": "Volver a subirlas",
-        "speed": "Velocidad",
-        "speeds": {
-          "real": "Tiempo real",
-          "slow": "Cámara lenta (¼)"
-        },
-        "sound": "Sonido",
         "sound_hint": "Un clic en cada golpe, tan fuerte como el golpe. En silencio hasta que lo active.",
-        "no_sound": "Su navegador no puede producir sonido aquí.",
         "waiting": "Las bolas cuelgan sobre la placa y esperan.",
         "caption": "Las bolas a tamaño real sobre la placa, desde {{height}} cm; debajo, cada golpe en el eje de tiempo, hasta que ambas quedan quietas.",
         "time": "Tiempo",
@@ -2922,8 +2781,6 @@
       "play": {
         "title": "Apretar la botella",
         "hint": "Apriete la botella con el regulador. Intente que el ludión flote quieto en medio.",
-        "pause": "Detener",
-        "run": "Seguir",
         "surface": "A la superficie",
         "squeeze": "Presión de la mano",
         "squeeze_hint": "Cuánto eleva la mano la presión en la botella.",
@@ -3277,9 +3134,7 @@
         "title": "Golpear los diapasones",
         "hint": "Golpee ambos diapasones y vea, u oiga, cómo el tono crece y se desvanece.",
         "strike": "Golpear",
-        "sound": "Sonido",
         "sound_hint": "Reproduce los dos diapasones; su oído oye el batido por sí mismo.",
-        "no_sound": "Su navegador no puede producir sonido aquí.",
         "caption": "Arriba, los diapasones y su sonido conjunto a cámara lenta; abajo, la intensidad desde el golpe: continua, los dos juntos; a trazos, uno solo.",
         "slow": "El sonido ahora, {{ms}} ms a cámara lenta",
         "waiting": "Los diapasones callan. Golpéelos.",

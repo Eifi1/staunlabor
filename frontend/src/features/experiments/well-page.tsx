@@ -1,7 +1,7 @@
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useMemo, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { CircleDot, Pause, Play, Send } from "lucide-react";
-import { Button, ToggleGroup } from "@eifi1/ui-kit";
+import { CircleDot, Send } from "lucide-react";
+import { Button } from "@eifi1/ui-kit";
 import { SeriesChart } from "@/shared/charts/series-chart";
 import { useLocale } from "@/shared/i18n/use-locale";
 import { formatNumber } from "@/shared/lib/format";
@@ -12,6 +12,8 @@ import { Equation } from "./equation";
 import { ExhibitFrame } from "./exhibit-frame";
 import { BuildPending } from "./build-pending";
 import { PreviewPending, type PreviewMode, type PreviewProps } from "./preview-mode";
+import { useFrameLoop, useRunning } from "./play";
+import { RunPauseButton, SpeedToggle } from "./play-controls";
 import {
   advance,
   begin,
@@ -211,50 +213,39 @@ function WellPlay({
     return { ride: first.ride, trail: first.trail };
   });
   const [laps, setLaps] = useState<Lap[]>([]);
-  const [runningHere, setRunning] = useState(false);
+  const { running, setRunning } = useRunning({ preview, paused, initially: false });
   const [speedHere, setSpeed] = useState<Speed>(1);
-  const running = preview ? !paused : runningHere;
   const speed = preview ? 4 : speedHere;
 
-  useEffect(() => {
-    if (!running) return;
-    let raf = 0;
-    let last = performance.now();
-    const tick = (now: number) => {
-      const dt = Math.max(0, Math.min(0.05, (now - last) / 1000));
-      last = now;
-      const s = sim.current;
-      s.owed += (dt * speed) / STEP_S;
-      let lapped = false;
-      while (s.owed >= 1 && s.ride.outcome === "rolling") {
-        const [next, lap] = advance(f, s.ride);
-        s.ride = next;
-        s.owed -= 1;
-        s.i += 1;
-        if (s.i % TRAIL_EVERY === 0 || next.outcome !== "rolling") {
-          s.trail.push([next.y[0], next.y[2]]);
-          if (s.trail.length > TRAIL_KEEP) s.trail.shift();
-        }
-        if (lap) {
-          s.laps.push(lap);
-          lapped = true;
-        }
+  useFrameLoop(running, (dt) => {
+    const s = sim.current;
+    s.owed += (dt * speed) / STEP_S;
+    let lapped = false;
+    while (s.owed >= 1 && s.ride.outcome === "rolling") {
+      const [next, lap] = advance(f, s.ride);
+      s.ride = next;
+      s.owed -= 1;
+      s.i += 1;
+      if (s.i % TRAIL_EVERY === 0 || next.outcome !== "rolling") {
+        s.trail.push([next.y[0], next.y[2]]);
+        if (s.trail.length > TRAIL_KEEP) s.trail.shift();
       }
-      if (s.ride.outcome !== "rolling") {
-        s.owed = 0;
-        // The preview starts again a moment after the drop.
-        if (preview) {
-          s.i += Math.round((dt * speed) / STEP_S);
-          if (s.i * STEP_S > s.ride.t + PREVIEW_REST_S) sim.current = launchFrom(f, circular(f));
-        }
+      if (lap) {
+        s.laps.push(lap);
+        lapped = true;
       }
-      setFrame({ ride: sim.current.ride, trail: [...sim.current.trail] });
-      if (lapped) setLaps([...sim.current.laps]);
-      raf = requestAnimationFrame(tick);
-    };
-    raf = requestAnimationFrame(tick);
-    return () => cancelAnimationFrame(raf);
-  }, [running, speed, f, preview]);
+    }
+    if (s.ride.outcome !== "rolling") {
+      s.owed = 0;
+      // The preview starts again a moment after the drop.
+      if (preview) {
+        s.i += Math.round((dt * speed) / STEP_S);
+        if (s.i * STEP_S > s.ride.t + PREVIEW_REST_S) sim.current = launchFrom(f, circular(f));
+      }
+    }
+    setFrame({ ride: sim.current.ride, trail: [...sim.current.trail] });
+    if (lapped) setLaps([...sim.current.laps]);
+  });
 
   const chart = useMemo(() => {
     const rows = laps.map((lap) => ({
@@ -349,28 +340,17 @@ function WellPlay({
             <CircleDot className="size-4" aria-hidden />
             {t("experiments.well.play.circle")}
           </Button>
-          <Button
-            variant="secondary"
-            size="sm"
+          <RunPauseButton
+            running={running}
+            onToggle={() => setRunning(!running)}
             disabled={ride.outcome !== "rolling"}
-            onClick={() => setRunning(!running)}
-          >
-            {running ? <Pause className="size-4" aria-hidden /> : <Play className="size-4" aria-hidden />}
-            {running ? t("experiments.well.play.pause") : t("experiments.well.play.run")}
-          </Button>
+          />
         </>
       }
     >
       <div className={`${SIDE.grid} ${STAGE.twoWithSide}`}>
         <div className={`${SIDE.top} flex flex-wrap gap-4`}>
-          <ToggleGroup
-            label={t("experiments.well.play.speed")}
-            labelPlacement="above"
-            size="sm"
-            value={String(speed)}
-            onChange={(v: string) => setSpeed(Number(v) as Speed)}
-            options={SPEEDS.map((v) => ({ value: String(v), label: t(`experiments.well.play.speeds.${v}`) }))}
-          />
+          <SpeedToggle speeds={SPEEDS} value={speed} onChange={setSpeed} />
         </div>
         <div className={SIDE.views}>
           {views}

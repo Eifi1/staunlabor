@@ -166,7 +166,23 @@
     },
     "play": {
       "pause": "Pause",
-      "run": "Reprendre"
+      "run": "Reprendre",
+      "restart": "Recommencer",
+      "speed": "Vitesse",
+      "speeds": {
+        "0_05": "Ralenti (1/20)",
+        "0_1": "Ralenti (⅒)",
+        "0_25": "Ralenti (¼)",
+        "1": "Temps réel",
+        "2": "Double",
+        "3": "Triple",
+        "4": "Quadruple",
+        "5": "Quintuple",
+        "10": "Dix fois",
+        "20": "Vingt fois"
+      },
+      "sound": "Son",
+      "no_sound": "Ce navigateur ne peut pas produire de sons."
     },
     "exhibits": {
       "chair": {
@@ -449,9 +465,6 @@
       "play": {
         "title": "Aux boutons",
         "hint": "Maintenez + enfoncé pendant que la voiture entre dans la bobine, et − dès qu’elle a passé le milieu. Trop difficile à pleine vitesse ? Ralentissez, ou laissez la règle appuyer et regardez quand elle le fait.",
-        "pause": "Pause",
-        "run": "Reprendre",
-        "restart": "Recommencer",
         "let_go": "Lâcher la voiture",
         "aim": "Le but : amener la voiture jusqu’aux deux drapeaux.",
         "done": "Réussi : la voiture a atteint les deux drapeaux.",
@@ -465,12 +478,6 @@
         "time": "Temps",
         "autopilot": "Automatique : synchronisation parfaite",
         "autopilot_hint": "Laissez la règle appuyer et regardez quand elle le fait.",
-        "speed": "Vitesse",
-        "speeds": {
-          "1": "Temps réel",
-          "0_25": "¼",
-          "0_1": "⅒"
-        },
         "keys": "Au clavier : maintenez + ou ← pour plus, − ou → pour moins.",
         "start": "Départ : à cette distance à gauche de la bobine",
         "start_hint": "{{top}} cm : en haut de la rampe ; {{half}} cm : à mi-hauteur."
@@ -580,9 +587,6 @@
         "hint_hand": "Faites glisser dans la vue de dessus : la sphère suit votre doigt comme le ferait une main. Tournez autour du milieu — lentement d’abord, environ une fois par seconde, puis plus vite à mesure que la bille monte.",
         "hint_circle": "La sphère est poussée sur un cercle de 2 cm à la cadence que vous réglez. Changez la cadence lentement et la bille suit ; changez-la d’un coup et elle prend du retard.",
         "hint_perfect": "Ici, la sphère est poussée avec la meilleure synchronisation possible. Observez où se trouve la sphère pendant que la bille monte, et à quelle vitesse elle tourne à la fin.",
-        "pause": "Pause",
-        "run": "Reprendre",
-        "restart": "Recommencer",
         "tempo": "Cadence",
         "change": "Changer la cadence",
         "slowly": "Lentement",
@@ -689,9 +693,6 @@
         "hint": "Poussez pour la mettre en rotation, puis penchez-vous vers l’extérieur ou redressez-vous. La plateforme tourne d’autant plus vite que vous vous tenez droit.",
         "hint_auto": "Le visiteur se penche vers l’extérieur, se redresse, tient la position et se penche à nouveau, encore et encore — regardez la vitesse suivre.",
         "push": "Pousser",
-        "pause": "Pause",
-        "run": "Reprendre",
-        "restart": "Recommencer",
         "auto": "Automatique : se pencher et se redresser",
         "auto_hint": "Trois secondes penché vers l’extérieur, deux et demie redressé, puis retour — avec une poussée si la plateforme est à l’arrêt.",
         "lean": "Inclinaison vers l’extérieur",
@@ -795,17 +796,9 @@
         "title": "Lâchez-les",
         "hint": "Lancez la course et regardez où se trouve chaque bille. Dès qu'une bille arrive, sa place et son temps s'affichent, ceux du moteur de calcul. Au drapeau, chaque piste s’arrête et la bille s’envole jusque dans une fosse rembourrée, où les six finissent ensemble.",
         "start": "Démarrer",
-        "pause": "Pause",
-        "run": "Reprendre",
         "view": "Six pistes d’un même départ à une même arrivée, une bille sur chacune",
         "auto": "Automatique : course après course",
-        "auto_hint": "La course repart un instant après l’arrivée de la dernière bille.",
-        "speed": "Vitesse",
-        "speeds": {
-          "1": "Temps réel",
-          "0_25": "¼",
-          "0_1": "⅒"
-        }
+        "auto_hint": "La course repart un instant après l’arrivée de la dernière bille."
       },
       "motion": {
         "hint": "La vitesse et l’accélération de chaque bille, en flèches partant d’un même point et en chiffres : x vers la droite, y vers le haut. Sur sa piste, la pesanteur accélère la bille le long de celle-ci et la piste la fait tourner ; dans l’air, chaque bille tombe sous g seul, toutes les flèches identiques ; dans la fosse, chaque choc contre le rembourrage ou une autre bille est une secousse bien au-delà de l’échelle — la moyenne sur 5 ms, dessinée en pointillé, sa valeur dans le tableau.",
@@ -885,9 +878,6 @@
         "title": "Au bout de la trompe",
         "hint": "Le ballon repose sur la trompe jusqu’à ce que l’air le soulève. Changez l’air, inclinez la trompe ou poussez le ballon, et regardez où l’air le maintient, et quand il ne le peut plus.",
         "hint_auto": "La trompe s’incline de plus en plus, jusqu’à ce que l’air ne puisse plus retenir le ballon ; le ballon est alors reposé sur la trompe.",
-        "pause": "Pause",
-        "run": "Reprendre",
-        "restart": "Recommencer",
         "push_left": "Pousser à gauche",
         "push_right": "Pousser à droite",
         "air": "Air sortant de la trompe",
@@ -996,9 +986,6 @@
         "hint": "Faites glisser le cerclage vers le bas et relâchez, vite ou lentement, ou appuyez sur le bouton : c’est la vitesse qui décide si un anneau s’envole.",
         "hint_auto": "Trois appuis à la suite : un coup sec, une demi-seconde et une poussée lente. Regardez ce que chacun fait sortir du trou.",
         "press": "Appuyer",
-        "pause": "Pause",
-        "run": "Reprendre",
-        "restart": "Recommencer",
         "auto": "Automatique : trois appuis",
         "auto_hint": "Un coup sec de {{fast}} s, un appui de {{best}} s et une poussée lente de {{slow}} s, l’un après l’autre.",
         "duration": "Durée de l’appui",
@@ -1108,9 +1095,6 @@
         "title": "Au pied du fil",
         "hint": "Faites glisser la pile vers le haut dans le dessin et relâchez, ou réglez la hauteur et appuyez sur « Lâcher » : la montée de la petite balle est marquée à droite, et les forces de l’impact apparaissent en dessous.",
         "hint_auto": "Une balle, puis deux, puis trois, chaque fois de la même hauteur : regardez la montée de la balle du dessus grandir.",
-        "pause": "Pause",
-        "run": "Reprendre",
-        "restart": "Recommencer",
         "height": "Hauteur de la balle du bas",
         "drop": "Lâcher",
         "drag": "Ou faites glisser la pile vers le haut dans le dessin et relâchez.",
@@ -1213,15 +1197,6 @@
       "play": {
         "title": "Laisser osciller la rangée",
         "hint": "L'horloge tourne. Sautez à une fraction du cycle, ou changez l'écart auquel les pendules sont lâchés.",
-        "pause": "Pause",
-        "run": "Reprendre",
-        "restart": "Depuis le début",
-        "speed": "Vitesse",
-        "speeds": {
-          "1": "Temps réel",
-          "2": "Double",
-          "5": "Quintuple"
-        },
         "jump": "Sauter à :",
         "jumps": {
           "2": "½ cycle",
@@ -1308,17 +1283,9 @@
       "play": {
         "title": "Laisser dessiner",
         "hint": "Le stylo dessine en accéléré. Changez plus bas le rapport des pendules, et un nouveau dessin commence.",
-        "pause": "Pause",
-        "run": "Reprendre",
         "finish": "Terminer le dessin",
         "restart": "Redessiner",
         "save": "Enregistrer l'image",
-        "speed": "Vitesse",
-        "speeds": {
-          "1": "Temps réel",
-          "5": "Quintuple",
-          "20": "Vingt fois"
-        },
         "time": "Dessiné",
         "ratio": "Proche du rapport {{p}} : {{q}} (stylo : planche)",
         "detune": "Écart",
@@ -1390,13 +1357,6 @@
         "hint_down": "Le cône est à l'extrémité haute. Lâchez-le et regardez où il roule.",
         "hint_stays": "Le cône est à l'extrémité basse. Lâchez-le et regardez où il roule.",
         "let_go": "Lâcher",
-        "pause": "Pause",
-        "run": "Reprendre",
-        "speed": "Vitesse",
-        "speeds": {
-          "100": "Temps réel",
-          "25": "Ralenti (¼)"
-        },
         "verdict_up": "Les rails montent, l'axe du cône descend : il monte.",
         "verdict_down": "Les rails montent plus que le cône ne s'enfonce : il descend.",
         "verdict_stays": "Axe exactement horizontal : le cône reste immobile.",
@@ -1480,18 +1440,11 @@
       "play": {
         "title": "Faire tourner le plateau",
         "hint": "Réglez la vitesse. Le récipient suit aussitôt, l'eau prend son temps – en accéléré, on la voit rattraper son retard.",
-        "pause": "Pause",
-        "run": "Reprendre",
         "stop": "Arrêter le plateau",
         "frame": "Vue d'en haut",
         "frames": {
           "outside": "De l'extérieur",
           "turning": "En tournant avec"
-        },
-        "speed": "Vitesse",
-        "speeds": {
-          "1": "Temps réel",
-          "10": "Dix fois"
         },
         "rate": "Vitesse du plateau",
         "rpm": "tr/min",
@@ -1571,18 +1524,11 @@
       "play": {
         "title": "Pousser les pendules",
         "hint": "Choisissez comment les pendules sont lâchés. Les barres montrent quelle part de l'énergie se trouve en ce moment dans chacun.",
-        "pause": "Pause",
-        "run": "Reprendre",
         "let_go": "Lâcher :",
         "starts": {
           "one": "Seulement le gauche",
           "together": "Les deux pareil",
           "against": "L'un contre l'autre"
-        },
-        "speed": "Vitesse",
-        "speeds": {
-          "1": "Temps réel",
-          "3": "Triple"
         },
         "energy": "Énergie des deux pendules",
         "left": "Pendule gauche",
@@ -1649,13 +1595,6 @@
         "hint": "Faites glisser la cheville vers le haut ou le bas, ou choisissez plus bas l'un des trois cas.",
         "drag_hint": "Ou prenez la boule avec la souris ou le doigt, écartez-la et lâchez-la.",
         "let_go": "Lâcher",
-        "pause": "Pause",
-        "run": "Reprendre",
-        "speed": "Vitesse",
-        "speeds": {
-          "100": "Temps réel",
-          "25": "Ralenti (¼)"
-        },
         "outcome_same_height": "À la cheville, la boule monte exactement aussi haut que de l'autre côté.",
         "outcome_slack": "Trop d'élan pour le petit cercle, trop peu pour faire le tour : le fil se détend.",
         "outcome_over_the_top": "Assez d'élan : la boule fait le tour de la cheville.",
@@ -1725,14 +1664,6 @@
         "title": "Lâcher la roue",
         "hint": "Au ralenti le plus lent, on voit l'à-coup en bas : les rubans s'allongent de quelques millimètres et relancent la roue.",
         "let_go": "Lâcher",
-        "pause": "Pause",
-        "run": "Reprendre",
-        "speed": "Vitesse",
-        "speeds": {
-          "100": "Temps réel",
-          "25": "Ralenti (¼)",
-          "5": "Très lent (1/20)"
-        },
         "phases": {
           "down": "Elle se déroule.",
           "jerk": "En bas : les rubans s'allongent et la relancent.",
@@ -1812,8 +1743,6 @@
         "title": "Lâcher deux pendules",
         "hint": "Le pendule vif et son jumeau plus pâle partent presque pareil. Observez quand ils se séparent.",
         "let_go": "Lâcher",
-        "pause": "Pause",
-        "run": "Reprendre",
         "presets_label": "Départ :",
         "presets": {
           "gentle": "Doux",
@@ -1823,11 +1752,6 @@
         "upper": "Bras supérieur au départ",
         "lower": "Bras inférieur au départ",
         "nudge": "Écart du jumeau",
-        "speed": "Vitesse",
-        "speeds": {
-          "100": "Temps réel",
-          "25": "Ralenti (¼)"
-        },
         "time": "Temps",
         "gap": "Écart entre les deux : {{gap}}"
       },
@@ -1889,19 +1813,11 @@
       "play": {
         "title": "Ouvrir le robinet",
         "hint": "Réglez le robinet sur peu d'eau, sur davantage, puis sur beaucoup, et regardez ce que fait la roue à chaque fois.",
-        "pause": "Pause",
-        "run": "Reprendre",
-        "restart": "Depuis le début",
         "tap": "Robinet",
         "tap_hint": "ρ : la quantité d'eau qui arrive, rapportée aux fuites et au frein.",
         "brake": "Frein",
         "brake_hint": "σ : la force du frein de l'axe, rapportée à l'inertie de la roue et aux fuites.",
         "turn_hint": "Ou tournez avec la souris ou le doigt le levier du robinet et le bouton sur l'axe, le frein. En lâchant, la roue repart depuis le début.",
-        "speed": "Vitesse",
-        "speeds": {
-          "1": "Temps réel",
-          "4": "Quadruple"
-        },
         "regime_still": "Trop peu d'eau : les fuites l'emportent avant que le godet du haut soit assez lourd. La roue reste immobile.",
         "regime_steady": "La roue tourne régulièrement dans un sens – lequel, c'est la première petite impulsion qui en décide.",
         "regime_chaotic": "Chaos : la roue ne trouve aucune rotation régulière. Elle change de sens sans suivre de motif.",
@@ -1955,9 +1871,6 @@
       "play": {
         "title": "Laisser tourner la Terre",
         "hint": "En accéléré, on voit le plan avancer et les quilles tomber. Choisissez un autre lieu, et le rythme change.",
-        "pause": "Pause",
-        "run": "Reprendre",
-        "restart": "Depuis le début",
         "places_label": "Lieu :",
         "places": {
           "winterthur": "Winterthour",
@@ -2080,19 +1993,11 @@
         "hint": "Lâchez une bille, puis deux, et comptez combien s'envolent à l'autre bout.",
         "drag_hint": "Ou prenez une des billes de gauche avec la souris ou le doigt, tirez-la vers le haut et lâchez-la.",
         "let_go": "Lâcher",
-        "pause": "Pause",
-        "run": "Continuer",
         "lifted": "Billes soulevées",
         "spacing": "Entre les billes",
         "spacings": {
           "touching": "En contact",
           "gap": "0,1 mm d'air"
-        },
-        "speed": "Vitesse",
-        "speeds": {
-          "100": "Temps réel",
-          "25": "4× plus lent",
-          "10": "10× plus lent"
         },
         "angle": "Écart",
         "restitution": "Ce que rend un choc",
@@ -2153,13 +2058,6 @@
         "hint": "« Cercle » lance la bille exactement à la vitesse qui la garderait sur un cercle sans frottement. Avec frottement, elle descend tour après tour ; le graphique compare chaque tour à Kepler.",
         "launch": "Lancer",
         "circle": "Cercle",
-        "pause": "Pause",
-        "run": "Continuer",
-        "speed": "Vitesse",
-        "speeds": {
-          "1": "Temps réel",
-          "4": "4× plus vite"
-        },
         "push": "Vitesse du lancer",
         "aim": "Direction",
         "aim_hint": "Par rapport à la direction du bord, positive vers le trou.",
@@ -2220,19 +2118,12 @@
         "stop": "Arrêter",
         "sweep": "Balayer",
         "calm": "Au repos",
-        "speed": "Vitesse",
-        "speeds": {
-          "1": "Temps réel",
-          "4": "4× plus vite"
-        },
         "beat": "Rythme de la table",
         "beat_hint": "Combien de fois par seconde la table fait l'aller-retour.",
         "sweeping": "Le rythme monte de 0,05 Hz par seconde ; déplacez le curseur pour l'arrêter.",
         "damping": "Amortissement",
         "damping_hint": "La vitesse à laquelle une tige revient d'elle-même au repos : la part de l'amortissement auquel elle n'oscillerait plus du tout.",
-        "sound": "Son",
         "sound_hint": "Chaque tige sonne à sa fréquence propre, sept octaves plus haut, aussi fort qu'elle oscille.",
-        "no_sound": "Ce navigateur ne peut pas produire de sons.",
         "widest": "Plus grande oscillation",
         "table": "La table, aller-retour",
         "rod": "Tige {{n}} ({{hz}} Hz)"
@@ -2289,17 +2180,10 @@
         "title": "Lancer et lâcher",
         "hint": "Lâchez la roue une fois immobile, puis à 200 tr/min. Montré quatre fois plus lentement, on voit l'axe hocher.",
         "let_go": "Lâcher",
-        "pause": "Pause",
-        "run": "Continuer",
         "start": "Au lâcher",
         "starts": {
           "rest": "Au repos",
           "steady": "Déjà en rond"
-        },
-        "speed": "Vitesse",
-        "speeds": {
-          "100": "Temps réel",
-          "25": "4× plus lent"
         },
         "rpm": "Rotation de la roue",
         "rpm_unit": "tr/min",
@@ -2412,9 +2296,7 @@
         "tones": "Les sons auxquels la plaque sonne",
         "drive": "Son du vibreur",
         "drive_hint": "Logarithmique : chaque pas égal est un même intervalle musical.",
-        "sound": "Son",
         "sound_hint": "Le son du vibreur, fort quand la plaque sonne, doux entre deux.",
-        "no_sound": "Ce navigateur ne peut pas produire de sons.",
         "nearest": "Son le plus proche de la plaque",
         "swing": "Vibration au milieu",
         "swing_hint": "La force avec laquelle le milieu de la plaque vibre, comparée à sa vibration au son le plus grave."
@@ -2528,16 +2410,9 @@
         "title": "Charger et basculer",
         "hint": "Le condensateur est chargé. Basculez l’inverseur vers la bobine et regardez l’aiguille. Le ressort en dessous obéit à la même équation.",
         "throw": "Basculer",
-        "pause": "Arrêter",
-        "run": "Continuer",
         "recharge": "Recharger",
         "charged": "Le condensateur est chargé à {{voltage}} V ; l’inverseur est sur la pile.",
         "caption": "En haut, le circuit et son ampèremètre de ±{{range}} mA ; en bas, le ressort avec la masse L, la raideur 1/C et le frottement R.",
-        "speed": "Vitesse",
-        "speeds": {
-          "real": "Temps réel",
-          "slow": "Ralenti (¼)"
-        },
         "energy": "Où se trouve l’énergie",
         "capacitor": "dans le condensateur",
         "coil": "dans la bobine",
@@ -2644,14 +2519,7 @@
         "title": "Les laisser tomber",
         "hint": "Les quatre plaques sont suspendues en haut de leur fente. Lâchez-les ensemble et regardez laquelle arrive la première en bas. À côté, une plaque vue de près, avec ses courants de Foucault.",
         "drop": "Lâcher",
-        "pause": "Arrêter",
-        "run": "Continuer",
         "top": "Remonter",
-        "speed": "Vitesse",
-        "speeds": {
-          "real": "Temps réel",
-          "slow": "Ralenti (¼)"
-        },
         "look": "De près",
         "caption": "La colonne de face, schématique : les aimants à côté de chaque fente, nord et sud en alternance ; {{drop}} cm de chute, {{field}} T dans la fente.",
         "closeup_caption": "En voyageant avec la plaque : derrière elle défilent nord et sud, en elle tournent les courants de Foucault.",
@@ -2768,17 +2636,8 @@
         "title": "Les laisser tomber",
         "hint": "Les deux balles sont suspendues au-dessus de la plaque. Lâchez-les et écoutez : avec le son, chaque choc fait un clic. Dessous, chaque choc sur un axe du temps.",
         "drop": "Lâcher",
-        "pause": "Arrêter",
-        "run": "Continuer",
         "top": "Les remonter",
-        "speed": "Vitesse",
-        "speeds": {
-          "real": "Temps réel",
-          "slow": "Ralenti (¼)"
-        },
-        "sound": "Son",
         "sound_hint": "Un clic à chaque choc, aussi fort que le choc. Muet tant que vous ne l’activez pas.",
-        "no_sound": "Votre navigateur ne peut pas produire de son ici.",
         "waiting": "Les balles sont suspendues au-dessus de la plaque et attendent.",
         "caption": "Les balles en vraie grandeur au-dessus de la plaque, depuis {{height}} cm ; dessous, chaque choc sur l’axe du temps, jusqu’à ce que les deux s’immobilisent.",
         "time": "Temps",
@@ -2922,8 +2781,6 @@
       "play": {
         "title": "Presser la bouteille",
         "hint": "Pressez la bouteille avec le curseur. Essayez de garder le ludion en suspens au milieu.",
-        "pause": "Arrêter",
-        "run": "Continuer",
         "surface": "À la surface",
         "squeeze": "Pression de la main",
         "squeeze_hint": "De combien la main augmente la pression dans la bouteille.",
@@ -3277,9 +3134,7 @@
         "title": "Frapper les diapasons",
         "hint": "Frappez les deux diapasons et voyez – ou entendez – le son enfler et s’éteindre.",
         "strike": "Frapper",
-        "sound": "Son",
         "sound_hint": "Joue les deux diapasons ; votre oreille entend elle-même les battements.",
-        "no_sound": "Votre navigateur ne peut pas produire de son ici.",
         "caption": "En haut, les diapasons et leur son commun au ralenti ; en bas, l’intensité depuis la frappe : en trait plein les deux ensemble, en tirets un seul.",
         "slow": "Le son maintenant, {{ms}} ms au ralenti",
         "waiting": "Les diapasons sont muets. Frappez-les.",

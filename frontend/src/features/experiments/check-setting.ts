@@ -1,4 +1,4 @@
-import { useEffect, useLayoutEffect, useRef } from "react";
+import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import { create } from "zustand";
 
 /**
@@ -58,13 +58,39 @@ export function useCheckSetting(exhibit: string, apply: (setting: CheckSetting) 
   }, [exhibit]);
 }
 
-/**
- * The latest request for `exhibit`, for a page that sets its build from it
- * while it renders (React's "adjusting state when a prop changes"): the page
- * remembers the request it last took and takes a newer one once.
- */
-export function useCheckRequest(exhibit: string): Readonly<CheckRequest> | null {
+/** The latest request for `exhibit`, for `useTakeCheckRequest`. */
+function useCheckRequest(exhibit: string): Readonly<CheckRequest> | null {
   return useRequests((state) => (state.request?.exhibit === exhibit ? state.request : null));
+}
+
+/**
+ * The page's side of a request: `take(setting, build)` once per request for
+ * `exhibit`, while the page renders, as soon as the page has its `build` (the
+ * defaults come from the server). The hook remembers the request it last took,
+ * so a re-render does not take it again; setting the build from `take` is
+ * React's "adjusting state when a prop changes", allowed in a render, and a
+ * custom hook's caller's setters may be called from it. What `take` does with
+ * the case is the page's: most apply it to the build as the reader left it and
+ * set it only when it differs (`sameBuild`), so a case the build already is
+ * does not build the twin anew.
+ */
+export function useTakeCheckRequest<T>(
+  exhibit: string,
+  build: T | null | undefined,
+  take: (setting: CheckSetting, build: T) => void,
+): void {
+  const request = useCheckRequest(exhibit);
+  const [seen, setSeen] = useState<number | null>(null);
+  if (request && !request.done && request.nonce !== seen && build != null) {
+    setSeen(request.nonce);
+    take(request.setting, build);
+  }
+}
+
+/** Whether two builds are the same build: the same fields with the same
+ *  values, in the same order, which builds spread from one another have. */
+export function sameBuild(a: unknown, b: unknown): boolean {
+  return JSON.stringify(a) === JSON.stringify(b);
 }
 
 /** A setting's number, or `fallback` when the case leaves it as it is. */

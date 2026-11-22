@@ -1,22 +1,24 @@
-import { useEffect, useMemo, useRef, useState, type PointerEvent as ReactPointerEvent } from "react";
+import { useMemo, useRef, useState, type PointerEvent as ReactPointerEvent } from "react";
 import { useTranslation } from "react-i18next";
-import { Hand, Pause, Play, RotateCcw } from "lucide-react";
+import { Hand } from "lucide-react";
 import { AlertBanner, Button, Chip, LoadingState, StaticLegend, Switch, seriesLegendEntries } from "@eifi1/ui-kit";
 import { SeriesChart } from "@/shared/charts/series-chart";
 import { useLocale } from "@/shared/i18n/use-locale";
 import { formatNumber } from "@/shared/lib/format";
 import { useChartHue } from "@/shared/state/palette-store";
+import { svgPoint } from "@/shared/ui/svg-point";
 import type { SmokeExhibitRequest, SmokeFigures } from "@/shared/types";
 import { SliderField } from "@/shared/ui/slider-field";
 import { Figures, WidgetCard } from "@/shared/ui/widget";
 import { Equation } from "./equation";
 import { ExhibitFrame } from "./exhibit-frame";
 import { BuildPending } from "./build-pending";
-import { settingNumber, useCheckSetting } from "./check-setting";
+import { sameBuild, settingNumber, useCheckSetting } from "./check-setting";
 import { CORE_SHARE, SAMPLES_PER_S, flight, pressDepth, ringOf, type Flight, type Ring } from "./simulate/smoke";
 import { SmokeView, type Puff } from "./smoke-view";
 import { PreviewPending, type PreviewMode, type PreviewProps } from "./preview-mode";
-import { startsRunning } from "./play";
+import { useFrameLoop, useRunning } from "./play";
+import { RestartButton, RunPauseButton } from "./play-controls";
 import { STAGE } from "./stage";
 import { useExperimentsDefaults, useSmokeFigures } from "./use-experiments";
 
@@ -159,8 +161,7 @@ function SmokePlay({
   const [duration, setDuration] = useState(0.5);
   const [depth, setDepth] = useState(stroke);
   const [auto, setAuto] = useState(preview);
-  const [runningHere, setRunning] = useState(startsRunning);
-  const running = preview ? !paused : runningHere;
+  const { running, setRunning } = useRunning({ preview, paused });
   const [ring, setRing] = useState<Ring | null>(null);
   const [initial] = useState<Sim>(() => ({
     press: null,
@@ -180,7 +181,6 @@ function SmokePlay({
     figures?.fastest_s && figures.slowest_s && figures.best_s
       ? [figures.fastest_s / 2, figures.best_s, figures.slowest_s * 1.5]
       : AUTO_FALLBACK;
-  const latest = useRef({ exhibit, auto, autoPresses });
   // A check case's "Set it up" takes the whole case here: the press is this
   // card's, the drum the build's. The reader presses.
   useCheckSetting("smoke", (setting) => {
@@ -196,13 +196,9 @@ function SmokePlay({
     setAuto(false);
     setDuration(settingNumber(setting, "duration", duration));
     setDepth(settingNumber(setting, "depth", depth));
-    if (JSON.stringify(next) !== JSON.stringify(drum)) onExhibit?.({ ...exhibit, drum: next });
+    if (!sameBuild(next, drum)) onExhibit?.({ ...exhibit, drum: next });
     return true;
   });
-  useEffect(() => {
-    latest.current = { exhibit, auto, autoPresses };
-  });
-
   /** Let go: the ring the press made, its flight, and the skin springing back. */
   const release = () => {
     const current = sim.current;
@@ -228,55 +224,43 @@ function SmokePlay({
       source,
       duration: pressDuration,
       depth: pressDepth,
-      exhibit: latest.current.exhibit,
+      exhibit,
     };
     current.start = now;
     current.released = null;
   };
 
-  useEffect(() => {
-    if (!running) return;
-    let raf = 0;
-    let last = performance.now() / 1000;
-    const tick = (ms: number) => {
-      const now = ms / 1000;
-      const dt = Math.min(0.05, now - last);
-      last = now;
-      const current = sim.current;
-      const { auto: autoOn, autoPresses: presses, exhibit: ex } = latest.current;
-      if (autoOn && !current.press && now >= current.autoAt) {
-        const d = presses[current.autoNext % 3];
-        startPress("button", now, d, ex.drum.stroke_m);
-        current.autoNext += 1;
-        current.autoAt = now + d + AUTO_GAP_S;
-      }
-      const press = current.press;
-      if (press?.source === "button") {
-        const into = now - current.start;
-        current.depth = pressDepth(press.depth, press.duration, into);
-        record(press, now, current.depth);
-        if (into >= press.duration) release();
-      } else if (press?.source === "drag") {
-        record(press, now, current.depth);
-      } else if (current.released) {
-        current.released.age += dt;
-        current.depth = current.released.from * Math.max(0, 1 - current.released.age / RETURN_S);
-      }
-      if (current.flying) current.flying.age += dt;
-      setView(viewOf(current, dt));
-      raf = requestAnimationFrame(tick);
-    };
-    raf = requestAnimationFrame(tick);
-    return () => cancelAnimationFrame(raf);
-  }, [running]);
+  // The presses keep time in seconds on the frames' clock (`performance.now()`),
+  // which a drag's start reads too.
+  useFrameLoop(running, (dt, ms) => {
+    const now = ms / 1000;
+    const current = sim.current;
+    if (auto && !current.press && now >= current.autoAt) {
+      const d = autoPresses[current.autoNext % 3];
+      startPress("button", now, d, exhibit.drum.stroke_m);
+      current.autoNext += 1;
+      current.autoAt = now + d + AUTO_GAP_S;
+    }
+    const press = current.press;
+    if (press?.source === "button") {
+      const into = now - current.start;
+      current.depth = pressDepth(press.depth, press.duration, into);
+      record(press, now, current.depth);
+      if (into >= press.duration) release();
+    } else if (press?.source === "drag") {
+      record(press, now, current.depth);
+    } else if (current.released) {
+      current.released.age += dt;
+      current.depth = current.released.from * Math.max(0, 1 - current.released.age / RETURN_S);
+    }
+    if (current.flying) current.flying.age += dt;
+    setView(viewOf(current, dt));
+  });
 
   /** The pointer's height in the drawing, metres. */
   const pointerY = (event: ReactPointerEvent<SVGSVGElement>): number | null => {
-    const el = svg.current;
-    const matrix = el?.getScreenCTM?.();
-    if (!el || !matrix) return null;
-    const point = new DOMPoint(event.clientX, event.clientY).matrixTransform(matrix.inverse());
-    return -point.y;
+    const point = svg.current ? svgPoint(svg.current, event.clientX, event.clientY) : null;
+    return point ? -point[1] : null;
   };
   const onPointerDown = (event: ReactPointerEvent<SVGSVGElement>) => {
     const y = pointerY(event);
@@ -307,23 +291,15 @@ function SmokePlay({
       hint={t(auto ? "experiments.smoke.play.hint_auto" : "experiments.smoke.play.hint")}
       actions={
         <>
-          <Button variant="secondary" size="sm" onClick={() => setRunning(!running)}>
-            {running ? <Pause className="size-4" aria-hidden /> : <Play className="size-4" aria-hidden />}
-            {running ? t("experiments.smoke.play.pause") : t("experiments.smoke.play.run")}
-          </Button>
-          <Button
-            variant="secondary"
-            size="sm"
+          <RunPauseButton running={running} onToggle={() => setRunning(!running)} />
+          <RestartButton
             onClick={() => {
               sim.current.flying = null;
               sim.current.press = null;
               sim.current.depth = 0;
               setRing(null);
             }}
-          >
-            <RotateCcw className="size-4" aria-hidden />
-            {t("experiments.smoke.play.restart")}
-          </Button>
+          />
         </>
       }
     >

@@ -1,6 +1,6 @@
-import { useEffect, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { Hand, Pause, Play } from "lucide-react";
+import { Hand } from "lucide-react";
 import { Button, ToggleGroup } from "@eifi1/ui-kit";
 import { useLocale } from "@/shared/i18n/use-locale";
 import { formatNumber } from "@/shared/lib/format";
@@ -11,6 +11,8 @@ import { Equation } from "./equation";
 import { ExhibitFrame } from "./exhibit-frame";
 import { BuildPending } from "./build-pending";
 import { settingNumber, useCheckSetting } from "./check-setting";
+import { useFrameLoop, useRunning } from "./play";
+import { RunPauseButton, SpeedToggle } from "./play-controls";
 import { PreviewPending, type PreviewMode, type PreviewProps } from "./preview-mode";
 import {
   HANGING_DEG,
@@ -240,44 +242,33 @@ function GyroscopePlay({
     deepest: first.deepest,
     dropped: first.dropped,
   }));
-  const [runningHere, setRunning] = useState(false);
+  const { running, setRunning } = useRunning({ preview, paused, initially: false });
   const [speedHere, setSpeed] = useState<Speed>(1);
-  const running = preview ? !paused : runningHere;
   const speed = preview ? 1 : speedHere;
 
-  useEffect(() => {
-    if (!running) return;
-    let raf = 0;
-    let last = performance.now();
-    const tick = (now: number) => {
-      const dt = Math.max(0, Math.min(0.05, (now - last) / 1000));
-      last = now;
-      const s = sim.current;
-      s.owed += (dt * speed) / STEP_S;
-      while (s.owed >= 1 && s.dropped === null) {
-        s.y = step(w, s.m, s.y);
-        s.owed -= 1;
-        s.i += 1;
-        const tilt = tiltDeg(s.y);
-        if (Math.abs(tilt - release.tilt_deg) > Math.abs(s.deepest - release.tilt_deg)) s.deepest = tilt;
-        if (s.i % TRACE_EVERY === 0) {
-          s.trace.push([s.y[2] * TO_DEG, tilt]);
-          // A turn and a little: the view shows the last one.
-          while (s.trace.length > 2 && s.trace[0][0] < s.trace[s.trace.length - 1][0] - 400) s.trace.shift();
-          if (s.trace.length > 4000) s.trace.shift();
-        }
-        if (tilt >= HANGING_DEG) s.dropped = s.i * STEP_S;
+  useFrameLoop(running, (dt) => {
+    const s = sim.current;
+    s.owed += (dt * speed) / STEP_S;
+    while (s.owed >= 1 && s.dropped === null) {
+      s.y = step(w, s.m, s.y);
+      s.owed -= 1;
+      s.i += 1;
+      const tilt = tiltDeg(s.y);
+      if (Math.abs(tilt - release.tilt_deg) > Math.abs(s.deepest - release.tilt_deg)) s.deepest = tilt;
+      if (s.i % TRACE_EVERY === 0) {
+        s.trace.push([s.y[2] * TO_DEG, tilt]);
+        // A turn and a little: the view shows the last one.
+        while (s.trace.length > 2 && s.trace[0][0] < s.trace[s.trace.length - 1][0] - 400) s.trace.shift();
+        if (s.trace.length > 4000) s.trace.shift();
       }
-      if (s.dropped !== null) s.owed = 0;
-      // The preview lets go again once the wheel has turned round twice, or dropped.
-      if (preview && (s.dropped !== null || s.y[2] > 4 * Math.PI)) sim.current = letGo(w, release);
-      const m = sim.current;
-      setFrame({ y: m.y, trace: [...m.trace], deepest: m.deepest, dropped: m.dropped });
-      raf = requestAnimationFrame(tick);
-    };
-    raf = requestAnimationFrame(tick);
-    return () => cancelAnimationFrame(raf);
-  }, [running, speed, w, release, preview]);
+      if (tilt >= HANGING_DEG) s.dropped = s.i * STEP_S;
+    }
+    if (s.dropped !== null) s.owed = 0;
+    // The preview lets go again once the wheel has turned round twice, or dropped.
+    if (preview && (s.dropped !== null || s.y[2] > 4 * Math.PI)) sim.current = letGo(w, release);
+    const m = sim.current;
+    setFrame({ y: m.y, trace: [...m.trace], deepest: m.deepest, dropped: m.dropped });
+  });
 
   // A check case's "Set it up" takes the whole case here: the spin is the
   // build's, the release this card's. A case that says how the wheel is let
@@ -323,10 +314,7 @@ function GyroscopePlay({
             <Hand className="size-4" aria-hidden />
             {t("experiments.gyroscope.play.let_go")}
           </Button>
-          <Button variant="secondary" size="sm" disabled={frame.dropped !== null} onClick={() => setRunning(!running)}>
-            {running ? <Pause className="size-4" aria-hidden /> : <Play className="size-4" aria-hidden />}
-            {running ? t("experiments.gyroscope.play.pause") : t("experiments.gyroscope.play.run")}
-          </Button>
+          <RunPauseButton running={running} disabled={frame.dropped !== null} onToggle={() => setRunning(!running)} />
         </>
       }
     >
@@ -340,17 +328,7 @@ function GyroscopePlay({
             onChange={(v: Start) => changeRelease({ ...release, steady: v === "steady" })}
             options={STARTS.map((v) => ({ value: v, label: t(`experiments.gyroscope.play.starts.${v}`) }))}
           />
-          <ToggleGroup
-            label={t("experiments.gyroscope.play.speed")}
-            labelPlacement="above"
-            size="sm"
-            value={String(speed)}
-            onChange={(v: string) => setSpeed(Number(v) as Speed)}
-            options={SPEEDS.map((v) => ({
-              value: String(v),
-              label: t(`experiments.gyroscope.play.speeds.${Math.round(v * 100)}`),
-            }))}
-          />
+          <SpeedToggle speeds={SPEEDS} value={speed} onChange={setSpeed} />
         </div>
         <div className={`${SIDE.views} mx-auto w-full max-w-xl`}>
           {view}

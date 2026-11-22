@@ -1,6 +1,6 @@
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useMemo, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { Pause, Play, RotateCcw } from "lucide-react";
+import { RotateCcw } from "lucide-react";
 import { AlertBanner, Button, LoadingState, ToggleGroup } from "@eifi1/ui-kit";
 import { SeriesChart } from "@/shared/charts/series-chart";
 import { useLocale } from "@/shared/i18n/use-locale";
@@ -11,10 +11,11 @@ import { Figures, WidgetCard } from "@/shared/ui/widget";
 import { Equation } from "./equation";
 import { ExhibitFrame } from "./exhibit-frame";
 import { BuildPending } from "./build-pending";
-import { settingNumber, useCheckRequest, useCheckSetting, type CheckSetting } from "./check-setting";
+import { sameBuild, settingNumber, useCheckSetting, useTakeCheckRequest, type CheckSetting } from "./check-setting";
 import { ParabolaSideView, ParabolaTopView } from "./parabola-views";
 import { PreviewPending, type PreviewMode, type PreviewProps } from "./preview-mode";
-import { startsRunning } from "./play";
+import { useFrameLoop, useRunning } from "./play";
+import { RunPauseButton, SpeedToggle } from "./play-controls";
 import {
   SPIN_STEP_S,
   dryRate,
@@ -79,13 +80,10 @@ export function ParabolaPage() {
   const [rate, setRate] = useState(START_RPM * RPM);
   // A check case's "Set it up": the vessel here; the play, built anew for it
   // or already on it, sets the turntable and the water.
-  const request = useCheckRequest("parabola");
-  const [seen, setSeen] = useState<number | null>(null);
-  if (request && !request.done && request.nonce !== seen && v) {
-    setSeen(request.nonce);
-    const next = vesselOf(v, request.setting);
-    if (JSON.stringify(next) !== JSON.stringify(v)) setBuild(next);
-  }
+  useTakeCheckRequest("parabola", v, (setting, current) => {
+    const next = vesselOf(current, setting);
+    if (!sameBuild(next, current)) setBuild(next);
+  });
 
   return (
     <ExhibitFrame
@@ -140,16 +138,15 @@ function ParabolaPlay({
   // The page's turntable has been running before the reader came: the water
   // turns with it. The preview starts from rest.
   const sim = useRef({ water: preview ? 0 : target, vesselAngle: 0, waterAngle: 0, clock: 0, owed: 0 });
-  const [runningHere, setRunning] = useState(startsRunning);
+  const { running, setRunning } = useRunning({ preview, paused });
   const [speedHere, setSpeed] = useState<Speed>(1);
   const [frame, setFrame] = useState<Frame>("outside");
   const [view, setView] = useState<View>(() => ({ water: preview ? 0 : target, vesselAngle: 0, waterAngle: 0 }));
-  const running = preview ? !paused : runningHere;
   const speed = preview ? PREVIEW_SPEED : speedHere;
   // A case's turntable, and its water: turning with the table, as the page
   // keeps it, or at rest with the table already at speed, for the spin-up.
   useCheckSetting("parabola", (setting) => {
-    if (preview || JSON.stringify(vesselOf(v, setting)) !== JSON.stringify(v)) return false;
+    if (preview || !sameBuild(vesselOf(v, setting), v)) return false;
     const rate = settingNumber(setting, "rate_rad_s", target);
     const water = setting.water === "rest" ? 0 : rate;
     sim.current = { ...sim.current, water, clock: 0, owed: 0 };
@@ -159,34 +156,22 @@ function ParabolaPlay({
     return true;
   });
 
-  useEffect(() => {
-    if (!running) return;
-    let raf = 0;
-    let last = performance.now();
-    const tick = (now: number) => {
-      // A frame's timestamp can lie a little before the effect started: never a
-      // step back in time.
-      const dt = Math.max(0, Math.min(0.05, (now - last) / 1000));
-      last = now;
-      const s = sim.current;
-      const vessel = preview ? previewTarget(s.clock) * RPM : target;
-      s.owed += (dt * speed) / SPIN_STEP_S;
-      const steps = Math.floor(s.owed);
-      s.owed -= steps;
-      for (let k = 0; k < steps; k++) {
-        s.water = spinStep(v, vessel, s.water, s.clock);
-        s.clock += SPIN_STEP_S;
-      }
-      // The picture turns at what the eye can follow: the true angle would be a
-      // blur at ten times real speed, so the angles advance in real time.
-      s.vesselAngle += vessel * dt;
-      s.waterAngle += s.water * dt;
-      setView({ water: s.water, vesselAngle: s.vesselAngle, waterAngle: s.waterAngle });
-      raf = requestAnimationFrame(tick);
-    };
-    raf = requestAnimationFrame(tick);
-    return () => cancelAnimationFrame(raf);
-  }, [running, speed, preview, target, v]);
+  useFrameLoop(running, (dt) => {
+    const s = sim.current;
+    const vessel = preview ? previewTarget(s.clock) * RPM : target;
+    s.owed += (dt * speed) / SPIN_STEP_S;
+    const steps = Math.floor(s.owed);
+    s.owed -= steps;
+    for (let k = 0; k < steps; k++) {
+      s.water = spinStep(v, vessel, s.water, s.clock);
+      s.clock += SPIN_STEP_S;
+    }
+    // The picture turns at what the eye can follow: the true angle would be a
+    // blur at ten times real speed, so the angles advance in real time.
+    s.vesselAngle += vessel * dt;
+    s.waterAngle += s.water * dt;
+    setView({ water: s.water, vesselAngle: s.vesselAngle, waterAngle: s.waterAngle });
+  });
 
   const turning = frame === "turning";
   const vesselAngle = turning ? 0 : view.vesselAngle;
@@ -208,10 +193,7 @@ function ParabolaPlay({
       hint={t("experiments.parabola.play.hint")}
       actions={
         <>
-          <Button variant="secondary" size="sm" onClick={() => setRunning(!running)}>
-            {running ? <Pause className="size-4" aria-hidden /> : <Play className="size-4" aria-hidden />}
-            {running ? t("experiments.parabola.play.pause") : t("experiments.parabola.play.run")}
-          </Button>
+          <RunPauseButton running={running} onToggle={() => setRunning(!running)} />
           <Button variant="secondary" size="sm" onClick={() => turn(0)}>
             <RotateCcw className="size-4" aria-hidden />
             {t("experiments.parabola.play.stop")}
@@ -232,14 +214,7 @@ function ParabolaPlay({
               label: t(`experiments.parabola.play.frames.${f}`),
             }))}
           />
-          <ToggleGroup
-            label={t("experiments.parabola.play.speed")}
-            labelPlacement="above"
-            size="sm"
-            value={String(speed)}
-            onChange={(x: string) => setSpeed(Number(x) as Speed)}
-            options={SPEEDS.map((x) => ({ value: String(x), label: t(`experiments.parabola.play.speeds.${x}`) }))}
-          />
+          <SpeedToggle speeds={SPEEDS} value={speed} onChange={setSpeed} />
         </div>
         <div className={SIDE.views}>
           <div className="grid grid-cols-1 gap-4 sm:grid-cols-[minmax(0,3fr)_minmax(0,2fr)]">

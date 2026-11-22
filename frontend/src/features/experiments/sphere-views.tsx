@@ -17,6 +17,7 @@
 import type { PointerEvent } from "react";
 import { useTranslation } from "react-i18next";
 import { useChartHue } from "@/shared/state/palette-store";
+import { svgPoint } from "@/shared/ui/svg-point";
 import { MAX_PUSH_M } from "./sphere-hand";
 import { VIEW_FRAME } from "./stage";
 
@@ -24,13 +25,10 @@ import { VIEW_FRAME } from "./stage";
 const BALL_HUE = 3;
 
 /** The hand's target from a pointer on the top view, in metres (x right, y
- *  away), or null where the browser cannot map the point (jsdom). */
+ *  away), or null where the point cannot be mapped (a drawing of no size). */
 function pointOf(e: PointerEvent<SVGSVGElement>): [number, number] | null {
-  const svg = e.currentTarget;
-  const matrix = svg.getScreenCTM?.();
-  if (!matrix) return null;
-  const p = new DOMPoint(e.clientX, e.clientY).matrixTransform(matrix.inverse());
-  return [p.x, -p.y];
+  const p = svgPoint(e.currentTarget, e.clientX, e.clientY);
+  return p ? [p[0], -p[1]] : null;
 }
 
 export function TopView({

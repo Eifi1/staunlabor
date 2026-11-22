@@ -1,7 +1,7 @@
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useMemo, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Hammer } from "lucide-react";
-import { Button, LoadingState, Switch } from "@eifi1/ui-kit";
+import { Button, LoadingState } from "@eifi1/ui-kit";
 import { SeriesChart } from "@/shared/charts/series-chart";
 import { useLocale } from "@/shared/i18n/use-locale";
 import { formatNumber } from "@/shared/lib/format";
@@ -13,6 +13,8 @@ import { Equation } from "./equation";
 import { ExhibitFrame } from "./exhibit-frame";
 import { BuildPending } from "./build-pending";
 import { settingNumber, useCheckSetting } from "./check-setting";
+import { useFrameLoop } from "./play";
+import { SoundSwitch } from "./play-controls";
 import { PreviewPending, type PreviewMode, type PreviewProps } from "./preview-mode";
 import { figures, frequencyHz, loudness, sound, type Fork, type Rider } from "./simulate/beats";
 import { SIDE, VIEW_FRAME } from "./stage";
@@ -247,24 +249,19 @@ function BeatsPlay({
     return true;
   });
 
-  useEffect(() => {
-    if (strikes === 0 || (preview && paused)) return;
-    let raf = 0;
-    let last = performance.now();
-    const tick = (now: number) => {
-      clock.current += Math.max(0, Math.min(0.05, (now - last) / 1000));
-      last = now;
-      let s = clock.current - struck.current;
-      if (preview && s > PREVIEW_STRIKE_S) {
-        struck.current = clock.current;
-        s = 0;
-      }
-      setTime(s);
-      if (s < silentAfter || preview) raf = requestAnimationFrame(tick);
-    };
-    raf = requestAnimationFrame(tick);
-    return () => cancelAnimationFrame(raf);
-  }, [strikes, preview, paused, silentAfter]);
+  // The clock runs from a strike until the forks are silent, and stops there;
+  // the next strike sets the time back and starts it. The preview strikes
+  // again and again, so its clock runs for as long as it is not held.
+  const running = ringing && !(preview && paused) && (preview || time < silentAfter);
+  useFrameLoop(running, (dt) => {
+    clock.current += dt;
+    let s = clock.current - struck.current;
+    if (preview && s > PREVIEW_STRIKE_S) {
+      struck.current = clock.current;
+      s = 0;
+    }
+    setTime(s);
+  });
 
   const level = ringing && time < silentAfter ? Math.exp(-time / fork.decay_s) : 0;
   const tones = useTones(soundOn && !preview, [fork.frequency_hz, f2], [level, level]);
@@ -291,14 +288,11 @@ function BeatsPlay({
     >
       <div className={`${SIDE.grid} ${SIDE.cap.xl}`}>
         <div className={SIDE.top}>
-          <Switch
-            label={t("experiments.beats.play.sound")}
-            description={
-              tones.available ? t("experiments.beats.play.sound_hint") : t("experiments.beats.play.no_sound")
-            }
+          <SoundSwitch
             checked={soundOn}
-            disabled={!tones.available}
-            onCheckedChange={setSound}
+            onChange={setSound}
+            available={tones.available}
+            hint={t("experiments.beats.play.sound_hint")}
           />
         </div>
         <div className={`${SIDE.views} mx-auto w-full max-w-xl`}>

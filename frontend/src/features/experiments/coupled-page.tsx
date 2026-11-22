@@ -1,7 +1,6 @@
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useMemo, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { Pause, Play } from "lucide-react";
-import { AlertBanner, Button, LoadingState, ToggleGroup } from "@eifi1/ui-kit";
+import { AlertBanner, Button, LoadingState } from "@eifi1/ui-kit";
 import { SeriesChart } from "@/shared/charts/series-chart";
 import { useLocale } from "@/shared/i18n/use-locale";
 import { formatNumber } from "@/shared/lib/format";
@@ -11,9 +10,10 @@ import { Figures, WidgetCard } from "@/shared/ui/widget";
 import { Equation } from "./equation";
 import { ExhibitFrame } from "./exhibit-frame";
 import { BuildPending } from "./build-pending";
-import { settingNumber, useCheckRequest, useCheckSetting, type CheckSetting } from "./check-setting";
+import { sameBuild, settingNumber, useCheckSetting, useTakeCheckRequest, type CheckSetting } from "./check-setting";
 import { PreviewPending, type PreviewMode, type PreviewProps } from "./preview-mode";
-import { startsRunning } from "./play";
+import { useFrameLoop, useRunning } from "./play";
+import { RunPauseButton, SpeedToggle } from "./play-controls";
 import { HeldAnswer, useHeld, type Held } from "./held";
 import {
   beatS,
@@ -75,13 +75,10 @@ export function CoupledPage() {
   const fine = cp ? hangs(cp) : false;
   // A check case's "Set it up": the build here, which builds the play anew;
   // how the pair is let go is the play's, once it is built.
-  const request = useCheckRequest("coupled");
-  const [seen, setSeen] = useState<number | null>(null);
-  if (request && !request.done && request.nonce !== seen && cp) {
-    setSeen(request.nonce);
-    const next = caseBuild(cp, request.setting);
-    if (JSON.stringify(next) !== JSON.stringify(cp)) setBuild(next);
-  }
+  useTakeCheckRequest("coupled", cp, (setting, current) => {
+    const next = caseBuild(current, setting);
+    if (!sameBuild(next, current)) setBuild(next);
+  });
   return (
     <ExhibitFrame
       exhibit="coupled"
@@ -197,43 +194,33 @@ function CoupledPlay({
   const { t } = useTranslation();
   const hue = useChartHue();
   const sim = useRef({ y: startState("one", START_DEG), clock: 0, owed: 0 });
-  const [runningHere, setRunning] = useState(startsRunning);
+  const { running, setRunning } = useRunning({ preview, paused });
   const [speedHere, setSpeed] = useState<Speed>(1);
   const [start, setStart] = useState<Start>("one");
   const [y, setY] = useState<number[]>(() => startState("one", START_DEG));
-  const running = preview ? !paused : runningHere;
   const speed = preview ? 3 : speedHere;
   const show = held?.show;
 
-  useEffect(() => {
-    if (!running) return;
-    const f = rhs(cp);
-    // Half a beat: the swing has gone over to the other pendulum once, and
-    // how long that takes is the page's question.
+  const f = useMemo(() => rhs(cp), [cp]);
+  // Half a beat: the swing has gone over to the other pendulum once, and how
+  // long that takes is the page's question.
+  const over = useMemo(() => {
     const beat = beatS(cp);
-    const over = beat === null ? null : beat / 2;
-    let raf = 0;
-    let last = performance.now();
-    const tick = (now: number) => {
-      // A frame's timestamp can lie a little before the effect started: never a
-      // step back in time.
-      const dt = Math.max(0, Math.min(0.05, (now - last) / 1000));
-      last = now;
-      const s = sim.current;
-      s.owed += (dt * speed) / STEP_S;
-      const steps = Math.floor(s.owed);
-      s.owed -= steps;
-      for (let k = 0; k < steps; k++) {
-        s.y = rk4(f, s.clock, s.y, STEP_S);
-        s.clock += STEP_S;
-      }
-      setY(s.y);
-      if (over !== null && s.clock >= over) show?.();
-      raf = requestAnimationFrame(tick);
-    };
-    raf = requestAnimationFrame(tick);
-    return () => cancelAnimationFrame(raf);
-  }, [running, speed, cp, show]);
+    return beat === null ? null : beat / 2;
+  }, [cp]);
+
+  useFrameLoop(running, (dt) => {
+    const s = sim.current;
+    s.owed += (dt * speed) / STEP_S;
+    const steps = Math.floor(s.owed);
+    s.owed -= steps;
+    for (let k = 0; k < steps; k++) {
+      s.y = rk4(f, s.clock, s.y, STEP_S);
+      s.clock += STEP_S;
+    }
+    setY(s.y);
+    if (over !== null && s.clock >= over) show?.();
+  });
 
   const letGo = (how: Start) => {
     sim.current = { y: startState(how, START_DEG), clock: 0, owed: 0 };
@@ -243,7 +230,7 @@ function CoupledPlay({
   };
   useCheckSetting("coupled", (setting) => {
     if (preview) return false;
-    if (JSON.stringify(caseBuild(cp, setting)) !== JSON.stringify(cp)) return false;
+    if (!sameBuild(caseBuild(cp, setting), cp)) return false;
     const how = STARTS.find((s) => s === setting.start);
     if (how) letGo(how);
     return true;
@@ -260,12 +247,7 @@ function CoupledPlay({
     <WidgetCard
       title={t("experiments.coupled.play.title")}
       hint={t("experiments.coupled.play.hint")}
-      actions={
-        <Button variant="secondary" size="sm" onClick={() => setRunning(!running)}>
-          {running ? <Pause className="size-4" aria-hidden /> : <Play className="size-4" aria-hidden />}
-          {running ? t("experiments.coupled.play.pause") : t("experiments.coupled.play.run")}
-        </Button>
-      }
+      actions={<RunPauseButton running={running} onToggle={() => setRunning(!running)} />}
     >
       <div className={`${SIDE.grid} ${SIDE.cap.xl}`}>
         <div className={`${SIDE.top} space-y-2`}>
@@ -280,14 +262,7 @@ function CoupledPlay({
         </div>
         <div className={`${SIDE.views} mx-auto w-full max-w-xl`}>{view}</div>
         <div className={SIDE.column}>
-          <ToggleGroup
-            label={t("experiments.coupled.play.speed")}
-            labelPlacement="above"
-            size="sm"
-            value={String(speed)}
-            onChange={(x: string) => setSpeed(Number(x) as Speed)}
-            options={SPEEDS.map((x) => ({ value: String(x), label: t(`experiments.coupled.play.speeds.${x}`) }))}
-          />
+          <SpeedToggle speeds={SPEEDS} value={speed} onChange={setSpeed} />
           {/* Each pendulum's share of what was put in, as it wanders. */}
           <div className="space-y-2" aria-label={t("experiments.coupled.play.energy")} role="group">
             {[

@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { ArrowDown, Pause, Play, RotateCcw } from "lucide-react";
+import { ArrowDown } from "lucide-react";
 import { Button, LoadingState, ToggleGroup } from "@eifi1/ui-kit";
 import { SeriesChart } from "@/shared/charts/series-chart";
 import { useLocale } from "@/shared/i18n/use-locale";
@@ -15,11 +15,13 @@ import { PreviewPending, type PreviewMode, type PreviewProps } from "./preview-m
 import { G, fallTimeS, figures, motion, stream, type MagnetColumn, type Material, type Plate } from "./simulate/plates";
 import { SIDE, VIEW_FRAME } from "./stage";
 import { useExperimentsDefaults } from "./use-experiments";
-import { settingNumber, useCheckRequest } from "./check-setting";
+import { settingNumber, useTakeCheckRequest } from "./check-setting";
+import { useFrameLoop, useRunning } from "./play";
+import { RestartButton, RunPauseButton, SpeedToggle } from "./play-controls";
 
 /** Real time, and a quarter of it for the plastic plate, which is gone in a blink. */
-const SPEEDS = { real: 1, slow: 0.25 } as const;
-type Speed = keyof typeof SPEEDS;
+const SPEEDS = [1, 0.25] as const;
+type Speed = (typeof SPEEDS)[number];
 
 /** The exhibit's four, as the page names them. */
 const KINDS = ["copper", "aluminium", "slotted", "plastic"] as const;
@@ -82,11 +84,7 @@ export function PlatesPage() {
   const plate = build?.plate ?? data?.plate ?? null;
   // A check case's "Set it up": the column and the plate; a new column builds
   // the race anew.
-  const request = useCheckRequest("plates");
-  const [seen, setSeen] = useState<number | null>(null);
-  if (request && !request.done && request.nonce !== seen && column && plate) {
-    setSeen(request.nonce);
-    const s = request.setting;
+  useTakeCheckRequest("plates", column && plate ? { column, plate } : null, (s, { column, plate }) => {
     const material = typeof s.material === "string" ? (s.material as Plate["material"]) : plate.material;
     setBuild({
       column: {
@@ -101,7 +99,7 @@ export function PlatesPage() {
         tooth_m: settingNumber(s, "tooth_m", plate.tooth_m),
       },
     });
-  }
+  });
   return (
     <ExhibitFrame
       exhibit="plates"
@@ -398,31 +396,20 @@ function PlatesPlay({
   const clock = useRef(0);
   const [time, setTime] = useState(0);
   const [dropped, setDropped] = useState(false);
-  const [runningHere, setRunning] = useState(false);
-  const [speedHere, setSpeed] = useState<Speed>("real");
+  const { running: on, setRunning } = useRunning({ preview, paused, initially: false });
+  const [speedHere, setSpeed] = useState<Speed>(1);
   const [look, setLook] = useState<Kind>("copper");
   const falls = useMemo(() => plates.map((p) => fallTimeS(column, p)), [column, plates]);
   const slowest = Math.max(...falls);
   const loop = PREVIEW_HOLD_S + slowest + PREVIEW_DOWN_S;
   // Once the slowest is down there is nothing left to draw: the clock stops.
-  const running = preview ? !paused : dropped && runningHere && time < slowest;
-  const speed = preview ? SPEEDS.real : SPEEDS[speedHere];
+  const running = preview ? on : dropped && on && time < slowest;
+  const speed = preview ? 1 : speedHere;
 
-  useEffect(() => {
-    if (!running) return;
-    let raf = 0;
-    let last = performance.now();
-    const tick = (now: number) => {
-      // A frame's timestamp can lie a little before the effect started: never a step back in time.
-      const dt = Math.max(0, Math.min(0.05, (now - last) / 1000));
-      last = now;
-      clock.current += dt * speed;
-      setTime(clock.current);
-      raf = requestAnimationFrame(tick);
-    };
-    raf = requestAnimationFrame(tick);
-    return () => cancelAnimationFrame(raf);
-  }, [running, speed]);
+  useFrameLoop(running, (dt) => {
+    clock.current += dt * speed;
+    setTime(clock.current);
+  });
 
   // The run's time: negative while the plates are held at the top.
   const runTime = preview ? (time % loop) - PREVIEW_HOLD_S : dropped ? time : -1;
@@ -444,16 +431,8 @@ function PlatesPlay({
       actions={
         dropped ? (
           <>
-            {time < slowest && (
-              <Button variant="secondary" size="sm" onClick={() => setRunning(!runningHere)}>
-                {runningHere ? <Pause className="size-4" aria-hidden /> : <Play className="size-4" aria-hidden />}
-                {runningHere ? t("experiments.plates.play.pause") : t("experiments.plates.play.run")}
-              </Button>
-            )}
-            <Button variant="secondary" size="sm" onClick={reset}>
-              <RotateCcw className="size-4" aria-hidden />
-              {t("experiments.plates.play.top")}
-            </Button>
+            {time < slowest && <RunPauseButton running={on} onToggle={() => setRunning(!on)} />}
+            <RestartButton onClick={reset} label={t("experiments.plates.play.top")} />
           </>
         ) : (
           <Button
@@ -471,18 +450,7 @@ function PlatesPlay({
     >
       <div className={`${SIDE.grid} ${SIDE.cap["2xl"]}`}>
         <div className={`${SIDE.top} flex flex-wrap gap-4`}>
-          <ToggleGroup
-            label={t("experiments.plates.play.speed")}
-            labelPlacement="above"
-            size="sm"
-            overflow="wrap"
-            value={speedHere}
-            onChange={(v: string) => setSpeed(v as Speed)}
-            options={(Object.keys(SPEEDS) as Speed[]).map((s) => ({
-              value: s,
-              label: t(`experiments.plates.play.speeds.${s}`),
-            }))}
-          />
+          <SpeedToggle speeds={SPEEDS} value={speedHere} onChange={setSpeed} />
           <ToggleGroup
             label={t("experiments.plates.play.look")}
             labelPlacement="above"

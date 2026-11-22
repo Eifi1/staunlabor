@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { Pause, Play, Shuffle } from "lucide-react";
-import { Button, Switch } from "@eifi1/ui-kit";
+import { Shuffle } from "lucide-react";
+import { Button } from "@eifi1/ui-kit";
 import { useLocale } from "@/shared/i18n/use-locale";
 import { formatNumber } from "@/shared/lib/format";
 import { useTones } from "@/shared/lib/use-tones";
@@ -12,7 +12,8 @@ import { Equation } from "./equation";
 import { ExhibitFrame } from "./exhibit-frame";
 import { BuildPending } from "./build-pending";
 import { PreviewPending, type PreviewMode, type PreviewProps } from "./preview-mode";
-import { startsRunning } from "./play";
+import { useFrameLoop, useRunning } from "./play";
+import { RunPauseButton, SoundSwitch } from "./play-controls";
 import { settingNumber, useCheckSetting } from "./check-setting";
 import { frequencyHz, modeGrids, response, responseFrom, type Mode, type Plate } from "./simulate/chladni";
 import { SIDE } from "./stage";
@@ -170,29 +171,23 @@ function ChladniPlay({
   const tone = useTones(sound && !preview, [drive], [Math.sqrt(Math.min(1, share))]);
   const sand = useRef(strew(GRAINS));
   const [grains, setGrains] = useState<Grain[]>(() => strew(GRAINS));
-  const [runningHere, setRunning] = useState(startsRunning);
-  const running = preview ? !paused : runningHere;
+  const { running, setRunning } = useRunning({ preview, paused });
 
-  useEffect(() => {
-    if (!running) return;
-    let raf = 0;
-    const tick = () => {
-      for (const g of sand.current) {
-        const here = at(swing, g.x, g.y);
-        const h = 2 / (GRID - 1);
-        const gx = (at(swing, g.x + h, g.y) - at(swing, g.x - h, g.y)) / (2 * h);
-        const gy = (at(swing, g.x, g.y + h) - at(swing, g.x, g.y - h)) / (2 * h);
-        g.x += -DRIFT * gx + TOSS * here * (Math.random() * 2 - 1);
-        g.y += -DRIFT * gy + TOSS * here * (Math.random() * 2 - 1);
-        g.x = Math.max(-1, Math.min(1, g.x));
-        g.y = Math.max(-1, Math.min(1, g.y));
-      }
-      setGrains([...sand.current]);
-      raf = requestAnimationFrame(tick);
-    };
-    raf = requestAnimationFrame(tick);
-    return () => cancelAnimationFrame(raf);
-  }, [running, swing]);
+  // The sand moves by a nudge a frame, not by a time step: it shows where the
+  // plate rests, and how fast it gets there is not the exhibit's.
+  useFrameLoop(running, () => {
+    for (const g of sand.current) {
+      const here = at(swing, g.x, g.y);
+      const h = 2 / (GRID - 1);
+      const gx = (at(swing, g.x + h, g.y) - at(swing, g.x - h, g.y)) / (2 * h);
+      const gy = (at(swing, g.x, g.y + h) - at(swing, g.x, g.y - h)) / (2 * h);
+      g.x += -DRIFT * gx + TOSS * here * (Math.random() * 2 - 1);
+      g.y += -DRIFT * gy + TOSS * here * (Math.random() * 2 - 1);
+      g.x = Math.max(-1, Math.min(1, g.x));
+      g.y = Math.max(-1, Math.min(1, g.y));
+    }
+    setGrains([...sand.current]);
+  });
 
   // A check case's "Set it up": the shaker at the case's tone, to the hundredth
   // of a hertz the slider's whole hertz cannot reach, and the sand moving.
@@ -224,10 +219,7 @@ function ChladniPlay({
       hint={t("experiments.chladni.play.hint")}
       actions={
         <>
-          <Button variant="secondary" size="sm" onClick={() => setRunning(!running)}>
-            {running ? <Pause className="size-4" aria-hidden /> : <Play className="size-4" aria-hidden />}
-            {running ? t("experiments.play.pause") : t("experiments.play.run")}
-          </Button>
+          <RunPauseButton running={running} onToggle={() => setRunning(!running)} />
           <Button variant="secondary" size="sm" onClick={restrew}>
             <Shuffle className="size-4" aria-hidden />
             {t("experiments.chladni.play.restrew")}
@@ -265,14 +257,11 @@ function ChladniPlay({
             hint={t("experiments.chladni.play.drive_hint")}
             onChange={ring}
           />
-          <Switch
-            label={t("experiments.chladni.play.sound")}
-            description={
-              tone.available ? t("experiments.chladni.play.sound_hint") : t("experiments.chladni.play.no_sound")
-            }
+          <SoundSwitch
             checked={sound}
-            disabled={!tone.available}
-            onCheckedChange={setSound}
+            onChange={setSound}
+            available={tone.available}
+            hint={t("experiments.chladni.play.sound_hint")}
           />
           <Figures
             tiles={[

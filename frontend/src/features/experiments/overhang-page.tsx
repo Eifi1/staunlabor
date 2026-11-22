@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useRef, useState, type KeyboardEvent, type PointerEvent } from "react";
+import { useMemo, useRef, useState, type KeyboardEvent, type PointerEvent } from "react";
 import { useTranslation } from "react-i18next";
 import { Button } from "@eifi1/ui-kit";
 import { SeriesChart } from "@/shared/charts/series-chart";
@@ -7,12 +7,14 @@ import { formatNumber } from "@/shared/lib/format";
 import { useChartHue } from "@/shared/state/palette-store";
 import type { OverhangRequest } from "@/shared/types";
 import { SliderField } from "@/shared/ui/slider-field";
+import { svgPoint } from "@/shared/ui/svg-point";
 import { Figures, WidgetCard } from "@/shared/ui/widget";
 import { Equation } from "./equation";
 import { ExhibitFrame } from "./exhibit-frame";
 import { BuildPending } from "./build-pending";
 import { settingNumber, useCheckSetting } from "./check-setting";
 import { PreviewPending, type PreviewProps } from "./preview-mode";
+import { useFrameLoop } from "./play";
 import { MOST_BLOCKS, blocksFor, even, harmonic, holds, layers, overhang } from "./simulate/overhang";
 import { SIDE, VIEW_FRAME } from "./stage";
 import { useExperimentsDefaults } from "./use-experiments";
@@ -73,18 +75,7 @@ export function OverhangPreview({ paused }: PreviewProps) {
   const defaults = useExperimentsDefaults();
   const data = defaults.data?.overhang;
   const [time, setTime] = useState(0);
-  useEffect(() => {
-    if (paused) return;
-    let raf = 0;
-    let last = performance.now();
-    const tick = (now: number) => {
-      setTime((s) => s + Math.max(0, Math.min(0.05, (now - last) / 1000)));
-      last = now;
-      raf = requestAnimationFrame(tick);
-    };
-    raf = requestAnimationFrame(tick);
-    return () => cancelAnimationFrame(raf);
-  }, [paused]);
+  useFrameLoop(!paused, (dt) => setTime((s) => s + dt));
   if (!data) return <PreviewPending />;
   // Both ends hold, and every stack between: each condition is linear along the way.
   const phase = (time % PREVIEW_LOOP_S) / PREVIEW_LOOP_S;
@@ -127,19 +118,21 @@ function StackView({
       : null;
   const reach = overhang(lefts);
 
-  const toLengths = (clientX: number) => {
-    const m = svg.current?.getScreenCTM();
-    return m ? (clientX - m.e) / m.a / VIEW.scale : clientX / VIEW.scale;
+  // The pointer along the table, in block lengths; only differences are used,
+  // so where the drawing cannot be mapped the screen's pixels stand in.
+  const toLengths = (clientX: number, clientY: number) => {
+    const p = svg.current ? svgPoint(svg.current, clientX, clientY) : null;
+    return (p ? p[0] : clientX) / VIEW.scale;
   };
   const down = (index: number) => (event: PointerEvent<SVGRectElement>) => {
     if (!onMove) return;
     event.currentTarget.setPointerCapture?.(event.pointerId);
-    drag.current = { index, startX: toLengths(event.clientX), startLeft: lefts[index] };
+    drag.current = { index, startX: toLengths(event.clientX, event.clientY), startLeft: lefts[index] };
   };
   const move = (event: PointerEvent<SVGRectElement>) => {
     const d = drag.current;
     if (!d || !onMove) return;
-    onMove(d.index, d.startLeft + toLengths(event.clientX) - d.startX);
+    onMove(d.index, d.startLeft + toLengths(event.clientX, event.clientY) - d.startX);
   };
   const up = () => {
     drag.current = null;

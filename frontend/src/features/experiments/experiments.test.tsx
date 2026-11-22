@@ -686,11 +686,11 @@ describe("the race", () => {
     renderWithProviders(<RacePage />);
     await screen.findByRole("img", { name: E.race.play.view });
     // The valley swings from the start; the race waits for its lever.
-    expect(screen.getAllByRole("button", { name: E.race.play.pause })).toHaveLength(1);
-    expect(screen.getAllByRole("button", { name: E.race.play.run })).toHaveLength(1);
+    expect(screen.getAllByRole("button", { name: E.play.pause })).toHaveLength(1);
+    expect(screen.getAllByRole("button", { name: E.play.run })).toHaveLength(1);
     fireEvent.click(screen.getByRole("button", { name: E.race.play.start }));
-    expect(screen.getAllByRole("button", { name: E.race.play.pause })).toHaveLength(2);
-    expect(screen.queryByRole("button", { name: E.race.play.run })).not.toBeInTheDocument();
+    expect(screen.getAllByRole("button", { name: E.play.pause })).toHaveLength(2);
+    expect(screen.queryByRole("button", { name: E.play.run })).not.toBeInTheDocument();
   });
 
   it("lets four balls go on the valley and the bowl, and names their times", async () => {
@@ -966,7 +966,7 @@ describe("the pendulum wave", () => {
     renderWithProviders(<WavePage />);
     await screen.findByRole("img", { name: E.wave.views.top });
     fireEvent.click(screen.getByRole("button", { name: E.wave.play.jumps["2"] }));
-    expect(screen.getByRole("button", { name: E.wave.play.run })).toBeInTheDocument();
+    expect(screen.getByRole("button", { name: E.play.run })).toBeInTheDocument();
     // The row is at ±15°: the bobs' offsets from the bar take two values only,
     // one for the even swing counts and one for the odd.
     const offsets = new Set(
@@ -1007,9 +1007,9 @@ describe("the pendulum wave", () => {
     fireEvent.pointerMove(side, { pointerId: 1, clientX: (across - x0) * 1000, clientY: (depth - y0) * 1000 });
     const swing = () => screen.getByRole("slider", { name: E.wave.play.amplitude }).getAttribute("aria-valuetext");
     expect(swing()).toMatch(/^30\b/);
-    expect(screen.getByRole("button", { name: E.wave.play.run })).toBeInTheDocument();
+    expect(screen.getByRole("button", { name: E.play.run })).toBeInTheDocument();
     fireEvent.pointerUp(side, { pointerId: 1 });
-    expect(await screen.findByRole("button", { name: E.wave.play.pause })).toBeInTheDocument();
+    expect(await screen.findByRole("button", { name: E.play.pause })).toBeInTheDocument();
     expect(swing()).toMatch(/^30\b/);
   });
 });
@@ -1488,9 +1488,9 @@ describe("Newton's cradle", () => {
     fireEvent.pointerMove(view, { pointerId: 1, clientX: 0, clientY: 40 - y0 });
     expect(screen.getByRole("radio", { name: "2" })).toBeChecked();
     expect(screen.getByRole("slider", { name: E.cradle.play.angle }).getAttribute("aria-valuetext")).toMatch(/^60\b/);
-    expect(screen.queryByRole("button", { name: E.cradle.play.pause })).toBeNull();
+    expect(screen.queryByRole("button", { name: E.play.pause })).toBeNull();
     fireEvent.pointerUp(view, { pointerId: 1 });
-    expect(await screen.findByRole("button", { name: E.cradle.play.pause })).toBeInTheDocument();
+    expect(await screen.findByRole("button", { name: E.play.pause })).toBeInTheDocument();
     expect(x0).toBeLessThan(0);
   });
 
@@ -1498,7 +1498,7 @@ describe("Newton's cradle", () => {
     renderWithProviders(<CradlePage />);
     await screen.findByRole("img", { name: E.cradle.view });
     fireEvent.click(screen.getByRole("button", { name: E.cradle.play.let_go }));
-    expect(await screen.findByRole("button", { name: E.cradle.play.pause })).toBeInTheDocument();
+    expect(await screen.findByRole("button", { name: E.play.pause })).toBeInTheDocument();
   });
 });
 
@@ -1516,7 +1516,7 @@ describe("the gravity well", () => {
     renderWithProviders(<WellPage />);
     await screen.findByRole("img", { name: E.well.view_top });
     fireEvent.click(screen.getByRole("button", { name: E.well.play.launch }));
-    expect(await screen.findByRole("button", { name: E.well.play.pause })).toBeInTheDocument();
+    expect(await screen.findByRole("button", { name: E.play.pause })).toBeInTheDocument();
   });
 });
 
@@ -1530,8 +1530,8 @@ describe("the resonance rods", () => {
     showAnswer();
     for (const hz of ["1.27 Hz", "2.09 Hz", "5.58 Hz"]) expect(screen.getByText(hz)).toBeInTheDocument();
     // No Web Audio in the test runner: the switch is off, and says why it cannot turn on.
-    expect(screen.getByRole("switch", { name: E.resonance.play.sound })).not.toBeChecked();
-    expect(screen.getByText(E.resonance.play.no_sound)).toBeInTheDocument();
+    expect(screen.getByRole("switch", { name: E.play.sound })).not.toBeChecked();
+    expect(screen.getByText(E.play.no_sound)).toBeInTheDocument();
     expect(screen.getAllByLabelText(E.equation.symbols).length).toBeGreaterThanOrEqual(3);
   });
 
@@ -1564,7 +1564,7 @@ describe("the gyroscope wheel", () => {
     renderWithProviders(<GyroscopePage />);
     await screen.findByRole("img", { name: E.gyroscope.view });
     fireEvent.click(screen.getByRole("button", { name: E.gyroscope.play.let_go }));
-    expect(await screen.findByRole("button", { name: E.gyroscope.play.pause })).toBeInTheDocument();
+    expect(await screen.findByRole("button", { name: E.play.pause })).toBeInTheDocument();
   });
 
   it("lets a wheel too slow to circle at its tilt go from rest, and says so, where it once broke the site", async () => {
@@ -1575,7 +1575,7 @@ describe("the gyroscope wheel", () => {
     fireEvent.change(screen.getByRole("slider", { name: E.gyroscope.play.tilt }), { target: { value: "70" } });
     expect(await screen.findByText(E.gyroscope.play.no_steady)).toBeInTheDocument();
     fireEvent.click(screen.getByRole("button", { name: E.gyroscope.play.let_go }));
-    expect(await screen.findByRole("button", { name: E.gyroscope.play.pause })).toBeInTheDocument();
+    expect(await screen.findByRole("button", { name: E.play.pause })).toBeInTheDocument();
     fireEvent.change(screen.getByRole("slider", { name: E.gyroscope.play.rpm }), { target: { value: "200" } });
     expect(screen.queryByText(E.gyroscope.play.no_steady)).not.toBeInTheDocument();
   });
@@ -1607,7 +1607,7 @@ describe("the Chladni figures", () => {
     expect(await screen.findByRole("img", { name: E.chladni.view })).toBeInTheDocument();
     for (const hz of ["102 Hz", "269 Hz", "517 Hz"])
       expect(screen.getByRole("button", { name: hz })).toBeInTheDocument();
-    expect(screen.getByRole("switch", { name: E.chladni.play.sound })).not.toBeChecked();
+    expect(screen.getByRole("switch", { name: E.play.sound })).not.toBeChecked();
     expect(screen.getAllByLabelText(E.equation.symbols).length).toBeGreaterThanOrEqual(3);
   });
 
@@ -1698,8 +1698,9 @@ describe("setting a check case up", () => {
   it("moves the chair's eye by the parallax case's 0.16 mm, and to the other eye for the next", async () => {
     renderWithProviders(<ChairPage />);
     await setUp(2);
-    const eye = screen.getByRole("slider", { name: E.chair.views.eye });
-    expect(eye.getAttribute("aria-valuetext")).toMatch(/0\.16/);
+    // The case may come before the chair: the play takes it as it mounts.
+    const eye = await screen.findByRole("slider", { name: E.chair.views.eye });
+    await waitFor(() => expect(eye.getAttribute("aria-valuetext")).toMatch(/0\.16/));
     await setUp(3);
     expect(eye.getAttribute("aria-valuetext")).toMatch(/65/);
   });
@@ -1718,7 +1719,7 @@ describe("setting a check case up", () => {
     renderWithProviders(<CradlePage />);
     await screen.findByRole("img", { name: E.cradle.view });
     await setUp(0);
-    expect(await screen.findByRole("button", { name: E.cradle.play.pause })).toBeInTheDocument();
+    expect(await screen.findByRole("button", { name: E.play.pause })).toBeInTheDocument();
     expect(screen.getByRole("radio", { name: E.cradle.play.spacings.gap })).toBeChecked();
     expect(screen.getByRole("slider", { name: E.cradle.play.restitution }).getAttribute("aria-valuetext")).toMatch(
       /^1\b/,
@@ -1741,7 +1742,7 @@ describe("setting a check case up", () => {
     renderWithProviders(<WavePage />);
     await screen.findByRole("img", { name: E.wave.views.top });
     await setUp(3);
-    expect(await screen.findByRole("button", { name: E.wave.play.run })).toBeInTheDocument();
+    expect(await screen.findByRole("button", { name: E.play.run })).toBeInTheDocument();
     expect(screen.getByText(/^20\.0/)).toBeInTheDocument();
   });
 
@@ -1815,7 +1816,7 @@ describe("setting a check case up", () => {
     renderWithProviders(<MaxwellPage />);
     await screen.findAllByRole("img");
     await setUp(0);
-    await waitFor(() => expect(screen.queryByRole("button", { name: E.maxwell.play.pause })).toBeInTheDocument());
+    await waitFor(() => expect(screen.queryByRole("button", { name: E.play.pause })).toBeInTheDocument());
   });
 
   it("drives the resonance table at the 60 cm rod's own beat, and has no button for the case the page cannot show", async () => {
@@ -1865,7 +1866,7 @@ describe("setting a check case up", () => {
     fireEvent.change(screen.getByRole("slider", { name: E.cone.change.length }), { target: { value: "50" } });
     expect(await screen.findByText(E.cone.refused.fall_through)).toBeInTheDocument();
     await setUp(2);
-    expect(await screen.findByRole("button", { name: E.cone.play.pause })).toBeInTheDocument();
+    expect(await screen.findByRole("button", { name: E.play.pause })).toBeInTheDocument();
     expect(screen.getByRole("slider", { name: E.cone.change.length }).getAttribute("aria-valuetext")).toMatch(/^30\b/);
   });
 
@@ -1879,7 +1880,7 @@ describe("setting a check case up", () => {
       ),
     );
     expect(screen.queryByText(E.beats.play.waiting)).not.toBeInTheDocument();
-    expect(screen.getByText(E.beats.play.no_sound)).toBeInTheDocument();
+    expect(screen.getByText(E.play.no_sound)).toBeInTheDocument();
   });
 
   it("fills the parabola's vessel back to 10 cm and spins its table up to 90 rpm, for the spin-up", async () => {
@@ -1918,7 +1919,7 @@ describe("setting a check case up", () => {
     renderWithProviders(<CircuitPage />);
     await screen.findByRole("img", { name: E.circuit.view });
     await setUp(3);
-    expect(await screen.findByRole("button", { name: E.circuit.play.pause })).toBeInTheDocument();
+    expect(await screen.findByRole("button", { name: E.play.pause })).toBeInTheDocument();
     // 2√(L/C) = 2529.82 Ω, where rounding puts the engine a hair on the creeping side.
     expect(screen.getByText(E.circuit.change.creeps)).toBeInTheDocument();
     expect(screen.getByRole("slider", { name: E.circuit.change.resistance }).getAttribute("aria-valuetext")).toMatch(
@@ -1949,7 +1950,7 @@ describe("setting a check case up", () => {
     // The lower arm at √2°, shown to the slider's whole degree.
     expect(screen.getByRole("slider", { name: E.chaos.play.upper }).getAttribute("aria-valuetext")).toMatch(/^1\b/);
     expect(screen.getByRole("slider", { name: E.chaos.play.lower }).getAttribute("aria-valuetext")).toMatch(/^1\b/);
-    expect(await screen.findByRole("button", { name: E.chaos.play.pause })).toBeInTheDocument();
+    expect(await screen.findByRole("button", { name: E.play.pause })).toBeInTheDocument();
   });
 
   it("builds the steel ball at half its bounce, 5 cm up, after the table-tennis ball, for its rest", async () => {
@@ -1997,7 +1998,7 @@ describe("setting a check case up", () => {
     expect(screen.getByRole("slider", { name: E.coupled.change.spring_at }).getAttribute("aria-valuetext")).toMatch(
       /^25\b/,
     );
-    expect(await screen.findByRole("button", { name: E.coupled.play.pause })).toBeInTheDocument();
+    expect(await screen.findByRole("button", { name: E.play.pause })).toBeInTheDocument();
   });
 
   it("puts the smoke drum back as built and sets a full half-second press, for the slug's length", async () => {
@@ -2099,7 +2100,7 @@ describe("setting a check case up", () => {
     );
     expect(screen.getByRole("slider", { name: E.gyroscope.play.tilt }).getAttribute("aria-valuetext")).toMatch(/^90\b/);
     expect(screen.getByRole("radio", { name: E.gyroscope.play.starts.rest })).toBeChecked();
-    expect(await screen.findByRole("button", { name: E.gyroscope.play.pause })).toBeInTheDocument();
+    expect(await screen.findByRole("button", { name: E.play.pause })).toBeInTheDocument();
   });
 
   it("pushes the ball round the well on its circle, with the felt's brake, for the brake's case", async () => {
@@ -2155,9 +2156,9 @@ describe("the slow LC circuit", () => {
     expect(screen.getByText(E.circuit.play.charged.replace("{{voltage}}", "10"))).toBeInTheDocument();
     fireEvent.click(screen.getByRole("button", { name: E.circuit.play.throw }));
     expect(screen.queryByText(E.circuit.play.charged.replace("{{voltage}}", "10"))).not.toBeInTheDocument();
-    expect(screen.getByRole("button", { name: E.circuit.play.pause })).toBeInTheDocument();
-    fireEvent.click(screen.getByRole("button", { name: E.circuit.play.pause }));
-    expect(screen.getByRole("button", { name: E.circuit.play.run })).toBeInTheDocument();
+    expect(screen.getByRole("button", { name: E.play.pause })).toBeInTheDocument();
+    fireEvent.click(screen.getByRole("button", { name: E.play.pause }));
+    expect(screen.getByRole("button", { name: E.play.run })).toBeInTheDocument();
     fireEvent.click(screen.getByRole("button", { name: E.circuit.play.recharge }));
     expect(screen.getByRole("button", { name: E.circuit.play.throw })).toBeInTheDocument();
     expect(screen.getAllByLabelText(E.equation.symbols).length).toBeGreaterThanOrEqual(6);
@@ -2185,8 +2186,8 @@ describe("the falling plates", () => {
     expect(screen.getByText(E.plates.play.waiting)).toBeInTheDocument();
     fireEvent.click(screen.getByRole("button", { name: E.plates.play.drop }));
     expect(screen.queryByText(E.plates.play.waiting)).not.toBeInTheDocument();
-    fireEvent.click(screen.getByRole("button", { name: E.plates.play.pause }));
-    expect(screen.getByRole("button", { name: E.plates.play.run })).toBeInTheDocument();
+    fireEvent.click(screen.getByRole("button", { name: E.play.pause }));
+    expect(screen.getByRole("button", { name: E.play.run })).toBeInTheDocument();
     fireEvent.click(screen.getByRole("button", { name: E.plates.play.top }));
     expect(screen.getByRole("button", { name: E.plates.play.drop })).toBeInTheDocument();
     const look = screen.getByRole("radiogroup", { name: E.plates.play.look });
@@ -2217,11 +2218,11 @@ describe("the bouncing ball", () => {
     expect(screen.getByRole("img", { name: E.bounce.strip })).toBeInTheDocument();
     expect(screen.getByText(E.bounce.play.waiting)).toBeInTheDocument();
     // No Web Audio in the test runner: the switch says so and stays off.
-    expect(screen.getByText(E.bounce.play.no_sound)).toBeInTheDocument();
+    expect(screen.getByText(E.play.no_sound)).toBeInTheDocument();
     fireEvent.click(screen.getByRole("button", { name: E.bounce.play.drop }));
     expect(screen.queryByText(E.bounce.play.waiting)).not.toBeInTheDocument();
-    fireEvent.click(screen.getByRole("button", { name: E.bounce.play.pause }));
-    expect(screen.getByRole("button", { name: E.bounce.play.run })).toBeInTheDocument();
+    fireEvent.click(screen.getByRole("button", { name: E.play.pause }));
+    expect(screen.getByRole("button", { name: E.play.run })).toBeInTheDocument();
     fireEvent.click(screen.getByRole("button", { name: E.bounce.play.top }));
     expect(screen.getByRole("button", { name: E.bounce.play.drop })).toBeInTheDocument();
     expect(screen.getAllByLabelText(E.equation.symbols).length).toBeGreaterThanOrEqual(4);
@@ -2292,8 +2293,8 @@ describe("the Cartesian diver", () => {
         vi.advanceTimersByTime(2000);
       });
       expect(screen.getByText(E.diver.play.motion.sinks)).toBeInTheDocument();
-      fireEvent.click(screen.getByRole("button", { name: E.diver.play.pause }));
-      expect(screen.getByRole("button", { name: E.diver.play.run })).toBeInTheDocument();
+      fireEvent.click(screen.getByRole("button", { name: E.play.pause }));
+      expect(screen.getByRole("button", { name: E.play.run })).toBeInTheDocument();
       fireEvent.click(screen.getByRole("button", { name: E.diver.play.surface }));
       expect(screen.getAllByLabelText(E.equation.symbols).length).toBeGreaterThanOrEqual(4);
     } finally {
@@ -2456,7 +2457,7 @@ describe("the beats", () => {
     expect(await screen.findByRole("img", { name: E.beats.view })).toBeInTheDocument();
     expect(screen.getByRole("img", { name: E.beats.loudness_view })).toBeInTheDocument();
     expect(screen.getByText(E.beats.play.waiting)).toBeInTheDocument();
-    expect(screen.getByText(E.beats.play.no_sound)).toBeInTheDocument();
+    expect(screen.getByText(E.play.no_sound)).toBeInTheDocument();
     fireEvent.click(screen.getByRole("button", { name: E.beats.play.strike }));
     expect(screen.queryByText(E.beats.play.waiting)).not.toBeInTheDocument();
     expect(screen.getAllByLabelText(E.equation.symbols).length).toBeGreaterThanOrEqual(3);
@@ -2496,32 +2497,32 @@ describe("for a reader who asked for reduced motion", () => {
     const go = await screen.findByRole("button", { name: E.coil.play.let_go });
     fireEvent.click(go);
     expect(screen.queryByRole("button", { name: E.coil.play.let_go })).toBeNull();
-    expect(screen.getByRole("button", { name: E.coil.play.pause })).toBeInTheDocument();
+    expect(screen.getByRole("button", { name: E.play.pause })).toBeInTheDocument();
   });
 
   // Every twin that would start moving by itself as its page opens.
   it.each([
-    ["coupled pendulums", CoupledPage, E.coupled.play],
-    ["ball cannon", CannonPage, E.cannon.play],
-    ["magnet car", CoilPage, E.coil.play],
-    ["harmonograph", HarmonographPage, E.harmonograph.play],
-    ["Bernoulli elephant", ElephantPage, E.elephant.play],
-    ["Cartesian diver", DiverPage, E.diver.play],
-    ["water parabola", ParabolaPage, E.parabola.play],
-    ["interrupted pendulum", PegPage, E.peg.play],
-    ["ball in the sphere", SpherePage, E.sphere.play],
-    ["chaotic waterwheel", WaterwheelPage, E.waterwheel.play],
-    ["pendulum wave", WavePage, E.wave.play],
-    ["Foucault pendulum", FoucaultPage, E.foucault.play],
-    ["smoke ring", SmokePage, E.smoke.play],
-    ["turntable", PlatformPage, E.platform.play],
-    ["race and its valley", RacePage, E.race.play],
-    ["Coriolis carousel", CoriolisPage, E.play],
-    ["Chladni plate", ChladniPage, E.play],
-  ])("the %s starts still, with a button to start it", async (_, Page, words) => {
+    ["coupled pendulums", CoupledPage],
+    ["ball cannon", CannonPage],
+    ["magnet car", CoilPage],
+    ["harmonograph", HarmonographPage],
+    ["Bernoulli elephant", ElephantPage],
+    ["Cartesian diver", DiverPage],
+    ["water parabola", ParabolaPage],
+    ["interrupted pendulum", PegPage],
+    ["ball in the sphere", SpherePage],
+    ["chaotic waterwheel", WaterwheelPage],
+    ["pendulum wave", WavePage],
+    ["Foucault pendulum", FoucaultPage],
+    ["smoke ring", SmokePage],
+    ["turntable", PlatformPage],
+    ["race and its valley", RacePage],
+    ["Coriolis carousel", CoriolisPage],
+    ["Chladni plate", ChladniPage],
+  ])("the %s starts still, with a button to start it", async (_, Page) => {
     renderWithProviders(<Page />);
-    expect((await screen.findAllByRole("button", { name: words.run })).length).toBeGreaterThan(0);
-    expect(screen.queryByRole("button", { name: words.pause })).not.toBeInTheDocument();
+    expect((await screen.findAllByRole("button", { name: E.play.run })).length).toBeGreaterThan(0);
+    expect(screen.queryByRole("button", { name: E.play.pause })).not.toBeInTheDocument();
   });
 
   it("starts the Coriolis carousel when a throw is thrown", async () => {
@@ -2536,24 +2537,23 @@ describe("for a reader who asked for reduced motion", () => {
   const slide = (name: string, value: string) => () =>
     fireEvent.change(screen.getByRole("slider", { name }), { target: { value } });
   it.each([
-    ["smoke ring", SmokePage, E.smoke.play, click(E.smoke.play.press)],
-    ["ball cannon", CannonPage, E.cannon.play, click(E.cannon.play.drop)],
-    ["turntable", PlatformPage, E.platform.play, click(E.platform.play.push)],
-    ["Bernoulli elephant", ElephantPage, E.elephant.play, click(E.elephant.play.push_left)],
-    ["Chladni plate", ChladniPage, E.play, slide(E.chladni.play.drive, "300")],
-    ["Cartesian diver", DiverPage, E.diver.play, slide(E.diver.play.squeeze, "2")],
+    ["smoke ring", SmokePage, click(E.smoke.play.press)],
+    ["ball cannon", CannonPage, click(E.cannon.play.drop)],
+    ["turntable", PlatformPage, click(E.platform.play.push)],
+    ["Bernoulli elephant", ElephantPage, click(E.elephant.play.push_left)],
+    ["Chladni plate", ChladniPage, slide(E.chladni.play.drive, "300")],
+    ["Cartesian diver", DiverPage, slide(E.diver.play.squeeze, "2")],
     [
       "ball in the sphere",
       SpherePage,
-      E.sphere.play,
       () => fireEvent.click(screen.getByRole("radio", { name: E.sphere.play.modes.circle })),
     ],
-    ["water parabola", ParabolaPage, E.parabola.play, slide(E.parabola.play.rate, "120")],
-  ])("starts the %s when its main action is taken", async (_, Page, words, act) => {
+    ["water parabola", ParabolaPage, slide(E.parabola.play.rate, "120")],
+  ])("starts the %s when its main action is taken", async (_, Page, act) => {
     renderWithProviders(<Page />);
-    await screen.findAllByRole("button", { name: words.run });
+    await screen.findAllByRole("button", { name: E.play.run });
     act();
-    expect(await screen.findByRole("button", { name: words.pause })).toBeInTheDocument();
+    expect(await screen.findByRole("button", { name: E.play.pause })).toBeInTheDocument();
   });
 });
 

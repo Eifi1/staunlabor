@@ -1,6 +1,6 @@
-import { useCallback, useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { Flag, Pause, Play } from "lucide-react";
+import { Flag } from "lucide-react";
 import { Button, LoadingState, Switch, ToggleGroup } from "@eifi1/ui-kit";
 import { useLocale } from "@/shared/i18n/use-locale";
 import { formatNumber } from "@/shared/lib/format";
@@ -13,7 +13,8 @@ import { BuildPending } from "./build-pending";
 import { settingNumber, useCheckSetting } from "./check-setting";
 import { MotionTable, VectorPlane, niceSpan } from "./race-motion";
 import { PreviewPending, type PreviewMode, type PreviewProps } from "./preview-mode";
-import { startsRunning } from "./play";
+import { useFrameLoop, useRunning } from "./play";
+import { RunPauseButton, SpeedToggle } from "./play-controls";
 import { HeldAnswer, useHeld } from "./held";
 import { RaceView, ValleyView, ballState, pitEntries, raceLayout, type BallState } from "./race-views";
 import { G as PIT_G, run as runPit } from "./simulate/pit";
@@ -88,27 +89,24 @@ export function RacePage() {
   );
 }
 
-/** The running clock of a race or a valley, advanced each animation frame. */
+/** The running clock of a race or a valley, advanced each animation frame at
+ *  `speed` times real time; `onTick` may answer a time to jump to (the auto
+ *  mode's start again). The clock is kept in a ref, so `onTick` is called once
+ *  a frame from the loop, not from inside a state update, which React may run
+ *  twice. */
 function useClock(running: boolean, speed: number, onTick?: (t: number) => number | null) {
+  const clock = useRef(0);
   const [t, setT] = useState(0);
-  useEffect(() => {
-    if (!running) return;
-    let raf = 0;
-    let last = performance.now();
-    const tick = (now: number) => {
-      const dt = Math.min(0.05, (now - last) / 1000) * speed;
-      last = now;
-      setT((previous) => {
-        const next = previous + dt;
-        const reset = onTick?.(next);
-        return reset ?? next;
-      });
-      raf = requestAnimationFrame(tick);
-    };
-    raf = requestAnimationFrame(tick);
-    return () => cancelAnimationFrame(raf);
-  }, [running, speed, onTick]);
-  return [t, setT] as const;
+  useFrameLoop(running, (dt) => {
+    const next = clock.current + dt * speed;
+    clock.current = onTick?.(next) ?? next;
+    setT(clock.current);
+  });
+  const set = (to: number) => {
+    clock.current = to;
+    setT(to);
+  };
+  return [t, set] as const;
 }
 
 /** The exhibit's auto mode alone, for the overview's previews
@@ -132,8 +130,7 @@ function RacePlay({
   paused = false,
 }: { spec: RaceRequest; data: RaceAnalysis } & PreviewMode) {
   const { t } = useTranslation();
-  const [runningHere, setRunning] = useState(false);
-  const running = preview ? !paused : runningHere;
+  const { running, setRunning } = useRunning({ preview, paused, initially: false });
   const [speed, setSpeed] = useState<(typeof SPEEDS)[number]>(0.25);
   const [auto, setAuto] = useState(preview);
   // The table by rank once every ball has arrived in a race the reader started.
@@ -146,10 +143,9 @@ function RacePlay({
     () => runPit(data.race.basin, data.race.ball_radius_m, data.race.inertia, pitEntries(tracks)),
     [data.race, tracks],
   );
-  // Stable between renders, so the clock's frame loop is not torn down every
-  // frame: with the auto mode on, the race starts again once the balls have
-  // lain still a moment in the pit.
-  const restart = useCallback((next: number) => (next > pit.settled_s + REST_S ? 0 : null), [pit.settled_s]);
+  // With the auto mode on, the race starts again once the balls have lain
+  // still a moment in the pit.
+  const restart = (next: number) => (next > pit.settled_s + REST_S ? 0 : null);
   const [time, setTime] = useClock(running, speed, auto ? restart : undefined);
   const last = Math.max(...tracks.map((tr) => tr.time_s));
   const finished = running && time >= last;
@@ -207,10 +203,7 @@ function RacePlay({
             <Flag className="size-4" aria-hidden />
             {t("experiments.race.play.start")}
           </Button>
-          <Button variant="secondary" size="sm" onClick={() => setRunning(!running)}>
-            {running ? <Pause className="size-4" aria-hidden /> : <Play className="size-4" aria-hidden />}
-            {running ? t("experiments.race.play.pause") : t("experiments.race.play.run")}
-          </Button>
+          <RunPauseButton running={running} onToggle={() => setRunning(!running)} />
         </>
       }
     >
@@ -269,17 +262,7 @@ function RacePlay({
             if (on) start();
           }}
         />
-        <ToggleGroup
-          label={t("experiments.race.play.speed")}
-          labelPlacement="above"
-          size="sm"
-          value={String(speed)}
-          onChange={(v: string) => setSpeed(Number(v) as (typeof SPEEDS)[number])}
-          options={SPEEDS.map((s) => ({
-            value: String(s),
-            label: t(`experiments.race.play.speeds.${String(s).replace(".", "_")}`),
-          }))}
-        />
+        <SpeedToggle speeds={SPEEDS} value={speed} onChange={setSpeed} />
       </div>
     </WidgetCard>
   );
@@ -330,7 +313,7 @@ function RaceBuild({ spec, onChange }: { spec: RaceRequest; onChange: (next: Rac
 function ValleyPlay({ data }: { data: RaceAnalysis }) {
   const { t } = useTranslation();
   const locale = useLocale();
-  const [running, setRunning] = useState(startsRunning);
+  const { running, setRunning } = useRunning({});
   const [time, setTime] = useClock(running, 0.5);
   const v = data.valley;
   return (
@@ -350,10 +333,7 @@ function ValleyPlay({ data }: { data: RaceAnalysis }) {
             <Flag className="size-4" aria-hidden />
             {t("experiments.race.valley.let_go")}
           </Button>
-          <Button variant="secondary" size="sm" onClick={() => setRunning(!running)}>
-            {running ? <Pause className="size-4" aria-hidden /> : <Play className="size-4" aria-hidden />}
-            {running ? t("experiments.race.play.pause") : t("experiments.race.play.run")}
-          </Button>
+          <RunPauseButton running={running} onToggle={() => setRunning(!running)} />
         </>
       }
     >

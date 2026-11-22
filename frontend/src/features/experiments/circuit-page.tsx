@@ -1,7 +1,7 @@
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useMemo, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { Pause, Play, RotateCcw, Zap } from "lucide-react";
-import { Button, LoadingState, ToggleGroup } from "@eifi1/ui-kit";
+import { Zap } from "lucide-react";
+import { Button, LoadingState } from "@eifi1/ui-kit";
 import { SeriesChart } from "@/shared/charts/series-chart";
 import { useLocale } from "@/shared/i18n/use-locale";
 import { formatNumber } from "@/shared/lib/format";
@@ -12,15 +12,17 @@ import { Figures, WidgetCard } from "@/shared/ui/widget";
 import { Equation } from "./equation";
 import { ExhibitFrame } from "./exhibit-frame";
 import { BuildPending } from "./build-pending";
-import { settingNumber, useCheckRequest, useCheckSetting, type CheckSetting } from "./check-setting";
+import { sameBuild, settingNumber, useCheckSetting, useTakeCheckRequest, type CheckSetting } from "./check-setting";
+import { useFrameLoop, useRunning } from "./play";
+import { RestartButton, RunPauseButton, SpeedToggle } from "./play-controls";
 import { PreviewPending, type PreviewMode, type PreviewProps } from "./preview-mode";
 import { energies, figures, rates, state, type Circuit } from "./simulate/circuit";
 import { SIDE, VIEW_FRAME } from "./stage";
 import { useExperimentsDefaults } from "./use-experiments";
 
 /** Real time, and a quarter of it for a quick circuit whose needle would blur. */
-const SPEEDS = { real: 1, slow: 0.25 } as const;
-type Speed = keyof typeof SPEEDS;
+const SPEEDS = [1, 0.25] as const;
+type Speed = (typeof SPEEDS)[number];
 
 /** The preview charges for a moment, throws the switch and lets it ring out,
  *  over and over: this long a run, the first part of it charged. */
@@ -85,13 +87,10 @@ export function CircuitPage() {
   const circuit = build ?? defaults.data?.circuit ?? null;
   // A check case's "Set it up": the build here, which recharges the capacitor;
   // the play, built anew for it or already on it, throws the switch.
-  const request = useCheckRequest("circuit");
-  const [seen, setSeen] = useState<number | null>(null);
-  if (request && !request.done && request.nonce !== seen && circuit) {
-    setSeen(request.nonce);
-    const next = circuitOf(circuit, request.setting);
-    if (JSON.stringify(next) !== JSON.stringify(circuit)) setBuild(next);
-  }
+  useTakeCheckRequest("circuit", circuit, (setting, current) => {
+    const next = circuitOf(current, setting);
+    if (!sameBuild(next, current)) setBuild(next);
+  });
   return (
     <ExhibitFrame
       exhibit="circuit"
@@ -315,14 +314,14 @@ function CircuitPlay({ circuit, preview = false, paused = false }: { circuit: Ci
   const clock = useRef(0);
   const [time, setTime] = useState(0);
   const [thrown, setThrown] = useState(false);
-  const [runningHere, setRunning] = useState(false);
-  const [speedHere, setSpeed] = useState<Speed>("real");
-  const running = preview ? !paused : thrown && runningHere;
-  const speed = preview ? SPEEDS.real : SPEEDS[speedHere];
+  const { running: on, setRunning } = useRunning({ preview, paused, initially: false });
+  const [speedHere, setSpeed] = useState<Speed>(1);
+  const running = preview ? on : thrown && on;
+  const speed = preview ? 1 : speedHere;
   const peak = useMemo(() => figures(circuit).peak_current_a, [circuit]);
   // The case's run: charged, thrown over at once, the clock from naught.
   useCheckSetting("circuit", (setting) => {
-    if (preview || JSON.stringify(circuitOf(circuit, setting)) !== JSON.stringify(circuit)) return false;
+    if (preview || !sameBuild(circuitOf(circuit, setting), circuit)) return false;
     clock.current = 0;
     setTime(0);
     setThrown(true);
@@ -331,21 +330,10 @@ function CircuitPlay({ circuit, preview = false, paused = false }: { circuit: Ci
   });
   const range = meterRangeMa(peak);
 
-  useEffect(() => {
-    if (!running) return;
-    let raf = 0;
-    let last = performance.now();
-    const tick = (now: number) => {
-      // A frame's timestamp can lie a little before the effect started: never a step back in time.
-      const dt = Math.max(0, Math.min(0.05, (now - last) / 1000));
-      last = now;
-      clock.current += dt * speed;
-      setTime(clock.current);
-      raf = requestAnimationFrame(tick);
-    };
-    raf = requestAnimationFrame(tick);
-    return () => cancelAnimationFrame(raf);
-  }, [running, speed]);
+  useFrameLoop(running, (dt) => {
+    clock.current += dt * speed;
+    setTime(clock.current);
+  });
 
   // The preview's run: charged for a moment, then thrown; a negative time is the charged capacitor.
   const runTime = preview ? (time % PREVIEW_LOOP_S) - PREVIEW_CHARGED_S : thrown ? time : -1;
@@ -372,14 +360,8 @@ function CircuitPlay({ circuit, preview = false, paused = false }: { circuit: Ci
       actions={
         thrown ? (
           <>
-            <Button variant="secondary" size="sm" onClick={() => setRunning(!runningHere)}>
-              {runningHere ? <Pause className="size-4" aria-hidden /> : <Play className="size-4" aria-hidden />}
-              {runningHere ? t("experiments.circuit.play.pause") : t("experiments.circuit.play.run")}
-            </Button>
-            <Button variant="secondary" size="sm" onClick={recharge}>
-              <RotateCcw className="size-4" aria-hidden />
-              {t("experiments.circuit.play.recharge")}
-            </Button>
+            <RunPauseButton running={on} onToggle={() => setRunning(!on)} />
+            <RestartButton onClick={recharge} label={t("experiments.circuit.play.recharge")} />
           </>
         ) : (
           <Button
@@ -397,18 +379,7 @@ function CircuitPlay({ circuit, preview = false, paused = false }: { circuit: Ci
     >
       <div className={`${SIDE.grid} ${SIDE.cap.xl}`}>
         <div className={SIDE.top}>
-          <ToggleGroup
-            label={t("experiments.circuit.play.speed")}
-            labelPlacement="above"
-            size="sm"
-            overflow="wrap"
-            value={speedHere}
-            onChange={(v: string) => setSpeed(v as Speed)}
-            options={(Object.keys(SPEEDS) as Speed[]).map((s) => ({
-              value: s,
-              label: t(`experiments.circuit.play.speeds.${s}`),
-            }))}
-          />
+          <SpeedToggle speeds={SPEEDS} value={speedHere} onChange={setSpeed} />
         </div>
         <div className={`${SIDE.views} mx-auto w-full max-w-xl`}>
           <figure className="space-y-1">

@@ -1,7 +1,6 @@
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useMemo, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { Pause, Play, RotateCcw } from "lucide-react";
-import { Button, LoadingState, ToggleGroup } from "@eifi1/ui-kit";
+import { Button, LoadingState } from "@eifi1/ui-kit";
 import { SeriesChart } from "@/shared/charts/series-chart";
 import { useLocale } from "@/shared/i18n/use-locale";
 import { formatNumber } from "@/shared/lib/format";
@@ -13,8 +12,9 @@ import { ExhibitFrame } from "./exhibit-frame";
 import { BuildPending } from "./build-pending";
 import { HeldAnswer, useHeld, type Held } from "./held";
 import { PreviewPending, type PreviewMode, type PreviewProps } from "./preview-mode";
-import { startsRunning } from "./play";
-import { settingNumber, useCheckRequest, useCheckSetting, type CheckSetting } from "./check-setting";
+import { useFrameLoop, useRunning } from "./play";
+import { RestartButton, RunPauseButton, SpeedToggle } from "./play-controls";
+import { sameBuild, settingNumber, useCheckSetting, useTakeCheckRequest, type CheckSetting } from "./check-setting";
 import {
   WINTERTHUR_DEG,
   degreesPerHour,
@@ -72,13 +72,10 @@ export function FoucaultPage() {
   const p = build ?? defaults.data?.foucault ?? null;
   // A check case's "Set it up": the pendulum and its place here; the play,
   // built anew for them, sets the clock's speed.
-  const request = useCheckRequest("foucault");
-  const [seen, setSeen] = useState<number | null>(null);
-  if (request && !request.done && request.nonce !== seen && p) {
-    setSeen(request.nonce);
-    const next = foucaultOf(p, request.setting);
-    if (JSON.stringify(next) !== JSON.stringify(p)) setBuild(next);
-  }
+  useTakeCheckRequest("foucault", p, (setting, current) => {
+    const next = foucaultOf(current, setting);
+    if (!sameBuild(next, current)) setBuild(next);
+  });
   return (
     <ExhibitFrame
       exhibit="foucault"
@@ -203,13 +200,12 @@ function FoucaultPlay({
   const clock = useRef(0);
   const trail = useRef<Array<[number, number]>>([]);
   const [frame, setFrame] = useState<{ time: number; trail: Array<[number, number]> }>({ time: 0, trail: [] });
-  const [runningHere, setRunning] = useState(startsRunning);
+  const { running, setRunning } = useRunning({ preview, paused });
   const [speedHere, setSpeed] = useState<Speed>(60);
-  const running = preview ? !paused : runningHere;
   const speed = preview ? 3600 : speedHere;
   // Once the play's pendulum is the case's, the clock at the case's speed.
   useCheckSetting("foucault", (setting) => {
-    if (preview || JSON.stringify(foucaultOf(p, setting)) !== JSON.stringify(p)) return false;
+    if (preview || !sameBuild(foucaultOf(p, setting), p)) return false;
     const at = settingNumber(setting, "speed", speedHere);
     if (SPEEDS.includes(at as Speed)) setSpeed(at as Speed);
     setRunning(true);
@@ -217,23 +213,13 @@ function FoucaultPlay({
   });
   const show = held?.show;
 
-  useEffect(() => {
-    if (!running) return;
-    let raf = 0;
-    let last = performance.now();
-    const tick = (now: number) => {
-      const dt = Math.max(0, Math.min(0.05, (now - last) / 1000));
-      last = now;
-      clock.current += dt * speed;
-      if (clock.current >= SEEN_AFTER_S) show?.();
-      trail.current.push(position(p, clock.current));
-      if (trail.current.length > TRAIL) trail.current.shift();
-      setFrame({ time: clock.current, trail: [...trail.current] });
-      raf = requestAnimationFrame(tick);
-    };
-    raf = requestAnimationFrame(tick);
-    return () => cancelAnimationFrame(raf);
-  }, [running, speed, p, show]);
+  useFrameLoop(running, (dt) => {
+    clock.current += dt * speed;
+    if (clock.current >= SEEN_AFTER_S) show?.();
+    trail.current.push(position(p, clock.current));
+    if (trail.current.length > TRAIL) trail.current.shift();
+    setFrame({ time: clock.current, trail: [...trail.current] });
+  });
 
   const view = <FoucaultView p={p} time={frame.time} trail={frame.trail} />;
   if (preview) return view;
@@ -249,14 +235,8 @@ function FoucaultPlay({
       hint={t("experiments.foucault.play.hint")}
       actions={
         <>
-          <Button variant="secondary" size="sm" onClick={() => setRunning(!running)}>
-            {running ? <Pause className="size-4" aria-hidden /> : <Play className="size-4" aria-hidden />}
-            {running ? t("experiments.foucault.play.pause") : t("experiments.foucault.play.run")}
-          </Button>
-          <Button variant="secondary" size="sm" onClick={restart}>
-            <RotateCcw className="size-4" aria-hidden />
-            {t("experiments.foucault.play.restart")}
-          </Button>
+          <RunPauseButton running={running} onToggle={() => setRunning(!running)} />
+          <RestartButton onClick={restart} />
         </>
       }
     >
@@ -278,14 +258,13 @@ function FoucaultPlay({
         </div>
         <div className={`${SIDE.views} mx-auto w-full max-w-xl`}>{view}</div>
         <div className={SIDE.column}>
-          <ToggleGroup
+          {/* Its own labels: a time-lapse reads as minutes a second, not as a factor. */}
+          <SpeedToggle
+            speeds={SPEEDS}
+            value={speed}
+            onChange={setSpeed}
             label={t("experiments.foucault.play.speed")}
-            labelPlacement="above"
-            size="sm"
-            overflow="wrap"
-            value={String(speed)}
-            onChange={(v: string) => setSpeed(Number(v) as Speed)}
-            options={SPEEDS.map((v) => ({ value: String(v), label: t(`experiments.foucault.play.speeds.${v}`) }))}
+            labelOf={(v) => t(`experiments.foucault.play.speeds.${v}`)}
           />
           <SliderField
             label={t("experiments.foucault.play.latitude")}

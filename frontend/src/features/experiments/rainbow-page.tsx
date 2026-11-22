@@ -12,6 +12,7 @@ import { Equation } from "./equation";
 import { ExhibitFrame } from "./exhibit-frame";
 import { BuildPending } from "./build-pending";
 import { settingNumber, useCheckSetting } from "./check-setting";
+import { useFrameLoop } from "./play";
 import { PreviewPending, type PreviewMode, type PreviewProps } from "./preview-mode";
 import { css, linearRgb, matching, onScreen, type Rgb } from "./simulate/colour";
 import {
@@ -291,18 +292,8 @@ function RainbowPlay({
   });
   const [split, setSplit] = useState(false);
   const [time, setTime] = useState(0);
-  useEffect(() => {
-    if (!preview || paused) return;
-    let raf = 0;
-    let last = performance.now();
-    const tick = (now: number) => {
-      setTime((s) => s + Math.max(0, Math.min(0.05, (now - last) / 1000)));
-      last = now;
-      raf = requestAnimationFrame(tick);
-    };
-    raf = requestAnimationFrame(tick);
-    return () => cancelAnimationFrame(raf);
-  }, [preview, paused]);
+  // Only a preview runs a clock, for its auto mode; on the page the reader moves it.
+  useFrameLoop(preview && !paused, (dt) => setTime((s) => s + dt));
   // The ring is recoloured from 81 wavelengths: a moment's work, so the slider never waits for it.
   const shownBead = useDeferredValue(bead);
   const colours = useMemo(() => (preview ? [] : ring(shownBead)), [shownBead, preview]);

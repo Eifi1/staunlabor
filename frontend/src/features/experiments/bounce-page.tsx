@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { ArrowDown, Pause, Play, RotateCcw } from "lucide-react";
-import { Button, LoadingState, Switch, ToggleGroup } from "@eifi1/ui-kit";
+import { ArrowDown } from "lucide-react";
+import { Button, LoadingState, ToggleGroup } from "@eifi1/ui-kit";
 import { SeriesChart } from "@/shared/charts/series-chart";
 import { useLocale } from "@/shared/i18n/use-locale";
 import { formatNumber } from "@/shared/lib/format";
@@ -13,14 +13,16 @@ import { Equation } from "./equation";
 import { ExhibitFrame } from "./exhibit-frame";
 import { BuildPending } from "./build-pending";
 import { settingNumber, useCheckSetting } from "./check-setting";
+import { useFrameLoop, useRunning } from "./play";
+import { RestartButton, RunPauseButton, SoundSwitch, SpeedToggle } from "./play-controls";
 import { PreviewPending, type PreviewMode, type PreviewProps } from "./preview-mode";
 import { G, bounces, figures, state, type Bounces, type BouncingBall } from "./simulate/bounce";
 import { SIDE, VIEW_FRAME } from "./stage";
 import { useExperimentsDefaults } from "./use-experiments";
 
 /** Real time, and a quarter of it for the last quick bounces. */
-const SPEEDS = { real: 1, slow: 0.25 } as const;
-type Speed = keyof typeof SPEEDS;
+const SPEEDS = [1, 0.25] as const;
+type Speed = (typeof SPEEDS)[number];
 
 /** The exhibit's two, as the page names them, steel first. */
 const KINDS = ["steel", "tennis"] as const;
@@ -232,32 +234,21 @@ function BouncePlay({
   const clock = useRef(0);
   const [time, setTime] = useState(0);
   const [dropped, setDropped] = useState(false);
-  const [runningHere, setRunning] = useState(false);
-  const [speedHere, setSpeed] = useState<Speed>("real");
+  const { running: on, setRunning } = useRunning({ preview, paused, initially: false });
+  const [speedHere, setSpeed] = useState<Speed>(1);
   const [sound, setSound] = useState(false);
   const clicks = useClicks(sound && !preview);
   const runs = useMemo(() => balls.map((b) => bounces(b, height)), [balls, height]);
   const still = Math.max(...runs.map((r) => r.still_s));
   const loop = PREVIEW_HOLD_S + still + PREVIEW_STILL_S;
   // Once both lie still there is nothing left to draw: the clock stops.
-  const running = preview ? !paused : dropped && runningHere && time < still;
-  const speed = preview ? SPEEDS.real : SPEEDS[speedHere];
+  const running = preview ? on : dropped && on && time < still;
+  const speed = preview ? 1 : speedHere;
 
-  useEffect(() => {
-    if (!running) return;
-    let raf = 0;
-    let last = performance.now();
-    const tick = (now: number) => {
-      // A frame's timestamp can lie a little before the effect started: never a step back in time.
-      const dt = Math.max(0, Math.min(0.05, (now - last) / 1000));
-      last = now;
-      clock.current += dt * speed;
-      setTime(clock.current);
-      raf = requestAnimationFrame(tick);
-    };
-    raf = requestAnimationFrame(tick);
-    return () => cancelAnimationFrame(raf);
-  }, [running, speed]);
+  useFrameLoop(running, (dt) => {
+    clock.current += dt * speed;
+    setTime(clock.current);
+  });
 
   // The run's time: negative while the balls are held up.
   const runTime = preview ? (time % loop) - PREVIEW_HOLD_S : dropped ? time : -1;
@@ -300,16 +291,8 @@ function BouncePlay({
       actions={
         dropped ? (
           <>
-            {time < still && (
-              <Button variant="secondary" size="sm" onClick={() => setRunning(!runningHere)}>
-                {runningHere ? <Pause className="size-4" aria-hidden /> : <Play className="size-4" aria-hidden />}
-                {runningHere ? t("experiments.bounce.play.pause") : t("experiments.bounce.play.run")}
-              </Button>
-            )}
-            <Button variant="secondary" size="sm" onClick={reset}>
-              <RotateCcw className="size-4" aria-hidden />
-              {t("experiments.bounce.play.top")}
-            </Button>
+            {time < still && <RunPauseButton running={on} onToggle={() => setRunning(!on)} />}
+            <RestartButton onClick={reset} label={t("experiments.bounce.play.top")} />
           </>
         ) : (
           <Button
@@ -327,26 +310,12 @@ function BouncePlay({
     >
       <div className={`${SIDE.grid} ${SIDE.cap.xl}`}>
         <div className={`${SIDE.top} flex flex-wrap items-end gap-4`}>
-          <ToggleGroup
-            label={t("experiments.bounce.play.speed")}
-            labelPlacement="above"
-            size="sm"
-            overflow="wrap"
-            value={speedHere}
-            onChange={(v: string) => setSpeed(v as Speed)}
-            options={(Object.keys(SPEEDS) as Speed[]).map((s) => ({
-              value: s,
-              label: t(`experiments.bounce.play.speeds.${s}`),
-            }))}
-          />
-          <Switch
-            label={t("experiments.bounce.play.sound")}
-            description={
-              clicks.available ? t("experiments.bounce.play.sound_hint") : t("experiments.bounce.play.no_sound")
-            }
+          <SpeedToggle speeds={SPEEDS} value={speedHere} onChange={setSpeed} />
+          <SoundSwitch
             checked={sound}
-            disabled={!clicks.available}
-            onCheckedChange={setSound}
+            onChange={setSound}
+            available={clicks.available}
+            hint={t("experiments.bounce.play.sound_hint")}
           />
         </div>
         <div className={`${SIDE.views} mx-auto w-full max-w-xl`}>
