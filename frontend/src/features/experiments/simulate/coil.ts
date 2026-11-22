@@ -116,7 +116,6 @@ export interface TimingPoint {
   gain_j: number;
 }
 
-
 // ── the exhibit's parts ─────────────────────────────────────────────────────
 
 /** `m = B_r·V/μ₀`. */

@@ -54,7 +54,8 @@ function checkElephant(el: Elephant): void {
   if (el.ball.diameter_m <= 0 || el.ball.mass_kg <= 0) throw new RangeError("a ball needs a size and a mass");
   if (el.ball.mass_kg <= displacedKg(el.ball))
     throw new RangeError("a ball lighter than the air it displaces rises on its own");
-  if (el.ball.diameter_m <= el.jet.opening_m) throw new RangeError("the ball has to be wider than the opening it sits on");
+  if (el.ball.diameter_m <= el.jet.opening_m)
+    throw new RangeError("the ball has to be wider than the opening it sits on");
   if (el.coanda < 0) throw new RangeError("the air does not push the ball out of the jet");
 }
 
@@ -76,15 +77,12 @@ export function airSpeed(jet: Jet, s: number, r: number): number {
 
 /** The rule's nodes as [radius share, cos, sin], in the engine's order: half the
  *  spokes, each summed with the node opposite it. */
-const NODES: readonly (readonly [number, number, number])[] = Array.from(
-  { length: (RINGS * SPOKES) / 2 },
-  (_, k) => {
-    const i = Math.floor(k / (SPOKES / 2));
-    const j = k % (SPOKES / 2);
-    const angle = (2 * Math.PI * (j + 0.5)) / SPOKES;
-    return [Math.sqrt((i + 0.5) / RINGS), Math.cos(angle), Math.sin(angle)] as const;
-  },
-);
+const NODES: readonly (readonly [number, number, number])[] = Array.from({ length: (RINGS * SPOKES) / 2 }, (_, k) => {
+  const i = Math.floor(k / (SPOKES / 2));
+  const j = k % (SPOKES / 2);
+  const angle = (2 * Math.PI * (j + 0.5)) / SPOKES;
+  return [Math.sqrt((i + 0.5) / RINGS), Math.cos(angle), Math.sin(angle)] as const;
+});
 
 export interface Cover {
   mean_square: number;
@@ -239,7 +237,8 @@ export interface ElephantRun {
 
 export function run(el: Elephant, moves: readonly Move[], durationS: number): ElephantRun {
   checkElephant(el);
-  if (!(durationS > 0 && durationS <= MAX_DURATION_S)) throw new RangeError(`a run lasts between 0 and ${MAX_DURATION_S} s`);
+  if (!(durationS > 0 && durationS <= MAX_DURATION_S))
+    throw new RangeError(`a run lasts between 0 and ${MAX_DURATION_S} s`);
   for (const move of moves) {
     if (Math.abs(move.tilt_deg) > MAX_TILT_DEG) throw new RangeError(`the trunk tilts at most ${MAX_TILT_DEG}°`);
   }

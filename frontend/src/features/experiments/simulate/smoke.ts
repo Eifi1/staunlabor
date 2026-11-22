@@ -149,7 +149,8 @@ export interface Flight {
 }
 
 export function flight(exhibit: SmokeExhibit, ring: Ring, durationS: number): Flight {
-  if (!(durationS > 0 && durationS <= MAX_FLIGHT_S)) throw new RangeError(`a flight lasts between 0 and ${MAX_FLIGHT_S} s`);
+  if (!(durationS > 0 && durationS <= MAX_FLIGHT_S))
+    throw new RangeError(`a flight lasts between 0 and ${MAX_FLIGHT_S} s`);
   const turbulent = ring.verdict === "too_fast";
   const g0 = ring.circulation_m2_s;
   const r0 = ring.radius_m;
