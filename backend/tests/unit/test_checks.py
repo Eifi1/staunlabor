@@ -142,3 +142,38 @@ def test_a_reworded_docstring_or_comment_keeps_the_fingerprint_a_changed_number_
     changed = 'def f(x):\n    """Twice x."""\n    return 3 * x\n'
     assert _code(source) == _code(reworded)
     assert _code(source) != _code(changed)
+
+
+def test_a_helper_the_checks_share_moves_the_fingerprint_of_every_exhibit_using_it(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    # A shared module under checks/ is code a verdict stands on: changing it
+    # must uncheck the exhibits whose cases import it, as an engine helper does.
+    real = checks._source
+    helper = {"code": "def k(x):\n    return x\n"}
+
+    def source(module: str) -> str:
+        if module == "staunlabor.domain.checks._hand":
+            return helper["code"]
+        if module == "staunlabor.domain.checks.wave":
+            return real(module) + "\nfrom ._hand import k\n"
+        return real(module)
+
+    monkeypatch.setattr(checks, "_source", source)
+    wave, chair = checks.fingerprint("wave"), checks.fingerprint("chair")
+    helper["code"] = "def k(x):\n    return 2 * x\n"
+    assert checks.fingerprint("wave") != wave
+    assert checks.fingerprint("chair") == chair
+
+
+def test_the_dataclasses_a_check_imports_are_no_module_of_its_fingerprint() -> None:
+    text = "from staunlabor.domain.checks import Case, Source\nfrom . import coupled\nfrom ._hand import k\n"
+    assert checks._imports(text, "staunlabor.domain.checks") == {
+        "staunlabor.domain.checks.coupled",
+        "staunlabor.domain.checks._hand",
+    }
+    engine = "from staunlabor.domain.experiments import pendulum\nfrom .sphere import G\nimport math\n"
+    assert checks._imports(engine, "staunlabor.domain.experiments") == {
+        "staunlabor.domain.experiments.pendulum",
+        "staunlabor.domain.experiments.sphere",
+    }

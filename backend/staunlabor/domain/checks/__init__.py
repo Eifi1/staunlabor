@@ -203,6 +203,7 @@ def results(exhibit: str) -> tuple[Result, ...]:
 # ── the fingerprint ──────────────────────────────────────────────────────────
 
 _ENGINE = "staunlabor.domain.experiments"
+_CHECKS = "staunlabor.domain.checks"
 
 
 def _source(module: str) -> str:
@@ -229,32 +230,48 @@ def _code(text: str) -> str:
     return ast.dump(tree, include_attributes=False)
 
 
-def _engine_imports(text: str) -> set[str]:
-    """The engine modules ``text`` imports, so a shared helper's change
-    reaches every exhibit that uses it."""
+def _fingerprinted(module: str) -> bool:
+    """An engine module, or a module of this package's own other than the
+    package itself (which holds only the dataclasses): what a check's verdict
+    stands on."""
+    return module.startswith((_ENGINE + ".", _CHECKS + "."))
+
+
+def _imports(text: str, package: str) -> set[str]:
+    """The fingerprinted modules ``text`` imports, relative imports read
+    against ``package``: an engine helper's change reaches every exhibit that
+    uses it, and so does the change of a helper the checks share (say
+    ``checks/_hand.py``), which a walk over the engine alone would miss and
+    leave every exhibit using it checked."""
     found = set()
     for node in ast.walk(ast.parse(text)):
-        if isinstance(node, ast.ImportFrom) and node.module:
-            if node.module.startswith(_ENGINE + "."):
-                found.add(node.module)
-            elif node.module == _ENGINE:
-                found.update(f"{_ENGINE}.{alias.name}" for alias in node.names)
-            elif node.level == 1 and node.module:
-                found.add(f"{_ENGINE}.{node.module}")
+        if isinstance(node, ast.ImportFrom):
+            base = node.module or ""
+            if node.level:
+                parts = package.split(".")
+                parent = ".".join(parts[: len(parts) - node.level + 1])
+                base = f"{parent}.{base}" if base else parent
+            if _fingerprinted(base):
+                found.add(base)
+            # ``from <package> import name``: a name that is a module of it.
+            for alias in node.names:
+                if base in (_ENGINE, _CHECKS) and importlib.util.find_spec(f"{base}.{alias.name}") is not None:
+                    found.add(f"{base}.{alias.name}")
         elif isinstance(node, ast.Import):
-            found.update(alias.name for alias in node.names if alias.name.startswith(_ENGINE + "."))
+            found.update(alias.name for alias in node.names if _fingerprinted(alias.name))
     return found
 
 
 def fingerprint(exhibit: str) -> str:
-    """What a check of ``exhibit`` holds for: the code of its engine modules,
-    of every engine module they import, and of its cases. An admin's check is
-    stored with it; once it differs, the exhibit counts as unchecked again."""
+    """What a check of ``exhibit`` holds for: the code of its cases, of its
+    engine modules, and of every module either imports, the engine's and the
+    checks' shared helpers alike. An admin's check is stored with it; once it
+    differs, the exhibit counts as unchecked again."""
     entry = _registry().get(exhibit)
     if entry is None:
         raise ValueError(f"no checks for {exhibit!r}")
     engine = entry[1]
-    todo = [f"{_ENGINE}.{name}" for name in engine]
+    todo = [f"{_CHECKS}.{exhibit}", *(f"{_ENGINE}.{name}" for name in engine)]
     seen: dict[str, str] = {}
     while todo:
         module = todo.pop()
@@ -262,8 +279,7 @@ def fingerprint(exhibit: str) -> str:
             continue
         text = _source(module)
         seen[module] = _code(text)
-        todo.extend(_engine_imports(text) - seen.keys())
-    seen[f"staunlabor.domain.checks.{exhibit}"] = _code(_source(f"staunlabor.domain.checks.{exhibit}"))
+        todo.extend(_imports(text, module.rpartition(".")[0]) - seen.keys())
     digest = hashlib.sha256()
     for module in sorted(seen):
         digest.update(module.encode())
