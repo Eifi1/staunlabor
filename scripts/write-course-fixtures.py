@@ -46,6 +46,7 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "backend"))
 
 from staunlabor.main import create_app  # noqa: E402
+from staunlabor.security import EXPERIMENT_RUNS  # noqa: E402
 
 TARGET = ROOT / "frontend/src/features/course/test-fixtures.json"
 API = "/api/v1/course"
@@ -103,8 +104,9 @@ REQUESTS: dict[str, tuple[str, dict[str, Any]]] = {
 
 def _answer(response: Response) -> Any:
     # A refusal written into the file would be a lesson test's "engine answer".
-    # A 429 cannot happen (seventeen requests, a budget of a hundred and eighty), so any
-    # status but 200 is the app's fault and stops the write.
+    # A 429 cannot happen (one request per entry of REQUESTS, well inside
+    # EXPERIMENT_RUNS, which _ask asserts; the defaults are free), so any status
+    # but 200 is the app's fault and stops the write.
     if response.status_code != 200:
         raise SystemExit(
             f"{response.request.method} {response.request.url.path}: {response.status_code} {response.text}"
@@ -115,6 +117,7 @@ def _answer(response: Response) -> Any:
 async def _ask() -> tuple[Any, dict[str, Any]]:
     # The suite's own client (tests/conftest.py): starlette's TestClient warns
     # that its httpx is deprecated.
+    assert len(REQUESTS) < EXPERIMENT_RUNS.max_hits, "the writer would run into its own budget"
     async with AsyncClient(transport=ASGITransport(app=create_app()), base_url="http://test") as client:
         defaults = _answer(await client.get(f"{API}/defaults"))
         answers = {}

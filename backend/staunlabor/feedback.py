@@ -59,7 +59,7 @@ from staunlabor.settings import Settings
 POLICY = AttachmentUrlPolicy()
 
 
-def everybody_signed_in(actor: FeedbackActor) -> bool:
+def everybody_signed_in(_actor: FeedbackActor) -> bool:
     """Who sees the public list: every account, since each came by invitation."""
     return True
 

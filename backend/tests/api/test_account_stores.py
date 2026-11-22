@@ -13,7 +13,6 @@ JSONB, the unique indexes, the foreign keys and their ``ON DELETE``.
 from __future__ import annotations
 
 import pytest
-from eifi1_server_kit.auth.ports import NewAccount
 from eifi1_server_kit.auth.sql import (
     SqlAdminActionLog,
     SqlAfterCommit,
@@ -40,25 +39,13 @@ from sqlalchemy.exc import IntegrityError
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from staunlabor.models import AdminAction, Invitation, OneTimeToken, Passkey, Role, SpentChallenge, User, UserSession
+from tests.api.helpers import seed_account
 
 pytestmark = pytest.mark.api
 
 
 async def _accounts(session: AsyncSession, *names: str) -> list[int]:
-    store = SqlUserStore(session, User)
-    made = [
-        await store.add(
-            NewAccount(
-                email=f"{name}@example.com",
-                password_hash="x",
-                first_name=name.title(),
-                last_name="",
-                locale="de-CH",
-                role=Role.MEMBER,
-            )
-        )
-        for name in names
-    ]
+    made = [await seed_account(session, f"{name}@example.com", first=name.title(), last="") for name in names]
     return [row.id for row in made]
 
 

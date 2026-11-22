@@ -4,6 +4,8 @@ with it."""
 
 from __future__ import annotations
 
+from collections.abc import Callable
+
 import pytest
 
 from staunlabor.domain import checks
@@ -12,16 +14,22 @@ from staunlabor.domain.checks import _code
 CASES = [(exhibit, case.key) for exhibit in checks.exhibits() for case in checks.cases(exhibit)]
 
 
-@pytest.fixture(scope="module")
-def results() -> dict[tuple[str, str], checks.Result]:
-    return {(r.exhibit, r.key): r for exhibit in checks.exhibits() for r in checks.results(exhibit)}
+@pytest.fixture
+def result_of(check_results: Callable[[str], tuple[checks.Result, ...]]) -> Callable[[str, str], checks.Result]:
+    """One case's result, its exhibit computed once in this worker (conftest.py)."""
+
+    def find(exhibit: str, key: str) -> checks.Result:
+        (found,) = [r for r in check_results(exhibit) if r.key == key]
+        return found
+
+    return find
 
 
 @pytest.mark.parametrize(("exhibit", "key"), CASES)
 def test_the_engine_meets_every_limiting_case_within_its_tolerance(
-    results: dict[tuple[str, str], checks.Result], exhibit: str, key: str
+    result_of: Callable[[str, str], checks.Result], exhibit: str, key: str
 ) -> None:
-    result = results[(exhibit, key)]
+    result = result_of(exhibit, key)
     assert result.deviation <= result.tolerance, (
         f"{exhibit}.{key}: {result.measured} against {result.expected}, off by {result.deviation:.2e}"
     )
@@ -80,24 +88,24 @@ def test_every_case_names_at_least_one_source_a_reader_can_open() -> None:
 
 
 def test_a_rolling_ball_swings_at_5_7_of_gravity_not_as_a_sliding_one(
-    results: dict[tuple[str, str], checks.Result],
+    result_of: Callable[[str, str], checks.Result],
 ) -> None:
     # Sliding, the default sphere's bob would swing at √(g/ρ)/2π = 1.175 Hz.
-    assert results[("sphere", "small_swing")].measured == pytest.approx(0.9928, abs=1e-4)
+    assert result_of("sphere", "small_swing").measured == pytest.approx(0.9928, abs=1e-4)
 
 
 def test_wheelers_formula_as_printed_lies_0_28_percent_under_the_engines_si_form(
-    results: dict[tuple[str, str], checks.Result],
+    result_of: Callable[[str, str], checks.Result],
 ) -> None:
-    result = results[("coil", "wheeler")]
+    result = result_of("coil", "wheeler")
     assert result.measured == pytest.approx(118.13, abs=0.01)
     assert result.expected == pytest.approx(117.80, abs=0.01)
 
 
 def test_the_small_angle_rule_overshoots_the_second_eyes_gap_by_1_7_percent(
-    results: dict[tuple[str, str], checks.Result],
+    result_of: Callable[[str, str], checks.Result],
 ) -> None:
-    result = results[("chair", "second_eye")]
+    result = result_of("chair", "second_eye")
     assert result.measured == pytest.approx(6.56, abs=0.01)
     assert result.deviation == pytest.approx(0.017, abs=0.001)
 
@@ -114,10 +122,10 @@ def test_any_wheel_with_the_same_tap_and_brake_turns_at_the_same_rate() -> None:
 
 
 def test_the_wave_at_a_third_of_its_cycle_is_farther_out_than_a_cosine_would_put_it(
-    results: dict[tuple[str, str], checks.Result],
+    result_of: Callable[[str, str], checks.Result],
 ) -> None:
     # The case's words: a cosine would give half of 15° there, cos(2π/3)·15° = −7.5°.
-    assert -7.6 < results[("wave", "third")].measured < -7.5
+    assert -7.6 < result_of("wave", "third").measured < -7.5
 
 
 def test_unknown_exhibits_have_no_checks() -> None:

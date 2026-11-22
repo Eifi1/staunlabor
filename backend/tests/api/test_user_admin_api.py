@@ -29,7 +29,7 @@ from sqlalchemy import func, select
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from staunlabor.models import AdminAction, Invitation, User, UserSession
-from tests.api.test_accounts_api import (
+from tests.api.helpers import (
     API,
     PASSWORD,
     bearer,
@@ -37,26 +37,16 @@ from tests.api.test_accounts_api import (
     erase_due,
     first_admin,
     invite,
-    invite_token,
-    register,
+    join,
     sign_in,
     switch_on_two_factor,
+    uid,
 )
 from tests.conftest import FIRST_ADMIN
 
 pytestmark = pytest.mark.api
 
 NEW_PASSWORD = "a brand new horse battery staple"
-
-
-async def join(
-    client: AsyncClient, admin_token: str, email: str, role: str = "MEMBER", **person: str
-) -> dict[str, Any]:
-    """An account made through an invitation the admin sends, signed in."""
-    token = invite_token(await invite(client, admin_token, email, role))
-    response = await register(client, email, invite_token=token, **person)
-    assert response.status_code == 201, response.text
-    return response.json()
 
 
 async def staffed(client: AsyncClient) -> tuple[dict[str, Any], dict[str, dict[str, Any]]]:
@@ -70,10 +60,6 @@ async def staffed(client: AsyncClient) -> tuple[dict[str, Any], dict[str, dict[s
         "cy": await join(client, token, "cy@example.com", first_name="Cy", last_name="Lovelace"),
     }
     return admin, people
-
-
-def uid(person: dict[str, Any]) -> int:
-    return person["user"]["id"]
 
 
 def link_token(answer: Response) -> str:

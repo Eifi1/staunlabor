@@ -13,40 +13,26 @@ written by `scripts/write-course-fixtures.py`), and held the same way here.
 
 from __future__ import annotations
 
-import importlib.util
 import json
-from pathlib import Path
 from typing import Any
 
 import pytest
 from fastapi.routing import APIRoute
 
 from staunlabor.api import course_router
-from tests.unit.test_experiments_browser import _differences
+from tests.unit.written_files import differences, load_script
 
 pytestmark = pytest.mark.unit
-
-ROOT = Path(__file__).resolve().parents[3]
-SCRIPT = ROOT / "scripts" / "write-test-fixtures.py"
-COURSE_SCRIPT = ROOT / "scripts" / "write-course-fixtures.py"
-
-
-def _load(script: Path) -> Any:
-    spec = importlib.util.spec_from_file_location(script.stem.replace("-", "_"), script)
-    assert spec is not None and spec.loader is not None
-    module = importlib.util.module_from_spec(spec)
-    spec.loader.exec_module(module)
-    return module
 
 
 @pytest.fixture(scope="module")
 def writer() -> Any:
-    return _load(SCRIPT)
+    return load_script("write-test-fixtures.py")
 
 
 @pytest.fixture(scope="module")
 def course_writer() -> Any:
-    return _load(COURSE_SCRIPT)
+    return load_script("write-course-fixtures.py")
 
 
 @pytest.fixture(scope="module")
@@ -57,10 +43,10 @@ def fresh(writer: Any) -> Any:
 
 def test_the_pages_fixtures_are_what_the_api_answers_for_the_defaults(writer: Any, fresh: Any):
     stored = json.loads(writer.TARGET.read_text(encoding="utf-8"))
-    differences = _differences(stored, fresh)
-    assert not differences, (
+    found = differences(stored, fresh)
+    assert not found, (
         "test-fixtures.json is not what the API answers; run "
-        "`cd backend && uv run python ../scripts/write-test-fixtures.py`:\n" + "\n".join(differences[:20])
+        "`cd backend && uv run python ../scripts/write-test-fixtures.py`:\n" + "\n".join(found[:20])
     )
 
 
@@ -76,10 +62,10 @@ def test_every_exhibit_s_route_has_its_answer_in_the_fixtures(writer: Any, fresh
 
 def test_the_lessons_fixtures_are_what_the_api_answers_for_their_first_requests(course_writer: Any):
     stored = json.loads(course_writer.TARGET.read_text(encoding="utf-8"))
-    differences = _differences(stored, json.loads(course_writer.serialised()))
-    assert not differences, (
+    found = differences(stored, json.loads(course_writer.serialised()))
+    assert not found, (
         "features/course/test-fixtures.json is not what the API answers; run "
-        "`cd backend && uv run python ../scripts/write-course-fixtures.py`:\n" + "\n".join(differences[:20])
+        "`cd backend && uv run python ../scripts/write-course-fixtures.py`:\n" + "\n".join(found[:20])
     )
 
 

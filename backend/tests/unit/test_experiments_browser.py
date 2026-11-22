@@ -13,53 +13,19 @@ the port follows.
 
 from __future__ import annotations
 
-import importlib.util
 import json
-import math
-from pathlib import Path
 from typing import Any
 
 import pytest
 
+from tests.unit.written_files import differences, load_script
+
 pytestmark = pytest.mark.unit
-
-ROOT = Path(__file__).resolve().parents[3]
-SCRIPT = ROOT / "scripts" / "write-experiments-cases.py"
-
-
-def _writer() -> Any:
-    spec = importlib.util.spec_from_file_location("write_experiments_cases", SCRIPT)
-    assert spec is not None and spec.loader is not None
-    module = importlib.util.module_from_spec(spec)
-    spec.loader.exec_module(module)
-    return module
-
-
-def _differences(stored: Any, fresh: Any, where: str = "") -> list[str]:
-    """Every place the two disagree. Floats within a part in 10¹² — the file is
-    written with `repr`, so on one machine they are equal; the margin is for a
-    platform whose `cos` rounds its last bit the other way."""
-    if isinstance(stored, dict) and isinstance(fresh, dict):
-        if stored.keys() != fresh.keys():
-            return [f"{where}: keys {sorted(stored.keys() ^ fresh.keys())}"]
-        return [d for key in stored for d in _differences(stored[key], fresh[key], f"{where}.{key}")]
-    if isinstance(stored, list) and isinstance(fresh, list):
-        if len(stored) != len(fresh):
-            return [f"{where}: {len(stored)} entries, now {len(fresh)}"]
-        return [
-            d for i, (a, b) in enumerate(zip(stored, fresh, strict=True)) for d in _differences(a, b, f"{where}[{i}]")
-        ]
-    if isinstance(stored, float) or isinstance(fresh, float):
-        numbers = isinstance(stored, (int, float)) and isinstance(fresh, (int, float))
-        if numbers and math.isclose(stored, fresh, rel_tol=1e-12, abs_tol=1e-300):
-            return []
-        return [f"{where}: {stored!r} in the file, {fresh!r} from the engine"]
-    return [] if stored == fresh else [f"{where}: {stored!r} in the file, {fresh!r} from the engine"]
 
 
 @pytest.fixture(scope="module")
 def writer() -> Any:
-    return _writer()
+    return load_script("write-experiments-cases.py")
 
 
 @pytest.fixture(scope="module")
@@ -69,11 +35,11 @@ def stored(writer: Any) -> Any:
 
 def test_the_browser_s_cases_are_what_the_engine_answers(writer: Any, stored: Any):
     fresh = json.loads(writer.serialised())
-    differences = _differences(stored, fresh)
-    assert not differences, (
+    found = differences(stored, fresh)
+    assert not found, (
         "engine-cases.json is not what the engine answers; run "
         "`cd backend && uv run python ../scripts/write-experiments-cases.py`, then make the port agree:\n"
-        + "\n".join(differences[:20])
+        + "\n".join(found[:20])
     )
 
 
