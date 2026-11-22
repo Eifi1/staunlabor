@@ -1,19 +1,12 @@
 import { useTranslation } from "react-i18next";
 import { CircleAlert, CircleCheck } from "lucide-react";
-import { Button, TextLink } from "@eifi1/ui-kit";
+import { Button, TextLink, formatDate } from "@eifi1/ui-kit";
 import { useCurrentUser } from "@eifi1/ui-kit/accounts";
 import { accounts } from "@/shared/api/accounts";
 import { useLocale } from "@/shared/i18n/use-locale";
 import { CHECKS_ANCHOR } from "./check-section";
 import { checkCases, checkedOn, useCheckVerdict, useChecks } from "./checks";
 import type { Exhibit } from "./exhibits";
-
-/** `YYYY-MM-DD` as the reader's language writes a date; a calendar day, so in UTC. */
-function longDay(day: string, locale: string): string {
-  return new Intl.DateTimeFormat(locale, { day: "numeric", month: "long", year: "numeric", timeZone: "UTC" }).format(
-    new Date(`${day}T00:00:00Z`),
-  );
-}
 
 /** An admin's "checked" and "take it back", for an exhibit with cases. Only
  *  for a signed-in reader, and shown only when the account is an admin's; the
@@ -44,7 +37,9 @@ function AdminVerdict({ exhibit, checked }: { exhibit: Exhibit; checked: boolean
  * checked them. In place of the warning every page carried from 2026-11-15:
  * the reviews of 2026-11-19 found that a warning in second place costs more
  * trust than it earns, and asked for it where the calculation is. A page that
- * cannot reach the server says "not yet checked", the safe answer.
+ * cannot reach the server says "not yet checked", the safe answer. The day is
+ * a bare `YYYY-MM-DD`, which the kit's `formatDate` reads as the calendar day
+ * it names in every time zone.
  */
 export function CheckStatus({ exhibit }: { exhibit: Exhibit }) {
   const { t } = useTranslation();
@@ -58,7 +53,7 @@ export function CheckStatus({ exhibit }: { exhibit: Exhibit }) {
       {day ? (
         <span className="inline-flex items-center gap-1.5 text-success">
           <CircleCheck className="size-4" aria-hidden />
-          {t("experiments.checks.status.checked", { date: longDay(day, locale) })}
+          {t("experiments.checks.status.checked", { date: formatDate(day, "long", { locale }) })}
         </span>
       ) : (
         <span className="inline-flex items-center gap-1.5 text-secondary">

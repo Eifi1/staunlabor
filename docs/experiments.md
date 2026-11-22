@@ -2349,7 +2349,7 @@ From 2026-11-15 the overview and every exhibit's page carried a warning
 banner under their heading: the calculations still await their check. Since
 2026-11-19 each exhibit says it in one line under its title, "not yet
 checked" or the day an admin checked it (`CheckStatus`,
-`unchecked-notice.tsx`), and the front page says how many are checked, below
+`check-status.tsx`), and the front page says how many are checked, below
 its first screen. The two reviews of that day (Marcel's Claude docs of the
 front page and of the coil's page) found that a warning in second place costs
 more trust than it earns, and asked for it where the calculation is.

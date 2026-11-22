@@ -36,7 +36,7 @@ const WHEEL_K: CheckSymbol = { tex: "K", key: "wheel_leak", unit: "1/s" };
 const WHEEL_SIGMA: CheckSymbol = { tex: String.raw`\sigma`, key: "wheel_sigma" };
 const WHEEL_RHO: CheckSymbol = { tex: String.raw`\rho`, key: "wheel_rho" };
 const WHEEL_B: CheckSymbol = { tex: "b", key: "wheel_b" };
-const L_PENDULUM: CheckSymbol = { tex: "L", key: "length", unit: "m" };
+const LENGTH: CheckSymbol = { tex: "L", key: "length", unit: "m" };
 const CYCLE: CheckSymbol = { tex: String.raw`\Gamma`, key: "cycle", unit: "s" };
 const SWINGS: CheckSymbol = { tex: "N", key: "swings" };
 const INDEX: CheckSymbol = { tex: "n", key: "index" };
@@ -49,7 +49,6 @@ const AIR_MASS: CheckSymbol = { tex: "m", key: "air_mass" };
 const ZENITH: CheckSymbol = { tex: "z", key: "z_zenith", unit: "°" };
 const HEIGHT: CheckSymbol = { tex: "h", key: "h_sun", unit: "°" };
 const PLATE_LAMBDA: CheckSymbol = { tex: String.raw`\lambda`, key: "plate_lambda" };
-const L_PEG: CheckSymbol = { tex: "L", key: "length", unit: "m" };
 const R_SMALL: CheckSymbol = { tex: "r", key: "r_small", unit: "m" };
 const H_START: CheckSymbol = { tex: "h", key: "h_start", unit: "m" };
 const Z_BOB: CheckSymbol = { tex: "z", key: "h", unit: "m" };
@@ -95,7 +94,6 @@ const D_M: CheckSymbol = { tex: "m", key: "diver_m", unit: "kg" };
 const D_P0: CheckSymbol = { tex: "p_0", key: "diver_p0", unit: "Pa" };
 const D_DP: CheckSymbol = { tex: String.raw`\Delta p`, key: "diver_dp", unit: "Pa" };
 const D_VSTAR: CheckSymbol = { tex: "V^*", key: "diver_Vstar", unit: "m³" };
-const D_G: CheckSymbol = { tex: "g", key: "g", unit: "m/s²" };
 const DELTA: CheckSymbol = { tex: String.raw`\delta`, key: "delta_cone", unit: "°" };
 const ALPHA_CONE: CheckSymbol = { tex: String.raw`\alpha`, key: "alpha_cone", unit: "°" };
 const BETA_RAIL: CheckSymbol = { tex: String.raw`\beta`, key: "beta_rail", unit: "°" };
@@ -118,14 +116,12 @@ const B_AXIS: CheckSymbol = { tex: "B", key: "B_axis", unit: "T" };
 const B1: CheckSymbol = { tex: "B'", key: "B1", unit: "T/m" };
 const B2: CheckSymbol = { tex: "B''", key: "B2", unit: "T/m²" };
 const FREQ: CheckSymbol = { tex: "f", key: "f", unit: "Hz" };
-const LC_T: CheckSymbol = { tex: "T", key: "T", unit: "s" };
-const LC_L: CheckSymbol = { tex: "L", key: "L", unit: "H" };
+const T_PERIOD: CheckSymbol = { tex: "T", key: "T", unit: "s" };
 const LC_C: CheckSymbol = { tex: "C", key: "lc_C", unit: "F" };
 const LC_R: CheckSymbol = { tex: "R", key: "lc_R", unit: "Ω" };
 const LC_Q: CheckSymbol = { tex: "q", key: "lc_q", unit: "C" };
 const LC_I: CheckSymbol = { tex: "i", key: "current", unit: "A" };
 const LC_U0: CheckSymbol = { tex: "U_0", key: "U", unit: "V" };
-const LC_T_NOW: CheckSymbol = { tex: "t", key: "t", unit: "s" };
 const T_RACE: CheckSymbol = { tex: "T", key: "T_race", unit: "s" };
 const T_BOTTOM: CheckSymbol = { tex: "T", key: "T_bottom", unit: "s" };
 const D_RUN: CheckSymbol = { tex: "D", key: "D_run", unit: "m" };
@@ -145,8 +141,6 @@ const SPIN_OMEGA: CheckSymbol = { tex: String.raw`\omega`, key: "spin_omega", un
 const KAPPA: CheckSymbol = { tex: String.raw`\kappa`, key: "kappa", unit: "1/s²" };
 const K_SPRING: CheckSymbol = { tex: "k", key: "k_spring", unit: "N/m" };
 const A_SPRING: CheckSymbol = { tex: "a", key: "a_spring", unit: "m" };
-const M: CheckSymbol = { tex: "m", key: "m", unit: "kg" };
-const T_PERIOD: CheckSymbol = { tex: "T", key: "T", unit: "s" };
 const A_EFF: CheckSymbol = { tex: String.raw`A_{\mathrm{eff}}`, key: "a_eff", unit: "m²" };
 const A_HOLE: CheckSymbol = { tex: String.raw`A_{\mathrm{hole}}`, key: "a_hole", unit: "m²" };
 const HOLE_D: CheckSymbol = { tex: "D", key: "hole_d", unit: "m" };
@@ -158,11 +152,7 @@ const V_IMPACT: CheckSymbol = { tex: "v", key: "v_impact", unit: "m/s" };
 const V_INF_CANNON: CheckSymbol = { tex: String.raw`v_\infty`, key: "cannon_v_inf", unit: "m/s" };
 const K_FLOOR: CheckSymbol = { tex: "K", key: "K_floor", unit: "N/m¹·⁵" };
 const TAU_CANNON: CheckSymbol = { tex: String.raw`\tau`, key: "tau_contact", unit: "s" };
-const H_T: CheckSymbol = { tex: "T", key: "T", unit: "s" };
 const H_L: CheckSymbol = { tex: "L", key: "harm_L", unit: "m" };
-const H_G: CheckSymbol = { tex: "g", key: "g", unit: "m/s²" };
-const H_K: CheckSymbol = { tex: "K", key: "K" };
-const H_THETA0: CheckSymbol = { tex: String.raw`\theta_0`, key: "theta0", unit: "°" };
 const D_OVER: CheckSymbol = { tex: "d", key: "d_over", unit: "m" };
 const N_BLOCKS: CheckSymbol = { tex: "n", key: "n_blocks" };
 const L_BLOCK: CheckSymbol = { tex: String.raw`\ell`, key: "l_block", unit: "m" };
@@ -175,7 +165,6 @@ const CD: CheckSymbol = { tex: "c_d", key: "cd" };
 const A_BALL: CheckSymbol = { tex: "A", key: "A_ball", unit: "m²" };
 const M_BALL: CheckSymbol = { tex: "m", key: "m_ball", unit: "kg" };
 const V_BALL: CheckSymbol = { tex: "V", key: "V_ball", unit: "m³" };
-const G_SYM: CheckSymbol = { tex: "g", key: "g", unit: "m/s²" };
 const AXLE_GYROSCOPE: CheckSymbol = { tex: "d", key: "axle_length", unit: "m" };
 const HOOP_R: CheckSymbol = { tex: "r", key: "hoop_radius", unit: "m" };
 const L3: CheckSymbol = { tex: "L_3", key: "spin_momentum", unit: "kg·m²/s" };
@@ -209,7 +198,7 @@ export const CHECK_FORMULAS: Record<string, Record<string, CheckFormula>> = {
     },
     wide_swing: {
       tex: String.raw`f = f_0\,\frac{\pi}{2K\!\left(\sin\frac{\theta_0}{2}\right)}, \qquad K(k) = \int_0^{\pi/2} \frac{d\varphi}{\sqrt{1 - k^2 \sin^2\varphi}}`,
-      symbols: [{ tex: "f", key: "f", unit: "Hz" }, F0, THETA0, { tex: "K", key: "K" }],
+      symbols: [FREQ, F0, THETA0, K_INTEGRAL],
     },
     circle_any_size: {
       tex: String.raw`\rho\cos\theta = \frac{g'}{\Omega^2}, \qquad g' = \frac{g}{1+k}`,
@@ -221,48 +210,21 @@ export const CHECK_FORMULAS: Record<string, Record<string, CheckFormula>> = {
     },
     energy: {
       tex: String.raw`E = \tfrac12\,(1+k)\,v^2 + g\,h`,
-      symbols: [
-        { tex: "E", key: "E", unit: "J/kg" },
-        K_BALL,
-        { tex: "v", key: "v", unit: "m/s" },
-        G,
-        { tex: "h", key: "h", unit: "m" },
-      ],
+      symbols: [{ tex: "E", key: "E", unit: "J/kg" }, K_BALL, V, G, { tex: "h", key: "h", unit: "m" }],
     },
     grip: {
       tex: String.raw`\mu \ge \frac{\tan\theta}{1 + m r^2 / I} = \tfrac{2}{7}\tan\theta`,
-      symbols: [
-        { tex: String.raw`\mu`, key: "mu" },
-        THETA,
-        { tex: "m", key: "m", unit: "kg" },
-        { tex: "r", key: "r", unit: "m" },
-        { tex: "I", key: "inertia", unit: "kg·m²" },
-      ],
+      symbols: [{ tex: String.raw`\mu`, key: "mu" }, THETA, MASS, { tex: "r", key: "r", unit: "m" }, INERTIA],
     },
     leaves_wall: {
       tex: String.raw`\frac{N}{m} = g\cos\theta + 2g'(\cos\theta - \cos\theta_0) = 0 \;\Rightarrow\; \cos\theta = \frac{2\cos\theta_0}{3+k}`,
-      symbols: [
-        { tex: "N", key: "N", unit: "N" },
-        { tex: "m", key: "m", unit: "kg" },
-        G,
-        THETA,
-        G_SHARE,
-        THETA0,
-        K_BALL,
-      ],
+      symbols: [{ tex: "N", key: "N", unit: "N" }, MASS, G, THETA, G_SHARE, THETA0, K_BALL],
     },
   },
   coil: {
     rl_rise: {
       tex: String.raw`I(t) = \frac{U}{R}\left(1 - e^{-t/\tau}\right), \qquad \tau = \frac{L}{R}`,
-      symbols: [
-        { tex: "I", key: "current", unit: "A" },
-        { tex: "U", key: "U", unit: "V" },
-        R_COIL,
-        { tex: "t", key: "t", unit: "s" },
-        { tex: String.raw`\tau`, key: "tau", unit: "s" },
-        L_COIL,
-      ],
+      symbols: [{ tex: "I", key: "current", unit: "A" }, { tex: "U", key: "U", unit: "V" }, R_COIL, TIME, TAU, L_COIL],
     },
     wheeler: {
       tex: String.raw`L = \frac{a^2 n^2}{9a + 10b}\ \mu\mathrm{H}`,
@@ -293,10 +255,10 @@ export const CHECK_FORMULAS: Record<string, Record<string, CheckFormula>> = {
     period: {
       tex: String.raw`T = 4\sqrt{\frac{R}{g}}\,K\!\left(\sin\frac{\theta_0}{2}\right) + \frac{2\,l}{v_0}, \qquad v_0 = \sqrt{2gR\,(1 - \cos\theta_0)}`,
       symbols: [
-        { tex: "T", key: "T", unit: "s" },
+        T_PERIOD,
         { tex: "R", key: "R_arc", unit: "m" },
         G,
-        { tex: "K", key: "K" },
+        K_INTEGRAL,
         THETA0,
         { tex: "l", key: "l", unit: "m" },
         { tex: "v_0", key: "v0", unit: "m/s" },
@@ -308,7 +270,7 @@ export const CHECK_FORMULAS: Record<string, Record<string, CheckFormula>> = {
         { tex: String.raw`\Delta E`, key: "dE", unit: "J" },
         R_COIL,
         { tex: "k", key: "coupling", unit: "V·s/m" },
-        { tex: "v", key: "v", unit: "m/s" },
+        V,
         { tex: "x", key: "x", unit: "m" },
         G,
         { tex: "h_0", key: "h0", unit: "m" },
@@ -320,7 +282,7 @@ export const CHECK_FORMULAS: Record<string, Record<string, CheckFormula>> = {
       tex: String.raw`\int U\,i\,dt = \int R\,i^2\,dt + W + \Delta E_{\mathrm{mech}} + \Delta\!\left(\tfrac12 L\, i^2\right)`,
       symbols: [
         { tex: "U", key: "U", unit: "V" },
-        { tex: "i", key: "current", unit: "A" },
+        LC_I,
         R_COIL,
         { tex: "W", key: "W", unit: "J" },
         { tex: String.raw`E_{\mathrm{mech}}`, key: "Emech", unit: "J" },
@@ -395,7 +357,7 @@ export const CHECK_FORMULAS: Record<string, Record<string, CheckFormula>> = {
       tex: String.raw`T = 3\left(\frac{\tau}{2} + \frac{s}{v}\right) + \tau, \qquad \tau = 2\left(\frac{25\,\mu^2}{16\,K^2 v}\right)^{1/5} \int_0^1 \frac{dx}{\sqrt{1 - x^{5/2}}}`,
       symbols: [
         { tex: "T", key: "T_impact", unit: "s" },
-        { tex: String.raw`\tau`, key: "tau_contact", unit: "s" },
+        TAU_CANNON,
         { tex: "s", key: "gap", unit: "m" },
         V_IN,
         MU_RED,
@@ -418,7 +380,7 @@ export const CHECK_FORMULAS: Record<string, Record<string, CheckFormula>> = {
     },
     volume: {
       tex: String.raw`\frac{V(t)}{V(0)} = e^{-(\sigma + 1 + b)\,K t}, \qquad b = 1`,
-      symbols: [{ tex: "V", key: "wheel_volume" }, { tex: "t", key: "t", unit: "s" }, WHEEL_SIGMA, WHEEL_B, WHEEL_K],
+      symbols: [{ tex: "V", key: "wheel_volume" }, TIME, WHEEL_SIGMA, WHEEL_B, WHEEL_K],
     },
     wheel: {
       tex: String.raw`\dot A = \Omega B - K A, \quad \dot B = -\Omega A + q - K B, \quad I\,\dot\Omega = -\nu\,\Omega + \pi g r A`,
@@ -427,7 +389,7 @@ export const CHECK_FORMULAS: Record<string, Record<string, CheckFormula>> = {
         { tex: String.raw`\Omega`, key: "wheel_rate", unit: "1/s" },
         WHEEL_K,
         { tex: "q", key: "wheel_inflow", unit: "kg/(rad·s)" },
-        { tex: "I", key: "inertia", unit: "kg·m²" },
+        INERTIA,
         { tex: String.raw`\nu`, key: "wheel_nu", unit: "N·m·s" },
         G,
         { tex: "r", key: "wheel_radius", unit: "m" },
@@ -437,11 +399,11 @@ export const CHECK_FORMULAS: Record<string, Record<string, CheckFormula>> = {
   wave: {
     textbook_lengths: {
       tex: String.raw`L = g\left(\frac{\Gamma}{2\pi\,(N + n)}\right)^2`,
-      symbols: [L_PENDULUM, G, CYCLE, SWINGS, INDEX],
+      symbols: [LENGTH, G, CYCLE, SWINGS, INDEX],
     },
     tuned_lengths: {
       tex: String.raw`L = g\left(\frac{T_0}{2\pi}\right)^2, \qquad T_0 = \frac{\Gamma}{N + n}\cdot\frac{\pi}{2K\!\left(\sin\frac{\theta_0}{2}\right)}, \qquad K(k) = \int_0^{\pi/2} \frac{d\varphi}{\sqrt{1 - k^2 \sin^2\varphi}}`,
-      symbols: [L_PENDULUM, G, { tex: "T_0", key: "T0", unit: "s" }, CYCLE, SWINGS, INDEX, K_INTEGRAL, THETA0],
+      symbols: [LENGTH, G, { tex: "T_0", key: "T0", unit: "s" }, CYCLE, SWINGS, INDEX, K_INTEGRAL, THETA0],
     },
     together: {
       tex: String.raw`\theta_n(\Gamma) = \theta_0, \qquad \Gamma = (N + n)\cdot 4K\!\left(\sin\frac{\theta_0}{2}\right)\sqrt{\frac{L}{g}}`,
@@ -452,7 +414,7 @@ export const CHECK_FORMULAS: Record<string, Record<string, CheckFormula>> = {
         SWINGS,
         INDEX,
         K_INTEGRAL,
-        L_PENDULUM,
+        LENGTH,
         G,
       ],
     },
@@ -463,7 +425,7 @@ export const CHECK_FORMULAS: Record<string, Record<string, CheckFormula>> = {
         THETA0,
         { tex: String.raw`\mathrm{sn}`, key: "sn" },
         { tex: String.raw`\omega_0`, key: "omega0", unit: "1/s" },
-        { tex: "t", key: "t", unit: "s" },
+        TIME,
         K_INTEGRAL,
         SWINGS,
         INDEX,
@@ -504,11 +466,11 @@ export const CHECK_FORMULAS: Record<string, Record<string, CheckFormula>> = {
       tex: String.raw`\frac{d\vec v}{dt} = \frac{\Omega}{1 + m r^2 / I}\;\hat n \times \vec v, \qquad \omega_v = \frac{\Omega}{1 + m r^2 / I} = \tfrac{2}{7}\,\Omega`,
       symbols: [
         { tex: String.raw`\vec v`, key: "v", unit: "m/s" },
-        { tex: "t", key: "t", unit: "s" },
+        TIME,
         { tex: String.raw`\Omega`, key: "platform_rate", unit: "°/s" },
-        { tex: "m", key: "m", unit: "kg" },
+        MASS,
         { tex: "r", key: "r", unit: "m" },
-        { tex: "I", key: "inertia", unit: "kg·m²" },
+        INERTIA,
         { tex: String.raw`\hat n`, key: "n_up" },
         { tex: String.raw`\omega_v`, key: "heading_rate", unit: "°/s" },
       ],
@@ -517,11 +479,7 @@ export const CHECK_FORMULAS: Record<string, Record<string, CheckFormula>> = {
   sky: {
     rayleigh: {
       tex: String.raw`\frac{\beta(450\,\mathrm{nm})}{\beta(650\,\mathrm{nm})} = \left(\frac{650}{450}\right)^4, \qquad \beta(\lambda) = \beta_{550}\left(\frac{550\,\mathrm{nm}}{\lambda}\right)^4`,
-      symbols: [
-        BETA,
-        { tex: String.raw`\lambda`, key: "lambda", unit: "nm" },
-        { tex: String.raw`\beta_{550}`, key: "beta550", unit: "1/m" },
-      ],
+      symbols: [BETA, LAMBDA, { tex: String.raw`\beta_{550}`, key: "beta550", unit: "1/m" }],
     },
     light_kept: {
       tex: String.raw`\int_0^L \beta\,e^{-\beta x}\,dx + e^{-\beta L} = 1`,
@@ -550,7 +508,7 @@ export const CHECK_FORMULAS: Record<string, Record<string, CheckFormula>> = {
     lowest_tone: {
       tex: String.raw`f = \frac{\lambda}{2\pi a^2}\sqrt{\frac{D}{\rho h}}, \qquad D = \frac{E h^3}{12\,(1 - \nu^2)}, \qquad \lambda = 24.2702`,
       symbols: [
-        { tex: "f", key: "f", unit: "Hz" },
+        FREQ,
         PLATE_LAMBDA,
         { tex: "a", key: "plate_side", unit: "m" },
         { tex: "D", key: "plate_D", unit: "N·m" },
@@ -587,15 +545,15 @@ export const CHECK_FORMULAS: Record<string, Record<string, CheckFormula>> = {
   peg: {
     same_height: {
       tex: String.raw`\tfrac12 v^2 = g\,L\,(\cos\theta - \cos\theta_0) \;\Rightarrow\; h = L\,(1 - \cos\theta_0)`,
-      symbols: [V, G, L_PEG, THETA, THETA0, H_START],
+      symbols: [V, G, LENGTH, THETA, THETA0, H_START],
     },
     period: {
       tex: String.raw`T = 2\sqrt{\frac{L}{g}}\,K\!\left(\sin\frac{\theta_0}{2}\right) + 2\sqrt{\frac{r}{g}}\,K\!\left(\sin\frac{\varphi_0}{2}\right), \qquad r\,(1 - \cos\varphi_0) = L\,(1 - \cos\theta_0)`,
       symbols: [
-        { tex: "T", key: "T", unit: "s" },
-        L_PEG,
+        T_PERIOD,
+        LENGTH,
         G,
-        { tex: "K", key: "K" },
+        K_INTEGRAL,
         THETA0,
         R_SMALL,
         { tex: String.raw`\varphi_0`, key: "phi0_peg", unit: "°" },
@@ -605,7 +563,7 @@ export const CHECK_FORMULAS: Record<string, Record<string, CheckFormula>> = {
       tex: String.raw`\frac{F}{m} = \frac{v^2}{r} + g\cos\varphi, \quad v^2 = 2g\,(h - z) \;\xrightarrow{\ \varphi = \pi,\ z = 2r\ }\; \frac{F}{m} = g\left(\frac{2h}{r} - 5\right) \ge 0, \qquad d = L - \tfrac25\,h`,
       symbols: [
         { tex: "F", key: "pull", unit: "N" },
-        { tex: "m", key: "m", unit: "kg" },
+        MASS,
         V,
         R_SMALL,
         G,
@@ -613,7 +571,7 @@ export const CHECK_FORMULAS: Record<string, Record<string, CheckFormula>> = {
         H_START,
         Z_BOB,
         { tex: "d", key: "depth", unit: "m" },
-        L_PEG,
+        LENGTH,
       ],
     },
     slack: {
@@ -636,11 +594,7 @@ export const CHECK_FORMULAS: Record<string, Record<string, CheckFormula>> = {
     },
     period: {
       tex: String.raw`T = 2\pi\sqrt{\frac{L}{g}}`,
-      symbols: [
-        { tex: "T", key: "T", unit: "s" },
-        { tex: "L", key: "foucault_length", unit: "m" },
-        { tex: "g", key: "g", unit: "m/s²" },
-      ],
+      symbols: [T_PERIOD, { tex: "L", key: "foucault_length", unit: "m" }, G],
     },
   },
   plates: {
@@ -690,7 +644,7 @@ export const CHECK_FORMULAS: Record<string, Record<string, CheckFormula>> = {
   maxwell: {
     fall_time: {
       tex: String.raw`t = \frac{1}{r}\sqrt{\frac{L\,(2r^2 + R^2)}{g}}`,
-      symbols: [{ tex: "t", key: "t", unit: "s" }, AXLE, BANDS, WHEEL, G],
+      symbols: [TIME, AXLE, BANDS, WHEEL, G],
     },
     pull: {
       tex: String.raw`T = \frac{I\,M g}{M r^2 + I}, \qquad I = \tfrac12 M R^2`,
@@ -747,7 +701,7 @@ export const CHECK_FORMULAS: Record<string, Record<string, CheckFormula>> = {
     weight: {
       tex: String.raw`m = \rho\,d\,N\cdot\tfrac12\left(R_+^2 - R_-^2\right)\sin\frac{\pi}{N}, \qquad R_\pm = R \pm \frac{t}{2}`,
       symbols: [
-        { tex: "m", key: "m", unit: "kg" },
+        MASS,
         { tex: String.raw`\rho`, key: "arch_density", unit: "kg/m³" },
         { tex: "d", key: "arch_depth", unit: "m" },
         { tex: "N", key: "stones" },
@@ -761,13 +715,13 @@ export const CHECK_FORMULAS: Record<string, Record<string, CheckFormula>> = {
     tone: {
       tex: String.raw`f = \frac{1}{2\pi}\,\frac{(\beta_1 L)^2}{L^2}\sqrt{\frac{EI}{\mu}}\,\sqrt{1 - \frac{q}{q_c}}, \qquad q = \frac{\mu g L^3}{EI}, \qquad q_c = \frac{9B^2}{4}`,
       symbols: [
-        { tex: "f", key: "f", unit: "Hz" },
+        FREQ,
         { tex: String.raw`\beta_1 L`, key: "rod_beta" },
         { tex: "L", key: "rod_L", unit: "m" },
         ROD_EI,
         { tex: String.raw`\mu`, key: "rod_mu", unit: "kg/m" },
         { tex: "q", key: "rod_load" },
-        { tex: "g", key: "g", unit: "m/s²" },
+        G,
         { tex: "q_c", key: "rod_qc" },
         ROD_B,
       ],
@@ -779,7 +733,7 @@ export const CHECK_FORMULAS: Record<string, Record<string, CheckFormula>> = {
         ROD_B,
         ROD_EI,
         { tex: String.raw`\rho`, key: "rod_rho", unit: "kg/m³" },
-        { tex: "g", key: "g", unit: "m/s²" },
+        G,
         { tex: "A", key: "rod_A", unit: "m²" },
       ],
     },
@@ -791,7 +745,7 @@ export const CHECK_FORMULAS: Record<string, Record<string, CheckFormula>> = {
         { tex: "q", key: "rod_tip", unit: "m" },
         { tex: "X", key: "rod_X", unit: "m" },
         ROD_OMEGA,
-        { tex: "t", key: "t", unit: "s" },
+        TIME,
         ROD_ZETA,
         { tex: String.raw`\omega_1`, key: "rod_omega1", unit: "1/s" },
       ],
@@ -822,7 +776,7 @@ export const CHECK_FORMULAS: Record<string, Record<string, CheckFormula>> = {
         { tex: "C", key: "C_rr" },
         { tex: "N", key: "N", unit: "N" },
         V,
-        { tex: "m", key: "m", unit: "kg" },
+        MASS,
         G,
         { tex: String.raw`\alpha`, key: "alpha_wall", unit: "°" },
         R_WELL,
@@ -880,16 +834,16 @@ export const CHECK_FORMULAS: Record<string, Record<string, CheckFormula>> = {
     },
     rises_from_bottom: {
       tex: String.raw`p_0 V_0 = (p_0 + \Delta p + \rho g H)\,V^* \;\Rightarrow\; \Delta p = \frac{p_0 V_0}{m/\rho - V_g} - p_0 - \rho g H`,
-      symbols: [D_P0, D_V0, D_DP, D_RHO, D_G, { tex: "H", key: "diver_H", unit: "m" }, D_VSTAR, D_M, D_VG],
+      symbols: [D_P0, D_V0, D_DP, D_RHO, G, { tex: "H", key: "diver_H", unit: "m" }, D_VSTAR, D_M, D_VG],
     },
     leaves_hover: {
       tex: String.raw`\delta z = \delta z_0 \cosh\!\left(\sqrt{k}\,t\right), \qquad k = \frac{\rho^2 g^2 V^*}{p^*\left(m + \tfrac12\rho\,(V_g + V^*)\right)}, \qquad p^* = p_0 + \Delta p + \rho g z^*`,
       symbols: [
         { tex: String.raw`\delta z`, key: "diver_dz", unit: "m" },
-        { tex: "t", key: "t", unit: "s" },
+        TIME,
         { tex: "k", key: "diver_k", unit: "1/s²" },
         D_RHO,
-        D_G,
+        G,
         D_VSTAR,
         { tex: "p^*", key: "diver_pstar", unit: "Pa" },
         D_M,
@@ -912,10 +866,10 @@ export const CHECK_FORMULAS: Record<string, Record<string, CheckFormula>> = {
     speed: {
       tex: String.raw`\tfrac12\left(1 + \frac{I}{M a^2}\right)v^2 = g\,\Delta z, \qquad I = \tfrac{3}{10}\,M R^2`,
       symbols: [
-        { tex: "I", key: "inertia", unit: "kg·m²" },
-        { tex: "M", key: "m", unit: "kg" },
+        INERTIA,
+        MASS_WHEEL,
         { tex: "a", key: "a_roll", unit: "m" },
-        { tex: "v", key: "v", unit: "m/s" },
+        V,
         G,
         DZ_AXIS,
         { tex: "R", key: "radius_cone", unit: "m" },
@@ -930,7 +884,7 @@ export const CHECK_FORMULAS: Record<string, Record<string, CheckFormula>> = {
         { tex: "A", key: "amp" },
         { tex: String.raw`f_{\mathrm{avg}}`, key: "f_avg", unit: "Hz" },
         { tex: "f_1, f_2", key: "f12", unit: "Hz" },
-        { tex: "t", key: "t", unit: "s" },
+        TIME,
         { tex: String.raw`f_{\mathrm{beat}}`, key: "f_beat", unit: "Hz" },
       ],
     },
@@ -989,8 +943,8 @@ export const CHECK_FORMULAS: Record<string, Record<string, CheckFormula>> = {
       symbols: [
         { tex: String.raw`\omega(t)`, key: "water_rate", unit: "1/s" },
         { tex: String.raw`\omega_v`, key: "vessel_rate", unit: "1/s" },
-        { tex: "t", key: "t", unit: "s" },
-        { tex: String.raw`\tau`, key: "tau", unit: "s" },
+        TIME,
+        TAU,
         FILL,
         { tex: String.raw`\nu`, key: "nu", unit: "m²/s" },
       ],
@@ -1034,26 +988,26 @@ export const CHECK_FORMULAS: Record<string, Record<string, CheckFormula>> = {
   circuit: {
     period: {
       tex: String.raw`T = \frac{2\pi}{\omega'}, \qquad \omega' = \sqrt{\frac{1}{LC} - \left(\frac{R}{2L}\right)^2}`,
-      symbols: [LC_T, { tex: String.raw`\omega'`, key: "lc_omega", unit: "1/s" }, LC_L, LC_C, LC_R],
+      symbols: [T_PERIOD, { tex: String.raw`\omega'`, key: "lc_omega", unit: "1/s" }, L_COIL, LC_C, LC_R],
     },
     energy_kept: {
       tex: String.raw`\frac{E(T)}{E(0)} = e^{-RT/L}, \qquad E = \frac{q^2}{2C} + \frac{L\,i^2}{2}`,
-      symbols: [{ tex: "E", key: "lc_E", unit: "J" }, LC_T, LC_R, LC_L, LC_Q, LC_C, LC_I],
+      symbols: [{ tex: "E", key: "lc_E", unit: "J" }, T_PERIOD, LC_R, L_COIL, LC_Q, LC_C, LC_I],
     },
     energy_account: {
       tex: String.raw`\frac{q^2}{2C} + \frac{L\,i^2}{2} + \int_0^t R\,i^2\,dt' = \frac{C\,U_0^2}{2}`,
-      symbols: [LC_Q, LC_C, LC_L, LC_I, LC_R, LC_T_NOW, LC_U0],
+      symbols: [LC_Q, LC_C, L_COIL, LC_I, LC_R, TIME, LC_U0],
     },
     edge: {
       tex: String.raw`R = 2\sqrt{\frac{L}{C}}: \qquad i = q_0\,\omega_0^2\,t\,e^{-\omega_0 t}, \qquad i_{\max} = \frac{q_0\,\omega_0}{e}\ \text{at}\ t = \frac{1}{\omega_0}, \qquad q_0 = C\,U_0`,
       symbols: [
         LC_R,
-        LC_L,
+        L_COIL,
         LC_C,
         LC_I,
         { tex: "q_0", key: "lc_q0", unit: "C" },
         { tex: String.raw`\omega_0`, key: "lc_omega0", unit: "1/s" },
-        LC_T_NOW,
+        TIME,
         LC_U0,
       ],
     },
@@ -1077,10 +1031,10 @@ export const CHECK_FORMULAS: Record<string, Record<string, CheckFormula>> = {
         T_BOTTOM,
         { tex: "R", key: "R_bowl", unit: "m" },
         G_SHARE,
-        { tex: "K", key: "K" },
+        K_INTEGRAL,
         { tex: String.raw`\varphi_0`, key: "phi0_bowl", unit: "°" },
         R_CYCLOID,
-        { tex: "h", key: "h_start", unit: "m" },
+        H_START,
       ],
     },
   },
@@ -1088,10 +1042,10 @@ export const CHECK_FORMULAS: Record<string, Record<string, CheckFormula>> = {
     slow_mode: {
       tex: String.raw`T = \frac{2\pi}{\omega_1}, \qquad \omega_1 = \omega_0\sqrt{2 - \sqrt{2}}, \qquad \omega_0^2 = \frac{g}{L}, \qquad \theta_2 : \theta_1 = \sqrt{2}`,
       symbols: [
-        { tex: "T", key: "T", unit: "s" },
+        T_PERIOD,
         OMEGA_SLOW,
         { tex: String.raw`\omega_0`, key: "omega0_pend", unit: "1/s" },
-        { tex: "g", key: "g", unit: "m/s²" },
+        G,
         { tex: "L", key: "length_rod", unit: "m" },
         THETA12,
       ],
@@ -1102,7 +1056,7 @@ export const CHECK_FORMULAS: Record<string, Record<string, CheckFormula>> = {
         { tex: "E", key: "E_pend", unit: "J" },
         { tex: "m_1, m_2", key: "m12", unit: "kg" },
         { tex: "v_1, v_2", key: "v12", unit: "m/s" },
-        { tex: "g", key: "g", unit: "m/s²" },
+        G,
         { tex: "y_1, y_2", key: "y12", unit: "m" },
         { tex: "L_1, L_2", key: "L12", unit: "m" },
         THETA12,
@@ -1124,11 +1078,11 @@ export const CHECK_FORMULAS: Record<string, Record<string, CheckFormula>> = {
     landing: {
       tex: String.raw`t = \frac{v_\infty}{g}\,\operatorname{arcosh}\!\left(e^{g h / v_\infty^2}\right), \qquad v_\infty = \sqrt{\frac{2 m g}{\rho\, C_D A}}`,
       symbols: [
-        { tex: "t", key: "t", unit: "s" },
+        TIME,
         V_INF,
         G,
         H_DROP_BOUNCE,
-        { tex: "m", key: "m", unit: "kg" },
+        MASS,
         { tex: String.raw`\rho`, key: "rho_air", unit: "kg/m³" },
         { tex: "C_D", key: "c_drag" },
         { tex: "A", key: "A_cross", unit: "m²" },
@@ -1158,7 +1112,7 @@ export const CHECK_FORMULAS: Record<string, Record<string, CheckFormula>> = {
     leaning_inertia: {
       tex: String.raw`I = \tfrac12 M R^2 + m_l k_l^2 + m_t\,(k_t^2 + d^2) + 2\,m_a\left(\tfrac{1}{12}\,d^2 + s^2 + \tfrac14\,d^2\right)`,
       symbols: [
-        { tex: "I", key: "inertia", unit: "kg·m²" },
+        INERTIA,
         { tex: "M", key: "spin_M", unit: "kg" },
         { tex: "R", key: "spin_R", unit: "m" },
         { tex: "m_l", key: "spin_ml", unit: "kg" },
@@ -1172,7 +1126,7 @@ export const CHECK_FORMULAS: Record<string, Record<string, CheckFormula>> = {
     },
     faster_upright: {
       tex: String.raw`I_\text{up}\,\omega_\text{up} = I_\text{lean}\,\omega_\text{lean} \;\Rightarrow\; \frac{\omega_\text{up}}{\omega_\text{lean}} = \frac{I_\text{lean}}{I_\text{up}}`,
-      symbols: [{ tex: "I", key: "inertia", unit: "kg·m²" }, SPIN_OMEGA],
+      symbols: [INERTIA, SPIN_OMEGA],
     },
     pull: {
       tex: String.raw`F = \omega^2\left(m_t\,d + 2\,m_a\,\frac{d}{2}\right), \qquad \omega = \pi\ \mathrm{s^{-1}}`,
@@ -1182,7 +1136,7 @@ export const CHECK_FORMULAS: Record<string, Record<string, CheckFormula>> = {
       tex: String.raw`\frac{dL}{dt} = -\tau_f \;\Rightarrow\; t = \frac{L_0}{\tau_f}`,
       symbols: [
         { tex: "L, L_0", key: "spin_L", unit: "kg·m²/s" },
-        { tex: "t", key: "t", unit: "s" },
+        TIME,
         { tex: String.raw`\tau_f`, key: "spin_tau", unit: "N·m" },
       ],
     },
@@ -1190,7 +1144,7 @@ export const CHECK_FORMULAS: Record<string, Record<string, CheckFormula>> = {
   coupled: {
     together: {
       tex: String.raw`T = 4\sqrt{\frac{L}{g}}\;K\!\left(\sin\frac{\theta_0}{2}\right)`,
-      symbols: [T_PERIOD, L_PENDULUM, G, { tex: "K", key: "K" }, THETA0],
+      symbols: [T_PERIOD, LENGTH, G, K_INTEGRAL, THETA0],
     },
     against: {
       tex: String.raw`T = 4\int_0^{\theta_0}\frac{d\theta}{\sqrt{2\,\bigl(V(\theta_0) - V(\theta)\bigr)}}, \qquad V(\theta) = -\frac{g}{L}\cos\theta + \kappa\sin^2\theta, \qquad \kappa = \frac{k\,a^2}{m\,L^2}`,
@@ -1200,11 +1154,11 @@ export const CHECK_FORMULAS: Record<string, Record<string, CheckFormula>> = {
         THETA,
         { tex: "V", key: "V_pot", unit: "1/s²" },
         G,
-        L_PENDULUM,
+        LENGTH,
         KAPPA,
         K_SPRING,
         A_SPRING,
-        M,
+        MASS,
       ],
     },
     beat: {
@@ -1214,7 +1168,7 @@ export const CHECK_FORMULAS: Record<string, Record<string, CheckFormula>> = {
         { tex: String.raw`\omega_-`, key: "omega_minus", unit: "1/s" },
         { tex: String.raw`\omega_+`, key: "omega_plus", unit: "1/s" },
         G,
-        L_PENDULUM,
+        LENGTH,
         KAPPA,
       ],
     },
@@ -1222,8 +1176,8 @@ export const CHECK_FORMULAS: Record<string, Record<string, CheckFormula>> = {
       tex: String.raw`E = \sum_{i=1,2}\Bigl(\tfrac12\,m L^2\dot\theta_i^2 + m g L\,(1 - \cos\theta_i)\Bigr) + \tfrac12\,k\,a^2\,(\sin\theta_2 - \sin\theta_1)^2`,
       symbols: [
         { tex: "E", key: "E_pair", unit: "J" },
-        M,
-        L_PENDULUM,
+        MASS,
+        LENGTH,
         { tex: String.raw`\dot\theta_i`, key: "thetadot_i", unit: "1/s" },
         G,
         { tex: String.raw`\theta_i`, key: "coupled_theta_i", unit: "°" },
@@ -1313,7 +1267,7 @@ export const CHECK_FORMULAS: Record<string, Record<string, CheckFormula>> = {
         V_IMPACT,
         V_INF_CANNON,
         G,
-        { tex: "t", key: "t", unit: "s" },
+        TIME,
         { tex: "h", key: "cannon_h_drop", unit: "m" },
         MASS,
         { tex: String.raw`\rho`, key: "cannon_rho_air", unit: "kg/m³" },
@@ -1347,7 +1301,7 @@ export const CHECK_FORMULAS: Record<string, Record<string, CheckFormula>> = {
   harmonograph: {
     wide_slower: {
       tex: String.raw`T = 4\sqrt{\frac{L}{g}}\;K\!\left(\sin\frac{\theta_0}{2}\right), \qquad K(k) = \int_0^{\pi/2} \frac{d\varphi}{\sqrt{1 - k^2 \sin^2\varphi}}`,
-      symbols: [H_T, H_L, H_G, H_K, H_THETA0],
+      symbols: [T_PERIOD, H_L, G, K_INTEGRAL, THETA0],
     },
     closes: {
       tex: String.raw`\frac{T_1}{T_2} = \sqrt{\frac{L_1}{L_2}} = \frac{3}{2} \;\Rightarrow\; (x, y)(2T_1) = (x, y)(0)`,
@@ -1362,18 +1316,18 @@ export const CHECK_FORMULAS: Record<string, Record<string, CheckFormula>> = {
       symbols: [
         { tex: String.raw`t_\text{turn}`, key: "harm_turn", unit: "s" },
         { tex: "f_1, f_2", key: "harm_f12", unit: "Hz" },
-        H_T,
+        T_PERIOD,
         H_L,
-        H_THETA0,
+        THETA0,
       ],
     },
     fades: {
       tex: String.raw`\theta_\text{max}(t) = \theta_0\,e^{-ct/2} \;\Rightarrow\; t_{1/10} = \frac{2 \ln 10}{c}`,
       symbols: [
         { tex: String.raw`\theta_\text{max}`, key: "harm_thetamax", unit: "°" },
-        H_THETA0,
+        THETA0,
         { tex: "c", key: "harm_c", unit: "1/s" },
-        { tex: "t", key: "t", unit: "s" },
+        TIME,
       ],
     },
   },
@@ -1422,7 +1376,7 @@ export const CHECK_FORMULAS: Record<string, Record<string, CheckFormula>> = {
         { tex: String.raw`\langle u^2\rangle`, key: "u2_mean", unit: "m²/s²" },
         M_BALL,
         V_BALL,
-        G_SYM,
+        G,
         UC_JET,
         B_JET,
         { tex: "r", key: "r", unit: "m" },
@@ -1434,7 +1388,7 @@ export const CHECK_FORMULAS: Record<string, Record<string, CheckFormula>> = {
     },
     float_balance: {
       tex: String.raw`\tfrac12\rho\,u^2\,c_d\,A = (m - \rho V)\,g \;\Rightarrow\; u = \sqrt{\frac{2\,(m - \rho V)\,g}{\rho\,c_d\,A}}`,
-      symbols: [RHO_AIR, { tex: "u", key: "u_ball", unit: "m/s" }, CD, A_BALL, M_BALL, V_BALL, G_SYM],
+      symbols: [RHO_AIR, { tex: "u", key: "u_ball", unit: "m/s" }, CD, A_BALL, M_BALL, V_BALL, G],
     },
   },
   gyroscope: {

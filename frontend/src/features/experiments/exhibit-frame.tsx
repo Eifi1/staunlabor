@@ -17,7 +17,7 @@ import { lessonEntry } from "@/features/course/lessons";
 import { EXHIBITS, EXHIBITS_PATH, exhibitEntry, type Exhibit } from "./exhibits";
 import { useTried } from "./tried";
 import { CheckSection } from "./check-section";
-import { CheckStatus } from "./unchecked-notice";
+import { CheckStatus } from "./check-status";
 
 /** Prose at a reading measure: a paragraph across a wide screen ran to some
  *  250 characters a line, where 60 to 80 read well. Paragraphs only — the
@@ -88,7 +88,12 @@ export function ExhibitFrame({
             <SectionLabel as="h2">{t("experiments.frame.at_the_exhibit")}</SectionLabel>
             {/* Its first paragraph, and the rest on request: the exhibit's
                 twin is what the page is for, and it should not wait below
-                two long paragraphs. */}
+                two long paragraphs. A native <details> rather than the kit's
+                Disclosure: the browser's find-in-page opens a closed <details>
+                at a match, while the kit's fold hides a shut body with
+                `visibility`, which find-in-page skips (keepMounted or not), so
+                the rest would not be found. An ask upstream: a Collapse with
+                `hidden="until-found"`. */}
             <div className={`space-y-2 text-sm text-primary ${PROSE}`}>
               {first}
               {rest.length > 0 && (

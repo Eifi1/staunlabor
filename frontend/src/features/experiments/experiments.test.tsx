@@ -64,7 +64,7 @@ import { run as runPit } from "./simulate/pit";
 import { HOLE, cameraAt, frameOf, project } from "./chair-views";
 import { weeklyExhibit } from "./weekly";
 import { CheckSection } from "./check-section";
-import { CheckStatus } from "./unchecked-notice";
+import { CheckStatus } from "./check-status";
 import { ExhibitPreview } from "./exhibit-preview";
 import { EXHIBITS, exhibitEntry, type Exhibit } from "./exhibits";
 import { EQUATION_COUNT } from "./facts";
