@@ -131,7 +131,7 @@
       },
       "selection": {
         "title": "Exhibits",
-        "lead": "The {{count}} newest. A drawing moves as soon as you point at it.",
+        "lead": "A random selection of {{count}}, new on every visit. A drawing moves as soon as you point at it.",
         "all": "All {{count}} exhibits"
       },
       "basics": {

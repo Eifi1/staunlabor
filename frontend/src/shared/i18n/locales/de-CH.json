@@ -131,7 +131,7 @@
       },
       "selection": {
         "title": "Exponate",
-        "lead": "Die {{count}} neuesten. Eine Zeichnung bewegt sich, sobald Sie darauf zeigen.",
+        "lead": "Eine zufällige Auswahl von {{count}}, bei jedem Besuch neu. Eine Zeichnung bewegt sich, sobald Sie darauf zeigen.",
         "all": "Alle {{count}} Exponate"
       },
       "basics": {

@@ -18,6 +18,7 @@ import {
   EXHIBITS_PATH,
   TOPICS_SHOWN,
   exhibitEntry,
+  sampled,
   type Exhibit,
   type ExhibitEntry,
 } from "./exhibits";
@@ -45,7 +46,7 @@ function weekSpan(monday: string, locale: string): string {
  *   auf die Seite mit den Experimenten anstelle des Dialogs");
  * - **the site in figures**, a band across the window: exhibits, topics,
  *   equations, checked, languages, and what the site does not do;
- * - **the exhibits** as a part of their own: the newest few, each moving
+ * - **the exhibits** as a part of their own: a few drawn at random, each moving
  *   once pointed at, and the way to the page of all of them (`exhibits-page.tsx`;
  *   Marcel, 2026-11-20: "nicht alle Exponate gleich sofort … sondern nur eine
  *   Auswahl, … weiterhin eine separate Seite mit allen Exponaten");
@@ -251,11 +252,13 @@ const SELECTION = 6;
 
 /**
  * The exhibits as a part of the front page: a heading to be seen from afar,
- * the newest few as cards, each moving once pointed at, and the way to all of
- * them on a page of their own.
+ * a few drawn at random as cards (`sampled`), each moving once pointed at, and
+ * the way to all of them on a page of their own. Drawn once per visit and kept
+ * while the page is open, so the cards do not change under the reader.
  */
 function Selection({ current }: { current: Exhibit }) {
   const { t } = useTranslation();
+  const [entries] = useState(() => sampled(BUILT, SELECTION));
   return (
     <section aria-labelledby="exhibits" className="space-y-4">
       <div className="flex flex-wrap items-end justify-between gap-x-6 gap-y-2">
@@ -272,7 +275,7 @@ function Selection({ current }: { current: Exhibit }) {
           <ArrowRight className="size-4" aria-hidden />
         </Button>
       </div>
-      <ExhibitGrid entries={BUILT.slice(0, SELECTION)} current={current} />
+      <ExhibitGrid entries={entries} current={current} />
     </section>
   );
 }

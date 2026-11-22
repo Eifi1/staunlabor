@@ -131,7 +131,7 @@
       },
       "selection": {
         "title": "Expositions",
-        "lead": "Les {{count}} plus récentes. Un dessin s’anime dès que vous le pointez.",
+        "lead": "Une sélection au hasard de {{count}}, nouvelle à chaque visite. Un dessin s’anime dès que vous le pointez.",
         "all": "Les {{count}} expositions"
       },
       "basics": {

@@ -112,7 +112,10 @@ kit's `GlobalSearch` over the exhibits (Ctrl K), the language and the theme
   the languages, in the kit's `StatTile`s; under them "0 Cookies · 0 Tracking
   · kein Konto nötig · frei und quelloffen".
 * **Exponate**, a part of its own (Marcel: "nicht alle Exponate gleich sofort
-  … sondern nur eine Auswahl"): the six newest, the same cards as the list,
+  … sondern nur eine Auswahl"): six drawn at random, new on every visit and
+  kept while the page is open (`sampled` in `exhibits.ts`; Marcel,
+  2026-11-22: "random sechs Exponate", after the six "newest" had been the
+  list's six oldest), the same cards as the list,
   and the way to all of them.
 * **Grundlagen**, likewise, under them (Marcel: "Genauso wie die Grundlagen
   unten drunter"): the three lessons the most exhibits build on, and the way
@@ -198,8 +201,9 @@ weeks are the rule run backwards (the tests walk them; no page lists them). A ne
 on or after its `since` day, never mid-round, which would redraw weeks already
 shown; so `since` is the day it **ships** — a past date puts it into a round
 already under way on the live site. A round of 35 weeks is most of a year, so
-a new exhibit is first shown among the front page's newest (the third stage,
-`docs/plan.md`), not by this pick (Marcel agreed, 2026-11-20).
+a new exhibit is first shown in the list of all of them and among the front
+page's six drawn at random, not by this pick (Marcel agreed, 2026-11-20; the
+front page's "newest" became random on 2026-11-22).
 
 **The previews are the pages' own auto modes** (`preview-mode.tsx`): each
 page's play component takes `preview` and `paused`, and in a preview it starts

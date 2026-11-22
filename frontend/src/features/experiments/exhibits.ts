@@ -331,8 +331,26 @@ export function exhibitEntry(exhibit: Exhibit): ExhibitEntry {
   return EXHIBITS.find((entry) => entry.exhibit === exhibit) ?? EXHIBITS[0];
 }
 
-/** The exhibits that are built, in the list's order, newest first. */
+/** The exhibits that are built, in the list's order: the oldest first. */
 export const BUILT: readonly ExhibitEntry[] = EXHIBITS.filter((entry) => entry.path);
+
+/** `count` of `entries` drawn at random, each as likely as any other, in the
+ *  list's order: the front page's selection, new on every visit, so an exhibit
+ *  added last is as likely to be shown as the first (Marcel, 2026-11-22: "random
+ *  sechs Exponate"). Neither the first six, which would never show a new one,
+ *  nor the newest, which would never show the old. */
+export function sampled<T>(entries: readonly T[], count: number, random: () => number = Math.random): T[] {
+  const indices = entries.map((_, i) => i);
+  // The first `count` steps of a Fisher–Yates shuffle.
+  for (let i = 0; i < Math.min(count, indices.length); i++) {
+    const j = i + Math.floor(random() * (indices.length - i));
+    [indices[i], indices[j]] = [indices[j], indices[i]];
+  }
+  return indices
+    .slice(0, count)
+    .sort((a, b) => a - b)
+    .map((i) => entries[i]);
+}
 
 /** The topics some exhibit has: a chip, or a figure, for a topic with none
  *  would promise what the page cannot show. */

@@ -240,15 +240,20 @@ describe("the overview", () => {
     expect(within(stage).queryByRole("button")).toBeNull();
   });
 
-  it("shows the newest exhibits as a part of its own, and the way to all of them", async () => {
+  it("shows six exhibits drawn at random as a part of its own, and the way to all of them", async () => {
     await renderOverview();
     const built = EXHIBITS.filter((entry) => entry.path);
     const part = screen.getByRole("region", { name: E.overview.selection.title });
-    expect(
-      within(part)
-        .getAllByRole("heading", { level: 3 })
-        .map((heading) => heading.textContent),
-    ).toEqual(built.slice(0, 6).map((entry) => E.exhibits[entry.exhibit].title));
+    const titles = built.map((entry) => E.exhibits[entry.exhibit].title);
+    const shown = within(part)
+      .getAllByRole("heading", { level: 3 })
+      .map((heading) => heading.textContent ?? "");
+    // Six different ones, every one built, in the list's order.
+    expect(new Set(shown).size).toBe(6);
+    expect(shown.map((title) => titles.indexOf(title))).toEqual(
+      shown.map((title) => titles.indexOf(title)).sort((a, b) => a - b),
+    );
+    expect(shown.every((title) => titles.includes(title))).toBe(true);
     const all = E.overview.selection.all.replace("{{count}}", String(built.length));
     expect(within(part).getByRole("link", { name: new RegExp(all) })).toHaveAttribute("href", "/exhibits");
   });

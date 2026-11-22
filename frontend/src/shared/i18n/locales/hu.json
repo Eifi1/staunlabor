@@ -131,7 +131,7 @@
       },
       "selection": {
         "title": "Kiállítási tárgyak",
-        "lead": "A {{count}} legújabb. A rajz megmozdul, amint rámutat.",
+        "lead": "Véletlenszerű válogatás {{count}} tárgyból, minden látogatáskor új. A rajz megmozdul, amint rámutat.",
         "all": "Mind a {{count}} kiállítási tárgy"
       },
       "basics": {
