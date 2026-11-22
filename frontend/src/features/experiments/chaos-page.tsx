@@ -2,6 +2,7 @@ import { useMemo, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Hand } from "lucide-react";
 import { Button, LoadingState, ToggleGroup, useDebounce } from "@eifi1/ui-kit";
+import { logAxis } from "@/shared/charts/log-axis";
 import { SeriesChart } from "@/shared/charts/series-chart";
 import { useLocale } from "@/shared/i18n/use-locale";
 import { formatNumber, formatPowerOfTen } from "@/shared/lib/format";
@@ -462,13 +463,7 @@ function ChaosTrick({ dp, start, nudge }: { dp: DoublePendulum | null; start: St
       <SeriesChart
         rows={measured.rows}
         series={[{ key: "gap", label: t("experiments.chaos.chart.gap"), color: hue(MAIN_HUE) }]}
-        axes={[
-          {
-            id: "y",
-            title: t("experiments.chaos.chart.gap"),
-            format: (v) => formatPowerOfTen(10 ** Math.round(v), locale),
-          },
-        ]}
+        axes={[logAxis("y", t("experiments.chaos.chart.gap"), locale)]}
         x={{ key: "t", title: `${t("experiments.chaos.chart.time")} (s)`, format: (v) => formatNumber(v, 0, locale) }}
       />
       <p>

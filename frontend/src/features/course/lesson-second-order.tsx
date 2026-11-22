@@ -23,7 +23,8 @@ import { PLOT_ROWS, SeriesChart } from "@/shared/charts/series-chart";
 import type { Regime, SecondOrderRequest } from "@/shared/types";
 import { HUE, REFERENCE_GREY } from "./colours";
 import { LessonFrame } from "./lesson-frame";
-import { Failed, Figures, Param, WidgetBody, WidgetCard, log10, logAxis, logX } from "./parts";
+import { log10, logAxis, logX } from "@/shared/charts/log-axis";
+import { Failed, Figures, Param, WidgetBody, WidgetCard } from "./parts";
 import { Tex } from "@/shared/ui/tex";
 import { useComputed } from "./use-dynamics";
 

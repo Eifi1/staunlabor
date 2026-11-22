@@ -17,7 +17,8 @@ import { mockApi } from "@/test/api-mock";
 import { renderWithProviders } from "@/test/render";
 import type { Exercise } from "@/shared/types";
 import { CheatSheetPage } from "./cheat-sheet";
-import { formatSig, parseEntry, withinTolerance } from "./exercise";
+import { parseEntry, withinTolerance } from "./exercise";
+import { formatSig } from "@/shared/lib/format";
 import { EigenvaluesLesson } from "./lesson-eigenvalues";
 import { FirstOrderLesson } from "./lesson-first-order";
 import { LaplaceLesson } from "./lesson-laplace";
@@ -26,7 +27,6 @@ import { SecondOrderLesson } from "./lesson-second-order";
 import { TwoMassLesson } from "./lesson-two-mass";
 import { BASICS_PATH, LESSONS, lessonEntry, neighbours } from "./lessons";
 import { CourseOverviewPage } from "./overview-page";
-import { decadeTicks, formatDecade, log10 } from "./parts";
 import { SURPRISE_SHARE, useCourseProgress } from "./progress";
 import { solutionTex } from "./solutions";
 import fixtures from "./test-fixtures.json";
@@ -203,17 +203,6 @@ describe("the small rules", () => {
     expect(withinTolerance(6.5, { value: 6.28, unit: "Hz", absolute: null, relative: 0.02 })).toBe(false);
   });
 
-  it("draws logarithmic axes at decades and names them readably", () => {
-    // Two decades or fewer: the 2 and 5 between them too.
-    expect(decadeTicks([0.1, 1.9])).toEqual([Math.log10(2), Math.log10(5), 1, 1 + Math.log10(2), 1 + Math.log10(5)]);
-    expect(decadeTicks([-6, 3])).toEqual([-6, -5, -4, -3, -2, -1, 0, 1, 2, 3]);
-    expect(formatDecade(-6, "en-GB")).toBe("10⁻⁶");
-    expect(formatDecade(-2, "en-GB")).toBe("0.01");
-    expect(formatDecade(3, "en-GB")).toBe("1,000");
-    expect(log10(0)).toBeUndefined();
-    expect(log10(100)).toBe(2);
-  });
-
   it("calls an estimate a surprise when it is more than half off", () => {
     expect(SURPRISE_SHARE).toBe(0.5);
     useCourseProgress.getState().estimate("pt1_reading", 20, 71.88, "°C");
@@ -244,9 +233,7 @@ describe("the small rules", () => {
     expect(neighbours("cheat_sheet").next).toBeNull();
     expect(neighbours("laplace").next?.lesson).toBe("numerics");
     expect(neighbours("two_mass").next?.lesson).toBe("cheat_sheet");
-    expect(formatSig(0.0020485, "en-GB")).toBe("0.002049");
-    // The site's one minus (U+2212), as the kit prints it, and read back as entered.
-    expect(formatSig(-12.345, "en-GB")).toBe("−12.35");
+    // The site's one minus (U+2212), read back as entered.
     expect(parseEntry(formatSig(-12.345, "en-GB"))).toBe(-12.35);
   });
 });

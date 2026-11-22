@@ -31,7 +31,7 @@ import { PAGE_SHELL } from "@/shared/ui/page-shell";
 import { PLOT_ROWS, SeriesChart } from "@/shared/charts/series-chart";
 import type { Lesson, TankRequest } from "@/shared/types";
 import { HUE, REFERENCE_GREY } from "./colours";
-import { formatSig } from "./exercise";
+import { formatSig } from "@/shared/lib/format";
 import { LESSONS } from "./lessons";
 import { LessonNavigation, useLesson } from "./lesson-frame";
 import { Failed, Figures, Param, WidgetBody, WidgetCard } from "./parts";

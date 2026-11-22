@@ -22,7 +22,8 @@ import { PLOT_ROWS, SeriesChart } from "@/shared/charts/series-chart";
 import type { AnalogyKind, FirstOrderRequest } from "@/shared/types";
 import { HUE, REFERENCE_GREY } from "./colours";
 import { LessonFrame } from "./lesson-frame";
-import { Failed, Figures, Param, WidgetBody, WidgetCard, log10, logAxis } from "./parts";
+import { log10, logAxis } from "@/shared/charts/log-axis";
+import { Failed, Figures, Param, WidgetBody, WidgetCard } from "./parts";
 import { Tex, texNumber } from "@/shared/ui/tex";
 import { useComputed } from "./use-dynamics";
 
