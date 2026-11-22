@@ -91,11 +91,15 @@ backend/staunlabor/
                         the policy, roles, languages and review areas, the daily call's prune
   feedback.py           server-kit's feedback routes wired: feedback.sql's stores, the files
   translations.py       server-kit's review routes wired: who reviews what, the store
+  exhibit_checks.py     the exhibit checks' routes: the public list, an admin's verdict
+                        kept with the engine's fingerprint (domain/checks/)
+  settings.py           the environment, read once; bootstrap.py the first admin's setup
   database.py           the accounts' engine (pool 1 + 1) and the request's unit of work
   models.py             the tables: server-kit's [sql], feedback.sql and translation_review.sql
-                        mixins, named here
+                        mixins, named here, and the exhibit checks'
 backend/alembic/        the migrations (0001: the accounts' tables, 0002: the feedback's,
-                        0003: the translation review's, 0004: two-factor sign-in's)
+                        0003: the translation review's, 0004: two-factor sign-in's,
+                        0005: the exhibit checks')
 frontend/src/
   app/                  routes (every page but the overview lazy), router link
   features/experiments/ the pages, the views, the overview, the page of every
