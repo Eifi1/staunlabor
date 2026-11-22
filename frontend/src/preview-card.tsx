@@ -37,7 +37,7 @@ const LANGUAGE = offered(new URLSearchParams(window.location.search).get("lang")
 
 function cardAsked(): Card {
   const asked = new URLSearchParams(window.location.search).get("card") ?? "overview";
-  const known = EXHIBITS.some((entry) => entry.path && entry.exhibit === asked);
+  const known = EXHIBITS.some((entry) => entry.exhibit === asked);
   if (asked !== "overview" && !known) throw new Error(`no card ${asked}`);
   return asked as Card;
 }

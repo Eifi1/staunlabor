@@ -174,7 +174,7 @@ describe("the overview", () => {
     return view;
   };
 
-  it("opens the built exhibit, says the others are coming and credits the museum", async () => {
+  it("opens every exhibit from its card and credits the museum", async () => {
     await renderList();
     expect(screen.getByRole("heading", { level: 3, name: E.exhibits.chair.title })).toBeInTheDocument();
     // The whole card opens its exhibit, through its title: no button per card.
@@ -182,16 +182,15 @@ describe("the overview", () => {
     const opens = list
       .getAllByRole("heading", { level: 3 })
       .flatMap((heading) => within(heading).queryAllByRole("link"));
-    expect(opens.map((link) => link.getAttribute("href"))).toEqual(EXHIBITS.flatMap((e) => (e.path ? [e.path] : [])));
+    expect(opens.map((link) => link.getAttribute("href"))).toEqual(EXHIBITS.map((e) => e.path));
     expect(list.queryAllByRole("link", { name: /Open the exhibit/ })).toHaveLength(0);
-    expect(screen.queryAllByText(E.overview.coming)).toHaveLength(EXHIBITS.filter((e) => !e.path).length);
     expect(screen.getByText(E.overview.credit)).toBeInTheDocument();
   });
 
-  it("shows every built exhibit in the list with its own drawing, held still until the card is pointed at", async () => {
+  it("shows every exhibit in the list with its own drawing, held still until the card is pointed at", async () => {
     await renderList();
     const list = document.body;
-    for (const entry of EXHIBITS.filter((e) => e.path)) {
+    for (const entry of EXHIBITS) {
       const heading = within(list).getByRole("heading", { level: 3, name: E.exhibits[entry.exhibit].title });
       const drawing = list.querySelector(`[data-still="${entry.exhibit}"]`);
       expect(drawing?.querySelector("svg, canvas"), entry.exhibit).not.toBeNull();
@@ -242,23 +241,22 @@ describe("the overview", () => {
 
   it("shows six exhibits drawn at random as a part of its own, and the way to all of them", async () => {
     await renderOverview();
-    const built = EXHIBITS.filter((entry) => entry.path);
     const part = screen.getByRole("region", { name: E.overview.selection.title });
-    const titles = built.map((entry) => E.exhibits[entry.exhibit].title);
+    const titles = EXHIBITS.map((entry) => E.exhibits[entry.exhibit].title);
     const shown = within(part)
       .getAllByRole("heading", { level: 3 })
       .map((heading) => heading.textContent ?? "");
-    // Six different ones, every one built, in the list's order.
+    // Six different ones, in the list's order.
     expect(new Set(shown).size).toBe(6);
     expect(shown.map((title) => titles.indexOf(title))).toEqual(
       shown.map((title) => titles.indexOf(title)).sort((a, b) => a - b),
     );
     expect(shown.every((title) => titles.includes(title))).toBe(true);
-    const all = E.overview.selection.all.replace("{{count}}", String(built.length));
+    const all = E.overview.selection.all.replace("{{count}}", String(EXHIBITS.length));
     expect(within(part).getByRole("link", { name: new RegExp(all) })).toHaveAttribute("href", "/exhibits");
   });
 
-  it("shows the lessons most exhibits build on under them, and the way to the course", async () => {
+  it("shows the lessons the exhibits build on under them, and the way to the course", async () => {
     await renderOverview();
     const part = screen.getByRole("region", { name: E.overview.basics.title });
     const course = en.course.lessons;
@@ -307,8 +305,7 @@ describe("the overview", () => {
   it("counts the site in figures, the checked exhibits as the server says", async () => {
     await renderOverview();
     const band = screen.getByRole("region", { name: E.overview.facts.label });
-    const built = EXHIBITS.filter((entry) => entry.path).length;
-    expect(band).toHaveTextContent(new RegExp(`${E.overview.facts.exhibits}\\s*${built}`));
+    expect(band).toHaveTextContent(new RegExp(`${E.overview.facts.exhibits}\\s*${EXHIBITS.length}`));
     expect(band).toHaveTextContent(new RegExp(`${E.overview.facts.equations}\\s*${EQUATION_COUNT}`));
     expect(band).toHaveTextContent(new RegExp(`${E.overview.facts.languages}\\s*7`));
     // None checked yet: the server's answer, not a figure the page made up.

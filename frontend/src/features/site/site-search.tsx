@@ -10,30 +10,27 @@ const SUGGESTED = 5;
 
 /**
  * The header's search, Ctrl K or ⌘K anywhere (Marcel's spec of 2026-11-20):
- * the kit's `GlobalSearch`, as UI-Kit advised, over every built exhibit, found
+ * the kit's `GlobalSearch`, as UI-Kit advised, over every exhibit, found
  * by its name, its question, its topics or what its summary says, in the
  * reader's language; and the page about the site. Nothing is sent anywhere:
  * the index is these entries, ranked in the browser.
  */
 export function SiteSearch() {
   const { t } = useTranslation();
-  const exhibits: SearchEntry[] = EXHIBITS.flatMap((entry) => {
-    if (!entry.path) return [];
+  const exhibits: SearchEntry[] = EXHIBITS.map((entry) => {
     const Icon = EXHIBIT_MODULES[entry.exhibit].icon;
-    return [
-      {
-        id: entry.exhibit,
-        title: t(`experiments.exhibits.${entry.exhibit}.title`),
-        keywords: [
-          t(`experiments.exhibits.${entry.exhibit}.question`),
-          ...entry.topics.map((topic) => t(`experiments.topics.${topic}`)),
-        ],
-        description: t(`experiments.exhibits.${entry.exhibit}.summary`),
-        group: t("site.nav.exhibits"),
-        href: entry.path,
-        icon: <Icon className="size-4" aria-hidden />,
-      },
-    ];
+    return {
+      id: entry.exhibit,
+      title: t(`experiments.exhibits.${entry.exhibit}.title`),
+      keywords: [
+        t(`experiments.exhibits.${entry.exhibit}.question`),
+        ...entry.topics.map((topic) => t(`experiments.topics.${topic}`)),
+      ],
+      description: t(`experiments.exhibits.${entry.exhibit}.summary`),
+      group: t("site.nav.exhibits"),
+      href: entry.path,
+      icon: <Icon className="size-4" aria-hidden />,
+    };
   });
   const pages: SearchEntry[] = [
     {

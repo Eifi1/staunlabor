@@ -1,13 +1,13 @@
 /**
- * The exhibits, in the order the site's strip and the overview show them, and
+ * The exhibits, in the order the lists show them (the oldest first), and
  * what the overview says about each besides its name: the physics it is about
  * (`topics`, the overview's filter), the course's lessons its computation
  * stands on (`lessons`, linked from the overview's card and from the page's
  * "How it is computed"), and the day it joins the experiment of the week
  * (`since`, `weekly.ts`).
  *
- * Only the built ones have a path, at the site's top level (`/cannon`); the
- * others are listed so the overview can say what is coming.
+ * Each has its page at the site's top level (`/cannon`): an exhibit is listed
+ * once it is built, since `exhibit-modules.ts` wants a page for every one.
  */
 
 export type Exhibit =
@@ -76,13 +76,13 @@ export const TOPICS: readonly Topic[] = [
 /** The course's lessons an exhibit's computation stands on: the basics, the
  *  course on differential equations whose lessons 0–6 moved here from
  *  Kurvenschmiede, where these exhibits were first built, and live under
- *  `/basics` (`docs/course.md`; `exhibit-frame.tsx`'s `lessonPath`). */
+ *  `/basics` (`docs/course.md`; `course/lessons.ts`'s `lessonEntry`). */
 export type CourseLesson = "first_order" | "second_order" | "numerics";
 
 export interface ExhibitEntry {
   exhibit: Exhibit;
-  /** The page's address, once it is built. */
-  path: string | null;
+  /** The page's address. */
+  path: string;
   topics: readonly Topic[];
   /** Empty for an exhibit that is geometry, not a motion (the chair). */
   lessons: readonly CourseLesson[];
@@ -330,9 +330,6 @@ export const EXHIBITS: readonly ExhibitEntry[] = [
 export function exhibitEntry(exhibit: Exhibit): ExhibitEntry {
   return EXHIBITS.find((entry) => entry.exhibit === exhibit) ?? EXHIBITS[0];
 }
-
-/** The exhibits that are built, in the list's order: the oldest first. */
-export const BUILT: readonly ExhibitEntry[] = EXHIBITS.filter((entry) => entry.path);
 
 /** `count` of `entries` drawn at random, each as likely as any other, in the
  *  list's order: the front page's selection, new on every visit, so an exhibit

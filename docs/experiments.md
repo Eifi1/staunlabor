@@ -122,8 +122,9 @@ kit's `GlobalSearch` over the exhibits (Ctrl K), the language and the theme
   list's six oldest), the same cards as the list,
   and the way to all of them.
 * **Grundlagen**, likewise, under them (Marcel: "Genauso wie die Grundlagen
-  unten drunter"): the three lessons the most exhibits build on, and the way
-  to the course, which moved in from Kurvenschmiede (`docs/course.md`).
+  unten drunter"): the lessons the exhibits build on (all three an exhibit
+  can name, `CourseLesson`), and the way to the course, which moved in from
+  Kurvenschmiede (`docs/course.md`).
 
 **The page of every exhibit**, `/exhibits` (`exhibits-page.tsx`; Marcel:
 "es soll doch weiterhin eine separate Seite mit allen Exponaten geben"):

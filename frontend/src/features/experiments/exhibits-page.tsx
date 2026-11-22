@@ -5,7 +5,7 @@ import { RotateCcw } from "lucide-react";
 import { Button, Chip, ProgressBar, usePageSeo } from "@eifi1/ui-kit";
 import { PAGE_SHELL } from "@/shared/ui/page-shell";
 import { ExhibitGrid } from "./exhibit-cards";
-import { BUILT, EXHIBITS, EXHIBITS_PATH, TOPICS_SHOWN, type Topic } from "./exhibits";
+import { EXHIBITS, EXHIBITS_PATH, TOPICS_SHOWN, type Topic } from "./exhibits";
 import { useTried } from "./tried";
 import { dayIn, weekOf, weeklyExhibit } from "./weekly";
 
@@ -43,7 +43,7 @@ export function ExhibitsPage() {
             <h1 className="font-serif text-3xl font-semibold text-primary md:text-4xl">
               {t("experiments.overview.all")}
             </h1>
-            <span className="font-mono text-sm text-muted">{BUILT.length}</span>
+            <span className="font-mono text-sm text-muted">{EXHIBITS.length}</span>
           </div>
           <p className="max-w-[65ch] text-sm text-secondary md:text-base">{t("experiments.list.lead")}</p>
         </div>
@@ -59,7 +59,7 @@ export function ExhibitsPage() {
         <ProgressBar
           label={t("experiments.overview.tried.label")}
           value={tried.length}
-          max={BUILT.length}
+          max={EXHIBITS.length}
           showValue
           formatValue={(v, max) => t("experiments.overview.tried.count", { tried: v, total: max })}
           tone="success"

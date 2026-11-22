@@ -23,11 +23,11 @@ const run = (count: number, pool?: readonly WeeklyMember[], weights?: WeeklyWeig
 /** The draw with neither bonus nor malus: what the weights are measured against. */
 const EVEN: WeeklyWeights = { bonusPerWeek: 0, topicMalus: 1, pairMalus: 1 };
 
-const built = EXHIBITS.filter((entry) => entry.path).map((entry) => entry.exhibit);
+const built = EXHIBITS.map((entry) => entry.exhibit);
 
-/** Every built exhibit in the draw from the epoch on, with its topics: the
- *  round the rules are about, whatever day each one ships. */
-const everyone: WeeklyMember[] = EXHIBITS.filter((entry) => entry.path).map((entry) => ({
+/** Every exhibit in the draw from the epoch on, with its topics: the round the
+ *  rules are about, whatever day each one ships. */
+const everyone: WeeklyMember[] = EXHIBITS.map((entry) => ({
   exhibit: entry.exhibit,
   since: WEEKLY_EPOCH,
   topics: entry.topics,

@@ -109,10 +109,8 @@ export interface WeeklyPick {
   exhibit: Exhibit;
 }
 
-/** Every built exhibit, from the day it ships. */
-const POOL: readonly WeeklyMember[] = EXHIBITS.flatMap((entry) =>
-  entry.path ? [{ exhibit: entry.exhibit, since: entry.since, topics: entry.topics }] : [],
-);
+/** Every exhibit, from the day it ships. */
+const POOL: readonly WeeklyMember[] = EXHIBITS.map(({ exhibit, since, topics }) => ({ exhibit, since, topics }));
 
 /** A calendar day, `YYYY-MM-DD`, as days since 1970-01-01. */
 function dayNumber(day: string): number {

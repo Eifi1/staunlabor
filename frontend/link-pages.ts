@@ -50,18 +50,17 @@ export function previewImage(name: string): string {
   return `${SITE}/previews/${name}.jpg`;
 }
 
-/** The exhibits that have a page, with the German texts they are announced by.
- *  A built exhibit without its title or summary is an error, not a page that
- *  previews as "undefined". */
+/** The exhibits' pages, with the German texts they are announced by. An
+ *  exhibit without its title or summary is an error, not a page that previews
+ *  as "undefined". */
 export function exhibitPages(
-  entries: readonly { exhibit: string; path?: string | null }[],
+  entries: readonly { exhibit: string; path: string }[],
   texts: Readonly<Record<string, { title?: string; summary?: string }>>,
 ): LinkPage[] {
-  return entries.flatMap(({ exhibit, path }) => {
-    if (!path) return [];
+  return entries.map(({ exhibit, path }) => {
     const { title, summary } = texts[exhibit] ?? {};
     if (!title || !summary) throw new Error(`experiments.exhibits.${exhibit}: no title or summary in de-CH`);
-    return [{ exhibit, path, title, summary }];
+    return { exhibit, path, title, summary };
   });
 }
 

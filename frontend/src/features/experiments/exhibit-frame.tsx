@@ -14,17 +14,10 @@ import { ArrowLeft, ArrowRight, ChevronRight, Cpu, FlaskConical, Lightbulb } fro
 import { Button, Card, CardHeader, CardTitle, PageHeader, SectionLabel, TextLink } from "@eifi1/ui-kit";
 import { PAGE_SHELL } from "@/shared/ui/page-shell";
 import { lessonEntry } from "@/features/course/lessons";
-import { EXHIBITS, EXHIBITS_PATH, exhibitEntry, type CourseLesson, type Exhibit } from "./exhibits";
+import { EXHIBITS, EXHIBITS_PATH, exhibitEntry, type Exhibit } from "./exhibits";
 import { useTried } from "./tried";
 import { CheckSection } from "./check-section";
 import { CheckStatus } from "./unchecked-notice";
-
-/** The course lesson a computation stands on, on this site since its lessons
- *  0–6 moved in from Kurvenschmiede (Marcel, 2026-11-20: "Grundlagen sollte
- *  keine Weiterleitung auf Kurvenschmiede haben"). */
-export function lessonPath(lesson: CourseLesson): string {
-  return lessonEntry(lesson).path;
-}
 
 /** Prose at a reading measure: a paragraph across a wide screen ran to some
  *  250 characters a line, where 60 to 80 read well. Paragraphs only — the
@@ -39,11 +32,10 @@ function parts(node: ReactNode): ReactNode[] {
   return Children.toArray(node);
 }
 
-/** The built exhibit after `exhibit` in the list, the first after the last. */
+/** The exhibit after `exhibit` in the list, the first after the last. */
 function nextExhibit(exhibit: Exhibit) {
-  const built = EXHIBITS.filter((entry) => entry.path);
-  const at = built.findIndex((entry) => entry.exhibit === exhibit);
-  return built[(at + 1) % built.length];
+  const at = EXHIBITS.findIndex((entry) => entry.exhibit === exhibit);
+  return EXHIBITS[(at + 1) % EXHIBITS.length];
 }
 
 export function ExhibitFrame({
@@ -144,7 +136,7 @@ export function ExhibitFrame({
               <p className="text-sm text-secondary">{t("experiments.computed.course")}</p>
               <div className="flex flex-wrap gap-2">
                 {lessons.map((lesson) => (
-                  <Button key={lesson} variant="secondary" size="sm" href={lessonPath(lesson)}>
+                  <Button key={lesson} variant="secondary" size="sm" href={lessonEntry(lesson).path}>
                     {t(`experiments.computed.links.${lesson}`)}
                     <ArrowRight className="size-4" aria-hidden />
                   </Button>
@@ -173,7 +165,7 @@ export function ExhibitFrame({
           <ArrowLeft className="size-4" aria-hidden />
           {t("experiments.overview.all")}
         </TextLink>
-        {next.path && next.exhibit !== exhibit && (
+        {next.exhibit !== exhibit && (
           <Button variant="secondary" size="sm" href={next.path}>
             {t("experiments.frame.next", { name: t(`experiments.exhibits.${next.exhibit}.short`) })}
             <ArrowRight className="size-4" aria-hidden />

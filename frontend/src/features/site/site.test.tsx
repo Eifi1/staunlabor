@@ -145,7 +145,7 @@ describe("the routes", () => {
   // `EXHIBITS` names each exhibit's path, and the link pages, the overview and
   // the daily pick all follow it; the routes are written apart from it, and a
   // path without its route would ship a 404 behind a share card.
-  it.each(EXHIBITS.flatMap((entry) => (entry.path ? [[entry.path, entry.exhibit] as const] : [])))(
+  it.each(EXHIBITS.map((entry) => [entry.path, entry.exhibit] as const))(
     "opens %s on its exhibit's page",
     async (path, exhibit) => {
       renderWithProviders(

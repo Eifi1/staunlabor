@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { BUILT, sampled } from "./exhibits";
+import { EXHIBITS, sampled } from "./exhibits";
 
 /** A fixed sequence for `random`, so a draw can be named in advance. */
 function sequence(...values: number[]): () => number {
@@ -23,10 +23,10 @@ describe("the front page's selection", () => {
       return state / 2147483647;
     };
     for (let i = 0; i < 2000; i++) {
-      for (const entry of sampled(BUILT, 6, random)) counts.set(entry.exhibit, (counts.get(entry.exhibit) ?? 0) + 1);
+      for (const entry of sampled(EXHIBITS, 6, random)) counts.set(entry.exhibit, (counts.get(entry.exhibit) ?? 0) + 1);
     }
-    expect(counts.size).toBe(BUILT.length);
-    const expected = (2000 * 6) / BUILT.length;
+    expect(counts.size).toBe(EXHIBITS.length);
+    const expected = (2000 * 6) / EXHIBITS.length;
     for (const count of counts.values()) expect(Math.abs(count - expected) / expected).toBeLessThan(0.35);
   });
 
