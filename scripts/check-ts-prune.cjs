@@ -16,16 +16,14 @@
  * What it reported when this check became blocking is frontend/.ts-prune-baseline,
  * as "file - name" without the line number, so an edit above an export is not a
  * change. The `export type *` barrel in shared/types, which ts-prune cannot
- * follow, is left out of both (see BARREL below). The check fails when
- *   - an unused export appears that is not in the baseline (use it or remove it), or
- *   - a baseline entry is no longer reported (delete the line: the baseline only
- *     ever shrinks).
- * `node scripts/check-ts-prune.cjs --update` rewrites the baseline — after a
- * deliberate review, never to make the check pass.
+ * follow, is left out of both (see BARREL below). The rule (new entries and
+ * gone ones both fail), the "#" reasons and --update are baseline.cjs's, shared
+ * with check-vulture.cjs: `node scripts/check-ts-prune.cjs --update` rewrites
+ * the baseline — after a deliberate review, never to make the check pass.
  */
 const { execFileSync } = require("child_process");
-const fs = require("fs");
 const path = require("path");
+const { compareWithBaseline } = require("./baseline.cjs");
 
 const FRONTEND = path.join(__dirname, "..", "frontend");
 const BASELINE = path.join(FRONTEND, ".ts-prune-baseline");
@@ -56,28 +54,4 @@ const current = new Set(
     .map((line) => line.replace(/:\d+ - /, " - ").trim()),
 );
 
-if (process.argv.includes("--update")) {
-  fs.writeFileSync(BASELINE, [...current].sort().join("\n") + "\n");
-  console.log(`baseline rewritten: ${current.size} entries`);
-  process.exit(0);
-}
-
-const baseline = new Set(
-  fs.existsSync(BASELINE)
-    ? fs.readFileSync(BASELINE, "utf8").split("\n").map((line) => line.trim()).filter(Boolean)
-    : [],
-);
-
-const added = [...current].filter((entry) => !baseline.has(entry)).sort();
-const gone = [...baseline].filter((entry) => !current.has(entry)).sort();
-
-if (added.length) {
-  console.error(`✖ ${added.length} new unused export(s) — use or remove them:`);
-  for (const entry of added) console.error(`  ${entry}`);
-}
-if (gone.length) {
-  console.error(`✖ ${gone.length} baseline entr(y/ies) no longer unused — delete them from frontend/.ts-prune-baseline:`);
-  for (const entry of gone) console.error(`  ${entry}`);
-}
-if (added.length || gone.length) process.exit(1);
-console.log(`ts-prune: no new unused exports (${baseline.size} baselined)`);
+compareWithBaseline({ baselineFile: BASELINE, current, noun: "unused export", tool: "ts-prune" });
