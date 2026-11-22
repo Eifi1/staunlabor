@@ -11,8 +11,9 @@ what the kit leaves to an app, and nothing more:
 - the files' bytes: a Cloud Storage bucket on a deployment
   (``settings.feedback_bucket``), a directory on a laptop
   (``settings.feedback_files_dir``);
-- who is who: the signed-in account (server-kit's ``current_user``, the one the
-  account routes use) as the feedback's actor, an ADMIN as its admin;
+- who is who: the signed-in account (server-kit's ``app_feedback_actor``, on the
+  ``current_user`` the account routes use) as the feedback's actor, an ADMIN as its
+  admin;
 - who sees the public list: everybody signed in, since every account here came
   by invitation.
 
@@ -21,17 +22,13 @@ tells nobody), so no alerts. The reports are the site's own to-do list too:
 the planned exhibits are filed here as ideas (plan, second stage).
 """
 
-# No `from __future__ import annotations` here: the actor's parameter names a dependency
-# built inside `feedback_deps` (`Depends(signed_in)`), and FastAPI resolves a string
-# annotation in the module's globals, where `signed_in` is not. Evaluated at definition,
-# the annotation holds the dependency itself.
+from __future__ import annotations
 
 from collections.abc import Awaitable, Callable, Sequence
 from functools import lru_cache
-from typing import Annotated, Any
+from typing import Any
 
-from eifi1_server_kit.auth.accounts import full_name
-from eifi1_server_kit.auth.router import AuthDeps, admin_guard, current_user
+from eifi1_server_kit.auth.router import app_admin, app_feedback_actor
 from eifi1_server_kit.feedback import AttachmentUrlPolicy, FeedbackActor, feedback_attention
 from eifi1_server_kit.feedback.router import FeedbackDeps
 from eifi1_server_kit.feedback.service import FeedbackService
@@ -45,7 +42,6 @@ from eifi1_server_kit.feedback.sql import (
 )
 from eifi1_server_kit.objects import GcsObjectStore, LocalObjectStore, ObjectStore, purge_objects
 from eifi1_server_kit.user_admin.service import UserAdminHooks
-from fastapi import Depends
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from staunlabor.database import Database, RequestSession
@@ -55,7 +51,6 @@ from staunlabor.models import (
     FeedbackComment,
     FeedbackReply,
     FeedbackVote,
-    Role,
     User,
 )
 from staunlabor.settings import Settings
@@ -188,19 +183,12 @@ async def admin_hooks(session: RequestSession) -> UserAdminHooks[User]:
     return UserAdminHooks(attention=attention)
 
 
-def feedback_deps(accounts: AuthDeps, settings: Settings) -> FeedbackDeps:
-    """Everything ``feedback_router`` is built from, on the account layer's own sign-in."""
-    signed_in = current_user(accounts)
+def feedback_deps(settings: Settings) -> FeedbackDeps:
+    """Everything ``feedback_router`` is built from, on the account layer's own sign-in:
+    the kit's ``app_feedback_actor`` (the signed-in account, its name in its language, an
+    ADMIN as the feedback's admin) and ``app_admin``, both bound by
+    ``install_account_layer`` in ``create_app``."""
     objects = objects_for(settings)
-
-    async def actor(user: Annotated[User, Depends(signed_in)]) -> FeedbackActor:
-        return FeedbackActor(
-            id=user.id,
-            email=user.email,
-            display_name=full_name(user.first_name, user.last_name, user.locale) or None,
-            is_admin=user.role == Role.ADMIN,
-            role=user.role,
-        )
 
     async def repository(session: RequestSession) -> SqlFeedbackRepository[Feedback]:
         return repository_on(session)
@@ -221,11 +209,11 @@ def feedback_deps(accounts: AuthDeps, settings: Settings) -> FeedbackDeps:
         return SqlPeopleLookup(session, User)
 
     return FeedbackDeps(
-        actor=actor,
+        actor=app_feedback_actor,
         repository=repository,
         storage=storage,
         demo_guard=no_demo,
-        admin_guard=admin_guard(accounts),
+        admin_guard=app_admin,
         policy=POLICY,
         replies=replies,
         comments=comments,

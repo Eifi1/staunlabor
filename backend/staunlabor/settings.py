@@ -156,7 +156,8 @@ class Settings(BaseSettings):
 
     @property
     def site_origin(self) -> str:
-        """The origin a passkey ceremony must come from: the site's own."""
+        """The site's own origin: the one a passkey ceremony must come from, and the
+        one CORS lets the development server's pages call from."""
         parts = urlsplit(self.app_base_url)
         return f"{parts.scheme}://{parts.netloc}"
 

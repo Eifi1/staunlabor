@@ -22,7 +22,12 @@ from uuid import uuid4
 from eifi1_server_kit.auth import AuthLimiters, parse_env_list
 from eifi1_server_kit.auth.jobs import account_jobs_router
 from eifi1_server_kit.auth.passkeys import rp_id_fits
-from eifi1_server_kit.auth.router import auth_router, invitations_admin_router
+from eifi1_server_kit.auth.router import (
+    account_request_window,
+    auth_router,
+    install_account_layer,
+    invitations_admin_router,
+)
 from eifi1_server_kit.errors import install_contract_error_handlers
 from eifi1_server_kit.feedback.router import feedback_router
 from eifi1_server_kit.limiter import FeedbackLimiters
@@ -42,7 +47,7 @@ from staunlabor.database import Database
 from staunlabor.exhibit_checks import exhibit_checks_router
 from staunlabor.feedback import feedback_deps
 from staunlabor.request_log import RequestLogMiddleware
-from staunlabor.security import AccountLimiters, ExperimentsLimiters, limit_account_request
+from staunlabor.security import ACCOUNT_REQUESTS, ExperimentsLimiters
 from staunlabor.settings import Settings, get_settings
 from staunlabor.translations import translation_review_deps
 
@@ -125,8 +130,9 @@ def create_app() -> FastAPI:
         lifespan=_lifespan,
     )
     app.state.experiments_limiters = ExperimentsLimiters()
-    app.state.account_limiters = AccountLimiters()
-    app.state.auth_limiters = AuthLimiters()
+    # The kit's account windows, with the site's own for every account request
+    # (security.ACCOUNT_REQUESTS) in place of the kit's 600 a minute.
+    app.state.auth_limiters = AuthLimiters(requests=ACCOUNT_REQUESTS)
     app.state.feedback_limiters = FeedbackLimiters()
     app.state.database = Database(settings)
     # Innermost of the three: a kept answer still gets CORS's headers on the
@@ -134,7 +140,7 @@ def create_app() -> FastAPI:
     app.add_middleware(AnswerCacheMiddleware, prefix=API_PREFIX)
     app.add_middleware(
         CORSMiddleware,
-        allow_origins=[settings.app_base_url.rstrip("/")],
+        allow_origins=[settings.site_origin],
         allow_methods=["GET", "POST"],
         allow_headers=["Content-Type"],
     )
@@ -147,15 +153,19 @@ def create_app() -> FastAPI:
     app.include_router(experiments_router, prefix=API_PREFIX)
     # The course's lessons, under the exhibits' calculation budget (course_router).
     app.include_router(course_router, prefix=API_PREFIX)
-    # Every account route spends the address's budget first, the kit's own
-    # windows after it (security.ACCOUNT_REQUESTS).
+    # The account layer, bound once: the kit's app_current_user, app_admin and
+    # app_feedback_actor, which the routers below depend on, answer from it.
     accounts = account_deps(app.state.database, settings)
-    budget = [Depends(limit_account_request)]
-    app.include_router(auth_router(accounts), prefix=API_PREFIX, dependencies=budget)
+    install_account_layer(app, accounts)
+    # The kit's three account routers charge every request to the address's
+    # window themselves (security.ACCOUNT_REQUESTS); the routers it does not
+    # charge get the same window here, so an account request costs one.
+    budget = [Depends(account_request_window(accounts))]
+    app.include_router(auth_router(accounts), prefix=API_PREFIX)
     # The admin's two routers, behind the kit's one admin guard: the invitations
     # (0.29) and the roster with its actions, the log, the overview and the mail (0.30).
-    app.include_router(invitations_admin_router(accounts), prefix=API_PREFIX, dependencies=budget)
-    app.include_router(user_admin_router(admin_deps(accounts)), prefix=API_PREFIX, dependencies=budget)
+    app.include_router(invitations_admin_router(accounts), prefix=API_PREFIX)
+    app.include_router(user_admin_router(admin_deps(accounts)), prefix=API_PREFIX)
     # The daily call (Cloud Scheduler's, with the jobs token): the erasures due 30 days
     # after a deletion request, the prune of the account rows done with for 30 days, the
     # sweep of uploads no report names. Under the budget too: every route is public.
@@ -164,14 +174,13 @@ def create_app() -> FastAPI:
     )
     # Feedback (server-kit 0.31's feedback.sql): the reports, the inbox, the public list,
     # on the account layer's own sign-in.
-    app.include_router(feedback_router(feedback_deps(accounts, settings)), prefix=API_PREFIX, dependencies=budget)
+    app.include_router(feedback_router(feedback_deps(settings)), prefix=API_PREFIX, dependencies=budget)
     # The translation review (server-kit 0.31's translation_review.sql): the verdicts on the
     # seven catalogues, an admin's and the reviewers' an admin granted. Under the budget too.
-    app.include_router(
-        translation_review_router(translation_review_deps(accounts)), prefix=API_PREFIX, dependencies=budget
-    )
+    app.include_router(translation_review_router(translation_review_deps()), prefix=API_PREFIX, dependencies=budget)
     # Which exhibits' calculations are checked: the public list every page asks
-    # for its notice, and an admin's verdict, kept with the code's fingerprint.
+    # for its notice (the calculations' budget), and an admin's verdict, kept with
+    # the code's fingerprint (the account window, as every admin route).
     app.include_router(exhibit_checks_router(accounts), prefix=API_PREFIX)
     # The kit's refusals — the budget's 429 with its Retry-After — are
     # ValueErrors too; the kit's handlers answer them at their own status,

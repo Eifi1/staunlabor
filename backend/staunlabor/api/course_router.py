@@ -21,7 +21,7 @@ some hundred and thirty — inside the two hundred the budget is sized for.
 
 Every route but ``defaults`` spends the exhibits' budget,
 :data:`~staunlabor.security.EXPERIMENT_RUNS`, per address
-(``experiments_router.limit_run``): one budget for every calculation, so an
+(``security.limit_run``): one budget for every calculation, so an
 address cannot double what it makes the server compute by asking two pages
 instead of one. A 429 says the seconds in its body.
 """
@@ -30,7 +30,6 @@ from __future__ import annotations
 
 from fastapi import APIRouter, Depends
 
-from staunlabor.api.experiments_router import limit_run
 from staunlabor.domain.course import (
     TwoMassParameters,
     analogies,
@@ -90,7 +89,7 @@ from staunlabor.domain.schemas.course import (
     TwoMassParametersIn,
     TwoMassRunIn,
 )
-from staunlabor.security import PAGE_SETTLE_S
+from staunlabor.security import PAGE_SETTLE_S, limit_run
 
 router = APIRouter(prefix="/course", tags=["course"])
 

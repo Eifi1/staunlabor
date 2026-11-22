@@ -19,6 +19,7 @@ from urllib.parse import parse_qs, urlsplit
 import jwt
 import pytest
 from eifi1_server_kit.auth.testing import SoftAuthenticator, totp_code
+from eifi1_server_kit.limiter import SlidingWindowRateLimiter
 from httpx import ASGITransport, AsyncClient, Response
 from sqlalchemy import func, select, update
 from sqlalchemy.ext.asyncio import AsyncSession
@@ -401,6 +402,20 @@ async def test_switching_the_second_factor_off_takes_the_password_and_a_code(acc
 # ── The budget and the unit of work ──────────────────────────────────────────
 
 
+#: An account route of every router, the kit's three and the four the app charges itself.
+ACCOUNT_ROUTES = (
+    ("POST", "/auth/passkey/login/begin"),
+    ("GET", "/auth/me"),
+    ("GET", "/admin/invitations"),
+    ("GET", "/admin/users"),
+    ("POST", "/admin/mail/test"),
+    ("GET", "/feedback/my"),
+    ("GET", "/translations/reviews"),
+    ("POST", "/ops/accounts/daily"),
+    ("PUT", "/admin/experiments/checks/sphere"),
+)
+
+
 async def test_every_account_route_spends_the_address_s_budget_and_the_exhibits_keep_theirs(accounts: AsyncClient):
     # The usernameless passkey begin reads and writes nothing and has no window
     # of the kit's: the budget is all that stands in front of it.
@@ -408,17 +423,30 @@ async def test_every_account_route_spends_the_address_s_budget_and_the_exhibits_
         (await accounts.post(f"{API}/auth/passkey/login/begin")).status_code for _ in range(ACCOUNT_REQUESTS.max_hits)
     ]
     assert begun == [200] * ACCOUNT_REQUESTS.max_hits
-    for method, path in (
-        ("POST", "/auth/passkey/login/begin"),
-        ("GET", "/auth/me"),
-        ("GET", "/admin/invitations"),
-        ("GET", "/admin/users"),
-        ("POST", "/admin/mail/test"),
-    ):
+    for method, path in ACCOUNT_ROUTES:
         refused = await accounts.request(method, f"{API}{path}")
         assert refused.status_code == 429, path
-        assert "Try again in" in refused.json()["detail"] and int(refused.headers["retry-after"]) > 0
+        assert "try again" in refused.json()["detail"] and int(refused.headers["retry-after"]) > 0
     assert (await accounts.get(f"{API}/experiments/chair")).status_code == 200
+
+
+async def test_an_account_request_costs_one_hit_of_one_window(accounts: AsyncClient, monkeypatch: pytest.MonkeyPatch):
+    """The kit charges its routers to ``AuthLimiters.requests`` itself; a second window
+    of the app's in front of it would make every request cost two."""
+    window = accounts._transport.app.state.auth_limiters.requests  # type: ignore[attr-defined]
+    assert (window.max_hits, window.window_seconds) == (ACCOUNT_REQUESTS.max_hits, ACCOUNT_REQUESTS.window_seconds)
+    charged: list[object] = []
+    hit = SlidingWindowRateLimiter.hit
+
+    def counted(self: SlidingWindowRateLimiter, key: str) -> float | None:
+        charged.append(self)
+        return hit(self, key)
+
+    monkeypatch.setattr(SlidingWindowRateLimiter, "hit", counted)
+    for method, path in ACCOUNT_ROUTES:
+        charged.clear()
+        await accounts.request(method, f"{API}{path}")
+        assert charged == [window], path
 
 
 async def test_a_commit_that_fails_is_the_answer_s_500_and_writes_nothing(

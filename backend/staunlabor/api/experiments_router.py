@@ -3,21 +3,15 @@
 Unauthenticated, as the whole site is: it holds no data, reads nothing and
 writes nothing, and an exhibit is something anybody should be able to open.
 
-What is **not** here is any exhibit's time simulation. The ball in the sphere,
-the car on its ramps, the platform, the elephant's ball, the smoke ring and the
-ball cannon answer a hand sixty times a second, which no round trip can, so the
-pages run them in the browser (``frontend/src/features/experiments/simulate/``),
-the engine's steps ported and held to it by ``tests/unit/test_experiments_browser.py``.
-What the server answers is what a slider changes: the orbits and the swing for
-a sphere, the flux and its slope for a coil, the three boxes for the chair, the
-spins and the curves of the platform, the six tracks and the valley of the race,
-the float height, the curves and the tilt limit of the elephant's ball, the
-window of the smoke ring, how high the ball cannon's top ball goes for one, two
-and three balls, the pendulum wave's lengths and how far apart it comes back,
-and the Chladni plate's driven modes, the same for every plate and computed
-once a process (two seconds the first time) —
-each a millisecond or a few, the race some twenty, the elephant, the smoke ring
-and the cannon up to two hundred.
+What is **not** here is any exhibit's time simulation: those answer a hand
+sixty times a second, which no round trip can, so the pages run them in the
+browser (``frontend/src/features/experiments/simulate/``), the engine's steps
+ported and held to it by ``tests/unit/test_experiments_browser.py``. What the
+server answers is what a slider changes, for the exhibits whose figures are
+worth a round trip; most exhibits have no route, and their pages compute in the
+browser from ``/defaults`` alone. Each route costs a millisecond to a couple of hundred, the
+Chladni plate's driven modes (the same for every plate) two seconds once a
+process and nothing after.
 
 The handlers are ``def``: pure Python with nothing to await would stall the
 event loop as ``async``. All but ``defaults``, which builds a few models. Every
@@ -29,8 +23,7 @@ from __future__ import annotations
 
 from dataclasses import asdict
 
-from eifi1_server_kit.limiter import charge
-from fastapi import APIRouter, Depends, Request
+from fastapi import APIRouter, Depends
 
 from staunlabor.domain.experiments import (
     BLOCK_HEIGHT_M,
@@ -150,18 +143,9 @@ from staunlabor.domain.schemas.experiments import (
     WaveFiguresOut,
     WaveIn,
 )
-from staunlabor.security import PAGE_SETTLE_S, caller_address
+from staunlabor.security import PAGE_SETTLE_S, limit_run
 
 router = APIRouter(prefix="/experiments", tags=["experiments"])
-
-
-def limit_run(request: Request) -> None:
-    """Spend one of this address's attempts, or refuse with the wait."""
-    charge(
-        request.app.state.experiments_limiters.runs,
-        caller_address(request),
-        lambda seconds: f"Too many calculations from this address. Try again in {seconds} seconds.",
-    )
 
 
 def _exhibit(payload: CoilExhibitIn) -> CoilExhibit:
