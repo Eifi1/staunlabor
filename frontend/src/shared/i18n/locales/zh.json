@@ -5392,6 +5392,7 @@
     "reviewTranslations": "审校翻译",
     "more": "账户的更多页面",
     "areas": {
+      "course": "基础",
       "experiments": "展品",
       "legal": "法律文本"
     },

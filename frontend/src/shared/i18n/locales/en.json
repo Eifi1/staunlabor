@@ -5392,6 +5392,7 @@
     "reviewTranslations": "Review translations",
     "more": "More of the account",
     "areas": {
+      "course": "Basics",
       "experiments": "Exhibits",
       "legal": "Legal"
     },

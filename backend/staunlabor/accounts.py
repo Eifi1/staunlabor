@@ -112,11 +112,11 @@ INVITABLE_ROLES = (Role.MEMBER, Role.REVIEWER)
 #: privacy policy (and the kit's shared legal text under ``kit.legal.``), which want a
 #: lawyer, as Kurvenschmiede's one area does. Not ``app``, ``common``, ``site`` or
 #: ``account``: the frame's and the account pages' words, no specialist needed, which a
-#: reviewer without an area limit reads. Not (yet) ``course``, the basics' mathematics,
-#: which came after this list and may want a specialist as much as ``experiments``: the
-#: owner's call. A closed list, because a scope is a promise about what somebody may
+#: reviewer without an area limit reads. ``course``, the basics' mathematics (the lessons
+#: moved in from Kurvenschmiede), wants a mathematics teacher as ``experiments`` wants a
+#: physics one (Marcel, 2026-11-22). A closed list, because a scope is a promise about what somebody may
 #: read, and a typo in one should be a 422 rather than a reviewer of nothing.
-REVIEW_AREAS = ("experiments", "legal")
+REVIEW_AREAS = ("course", "experiments", "legal")
 
 
 def mailer_for(settings: Settings) -> Mailer:

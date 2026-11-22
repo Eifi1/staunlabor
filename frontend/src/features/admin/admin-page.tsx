@@ -42,6 +42,7 @@ export function AdminPage() {
         reviewer={{
           languages: LANGUAGE_CODES,
           areas: [
+            { value: "course", label: t("account.areas.course") },
             { value: "experiments", label: t("account.areas.experiments") },
             { value: "legal", label: t("account.areas.legal") },
           ],
