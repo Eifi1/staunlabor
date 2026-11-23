@@ -124,10 +124,12 @@ export const SECOND_SERIES = "2026-11-16";
 /**
  * The day the third series ships (`docs/plan.md`, "The third series"): its ten
  * join the experiment of the week's first round that starts on or after it.
- * A placeholder until the deploy is set (Marcel, 2026-11-23: all ten in one
- * series); set it to the deploy day before that deploy, never to a past day.
+ * Deployed on 2026-11-23 (Marcel: all ten in one series), but that is the
+ * first round's own Monday (`WEEKLY_EPOCH`): on it, the ten would have joined
+ * the round already showing and redrawn its weeks. So the day after: they
+ * join the second round.
  */
-export const THIRD_SERIES = "2026-11-30";
+export const THIRD_SERIES = "2026-11-24";
 
 export const EXHIBITS: readonly ExhibitEntry[] = [
   { exhibit: "chair", path: "/chair", topics: ["perception"], lessons: [], since: "2026-11-12" },
