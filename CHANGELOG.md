@@ -2,6 +2,12 @@
 
 All notable changes to Staunlabor are documented in this file, generated from the commit messages by commit-and-tag-version at each release.
 
+## [0.1.13](https://github.com/Eifi1/staunlabor/compare/v0.1.12...v0.1.13) (2026-11-23)
+
+### Added
+
+* six exhibits at random, the audit's refactors, the basics a review area ([#8](https://github.com/Eifi1/staunlabor/issues/8)) ([da00060](https://github.com/Eifi1/staunlabor/commit/da000607d39c188e28f8628dc3e6a0e132652a65))
+
 ## [0.1.12](https://github.com/Eifi1/staunlabor/compare/v0.1.11...v0.1.12) (2026-11-21)
 
 ### Added
