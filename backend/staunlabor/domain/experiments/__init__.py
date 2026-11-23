@@ -205,6 +205,8 @@ from staunlabor.domain.experiments.elephant import Move as ElephantMove
 from staunlabor.domain.experiments.elephant import figures as elephant_figures
 from staunlabor.domain.experiments.elephant import run as run_elephant
 from staunlabor.domain.experiments.film import Rings as FilmRings
+from staunlabor.domain.experiments.film import radius_at as film_radius_at
+from staunlabor.domain.experiments.film import tears as film_tears
 from staunlabor.domain.experiments.foucault import (
     FoucaultPendulum,
     degrees_per_hour,
@@ -228,6 +230,13 @@ from staunlabor.domain.experiments.gyroscope import suitcase_torque_n_m as gyro_
 from staunlabor.domain.experiments.harmonograph import Harmonograph, HarmonographPendulum, nearest_ratio
 from staunlabor.domain.experiments.harmonograph import draw as harmonograph_draw
 from staunlabor.domain.experiments.harmonograph import figures as harmonograph_figures
+from staunlabor.domain.experiments.jet import axis_normal as jet_axis_normal
+from staunlabor.domain.experiments.jet import axis_y as jet_axis_y
+from staunlabor.domain.experiments.kapitza import effective_potential as kapitza_effective_potential
+from staunlabor.domain.experiments.kapitza import floquet_rate_top as kapitza_floquet_rate_top
+from staunlabor.domain.experiments.kapitza import multipliers as kapitza_multipliers
+from staunlabor.domain.experiments.kapitza import slow_rate_bottom as kapitza_slow_rate_bottom
+from staunlabor.domain.experiments.kapitza import slow_rate_top as kapitza_slow_rate_top
 from staunlabor.domain.experiments.levitation import Base as LevitationBase
 from staunlabor.domain.experiments.levitation import Top as LevitationTop
 from staunlabor.domain.experiments.levitation import hover as levitation_hover
@@ -243,6 +252,7 @@ from staunlabor.domain.experiments.maxwell import (
 from staunlabor.domain.experiments.maxwell import bounce as wheel_bounce
 from staunlabor.domain.experiments.metronomes import Metronomes
 from staunlabor.domain.experiments.metronomes import Start as MetronomeStart
+from staunlabor.domain.experiments.metronomes import in_step_s as metronomes_in_step_s
 from staunlabor.domain.experiments.metronomes import run as run_metronomes
 from staunlabor.domain.experiments.overhang import BLOCK_HEIGHT_M, BLOCK_LENGTH_M, EXHIBIT_BLOCKS
 from staunlabor.domain.experiments.overhang import blocks_for as blocks_for_reach
@@ -338,11 +348,14 @@ from staunlabor.domain.experiments.smoke import flight as smoke_flight
 from staunlabor.domain.experiments.sphere import BallKind, Drive, Sphere, lowest_orbit_hz, orbit, orbit_at, swing_hz
 from staunlabor.domain.experiments.sphere import figures as sphere_figures
 from staunlabor.domain.experiments.sphere import run as run_sphere
+from staunlabor.domain.experiments.spring import tuned_radius_m as spring_tuned_radius_m
 from staunlabor.domain.experiments.string import Cord as StringCord
 from staunlabor.domain.experiments.string import figures as string_figures
 from staunlabor.domain.experiments.string import half_waves as string_half_waves
 from staunlabor.domain.experiments.string import strobe_m as string_strobe_m
 from staunlabor.domain.experiments.vessel import DrainingVessel
+from staunlabor.domain.experiments.vessel import jet_path as vessel_jet_path
+from staunlabor.domain.experiments.vessel import level_exact as vessel_level_exact
 from staunlabor.domain.experiments.waterwheel import WaterWheel, WheelTurns, cup_level, hopf_rho, regime, steady_x
 from staunlabor.domain.experiments.waterwheel import behaviour as waterwheel_behaviour
 from staunlabor.domain.experiments.waterwheel import run as run_waterwheel
@@ -508,6 +521,8 @@ __all__ = [
     "exhibit",
     "fall_acceleration",
     "figures",
+    "film_radius_at",
+    "film_tears",
     "flux_linkage",
     "fork_frequency_hz",
     "foucault_period_s",
@@ -526,7 +541,14 @@ __all__ = [
     "inertia",
     "inertia_ratio",
     "jacobi",
+    "jet_axis_normal",
+    "jet_axis_y",
     "joints",
+    "kapitza_effective_potential",
+    "kapitza_floquet_rate_top",
+    "kapitza_multipliers",
+    "kapitza_slow_rate_bottom",
+    "kapitza_slow_rate_top",
     "lag_deg",
     "laser_colour",
     "laser_pattern",
@@ -537,6 +559,7 @@ __all__ = [
     "levitation_hover",
     "lowest_orbit_hz",
     "lyapunov",
+    "metronomes_in_step_s",
     "miss_deg",
     "mode_rates",
     "nearest_ratio",
@@ -612,6 +635,7 @@ __all__ = [
     "spill_rate",
     "spin",
     "spin_up_time_s",
+    "spring_tuned_radius_m",
     "stack_holds",
     "stack_layers",
     "stack_overhang",
@@ -630,6 +654,8 @@ __all__ = [
     "tolerance",
     "turning",
     "vertical_rate",
+    "vessel_jet_path",
+    "vessel_level_exact",
     "water_spin",
     "waterwheel_behaviour",
     "wave_figures",
