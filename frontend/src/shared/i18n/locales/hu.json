@@ -148,7 +148,8 @@
       "flow": "Áramlás",
       "induction": "Indukció",
       "light": "Fény",
-      "perception": "Észlelés"
+      "perception": "Észlelés",
+      "chance": "Véletlen"
     },
     "frame": {
       "eyebrow": "Kiállítási tárgy",
@@ -392,6 +393,66 @@
         "title": "A lebegés",
         "summary": "Két majdnem azonosra hangolt hangvilla együtt úgy szól, mint egyetlen hang, amely lassan felerősödik és elhalkul. Az egyik villán egy kis lovas szabja meg, milyen gyorsan.",
         "question": "Miért erősödik és halkul két majdnem egyforma hangvilla hangja?"
+      },
+      "galton": {
+        "short": "Galton-deszka",
+        "title": "A Galton-deszka",
+        "summary": "Golyók hullanak át szögsorokon, mindegyiknél balra vagy jobbra pattannak – és lent minden alkalommal ugyanabba a harang alakú kupacba gyűlnek.",
+        "question": "Melyik rekeszbe esik a legtöbb golyó – és miért mindig ugyanabba?"
+      },
+      "spring": {
+        "short": "Wilberforce-rugó",
+        "title": "A Wilberforce-rugó",
+        "summary": "Egy csavarrugón lógó súly fel-le mozog, aztán már csak fordul, aztán újra fel-le mozog: az energia két rezgés között vándorol oda-vissza.",
+        "question": "Egy súlyt a rugóján lehúzunk és elengedünk. Mennyi idő alatt kerül az energia a forgásba, és vissza a fel-le mozgásba?"
+      },
+      "polarizer": {
+        "short": "Polarizációs szűrők",
+        "title": "A harmadik polarizációs szűrő",
+        "summary": "Két keresztezett polarizációs szűrő nem enged át fényt. Ha egy harmadikat ferdén közéjük tolunk, újra világos lesz – pedig egy szűrő csak elvenni tud a fényből.",
+        "question": "Hogyan engedhet át egy további szűrő több fényt?"
+      },
+      "vessel": {
+        "short": "Kiürülő edény",
+        "title": "A kiürülő edény",
+        "summary": "Magas, vízzel teli cső, alul egy lyuk: a sugár egyre rövidebb, és a cső egyre lassabban ürül ki.",
+        "question": "Amikor a víz fele kifolyt – akkor az idő fele is letelt?"
+      },
+      "kapitza": {
+        "short": "Kapica-inga",
+        "title": "Az inga, amely fejjel lefelé áll",
+        "summary": "Egy rúd, amelynek el kellene dőlnie, állva marad – amíg forgáspontját elég gyorsan rázzák fel-le.",
+        "question": "A forgáspont egy centiméterrel jár fel és le. Milyen gyorsan kell ráznia, hogy a rúd fejjel lefelé állva maradjon?"
+      },
+      "film": {
+        "short": "Szappanhártya",
+        "title": "A szappanhártya két gyűrű között",
+        "summary": "Két gyűrű között a szappanhártya derékká keskenyedik. Ha széthúzzuk a gyűrűket, egy bizonyos távolságnál két lapos korongba ugrik.",
+        "question": "Milyen messzire húzhatók szét a gyűrűk, mielőtt a szappanhártya elszakad?"
+      },
+      "metronomes": {
+        "short": "Metronómok",
+        "title": "A metronómok, amelyek egyetértésre jutnak",
+        "summary": "Öt metronóm egy deszkán, amely két dobozon fekszik: véletlenszerűen elindítva hamarosan mind egy ütemre ketyegnek – az asztalon soha.",
+        "question": "Öt véletlenszerűen elindított metronóm áll egy két dobozon fekvő deszkán. Ketyegnek-e valaha együtt – és mennyi ideig tart?"
+      },
+      "ship": {
+        "short": "Felegyenesedő hajó",
+        "title": "A hajó, amely felegyenesedik",
+        "summary": "Egy hajómodell teste úszik egy medencében. Ha a súly lent van, megdöntve felegyenesedik; ha fent van az árbocon, egy kis lökés felborítja.",
+        "question": "Miért egyenesedik fel a megdöntött hajótest, amíg a súly lent van, és miért borul fel, ha fent van az árbocon?"
+      },
+      "string": {
+        "short": "Álló húr",
+        "title": "Az álló húr",
+        "summary": "Egy zsinór, amelyet az egyik végén ráznak, a másikon kézzel feszítenek: bizonyos húzóerőknél megáll egy, két, három duzzadóhelyben.",
+        "question": "Miért csak bizonyos húzóerőknél áll meg a zsinór duzzadóhelyekben?"
+      },
+      "jet": {
+        "short": "Fény a vízsugárban",
+        "title": "A fény a vízsugárban",
+        "summary": "Egy lézer egy víztartályon át abba a lyukba világít, amelyen a víz kifolyik: a fény a hajló sugarat követi a medencéig, ahelyett hogy egyenesen haladna tovább.",
+        "question": "Miért követi a fény a vízsugár kanyarját?"
       }
     },
     "chair": {
@@ -769,7 +830,10 @@
       "links": {
         "first_order": "Elsőrendű rendszerek",
         "second_order": "Másodrendű rendszerek",
-        "numerics": "Numerikus megoldás"
+        "numerics": "Numerikus megoldás",
+        "eigenvalues": "Sajátértékek és a pólussík",
+        "laplace": "Laplace és Bode",
+        "two_mass": "A kéttömeges lengőrendszer"
       }
     },
     "race": {
@@ -3659,7 +3723,143 @@
         "top_b": "2mgd/I₁",
         "below_level": "mennyivel van a tengely a vízszintes alatt",
         "torque": "a kezek által kifejtett forgatónyomaték",
-        "suitcase_turn": "milyen gyorsan fordítják a bőröndöt"
+        "suitcase_turn": "milyen gyorsan fordítják a bőröndöt",
+        "galton_share": "a golyók hányada a k-adik rekeszben",
+        "galton_rows": "a sorok száma",
+        "galton_bin": "rekesz, balról 0-tól számolva",
+        "galton_p": "jobbra eső hányad minden szögnél",
+        "galton_mean": "az eloszlás közepe",
+        "galton_paths": "a k-adik rekeszbe vezető utak száma",
+        "galton_variance": "az eloszlás varianciája, rekesz a négyzeten",
+        "galton_run_mean": "egy futás közepe",
+        "galton_balls": "egy futás golyóinak száma",
+        "galton_ball_bin": "az i-edik golyó rekesze",
+        "galton_standard_error": "egy futás közepének standard hibája",
+        "galton_q": "balra eső hányad, 1 − p",
+        "galton_half": "a sorok számának fele, n/2",
+        "spring_T1": "a gyorsabb sajátrezgés periódusa",
+        "spring_T2": "a lassabb sajátrezgés periódusa",
+        "spring_omega12": "a két sajátrezgés körfrekvenciája",
+        "spring_omega2": "a lassabb sajátrezgés körfrekvenciája",
+        "spring_omega_z": "a fel-le mozgás körfrekvenciája önmagában, négyzetre emelve",
+        "spring_omega_theta": "a forgás körfrekvenciája önmagában, négyzetre emelve",
+        "spring_epsilon": "a nyújtás és a csavarás közti csatolás",
+        "spring_z0": "kitérés az induláskor, lefelé",
+        "spring_theta0": "elfordulás az induláskor",
+        "spring_T_beat": "az idő egyszer a forgásba és vissza",
+        "spring_omega_B": "lebegési frekvencia",
+        "spring_omega_B_measured": "mért lebegési frekvencia",
+        "spring_E": "a súly és a rugó energiája",
+        "spring_z": "kitérés lefelé",
+        "spring_theta": "elfordulás",
+        "spring_k": "rugóállandó nyújtással szemben",
+        "spring_delta": "rugóállandó csavarással szemben",
+        "spring_pull": "mennyire van a súly induláskor lehúzva",
+        "pol_I": "Átjutó fény (intenzitás)",
+        "pol_I0": "Fény a szűrő előtt, polarizált",
+        "pol_I1": "Fény az első szűrő mögött",
+        "pol_I3": "Fény a harmadik szűrő mögött",
+        "pol_IL": "A lámpa fénye, polarizálatlan",
+        "pol_theta": "A rezgés iránya és a tengely közötti szög",
+        "pol_k1": "Áteresztés a tengely mentén",
+        "pol_k2": "Áteresztés a tengelyre merőlegesen",
+        "pol_n": "Szűrők a keresztezett pár között",
+        "pol_eps": "Kioltási arány",
+        "vessel_flow": "kifolyás",
+        "vessel_mu": "kifolyási tényező, A_C/A_A",
+        "vessel_hole": "a lyuk területe",
+        "vessel_speed": "a sugár sebessége a lyuknál",
+        "vessel_head": "vízmélység a lyuk fölött kezdetben",
+        "vessel_area": "a cső keresztmetszete",
+        "vessel_T": "az idő, amíg a lyuk fölötti víz kifolyik",
+        "vessel_depth": "vízmélység a lyuk fölött",
+        "vessel_D": "a sugár hajítási távolsága a medence alján",
+        "vessel_orifice": "a lyuk magassága a medence alja fölött",
+        "vessel_surface": "a felszín magassága a medence alja fölött",
+        "kap_a": "a forgáspont lökete",
+        "kap_omega": "a motor körfrekvenciája",
+        "kap_l": "a rúd hossza",
+        "kap_f": "a motor legkisebb frekvenciája",
+        "kap_lambda": "Mathieu a paramétere (a forrásban a, itt λ, hogy elkülönüljön a lökettől)",
+        "kap_q": "Mathieu q paramétere",
+        "kap_z": "az idő Mathieu mértékében, ωt/2",
+        "kap_w": "a kis eltérés a csúcstól vagy az alsó helyzettől",
+        "kap_period": "a csúcs körüli inogás periódusa",
+        "kap_Omega": "a csúcs körüli inogás körfrekvenciája",
+        "kap_band": "annak a sávnak a szélessége, amelyben a lógó rúd belendül",
+        "kap_a0": "Mathieu karakterisztikus értéke, ahol a stabil tartomány kezdődik",
+        "kap_a1b1": "Mathieu karakterisztikus értékei, amelyek között az első instabil tartomány van",
+        "film_u_tear": "u = x₀/a a legnagyobb távolságnál",
+        "film_u_equal": "u = y₀/a, a gyűrűk sugara a derék sugarában",
+        "film_x0": "a gyűrűk távolságának fele",
+        "film_y0": "a gyűrűk sugara",
+        "film_R": "a gyűrűk sugara",
+        "film_hmax": "a legnagyobb távolság hártyával",
+        "film_h0": "távolság, amelynél a hártya és a korongok felülete egyenlő",
+        "film_a": "a derék sugara",
+        "film_A": "a hártya felülete",
+        "film_S": "a hártya felülete",
+        "film_Abar": "a hártya felülete a két korongéhoz viszonyítva",
+        "metronomes_amplitude": "a kitérés, amelynél egy magányos metronóm megnyugszik",
+        "metronomes_theta0": "a szög, amelynél a hajtás fékezésbe vált át",
+        "metronomes_T_drift": "az idő, amely alatt a gyorsabb egy lengést nyer",
+        "metronomes_omega": "a metronómok körfrekvenciája",
+        "metronomes_delta": "a két körfrekvencia különbsége ω egységében",
+        "metronomes_gamma": "mennyire lassítja az ingát a nagy kitérés",
+        "metronomes_psi": "mennyivel jár elöl a gyorsabb",
+        "metronomes_mu": "a hajtás erőssége",
+        "metronomes_beta": "a deszkán keresztüli csatolás",
+        "metronomes_x0": "mennyit mozdul a deszka Σ sin θⱼ egységenként",
+        "metronomes_R": "a rendparaméter: mennyire értenek egyet",
+        "metronomes_phi": "a j-edik metronóm fázisa",
+        "metronomes_N": "a metronómok száma",
+        "ship_GM": "metacentrikus magasság",
+        "ship_KB": "a felhajtóerő-középpont magassága az alj fölött",
+        "ship_It": "a vízvonal másodrendű nyomatéka a hossztengelyre",
+        "ship_volume": "kiszorított térfogat",
+        "ship_KG": "a súlypont magassága az alj fölött",
+        "ship_d": "merülés",
+        "ship_L": "a hajótest hossza",
+        "ship_b": "a hajótest szélessége",
+        "ship_m": "a hajótest és a súly tömege",
+        "ship_rho": "a víz sűrűsége",
+        "ship_GZ": "erőkar a felhajtóerő és a súly között",
+        "ship_GN": "G távolsága attól a ponttól, ahol a felhajtóerő vonala a középvonalat metszi",
+        "ship_phi": "dőlés",
+        "ship_KB90": "a felhajtóerő-középpont magassága az alj fölött, oldalán fekve",
+        "ship_H": "a hajótest magassága",
+        "ship_a44": "a magával mozgatott víz tehetetlenségi sugara",
+        "ship_k": "tehetetlenségi sugár a G-n átmenő hossztengelyre",
+        "ship_I": "tehetetlenségi nyomaték a G-n átmenő hossztengelyre",
+        "string_f": "A húr legmélyebb hangja",
+        "string_fn": "A húr n-edik hangja",
+        "string_v": "Hullámsebesség",
+        "string_L": "Hossz a vibrátortól a csapig",
+        "string_T": "Húzás a zsinóron",
+        "string_mu": "A zsinór méterenkénti tömege",
+        "string_n": "A duzzadóhelyek száma",
+        "string_drive": "A vibrátor hangja",
+        "string_nodes": "A csomópontok száma, a végeket is beleszámítva",
+        "string_loops": "A duzzadóhelyek száma",
+        "string_lambda": "Hullámhossz",
+        "string_d": "Két csomópont távolsága",
+        "string_Y": "Állandósult kitérés az x pontban, komplex",
+        "string_x": "Hely a zsinór mentén, a vibrátortól",
+        "string_A": "A vibrátor lökete",
+        "string_kappa": "Komplex hullámszám",
+        "string_Omega": "A vibrátor körfrekvenciája",
+        "string_gamma": "Csillapítás",
+        "jet_critical": "határszög",
+        "jet_n1": "törésmutató belül (víz)",
+        "jet_n2": "törésmutató kívül (levegő)",
+        "jet_incidence": "beesési szög a merőlegeshez képest",
+        "jet_refraction": "törési szög a merőlegeshez képest",
+        "jet_let_out": "kilépő hányad",
+        "jet_landing": "távolság a lyuktól, ahol a sugár eléri a medencét",
+        "jet_speed": "sebesség a lyuknál",
+        "jet_fall": "esési idő",
+        "jet_level": "vízszint a lyuk fölött",
+        "jet_drop": "a lyuk magassága a medence fölött"
       },
       "cases": {
         "sphere": {
@@ -4745,6 +4945,355 @@
             "why": "Az oldal által megadott forgatónyomatékot ellenőrzi, a fordulatszámot és a szöget a saját egységeikben véve: 5,92 N·m.",
             "step": "A forrás τ = Ω × L-t adja meg, nagysága Ω·L·sin θ; a tengely vízszintes, sin θ = 1, és L = I₃·ω₃, ahol az abroncs I₃ = m·r² értéke a második forrásból való."
           }
+        },
+        "galton": {
+          "eight_rows": {
+            "title": "Nyolc sor, a középső rekesz",
+            "setting": "Nyolc sor, vízszintes (p = 0,5).",
+            "reads": "Nyolc sor középső rekeszébe a 2⁸ = 256 útból C(8, 4) = 70 vezet, mindegyik 1/256 valószínűséggel.",
+            "why": "A soronként számolt hányadokat veti össze a zárt képlettel: 70/256 = 0,2734375, pontosan."
+          },
+          "paths": {
+            "title": "Az utak középre",
+            "setting": "Tizenkét sor, mint a kiállítás deszkáján.",
+            "reads": "A k-adik rekeszbe vezető utak száma az n!/(k!·(n − k)!) binomiális együttható.",
+            "why": "A trükkben szereplő számot ellenőrzi: 924 út a középső rekeszbe, itt faktoriálisokkal, az oldalon összeadásokkal a Pascal-háromszögben számolva."
+          },
+          "tilted_mean": {
+            "title": "Ferde deszka: a közép",
+            "setting": "Tizenkét sor, tíz pattanásból hét jobbra (p = 0,7).",
+            "reads": "A binomiális eloszlás közepe n·p = 12 · 0,7 = 8,4.",
+            "why": "Ellenőrzi, hogy az oldal hányadainak ferde deszkán is helyes a közepe: Σ k·P(k) = 8,4 rekesz."
+          },
+          "tilted_spread": {
+            "title": "Ferde deszka: a szórás",
+            "setting": "Tizenkét sor, p = 0,7.",
+            "reads": "A variancia n·p·(1 − p) = 12 · 0,7 · 0,3 = 2,52; a szórás ennek gyöke, 1,59 rekesz.",
+            "why": "A kupac szélességét ellenőrzi: Σ (k − μ)²·P(k) = 2,52, 10⁻¹² pontossággal."
+          },
+          "seeded_run": {
+            "title": "A kiállítás futása",
+            "setting": "Tizenkét sor, vízszintes, 500 golyó, kezdőérték 1874.",
+            "reads": "A várt közép n·p = 6. N golyó közepe a σ/√N standard hibával szóródik körülötte, itt √3/√500 = 0,077 rekesz.",
+            "why": "Az oldal által leejtett golyókat ellenőrzi: közepük, 5,876, 1,6 standard hibányira van 6-tól. Három megengedett, 6 3,87 %-a. Egy véletlenszám-generátor, amely az egyik oldalt előnyben részesítené, itt elbukna.",
+            "step": "A források megadják egy golyó n·p közepét és σ = √(n·p·(1 − p)) szórását, valamint N golyó közepének σ/√N standard hibáját. Egy futás közepe csak nagyjából ezer futásból háromban tér el háromnál több standard hibával; ez a megengedett eltérés, 3·√3/(√500·6) = 3,87 %."
+          },
+          "de_moivre": {
+            "title": "24 sor és a normális görbe",
+            "setting": "24 sor, vízszintes, a középső rekesz.",
+            "reads": "Az n·p = 12 közepű és n·p·q = 6 varianciájú normális görbe magassága középen 1/√(2π·6) = 0,16287.",
+            "why": "Azt ellenőrzi, mennyire közelíti meg az oldal harangja a normális görbét: a középső rekesz 0,16118, 1,036 %-kal kevesebb.",
+            "step": "De Moivre és Laplace csak azt mondja, hogy az arány 1-hez tart. Hogy milyen gyorsan, azt a középső binomiális együttható sora mondja meg: n = 2m sornál a középső rekesz C(2m, m)/4ᵐ = (1 − 1/(8m) + 1/(128m²) + …)/√(πm), és 1/√(πm) éppen a normális görbe magassága. Tehát 1/(8m) − 1/(128m²) − … értékkel alatta van; az első tag megengedett, m = 12-nél 1/(8m) = 1,042 %."
+          }
+        },
+        "spring": {
+          "fast_mode": {
+            "title": "A gyorsabb sajátrezgés",
+            "setting": "Az oldal rugója, az anyák 20 mm-en, csillapítás nélkül; „Gyorsabb sajátrezgés”: 1 rad-dal elfordítva, és annyira lehúzva, amennyit a (28) egyenlet kér.",
+            "reads": "Egy sajátrezgésben a súly egy ütemben mozog fel-le és fordul, és semmi sem vándorol át. Körfrekvenciája, ω₁, a (7) egyenlet nagyobbik gyöke, periódusa 2π/ω₁.",
+            "why": "Ellenőrzi az oldal időhurkát, az ε/2 csatolást mindkét egyenletben és a (28) szerinti indítást: 2,574328 s. Ha a csatolás hibás volna, a rezgésforma szétesne, és a periódus nem stimmelne.",
+            "step": "Az első forrás adja a mozgásegyenleteket, a második ω₁-et és ω₂-t, a harmadik egy sajátrezgés z₀/θ₀ arányát. Egy ω körfrekvenciához 2π/ω periódus tartozik."
+          },
+          "slow_mode": {
+            "title": "A lassabb sajátrezgés",
+            "setting": "Ugyanaz a rugó, „Lassabb sajátrezgés”: 1 rad-dal elfordítva, és annyira feltolva, amennyit a (29) egyenlet kér.",
+            "reads": "A második sajátrezgés: fel-le mozgás és forgás egy ütemben, fordított csatolással. Körfrekvenciája, ω₂, a (7) egyenlet kisebbik gyöke, periódusa 2π/ω₂.",
+            "why": "Ugyanezt ellenőrzi a lassabb rezgésen: 2,842581 s. A gyorsabbal együtt rögzíti mindkét gyököt, így a lebegést is.",
+            "step": "Mint a gyorsabb sajátrezgésnél, ω₂-vel és a (29) egyenlettel."
+          },
+          "beat": {
+            "title": "Oda-vissza",
+            "setting": "Ugyanaz a rugó, „Lehúzva”; az „Oda-vissza” csempe.",
+            "reads": "Az energia a két sajátrezgés lebegésével vándorol, ω_B = ω₁ − ω₂: egyszer a forgásba és vissza 2π/ω_B alatt.",
+            "why": "Ellenőrzi az oldal képletét a két körfrekvenciára a (7) egyenlet nyomtatott alakjával szemben, ε²/mI-vel a gyök alatt: 27,27920 s.",
+            "step": "Az első forrás adja ω₁-et és ω₂-t, a második ω_B = ω₁ − ω₂-t mint lebegési frekvenciát; ehhez 2π/ω_B idő tartozik."
+          },
+          "measured": {
+            "title": "Olyan gyors, mint a mérés",
+            "setting": "Ugyanaz a rugó: Berg és Marshall saját ingája, m, k, δ és I a mért értékekkel, ε a mérésükből; „Lehúzva”.",
+            "reads": "Berg és Marshall ingáján ω_B = 0,232 rad/s-ot mért: az energia 2π/ω_B = 27,08 s alatt megy át a forgásba és vissza.",
+            "why": "Valódi ingán ellenőrzi a modellt: 27,28 s számolva, 0,7 %-kal a mérés mellett. Az ε-jukat a mért ω = 2,31 rad/s-mal határozták meg, míg k/m 2,33 rad/s-ot ad; mindkettő belefér a ±0,02 rad/s-ukba. 2 % a megengedett."
+          },
+          "energy": {
+            "title": "Az energia megmarad",
+            "setting": "Ugyanaz a rugó, „Lehúzva”, 2 cm; 60 s, azaz 60 000 lépés után.",
+            "reads": "Csillapítás nélkül az energia változatlan marad, mozgás és feszültség együtt. Kezdetben csak a nyúlás, ½k·z₀² = 0,56 mJ.",
+            "why": "Ellenőrzi az időhurkot, és hogy a csatolás mindkét egyenletben illik az ½εzθ energiájához: 0,560000 mJ kezdetben és 60 s után, 10⁻¹⁰ pontossággal egyenlő.",
+            "step": "A forrás adja az L = T − V Lagrange-függvényt, V = ½kz² + ½δθ² + ½εzθ; az energia T + V."
+          }
+        },
+        "polarizer": {
+          "half": {
+            "title": "Polarizálatlan fény: a fele",
+            "setting": "Ideális szűrők; a fény az első szűrő mögött.",
+            "reads": "A lámpa fénye minden irányban egyformán rezeg. Átlagosan cos²θ egy fél: egy ideális szűrő a felét engedi át.",
+            "why": "Azt ellenőrzi, hogy az oldal a lámpa fényét polarizálatlannak veszi: 0,5, nem 1 és nem valamilyen szög cos²-e."
+          },
+          "malus": {
+            "title": "Malus törvénye",
+            "setting": "Ideális szűrők, a hátsó 30°-kal elforgatva az elsőhöz képest, középső nélkül; a fény a hátsó mögött az első mögöttihez viszonyítva.",
+            "reads": "A szűrő tengelyéhez képest θ szögben rezgő polarizált fény cos²θ hányada jut át.",
+            "why": "Azt ellenőrzi, hogy az oldal a koszinusz négyzetét veszi, nem a koszinuszt: 0,75 30°-nál, ahol a koszinusz 0,87-et adna."
+          },
+          "crossed": {
+            "title": "Keresztezve: sötét",
+            "setting": "Ideális szűrők, a hátsó 90°-nál, középső nélkül.",
+            "reads": "Ha a tengelyek merőlegesek, a második szűrő nem enged át fényt.",
+            "why": "Azt ellenőrzi, hogy a két szűrő valóban kiolt: 10⁻³³, a cos 90° kerekítése a számítógépben."
+          },
+          "third": {
+            "title": "A harmadik szűrő: egy nyolcad",
+            "setting": "Ideális szűrők, a hátsó 90°-nál, a középső 45°-nál; a fény a hátsó mögött.",
+            "reads": "A három szűrő mindegyike a ráeső fény felét engedi át: a lámpafény nyolcadát, negyedét annak, amit az első átenged.",
+            "why": "Magát a kísérlet trükkjét ellenőrzi: a középső szűrő új irányt ad a fénynek, ahelyett hogy csak gyengítené. Ha csak gyengítené, sötét maradna."
+          },
+          "slanted": {
+            "title": "A középső szűrő 30°-nál",
+            "setting": "Ideális szűrők, a hátsó 90°-nál, a középső 30°-nál.",
+            "reads": "Kétszer Malus: cos² 30° a középsőnél, cos² 60° a hátsónál, az első szűrőnél kapott fél után.",
+            "why": "Azt ellenőrzi, hogy az oldal minden elforgatást az előző szűrőhöz méri, nem az elsőhöz: 3/32 = 0,09375.",
+            "step": "Az első forrás a felet adja polarizálatlan fényre, a második cos²θ-t polarizáltra, a harmadik azt mondja, hogy Malust kétszer alkalmazzuk: a középsőnél 30°-kal, a hátsónál 90° − 30° = 60°-kal."
+          },
+          "many": {
+            "title": "Tíz szűrő közöttük",
+            "setting": "Ideális szűrők: tíz a keresztezett pár között, mindegyik 90°/11-del jobban elforgatva, mint az előző.",
+            "reads": "Tizenegy kis elforgatás, egyenként 8,18°, mindegyik a saját cos²-ét engedi át, az első szűrőnél kapott fél után.",
+            "why": "Azt a köteget ellenőrzi, amelyet az oldal több szűrőre számol: 0,3992, már közel a feléhez.",
+            "step": "Az első forrás a felet adja az első szűrőnél, a második cos²θ-t minden további szűrőnél; mindegyik 90°/11-re áll az előzőtől, tizenegyszer."
+          },
+          "polaroid_one": {
+            "title": "Egy Polaroid szűrő: kb. 38 %",
+            "setting": "Valódi szűrők, mint a Polaroid (76 % a tengely mentén, 1 az 500-hoz keresztben); a fény az első szűrő mögött.",
+            "reads": "Egy Polaroid típusú szűrő a polarizálatlan fény kb. 38 %-át engedi át; kioltási aránya kb. 1 az 500-hoz.",
+            "why": "Azt ellenőrzi, hogy a feltételezett valódi szűrő megfelel a szakirodalomnak: 38,08 %. A forrás azt mondja, „körülbelül”, ezért egy százalék a mozgástér."
+          },
+          "polaroid_crossed": {
+            "title": "Két keresztezett Polaroid szűrő",
+            "setting": "Valódi szűrők, mint a Polaroid, a hátsó 90°-nál, középső nélkül.",
+            "reads": "Az első a fény egyik felét k₁-gyel engedi át, a másikat k₂-vel; a keresztezett hátsó az elsőt k₂-vel veszi, a másodikat k₁-gyel.",
+            "why": "Azt ellenőrzi, hogyan számol az oldal egy valódi szűrővel: 0,1155 %, nem nulla – ezért nem teljesen fekete egy valódi keresztezett pár.",
+            "step": "Az első forrás a polarizálatlan fényt minden irány egyenlő keverékeként adja meg, tehát két keresztezett félként; a második a kioltási arányt a keresztirányú és a tengely menti áteresztés arányaként, k₂/k₁. A pár mögött: ½(k₁k₂ + k₂k₁)."
+          }
+        },
+        "vessel": {
+          "flow": {
+            "title": "Az első sugár",
+            "setting": "Az oldal csöve: 8 cm széles, 90 cm-ig töltve; az alsó, 5 cm-es lyuk nyitva, 8 mm széles, μ = 0,61.",
+            "reads": "Torricelli: a víz v = √(2gH) sebességgel hagyja el a lyukat. A lyukon μ·A_A·v folyik át, a μ összeszűküléssel, éles peremű lyuknál körülbelül 0,611.",
+            "why": "Az oldal kifolyását ellenőrzi az első pillanatban: percenként 7,512 liter a lyuk fölötti 85 cm vízből. Egy elfelejtett 2-es szorzó a gyök alatt vagy összeszűkülés nélküli lyukterület azonnal kiderülne."
+          },
+          "drain_time": {
+            "title": "Amíg a cső kiürül",
+            "setting": "Mint fent; lépésről lépésre számolva, amíg a víz az alsó lyukig ér.",
+            "reads": "Egy aljában lyukas, henger alakú edény T = (A/A_A)·√(2H/g) idő után üres.",
+            "why": "Az oldal lépéseit ellenőrzi az egész percen át: 68,25 s. 5 ms-os lépésekben számolva, ezért tízezred pontossággal.",
+            "step": "Az első forrás a lyuk teljes A_A területével számol, a második ezt az összeszűkült sugáréval, μ·A_A-val helyettesíti. H a lyuk fölötti vízmélység; a lyuk itt 5 cm-rel a cső alja fölött van."
+          },
+          "half": {
+            "title": "A félmagasság",
+            "setting": "Mint fent; amíg a lyuk fölötti mélység a felére, 42,5 cm-re csökken.",
+            "reads": "A vízszint h(t) = H·(1 − t/T)² szerint süllyed.",
+            "why": "Az oldal lényegét ellenőrzi: a félmagasságot 19,99 s után éri el, a 68,25 s (1 − 1/√2) = 29 %-a után. A lépésen belül mérve, amelyben megtörténik, egymilliárdod pontossággal.",
+            "step": "A h(t) = H·(1 − t/T)² = H/2 egyenletből 1 − t/T = 1/√2 következik. T a második forrás ideje, a harmadik összeszűkülésével."
+          },
+          "farthest": {
+            "title": "A legmesszebbre érő sugár",
+            "setting": "Az oldal csöve mindhárom dugó kihúzva. A medence aljától mérve a felszín 110 cm-en áll, a lyukak 25, 55 és 85 cm-en vannak.",
+            "reads": "Egy h magasságú lyuk egy H magasságú felszín alatt D = 2√(h(H − h)) messzire veti a sugarát; a legmesszebbre, H-ig, h = H/2-ből.",
+            "why": "Az oldal sugarait ellenőrzi, minden lyukmagasságon a legnagyobb hajítási távolságot keresve: 1,1 m a medence alja fölötti 55 cm-ről, éppen a középső lyuknál. A felső és az alsó ugyanannyival van fölötte és alatta, és mindkettő 0,92 m-re ér."
+          }
+        },
+        "kapitza": {
+          "bound": {
+            "title": "Kapica határa kis löketnél",
+            "setting": "20 cm-es rúd, 2 mm löket (a/l = 0,01), csillapítás nélkül; a motor 160 Hz-en, épp a határ fölött, a rúd 2°-kal a csúcs mellett.",
+            "reads": "Fent a rúd stabil, ha a forgáspont legnagyobb sebessége, aω, nagyobb √(2gl)-nél, a rúd hosszán át tartó szabadesés utáni sebességnél. A frekvenciára megoldva: 157,61 Hz.",
+            "why": "Az oldal Floquet-számítását és felezését ellenőrzi ott, ahol Kapica közelítése majdnem pontos: a pontos határ 2,2 · 10⁻⁵-nel magasabb, (7/32)(a/l)²-tel, a közelítés következő tagjával."
+          },
+          "mathieu": {
+            "title": "A pontos határ nagy löketnél",
+            "setting": "20 cm-es rúd, 4 cm löket (a/l = 0,2), csillapítás nélkül; a motor 8,5 Hz-en, a rúd 2°-kal a csúcs mellett.",
+            "reads": "A csúcs közelében a mozgás a Mathieu-egyenletet követi. Stabil tartománya az a₀(q) görbénél kezdődik, amelynek sorát a forrás q⁸-ig adja meg. Ebből: 7,9478 Hz, ahol Kapica közelítése 7,88 Hz-et mond.",
+            "why": "A monodrómia-mátrixot ellenőrzi ott, ahol Kapica közelítése 0,86 %-ot téved: az oldal 7,5 · 10⁻⁷-re egyezik a sorral, amilyen pontos maga a q⁸ után levágott sor.",
+            "step": "ωt = 2z helyettesítéssel a csúcstól való kis φ eltérés egyenlete, φ″ = (g + aω²·cos ωt)/l · φ, Mathieu-egyenletté válik λ = −4g/(lω²) és q = 2a/l mellett. A stabil tartomány határa λ = a₀(q); ω-ra megoldva ω² = 4g/(l·|a₀(q)|)."
+          },
+          "wobble": {
+            "title": "A lassú inogás a csúcs körül",
+            "setting": "Az oldal rúdja, 20 cm, 1 cm löket, 40 Hz, csillapítás nélkül; 2°-kal a csúcs mellől elengedve, 10 s-ig.",
+            "reads": "A csúcs körül a rúd lassan inog, Ω² = a²ω²/(2l²) − g/l szerint: 1,1486 s-os periódussal, amely alatt a motor 46-szor ráz.",
+            "why": "Az oldal időhurkát ellenőrzi: motorperiódusonként egyszer leolvasva, mint egy stroboszkóppal, a rúd 1,1483 s alatt inog, 3,0 · 10⁻⁴-nel Kapica mellett. Átlagolása elhagyja az (a/l)²-es és (Ω/ω)²-es tagokat, mindkettő néhány tízezred."
+          },
+          "swing_up": {
+            "title": "Belendülés lógó helyzetben",
+            "setting": "20 cm-es rúd, 1 cm löket (q = 0,1), csillapítás nélkül; a motor 2,23 Hz-en, a rúd lóg, 5°-kal kitérítve.",
+            "reads": "Lógva a kis mozgás ismét a Mathieu-egyenletet követi. A b₁(q) és a₁(q) görbék között van első instabil tartománya: a rúd egyre jobban belendül, ha a motor 2,1264 és 2,3511 Hz között ráz, ami egy 0,22469 Hz-es sáv a sajátfrekvencia kétszerese körül.",
+            "why": "A Floquet-számítást ellenőrzi alul, egyszerre mindkét szélen: az oldal 3 · 10⁻¹²-re egyezik a sáv szélességével.",
+            "step": "ωt = 2z helyettesítéssel az alsó helyzettől való kis φ kitérés egyenlete, φ″ = −(g + aω²·cos ωt)/l · φ, Mathieu-egyenletté válik λ = 4g/(lω²) és q = −2a/l mellett. Mivel a₁(−q) = b₁(q), a szélek λ = a₁(|q|) és λ = b₁(|q|); ω-ra megoldva ω² = 4g/(l·λ)."
+          }
+        },
+        "film": {
+          "tear": {
+            "title": "A szakadási távolság",
+            "setting": "5 cm sugarú gyűrűk, 6,5 cm-re egymástól: húzza tovább a jobb oldali gyűrűt.",
+            "reads": "A legnagyobb távolság, amelynél y₀ = a·cosh(x₀/a)-nak még van megoldása, u = coth u-nál van; ott h/R = 2x₀/y₀ = 2·csch u.",
+            "why": "Ellenőrzi, hol szakítja el az oldal a hártyát: 1,32549 sugárnál, 5 cm-es gyűrűknél 6,6274 cm-nél – az oldal saját válaszán felezve, nem az állandójából kiolvasva."
+          },
+          "critical_area": {
+            "title": "A felület közvetlenül a szakadás előtt",
+            "setting": "5 cm sugarú gyűrűk, 6,6 cm-re, a szakadási távolság közelében.",
+            "reads": "A szakadási távolságnál a derék a = R/cosh u-nál van; Ito és Sato felületképlete adja ott a felületet, a két korong 2πR²-éhez mérve.",
+            "why": "Ellenőrzi a hártya felületét ott, ahol a legtöbbet számít: a két korong 1,19968-szorosa, éppen maga az u szám."
+          },
+          "flat": {
+            "title": "Egy sugárnyira: a széles hártya",
+            "setting": "5 cm sugarú gyűrűk, 5 cm-re egymástól.",
+            "reads": "x₀ = ½ és y₀ = 1 mellett 1 = a·cosh(1/(2a))-nak két megoldása van. A lapos, a = 0,8483…, felülete A = 5,9917…; 5 cm-es gyűrűknél minden felület 25 cm²-szer akkora.",
+            "why": "Ellenőrzi az oldalon mutatott hártyafelületet: 149,795 cm², a MathWorld példáján utánaszámolva."
+          },
+          "deep": {
+            "title": "Egy sugárnyira: a keskeny hártya",
+            "setting": "5 cm sugarú gyűrűk, 5 cm-re; kapcsolja be a keskeny alakot.",
+            "reads": "A mély megoldás, a = 0,2350…, a nagyobb felületű keskeny hártya, A = 6,8456…: nem minimum.",
+            "why": "Ellenőrzi az oldal szaggatott keskeny alakját: dereka 1,1755 cm 5 cm-es gyűrűknél."
+          },
+          "equal": {
+            "title": "Honnan lenne két korongnak kisebb a felülete",
+            "setting": "5 cm sugarú gyűrűk, 5,4 cm-re, épp utána.",
+            "reads": "A hártya felülete egyenlő két korongéval: u·√(u² − 1) + cosh⁻¹u − u² = 0, ahol u = y₀/a; ekkor h/R = 2·cosh⁻¹(u)/u.",
+            "why": "Ellenőrzi, hol vált az oldal „a lehető legkisebb” felületről a „Két lapos korongnak most kisebb lenne a felülete” szövegre: 1,05539 sugárnál, 5 cm-es gyűrűknél 5,2770 cm-nél."
+          }
+        },
+        "metronomes": {
+          "lone": {
+            "title": "Egy magányos metronóm 2θ₀-lal leng",
+            "setting": "Egy metronóm, a deszka az asztalon, 10°-ról elengedve; két perc után az utolsó öt másodperc legnagyobb kitérése.",
+            "reads": "A hajtás a kis lengéseket táplálja, a nagyokat fékezi. Egy magányos metronóm kb. 2θ₀ kitérésnél nyugszik meg, Pantaleone θ₀ = 0,39 rad értékével 44,69°-nál.",
+            "why": "A hajtást, tagjának előjelét és θ₀ szögét ellenőrzi: a számítómag 44,84°-kal leng. A 2θ₀ μ-ben elsőrendben érvényes; az inga teljes szinusza 0,3 %-kal szélesebbé teszi a lengést."
+          },
+          "drift": {
+            "title": "Az asztalon kettő elcsúszik egymástól",
+            "setting": "Két metronóm fél százalékkal eltérve (Δ = 0,005), a deszka az asztalon, együtt elengedve; periódusuk 200 s alatt.",
+            "reads": "Csatolás nélkül a fáziskülönbség egyenletesen nő, a frekvenciák Δ különbségével: a gyorsabb 2π/(ωΔ(1 − 3γ/2)) alatt nyer egy teljes lengést.",
+            "why": "Ellenőrzi, hogy az asztalon álló deszka semmit sem csatol, és hogy Δ ott áll, ahol Pantaleonénál: kézzel 119,95 s, a számítómagban 119,96 s.",
+            "step": "Az első forrás a Δ szerinti sodródást adja, a második, hogy 2θ₀ kitérés minden körfrekvenciát az 1 − 3γ/2 tényezővel lassít, és így a különbségüket is; a harmadik θ₀-t. A gyorsabb egy teljes lengést 2π osztva a körfrekvenciák különbségével idő alatt nyer."
+          },
+          "lag": {
+            "title": "A dobozokon a gyorsabb előre siet",
+            "setting": "Két metronóm Pantaleone deszkáján (58 g), fél százalékkal eltérve, a dobozokon, együtt elengedve; 200 s után.",
+            "reads": "A kettő összekapcsolódik, a gyorsabb ψ* = arcsin(μΔ/(β(3γ + β))) értékkel elöl, β = x₀ω²/g-vel Pantaleone x₀ = 0,088 cm értékéből.",
+            "why": "A deszkán keresztüli csatolást, erősségét és előjelét ellenőrzi: a képlet szerint 3,11°, a számítómagban 3,27°. A képlet elsőrendű, és a deszka lökésében a 45°-os kitérés szinuszát és koszinuszát úgy veszi, mint egy kicsiét; ez adja az 5,4 %-ot."
+          },
+          "inphase": {
+            "title": "Majdnem ellentétesen indítva kettő hamar egyformán leng",
+            "setting": "Két egyforma metronóm a dobozokon, 170°-kal eltolva elengedve; fáziskülönbségük 200 s után.",
+            "reads": "Az ellentétes lengés a szabad deszkán instabil: a kettő az együttes lengés felé vándorol, fél lengéssel odébb, ahogy Pantaleone 2. ábrája mutatja.",
+            "why": "Ellenőrzi, hogy a szabad deszka az együttes lengést teszi stabillá, nem az ellentéteset: 200 s után a kettő 0,0006°-ra van egymástól."
+          },
+          "five": {
+            "title": "Öt egyforma eggyé válik",
+            "setting": "Öt egyforma metronóm Pantaleone deszkáján, a dobozokon, a kiállítási tárgy szétszórt kiinduló helyzetében (R = 0,015); R két perc után.",
+            "reads": "Az R rendparaméter az összes fázis mutatóinak átlaga: 1, ha mind egy ütemre lengenek. Pantaleone hét metronómot is mindig együttes lengésbe kapcsolódni látott.",
+            "why": "A deszkát kettőnél több metronómmal és az oldal rendparaméterét ellenőrzi: két perc után R-ből még 5 · 10⁻⁶ hiányzik az 1-hez."
+          }
+        },
+        "ship": {
+          "metacentric_height": {
+            "title": "A doboz metacentrikus magassága",
+            "setting": "Az oldal hajóteste, 20 cm széles, 2 kg, 1 kg-mal a fedélzeten (12 cm); 0,01°-kal megdöntve, GZ/sin φ-ként számolva.",
+            "reads": "A merülés Arkhimédészből adódik: d = m/(ρ·L·b) = 3,006 cm. A víz alatti rész téglalap, középpontja félmagasságban van, KB = d/2. A vízvonal b széles téglalap, másodrendű nyomatéka L·b³/12, és BM = I_t/∇ = b²/(12·d) = 11,09 cm.",
+            "why": "Azt a görbét ellenőrzi, amelyen az oldal időhurka számol, a GM = KB + BM − KG = 5,259 cm értékkel szemben. 0,01°-nál ½·BM·tan²φ-vel van fölötte, ez GM 3 · 10⁻⁸-a.",
+            "step": "A források GM = KB + I_t/∇ − KG és I_t = L·b³/12 alakban adják meg; KB = d/2 a víz alatti téglalap középpontja."
+          },
+          "wall_sided": {
+            "title": "Az erőkar 15°-nál: függőleges falak",
+            "setting": "A hajótest a súllyal a fedélzeten, 15°-kal megdöntve.",
+            "reads": "Függőleges falú hajótestnél a vízvonalon az a pont, ahol a felhajtóerő vonala metszi a középvonalat, dőléskor feljebb kerül: GN_φ = KB + BM·(1 + ½·tan²φ) − KG, és GZ = GN_φ·sin φ.",
+            "why": "Az oldal geometriáját olyan dőlésnél ellenőrzi, ahol GM·sin φ egymagában már 7 %-kal túl kicsi: 1,464 cm. A dobozra a képlet pontos, amíg az alja 16,7°-nál ki nem emelkedik.",
+            "step": "A forrás 5–15°-ra adja a képletet (Scribanti). Dobozra pontos, amíg mindkét fal a vízben áll: ekkor a bemerülő és a kiemelkedő ék háromszög."
+          },
+          "on_its_side": {
+            "title": "Az oldalán fekve",
+            "setting": "A súly a tőkesúly alján, 15 cm-rel az alj alatt; a hajótest 90°-kal megdöntve, az oldalán.",
+            "reads": "Az oldalán fekve a víz alatti rész a hajótest teljes H magassága mentén téglalap; középpontja, a felhajtóerő-középpont, félmagasságban van. Az erőkar a két hatásvonal vízszintes távolsága, most a hajótest mentén: H/2 − KG.",
+            "why": "A 90°-os metszetet ellenőrzi, ahol két sarok azonos magasságban van: 7,667 cm, pozitív, mert G (−1,67 cm) a félmagasság alatt van. Felegyenesedik, még az oldaláról is.",
+            "step": "Az első forrás szerint a felhajtóerő a víz alatti rész középpontjában hat, a második szerint GZ a két vonal vízszintes távolsága; a víz alatti téglalap középpontja félmagasságban van."
+          },
+          "roll_period": {
+            "title": "A lengési idő",
+            "setting": "A súly a fedélzeten; a hajótest 0,5°-kal megdöntve és elengedve, csillapítás nélkül; három lengés.",
+            "reads": "Kis szögeknél a hajótest úgy leng, mint egy inga: a G-n átmenő hossztengelyre vett k tehetetlenségi sugárral és a metacentrikus magassággal mint visszatérítő taggal.",
+            "why": "Az oldal időhurkát a 0,5774 s-os periódussal szemben ellenőrzi. 0,5°-nál az erőkar ½·BM·tan²φ-vel merevebb, mint GM·sin φ, és a periódus 2,5 · 10⁻⁵-nel rövidebb.",
+            "step": "A forrás a magával mozgatott vizet a₄₄-ként hozzáadja; az oldal elhagyja, a₄₄ = 0. k² = I/m, ahol I Steiner szerint: a hajótest, 2 kg, 7 cm tehetetlenségi sugárral a saját súlypontja körül, G-be áthelyezve, és a súly pontként."
+          }
+        },
+        "string": {
+          "fundamental": {
+            "title": "A legmélyebb hang",
+            "setting": "Az oldal zsinórja 3 N-nal megfeszítve; a vibrátor hangja ott, ahol a zsinór a legjobban kileng.",
+            "reads": "Egy húr legmélyebb hangjánál a két vége csomópont: a hossz fél hullám, f = v/(2L), ahol v = √(T/μ).",
+            "why": "Ellenőrzi, hol lengeti ki az oldal a legjobban a zsinórt: 38,72 Hz-en, ahol a képlet 38,73 Hz-et mond. A csillapítás 0,03 %-kal lejjebb tolja a csúcsot."
+          },
+          "third": {
+            "title": "A harmadik hang",
+            "setting": "Ugyanaz a zsinór, ugyanaz a húzás; a hang a harmadik sajáthang közelében.",
+            "reads": "Az n-edik hangnál n félhullám van a két vég között: fₙ = n/(2L)·√(T/μ).",
+            "why": "Ellenőrzi a magasabb hangokat: a csúcs 116,19 Hz-en van, a legmélyebb hang háromszorosán."
+          },
+          "pull": {
+            "title": "A húzás három duzzadóhelyhez",
+            "setting": "A vibrátor 100 Hz-en; a húzás ott, ahol a zsinór a legjobban kileng, ahogy Ön a zsinóron keresi.",
+            "reads": "Ugyanaz a képlet a húzásra megoldva: T = μ·(2Lf/n)².",
+            "why": "Azt ellenőrzi, ami a kiállításon számít: a húzást. A csúcs 2,2228 N-nál van, a képlet 2,2222 N-t mond. Kissé feljebb van, mert a húzással a hullámok is gyorsabbak, a duzzadóhelyek pedig szélesebbek lesznek.",
+            "step": "A forrás fₙ = n/(2L)·√(T/μ)-t ad. Négyzetre emelve és T-re megoldva: T = μ·(2Lfₙ/n)²."
+          },
+          "loops": {
+            "title": "Három duzzadóhely, négy csomópont",
+            "setting": "A vibrátor 100 Hz-en, a zsinór a képlet szerinti, három duzzadóhelyhez tartozó húzással megfeszítve.",
+            "reads": "Két rögzített vég közötti állóhullámnak n + 1 csomópontja van, a végeket is beleszámítva, és n duzzadóhelye.",
+            "why": "Magát a mintázatot ellenőrzi: az oldal megszámolja a duzzadóhelyeket a zsinór mentén, és hármat talál."
+          },
+          "speed": {
+            "title": "A hullám sebessége",
+            "setting": "A zsinór 3 N-nal megfeszítve, a vibrátor 100 Hz-en, két sajáthang között.",
+            "reads": "Két csomópont fél hullámnyira van egymástól, és egy hullám egy rezgés alatt egy hullámhossznyit fut: v = λf = 2·d·f. A forrás szerint v = √(T/μ).",
+            "why": "Ellenőrzi a sebességet az oldal által talált csomópontoknál, ott is, ahol a zsinór nem alkot mintázatot: 77,45 m/s 77,46 m/s helyett; a csillapítás 0,01 %-kal tolja el a csomópontokat.",
+            "step": "Az első forrás v = √(T/μ)-t ad, a második v = λf-et, a harmadik két csomópont távolságát, λ/2-t. Így v = 2·d·f, ahol d a csaphoz legközelebbi két csomópont távolsága."
+          },
+          "settled": {
+            "title": "Az állandósult duzzadóhely",
+            "setting": "A vibrátor 100 Hz-en, a húzás három duzzadóhelyhez; a zsinór nyugalomból indul, öt másodpercig képkockánként számolva.",
+            "reads": "A forrás hullámegyenlete csillapítással, egyik végén hajtva, a másikon rögzítve: Y(x) = A·sin(κ(L − x))/sin(κL), ahol κ² = (Ω² − iγΩ)·μ/T.",
+            "why": "Az oldal időhurkát ellenőrzi a kézi megoldással szemben: a zsinór közepén öt másodperc után 22,215 mm-t leng ki, 10⁻⁷ pontossággal a képlet szerint.",
+            "step": "A forrás a μ·∂²y/∂t² = T·∂²y/∂x² hullámegyenletet adja; a csillapítás μγ·∂y/∂t-t ad hozzá. y = Im[Y(x)·e^(iΩt)] mellett ebből Y'' = −κ²·Y lesz; az a megoldás, amely a vibrátornál A, a csapnál nulla, a fenti."
+          }
+        },
+        "jet": {
+          "critical": {
+            "title": "A víz határszöge",
+            "setting": "A kiállítási tárgy: 1,333 törésmutatójú víz; az a szög, amelytől az oldal a felületen az összes fényt visszaveri.",
+            "reads": "Az arcsin(n₂/n₁) határszögtől kezdve nincs megtört fény, és a visszaverődés teljes. Vízből (1,333) levegőbe (1) ez 48,6°.",
+            "why": "Az egyes beesési pontokon hozott döntést ellenőrzi: kilép-e a fény, vagy teljesen visszaverődik. Az oldal 48,6066°-nál vált, 30° és 70° közötti felezéssel megtalálva."
+          },
+          "snell": {
+            "title": "A kilépő fény Snellius szerint törik",
+            "setting": "A kiállítási tárgy, a lézer 45°-kal felfelé döntve; a középső fénysugár az első beesési pontján, ahol a határszögnél meredekebben éri a felületet.",
+            "reads": "A beesési és a törési szög szinuszának aránya a törésmutatók aránya, n₂/n₁: a vízből kilépve a fény a merőlegestől elfelé törik.",
+            "why": "A rajzolt kilépő fény irányát ellenőrzi: 68,9° a merőlegeshez képest. Az ellenőrzés a beesési szöget a rajzolt útból és a tengely saját kereséséből határozza meg."
+          },
+          "fresnel": {
+            "title": "Mennyi fény lép ki",
+            "setting": "Mint fent: a lézer 45°-kal felfelé döntve, a középső fénysugár első beesési pontja.",
+            "reads": "Minden polarizációra Fresnel képletei adják a visszavert hányadot, Rₛ-t és Rₚ-t. A polarizálatlan fény az átlagukat veri vissza, és ami nem verődik vissza, kilép.",
+            "why": "Azt ellenőrzi, mennyi fényt enged ki az oldal a felületen: az adott pontban lévő fény 87,8 %-át; a többi visszaverődve halad tovább.",
+            "step": "A forrás megadja Rₛ-t és Rₚ-t, azt, hogy átmegy, ami nem verődik vissza, és hogy a polarizálatlan fény a kettő átlagát veri vissza: T = 1 − (Rₛ + Rₚ)/2, belül n₁ = 1,333, kívül n₂ = 1."
+          },
+          "landing": {
+            "title": "Hol éri el a sugár a medencét",
+            "setting": "A kiállítási tárgy: 15 cm víz a lyuk fölött, a medence 40 cm-rel alatta.",
+            "reads": "A víz vízszintesen, √(2gh) sebességgel lép ki, és √(2H/g) idő alatt esik H-t, vízszintes sebességétől függetlenül. Ez idő alatt v·t távolságra jut.",
+            "why": "Azt az ívet ellenőrzi, amelyet az oldal rajzol, és amely mentén a fényt követi: 49 cm-re a lyuktól éri el a medencét, 2√(h·H).",
+            "step": "Az első forrás a lyuknál mért sebességet adja, a második az esési időt a magasságból, a vízszintes sebességtől függetlenül. A vízszintes sebesség változatlan, tehát x = v·t = 2√(h·H)."
+          }
         }
       },
       "set_up": "Beállítás",
@@ -4752,6 +5301,826 @@
     },
     "list": {
       "lead": "Minden kiállítási tárgy a rajzával, amely megmozdul, amint rámutat. Szűrjön téma szerint, vagy nézze végig mindet."
+    },
+    "galton": {
+      "at": {
+        "funnel": "Fent egy tölcsér tele golyókkal, alatta tizenkét sor szög, lent tizenhárom rekesz. A golyók egyenként indulnak, és minden szögnél balra vagy jobbra pattannak.",
+        "heap": "Senki sem tudja megmondani, merre megy egy golyó. Mégis minden alkalommal ugyanaz a kupac nő lent: középen magas, a szélek felé lapos, egy harang.",
+        "tilt": "Ha a deszka ferdén áll, a harang oldalra csúszik. De harang marad."
+      },
+      "view": "A Galton-deszka: fent a tölcsér, alatta a szögek, lent a rekeszek a leesett golyókkal",
+      "play": {
+        "title": "A golyók leejtése",
+        "hint": "Ejtse le a golyókat: egymás után gurulnak át a szögeken, mindegyik minden szögnél balra vagy jobbra. Az „Új golyók” új futást indít más véletlen számokkal; ugyanaz a futás mindig ugyanúgy hullik.",
+        "drop": "Leejtés",
+        "all": "Mind egyszerre",
+        "new": "Új golyók",
+        "again": "Vissza a tölcsérbe",
+        "caption": "{{rows}} sor, {{bins}} rekesz, a(z) {{run}}. futás {{balls}} golyóval, vázlatosan. Az oszlopok az egyes rekeszekben lévő golyók.",
+        "waiting": "A golyók készen állnak a tölcsérben.",
+        "falling": "A golyók hullanak.",
+        "done": "Mind a(z) {{balls}} golyó leesett. A kupac közepe a rekeszskálán: {{mean}}.",
+        "expected": "Szaggatottan: a kupac, amelyet az utak alapján várni lehet."
+      },
+      "figures": {
+        "landed": "Leesett",
+        "mean": "A futás közepe (rekesz)",
+        "spread": "A futás szórása (rekesz)",
+        "expected_mean": "Várt közép n·p",
+        "expected_spread": "Várt szórás σ"
+      },
+      "change": {
+        "title": "A deszka átépítése",
+        "hint": "Több vagy kevesebb sor, ferde deszka, több golyó. Minden változtatás visszateszi a golyókat a tölcsérbe.",
+        "rows": "Sorok",
+        "rows_hint": "Hány sor szög van a deszkán; eggyel több rekesze van, mint sora.",
+        "p": "Jobbra eső hányad",
+        "p_hint": "Milyen gyakran megy egy golyó egy szögnél jobbra: vízszintes deszkán 0,5, jobbra döntötten több.",
+        "balls": "Golyók",
+        "balls_hint": "Hány golyóból áll egy futás.",
+        "status": "{{rows}} sor, {{bins}} rekesz, {{paths}} út a deszkán át."
+      },
+      "model": {
+        "intro": "Az a golyó, amely n sorban k-szor megy jobbra, a k-adik rekeszbe esik, bármilyen sorrendben. A rekeszeket balról számoljuk, 0-tól n-ig.",
+        "paths": "Ennyi út vezet a k-adik rekeszbe: tizenkét sornál egy-egy a két szélre, és a 4096-ból 924 középre.",
+        "binomial": "Minden út, amely k lépést tesz jobbra, ugyanolyan valószínű, pᵏ·(1 − p)ⁿ⁻ᵏ. Az utak számával szorozva ez a rekesz hányada: a binomiális eloszlás.",
+        "moments": "A kupac közepe és szélessége rekeszekben: tizenkét sornál vízszintes deszkán a 6. rekesz és 1,73 rekesz.",
+        "normal": "Sok sornál a binomiális eloszlás tetszőlegesen megközelíti az ugyanolyan közepű és szélességű normális görbét (de Moivre és Laplace): a harangot."
+      },
+      "symbols": {
+        "paths": "a k-adik rekeszbe vezető utak száma",
+        "n": "a sorok száma",
+        "k": "rekesz, balról 0-tól számolva; ennyiszer ment a golyó jobbra",
+        "share": "a golyók hányada a k-adik rekeszben",
+        "p": "jobbra eső hányad minden szögnél",
+        "mu": "a kupac közepe",
+        "sigma": "a kupac szórása",
+        "e": "Euler-féle szám, 2,718…"
+      },
+      "computed": {
+        "system": "Itt semmi sem mozog differenciálegyenlet szerint: a véletlen dönt, az oldal pedig azt számolja, mit tesz átlagosan. A hányadokat soronként számolja, ahogy a golyók hullanak.",
+        "rows": "Ami egy szöghöz ér, p hányadban jobbra, 1 − p hányadban balra megy tovább: a következő sor minden rekesze p-t kap a balra fölötte lévőtől és 1 − p-t a fölötte lévőtől. Ez a Pascal-háromszög szabálya súlyokkal; ha mindkét súly egy, az utakat számolja.",
+        "pj": "a golyók hányada, amely j sor után a k-adik helyre ér",
+        "j": "a sorok, amelyeken a golyók már áthullottak",
+        "random": "Magukat a golyókat egy kezdőértékkel indított véletlenszám-generátor sorsolja (Mulberry32, 32 bites egész számokból): az i-edik golyó az i·n-től i·n + n − 1-ig terjedő számokat kapja, soronként egyet, és jobbra megy, ahol a száma kisebb p-nél. Ugyanaz a kezdőérték ugyanazokat a golyókat adja az Ön böngészőjében, az oldal számítómotorjában és a tesztjeiben; az „Új golyók” a következőt veszi. A golyók repülése csak rajz.",
+        "check": "Az oldal tesztjei minden legfeljebb 24 soros deszka hányadait pontos törtekkel újraszámolják, és ellenőrzik a közepet és a szórást. Egy 5000 golyós futásban minden rekesz a várt számától négy szóráson belül marad. Minden az Ön böngészőjében számolódik, ugyanazokkal a képletekkel, mint az oldal számítómotorjában.",
+        "left_out": "Kimaradt: hogyan szabja meg a dőlés vagy a szögek alakja p-t, mert az oldal p-t adottnak veszi, minden szögnél ugyanannak; a két szöget átugró vagy egymásnak ütköző golyók, amelyek egy valódi deszkán szélesebbé teszik a kupacot; a megtelő rekeszek."
+      },
+      "sweet": {
+        "paths": "A trükk: minden egyes golyó tiszta véletlen, a kupac viszont nem. Azt az utak száma dönti el. Tizenkét soron 4096 út vezet át, mind egyformán valószínű: egyetlen egy mindkét szélső rekeszbe, 924 a középsőbe. Ezért esik a golyók majdnem negyede középre, 22,6 %, és csak minden 4096. egy szélső rekeszbe.",
+        "middle": "A három középső rekeszbe esik a golyók 61 %-a, a két szélen lévő három-három rekeszbe együtt csak 3,9 %. A közép a 6. rekesznél van, a szórás 1,73 rekesz.",
+        "all": "Utak {{rows}} soron át",
+        "peak": "Utak a(z) {{bin}}. rekeszbe",
+        "edge": "Utak a szélre",
+        "normal": "Több sornál a harang szélesebb lesz, de lassabban, mint a deszka: a szórás a sorok számának négyzetgyökével nő, kétszer annyi sornál csak 1,41-szeresére, 1,73-ról 2,45 rekeszre. És egyre jobban megközelíti a normális görbét; 24 sornál a középső rekesz már csak 1,0 %-kal van alatta."
+      },
+      "chart": {
+        "hint": "Az Ön által épített deszka minden rekeszének hányada, és az ugyanolyan közepű és szórású normális görbe.",
+        "binomial": "a rekesz hányada",
+        "normal": "normális görbe",
+        "share": "Hányad",
+        "bin": "Rekesz"
+      }
+    },
+    "spring": {
+      "at": {
+        "weight": "Egy súly lóg egy hosszú csavarrugón. Kicsit lehúzzuk és elengedjük: fel-le mozog.",
+        "trade": "Lassan a fel-le mozgás gyengül, és a súly elkezd ide-oda fordulni – míg végül már csak fordul, és egyáltalán nem mozog fel-le. Aztán a fel-le mozgás visszatér, újra meg újra. Ennek az oldalnak a rugójával egy oda-vissza 27,3 s.",
+        "nuts": "A súly oldalán lévő karokon négy anya csavarható befelé és kifelé. Csak egyetlen helyen alakul át a fel-le mozgás teljesen forgássá."
+      },
+      "view": "A súly a rugóján, elölről, a négy karral és az anyákkal",
+      "play": {
+        "title": "Húzza meg és fordítsa el a súlyt",
+        "hint": "Húzza a súlyt lefelé vagy felfelé, és tolja oldalra, hogy elfordítsa; elengedve rezeg. Vagy válasszon egy indítást. A sávok mutatják, mennyi energia van éppen a fel-le mozgásban és a forgásban.",
+        "let_go": "Elengedés:",
+        "starts": {
+          "down": "Lehúzva",
+          "twisted": "Elfordítva",
+          "fast": "Gyorsabb sajátrezgés",
+          "slow": "Lassabb sajátrezgés"
+        },
+        "energy": "Energia a fel-le mozgásban és a forgásban",
+        "bobbing": "Fel-le mozgás",
+        "twisting": "Forgás"
+      },
+      "figures": {
+        "bobbing": "A fel-le mozgás periódusa önmagában",
+        "twisting": "A forgás periódusa önmagában",
+        "tuned": "Hangolva",
+        "beat": "Oda-vissza",
+        "share": "Ebből a forgásba jut"
+      },
+      "change": {
+        "title": "Az eszköz módosítása",
+        "hint": "Az anyák szabják meg, milyen lomhán fordul a súly: kijjebb lassabban, beljebb gyorsabban. Csak ha ugyanolyan gyorsan fordul, mint ahogy fel-le mozog, megy át a fel-le mozgás teljesen forgásba.",
+        "nuts": "Az anyák távolsága a tengelytől",
+        "nuts_hint": "20,0 mm-nél a rugó hangolva van.",
+        "damping": "Csillapítás"
+      },
+      "model": {
+        "intro": "A rugó kétszer hat: megnyújtva visszahúzza a súlyt, elcsavarva visszafordítja. Egy csavarrugó azonban nyújtáskor kicsit el is csavarodik, és fordítva – ez a csatolás köti össze a két rezgést.",
+        "equation": "A két mozgásegyenlet, ahogy Berg és Marshall felírja: mindkét rezgés önmagában, és az ε csatolás, amellyel a nyúlás fordítja a súlyt, a csavarodás pedig húzza. Itt z lefelé számít.",
+        "inertia": "A súly tehetetlenségi nyomatéka: a testé és a négy anyáé, mindegyik pontként a tengelytől mért távolságában. Itt lehet az eszközön állítani.",
+        "modes": "Két mozgás, amelyben a fel-le mozgás és a forgás egy ütemben marad: a sajátrezgések. Körfrekvenciáik ennek az egyenletnek a gyökei; minden más mozgás a kettő összege.",
+        "beat": "Lehúzva a súly nagyjából fele-fele arányban van a két sajátrezgésben. Ezek lassan elcsúsznak egymástól, majd újra összetalálkoznak; ezalatt az energia egyszer átmegy a forgásba, és vissza a fel-le mozgásba."
+      },
+      "symbols": {
+        "z": "mennyivel van a súly a nyugalmi helyzete alatt",
+        "theta": "mennyire van elfordítva",
+        "m": "a súly tömege, a rugó tömegének egyharmadával",
+        "I": "tehetetlenségi nyomatéka a függőleges tengelyre",
+        "k": "a rugóállandó nyújtással szemben",
+        "delta": "a rugóállandó csavarással szemben",
+        "epsilon": "a nyújtás és a csavarás közti csatolás",
+        "I0": "a test tehetetlenségi nyomatéka anyák nélkül",
+        "mn": "egy anya tömege, 10 g",
+        "r": "az anyák távolsága a tengelytől",
+        "omega": "a két sajátrezgés körfrekvenciája, előbb a gyorsabb",
+        "alone": "a fel-le mozgás és a forgás körfrekvenciája önmagában",
+        "beat": "az idő, amely alatt az energia egyszer átmegy a forgásba és vissza",
+        "c": "a csatolás, a tömegre és a tehetetlenségi nyomatékra vonatkoztatva"
+      },
+      "sweet": {
+        "modes": "Hangolva a súly önmagában pontosan olyan gyorsan fordul, mint ahogy önmagában fel-le mozog. Csak ekkor megy át minden – fél lebegés után a súly már nem mozog fel-le, csak fordul.",
+        "beat": "Ha az anyák {{r}} mm-en vannak, az energia {{beat}} s alatt megy át egyszer a forgásba és vissza, és körülbelül {{share}} %-a érkezik meg a forgásba.",
+        "detuned": "Elhangolva soha nem megy át minden, csak ez a hányad: annál kevesebb, minél messzebb van egymástól a két ütem a csatoláshoz képest.",
+        "tuned": "Minden átmegy, ha az anyák {{tuned}} mm-en vannak. 35 mm-nél már csak körülbelül a fele érkezik meg a forgásba, 48 %, és a fel-le mozgás már 19,9 s után visszatér."
+      },
+      "chart": {
+        "energy": "Az energia hányada",
+        "time": "Idő",
+        "share": "A forgásba jutó hányad",
+        "nuts": "Az anyák távolsága"
+      },
+      "computed": {
+        "system": "Négy elsőrendű egyenlet: a kitérés, a csavarodás és sebességeik, itt csillapítás nélkül felírva. A számítómag Runge–Kutta-módszerrel oldja meg őket egy milliszekundumos lépésekben; az oldal ugyanezt teszi ugyanilyen lépésekkel, képkockánként néhány tucatot."
+      }
+    },
+    "polarizer": {
+      "at": {
+        "lamp": "Egy lámpa két polarizációs szűrőn át világít. Ha a hátsót elforgatjuk, a fény gyengül, míg teljesen sötét nem lesz: a két szűrő keresztezett.",
+        "third": "Most egy harmadik szűrőt tolunk a kettő közé, ferdén – és újra világos lesz. Pedig minden szűrő csak elnyelni tud fényt, hozzáadni nem."
+      },
+      "stack_view": "A lámpa, a három szűrő és az ablak, amelyen át Ön néz",
+      "play": {
+        "title": "Három szűrő egy lámpa előtt",
+        "hint": "Tolja be a középső szűrőt, és forgassa el azt vagy a hátsót – a csúszkával, vagy egérrel, illetve ujjal a szűrőn.",
+        "middle": "Középső szűrő a kettő között",
+        "middle_hint": "A harmadik szűrő betolása a kettő közé.",
+        "middle_deg": "A középső szűrő szöge",
+        "middle_deg_hint": "Az elsőhöz képest mérve; 180°-nál ugyanúgy áll, mint 0°-nál.",
+        "last_deg": "A hátsó szűrő szöge",
+        "last_deg_hint": "90°-nál keresztezett az elsővel.",
+        "real": "Valódi szűrők",
+        "real_hint": "Ideális szűrők helyett olyanok, mint a Polaroid: tengelyük mentén nem engednek át mindent, keresztben nem egészen semmit.",
+        "caption": "Minden szűrő úgy, ahogy átnézve látja; vonalai a tengelyét mutatják. A nyaláb fölött az irány, amelyben a fény rezeg, olyan hosszan, mint az amplitúdója; az első szűrő előtt minden irányban rezeg. Fehér a fény az első szűrő mögött, a lámpafény fele.",
+        "status_dark": "Gyakorlatilag sötét: a lámpa fényének kevesebb mint 0,2 %-a jut át.",
+        "status_light": "A lámpa fényének {{share}} %-a jut át.",
+        "labels": {
+          "lamp": "lámpa",
+          "front": "elöl",
+          "middle": "középen",
+          "slot": "(üres)",
+          "back": "hátul",
+          "window": "ablak"
+        }
+      },
+      "figures": {
+        "front": "Az első szűrő mögött",
+        "middle": "A középső szűrő mögött",
+        "out": "Átjut",
+        "between_ideal": "{{n}} közöttük, ideális",
+        "between_real": "{{n}} közöttük, valódi",
+        "best_between": "Valódi szűrők legjobb száma közöttük",
+        "one": "Egy valódi szűrő átenged"
+      },
+      "change": {
+        "title": "Több szűrő, valódi szűrők",
+        "hint": "Tegyen több szűrőt a keresztezett pár közé, egyenletesen elforgatva, és változtassa meg, mennyire jó egy valódi szűrő.",
+        "between": "Szűrők a keresztezett pár között",
+        "between_hint": "Mindegyik ugyanannyival elforgatva az előzőhöz képest, 0°-tól 90°-ig.",
+        "transmission": "Áteresztés a tengely mentén",
+        "transmission_hint": "A tengelye mentén rezgő fény mekkora részét engedi át egy valódi szűrő; ideálisan 100 %.",
+        "extinction": "Kioltási arány 1 a …-hoz",
+        "extinction_hint": "Mennyivel kevesebbet enged át egy valódi szűrő a tengelyére merőlegesen, mint mentén; Polaroid kb. 1 az 500-hoz."
+      },
+      "chart": {
+        "hint": "Mennyi fény jut át a keresztezett páron a közöttük lévő szűrők számának függvényében, ideális és valódi szűrőkkel; a lámpafény százalékában.",
+        "ideal": "Ideális szűrők",
+        "real": "Valódi szűrők",
+        "light": "Fény",
+        "between": "Szűrők közöttük",
+        "middle": "A középső szűrő szöge"
+      },
+      "model": {
+        "intro": "A fény hullám, amely a haladási irányára merőlegesen rezeg. A polarizációs szűrő csak a tengelye mentén rezgő részt engedi át – és ami átjut, utána e tengely mentén rezeg.",
+        "malus": "Malus törvénye: ha a fény θ szögben rezeg a szűrő tengelyéhez képest, cos²θ hányada jut át – 0°-nál minden, 90°-nál semmi.",
+        "half": "A lámpa fénye minden irányban egyformán rezeg; átlagosan cos²θ egy fél. Az első szűrő a felét engedi át.",
+        "three": "Három szűrő, a középső φ szögben, a hátsó keresztezve: kétszer Malus. A legtöbb φ = 45°-nál jut át, a lámpafény nyolcada – negyede annak, amit az első átenged.",
+        "many": "n szűrő egyenletesen a keresztezett pár között: n + 1 kis elforgatás, mindegyik kevés fényt veszít. Tízzel 40 % jut át, hatvannal 48 % – minél több, annál közelebb a feléhez, amit az első szűrő átenged."
+      },
+      "symbols": {
+        "i": "Fény a szűrő mögött (intenzitás)",
+        "i0": "Fény a szűrő előtt, már polarizált",
+        "theta": "A rezgés iránya és a szűrő tengelye közötti szög",
+        "i1": "Fény az első szűrő mögött",
+        "il": "A lámpa fénye, polarizálatlan",
+        "i3": "Fény a harmadik szűrő mögött",
+        "phi": "A középső szűrő szöge az elsőhöz képest",
+        "n": "A keresztezett pár közötti szűrők száma"
+      },
+      "sweet": {
+        "turns": "A trükk: egy szűrő nem csak blokkol, hanem újra polarizál. Ami a középsőn átjut, annak tengelye mentén rezeg, 45°-kal elforgatva – fele annak, amit az első átengedett. Ehhez az új irányhoz képest a hátsó szűrő már nem merőleges, csak 45°-ban ferde: ismét a felét engedi át. Így annak negyede jut ki, amit az első átengedett, a lámpafény nyolcada, ott, ahol a középső nélkül semmi sem jutott át. Ha a középső 30°-nál áll, 9,4 %.",
+        "real": "A valódi szűrők (itt feltételezve: 76 % a tengely mentén, 1 az 500-hoz keresztben, mint a Polaroid) egyenként 38 %-ot engednek át, keresztezve 0,12 %-ot. A harmadikkal 45°-nál 5,0 % jut át, 44-szer annyi. Több szűrő csak kettőig segít: velük 6,6 % jut át, és minden további többet nyel el, mint amennyit kisebb elforgatása megtakarít. Tízzel már csak 1,5 %; ideális szűrők 40 %-ot engednének át.",
+        "chart_hint": "A keresztezett páron átjutó fény a középső szűrő szögének függvényében, a lámpafény százalékában. Az Ön középső szűrője {{deg}}°-nál áll: {{share}} % ideális szűrőkkel."
+      },
+      "computed": {
+        "system": "Az oldal minden szűrőt mátrixként kezel, amely a tengelye menti rezgést átengedi, a rá merőlegest nem (Jones-mátrix), és a szűrőket sorban összeszorozza. A lámpa fénye két keresztezett rezgés egyenlő keveréke; a köteg mögött intenzitása a négy elem négyzetösszegének fele. Ideális szűrőkre ez pontosan Malus törvénye, szűrőről szűrőre.",
+        "real": "Egy valódi szűrő a tengelye mentén k₁ hányadot enged át, keresztben k₂-t; k₂/k₁ a kioltási aránya. A Polaroidra a szakirodalom kb. 38 %-ot ad polarizálatlan fényre és 1 az 500-hoz arányt; ebből k₁ = 76 %.",
+        "check": "Az oldal tesztjei minden köteget másodszor is kiszámítanak Mueller-mátrixokkal a Stokes-vektoron, és összevetik, szűrőről szűrőre ellenőrzik Malus törvényét és a ⅛ sin² 2φ görbét minden egész fokban. A számítás az Ön böngészőjében történik, ugyanazokkal a képletekkel, mint az oldal számítómotorjában.",
+        "left_out": "Kimaradt: a szín (a valódi szűrők a vöröset és a kéket eltérően engedik át, a keresztezett Polaroid enyhén kékes; itt egy érték érvényes minden fényre); a szűrők között oda-vissza tükröződő fény; olyan szűrők, amelyek a rezgés fázisát is eltolják (késleltetőlemezek)."
+      }
+    },
+    "vessel": {
+      "at": {
+        "build": "Egy hosszú medence fölött, egy állványon átlátszó cső áll: egy méter magas, 8 cm széles, 90 cm-ig vízzel töltve. Az oldalán három lyuk van egymás fölött, 5, 35 és 65 cm-en, mindegyik dugóval lezárva.",
+        "drain": "Ha kihúzzák az alsó dugót, egy sugár messzire lövell a medencébe. Aztán egyre közelebb ér le a csőhöz, és a vízszint egyre lassabban süllyed; az utolsó néhány centiméter tart a legtovább. Ha mindhárom lyuk nyitva van, a középső sugár ér a legmesszebbre, a felső és az alsó pedig ugyanott ér le.",
+        "origin": "A fizikaóra klasszikus kísérlete, itt olyan magasra építve, hogy látni lehessen, ahogy a sugár rövidül."
+      },
+      "view": "A cső az állványán a medence fölött, felvágva rajzolva: a víz, a dugók és a sugarak, a medence alján egy mérőléccel",
+      "play": {
+        "title": "Dugók kihúzása",
+        "hint": "Kattintson egy dugóra a képen vagy az egyik gombra, hogy kinyisson egy lyukat, vagy újra lezárja. Az idő az első nyitott lyuktól fut.",
+        "refill": "Újratöltés",
+        "caption": "Egy {{diameter}} cm széles cső {{hole}} mm-es lyukakkal; a szaggatott jel mutatja, meddig volt töltve. Minden ugyanabban a léptékben.",
+        "plugs": "Lyukak, fentről lefelé",
+        "hole": "Lyuk {{height}} cm-en",
+        "full": "A cső {{fill}} cm-ig meg van töltve, minden lyuk le van dugaszolva.",
+        "time": "Idő",
+        "level": "Vízszint",
+        "flow": "Kifolyás",
+        "jet": "Legmesszebbre érő sugár",
+        "halved": "Félmagasságban ({{height}} cm) ennyi idő után"
+      },
+      "change": {
+        "title": "A cső átépítése",
+        "hint": "Változtassa meg a csövet, a lyukakat, a töltést és az állványt. Utána a cső újra tele van, és minden dugó a helyén; a lyukak 5, 35 és 65 cm-en maradnak. A számok csak az alsó lyukra érvényesek.",
+        "diameter": "A cső szélessége",
+        "diameter_hint": "Belső átmérő. Kétszer olyan széles cső négyszer annyi víz: négyszer olyan sokáig tart. A kiállítási tárgyé: 8 cm.",
+        "hole": "A lyukak szélessége",
+        "hole_hint": "Legfeljebb a cső szélességének negyede. Kétszer olyan széles lyuk, negyedannyi idő alatt üres. A kiállítási tárgyé: 8 mm.",
+        "fill": "Töltési magasság",
+        "fill_hint": "Milyen magasan áll a víz kezdetben a cső alja fölött. A kiállítási tárgyé: 90 cm.",
+        "discharge": "Kifolyási tényező μ",
+        "discharge_hint": "Mennyire szűkül össze a sugár közvetlenül a lyuk után: éles peremű lyuknál körülbelül 0,61, 0,9 fölött, ha a víz egy rövid csövecskén át folyik ki. A kiállítási tárgyé: 0,61.",
+        "stand": "Az állvány magassága",
+        "stand_hint": "Milyen magasan áll a cső alja a medence alja fölött. Minél magasabb, annál tovább esnek a sugarak, és annál messzebbre érnek. A kiállítási tárgyé: 20 cm.",
+        "dry": "A vízszint fölötti lyukak szárazak maradnak."
+      },
+      "figures": {
+        "drain": "Üres az alsó lyukig",
+        "half": "Félmagasság ennyi után",
+        "speed": "Az első sugár sebessége",
+        "flow": "Első kifolyás",
+        "volume": "Víz az alsó lyuk fölött",
+        "farthest": "Legnagyobb lehetséges hajítási távolság"
+      },
+      "chart": {
+        "range": "Hajítási távolság",
+        "hole": "A lyuk magassága a cső alja fölött",
+        "range_hint": "Milyen messzire ér egy sugár a teli csőből attól függően, milyen magasan van a lyuka: a legmesszebbre a vízfelszín és a medence alja közötti félúton levőből.",
+        "depth": "Víz a lyuk fölött",
+        "time": "Idő a nyitás után",
+        "time_hint": "Csak az alsó lyuk, a fent beállított összeállításra: a vízszint egyre lassabban süllyed, a hajítási távolság egyenletesen csökken, egy egyenes mentén."
+      },
+      "model": {
+        "intro": "A víz annál erősebben nyomja a lyukat, minél mélyebben van a lyuk a felszín alatt. Olyan gyorsan lövell ki, ahogy egy kő esne a felszíntől a lyukig. Közvetlenül a lyuk után a sugár összeszűkül: éles peremű lyukon csak valamivel több mint hat tizede folyik ki annak, amit a lyuk területe alapján várnánk.",
+        "torricelli": "Torricelli törvénye: a sugár sebessége a lyuknak a felszín alatti mélységéből.",
+        "flow": "Ami másodpercenként kifolyik: a lyuk területe az összeszűkült sugáréra csökkentve, szorozva a sebességével.",
+        "balance": "Ami kifolyik, az hiányzik a csőből: a felszín olyan gyorsan süllyed, amennyi vizet az alatta lévő nyitott lyukak együtt kiengednek. Elsőrendű differenciálegyenlet a vízszintre.",
+        "range": "A sugár vízszintesen hagyja el a falat, és úgy esik, mint egy vízszintesen eldobott kő: ilyen messze a csőtől ér a medence aljára."
+      },
+      "symbols": {
+        "v": "a sugár sebessége",
+        "g": "a nehézségi gyorsulás",
+        "h": "a vízszint a cső alja fölött",
+        "y": "a lyuk magassága a cső alja fölött",
+        "q": "a kifolyás",
+        "mu": "a kifolyási tényező, a sugár összeszűkülése",
+        "a": "egy lyuk területe",
+        "area": "a cső keresztmetszete",
+        "t": "az idő",
+        "yk": "a k-adik nyitott lyuk magassága; az összegzés a felszín alatti nyitott lyukakra vonatkozik",
+        "x": "milyen messze a faltól ér a sugár a medence aljára",
+        "s": "az állvány magassága",
+        "half": "az idő, amíg a lyuk fölötti mélység a felére csökken"
+      },
+      "computed": {
+        "system": "A lyukak akkor nyílnak és zárulnak, amikor Ön akarja, ezért az oldal lépésről lépésre számolja a vízszintet: 5 ms-onként a fenti egyenlet egy Runge–Kutta-lépése, az Ön böngészőjében, ugyanazokkal a képletekkel, mint az oldal számítómotorja. Ha csak egy lyuk van nyitva, pontos megoldás is van.",
+        "exact": "A lyuk fölötti vízmélység négyzetgyöke egyenletesen csökken, amíg a víz el nem éri a lyukat, a T idő után.",
+        "h0": "a vízszint a nyitáskor",
+        "T": "az idő, amíg a lyuk fölötti víz kifolyik",
+        "check": "Az oldal tesztjei ehhez a megoldáshoz mérik a lépéseket: a vége előtti utolsó másodpercig a vízszint kevesebb mint a mélység egymilliárdod részével tér el, és a cső egy lépés pontossággal ürül ki.",
+        "left_out": "Kimaradt: az a sebesség, amellyel a víz magában a csőben süllyed (itt a számítás kevesebb mint tízezred része); a sugár fékeződése a viszkozitás és a levegő miatt (éles peremű lyukakból jövő gyors sugaraknál ezreléknél kisebbnek mérték); a vízoszlop tehetetlensége, amikor egy lyuk kinyílik vagy bezárul; a felületi feszültség, amely a végén cseppekre tépi a vékony sugarat; a dugók szélessége."
+      },
+      "sweet": {
+        "root": "A trükk a négyzetgyök. A víz annál gyorsabban folyik ki, minél magasabban áll – de csak a magasság négyzetgyökével. Ahogy a felszín süllyed, a sugár lassul, és a felszín még lassabban süllyed. Ezért a víz első fele sokkal hamarabb kint van, mint a második.",
+        "numbers": "A kiállítási tárgynál, csak az alsó lyukkal: 20 s után a víz már csak félmagasan áll a lyuk fölött, üres viszont csak 68 s után. A víz felének nem az idő fele kell, hanem annak 29 %-a; az utolsó tizednek 32 %. Mindhárom lyuk nyitva a cső 57 s alatt ürül le – alig gyorsabban, mert a felső lyukak hamar szárazra kerülnek.",
+        "jet": "A sugár viszont egyenletesen rövidül: a hajítási távolsága a mélység négyzetgyökével nő, és éppen ez a gyök csökken egyenletesen. Kezdetben 4,1 m/s-mal lövell ki, percenként 7,5 litert, és 0,92 m-re ér le a csőtől; az idő felénél, 34 s után, 0,46 m-nél ér le.",
+        "half": "A lyuk fölötti mélység a hátralévő idő négyzetével csökken: a fele (1 − 1/√2) T után, az idő 29 %-a után van kint, akármilyen széles is a cső és a lyuk."
+      }
+    },
+    "kapitza": {
+      "at": {
+        "rod": "Egy merev rúd, a végén súllyal, egy forgáspontról lóg. Ha felállítják és elengedik, eldől – mint minden ceruza, amelyet a hegyére állítanak.",
+        "motor": "Ekkor bekapcsolják a motort: fel-le rázza a forgáspontot, egy centiméterrel, másodpercenként mintegy 40-szer. A rúd most fejjel lefelé állva marad. Ha meglökik, inog, majd újra felegyenesedik."
+      },
+      "view": "A rúd a rázott forgásponton, a végén a súly; szaggatottan a felfelé mutató függőleges",
+      "play": {
+        "title": "Felállítani és rázni",
+        "hint": "Állítsa fel a rudat, először motor nélkül, aztán motorral. Lökje meg, vagy húzza oldalra a súlyt.",
+        "upright": "Felállítás",
+        "nudge": "Meglökés",
+        "motor": "Motor",
+        "motor_hint": "Fel-le rázza a forgáspontot",
+        "drag_hint": "A súlyt egérrel vagy ujjal meg lehet fogni és el lehet engedni.",
+        "frequency": "A motor frekvenciája",
+        "amplitude": "A forgáspont lökete (fel és le)",
+        "presets_label": "Beállítások:",
+        "presets": {
+          "fast": "Gyors és finom",
+          "slow": "Lassú és széles",
+          "swing": "Belengetés"
+        },
+        "holds": "Ilyen gyorsan rázva a rúd fent állva marad.",
+        "falls": "Így rázva a rúd fentről eldől.",
+        "swings": "Így rázva még a lógó rúd is egyre jobban belendül.",
+        "off": "Motor nélkül a rúd fentről eldől."
+      },
+      "figures": {
+        "angle": "Szög a felfelé mutató függőlegeshez",
+        "least": "Legkisebb frekvencia, pontosan",
+        "kapitza": "Legkisebb frekvencia Kapica szerint",
+        "gap": "Eltérés",
+        "wobble": "Inogás fent, periódus"
+      },
+      "change": {
+        "title": "A kiállítási tárgy módosítása",
+        "hint": "A rúd onnan folytatja, ahol éppen van.",
+        "length": "A rúd hossza",
+        "damping": "Csillapítás"
+      },
+      "model": {
+        "intro": "A forgásponttal együtt mozogva a súly a nehézségi erő mellett a forgáspont gyorsulását is érzi: hol nehezebb, hol könnyebb, másodpercenként 40-szer. A gyors rázásra átlagolva ezek az erők nem oltják ki egymást.",
+        "motion": "A rúd mozgásegyenlete: a nehézségi erő és a rázás lefelé fordítja, a csillapítás fékezi. A forgáspont a·cos ωt-vel a középhelyzete alatt van.",
+        "potential": "Kapica átlagolt potenciálja: a helyzeti energiához a rázás egy része adódik, amely akkor a legnagyobb, ha a rúd vízszintes, és akkor a legkisebb, ha függőleges – lent is, fent is.",
+        "bound": "Fent ez a potenciál völgy, amint a²ω² nagyobb 2gl-nél: a 20 cm-es, 1 cm-rel rázott rúdnál 31,5 Hz-től. A csúcs körül a rúd ekkor lassan inog Ω körfrekvenciával."
+      },
+      "symbols": {
+        "theta": "a rúd szöge a lefelé mutató függőlegestől (π: fejjel lefelé)",
+        "g": "nehézségi gyorsulás, 9,81 m/s²",
+        "a": "a forgáspont lökete",
+        "omega": "a motor körfrekvenciája, frekvenciájának 2π-szerese",
+        "l": "a rúd hossza a súlyig",
+        "c": "a csillapítás",
+        "u": "a lassú mozgás átlagolt potenciálja",
+        "m": "a súly tömege",
+        "big_omega": "a csúcs körüli lassú inogás körfrekvenciája"
+      },
+      "computed": {
+        "system": "Két elsőrendű egyenlet, szög és szögsebesség, Runge–Kutta-módszerrel, a motorperiódus századrészének megfelelő lépésekben, soha nem 1 ms-nál hosszabban. Hogy a rúd fent marad-e, azt egy második számítás mondja meg, várakozás nélkül: a csúcs közelében az egyenlet lineáris, periodikus együtthatóval (Mathieu-egyenlet). Floquet szerint ekkor minden periódus ugyanazt teszi minden kis eltéréssel: egy rögzített M mátrixszal szorozza. A számítómag M-et két eltérés egy perióduson át történő követésével találja meg, 1000 lépésben; sajátértékei, a Floquet-multiplikátorok döntenek. A legkisebb frekvenciát 40 felezéssel keresi meg.",
+        "floquet": "Egy motorperiódus az M mátrixszal képezi le a csúcstól való eltérést. Ha M mindkét sajátértéke az egységkörön belül van, minden kis eltérés kicsi marad: ez pontosan akkor teljesül, ha a nyom abszolút értéke kisebb, mint 1 plusz a determináns. A determináns e^(−cT), csillapítással 1-nél kisebb.",
+        "phi": "a kis eltérés a felfelé mutató függőlegestől",
+        "t": "a motor egy periódusa, 1/f",
+        "m": "a monodrómia-mátrix: mit tesz egy periódus az eltéréssel"
+      },
+      "chart": {
+        "gravity": "Nehézségi erő",
+        "shaking": "Rázás",
+        "sum": "Együtt",
+        "potential": "Potenciál tömegegységre",
+        "angle": "Szög alulról"
+      },
+      "sweet": {
+        "potential": "A trükk: a gyors rázás egy olyan járulékos potenciállá átlagolódik, amelynek minimuma fent van. A nehézségi erőnek egymagában ott dombja van; elég erős rázásnál az összeg ebből mélyedést csinál, amelyben a rúd megmarad (180°-nál, középen).",
+        "approach": "Kapica határa egy a/l szerinti közelítés első tagja. A Floquet-multiplikátorok a pontos határt adják: csillapítás nélkül a/l = 0,01-nél 0,002 %-kal, 0,05-nél 0,055 %-kal, 0,2-nél 0,86 %-kal magasabb – minél kisebb a löket a rúdhoz képest, annál pontosabb Kapica.",
+        "band": "És lógva? A rúd magától {{own}} Hz-cel leng. Ha a motor körülbelül kétszer olyan gyorsan ráz, {{low}} és {{high}} Hz között, egyre jobban belendül (parametrikus rezonancia) – próbálja ki a „Belengetés” gombot.",
+        "no_band": "És lógva? A rúd magától {{own}} Hz-cel leng. Ezzel a lökettel és csillapítással még a kétszeres frekvencia sem lendíti be."
+      }
+    },
+    "film": {
+      "at": {
+        "rings": "Két drótgyűrűt együtt mártanak szappanos vízbe, majd lassan széthúzzák őket. Közöttük szappanhártya feszül, középen elkeskenyedve, mint egy derék.",
+        "waist": "Minél távolabb vannak a gyűrűk, annál keskenyebb a derék. A gyűrűk átmérőjének nagyjából kétharmadánál a hártya hirtelen enged: mindkét gyűrűben egy-egy lapos korong marad."
+      },
+      "view": "Két gyűrű oldalról, köztük a szappanhártya; a jobb oldali gyűrű húzható vagy a nyílbillentyűkkel mozgatható",
+      "play": {
+        "title": "Széthúzás",
+        "hint": "Húzza a jobb oldali gyűrűt jobbra vagy balra, vagy válassza ki a Tab billentyűvel, és mozgassa a nyilakkal, Shifttel centiméterenként. Szaggatottan a hártyán át: a dereka.",
+        "dip": "Újramártás",
+        "ring": "Jobb oldali gyűrű",
+        "distance": "A gyűrűk távolsága",
+        "distance_hint": "Gyűrűközéptől gyűrűközépig.",
+        "radius": "A gyűrűk sugara",
+        "radius_hint": "A két gyűrű egyforma nagy.",
+        "thin": "A keskeny alak mutatása",
+        "thin_hint": "Minden távolsághoz egy második, keskenyebb hártya is illik. Ez instabil: a szappanhártya sosem veszi fel.",
+        "caption": "Oldalról, méretarányosan: {{diameter}} cm átmérőjű gyűrűk. Az „Újramártás” újra közel tolja a gyűrűket.",
+        "least": "A hártya felülete a lehető legkisebb: {{area}} cm²; két lapos korongé {{discs}} cm² lenne.",
+        "held": "Két lapos korongnak most kisebb lenne a felülete, {{discs}} cm² a(z) {{area}} cm² helyett. A hártya mégis megmarad – egyelőre.",
+        "torn": "Elszakadt: mindkét gyűrűben egy lapos korong maradt. Összetolva is korongok maradnak; mártsa újra a gyűrűket."
+      },
+      "figures": {
+        "neck": "Derék (sugár)",
+        "area": "A hártya felülete",
+        "discs": "Két korong",
+        "tear": "Elszakad"
+      },
+      "model": {
+        "intro": "A szappanhártya a pereme által megengedett legkisebb felületre húzódik össze: energiája a felületi feszültség és a felület szorzata. Két egyforma, egy tengelyen álló gyűrű között ez egy katenoid, a tengely körül megforgatott láncgörbe – ugyanaz a görbe, mint a boltívnél a lógó láncé.",
+        "catenoid": "A hártya sugara a derékától z távolságra; c a derék sugara.",
+        "rings": "A hártyának mindkét gyűrűig el kell érnie: ez határozza meg a c derekat – ha van ilyen.",
+        "ratio": "A t = h/(2c) jelöléssel egy csak t-re vonatkozó egyenlet marad. A jobb oldala előbb nő, aztán újra csökken.",
+        "peak": "Ott a legnagyobb, ahol t·tanh t = 1, t ≈ 1,1997-nél: itt h/R ≈ 1,3255. Alatta két hártya fér a gyűrűk közé, egy széles és egy keskeny; fölötte egy sem.",
+        "area": "A hártya felülete, és a két korongé, amelyet egy elszakadt hártya hagy maga után.",
+        "two": "A széles hártya stabil, a keskeny nem: meglökve visszaesik a szélesbe vagy elszakad. A szakadási távolságnál a kettő egybeesik; a derék ekkor a gyűrűsugár 55 %-ára zsugorodott."
+      },
+      "symbols": {
+        "r": "a hártya sugara",
+        "z": "távolság a deréktól, a tengely mentén",
+        "c": "a derék sugara",
+        "R": "a gyűrűk sugara",
+        "h": "a gyűrűk távolsága",
+        "t": "a gyűrűk távolságának fele, a derék sugarában mérve",
+        "hmax": "a legnagyobb távolság, amelynél derekas hártya még eléri a gyűrűket",
+        "A": "a hártya felülete",
+        "discs": "a két korong felülete"
+      },
+      "sweet": {
+        "least": "A trükk: a hártya mindig a legkisebb elérhető felületre húzódik össze. 1,055 gyűrűsugártól, 5 cm-es gyűrűknél 5,28 cm-től két lapos korongnak ugyan kisebb lenne a felülete. De hogy odajusson, a hártyának előbb nőnie kellene: ezért marad.",
+        "tear": "1,3255 gyűrűsugártól, 5 cm-es gyűrűknél 6,63 cm-től már egyetlen derekas hártya sem éri el mindkét gyűrűt. A derék elszűkül, és a hártya átugrik a két korongba. Közvetlenül előtte egyötödével nagyobb a felülete, mint a kettőé.",
+        "equal_tile": "Korongok kisebbek h/R-től",
+        "tear_tile": "Elszakad h/R-től",
+        "t_tile": "t, ahol t·tanh t = 1",
+        "seen": "Valódi szappanhártyáknál is így van: Ito és Sato (2010) lefilmezte, hogy a korongokba ugrás elmarad ott, ahol azoknak kisebb lenne a felülete. A hártya a szakadási távolság közeléig kitart, majd egy pillanat alatt elszűkül."
+      },
+      "chart": {
+        "hint": "A hártya felülete a két korongéhoz mérve, a gyűrűk távolsága szerint: a széles, stabil hártya, a keskeny, instabil, és a korongok. Ahol a két hártya találkozik, a görbék véget érnek: ott szakad el a hártya.",
+        "wide": "széles hártya (stabil)",
+        "thin": "keskeny hártya (instabil)",
+        "discs": "két korong",
+        "area": "felület / két korong",
+        "distance": "távolság / gyűrűsugár"
+      },
+      "computed": {
+        "system": "Minden távolsághoz az oldal úgy keresi meg t-t, hogy egy intervallumot újra és újra megfelez, egyszer a t·tanh t = 1 csúcstól balra, egyszer jobbra, és ebből számolja a derekat és a felületet. Itt semmi sem fut az időben: a kéz adja meg a távolságot. A számítás az Ön böngészőjében fut, ugyanazokkal a képletekkel, mint az oldal számítómotorja.",
+        "left_out": "Kimaradt: a nehézségi erő, amely egy valódi hártyát kissé lehajlít; a hártya vastagsága, lefolyása, és hogy néha idő előtt kipukkad; a gyűrűk drótja, itt egy vonal; és ahogy a derék elszűkül, amikor már nincs mibe kapaszkodnia."
+      }
+    },
+    "metronomes": {
+      "at": {
+        "board": "Egy könnyű deszkán öt metronóm áll, mind ugyanarra a tempóra állítva. A deszka két üres italos dobozon fekszik, és oldalra gurulhat. A metronómokat egymás után, tetszőleges pillanatban indítják el.",
+        "agree": "Eleinte összevissza ketyegnek. Kevesebb mint egy perc múlva mind együtt lengenek, és a deszka velük ring. Az asztalon álló deszkán soha nem találnak össze."
+      },
+      "view": "A két dobozon fekvő deszka elölről, rajta a metronómok",
+      "play": {
+        "title": "A metronómok elindítása",
+        "hint": "Koppintson egy metronómra az elindításához vagy megállításához. A deszka mozgása {{times}}-szeres nagyításban látható. A kör mutatja, hol tart lengésében az egyes metronóm; a nyíl az átlaguk.",
+        "random": "Mind véletlenszerűen indítani",
+        "stop_all": "Mind megállítani",
+        "each": "A metronómok egyenként",
+        "start_one": "A(z) {{n}}. metronóm indítása",
+        "stop_one": "A(z) {{n}}. metronóm megállítása",
+        "board": "A deszka",
+        "free": "A dobozokon",
+        "held": "Az asztalon",
+        "dial": "Hol tart lengésében az egyes metronóm, és átlaguk nyílként",
+        "trace": "Mennyire értettek egyet az utolsó percben",
+        "answer": "Most egyetértenek: R 0,99 fölött van. Az asztalon maguktól soha nem találnak össze."
+      },
+      "figures": {
+        "order": "Egyetértés R",
+        "time": "Idő",
+        "coupling": "Csatolás β"
+      },
+      "change": {
+        "title": "A kiállítási tárgy módosítása",
+        "hint": "A könnyebb deszka erősebben csatol. Ha a tempók túl messze vannak egymástól, a metronómok már nem találnak össze.",
+        "count": "A metronómok száma",
+        "board": "A deszka tömege",
+        "board_hint": "A metronómok nélkül. A nehezebb deszka kevésbé mozog, és a csatolás gyengül.",
+        "spread": "Tempókülönbség",
+        "spread_hint": "Mennyivel jár gyorsabban a leggyorsabb metronóm a leglassabbnál; a többi a kettő között van."
+      },
+      "model": {
+        "intro": "James Pantaleone 2002-ben két és hét metronómmal végezte el ezt a kísérletet, és egyszerű modellt állított fel hozzá. Minden metronóm egy inga; az őt hajtó gátlómű egy tag, amely a kis lengéseket táplálja, a nagyokat fékezi.",
+        "equation": "Az i-edik metronóm egyenlete, az időt lengésekben mérve: a súly, a hajtás, amely a lengést kb. 45°-on tartja (θ₀ = 0,39 rad, μ = 0,010), és a metronóm alatt mozgó deszka tehetetlenségi ereje.",
+        "board": "Kívülről senki sem tol: a deszka és a metronómok tömegközéppontja ott marad, ahol van. Ha az ingák jobbra lendülnek, a deszka balra gurul. β megmondja, milyen erősen érzi ezt minden metronóm; Pantaleone két metronómjára az ő deszkáján x₀ = 0,088 cm és β = 0,011.",
+        "order": "Hogy mennyire értenek egyet, azt mutatóik átlaga méri: R = 1, ha mind egy ütemre lengenek, közel 0, ha szétszórtak.",
+        "lock": "Két metronómra Pantaleone ebből egyetlen egyenletet vezet le a ψ fáziskülönbségükre. Ez megnyugszik, ha Δ elég kicsi: ekkor a gyorsabb ψ* = arcsin(μΔ/(β(3γ + β))) értékkel jár elöl. Az ő két, fél százalékkal eltérő metronómjára ez 3,1°; a számítómag 3,3°-ot talál."
+      },
+      "symbols": {
+        "theta": "az i-edik inga kitérése",
+        "tau": "az idő, a lengés radiánjaiban számolva",
+        "omega": "a metronómok körfrekvenciája, 10,9 1/s (percenként 208 ütés)",
+        "delta": "mennyivel gyorsabbra vagy lassabbra van állítva az i-edik metronóm",
+        "mu": "a hajtás erőssége",
+        "theta0": "a szög, amelynél a hajtás fékezésbe vált át: a kitérés fele",
+        "beta": "a deszkán keresztüli csatolás",
+        "x": "hol áll a deszka",
+        "mr": "egy inga tömege szorozva súlypontjának a tengelytől mért távolságával",
+        "M": "minden, ami a dobozokon gurul: deszka és metronómok",
+        "g": "nehézségi gyorsulás, 9,81 m/s²",
+        "R": "mennyire értenek egyet, 0-tól 1-ig",
+        "phi": "hol tart lengésében a j-edik metronóm",
+        "N": "a járó metronómok száma",
+        "psi": "a kettő fáziskülönbsége",
+        "gamma": "mennyire lassítja az ingát a nagy kitérés",
+        "F": "amit a súly és a hajtás egymagában gyorsít",
+        "S": "Σ sin θⱼ második deriváltja: ami a deszkát mozgatja"
+      },
+      "sweet": {
+        "push": "Minden ütés kicsit meglöki a deszkát – együtt lengve kb. 1,4 mm-t ide-oda –, és a deszka mozgása minden metronómot ugyanazon fázis felé tol.",
+        "in_step": "A kiállítási tárgy kiinduló helyzetéből a dobozokon {{seconds}} s múlva egy ütemre lengenek (R 0,99 fölött). Az asztalon R ugyanezen két perc alatt legfeljebb {{most}}.",
+        "never": "A dobozokon két perc alatt nem találnak össze: tempóik túl messze vannak egymástól ehhez a csatoláshoz. Az asztalon R legfeljebb {{most}}.",
+        "why": "Az asztalon éppen ez hiányzik: a deszka áll, egyik sem érzi a többit, és mindegyik megtartja saját tempóját. Távolságaik lassan vándorolnak, ahogy tempóik különböznek."
+      },
+      "chart": {
+        "order": "Egyetértés R",
+        "time": "Idő"
+      },
+      "computed": {
+        "solve": "A deszka minden inga gyorsulásától függ, és minden inga a deszkáétól. Mivel mind ugyanazon a deszkán osztoznak, ez egy lépésben megoldható: először S egy összegből, aztán minden gyorsulás.",
+        "system": "Így a 2N elsőrendű egyenlet, a kitérések és sebességeik, explicitté válik. A számítómag Runge–Kutta-módszerrel oldja meg 4 ms-os lépésekben, lengésenként 144-gyel; az oldal ugyanezekkel a lépésekkel teszi, képkockánként néhánnyal."
+      }
+    },
+    "ship": {
+      "at": {
+        "basin": "Egy medencében egy hajómodell teste úszik. Egy súly feltolható egy árbocon, vagy letolható a hajótest alatti tőkesúlyba.",
+        "low": "Ha a súly lent van, kézzel megdöntjük a testet és elengedjük: visszaleng és felegyenesedik.",
+        "high": "Ha fent van az árboc tetején, egy kis lökés is elég: a hajótest felborul, és gerinccel felfelé úszik."
+      },
+      "view": "A medence a hajótest metszetével, a súllyal az árbocon vagy a tőkesúlyban, a G súlyponttal és a B felhajtóerő-középponttal",
+      "play": {
+        "title": "A hajótest megdöntése",
+        "hint": "Fogja meg a hajótestet, döntse meg, és engedje el. Aztán tolja feljebb vagy lejjebb a súlyt, és próbálja újra.",
+        "push": "Meglökni",
+        "upright": "Felállítani",
+        "tilt": "A hajótest dőlése: a nyílbillentyűk megdöntik, elengedve szabadon leng",
+        "weight": "A súly magassága",
+        "weight_hint": "A hajótest alja fölött: nulla alatt a tőkesúlyban van, 12 cm fölött az árbocon.",
+        "caption": "Keresztmetszet a hajótesten. Árnyalt, ami víz alatt van: a felhajtóerő a B középpontján át nyom felfelé, a súly G-n át húz lefelé, vízszintes távolságuk a GZ erőkar.",
+        "motion": {
+          "held": "Az Ön keze tartja a hajótestet.",
+          "upright": "Egyenesen úszik.",
+          "on_edge": "Labilis egyensúlyban van: egy kis lökés, és felborul.",
+          "loll": "Megdőlve marad: egyenesen nem tud megállni.",
+          "keel_up": "Felborult, és gerinccel felfelé úszik.",
+          "capsizing": "Felborul.",
+          "rolling": "Leng."
+        },
+        "heel": "Dőlés",
+        "arm": "GZ erőkar",
+        "gm": "GM metacentrikus magasság",
+        "period": "Lengési idő"
+      },
+      "change": {
+        "title": "A hajótest átépítése",
+        "hint": "Tegye a hajótestet szélesebbé vagy keskenyebbé, a súlyt nehezebbé vagy könnyebbé, és hagyja a vizet erősebben vagy gyengébben fékezni.",
+        "beam": "A hajótest szélessége",
+        "beam_hint": "Minél szélesebb a vízvonal, annál magasabban van a metacentrum: BM a szélesség négyzetével nő.",
+        "weight": "A súly tömege",
+        "weight_hint": "A hajótest egymagában 2 kg.",
+        "damping": "A víz csillapítása",
+        "damping_hint": "Milyen gyorsan fékezi a víz a lengést; nullánál vég nélkül leng."
+      },
+      "figures": {
+        "draft": "Merülés",
+        "kb": "KB felhajtóerő-középpont",
+        "bm": "BM metacentrikus sugár",
+        "kg": "KG súlypont",
+        "limit": "A súly magassága, amelytől felborul",
+        "vanishing": "Dőlés, ameddig visszajön"
+      },
+      "chart": {
+        "curve_hint": "A GZ erőkar a dőlés szerint, a súllyal a beállított magasságban; szaggatottan GM·sin φ, a kis szögekre érvényes közelítés. Ahol a görbe nulla alá esik, felborul.",
+        "arm": "GZ erőkar",
+        "small": "GM·sin φ",
+        "heel": "Dőlés",
+        "trick_hint": "A GZ erőkar a dőlés szerint a súly három magasságára: a tőkesúly alján, a fedélzeten és fent az árbocon.",
+        "weight_at": "Súly {{cm}} cm-en"
+      },
+      "model": {
+        "intro": "A hajótest itt egy zárt doboz, metszetben egy téglalap. Addig merül, amíg a kiszorított víz annyit nem nyom, mint a hajótest és a súly együtt.",
+        "draft": "Arkhimédész a dobozra: a kiszorított víz annyit nyom, mint a hajótest és a súly. Itt 3,0 cm-re merül.",
+        "gravity": "A hajótest és a súly közös súlypontja, a K aljától mérve. Ha a súly elmozdul, csak ez mozdul; a merülés ugyanaz marad.",
+        "arm": "Megdöntve a B felhajtóerő-középpont, a víz alatti rész középpontja, vízszintesen GZ távolságra van a súlyponttól. Ha GZ pozitív, B a mélyebb oldalon van, és a felhajtóerő meg a súly visszafordítja a testet.",
+        "metacentre": "Kis szögeknél a B-n átmenő függőleges mindig ugyanabban a pontban metszi a hajótest középvonalát: ez az M metacentrum; GM a G fölötti magassága. Az itteni dobozban B 1,5 cm-rel van az alj fölött, BM 11,1 cm, és M 12,6 cm-rel van az alj fölött.",
+        "wall": "Amíg a falak függőlegesen állnak a vízben, ez a képlet a dobozra pontos, itt 16,7°-ig, ahol az alja kiemelkedik; kis szögekre GM·sin φ marad. Azon túl az oldal geometriailag számolja ki a víz alatti részt, amíg a hajótest az oldalán vagy gerinccel felfelé nem fekszik."
+      },
+      "symbols": {
+        "rho": "a víz sűrűsége",
+        "l": "a hajótest hossza",
+        "b": "a hajótest szélessége",
+        "d": "merülés",
+        "mh": "a hajótest tömege",
+        "mw": "a súly tömege",
+        "kg": "a G súlypont magassága a K alj fölött",
+        "zh": "az üres hajótest súlypontjának magassága",
+        "zw": "a súly magassága",
+        "gz": "erőkar a felhajtóerő és a súly között",
+        "phi": "dőlés",
+        "yzb": "a B felhajtóerő-középpont helye a hajótestben, keresztben és magasságban",
+        "gm": "metacentrikus magasság",
+        "kb": "a felhajtóerő-középpont magassága az alj fölött",
+        "bm": "a felhajtóerő-középpont és a metacentrum távolsága",
+        "i": "a vízvonal másodrendű nyomatéka",
+        "v": "kiszorított térfogat",
+        "inertia": "tehetetlenségi nyomaték a G-n átmenő hossztengelyre",
+        "m": "a hajótest és a súly tömege",
+        "g": "nehézségi gyorsulás",
+        "beta": "a víz csillapítása",
+        "kh": "az üres hajótest tehetetlenségi sugara",
+        "t": "lengési idő"
+      },
+      "sweet": {
+        "moves": "A trükk: ha a hajótest megdől, a mélyebb oldala bemerül, a magasabb kiemelkedik. A kiszorított víz, és vele a B felhajtóerő-középpont, a mélyebb oldalra kerül. Amíg az M metacentrum a G súlypont fölött van, B kijjebb van, mint G, és a felhajtóerő meg a súly visszafordítja a testet.",
+        "numbers": "Itt M 12,6 cm-rel van az alj fölött. A súllyal a fedélzeten G 7,3 cm-en van: GM 5,3 cm, és 75°-os dőlésig visszajön. A tőkesúly alján G az alj alatt van, GM 14,3 cm, és bármilyen helyzetből visszajön, még az oldaláról is, ahol egy 7,7 cm-es erőkar állítja fel.",
+        "high": "A súly feltolása G-t emeli, mást semmit: a merülés, B és M ott maradnak, ahol vannak. Az árbocon 27,8 cm-től G az M fölött van. Egyenesen ekkor labilis egyensúlyban van, és egy kis lökés felborítja; 35 cm-nél GM −2,4 cm. Gerinccel felfelé viszont ekkor stabilan úszik."
+      },
+      "computed": {
+        "system": "Az oldal lépésről lépésre számolja a lengést, 2 ms-onként (Runge–Kutta). Minden lépésben megkeresi a dőléshez azt a vízvonalat, amely pontosan a kiszorítást hagyja a víz alatt, kivágja a víz alatti részt a metszetből, és annak középpontját veszi felhajtóerő-középpontnak.",
+        "roll": "Forgás a súlypont körül: a GZ erőkar visszafordít, a víz fékez. A tehetetlenségi nyomaték a hajótesté, Steiner-tétellel G-be áthelyezve, és a súlyé.",
+        "period": "Kis szögeknél úgy leng, mint egy inga: a súllyal a fedélzeten 0,58 s-onként. Minél kisebb GM, annál lomhább: a súllyal 25 cm-re az árbocon GM csak 0,9 cm, és 2,3 s-onként leng.",
+        "check": "Az oldal tesztjei a GM-et a KB + BM − KG értékkel, a 15°-os erőkart a függőleges falak képletével, az oldalán fekvő testet a víz alatti téglalap középpontjával, a lengési időt pedig a kis szögek képletével vetik össze. A számítás az Ön böngészőjében fut, ugyanazokkal a képletekkel, mint az oldal számítómagja.",
+        "left_out": "Kihagyva: a víz, amelyet a lengő test magával mozgat (meghosszabbítja a periódust); hogy a test dőléskor fel-le mozog (itt minden szögben azonnal a kiszorításán úszik); az oldalirányú sodródás és a lengés keltette hullámok; a tőkesúly és az árboc térfogata és tömege; a beáramló víz. Az értékek egy feltételezett modellé: egy 20 cm széles, 12 cm magas, 50 cm hosszú, 2 kg-os doboz, saját súlypontja 5 cm-rel az alja fölött; egy 1 kg-os súly, a hajótest alatt 15 cm-től az árbocon 40 cm-ig."
+      }
+    },
+    "string": {
+      "at": {
+        "cord": "Egy vékony, rugalmas zsinór egyik vége egy vibrátorhoz van rögzítve, amely másodpercenként százszor kissé fel-le rázza. A másik végét Ön egy csapon átvezeti, és kézzel lefelé húzza.",
+        "loops": "Lazán tartva a zsinór csak elmosódottan remeg. Feszítse meg lassan: bizonyos húzóerőknél hirtelen megáll egy, két, három duzzadóhelyben, köztük nyugodt csomópontokkal. Minél erősebben húzza, annál kevesebb a duzzadóhely."
+      },
+      "view": "A zsinór a vibrátortól a csapig: mennyire leng ki, benne a zsinór, ahogy egy stroboszkóp mutatja, jobbra pedig az Ön kezének húzása",
+      "play": {
+        "title": "A zsinór húzása",
+        "hint": "Húzza erősebben vagy lazábban, és keresse meg azokat a húzóerőket, amelyeknél a zsinór duzzadóhelyekben megáll.",
+        "calm": "Lecsillapítás",
+        "caption": "A sáv mutatja, mennyire leng ki a zsinór; a benne lévő vonal úgy mutatja, ahogy egy, a hangtól kissé eltérő stroboszkóp: lelassítva. A magasság {{times}}-szorosra nagyítva.",
+        "pull": "Az Ön kezének húzása",
+        "pull_hint": "Az erő, amellyel a zsinórt a csapon át megfeszíti. Minél feszesebb, annál gyorsabban futnak a hullámok.",
+        "tone": "A vibrátor hangja",
+        "tone_hint": "Hányszor rázza meg a vibrátor a zsinórt másodpercenként; a kiállításon fixen százszor.",
+        "widest": "Legnagyobb kitérés",
+        "stroke": "A vibrátor lökete",
+        "speed": "Hullámsebesség",
+        "half_waves": "Félhullámok a két vég között",
+        "three": "Húzás három duzzadóhelyhez {{hz}} Hz-en"
+      },
+      "chart": {
+        "swing": "Legnagyobb kitérés",
+        "half_waves": "Félhullámok a két vég között, 2Lf/v",
+        "caption": "A zsinór állandósult kitérése a vibrátor hangján, a két vég közé férő félhullámok számának függvényében: csúcsok pontosan az egész számoknál. A vonal az Ön húzásánál áll.",
+        "tone": "A vibrátor hangja",
+        "tones_hint": "Az állandósult kitérés a vibrátor hangjának függvényében, három húzóerőre, mindegyik négyszerese az előzőnek: azok a hangok, amelyeknél a zsinór duzzadóhelyeket alkot, megduplázódnak."
+      },
+      "change": {
+        "title": "A zsinór módosítása",
+        "hint": "Másik zsinór vagy másik vibrátor.",
+        "length": "Hossz",
+        "length_hint": "A vibrátortól a csapig.",
+        "density": "Méterenkénti tömeg",
+        "density_hint": "Nehezebb zsinóron lassabban futnak a hullámok.",
+        "damping": "Csillapítás",
+        "damping_hint": "A levegő és a zsinór együtt, egyetlen rátaként: minél erősebb, annál alacsonyabbak és szélesebbek a csúcsok.",
+        "stroke": "A vibrátor lökete",
+        "stroke_hint": "Mennyire mozdítja el a vibrátor a zsinór végét mindkét irányba.",
+        "f1": "Legmélyebb hang az Ön húzásánál",
+        "one": "Húzás egy duzzadóhelyhez {{hz}} Hz-en",
+        "limit": "Egy duzzadóhely kitérése az Ön húzásánál"
+      },
+      "model": {
+        "intro": "A zsinór a hullámegyenletet követi: minden darabját a szomszédai húzzák vissza, annál erősebben, minél görbültebb ott a zsinór. Az egyik végét a vibrátor mozgatja, a másikat a csap tartja.",
+        "wave": "Tömeg szorozva gyorsulással, plusz egy kis csillapítás, egyenlő a húzás szorozva a görbülettel. A vibrátornál a zsinór vele mozog, a csapnál áll.",
+        "tones": "A sajáthangok: pontosan n félhullám fér a két vég közé (Mersenne törvényei). Rögzített vibrátorhangnál tehát n duzzadóhelyhez egy húzóerő tartozik: négyszer feszesebben fele annyi duzzadóhely.",
+        "transfer": "Az átviteli függvény a vibrátortól az x pontig. s = iΩ-nál abszolút értéke adja az állandósult kitérést; pólusai a sajátrezgések, mindegyik γ/2-vel csillapítva.",
+        "peak": "Pontosan egy sajáthangnál a zsinór minden duzzadóhelyben nagyjából ennyire leng ki; közöttük alig jobban, mint maga a vibrátor."
+      },
+      "symbols": {
+        "y": "A zsinór kitérése",
+        "x": "Hely a zsinór mentén, a vibrátortól",
+        "t": "Idő",
+        "mu": "A zsinór méterenkénti tömege",
+        "gamma": "Csillapítás, levegő és zsinór együtt",
+        "tension": "Az Ön kezének húzása",
+        "a": "A vibrátor lökete",
+        "omega": "A vibrátor körfrekvenciája",
+        "l": "Hossz a vibrátortól a csapig",
+        "fn": "Az n-edik sajáthang",
+        "n": "A duzzadóhelyek száma",
+        "v": "Hullámsebesség",
+        "tn": "Húzás n duzzadóhelyhez",
+        "f": "A vibrátor hangja",
+        "g": "Átviteli függvény a vibrátortól az x pontig",
+        "s": "A Laplace-transzformáció komplex frekvenciája",
+        "kappa": "Komplex hullámszám",
+        "sn": "Pólusok: a csillapított sajátrezgések",
+        "omegan": "Az n-edik sajáthang körfrekvenciája",
+        "peak": "Kitérés egy duzzadóhelyben",
+        "theta": "A vibrátor fázisa",
+        "qn": "Az n-edik sajátrezgés kitérése"
+      },
+      "sweet": {
+        "trick": "A trükk: a vibrátor elindít egy hullámot; ez a csapig fut, visszaverődik, visszafut, és a vibrátornál újra visszaverődik, újra és újra. Csak ha egész számú félhullám fér a két vég közé, érkezik minden visszavert hullám ütemben az újakkal, és mind egy álló mintázattá adódik össze. Különben nagyrészt kioltják egymást.",
+        "numbers": "100 Hz-en a zsinór 20 N-nál egy duzzadóhelyben áll, 5 N-nál kettőben, 2,22 N-nál háromban. Egy duzzadóhely ekkor 67 mm-t leng ki, három duzzadóhely egyenként 22 mm-t, tizenegyszer annyit, mint a vibrátor. 3,2 N-nál, két és fél félhullámnál, sehol sem leng ki jobban, mint maga a vibrátor: 2 mm.",
+        "pull": "Az erősebb húzás gyorsabbá és hosszabbá teszi a hullámokat, és kevesebb duzzadóhely fér el: négyszeres húzás megduplázza a hangokat. Így hangolnak egy gitárt."
+      },
+      "computed": {
+        "system": "Az oldal a zsinórt a vibrátor által megszabott egyenesre és 40 sajátrezgésre bontja. Mindegyik egy csillapított rezgő, amelyet a vibrátor hajt; az oldal mindegyiket képkockáról képkockára pontosan megoldja, a hangot a képkocka alatt rögzítve. A számítás az Ön böngészőjében fut, ugyanazokkal a képletekkel, mint az oldal számítómagja.",
+        "modes": "A zsinór mint összeg: az egyenes a vibrátortól a csapig és 40 sajátrezgés, mindegyik egy csillapított, hajtott rezgő.",
+        "drawing": "Egy másodpercenként százszor rezgő zsinórt nem lehet képernyőn képkockáról képkockára megmutatni. A rajz ezért azt mutatja, amit a szem lát: a sávot a két szélső helyzete között, benne pedig a zsinórt, ahogy egy, a hangtól kissé eltérő stroboszkóp mutatja.",
+        "left_out": "Kihagyva: hogy a rugalmas zsinór húzáskor megnyúlik és elvékonyodik; a merevsége; olyan nagy kitérések, hogy a húzás a zsinór mentén változik; a vibrátor engedékenysége; a rajz síkjából kilépő rezgések."
+      }
+    },
+    "jet": {
+      "at": {
+        "tank": "Egy víztartály elülső falán alul lyuk van. A tartály mögött lézer áll; sugara a vízen át egyenesen abba a lyukba megy, amelyen a víz kifolyik.",
+        "follows": "A víz ívben egy medencébe hullik – és a fény nem halad tovább egyenesen: követi a hajló sugarat, amely zölden világít, és csak ott lép ki, ahol a sugár a medencébe ér vagy cseppekre bomlik.",
+        "colladon": "Daniel Colladon 1842-ben írta le ezt a kísérletet a Párizsi Tudományos Akadémia Comptes rendus című folyóiratában. A vízsugárban vezetett fény az üvegszál előfutára."
+      },
+      "scene_view": "A tartály a lézerrel, az ívelő vízsugár és a medence; a sugár addig világít, ameddig a fény benne marad",
+      "close_view": "A lyuk erősen nagyítva, a vízsugár felületén visszaverődő fénysugarakkal",
+      "play": {
+        "title": "A lézer döntése, a vízszint süllyesztése",
+        "hint": "Döntse meg a lézert és süllyessze a vizet: nézze meg, mikor hagyja el a fény a sugarat.",
+        "level": "Víz a lyuk fölött",
+        "level_hint": "Minél magasabban áll a víz, annál gyorsabban folyik ki, és annál enyhébben hajlik a sugár.",
+        "tilt": "A lézer dőlése",
+        "tilt_hint": "A lézerfény szöge a vízben a sugár tengelyéhez képest, felfelé pozitív.",
+        "scene_caption": "Az egész kiállítási tárgy. A sugár zölden világít, ameddig a fény benne marad; körök mutatják, hol lép ki útközben.",
+        "close_caption": "A lyuk erősen nagyítva: a lézer kilenc sugara, a vízsugár felületén visszaverődve. Szaggatottan a kilépő fény.",
+        "all_in": "Az összes fény a sugárban marad: minden fénysugár {{steepest}}°-ban vagy laposabban éri a felületet a merőlegeshez képest, a {{critical}}°-os határszögön túl. Csak a medencében lép ki.",
+        "some_out": "A fény {{out}} %-a útközben kilép a sugárból, {{arrives}} %-a eléri a medencét.",
+        "all_out": "Nem jut fény a medencébe: a {{critical}}°-os határszögnél meredekebben éri a felületet, és már közvetlenül a lyuk után kilép."
+      },
+      "figures": {
+        "speed": "Sebesség a lyuknál",
+        "bend": "Görbületi sugár a lyuknál",
+        "critical": "Határszög",
+        "steepest": "Legmeredekebb beesés, a merőlegeshez képest",
+        "arrives": "Fény a medencében",
+        "first_out": "Az első fény kilép ennyi után",
+        "landing": "A sugár ennyi után éri el a medencét",
+        "hits": "A középső fénysugár visszaverődései"
+      },
+      "change": {
+        "title": "A kiállítási tárgy módosítása",
+        "hint": "Módosítsa a lyukat, a medence fölötti magasságát és a folyadékot.",
+        "hole": "A lyuk átmérője",
+        "hole_hint": "Ilyen vastag a sugár. Minél vastagabb, annál szorosabb a hajlása a lyuknál a vastagságához képest.",
+        "drop": "Magasság a medence fölött",
+        "drop_hint": "Milyen mélyen áll a medence a lyuk alatt: ilyen hosszú a fény útja.",
+        "index": "A folyadék törésmutatója",
+        "index_hint": "A víz 1,333. Minél nagyobb a törésmutató, annál kisebb a határszög, és annál jobban tartja a sugár a fényt."
+      },
+      "chart": {
+        "inside_hint": "A sugárban még meglévő fény a lyuktól a medencéig vezető úton, vízszintesen mérve.",
+        "inside": "Fény a sugárban",
+        "along": "Távolság a lyuktól",
+        "reflected_hint": "Az a hányad, amelyet a felület belülről visszaver, a beesési szög szerint, {{index}} törésmutatónál: a határszög alatt kevés, onnantól az összes.",
+        "reflected": "Visszavert hányad",
+        "incidence": "Beesési szög a merőlegeshez képest"
+      },
+      "model": {
+        "intro": "A víz vízszintesen hagyja el a lyukat, és úgy esik, mint egy elhajított kő. A benne haladó fény egyenesen megy, amíg a sugár felületéhez nem ér; ott visszaverődik, és a határszög alatt egy része megtörve kilép.",
+        "torricelli": "A víz olyan gyorsan lép ki, mint amilyen gyors egy kő lenne h vízszintnyi esés után (Torricelli).",
+        "parabola": "A sugár tengelye parabola. A lyuknál hajlik a legerősebben, R sugárral, a vízszint kétszeresével; lejjebb egyre enyhébben.",
+        "snell": "A vízből a levegőbe lépő fény a merőlegestől elfelé törik (Snellius–Descartes-törvény).",
+        "critical": "A határszögtől kezdve nem marad szög a megtört fény számára: teljesen visszaverődik. Víznél ez 48,6°.",
+        "fresnel": "A határszög alatt csak ez a hányad verődik vissza (Fresnel, polarizálatlan fénynél a két polarizáció átlaga); a többi kilép."
+      },
+      "symbols": {
+        "v": "a víz sebessége a lyuknál",
+        "g": "nehézségi gyorsulás",
+        "h": "vízszint a lyuk fölött",
+        "x": "vízszintes távolság a lyuktól",
+        "y": "magasság a lyukhoz képest",
+        "r": "a tengely görbületi sugara a lyuknál",
+        "n": "a folyadék törésmutatója (levegő: 1)",
+        "theta": "beesési szög a vízben, a merőlegeshez képest",
+        "theta_t": "a kilépő fény szöge a merőlegeshez képest",
+        "theta_c": "határszög",
+        "r_f": "visszavert hányad"
+      },
+      "sweet": {
+        "grazing": "A trükk: a sugárban a fény súrolva éri a felületet, a merőlegeshez képest kb. 49°-nál nagyobb szögben. Ilyen laposan nem tud kilépni a vízből: teljesen visszaverődik, átmegy a sugáron a másik oldalig, ott újra, és így tovább a végéig. Ha a lézer egyenesen a lyukba céloz, a fény a kiállítási tárgynál 79°-ban vagy laposabban éri a felületet.",
+        "bend": "A sugár csak akkor engedi el a fényt, ha az meredekebben éri a felületet: ha a lézer 40°-nál jobban meg van döntve (egyenes sugárban 41,4° lenne, 90° mínusz 48,6°), vagy ha a sugár túl szorosan hajlik. A lyuknál a görbületi sugara a vízszint kétszerese; 6 mm-es lyuknál kb. 6 mm-es vízszint alatt fény lép ki. Ahol a sugár cseppekre bomlik, ott hiányzik a felület, és a fény kivilágít."
+      },
+      "computed": {
+        "system": "Az oldal kilenc fénysugarat követ, egyenletesen elosztva a lyukon, egyenesen a vízsugár felületéig. A felület ott van, ahol egy pont a lyuk átmérőjének felére van a tengelytől; a tengely legközelebbi pontját Newton-módszer, a beesési pontot a regula falsi találja meg. Ott a visszaverődés törvénye érvényes; a határszög alatt az lép ki, amit a felület nem ver vissza, Snellius szerint megtörve, a többi továbbhalad. A számítás az Ön böngészőjében fut, ugyanazokkal a képletekkel, mint az oldal számítómagja.",
+        "check": "Az oldal tesztjei saját kereséssel újramérik a beesési pontokat: a tengelytől a lyuk átmérőjének felére vannak, a beesési és a visszaverődési szög egyenlő, és ami kilép, valamint ami megérkezik, együtt pontosan az összes fényt adja. A kiállítási tárgynál egyenes lézerrel az összes fény eléri a medencét, 49 cm-re a lyuktól.",
+        "left_out": "Kimaradt: a kerek sugár másik iránya (az oldal abban a metszetben számol, amelyben a sugár esik, és az ezen kívüli fénysugarak hiányoznak); hogy a sugár vékonyodik, ahogy gyorsabban esik; cseppekre bomlása (itt egészen a medencéig egyben marad); a felületi feszültség, amely a nagyon lassú sugarat a falon tartja; a lézer polarizációja és sugarának szélessége; a hullámok a felületen; a fény, amelyet maga a víz elnyel."
+      }
     }
   },
   "course": {

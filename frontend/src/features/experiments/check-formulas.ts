@@ -85,6 +85,14 @@ const LAMBDA: CheckSymbol = { tex: String.raw`\lambda`, key: "lambda", unit: "nm
 const D_WALL: CheckSymbol = { tex: "D", key: "D_wall", unit: "m" };
 const D_SLITS: CheckSymbol = { tex: "d", key: "d_slits", unit: "m" };
 const A_SLIT: CheckSymbol = { tex: "a", key: "a_slit", unit: "m" };
+const POL_I: CheckSymbol = { tex: "I", key: "pol_I", unit: "W/m²" };
+const POL_I0: CheckSymbol = { tex: "I_0", key: "pol_I0", unit: "W/m²" };
+const POL_I1: CheckSymbol = { tex: "I_1", key: "pol_I1", unit: "W/m²" };
+const POL_I3: CheckSymbol = { tex: "I_3", key: "pol_I3", unit: "W/m²" };
+const POL_IL: CheckSymbol = { tex: "I_L", key: "pol_IL", unit: "W/m²" };
+const POL_THETA: CheckSymbol = { tex: String.raw`\theta`, key: "pol_theta", unit: "°" };
+const POL_K1: CheckSymbol = { tex: "k_1", key: "pol_k1" };
+const POL_K2: CheckSymbol = { tex: "k_2", key: "pol_k2" };
 const THETA_BEAM: CheckSymbol = { tex: String.raw`\theta`, key: "theta_beam", unit: "°" };
 const ORDER: CheckSymbol = { tex: "m", key: "m_order" };
 const D_RHO: CheckSymbol = { tex: String.raw`\rho`, key: "diver_rho", unit: "kg/m³" };
@@ -185,6 +193,13 @@ const ROD_STEADY: CheckFormula = {
     { tex: String.raw`\xi`, key: "rod_xi" },
   ],
 };
+
+/** The Galton board's: a bin's share, the rows, the bin, the share to the right, the middle. */
+const GALTON_SHARE: CheckSymbol = { tex: "P(k)", key: "galton_share" };
+const GALTON_ROWS: CheckSymbol = { tex: "n", key: "galton_rows" };
+const GALTON_BIN: CheckSymbol = { tex: "k", key: "galton_bin" };
+const GALTON_P: CheckSymbol = { tex: "p", key: "galton_p" };
+const GALTON_MEAN: CheckSymbol = { tex: String.raw`\mu`, key: "galton_mean" };
 
 export const CHECK_FORMULAS: Record<string, Record<string, CheckFormula>> = {
   sphere: {
@@ -823,6 +838,131 @@ export const CHECK_FORMULAS: Record<string, Record<string, CheckFormula>> = {
       symbols: [D_SLITS, A_SLIT, THETA_BEAM, LAMBDA],
     },
   },
+  polarizer: {
+    half: {
+      tex: String.raw`\frac{I_1}{I_L} = \frac12`,
+      symbols: [POL_I1, POL_IL],
+    },
+    malus: {
+      tex: String.raw`I = I_0\,\cos^2\theta, \qquad \theta = 30^\circ`,
+      symbols: [POL_I, POL_I0, POL_THETA],
+    },
+    crossed: {
+      tex: String.raw`I = I_0\,\cos^2 90^\circ = 0`,
+      symbols: [POL_I, POL_I0],
+    },
+    third: {
+      tex: String.raw`I_3 = \tfrac12\cdot\tfrac12\cdot\tfrac12\,I_L = \tfrac18\,I_L`,
+      symbols: [POL_I3, POL_IL],
+    },
+    slanted: {
+      tex: String.raw`I_3 = \tfrac12\,I_L\,\cos^2 30^\circ\,\cos^2 60^\circ = \tfrac{3}{32}\,I_L`,
+      symbols: [POL_I3, POL_IL],
+    },
+    many: {
+      tex: String.raw`I = \tfrac12\,I_L\left(\cos^2\frac{90^\circ}{n+1}\right)^{n+1}, \qquad n = 10`,
+      symbols: [POL_I, POL_IL, { tex: "n", key: "pol_n" }],
+    },
+    polaroid_one: {
+      tex: String.raw`\frac{I_1}{I_L} = \tfrac12\,(k_1 + k_2) \approx 0.38, \qquad \frac{k_2}{k_1} = \frac{1}{500}`,
+      symbols: [POL_I1, POL_IL, POL_K1, POL_K2],
+    },
+    polaroid_crossed: {
+      tex: String.raw`\frac{I}{I_L} = \tfrac12\,(k_1 k_2 + k_2 k_1) = k_1^2\,\varepsilon, \qquad \varepsilon = \frac{k_2}{k_1} = \frac{1}{500}`,
+      symbols: [POL_I, POL_IL, POL_K1, POL_K2, { tex: String.raw`\varepsilon`, key: "pol_eps" }],
+    },
+  },
+  jet: {
+    critical: {
+      tex: String.raw`\theta_c = \arcsin\frac{n_2}{n_1}`,
+      symbols: [
+        { tex: String.raw`\theta_c`, key: "jet_critical", unit: "°" },
+        { tex: "n_1", key: "jet_n1" },
+        { tex: "n_2", key: "jet_n2" },
+      ],
+    },
+    snell: {
+      tex: String.raw`\frac{\sin\theta_1}{\sin\theta_2} = \frac{n_2}{n_1}`,
+      symbols: [
+        { tex: String.raw`\theta_1`, key: "jet_incidence", unit: "°" },
+        { tex: String.raw`\theta_2`, key: "jet_refraction", unit: "°" },
+        { tex: "n_1", key: "jet_n1" },
+        { tex: "n_2", key: "jet_n2" },
+      ],
+    },
+    fresnel: {
+      tex: String.raw`T = 1 - \tfrac12\,(R_s + R_p), \qquad R_s = \left(\frac{n_1\cos\theta_1 - n_2\cos\theta_2}{n_1\cos\theta_1 + n_2\cos\theta_2}\right)^2, \qquad R_p = \left(\frac{n_1\cos\theta_2 - n_2\cos\theta_1}{n_1\cos\theta_2 + n_2\cos\theta_1}\right)^2`,
+      symbols: [
+        { tex: "T", key: "jet_let_out" },
+        { tex: "R_s, R_p", key: "reflectance" },
+        { tex: String.raw`\theta_1`, key: "jet_incidence", unit: "°" },
+        { tex: String.raw`\theta_2`, key: "jet_refraction", unit: "°" },
+        { tex: "n_1", key: "jet_n1" },
+        { tex: "n_2", key: "jet_n2" },
+      ],
+    },
+    landing: {
+      tex: String.raw`x = v\,t, \qquad v = \sqrt{2 g h}, \qquad t = \sqrt{\frac{2H}{g}}`,
+      symbols: [
+        { tex: "x", key: "jet_landing", unit: "m" },
+        { tex: "v", key: "jet_speed", unit: "m/s" },
+        { tex: "t", key: "jet_fall", unit: "s" },
+        G,
+        { tex: "h", key: "jet_level", unit: "m" },
+        { tex: "H", key: "jet_drop", unit: "m" },
+      ],
+    },
+  },
+  ship: {
+    metacentric_height: {
+      tex: String.raw`GM = KB + \frac{I_t}{\nabla} - KG, \qquad KB = \frac{d}{2}, \qquad I_t = \frac{L\,b^3}{12}, \qquad \nabla = L\,b\,d = \frac{m}{\rho}`,
+      symbols: [
+        { tex: "GM", key: "ship_GM", unit: "m" },
+        { tex: "KB", key: "ship_KB", unit: "m" },
+        { tex: "I_t", key: "ship_It", unit: "m⁴" },
+        { tex: String.raw`\nabla`, key: "ship_volume", unit: "m³" },
+        { tex: "KG", key: "ship_KG", unit: "m" },
+        { tex: "d", key: "ship_d", unit: "m" },
+        { tex: "L", key: "ship_L", unit: "m" },
+        { tex: "b", key: "ship_b", unit: "m" },
+        { tex: "m", key: "ship_m", unit: "kg" },
+        { tex: String.raw`\rho`, key: "ship_rho", unit: "kg/m³" },
+      ],
+    },
+    wall_sided: {
+      tex: String.raw`GZ_\varphi = GN_\varphi\,\sin\varphi, \qquad GN_\varphi = KB + \frac{I_t}{\nabla}\left(1 + \tfrac12\tan^2\varphi\right) - KG`,
+      symbols: [
+        { tex: String.raw`GZ_\varphi`, key: "ship_GZ", unit: "m" },
+        { tex: String.raw`GN_\varphi`, key: "ship_GN", unit: "m" },
+        { tex: String.raw`\varphi`, key: "ship_phi", unit: "°" },
+        { tex: "KB", key: "ship_KB", unit: "m" },
+        { tex: "I_t", key: "ship_It", unit: "m⁴" },
+        { tex: String.raw`\nabla`, key: "ship_volume", unit: "m³" },
+        { tex: "KG", key: "ship_KG", unit: "m" },
+      ],
+    },
+    on_its_side: {
+      tex: String.raw`GZ(90^\circ) = KB_{90} - KG = \tfrac12\,H - KG`,
+      symbols: [
+        { tex: "GZ", key: "ship_GZ", unit: "m" },
+        { tex: "KB_{90}", key: "ship_KB90", unit: "m" },
+        { tex: "H", key: "ship_H", unit: "m" },
+        { tex: "KG", key: "ship_KG", unit: "m" },
+      ],
+    },
+    roll_period: {
+      tex: String.raw`T = 2\pi\sqrt{\frac{a_{44}^2 + k^2}{g\,GM}}, \qquad a_{44} = 0, \qquad k^2 = \frac{I}{m}`,
+      symbols: [
+        T_PERIOD,
+        { tex: "a_{44}", key: "ship_a44", unit: "m" },
+        { tex: "k", key: "ship_k", unit: "m" },
+        G,
+        { tex: "GM", key: "ship_GM", unit: "m" },
+        { tex: "I", key: "ship_I", unit: "kg·m²" },
+        { tex: "m", key: "ship_m", unit: "kg" },
+      ],
+    },
+  },
   diver: {
     reserve: {
       tex: String.raw`\Delta m = \rho\,(V_g + V_0) - m`,
@@ -873,6 +1013,71 @@ export const CHECK_FORMULAS: Record<string, Record<string, CheckFormula>> = {
         G,
         DZ_AXIS,
         { tex: "R", key: "radius_cone", unit: "m" },
+      ],
+    },
+  },
+  string: {
+    fundamental: {
+      tex: String.raw`f = \frac{v}{2L} = \frac{1}{2L}\sqrt{\frac{T}{\mu}}, \qquad v = \sqrt{\frac{T}{\mu}}`,
+      symbols: [
+        { tex: "f", key: "string_f", unit: "Hz" },
+        { tex: "v", key: "string_v", unit: "m/s" },
+        { tex: "L", key: "string_L", unit: "m" },
+        { tex: "T", key: "string_T", unit: "N" },
+        { tex: String.raw`\mu`, key: "string_mu", unit: "kg/m" },
+      ],
+    },
+    third: {
+      tex: String.raw`f_n = \frac{n}{2L}\sqrt{\frac{T}{\mu}}`,
+      symbols: [
+        { tex: "f_n", key: "string_fn", unit: "Hz" },
+        { tex: "n", key: "string_n" },
+        { tex: "L", key: "string_L", unit: "m" },
+        { tex: "T", key: "string_T", unit: "N" },
+        { tex: String.raw`\mu`, key: "string_mu", unit: "kg/m" },
+      ],
+    },
+    pull: {
+      tex: String.raw`T = \mu\left(\frac{2Lf}{n}\right)^2`,
+      symbols: [
+        { tex: "T", key: "string_T", unit: "N" },
+        { tex: String.raw`\mu`, key: "string_mu", unit: "kg/m" },
+        { tex: "L", key: "string_L", unit: "m" },
+        { tex: "f", key: "string_drive", unit: "Hz" },
+        { tex: "n", key: "string_n" },
+      ],
+    },
+    loops: {
+      tex: String.raw`N_{\text{nodes}} = n + 1, \qquad N_{\text{loops}} = n`,
+      symbols: [
+        { tex: String.raw`N_{\text{nodes}}`, key: "string_nodes" },
+        { tex: String.raw`N_{\text{loops}}`, key: "string_loops" },
+        { tex: "n", key: "string_n" },
+      ],
+    },
+    speed: {
+      tex: String.raw`v = \lambda f = 2\,d\,f, \qquad d = \frac{\lambda}{2}, \qquad v = \sqrt{\frac{T}{\mu}}`,
+      symbols: [
+        { tex: "v", key: "string_v", unit: "m/s" },
+        { tex: String.raw`\lambda`, key: "string_lambda", unit: "m" },
+        { tex: "f", key: "string_drive", unit: "Hz" },
+        { tex: "d", key: "string_d", unit: "m" },
+        { tex: "T", key: "string_T", unit: "N" },
+        { tex: String.raw`\mu`, key: "string_mu", unit: "kg/m" },
+      ],
+    },
+    settled: {
+      tex: String.raw`Y(x) = A\,\frac{\sin\big(\kappa\,(L - x)\big)}{\sin(\kappa L)}, \qquad \kappa^2 = \left(\Omega^2 - i\gamma\Omega\right)\frac{\mu}{T}`,
+      symbols: [
+        { tex: "Y(x)", key: "string_Y", unit: "m" },
+        { tex: "x", key: "string_x", unit: "m" },
+        { tex: "A", key: "string_A", unit: "m" },
+        { tex: String.raw`\kappa`, key: "string_kappa", unit: "1/m" },
+        { tex: "L", key: "string_L", unit: "m" },
+        { tex: String.raw`\Omega`, key: "string_Omega", unit: "1/s" },
+        { tex: String.raw`\gamma`, key: "string_gamma", unit: "1/s" },
+        { tex: String.raw`\mu`, key: "string_mu", unit: "kg/m" },
+        { tex: "T", key: "string_T", unit: "N" },
       ],
     },
   },
@@ -1012,6 +1217,47 @@ export const CHECK_FORMULAS: Record<string, Record<string, CheckFormula>> = {
       ],
     },
   },
+  vessel: {
+    flow: {
+      tex: String.raw`\dot V = \mu\,A_A\,v_A, \qquad v_A = \sqrt{2\,g\,H}`,
+      symbols: [
+        { tex: String.raw`\dot V`, key: "vessel_flow", unit: "l/min" },
+        { tex: String.raw`\mu`, key: "vessel_mu" },
+        { tex: "A_A", key: "vessel_hole", unit: "m²" },
+        { tex: "v_A", key: "vessel_speed", unit: "m/s" },
+        G,
+        { tex: "H", key: "vessel_head", unit: "m" },
+      ],
+    },
+    drain_time: {
+      tex: String.raw`T = \frac{A}{\mu\,A_A}\,\sqrt{\frac{2H}{g}}`,
+      symbols: [
+        { tex: "T", key: "vessel_T", unit: "s" },
+        { tex: "A", key: "vessel_area", unit: "m²" },
+        { tex: String.raw`\mu`, key: "vessel_mu" },
+        { tex: "A_A", key: "vessel_hole", unit: "m²" },
+        { tex: "H", key: "vessel_head", unit: "m" },
+        G,
+      ],
+    },
+    half: {
+      tex: String.raw`h(t) = H\left(1 - \frac{t}{T}\right)^2 = \frac{H}{2} \quad\Longleftrightarrow\quad t = \left(1 - \frac{1}{\sqrt{2}}\right) T`,
+      symbols: [
+        { tex: "h", key: "vessel_depth", unit: "m" },
+        { tex: "H", key: "vessel_head", unit: "m" },
+        TIME,
+        { tex: "T", key: "vessel_T", unit: "s" },
+      ],
+    },
+    farthest: {
+      tex: String.raw`D = 2\sqrt{h\,(H - h)}, \qquad h^* = \frac{H}{2}, \qquad D_{\max} = H`,
+      symbols: [
+        { tex: "D", key: "vessel_D", unit: "m" },
+        { tex: "h", key: "vessel_orifice", unit: "m" },
+        { tex: "H", key: "vessel_surface", unit: "m" },
+      ],
+    },
+  },
   race: {
     line: {
       tex: String.raw`T = \sqrt{\frac{2\,(D^2 + H^2)}{g'\,H}}, \qquad g' = \tfrac57\,g`,
@@ -1035,6 +1281,54 @@ export const CHECK_FORMULAS: Record<string, Record<string, CheckFormula>> = {
         { tex: String.raw`\varphi_0`, key: "phi0_bowl", unit: "°" },
         R_CYCLOID,
         H_START,
+      ],
+    },
+  },
+  kapitza: {
+    bound: {
+      tex: String.raw`a\,\omega > \sqrt{2\,g\,l} \;\Rightarrow\; f = \frac{\omega}{2\pi} = \frac{\sqrt{2\,g\,l}}{2\pi\,a}`,
+      symbols: [
+        { tex: "a", key: "kap_a", unit: "m" },
+        { tex: String.raw`\omega`, key: "kap_omega", unit: "1/s" },
+        G,
+        { tex: "l", key: "kap_l", unit: "m" },
+        { tex: "f", key: "kap_f", unit: "Hz" },
+      ],
+    },
+    mathieu: {
+      tex: String.raw`w'' + (\lambda - 2q\cos 2z)\,w = 0, \quad \lambda = a_0(q) = -\tfrac12 q^2 + \tfrac{7}{128}q^4 - \tfrac{29}{2304}q^6 + \tfrac{68687}{18874368}q^8, \quad \lambda = -\frac{4g}{l\,\omega^2}, \quad q = \frac{2a}{l}`,
+      symbols: [
+        { tex: "w", key: "kap_w", unit: "rad" },
+        { tex: String.raw`\lambda`, key: "kap_lambda" },
+        { tex: "q", key: "kap_q" },
+        { tex: "z", key: "kap_z", unit: "rad" },
+        { tex: "a_0", key: "kap_a0" },
+        G,
+        { tex: "l", key: "kap_l", unit: "m" },
+        { tex: String.raw`\omega`, key: "kap_omega", unit: "1/s" },
+        { tex: "a", key: "kap_a", unit: "m" },
+      ],
+    },
+    wobble: {
+      tex: String.raw`T = \frac{2\pi}{\Omega}, \qquad \Omega^2 = \frac{a^2\omega^2}{2\,l^2} - \frac{g}{l}`,
+      symbols: [
+        { tex: "T", key: "kap_period", unit: "s" },
+        { tex: String.raw`\Omega`, key: "kap_Omega", unit: "1/s" },
+        { tex: "a", key: "kap_a", unit: "m" },
+        { tex: String.raw`\omega`, key: "kap_omega", unit: "1/s" },
+        { tex: "l", key: "kap_l", unit: "m" },
+        G,
+      ],
+    },
+    swing_up: {
+      tex: String.raw`\Delta f = \frac{1}{2\pi}\left(\sqrt{\frac{4g}{l\,b_1(q)}} - \sqrt{\frac{4g}{l\,a_1(q)}}\right), \quad a_1, b_1 = 1 \pm q - \tfrac18 q^2 \mp \tfrac{1}{64}q^3 - \tfrac{1}{1536}q^4 \pm \dots, \quad q = \frac{2a}{l}`,
+      symbols: [
+        { tex: String.raw`\Delta f`, key: "kap_band", unit: "Hz" },
+        G,
+        { tex: "l", key: "kap_l", unit: "m" },
+        { tex: "a_1, b_1", key: "kap_a1b1" },
+        { tex: "q", key: "kap_q" },
+        { tex: "a", key: "kap_a", unit: "m" },
       ],
     },
   },
@@ -1353,6 +1647,96 @@ export const CHECK_FORMULAS: Record<string, Record<string, CheckFormula>> = {
       symbols: [{ tex: "N", key: "N_blocks" }, N_BLOCKS],
     },
   },
+  galton: {
+    eight_rows: {
+      tex: String.raw`P(k) = \binom{n}{k}\,p^k\,(1-p)^{n-k}, \qquad P(4) = \binom{8}{4}\,\frac{1}{2^8} = \frac{70}{256}`,
+      symbols: [GALTON_SHARE, GALTON_ROWS, GALTON_BIN, GALTON_P],
+    },
+    paths: {
+      tex: String.raw`\binom{n}{k} = \frac{n!}{k!\,(n-k)!}, \qquad \binom{12}{6} = 924`,
+      symbols: [{ tex: String.raw`\binom{n}{k}`, key: "galton_paths" }, GALTON_ROWS, GALTON_BIN],
+    },
+    tilted_mean: {
+      tex: String.raw`\mu = \sum_{k=0}^{n} k\,P(k) = n\,p`,
+      symbols: [GALTON_MEAN, GALTON_BIN, GALTON_SHARE, GALTON_ROWS, GALTON_P],
+    },
+    tilted_spread: {
+      tex: String.raw`\sigma^2 = \sum_{k=0}^{n} (k-\mu)^2\,P(k) = n\,p\,(1-p)`,
+      symbols: [
+        { tex: String.raw`\sigma^2`, key: "galton_variance" },
+        GALTON_MEAN,
+        GALTON_BIN,
+        GALTON_SHARE,
+        GALTON_ROWS,
+        GALTON_P,
+      ],
+    },
+    seeded_run: {
+      tex: String.raw`\bar k = \frac{1}{N}\sum_{i=1}^{N} k_i \approx n\,p, \qquad \sigma_{\bar k} = \frac{\sqrt{n\,p\,(1-p)}}{\sqrt{N}}`,
+      symbols: [
+        { tex: String.raw`\bar k`, key: "galton_run_mean" },
+        { tex: "N", key: "galton_balls" },
+        { tex: "k_i", key: "galton_ball_bin" },
+        { tex: String.raw`\sigma_{\bar k}`, key: "galton_standard_error" },
+        GALTON_ROWS,
+        GALTON_P,
+      ],
+    },
+    de_moivre: {
+      tex: String.raw`\binom{n}{k}\,p^k q^{n-k} \simeq \frac{1}{\sqrt{2\pi\,n p q}}\,e^{-\frac{(k-np)^2}{2npq}}, \qquad \frac{1}{4^m}\binom{2m}{m} = \frac{1}{\sqrt{\pi m}}\left(1 - \frac{1}{8m} + \frac{1}{128m^2} + \dots\right)`,
+      symbols: [GALTON_ROWS, GALTON_BIN, GALTON_P, { tex: "q", key: "galton_q" }, { tex: "m", key: "galton_half" }],
+    },
+  },
+  film: {
+    tear: {
+      tex: String.raw`u = \coth u, \qquad \frac{h_\text{max}}{R} = \frac{2x_0}{y_0} = 2\,\operatorname{csch} u`,
+      symbols: [
+        { tex: "u", key: "film_u_tear" },
+        { tex: String.raw`h_\text{max}`, key: "film_hmax", unit: "m" },
+        { tex: "R", key: "film_R", unit: "m" },
+        { tex: "x_0", key: "film_x0", unit: "m" },
+        { tex: "y_0", key: "film_y0", unit: "m" },
+      ],
+    },
+    critical_area: {
+      tex: String.raw`\bar A = \frac{S}{2\pi R^2}, \qquad S = 2\pi a^2\left[\cosh^{-1}\frac{R}{a} + \tfrac12\sinh\!\left(2\cosh^{-1}\frac{R}{a}\right)\right], \qquad a = \frac{R}{\cosh u}`,
+      symbols: [
+        { tex: String.raw`\bar A`, key: "film_Abar" },
+        { tex: "S", key: "film_S", unit: "m²" },
+        { tex: "R", key: "film_R", unit: "m" },
+        { tex: "a", key: "film_a", unit: "m" },
+        { tex: "u", key: "film_u_tear" },
+      ],
+    },
+    flat: {
+      tex: String.raw`y_0 = a\cosh\frac{x_0}{a}, \qquad A = \pi a^2\left[\sinh\frac{2x_0}{a} + \frac{2x_0}{a}\right]`,
+      symbols: [
+        { tex: "y_0", key: "film_y0", unit: "m" },
+        { tex: "a", key: "film_a", unit: "m" },
+        { tex: "x_0", key: "film_x0", unit: "m" },
+        { tex: "A", key: "film_A", unit: "m²" },
+      ],
+    },
+    deep: {
+      tex: String.raw`y_0 = a\cosh\frac{x_0}{a}, \qquad A = \pi a^2\left[\sinh\frac{2x_0}{a} + \frac{2x_0}{a}\right]`,
+      symbols: [
+        { tex: "y_0", key: "film_y0", unit: "m" },
+        { tex: "a", key: "film_a", unit: "m" },
+        { tex: "x_0", key: "film_x0", unit: "m" },
+        { tex: "A", key: "film_A", unit: "m²" },
+      ],
+    },
+    equal: {
+      tex: String.raw`u\sqrt{u^2 - 1} + \cosh^{-1}u - u^2 = 0, \qquad \frac{h_0}{R} = \frac{2x_0}{y_0} = \frac{2\cosh^{-1}u}{u}`,
+      symbols: [
+        { tex: "u", key: "film_u_equal" },
+        { tex: "h_0", key: "film_h0", unit: "m" },
+        { tex: "R", key: "film_R", unit: "m" },
+        { tex: "x_0", key: "film_x0", unit: "m" },
+        { tex: "y_0", key: "film_y0", unit: "m" },
+      ],
+    },
+  },
   elephant: {
     momentum_flux: {
       tex: String.raw`\dot M = \int_0^\infty 2\pi r\,\rho\,u^2\,dr = \rho\,U_0^2\,\frac{\pi D^2}{4}, \qquad u = u_c\,e^{-r^2/b^2}`,
@@ -1440,6 +1824,107 @@ export const CHECK_FORMULAS: Record<string, Record<string, CheckFormula>> = {
         MASS,
         HOOP_R,
         SPIN_GYROSCOPE,
+      ],
+    },
+  },
+  spring: {
+    fast_mode: {
+      tex: String.raw`T_1 = \frac{2\pi}{\omega_1}, \qquad \omega_{1,2}^2 = \tfrac12\Bigl\{\omega_\theta^2 + \omega_z^2 \pm \bigl[(\omega_\theta^2 - \omega_z^2)^2 + \varepsilon^2/mI\bigr]^{1/2}\Bigr\}, \qquad z_0 = \frac{2I}{\varepsilon}\,(\omega_1^2 - \omega_\theta^2)\,\theta_0`,
+      symbols: [
+        { tex: "T_1", key: "spring_T1", unit: "s" },
+        { tex: String.raw`\omega_1, \omega_2`, key: "spring_omega12", unit: "1/s" },
+        { tex: String.raw`\omega_z^2 = k/m`, key: "spring_omega_z", unit: "1/s²" },
+        { tex: String.raw`\omega_\theta^2 = \delta/I`, key: "spring_omega_theta", unit: "1/s²" },
+        { tex: String.raw`\varepsilon`, key: "spring_epsilon", unit: "N" },
+        MASS,
+        INERTIA,
+        { tex: "z_0", key: "spring_z0", unit: "m" },
+        { tex: String.raw`\theta_0`, key: "spring_theta0", unit: "rad" },
+      ],
+    },
+    slow_mode: {
+      tex: String.raw`T_2 = \frac{2\pi}{\omega_2}, \qquad z_0 = \frac{2I}{\varepsilon}\,(\omega_2^2 - \omega_\theta^2)\,\theta_0`,
+      symbols: [
+        { tex: "T_2", key: "spring_T2", unit: "s" },
+        { tex: String.raw`\omega_2`, key: "spring_omega2", unit: "1/s" },
+        { tex: String.raw`\omega_\theta^2 = \delta/I`, key: "spring_omega_theta", unit: "1/s²" },
+        { tex: String.raw`\varepsilon`, key: "spring_epsilon", unit: "N" },
+        INERTIA,
+        { tex: "z_0", key: "spring_z0", unit: "m" },
+        { tex: String.raw`\theta_0`, key: "spring_theta0", unit: "rad" },
+      ],
+    },
+    beat: {
+      tex: String.raw`T_{\text{beat}} = \frac{2\pi}{\omega_B}, \qquad \omega_B = \omega_1 - \omega_2`,
+      symbols: [
+        { tex: String.raw`T_{\text{beat}}`, key: "spring_T_beat", unit: "s" },
+        { tex: String.raw`\omega_B`, key: "spring_omega_B", unit: "1/s" },
+        { tex: String.raw`\omega_1, \omega_2`, key: "spring_omega12", unit: "1/s" },
+      ],
+    },
+    measured: {
+      tex: String.raw`T_{\text{beat}} = \frac{2\pi}{\omega_B}, \qquad \omega_B = 0.232\ \text{rad/s}`,
+      symbols: [
+        { tex: String.raw`T_{\text{beat}}`, key: "spring_T_beat", unit: "s" },
+        { tex: String.raw`\omega_B`, key: "spring_omega_B_measured", unit: "1/s" },
+      ],
+    },
+    energy: {
+      tex: String.raw`E = \tfrac12\,m\dot z^2 + \tfrac12\,I\dot\theta^2 + \tfrac12\,k z^2 + \tfrac12\,\delta\theta^2 + \tfrac12\,\varepsilon z\theta = \tfrac12\,k z_0^2`,
+      symbols: [
+        { tex: "E", key: "spring_E", unit: "J" },
+        MASS,
+        INERTIA,
+        { tex: "z", key: "spring_z", unit: "m" },
+        { tex: String.raw`\theta`, key: "spring_theta", unit: "rad" },
+        { tex: "k", key: "spring_k", unit: "N/m" },
+        { tex: String.raw`\delta`, key: "spring_delta", unit: "N·m" },
+        { tex: String.raw`\varepsilon`, key: "spring_epsilon", unit: "N" },
+        { tex: "z_0", key: "spring_pull", unit: "m" },
+      ],
+    },
+  },
+  metronomes: {
+    lone: {
+      tex: String.raw`\theta_{\max} = 2\,\theta_0`,
+      symbols: [
+        { tex: String.raw`\theta_{\max}`, key: "metronomes_amplitude", unit: "°" },
+        { tex: String.raw`\theta_0`, key: "metronomes_theta0", unit: "rad" },
+      ],
+    },
+    drift: {
+      tex: String.raw`T = \frac{2\pi}{\omega\,\Delta\,\bigl(1 - \tfrac32\,\gamma\bigr)}, \qquad \gamma = \frac{\theta_0^2}{6}`,
+      symbols: [
+        { tex: "T", key: "metronomes_T_drift", unit: "s" },
+        { tex: String.raw`\omega`, key: "metronomes_omega", unit: "1/s" },
+        { tex: String.raw`\Delta`, key: "metronomes_delta" },
+        { tex: String.raw`\gamma`, key: "metronomes_gamma" },
+        { tex: String.raw`\theta_0`, key: "metronomes_theta0", unit: "rad" },
+      ],
+    },
+    lag: {
+      tex: String.raw`\psi^* = \arcsin\frac{\mu\,\Delta}{\beta\,(3\gamma + \beta)}, \qquad \beta = \frac{x_0\,\omega^2}{g}`,
+      symbols: [
+        { tex: String.raw`\psi^*`, key: "metronomes_psi", unit: "°" },
+        { tex: String.raw`\mu`, key: "metronomes_mu" },
+        { tex: String.raw`\Delta`, key: "metronomes_delta" },
+        { tex: String.raw`\beta`, key: "metronomes_beta" },
+        { tex: String.raw`\gamma`, key: "metronomes_gamma" },
+        { tex: "x_0", key: "metronomes_x0", unit: "m" },
+        { tex: String.raw`\omega`, key: "metronomes_omega", unit: "1/s" },
+        G,
+      ],
+    },
+    inphase: {
+      tex: String.raw`\psi \to 0`,
+      symbols: [{ tex: String.raw`\psi`, key: "metronomes_psi", unit: "°" }],
+    },
+    five: {
+      tex: String.raw`R\,e^{i\psi} = \frac{1}{N}\sum_{j=1}^{N} e^{i\varphi_j} \;\to\; 1`,
+      symbols: [
+        { tex: "R", key: "metronomes_R" },
+        { tex: String.raw`\varphi_j`, key: "metronomes_phi", unit: "rad" },
+        { tex: "N", key: "metronomes_N" },
       ],
     },
   },

@@ -132,7 +132,7 @@ kit's `GlobalSearch` over the exhibits (Ctrl K), the language and the theme
 "es soll doch weiterhin eine separate Seite mit allen Exponaten geben"):
 filtered by topic chips (`TOPICS` in `exhibits.ts`: an exhibit is about one or
 two — momentum, angular momentum, energy, oscillation, equilibrium, flow,
-induction, light, perception), the filter in the address (`?topic=flow`), with
+induction, chance — the Galton board's, from 2026-11-23 —, light, perception), the filter in the address (`?topic=flow`), with
 "n of 35 tried on this device" and a "Forget" once one was tried (before,
 "0 of 35" read as homework). Each card (`exhibit-cards.tsx`), the whole of
 which opens the exhibit (its title is the link, stretched over it), shows its
@@ -207,7 +207,7 @@ whoever asks; the pick needs no server, no table and no admin, and the past
 weeks are the rule run backwards (the tests walk them; no page lists them). A new exhibit joins at the first round that starts
 on or after its `since` day, never mid-round, which would redraw weeks already
 shown; so `since` is the day it **ships** — a past date puts it into a round
-already under way on the live site. A round of 35 weeks is most of a year, so
+already under way on the live site. A round of 35 weeks (45 from the third series' first round) is most of a year, so
 a new exhibit is first shown in the list of all of them and among the front
 page's six drawn at random, not by this pick (Marcel agreed, 2026-11-20; the
 front page's "newest" became random on 2026-11-22).
@@ -2289,6 +2289,898 @@ the beating envelope, and ten silences in four seconds at 2.5 beats; a rider
 at the stem or of no mass in tune, the pitch falling along the prong; the
 refusals.
 
+## The Wilberforce spring (`experiments.spring`)
+
+**The exhibit.** A weight on a long coil spring, four nuts on arms at its
+sides. Pulled down and let go, it bobs; the bobbing dies away while the weight
+starts to twist, until it only twists, and then the bobbing comes back, over
+and over. Moving the nuts tunes it: in one place the exchange is complete,
+elsewhere partial. A lecture demonstration since Wilberforce (1894); no
+exhibit like it was found at the Technorama (its explorer, 2026-11-23), so the
+page stands without the "inspired by" line (`docs/plan.md`, "The third
+series").
+
+**The model** (`domain/experiments/spring.py`), Berg and Marshall's
+(*Am. J. Phys.* 59 (1991) 32, §II, read from the scanned article): a massless
+spring of stiffness `k` against stretch and `δ` against twist, the weight's `m`
+and `I`, and a linear coupling `ε·z·θ/2` in the energy, so
+`m·z'' = −k·z − ε·θ/2` and `I·θ'' = −δ·θ − ε·z/2` (their Eqs. 1–3), plus one
+linear damping `c` on both. `z` counts down from where the weight hangs at
+rest (gravity only sets that place), `θ` the twist. Stepped by the block's
+Runge–Kutta (`numerics.rk4`) at 1 ms. `I = I₀ + 4·m_n·r²`: the body and four
+nuts, each a point at its radius `r`, which is the page's slider. **The modes**
+are the roots of the 2 × 2 system, their Eq. (7), the faster first (their ω₁,
+ω₂); a mode alone starts from `z₀ = (2I/ε)(ωᵢ² − ω_θ²)·θ₀` (Eqs. 28–29), and
+the energy goes over and back once in `2π/(ω₁ − ω₂)` (`ω_B = ω₁ − ω₂`, after
+their Eq. 12; `None` with no coupling, where two free motions drift in and out
+of step but hand nothing over). **Tuned** when `ω_z = ω_θ`, `I = δ·m/k`;
+detuned, the share a pull hands to the twist is Rabi's
+`4c²/((ω_z² − ω_θ²)² + 4c²)`, `c = ε/(2√(m·I))`.
+
+**The page's spring** is Berg and Marshall's Leybold pendulum, their values
+corrected for the spring's mass (§III): `m = 0.5164 kg`, `k = 2.80 N/m`,
+`δ = 7.86·10⁻⁴ N·m`, `ε = 9.27·10⁻³ N` (§V), and `I = 1.45·10⁻⁴ kg·m²` with
+the nuts 20 mm out. The nuts' 10 g each and the body's `I₀ = 1.29·10⁻⁴ kg·m²`
+are the page's own choice, made so their measured `I` falls at 20 mm; the paper
+does not give the nuts.
+
+**What it shows.** Over and back in 27.3 s, all of it reaching the twist
+(Rabi's share 99.9998 %); a run pulled down 2 cm puts 99.8 % into the twist at
+half a beat (13.6 s), the rest the coupling's energy and the sampling. The
+nuts tune it at 20.0 mm (19.976 mm: the paper's pendulum is that close to
+tuned, ω_z = 2.32855 against ω_θ = 2.32824 rad/s). At 35 mm only 48 % goes
+over and the bobbing returns after 19.9 s; at 15 mm 94 %. Rabi's share is of
+the normalised amplitude: the twist's energy at its peak in a run differs by
+the two rates' mismatch (43 % at 35 mm against Rabi's 48), so the page says
+"about". A mode alone keeps `z/θ` fixed to 10⁻⁶ over 30 s; its start is the
+paper's `z₀ = ±0.0168·θ₀` (their Eqs. 36–37).
+
+**The page.** The weight from the front, the coils stretching with `z` and the
+four arms turning with `θ` (those behind faint), drawn in millimetres with the
+spring shortened. A hand takes the weight: down and up pull (±6 cm), sideways
+twists (the arm's end follows the finger, ±half a turn); let go, it runs.
+Four starts: pulled down 2 cm, twisted 1 rad, the faster and the slower mode
+(twisted 1 rad and pulled as Eq. 28/29 says, scaled back to 6 cm if a far
+detuned mode asks more). Real time or threefold; bars of the bobbing's and the
+twist's share of everything put in (the coupling's share at the start
+included). Tiles: the two periods alone, where the nuts tune it, and, held
+back until the page has run half a beat from "Pulled down" or the reader asks,
+the beat and the share. The nuts (15–40 mm) and the damping are sliders. The
+trick: the two shares over two beats, the sentence with beat and share, Rabi's
+formula, and the share along the arm. **No route**: the build comes with
+`/experiments/defaults` and everything shown is the port's
+(`simulate/spring.ts`), held to the engine by `engine-cases.json` (six cases:
+every start, a hand with no coupling at a coarse step, detuned and damped, a
+far detuned mode scaled back); `write-test-fixtures.py` lists it as
+`UNROUTED`.
+
+**Left out, and said:** the spring's mass beyond the third added to the
+weight's, the pendulum swing a long spring can also take (Berg and Marshall's
+§I, Freier and Anderson's third mode), every nonlinearity of a real coil; air
+beyond the one linear damping.
+
+**Checked by** `tests/unit/test_experiment_spring.py`: the modes as roots of
+the 2 × 2 system, the paper's Eq. (12) to 0.2 % when tuned, the whole exchange
+at half a beat, Rabi's share against a run, a mode alone trading nothing, the
+loop against the tests' own integrator, the energy kept and fading as
+`e^(−ct)`, the refusals; every figure of the prose against the German
+catalogue; the browser cases' reach.
+
+**The check** (five cases, 2026-11-23), every source Berg and Marshall's
+article, quoted from the scan
+(`http://faraday.physics.utoronto.ca/PHY182S/WilberforceRefBerg.pdf`, the
+copy Wikipedia links; cited by its DOI): the faster and the slower mode, each
+timed on the page's loop from the paper's Eq. (28)/(29) start against
+`2π/ωᵢ` from Eq. (7) as printed (2.574328 s and 2.842581 s, 5 · 10⁻¹²); the
+beat tile against `2π/(ω₁ − ω₂)` from Eq. (7) (27.27920 s, rounding only); the
+beat against the paper's measured `ω_B = 0.232 rad/s` (27.08 s; the model's
+27.28 s is 0.7 % off, their ε having been worked out with the measured
+ω = 2.31 where k/m gives 2.33 rad/s, both within their ±0.02; 2 % allowed);
+and the energy of their Lagrangian kept over 60 s from a 2 cm pull
+(0.560000 mJ, 10⁻¹³). "Set it up" sets the nuts and the damping and lets the
+weight go as the case says.
+
+## Kapitza's pendulum (`experiments.kapitza`)
+
+**The exhibit.** A stiff rod with a weight at its end on a pivot that a motor
+shakes up and down by a centimetre, some forty times a second. Switched off,
+the rod stood upright falls over; shaken, it stands upside down, and nudged it
+wobbles back to the top. No line names the museum: no Kapitza pendulum was
+found among the Technorama's exhibits (`docs/plan.md`, "inspired by" only where
+it holds).
+
+**The model** (`domain/experiments/kapitza.py`). A point mass on a light rod
+of length `l`, the pivot at `y = a·cos ωt` below its middle (y down, as Landau
+and Lifshitz and Fowler's notes write it), `θ` from hanging: in the pivot's
+frame `θ'' = −(g + a·ω²·cos ωt)/l · sin θ − c·θ'`, stepped by the shared
+Runge–Kutta (`numerics.rk4`, imported) at a hundredth of the drive's period,
+never longer than 1 ms (`step_for`): the step a whole share of the period, so
+the drive's phase falls on the same steps every period. **The top's
+stability** is the engine's own, not Kapitza's: near `θ = π` the equation is
+Mathieu's, and `monodromy` steps the two columns `(1, 0)`, `(0, 1)` of the
+linearised equation through one period in 1000 steps; its eigenvalues, the
+Floquet multipliers, are both inside the unit circle exactly when
+`|tr M| < 1 + det M` (`det M = e^(−cT)`, Liouville, which a test holds to
+10⁻¹⁰). `least_frequency_hz` halves the bracket from half to twice Kapitza's
+frequency 40 times; `swing_up_band_hz` finds the two edges of the hanging
+rod's parametric resonance about twice its own frequency the same way, `None`
+where the damping holds the rod even there. Kapitza's averaged potential
+`U/m = −g·l·cos θ + (a·ω·sin θ)²/4`, his bound `a²ω² > 2gl` and his slow
+rates `Ω² = a²ω²/(2l²) ∓ g/l` are there for the page's words and chart, and
+`floquet_rate_top` reads the exact slow rate off the multipliers. The stroke
+is kept below 0.3 of the length (`MAX_SHARE`): past about 0.45 the top turns
+unstable again however fast the shaking (Mathieu's `b₁` curve), and below it
+"stable from the least drive on" holds, which the halving relies on.
+
+**What it shows** (the default: 20 cm, 1 cm, 40 Hz, damping 0.3/s). Kapitza's
+bound is 31.52 Hz, the multipliers' 31.54; the drive holds the top, and the
+rod wobbles about it in 1.15 s. The exact boundary lies above Kapitza's by
+about `(7/32)(a/l)²`: without damping 0.002 % at a/l = 0.01, 0.055 % at 0.05,
+0.86 % at 0.2, and it meets DLMF's series of `a₀(q)` to 10⁻¹¹ at the first two and to
+7.5 · 10⁻⁷ at the third (the series cut at q⁸). Damping raises it a little
+(0.3/s: by 1.1 · 10⁻⁶). Hanging, the rod swings at 1.11 Hz and swings itself up between
+2.14 and 2.34 Hz at the page's damping (2.126 to 2.351 Hz without), DLMF's
+`b₁` and `a₁` to 10⁻¹².
+
+**The page.** The rod on its post, the motor's block, the upright dashed; the
+pivot drawn where it is, or, above six shakes a second on the screen (where a
+60 Hz screen would strobe it), as the blur of its travel, true to scale. The
+motor a switch, its frequency (1–200 Hz) and the stroke (1–40 mm, at most 0.3
+of the length) as sliders; "Stand upright" (3° off the top), "Nudge" (2 rad/s,
+one way then the other), and the weight held by mouse or finger; real time, a
+tenth and a twentieth. Three presets: fast and fine (40 Hz, 1 cm), slow and
+wide (9 Hz, 4 cm, visible in real time), swing up (2.23 Hz from hanging). The
+verdict (stands, falls, swings up) and the least drive by Floquet and by
+Kapitza are held back until the motor has held the rod or not for three
+seconds, or the reader asks. A change of drive starts the drive's clock again
+with the rod where it is, so the drive stays the engine's `cos ωt` on that
+clock. The trick: Kapitza's potential over a whole turn, gravity's hill, the
+shaking's two hollows and their sum, with the top in the middle; the two least
+drives and their gap; the swing-up band in words. **No route**: the port's
+(`simulate/kapitza.ts`), which computes the multipliers in the browser too
+(the least drive is some 80 periods of stepping, debounced).
+
+**Left out, and said:** the rod's own mass (a real rod is a physical pendulum;
+its length here is the reduced length `I/(m·d)`, as Butikov notes), a motor
+that slows under the load, play in the pivot, air beyond the linear damping,
+and strokes past 0.3 of the length, where the top's upper limit lies.
+
+**Checked by** `tests/unit/test_experiment_kapitza.py`: the default and its
+31.5 Hz, the three gaps and `(7/32)(a/l)²`, the step, Liouville's
+determinant, the boundary against DLMF's `a₀(q)` at three strokes, the slow
+wobble by the multipliers against Kapitza's, the multipliers' pairs, the
+potential's hill and hollow, the band and its preset, what it refuses, the
+cases' figures and their words in all seven languages.
+
+**Its checks' four** (2026-11-23). Landau and Lifshitz, *Mechanics* §30
+(problem 1), could not be read: the archive's copy is lending-only. Its bound
+is quoted from Butikov, *Am. J. Phys.* 69, 755 (2001), Eq. (7), read in the
+author's PDF, and from Fowler's UVa notes, which follow Landau's §30 (they
+point out its misprint on p. 95). The cases hold the least drive at
+a/l = 0.01 to Kapitza's 157.61 Hz (2.2 · 10⁻⁵ above it, the expansion's next
+term; within 5 · 10⁻⁵); at a/l = 0.2 to the edge of Mathieu's stable region
+from DLMF 28.6.1's `a₀(q)` (7.9478 Hz, 7.5 · 10⁻⁷; derived: the change of
+variables `ωt = 2z`, `λ = −4g/(lω²)`, `q = 2a/l` is the step); the page's
+time loop, strobed once a period, wobbling about the top in 1.1483 s against
+Butikov's Eq. (10), 1.1486 s (3.0 · 10⁻⁴, within 3 · 10⁻³: Kapitza's
+averaging drops terms in `(a/l)²` and `(Ω/ω)²`); and the swing-up band's
+width, 0.22469 Hz, from DLMF 28.6.2 and 28.6.3's `a₁` and `b₁` (derived, to
+3 · 10⁻¹²). Butikov's "more precise" lower boundary,
+`m_min = √(−2k(1 − k))` (his parametrically forced pendulum, Eq. (5)), comes
+from a truncated trial function and gives `(8/32)(a/l)²` where Mathieu's
+series gives `(7/32)`; the cases use the DLMF's. Mathieu's parameter `a` is
+written λ in the cases, so it is not the stroke. "Set it up" sets the rod,
+the stroke, the drive (and switches the motor on), the damping and where the
+rod starts, and lets it go.
+
+## The metronomes that agree (`experiments.metronomes`)
+
+**The exhibit.** Five metronomes on a light board that rests on two empty
+cans, all set to one tempo and started at random: they tick out of step, and
+in less than a minute all swing together while the board rocks along. With the
+board on the table they never come together.
+
+**The source, read before building** (2026-11-23). `docs/plan.md` named
+Pantaleone, *Am. J. Phys.* 70 (2002) 992, from memory; it holds. Read in the
+author's proof copy (University of Alaska Anchorage,
+`…/physics-and-astronomy/_documents/metro.pdf`): the model is his Eq. (1) and
+(6) (a van der Pol escapement, the board's inertial force), the board's
+motion his Eq. (5), the coupling `β = (m·r/(M + 2m))·(r·m/I) = x₀ω²/g`
+(Eqs. (11)–(13)); his numbers are θ₀ = 0.39 rad, μ = 0.010 (fitted), γ = θ₀²/6,
+x₀ = 0.088 cm, β = 0.011, a 94 g metronome, a 58 g board, 208 ticks a minute
+(his "ω_pen = 10.9 Hz" is rad/s: 104 swings a minute). The closed forms he
+states are first-order averaging: the uncoupled drift at Δ (after Eq. (25)),
+the locked lag ψ* ≈ arcsin(μΔ/(β(3γ + β))) (Eqs. (32)–(33)), the Kuramoto
+form for N (Eqs. (34)–(39)) with the order parameter of Eq. (38). The plan's
+"in step above a least coupling" is his Eq. (32): locked while
+|Δ| ≤ (β/μ)(3γ + β) in that approximation (beyond it, he says, the threshold
+is where s* turns imaginary); the page states the lag, not a threshold.
+
+**The model** (`domain/experiments/metronomes.py`). His Eq. (6) for `N`
+metronomes, time in swing radians `τ = ωt`:
+`θᵢ'' + (1 + Δᵢ) sin θᵢ + μ((θᵢ/θ₀)² − 1)θᵢ' − β cos θᵢ (Σⱼ sin θⱼ)'' = 0`,
+the board at `x = −x₀ Σ sin θⱼ`, `x₀ = m·r/M`, `M` everything on the cans
+(board and metronomes; the cans' mass left out, as he does), `m·r` a
+pendulum's (21.6 g·cm, from his x₀ for two on his board). The board's
+acceleration depends on every pendulum's, so the equations are implicit; all
+share one board, and `S = (Σⱼ sin θⱼ)''` comes out of one sum,
+`S = Σ(Fⱼ cos θⱼ − θⱼ'² sin θⱼ)/(1 − β Σ cos² θⱼ)`, after which each
+`θᵢ'' = Fᵢ + β cos θᵢ S` is explicit; the shared RK4 (`numerics.py`) at 4 ms
+(144 steps a swing; halving it moves the locked lag by 3 · 10⁻⁶ of itself).
+`Δᵢ` spread evenly from `−spread` to `+spread` (the fastest and slowest rates
+then differ by about `spread`). A held board is `β = 0`. A metronome the hand
+has not started is held at rest: part of the board's mass, no push, no
+pull — the van der Pol term would start a resting pendulum by itself, a real
+escapement does not catch below a swing. Kuramoto's R from the phases
+`φ = atan2(−θ', θ)`.
+
+**What it shows** (the default: five, his 58 g board, 0.4 % spread, the
+exhibit's scattered start, R = 0.015). On the cans R stays above 0.99 from
+53 s on; on the table R reaches at most 0.21 in the same two minutes. In step
+the board swings about ±1.4 mm (his "a couple of millimeters"). A lone
+metronome settles at 44.8° (2θ₀ = 44.7°). His two at Δ = 0.5 % lock with the
+faster 3.27° ahead; Eq. (33) says 3.11°.
+
+**The page.** The board on its cans from the front, the metronomes on it, the
+board's motion drawn ten times larger (said in the hint) and the cans rolling
+by half of it; each metronome a button (and a row of numbered buttons) that
+starts it from its full swing or stops it upright; "Start all at random",
+"Stop all"; the board on the cans or on the table, switched while they swing;
+real time or fourfold. Beside it a dial of the phases with their mean as an
+arrow (R·e^{iψ}), the tiles R, time and β, and R over the last minute. The
+answer ("now they agree") is held until R passes 0.99 or the reader asks. The
+count (1–7), the board's mass (0–2 kg) and the spread (0–3 %) are sliders.
+The trick's chart is R over two minutes from the scattered start, on the cans
+and on the table, run by the port. **No route**: the port's
+(`simulate/metronomes.ts`), held to the engine through `engine-cases.json`
+(five builds, the hand's three-of-five, the 70 s run to in-step).
+
+**Left out, and said:** the cans' mass, the board's friction (which, as he
+found on a wet table, lets them settle in antiphase, as Huygens's clocks
+did), the ticks as kicks, the spring running down.
+
+**Checked by** `tests/unit/test_experiment_metronomes.py`: his β = 0.011 and
+x₀ = 0.088 cm for two; ω = 10.9 1/s; 144 steps a swing; a held board neither
+couples nor moves; the scattered start's R = 0.015; in step after 53 s on the
+cans, below 0.21 on the table; the board's 1.4 mm; the lone 45°; a held
+metronome stays upright while the others rock the board; the refusals; every
+check case's figures as its words state them; the port's cases cross every
+start, held and free, one and seven, a coarse step.
+
+**The checks** (five, 2026-11-23), all against Pantaleone's proof copy, every
+quote verbatim. *Lone*: one metronome on a held board from 10° settles at
+44.84° against 2θ₀ = 44.69° (his "amplitude of approximately 2θ0"; 0.3 %, the
+full sine, within 1 %). *Drift* (derived): two 0.5 % apart on a held board
+gain a swing in 119.96 s against 2π/(ωΔ(1 − 3γ/2)) = 119.95 s — his drift at
+Δ, slowed by his Eq. (8)'s 1 − 3γ/2 (1.4 · 10⁻⁴, within 10⁻³). *Lag*: his two
+on his board, 0.5 % apart, lock 3.27° apart against Eq. (33)'s 3.11°: 5.4 %,
+within 8 %. That tolerance is wide by this page's standards and says why: the
+averaging keeps the swing's size only in its rate, and takes the sine and
+cosine of a 45° swing in the board's push as for a small one, a term of γ's
+order times a few. *Inphase*: two identical started 170° apart (his Fig. 2) are
+0.0006° apart after 200 s (expected 0, within 0.01°). *Five*: five identical
+at the scattered start reach R = 1 − 5 · 10⁻⁶ in two minutes (within 10⁻⁴).
+"Set it up" sets the count, the board, the spread, free or held, and lets them
+go as the case says.
+
+**"Inspired by"**: not claimed. Whether the Technorama shows synchronising
+metronomes was not checked (no source read for it), so the page names no
+museum, per `docs/plan.md`'s rule.
+
+**Joins the experiment of the week** with the third series: `THIRD_SERIES` in
+`exhibits.ts`.
+
+## The Galton board (`experiments.galton`)
+
+**The exhibit** (2026-11-23, the third series, `docs/plan.md` #4). A funnel
+of balls over twelve rows of pins and thirteen bins: each ball bounces left or
+right at every pin, and the bins fill into a bell, high in the middle, flat at
+the edges, every run different and the heap always the same; a slanted board
+moves the bell to one side. **No museum credit**: no Galton board at the
+Technorama could be found (a web search and its park booklet), so the page
+stands without the "inspired by" line, as `docs/plan.md` settled for the series.
+
+**The model** (`domain/experiments/galton.py`). `n` rows, at every pin the
+same share `p` to the right (½ level). A ball that went right `k` times lands
+in bin `k`, whatever the order, so a bin's share is its number of paths
+`C(n, k)` times the chance of one, `pᵏ(1 − p)ⁿ⁻ᵏ`: the binomial distribution,
+middle `n·p`, variance `n·p·(1 − p)`, for many rows the normal curve of the
+same middle and spread (de Moivre–Laplace). The shares are built **row by
+row**, as the balls fall, each bin of the next row getting `p` of the bin up to
+its left and `1 − p` of the one above (Pascal's rule with weights; with both
+weights one it counts the paths, `paths`), not from factorials: no overflow,
+and the port's floats are the engine's in the same order. The balls come from
+a generator of the module's own, **Mulberry32** (32-bit integer steps, so
+`Math.imul` and `>>>` give the same draws bit for bit): ball `i` takes draws
+`i·n … i·n + n − 1` and goes right where a draw is below `p`. A seed is a run:
+the exhibit's is 12 rows, ½, 500 balls, seed 1874. Bounds: 1–24 rows,
+1–5000 balls, `p` in [0, 1] (the curve in (0, 1)), seeds 0 to 2³² − 1.
+
+**What it shows.** Twelve rows have 4096 paths, one into each edge bin, 924
+into the middle: 22.6 % of the balls land there, one in 4096 at an edge; the
+three middle bins take 61 %, the three at each edge together 3.9 %. The middle
+is bin 6, the spread 1.73 bins; 24 rows widen it only 1.41 times, to 2.45, and
+their middle bin lies 1.0 % under the normal curve (1.036 %). The exhibit's run
+of 500 has its middle at 5.876, 1.6 standard errors left of 6.
+
+**The page.** The board drawn: the funnel, the triangle of pins, the bins with
+the landed balls as bars, scaled so the expected peak fills 80 % of a bin; the
+balls in flight (one every 1/20 s, 0.15 s to the first pin, 0.06 s from pin to
+pin, 0.25 s into the bin, drawn, not computed), each hopping to the side its
+seeded turn says. Drop, Run/Pause, "All at once" (the clock to the run's end),
+"Back into the funnel" (the same run again), "New balls" (the next seed,
+dropping at once); real time, five and twenty times; the caption counts the
+run. Figures: the balls fallen, the run's middle and spread; the expected
+middle `n·p` and spread `σ`, with the expected heap as a dashed outline on the
+bins, **held** until the run has poured out or the reader asks. "Rebuild the
+board": rows 1–24, the share to the right 0.05–0.95, balls 50–5000, each a new
+run waiting in the funnel. "The trick" has the paths through the board, into
+its likeliest bin and to an edge, and the bins' shares over the normal curve for
+the board as built. Topic **"chance"** ("Zufall"), a new chip between
+induction and light. **No route**: the port (`simulate/galton.ts`), held to the
+engine over ten boards (one row to 24, `p` from 0 to 1, 0.13 and 0.999), the
+paths of 1 to 24 rows, 64 draws from six seeds (0, 1, 1874, 2³¹ − 1, 2³¹,
+2³² − 1), and seven runs (the exhibit's, a tilted one, one row, 24 rows from
+the last seed, all left, all right, 5000 balls): the heap, the first hundred
+bins, the first five balls' turns, the middle and variance. The preview pours
+run after run at five times real time, each from the next seed, and its first
+frame stands at 60 % of the first run, a half-grown heap.
+
+**Joins the experiment of the week** on `THIRD_SERIES`, with the third series.
+
+**Left out, and said:** how a tilt or the pins' shape sets `p` (the page takes
+`p` as given, the same at every pin); balls that skip a pin or knock into each
+other, which on a real board widens the heap; bins that fill up; the balls' flight.
+
+**Checked by** `tests/unit/test_experiment_galton.py`: the shares of every
+board of 1 to 24 rows at five `p` against `C(n, k)pᵏ(1 − p)ⁿ⁻ᵏ` in exact
+fractions; the paths against `math.comb`, summing to 2ⁿ; the middle and the
+variance; the likeliest bin, ⌊(n + 1)p⌋ when tilted; the normal curve a density;
+the generator against Mulberry32's published first draw from seed 1
+(0.6270739405881613), the same draws from the same seed; a run its balls'
+turns counted, ball `i` on draws `i·n …`; 5000 balls with every bin within four
+standard deviations of its count; every figure the prose names; the refusals.
+
+**The check cases** (`domain/checks/galton.py`, six): `eight_rows`, the middle
+bin of eight rows against the 70/256 Wikipedia's "Pascal's triangle" states for
+a Galton box; `paths`, 924 paths into the middle of twelve by factorials;
+`tilted_mean` and `tilted_spread`, a board at `p` = 0.7 against `n·p` = 8.4 and
+`n·p·(1 − p)` = 2.52; `seeded_run` (derived), the exhibit's run against `n·p`
+within three standard errors `σ/√N` (3.87 %; it lies at 2.07 %);
+`de_moivre` (derived), the middle of 24 rows against de Moivre–Laplace's
+`1/√(2πnpq)`, allowed the first correction of the central binomial
+coefficient's series (Luke, as Wikipedia quotes it), 1/(8m) = 1.042 % at
+m = 12, where the share lies 1.036 % under. Sources, quoted from the pages'
+wikitext: Wikipedia "Galton board" (§Distribution of the beads),
+"Pascal's triangle" (the figure's caption), "Binomial distribution" (the mass
+function; expected value and variance), "Standard error" (exact value),
+"De Moivre–Laplace theorem" (§Theorem, citing Papoulis–Pillai and Feller VII.3)
+and "Central binomial coefficient" (§Asymptotic growth, citing Luke 1969).
+
+## The soap film between two rings (`experiments.film`)
+
+**The exhibit** (2026-11-23, the third series). Two wire rings, dipped
+together into soap solution and drawn apart: a film hangs between them,
+drawn in to a waist that narrows as they part, until at about two thirds of a
+ring's diameter it suddenly gives way and leaves a flat disc in each ring. No
+"inspired by" line: no page of the Technorama's showing it was found, so it
+stands without one (`docs/plan.md`, the third series' open points).
+
+**The model** (`domain/experiments/film.py`). The film is a minimal surface
+(its energy is the surface tension times its area, and the air inside is open
+to the room); between two coaxial rings of radius `R` a distance `h` apart it
+is the catenoid `r(z) = c·cosh(z/c)` with `R = c·cosh(h/(2c))`. With
+`t = h/(2c)` that is `h/R = 2t/cosh t`, which rises, peaks where
+`t·tanh t = 1` (`t ≈ 1.1997`) at `h/R ≈ 1.3255`, and falls: below the peak a
+wide (stable) and a thin (unstable) catenoid, above it none. Each `t` is found
+by halving a bracket 100 times on its side of the peak, the peak itself and
+the distance where the wide film's area `π·c·(h + c·sinh(h/c))` equals the two
+discs' `2πR²` (`2t − e^(−2t) = 1`, `h/R ≈ 1.0554`) likewise; the engine has its
+own halving rather than `checks/_hand.py`'s, which the engine must not import.
+Nothing steps in time: the hand sets the distance. The rings are 0.1 mm to
+2 m apart (below that the thin catenoid's `cosh` would overflow) and 1 mm to
+1 m in radius.
+
+**What it shows** (rings of 5 cm radius). A centimetre apart the film is
+nearly a cylinder, its waist 4.97 cm, 31.4 cm² against the discs' 157.1. From
+1.055 radii (5.28 cm) the discs would have less area, but the film stays: to
+reach them it would first have to grow. At 1.3255 radii (6.63 cm) no film
+with a waist reaches both rings; the two catenoids meet there, the waist at
+55 % of the radius and the area a fifth more than the discs' (exactly
+`t·2πR²`, `Ā = t` where `t·tanh t = 1`). Real films do the same: Ito and
+Sato (2010) filmed the jump to the discs failing to come at 1.05 R and the
+film holding to just short of 1.33 R.
+
+**The page.** The rings from the side, to scale (a ring drawn as an ellipse
+0.22 as wide as tall), on stands; the film shaded with seven cross-sections,
+its waist dashed, the thin catenoid dashed on demand; past the tear a flat disc
+in each ring, which stays when the rings are pushed back until "Dip again"
+(which sets them back to the start). The right ring is dragged (pointer) or
+moved with the arrow keys (a millimetre, a centimetre with Shift; a slider for
+a screen reader), and a distance slider (0.2 to 12 cm) and the rings' radius
+(3 to 8 cm) do the same; a smaller ring can tear the film at once. The status
+says the least area, "the discs would now have less" (amber), or torn; the
+figures are the waist, the film's area, the two discs' and the tearing
+distance, held until the reader has torn a film (`held.tsx`). "The trick" has
+the equal-area distance, the tear and `t` as tiles and the film's area over
+the discs' against `h/R`, both catenoids and the discs' line, ending where
+the two meet. Topic "equilibrium", no lessons (no lesson of the course is the
+page's material). **No route**: the port's (`simulate/film.ts`), held to the
+engine over the constants, `2t/cosh t` at 33 points and fourteen pairs of rings
+(touching, a hair either side of the equal-area and the tearing distance,
+past the tear, the smallest and largest), every catenoid, figure and five
+points of each profile. The preview draws the rings apart past the tear in
+6 s and back in 2, torn, and dips again.
+
+**Left out, and said:** gravity, which sags a real film; the film's thickness,
+draining and early bursting; the rings' wire; how the waist pinches once it
+has nothing to go to.
+
+**Checked by** `tests/unit/test_experiment_film.py`: both catenoids reaching
+the rings, the wide one the smaller; the area against a midpoint sum of the
+profile; `t·tanh t = 1` at 1.1997, the tear at 1.3255 (6.63 cm, two thirds of
+a diameter) and a hair either side; the two catenoids meeting there, the waist
+at 55 %, the area `t` times the discs'; 1.055 (5.28 cm) and `least` turning
+there; the start's 4.97 cm, 31 and 157 cm²; MathWorld's waists and areas a
+radius apart; the thin catenoid's area tending to the discs'; the refusals;
+every check case within its tolerance.
+
+## The draining vessel (`experiments.vessel`)
+
+**The exhibit** (2026-11-23, the third series). A clear tube a metre high and
+8 cm wide on a stand 20 cm over a long basin, filled to 90 cm, three holes in
+its side at 5, 35 and 65 cm, each with a plug. A plug pulled, a jet shoots far
+into the basin, lands ever nearer the tube, and the level falls ever more
+slowly; the last few centimetres take longest. With all three open the middle
+jet reaches farthest and the top and the bottom one land in the same spot. A
+classroom classic: no exhibit like it was found at the Technorama (its park
+booklet and a search, 2026-11-23; the nearest is Ned Kahn's draining whirlpool
+bowl), so the page says it comes from the classroom and names no museum.
+
+**The model** (`domain/experiments/vessel.py`). Torricelli's law,
+`v = √(2g·(h − y))`, and the jet's contraction just past a sharp-edged hole,
+the discharge coefficient `μ` (0.61): `A·dh/dt = −μ·a·Σ √(2g·(h − y_k))` over
+the open holes below the level, a first-order equation in the level `h`. A
+hand opens and closes the holes at any moment, so the level is stepped
+(classical Runge–Kutta at 5 ms, written out for one number, not `numerics.rk4`)
+and held at the lowest open hole below it, which a step's sum could otherwise
+overshoot. One hole open from the start has the exact solution
+`√(h − y) = √(h₀ − y) − (μa/A)·√(g/2)·t`, empty after
+`T = (A/μa)·√(2(h₀ − y)/g)` (`level_exact`, `drain_time_s`): half the depth
+gone after `(1 − 1/√2)·T`, the last tenth taking `√(1/10)·T`. The jet leaves
+the wall level at Torricelli's speed and lands `2·√((h − y)·(s + y))` from it,
+`s` the stand: a quadratic Bézier with its control above the landing's middle
+is that parabola exactly. With one hole its range falls linearly in time.
+
+**What it shows** (the default build). The bottom hole alone: empty in 68 s
+(68.25), half the depth gone after 20 s (19.99), 29 % of the time; the last
+tenth takes 32 %. The first jet leaves at 4.1 m/s, 7.5 litres a minute, and
+lands 0.92 m away; after half the time, 34 s, at 0.46 m. All three open: down
+to the bottom hole after 57 s, hardly sooner, since the upper holes soon run
+dry; the middle jet reaches 1.1 m, the stand plus the fill (its hole sits
+exactly at `(h₀ − s)/2`), the other two 0.92 m each. Twice the tube takes four
+times as long, twice the hole a quarter. The water's own speed down the tube,
+`(μa/A)² = 3.7·10⁻⁵`, is left out (under half a percent for the widest hole
+allowed, a quarter of the tube's diameter).
+
+**The page.** The tube on its stand over the basin, drawn to scale, cut open:
+the water, the dashed mark it was filled to, the plugs, the jets as parabolas
+and a ruler along the basin's floor; a click on a plug (or one of the three
+buttons beside it, `aria-pressed`) pulls it or puts it back, the clock starting
+at the first one pulled; real time, fivefold or twentyfold; "Fill again". The
+figures: the time, the level, the outflow, the farthest jet, and the moment the
+depth over the bottom hole fell past half, once it has. Rebuilding (the tube
+4–20 cm, the holes 3–15 mm and at most a quarter of the tube, the filling
+20–100 cm, `μ` 0.5–1, the stand 0–60 cm; the holes stay at 5, 35 and 65 cm)
+fills the tube again, gives the bottom hole's time to empty, to half the depth,
+its first speed and outflow, the water above it and the farthest jet possible,
+says when holes stand dry above the water, and charts the range over the
+hole's height under the full tube. "The trick" charts the depth over the bottom
+hole (a parabola in time) and its jet's range (a straight line) on two axes.
+The preview pulls all three plugs at eight times real time and fills the tube
+again 1.5 s after it is down. Topic "flow", lesson `first_order`. **No route**:
+the port's (`simulate/vessel.ts`), held to the engine to 10⁻⁹ over four cases
+(a hand that pulls, puts back and pulls again; all three at once; a wide hole
+in a narrow tube on no stand with a dry hole; a ten-minute run in a fat tube,
+a plug put back with the level stopped between two holes), and its frame path
+(`advance`, whole steps counted from the fill) to the bit of a replay.
+
+**Left out, and said:** the water's speed down the tube itself; the jet's
+slowing by viscosity and the air (a velocity coefficient of one: Lienhard and
+Lienhard 1984 measured it within 0.1 % above a Reynolds number of 10 000, which
+the jet keeps until the last 8 cm or so); the water column's inertia as a hole
+opens or closes; the surface tension that breaks the thin jet into drops at the
+end; the plugs' width.
+
+**Checked by** `tests/unit/test_experiment_vessel.py`: every figure above; the
+steps against the closed form to 10⁻⁹ of the depth until a second before the
+end and empty within one step; all three open against the tests' own RK4
+(`tests/unit/ode.py`); the water out of the holes against the water the tube
+loses (Simpson over a step); the jet landing where its range says; closed and
+dry holes, a plug put back, the level stopping at the lowest open hole; the
+refusals; the browser's cases crossing every branch.
+
+**The check cases** (`domain/checks/vessel.py`), the sources read on
+2026-11-23: the first outflow, `μ·A_A·√(2gH)` (Wikipedia, "Torricelli's law",
+the introduction and §Discharge experiment, coefficient of discharge;
+"Vena contracta", §Coefficient of contraction, 0.611 for a sharp orifice); the
+time to empty, `T = (A/A_A)·√(2H/g)` with the contracted area (derived:
+§Discharge and time to empty a cylindrical vessel); half the depth after
+`(1 − 1/√2)·T` (derived from that section's `h(t) = H·(1 − t/T)²`); the
+farthest jet, `D_max = H` from `h* = H/2` (§Horizontal distance covered by the
+jet of liquid). The brief's "vena contracta ≈ 0.61–0.62" holds as Wikipedia's
+0.611; its Torricelli article gives "in the order of 0.65" for a round hole in
+a tank, and Lienhard's paper (read in full) reports the textbooks' 0.611 and
+0.595 measured for large, accurately made orifices at high heads, so the page
+says "about 0.61" and leaves `μ` to a slider.
+
+## The standing string (`experiments.string`)
+
+**The exhibit** (inspired by "Stehende Schnurwellen", no. 10411, at the
+Technorama, itself after the Exploratorium's "Vibrating Strings": its sheet,
+read 2026-11-23, has a spring-steel blade shake the cord's end a hundred times
+a second while the visitor leads the cord over a bolt and pulls it down). A
+thin elastic cord, one end on the vibrator, the other over a peg in the
+visitor's hand. Slack, it only quivers in a blur; pulled slowly tighter, at
+certain pulls it stands still in one, two, three loops with quiet nodes
+between; the harder the pull, the fewer the loops. The plan had the tone
+turned up at a fixed weight; the museum's visitor pulls at a fixed tone, so the
+page's hand is the pull, and the tone has its own slider.
+
+**The model** (`domain/experiments/string.py`). The damped wave equation
+`μ·y_tt + μγ·y_t = T·y_xx` between the vibrator, `y(0, t) = A·sin θ`,
+`θ̇ = Ω`, and the peg, `y(L, t) = 0`; `v = √(T/μ)`, the modes `sin(nπx/L)`
+at `fₙ = n/(2L)·√(T/μ)` (the eigenvalues of `−v²∂²/∂x²` with both ends held,
+`(nπv/L)²`), and at a fixed tone the pull for `n` loops `T = μ·(2Lf/n)²`.
+**Steadily** the cord swings `Im[A·sin(k(L − x))/sin(kL)·e^{iθ}]`,
+`k = (Ω/v)·√(1 − iγ/Ω)`: the transfer function `sinh(κ(L − x))/sinh(κL)`,
+`κ = √(s² + γs)/v`, at `s = iΩ`, its poles `−γ/2 ± i√(ωₙ² − γ²/4)` the
+modes. Near `kL = nπ` the antinodes swing about `2vA/(γL)`. **In time** the
+cord is the vibrator's line `A·sin θ·(1 − x/L)` plus 40 modes, each
+`q̈ₙ + γq̇ₙ + ωₙ²qₙ = (2A/(nπ))(Ω² sin θ − γΩ cos θ)`, carried over each step
+exactly (its steady swing in phase plus its free swing decaying at its damped
+tone), the drive held through the step: a frame of any length up to 50 ms
+adds no error, and two runs of different frames agree to 10⁻¹³. The modes
+left out answer as `(Ω/ωₙ)²/n`: 10⁻⁴ of the widest swing at three loops,
+under 10⁻³ at six or between two loop counts, a few micrometres. The widest
+swing (`widest_m`) by golden section in the last stretch before the vibrator
+(`|sin(ks)|² = sin²(as) + sinh²(bs)` grows with `s`), the peaks over the tone
+(`resonance_hz`) and over the pull (`resonance_pull_n`) and the nodes
+(`node_spacing_m`) by golden section too; the loops counted along a 401-point
+line (`loops`).
+
+**What it shows** (a metre of cord, half a gram a metre, `γ` = 12/s, the
+vibrator 2 mm each way at 100 Hz). One loop at 20 N, two at 5 N, three at
+2.22 N (and 1.25, 0.8, 0.56 N for four to six); the peak the hand finds lies
+2.7·10⁻⁴ above each, the swing growing with the wave's speed as well. One
+loop swings 67 mm, two 33, three 22, eleven times the vibrator, each about
+`1/n` of one (to 1 %), the limit `2vA/(γL)` to 0.2 %; at 3.2 N, two and a half
+half-waves, nowhere more than the vibrator's own 2 mm. The page starts at
+3 N, 2.58 half-waves. Four times the pull doubles every tone. From rest a
+loop grows to 1 − 1/e of its swing in 0.14 s.
+
+**The page.** The cord from the vibrator to the peg, drawn three times
+taller than it is (said in the caption: true to scale, 2 cm on a metre is a
+hair on a phone), at a scale fixed by the strongest pull so the drawing
+holds still while the hand pulls; the hand's pull on a logarithmic slider
+(0.3 to 25 N, a loop count every few millimetres of track), the vibrator's
+tone (20 to 200 Hz), Run/Pause and "Calm it". **The drawing is a
+strobe**, said on the page: a cord swinging a hundred times a second cannot
+be drawn at a screen's frames, so the band is the blur the eye sees,
+`√(y² + (ẏ/Ω)²)`, and the line in it the cord as a lamp 0.6 Hz off the tone
+shows it, `y·cos(φ − θ) + (ẏ/Ω)·sin(φ − θ)`, which takes out the fast phase.
+Held back until the cord swings four times the vibrator's stroke: the
+half-waves `2Lf/v` and the pull for three loops at the tone, and the steady
+swing over the half-waves, peaks at whole numbers. "Change the cord": the
+length, the mass per metre, the damping, the stroke; the lowest tone, the
+pull for one loop at 100 Hz and a loop's swing. The trick's chart: the swing
+over the tone for 1.25, 5 and 20 N. The preview: the cord pulled for three
+loops. **No route**: the port's (`simulate/string.ts`), the defaults from
+`GET /experiments/defaults`; the searches for peaks and nodes are not ported
+(their places a last bit can move further than the cases' 10⁻⁹), the page
+names the tones by the formula.
+
+**Left out, and said:** that an elastic cord stretches and thins as it is
+pulled (here `L` and `μ` stay); its stiffness; swings so wide that the pull
+changes along the cord; the vibrator's give; swings out of the plane. Melde's
+own experiment varied the tension at twice the cord's tone (Wikipedia,
+"Melde's experiment"), which makes it swing at half the fork's; here the
+vibrator shakes it across.
+
+**Checked by** `tests/unit/test_experiment_string.py`: the page's cord, the
+100 Hz and the 40 modes; the pulls for one to three loops and the loops
+counted there; the 67, 33, 22 mm, eleven times, the 2 mm between; four times
+the pull doubling every tone; the steady swing solving the damped wave
+equation (by differences) and holding both ends; the widest swing against a
+4001-point search; the time loop independent of its frames, settling on the
+closed form (10⁻⁴ along the cord, 10⁻⁷ at the middle), the strobe at the
+vibrator's phase the cord itself; the rise in 0.14 s; whole half-waves at the
+tones; every refusal. The check cases (`domain/checks/string.py`): the lowest
+and the third tone against Mersenne's laws (Wikipedia, "String vibration"),
+the pull for three loops against the same solved for `T`, three loops and
+four nodes (Wikipedia, "Standing wave", two fixed ends), the wave's speed from
+the nodes' spacing (`λ/2`, the same article), and the time loop after five
+seconds against the closed form by hand. Wikipedia's "Melde's experiment",
+the plan's reference, states no formula (it names the nodes and loops and the
+parametric drive), so the formulas are quoted from "String vibration" and
+"Standing wave".
+
+**Joins the experiment of the week** with the third series: `THIRD_SERIES` in
+`exhibits.ts`.
+
+## The third polarising filter (`experiments.polarizer`)
+
+**The exhibit** (2026-11-23, the eighth of the third series, `docs/plan.md`).
+A lamp behind two polarising filters. Turn the back one until the two are
+crossed: dark. Slide a third filter, slanted, between them, and it is bright
+again, though a filter can only take light away. A classroom classic; a
+search of the Technorama's pages (2026-11-23) found polarisation exhibits
+(mirrors at Brewster's angle) but not this one, so the page names no model
+(`docs/plan.md`: "inspired by" only where it holds).
+
+**The model** (`domain/experiments/polarizer.py`). Malus's law along a chain
+of linear polarisers. Each filter is a Jones matrix,
+`R(−θ)·diag(√k₁, √k₂)·R(θ)`, `k₁` the share it passes of light polarised
+along its axis, `k₂ = ε·k₁` across (`ε` the extinction ratio); the lamp's
+light is unpolarised, the even mix of two crossed polarisations, so after a
+stack `J` its share of the lamp is `½·(|J·x̂|² + |J·ŷ|²)`, half the sum of the
+squares of `J`'s four entries (`through`, the light after each filter in
+turn). An ideal sheet (`k₁ = 1`, `k₂ = 0`) makes that Malus's law exactly:
+half after the first, then `cos²Δθ` at each next. Three filters, the middle at
+`φ`, the last crossed: `⅛·sin²2φ`, at most an eighth at 45° (`three`). `n`
+filters evenly between a crossed pair: `½·cos^{2(n+1)}(90°/(n+1))`
+(`stacked`, multiplied out filter by filter; the tests hold it to the closed
+form), which tends to a half, the loss about `π²/(8(n + 1))`. The real sheet is Polaroid as Wikipedia's
+"Polarizer" gives it: an extinction ratio of 1 : 500 and about 38 % of
+unpolarised light through one sheet, so `k₁ = 0.76` (38.08 %).
+
+**What it shows.** Ideal sheets: half through the first; crossed, nothing
+(10⁻³³, the rounding of cos 90°); the middle at 45°, 12.5 % of the lamp, a
+quarter of what the first lets through; at 30°, 9.4 %; ten filters between,
+40 %; sixty, 48 %. Polaroid: one sheet 38 %, two parallel 29 %, crossed
+0.12 %; with the third at 45°, 5.0 %, 44 times the crossed pair; and more is
+not better: two between is the best, 6.6 %, each further sheet swallowing
+more than its smaller turn saves, ten between down to 1.5 %.
+
+**The page.** The stack in a dark room: the lamp, the three filters drawn
+face on (each as one sees it looking through, its lines along its axis, a
+knob at its rim), the window at the end in the light that comes through; the
+beam between them as bright as the light there (white is the half behind the
+first filter), and above each stretch the light's direction as a double
+arrow as long as its amplitude, a star before the first. The middle filter
+slides in with a switch; the middle and the back one are turned by a slider
+or taken by mouse or finger at the drawing (0–180°, whole degrees); a switch
+for real sheets. The status says how much of the lamp's light comes through
+("practically dark" under 0.2 %), the figures behind the front, the middle
+and the back filter. "More filters, real filters": the count between the
+crossed pair (0–60), the sheet's transmission along its axis (50–100 %) and
+its extinction ratio (1 : 10 to 1 : 100 000, a log slider), with the light
+through over the count, ideal and real, and the best count. "The trick" has
+the light through the three over the middle's angle, ideal and real. The
+preview's middle filter turns half a turn in ten seconds: dark, bright, dark.
+Topic "light", no lesson (a chain of products, not a motion). **No route**:
+the real sheet comes with the defaults (`polarizer` in
+`/experiments/defaults`), everything else from the port
+(`simulate/polarizer.ts`), held to the engine over three sheets (ideal,
+Polaroid, a poor one passing a tenth across) by five stacks (one filter to
+five, angles below 0° and past 180°), the middle over half a turn behind a
+crossed and a slanted last, six counts between up to sixty, and the figures.
+
+**Joins the experiment of the week** on `THIRD_SERIES`, with the third series.
+
+**Left out, and said:** colour (a real sheet's `k₁` and `k₂` change with the
+wavelength; crossed Polaroid looks slightly blue); light reflected between
+the sheets; sheets that also shift the phase (retarders).
+
+**Checked by** `tests/unit/test_experiment_polarizer.py`: the Jones chain
+against a Mueller chain on the Stokes vector (I, Q, U) for three sheets and
+five stacks, to 10⁻¹⁵; an ideal chain filter by filter against Malus; the
+middle's curve against `⅛·sin²2φ` at every whole degree, its best at 45°;
+the middle filter turning the light to its own axis (a last along it takes
+all, one across it nothing); the stacks against the closed form, rising to
+48 % at sixty and the loss against `π²/(8(n + 1))`; every figure above; the
+refusals; the eight check cases.
+
+## The light in the water jet (`experiments.jet`)
+
+**The exhibit** (2026-11-23, the ninth of the third series, `docs/plan.md`).
+A tank of water with a hole low in its front wall and a laser behind it,
+shining through the water into the hole the water leaves by. The jet arcs
+down into a basin, and the light does not go on straight: it follows the
+bending jet, which glows, and comes out where the jet meets the basin or
+breaks into drops. Daniel Colladon's experiment, which he reported in the
+Comptes rendus of the Paris Academy in 1842 (Wikipedia, "Jean-Daniel
+Colladon"; "Optical fiber": Colladon and Babinet "in Paris in the early
+1840s"); a forerunner of the optical fibre. **Inspired by, in part:** the
+Technorama shows laminar jets that glow in its park ("Wasserhüpfer", exhibit
+46 of its *Parkbuch*: "Die laminaren Wasserstrahlen verhalten sich wie
+Lichtleiter … Dieses Phänomen nennt man Totalreflexion"), lit from below
+rather than by a laser through the tank, so the line "inspired by" holds for
+the glow, and the setup is Colladon's. The second light exhibit of the third
+series.
+
+**The model** (`domain/experiments/jet.py`). The jet leaves the hole level at
+Torricelli's speed `v = √(2gh)` (`h` the water above the hole) and falls as a
+thrown stone: its axis `y = −k·x²`, `k = g/(2v²) = 1/(4h)`, bends most
+sharply at the hole, with the radius `v²/g = 2h`, and meets the basin `H`
+below at `x = v·√(2H/g) = 2√(h·H)`. The jet is the band as wide as the hole
+round that axis, in the plane it falls in (a 2-D section). Nine rays start
+evenly across the hole at the laser's tilt in the water (±60°), each straight
+until it meets the band's edge: the edge is where the distance from the axis
+is the hole's radius, the axis's nearest point found by Newton's method on
+the cubic `2k²u³ + (1 + 2k·y)·u − x = 0` (warm-started from the last one),
+the step as long as the ray's distance from the nearer edge (it cannot reach
+it sooner) but at least a sixteenth of the radius, and the meeting point by
+the Illinois method (false position; it replaced 48 halvings per hit, which took
+most of the time of a grazing ray's hundreds of hits, and made the longest
+jet's beam some three times faster). At the edge the law of reflection; beyond the
+critical angle `arcsin(1/n)` all of it, below it the share `1 − R` leaves,
+`R` the mean of Fresnel's `R_s` and `R_p`, refracted out by Snell's law in
+vector form. A ray with less than 10⁻⁶ of its light left is given up, the
+rest counted where its last light left. The level is at least 5 mm, so even a
+10 mm hole's jet bends with twice its own radius (a tighter bend would fold
+the band over itself); the hole 2–10 mm, the basin 10 cm–1 m below, the index
+1.2–1.6.
+
+**What it shows** (the exhibit: 15 cm of water, a 6 mm hole, the basin
+40 cm below, water's 1.333). The jet leaves at 1.72 m/s, bends at the hole
+with a radius of 30 cm and meets the basin 49 cm out. With the laser straight
+every ray meets the edge at 79° from the normal or flatter and all the light
+reaches the basin. Tilted, it holds up to 40.1° (at 40° the steepest hit is
+48.7°, a tenth of a degree beyond the critical angle 48.6°), less than the
+straight jet's 41.4° (90° − 48.6°) because the bend steepens the hits; at 42°
+none arrives, most of it out within the first few centimetres. Below a level
+of about 6 mm (6.3 mm) the jet bends too sharply for the straight beam: at
+5 mm 17 % gets out about a centimetre after the hole. Tilted down as far as
+up, the same, to a tenth of a degree: over its width the jet bends little.
+
+**The page.** In a dark room (both themes alike): the whole exhibit, the tank
+with its level and the laser, the jet glowing green as far as its light goes
+(in 40 bins along the way), circles where light leaves, and the basin lit by
+the light that arrives; beside it the hole much enlarged (24 hole widths
+across), the jet's two edges as it bends away, the nine rays reflected inside
+it and dashed the light that gets out. Sliders for the level (0.5–50 cm) and
+the laser's tilt (±60°); a status: all in (with the steepest hit and the
+critical angle), some out (how much, how much arrives) or none arrives;
+tiles: the speed, the bend radius at the hole, the critical angle, the
+steepest hit, the light in the basin, where the first thousandth of it gets
+out. Changing the exhibit: the hole, the height above the basin and the
+liquid's index, with where the jet lands, the middle ray's reflections, and
+the light still in the jet along the way. "The trick" has the share a water
+surface reflects from inside over the angle of incidence, little below the
+critical angle, all of it from there on. The preview tilts the laser from
+straight to 48° and back over 12 s: the glow, then the light leaving at the
+hole. Topic "light", no lesson (geometry and a thrown stone, no equation of
+motion). **No route**: the port (`simulate/jet.ts`) is held to the engine over
+four jets and eleven beams — the exhibit's straight, at 30°, 41°, 45° and
+−50°; the sharpest bend straight, at 20° and −60°; a level of 6 mm; a fast
+thin jet of index 1.5 at 10° and 45° — every ray's path, hits and escapes,
+the beam's light in its bins, and the figures; past the laser's cosine and
+sine the trace is arithmetic and square roots only, so the two agree to the
+last bits.
+
+**Joins the experiment of the week** on `THIRD_SERIES`, with the third series.
+
+**Left out, and said:** the round jet's other direction (the page computes in
+the section the jet falls in, and rays outside it are missing); the jet's
+thinning as it speeds up; its breaking into drops (the model's jet stays whole
+to the basin, where the light comes out as it does at the drops); the surface
+tension that holds a very slow jet to the wall; the laser's polarisation and
+the beam's width and spread; waves on the surface; the light the water
+absorbs.
+
+**Checked by** `tests/unit/test_experiment_jet.py`: Torricelli's speed, the
+bend radius `2h`, the landing `2√(h·H)` and the radius growing along the
+axis; the critical angles of water (48.6°) and glass (41.8°); the reflectance
+against `((n − 1)/(n + 1))²` straight on (2 %), whole beyond the critical
+angle and rising towards it; a traced ray's hits a radius from the axis by a
+search of the test's own, the angles in and out equal; the figures above
+(79°, 40°/40.1°/40.2°/42°, −40°/−42°, 7 mm and 1 cm all in, 6 mm
+leaking, 5 mm 83 % at 1.1 cm); the light adding up to one with none lost and no ray trapped over
+five corners of the bounds; an escaping ray against Snell's law and `1 − R`;
+the refusals; the four check cases.
+
+## The ship that rights itself (`experiments.ship`)
+
+**The exhibit** (2026-11-23, the tenth of the third series, `docs/plan.md`).
+A model hull floats in a basin; a weight slides up a mast or down into a
+keel. With the weight low, the hull tilted by hand rocks back upright; with it
+high up the mast, a small push turns it keel up. No "inspired by" line: no
+such exhibit at the Technorama could be confirmed (a search on 2026-11-23
+found none), so the page stands without one.
+
+**The model** (`domain/experiments/ship.py`). The hull's cross-section, a
+closed box (no water comes over the deck), prismatic over its length, in
+fresh water of 998 kg/m³; G from the hull's own centre and the weight's, the
+roll's moment of inertia about G by Steiner (the hull's own radius of
+gyration, the weight as a point). For a heel φ the waterline is the level
+line that leaves the displaced area under water, found exactly: between two
+corners' heights the width along a level line is linear, the area under it
+quadratic, so the stretch is found where the area passes the displacement and
+the quadratic solved there (corners a rounding apart, as at 90°, taken as
+one). The part under water is clipped from the section (Sutherland–Hodgman,
+one edge), B is its centroid, and `GZ = y_B·cos φ + (z_B − KG)·sin φ` in the
+hull's own frame. Pure geometry to any angle: the bottom coming out, the deck's
+edge going under, the hull on its side or keel up. The roll is
+`I·φ'' = −m·g·GZ(φ) − 2β·I·φ'`, the hull turning about G, stepped by
+`numerics.rk4` at 2 ms. The figures: KB, BM (the upright waterline's chord
+cubed over twelve, over the area), KM, KG, GM, the small roll's period
+`2π·√(I/(m·g·GM))`, the weight's height where GM is zero, and the stability
+curve from 0° to 180° sampled every half degree, its sign changes halved 50
+times: the greatest arm, the angle of vanishing stability, a lolling angle
+where GM ≤ 0, and whether it floats keel up.
+
+**What it shows** (an assumed model: a box 20 cm wide, 12 cm deep, 50 cm
+long, 2 kg, its own centre 5 cm up and 7 cm radius of gyration; a 1 kg weight
+from 15 cm under the hull to 40 cm up the mast). It floats 3.0 cm deep
+(3.006), B 1.5 cm up, BM 11.1 cm, M 12.6 cm above the bottom. The weight on
+the deck (12 cm): KG 7.3 cm, GM 5.3 cm (5.259), a roll every 0.58 s
+(0.5774), back from up to 75°. At the keel's foot: G 1.67 cm below the bottom,
+GM 14.3 cm, back from any heel, from its side by an arm of 7.7 cm (7.667). 25 cm
+up: GM 0.9 cm, a roll every 2.3 s. Above 27.8 cm G passes M; at 35 cm GM is
+−2.4 cm, it has no lolling angle (the bottom comes out first, at 16.7°) and a
+push of 2° turns it keel up, where it floats stably. Only within a few
+millimetres of the limit does it loll (2.2° at 27.8 cm). The wall-sided
+formula holds exactly to 16.7°; at 15° GM·sin φ alone is 7 % short of the arm,
+1.464 cm.
+
+**The page.** The basin from the end: the hull in section, the part under
+water shaded, the keel and the mast with the weight, G and B with their lines
+of action and the arm between them, the heel. The hull is turned by a finger
+or the mouse about G (a slider for a screen reader: the arrow keys tilt it,
+1° or 5° with Shift, and set it free when let go); "Push" lets it go 10°
+over, "Upright" sets it upright at rest; the weight's height a slider
+(−15 to 40 cm); real time or a quarter. Beside it: held, upright, on a
+knife's edge, lolling, capsizing, keel up or rolling; the heel, GZ, GM and the
+roll period. "Change the exhibit": the beam (12–40 cm), the weight's mass
+(0.2–3 kg; a build that would sink is not taken) and the damping (0–2 1/s),
+with draft, KB, BM, KG, the weight's limit and the angle of vanishing
+stability, and the stability curve against GM·sin φ. "The trick" has the
+curve for the weight at the keel's foot, on the deck and 35 cm up the mast.
+The preview lets the hull go 25° over every 4 s, the weight on the deck.
+Topic "equilibrium", lesson `second_order`. **No route**: the defaults carry
+the hull, the weight and the damping; the port's (`simulate/ship.ts`), held
+to the engine over seven runs of 1000 steps (on the deck at 20° and, undamped,
+at 0.5°; in the keel from 90°; 35 cm up from 2°; at 27.8 cm, lolling; on the
+deck from 80°, over; a 30 cm hull with 2.5 kg at 30 cm from −30°), each
+build's arm, B and waterline at 49 heels over a whole turn, G, I and the
+figures.
+
+**Joins the experiment of the week** on `THIRD_SERIES`, with the third series.
+
+**Left out, and said:** the water the rolling hull carries along (the roll
+period's a₄₄), heave (it floats on its displacement at every angle at once),
+sway and the waves the roll makes, the keel's and the mast's volume and
+weight, water coming in.
+
+**Checked by** `tests/unit/test_experiment_ship.py`: Archimedes' draft,
+KB = d/2 and BM = b²/(12d) from the clipped section; B on the wall-sided
+parabola (`y_B = BM·tan φ`, `z_B = KB + ½·BM·tan²φ`) and GZ on Scribanti's
+formula to 10⁻¹² up to 16.7°, overshooting past it; B against a brute-force
+grid of 400 × 400 cells at six heels to 180°; the displacement under every
+waterline every 5°; the curve odd and zero upright and keel up; on its side
+`H/2 − KG`; undamped energy kept to 10⁻⁶ from 60°; the small roll dying away
+at `e^(−β·T_d)`; back from 60° and over from 80° on the deck, keel up from 2°
+at 35 cm, back from 90° in the keel; a loll just past the limit; every figure
+of the page; its four checks; the refusals.
+
+**Its checks** (four, `domain/checks/ship.py`), every source read on
+2026-11-23 and quoted verbatim: GM of the box from GZ/sin φ at 0.01° against
+`KB + I_t/∇ − KG` with `I_t = L·b³/12` (Techet, MIT 13.012 Reading #3, and de
+Jong's TU Delft Offshore Hydromechanics slides; derived for `KB = d/2`); the
+arm at 15° against Scribanti's `GN_φ = KB + I_t/∇·(1 + ½tan²φ) − KG`,
+`GZ = GN_φ·sin φ` (the Delft slides, which give it for 5 to 15°; derived:
+exact for a box while both sides stand in the water); the hull on its side
+with the weight in the keel against `H/2 − KG` (Techet's centre of buoyancy as
+the centre of the part under water, Wikipedia's GZ as the horizontal distance
+of the two lines; derived); the small roll's period, read off the time loop
+undamped from 0.5°, against Wikipedia's `T = 2π√((a₄₄² + k²)/(g·GM))` with
+a₄₄ = 0 (derived), 2.5·10⁻⁵ short from the curve's stiffening. The brief's
+"BM = I/V and GM = KB + BM − KG" held as written (Wikipedia gives
+`KM = KB + BM` and `BM = I/V`, Techet `GM = KM − KG`); its roll period
+`T ≈ 2πk/√(g·GM)` is Wikipedia's with the added radius of gyration a₄₄ left
+out, which the case says.
+
 ## The link previews
 
 A link to the site or to an exhibit, shared in WhatsApp, Signal, Mastodon or
@@ -2797,6 +3689,62 @@ its own and the pendulum took its rounding from the sphere. `engine-cases.json`
 now carries what its cases were asked at (`inputs`, and each run's
 `duration_s` and sampling `every`), so `simulate.test.ts` no longer keeps
 copies of those lists; every number it held before stayed as it was.
+
+**The film's** five checks (2026-11-23) hold the tearing distance, halved on
+the engine's own `catenoids` (not read off its constant), to MathWorld's
+`u = coth u`, `h/R = 2·csch u` (1.32549, 6.6274 cm, to 10⁻¹⁶; Jia et al.'s
+1.3255 and Ito and Sato's 1.33 beside it); the area a hair (10⁻¹⁰ R) short of
+the tear to Ito and Sato's area formula at the waist `R/cosh u`, 1.19968 times
+the discs (6 · 10⁻¹¹; Jia et al. state `Ā_max ≈ 1.1997`); MathWorld's rings a
+radius apart (x₀ = ½, y₀ = 1) on the page's 5 cm rings, the wide film's
+149.795 cm² and the thin one's waist of 1.1755 cm, each root of
+`y₀ = a·cosh(x₀/a)` found by the case's own halving either side of its least
+value; and the equal-area distance, halved on the engine's `least`, to
+MathWorld's (48)–(50) (1.05539, 5.2770 cm). MathWorld's figures are cut off,
+not rounded ("0.2350..." is 0.23509). "Set it up" sets the rings' radius and
+distance and dips the film anew: 6.5 cm for the tear (the reader draws the
+rest), 6.6 cm for the area, 5 cm for the two films (the thin one is switched
+on by hand), 5.4 cm just past the equal areas. The pull the film exerts,
+`F = 2πμc` (Jia et al.), is not on the page and not checked.
+
+**The third polarising filter's**
+eight (2026-11-23) hold unpolarised light to a half through one ideal sheet
+(Wikipedia "Polarizer"; OpenStax University Physics 3 §1.7, "decreasing its
+intensity by a factor of 2"), the second of two at 30° to Malus's cos²θ
+(OpenStax Eq. 1.6), the crossed pair to dark ("no light is passed by the
+second filter"), the third at 45° to an eighth of the lamp (UCSB's lecture
+demonstration, "one-eighth of the light from the projector reaches the
+screen"; HyperPhysics, "25%" of what the first passes), the middle at 30° to
+3/32 and ten between to ½·cos²²(90°/11) (both derived, Malus filter by
+filter), and Polaroid's sheet to about 38 % through one (1 % leeway for the
+source's "around") and to `k₁²·ε` crossed (derived from the extinction
+ratio's definition). The plan's reference for the series' line ("I =
+I₀·cos²θ₁·cos²θ₂, at most I₀/8 at 45°") held; Hecht's *Optics*, named in the
+brief, was not read (not online), and is cited nowhere. "Set it up" sets the
+middle filter in or out, its angle, the back one's and the sheet on the
+stack's card, and the count between on "More filters".
+
+**The light in the water jet's** four
+(2026-11-23) hold the angle from which the page reflects all the light (found
+by halving on its `reflectance`, 48.6066°) to the critical angle
+`arcsin(n₂/n₁)` (Wikipedia, "Total internal reflection", §Critical angle:
+"for incidence from water (n1 ≈ 1.333) to air (n2 ≈ 1), we have θc ≈ 48.6°"),
+the drawn light leaving at the first hit of a laser tilted 45° to Snell's law
+(Wikipedia, "Snell's law": 68.9° from the normal, the angle in taken from the
+drawn path and the normal from the axis's nearest point found by halving, not
+the engine's Newton steps), the share let out there to Fresnel's formulas
+(Wikipedia, "Fresnel equations": 87.8 %, derived: `1 − (R_s + R_p)/2`, from
+the source's `R_s`, `R_p`, transmission as what is not reflected, and the
+mean for unpolarised light) and where the jet meets the basin to Torricelli's
+`√(2gh)` and a stone's fall time `√(2H/g)` "independent of any initial
+horizontal velocity" (Wikipedia, "Torricelli's law" and "Projectile motion";
+derived, `x = v·t`). All four agree to rounding (under 10⁻¹⁵). The plan's
+reference ("arcsin(1/1.333) ≈ 48.6° (Colladon 1842)") held: Wikipedia's
+"Jean-Daniel Colladon" has him report the experiment in the Comptes rendus in
+1842, and Tyndall's 48°27′ for water (quoted in "Optical fiber") is the same
+angle to a sixth of a degree; Colladon is named on the page, not in a case, since
+he states no formula. "Set it up" sets the level, the hole, the drop, the
+index and the laser's tilt.
 
 ## Checking the mathematics
 

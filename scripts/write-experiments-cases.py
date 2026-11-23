@@ -76,15 +76,25 @@ arch = importlib.import_module("staunlabor.domain.experiments.arch")
 levitation = importlib.import_module("staunlabor.domain.experiments.levitation")
 circuit = importlib.import_module("staunlabor.domain.experiments.circuit")
 plates = importlib.import_module("staunlabor.domain.experiments.plates")
+vessel = importlib.import_module("staunlabor.domain.experiments.vessel")
 bounce = importlib.import_module("staunlabor.domain.experiments.bounce")
 overhang = importlib.import_module("staunlabor.domain.experiments.overhang")
+galton = importlib.import_module("staunlabor.domain.experiments.galton")
+film = importlib.import_module("staunlabor.domain.experiments.film")
 diver = importlib.import_module("staunlabor.domain.experiments.diver")
+ship = importlib.import_module("staunlabor.domain.experiments.ship")
 chladni = importlib.import_module("staunlabor.domain.experiments.chladni")
 colour = importlib.import_module("staunlabor.domain.experiments.colour")
 rainbow = importlib.import_module("staunlabor.domain.experiments.rainbow")
 sky = importlib.import_module("staunlabor.domain.experiments.sky")
 slits = importlib.import_module("staunlabor.domain.experiments.slits")
+polarizer = importlib.import_module("staunlabor.domain.experiments.polarizer")
+jet = importlib.import_module("staunlabor.domain.experiments.jet")
 beats = importlib.import_module("staunlabor.domain.experiments.beats")
+spring = importlib.import_module("staunlabor.domain.experiments.spring")
+string = importlib.import_module("staunlabor.domain.experiments.string")
+kapitza = importlib.import_module("staunlabor.domain.experiments.kapitza")
+metronomes = importlib.import_module("staunlabor.domain.experiments.metronomes")
 
 TARGET = ROOT / "frontend/src/features/experiments/simulate/engine-cases.json"
 #: Points kept per curve: enough to see a curve that went wrong, few enough that
@@ -618,6 +628,47 @@ CIRCUIT_CASES = (
 #: When after the switch the cases are compared, in seconds.
 CIRCUIT_TIMES = (0.0, 0.05, 0.2429, 0.5, 1.0, 2.5, 7.0, 15.0)
 
+#: The draining vessel: the exhibit's tube with a hand that pulls the lowest
+#: plug, then the top one, puts the top one back, pulls the middle one and lets
+#: it run to the lowest hole and stop there; all three at once; a wide hole in a
+#: narrow tube on no stand, the level starting under the top hole, so one plug
+#: pulled lets nothing out; a long run from a fat tube, the level falling past
+#: a hole and the hand acting on the same step as another.
+VESSEL_CASES: tuple[dict[str, Any], ...] = (
+    {
+        "vessel": vessel.DrainingVessel(),
+        "plugs": (
+            vessel.Plug(0.0, 0, True),
+            vessel.Plug(3.0, 2, True),
+            vessel.Plug(7.5, 2, False),
+            vessel.Plug(9.0, 1, True),
+        ),
+        "duration_s": 80.0,
+    },
+    {
+        "vessel": vessel.DrainingVessel(),
+        "plugs": (vessel.Plug(0.0, 0, True), vessel.Plug(0.0, 1, True), vessel.Plug(0.0, 2, True)),
+        "duration_s": 60.0,
+    },
+    {
+        "vessel": vessel.DrainingVessel(
+            diameter_m=0.04, fill_m=0.5, hole_diameter_m=0.01, discharge=0.95, stand_m=0.0, holes_m=(0.0, 0.3, 0.6)
+        ),
+        "plugs": (vessel.Plug(0.5, 2, True), vessel.Plug(1.0, 0, True), vessel.Plug(1.0, 1, True)),
+        "duration_s": 8.0,
+    },
+    {
+        "vessel": vessel.DrainingVessel(diameter_m=0.2, hole_diameter_m=0.004, holes_m=(0.1, 0.5)),
+        "plugs": (vessel.Plug(2.0, 1, True), vessel.Plug(2.0, 0, True), vessel.Plug(400.0, 0, False)),
+        "duration_s": 600.0,
+    },
+)
+
+#: Levels and moments the closed form and the jets are compared at.
+VESSEL_LEVELS = (0.0, 0.05, 0.2, 0.35, 0.5, 0.9, 1.0)
+VESSEL_TIMES = (0.0, 5.0, 19.99, 40.0, 68.0, 70.0)
+VESSEL_XS = (0.0, 0.3, 0.9, 2.0)
+
 
 #: The falling plates: the exhibit's column; a strong one of short magnets; a
 #: weak one of long magnets, tall. Each with the exhibit's four plates, and the
@@ -698,6 +749,23 @@ DIVER_STEPS = 1500
 DIVER_SQUEEZES = (0.0, 5000.0, 9000.0, 10883.5, 15000.0)
 DIVER_DEPTHS = (0.0, 0.07, 0.3, 1.2)
 
+#: The ship that rights itself: the weight on the deck let go at 20° and,
+#: undamped, at half a degree; in the keel from lying on its side; up the mast
+#: from 2°, going over; at the height where it just lolls; on the deck past
+#: where it can come back; a wider hull with a heavier weight heeled the other
+#: way. Every build's stability curve over a whole turn, and its figures.
+SHIP_RUNS = (
+    (ship.Hull(), ship.Weight(), ship.DAMPING_PER_S, 20.0),
+    (ship.Hull(), ship.Weight(), 0.0, 0.5),
+    (ship.Hull(), ship.Weight(height_m=-0.15), ship.DAMPING_PER_S, 90.0),
+    (ship.Hull(), ship.Weight(height_m=0.35), ship.DAMPING_PER_S, 2.0),
+    (ship.Hull(), ship.Weight(height_m=0.278), ship.DAMPING_PER_S, 1.0),
+    (ship.Hull(), ship.Weight(), 1.0, 80.0),
+    (ship.Hull(beam_m=0.3), ship.Weight(mass_kg=2.5, height_m=0.3), 2.0, -30.0),
+)
+SHIP_STEPS = 1000
+SHIP_ANGLES = tuple(7.5 * k for k in range(-24, 25))
+
 
 #: Light: the observer at the fit's bell centres and the ends of the range;
 #: lamps from a candle's glow to a blue sky's; colours inside the screen's
@@ -740,6 +808,31 @@ SLITS = (
 )
 SLITS_NM = (405.0, 532.0, 650.0)
 SLITS_POINTS = 81
+
+#: The third polarising filter: an ideal sheet, Polaroid's, and a poor one that
+#: passes a tenth across; stacks of one to five filters at angles past 90° and
+#: below 0°; the middle of three over half a turn, behind a crossed and a
+#: slanted last; up to the most filters between a crossed pair.
+POLARIZER_SHEETS = (polarizer.IDEAL, polarizer.POLAROID, polarizer.Sheet(transmission=0.5, extinction=0.1))
+POLARIZER_STACKS = ((0.0,), (0.0, 90.0), (0.0, 30.0), (0.0, 45.0, 90.0), (10.0, -35.0, 120.0, 181.5, 90.0))
+POLARIZER_MIDDLES = tuple(15.0 * k for k in range(13))
+POLARIZER_LASTS = (90.0, 60.0)
+POLARIZER_BETWEEN = (0, 1, 2, 5, 10, polarizer.MOST_BETWEEN)
+
+#: The light in the water jet: the exhibit's jet with the laser straight, at
+#: 30°, just past its limit, past it and steeply down; the sharpest bend the
+#: bounds allow, straight (some light out), up and steeply down (some back off
+#: the inner edge); a level just below the leak; a fast thin jet of glass's index.
+JET_BEAMS = (
+    (jet.Jet(), (0.0, 30.0, 41.0, 45.0, -50.0)),
+    (jet.Jet(level_m=0.005, hole_m=0.01), (0.0, 20.0, -60.0)),
+    (jet.Jet(level_m=0.006), (0.0,)),
+    (jet.Jet(level_m=0.3, hole_m=0.002, drop_m=0.8, index=1.5), (10.0, 45.0)),
+)
+#: Where the axis and its normal are written, as shares of the way to the basin;
+#: the cosines the reflectance is written at.
+JET_ALONG = (0.0, 0.25, 0.5, 1.0)
+JET_COSINES = (1.0, 0.9, 0.7, 0.66, 0.5, 0.2, 0.0)
 
 #: Beats: the exhibit's fork, a low heavy one ringing long, a high light one
 #: ringing short; riders from none to the heaviest at the tip; the sound over
@@ -942,6 +1035,25 @@ def _circuit_cases(out: dict[str, Any]) -> None:
         )
 
 
+def _vessel_cases(out: dict[str, Any]) -> None:
+    out["vessel"] = []
+    for case in VESSEL_CASES:
+        v = case["vessel"]
+        out["vessel"].append(
+            {
+                "vessel": asdict(v),
+                "plugs": [asdict(p) for p in case["plugs"]],
+                "duration_s": case["duration_s"],
+                "figures": asdict(vessel.figures(v)),
+                "ranges": [[vessel.jet_range_m(v, h, y) for y in v.holes_m] for h in VESSEL_LEVELS],
+                "paths": [[vessel.jet_path(v, h, y, x) for x in VESSEL_XS] for h in VESSEL_LEVELS for y in v.holes_m],
+                "exact": [[vessel.level_exact(v, y, t) for t in VESSEL_TIMES] for y in v.holes_m],
+                "drain_s": [vessel.drain_time_s(v, y) for y in v.holes_m],
+                "run": thin(asdict(vessel.run(v, case["plugs"], case["duration_s"]))),
+            }
+        )
+
+
 def _plates_cases(out: dict[str, Any]) -> None:
     pairs = [(c, p) for c in PLATE_COLUMNS for p in plates.EXHIBIT_PLATES]
     pairs += [(PLATE_COLUMNS[0], p) for p in PLATE_EXTRAS]
@@ -1000,6 +1112,118 @@ def _overhang_cases(out: dict[str, Any]) -> None:
     }
 
 
+#: The Galton board: level and tilted boards, one row and the widest, the
+#: shares all to one side (p = 0 and 1) and nearly so; runs from seeds at both
+#: ends of the 32 bits, the exhibit's, a long one and one-sided ones.
+GALTON_BOARDS = (
+    (1, 0.5),
+    (2, 0.5),
+    (8, 0.5),
+    (12, 0.5),
+    (12, 0.7),
+    (12, 0.0),
+    (12, 1.0),
+    (24, 0.5),
+    (24, 0.13),
+    (5, 0.999),
+)
+GALTON_SEEDS = (0, 1, galton.EXHIBIT_SEED, 2**31 - 1, 2**31, 2**32 - 1)
+GALTON_RUNS = (
+    (galton.EXHIBIT_ROWS, galton.LEVEL, galton.EXHIBIT_BALLS, galton.EXHIBIT_SEED),
+    (12, 0.7, 200, 7),
+    (1, 0.5, 40, 0),
+    (24, 0.5, 300, 2**32 - 1),
+    (6, 0.0, 20, 3),
+    (6, 1.0, 20, 3),
+    (12, 0.5, galton.MOST_BALLS, galton.EXHIBIT_SEED + 1),
+)
+#: The balls whose every turn is written, from the start of each run.
+GALTON_TURNS = 5
+
+
+def _galton_cases(out: dict[str, Any]) -> None:
+    out["galton"] = {
+        "boards": [
+            {
+                "rows": n,
+                "p": p,
+                "shares": list(galton.shares(n, p)),
+                "figures": asdict(galton.figures(n, p)),
+                "normal": [galton.normal(n, p, k) for k in range(n + 1)] if 0 < p < 1 else None,
+            }
+            for n, p in GALTON_BOARDS
+        ],
+        "paths": [list(galton.paths(n)) for n in range(1, galton.MOST_ROWS + 1)],
+        "uniforms": [{"seed": seed, "draws": list(galton.uniforms(seed, 64))} for seed in GALTON_SEEDS],
+        "runs": [
+            {
+                "rows": n,
+                "p": p,
+                "balls": balls,
+                "seed": seed,
+                "counts": list(run.counts),
+                "mean": run.mean,
+                "variance": run.variance,
+                "first_bins": list(run.bins[:100]),
+                "turns": [list(t) for t in galton.turns(n, p, GALTON_TURNS, seed)],
+            }
+            for n, p, balls, seed in GALTON_RUNS
+            for run in (galton.drop(n, p, balls, seed),)
+        ],
+    }
+
+
+#: The soap film: the exhibit's rings from touching to past the tear, the
+#: distances where the film stops being the least and where it tears, a hair
+#: either side of each; small and large rings; the rings a tenth of a millimetre
+#: apart, where the thin catenoid's bracket doubles the most.
+FILM_RINGS = (
+    (film.EXHIBIT_RADIUS_M, film.START_DISTANCE_M),
+    (0.05, 0.0001),
+    (0.05, 0.02),
+    (0.05, 0.05),
+    (0.05, film.EQUAL_RATIO * 0.05 * (1 - 1e-9)),
+    (0.05, film.EQUAL_RATIO * 0.05 * (1 + 1e-9)),
+    (0.05, 0.06),
+    (0.05, film.TEAR_RATIO * 0.05 * (1 - 1e-9)),
+    (0.05, film.TEAR_RATIO * 0.05 * (1 + 1e-9)),
+    (0.05, 0.12),
+    (0.03, 0.01),
+    (0.08, 0.1),
+    (1.0, 0.0001),
+    (1.0, 2.0),
+)
+#: Where along the axis the film's radius is compared, as shares of half the distance.
+FILM_ZS = (-1.0, -0.5, 0.0, 0.3, 1.0)
+
+
+def _film_cases(out: dict[str, Any]) -> None:
+    def case(radius: float, distance: float) -> dict[str, Any]:
+        rings = film.Rings(radius, distance)
+        both = film.catenoids(rings)
+        return {
+            "rings": asdict(rings),
+            "catenoids": None if both is None else [asdict(c) for c in both],
+            "tears": film.tears(rings),
+            "figures": asdict(film.figures(rings)),
+            "profile": None
+            if both is None
+            else [[film.radius_at(c.neck_m, z * distance / 2) for z in FILM_ZS] for c in both],
+        }
+
+    out["film"] = {
+        "constants": {
+            "tangent_t": film.TANGENT_T,
+            "tear_ratio": film.TEAR_RATIO,
+            "equal_t": film.EQUAL_T,
+            "equal_ratio": film.EQUAL_RATIO,
+        },
+        "spans": [[t / 4, film.span(t / 4)] for t in range(0, 33)],
+        "zs": list(FILM_ZS),
+        "cases": [case(r, d) for r, d in FILM_RINGS],
+    }
+
+
 def _diver_cases(out: dict[str, Any]) -> None:
     for d, b, start, squeeze in DIVER_RUNS:
         if isinstance(start, str):
@@ -1018,6 +1242,28 @@ def _diver_cases(out: dict[str, Any]) -> None:
                 "bubble_m3": [[diver.bubble_m3(d, z, s) for z in DIVER_DEPTHS] for s in DIVER_SQUEEZES],
                 "lift_n": [[diver.lift_n(d, z, s) for z in DIVER_DEPTHS] for s in DIVER_SQUEEZES],
                 "figures": asdict(diver.figures(d, b)),
+            }
+        )
+
+
+def _ship_cases(out: dict[str, Any]) -> None:
+    out["ship"] = []
+    for hull, weight, damping, start in SHIP_RUNS:
+        states = ship.run(hull, weight, damping, start, SHIP_STEPS)
+        radians = [math.radians(a) for a in SHIP_ANGLES]
+        out["ship"].append(
+            {
+                "hull": asdict(hull),
+                "weight": asdict(weight),
+                "damping_per_s": damping,
+                "start_deg": start,
+                "run": {"phi": thin([p for p, _ in states]), "rate": thin([r for _, r in states])},
+                "arm_m": ship.curve_m(hull, weight, list(SHIP_ANGLES)),
+                "centre": [list(ship.buoyancy_centre(hull, weight, a)) for a in radians],
+                "waterline": [ship.waterline(ship.section(hull), ship.displaced_m2(hull, weight), a) for a in radians],
+                "gravity_m": ship.gravity_m(hull, weight),
+                "inertia_kg_m2": ship.inertia_kg_m2(hull, weight),
+                "figures": asdict(ship.figures(hull, weight)),
             }
         )
 
@@ -1126,6 +1372,56 @@ def _slits_cases(out: dict[str, Any]) -> None:
         )
 
 
+def _jet_cases(out: dict[str, Any]) -> None:
+    out["jet"] = []
+    for j, tilts in JET_BEAMS:
+        land = jet.landing_m(j)
+        beams = []
+        for tilt in tilts:
+            b = jet.beam(j, tilt)
+            beams.append({"tilt_deg": tilt, "beam": thin(asdict(b)), "figures": asdict(jet.figures_of(j, b))})
+        out["jet"].append(
+            {
+                "jet": asdict(j),
+                "speed_m_s": jet.speed_m_s(j),
+                "bend_radius_m": jet.bend_radius_m(j),
+                "landing_m": land,
+                "critical": jet.critical_angle(j.index),
+                "axis": [jet.axis_y(j, s * land) for s in JET_ALONG],
+                "normal": [list(jet.axis_normal(j, s * land)) for s in JET_ALONG],
+                "reflectance": [jet.reflectance(j.index, c) for c in JET_COSINES],
+                "beams": beams,
+            }
+        )
+
+
+def _polarizer_cases(out: dict[str, Any]) -> None:
+    out["polarizer"] = [
+        {
+            "sheet": asdict(sheet),
+            "stacks": [{"angles": list(a), "through": polarizer.through(a, sheet)} for a in POLARIZER_STACKS],
+            "three": [
+                {
+                    "last_deg": last,
+                    "middles": list(POLARIZER_MIDDLES),
+                    "light": [polarizer.three(m, sheet, last) for m in POLARIZER_MIDDLES],
+                }
+                for last in POLARIZER_LASTS
+            ],
+            "between": [
+                {
+                    "between": n,
+                    "angles": thin(polarizer.evenly(n)),
+                    "light": polarizer.stacked(n, sheet),
+                }
+                for n in POLARIZER_BETWEEN
+            ],
+            "figures": asdict(polarizer.figures(sheet)),
+        }
+        for sheet in POLARIZER_SHEETS
+    ]
+
+
 def _beats_cases(out: dict[str, Any]) -> None:
     out["beats"] = {
         "shape": [beats.mode_shape(k / 10) for k in range(11)],
@@ -1166,6 +1462,185 @@ RESONANCE_S = 10.0
 GYROSCOPE_S = 5.0
 
 
+#: The Wilberforce spring: pulled down tuned, twisted, the faster mode, the
+#: slower detuned and damped, a hand's pull and twist at once with no coupling
+#: at a coarse step, and the nuts far out with a mode so detuned its pull is
+#: scaled back.
+WS = spring.WilberforceSpring
+SPRING_CASES: dict[str, dict[str, Any]] = {
+    "pulled down, tuned": {"s": WS(), "start": spring.Start.DOWN},
+    "twisted": {"s": WS(), "start": spring.Start.TWISTED},
+    "the faster mode": {"s": WS(), "start": spring.Start.FAST},
+    "the slower mode, detuned and damped": {
+        "s": WS(nut_radius_m=0.035, damping_per_s=0.1),
+        "start": spring.Start.SLOW,
+    },
+    "a hand, no coupling, a coarse step": {
+        "s": WS(coupling_n=0.0, nut_radius_m=0.01),
+        "pull_m": -0.04,
+        "twist_rad": 2.5,
+        "step_s": 5e-3,
+    },
+    "far detuned, the faster mode": {"s": WS(nut_radius_m=0.1, nut_kg=0.1), "start": spring.Start.FAST},
+}
+
+
+#: Kapitza's pendulum: standing on the page's drive, falling with the motor off,
+#: too slow to hold, swinging itself up from hanging, and wide and slow at a
+#: coarse step; the multipliers' answers (each a bisection of 40 periods and
+#: more) only where the case is about them, so the writer stays quick.
+KAPITZA_CASES: dict[str, dict[str, Any]] = {
+    "the page's rod, standing": {"k": kapitza.KapitzaPendulum(), "start_deg": 177.0, "duration_s": 3.0},
+    "the motor off, falling": {
+        "k": kapitza.KapitzaPendulum(frequency_hz=0.0),
+        "start_deg": 179.0,
+        "duration_s": 1.5,
+        "floquet": False,
+    },
+    "too slow to hold": {"k": kapitza.KapitzaPendulum(frequency_hz=25.0), "start_deg": 177.0, "duration_s": 2.0},
+    "swinging itself up from hanging": {
+        "k": kapitza.KapitzaPendulum(frequency_hz=2.23, damping_per_s=0.0),
+        "start_deg": 5.0,
+        "duration_s": 4.0,
+    },
+    "wide and slow, a coarse step": {
+        "k": kapitza.KapitzaPendulum(amplitude_m=0.04, frequency_hz=9.0, damping_per_s=1.0),
+        "start_deg": -160.0,
+        "duration_s": 3.0,
+        "step_s": 2e-3,
+    },
+}
+
+#: Angles at which the cases write Kapitza's potential, degrees.
+KAPITZA_ANGLES = (0.0, 45.0, 90.0, 135.0, 180.0)
+
+
+def _kapitza_cases(out: dict[str, Any]) -> None:
+    out["kapitza"] = []
+    for name, case in KAPITZA_CASES.items():
+        k = case["k"]
+        step = case.get("step_s", kapitza.step_for(k))
+        entry: dict[str, Any] = {
+            "name": name,
+            "k": asdict(k),
+            "start_deg": case["start_deg"],
+            "duration_s": case["duration_s"],
+            "step_s": step,
+            "step_for": kapitza.step_for(k),
+            "kapitza_hz": kapitza.kapitza_frequency_hz(k),
+            "own_hz": kapitza.own_frequency_hz(k),
+            "slow_top": kapitza.slow_rate_top(k),
+            "slow_bottom": kapitza.slow_rate_bottom(k),
+            "stable_top": kapitza.stable(k, "top"),
+            "stable_bottom": kapitza.stable(k, "bottom"),
+            "potential": [kapitza.effective_potential(k, math.radians(a)) for a in KAPITZA_ANGLES],
+            "floquet": None,
+            "run": thin(asdict(kapitza.run(k, case["start_deg"], case["duration_s"], step))),
+        }
+        if case.get("floquet", True):
+            band = kapitza.swing_up_band_hz(k)
+            entry["floquet"] = {
+                "monodromy_top": [list(row) for row in kapitza.monodromy(k, "top")],
+                "multipliers_top": list(kapitza.multipliers(k, "top")),
+                "multipliers_bottom": list(kapitza.multipliers(k, "bottom")),
+                "floquet_rate_top": kapitza.floquet_rate_top(k),
+                "least_hz": kapitza.least_frequency_hz(k),
+                "band_hz": None if band is None else list(band),
+            }
+        out["kapitza"].append(entry)
+
+
+def _spring_cases(out: dict[str, Any]) -> None:
+    out["spring"] = []
+    for name, case in SPRING_CASES.items():
+        s = case["s"]
+        step = case.get("step_s", spring.STEP_S)
+        start = case.get("start")
+        if start is None:
+            pull, twist = case["pull_m"], case["twist_rad"]
+        else:
+            pull, twist, _, _ = spring.start_state(s, start)
+        out["spring"].append(
+            {
+                "name": name,
+                "s": asdict(s),
+                "start": None if start is None else str(start),
+                "pull_m": pull,
+                "twist_rad": twist,
+                "step_s": step,
+                "inertia_kg_m2": spring.inertia_kg_m2(s),
+                "alone_rates": list(spring.alone_rates(s)),
+                "mode_rates": list(spring.mode_rates(s)),
+                "beat_s": spring.beat_s(s),
+                "exchange_share": spring.exchange_share(s),
+                "tuned_radius_m": spring.tuned_radius_m(s),
+                "run": thin(asdict(spring.run(s, pull, twist, 4.0, step))),
+            }
+        )
+
+
+#: The metronomes: the exhibit at its scattered start, two on Pantaleone's board
+#: let go together, four on a held board nearly opposite, seven on a heavy board
+#: from a small swing at a coarse step, one alone; each run for four seconds.
+MT = metronomes.Metronomes
+METRONOME_CASES: dict[str, dict[str, Any]] = {
+    "the exhibit, scattered": {"mt": MT(), "start": metronomes.Start.SCATTERED},
+    "two on his board, together": {"mt": MT(count=2, spread=0.005), "start": metronomes.Start.TOGETHER},
+    "four on a held board, opposite": {"mt": MT(count=4, free=False), "start": metronomes.Start.OPPOSITE},
+    "seven on a heavy board, small, a coarse step": {
+        "mt": MT(count=7, board_kg=2.0, spread=0.02),
+        "start": metronomes.Start.SMALL,
+        "step_s": 0.01,
+    },
+    "one alone": {"mt": MT(count=1), "start": metronomes.Start.SMALL},
+}
+
+
+def _metronomes_cases(out: dict[str, Any]) -> None:
+    out["metronomes"] = []
+    for name, case in METRONOME_CASES.items():
+        mt = case["mt"]
+        step = case.get("step_s", metronomes.STEP_S)
+        out["metronomes"].append(
+            {
+                "name": name,
+                "mt": asdict(mt),
+                "start": str(case["start"]),
+                "step_s": step,
+                "detunings": list(metronomes.detunings(mt)),
+                "moving_kg": metronomes.moving_kg(mt),
+                "board_scale_m": metronomes.board_scale_m(mt),
+                "coupling": metronomes.coupling(mt),
+                "start_state": list(metronomes.start_state(case["start"], mt.count)),
+                "run": thin(asdict(metronomes.run(mt, case["start"], 4.0, step))),
+            }
+        )
+    # The hand: three of the exhibit's five started, two held, stepped by the
+    # equations as the page steps them, two seconds.
+    mt, running = MT(), (True, False, True, False, True)
+    f = metronomes.rhs(mt, running)
+    y = tuple(
+        v if running[i % mt.count] else 0.0 for i, v in enumerate(metronomes.start_state(metronomes.Start.SCATTERED, 5))
+    )
+    h = metronomes.STEP_S * metronomes.RATE_PER_S
+    first = f(0.0, y)
+    for k in range(round(2.0 / metronomes.STEP_S)):
+        y = numerics.rk4(f, k * h, y, h)
+    # The exhibit until it is in step, for the trick's chart.
+    long = metronomes.run(mt, metronomes.Start.SCATTERED, 70.0)
+    out["metronomes_hand"] = {
+        "running": list(running),
+        "first_rates": list(first),
+        "last": list(y),
+        "order": list(metronomes.order(y, running)),
+        "board_m": metronomes.board_m(mt, y),
+        "phase": [metronomes.phase(y[i], y[5 + i]) for i in range(5)],
+        "in_step_s": metronomes.in_step_s(long),
+        "in_step_95_s": metronomes.in_step_s(long, 0.95),
+        "long_order": thin(list(long.order)),
+    }
+
+
 def _every(module: Any) -> int:
     """The steps between two samples of a module's `run`, as it takes them."""
     return max(1, round(1 / (module.SAMPLES_PER_S * module.STEP_S)))
@@ -1179,6 +1654,7 @@ def _inputs() -> dict[str, Any]:
         "foucault_times": list(FOUCAULT_TIMES),
         "levitation_heights": list(LEVITATION_HEIGHTS),
         "circuit_times": list(CIRCUIT_TIMES),
+        "vessel": {"levels": list(VESSEL_LEVELS), "times": list(VESSEL_TIMES), "xs": list(VESSEL_XS)},
         "plates": {
             "times": list(PLATE_TIMES),
             "depths": list(PLATE_DEPTHS),
@@ -1187,12 +1663,15 @@ def _inputs() -> dict[str, Any]:
         },
         "bounce_times": list(BOUNCE_TIMES),
         "diver": {"squeezes": list(DIVER_SQUEEZES), "depths": list(DIVER_DEPTHS)},
+        "ship": {"steps": SHIP_STEPS, "angles_deg": list(SHIP_ANGLES)},
         "colour_wavelengths": list(COLOUR_WAVELENGTHS),
         "rainbow": {"impacts": list(RAINBOW_IMPACTS), "wavelengths": list(RAINBOW_WAVELENGTHS)},
         "slits_nm": list(SLITS_NM),
+        "jet": {"along": list(JET_ALONG), "cosines": list(JET_COSINES)},
         # 20 001 times, as their rule rather than written out.
         "beats_times": {"span_s": 5.0, "steps": 20000},
         "chladni": {"points": list(CHLADNI_POINTS), "tones_hz": list(CHLADNI_TONES_HZ)},
+        "kapitza_angles": list(KAPITZA_ANGLES),
     }
 
 
@@ -1400,6 +1879,99 @@ def _cone_cases(out: dict[str, Any]) -> None:
         )
 
 
+#: The standing string, what the port has (not the peaks' and nodes' searches,
+#: whose places a last bit can move further than a part in 10⁹; the checks
+#: read those from the engine): the page's cord, a short taut light one barely damped,
+#: and a long slack heavy one heavily damped; drives below the first tone, on
+#: it, half-way to the second, on the third and between the fourth and fifth
+#: (where two nodes stand clear of the pulley); a run from rest in frames of
+#: uneven length, the drive turned up half-way, and the longest frame.
+STRING_CORDS = (
+    string.Cord(),
+    string.Cord(length_m=0.8, tension_n=6.0, density_kg_m=0.002, damping_per_s=0.5, drive_m=0.001),
+    string.Cord(length_m=2.5, tension_n=0.5, density_kg_m=0.02, damping_per_s=4.0, drive_m=0.005),
+)
+STRING_DRIVES = (0.3, 1.0, 1.5, 3.0, 4.6)
+#: Shares of the cord's length, none on a node of the drives above, nor the
+#: pulley, where the cord is still: a place near nought is compared against
+#: the curve it is a point of, as every curve is (`_string_curve`).
+STRING_POINTS = (0.0, 0.13, 0.29, 0.41, 0.58, 0.77, 0.9)
+STRING_PHASE = 0.7
+STRING_FRAMES = ((1.0, 1 / 60, 90), (1.0, 1 / 50, 40), (2.0, 1 / 60, 60), (2.0, string.MAX_STEP_S, 10))
+
+
+def _string_curve(values: list[float]) -> dict[str, Any]:
+    """A short curve in the thinned shape, every point kept, so the port's
+    test compares each point against the curve's largest (a cord's place
+    passes through nought twice a swing)."""
+    return {"length": len(values), "at": list(range(len(values))), "values": [float(v) for v in values]}
+
+
+def _string_run(cord: Any) -> dict[str, Any]:
+    f1 = string.mode_hz(cord, 1)
+    s = string.start()
+    frames: list[dict[str, Any]] = []
+    for share, dt, count in STRING_FRAMES:
+        drive = share * f1
+        for _ in range(count):
+            s = string.step(cord, s, drive, dt)
+        xs = [cord.length_m * p for p in STRING_POINTS]
+        frames.append(
+            {
+                "drive_hz": drive,
+                "dt": dt,
+                "count": count,
+                "t": s.t,
+                "theta": s.theta,
+                "q": _string_curve(list(s.q)),
+                "v": _string_curve(list(s.v)),
+                "place_m": _string_curve([string.place_m(cord, s, x) for x in xs]),
+                "rate_m_s": _string_curve([string.rate_m_s(cord, s, drive, x) for x in xs]),
+                "swing_m": _string_curve([string.swing_m(cord, s, drive, x) for x in xs]),
+                "strobe_m": _string_curve([string.strobe_m(cord, s, drive, x, STRING_PHASE) for x in xs]),
+            }
+        )
+    return {"frames": frames}
+
+
+def _string_cases(out: dict[str, Any]) -> None:
+    out["string"] = {
+        "constants": {
+            "MODES": string.MODES,
+            "VIBRATOR_HZ": string.VIBRATOR_HZ,
+            "MAX_DRIVE_HZ": string.MAX_DRIVE_HZ,
+            "MAX_STEP_S": string.MAX_STEP_S,
+        },
+        "points": list(STRING_POINTS),
+        "phase": STRING_PHASE,
+        "cords": [],
+    }
+    for cord in STRING_CORDS:
+        f1 = string.mode_hz(cord, 1)
+        drives = [share * f1 for share in STRING_DRIVES]
+        xs = [cord.length_m * p for p in STRING_POINTS]
+        out["string"]["cords"].append(
+            {
+                "cord": asdict(cord),
+                "wave_speed_m_s": string.wave_speed_m_s(cord),
+                "modes_hz": [string.mode_hz(cord, n) for n in range(1, 7)],
+                "drives_hz": drives,
+                "half_waves": [string.half_waves(cord, f) for f in drives],
+                "pulls_n": [string.pull_n(cord, string.VIBRATOR_HZ, n) for n in (0.5, 1, 2.5, 3)],
+                "wavenumber": [[string.wavenumber(cord, f).real, string.wavenumber(cord, f).imag] for f in drives],
+                "steady": [
+                    {
+                        "re": _string_curve([string.steady(cord, f, x).real for x in xs]),
+                        "im": _string_curve([string.steady(cord, f, x).imag for x in xs]),
+                    }
+                    for f in drives
+                ],
+                "widest_m": [string.widest_m(cord, f) for f in drives],
+                "run": _string_run(cord),
+            }
+        )
+
+
 def _second_series(out: dict[str, Any]) -> None:
     """The exhibits built from 2026-11-14 on, each its own writer."""
     _pendulum_cases(out)
@@ -1420,15 +1992,25 @@ def _second_series(out: dict[str, Any]) -> None:
     _levitation_cases(out)
     _circuit_cases(out)
     _plates_cases(out)
+    _vessel_cases(out)
     _bounce_cases(out)
     _overhang_cases(out)
+    _galton_cases(out)
+    _film_cases(out)
     _diver_cases(out)
+    _ship_cases(out)
     _colour_cases(out)
     _rainbow_cases(out)
     _sky_cases(out)
     _slits_cases(out)
+    _polarizer_cases(out)
+    _jet_cases(out)
     _beats_cases(out)
     _chladni_cases(out)
+    _string_cases(out)
+    _spring_cases(out)
+    _kapitza_cases(out)
+    _metronomes_cases(out)
 
 
 def cases() -> dict[str, Any]:

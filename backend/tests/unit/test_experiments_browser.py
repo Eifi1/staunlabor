@@ -89,6 +89,14 @@ def test_the_cases_cross_every_branch_a_page_can_reach(stored: Any):
     stacks = stored["overhang"]["stacks"]
     assert any(s["holds"] for s in stacks) and any(not s["holds"] for s in stacks), "a stack that holds, one that tips"
     assert any(any(layer["margin"] == -1.0 for layer in s["layers"]) for s in stacks), "a block off its footing"
+    boards = stored["galton"]["boards"]
+    assert any(b["p"] == 0.0 for b in boards) and any(b["p"] == 1.0 for b in boards), "all to one side, both ways"
+    assert any(b["rows"] == 24 for b in boards) and any(b["normal"] is None for b in boards), "the widest, no curve"
+    seeds = {r["seed"] for r in stored["galton"]["runs"]}
+    assert 0 in seeds and 2**32 - 1 in seeds, "seeds at both ends of the 32 bits"
+    films = stored["film"]["cases"]
+    assert {c["tears"] for c in films} == {True, False}, "a film between the rings, and one torn"
+    assert {c["figures"]["least"] for c in films if not c["tears"]} == {True, False}, "the least area, and not"
     dives = stored["diver"]
     ends = {
         (c["run"]["depth_m"]["values"][-1], c["bottle"]["depth_m"])
@@ -96,6 +104,10 @@ def test_the_cases_cross_every_branch_a_page_can_reach(stored: Any):
         if isinstance(c["run"]["depth_m"], dict)
     }
     assert any(end == 0.0 for end, _ in ends) and any(end == depth for end, depth in ends), "up to the top and down"
+    hulls = stored["ship"]
+    assert {c["figures"]["loll_deg"] is None for c in hulls} == {True, False}, "a hull that lolls, and upright ones"
+    assert any(c["figures"]["vanishing_deg"] is None for c in hulls), "a hull that comes back from any heel"
+    assert any(abs(c["run"]["phi"]["values"][-1]) > 2.5 for c in hulls), "a hull that goes keel up"
     beads = stored["rainbow"]
     assert any(c["exit"][-1] < 0 for c in beads) and any(c["exit"][-1] > 0 for c in beads), "rays out on both sides"
     shown = stored["colour"]["screen"]
@@ -105,6 +117,15 @@ def test_the_cases_cross_every_branch_a_page_can_reach(stored: Any):
     assert {c["ozone"] for c in stored["sky"]["sun"]} == {True, False}, "the sky with its ozone and without"
     pairs = stored["slits"]
     assert len({f["stripes"] for c in pairs for f in c["figures"]}) >= 3, "middle bands of several widths"
+    jets = [x for c in stored["jet"] for x in c["beams"]]
+    arrived = {b["beam"]["arrives"] for b in jets}
+    assert 1.0 in arrived and 0.0 in arrived and any(0 < a < 1 for a in arrived), "all in, all out, some out"
+    ends = {r["end"] for b in jets for r in b["beam"]["rays"]}
+    assert {"basin", "faded"} <= ends, "rays to the basin and rays whose light all got out"
+    assert any(b["figures"]["steepest_deg"] < 20 for b in jets), "a ray steeply into the edge"
+    sheets = stored["polarizer"]
+    assert {c["sheet"]["extinction"] == 0 for c in sheets} == {True, False}, "an ideal sheet and real ones"
+    assert len({c["figures"]["best_between"] for c in sheets}) >= 2, "more is better, and a best count of filters"
     tuned = [r["figures"]["beat_s"] for f in stored["beats"]["forks"] for r in f["riders"]]
     assert None in tuned and any(b is not None for b in tuned), "a fork in tune, and beating ones"
     floats = {c["hover"]["state"] for c in stored["levitation"]}

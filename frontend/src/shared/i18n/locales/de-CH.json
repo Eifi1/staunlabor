@@ -148,7 +148,8 @@
       "flow": "Strömung",
       "induction": "Induktion",
       "light": "Licht",
-      "perception": "Wahrnehmung"
+      "perception": "Wahrnehmung",
+      "chance": "Zufall"
     },
     "frame": {
       "eyebrow": "Exponat",
@@ -392,6 +393,66 @@
         "title": "Die Schwebung",
         "summary": "Zwei Stimmgabeln, fast gleich gestimmt, klingen zusammen wie ein Ton, der langsam an- und abschwillt. Ein kleiner Reiter auf einer Gabel bestimmt, wie schnell.",
         "question": "Warum schwillt der Ton zweier fast gleicher Stimmgabeln an und ab?"
+      },
+      "galton": {
+        "short": "Galton-Brett",
+        "title": "Das Galton-Brett",
+        "summary": "Kugeln fallen durch Reihen von Stiften, an jedem nach links oder rechts – und türmen sich unten jedes Mal zur selben Glocke.",
+        "question": "In welches Fach fallen die meisten Kugeln – und warum jedes Mal in dasselbe?"
+      },
+      "spring": {
+        "short": "Wilberforce-Feder",
+        "title": "Die Wilberforce-Feder",
+        "summary": "Ein Gewicht an einer Schraubenfeder wippt, dann dreht es sich nur noch, dann wippt es wieder: Die Energie wandert zwischen zwei Schwingungen hin und her.",
+        "question": "Ein Gewicht wird an seiner Feder nach unten gezogen und losgelassen. Wie lange dauert es, bis die Energie im Drehen und wieder zurück im Wippen ist?"
+      },
+      "polarizer": {
+        "short": "Polarisationsfolien",
+        "title": "Die dritte Polarisationsfolie",
+        "summary": "Zwei gekreuzte Polarisationsfolien lassen kein Licht durch. Schiebt man eine dritte schräg dazwischen, wird es wieder hell – obwohl eine Folie nur Licht wegnehmen kann.",
+        "question": "Wie kann eine zusätzliche Folie mehr Licht durchlassen?"
+      },
+      "vessel": {
+        "short": "Auslaufendes Gefäss",
+        "title": "Das auslaufende Gefäss",
+        "summary": "Ein hohes Rohr voll Wasser, unten ein Loch: Der Strahl wird immer kürzer, und das Rohr leert sich immer langsamer.",
+        "question": "Wenn die Hälfte des Wassers ausgelaufen ist – ist dann auch die Hälfte der Zeit um?"
+      },
+      "kapitza": {
+        "short": "Kapitza-Pendel",
+        "title": "Das Pendel, das kopfüber steht",
+        "summary": "Ein Stab, der umkippen müsste, bleibt aufrecht stehen – solange sein Drehpunkt schnell genug auf und ab gerüttelt wird.",
+        "question": "Der Drehpunkt rüttelt um einen Zentimeter auf und ab. Wie schnell muss er rütteln, damit der Stab kopfüber stehen bleibt?"
+      },
+      "film": {
+        "short": "Seifenhaut",
+        "title": "Die Seifenhaut zwischen zwei Ringen",
+        "summary": "Eine Seifenhaut zwischen zwei Ringen schnürt sich zu einer Taille. Zieht man die Ringe auseinander, springt sie bei einem bestimmten Abstand in zwei flache Scheiben.",
+        "question": "Wie weit lassen sich die Ringe auseinanderziehen, bis die Seifenhaut reisst?"
+      },
+      "metronomes": {
+        "short": "Metronome",
+        "title": "Die Metronome, die sich einig werden",
+        "summary": "Fünf Metronome auf einem Brett, das auf zwei Dosen liegt: Zufällig gestartet, ticken sie bald alle im selben Takt – auf dem Tisch nie.",
+        "question": "Fünf Metronome, zufällig gestartet, stehen auf einem Brett auf zwei Dosen. Ticken sie irgendwann gemeinsam – und wie lange dauert das?"
+      },
+      "ship": {
+        "short": "Stehaufschiff",
+        "title": "Das Schiff, das sich aufrichtet",
+        "summary": "Ein Modellrumpf schwimmt in einem Becken. Mit dem Gewicht tief unten richtet er sich auf, wenn man ihn kippt; mit dem Gewicht hoch am Mast kentert er bei einem kleinen Stoss.",
+        "question": "Warum richtet sich der gekippte Rumpf auf, solange das Gewicht tief sitzt, und warum kentert er, wenn es oben am Mast ist?"
+      },
+      "string": {
+        "short": "Stehende Saite",
+        "title": "Die stehende Saite",
+        "summary": "Eine Schnur, am einen Ende geschüttelt, am anderen von Hand gespannt: Bei bestimmten Zugkräften steht sie still in einem, zwei, drei Bäuchen.",
+        "question": "Warum steht die Schnur nur bei bestimmten Zugkräften in Bäuchen still?"
+      },
+      "jet": {
+        "short": "Licht im Wasserstrahl",
+        "title": "Das Licht im Wasserstrahl",
+        "summary": "Ein Laser leuchtet durch einen Wassertank in das Loch, aus dem das Wasser fliesst: Das Licht folgt dem gebogenen Strahl bis ins Becken, statt geradeaus weiterzugehen.",
+        "question": "Warum biegt das Licht mit dem Wasserstrahl um die Kurve?"
       }
     },
     "chair": {
@@ -769,7 +830,10 @@
       "links": {
         "first_order": "Systeme 1. Ordnung",
         "second_order": "Systeme 2. Ordnung",
-        "numerics": "Numerische Lösung"
+        "numerics": "Numerische Lösung",
+        "eigenvalues": "Eigenwerte und Polebene",
+        "laplace": "Laplace und Bode",
+        "two_mass": "Der Zweimassenschwinger"
       }
     },
     "race": {
@@ -3659,7 +3723,143 @@
         "top_b": "2mgd/I₁",
         "below_level": "wie weit die Achse unter der Waagrechten steht",
         "torque": "Drehmoment, das die Hände aufbringen",
-        "suitcase_turn": "wie schnell der Koffer gedreht wird"
+        "suitcase_turn": "wie schnell der Koffer gedreht wird",
+        "galton_share": "Anteil der Kugeln im Fach k",
+        "galton_rows": "Zahl der Reihen",
+        "galton_bin": "Fach, von links gezählt ab 0",
+        "galton_p": "Anteil nach rechts an jedem Stift",
+        "galton_mean": "Mitte der Verteilung",
+        "galton_paths": "Zahl der Wege ins Fach k",
+        "galton_variance": "Varianz der Verteilung, in Fächern zum Quadrat",
+        "galton_run_mean": "Mitte eines Laufs",
+        "galton_balls": "Zahl der Kugeln eines Laufs",
+        "galton_ball_bin": "Fach der Kugel i",
+        "galton_standard_error": "Standardfehler der Mitte eines Laufs",
+        "galton_q": "Anteil nach links, 1 − p",
+        "galton_half": "halbe Zahl der Reihen, n/2",
+        "spring_T1": "Periode der schnelleren Eigenform",
+        "spring_T2": "Periode der langsameren Eigenform",
+        "spring_omega12": "Kreisfrequenzen der beiden Eigenformen",
+        "spring_omega2": "Kreisfrequenz der langsameren Eigenform",
+        "spring_omega_z": "Kreisfrequenz des Wippens allein, im Quadrat",
+        "spring_omega_theta": "Kreisfrequenz des Drehens allein, im Quadrat",
+        "spring_epsilon": "Kopplung zwischen Dehnen und Verdrehen",
+        "spring_z0": "Auslenkung am Start, nach unten",
+        "spring_theta0": "Verdrehung am Start",
+        "spring_T_beat": "Zeit für einmal ins Drehen und zurück",
+        "spring_omega_B": "Schwebungsfrequenz",
+        "spring_omega_B_measured": "gemessene Schwebungsfrequenz",
+        "spring_E": "Energie des Gewichts und der Feder",
+        "spring_z": "Auslenkung nach unten",
+        "spring_theta": "Verdrehung",
+        "spring_k": "Federkonstante gegen Dehnen",
+        "spring_delta": "Federkonstante gegen Verdrehen",
+        "spring_pull": "wie weit das Gewicht am Start nach unten gezogen ist",
+        "pol_I": "Licht, das durchkommt (Intensität)",
+        "pol_I0": "Licht vor der Folie, polarisiert",
+        "pol_I1": "Licht hinter der vorderen Folie",
+        "pol_I3": "Licht hinter der dritten Folie",
+        "pol_IL": "Licht der Lampe, unpolarisiert",
+        "pol_theta": "Winkel zwischen Schwingungsrichtung und Achse",
+        "pol_k1": "Durchlass längs der Achse",
+        "pol_k2": "Durchlass quer zur Achse",
+        "pol_n": "Folien zwischen dem gekreuzten Paar",
+        "pol_eps": "Löschverhältnis",
+        "vessel_flow": "Ausfluss",
+        "vessel_mu": "Ausflusszahl, A_C/A_A",
+        "vessel_hole": "Fläche des Lochs",
+        "vessel_speed": "Tempo des Strahls am Loch",
+        "vessel_head": "Wassertiefe über dem Loch zu Beginn",
+        "vessel_area": "Querschnitt des Rohrs",
+        "vessel_T": "Zeit, bis das Wasser über dem Loch ausgelaufen ist",
+        "vessel_depth": "Wassertiefe über dem Loch",
+        "vessel_D": "Wurfweite am Beckenboden",
+        "vessel_orifice": "Höhe des Lochs über dem Beckenboden",
+        "vessel_surface": "Höhe des Wasserspiegels über dem Beckenboden",
+        "kap_a": "Hub des Drehpunkts",
+        "kap_omega": "Kreisfrequenz des Motors",
+        "kap_l": "Länge des Stabs",
+        "kap_f": "kleinste Frequenz des Motors",
+        "kap_lambda": "Mathieus Parameter a (bei der Quelle a, hier λ, um ihn vom Hub zu unterscheiden)",
+        "kap_q": "Mathieus Parameter q",
+        "kap_z": "die Zeit in Mathieus Mass, ωt/2",
+        "kap_w": "die kleine Abweichung von oben oder unten",
+        "kap_period": "Periode des Wackelns um oben",
+        "kap_Omega": "Kreisfrequenz des Wackelns um oben",
+        "kap_band": "Breite des Bands, in dem sich der hängende Stab aufschaukelt",
+        "kap_a0": "Mathieus Kennwert, an dem der stabile Bereich beginnt",
+        "kap_a1b1": "Mathieus Kennwerte, zwischen denen der erste instabile Bereich liegt",
+        "film_u_tear": "u = x₀/a beim grössten Abstand",
+        "film_u_equal": "u = y₀/a, Ringradius in Radien der Taille",
+        "film_x0": "halber Abstand der Ringe",
+        "film_y0": "Radius der Ringe",
+        "film_R": "Radius der Ringe",
+        "film_hmax": "grösster Abstand mit Haut",
+        "film_h0": "Abstand, bei dem Haut und Scheiben gleich viel Fläche haben",
+        "film_a": "Radius der Taille",
+        "film_A": "Fläche der Haut",
+        "film_S": "Fläche der Haut",
+        "film_Abar": "Fläche der Haut über die der zwei Scheiben",
+        "metronomes_amplitude": "der Ausschlag, bei dem ein Metronom allein schwingt",
+        "metronomes_theta0": "der Winkel, bei dem der Antrieb ins Bremsen umschlägt",
+        "metronomes_T_drift": "die Zeit, in der das schnellere eine Schwingung gewinnt",
+        "metronomes_omega": "die Kreisfrequenz der Metronome",
+        "metronomes_delta": "der Unterschied der beiden Kreisfrequenzen, in Einheiten von ω",
+        "metronomes_gamma": "wie stark der grosse Ausschlag das Pendel verlangsamt",
+        "metronomes_psi": "wie weit das schnellere vorauseilt",
+        "metronomes_mu": "die Stärke des Antriebs",
+        "metronomes_beta": "die Kopplung durch das Brett",
+        "metronomes_x0": "wie weit sich das Brett je Einheit von Σ sin θⱼ bewegt",
+        "metronomes_R": "der Ordnungsparameter: wie einig sie sich sind",
+        "metronomes_phi": "die Phase von Metronom j",
+        "metronomes_N": "die Anzahl Metronome",
+        "ship_GM": "metazentrische Höhe",
+        "ship_KB": "Höhe des Auftriebspunkts über dem Boden",
+        "ship_It": "Flächenträgheitsmoment der Wasserlinie um die Längsachse",
+        "ship_volume": "verdrängtes Volumen",
+        "ship_KG": "Höhe des Schwerpunkts über dem Boden",
+        "ship_d": "Tiefgang",
+        "ship_L": "Länge des Rumpfs",
+        "ship_b": "Breite des Rumpfs",
+        "ship_m": "Masse von Rumpf und Gewicht",
+        "ship_rho": "Dichte des Wassers",
+        "ship_GZ": "Hebel zwischen Auftrieb und Gewicht",
+        "ship_GN": "Abstand von G bis dort, wo die Auftriebslinie die Mittellinie kreuzt",
+        "ship_phi": "Neigung",
+        "ship_KB90": "Höhe des Auftriebspunkts über dem Boden, auf der Seite liegend",
+        "ship_H": "Höhe des Rumpfs",
+        "ship_a44": "Trägheitsradius des mitbewegten Wassers",
+        "ship_k": "Trägheitsradius um die Längsachse durch G",
+        "ship_I": "Trägheitsmoment um die Längsachse durch G",
+        "string_f": "tiefster Ton der Saite",
+        "string_fn": "n-ter Ton der Saite",
+        "string_v": "Wellengeschwindigkeit",
+        "string_L": "Länge vom Vibrator bis zum Bolzen",
+        "string_T": "Zug an der Schnur",
+        "string_mu": "Masse der Schnur pro Meter",
+        "string_n": "Zahl der Bäuche",
+        "string_drive": "Ton des Vibrators",
+        "string_nodes": "Zahl der Knoten, die Enden mitgezählt",
+        "string_loops": "Zahl der Bäuche",
+        "string_lambda": "Wellenlänge",
+        "string_d": "Abstand zweier Knoten",
+        "string_Y": "stetiger Ausschlag an der Stelle x, komplex",
+        "string_x": "Ort entlang der Schnur, vom Vibrator aus",
+        "string_A": "Hub des Vibrators",
+        "string_kappa": "komplexe Wellenzahl",
+        "string_Omega": "Kreisfrequenz des Vibrators",
+        "string_gamma": "Dämpfung",
+        "jet_critical": "Grenzwinkel",
+        "jet_n1": "Brechzahl innen (Wasser)",
+        "jet_n2": "Brechzahl aussen (Luft)",
+        "jet_incidence": "Einfallswinkel, gegen das Lot",
+        "jet_refraction": "Brechungswinkel, gegen das Lot",
+        "jet_let_out": "austretender Anteil",
+        "jet_landing": "Abstand vom Loch, wo der Strahl ins Becken trifft",
+        "jet_speed": "Geschwindigkeit am Loch",
+        "jet_fall": "Fallzeit",
+        "jet_level": "Wasserstand über dem Loch",
+        "jet_drop": "Höhe des Lochs über dem Becken"
       },
       "cases": {
         "sphere": {
@@ -4745,6 +4945,355 @@
             "why": "Prüft das Drehmoment, das die Seite nennt, mit Drehzahl und Winkel in ihren Einheiten: 5,92 N·m.",
             "step": "Die Quelle gibt τ = Ω × L, dem Betrag nach Ω·L·sin θ; die Achse ist waagrecht, sin θ = 1, und L = I₃·ω₃ mit I₃ = m·r² des Reifens aus der zweiten."
           }
+        },
+        "galton": {
+          "eight_rows": {
+            "title": "Acht Reihen, das mittlere Fach",
+            "setting": "Acht Reihen, waagrecht (p = 0,5).",
+            "reads": "Ins mittlere Fach von acht Reihen führen C(8, 4) = 70 der 2⁸ = 256 Wege, jeder mit der Wahrscheinlichkeit 1/256.",
+            "why": "Prüft die Anteile, die die Seite Reihe um Reihe rechnet, gegen die geschlossene Formel: 70/256 = 0,2734375, genau."
+          },
+          "paths": {
+            "title": "Die Wege in die Mitte",
+            "setting": "Zwölf Reihen, wie das Brett der Ausstellung.",
+            "reads": "Die Zahl der Wege ins Fach k ist der Binomialkoeffizient n!/(k!·(n − k)!).",
+            "why": "Prüft die Zahl, die der Trick nennt: 924 Wege ins mittlere Fach, hier mit Fakultäten gerechnet, auf der Seite mit Additionen im Pascal'schen Dreieck."
+          },
+          "tilted_mean": {
+            "title": "Ein schräges Brett: die Mitte",
+            "setting": "Zwölf Reihen, sieben von zehn Stössen nach rechts (p = 0,7).",
+            "reads": "Die Mitte der Binomialverteilung ist n·p = 12 · 0,7 = 8,4.",
+            "why": "Prüft, dass die Anteile der Seite auch auf einem schrägen Brett die richtige Mitte haben: Σ k·P(k) = 8,4 Fächer."
+          },
+          "tilted_spread": {
+            "title": "Ein schräges Brett: die Streuung",
+            "setting": "Zwölf Reihen, p = 0,7.",
+            "reads": "Die Varianz ist n·p·(1 − p) = 12 · 0,7 · 0,3 = 2,52; die Streuung ist ihre Wurzel, 1,59 Fächer.",
+            "why": "Prüft die Breite des Haufens: Σ (k − μ)²·P(k) = 2,52, auf 10⁻¹² genau."
+          },
+          "seeded_run": {
+            "title": "Der Lauf der Ausstellung",
+            "setting": "Zwölf Reihen, waagrecht, 500 Kugeln, Startwert 1874.",
+            "reads": "Erwartet ist die Mitte n·p = 6. Die Mitte von N Kugeln streut um sie mit dem Standardfehler σ/√N, hier √3/√500 = 0,077 Fächer.",
+            "why": "Prüft die Kugeln, die die Seite fallen lässt: Ihre Mitte, 5,876, liegt 1,6 Standardfehler neben 6. Erlaubt sind drei, 3,87 % von 6. Ein Zufallsgenerator, der eine Seite bevorzugt, fiele hier durch.",
+            "step": "Die Quellen geben die Mitte n·p und die Streuung σ = √(n·p·(1 − p)) einer Kugel und den Standardfehler σ/√N der Mitte von N Kugeln. Weiter als drei Standardfehler liegt die Mitte eines Laufs nur in etwa drei von tausend Läufen daneben; das ist die erlaubte Abweichung, 3·√3/(√500·6) = 3,87 %."
+          },
+          "de_moivre": {
+            "title": "24 Reihen und die Normalkurve",
+            "setting": "24 Reihen, waagrecht, das mittlere Fach.",
+            "reads": "Die Normalkurve mit der Mitte n·p = 12 und der Varianz n·p·q = 6 ist in der Mitte 1/√(2π·6) = 0,16287 hoch.",
+            "why": "Prüft, wie nahe die Glocke der Seite der Normalkurve kommt: Das mittlere Fach hat 0,16118, 1,036 % weniger.",
+            "step": "De Moivre und Laplace sagen nur, dass das Verhältnis gegen 1 geht. Wie schnell, sagt die Reihe des mittleren Binomialkoeffizienten: Bei n = 2m Reihen ist das mittlere Fach C(2m, m)/4ᵐ = (1 − 1/(8m) + 1/(128m²) + …)/√(πm), und 1/√(πm) ist genau die Höhe der Normalkurve. Es liegt also um 1/(8m) − 1/(128m²) − … darunter; erlaubt ist das erste Glied, 1/(8m) = 1,042 % bei m = 12."
+          }
+        },
+        "spring": {
+          "fast_mode": {
+            "title": "Die schnellere Eigenform",
+            "setting": "Die Feder der Seite, Muttern bei 20 mm, ohne Dämpfung; «Schnellere Eigenform»: 1 rad verdreht und so weit gezogen, wie Gl. (28) es verlangt.",
+            "reads": "In einer Eigenform wippt und dreht das Gewicht im selben Takt, und nichts wandert hinüber. Ihre Kreisfrequenz ω₁ ist die grössere Wurzel von Gl. (7), ihre Periode 2π/ω₁.",
+            "why": "Prüft die Zeitschleife der Seite, die Kopplung ε/2 in beiden Gleichungen und den Start nach Gl. (28): 2,574328 s. Wäre die Kopplung falsch, liefe die Form auseinander, und die Periode stimmte nicht.",
+            "step": "Die erste Quelle gibt die Bewegungsgleichungen, die zweite ω₁ und ω₂, die dritte das Verhältnis z₀/θ₀ einer Eigenform. Zu einer Kreisfrequenz ω gehört die Periode 2π/ω."
+          },
+          "slow_mode": {
+            "title": "Die langsamere Eigenform",
+            "setting": "Dieselbe Feder, «Langsamere Eigenform»: 1 rad verdreht und so weit nach oben geschoben, wie Gl. (29) es verlangt.",
+            "reads": "Die zweite Eigenform: Wippen und Drehen im selben Takt, nur gegenläufig gekoppelt. Ihre Kreisfrequenz ω₂ ist die kleinere Wurzel von Gl. (7), ihre Periode 2π/ω₂.",
+            "why": "Prüft dasselbe an der langsameren Form: 2,842581 s. Zusammen mit der schnelleren legt sie beide Wurzeln fest, also auch die Schwebung.",
+            "step": "Wie bei der schnelleren Eigenform, mit ω₂ und Gl. (29)."
+          },
+          "beat": {
+            "title": "Hin und zurück",
+            "setting": "Dieselbe Feder, «Nach unten gezogen»; die Kachel «Hin und zurück».",
+            "reads": "Die Energie wandert mit der Schwebung der beiden Eigenformen, ω_B = ω₁ − ω₂: einmal ins Drehen und zurück in 2π/ω_B.",
+            "why": "Prüft die Formel der Seite für die beiden Raten gegen Gl. (7), so wie sie gedruckt ist, mit ε²/mI unter der Wurzel: 27,27920 s.",
+            "step": "Die erste Quelle gibt ω₁ und ω₂, die zweite ω_B = ω₁ − ω₂ als Schwebungsfrequenz; zu ihr gehört die Zeit 2π/ω_B."
+          },
+          "measured": {
+            "title": "So schnell wie gemessen",
+            "setting": "Dieselbe Feder: Berg und Marshalls eigenes Pendel, m, k, δ und I wie gemessen, ε aus ihrer Messung; «Nach unten gezogen».",
+            "reads": "Berg und Marshall massen an ihrem Pendel ω_B = 0,232 rad/s: Die Energie wandert in 2π/ω_B = 27,08 s ins Drehen und zurück.",
+            "why": "Prüft das Modell an einem wirklichen Pendel: 27,28 s gerechnet, 0,7 % neben der Messung. Ihr ε ist mit ω = 2,31 rad/s aus der Messung bestimmt, k/m gibt 2,33 rad/s; beides liegt in ihren ±0,02 rad/s. Erlaubt sind 2 %."
+          },
+          "energy": {
+            "title": "Die Energie bleibt erhalten",
+            "setting": "Dieselbe Feder, «Nach unten gezogen», 2 cm; nach 60 s, 60 000 Schritten.",
+            "reads": "Ohne Dämpfung bleibt die Energie gleich, Bewegung und Spannung zusammen. Am Anfang ist es nur die Dehnung, ½k·z₀² = 0,56 mJ.",
+            "why": "Prüft die Zeitschleife und dass die Kopplung in beiden Gleichungen zu ihrer Energie ½εzθ passt: 0,560000 mJ am Anfang und nach 60 s, auf 10⁻¹⁰ gleich.",
+            "step": "Die Quelle gibt die Lagrange-Funktion L = T − V mit V = ½kz² + ½δθ² + ½εzθ; die Energie ist T + V."
+          }
+        },
+        "polarizer": {
+          "half": {
+            "title": "Unpolarisiertes Licht: die Hälfte",
+            "setting": "Ideale Folien; das Licht hinter der vorderen Folie.",
+            "reads": "Das Licht der Lampe schwingt in alle Richtungen gleich. Im Mittel ist cos²θ ein halb: Eine ideale Folie lässt die Hälfte durch.",
+            "why": "Prüft, dass die Seite das Licht der Lampe als unpolarisiert rechnet: 0,5, nicht 1 und nicht cos² eines Winkels."
+          },
+          "malus": {
+            "title": "Das Gesetz von Malus",
+            "setting": "Ideale Folien, die hintere um 30° gegen die vordere gedreht, ohne die mittlere; das Licht hinter der hinteren, gemessen an dem hinter der vorderen.",
+            "reads": "Polarisiertes Licht, das unter dem Winkel θ zur Achse einer Folie schwingt, kommt mit dem Anteil cos²θ durch.",
+            "why": "Prüft, dass die Seite das Quadrat des Kosinus nimmt, nicht den Kosinus: 0,75 bei 30°, wo der Kosinus 0,87 gäbe."
+          },
+          "crossed": {
+            "title": "Gekreuzt: dunkel",
+            "setting": "Ideale Folien, die hintere bei 90°, ohne die mittlere.",
+            "reads": "Stehen die Achsen senkrecht zueinander, lässt die zweite Folie kein Licht durch.",
+            "why": "Prüft, dass die beiden Folien wirklich auslöschen: 10⁻³³, die Rundung von cos 90° im Rechner."
+          },
+          "third": {
+            "title": "Die dritte Folie: ein Achtel",
+            "setting": "Ideale Folien, die hintere bei 90°, die mittlere bei 45°; das Licht hinter der hinteren.",
+            "reads": "Jede der drei Folien lässt die Hälfte dessen durch, was auf sie fällt: ein Achtel des Lampenlichts, ein Viertel dessen, was die erste durchlässt.",
+            "why": "Prüft den Trick des Exponats: Die mittlere Folie richtet das Licht neu aus, statt es nur zu schwächen. Würde sie es nur schwächen, bliebe es dunkel."
+          },
+          "slanted": {
+            "title": "Die mittlere Folie bei 30°",
+            "setting": "Ideale Folien, die hintere bei 90°, die mittlere bei 30°.",
+            "reads": "Zweimal Malus: cos² 30° an der mittleren, cos² 60° an der hinteren, nach der Hälfte an der vorderen.",
+            "why": "Prüft, dass die Seite jede Drehung gegen die Folie davor misst, nicht gegen die vordere: 3/32 = 0,09375.",
+            "step": "Die erste Quelle gibt die Hälfte für unpolarisiertes Licht, die zweite cos²θ für polarisiertes, die dritte sagt, dass man Malus zweimal anwendet: an der mittleren mit 30°, an der hinteren mit 90° − 30° = 60°."
+          },
+          "many": {
+            "title": "Zehn Folien dazwischen",
+            "setting": "Ideale Folien: zehn zwischen dem gekreuzten Paar, jede um 90°/11 weiter gedreht als die vor ihr.",
+            "reads": "Elf kleine Drehungen um je 8,18°, jede lässt cos² davon durch, nach der Hälfte an der vorderen Folie.",
+            "why": "Prüft den Stapel, den die Seite für mehr Folien rechnet: 0,3992, schon nahe an der Hälfte.",
+            "step": "Die erste Quelle gibt die Hälfte an der vorderen Folie, die zweite cos²θ an jeder weiteren; jede steht um 90°/11 gegen die vor ihr, elfmal."
+          },
+          "polaroid_one": {
+            "title": "Eine Polaroid-Folie: etwa 38 %",
+            "setting": "Echte Folien wie Polaroid (76 % längs der Achse, quer 1 zu 500); das Licht hinter der vorderen Folie.",
+            "reads": "Eine Folie vom Polaroid-Typ lässt etwa 38 % unpolarisierten Lichts durch; ihr Löschverhältnis ist etwa 1 zu 500.",
+            "why": "Prüft, dass die angenommene echte Folie der Literatur entspricht: 38,08 %. Die Quelle sagt «etwa», darum ein Prozent Spielraum."
+          },
+          "polaroid_crossed": {
+            "title": "Zwei gekreuzte Polaroid-Folien",
+            "setting": "Echte Folien wie Polaroid, die hintere bei 90°, ohne die mittlere.",
+            "reads": "Die vordere lässt die eine Hälfte des Lichts mit k₁ durch, die andere mit k₂; die gekreuzte hintere nimmt die erste mit k₂, die zweite mit k₁.",
+            "why": "Prüft, wie die Seite eine echte Folie rechnet: 0,1155 %, nicht null – darum ist ein echtes gekreuztes Paar nicht ganz schwarz.",
+            "step": "Die erste Quelle gibt unpolarisiertes Licht als gleiches Gemisch aller Richtungen, also zweier gekreuzter Hälften; die zweite das Löschverhältnis als Durchlass quer gegen längs, k₂/k₁. Hinter dem Paar: ½(k₁k₂ + k₂k₁)."
+          }
+        },
+        "vessel": {
+          "flow": {
+            "title": "Der erste Strahl",
+            "setting": "Das Rohr der Seite: 8 cm weit, bis 90 cm gefüllt; das untere Loch auf 5 cm offen, 8 mm weit, μ = 0,61.",
+            "reads": "Torricelli: Das Wasser verlässt das Loch mit v = √(2gH). Durch das Loch fliesst μ·A_A·v, mit der Einschnürung μ, um 0,611 für ein scharfkantiges Loch.",
+            "why": "Prüft den Ausfluss der Seite im ersten Moment: 7,512 Liter pro Minute aus 85 cm Wasser über dem Loch. Ein vergessener Faktor 2 unter der Wurzel oder eine Lochfläche ohne Einschnürung fiele sofort auf."
+          },
+          "drain_time": {
+            "title": "Bis das Rohr leer ist",
+            "setting": "Wie oben; gerechnet wird Schritt für Schritt, bis das Wasser beim unteren Loch steht.",
+            "reads": "Ein zylindrisches Gefäss mit einem Loch im Boden ist nach T = (A/A_A)·√(2H/g) leer.",
+            "why": "Prüft die Schritte der Seite über die ganze Minute: 68,25 s. Gezählt wird in Schritten von 5 ms, darum auf einen Zehntausendstel genau.",
+            "step": "Die erste Quelle rechnet mit der vollen Lochfläche A_A, die zweite ersetzt sie durch die des eingeschnürten Strahls, μ·A_A. H ist die Wassertiefe über dem Loch, das hier 5 cm über dem Rohrboden sitzt."
+          },
+          "half": {
+            "title": "Die halbe Höhe",
+            "setting": "Wie oben; bis die Tiefe über dem Loch auf die Hälfte gesunken ist, auf 42,5 cm.",
+            "reads": "Der Wasserstand fällt wie h(t) = H·(1 − t/T)².",
+            "why": "Prüft die Pointe der Seite: Die halbe Höhe ist nach 19,99 s erreicht, nach (1 − 1/√2) = 29 % der 68,25 s. Gemessen wird im Schritt, in dem es geschieht, auf ein Milliardstel genau.",
+            "step": "Aus h(t) = H·(1 − t/T)² = H/2 folgt 1 − t/T = 1/√2. T ist die Zeit der zweiten Quelle, mit der Einschnürung der dritten."
+          },
+          "farthest": {
+            "title": "Der weiteste Strahl",
+            "setting": "Das Rohr der Seite mit allen drei Stöpseln gezogen. Über dem Beckenboden gemessen steht der Wasserspiegel auf 110 cm, die Löcher sitzen auf 25, 55 und 85 cm.",
+            "reads": "Ein Loch auf der Höhe h unter einem Wasserspiegel auf der Höhe H wirft den Strahl D = 2√(h(H − h)) weit; am weitesten, nämlich H, aus h = H/2.",
+            "why": "Prüft die Strahlen der Seite, über alle Lochhöhen nach der grössten Wurfweite abgesucht: 1,1 m aus 55 cm über dem Beckenboden, genau beim mittleren Loch. Das obere und das untere liegen gleich weit darüber und darunter und reichen beide 0,92 m."
+          }
+        },
+        "kapitza": {
+          "bound": {
+            "title": "Kapitzas Grenze bei kleinem Hub",
+            "setting": "Stab 20 cm, Hub 2 mm (a/l = 0,01), ohne Dämpfung; der Motor auf 160 Hz, knapp über der Grenze, der Stab 2° neben oben.",
+            "reads": "Oben ist der Stab stabil, wenn die grösste Geschwindigkeit des Drehpunkts, aω, grösser ist als √(2gl), die Geschwindigkeit nach einem freien Fall um die Stablänge. Nach der Frequenz aufgelöst: 157,61 Hz.",
+            "why": "Prüft die Floquet-Rechnung und die Halbierung der Seite dort, wo Kapitzas Näherung fast exakt ist: Die genaue Grenze liegt 2,2 · 10⁻⁵ höher, um (7/32)(a/l)², das nächste Glied der Näherung."
+          },
+          "mathieu": {
+            "title": "Die genaue Grenze bei weitem Hub",
+            "setting": "Stab 20 cm, Hub 4 cm (a/l = 0,2), ohne Dämpfung; der Motor auf 8,5 Hz, der Stab 2° neben oben.",
+            "reads": "Nahe oben ist die Bewegung Mathieus Gleichung. Ihr stabiler Bereich beginnt an der Kurve a₀(q), deren Reihe die Quelle bis q⁸ angibt. Daraus: 7,9478 Hz, wo Kapitzas Näherung 7,88 Hz sagt.",
+            "why": "Prüft die Monodromiematrix dort, wo Kapitzas Näherung 0,86 % daneben liegt: Die Seite trifft die Reihe auf 7,5 · 10⁻⁷, so weit, wie die nach q⁸ abgebrochene Reihe selbst genau ist.",
+            "step": "Mit ωt = 2z wird die Gleichung für eine kleine Abweichung φ von oben, φ″ = (g + aω²·cos ωt)/l · φ, zu Mathieus Gleichung mit λ = −4g/(lω²) und q = 2a/l. Die Grenze des stabilen Bereichs ist λ = a₀(q); nach ω aufgelöst ist das ω² = 4g/(l·|a₀(q)|)."
+          },
+          "wobble": {
+            "title": "Das langsame Wackeln um oben",
+            "setting": "Der Stab der Seite, 20 cm, 1 cm Hub, 40 Hz, ohne Dämpfung; 2° neben oben losgelassen, 10 s lang.",
+            "reads": "Um oben wackelt der Stab langsam, mit Ω² = a²ω²/(2l²) − g/l: eine Periode von 1,1486 s, während der Motor 46-mal rüttelt.",
+            "why": "Prüft die Zeitschleife der Seite: einmal pro Motorperiode gelesen, wie mit einem Stroboskop, wackelt der Stab in 1,1483 s, 3,0 · 10⁻⁴ neben Kapitza. Seine Mittelung lässt Glieder in (a/l)² und (Ω/ω)² weg, beide einige Zehntausendstel."
+          },
+          "swing_up": {
+            "title": "Das Aufschaukeln beim Hängen",
+            "setting": "Stab 20 cm, Hub 1 cm (q = 0,1), ohne Dämpfung; der Motor auf 2,23 Hz, der Stab hängend, 5° ausgelenkt.",
+            "reads": "Hängend ist die kleine Bewegung wieder Mathieus Gleichung. Zwischen den Kurven b₁(q) und a₁(q) liegt ihr erster instabiler Bereich: Der Stab schaukelt sich auf, wenn der Motor zwischen 2,1264 und 2,3511 Hz rüttelt, ein Band von 0,22469 Hz um die doppelte Eigenfrequenz.",
+            "why": "Prüft die Floquet-Rechnung für unten, beide Ränder auf einmal: Die Seite trifft die Breite des Bands auf 3 · 10⁻¹².",
+            "step": "Mit ωt = 2z wird die Gleichung für eine kleine Auslenkung φ von unten, φ″ = −(g + aω²·cos ωt)/l · φ, zu Mathieus Gleichung mit λ = 4g/(lω²) und q = −2a/l. Weil a₁(−q) = b₁(q), sind die Ränder λ = a₁(|q|) und λ = b₁(|q|); nach ω aufgelöst ω² = 4g/(l·λ)."
+          }
+        },
+        "film": {
+          "tear": {
+            "title": "Der Reissabstand",
+            "setting": "Ringe von 5 cm Radius, 6,5 cm auseinander: Ziehen Sie den rechten Ring weiter.",
+            "reads": "Der grösste Abstand, bei dem y₀ = a·cosh(x₀/a) noch eine Lösung hat, liegt bei u = coth u; dort ist h/R = 2x₀/y₀ = 2·csch u.",
+            "why": "Prüft, wo die Seite die Haut reissen lässt: bei 1,32549 Radien, an Ringen von 5 cm bei 6,6274 cm – an der Antwort der Seite selbst halbiert, nicht an ihrer Konstante."
+          },
+          "critical_area": {
+            "title": "Die Fläche kurz vor dem Reissen",
+            "setting": "Ringe von 5 cm Radius, 6,6 cm auseinander, nahe am Reissabstand.",
+            "reads": "Beim Reissabstand liegt die Taille bei a = R/cosh u; Ito und Satos Flächenformel gibt dort die Fläche, verglichen mit den zwei Scheiben, 2πR².",
+            "why": "Prüft die Fläche, die die Seite der Haut gibt, wo es am meisten darauf ankommt: 1,19968-mal die zwei Scheiben, gleich der Zahl u selbst."
+          },
+          "flat": {
+            "title": "Einen Radius auseinander: die breite Haut",
+            "setting": "Ringe von 5 cm Radius, 5 cm auseinander.",
+            "reads": "Bei x₀ = ½ und y₀ = 1 hat 1 = a·cosh(1/(2a)) zwei Lösungen. Die flache, a = 0,8483…, hat die Fläche A = 5,9917…; an Ringen von 5 cm ist jede Fläche 25 cm² mal so gross.",
+            "why": "Prüft die Fläche der Haut, die die Seite zeigt: 149,795 cm², an MathWorlds Beispiel nachgerechnet."
+          },
+          "deep": {
+            "title": "Einen Radius auseinander: die schmale Haut",
+            "setting": "Ringe von 5 cm Radius, 5 cm auseinander; schalten Sie die schmale Form ein.",
+            "reads": "Die tiefe Lösung, a = 0,2350…, ist die schmale Haut mit der grösseren Fläche, A = 6,8456…: kein Minimum.",
+            "why": "Prüft die gestrichelte schmale Form der Seite: ihre Taille von 1,1755 cm an Ringen von 5 cm."
+          },
+          "equal": {
+            "title": "Ab wann zwei Scheiben weniger Fläche hätten",
+            "setting": "Ringe von 5 cm Radius, 5,4 cm auseinander, knapp dahinter.",
+            "reads": "Die Fläche der Haut gleich der zweier Scheiben: u·√(u² − 1) + cosh⁻¹u − u² = 0 mit u = y₀/a; dann ist h/R = 2·cosh⁻¹(u)/u.",
+            "why": "Prüft, wo die Seite von «kleinste mögliche Fläche» zu «Zwei flache Scheiben hätten jetzt weniger Fläche» wechselt: bei 1,05539 Radien, an Ringen von 5 cm bei 5,2770 cm."
+          }
+        },
+        "metronomes": {
+          "lone": {
+            "title": "Ein Metronom allein schwingt bei 2θ₀",
+            "setting": "Ein Metronom, das Brett auf dem Tisch, aus 10° losgelassen; nach zwei Minuten der grösste Ausschlag der letzten fünf Sekunden.",
+            "reads": "Der Antrieb facht kleine Schwingungen an und bremst grosse. Ein Metronom allein kommt bei einem Ausschlag von etwa 2θ₀ zur Ruhe, mit Pantaleones θ₀ = 0,39 rad bei 44,69°.",
+            "why": "Prüft den Antrieb, das Vorzeichen seines Terms und seinen Winkel θ₀: Der Rechenkern schwingt bei 44,84°. Die 2θ₀ gelten in erster Ordnung in μ; der volle Sinus des Pendels macht den Ausschlag 0,3 % weiter."
+          },
+          "drift": {
+            "title": "Auf dem Tisch laufen zwei auseinander",
+            "setting": "Zwei Metronome, ein halbes Prozent auseinander (Δ = 0,005), das Brett auf dem Tisch, gemeinsam losgelassen; ihre Perioden über 200 s.",
+            "reads": "Ohne Kopplung wächst der Phasenunterschied gleichmässig, mit dem Unterschied der Frequenzen Δ: Das schnellere gewinnt in 2π/(ωΔ(1 − 3γ/2)) eine ganze Schwingung.",
+            "why": "Prüft, dass das Brett auf dem Tisch nichts koppelt und dass Δ dort steht, wo Pantaleone es hat: 119,95 s von Hand, 119,96 s im Rechenkern.",
+            "step": "Die erste Quelle gibt die Drift mit Δ, die zweite, dass ein Ausschlag von 2θ₀ jede Kreisfrequenz um den Faktor 1 − 3γ/2 verlangsamt, und damit auch ihren Unterschied; die dritte θ₀. Eine ganze Schwingung gewinnt das schnellere in 2π durch den Unterschied der Kreisfrequenzen."
+          },
+          "lag": {
+            "title": "Auf den Dosen eilt das schnellere voraus",
+            "setting": "Zwei Metronome auf Pantaleones Brett (58 g), ein halbes Prozent auseinander, auf den Dosen, gemeinsam losgelassen; nach 200 s.",
+            "reads": "Die beiden rasten ein, das schnellere um ψ* = arcsin(μΔ/(β(3γ + β))) voraus, mit β = x₀ω²/g aus Pantaleones x₀ = 0,088 cm.",
+            "why": "Prüft die Kopplung durch das Brett, ihre Stärke und ihr Vorzeichen: 3,11° nach der Formel, 3,27° im Rechenkern. Die Formel ist erste Ordnung und nimmt im Stoss des Brettes Sinus und Kosinus des 45°-Ausschlags wie für einen kleinen; das macht 5,4 % aus."
+          },
+          "inphase": {
+            "title": "Fast gegenläufig gestartet, schwingen zwei bald gleich",
+            "setting": "Zwei gleiche Metronome auf den Dosen, 170° auseinander losgelassen; ihr Phasenunterschied nach 200 s.",
+            "reads": "Gegenläufig zu schwingen ist auf dem freien Brett unstabil: Die beiden wandern zum Gleichtakt, eine halbe Schwingung weiter, wie Pantaleones Fig. 2 zeigt.",
+            "why": "Prüft, dass das freie Brett den Gleichtakt stabil macht und nicht den Gegentakt: Nach 200 s liegen die beiden 0,0006° auseinander."
+          },
+          "five": {
+            "title": "Fünf gleiche werden eins",
+            "setting": "Fünf gleiche Metronome auf Pantaleones Brett, auf den Dosen, in der verstreuten Ausgangslage des Exponats (R = 0,015); R nach zwei Minuten.",
+            "reads": "Der Ordnungsparameter R ist der Mittelwert der Zeiger aller Phasen: 1, wenn alle im selben Takt schwingen. Pantaleone sah sieben Metronome stets im Gleichtakt einrasten.",
+            "why": "Prüft das Brett mit mehr als zwei Metronomen und den Ordnungsparameter der Seite: Nach zwei Minuten fehlen R noch 5 · 10⁻⁶ an 1."
+          }
+        },
+        "ship": {
+          "metacentric_height": {
+            "title": "Die metazentrische Höhe des Kastens",
+            "setting": "Der Rumpf der Seite, 20 cm breit, 2 kg, mit 1 kg auf dem Deck (12 cm); um 0,01° gekippt, gerechnet als GZ/sin φ.",
+            "reads": "Der Tiefgang folgt aus Archimedes: d = m/(ρ·L·b) = 3,006 cm. Der eingetauchte Teil ist ein Rechteck, seine Mitte liegt auf halber Höhe, KB = d/2. Die Wasserlinie ist ein Rechteck der Breite b, ihr Flächenträgheitsmoment L·b³/12, und BM = I_t/∇ = b²/(12·d) = 11,09 cm.",
+            "why": "Prüft die Kurve, auf der die Zeitschleife der Seite rechnet, gegen GM = KB + BM − KG = 5,259 cm. Bei 0,01° liegt sie um ½·BM·tan²φ darüber, 3 · 10⁻⁸ von GM.",
+            "step": "Die Quellen geben GM = KB + I_t/∇ − KG und I_t = L·b³/12; KB = d/2 ist die Mitte des eingetauchten Rechtecks."
+          },
+          "wall_sided": {
+            "title": "Der Hebel bei 15°: senkrechte Wände",
+            "setting": "Der Rumpf mit dem Gewicht auf dem Deck, um 15° gekippt.",
+            "reads": "Bei einem Rumpf mit senkrechten Wänden an der Wasserlinie wandert der Schnittpunkt der Auftriebslinie mit der Mittellinie beim Kippen hinauf: GN_φ = KB + BM·(1 + ½·tan²φ) − KG, und GZ = GN_φ·sin φ.",
+            "why": "Prüft die Geometrie der Seite bei einer Neigung, bei der GM·sin φ allein schon 7 % zu klein ist: 1,464 cm. Für den Kasten ist die Formel genau, bis der Boden bei 16,7° auftaucht.",
+            "step": "Die Quelle gibt die Formel (Scribanti) für 5 bis 15°. Für einen Kasten ist sie genau, solange beide Wände im Wasser stehen: Dann sind der ein- und der austauchende Keil Dreiecke."
+          },
+          "on_its_side": {
+            "title": "Auf der Seite liegend",
+            "setting": "Das Gewicht am Fuss des Kiels, 15 cm unter dem Boden; der Rumpf um 90° gekippt, auf der Seite.",
+            "reads": "Auf der Seite liegt der eingetauchte Teil als Rechteck über die ganze Höhe H des Rumpfs; seine Mitte, der Auftriebspunkt, liegt auf halber Höhe. Der Hebel ist der waagrechte Abstand der beiden Wirkungslinien, nun längs des Rumpfs: H/2 − KG.",
+            "why": "Prüft den Schnitt bei 90°, wo zwei Ecken auf gleicher Höhe liegen: 7,667 cm, positiv, weil G (−1,67 cm) unter der halben Höhe liegt. Er richtet sich auf, sogar von der Seite.",
+            "step": "Die erste Quelle sagt, dass der Auftrieb in der Mitte des eingetauchten Teils angreift, die zweite, dass GZ der waagrechte Abstand der beiden Linien ist; die Mitte des eingetauchten Rechtecks liegt auf halber Höhe."
+          },
+          "roll_period": {
+            "title": "Die Schaukelperiode",
+            "setting": "Das Gewicht auf dem Deck; der Rumpf um 0,5° gekippt und losgelassen, ohne Dämpfung; drei Schwingungen.",
+            "reads": "Für kleine Winkel schaukelt der Rumpf wie ein Pendel: mit dem Trägheitsradius k um die Längsachse durch G und der metazentrischen Höhe als Rückstellung.",
+            "why": "Prüft die Zeitschleife der Seite gegen die Periode von 0,5774 s. Bei 0,5° ist der Hebel um ½·BM·tan²φ steifer als GM·sin φ, und die Periode 2,5 · 10⁻⁵ kürzer.",
+            "step": "Die Quelle zählt das mitbewegte Wasser als a₄₄ dazu; die Seite lässt es weg, a₄₄ = 0. k² = I/m, mit I nach Steiner: der Rumpf, 2 kg mit 7 cm Trägheitsradius um seinen eigenen Schwerpunkt, auf G verschoben, und das Gewicht als Punkt."
+          }
+        },
+        "string": {
+          "fundamental": {
+            "title": "Der tiefste Ton",
+            "setting": "Die Schnur der Seite mit 3 N gespannt; der Ton des Vibrators dort, wo sie am weitesten ausschlägt.",
+            "reads": "Der tiefste Ton einer Saite hat ihre beiden Enden als Knoten: Die Länge ist eine halbe Welle, f = v/(2L) mit v = √(T/μ).",
+            "why": "Prüft, wo die Seite die Schnur am weitesten schwingen lässt: bei 38,72 Hz, wo die Formel 38,73 Hz sagt. Die Dämpfung rückt die Spitze um 0,03 % nach unten."
+          },
+          "third": {
+            "title": "Der dritte Ton",
+            "setting": "Dieselbe Schnur, derselbe Zug; der Ton nahe dem dritten Eigenton.",
+            "reads": "Der n-te Ton hat n halbe Wellen zwischen den Enden: fₙ = n/(2L)·√(T/μ).",
+            "why": "Prüft die höheren Töne: Die Spitze liegt bei 116,19 Hz, dreimal so hoch wie der tiefste Ton."
+          },
+          "pull": {
+            "title": "Der Zug für drei Bäuche",
+            "setting": "Der Vibrator bei 100 Hz; der Zug dort, wo die Schnur am weitesten ausschlägt, so wie Sie ihn an der Schnur suchen.",
+            "reads": "Dieselbe Formel, nach dem Zug aufgelöst: T = μ·(2Lf/n)².",
+            "why": "Prüft, was an der Ausstellung zählt: das Ziehen. Die Spitze liegt bei 2,2228 N, die Formel sagt 2,2222 N. Sie liegt etwas höher, weil mit dem Zug auch die Wellen schneller und die Bäuche weiter werden.",
+            "step": "Die Quelle gibt fₙ = n/(2L)·√(T/μ). Quadriert und nach T aufgelöst: T = μ·(2Lfₙ/n)²."
+          },
+          "loops": {
+            "title": "Drei Bäuche, vier Knoten",
+            "setting": "Der Vibrator bei 100 Hz, die Schnur mit dem Zug der Formel für drei Bäuche gespannt.",
+            "reads": "Eine stehende Welle zwischen zwei festen Enden hat n + 1 Knoten, die Enden mitgezählt, und n Bäuche.",
+            "why": "Prüft das Bild selbst: Die Seite zählt die Bäuche entlang der Schnur und findet drei."
+          },
+          "speed": {
+            "title": "Die Geschwindigkeit der Welle",
+            "setting": "Die Schnur mit 3 N gespannt, der Vibrator bei 100 Hz, zwischen zwei Eigentönen.",
+            "reads": "Zwei Knoten liegen eine halbe Welle auseinander, und eine Welle läuft in einer Schwingung eine Wellenlänge weit: v = λf = 2·d·f. Die Quelle sagt v = √(T/μ).",
+            "why": "Prüft die Geschwindigkeit an den Knoten, die die Seite findet, auch wo die Schnur in keinem Muster steht: 77,45 m/s statt 77,46 m/s; die Dämpfung verschiebt die Knoten um 0,01 %.",
+            "step": "Die erste Quelle gibt v = √(T/μ), die zweite v = λf, die dritte den Abstand zweier Knoten, λ/2. Also v = 2·d·f mit d dem Abstand der beiden Knoten nächst dem Bolzen."
+          },
+          "settled": {
+            "title": "Der eingeschwungene Bauch",
+            "setting": "Der Vibrator bei 100 Hz, der Zug für drei Bäuche; die Schnur aus der Ruhe, fünf Sekunden lang Bild für Bild gerechnet.",
+            "reads": "Die Wellengleichung der Quelle mit Dämpfung, am einen Ende angetrieben, am anderen fest: Y(x) = A·sin(κ(L − x))/sin(κL) mit κ² = (Ω² − iγΩ)·μ/T.",
+            "why": "Prüft die Zeitschleife der Seite gegen die Lösung von Hand: In der Mitte der Schnur schwingt sie nach fünf Sekunden 22,215 mm weit, auf 10⁻⁷ genau wie die Formel.",
+            "step": "Die Quelle gibt die Wellengleichung μ·∂²y/∂t² = T·∂²y/∂x²; die Dämpfung fügt μγ·∂y/∂t hinzu. Mit y = Im[Y(x)·e^(iΩt)] wird daraus Y'' = −κ²·Y; die Lösung, die am Vibrator A ist und am Bolzen null, ist die obige."
+          }
+        },
+        "jet": {
+          "critical": {
+            "title": "Der Grenzwinkel von Wasser",
+            "setting": "Das Exponat: Wasser mit der Brechzahl 1,333; der Winkel, ab dem die Seite an der Wand alles Licht spiegelt.",
+            "reads": "Ab dem Grenzwinkel arcsin(n₂/n₁) gibt es kein gebrochenes Licht mehr, und die Spiegelung ist vollständig. Von Wasser (1,333) in Luft (1) sind das 48,6°.",
+            "why": "Prüft die Entscheidung, die an jedem Auftreffpunkt fällt: ob Licht austritt oder ganz gespiegelt wird. Die Seite schaltet bei 48,6066° um, gefunden durch Halbieren zwischen 30° und 70°."
+          },
+          "snell": {
+            "title": "Das austretende Licht ist nach Snellius gebrochen",
+            "setting": "Das Exponat, der Laser 45° nach oben geneigt; der mittlere Lichtstrahl an seinem ersten Auftreffpunkt, wo er die Wand steiler als unter dem Grenzwinkel trifft.",
+            "reads": "Das Verhältnis der Sinus von Einfalls- und Brechungswinkel ist das Verhältnis der Brechzahlen, n₂/n₁: Aus dem Wasser tritt das Licht vom Lot weg gebrochen aus.",
+            "why": "Prüft die Richtung des gezeichneten austretenden Lichts: 68,9° gegen das Lot. Den Einfallswinkel bestimmt die Prüfung aus dem gezeichneten Weg und einer eigenen Suche nach der Achse."
+          },
+          "fresnel": {
+            "title": "Wie viel Licht austritt",
+            "setting": "Wie oben: der Laser 45° nach oben geneigt, der erste Auftreffpunkt des mittleren Lichtstrahls.",
+            "reads": "Für jede Polarisation geben Fresnels Formeln den gespiegelten Anteil Rₛ und Rₚ. Unpolarisiertes Licht spiegelt ihren Mittelwert, und was nicht gespiegelt wird, tritt aus.",
+            "why": "Prüft, wie viel Licht die Seite an der Wand austreten lässt: 87,8 % des Lichts an diesem Punkt; der Rest geht gespiegelt weiter.",
+            "step": "Die Quelle gibt Rₛ und Rₚ, dass durchgeht, was nicht gespiegelt wird, und dass unpolarisiertes Licht den Mittelwert der beiden spiegelt: T = 1 − (Rₛ + Rₚ)/2, mit n₁ = 1,333 innen und n₂ = 1 aussen."
+          },
+          "landing": {
+            "title": "Wo der Strahl ins Becken trifft",
+            "setting": "Das Exponat: 15 cm Wasser über dem Loch, das Becken 40 cm darunter.",
+            "reads": "Das Wasser tritt mit √(2gh) waagrecht aus und fällt in der Zeit √(2H/g) um H, unabhängig von seiner waagrechten Geschwindigkeit. In dieser Zeit kommt es v·t weit.",
+            "why": "Prüft den Bogen, den die Seite zeichnet und entlang dem sie das Licht verfolgt: Er trifft das Becken 49 cm vom Loch, 2√(h·H).",
+            "step": "Die erste Quelle gibt die Geschwindigkeit am Loch, die zweite die Fallzeit aus der Höhe, unabhängig von der waagrechten Geschwindigkeit. Waagrecht bleibt die Geschwindigkeit gleich, also x = v·t = 2√(h·H)."
+          }
         }
       },
       "set_up": "Einstellen",
@@ -4752,6 +5301,826 @@
     },
     "list": {
       "lead": "Jedes Exponat mit seiner Zeichnung, die sich bewegt, sobald Sie darauf zeigen. Nach Thema filtern oder alle durchgehen."
+    },
+    "galton": {
+      "at": {
+        "funnel": "Oben ein Trichter voller Kugeln, darunter zwölf Reihen von Stiften, unten dreizehn Fächer. Die Kugeln rollen einzeln los und prallen an jedem Stift nach links oder nach rechts.",
+        "heap": "Welchen Weg eine Kugel nimmt, sagt niemand voraus. Und doch wächst unten jedes Mal derselbe Haufen: hoch in der Mitte, flach zu den Rändern, eine Glocke.",
+        "tilt": "Steht das Brett schräg, rutscht die Glocke zur Seite. Aber sie bleibt eine Glocke."
+      },
+      "view": "Das Galton-Brett: oben der Trichter, darunter die Stifte, unten die Fächer mit den gefallenen Kugeln",
+      "play": {
+        "title": "Kugeln fallen lassen",
+        "hint": "Lassen Sie die Kugeln fallen: Sie rollen nacheinander durch die Stifte, jede an jedem Stift nach links oder rechts. «Neue Kugeln» nimmt einen neuen Lauf mit anderen Zufallszahlen; derselbe Lauf fällt jedes Mal gleich.",
+        "drop": "Fallen lassen",
+        "all": "Alle auf einmal",
+        "new": "Neue Kugeln",
+        "again": "Zurück in den Trichter",
+        "caption": "{{rows}} Reihen, {{bins}} Fächer, Lauf {{run}} mit {{balls}} Kugeln, schematisch. Die Balken sind die Kugeln in jedem Fach.",
+        "waiting": "Die Kugeln liegen im Trichter bereit.",
+        "falling": "Die Kugeln fallen.",
+        "done": "Alle {{balls}} Kugeln sind gefallen. Die Mitte des Haufens liegt bei Fach {{mean}}.",
+        "expected": "Gestrichelt: der Haufen, den die Wege erwarten lassen."
+      },
+      "figures": {
+        "landed": "Gefallen",
+        "mean": "Mitte des Laufs (Fach)",
+        "spread": "Streuung des Laufs (Fächer)",
+        "expected_mean": "Erwartete Mitte n·p",
+        "expected_spread": "Erwartete Streuung σ"
+      },
+      "change": {
+        "title": "Das Brett umbauen",
+        "hint": "Mehr oder weniger Reihen, ein schräges Brett, mehr Kugeln. Jede Änderung legt die Kugeln zurück in den Trichter.",
+        "rows": "Reihen",
+        "rows_hint": "Wie viele Reihen von Stiften das Brett hat; es hat ein Fach mehr als Reihen.",
+        "p": "Anteil nach rechts",
+        "p_hint": "Wie oft eine Kugel an einem Stift nach rechts geht: 0,5 auf einem waagrechten Brett, mehr auf einem nach rechts geneigten.",
+        "balls": "Kugeln",
+        "balls_hint": "Wie viele Kugeln ein Lauf hat.",
+        "status": "{{rows}} Reihen, {{bins}} Fächer, {{paths}} Wege durch das Brett."
+      },
+      "model": {
+        "intro": "Eine Kugel, die in n Reihen k-mal nach rechts geht, landet im Fach k, gleich in welcher Reihenfolge. Die Fächer sind von links gezählt, von 0 bis n.",
+        "paths": "So viele Wege führen ins Fach k: bei zwölf Reihen einer an jeden Rand und 924 der 4096 in die Mitte.",
+        "binomial": "Jeder Weg mit k Schritten nach rechts hat dieselbe Wahrscheinlichkeit, pᵏ·(1 − p)ⁿ⁻ᵏ. Mal die Zahl der Wege ist das der Anteil des Fachs: die Binomialverteilung.",
+        "moments": "Die Mitte des Haufens und seine Breite, in Fächern: bei zwölf Reihen auf dem waagrechten Brett Fach 6 und 1,73 Fächer.",
+        "normal": "Bei vielen Reihen kommt die Binomialverteilung der Normalkurve mit derselben Mitte und Breite beliebig nahe (de Moivre und Laplace): die Glocke."
+      },
+      "symbols": {
+        "paths": "Zahl der Wege ins Fach k",
+        "n": "Zahl der Reihen",
+        "k": "Fach, von links gezählt ab 0; so oft ging die Kugel nach rechts",
+        "share": "Anteil der Kugeln im Fach k",
+        "p": "Anteil nach rechts an jedem Stift",
+        "mu": "Mitte des Haufens",
+        "sigma": "Streuung des Haufens",
+        "e": "eulersche Zahl, 2,718…"
+      },
+      "computed": {
+        "system": "Hier bewegt sich nichts nach einer Differentialgleichung: Der Zufall entscheidet, und die Seite rechnet, was er im Mittel tut. Die Anteile rechnet sie Reihe um Reihe, so wie die Kugeln fallen.",
+        "rows": "Was an einem Stift ankommt, geht zum Anteil p nach rechts und 1 − p nach links: Jedes Fach der nächsten Reihe bekommt p vom Fach links darüber und 1 − p vom Fach darüber. Das ist die Regel des Pascal'schen Dreiecks mit Gewichten; mit beiden Gewichten eins zählt sie die Wege.",
+        "pj": "Anteil der Kugeln, der nach j Reihen an der Stelle k ankommt",
+        "j": "Reihen, durch die die Kugeln schon gefallen sind",
+        "random": "Die Kugeln selbst zieht ein Zufallsgenerator mit Startwert (Mulberry32, aus ganzen Zahlen mit 32 Bit): Kugel i nimmt die Zahlen i·n bis i·n + n − 1, eine pro Reihe, und geht rechts, wo ihre Zahl unter p liegt. Derselbe Startwert gibt in Ihrem Browser, im Rechenkern der Seite und in ihren Tests dieselben Kugeln; «Neue Kugeln» nimmt den nächsten. Wie die Kugeln fliegen, ist nur gezeichnet.",
+        "check": "Die Tests der Seite rechnen die Anteile jedes Bretts bis 24 Reihen mit genauen Brüchen nach und prüfen Mitte und Streuung. In einem Lauf von 5000 Kugeln liegt jedes Fach innerhalb von vier Standardabweichungen seiner erwarteten Zahl. Gerechnet wird in Ihrem Browser, mit denselben Formeln wie im Rechenkern der Seite.",
+        "left_out": "Weggelassen: wie die Neigung oder die Form der Stifte p bestimmt, denn die Seite nimmt p als gegeben, an jedem Stift gleich; Kugeln, die über zwei Stifte springen oder einander anstossen, was auf einem echten Brett den Haufen breiter macht; volle Fächer."
+      },
+      "sweet": {
+        "paths": "Der Trick: Jede einzelne Kugel ist reiner Zufall, der Haufen aber nicht. Ihn entscheidet die Zahl der Wege. Durch zwölf Reihen führen 4096 Wege, alle gleich wahrscheinlich: nur einer in jedes Randfach, 924 ins mittlere. Darum fällt fast ein Viertel der Kugeln in die Mitte, 22,6 %, und nur eine von 4096 in ein Randfach.",
+        "middle": "In die drei mittleren Fächer fallen 61 % der Kugeln, in die je drei Fächer an den Rändern zusammen nur 3,9 %. Die Mitte liegt bei Fach 6, die Streuung bei 1,73 Fächern.",
+        "all": "Wege durch {{rows}} Reihen",
+        "peak": "Wege ins Fach {{bin}}",
+        "edge": "Wege an den Rand",
+        "normal": "Mit mehr Reihen wird die Glocke breiter, aber langsamer als das Brett: Die Streuung wächst mit der Wurzel der Reihen, bei doppelt so vielen nur auf das 1,41-Fache, von 1,73 auf 2,45 Fächer. Und sie kommt der Normalkurve immer näher; bei 24 Reihen liegt das mittlere Fach nur noch 1,0 % unter ihr."
+      },
+      "chart": {
+        "hint": "Der Anteil jedes Fachs auf dem Brett, das Sie gebaut haben, und die Normalkurve mit derselben Mitte und Streuung.",
+        "binomial": "Anteil des Fachs",
+        "normal": "Normalkurve",
+        "share": "Anteil",
+        "bin": "Fach"
+      }
+    },
+    "spring": {
+      "at": {
+        "weight": "Ein Gewicht hängt an einer langen Schraubenfeder. Man zieht es ein Stück nach unten und lässt es los: Es wippt auf und ab.",
+        "trade": "Allmählich wird das Wippen schwächer, und das Gewicht beginnt, sich hin und her zu drehen – bis es nur noch dreht und gar nicht mehr wippt. Dann kommt das Wippen zurück, immer wieder. Bei der Feder dieser Seite dauert das einmal hin und zurück 27,3 s.",
+        "nuts": "Vier Muttern an Armen seitlich des Gewichts lassen sich nach innen und aussen schrauben. Nur an einer Stelle geht das Wippen ganz ins Drehen über."
+      },
+      "view": "Das Gewicht an seiner Feder von vorn, mit den vier Armen und ihren Muttern",
+      "play": {
+        "title": "Das Gewicht ziehen und drehen",
+        "hint": "Ziehen Sie das Gewicht nach unten oder oben, und schieben Sie es zur Seite, um es zu verdrehen; beim Loslassen schwingt es. Oder wählen Sie einen Start. Die Balken zeigen, wie viel der Energie gerade im Wippen und im Drehen steckt.",
+        "let_go": "Loslassen:",
+        "starts": {
+          "down": "Nach unten gezogen",
+          "twisted": "Verdreht",
+          "fast": "Schnellere Eigenform",
+          "slow": "Langsamere Eigenform"
+        },
+        "energy": "Energie im Wippen und im Drehen",
+        "bobbing": "Wippen",
+        "twisting": "Drehen"
+      },
+      "figures": {
+        "bobbing": "Periode des Wippens allein",
+        "twisting": "Periode des Drehens allein",
+        "tuned": "Abgestimmt bei",
+        "beat": "Hin und zurück",
+        "share": "Davon geht ins Drehen"
+      },
+      "change": {
+        "title": "Das Exponat verändern",
+        "hint": "Die Muttern bestimmen, wie träge sich das Gewicht dreht: Weiter aussen dreht es sich langsamer, weiter innen schneller. Nur wenn es sich so schnell dreht, wie es wippt, geht das Wippen ganz ins Drehen über.",
+        "nuts": "Abstand der Muttern von der Achse",
+        "nuts_hint": "Bei 20,0 mm ist die Feder abgestimmt.",
+        "damping": "Dämpfung"
+      },
+      "model": {
+        "intro": "Die Feder wirkt zweimal: Gedehnt zieht sie das Gewicht zurück, verdreht dreht sie es zurück. Eine Schraubenfeder verdreht sich aber auch ein wenig, wenn man sie dehnt, und umgekehrt – diese Kopplung verbindet die beiden Schwingungen.",
+        "equation": "Die beiden Bewegungsgleichungen, wie Berg und Marshall sie schreiben: jede Schwingung für sich und die Kopplung ε, mit der die Dehnung am Gewicht dreht und die Verdrehung an ihm zieht. z zählt hier nach unten.",
+        "inertia": "Das Trägheitsmoment des Gewichts: das des Körpers und das der vier Muttern, jede als Punkt in ihrem Abstand von der Achse. Hier greift man am Exponat ein.",
+        "modes": "Zwei Bewegungen, bei denen Wippen und Drehen im selben Takt bleiben: die Eigenformen. Ihre Kreisfrequenzen sind die Wurzeln dieser Gleichung; jede andere Bewegung ist eine Summe der beiden.",
+        "beat": "Nach unten gezogen, steckt das Gewicht etwa je zur Hälfte in beiden Eigenformen. Sie laufen langsam auseinander und wieder zusammen; in dieser Zeit geht die Energie einmal ins Drehen und zurück ins Wippen."
+      },
+      "symbols": {
+        "z": "wie weit das Gewicht unter seiner Ruhelage steht",
+        "theta": "wie weit es verdreht ist",
+        "m": "die Masse des Gewichts, mit einem Drittel der Feder",
+        "I": "sein Trägheitsmoment um die senkrechte Achse",
+        "k": "die Federkonstante gegen Dehnen",
+        "delta": "die Federkonstante gegen Verdrehen",
+        "epsilon": "die Kopplung zwischen Dehnen und Verdrehen",
+        "I0": "das Trägheitsmoment des Körpers ohne Muttern",
+        "mn": "die Masse einer Mutter, 10 g",
+        "r": "der Abstand der Muttern von der Achse",
+        "omega": "die Kreisfrequenzen der beiden Eigenformen, die schnellere zuerst",
+        "alone": "die Kreisfrequenzen des Wippens allein und des Drehens allein",
+        "beat": "die Zeit, in der die Energie einmal ins Drehen und zurück geht",
+        "c": "die Kopplung, auf Masse und Trägheitsmoment bezogen"
+      },
+      "sweet": {
+        "modes": "Abgestimmt dreht sich das Gewicht allein genau so schnell, wie es allein wippt. Nur dann geht beim Hinüberwandern alles mit – nach einer halben Schwebung wippt das Gewicht nicht mehr und dreht sich nur noch.",
+        "beat": "Mit den Muttern bei {{r}} mm geht die Energie in {{beat}} s einmal ins Drehen und zurück, und etwa {{share}} % davon kommen im Drehen an.",
+        "detuned": "Verstimmt geht nie alles hinüber, nur dieser Anteil: umso weniger, je weiter die beiden Takte auseinanderliegen, gemessen an der Kopplung.",
+        "tuned": "Ganz hinüber geht es mit den Muttern bei {{tuned}} mm. Bei 35 mm kommt nur noch etwa die Hälfte im Drehen an, 48 %, und das Wippen kehrt schon nach 19,9 s zurück."
+      },
+      "chart": {
+        "energy": "Anteil der Energie",
+        "time": "Zeit",
+        "share": "Anteil, der ins Drehen geht",
+        "nuts": "Abstand der Muttern"
+      },
+      "computed": {
+        "system": "Vier Gleichungen erster Ordnung: die Auslenkung, die Verdrehung und ihre Geschwindigkeiten, hier ohne die Dämpfung geschrieben. Der Rechenkern löst sie mit dem Runge-Kutta-Verfahren in Schritten von einer Millisekunde; die Seite tut es mit denselben Schritten, einige Dutzend pro Bild."
+      }
+    },
+    "polarizer": {
+      "at": {
+        "lamp": "Eine Lampe leuchtet durch zwei Polarisationsfolien. Dreht man die hintere, wird das Licht schwächer, bis es ganz dunkel ist: Die beiden Folien sind gekreuzt.",
+        "third": "Nun schiebt man eine dritte Folie zwischen die beiden, schräg gestellt – und es wird wieder hell. Dabei kann jede Folie nur Licht schlucken, keines dazugeben."
+      },
+      "stack_view": "Die Lampe, die drei Folien und das Fenster, durch das Sie schauen",
+      "play": {
+        "title": "Drei Folien vor der Lampe",
+        "hint": "Schieben Sie die mittlere Folie hinein und drehen Sie sie oder die hintere – am Schieber oder mit Maus oder Finger an der Folie.",
+        "middle": "Mittlere Folie dazwischen",
+        "middle_hint": "Die dritte Folie zwischen die beiden schieben.",
+        "middle_deg": "Winkel der mittleren Folie",
+        "middle_deg_hint": "Gegen die vordere Folie gemessen; bei 180° steht sie wieder wie bei 0°.",
+        "last_deg": "Winkel der hinteren Folie",
+        "last_deg_hint": "Bei 90° ist sie gegen die vordere gekreuzt.",
+        "real": "Echte Folien",
+        "real_hint": "Statt idealer Folien solche wie Polaroid: Längs ihrer Achse lassen sie nicht alles durch, quer dazu nicht ganz nichts.",
+        "caption": "Jede Folie, wie Sie sie beim Durchschauen sehen; ihre Linien zeigen ihre Achse. Über dem Strahl die Richtung, in der das Licht schwingt, so lang wie seine Amplitude; vor der ersten Folie schwingt es in alle Richtungen. Weiss ist das Licht hinter der ersten Folie, die Hälfte des Lampenlichts.",
+        "status_dark": "Praktisch dunkel: Weniger als 0,2 % des Lampenlichts kommen durch.",
+        "status_light": "{{share}} % des Lampenlichts kommen durch.",
+        "labels": {
+          "lamp": "Lampe",
+          "front": "vorne",
+          "middle": "Mitte",
+          "slot": "(leer)",
+          "back": "hinten",
+          "window": "Fenster"
+        }
+      },
+      "figures": {
+        "front": "Hinter der vorderen Folie",
+        "middle": "Hinter der mittleren Folie",
+        "out": "Kommt durch",
+        "between_ideal": "{{n}} dazwischen, ideal",
+        "between_real": "{{n}} dazwischen, echt",
+        "best_between": "Beste Zahl echter Folien dazwischen",
+        "one": "Eine echte Folie lässt durch"
+      },
+      "change": {
+        "title": "Mehr Folien, echte Folien",
+        "hint": "Stellen Sie mehr Folien zwischen das gekreuzte Paar, gleichmässig gedreht, und ändern Sie, wie gut eine echte Folie ist.",
+        "between": "Folien zwischen dem gekreuzten Paar",
+        "between_hint": "Jede um gleich viel weiter gedreht als die vor ihr, von 0° bis 90°.",
+        "transmission": "Durchlass längs der Achse",
+        "transmission_hint": "Welchen Anteil des Lichts, das längs ihrer Achse schwingt, eine echte Folie durchlässt; ideal 100 %.",
+        "extinction": "Löschverhältnis 1 zu …",
+        "extinction_hint": "Um so viel weniger lässt eine echte Folie quer zu ihrer Achse durch als längs; Polaroid etwa 1 zu 500."
+      },
+      "chart": {
+        "hint": "Wie viel Licht durch das gekreuzte Paar kommt, über der Zahl der Folien dazwischen, ideal und echt; in Prozent des Lampenlichts.",
+        "ideal": "Ideale Folien",
+        "real": "Echte Folien",
+        "light": "Licht",
+        "between": "Folien dazwischen",
+        "middle": "Winkel der mittleren Folie"
+      },
+      "model": {
+        "intro": "Licht ist eine Welle, die quer zu ihrer Richtung schwingt. Eine Polarisationsfolie lässt nur den Teil durch, der längs ihrer Achse schwingt – und was durchkommt, schwingt danach längs dieser Achse.",
+        "malus": "Das Gesetz von Malus: Schwingt das Licht unter dem Winkel θ zur Achse einer Folie, kommt der Anteil cos²θ durch – alles bei 0°, nichts bei 90°.",
+        "half": "Das Licht der Lampe schwingt in alle Richtungen gleich; im Mittel ist cos²θ ein halb. Die erste Folie lässt die Hälfte durch.",
+        "three": "Drei Folien, die mittlere unter φ, die hintere gekreuzt: zweimal Malus. Am meisten kommt bei φ = 45° durch, ein Achtel des Lampenlichts – ein Viertel dessen, was die erste durchlässt.",
+        "many": "n Folien gleichmässig zwischen dem gekreuzten Paar: n + 1 kleine Drehungen, jede verliert wenig. Mit zehn kommen 40 % durch, mit sechzig 48 % – je mehr, desto näher an der Hälfte, die die erste Folie durchlässt."
+      },
+      "symbols": {
+        "i": "Licht hinter der Folie (Intensität)",
+        "i0": "Licht vor der Folie, schon polarisiert",
+        "theta": "Winkel zwischen Schwingungsrichtung und Achse der Folie",
+        "i1": "Licht hinter der ersten Folie",
+        "il": "Licht der Lampe, unpolarisiert",
+        "i3": "Licht hinter der dritten Folie",
+        "phi": "Winkel der mittleren Folie gegen die vordere",
+        "n": "Zahl der Folien zwischen dem gekreuzten Paar"
+      },
+      "sweet": {
+        "turns": "Der Trick: Eine Folie blockt nicht bloss, sie polarisiert neu. Was durch die mittlere kommt, schwingt längs ihrer Achse, also um 45° gedreht – halb so viel, wie die erste durchliess. Gegen diese neue Richtung steht die hintere Folie nicht mehr quer, sondern auch nur 45° schräg: Sie lässt wieder die Hälfte durch. So kommt ein Viertel dessen durch, was die erste durchliess, ein Achtel des Lampenlichts, wo ohne die mittlere nichts durchkam. Steht die mittlere bei 30°, sind es 9,4 %.",
+        "real": "Echte Folien (hier angenommen: 76 % Durchlass längs der Achse, quer 1 zu 500, wie Polaroid) lassen einzeln 38 % durch, gekreuzt noch 0,12 %. Mit der dritten Folie bei 45° kommen 5,0 % durch, 44-mal so viel. Mehr Folien helfen nur bis zu zwei: Damit kommen 6,6 % durch, und jede weitere schluckt mehr, als ihre kleinere Drehung spart. Mit zehn sind es noch 1,5 %; ideale Folien liessen 40 % durch.",
+        "chart_hint": "Das Licht durch das gekreuzte Paar über dem Winkel der mittleren Folie, in Prozent des Lampenlichts. Ihre mittlere Folie steht bei {{deg}}°: {{share}} % mit idealen Folien."
+      },
+      "computed": {
+        "system": "Die Seite rechnet jede Folie als Matrix, die die Schwingung längs ihrer Achse durchlässt und quer dazu nicht (Jones-Matrix), und multipliziert die Folien der Reihe nach. Das Licht der Lampe ist ein gleiches Gemisch zweier gekreuzter Schwingungen; hinter dem Stapel ist seine Intensität die halbe Summe der Quadrate der vier Einträge. Für ideale Folien ist das genau das Gesetz von Malus, Folie für Folie.",
+        "real": "Eine echte Folie lässt längs ihrer Achse den Anteil k₁ durch und quer dazu k₂; k₂/k₁ ist ihr Löschverhältnis. Für Polaroid nennt die Literatur etwa 38 % für unpolarisiertes Licht und 1 zu 500; daraus k₁ = 76 %.",
+        "check": "Die Tests der Seite rechnen jeden Stapel ein zweites Mal mit Mueller-Matrizen auf dem Stokes-Vektor und vergleichen, prüfen das Gesetz von Malus Folie für Folie und die Kurve ⅛ sin² 2φ für jeden ganzen Winkel. Gerechnet wird in Ihrem Browser, mit denselben Formeln wie im Rechenkern der Seite.",
+        "left_out": "Weggelassen: die Farbe (echte Folien lassen Rot und Blau verschieden durch, gekreuztes Polaroid wirkt leicht bläulich; hier gilt ein Wert für alles Licht); Licht, das zwischen den Folien hin und her gespiegelt wird; Folien, die auch die Phase der Schwingung verschieben (Verzögerungsplatten)."
+      }
+    },
+    "vessel": {
+      "at": {
+        "build": "Auf einem Gestell über einem langen Becken steht ein durchsichtiges Rohr, einen Meter hoch und 8 cm weit, bis 90 cm hoch mit Wasser gefüllt. In seiner Seite sind drei Löcher übereinander, auf 5, 35 und 65 cm, jedes mit einem Stöpsel verschlossen.",
+        "drain": "Zieht man unten den Stöpsel, schiesst ein Strahl weit ins Becken. Dann landet er immer näher am Rohr, und der Wasserspiegel sinkt immer langsamer; die letzten Zentimeter dauern am längsten. Sind alle drei Löcher offen, reicht der mittlere Strahl am weitesten, und der obere und der untere landen an derselben Stelle.",
+        "origin": "Ein klassischer Versuch aus dem Physikunterricht, hier so hoch gebaut, dass man dem Strahl beim Kürzerwerden zusehen kann."
+      },
+      "view": "Das Rohr auf seinem Gestell über dem Becken, aufgeschnitten gezeichnet: das Wasser, die Stöpsel und die Strahlen, mit einem Massstab am Beckenboden",
+      "play": {
+        "title": "Stöpsel ziehen",
+        "hint": "Klicken Sie auf einen Stöpsel im Bild oder auf einen der Knöpfe, um ein Loch zu öffnen oder wieder zu verschliessen. Die Zeit läuft ab dem ersten offenen Loch.",
+        "refill": "Neu füllen",
+        "caption": "Ein Rohr von {{diameter}} cm Weite mit Löchern von {{hole}} mm; die gestrichelte Marke zeigt, wie hoch es gefüllt war. Alles im selben Massstab.",
+        "plugs": "Löcher, von oben nach unten",
+        "hole": "Loch auf {{height}} cm",
+        "full": "Das Rohr ist bis {{fill}} cm gefüllt, alle Löcher sind verschlossen.",
+        "time": "Zeit",
+        "level": "Wasserstand",
+        "flow": "Ausfluss",
+        "jet": "Weitester Strahl",
+        "halved": "Auf halber Höhe ({{height}} cm) nach"
+      },
+      "change": {
+        "title": "Das Rohr umbauen",
+        "hint": "Ändern Sie Rohr, Löcher, Füllhöhe und Gestell. Danach ist das Rohr neu gefüllt, und alle Stöpsel stecken wieder; die Löcher bleiben auf 5, 35 und 65 cm. Die Zahlen gelten für das untere Loch allein.",
+        "diameter": "Weite des Rohrs",
+        "diameter_hint": "Innendurchmesser. Doppelt so weit heisst viermal so viel Wasser: Es dauert viermal so lange. Beim Exponat 8 cm.",
+        "hole": "Weite der Löcher",
+        "hole_hint": "Höchstens ein Viertel der Rohrweite. Doppelt so weit, in einem Viertel der Zeit leer. Beim Exponat 8 mm.",
+        "fill": "Füllhöhe",
+        "fill_hint": "Wie hoch das Wasser zu Beginn über dem Rohrboden steht. Beim Exponat 90 cm.",
+        "discharge": "Ausflusszahl μ",
+        "discharge_hint": "Wie stark sich der Strahl gleich hinter dem Loch einschnürt: um 0,61 für ein scharfkantiges Loch, über 0,9, wenn das Wasser durch ein kurzes Röhrchen ausläuft. Beim Exponat 0,61.",
+        "stand": "Höhe des Gestells",
+        "stand_hint": "Wie hoch der Rohrboden über dem Beckenboden steht. Je höher, desto länger fallen die Strahlen und desto weiter reichen sie. Beim Exponat 20 cm.",
+        "dry": "Löcher über dem Wasserstand bleiben trocken."
+      },
+      "figures": {
+        "drain": "Leer bis zum unteren Loch",
+        "half": "Halbe Höhe nach",
+        "speed": "Tempo des ersten Strahls",
+        "flow": "Erster Ausfluss",
+        "volume": "Wasser über dem unteren Loch",
+        "farthest": "Weitester möglicher Strahl"
+      },
+      "chart": {
+        "range": "Wurfweite",
+        "hole": "Höhe des Lochs über dem Rohrboden",
+        "range_hint": "Wie weit ein Strahl aus dem vollen Rohr reicht, je nachdem, wie hoch das Loch sitzt: am weitesten aus der Mitte zwischen Wasserspiegel und Beckenboden.",
+        "depth": "Wasser über dem Loch",
+        "time": "Zeit nach dem Öffnen",
+        "time_hint": "Das untere Loch allein, für den Aufbau, den Sie oben eingestellt haben: Der Wasserspiegel sinkt immer langsamer, die Wurfweite nimmt gleichmässig ab, auf einer Geraden."
+      },
+      "model": {
+        "intro": "Das Wasser drückt auf ein Loch umso stärker, je tiefer das Loch unter dem Wasserspiegel liegt. Es schiesst so schnell heraus, wie ein Stein würde, der vom Wasserspiegel bis zum Loch fällt. Gleich hinter dem Loch schnürt sich der Strahl ein: Durch ein scharfkantiges Loch fliessen nur gut sechs Zehntel dessen, was die Lochfläche erwarten liesse.",
+        "torricelli": "Das Gesetz von Torricelli: das Tempo des Strahls aus der Tiefe des Lochs unter dem Wasserspiegel.",
+        "flow": "Was in jeder Sekunde ausläuft: die Lochfläche, verengt auf den eingeschnürten Strahl, mal dessen Tempo.",
+        "balance": "Was ausläuft, fehlt im Rohr: Der Spiegel sinkt so schnell, wie alle offenen Löcher unter ihm zusammen Wasser herauslassen. Eine Differentialgleichung erster Ordnung für den Wasserstand.",
+        "range": "Der Strahl verlässt die Wand waagrecht und fällt wie ein waagrecht geworfener Stein: So weit vom Rohr landet er am Beckenboden."
+      },
+      "symbols": {
+        "v": "das Tempo des Strahls",
+        "g": "die Fallbeschleunigung",
+        "h": "der Wasserstand über dem Rohrboden",
+        "y": "die Höhe des Lochs über dem Rohrboden",
+        "q": "der Ausfluss",
+        "mu": "die Ausflusszahl, die Einschnürung des Strahls",
+        "a": "die Fläche eines Lochs",
+        "area": "die Querschnittsfläche des Rohrs",
+        "t": "die Zeit",
+        "yk": "die Höhe des offenen Lochs k, summiert wird über die offenen Löcher unter dem Wasserspiegel",
+        "x": "wie weit von der Wand der Strahl am Beckenboden landet",
+        "s": "die Höhe des Gestells",
+        "half": "die Zeit, bis die Tiefe über dem Loch auf die Hälfte gesunken ist"
+      },
+      "computed": {
+        "system": "Die Löcher gehen auf und zu, wann Sie wollen. Darum rechnet die Seite den Wasserstand Schritt für Schritt: alle 5 ms ein Runge-Kutta-Schritt der Gleichung oben, in Ihrem Browser, mit denselben Formeln wie im Rechenkern der Seite. Ist nur ein Loch offen, gibt es auch eine exakte Lösung.",
+        "exact": "Die Wurzel aus der Wassertiefe über dem Loch nimmt gleichmässig ab, bis das Wasser beim Loch angekommen ist, nach der Zeit T.",
+        "h0": "der Wasserstand beim Öffnen",
+        "T": "die Zeit, bis das Wasser über dem Loch ausgelaufen ist",
+        "check": "Die Tests der Seite halten die Schritte gegen diese Lösung: Bis eine Sekunde vor dem Ende weicht der Wasserstand um weniger als ein Milliardstel der Tiefe ab, und leer ist das Rohr auf einen Schritt genau.",
+        "left_out": "Weggelassen: das Tempo, mit dem das Wasser im Rohr selbst sinkt (hier weniger als ein Zehntausendstel der Rechnung); die Bremsung des Strahls durch Zähigkeit und Luft (bei schnellen Strahlen aus scharfkantigen Löchern gemessen unter einem Promille); die Trägheit der Wassersäule, wenn ein Loch auf- oder zugeht; die Oberflächenspannung, die am Ende den dünnen Strahl in Tropfen zerreisst; die Breite der Stöpsel."
+      },
+      "sweet": {
+        "root": "Der Trick ist die Wurzel. Das Wasser läuft umso schneller aus, je höher es steht – aber nur mit der Wurzel der Höhe. Sinkt der Spiegel, wird der Strahl langsamer, und der Spiegel sinkt noch langsamer. Darum ist die erste Hälfte des Wassers viel schneller draussen als die zweite.",
+        "numbers": "Beim Exponat, mit dem unteren Loch allein: Nach 20 s steht das Wasser nur noch halb so hoch über dem Loch, leer ist es erst nach 68 s. Die Hälfte des Wassers braucht nicht die Hälfte der Zeit, sondern 29 % davon; der letzte Zehntel braucht 32 %. Mit allen drei Löchern offen ist das Rohr nach 57 s unten – kaum schneller, denn die oberen Löcher fallen bald trocken.",
+        "jet": "Der Strahl dagegen wird gleichmässig kürzer: Seine Weite wächst mit der Wurzel der Tiefe, und genau diese Wurzel nimmt gleichmässig ab. Am Anfang schiesst er mit 4,1 m/s heraus, 7,5 Liter pro Minute, und landet 0,92 m vom Rohr; nach der halben Zeit, 34 s, landet er bei 0,46 m.",
+        "half": "Die Tiefe über dem Loch fällt mit dem Quadrat der verbleibenden Zeit: Die Hälfte ist nach (1 − 1/√2) T draussen, nach 29 % der Zeit, wie weit das Rohr und das Loch auch sind."
+      }
+    },
+    "kapitza": {
+      "at": {
+        "rod": "Ein steifer Stab mit einem Gewicht am Ende hängt an einem Drehpunkt. Richtet man ihn auf und lässt los, kippt er um – wie jeder Bleistift, den man auf die Spitze stellt.",
+        "motor": "Dann schaltet man den Motor ein: Er rüttelt den Drehpunkt auf und ab, um einen Zentimeter, etwa 40-mal pro Sekunde. Jetzt bleibt der Stab kopfüber stehen. Stösst man ihn an, wackelt er und richtet sich wieder auf."
+      },
+      "view": "Der Stab am gerüttelten Drehpunkt, das Gewicht am Ende; gestrichelt die Senkrechte nach oben",
+      "play": {
+        "title": "Aufrichten und rütteln",
+        "hint": "Richten Sie den Stab auf, erst ohne, dann mit Motor. Stossen Sie ihn an oder ziehen Sie das Gewicht zur Seite.",
+        "upright": "Aufrichten",
+        "nudge": "Anstossen",
+        "motor": "Motor",
+        "motor_hint": "Rüttelt den Drehpunkt auf und ab",
+        "drag_hint": "Das Gewicht lässt sich mit der Maus oder dem Finger festhalten und loslassen.",
+        "frequency": "Frequenz des Motors",
+        "amplitude": "Hub des Drehpunkts (auf und ab)",
+        "presets_label": "Einstellungen:",
+        "presets": {
+          "fast": "Schnell und fein",
+          "slow": "Langsam und weit",
+          "swing": "Aufschaukeln"
+        },
+        "holds": "So schnell gerüttelt bleibt der Stab oben stehen.",
+        "falls": "So gerüttelt kippt der Stab von oben weg.",
+        "swings": "So gerüttelt schaukelt sich sogar der hängende Stab auf.",
+        "off": "Ohne Motor kippt der Stab von oben weg."
+      },
+      "figures": {
+        "angle": "Winkel zur Senkrechten nach oben",
+        "least": "Kleinste Frequenz, genau",
+        "kapitza": "Kleinste Frequenz nach Kapitza",
+        "gap": "Unterschied",
+        "wobble": "Wackeln oben, Periode"
+      },
+      "change": {
+        "title": "Das Exponat verändern",
+        "hint": "Der Stab läuft dabei weiter, wo er gerade ist.",
+        "length": "Länge des Stabs",
+        "damping": "Dämpfung"
+      },
+      "model": {
+        "intro": "Im Drehpunkt mitbewegt spürt das Gewicht zur Schwerkraft noch die Beschleunigung des Drehpunkts: Einmal wird es schwerer, einmal leichter, 40-mal pro Sekunde. Gemittelt über das schnelle Rütteln heben sich diese Kräfte nicht auf.",
+        "motion": "Die Bewegungsgleichung des Stabs: Schwerkraft und Rütteln drehen ihn zum tiefsten Punkt hin, die Dämpfung bremst. Der Drehpunkt steht bei a·cos ωt unter seiner Mitte.",
+        "potential": "Kapitzas gemitteltes Potential: zur Lageenergie kommt ein Anteil des Rüttelns, der am grössten ist, wenn der Stab waagrecht liegt, und am kleinsten, wenn er senkrecht steht – unten wie oben.",
+        "bound": "Oben ist dieses Potential ein Tal, sobald a²ω² grösser ist als 2gl: Für den Stab von 20 cm, um 1 cm gerüttelt, ab 31,5 Hz. Um oben wackelt der Stab dann langsam mit der Kreisfrequenz Ω."
+      },
+      "symbols": {
+        "theta": "der Winkel des Stabs, ab senkrecht nach unten (π heisst kopfüber)",
+        "g": "Fallbeschleunigung, 9,81 m/s²",
+        "a": "der Hub des Drehpunkts",
+        "omega": "die Kreisfrequenz des Motors, 2π mal seine Frequenz",
+        "l": "die Länge des Stabs bis zum Gewicht",
+        "c": "die Dämpfung",
+        "u": "das gemittelte Potential der langsamen Bewegung",
+        "m": "die Masse des Gewichts",
+        "big_omega": "die Kreisfrequenz des langsamen Wackelns um oben"
+      },
+      "computed": {
+        "system": "Zwei Gleichungen erster Ordnung, Winkel und Winkelgeschwindigkeit, mit dem Runge-Kutta-Verfahren in Schritten von einem Hundertstel einer Motorperiode, nie länger als 1 ms. Ob der Stab oben stehen bleibt, sagt eine zweite Rechnung, ohne zu warten: Nahe oben ist die Gleichung linear und ihr Koeffizient periodisch (Mathieus Gleichung). Nach Floquet macht dann jede Periode aus jeder kleinen Abweichung dasselbe: Sie wird mit einer festen Matrix M multipliziert. Der Rechenkern findet M, indem er zwei Abweichungen über eine Periode rechnet, in 1000 Schritten; ihre Eigenwerte, die Floquet-Multiplikatoren, entscheiden. Die kleinste Frequenz sucht er durch 40 Halbierungen.",
+        "floquet": "Eine Motorperiode bildet die Abweichung von oben mit der Matrix M ab. Liegen beide Eigenwerte von M im Einheitskreis, bleibt jede kleine Abweichung klein: Das ist genau dann, wenn der Betrag der Spur kleiner ist als 1 plus die Determinante. Die Determinante ist e^(−cT), mit der Dämpfung kleiner als 1.",
+        "phi": "die kleine Abweichung von senkrecht oben",
+        "t": "eine Periode des Motors, 1/f",
+        "m": "die Monodromiematrix: was eine Periode aus der Abweichung macht"
+      },
+      "chart": {
+        "gravity": "Schwerkraft",
+        "shaking": "Rütteln",
+        "sum": "Zusammen",
+        "potential": "Potential pro Masse",
+        "angle": "Winkel ab unten"
+      },
+      "sweet": {
+        "potential": "Der Trick: Das schnelle Rütteln mittelt sich zu einem zusätzlichen Potential, das oben ein Minimum hat. Die Schwerkraft allein hat oben einen Berg; ist das Rütteln stark genug, wird daraus in der Summe eine Mulde, in der der Stab liegen bleibt (bei 180°, in der Mitte).",
+        "approach": "Kapitzas Grenze ist das erste Glied einer Näherung in a/l. Die Floquet-Multiplikatoren geben die genaue Grenze: Ohne Dämpfung liegt sie bei a/l = 0,01 um 0,002 % höher, bei 0,05 um 0,055 %, bei 0,2 um 0,86 % – je kleiner der Hub gegen den Stab, desto genauer stimmt Kapitza.",
+        "band": "Und hängend? Der Stab schwingt von sich aus mit {{own}} Hz. Rüttelt der Motor etwa doppelt so schnell, zwischen {{low}} und {{high}} Hz, schaukelt er sich auf (parametrische Resonanz) – probieren Sie «Aufschaukeln».",
+        "no_band": "Und hängend? Der Stab schwingt von sich aus mit {{own}} Hz. Mit diesem Hub und dieser Dämpfung schaukelt ihn auch die doppelte Frequenz nicht auf."
+      }
+    },
+    "film": {
+      "at": {
+        "rings": "Zwei Drahtringe werden zusammen in Seifenlauge getaucht und langsam auseinandergezogen. Zwischen ihnen spannt sich eine Seifenhaut, in der Mitte eingeschnürt wie eine Taille.",
+        "waist": "Je weiter die Ringe auseinander sind, desto schmaler wird die Taille. Bei etwa zwei Dritteln des Ringdurchmessers springt die Haut plötzlich um: In jedem Ring bleibt eine flache Scheibe zurück."
+      },
+      "view": "Zwei Ringe von der Seite, dazwischen die Seifenhaut; der rechte Ring lässt sich ziehen oder mit den Pfeiltasten verschieben",
+      "play": {
+        "title": "Auseinanderziehen",
+        "hint": "Ziehen Sie den rechten Ring nach rechts oder links, oder wählen Sie ihn mit der Tabulatortaste und verschieben Sie ihn mit den Pfeiltasten, mit der Umschalttaste zentimeterweise. Gestrichelt quer durch die Haut: ihre Taille.",
+        "dip": "Neu eintauchen",
+        "ring": "Rechter Ring",
+        "distance": "Abstand der Ringe",
+        "distance_hint": "Von Ringmitte zu Ringmitte.",
+        "radius": "Radius der Ringe",
+        "radius_hint": "Beide Ringe sind gleich gross.",
+        "thin": "Die schmale Form zeigen",
+        "thin_hint": "Zu jedem Abstand passt noch eine zweite, schmalere Haut. Sie ist instabil: Die Seifenhaut nimmt sie nie an.",
+        "caption": "Von der Seite, im Massstab: Ringe von {{diameter}} cm Durchmesser. «Neu eintauchen» setzt die Ringe wieder nahe zusammen.",
+        "least": "Die Haut hat die kleinste mögliche Fläche: {{area}} cm²; zwei flache Scheiben hätten {{discs}} cm².",
+        "held": "Zwei flache Scheiben hätten jetzt weniger Fläche, {{discs}} cm² statt {{area}} cm². Die Haut bleibt trotzdem – noch.",
+        "torn": "Gerissen: In jedem Ring ist eine flache Scheibe zurückgeblieben. Zusammengeschoben bleiben es Scheiben; tauchen Sie die Ringe neu ein."
+      },
+      "figures": {
+        "neck": "Taille (Radius)",
+        "area": "Fläche der Haut",
+        "discs": "Zwei Scheiben",
+        "tear": "Reisst bei"
+      },
+      "model": {
+        "intro": "Eine Seifenhaut zieht sich auf die kleinste Fläche zusammen, die ihr Rand erlaubt: Ihre Energie ist die Oberflächenspannung mal die Fläche. Zwischen zwei gleichen Ringen auf einer Achse ist das ein Katenoid, eine um die Achse gedrehte Kettenlinie – dieselbe Kurve wie die der hängenden Kette beim Bogen.",
+        "catenoid": "Der Radius der Haut im Abstand z von ihrer Taille; c ist der Radius der Taille.",
+        "rings": "Die Haut muss an beiden Ringen ankommen: Das legt die Taille c fest – sofern es eine gibt.",
+        "ratio": "Mit t = h/(2c) bleibt eine Gleichung für t allein. Ihre rechte Seite steigt zuerst und fällt dann wieder.",
+        "peak": "Am höchsten ist sie, wo t·tanh t = 1, bei t ≈ 1,1997: Dort ist h/R ≈ 1,3255. Darunter passen zwei Häute zwischen die Ringe, eine breite und eine schmale, darüber keine.",
+        "area": "Die Fläche der Haut und die der zwei Scheiben, die eine gerissene Haut zurücklässt.",
+        "two": "Die breite Haut ist stabil, die schmale nicht: Angestossen fällt sie zur breiten zurück oder reisst. Beim Reissabstand laufen beide zusammen; die Taille ist dann auf 55 % des Ringradius geschrumpft."
+      },
+      "symbols": {
+        "r": "Radius der Haut",
+        "z": "Abstand von der Taille, längs der Achse",
+        "c": "Radius der Taille",
+        "R": "Radius der Ringe",
+        "h": "Abstand der Ringe",
+        "t": "halber Abstand der Ringe, in Radien der Taille",
+        "hmax": "grösster Abstand, bei dem eine Haut mit Taille die Ringe erreicht",
+        "A": "Fläche der Haut",
+        "discs": "Fläche der zwei Scheiben"
+      },
+      "sweet": {
+        "least": "Der Trick: Die Haut zieht sich immer auf die kleinste Fläche zusammen, die sie erreichen kann. Ab 1,055 Ringradien, bei Ringen von 5 cm ab 5,28 cm, hätten zwei flache Scheiben zwar weniger Fläche. Doch um dorthin zu kommen, müsste die Haut zuerst grösser werden: Darum bleibt sie.",
+        "tear": "Ab 1,3255 Ringradien, bei Ringen von 5 cm ab 6,63 cm, erreicht keine Haut mit Taille mehr beide Ringe. Die Taille schnürt sich zu, und die Haut springt in die zwei Scheiben. Kurz davor hat sie ein Fünftel mehr Fläche als die beiden.",
+        "equal_tile": "Scheiben kleiner ab h/R",
+        "tear_tile": "Reisst ab h/R",
+        "t_tile": "t mit t·tanh t = 1",
+        "seen": "So ist es auch an echten Seifenhäuten: Ito und Sato (2010) haben gefilmt, wie der Sprung zu den Scheiben dort ausbleibt, wo sie weniger Fläche hätten. Die Haut hält bis kurz vor dem Reissabstand und schnürt sich dann in einem Augenblick zu."
+      },
+      "chart": {
+        "hint": "Die Fläche der Haut im Vergleich zu den zwei Scheiben, je nach Abstand der Ringe: die breite, stabile Haut, die schmale, instabile, und die Scheiben. Wo die beiden Häute zusammenlaufen, enden die Kurven: Dort reisst die Haut.",
+        "wide": "breite Haut (stabil)",
+        "thin": "schmale Haut (instabil)",
+        "discs": "zwei Scheiben",
+        "area": "Fläche / zwei Scheiben",
+        "distance": "Abstand / Ringradius"
+      },
+      "computed": {
+        "system": "Die Seite sucht zu jedem Abstand das t, indem sie ein Intervall immer wieder halbiert, einmal links und einmal rechts vom Gipfel bei t·tanh t = 1, und rechnet daraus die Taille und die Fläche. Nichts läuft hier in der Zeit: Die Hand gibt den Abstand vor. Gerechnet wird in Ihrem Browser, mit denselben Formeln wie im Rechenkern der Seite.",
+        "left_out": "Weggelassen: die Schwerkraft, die eine echte Haut ein wenig durchhängen lässt; die Dicke der Haut, ihr Abfliessen und dass sie auch einmal vorzeitig platzt; der Draht der Ringe, hier eine Linie; und wie sich die Taille zuschnürt, wenn sie keinen Halt mehr hat."
+      }
+    },
+    "metronomes": {
+      "at": {
+        "board": "Auf einem leichten Brett stehen fünf Metronome, alle auf dasselbe Tempo gestellt. Das Brett liegt auf zwei leeren Getränkedosen und kann seitwärts rollen. Man startet die Metronome eines nach dem anderen, zu beliebigen Zeiten.",
+        "agree": "Zuerst ticken sie durcheinander. Nach weniger als einer Minute schwingen alle im Gleichtakt, und das Brett wiegt sich mit. Steht das Brett auf dem Tisch, finden sie nie zusammen."
+      },
+      "view": "Das Brett auf zwei Dosen von vorn, die Metronome darauf",
+      "play": {
+        "title": "Die Metronome starten",
+        "hint": "Tippen Sie auf ein Metronom, um es zu starten oder anzuhalten. Die Bewegung des Brettes ist {{times}}-mal vergrössert gezeichnet. Der Kreis zeigt, wo jedes Metronom in seiner Schwingung steht; der Pfeil ist ihr Mittel.",
+        "random": "Alle zufällig starten",
+        "stop_all": "Alle anhalten",
+        "each": "Die Metronome einzeln",
+        "start_one": "Metronom {{n}} starten",
+        "stop_one": "Metronom {{n}} anhalten",
+        "board": "Das Brett",
+        "free": "Auf den Dosen",
+        "held": "Auf dem Tisch",
+        "dial": "Wo jedes Metronom in seiner Schwingung steht, und ihr Mittel als Pfeil",
+        "trace": "Wie einig sie sich in der letzten Minute waren",
+        "answer": "Jetzt sind sie sich einig: R liegt über 0,99. Auf dem Tisch finden sie von selbst nie zusammen."
+      },
+      "figures": {
+        "order": "Einigkeit R",
+        "time": "Zeit",
+        "coupling": "Kopplung β"
+      },
+      "change": {
+        "title": "Das Exponat verändern",
+        "hint": "Ein leichteres Brett koppelt stärker. Liegen die Tempi zu weit auseinander, finden die Metronome nicht mehr zusammen.",
+        "count": "Anzahl Metronome",
+        "board": "Masse des Brettes",
+        "board_hint": "Ohne die Metronome. Ein schwereres Brett bewegt sich weniger, und die Kopplung wird schwächer.",
+        "spread": "Unterschied im Tempo",
+        "spread_hint": "Wie viel schneller das schnellste Metronom geht als das langsamste; die anderen liegen dazwischen."
+      },
+      "model": {
+        "intro": "James Pantaleone hat diesen Versuch 2002 mit zwei und mit sieben Metronomen gemacht und ein einfaches Modell dafür aufgestellt. Jedes Metronom ist ein Pendel; die Hemmung, die es antreibt, steckt in einem Term, der kleine Schwingungen anfacht und grosse bremst.",
+        "equation": "Die Gleichung des Metronoms i, die Zeit in Schwingungen gemessen: das Gewicht, der Antrieb, der die Schwingung bei etwa 45° hält (θ₀ = 0,39 rad, μ = 0,010), und die Trägheitskraft des Brettes, das sich unter dem Metronom bewegt.",
+        "board": "Von aussen schiebt niemand: Der Schwerpunkt von Brett und Metronomen bleibt, wo er ist. Schwingen die Pendel nach rechts, rollt das Brett nach links. β sagt, wie stark jedes Metronom das spürt; für Pantaleones zwei auf seinem Brett ist x₀ = 0,088 cm und β = 0,011.",
+        "order": "Wie einig sie sich sind, misst der Mittelwert ihrer Zeiger: R = 1, wenn alle im selben Takt schwingen, nahe 0, wenn sie verstreut sind.",
+        "lock": "Für zwei Metronome leitet Pantaleone daraus eine einzige Gleichung für ihren Phasenunterschied ψ her. Sie kommt zur Ruhe, wenn Δ klein genug ist: Dann eilt das schnellere um ψ* = arcsin(μΔ/(β(3γ + β))) voraus. Für seine zwei, ein halbes Prozent auseinander, sind das 3,1°; der Rechenkern findet 3,3°."
+      },
+      "symbols": {
+        "theta": "der Ausschlag des Pendels i",
+        "tau": "die Zeit, im Bogenmass der Schwingung gezählt",
+        "omega": "die Kreisfrequenz der Metronome, 10,9 1/s (208 Schläge pro Minute)",
+        "delta": "wie viel schneller oder langsamer Metronom i gestellt ist",
+        "mu": "die Stärke des Antriebs",
+        "theta0": "der Winkel, bei dem der Antrieb ins Bremsen umschlägt: die Hälfte des Ausschlags",
+        "beta": "die Kopplung durch das Brett",
+        "x": "wo das Brett steht",
+        "mr": "die Masse eines Pendels mal den Abstand seines Schwerpunkts von der Achse",
+        "M": "alles, was auf den Dosen rollt: Brett und Metronome",
+        "g": "Fallbeschleunigung, 9,81 m/s²",
+        "R": "wie einig sie sich sind, von 0 bis 1",
+        "phi": "wo Metronom j in seiner Schwingung steht",
+        "N": "die Anzahl laufender Metronome",
+        "psi": "der Phasenunterschied der beiden",
+        "gamma": "wie stark der grosse Ausschlag das Pendel verlangsamt",
+        "F": "was Gewicht und Antrieb allein beschleunigen",
+        "S": "die zweite Ableitung von Σ sin θⱼ: was das Brett bewegt"
+      },
+      "sweet": {
+        "push": "Jeder Schlag schiebt das Brett ein wenig – im Gleichtakt um etwa 1,4 mm hin und her –, und die Bewegung des Brettes schiebt jedes Metronom zur selben Phase hin.",
+        "in_step": "Von der Ausgangslage des Exponats aus sind sie auf den Dosen nach {{seconds}} s im Gleichtakt (R über 0,99). Auf dem Tisch erreicht R in denselben zwei Minuten höchstens {{most}}.",
+        "never": "Auf den Dosen finden sie in zwei Minuten nicht zusammen: Ihre Tempi liegen für diese Kopplung zu weit auseinander. Auf dem Tisch erreicht R höchstens {{most}}.",
+        "why": "Auf dem Tisch fehlt genau das: Das Brett steht still, keines spürt die anderen, und jedes behält sein eigenes Tempo. Ihre Abstände wandern langsam, so wie sich ihre Tempi unterscheiden."
+      },
+      "chart": {
+        "order": "Einigkeit R",
+        "time": "Zeit"
+      },
+      "computed": {
+        "solve": "Das Brett hängt an den Beschleunigungen aller Pendel, und jedes Pendel an der des Brettes. Weil alle dasselbe Brett teilen, lässt sich das in einem Zug auflösen: zuerst S aus einer Summe, dann jede Beschleunigung.",
+        "system": "So werden die 2N Gleichungen erster Ordnung, Ausschläge und ihre Geschwindigkeiten, explizit. Der Rechenkern löst sie mit dem Runge-Kutta-Verfahren in Schritten von 4 ms, 144 pro Schwingung; die Seite tut es mit denselben Schritten, einige pro Bild."
+      }
+    },
+    "ship": {
+      "at": {
+        "basin": "In einem Becken schwimmt ein Modellrumpf. Ein Gewicht lässt sich an einem Mast hinauf- und in einen Kiel unter dem Rumpf hinunterschieben.",
+        "low": "Sitzt das Gewicht tief, kippt man den Rumpf von Hand und lässt los: Er schaukelt zurück und richtet sich auf.",
+        "high": "Sitzt es hoch oben am Mast, genügt ein kleiner Stoss: Der Rumpf kippt um und schwimmt kieloben."
+      },
+      "view": "Das Becken mit dem Rumpf im Schnitt, dem Gewicht an Mast oder Kiel, dem Schwerpunkt G und dem Auftriebspunkt B",
+      "play": {
+        "title": "Den Rumpf kippen",
+        "hint": "Fassen Sie den Rumpf, kippen Sie ihn und lassen Sie los. Schieben Sie dann das Gewicht hinauf oder hinunter und versuchen Sie es noch einmal.",
+        "push": "Anstossen",
+        "upright": "Aufrichten",
+        "tilt": "Neigung des Rumpfs: Pfeiltasten kippen ihn, beim Loslassen schaukelt er frei",
+        "weight": "Höhe des Gewichts",
+        "weight_hint": "Über dem Boden des Rumpfs: unter null steckt es im Kiel, über 12 cm am Mast.",
+        "caption": "Ein Schnitt quer durch den Rumpf. Getönt ist, was unter Wasser liegt: Der Auftrieb drückt durch seine Mitte B nach oben, das Gewicht zieht durch G nach unten, der waagrechte Abstand ist der Hebel GZ.",
+        "motion": {
+          "held": "Ihre Hand hält den Rumpf.",
+          "upright": "Er schwimmt aufrecht.",
+          "on_edge": "Er steht auf der Kippe: Ein kleiner Stoss, und er kippt.",
+          "loll": "Er bleibt schief liegen: Aufrecht kann er nicht stehen.",
+          "keel_up": "Er ist gekentert und schwimmt kieloben.",
+          "capsizing": "Er kentert.",
+          "rolling": "Er schaukelt."
+        },
+        "heel": "Neigung",
+        "arm": "Hebel GZ",
+        "gm": "Metazentrische Höhe GM",
+        "period": "Schaukelperiode"
+      },
+      "change": {
+        "title": "Den Rumpf umbauen",
+        "hint": "Machen Sie den Rumpf breiter oder schmaler, das Gewicht schwerer oder leichter, und lassen Sie das Wasser stärker oder schwächer bremsen.",
+        "beam": "Breite des Rumpfs",
+        "beam_hint": "Je breiter die Wasserlinie, desto höher das Metazentrum: BM wächst mit dem Quadrat der Breite.",
+        "weight": "Masse des Gewichts",
+        "weight_hint": "Der Rumpf allein wiegt 2 kg.",
+        "damping": "Dämpfung durch das Wasser",
+        "damping_hint": "Wie schnell das Wasser das Schaukeln bremst; bei null schaukelt er immer weiter."
+      },
+      "figures": {
+        "draft": "Tiefgang",
+        "kb": "Auftriebspunkt KB",
+        "bm": "Metazentrischer Radius BM",
+        "kg": "Schwerpunkt KG",
+        "limit": "Höhe des Gewichts, ab der er kippt",
+        "vanishing": "Neigung, bis zu der er zurückkommt"
+      },
+      "chart": {
+        "curve_hint": "Der Hebel GZ, je nach Neigung, mit dem Gewicht in der eingestellten Höhe; gestrichelt GM·sin φ, die Näherung für kleine Winkel. Wo die Kurve unter null fällt, kentert er.",
+        "arm": "Hebel GZ",
+        "small": "GM·sin φ",
+        "heel": "Neigung",
+        "trick_hint": "Der Hebel GZ, je nach Neigung, für drei Höhen des Gewichts: am Fuss des Kiels, auf dem Deck und hoch am Mast.",
+        "weight_at": "Gewicht bei {{cm}} cm"
+      },
+      "model": {
+        "intro": "Der Rumpf ist hier ein geschlossener Kasten, im Schnitt ein Rechteck. Er taucht so tief ein, dass das verdrängte Wasser so viel wiegt wie Rumpf und Gewicht zusammen.",
+        "draft": "Archimedes für den Kasten: Das verdrängte Wasser wiegt so viel wie Rumpf und Gewicht. Hier taucht er 3,0 cm ein.",
+        "gravity": "Der Schwerpunkt von Rumpf und Gewicht, gemessen ab dem Boden K. Wandert das Gewicht, wandert nur er; der Tiefgang bleibt gleich.",
+        "arm": "Gekippt liegt der Auftriebspunkt B, die Mitte des eingetauchten Teils, waagrecht um GZ neben dem Schwerpunkt. Ist GZ positiv, liegt B auf der tiefen Seite, und Auftrieb und Gewicht drehen den Rumpf zurück.",
+        "metacentre": "Für kleine Winkel kreuzt die Senkrechte durch B die Mittellinie des Rumpfs immer im selben Punkt, dem Metazentrum M; GM ist seine Höhe über G. Für den Kasten hier liegt B 1,5 cm über dem Boden, BM ist 11,1 cm, und M liegt 12,6 cm über dem Boden.",
+        "wall": "Solange die Wände senkrecht im Wasser stehen, gilt diese Formel für den Kasten genau, hier bis 16,7°, wo der Boden auftaucht; für kleine Winkel bleibt GM·sin φ. Darüber rechnet die Seite den eingetauchten Teil geometrisch aus, bis der Rumpf auf der Seite oder kieloben liegt."
+      },
+      "symbols": {
+        "rho": "Dichte des Wassers",
+        "l": "Länge des Rumpfs",
+        "b": "Breite des Rumpfs",
+        "d": "Tiefgang",
+        "mh": "Masse des Rumpfs",
+        "mw": "Masse des Gewichts",
+        "kg": "Höhe des Schwerpunkts G über dem Boden K",
+        "zh": "Höhe des Schwerpunkts des leeren Rumpfs",
+        "zw": "Höhe des Gewichts",
+        "gz": "Hebel zwischen Auftrieb und Gewicht",
+        "phi": "Neigung",
+        "yzb": "Lage des Auftriebspunkts B im Rumpf, quer und in der Höhe",
+        "gm": "metazentrische Höhe",
+        "kb": "Höhe des Auftriebspunkts über dem Boden",
+        "bm": "Abstand vom Auftriebspunkt zum Metazentrum",
+        "i": "Flächenträgheitsmoment der Wasserlinie",
+        "v": "verdrängtes Volumen",
+        "inertia": "Trägheitsmoment um die Längsachse durch G",
+        "m": "Masse von Rumpf und Gewicht",
+        "g": "Erdbeschleunigung",
+        "beta": "Dämpfung durch das Wasser",
+        "kh": "Trägheitsradius des leeren Rumpfs",
+        "t": "Schaukelperiode"
+      },
+      "sweet": {
+        "moves": "Der Trick: Kippt der Rumpf, taucht die tiefe Seite ein und die hohe auf. Das verdrängte Wasser, und mit ihm der Auftriebspunkt B, rückt zur tiefen Seite. Solange das Metazentrum M über dem Schwerpunkt G liegt, liegt B weiter aussen als G, und Auftrieb und Gewicht drehen den Rumpf zurück.",
+        "numbers": "Hier liegt M 12,6 cm über dem Boden. Mit dem Gewicht auf dem Deck liegt G bei 7,3 cm: GM ist 5,3 cm, und er kommt bis 75° Neigung zurück. Am Fuss des Kiels liegt G unter dem Boden, GM ist 14,3 cm, und er kommt aus jeder Lage zurück, sogar von der Seite, wo ihn ein Hebel von 7,7 cm aufrichtet.",
+        "high": "Das Gewicht hinaufzuschieben, hebt G und sonst nichts: Tiefgang, B und M bleiben, wo sie sind. Ab 27,8 cm am Mast liegt G über M. Aufrecht steht er dann auf der Kippe, und ein kleiner Stoss lässt ihn kentern; bei 35 cm ist GM −2,4 cm. Kieloben dagegen schwimmt er dann stabil."
+      },
+      "computed": {
+        "system": "Die Seite rechnet das Schaukeln Schritt für Schritt, alle 2 ms (Runge-Kutta). Bei jedem Schritt sucht sie zur Neigung die Wasserlinie, die genau die Verdrängung unter Wasser lässt, schneidet den eingetauchten Teil aus dem Querschnitt und nimmt seine Mitte als Auftriebspunkt.",
+        "roll": "Die Drehung um den Schwerpunkt: Der Hebel GZ dreht zurück, das Wasser bremst. Das Trägheitsmoment ist das des Rumpfs, nach Steiner auf G verschoben, und das des Gewichts.",
+        "period": "Für kleine Winkel schaukelt er wie ein Pendel: mit dem Gewicht auf dem Deck alle 0,58 s. Je kleiner GM, desto träger: Mit dem Gewicht 25 cm hoch am Mast ist GM nur noch 0,9 cm, und er schaukelt alle 2,3 s.",
+        "check": "Die Tests der Seite halten GM gegen KB + BM − KG, den Hebel bei 15° gegen die Formel für senkrechte Wände, den Rumpf auf der Seite gegen die Mitte des eingetauchten Rechtecks und die Schaukelperiode gegen die Formel für kleine Winkel. Gerechnet wird in Ihrem Browser, mit denselben Formeln wie im Rechenkern der Seite.",
+        "left_out": "Weggelassen: das Wasser, das der schaukelnde Rumpf mitbewegt (es verlängert die Periode); dass der Rumpf beim Kippen auf und ab geht (hier schwimmt er in jeder Lage sofort auf seiner Verdrängung); seitliches Abtreiben und die Wellen, die das Schaukeln macht; Volumen und Gewicht von Kiel und Mast; Wasser, das eindringt. Die Werte sind ein angenommenes Modell: ein Kasten, 20 cm breit, 12 cm hoch, 50 cm lang und 2 kg schwer, sein eigener Schwerpunkt 5 cm über dem Boden; ein Gewicht von 1 kg, von 15 cm unter dem Rumpf bis 40 cm am Mast."
+      }
+    },
+    "string": {
+      "at": {
+        "cord": "Eine dünne, elastische Schnur ist mit einem Ende an einem Vibrator befestigt, der sie hundertmal in der Sekunde ein wenig auf und ab schüttelt. Das andere Ende führen Sie über einen Bolzen und ziehen es mit der Hand nach unten.",
+        "loops": "Locker gehalten, zittert die Schnur nur verschwommen. Spannen Sie sie langsam: Bei bestimmten Zugkräften steht sie plötzlich in einem, zwei, drei Bäuchen still, mit ruhigen Knoten dazwischen. Je fester Sie ziehen, desto weniger Bäuche."
+      },
+      "view": "Die Schnur vom Vibrator bis zum Bolzen: wie weit sie ausschlägt, darin die Schnur wie im Licht eines Stroboskops, und rechts der Zug Ihrer Hand",
+      "play": {
+        "title": "An der Schnur ziehen",
+        "hint": "Ziehen Sie fester oder lockerer und suchen Sie die Zugkräfte, bei denen die Schnur in Bäuchen stillsteht.",
+        "calm": "Beruhigen",
+        "caption": "Die Fläche zeigt, wie weit die Schnur ausschlägt; die Linie darin zeigt sie, wie eine Stroboskoplampe knapp neben dem Ton sie zeigt: verlangsamt. Die Höhe ist {{times}}-fach überhöht.",
+        "pull": "Zug Ihrer Hand",
+        "pull_hint": "Die Kraft, mit der Sie die Schnur über den Bolzen spannen. Je fester, desto schneller laufen die Wellen.",
+        "tone": "Ton des Vibrators",
+        "tone_hint": "Wie oft der Vibrator die Schnur in der Sekunde schüttelt; an der Ausstellung fest 100-mal.",
+        "widest": "Weitester Ausschlag",
+        "stroke": "Hub des Vibrators",
+        "speed": "Wellengeschwindigkeit",
+        "half_waves": "Halbe Wellen zwischen den Enden",
+        "three": "Zug für drei Bäuche bei {{hz}} Hz"
+      },
+      "chart": {
+        "swing": "Weitester Ausschlag",
+        "half_waves": "Halbe Wellen zwischen den Enden, 2Lf/v",
+        "caption": "Der stetige Ausschlag der Schnur beim Ton des Vibrators, über der Zahl halber Wellen, die zwischen die Enden passen: Spitzen genau bei ganzen Zahlen. Die Linie steht bei Ihrem Zug.",
+        "tone": "Ton des Vibrators",
+        "tones_hint": "Der stetige Ausschlag über dem Ton des Vibrators, für drei Zugkräfte, jede viermal so stark wie die vorige: Die Töne, bei denen die Schnur in Bäuchen steht, verdoppeln sich."
+      },
+      "change": {
+        "title": "Die Schnur ändern",
+        "hint": "Eine andere Schnur oder ein anderer Vibrator.",
+        "length": "Länge",
+        "length_hint": "Vom Vibrator bis zum Bolzen.",
+        "density": "Masse pro Meter",
+        "density_hint": "Auf einer schwereren Schnur laufen die Wellen langsamer.",
+        "damping": "Dämpfung",
+        "damping_hint": "Luft und Schnur zusammen, als eine Rate: Je stärker, desto niedriger und breiter die Spitzen.",
+        "stroke": "Hub des Vibrators",
+        "stroke_hint": "Wie weit der Vibrator das Ende der Schnur nach jeder Seite bewegt.",
+        "f1": "Tiefster Ton bei Ihrem Zug",
+        "one": "Zug für einen Bauch bei {{hz}} Hz",
+        "limit": "Ausschlag eines Bauchs bei Ihrem Zug"
+      },
+      "model": {
+        "intro": "Die Schnur folgt der Wellengleichung: Jedes Stück wird von seinen Nachbarn zurückgezogen, umso stärker, je mehr die Schnur dort gekrümmt ist. Ein Ende bewegt der Vibrator, das andere hält der Bolzen fest.",
+        "wave": "Masse mal Beschleunigung, dazu ein wenig Dämpfung, ist gleich Zug mal Krümmung. Am Vibrator geht die Schnur mit, am Bolzen steht sie.",
+        "tones": "Die Eigentöne: Genau n halbe Wellen passen zwischen die Enden (die Gesetze von Mersenne). Bei festem Ton des Vibrators gehört darum zu n Bäuchen ein Zug: Viermal so fest gibt halb so viele Bäuche.",
+        "transfer": "Die Übertragungsfunktion vom Vibrator zur Stelle x. Bei s = iΩ gibt ihr Betrag den stetigen Ausschlag; ihre Pole sind die Eigenschwingungen, jede mit γ/2 gedämpft.",
+        "peak": "Genau bei einem Eigenton schwingt die Schnur in jedem Bauch etwa so weit; dazwischen kaum weiter als der Vibrator selbst."
+      },
+      "symbols": {
+        "y": "Ausschlag der Schnur",
+        "x": "Ort entlang der Schnur, vom Vibrator aus",
+        "t": "Zeit",
+        "mu": "Masse der Schnur pro Meter",
+        "gamma": "Dämpfung, Luft und Schnur zusammen",
+        "tension": "Zug Ihrer Hand",
+        "a": "Hub des Vibrators",
+        "omega": "Kreisfrequenz des Vibrators",
+        "l": "Länge vom Vibrator bis zum Bolzen",
+        "fn": "n-ter Eigenton",
+        "n": "Zahl der Bäuche",
+        "v": "Wellengeschwindigkeit",
+        "tn": "Zug für n Bäuche",
+        "f": "Ton des Vibrators",
+        "g": "Übertragungsfunktion vom Vibrator zur Stelle x",
+        "s": "komplexe Frequenz der Laplace-Transformation",
+        "kappa": "komplexe Wellenzahl",
+        "sn": "Pole: die gedämpften Eigenschwingungen",
+        "omegan": "Kreisfrequenz des n-ten Eigentons",
+        "peak": "Ausschlag in einem Bauch",
+        "theta": "Phase des Vibrators",
+        "qn": "Ausschlag der n-ten Eigenschwingung"
+      },
+      "sweet": {
+        "trick": "Der Trick: Der Vibrator schickt eine Welle los, sie läuft zum Bolzen, wird zurückgeworfen, läuft zurück und wird am Vibrator wieder zurückgeworfen, immer wieder. Nur wenn eine ganze Zahl halber Wellen zwischen die Enden passt, kommt jede zurückgeworfene Welle im Gleichtakt mit den neuen an, und alle addieren sich zu einem stehenden Muster. Sonst heben sie sich grösstenteils auf.",
+        "numbers": "Bei 100 Hz steht die Schnur mit 20 N in einem Bauch, mit 5 N in zwei, mit 2,22 N in drei. Ein Bauch schwingt dann 67 mm weit, drei Bäuche je 22 mm, elfmal so weit wie der Vibrator. Mit 3,2 N, zweieinhalb halben Wellen, schwingt sie nirgends weiter als der Vibrator selbst: 2 mm.",
+        "pull": "Fester ziehen macht die Wellen schneller und länger, weniger Bäuche passen hinein: Viermal so viel Zug verdoppelt die Töne. So stimmt man eine Gitarre."
+      },
+      "computed": {
+        "system": "Die Seite zerlegt die Schnur in die Gerade, die der Vibrator vorgibt, und 40 Eigenschwingungen. Jede ist ein gedämpfter Schwinger, den der Vibrator antreibt; die Seite löst jede Bild für Bild exakt, mit dem Ton über das Bild festgehalten. Gerechnet wird in Ihrem Browser, mit denselben Formeln wie im Rechenkern der Seite.",
+        "modes": "Die Schnur als Summe: die Gerade vom Vibrator zum Bolzen und 40 Eigenschwingungen, jede ein gedämpfter, angetriebener Schwinger.",
+        "drawing": "Eine Schnur, die hundertmal in der Sekunde schwingt, lässt sich auf einem Bildschirm nicht Bild für Bild zeigen. Die Zeichnung zeigt darum, was das Auge sieht: die Fläche zwischen den beiden äussersten Lagen, und darin die Schnur, wie eine Stroboskoplampe knapp neben dem Ton sie zeigt.",
+        "left_out": "Weggelassen: dass sich eine elastische Schnur beim Ziehen dehnt und dünner wird; ihre Steifigkeit; Ausschläge so weit, dass sich der Zug entlang der Schnur ändert; das Nachgeben des Vibrators; Schwingungen quer zur Zeichenebene."
+      }
+    },
+    "jet": {
+      "at": {
+        "tank": "Ein Wassertank hat unten in der Vorderwand ein Loch. Hinter dem Tank steht ein Laser; sein Strahl geht durch das Wasser genau in das Loch, aus dem das Wasser fliesst.",
+        "follows": "Das Wasser fällt in einem Bogen in ein Becken – und das Licht geht nicht geradeaus weiter: Es folgt dem gebogenen Strahl, der grün leuchtet, und tritt erst dort aus, wo der Strahl ins Becken trifft oder in Tropfen zerfällt.",
+        "colladon": "Daniel Colladon beschrieb diesen Versuch 1842 in den Comptes rendus der Pariser Akademie der Wissenschaften. Das Licht im Wasserstrahl ist ein Vorläufer der Glasfaser."
+      },
+      "scene_view": "Der Tank mit dem Laser, der Wasserstrahl im Bogen und das Becken; der Strahl leuchtet, so weit das Licht in ihm bleibt",
+      "close_view": "Das Loch, stark vergrössert, mit den Lichtstrahlen, die an der Wand des Wasserstrahls gespiegelt werden",
+      "play": {
+        "title": "Den Laser neigen, den Wasserstand senken",
+        "hint": "Neigen Sie den Laser und senken Sie den Wasserstand: Sehen Sie, wann das Licht den Strahl verlässt.",
+        "level": "Wasserstand über dem Loch",
+        "level_hint": "Je höher das Wasser steht, desto schneller tritt es aus und desto sanfter biegt sich der Strahl.",
+        "tilt": "Neigung des Lasers",
+        "tilt_hint": "Der Winkel des Laserlichts im Wasser gegen die Achse des Strahls, nach oben positiv.",
+        "scene_caption": "Das ganze Exponat. Grün leuchtet der Strahl, so weit das Licht in ihm bleibt; Kreise zeigen, wo es unterwegs austritt.",
+        "close_caption": "Das Loch, stark vergrössert: neun Lichtstrahlen des Lasers, an der Wand des Wasserstrahls gespiegelt. Gestrichelt das Licht, das austritt.",
+        "all_in": "Das ganze Licht bleibt im Strahl: Jeder Lichtstrahl trifft die Wand unter {{steepest}}° gegen das Lot oder flacher, jenseits des Grenzwinkels von {{critical}}°. Es tritt erst im Becken aus.",
+        "some_out": "{{out}} % des Lichts treten unterwegs aus dem Strahl aus, {{arrives}} % erreichen das Becken.",
+        "all_out": "Kein Licht erreicht das Becken: Es trifft die Wand steiler als unter dem Grenzwinkel von {{critical}}° und tritt schon kurz nach dem Loch aus."
+      },
+      "figures": {
+        "speed": "Geschwindigkeit am Loch",
+        "bend": "Krümmungsradius am Loch",
+        "critical": "Grenzwinkel",
+        "steepest": "Steilster Auftreffwinkel, gegen das Lot",
+        "arrives": "Licht im Becken",
+        "first_out": "Erstes Licht tritt aus nach",
+        "landing": "Der Strahl trifft das Becken nach",
+        "hits": "Spiegelungen des mittleren Lichtstrahls"
+      },
+      "change": {
+        "title": "Das Exponat ändern",
+        "hint": "Ändern Sie das Loch, seine Höhe über dem Becken und die Flüssigkeit.",
+        "hole": "Durchmesser des Lochs",
+        "hole_hint": "So dick ist der Strahl. Je dicker er ist, desto enger ist seine Biegung am Loch im Verhältnis zu seiner Dicke.",
+        "drop": "Höhe über dem Becken",
+        "drop_hint": "Wie tief das Becken unter dem Loch steht: so lang ist der Weg des Lichts.",
+        "index": "Brechzahl der Flüssigkeit",
+        "index_hint": "Wasser hat 1,333. Je grösser die Brechzahl, desto kleiner der Grenzwinkel und desto besser hält der Strahl das Licht."
+      },
+      "chart": {
+        "inside_hint": "Das Licht, das noch im Strahl ist, über den Weg vom Loch bis zum Becken, waagrecht gemessen.",
+        "inside": "Licht im Strahl",
+        "along": "Abstand vom Loch",
+        "reflected_hint": "Der Anteil, den die Oberfläche von innen spiegelt, je nach Auftreffwinkel, bei der Brechzahl {{index}}: unter dem Grenzwinkel wenig, ab ihm alles.",
+        "reflected": "Gespiegelter Anteil",
+        "incidence": "Auftreffwinkel gegen das Lot"
+      },
+      "model": {
+        "intro": "Das Wasser verlässt das Loch waagrecht und fällt wie ein geworfener Stein. Das Licht darin geht geradeaus, bis es auf die Oberfläche des Strahls trifft; dort wird es gespiegelt, und unterhalb des Grenzwinkels tritt ein Teil gebrochen aus.",
+        "torricelli": "Das Wasser tritt so schnell aus, wie ein Stein nach einem Fall um den Wasserstand h wäre (Torricelli).",
+        "parabola": "Die Achse des Strahls ist eine Parabel. Am Loch biegt sie sich am stärksten, mit dem Radius R, dem doppelten Wasserstand; weiter unten immer sanfter.",
+        "snell": "Tritt Licht aus dem Wasser in die Luft, wird es vom Lot weg gebrochen (Snellius).",
+        "critical": "Ab dem Grenzwinkel bleibt für das gebrochene Licht kein Winkel mehr: Es wird ganz gespiegelt. Für Wasser sind es 48,6°.",
+        "fresnel": "Unterhalb des Grenzwinkels wird nur dieser Anteil gespiegelt (Fresnel, für unpolarisiertes Licht die beiden Polarisationen gemittelt); der Rest tritt aus."
+      },
+      "symbols": {
+        "v": "Geschwindigkeit des Wassers am Loch",
+        "g": "Fallbeschleunigung",
+        "h": "Wasserstand über dem Loch",
+        "x": "waagrechter Abstand vom Loch",
+        "y": "Höhe gegenüber dem Loch",
+        "r": "Krümmungsradius der Achse am Loch",
+        "n": "Brechzahl der Flüssigkeit (Luft: 1)",
+        "theta": "Auftreffwinkel im Wasser, gegen das Lot",
+        "theta_t": "Winkel des austretenden Lichts, gegen das Lot",
+        "theta_c": "Grenzwinkel",
+        "r_f": "gespiegelter Anteil"
+      },
+      "sweet": {
+        "grazing": "Der Trick: Im Strahl trifft das Licht die Wand streifend, unter mehr als etwa 49° gegen das Lot. So flach kommt es aus dem Wasser nicht hinaus: Es wird ganz gespiegelt, quer durch den Strahl zur anderen Wand, dort wieder, und so fort bis ans Ende. Zielt der Laser gerade ins Loch, trifft das Licht die Wand am Exponat unter 79° oder flacher.",
+        "bend": "Der Strahl lässt das Licht erst los, wenn es steiler auf die Wand trifft: wenn der Laser um mehr als 40° geneigt ist (in einem geraden Strahl wären es 41,4°, 90° weniger 48,6°) oder wenn sich der Strahl zu eng biegt. Am Loch ist sein Krümmungsradius doppelt so gross wie der Wasserstand; bei einem Loch von 6 mm tritt unter etwa 6 mm Wasserstand Licht aus. Wo der Strahl in Tropfen zerfällt, fehlt die Wand, und das Licht leuchtet heraus."
+      },
+      "computed": {
+        "system": "Die Seite folgt neun Lichtstrahlen, gleichmässig über das Loch verteilt, geradeaus bis zur Wand des Wasserstrahls. Die Wand liegt dort, wo ein Punkt den halben Lochdurchmesser von der Achse entfernt ist; den nächsten Punkt der Achse findet das Newton-Verfahren, den Auftreffpunkt die Regula falsi. An der Wand gilt das Reflexionsgesetz; unterhalb des Grenzwinkels tritt aus, was die Wand nicht spiegelt, nach Snellius gebrochen, und der Rest geht weiter. Gerechnet wird in Ihrem Browser, mit denselben Formeln wie im Rechenkern der Seite.",
+        "check": "Die Tests der Seite messen die Auftreffpunkte mit einer eigenen Suche nach: Sie liegen den halben Lochdurchmesser von der Achse, Einfalls- und Ausfallswinkel sind gleich, und was austritt und was ankommt, ergibt zusammen genau das ganze Licht. Am Exponat erreicht mit geradem Laser alles Licht das Becken, 49 cm vom Loch entfernt.",
+        "left_out": "Weggelassen: die zweite Richtung des runden Strahls – die Seite rechnet im Schnitt, in dem er fällt, und Lichtstrahlen ausserhalb dieses Schnitts fehlen; dass der Strahl dünner wird, je schneller er fällt; sein Zerfall in Tropfen (hier bleibt er ganz bis ins Becken); die Oberflächenspannung, die einen sehr langsamen Strahl an der Wand hält; die Polarisation des Lasers und die Breite seines Strahls; Wellen auf der Oberfläche; das Licht, das das Wasser selbst schluckt."
+      }
     }
   },
   "course": {

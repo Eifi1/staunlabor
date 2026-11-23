@@ -305,8 +305,8 @@ function Selection({ current }: { current: Exhibit }) {
 }
 
 /** The lessons the front page shows: those some exhibit builds on, in the
- *  course's order. An exhibit builds on one of three lessons
- *  (`CourseLesson`), so all three are shown, one per column of the grid. */
+ *  course's order (`CourseLesson`), three to a row of the grid. Lessons 3, 4
+ *  and 6 join as the third series' exhibits name them (`docs/plan.md`). */
 const LESSONS_SHOWN = LESSONS.filter((entry) =>
   EXHIBITS.some((exhibit) => exhibit.lessons.some((lesson) => lesson === entry.lesson)),
 );

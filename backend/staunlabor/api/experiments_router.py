@@ -31,6 +31,10 @@ from staunlabor.domain.experiments import (
     EXHIBIT_BLOCKS,
     EXHIBIT_HEIGHT_M,
     EXHIBIT_PLATES,
+    GALTON_BALLS,
+    GALTON_LEVEL,
+    GALTON_ROWS,
+    GALTON_SEED,
     GLASS_BEAD,
     METER_RANGE_A,
     STEEL,
@@ -48,7 +52,9 @@ from staunlabor.domain.experiments import (
     Cradle,
     Diver,
     DoublePendulum,
+    DrainingVessel,
     Elephant,
+    FilmRings,
     Fork,
     FoucaultPendulum,
     Funnel,
@@ -58,6 +64,7 @@ from staunlabor.domain.experiments import (
     LevitationTop,
     MagnetColumn,
     MaxwellWheel,
+    Metronomes,
     PegPendulum,
     PendulumWave,
     Plate,
@@ -70,6 +77,7 @@ from staunlabor.domain.experiments import (
     SmokeExhibit,
     Sphere,
     StoneArch,
+    StringCord,
     Vessel,
     WaterWheel,
     cannon_figures,
@@ -85,6 +93,13 @@ from staunlabor.domain.experiments import (
     wave_figures,
 )
 from staunlabor.domain.experiments.chladni import DEGREE as CHLADNI_DEGREE
+from staunlabor.domain.experiments.jet import Jet as WaterJet
+from staunlabor.domain.experiments.kapitza import KapitzaPendulum
+from staunlabor.domain.experiments.polarizer import POLAROID
+from staunlabor.domain.experiments.ship import DAMPING_PER_S as SHIP_DAMPING
+from staunlabor.domain.experiments.ship import Hull as ShipHull
+from staunlabor.domain.experiments.ship import Weight as ShipWeight
+from staunlabor.domain.experiments.spring import WilberforceSpring
 from staunlabor.domain.schemas.experiments import (
     BallStackIn,
     BeatsIn,
@@ -104,25 +119,32 @@ from staunlabor.domain.schemas.experiments import (
     CradleIn,
     DiverExhibitIn,
     DoublePendulumIn,
+    DrainingVesselIn,
     ElephantFiguresOut,
     ElephantIn,
     ExperimentsDefaultsOut,
+    FilmIn,
     FoucaultPendulumIn,
     FunnelIn,
+    GaltonIn,
     GyroWheelIn,
     HarmonographIn,
+    KapitzaPendulumIn,
     LevitationIn,
     MaxwellWheelIn,
+    MetronomesIn,
     OverhangIn,
     PegPendulumIn,
     PlatesIn,
     PlatformExhibitIn,
     PlatformFiguresOut,
     PlatformIn,
+    PolarizerSheetIn,
     RaceAnalysisOut,
     RaceIn,
     RainbowIn,
     ResonanceRackIn,
+    ShipIn,
     SkyTubeIn,
     SlitsIn,
     SmokeExhibitIn,
@@ -130,10 +152,13 @@ from staunlabor.domain.schemas.experiments import (
     SphereFiguresOut,
     SphereIn,
     StoneArchIn,
+    StringCordIn,
     VesselIn,
+    WaterJetIn,
     WaterWheelIn,
     WaveFiguresOut,
     WaveIn,
+    WilberforceSpringIn,
 )
 from staunlabor.security import PAGE_SETTLE_S, limit_run
 
@@ -158,6 +183,7 @@ async def defaults() -> ExperimentsDefaultsOut:
         peg=PegPendulumIn.model_validate(PegPendulum()),
         maxwell=MaxwellWheelIn.model_validate(MaxwellWheel()),
         chaos=DoublePendulumIn.model_validate(DoublePendulum()),
+        kapitza=KapitzaPendulumIn.model_validate(KapitzaPendulum()),
         waterwheel=WaterWheelIn.model_validate(WaterWheel()),
         foucault=FoucaultPendulumIn.model_validate(FoucaultPendulum()),
         coriolis=CarouselIn.model_validate(Carousel()),
@@ -171,13 +197,24 @@ async def defaults() -> ExperimentsDefaultsOut:
         plates=PlatesIn.model_validate(
             {"column": asdict(MagnetColumn()), "exhibit": [asdict(p) for p in EXHIBIT_PLATES], "plate": asdict(Plate())}
         ),
+        vessel=DrainingVesselIn.model_validate(DrainingVessel()),
         bounce=BounceIn.model_validate({"balls": [asdict(STEEL), asdict(TABLE_TENNIS)], "height_m": EXHIBIT_HEIGHT_M}),
         overhang=OverhangIn(blocks=EXHIBIT_BLOCKS, length_m=BLOCK_LENGTH_M, height_m=BLOCK_HEIGHT_M),
+        galton=GaltonIn(rows=GALTON_ROWS, p=GALTON_LEVEL, balls=GALTON_BALLS, seed=GALTON_SEED),
+        film=FilmIn.model_validate(FilmRings()),
         diver=DiverExhibitIn.model_validate({"diver": asdict(Diver()), "depth_m": Bottle().depth_m}),
+        ship=ShipIn.model_validate(
+            {"hull": asdict(ShipHull()), "weight": asdict(ShipWeight()), "damping_per_s": SHIP_DAMPING}
+        ),
         rainbow=RainbowIn.model_validate({"glass": asdict(GLASS_BEAD), "water": asdict(WATER_DROP)}),
         sky=SkyTubeIn.model_validate(SkyTube()),
         slits=SlitsIn.model_validate(Slits()),
+        polarizer=PolarizerSheetIn.model_validate(POLAROID),
+        jet=WaterJetIn.model_validate(WaterJet()),
         beats=BeatsIn.model_validate({"fork": asdict(Fork()), "rider": asdict(Rider())}),
+        spring=WilberforceSpringIn.model_validate(WilberforceSpring()),
+        metronomes=MetronomesIn.model_validate(Metronomes()),
+        string=StringCordIn.model_validate(StringCord()),
         chladni=ChladniPlateIn.model_validate(ChladniPlate()),
         meter_range_a=METER_RANGE_A,
         settle_s=PAGE_SETTLE_S,

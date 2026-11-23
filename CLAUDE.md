@@ -125,7 +125,8 @@ frontend/src/
   before its exhibit is checked, and name the exhibits a change unchecks
   (Marcel, 2026-11-19). Docstrings, comments and `simulate/` do not count.
 * **The prose states only what a test asserts**: a figure in a catalogue
-  sentence is one `tests/unit/test_experiments.py` checks.
+  sentence is one `tests/unit/test_experiments.py` checks (the third series'
+  exhibits, each in its own `tests/unit/test_experiment_<exhibit>.py`).
 * **No formula stands alone**: every one is an `Equation` with a sentence and
   a legend of its symbols with units.
 * **Every route is public**, so every route's cost is a stranger's: new

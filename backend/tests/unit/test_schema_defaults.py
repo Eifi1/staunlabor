@@ -76,7 +76,7 @@ def test_every_default_an_input_schema_spells_is_the_engines():
         for name, info in ExperimentsDefaultsOut.model_fields.items()
         if (schema := _schema(info.annotation)) is not None
     }
-    assert len(exhibits) == 34, "every exhibit's build but the chair's, which has none"
+    assert len(exhibits) == 44, "every exhibit's build but the chair's, which has none"
     found = [line for name, schema in exhibits.items() for line in _differences(schema, built[name], name)]
     assert found == []
 

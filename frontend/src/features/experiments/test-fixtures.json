@@ -168,6 +168,12 @@
       "mass2_kg": 0.5,
       "damping_per_s": 0.0
     },
+    "kapitza": {
+      "length_m": 0.2,
+      "amplitude_m": 0.01,
+      "frequency_hz": 40.0,
+      "damping_per_s": 0.3
+    },
     "waterwheel": {
       "sigma": 10.0,
       "rho": 28.0,
@@ -293,6 +299,19 @@
         "slot_m": 0.002
       }
     },
+    "vessel": {
+      "diameter_m": 0.08,
+      "height_m": 1.0,
+      "fill_m": 0.9,
+      "holes_m": [
+        0.05,
+        0.35,
+        0.65
+      ],
+      "hole_diameter_m": 0.008,
+      "discharge": 0.61,
+      "stand_m": 0.2
+    },
     "bounce": {
       "balls": [
         {
@@ -313,6 +332,16 @@
       "length_m": 0.2,
       "height_m": 0.04
     },
+    "galton": {
+      "rows": 12,
+      "p": 0.5,
+      "balls": 500,
+      "seed": 1874
+    },
+    "film": {
+      "radius_m": 0.05,
+      "distance_m": 0.01
+    },
     "diver": {
       "diver": {
         "glass_kg": 0.003,
@@ -321,6 +350,21 @@
         "diameter_m": 0.012
       },
       "depth_m": 0.3
+    },
+    "ship": {
+      "hull": {
+        "beam_m": 0.2,
+        "depth_m": 0.12,
+        "length_m": 0.5,
+        "mass_kg": 2.0,
+        "centre_m": 0.05,
+        "gyration_m": 0.07
+      },
+      "weight": {
+        "mass_kg": 1.0,
+        "height_m": 0.12
+      },
+      "damping_per_s": 0.5
     },
     "rainbow": {
       "glass": {
@@ -342,6 +386,16 @@
       "width_m": 5e-05,
       "distance_m": 2.0
     },
+    "polarizer": {
+      "transmission": 0.76,
+      "extinction": 0.002
+    },
+    "jet": {
+      "level_m": 0.15,
+      "hole_m": 0.006,
+      "drop_m": 0.4,
+      "index": 1.333
+    },
     "beats": {
       "fork": {
         "frequency_hz": 440.0,
@@ -352,6 +406,29 @@
         "mass_kg": 0.001,
         "position": 0.3
       }
+    },
+    "spring": {
+      "mass_kg": 0.5164,
+      "stiffness_n_m": 2.8,
+      "torsion_n_m": 0.000786,
+      "coupling_n": 0.00927,
+      "body_inertia_kg_m2": 0.000129,
+      "nut_kg": 0.01,
+      "nut_radius_m": 0.02,
+      "damping_per_s": 0.0
+    },
+    "metronomes": {
+      "count": 5,
+      "board_kg": 0.058,
+      "spread": 0.004,
+      "free": true
+    },
+    "string": {
+      "length_m": 1.0,
+      "tension_n": 3.0,
+      "density_kg_m": 0.0005,
+      "damping_per_s": 12.0,
+      "drive_m": 0.002
     },
     "chladni": {
       "side_m": 0.24,
