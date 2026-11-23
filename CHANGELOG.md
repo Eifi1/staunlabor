@@ -2,6 +2,12 @@
 
 All notable changes to Staunlabor are documented in this file, generated from the commit messages by commit-and-tag-version at each release.
 
+## [0.1.14](https://github.com/Eifi1/staunlabor/compare/v0.1.13...v0.1.14) (2026-11-23)
+
+### Added
+
+* **exhibits:** the third series, ten more exhibits; no weekly bonus; German decimal points ([#9](https://github.com/Eifi1/staunlabor/issues/9)) ([7319c02](https://github.com/Eifi1/staunlabor/commit/7319c02c415ea355d6c7d6144413679f2662be75))
+
 ## [0.1.13](https://github.com/Eifi1/staunlabor/compare/v0.1.12...v0.1.13) (2026-11-23)
 
 ### Added
