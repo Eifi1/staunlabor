@@ -8,9 +8,9 @@
  * drawing, model and insight.
  */
 
-import { Children, Fragment, isValidElement, type ReactElement, type ReactNode } from "react";
+import type { ReactNode } from "react";
 import { useTranslation } from "react-i18next";
-import { ArrowLeft, ArrowRight, ChevronRight, Cpu, FlaskConical, Lightbulb } from "lucide-react";
+import { ArrowLeft, ArrowRight, Cpu, FlaskConical, Lightbulb } from "lucide-react";
 import { Button, Card, CardHeader, CardTitle, PageHeader, SectionLabel, TextLink } from "@eifi1/ui-kit";
 import { PAGE_SHELL } from "@/shared/ui/page-shell";
 import { lessonEntry } from "@/features/course/lessons";
@@ -23,14 +23,6 @@ import { CheckStatus } from "./check-status";
  *  250 characters a line, where 60 to 80 read well. Paragraphs only — the
  *  figures, charts and equations beside them keep the full width. */
 const PROSE = "[&_p]:max-w-[75ch]";
-
-/** The parts of a node given as one fragment or as several elements. */
-function parts(node: ReactNode): ReactNode[] {
-  if (isValidElement(node) && node.type === Fragment) {
-    return Children.toArray((node as ReactElement<{ children?: ReactNode }>).props.children);
-  }
-  return Children.toArray(node);
-}
 
 /** The exhibit after `exhibit` in the list, the first after the last. */
 function nextExhibit(exhibit: Exhibit) {
@@ -63,7 +55,6 @@ export function ExhibitFrame({
   const { lessons } = exhibitEntry(exhibit);
   const mark = useTried((state) => state.mark);
   const tried = () => mark(exhibit);
-  const [first, ...rest] = parts(atTheExhibit);
   const next = nextExhibit(exhibit);
   return (
     <div className={PAGE_SHELL}>
@@ -86,26 +77,10 @@ export function ExhibitFrame({
           <FlaskConical className="mt-0.5 size-5 shrink-0 text-brand" aria-hidden />
           <div className="min-w-0 space-y-2">
             <SectionLabel as="h2">{t("experiments.frame.at_the_exhibit")}</SectionLabel>
-            {/* Its first paragraph, and the rest on request: the exhibit's
-                twin is what the page is for, and it should not wait below
-                two long paragraphs. A native <details> rather than the kit's
-                Disclosure: the browser's find-in-page opens a closed <details>
-                at a match, while the kit's fold hides a shut body with
-                `visibility`, which find-in-page skips (keepMounted or not), so
-                the rest would not be found. An ask upstream: a Collapse with
-                `hidden="until-found"`. */}
-            <div className={`space-y-2 text-sm text-primary ${PROSE}`}>
-              {first}
-              {rest.length > 0 && (
-                <details className="group">
-                  <summary className="flex w-fit cursor-pointer list-none items-center gap-1 text-sm font-medium text-brand [&::-webkit-details-marker]:hidden">
-                    <ChevronRight className="size-4 transition-transform group-open:rotate-90" aria-hidden />
-                    {t("experiments.frame.more_at")}
-                  </summary>
-                  <div className="mt-2 space-y-2">{rest}</div>
-                </details>
-              )}
-            </div>
+            {/* All of it, unfolded: every exhibit's text here is two or three
+                short paragraphs (at most some 600 characters), so a fold saved
+                a few lines and cost a click (Marcel, 2026-11-23). */}
+            <div className={`space-y-2 text-sm text-primary ${PROSE}`}>{atTheExhibit}</div>
           </div>
         </div>
       </Card>

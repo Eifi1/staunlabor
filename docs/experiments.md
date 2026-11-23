@@ -22,10 +22,12 @@ models found before the engine was written, and what is left to build.
 
 Every exhibit gets one page in one shape:
 
-1. **At the exhibit** — a drawing of the setup and what the visitor does: its
-   first paragraph, and the rest behind "More about the exhibit" (2026-11-19,
-   the review of the coil's page: two long paragraphs pushed the twin below
-   the fold).
+1. **At the exhibit** — a drawing of the setup and what the visitor does, all
+   of it shown. From 2026-11-19 (the review of the coil's page) only its first
+   paragraph stood open and the rest behind "More about the exhibit"; on
+   2026-11-23 the fold went again (Marcel: "ein bisschen sinnlos"): every
+   exhibit's text is two or three short paragraphs, at most some 600
+   characters, so the fold hid a sentence or two and cost a click.
 2. **Try it** — the exhibit's twin, played with a mouse or a finger.
 3. **What happens** — the derivation step by step, KaTeX, the engine's numbers.
 4. **The sweet spot** — the one insight that explains the trick, as a chart.
@@ -106,7 +108,7 @@ kit's `GlobalSearch` over the exhibits (Ctrl K), the language and the theme
   2026-11-20 the stage ends at 779 px of 900, 754 of 768, 675 of 844 and
   653 of 667 (1440, 1366, 390 and 375 px wide). On a phone the drawing stands
   above the question (Marcel, 2026-11-20, of three orders shown: "Bild über
-  Frage beim Handy"). The summary and the first paragraph at the exhibit,
+  Frage beim Handy"). The summary and the text at the exhibit,
   which stood beside the drawing before, are the card's and the page's.
 * **The site in figures**, a band across the window (Marcel: "Wo ist die
   bottom line mit den key facts zur Seite?"): the built exhibits, their

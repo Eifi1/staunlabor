@@ -319,13 +319,11 @@ describe("the area", () => {
     ).toHaveAttribute("href", "/coil");
   });
 
-  it("shows the first paragraph of what stands at the exhibit, and the rest on request", async () => {
+  it("shows all of what stands at the exhibit, with nothing folded away", async () => {
     renderWithProviders(<SpherePage />);
     expect(await screen.findByText(E.sphere.at.sphere)).toBeVisible();
-    const more = screen.getByText(E.frame.more_at);
-    expect(more.closest("details")).not.toHaveAttribute("open");
-    fireEvent.click(more);
-    expect(more.closest("details")).toHaveAttribute("open");
+    for (const paragraph of Object.values(E.sphere.at)) expect(screen.getByText(paragraph)).toBeVisible();
+    expect(document.querySelector("details")).toBeNull();
   });
 });
 
