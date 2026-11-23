@@ -125,8 +125,11 @@ function CaseCard({ exhibit, item, index }: { exhibit: Exhibit; item: CheckCase;
           {t("experiments.checks.sources")}
         </p>
         <ul className="space-y-2">
+          {/* Keyed by the quote too: a case may quote one section twice (the
+              chladni's Q, from both of its definitions), and url + cite alone
+              then gave React two children with one key. */}
           {item.sources.map((source) => (
-            <li key={source.url + source.cite} className="space-y-1 text-sm">
+            <li key={`${source.url} ${source.cite} ${source.quote}`} className="space-y-1 text-sm">
               <TextLink href={source.url} target="_blank" rel="noopener">
                 {source.cite}
               </TextLink>
