@@ -144,10 +144,10 @@ describe("the experiment of the week", () => {
     expect(even).toBeGreaterThan(50);
     // With eight exhibits the bonus cut such turns by a quarter; with fifteen,
     // by an eighth; with sixteen, by a tenth; with 35, by a thirty-sixth
-    // (14966 against 15376 over 1200 rounds): a week's weight is
-    // fixed while a round grows, and stays so (Marcel weakened the maluses
-    // instead, 2026-11-15). Still fewer.
-    expect(leaned).toBeLessThan(even * 0.98);
+    // (14966 against 15376 over 1200 rounds); with 45, by a hundredth (20503
+    // against 20709): a week's weight is fixed while a round grows, and stays
+    // so (Marcel weakened the maluses instead, 2026-11-15). Still fewer.
+    expect(leaned).toBeLessThan(even * 0.995);
   });
 
   it("keeps the first round as drawn: what the live site will have shown", () => {

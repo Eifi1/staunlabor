@@ -11,4 +11,4 @@
  * their topics from `exhibits.ts`, the languages from `languages.ts`, and the
  * checked exhibits from the server's answer.
  */
-export const EQUATION_COUNT = 175;
+export const EQUATION_COUNT = 227;

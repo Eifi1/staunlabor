@@ -200,7 +200,8 @@ elephant, were a 3 % draw that came up. The bonus weighs less with every
 exhibit: with eight it cut the turns that come after more than a round and two
 more by a quarter, with fifteen by an eighth, with sixteen by a tenth, with 26
 by a twentieth, with 35 by a thirty-sixth (14966 against 15376 over 1200
-rounds); `weekly.test.ts` holds it only to a fiftieth. Its weight a turn is
+rounds), with 45 by a hundredth (20503 against 20709); `weekly.test.ts` holds
+it only to a two-hundredth. Its weight a turn is
 fixed while a round grows longer, and stays so: Marcel weakened the maluses
 instead (2026-11-15). The week is Zurich's, so one week has one exhibit
 whoever asks; the pick needs no server, no table and no admin, and the past
