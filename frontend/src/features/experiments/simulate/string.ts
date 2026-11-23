@@ -1,13 +1,15 @@
 /**
  * The standing string, in the browser: a line-for-line port of
  * `backend/staunlabor/domain/experiments/string.py` — the cord's tones, its
- * steady swing along it, and its modes stepped exactly while the vibrator
- * runs — held to it by `simulate.test.ts`.
+ * widest steady swing, and its modes stepped exactly while the vibrator runs —
+ * held to it by `simulate.test.ts`.
  *
- * Why here: the reader turns the vibrator's tone and the weight's pull while
+ * Why here: the reader turns the vibrator's tone and the hand's pull while
  * the cord swings, and the drawing answers every frame. There is no route. The
  * engine's searches for the peaks and the nodes are not ported (the page names
- * the tones by the formula); a change to the physics is made in Python first.
+ * the tones by the formula), nor its steady swing at each place (`steady`): the
+ * page draws the time loop and charts only the widest swing. A change to the
+ * physics is made in Python first.
  */
 
 /** The modes the time loop keeps. */
@@ -88,12 +90,6 @@ export function wavenumber(cord: Cord, driveHz: number): Complex {
   checkDrive(driveHz);
   const big = 2 * Math.PI * driveHz;
   return scale(big / waveSpeedMS(cord), sqrtC([1, -cord.damping_per_s / big]));
-}
-
-/** `Y(x) = A·sin(k(L − x))/sin(kL)`. */
-export function steady(cord: Cord, driveHz: number, xM: number): Complex {
-  const k = wavenumber(cord, driveHz);
-  return div(scale(cord.drive_m, sinC(scale(cord.length_m - xM, k))), sinC(scale(cord.length_m, k)));
 }
 
 function golden(f: (x: number) => number, lo: number, hi: number): number {

@@ -5662,7 +5662,8 @@
         "least": "Kleinste Frequenz, genau",
         "kapitza": "Kleinste Frequenz nach Kapitza",
         "gap": "Unterschied",
-        "wobble": "Wackeln oben, Periode"
+        "wobble": "Wackeln oben, Periode",
+        "multiplier": "Grösster Floquet-Multiplikator (Betrag)"
       },
       "change": {
         "title": "Das Exponat verändern",

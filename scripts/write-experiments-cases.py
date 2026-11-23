@@ -667,7 +667,6 @@ VESSEL_CASES: tuple[dict[str, Any], ...] = (
 #: Levels and moments the closed form and the jets are compared at.
 VESSEL_LEVELS = (0.0, 0.05, 0.2, 0.35, 0.5, 0.9, 1.0)
 VESSEL_TIMES = (0.0, 5.0, 19.99, 40.0, 68.0, 70.0)
-VESSEL_XS = (0.0, 0.3, 0.9, 2.0)
 
 
 #: The falling plates: the exhibit's column; a strong one of short magnets; a
@@ -1046,7 +1045,6 @@ def _vessel_cases(out: dict[str, Any]) -> None:
                 "duration_s": case["duration_s"],
                 "figures": asdict(vessel.figures(v)),
                 "ranges": [[vessel.jet_range_m(v, h, y) for y in v.holes_m] for h in VESSEL_LEVELS],
-                "paths": [[vessel.jet_path(v, h, y, x) for x in VESSEL_XS] for h in VESSEL_LEVELS for y in v.holes_m],
                 "exact": [[vessel.level_exact(v, y, t) for t in VESSEL_TIMES] for y in v.holes_m],
                 "drain_s": [vessel.drain_time_s(v, y) for y in v.holes_m],
                 "run": thin(asdict(vessel.run(v, case["plugs"], case["duration_s"]))),
@@ -1530,7 +1528,6 @@ def _kapitza_cases(out: dict[str, Any]) -> None:
             "kapitza_hz": kapitza.kapitza_frequency_hz(k),
             "own_hz": kapitza.own_frequency_hz(k),
             "slow_top": kapitza.slow_rate_top(k),
-            "slow_bottom": kapitza.slow_rate_bottom(k),
             "stable_top": kapitza.stable(k, "top"),
             "stable_bottom": kapitza.stable(k, "bottom"),
             "potential": [kapitza.effective_potential(k, math.radians(a)) for a in KAPITZA_ANGLES],
@@ -1543,7 +1540,6 @@ def _kapitza_cases(out: dict[str, Any]) -> None:
                 "monodromy_top": [list(row) for row in kapitza.monodromy(k, "top")],
                 "multipliers_top": list(kapitza.multipliers(k, "top")),
                 "multipliers_bottom": list(kapitza.multipliers(k, "bottom")),
-                "floquet_rate_top": kapitza.floquet_rate_top(k),
                 "least_hz": kapitza.least_frequency_hz(k),
                 "band_hz": None if band is None else list(band),
             }
@@ -1654,7 +1650,7 @@ def _inputs() -> dict[str, Any]:
         "foucault_times": list(FOUCAULT_TIMES),
         "levitation_heights": list(LEVITATION_HEIGHTS),
         "circuit_times": list(CIRCUIT_TIMES),
-        "vessel": {"levels": list(VESSEL_LEVELS), "times": list(VESSEL_TIMES), "xs": list(VESSEL_XS)},
+        "vessel": {"levels": list(VESSEL_LEVELS), "times": list(VESSEL_TIMES), "samples_per_s": vessel.SAMPLES_PER_S},
         "plates": {
             "times": list(PLATE_TIMES),
             "depths": list(PLATE_DEPTHS),
@@ -1949,7 +1945,6 @@ def _string_cases(out: dict[str, Any]) -> None:
     for cord in STRING_CORDS:
         f1 = string.mode_hz(cord, 1)
         drives = [share * f1 for share in STRING_DRIVES]
-        xs = [cord.length_m * p for p in STRING_POINTS]
         out["string"]["cords"].append(
             {
                 "cord": asdict(cord),
@@ -1959,13 +1954,6 @@ def _string_cases(out: dict[str, Any]) -> None:
                 "half_waves": [string.half_waves(cord, f) for f in drives],
                 "pulls_n": [string.pull_n(cord, string.VIBRATOR_HZ, n) for n in (0.5, 1, 2.5, 3)],
                 "wavenumber": [[string.wavenumber(cord, f).real, string.wavenumber(cord, f).imag] for f in drives],
-                "steady": [
-                    {
-                        "re": _string_curve([string.steady(cord, f, x).real for x in xs]),
-                        "im": _string_curve([string.steady(cord, f, x).imag for x in xs]),
-                    }
-                    for f in drives
-                ],
                 "widest_m": [string.widest_m(cord, f) for f in drives],
                 "run": _string_run(cord),
             }

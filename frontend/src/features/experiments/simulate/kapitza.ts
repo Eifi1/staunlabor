@@ -12,8 +12,8 @@
  */
 
 import { G } from "./constants";
-import { checkRun, type Rhs, rk4, sampleEvery, STEP_S } from "./numerics";
-import { roundHalfEven, TO_DEG, TO_RAD } from "./python";
+import { type Rhs, rk4, STEP_S } from "./numerics";
+import { TO_RAD } from "./python";
 
 /** The engine's `KapitzaPendulum`. */
 export interface KapitzaPendulum {
@@ -40,12 +40,6 @@ export function refusal(k: KapitzaPendulum): string | null {
   if (!(k.frequency_hz >= 0 && k.frequency_hz <= 200)) return "the motor runs at 0 to 200 Hz";
   if (!(k.damping_per_s >= 0 && k.damping_per_s <= 5)) return "the damping lies between 0 and 5 per second";
   return null;
-}
-
-function checked(k: KapitzaPendulum): KapitzaPendulum {
-  const refused = refusal(k);
-  if (refused) throw new RangeError(refused);
-  return k;
 }
 
 /** The drive's angular frequency `ω`, rad/s. */
@@ -189,48 +183,26 @@ export function slowRateTop(k: KapitzaPendulum): number | null {
   return square > 0 ? Math.sqrt(square) : null;
 }
 
-/** Kapitza's rate of the slow swing about the bottom, rad/s. */
-export function slowRateBottom(k: KapitzaPendulum): number {
-  return Math.sqrt((k.amplitude_m * rate(k)) ** 2 / (2 * k.length_m ** 2) + G / k.length_m);
-}
-
-/** The slow wobble's rate about the top from the multipliers, rad/s; `null` where the top does not hold. */
-export function floquetRateTop(k: KapitzaPendulum): number | null {
-  if (!stable(k, "top")) return null;
-  const [tr, det] = traceDet(monodromy(k, "top"));
-  return Math.acos(Math.max(-1.0, Math.min(1.0, tr / (2 * Math.sqrt(det))))) * k.frequency_hz;
-}
-
 /** Kapitza's potential per unit mass of the slow motion, J/kg. */
 export function effectivePotential(k: KapitzaPendulum, thetaRad: number): number {
   return -G * k.length_m * Math.cos(thetaRad) + (k.amplitude_m * rate(k) * Math.sin(thetaRad)) ** 2 / 4;
 }
 
-/** The engine's `KapitzaRun`. */
-export interface KapitzaRun {
-  t: number[];
-  theta_deg: number[];
-  pivot_m: number[];
-}
-
-/** The rod let go at rest from `startDeg` (180° is the top), sampled 50 times a second. */
-export function run(k: KapitzaPendulum, startDeg: number, durationS: number, step?: number): KapitzaRun {
-  checked(k);
-  const stepS = step ?? stepFor(k);
-  checkRun(durationS, stepS);
+/**
+ * The rod `steps` steps on from state `y` at step `from` of its drive's clock:
+ * the engine's `run` loop, step for step (`t = i·h`, the drive's phase on the
+ * same steps every period). The page's frame loop is this function, and
+ * `simulate.test.ts` builds the engine's `run` from it, sample for sample.
+ */
+export function advance(
+  k: KapitzaPendulum,
+  y: readonly number[],
+  from: number,
+  steps: number,
+  h = stepFor(k),
+): number[] {
   const f = rhs(k);
-  let y = startState(startDeg);
-  const steps = roundHalfEven(durationS / stepS);
-  const every = sampleEvery(stepS);
-  const out: KapitzaRun = { t: [], theta_deg: [], pivot_m: [] };
-  for (let i = 0; i <= steps; i++) {
-    const t = i * stepS;
-    if (i % every === 0) {
-      out.t.push(t);
-      out.theta_deg.push(y[0] * TO_DEG);
-      out.pivot_m.push(pivotM(k, t));
-    }
-    if (i < steps) y = rk4(f, t, y, stepS);
-  }
+  let out = [...y];
+  for (let i = from; i < from + steps; i++) out = rk4(f, i * h, out, h);
   return out;
 }

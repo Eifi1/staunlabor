@@ -19,14 +19,15 @@ import { useFrameLoop, useRunning } from "./play";
 import { RunPauseButton, SpeedToggle } from "./play-controls";
 import { PreviewPending, type PreviewMode, type PreviewProps } from "./preview-mode";
 import {
+  advance,
   effectivePotential,
   kapitzaFrequencyHz,
   leastFrequencyHz,
   MAX_SHARE,
+  multipliers,
   ownFrequencyHz,
   pivotM,
   refusal,
-  rhs,
   slowRateTop,
   stable,
   startState,
@@ -34,7 +35,6 @@ import {
   swingUpBandHz,
   type KapitzaPendulum,
 } from "./simulate/kapitza";
-import { rk4 } from "./simulate/numerics";
 import { TO_DEG, TO_RAD } from "./simulate/python";
 import { SIDE, VIEW_FRAME } from "./stage";
 import { useExperimentsDefaults } from "./use-experiments";
@@ -73,11 +73,12 @@ const GRAVITY_HUE = 0;
 const SHAKE_HUE = 4;
 const SUM_HUE = 2;
 
-/** The rod's state and its own clock, which starts again whenever the drive
- *  changes, so the drive's phase stays the engine's `cos ωt` on that clock. */
+/** The rod's state and its own clock, counted in steps, which starts again
+ *  whenever the drive changes, so the drive's phase stays the engine's
+ *  `cos ωt` at `t = n·h`, as in the engine's `run`. */
 interface Sim {
   y: number[];
-  clock: number;
+  n: number;
   owed: number;
   /** Time since the rod was last set upright with the motor running. */
   upright: number | null;
@@ -334,7 +335,7 @@ function KapitzaPlay({
   held?: Held;
 } & PreviewMode) {
   const { t } = useTranslation();
-  const begin = (deg: number): Sim => ({ y: startState(deg), clock: 0, owed: 0, upright: null, side: 1 });
+  const begin = (deg: number): Sim => ({ y: startState(deg), n: 0, owed: 0, upright: null, side: 1 });
   const sim = useRef<Sim>(begin(startDeg));
   const drive = useRef<KapitzaPendulum>(k);
   const grabbed = useRef(false);
@@ -343,33 +344,30 @@ function KapitzaPlay({
   const [frame, setFrame] = useState(() => ({ theta: startState(startDeg)[0], pivot: pivotM(k, 0) }));
   const speed = preview ? 1 : speedHere;
   const show = held?.show;
-  const stepping = useMemo(() => ({ f: rhs(k), h: stepFor(k) }), [k]);
+  const h = useMemo(() => stepFor(k), [k]);
   const blurred = k.frequency_hz * speed > BLUR_HZ;
 
-  const draw = () => setFrame({ theta: sim.current.y[0], pivot: pivotM(k, sim.current.clock) });
+  const draw = () => setFrame({ theta: sim.current.y[0], pivot: pivotM(k, sim.current.n * h) });
   useFrameLoop(running, (dt) => {
     const s = sim.current;
     // A new drive: its clock from naught, the rod where it is.
     if (drive.current !== k) {
       drive.current = k;
-      s.clock = 0;
+      s.n = 0;
       s.owed = 0;
     }
     if (grabbed.current) return;
-    const { f, h } = stepping;
     s.owed += (dt * speed) / h;
     const steps = Math.floor(s.owed);
     s.owed -= steps;
-    for (let i = 0; i < steps; i++) {
-      s.y = rk4(f, s.clock, s.y, h);
-      s.clock += h;
-    }
+    s.y = advance(k, s.y, s.n, steps, h);
+    s.n += steps;
     if (s.upright !== null && k.frequency_hz > 0) {
       s.upright += dt * speed;
       if (s.upright > TRIED_AFTER_S) show?.();
     }
     // The preview nudges its rod every few seconds, one way then the other.
-    if (preview && s.clock > 4) {
+    if (preview && s.n * h > 4) {
       sim.current = { ...begin(UPRIGHT_DEG), y: [s.y[0], s.y[1] + s.side * NUDGE_RAD_S], side: s.side === 1 ? -1 : 1 };
     }
     draw();
@@ -662,6 +660,8 @@ function KapitzaTrick({ k }: { k: KapitzaPendulum | null }) {
       band: swingUpBandHz(settled),
       own: ownFrequencyHz(settled),
       rate: settled.frequency_hz > 0 ? slowRateTop(settled) : null,
+      // The larger multiplier's size: above 1, the top does not hold.
+      multiplier: settled.frequency_hz > 0 ? multipliers(settled, "top")[0] : null,
     };
   }, [settled]);
   if (!k || !figures) return <LoadingState className="py-6" label={t("common.loading")} />;
@@ -716,6 +716,12 @@ function KapitzaTrick({ k }: { k: KapitzaPendulum | null }) {
             value: figures.rate ? (2 * Math.PI) / figures.rate : null,
             digits: 2,
             unit: "s",
+          },
+          {
+            key: "multiplier",
+            label: t("experiments.kapitza.figures.multiplier"),
+            value: figures.multiplier,
+            digits: 4,
           },
         ]}
       />

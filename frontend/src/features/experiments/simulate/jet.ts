@@ -284,8 +284,8 @@ export interface JetFigures {
   middle_hits: number;
 }
 
-export const figures = (jet: Jet, tiltDeg: number) => figuresOf(jet, beam(jet, tiltDeg));
-
+/** The engine's `figures_of`: the figures of a beam already traced (the engine's
+ *  `figures` traces one first; the page always has its beam). */
 export function figuresOf(jet: Jet, b: Beam): JetFigures {
   const cosines = b.rays.flatMap((r) => r.hits_cos);
   const out = b.rays.flatMap((r) => r.escapes.filter((e) => e.light / RAYS >= NOTICED).map((e) => e.x));

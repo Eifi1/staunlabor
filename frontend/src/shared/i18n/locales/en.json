@@ -5662,7 +5662,8 @@
         "least": "Least frequency, exact",
         "kapitza": "Least frequency by Kapitza",
         "gap": "Difference",
-        "wobble": "Wobble at the top, period"
+        "wobble": "Wobble at the top, period",
+        "multiplier": "Largest Floquet multiplier (size)"
       },
       "change": {
         "title": "Change the exhibit",

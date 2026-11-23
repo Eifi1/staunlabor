@@ -701,6 +701,22 @@ describe("the chaotic pendulum's port", () => {
   });
 });
 
+/** The engine's `kapitza.run`, built from the port's `advance`, the page's
+ *  frame loop: let go at rest, sampled as the engine samples. */
+function runFrom(k: kapitza.KapitzaPendulum, startDeg: number, durationS: number, stepS: number) {
+  const steps = roundHalfEven(durationS / stepS);
+  const every = numerics.sampleEvery(stepS);
+  const out = { t: [] as number[], theta_deg: [] as number[], pivot_m: [] as number[] };
+  let y = kapitza.startState(startDeg);
+  for (let i = 0; i <= steps; i += every) {
+    out.t.push(i * stepS);
+    out.theta_deg.push(y[0] * TO_DEG);
+    out.pivot_m.push(kapitza.pivotM(k, i * stepS));
+    y = kapitza.advance(k, y, i, Math.min(every, steps - i), stepS);
+  }
+  return out;
+}
+
 describe("Kapitza's pendulum's port", () => {
   it.each(cases.kapitza.map((c) => [c.name, c] as const))("shakes %s as the engine does", (_name, c) => {
     const k = c.k as kapitza.KapitzaPendulum;
@@ -715,7 +731,6 @@ describe("Kapitza's pendulum's port", () => {
       kapitza_hz: kapitza.kapitzaFrequencyHz(k),
       own_hz: kapitza.ownFrequencyHz(k),
       slow_top: kapitza.slowRateTop(k),
-      slow_bottom: kapitza.slowRateBottom(k),
       stable_top: kapitza.stable(k, "top"),
       stable_bottom: kapitza.stable(k, "bottom"),
       potential: cases.inputs.kapitza_angles.map((a) => kapitza.effectivePotential(k, a * TO_RAD)),
@@ -726,11 +741,10 @@ describe("Kapitza's pendulum's port", () => {
               monodromy_top: kapitza.monodromy(k, "top"),
               multipliers_top: kapitza.multipliers(k, "top"),
               multipliers_bottom: kapitza.multipliers(k, "bottom"),
-              floquet_rate_top: kapitza.floquetRateTop(k),
               least_hz: kapitza.leastFrequencyHz(k),
               band_hz: kapitza.swingUpBandHz(k),
             },
-      run: kapitza.run(k, c.start_deg, c.duration_s, c.step_s),
+      run: runFrom(k, c.start_deg, c.duration_s, c.step_s),
     };
     expect(differences(c, port)).toEqual([]);
   });
@@ -738,7 +752,7 @@ describe("Kapitza's pendulum's port", () => {
   it("refuses what the engine refuses", () => {
     const k = cases.kapitza[0].k as kapitza.KapitzaPendulum;
     expect(kapitza.refusal({ ...k, amplitude_m: 0.07 })).not.toBeNull();
-    expect(() => kapitza.run({ ...k, frequency_hz: 250 }, 180, 1)).toThrow(RangeError);
+    expect(kapitza.refusal({ ...k, frequency_hz: 250 })).not.toBeNull();
     expect(() => kapitza.startState(190)).toThrow(RangeError);
     expect(() => kapitza.monodromy({ ...k, frequency_hz: 0 })).toThrow(RangeError);
   });
@@ -1017,8 +1031,37 @@ describe("the slow LC circuit's port", () => {
 });
 
 describe("the draining vessel's port", () => {
+  /** The engine's `run`, replayed through the page's own clock: every hole
+   *  plugged, each plug at the first step that starts at or after its moment,
+   *  one `advance` a step, a sample every so many steps. */
+  function replay(c: (typeof cases.vessel)[number]) {
+    const v = c.vessel;
+    const pending = [...c.plugs].sort((a, b) => a.at_s - b.at_s);
+    const opened = v.holes_m.map(() => false);
+    const steps = Math.ceil(c.duration_s / vessel.STEP_S - 1e-9);
+    const every = Math.max(1, Math.round(1 / (cases.inputs.vessel.samples_per_s * vessel.STEP_S)));
+    const out = { t_s: [] as number[], level_m: [] as number[], outflow_l_min: [] as number[] };
+    const ranges: number[][] = v.holes_m.map(() => []);
+    let state = vessel.filled(v);
+    for (let n = 0; n <= steps; n++) {
+      const t = n * vessel.STEP_S;
+      while (pending.length && pending[0].at_s <= t) {
+        const plug = pending.shift()!;
+        opened[plug.hole] = plug.opened;
+      }
+      if (n % every === 0 || n === steps) {
+        out.t_s.push(t);
+        out.level_m.push(state.level_m);
+        out.outflow_l_min.push(vessel.outflow(v, state.level_m, opened));
+        v.holes_m.forEach((y, i) => ranges[i].push(opened[i] ? vessel.jetRange(v, state.level_m, y) : 0.0));
+      }
+      if (n < steps) state = vessel.advance(v, state, opened, (n + 1) * vessel.STEP_S);
+    }
+    return { ...out, ranges_m: ranges };
+  }
+
   it("drains as the engine does under the hand's plugs: the level, the outflow, the jets and the figures", () => {
-    const { levels, times, xs } = cases.inputs.vessel;
+    const { levels, times } = cases.inputs.vessel;
     for (const c of cases.vessel) {
       const v = c.vessel;
       expect(differences(c.figures, vessel.figures(v))).toEqual([]);
@@ -1026,12 +1069,6 @@ describe("the draining vessel's port", () => {
         differences(
           c.ranges,
           levels.map((h) => v.holes_m.map((y) => vessel.jetRange(v, h, y))),
-        ),
-      ).toEqual([]);
-      expect(
-        differences(
-          c.paths,
-          levels.flatMap((h) => v.holes_m.map((y) => xs.map((x) => vessel.jetPath(v, h, y, x)))),
         ),
       ).toEqual([]);
       expect(
@@ -1046,33 +1083,24 @@ describe("the draining vessel's port", () => {
           v.holes_m.map((y) => vessel.drainTime(v, y)),
         ),
       ).toEqual([]);
-      expect(differences(c.run, vessel.run(v, c.plugs, c.duration_s))).toEqual([]);
+      expect(differences(c.run, replay(c))).toEqual([]);
     }
   });
 
-  it("steps frame by frame to the bit of the run, a plug pulled between two frames acting on the next step", () => {
-    const c = cases.vessel[0];
-    const v = c.vessel;
-    const pending = [...c.plugs].sort((a, b) => a.at_s - b.at_s);
-    const opened = v.holes_m.map(() => false);
-    const acted: vessel.Plug[] = [];
-    let state = vessel.filled(v);
-    // Frames of 1/60 s, every seventh a dropped one of 50 ms, as a browser
-    // gives them; the hand acts between two frames, so on the next step.
+  it("steps by frames of any length to the bit of whole steps, a frame never splitting a step", () => {
+    const v = cases.vessel[0].vessel;
+    const opened = [true, false, true];
+    let framed = vessel.filled(v);
+    let stepped = vessel.filled(v);
+    // Frames of 1/60 s, every seventh a dropped one of 50 ms, as a browser gives them.
     let clock = 0;
     for (let frame = 0; clock < 20; frame++) {
-      while (pending.length && pending[0].at_s <= clock) {
-        const plug = pending.shift()!;
-        opened[plug.hole] = plug.opened;
-        acted.push({ ...plug, at_s: state.steps * vessel.STEP_S });
-      }
       clock = Math.min(20, clock + (frame % 7 === 3 ? 0.05 : 1 / 60));
-      state = vessel.advance(v, state, opened, clock);
+      framed = vessel.advance(v, framed, opened, clock);
     }
-    const replay = vessel.run(v, acted, 20);
-    expect(state.steps).toBe(4000);
-    expect(state.level_m).toBe(replay.level_m.at(-1));
-    expect(acted.length).toBe(c.plugs.length);
+    for (let n = 0; n < 4000; n++)
+      stepped = { steps: n + 1, level_m: vessel.step(v, stepped.level_m, opened, vessel.STEP_S) };
+    expect(framed).toEqual(stepped);
   });
 });
 
@@ -1482,10 +1510,6 @@ describe("the standing string's port", () => {
           half_waves: drives.map((f) => string.halfWaves(cord, f)),
           pulls_n: [0.5, 1, 2.5, 3].map((n) => string.pullN(cord, string.VIBRATOR_HZ, n)),
           wavenumber: drives.map((f) => [...string.wavenumber(cord, f)]),
-          steady: drives.map((f) => ({
-            re: xs.map((x) => string.steady(cord, f, x)[0]),
-            im: xs.map((x) => string.steady(cord, f, x)[1]),
-          })),
           widest_m: drives.map((f) => string.widestM(cord, f)),
           run: { frames },
         }),

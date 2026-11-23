@@ -19,8 +19,6 @@ export const STEP_S = 0.002;
 /** How far the weight goes: down the keel and up the mast, m. */
 export const KEEL_M = -0.15;
 export const MAST_M = 0.4;
-/** The water's braking of the roll, 1/s: the page's default. */
-export const DAMPING_PER_S = 0.5;
 const CURVE_SAMPLES = 360;
 const HALVINGS = 50;
 

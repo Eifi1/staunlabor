@@ -2436,9 +2436,15 @@ seconds, or the reader asks. A change of drive starts the drive's clock again
 with the rod where it is, so the drive stays the engine's `cos ωt` on that
 clock. The trick: Kapitza's potential over a whole turn, gravity's hill, the
 shaking's two hollows and their sum, with the top in the middle; the two least
-drives and their gap; the swing-up band in words. **No route**: the port's
+drives and their gap; the largest Floquet multiplier's size at the top (below
+one, the top holds); the swing-up band in words. **No route**: the port's
 (`simulate/kapitza.ts`), which computes the multipliers in the browser too
-(the least drive is some 80 periods of stepping, debounced).
+(the least drive is some 80 periods of stepping, debounced). The port holds
+`advance`, the engine's `run` steps exactly (`t = i·h`), which the page's
+frame loop counts on; `simulate.test.ts` builds `run` from it and compares the
+trajectory with the engine's in every case, so the contract covers the stepping
+the page does (2026-11-23, the dead-code check: a `run` only the test called
+went).
 
 **Left out, and said:** the rod's own mass (a real rod is a physical pendulum;
 its length here is the reduced length `I/(m·d)`, as Butikov notes), a motor
@@ -2779,11 +2785,13 @@ hole's height under the full tube. "The trick" charts the depth over the bottom
 hole (a parabola in time) and its jet's range (a straight line) on two axes.
 The preview pulls all three plugs at eight times real time and fills the tube
 again 1.5 s after it is down. Topic "flow", lesson `first_order`. **No route**:
-the port's (`simulate/vessel.ts`), held to the engine to 10⁻⁹ over four cases
-(a hand that pulls, puts back and pulls again; all three at once; a wide hole
-in a narrow tube on no stand with a dry hole; a ten-minute run in a fat tube,
-a plug put back with the level stopped between two holes), and its frame path
-(`advance`, whole steps counted from the fill) to the bit of a replay.
+the port's (`simulate/vessel.ts`), which has no run of its own: the engine's
+four runs (a hand that pulls, puts back and pulls again; all three at once; a
+wide hole in a narrow tube on no stand with a dry hole; a ten-minute run in a
+fat tube, a plug put back with the level stopped between two holes) are
+replayed through the page's own frame stepping (`advance`, whole steps counted
+from the fill) and held to the engine to 10⁻⁹, and frames of any length step
+to the bit as whole steps do.
 
 **Left out, and said:** the water's speed down the tube itself; the jet's
 slowing by viscosity and the air (a velocity coefficient of one: Lienhard and

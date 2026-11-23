@@ -10,14 +10,9 @@
  */
 
 import { G } from "./constants";
-import { roundHalfEven } from "./python";
 
 /** The step: 5 ms. */
 export const STEP_S = 0.005;
-/** Samples a run returns per second. */
-export const SAMPLES_PER_S = 10;
-/** The longest run the engine takes. */
-export const MAX_DURATION_S = 1200.0;
 /** The widest hole, as a share of the tube's diameter. */
 export const WIDEST_HOLE = 0.25;
 /** The share of the emptying time in which half the depth over a hole runs out: `1 − 1/√2`. */
@@ -47,14 +42,6 @@ export function jetSpeed(levelM: number, holeM: number): number {
 /** `2·√((h − y)·(s + y))`: where the jet lands, from the wall. */
 export function jetRange(vessel: DrainingVessel, levelM: number, holeM: number): number {
   return 2 * Math.sqrt(Math.max(0.0, levelM - holeM) * (vessel.stand_m + holeM));
-}
-
-/** The jet's height over the basin's floor at `xM` from the wall. */
-export function jetPath(vessel: DrainingVessel, levelM: number, holeM: number, xM: number): number {
-  const start = vessel.stand_m + holeM;
-  const v = jetSpeed(levelM, holeM);
-  if (v === 0) return start;
-  return Math.max(0.0, start - (G * xM * xM) / (2 * v * v));
 }
 
 /** `dh/dt`, m/s: the open holes below the level together. */
@@ -103,50 +90,11 @@ export function drainTime(vessel: DrainingVessel, holeM: number): number {
   return Math.sqrt((2 * head) / G) / rateConstant(vessel);
 }
 
-/** The engine's `Plug`: at `at_s` the hand pulls hole `hole`'s plug or puts it back. */
-export interface Plug {
-  at_s: number;
-  hole: number;
-  opened: boolean;
-}
-
-/** The engine's `DrainRun`. */
-export interface DrainRun {
-  t_s: number[];
-  level_m: number[];
-  outflow_l_min: number[];
-  ranges_m: number[][];
-}
-
-/** The engine's `run`: every hole plugged, the hand's plugs at the first step at or after their moment. */
-export function run(vessel: DrainingVessel, plugs: readonly Plug[], durationS: number, stepS = STEP_S): DrainRun {
-  const pending = [...plugs].sort((a, b) => a.at_s - b.at_s);
-  const opened = vessel.holes_m.map(() => false);
-  let level = vessel.fill_m;
-  const steps = Math.ceil(durationS / stepS - 1e-9);
-  const every = Math.max(1, roundHalfEven(1 / (SAMPLES_PER_S * stepS)));
-  const out: DrainRun = { t_s: [], level_m: [], outflow_l_min: [], ranges_m: vessel.holes_m.map(() => []) };
-  for (let n = 0; n <= steps; n++) {
-    const t = n * stepS;
-    while (pending.length && pending[0].at_s <= t) {
-      const plug = pending.shift()!;
-      opened[plug.hole] = plug.opened;
-    }
-    if (n % every === 0 || n === steps) {
-      out.t_s.push(t);
-      out.level_m.push(level);
-      out.outflow_l_min.push(outflow(vessel, level, opened));
-      vessel.holes_m.forEach((y, i) => out.ranges_m[i].push(opened[i] ? jetRange(vessel, level, y) : 0.0));
-    }
-    if (n < steps) level = step(vessel, level, opened, stepS);
-  }
-  return out;
-}
-
 /**
  * The page's clock, frame by frame: whole steps of `STEP_S` counted from the
- * fill, as `run` takes them, up to `toS`; a plug pulled between two frames acts
- * on the next step, as a hand's plug in `run` at that step's moment.
+ * fill, as the engine's `run` takes them, up to `toS`; a plug pulled between two
+ * frames acts on the next step, as a hand's plug in `run` at that step's moment.
+ * `simulate.test.ts` replays the engine's runs through it.
  */
 export interface Draining {
   steps: number;

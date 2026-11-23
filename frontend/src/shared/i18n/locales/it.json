@@ -5662,7 +5662,8 @@
         "least": "Frequenza minima, esatta",
         "kapitza": "Frequenza minima secondo Kapitza",
         "gap": "Differenza",
-        "wobble": "Oscillazione in alto, periodo"
+        "wobble": "Oscillazione in alto, periodo",
+        "multiplier": "Moltiplicatore di Floquet più grande (modulo)"
       },
       "change": {
         "title": "Modificare l'oggetto esposto",

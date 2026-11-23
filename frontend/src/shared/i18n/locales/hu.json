@@ -5662,7 +5662,8 @@
         "least": "Legkisebb frekvencia, pontosan",
         "kapitza": "Legkisebb frekvencia Kapica szerint",
         "gap": "Eltérés",
-        "wobble": "Inogás fent, periódus"
+        "wobble": "Inogás fent, periódus",
+        "multiplier": "Legnagyobb Floquet-multiplikátor (abszolút érték)"
       },
       "change": {
         "title": "A kiállítási tárgy módosítása",
