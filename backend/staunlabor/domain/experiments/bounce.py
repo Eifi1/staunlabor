@@ -40,7 +40,8 @@ import bisect
 import math
 from dataclasses import dataclass
 
-G = 9.80665
+from staunlabor.domain.experiments.constants import G
+
 #: Air at 20 °C, in kg/m³, and a smooth sphere's drag coefficient.
 AIR_DENSITY = 1.204
 DRAG_COEFFICIENT = 0.47

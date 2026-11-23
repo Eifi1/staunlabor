@@ -10,8 +10,9 @@
  * physics is made in Python first.
  */
 
-import { MAX_DURATION_S, STEP_S, G, rk4, sampleEvery, type Rhs } from "./pendulum";
-import { roundHalfEven } from "./sphere";
+import { G } from "./constants";
+import { checkRun, MAX_DURATION_S, type Rhs, rk4, sampleEvery, STEP_S } from "./numerics";
+import { roundHalfEven, TO_DEG, TO_RAD } from "./python";
 
 export interface DoublePendulum {
   length1_m: number;
@@ -20,9 +21,6 @@ export interface DoublePendulum {
   mass2_kg: number;
   damping_per_s: number;
 }
-
-const TO_RAD = Math.PI / 180.0;
-const TO_DEG = 180.0 / Math.PI;
 
 export function rhs(dp: DoublePendulum): Rhs {
   const { length1_m: l1, length2_m: l2, mass1_kg: m1, mass2_kg: m2, damping_per_s: c } = dp;
@@ -42,7 +40,7 @@ export function rhs(dp: DoublePendulum): Rhs {
   };
 }
 
-export function energy(dp: DoublePendulum, y: readonly number[]): number {
+function energy(dp: DoublePendulum, y: readonly number[]): number {
   const { length1_m: l1, length2_m: l2, mass1_kg: m1, mass2_kg: m2 } = dp;
   const [t1, t2, w1, w2] = y;
   const kinetic =
@@ -77,7 +75,7 @@ export function startState(start1Deg: number, start2Deg: number): number[] {
 const TURN_PER_STEP = 0.035;
 
 /** The engine's `fastest_rate`: a bound on how fast either arm can turn from this start, rad/s. */
-export function fastestRate(dp: DoublePendulum, start1Deg: number, start2Deg: number): number {
+function fastestRate(dp: DoublePendulum, start1Deg: number, start2Deg: number): number {
   const [m1, m2, l1, l2] = [dp.mass1_kg, dp.mass2_kg, dp.length1_m, dp.length2_m];
   const lowest = -(m1 + m2) * G * l1 - m2 * G * l2;
   const moving = energy(dp, startState(start1Deg, start2Deg)) - lowest;
@@ -149,9 +147,7 @@ export function run(
   step?: number,
 ): ChaosRun {
   const stepS = step ?? stepFor(dp, start1Deg, start2Deg);
-  if (!(stepS > 0 && stepS <= 0.01)) throw new RangeError("the step lies between 0 and 10 ms");
-  if (!(durationS > 0 && durationS <= MAX_DURATION_S))
-    throw new RangeError(`a run lasts more than nothing and at most ${MAX_DURATION_S} s`);
+  checkRun(durationS, stepS);
   if (!(Math.abs(nudgeDeg) > 0 && Math.abs(nudgeDeg) <= 10))
     throw new RangeError("the nudge is more than nothing and at most 10°");
   const f = rhs(dp);

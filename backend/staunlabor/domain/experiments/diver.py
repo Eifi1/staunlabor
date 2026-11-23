@@ -38,7 +38,8 @@ from __future__ import annotations
 import math
 from dataclasses import dataclass
 
-G = 9.80665
+from staunlabor.domain.experiments.constants import G
+
 #: Water at 20 °C, kg/m³; the air's pressure at the surface, Pa.
 WATER_DENSITY = 998.0
 SURFACE_PA = 101325.0

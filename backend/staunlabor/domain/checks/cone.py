@@ -16,12 +16,8 @@ from __future__ import annotations
 import math
 
 from staunlabor.domain.checks import Case, Source
+from staunlabor.domain.checks._hand import G, bisect
 from staunlabor.domain.experiments import cone as engine
-
-ENGINE = ("cone",)
-
-#: Standard gravity, as the engine takes it.
-G = 9.80665
 
 _SITS = Source(
     cite="S. C. Gandhi, C. J. Efthimiou, “The ascending double cone: a closer look at a familiar demonstration”, "
@@ -87,15 +83,11 @@ def _level_engine_deg(ex: engine.ConeExhibit) -> float:
     """The rails' rise at which the engine's axis runs level, by halving on the
     sign of its fall: between rails that keep it rolling up and rails that
     send it down."""
-    lo, hi = 0.0, 15.0
-    for _ in range(60):
-        mid = (lo + hi) / 2
-        built = engine.ConeExhibit(cone=ex.cone, rails=_rails(ex, slope_deg=mid))
-        if _fall_engine_cm(built) > 0:
-            lo = mid
-        else:
-            hi = mid
-    return (lo + hi) / 2
+
+    def rolls_up(slope_deg: float) -> bool:
+        return _fall_engine_cm(engine.ConeExhibit(cone=ex.cone, rails=_rails(ex, slope_deg=slope_deg))) > 0
+
+    return bisect(rolls_up, 0.0, 15.0, 60)
 
 
 def _rails(ex: engine.ConeExhibit, slope_deg: float) -> engine.Rails:

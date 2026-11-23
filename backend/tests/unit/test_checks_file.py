@@ -4,41 +4,32 @@ until the file is written again (``scripts/write-checks.py``)."""
 
 from __future__ import annotations
 
-import importlib.util
 import json
-import math
-from pathlib import Path
+from collections.abc import Callable
 from typing import Any
 
 import pytest
 
-SCRIPT = Path(__file__).resolve().parents[3] / "scripts" / "write-checks.py"
+from staunlabor.domain import checks
+from tests.unit.written_files import differences, load_script
 
 
 @pytest.fixture(scope="module")
 def writer() -> Any:
-    spec = importlib.util.spec_from_file_location("write_checks", SCRIPT)
-    assert spec is not None and spec.loader is not None
-    module = importlib.util.module_from_spec(spec)
-    spec.loader.exec_module(module)
-    return module
+    return load_script("write-checks.py")
 
 
-def _same(stored: Any, fresh: Any) -> bool:
-    if isinstance(stored, float) and isinstance(fresh, float):
-        return math.isclose(stored, fresh, rel_tol=1e-9, abs_tol=1e-14)
-    if isinstance(stored, dict) and isinstance(fresh, dict):
-        return stored.keys() == fresh.keys() and all(_same(stored[k], fresh[k]) for k in stored)
-    if isinstance(stored, list) and isinstance(fresh, list):
-        return len(stored) == len(fresh) and all(_same(a, b) for a, b in zip(stored, fresh, strict=True))
-    return stored == fresh
-
-
-def test_the_pages_checks_are_what_the_engine_and_the_cases_answer(writer: Any) -> None:
+def test_the_pages_checks_are_what_the_engine_and_the_cases_answer(
+    writer: Any, check_results: Callable[[str], tuple[checks.Result, ...]], monkeypatch: pytest.MonkeyPatch
+) -> None:
+    # The worker's results, computed once beside test_checks.py's, not a second time.
+    monkeypatch.setattr(writer.checks, "results", check_results)
     stored = json.loads(writer.TARGET.read_text(encoding="utf-8"))
-    fresh = json.loads(writer.serialised())
-    assert _same(stored, fresh), (
-        "checks.json is not what the cases answer; run `cd backend && uv run python ../scripts/write-checks.py`"
+    # The file keeps twelve significant digits (write-checks.py's _number).
+    found = differences(stored, json.loads(writer.serialised()), rel_tol=1e-9, abs_tol=1e-14)
+    assert not found, (
+        "checks.json is not what the cases answer; run `cd backend && uv run python ../scripts/write-checks.py`:\n"
+        + "\n".join(found[:20])
     )
 
 

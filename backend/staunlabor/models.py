@@ -1,6 +1,9 @@
-"""The accounts' tables: server-kit's ``[sql]`` mixins (0.29), named and constrained here.
+"""The database's tables: the accounts' (server-kit's ``[sql]`` mixins, 0.29), the
+feedback's and the translation review's (the kit's ``feedback.sql`` and
+``translation_review.sql`` mixins), and the exhibit checks' (the app's own),
+named and constrained here.
 
-Every column is the kit's (``eifi1_server_kit.auth.sql``): the account and its
+Every account column is the kit's (``eifi1_server_kit.auth.sql``): the account and its
 second factor, its sessions, the mailed links, the invitations, the passkeys and the challenges
 they answered, and the admin log. What this module adds is what the kit leaves
 to the app: the tables' names, the declarative base and its naming convention

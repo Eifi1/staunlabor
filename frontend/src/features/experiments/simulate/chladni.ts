@@ -53,7 +53,7 @@ const MASSES = new WeakMap<Mode, number>();
 
 /** The engine's `modal_mass`: μ = ∫φ² over the square, Σ c² as the products
  *  are orthonormal; worked out once a mode, as the sand asks it per point. */
-export function modalMass(mode: Mode): number {
+function modalMass(mode: Mode): number {
   let mass = MASSES.get(mode);
   if (mass === undefined) {
     mass = mode.c.reduce((sum, c) => sum + c * c, 0);

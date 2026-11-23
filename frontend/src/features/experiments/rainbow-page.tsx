@@ -5,13 +5,14 @@ import { Button, Switch, ToggleGroup } from "@eifi1/ui-kit";
 import { SeriesChart } from "@/shared/charts/series-chart";
 import { useLocale } from "@/shared/i18n/use-locale";
 import { formatNumber } from "@/shared/lib/format";
-import { useChartHex } from "@/shared/state/palette-store";
+import { useChartHue } from "@/shared/state/palette-store";
 import { SliderField } from "@/shared/ui/slider-field";
 import { Figures, WidgetCard } from "@/shared/ui/widget";
 import { Equation } from "./equation";
 import { ExhibitFrame } from "./exhibit-frame";
 import { BuildPending } from "./build-pending";
 import { settingNumber, useCheckSetting } from "./check-setting";
+import { useFrameLoop } from "./play";
 import { PreviewPending, type PreviewMode, type PreviewProps } from "./preview-mode";
 import { css, linearRgb, matching, onScreen, type Rgb } from "./simulate/colour";
 import {
@@ -20,7 +21,6 @@ import {
   RED_NM,
   SODIUM_NM,
   VIOLET_NM,
-  degrees,
   exitAngle,
   figures,
   indexAt,
@@ -32,6 +32,7 @@ import {
 } from "./simulate/rainbow";
 import { SIDE } from "./stage";
 import { useExperimentsDefaults } from "./use-experiments";
+import { degrees } from "./simulate/python";
 
 /** The rays of the fan, evenly across the bead's face from its centre to near its rim. */
 const FAN = 19;
@@ -129,7 +130,7 @@ function rayPoints(n: number, b: number): string {
 function BeadView({ bead, impact, split }: { bead: Bead; impact: number; split: boolean }) {
   const { t } = useTranslation();
   const locale = useLocale();
-  const hex = useChartHex();
+  const hue = useChartHue();
   const n = indexAt(bead, SODIUM_NM);
   const fan = Array.from({ length: FAN }, (_, k) => (k + 0.5) / FAN);
   const path = trace(n, impact);
@@ -157,7 +158,7 @@ function BeadView({ bead, impact, split }: { bead: Bead; impact: number; split: 
         ))}
         <polyline
           points={rayPoints(n, bow)}
-          stroke={hex[ANGLE_HUE % hex.length]}
+          stroke={hue(ANGLE_HUE)}
           strokeOpacity={0.9}
           strokeWidth={1.2}
           strokeDasharray="5 4"
@@ -291,18 +292,8 @@ function RainbowPlay({
   });
   const [split, setSplit] = useState(false);
   const [time, setTime] = useState(0);
-  useEffect(() => {
-    if (!preview || paused) return;
-    let raf = 0;
-    let last = performance.now();
-    const tick = (now: number) => {
-      setTime((s) => s + Math.max(0, Math.min(0.05, (now - last) / 1000)));
-      last = now;
-      raf = requestAnimationFrame(tick);
-    };
-    raf = requestAnimationFrame(tick);
-    return () => cancelAnimationFrame(raf);
-  }, [preview, paused]);
+  // Only a preview runs a clock, for its auto mode; on the page the reader moves it.
+  useFrameLoop(preview && !paused, (dt) => setTime((s) => s + dt));
   // The ring is recoloured from 81 wavelengths: a moment's work, so the slider never waits for it.
   const shownBead = useDeferredValue(bead);
   const colours = useMemo(() => (preview ? [] : ring(shownBead)), [shownBead, preview]);
@@ -411,7 +402,7 @@ function RainbowBuild({
 }) {
   const { t } = useTranslation();
   const locale = useLocale();
-  const hex = useChartHex();
+  const hue = useChartHue();
   const kind: Kind = bead.dispersion_nm2 === presets.water.dispersion_nm2 ? "water" : "glass";
   const shown = useMemo(() => figures(bead), [bead]);
   const rows = useMemo(() => {
@@ -485,8 +476,8 @@ function RainbowBuild({
       <SeriesChart
         rows={rows}
         series={[
-          { key: "violet", label: t("experiments.rainbow.chart.violet"), color: hex[VIOLET_HUE % hex.length] },
-          { key: "red", label: t("experiments.rainbow.chart.red"), color: hex[RED_HUE % hex.length] },
+          { key: "violet", label: t("experiments.rainbow.chart.violet"), color: hue(VIOLET_HUE) },
+          { key: "red", label: t("experiments.rainbow.chart.red"), color: hue(RED_HUE) },
         ]}
         axes={[
           {
@@ -548,7 +539,7 @@ function RainbowModel() {
 function RainbowTrick() {
   const { t } = useTranslation();
   const locale = useLocale();
-  const hex = useChartHex();
+  const hue = useChartHue();
   const rows = useMemo(
     () =>
       Array.from({ length: CHART_POINTS }, (_, k) => {
@@ -565,7 +556,7 @@ function RainbowTrick() {
       <p className="text-sm text-secondary">{t("experiments.rainbow.chart.angle_hint")}</p>
       <SeriesChart
         rows={rows}
-        series={[{ key: "angle", label: t("experiments.rainbow.chart.angle"), color: hex[ANGLE_HUE % hex.length] }]}
+        series={[{ key: "angle", label: t("experiments.rainbow.chart.angle"), color: hue(ANGLE_HUE) }]}
         axes={[
           {
             id: "y",

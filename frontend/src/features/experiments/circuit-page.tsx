@@ -1,26 +1,28 @@
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useMemo, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { Pause, Play, RotateCcw, Zap } from "lucide-react";
-import { Button, LoadingState, ToggleGroup } from "@eifi1/ui-kit";
+import { Zap } from "lucide-react";
+import { Button, LoadingState } from "@eifi1/ui-kit";
 import { SeriesChart } from "@/shared/charts/series-chart";
 import { useLocale } from "@/shared/i18n/use-locale";
 import { formatNumber } from "@/shared/lib/format";
-import { useChartHex } from "@/shared/state/palette-store";
+import { useChartHue } from "@/shared/state/palette-store";
 import type { CircuitRequest } from "@/shared/types";
 import { SliderField } from "@/shared/ui/slider-field";
 import { Figures, WidgetCard } from "@/shared/ui/widget";
 import { Equation } from "./equation";
 import { ExhibitFrame } from "./exhibit-frame";
 import { BuildPending } from "./build-pending";
-import { settingNumber, useCheckRequest, useCheckSetting, type CheckSetting } from "./check-setting";
+import { sameBuild, settingNumber, useCheckSetting, useTakeCheckRequest, type CheckSetting } from "./check-setting";
+import { useFrameLoop, useRunning } from "./play";
+import { RestartButton, RunPauseButton, SpeedToggle } from "./play-controls";
 import { PreviewPending, type PreviewMode, type PreviewProps } from "./preview-mode";
 import { energies, figures, rates, state, type Circuit } from "./simulate/circuit";
-import { SIDE } from "./stage";
+import { SIDE, VIEW_FRAME } from "./stage";
 import { useExperimentsDefaults } from "./use-experiments";
 
 /** Real time, and a quarter of it for a quick circuit whose needle would blur. */
-const SPEEDS = { real: 1, slow: 0.25 } as const;
-type Speed = keyof typeof SPEEDS;
+const SPEEDS = [1, 0.25] as const;
+type Speed = (typeof SPEEDS)[number];
 
 /** The preview charges for a moment, throws the switch and lets it ring out,
  *  over and over: this long a run, the first part of it charged. */
@@ -85,13 +87,10 @@ export function CircuitPage() {
   const circuit = build ?? defaults.data?.circuit ?? null;
   // A check case's "Set it up": the build here, which recharges the capacitor;
   // the play, built anew for it or already on it, throws the switch.
-  const request = useCheckRequest("circuit");
-  const [seen, setSeen] = useState<number | null>(null);
-  if (request && !request.done && request.nonce !== seen && circuit) {
-    setSeen(request.nonce);
-    const next = circuitOf(circuit, request.setting);
-    if (JSON.stringify(next) !== JSON.stringify(circuit)) setBuild(next);
-  }
+  useTakeCheckRequest("circuit", circuit, (setting, current) => {
+    const next = circuitOf(current, setting);
+    if (!sameBuild(next, current)) setBuild(next);
+  });
   return (
     <ExhibitFrame
       exhibit="circuit"
@@ -131,18 +130,13 @@ export function CircuitPreview({ paused }: PreviewProps) {
 /** `charge` is `q/q₀` (−1 to 1), `needle` the current over the meter's range (clamped). */
 function CircuitView({ charge, needle, thrown }: { charge: number; needle: number; thrown: boolean }) {
   const { t } = useTranslation();
-  const hex = useChartHex();
+  const hue = useChartHue();
   const lever = thrown ? [136, 26] : [84, 26];
   const angle = Math.max(-1, Math.min(1, needle)) * NEEDLE_DEG;
   const sign = charge >= 0 ? ["+", "−"] : ["−", "+"];
   const loops = Array.from({ length: 6 }, () => "a 4 4 0 0 1 0 8").join(" ");
   return (
-    <svg
-      viewBox="0 0 260 150"
-      role="img"
-      aria-label={t("experiments.circuit.view")}
-      className="w-full rounded-lg border border-subtle bg-surface-2 text-muted"
-    >
+    <svg viewBox="0 0 260 150" role="img" aria-label={t("experiments.circuit.view")} className={VIEW_FRAME}>
       <g fill="none" stroke="currentColor" strokeWidth={1.5} vectorEffect="non-scaling-stroke">
         {/* The battery's branch, the capacitor's and the coil's, and the wire under them all. */}
         <polyline points="82,24 30,24 30,74" />
@@ -155,11 +149,7 @@ function CircuitView({ charge, needle, thrown }: { charge: number; needle: numbe
         <polyline points="30,130 153,130" />
         <polyline points="187,130 230,130" />
         {/* The coil, with its iron core beside it. */}
-        <path
-          d={`M 230 40 ${loops}`}
-          stroke={hex[COIL_HUE % hex.length]}
-          strokeOpacity={0.35 + 0.65 * Math.abs(needle)}
-        />
+        <path d={`M 230 40 ${loops}`} stroke={hue(COIL_HUE)} strokeOpacity={0.35 + 0.65 * Math.abs(needle)} />
         <rect x={224} y={96} width={12} height={16} />
       </g>
       <g stroke="currentColor" strokeWidth={3} vectorEffect="non-scaling-stroke">
@@ -171,7 +161,7 @@ function CircuitView({ charge, needle, thrown }: { charge: number; needle: numbe
         <line x1={245} y1={38} x2={245} y2={90} strokeWidth={1.5} />
       </g>
       {/* The charge on the plates: the signs fade as it flows off and come back the other way round. */}
-      <g fontSize={9} textAnchor="middle" fill={hex[CAPACITOR_HUE % hex.length]} fillOpacity={Math.abs(charge)}>
+      <g fontSize={9} textAnchor="middle" fill={hue(CAPACITOR_HUE)} fillOpacity={Math.abs(charge)}>
         {[100, 110, 120].map((x) => (
           <text key={`top-${x}`} x={x} y={68}>
             {sign[0]}
@@ -261,12 +251,7 @@ function TwinView({ charge }: { charge: number }) {
     return `${x},${y}`;
   }).join(" ");
   return (
-    <svg
-      viewBox="0 0 260 44"
-      role="img"
-      aria-label={t("experiments.circuit.twin")}
-      className="w-full rounded-lg border border-subtle bg-surface-2 text-muted"
-    >
+    <svg viewBox="0 0 260 44" role="img" aria-label={t("experiments.circuit.twin")} className={VIEW_FRAME}>
       <rect x={6} y={8} width={6} height={32} className="fill-current" fillOpacity={0.4} />
       <line x1={12} y1={40} x2={254} y2={40} stroke="currentColor" vectorEffect="non-scaling-stroke" />
       <line
@@ -288,13 +273,13 @@ function TwinView({ charge }: { charge: number }) {
 function EnergyBar({ circuit, time }: { circuit: Circuit; time: number }) {
   const { t } = useTranslation();
   const locale = useLocale();
-  const hex = useChartHex();
+  const hue = useChartHue();
   const total = figures(circuit).energy_j;
   const [inCapacitor, inCoil] = time < 0 ? [total, 0] : energies(circuit, time);
   const parts = [
-    { key: "capacitor", share: inCapacitor / total, color: hex[CAPACITOR_HUE % hex.length] },
-    { key: "coil", share: inCoil / total, color: hex[COIL_HUE % hex.length] },
-    { key: "heat", share: Math.max(0, 1 - (inCapacitor + inCoil) / total), color: hex[HEAT_HUE % hex.length] },
+    { key: "capacitor", share: inCapacitor / total, color: hue(CAPACITOR_HUE) },
+    { key: "coil", share: inCoil / total, color: hue(COIL_HUE) },
+    { key: "heat", share: Math.max(0, 1 - (inCapacitor + inCoil) / total), color: hue(HEAT_HUE) },
   ];
   const said = parts.map(
     (p) => `${t(`experiments.circuit.play.${p.key}`)} ${formatNumber(p.share * 100, 0, locale)} %`,
@@ -329,14 +314,14 @@ function CircuitPlay({ circuit, preview = false, paused = false }: { circuit: Ci
   const clock = useRef(0);
   const [time, setTime] = useState(0);
   const [thrown, setThrown] = useState(false);
-  const [runningHere, setRunning] = useState(false);
-  const [speedHere, setSpeed] = useState<Speed>("real");
-  const running = preview ? !paused : thrown && runningHere;
-  const speed = preview ? SPEEDS.real : SPEEDS[speedHere];
+  const { running: on, setRunning } = useRunning({ preview, paused, initially: false });
+  const [speedHere, setSpeed] = useState<Speed>(1);
+  const running = preview ? on : thrown && on;
+  const speed = preview ? 1 : speedHere;
   const peak = useMemo(() => figures(circuit).peak_current_a, [circuit]);
   // The case's run: charged, thrown over at once, the clock from naught.
   useCheckSetting("circuit", (setting) => {
-    if (preview || JSON.stringify(circuitOf(circuit, setting)) !== JSON.stringify(circuit)) return false;
+    if (preview || !sameBuild(circuitOf(circuit, setting), circuit)) return false;
     clock.current = 0;
     setTime(0);
     setThrown(true);
@@ -345,21 +330,10 @@ function CircuitPlay({ circuit, preview = false, paused = false }: { circuit: Ci
   });
   const range = meterRangeMa(peak);
 
-  useEffect(() => {
-    if (!running) return;
-    let raf = 0;
-    let last = performance.now();
-    const tick = (now: number) => {
-      // A frame's timestamp can lie a little before the effect started: never a step back in time.
-      const dt = Math.max(0, Math.min(0.05, (now - last) / 1000));
-      last = now;
-      clock.current += dt * speed;
-      setTime(clock.current);
-      raf = requestAnimationFrame(tick);
-    };
-    raf = requestAnimationFrame(tick);
-    return () => cancelAnimationFrame(raf);
-  }, [running, speed]);
+  useFrameLoop(running, (dt) => {
+    clock.current += dt * speed;
+    setTime(clock.current);
+  });
 
   // The preview's run: charged for a moment, then thrown; a negative time is the charged capacitor.
   const runTime = preview ? (time % PREVIEW_LOOP_S) - PREVIEW_CHARGED_S : thrown ? time : -1;
@@ -386,14 +360,8 @@ function CircuitPlay({ circuit, preview = false, paused = false }: { circuit: Ci
       actions={
         thrown ? (
           <>
-            <Button variant="secondary" size="sm" onClick={() => setRunning(!runningHere)}>
-              {runningHere ? <Pause className="size-4" aria-hidden /> : <Play className="size-4" aria-hidden />}
-              {runningHere ? t("experiments.circuit.play.pause") : t("experiments.circuit.play.run")}
-            </Button>
-            <Button variant="secondary" size="sm" onClick={recharge}>
-              <RotateCcw className="size-4" aria-hidden />
-              {t("experiments.circuit.play.recharge")}
-            </Button>
+            <RunPauseButton running={on} onToggle={() => setRunning(!on)} />
+            <RestartButton onClick={recharge} label={t("experiments.circuit.play.recharge")} />
           </>
         ) : (
           <Button
@@ -411,18 +379,7 @@ function CircuitPlay({ circuit, preview = false, paused = false }: { circuit: Ci
     >
       <div className={`${SIDE.grid} ${SIDE.cap.xl}`}>
         <div className={SIDE.top}>
-          <ToggleGroup
-            label={t("experiments.circuit.play.speed")}
-            labelPlacement="above"
-            size="sm"
-            overflow="wrap"
-            value={speedHere}
-            onChange={(v: string) => setSpeed(v as Speed)}
-            options={(Object.keys(SPEEDS) as Speed[]).map((s) => ({
-              value: s,
-              label: t(`experiments.circuit.play.speeds.${s}`),
-            }))}
-          />
+          <SpeedToggle speeds={SPEEDS} value={speedHere} onChange={setSpeed} />
         </div>
         <div className={`${SIDE.views} mx-auto w-full max-w-xl`}>
           <figure className="space-y-1">
@@ -467,7 +424,7 @@ function CircuitPlay({ circuit, preview = false, paused = false }: { circuit: Ci
 function CircuitBuild({ circuit, onChange }: { circuit: Circuit; onChange: (next: Circuit) => void }) {
   const { t } = useTranslation();
   const locale = useLocale();
-  const hex = useChartHex();
+  const hue = useChartHue();
   const shown = figures(circuit);
   const span = chartSpanS(circuit);
   const rows = useMemo(
@@ -558,7 +515,7 @@ function CircuitBuild({ circuit, onChange }: { circuit: Circuit; onChange: (next
       />
       <SeriesChart
         rows={rows}
-        series={[{ key: "current", label: t("experiments.circuit.chart.current"), color: hex[COIL_HUE % hex.length] }]}
+        series={[{ key: "current", label: t("experiments.circuit.chart.current"), color: hue(COIL_HUE) }]}
         axes={[
           {
             id: "y",
@@ -637,7 +594,7 @@ function CircuitModel() {
 function CircuitTrick({ circuit }: { circuit: Circuit }) {
   const { t } = useTranslation();
   const locale = useLocale();
-  const hex = useChartHex();
+  const hue = useChartHue();
   const span = chartSpanS(circuit);
   const rows = useMemo(
     () =>
@@ -658,9 +615,9 @@ function CircuitTrick({ circuit }: { circuit: Circuit }) {
       <SeriesChart
         rows={rows}
         series={[
-          { key: "capacitor", label: t("experiments.circuit.chart.capacitor"), color: hex[CAPACITOR_HUE % hex.length] },
-          { key: "coil", label: t("experiments.circuit.chart.coil"), color: hex[COIL_HUE % hex.length] },
-          { key: "left", label: t("experiments.circuit.chart.left"), color: hex[LEFT_HUE % hex.length], dashed: true },
+          { key: "capacitor", label: t("experiments.circuit.chart.capacitor"), color: hue(CAPACITOR_HUE) },
+          { key: "coil", label: t("experiments.circuit.chart.coil"), color: hue(COIL_HUE) },
+          { key: "left", label: t("experiments.circuit.chart.left"), color: hue(LEFT_HUE), dashed: true },
         ]}
         axes={[
           {

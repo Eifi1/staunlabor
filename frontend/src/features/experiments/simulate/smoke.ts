@@ -9,7 +9,8 @@
  * follows; the figures and curves are the server's.
  */
 
-import { roundHalfEven } from "./sphere";
+import { roundHalfEven } from "./python";
+import { rk4 } from "./numerics";
 
 export const RHO = 1.2;
 export const NU = 1.5e-5;
@@ -57,9 +58,9 @@ export interface Ring {
   verdict: Verdict;
 }
 
-export const holeArea = (drum: Drum) => (Math.PI * drum.hole_m ** 2) / 4;
+const holeArea = (drum: Drum) => (Math.PI * drum.hole_m ** 2) / 4;
 
-export function effectiveArea(drum: Drum): number {
+function effectiveArea(drum: Drum): number {
   const big = drum.diameter_m / 2;
   const a = drum.ring_m / 2;
   const h = drum.hole_m / 2;
@@ -67,7 +68,7 @@ export function effectiveArea(drum: Drum): number {
   return skin + Math.PI * (a * a - h * h);
 }
 
-export function stiffnessNM(drum: Drum): number {
+function stiffnessNM(drum: Drum): number {
   return (2 * Math.PI * drum.tension_n_m) / Math.log(drum.diameter_m / drum.ring_m);
 }
 
@@ -79,16 +80,16 @@ export function pressDepth(depthM: number, durationS: number, t: number): number
   return (depthM / 2) * (1 - Math.cos(Math.PI * f));
 }
 
-export function ringSpeed(circulation: number, radius: number, core: number): number {
+function ringSpeed(circulation: number, radius: number, core: number): number {
   return (circulation / (4 * Math.PI * radius)) * (Math.log((8 * radius) / core) - 0.25);
 }
 
 export function ringOf(exhibit: SmokeExhibit, times: readonly number[], depths: readonly number[]): Ring {
   if (times.length !== depths.length || times.length < 2)
-    throw new Error("a press is at least two samples, a time for each");
+    throw new RangeError("a press is at least two samples, a time for each");
   const { drum, room } = exhibit;
   if (depths.some((d) => d < 0 || d > drum.stroke_m + 1e-9))
-    throw new Error(`the ring goes down between 0 and ${drum.stroke_m} m`);
+    throw new RangeError(`the ring goes down between 0 and ${drum.stroke_m} m`);
   const ratio = effectiveArea(drum) / holeArea(drum);
   const aEff = effectiveArea(drum);
   const spring = stiffnessNM(drum);
@@ -99,7 +100,7 @@ export function ringOf(exhibit: SmokeExhibit, times: readonly number[], depths: 
   let peakForce = spring * Math.max(...depths);
   for (let k = 0; k < times.length - 1; k += 1) {
     const dt = times[k + 1] - times[k];
-    if (dt <= 0) throw new Error("a press's times go forward");
+    if (dt <= 0) throw new RangeError("a press's times go forward");
     const hand = (depths[k + 1] - depths[k]) / dt;
     if (hand <= 0) continue;
     // The engine's: relative to the hole, which goes down with the ring.
@@ -148,7 +149,8 @@ export interface Flight {
 }
 
 export function flight(exhibit: SmokeExhibit, ring: Ring, durationS: number): Flight {
-  if (!(durationS > 0 && durationS <= MAX_FLIGHT_S)) throw new Error(`a flight lasts between 0 and ${MAX_FLIGHT_S} s`);
+  if (!(durationS > 0 && durationS <= MAX_FLIGHT_S))
+    throw new RangeError(`a flight lasts between 0 and ${MAX_FLIGHT_S} s`);
   const turbulent = ring.verdict === "too_fast";
   const g0 = ring.circulation_m2_s;
   const r0 = ring.radius_m;
@@ -177,12 +179,7 @@ export function flight(exhibit: SmokeExhibit, ring: Ring, durationS: number): Fl
       out.speed_m_s.push(speed(t, r));
     }
     if (last) break;
-    const k1 = f(t, r);
-    const k2 = f(t + h / 2, r + (h / 2) * k1[1]);
-    const k3 = f(t + h / 2, r + (h / 2) * k2[1]);
-    const k4 = f(t + h, r + h * k3[1]);
-    z += (h / 6) * (k1[0] + 2 * k2[0] + 2 * k3[0] + k4[0]);
-    r += (h / 6) * (k1[1] + 2 * k2[1] + 2 * k3[1] + k4[1]);
+    [z, r] = rk4((tt, y) => f(tt, y[1]), t, [z, r], h);
   }
   return out;
 }

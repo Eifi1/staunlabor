@@ -6,6 +6,7 @@ import { createInstance } from "i18next";
 import { MemoryRouter } from "react-router";
 import en from "@/shared/i18n/locales/en.json";
 import { KitProviders } from "@/app/kit-providers";
+import { QUERY_DEFAULTS } from "@/shared/state/query-client";
 
 /** A test i18n instance carrying the REAL English bundle.
  *
@@ -29,9 +30,10 @@ export function renderWithProviders(
    *  param. Defaults to "/", which is what every other test wants. */
   { initialEntries = ["/"] }: { initialEntries?: string[] } = {},
 ) {
-  // retry: false — a failing request in a test should surface as the error state
-  // immediately, not after the production retry has run the clock out.
-  const queryClient = new QueryClient({ defaultOptions: { queries: { retry: false } } });
+  // The app's defaults, but retry: false — a failing request in a test should
+  // surface as the error state immediately, not after the production retry has
+  // run the clock out.
+  const queryClient = new QueryClient({ defaultOptions: { queries: { ...QUERY_DEFAULTS, retry: false } } });
   function Wrapper({ children }: { children: ReactNode }) {
     return (
       <I18nextProvider i18n={testI18n()}>

@@ -10,6 +10,8 @@
  * first.
  */
 
+import { G } from "./constants";
+
 /** β₁: the first root of cosh β·cos β + 1, by bisection. */
 function firstRoot(): number {
   let lo = 1.5;
@@ -72,7 +74,6 @@ function softening(): number {
 }
 
 export const LAMBDA = softening();
-export const G = 9.80665;
 export const STEP_S = 1e-3;
 
 /** The engine's `Rack`. */

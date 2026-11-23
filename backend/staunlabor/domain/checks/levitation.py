@@ -14,12 +14,9 @@ import math
 from collections.abc import Callable
 
 from staunlabor.domain.checks import Case, Source
+from staunlabor.domain.checks._hand import G, bisect
 from staunlabor.domain.experiments import levitation as engine
 
-ENGINE = ("levitation",)
-
-#: Standard gravity, as the engine takes it.
-G = 9.80665
 #: The magnetic constant to the classical definition: μ₀ = 4π·10⁻⁷ H/m.
 MU0 = 4e-7 * math.pi
 
@@ -89,14 +86,8 @@ def _field(z: float, base: engine.Base = _BASE, n: int = 400) -> tuple[float, fl
 
 def _root(f: Callable[[float], float], low: float, high: float) -> float:
     """Where ``f`` changes sign between ``low`` and ``high``, by bisection."""
-    f_low = f(low)
-    for _ in range(100):
-        mid = (low + high) / 2
-        if (f(mid) > 0) == (f_low > 0):
-            low, f_low = mid, f(mid)
-        else:
-            high = mid
-    return (low + high) / 2
+    above = f(low) > 0
+    return bisect(lambda z: (f(z) > 0) == above, low, high, 100)
 
 
 def _foot() -> float:

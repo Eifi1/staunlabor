@@ -22,10 +22,12 @@ models found before the engine was written, and what is left to build.
 
 Every exhibit gets one page in one shape:
 
-1. **At the exhibit** — a drawing of the setup and what the visitor does: its
-   first paragraph, and the rest behind "More about the exhibit" (2026-11-19,
-   the review of the coil's page: two long paragraphs pushed the twin below
-   the fold).
+1. **At the exhibit** — a drawing of the setup and what the visitor does, all
+   of it shown. From 2026-11-19 (the review of the coil's page) only its first
+   paragraph stood open and the rest behind "More about the exhibit"; on
+   2026-11-23 the fold went again (Marcel: "ein bisschen sinnlos"): every
+   exhibit's text is two or three short paragraphs, at most some 600
+   characters, so the fold hid a sentence or two and cost a click.
 2. **Try it** — the exhibit's twin, played with a mouse or a finger.
 3. **What happens** — the derivation step by step, KaTeX, the engine's numbers.
 4. **The sweet spot** — the one insight that explains the trick, as a chart.
@@ -46,7 +48,11 @@ and centred (`SIDE.cap` in `stage.ts`, 2026-11-19). Before that, the views
 stood centred in all the width the column left them, with the column at the far
 edge: at 1920 px the sliders stood 400 to 620 px from the drawing on twenty
 pages. `stage.test.ts` holds every page's cap to its views' width. No drawing
-is taller than 60 % of the screen (`STAGE`). The gravity well and the water
+is taller than 60 % of the screen (`STAGE`), and only `stage.ts` spells that
+share: eight drawings had written `max-h-[60dvh]` themselves and would have
+kept it when the share changed, so they take `STAGE.wide` and `stage.test.ts`
+fails on a `60dvh` anywhere else (2026-11-22). The frame they stand in is
+`VIEW_FRAME`, one string for the 35 drawings that repeated it. The gravity well and the water
 parabola, whose views fill the row, are capped the way the sphere's are.
 
 **How it is computed** (Marcel, 2026-11-07: "are these differential
@@ -79,7 +85,7 @@ an exhibition, a stage and a lab overview, each for a desktop and a phone):
 ist". The header stays at the top and holds the name, the three ways in
 (**Exponate** `/exhibits`, **Grundlagen** `/basics`, **Über** `/about`), the
 kit's `GlobalSearch` over the exhibits (Ctrl K), the language and the theme
-(`experiments-layout.tsx`); every page sits in a column of at most 1160 px
+(`features/site/site-layout.tsx`); every page sits in a column of at most 1160 px
 (`page-shell.ts`). Top to bottom (`overview-page.tsx`):
 
 * **The headline** across the page, "Erst *spielen*, dann *rechnen*."
@@ -102,7 +108,7 @@ kit's `GlobalSearch` over the exhibits (Ctrl K), the language and the theme
   2026-11-20 the stage ends at 779 px of 900, 754 of 768, 675 of 844 and
   653 of 667 (1440, 1366, 390 and 375 px wide). On a phone the drawing stands
   above the question (Marcel, 2026-11-20, of three orders shown: "Bild über
-  Frage beim Handy"). The summary and the first paragraph at the exhibit,
+  Frage beim Handy"). The summary and the text at the exhibit,
   which stood beside the drawing before, are the card's and the page's.
 * **The site in figures**, a band across the window (Marcel: "Wo ist die
   bottom line mit den key facts zur Seite?"): the built exhibits, their
@@ -112,11 +118,15 @@ kit's `GlobalSearch` over the exhibits (Ctrl K), the language and the theme
   the languages, in the kit's `StatTile`s; under them "0 Cookies · 0 Tracking
   · kein Konto nötig · frei und quelloffen".
 * **Exponate**, a part of its own (Marcel: "nicht alle Exponate gleich sofort
-  … sondern nur eine Auswahl"): the six newest, the same cards as the list,
+  … sondern nur eine Auswahl"): six drawn at random, new on every visit and
+  kept while the page is open (`sampled` in `exhibits.ts`; Marcel,
+  2026-11-22: "random sechs Exponate", after the six "newest" had been the
+  list's six oldest), the same cards as the list,
   and the way to all of them.
 * **Grundlagen**, likewise, under them (Marcel: "Genauso wie die Grundlagen
-  unten drunter"): the three lessons the most exhibits build on, and the way
-  to the course, which moved in from Kurvenschmiede (`docs/course.md`).
+  unten drunter"): the lessons the exhibits build on (all three an exhibit
+  can name, `CourseLesson`), and the way to the course, which moved in from
+  Kurvenschmiede (`docs/course.md`).
 
 **The page of every exhibit**, `/exhibits` (`exhibits-page.tsx`; Marcel:
 "es soll doch weiterhin eine separate Seite mit allen Exponaten geben"):
@@ -198,16 +208,17 @@ weeks are the rule run backwards (the tests walk them; no page lists them). A ne
 on or after its `since` day, never mid-round, which would redraw weeks already
 shown; so `since` is the day it **ships** — a past date puts it into a round
 already under way on the live site. A round of 35 weeks is most of a year, so
-a new exhibit is first shown among the front page's newest (the third stage,
-`docs/plan.md`), not by this pick (Marcel agreed, 2026-11-20).
+a new exhibit is first shown in the list of all of them and among the front
+page's six drawn at random, not by this pick (Marcel agreed, 2026-11-20; the
+front page's "newest" became random on 2026-11-22).
 
 **The previews are the pages' own auto modes** (`preview-mode.tsx`): each
 page's play component takes `preview` and `paused`, and in a preview it starts
 in its auto mode, draws its views only — no buttons, sliders or figures — and
 runs while `paused` is false. The motion on the overview is the motion on the
 page, from the same browser port, so it cannot drift from what it advertises.
-The chair, whose turning lives in its page rather than a play component, has
-a `ChairPreview` of its own over the same `autoView`. One table,
+The chair, whose turning lived in its page with a `ChairPreview` of its own
+beside it, has a `ChairPlay` like the others since 2026-11-22. One table,
 `exhibit-modules.ts`, names each exhibit's page module, its `<X>Page`, its
 `<X>Preview` and its card's icon; the routes, the previews and the cards all
 read it, so a new exhibit is one line there. `exhibit-preview.tsx` takes each
@@ -216,6 +227,21 @@ anyway — mounts it once it comes near the screen, stops it off screen, and
 shows the first frame as a still under `prefers-reduced-motion` or where that
 cannot be read. The coil's keyboard (its two buttons on `+`/`−` and the
 arrows) is off in a preview: the keys belong to the page it stands on.
+
+**One clock, one set of buttons** (2026-11-22). Every twin's frame loop is
+`useFrameLoop` in `play.ts`: it owns the `requestAnimationFrame`, clamps a
+frame's step to [0, 0.05] s and always calls the page's latest step, so a new
+speed or build does not restart it. Thirty-three pages had written the loop
+out by hand, and seven had lost the zero guard, so a frame stamped before the
+loop began could step their time backwards. `useRunning` holds who runs the
+clock (the page's Run/Pause, or the overview's `paused`). The header's
+Run/Pause and Restart, the sound switch and the speed choice are
+`play-controls.tsx`, on the shared `experiments.play.*` words, where each
+exhibit had kept its own and they had drifted ("Anhalten" and "Pause"; a
+quarter speed as "Zeitlupe (¼)", "¼" and "4× langsamer"). A speed is named
+by its factor; Foucault's time-lapse ("1 min pro s") keeps its own labels.
+A check case's "Set it up" reaches the page through `useTakeCheckRequest`
+in `check-setting.ts`, which remembers the request it took.
 
 **Tried, not opened** (`tried.ts`, `STORAGE.experimentsTried`, a line of the
 privacy page in all seven languages): an exhibit counts once the reader does
@@ -798,6 +824,8 @@ written once (`domain/experiments/pendulum.py`, ported to
   second; the period `T = T₀·2K(k²)/π`;
 - **stepped**, by classical Runge–Kutta over any system at a fixed step (1 ms),
   for what has no closed form: damping, a peg, a spring between two pendulums.
+  The step itself has lived in `numerics.py` since 2026-11-22 (see "Shared
+  code out of the pendulum" below).
 
 **Checked by** `tests/unit/test_experiments.py`: Jacobi's identities, its limits
 (sin and cos at `m = 0`, tanh and sech at `m = 1`) and its slope; `K(½)` from
@@ -2323,7 +2351,7 @@ From 2026-11-15 the overview and every exhibit's page carried a warning
 banner under their heading: the calculations still await their check. Since
 2026-11-19 each exhibit says it in one line under its title, "not yet
 checked" or the day an admin checked it (`CheckStatus`,
-`unchecked-notice.tsx`), and the front page says how many are checked, below
+`check-status.tsx`), and the front page says how many are checked, below
 its first screen. The two reviews of that day (Marcel's Claude docs of the
 front page and of the coil's page) found that a warning in second place costs
 more trust than it earns, and asked for it where the calculation is.
@@ -2698,8 +2726,9 @@ anew for it, sets how it starts. For that the sliders grew:
 in as an admin, an exhibit with cases shows "Confirm as checked" and "Take
 the check back" (`PUT`/`DELETE /admin/experiments/checks/{exhibit}`). The
 verdict is stored with the fingerprint of the code it was given on
-(`staunlabor.domain.checks.fingerprint`: the exhibit's engine modules, the
-engine modules they import and its cases, without docstrings and comments),
+(`staunlabor.domain.checks.fingerprint`: the exhibit's check module and every
+module it imports, and so on down, engine modules and the checks' shared
+`checks/_hand.py` alike, without docstrings and comments),
 and `GET /experiments/checks` counts it only while that is still the
 deployed code's. An engine change brings "not yet checked" back by itself.
 The public answer gives the day and nothing of who checked (Marcel: only the
@@ -2715,6 +2744,59 @@ the refactors of the engine (the audit's) go before an exhibit is checked,
 and a change after says which exhibits it unchecks. The browser ports in
 `simulate/` are not in the fingerprint: they are held to the engine by
 `engine-cases.json`, not by the check.
+
+**Shared code out of the pendulum** (2026-11-22, Marcel's go-ahead while no
+exhibit was yet checked, so that every exhibit is unchecked once and for
+nothing). `pendulum.py` had held, besides the pendulum's physics, gravity, the
+general RK4 step, the sampling and the run bounds, and fifteen engine modules
+imported it for those; since the fingerprint follows imports, a change to the
+pendulum's AGM would have unchecked all fifteen, though only the pendulum wave
+and the harmonograph use it. Now:
+
+- `experiments/constants.py` holds what several exhibits share and none owns:
+  `G`, `SOLID_BALL_INERTIA` (2/5), `HOLLOW_BALL_INERTIA` (2/3),
+  `RESISTANCE_FADE_M_S`. It is **meant never to change**; everything an exhibit
+  might tune stays in its own module. The ten modules that wrote `G` out, and
+  sphere, coriolis, race, coil and well for the others, import it; the well no
+  longer imports the sphere, the race no longer the sphere (`well.SHARE` is
+  `1/(1 + SOLID_BALL_INERTIA)`, the same bits as 5/7).
+- `experiments/numerics.py` holds `rk4`, `rk4_second_order` (the two-list
+  form of the cannon's and the cradle's contact steps), `sample_every`,
+  `check_run` and the pendulums' `STEP_S`, `SAMPLES_PER_S`, `MAX_DURATION_S`.
+  The coil, the sphere and the smoke ring now take the shared `rk4`, the cannon
+  and the cradle `rk4_second_order`; the funnel, the gyroscope, the elephant,
+  the diver, the cannon's free flight and the resonance rack keep their step
+  written out, because the generic one cost them 20 % to twice the time
+  (measured old against new in one process) under a request's budget.
+- `checks/_hand.py` holds the checks' own `G`, `elliptic_k_by_sum` /
+  `elliptic_f_by_sum` (the midpoint sum, 20 000 steps) and `bisect`, kept
+  apart from the engine on purpose. 24 check modules took `G` from it, seven
+  their K sum, twelve their plain halving; the halvings that differ (the
+  arch's thickness returning `hi`, Maxwell's early stop, every golden-section
+  search) stay as they were.
+- The checks' `ENGINE` tuples are gone: the fingerprint walks from the check
+  module alone, whose `import … as engine` names the same modules.
+
+Every number stayed to the bit: the four writers' files (`engine-cases.json`,
+the two `test-fixtures.json`, `checks.json`) came out unchanged, and the
+check results agreed to the last bit. The commit unchecks all 35 exhibits
+with checks: arch, beats, bounce, cannon, chair, chaos, chladni, circuit,
+coil, cone, coriolis, coupled, cradle, diver, elephant, foucault, gyroscope,
+harmonograph, levitation, maxwell, overhang, parabola, peg, plates, platform,
+race, rainbow, resonance, sky, slits, smoke, sphere, waterwheel, wave, well.
+From now on a change to the pendulum's own physics unchecks only the pendulum
+wave and the harmonograph.
+
+The browser's ports followed the same day (frontend only, so nothing
+unchecked): `simulate/constants.ts` and `simulate/numerics.ts` mirror the two
+modules (the same steps shared and the same ones left written out, chaos,
+coupled and peg calling `checkRun`), and `simulate/python.ts` holds the
+Python built-ins every port copies to the last bit (`roundHalfEven`, the
+degree conversions, `fmod`, Python's `%`, `copysign`), where each port had
+its own and the pendulum took its rounding from the sphere. `engine-cases.json`
+now carries what its cases were asked at (`inputs`, and each run's
+`duration_s` and sampling `every`), so `simulate.test.ts` no longer keeps
+copies of those lists; every number it held before stayed as it was.
 
 ## Checking the mathematics
 

@@ -37,7 +37,8 @@ from __future__ import annotations
 import math
 from dataclasses import dataclass
 
-from staunlabor.domain.experiments.pendulum import MAX_DURATION_S, STEP_S, G, rk4, sample_every
+from staunlabor.domain.experiments.constants import G
+from staunlabor.domain.experiments.numerics import MAX_DURATION_S, STEP_S, check_run, rk4, sample_every
 
 
 @dataclass(frozen=True)
@@ -200,10 +201,7 @@ def run(
     """The pendulum and its twin, let go from rest together, stepped side by
     side, by :func:`step_for` unless a step is given."""
     step_s = step_for(dp, start1_deg, start2_deg) if step_s is None else step_s
-    if not 0 < step_s <= 0.01:
-        raise ValueError("the step lies between 0 and 10 ms")
-    if not 0 < duration_s <= MAX_DURATION_S:
-        raise ValueError(f"a run lasts more than nothing and at most {MAX_DURATION_S:g} s")
+    check_run(duration_s, step_s)
     if not 0 < abs(nudge_deg) <= 10:
         raise ValueError("the nudge is more than nothing and at most 10°")
     f = rhs(dp)

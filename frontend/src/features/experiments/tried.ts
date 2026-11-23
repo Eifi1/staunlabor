@@ -22,12 +22,12 @@ import { EXHIBITS, type Exhibit } from "./exhibits";
 
 const KNOWN = new Set<string>(EXHIBITS.map((entry) => entry.exhibit));
 
-/** A list of names, of which only the exhibits that still exist are kept: an
- *  exhibit renamed or withdrawn leaves its old name behind on the device. */
 function isList(value: unknown): value is unknown[] {
   return Array.isArray(value);
 }
 
+/** The stored names, of which only the exhibits that still exist are kept: an
+ *  exhibit renamed or withdrawn leaves its old name behind on the device. */
 function read(): Exhibit[] {
   const stored = readStoredJson(STORAGE.experimentsTried, isList) ?? [];
   return stored.filter((name): name is Exhibit => typeof name === "string" && KNOWN.has(name));

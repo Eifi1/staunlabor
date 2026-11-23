@@ -29,11 +29,10 @@ from __future__ import annotations
 import math
 from dataclasses import dataclass
 
-from staunlabor.domain.experiments.pendulum import G
-from staunlabor.domain.experiments.sphere import RESISTANCE_FADE_M_S
+from staunlabor.domain.experiments.constants import RESISTANCE_FADE_M_S, SOLID_BALL_INERTIA, G
 
-#: 1/(1 + 2/5): the share of a push along the wall that moves a rolling ball.
-SHARE = 5 / 7
+#: 1/(1 + 2/5) = 5/7: the share of a push along the wall that moves a rolling ball.
+SHARE = 1 / (1 + SOLID_BALL_INERTIA)
 
 STEP_S = 1e-3
 

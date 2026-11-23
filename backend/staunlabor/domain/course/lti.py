@@ -142,6 +142,32 @@ def regime(damping: float) -> Regime:
     return Regime.underdamped if abs(damping) < 1 else Regime.overdamped
 
 
+def step_pt1(t: float, tau: float, start: float, final: float) -> float:
+    """``τ·ẏ + y = final`` from ``start``: ``final + (start − final)·e^(−t/τ)``,
+    the first-order step every lesson that has one draws."""
+    return final + (start - final) * math.exp(-t / tau)
+
+
+def free_decay(t: float, x0: float, sigma: float, wd: float) -> float:
+    """An underdamped second-order system let go from ``x0`` at rest:
+    ``x0·e^(−σt)·(cos ω_d t + σ/ω_d·sin ω_d t)``, with ``σ = Dω₀`` and
+    ``ω_d = ω₀√(1 − D²)``. The step response is ``K·(1 − free_decay(t, 1, …))``."""
+    return x0 * math.exp(-sigma * t) * (math.cos(wd * t) + sigma / wd * math.sin(wd * t))
+
+
+def lowpass(values: list[float], a: float) -> list[float]:
+    """A first-order low-pass sampled exactly for an input held over each step,
+    ``y ← a·y + (1 − a)·u`` with ``a = e^(−h/τ)``, starting at the first value so
+    it begins settled. The caller computes ``a`` from its own ``τ`` or corner
+    frequency, so each keeps its own arithmetic to the last bit."""
+    out = []
+    y = values[0]
+    for u in values:
+        y = a * y + (1 - a) * u
+        out.append(y)
+    return out
+
+
 def step_pt2(t: float, gain: float, w0: float, damping: float) -> float:
     """``ÿ + 2Dω₀ẏ + ω₀²y = K·ω₀²·u`` from rest after a unit step, in each of
     the three cases. ``D = 0`` is the undamped oscillation about ``K``; a
@@ -158,7 +184,7 @@ def step_pt2(t: float, gain: float, w0: float, damping: float) -> float:
     if kind is Regime.underdamped:
         wd = w0 * math.sqrt(1 - damping * damping)
         sigma = damping * w0
-        return gain * (1 - math.exp(-sigma * t) * (math.cos(wd * t) + sigma / wd * math.sin(wd * t)))
+        return gain * (1 - free_decay(t, 1.0, sigma, wd))
     q = w0 * math.sqrt(damping * damping - 1)
     s1 = -damping * w0 + q
     s2 = -damping * w0 - q

@@ -10,7 +10,7 @@
  * frame — the run is there so the cases can replay whole sequences.
  */
 
-import { roundHalfEven } from "./sphere";
+import { roundHalfEven } from "./python";
 
 export const SAMPLES_PER_S = 50;
 export const MAX_DURATION_S = 120.0;
@@ -85,7 +85,7 @@ export function frictionStep(momentum: number, frictionNm: number, dt: number): 
 }
 
 /** The posture at `t`: each move blends from where the last left off. */
-export function postureAt(start: Posture, moves: Move[], t: number): Posture {
+function postureAt(start: Posture, moves: Move[], t: number): Posture {
   let lean = start.lean_m;
   for (const move of moves) {
     if (t <= move.at_s) break;

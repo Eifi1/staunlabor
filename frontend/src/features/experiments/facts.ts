@@ -7,7 +7,7 @@
  * equation brings its figure along. The check section's formulas are not
  * counted: they are the cases a calculation is checked against, not the page's.
  *
- * The other figures are counted where the page runs: the built exhibits and
+ * The other figures are counted where the page runs: the exhibits and
  * their topics from `exhibits.ts`, the languages from `languages.ts`, and the
  * checked exhibits from the server's answer.
  */

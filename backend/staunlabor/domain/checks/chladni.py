@@ -12,9 +12,8 @@ from __future__ import annotations
 import math
 
 from staunlabor.domain.checks import Case, Source
+from staunlabor.domain.checks._hand import bisect
 from staunlabor.domain.experiments import chladni as engine
-
-ENGINE = ("chladni",)
 
 #: Poisson's ratio of Leissa's table, and the engine's.
 NU = 0.3
@@ -93,13 +92,7 @@ def _half_swing_hz(side: int) -> float:
     lo, hi = (f1, f1 * 1.01) if side > 0 else (f1 * 0.99, f1)
     target = 1 / math.sqrt(2)
     inside = (lambda f: _swing(f) > target) if side > 0 else (lambda f: _swing(f) < target)
-    for _ in range(60):
-        mid = (lo + hi) / 2
-        if inside(mid):
-            lo = mid
-        else:
-            hi = mid
-    return (lo + hi) / 2
+    return bisect(inside, lo, hi, 60)
 
 
 def _q_run() -> float:

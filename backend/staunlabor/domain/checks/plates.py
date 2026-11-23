@@ -13,12 +13,8 @@ from __future__ import annotations
 import math
 
 from staunlabor.domain.checks import Case, Source
+from staunlabor.domain.checks._hand import G
 from staunlabor.domain.experiments import plates as engine
-
-ENGINE = ("plates",)
-
-#: Standard gravity, as the engine takes it.
-G = 9.80665
 
 _FREE_FALL = Source(
     cite="OpenStax, University Physics Volume 1, §3.5 Free Fall, Eq. 3.16",

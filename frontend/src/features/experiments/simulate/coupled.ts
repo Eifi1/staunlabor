@@ -9,8 +9,9 @@
  * of this port too: no route. A change to the physics is made in Python first.
  */
 
-import { MAX_DURATION_S, STEP_S, G, rk4, sampleEvery } from "./pendulum";
-import { roundHalfEven } from "./sphere";
+import { G } from "./constants";
+import { checkRun, rk4, sampleEvery, STEP_S } from "./numerics";
+import { roundHalfEven, TO_DEG, TO_RAD } from "./python";
 
 export type Start = "one" | "together" | "against";
 
@@ -27,10 +28,7 @@ export interface CoupledPendulums {
   damping_per_s: number;
 }
 
-const TO_RAD = Math.PI / 180.0;
-const TO_DEG = 180.0 / Math.PI;
-
-export function couplings(cp: CoupledPendulums): [number, number] {
+function couplings(cp: CoupledPendulums): [number, number] {
   const ka2 = cp.spring_n_m * cp.spring_at_m ** 2;
   return [ka2 / (cp.left.mass_kg * cp.left.length_m ** 2), ka2 / (cp.right.mass_kg * cp.right.length_m ** 2)];
 }
@@ -113,9 +111,7 @@ export function swing(
   durationS: number,
   stepS = STEP_S,
 ): CoupledRun {
-  if (!(stepS > 0 && stepS <= 0.01)) throw new RangeError("the step lies between 0 and 10 ms");
-  if (!(durationS > 0 && durationS <= MAX_DURATION_S))
-    throw new RangeError(`a run lasts more than nothing and at most ${MAX_DURATION_S} s`);
+  checkRun(durationS, stepS);
   const f = rhs(cp);
   let y = startState(start, amplitudeDeg);
   const steps = roundHalfEven(durationS / stepS);

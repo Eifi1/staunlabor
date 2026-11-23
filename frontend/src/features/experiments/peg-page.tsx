@@ -1,19 +1,21 @@
-import { useEffect, useMemo, useRef, useState, type PointerEvent } from "react";
+import { useMemo, useRef, useState, type PointerEvent } from "react";
 import { useTranslation } from "react-i18next";
-import { Hand, Pause, Play } from "lucide-react";
-import { AlertBanner, Button, ToggleGroup } from "@eifi1/ui-kit";
+import { Hand } from "lucide-react";
+import { AlertBanner, Button } from "@eifi1/ui-kit";
 import { useLocale } from "@/shared/i18n/use-locale";
 import { formatNumber } from "@/shared/lib/format";
-import { useChartHex } from "@/shared/state/palette-store";
+import { useChartHue } from "@/shared/state/palette-store";
 import { holdTouch } from "@/shared/ui/grab";
+import { svgPoint } from "@/shared/ui/svg-point";
 import { SliderField } from "@/shared/ui/slider-field";
 import { Figures, WidgetCard } from "@/shared/ui/widget";
 import { Equation } from "./equation";
 import { ExhibitFrame } from "./exhibit-frame";
 import { BuildPending } from "./build-pending";
 import { PreviewPending, type PreviewMode, type PreviewProps } from "./preview-mode";
-import { startsRunning } from "./play";
-import { settingNumber, useCheckRequest } from "./check-setting";
+import { useFrameLoop, useRunning } from "./play";
+import { RunPauseButton, SpeedToggle } from "./play-controls";
+import { settingNumber, useTakeCheckRequest } from "./check-setting";
 import { HeldAnswer, useHeld, type Held } from "./held";
 import {
   outcome,
@@ -28,9 +30,9 @@ import {
   type PegPendulum,
   type PegState,
 } from "./simulate/peg";
-import { STEP_S } from "./simulate/pendulum";
-import { SIDE } from "./stage";
+import { SIDE, STAGE, VIEW_FRAME } from "./stage";
 import { useExperimentsDefaults } from "./use-experiments";
+import { STEP_S } from "./simulate/numerics";
 
 const SPEEDS = [1, 0.25] as const;
 type Speed = (typeof SPEEDS)[number];
@@ -73,17 +75,14 @@ export function PegPage() {
   };
   // A check case's "Set it up": the whole build at once, and the play, built
   // anew for it, lets the bob go.
-  const request = useCheckRequest("peg");
-  const [seen, setSeen] = useState<number | null>(null);
-  if (request && !request.done && request.nonce !== seen && p) {
-    setSeen(request.nonce);
+  useTakeCheckRequest("peg", p, (setting, current) => {
     setBuild({
-      ...p,
-      length_m: settingNumber(request.setting, "length_m", p.length_m),
-      peg_depth_m: settingNumber(request.setting, "peg_depth_m", p.peg_depth_m),
-      start_deg: settingNumber(request.setting, "start_deg", p.start_deg),
+      ...current,
+      length_m: settingNumber(setting, "length_m", current.length_m),
+      peg_depth_m: settingNumber(setting, "peg_depth_m", current.peg_depth_m),
+      start_deg: settingNumber(setting, "start_deg", current.start_deg),
     });
-  }
+  });
   return (
     <ExhibitFrame
       exhibit="peg"
@@ -147,8 +146,8 @@ function PegView({
   hideSlack?: boolean;
 }) {
   const { t } = useTranslation();
-  const hex = useChartHex();
-  const colour = hex[BOB_HUE % hex.length];
+  const hue = useChartHue();
+  const colour = hue(BOB_HUE);
   const svg = useRef<SVGSVGElement | null>(null);
   // What the pointer holds: a ref for the handlers, which a move can reach
   // before React has drawn the hold; the state for the cursor.
@@ -169,23 +168,9 @@ function PegView({
         ? `M 0 0 L 0 ${p.peg_depth_m} L ${x} ${-y}`
         : // Slack: from the peg to the bob, sagging.
           `M 0 0 L 0 ${p.peg_depth_m} Q ${x / 2} ${(p.peg_depth_m - y) / 2 + length * 0.1} ${x} ${-y}`;
-  // Where the pointer is, in the drawing's metres, y down from the pivot. A
-  // page without the browser's matrix (a test) has the box stand for the view.
-  const pointAt = (clientX: number, clientY: number): [number, number] | null => {
-    const el = svg.current;
-    if (!el) return null;
-    const matrix = el.getScreenCTM?.();
-    if (matrix) {
-      const point = new DOMPoint(clientX, clientY).matrixTransform(matrix.inverse());
-      return [point.x, point.y];
-    }
-    const box = el.getBoundingClientRect();
-    if (!box.width || !box.height) return null;
-    return [
-      -(length + margin) + ((clientX - box.left) / box.width) * 2 * (length + margin),
-      -margin + ((clientY - box.top) / box.height) * (length + 2 * margin),
-    ];
-  };
+  // Where the pointer is, in the drawing's metres, y down from the pivot.
+  const pointAt = (clientX: number, clientY: number): [number, number] | null =>
+    svg.current ? svgPoint(svg.current, clientX, clientY) : null;
   const follow = (clientX: number, clientY: number) => {
     const point = pointAt(clientX, clientY);
     if (!point) return;
@@ -220,7 +205,7 @@ function PegView({
       viewBox={`${-(length + margin)} ${-margin} ${2 * (length + margin)} ${length + 2 * margin}`}
       role="img"
       aria-label={t("experiments.peg.view")}
-      className={`max-h-[60dvh] w-full rounded-lg border border-subtle bg-surface-2 text-muted ${onPeg || onPull ? "select-none" : ""}`}
+      className={`${STAGE.wide} ${VIEW_FRAME} ${onPeg || onPull ? "select-none" : ""}`}
       onPointerMove={(e) => {
         if (holding.current) follow(e.clientX, e.clientY);
       }}
@@ -321,48 +306,35 @@ function PegPlay({
 } & PreviewMode) {
   const { t } = useTranslation();
   const sim = useRef({ s: start(p), clock: 0, owed: 0, trail: [] as Array<[number, number]>, i: 0 });
-  const [runningHere, setRunning] = useState(startsRunning);
+  const { running, setRunning } = useRunning({ preview, paused });
   const [speedHere, setSpeed] = useState<Speed>(1);
   const [frame, setFrame] = useState(() => ({ s: start(p), trail: [] as Array<[number, number]> }));
   const [said, setSaid] = useState<string | null>(null);
-  const running = preview ? !paused : runningHere;
   const speed = preview ? 1 : speedHere;
   const show = held?.show;
 
-  useEffect(() => {
-    if (!running) return;
-    let raf = 0;
-    let last = performance.now();
+  useFrameLoop(running, (dt) => {
     const keep = Math.round(TRAIL_S / (STEP_S * TRAIL_EVERY));
-    const tick = (now: number) => {
-      // A frame's timestamp can lie a little before the effect started: never a
-      // step back in time.
-      const dt = Math.max(0, Math.min(0.05, (now - last) / 1000));
-      last = now;
-      const m = sim.current;
-      m.owed += (dt * speed) / STEP_S;
-      const steps = Math.floor(m.owed);
-      m.owed -= steps;
-      for (let k = 0; k < steps; k++) {
-        const [next, happened] = step(p, m.s, m.clock, STEP_S);
-        m.s = next;
-        m.clock += STEP_S;
-        m.i += 1;
-        if (happened.length) setSaid(happened[happened.length - 1][1]);
-        // Whatever comes after the catch shows the outcome: it swings back
-        // (released), goes slack, or goes over the top.
-        if (happened.some(([, kind]) => kind !== "caught")) show?.();
-        if (m.i % TRAIL_EVERY === 0) {
-          m.trail.push(position(p, m.s));
-          if (m.trail.length > keep) m.trail.shift();
-        }
+    const m = sim.current;
+    m.owed += (dt * speed) / STEP_S;
+    const steps = Math.floor(m.owed);
+    m.owed -= steps;
+    for (let k = 0; k < steps; k++) {
+      const [next, happened] = step(p, m.s, m.clock, STEP_S);
+      m.s = next;
+      m.clock += STEP_S;
+      m.i += 1;
+      if (happened.length) setSaid(happened[happened.length - 1][1]);
+      // Whatever comes after the catch shows the outcome: it swings back
+      // (released), goes slack, or goes over the top.
+      if (happened.some(([, kind]) => kind !== "caught")) show?.();
+      if (m.i % TRAIL_EVERY === 0) {
+        m.trail.push(position(p, m.s));
+        if (m.trail.length > keep) m.trail.shift();
       }
-      setFrame({ s: m.s, trail: [...m.trail] });
-      raf = requestAnimationFrame(tick);
-    };
-    raf = requestAnimationFrame(tick);
-    return () => cancelAnimationFrame(raf);
-  }, [running, speed, p, show]);
+    }
+    setFrame({ s: m.s, trail: [...m.trail] });
+  });
 
   const letGo = () => {
     sim.current = { s: start(p), clock: 0, owed: 0, trail: [], i: 0 };
@@ -386,10 +358,7 @@ function PegPlay({
             <Hand className="size-4" aria-hidden />
             {t("experiments.peg.play.let_go")}
           </Button>
-          <Button variant="secondary" size="sm" onClick={() => setRunning(!running)}>
-            {running ? <Pause className="size-4" aria-hidden /> : <Play className="size-4" aria-hidden />}
-            {running ? t("experiments.peg.play.pause") : t("experiments.peg.play.run")}
-          </Button>
+          <RunPauseButton running={running} onToggle={() => setRunning(!running)} />
         </>
       }
     >
@@ -398,14 +367,7 @@ function PegPlay({
       ) : (
         <div className={`${SIDE.grid} ${SIDE.cap.xl}`}>
           <div className={SIDE.top}>
-            <ToggleGroup
-              label={t("experiments.peg.play.speed")}
-              labelPlacement="above"
-              size="sm"
-              value={String(speed)}
-              onChange={(v: string) => setSpeed(Number(v) as Speed)}
-              options={SPEEDS.map((v) => ({ value: String(v), label: t(`experiments.peg.play.speeds.${v * 100}`) }))}
-            />
+            <SpeedToggle speeds={SPEEDS} value={speed} onChange={setSpeed} />
           </div>
           <div className={`${SIDE.views} mx-auto w-full max-w-xl`}>
             <PegView

@@ -39,16 +39,8 @@ from __future__ import annotations
 import math
 from dataclasses import dataclass
 
-from staunlabor.domain.experiments.pendulum import (
-    MAX_DURATION_S,
-    STEP_S,
-    angle_deg,
-    natural_rate,
-    period_s,
-    rk4,
-    sample_every,
-    swing_rhs,
-)
+from staunlabor.domain.experiments.numerics import MAX_DURATION_S, STEP_S, rk4, sample_every
+from staunlabor.domain.experiments.pendulum import angle_deg, natural_rate, period_s, swing_rhs
 
 #: The ratios a picture is said to be near: p:q with both at most this.
 MAX_RATIO_TERM = 6

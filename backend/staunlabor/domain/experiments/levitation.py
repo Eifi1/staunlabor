@@ -50,7 +50,7 @@ import math
 from dataclasses import dataclass
 from typing import Literal
 
-from staunlabor.domain.experiments.pendulum import G
+from staunlabor.domain.experiments.constants import G
 
 MU0 = 4e-7 * math.pi
 

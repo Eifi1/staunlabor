@@ -103,7 +103,6 @@
       "claim": "First <em>play</em>, then <em>compute</em>.",
       "lead": "Exhibits like those in a science centre – to try out and to work through.",
       "how": "Each page starts with what stands at the exhibit, lets you try it, then shows what happens and the one insight that explains the trick. Every number comes from the app's own engine and is held by its tests.",
-      "coming": "In preparation",
       "credit": "Most exhibits are inspired by exhibits at the Swiss Science Center Technorama, Winterthur.",
       "week": {
         "eyebrow": "Experiment of the week",
@@ -131,7 +130,7 @@
       },
       "selection": {
         "title": "Exhibits",
-        "lead": "The {{count}} newest. A drawing moves as soon as you point at it.",
+        "lead": "A random selection of {{count}}, new on every visit. A drawing moves as soon as you point at it.",
         "all": "All {{count}} exhibits"
       },
       "basics": {
@@ -158,7 +157,6 @@
       "what_happens": "What happens",
       "sweet_spot": "The trick",
       "computed": "How it is computed",
-      "more_at": "More about the exhibit",
       "next": "Next exhibit: {{name}}",
       "onward": "More exhibits",
       "held": "The answer appears here once you have tried it.",
@@ -166,7 +164,23 @@
     },
     "play": {
       "pause": "Pause",
-      "run": "Run"
+      "run": "Run",
+      "restart": "Start again",
+      "speed": "Speed",
+      "speeds": {
+        "0_05": "Slow motion (1/20)",
+        "0_1": "Slow motion (⅒)",
+        "0_25": "Slow motion (¼)",
+        "1": "Real time",
+        "2": "Double",
+        "3": "Threefold",
+        "4": "Fourfold",
+        "5": "Fivefold",
+        "10": "Tenfold",
+        "20": "Twentyfold"
+      },
+      "sound": "Sound",
+      "no_sound": "This browser cannot make sounds."
     },
     "exhibits": {
       "chair": {
@@ -449,9 +463,6 @@
       "play": {
         "title": "At the buttons",
         "hint": "Press and hold + while the car comes into the coil, − as soon as it is past the middle. Too hard at full speed? Slow it down, or let the rule press and watch when it does.",
-        "pause": "Pause",
-        "run": "Run",
-        "restart": "Start again",
         "let_go": "Let the car go",
         "aim": "The aim: get the car up to both flags.",
         "done": "Done: the car has reached both flags.",
@@ -465,12 +476,6 @@
         "time": "Time",
         "autopilot": "Auto: perfect timing",
         "autopilot_hint": "Let the rule press, and watch when it does.",
-        "speed": "Speed",
-        "speeds": {
-          "1": "Real time",
-          "0_25": "¼",
-          "0_1": "⅒"
-        },
         "keys": "On a keyboard: hold + or ← for plus, − or → for minus.",
         "start": "Start: this far left of the coil",
         "start_hint": "{{top}} cm: at the top of the ramp; {{half}} cm: halfway up."
@@ -580,9 +585,6 @@
         "hint_hand": "Drag in the view from above: the sphere follows your finger as a hand would. Circle round the middle — slowly at first, about once a second, then faster as the ball climbs.",
         "hint_circle": "The sphere is pushed round a 2 cm circle at the tempo you set. Change the tempo slowly and the ball follows; change it at once and it falls behind.",
         "hint_perfect": "Here the sphere is pushed with the best timing there is. Watch where the sphere is while the ball climbs, and how fast it goes round in the end.",
-        "pause": "Pause",
-        "run": "Run",
-        "restart": "Start again",
         "tempo": "Tempo",
         "change": "Change the tempo",
         "slowly": "Slowly",
@@ -689,9 +691,6 @@
         "hint": "Push to get turning, then lean out or stand up. The platform turns faster the more upright you stand.",
         "hint_auto": "The visitor leans out, stands up, holds, and leans out again, round after round — watch the speed follow.",
         "push": "Push",
-        "pause": "Pause",
-        "run": "Run",
-        "restart": "Start again",
         "auto": "Auto: lean out and stand up",
         "auto_hint": "Leaning out for three seconds, upright for two and a half, and back — with a push if the platform stands.",
         "lean": "Leaning out",
@@ -795,17 +794,9 @@
         "title": "Let them go",
         "hint": "Start the race and watch where each ball is. As each ball arrives, its place and its time appear, the engine's. At the flag each track ends, and the ball flies on into a padded pit, where all six end up together.",
         "start": "Start",
-        "pause": "Pause",
-        "run": "Run",
         "view": "Six tracks from one start to one finish, a ball on each",
         "auto": "Auto: race again and again",
-        "auto_hint": "The race starts again a moment after the last ball arrives.",
-        "speed": "Speed",
-        "speeds": {
-          "1": "Real time",
-          "0_25": "¼",
-          "0_1": "⅒"
-        }
+        "auto_hint": "The race starts again a moment after the last ball arrives."
       },
       "motion": {
         "hint": "Each ball's velocity and acceleration, as arrows from one point and as numbers: x to the right, y up. On its track gravity speeds a ball along it and the track turns it; in the air every ball falls with g alone, all the arrows alike; in the pit each knock against the lining or another ball is a jolt far off the scale — the mean over 5 ms, drawn dashed, its size in the table.",
@@ -885,9 +876,6 @@
         "title": "At the trunk",
         "hint": "The ball sits on the trunk until the air lifts it. Change the air, tilt the trunk or push the ball, and watch where the air holds it, and when it no longer can.",
         "hint_auto": "The trunk tilts further and further, until the air can no longer hold the ball; then the ball is set back on.",
-        "pause": "Pause",
-        "run": "Run",
-        "restart": "Start again",
         "push_left": "Push left",
         "push_right": "Push right",
         "air": "Air leaving the trunk",
@@ -996,9 +984,6 @@
         "hint": "Drag the ring down and let go, quickly or slowly, or press the button: the pace decides whether a ring flies.",
         "hint_auto": "Three presses in turn: a jab, half a second, and a slow push. Watch what each one sends out of the hole.",
         "press": "Press",
-        "pause": "Pause",
-        "run": "Run",
-        "restart": "Start again",
         "auto": "Auto: three presses",
         "auto_hint": "A jab of {{fast}} s, a press of {{best}} s and a slow push of {{slow}} s, one after another.",
         "duration": "How long the press takes",
@@ -1108,9 +1093,6 @@
         "title": "At the wire",
         "hint": "Drag the stack up in the drawing and let go, or set the height and press Drop: the small ball's climb is marked on the right, and the forces of the impact appear below.",
         "hint_auto": "One ball, then two, then three, each from the same height: watch the top ball's climb grow.",
-        "pause": "Pause",
-        "run": "Run",
-        "restart": "Start again",
         "height": "Height of the bottom ball",
         "drop": "Drop",
         "drag": "Or drag the stack up in the drawing and let go.",
@@ -1213,15 +1195,6 @@
       "play": {
         "title": "Let the row swing",
         "hint": "The clock is running. Jump to a fraction of the cycle, or change how far the pendulums are let go from.",
-        "pause": "Pause",
-        "run": "Run",
-        "restart": "From the start",
-        "speed": "Speed",
-        "speeds": {
-          "1": "Real time",
-          "2": "Double",
-          "5": "Fivefold"
-        },
         "jump": "Jump to:",
         "jumps": {
           "2": "½ cycle",
@@ -1308,17 +1281,9 @@
       "play": {
         "title": "Let it draw",
         "hint": "The pen draws in fast motion. Change the pendulums' ratio below, and a new drawing begins.",
-        "pause": "Pause",
-        "run": "Run",
         "finish": "Finish the drawing",
         "restart": "Draw again",
         "save": "Save picture",
-        "speed": "Speed",
-        "speeds": {
-          "1": "Real time",
-          "5": "Fivefold",
-          "20": "Twentyfold"
-        },
         "time": "Drawn",
         "ratio": "Near the ratio {{p}} : {{q}} (pen : board)",
         "detune": "Off it by",
@@ -1390,13 +1355,6 @@
         "hint_down": "The cone lies at the high end. Let it go and see where it rolls.",
         "hint_stays": "The cone lies at the low end. Let it go and see where it rolls.",
         "let_go": "Let go",
-        "pause": "Pause",
-        "run": "Run",
-        "speed": "Speed",
-        "speeds": {
-          "100": "Real time",
-          "25": "Slow motion (¼)"
-        },
         "verdict_up": "The rails rise, the cone's axis falls: it rolls up.",
         "verdict_down": "The rails rise more steeply than the cone sinks: it rolls down.",
         "verdict_stays": "Axis exactly level: the cone stays where it lies.",
@@ -1480,18 +1438,11 @@
       "play": {
         "title": "Turn the turntable",
         "hint": "Set the speed. The vessel follows at once, the water takes its time – in fast motion you see it catch up.",
-        "pause": "Pause",
-        "run": "Run",
         "stop": "Switch the turntable off",
         "frame": "View from above",
         "frames": {
           "outside": "From outside",
           "turning": "Turning along"
-        },
-        "speed": "Speed",
-        "speeds": {
-          "1": "Real time",
-          "10": "Tenfold"
         },
         "rate": "Turntable speed",
         "rpm": "rpm",
@@ -1571,18 +1522,11 @@
       "play": {
         "title": "Push the pendulums",
         "hint": "Choose how the pendulums are let go. The bars show how much of the energy is in each right now.",
-        "pause": "Pause",
-        "run": "Run",
         "let_go": "Let go:",
         "starts": {
           "one": "The left one only",
           "together": "Both alike",
           "against": "Against each other"
-        },
-        "speed": "Speed",
-        "speeds": {
-          "1": "Real time",
-          "3": "Threefold"
         },
         "energy": "Energy of the two pendulums",
         "left": "Left pendulum",
@@ -1649,13 +1593,6 @@
         "hint": "Drag the peg up or down, or pick one of the three cases below.",
         "drag_hint": "Or take the bob with the mouse or a finger, pull it out and let go.",
         "let_go": "Let go",
-        "pause": "Pause",
-        "run": "Run",
-        "speed": "Speed",
-        "speeds": {
-          "100": "Real time",
-          "25": "Slow motion (¼)"
-        },
         "outcome_same_height": "At the peg the bob rises exactly as high as on the other side.",
         "outcome_slack": "Too much swing for the small circle, too little to go over: the string goes slack.",
         "outcome_over_the_top": "Swing enough: the bob goes right over the peg.",
@@ -1725,14 +1662,6 @@
         "title": "Let the wheel go",
         "hint": "In the slowest motion you see the jerk at the bottom: the strings stretch by a few millimetres and throw the wheel back.",
         "let_go": "Let go",
-        "pause": "Pause",
-        "run": "Run",
-        "speed": "Speed",
-        "speeds": {
-          "100": "Real time",
-          "25": "Slow motion (¼)",
-          "5": "Very slow (1/20)"
-        },
         "phases": {
           "down": "It is rolling down.",
           "jerk": "At the bottom: the strings stretch and throw it back.",
@@ -1812,8 +1741,6 @@
         "title": "Let two pendulums go",
         "hint": "The strong pendulum and its paler twin start almost alike. Watch when they part.",
         "let_go": "Let go",
-        "pause": "Pause",
-        "run": "Run",
         "presets_label": "Start:",
         "presets": {
           "gentle": "Gentle",
@@ -1823,11 +1750,6 @@
         "upper": "Upper arm at the start",
         "lower": "Lower arm at the start",
         "nudge": "The twin's difference",
-        "speed": "Speed",
-        "speeds": {
-          "100": "Real time",
-          "25": "Slow motion (¼)"
-        },
         "time": "Time",
         "gap": "The two are {{gap}} apart"
       },
@@ -1889,19 +1811,11 @@
       "play": {
         "title": "Turn the tap on",
         "hint": "Set the tap to a little water, to more and to a lot, and watch what the wheel does each time.",
-        "pause": "Pause",
-        "run": "Run",
-        "restart": "From the start",
         "tap": "Tap",
         "tap_hint": "ρ: how much water flows in, measured against the leaks and the brake.",
         "brake": "Brake",
         "brake_hint": "σ: how hard the axle brakes, measured against the wheel's inertia and the leaks.",
         "turn_hint": "Or turn the tap's lever and the knob on the axle, the brake, with the mouse or a finger. Letting go starts the wheel from the start.",
-        "speed": "Speed",
-        "speeds": {
-          "1": "Real time",
-          "4": "Fourfold"
-        },
         "regime_still": "Too little water: the leaks carry it off before the top cup grows heavy enough. The wheel stands.",
         "regime_steady": "The wheel turns steadily one way – which way, the first small nudge decides.",
         "regime_chaotic": "Chaos: the wheel finds no steady turning. It changes direction without following a pattern.",
@@ -1955,9 +1869,6 @@
       "play": {
         "title": "Let the Earth turn",
         "hint": "In fast motion you see the plane wander and the pins fall. Choose another place and the pace changes.",
-        "pause": "Pause",
-        "run": "Run",
-        "restart": "From the start",
         "places_label": "Place:",
         "places": {
           "winterthur": "Winterthur",
@@ -2080,19 +1991,11 @@
         "hint": "Let one ball fall, then two, and count how many fly off at the other end.",
         "drag_hint": "Or take one of the left balls with the mouse or a finger, pull it up and let go.",
         "let_go": "Let go",
-        "pause": "Pause",
-        "run": "Continue",
         "lifted": "Balls lifted",
         "spacing": "Between the balls",
         "spacings": {
           "touching": "Touching",
           "gap": "0.1 mm of air"
-        },
-        "speed": "Speed",
-        "speeds": {
-          "100": "Real time",
-          "25": "4× slower",
-          "10": "10× slower"
         },
         "angle": "Lifted by",
         "restitution": "What a collision gives back",
@@ -2153,13 +2056,6 @@
         "hint": "“Circle” pushes the ball off exactly as fast as keeps it on a circle without friction. With friction it sinks lap by lap; the chart holds every lap against Kepler.",
         "launch": "Push off",
         "circle": "Circle",
-        "pause": "Pause",
-        "run": "Continue",
-        "speed": "Speed",
-        "speeds": {
-          "1": "Real time",
-          "4": "4× faster"
-        },
         "push": "Speed of the push",
         "aim": "Direction",
         "aim_hint": "Against the rim's direction, positive towards the hole.",
@@ -2220,19 +2116,12 @@
         "stop": "Stop",
         "sweep": "Sweep",
         "calm": "Settle",
-        "speed": "Speed",
-        "speeds": {
-          "1": "Real time",
-          "4": "4× faster"
-        },
         "beat": "The table's beat",
         "beat_hint": "How many times a second the table goes to and fro.",
         "sweeping": "The beat rises by 0.05 Hz a second; move the slider to stop it.",
         "damping": "Damping",
         "damping_hint": "How fast a rod comes to rest by itself: the share of the damping at which it would not swing at all.",
-        "sound": "Sound",
         "sound_hint": "Each rod sounds at its own frequency, seven octaves up, as loud as it swings.",
-        "no_sound": "This browser cannot make sounds.",
         "widest": "Widest swing",
         "table": "The table, to and fro",
         "rod": "Rod {{n}} ({{hz}} Hz)"
@@ -2289,17 +2178,10 @@
         "title": "Spin and let go",
         "hint": "Let the wheel go still once, then at 200 rpm. Shown four times slower, the axle can be seen nodding.",
         "let_go": "Let go",
-        "pause": "Pause",
-        "run": "Continue",
         "start": "When let go",
         "starts": {
           "rest": "At rest",
           "steady": "Already circling"
-        },
-        "speed": "Speed",
-        "speeds": {
-          "100": "Real time",
-          "25": "4× slower"
         },
         "rpm": "The wheel's spin",
         "rpm_unit": "rpm",
@@ -2412,9 +2294,7 @@
         "tones": "The tones at which the plate rings",
         "drive": "The shaker's tone",
         "drive_hint": "Logarithmic: every equal step is an equal musical interval.",
-        "sound": "Sound",
         "sound_hint": "The shaker's tone, loud when the plate rings, soft between.",
-        "no_sound": "This browser cannot make sounds.",
         "nearest": "The plate's nearest tone",
         "swing": "Swing at the middle",
         "swing_hint": "How hard the plate's middle swings, measured against its swing at the lowest tone."
@@ -2528,16 +2408,9 @@
         "title": "Charge and throw the switch",
         "hint": "The capacitor is charged. Throw the switch over to the coil and watch the needle. The spring below obeys the same equation.",
         "throw": "Throw the switch",
-        "pause": "Pause",
-        "run": "Go on",
         "recharge": "Charge again",
         "charged": "The capacitor is charged to {{voltage}} V; the switch is on the battery.",
         "caption": "Above, the circuit, its meter reading ±{{range}} mA; below, the spring with the mass L, the stiffness 1/C and the friction R.",
-        "speed": "Speed",
-        "speeds": {
-          "real": "Real time",
-          "slow": "Slow motion (¼)"
-        },
         "energy": "Where the energy is",
         "capacitor": "in the capacitor",
         "coil": "in the coil",
@@ -2644,14 +2517,7 @@
         "title": "Let them fall",
         "hint": "The four plates hang at the top of their gaps. Let them all go at once and watch which reaches the bottom first. Beside them, one plate up close, with its eddy currents.",
         "drop": "Let go",
-        "pause": "Pause",
-        "run": "Go on",
         "top": "Back to the top",
-        "speed": "Speed",
-        "speeds": {
-          "real": "Real time",
-          "slow": "Slow motion (¼)"
-        },
         "look": "Up close",
         "caption": "The column from the front, schematic: the magnets beside each gap, north and south in turn; a fall of {{drop}} cm, {{field}} T in the gap.",
         "closeup_caption": "Riding along with the plate: north and south pass behind it, and the eddy currents circle in it.",
@@ -2768,17 +2634,8 @@
         "title": "Let them fall",
         "hint": "Both balls hang over the plate. Let them go and listen: with the sound on, every strike clicks. Below, every strike on a time line.",
         "drop": "Let go",
-        "pause": "Pause",
-        "run": "Go on",
         "top": "Lift them again",
-        "speed": "Speed",
-        "speeds": {
-          "real": "Real time",
-          "slow": "Slow motion (¼)"
-        },
-        "sound": "Sound",
         "sound_hint": "A click at every strike, as loud as the strike. Silent until you turn it on.",
-        "no_sound": "Your browser cannot make sound here.",
         "waiting": "The balls hang over the plate, waiting.",
         "caption": "The balls at true size over the plate, from {{height}} cm; below, every strike on the time line, until both lie still.",
         "time": "Time",
@@ -2922,8 +2779,6 @@
       "play": {
         "title": "Squeeze the bottle",
         "hint": "Squeeze the bottle with the slider. Try to keep the diver hovering in the middle.",
-        "pause": "Pause",
-        "run": "Go on",
         "surface": "Back to the surface",
         "squeeze": "The hand's squeeze",
         "squeeze_hint": "How much the hand raises the pressure in the bottle.",
@@ -3277,9 +3132,7 @@
         "title": "Strike the forks",
         "hint": "Strike both forks and watch – or hear – the tone swell and fade.",
         "strike": "Strike",
-        "sound": "Sound",
         "sound_hint": "Plays the two forks; your ear hears the beats by itself.",
-        "no_sound": "Your browser cannot make a sound here.",
         "caption": "Above, the forks and their sound together in slow motion; below, the loudness since the strike: solid both together, dashed one alone.",
         "slow": "The sound now, {{ms}} ms in slow motion",
         "waiting": "The forks are silent. Strike them.",
@@ -5538,6 +5391,7 @@
     "reviewTranslations": "Review translations",
     "more": "More of the account",
     "areas": {
+      "course": "Basics",
       "experiments": "Exhibits",
       "legal": "Legal"
     },

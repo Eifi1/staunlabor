@@ -58,7 +58,8 @@ import math
 from dataclasses import dataclass
 from typing import Literal
 
-G = 9.80665
+from staunlabor.domain.experiments.constants import G
+
 #: The magnetic constant, in V·s/(A·m).
 MU0 = 4e-7 * math.pi
 

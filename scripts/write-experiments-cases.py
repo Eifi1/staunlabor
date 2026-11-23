@@ -56,6 +56,7 @@ elephant = importlib.import_module("staunlabor.domain.experiments.elephant")
 smoke = importlib.import_module("staunlabor.domain.experiments.smoke")
 cannon = importlib.import_module("staunlabor.domain.experiments.cannon")
 pendulum = importlib.import_module("staunlabor.domain.experiments.pendulum")
+numerics = importlib.import_module("staunlabor.domain.experiments.numerics")
 wave = importlib.import_module("staunlabor.domain.experiments.wave")
 harmonograph = importlib.import_module("staunlabor.domain.experiments.harmonograph")
 cone = importlib.import_module("staunlabor.domain.experiments.cone")
@@ -790,8 +791,13 @@ def _visitor(visitor: Any) -> Any:
 def _pendulum_cases(out: dict[str, Any]) -> None:
     """The pendulum block and the exhibits on it: Jacobi's functions, the exact
     angle, the stepped swing, the wave's lengths and lags."""
+    # The pendulum's constants as `pendulum.ts` spells them; the sampling and
+    # the longest run have moved to `numerics.py`, which every stepped run shares.
     out["constants"]["pendulum"] = {
-        name: getattr(pendulum, name) for name in ("G", "STEP_S", "SAMPLES_PER_S", "MAX_DURATION_S")
+        "G": pendulum.G,
+        "STEP_S": pendulum.STEP_S,
+        "SAMPLES_PER_S": numerics.SAMPLES_PER_S,
+        "MAX_DURATION_S": numerics.MAX_DURATION_S,
     }
     for u, m in JACOBI_POINTS:
         out["jacobi"].append({"u": u, "m": m, "sncndn": list(pendulum.jacobi(u, m))})
@@ -826,7 +832,9 @@ def _cradle_cases(out: dict[str, Any]) -> None:
                 "cr": asdict(cr),
                 "pull": asdict(pull),
                 "impact": asdict(cradle.impact(cr, pull)),
-                "run": thin(asdict(cradle.run(cr, pull, 1.0))),
+                "duration_s": CRADLE_S,
+                "every": _every(cradle),
+                "run": thin(asdict(cradle.run(cr, pull, CRADLE_S))),
             }
         )
 
@@ -841,7 +849,9 @@ def _well_cases(out: dict[str, Any]) -> None:
                     [r, well.circular_speed_m_s(f, r), well.circular_period_s(f, r)]
                     for r in (f.hole_m, f.start_m, f.rim_m)
                 ],
-                "run": thin(asdict(well.run(f, launch, 20.0))),
+                "duration_s": WELL_S,
+                "every": _every(well),
+                "run": thin(asdict(well.run(f, launch, WELL_S))),
             }
         )
 
@@ -862,7 +872,9 @@ def _resonance_cases(out: dict[str, Any]) -> None:
                 "sweep_hz_per_s": sweep,
                 "natural_hz": [resonance.natural_hz(rack, length) for length in rack.lengths_m],
                 "steady_m": [resonance.steady_m(rack, length, drive) for length in rack.lengths_m],
-                "run": thin(asdict(resonance.run(rack, drive, 10.0, sweep))),
+                "duration_s": RESONANCE_S,
+                "every": _every(resonance),
+                "run": thin(asdict(resonance.run(rack, drive, RESONANCE_S, sweep))),
             }
         )
 
@@ -881,7 +893,9 @@ def _gyroscope_cases(out: dict[str, Any]) -> None:
                     if w.rpm > 0
                     else []
                 ),
-                "run": thin(asdict(gyroscope.run(w, release, 5.0))),
+                "duration_s": GYROSCOPE_S,
+                "every": _every(gyroscope),
+                "run": thin(asdict(gyroscope.run(w, release, GYROSCOPE_S))),
             }
         )
 
@@ -1140,11 +1154,53 @@ def _beats_cases(out: dict[str, Any]) -> None:
     }
 
 
+#: Where the Chladni plate's polynomials and modes are evaluated, across its
+#: width, and the tones its answer is asked at.
+CHLADNI_POINTS = (-1.0, -0.6, 0.0, 0.35, 1.0)
+CHLADNI_TONES_HZ = (101.0, 102.4, 180.0, 517.0)
+
+#: How long the cradle, the well, the resonance rack and the gyroscope run.
+CRADLE_S = 1.0
+WELL_S = 20.0
+RESONANCE_S = 10.0
+GYROSCOPE_S = 5.0
+
+
+def _every(module: Any) -> int:
+    """The steps between two samples of a module's `run`, as it takes them."""
+    return max(1, round(1 / (module.SAMPLES_PER_S * module.STEP_S)))
+
+
+def _inputs() -> dict[str, Any]:
+    """What the cases were asked at, where a case holds only the answers: the
+    port asks the same, from here, rather than from a copy of these lists in
+    `simulate.test.ts` that could drift from them unnoticed."""
+    return {
+        "foucault_times": list(FOUCAULT_TIMES),
+        "levitation_heights": list(LEVITATION_HEIGHTS),
+        "circuit_times": list(CIRCUIT_TIMES),
+        "plates": {
+            "times": list(PLATE_TIMES),
+            "depths": list(PLATE_DEPTHS),
+            "points": [list(p) for p in PLATE_POINTS],
+            "terms": PLATE_TERMS,
+        },
+        "bounce_times": list(BOUNCE_TIMES),
+        "diver": {"squeezes": list(DIVER_SQUEEZES), "depths": list(DIVER_DEPTHS)},
+        "colour_wavelengths": list(COLOUR_WAVELENGTHS),
+        "rainbow": {"impacts": list(RAINBOW_IMPACTS), "wavelengths": list(RAINBOW_WAVELENGTHS)},
+        "slits_nm": list(SLITS_NM),
+        # 20 001 times, as their rule rather than written out.
+        "beats_times": {"span_s": 5.0, "steps": 20000},
+        "chladni": {"points": list(CHLADNI_POINTS), "tones_hz": list(CHLADNI_TONES_HZ)},
+    }
+
+
 def _chladni_cases(out: dict[str, Any]) -> None:
     """The polynomials, three driven modes on a 5 × 5 grid, and the plate's
     answer at its first tones and between them: the port evaluates what the
     route sends, and must agree on it."""
-    points = [-1.0, -0.6, 0.0, 0.35, 1.0]
+    points = CHLADNI_POINTS
     plate = chladni.Plate()
     driven = chladni.driven_modes()
     out["chladni"] = {
@@ -1154,9 +1210,7 @@ def _chladni_cases(out: dict[str, Any]) -> None:
         "modes": [{"lam": m.lam, "terms": [list(t) for t in m.terms]} for m in driven],
         "values": [[[chladni.value(m, x, y) for y in points] for x in points] for m in driven[:3]],
         "frequencies_hz": [chladni.frequency_hz(plate, m.lam) for m in driven],
-        "responses": [
-            [chladni.response(plate, driven, f, x, 0.2) for x in points] for f in (101.0, 102.4, 180.0, 517.0)
-        ],
+        "responses": [[chladni.response(plate, driven, f, x, 0.2) for x in points] for f in CHLADNI_TONES_HZ],
     }
 
 
@@ -1439,6 +1493,7 @@ def cases() -> dict[str, Any]:
         "slits": [],
     }
     _second_series(out)
+    out["inputs"] = _inputs()
     for name, case in HARMONOGRAPH_CASES.items():
         h = case["h"]
         step = case.get("step_s", harmonograph.STEP_S)

@@ -8,12 +8,10 @@ from __future__ import annotations
 import math
 
 from staunlabor.domain.checks import Case, Source
+from staunlabor.domain.checks._hand import G, elliptic_k_by_sum
 from staunlabor.domain.experiments import harmonograph as engine
+from staunlabor.domain.experiments import numerics
 from staunlabor.domain.experiments import pendulum as block
-
-ENGINE = ("harmonograph",)
-
-G = 9.80665
 
 _PERIOD = Source(
     cite="NIST Digital Library of Mathematical Functions, §22.19(i), Eqs. 22.19.1–22.19.2",
@@ -60,16 +58,9 @@ def _pendulum(
     )
 
 
-def _k_by_sum(modulus: float, n: int = 20000) -> float:
-    """K(k) = ∫₀^{π/2} dφ/√(1 − k² sin²φ) by the midpoint rule: our own sum,
-    not the engine's arithmetic-geometric mean."""
-    h = math.pi / 2 / n
-    return h * sum(1 / math.sqrt(1 - (modulus * math.sin((j + 0.5) * h)) ** 2) for j in range(n))
-
-
 def _period_hand_s(length_m: float, amplitude_deg: float) -> float:
     """4K(sin(α/2)) in the source's time, whose unit is 1/ω₀ = √(L/g)."""
-    return 4 * math.sqrt(length_m / G) * _k_by_sum(math.sin(math.radians(amplitude_deg) / 2))
+    return 4 * math.sqrt(length_m / G) * elliptic_k_by_sum(math.sin(math.radians(amplitude_deg) / 2))
 
 
 def _ups(p: engine.HarmonographPendulum, seconds: float) -> list[float]:
@@ -77,11 +68,11 @@ def _ups(p: engine.HarmonographPendulum, seconds: float) -> list[float]:
     steps it: when it passes the bottom going up, interpolated between steps."""
     f = block.swing_rhs(p.length_m, p.damping_per_s)
     y, t, out = engine.start(p), 0.0, []
-    for _ in range(round(seconds / block.STEP_S)):
-        nxt = block.rk4(f, t, y, block.STEP_S)
+    for _ in range(round(seconds / numerics.STEP_S)):
+        nxt = numerics.rk4(f, t, y, numerics.STEP_S)
         if y[0] < 0 <= nxt[0]:
-            out.append(t + block.STEP_S * -y[0] / (nxt[0] - y[0]))
-        y, t = nxt, t + block.STEP_S
+            out.append(t + numerics.STEP_S * -y[0] / (nxt[0] - y[0]))
+        y, t = nxt, t + numerics.STEP_S
     return out
 
 
@@ -100,10 +91,10 @@ def _state_at(p: engine.HarmonographPendulum, t_s: float) -> tuple[float, ...]:
     """The page's steps up to ``t_s``, the last one cut to land on it."""
     f = block.swing_rhs(p.length_m, p.damping_per_s)
     y, t = engine.start(p), 0.0
-    for _ in range(int(t_s / block.STEP_S)):
-        y = block.rk4(f, t, y, block.STEP_S)
-        t += block.STEP_S
-    return block.rk4(f, t, y, t_s - t)
+    for _ in range(int(t_s / numerics.STEP_S)):
+        y = numerics.rk4(f, t, y, numerics.STEP_S)
+        t += numerics.STEP_S
+    return numerics.rk4(f, t, y, t_s - t)
 
 
 def _closure_run_m(h: engine.Harmonograph) -> float:
@@ -155,15 +146,15 @@ def _fade_run_s(p: engine.HarmonographPendulum) -> float:
     tenth = math.radians(p.amplitude_deg) / 10
     last: tuple[float, float] | None = None
     while t < 2 * _fade_hand_s(p):
-        nxt = block.rk4(f, t, y, block.STEP_S)
+        nxt = numerics.rk4(f, t, y, numerics.STEP_S)
         if (y[1] > 0 >= nxt[1]) or (y[1] < 0 <= nxt[1]):
             share = y[1] / (y[1] - nxt[1])
-            here = (t + block.STEP_S * share, abs(y[0] + (nxt[0] - y[0]) * share))
+            here = (t + numerics.STEP_S * share, abs(y[0] + (nxt[0] - y[0]) * share))
             if last is not None and last[1] >= tenth > here[1]:
                 drop = (math.log(last[1]) - math.log(tenth)) / (math.log(last[1]) - math.log(here[1]))
                 return last[0] + (here[0] - last[0]) * drop
             last = here
-        y, t = nxt, t + block.STEP_S
+        y, t = nxt, t + numerics.STEP_S
     raise AssertionError("the swing never fell to a tenth")
 
 

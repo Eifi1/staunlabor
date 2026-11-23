@@ -50,8 +50,9 @@
  * already shown. That is also why `since` is the day the exhibit **ships**,
  * not the day it was written: a date in the past would put it into a round
  * that has already begun on the live site. A round of 35 weeks is most of a
- * year, so the front page's newest exhibits, not this pick, are where a new
- * one is first shown.
+ * year, so a new exhibit is first seen in the list of all of them
+ * (`/exhibits`) and among the front page's six drawn at random (`sampled`),
+ * not by this pick.
  *
  * What it deliberately does not do: pick from what this reader has tried. The
  * week's exhibit is one for everybody, so that "this week's" means the same
@@ -108,10 +109,8 @@ export interface WeeklyPick {
   exhibit: Exhibit;
 }
 
-/** Every built exhibit, from the day it ships. */
-const POOL: readonly WeeklyMember[] = EXHIBITS.flatMap((entry) =>
-  entry.path ? [{ exhibit: entry.exhibit, since: entry.since, topics: entry.topics }] : [],
-);
+/** Every exhibit, from the day it ships. */
+const POOL: readonly WeeklyMember[] = EXHIBITS.map(({ exhibit, since, topics }) => ({ exhibit, since, topics }));
 
 /** A calendar day, `YYYY-MM-DD`, as days since 1970-01-01. */
 function dayNumber(day: string): number {

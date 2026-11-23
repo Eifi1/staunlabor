@@ -1,7 +1,7 @@
 import { useDeferredValue, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Switch, ToggleGroup } from "@eifi1/ui-kit";
-import { useChartHex } from "@/shared/state/palette-store";
+import { useChartHue } from "@/shared/state/palette-store";
 import { SliderField } from "@/shared/ui/slider-field";
 import { Figures, WidgetCard } from "@/shared/ui/widget";
 import { Equation } from "./equation";
@@ -19,9 +19,10 @@ import {
   type Shape,
   type Thrust,
 } from "./simulate/arch";
-import { SIDE } from "./stage";
+import { SIDE, VIEW_FRAME } from "./stage";
 import { useExperimentsDefaults } from "./use-experiments";
 import { settingNumber, useCheckSetting } from "./check-setting";
+import { G } from "./simulate/constants";
 
 const SHAPES: readonly Shape[] = ["semicircle", "pointed", "catenary"];
 const LINE_HUE = 0;
@@ -73,7 +74,7 @@ export function ArchPreview() {
 
 function ArchView({ arch, load, line, chain }: { arch: Arch; load: Load; line: Thrust; chain: boolean }) {
   const { t } = useTranslation();
-  const hex = useChartHex();
+  const hue = useChartHue();
   const stones = useMemo(() => blocks(arch), [arch]);
   const c = arch.span_m / 2;
   const h = riseM(arch);
@@ -96,7 +97,7 @@ function ArchView({ arch, load, line, chain }: { arch: Arch; load: Load; line: T
       viewBox={`${-c - pad} ${-top} ${width} ${top + pad * 0.6}`}
       role="img"
       aria-label={t("experiments.arch.view")}
-      className="w-full rounded-lg border border-subtle bg-surface-2 text-muted"
+      className={VIEW_FRAME}
     >
       {/* The abutments the arch springs from. */}
       {[-1, 1].map((side) => (
@@ -124,7 +125,7 @@ function ArchView({ arch, load, line, chain }: { arch: Arch; load: Load; line: T
         <polyline
           points={chainPoints}
           fill="none"
-          stroke={hex[CHAIN_HUE % hex.length]}
+          stroke={hue(CHAIN_HUE)}
           strokeWidth={2}
           strokeDasharray="5 4"
           vectorEffect="non-scaling-stroke"
@@ -133,7 +134,7 @@ function ArchView({ arch, load, line, chain }: { arch: Arch; load: Load; line: T
       <polyline
         points={line.points.map(([x, y]) => `${x},${-y}`).join(" ")}
         fill="none"
-        stroke={hex[LINE_HUE % hex.length]}
+        stroke={hue(LINE_HUE)}
         strokeWidth={2.5}
         vectorEffect="non-scaling-stroke"
       />
@@ -287,7 +288,7 @@ function ArchPlay({ arch, onChange, preview = false }: { arch: Arch; onChange?: 
               {
                 key: "weight",
                 label: t("experiments.arch.play.weight"),
-                value: own / 9.80665,
+                value: own / G,
                 digits: 0,
                 unit: "kg",
               },

@@ -9,7 +9,6 @@ import { exhibitPages, linkPage, linkPages, PREVIEW_SIZE, previewImage, SITE } f
 
 const at = (relative: string) => fileURLToPath(new URL(relative, import.meta.url));
 const INDEX = readFileSync(at("../../../index.html"), "utf8");
-const BUILT = EXHIBITS.filter((entry) => entry.path);
 const PAGES = exhibitPages(EXHIBITS, de.experiments.exhibits);
 
 /** A JPEG's size, from its frame header (SOF0–SOF3). */
@@ -31,7 +30,7 @@ const content = (html: string, attribute: string) => new RegExp(`${attribute} co
 describe("the pages a shared link is read from", () => {
   it("writes one page per exhibit with a page, named for its route", () => {
     const files = linkPages(INDEX, PAGES).map((page) => page.file);
-    expect(files).toEqual(BUILT.map((entry) => `${entry.path!.slice(1)}.html`));
+    expect(files).toEqual(EXHIBITS.map((entry) => `${entry.path.slice(1)}.html`));
   });
 
   it("puts the exhibit's own title, summary, address and picture where a link preview reads them, once each", () => {
@@ -85,7 +84,7 @@ describe("the pages a shared link is read from", () => {
   });
 
   it("has a picture for every card, of the size it says and small enough for WhatsApp to show it large", () => {
-    for (const card of ["overview", ...BUILT.map((entry) => entry.exhibit)]) {
+    for (const card of ["overview", ...EXHIBITS.map((entry) => entry.exhibit)]) {
       const file = at(`../../../public/previews/${card}.jpg`);
       // Missing: `node scripts/write-previews.mjs ${card}`, and commit it.
       expect(existsSync(file), card).toBe(true);

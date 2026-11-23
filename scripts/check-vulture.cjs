@@ -17,19 +17,16 @@
  * and still fails. 60 is the rule of the apps this one comes from, where an
  * unused service function once sat for weeks under a gate run at 80.
  *
- * What is left over is backend/.vulture-baseline, as "path: message" without
- * the line number or the confidence, so an edit above a name is not a change.
- * Lines starting with "#" there are the reasons, and are kept by --update. The
- * check fails when
- *   - an entry appears that is not in the baseline (use it or delete it), or
- *   - a baseline entry is no longer reported (delete the line: the baseline only
- *     ever shrinks).
+ * What is left over is held to backend/.vulture-baseline, as "path: message"
+ * without the line number or the confidence, so an edit above a name is not a
+ * change. The rule (new entries and gone ones both fail), the "#" reasons and
+ * --update are baseline.cjs's, shared with check-ts-prune.cjs:
  * `node scripts/check-vulture.cjs --update` rewrites the baseline — after a
  * deliberate review, never to make the check pass.
  */
 const { execFileSync } = require("child_process");
-const fs = require("fs");
 const path = require("path");
+const { compareWithBaseline } = require("./baseline.cjs");
 
 const BACKEND = path.join(__dirname, "..", "backend");
 const BASELINE = path.join(BACKEND, ".vulture-baseline");
@@ -67,26 +64,4 @@ const current = new Set(
     .map(({ entry }) => entry),
 );
 
-const lines = fs.existsSync(BASELINE) ? fs.readFileSync(BASELINE, "utf8").split("\n").map((line) => line.trim()) : [];
-const reasons = lines.filter((line) => line.startsWith("#"));
-const baseline = new Set(lines.filter((line) => line && !line.startsWith("#")));
-
-if (process.argv.includes("--update")) {
-  fs.writeFileSync(BASELINE, [...reasons, ...[...current].sort()].join("\n") + "\n");
-  console.log(`baseline rewritten: ${current.size} entries`);
-  process.exit(0);
-}
-
-const added = [...current].filter((entry) => !baseline.has(entry)).sort();
-const gone = [...baseline].filter((entry) => !current.has(entry)).sort();
-
-if (added.length) {
-  console.error(`✖ ${added.length} new unused name(s) — use or delete them:`);
-  for (const entry of added) console.error(`  ${entry}`);
-}
-if (gone.length) {
-  console.error(`✖ ${gone.length} baseline entr(y/ies) no longer unused — delete them from backend/.vulture-baseline:`);
-  for (const entry of gone) console.error(`  ${entry}`);
-}
-if (added.length || gone.length) process.exit(1);
-console.log(`vulture: no new unused names (${baseline.size} baselined)`);
+compareWithBaseline({ baselineFile: BASELINE, current, noun: "unused name", tool: "vulture" });

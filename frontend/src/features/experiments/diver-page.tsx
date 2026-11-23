@@ -1,21 +1,22 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { ArrowUp, Pause, Play } from "lucide-react";
+import { ArrowUp } from "lucide-react";
 import { Button, LoadingState } from "@eifi1/ui-kit";
 import { SeriesChart } from "@/shared/charts/series-chart";
 import { useLocale } from "@/shared/i18n/use-locale";
 import { formatNumber } from "@/shared/lib/format";
-import { useChartHex } from "@/shared/state/palette-store";
+import { useChartHue } from "@/shared/state/palette-store";
 import { SliderField } from "@/shared/ui/slider-field";
 import { Figures, WidgetCard } from "@/shared/ui/widget";
 import { Equation } from "./equation";
 import { ExhibitFrame } from "./exhibit-frame";
 import { BuildPending } from "./build-pending";
-import { settingNumber, useCheckRequest, useCheckSetting } from "./check-setting";
+import { settingNumber, useCheckSetting, useTakeCheckRequest } from "./check-setting";
 import { PreviewPending, type PreviewMode, type PreviewProps } from "./preview-mode";
-import { startsRunning } from "./play";
+import { useFrameLoop, useRunning } from "./play";
+import { RunPauseButton } from "./play-controls";
 import { STEP_S, bubbleM3, figures, hoverDepthM, liftN, step, type Bottle, type Diver } from "./simulate/diver";
-import { SIDE } from "./stage";
+import { SIDE, VIEW_FRAME } from "./stage";
 import { useExperimentsDefaults } from "./use-experiments";
 
 /** The hand's squeeze the slider spans, kPa. */
@@ -63,16 +64,13 @@ export function DiverPage() {
   // A check case's "Set it up": the diver's air and the bottle's depth here;
   // the play, built anew for them or already on them, sets the hand and where
   // the diver starts.
-  const request = useCheckRequest("diver");
-  const [seen, setSeen] = useState<number | null>(null);
-  if (request && !request.done && request.nonce !== seen && diver && bottle) {
-    setSeen(request.nonce);
-    const air = settingNumber(request.setting, "air_m3", diver.air_m3);
-    const depth = settingNumber(request.setting, "depth_m", bottle.depth_m);
-    if (air !== diver.air_m3 || depth !== bottle.depth_m) {
-      setBuild({ diver: { ...diver, air_m3: air }, bottle: { depth_m: depth } });
+  useTakeCheckRequest("diver", diver && bottle ? { diver, bottle } : null, (setting, current) => {
+    const air = settingNumber(setting, "air_m3", current.diver.air_m3);
+    const depth = settingNumber(setting, "depth_m", current.bottle.depth_m);
+    if (air !== current.diver.air_m3 || depth !== current.bottle.depth_m) {
+      setBuild({ diver: { ...current.diver, air_m3: air }, bottle: { depth_m: depth } });
     }
-  }
+  });
   return (
     <ExhibitFrame
       exhibit="diver"
@@ -131,7 +129,7 @@ function BottleView({
   squeeze: number;
 }) {
   const { t } = useTranslation();
-  const hex = useChartHex();
+  const hue = useChartHue();
   const y = (z: number) => VIEW.surface + (z / bottle.depth_m) * VIEW.span;
   const hover = hoverDepthM(diver, squeeze);
   const bubble = bubbleM3(diver, depth, squeeze);
@@ -145,14 +143,14 @@ function BottleView({
       viewBox={`0 0 ${VIEW.width} ${VIEW.height}`}
       role="img"
       aria-label={t("experiments.diver.view")}
-      className="w-full rounded-lg border border-subtle bg-surface-2 text-muted"
+      className={VIEW_FRAME}
     >
       <rect
         x={VIEW.left}
         y={VIEW.surface}
         width={VIEW.right - VIEW.left}
         height={VIEW.span}
-        fill={hex[WATER_HUE % hex.length]}
+        fill={hue(WATER_HUE)}
         fillOpacity={0.18}
       />
       <path
@@ -189,7 +187,7 @@ function BottleView({
             y1={y(hover)}
             x2={VIEW.right}
             y2={y(hover)}
-            stroke={hex[HOVER_HUE % hex.length]}
+            stroke={hue(HOVER_HUE)}
             strokeDasharray="4 3"
             vectorEffect="non-scaling-stroke"
           />
@@ -205,7 +203,7 @@ function BottleView({
         width={VIEW.tube}
         height={VIEW.tall}
         rx={VIEW.tube / 2}
-        fill={hex[WATER_HUE % hex.length]}
+        fill={hue(WATER_HUE)}
         fillOpacity={0.35}
         stroke="currentColor"
         strokeWidth={1.5}
@@ -217,7 +215,7 @@ function BottleView({
         width={VIEW.tube - 3}
         height={Math.max(0, air - 1.5)}
         rx={(VIEW.tube - 3) / 2}
-        fill={hex[AIR_HUE % hex.length]}
+        fill={hue(AIR_HUE)}
         fillOpacity={0.6}
       />
     </svg>
@@ -229,13 +227,12 @@ function DiverPlay({ diver, bottle, preview = false, paused = false }: { diver: 
   const locale = useLocale();
   const [frame, setFrame] = useState({ depth: 0, speed: 0, time: 0 });
   const [squeezeKpa, setSqueeze] = useState(0);
-  const [runningHere, setRunning] = useState(startsRunning);
+  const { running, setRunning } = useRunning({ preview, paused });
   const motion = useRef({ depth: 0, speed: 0, time: 0, carry: 0 });
   const hand = useRef(0);
   useEffect(() => {
     hand.current = squeezeKpa * 1000;
   }, [squeezeKpa]);
-  const running = preview ? !paused : runningHere;
   // A case's hand and start, once the page's diver and bottle are the case's:
   // at the surface, on the bottom, or a micrometre below the hover depth, where
   // only the case can put it.
@@ -262,29 +259,19 @@ function DiverPlay({ diver, bottle, preview = false, paused = false }: { diver: 
     return true;
   });
 
-  useEffect(() => {
-    if (!running) return;
-    let raf = 0;
-    let last = performance.now();
-    const tick = (now: number) => {
-      const m = motion.current;
-      // A frame's timestamp can lie a little before the effect started: never a step back in time.
-      m.carry += Math.max(0, Math.min(0.05, (now - last) / 1000));
-      last = now;
-      while (m.carry >= STEP_S) {
-        const squeeze = preview
-          ? PREVIEW_SQUEEZE.mean + PREVIEW_SQUEEZE.swing * Math.sin((2 * Math.PI * m.time) / PREVIEW_SQUEEZE.period)
-          : hand.current;
-        [m.depth, m.speed] = step(diver, bottle, m.depth, m.speed, squeeze);
-        m.time += STEP_S;
-        m.carry -= STEP_S;
-      }
-      setFrame({ depth: m.depth, speed: m.speed, time: m.time });
-      raf = requestAnimationFrame(tick);
-    };
-    raf = requestAnimationFrame(tick);
-    return () => cancelAnimationFrame(raf);
-  }, [running, preview, diver, bottle]);
+  useFrameLoop(running, (dt) => {
+    const m = motion.current;
+    m.carry += dt;
+    while (m.carry >= STEP_S) {
+      const squeeze = preview
+        ? PREVIEW_SQUEEZE.mean + PREVIEW_SQUEEZE.swing * Math.sin((2 * Math.PI * m.time) / PREVIEW_SQUEEZE.period)
+        : hand.current;
+      [m.depth, m.speed] = step(diver, bottle, m.depth, m.speed, squeeze);
+      m.time += STEP_S;
+      m.carry -= STEP_S;
+    }
+    setFrame({ depth: m.depth, speed: m.speed, time: m.time });
+  });
 
   const squeeze = preview
     ? PREVIEW_SQUEEZE.mean + PREVIEW_SQUEEZE.swing * Math.sin((2 * Math.PI * frame.time) / PREVIEW_SQUEEZE.period)
@@ -304,10 +291,7 @@ function DiverPlay({ diver, bottle, preview = false, paused = false }: { diver: 
       hint={t("experiments.diver.play.hint")}
       actions={
         <>
-          <Button variant="secondary" size="sm" onClick={() => setRunning(!runningHere)}>
-            {runningHere ? <Pause className="size-4" aria-hidden /> : <Play className="size-4" aria-hidden />}
-            {runningHere ? t("experiments.diver.play.pause") : t("experiments.diver.play.run")}
-          </Button>
+          <RunPauseButton running={running} onToggle={() => setRunning(!running)} />
           <Button variant="secondary" size="sm" onClick={surface}>
             <ArrowUp className="size-4" aria-hidden />
             {t("experiments.diver.play.surface")}
@@ -395,7 +379,7 @@ function DiverBuild({
 }) {
   const { t } = useTranslation();
   const locale = useLocale();
-  const hex = useChartHex();
+  const hue = useChartHue();
   const shown = figures(diver, bottle);
   const rows = useMemo(
     () =>
@@ -467,14 +451,14 @@ function DiverBuild({
       <SeriesChart
         rows={rows}
         series={[
-          { key: "hover", label: t("experiments.diver.chart.hover"), color: hex[HOVER_HUE % hex.length] },
+          { key: "hover", label: t("experiments.diver.chart.hover"), color: hue(HOVER_HUE) },
           {
             key: "surface",
             label: t("experiments.diver.chart.surface"),
-            color: hex[WATER_HUE % hex.length],
+            color: hue(WATER_HUE),
             dashed: true,
           },
-          { key: "bottom", label: t("experiments.diver.chart.bottom"), color: hex[AIR_HUE % hex.length], dashed: true },
+          { key: "bottom", label: t("experiments.diver.chart.bottom"), color: hue(AIR_HUE), dashed: true },
         ]}
         axes={[
           {
@@ -542,7 +526,7 @@ function DiverModel() {
 function DiverTrick({ diver, bottle }: { diver: Diver; bottle: Bottle }) {
   const { t } = useTranslation();
   const locale = useLocale();
-  const hex = useChartHex();
+  const hue = useChartHue();
   const rows = useMemo(
     () =>
       Array.from({ length: CHART_POINTS }, (_, k) => {
@@ -566,7 +550,7 @@ function DiverTrick({ diver, bottle }: { diver: Diver; bottle: Bottle }) {
         series={TRICK_SQUEEZES.map((kpa, i) => ({
           key: `s${kpa}`,
           label: `${formatNumber(kpa, 0, locale)} kPa`,
-          color: hex[LIFT_HUES[i] % hex.length],
+          color: hue(LIFT_HUES[i]),
         }))}
         axes={[
           {

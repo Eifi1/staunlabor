@@ -22,7 +22,7 @@ import random
 from dataclasses import dataclass
 from enum import StrEnum
 
-from staunlabor.domain.course.lti import linspace
+from staunlabor.domain.course.lti import linspace, step_pt1
 
 #: How many points a smooth curve is drawn with. A chart five hundred pixels
 #: wide cannot show more, and the response is JSON.
@@ -57,7 +57,7 @@ def tank(inflow_lps: float, area_m2: float, outflow_lps_per_m: float, level0_m: 
     tau = 1000 * area_m2 / outflow_lps_per_m
     final = inflow_lps / outflow_lps_per_m
     ts = linspace(0.0, 5 * tau, CURVE_POINTS)
-    levels = [final + (level0_m - final) * math.exp(-t / tau) for t in ts]
+    levels = [step_pt1(t, tau, level0_m, final) for t in ts]
     return TankRun(
         time_s=tuple(ts),
         level_m=tuple(levels),
@@ -107,7 +107,7 @@ def first_order_step(time_constant_s: float, start: float, final: float, at_s: f
     tau = time_constant_s
 
     def y(t: float) -> float:
-        return final + (start - final) * math.exp(-t / tau)
+        return step_pt1(t, tau, start, final)
 
     def fraction(t: float) -> float:
         return 1 - math.exp(-t / tau)
@@ -217,7 +217,7 @@ def first_order_measurement(seed: int) -> Measurement:
     final = round(start + rng.choice((-1, 1)) * rng.uniform(30.0, 60.0), 1)
     noise = 0.01 * abs(final - start)
     ts = linspace(0.0, MEASUREMENT_WINDOW_S, MEASUREMENT_SAMPLES)
-    values = [final + (start - final) * math.exp(-t / tau) + rng.gauss(0.0, noise) for t in ts]
+    values = [step_pt1(t, tau, start, final) + rng.gauss(0.0, noise) for t in ts]
     return Measurement(
         seed=seed,
         time_s=tuple(ts),

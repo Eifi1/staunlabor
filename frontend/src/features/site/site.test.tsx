@@ -1,5 +1,6 @@
 /**
- * The site's own pages: the footer every page ends in, the about page with the
+ * The site's own pages: the frame every page stands in (the header's ways in
+ * and its search), the footer every page ends in, the about page with the
  * one line that names the museum as the model, the imprint and the privacy
  * policy on the kit's legal page, and the 404 for every address that is not a
  * page. The legal pages say only what is true of the site: the exhibits without
@@ -7,7 +8,7 @@
  * no terms.
  */
 import { describe, expect, it } from "vitest";
-import { screen, within } from "@testing-library/react";
+import { fireEvent, screen, within } from "@testing-library/react";
 import { Route, Routes } from "react-router";
 import en from "@/shared/i18n/locales/en.json";
 import { renderWithProviders } from "@/test/render";
@@ -18,9 +19,41 @@ import { ANYPLOT_PALETTE_URL, ANYPLOT_URL } from "./credits";
 import { ImprintPage, PrivacyPage } from "./legal-pages";
 import { ISSUES_URL, OPERATOR, SOURCE_URL } from "./operator";
 import { SiteFooter } from "./site-footer";
+import { SiteLayout } from "./site-layout";
 
 const S = en.site;
 const P = en.legal.privacy;
+
+describe("the frame", () => {
+  it("has the name, the three ways in, the search, the language and the theme in its header", () => {
+    renderWithProviders(<SiteLayout />, { initialEntries: ["/chair"] });
+    const header = screen.getByRole("banner");
+    expect(within(header).getByRole("link", { name: en.app.name })).toHaveAttribute("href", "/");
+    const nav = within(header).getByRole("navigation", { name: S.nav.label });
+    expect(
+      within(nav)
+        .getAllByRole("link")
+        .map((link) => [link.textContent, link.getAttribute("href")]),
+    ).toEqual([
+      [S.nav.exhibits, "/exhibits"],
+      [S.nav.basics, "/basics"],
+      [S.nav.about, "/about"],
+    ]);
+    expect(within(header).getByRole("button", { name: new RegExp(S.search.trigger) })).toBeInTheDocument();
+    // Still no strip of thirty-five exhibits (Marcel, 2026-11-19).
+    expect(within(header).getAllByRole("link")).toHaveLength(4);
+  });
+
+  it("finds an exhibit by its question in the header's search", async () => {
+    renderWithProviders(<SiteLayout />, { initialEntries: ["/chair"] });
+    fireEvent.click(within(screen.getByRole("banner")).getByRole("button", { name: new RegExp(S.search.trigger) }));
+    const field = await screen.findByPlaceholderText(S.search.placeholder);
+    fireEvent.change(field, { target: { value: en.experiments.exhibits.smoke.question } });
+    // A row of the palette, and a real link to the page.
+    const found = await screen.findByRole("option", { name: new RegExp(en.experiments.exhibits.smoke.title) });
+    expect(found).toHaveAttribute("href", "/smoke");
+  });
+});
 
 describe("the footer", () => {
   it("links the site's pages, the code and the issues, and says the licences and the version", () => {
@@ -145,7 +178,7 @@ describe("the routes", () => {
   // `EXHIBITS` names each exhibit's path, and the link pages, the overview and
   // the daily pick all follow it; the routes are written apart from it, and a
   // path without its route would ship a 404 behind a share card.
-  it.each(EXHIBITS.flatMap((entry) => (entry.path ? [[entry.path, entry.exhibit] as const] : [])))(
+  it.each(EXHIBITS.map((entry) => [entry.path, entry.exhibit] as const))(
     "opens %s on its exhibit's page",
     async (path, exhibit) => {
       renderWithProviders(

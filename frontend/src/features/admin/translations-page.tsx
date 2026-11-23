@@ -13,8 +13,8 @@ import { OPERATOR } from "@/features/site/operator";
  * The strings are what the site ships — its seven catalogues and the kit's — so the list
  * cannot drift from what readers see; German is the language the site is written in, and
  * every other one is read against it (English against German too). The areas are the
- * server's `REVIEW_AREAS`: the exhibits, which want a physics teacher as much as a native
- * reader, and the legal pages. Corrections are exported for a developer; the catalogues are
+ * server's `REVIEW_AREAS`: the basics, which want a mathematics teacher, the exhibits, which
+ * want a physics teacher as much as a native reader, and the legal pages. Corrections are exported for a developer; the catalogues are
  * source code. Nothing is kept in the browser.
  *
  * Under the kit's own lead, one sentence of the site's (Marcel, 2026-11-15, in place of
@@ -29,8 +29,12 @@ export function TranslationsPage() {
         loadStrings={loadBundle}
         kitWords={{ operator: OPERATOR }}
         referenceOf={(code) => (code === "de-CH" ? "en" : "de-CH")}
-        reviewAreas={["experiments", "legal"]}
-        areaLabels={{ experiments: t("account.areas.experiments"), legal: t("account.areas.legal") }}
+        reviewAreas={["course", "experiments", "legal"]}
+        areaLabels={{
+          course: t("account.areas.course"),
+          experiments: t("account.areas.experiments"),
+          legal: t("account.areas.legal"),
+        }}
         exportName="staunlabor"
         description={
           <>

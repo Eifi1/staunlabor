@@ -34,7 +34,6 @@ def _number(x: float) -> float:
 def everything() -> dict[str, Any]:
     out: dict[str, Any] = {}
     for exhibit in checks.exhibits():
-        cases = {case.key: case for case in checks.cases(exhibit)}
         out[exhibit] = [
             {
                 "key": r.key,
@@ -44,7 +43,7 @@ def everything() -> dict[str, Any]:
                 "deviation": _number(r.deviation),
                 "tolerance": r.tolerance,
                 "derived": r.derived,
-                "setting": dict(cases[r.key].setting),
+                "setting": dict(r.setting),
                 "sources": [{"cite": s.cite, "url": s.url, "quote": s.quote} for s in r.sources],
             }
             for r in checks.results(exhibit)

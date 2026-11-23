@@ -58,7 +58,9 @@ from __future__ import annotations
 import math
 from dataclasses import dataclass
 
-G = 9.80665
+from staunlabor.domain.experiments.constants import G
+from staunlabor.domain.experiments.numerics import rk4_second_order
+
 RHO = 1.2
 #: A sphere's drag coefficient, in the range of speeds the balls fly at.
 CD = 0.47
@@ -223,20 +225,7 @@ def _rk4(
     stack: BallStack, ks: list[float], y: list[float], v: list[float], closed: list[float], h: float
 ) -> tuple[list[float], list[float]]:
     """All the balls ``h`` on together: the system of equations, one RK4 step."""
-    n = len(y)
-    a1 = _accelerations(stack, ks, y, v, closed)
-    y2 = [y[i] + h / 2 * v[i] for i in range(n)]
-    v2 = [v[i] + h / 2 * a1[i] for i in range(n)]
-    a2 = _accelerations(stack, ks, y2, v2, closed)
-    y3 = [y[i] + h / 2 * v2[i] for i in range(n)]
-    v3 = [v[i] + h / 2 * a2[i] for i in range(n)]
-    a3 = _accelerations(stack, ks, y3, v3, closed)
-    y4 = [y[i] + h * v3[i] for i in range(n)]
-    v4 = [v[i] + h * a3[i] for i in range(n)]
-    a4 = _accelerations(stack, ks, y4, v4, closed)
-    ny = [y[i] + h / 6 * (v[i] + 2 * v2[i] + 2 * v3[i] + v4[i]) for i in range(n)]
-    nv = [v[i] + h / 6 * (a1[i] + 2 * a2[i] + 2 * a3[i] + a4[i]) for i in range(n)]
-    return ny, nv
+    return rk4_second_order(lambda x, u: _accelerations(stack, ks, x, u, closed), y, v, h)
 
 
 # ── the drop ─────────────────────────────────────────────────────────────────

@@ -1,9 +1,10 @@
 /**
  * Each exhibit's page module and what the site takes from it: the page, its
  * preview (`preview-mode.tsx`) and the icon its card wears. One table, typed by
- * `Exhibit`: the routes (`app/routes.tsx`), the overview's previews
- * (`exhibit-preview.tsx`) and its cards (`overview-page.tsx`) all read it, where
- * each kept a list of its own and a new exhibit was three edits.
+ * `Exhibit`: the routes (`app/routes.tsx`), the previews
+ * (`exhibit-preview.tsx`), the cards (`exhibit-cards.tsx`) and the header's
+ * search (`site-search.tsx`) all read it, where each kept a list of its own and
+ * a new exhibit was three edits.
  *
  * Not in `exhibits.ts`, which the build reads (`vite.config.ts`) and which so
  * stays free of React and of the pages. Each module is imported lazily, by a

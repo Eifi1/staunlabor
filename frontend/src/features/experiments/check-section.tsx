@@ -2,6 +2,7 @@ import { useTranslation } from "react-i18next";
 import { BookOpen, ClipboardCheck, SlidersHorizontal } from "lucide-react";
 import { Button, Card, CardHeader, CardTitle, Chip, TextLink } from "@eifi1/ui-kit";
 import { useLocale } from "@/shared/i18n/use-locale";
+import { formatSig, powerOfTen, superscript } from "@/shared/lib/format";
 import { CHECK_FORMULAS } from "./check-formulas";
 import { askCheckSetting } from "./check-setting";
 import { checkCases, type CheckCase } from "./checks";
@@ -11,49 +12,36 @@ import type { Exhibit } from "./exhibits";
 /** The section's anchor, which the check status under the title links to. */
 export const CHECKS_ANCHOR = "check-it";
 
-const SUPERSCRIPT: Record<string, string> = {
-  "-": "⁻",
-  "0": "⁰",
-  "1": "¹",
-  "2": "²",
-  "3": "³",
-  "4": "⁴",
-  "5": "⁵",
-  "6": "⁶",
-  "7": "⁷",
-  "8": "⁸",
-  "9": "⁹",
-};
-
 /** `6.2 · 10⁻¹⁷`: for the tiny numbers a check compares, where fixed decimals
- *  would print a row of zeros. */
+ *  would print a row of zeros. The checks' own look, spaced and with two
+ *  significant digits, where the readouts' `formatPowerOfTen` writes `6.2·10⁻¹⁷`. */
 function scientific(value: number, locale: string): string {
-  const exponent = Math.floor(Math.log10(Math.abs(value)));
-  const mantissa = value / 10 ** exponent;
-  const digits = new Intl.NumberFormat(locale, { maximumSignificantDigits: 2 }).format(mantissa);
-  return `${digits} · 10${[...String(exponent)].map((c) => SUPERSCRIPT[c]).join("")}`;
+  const { mantissa, exponent } = powerOfTen(value);
+  return `${formatSig(mantissa, locale, 2)} · 10${superscript(exponent)}`;
 }
 
-/** Seven significant digits: enough to see where the two values part. */
-export function checkValue(value: number, locale: string): string {
+/** Seven significant digits: enough to see where the two values part. The
+ *  site's minus (`formatSig`), since an expected or measured value can be
+ *  negative. */
+function checkValue(value: number, locale: string): string {
   if (value === 0) return "0";
   if (Math.abs(value) < 1e-4) return scientific(value, locale);
-  return new Intl.NumberFormat(locale, { maximumSignificantDigits: 7 }).format(value);
+  return formatSig(value, locale, 7);
 }
 
 /** A relative deviation as a percentage, or in powers of ten once it is
  *  below a hundredth of a per cent. */
-export function checkShare(share: number, locale: string): string {
+function checkShare(share: number, locale: string): string {
   if (share === 0) return "0";
   if (share < 1e-4) return scientific(share, locale);
-  return `${new Intl.NumberFormat(locale, { maximumSignificantDigits: 2 }).format(share * 100)} %`;
+  return `${formatSig(share * 100, locale, 2)} %`;
 }
 
-const NARROW = "\u202f";
-
+/** A value with its unit, joined by a narrow no-break space so the unit never
+ *  wraps onto a line of its own (the kit's `unit` rule, which wants a number
+ *  where this has the text `checkValue` made). */
 function withUnit(text: string, unit: string): string {
-  // A narrow no-break space, so a unit never wraps onto a line of its own.
-  return unit ? `${text}${NARROW}${unit}` : text;
+  return unit ? `${text}\u202f${unit}` : text;
 }
 
 function CaseCard({ exhibit, item, index }: { exhibit: Exhibit; item: CheckCase; index: number }) {
@@ -137,8 +125,11 @@ function CaseCard({ exhibit, item, index }: { exhibit: Exhibit; item: CheckCase;
           {t("experiments.checks.sources")}
         </p>
         <ul className="space-y-2">
+          {/* Keyed by the quote too: a case may quote one section twice (the
+              chladni's Q, from both of its definitions), and url + cite alone
+              then gave React two children with one key. */}
           {item.sources.map((source) => (
-            <li key={source.url + source.cite} className="space-y-1 text-sm">
+            <li key={`${source.url} ${source.cite} ${source.quote}`} className="space-y-1 text-sm">
               <TextLink href={source.url} target="_blank" rel="noopener">
                 {source.cite}
               </TextLink>

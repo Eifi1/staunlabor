@@ -35,14 +35,8 @@ from __future__ import annotations
 import asyncio
 import json
 from collections import OrderedDict
-from collections.abc import Awaitable, Callable, MutableMapping
-from typing import Any
 
-Scope = MutableMapping[str, Any]
-Message = MutableMapping[str, Any]
-Receive = Callable[[], Awaitable[Message]]
-Send = Callable[[Message], Awaitable[None]]
-ASGIApp = Callable[[Scope, Receive, Send], Awaitable[None]]
+from starlette.types import ASGIApp, Message, Receive, Scope, Send
 
 #: All kept answers together: well inside the backend's 512 MiB, where the
 #: process itself takes about 150 (measured 2026-11-20). The race's answer,

@@ -10,12 +10,8 @@ from __future__ import annotations
 import math
 
 from staunlabor.domain.checks import Case, Source
+from staunlabor.domain.checks._hand import G, elliptic_k_by_sum
 from staunlabor.domain.experiments import sphere as engine
-
-ENGINE = ("sphere",)
-
-#: Standard gravity, as the engine takes it.
-G = 9.80665
 
 _BOWL = Source(
     cite="LibreTexts, General Physics I (Prince George's CC), §44.5 “Ball Rolling in a Bowl”",
@@ -92,13 +88,6 @@ def _swing_hz(sphere: engine.Sphere, amplitude_deg: float, periods: int = 6) -> 
             crossings.append(t - h * y[0] / (y[0] - prev))
         prev = y[0]
     return periods / (crossings[-1] - crossings[0])
-
-
-def _k_by_sum(modulus: float, n: int = 20000) -> float:
-    """K(k) = ∫₀^{π/2} dφ/√(1 − k² sin²φ) by the midpoint rule: a reader's own
-    integral, not the engine's arithmetic-geometric mean."""
-    h = math.pi / 2 / n
-    return h * sum(1 / math.sqrt(1 - (modulus * math.sin((j + 0.5) * h)) ** 2) for j in range(n))
 
 
 def _small_hz(share: float, rho: float) -> float:
@@ -225,7 +214,9 @@ CASES: tuple[Case, ...] = (
     Case(
         key="wide_swing",
         unit="Hz",
-        expected=lambda: _small_hz(5 / 7, _FREE.path_radius_m) * math.pi / (2 * _k_by_sum(math.sin(math.radians(45)))),
+        expected=lambda: (
+            _small_hz(5 / 7, _FREE.path_radius_m) * math.pi / (2 * elliptic_k_by_sum(math.sin(math.radians(45))))
+        ),
         measured=lambda: _swing_hz(_FREE, 90.0),
         tolerance=1e-5,
         sources=(_BOWL, _PERIOD, _AGM),

@@ -16,12 +16,8 @@ import math
 from collections.abc import Callable
 
 from staunlabor.domain.checks import Case, Source
+from staunlabor.domain.checks._hand import G
 from staunlabor.domain.experiments import maxwell as engine
-
-ENGINE = ("maxwell",)
-
-#: Standard gravity, as the engine takes it.
-G = 9.80665
 
 _YOYO = Source(
     cite="UC Santa Barbara Physics, Lecture Demonstrations, 28.33 “Maxwell’s yo-yo”",

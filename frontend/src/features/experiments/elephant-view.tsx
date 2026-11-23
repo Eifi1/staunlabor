@@ -12,8 +12,9 @@
  */
 
 import { useTranslation } from "react-i18next";
-import { useChartHex } from "@/shared/state/palette-store";
+import { useChartHue } from "@/shared/state/palette-store";
 import { axes, width, type Elephant } from "./simulate/elephant";
+import { VIEW_FRAME } from "./stage";
 
 /** How far the drawing reaches, metres: the floor under the elephant, the air above the ball. */
 const LEFT = -0.75;
@@ -53,8 +54,8 @@ export function ElephantView({
   streaks: readonly Streak[];
 }) {
   const { t } = useTranslation();
-  const hex = useChartHex();
-  const brand = hex[0];
+  const hue = useChartHue();
+  const brand = hue(0);
   const jet = elephant.jet;
   const radius = elephant.ball.diameter_m / 2;
   const opening = jet.opening_m;
@@ -77,7 +78,7 @@ export function ElephantView({
       viewBox={`${LEFT} ${-TOP} ${RIGHT - LEFT} ${TOP - FLOOR}`}
       role="img"
       aria-label={t("experiments.elephant.view")}
-      className="aspect-[150/160] w-full rounded-lg border border-subtle bg-surface-2 text-muted"
+      className={`aspect-[150/160] ${VIEW_FRAME}`}
     >
       <line x1={LEFT} x2={RIGHT} y1={-FLOOR} y2={-FLOOR} stroke="currentColor" strokeWidth={0.006} />
       {/* The jet, then the air in it. */}
@@ -115,14 +116,14 @@ export function ElephantView({
       <circle cx={-0.2} cy={0.11} r={0.012} fill="currentColor" />
       {/* The ball: three panels round its centre. */}
       <g transform={`translate(${bx} ${-by})`}>
-        {PANEL_HUES.map((hue, k) => {
+        {PANEL_HUES.map((panel, k) => {
           const a0 = (k * 2 * Math.PI) / 3 - Math.PI / 2;
           const a1 = a0 + (2 * Math.PI) / 3;
           return (
             <path
-              key={hue}
+              key={panel}
               d={`M 0 0 L ${radius * Math.cos(a0)} ${radius * Math.sin(a0)} A ${radius} ${radius} 0 0 1 ${radius * Math.cos(a1)} ${radius * Math.sin(a1)} Z`}
-              fill={hex[hue % hex.length]}
+              fill={hue(panel)}
               fillOpacity={0.85}
             />
           );

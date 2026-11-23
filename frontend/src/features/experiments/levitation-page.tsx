@@ -2,7 +2,7 @@ import { useDeferredValue, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useLocale } from "@/shared/i18n/use-locale";
 import { formatNumber } from "@/shared/lib/format";
-import { useChartHex } from "@/shared/state/palette-store";
+import { useChartHue } from "@/shared/state/palette-store";
 import { SeriesChart } from "@/shared/charts/series-chart";
 import { SliderField } from "@/shared/ui/slider-field";
 import { Figures, WidgetCard } from "@/shared/ui/widget";
@@ -12,7 +12,7 @@ import { BuildPending } from "./build-pending";
 import { settingNumber, useCheckSetting } from "./check-setting";
 import { PreviewPending, type PreviewMode } from "./preview-mode";
 import { hover, liftKg, type Base, type Hover, type Top } from "./simulate/levitation";
-import { SIDE } from "./stage";
+import { SIDE, VIEW_FRAME } from "./stage";
 import { useExperimentsDefaults } from "./use-experiments";
 
 const LIFT_HUE = 0;
@@ -73,7 +73,7 @@ export function LevitationPreview() {
 
 function LevitationView({ base, state }: { base: Base; state: Hover }) {
   const { t } = useTranslation();
-  const hex = useChartHex();
+  const hue = useChartHue();
   const cm = (m: number) => m * 100;
   const r1 = cm(base.inner_radius_m);
   const r2 = cm(base.outer_radius_m);
@@ -87,7 +87,7 @@ function LevitationView({ base, state }: { base: Base; state: Hover }) {
       viewBox={`${-wide} ${-TOP_OF_VIEW_CM} ${2 * wide} ${TOP_OF_VIEW_CM + h + 0.6}`}
       role="img"
       aria-label={t("experiments.levitation.view")}
-      className="w-full rounded-lg border border-subtle bg-surface-2 text-muted"
+      className={VIEW_FRAME}
     >
       {/* The window: the heights where the top can hover. */}
       <rect
@@ -95,7 +95,7 @@ function LevitationView({ base, state }: { base: Base; state: Hover }) {
         y={-cm(state.head_m)}
         width={2 * wide - 0.8}
         height={cm(state.head_m - state.foot_m)}
-        fill={hex[LIFT_HUE % hex.length]}
+        fill={hue(LIFT_HUE)}
         fillOpacity={0.22}
       />
       <line
@@ -155,7 +155,7 @@ function LevitationView({ base, state }: { base: Base; state: Hover }) {
 function LevitationPlay({ base, top, preview = false }: { base: Base; top: Top } & PreviewMode) {
   const { t } = useTranslation();
   const locale = useLocale();
-  const hex = useChartHex();
+  const hue = useChartHue();
   const [massG, setMassG] = useState(top.mass_kg * 1000);
   const [warmingK, setWarmingK] = useState(0);
   // A check case's "Set it up": the top's mass and the warming, all the page
@@ -265,7 +265,7 @@ function LevitationPlay({ base, top, preview = false }: { base: Base; top: Top }
       <WidgetCard title={t("experiments.levitation.chart.title")} hint={t("experiments.levitation.chart.hint")}>
         <SeriesChart
           rows={rows}
-          series={[{ key: "lift", label: t("experiments.levitation.chart.lift"), color: hex[LIFT_HUE % hex.length] }]}
+          series={[{ key: "lift", label: t("experiments.levitation.chart.lift"), color: hue(LIFT_HUE) }]}
           axes={[
             {
               id: "y",

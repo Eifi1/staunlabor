@@ -1,20 +1,22 @@
-import { useEffect, useMemo, useRef, useState, type KeyboardEvent, type PointerEvent } from "react";
+import { useMemo, useRef, useState, type KeyboardEvent, type PointerEvent } from "react";
 import { useTranslation } from "react-i18next";
 import { Button } from "@eifi1/ui-kit";
 import { SeriesChart } from "@/shared/charts/series-chart";
 import { useLocale } from "@/shared/i18n/use-locale";
 import { formatNumber } from "@/shared/lib/format";
-import { useChartHex } from "@/shared/state/palette-store";
+import { useChartHue } from "@/shared/state/palette-store";
 import type { OverhangRequest } from "@/shared/types";
 import { SliderField } from "@/shared/ui/slider-field";
+import { svgPoint } from "@/shared/ui/svg-point";
 import { Figures, WidgetCard } from "@/shared/ui/widget";
 import { Equation } from "./equation";
 import { ExhibitFrame } from "./exhibit-frame";
 import { BuildPending } from "./build-pending";
 import { settingNumber, useCheckSetting } from "./check-setting";
 import { PreviewPending, type PreviewProps } from "./preview-mode";
+import { useFrameLoop } from "./play";
 import { MOST_BLOCKS, blocksFor, even, harmonic, holds, layers, overhang } from "./simulate/overhang";
-import { SIDE } from "./stage";
+import { SIDE, VIEW_FRAME } from "./stage";
 import { useExperimentsDefaults } from "./use-experiments";
 import { HeldAnswer, useHeld } from "./held";
 
@@ -73,18 +75,7 @@ export function OverhangPreview({ paused }: PreviewProps) {
   const defaults = useExperimentsDefaults();
   const data = defaults.data?.overhang;
   const [time, setTime] = useState(0);
-  useEffect(() => {
-    if (paused) return;
-    let raf = 0;
-    let last = performance.now();
-    const tick = (now: number) => {
-      setTime((s) => s + Math.max(0, Math.min(0.05, (now - last) / 1000)));
-      last = now;
-      raf = requestAnimationFrame(tick);
-    };
-    raf = requestAnimationFrame(tick);
-    return () => cancelAnimationFrame(raf);
-  }, [paused]);
+  useFrameLoop(!paused, (dt) => setTime((s) => s + dt));
   if (!data) return <PreviewPending />;
   // Both ends hold, and every stack between: each condition is linear along the way.
   const phase = (time % PREVIEW_LOOP_S) / PREVIEW_LOOP_S;
@@ -105,7 +96,7 @@ function StackView({
 }) {
   const { t } = useTranslation();
   const locale = useLocale();
-  const hex = useChartHex();
+  const hue = useChartHue();
   const svg = useRef<SVGSVGElement>(null);
   const drag = useRef<{ index: number; startX: number; startLeft: number } | null>(null);
   const n = lefts.length;
@@ -127,19 +118,21 @@ function StackView({
       : null;
   const reach = overhang(lefts);
 
-  const toLengths = (clientX: number) => {
-    const m = svg.current?.getScreenCTM();
-    return m ? (clientX - m.e) / m.a / VIEW.scale : clientX / VIEW.scale;
+  // The pointer along the table, in block lengths; only differences are used,
+  // so where the drawing cannot be mapped the screen's pixels stand in.
+  const toLengths = (clientX: number, clientY: number) => {
+    const p = svg.current ? svgPoint(svg.current, clientX, clientY) : null;
+    return (p ? p[0] : clientX) / VIEW.scale;
   };
   const down = (index: number) => (event: PointerEvent<SVGRectElement>) => {
     if (!onMove) return;
     event.currentTarget.setPointerCapture?.(event.pointerId);
-    drag.current = { index, startX: toLengths(event.clientX), startLeft: lefts[index] };
+    drag.current = { index, startX: toLengths(event.clientX, event.clientY), startLeft: lefts[index] };
   };
   const move = (event: PointerEvent<SVGRectElement>) => {
     const d = drag.current;
     if (!d || !onMove) return;
-    onMove(d.index, d.startLeft + toLengths(event.clientX) - d.startX);
+    onMove(d.index, d.startLeft + toLengths(event.clientX, event.clientY) - d.startX);
   };
   const up = () => {
     drag.current = null;
@@ -195,7 +188,7 @@ function StackView({
       cx={x(layer.centre)}
       cy={tableY - i * h}
       r={2.2}
-      fill={hex[(layer.margin >= -1e-12 ? HOLD_HUE : TIP_HUE) % hex.length]}
+      fill={hue(layer.margin >= -1e-12 ? HOLD_HUE : TIP_HUE)}
     />
   );
 
@@ -205,7 +198,7 @@ function StackView({
       viewBox={`0 0 ${VIEW.width} ${height}`}
       role="group"
       aria-label={t("experiments.overhang.view")}
-      className="w-full select-none rounded-lg border border-subtle bg-surface-2 text-muted"
+      className={`select-none ${VIEW_FRAME}`}
     >
       <rect x={0} y={tableY} width={VIEW.edge} height={VIEW.table} className="fill-current" fillOpacity={0.45} />
       <line
@@ -410,7 +403,7 @@ function OverhangModel() {
 function OverhangTrick() {
   const { t } = useTranslation();
   const locale = useLocale();
-  const hex = useChartHex();
+  const hue = useChartHue();
   const rows = useMemo(
     () =>
       Array.from({ length: MOST_BLOCKS }, (_, k) => ({
@@ -437,8 +430,8 @@ function OverhangTrick() {
       <SeriesChart
         rows={rows}
         series={[
-          { key: "furthest", label: t("experiments.overhang.chart.furthest"), color: hex[HARMONIC_HUE % hex.length] },
-          { key: "even", label: t("experiments.overhang.chart.even"), color: hex[EVEN_HUE % hex.length], dashed: true },
+          { key: "furthest", label: t("experiments.overhang.chart.furthest"), color: hue(HARMONIC_HUE) },
+          { key: "even", label: t("experiments.overhang.chart.even"), color: hue(EVEN_HUE), dashed: true },
         ]}
         axes={[
           {

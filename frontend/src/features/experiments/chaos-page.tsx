@@ -1,17 +1,20 @@
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useMemo, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { Hand, Pause, Play } from "lucide-react";
+import { Hand } from "lucide-react";
 import { Button, LoadingState, ToggleGroup, useDebounce } from "@eifi1/ui-kit";
+import { logAxis } from "@/shared/charts/log-axis";
 import { SeriesChart } from "@/shared/charts/series-chart";
 import { useLocale } from "@/shared/i18n/use-locale";
 import { formatNumber, formatPowerOfTen } from "@/shared/lib/format";
-import { useChartHex } from "@/shared/state/palette-store";
+import { useChartHue } from "@/shared/state/palette-store";
 import { SliderField } from "@/shared/ui/slider-field";
 import { Figures, WidgetCard } from "@/shared/ui/widget";
 import { Equation } from "./equation";
 import { ExhibitFrame } from "./exhibit-frame";
 import { BuildPending } from "./build-pending";
-import { settingNumber, useCheckRequest, useCheckSetting, type CheckSetting } from "./check-setting";
+import { sameBuild, settingNumber, useCheckSetting, useTakeCheckRequest, type CheckSetting } from "./check-setting";
+import { useFrameLoop, useRunning } from "./play";
+import { RunPauseButton, SpeedToggle } from "./play-controls";
 import { PreviewPending, type PreviewMode, type PreviewProps } from "./preview-mode";
 import {
   lyapunov,
@@ -24,9 +27,9 @@ import {
   twinOf,
   type DoublePendulum,
 } from "./simulate/chaos";
-import { rk4 } from "./simulate/pendulum";
-import { SIDE } from "./stage";
+import { SIDE, VIEW_FRAME } from "./stage";
 import { useExperimentsDefaults } from "./use-experiments";
+import { rk4 } from "./simulate/numerics";
 
 /** Where the arms start, in degrees from hanging straight down. */
 interface Start {
@@ -96,14 +99,11 @@ export function ChaosPage() {
   // A check case's "Set it up": the build and the start here (the slow mode's
   // lower arm at √2°, finer than the start slider's whole degrees); the play,
   // built anew for them or already on them, lets go.
-  const request = useCheckRequest("chaos");
-  const [seen, setSeen] = useState<number | null>(null);
-  if (request && !request.done && request.nonce !== seen && dp) {
-    setSeen(request.nonce);
-    const next = chaosOf(dp, start, request.setting);
-    if (JSON.stringify(next.dp) !== JSON.stringify(dp)) setBuild(next.dp);
-    if (JSON.stringify(next.start) !== JSON.stringify(start)) setStart(next.start);
-  }
+  useTakeCheckRequest("chaos", dp, (setting, current) => {
+    const next = chaosOf(current, start, setting);
+    if (!sameBuild(next.dp, current)) setBuild(next.dp);
+    if (!sameBuild(next.start, start)) setStart(next.start);
+  });
   return (
     <ExhibitFrame
       exhibit="chaos"
@@ -160,12 +160,12 @@ function ChaosView({
   trail: Array<[number, number]>;
 }) {
   const { t } = useTranslation();
-  const hex = useChartHex();
+  const hue = useChartHue();
   const reach = (dp.length1_m + dp.length2_m) * 1.1;
   const bob = reach * 0.035;
-  const draw = (y: readonly number[], hue: number, opacity: number) => {
+  const draw = (y: readonly number[], index: number, opacity: number) => {
     const [p1, p2] = arms(dp, y);
-    const colour = hex[hue % hex.length];
+    const colour = hue(index);
     return (
       <g opacity={opacity}>
         <polyline
@@ -186,12 +186,12 @@ function ChaosView({
       viewBox={`${-reach} ${-reach} ${2 * reach} ${2 * reach}`}
       role="img"
       aria-label={t("experiments.chaos.view")}
-      className="aspect-square w-full rounded-lg border border-subtle bg-surface-2 text-muted"
+      className={`aspect-square ${VIEW_FRAME}`}
     >
       <polyline
         points={trail.map(([x, y]) => `${x},${y}`).join(" ")}
         fill="none"
-        stroke={hex[MAIN_HUE % hex.length]}
+        stroke={hue(MAIN_HUE)}
         opacity={0.3}
         strokeWidth={1.5}
         vectorEffect="non-scaling-stroke"
@@ -225,51 +225,40 @@ function ChaosPlay({
     return { a, b: twinOf(a, nudge), clock: 0, owed: 0, i: 0, trail: [] as Array<[number, number]> };
   };
   const sim = useRef(begin());
-  const [runningHere, setRunning] = useState(preview);
+  const { running, setRunning } = useRunning({ preview, paused, initially: false });
   const [speedHere, setSpeed] = useState<Speed>(1);
   const [frame, setFrame] = useState(begin);
-  const running = preview ? !paused : runningHere;
   const speed = preview ? 1 : speedHere;
 
-  useEffect(() => {
-    if (!running) return;
-    const f = rhs(dp);
-    // The engine's step for this build and start: 1 ms, or a part of it
-    // where a light upper arm whips round.
+  // The engine's step for this build and start: 1 ms, or a part of it where a
+  // light upper arm whips round.
+  const stepping = useMemo(() => {
     const h = stepFor(dp, start.upper, start.lower);
-    const per = Math.round(TRAIL_EVERY_S / h);
+    return { f: rhs(dp), h, per: Math.round(TRAIL_EVERY_S / h) };
+  }, [dp, start.upper, start.lower]);
+  useFrameLoop(running, (dt) => {
+    const { f, h, per } = stepping;
     const keep = Math.round(TRAIL_S / TRAIL_EVERY_S);
-    let raf = 0;
-    let last = performance.now();
-    const tick = (now: number) => {
-      const dt = Math.max(0, Math.min(0.05, (now - last) / 1000));
-      last = now;
-      const s = sim.current;
-      s.owed += (dt * speed) / h;
-      const steps = Math.floor(s.owed);
-      s.owed -= steps;
-      for (let k = 0; k < steps; k++) {
-        s.a = rk4(f, s.clock, s.a, h);
-        s.b = rk4(f, s.clock, s.b, h);
-        s.clock += h;
-        s.i += 1;
-        if (s.i % per === 0) {
-          s.trail.push(arms(dp, s.a)[1]);
-          if (s.trail.length > keep) s.trail.shift();
-        }
+    const s = sim.current;
+    s.owed += (dt * speed) / h;
+    const steps = Math.floor(s.owed);
+    s.owed -= steps;
+    for (let k = 0; k < steps; k++) {
+      s.a = rk4(f, s.clock, s.a, h);
+      s.b = rk4(f, s.clock, s.b, h);
+      s.clock += h;
+      s.i += 1;
+      if (s.i % per === 0) {
+        s.trail.push(arms(dp, s.a)[1]);
+        if (s.trail.length > keep) s.trail.shift();
       }
-      // The preview starts again after a while: its two have long parted.
-      if (preview && s.clock > 20) sim.current = begin();
-      setFrame({ ...sim.current, trail: [...sim.current.trail] });
-      raf = requestAnimationFrame(tick);
-    };
-    raf = requestAnimationFrame(tick);
-    return () => cancelAnimationFrame(raf);
-    // `begin` reads the start and the nudge, which a new start remounts for.
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [running, speed, dp, preview, start.upper, start.lower]);
+    }
+    // The preview starts again after a while: its two have long parted.
+    if (preview && s.clock > 20) sim.current = begin();
+    setFrame({ ...sim.current, trail: [...sim.current.trail] });
+  });
   useCheckSetting("chaos", (setting) => {
-    if (preview || JSON.stringify(chaosOf(dp, start, setting)) !== JSON.stringify({ dp, start })) return false;
+    if (preview || !sameBuild(chaosOf(dp, start, setting), { dp, start })) return false;
     sim.current = begin();
     setFrame({ ...sim.current });
     setRunning(true);
@@ -293,10 +282,7 @@ function ChaosPlay({
             <Hand className="size-4" aria-hidden />
             {t("experiments.chaos.play.let_go")}
           </Button>
-          <Button variant="secondary" size="sm" onClick={() => setRunning(!running)}>
-            {running ? <Pause className="size-4" aria-hidden /> : <Play className="size-4" aria-hidden />}
-            {running ? t("experiments.chaos.play.pause") : t("experiments.chaos.play.run")}
-          </Button>
+          <RunPauseButton running={running} onToggle={() => setRunning(!running)} />
         </>
       }
     >
@@ -345,14 +331,7 @@ function ChaosPlay({
               label: `${formatNumber(n, Math.max(0, -Math.floor(Math.log10(n))), locale)}°`,
             }))}
           />
-          <ToggleGroup
-            label={t("experiments.chaos.play.speed")}
-            labelPlacement="above"
-            size="sm"
-            value={String(speed)}
-            onChange={(v: string) => setSpeed(Number(v) as Speed)}
-            options={SPEEDS.map((v) => ({ value: String(v), label: t(`experiments.chaos.play.speeds.${v * 100}`) }))}
-          />
+          <SpeedToggle speeds={SPEEDS} value={speed} onChange={setSpeed} />
           <Figures
             tiles={[{ key: "time", label: t("experiments.chaos.play.time"), value: frame.clock, digits: 1, unit: "s" }]}
           />
@@ -461,7 +440,7 @@ function ChaosModel() {
 function ChaosTrick({ dp, start, nudge }: { dp: DoublePendulum | null; start: Start; nudge: Nudge }) {
   const { t } = useTranslation();
   const locale = useLocale();
-  const hex = useChartHex();
+  const hue = useChartHue();
   // Asked again only once the sliders have held still: a measurement is half a
   // minute of two pendulums stepped a millisecond at a time.
   const settled = useDebounce({ dp, start, nudge }, 300, { key: JSON.stringify({ dp, start, nudge }) });
@@ -483,14 +462,8 @@ function ChaosTrick({ dp, start, nudge }: { dp: DoublePendulum | null; start: St
       <p>{t("experiments.chaos.sweet.gap")}</p>
       <SeriesChart
         rows={measured.rows}
-        series={[{ key: "gap", label: t("experiments.chaos.chart.gap"), color: hex[MAIN_HUE % hex.length] }]}
-        axes={[
-          {
-            id: "y",
-            title: t("experiments.chaos.chart.gap"),
-            format: (v) => formatPowerOfTen(10 ** Math.round(v), locale),
-          },
-        ]}
+        series={[{ key: "gap", label: t("experiments.chaos.chart.gap"), color: hue(MAIN_HUE) }]}
+        axes={[logAxis("y", t("experiments.chaos.chart.gap"), locale)]}
         x={{ key: "t", title: `${t("experiments.chaos.chart.time")} (s)`, format: (v) => formatNumber(v, 0, locale) }}
       />
       <p>

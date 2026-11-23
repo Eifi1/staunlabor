@@ -13,9 +13,7 @@ import type { ComponentType } from "react";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { act, fireEvent, screen, waitFor } from "@testing-library/react";
 import en from "@/shared/i18n/locales/en.json";
-import { api } from "@/shared/api/client";
-import { STORAGE } from "@/shared/lib/storage-keys";
-import { mockApi } from "@/test/api-mock";
+import { mockCourse, postCount, posted } from "@/test/course";
 import { renderWithProviders } from "@/test/render";
 import { CheatSheetPage } from "./cheat-sheet";
 import { EigenvaluesLesson } from "./lesson-eigenvalues";
@@ -25,38 +23,11 @@ import { NumericsLesson } from "./lesson-numerics";
 import { SecondOrderLesson } from "./lesson-second-order";
 import { TwoMassLesson } from "./lesson-two-mass";
 import { CourseOverviewPage } from "./overview-page";
-import { useCourseProgress } from "./progress";
-import fixtures from "./test-fixtures.json";
 
 const C = en.course;
 
-beforeEach(() => {
-  mockApi({
-    "GET /course/defaults": fixtures.defaults,
-    "POST /course/tank": fixtures.tank,
-    "POST /course/first-order": fixtures.first_order,
-    "POST /course/first-order/measurement": fixtures.measurement,
-    "POST /course/second-order": fixtures.second_order,
-    "POST /course/second-order/decay": fixtures.decay,
-    "POST /course/eigen/scalar": fixtures.scalar,
-    "POST /course/eigen/poles": fixtures.poles,
-    "POST /course/eigen/matrix": fixtures.matrix,
-    "POST /course/laplace": fixtures.laplace,
-    "POST /course/laplace/chain": fixtures.chain,
-    "POST /course/laplace/filter-loop": fixtures.filter_loop,
-    "POST /course/numerics/sensor": fixtures.sensor,
-    "POST /course/numerics/oscillator": fixtures.oscillator,
-    "POST /course/numerics/stiff": fixtures.stiff,
-    "POST /course/two-mass": fixtures.two_mass,
-    "POST /course/two-mass/compensation": fixtures.compensation,
-  });
-  localStorage.removeItem(STORAGE.courseProgress);
-  useCourseProgress.getState().forget();
-});
+beforeEach(mockCourse);
 afterEach(() => vi.restoreAllMocks());
-
-/** What the page asked of the engine. */
-const posts = () => (api.post as ReturnType<typeof vi.fn>).mock.calls.length;
 
 /** Buttons that open the print dialog, which a test has no use for. */
 const LEAVE = new Set([C.cheat.print]);
@@ -122,13 +93,13 @@ describe("every control", () => {
     await act(async () => {
       await new Promise((resolve) => setTimeout(resolve, 300));
     });
-    const before = posts();
+    const before = postCount();
     await workEverything();
     // Twice, so a control that appeared only after the first round (a mode's
     // sliders, a revealed answer field, an added block) is worked too.
     await workEverything();
     if (Page !== CheatSheetPage) {
-      await waitFor(() => expect(posts()).toBeGreaterThan(before));
+      await waitFor(() => expect(postCount()).toBeGreaterThan(before));
     }
     await putBack();
     expect(screen.getAllByRole("heading").length).toBeGreaterThan(0);
@@ -156,10 +127,7 @@ describe("the pole plane", () => {
     fireEvent.pointerMove(plane, { clientX: 120, clientY: 80 });
     fireEvent.pointerUp(plane);
     await waitFor(() => {
-      const bodies = (api.post as ReturnType<typeof vi.fn>).mock.calls
-        .filter(([url]) => url === "/course/eigen/poles")
-        .map(([, body]) => body);
-      expect(bodies.some((body) => "real" in body && "imag" in body)).toBe(true);
+      expect(posted("/course/eigen/poles").some((body) => "real" in body && "imag" in body)).toBe(true);
     });
   });
 });

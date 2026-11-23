@@ -13,9 +13,8 @@ from __future__ import annotations
 import math
 
 from staunlabor.domain.checks import Case, Source
+from staunlabor.domain.checks._hand import bisect
 from staunlabor.domain.experiments import beats as engine
-
-ENGINE = ("beats",)
 
 _BEATS = Source(
     cite="OpenStax, University Physics Volume 1, §17.6 Beats, Eq. 17.17",
@@ -77,14 +76,7 @@ def _beats_hand() -> float:
 
 def _mode_root() -> float:
     """βL, the first root of cosh x·cos x + 1 = 0, by bisection between 1 and 2."""
-    lo, hi = 1.0, 2.0
-    for _ in range(100):
-        mid = (lo + hi) / 2
-        if math.cosh(mid) * math.cos(mid) + 1 > 0:
-            lo = mid
-        else:
-            hi = mid
-    return (lo + hi) / 2
+    return bisect(lambda x: math.cosh(x) * math.cos(x) + 1 > 0, 1.0, 2.0, 100)
 
 
 def _shape(xi: float, beta: float) -> float:

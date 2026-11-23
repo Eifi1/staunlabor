@@ -103,7 +103,6 @@
       "claim": "Erst <em>spielen</em>, dann <em>rechnen</em>.",
       "lead": "Exponate wie im Science Center – zum Ausprobieren und Nachrechnen.",
       "how": "Jede Seite beginnt mit dem, was am Exponat steht, lässt Sie es ausprobieren und zeigt dann, was geschieht, und die eine Einsicht, die den Trick erklärt. Jede Zahl stammt aus dem Rechenkern der App und ist durch dessen Tests abgesichert.",
-      "coming": "In Vorbereitung",
       "credit": "Die meisten Exponate sind inspiriert von Exponaten im Swiss Science Center Technorama, Winterthur.",
       "week": {
         "eyebrow": "Experiment der Woche",
@@ -131,7 +130,7 @@
       },
       "selection": {
         "title": "Exponate",
-        "lead": "Die {{count}} neuesten. Eine Zeichnung bewegt sich, sobald Sie darauf zeigen.",
+        "lead": "Eine zufällige Auswahl von {{count}}, bei jedem Besuch neu. Eine Zeichnung bewegt sich, sobald Sie darauf zeigen.",
         "all": "Alle {{count}} Exponate"
       },
       "basics": {
@@ -158,7 +157,6 @@
       "what_happens": "Was geschieht",
       "sweet_spot": "Der Trick",
       "computed": "Wie es gerechnet wird",
-      "more_at": "Mehr zum Exponat",
       "next": "Nächstes Exponat: {{name}}",
       "onward": "Weitere Exponate",
       "held": "Die Antwort steht hier, sobald Sie es ausprobiert haben.",
@@ -166,7 +164,23 @@
     },
     "play": {
       "pause": "Anhalten",
-      "run": "Weiter"
+      "run": "Weiter",
+      "restart": "Neu starten",
+      "speed": "Tempo",
+      "speeds": {
+        "0_05": "Zeitlupe (1/20)",
+        "0_1": "Zeitlupe (⅒)",
+        "0_25": "Zeitlupe (¼)",
+        "1": "Echtzeit",
+        "2": "Doppelt",
+        "3": "Dreifach",
+        "4": "Vierfach",
+        "5": "Fünffach",
+        "10": "Zehnfach",
+        "20": "Zwanzigfach"
+      },
+      "sound": "Ton",
+      "no_sound": "Dieser Browser kann keine Töne erzeugen."
     },
     "exhibits": {
       "chair": {
@@ -449,9 +463,6 @@
       "play": {
         "title": "An den Tasten",
         "hint": "Halten Sie + gedrückt, während der Wagen in die Spule fährt, und − sobald er die Mitte passiert hat. In Echtzeit zu schwer? Verlangsamen Sie, oder lassen Sie die Regel drücken und schauen Sie, wann sie es tut.",
-        "pause": "Anhalten",
-        "run": "Weiter",
-        "restart": "Neu starten",
         "let_go": "Wagen loslassen",
         "aim": "Ziel: Bringen Sie den Wagen bis zu beiden Fahnen.",
         "done": "Geschafft: Der Wagen war an beiden Fahnen.",
@@ -465,12 +476,6 @@
         "time": "Zeit",
         "autopilot": "Automatisch: perfektes Timing",
         "autopilot_hint": "Lassen Sie die Regel drücken und schauen Sie zu, wann sie es tut.",
-        "speed": "Tempo",
-        "speeds": {
-          "1": "Echtzeit",
-          "0_25": "¼",
-          "0_1": "⅒"
-        },
         "keys": "Mit der Tastatur: + oder ← für plus halten, − oder → für minus.",
         "start": "Start: so weit links von der Spule",
         "start_hint": "{{top}} cm: oben an der Rampe; {{half}} cm: auf halber Höhe."
@@ -580,9 +585,6 @@
         "hint_hand": "Ziehen Sie in der Ansicht von oben: Die Hohlkugel folgt Ihrem Finger, wie eine Hand es täte. Kreisen Sie um die Mitte – zuerst langsam, etwa einmal pro Sekunde, dann schneller, wenn die Kugel steigt.",
         "hint_circle": "Die Hohlkugel wird auf einem Kreis von 2 cm im eingestellten Tempo geschoben. Ändern Sie das Tempo langsam, folgt die Kugel; ändern Sie es auf einmal, fällt sie zurück.",
         "hint_perfect": "Hier wird die Hohlkugel mit dem bestmöglichen Timing geschoben. Achten Sie darauf, wo die Hohlkugel steht, während die Kugel steigt, und wie schnell sie am Ende kreist.",
-        "pause": "Anhalten",
-        "run": "Weiter",
-        "restart": "Neu starten",
         "tempo": "Tempo",
         "change": "Das Tempo ändern",
         "slowly": "Langsam",
@@ -689,9 +691,6 @@
         "hint": "Schubsen Sie an, dann lehnen Sie sich hinaus oder richten sich auf. Die Scheibe dreht sich umso schneller, je aufrechter Sie stehen.",
         "hint_auto": "Die Person lehnt sich hinaus, richtet sich auf, hält, und lehnt sich wieder hinaus, Runde um Runde – schauen Sie, wie das Tempo folgt.",
         "push": "Anschubsen",
-        "pause": "Anhalten",
-        "run": "Weiter",
-        "restart": "Neu starten",
         "auto": "Automatisch: hinauslehnen und aufrichten",
         "auto_hint": "Drei Sekunden hinausgelehnt, zweieinhalb aufrecht, und zurück – mit einem Schubs, wenn die Scheibe steht.",
         "lean": "Hinauslehnen",
@@ -795,17 +794,9 @@
         "title": "Loslassen",
         "hint": "Starten Sie das Rennen und schauen Sie, wo jede Kugel ist. Sobald eine Kugel ankommt, erscheinen ihr Platz und ihre Zeit, die des Rechenkerns. Bei der Flagge endet jede Bahn, und die Kugel fliegt weiter in ein gepolstertes Auffangbecken, wo alle sechs zusammen landen.",
         "start": "Start",
-        "pause": "Anhalten",
-        "run": "Weiter",
         "view": "Sechs Bahnen von einem Start zu einem Ziel, auf jeder eine Kugel",
         "auto": "Automatisch: immer wieder rennen",
-        "auto_hint": "Das Rennen beginnt neu, kurz nachdem die letzte Kugel angekommen ist.",
-        "speed": "Tempo",
-        "speeds": {
-          "1": "Echtzeit",
-          "0_25": "¼",
-          "0_1": "⅒"
-        }
+        "auto_hint": "Das Rennen beginnt neu, kurz nachdem die letzte Kugel angekommen ist."
       },
       "motion": {
         "hint": "Geschwindigkeit und Beschleunigung jeder Kugel, als Pfeile von einem Punkt aus und als Zahlen: x nach rechts, y nach oben. Auf der Bahn treibt die Schwerkraft die Kugel entlang der Bahn an, und die Bahn lenkt sie um; in der Luft fällt jede Kugel allein mit g, alle Pfeile gleich; im Becken ist jeder Stoss gegen die Polsterung oder eine andere Kugel ein Ruck weit über die Skala hinaus – das Mittel über 5 ms, gestrichelt gezeichnet, seine Grösse in der Tabelle.",
@@ -885,9 +876,6 @@
         "title": "Am Rüssel",
         "hint": "Der Ball liegt auf dem Rüssel, bis die Luft ihn hebt. Ändern Sie die Luft, neigen Sie den Rüssel oder stossen Sie den Ball an, und sehen Sie, wo die Luft ihn hält und wann sie es nicht mehr kann.",
         "hint_auto": "Der Rüssel neigt sich immer weiter, bis die Luft den Ball nicht mehr halten kann; dann wird der Ball wieder aufgesetzt.",
-        "pause": "Pause",
-        "run": "Weiter",
-        "restart": "Neu beginnen",
         "push_left": "Nach links stossen",
         "push_right": "Nach rechts stossen",
         "air": "Luft aus dem Rüssel",
@@ -996,9 +984,6 @@
         "hint": "Ziehen Sie den Ring hinunter und lassen Sie los, schnell oder langsam, oder drücken Sie die Taste: Das Tempo entscheidet, ob ein Ring fliegt.",
         "hint_auto": "Drei Drücke nacheinander: ein Stoss, eine halbe Sekunde und ein langsames Drücken. Schauen Sie, was jeder aus dem Loch schickt.",
         "press": "Drücken",
-        "pause": "Pause",
-        "run": "Weiter",
-        "restart": "Neu beginnen",
         "auto": "Automatisch: drei Drücke",
         "auto_hint": "Ein Stoss von {{fast}} s, ein Druck von {{best}} s und ein langsames Drücken von {{slow}} s, nacheinander.",
         "duration": "Dauer des Drucks",
@@ -1108,9 +1093,6 @@
         "title": "Am Draht",
         "hint": "Ziehen Sie den Stapel in der Zeichnung hoch und lassen Sie los, oder stellen Sie die Höhe ein und drücken Sie «Fallen lassen»: Der Aufstieg der kleinen Kugel ist rechts markiert, und darunter erscheinen die Kräfte beim Aufprall.",
         "hint_auto": "Eine Kugel, dann zwei, dann drei, jedes Mal aus derselben Höhe: Sehen Sie, wie der Aufstieg der obersten wächst.",
-        "pause": "Anhalten",
-        "run": "Weiter",
-        "restart": "Neu beginnen",
         "height": "Höhe der untersten Kugel",
         "drop": "Fallen lassen",
         "drag": "Oder ziehen Sie den Stapel in der Zeichnung hoch und lassen Sie los.",
@@ -1213,15 +1195,6 @@
       "play": {
         "title": "Die Reihe schwingen lassen",
         "hint": "Die Uhr läuft. Springen Sie zu einem Bruchteil des Zyklus, oder ändern Sie, wie weit die Pendel losgelassen werden.",
-        "pause": "Anhalten",
-        "run": "Weiter",
-        "restart": "Von vorn",
-        "speed": "Tempo",
-        "speeds": {
-          "1": "Echtzeit",
-          "2": "Doppelt",
-          "5": "Fünffach"
-        },
         "jump": "Springen zu:",
         "jumps": {
           "2": "½ Zyklus",
@@ -1308,17 +1281,9 @@
       "play": {
         "title": "Zeichnen lassen",
         "hint": "Der Stift zeichnet im Zeitraffer. Ändern Sie unten das Verhältnis der Pendel, und eine neue Zeichnung beginnt.",
-        "pause": "Anhalten",
-        "run": "Weiter",
         "finish": "Fertig zeichnen",
         "restart": "Neu zeichnen",
         "save": "Bild speichern",
-        "speed": "Tempo",
-        "speeds": {
-          "1": "Echtzeit",
-          "5": "Fünffach",
-          "20": "Zwanzigfach"
-        },
         "time": "Gezeichnet",
         "ratio": "Nahe am Verhältnis {{p}} : {{q}} (Stift : Brett)",
         "detune": "Abweichung davon",
@@ -1390,13 +1355,6 @@
         "hint_down": "Der Kegel liegt am hohen Ende. Lassen Sie ihn los und schauen Sie, wohin er rollt.",
         "hint_stays": "Der Kegel liegt am tiefen Ende. Lassen Sie ihn los und schauen Sie, wohin er rollt.",
         "let_go": "Loslassen",
-        "pause": "Anhalten",
-        "run": "Weiter",
-        "speed": "Tempo",
-        "speeds": {
-          "100": "Echtzeit",
-          "25": "Zeitlupe (¼)"
-        },
         "verdict_up": "Die Schienen steigen, die Achse des Kegels fällt: Er rollt hinauf.",
         "verdict_down": "Die Schienen steigen steiler, als der Kegel sinkt: Er rollt hinunter.",
         "verdict_stays": "Achse genau waagrecht: Der Kegel bleibt liegen.",
@@ -1480,18 +1438,11 @@
       "play": {
         "title": "Den Drehteller drehen",
         "hint": "Stellen Sie die Drehzahl ein. Das Gefäss folgt sofort, das Wasser braucht seine Zeit – im Zeitraffer sehen Sie es nachziehen.",
-        "pause": "Anhalten",
-        "run": "Weiter",
         "stop": "Drehteller abstellen",
         "frame": "Ansicht von oben",
         "frames": {
           "outside": "Von aussen",
           "turning": "Mitdrehend"
-        },
-        "speed": "Tempo",
-        "speeds": {
-          "1": "Echtzeit",
-          "10": "Zehnfach"
         },
         "rate": "Drehzahl des Tellers",
         "rpm": "U/min",
@@ -1571,18 +1522,11 @@
       "play": {
         "title": "Die Pendel anstossen",
         "hint": "Wählen Sie, wie die Pendel losgelassen werden. Die Balken zeigen, wie viel der Energie gerade in jedem steckt.",
-        "pause": "Anhalten",
-        "run": "Weiter",
         "let_go": "Loslassen:",
         "starts": {
           "one": "Nur das linke",
           "together": "Beide gleich",
           "against": "Gegeneinander"
-        },
-        "speed": "Tempo",
-        "speeds": {
-          "1": "Echtzeit",
-          "3": "Dreifach"
         },
         "energy": "Energie der beiden Pendel",
         "left": "Linkes Pendel",
@@ -1649,13 +1593,6 @@
         "hint": "Ziehen Sie den Stift nach oben oder unten, oder wählen Sie unten einen der drei Fälle.",
         "drag_hint": "Oder fassen Sie die Kugel mit der Maus oder dem Finger, lenken Sie sie aus und lassen Sie los.",
         "let_go": "Loslassen",
-        "pause": "Anhalten",
-        "run": "Weiter",
-        "speed": "Tempo",
-        "speeds": {
-          "100": "Echtzeit",
-          "25": "Zeitlupe (¼)"
-        },
         "outcome_same_height": "Die Kugel steigt am Stift genau so hoch wie auf der anderen Seite.",
         "outcome_slack": "Zu viel Schwung für den kleinen Kreis, zu wenig für den Überschlag: Der Faden wird schlaff.",
         "outcome_over_the_top": "Genug Schwung: Die Kugel überschlägt sich um den Stift.",
@@ -1725,14 +1662,6 @@
         "title": "Das Rad loslassen",
         "hint": "In der langsamsten Zeitlupe sehen Sie den Ruck unten: Die Bänder dehnen sich um wenige Millimeter und werfen das Rad zurück.",
         "let_go": "Loslassen",
-        "pause": "Anhalten",
-        "run": "Weiter",
-        "speed": "Tempo",
-        "speeds": {
-          "100": "Echtzeit",
-          "25": "Zeitlupe (¼)",
-          "5": "Starke Zeitlupe (1/20)"
-        },
         "phases": {
           "down": "Es rollt sich ab.",
           "jerk": "Unten: Die Bänder dehnen sich und werfen es zurück.",
@@ -1812,8 +1741,6 @@
         "title": "Zwei Pendel loslassen",
         "hint": "Das kräftige Pendel und sein blasserer Zwilling starten fast gleich. Achten Sie darauf, wann sie sich trennen.",
         "let_go": "Loslassen",
-        "pause": "Anhalten",
-        "run": "Weiter",
         "presets_label": "Start:",
         "presets": {
           "gentle": "Sanft",
@@ -1823,11 +1750,6 @@
         "upper": "Oberer Arm beim Start",
         "lower": "Unterer Arm beim Start",
         "nudge": "Unterschied des Zwillings",
-        "speed": "Tempo",
-        "speeds": {
-          "100": "Echtzeit",
-          "25": "Zeitlupe (¼)"
-        },
         "time": "Zeit",
         "gap": "Abstand der beiden: {{gap}}"
       },
@@ -1889,19 +1811,11 @@
       "play": {
         "title": "Den Hahn aufdrehen",
         "hint": "Stellen Sie den Hahn auf wenig, auf mehr und auf viel Wasser und schauen Sie, was das Rad jeweils tut.",
-        "pause": "Anhalten",
-        "run": "Weiter",
-        "restart": "Von vorn",
         "tap": "Hahn",
         "tap_hint": "ρ: wie viel Wasser zuläuft, gemessen an Lecks und Bremse.",
         "brake": "Bremse",
         "brake_hint": "σ: wie stark die Achse bremst, gemessen an der Trägheit des Rads und den Lecks.",
         "turn_hint": "Oder drehen Sie mit der Maus oder dem Finger den Hebel am Hahn und den Knopf an der Achse, die Bremse. Beim Loslassen startet das Rad von vorn.",
-        "speed": "Tempo",
-        "speeds": {
-          "1": "Echtzeit",
-          "4": "Vierfach"
-        },
         "regime_still": "Zu wenig Wasser: Die Lecks tragen es ab, bevor der obere Becher schwer genug wird. Das Rad steht.",
         "regime_steady": "Das Rad dreht gleichmässig in eine Richtung – in welche, entscheidet der erste kleine Anstoss.",
         "regime_chaotic": "Chaos: Das Rad findet in kein gleichmässiges Drehen. Es wechselt die Richtung, ohne einem Muster zu folgen.",
@@ -1955,9 +1869,6 @@
       "play": {
         "title": "Die Erde drehen lassen",
         "hint": "Im Zeitraffer sehen Sie, wie die Ebene wandert und die Kegel fallen. Wählen Sie einen anderen Ort, und das Tempo ändert sich.",
-        "pause": "Anhalten",
-        "run": "Weiter",
-        "restart": "Von vorn",
         "places_label": "Ort:",
         "places": {
           "winterthur": "Winterthur",
@@ -2080,19 +1991,11 @@
         "hint": "Lassen Sie eine Kugel fallen, dann zwei, und zählen Sie, wie viele am anderen Ende wegfliegen.",
         "drag_hint": "Oder fassen Sie eine der linken Kugeln mit der Maus oder dem Finger, ziehen Sie sie hoch und lassen Sie los.",
         "let_go": "Loslassen",
-        "pause": "Anhalten",
-        "run": "Weiter",
         "lifted": "Angehobene Kugeln",
         "spacing": "Zwischen den Kugeln",
         "spacings": {
           "touching": "Berühren sich",
           "gap": "0,1 mm Luft"
-        },
-        "speed": "Tempo",
-        "speeds": {
-          "100": "Echtzeit",
-          "25": "4× langsamer",
-          "10": "10× langsamer"
         },
         "angle": "Auslenkung",
         "restitution": "Was ein Stoss zurückgibt",
@@ -2153,13 +2056,6 @@
         "hint": "«Kreisbahn» stösst die Kugel genau so schnell an, dass sie ohne Reibung im Kreis bliebe. Mit Reibung sinkt sie Runde für Runde; das Diagramm vergleicht jede Runde mit Kepler.",
         "launch": "Anstossen",
         "circle": "Kreisbahn",
-        "pause": "Anhalten",
-        "run": "Weiter",
-        "speed": "Tempo",
-        "speeds": {
-          "1": "Echtzeit",
-          "4": "4× schneller"
-        },
         "push": "Tempo des Anstosses",
         "aim": "Richtung",
         "aim_hint": "Gegen die Richtung des Rands, positiv zum Loch hin.",
@@ -2220,19 +2116,12 @@
         "stop": "Anhalten",
         "sweep": "Durchfahren",
         "calm": "Zur Ruhe",
-        "speed": "Tempo",
-        "speeds": {
-          "1": "Echtzeit",
-          "4": "4× schneller"
-        },
         "beat": "Takt des Tisches",
         "beat_hint": "Wie oft der Tisch in der Sekunde hin und her geht.",
         "sweeping": "Der Takt steigt um 0,05 Hz pro Sekunde; ziehen Sie den Regler, um anzuhalten.",
         "damping": "Dämpfung",
         "damping_hint": "Wie schnell ein Stab von selbst zur Ruhe kommt: der Anteil der Dämpfung, bei der er gar nicht mehr schwingen würde.",
-        "sound": "Ton",
         "sound_hint": "Jeder Stab klingt mit seiner Eigenfrequenz, sieben Oktaven höher, und so laut, wie er schwingt.",
-        "no_sound": "Dieser Browser kann keine Töne erzeugen.",
         "widest": "Weitester Ausschlag",
         "table": "Der Tisch, hin und her",
         "rod": "Stab {{n}} ({{hz}} Hz)"
@@ -2289,17 +2178,10 @@
         "title": "Drehen und loslassen",
         "hint": "Lassen Sie das Rad einmal still los, dann mit 200 U/min. Viermal langsamer gezeigt, sieht man die Achse nicken.",
         "let_go": "Loslassen",
-        "pause": "Anhalten",
-        "run": "Weiter",
         "start": "Beim Loslassen",
         "starts": {
           "rest": "In Ruhe",
           "steady": "Schon im Kreis"
-        },
-        "speed": "Tempo",
-        "speeds": {
-          "100": "Echtzeit",
-          "25": "4× langsamer"
         },
         "rpm": "Drehzahl des Rads",
         "rpm_unit": "U/min",
@@ -2412,9 +2294,7 @@
         "tones": "Die Töne, bei denen die Platte klingt",
         "drive": "Ton des Rüttlers",
         "drive_hint": "Logarithmisch: jeder gleiche Schritt ist ein gleiches Tonintervall.",
-        "sound": "Ton",
         "sound_hint": "Der Ton des Rüttlers, laut, wenn die Platte klingt, leise dazwischen.",
-        "no_sound": "Dieser Browser kann keine Töne erzeugen.",
         "nearest": "Nächster Ton der Platte",
         "swing": "Schwingung in der Mitte",
         "swing_hint": "Wie stark die Mitte der Platte schwingt, gemessen an ihrem Schwingen beim tiefsten Ton."
@@ -2528,16 +2408,9 @@
         "title": "Laden und umschalten",
         "hint": "Der Kondensator ist geladen. Legen Sie den Schalter zur Spule um und sehen Sie dem Zeiger zu. Das Federpendel darunter folgt derselben Gleichung.",
         "throw": "Umschalten",
-        "pause": "Anhalten",
-        "run": "Weiter",
         "recharge": "Neu laden",
         "charged": "Der Kondensator ist auf {{voltage}} V geladen; der Schalter steht auf der Batterie.",
         "caption": "Oben der Schwingkreis, der Strommesser mit ±{{range}} mA Messbereich; unten das Federpendel mit der Masse L, der Federhärte 1/C und der Reibung R.",
-        "speed": "Tempo",
-        "speeds": {
-          "real": "Echtzeit",
-          "slow": "Zeitlupe (¼)"
-        },
         "energy": "Wo die Energie steckt",
         "capacitor": "im Kondensator",
         "coil": "in der Spule",
@@ -2644,14 +2517,7 @@
         "title": "Fallen lassen",
         "hint": "Die vier Platten hängen oben im Spalt. Lassen Sie sie gleichzeitig los und sehen Sie zu, welche zuerst unten ist. Daneben sehen Sie eine Platte aus der Nähe, mit ihren Wirbelströmen.",
         "drop": "Loslassen",
-        "pause": "Anhalten",
-        "run": "Weiter",
         "top": "Wieder nach oben",
-        "speed": "Tempo",
-        "speeds": {
-          "real": "Echtzeit",
-          "slow": "Zeitlupe (¼)"
-        },
         "look": "Aus der Nähe",
         "caption": "Die Säule von vorn, schematisch: die Magnete neben jedem Spalt, Nord und Süd im Wechsel; {{drop}} cm Fallweg, {{field}} T im Spalt.",
         "closeup_caption": "Mit der Platte mitfahrend: Hinter ihr ziehen Nord und Süd vorbei, in ihr kreisen die Wirbelströme.",
@@ -2768,17 +2634,8 @@
         "title": "Fallen lassen",
         "hint": "Beide Kugeln hängen über der Platte. Lassen Sie sie los und hören Sie zu: Mit eingeschaltetem Ton klickt jeder Schlag. Darunter steht jeder Schlag auf einer Zeitachse.",
         "drop": "Loslassen",
-        "pause": "Anhalten",
-        "run": "Weiter",
         "top": "Wieder hochheben",
-        "speed": "Tempo",
-        "speeds": {
-          "real": "Echtzeit",
-          "slow": "Zeitlupe (¼)"
-        },
-        "sound": "Ton",
         "sound_hint": "Ein Klick bei jedem Schlag, so laut wie der Schlag. Stumm, bis Sie ihn einschalten.",
-        "no_sound": "Ihr Browser kann hier keinen Ton erzeugen.",
         "waiting": "Die Kugeln hängen über der Platte und warten.",
         "caption": "Die Kugeln in wahrer Grösse über der Platte, aus {{height}} cm; darunter jeder Schlag auf der Zeitachse, bis beide stillliegen.",
         "time": "Zeit",
@@ -2922,8 +2779,6 @@
       "play": {
         "title": "Die Flasche drücken",
         "hint": "Drücken Sie die Flasche mit dem Regler. Versuchen Sie, den Taucher in der Mitte schweben zu lassen.",
-        "pause": "Anhalten",
-        "run": "Weiter",
         "surface": "Zur Oberfläche",
         "squeeze": "Druck der Hand",
         "squeeze_hint": "Wie stark die Hand den Druck in der Flasche erhöht.",
@@ -3277,9 +3132,7 @@
         "title": "Die Gabeln anschlagen",
         "hint": "Schlagen Sie beide Gabeln an und sehen – oder hören – Sie, wie der Ton an- und abschwillt.",
         "strike": "Anschlagen",
-        "sound": "Ton",
         "sound_hint": "Spielt die beiden Gabeln ab; Ihr Ohr hört die Schwebung selbst.",
-        "no_sound": "Ihr Browser kann hier keinen Ton erzeugen.",
         "caption": "Oben die Gabeln und ihr gemeinsamer Klang in Zeitlupe; unten die Lautstärke seit dem Anschlag: durchgezogen beide zusammen, gestrichelt eine allein.",
         "slow": "Der Klang jetzt, {{ms}} ms in Zeitlupe",
         "waiting": "Die Gabeln schweigen. Schlagen Sie sie an.",
@@ -5538,6 +5391,7 @@
     "reviewTranslations": "Übersetzungen prüfen",
     "more": "Weitere Seiten des Kontos",
     "areas": {
+      "course": "Grundlagen",
       "experiments": "Exponate",
       "legal": "Rechtliches"
     },

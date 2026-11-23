@@ -4,13 +4,14 @@ import { AlertBanner, LoadingState, Switch, ToggleGroup } from "@eifi1/ui-kit";
 import { SeriesChart } from "@/shared/charts/series-chart";
 import { useLocale } from "@/shared/i18n/use-locale";
 import { formatNumber } from "@/shared/lib/format";
-import { useChartHex } from "@/shared/state/palette-store";
+import { useChartHue } from "@/shared/state/palette-store";
 import { SliderField } from "@/shared/ui/slider-field";
 import { Figures, WidgetCard } from "@/shared/ui/widget";
 import { Equation } from "./equation";
 import { ExhibitFrame } from "./exhibit-frame";
 import { BuildPending } from "./build-pending";
 import { settingNumber, useCheckSetting } from "./check-setting";
+import { useFrameLoop } from "./play";
 import { PreviewPending, type PreviewMode, type PreviewProps } from "./preview-mode";
 import { css, onScreen, type Rgb } from "./simulate/colour";
 import { LASER_NM, figures, intensity, laserColour, laserPattern, whitePattern, type Slits } from "./simulate/slits";
@@ -212,18 +213,8 @@ function SlitsPlay({
     return true;
   });
   const [time, setTime] = useState(0);
-  useEffect(() => {
-    if (!preview || paused) return;
-    let raf = 0;
-    let last = performance.now();
-    const tick = (now: number) => {
-      setTime((s) => s + Math.max(0, Math.min(0.05, (now - last) / 1000)));
-      last = now;
-      raf = requestAnimationFrame(tick);
-    };
-    raf = requestAnimationFrame(tick);
-    return () => cancelAnimationFrame(raf);
-  }, [preview, paused]);
+  // Only a preview runs a clock, for its auto mode; on the page the reader moves it.
+  useFrameLoop(preview && !paused, (dt) => setTime((s) => s + dt));
   const shownNm = preview ? 550 - 140 * Math.cos((2 * Math.PI * time) / PREVIEW_CYCLE_S) : nm;
   const colours = useMemo(() => wallColours(slits, light, shownNm, both), [slits, light, shownNm, both]);
   const wall = <WallView colours={colours} label={t("experiments.slits.wall_view")} />;
@@ -322,7 +313,7 @@ function SlitsPlay({
 function SlitsBuild({ slits, nm, onChange }: { slits: Slits; nm: number; onChange: (next: Slits) => void }) {
   const { t } = useTranslation();
   const locale = useLocale();
-  const hex = useChartHex();
+  const hue = useChartHue();
   const rows = useMemo(() => {
     const span = spanOf(slits);
     return Array.from({ length: CHART_POINTS }, (_, k) => {
@@ -372,8 +363,8 @@ function SlitsBuild({ slits, nm, onChange }: { slits: Slits; nm: number; onChang
       <SeriesChart
         rows={rows}
         series={[
-          { key: "both", label: t("experiments.slits.chart.both"), color: hex[BOTH_HUE % hex.length] },
-          { key: "one", label: t("experiments.slits.chart.one"), color: hex[ONE_HUE % hex.length] },
+          { key: "both", label: t("experiments.slits.chart.both"), color: hue(BOTH_HUE) },
+          { key: "one", label: t("experiments.slits.chart.one"), color: hue(ONE_HUE) },
         ]}
         axes={[
           {

@@ -12,7 +12,9 @@ import { STORAGE } from "@/shared/lib/storage-keys";
  * first shown — a reader of one language never downloads the six others.
  *
  * Which language: the one picked on this device, else the browser's first one
- * the site offers, else Swiss German. There are no accounts to ask.
+ * the site offers, else Swiss German. An account's language is deliberately
+ * not consulted (`readerLanguage` passes `account: null`), though the site
+ * has accounts.
  */
 
 /** Every other catalogue, as its own chunk. */

@@ -1,16 +1,18 @@
-import { useEffect, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { Hand, Pause, Play } from "lucide-react";
+import { Hand } from "lucide-react";
 import { Button, ToggleGroup } from "@eifi1/ui-kit";
 import { useLocale } from "@/shared/i18n/use-locale";
 import { formatNumber } from "@/shared/lib/format";
-import { useChartHex } from "@/shared/state/palette-store";
+import { useChartHue } from "@/shared/state/palette-store";
 import { SliderField } from "@/shared/ui/slider-field";
 import { Figures, WidgetCard } from "@/shared/ui/widget";
 import { Equation } from "./equation";
 import { ExhibitFrame } from "./exhibit-frame";
 import { BuildPending } from "./build-pending";
 import { settingNumber, useCheckSetting } from "./check-setting";
+import { useFrameLoop, useRunning } from "./play";
+import { RunPauseButton, SpeedToggle } from "./play-controls";
 import { PreviewPending, type PreviewMode, type PreviewProps } from "./preview-mode";
 import {
   HANGING_DEG,
@@ -26,7 +28,7 @@ import {
   type State,
   type Wheel,
 } from "./simulate/gyroscope";
-import { SIDE } from "./stage";
+import { SIDE, VIEW_FRAME } from "./stage";
 import { useExperimentsDefaults } from "./use-experiments";
 
 const SPEEDS = [1, 0.25] as const;
@@ -124,7 +126,7 @@ export function GyroscopePreview({ paused }: PreviewProps) {
 
 function WheelView({ w, y }: { w: Wheel; y: State }) {
   const { t } = useTranslation();
-  const hex = useChartHex();
+  const hue = useChartHue();
   const [theta, , phi, psi] = y;
   const axis: [number, number, number] = [
     Math.sin(theta) * Math.cos(phi),
@@ -154,7 +156,7 @@ function WheelView({ w, y }: { w: Wheel; y: State }) {
       viewBox={`${-reach} ${-reach * 1.3} ${2 * reach} ${2.4 * reach}`}
       role="img"
       aria-label={t("experiments.gyroscope.view")}
-      className="aspect-square w-full rounded-lg border border-subtle bg-surface-2 text-muted"
+      className={`aspect-square ${VIEW_FRAME}`}
     >
       {/* The string, from above the picture to the axle's end. */}
       <line x1={0} y1={-reach * 1.3} x2={0} y2={0} stroke="currentColor" vectorEffect="non-scaling-stroke" />
@@ -177,20 +179,14 @@ function WheelView({ w, y }: { w: Wheel; y: State }) {
             y1={cy}
             x2={sx}
             y2={sy}
-            stroke={k === 0 ? hex[SPOKE_HUE % hex.length] : "currentColor"}
+            stroke={k === 0 ? hue(SPOKE_HUE) : "currentColor"}
             strokeWidth={k === 0 ? 2.5 : 1}
             opacity={k === 0 ? 1 : 0.6}
             vectorEffect="non-scaling-stroke"
           />
         );
       })}
-      <polyline
-        points={ring}
-        fill="none"
-        stroke={hex[WHEEL_HUE % hex.length]}
-        strokeWidth={3}
-        vectorEffect="non-scaling-stroke"
-      />
+      <polyline points={ring} fill="none" stroke={hue(WHEEL_HUE)} strokeWidth={3} vectorEffect="non-scaling-stroke" />
       <circle r={reach * 0.02} className="fill-current text-primary" />
     </svg>
   );
@@ -200,7 +196,7 @@ function WheelView({ w, y }: { w: Wheel; y: State }) {
  *  arches with points where it stood still. */
 function TraceView({ trace, from }: { trace: Array<[number, number]>; from: number }) {
   const { t } = useTranslation();
-  const hex = useChartHex();
+  const hue = useChartHue();
   const last = trace.length ? trace[trace.length - 1][0] : 0;
   const deepest = Math.max(1, ...trace.map(([, tilt]) => Math.abs(tilt - from))) * 1.15;
   const points = trace
@@ -213,7 +209,7 @@ function TraceView({ trace, from }: { trace: Array<[number, number]>; from: numb
       role="img"
       aria-label={t("experiments.gyroscope.trace")}
       preserveAspectRatio="none"
-      className="h-28 w-full rounded-lg border border-subtle bg-surface-2 text-muted"
+      className={`h-28 ${VIEW_FRAME}`}
     >
       <line
         x1={0}
@@ -224,13 +220,7 @@ function TraceView({ trace, from }: { trace: Array<[number, number]>; from: numb
         strokeDasharray="4 4"
         vectorEffect="non-scaling-stroke"
       />
-      <polyline
-        points={points}
-        fill="none"
-        stroke={hex[WHEEL_HUE % hex.length]}
-        strokeWidth={2}
-        vectorEffect="non-scaling-stroke"
-      />
+      <polyline points={points} fill="none" stroke={hue(WHEEL_HUE)} strokeWidth={2} vectorEffect="non-scaling-stroke" />
     </svg>
   );
 }
@@ -252,44 +242,33 @@ function GyroscopePlay({
     deepest: first.deepest,
     dropped: first.dropped,
   }));
-  const [runningHere, setRunning] = useState(false);
+  const { running, setRunning } = useRunning({ preview, paused, initially: false });
   const [speedHere, setSpeed] = useState<Speed>(1);
-  const running = preview ? !paused : runningHere;
   const speed = preview ? 1 : speedHere;
 
-  useEffect(() => {
-    if (!running) return;
-    let raf = 0;
-    let last = performance.now();
-    const tick = (now: number) => {
-      const dt = Math.max(0, Math.min(0.05, (now - last) / 1000));
-      last = now;
-      const s = sim.current;
-      s.owed += (dt * speed) / STEP_S;
-      while (s.owed >= 1 && s.dropped === null) {
-        s.y = step(w, s.m, s.y);
-        s.owed -= 1;
-        s.i += 1;
-        const tilt = tiltDeg(s.y);
-        if (Math.abs(tilt - release.tilt_deg) > Math.abs(s.deepest - release.tilt_deg)) s.deepest = tilt;
-        if (s.i % TRACE_EVERY === 0) {
-          s.trace.push([s.y[2] * TO_DEG, tilt]);
-          // A turn and a little: the view shows the last one.
-          while (s.trace.length > 2 && s.trace[0][0] < s.trace[s.trace.length - 1][0] - 400) s.trace.shift();
-          if (s.trace.length > 4000) s.trace.shift();
-        }
-        if (tilt >= HANGING_DEG) s.dropped = s.i * STEP_S;
+  useFrameLoop(running, (dt) => {
+    const s = sim.current;
+    s.owed += (dt * speed) / STEP_S;
+    while (s.owed >= 1 && s.dropped === null) {
+      s.y = step(w, s.m, s.y);
+      s.owed -= 1;
+      s.i += 1;
+      const tilt = tiltDeg(s.y);
+      if (Math.abs(tilt - release.tilt_deg) > Math.abs(s.deepest - release.tilt_deg)) s.deepest = tilt;
+      if (s.i % TRACE_EVERY === 0) {
+        s.trace.push([s.y[2] * TO_DEG, tilt]);
+        // A turn and a little: the view shows the last one.
+        while (s.trace.length > 2 && s.trace[0][0] < s.trace[s.trace.length - 1][0] - 400) s.trace.shift();
+        if (s.trace.length > 4000) s.trace.shift();
       }
-      if (s.dropped !== null) s.owed = 0;
-      // The preview lets go again once the wheel has turned round twice, or dropped.
-      if (preview && (s.dropped !== null || s.y[2] > 4 * Math.PI)) sim.current = letGo(w, release);
-      const m = sim.current;
-      setFrame({ y: m.y, trace: [...m.trace], deepest: m.deepest, dropped: m.dropped });
-      raf = requestAnimationFrame(tick);
-    };
-    raf = requestAnimationFrame(tick);
-    return () => cancelAnimationFrame(raf);
-  }, [running, speed, w, release, preview]);
+      if (tilt >= HANGING_DEG) s.dropped = s.i * STEP_S;
+    }
+    if (s.dropped !== null) s.owed = 0;
+    // The preview lets go again once the wheel has turned round twice, or dropped.
+    if (preview && (s.dropped !== null || s.y[2] > 4 * Math.PI)) sim.current = letGo(w, release);
+    const m = sim.current;
+    setFrame({ y: m.y, trace: [...m.trace], deepest: m.deepest, dropped: m.dropped });
+  });
 
   // A check case's "Set it up" takes the whole case here: the spin is the
   // build's, the release this card's. A case that says how the wheel is let
@@ -335,10 +314,7 @@ function GyroscopePlay({
             <Hand className="size-4" aria-hidden />
             {t("experiments.gyroscope.play.let_go")}
           </Button>
-          <Button variant="secondary" size="sm" disabled={frame.dropped !== null} onClick={() => setRunning(!running)}>
-            {running ? <Pause className="size-4" aria-hidden /> : <Play className="size-4" aria-hidden />}
-            {running ? t("experiments.gyroscope.play.pause") : t("experiments.gyroscope.play.run")}
-          </Button>
+          <RunPauseButton running={running} disabled={frame.dropped !== null} onToggle={() => setRunning(!running)} />
         </>
       }
     >
@@ -352,17 +328,7 @@ function GyroscopePlay({
             onChange={(v: Start) => changeRelease({ ...release, steady: v === "steady" })}
             options={STARTS.map((v) => ({ value: v, label: t(`experiments.gyroscope.play.starts.${v}`) }))}
           />
-          <ToggleGroup
-            label={t("experiments.gyroscope.play.speed")}
-            labelPlacement="above"
-            size="sm"
-            value={String(speed)}
-            onChange={(v: string) => setSpeed(Number(v) as Speed)}
-            options={SPEEDS.map((v) => ({
-              value: String(v),
-              label: t(`experiments.gyroscope.play.speeds.${Math.round(v * 100)}`),
-            }))}
-          />
+          <SpeedToggle speeds={SPEEDS} value={speed} onChange={setSpeed} />
         </div>
         <div className={`${SIDE.views} mx-auto w-full max-w-xl`}>
           {view}

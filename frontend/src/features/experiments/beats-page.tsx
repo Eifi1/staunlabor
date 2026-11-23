@@ -1,21 +1,23 @@
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useMemo, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Hammer } from "lucide-react";
-import { Button, LoadingState, Switch } from "@eifi1/ui-kit";
+import { Button, LoadingState } from "@eifi1/ui-kit";
 import { SeriesChart } from "@/shared/charts/series-chart";
 import { useLocale } from "@/shared/i18n/use-locale";
 import { formatNumber } from "@/shared/lib/format";
 import { useTones } from "@/shared/lib/use-tones";
-import { useChartHex } from "@/shared/state/palette-store";
+import { useChartHue } from "@/shared/state/palette-store";
 import { SliderField } from "@/shared/ui/slider-field";
 import { Figures, WidgetCard } from "@/shared/ui/widget";
 import { Equation } from "./equation";
 import { ExhibitFrame } from "./exhibit-frame";
 import { BuildPending } from "./build-pending";
 import { settingNumber, useCheckSetting } from "./check-setting";
+import { useFrameLoop } from "./play";
+import { SoundSwitch } from "./play-controls";
 import { PreviewPending, type PreviewMode, type PreviewProps } from "./preview-mode";
 import { figures, frequencyHz, loudness, sound, type Fork, type Rider } from "./simulate/beats";
-import { SIDE } from "./stage";
+import { SIDE, VIEW_FRAME } from "./stage";
 import { useExperimentsDefaults } from "./use-experiments";
 
 /** The forks' drawing: their stems' feet, the prongs' length and gap, the slow-motion strip under them. */
@@ -139,7 +141,7 @@ function ForksView({
 }) {
   const { t: tr } = useTranslation();
   const locale = useLocale();
-  const hex = useChartHex();
+  const hue = useChartHue();
   const amplitude = ringing ? Math.exp(-t / fork.decay_s) : 0;
   const swing = 5 * amplitude;
   const points = Array.from({ length: 241 }, (_, k) => {
@@ -152,10 +154,10 @@ function ForksView({
       viewBox={`0 0 ${FORKS.width} ${FORKS.height}`}
       role="img"
       aria-label={tr("experiments.beats.view")}
-      className="w-full rounded-lg border border-subtle bg-surface-2 text-muted"
+      className={VIEW_FRAME}
     >
-      <ForkShape x={FORKS.left} swing={swing} rider={null} ink={hex[RIDER_HUE % hex.length]} />
-      <ForkShape x={FORKS.right} swing={swing} rider={rider} ink={hex[RIDER_HUE % hex.length]} />
+      <ForkShape x={FORKS.left} swing={swing} rider={null} ink={hue(RIDER_HUE)} />
+      <ForkShape x={FORKS.right} swing={swing} rider={rider} ink={hue(RIDER_HUE)} />
       <text x={FORKS.left} y={22} fontSize={13} fill="currentColor" textAnchor="middle">
         {`${formatNumber(fork.frequency_hz, 2, locale)} Hz`}
       </text>
@@ -163,7 +165,7 @@ function ForksView({
         {`${formatNumber(f2, 2, locale)} Hz`}
       </text>
       <line x1={20} y1={FORKS.strip + 22} x2={380} y2={FORKS.strip + 22} stroke="currentColor" strokeOpacity={0.3} />
-      <polyline points={points} fill="none" stroke={hex[SUM_HUE % hex.length]} strokeWidth={1.5} />
+      <polyline points={points} fill="none" stroke={hue(SUM_HUE)} strokeWidth={1.5} />
       <text x={20} y={FORKS.strip - 8} fontSize={11} fill="currentColor">
         {tr("experiments.beats.play.slow", { ms: formatNumber(SLOW_S * 1000, 0, locale) })}
       </text>
@@ -174,7 +176,7 @@ function ForksView({
 /** The loudness since the strike, both forks together and one alone, now marked. */
 function LoudnessView({ fork, f2, t, ringing }: { fork: Fork; f2: number; t: number; ringing: boolean }) {
   const { t: tr } = useTranslation();
-  const hex = useChartHex();
+  const hue = useChartHue();
   const x = (s: number) => LOUD.left + ((LOUD.right - LOUD.left) * s) / SPAN_S;
   const y = (v: number) => LOUD.bottom - (LOUD.bottom - LOUD.top) * v;
   const line = (f: (s: number) => number) =>
@@ -189,7 +191,7 @@ function LoudnessView({ fork, f2, t, ringing }: { fork: Fork; f2: number; t: num
       viewBox={`0 0 ${LOUD.width} ${LOUD.height}`}
       role="img"
       aria-label={tr("experiments.beats.loudness_view")}
-      className="w-full rounded-lg border border-subtle bg-surface-2 text-muted"
+      className={VIEW_FRAME}
     >
       <line
         x1={LOUD.left}
@@ -199,8 +201,8 @@ function LoudnessView({ fork, f2, t, ringing }: { fork: Fork; f2: number; t: num
         stroke="currentColor"
         strokeOpacity={0.4}
       />
-      <polyline points={one} fill="none" stroke={hex[ONE_HUE % hex.length]} strokeDasharray="4 3" strokeWidth={1.2} />
-      <polyline points={sum} fill="none" stroke={hex[SUM_HUE % hex.length]} strokeWidth={1.6} />
+      <polyline points={one} fill="none" stroke={hue(ONE_HUE)} strokeDasharray="4 3" strokeWidth={1.2} />
+      <polyline points={sum} fill="none" stroke={hue(SUM_HUE)} strokeWidth={1.6} />
       {ringing && t <= SPAN_S && (
         <line x1={x(t)} y1={LOUD.top} x2={x(t)} y2={LOUD.bottom} stroke="currentColor" strokeWidth={1.5} />
       )}
@@ -247,24 +249,19 @@ function BeatsPlay({
     return true;
   });
 
-  useEffect(() => {
-    if (strikes === 0 || (preview && paused)) return;
-    let raf = 0;
-    let last = performance.now();
-    const tick = (now: number) => {
-      clock.current += Math.max(0, Math.min(0.05, (now - last) / 1000));
-      last = now;
-      let s = clock.current - struck.current;
-      if (preview && s > PREVIEW_STRIKE_S) {
-        struck.current = clock.current;
-        s = 0;
-      }
-      setTime(s);
-      if (s < silentAfter || preview) raf = requestAnimationFrame(tick);
-    };
-    raf = requestAnimationFrame(tick);
-    return () => cancelAnimationFrame(raf);
-  }, [strikes, preview, paused, silentAfter]);
+  // The clock runs from a strike until the forks are silent, and stops there;
+  // the next strike sets the time back and starts it. The preview strikes
+  // again and again, so its clock runs for as long as it is not held.
+  const running = ringing && !(preview && paused) && (preview || time < silentAfter);
+  useFrameLoop(running, (dt) => {
+    clock.current += dt;
+    let s = clock.current - struck.current;
+    if (preview && s > PREVIEW_STRIKE_S) {
+      struck.current = clock.current;
+      s = 0;
+    }
+    setTime(s);
+  });
 
   const level = ringing && time < silentAfter ? Math.exp(-time / fork.decay_s) : 0;
   const tones = useTones(soundOn && !preview, [fork.frequency_hz, f2], [level, level]);
@@ -291,14 +288,11 @@ function BeatsPlay({
     >
       <div className={`${SIDE.grid} ${SIDE.cap.xl}`}>
         <div className={SIDE.top}>
-          <Switch
-            label={t("experiments.beats.play.sound")}
-            description={
-              tones.available ? t("experiments.beats.play.sound_hint") : t("experiments.beats.play.no_sound")
-            }
+          <SoundSwitch
             checked={soundOn}
-            disabled={!tones.available}
-            onCheckedChange={setSound}
+            onChange={setSound}
+            available={tones.available}
+            hint={t("experiments.beats.play.sound_hint")}
           />
         </div>
         <div className={`${SIDE.views} mx-auto w-full max-w-xl`}>
@@ -350,7 +344,7 @@ function BeatsPlay({
 function BeatsBuild({ fork, rider, onChange }: { fork: Fork; rider: Rider; onChange: (next: Rider) => void }) {
   const { t } = useTranslation();
   const locale = useLocale();
-  const hex = useChartHex();
+  const hue = useChartHue();
   const shown = useMemo(() => figures(fork, rider), [fork, rider]);
   const rows = useMemo(() => {
     const f2 = frequencyHz(fork, rider);
@@ -404,8 +398,8 @@ function BeatsBuild({ fork, rider, onChange }: { fork: Fork; rider: Rider; onCha
       <SeriesChart
         rows={rows}
         series={[
-          { key: "sum", label: t("experiments.beats.chart.sum"), color: hex[SUM_HUE % hex.length] },
-          { key: "one", label: t("experiments.beats.chart.one"), color: hex[ONE_HUE % hex.length], dashed: true },
+          { key: "sum", label: t("experiments.beats.chart.sum"), color: hue(SUM_HUE) },
+          { key: "one", label: t("experiments.beats.chart.one"), color: hue(ONE_HUE), dashed: true },
         ]}
         axes={[
           {
@@ -459,7 +453,7 @@ function BeatsModel() {
 function BeatsTrick({ fork }: { fork: Fork }) {
   const { t } = useTranslation();
   const locale = useLocale();
-  const hex = useChartHex();
+  const hue = useChartHue();
   const rows = useMemo(
     () =>
       Array.from({ length: CHART_POINTS }, (_, k) => {
@@ -483,7 +477,7 @@ function BeatsTrick({ fork }: { fork: Fork }) {
         series={TRICK_GRAMS.map((g, i) => ({
           key: `g${g}`,
           label: `${formatNumber(g, 1, locale)} g`,
-          color: hex[TRICK_HUES[i] % hex.length],
+          color: hue(TRICK_HUES[i]),
         }))}
         axes={[
           {

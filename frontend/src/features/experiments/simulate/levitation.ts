@@ -9,9 +9,9 @@
  * Python first.
  */
 
-import { G } from "./pendulum";
+import { G } from "./constants";
 
-export const MU0 = 4e-7 * Math.PI;
+const MU0 = 4e-7 * Math.PI;
 const FERRITE_PER_K = -0.002;
 const SCAN_STEP_M = 1e-3;
 const SCAN_TO_M = 0.3;

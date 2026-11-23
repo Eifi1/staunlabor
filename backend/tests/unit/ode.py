@@ -1,6 +1,8 @@
 """Classical fourth-order Runge–Kutta at a fixed step, for the tests alone: the
 reference a test integrates a model's full equations with, to hold the
-engine's reduced ones to them. The site itself never needs a general solver."""
+engine's reduced ones to them. The engine has a general step of its own
+(``domain/experiments/numerics.py``); this one is kept apart from it on purpose,
+so a test does not hold the engine to the engine's own integrator."""
 
 from __future__ import annotations
 

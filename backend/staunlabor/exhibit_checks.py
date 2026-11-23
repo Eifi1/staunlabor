@@ -13,24 +13,22 @@ happens. The verdict is a person's, that the cases are the right ones and the
 sources say what they are cited for.
 """
 
-# No `from __future__ import annotations` here, as in `feedback.py`: FastAPI
-# reads the routes' annotated dependencies at runtime.
+from __future__ import annotations
 
 import time
 from datetime import UTC, date, datetime
 from functools import cache
 from typing import Annotated, Any
 
-from eifi1_server_kit.auth.router import AuthDeps, admin_guard
+from eifi1_server_kit.auth.router import AuthDeps, account_request_window, app_admin
 from fastapi import APIRouter, Depends
 from pydantic import BaseModel, ConfigDict
 from sqlalchemy import delete, select
 
-from staunlabor.api.experiments_router import limit_run
 from staunlabor.database import RequestSession
 from staunlabor.domain import checks
 from staunlabor.models import ExhibitCheck
-from staunlabor.security import limit_account_request
+from staunlabor.security import limit_run
 
 #: How long a process keeps the public list before it reads the table again: a
 #: page view per visitor is a query otherwise, and a verdict is seen in every
@@ -100,7 +98,6 @@ def exhibit_checks_router(accounts: AuthDeps) -> APIRouter:
     ``PUT``/``DELETE /admin/experiments/checks/{exhibit}``."""
     router = APIRouter(tags=["experiments"])
     listing = _Listing()
-    admin = admin_guard(accounts)
 
     @router.get("/experiments/checks", response_model=ChecksOut, dependencies=[Depends(limit_run)])
     async def list_checks(session: RequestSession) -> ChecksOut:
@@ -111,11 +108,13 @@ def exhibit_checks_router(accounts: AuthDeps) -> APIRouter:
         listing.keep(value)
         return value
 
-    # The admin's two spend the account budget, as every admin route does.
-    budget = [Depends(limit_account_request)]
+    # The admin's two spend the account window, as every admin route does.
+    budget = [Depends(account_request_window(accounts))]
 
     @router.put("/admin/experiments/checks/{exhibit}", response_model=ChecksOut, dependencies=budget)
-    async def check_exhibit(exhibit: str, session: RequestSession, user: Annotated[Any, Depends(admin)]) -> ChecksOut:
+    async def check_exhibit(
+        exhibit: str, session: RequestSession, user: Annotated[Any, Depends(app_admin)]
+    ) -> ChecksOut:
         _known(exhibit)
         row = await session.get(ExhibitCheck, exhibit)
         now = datetime.now(UTC)
@@ -133,7 +132,7 @@ def exhibit_checks_router(accounts: AuthDeps) -> APIRouter:
 
     @router.delete("/admin/experiments/checks/{exhibit}", response_model=ChecksOut, dependencies=budget)
     async def uncheck_exhibit(
-        exhibit: str, session: RequestSession, _user: Annotated[Any, Depends(admin)]
+        exhibit: str, session: RequestSession, _user: Annotated[Any, Depends(app_admin)]
     ) -> ChecksOut:
         _known(exhibit)
         await session.execute(delete(ExhibitCheck).where(ExhibitCheck.exhibit == exhibit))

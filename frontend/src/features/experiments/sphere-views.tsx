@@ -16,20 +16,19 @@
 
 import type { PointerEvent } from "react";
 import { useTranslation } from "react-i18next";
-import { useChartHex } from "@/shared/state/palette-store";
+import { useChartHue } from "@/shared/state/palette-store";
+import { svgPoint } from "@/shared/ui/svg-point";
 import { MAX_PUSH_M } from "./sphere-hand";
+import { VIEW_FRAME } from "./stage";
 
 /** The ball's hue: the palette's hue for what the visitor moves, as the platform's visitor. */
 const BALL_HUE = 3;
 
 /** The hand's target from a pointer on the top view, in metres (x right, y
- *  away), or null where the browser cannot map the point (jsdom). */
+ *  away), or null where the point cannot be mapped (a drawing of no size). */
 function pointOf(e: PointerEvent<SVGSVGElement>): [number, number] | null {
-  const svg = e.currentTarget;
-  const matrix = svg.getScreenCTM?.();
-  if (!matrix) return null;
-  const p = new DOMPoint(e.clientX, e.clientY).matrixTransform(matrix.inverse());
-  return [p.x, -p.y];
+  const p = svgPoint(e.currentTarget, e.clientX, e.clientY);
+  return p ? [p[0], -p[1]] : null;
 }
 
 export function TopView({
@@ -54,7 +53,7 @@ export function TopView({
   disabled: boolean;
 }) {
   const { t } = useTranslation();
-  const hex = useChartHex();
+  const hue = useChartHue();
   const extent = shellRadiusM + MAX_PUSH_M + 0.02;
   const [hx, hy] = hand;
   const push = (e: PointerEvent<SVGSVGElement>) => {
@@ -66,7 +65,7 @@ export function TopView({
       viewBox={`${-extent} ${-extent} ${2 * extent} ${2 * extent}`}
       role="img"
       aria-label={t("experiments.sphere.views.top")}
-      className={`aspect-square w-full touch-none rounded-lg border border-subtle bg-surface-2 text-muted ${disabled ? "" : "cursor-grab active:cursor-grabbing"}`}
+      className={`aspect-square touch-none ${VIEW_FRAME} ${disabled ? "" : "cursor-grab active:cursor-grabbing"}`}
       onPointerDown={(e) => {
         if (disabled) return;
         e.currentTarget.setPointerCapture?.(e.pointerId);
@@ -101,7 +100,7 @@ export function TopView({
           opacity={0.7}
           vectorEffect="non-scaling-stroke"
         />
-        <circle cx={ball[0]} cy={-ball[1]} r={ballRadiusM} fill={hex[BALL_HUE % hex.length]} />
+        <circle cx={ball[0]} cy={-ball[1]} r={ballRadiusM} fill={hue(BALL_HUE)} />
       </g>
     </svg>
   );
@@ -120,7 +119,7 @@ export function SideView({
   ball: [number, number, number];
 }) {
   const { t } = useTranslation();
-  const hex = useChartHex();
+  const hue = useChartHue();
   const extent = shellRadiusM * 1.35;
   // The cut along the ball's own direction: how far out, and how high.
   const out = Math.hypot(ball[0], ball[1]);
@@ -130,7 +129,7 @@ export function SideView({
       viewBox={`${-extent} ${-extent} ${2 * extent} ${2 * extent}`}
       role="img"
       aria-label={t("experiments.sphere.views.side")}
-      className="aspect-square w-full rounded-lg border border-subtle bg-surface-2 text-muted"
+      className={`aspect-square ${VIEW_FRAME}`}
     >
       {/* The ropes, to the ceiling and to the floor. */}
       <line x1={0} y1={-extent} x2={0} y2={-shellRadiusM} stroke="currentColor" vectorEffect="non-scaling-stroke" />
@@ -155,7 +154,7 @@ export function SideView({
         {t("experiments.sphere.views.goal")}
       </text>
       <line x1={0} y1={0} x2={out} y2={-up} stroke="currentColor" opacity={0.5} vectorEffect="non-scaling-stroke" />
-      <circle cx={out} cy={-up} r={ballRadiusM} fill={hex[BALL_HUE % hex.length]} />
+      <circle cx={out} cy={-up} r={ballRadiusM} fill={hue(BALL_HUE)} />
     </svg>
   );
 }

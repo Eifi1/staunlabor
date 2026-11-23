@@ -24,7 +24,7 @@ import { Failed, Figures, Param, WidgetBody, WidgetCard } from "./parts";
 import { PhasePortrait } from "./phase-portrait";
 import { PolePlane } from "./pole-plane";
 import { Tex } from "@/shared/ui/tex";
-import { useComputed } from "./use-dynamics";
+import { useComputed } from "./use-course";
 
 /** The matrices the spec offers as starting points. */
 const PRESETS: { key: string; matrix: MatrixRequest }[] = [

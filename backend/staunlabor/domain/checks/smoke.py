@@ -16,8 +16,6 @@ import math
 from staunlabor.domain.checks import Case, Source
 from staunlabor.domain.experiments import smoke as engine
 
-ENGINE = ("smoke",)
-
 _MEMBRANE = Source(
     cite="Wikipedia, “Vibrations of a circular membrane”, §“The axisymmetric case”",
     url="https://en.wikipedia.org/wiki/Vibrations_of_a_circular_membrane",

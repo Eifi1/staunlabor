@@ -19,9 +19,10 @@
  */
 
 import type { CurveKind, RaceBasin, RacePath, RaceRun, RaceTrack, ValleyStart } from "@/shared/types";
-import { G, type Entry, type PitBall, type PitRun } from "./simulate/pit";
-import { STAGE } from "./stage";
-import { useChartHex } from "@/shared/state/palette-store";
+import { type Entry, type PitBall, type PitRun } from "./simulate/pit";
+import { STAGE, VIEW_FRAME } from "./stage";
+import { useChartHue } from "@/shared/state/palette-store";
+import { G } from "./simulate/constants";
 
 /** Which palette hue each track is drawn in. */
 export const TRACK_HUE: Record<CurveKind, number> = {
@@ -186,7 +187,7 @@ export function RaceView({
   states: Record<CurveKind, BallState>;
   label: string;
 }) {
-  const hex = useChartHex();
+  const hue = useChartHue();
   const { deepest, right, pad, ball, basin, wallTop } = layout;
   const top = Math.max(0, wallTop);
   const lining = liningPath(basin);
@@ -195,7 +196,7 @@ export function RaceView({
       viewBox={`${-pad} ${-top - pad} ${right + 2 * pad} ${deepest + top + 2 * pad}`}
       role="img"
       aria-label={label}
-      className={`w-full ${STAGE.wide} rounded-lg border border-subtle bg-surface-2 text-muted`}
+      className={`${STAGE.wide} ${VIEW_FRAME}`}
     >
       {/* The finish's height, across, so a track that dips below it shows. */}
       <line
@@ -248,7 +249,7 @@ export function RaceView({
           key={track.kind}
           points={track.path.x_m.map((x, j) => `${x},${-track.path.y_m[j]}`).join(" ")}
           fill="none"
-          stroke={hex[TRACK_HUE[track.kind] % hex.length]}
+          stroke={hue(TRACK_HUE[track.kind])}
           strokeWidth={2.5}
           strokeLinejoin="round"
           vectorEffect="non-scaling-stroke"
@@ -262,7 +263,7 @@ export function RaceView({
               cx={x}
               cy={-y}
               r={ball}
-              fill={hex[TRACK_HUE[track.kind] % hex.length]}
+              fill={hue(TRACK_HUE[track.kind])}
               stroke="currentColor"
               strokeWidth={1}
               vectorEffect="non-scaling-stroke"
@@ -314,7 +315,7 @@ export function ValleyView({
   t: number;
   label: string;
 }) {
-  const hex = useChartHex();
+  const hue = useChartHue();
   // One frame for both valleys, wide enough for the bowl, so the two compare
   // at a glance and the highest ball on the bowl is not cut off.
   const half = Math.max(Math.PI * radius, bowlReach(radius, bowl)) + 0.05;
@@ -324,7 +325,7 @@ export function ValleyView({
       viewBox={`${-half} ${-0.06} ${2 * half} ${2 * radius + 0.12}`}
       role="img"
       aria-label={label}
-      className={`w-full ${STAGE.wide} rounded-lg border border-subtle bg-surface-2 text-muted`}
+      className={`${STAGE.wide} ${VIEW_FRAME}`}
     >
       <polyline
         points={valleyOutline(kind, radius, bowl)}
@@ -341,7 +342,7 @@ export function ValleyView({
             cx={x}
             cy={-y}
             r={ball}
-            fill={hex[[2, 3, 6, 4][i % 4] % hex.length]}
+            fill={hue([2, 3, 6, 4][i % 4])}
             stroke="currentColor"
             strokeWidth={1}
             vectorEffect="non-scaling-stroke"

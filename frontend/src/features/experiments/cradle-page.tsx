@@ -1,12 +1,13 @@
-import { useDeferredValue, useEffect, useMemo, useRef, useState, type PointerEvent } from "react";
+import { useDeferredValue, useMemo, useRef, useState, type PointerEvent } from "react";
 import { useTranslation } from "react-i18next";
-import { Hand, Pause, Play } from "lucide-react";
+import { Hand } from "lucide-react";
 import { Button, StaticLegend, ToggleGroup, seriesLegendEntries } from "@eifi1/ui-kit";
 import { SeriesChart } from "@/shared/charts/series-chart";
 import { useLocale } from "@/shared/i18n/use-locale";
 import { formatNumber } from "@/shared/lib/format";
-import { useChartHex } from "@/shared/state/palette-store";
+import { useChartHue } from "@/shared/state/palette-store";
 import { holdTouch } from "@/shared/ui/grab";
+import { svgPoint } from "@/shared/ui/svg-point";
 import { SliderField } from "@/shared/ui/slider-field";
 import { Figures, WidgetCard } from "@/shared/ui/widget";
 import { Equation } from "./equation";
@@ -14,10 +15,12 @@ import { ExhibitFrame } from "./exhibit-frame";
 import { BuildPending } from "./build-pending";
 import { PreviewPending, type PreviewMode, type PreviewProps } from "./preview-mode";
 import { impact, start, step, STEP_S, type Cradle, type Pull } from "./simulate/cradle";
-import { SIDE } from "./stage";
+import { SIDE, VIEW_FRAME } from "./stage";
 import { useExperimentsDefaults } from "./use-experiments";
 import { HeldAnswer, useHeld } from "./held";
 import { settingNumber, useCheckSetting } from "./check-setting";
+import { useFrameLoop, useRunning } from "./play";
+import { RunPauseButton, SpeedToggle } from "./play-controls";
 
 const SPEEDS = [1, 0.25, 0.1] as const;
 type Speed = (typeof SPEEDS)[number];
@@ -129,7 +132,7 @@ function CradleView({
   onLetGo?: (pull: Pull) => void;
 }) {
   const { t } = useTranslation();
-  const hex = useChartHex();
+  const hue = useChartHue();
   // How many balls the pointer holds lifted, while it does.
   // A ref for the handlers, which a move can reach before React has drawn the
   // hold; the state for the cursor.
@@ -145,13 +148,11 @@ function CradleView({
   const reach = half + L * Math.sin(Math.PI / 3) + d;
   const top = -d;
   const bottom = L + d;
-  // The pointer in the drawing's millimetres: the drawing keeps its aspect
-  // across the box's width, so the box maps onto the view box directly.
+  // The pointer in the drawing's millimetres.
   const pullAt = (svg: SVGSVGElement, x: number, y: number, balls: number): Pull | null => {
-    const box = svg.getBoundingClientRect();
-    if (!box.width || !box.height) return null;
-    const px = -reach + ((x - box.left) / box.width) * 2 * reach;
-    const py = top + ((y - box.top) / box.height) * (bottom - top);
+    const p = svgPoint(svg, x, y);
+    if (!p) return null;
+    const [px, py] = p;
     const pivot = -half + (balls - 1) * pitch;
     const angle = (Math.atan2(pivot - px, Math.max(py, d / 2)) * 180) / Math.PI;
     return { balls, angle_deg: Math.round(Math.min(60, Math.max(5, angle))) };
@@ -173,7 +174,7 @@ function CradleView({
       viewBox={`${-reach} ${top} ${2 * reach} ${bottom - top}`}
       role="img"
       aria-label={t("experiments.cradle.view")}
-      className={`w-full rounded-lg border border-subtle bg-surface-2 text-muted ${onPull ? "select-none" : ""} ${held !== null ? "cursor-grabbing" : ""}`}
+      className={`${VIEW_FRAME} ${onPull ? "select-none" : ""} ${held !== null ? "cursor-grabbing" : ""}`}
       onPointerMove={(e: PointerEvent<SVGSVGElement>) => {
         if (holding.current !== null) follow(e.currentTarget, e.clientX, e.clientY, holding.current);
       }}
@@ -201,7 +202,7 @@ function CradleView({
               cx={x}
               cy={y}
               r={d / 2}
-              fill={hex[i % hex.length]}
+              fill={hue(i)}
               stroke="currentColor"
               vectorEffect="non-scaling-stroke"
               className={onPull && i < cr.count - 1 && held === null ? "cursor-grab" : undefined}
@@ -230,58 +231,47 @@ function CradlePlay({
 }: { cr: Cradle; onChange?: (next: Cradle) => void } & PreviewMode) {
   const { t } = useTranslation();
   const locale = useLocale();
-  const hex = useChartHex();
+  const hue = useChartHue();
   const [pull, setPull] = useState<Pull>({ balls: 1, angle_deg: 30 });
   const sim = useRef(begin(cr, pull));
   const [th, setTh] = useState(() => start(cr, pull)[0]);
   const [rows, setRows] = useState(() => begin(cr, pull).rows);
-  const [runningHere, setRunning] = useState(false);
+  const { running, setRunning } = useRunning({ preview, paused, initially: false });
   const [speedHere, setSpeed] = useState<Speed>(1);
   // What leaves the other end after the first knock, once the reader has let
   // the balls go and seen it: the chart's first second.
   const held = useHeld();
   const show = held.show;
-  const running = preview ? !paused : runningHere;
   const speed = preview ? 1 : speedHere;
 
-  useEffect(() => {
-    if (!running) return;
-    let raf = 0;
-    let last = performance.now();
-    const tick = (now: number) => {
-      const dt = Math.max(0, Math.min(0.05, (now - last) / 1000));
-      last = now;
-      const s = sim.current;
-      s.owed += (dt * speed) / STEP_S;
-      const began = performance.now();
-      let closed = false;
-      while (s.owed >= 1) {
-        [s.th, s.w] = step(cr, s.th, s.w);
-        s.owed -= 1;
-        s.i += 1;
-        for (let b = 0; b < cr.count; b++) s.widest[b] = Math.max(s.widest[b], Math.abs(s.th[b]) * TO_DEG);
-        if (s.i % WINDOW_STEPS === 0) {
-          s.rows.push(widestRow(s.i * STEP_S, s.widest));
-          if (s.rows.length > KEEP_POINTS) s.rows.shift();
-          s.widest = s.th.map((a) => Math.abs(a) * TO_DEG);
-          closed = true;
-        }
-        if (performance.now() - began > BUDGET_MS) {
-          s.owed = 0;
-          break;
-        }
+  useFrameLoop(running, (dt) => {
+    const s = sim.current;
+    s.owed += (dt * speed) / STEP_S;
+    const began = performance.now();
+    let closed = false;
+    while (s.owed >= 1) {
+      [s.th, s.w] = step(cr, s.th, s.w);
+      s.owed -= 1;
+      s.i += 1;
+      for (let b = 0; b < cr.count; b++) s.widest[b] = Math.max(s.widest[b], Math.abs(s.th[b]) * TO_DEG);
+      if (s.i % WINDOW_STEPS === 0) {
+        s.rows.push(widestRow(s.i * STEP_S, s.widest));
+        if (s.rows.length > KEEP_POINTS) s.rows.shift();
+        s.widest = s.th.map((a) => Math.abs(a) * TO_DEG);
+        closed = true;
       }
-      if (preview && s.i * STEP_S > PREVIEW_S) sim.current = begin(cr, pull);
-      setTh(sim.current.th);
-      if (closed) {
-        setRows([...sim.current.rows]);
-        show();
+      if (performance.now() - began > BUDGET_MS) {
+        s.owed = 0;
+        break;
       }
-      raf = requestAnimationFrame(tick);
-    };
-    raf = requestAnimationFrame(tick);
-    return () => cancelAnimationFrame(raf);
-  }, [running, speed, cr, pull, preview, show]);
+    }
+    if (preview && s.i * STEP_S > PREVIEW_S) sim.current = begin(cr, pull);
+    setTh(sim.current.th);
+    if (closed) {
+      setRows([...sim.current.rows]);
+      show();
+    }
+  });
 
   // "Set it up" (a check case's button): the build and the pull it names, the
   // balls hung up again and let go, as the case reads them. The preview takes
@@ -316,7 +306,7 @@ function CradlePlay({
     const series = Array.from({ length: cr.count }, (_, b) => ({
       key: `b${b}`,
       label: t("experiments.cradle.play.ball", { n: b + 1 }),
-      color: hex[b % hex.length],
+      color: hue(b),
     }));
     return (
       <>
@@ -339,7 +329,7 @@ function CradlePlay({
         <StaticLegend entries={seriesLegendEntries(series)} />
       </>
     );
-  }, [rows, cr.count, hex, locale, t]);
+  }, [rows, cr.count, hue, locale, t]);
 
   // A new setting hangs the balls up again, lifted as set: the reader lets go.
   const reset = (nextCr: Cradle, nextPull: Pull, go: boolean) => {
@@ -384,10 +374,7 @@ function CradlePlay({
             <Hand className="size-4" aria-hidden />
             {t("experiments.cradle.play.let_go")}
           </Button>
-          <Button variant="secondary" size="sm" onClick={() => setRunning(!running)}>
-            {running ? <Pause className="size-4" aria-hidden /> : <Play className="size-4" aria-hidden />}
-            {running ? t("experiments.cradle.play.pause") : t("experiments.cradle.play.run")}
-          </Button>
+          <RunPauseButton running={running} onToggle={() => setRunning(!running)} />
         </>
       }
     >
@@ -409,18 +396,7 @@ function CradlePlay({
             onChange={(v: Spacing) => changeCradle({ ...cr, gap_m: v === "gap" ? GAP_M : 0 })}
             options={SPACINGS.map((v) => ({ value: v, label: t(`experiments.cradle.play.spacings.${v}`) }))}
           />
-          <ToggleGroup
-            label={t("experiments.cradle.play.speed")}
-            labelPlacement="above"
-            size="sm"
-            overflow="wrap"
-            value={String(speed)}
-            onChange={(v: string) => setSpeed(Number(v) as Speed)}
-            options={SPEEDS.map((v) => ({
-              value: String(v),
-              label: t(`experiments.cradle.play.speeds.${Math.round(v * 100)}`),
-            }))}
-          />
+          <SpeedToggle speeds={SPEEDS} value={speed} onChange={setSpeed} />
         </div>
         <div className={`${SIDE.views} mx-auto w-full max-w-xl space-y-2`}>
           {view}

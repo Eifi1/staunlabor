@@ -14,12 +14,10 @@ from __future__ import annotations
 import math
 
 from staunlabor.domain.checks import Case, Source
+from staunlabor.domain.checks._hand import G
 from staunlabor.domain.experiments import elephant as engine
 
-ENGINE = ("elephant",)
-
-#: Standard gravity and air, as the engine takes them.
-G = 9.80665
+#: Air, as the engine takes it.
 RHO = 1.2
 
 _MOMENTUM = Source(

@@ -12,9 +12,9 @@ import {
   STEP_S,
   gravityShare,
   pathRadius,
-  G,
   type SphereParameters,
 } from "./simulate/sphere";
+import { G } from "./simulate/constants";
 import {
   HAND_HZ,
   MAX_PUSH_M,

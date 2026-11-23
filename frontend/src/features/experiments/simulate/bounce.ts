@@ -9,12 +9,13 @@
  * change to the physics is made in Python first.
  */
 
-export const G = 9.80665;
+import { G } from "./constants";
+
 const AIR_DENSITY = 1.204;
 const DRAG_COEFFICIENT = 0.47;
 const SHORTEST_FLIGHT_S = 1e-4;
 /** A bounce counts while its flight lasts at least this long. */
-export const COUNTED_FLIGHT_S = 0.01;
+const COUNTED_FLIGHT_S = 0.01;
 
 /** The engine's `BouncingBall`. */
 export interface BouncingBall {

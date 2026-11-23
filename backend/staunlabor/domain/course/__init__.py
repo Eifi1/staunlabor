@@ -86,6 +86,7 @@ from staunlabor.domain.course.lti import (
     step_pt2,
 )
 from staunlabor.domain.course.numerics import (
+    MAX_SENSOR_STEPS,
     ErrorRow,
     EulerRegime,
     MethodRun,
@@ -125,6 +126,7 @@ from staunlabor.domain.course.two_mass import (
 
 __all__ = [
     "MAX_BLOCKS",
+    "MAX_SENSOR_STEPS",
     "Analogy",
     "AnalogyKind",
     "Answer",

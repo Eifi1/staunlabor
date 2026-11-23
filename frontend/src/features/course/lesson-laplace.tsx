@@ -34,10 +34,11 @@ import { NumberField } from "@/shared/ui/number-field";
 import type { Block, BlockKind, FilterMode, FilterRequest, LaplaceRequest } from "@/shared/types";
 import { HUE, REFERENCE_GREY } from "./colours";
 import { LessonFrame } from "./lesson-frame";
-import { Failed, Figures, Param, WidgetBody, WidgetCard, logX } from "./parts";
+import { logX } from "@/shared/charts/log-axis";
+import { Failed, Figures, Param, WidgetBody, WidgetCard } from "./parts";
 import { PolePlane } from "./pole-plane";
 import { Tex, texNumber } from "@/shared/ui/tex";
-import { useComputed } from "./use-dynamics";
+import { useComputed } from "./use-course";
 
 const LAPLACE: LaplaceRequest = { time_constant_s: 2, gain: 1, step: 3, start: 0 };
 const KINDS: BlockKind[] = ["proportional", "integrator", "first_order", "second_order", "dead_time"];

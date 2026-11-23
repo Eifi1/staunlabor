@@ -9,14 +9,15 @@
  * made in Python first.
  */
 
-import { MAX_DURATION_S, SAMPLES_PER_S, G } from "./pendulum";
-import { roundHalfEven } from "./sphere";
+import { G } from "./constants";
+import { MAX_DURATION_S, SAMPLES_PER_S } from "./numerics";
+import { roundHalfEven } from "./python";
 
 export type Shape = "disc" | "ring";
 export type Phase = "down" | "jerk" | "up";
 
 /** I/(M·R²) for the two wheels. */
-export const SPIN_SHARE: Record<Shape, number> = { disc: 0.5, ring: 1.0 };
+const SPIN_SHARE: Record<Shape, number> = { disc: 0.5, ring: 1.0 };
 
 export interface MaxwellWheel {
   mass_kg: number;
@@ -36,15 +37,15 @@ export function inertiaRatio(w: MaxwellWheel): number {
   return SPIN_SHARE[w.shape] * (w.wheel_radius_m / w.axle_radius_m) ** 2;
 }
 
-export function fallAcceleration(w: MaxwellWheel): number {
+function fallAcceleration(w: MaxwellWheel): number {
   return G / (1 + inertiaRatio(w) / (1 - w.loss));
 }
 
-export function climbDeceleration(w: MaxwellWheel): number {
+function climbDeceleration(w: MaxwellWheel): number {
   return G / (1 + inertiaRatio(w) / (1 + w.loss));
 }
 
-export function rollTensionN(w: MaxwellWheel, phase: Phase = "down"): number {
+function rollTensionN(w: MaxwellWheel, phase: Phase = "down"): number {
   const a = phase === "down" ? fallAcceleration(w) : climbDeceleration(w);
   return w.mass_kg * (G - a);
 }

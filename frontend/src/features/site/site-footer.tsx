@@ -1,6 +1,7 @@
 import { Link } from "react-router";
 import { useTranslation } from "react-i18next";
 import { accounts } from "@/shared/api/accounts";
+import { ACCOUNT_PATHS, SITE_PATHS } from "@/shared/lib/site-paths";
 import { ISSUES_URL, SOURCE_URL } from "./operator";
 
 /** The foot of every page: the site's own pages, the code and where to say
@@ -14,13 +15,13 @@ export function SiteFooter() {
   return (
     <footer className="mt-auto border-t border-subtle px-3 py-4 text-caption text-muted md:px-6 print:hidden">
       <nav aria-label={t("site.footer.label")} className="flex flex-wrap gap-x-4 gap-y-1">
-        <Link className={link} to="/about">
+        <Link className={link} to={SITE_PATHS.about}>
           {t("site.footer.about")}
         </Link>
-        <Link className={link} to="/impressum">
+        <Link className={link} to={SITE_PATHS.imprint}>
           {t("site.footer.imprint")}
         </Link>
-        <Link className={link} to="/privacy">
+        <Link className={link} to={SITE_PATHS.privacy}>
           {t("site.footer.privacy")}
         </Link>
         <a className={link} href={SOURCE_URL}>
@@ -29,7 +30,7 @@ export function SiteFooter() {
         <a className={link} href={ISSUES_URL}>
           {t("site.footer.issues")}
         </a>
-        <Link className={link} to={signedIn ? "/settings" : "/login"}>
+        <Link className={link} to={signedIn ? ACCOUNT_PATHS.settings : SITE_PATHS.login}>
           {signedIn ? t("site.footer.account") : t("site.footer.signIn")}
         </Link>
       </nav>

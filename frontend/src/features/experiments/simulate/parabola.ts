@@ -9,15 +9,16 @@
  * asked of this port. A change to the physics is made in Python first.
  */
 
-import { MAX_DURATION_S, G, rk4, sampleEvery } from "./pendulum";
-import { roundHalfEven } from "./sphere";
+import { G } from "./constants";
+import { MAX_DURATION_S, rk4, sampleEvery } from "./numerics";
+import { roundHalfEven } from "./python";
 
 /** Water's kinematic viscosity at 20 °C, m²/s. */
-export const NU = 1.0e-6;
+const NU = 1.0e-6;
 /** The spin-up's step. */
 export const SPIN_STEP_S = 0.01;
 /** The points a profile is drawn with, rim to rim. */
-export const PROFILE_POINTS = 61;
+const PROFILE_POINTS = 61;
 
 export interface Vessel {
   radius_m: number;
@@ -91,7 +92,7 @@ export function spinUpTimeS(v: Vessel, rate: number): number | null {
 }
 
 /** `dω/dt = (ω_v − ω)/τ`, τ at the faster of the two rates. */
-export function spinRhs(v: Vessel, vesselRate: number) {
+function spinRhs(v: Vessel, vesselRate: number) {
   return (_t: number, y: readonly number[]): number[] => {
     const fastest = Math.max(Math.abs(vesselRate), Math.abs(y[0]));
     if (fastest === 0) return [0.0];

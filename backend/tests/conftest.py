@@ -26,6 +26,7 @@ import asyncio
 import os
 import re
 from collections.abc import AsyncIterator, Iterator
+from contextlib import asynccontextmanager
 
 import asyncpg
 import pytest
@@ -81,14 +82,29 @@ def _reset_settings_cache():
     get_settings.cache_clear()
 
 
-@pytest.fixture
-async def client() -> AsyncIterator[AsyncClient]:
+@asynccontextmanager
+async def app_client(monkeypatch: pytest.MonkeyPatch | None = None, **env: str) -> AsyncIterator[AsyncClient]:
+    """The app over httpx, built after ``env`` is set (``STAUNLABOR_…`` names), its
+    database's pool disposed afterwards."""
     from staunlabor.main import create_app
 
+    if env:
+        assert monkeypatch is not None, "the environment is set through the test's monkeypatch"
+        for name, value in env.items():
+            monkeypatch.setenv(name, value)
+    get_settings.cache_clear()
     app = create_app()
-    async with AsyncClient(transport=ASGITransport(app=app), base_url="http://test") as client:
+    try:
+        async with AsyncClient(transport=ASGITransport(app=app), base_url="http://test") as client:
+            yield client
+    finally:
+        await app.state.database.dispose()
+
+
+@pytest.fixture
+async def client() -> AsyncIterator[AsyncClient]:
+    async with app_client() as client:
         yield client
-    await app.state.database.dispose()
 
 
 # ── A database per worker ────────────────────────────────────────────────────
@@ -253,18 +269,16 @@ FIRST_ADMIN = "ada@example.com"
 JOBS_TOKEN = "a-jobs-token-for-the-tests-only-0123456789"
 
 
+#: The account tests' environment: the allow-list and the jobs token.
+ACCOUNTS_ENV = {"STAUNLABOR_REGISTRATION_ALLOWLIST": FIRST_ADMIN, "STAUNLABOR_JOBS_TOKEN": JOBS_TOKEN}
+
+
 @pytest.fixture
 async def accounts(database: str, monkeypatch: pytest.MonkeyPatch) -> AsyncIterator[AsyncClient]:
-    """The app on this test's empty database, :data:`FIRST_ADMIN` on its allow-list."""
-    from staunlabor.main import create_app
-
-    monkeypatch.setenv("STAUNLABOR_REGISTRATION_ALLOWLIST", FIRST_ADMIN)
-    monkeypatch.setenv("STAUNLABOR_JOBS_TOKEN", JOBS_TOKEN)
-    get_settings.cache_clear()
-    app = create_app()
-    async with AsyncClient(transport=ASGITransport(app=app), base_url="http://test") as client:
+    """The app on this test's empty database, :data:`FIRST_ADMIN` on its allow-list and
+    :data:`JOBS_TOKEN` its daily call's token."""
+    async with app_client(monkeypatch, **ACCOUNTS_ENV) as client:
         yield client
-    await app.state.database.dispose()
 
 
 @pytest.fixture

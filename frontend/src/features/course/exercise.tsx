@@ -20,20 +20,13 @@
 import { useState, type FormEvent } from "react";
 import { useTranslation } from "react-i18next";
 import { CheckCircle2, Lightbulb, XCircle } from "lucide-react";
-import { Button, Card, CardHeader, CardTitle, Input, SectionLabel, formatWithMinus } from "@eifi1/ui-kit";
+import { Button, Card, CardHeader, CardTitle, Input, SectionLabel } from "@eifi1/ui-kit";
 import { useLocale } from "@/shared/i18n/use-locale";
+import { formatSig } from "@/shared/lib/format";
 import type { Answer, Exercise } from "@/shared/types";
-import { SURPRISE_SHARE, useCourseProgress } from "./progress";
+import { estimateMiss, isSurprise, useCourseProgress } from "./progress";
 import { Tex } from "@/shared/ui/tex";
 import { solutionTex } from "./solutions";
-
-/** A number as a reader would write it: up to four significant digits, the
- *  reader's separators, no trailing zeros — and a negative's minus the one the
- *  rest of the site prints (U+2212, ui-kit 0.49), which a bare `Intl` writes as a
- *  hyphen; `parseEntry` reads either back. */
-export function formatSig(value: number, locale: string, significant = 4): string {
-  return formatWithMinus(new Intl.NumberFormat(locale, { maximumSignificantDigits: significant }), value);
-}
 
 /** What the reader typed, as a number — a decimal comma read as a point, a
  *  thousands apostrophe or space dropped — or `null` if it is not one. */
@@ -110,10 +103,7 @@ export function ExerciseCard({ exercise }: { exercise: Exercise }) {
     setVerdict(right ? "right" : "wrong");
   };
 
-  const offBy =
-    record?.estimate != null && first.value !== 0
-      ? Math.abs(record.estimate - first.value) / Math.abs(first.value)
-      : null;
+  const offBy = record?.estimate != null ? estimateMiss(record.estimate, first.value) : null;
 
   return (
     <Card padding="md" density="compact" className="space-y-3">
@@ -186,7 +176,7 @@ export function ExerciseCard({ exercise }: { exercise: Exercise }) {
           )}
           {verdict !== null && offBy !== null && (
             <p className="text-xs text-muted">
-              {offBy > SURPRISE_SHARE
+              {isSurprise(offBy)
                 ? t("course.exercise.surprise", { pct: formatSig(offBy * 100, locale, 2) })
                 : t("course.exercise.estimate_close", { pct: formatSig(offBy * 100, locale, 2) })}
             </p>

@@ -11,8 +11,7 @@ from httpx import AsyncClient
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from staunlabor.models import ExhibitCheck
-from tests.api.test_accounts_api import API, bearer, first_admin
-from tests.api.test_user_admin_api import join
+from tests.api.helpers import API, bearer, first_admin, join
 
 pytestmark = pytest.mark.api
 

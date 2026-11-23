@@ -7,7 +7,8 @@ import { FALLBACK_LOCALE, LANGUAGE_CODES, tagOf } from "./languages";
  * ships — one kit catalogue per app catalogue, so a screen can never carry the
  * kit's words in one language and the app's in another.
  *
- * Handed whole to `<UiKitProvider>` in `main.tsx`, which is what reaches the
+ * Handed whole to the kit's provider through `KitProviders`
+ * (`app/kit-providers.tsx`), which is what reaches the
  * strings no prop could: the calculator inside a `NumberField`, the empty
  * state of a chart.
  *

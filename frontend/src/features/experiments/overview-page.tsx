@@ -13,11 +13,12 @@ import { ExhibitGrid } from "./exhibit-cards";
 import { EQUATION_COUNT } from "./facts";
 import { FittedPreview } from "./fitted-preview";
 import {
-  BUILT,
+  EXHIBITS,
   EXHIBITS_ANCHOR,
   EXHIBITS_PATH,
   TOPICS_SHOWN,
   exhibitEntry,
+  sampled,
   type Exhibit,
   type ExhibitEntry,
 } from "./exhibits";
@@ -45,11 +46,11 @@ function weekSpan(monday: string, locale: string): string {
  *   auf die Seite mit den Experimenten anstelle des Dialogs");
  * - **the site in figures**, a band across the window: exhibits, topics,
  *   equations, checked, languages, and what the site does not do;
- * - **the exhibits** as a part of their own: the newest few, each moving
+ * - **the exhibits** as a part of their own: a few drawn at random, each moving
  *   once pointed at, and the way to the page of all of them (`exhibits-page.tsx`;
  *   Marcel, 2026-11-20: "nicht alle Exponate gleich sofort … sondern nur eine
  *   Auswahl, … weiterhin eine separate Seite mit allen Exponaten");
- * - **the basics** under them, likewise: the lessons most exhibits build on,
+ * - **the basics** under them, likewise: the lessons the exhibits build on,
  *   and the way to the course (`features/course`), which moved here from
  *   Kurvenschmiede (Marcel, 2026-11-20: "Genauso wie die Grundlagen unten
  *   drunter").
@@ -189,12 +190,10 @@ function WeekStage({ entry, week }: { entry: ExhibitEntry; week: string }) {
             </p>
           </div>
           <div className="flex gap-2 md:shrink-0 md:flex-col">
-            {entry.path && (
-              <Button variant="accent" href={entry.path} className="flex-1 md:flex-none">
-                {t("experiments.overview.week.open")}
-                <ArrowRight className="size-4" aria-hidden />
-              </Button>
-            )}
+            <Button variant="accent" href={entry.path} className="flex-1 md:flex-none">
+              {t("experiments.overview.week.open")}
+              <ArrowRight className="size-4" aria-hidden />
+            </Button>
             {/* A page of its own: the way back is the browser's (Marcel,
                 2026-11-20: back with the mouse's side button). */}
             <Button variant="secondary" href={EXHIBITS_PATH} className="flex-1 md:flex-none">
@@ -211,7 +210,7 @@ function WeekStage({ entry, week }: { entry: ExhibitEntry; week: string }) {
 /**
  * The site in five figures, a band across the window under the stage
  * (Marcel, 2026-11-20: "Wo ist die bottom line mit den key facts zur
- * Seite?"), each counted where it is kept: the built exhibits and their
+ * Seite?"), each counted where it is kept: the exhibits and their
  * topics, the equations the pages write out (`facts.ts`), the exhibits an
  * admin has checked, from the server, and the languages. Under them, in one
  * quiet line, what the site does not do. The kit's tiles, as UI-Kit advised;
@@ -221,7 +220,9 @@ function Figures() {
   const { t } = useTranslation();
   const locale = useLocale();
   const checks = useChecks();
-  const checked = checks.data?.checked.filter((check) => BUILT.some((entry) => entry.exhibit === check.exhibit)).length;
+  const checked = checks.data?.checked.filter((check) =>
+    EXHIBITS.some((entry) => entry.exhibit === check.exhibit),
+  ).length;
   return (
     <section
       aria-label={t("experiments.overview.facts.label")}
@@ -229,7 +230,7 @@ function Figures() {
     >
       <div className={`${CONTAINER} py-6 md:py-8`}>
         <StatTileGrid minTileWidth="9rem" lang={locale}>
-          <StatTile label={t("experiments.overview.facts.exhibits")} value={BUILT.length} locale={locale} />
+          <StatTile label={t("experiments.overview.facts.exhibits")} value={EXHIBITS.length} locale={locale} />
           <StatTile label={t("experiments.overview.facts.topics")} value={TOPICS_SHOWN.length} locale={locale} />
           <StatTile label={t("experiments.overview.facts.equations")} value={EQUATION_COUNT} locale={locale} />
           <StatTile
@@ -246,71 +247,86 @@ function Figures() {
   );
 }
 
+/** The head of a part of the front page: its title, large enough to be seen
+ *  from afar, a line on what it holds, and the way to all of it. */
+function PartHead({
+  id,
+  title,
+  lead,
+  href,
+  action,
+}: {
+  id: string;
+  title: string;
+  lead: string;
+  href: string;
+  action: string;
+}) {
+  return (
+    <div className="flex flex-wrap items-end justify-between gap-x-6 gap-y-2">
+      <div className="space-y-1">
+        <h2 id={id} className="font-serif text-3xl font-semibold text-primary md:text-4xl">
+          {title}
+        </h2>
+        <p className="text-sm text-secondary md:text-base">{lead}</p>
+      </div>
+      <Button variant="ghost" href={href}>
+        {action}
+        <ArrowRight className="size-4" aria-hidden />
+      </Button>
+    </div>
+  );
+}
+
 /** How many exhibits the front page shows: two rows of three. */
 const SELECTION = 6;
 
 /**
  * The exhibits as a part of the front page: a heading to be seen from afar,
- * the newest few as cards, each moving once pointed at, and the way to all of
- * them on a page of their own.
+ * a few drawn at random as cards (`sampled`), each moving once pointed at, and
+ * the way to all of them on a page of their own. Drawn once per visit and kept
+ * while the page is open, so the cards do not change under the reader.
  */
 function Selection({ current }: { current: Exhibit }) {
   const { t } = useTranslation();
+  const [entries] = useState(() => sampled(EXHIBITS, SELECTION));
   return (
     <section aria-labelledby="exhibits" className="space-y-4">
-      <div className="flex flex-wrap items-end justify-between gap-x-6 gap-y-2">
-        <div className="space-y-1">
-          <h2 id="exhibits" className="font-serif text-3xl font-semibold text-primary md:text-4xl">
-            {t("experiments.overview.selection.title")}
-          </h2>
-          <p className="text-sm text-secondary md:text-base">
-            {t("experiments.overview.selection.lead", { count: SELECTION })}
-          </p>
-        </div>
-        <Button variant="ghost" href={EXHIBITS_PATH}>
-          {t("experiments.overview.selection.all", { count: BUILT.length })}
-          <ArrowRight className="size-4" aria-hidden />
-        </Button>
-      </div>
-      <ExhibitGrid entries={BUILT.slice(0, SELECTION)} current={current} />
+      <PartHead
+        id="exhibits"
+        title={t("experiments.overview.selection.title")}
+        lead={t("experiments.overview.selection.lead", { count: SELECTION })}
+        href={EXHIBITS_PATH}
+        action={t("experiments.overview.selection.all", { count: EXHIBITS.length })}
+      />
+      <ExhibitGrid entries={entries} current={current} />
     </section>
   );
 }
 
-/** The lessons the front page shows: the three the most exhibits build on,
- *  in the course's order. */
+/** The lessons the front page shows: those some exhibit builds on, in the
+ *  course's order. An exhibit builds on one of three lessons
+ *  (`CourseLesson`), so all three are shown, one per column of the grid. */
 const LESSONS_SHOWN = LESSONS.filter((entry) =>
-  [...new Set(BUILT.flatMap((exhibit) => exhibit.lessons))]
-    .sort(
-      (a, b) =>
-        BUILT.filter((exhibit) => exhibit.lessons.includes(b)).length -
-        BUILT.filter((exhibit) => exhibit.lessons.includes(a)).length,
-    )
-    .slice(0, 3)
-    .some((lesson) => lesson === entry.lesson),
+  EXHIBITS.some((exhibit) => exhibit.lessons.some((lesson) => lesson === entry.lesson)),
 );
 
 /**
  * The basics as a part of the front page, under the exhibits: the lessons
- * most exhibits stand on, each with what it teaches, and the way to the
+ * the exhibits stand on, each with what it teaches, and the way to the
  * course.
  */
 function Basics() {
   const { t } = useTranslation();
   return (
     <section aria-labelledby="basics" className="space-y-4 pt-6">
-      <div className="flex flex-wrap items-end justify-between gap-x-6 gap-y-2">
-        <div className="space-y-1">
-          <h2 id="basics" className="font-serif text-3xl font-semibold text-primary md:text-4xl">
-            {t("experiments.overview.basics.title")}
-          </h2>
-          <p className="text-sm text-secondary md:text-base">{t("experiments.overview.basics.lead")}</p>
-        </div>
-        <Button variant="ghost" href={BASICS_PATH}>
-          {t("experiments.overview.basics.all")}
-          <ArrowRight className="size-4" aria-hidden />
-        </Button>
-      </div>
+      <PartHead
+        id="basics"
+        title={t("experiments.overview.basics.title")}
+        lead={t("experiments.overview.basics.lead")}
+        href={BASICS_PATH}
+        action={t("experiments.overview.basics.all")}
+      />
       <div className="grid grid-cols-1 gap-3 md:grid-cols-3">
         {LESSONS_SHOWN.map((entry) => (
           <ActionCard

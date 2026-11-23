@@ -1,11 +1,10 @@
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useMemo, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { Pause, Play, RotateCcw } from "lucide-react";
-import { AlertBanner, Button, LoadingState, ToggleGroup } from "@eifi1/ui-kit";
+import { AlertBanner, Button, LoadingState } from "@eifi1/ui-kit";
 import { SeriesChart } from "@/shared/charts/series-chart";
 import { useLocale } from "@/shared/i18n/use-locale";
 import { formatNumber, formatPowerOfTen } from "@/shared/lib/format";
-import { useChartHex } from "@/shared/state/palette-store";
+import { useChartHue } from "@/shared/state/palette-store";
 import type { WaveFigures, WaveRequest } from "@/shared/types";
 import { SliderField } from "@/shared/ui/slider-field";
 import { Figures, WidgetCard } from "@/shared/ui/widget";
@@ -13,8 +12,9 @@ import { Equation } from "./equation";
 import { ExhibitFrame } from "./exhibit-frame";
 import { BuildPending } from "./build-pending";
 import { PreviewPending, type PreviewMode, type PreviewProps } from "./preview-mode";
-import { startsRunning } from "./play";
-import { settingNumber, useCheckRequest, useCheckSetting, type CheckSetting } from "./check-setting";
+import { useFrameLoop, useRunning } from "./play";
+import { RestartButton, RunPauseButton, SpeedToggle } from "./play-controls";
+import { sameBuild, settingNumber, useCheckSetting, useTakeCheckRequest, type CheckSetting } from "./check-setting";
 import { angleDeg, swing } from "./simulate/pendulum";
 import { fits, lengthsM, spreadDeg } from "./simulate/wave";
 import { SIDE } from "./stage";
@@ -49,13 +49,10 @@ export function WavePage() {
   const wave = build ?? defaults.data?.wave ?? null;
   // A check case's "Set it up": the row's build here; the play, built anew for
   // it or already on it, sets the swing and the clock.
-  const request = useCheckRequest("wave");
-  const [seen, setSeen] = useState<number | null>(null);
-  if (request && !request.done && request.nonce !== seen && wave) {
-    setSeen(request.nonce);
-    const next = waveOf(wave, request.setting);
-    if (JSON.stringify(next) !== JSON.stringify(wave)) setBuild(next);
-  }
+  useTakeCheckRequest("wave", wave, (setting, current) => {
+    const next = waveOf(current, setting);
+    if (!sameBuild(next, current)) setBuild(next);
+  });
   const fine = wave ? fits(wave) : false;
   const figures = useWaveFigures(fine ? wave : null);
 
@@ -117,28 +114,15 @@ function WavePlay({
   const locale = useLocale();
   const clock = useRef(0);
   const [time, setTime] = useState(0);
-  const [runningHere, setRunning] = useState(startsRunning);
+  const { running, setRunning } = useRunning({ preview, paused });
   const [speedHere, setSpeed] = useState<Speed>(1);
-  const running = preview ? !paused : runningHere;
   const speed = preview ? PREVIEW_SPEED : speedHere;
   const lengths = useMemo(() => lengthsM(wave), [wave]);
 
-  useEffect(() => {
-    if (!running) return;
-    let raf = 0;
-    let last = performance.now();
-    const tick = (now: number) => {
-      // A frame's timestamp can lie a little before the effect started: never a
-      // step back in time.
-      const dt = Math.max(0, Math.min(0.05, (now - last) / 1000));
-      last = now;
-      clock.current += dt * speed;
-      setTime(clock.current);
-      raf = requestAnimationFrame(tick);
-    };
-    raf = requestAnimationFrame(tick);
-    return () => cancelAnimationFrame(raf);
-  }, [running, speed]);
+  useFrameLoop(running, (dt) => {
+    clock.current += dt * speed;
+    setTime(clock.current);
+  });
 
   const jump = (to: number) => {
     clock.current = to;
@@ -174,28 +158,14 @@ function WavePlay({
       hint={t("experiments.wave.play.hint")}
       actions={
         <>
-          <Button variant="secondary" size="sm" onClick={() => setRunning(!running)}>
-            {running ? <Pause className="size-4" aria-hidden /> : <Play className="size-4" aria-hidden />}
-            {running ? t("experiments.wave.play.pause") : t("experiments.wave.play.run")}
-          </Button>
-          <Button variant="secondary" size="sm" onClick={() => jump(0)}>
-            <RotateCcw className="size-4" aria-hidden />
-            {t("experiments.wave.play.restart")}
-          </Button>
+          <RunPauseButton running={running} onToggle={() => setRunning(!running)} />
+          <RestartButton onClick={() => jump(0)} />
         </>
       }
     >
       <div className={SIDE.grid}>
         <div className={SIDE.top}>
-          <ToggleGroup
-            label={t("experiments.wave.play.speed")}
-            labelPlacement="above"
-            size="sm"
-            overflow="wrap"
-            value={String(speed)}
-            onChange={(v: string) => setSpeed(Number(v) as Speed)}
-            options={SPEEDS.map((s) => ({ value: String(s), label: t(`experiments.wave.play.speeds.${s}`) }))}
-          />
+          <SpeedToggle speeds={SPEEDS} value={speed} onChange={setSpeed} />
         </div>
         <div className={SIDE.views}>
           <figure className="space-y-1">
@@ -424,7 +394,7 @@ function WaveTrick({
 }) {
   const { t } = useTranslation();
   const locale = useLocale();
-  const hex = useChartHex();
+  const hue = useChartHue();
   const rows = useMemo(
     () => (figures ? figures.spread_curve.map((p) => ({ amplitude: p.amplitude_deg, spread: p.spread_deg })) : []),
     [figures],
@@ -444,7 +414,7 @@ function WaveTrick({
       </p>
       <SeriesChart
         rows={rows}
-        series={[{ key: "spread", label: t("experiments.wave.chart.spread"), color: hex[2 % hex.length] }]}
+        series={[{ key: "spread", label: t("experiments.wave.chart.spread"), color: hue(2) }]}
         axes={[
           {
             id: "y",

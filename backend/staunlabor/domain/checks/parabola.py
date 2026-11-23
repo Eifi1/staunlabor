@@ -8,12 +8,9 @@ from __future__ import annotations
 import math
 
 from staunlabor.domain.checks import Case, Source
+from staunlabor.domain.checks._hand import G
 from staunlabor.domain.experiments import parabola as engine
 
-ENGINE = ("parabola",)
-
-#: Standard gravity, as the engine takes it.
-G = 9.80665
 #: Turns a minute ↔ radians a second, as the page's slider counts.
 RPM = 2 * math.pi / 60
 

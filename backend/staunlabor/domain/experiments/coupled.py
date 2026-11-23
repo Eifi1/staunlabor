@@ -38,7 +38,8 @@ import enum
 import math
 from dataclasses import dataclass
 
-from staunlabor.domain.experiments.pendulum import MAX_DURATION_S, STEP_S, G, rk4, sample_every
+from staunlabor.domain.experiments.constants import G
+from staunlabor.domain.experiments.numerics import STEP_S, check_run, rk4, sample_every
 
 
 class Start(enum.StrEnum):
@@ -175,10 +176,7 @@ def swing(
     cp: CoupledPendulums, start: Start, amplitude_deg: float, duration_s: float, step_s: float = STEP_S
 ) -> CoupledRun:
     """The pair let go from ``start``, stepped for ``duration_s``."""
-    if not 0 < step_s <= 0.01:
-        raise ValueError("the step lies between 0 and 10 ms")
-    if not 0 < duration_s <= MAX_DURATION_S:
-        raise ValueError(f"a run lasts more than nothing and at most {MAX_DURATION_S:g} s")
+    check_run(duration_s, step_s)
     f = rhs(cp)
     y: tuple[float, ...] = start_state(start, amplitude_deg)
     steps = round(duration_s / step_s)

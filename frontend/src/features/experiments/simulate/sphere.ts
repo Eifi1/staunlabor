@@ -20,13 +20,13 @@
  * finger did.
  */
 
-/** Standard gravity, as the engine uses. */
-export const G = 9.80665;
+import { G, HOLLOW_BALL_INERTIA, RESISTANCE_FADE_M_S, SOLID_BALL_INERTIA } from "./constants";
+import { roundHalfEven, TO_DEG, TO_RAD } from "./python";
+import { rk4 } from "./numerics";
+
 /** I/(m·r²) for the two balls the page offers. */
-export const SOLID = 2 / 5;
-export const HOLLOW = 2 / 3;
-/** The speed below which rolling resistance fades in rather than switching sign. */
-export const RESISTANCE_FADE_M_S = 1e-3;
+export const SOLID = SOLID_BALL_INERTIA;
+export const HOLLOW = HOLLOW_BALL_INERTIA;
 /** The engine's step: 1 ms. */
 export const STEP_S = 1e-3;
 /** Samples a run returns per second, whatever its step. */
@@ -71,22 +71,9 @@ export interface SphereRun {
 /** The ball's state: its centre relative to the sphere's, and its velocity. */
 export type SphereState = [number, number, number, number, number, number];
 
-/** Python's `round`: half to even, as the step counts are taken. */
-export function roundHalfEven(x: number): number {
-  const down = Math.floor(x);
-  const rest = x - down;
-  if (rest > 0.5) return down + 1;
-  if (rest < 0.5) return down;
-  return down % 2 === 0 ? down : down + 1;
-}
-
-/** `math.radians` and `math.degrees`: one multiplication by CPython's constant. */
-const DEG_TO_RAD = Math.PI / 180.0;
-const RAD_TO_DEG = 180.0 / Math.PI;
-
 /** The engine's `Sphere.__post_init__`: the sliders never reach these, so a
  *  refusal here is a defect upstream, said in the engine's words. */
-export function checkSphere(s: SphereParameters): void {
+function checkSphere(s: SphereParameters): void {
   if (!(s.shell_radius_m > 0) || !(s.ball_radius_m > 0)) {
     throw new RangeError("the sphere and the ball need a positive radius");
   }
@@ -96,12 +83,12 @@ export function checkSphere(s: SphereParameters): void {
 
 /** ρ: how far the ball's centre stays from the sphere's centre. */
 export const pathRadius = (s: SphereParameters) => s.shell_radius_m - s.ball_radius_m;
-export const inertiaFactor = (s: SphereParameters) => (s.ball === "solid" ? SOLID : HOLLOW);
+const inertiaFactor = (s: SphereParameters) => (s.ball === "solid" ? SOLID : HOLLOW);
 /** 1/(1 + k): 5/7 for a solid ball, 3/5 for a hollow one. */
 export const gravityShare = (s: SphereParameters) => 1 / (1 + inertiaFactor(s));
 
 /** The engine's `Drive.__post_init__`. */
-export function checkDrive(d: Drive): void {
+function checkDrive(d: Drive): void {
   if (d.radius_m < 0 || d.start_hz < 0 || d.end_hz < 0) {
     throw new RangeError("the drive's radius and rates cannot be negative");
   }
@@ -110,7 +97,7 @@ export function checkDrive(d: Drive): void {
 }
 
 /** The hand's phase, rate (rad/s) and rate of change of rate at `t`. */
-export function driveState(d: Drive, t: number): [number, number, number] {
+function driveState(d: Drive, t: number): [number, number, number] {
   const w0 = 2 * Math.PI * (d.sweep_s > 0 ? d.start_hz : d.end_hz);
   const w1 = 2 * Math.PI * d.end_hz;
   if (d.sweep_s > 0 && t < d.sweep_s) {
@@ -139,7 +126,7 @@ export function shellAcceleration(d: Drive, t: number): [number, number] {
  * against the motion. Written into `out` rather than returned as a tuple: four
  * calls a step, sixty steps a frame.
  */
-export function acceleration(
+function acceleration(
   s: SphereParameters,
   px: number,
   py: number,
@@ -172,7 +159,7 @@ export function acceleration(
 /** The ball `angleDeg` up the wall towards +x, rolling round at `speed` along +y. */
 export function startState(s: SphereParameters, angleDeg = 0.0, speedMS = 0.0): SphereState {
   const rho = pathRadius(s);
-  const th = angleDeg * DEG_TO_RAD;
+  const th = angleDeg * TO_RAD;
   return [rho * Math.sin(th), 0.0, -rho * Math.cos(th), 0.0, speedMS, 0.0];
 }
 
@@ -189,25 +176,12 @@ export function step(
   h: number,
 ): SphereState {
   const acc = [0, 0, 0];
-  const f = (tt: number, yy: number[]): number[] => {
+  const f = (tt: number, yy: readonly number[]): number[] => {
     const [ax, ay] = shell(tt);
     acceleration(s, yy[0], yy[1], yy[2], yy[3], yy[4], yy[5], ax, ay, acc);
     return [yy[3], yy[4], yy[5], acc[0], acc[1], acc[2]];
   };
-  const k1 = f(t, y);
-  const k2 = f(
-    t + h / 2,
-    y.map((v, i) => v + (h / 2) * k1[i]),
-  );
-  const k3 = f(
-    t + h / 2,
-    y.map((v, i) => v + (h / 2) * k2[i]),
-  );
-  const k4 = f(
-    t + h,
-    y.map((v, i) => v + h * k3[i]),
-  );
-  const n = y.map((v, i) => v + (h / 6) * (k1[i] + 2 * k2[i] + 2 * k3[i] + k4[i]));
+  const n = rk4(f, t, y, h);
   const rho = pathRadius(s);
   const r = Math.sqrt(n[0] * n[0] + n[1] * n[1] + n[2] * n[2]);
   const px = (n[0] * rho) / r;
@@ -226,7 +200,7 @@ export function handStep(s: SphereParameters, y: SphereState, shellAx: number, s
 
 /** How far up the wall the ball is, degrees from the bottom. */
 export const angleOf = (s: SphereParameters, y: SphereState) =>
-  Math.acos(Math.max(-1.0, Math.min(1.0, -y[2] / pathRadius(s)))) * RAD_TO_DEG;
+  Math.acos(Math.max(-1.0, Math.min(1.0, -y[2] / pathRadius(s)))) * TO_DEG;
 
 /** `math.fmod` is JavaScript's `%`; then into (−180°, 180°]. */
 function wrapDeg(angle: number): number {
@@ -271,7 +245,7 @@ export function run(s: SphereParameters, d: Drive, startAngleDeg = 0.0, startSpe
       out.angle_deg.push(angleOf(s, y));
       out.depth_below_equator_m.push(-y[2]);
       out.drive_hz.push(rate / (2 * Math.PI));
-      out.lead_deg.push(wrapDeg((phase - ball) * RAD_TO_DEG));
+      out.lead_deg.push(wrapDeg((phase - ball) * TO_DEG));
     }
     const [ax, ay] = shell(t);
     const normal = acceleration(s, y[0], y[1], y[2], y[3], y[4], y[5], ax, ay, acc);

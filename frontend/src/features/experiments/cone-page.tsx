@@ -1,18 +1,20 @@
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useMemo, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { Hand, Pause, Play } from "lucide-react";
-import { AlertBanner, Button, LoadingState, ToggleGroup } from "@eifi1/ui-kit";
+import { Hand } from "lucide-react";
+import { AlertBanner, Button, LoadingState } from "@eifi1/ui-kit";
 import { SeriesChart } from "@/shared/charts/series-chart";
 import { useLocale } from "@/shared/i18n/use-locale";
 import { formatNumber } from "@/shared/lib/format";
-import { useChartHex } from "@/shared/state/palette-store";
+import { useChartHue } from "@/shared/state/palette-store";
 import { SliderField } from "@/shared/ui/slider-field";
 import { Figures, WidgetCard } from "@/shared/ui/widget";
 import { ConeFrontView, ConeSideView } from "./cone-views";
 import { Equation } from "./equation";
 import { ExhibitFrame } from "./exhibit-frame";
 import { BuildPending } from "./build-pending";
-import { settingNumber, useCheckRequest, useCheckSetting, type CheckSetting } from "./check-setting";
+import { sameBuild, settingNumber, useCheckSetting, useTakeCheckRequest, type CheckSetting } from "./check-setting";
+import { useFrameLoop } from "./play";
+import { RunPauseButton, SpeedToggle } from "./play-controls";
 import { PreviewPending, type PreviewMode, type PreviewProps } from "./preview-mode";
 import { HeldAnswer, useHeld, type Held } from "./held";
 import {
@@ -29,9 +31,9 @@ import {
   type ConeExhibit,
   type RollState,
 } from "./simulate/cone";
-import { STEP_S } from "./simulate/pendulum";
 import { SIDE } from "./stage";
 import { useExperimentsDefaults } from "./use-experiments";
+import { STEP_S } from "./simulate/numerics";
 
 /** Real time, or four times slower: the roll takes a second and a half. */
 const SPEEDS = [1, 0.25] as const;
@@ -78,13 +80,10 @@ export function ConePage() {
   const ex = build ?? defaults.data?.cone ?? null;
   // A check case's "Set it up": the build here; the play, built anew for it or
   // already on it, lays the cone and lets it go.
-  const request = useCheckRequest("cone");
-  const [seen, setSeen] = useState<number | null>(null);
-  if (request && !request.done && request.nonce !== seen && ex) {
-    setSeen(request.nonce);
-    const next = coneOf(ex, request.setting);
-    if (JSON.stringify(next) !== JSON.stringify(ex)) setBuild(next);
-  }
+  useTakeCheckRequest("cone", ex, (setting, current) => {
+    const next = coneOf(current, setting);
+    if (!sameBuild(next, current)) setBuild(next);
+  });
   const refused = ex ? refusal(ex) : null;
   const held = useHeld();
 
@@ -137,6 +136,8 @@ function ConePlay({ ex, held, preview = false, paused = false }: { ex: ConeExhib
   const state = useRef<RollState>(lay());
   const turn = useRef(0);
   const rest = useRef(0);
+  // The integrator's steps owed to real time, carried from frame to frame.
+  const owed = useRef(0);
   const [rolling, setRolling] = useState(preview);
   const [speedHere, setSpeed] = useState<Speed>(1);
   const [view, setView] = useState<View>(() => ({ x: startFor(ex), turnDeg: 0, speed: 0, spin: 0 }));
@@ -144,56 +145,42 @@ function ConePlay({ ex, held, preview = false, paused = false }: { ex: ConeExhib
   const speed = preview ? 1 : speedHere;
   const show = held?.show;
 
-  useEffect(() => {
-    if (!running) return;
-    let raf = 0;
-    let last = performance.now();
-    let owed = 0;
-    const tick = (now: number) => {
-      // A frame's timestamp can lie a little before the effect started: never a
-      // step back in time.
-      const dt = Math.max(0, Math.min(0.05, (now - last) / 1000));
-      last = now;
-      const s = state.current;
-      if (s.stopped && preview) {
-        // The auto mode: a moment at the end, then laid again.
-        rest.current += dt;
-        if (rest.current > REST_S) {
-          state.current = lay();
-          rest.current = 0;
-        }
+  useFrameLoop(running, (dt) => {
+    const s = state.current;
+    if (s.stopped && preview) {
+      // The auto mode: a moment at the end, then laid again.
+      rest.current += dt;
+      if (rest.current > REST_S) {
+        state.current = lay();
+        rest.current = 0;
       }
-      owed += (dt * speed) / STEP_S;
-      const steps = Math.floor(owed);
-      owed -= steps;
-      for (let k = 0; k < steps && !state.current.stopped; k++) {
-        const { x, v } = state.current;
-        turn.current += (v * STEP_S) / contactRadiusM(ex, x);
-        rollStep(ex, state.current);
-      }
+    }
+    owed.current += (dt * speed) / STEP_S;
+    const steps = Math.floor(owed.current);
+    owed.current -= steps;
+    for (let k = 0; k < steps && !state.current.stopped; k++) {
       const { x, v } = state.current;
-      const motion = motionOf(ex, x, v);
-      setView({ x, turnDeg: (turn.current * 180) / Math.PI, speed: motion.speed, spin: motion.spin });
-      if (state.current.stopped && !preview) {
-        setRolling(false);
-        // It has rolled as far as it goes: now the verdict says why.
-        show?.();
-      }
-      raf = requestAnimationFrame(tick);
-    };
-    raf = requestAnimationFrame(tick);
-    return () => cancelAnimationFrame(raf);
-    // `lay` reads the build, which a new build remounts for.
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [running, speed, preview, ex, show]);
+      turn.current += (v * STEP_S) / contactRadiusM(ex, x);
+      rollStep(ex, state.current);
+    }
+    const { x, v } = state.current;
+    const motion = motionOf(ex, x, v);
+    setView({ x, turnDeg: (turn.current * 180) / Math.PI, speed: motion.speed, spin: motion.spin });
+    if (state.current.stopped && !preview) {
+      setRolling(false);
+      // It has rolled as far as it goes: now the verdict says why.
+      show?.();
+    }
+  });
 
   const letGo = () => {
     state.current = lay();
+    owed.current = 0;
     setView((v) => ({ ...v, x: state.current.x, speed: 0, spin: 0 }));
     setRolling(true);
   };
   useCheckSetting("cone", (setting) => {
-    if (preview || JSON.stringify(coneOf(ex, setting)) !== JSON.stringify(ex)) return false;
+    if (preview || !sameBuild(coneOf(ex, setting), ex)) return false;
     letGo();
     return true;
   });
@@ -213,23 +200,13 @@ function ConePlay({ ex, held, preview = false, paused = false }: { ex: ConeExhib
             <Hand className="size-4" aria-hidden />
             {t("experiments.cone.play.let_go")}
           </Button>
-          <Button variant="secondary" size="sm" onClick={() => setRolling(!rolling)}>
-            {rolling ? <Pause className="size-4" aria-hidden /> : <Play className="size-4" aria-hidden />}
-            {rolling ? t("experiments.cone.play.pause") : t("experiments.cone.play.run")}
-          </Button>
+          <RunPauseButton running={rolling} onToggle={() => setRolling(!rolling)} />
         </>
       }
     >
       <div className={SIDE.grid}>
         <div className={SIDE.top}>
-          <ToggleGroup
-            label={t("experiments.cone.play.speed")}
-            labelPlacement="above"
-            size="sm"
-            value={String(speed)}
-            onChange={(v: string) => setSpeed(Number(v) as Speed)}
-            options={SPEEDS.map((s) => ({ value: String(s), label: t(`experiments.cone.play.speeds.${s * 100}`) }))}
-          />
+          <SpeedToggle speeds={SPEEDS} value={speed} onChange={setSpeed} />
         </div>
         <div className={SIDE.views}>
           <div className="grid grid-cols-1 gap-4 sm:grid-cols-[minmax(0,3fr)_minmax(0,2fr)]">
@@ -414,7 +391,7 @@ function ConeModel() {
 function ConeTrick({ ex }: { ex: ConeExhibit | null }) {
   const { t } = useTranslation();
   const locale = useLocale();
-  const hex = useChartHex();
+  const hue = useChartHue();
   const rows = useMemo(() => {
     if (!ex) return [];
     const n = 30;
@@ -440,8 +417,8 @@ function ConeTrick({ ex }: { ex: ConeExhibit | null }) {
       <SeriesChart
         rows={rows}
         series={[
-          { key: "rail", label: t("experiments.cone.chart.rail"), color: hex[6 % hex.length] },
-          { key: "axis", label: t("experiments.cone.chart.axis"), color: hex[2 % hex.length], dash: 1 },
+          { key: "rail", label: t("experiments.cone.chart.rail"), color: hue(6) },
+          { key: "axis", label: t("experiments.cone.chart.axis"), color: hue(2), dash: 1 },
         ]}
         axes={[
           { id: "y", title: `${t("experiments.cone.chart.height")} (cm)`, format: (v) => formatNumber(v, 1, locale) },

@@ -13,9 +13,8 @@ from fastapi.routing import APIRoute
 from httpx import AsyncClient
 
 from staunlabor.api import course_router, experiments_router
-from staunlabor.api.experiments_router import limit_run
 from staunlabor.domain.course import exercises
-from staunlabor.security import EXPERIMENT_RUNS, PAGE_SETTLE_S
+from staunlabor.security import EXPERIMENT_RUNS, PAGE_SETTLE_S, limit_run
 
 pytestmark = pytest.mark.api
 

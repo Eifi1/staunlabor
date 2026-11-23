@@ -10,6 +10,7 @@
  */
 
 import { WAVELENGTHS_NM, lamp, linearRgb, onScreen, seen, tristimulus, type Rgb } from "./colour";
+import { degrees, radians } from "./python";
 
 export const SODIUM_NM = 589.3;
 export const RED_NM = 700.0;
@@ -19,11 +20,7 @@ export const PROFILE_BINS = 600;
 const RINGS = 2000;
 const LAMP_RADIUS_DEG = 0.25;
 const LAMP_K = 3000.0;
-export const NEAR_DEG = 1.0;
-
-/** Python's `math.radians` and `math.degrees`, to the last bit. */
-const radians = (deg: number) => deg * (Math.PI / 180);
-export const degrees = (rad: number) => rad * (180 / Math.PI);
+const NEAR_DEG = 1.0;
 
 /** The engine's `Bead`. */
 export interface Bead {

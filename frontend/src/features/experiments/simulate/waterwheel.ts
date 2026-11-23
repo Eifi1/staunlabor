@@ -7,17 +7,17 @@
  * frame, so there is no route. A change to the physics is made in Python first.
  */
 
-import { MAX_DURATION_S, rk4, type Rhs } from "./pendulum";
-import { roundHalfEven } from "./sphere";
+import { MAX_DURATION_S, type Rhs, rk4 } from "./numerics";
+import { roundHalfEven } from "./python";
 
 /** The wheel's b: one, for Malkus's wheel. */
-export const B = 1.0;
+const B = 1.0;
 /** The step, in τ. */
 export const STEP_TAU = 0.01;
 /** Samples a run returns per unit of τ. */
-export const SAMPLES_PER_TAU = 20;
+const SAMPLES_PER_TAU = 20;
 /** The nudge the wheel starts with. */
-export const NUDGE = 1e-3;
+const NUDGE = 1e-3;
 
 export interface WaterWheel {
   sigma: number;
@@ -25,7 +25,7 @@ export interface WaterWheel {
   leak_per_s: number;
 }
 
-export function rhs(w: WaterWheel): Rhs {
+function rhs(w: WaterWheel): Rhs {
   const s = w.sigma;
   const r = w.rho;
   return (_t, y) => [s * (y[1] - y[0]), y[0] * (r - y[2]) - y[1], y[0] * y[1] - B * y[2]];

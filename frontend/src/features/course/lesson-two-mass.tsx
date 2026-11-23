@@ -23,9 +23,10 @@ import type { Differentiator, TwoMassParameters } from "@/shared/types";
 import { ChainAnimation } from "./chain-animation";
 import { HUE, REFERENCE_GREY } from "./colours";
 import { LessonFrame } from "./lesson-frame";
-import { Failed, Figures, Param, WidgetBody, WidgetCard, log10, logAxis, logX } from "./parts";
+import { log10, logAxis, logX } from "@/shared/charts/log-axis";
+import { Failed, Figures, Param, WidgetBody, WidgetCard } from "./parts";
 import { Tex } from "@/shared/ui/tex";
-import { useComputed, useCourseDefaults } from "./use-dynamics";
+import { useComputed, useCourseDefaults } from "./use-course";
 
 const FALLBACK: TwoMassParameters = {
   motor_inertia: 0.01,

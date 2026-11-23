@@ -62,15 +62,13 @@ import math
 from dataclasses import dataclass
 from enum import IntEnum, StrEnum
 
-#: Standard gravity.
-G = 9.80665
+from staunlabor.domain.experiments.constants import RESISTANCE_FADE_M_S, G
+from staunlabor.domain.experiments.numerics import rk4
+
 #: The magnetic constant, 4π·10⁻⁷ H/m.
 MU0 = 4e-7 * math.pi
 #: The exhibit's meter: digital, −100 to +100 mA, as remembered from a visit rather than published.
 METER_RANGE_A = 0.1
-
-#: The speed below which rolling resistance fades in rather than switching sign.
-RESISTANCE_FADE_M_S = 1e-3
 
 #: 0.2 ms: a fifth of the coil's time constant at the defaults, and fifteen
 #: steps through the steepest part of ``k`` at the fastest a car goes here.
@@ -529,11 +527,7 @@ def run(
         if n == steps:
             break
         u = ex.supply_v * int(press)
-        k1 = derivatives(ex, y, u, open_circuit)
-        k2 = derivatives(ex, tuple(y[j] + step_s / 2 * k1[j] for j in range(6)), u, open_circuit)
-        k3 = derivatives(ex, tuple(y[j] + step_s / 2 * k2[j] for j in range(6)), u, open_circuit)
-        k4 = derivatives(ex, tuple(y[j] + step_s * k3[j] for j in range(6)), u, open_circuit)
-        nxt = tuple(y[j] + step_s / 6 * (k1[j] + 2 * k2[j] + 2 * k3[j] + k4[j]) for j in range(6))
+        nxt = rk4(lambda _t, s, u=u, oc=open_circuit: derivatives(ex, s, u, oc), now, y, step_s)
         if (x < 0) != (nxt[0] < 0):
             crossed_at = now + step_s
         # A turn-around on a ramp: the speed changes sign away from the flat.

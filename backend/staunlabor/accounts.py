@@ -106,15 +106,17 @@ LANGUAGES = ("de-CH", "en", "es", "fr", "it", "hu", "zh")
 INVITABLE_ROLES = (Role.MEMBER, Role.REVIEWER)
 
 #: The areas a reviewer may be limited to, each a top-level namespace of the site's
-#: catalogues (``frontend/src/shared/i18n/locales/*.json``): ``experiments``, the eight
+#: catalogues (``frontend/src/shared/i18n/locales/*.json``): ``experiments``, the
 #: exhibits' words and their physics (angular momentum, autoresonance, induction), which
 #: want a physics teacher as much as a native reader; ``legal``, the imprint and the
 #: privacy policy (and the kit's shared legal text under ``kit.legal.``), which want a
-#: lawyer, as Kurvenschmiede's one area does. Not ``app``, ``common`` or ``site``: a
-#: handful of the frame's words no specialist is needed for, which a reviewer without an
-#: area limit reads. A closed list, because a scope is a promise about what somebody may
+#: lawyer, as Kurvenschmiede's one area does. Not ``app``, ``common``, ``site`` or
+#: ``account``: the frame's and the account pages' words, no specialist needed, which a
+#: reviewer without an area limit reads. ``course``, the basics' mathematics (the lessons
+#: moved in from Kurvenschmiede), wants a mathematics teacher as ``experiments`` wants a
+#: physics one (Marcel, 2026-11-22). A closed list, because a scope is a promise about what somebody may
 #: read, and a typo in one should be a 422 rather than a reviewer of nothing.
-REVIEW_AREAS = ("experiments", "legal")
+REVIEW_AREAS = ("course", "experiments", "legal")
 
 
 def mailer_for(settings: Settings) -> Mailer:
@@ -264,9 +266,8 @@ def jobs_deps(database: Database, settings: Settings, accounts: AuthDeps) -> Acc
       (``UPLOAD_WAIT``), its object removed after the commit — what the erasure's
       purge spared because it was written in the last minutes ends here too."""
     objects = objects_for(settings)
-    hooks = AuthHooks(purge_files=erased_files_purge(database, settings))
 
-    def accounts_on(session: AsyncSession) -> AccountService[User, Any, Any]:
+    def accounts_on(session: AsyncSession, hooks: AuthHooks) -> AccountService[User, Any, Any]:
         """The account layer's service on a session of the job's own, with no request."""
         return AccountService(
             users=SqlUserStore(session, User),
@@ -288,8 +289,10 @@ def jobs_deps(database: Database, settings: Settings, accounts: AuthDeps) -> Acc
         )
 
     async def erase_one(user_id: int) -> bool:
+        # The account layer's own hooks (hooks_for), built once: the files' purge.
+        hooks = await accounts.hooks()
         async with database.sessions() as session, session.begin():
-            return await accounts_on(session).erase_if_due(user_id, feedback=await erasing_feedback(session))
+            return await accounts_on(session, hooks).erase_if_due(user_id, feedback=await erasing_feedback(session))
 
     async def erase_due() -> ErasureRun:
         async with database.sessions() as session:

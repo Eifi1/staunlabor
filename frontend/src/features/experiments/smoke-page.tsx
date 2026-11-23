@@ -1,36 +1,33 @@
-import { useEffect, useMemo, useRef, useState, type PointerEvent as ReactPointerEvent } from "react";
+import { useMemo, useRef, useState, type PointerEvent as ReactPointerEvent } from "react";
 import { useTranslation } from "react-i18next";
-import { Hand, Pause, Play, RotateCcw } from "lucide-react";
+import { Hand } from "lucide-react";
 import { AlertBanner, Button, Chip, LoadingState, StaticLegend, Switch, seriesLegendEntries } from "@eifi1/ui-kit";
 import { SeriesChart } from "@/shared/charts/series-chart";
 import { useLocale } from "@/shared/i18n/use-locale";
 import { formatNumber } from "@/shared/lib/format";
-import { useChartHex } from "@/shared/state/palette-store";
+import { useChartHue } from "@/shared/state/palette-store";
+import { svgPoint } from "@/shared/ui/svg-point";
 import type { SmokeExhibitRequest, SmokeFigures } from "@/shared/types";
 import { SliderField } from "@/shared/ui/slider-field";
 import { Figures, WidgetCard } from "@/shared/ui/widget";
 import { Equation } from "./equation";
 import { ExhibitFrame } from "./exhibit-frame";
 import { BuildPending } from "./build-pending";
-import { settingNumber, useCheckSetting } from "./check-setting";
-import { CORE_SHARE, SAMPLES_PER_S, flight, pressDepth, ringOf, type Flight, type Ring } from "./simulate/smoke";
+import { sameBuild, settingNumber, useCheckSetting } from "./check-setting";
+import { CORE_SHARE, SAMPLES_PER_S, flight, type Flight, type Ring } from "./simulate/smoke";
+import { dragDepth, release, restingDrum, startPress, stepDrum, type Drum, type Made } from "./smoke-press";
 import { SmokeView, type Puff } from "./smoke-view";
 import { PreviewPending, type PreviewMode, type PreviewProps } from "./preview-mode";
-import { startsRunning } from "./play";
+import { useFrameLoop, useRunning } from "./play";
+import { RestartButton, RunPauseButton } from "./play-controls";
 import { STAGE } from "./stage";
 import { useExperimentsDefaults, useSmokeFigures } from "./use-experiments";
 
 /** How long a ring's flight is drawn, seconds, and how many particles carry its smoke. */
 const FLIGHT_S = 6;
 const PUFFS = 140;
-/** A drag of this many metres in the drawing presses the ring its full stroke. */
-const DRAG_FOR_FULL_M = 0.45;
-/** The skin springs back over this long once let go. */
-const RETURN_S = 0.35;
 /** The auto mode's three presses when the server has not yet said its window, seconds. */
 const AUTO_FALLBACK: [number, number, number] = [0.1, 0.5, 2.0];
-/** Between the auto mode's presses, seconds. */
-const AUTO_GAP_S = 4;
 
 interface Particle {
   side: 1 | -1;
@@ -41,28 +38,11 @@ interface Particle {
   dy: number;
 }
 
+/** The drum and its press (`smoke-press.ts`), and the smoke in flight. */
 interface Sim {
-  /** The press being made: the samples so far, whether a hand or the button
-   *  makes it, and the drum it began on — a slider moved mid-press changes the
-   *  next press, not this one (a stroke lowered under its depth stopped the
-   *  animation). */
-  press: {
-    times: number[];
-    depths: number[];
-    source: "drag" | "button";
-    duration: number;
-    depth: number;
-    exhibit: SmokeExhibitRequest;
-  } | null;
-  start: number;
-  depth: number;
-  /** Where the skin was when let go, and how long ago. */
-  released: { from: number; age: number } | null;
+  drum: Drum;
   flying: { ring: Ring; flight: Flight; age: number } | null;
   particles: Particle[];
-  /** The auto mode: which of its three presses is next, and when. */
-  autoNext: number;
-  autoAt: number;
 }
 
 interface View {
@@ -119,16 +99,6 @@ export function SmokePage() {
   );
 }
 
-/** One sample of a press, if its time has moved on: a frame can fall on the
- *  instant the press began, and two samples at one time are no pace at all
- *  (the engine refuses them). */
-function record(press: { times: number[]; depths: number[] }, now: number, depth: number) {
-  if (now > press.times[press.times.length - 1]) {
-    press.times.push(now);
-    press.depths.push(depth);
-  }
-}
-
 /** The exhibit's auto mode alone, for the overview's previews
  *  (`preview-mode.tsx`): too fast, just right, too slow, over and over. */
 export function SmokePreview({ paused }: PreviewProps) {
@@ -159,19 +129,9 @@ function SmokePlay({
   const [duration, setDuration] = useState(0.5);
   const [depth, setDepth] = useState(stroke);
   const [auto, setAuto] = useState(preview);
-  const [runningHere, setRunning] = useState(startsRunning);
-  const running = preview ? !paused : runningHere;
+  const { running, setRunning } = useRunning({ preview, paused });
   const [ring, setRing] = useState<Ring | null>(null);
-  const [initial] = useState<Sim>(() => ({
-    press: null,
-    start: 0,
-    depth: 0,
-    released: null,
-    flying: null,
-    particles: freshParticles(),
-    autoNext: 0,
-    autoAt: 0,
-  }));
+  const [initial] = useState<Sim>(() => ({ drum: restingDrum(), flying: null, particles: freshParticles() }));
   const sim = useRef<Sim>(initial);
   const [view, setView] = useState<View>({ depth: 0, puffs: [], ring: null });
   const svg = useRef<SVGSVGElement | null>(null);
@@ -180,7 +140,6 @@ function SmokePlay({
     figures?.fastest_s && figures.slowest_s && figures.best_s
       ? [figures.fastest_s / 2, figures.best_s, figures.slowest_s * 1.5]
       : AUTO_FALLBACK;
-  const latest = useRef({ exhibit, auto, autoPresses });
   // A check case's "Set it up" takes the whole case here: the press is this
   // card's, the drum the build's. The reader presses.
   useCheckSetting("smoke", (setting) => {
@@ -196,106 +155,57 @@ function SmokePlay({
     setAuto(false);
     setDuration(settingNumber(setting, "duration", duration));
     setDepth(settingNumber(setting, "depth", depth));
-    if (JSON.stringify(next) !== JSON.stringify(drum)) onExhibit?.({ ...exhibit, drum: next });
+    if (!sameBuild(next, drum)) onExhibit?.({ ...exhibit, drum: next });
     return true;
   });
-  useEffect(() => {
-    latest.current = { exhibit, auto, autoPresses };
-  });
-
-  /** Let go: the ring the press made, its flight, and the skin springing back. */
-  const release = () => {
-    const current = sim.current;
-    const press = current.press;
-    current.press = null;
-    current.released = { from: current.depth, age: 0 };
-    if (!press || press.times.length < 2) return;
-    const times = press.times.map((x) => x - press.times[0]);
-    const made = ringOf(press.exhibit, times, press.depths);
-    setRing(made);
-    if (made.verdict === "none") return;
-    current.flying = { ring: made, flight: flight(press.exhibit, made, FLIGHT_S), age: 0 };
-    current.particles = freshParticles();
+  /** A ring let go of: shown, and, unless no ring came of it, flying off with
+   *  fresh smoke. */
+  const fly = (made: Made | null) => {
+    if (!made) return;
+    setRing(made.ring);
+    if (made.ring.verdict === "none") return;
+    sim.current.flying = { ring: made.ring, flight: flight(made.exhibit, made.ring, FLIGHT_S), age: 0 };
+    sim.current.particles = freshParticles();
   };
 
-  const startPress = (source: "drag" | "button", now: number, pressDuration: number, pressDepth: number) => {
+  const press = (source: "drag" | "button", now: number, pressDuration: number, depthM: number) => {
     // A press is the reader asking to see a ring: paused (reduced motion), it starts the clock.
     setRunning(true);
-    const current = sim.current;
-    current.press = {
-      times: [now],
-      depths: [current.depth],
-      source,
-      duration: pressDuration,
-      depth: pressDepth,
-      exhibit: latest.current.exhibit,
-    };
-    current.start = now;
-    current.released = null;
+    startPress(sim.current.drum, source, now, pressDuration, depthM, exhibit);
   };
 
-  useEffect(() => {
-    if (!running) return;
-    let raf = 0;
-    let last = performance.now() / 1000;
-    const tick = (ms: number) => {
-      const now = ms / 1000;
-      const dt = Math.min(0.05, now - last);
-      last = now;
-      const current = sim.current;
-      const { auto: autoOn, autoPresses: presses, exhibit: ex } = latest.current;
-      if (autoOn && !current.press && now >= current.autoAt) {
-        const d = presses[current.autoNext % 3];
-        startPress("button", now, d, ex.drum.stroke_m);
-        current.autoNext += 1;
-        current.autoAt = now + d + AUTO_GAP_S;
-      }
-      const press = current.press;
-      if (press?.source === "button") {
-        const into = now - current.start;
-        current.depth = pressDepth(press.depth, press.duration, into);
-        record(press, now, current.depth);
-        if (into >= press.duration) release();
-      } else if (press?.source === "drag") {
-        record(press, now, current.depth);
-      } else if (current.released) {
-        current.released.age += dt;
-        current.depth = current.released.from * Math.max(0, 1 - current.released.age / RETURN_S);
-      }
-      if (current.flying) current.flying.age += dt;
-      setView(viewOf(current, dt));
-      raf = requestAnimationFrame(tick);
-    };
-    raf = requestAnimationFrame(tick);
-    return () => cancelAnimationFrame(raf);
-  }, [running]);
+  // The presses keep time in seconds on the frames' clock (`performance.now()`),
+  // which a drag's start reads too.
+  useFrameLoop(running, (dt, ms) => {
+    const current = sim.current;
+    fly(stepDrum(current.drum, ms / 1000, dt, { on: auto, presses: autoPresses, exhibit }));
+    if (current.flying) current.flying.age += dt;
+    setView(viewOf(current, dt));
+  });
 
   /** The pointer's height in the drawing, metres. */
   const pointerY = (event: ReactPointerEvent<SVGSVGElement>): number | null => {
-    const el = svg.current;
-    const matrix = el?.getScreenCTM?.();
-    if (!el || !matrix) return null;
-    const point = new DOMPoint(event.clientX, event.clientY).matrixTransform(matrix.inverse());
-    return -point.y;
+    const point = svg.current ? svgPoint(svg.current, event.clientX, event.clientY) : null;
+    return point ? -point[1] : null;
   };
   const onPointerDown = (event: ReactPointerEvent<SVGSVGElement>) => {
     const y = pointerY(event);
-    if (y === null || sim.current.press) return;
+    if (y === null || sim.current.drum.press) return;
     setAuto(false);
     event.currentTarget.setPointerCapture?.(event.pointerId);
     drag.current = { y0: y };
-    startPress("drag", performance.now() / 1000, 0, 0);
+    press("drag", performance.now() / 1000, 0, 0);
   };
   const onPointerMove = (event: ReactPointerEvent<SVGSVGElement>) => {
     if (!drag.current) return;
     const y = pointerY(event);
     if (y === null) return;
-    sim.current.depth = Math.min(stroke, Math.max(0, ((drag.current.y0 - y) / DRAG_FOR_FULL_M) * stroke));
+    sim.current.drum.depth = dragDepth(drag.current.y0, y, stroke);
   };
   const onPointerUp = () => {
     if (!drag.current) return;
     drag.current = null;
-    release();
+    fly(release(sim.current.drum));
   };
 
   const n = (value: number, digits: number) => formatNumber(value, digits, locale);
@@ -307,23 +217,15 @@ function SmokePlay({
       hint={t(auto ? "experiments.smoke.play.hint_auto" : "experiments.smoke.play.hint")}
       actions={
         <>
-          <Button variant="secondary" size="sm" onClick={() => setRunning(!running)}>
-            {running ? <Pause className="size-4" aria-hidden /> : <Play className="size-4" aria-hidden />}
-            {running ? t("experiments.smoke.play.pause") : t("experiments.smoke.play.run")}
-          </Button>
-          <Button
-            variant="secondary"
-            size="sm"
+          <RunPauseButton running={running} onToggle={() => setRunning(!running)} />
+          <RestartButton
             onClick={() => {
               sim.current.flying = null;
-              sim.current.press = null;
-              sim.current.depth = 0;
+              sim.current.drum.press = null;
+              sim.current.drum.depth = 0;
               setRing(null);
             }}
-          >
-            <RotateCcw className="size-4" aria-hidden />
-            {t("experiments.smoke.play.restart")}
-          </Button>
+          />
         </>
       }
     >
@@ -363,9 +265,9 @@ function SmokePlay({
             variant="accent"
             size="sm"
             onClick={() => {
-              if (sim.current.press) return;
+              if (sim.current.drum.press) return;
               setAuto(false);
-              startPress("button", performance.now() / 1000, duration, Math.min(depth, stroke));
+              press("button", performance.now() / 1000, duration, Math.min(depth, stroke));
             }}
           >
             <Hand className="size-4" aria-hidden />
@@ -383,8 +285,8 @@ function SmokePlay({
             onCheckedChange={(on) => {
               setAuto(on);
               if (on) setRunning(true);
-              sim.current.autoAt = 0;
-              sim.current.autoNext = 0;
+              sim.current.drum.autoAt = 0;
+              sim.current.drum.autoNext = 0;
             }}
           />
           <Chip tone={verdict === "ring" ? "success" : verdict === "none" ? "neutral" : "danger"}>
@@ -433,7 +335,7 @@ function SmokePlay({
  *  ring's smoke spreading out of them, or a puff drifting off and thinning. */
 function viewOf(current: Sim, dt: number): View {
   const flying = current.flying;
-  if (!flying) return { depth: current.depth, puffs: [], ring: null };
+  if (!flying) return { depth: current.drum.depth, puffs: [], ring: null };
   const { flight: f, ring, age } = flying;
   const i = Math.min(f.t.length - 1, Math.floor(age * SAMPLES_PER_S));
   const x = f.x_m[i];
@@ -460,7 +362,7 @@ function viewOf(current: Sim, dt: number): View {
     };
   });
   return {
-    depth: current.depth,
+    depth: current.drum.depth,
     puffs,
     ring: ring.verdict === "ring" && age < FLIGHT_S ? { x, z, radius } : null,
   };
@@ -660,7 +562,7 @@ function SmokeComputed() {
 function SmokeTrick({ figures, exhibit }: { figures: SmokeFigures | null; exhibit: SmokeExhibitRequest | null }) {
   const { t } = useTranslation();
   const locale = useLocale();
-  const hex = useChartHex();
+  const hue = useChartHue();
   const rows = useMemo(
     () =>
       figures
@@ -683,12 +585,12 @@ function SmokeTrick({ figures, exhibit }: { figures: SmokeFigures | null; exhibi
     );
   // Each curve beside the threshold it crosses: where they meet is the window's end.
   const reSeries = [
-    { key: "re", label: t("experiments.smoke.chart.reynolds"), color: hex[4 % hex.length] },
-    { key: "threshold", label: t("experiments.smoke.chart.threshold"), color: hex[6 % hex.length], dash: 1 },
+    { key: "re", label: t("experiments.smoke.chart.reynolds"), color: hue(4) },
+    { key: "threshold", label: t("experiments.smoke.chart.threshold"), color: hue(6), dash: 1 },
   ];
   const speedSeries = [
-    { key: "speed", label: t("experiments.smoke.chart.speed"), color: hex[2 % hex.length] },
-    { key: "draught", label: t("experiments.smoke.chart.draught"), color: hex[6 % hex.length], dash: 1 },
+    { key: "speed", label: t("experiments.smoke.chart.speed"), color: hue(2) },
+    { key: "draught", label: t("experiments.smoke.chart.draught"), color: hue(6), dash: 1 },
   ];
   const x = {
     key: "d" as const,
@@ -732,7 +634,7 @@ function SmokeTrick({ figures, exhibit }: { figures: SmokeFigures | null; exhibi
       </p>
       <SeriesChart
         rows={rows}
-        series={[{ key: "force", label: t("experiments.smoke.chart.force"), color: hex[6 % hex.length] }]}
+        series={[{ key: "force", label: t("experiments.smoke.chart.force"), color: hue(6) }]}
         axes={[
           { id: "y", title: `${t("experiments.smoke.chart.force")} (N)`, format: (v) => n(v, 0), includeZero: true },
         ]}

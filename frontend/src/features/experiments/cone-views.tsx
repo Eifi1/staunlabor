@@ -13,7 +13,7 @@
  */
 
 import { useTranslation } from "react-i18next";
-import { useChartHex } from "@/shared/state/palette-store";
+import { useChartHue } from "@/shared/state/palette-store";
 import {
   axisHeightM,
   contactRadiusM,
@@ -24,6 +24,7 @@ import {
   railHeightM,
   type ConeExhibit,
 } from "./simulate/cone";
+import { STAGE, VIEW_FRAME } from "./stage";
 
 /** The cone's hue: the palette's hue for what moves by itself. */
 const CONE_HUE = 2;
@@ -52,9 +53,9 @@ export function ConeSideView({
   axisPath?: boolean;
 }) {
   const { t } = useTranslation();
-  const hex = useChartHex();
-  const colour = hex[CONE_HUE % hex.length];
-  const rail = hex[RAIL_HUE % hex.length];
+  const hue = useChartHue();
+  const colour = hue(CONE_HUE);
+  const rail = hue(RAIL_HUE);
   const { radius_m: big } = ex.cone;
   const length = ex.rails.length_m;
   const margin = big * 0.4;
@@ -71,7 +72,7 @@ export function ConeSideView({
       viewBox={`${left} ${-top} ${width} ${top - bottom}`}
       role="img"
       aria-label={t("experiments.cone.views.side")}
-      className="max-h-[60dvh] w-full rounded-lg border border-subtle bg-surface-2 text-muted"
+      className={`${STAGE.wide} ${VIEW_FRAME}`}
     >
       {/* The rails, one line from the side, on their stand. */}
       <line
@@ -125,9 +126,9 @@ export function ConeSideView({
 
 export function ConeFrontView({ ex, x }: { ex: ConeExhibit; x: number }) {
   const { t } = useTranslation();
-  const hex = useChartHex();
-  const colour = hex[CONE_HUE % hex.length];
-  const rail = hex[RAIL_HUE % hex.length];
+  const hue = useChartHue();
+  const colour = hue(CONE_HUE);
+  const rail = hue(RAIL_HUE);
   const big = ex.cone.radius_m;
   const half = halfLengthM(ex.cone);
   const length = ex.rails.length_m;
@@ -142,7 +143,7 @@ export function ConeFrontView({ ex, x }: { ex: ConeExhibit; x: number }) {
       viewBox={`${-half - margin} ${-top} ${2 * (half + margin)} ${top - bottom}`}
       role="img"
       aria-label={t("experiments.cone.views.front")}
-      className="max-h-[60dvh] w-full rounded-lg border border-subtle bg-surface-2 text-muted"
+      className={`${STAGE.wide} ${VIEW_FRAME}`}
     >
       {/* The rails from the low end: spreading as they climb. */}
       {[-1, 1].map((side) => (

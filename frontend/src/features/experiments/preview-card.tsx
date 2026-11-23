@@ -25,7 +25,7 @@
 
 import { HelpCircle } from "lucide-react";
 import { useTranslation } from "react-i18next";
-import { EXHIBITS, type Exhibit } from "./exhibits";
+import { exhibitEntry, type Exhibit } from "./exhibits";
 import { FittedPreview } from "./fitted-preview";
 
 /** The overview card's four: one swinging, one drawing, one ringing, one of
@@ -54,13 +54,13 @@ function Brand({ large = false }: { large?: boolean }) {
 
 function ExhibitCard({ exhibit, held }: { exhibit: Exhibit; held: boolean }) {
   const { t } = useTranslation();
-  const path = EXHIBITS.find((entry) => entry.exhibit === exhibit)?.path ?? "";
+  const { path } = exhibitEntry(exhibit);
   return (
     <div className="flex size-full items-center gap-12 px-12">
       <div className="shrink-0" style={{ width: PICTURE.width }}>
         <FittedPreview exhibit={exhibit} still={held} height={PICTURE.height} box={FRAME} frame="p-6" plain />
       </div>
-      <div className="flex h-[534px] min-w-0 flex-col justify-between">
+      <div className="flex min-w-0 flex-col justify-between" style={{ height: PICTURE.height }}>
         <Brand />
         <div className="space-y-5">
           <h1 className="text-[2.6rem] leading-tight font-semibold text-primary">

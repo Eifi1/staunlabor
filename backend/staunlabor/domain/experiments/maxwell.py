@@ -41,7 +41,8 @@ import enum
 import math
 from dataclasses import dataclass
 
-from staunlabor.domain.experiments.pendulum import MAX_DURATION_S, SAMPLES_PER_S, G
+from staunlabor.domain.experiments.constants import G
+from staunlabor.domain.experiments.numerics import MAX_DURATION_S, SAMPLES_PER_S
 
 
 class Shape(enum.StrEnum):

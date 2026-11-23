@@ -16,17 +16,38 @@ from __future__ import annotations
 
 from typing import Annotated, Literal
 
-from pydantic import BaseModel, ConfigDict, Field
+from pydantic import Field
 
-from staunlabor.domain.experiments import ArchShape, BallKind, CurveKind, FigureKind, Idle, RaceBall, Shape, Verdict
+from staunlabor.domain.experiments import (
+    ArchShape,
+    Ball,
+    BallKind,
+    BallStack,
+    Body,
+    Coil,
+    CoilExhibit,
+    CurveKind,
+    Drum,
+    Elephant,
+    FigureKind,
+    FloatingBall,
+    Idle,
+    Jet,
+    Magnet,
+    Platform,
+    RaceBall,
+    Room,
+    Shape,
+    SmokeExhibit,
+    Track,
+    Verdict,
+)
+from staunlabor.domain.schemas._base import _In, _Out
 
-
-class _Out(BaseModel):
-    model_config = ConfigDict(from_attributes=True)
-
-
-class _In(BaseModel):
-    model_config = ConfigDict(extra="forbid", from_attributes=True)
+#: A solid's stiffness and density, from rubber to tungsten: each field keeps
+#: its own default (steel's, or stone's).
+YoungsGpa = Annotated[float, Field(ge=1, le=500)]
+Density = Annotated[float, Field(ge=500, le=20000)]
 
 
 # ── the ball in the sphere ───────────────────────────────────────────────────
@@ -95,6 +116,15 @@ class CoilExhibitIn(_In):
     track: TrackIn = TrackIn()
     supply_v: float = Field(ge=0.5, le=48, default=9.0)
     idle: Idle = Idle.CLOSED
+
+    def to_domain(self) -> CoilExhibit:
+        return CoilExhibit(
+            magnet=Magnet(**self.magnet.model_dump()),
+            coil=Coil(**self.coil.model_dump()),
+            track=Track(**self.track.model_dump()),
+            supply_v=self.supply_v,
+            idle=self.idle,
+        )
 
 
 class CoilFiguresOut(_Out):
@@ -184,6 +214,9 @@ class PlatformExhibitIn(_In):
 
     body: BodyIn = BodyIn()
     platform: PlatformIn = PlatformIn()
+
+    def to_domain(self) -> tuple[Body, Platform]:
+        return Body(**self.body.model_dump()), Platform(**self.platform.model_dump())
 
 
 class SpinOut(_Out):
@@ -307,6 +340,11 @@ class ElephantIn(_In):
     ball: FloatingBallIn = FloatingBallIn()
     coanda: float = Field(ge=0, le=3, default=1.0)
 
+    def to_domain(self) -> Elephant:
+        return Elephant(
+            jet=Jet(**self.jet.model_dump()), ball=FloatingBall(**self.ball.model_dump()), coanda=self.coanda
+        )
+
 
 class LiftPointOut(_Out):
     height_m: float
@@ -365,6 +403,9 @@ class RoomIn(_In):
 class SmokeExhibitIn(_In):
     drum: DrumIn = DrumIn()
     room: RoomIn = RoomIn()
+
+    def to_domain(self) -> SmokeExhibit:
+        return SmokeExhibit(drum=Drum(**self.drum.model_dump()), room=Room(**self.room.model_dump()))
 
 
 class RingOut(_Out):
@@ -425,6 +466,12 @@ class BallStackIn(_In):
     floor_restitution: float = Field(ge=0.3, le=1, default=0.85)
     ball_restitution: float = Field(ge=0.3, le=1, default=0.85)
     youngs_mpa: float = Field(ge=0.5, le=200, default=3.0)
+
+    def to_domain(self) -> BallStack:
+        return BallStack(
+            balls=tuple(Ball(**ball.model_dump()) for ball in self.balls),
+            **self.model_dump(exclude={"balls"}),
+        )
 
 
 class LaunchOut(_Out):
@@ -647,8 +694,8 @@ class CradleIn(_In):
     string_m: float = Field(ge=0.05, le=1.0, default=0.15)
     gap_m: float = Field(ge=0, le=0.005, default=0.0)
     restitution: float = Field(ge=0.5, le=1, default=0.95)
-    youngs_gpa: float = Field(ge=1, le=500, default=200.0)
-    density_kg_m3: float = Field(ge=500, le=20000, default=7850.0)
+    youngs_gpa: YoungsGpa = 200.0
+    density_kg_m3: Density = 7850.0
 
 
 # ── the gravity well ─────────────────────────────────────────────────────────
@@ -671,8 +718,8 @@ RodLength = Annotated[float, Field(ge=0.1, le=2)]
 class ResonanceRackIn(_In):
     lengths_m: list[RodLength] = Field(min_length=1, max_length=8, default=[1.0, 0.9, 0.8, 0.7, 0.6, 0.5])
     diameter_m: float = Field(ge=0.0005, le=0.02, default=0.002)
-    youngs_gpa: float = Field(ge=1, le=500, default=200.0)
-    density_kg_m3: float = Field(ge=500, le=20000, default=7850.0)
+    youngs_gpa: YoungsGpa = 200.0
+    density_kg_m3: Density = 7850.0
     damping_ratio: float = Field(ge=0.0005, le=0.5, default=0.01)
     table_m: float = Field(gt=0, le=0.01, default=0.001)
 
@@ -697,7 +744,7 @@ class StoneArchIn(_In):
     span_m: float = Field(ge=0.5, le=50, default=2.0)
     thickness_m: float = Field(gt=0, le=25, default=0.25)
     blocks: int = Field(ge=4, le=200, multiple_of=2, default=16)
-    density_kg_m3: float = Field(ge=500, le=20000, default=2400.0)
+    density_kg_m3: Density = 2400.0
     depth_m: float = Field(gt=0, le=10, default=0.3)
 
 
@@ -707,8 +754,8 @@ class StoneArchIn(_In):
 class ChladniPlateIn(_In):
     side_m: float = Field(ge=0.05, le=2, default=0.24)
     thickness_m: float = Field(ge=0.0002, le=0.1, default=0.001)
-    youngs_gpa: float = Field(ge=1, le=500, default=200.0)
-    density_kg_m3: float = Field(ge=500, le=20000, default=7850.0)
+    youngs_gpa: YoungsGpa = 200.0
+    density_kg_m3: Density = 7850.0
     damping_ratio: float = Field(ge=0.0001, le=0.1, default=0.002)
 
 

@@ -1,6 +1,6 @@
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useMemo, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { ArrowLeft, ArrowRight, Pause, Play, RotateCcw } from "lucide-react";
+import { ArrowLeft, ArrowRight } from "lucide-react";
 import {
   AlertBanner,
   Button,
@@ -14,7 +14,7 @@ import {
 import { SeriesChart } from "@/shared/charts/series-chart";
 import { useLocale } from "@/shared/i18n/use-locale";
 import { formatNumber } from "@/shared/lib/format";
-import { useChartHex } from "@/shared/state/palette-store";
+import { useChartHue } from "@/shared/state/palette-store";
 import type { ElephantFigures, ElephantRequest } from "@/shared/types";
 import { SliderField } from "@/shared/ui/slider-field";
 import { Figures, WidgetCard } from "@/shared/ui/widget";
@@ -38,10 +38,12 @@ import {
   run,
 } from "./simulate/elephant";
 import { PreviewPending, type PreviewMode, type PreviewProps } from "./preview-mode";
-import { startsRunning } from "./play";
+import { useFrameLoop, useRunning } from "./play";
+import { RestartButton, RunPauseButton } from "./play-controls";
 import { HeldAnswer, useHeld } from "./held";
 import { STAGE } from "./stage";
 import { useElephantFigures, useExperimentsDefaults } from "./use-experiments";
+import { G } from "./simulate/constants";
 
 /** A push across: the ball given this speed sideways, about what a flick of a finger gives. */
 const PUSH_M_S = 0.8;
@@ -153,8 +155,7 @@ function ElephantPlay({
   // How far it tilts before the ball falls, once the reader has seen it fall.
   const held = useHeld();
   const show = held.show;
-  const [runningHere, setRunning] = useState(startsRunning);
-  const running = preview ? !paused : runningHere;
+  const { running, setRunning } = useRunning({ preview, paused });
   // The ball set on the trunk, once: a state's initialiser, so the render never
   // reads the ref the loop then steps.
   const [initial] = useState<Sim>(() => ({
@@ -165,50 +166,34 @@ function ElephantPlay({
   }));
   const sim = useRef<Sim>(initial);
   const [view, setView] = useState<View>(() => viewOf(exhibit, initial));
-  // The latest build and tilt, read by the loop without restarting it: a change
-  // acts on the ball in the air rather than setting it back on the trunk.
-  const latest = useRef({ exhibit, tilt, auto });
-  useEffect(() => {
-    latest.current = { exhibit, tilt, auto };
-  }, [exhibit, tilt, auto]);
-
-  useEffect(() => {
-    if (!running) return;
-    let raf = 0;
-    let last = performance.now();
-    const tick = (now: number) => {
-      const current = sim.current;
-      const dt = Math.min(0.05, (now - last) / 1000);
-      last = now;
-      const { exhibit: el, auto: autoOn } = latest.current;
-      if (autoOn) {
-        if (current.down !== null) {
-          current.down += dt;
-          if (current.down > AUTO_PAUSE_S) {
-            current.tilt = 0;
-            current.state = startState(el);
-            current.down = null;
-          }
-        } else current.tilt = Math.min(MAX_TILT, current.tilt + AUTO_DEG_PER_S * dt);
-      } else {
-        const target = latest.current.tilt;
-        const turn = TURN_DEG_PER_S * dt;
-        current.tilt = Math.max(current.tilt - turn, Math.min(current.tilt + turn, target));
-      }
-      const steps = Math.round(dt / STEP_S);
-      for (let k = 0; k < steps; k += 1) {
-        if (current.down === null && fallen(el, current.state)) current.down = 0;
-        current.state = current.down === null ? step(el, current.tilt, current.state) : drop(el, current.state);
-      }
-      moveStreaks(el, current, dt);
-      setView(viewOf(el, current));
-      if (current.down !== null) show();
-      if (autoOn) setTilt(Math.round(current.tilt));
-      raf = requestAnimationFrame(tick);
-    };
-    raf = requestAnimationFrame(tick);
-    return () => cancelAnimationFrame(raf);
-  }, [running, show]);
+  // The loop reads the latest build and tilt without restarting: a change acts
+  // on the ball in the air rather than setting it back on the trunk.
+  useFrameLoop(running, (dt) => {
+    const current = sim.current;
+    const el = exhibit;
+    if (auto) {
+      if (current.down !== null) {
+        current.down += dt;
+        if (current.down > AUTO_PAUSE_S) {
+          current.tilt = 0;
+          current.state = startState(el);
+          current.down = null;
+        }
+      } else current.tilt = Math.min(MAX_TILT, current.tilt + AUTO_DEG_PER_S * dt);
+    } else {
+      const turn = TURN_DEG_PER_S * dt;
+      current.tilt = Math.max(current.tilt - turn, Math.min(current.tilt + turn, tilt));
+    }
+    const steps = Math.round(dt / STEP_S);
+    for (let k = 0; k < steps; k += 1) {
+      if (current.down === null && fallen(el, current.state)) current.down = 0;
+      current.state = current.down === null ? step(el, current.tilt, current.state) : drop(el, current.state);
+    }
+    moveStreaks(el, current, dt);
+    setView(viewOf(el, current));
+    if (current.down !== null) show();
+    if (auto) setTilt(Math.round(current.tilt));
+  });
 
   const push = (sign: 1 | -1) => {
     if (sim.current.down !== null) return;
@@ -261,14 +246,8 @@ function ElephantPlay({
       hint={t(auto ? "experiments.elephant.play.hint_auto" : "experiments.elephant.play.hint")}
       actions={
         <>
-          <Button variant="secondary" size="sm" onClick={() => setRunning(!running)}>
-            {running ? <Pause className="size-4" aria-hidden /> : <Play className="size-4" aria-hidden />}
-            {running ? t("experiments.elephant.play.pause") : t("experiments.elephant.play.run")}
-          </Button>
-          <Button variant="secondary" size="sm" onClick={restart}>
-            <RotateCcw className="size-4" aria-hidden />
-            {t("experiments.elephant.play.restart")}
-          </Button>
+          <RunPauseButton running={running} onToggle={() => setRunning(!running)} />
+          <RestartButton onClick={restart} />
         </>
       }
     >
@@ -375,7 +354,7 @@ function drop(el: ElephantRequest, state: State): State {
   const [x, y, vx, vy] = state;
   const floor = FLOOR_M + el.ball.diameter_m / 2;
   if (y <= floor) return [x, floor, 0, 0];
-  const nvy = vy - 9.80665 * STEP_S;
+  const nvy = vy - G * STEP_S;
   return [x + vx * STEP_S, Math.max(floor, y + nvy * STEP_S), vx * 0.999, nvy];
 }
 
@@ -585,7 +564,7 @@ function ElephantComputed() {
 function ElephantTrick({ figures, exhibit }: { figures: ElephantFigures | null; exhibit: ElephantRequest | null }) {
   const { t } = useTranslation();
   const locale = useLocale();
-  const hex = useChartHex();
+  const hue = useChartHue();
   const net = figures ? figures.weight_n - figures.buoyancy_n : 0;
   const liftRows = useMemo(
     () => (figures ? figures.lift_curve.map((p) => ({ h: p.height_m * 100, lift: p.lift_n, weight: net })) : []),
@@ -620,12 +599,12 @@ function ElephantTrick({ figures, exhibit }: { figures: ElephantFigures | null; 
   const force = `${t("experiments.elephant.chart.force")} (N)`;
   // Two lines in one plot each, so each says which is which beneath it.
   const liftSeries = [
-    { key: "lift", label: t("experiments.elephant.chart.lift"), color: hex[2 % hex.length] },
-    { key: "weight", label: t("experiments.elephant.chart.weight"), color: hex[6 % hex.length], dash: 1 },
+    { key: "lift", label: t("experiments.elephant.chart.lift"), color: hue(2) },
+    { key: "weight", label: t("experiments.elephant.chart.weight"), color: hue(6), dash: 1 },
   ];
   const tiltSeries = [
-    { key: "sink", label: t("experiments.elephant.chart.sink"), color: hex[2 % hex.length] },
-    { key: "sag", label: t("experiments.elephant.chart.sag"), color: hex[4 % hex.length], dash: 1 },
+    { key: "sink", label: t("experiments.elephant.chart.sink"), color: hue(2) },
+    { key: "sag", label: t("experiments.elephant.chart.sag"), color: hue(4), dash: 1 },
   ];
   return (
     <>
@@ -651,14 +630,14 @@ function ElephantTrick({ figures, exhibit }: { figures: ElephantFigures | null; 
           <p>{t("experiments.elephant.sweet.middle", { offset: n(strongest.offset_m * 100, 0) })}</p>
           <SeriesChart
             rows={sideRows}
-            series={[{ key: "side", label: t("experiments.elephant.chart.side"), color: hex[3 % hex.length] }]}
+            series={[{ key: "side", label: t("experiments.elephant.chart.side"), color: hue(3) }]}
             axes={[{ id: "y", title: force, format: (v) => n(v, 2), includeZero: true }]}
             x={{ key: "off", title: `${t("experiments.elephant.chart.offset")} (cm)`, format: (v) => n(v, 0) }}
           />
           <p>{t("experiments.elephant.sweet.rise")}</p>
           <SeriesChart
             rows={riseRows}
-            series={[{ key: "h", label: t("experiments.elephant.chart.height"), color: hex[2 % hex.length] }]}
+            series={[{ key: "h", label: t("experiments.elephant.chart.height"), color: hue(2) }]}
             axes={[{ id: "y", title: `${t("experiments.elephant.chart.height")} (cm)`, format: (v) => n(v, 0) }]}
             x={{ key: "t", title: `${t("experiments.elephant.chart.time")} (s)`, format: (v) => n(v, 0) }}
           />

@@ -3,9 +3,11 @@ import { Link } from "react-router";
 import { useTranslation } from "react-i18next";
 import { Check } from "lucide-react";
 import { Card, CardDescription, CardHeader, CardTitle, Chip, TextLink } from "@eifi1/ui-kit";
+// From the course's list, not from `exhibit-frame.tsx`: the overview is in the
+// first wave, and the frame would bring the checks' formulas and KaTeX into it.
+import { lessonEntry } from "@/features/course/lessons";
 import { EXHIBIT_MODULES } from "./exhibit-modules";
 import { FittedPreview } from "./fitted-preview";
-import { lessonPath } from "./exhibit-frame";
 import type { Exhibit, ExhibitEntry } from "./exhibits";
 import { useTried } from "./tried";
 
@@ -105,40 +107,30 @@ function ExhibitCard({ entry, current, tried }: { entry: ExhibitEntry; current: 
     <Card
       padding="md"
       density="compact"
-      className={`relative flex w-full flex-col gap-3 ${entry.path ? "transition-colors hover:border-brand has-[a[data-card]:focus-visible]:ring-2 has-[a[data-card]:focus-visible]:ring-brand" : ""}`}
+      className="relative flex w-full flex-col gap-3 transition-colors hover:border-brand has-[a[data-card]:focus-visible]:ring-2 has-[a[data-card]:focus-visible]:ring-brand"
       onPointerEnter={() => setLive(true)}
       onPointerLeave={() => setLive(false)}
       onFocus={() => setLive(true)}
       onBlur={() => setLive(false)}
     >
-      {entry.path && (
-        <FittedPreview
-          exhibit={entry.exhibit}
-          still={!live}
-          height={CARD_PREVIEW_HEIGHT}
-          plain
-          box="rounded-lg bg-surface-2"
-          frame="p-3"
-        />
-      )}
+      <FittedPreview
+        exhibit={entry.exhibit}
+        still={!live}
+        height={CARD_PREVIEW_HEIGHT}
+        plain
+        box="rounded-lg bg-surface-2"
+        frame="p-3"
+      />
       <CardHeader>
         <div className="flex items-start gap-2">
           <Icon className="mt-0.5 size-5 shrink-0 text-brand" aria-hidden />
           <div className="min-w-0 space-y-1">
             <CardTitle as="h3">
-              {entry.path ? (
-                // Stretched over the card, so the whole card opens the exhibit
-                // and one primary button stays the front page's own.
-                <Link
-                  to={entry.path}
-                  data-card
-                  className="outline-none after:absolute after:inset-0 after:content-['']"
-                >
-                  {t(`experiments.exhibits.${entry.exhibit}.title`)}
-                </Link>
-              ) : (
-                t(`experiments.exhibits.${entry.exhibit}.title`)
-              )}
+              {/* Stretched over the card, so the whole card opens the exhibit
+                  and one primary button stays the front page's own. */}
+              <Link to={entry.path} data-card className="outline-none after:absolute after:inset-0 after:content-['']">
+                {t(`experiments.exhibits.${entry.exhibit}.title`)}
+              </Link>
             </CardTitle>
             {current && (
               <Chip size="xs" tone="brand">
@@ -162,7 +154,7 @@ function ExhibitCard({ entry, current, tried }: { entry: ExhibitEntry; current: 
               <span key={lesson}>
                 {i > 0 && ", "}
                 {/* Above the card's own link, and quiet: for the technically minded. */}
-                <TextLink href={lessonPath(lesson)} tone="muted" className="relative z-10">
+                <TextLink href={lessonEntry(lesson).path} tone="muted" className="relative z-10">
                   {t(`experiments.computed.links.${lesson}`)}
                 </TextLink>
               </span>
@@ -170,11 +162,6 @@ function ExhibitCard({ entry, current, tried }: { entry: ExhibitEntry; current: 
           </p>
         )}
       </div>
-      {!entry.path && (
-        <div className="mt-auto">
-          <Chip tone="neutral">{t("experiments.overview.coming")}</Chip>
-        </div>
-      )}
     </Card>
   );
 }

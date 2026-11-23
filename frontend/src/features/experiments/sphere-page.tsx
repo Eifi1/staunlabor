@@ -1,26 +1,18 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { Pause, Play, RotateCcw } from "lucide-react";
+import { Play } from "lucide-react";
 import { Button, LoadingState, ToggleGroup } from "@eifi1/ui-kit";
 import { SeriesChart } from "@/shared/charts/series-chart";
 import { useLocale } from "@/shared/i18n/use-locale";
 import { formatNumber } from "@/shared/lib/format";
-import { useChartHex } from "@/shared/state/palette-store";
+import { useChartHue } from "@/shared/state/palette-store";
 import type { Orbit, SphereFigures, SphereRequest } from "@/shared/types";
 import { SliderField } from "@/shared/ui/slider-field";
 import { Figures, WidgetCard } from "@/shared/ui/widget";
 import { Equation } from "./equation";
 import { ExhibitFrame } from "./exhibit-frame";
 import { BuildPending } from "./build-pending";
-import {
-  RESISTANCE_FADE_M_S,
-  STEP_S,
-  angleOf,
-  handStep,
-  startState,
-  type SphereParameters,
-  type SphereState,
-} from "./simulate/sphere";
+import { angleOf, handStep, startState, type SphereParameters, type SphereState } from "./simulate/sphere";
 import {
   type Hand,
   autopilotTarget,
@@ -33,10 +25,13 @@ import {
 } from "./sphere-hand";
 import { SideView, TopView } from "./sphere-views";
 import { PreviewPending, type PreviewMode, type PreviewProps } from "./preview-mode";
-import { useCheckRequest, useCheckSetting, settingNumber, type CheckSetting } from "./check-setting";
-import { startsRunning } from "./play";
+import { sameBuild, settingNumber, useCheckSetting, useTakeCheckRequest, type CheckSetting } from "./check-setting";
+import { useFrameLoop, useRunning } from "./play";
+import { RestartButton, RunPauseButton } from "./play-controls";
 import { SIDE, STAGE } from "./stage";
 import { useExperimentsDefaults, useSphereFigures } from "./use-experiments";
+import { RESISTANCE_FADE_M_S } from "./simulate/constants";
+import { STEP_S } from "./simulate/numerics";
 
 /** Who pushes the sphere: the reader's finger, a steady circle at a chosen
  *  tempo, or the auto mode with perfect timing. */
@@ -108,12 +103,9 @@ export function SpherePage() {
   const sphere = build ?? defaults.data?.sphere ?? null;
   // A check case's "Set it up": the build here; the twin, built anew for it,
   // lets the ball go.
-  const request = useCheckRequest("sphere");
-  const [seen, setSeen] = useState<number | null>(null);
-  if (request && !request.done && request.nonce !== seen && defaults.data) {
-    setSeen(request.nonce);
-    setBuild(sphereOf(defaults.data.sphere, request.setting));
-  }
+  // The case is applied to the defaults, not to the build as the reader left
+  // it, and always set: the twin is built anew for it.
+  useTakeCheckRequest("sphere", defaults.data, (setting, data) => setBuild(sphereOf(data.sphere, setting)));
   const figures = useSphereFigures(sphere);
   const data = figures.data ?? null;
 
@@ -172,8 +164,7 @@ function SpherePlay({
   if (sim.current === null) sim.current = { y: startState(s), hand: restingHand() };
   const finger = useRef<[number, number]>([0, 0]);
   const [view, setView] = useState<View>(() => viewOf(s, startState(s), restingHand()));
-  const [runningHere, setRunning] = useState(startsRunning);
-  const running = preview ? !paused : runningHere;
+  const { running, setRunning } = useRunning({ preview, paused });
   const [mode, setMode] = useState<Mode>(preview ? "perfect" : "hand");
   const [tempo, setTempo] = useState(1.5);
   const [slowly, setSlowly] = useState(true);
@@ -192,7 +183,7 @@ function SpherePlay({
     if (preview) return false;
     // Built for another case: the page builds this twin anew, and the new one takes it.
     const wanted = sphereOf(sphere, setting);
-    if (JSON.stringify(wanted) !== JSON.stringify(sphere)) return false;
+    if (!sameBuild(wanted, sphere)) return false;
     const angle = settingNumber(setting, "start_angle_deg", 0);
     const speed = settingNumber(setting, "start_speed_m_s", 0);
     setMode("release");
@@ -205,35 +196,25 @@ function SpherePlay({
   // The loop: every millisecond of the time that passed (at most a twentieth
   // of a second per frame), the hand one step towards its target and the ball
   // one step with the hand's acceleration.
-  useEffect(() => {
-    if (!running) return;
-    let raf = 0;
-    let last = performance.now();
-    const tick = (now: number) => {
-      const current = sim.current;
-      if (!current) return;
-      const dt = Math.min(0.05, (now - last) / 1000);
-      last = now;
-      const steps = Math.round(dt / STEP_S);
-      for (let k = 0; k < steps; k++) {
-        const y = current.y;
-        const [tx, ty] =
-          mode === "release"
-            ? [0, 0]
-            : mode === "hand"
-              ? finger.current
-              : mode === "circle"
-                ? autopilotTarget(current.hand, tempo, slowly, STEP_S)
-                : perfectTarget(current.hand, { x: y[0], y: y[1], vx: y[3], vy: y[4] }, f0, STEP_S);
-        const [ax, ay] = follow(current.hand, tx, ty, STEP_S);
-        current.y = handStep(s, y, ax, ay);
-      }
-      setView(viewOf(s, current.y, current.hand));
-      raf = requestAnimationFrame(tick);
-    };
-    raf = requestAnimationFrame(tick);
-    return () => cancelAnimationFrame(raf);
-  }, [running, mode, tempo, slowly, f0, s]);
+  useFrameLoop(running, (dt) => {
+    const current = sim.current;
+    if (!current) return;
+    const steps = Math.round(dt / STEP_S);
+    for (let k = 0; k < steps; k++) {
+      const y = current.y;
+      const [tx, ty] =
+        mode === "release"
+          ? [0, 0]
+          : mode === "hand"
+            ? finger.current
+            : mode === "circle"
+              ? autopilotTarget(current.hand, tempo, slowly, STEP_S)
+              : perfectTarget(current.hand, { x: y[0], y: y[1], vx: y[3], vy: y[4] }, f0, STEP_S);
+      const [ax, ay] = follow(current.hand, tx, ty, STEP_S);
+      current.y = handStep(s, y, ax, ay);
+    }
+    setView(viewOf(s, current.y, current.hand));
+  });
 
   const restart = () => {
     sim.current = { y: startState(s), hand: restingHand() };
@@ -266,14 +247,8 @@ function SpherePlay({
       hint={t(`experiments.sphere.play.hint_${mode}`)}
       actions={
         <>
-          <Button variant="secondary" size="sm" onClick={() => setRunning(!running)}>
-            {running ? <Pause className="size-4" aria-hidden /> : <Play className="size-4" aria-hidden />}
-            {running ? t("experiments.sphere.play.pause") : t("experiments.sphere.play.run")}
-          </Button>
-          <Button variant="secondary" size="sm" onClick={restart}>
-            <RotateCcw className="size-4" aria-hidden />
-            {t("experiments.sphere.play.restart")}
-          </Button>
+          <RunPauseButton running={running} onToggle={() => setRunning(!running)} />
+          <RestartButton onClick={restart} />
         </>
       }
     >
@@ -422,7 +397,7 @@ function SpherePlay({
 function BackboneChart({ figures, angle, tempoHz }: { figures: SphereFigures; angle: number; tempoHz: number }) {
   const { t } = useTranslation();
   const locale = useLocale();
-  const hex = useChartHex();
+  const hue = useChartHue();
   const [point, setPoint] = useState<{ angle: number; tempo: number } | null>(null);
   const latest = useRef({ angle, tempo: tempoHz });
   useEffect(() => {
@@ -447,8 +422,8 @@ function BackboneChart({ figures, angle, tempoHz }: { figures: SphereFigures; an
       rows={rows}
       connectNulls
       series={[
-        { key: "circle", label: t("experiments.sphere.chart.circle"), color: hex[2 % hex.length] },
-        { key: "swing", label: t("experiments.sphere.chart.swing"), color: hex[6 % hex.length], dash: 1 },
+        { key: "circle", label: t("experiments.sphere.chart.circle"), color: hue(2) },
+        { key: "swing", label: t("experiments.sphere.chart.swing"), color: hue(6), dash: 1 },
       ]}
       axes={[
         {

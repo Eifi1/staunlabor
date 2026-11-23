@@ -44,7 +44,7 @@ import itertools
 import math
 from dataclasses import dataclass
 
-from staunlabor.domain.experiments.pendulum import MAX_DURATION_S, rk4
+from staunlabor.domain.experiments.numerics import MAX_DURATION_S, rk4
 
 #: The wheel's b: one, for Malkus's wheel (Lorenz had 8/3 for the air).
 B = 1.0

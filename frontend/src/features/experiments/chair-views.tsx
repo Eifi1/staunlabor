@@ -15,7 +15,8 @@
 
 import { useRef, type PointerEvent } from "react";
 import type { FigureKind, Peephole, Point3D } from "@/shared/types";
-import { useChartHex } from "@/shared/state/palette-store";
+import { useChartHue } from "@/shared/state/palette-store";
+import { VIEW_FRAME } from "./stage";
 
 /** Which palette hue each object is drawn in. */
 const HUE: Record<FigureKind, number> = { chair: 2, skewed: 3, scattered: 4 };
@@ -115,10 +116,10 @@ export function OrbitView({
   onTurn: (yaw: number, pitch: number) => void;
   label: string;
 }) {
-  const hex = useChartHex();
+  const hue = useChartHue();
   const drag = useRef<{ x: number; y: number; yaw: number; pitch: number; mouse: boolean } | null>(null);
   const camera = cameraAt(yaw, pitch, eye);
-  const colour = hex[HUE[peephole.figure.kind] % hex.length];
+  const colour = hue(HUE[peephole.figure.kind]);
   const line = (a: Point3D, b: Point3D): [number, number, number, number] | null => {
     const pa = project(a, camera);
     const pb = project(b, camera);
@@ -149,7 +150,7 @@ export function OrbitView({
       viewBox={`${-half} ${-half} ${2 * half} ${2 * half}`}
       role="img"
       aria-label={label}
-      className="aspect-square w-full cursor-grab touch-pan-y rounded-lg border border-subtle bg-surface-2 text-muted active:cursor-grabbing"
+      className={`aspect-square cursor-grab touch-pan-y active:cursor-grabbing ${VIEW_FRAME}`}
       onPointerDown={down}
       onPointerMove={move}
       onPointerUp={up}

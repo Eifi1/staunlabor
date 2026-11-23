@@ -2,10 +2,10 @@
 // The test reads the pages' source, as Tailwind does: a class it holds to is
 // one the source must spell.
 import { readdirSync, readFileSync } from "node:fs";
-import { dirname } from "node:path";
+import { dirname, join, relative } from "node:path";
 import { fileURLToPath } from "node:url";
 import { describe, expect, it } from "vitest";
-import { SIDE } from "./stage";
+import { SIDE, STAGE } from "./stage";
 
 // Not `new URL("…", import.meta.url)`: Vite rewrites that into a served URL.
 const DIR = dirname(fileURLToPath(import.meta.url));
@@ -48,5 +48,33 @@ describe("the views and their column of controls on a wide screen", () => {
 
   it("finds the pages it guards", () => {
     expect(PAGES.filter(({ source }) => grids(source).some((cap) => cap !== null)).length).toBeGreaterThanOrEqual(20);
+  });
+});
+
+/** Every source file under `src`, the tests' own included, by its path from `src`. */
+function sources(dir: string): { name: string; source: string }[] {
+  return readdirSync(dir, { withFileTypes: true }).flatMap((entry) => {
+    const path = join(dir, entry.name);
+    if (entry.isDirectory()) return sources(path);
+    return /\.tsx?$/.test(entry.name) ? [{ name: relative(SRC, path), source: readFileSync(path, "utf8") }] : [];
+  });
+}
+const SRC = join(DIR, "..", "..");
+
+describe("the height a drawing may take", () => {
+  // The 60 % share is written in stage.ts alone: a drawing that spelt
+  // `max-h-[60dvh]` itself kept its old cap when the share changed, and eight
+  // did, though stage.ts said every one used it.
+  it("is spelt only in stage.ts: every other file takes it from STAGE", () => {
+    const own = join("features", "experiments");
+    const spelt = sources(SRC)
+      .filter(({ name }) => name !== join(own, "stage.ts") && name !== join(own, "stage.test.ts"))
+      .filter(({ source }) => source.includes("60dvh"))
+      .map(({ name }) => name);
+    expect(spelt).toEqual([]);
+  });
+
+  it("caps a wide drawing at the share", () => {
+    expect(STAGE.wide).toBe("max-h-[60dvh]");
   });
 });

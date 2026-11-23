@@ -1,25 +1,28 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { ArrowDown, Pause, Play, RotateCcw } from "lucide-react";
+import { ArrowDown } from "lucide-react";
 import { Button, LoadingState, ToggleGroup } from "@eifi1/ui-kit";
 import { SeriesChart } from "@/shared/charts/series-chart";
 import { useLocale } from "@/shared/i18n/use-locale";
 import { formatNumber } from "@/shared/lib/format";
-import { useChartHex } from "@/shared/state/palette-store";
+import { useChartHue } from "@/shared/state/palette-store";
 import { SliderField } from "@/shared/ui/slider-field";
 import { Figures, WidgetCard } from "@/shared/ui/widget";
 import { Equation } from "./equation";
 import { ExhibitFrame } from "./exhibit-frame";
 import { BuildPending } from "./build-pending";
 import { PreviewPending, type PreviewMode, type PreviewProps } from "./preview-mode";
-import { G, fallTimeS, figures, motion, stream, type MagnetColumn, type Material, type Plate } from "./simulate/plates";
-import { SIDE } from "./stage";
+import { fallTimeS, figures, motion, stream, type MagnetColumn, type Material, type Plate } from "./simulate/plates";
+import { SIDE, VIEW_FRAME } from "./stage";
 import { useExperimentsDefaults } from "./use-experiments";
-import { settingNumber, useCheckRequest } from "./check-setting";
+import { settingNumber, useTakeCheckRequest } from "./check-setting";
+import { useFrameLoop, useRunning } from "./play";
+import { RestartButton, RunPauseButton, SpeedToggle } from "./play-controls";
+import { G } from "./simulate/constants";
 
 /** Real time, and a quarter of it for the plastic plate, which is gone in a blink. */
-const SPEEDS = { real: 1, slow: 0.25 } as const;
-type Speed = keyof typeof SPEEDS;
+const SPEEDS = [1, 0.25] as const;
+type Speed = (typeof SPEEDS)[number];
 
 /** The exhibit's four, as the page names them. */
 const KINDS = ["copper", "aluminium", "slotted", "plastic"] as const;
@@ -82,11 +85,7 @@ export function PlatesPage() {
   const plate = build?.plate ?? data?.plate ?? null;
   // A check case's "Set it up": the column and the plate; a new column builds
   // the race anew.
-  const request = useCheckRequest("plates");
-  const [seen, setSeen] = useState<number | null>(null);
-  if (request && !request.done && request.nonce !== seen && column && plate) {
-    setSeen(request.nonce);
-    const s = request.setting;
+  useTakeCheckRequest("plates", column && plate ? { column, plate } : null, (s, { column, plate }) => {
     const material = typeof s.material === "string" ? (s.material as Plate["material"]) : plate.material;
     setBuild({
       column: {
@@ -101,7 +100,7 @@ export function PlatesPage() {
         tooth_m: settingNumber(s, "tooth_m", plate.tooth_m),
       },
     });
-  }
+  });
   return (
     <ExhibitFrame
       exhibit="plates"
@@ -145,7 +144,7 @@ export function PlatesPreview({ paused }: PreviewProps) {
 /** The column from the front, its magnets beside each lane, north and south in turn. */
 function LanesView({ column, plates, fallen }: { column: MagnetColumn; plates: Plate[]; fallen: number[] }) {
   const { t } = useTranslation();
-  const hex = useChartHex();
+  const hue = useChartHue();
   const height = column.drop_m + Math.max(...plates.map((p) => p.height_m));
   const scale = VIEW.column / height;
   const half = column.pitch_m / 2;
@@ -164,7 +163,7 @@ function LanesView({ column, plates, fallen }: { column: MagnetColumn; plates: P
       viewBox={`0 0 ${VIEW.width} ${VIEW.height}`}
       role="img"
       aria-label={t("experiments.plates.view")}
-      className="w-full rounded-lg border border-subtle bg-surface-2 text-muted"
+      className={VIEW_FRAME}
     >
       {VIEW.lanes.map((x, lane) => {
         const plate = plates[lane];
@@ -184,7 +183,7 @@ function LanesView({ column, plates, fallen }: { column: MagnetColumn; plates: P
                   y={b.y}
                   width={VIEW.magnet}
                   height={b.h}
-                  fill={hex[(b.north ? NORTH_HUE : SOUTH_HUE) % hex.length]}
+                  fill={hue(b.north ? NORTH_HUE : SOUTH_HUE)}
                   fillOpacity={0.75}
                 />
               )),
@@ -195,7 +194,7 @@ function LanesView({ column, plates, fallen }: { column: MagnetColumn; plates: P
               width={w}
               height={h}
               rx={0.8}
-              fill={kind === "copper" ? hex[COPPER_HUE % hex.length] : "currentColor"}
+              fill={kind === "copper" ? hue(COPPER_HUE) : "currentColor"}
               fillOpacity={kind === "plastic" ? 0.08 : kind === "copper" ? 0.9 : 0.5}
               stroke="currentColor"
               strokeWidth={1}
@@ -272,7 +271,7 @@ function CloseUp({
   label: string;
 }) {
   const canvas = useRef<HTMLCanvasElement>(null);
-  const hex = useChartHex();
+  const hue = useChartHue();
   useEffect(() => {
     const el = canvas.current;
     const ctx = el?.getContext?.("2d");
@@ -287,7 +286,7 @@ function CloseUp({
     // The field behind the plate, row by row: north one colour, south the other, as strong as it is.
     for (let row = 0; row < height; row += 2) {
       const field = Math.cos(k * (fallen + (row + 1 - top) / scale));
-      ctx.fillStyle = rgba(hex[(field >= 0 ? NORTH_HUE : SOUTH_HUE) % hex.length], 0.22 * Math.abs(field));
+      ctx.fillStyle = rgba(hue(field >= 0 ? NORTH_HUE : SOUTH_HUE), 0.22 * Math.abs(field));
       ctx.fillRect(0, row, width, 2);
     }
     const style = getComputedStyle(el);
@@ -295,7 +294,7 @@ function CloseUp({
     // The plate hides the field behind it: the card's colour first, then the metal's tint.
     ctx.fillStyle = style.getPropertyValue("--bg-surface").trim() || "#ffffff";
     ctx.fillRect(left, top, plateW, plateH);
-    ctx.fillStyle = plate.material === "copper" ? rgba(hex[COPPER_HUE % hex.length], 0.3) : ink;
+    ctx.fillStyle = plate.material === "copper" ? rgba(hue(COPPER_HUE), 0.3) : ink;
     if (plate.material !== "copper") ctx.globalAlpha = plate.material === "plastic" ? 0.04 : 0.14;
     ctx.fillRect(left, top, plateW, plateH);
     ctx.globalAlpha = 1;
@@ -325,16 +324,13 @@ function CloseUp({
       for (let j = 0; j < rows; j++)
         for (let i = 0; i < cols; i++) {
           const psi = (at(i, j) + at(i + 1, j) + at(i, j + 1) + at(i + 1, j + 1)) / 4;
-          ctx.fillStyle = rgba(
-            hex[(psi > 0 ? ANTICLOCKWISE_HUE : CLOCKWISE_HUE) % hex.length],
-            (0.3 * Math.abs(psi)) / peak,
-          );
+          ctx.fillStyle = rgba(hue(psi > 0 ? ANTICLOCKWISE_HUE : CLOCKWISE_HUE), (0.3 * Math.abs(psi)) / peak);
           ctx.fillRect(left + i * cell, top + j * cell, cell, cell);
         }
       ctx.lineWidth = 1.6;
       for (const share of LOOP_LEVELS) {
         for (const sign of [1, -1]) {
-          ctx.strokeStyle = hex[(sign > 0 ? ANTICLOCKWISE_HUE : CLOCKWISE_HUE) % hex.length];
+          ctx.strokeStyle = hue(sign > 0 ? ANTICLOCKWISE_HUE : CLOCKWISE_HUE);
           ctx.beginPath();
           for (const [x0, y0, x1, y1] of contour(values, cols + 1, rows + 1, sign * share * peak)) {
             ctx.moveTo(left + x0 * cell, top + y0 * cell);
@@ -356,7 +352,7 @@ function CloseUp({
     if (plate.material === "plastic") ctx.setLineDash([5, 4]);
     ctx.strokeRect(left, top, plateW, plateH);
     ctx.setLineDash([]);
-  }, [column, plate, fallen, speed, hex]);
+  }, [column, plate, fallen, speed, hue]);
   return (
     <canvas
       ref={canvas}
@@ -364,14 +360,14 @@ function CloseUp({
       height={CLOSE.height}
       role="img"
       aria-label={label}
-      className="aspect-square w-full rounded-lg border border-subtle bg-surface-2 text-muted"
+      className={`aspect-square ${VIEW_FRAME}`}
     />
   );
 }
 
 function Legend() {
   const { t } = useTranslation();
-  const hex = useChartHex();
+  const hue = useChartHue();
   const items = [
     { key: "north", hue: NORTH_HUE },
     { key: "south", hue: SOUTH_HUE },
@@ -382,11 +378,7 @@ function Legend() {
     <ul className="flex flex-wrap gap-x-4 gap-y-1 text-caption text-muted">
       {items.map((item) => (
         <li key={item.key} className="flex items-center gap-1">
-          <span
-            aria-hidden
-            className="inline-block size-2 rounded-full"
-            style={{ backgroundColor: hex[item.hue % hex.length] }}
-          />
+          <span aria-hidden className="inline-block size-2 rounded-full" style={{ backgroundColor: hue(item.hue) }} />
           {t(`experiments.plates.play.legend.${item.key}`)}
         </li>
       ))}
@@ -405,31 +397,20 @@ function PlatesPlay({
   const clock = useRef(0);
   const [time, setTime] = useState(0);
   const [dropped, setDropped] = useState(false);
-  const [runningHere, setRunning] = useState(false);
-  const [speedHere, setSpeed] = useState<Speed>("real");
+  const { running: on, setRunning } = useRunning({ preview, paused, initially: false });
+  const [speedHere, setSpeed] = useState<Speed>(1);
   const [look, setLook] = useState<Kind>("copper");
   const falls = useMemo(() => plates.map((p) => fallTimeS(column, p)), [column, plates]);
   const slowest = Math.max(...falls);
   const loop = PREVIEW_HOLD_S + slowest + PREVIEW_DOWN_S;
   // Once the slowest is down there is nothing left to draw: the clock stops.
-  const running = preview ? !paused : dropped && runningHere && time < slowest;
-  const speed = preview ? SPEEDS.real : SPEEDS[speedHere];
+  const running = preview ? on : dropped && on && time < slowest;
+  const speed = preview ? 1 : speedHere;
 
-  useEffect(() => {
-    if (!running) return;
-    let raf = 0;
-    let last = performance.now();
-    const tick = (now: number) => {
-      // A frame's timestamp can lie a little before the effect started: never a step back in time.
-      const dt = Math.max(0, Math.min(0.05, (now - last) / 1000));
-      last = now;
-      clock.current += dt * speed;
-      setTime(clock.current);
-      raf = requestAnimationFrame(tick);
-    };
-    raf = requestAnimationFrame(tick);
-    return () => cancelAnimationFrame(raf);
-  }, [running, speed]);
+  useFrameLoop(running, (dt) => {
+    clock.current += dt * speed;
+    setTime(clock.current);
+  });
 
   // The run's time: negative while the plates are held at the top.
   const runTime = preview ? (time % loop) - PREVIEW_HOLD_S : dropped ? time : -1;
@@ -451,16 +432,8 @@ function PlatesPlay({
       actions={
         dropped ? (
           <>
-            {time < slowest && (
-              <Button variant="secondary" size="sm" onClick={() => setRunning(!runningHere)}>
-                {runningHere ? <Pause className="size-4" aria-hidden /> : <Play className="size-4" aria-hidden />}
-                {runningHere ? t("experiments.plates.play.pause") : t("experiments.plates.play.run")}
-              </Button>
-            )}
-            <Button variant="secondary" size="sm" onClick={reset}>
-              <RotateCcw className="size-4" aria-hidden />
-              {t("experiments.plates.play.top")}
-            </Button>
+            {time < slowest && <RunPauseButton running={on} onToggle={() => setRunning(!on)} />}
+            <RestartButton onClick={reset} label={t("experiments.plates.play.top")} />
           </>
         ) : (
           <Button
@@ -478,18 +451,7 @@ function PlatesPlay({
     >
       <div className={`${SIDE.grid} ${SIDE.cap["2xl"]}`}>
         <div className={`${SIDE.top} flex flex-wrap gap-4`}>
-          <ToggleGroup
-            label={t("experiments.plates.play.speed")}
-            labelPlacement="above"
-            size="sm"
-            overflow="wrap"
-            value={speedHere}
-            onChange={(v: string) => setSpeed(v as Speed)}
-            options={(Object.keys(SPEEDS) as Speed[]).map((s) => ({
-              value: s,
-              label: t(`experiments.plates.play.speeds.${s}`),
-            }))}
-          />
+          <SpeedToggle speeds={SPEEDS} value={speedHere} onChange={setSpeed} />
           <ToggleGroup
             label={t("experiments.plates.play.look")}
             labelPlacement="above"
@@ -559,7 +521,7 @@ function PlatesBuild({
 }) {
   const { t } = useTranslation();
   const locale = useLocale();
-  const hex = useChartHex();
+  const hue = useChartHue();
   const shown = useMemo(() => figures(column, plate), [column, plate]);
   const free = Math.sqrt((2 * column.drop_m) / G);
   const slotted = plate.tooth_m > 0;
@@ -698,17 +660,17 @@ function PlatesBuild({
           <SeriesChart
             rows={rows}
             series={[
-              { key: "slotted", label: t("experiments.plates.chart.slotted"), color: hex[SLOTTED_HUE % hex.length] },
+              { key: "slotted", label: t("experiments.plates.chart.slotted"), color: hue(SLOTTED_HUE) },
               {
                 key: "whole",
                 label: t("experiments.plates.chart.whole"),
-                color: hex[WHOLE_HUE % hex.length],
+                color: hue(WHOLE_HUE),
                 dashed: true,
               },
               {
                 key: "free",
                 label: t("experiments.plates.chart.free"),
-                color: hex[FREE_HUE % hex.length],
+                color: hue(FREE_HUE),
                 dashed: true,
               },
             ]}
@@ -796,7 +758,7 @@ function PlatesModel() {
 function PlatesTrick({ column, plates }: { column: MagnetColumn; plates: Plate[] }) {
   const { t } = useTranslation();
   const locale = useLocale();
-  const hex = useChartHex();
+  const hue = useChartHue();
   const rows = useMemo(
     () =>
       FIELDS_T.map((field) => {
@@ -822,7 +784,7 @@ function PlatesTrick({ column, plates }: { column: MagnetColumn; plates: Plate[]
         series={KINDS.map((k) => ({
           key: k,
           label: t(`experiments.plates.short.${k}`),
-          color: hex[hues[k] % hex.length],
+          color: hue(hues[k]),
           dashed: k === "plastic",
         }))}
         axes={[

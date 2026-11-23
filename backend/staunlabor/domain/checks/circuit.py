@@ -12,9 +12,8 @@ from __future__ import annotations
 import math
 
 from staunlabor.domain.checks import Case, Source
+from staunlabor.domain.checks._hand import bisect
 from staunlabor.domain.experiments import circuit as engine
-
-ENGINE = ("circuit",)
 
 _RLC = Source(
     cite="OpenStax, University Physics Volume 2, §14.6 RLC Series Circuits, Eqs. 14.45 and 14.46",
@@ -71,13 +70,7 @@ def _current(circuit: engine.Circuit, t_s: float) -> float:
 def _zero_s(circuit: engine.Circuit, lo: float, hi: float) -> float:
     """Where the needle passes zero between ``lo`` and ``hi``, by bisection."""
     above = _current(circuit, lo) > 0
-    for _ in range(100):
-        mid = (lo + hi) / 2
-        if (_current(circuit, mid) > 0) == above:
-            lo = mid
-        else:
-            hi = mid
-    return (lo + hi) / 2
+    return bisect(lambda t: (_current(circuit, t) > 0) == above, lo, hi, 100)
 
 
 def _period_run_s(circuit: engine.Circuit) -> float:

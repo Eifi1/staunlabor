@@ -41,6 +41,18 @@ interface Stored {
 /** An estimate this far off the answer, relative, is a surprise. */
 export const SURPRISE_SHARE = 0.5;
 
+/** How far an estimate is off the answer, relative to it; `null` for an
+ *  answer of zero, against which no estimate is off by a share. One rule for
+ *  the store's surprises and the card's words, so the two cannot disagree. */
+export function estimateMiss(estimate: number, answer: number): number | null {
+  return answer !== 0 ? Math.abs(estimate - answer) / Math.abs(answer) : null;
+}
+
+/** Whether a miss (`estimateMiss`) is a surprise. */
+export function isSurprise(miss: number | null): boolean {
+  return miss !== null && miss > SURPRISE_SHARE;
+}
+
 const EMPTY: Stored = { visited: [], exercises: {}, surprises: [] };
 
 /** Any object: each part of the record is checked on its own below, so a record
@@ -103,7 +115,7 @@ export const useCourseProgress = create<CourseProgress>((set, get) => {
     estimate: (exercise, estimate, answer, unit) => {
       const now = stored();
       const before = now.exercises[exercise] ?? { solved: false, attempts: 0, estimate: null };
-      const surprised = answer !== 0 && Math.abs(estimate - answer) / Math.abs(answer) > SURPRISE_SHARE;
+      const surprised = isSurprise(estimateMiss(estimate, answer));
       save({
         ...now,
         exercises: { ...now.exercises, [exercise]: { ...before, estimate } },

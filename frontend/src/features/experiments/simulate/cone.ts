@@ -10,13 +10,14 @@
  * is made in Python first.
  */
 
-import { MAX_DURATION_S, STEP_S, G, rk4, sampleEvery } from "./pendulum";
-import { roundHalfEven } from "./sphere";
+import { G } from "./constants";
+import { MAX_DURATION_S, rk4, sampleEvery, STEP_S } from "./numerics";
+import { roundHalfEven, TO_DEG, TO_RAD } from "./python";
 
 /** I/(M·R²) of a double cone about its axis. */
-export const SPIN_SHARE = 3 / 10;
+const SPIN_SHARE = 3 / 10;
 /** The rails end at most this share of the cone's half-length from its middle. */
-export const TIP_MARGIN = 0.9;
+const TIP_MARGIN = 0.9;
 
 export interface DoubleCone {
   radius_m: number;
@@ -35,8 +36,6 @@ export interface ConeExhibit {
   rails: Rails;
 }
 
-const TO_RAD = Math.PI / 180.0;
-const TO_DEG = 180.0 / Math.PI;
 const tanDeg = (deg: number) => Math.tan(deg * TO_RAD);
 
 export function halfLengthM(cone: DoubleCone): number {
@@ -58,7 +57,7 @@ export function refusal(ex: ConeExhibit): "fall_through" | "too_wide" | null {
 }
 
 /** `k = tan α·tan β`. */
-export function steepness(ex: ConeExhibit): number {
+function steepness(ex: ConeExhibit): number {
   return tanDeg(ex.cone.cone_deg) * tanDeg(ex.rails.spread_deg);
 }
 
@@ -138,7 +137,7 @@ export interface RollState {
 }
 
 /** The engine's `on_rails_m`: from where to where the cone's contact lies on the rails. */
-export function onRailsM(ex: ConeExhibit): [number, number] {
+function onRailsM(ex: ConeExhibit): [number, number] {
   const [along, share] = offsets(ex);
   const start = radiusUnderM(ex, 0.0);
   const length = ex.rails.length_m;

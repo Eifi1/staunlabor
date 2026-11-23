@@ -16,8 +16,6 @@ from staunlabor.domain.checks import Case, Source
 from staunlabor.domain.experiments import sky as engine
 from staunlabor.domain.experiments.colour import WAVELENGTHS_NM
 
-ENGINE = ("sky",)
-
 #: The air's optical depth straight up at 550 nm, as the engine takes it.
 AIR_DEPTH = 0.097
 #: The earth's radius and the ozone layer's height, km, as the engine takes them.

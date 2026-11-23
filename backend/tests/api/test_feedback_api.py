@@ -18,8 +18,6 @@ from pathlib import Path
 from typing import Any
 
 import pytest
-from eifi1_server_kit.auth.ports import NewAccount
-from eifi1_server_kit.auth.sql import SqlUserStore
 from eifi1_server_kit.feedback import (
     FeedbackActor,
     FeedbackCategory,
@@ -44,24 +42,22 @@ from eifi1_server_kit.feedback.testing import (
 )
 from eifi1_server_kit.objects import LocalObjectStore
 from eifi1_server_kit.uploads import check_upload
-from httpx import ASGITransport, AsyncClient
+from httpx import AsyncClient
 from sqlalchemy import update
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from staunlabor.feedback import POLICY, everybody_signed_in
 from staunlabor.models import Feedback, FeedbackAttachment, FeedbackComment, FeedbackReply, FeedbackVote, User
-from staunlabor.settings import get_settings
-from tests.api.test_accounts_api import (
+from tests.api.helpers import (
     API,
     PASSWORD,
     bearer,
     erase_due,
     first_admin,
-    invite,
-    invite_token,
-    register,
+    join,
+    seed_account,
 )
-from tests.conftest import FIRST_ADMIN, JOBS_TOKEN
+from tests.conftest import ACCOUNTS_ENV, JOBS_TOKEN, app_client
 
 pytestmark = pytest.mark.api
 
@@ -73,11 +69,6 @@ IDEA = {
 
 
 # ── The kit's contract suites over this app's tables ──────────────────────────
-
-
-async def _person(session: AsyncSession, email: str, *, first: str = "Ada", last: str = "Lovelace") -> User:
-    new = NewAccount(email=email, password_hash="hash", first_name=first, last_name=last, locale="de-CH", role="MEMBER")
-    return await SqlUserStore(session, User).add(new)
 
 
 def _actor(account: User, *, admin: bool = False) -> FeedbackActor:
@@ -104,9 +95,9 @@ async def _upload(storage: SqlAttachmentStorage[Any], uploader: FeedbackActor, n
 
 
 async def test_the_kit_s_feedback_suites_pass_on_this_app_s_tables(session: AsyncSession, tmp_path: Path) -> None:
-    author = _actor(await _person(session, "author@example.org"))
-    other = _actor(await _person(session, "other@example.org", first="Grace", last="Hopper"))
-    admin = _actor(await _person(session, "admin@example.org", last="Admin"), admin=True)
+    author = _actor(await seed_account(session, "author@example.org"))
+    other = _actor(await seed_account(session, "other@example.org", first="Grace", last="Hopper"))
+    admin = _actor(await seed_account(session, "admin@example.org", last="Admin"), admin=True)
     storage = SqlAttachmentStorage(
         session,
         FeedbackAttachment,
@@ -165,25 +156,14 @@ async def test_the_kit_s_feedback_suites_pass_on_this_app_s_tables(session: Asyn
 
 @pytest.fixture
 async def site(database: str, monkeypatch: pytest.MonkeyPatch, tmp_path: Path) -> AsyncIterator[AsyncClient]:
-    """The app on this test's empty database, its files in a directory of the test's."""
-    from staunlabor.main import create_app
-
-    monkeypatch.setenv("STAUNLABOR_REGISTRATION_ALLOWLIST", FIRST_ADMIN)
-    monkeypatch.setenv("STAUNLABOR_FEEDBACK_FILES_DIR", str(tmp_path / "files"))
-    monkeypatch.setenv("STAUNLABOR_JOBS_TOKEN", JOBS_TOKEN)
-    get_settings.cache_clear()
-    app = create_app()
-    async with AsyncClient(transport=ASGITransport(app=app), base_url="http://test") as client:
+    """The account tests' app, its files in a directory of the test's."""
+    async with app_client(monkeypatch, **ACCOUNTS_ENV, STAUNLABOR_FEEDBACK_FILES_DIR=str(tmp_path / "files")) as client:
         yield client
-    await app.state.database.dispose()
 
 
 async def _admin_and_member(client: AsyncClient) -> tuple[str, str]:
     admin = (await first_admin(client))["access_token"]
-    issued = await invite(client, admin, "member@example.org")
-    member = await register(client, "member@example.org", invite_token=invite_token(issued))
-    assert member.status_code == 201, member.text
-    return admin, member.json()["access_token"]
+    return admin, (await join(client, admin, "member@example.org"))["access_token"]
 
 
 async def test_an_invited_account_files_an_idea_and_finds_it_in_its_own_list(site: AsyncClient) -> None:

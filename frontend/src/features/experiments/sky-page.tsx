@@ -1,18 +1,20 @@
-import { useEffect, useId, useMemo, useRef, useState, type PointerEvent } from "react";
+import { useId, useMemo, useRef, useState, type PointerEvent } from "react";
 import { useTranslation } from "react-i18next";
 import { Switch } from "@eifi1/ui-kit";
 import { SeriesChart } from "@/shared/charts/series-chart";
 import { useLocale } from "@/shared/i18n/use-locale";
 import { formatNumber } from "@/shared/lib/format";
-import { useChartHex } from "@/shared/state/palette-store";
+import { useChartHue } from "@/shared/state/palette-store";
 import { holdTouch } from "@/shared/ui/grab";
+import { svgPoint } from "@/shared/ui/svg-point";
 import { SliderField } from "@/shared/ui/slider-field";
 import { Figures, WidgetCard } from "@/shared/ui/widget";
 import { Equation } from "./equation";
 import { ExhibitFrame } from "./exhibit-frame";
 import { BuildPending } from "./build-pending";
 import { PreviewPending, type PreviewMode, type PreviewProps } from "./preview-mode";
-import { settingNumber, useCheckRequest, useCheckSetting } from "./check-setting";
+import { useFrameLoop } from "./play";
+import { settingNumber, useCheckSetting, useTakeCheckRequest } from "./check-setting";
 import { WAVELENGTHS_NM, css, lamp, onScreen, seen } from "./simulate/colour";
 import {
   BLUE_NM,
@@ -95,18 +97,15 @@ export function SkyPage() {
   const tube = built ?? data ?? null;
   // A check case's "Set it up" for the tube: the cloudiness and the length
   // here. The sun's cases are the sun's card's (`SunPlay`).
-  const request = useCheckRequest("sky");
-  const [seen, setSeen] = useState<number | null>(null);
-  if (request && !request.done && request.nonce !== seen && tube) {
-    setSeen(request.nonce);
-    if ("cloudiness_per_m" in request.setting || "length_m" in request.setting) {
+  useTakeCheckRequest("sky", tube, (setting, current) => {
+    if ("cloudiness_per_m" in setting || "length_m" in setting) {
       setTube({
-        ...tube,
-        cloudiness_per_m: settingNumber(request.setting, "cloudiness_per_m", tube.cloudiness_per_m),
-        length_m: settingNumber(request.setting, "length_m", tube.length_m),
+        ...current,
+        cloudiness_per_m: settingNumber(setting, "cloudiness_per_m", current.cloudiness_per_m),
+        length_m: settingNumber(setting, "length_m", current.length_m),
       });
     }
-  }
+  });
   return (
     <ExhibitFrame
       exhibit="sky"
@@ -228,18 +227,8 @@ function TubePlay({
 }: { tube: Tube; onChange?: (next: Tube) => void } & PreviewMode) {
   const { t } = useTranslation();
   const [time, setTime] = useState(0);
-  useEffect(() => {
-    if (!preview || paused) return;
-    let raf = 0;
-    let last = performance.now();
-    const tick = (now: number) => {
-      setTime((s) => s + Math.max(0, Math.min(0.05, (now - last) / 1000)));
-      last = now;
-      raf = requestAnimationFrame(tick);
-    };
-    raf = requestAnimationFrame(tick);
-    return () => cancelAnimationFrame(raf);
-  }, [preview, paused]);
+  // Only a preview runs a clock, for its auto mode; on the page the reader moves it.
+  useFrameLoop(preview && !paused, (dt) => setTime((s) => s + dt));
   const shownTube = preview
     ? { ...tube, cloudiness_per_m: 0.3 + 1.35 * (1 - Math.cos((2 * Math.PI * time) / PREVIEW_CYCLE_S)) }
     : tube;
@@ -331,7 +320,7 @@ function TubeFigures({ tube }: { tube: Tube }) {
 function TubeBuild({ tube, onChange }: { tube: Tube; onChange: (next: Tube) => void }) {
   const { t } = useTranslation();
   const locale = useLocale();
-  const hex = useChartHex();
+  const hue = useChartHue();
   const rows = useMemo(
     () =>
       Array.from({ length: CHART_POINTS }, (_, k) => {
@@ -364,9 +353,9 @@ function TubeBuild({ tube, onChange }: { tube: Tube; onChange: (next: Tube) => v
       <SeriesChart
         rows={rows}
         series={[
-          { key: "blue", label: t("experiments.sky.chart.blue"), color: hex[BLUE_HUE % hex.length] },
-          { key: "green", label: t("experiments.sky.chart.green"), color: hex[GREEN_HUE % hex.length] },
-          { key: "red", label: t("experiments.sky.chart.red"), color: hex[RED_HUE % hex.length] },
+          { key: "blue", label: t("experiments.sky.chart.blue"), color: hue(BLUE_HUE) },
+          { key: "green", label: t("experiments.sky.chart.green"), color: hue(GREEN_HUE) },
+          { key: "red", label: t("experiments.sky.chart.red"), color: hue(RED_HUE) },
         ]}
         axes={[
           {
@@ -405,19 +394,9 @@ function SkyView({
   const [held, setHeld] = useState(false);
   const holding = useRef(false);
   const follow = (svg: SVGSVGElement, clientX: number, clientY: number) => {
-    let x: number;
-    let y: number;
-    const matrix = svg.getScreenCTM?.();
-    if (matrix) {
-      const p = new DOMPoint(clientX, clientY).matrixTransform(matrix.inverse());
-      x = p.x;
-      y = p.y;
-    } else {
-      const box = svg.getBoundingClientRect();
-      if (!box.width || !box.height) return;
-      x = ((clientX - box.left) / box.width) * SKY.width;
-      y = ((clientY - box.top) / box.height) * SKY.height;
-    }
+    const p = svgPoint(svg, clientX, clientY);
+    if (!p) return;
+    const [x, y] = p;
     const deg = Math.atan2(SKY.horizon - y, SKY.cx - x) * (180 / Math.PI);
     onHeight?.(Math.round(Math.min(90, Math.max(0, deg)) * 2) / 2);
   };
@@ -613,7 +592,7 @@ function SkyModel() {
 function SkyTrick() {
   const { t } = useTranslation();
   const locale = useLocale();
-  const hex = useChartHex();
+  const hue = useChartHue();
   const rows = useMemo(
     () =>
       Array.from({ length: CHART_POINTS }, (_, k) => {
@@ -633,8 +612,8 @@ function SkyTrick() {
       <SeriesChart
         rows={rows}
         series={[
-          { key: "blue", label: t("experiments.sky.chart.blue"), color: hex[BLUE_HUE % hex.length] },
-          { key: "red", label: t("experiments.sky.chart.red"), color: hex[RED_HUE % hex.length] },
+          { key: "blue", label: t("experiments.sky.chart.blue"), color: hue(BLUE_HUE) },
+          { key: "red", label: t("experiments.sky.chart.red"), color: hue(RED_HUE) },
         ]}
         axes={[
           {

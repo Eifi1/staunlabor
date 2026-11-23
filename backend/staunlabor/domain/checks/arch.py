@@ -14,12 +14,8 @@ from __future__ import annotations
 import math
 
 from staunlabor.domain.checks import Case, Source
+from staunlabor.domain.checks._hand import G, bisect
 from staunlabor.domain.experiments import arch as engine
-
-ENGINE = ("arch",)
-
-#: Standard gravity, as the engine takes it.
-G = 9.80665
 
 _MILANKOVITCH = Source(
     cite="G. Kampas, N. Kalapodis, T. McLean, C. Málaga-Chuquitaype, “Limit-state analysis of parabolic arches subjected to inertial loading in different gravitational fields using a variational formulation”, Engineering Structures, corrected proof, 111501, doi:10.1016/j.engstruct.2020.111501, §2, p. 2 (open-access copy, University of Greenwich)",
@@ -73,14 +69,7 @@ def _least_thickness_ratio() -> float:
 def _chain_parameter(half_span: float, rise: float) -> float:
     """a of the chain through the springings that rises ``rise`` at the crown:
     a·(cosh(c/a) − 1) = h, the left side falling in a, halved until it holds."""
-    lo, hi = 0.01 * half_span, 100 * half_span
-    for _ in range(200):
-        mid = (lo + hi) / 2
-        if mid * (math.cosh(half_span / mid) - 1) > rise:
-            lo = mid
-        else:
-            hi = mid
-    return (lo + hi) / 2
+    return bisect(lambda a: a * (math.cosh(half_span / a) - 1) > rise, 0.01 * half_span, 100 * half_span, 200)
 
 
 def _chain_push_share() -> float:

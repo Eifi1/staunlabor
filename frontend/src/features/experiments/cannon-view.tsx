@@ -18,8 +18,9 @@ import type { PointerEvent as ReactPointerEvent, Ref } from "react";
 import { useTranslation } from "react-i18next";
 import { useLocale } from "@/shared/i18n/use-locale";
 import { formatNumber } from "@/shared/lib/format";
-import { useChartHex } from "@/shared/state/palette-store";
+import { useChartHue } from "@/shared/state/palette-store";
 import type { Ball } from "./simulate/cannon";
+import { VIEW_FRAME } from "./stage";
 
 export function CannonView({
   balls,
@@ -47,8 +48,8 @@ export function CannonView({
 }) {
   const { t } = useTranslation();
   const locale = useLocale();
-  const hex = useChartHex();
-  const colours = [hex[0], hex[2 % hex.length], hex[4 % hex.length]];
+  const hue = useChartHue();
+  const colours = [hue(0), hue(2), hue(4)];
 
   const closeFloor = 0.04 * closeTopM;
   const closeHalf = 0.375 * (closeTopM + closeFloor);
@@ -67,7 +68,7 @@ export function CannonView({
         viewBox={`${-closeHalf} ${-closeTopM} ${2 * closeHalf} ${closeTopM + closeFloor}`}
         role="img"
         aria-label={t("experiments.cannon.view")}
-        className="aspect-[3/4] w-full touch-none select-none rounded-lg border border-subtle bg-surface-2 text-muted"
+        className={`aspect-[3/4] touch-none select-none ${VIEW_FRAME}`}
         onPointerDown={onPointerDown}
         onPointerMove={onPointerMove}
         onPointerUp={onPointerUp}
@@ -93,7 +94,7 @@ export function CannonView({
         viewBox={`${-climbHalf} ${-climbTopM} ${2 * climbHalf} ${climbTopM + climbFloor}`}
         role="img"
         aria-label={t("experiments.cannon.climb_view")}
-        className="h-full w-full rounded-lg border border-subtle bg-surface-2 text-muted"
+        className={`h-full ${VIEW_FRAME}`}
         preserveAspectRatio="xMidYMax meet"
       >
         <rect x={-climbHalf} y={0} width={2 * climbHalf} height={climbFloor} fill="currentColor" fillOpacity={0.15} />

@@ -32,8 +32,7 @@ import enum
 import math
 from dataclasses import dataclass
 
-#: I/(m·a²) for a solid ball.
-SOLID_BALL = 2 / 5
+from staunlabor.domain.experiments.constants import SOLID_BALL_INERTIA
 
 #: Samples a path returns per second.
 SAMPLES_PER_S = 100
@@ -100,7 +99,7 @@ def outside(c: Carousel, throw: Throw, t: float) -> tuple[float, float]:
     (x0, y0), (vx, vy) = start(c, throw)
     if throw.body is Body.PUCK:
         return x0 + vx * t, y0 + vy * t
-    w = SOLID_BALL / (1 + SOLID_BALL) * c.rate
+    w = SOLID_BALL_INERTIA / (1 + SOLID_BALL_INERTIA) * c.rate
     if abs(w * t) < 1e-12:
         return x0 + vx * t, y0 + vy * t
     # v(t) is v₀ turned by w·t; its integral, (J·(R(wt) − 1)·v₀)/w with J a

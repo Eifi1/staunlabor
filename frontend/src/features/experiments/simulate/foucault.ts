@@ -8,10 +8,11 @@
  * in Python first.
  */
 
-import { G } from "./pendulum";
+import { G } from "./constants";
+import { TO_DEG, TO_RAD } from "./python";
 
 /** The Earth's turn against the stars, rad/s. */
-export const EARTH_RATE = 7.292115e-5;
+const EARTH_RATE = 7.292115e-5;
 /** Winterthur's latitude, degrees north. */
 export const WINTERTHUR_DEG = 47.5;
 
@@ -21,10 +22,7 @@ export interface FoucaultPendulum {
   latitude_deg: number;
 }
 
-const TO_RAD = Math.PI / 180.0;
-const TO_DEG = 180.0 / Math.PI;
-
-export function verticalRate(p: FoucaultPendulum): number {
+function verticalRate(p: FoucaultPendulum): number {
   return EARTH_RATE * Math.sin(p.latitude_deg * TO_RAD);
 }
 

@@ -29,21 +29,16 @@
  *   rate and recorded by Chromium's MediaRecorder as MP4 (H.264), the one
  *   format every guide to LinkedIn's uploads agrees on. No ffmpeg, no package.
  *
- * Like `write-previews.mjs` it starts its own Vite dev server, whose `/api`
- * goes to STAUNLABOR_PREVIEW_API (default: the dev API, http://localhost:8002).
+ * Like `write-previews.mjs` it starts its own Vite dev server
+ * (`preview-server.mjs`), whose `/api` goes to STAUNLABOR_PREVIEW_API
+ * (default: the dev API, http://localhost:8002).
  */
 import { mkdir, writeFile } from "node:fs/promises";
 import path from "node:path";
-import { fileURLToPath } from "node:url";
 import { chromium } from "playwright";
-import { createServer } from "vite";
+import { PORTS, ROOT, withPreviewServer } from "./preview-server.mjs";
 
-const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
-const FRONTEND = path.join(ROOT, "frontend");
 const OUT = path.join(ROOT, "clips");
-const API = process.env.STAUNLABOR_PREVIEW_API ?? "http://localhost:8002";
-/** Off the dev server's 5176 and the preview pictures' 5196. */
-const PORT = 5195;
 const FPS = 30;
 /** The card's size, and the scale it is photographed at: 1920 × 1008, even
  *  on both sides as H.264 wants, and sharp in a feed's full width. */
@@ -80,13 +75,13 @@ const settle = (page) =>
   );
 
 /** The card, loaded under the fake clock, and its frames as JPEG. */
-async function frames(page, card, lang, seconds) {
+async function frames(page, origin, card, lang, seconds) {
   // Paused at once: an installed clock otherwise also runs in real time, and
   // every screenshot's own time went into the clip on top of its 1/FPS.
   const start = Date.now();
   await page.clock.install({ time: start });
   await page.clock.pauseAt(start + 1000);
-  await page.goto(`http://localhost:${PORT}/preview-card.html?card=${card}&lang=${lang}`);
+  await page.goto(`${origin}/preview-card.html?card=${card}&lang=${lang}`);
   // Loading needs the network (real) and the page's timers (the clock's):
   // both, a little at a time.
   const deadline = Date.now() + 60_000;
@@ -171,24 +166,13 @@ async function encode(page, shots) {
 }
 
 const { lang, seconds, cards: asked } = options(process.argv.slice(2));
-const server = await createServer({
-  root: FRONTEND,
-  configFile: path.join(FRONTEND, "vite.config.ts"),
-  logLevel: "warn",
-  server: { port: PORT, strictPort: true, proxy: { "/api": { target: API, changeOrigin: true } } },
-});
-await server.listen();
-try {
-  const { EXHIBITS } = await server.ssrLoadModule("/src/features/experiments/exhibits.ts");
-  const cards = ["overview", ...EXHIBITS.filter((entry) => entry.path).map((entry) => entry.exhibit)];
-  const unknown = asked.filter((card) => !cards.includes(card));
-  if (unknown.length) throw new Error(`no such card: ${unknown.join(", ")}`);
+await withPreviewServer(PORTS.clips, asked, async ({ cards, origin }) => {
   await mkdir(OUT, { recursive: true });
   const browser = await chromium.launch();
   try {
     const encoder = await browser.newPage();
     await encoder.goto("about:blank");
-    for (const card of asked.length ? asked : cards) {
+    for (const card of cards) {
       // A fresh page for each card: the fake clock is installed once a page.
       const page = await browser.newPage({
         viewport: CARD,
@@ -199,7 +183,7 @@ try {
       });
       page.on("pageerror", (error) => console.error(`  page error: ${error.message}`));
       try {
-        const shots = await frames(page, card, lang, seconds);
+        const shots = await frames(page, origin, card, lang, seconds);
         const file = path.join(OUT, lang === "de-CH" ? `${card}.mp4` : `${card}.${lang}.mp4`);
         const clip = await encode(encoder, shots);
         await writeFile(file, clip);
@@ -211,6 +195,4 @@ try {
   } finally {
     await browser.close();
   }
-} finally {
-  await server.close();
-}
+});

@@ -12,8 +12,6 @@ from __future__ import annotations
 from typing import Any
 
 import pytest
-from eifi1_server_kit.auth.ports import NewAccount
-from eifi1_server_kit.auth.sql import SqlUserStore
 from eifi1_server_kit.translation_review import ReviewerName
 from eifi1_server_kit.translation_review.sql import SqlTranslationReviewStore
 from eifi1_server_kit.translation_review.testing import check_round_trip, check_store
@@ -21,8 +19,7 @@ from httpx import AsyncClient
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from staunlabor.models import TranslationReview, User
-from tests.api.test_accounts_api import API, bearer, first_admin
-from tests.api.test_user_admin_api import join, uid
+from tests.api.helpers import API, bearer, first_admin, join, seed_account, uid
 
 pytestmark = pytest.mark.api
 
@@ -34,15 +31,7 @@ def verdict(locale: str, key: str, text: str = "Le pendule") -> dict[str, Any]:
 
 
 async def test_the_kit_s_review_store_suite_passes_on_this_app_s_table(session: AsyncSession) -> None:
-    new = NewAccount(
-        email="grace@example.com",
-        password_hash="hash",
-        first_name="Grace",
-        last_name="Hopper",
-        locale="fr",
-        role="REVIEWER",
-    )
-    grace = await SqlUserStore(session, User).add(new)
+    grace = await seed_account(session, "grace@example.com", role="REVIEWER", first="Grace", last="Hopper", locale="fr")
     store = SqlTranslationReviewStore(session, TranslationReview, accounts=User)
     await check_store(store, reviewer_id=grace.id, name=ReviewerName("Grace", "Hopper"), locale="fr")
 

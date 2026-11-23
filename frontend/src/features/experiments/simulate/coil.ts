@@ -20,12 +20,12 @@
  * same two halves {@link run} calls, in the same order.
  */
 
-/** Standard gravity, as the engine uses. */
-export const G = 9.80665;
+import { G, RESISTANCE_FADE_M_S } from "./constants";
+import { copysign, roundHalfEven } from "./python";
+import { rk4 } from "./numerics";
+
 /** The magnetic constant, 4π·10⁻⁷ H/m. */
 export const MU0 = 4e-7 * Math.PI;
-/** The speed below which rolling resistance fades in rather than switching sign. */
-export const RESISTANCE_FADE_M_S = 1e-3;
 /** The engine's step: 0.2 ms. */
 export const STEP_S = 2e-4;
 export const SAMPLES_PER_S = 200;
@@ -116,26 +116,13 @@ export interface TimingPoint {
   gain_j: number;
 }
 
-/** Python's `round`: half to even, as the step counts are taken. */
-export function roundHalfEven(x: number): number {
-  const down = Math.floor(x);
-  const rest = x - down;
-  if (rest > 0.5) return down + 1;
-  if (rest < 0.5) return down;
-  return down % 2 === 0 ? down : down + 1;
-}
-
-/** `math.copysign`: the sign of `sign`, a negative zero included. */
-const copysign = (magnitude: number, sign: number) =>
-  sign < 0 || Object.is(sign, -0) ? -Math.abs(magnitude) : Math.abs(magnitude);
-
 // ── the exhibit's parts ─────────────────────────────────────────────────────
 
 /** `m = B_r·V/μ₀`. */
-export const moment = (m: Magnet) => (m.remanence_t * Math.PI * (m.diameter_m / 2) ** 2 * m.length_m) / MU0;
+const moment = (m: Magnet) => (m.remanence_t * Math.PI * (m.diameter_m / 2) ** 2 * m.length_m) / MU0;
 
 /** Wheeler's single-layer formula. */
-export function inductance(c: Coil): number {
+function inductance(c: Coil): number {
   const a = c.mean_diameter_m / 2;
   return (MU0 * c.turns ** 2 * Math.PI * a * a) / (c.length_m + 0.9 * a);
 }
@@ -144,7 +131,7 @@ export const endOf = (t: Track) => t.flat_length_m / 2 + t.ramp_length_m;
 export const topHeight = (t: Track) => t.ramp_radius_m * (1 - Math.cos(t.ramp_length_m / t.ramp_radius_m));
 
 /** The engine's `__post_init__`s: the sliders never reach these. */
-export function checkExhibit(ex: CoilExhibit): void {
+function checkExhibit(ex: CoilExhibit): void {
   const { magnet: m, coil: c, track: t } = ex;
   if (m.remanence_t <= 0 || m.diameter_m <= 0 || m.length_m <= 0) {
     throw new RangeError("the magnet needs a positive remanence and size");
@@ -170,7 +157,7 @@ export function checkExhibit(ex: CoilExhibit): void {
 const prefactor = (ex: CoilExhibit) => (MU0 * moment(ex.magnet) * ex.coil.turns) / (2 * ex.coil.length_m);
 
 /** k(x) = dΨ/dx: volts per metre per second, newtons per ampere. */
-export function coupling(ex: CoilExhibit, x: number): number {
+function coupling(ex: CoilExhibit, x: number): number {
   const a = ex.coil.mean_diameter_m / 2;
   const u1 = x + ex.coil.length_m / 2;
   const u2 = x - ex.coil.length_m / 2;
@@ -188,7 +175,7 @@ export function slope(ex: CoilExhibit, x: number): number {
 }
 
 /** `1/R` on a ramp, zero on the flat. */
-export function curvature(ex: CoilExhibit, x: number): number {
+function curvature(ex: CoilExhibit, x: number): number {
   const t = ex.track;
   return Math.abs(x) > t.flat_length_m / 2 ? 1 / t.ramp_radius_m : 0.0;
 }
@@ -205,7 +192,7 @@ const mechanical = (ex: CoilExhibit, x: number, v: number) =>
   0.5 * ex.track.car_mass_kg * v * v + ex.track.car_mass_kg * G * height(ex, x);
 
 /** `(x, v, i, battery, heat, rolling)` → their rates, into `out`. */
-function derivatives(ex: CoilExhibit, y: number[], u: number, openCircuit: boolean, out: number[]): void {
+function derivatives(ex: CoilExhibit, y: readonly number[], u: number, openCircuit: boolean, out: number[]): void {
   const x = y[0];
   const v = y[1];
   const i = y[2];
@@ -286,7 +273,7 @@ export function start(ex: CoilExhibit, startX: number | null = null, startSpeed 
 /** The first half of a step: with the coil open and no button held, the
  *  current stops and its field's energy goes into the spark. Answers whether
  *  the circuit is open for the step. */
-export function release(ex: CoilExhibit, sim: CoilSim, press: Press): boolean {
+function release(ex: CoilExhibit, sim: CoilSim, press: Press): boolean {
   const openCircuit = ex.idle === "open" && press === 0;
   if (openCircuit && sim.y[2] !== 0.0) {
     const i = sim.y[2];
@@ -298,40 +285,23 @@ export function release(ex: CoilExhibit, sim: CoilSim, press: Press): boolean {
 
 /** The second half: one Runge–Kutta step with the button held, then the
  *  centre crossing, a turn-around on a ramp and the end stop. */
-export function advance(ex: CoilExhibit, sim: CoilSim, press: Press, openCircuit: boolean, h = STEP_S): void {
+function advance(ex: CoilExhibit, sim: CoilSim, press: Press, openCircuit: boolean, h = STEP_S): void {
   const t = ex.track;
   const now = sim.n * h;
   const y = sim.y;
   const x = y[0];
   const v = y[1];
   const u = ex.supply_v * press;
-  const k1 = [0, 0, 0, 0, 0, 0];
-  const k2 = [0, 0, 0, 0, 0, 0];
-  const k3 = [0, 0, 0, 0, 0, 0];
-  const k4 = [0, 0, 0, 0, 0, 0];
-  derivatives(ex, y, u, openCircuit, k1);
-  derivatives(
-    ex,
-    y.map((value, j) => value + (h / 2) * k1[j]),
-    u,
-    openCircuit,
-    k2,
+  let nxt = rk4(
+    (_t, s) => {
+      const rates = [0, 0, 0, 0, 0, 0];
+      derivatives(ex, s, u, openCircuit, rates);
+      return rates;
+    },
+    now,
+    y,
+    h,
   );
-  derivatives(
-    ex,
-    y.map((value, j) => value + (h / 2) * k2[j]),
-    u,
-    openCircuit,
-    k3,
-  );
-  derivatives(
-    ex,
-    y.map((value, j) => value + h * k3[j]),
-    u,
-    openCircuit,
-    k4,
-  );
-  let nxt = y.map((value, j) => value + (h / 6) * (k1[j] + 2 * k2[j] + 2 * k3[j] + k4[j]));
   if (x < 0 !== nxt[0] < 0) sim.crossedAt = now + h;
   // A turn-around on a ramp: the speed changes sign away from the flat.
   if (v * nxt[1] < 0 && Math.abs(nxt[0]) > t.flat_length_m / 2) sim.peaks.push(height(ex, nxt[0]));

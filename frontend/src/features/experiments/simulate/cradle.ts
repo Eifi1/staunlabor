@@ -10,16 +10,17 @@
  * samples it the engine's way. A change to the physics is made in Python first.
  */
 
-import { G } from "./pendulum";
-import { roundHalfEven } from "./sphere";
+import { G } from "./constants";
+import { roundHalfEven, TO_RAD } from "./python";
+import { rk4SecondOrder } from "./numerics";
 
 /** Steel's Poisson's ratio. */
-export const POISSON = 0.29;
+const POISSON = 0.29;
 export const STEP_S = 1e-3;
-export const CONTACT_STEP_S = 1e-6;
+const CONTACT_STEP_S = 1e-6;
 const SUBSTEPS = roundHalfEven(STEP_S / CONTACT_STEP_S);
 /** The speed `e` is given at. */
-export const REFERENCE_M_S = 1.0;
+const REFERENCE_M_S = 1.0;
 
 export interface Cradle {
   count: number;
@@ -36,11 +37,9 @@ export interface Pull {
   angle_deg: number;
 }
 
-const TO_RAD = Math.PI / 180.0;
+const massKg = (cr: Cradle) => ((cr.density_kg_m3 * Math.PI) / 6) * cr.diameter_m ** 3;
 
-export const massKg = (cr: Cradle) => ((cr.density_kg_m3 * Math.PI) / 6) * cr.diameter_m ** 3;
-
-export function stiffness(cr: Cradle): number {
+function stiffness(cr: Cradle): number {
   const eStar = (cr.youngs_gpa * 1e9) / (2 * (1 - POISSON ** 2));
   return (4 / 3) * eStar * Math.sqrt(cr.diameter_m / 4);
 }
@@ -67,7 +66,7 @@ function forces(cr: Cradle, x: number[], v: number[]): number[] {
   return out;
 }
 
-function rates(cr: Cradle, th: number[], w: number[]): number[] {
+function rates(cr: Cradle, th: readonly number[], w: readonly number[]): number[] {
   const length = cr.string_m;
   const f = forces(
     cr,
@@ -84,25 +83,9 @@ function rates(cr: Cradle, th: number[], w: number[]): number[] {
   return out;
 }
 
+/** One step of the swings, as the engine takes it (`rk4_second_order`). */
 function rk4(cr: Cradle, th: number[], w: number[], h: number): [number[], number[]] {
-  const n = cr.count;
-  const a1 = rates(cr, th, w);
-  const t2 = th.map((v, i) => v + (h / 2) * w[i]);
-  const w2 = w.map((v, i) => v + (h / 2) * a1[i]);
-  const a2 = rates(cr, t2, w2);
-  const t3 = th.map((v, i) => v + (h / 2) * w2[i]);
-  const w3 = w.map((v, i) => v + (h / 2) * a2[i]);
-  const a3 = rates(cr, t3, w3);
-  const t4 = th.map((v, i) => v + h * w3[i]);
-  const w4 = w.map((v, i) => v + h * a3[i]);
-  const a4 = rates(cr, t4, w4);
-  const nt = new Array<number>(n);
-  const nw = new Array<number>(n);
-  for (let i = 0; i < n; i++) {
-    nt[i] = th[i] + (h / 6) * (w[i] + 2 * w2[i] + 2 * w3[i] + w4[i]);
-    nw[i] = w[i] + (h / 6) * (a1[i] + 2 * a2[i] + 2 * a3[i] + a4[i]);
-  }
-  return [nt, nw];
+  return rk4SecondOrder((x, v) => rates(cr, x, v), th, w, h);
 }
 
 function near(cr: Cradle, th: number[], w: number[]): boolean {

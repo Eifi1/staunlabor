@@ -16,7 +16,8 @@
  * hidden, and a drawing sized by it is cut off whenever the bar shows. The
  * classes are written out whole, one per layout, because Tailwind finds a class
  * only as a literal string; the share they all use is 60 % of the height, and
- * changing it means changing every one of them.
+ * changing it means changing every one of them. No drawing writes the share
+ * itself: a wide one takes `STAGE.wide` (`stage.test.ts` holds that).
  *
  * The other half of the same observation is that a wide display has width to
  * spare, so from `2xl` up the controls stand in a column beside the views
@@ -43,6 +44,14 @@ export const STAGE = {
    *  default), so a framed one keeps its frame across the column. */
   wide: "max-h-[60dvh]",
 } as const;
+
+/**
+ * The frame every drawing stands in: as wide as its column, rounded, on the
+ * second surface, its ink the muted text colour (`currentColor` in the SVG).
+ * One string, so a change to how a drawing is framed is made once; a drawing
+ * adds its shape (`aspect-square`, `STAGE.wide`) and its cursor beside it.
+ */
+export const VIEW_FRAME = "w-full rounded-lg border border-subtle bg-surface-2 text-muted";
 
 /**
  * The views and their controls from `2xl` up: views on the left, an 18rem

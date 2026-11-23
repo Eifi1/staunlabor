@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useRef, useState, type PointerEvent as ReactPointerEvent } from "react";
 import { useTranslation } from "react-i18next";
-import { ArrowDownUp, ArrowDown, Pause, Play, RotateCcw } from "lucide-react";
+import { ArrowDownUp, ArrowDown } from "lucide-react";
 import {
   Button,
   LoadingState,
@@ -13,7 +13,8 @@ import {
 import { SeriesChart } from "@/shared/charts/series-chart";
 import { useLocale } from "@/shared/i18n/use-locale";
 import { formatNumber } from "@/shared/lib/format";
-import { useChartHex } from "@/shared/state/palette-store";
+import { useChartHue } from "@/shared/state/palette-store";
+import { svgPoint } from "@/shared/ui/svg-point";
 import type { BallStackRequest, CannonContact, CannonFigures, CannonImpact } from "@/shared/types";
 import { SliderField } from "@/shared/ui/slider-field";
 import { Figures, WidgetCard } from "@/shared/ui/widget";
@@ -24,7 +25,6 @@ import { BuildPending } from "./build-pending";
 import { settingNumber, useCheckSetting } from "./check-setting";
 import {
   CONTACT_STEP_S,
-  G,
   IMPACT_EVERY,
   IMPACT_WINDOW_S,
   MAX_S,
@@ -37,9 +37,11 @@ import {
   type Launch,
 } from "./simulate/cannon";
 import { PreviewPending, type PreviewMode, type PreviewProps } from "./preview-mode";
-import { startsRunning } from "./play";
+import { useFrameLoop, useRunning } from "./play";
+import { RestartButton, RunPauseButton } from "./play-controls";
 import { STAGE } from "./stage";
 import { useCannonFigures, useExperimentsDefaults } from "./use-experiments";
+import { G } from "./simulate/constants";
 
 /** Between the auto mode's drops, seconds. */
 const AUTO_GAP_S = 1.2;
@@ -170,8 +172,7 @@ function CannonPlay({
 } & PreviewMode) {
   const { t } = useTranslation();
   const locale = useLocale();
-  const [runningHere, setRunning] = useState(startsRunning);
-  const running = preview ? !paused : runningHere;
+  const { running, setRunning } = useRunning({ preview, paused });
   const [slow, setSlow] = useState(false);
   const [auto, setAuto] = useState(preview);
   const [last, setLast] = useState<{ stack: BallStack; drop: Drop; launch: Launch } | null>(null);
@@ -191,11 +192,6 @@ function CannonPlay({
   const [dragHeight, setDragHeight] = useState<number | null>(null);
   const svg = useRef<SVGSVGElement | null>(null);
   const grab = useRef<{ offset: number } | null>(null);
-
-  const latest = useRef({ stack, slow, auto });
-  useEffect(() => {
-    latest.current = { stack, slow, auto };
-  });
 
   // Idle, the stack sits where it will be let go from.
   const shownHeight = dragHeight ?? stack.drop_m;
@@ -227,48 +223,37 @@ function CannonPlay({
     setRunning(true);
   };
 
-  useEffect(() => {
-    if (!running) return;
-    let raf = 0;
-    let previous = performance.now() / 1000;
-    const tick = (ms: number) => {
-      const now = ms / 1000;
-      const dt = Math.min(0.05, now - previous);
-      previous = now;
-      const { stack: current, slow: slowly, auto: autoOn } = latest.current;
-      const p = playing.current;
-      if (p) {
-        const inImpact = p.impact !== null && p.age >= p.impact - SLOW_LEAD_S && p.age <= p.impact + IMPACT_WINDOW_S;
-        p.age += dt * (slowly && inImpact ? SLOW : 1);
-        setZoomed(slowly && inImpact);
-        setFrame({ balls: p.stack.balls, y: heightsAt(p.drop, p.age) });
-        if (p.impact !== null && p.age > p.impact + IMPACT_WINDOW_S) setStruck(true);
-        if (p.age >= p.apexAt) setReached(true);
-        if (p.age >= p.until) {
-          playing.current = null;
-          setZoomed(false);
-          setStruck(true);
-          setReached(true);
-          autoState.current.at = now + AUTO_GAP_S;
-          if (!autoOn) setFrame({ balls: current.balls, y: start(current) });
-        }
-      } else if (autoOn && now >= autoState.current.at) {
-        // One ball, two, three — the same height, so the climb is what changes.
-        const k = (autoState.current.next % current.balls.length) + 1;
-        autoState.current.next += 1;
-        letGo(cut(current, k));
+  useFrameLoop(running, (dt, ms) => {
+    // The auto mode's next drop is timed on the frames' clock, in seconds.
+    const now = ms / 1000;
+    const p = playing.current;
+    if (p) {
+      const inImpact = p.impact !== null && p.age >= p.impact - SLOW_LEAD_S && p.age <= p.impact + IMPACT_WINDOW_S;
+      p.age += dt * (slow && inImpact ? SLOW : 1);
+      setZoomed(slow && inImpact);
+      setFrame({ balls: p.stack.balls, y: heightsAt(p.drop, p.age) });
+      if (p.impact !== null && p.age > p.impact + IMPACT_WINDOW_S) setStruck(true);
+      if (p.age >= p.apexAt) setReached(true);
+      if (p.age >= p.until) {
+        playing.current = null;
+        setZoomed(false);
+        setStruck(true);
+        setReached(true);
+        autoState.current.at = now + AUTO_GAP_S;
+        if (!auto) setFrame({ balls: stack.balls, y: start(stack) });
       }
-      raf = requestAnimationFrame(tick);
-    };
-    raf = requestAnimationFrame(tick);
-    return () => cancelAnimationFrame(raf);
-  }, [running]);
+    } else if (auto && now >= autoState.current.at) {
+      // One ball, two, three — the same height, so the climb is what changes.
+      const k = (autoState.current.next % stack.balls.length) + 1;
+      autoState.current.next += 1;
+      letGo(cut(stack, k));
+    }
+  });
 
-  /** The pointer's height in the close-up, metres. */
+  /** The pointer's height in the close-up, metres (the drawing's y points down). */
   const pointerY = (event: ReactPointerEvent<SVGSVGElement>): number | null => {
-    const matrix = svg.current?.getScreenCTM?.();
-    if (!matrix) return null;
-    return -new DOMPoint(event.clientX, event.clientY).matrixTransform(matrix.inverse()).y;
+    const p = svg.current ? svgPoint(svg.current, event.clientX, event.clientY) : null;
+    return p ? -p[1] : null;
   };
   const clampDrop = (h: number) => Math.min(3, Math.max(0.05, h));
   const onPointerDown = (event: ReactPointerEvent<SVGSVGElement>) => {
@@ -316,13 +301,8 @@ function CannonPlay({
       hint={t(auto ? "experiments.cannon.play.hint_auto" : "experiments.cannon.play.hint")}
       actions={
         <>
-          <Button variant="secondary" size="sm" onClick={() => setRunning(!running)}>
-            {running ? <Pause className="size-4" aria-hidden /> : <Play className="size-4" aria-hidden />}
-            {running ? t("experiments.cannon.play.pause") : t("experiments.cannon.play.run")}
-          </Button>
-          <Button
-            variant="secondary"
-            size="sm"
+          <RunPauseButton running={running} onToggle={() => setRunning(!running)} />
+          <RestartButton
             onClick={() => {
               playing.current = null;
               setLast(null);
@@ -330,10 +310,7 @@ function CannonPlay({
               setStruck(false);
               setFrame({ balls: stack.balls, y: start(stack) });
             }}
-          >
-            <RotateCcw className="size-4" aria-hidden />
-            {t("experiments.cannon.play.restart")}
-          </Button>
+          />
         </>
       }
     >
@@ -483,7 +460,7 @@ function ContactTable({ stack, contacts }: { stack: Pick<BallStack, "balls">; co
 function ForceChart({ stack, impact }: { stack: Pick<BallStack, "balls">; impact: CannonImpact }) {
   const { t } = useTranslation();
   const locale = useLocale();
-  const hex = useChartHex();
+  const hue = useChartHue();
   const names = useContactNames(stack);
   const rows = useMemo(
     () =>
@@ -494,7 +471,7 @@ function ForceChart({ stack, impact }: { stack: Pick<BallStack, "balls">; impact
       }),
     [impact],
   );
-  const series = names.map((label, c) => ({ key: `f${c}`, label, color: hex[(2 * c) % hex.length] }));
+  const series = names.map((label, c) => ({ key: `f${c}`, label, color: hue(2 * c) }));
   return (
     <>
       <SeriesChart

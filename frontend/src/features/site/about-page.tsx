@@ -1,5 +1,6 @@
 import { useTranslation } from "react-i18next";
 import { Card, PageHeader, TextLink, usePageSeo } from "@eifi1/ui-kit";
+import { SITE_PATHS } from "@/shared/lib/site-paths";
 import { PAGE_SHELL } from "@/shared/ui/page-shell";
 import { ISSUES_URL, SOURCE_URL } from "./operator";
 
@@ -8,7 +9,7 @@ import { ISSUES_URL, SOURCE_URL } from "./operator";
  *  words only. */
 export function AboutPage() {
   const { t } = useTranslation();
-  usePageSeo({ canonicalPath: "/about", title: t("site.about.title"), description: t("site.about.lead") });
+  usePageSeo({ canonicalPath: SITE_PATHS.about, title: t("site.about.title"), description: t("site.about.lead") });
   const paragraphs = ["what", "computed", "model", "open", "accounts"] as const;
   return (
     <div className={PAGE_SHELL}>

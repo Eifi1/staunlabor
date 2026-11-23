@@ -4,57 +4,64 @@ import { useTranslation } from "react-i18next";
 import { LoadingState, NotFoundPage } from "@eifi1/ui-kit";
 import { accountRouteElements, RequireSession } from "@eifi1/ui-kit/accounts";
 import { AccountFrame } from "@/features/account/account-frame";
-import { ExperimentsLayout } from "@/features/experiments/experiments-layout";
+import { SiteLayout } from "@/features/site/site-layout";
 import { EXHIBIT_MODULES } from "@/features/experiments/exhibit-modules";
-import { EXHIBITS } from "@/features/experiments/exhibits";
+import { EXHIBITS, EXHIBITS_PATH } from "@/features/experiments/exhibits";
 import { ExperimentsOverviewPage } from "@/features/experiments/overview-page";
 import { LESSONS } from "@/features/course/lessons";
+import { ACCOUNT_PATHS, SITE_PATHS, type AccountPage } from "@/shared/lib/site-paths";
 import type { Lesson } from "@/shared/types";
 
-/** The site's own pages and the account's, each its own chunk too. The front
- *  page is the overview, in the first wave. */
-const ExhibitsPage = lazy(() =>
-  import("@/features/experiments/exhibits-page").then((m) => ({ default: m.ExhibitsPage })),
-);
-const AboutPage = lazy(() => import("@/features/site/about-page").then((m) => ({ default: m.AboutPage })));
-const ImprintPage = lazy(() => import("@/features/site/legal-pages").then((m) => ({ default: m.ImprintPage })));
-const PrivacyPage = lazy(() => import("@/features/site/legal-pages").then((m) => ({ default: m.PrivacyPage })));
-const SettingsPage = lazy(() => import("@/features/account/settings-page").then((m) => ({ default: m.SettingsPage })));
-const AdminPage = lazy(() => import("@/features/admin/admin-page").then((m) => ({ default: m.AdminPage })));
-const FeedbackInboxPage = lazy(() =>
-  import("@/features/admin/feedback-pages").then((m) => ({ default: m.FeedbackInboxPage })),
-);
-const MyFeedbackPage = lazy(() =>
-  import("@/features/admin/feedback-pages").then((m) => ({ default: m.MyFeedbackPage })),
-);
-const TranslationsPage = lazy(() =>
-  import("@/features/admin/translations-page").then((m) => ({ default: m.TranslationsPage })),
-);
+type LazyPage = LazyExoticComponent<ComponentType>;
 
-/** The course's pages, each its own chunk: lesson 0 (the recipe, the course's
- *  front page), the six lessons and the cheat sheet, at the paths `LESSONS`
- *  gives them. A record over the lessons, so a lesson without a page does not
- *  compile. */
-const COURSE_PAGES: Record<Lesson, LazyExoticComponent<ComponentType>> = {
-  recipe: lazy(() => import("@/features/course/overview-page").then((m) => ({ default: m.CourseOverviewPage }))),
-  first_order: lazy(() =>
-    import("@/features/course/lesson-first-order").then((m) => ({ default: m.FirstOrderLesson })),
-  ),
-  second_order: lazy(() =>
-    import("@/features/course/lesson-second-order").then((m) => ({ default: m.SecondOrderLesson })),
-  ),
-  eigenvalues: lazy(() =>
-    import("@/features/course/lesson-eigenvalues").then((m) => ({ default: m.EigenvaluesLesson })),
-  ),
-  laplace: lazy(() => import("@/features/course/lesson-laplace").then((m) => ({ default: m.LaplaceLesson }))),
-  numerics: lazy(() => import("@/features/course/lesson-numerics").then((m) => ({ default: m.NumericsLesson }))),
-  two_mass: lazy(() => import("@/features/course/lesson-two-mass").then((m) => ({ default: m.TwoMassLesson }))),
-  cheat_sheet: lazy(() => import("@/features/course/cheat-sheet").then((m) => ({ default: m.CheatSheetPage }))),
+/** A module's named page as a component of its own chunk, fetched when its
+ *  route is first shown (as `exhibitModule` does for the exhibits). */
+function lazyNamed<K extends string, M extends Record<K, ComponentType>>(load: () => Promise<M>, name: K): LazyPage {
+  return lazy(() => load().then((m) => ({ default: m[name] })));
+}
+
+/** The course's pages: lesson 0 (the recipe, the course's front page), the six
+ *  lessons and the cheat sheet, at the paths `LESSONS` gives them. A record
+ *  over the lessons, so a lesson without a page does not compile. */
+const COURSE_PAGES: Record<Lesson, LazyPage> = {
+  recipe: lazyNamed(() => import("@/features/course/overview-page"), "CourseOverviewPage"),
+  first_order: lazyNamed(() => import("@/features/course/lesson-first-order"), "FirstOrderLesson"),
+  second_order: lazyNamed(() => import("@/features/course/lesson-second-order"), "SecondOrderLesson"),
+  eigenvalues: lazyNamed(() => import("@/features/course/lesson-eigenvalues"), "EigenvaluesLesson"),
+  laplace: lazyNamed(() => import("@/features/course/lesson-laplace"), "LaplaceLesson"),
+  numerics: lazyNamed(() => import("@/features/course/lesson-numerics"), "NumericsLesson"),
+  two_mass: lazyNamed(() => import("@/features/course/lesson-two-mass"), "TwoMassLesson"),
+  cheat_sheet: lazyNamed(() => import("@/features/course/cheat-sheet"), "CheatSheetPage"),
+};
+
+/** Every page open to every visitor but the front page, each its own chunk:
+ *  the list of exhibits, each exhibit (`exhibit-modules.ts`), the course and
+ *  the site's own pages. The front page is the overview, in the first wave. */
+const OPEN_PAGES: readonly { path: string; Page: LazyPage }[] = [
+  { path: EXHIBITS_PATH, Page: lazyNamed(() => import("@/features/experiments/exhibits-page"), "ExhibitsPage") },
+  ...EXHIBITS.map(({ exhibit, path }) => ({ path, Page: EXHIBIT_MODULES[exhibit].Page })),
+  ...LESSONS.map(({ lesson, path }) => ({ path, Page: COURSE_PAGES[lesson] })),
+  { path: SITE_PATHS.about, Page: lazyNamed(() => import("@/features/site/about-page"), "AboutPage") },
+  { path: SITE_PATHS.imprint, Page: lazyNamed(() => import("@/features/site/legal-pages"), "ImprintPage") },
+  { path: SITE_PATHS.privacy, Page: lazyNamed(() => import("@/features/site/legal-pages"), "PrivacyPage") },
+];
+
+/** The account's pages, each behind the sign-in. A record over
+ *  `ACCOUNT_PATHS`, the list the accounts client sends to the sign-in from, so
+ *  a private page cannot be routed without being on it. The server refuses the
+ *  admin's and the reviewer's to anyone it grants nothing; the pages say so
+ *  themselves. */
+const PRIVATE_PAGES: Record<AccountPage, LazyPage> = {
+  settings: lazyNamed(() => import("@/features/account/settings-page"), "SettingsPage"),
+  admin: lazyNamed(() => import("@/features/admin/admin-page"), "AdminPage"),
+  feedback: lazyNamed(() => import("@/features/admin/feedback-pages"), "FeedbackInboxPage"),
+  myFeedback: lazyNamed(() => import("@/features/admin/feedback-pages"), "MyFeedbackPage"),
+  translations: lazyNamed(() => import("@/features/admin/translations-page"), "TranslationsPage"),
 };
 
 /** The account's signed-out pages (sign-in, sign-up by invitation, the reset, the links),
  *  the kit's, in the site's frame. No terms page: the site has none. */
-const ACCOUNT_PAGES = accountRouteElements({ frame: AccountFrame, legal: { privacyHref: "/privacy" } });
+const SIGNED_OUT_PAGES = accountRouteElements({ frame: AccountFrame, legal: { privacyHref: SITE_PATHS.privacy } });
 
 function Page({ children }: { children: ReactNode }) {
   const { t } = useTranslation();
@@ -64,122 +71,36 @@ function Page({ children }: { children: ReactNode }) {
 export function AppRoutes() {
   return (
     <Routes>
-      <Route element={<ExperimentsLayout />}>
+      <Route element={<SiteLayout />}>
         <Route index element={<ExperimentsOverviewPage />} />
-        {/* Each exhibit at its path, its page its own chunk (`exhibit-modules.ts`). */}
-        {EXHIBITS.flatMap(({ exhibit, path }) => {
-          if (!path) return [];
-          const ExhibitPage = EXHIBIT_MODULES[exhibit].Page;
-          return [
-            <Route
-              key={exhibit}
-              path={path.slice(1)}
-              element={
-                <Page>
-                  <ExhibitPage />
-                </Page>
-              }
-            />,
-          ];
-        })}
-        {LESSONS.map(({ lesson, path }) => {
-          const LessonPage = COURSE_PAGES[lesson];
+        {OPEN_PAGES.map(({ path, Page: Shown }) => (
+          <Route
+            key={path}
+            path={path.slice(1)}
+            element={
+              <Page>
+                <Shown />
+              </Page>
+            }
+          />
+        ))}
+        {SIGNED_OUT_PAGES}
+        {(Object.keys(PRIVATE_PAGES) as AccountPage[]).map((page) => {
+          const Shown = PRIVATE_PAGES[page];
           return (
             <Route
-              key={lesson}
-              path={path.slice(1)}
+              key={page}
+              path={ACCOUNT_PATHS[page].slice(1)}
               element={
-                <Page>
-                  <LessonPage />
-                </Page>
+                <RequireSession>
+                  <Page>
+                    <Shown />
+                  </Page>
+                </RequireSession>
               }
             />
           );
         })}
-        <Route
-          path="exhibits"
-          element={
-            <Page>
-              <ExhibitsPage />
-            </Page>
-          }
-        />
-        <Route
-          path="about"
-          element={
-            <Page>
-              <AboutPage />
-            </Page>
-          }
-        />
-        <Route
-          path="impressum"
-          element={
-            <Page>
-              <ImprintPage />
-            </Page>
-          }
-        />
-        <Route
-          path="privacy"
-          element={
-            <Page>
-              <PrivacyPage />
-            </Page>
-          }
-        />
-        {ACCOUNT_PAGES}
-        <Route
-          path="settings"
-          element={
-            <RequireSession signInPath="/login">
-              <Page>
-                <SettingsPage />
-              </Page>
-            </RequireSession>
-          }
-        />
-        {/* The server refuses both to anyone it grants nothing; the pages say so themselves. */}
-        <Route
-          path="admin"
-          element={
-            <RequireSession signInPath="/login">
-              <Page>
-                <AdminPage />
-              </Page>
-            </RequireSession>
-          }
-        />
-        <Route
-          path="feedback"
-          element={
-            <RequireSession signInPath="/login">
-              <Page>
-                <FeedbackInboxPage />
-              </Page>
-            </RequireSession>
-          }
-        />
-        <Route
-          path="my-feedback"
-          element={
-            <RequireSession signInPath="/login">
-              <Page>
-                <MyFeedbackPage />
-              </Page>
-            </RequireSession>
-          }
-        />
-        <Route
-          path="translations"
-          element={
-            <RequireSession signInPath="/login">
-              <Page>
-                <TranslationsPage />
-              </Page>
-            </RequireSession>
-          }
-        />
         <Route path="*" element={<NotFoundPage homeHref="/" />} />
       </Route>
     </Routes>

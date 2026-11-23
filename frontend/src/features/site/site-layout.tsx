@@ -1,5 +1,4 @@
 import { Link, NavLink, Outlet, useLocation } from "react-router";
-import { useScrollMemory } from "@/app/scroll-memory";
 import { useTranslation } from "react-i18next";
 import { LanguageMenu, ThemeToggle } from "@eifi1/ui-kit";
 import { changeLanguage } from "@/shared/i18n/index";
@@ -7,10 +6,12 @@ import { LANGUAGES } from "@/shared/i18n/languages";
 import { useLanguage } from "@/shared/i18n/use-locale";
 import { useTheme } from "@/shared/state/theme-store";
 import { CONTAINER } from "@/shared/ui/page-shell";
-import { SiteFooter } from "@/features/site/site-footer";
-import { SiteSearch } from "@/features/site/site-search";
+import { SITE_PATHS } from "@/shared/lib/site-paths";
 import { BASICS_PATH } from "@/features/course/lessons";
-import { EXHIBITS_PATH, OVERVIEW_PATH } from "./exhibits";
+import { EXHIBITS_PATH, OVERVIEW_PATH } from "@/features/experiments/exhibits";
+import { SiteFooter } from "./site-footer";
+import { SiteSearch } from "./site-search";
+import { useScrollMemory } from "./scroll-memory";
 
 /** A link in the header's row: quiet until pointed at, and plain text once
  *  it is the page shown. */
@@ -18,8 +19,9 @@ const NAV_LINK =
   "inline-flex min-h-11 items-center gap-1 rounded-md px-1 text-sm font-medium text-secondary hover:text-primary focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand aria-[current=page]:text-primary";
 
 /**
- * The site's frame: a header that stays at the top, the page, and the footer
- * (Marcel's spec of 2026-11-20). The header holds the name, the three ways
+ * The site's frame around every page, the exhibits', the course's, the site's
+ * own and the account's: a header that stays at the top, the page, and the
+ * footer (Marcel's spec of 2026-11-20). The header holds the name, the three ways
  * in (the exhibits, the basics they stand on, the page about the site), the
  * search, the language and the light or dark theme; the account stays in the
  * footer. On a phone the three links give way to the search: the footer
@@ -32,7 +34,7 @@ const NAV_LINK =
  * The links are a plain row in the header until the kit's `TopBarNav` (0.66,
  * proposed by UI-Kit on 2026-11-19) takes them.
  */
-export function ExperimentsLayout() {
+export function SiteLayout() {
   const { t } = useTranslation();
   const language = useLanguage();
   const mode = useTheme((s) => s.mode);
@@ -54,7 +56,7 @@ export function ExperimentsLayout() {
             <NavLink to={BASICS_PATH} className={NAV_LINK}>
               {t("site.nav.basics")}
             </NavLink>
-            <NavLink to="/about" className={NAV_LINK}>
+            <NavLink to={SITE_PATHS.about} className={NAV_LINK}>
               {t("site.nav.about")}
             </NavLink>
           </nav>

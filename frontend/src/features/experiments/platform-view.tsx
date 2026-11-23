@@ -9,8 +9,9 @@
  */
 
 import { useTranslation } from "react-i18next";
-import { useChartHex } from "@/shared/state/palette-store";
+import { useChartHue } from "@/shared/state/palette-store";
 import type { Body, Platform, Posture } from "./simulate/platform";
+import { VIEW_FRAME } from "./stage";
 
 /** The visitor's hue: the palette's hue for what the visitor moves, as the sphere's ball. */
 const BODY_HUE = 3;
@@ -28,17 +29,17 @@ export function PlatformView({
   angleRad: number;
 }) {
   const { t } = useTranslation();
-  const hex = useChartHex();
+  const hue = useChartHue();
   const extent = Math.max(platform.radius_m, body.shoulder_m + 0.5) + 0.05;
   const d = posture.lean_m;
   const s = body.shoulder_m;
-  const colour = hex[BODY_HUE % hex.length];
+  const colour = hue(BODY_HUE);
   return (
     <svg
       viewBox={`${-extent} ${-extent} ${2 * extent} ${2 * extent}`}
       role="img"
       aria-label={t("experiments.platform.view")}
-      className="aspect-square w-full rounded-lg border border-subtle bg-surface-2 text-muted"
+      className={`aspect-square ${VIEW_FRAME}`}
     >
       <g transform={`rotate(${(-angleRad * 180) / Math.PI})`}>
         <circle

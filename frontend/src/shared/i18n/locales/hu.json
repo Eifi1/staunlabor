@@ -103,7 +103,6 @@
       "claim": "Előbb <em>játék</em>, aztán <em>számolás</em>.",
       "lead": "Kiállítási tárgyak, mint egy tudományos központban – kipróbálásra és utánaszámolásra.",
       "how": "Minden oldal azzal kezdődik, ami a kiállításon áll, kipróbálhatja, majd megmutatja, mi történik, és azt az egy felismerést, amely a trükköt megmagyarázza. Minden szám az alkalmazás saját számítómotorjából származik, és a tesztjei garantálják.",
-      "coming": "Előkészületben",
       "credit": "A kiállítási tárgyak többségét a winterthuri Swiss Science Center Technorama kiállítási tárgyai ihlették.",
       "week": {
         "eyebrow": "A hét kísérlete",
@@ -131,7 +130,7 @@
       },
       "selection": {
         "title": "Kiállítási tárgyak",
-        "lead": "A {{count}} legújabb. A rajz megmozdul, amint rámutat.",
+        "lead": "Véletlenszerű válogatás {{count}} tárgyból, minden látogatáskor új. A rajz megmozdul, amint rámutat.",
         "all": "Mind a {{count}} kiállítási tárgy"
       },
       "basics": {
@@ -158,7 +157,6 @@
       "what_happens": "Mi történik",
       "sweet_spot": "A trükk",
       "computed": "Hogyan számoljuk ki",
-      "more_at": "Bővebben a tárgyról",
       "next": "Következő tárgy: {{name}}",
       "onward": "További tárgyak",
       "held": "A válasz itt jelenik meg, amint kipróbálta.",
@@ -166,7 +164,23 @@
     },
     "play": {
       "pause": "Szünet",
-      "run": "Tovább"
+      "run": "Tovább",
+      "restart": "Újrakezdés",
+      "speed": "Tempó",
+      "speeds": {
+        "0_05": "Lassítva (1/20)",
+        "0_1": "Lassítva (⅒)",
+        "0_25": "Lassítva (¼)",
+        "1": "Valós idő",
+        "2": "Kétszeres",
+        "3": "Háromszoros",
+        "4": "Négyszeres",
+        "5": "Ötszörös",
+        "10": "Tízszeres",
+        "20": "Hússzoros"
+      },
+      "sound": "Hang",
+      "no_sound": "Ez a böngésző nem tud hangot előállítani."
     },
     "exhibits": {
       "chair": {
@@ -449,9 +463,6 @@
       "play": {
         "title": "A gomboknál",
         "hint": "Tartsa lenyomva a + gombot, amíg a kocsi befelé halad a tekercsbe, és a − gombot, amint túljutott a közepén. Teljes sebességnél túl nehéz? Lassítsa le, vagy hagyja, hogy a szabály nyomja a gombokat, és figyelje, mikor teszi.",
-        "pause": "Szünet",
-        "run": "Folytatás",
-        "restart": "Újrakezdés",
         "let_go": "A kocsi elengedése",
         "aim": "A cél: juttassa fel a kocsit mindkét zászlóig.",
         "done": "Sikerült: a kocsi mindkét zászlót elérte.",
@@ -465,12 +476,6 @@
         "time": "Idő",
         "autopilot": "Automatikus: tökéletes időzítés",
         "autopilot_hint": "Hagyja, hogy a szabály nyomja a gombokat, és figyelje, mikor teszi.",
-        "speed": "Sebesség",
-        "speeds": {
-          "1": "Valós idő",
-          "0_25": "¼",
-          "0_1": "⅒"
-        },
         "keys": "Billentyűzeten: a pluszhoz tartsa lenyomva a + vagy a ← billentyűt, a mínuszhoz a − vagy a → billentyűt.",
         "start": "Indulás: ennyire balra a tekercstől",
         "start_hint": "{{top}} cm: a rámpa tetején; {{half}} cm: félmagasságban."
@@ -580,9 +585,6 @@
         "hint_hand": "Húzza az ujját a felülnézetben: a gömb úgy követi az ujját, ahogy egy kéz tenné. Körözzön a közép körül — eleinte lassan, nagyjából másodpercenként egyszer, aztán egyre gyorsabban, ahogy a golyó emelkedik.",
         "hint_circle": "A gömböt egy 2 cm-es körön toljuk körbe az Ön által beállított tempóban. Ha lassan változtatja a tempót, a golyó követi; ha egyszerre, lemarad.",
         "hint_perfect": "Itt a gömböt a lehető legjobb időzítéssel toljuk. Figyelje meg, hol van a gömb, miközben a golyó emelkedik, és milyen gyorsan kering a végén.",
-        "pause": "Szünet",
-        "run": "Folytatás",
-        "restart": "Újrakezdés",
         "tempo": "Tempó",
         "change": "A tempó változtatása",
         "slowly": "Lassan",
@@ -689,9 +691,6 @@
         "hint": "Lökje meg, hogy forogni kezdjen, aztán dőljön kifelé, vagy egyenesedjen fel. A korong annál gyorsabban forog, minél egyenesebben áll.",
         "hint_auto": "A látogató kifelé dől, felegyenesedik, kitart, majd újra kifelé dől, újra meg újra — figyelje, ahogy a sebesség követi.",
         "push": "Lökés",
-        "pause": "Szünet",
-        "run": "Folytatás",
-        "restart": "Újrakezdés",
         "auto": "Automatikus: kidőlés és felegyenesedés",
         "auto_hint": "Három másodpercig kifelé dőlve, két és felig egyenesen állva, majd vissza — egy lökéssel, ha a korong áll.",
         "lean": "Kifelé dőlés",
@@ -795,17 +794,9 @@
         "title": "Engedje el őket",
         "hint": "Indítsa el a versenyt, és figyelje, hol jár éppen mindegyik golyó. Amint egy golyó beér, megjelenik a helyezése és az ideje, a számítómotoré. A zászlónál minden pálya véget ér, és a golyó tovarepül egy párnázott gödörbe, ahol mind a hat együtt köt ki.",
         "start": "Rajt",
-        "pause": "Szünet",
-        "run": "Folytatás",
         "view": "Hat pálya egy rajttól egy célig, mindegyiken egy golyóval",
         "auto": "Automatikus: verseny újra és újra",
-        "auto_hint": "A verseny nem sokkal azután indul újra, hogy az utolsó golyó is beért.",
-        "speed": "Sebesség",
-        "speeds": {
-          "1": "Valós idő",
-          "0_25": "¼",
-          "0_1": "⅒"
-        }
+        "auto_hint": "A verseny nem sokkal azután indul újra, hogy az utolsó golyó is beért."
       },
       "motion": {
         "hint": "Minden golyó sebessége és gyorsulása, nyilakként egy pontból és számokként: x jobbra, y felfelé. A pályán a nehézségi erő a pálya mentén gyorsítja a golyót, a pálya pedig eltéríti; a levegőben minden golyó csak g-vel esik, minden nyíl egyforma; a gödörben minden ütközés a párnázattal vagy egy másik golyóval a skálán messze túli rántás — 5 ms-os átlag, szaggatottan rajzolva, nagysága a táblázatban.",
@@ -885,9 +876,6 @@
         "title": "Az ormánynál",
         "hint": "A labda az ormányon fekszik, amíg a levegő fel nem emeli. Változtasson a légáramon, döntse meg az ormányt, vagy lökje meg a labdát, és figyelje, hol tartja meg a levegő, és mikor már nem tudja.",
         "hint_auto": "Az ormány egyre jobban megdől, amíg a levegő már nem tudja megtartani a labdát; ekkor a labda visszakerül az ormányra.",
-        "pause": "Szünet",
-        "run": "Folytatás",
-        "restart": "Újrakezdés",
         "push_left": "Lökés balra",
         "push_right": "Lökés jobbra",
         "air": "Az ormányból kiáramló levegő",
@@ -996,9 +984,6 @@
         "hint": "Húzza le a gyűrűt, és engedje el, gyorsan vagy lassan, vagy nyomja meg a gombot: a tempó dönti el, kirepül-e egy karika.",
         "hint_auto": "Három lenyomás egymás után: egy hirtelen bökés, egy fél másodperces lenyomás és egy lassú nyomás. Figyelje meg, mit küld ki mindegyik a lyukon.",
         "press": "Lenyomás",
-        "pause": "Szünet",
-        "run": "Folytatás",
-        "restart": "Újrakezdés",
         "auto": "Automatikus: három lenyomás",
         "auto_hint": "Egy {{fast}} s-os bökés, egy {{best}} s-os lenyomás és egy {{slow}} s-os lassú nyomás, egymás után.",
         "duration": "A lenyomás időtartama",
@@ -1108,9 +1093,6 @@
         "title": "A huzalnál",
         "hint": "Húzza fel az oszlopot a rajzon, és engedje el, vagy állítsa be a magasságot, és nyomja meg az „Ejtés” gombot: a kis labda emelkedése jobbra van jelölve, alatta pedig megjelennek a becsapódás erői.",
         "hint_auto": "Egy labda, aztán kettő, aztán három, mindig ugyanabból a magasságból: figyelje, hogyan nő a legfelső labda emelkedése.",
-        "pause": "Szünet",
-        "run": "Folytatás",
-        "restart": "Újrakezdés",
         "height": "Az alsó labda magassága",
         "drop": "Ejtés",
         "drag": "Vagy húzza fel az oszlopot a rajzon, és engedje el.",
@@ -1213,15 +1195,6 @@
       "play": {
         "title": "Hagyja lengeni a sort",
         "hint": "Az óra jár. Ugorjon a ciklus egy törtrészére, vagy változtassa meg, milyen messziről engedik el az ingákat.",
-        "pause": "Szünet",
-        "run": "Tovább",
-        "restart": "Elölről",
-        "speed": "Tempó",
-        "speeds": {
-          "1": "Valós idő",
-          "2": "Kétszeres",
-          "5": "Ötszörös"
-        },
         "jump": "Ugrás ide:",
         "jumps": {
           "2": "½ ciklus",
@@ -1308,17 +1281,9 @@
       "play": {
         "title": "Hagyja rajzolni",
         "hint": "A toll gyorsítva rajzol. Változtassa meg lent az ingák arányát, és új rajz kezdődik.",
-        "pause": "Szünet",
-        "run": "Tovább",
         "finish": "Rajz befejezése",
         "restart": "Újrarajzolás",
         "save": "Kép mentése",
-        "speed": "Tempó",
-        "speeds": {
-          "1": "Valós idő",
-          "5": "Ötszörös",
-          "20": "Hússzoros"
-        },
         "time": "Megrajzolva",
         "ratio": "A {{p}} : {{q}} arány közelében (toll : tábla)",
         "detune": "Eltérés tőle",
@@ -1390,13 +1355,6 @@
         "hint_down": "A kúp a magas végen fekszik. Engedje el, és nézze meg, merre gurul.",
         "hint_stays": "A kúp az alacsony végen fekszik. Engedje el, és nézze meg, merre gurul.",
         "let_go": "Elengedés",
-        "pause": "Szünet",
-        "run": "Tovább",
-        "speed": "Tempó",
-        "speeds": {
-          "100": "Valós idő",
-          "25": "Lassítva (¼)"
-        },
         "verdict_up": "A sínek emelkednek, a kúp tengelye süllyed: felgurul.",
         "verdict_down": "A sínek meredekebben emelkednek, mint ahogy a kúp süllyed: legurul.",
         "verdict_stays": "A tengely pontosan vízszintes: a kúp nyugalomban marad.",
@@ -1480,18 +1438,11 @@
       "play": {
         "title": "A forgótányér forgatása",
         "hint": "Állítsa be a fordulatszámot. Az edény azonnal követi, a víznek idő kell – gyorsítva látszik, ahogy utoléri.",
-        "pause": "Szünet",
-        "run": "Tovább",
         "stop": "A forgótányér leállítása",
         "frame": "Nézet felülről",
         "frames": {
           "outside": "Kívülről",
           "turning": "Együtt forogva"
-        },
-        "speed": "Tempó",
-        "speeds": {
-          "1": "Valós idő",
-          "10": "Tízszeres"
         },
         "rate": "A tányér fordulatszáma",
         "rpm": "ford./perc",
@@ -1571,18 +1522,11 @@
       "play": {
         "title": "Az ingák meglökése",
         "hint": "Válassza ki, hogyan engedik el az ingákat. A sávok mutatják, mennyi energia van éppen mindegyikben.",
-        "pause": "Szünet",
-        "run": "Tovább",
         "let_go": "Elengedés:",
         "starts": {
           "one": "Csak a bal",
           "together": "Mindkettő egyformán",
           "against": "Egymás ellen"
-        },
-        "speed": "Tempó",
-        "speeds": {
-          "1": "Valós idő",
-          "3": "Háromszoros"
         },
         "energy": "A két inga energiája",
         "left": "Bal inga",
@@ -1649,13 +1593,6 @@
         "hint": "Húzza a peceket felfelé vagy lefelé, vagy válassza lent a három eset egyikét.",
         "drag_hint": "Vagy fogja meg a golyót egérrel vagy ujjal, térítse ki, és engedje el.",
         "let_go": "Elengedés",
-        "pause": "Szünet",
-        "run": "Tovább",
-        "speed": "Tempó",
-        "speeds": {
-          "100": "Valós idő",
-          "25": "Lassítva (¼)"
-        },
         "outcome_same_height": "A pecek mellett a golyó pontosan olyan magasra emelkedik, mint a másik oldalon.",
         "outcome_slack": "Túl nagy lendület a kis körhöz, túl kicsi az átforduláshoz: a fonal meglazul.",
         "outcome_over_the_top": "Elég lendület: a golyó átfordul a pecek fölött.",
@@ -1725,14 +1662,6 @@
         "title": "A kerék elengedése",
         "hint": "A leglassabb lassításban látszik a rándulás lent: a szalagok néhány millimétert nyúlnak, és visszadobják a kereket.",
         "let_go": "Elengedés",
-        "pause": "Szünet",
-        "run": "Tovább",
-        "speed": "Tempó",
-        "speeds": {
-          "100": "Valós idő",
-          "25": "Lassítva (¼)",
-          "5": "Erősen lassítva (1/20)"
-        },
         "phases": {
           "down": "Legördül.",
           "jerk": "Lent: a szalagok megnyúlnak és visszadobják.",
@@ -1812,8 +1741,6 @@
         "title": "Két inga elengedése",
         "hint": "Az élénk inga és halványabb ikre majdnem egyformán indul. Figyelje, mikor válnak el.",
         "let_go": "Elengedés",
-        "pause": "Szünet",
-        "run": "Tovább",
         "presets_label": "Indulás:",
         "presets": {
           "gentle": "Finom",
@@ -1823,11 +1750,6 @@
         "upper": "A felső kar induláskor",
         "lower": "Az alsó kar induláskor",
         "nudge": "Az iker eltérése",
-        "speed": "Tempó",
-        "speeds": {
-          "100": "Valós idő",
-          "25": "Lassítva (¼)"
-        },
         "time": "Idő",
         "gap": "A kettő távolsága: {{gap}}"
       },
@@ -1889,19 +1811,11 @@
       "play": {
         "title": "A csap kinyitása",
         "hint": "Állítsa a csapot kevés, több, majd sok vízre, és figyelje meg, mit csinál a kerék minden esetben.",
-        "pause": "Szünet",
-        "run": "Tovább",
-        "restart": "Elölről",
         "tap": "Csap",
         "tap_hint": "ρ: mennyi víz folyik be, a szivárgáshoz és a fékhez mérve.",
         "brake": "Fék",
         "brake_hint": "σ: mennyire fékez a tengely, a kerék tehetetlenségéhez és a szivárgáshoz mérve.",
         "turn_hint": "Vagy forgassa el egérrel vagy ujjal a csap karját és a tengelyen lévő gombot, a féket. Elengedéskor a kerék elölről indul.",
-        "speed": "Tempó",
-        "speeds": {
-          "1": "Valós idő",
-          "4": "Négyszeres"
-        },
         "regime_still": "Túl kevés víz: a szivárgás elviszi, mielőtt a felső vödör elég nehéz lenne. A kerék áll.",
         "regime_steady": "A kerék egyenletesen forog az egyik irányba – hogy melyikbe, az első kis lökés dönti el.",
         "regime_chaotic": "Káosz: a kerék nem talál egyenletes forgásba. Irányt vált, anélkül hogy mintát követne.",
@@ -1955,9 +1869,6 @@
       "play": {
         "title": "Hagyja forogni a Földet",
         "hint": "Gyorsítva látszik, ahogy a sík vándorol és a bábuk eldőlnek. Válasszon más helyet, és a tempó megváltozik.",
-        "pause": "Szünet",
-        "run": "Tovább",
-        "restart": "Elölről",
         "places_label": "Hely:",
         "places": {
           "winterthur": "Winterthur",
@@ -2080,19 +1991,11 @@
         "hint": "Ejtsen le egy golyót, aztán kettőt, és számolja meg, hány repül el a másik végén.",
         "drag_hint": "Vagy fogja meg egérrel vagy ujjal az egyik bal oldali golyót, húzza fel, és engedje el.",
         "let_go": "Elengedni",
-        "pause": "Megállítás",
-        "run": "Tovább",
         "lifted": "Felemelt golyók",
         "spacing": "A golyók között",
         "spacings": {
           "touching": "Érintkeznek",
           "gap": "0,1 mm levegő"
-        },
-        "speed": "Tempó",
-        "speeds": {
-          "100": "Valós idő",
-          "25": "4× lassabban",
-          "10": "10× lassabban"
         },
         "angle": "Kitérés",
         "restitution": "Amit egy ütközés visszaad",
@@ -2153,13 +2056,6 @@
         "hint": "A «Körpálya» pontosan olyan gyorsan löki meg a golyót, hogy súrlódás nélkül körön maradna. Súrlódással körről körre süllyed; a grafikon minden kört Keplerhez mér.",
         "launch": "Meglökni",
         "circle": "Körpálya",
-        "pause": "Megállítás",
-        "run": "Tovább",
-        "speed": "Tempó",
-        "speeds": {
-          "1": "Valós idő",
-          "4": "4× gyorsabban"
-        },
         "push": "A lökés sebessége",
         "aim": "Irány",
         "aim_hint": "A perem irányához képest, a lyuk felé pozitív.",
@@ -2220,19 +2116,12 @@
         "stop": "Megállítás",
         "sweep": "Végigfutás",
         "calm": "Nyugalom",
-        "speed": "Tempó",
-        "speeds": {
-          "1": "Valós idő",
-          "4": "4× gyorsabban"
-        },
         "beat": "Az asztal üteme",
         "beat_hint": "Másodpercenként hányszor megy ide-oda az asztal.",
         "sweeping": "Az ütem másodpercenként 0,05 Hz-cel nő; a megállításhoz húzza meg a csúszkát.",
         "damping": "Csillapítás",
         "damping_hint": "Milyen gyorsan nyugszik meg magától egy pálca: annak a csillapításnak a hányada, amelynél már egyáltalán nem lengene.",
-        "sound": "Hang",
         "sound_hint": "Minden pálca a saját frekvenciáján szól, hét oktávval feljebb, olyan hangosan, amennyire leng.",
-        "no_sound": "Ez a böngésző nem tud hangot előállítani.",
         "widest": "Legnagyobb kitérés",
         "table": "Az asztal, ide-oda",
         "rod": "{{n}}. pálca ({{hz}} Hz)"
@@ -2289,17 +2178,10 @@
         "title": "Megforgatni és elengedni",
         "hint": "Engedje el a kereket egyszer állva, aztán 200 fordulat/perccel. Négyszer lassabban mutatva látszik, ahogy a tengely bólogat.",
         "let_go": "Elengedni",
-        "pause": "Megállítás",
-        "run": "Tovább",
         "start": "Elengedéskor",
         "starts": {
           "rest": "Nyugalomban",
           "steady": "Már körben"
-        },
-        "speed": "Tempó",
-        "speeds": {
-          "100": "Valós idő",
-          "25": "4× lassabban"
         },
         "rpm": "A kerék fordulatszáma",
         "rpm_unit": "1/perc",
@@ -2412,9 +2294,7 @@
         "tones": "A hangok, amelyeken a lemez megszólal",
         "drive": "A rázó hangja",
         "drive_hint": "Logaritmikus: minden egyenlő lépés egyenlő hangköz.",
-        "sound": "Hang",
         "sound_hint": "A rázó hangja: hangos, ha a lemez szól, halk közöttük.",
-        "no_sound": "Ez a böngésző nem tud hangot előállítani.",
         "nearest": "A lemez legközelebbi hangja",
         "swing": "Rezgés a közepén",
         "swing_hint": "Mennyire erősen rezeg a lemez közepe, a legmélyebb hangnál mért rezgéséhez képest."
@@ -2528,16 +2408,9 @@
         "title": "Feltöltés és átkapcsolás",
         "hint": "A kondenzátor fel van töltve. Kapcsolja át a kapcsolót a tekercsre, és figyelje a mutatót. Az alatta lévő rugó ugyanazt az egyenletet követi.",
         "throw": "Átkapcsolás",
-        "pause": "Megállítás",
-        "run": "Tovább",
         "recharge": "Újratöltés",
         "charged": "A kondenzátor {{voltage}} V-ra van töltve; a kapcsoló az elemen áll.",
         "caption": "Fent a rezgőkör ±{{range}} mA méréshatárú árammérővel; lent a rugó L tömeggel, 1/C merevséggel és R súrlódással.",
-        "speed": "Sebesség",
-        "speeds": {
-          "real": "Valós idő",
-          "slow": "Lassítás (¼)"
-        },
         "energy": "Hol van az energia",
         "capacitor": "a kondenzátorban",
         "coil": "a tekercsben",
@@ -2644,14 +2517,7 @@
         "title": "Elengedni",
         "hint": "A négy lemez fent lóg a résekben. Engedje el őket egyszerre, és figyelje, melyik ér le elsőként. Mellettük egy lemez közelről, az örvényáramaival.",
         "drop": "Elengedés",
-        "pause": "Megállítás",
-        "run": "Tovább",
         "top": "Vissza fel",
-        "speed": "Sebesség",
-        "speeds": {
-          "real": "Valós idő",
-          "slow": "Lassítás (¼)"
-        },
         "look": "Közelről",
         "caption": "Az oszlop elölről, vázlatosan: minden rés mellett a mágnesek, váltakozó északi és déli pólussal; {{drop}} cm esés, {{field}} T a résben.",
         "closeup_caption": "A lemezzel együtt haladva: mögötte elvonul az északi és a déli pólus, benne körbe járnak az örvényáramok.",
@@ -2768,17 +2634,8 @@
         "title": "Elengedni",
         "hint": "Mindkét golyó a lap fölött lóg. Engedje el őket és hallgassa: bekapcsolt hanggal minden ütés kattan. Alatta minden ütés egy időtengelyen.",
         "drop": "Elengedés",
-        "pause": "Megállítás",
-        "run": "Tovább",
         "top": "Újra felemelni",
-        "speed": "Sebesség",
-        "speeds": {
-          "real": "Valós idő",
-          "slow": "Lassítás (¼)"
-        },
-        "sound": "Hang",
         "sound_hint": "Minden ütésnél egy kattanás, olyan hangos, mint az ütés. Néma, amíg be nem kapcsolja.",
-        "no_sound": "Az Ön böngészője itt nem tud hangot adni.",
         "waiting": "A golyók a lap fölött lógnak, és várnak.",
         "caption": "A golyók valódi méretben a lap fölött, {{height}} cm-ről; alattuk minden ütés az időtengelyen, amíg mindkettő meg nem nyugszik.",
         "time": "Idő",
@@ -2922,8 +2779,6 @@
       "play": {
         "title": "A palack megnyomása",
         "hint": "Nyomja meg a palackot a csúszkával. Próbálja a búvárt középen lebegtetni.",
-        "pause": "Megállítás",
-        "run": "Tovább",
         "surface": "Vissza a felszínre",
         "squeeze": "A kéz nyomása",
         "squeeze_hint": "Mennyivel növeli a kéz a nyomást a palackban.",
@@ -3277,9 +3132,7 @@
         "title": "A villák megütése",
         "hint": "Üsse meg mindkét villát, és nézze – vagy hallgassa –, hogyan erősödik és halkul a hang.",
         "strike": "Megütés",
-        "sound": "Hang",
         "sound_hint": "Lejátssza a két villát; a füle magától hallja a lebegést.",
-        "no_sound": "Az Ön böngészője itt nem tud hangot előállítani.",
         "caption": "Fent a villák és közös hangjuk lassítva; lent a hangerő a megütés óta: folytonos vonallal a kettő együtt, szaggatottal egy egyedül.",
         "slow": "A hang most, {{ms}} ms lassítva",
         "waiting": "A villák hallgatnak. Üsse meg őket.",
@@ -5538,6 +5391,7 @@
     "reviewTranslations": "Fordítások lektorálása",
     "more": "A fiók további oldalai",
     "areas": {
+      "course": "Alapok",
       "experiments": "Kiállítási tárgyak",
       "legal": "Jogi szövegek"
     },

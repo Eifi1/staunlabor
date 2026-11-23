@@ -6,35 +6,20 @@
  * Two ways to answer a plane pendulum, as in the engine: exactly, by Jacobi's
  * elliptic functions (`angleDeg` — any instant without stepping to it, which is
  * what lets the pendulum wave jump to "half a cycle later"), and stepped, by
- * classical Runge–Kutta (`rk4`, `swing`) for what has no closed form. Nothing
+ * classical Runge–Kutta (`swing`, on `numerics.ts`'s `rk4`) for what has no
+ * closed form. Gravity is `constants.ts`'s, the stepping `numerics.ts`'s, as
+ * in the engine since both moved out of `pendulum.py`. Nothing
  * here decides anything: the constants, the order of every sum and the step are
  * the engine's, and `simulate.test.ts` holds this file to what the engine
  * answers (`engine-cases.json`, written by `scripts/write-experiments-cases.py`).
  * A change to the physics is made in Python first.
  */
 
-import { roundHalfEven } from "./sphere";
-
-/** Standard gravity, as the engine uses. */
-export const G = 9.80665;
-/** The engine's step for a stepped pendulum: 1 ms. */
-export const STEP_S = 1e-3;
-/** Samples a run returns per second, whatever its step. */
-export const SAMPLES_PER_S = 50;
-/** The longest run the engine takes. */
-export const MAX_DURATION_S = 300.0;
+import { G } from "./constants";
+import { checkRun, type Rhs, rk4, sampleEvery, STEP_S } from "./numerics";
+import { degrees, fmod, radians, roundHalfEven } from "./python";
 
 const AGM_TOLERANCE = 1e-15;
-
-/** Python's `math.radians` and `math.degrees`: one multiplication each, by the
- *  same constants, so the last bit is the engine's. */
-const TO_RAD = Math.PI / 180.0;
-const TO_DEG = 180.0 / Math.PI;
-const radians = (deg: number) => deg * TO_RAD;
-const degrees = (rad: number) => rad * TO_DEG;
-
-/** A system of first-order equations, `y' = f(t, y)`. */
-export type Rhs = (t: number, y: readonly number[]) => number[];
 
 /** The arithmetic-geometric mean of two positive numbers. */
 export function agm(a0: number, b0: number): number {
@@ -120,9 +105,6 @@ export function lengthFor(period: number, amplitudeDeg = 0.0, g = G): number {
   return g * (small / (2 * Math.PI)) ** 2;
 }
 
-/** Python's `math.fmod`: the remainder with the sign of the dividend, as JS's `%`. */
-const fmod = (a: number, b: number) => a % b;
-
 /** Where a pendulum released from rest at `amplitudeDeg` is `t` seconds later, exactly. */
 export function angleDeg(lengthM: number, amplitudeDeg: number, t: number, g = G): number {
   const k = modulus(amplitudeDeg);
@@ -132,27 +114,6 @@ export function angleDeg(lengthM: number, amplitudeDeg: number, t: number, g = G
   const u = fmod(naturalRate(lengthM, g) * t, 4 * quarter);
   const [, cn, dn] = jacobi(u, m);
   return degrees(2 * Math.asin(Math.max(-1.0, Math.min(1.0, (k * cn) / dn))));
-}
-
-/** One classical Runge–Kutta step of `y' = f(t, y)`. */
-export function rk4(f: Rhs, t: number, y: readonly number[], h: number): number[] {
-  const n = y.length;
-  const k1 = f(t, y);
-  const k2 = f(
-    t + h / 2,
-    y.map((v, i) => v + (h / 2) * k1[i]),
-  );
-  const k3 = f(
-    t + h / 2,
-    y.map((v, i) => v + (h / 2) * k2[i]),
-  );
-  const k4 = f(
-    t + h,
-    y.map((v, i) => v + h * k3[i]),
-  );
-  const out = new Array<number>(n);
-  for (let i = 0; i < n; i++) out[i] = y[i] + (h / 6) * (k1[i] + 2 * k2[i] + 2 * k3[i] + k4[i]);
-  return out;
 }
 
 /** One pendulum as a system: `(θ, θ')' = (θ', −(g/L)·sin θ − c·θ')`. */
@@ -166,17 +127,6 @@ export interface SwingRun {
   t: number[];
   angle_deg: number[];
   rate_deg_s: number[];
-}
-
-function checkRun(durationS: number, stepS: number): void {
-  if (!(stepS > 0 && stepS <= 0.01)) throw new RangeError("the step lies between 0 and 10 ms");
-  if (!(durationS > 0 && durationS <= MAX_DURATION_S))
-    throw new RangeError(`a run lasts more than nothing and at most ${MAX_DURATION_S} s`);
-}
-
-/** Steps between two samples: `SAMPLES_PER_S` a second. */
-export function sampleEvery(stepS: number): number {
-  return Math.max(1, roundHalfEven(1 / (SAMPLES_PER_S * stepS)));
 }
 
 /** One pendulum released from rest at `amplitudeDeg`, stepped for `durationS`. */

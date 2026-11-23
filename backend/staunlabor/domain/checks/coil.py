@@ -8,11 +8,9 @@ from __future__ import annotations
 import math
 
 from staunlabor.domain.checks import Case, Source
+from staunlabor.domain.checks._hand import G, elliptic_k_by_sum
 from staunlabor.domain.experiments import coil as engine
 
-ENGINE = ("coil",)
-
-G = 9.80665
 #: The magnetic constant to the classical definition: μ₀ = 4π·10⁻⁷ H/m.
 MU0 = 4e-7 * math.pi
 INCH_M = 0.0254
@@ -157,9 +155,7 @@ def _period_hand() -> float:
     track = _OPEN.track
     theta0 = (track.ramp_length_m / 2) / track.ramp_radius_m
     v0 = math.sqrt(2 * G * track.ramp_radius_m * (1 - math.cos(theta0)))
-    n, k = 20000, math.sin(theta0 / 2)
-    h = math.pi / 2 / n
-    big_k = h * sum(1 / math.sqrt(1 - (k * math.sin((j + 0.5) * h)) ** 2) for j in range(n))
+    big_k = elliptic_k_by_sum(math.sin(theta0 / 2))
     return 2 * (2 * math.sqrt(track.ramp_radius_m / G) * big_k) + 2 * track.flat_length_m / v0
 
 

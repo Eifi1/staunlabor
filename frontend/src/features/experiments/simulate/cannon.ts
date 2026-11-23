@@ -12,9 +12,10 @@
  * balls is the server's.
  */
 
-import { roundHalfEven } from "./sphere";
+import { G } from "./constants";
+import { roundHalfEven } from "./python";
+import { rk4SecondOrder } from "./numerics";
 
-export const G = 9.80665;
 export const RHO = 1.2;
 export const CD = 0.47;
 export const POISSON = 0.5;
@@ -45,27 +46,27 @@ export interface BallStack {
   youngs_mpa: number;
 }
 
-export const massKg = (ball: Ball) => ((ball.density_kg_m3 * Math.PI) / 6) * ball.diameter_m ** 3;
+const massKg = (ball: Ball) => ((ball.density_kg_m3 * Math.PI) / 6) * ball.diameter_m ** 3;
 
 /** `k` in the drag's deceleration `k·v·|v|`: `ρ·C_d·A / (2m)`. */
-export const dragPerM = (ball: Ball) => (RHO * CD * Math.PI * ball.diameter_m ** 2) / 4 / (2 * massKg(ball));
+const dragPerM = (ball: Ball) => (RHO * CD * Math.PI * ball.diameter_m ** 2) / 4 / (2 * massKg(ball));
 
 function check(stack: BallStack): void {
-  if (stack.balls.length < 1 || stack.balls.length > 3) throw new Error("a stack is one, two or three balls");
+  if (stack.balls.length < 1 || stack.balls.length > 3) throw new RangeError("a stack is one, two or three balls");
   for (const ball of stack.balls) {
-    if (ball.diameter_m < 0.01 || ball.diameter_m > 0.4) throw new Error("a ball is between 1 and 40 cm across");
+    if (ball.diameter_m < 0.01 || ball.diameter_m > 0.4) throw new RangeError("a ball is between 1 and 40 cm across");
   }
-  if (stack.drop_m < 0.05 || stack.drop_m > 3) throw new Error("the stack is dropped from between 5 cm and 3 m");
-  if (stack.gap_m < 0 || stack.gap_m > 0.1) throw new Error("the gap between two balls is between 0 and 10 cm");
+  if (stack.drop_m < 0.05 || stack.drop_m > 3) throw new RangeError("the stack is dropped from between 5 cm and 3 m");
+  if (stack.gap_m < 0 || stack.gap_m > 0.1) throw new RangeError("the gap between two balls is between 0 and 10 cm");
   for (const e of [stack.floor_restitution, stack.ball_restitution]) {
-    if (e < 0.3 || e > 1) throw new Error("a coefficient of restitution is between 0.3 and 1 here");
+    if (e < 0.3 || e > 1) throw new RangeError("a coefficient of restitution is between 0.3 and 1 here");
   }
   if (stack.youngs_mpa < 0.5 || stack.youngs_mpa > 200)
-    throw new Error("the elastomer's Young's modulus is between 0.5 and 200 MPa");
+    throw new RangeError("the elastomer's Young's modulus is between 0.5 and 200 MPa");
 }
 
 /** Hertz's `K` of contact `c`: `(4/3)·E*·√R*`, the floor rigid. */
-export function stiffness(stack: BallStack, c: number): number {
+function stiffness(stack: BallStack, c: number): number {
   const eBall = (stack.youngs_mpa * 1e6) / (1 - POISSON ** 2);
   if (c === 0) return (4 / 3) * eBall * Math.sqrt(stack.balls[0].diameter_m / 2);
   const ra = stack.balls[c - 1].diameter_m / 2;
@@ -73,10 +74,17 @@ export function stiffness(stack: BallStack, c: number): number {
   return (4 / 3) * (eBall / 2) * Math.sqrt((ra * rb) / (ra + rb));
 }
 
-const gapOf = (balls: Ball[], y: number[], c: number) => (c === 0 ? y[0] : y[c] - (y[c - 1] + balls[c - 1].diameter_m));
-const closingOf = (v: number[], c: number) => (c === 0 ? -v[0] : v[c - 1] - v[c]);
+const gapOf = (balls: Ball[], y: readonly number[], c: number) =>
+  c === 0 ? y[0] : y[c] - (y[c - 1] + balls[c - 1].diameter_m);
+const closingOf = (v: readonly number[], c: number) => (c === 0 ? -v[0] : v[c - 1] - v[c]);
 
-function forcesOf(stack: BallStack, ks: number[], y: number[], v: number[], closed: number[]): number[] {
+function forcesOf(
+  stack: BallStack,
+  ks: number[],
+  y: readonly number[],
+  v: readonly number[],
+  closed: number[],
+): number[] {
   return ks.map((k, c) => {
     const overlap = -gapOf(stack.balls, y, c);
     if (overlap <= 0) return 0;
@@ -112,7 +120,13 @@ function resting(stack: BallStack, ks: number[], y: number[], v: number[], close
   return Math.max(swing, damping) * STEP_S <= RESTING_SWING;
 }
 
-function accelerations(stack: BallStack, ks: number[], y: number[], v: number[], closed: number[]): number[] {
+function accelerations(
+  stack: BallStack,
+  ks: number[],
+  y: readonly number[],
+  v: readonly number[],
+  closed: number[],
+): number[] {
   const forces = forcesOf(stack, ks, y, v, closed);
   const n = stack.balls.length;
   return stack.balls.map((ball, i) => {
@@ -121,6 +135,7 @@ function accelerations(stack: BallStack, ks: number[], y: number[], v: number[],
   });
 }
 
+/** One step of the stack in contact, as the engine takes it (`rk4_second_order`). */
 function rk4(
   stack: BallStack,
   ks: number[],
@@ -129,21 +144,7 @@ function rk4(
   closed: number[],
   h: number,
 ): [number[], number[]] {
-  const n = y.length;
-  const idx = Array.from({ length: n }, (_, i) => i);
-  const a1 = accelerations(stack, ks, y, v, closed);
-  const y2 = idx.map((i) => y[i] + (h / 2) * v[i]);
-  const v2 = idx.map((i) => v[i] + (h / 2) * a1[i]);
-  const a2 = accelerations(stack, ks, y2, v2, closed);
-  const y3 = idx.map((i) => y[i] + (h / 2) * v2[i]);
-  const v3 = idx.map((i) => v[i] + (h / 2) * a2[i]);
-  const a3 = accelerations(stack, ks, y3, v3, closed);
-  const y4 = idx.map((i) => y[i] + h * v3[i]);
-  const v4 = idx.map((i) => v[i] + h * a3[i]);
-  const a4 = accelerations(stack, ks, y4, v4, closed);
-  const ny = idx.map((i) => y[i] + (h / 6) * (v[i] + 2 * v2[i] + 2 * v3[i] + v4[i]));
-  const nv = idx.map((i) => v[i] + (h / 6) * (a1[i] + 2 * a2[i] + 2 * a3[i] + a4[i]));
-  return [ny, nv];
+  return rk4SecondOrder((x, s) => accelerations(stack, ks, x, s, closed), y, v, h);
 }
 
 export interface Contact {
@@ -346,7 +347,7 @@ class Run {
 /** The stack let go at rest, for `durationS`. */
 export function drop(stack: BallStack, durationS = 3.0): Drop {
   check(stack);
-  if (!(durationS > 0 && durationS <= MAX_S)) throw new Error(`a drop lasts between 0 and ${MAX_S} s`);
+  if (!(durationS > 0 && durationS <= MAX_S)) throw new RangeError(`a drop lasts between 0 and ${MAX_S} s`);
   const run = new Run(stack);
   const n = stack.balls.length;
   const steps = roundHalfEven(durationS / STEP_S);
@@ -369,9 +370,9 @@ export function drop(stack: BallStack, durationS = 3.0): Drop {
   return { t, y_m: yM, v_m_s: vMS, contacts: [...run.contacts, ...run.stillOpen()], impact: run.impact() };
 }
 
-export const textbookFactor = (balls: number) => 2 ** balls - 1;
+const textbookFactor = (balls: number) => 2 ** balls - 1;
 
-export function sequentialLaunch(stack: BallStack, impactMS: number, lossless = false): number {
+function sequentialLaunch(stack: BallStack, impactMS: number, lossless = false): number {
   const eFloor = lossless ? 1 : stack.floor_restitution;
   const e = lossless ? 1 : stack.ball_restitution;
   let up = eFloor * impactMS;

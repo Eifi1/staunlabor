@@ -30,7 +30,7 @@ from dataclasses import dataclass
 from enum import StrEnum
 
 from staunlabor.domain.course.chain import Chain, Ground, Mode, forced, modes, series_stiffness
-from staunlabor.domain.course.lti import logspace
+from staunlabor.domain.course.lti import logspace, lowpass
 
 BODE_POINTS = 600
 BODE_RANGE_HZ = (1.0, 60.0)
@@ -192,16 +192,6 @@ class Compensation:
     noise_torque: float
 
 
-def _lowpass(values: list[float], h: float, corner_hz: float) -> list[float]:
-    a = math.exp(-h * 2 * math.pi * corner_hz)
-    y = values[0]
-    out = []
-    for u in values:
-        y = a * y + (1 - a) * u
-        out.append(y)
-    return out
-
-
 def mass_compensation(
     p: TwoMassParameters,
     excitation_hz: float,
@@ -234,10 +224,11 @@ def mass_compensation(
     for k in range(1, len(angle) - 1):
         acc[k] = (angle[k + 1] - 2 * angle[k] + angle[k - 1]) / (h * h)
     acc[0], acc[-1] = acc[1], acc[-2]
+    pole = math.exp(-h * 2 * math.pi * corner_hz)
     if differentiator is Differentiator.lowpass:
-        acc = _lowpass(acc, h, corner_hz)
+        acc = lowpass(acc, pole)
     elif differentiator is Differentiator.zero_phase:
-        acc = _lowpass(_lowpass(acc, h, corner_hz)[::-1], h, corner_hz)[::-1]
+        acc = lowpass(lowpass(acc, pole)[::-1], pole)[::-1]
     shaft = [(mw_hat * cmath.exp(1j * w * t)).real for t in ts]
     bar = [(mt_hat * cmath.exp(1j * w * t)).real for t in ts]
     comp = [m - p.adapter_inertia * a for m, a in zip(shaft, acc, strict=True)]

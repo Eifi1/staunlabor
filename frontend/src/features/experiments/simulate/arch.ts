@@ -8,7 +8,7 @@
  * change to the statics is made in Python first.
  */
 
-import { G } from "./pendulum";
+import { G } from "./constants";
 
 export type Shape = "semicircle" | "pointed" | "catenary";
 export type Point = [number, number];
@@ -99,7 +99,7 @@ export function joints(arch: Arch): Joint[] {
   return out;
 }
 
-export const edge = (joint: Joint, offset: number): Point => [
+const edge = (joint: Joint, offset: number): Point => [
   joint.centre[0] + offset * joint.normal[0],
   joint.centre[1] + offset * joint.normal[1],
 ];
