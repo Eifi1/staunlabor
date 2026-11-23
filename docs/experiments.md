@@ -179,12 +179,13 @@ half a round back: a shuffle alone guards only its own round, and the first
 week drawn that way, still a day each, showed the chair on a Friday and again
 on the Sunday. Among those, Marcel's **bonus and malus** ("dass es
 unwahrscheinlicher wird, dass gleiche Experimente aufeinander folgen") lean
-the draw (`WEEKLY_WEIGHTS`): a quarter more weight per week waited beyond the
-spacing, half the weight for an exhibit about a topic last week's was about, a
-quarter for one that came right after last week's in the round before. Those
+the draw (`WEEKLY_WEIGHTS`): half the weight for an exhibit about a topic last
+week's was about, a quarter for one that came right after last week's in the
+round before. Until 2026-11-23 a bonus added a quarter per week waited beyond
+the spacing (see below for why it went). Those
 are the halved maluses (Marcel, 2026-11-15: "Tagesminus sollte weniger
 zählen"); the first eight were drawn with a quarter and a tenth. Measured over
-400 rounds of all 35 (a plain shuffle in brackets): repeated pairs 0.45 a
+400 rounds of all 35, with the bonus (a plain shuffle in brackets): repeated pairs 0.45 a
 round (1.20), repeated triples 0.013 (0.023), neighbours sharing a topic 17.4
 weeks in a hundred (24.7), a wait of more than a round and two weeks 35.7 % of
 turns (36.6 %). With eleven exhibits about energy, ten about oscillation and
@@ -201,9 +202,12 @@ exhibit: with eight it cut the turns that come after more than a round and two
 more by a quarter, with fifteen by an eighth, with sixteen by a tenth, with 26
 by a twentieth, with 35 by a thirty-sixth (14966 against 15376 over 1200
 rounds), with 45 by a hundredth (20503 against 20709); `weekly.test.ts` holds
-it only to a two-hundredth. Its weight a turn is
-fixed while a round grows longer, and stays so: Marcel weakened the maluses
-instead (2026-11-15). The week is Zurich's, so one week has one exhibit
+it only to a two-hundredth. Its weight a turn was
+fixed while a round grew longer (Marcel weakened the maluses instead,
+2026-11-15), so with more exhibits to come it went on 2026-11-23 (Marcel:
+"Wochenbonus kann dann gestrichen werden"); the first round, all the live site
+has shown, drew every exhibit with the same bonus, so its weeks are as they
+were. The week is Zurich's, so one week has one exhibit
 whoever asks; the pick needs no server, no table and no admin, and the past
 weeks are the rule run backwards (the tests walk them; no page lists them). A new exhibit joins at the first round that starts
 on or after its `since` day, never mid-round, which would redraw weeks already
