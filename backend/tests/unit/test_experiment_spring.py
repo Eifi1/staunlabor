@@ -33,8 +33,9 @@ S = sp.WilberforceSpring()
 
 
 def _de(x: float, digits: int) -> str:
-    """A number as the German page writes it: a decimal comma."""
-    return f"{x:.{digits}f}".replace(".", ",")
+    """A number as the German page writes it: a decimal point, as de-CH's own
+    formatting does (one sign on the page since 2026-11-23)."""
+    return f"{x:.{digits}f}"
 
 
 # ── the engine ───────────────────────────────────────────────────────────────
@@ -187,7 +188,7 @@ def test_at_35_mm_about_half_goes_over_and_the_bobbing_returns_after_19_9_s():
     assert round(100 * sp.exchange_share(s)) == 48
     assert round(sp.beat_s(s), 1) == 19.9
     assert "48 %" in PAGE["sweet"]["tuned"]
-    assert "19,9 s" in PAGE["sweet"]["tuned"]
+    assert "19.9 s" in PAGE["sweet"]["tuned"]
 
 
 def test_a_nut_weighs_10_g_and_the_buttons_pull_2_cm_and_twist_1_rad():
