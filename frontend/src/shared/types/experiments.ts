@@ -547,6 +547,30 @@ export interface CoupledPendulumsRequest {
   damping_per_s: number;
 }
 
+// ── the Wilberforce spring ───────────────────────────────────────────────────
+
+/** The engine's `WilberforceSpring`. No route: the page asks the port (`simulate/spring.ts`). */
+export interface WilberforceSpringRequest {
+  mass_kg: number;
+  stiffness_n_m: number;
+  torsion_n_m: number;
+  coupling_n: number;
+  body_inertia_kg_m2: number;
+  nut_kg: number;
+  nut_radius_m: number;
+  damping_per_s: number;
+}
+
+// ── the metronomes ───────────────────────────────────────────────────────────
+
+/** The engine's `Metronomes`. No route: the page asks the port (`simulate/metronomes.ts`). */
+export interface MetronomesRequest {
+  count: number;
+  board_kg: number;
+  spread: number;
+  free: boolean;
+}
+
 // ── Galileo's interrupted pendulum ───────────────────────────────────────────
 
 /** The engine's `PegPendulum`. No route: the page asks the port (`simulate/peg.ts`). */
@@ -567,6 +591,16 @@ export interface MaxwellWheelRequest {
   drop_m: number;
   loss: number;
   stiffness_n_m: number;
+}
+
+// ── Kapitza's pendulum ───────────────────────────────────────────────────────
+
+/** The engine's `KapitzaPendulum`. No route: the page asks the port (`simulate/kapitza.ts`). */
+export interface KapitzaPendulumRequest {
+  length_m: number;
+  amplitude_m: number;
+  frequency_hz: number;
+  damping_per_s: number;
 }
 
 // ── the chaotic pendulum ─────────────────────────────────────────────────────
@@ -679,6 +713,19 @@ export interface PlatesRequest {
   plate: PlateRequest;
 }
 
+// ── the draining vessel ──────────────────────────────────────────────────────
+
+/** The engine's `DrainingVessel`. No route: the page asks the port (`simulate/vessel.ts`). */
+export interface DrainingVesselRequest {
+  diameter_m: number;
+  height_m: number;
+  fill_m: number;
+  holes_m: number[];
+  hole_diameter_m: number;
+  discharge: number;
+  stand_m: number;
+}
+
 /** The engine's `Plate`. */
 export interface PlateRequest {
   material: "copper" | "aluminium" | "brass" | "plastic";
@@ -708,6 +755,27 @@ export interface OverhangRequest {
   height_m: number;
 }
 
+// ── the Galton board ─────────────────────────────────────────────────────────
+
+/** The exhibit's board and its first run. No route: the page asks the port
+ *  (`simulate/galton.ts`). */
+export interface GaltonRequest {
+  rows: number;
+  /** The share of turns to the right at every pin. */
+  p: number;
+  balls: number;
+  seed: number;
+}
+
+// ── the soap film between two rings ──────────────────────────────────────────
+
+/** The engine's `Rings`: their radius and where the hand starts them. No
+ *  route: the page asks the port (`simulate/film.ts`). */
+export interface FilmRequest {
+  radius_m: number;
+  distance_m: number;
+}
+
 // ── the Cartesian diver ──────────────────────────────────────────────────────
 
 /** The engine's `Diver` and its bottle's depth. No route: the page asks the
@@ -715,6 +783,23 @@ export interface OverhangRequest {
 export interface DiverRequest {
   diver: { glass_kg: number; glass_m3: number; air_m3: number; diameter_m: number };
   depth_m: number;
+}
+
+// ── the ship that rights itself ──────────────────────────────────────────────
+
+/** The engine's `Hull`, its `Weight` and the water's damping. No route: the
+ *  page asks the port (`simulate/ship.ts`). */
+export interface ShipRequest {
+  hull: {
+    beam_m: number;
+    depth_m: number;
+    length_m: number;
+    mass_kg: number;
+    centre_m: number;
+    gyration_m: number;
+  };
+  weight: { mass_kg: number; height_m: number };
+  damping_per_s: number;
 }
 
 // ── the glass-bead rainbow ───────────────────────────────────────────────────
@@ -744,12 +829,41 @@ export interface SlitsRequest {
   distance_m: number;
 }
 
+// ── the third polarising filter ──────────────────────────────────────────────
+
+/** The engine's `Sheet`, a real filter's. No route: the page asks the port (`simulate/polarizer.ts`). */
+export interface PolarizerSheetRequest {
+  transmission: number;
+  extinction: number;
+}
+
+// ── the light in the water jet ───────────────────────────────────────────────
+
+/** The engine's `Jet`. No route: the page asks the port (`simulate/jet.ts`). */
+export interface WaterJetRequest {
+  level_m: number;
+  hole_m: number;
+  drop_m: number;
+  index: number;
+}
+
 // ── beats ────────────────────────────────────────────────────────────────────
 
 /** The engine's `Fork` and `Rider`. No route: the page asks the port (`simulate/beats.ts`). */
 export interface BeatsRequest {
   fork: { frequency_hz: number; prong_kg: number; decay_s: number };
   rider: { mass_kg: number; position: number };
+}
+
+// ── the standing string ──────────────────────────────────────────────────────
+
+/** The engine's `Cord`. No route: the page asks the port (`simulate/string.ts`). */
+export interface StringCordRequest {
+  length_m: number;
+  tension_n: number;
+  density_kg_m: number;
+  damping_per_s: number;
+  drive_m: number;
 }
 
 // ── the chain and the arch ───────────────────────────────────────────────────
@@ -800,6 +914,7 @@ export interface ExperimentsDefaults {
   peg: PegPendulumRequest;
   maxwell: MaxwellWheelRequest;
   chaos: DoublePendulumRequest;
+  kapitza: KapitzaPendulumRequest;
   waterwheel: WaterWheelRequest;
   foucault: FoucaultPendulumRequest;
   coriolis: CarouselRequest;
@@ -812,13 +927,22 @@ export interface ExperimentsDefaults {
   levitation: LevitationRequest;
   circuit: CircuitRequest;
   plates: PlatesRequest;
+  vessel: DrainingVesselRequest;
   bounce: BounceRequest;
   overhang: OverhangRequest;
+  film: FilmRequest;
+  galton: GaltonRequest;
   diver: DiverRequest;
+  ship: ShipRequest;
   rainbow: RainbowRequest;
   sky: SkyRequest;
   slits: SlitsRequest;
+  polarizer: PolarizerSheetRequest;
+  jet: WaterJetRequest;
   beats: BeatsRequest;
+  string: StringCordRequest;
+  spring: WilberforceSpringRequest;
+  metronomes: MetronomesRequest;
   meter_range_a: number;
   settle_s: number;
 }

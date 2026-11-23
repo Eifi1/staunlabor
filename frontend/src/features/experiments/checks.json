@@ -1600,6 +1600,143 @@
    ]
   }
  ],
+ "film": [
+  {
+   "key": "tear",
+   "unit": "",
+   "expected": 1.3254868387,
+   "measured": 1.3254868387,
+   "deviation": 1.67519283061e-16,
+   "tolerance": 1e-12,
+   "derived": false,
+   "setting": {
+    "radius_m": 0.05,
+    "distance_m": 0.065
+   },
+   "sources": [
+    {
+     "cite": "E. W. Weisstein, “Minimal Surface of Revolution”, MathWorld, Eqs. (25)–(26) (rings at (±x_0, y_0))",
+     "url": "https://mathworld.wolfram.com/MinimalSurfaceofRevolution.html",
+     "quote": "Defining u=px_0^*, u=coth u. (25) This has solution u=1.1996786403.... From (22), y_0p=cosh u. Divide this by (25) to obtain y_0/x_0=sinh u, so the maximum possible value of x_0/y_0 is x_0/y_0=csch u=0.6627434193.... (26) Therefore, only Goldschmidt ring solutions exist for x_0/y_0>0.6627...."
+    },
+    {
+     "cite": "L. L. Jia, S. Pei, R. A. Pelcovits, T. R. Powers, “Axisymmetric membranes with edges under external force: buckling, minimal surfaces, and tethers”, arXiv:2106.01507, §1.1 Soap film problem",
+     "url": "https://arxiv.org/abs/2106.01507",
+     "quote": "as long as the separation is less than the maximum value of separation h_max ≈ 1.3255a, there are two catenoids connecting the rings. There is one catenoid solution at h = h_max, and no catenoid solutions for h > h_max."
+    },
+    {
+     "cite": "M. Ito, T. Sato, “In situ observation of a soap-film catenoid—a simple educational physics experiment”, Eur. J. Phys. 31 (2010) 357, §2 and §3, doi:10.1088/0143-0807/31/2/013",
+     "url": "https://doi.org/10.1088/0143-0807/31/2/013",
+     "quote": "For h/R > 1.33, it is not possible to form a catenoid … However, in the experiment, the jump from the stable catenoid to the two discs does not occur. Furthermore, as the distance h approaches the critical distance h_c = 1.33R, the catenoid exhibits strange behaviour."
+    }
+   ]
+  },
+  {
+   "key": "critical_area",
+   "unit": "",
+   "expected": 1.19967864026,
+   "measured": 1.19967864018,
+   "deviation": 6.10373488542e-11,
+   "tolerance": 1e-09,
+   "derived": false,
+   "setting": {
+    "radius_m": 0.05,
+    "distance_m": 0.066
+   },
+   "sources": [
+    {
+     "cite": "L. L. Jia, S. Pei, R. A. Pelcovits, T. R. Powers, arXiv:2106.01507, §1.1 Soap film problem",
+     "url": "https://arxiv.org/abs/2106.01507",
+     "quote": "Note that for a given ring radius a, the critical catenoid at the largest extension h ≈ 1.3255a is also the catenoid of greatest area (Fig. 3), with Ā ≡ A/(2πa²) ≈ 1.1997, a number we define to be Ā_max."
+    },
+    {
+     "cite": "E. W. Weisstein, “Minimal Surface of Revolution”, MathWorld, Eqs. (25)–(26) (rings at (±x_0, y_0))",
+     "url": "https://mathworld.wolfram.com/MinimalSurfaceofRevolution.html",
+     "quote": "Defining u=px_0^*, u=coth u. (25) This has solution u=1.1996786403.... From (22), y_0p=cosh u. Divide this by (25) to obtain y_0/x_0=sinh u, so the maximum possible value of x_0/y_0 is x_0/y_0=csch u=0.6627434193.... (26) Therefore, only Goldschmidt ring solutions exist for x_0/y_0>0.6627...."
+    }
+   ]
+  },
+  {
+   "key": "flat",
+   "unit": "cm²",
+   "expected": 149.794924395,
+   "measured": 149.794924395,
+   "deviation": 3.79474932748e-16,
+   "tolerance": 1e-12,
+   "derived": false,
+   "setting": {
+    "radius_m": 0.05,
+    "distance_m": 0.05
+   },
+   "sources": [
+    {
+     "cite": "E. W. Weisstein, “Minimal Surface of Revolution”, MathWorld, Eqs. (40)–(41)",
+     "url": "https://mathworld.wolfram.com/MinimalSurfaceofRevolution.html",
+     "quote": "If we take x_0=1/2 and y_0=1 then (19) becomes 1=a cosh(1/(2a)), (41) which has two solutions: a_1=0.2350... (\"deep\"), and a_2=0.8483... (\"flat\"). However, upon plugging these into (40) with x_0=1/2, we find A_1=6.8456... and A_2=5.9917.... So A_1 is not, in fact, a local minimum, and A_2 is the only true minimal solution."
+    },
+    {
+     "cite": "E. W. Weisstein, “Minimal Surface of Revolution”, MathWorld, Eq. (40)",
+     "url": "https://mathworld.wolfram.com/MinimalSurfaceofRevolution.html",
+     "quote": "The surface area of the minimal catenoid surface is given by A=2(2pi)int_0^(x_0)y sqrt(1+y'^2)dx, … =pi a^2[sinh((2x_0)/a)+(2x_0)/a]. (40)"
+    },
+    {
+     "cite": "L. L. Jia, S. Pei, R. A. Pelcovits, T. R. Powers, arXiv:2106.01507, §1.1 Soap film problem",
+     "url": "https://arxiv.org/abs/2106.01507",
+     "quote": "For a given h/a, the catenoid with the larger neck radius has less area (Figs. 2 and 3). This branch of catenoids is also stable to small perturbations, whereas the larger-area branch is unstable"
+    }
+   ]
+  },
+  {
+   "key": "deep",
+   "unit": "cm",
+   "expected": 1.17547495117,
+   "measured": 1.17547495117,
+   "deviation": 0.0,
+   "tolerance": 1e-12,
+   "derived": false,
+   "setting": {
+    "radius_m": 0.05,
+    "distance_m": 0.05
+   },
+   "sources": [
+    {
+     "cite": "E. W. Weisstein, “Minimal Surface of Revolution”, MathWorld, Eqs. (40)–(41)",
+     "url": "https://mathworld.wolfram.com/MinimalSurfaceofRevolution.html",
+     "quote": "If we take x_0=1/2 and y_0=1 then (19) becomes 1=a cosh(1/(2a)), (41) which has two solutions: a_1=0.2350... (\"deep\"), and a_2=0.8483... (\"flat\"). However, upon plugging these into (40) with x_0=1/2, we find A_1=6.8456... and A_2=5.9917.... So A_1 is not, in fact, a local minimum, and A_2 is the only true minimal solution."
+    },
+    {
+     "cite": "L. L. Jia, S. Pei, R. A. Pelcovits, T. R. Powers, arXiv:2106.01507, §1.1 Soap film problem",
+     "url": "https://arxiv.org/abs/2106.01507",
+     "quote": "For a given h/a, the catenoid with the larger neck radius has less area (Figs. 2 and 3). This branch of catenoids is also stable to small perturbations, whereas the larger-area branch is unstable"
+    }
+   ]
+  },
+  {
+   "key": "equal",
+   "unit": "",
+   "expected": 1.05539479393,
+   "measured": 1.05539479393,
+   "deviation": 0.0,
+   "tolerance": 1e-12,
+   "derived": false,
+   "setting": {
+    "radius_m": 0.05,
+    "distance_m": 0.054000000000000006
+   },
+   "sources": [
+    {
+     "cite": "E. W. Weisstein, “Minimal Surface of Revolution”, MathWorld, Eqs. (48)–(50)",
+     "url": "https://mathworld.wolfram.com/MinimalSurfaceofRevolution.html",
+     "quote": "Defining u=(y_0)/a (47) gives u sqrt(u^2-1)+cosh^(-1)u-u^2=0. (48) This has a solution u=1.2113614259. The value of x_0/y_0 for which A_(catenary)=A_(2 disks) (49) is therefore (x_0)/(y_0)=((x_0)/a)/((y_0)/a)=(cosh^(-1)((y_0)/a))/((y_0)/a)=(cosh^(-1)u)/u=0.5276973967. (50) For x_0/y_0 in (0.52770,0.6627), the catenary solution has larger area than the two disks, so it exists only as a local minimum."
+    },
+    {
+     "cite": "M. Ito, T. Sato, “In situ observation of a soap-film catenoid—a simple educational physics experiment”, Eur. J. Phys. 31 (2010) 357, §2 and §3, doi:10.1088/0143-0807/31/2/013",
+     "url": "https://doi.org/10.1088/0143-0807/31/2/013",
+     "quote": "For h/R > 1.33, it is not possible to form a catenoid … However, in the experiment, the jump from the stable catenoid to the two discs does not occur. Furthermore, as the distance h approaches the critical distance h_c = 1.33R, the catenoid exhibits strange behaviour."
+    }
+   ]
+  }
+ ],
  "foucault": [
   {
    "key": "winterthur",
@@ -1706,6 +1843,150 @@
      "cite": "OpenStax, University Physics Volume 1, §15.4 Pendulums, Eq. 15.19",
      "url": "https://openstax.org/books/university-physics-volume-1/pages/15-4-pendulums",
      "quote": "and the period is T = 2π√(L/g)."
+    }
+   ]
+  }
+ ],
+ "galton": [
+  {
+   "key": "eight_rows",
+   "unit": "",
+   "expected": 0.2734375,
+   "measured": 0.2734375,
+   "deviation": 0.0,
+   "tolerance": 1e-12,
+   "derived": false,
+   "setting": {
+    "rows": 8,
+    "p": 0.5
+   },
+   "sources": [
+    {
+     "cite": "Wikipedia, “Pascal's triangle”, the figure “Binomial distribution for p = 0.5”",
+     "url": "https://en.wikipedia.org/wiki/Pascal%27s_triangle",
+     "quote": "The probability that a ball in a Galton box with 8 layers (n = 8) ends up in the central bin (k = 4) is 70/256."
+    },
+    {
+     "cite": "Wikipedia, “Galton board”, §Distribution of the beads",
+     "url": "https://en.wikipedia.org/wiki/Galton_board",
+     "quote": "If a bead bounces to the right k times on its way down (and to the left on the remaining pegs) it ends up in the kth bin counting from the left. Denoting the number of rows of pegs in a Galton Board by n, the number of paths to the kth bin on the bottom is given by the binomial coefficient {n\\choose k}. […] If the probability of bouncing right on a peg is p (which equals 0.5 on an unbiased level machine) the probability that the ball ends up in the kth bin equals {n\\choose k} p^k (1-p)^{n-k}. This is the probability mass function of a binomial distribution."
+    }
+   ]
+  },
+  {
+   "key": "paths",
+   "unit": "",
+   "expected": 924.0,
+   "measured": 924.0,
+   "deviation": 0.0,
+   "tolerance": 0.0,
+   "derived": false,
+   "setting": {
+    "rows": 12,
+    "p": 0.5
+   },
+   "sources": [
+    {
+     "cite": "Wikipedia, “Galton board”, §Distribution of the beads",
+     "url": "https://en.wikipedia.org/wiki/Galton_board",
+     "quote": "If a bead bounces to the right k times on its way down (and to the left on the remaining pegs) it ends up in the kth bin counting from the left. Denoting the number of rows of pegs in a Galton Board by n, the number of paths to the kth bin on the bottom is given by the binomial coefficient {n\\choose k}. […] If the probability of bouncing right on a peg is p (which equals 0.5 on an unbiased level machine) the probability that the ball ends up in the kth bin equals {n\\choose k} p^k (1-p)^{n-k}. This is the probability mass function of a binomial distribution."
+    },
+    {
+     "cite": "Wikipedia, “Binomial distribution”, §Definitions, Probability mass function",
+     "url": "https://en.wikipedia.org/wiki/Binomial_distribution",
+     "quote": "f(k;n,p) = \\Pr(X = k) = \\binom{n}{k}p^k(1-p)^{n-k} for k = 0, 1, 2, ..., n, where \\binom{n}{k} =\\frac{n!}{k!(n-k)!} is the binomial coefficient."
+    }
+   ]
+  },
+  {
+   "key": "tilted_mean",
+   "unit": "",
+   "expected": 8.4,
+   "measured": 8.4,
+   "deviation": 0.0,
+   "tolerance": 1e-12,
+   "derived": false,
+   "setting": {
+    "rows": 12,
+    "p": 0.7
+   },
+   "sources": [
+    {
+     "cite": "Wikipedia, “Binomial distribution”, §Properties, Expected value and variance",
+     "url": "https://en.wikipedia.org/wiki/Binomial_distribution",
+     "quote": "If X ~ B(n, p), that is, X is a binomially distributed random variable, n being the total number of experiments and p the probability of each experiment yielding a successful result, then the expected value of X is: \\operatorname{E}[X] = np. […] The variance is: \\operatorname{Var}(X) = npq = np(1 - p)."
+    }
+   ]
+  },
+  {
+   "key": "tilted_spread",
+   "unit": "",
+   "expected": 2.52,
+   "measured": 2.52,
+   "deviation": 1.76225876925e-16,
+   "tolerance": 1e-12,
+   "derived": false,
+   "setting": {
+    "rows": 12,
+    "p": 0.7
+   },
+   "sources": [
+    {
+     "cite": "Wikipedia, “Binomial distribution”, §Properties, Expected value and variance",
+     "url": "https://en.wikipedia.org/wiki/Binomial_distribution",
+     "quote": "If X ~ B(n, p), that is, X is a binomially distributed random variable, n being the total number of experiments and p the probability of each experiment yielding a successful result, then the expected value of X is: \\operatorname{E}[X] = np. […] The variance is: \\operatorname{Var}(X) = npq = np(1 - p)."
+    }
+   ]
+  },
+  {
+   "key": "seeded_run",
+   "unit": "",
+   "expected": 6.0,
+   "measured": 5.876,
+   "deviation": 0.0206666666667,
+   "tolerance": 0.03872983346207417,
+   "derived": true,
+   "setting": {
+    "rows": 12,
+    "p": 0.5,
+    "balls": 500,
+    "seed": 1874
+   },
+   "sources": [
+    {
+     "cite": "Wikipedia, “Binomial distribution”, §Properties, Expected value and variance",
+     "url": "https://en.wikipedia.org/wiki/Binomial_distribution",
+     "quote": "If X ~ B(n, p), that is, X is a binomially distributed random variable, n being the total number of experiments and p the probability of each experiment yielding a successful result, then the expected value of X is: \\operatorname{E}[X] = np. […] The variance is: \\operatorname{Var}(X) = npq = np(1 - p)."
+    },
+    {
+     "cite": "Wikipedia, “Standard error”, §Standard error of the sample mean, Exact value",
+     "url": "https://en.wikipedia.org/wiki/Standard_error",
+     "quote": "The mean value calculated from the sample, \\bar{x}, will have an associated standard error on the mean, {\\sigma}_\\bar{x}, given by: {\\sigma}_\\bar{x} = \\frac{\\sigma}{\\sqrt{n}}."
+    }
+   ]
+  },
+  {
+   "key": "de_moivre",
+   "unit": "",
+   "expected": 0.162867503968,
+   "measured": 0.161180257797,
+   "deviation": 0.0103596244143,
+   "tolerance": 0.010416666666666666,
+   "derived": true,
+   "setting": {
+    "rows": 24,
+    "p": 0.5
+   },
+   "sources": [
+    {
+     "cite": "Wikipedia, “De Moivre–Laplace theorem”, §Theorem (citing Papoulis and Pillai 2002; Feller 1968, VII.3)",
+     "url": "https://en.wikipedia.org/wiki/De_Moivre%E2%80%93Laplace_theorem",
+     "quote": "As n grows large, for k in the neighborhood of np we can approximate {n \\choose k}\\, p^k q^{n-k} \\simeq \\frac{1}{\\sqrt{2 \\pi npq}}\\,e^{-\\frac{(k-np)^2}{2npq}}, \\qquad p+q=1,\\ p, q > 0 in the sense that the ratio of the left-hand side to the right-hand side converges to 1 as n → ∞."
+    },
+    {
+     "cite": "Wikipedia, “Central binomial coefficient”, §Asymptotic growth (citing Luke 1969, p. 35)",
+     "url": "https://en.wikipedia.org/wiki/Central_binomial_coefficient",
+     "quote": "The asymptotic behavior can be described quite accurately: {2n \\choose n} = \\frac{4^n}{\\sqrt{\\pi n}}\\left(1-\\frac{1}{8n}+\\frac{1}{128 n^2}+\\frac{5}{1024 n^3} + O(n^{-4})\\right)."
     }
    ]
   }
@@ -1948,6 +2229,224 @@
      "cite": "Wikipedia, “Harmonic oscillator”, §Damped harmonic oscillator",
      "url": "https://en.wikipedia.org/wiki/Harmonic_oscillator",
      "quote": "d²x/dt² + 2ζω₀ dx/dt + ω₀²x = 0, … Underdamped (ζ < 1): … the exponential decay of the underdamped harmonic oscillator is given by λ = ω₀ζ."
+    }
+   ]
+  }
+ ],
+ "jet": [
+  {
+   "key": "critical",
+   "unit": "°",
+   "expected": 48.6066263917,
+   "measured": 48.6066263917,
+   "deviation": 1.46182277707e-16,
+   "tolerance": 1e-12,
+   "derived": false,
+   "setting": {
+    "level_m": 0.15,
+    "hole_m": 0.006,
+    "drop_m": 0.4,
+    "index": 1.333,
+    "tilt_deg": 0.0
+   },
+   "sources": [
+    {
+     "cite": "Wikipedia, “Total internal reflection”, §“Critical angle”",
+     "url": "https://en.wikipedia.org/wiki/Total_internal_reflection",
+     "quote": "For light waves incident from an “internal” medium with a single refractive index n1, to an “external” medium with a single refractive index n2, the critical angle is given by θc=arcsin(n2/n1) and is defined if n2 ≤ n1. … According to Eq. (4), for incidence from water (n1 ≈ 1.333) to air (n2 ≈ 1), we have θc ≈ 48.6°"
+    }
+   ]
+  },
+  {
+   "key": "snell",
+   "unit": "°",
+   "expected": 68.9458598864,
+   "measured": 68.9458598864,
+   "deviation": 4.12232285988e-16,
+   "tolerance": 1e-12,
+   "derived": false,
+   "setting": {
+    "level_m": 0.15,
+    "hole_m": 0.006,
+    "drop_m": 0.4,
+    "index": 1.333,
+    "tilt_deg": 45.0
+   },
+   "sources": [
+    {
+     "cite": "Wikipedia, “Snell's law”",
+     "url": "https://en.wikipedia.org/wiki/Snell%27s_law",
+     "quote": "The law states that, for a given pair of media, the ratio of the sines of angle of incidence (θ1) and angle of refraction (θ2) is equal to the refractive index of the second medium with regard to the first (n2,1) which is equal to the ratio of the refractive indices (n2/n1) of the two media"
+    }
+   ]
+  },
+  {
+   "key": "fresnel",
+   "unit": "",
+   "expected": 0.878430863809,
+   "measured": 0.878430863809,
+   "deviation": 5.05548277214e-16,
+   "tolerance": 1e-12,
+   "derived": true,
+   "setting": {
+    "level_m": 0.15,
+    "hole_m": 0.006,
+    "drop_m": 0.4,
+    "index": 1.333,
+    "tilt_deg": 45.0
+   },
+   "sources": [
+    {
+     "cite": "Wikipedia, “Fresnel equations”, §“Power (intensity) reflection and transmission coefficients”",
+     "url": "https://en.wikipedia.org/wiki/Fresnel_equations",
+     "quote": "Making this substitution, we obtain equations using the refractive indices: R_s = |(n₁ cos θ_i − n₂ cos θ_t)/(n₁ cos θ_i + n₂ cos θ_t)|² … R_p = |(n₁ cos θ_t − n₂ cos θ_i)/(n₁ cos θ_t + n₂ cos θ_i)|² … As a consequence of conservation of energy, one can find the transmitted power (or more correctly, irradiance: power per unit area) simply as the portion of the incident power that isn't reflected … That means that there is an equal amount of power in the s and p polarizations, so that the effective reflectivity of the material is just the average of the two reflectivities"
+    }
+   ]
+  },
+  {
+   "key": "landing",
+   "unit": "m",
+   "expected": 0.489897948557,
+   "measured": 0.489897948557,
+   "deviation": 0.0,
+   "tolerance": 1e-14,
+   "derived": true,
+   "setting": {
+    "level_m": 0.15,
+    "hole_m": 0.006,
+    "drop_m": 0.4,
+    "index": 1.333,
+    "tilt_deg": 0.0
+   },
+   "sources": [
+    {
+     "cite": "Wikipedia, “Torricelli's law”",
+     "url": "https://en.wikipedia.org/wiki/Torricelli%27s_law",
+     "quote": "The law states that the speed v of efflux of a fluid through a sharp-edged hole in the wall of the tank filled to a height h above the hole is the same as the speed that a body would acquire in falling freely from a height h, v = √(2gh)"
+    },
+    {
+     "cite": "Wikipedia, “Projectile motion”, §“Time of flight or total time of the whole journey”",
+     "url": "https://en.wikipedia.org/wiki/Projectile_motion",
+     "quote": "If vy0=0 e. g. for an object dropped from (vertical) rest at a height y0 and free-falling under gravity, the time of flight becomes, t = √(2y0/g). This result is independent of any initial horizontal velocity"
+    }
+   ]
+  }
+ ],
+ "kapitza": [
+  {
+   "key": "bound",
+   "unit": "Hz",
+   "expected": 157.608802543,
+   "measured": 157.612250032,
+   "deviation": 2.18737088741e-05,
+   "tolerance": 5e-05,
+   "derived": false,
+   "setting": {
+    "length_m": 0.2,
+    "amplitude_m": 0.002,
+    "frequency_hz": 160.0,
+    "damping_per_s": 0.0,
+    "start_deg": 178.0
+   },
+   "sources": [
+    {
+     "cite": "E. I. Butikov, “On the dynamic stabilization of an inverted pendulum”, Am. J. Phys. 69, 755 (2001), Eq. (7)",
+     "url": "https://butikov.itmo.ru/Inverted.pdf",
+     "quote": "a²ω² > 2gl. (7) Thus, the inverted position of the pendulum is stable if the maximal velocity ωa of the vibrating axis is greater than the velocity √2gl attained by a body during a free fall from the height that equals the pendulum length l."
+    },
+    {
+     "cite": "M. Fowler, University of Virginia, Physics 7010, “Motion in a Rapidly Oscillating Field: the Ponderomotive Force”, §“Stability of a Pendulum with a Rapidly Oscillating Vertical Driving Force”",
+     "url": "https://galileoandeinstein.phys.virginia.edu/7010/CM_21_Ponderomotive_Force.html",
+     "quote": "(Landau has a misprint — an extra ℓ in this, p 95) … V_eff = V + f̄²/2mΩ² = mgℓ(−cos ϕ + (a²Ω²/4gℓ) sin²ϕ). … and for a²Ω² > 2gℓ, the upward position is stable!"
+    }
+   ]
+  },
+  {
+   "key": "mathieu",
+   "unit": "Hz",
+   "expected": 7.94782678893,
+   "measured": 7.94782086684,
+   "deviation": 7.45120890027e-07,
+   "tolerance": 1e-05,
+   "derived": true,
+   "setting": {
+    "length_m": 0.2,
+    "amplitude_m": 0.04,
+    "frequency_hz": 8.5,
+    "damping_per_s": 0.0,
+    "start_deg": 178.0
+   },
+   "sources": [
+    {
+     "cite": "NIST Digital Library of Mathematical Functions, §28.2(i), Eq. 28.2.1",
+     "url": "https://dlmf.nist.gov/28.2",
+     "quote": "w″+(a−2q cos(2z))w=0"
+    },
+    {
+     "cite": "NIST Digital Library of Mathematical Functions, §28.6(i), Eq. 28.6.1",
+     "url": "https://dlmf.nist.gov/28.6",
+     "quote": "a₀(q) = −½q² + (7/128)q⁴ − (29/2304)q⁶ + (68687/188 74368)q⁸ + ⋯"
+    },
+    {
+     "cite": "NIST Digital Library of Mathematical Functions, §28.17, Stability as x → ±∞",
+     "url": "https://dlmf.nist.gov/28.17",
+     "quote": "If all solutions of (28.2.1) are bounded when x→±∞ along the real axis, then the corresponding pair of parameters (a,q) is called stable. All other pairs are unstable. … The boundary of each region comprises the characteristic curves a=a_n(q) and a=b_n(q)"
+    }
+   ]
+  },
+  {
+   "key": "wobble",
+   "unit": "s",
+   "expected": 1.14861122274,
+   "measured": 1.14826264439,
+   "deviation": 0.000303478100079,
+   "tolerance": 0.003,
+   "derived": false,
+   "setting": {
+    "length_m": 0.2,
+    "amplitude_m": 0.01,
+    "frequency_hz": 40.0,
+    "damping_per_s": 0.0,
+    "start_deg": 178.0
+   },
+   "sources": [
+    {
+     "cite": "E. I. Butikov, “On the dynamic stabilization of an inverted pendulum”, Am. J. Phys. 69, 755 (2001), Eq. (10)",
+     "url": "https://butikov.itmo.ru/Inverted.pdf",
+     "quote": "The frequencies ω_up and ω_down of small slow oscillations about the inverted position and the lower vertical position are given by ω_up² = a²ω²/2l² − ω0², ω_down² = a²ω²/2l² + ω0². (10)"
+    }
+   ]
+  },
+  {
+   "key": "swing_up",
+   "unit": "Hz",
+   "expected": 0.224685886961,
+   "measured": 0.224685886961,
+   "deviation": 2.53188255618e-12,
+   "tolerance": 1e-06,
+   "derived": true,
+   "setting": {
+    "length_m": 0.2,
+    "amplitude_m": 0.01,
+    "frequency_hz": 2.23,
+    "damping_per_s": 0.0,
+    "start_deg": 5.0
+   },
+   "sources": [
+    {
+     "cite": "NIST Digital Library of Mathematical Functions, §28.2(i), Eq. 28.2.1",
+     "url": "https://dlmf.nist.gov/28.2",
+     "quote": "w″+(a−2q cos(2z))w=0"
+    },
+    {
+     "cite": "NIST Digital Library of Mathematical Functions, §28.6(i), Eqs. 28.6.2 and 28.6.3",
+     "url": "https://dlmf.nist.gov/28.6",
+     "quote": "a₁(q) = 1 + q − ⅛q² − (1/64)q³ − (1/1536)q⁴ + (11/36864)q⁵ + (49/5 89824)q⁶ + (55/94 37184)q⁷ − (83/353 89440)q⁸ + ⋯, b₁(q) = 1 − q − ⅛q² + (1/64)q³ − (1/1536)q⁴ − (11/36864)q⁵ + (49/5 89824)q⁶ − (55/94 37184)q⁷ − (83/353 89440)q⁸ + ⋯"
+    },
+    {
+     "cite": "NIST Digital Library of Mathematical Functions, §28.17, Stability as x → ±∞",
+     "url": "https://dlmf.nist.gov/28.17",
+     "quote": "If all solutions of (28.2.1) are bounded when x→±∞ along the real axis, then the corresponding pair of parameters (a,q) is called stable. All other pairs are unstable. … The boundary of each region comprises the characteristic curves a=a_n(q) and a=b_n(q)"
     }
    ]
   }
@@ -2232,6 +2731,153 @@
      "cite": "OpenStax, University Physics Volume 1, §15.2 Energy in Simple Harmonic Motion",
      "url": "https://openstax.org/books/university-physics-volume-1/pages/15-2-energy-in-simple-harmonic-motion",
      "quote": "The kinetic energy is maximum and equal to K = ½mv² = ½mA²ω² = ½kA². … The total energy of the system is constant."
+    }
+   ]
+  }
+ ],
+ "metronomes": [
+  {
+   "key": "lone",
+   "unit": "°",
+   "expected": 44.6907080202,
+   "measured": 44.8375265457,
+   "deviation": 0.00328521368246,
+   "tolerance": 0.01,
+   "derived": false,
+   "setting": {
+    "count": 1,
+    "board_kg": 0.058,
+    "spread": 0.0,
+    "board": "held",
+    "start": "small"
+   },
+   "sources": [
+    {
+     "cite": "J. Pantaleone, “Synchronization of metronomes”, Am. J. Phys. 70 (10), 992–1000 (2002), the author's proof copy, §II A, Eqs. (1) and (6)",
+     "url": "https://www.uaa.alaska.edu/academics/college-of-arts-and-sciences/departments/physics-and-astronomy/_documents/metro.pdf",
+     "quote": "This term is of the van der Pol type and increases the angular velocity for θ < θ0 and decreases it for θ > θ0. For small ε, this term will produce stable oscillations with an amplitude of approximately 2θ0 in the isolated oscillator"
+    },
+    {
+     "cite": "J. Pantaleone, “Synchronization of metronomes”, Am. J. Phys. 70 (10), 992–1000 (2002), the author's proof copy, §II B, Eqs. (9), (12), (14) and (15)",
+     "url": "https://www.uaa.alaska.edu/academics/college-of-arts-and-sciences/departments/physics-and-astronomy/_documents/metro.pdf",
+     "quote": "For this setting the maximum swing amplitude of a single, uncoupled metronome was about 45 degrees, which corresponds to θ0 = 0.39 rad … γ = θ0²/6 … β = x0ω²/g … x0 = 0.088 cm, β = 0.011 … the value μ = 0.010 was chosen to best fit the data"
+    }
+   ]
+  },
+  {
+   "key": "drift",
+   "unit": "s",
+   "expected": 119.945544723,
+   "measured": 119.962568548,
+   "deviation": 0.000141929619244,
+   "tolerance": 0.001,
+   "derived": true,
+   "setting": {
+    "count": 2,
+    "board_kg": 0.058,
+    "spread": 0.005,
+    "board": "held",
+    "start": "together"
+   },
+   "sources": [
+    {
+     "cite": "J. Pantaleone, “Synchronization of metronomes”, Am. J. Phys. 70 (10), 992–1000 (2002), the author's proof copy, §IV B, after Eq. (25)",
+     "url": "https://www.uaa.alaska.edu/academics/college-of-arts-and-sciences/departments/physics-and-astronomy/_documents/metro.pdf",
+     "quote": "we see that in the long time limit, the phase difference of the uncoupled oscillators simply evolves at a constant rate equal to the frequency difference, Δ. There is no synchronization for uncoupled oscillators."
+    },
+    {
+     "cite": "J. Pantaleone, “Synchronization of metronomes”, Am. J. Phys. 70 (10), 992–1000 (2002), the author's proof copy, §II B, Eqs. (8)–(10)",
+     "url": "https://www.uaa.alaska.edu/academics/college-of-arts-and-sciences/departments/physics-and-astronomy/_documents/metro.pdf",
+     "quote": "ωpen ≈ ω(1 − 3/2 γ), where γ = θ0²/6 parametrizes the leading large angle corrections to pendulum motion … The relative frequency difference between the oscillators is Δ ≈ (ω1 − ω2)/ω."
+    },
+    {
+     "cite": "J. Pantaleone, “Synchronization of metronomes”, Am. J. Phys. 70 (10), 992–1000 (2002), the author's proof copy, §II B, Eqs. (9), (12), (14) and (15)",
+     "url": "https://www.uaa.alaska.edu/academics/college-of-arts-and-sciences/departments/physics-and-astronomy/_documents/metro.pdf",
+     "quote": "For this setting the maximum swing amplitude of a single, uncoupled metronome was about 45 degrees, which corresponds to θ0 = 0.39 rad … γ = θ0²/6 … β = x0ω²/g … x0 = 0.088 cm, β = 0.011 … the value μ = 0.010 was chosen to best fit the data"
+    }
+   ]
+  },
+  {
+   "key": "lag",
+   "unit": "°",
+   "expected": 3.10622402365,
+   "measured": 3.27464294569,
+   "deviation": 0.0542198246996,
+   "tolerance": 0.08,
+   "derived": false,
+   "setting": {
+    "count": 2,
+    "board_kg": 0.058,
+    "spread": 0.005,
+    "board": "free",
+    "start": "together"
+   },
+   "sources": [
+    {
+     "cite": "J. Pantaleone, “Synchronization of metronomes”, Am. J. Phys. 70 (10), 992–1000 (2002), the author's proof copy, §IV B, Eqs. (32) and (33)",
+     "url": "https://www.uaa.alaska.edu/academics/college-of-arts-and-sciences/departments/physics-and-astronomy/_documents/metro.pdf",
+     "quote": "dψ/dτ ≈ Δ − (β/μ)(3γ + β) sin ψ … ψ → ψ* ≈ arcsin(μΔ/(β(3γ + β)))."
+    },
+    {
+     "cite": "J. Pantaleone, “Synchronization of metronomes”, Am. J. Phys. 70 (10), 992–1000 (2002), the author's proof copy, §II B, Eqs. (9), (12), (14) and (15)",
+     "url": "https://www.uaa.alaska.edu/academics/college-of-arts-and-sciences/departments/physics-and-astronomy/_documents/metro.pdf",
+     "quote": "For this setting the maximum swing amplitude of a single, uncoupled metronome was about 45 degrees, which corresponds to θ0 = 0.39 rad … γ = θ0²/6 … β = x0ω²/g … x0 = 0.088 cm, β = 0.011 … the value μ = 0.010 was chosen to best fit the data"
+    }
+   ]
+  },
+  {
+   "key": "inphase",
+   "unit": "°",
+   "expected": 0.0,
+   "measured": 0.000588494571503,
+   "deviation": 0.000588494571503,
+   "tolerance": 0.01,
+   "derived": false,
+   "setting": {
+    "count": 2,
+    "board_kg": 0.058,
+    "spread": 0.0,
+    "board": "free",
+    "start": "opposite"
+   },
+   "sources": [
+    {
+     "cite": "J. Pantaleone, “Synchronization of metronomes”, Am. J. Phys. 70 (10), 992–1000 (2002), the author's proof copy, §III A, Fig. 2",
+     "url": "https://www.uaa.alaska.edu/academics/college-of-arts-and-sciences/departments/physics-and-astronomy/_documents/metro.pdf",
+     "quote": "The metronomes’ pendulums are started with equal but opposite deflections, and they evolve to synchronized oscillations a half cycle away. The evolution is away from the unstable antiphase oscillations and toward the stable in-phase oscillations."
+    },
+    {
+     "cite": "J. Pantaleone, “Synchronization of metronomes”, Am. J. Phys. 70 (10), 992–1000 (2002), the author's proof copy, §II B, Eqs. (9), (12), (14) and (15)",
+     "url": "https://www.uaa.alaska.edu/academics/college-of-arts-and-sciences/departments/physics-and-astronomy/_documents/metro.pdf",
+     "quote": "For this setting the maximum swing amplitude of a single, uncoupled metronome was about 45 degrees, which corresponds to θ0 = 0.39 rad … γ = θ0²/6 … β = x0ω²/g … x0 = 0.088 cm, β = 0.011 … the value μ = 0.010 was chosen to best fit the data"
+    }
+   ]
+  },
+  {
+   "key": "five",
+   "unit": "",
+   "expected": 1.0,
+   "measured": 0.999995297248,
+   "deviation": 4.70275217757e-06,
+   "tolerance": 0.0001,
+   "derived": false,
+   "setting": {
+    "count": 5,
+    "board_kg": 0.058,
+    "spread": 0.0,
+    "board": "free",
+    "start": "scattered"
+   },
+   "sources": [
+    {
+     "cite": "J. Pantaleone, “Synchronization of metronomes”, Am. J. Phys. 70 (10), 992–1000 (2002), the author's proof copy, §III C and §IV C, Eq. (38)",
+     "url": "https://www.uaa.alaska.edu/academics/college-of-arts-and-sciences/departments/physics-and-astronomy/_documents/metro.pdf",
+     "quote": "in-phase synchronization of seven metronomes was consistently observed … We introduce the order parameter Re^{iψ} = (1/N) Σ_{j=1}^{N} e^{iφj}"
+    },
+    {
+     "cite": "J. Pantaleone, “Synchronization of metronomes”, Am. J. Phys. 70 (10), 992–1000 (2002), the author's proof copy, §II B, Eqs. (9), (12), (14) and (15)",
+     "url": "https://www.uaa.alaska.edu/academics/college-of-arts-and-sciences/departments/physics-and-astronomy/_documents/metro.pdf",
+     "quote": "For this setting the maximum swing amplitude of a single, uncoupled metronome was about 45 degrees, which corresponds to θ0 = 0.39 rad … γ = θ0²/6 … β = x0ω²/g … x0 = 0.088 cm, β = 0.011 … the value μ = 0.010 was chosen to best fit the data"
     }
    ]
   }
@@ -2791,6 +3437,212 @@
    ]
   }
  ],
+ "polarizer": [
+  {
+   "key": "half",
+   "unit": "",
+   "expected": 0.5,
+   "measured": 0.5,
+   "deviation": 0.0,
+   "tolerance": 1e-12,
+   "derived": false,
+   "setting": {
+    "sheet": "ideal",
+    "last_deg": 0.0,
+    "middle": "out"
+   },
+   "sources": [
+    {
+     "cite": "Wikipedia, “Polarizer”, §Malus's law and other properties",
+     "url": "https://en.wikipedia.org/wiki/Polarizer",
+     "quote": "A beam of unpolarized light can be thought of as containing a uniform mixture of linear polarizations at all possible angles. Since the average value of cos²θ is 1/2, the transmission coefficient becomes I/I0 = 1/2."
+    },
+    {
+     "cite": "OpenStax, University Physics Volume 3, §1.7 Polarization, Figure 1.36",
+     "url": "https://openstax.org/books/university-physics-volume-3/pages/1-7-polarization",
+     "quote": "The first filter polarizes the light along its axis, decreasing its intensity by a factor of 2."
+    }
+   ]
+  },
+  {
+   "key": "malus",
+   "unit": "",
+   "expected": 0.75,
+   "measured": 0.75,
+   "deviation": 1.48029736617e-16,
+   "tolerance": 1e-12,
+   "derived": false,
+   "setting": {
+    "sheet": "ideal",
+    "last_deg": 30.0,
+    "middle": "out"
+   },
+   "sources": [
+    {
+     "cite": "OpenStax, University Physics Volume 3, §1.7 Polarization, Eq. 1.6",
+     "url": "https://openstax.org/books/university-physics-volume-3/pages/1-7-polarization",
+     "quote": "Since the intensity of a wave is proportional to its amplitude squared, the intensity I of the transmitted wave is related to the incident wave by I = I0 cos²θ (1.6) where I0 is the intensity of the polarized wave before passing through the filter. This equation is known as Malus’s law."
+    }
+   ]
+  },
+  {
+   "key": "crossed",
+   "unit": "",
+   "expected": 0.0,
+   "measured": 1.87469972833e-33,
+   "deviation": 1.87469972833e-33,
+   "tolerance": 1e-30,
+   "derived": false,
+   "setting": {
+    "sheet": "ideal",
+    "last_deg": 90.0,
+    "middle": "out"
+   },
+   "sources": [
+    {
+     "cite": "OpenStax, University Physics Volume 3, §1.7 Polarization, Figure 1.36",
+     "url": "https://openstax.org/books/university-physics-volume-3/pages/1-7-polarization",
+     "quote": "When the axes are perpendicular, no light is passed by the second filter."
+    }
+   ]
+  },
+  {
+   "key": "third",
+   "unit": "",
+   "expected": 0.125,
+   "measured": 0.125,
+   "deviation": 0.0,
+   "tolerance": 1e-12,
+   "derived": false,
+   "setting": {
+    "sheet": "ideal",
+    "last_deg": 90.0,
+    "middle": "in",
+    "middle_deg": 45.0
+   },
+   "sources": [
+    {
+     "cite": "UCSB Physics Lecture Demonstrations, “Crossed polarizers with third polarizer”",
+     "url": "https://web.physics.ucsb.edu/~lecturedemonstrations/New%20demos/Crossed%20polarizers%20with%20third%20polarizer.htm",
+     "quote": "With all three polarizers in place as described and shown here, at each polarizer half the incident light is transmitted, so one-eighth of the light from the projector reaches the screen."
+    },
+    {
+     "cite": "R. Nave, HyperPhysics, “Crossed Polarizers”, Polarizer Puzzle",
+     "url": "https://hyperphysics.gsu.edu/hbase/phyopt/polcross.html",
+     "quote": "In the situation shown, the transmitted intensity can be calculated by applying the Law of Malus twice. If the center polarizer is placed at 45° between crossed polarizers, 25% of the light will be transmitted."
+    }
+   ]
+  },
+  {
+   "key": "slanted",
+   "unit": "",
+   "expected": 0.09375,
+   "measured": 0.09375,
+   "deviation": 4.4408920985e-16,
+   "tolerance": 1e-12,
+   "derived": true,
+   "setting": {
+    "sheet": "ideal",
+    "last_deg": 90.0,
+    "middle": "in",
+    "middle_deg": 30.0
+   },
+   "sources": [
+    {
+     "cite": "Wikipedia, “Polarizer”, §Malus's law and other properties",
+     "url": "https://en.wikipedia.org/wiki/Polarizer",
+     "quote": "A beam of unpolarized light can be thought of as containing a uniform mixture of linear polarizations at all possible angles. Since the average value of cos²θ is 1/2, the transmission coefficient becomes I/I0 = 1/2."
+    },
+    {
+     "cite": "OpenStax, University Physics Volume 3, §1.7 Polarization, Eq. 1.6",
+     "url": "https://openstax.org/books/university-physics-volume-3/pages/1-7-polarization",
+     "quote": "Since the intensity of a wave is proportional to its amplitude squared, the intensity I of the transmitted wave is related to the incident wave by I = I0 cos²θ (1.6) where I0 is the intensity of the polarized wave before passing through the filter. This equation is known as Malus’s law."
+    },
+    {
+     "cite": "R. Nave, HyperPhysics, “Crossed Polarizers”, Polarizer Puzzle",
+     "url": "https://hyperphysics.gsu.edu/hbase/phyopt/polcross.html",
+     "quote": "In the situation shown, the transmitted intensity can be calculated by applying the Law of Malus twice. If the center polarizer is placed at 45° between crossed polarizers, 25% of the light will be transmitted."
+    }
+   ]
+  },
+  {
+   "key": "many",
+   "unit": "",
+   "expected": 0.399227884746,
+   "measured": 0.399227884746,
+   "deviation": 1.39046277458e-16,
+   "tolerance": 1e-12,
+   "derived": true,
+   "setting": {
+    "between": 10.0,
+    "sheet": "ideal"
+   },
+   "sources": [
+    {
+     "cite": "Wikipedia, “Polarizer”, §Malus's law and other properties",
+     "url": "https://en.wikipedia.org/wiki/Polarizer",
+     "quote": "A beam of unpolarized light can be thought of as containing a uniform mixture of linear polarizations at all possible angles. Since the average value of cos²θ is 1/2, the transmission coefficient becomes I/I0 = 1/2."
+    },
+    {
+     "cite": "OpenStax, University Physics Volume 3, §1.7 Polarization, Eq. 1.6",
+     "url": "https://openstax.org/books/university-physics-volume-3/pages/1-7-polarization",
+     "quote": "Since the intensity of a wave is proportional to its amplitude squared, the intensity I of the transmitted wave is related to the incident wave by I = I0 cos²θ (1.6) where I0 is the intensity of the polarized wave before passing through the filter. This equation is known as Malus’s law."
+    }
+   ]
+  },
+  {
+   "key": "polaroid_one",
+   "unit": "",
+   "expected": 0.38,
+   "measured": 0.38076,
+   "deviation": 0.002,
+   "tolerance": 0.01,
+   "derived": false,
+   "setting": {
+    "sheet": "polaroid",
+    "last_deg": 0.0,
+    "middle": "out"
+   },
+   "sources": [
+    {
+     "cite": "Wikipedia, “Polarizer”, §Malus's law and other properties",
+     "url": "https://en.wikipedia.org/wiki/Polarizer",
+     "quote": "In practice, some light is lost in the polarizer and the actual transmission will be somewhat lower than this, around 38% for Polaroid-type polarizers but considerably higher (>49.9%) for some birefringent prism types."
+    },
+    {
+     "cite": "Wikipedia, “Polarizer”, §Malus's law and other properties",
+     "url": "https://en.wikipedia.org/wiki/Polarizer",
+     "quote": "Real polarizers are also not perfect blockers of the polarization orthogonal to their polarization axis; the ratio of the transmission of the unwanted component to the wanted component is called the extinction ratio, and varies from around 1:500 for Polaroid to about 1:10⁶ for Glan–Taylor prism polarizers."
+    }
+   ]
+  },
+  {
+   "key": "polaroid_crossed",
+   "unit": "",
+   "expected": 0.0011552,
+   "measured": 0.0011552,
+   "deviation": 0.0,
+   "tolerance": 1e-12,
+   "derived": true,
+   "setting": {
+    "sheet": "polaroid",
+    "last_deg": 90.0,
+    "middle": "out"
+   },
+   "sources": [
+    {
+     "cite": "Wikipedia, “Polarizer”, §Malus's law and other properties",
+     "url": "https://en.wikipedia.org/wiki/Polarizer",
+     "quote": "A beam of unpolarized light can be thought of as containing a uniform mixture of linear polarizations at all possible angles. Since the average value of cos²θ is 1/2, the transmission coefficient becomes I/I0 = 1/2."
+    },
+    {
+     "cite": "Wikipedia, “Polarizer”, §Malus's law and other properties",
+     "url": "https://en.wikipedia.org/wiki/Polarizer",
+     "quote": "Real polarizers are also not perfect blockers of the polarization orthogonal to their polarization axis; the ratio of the transmission of the unwanted component to the wanted component is called the extinction ratio, and varies from around 1:500 for Polaroid to about 1:10⁶ for Glan–Taylor prism polarizers."
+    }
+   ]
+  }
+ ],
  "race": [
   {
    "key": "line",
@@ -3125,6 +3977,110 @@
      "cite": "Wikipedia, “Harmonic oscillator”, §Sinusoidal driving force",
      "url": "https://en.wikipedia.org/wiki/Harmonic_oscillator",
      "quote": "d²x/dt² + 2ζω₀ dx/dt + ω₀²x = (1/m)F₀ sin(ωt) … The steady-state solution is proportional to the driving force with an induced phase change φ: x(t) = F₀/(m Z_m ω) sin(ωt + φ), where Z_m = √((2ω₀ζ)² + (1/ω²)(ω₀² − ω²)²)"
+    }
+   ]
+  }
+ ],
+ "ship": [
+  {
+   "key": "metacentric_height",
+   "unit": "m",
+   "expected": 0.0525856156758,
+   "measured": 0.0525856173647,
+   "deviation": 3.21177950595e-08,
+   "tolerance": 1e-07,
+   "derived": true,
+   "setting": {
+    "beam_m": 0.2,
+    "weight_kg": 1.0,
+    "weight_m": 0.12,
+    "damping_per_s": 0.5,
+    "heel_deg": 2.0
+   },
+   "sources": [
+    {
+     "cite": "A. H. Techet, 13.012 Hydrodynamics for Ocean Engineers, Reading #3, “Archimedes’s Principle and Static Stability” (MIT, 2003), p. 7",
+     "url": "https://web.mit.edu/13.012/www/handouts/2003/Reading3.pdf",
+     "quote": "2) Find BM , the metacentric radius, using the transverse moment of inertia of the ships water plane about its own centerline and the vessel’s displaced volume: BM = I / Volume … 4) Calculate GM : KM = KB + BM GM = KM − KG"
+    },
+    {
+     "cite": "P. de Jong, Offshore Hydromechanics, Module 1, “2. Hydrostatics and Stability part 2” (TU Delft OpenCourseWare), slides 6, 11 and 15",
+     "url": "https://ocw.tudelft.nl/wp-content/uploads/2.OffshoreHydromech1_FloatingStability.pdf",
+     "quote": "For small heeling angles (<5 to 10 degrees): Initial stability GM = KB + BM − KG = KB + It/∇ − KG … It = LB³/12"
+    }
+   ]
+  },
+  {
+   "key": "wall_sided",
+   "unit": "m",
+   "expected": 0.014640448093,
+   "measured": 0.014640448093,
+   "deviation": 1.18488414081e-16,
+   "tolerance": 1e-12,
+   "derived": true,
+   "setting": {
+    "beam_m": 0.2,
+    "weight_kg": 1.0,
+    "weight_m": 0.12,
+    "damping_per_s": 0.5,
+    "heel_deg": 15.0
+   },
+   "sources": [
+    {
+     "cite": "P. de Jong, Offshore Hydromechanics, Module 1, “2. Hydrostatics and Stability part 2” (TU Delft OpenCourseWare), slides 6 and 11",
+     "url": "https://ocw.tudelft.nl/wp-content/uploads/2.OffshoreHydromech1_FloatingStability.pdf",
+     "quote": "GZφ = GNφ sinφ … For slightly larger heeling angles (5 to 15 degrees): Scribanti GM = KB + BNφ − KG = KB + It/∇ (1 + ½ tan² φ) − KG"
+    }
+   ]
+  },
+  {
+   "key": "on_its_side",
+   "unit": "m",
+   "expected": 0.0766666666667,
+   "measured": 0.0766666666667,
+   "deviation": 3.6202924716e-16,
+   "tolerance": 1e-12,
+   "derived": true,
+   "setting": {
+    "beam_m": 0.2,
+    "weight_kg": 1.0,
+    "weight_m": -0.15,
+    "damping_per_s": 0.5,
+    "heel_deg": 90.0
+   },
+   "sources": [
+    {
+     "cite": "A. H. Techet, 13.012 Hydrodynamics for Ocean Engineers, Reading #3, “Archimedes’s Principle and Static Stability” (MIT, 2003), p. 3",
+     "url": "https://web.mit.edu/13.012/www/handouts/2003/Reading3.pdf",
+     "quote": "Center of buoyancy is the point at which the buoyancy force acts on the body and is equivalently the geometric center of the submerged portion of the hull."
+    },
+    {
+     "cite": "Wikipedia, “Metacentric height”, Righting arm",
+     "url": "https://en.wikipedia.org/wiki/Metacentric_height",
+     "quote": "The righting arm (known also as GZ — see diagram): the horizontal distance between the lines of buoyancy and gravity (Z = intersection point: the shortest distance to the centre of gravity G)."
+    }
+   ]
+  },
+  {
+   "key": "roll_period",
+   "unit": "s",
+   "expected": 0.577441280581,
+   "measured": 0.577426631693,
+   "deviation": 2.53686200066e-05,
+   "tolerance": 0.0001,
+   "derived": true,
+   "setting": {
+    "beam_m": 0.2,
+    "weight_kg": 1.0,
+    "weight_m": 0.12,
+    "damping_per_s": 0.0,
+    "heel_deg": 0.5
+   },
+   "sources": [
+    {
+     "cite": "Wikipedia, “Metacentric height”, GM and rolling period",
+     "url": "https://en.wikipedia.org/wiki/Metacentric_height",
+     "quote": "The period of roll can be estimated from the following equation: T = 2π √((a44² + k²)/(g GM)) where g is the gravitational acceleration, a44 is the added radius of gyration and k is the radius of gyration about the longitudinal axis through the centre of gravity and GM is the stability index."
     }
    ]
   }
@@ -3676,6 +4632,423 @@
      "cite": "OpenStax, University Physics Volume 1, §11.1, “Conservation of Mechanical Energy in Rolling Motion”",
      "url": "https://openstax.org/books/university-physics-volume-1/pages/11-1-rolling-motion",
      "quote": "the total mechanical energy of an object rolling is E_T = ½mv_CM² + ½I_CMω² + mgh"
+    }
+   ]
+  }
+ ],
+ "spring": [
+  {
+   "key": "fast_mode",
+   "unit": "s",
+   "expected": 2.5743276714,
+   "measured": 2.57432767142,
+   "deviation": 5.12414407688e-12,
+   "tolerance": 1e-09,
+   "derived": true,
+   "setting": {
+    "nut_radius_m": 0.02,
+    "damping_per_s": 0.0,
+    "start": "fast"
+   },
+   "sources": [
+    {
+     "cite": "R. E. Berg, T. S. Marshall, “Wilberforce pendulum oscillations and normal modes”, Am. J. Phys. 59 (1991) 32, §II.A, Eqs. (1)–(3)",
+     "url": "https://doi.org/10.1119/1.16702",
+     "quote": "Assuming a linear coupling of the form εzθ/2, … L = ½mż² + ½Iθ̇² − ½kz² − ½δθ² − ½εzθ, (1) … mz̈ + kz + ½εθ = 0 (2) and Iθ̈ + δθ + ½εz = 0, (3)"
+    },
+    {
+     "cite": "R. E. Berg, T. S. Marshall, “Wilberforce pendulum oscillations and normal modes”, Am. J. Phys. 59 (1991) 32, §II.A, Eq. (7)",
+     "url": "https://doi.org/10.1119/1.16702",
+     "quote": "using the values for the frequencies ω_z² = k/m and ω_θ² = δ/I, … which can be solved to determine the frequencies of the normal modes, ω² = ½{ω_θ² + ω_z² ± [(ω_θ² − ω_z²)² + ε²/mI]^{1/2}}. (7)"
+    },
+    {
+     "cite": "R. E. Berg, T. S. Marshall, “Wilberforce pendulum oscillations and normal modes”, Am. J. Phys. 59 (1991) 32, §II.B, Eqs. (28)–(29)",
+     "url": "https://doi.org/10.1119/1.16702",
+     "quote": "z₀ = (2I/ε)(ω₁² − ω_θ²)θ₀ … (mode 1) … z₀ = (2I/ε)(ω₂² − ω_θ²)θ₀ … (mode 2)"
+    }
+   ]
+  },
+  {
+   "key": "slow_mode",
+   "unit": "s",
+   "expected": 2.84258099959,
+   "measured": 2.84258099961,
+   "deviation": 5.23424482502e-12,
+   "tolerance": 1e-09,
+   "derived": true,
+   "setting": {
+    "nut_radius_m": 0.02,
+    "damping_per_s": 0.0,
+    "start": "slow"
+   },
+   "sources": [
+    {
+     "cite": "R. E. Berg, T. S. Marshall, “Wilberforce pendulum oscillations and normal modes”, Am. J. Phys. 59 (1991) 32, §II.A, Eqs. (1)–(3)",
+     "url": "https://doi.org/10.1119/1.16702",
+     "quote": "Assuming a linear coupling of the form εzθ/2, … L = ½mż² + ½Iθ̇² − ½kz² − ½δθ² − ½εzθ, (1) … mz̈ + kz + ½εθ = 0 (2) and Iθ̈ + δθ + ½εz = 0, (3)"
+    },
+    {
+     "cite": "R. E. Berg, T. S. Marshall, “Wilberforce pendulum oscillations and normal modes”, Am. J. Phys. 59 (1991) 32, §II.A, Eq. (7)",
+     "url": "https://doi.org/10.1119/1.16702",
+     "quote": "using the values for the frequencies ω_z² = k/m and ω_θ² = δ/I, … which can be solved to determine the frequencies of the normal modes, ω² = ½{ω_θ² + ω_z² ± [(ω_θ² − ω_z²)² + ε²/mI]^{1/2}}. (7)"
+    },
+    {
+     "cite": "R. E. Berg, T. S. Marshall, “Wilberforce pendulum oscillations and normal modes”, Am. J. Phys. 59 (1991) 32, §II.B, Eqs. (28)–(29)",
+     "url": "https://doi.org/10.1119/1.16702",
+     "quote": "z₀ = (2I/ε)(ω₁² − ω_θ²)θ₀ … (mode 1) … z₀ = (2I/ε)(ω₂² − ω_θ²)θ₀ … (mode 2)"
+    }
+   ]
+  },
+  {
+   "key": "beat",
+   "unit": "s",
+   "expected": 27.2791952848,
+   "measured": 27.2791952848,
+   "deviation": 0.0,
+   "tolerance": 1e-12,
+   "derived": true,
+   "setting": {
+    "nut_radius_m": 0.02,
+    "damping_per_s": 0.0,
+    "start": "down"
+   },
+   "sources": [
+    {
+     "cite": "R. E. Berg, T. S. Marshall, “Wilberforce pendulum oscillations and normal modes”, Am. J. Phys. 59 (1991) 32, §II.A, Eq. (7)",
+     "url": "https://doi.org/10.1119/1.16702",
+     "quote": "using the values for the frequencies ω_z² = k/m and ω_θ² = δ/I, … which can be solved to determine the frequencies of the normal modes, ω² = ½{ω_θ² + ω_z² ± [(ω_θ² − ω_z²)² + ε²/mI]^{1/2}}. (7)"
+    },
+    {
+     "cite": "R. E. Berg, T. S. Marshall, “Wilberforce pendulum oscillations and normal modes”, Am. J. Phys. 59 (1991) 32, §II.A, after Eq. (12)",
+     "url": "https://doi.org/10.1119/1.16702",
+     "quote": "Here, ω_B = ω₁ − ω₂, the beat frequency between the two normal modes ω₁ and ω₂."
+    }
+   ]
+  },
+  {
+   "key": "measured",
+   "unit": "s",
+   "expected": 27.0826952896,
+   "measured": 27.2791952848,
+   "deviation": 0.00725555537077,
+   "tolerance": 0.02,
+   "derived": false,
+   "setting": {
+    "nut_radius_m": 0.02,
+    "damping_per_s": 0.0,
+    "start": "down"
+   },
+   "sources": [
+    {
+     "cite": "R. E. Berg, T. S. Marshall, “Wilberforce pendulum oscillations and normal modes”, Am. J. Phys. 59 (1991) 32, §III, p. 35",
+     "url": "https://doi.org/10.1119/1.16702",
+     "quote": "m_corr = 0.5164 ± 0.0004 kg, I_corr = 1.45 ± 0.02 × 10⁻⁴ kg m². … The measured frequencies in the energy-transfer mode are ω = ω_θ = ω_z = 2.31 ± 0.02 rad/s and ω_B = 0.232 ± 0.002 rad/s. … k = 2.80 ± 0.05 N/m and δ = 7.86 ± 0.16 × 10⁻⁴ N m"
+    },
+    {
+     "cite": "R. E. Berg, T. S. Marshall, “Wilberforce pendulum oscillations and normal modes”, Am. J. Phys. 59 (1991) 32, §V, p. 36",
+     "url": "https://doi.org/10.1119/1.16702",
+     "quote": "From Eq. (30), using our measured ω, ω_B, m, and I, ε = 2ωω_B√mI = 9.27 ± 0.30 × 10⁻³ N."
+    },
+    {
+     "cite": "R. E. Berg, T. S. Marshall, “Wilberforce pendulum oscillations and normal modes”, Am. J. Phys. 59 (1991) 32, §II.A, after Eq. (12)",
+     "url": "https://doi.org/10.1119/1.16702",
+     "quote": "Here, ω_B = ω₁ − ω₂, the beat frequency between the two normal modes ω₁ and ω₂."
+    }
+   ]
+  },
+  {
+   "key": "energy",
+   "unit": "mJ",
+   "expected": 0.56,
+   "measured": 0.56,
+   "deviation": 1.31442475951e-13,
+   "tolerance": 1e-10,
+   "derived": true,
+   "setting": {
+    "nut_radius_m": 0.02,
+    "damping_per_s": 0.0,
+    "start": "down"
+   },
+   "sources": [
+    {
+     "cite": "R. E. Berg, T. S. Marshall, “Wilberforce pendulum oscillations and normal modes”, Am. J. Phys. 59 (1991) 32, §II.A, Eqs. (1)–(3)",
+     "url": "https://doi.org/10.1119/1.16702",
+     "quote": "Assuming a linear coupling of the form εzθ/2, … L = ½mż² + ½Iθ̇² − ½kz² − ½δθ² − ½εzθ, (1) … mz̈ + kz + ½εθ = 0 (2) and Iθ̈ + δθ + ½εz = 0, (3)"
+    }
+   ]
+  }
+ ],
+ "string": [
+  {
+   "key": "fundamental",
+   "unit": "Hz",
+   "expected": 38.7298334621,
+   "measured": 38.71801664,
+   "deviation": 0.000305109032805,
+   "tolerance": 0.0005,
+   "derived": false,
+   "setting": {
+    "tension_n": 3.0,
+    "drive_hz": 38.72983346207417
+   },
+   "sources": [
+    {
+     "cite": "Wikipedia, “String vibration”, §Frequency of the wave",
+     "url": "https://en.wikipedia.org/wiki/String_vibration",
+     "quote": "v = λ/τ = λf. If the length of the string is L, the fundamental harmonic is the one produced by the vibration whose nodes are the two ends of the string, so L is half of the wavelength of the fundamental harmonic. Hence one obtains Mersenne's laws: f = v/(2L) = (1/(2L))√(T/μ)"
+    },
+    {
+     "cite": "Wikipedia, “String vibration”, §Wave and §Derivation",
+     "url": "https://en.wikipedia.org/wiki/String_vibration",
+     "quote": "The velocity of propagation of a wave in a string (v) is proportional to the square root of the force of tension of the string (T) and inversely proportional to the square root of the linear density (μ) of the string: v = √(T/μ). … ∂²y/∂x² = (μ/T) ∂²y/∂t². this equation is known as the wave equation"
+    }
+   ]
+  },
+  {
+   "key": "third",
+   "unit": "Hz",
+   "expected": 116.189500386,
+   "measured": 116.185543182,
+   "deviation": 3.40581906505e-05,
+   "tolerance": 0.0001,
+   "derived": false,
+   "setting": {
+    "tension_n": 3.0,
+    "drive_hz": 116.1895003862225
+   },
+   "sources": [
+    {
+     "cite": "Wikipedia, “String vibration”, §Frequency of the wave",
+     "url": "https://en.wikipedia.org/wiki/String_vibration",
+     "quote": "if we take the nth harmonic as having a wavelength given by λₙ = 2L/n, then we easily get an expression for the frequency of the nth harmonic: fₙ = nv/(2L) And for a string under a tension T with linear density μ, then fₙ = (n/(2L))√(T/μ)"
+    },
+    {
+     "cite": "Wikipedia, “Standing wave”, §Standing wave on a string with two fixed ends (after Halliday, Resnick, Walker 2005, p. 434)",
+     "url": "https://en.wikipedia.org/wiki/Standing_wave",
+     "quote": "Suppose that at the x = 0 fixed end a sinusoidal force is applied that drives the string up and down in the y-direction with a small amplitude at some frequency f. … Eventually, a steady state is reached where the string has identical right- and left-traveling waves … f = v/λ = nv/(2L). … Any standing wave on the string will have n + 1 nodes including the fixed ends and n anti-nodes."
+    }
+   ]
+  },
+  {
+   "key": "pull",
+   "unit": "N",
+   "expected": 2.22222222222,
+   "measured": 2.2228323047,
+   "deviation": 0.000274537117218,
+   "tolerance": 0.0005,
+   "derived": true,
+   "setting": {
+    "tension_n": 2.2222222222222228,
+    "drive_hz": 100.0
+   },
+   "sources": [
+    {
+     "cite": "Wikipedia, “String vibration”, §Frequency of the wave",
+     "url": "https://en.wikipedia.org/wiki/String_vibration",
+     "quote": "if we take the nth harmonic as having a wavelength given by λₙ = 2L/n, then we easily get an expression for the frequency of the nth harmonic: fₙ = nv/(2L) And for a string under a tension T with linear density μ, then fₙ = (n/(2L))√(T/μ)"
+    }
+   ]
+  },
+  {
+   "key": "loops",
+   "unit": "",
+   "expected": 3.0,
+   "measured": 3.0,
+   "deviation": 0.0,
+   "tolerance": 0.0,
+   "derived": false,
+   "setting": {
+    "tension_n": 2.2222222222222228,
+    "drive_hz": 100.0
+   },
+   "sources": [
+    {
+     "cite": "Wikipedia, “Standing wave”, §Standing wave on a string with two fixed ends (after Halliday, Resnick, Walker 2005, p. 434)",
+     "url": "https://en.wikipedia.org/wiki/Standing_wave",
+     "quote": "Suppose that at the x = 0 fixed end a sinusoidal force is applied that drives the string up and down in the y-direction with a small amplitude at some frequency f. … Eventually, a steady state is reached where the string has identical right- and left-traveling waves … f = v/λ = nv/(2L). … Any standing wave on the string will have n + 1 nodes including the fixed ends and n anti-nodes."
+    }
+   ]
+  },
+  {
+   "key": "speed",
+   "unit": "m/s",
+   "expected": 77.4596669241,
+   "measured": 77.4490448665,
+   "deviation": 0.000137130174264,
+   "tolerance": 0.0005,
+   "derived": true,
+   "setting": {
+    "tension_n": 3.0,
+    "drive_hz": 100.0
+   },
+   "sources": [
+    {
+     "cite": "Wikipedia, “String vibration”, §Wave and §Derivation",
+     "url": "https://en.wikipedia.org/wiki/String_vibration",
+     "quote": "The velocity of propagation of a wave in a string (v) is proportional to the square root of the force of tension of the string (T) and inversely proportional to the square root of the linear density (μ) of the string: v = √(T/μ). … ∂²y/∂x² = (μ/T) ∂²y/∂t². this equation is known as the wave equation"
+    },
+    {
+     "cite": "Wikipedia, “String vibration”, §Frequency of the wave",
+     "url": "https://en.wikipedia.org/wiki/String_vibration",
+     "quote": "v = λ/τ = λf. If the length of the string is L, the fundamental harmonic is the one produced by the vibration whose nodes are the two ends of the string, so L is half of the wavelength of the fundamental harmonic. Hence one obtains Mersenne's laws: f = v/(2L) = (1/(2L))√(T/μ)"
+    },
+    {
+     "cite": "Wikipedia, “Standing wave”, §Standing wave on an infinite length string",
+     "url": "https://en.wikipedia.org/wiki/Standing_wave",
+     "quote": "These locations are called nodes. … These locations are called anti-nodes. The distance between two consecutive nodes or anti-nodes is half the wavelength, λ/2."
+    }
+   ]
+  },
+  {
+   "key": "settled",
+   "unit": "mm",
+   "expected": 22.2154844125,
+   "measured": 22.2154857068,
+   "deviation": 5.82612665215e-08,
+   "tolerance": 1e-06,
+   "derived": true,
+   "setting": {
+    "tension_n": 2.2222222222222228,
+    "drive_hz": 100.0
+   },
+   "sources": [
+    {
+     "cite": "Wikipedia, “String vibration”, §Wave and §Derivation",
+     "url": "https://en.wikipedia.org/wiki/String_vibration",
+     "quote": "The velocity of propagation of a wave in a string (v) is proportional to the square root of the force of tension of the string (T) and inversely proportional to the square root of the linear density (μ) of the string: v = √(T/μ). … ∂²y/∂x² = (μ/T) ∂²y/∂t². this equation is known as the wave equation"
+    },
+    {
+     "cite": "Wikipedia, “Standing wave”, §Standing wave on a string with two fixed ends (after Halliday, Resnick, Walker 2005, p. 434)",
+     "url": "https://en.wikipedia.org/wiki/Standing_wave",
+     "quote": "Suppose that at the x = 0 fixed end a sinusoidal force is applied that drives the string up and down in the y-direction with a small amplitude at some frequency f. … Eventually, a steady state is reached where the string has identical right- and left-traveling waves … f = v/λ = nv/(2L). … Any standing wave on the string will have n + 1 nodes including the fixed ends and n anti-nodes."
+    }
+   ]
+  }
+ ],
+ "vessel": [
+  {
+   "key": "flow",
+   "unit": "l/min",
+   "expected": 7.51165683436,
+   "measured": 7.51165683436,
+   "deviation": 2.3648003078e-16,
+   "tolerance": 1e-12,
+   "derived": false,
+   "setting": {
+    "diameter_m": 0.08,
+    "fill_m": 0.9,
+    "hole_diameter_m": 0.008,
+    "discharge": 0.61,
+    "stand_m": 0.2,
+    "open": "lowest"
+   },
+   "sources": [
+    {
+     "cite": "Wikipedia, “Torricelli's law”, introduction",
+     "url": "https://en.wikipedia.org/wiki/Torricelli%27s_law",
+     "quote": "The law states that the speed v of efflux of a fluid through a sharp-edged hole in the wall of the tank filled to a height h above the hole is the same as the speed that a body would acquire in falling freely from a height h, v = √(2gh)"
+    },
+    {
+     "cite": "Wikipedia, “Torricelli's law”, §Discharge experiment, coefficient of discharge",
+     "url": "https://en.wikipedia.org/wiki/Torricelli%27s_law#Discharge_experiment,_coefficient_of_discharge",
+     "quote": "The problem remains how to determine the cross-section of the vena contracta. This is normally done by introducing a discharge coefficient which relates the discharge to the orifice's cross-section and Torricelli's law: V̇_real = μ A_A v_A with μ = A_C/A_A"
+    },
+    {
+     "cite": "Wikipedia, “Vena contracta”, §Coefficient of contraction",
+     "url": "https://en.wikipedia.org/wiki/Vena_contracta#Coefficient_of_contraction",
+     "quote": "The coefficient of contraction is defined as the ratio between the area of the jet at the vena contracta and the area of the orifice. … The typical value may be taken as 0.611 for a sharp orifice (concentric with the flow channel)."
+    }
+   ]
+  },
+  {
+   "key": "drain_time",
+   "unit": "s",
+   "expected": 68.254971223,
+   "measured": 68.255,
+   "deviation": 4.21610875189e-07,
+   "tolerance": 0.0001,
+   "derived": true,
+   "setting": {
+    "diameter_m": 0.08,
+    "fill_m": 0.9,
+    "hole_diameter_m": 0.008,
+    "discharge": 0.61,
+    "stand_m": 0.2,
+    "open": "lowest"
+   },
+   "sources": [
+    {
+     "cite": "Wikipedia, “Torricelli's law”, §Discharge and time to empty a cylindrical vessel",
+     "url": "https://en.wikipedia.org/wiki/Torricelli%27s_law#Discharge_and_time_to_empty_a_cylindrical_vessel",
+     "quote": "The total time T taken to drain all the water and hence empty the vessel is found by setting h(T)=0 and re-arranging: T = (A/A_A) √(2H/g)."
+    },
+    {
+     "cite": "Wikipedia, “Torricelli's law”, §Discharge experiment, coefficient of discharge",
+     "url": "https://en.wikipedia.org/wiki/Torricelli%27s_law#Discharge_experiment,_coefficient_of_discharge",
+     "quote": "The problem remains how to determine the cross-section of the vena contracta. This is normally done by introducing a discharge coefficient which relates the discharge to the orifice's cross-section and Torricelli's law: V̇_real = μ A_A v_A with μ = A_C/A_A"
+    }
+   ]
+  },
+  {
+   "key": "half",
+   "unit": "s",
+   "expected": 19.9914182215,
+   "measured": 19.9914182215,
+   "deviation": 8.88559690822e-16,
+   "tolerance": 1e-09,
+   "derived": true,
+   "setting": {
+    "diameter_m": 0.08,
+    "fill_m": 0.9,
+    "hole_diameter_m": 0.008,
+    "discharge": 0.61,
+    "stand_m": 0.2,
+    "open": "lowest"
+   },
+   "sources": [
+    {
+     "cite": "Wikipedia, “Torricelli's law”, §Discharge and time to empty a cylindrical vessel",
+     "url": "https://en.wikipedia.org/wiki/Torricelli%27s_law#Discharge_and_time_to_empty_a_cylindrical_vessel",
+     "quote": "Lastly, we can rewrite the function h(t) as h(t) = H (1 − t/T)², where H is the height of the container while T is the discharge time as given above."
+    },
+    {
+     "cite": "Wikipedia, “Torricelli's law”, §Discharge and time to empty a cylindrical vessel",
+     "url": "https://en.wikipedia.org/wiki/Torricelli%27s_law#Discharge_and_time_to_empty_a_cylindrical_vessel",
+     "quote": "The total time T taken to drain all the water and hence empty the vessel is found by setting h(T)=0 and re-arranging: T = (A/A_A) √(2H/g)."
+    },
+    {
+     "cite": "Wikipedia, “Torricelli's law”, §Discharge experiment, coefficient of discharge",
+     "url": "https://en.wikipedia.org/wiki/Torricelli%27s_law#Discharge_experiment,_coefficient_of_discharge",
+     "quote": "The problem remains how to determine the cross-section of the vena contracta. This is normally done by introducing a discharge coefficient which relates the discharge to the orifice's cross-section and Torricelli's law: V̇_real = μ A_A v_A with μ = A_C/A_A"
+    }
+   ]
+  },
+  {
+   "key": "farthest",
+   "unit": "m",
+   "expected": 1.1,
+   "measured": 1.1,
+   "deviation": 2.0185873175e-16,
+   "tolerance": 1e-09,
+   "derived": false,
+   "setting": {
+    "diameter_m": 0.08,
+    "fill_m": 0.9,
+    "hole_diameter_m": 0.008,
+    "discharge": 0.61,
+    "stand_m": 0.2,
+    "open": "all"
+   },
+   "sources": [
+    {
+     "cite": "Wikipedia, “Torricelli's law”, §Horizontal distance covered by the jet of liquid",
+     "url": "https://en.wikipedia.org/wiki/Torricelli%27s_law#Horizontal_distance_covered_by_the_jet_of_liquid",
+     "quote": "If h is height of the orifice above the ground and H is height of the liquid column from the ground (height of liquid's surface) … D = 2√(h(H − h)). … we obtain h* = H/2, and the maximum range D_max = H."
+    },
+    {
+     "cite": "Wikipedia, “Torricelli's law”, introduction",
+     "url": "https://en.wikipedia.org/wiki/Torricelli%27s_law",
+     "quote": "The law states that the speed v of efflux of a fluid through a sharp-edged hole in the wall of the tank filled to a height h above the hole is the same as the speed that a body would acquire in falling freely from a height h, v = √(2gh)"
     }
    ]
   }

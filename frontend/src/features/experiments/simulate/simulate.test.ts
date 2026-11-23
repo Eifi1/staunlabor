@@ -18,15 +18,18 @@ import cases from "./engine-cases.json";
 import * as cannon from "./cannon";
 import * as chaos from "./chaos";
 import * as diver from "./diver";
+import * as ship from "./ship";
 import * as colour from "./colour";
 import * as rainbow from "./rainbow";
 import * as sky from "./sky";
 import * as slits from "./slits";
+import * as polarizer from "./polarizer";
+import * as jet from "./jet";
 import * as beats from "./beats";
 import * as coil from "./coil";
 import * as shared from "./constants";
 import * as numerics from "./numerics";
-import { TO_DEG, roundHalfEven } from "./python";
+import { TO_DEG, TO_RAD, roundHalfEven } from "./python";
 import * as cone from "./cone";
 import * as coriolis from "./coriolis";
 import * as coupled from "./coupled";
@@ -38,11 +41,16 @@ import * as arch from "./arch";
 import * as bounce from "./bounce";
 import * as levitation from "./levitation";
 import * as circuit from "./circuit";
+import * as vessel from "./vessel";
 import * as chladni from "./chladni";
 import * as elephant from "./elephant";
+import * as film from "./film";
 import * as foucault from "./foucault";
+import * as galton from "./galton";
 import * as harmonograph from "./harmonograph";
+import * as kapitza from "./kapitza";
 import * as maxwell from "./maxwell";
+import * as metronomes from "./metronomes";
 import * as overhang from "./overhang";
 import * as parabola from "./parabola";
 import * as peg from "./peg";
@@ -52,6 +60,8 @@ import * as platform from "./platform";
 import * as plates from "./plates";
 import * as smoke from "./smoke";
 import * as sphere from "./sphere";
+import * as spring from "./spring";
+import * as string from "./string";
 import * as waterwheel from "./waterwheel";
 import * as wave from "./wave";
 
@@ -567,6 +577,82 @@ describe("the coupled pendulums' port", () => {
   });
 });
 
+describe("the metronomes' port", () => {
+  it.each(cases.metronomes.map((c) => [c.name, c] as const))("swings %s as the engine does", (_name, c) => {
+    const mt = c.mt as metronomes.Metronomes;
+    const start = c.start as metronomes.Start;
+    expect(differences(c.detunings, metronomes.detunings(mt))).toEqual([]);
+    expect(differences(c.moving_kg, metronomes.movingKg(mt))).toEqual([]);
+    expect(differences(c.board_scale_m, metronomes.boardScaleM(mt))).toEqual([]);
+    expect(differences(c.coupling, metronomes.coupling(mt))).toEqual([]);
+    expect(differences(c.start_state, metronomes.startState(start, mt.count))).toEqual([]);
+    expect(differences(c.run, metronomes.run(mt, start, 4.0, c.step_s))).toEqual([]);
+  });
+
+  it("steps three started and two held as the engine does, the hand's way, and finds them in step when it does", () => {
+    const hand = cases.metronomes_hand;
+    const mt = cases.metronomes[0].mt as metronomes.Metronomes;
+    const running = hand.running;
+    const f = metronomes.rhs(mt, running);
+    let y = metronomes.startState("scattered", 5).map((v, i) => (running[i % 5] ? v : 0.0));
+    expect(differences(hand.first_rates, f(0.0, y))).toEqual([]);
+    const h = metronomes.STEP_S * metronomes.RATE_PER_S;
+    for (let k = 0; k < roundHalfEven(2.0 / metronomes.STEP_S); k++) y = numerics.rk4(f, k * h, y, h);
+    expect(differences(hand.last, y)).toEqual([]);
+    expect(differences(hand.order, metronomes.order(y, running))).toEqual([]);
+    expect(differences(hand.board_m, metronomes.boardM(mt, y))).toEqual([]);
+    expect(
+      differences(
+        hand.phase,
+        [0, 1, 2, 3, 4].map((i) => metronomes.phase(y[i], y[5 + i])),
+      ),
+    ).toEqual([]);
+    const long = metronomes.run(mt, "scattered", 70.0);
+    expect(differences(hand.long_order, long.order)).toEqual([]);
+    expect(metronomes.inStepS(long)).toBe(hand.in_step_s);
+    expect(metronomes.inStepS(long, 0.95)).toBe(hand.in_step_95_s);
+  });
+
+  it("lets a metronome go from its full swing and holds a stopped one upright", () => {
+    const y = metronomes.release(new Array<number>(4).fill(0), 1);
+    expect(y).toEqual([0, 2 * metronomes.THETA0_RAD, 0, 0]);
+    expect(metronomes.hold(y, 1)).toEqual([0, 0, 0, 0]);
+  });
+
+  it("refuses what the engine refuses", () => {
+    expect(() => metronomes.startState("together", 8)).toThrow(RangeError);
+    expect(() => metronomes.rhs(cases.metronomes[0].mt as metronomes.Metronomes, [true])).toThrow(RangeError);
+    expect(() => metronomes.run(cases.metronomes[0].mt as metronomes.Metronomes, "scattered", 1000)).toThrow(
+      RangeError,
+    );
+  });
+});
+
+describe("the Wilberforce spring's port", () => {
+  it.each(cases.spring.map((c) => [c.name, c] as const))("bobs and twists %s as the engine does", (_name, c) => {
+    const s = c.s as spring.WilberforceSpring;
+    expect(differences(c.inertia_kg_m2, spring.inertiaKgM2(s))).toEqual([]);
+    expect(differences(c.alone_rates, spring.aloneRates(s))).toEqual([]);
+    expect(differences(c.mode_rates, spring.modeRates(s))).toEqual([]);
+    expect(differences(c.beat_s, spring.beatS(s))).toEqual([]);
+    expect(differences(c.exchange_share, spring.exchangeShare(s))).toEqual([]);
+    expect(differences(c.tuned_radius_m, spring.tunedRadiusM(s))).toEqual([]);
+    if (c.start !== null) {
+      const [pull, twist] = spring.startState(s, c.start as spring.Start);
+      expect(differences([c.pull_m, c.twist_rad], [pull, twist])).toEqual([]);
+    }
+    const run = spring.run(s, c.pull_m, c.twist_rad, 4.0, c.step_s);
+    expect(differences(c.run, run)).toEqual([]);
+  });
+
+  it("refuses what the engine refuses", () => {
+    const s = cases.spring[0].s as spring.WilberforceSpring;
+    expect(() => spring.run(s, 0.07, 0, 1)).toThrow(RangeError);
+    expect(() => spring.run(s, 0, 4, 1)).toThrow(RangeError);
+    expect(() => spring.run(s, 0.02, 0, 1000)).toThrow(RangeError);
+  });
+});
+
 describe("Galileo's pendulum's port", () => {
   it.each(cases.peg.map((c) => [c.name, c] as const))("swings %s as the engine does", (_name, c) => {
     expect(peg.outcome(c.p)).toBe(c.outcome);
@@ -612,6 +698,63 @@ describe("the chaotic pendulum's port", () => {
     const dp = cases.chaos[0].dp as chaos.DoublePendulum;
     expect(() => chaos.run(dp, 200, 10, 1)).toThrow(RangeError);
     expect(() => chaos.run(dp, 10, 10, 1, 0)).toThrow(RangeError);
+  });
+});
+
+/** The engine's `kapitza.run`, built from the port's `advance`, the page's
+ *  frame loop: let go at rest, sampled as the engine samples. */
+function runFrom(k: kapitza.KapitzaPendulum, startDeg: number, durationS: number, stepS: number) {
+  const steps = roundHalfEven(durationS / stepS);
+  const every = numerics.sampleEvery(stepS);
+  const out = { t: [] as number[], theta_deg: [] as number[], pivot_m: [] as number[] };
+  let y = kapitza.startState(startDeg);
+  for (let i = 0; i <= steps; i += every) {
+    out.t.push(i * stepS);
+    out.theta_deg.push(y[0] * TO_DEG);
+    out.pivot_m.push(kapitza.pivotM(k, i * stepS));
+    y = kapitza.advance(k, y, i, Math.min(every, steps - i), stepS);
+  }
+  return out;
+}
+
+describe("Kapitza's pendulum's port", () => {
+  it.each(cases.kapitza.map((c) => [c.name, c] as const))("shakes %s as the engine does", (_name, c) => {
+    const k = c.k as kapitza.KapitzaPendulum;
+    // What the case was asked, as it was asked; the rest the port's answers.
+    const port = {
+      name: c.name,
+      k: c.k,
+      start_deg: c.start_deg,
+      duration_s: c.duration_s,
+      step_s: c.step_s,
+      step_for: kapitza.stepFor(k),
+      kapitza_hz: kapitza.kapitzaFrequencyHz(k),
+      own_hz: kapitza.ownFrequencyHz(k),
+      slow_top: kapitza.slowRateTop(k),
+      stable_top: kapitza.stable(k, "top"),
+      stable_bottom: kapitza.stable(k, "bottom"),
+      potential: cases.inputs.kapitza_angles.map((a) => kapitza.effectivePotential(k, a * TO_RAD)),
+      floquet:
+        c.floquet === null
+          ? null
+          : {
+              monodromy_top: kapitza.monodromy(k, "top"),
+              multipliers_top: kapitza.multipliers(k, "top"),
+              multipliers_bottom: kapitza.multipliers(k, "bottom"),
+              least_hz: kapitza.leastFrequencyHz(k),
+              band_hz: kapitza.swingUpBandHz(k),
+            },
+      run: runFrom(k, c.start_deg, c.duration_s, c.step_s),
+    };
+    expect(differences(c, port)).toEqual([]);
+  });
+
+  it("refuses what the engine refuses", () => {
+    const k = cases.kapitza[0].k as kapitza.KapitzaPendulum;
+    expect(kapitza.refusal({ ...k, amplitude_m: 0.07 })).not.toBeNull();
+    expect(kapitza.refusal({ ...k, frequency_hz: 250 })).not.toBeNull();
+    expect(() => kapitza.startState(190)).toThrow(RangeError);
+    expect(() => kapitza.monodromy({ ...k, frequency_hz: 0 })).toThrow(RangeError);
   });
 });
 
@@ -887,6 +1030,80 @@ describe("the slow LC circuit's port", () => {
   });
 });
 
+describe("the draining vessel's port", () => {
+  /** The engine's `run`, replayed through the page's own clock: every hole
+   *  plugged, each plug at the first step that starts at or after its moment,
+   *  one `advance` a step, a sample every so many steps. */
+  function replay(c: (typeof cases.vessel)[number]) {
+    const v = c.vessel;
+    const pending = [...c.plugs].sort((a, b) => a.at_s - b.at_s);
+    const opened = v.holes_m.map(() => false);
+    const steps = Math.ceil(c.duration_s / vessel.STEP_S - 1e-9);
+    const every = Math.max(1, Math.round(1 / (cases.inputs.vessel.samples_per_s * vessel.STEP_S)));
+    const out = { t_s: [] as number[], level_m: [] as number[], outflow_l_min: [] as number[] };
+    const ranges: number[][] = v.holes_m.map(() => []);
+    let state = vessel.filled(v);
+    for (let n = 0; n <= steps; n++) {
+      const t = n * vessel.STEP_S;
+      while (pending.length && pending[0].at_s <= t) {
+        const plug = pending.shift()!;
+        opened[plug.hole] = plug.opened;
+      }
+      if (n % every === 0 || n === steps) {
+        out.t_s.push(t);
+        out.level_m.push(state.level_m);
+        out.outflow_l_min.push(vessel.outflow(v, state.level_m, opened));
+        v.holes_m.forEach((y, i) => ranges[i].push(opened[i] ? vessel.jetRange(v, state.level_m, y) : 0.0));
+      }
+      if (n < steps) state = vessel.advance(v, state, opened, (n + 1) * vessel.STEP_S);
+    }
+    return { ...out, ranges_m: ranges };
+  }
+
+  it("drains as the engine does under the hand's plugs: the level, the outflow, the jets and the figures", () => {
+    const { levels, times } = cases.inputs.vessel;
+    for (const c of cases.vessel) {
+      const v = c.vessel;
+      expect(differences(c.figures, vessel.figures(v))).toEqual([]);
+      expect(
+        differences(
+          c.ranges,
+          levels.map((h) => v.holes_m.map((y) => vessel.jetRange(v, h, y))),
+        ),
+      ).toEqual([]);
+      expect(
+        differences(
+          c.exact,
+          v.holes_m.map((y) => times.map((t) => vessel.levelExact(v, y, t))),
+        ),
+      ).toEqual([]);
+      expect(
+        differences(
+          c.drain_s,
+          v.holes_m.map((y) => vessel.drainTime(v, y)),
+        ),
+      ).toEqual([]);
+      expect(differences(c.run, replay(c))).toEqual([]);
+    }
+  });
+
+  it("steps by frames of any length to the bit of whole steps, a frame never splitting a step", () => {
+    const v = cases.vessel[0].vessel;
+    const opened = [true, false, true];
+    let framed = vessel.filled(v);
+    let stepped = vessel.filled(v);
+    // Frames of 1/60 s, every seventh a dropped one of 50 ms, as a browser gives them.
+    let clock = 0;
+    for (let frame = 0; clock < 20; frame++) {
+      clock = Math.min(20, clock + (frame % 7 === 3 ? 0.05 : 1 / 60));
+      framed = vessel.advance(v, framed, opened, clock);
+    }
+    for (let n = 0; n < 4000; n++)
+      stepped = { steps: n + 1, level_m: vessel.step(v, stepped.level_m, opened, vessel.STEP_S) };
+    expect(framed).toEqual(stepped);
+  });
+});
+
 describe("the falling plates' port", () => {
   it("brakes, falls and draws the currents as the engine does", () => {
     const { times, depths, points, terms } = cases.inputs.plates;
@@ -1010,6 +1227,37 @@ describe("the Cartesian diver's port", () => {
   });
 });
 
+describe("the ship's port", () => {
+  it("floats, finds the centre of buoyancy, rolls and draws the curve as the engine does", () => {
+    const { steps, angles_deg: angles } = cases.inputs.ship;
+    for (const c of cases.ship) {
+      const hull = c.hull as ship.Hull;
+      const weight = c.weight as ship.Weight;
+      // The engine's run: let go at rest at the start's heel, every step's heel and rate.
+      const states: [number, number][] = [[c.start_deg * (Math.PI / 180), 0]];
+      for (let i = 0; i < steps; i++) states.push(ship.step(hull, weight, c.damping_per_s, ...states[i]));
+      expect(differences(c.run, { phi: states.map((s) => s[0]), rate: states.map((s) => s[1]) })).toEqual([]);
+      const rad = angles.map((a) => a * (Math.PI / 180));
+      expect(differences(c.arm_m, ship.curveM(hull, weight, angles))).toEqual([]);
+      expect(
+        differences(
+          c.centre,
+          rad.map((a) => ship.buoyancyCentre(hull, weight, a)),
+        ),
+      ).toEqual([]);
+      expect(
+        differences(
+          c.waterline,
+          rad.map((a) => ship.waterline(ship.section(hull), ship.displacedM2(hull, weight), a)),
+        ),
+      ).toEqual([]);
+      expect(differences(c.gravity_m, ship.gravityM(hull, weight))).toEqual([]);
+      expect(differences(c.inertia_kg_m2, ship.inertiaKgM2(hull, weight))).toEqual([]);
+      expect(differences(c.figures, ship.figures(hull, weight))).toEqual([]);
+    }
+  });
+});
+
 describe("the colour port", () => {
   it("weighs a spectrum by the observer and shows it as the engine does", () => {
     const c = cases.colour;
@@ -1108,6 +1356,35 @@ describe("the blue sky's port", () => {
   });
 });
 
+describe("the soap film's port", () => {
+  it("finds the tear, the equal areas and both catenoids where the engine does, a hair either side of each", () => {
+    const c = cases.film;
+    expect(
+      differences(c.constants, {
+        tangent_t: film.TANGENT_T,
+        tear_ratio: film.TEAR_RATIO,
+        equal_t: film.EQUAL_T,
+        equal_ratio: film.EQUAL_RATIO,
+      }),
+    ).toEqual([]);
+    expect(
+      differences(
+        c.spans,
+        c.spans.map(([t]) => [t, film.span(t)]),
+      ),
+    ).toEqual([]);
+    for (const k of c.cases) {
+      const both = film.catenoids(k.rings);
+      expect(differences(k.catenoids, both)).toEqual([]);
+      expect(film.tears(k.rings)).toBe(k.tears);
+      expect(differences(k.figures, film.figures(k.rings))).toEqual([]);
+      const profile =
+        both && both.map((cat) => c.zs.map((z) => film.radiusAt(cat.neck_m, (z * k.rings.distance_m) / 2)));
+      expect(differences(k.profile, profile)).toEqual([]);
+    }
+  });
+});
+
 describe("the double slit's port", () => {
   it("lights the wall behind two slits, and one, under a laser and white light as the engine does", () => {
     const nms = cases.inputs.slits_nm;
@@ -1135,6 +1412,116 @@ describe("the double slit's port", () => {
         }),
       ).toEqual([]);
     }
+  });
+});
+
+describe("the third polarising filter's port", () => {
+  it("lets each filter of a stack, ideal or real, pass the light the engine does", () => {
+    for (const c of cases.polarizer) {
+      const sheet = c.sheet as polarizer.Sheet;
+      expect(
+        differences(c, {
+          sheet: c.sheet,
+          stacks: c.stacks.map((s) => ({ angles: s.angles, through: polarizer.through(s.angles, sheet) })),
+          three: c.three.map((t) => ({
+            last_deg: t.last_deg,
+            middles: t.middles,
+            light: t.middles.map((m) => polarizer.three(m, sheet, t.last_deg)),
+          })),
+          between: c.between.map((b) => ({
+            between: b.between,
+            angles: polarizer.evenly(b.between),
+            light: polarizer.stacked(b.between, sheet),
+          })),
+          figures: polarizer.figures(sheet),
+        }),
+      ).toEqual([]);
+    }
+  });
+
+  it("keeps the engine's sheets", () => {
+    expect(cases.polarizer.map((c) => c.sheet).slice(0, 2)).toEqual([polarizer.IDEAL, polarizer.POLAROID]);
+  });
+});
+
+describe("the water jet's port", () => {
+  it("bends the jet, traces the beam through it and lets its light out as the engine does", () => {
+    const { along, cosines } = cases.inputs.jet;
+    for (const c of cases.jet) {
+      const j = c.jet as jet.Jet;
+      const land = jet.landingM(j);
+      expect(
+        differences(c, {
+          jet: c.jet,
+          speed_m_s: jet.speedMS(j),
+          bend_radius_m: jet.bendRadiusM(j),
+          landing_m: land,
+          critical: jet.criticalAngle(j.index),
+          axis: along.map((s) => jet.axisY(j, s * land)),
+          normal: along.map((s) => jet.axisNormal(j, s * land)),
+          reflectance: cosines.map((cos) => jet.reflectance(j.index, cos)),
+          beams: c.beams.map(({ tilt_deg }) => {
+            const b = jet.beam(j, tilt_deg);
+            return { tilt_deg, beam: b, figures: jet.figuresOf(j, b) };
+          }),
+        }),
+      ).toEqual([]);
+    }
+  });
+});
+
+describe("the standing string's port", () => {
+  it("answers the cord's tones, its steady swing and its stepped modes as the engine does", () => {
+    const c = cases.string;
+    expect(c.constants).toEqual({
+      MODES: string.MODES,
+      VIBRATOR_HZ: string.VIBRATOR_HZ,
+      MAX_DRIVE_HZ: string.MAX_DRIVE_HZ,
+      MAX_STEP_S: string.MAX_STEP_S,
+    });
+    for (const k of c.cords) {
+      const cord = k.cord as string.Cord;
+      const f1 = string.modeHz(cord, 1);
+      const drives = [0.3, 1.0, 1.5, 3.0, 4.6].map((share) => share * f1);
+      const xs = c.points.map((p) => cord.length_m * p);
+      let s = string.start();
+      const frames = k.run.frames.map((frame) => {
+        for (let i = 0; i < frame.count; i++) s = string.step(cord, s, frame.drive_hz, frame.dt);
+        return {
+          drive_hz: frame.drive_hz,
+          dt: frame.dt,
+          count: frame.count,
+          t: s.t,
+          theta: s.theta,
+          q: s.q,
+          v: s.v,
+          place_m: xs.map((x) => string.placeM(cord, s, x)),
+          rate_m_s: xs.map((x) => string.rateMS(cord, s, frame.drive_hz, x)),
+          swing_m: xs.map((x) => string.swingM(cord, s, frame.drive_hz, x)),
+          strobe_m: xs.map((x) => string.strobeM(cord, s, frame.drive_hz, x, c.phase)),
+        };
+      });
+      expect(
+        differences(k, {
+          cord: k.cord,
+          wave_speed_m_s: string.waveSpeedMS(cord),
+          modes_hz: [1, 2, 3, 4, 5, 6].map((n) => string.modeHz(cord, n)),
+          drives_hz: drives,
+          half_waves: drives.map((f) => string.halfWaves(cord, f)),
+          pulls_n: [0.5, 1, 2.5, 3].map((n) => string.pullN(cord, string.VIBRATOR_HZ, n)),
+          wavenumber: drives.map((f) => [...string.wavenumber(cord, f)]),
+          widest_m: drives.map((f) => string.widestM(cord, f)),
+          run: { frames },
+        }),
+      ).toEqual([]);
+    }
+  });
+
+  it("refuses a drive past its range and a step longer than a frame", () => {
+    const cord = cases.string.cords[0].cord as string.Cord;
+    expect(() => string.step(cord, string.start(), 0, 0.01)).toThrow();
+    expect(() => string.step(cord, string.start(), 10, 0.06)).toThrow();
+    expect(() => string.modeHz(cord, 0)).toThrow();
   });
 });
 
@@ -1213,5 +1600,37 @@ describe("the Chladni plate's port", () => {
     across.forEach((x, i) =>
       across.forEach((y, j) => expect(grid[i * 5 + j]).toBeCloseTo(chladni.modeValue(modes[0], c.degree, x, y), 12)),
     );
+  });
+});
+
+describe("the Galton board's port", () => {
+  const c = cases.galton;
+  it("builds every board's shares, figures and normal curve as the engine does", () => {
+    for (const b of c.boards) {
+      expect(differences(b.shares, galton.shares(b.rows, b.p))).toEqual([]);
+      expect(differences(b.figures, galton.figures(b.rows, b.p))).toEqual([]);
+      if (b.normal)
+        expect(
+          differences(
+            b.normal,
+            b.normal.map((_, k) => galton.normal(b.rows, b.p, k)),
+          ),
+        ).toEqual([]);
+    }
+    c.paths.forEach((row, i) => expect(galton.paths(i + 1)).toEqual(row));
+  });
+
+  it("draws the engine's numbers from every seed, to the last bit", () => {
+    for (const u of c.uniforms) expect(galton.uniforms(u.seed, u.draws.length)).toEqual(u.draws);
+  });
+
+  it("drops every run's balls into the engine's bins", () => {
+    for (const r of c.runs) {
+      const run = galton.drop(r.rows, r.p, r.balls, r.seed);
+      expect(run.counts).toEqual(r.counts);
+      expect(run.bins.slice(0, r.first_bins.length)).toEqual(r.first_bins);
+      expect(run.turns.slice(0, r.turns.length)).toEqual(r.turns);
+      expect(differences([r.mean, r.variance], [run.mean, run.variance])).toEqual([]);
+    }
   });
 });

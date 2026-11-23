@@ -148,7 +148,8 @@
       "flow": "Flow",
       "induction": "Induction",
       "light": "Light",
-      "perception": "Perception"
+      "perception": "Perception",
+      "chance": "Chance"
     },
     "frame": {
       "eyebrow": "Exhibit",
@@ -392,6 +393,66 @@
         "title": "Beats",
         "summary": "Two tuning forks, nearly in tune, sound together like one tone that slowly swells and fades. A small rider on one fork sets how fast.",
         "question": "Why does the tone of two nearly equal tuning forks swell and fade?"
+      },
+      "galton": {
+        "short": "Galton board",
+        "title": "The Galton board",
+        "summary": "Balls fall through rows of pins, bouncing left or right at each – and every time they pile up into the same bell below.",
+        "question": "Which bin do most of the balls fall into – and why the same one every time?"
+      },
+      "spring": {
+        "short": "Wilberforce spring",
+        "title": "The Wilberforce spring",
+        "summary": "A weight on a coil spring bobs, then only twists, then bobs again: the energy wanders back and forth between two oscillations.",
+        "question": "A weight is pulled down on its spring and let go. How long until the energy is in the twisting and back in the bobbing?"
+      },
+      "polarizer": {
+        "short": "Polarising filters",
+        "title": "The third polarising filter",
+        "summary": "Two crossed polarising filters let no light through. Slide a third between them, slanted, and it gets bright again – though a filter can only take light away.",
+        "question": "How can one more filter let more light through?"
+      },
+      "vessel": {
+        "short": "Draining vessel",
+        "title": "The draining vessel",
+        "summary": "A tall tube full of water with a hole at the bottom: the jet grows ever shorter, and the tube empties ever more slowly.",
+        "question": "When half the water has run out – is half the time up too?"
+      },
+      "kapitza": {
+        "short": "Kapitza's pendulum",
+        "title": "The pendulum that stands upside down",
+        "summary": "A rod that ought to fall over stays standing upright – as long as its pivot is shaken up and down fast enough.",
+        "question": "The pivot shakes up and down by a centimetre. How fast must it shake for the rod to stay standing upside down?"
+      },
+      "film": {
+        "short": "Soap film",
+        "title": "The soap film between two rings",
+        "summary": "A soap film between two rings draws itself in to a waist. Draw the rings apart, and at one distance it snaps into two flat discs.",
+        "question": "How far can the rings be drawn apart before the soap film tears?"
+      },
+      "metronomes": {
+        "short": "Metronomes",
+        "title": "The metronomes that agree",
+        "summary": "Five metronomes on a board that rests on two cans: started at random, they soon all tick in step – on the table, never.",
+        "question": "Five metronomes, started at random, stand on a board on two cans. Will they ever tick together – and how long does it take?"
+      },
+      "ship": {
+        "short": "Self-righting ship",
+        "title": "The ship that rights itself",
+        "summary": "A model hull floats in a basin. With the weight low it rights itself when tilted; with the weight high up the mast a small push capsizes it.",
+        "question": "Why does the tilted hull right itself while the weight is low, and why does it capsize when the weight is up the mast?"
+      },
+      "string": {
+        "short": "Standing string",
+        "title": "The standing string",
+        "summary": "A cord shaken at one end and pulled tight by hand at the other: at certain pulls it stands still in one, two, three loops.",
+        "question": "Why does the cord stand still in loops only at certain pulls?"
+      },
+      "jet": {
+        "short": "Light in a water jet",
+        "title": "The light in the water jet",
+        "summary": "A laser shines through a tank of water into the hole the water flows out of: the light follows the bending jet into the basin instead of going on straight.",
+        "question": "Why does the light follow the water jet round its bend?"
       }
     },
     "chair": {
@@ -769,7 +830,10 @@
       "links": {
         "first_order": "First-order systems",
         "second_order": "Second-order systems",
-        "numerics": "Numerical solution"
+        "numerics": "Numerical solution",
+        "eigenvalues": "Eigenvalues and the pole plane",
+        "laplace": "Laplace and Bode",
+        "two_mass": "The two-mass oscillator"
       }
     },
     "race": {
@@ -3659,7 +3723,143 @@
         "top_b": "2mgd/I₁",
         "below_level": "how far the axle is below the level",
         "torque": "torque the hands supply",
-        "suitcase_turn": "how fast the suitcase is turned"
+        "suitcase_turn": "how fast the suitcase is turned",
+        "galton_share": "share of the balls in bin k",
+        "galton_rows": "number of rows",
+        "galton_bin": "bin, counted from the left from 0",
+        "galton_p": "share to the right at every pin",
+        "galton_mean": "the distribution’s middle",
+        "galton_paths": "number of paths into bin k",
+        "galton_variance": "the distribution’s variance, in bins squared",
+        "galton_run_mean": "a run’s middle",
+        "galton_balls": "number of balls in a run",
+        "galton_ball_bin": "bin of ball i",
+        "galton_standard_error": "standard error of a run’s middle",
+        "galton_q": "share to the left, 1 − p",
+        "galton_half": "half the number of rows, n/2",
+        "spring_T1": "period of the faster mode",
+        "spring_T2": "period of the slower mode",
+        "spring_omega12": "angular frequencies of the two normal modes",
+        "spring_omega2": "angular frequency of the slower mode",
+        "spring_omega_z": "angular frequency of bobbing alone, squared",
+        "spring_omega_theta": "angular frequency of twisting alone, squared",
+        "spring_epsilon": "coupling between stretching and twisting",
+        "spring_z0": "displacement at the start, downwards",
+        "spring_theta0": "twist at the start",
+        "spring_T_beat": "time for once into twisting and back",
+        "spring_omega_B": "beat frequency",
+        "spring_omega_B_measured": "measured beat frequency",
+        "spring_E": "energy of the weight and the spring",
+        "spring_z": "displacement downwards",
+        "spring_theta": "twist",
+        "spring_k": "spring constant against stretching",
+        "spring_delta": "spring constant against twisting",
+        "spring_pull": "how far the weight is pulled down at the start",
+        "pol_I": "Light that comes through (intensity)",
+        "pol_I0": "Light before the filter, polarised",
+        "pol_I1": "Light behind the front filter",
+        "pol_I3": "Light behind the third filter",
+        "pol_IL": "The lamp's light, unpolarised",
+        "pol_theta": "Angle between the light's swing and the axis",
+        "pol_k1": "Transmission along the axis",
+        "pol_k2": "Transmission across the axis",
+        "pol_n": "Filters between the crossed pair",
+        "pol_eps": "Extinction ratio",
+        "vessel_flow": "outflow",
+        "vessel_mu": "discharge coefficient, A_C/A_A",
+        "vessel_hole": "the hole's area",
+        "vessel_speed": "the jet's speed at the hole",
+        "vessel_head": "water depth above the hole at the start",
+        "vessel_area": "the tube's cross-section",
+        "vessel_T": "time until the water above the hole has run out",
+        "vessel_depth": "water depth above the hole",
+        "vessel_D": "the jet's range on the basin's floor",
+        "vessel_orifice": "the hole's height above the basin's floor",
+        "vessel_surface": "the surface's height above the basin's floor",
+        "kap_a": "the pivot's stroke",
+        "kap_omega": "the motor's angular frequency",
+        "kap_l": "the rod's length",
+        "kap_f": "the motor's least frequency",
+        "kap_lambda": "Mathieu's parameter a (a in the source, λ here to keep it apart from the stroke)",
+        "kap_q": "Mathieu's parameter q",
+        "kap_z": "time in Mathieu's measure, ωt/2",
+        "kap_w": "the small deviation from the top or the bottom",
+        "kap_period": "period of the wobble about the top",
+        "kap_Omega": "angular frequency of the wobble about the top",
+        "kap_band": "width of the band in which the hanging rod swings itself up",
+        "kap_a0": "Mathieu's characteristic value at which the stable region begins",
+        "kap_a1b1": "Mathieu's characteristic values between which the first unstable region lies",
+        "film_u_tear": "u = x₀/a at the largest distance",
+        "film_u_equal": "u = y₀/a, the rings’ radius in radii of the waist",
+        "film_x0": "half the distance between the rings",
+        "film_y0": "radius of the rings",
+        "film_R": "radius of the rings",
+        "film_hmax": "the largest distance with a film",
+        "film_h0": "distance at which film and discs have the same area",
+        "film_a": "radius of the waist",
+        "film_A": "area of the film",
+        "film_S": "area of the film",
+        "film_Abar": "the film’s area over the two discs’",
+        "metronomes_amplitude": "the swing at which a lone metronome settles",
+        "metronomes_theta0": "the angle at which the drive turns to braking",
+        "metronomes_T_drift": "the time in which the faster gains a swing",
+        "metronomes_omega": "the metronomes' angular frequency",
+        "metronomes_delta": "the difference of the two angular frequencies, in units of ω",
+        "metronomes_gamma": "how much the wide swing slows the pendulum",
+        "metronomes_psi": "how far the faster one leads",
+        "metronomes_mu": "the strength of the drive",
+        "metronomes_beta": "the coupling through the board",
+        "metronomes_x0": "how far the board moves per unit of Σ sin θⱼ",
+        "metronomes_R": "the order parameter: how much they agree",
+        "metronomes_phi": "the phase of metronome j",
+        "metronomes_N": "the number of metronomes",
+        "ship_GM": "metacentric height",
+        "ship_KB": "height of the centre of buoyancy above the bottom",
+        "ship_It": "second moment of area of the waterline about the long axis",
+        "ship_volume": "displaced volume",
+        "ship_KG": "height of the centre of gravity above the bottom",
+        "ship_d": "draft",
+        "ship_L": "length of the hull",
+        "ship_b": "beam of the hull",
+        "ship_m": "mass of hull and weight",
+        "ship_rho": "density of the water",
+        "ship_GZ": "arm between buoyancy and weight",
+        "ship_GN": "distance from G to where the line of buoyancy crosses the middle line",
+        "ship_phi": "heel",
+        "ship_KB90": "height of the centre of buoyancy above the bottom, lying on its side",
+        "ship_H": "depth of the hull",
+        "ship_a44": "radius of gyration of the water carried along",
+        "ship_k": "radius of gyration about the long axis through G",
+        "ship_I": "moment of inertia about the long axis through G",
+        "string_f": "The string's lowest tone",
+        "string_fn": "The string's n-th tone",
+        "string_v": "Wave speed",
+        "string_L": "Length from the vibrator to the peg",
+        "string_T": "Pull on the cord",
+        "string_mu": "The cord's mass per metre",
+        "string_n": "Number of loops",
+        "string_drive": "The vibrator's tone",
+        "string_nodes": "Number of nodes, the ends included",
+        "string_loops": "Number of loops",
+        "string_lambda": "Wavelength",
+        "string_d": "Distance between two nodes",
+        "string_Y": "Steady swing at the point x, complex",
+        "string_x": "Place along the cord, from the vibrator",
+        "string_A": "The vibrator's stroke",
+        "string_kappa": "Complex wavenumber",
+        "string_Omega": "The vibrator's angular frequency",
+        "string_gamma": "Damping",
+        "jet_critical": "critical angle",
+        "jet_n1": "index inside (water)",
+        "jet_n2": "index outside (air)",
+        "jet_incidence": "angle of incidence, from the normal",
+        "jet_refraction": "angle of refraction, from the normal",
+        "jet_let_out": "share let out",
+        "jet_landing": "distance from the hole where the jet meets the basin",
+        "jet_speed": "speed at the hole",
+        "jet_fall": "time to fall",
+        "jet_level": "water level above the hole",
+        "jet_drop": "height of the hole above the basin"
       },
       "cases": {
         "sphere": {
@@ -4745,6 +4945,355 @@
             "why": "Checks the torque the page gives, with spin and angle in their units: 5.92 N·m.",
             "step": "The source gives τ = Ω × L, in size Ω·L·sin θ; the axle is level, sin θ = 1, and L = I₃·ω₃ with the hoop's I₃ = m·r² from the second."
           }
+        },
+        "galton": {
+          "eight_rows": {
+            "title": "Eight rows, the middle bin",
+            "setting": "Eight rows, level (p = 0.5).",
+            "reads": "C(8, 4) = 70 of the 2⁸ = 256 paths lead into the middle bin of eight rows, each with the probability 1/256.",
+            "why": "Checks the shares the page computes row by row against the closed formula: 70/256 = 0.2734375, exactly."
+          },
+          "paths": {
+            "title": "The paths to the middle",
+            "setting": "Twelve rows, as the exhibit’s board.",
+            "reads": "The number of paths into bin k is the binomial coefficient n!/(k!·(n − k)!).",
+            "why": "Checks the number the trick names: 924 paths into the middle bin, computed here with factorials, on the page with additions in Pascal’s triangle."
+          },
+          "tilted_mean": {
+            "title": "A slanted board: the middle",
+            "setting": "Twelve rows, seven bounces in ten to the right (p = 0.7).",
+            "reads": "The middle of the binomial distribution is n·p = 12 · 0.7 = 8.4.",
+            "why": "Checks that the page’s shares have the right middle on a slanted board too: Σ k·P(k) = 8.4 bins."
+          },
+          "tilted_spread": {
+            "title": "A slanted board: the spread",
+            "setting": "Twelve rows, p = 0.7.",
+            "reads": "The variance is n·p·(1 − p) = 12 · 0.7 · 0.3 = 2.52; the spread is its root, 1.59 bins.",
+            "why": "Checks the heap’s width: Σ (k − μ)²·P(k) = 2.52, to 10⁻¹²."
+          },
+          "seeded_run": {
+            "title": "The exhibit’s run",
+            "setting": "Twelve rows, level, 500 balls, seed 1874.",
+            "reads": "The middle expected is n·p = 6. The middle of N balls scatters about it with the standard error σ/√N, here √3/√500 = 0.077 bins.",
+            "why": "Checks the balls the page drops: their middle, 5.876, lies 1.6 standard errors from 6. Three are allowed, 3.87 % of 6. A random generator that favoured one side would fail here.",
+            "step": "The sources give one ball’s middle n·p and spread σ = √(n·p·(1 − p)), and the standard error σ/√N of the middle of N balls. A run’s middle lies more than three standard errors off in only about three runs in a thousand; that is the deviation allowed, 3·√3/(√500·6) = 3.87 %."
+          },
+          "de_moivre": {
+            "title": "24 rows and the normal curve",
+            "setting": "24 rows, level, the middle bin.",
+            "reads": "The normal curve with the middle n·p = 12 and the variance n·p·q = 6 is 1/√(2π·6) = 0.16287 high at its middle.",
+            "why": "Checks how close the page’s bell comes to the normal curve: the middle bin has 0.16118, 1.036 % less.",
+            "step": "De Moivre and Laplace say only that the ratio tends to 1. How fast, the series of the central binomial coefficient says: with n = 2m rows the middle bin is C(2m, m)/4ᵐ = (1 − 1/(8m) + 1/(128m²) + …)/√(πm), and 1/√(πm) is exactly the normal curve’s height. So it lies 1/(8m) − 1/(128m²) − … under it; the first term is allowed, 1/(8m) = 1.042 % at m = 12."
+          }
+        },
+        "spring": {
+          "fast_mode": {
+            "title": "The faster mode",
+            "setting": "The page’s spring, nuts at 20 mm, no damping; “Faster mode”: twisted 1 rad and pulled as far as Eq. (28) asks.",
+            "reads": "In a normal mode the weight bobs and twists to one beat, and nothing wanders over. Its angular frequency ω₁ is the larger root of Eq. (7), its period 2π/ω₁.",
+            "why": "Checks the page’s time loop, the coupling ε/2 in both equations and the start by Eq. (28): 2.574328 s. Were the coupling wrong, the mode would come apart and the period would not hold.",
+            "step": "The first source gives the equations of motion, the second ω₁ and ω₂, the third a normal mode’s ratio z₀/θ₀. An angular frequency ω belongs to the period 2π/ω."
+          },
+          "slow_mode": {
+            "title": "The slower mode",
+            "setting": "The same spring, “Slower mode”: twisted 1 rad and pushed up as far as Eq. (29) asks.",
+            "reads": "The second normal mode: bobbing and twisting to one beat, coupled the other way round. Its angular frequency ω₂ is the smaller root of Eq. (7), its period 2π/ω₂.",
+            "why": "Checks the same on the slower mode: 2.842581 s. With the faster it fixes both roots, and so the beat too.",
+            "step": "As for the faster mode, with ω₂ and Eq. (29)."
+          },
+          "beat": {
+            "title": "Over and back",
+            "setting": "The same spring, “Pulled down”; the tile “Over and back”.",
+            "reads": "The energy wanders at the beat of the two normal modes, ω_B = ω₁ − ω₂: once into twisting and back in 2π/ω_B.",
+            "why": "Checks the page’s formula for the two rates against Eq. (7) as printed, with ε²/mI under the root: 27.27920 s.",
+            "step": "The first source gives ω₁ and ω₂, the second ω_B = ω₁ − ω₂ as the beat frequency; to it belongs the time 2π/ω_B."
+          },
+          "measured": {
+            "title": "As fast as measured",
+            "setting": "The same spring: Berg and Marshall’s own pendulum, m, k, δ and I as measured, ε from their measurement; “Pulled down”.",
+            "reads": "Berg and Marshall measured ω_B = 0.232 rad/s on their pendulum: the energy wanders into twisting and back in 2π/ω_B = 27.08 s.",
+            "why": "Checks the model against a real pendulum: 27.28 s computed, 0.7 % off the measurement. Their ε was worked out with ω = 2.31 rad/s from the measurement, where k/m gives 2.33 rad/s; both lie within their ±0.02 rad/s. 2 % are allowed."
+          },
+          "energy": {
+            "title": "The energy is kept",
+            "setting": "The same spring, “Pulled down”, 2 cm; after 60 s, 60,000 steps.",
+            "reads": "Without damping the energy stays the same, motion and strain together. At the start it is the stretch alone, ½k·z₀² = 0.56 mJ.",
+            "why": "Checks the time loop and that the coupling in both equations fits its energy ½εzθ: 0.560000 mJ at the start and after 60 s, equal to 10⁻¹⁰.",
+            "step": "The source gives the Lagrangian L = T − V with V = ½kz² + ½δθ² + ½εzθ; the energy is T + V."
+          }
+        },
+        "polarizer": {
+          "half": {
+            "title": "Unpolarised light: half",
+            "setting": "Ideal filters; the light behind the front filter.",
+            "reads": "The lamp's light swings equally in every direction. On average cos²θ is a half: an ideal filter lets half through.",
+            "why": "Checks that the page takes the lamp's light as unpolarised: 0.5, not 1 and not cos² of some angle."
+          },
+          "malus": {
+            "title": "Malus's law",
+            "setting": "Ideal filters, the back one turned 30° from the front one, no middle one; the light behind the back one against that behind the front one.",
+            "reads": "Polarised light swinging at the angle θ to a filter's axis comes through with the share cos²θ.",
+            "why": "Checks that the page takes the cosine squared, not the cosine: 0.75 at 30°, where the cosine would give 0.87."
+          },
+          "crossed": {
+            "title": "Crossed: dark",
+            "setting": "Ideal filters, the back one at 90°, no middle one.",
+            "reads": "When the axes are perpendicular, the second filter lets no light through.",
+            "why": "Checks that the two filters really cancel: 10⁻³³, the rounding of cos 90° in the computer."
+          },
+          "third": {
+            "title": "The third filter: an eighth",
+            "setting": "Ideal filters, the back one at 90°, the middle one at 45°; the light behind the back one.",
+            "reads": "Each of the three filters lets through half of what falls on it: an eighth of the lamp's light, a quarter of what the first lets through.",
+            "why": "Checks the exhibit's trick itself: the middle filter sets the light's direction afresh instead of only dimming it. If it only dimmed it, it would stay dark."
+          },
+          "slanted": {
+            "title": "The middle filter at 30°",
+            "setting": "Ideal filters, the back one at 90°, the middle one at 30°.",
+            "reads": "Malus twice: cos² 30° at the middle one, cos² 60° at the back one, after the half at the front one.",
+            "why": "Checks that the page measures each turn from the filter before it, not from the front one: 3/32 = 0.09375.",
+            "step": "The first source gives the half for unpolarised light, the second cos²θ for polarised light, the third says Malus is applied twice: at the middle one with 30°, at the back one with 90° − 30° = 60°."
+          },
+          "many": {
+            "title": "Ten filters between",
+            "setting": "Ideal filters: ten between the crossed pair, each turned 90°/11 further than the one before.",
+            "reads": "Eleven small turns of 8.18° each, each passing its cos², after the half at the front filter.",
+            "why": "Checks the stack the page computes for more filters: 0.3992, already near the half.",
+            "step": "The first source gives the half at the front filter, the second cos²θ at each further one; each stands 90°/11 from the one before it, eleven times."
+          },
+          "polaroid_one": {
+            "title": "One Polaroid filter: about 38 %",
+            "setting": "Real filters like Polaroid (76 % along the axis, 1 to 500 across); the light behind the front filter.",
+            "reads": "A Polaroid-type filter passes about 38 % of unpolarised light; its extinction ratio is about 1 to 500.",
+            "why": "Checks that the assumed real filter matches the literature: 38.08 %. The source says “around”, hence a per cent of leeway."
+          },
+          "polaroid_crossed": {
+            "title": "Two crossed Polaroid filters",
+            "setting": "Real filters like Polaroid, the back one at 90°, no middle one.",
+            "reads": "The front one passes one half of the light with k₁, the other with k₂; the crossed back one takes the first with k₂, the second with k₁.",
+            "why": "Checks how the page computes a real filter: 0.1155 %, not zero – which is why a real crossed pair is not quite black.",
+            "step": "The first source gives unpolarised light as an even mix of all directions, so of two crossed halves; the second the extinction ratio as the passing across against along, k₂/k₁. Behind the pair: ½(k₁k₂ + k₂k₁)."
+          }
+        },
+        "vessel": {
+          "flow": {
+            "title": "The first jet",
+            "setting": "The page's tube: 8 cm wide, filled to 90 cm; the bottom hole at 5 cm open, 8 mm wide, μ = 0.61.",
+            "reads": "Torricelli: the water leaves the hole at v = √(2gH). Through the hole flows μ·A_A·v, with the contraction μ, about 0.611 for a sharp-edged hole.",
+            "why": "Checks the page's outflow at the first moment: 7.512 litres a minute from 85 cm of water above the hole. A factor 2 forgotten under the root, or a hole's area without its contraction, would show at once."
+          },
+          "drain_time": {
+            "title": "Until the tube is empty",
+            "setting": "As above; computed step by step until the water stands at the bottom hole.",
+            "reads": "A cylindrical vessel with a hole in its bottom is empty after T = (A/A_A)·√(2H/g).",
+            "why": "Checks the page's steps over the whole minute: 68.25 s. Counted in steps of 5 ms, hence to a ten-thousandth.",
+            "step": "The first source computes with the hole's full area A_A, the second puts the contracted jet's, μ·A_A, in its place. H is the water's depth above the hole, which sits 5 cm above the tube's bottom here."
+          },
+          "half": {
+            "title": "Half the height",
+            "setting": "As above; until the depth above the hole has fallen to half, to 42.5 cm.",
+            "reads": "The water level falls as h(t) = H·(1 − t/T)².",
+            "why": "Checks the page's point: half the height is reached after 19.99 s, after (1 − 1/√2) = 29 % of the 68.25 s. Measured within the step in which it happens, to a billionth.",
+            "step": "From h(t) = H·(1 − t/T)² = H/2 follows 1 − t/T = 1/√2. T is the second source's time, with the third's contraction."
+          },
+          "farthest": {
+            "title": "The farthest jet",
+            "setting": "The page's tube with all three plugs pulled. Measured from the basin's floor, the surface stands at 110 cm and the holes sit at 25, 55 and 85 cm.",
+            "reads": "A hole at height h under a surface at height H throws its jet D = 2√(h(H − h)) far; farthest, namely H, from h = H/2.",
+            "why": "Checks the page's jets, searched over every hole height for the longest range: 1.1 m from 55 cm above the basin's floor, exactly at the middle hole. The top and the bottom one lie as far above it as below and both reach 0.92 m."
+          }
+        },
+        "kapitza": {
+          "bound": {
+            "title": "Kapitza's bound at a small stroke",
+            "setting": "Rod 20 cm, stroke 2 mm (a/l = 0.01), no damping; the motor at 160 Hz, just above the bound, the rod 2° off the top.",
+            "reads": "At the top the rod is stable when the pivot's greatest speed, aω, exceeds √(2gl), the speed after a free fall through the rod's length. Solved for the frequency: 157.61 Hz.",
+            "why": "Checks the page's Floquet computation and halving where Kapitza's approximation is nearly exact: the exact boundary lies 2.2 · 10⁻⁵ higher, by (7/32)(a/l)², the approximation's next term."
+          },
+          "mathieu": {
+            "title": "The exact boundary at a wide stroke",
+            "setting": "Rod 20 cm, stroke 4 cm (a/l = 0.2), no damping; the motor at 8.5 Hz, the rod 2° off the top.",
+            "reads": "Near the top the motion is Mathieu's equation. Its stable region begins at the curve a₀(q), whose series the source gives up to q⁸. From it: 7.9478 Hz, where Kapitza's approximation says 7.88 Hz.",
+            "why": "Checks the monodromy matrix where Kapitza's approximation is 0.86 % off: the page meets the series to 7.5 · 10⁻⁷, as close as the series cut off after q⁸ is itself.",
+            "step": "With ωt = 2z the equation of a small deviation φ from the top, φ″ = (g + aω²·cos ωt)/l · φ, becomes Mathieu's equation with λ = −4g/(lω²) and q = 2a/l. The edge of the stable region is λ = a₀(q); solved for ω that is ω² = 4g/(l·|a₀(q)|)."
+          },
+          "wobble": {
+            "title": "The slow wobble about the top",
+            "setting": "The page's rod, 20 cm, 1 cm stroke, 40 Hz, no damping; let go 2° off the top, for 10 s.",
+            "reads": "About the top the rod wobbles slowly, with Ω² = a²ω²/(2l²) − g/l: a period of 1.1486 s, while the motor shakes 46 times.",
+            "why": "Checks the page's time loop: read once a motor period, as with a strobe, the rod wobbles in 1.1483 s, 3.0 · 10⁻⁴ from Kapitza. His averaging drops terms in (a/l)² and (Ω/ω)², both a few ten-thousandths."
+          },
+          "swing_up": {
+            "title": "Swinging up while hanging",
+            "setting": "Rod 20 cm, stroke 1 cm (q = 0.1), no damping; the motor at 2.23 Hz, the rod hanging, 5° out.",
+            "reads": "Hanging, the small motion is Mathieu's equation again. Between the curves b₁(q) and a₁(q) lies its first unstable region: the rod swings itself up when the motor shakes between 2.1264 and 2.3511 Hz, a band of 0.22469 Hz around twice its own frequency.",
+            "why": "Checks the Floquet computation for the bottom, both edges at once: the page meets the band's width to 3 · 10⁻¹².",
+            "step": "With ωt = 2z the equation of a small deflection φ from the bottom, φ″ = −(g + aω²·cos ωt)/l · φ, becomes Mathieu's equation with λ = 4g/(lω²) and q = −2a/l. Since a₁(−q) = b₁(q), the edges are λ = a₁(|q|) and λ = b₁(|q|); solved for ω, ω² = 4g/(l·λ)."
+          }
+        },
+        "film": {
+          "tear": {
+            "title": "The tearing distance",
+            "setting": "Rings of 5 cm radius, 6.5 cm apart: draw the right ring further.",
+            "reads": "The largest distance at which y₀ = a·cosh(x₀/a) still has a solution lies at u = coth u; there h/R = 2x₀/y₀ = 2·csch u.",
+            "why": "Checks where the page lets the film tear: at 1.32549 radii, at 6.6274 cm with rings of 5 cm – halved on the page’s own answer, not read off its constant."
+          },
+          "critical_area": {
+            "title": "The area just before it tears",
+            "setting": "Rings of 5 cm radius, 6.6 cm apart, close to the tearing distance.",
+            "reads": "At the tearing distance the waist lies at a = R/cosh u; Ito and Sato’s area formula gives the area there, against the two discs’ 2πR².",
+            "why": "Checks the area the page gives the film where it matters most: 1.19968 times the two discs, the number u itself."
+          },
+          "flat": {
+            "title": "A radius apart: the wide film",
+            "setting": "Rings of 5 cm radius, 5 cm apart.",
+            "reads": "At x₀ = ½ and y₀ = 1, 1 = a·cosh(1/(2a)) has two solutions. The flat one, a = 0.8483…, has the area A = 5.9917…; with rings of 5 cm every area is 25 cm² times as large.",
+            "why": "Checks the film’s area the page shows: 149.795 cm², worked out on MathWorld’s example."
+          },
+          "deep": {
+            "title": "A radius apart: the thin film",
+            "setting": "Rings of 5 cm radius, 5 cm apart; switch on the thin shape.",
+            "reads": "The deep solution, a = 0.2350…, is the thin film with the larger area, A = 6.8456…: no minimum.",
+            "why": "Checks the page’s dashed thin shape: its waist of 1.1755 cm with rings of 5 cm."
+          },
+          "equal": {
+            "title": "From where two discs would have less area",
+            "setting": "Rings of 5 cm radius, 5.4 cm apart, just past it.",
+            "reads": "The film’s area equal to two discs’: u·√(u² − 1) + cosh⁻¹u − u² = 0 with u = y₀/a; then h/R = 2·cosh⁻¹(u)/u.",
+            "why": "Checks where the page turns from “the least area there can be” to “Two flat discs would now have less area”: at 1.05539 radii, at 5.2770 cm with rings of 5 cm."
+          }
+        },
+        "metronomes": {
+          "lone": {
+            "title": "A lone metronome swings at 2θ₀",
+            "setting": "One metronome, the board on the table, let go from 10°; after two minutes, the widest swing of the last five seconds.",
+            "reads": "The drive feeds small swings and brakes large ones. A lone metronome settles at a swing of about 2θ₀, with Pantaleone's θ₀ = 0.39 rad at 44.69°.",
+            "why": "Checks the drive, the sign of its term and its angle θ₀: the engine swings at 44.84°. The 2θ₀ hold at the first order in μ; the pendulum's full sine makes the swing 0.3 % wider."
+          },
+          "drift": {
+            "title": "On the table two drift apart",
+            "setting": "Two metronomes half a per cent apart (Δ = 0.005), the board on the table, let go together; their periods over 200 s.",
+            "reads": "Without coupling the phase difference grows evenly, at the difference of the frequencies Δ: the faster gains a whole swing in 2π/(ωΔ(1 − 3γ/2)).",
+            "why": "Checks that the board on the table couples nothing and that Δ stands where Pantaleone has it: 119.95 s by hand, 119.96 s in the engine.",
+            "step": "The first source gives the drift at Δ, the second that a swing of 2θ₀ slows each angular frequency by the factor 1 − 3γ/2, and so their difference too; the third θ₀. The faster gains a whole swing in 2π over the difference of the angular frequencies."
+          },
+          "lag": {
+            "title": "On the cans the faster one leads",
+            "setting": "Two metronomes on Pantaleone's board (58 g), half a per cent apart, on the cans, let go together; after 200 s.",
+            "reads": "The two lock, the faster ahead by ψ* = arcsin(μΔ/(β(3γ + β))), with β = x₀ω²/g from Pantaleone's x₀ = 0.088 cm.",
+            "why": "Checks the coupling through the board, its strength and its sign: 3.11° by the formula, 3.27° in the engine. The formula is first order and takes, in the board's push, the sine and cosine of the 45° swing as for a small one; that makes the 5.4 %."
+          },
+          "inphase": {
+            "title": "Started nearly opposite, two soon swing alike",
+            "setting": "Two identical metronomes on the cans, let go 170° apart; their phase difference after 200 s.",
+            "reads": "Swinging opposite is unstable on the free board: the two move to swinging in step, half a swing away, as Pantaleone's Fig. 2 shows.",
+            "why": "Checks that the free board makes swinging in step stable, not swinging opposite: after 200 s the two are 0.0006° apart."
+          },
+          "five": {
+            "title": "Five identical ones become one",
+            "setting": "Five identical metronomes on Pantaleone's board, on the cans, at the exhibit's scattered start (R = 0.015); R after two minutes.",
+            "reads": "The order parameter R is the mean of the pointers of all the phases: 1 when all swing in step. Pantaleone saw seven metronomes lock in step every time.",
+            "why": "Checks the board with more than two metronomes and the page's order parameter: after two minutes R still lacks 5 · 10⁻⁶ of 1."
+          }
+        },
+        "ship": {
+          "metacentric_height": {
+            "title": "The box's metacentric height",
+            "setting": "The page's hull, 20 cm wide, 2 kg, with 1 kg on the deck (12 cm); heeled by 0.01°, taken as GZ/sin φ.",
+            "reads": "The draft follows from Archimedes: d = m/(ρ·L·b) = 3.006 cm. The part under water is a rectangle with its centre half-way up, KB = d/2. The waterline is a rectangle of width b, its second moment of area L·b³/12, and BM = I_t/∇ = b²/(12·d) = 11.09 cm.",
+            "why": "Checks the curve the page's time loop runs on against GM = KB + BM − KG = 5.259 cm. At 0.01° it lies above by ½·BM·tan²φ, 3 · 10⁻⁸ of GM.",
+            "step": "The sources give GM = KB + I_t/∇ − KG and I_t = L·b³/12; KB = d/2 is the centre of the rectangle under water."
+          },
+          "wall_sided": {
+            "title": "The arm at 15°: vertical sides",
+            "setting": "The hull with the weight on the deck, heeled by 15°.",
+            "reads": "For a hull with vertical sides at the waterline, the point where the line of buoyancy crosses the middle line rises as it heels: GN_φ = KB + BM·(1 + ½·tan²φ) − KG, and GZ = GN_φ·sin φ.",
+            "why": "Checks the page's geometry at a heel where GM·sin φ alone is already 7 % too small: 1.464 cm. For the box the formula is exact until the bottom comes out at 16.7°.",
+            "step": "The source gives the formula (Scribanti) for 5 to 15°. For a box it is exact as long as both sides stand in the water: then the wedges going in and coming out are triangles."
+          },
+          "on_its_side": {
+            "title": "Lying on its side",
+            "setting": "The weight at the foot of the keel, 15 cm below the bottom; the hull heeled by 90°, on its side.",
+            "reads": "On its side, the part under water is a rectangle along the whole depth H of the hull; its centre, the centre of buoyancy, lies half-way up. The arm is the horizontal distance between the two lines of action, now along the hull: H/2 − KG.",
+            "why": "Checks the section at 90°, where two corners lie at the same height: 7.667 cm, positive because G (−1.67 cm) lies below half the depth. It rights itself, even from its side.",
+            "step": "The first source says buoyancy acts at the centre of the part under water, the second that GZ is the horizontal distance between the two lines; the centre of the rectangle under water lies half-way up."
+          },
+          "roll_period": {
+            "title": "The roll period",
+            "setting": "The weight on the deck; the hull heeled by 0.5° and let go, undamped; three swings.",
+            "reads": "For small angles the hull rolls like a pendulum: with the radius of gyration k about the long axis through G and the metacentric height as its restoring term.",
+            "why": "Checks the page's time loop against the period of 0.5774 s. At 0.5° the arm is stiffer than GM·sin φ by ½·BM·tan²φ, and the period 2.5 · 10⁻⁵ shorter.",
+            "step": "The source adds the water carried along as a₄₄; the page leaves it out, a₄₄ = 0. k² = I/m, with I by Steiner: the hull, 2 kg with a 7 cm radius of gyration about its own centre of gravity, moved to G, and the weight as a point."
+          }
+        },
+        "string": {
+          "fundamental": {
+            "title": "The lowest tone",
+            "setting": "The page's cord pulled with 3 N; the vibrator's tone where the cord swings widest.",
+            "reads": "A string's lowest tone has its two ends as nodes: the length is half a wave, f = v/(2L) with v = √(T/μ).",
+            "why": "Checks where the page makes the cord swing widest: at 38.72 Hz, where the formula says 38.73 Hz. The damping moves the peak down by 0.03 %."
+          },
+          "third": {
+            "title": "The third tone",
+            "setting": "The same cord, the same pull; the tone near the third tone of its own.",
+            "reads": "The n-th tone has n half-waves between the ends: fₙ = n/(2L)·√(T/μ).",
+            "why": "Checks the higher tones: the peak lies at 116.19 Hz, three times the lowest tone."
+          },
+          "pull": {
+            "title": "The pull for three loops",
+            "setting": "The vibrator at 100 Hz; the pull where the cord swings widest, as you look for it on the cord.",
+            "reads": "The same formula solved for the pull: T = μ·(2Lf/n)².",
+            "why": "Checks what counts at the exhibit: the pulling. The peak lies at 2.2228 N, the formula says 2.2222 N. It lies a little higher because with the pull the waves also get faster and the loops wider.",
+            "step": "The source gives fₙ = n/(2L)·√(T/μ). Squared and solved for T: T = μ·(2Lfₙ/n)²."
+          },
+          "loops": {
+            "title": "Three loops, four nodes",
+            "setting": "The vibrator at 100 Hz, the cord pulled with the formula's pull for three loops.",
+            "reads": "A standing wave between two fixed ends has n + 1 nodes, the ends included, and n antinodes.",
+            "why": "Checks the pattern itself: the page counts the loops along the cord and finds three."
+          },
+          "speed": {
+            "title": "The wave's speed",
+            "setting": "The cord pulled with 3 N, the vibrator at 100 Hz, between two tones of its own.",
+            "reads": "Two nodes lie half a wave apart, and a wave runs one wavelength in one swing: v = λf = 2·d·f. The source says v = √(T/μ).",
+            "why": "Checks the speed at the nodes the page finds, even where the cord stands in no pattern: 77.45 m/s instead of 77.46 m/s; the damping shifts the nodes by 0.01 %.",
+            "step": "The first source gives v = √(T/μ), the second v = λf, the third the distance between two nodes, λ/2. So v = 2·d·f, d the distance between the two nodes nearest the peg."
+          },
+          "settled": {
+            "title": "The settled loop",
+            "setting": "The vibrator at 100 Hz, the pull for three loops; the cord from rest, computed frame by frame for five seconds.",
+            "reads": "The source's wave equation with damping, driven at one end and held at the other: Y(x) = A·sin(κ(L − x))/sin(κL) with κ² = (Ω² − iγΩ)·μ/T.",
+            "why": "Checks the page's time loop against the solution by hand: in the middle of the cord it swings 22.215 mm after five seconds, to 10⁻⁷ what the formula says.",
+            "step": "The source gives the wave equation μ·∂²y/∂t² = T·∂²y/∂x²; damping adds μγ·∂y/∂t. With y = Im[Y(x)·e^(iΩt)] it becomes Y'' = −κ²·Y; the solution that is A at the vibrator and nought at the peg is the one above."
+          }
+        },
+        "jet": {
+          "critical": {
+            "title": "Water's critical angle",
+            "setting": "The exhibit: water of index 1.333; the angle from which on the page reflects all the light at the surface.",
+            "reads": "From the critical angle arcsin(n₂/n₁) on there is no refracted light, and the reflection is total. From water (1.333) into air (1) that is 48.6°.",
+            "why": "Checks the decision made at every hit: whether light gets out or is all reflected. The page switches at 48.6066°, found by halving between 30° and 70°."
+          },
+          "snell": {
+            "title": "The light leaving is refracted by Snell's law",
+            "setting": "The exhibit, the laser tilted 45° up; the middle ray at its first hit, where it meets the surface more steeply than the critical angle.",
+            "reads": "The ratio of the sines of the angles of incidence and refraction is the ratio of the indices, n₂/n₁: out of the water the light is bent away from the normal.",
+            "why": "Checks the direction of the light drawn leaving: 68.9° from the normal. The check finds the angle of incidence from the drawn path and its own search for the axis."
+          },
+          "fresnel": {
+            "title": "How much light gets out",
+            "setting": "As above: the laser tilted 45° up, the middle ray's first hit.",
+            "reads": "For each polarisation Fresnel's formulas give the share reflected, Rₛ and Rₚ. Unpolarised light reflects their mean, and what is not reflected gets out.",
+            "why": "Checks how much light the page lets out at the surface: 87.8 % of the light at that point; the rest goes on, reflected.",
+            "step": "The source gives Rₛ and Rₚ, that what is not reflected passes, and that unpolarised light reflects the mean of the two: T = 1 − (Rₛ + Rₚ)/2, with n₁ = 1.333 inside and n₂ = 1 outside."
+          },
+          "landing": {
+            "title": "Where the jet meets the basin",
+            "setting": "The exhibit: 15 cm of water above the hole, the basin 40 cm below it.",
+            "reads": "The water leaves level at √(2gh) and falls H in the time √(2H/g), whatever its speed across. In that time it goes v·t across.",
+            "why": "Checks the arc the page draws and follows the light along: it meets the basin 49 cm from the hole, 2√(h·H).",
+            "step": "The first source gives the speed at the hole, the second the time to fall from the height, whatever the speed across. The speed across stays the same, so x = v·t = 2√(h·H)."
+          }
         }
       },
       "set_up": "Set it up",
@@ -4752,6 +5301,827 @@
     },
     "list": {
       "lead": "Every exhibit with its drawing, which moves as soon as you point at it. Filter by topic or browse them all."
+    },
+    "galton": {
+      "at": {
+        "funnel": "A funnel full of balls at the top, twelve rows of pins below it, thirteen bins at the bottom. The balls roll off one by one and bounce left or right at every pin.",
+        "heap": "Nobody can tell which way a ball will go. And yet the same heap grows below every time: high in the middle, flat towards the edges, a bell.",
+        "tilt": "Set the board at a slant, and the bell slides to one side. But it stays a bell."
+      },
+      "view": "The Galton board: the funnel at the top, the pins below it, the bins with the fallen balls at the bottom",
+      "play": {
+        "title": "Drop the balls",
+        "hint": "Drop the balls: they roll through the pins one after another, each going left or right at every pin. “New balls” takes a new run with other random numbers; the same run falls the same way every time.",
+        "drop": "Drop",
+        "all": "All at once",
+        "new": "New balls",
+        "again": "Back into the funnel",
+        "caption": "{{rows}} rows, {{bins}} bins, run {{run}} of {{balls}} balls, schematic. The bars are the balls in each bin.",
+        "waiting": "The balls are ready in the funnel.",
+        "falling": "The balls are falling.",
+        "done": "All {{balls}} balls have fallen. The heap’s middle lies at bin {{mean}}.",
+        "expected": "Dashed: the heap the paths lead one to expect."
+      },
+      "figures": {
+        "landed": "Fallen",
+        "mean": "The run’s middle (bin)",
+        "spread": "The run’s spread (bins)",
+        "expected_mean": "Expected middle n·p",
+        "expected_spread": "Expected spread σ"
+      },
+      "change": {
+        "title": "Rebuild the board",
+        "hint": "More or fewer rows, a slanted board, more balls. Every change puts the balls back into the funnel.",
+        "rows": "Rows",
+        "rows_hint": "How many rows of pins the board has; it has one bin more than rows.",
+        "p": "Share to the right",
+        "p_hint": "How often a ball goes right at a pin: 0.5 on a level board, more on one tilted to the right.",
+        "balls": "Balls",
+        "balls_hint": "How many balls a run has.",
+        "status": "{{rows}} rows, {{bins}} bins, {{paths}} paths through the board."
+      },
+      "model": {
+        "intro": "A ball that goes right k times in n rows lands in bin k, whatever the order. The bins are counted from the left, from 0 to n.",
+        "paths": "This many paths lead into bin k: with twelve rows one to each edge and 924 of the 4096 to the middle.",
+        "binomial": "Every path with k steps to the right is equally likely, pᵏ·(1 − p)ⁿ⁻ᵏ. Times the number of paths, that is the bin’s share: the binomial distribution.",
+        "moments": "The heap’s middle and its width, in bins: with twelve rows on a level board bin 6 and 1.73 bins.",
+        "normal": "With many rows the binomial distribution comes as close as one likes to the normal curve of the same middle and width (de Moivre and Laplace): the bell."
+      },
+      "symbols": {
+        "paths": "number of paths into bin k",
+        "n": "number of rows",
+        "k": "bin, counted from the left from 0; how often the ball went right",
+        "share": "share of the balls in bin k",
+        "p": "share to the right at every pin",
+        "mu": "the heap’s middle",
+        "sigma": "the heap’s spread",
+        "e": "Euler’s number, 2.718…"
+      },
+      "computed": {
+        "system": "Nothing here moves by a differential equation: chance decides, and the page computes what it does on average. It computes the shares row by row, the way the balls fall.",
+        "rows": "What reaches a pin goes on with the share p to the right and 1 − p to the left: each bin of the next row gets p of the bin up to its left and 1 − p of the bin above it. That is Pascal’s triangle’s rule with weights; with both weights one it counts the paths.",
+        "pj": "share of the balls that arrives at place k after j rows",
+        "j": "rows the balls have fallen through so far",
+        "random": "The balls themselves are drawn by a random generator with a seed (Mulberry32, from 32-bit whole numbers): ball i takes the numbers i·n to i·n + n − 1, one per row, and goes right where its number is below p. The same seed gives the same balls in your browser, in the page’s engine and in its tests; “New balls” takes the next one. How the balls fly is only drawn.",
+        "check": "The page’s tests recompute the shares of every board up to 24 rows in exact fractions and check the middle and the spread. In a run of 5000 balls every bin lies within four standard deviations of its expected count. Everything is computed in your browser, with the same formulas as in the page’s engine.",
+        "left_out": "Left out: how the tilt or the pins’ shape sets p, since the page takes p as given, the same at every pin; balls that jump over two pins or knock into each other, which on a real board makes the heap wider; bins that fill up."
+      },
+      "sweet": {
+        "paths": "The trick: each single ball is pure chance, but the heap is not. The number of paths decides it. Twelve rows have 4096 paths through them, all equally likely: only one into each edge bin, 924 into the middle one. That is why almost a quarter of the balls fall into the middle, 22.6 %, and only one in 4096 into an edge bin.",
+        "middle": "The three middle bins take 61 % of the balls, the three bins at each edge together only 3.9 %. The middle lies at bin 6, the spread is 1.73 bins.",
+        "all": "Paths through {{rows}} rows",
+        "peak": "Paths into bin {{bin}}",
+        "edge": "Paths to the edge",
+        "normal": "With more rows the bell grows wider, but more slowly than the board: the spread grows with the square root of the rows, with twice as many only 1.41 times as wide, from 1.73 to 2.45 bins. And it comes ever closer to the normal curve; with 24 rows the middle bin lies only 1.0 % under it."
+      },
+      "chart": {
+        "hint": "The share of each bin on the board you built, and the normal curve with the same middle and spread.",
+        "binomial": "share of the bin",
+        "normal": "normal curve",
+        "share": "Share",
+        "bin": "Bin"
+      }
+    },
+    "spring": {
+      "at": {
+        "weight": "A weight hangs on a long coil spring. Pull it down a little and let go: it bobs up and down.",
+        "trade": "Slowly the bobbing fades, and the weight starts to twist back and forth – until it only twists and no longer bobs at all. Then the bobbing comes back, over and over. With this page’s spring, over and back takes 27.3 s.",
+        "nuts": "Four nuts on arms at the weight’s sides can be screwed in and out. Only in one place does the bobbing turn wholly into twisting."
+      },
+      "view": "The weight on its spring from the front, with the four arms and their nuts",
+      "play": {
+        "title": "Pull and twist the weight",
+        "hint": "Pull the weight down or up, and push it sideways to twist it; let go and it swings. Or choose a start. The bars show how much of the energy is in the bobbing and in the twisting.",
+        "let_go": "Let go:",
+        "starts": {
+          "down": "Pulled down",
+          "twisted": "Twisted",
+          "fast": "Faster mode",
+          "slow": "Slower mode"
+        },
+        "energy": "Energy in the bobbing and in the twisting",
+        "bobbing": "Bobbing",
+        "twisting": "Twisting"
+      },
+      "figures": {
+        "bobbing": "Period of bobbing alone",
+        "twisting": "Period of twisting alone",
+        "tuned": "Tuned at",
+        "beat": "Over and back",
+        "share": "Of it goes into twisting"
+      },
+      "change": {
+        "title": "Change the exhibit",
+        "hint": "The nuts set how sluggishly the weight turns: further out it twists more slowly, further in faster. Only when it twists as fast as it bobs does the bobbing turn wholly into twisting.",
+        "nuts": "Distance of the nuts from the axis",
+        "nuts_hint": "At 20.0 mm the spring is tuned.",
+        "damping": "Damping"
+      },
+      "model": {
+        "intro": "The spring acts twice: stretched, it pulls the weight back; twisted, it turns it back. But a coil spring also twists a little when it is stretched, and the other way round – this coupling joins the two oscillations.",
+        "equation": "The two equations of motion as Berg and Marshall write them: each oscillation on its own, and the coupling ε by which the stretch turns the weight and the twist pulls it. Here z counts downwards.",
+        "inertia": "The weight’s moment of inertia: the body’s and the four nuts’, each a point at its distance from the axis. This is where the exhibit is adjusted.",
+        "modes": "Two motions in which bobbing and twisting keep one beat: the normal modes. Their angular frequencies are the roots of this equation; every other motion is a sum of the two.",
+        "beat": "Pulled down, the weight is about half in each normal mode. They slowly drift apart and together again; in that time the energy goes once into twisting and back into bobbing."
+      },
+      "symbols": {
+        "z": "how far the weight stands below where it hangs at rest",
+        "theta": "how far it is twisted",
+        "m": "the weight’s mass, with a third of the spring’s",
+        "I": "its moment of inertia about the vertical axis",
+        "k": "the spring constant against stretching",
+        "delta": "the spring constant against twisting",
+        "epsilon": "the coupling between stretching and twisting",
+        "I0": "the body’s moment of inertia without the nuts",
+        "mn": "the mass of one nut, 10 g",
+        "r": "the nuts’ distance from the axis",
+        "omega": "the two normal modes’ angular frequencies, the faster first",
+        "alone": "the angular frequencies of bobbing alone and of twisting alone",
+        "beat": "the time in which the energy goes once into twisting and back",
+        "c": "the coupling, per mass and moment of inertia"
+      },
+      "sweet": {
+        "modes": "Tuned, the weight twists on its own exactly as fast as it bobs on its own. Only then does all of it go over – after half a beat the weight no longer bobs and only twists.",
+        "beat": "With the nuts at {{r}} mm the energy goes once into twisting and back in {{beat}} s, and about {{share}} % of it arrives in the twisting.",
+        "detuned": "Detuned, never all of it goes over, only this share: the less, the further apart the two beats lie compared with the coupling.",
+        "tuned": "All of it goes over with the nuts at {{tuned}} mm. At 35 mm only about half arrives in the twisting, 48 %, and the bobbing returns after only 19.9 s."
+      },
+      "chart": {
+        "energy": "Share of the energy",
+        "time": "Time",
+        "share": "Share that goes into twisting",
+        "nuts": "Distance of the nuts"
+      },
+      "computed": {
+        "system": "Four first-order equations: the displacement, the twist and their speeds, written here without the damping. The engine solves them with the Runge–Kutta method in steps of a millisecond; the page does the same with the same steps, a few dozen a frame."
+      }
+    },
+    "polarizer": {
+      "at": {
+        "lamp": "A lamp shines through two polarising filters. Turn the back one and the light dims until it is quite dark: the two filters are crossed.",
+        "third": "Now slide a third filter between the two, slanted – and it gets bright again. Yet each filter can only swallow light, never add any."
+      },
+      "stack_view": "The lamp, the three filters and the window you look through",
+      "play": {
+        "title": "Three filters before a lamp",
+        "hint": "Slide the middle filter in and turn it or the back one – with the slider, or with the mouse or a finger on the filter.",
+        "middle": "Middle filter in between",
+        "middle_hint": "Slide the third filter between the two.",
+        "middle_deg": "Angle of the middle filter",
+        "middle_deg_hint": "Measured from the front filter; at 180° it stands as at 0°.",
+        "last_deg": "Angle of the back filter",
+        "last_deg_hint": "At 90° it is crossed with the front one.",
+        "real": "Real filters",
+        "real_hint": "Instead of ideal filters, ones like Polaroid: along their axis they do not pass everything, across it not quite nothing.",
+        "caption": "Each filter as you see it looking through; its lines show its axis. Above the beam, the direction the light swings in, as long as its amplitude; before the first filter it swings every way. White is the light behind the first filter, half the lamp's.",
+        "status_dark": "Practically dark: less than 0.2 % of the lamp's light comes through.",
+        "status_light": "{{share}} % of the lamp's light comes through.",
+        "labels": {
+          "lamp": "lamp",
+          "front": "front",
+          "middle": "middle",
+          "slot": "(empty)",
+          "back": "back",
+          "window": "window"
+        }
+      },
+      "figures": {
+        "front": "Behind the front filter",
+        "middle": "Behind the middle filter",
+        "out": "Comes through",
+        "between_ideal": "{{n}} between, ideal",
+        "between_real": "{{n}} between, real",
+        "best_between": "Best number of real filters between",
+        "one": "One real filter passes"
+      },
+      "change": {
+        "title": "More filters, real filters",
+        "hint": "Put more filters between the crossed pair, turned evenly, and change how good a real filter is.",
+        "between": "Filters between the crossed pair",
+        "between_hint": "Each turned as far again past the one before it, from 0° to 90°.",
+        "transmission": "Transmission along the axis",
+        "transmission_hint": "What share of the light swinging along its axis a real filter passes; ideally 100 %.",
+        "extinction": "Extinction ratio 1 to …",
+        "extinction_hint": "How much less a real filter passes across its axis than along it; Polaroid about 1 to 500."
+      },
+      "chart": {
+        "hint": "How much light comes through the crossed pair, against the number of filters between, ideal and real; in per cent of the lamp's light.",
+        "ideal": "Ideal filters",
+        "real": "Real filters",
+        "light": "Light",
+        "between": "Filters between",
+        "middle": "Angle of the middle filter"
+      },
+      "model": {
+        "intro": "Light is a wave that swings across its direction. A polarising filter lets through only the part that swings along its axis – and what comes through swings along that axis afterwards.",
+        "malus": "Malus's law: light swinging at the angle θ to a filter's axis comes through with the share cos²θ – all of it at 0°, none at 90°.",
+        "half": "The lamp's light swings equally in every direction; on average cos²θ is a half. The first filter lets half through.",
+        "three": "Three filters, the middle at φ, the back one crossed: Malus twice. Most comes through at φ = 45°, an eighth of the lamp's light – a quarter of what the first lets through.",
+        "many": "n filters evenly between the crossed pair: n + 1 small turns, each losing little. With ten, 40 % comes through, with sixty 48 % – the more, the nearer the half the first filter lets through."
+      },
+      "symbols": {
+        "i": "Light behind the filter (intensity)",
+        "i0": "Light before the filter, already polarised",
+        "theta": "Angle between the light's swing and the filter's axis",
+        "i1": "Light behind the first filter",
+        "il": "The lamp's light, unpolarised",
+        "i3": "Light behind the third filter",
+        "phi": "Angle of the middle filter from the front one",
+        "n": "Number of filters between the crossed pair"
+      },
+      "sweet": {
+        "turns": "The trick: a filter does not just block, it polarises afresh. What comes through the middle one swings along its axis, turned by 45° – half as much as the first let through. Against this new direction the back filter no longer stands across, only 45° aslant: it lets half through again. So a quarter of what the first let through comes out, an eighth of the lamp's light, where without the middle one nothing came. With the middle at 30° it is 9.4 %.",
+        "real": "Real filters (assumed here: 76 % passed along the axis, 1 to 500 across, like Polaroid) pass 38 % each, 0.12 % crossed. With the third at 45°, 5.0 % comes through, 44 times as much. More filters help only up to two: with them 6.6 % comes through, and each further one swallows more than its smaller turn saves. With ten it is down to 1.5 %; ideal filters would pass 40 %.",
+        "chart_hint": "The light through the crossed pair against the middle filter's angle, in per cent of the lamp's light. Your middle filter is at {{deg}}°: {{share}} % with ideal filters."
+      },
+      "computed": {
+        "system": "The page takes each filter as a matrix that passes the swing along its axis and not across it (a Jones matrix), and multiplies the filters in turn. The lamp's light is an even mix of two crossed swings; behind the stack its intensity is half the sum of the squares of the four entries. For ideal filters that is exactly Malus's law, filter by filter.",
+        "real": "A real filter passes the share k₁ along its axis and k₂ across it; k₂/k₁ is its extinction ratio. For Polaroid the literature gives about 38 % for unpolarised light and 1 to 500; hence k₁ = 76 %.",
+        "check": "The page's tests compute every stack a second time with Mueller matrices on the Stokes vector and compare, check Malus's law filter by filter and the curve ⅛ sin² 2φ at every whole degree. It is computed in your browser, with the same formulas as the site's engine.",
+        "left_out": "Left out: colour (real filters pass red and blue differently, crossed Polaroid looks slightly blue; here one value holds for all light); light reflected back and forth between the filters; filters that also shift the swing's phase (retarders)."
+      }
+    },
+    "vessel": {
+      "at": {
+        "build": "On a stand over a long basin stands a clear tube, a metre high and 8 cm wide, filled with water to 90 cm. In its side are three holes one above the other, at 5, 35 and 65 cm, each closed with a plug.",
+        "drain": "Pull the bottom plug and a jet shoots far into the basin. Then it lands ever nearer the tube, and the water level falls ever more slowly; the last few centimetres take longest. With all three holes open, the middle jet reaches farthest, and the top and the bottom one land in the same spot.",
+        "origin": "A classic of the physics classroom, built tall enough here to watch the jet grow shorter."
+      },
+      "view": "The tube on its stand over the basin, drawn cut open: the water, the plugs and the jets, with a ruler along the basin's floor",
+      "play": {
+        "title": "Pull the plugs",
+        "hint": "Click a plug in the picture or one of the buttons to open a hole or close it again. The clock runs from the first open hole.",
+        "refill": "Fill again",
+        "caption": "A tube {{diameter}} cm wide with holes of {{hole}} mm; the dashed mark shows how high it was filled. All to the same scale.",
+        "plugs": "Holes, top to bottom",
+        "hole": "Hole at {{height}} cm",
+        "full": "The tube is filled to {{fill}} cm, every hole is plugged.",
+        "time": "Time",
+        "level": "Water level",
+        "flow": "Outflow",
+        "jet": "Farthest jet",
+        "halved": "At half height ({{height}} cm) after"
+      },
+      "change": {
+        "title": "Rebuild the tube",
+        "hint": "Change the tube, the holes, the filling and the stand. The tube is then filled again and every plug is back in; the holes stay at 5, 35 and 65 cm. The figures are for the bottom hole alone.",
+        "diameter": "Tube's width",
+        "diameter_hint": "Inner diameter. Twice as wide means four times the water: it takes four times as long. At the exhibit 8 cm.",
+        "hole": "Holes' width",
+        "hole_hint": "At most a quarter of the tube's width. Twice as wide, empty in a quarter of the time. At the exhibit 8 mm.",
+        "fill": "Filling",
+        "fill_hint": "How high the water stands above the tube's bottom at the start. At the exhibit 90 cm.",
+        "discharge": "Discharge coefficient μ",
+        "discharge_hint": "How much the jet narrows just past the hole: about 0.61 for a sharp-edged hole, over 0.9 when the water leaves through a short tube. At the exhibit 0.61.",
+        "stand": "Stand's height",
+        "stand_hint": "How high the tube's bottom stands above the basin's floor. The higher, the longer the jets fall and the farther they reach. At the exhibit 20 cm.",
+        "dry": "Holes above the water level stay dry."
+      },
+      "figures": {
+        "drain": "Empty to the bottom hole",
+        "half": "Half height after",
+        "speed": "First jet's speed",
+        "flow": "First outflow",
+        "volume": "Water above the bottom hole",
+        "farthest": "Farthest jet possible"
+      },
+      "chart": {
+        "range": "Range",
+        "hole": "Hole's height above the tube's bottom",
+        "range_hint": "How far a jet from the full tube reaches, depending on how high its hole sits: farthest from halfway between the water's surface and the basin's floor.",
+        "depth": "Water above the hole",
+        "time": "Time after opening",
+        "time_hint": "The bottom hole alone, for the build set above: the water level falls ever more slowly, the range shrinks at a steady pace, along a straight line."
+      },
+      "model": {
+        "intro": "The water presses on a hole the harder, the deeper the hole lies under the surface. It shoots out as fast as a stone would that fell from the surface down to the hole. Just past the hole the jet narrows: through a sharp-edged hole only a little over six tenths of what the hole's area would suggest flows out.",
+        "torricelli": "Torricelli's law: the jet's speed from the hole's depth under the surface.",
+        "flow": "What runs out each second: the hole's area, narrowed to the contracted jet, times its speed.",
+        "balance": "What runs out is missing from the tube: the surface falls as fast as all the open holes below it let water out together. A first-order differential equation for the water level.",
+        "range": "The jet leaves the wall level and falls like a stone thrown level: this far from the tube it lands on the basin's floor."
+      },
+      "symbols": {
+        "v": "the jet's speed",
+        "g": "gravity",
+        "h": "the water level above the tube's bottom",
+        "y": "the hole's height above the tube's bottom",
+        "q": "the outflow",
+        "mu": "the discharge coefficient, the jet's narrowing",
+        "a": "one hole's area",
+        "area": "the tube's cross-section",
+        "t": "time",
+        "yk": "the height of open hole k; the sum is over the open holes below the surface",
+        "x": "how far from the wall the jet lands on the basin's floor",
+        "s": "the stand's height",
+        "half": "the time until the depth above the hole has fallen to half"
+      },
+      "computed": {
+        "system": "The holes open and close whenever you like, so the page computes the water level step by step: a Runge–Kutta step of the equation above every 5 ms, in your browser, with the same formulas as the site's engine. With a single hole open there is an exact solution too.",
+        "exact": "The square root of the water's depth above the hole falls at a steady pace until the water has reached the hole, after the time T.",
+        "h0": "the water level when the hole is opened",
+        "T": "the time until the water above the hole has run out",
+        "check": "The page's tests hold the steps to this solution: until a second before the end the water level is off by less than a billionth of the depth, and the tube is empty to within one step.",
+        "left_out": "Left out: the speed at which the water in the tube itself sinks (here less than a ten-thousandth of the calculation); the jet's braking by viscosity and the air (measured at under a thousandth for fast jets from sharp-edged holes); the water column's inertia as a hole opens or closes; the surface tension that breaks the thin jet into drops at the end; the plugs' width."
+      },
+      "sweet": {
+        "root": "The trick is the square root. The water runs out the faster, the higher it stands – but only with the square root of the height. As the surface falls the jet slows, and the surface falls more slowly still. So the first half of the water is out much sooner than the second.",
+        "numbers": "At the exhibit, with the bottom hole alone: after 20 s the water stands only half as high above the hole, yet it is empty only after 68 s. Half the water takes not half the time but 29 % of it; the last tenth takes 32 %. With all three holes open the tube is down after 57 s – hardly sooner, since the upper holes soon run dry.",
+        "jet": "The jet, on the other hand, shortens at a steady pace: its range grows with the square root of the depth, and that very root falls steadily. At first it shoots out at 4.1 m/s, 7.5 litres a minute, and lands 0.92 m from the tube; after half the time, 34 s, it lands at 0.46 m.",
+        "half": "The depth above the hole falls with the square of the time left: half of it is out after (1 − 1/√2) T, after 29 % of the time, however wide the tube and the hole."
+      }
+    },
+    "kapitza": {
+      "at": {
+        "rod": "A stiff rod with a weight at its end hangs from a pivot. Stand it upright and let go, and it falls over – like any pencil stood on its tip.",
+        "motor": "Then switch on the motor: it shakes the pivot up and down by a centimetre, some 40 times a second. Now the rod stays standing upside down. Nudge it, and it wobbles and rights itself again."
+      },
+      "view": "The rod on its shaken pivot, the weight at its end; dashed, the vertical upwards",
+      "play": {
+        "title": "Stand it up and shake it",
+        "hint": "Stand the rod upright, first without the motor, then with it. Nudge it, or pull the weight aside.",
+        "upright": "Stand upright",
+        "nudge": "Nudge",
+        "motor": "Motor",
+        "motor_hint": "Shakes the pivot up and down",
+        "drag_hint": "The weight can be held with the mouse or a finger and let go.",
+        "frequency": "Motor frequency",
+        "amplitude": "Pivot's stroke (up and down)",
+        "presets_label": "Settings:",
+        "presets": {
+          "fast": "Fast and fine",
+          "slow": "Slow and wide",
+          "swing": "Swing up"
+        },
+        "holds": "Shaken this fast, the rod stays standing at the top.",
+        "falls": "Shaken like this, the rod falls away from the top.",
+        "swings": "Shaken like this, even the hanging rod swings itself up.",
+        "off": "Without the motor, the rod falls away from the top."
+      },
+      "figures": {
+        "angle": "Angle from upright",
+        "least": "Least frequency, exact",
+        "kapitza": "Least frequency by Kapitza",
+        "gap": "Difference",
+        "wobble": "Wobble at the top, period",
+        "multiplier": "Largest Floquet multiplier (size)"
+      },
+      "change": {
+        "title": "Change the exhibit",
+        "hint": "The rod carries on from where it is.",
+        "length": "Length of the rod",
+        "damping": "Damping"
+      },
+      "model": {
+        "intro": "Moving with the pivot, the weight feels, besides gravity, the pivot's acceleration: now heavier, now lighter, 40 times a second. Averaged over the fast shaking, these forces do not cancel.",
+        "motion": "The rod's equation of motion: gravity and the shaking turn it towards the bottom, the damping brakes it. The pivot is at a·cos ωt below its middle.",
+        "potential": "Kapitza's averaged potential: to the energy of height comes a share of the shaking that is largest when the rod lies flat and smallest when it stands vertical – at the bottom and at the top alike.",
+        "bound": "At the top this potential is a valley as soon as a²ω² exceeds 2gl: for the 20 cm rod shaken by 1 cm, from 31.5 Hz. About the top the rod then wobbles slowly at the angular frequency Ω."
+      },
+      "symbols": {
+        "theta": "the rod's angle from straight down (π is upside down)",
+        "g": "gravitational acceleration, 9.81 m/s²",
+        "a": "the pivot's stroke",
+        "omega": "the motor's angular frequency, 2π times its frequency",
+        "l": "the rod's length to the weight",
+        "c": "the damping",
+        "u": "the averaged potential of the slow motion",
+        "m": "the weight's mass",
+        "big_omega": "the angular frequency of the slow wobble about the top"
+      },
+      "computed": {
+        "system": "Two first-order equations, angle and angular velocity, by the Runge–Kutta method in steps of a hundredth of a motor period, never longer than 1 ms. Whether the rod stays at the top, a second computation says without waiting: near the top the equation is linear with a periodic coefficient (Mathieu's equation). By Floquet, every period then does the same to every small deviation: it multiplies it by one fixed matrix M. The engine finds M by following two deviations through one period, in 1000 steps; its eigenvalues, the Floquet multipliers, decide. The least frequency it finds by 40 halvings.",
+        "floquet": "One motor period maps the deviation from the top by the matrix M. If both eigenvalues of M lie inside the unit circle, every small deviation stays small: that is exactly when the size of the trace is less than 1 plus the determinant. The determinant is e^(−cT), below 1 with damping.",
+        "phi": "the small deviation from straight up",
+        "t": "one period of the motor, 1/f",
+        "m": "the monodromy matrix: what one period does to the deviation"
+      },
+      "chart": {
+        "gravity": "Gravity",
+        "shaking": "Shaking",
+        "sum": "Together",
+        "potential": "Potential per mass",
+        "angle": "Angle from the bottom"
+      },
+      "sweet": {
+        "potential": "The trick: the fast shaking averages into an extra potential with its minimum at the top. Gravity alone has a hill at the top; shaken hard enough, the sum turns it into a hollow in which the rod stays (at 180°, in the middle).",
+        "approach": "Kapitza's bound is the first term of an approximation in a/l. The Floquet multipliers give the exact boundary: without damping it lies 0.002 % higher at a/l = 0.01, 0.055 % at 0.05, 0.86 % at 0.2 – the smaller the stroke against the rod, the closer Kapitza is.",
+        "band": "And hanging? The rod swings by itself at {{own}} Hz. If the motor shakes about twice as fast, between {{low}} and {{high}} Hz, it swings itself up (parametric resonance) – try “Swing up”.",
+        "no_band": "And hanging? The rod swings by itself at {{own}} Hz. With this stroke and this damping, not even twice that frequency swings it up."
+      }
+    },
+    "film": {
+      "at": {
+        "rings": "Two wire rings are dipped together into soap solution and slowly drawn apart. A soap film stretches between them, drawn in at the middle like a waist.",
+        "waist": "The further apart the rings, the narrower the waist. At about two thirds of a ring’s diameter the film suddenly gives way: a flat disc is left in each ring."
+      },
+      "view": "Two rings from the side with the soap film between them; the right ring can be dragged or moved with the arrow keys",
+      "play": {
+        "title": "Draw them apart",
+        "hint": "Drag the right ring right or left, or pick it with the Tab key and move it with the arrow keys, a centimetre at a time with Shift. Dashed across the film: its waist.",
+        "dip": "Dip again",
+        "ring": "Right ring",
+        "distance": "Distance between the rings",
+        "distance_hint": "From one ring’s centre to the other’s.",
+        "radius": "Radius of the rings",
+        "radius_hint": "Both rings are the same size.",
+        "thin": "Show the thin shape",
+        "thin_hint": "Every distance also fits a second, thinner film. It is unstable: the soap film never takes it.",
+        "caption": "From the side, to scale: rings {{diameter}} cm across. “Dip again” sets the rings close together again.",
+        "least": "The film has the least area there can be: {{area}} cm²; two flat discs would have {{discs}} cm².",
+        "held": "Two flat discs would now have less area, {{discs}} cm² instead of {{area}} cm². The film stays all the same – for now.",
+        "torn": "Torn: a flat disc is left in each ring. Pushed together they stay discs; dip the rings again."
+      },
+      "figures": {
+        "neck": "Waist (radius)",
+        "area": "Area of the film",
+        "discs": "Two discs",
+        "tear": "Tears at"
+      },
+      "model": {
+        "intro": "A soap film pulls itself to the least area its edge allows: its energy is the surface tension times its area. Between two equal rings on one axis that is a catenoid, a catenary turned about the axis – the same curve as the hanging chain’s at the arch.",
+        "catenoid": "The film’s radius at a distance z from its waist; c is the waist’s radius.",
+        "rings": "The film must reach both rings: that fixes the waist c – if there is one.",
+        "ratio": "With t = h/(2c) an equation for t alone is left. Its right-hand side first rises and then falls again.",
+        "peak": "It is highest where t·tanh t = 1, at t ≈ 1.1997: there h/R ≈ 1.3255. Below that two films fit between the rings, a wide one and a thin one; above it, none.",
+        "area": "The film’s area, and that of the two discs a torn film leaves behind.",
+        "two": "The wide film is stable, the thin one is not: nudged, it falls back to the wide one or tears. At the tearing distance the two meet; the waist has then shrunk to 55 % of the rings’ radius."
+      },
+      "symbols": {
+        "r": "radius of the film",
+        "z": "distance from the waist, along the axis",
+        "c": "radius of the waist",
+        "R": "radius of the rings",
+        "h": "distance between the rings",
+        "t": "half the rings’ distance, in radii of the waist",
+        "hmax": "the largest distance at which a film with a waist reaches the rings",
+        "A": "area of the film",
+        "discs": "area of the two discs"
+      },
+      "sweet": {
+        "least": "The trick: the film always pulls itself to the least area it can reach. From 1.055 ring radii on, from 5.28 cm with rings of 5 cm, two flat discs would have less area. But to get there the film would first have to grow: so it stays.",
+        "tear": "From 1.3255 ring radii on, from 6.63 cm with rings of 5 cm, no film with a waist reaches both rings any more. The waist pinches shut, and the film snaps into the two discs. Just before, it has a fifth more area than the two.",
+        "equal_tile": "Discs smaller from h/R",
+        "tear_tile": "Tears from h/R",
+        "t_tile": "t with t·tanh t = 1",
+        "seen": "So it is with real soap films: Ito and Sato (2010) filmed how the jump to the discs fails to come where they would have less area. The film holds until just short of the tearing distance and then pinches shut in an instant."
+      },
+      "chart": {
+        "hint": "The film’s area against the two discs’, by the distance between the rings: the wide, stable film, the thin, unstable one, and the discs. Where the two films meet, the curves end: there the film tears.",
+        "wide": "wide film (stable)",
+        "thin": "thin film (unstable)",
+        "discs": "two discs",
+        "area": "area / two discs",
+        "distance": "distance / ring radius"
+      },
+      "computed": {
+        "system": "For each distance the page finds t by halving an interval again and again, once left and once right of the peak at t·tanh t = 1, and from it the waist and the area. Nothing here runs in time: the hand sets the distance. It is computed in your browser, with the same formulas as the site’s engine.",
+        "left_out": "Left out: gravity, which sags a real film a little; the film’s thickness, its draining, and its bursting before its time; the rings’ wire, here a line; and how the waist pinches shut once it has nothing to hold on to."
+      }
+    },
+    "metronomes": {
+      "at": {
+        "board": "Five metronomes stand on a light board, all set to the same tempo. The board rests on two empty drinks cans and can roll sideways. The metronomes are started one after another, at any moment.",
+        "agree": "At first they tick out of step. In less than a minute all of them swing together, and the board rocks along. With the board on the table, they never come together."
+      },
+      "view": "The board on two cans from the front, the metronomes on it",
+      "play": {
+        "title": "Start the metronomes",
+        "hint": "Tap a metronome to start or stop it. The board's motion is drawn {{times}} times larger. The circle shows where each metronome is in its swing; the arrow is their mean.",
+        "random": "Start all at random",
+        "stop_all": "Stop all",
+        "each": "The metronomes one by one",
+        "start_one": "Start metronome {{n}}",
+        "stop_one": "Stop metronome {{n}}",
+        "board": "The board",
+        "free": "On the cans",
+        "held": "On the table",
+        "dial": "Where each metronome is in its swing, and their mean as an arrow",
+        "trace": "How much they agreed over the last minute",
+        "answer": "Now they agree: R is above 0.99. On the table they never come together by themselves."
+      },
+      "figures": {
+        "order": "Agreement R",
+        "time": "Time",
+        "coupling": "Coupling β"
+      },
+      "change": {
+        "title": "Change the exhibit",
+        "hint": "A lighter board couples more strongly. If the tempi lie too far apart, the metronomes no longer come together.",
+        "count": "Number of metronomes",
+        "board": "Mass of the board",
+        "board_hint": "Without the metronomes. A heavier board moves less, and the coupling weakens.",
+        "spread": "Difference in tempo",
+        "spread_hint": "How much faster the fastest metronome goes than the slowest; the others lie between."
+      },
+      "model": {
+        "intro": "James Pantaleone did this experiment in 2002 with two and with seven metronomes and set up a simple model for it. Each metronome is a pendulum; the escapement that drives it is a term that feeds small swings and brakes large ones.",
+        "equation": "The equation of metronome i, time counted in swings: the weight, the drive that holds the swing at about 45° (θ₀ = 0.39 rad, μ = 0.010), and the inertial force of the board moving under the metronome.",
+        "board": "Nothing pushes from outside: the centre of mass of board and metronomes stays where it is. When the pendulums swing to the right, the board rolls to the left. β says how strongly each metronome feels it; for Pantaleone's two on his board, x₀ = 0.088 cm and β = 0.011.",
+        "order": "How much they agree is measured by the mean of their pointers: R = 1 when all swing in step, near 0 when they are scattered.",
+        "lock": "For two metronomes Pantaleone derives from this a single equation for their phase difference ψ. It comes to rest if Δ is small enough: then the faster one leads by ψ* = arcsin(μΔ/(β(3γ + β))). For his two, half a per cent apart, that is 3.1°; the engine finds 3.3°."
+      },
+      "symbols": {
+        "theta": "the swing of pendulum i",
+        "tau": "time, counted in radians of the swing",
+        "omega": "the metronomes' angular frequency, 10.9 1/s (208 ticks a minute)",
+        "delta": "how much faster or slower metronome i is set",
+        "mu": "the strength of the drive",
+        "theta0": "the angle at which the drive turns to braking: half the swing",
+        "beta": "the coupling through the board",
+        "x": "where the board is",
+        "mr": "a pendulum's mass times the distance of its centre of mass from the axis",
+        "M": "everything that rolls on the cans: board and metronomes",
+        "g": "gravitational acceleration, 9.81 m/s²",
+        "R": "how much they agree, from 0 to 1",
+        "phi": "where metronome j is in its swing",
+        "N": "the number of running metronomes",
+        "psi": "the phase difference of the two",
+        "gamma": "how much the wide swing slows the pendulum",
+        "F": "what weight and drive alone accelerate",
+        "S": "the second derivative of Σ sin θⱼ: what moves the board"
+      },
+      "sweet": {
+        "push": "Each tick pushes the board a little – in step, about 1.4 mm to and fro – and the board's motion pushes every metronome toward the same phase.",
+        "in_step": "From the exhibit's starting position they are in step on the cans after {{seconds}} s (R above 0.99). On the table R reaches at most {{most}} in the same two minutes.",
+        "never": "On the cans they do not come together within two minutes: their tempi lie too far apart for this coupling. On the table R reaches at most {{most}}.",
+        "why": "On the table exactly this is missing: the board stands still, none feels the others, and each keeps its own tempo. Their distances wander slowly, as their tempi differ."
+      },
+      "chart": {
+        "order": "Agreement R",
+        "time": "Time"
+      },
+      "computed": {
+        "solve": "The board depends on the accelerations of all the pendulums, and each pendulum on the board's. Because all share one board, this can be solved in one go: first S from one sum, then each acceleration.",
+        "system": "So the 2N first-order equations, swings and their speeds, become explicit. The engine solves them with the Runge–Kutta method in steps of 4 ms, 144 a swing; the page does so with the same steps, a few a frame."
+      }
+    },
+    "ship": {
+      "at": {
+        "basin": "A model hull floats in a basin. A weight slides up a mast or down into a keel below the hull.",
+        "low": "With the weight low, tilt the hull by hand and let go: it rocks back and rights itself.",
+        "high": "With it high up the mast, a small push is enough: the hull turns over and floats keel up."
+      },
+      "view": "The basin with the hull in section, the weight on mast or keel, the centre of gravity G and the centre of buoyancy B",
+      "play": {
+        "title": "Tilt the hull",
+        "hint": "Take hold of the hull, tilt it and let go. Then slide the weight up or down and try again.",
+        "push": "Push",
+        "upright": "Upright",
+        "tilt": "Heel of the hull: the arrow keys tilt it, letting go sets it free",
+        "weight": "Height of the weight",
+        "weight_hint": "Above the hull's bottom: below zero it is in the keel, above 12 cm on the mast.",
+        "caption": "A section across the hull. Shaded is what lies under water: buoyancy pushes up through its centre B, weight pulls down through G, and the horizontal distance between them is the arm GZ.",
+        "motion": {
+          "held": "Your hand holds the hull.",
+          "upright": "It floats upright.",
+          "on_edge": "It is on a knife's edge: a small push and it goes over.",
+          "loll": "It stays heeled: it cannot stand upright.",
+          "keel_up": "It has capsized and floats keel up.",
+          "capsizing": "It is capsizing.",
+          "rolling": "It rolls."
+        },
+        "heel": "Heel",
+        "arm": "Arm GZ",
+        "gm": "Metacentric height GM",
+        "period": "Roll period"
+      },
+      "change": {
+        "title": "Rebuild the hull",
+        "hint": "Make the hull wider or narrower, the weight heavier or lighter, and let the water brake more or less.",
+        "beam": "Beam of the hull",
+        "beam_hint": "The wider the waterline, the higher the metacentre: BM grows with the square of the beam.",
+        "weight": "Mass of the weight",
+        "weight_hint": "The hull alone weighs 2 kg.",
+        "damping": "Damping by the water",
+        "damping_hint": "How fast the water brakes the roll; at zero it rolls on for ever."
+      },
+      "figures": {
+        "draft": "Draft",
+        "kb": "Centre of buoyancy KB",
+        "bm": "Metacentric radius BM",
+        "kg": "Centre of gravity KG",
+        "limit": "Height of the weight from which it tips over",
+        "vanishing": "Heel up to which it comes back"
+      },
+      "chart": {
+        "curve_hint": "The arm GZ against the heel, with the weight at the height set; dashed GM·sin φ, the approximation for small angles. Where the curve falls below zero, it capsizes.",
+        "arm": "Arm GZ",
+        "small": "GM·sin φ",
+        "heel": "Heel",
+        "trick_hint": "The arm GZ against the heel for three heights of the weight: at the foot of the keel, on the deck and high up the mast.",
+        "weight_at": "Weight at {{cm}} cm"
+      },
+      "model": {
+        "intro": "The hull here is a closed box, a rectangle in section. It sinks in until the water it displaces weighs as much as hull and weight together.",
+        "draft": "Archimedes for the box: the displaced water weighs as much as hull and weight. Here it floats 3.0 cm deep.",
+        "gravity": "The centre of gravity of hull and weight, measured from the bottom K. When the weight moves, only this moves; the draft stays the same.",
+        "arm": "Heeled, the centre of buoyancy B, the centre of the part under water, lies horizontally GZ from the centre of gravity. If GZ is positive, B lies on the low side, and buoyancy and weight turn the hull back.",
+        "metacentre": "For small angles the vertical through B always crosses the hull's middle line at the same point, the metacentre M; GM is its height above G. For the box here B lies 1.5 cm above the bottom, BM is 11.1 cm, and M lies 12.6 cm above the bottom.",
+        "wall": "As long as the sides stand vertical in the water, this formula holds exactly for the box, here up to 16.7°, where the bottom comes out; for small angles GM·sin φ remains. Beyond, the page works out the part under water geometrically, until the hull lies on its side or keel up."
+      },
+      "symbols": {
+        "rho": "density of the water",
+        "l": "length of the hull",
+        "b": "beam of the hull",
+        "d": "draft",
+        "mh": "mass of the hull",
+        "mw": "mass of the weight",
+        "kg": "height of the centre of gravity G above the bottom K",
+        "zh": "height of the empty hull's centre of gravity",
+        "zw": "height of the weight",
+        "gz": "arm between buoyancy and weight",
+        "phi": "heel",
+        "yzb": "where the centre of buoyancy B lies in the hull, across and in height",
+        "gm": "metacentric height",
+        "kb": "height of the centre of buoyancy above the bottom",
+        "bm": "distance from the centre of buoyancy to the metacentre",
+        "i": "second moment of area of the waterline",
+        "v": "displaced volume",
+        "inertia": "moment of inertia about the long axis through G",
+        "m": "mass of hull and weight",
+        "g": "gravitational acceleration",
+        "beta": "damping by the water",
+        "kh": "radius of gyration of the empty hull",
+        "t": "roll period"
+      },
+      "sweet": {
+        "moves": "The trick: when the hull heels, the low side dips in and the high side comes out. The displaced water, and with it the centre of buoyancy B, moves to the low side. As long as the metacentre M lies above the centre of gravity G, B lies further out than G, and buoyancy and weight turn the hull back.",
+        "numbers": "Here M lies 12.6 cm above the bottom. With the weight on the deck, G lies at 7.3 cm: GM is 5.3 cm, and it comes back from up to 75° of heel. At the foot of the keel G lies below the bottom, GM is 14.3 cm, and it comes back from any position, even from its side, where an arm of 7.7 cm rights it.",
+        "high": "Sliding the weight up raises G and nothing else: the draft, B and M stay where they are. From 27.8 cm up the mast, G lies above M. Upright it is then on a knife's edge, and a small push capsizes it; at 35 cm GM is −2.4 cm. Keel up, on the other hand, it then floats stably."
+      },
+      "computed": {
+        "system": "The page steps the roll every 2 ms (Runge–Kutta). At each step it finds, for the heel, the waterline that leaves exactly the displacement under water, cuts the part under water out of the section and takes its centre as the centre of buoyancy.",
+        "roll": "The turn about the centre of gravity: the arm GZ turns it back, the water brakes. The moment of inertia is the hull's, moved to G by Steiner's theorem, and the weight's.",
+        "period": "For small angles it rolls like a pendulum: with the weight on the deck every 0.58 s. The smaller GM, the slower: with the weight 25 cm up the mast GM is only 0.9 cm, and it rolls every 2.3 s.",
+        "check": "The page's tests hold GM to KB + BM − KG, the arm at 15° to the formula for vertical sides, the hull on its side to the centre of the rectangle under water, and the roll period to the formula for small angles. The computing happens in your browser, with the same formulas as the site's engine.",
+        "left_out": "Left out: the water the rolling hull carries along (it lengthens the period); the hull rising and sinking as it heels (here it floats on its displacement at once, at every angle); drifting sideways and the waves the roll makes; the volume and weight of keel and mast; water coming in. The values are an assumed model: a box 20 cm wide, 12 cm deep, 50 cm long and 2 kg, its own centre of gravity 5 cm above the bottom; a weight of 1 kg, from 15 cm below the hull to 40 cm up the mast."
+      }
+    },
+    "string": {
+      "at": {
+        "cord": "A thin elastic cord is fixed at one end to a vibrator that shakes it a little up and down a hundred times a second. You lead the other end over a peg and pull it down by hand.",
+        "loops": "Held slack, the cord only quivers in a blur. Tighten it slowly: at certain pulls it suddenly stands still in one, two, three loops, with quiet nodes between them. The harder you pull, the fewer the loops."
+      },
+      "view": "The cord from the vibrator to the peg: how far it swings, within that the cord as a strobe light shows it, and on the right your hand's pull",
+      "play": {
+        "title": "Pull the cord",
+        "hint": "Pull harder or ease off, and look for the pulls at which the cord stands still in loops.",
+        "calm": "Calm it",
+        "caption": "The shaded band shows how far the cord swings; the line within shows it as a strobe light just off the tone shows it: slowed down. The height is drawn {{times}} times taller.",
+        "pull": "Your hand's pull",
+        "pull_hint": "The force with which you tighten the cord over the peg. The tighter, the faster the waves run.",
+        "tone": "Vibrator's tone",
+        "tone_hint": "How often the vibrator shakes the cord a second; at the exhibit fixed at 100 times.",
+        "widest": "Widest swing",
+        "stroke": "Vibrator's stroke",
+        "speed": "Wave speed",
+        "half_waves": "Half-waves between the ends",
+        "three": "Pull for three loops at {{hz}} Hz"
+      },
+      "chart": {
+        "swing": "Widest swing",
+        "half_waves": "Half-waves between the ends, 2Lf/v",
+        "caption": "The cord's steady swing at the vibrator's tone, over the number of half-waves that fit between the ends: peaks exactly at whole numbers. The line stands at your pull.",
+        "tone": "Vibrator's tone",
+        "tones_hint": "The steady swing over the vibrator's tone, for three pulls, each four times the last: the tones at which the cord stands in loops double."
+      },
+      "change": {
+        "title": "Change the cord",
+        "hint": "Another cord or another vibrator.",
+        "length": "Length",
+        "length_hint": "From the vibrator to the peg.",
+        "density": "Mass per metre",
+        "density_hint": "On a heavier cord the waves run more slowly.",
+        "damping": "Damping",
+        "damping_hint": "The air and the cord together, as one rate: the stronger, the lower and wider the peaks.",
+        "stroke": "Vibrator's stroke",
+        "stroke_hint": "How far the vibrator moves the end of the cord each way.",
+        "f1": "Lowest tone at your pull",
+        "one": "Pull for one loop at {{hz}} Hz",
+        "limit": "A loop's swing at your pull"
+      },
+      "model": {
+        "intro": "The cord obeys the wave equation: each piece is pulled back by its neighbours, the harder the more the cord is curved there. The vibrator moves one end, the peg holds the other.",
+        "wave": "Mass times acceleration, plus a little damping, equals pull times curvature. At the vibrator the cord moves with it; at the peg it stands.",
+        "tones": "The cord's own tones: exactly n half-waves fit between the ends (Mersenne's laws). At a fixed vibrator tone, n loops therefore belong to one pull: four times as tight gives half as many loops.",
+        "transfer": "The transfer function from the vibrator to the point x. At s = iΩ its magnitude gives the steady swing; its poles are the cord's modes, each damped by γ/2.",
+        "peak": "Right at one of its own tones the cord swings about this far in every loop; in between, hardly further than the vibrator itself."
+      },
+      "symbols": {
+        "y": "The cord's displacement",
+        "x": "Place along the cord, from the vibrator",
+        "t": "Time",
+        "mu": "The cord's mass per metre",
+        "gamma": "Damping, the air and the cord together",
+        "tension": "Your hand's pull",
+        "a": "The vibrator's stroke",
+        "omega": "The vibrator's angular frequency",
+        "l": "Length from the vibrator to the peg",
+        "fn": "The n-th tone of its own",
+        "n": "Number of loops",
+        "v": "Wave speed",
+        "tn": "Pull for n loops",
+        "f": "The vibrator's tone",
+        "g": "Transfer function from the vibrator to the point x",
+        "s": "Complex frequency of the Laplace transform",
+        "kappa": "Complex wavenumber",
+        "sn": "Poles: the damped modes",
+        "omegan": "Angular frequency of the n-th tone",
+        "peak": "Swing in a loop",
+        "theta": "The vibrator's phase",
+        "qn": "Swing of the n-th mode"
+      },
+      "sweet": {
+        "trick": "The trick: the vibrator sends a wave off; it runs to the peg, is thrown back, runs back and is thrown back again at the vibrator, over and over. Only when a whole number of half-waves fits between the ends does every returning wave arrive in step with the new ones, and all of them add up to a standing pattern. Otherwise they mostly cancel.",
+        "numbers": "At 100 Hz the cord stands in one loop at 20 N, in two at 5 N, in three at 2.22 N. One loop then swings 67 mm, three loops 22 mm each, eleven times as far as the vibrator. At 3.2 N, two and a half half-waves, it swings nowhere further than the vibrator itself: 2 mm.",
+        "pull": "Pulling harder makes the waves faster and longer, and fewer loops fit in: four times the pull doubles the tones. That is how a guitar is tuned."
+      },
+      "computed": {
+        "system": "The page splits the cord into the straight line the vibrator sets and 40 modes. Each is a damped oscillator the vibrator drives; the page solves each one exactly frame by frame, the tone held through the frame. It is computed in your browser, with the same formulas as the site's engine.",
+        "modes": "The cord as a sum: the straight line from the vibrator to the peg and 40 modes, each a damped, driven oscillator.",
+        "drawing": "A cord swinging a hundred times a second cannot be shown frame by frame on a screen. So the drawing shows what the eye sees: the band between its two outermost positions, and within it the cord as a strobe light just off the tone shows it.",
+        "left_out": "Left out: that an elastic cord stretches and thins as it is pulled; its stiffness; swings so wide that the pull changes along the cord; the vibrator's give; swings out of the drawing's plane."
+      }
+    },
+    "jet": {
+      "at": {
+        "tank": "A tank of water has a hole low in its front wall. Behind the tank stands a laser; its beam goes through the water straight into the hole the water flows out of.",
+        "follows": "The water arcs down into a basin – and the light does not go on straight: it follows the bending jet, which glows green, and comes out only where the jet meets the basin or breaks into drops.",
+        "colladon": "Daniel Colladon described this experiment in 1842 in the Comptes rendus of the Paris Academy of Sciences. The light in the water jet is a forerunner of the optical fibre."
+      },
+      "scene_view": "The tank with its laser, the arcing water jet and the basin; the jet glows as far as the light stays in it",
+      "close_view": "The hole, much enlarged, with the rays of light reflected at the water jet's surface",
+      "play": {
+        "title": "Tilt the laser, lower the level",
+        "hint": "Tilt the laser and lower the water: see when the light leaves the jet.",
+        "level": "Water above the hole",
+        "level_hint": "The higher the water stands, the faster it leaves and the more gently the jet bends.",
+        "tilt": "Laser tilt",
+        "tilt_hint": "The angle of the laser's light in the water against the jet's axis, upwards positive.",
+        "scene_caption": "The whole exhibit. The jet glows green as far as the light stays in it; circles show where it leaves on the way.",
+        "close_caption": "The hole, much enlarged: nine rays of the laser, reflected at the surface of the water jet. Dashed, the light that gets out.",
+        "all_in": "All the light stays in the jet: every ray meets the surface at {{steepest}}° from the normal or flatter, beyond the critical angle of {{critical}}°. It comes out only in the basin.",
+        "some_out": "{{out}} % of the light leaves the jet on its way, {{arrives}} % reaches the basin.",
+        "all_out": "No light reaches the basin: it meets the surface more steeply than the critical angle of {{critical}}° and leaves just after the hole."
+      },
+      "figures": {
+        "speed": "Speed at the hole",
+        "bend": "Bend radius at the hole",
+        "critical": "Critical angle",
+        "steepest": "Steepest hit, from the normal",
+        "arrives": "Light in the basin",
+        "first_out": "First light out after",
+        "landing": "The jet meets the basin after",
+        "hits": "Reflections of the middle ray"
+      },
+      "change": {
+        "title": "Change the exhibit",
+        "hint": "Change the hole, its height above the basin and the liquid.",
+        "hole": "Hole diameter",
+        "hole_hint": "The jet is as thick as this. The thicker it is, the tighter its bend at the hole compared with its thickness.",
+        "drop": "Height above the basin",
+        "drop_hint": "How far below the hole the basin stands: the length of the light's way.",
+        "index": "Refractive index of the liquid",
+        "index_hint": "Water has 1.333. The higher the index, the smaller the critical angle and the better the jet holds the light."
+      },
+      "chart": {
+        "inside_hint": "The light still in the jet along its way from the hole to the basin, measured across.",
+        "inside": "Light in the jet",
+        "along": "Distance from the hole",
+        "reflected_hint": "The share the surface reflects from inside, by the angle the light meets it at, for the index {{index}}: little below the critical angle, all of it from there on.",
+        "reflected": "Share reflected",
+        "incidence": "Angle of incidence, from the normal"
+      },
+      "model": {
+        "intro": "The water leaves the hole level and falls like a thrown stone. The light in it goes straight until it meets the jet's surface; there it is reflected, and below the critical angle part of it gets out, refracted.",
+        "torricelli": "The water leaves as fast as a stone would be after falling the water's level h (Torricelli).",
+        "parabola": "The jet's axis is a parabola. It bends most sharply at the hole, with the radius R, twice the level; further down ever more gently.",
+        "snell": "Light passing from water into air is bent away from the normal (Snell's law).",
+        "critical": "From the critical angle on there is no angle left for refracted light: it is all reflected. For water that is 48.6°.",
+        "fresnel": "Below the critical angle only this share is reflected (Fresnel, the two polarisations averaged for unpolarised light); the rest gets out."
+      },
+      "symbols": {
+        "v": "the water's speed at the hole",
+        "g": "gravitational acceleration",
+        "h": "water level above the hole",
+        "x": "distance across from the hole",
+        "y": "height relative to the hole",
+        "r": "radius of curvature of the axis at the hole",
+        "n": "refractive index of the liquid (air: 1)",
+        "theta": "angle of incidence in the water, from the normal",
+        "theta_t": "angle of the light leaving, from the normal",
+        "theta_c": "critical angle",
+        "r_f": "share reflected"
+      },
+      "sweet": {
+        "grazing": "The trick: inside the jet the light meets its surface at a grazing angle, more than about 49° from the normal. That flat it cannot get out of the water: it is reflected whole, across the jet to its other side, there again, and so on to the end. With the laser aimed straight into the hole, the light meets the surface at the exhibit at 79° or flatter.",
+        "bend": "The jet lets the light go only when it meets the surface more steeply: when the laser is tilted by more than 40° (in a straight jet it would be 41.4°, 90° less 48.6°), or when the jet bends too tightly. At the hole its bend radius is twice the water's level; with a 6 mm hole, light gets out below a level of about 6 mm. Where the jet breaks into drops the surface is gone, and the light shines out."
+      },
+      "computed": {
+        "system": "The page follows nine rays, spread evenly across the hole, straight on to the water jet's surface. The surface lies where a point is half the hole's diameter from the axis; Newton's method finds the axis's nearest point, false position where the ray meets the surface. There the law of reflection holds; below the critical angle what the surface does not reflect gets out, refracted by Snell's law, and the rest goes on. It is computed in your browser, with the same formulas as the site's engine.",
+        "check": "The page's tests measure the hits again by a search of their own: they lie half the hole's diameter from the axis, the angles in and out are equal, and what leaves and what arrives add up to exactly all the light. At the exhibit, with the laser straight, all the light reaches the basin, 49 cm from the hole.",
+        "left_out": "Left out: the round jet's other direction – the page computes in the section it falls in, and rays outside that section are missing; the jet's thinning as it falls faster; its breaking into drops (here it stays whole down to the basin); the surface tension that holds a very slow jet to the wall; the laser's polarisation and the width of its beam; waves on the surface; the light the water itself absorbs."
+      }
     }
   },
   "course": {

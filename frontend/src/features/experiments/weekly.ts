@@ -15,18 +15,20 @@
  *   {@link spacing} weeks back — half a round. A shuffle alone guards only its
  *   own round: the chair could end one and start the next two turns later
  *   (seen on the page, when the pick was a day's);
- * - **a bonus and two maluses** among those, so that like exhibits are less
- *   likely to follow each other ({@link WEEKLY_WEIGHTS}): a little more chance
- *   for every week an exhibit has waited beyond the spacing; half of it for
- *   one about a topic last week's was about too (the elephant after the smoke
- *   ring, both flow); a quarter for one that followed last week's in the round
- *   before, so that the same two do not come in the same order round after
- *   round. Weights, not rules: the round and the spacing are the guarantees,
+ * - **two maluses** among those, so that like exhibits are less likely to
+ *   follow each other ({@link WEEKLY_WEIGHTS}): half the chance for one about a
+ *   topic last week's was about too (the elephant after the smoke ring, both
+ *   flow); a quarter for one that followed last week's in the round before, so
+ *   that the same two do not come in the same order round after round. A
+ *   bonus for every week an exhibit had waited beyond the spacing went on
+ *   2026-11-23: its weight a week was fixed while a round grew, so with 45
+ *   exhibits it cut late turns by a hundredth, and more exhibits are to come
+ *   (Marcel: "Wochenbonus kann dann gestrichen werden"). Weights, not rules: the round and the spacing are the guarantees,
  *   and these only lean the draw within them. The maluses are at half the
  *   strength the first eight exhibits were drawn with (Marcel, 2026-11-15:
  *   they should count less).
  *
- *   **Measured, not guessed** (400 rounds of all 35 exhibits; a plain shuffle
+ *   **Measured, not guessed** (400 rounds of all 35 exhibits, with the bonus; a plain shuffle
  *   per round in brackets): a pair of the round before again in the same
  *   order 0.45 times a round (1.20), a triple 0.013 (0.023), two neighbours
  *   sharing a topic 17.4 weeks in a hundred (24.7), a wait of more than a
@@ -85,10 +87,6 @@ export interface WeeklyMember {
 
 /** How the draw leans, within a round and the spacing. */
 export interface WeeklyWeights {
-  /** Added to an exhibit's weight of 1 for every week it has waited beyond the
-   *  spacing (at most a round's worth): one long waiting comes sooner. Kept
-   *  small: a large one draws the longest-waiting first, which is a rotation. */
-  bonusPerWeek: number;
   /** What an exhibit's weight is multiplied by when it shares a topic with
    *  last week's. */
   topicMalus: number;
@@ -101,7 +99,7 @@ export interface WeeklyWeights {
  *  "Tagesminus sollte weniger zählen"). With 35 exhibits, eleven of them about
  *  energy, ten about oscillation and eight about angular momentum, the
  *  stronger maluses held a topic back on most turns. */
-export const WEEKLY_WEIGHTS: WeeklyWeights = { bonusPerWeek: 0.25, topicMalus: 0.5, pairMalus: 0.25 };
+export const WEEKLY_WEIGHTS: WeeklyWeights = { topicMalus: 0.5, pairMalus: 0.25 };
 
 /** A week, by its Monday, and the exhibit it had. */
 export interface WeeklyPick {
@@ -205,7 +203,6 @@ function ordered(
     const before: Exhibit | undefined = out[week - 1] ?? previous[previous.length - 1];
     const about = (before && topicsOf.get(before)) || [];
     const weight = (exhibit: Exhibit) =>
-      (1 + weights.bonusPerWeek * Math.min(since(exhibit) - gap, n)) *
       ((topicsOf.get(exhibit) ?? []).some((topic) => about.includes(topic)) ? weights.topicMalus : 1) *
       (followed.has(`${before}>${exhibit}`) ? weights.pairMalus : 1);
     const ready = left.filter((exhibit) => since(exhibit) >= gap);

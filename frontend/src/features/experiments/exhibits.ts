@@ -39,13 +39,23 @@ export type Exhibit =
   | "levitation"
   | "circuit"
   | "plates"
+  | "vessel"
   | "bounce"
   | "overhang"
   | "diver"
+  | "ship"
   | "rainbow"
   | "sky"
   | "slits"
-  | "beats";
+  | "beats"
+  | "spring"
+  | "kapitza"
+  | "galton"
+  | "film"
+  | "polarizer"
+  | "jet"
+  | "string"
+  | "metronomes";
 
 /** What an exhibit is about, as a reader would look for it: one word each,
  *  and an exhibit may be about two. */
@@ -57,10 +67,12 @@ export type Topic =
   | "equilibrium"
   | "flow"
   | "induction"
+  | "chance"
   | "light"
   | "perception";
 
-/** The order the overview's chips stand in: the mechanics first, then the rest. */
+/** The order the overview's chips stand in: the mechanics first, then the rest;
+ *  chance, the Galton board's, before light and perception. */
 export const TOPICS: readonly Topic[] = [
   "momentum",
   "angular_momentum",
@@ -69,6 +81,7 @@ export const TOPICS: readonly Topic[] = [
   "equilibrium",
   "flow",
   "induction",
+  "chance",
   "light",
   "perception",
 ];
@@ -77,7 +90,7 @@ export const TOPICS: readonly Topic[] = [
  *  course on differential equations whose lessons 0–6 moved here from
  *  Kurvenschmiede, where these exhibits were first built, and live under
  *  `/basics` (`docs/course.md`; `course/lessons.ts`'s `lessonEntry`). */
-export type CourseLesson = "first_order" | "second_order" | "numerics";
+export type CourseLesson = "first_order" | "second_order" | "eigenvalues" | "laplace" | "numerics" | "two_mass";
 
 export interface ExhibitEntry {
   exhibit: Exhibit;
@@ -107,6 +120,16 @@ export const EXHIBITS_ANCHOR = "all-exhibits";
  * in its first round.
  */
 export const SECOND_SERIES = "2026-11-16";
+
+/**
+ * The day the third series ships (`docs/plan.md`, "The third series"): its ten
+ * join the experiment of the week's first round that starts on or after it.
+ * Deployed on 2026-11-23 (Marcel: all ten in one series), but that is the
+ * first round's own Monday (`WEEKLY_EPOCH`): on it, the ten would have joined
+ * the round already showing and redrawn its weeks. So the day after: they
+ * join the second round.
+ */
+export const THIRD_SERIES = "2026-11-24";
 
 export const EXHIBITS: readonly ExhibitEntry[] = [
   { exhibit: "chair", path: "/chair", topics: ["perception"], lessons: [], since: "2026-11-12" },
@@ -325,6 +348,47 @@ export const EXHIBITS: readonly ExhibitEntry[] = [
     lessons: ["second_order"],
     since: SECOND_SERIES,
   },
+  // The third series: from THIRD_SERIES on.
+  {
+    exhibit: "spring",
+    path: "/spring",
+    topics: ["oscillation", "energy"],
+    lessons: ["eigenvalues", "two_mass"],
+    since: THIRD_SERIES,
+  },
+  {
+    exhibit: "metronomes",
+    path: "/metronomes",
+    topics: ["oscillation"],
+    lessons: ["second_order", "numerics"],
+    since: THIRD_SERIES,
+  },
+  {
+    exhibit: "string",
+    path: "/string",
+    topics: ["oscillation"],
+    lessons: ["eigenvalues", "laplace"],
+    since: THIRD_SERIES,
+  },
+  {
+    exhibit: "kapitza",
+    path: "/kapitza",
+    topics: ["equilibrium", "oscillation"],
+    lessons: ["eigenvalues", "numerics"],
+    since: THIRD_SERIES,
+  },
+  { exhibit: "ship", path: "/ship", topics: ["equilibrium"], lessons: ["second_order"], since: THIRD_SERIES },
+  { exhibit: "film", path: "/film", topics: ["equilibrium"], lessons: [], since: THIRD_SERIES },
+  { exhibit: "vessel", path: "/vessel", topics: ["flow"], lessons: ["first_order"], since: THIRD_SERIES },
+  { exhibit: "galton", path: "/galton", topics: ["chance"], lessons: [], since: THIRD_SERIES },
+  {
+    exhibit: "polarizer",
+    path: "/polarizer",
+    topics: ["light"],
+    lessons: [],
+    since: THIRD_SERIES,
+  },
+  { exhibit: "jet", path: "/jet", topics: ["light"], lessons: [], since: THIRD_SERIES },
 ];
 
 export function exhibitEntry(exhibit: Exhibit): ExhibitEntry {

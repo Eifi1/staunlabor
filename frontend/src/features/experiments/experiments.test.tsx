@@ -94,7 +94,9 @@ describe("the overview", () => {
   /** The page of every exhibit, likewise once its previews are in. */
   const renderList = async () => {
     const view = renderWithProviders(<ExhibitsPage />, { initialEntries: ["/exhibits"] });
-    await waitFor(() => expect(view.container.querySelector("[aria-busy='true']")).toBeNull());
+    // Every card's preview loads its page's module: with 45, the first list
+    // of a run outlasts waitFor's one second while the modules are fetched.
+    await waitFor(() => expect(view.container.querySelector("[aria-busy='true']")).toBeNull(), { timeout: 20_000 });
     return view;
   };
 
@@ -188,7 +190,15 @@ describe("the overview", () => {
       within(part)
         .getAllByRole("link")
         .map((link) => link.getAttribute("href")),
-    ).toEqual(["/basics", "/basics/first-order", "/basics/second-order", "/basics/numerics"]);
+    ).toEqual([
+      "/basics",
+      "/basics/first-order",
+      "/basics/second-order",
+      "/basics/eigenvalues",
+      "/basics/laplace",
+      "/basics/numerics",
+      "/basics/two-mass",
+    ]);
     expect(within(part).getByText(new RegExp(course.numerics.title))).toBeInTheDocument();
   });
 

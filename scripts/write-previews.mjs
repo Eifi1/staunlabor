@@ -29,8 +29,9 @@ import { FRONTEND, PORTS, withPreviewServer } from "./preview-server.mjs";
 
 const OUT = path.join(FRONTEND, "public/previews");
 const SETTLE_DEFAULT = 3000;
-/** The smoke ring needs a push and a second to rise before there is a ring to see. */
-const SETTLE = { smoke: 6000 };
+/** The smoke ring needs a push and a second to rise before there is a ring to see;
+ *  the Galton board some twelve seconds of balls before its heap shows the bell. */
+const SETTLE = { smoke: 6000, galton: 12000 };
 /** JPEG at this quality: a card is 60–150 kB, under WhatsApp's limit for a
  *  large picture, which a PNG of the same card is not. */
 const QUALITY = 85;

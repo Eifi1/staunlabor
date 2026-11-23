@@ -43,14 +43,23 @@ with SciPy before it was written (``docs/experiments.md``).
   a plate shaken at its middle stands still, the sand lies.
 * :mod:`circuit` — the slow LC circuit: a capacitor discharged through a big
   coil swings like a damped spring, its current with the coil's inertia.
+* :mod:`vessel` — the draining vessel: a tube of water empties through holes
+  in its side ever more slowly, Torricelli's ``√(2gh)``, and its jets shorten.
 * :mod:`plates` — metal plates fall slowly between magnets they are not
   drawn to: eddy currents brake them, and slots cut most of the brake away.
 * :mod:`bounce` — a ball bouncing on a plate: infinitely many bounces, ever
   lower and quicker, add up to a finite time.
 * :mod:`overhang` — identical blocks stacked over an edge reach beyond it as
   far as one likes: half the harmonic series, slowly.
+* :mod:`galton` — the Galton board: balls turned left or right at every pin
+  pile up into a bell, the binomial distribution, from a seeded generator.
+* :mod:`film` — the soap film between two rings: drawn apart, its waist
+  narrows, and past ``h/R ≈ 1.3255`` no catenoid fits and it snaps into discs.
 * :mod:`diver` — a Cartesian diver: squeezed, its bubble shrinks and it sinks;
   it hovers at one depth only, and there unstably.
+* :mod:`ship` — the ship that rights itself: tilted, its centre of buoyancy
+  moves to the low side, and it comes back while the metacentre is above its
+  centre of gravity, ``GM = KB + BM − KG``.
 * :mod:`colour` — a spectrum as the eye sees it and a screen shows it: the
   light exhibits' one step from wavelengths to red, green and blue.
 * :mod:`rainbow` — glass beads make a rainbow round the shadow of one's head,
@@ -60,8 +69,14 @@ with SciPy before it was written (``docs/experiments.md``).
   the ozone that keeps the sky overhead blue at sunset.
 * :mod:`slits` — the double slit: two slits make stripes, and where they make
   it dark, one slit alone would light the wall.
+* :mod:`polarizer` — the third polarising filter: two crossed filters are dark,
+  and a third slanted between them lets an eighth of the lamp's light through.
+* :mod:`jet` — the light in the water jet: a laser's light stays inside a jet
+  of water round its bend, reflected wholly beyond the critical angle.
 * :mod:`beats` — two tuning forks a little apart swell and fade together:
   ``|f₁ − f₂|`` beats a second, and a rider on a prong sets them.
+* :mod:`string` — the standing string: a cord on a vibrator stands still in
+  one, two, three loops at ``fₙ = n/(2L)·√(T/μ)``, and only there.
 * :mod:`levitation` — a spinning top hovers over a ring magnet only in a
   window a few millimetres high and three per cent wide in weight.
 * :mod:`gyroscope` — a spinning wheel on a string turns round it instead of
@@ -86,8 +101,12 @@ with SciPy before it was written (``docs/experiments.md``).
 * :mod:`maxwell` — Maxwell's wheel: a slow fall because nearly all its energy
   goes into its spin, a jerk at the bottom the strings' stretch sets, a climb
   nearly back.
+* :mod:`metronomes` — metronomes on a board on two cans tick in step within a
+  minute, pushed together by the board they push; on a held board, never.
 * :mod:`chaos` — the double pendulum: two that start a thousandth of a degree
   apart part company, and the Lyapunov exponent measured Benettin's way.
+* :mod:`kapitza` — Kapitza's pendulum: shaken fast enough, a rod stands upside
+  down; Floquet's multipliers say from which drive on, Kapitza's bound nearly.
 * :mod:`waterwheel` — Malkus's leaking waterwheel, which is Lorenz's equations:
   still, steady, or turning back and forth without ever repeating.
 * :mod:`wave` — a row of pendulums tuned to swing ``N``, ``N + 1``, … times a
@@ -185,6 +204,9 @@ from staunlabor.domain.experiments.elephant import Elephant, ElephantRun, Floati
 from staunlabor.domain.experiments.elephant import Move as ElephantMove
 from staunlabor.domain.experiments.elephant import figures as elephant_figures
 from staunlabor.domain.experiments.elephant import run as run_elephant
+from staunlabor.domain.experiments.film import Rings as FilmRings
+from staunlabor.domain.experiments.film import radius_at as film_radius_at
+from staunlabor.domain.experiments.film import tears as film_tears
 from staunlabor.domain.experiments.foucault import (
     FoucaultPendulum,
     degrees_per_hour,
@@ -195,6 +217,10 @@ from staunlabor.domain.experiments.foucault import (
 )
 from staunlabor.domain.experiments.foucault import period_s as foucault_period_s
 from staunlabor.domain.experiments.foucault import position as foucault_position
+from staunlabor.domain.experiments.galton import EXHIBIT_BALLS as GALTON_BALLS
+from staunlabor.domain.experiments.galton import EXHIBIT_ROWS as GALTON_ROWS
+from staunlabor.domain.experiments.galton import EXHIBIT_SEED as GALTON_SEED
+from staunlabor.domain.experiments.galton import LEVEL as GALTON_LEVEL
 from staunlabor.domain.experiments.gyroscope import Release as GyroRelease
 from staunlabor.domain.experiments.gyroscope import Wheel as GyroWheel
 from staunlabor.domain.experiments.gyroscope import nutation_rad_s as gyro_nutation
@@ -204,6 +230,13 @@ from staunlabor.domain.experiments.gyroscope import suitcase_torque_n_m as gyro_
 from staunlabor.domain.experiments.harmonograph import Harmonograph, HarmonographPendulum, nearest_ratio
 from staunlabor.domain.experiments.harmonograph import draw as harmonograph_draw
 from staunlabor.domain.experiments.harmonograph import figures as harmonograph_figures
+from staunlabor.domain.experiments.jet import axis_normal as jet_axis_normal
+from staunlabor.domain.experiments.jet import axis_y as jet_axis_y
+from staunlabor.domain.experiments.kapitza import effective_potential as kapitza_effective_potential
+from staunlabor.domain.experiments.kapitza import floquet_rate_top as kapitza_floquet_rate_top
+from staunlabor.domain.experiments.kapitza import multipliers as kapitza_multipliers
+from staunlabor.domain.experiments.kapitza import slow_rate_bottom as kapitza_slow_rate_bottom
+from staunlabor.domain.experiments.kapitza import slow_rate_top as kapitza_slow_rate_top
 from staunlabor.domain.experiments.levitation import Base as LevitationBase
 from staunlabor.domain.experiments.levitation import Top as LevitationTop
 from staunlabor.domain.experiments.levitation import hover as levitation_hover
@@ -217,6 +250,10 @@ from staunlabor.domain.experiments.maxwell import (
     state_at,
 )
 from staunlabor.domain.experiments.maxwell import bounce as wheel_bounce
+from staunlabor.domain.experiments.metronomes import Metronomes
+from staunlabor.domain.experiments.metronomes import Start as MetronomeStart
+from staunlabor.domain.experiments.metronomes import in_step_s as metronomes_in_step_s
+from staunlabor.domain.experiments.metronomes import run as run_metronomes
 from staunlabor.domain.experiments.overhang import BLOCK_HEIGHT_M, BLOCK_LENGTH_M, EXHIBIT_BLOCKS
 from staunlabor.domain.experiments.overhang import blocks_for as blocks_for_reach
 from staunlabor.domain.experiments.overhang import even as even_stack
@@ -311,6 +348,14 @@ from staunlabor.domain.experiments.smoke import flight as smoke_flight
 from staunlabor.domain.experiments.sphere import BallKind, Drive, Sphere, lowest_orbit_hz, orbit, orbit_at, swing_hz
 from staunlabor.domain.experiments.sphere import figures as sphere_figures
 from staunlabor.domain.experiments.sphere import run as run_sphere
+from staunlabor.domain.experiments.spring import tuned_radius_m as spring_tuned_radius_m
+from staunlabor.domain.experiments.string import Cord as StringCord
+from staunlabor.domain.experiments.string import figures as string_figures
+from staunlabor.domain.experiments.string import half_waves as string_half_waves
+from staunlabor.domain.experiments.string import strobe_m as string_strobe_m
+from staunlabor.domain.experiments.vessel import DrainingVessel
+from staunlabor.domain.experiments.vessel import jet_path as vessel_jet_path
+from staunlabor.domain.experiments.vessel import level_exact as vessel_level_exact
 from staunlabor.domain.experiments.waterwheel import WaterWheel, WheelTurns, cup_level, hopf_rho, regime, steady_x
 from staunlabor.domain.experiments.waterwheel import behaviour as waterwheel_behaviour
 from staunlabor.domain.experiments.waterwheel import run as run_waterwheel
@@ -331,6 +376,10 @@ __all__ = [
     "EXHIBIT_HEIGHT_M",
     "EXHIBIT_PLATES",
     "EYE",
+    "GALTON_BALLS",
+    "GALTON_LEVEL",
+    "GALTON_ROWS",
+    "GALTON_SEED",
     "GLASS_BEAD",
     "LASER_NM",
     "METER_RANGE_A",
@@ -361,12 +410,14 @@ __all__ = [
     "Diver",
     "DoubleCone",
     "DoublePendulum",
+    "DrainingVessel",
     "Drive",
     "Drum",
     "Elephant",
     "ElephantMove",
     "ElephantRun",
     "FigureKind",
+    "FilmRings",
     "FloatingBall",
     "Fork",
     "FoucaultPendulum",
@@ -382,6 +433,8 @@ __all__ = [
     "Magnet",
     "MagnetColumn",
     "MaxwellWheel",
+    "MetronomeStart",
+    "Metronomes",
     "Mode",
     "Move",
     "PegPendulum",
@@ -407,6 +460,7 @@ __all__ = [
     "Sphere",
     "Start",
     "StoneArch",
+    "StringCord",
     "Throw",
     "ThrownBody",
     "Track",
@@ -467,6 +521,8 @@ __all__ = [
     "exhibit",
     "fall_acceleration",
     "figures",
+    "film_radius_at",
+    "film_tears",
     "flux_linkage",
     "fork_frequency_hz",
     "foucault_period_s",
@@ -485,7 +541,14 @@ __all__ = [
     "inertia",
     "inertia_ratio",
     "jacobi",
+    "jet_axis_normal",
+    "jet_axis_y",
     "joints",
+    "kapitza_effective_potential",
+    "kapitza_floquet_rate_top",
+    "kapitza_multipliers",
+    "kapitza_slow_rate_bottom",
+    "kapitza_slow_rate_top",
     "lag_deg",
     "laser_colour",
     "laser_pattern",
@@ -496,6 +559,7 @@ __all__ = [
     "levitation_hover",
     "lowest_orbit_hz",
     "lyapunov",
+    "metronomes_in_step_s",
     "miss_deg",
     "mode_rates",
     "nearest_ratio",
@@ -535,6 +599,7 @@ __all__ = [
     "run_cradle",
     "run_elephant",
     "run_gyroscope",
+    "run_metronomes",
     "run_peg",
     "run_platform",
     "run_race",
@@ -570,6 +635,7 @@ __all__ = [
     "spill_rate",
     "spin",
     "spin_up_time_s",
+    "spring_tuned_radius_m",
     "stack_holds",
     "stack_layers",
     "stack_overhang",
@@ -577,6 +643,9 @@ __all__ = [
     "start_height_m",
     "state_at",
     "steady_x",
+    "string_figures",
+    "string_half_waves",
+    "string_strobe_m",
     "surface",
     "swing",
     "swing_hz",
@@ -585,6 +654,8 @@ __all__ = [
     "tolerance",
     "turning",
     "vertical_rate",
+    "vessel_jet_path",
+    "vessel_level_exact",
     "water_spin",
     "waterwheel_behaviour",
     "wave_figures",

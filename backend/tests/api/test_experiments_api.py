@@ -37,6 +37,7 @@ async def test_the_experiments_need_no_account(client: AsyncClient):
         "peg",
         "maxwell",
         "chaos",
+        "kapitza",
         "waterwheel",
         "foucault",
         "coriolis",
@@ -48,13 +49,22 @@ async def test_the_experiments_need_no_account(client: AsyncClient):
         "levitation",
         "circuit",
         "plates",
+        "vessel",
         "bounce",
         "overhang",
+        "galton",
+        "film",
         "diver",
+        "ship",
         "rainbow",
         "sky",
         "slits",
+        "polarizer",
+        "jet",
         "beats",
+        "spring",
+        "string",
+        "metronomes",
         "chladni",
         "meter_range_a",
         "settle_s",
@@ -73,6 +83,7 @@ async def test_the_experiments_need_no_account(client: AsyncClient):
     assert body["peg"]["peg_depth_m"] == x.PegPendulum().peg_depth_m
     assert body["maxwell"]["shape"] == "disc"
     assert body["chaos"]["length2_m"] == x.DoublePendulum().length2_m
+    assert body["kapitza"]["frequency_hz"] == 40.0
     assert body["waterwheel"]["rho"] == x.WaterWheel().rho
     assert body["foucault"]["latitude_deg"] == 47.5
     assert body["coriolis"]["rpm"] == x.Carousel().rpm
@@ -90,16 +101,41 @@ async def test_the_experiments_need_no_account(client: AsyncClient):
     assert [p["material"] for p in body["plates"]["exhibit"]] == ["copper", "aluminium", "aluminium", "plastic"]
     assert [p["tooth_m"] for p in body["plates"]["exhibit"]] == [0, 0, 0.008, 0]
     assert body["plates"]["plate"]["material"] == x.Plate().material
+    assert body["vessel"]["holes_m"] == list(x.DrainingVessel().holes_m)
     assert [b["restitution"] for b in body["bounce"]["balls"]] == [0.95, 0.92]
     assert body["bounce"]["height_m"] == x.EXHIBIT_HEIGHT_M
     assert body["overhang"] == {"blocks": 9, "length_m": x.BLOCK_LENGTH_M, "height_m": x.BLOCK_HEIGHT_M}
+    assert body["galton"] == {"rows": 12, "p": 0.5, "balls": 500, "seed": x.GALTON_SEED}
+    assert body["film"] == {"radius_m": 0.05, "distance_m": 0.01}
     assert body["diver"]["diver"]["air_m3"] == x.Diver().air_m3 and body["diver"]["depth_m"] == x.Bottle().depth_m
+    assert body["ship"] == {
+        "hull": {
+            "beam_m": 0.2,
+            "depth_m": 0.12,
+            "length_m": 0.5,
+            "mass_kg": 2.0,
+            "centre_m": 0.05,
+            "gyration_m": 0.07,
+        },
+        "weight": {"mass_kg": 1.0, "height_m": 0.12},
+        "damping_per_s": 0.5,
+    }
     assert body["rainbow"] == {
         "glass": {"index": 1.52, "dispersion_nm2": 4200.0},
         "water": {"index": 1.333, "dispersion_nm2": 3140.0},
     }
     assert body["sky"] == {"length_m": 1.0, "radius_m": 0.03, "cloudiness_per_m": 1.5}
     assert body["slits"] == {"spacing_m": 0.25e-3, "width_m": 0.05e-3, "distance_m": 2.0}
+    assert body["polarizer"] == {"transmission": 0.76, "extinction": 0.002}
+    assert body["jet"] == {"level_m": 0.15, "hole_m": 0.006, "drop_m": 0.4, "index": 1.333}
+    assert body["string"] == {
+        "length_m": 1.0,
+        "tension_n": 3.0,
+        "density_kg_m": 0.0005,
+        "damping_per_s": 12.0,
+        "drive_m": 0.002,
+    }
+    assert body["metronomes"] == {"count": 5, "board_kg": 0.058, "spread": 0.004, "free": True}
     assert body["beats"] == {
         "fork": {"frequency_hz": 440.0, "prong_kg": 0.02, "decay_s": 6.0},
         "rider": {"mass_kg": 0.001, "position": 0.3},

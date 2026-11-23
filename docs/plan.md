@@ -274,3 +274,38 @@ biggest thing on the first screen (`docs/experiments.md`, "The overview").
    until a first try, the goals on the drawing) is finished first.
 2. The header, the front page, `/exhibits`, the fields and "Über".
 3. The course, in its own branch.
+
+## The third series: ten more exhibits (decided 2026-11-23)
+
+Ten exhibits built the way the 35 are: a pure Python engine, a port to
+`simulate/` where a hand must be answered at 60 frames a second, and check
+cases against a result in the literature. Chosen also because the basics'
+lessons 3, 4 and 6 had no exhibit yet. Marcel, 2026-11-23: "Starte mit allen
+10 Experimenten im nächsten Lauf", all ten in one series.
+
+| # | Exhibit | At the exhibit | Model (engine) | Checked against | Topic · lesson |
+| --- | --- | --- | --- | --- | --- |
+| 1 | The Wilberforce spring | A weight on a coil spring bobs, then only twists, then bobs again. | Two coupled oscillations (stretch and twist), RK4; a port | The exchange's period from the two normal frequencies (Berg & Marshall, *Am. J. Phys.* 1991) | oscillation · two_mass, eigenvalues |
+| 2 | Kapitza's pendulum | A pendulum stands upside down while its pivot shakes fast enough. | A pendulum with a driven pivot; the stability bound by Floquet | Stable for a²ω² > 2gl (Landau & Lifshitz, *Mechanics* §30) | equilibrium · eigenvalues |
+| 3 | The metronomes that agree | Five metronomes on a board on two cans tick in step after a minute. | N pendulums with an escapement, coupled through the moving board | In step above a least coupling (Pantaleone, *Am. J. Phys.* 2002) | oscillation · numerics |
+| 4 | The Galton board | Balls fall through a field of pins and pile up into a bell. | A random walk, seeded so it repeats; no time loop | The binomial distribution, its mean and spread exactly | chance (new) · – |
+| 5 | The soap film between two rings | A film with a waist between two rings tears all at once as they are drawn apart. | The catenoid's boundary problem (kin to the arch's chain) | Tears at a distance over radius of about 1.3255 | equilibrium · – |
+| 6 | The draining vessel | A tube of water with a hole below: the jet shortens, the tube empties ever more slowly. | Torricelli, a first-order equation | The time to empty in closed form, t = (A/a)·√(2h/g) | flow · first_order |
+| 7 | The standing string | A taut cord on a vibrator stands still in 1, 2, 3 … loops at certain tones. | The damped wave equation, its modes; a port for the drawing | f_n = (n/2L)·√(T/μ) (Melde's experiment) | oscillation · eigenvalues, laplace |
+| 8 | The third polarising filter | Two crossed filters let no light through; a third, slanted between them, brings it back. | Malus's law along a chain of filters; no time loop | I = I₀·cos²θ₁·cos²θ₂, at most I₀/8 at 45° | light · – |
+| 9 | The light guide in a water jet | A laser shines into a jet of water, and the light follows the bending jet into the basin. | The jet's parabola and a ray traced by Snell's law | The critical angle arcsin(1/1.333) ≈ 48.6° (Colladon 1842) | light · – |
+| 10 | The ship that rights itself | A hull in a basin rights itself with its ballast low and capsizes with it high. | Buoyancy and the metacentre of a hull's section | The metacentric height GM = BM − BG with BM = I/V | equilibrium · second_order (the roll) |
+
+The open points, settled with the series' start:
+
+- **A topic of its own for the Galton board,** "chance" ("Zufall"), a new chip
+  in all seven languages; no other exhibit fits under the mechanics' topics.
+- **"Inspired by" only where it holds:** an exhibit names the museum as its
+  model only if the museum shows one like it, checked per exhibit; otherwise it
+  stands without that line.
+- **The sources are read before an exhibit is built:** the references above
+  were written from memory; each check case quotes its source as the 35 do,
+  and a reference that does not hold is replaced or its claim dropped.
+- **In reserve:** a pendulum clock's escapement, the Doppler effect, the
+  parabolic mirrors' floating image, and a Stirling engine (heat, a field of
+  its own).

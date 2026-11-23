@@ -148,7 +148,8 @@
       "flow": "Fluidos",
       "induction": "Inducción",
       "light": "Luz",
-      "perception": "Percepción"
+      "perception": "Percepción",
+      "chance": "Azar"
     },
     "frame": {
       "eyebrow": "Exposición",
@@ -392,6 +393,66 @@
         "title": "El batido",
         "summary": "Dos diapasones casi afinados suenan juntos como un solo tono que crece y se desvanece lentamente. Un pequeño jinete sobre uno de ellos fija la rapidez.",
         "question": "¿Por qué el tono de dos diapasones casi iguales crece y se desvanece?"
+      },
+      "galton": {
+        "short": "Tablero de Galton",
+        "title": "El tablero de Galton",
+        "summary": "Las bolas caen a través de filas de clavos, rebotan a la izquierda o a la derecha en cada uno – y abajo se amontonan cada vez en la misma campana.",
+        "question": "¿En qué casilla caen la mayoría de las bolas – y por qué cada vez en la misma?"
+      },
+      "spring": {
+        "short": "Muelle de Wilberforce",
+        "title": "El muelle de Wilberforce",
+        "summary": "Un peso en un muelle helicoidal sube y baja, luego solo gira, luego vuelve a subir y bajar: la energía va y viene entre dos oscilaciones.",
+        "question": "Se tira de un peso hacia abajo en su muelle y se suelta. ¿Cuánto tarda la energía en pasar al giro y volver al vaivén?"
+      },
+      "polarizer": {
+        "short": "Filtros polarizadores",
+        "title": "El tercer filtro polarizador",
+        "summary": "Dos filtros polarizadores cruzados no dejan pasar la luz. Si se desliza un tercero inclinado entre ellos, vuelve a haber luz, aunque un filtro solo puede quitar luz.",
+        "question": "¿Cómo puede un filtro más dejar pasar más luz?"
+      },
+      "vessel": {
+        "short": "Recipiente que se vacía",
+        "title": "El recipiente que se vacía",
+        "summary": "Un tubo alto lleno de agua con un agujero abajo: el chorro es cada vez más corto y el tubo se vacía cada vez más despacio.",
+        "question": "Cuando ha salido la mitad del agua, ¿ha pasado también la mitad del tiempo?"
+      },
+      "kapitza": {
+        "short": "Péndulo de Kapitza",
+        "title": "El péndulo que se sostiene boca abajo",
+        "summary": "Una varilla que debería caerse se queda de pie, mientras su pivote se sacuda arriba y abajo lo bastante rápido.",
+        "question": "El pivote sube y baja un centímetro. ¿Con qué rapidez debe sacudir para que la varilla se quede de pie boca abajo?"
+      },
+      "film": {
+        "short": "Película de jabón",
+        "title": "La película de jabón entre dos aros",
+        "summary": "Una película de jabón entre dos aros se estrecha formando una cintura. Si se separan los aros, a cierta distancia salta a dos discos planos.",
+        "question": "¿Cuánto se pueden separar los aros antes de que se rompa la película de jabón?"
+      },
+      "metronomes": {
+        "short": "Metrónomos",
+        "title": "Los metrónomos que se ponen de acuerdo",
+        "summary": "Cinco metrónomos sobre una tabla apoyada en dos latas: puestos en marcha al azar, pronto marcan todos el mismo compás; sobre la mesa, nunca.",
+        "question": "Cinco metrónomos, puestos en marcha al azar, están sobre una tabla apoyada en dos latas. ¿Llegarán a marcar juntos, y cuánto tardan?"
+      },
+      "ship": {
+        "short": "Barco que se endereza",
+        "title": "El barco que se endereza",
+        "summary": "El casco de una maqueta flota en un estanque. Con el peso abajo se endereza cuando se inclina; con el peso arriba en el mástil, un pequeño empujón lo hace zozobrar.",
+        "question": "¿Por qué el casco inclinado se endereza mientras el peso está abajo, y por qué zozobra cuando está arriba en el mástil?"
+      },
+      "string": {
+        "short": "Cuerda estacionaria",
+        "title": "La cuerda estacionaria",
+        "summary": "Una cuerda sacudida por un extremo y tensada a mano por el otro: con ciertas tracciones se queda quieta en uno, dos, tres vientres.",
+        "question": "¿Por qué la cuerda solo se queda quieta en vientres con ciertas tracciones?"
+      },
+      "jet": {
+        "short": "Luz en un chorro de agua",
+        "title": "La luz en el chorro de agua",
+        "summary": "Un láser ilumina a través de un depósito de agua el orificio por el que sale el agua: la luz sigue al chorro curvado hasta la pila en lugar de seguir recta.",
+        "question": "¿Por qué la luz sigue la curva del chorro de agua?"
       }
     },
     "chair": {
@@ -769,7 +830,10 @@
       "links": {
         "first_order": "Sistemas de primer orden",
         "second_order": "Sistemas de segundo orden",
-        "numerics": "Solución numérica"
+        "numerics": "Solución numérica",
+        "eigenvalues": "Valores propios y el plano de polos",
+        "laplace": "Laplace y Bode",
+        "two_mass": "El oscilador de dos masas"
       }
     },
     "race": {
@@ -3659,7 +3723,143 @@
         "top_b": "2mgd/I₁",
         "below_level": "cuánto queda el eje por debajo de la horizontal",
         "torque": "par que aplican las manos",
-        "suitcase_turn": "lo rápido que se gira la maleta"
+        "suitcase_turn": "lo rápido que se gira la maleta",
+        "galton_share": "proporción de las bolas en la casilla k",
+        "galton_rows": "número de filas",
+        "galton_bin": "casilla, contada desde la izquierda a partir de 0",
+        "galton_p": "proporción a la derecha en cada clavo",
+        "galton_mean": "centro de la distribución",
+        "galton_paths": "número de caminos a la casilla k",
+        "galton_variance": "varianza de la distribución, en casillas al cuadrado",
+        "galton_run_mean": "centro de una tanda",
+        "galton_balls": "número de bolas de una tanda",
+        "galton_ball_bin": "casilla de la bola i",
+        "galton_standard_error": "error típico del centro de una tanda",
+        "galton_q": "proporción a la izquierda, 1 − p",
+        "galton_half": "mitad del número de filas, n/2",
+        "spring_T1": "periodo del modo más rápido",
+        "spring_T2": "periodo del modo más lento",
+        "spring_omega12": "frecuencias angulares de los dos modos normales",
+        "spring_omega2": "frecuencia angular del modo más lento",
+        "spring_omega_z": "frecuencia angular del vaivén solo, al cuadrado",
+        "spring_omega_theta": "frecuencia angular del giro solo, al cuadrado",
+        "spring_epsilon": "acoplamiento entre estiramiento y torsión",
+        "spring_z0": "desplazamiento al inicio, hacia abajo",
+        "spring_theta0": "torsión al inicio",
+        "spring_T_beat": "tiempo para pasar una vez al giro y volver",
+        "spring_omega_B": "frecuencia de pulsación",
+        "spring_omega_B_measured": "frecuencia de pulsación medida",
+        "spring_E": "energía del peso y del muelle",
+        "spring_z": "desplazamiento hacia abajo",
+        "spring_theta": "torsión",
+        "spring_k": "constante del muelle frente al estiramiento",
+        "spring_delta": "constante del muelle frente a la torsión",
+        "spring_pull": "cuánto se ha tirado del peso hacia abajo al inicio",
+        "pol_I": "Luz que pasa (intensidad)",
+        "pol_I0": "Luz antes del filtro, polarizada",
+        "pol_I1": "Luz tras el filtro delantero",
+        "pol_I3": "Luz tras el tercer filtro",
+        "pol_IL": "Luz de la lámpara, no polarizada",
+        "pol_theta": "Ángulo entre la dirección de oscilación y el eje",
+        "pol_k1": "Transmisión a lo largo del eje",
+        "pol_k2": "Transmisión a través del eje",
+        "pol_n": "Filtros entre el par cruzado",
+        "pol_eps": "Razón de extinción",
+        "vessel_flow": "caudal de salida",
+        "vessel_mu": "coeficiente de descarga, A_C/A_A",
+        "vessel_hole": "área del agujero",
+        "vessel_speed": "velocidad del chorro en el agujero",
+        "vessel_head": "profundidad del agua sobre el agujero al principio",
+        "vessel_area": "sección del tubo",
+        "vessel_T": "tiempo hasta que se ha vaciado el agua sobre el agujero",
+        "vessel_depth": "profundidad del agua sobre el agujero",
+        "vessel_D": "alcance del chorro en el fondo de la cubeta",
+        "vessel_orifice": "altura del agujero sobre el fondo de la cubeta",
+        "vessel_surface": "altura de la superficie sobre el fondo de la cubeta",
+        "kap_a": "el recorrido del pivote",
+        "kap_omega": "la frecuencia angular del motor",
+        "kap_l": "la longitud de la varilla",
+        "kap_f": "la frecuencia mínima del motor",
+        "kap_lambda": "el parámetro a de Mathieu (a en la fuente, aquí λ para distinguirlo del recorrido)",
+        "kap_q": "el parámetro q de Mathieu",
+        "kap_z": "el tiempo en la medida de Mathieu, ωt/2",
+        "kap_w": "la pequeña desviación respecto a arriba o abajo",
+        "kap_period": "periodo del bamboleo alrededor de arriba",
+        "kap_Omega": "frecuencia angular del bamboleo alrededor de arriba",
+        "kap_band": "anchura de la banda en la que la varilla colgada oscila cada vez más",
+        "kap_a0": "el valor característico de Mathieu donde empieza la región estable",
+        "kap_a1b1": "los valores característicos de Mathieu entre los que está la primera región inestable",
+        "film_u_tear": "u = x₀/a a la mayor distancia",
+        "film_u_equal": "u = y₀/a, el radio de los aros en radios de la cintura",
+        "film_x0": "media distancia entre los aros",
+        "film_y0": "radio de los aros",
+        "film_R": "radio de los aros",
+        "film_hmax": "la mayor distancia con película",
+        "film_h0": "distancia a la que película y discos tienen la misma área",
+        "film_a": "radio de la cintura",
+        "film_A": "área de la película",
+        "film_S": "área de la película",
+        "film_Abar": "área de la película entre la de los dos discos",
+        "metronomes_amplitude": "la desviación con la que se estabiliza un metrónomo solo",
+        "metronomes_theta0": "el ángulo en el que el impulso pasa a frenar",
+        "metronomes_T_drift": "el tiempo en el que el más rápido gana una oscilación",
+        "metronomes_omega": "la frecuencia angular de los metrónomos",
+        "metronomes_delta": "la diferencia de las dos frecuencias angulares, en unidades de ω",
+        "metronomes_gamma": "cuánto frena al péndulo la gran amplitud",
+        "metronomes_psi": "cuánto se adelanta el más rápido",
+        "metronomes_mu": "la intensidad del impulso",
+        "metronomes_beta": "el acoplamiento a través de la tabla",
+        "metronomes_x0": "cuánto se mueve la tabla por unidad de Σ sin θⱼ",
+        "metronomes_R": "el parámetro de orden: cuánto coinciden",
+        "metronomes_phi": "la fase del metrónomo j",
+        "metronomes_N": "el número de metrónomos",
+        "ship_GM": "altura metacéntrica",
+        "ship_KB": "altura del centro de carena sobre el fondo",
+        "ship_It": "momento de inercia de área de la flotación respecto al eje longitudinal",
+        "ship_volume": "volumen desplazado",
+        "ship_KG": "altura del centro de gravedad sobre el fondo",
+        "ship_d": "calado",
+        "ship_L": "eslora del casco",
+        "ship_b": "manga del casco",
+        "ship_m": "masa del casco y el peso",
+        "ship_rho": "densidad del agua",
+        "ship_GZ": "brazo entre empuje y peso",
+        "ship_GN": "distancia de G al punto donde la línea de empuje corta la línea media",
+        "ship_phi": "escora",
+        "ship_KB90": "altura del centro de carena sobre el fondo, de costado",
+        "ship_H": "altura del casco",
+        "ship_a44": "radio de giro del agua arrastrada",
+        "ship_k": "radio de giro respecto al eje longitudinal por G",
+        "ship_I": "momento de inercia respecto al eje longitudinal por G",
+        "string_f": "Tono más grave de la cuerda",
+        "string_fn": "n-ésimo tono de la cuerda",
+        "string_v": "Velocidad de la onda",
+        "string_L": "Longitud del vibrador al perno",
+        "string_T": "Tracción de la cuerda",
+        "string_mu": "Masa de la cuerda por metro",
+        "string_n": "Número de vientres",
+        "string_drive": "Tono del vibrador",
+        "string_nodes": "Número de nodos, contando los extremos",
+        "string_loops": "Número de vientres",
+        "string_lambda": "Longitud de onda",
+        "string_d": "Distancia entre dos nodos",
+        "string_Y": "Oscilación estacionaria en el punto x, compleja",
+        "string_x": "Posición a lo largo de la cuerda, desde el vibrador",
+        "string_A": "Carrera del vibrador",
+        "string_kappa": "Número de onda complejo",
+        "string_Omega": "Frecuencia angular del vibrador",
+        "string_gamma": "Amortiguación",
+        "jet_critical": "ángulo crítico",
+        "jet_n1": "índice dentro (agua)",
+        "jet_n2": "índice fuera (aire)",
+        "jet_incidence": "ángulo de incidencia, desde la normal",
+        "jet_refraction": "ángulo de refracción, desde la normal",
+        "jet_let_out": "fracción que sale",
+        "jet_landing": "distancia al orificio donde el chorro llega a la pila",
+        "jet_speed": "velocidad en el orificio",
+        "jet_fall": "tiempo de caída",
+        "jet_level": "nivel del agua sobre el orificio",
+        "jet_drop": "altura del orificio sobre la pila"
       },
       "cases": {
         "sphere": {
@@ -4745,6 +4945,355 @@
             "why": "Comprueba el par que da la página, con la velocidad de giro y el ángulo en sus unidades: 5,92 N·m.",
             "step": "La fuente da τ = Ω × L, de módulo Ω·L·sin θ; el eje es horizontal, sin θ = 1, y L = I₃·ω₃ con el I₃ = m·r² del aro, tomado de la segunda."
           }
+        },
+        "galton": {
+          "eight_rows": {
+            "title": "Ocho filas, la casilla del centro",
+            "setting": "Ocho filas, horizontal (p = 0,5).",
+            "reads": "C(8, 4) = 70 de los 2⁸ = 256 caminos llevan a la casilla del centro de ocho filas, cada uno con probabilidad 1/256.",
+            "why": "Comprueba las proporciones que la página calcula fila a fila frente a la fórmula cerrada: 70/256 = 0,2734375, exactamente."
+          },
+          "paths": {
+            "title": "Los caminos al centro",
+            "setting": "Doce filas, como el tablero de la exposición.",
+            "reads": "El número de caminos a la casilla k es el coeficiente binomial n!/(k!·(n − k)!).",
+            "why": "Comprueba el número que cita el truco: 924 caminos a la casilla del centro, calculados aquí con factoriales y en la página con sumas en el triángulo de Pascal."
+          },
+          "tilted_mean": {
+            "title": "Un tablero inclinado: el centro",
+            "setting": "Doce filas, siete rebotes de cada diez a la derecha (p = 0,7).",
+            "reads": "El centro de la distribución binomial es n·p = 12 · 0,7 = 8,4.",
+            "why": "Comprueba que las proporciones de la página tienen el centro correcto también en un tablero inclinado: Σ k·P(k) = 8,4 casillas."
+          },
+          "tilted_spread": {
+            "title": "Un tablero inclinado: la dispersión",
+            "setting": "Doce filas, p = 0,7.",
+            "reads": "La varianza es n·p·(1 − p) = 12 · 0,7 · 0,3 = 2,52; la dispersión es su raíz, 1,59 casillas.",
+            "why": "Comprueba la anchura del montón: Σ (k − μ)²·P(k) = 2,52, con precisión de 10⁻¹²."
+          },
+          "seeded_run": {
+            "title": "La tanda de la exposición",
+            "setting": "Doce filas, horizontal, 500 bolas, semilla 1874.",
+            "reads": "El centro esperado es n·p = 6. El centro de N bolas se dispersa a su alrededor con el error típico σ/√N, aquí √3/√500 = 0,077 casillas.",
+            "why": "Comprueba las bolas que suelta la página: su centro, 5,876, está a 1,6 errores típicos de 6. Se permiten tres, el 3,87 % de 6. Un generador aleatorio que favoreciera un lado fallaría aquí.",
+            "step": "Las fuentes dan el centro n·p y la dispersión σ = √(n·p·(1 − p)) de una bola, y el error típico σ/√N del centro de N bolas. El centro de una tanda se aleja más de tres errores típicos solo en unas tres tandas de cada mil; esa es la desviación permitida, 3·√3/(√500·6) = 3,87 %."
+          },
+          "de_moivre": {
+            "title": "24 filas y la curva normal",
+            "setting": "24 filas, horizontal, la casilla del centro.",
+            "reads": "La curva normal de centro n·p = 12 y varianza n·p·q = 6 tiene en el centro la altura 1/√(2π·6) = 0,16287.",
+            "why": "Comprueba cuánto se acerca la campana de la página a la curva normal: la casilla del centro tiene 0,16118, un 1,036 % menos.",
+            "step": "De Moivre y Laplace solo dicen que el cociente tiende a 1. Con qué rapidez lo dice la serie del coeficiente binomial central: con n = 2m filas, la casilla del centro es C(2m, m)/4ᵐ = (1 − 1/(8m) + 1/(128m²) + …)/√(πm), y 1/√(πm) es exactamente la altura de la curva normal. Queda, pues, 1/(8m) − 1/(128m²) − … por debajo; se permite el primer término, 1/(8m) = 1,042 % para m = 12."
+          }
+        },
+        "spring": {
+          "fast_mode": {
+            "title": "El modo más rápido",
+            "setting": "El muelle de la página, tuercas a 20 mm, sin amortiguación; «Modo más rápido»: girado 1 rad y estirado tanto como pide la ec. (28).",
+            "reads": "En un modo normal el peso sube, baja y gira a un mismo ritmo, y nada pasa al otro lado. Su frecuencia angular ω₁ es la raíz mayor de la ec. (7), su periodo 2π/ω₁.",
+            "why": "Comprueba el bucle temporal de la página, el acoplamiento ε/2 en ambas ecuaciones y el inicio según la ec. (28): 2,574328 s. Si el acoplamiento estuviera mal, el modo se desharía y el periodo no cuadraría.",
+            "step": "La primera fuente da las ecuaciones del movimiento, la segunda ω₁ y ω₂, la tercera la razón z₀/θ₀ de un modo normal. A una frecuencia angular ω le corresponde el periodo 2π/ω."
+          },
+          "slow_mode": {
+            "title": "El modo más lento",
+            "setting": "El mismo muelle, «Modo más lento»: girado 1 rad y empujado hacia arriba tanto como pide la ec. (29).",
+            "reads": "El segundo modo normal: vaivén y giro a un mismo ritmo, acoplados al revés. Su frecuencia angular ω₂ es la raíz menor de la ec. (7), su periodo 2π/ω₂.",
+            "why": "Comprueba lo mismo en el modo más lento: 2,842581 s. Junto con el más rápido fija ambas raíces, y por tanto también la pulsación.",
+            "step": "Como en el modo más rápido, con ω₂ y la ec. (29)."
+          },
+          "beat": {
+            "title": "Ida y vuelta",
+            "setting": "El mismo muelle, «Tirado hacia abajo»; la ficha «Ida y vuelta».",
+            "reads": "La energía va y viene con la pulsación de los dos modos normales, ω_B = ω₁ − ω₂: una vez al giro y de vuelta en 2π/ω_B.",
+            "why": "Comprueba la fórmula de la página para las dos frecuencias frente a la ec. (7) tal como está impresa, con ε²/mI bajo la raíz: 27,27920 s.",
+            "step": "La primera fuente da ω₁ y ω₂, la segunda ω_B = ω₁ − ω₂ como frecuencia de pulsación; le corresponde el tiempo 2π/ω_B."
+          },
+          "measured": {
+            "title": "Tan rápido como se midió",
+            "setting": "El mismo muelle: el propio péndulo de Berg y Marshall, m, k, δ e I según sus medidas, ε a partir de su medida; «Tirado hacia abajo».",
+            "reads": "Berg y Marshall midieron en su péndulo ω_B = 0,232 rad/s: la energía pasa al giro y vuelve en 2π/ω_B = 27,08 s.",
+            "why": "Comprueba el modelo frente a un péndulo real: 27,28 s calculados, un 0,7 % de la medida. Su ε se obtuvo con ω = 2,31 rad/s de la medida, mientras que k/m da 2,33 rad/s; ambos están dentro de sus ±0,02 rad/s. Se permite un 2 %."
+          },
+          "energy": {
+            "title": "La energía se conserva",
+            "setting": "El mismo muelle, «Tirado hacia abajo», 2 cm; tras 60 s, 60 000 pasos.",
+            "reads": "Sin amortiguación la energía no cambia, movimiento y tensión juntos. Al principio es solo el estiramiento, ½k·z₀² = 0,56 mJ.",
+            "why": "Comprueba el bucle temporal y que el acoplamiento en ambas ecuaciones encaja con su energía ½εzθ: 0,560000 mJ al principio y tras 60 s, iguales hasta 10⁻¹⁰.",
+            "step": "La fuente da el lagrangiano L = T − V con V = ½kz² + ½δθ² + ½εzθ; la energía es T + V."
+          }
+        },
+        "polarizer": {
+          "half": {
+            "title": "Luz no polarizada: la mitad",
+            "setting": "Filtros ideales; la luz tras el filtro delantero.",
+            "reads": "La luz de la lámpara oscila por igual en todas direcciones. En promedio cos²θ vale un medio: un filtro ideal deja pasar la mitad.",
+            "why": "Comprueba que la página trata la luz de la lámpara como no polarizada: 0,5, no 1 ni cos² de algún ángulo."
+          },
+          "malus": {
+            "title": "La ley de Malus",
+            "setting": "Filtros ideales, el de atrás girado 30° respecto al delantero, sin el del medio; la luz tras el de atrás frente a la que hay tras el delantero.",
+            "reads": "La luz polarizada que oscila con un ángulo θ respecto al eje de un filtro pasa con la fracción cos²θ.",
+            "why": "Comprueba que la página toma el coseno al cuadrado, no el coseno: 0,75 a 30°, donde el coseno daría 0,87."
+          },
+          "crossed": {
+            "title": "Cruzados: oscuro",
+            "setting": "Filtros ideales, el de atrás a 90°, sin el del medio.",
+            "reads": "Cuando los ejes son perpendiculares, el segundo filtro no deja pasar luz.",
+            "why": "Comprueba que los dos filtros se anulan de verdad: 10⁻³³, el redondeo de cos 90° en el ordenador."
+          },
+          "third": {
+            "title": "El tercer filtro: un octavo",
+            "setting": "Filtros ideales, el de atrás a 90°, el del medio a 45°; la luz tras el de atrás.",
+            "reads": "Cada uno de los tres filtros deja pasar la mitad de lo que le llega: un octavo de la luz de la lámpara, un cuarto de lo que deja pasar el primero.",
+            "why": "Comprueba el propio truco del exhibidor: el filtro del medio fija de nuevo la dirección de la luz en lugar de solo atenuarla. Si solo la atenuara, seguiría oscuro."
+          },
+          "slanted": {
+            "title": "El filtro del medio a 30°",
+            "setting": "Filtros ideales, el de atrás a 90°, el del medio a 30°.",
+            "reads": "Malus dos veces: cos² 30° en el del medio, cos² 60° en el de atrás, tras la mitad en el delantero.",
+            "why": "Comprueba que la página mide cada giro respecto al filtro anterior, no respecto al delantero: 3/32 = 0,09375.",
+            "step": "La primera fuente da la mitad para la luz no polarizada, la segunda cos²θ para la polarizada, la tercera dice que Malus se aplica dos veces: en el del medio con 30°, en el de atrás con 90° − 30° = 60°."
+          },
+          "many": {
+            "title": "Diez filtros entre ambos",
+            "setting": "Filtros ideales: diez entre el par cruzado, cada uno girado 90°/11 más que el anterior.",
+            "reads": "Once giros pequeños de 8,18° cada uno, cada uno deja pasar su cos², tras la mitad en el filtro delantero.",
+            "why": "Comprueba la pila que la página calcula para más filtros: 0,3992, ya cerca de la mitad.",
+            "step": "La primera fuente da la mitad en el filtro delantero, la segunda cos²θ en cada uno de los siguientes; cada uno está a 90°/11 del anterior, once veces."
+          },
+          "polaroid_one": {
+            "title": "Un filtro Polaroid: alrededor del 38 %",
+            "setting": "Filtros reales como el Polaroid (76 % a lo largo del eje, 1 a 500 a través); la luz tras el filtro delantero.",
+            "reads": "Un filtro de tipo Polaroid deja pasar alrededor del 38 % de la luz no polarizada; su razón de extinción es de aproximadamente 1 a 500.",
+            "why": "Comprueba que el filtro real supuesto concuerda con la bibliografía: 38,08 %. La fuente dice «alrededor», de ahí un margen de un uno por ciento."
+          },
+          "polaroid_crossed": {
+            "title": "Dos filtros Polaroid cruzados",
+            "setting": "Filtros reales como el Polaroid, el de atrás a 90°, sin el del medio.",
+            "reads": "El delantero deja pasar una mitad de la luz con k₁ y la otra con k₂; el de atrás, cruzado, toma la primera con k₂ y la segunda con k₁.",
+            "why": "Comprueba cómo calcula la página un filtro real: 0,1155 %, no cero; por eso un par real cruzado no es del todo negro.",
+            "step": "La primera fuente da la luz no polarizada como una mezcla a partes iguales de todas las direcciones, es decir, de dos mitades cruzadas; la segunda, la razón de extinción como la transmisión transversal frente a la longitudinal, k₂/k₁. Tras el par: ½(k₁k₂ + k₂k₁)."
+          }
+        },
+        "vessel": {
+          "flow": {
+            "title": "El primer chorro",
+            "setting": "El tubo de la página: 8 cm de ancho, lleno hasta 90 cm; el agujero de abajo, a 5 cm, abierto, de 8 mm, μ = 0,61.",
+            "reads": "Torricelli: el agua sale del agujero a v = √(2gH). Por el agujero fluye μ·A_A·v, con la contracción μ, unos 0,611 para un agujero de borde vivo.",
+            "why": "Comprueba el caudal de la página en el primer instante: 7,512 litros por minuto con 85 cm de agua sobre el agujero. Un factor 2 olvidado bajo la raíz o un área de agujero sin contracción se notaría enseguida."
+          },
+          "drain_time": {
+            "title": "Hasta que el tubo se vacía",
+            "setting": "Como arriba; calculado paso a paso hasta que el agua está a la altura del agujero de abajo.",
+            "reads": "Un recipiente cilíndrico con un agujero en el fondo se vacía tras T = (A/A_A)·√(2H/g).",
+            "why": "Comprueba los pasos de la página durante todo el minuto: 68,25 s. Se cuenta en pasos de 5 ms, de ahí la precisión de una diezmilésima.",
+            "step": "La primera fuente calcula con el área completa del agujero A_A; la segunda la sustituye por la del chorro contraído, μ·A_A. H es la profundidad del agua sobre el agujero, que aquí está 5 cm por encima del fondo del tubo."
+          },
+          "half": {
+            "title": "La mitad de la altura",
+            "setting": "Como arriba; hasta que la profundidad sobre el agujero ha bajado a la mitad, a 42,5 cm.",
+            "reads": "El nivel del agua baja según h(t) = H·(1 − t/T)².",
+            "why": "Comprueba lo esencial de la página: la mitad de la altura se alcanza tras 19,99 s, tras (1 − 1/√2) = 29 % de los 68,25 s. Se mide dentro del paso en que ocurre, con precisión de una milmillonésima.",
+            "step": "De h(t) = H·(1 − t/T)² = H/2 se sigue 1 − t/T = 1/√2. T es el tiempo de la segunda fuente, con la contracción de la tercera."
+          },
+          "farthest": {
+            "title": "El chorro más largo",
+            "setting": "El tubo de la página con los tres tapones quitados. Medido desde el fondo de la cubeta, la superficie está a 110 cm y los agujeros a 25, 55 y 85 cm.",
+            "reads": "Un agujero a la altura h bajo una superficie a la altura H lanza su chorro a D = 2√(h(H − h)); lo más lejos, H, desde h = H/2.",
+            "why": "Comprueba los chorros de la página, buscando entre todas las alturas de agujero el mayor alcance: 1,1 m desde 55 cm sobre el fondo de la cubeta, justo en el agujero del medio. El de arriba y el de abajo están a la misma distancia por encima y por debajo y llegan ambos a 0,92 m."
+          }
+        },
+        "kapitza": {
+          "bound": {
+            "title": "El límite de Kapitza con un recorrido pequeño",
+            "setting": "Varilla de 20 cm, recorrido 2 mm (a/l = 0,01), sin amortiguamiento; motor a 160 Hz, justo por encima del límite, la varilla a 2° de arriba.",
+            "reads": "Arriba la varilla es estable cuando la mayor velocidad del pivote, aω, supera √(2gl), la velocidad tras una caída libre de la longitud de la varilla. Despejando la frecuencia: 157,61 Hz.",
+            "why": "Comprueba el cálculo de Floquet y la bisección de la página donde la aproximación de Kapitza es casi exacta: el límite exacto está 2,2 · 10⁻⁵ más alto, en (7/32)(a/l)², el siguiente término de la aproximación."
+          },
+          "mathieu": {
+            "title": "El límite exacto con un recorrido amplio",
+            "setting": "Varilla de 20 cm, recorrido 4 cm (a/l = 0,2), sin amortiguamiento; motor a 8,5 Hz, la varilla a 2° de arriba.",
+            "reads": "Cerca de arriba el movimiento sigue la ecuación de Mathieu. Su región estable empieza en la curva a₀(q), cuya serie da la fuente hasta q⁸. De ella: 7,9478 Hz, donde la aproximación de Kapitza dice 7,88 Hz.",
+            "why": "Comprueba la matriz de monodromía donde la aproximación de Kapitza se desvía un 0,86 %: la página coincide con la serie hasta 7,5 · 10⁻⁷, tanto como es exacta la propia serie cortada tras q⁸.",
+            "step": "Con ωt = 2z la ecuación de una pequeña desviación φ respecto a arriba, φ″ = (g + aω²·cos ωt)/l · φ, se convierte en la ecuación de Mathieu con λ = −4g/(lω²) y q = 2a/l. El borde de la región estable es λ = a₀(q); despejando ω: ω² = 4g/(l·|a₀(q)|)."
+          },
+          "wobble": {
+            "title": "El bamboleo lento alrededor de arriba",
+            "setting": "La varilla de la página, 20 cm, recorrido 1 cm, 40 Hz, sin amortiguamiento; soltada a 2° de arriba, durante 10 s.",
+            "reads": "Alrededor de arriba la varilla se bambolea lentamente, con Ω² = a²ω²/(2l²) − g/l: un periodo de 1,1486 s, mientras el motor sacude 46 veces.",
+            "why": "Comprueba el bucle temporal de la página: leída una vez por periodo del motor, como con un estroboscopio, la varilla se bambolea en 1,1483 s, a 3,0 · 10⁻⁴ de Kapitza. Su promedio omite términos en (a/l)² y (Ω/ω)², ambos de unas diezmilésimas."
+          },
+          "swing_up": {
+            "title": "La oscilación que crece colgada",
+            "setting": "Varilla de 20 cm, recorrido 1 cm (q = 0,1), sin amortiguamiento; motor a 2,23 Hz, la varilla colgada, desviada 5°.",
+            "reads": "Colgada, el pequeño movimiento vuelve a seguir la ecuación de Mathieu. Entre las curvas b₁(q) y a₁(q) está su primera región inestable: la varilla oscila cada vez más cuando el motor sacude entre 2,1264 y 2,3511 Hz, una banda de 0,22469 Hz alrededor del doble de su frecuencia propia.",
+            "why": "Comprueba el cálculo de Floquet para abajo, los dos bordes a la vez: la página coincide con la anchura de la banda hasta 3 · 10⁻¹².",
+            "step": "Con ωt = 2z la ecuación de una pequeña desviación φ respecto a abajo, φ″ = −(g + aω²·cos ωt)/l · φ, se convierte en la ecuación de Mathieu con λ = 4g/(lω²) y q = −2a/l. Como a₁(−q) = b₁(q), los bordes son λ = a₁(|q|) y λ = b₁(|q|); despejando ω: ω² = 4g/(l·λ)."
+          }
+        },
+        "film": {
+          "tear": {
+            "title": "La distancia de ruptura",
+            "setting": "Aros de 5 cm de radio, a 6,5 cm: siga separando el aro derecho.",
+            "reads": "La mayor distancia a la que y₀ = a·cosh(x₀/a) todavía tiene solución está en u = coth u; allí h/R = 2x₀/y₀ = 2·csch u.",
+            "why": "Comprueba dónde la página hace romperse la película: a 1,32549 radios, a 6,6274 cm con aros de 5 cm – bisecada sobre la propia respuesta de la página, no leída de su constante."
+          },
+          "critical_area": {
+            "title": "El área justo antes de romperse",
+            "setting": "Aros de 5 cm de radio, a 6,6 cm, cerca de la distancia de ruptura.",
+            "reads": "A la distancia de ruptura la cintura está en a = R/cosh u; la fórmula del área de Ito y Sato da allí el área, frente a los 2πR² de los dos discos.",
+            "why": "Comprueba el área que la página da a la película donde más importa: 1,19968 veces los dos discos, el propio número u."
+          },
+          "flat": {
+            "title": "A un radio de distancia: la película ancha",
+            "setting": "Aros de 5 cm de radio, a 5 cm.",
+            "reads": "Con x₀ = ½ e y₀ = 1, 1 = a·cosh(1/(2a)) tiene dos soluciones. La plana, a = 0,8483…, tiene el área A = 5,9917…; con aros de 5 cm cada área es 25 cm² veces mayor.",
+            "why": "Comprueba el área de la película que muestra la página: 149,795 cm², recalculada con el ejemplo de MathWorld."
+          },
+          "deep": {
+            "title": "A un radio de distancia: la película estrecha",
+            "setting": "Aros de 5 cm de radio, a 5 cm; active la forma estrecha.",
+            "reads": "La solución profunda, a = 0,2350…, es la película estrecha con mayor área, A = 6,8456…: no es un mínimo.",
+            "why": "Comprueba la forma estrecha en discontinua de la página: su cintura de 1,1755 cm con aros de 5 cm."
+          },
+          "equal": {
+            "title": "Desde dónde dos discos tendrían menos área",
+            "setting": "Aros de 5 cm de radio, a 5,4 cm, justo después.",
+            "reads": "El área de la película igual a la de dos discos: u·√(u² − 1) + cosh⁻¹u − u² = 0 con u = y₀/a; entonces h/R = 2·cosh⁻¹(u)/u.",
+            "why": "Comprueba dónde la página pasa de «la menor área posible» a «Dos discos planos tendrían ahora menos área»: a 1,05539 radios, a 5,2770 cm con aros de 5 cm."
+          }
+        },
+        "metronomes": {
+          "lone": {
+            "title": "Un metrónomo solo oscila con 2θ₀",
+            "setting": "Un metrónomo, la tabla sobre la mesa, soltado desde 10°; tras dos minutos, la mayor desviación de los últimos cinco segundos.",
+            "reads": "El impulso aviva las oscilaciones pequeñas y frena las grandes. Un metrónomo solo se estabiliza con una desviación de unos 2θ₀, con el θ₀ = 0,39 rad de Pantaleone en 44,69°.",
+            "why": "Comprueba el impulso, el signo de su término y su ángulo θ₀: el motor oscila con 44,84°. Los 2θ₀ valen en primer orden en μ; el seno completo del péndulo hace la oscilación un 0,3 % más amplia."
+          },
+          "drift": {
+            "title": "Sobre la mesa, dos se desfasan",
+            "setting": "Dos metrónomos separados medio por ciento (Δ = 0,005), la tabla sobre la mesa, soltados juntos; sus periodos durante 200 s.",
+            "reads": "Sin acoplamiento, el desfase crece de manera uniforme, con la diferencia de las frecuencias Δ: el más rápido gana una oscilación entera en 2π/(ωΔ(1 − 3γ/2)).",
+            "why": "Comprueba que la tabla sobre la mesa no acopla nada y que Δ está donde lo pone Pantaleone: 119,95 s a mano, 119,96 s en el motor.",
+            "step": "La primera fuente da la deriva con Δ, la segunda que una desviación de 2θ₀ frena cada frecuencia angular por el factor 1 − 3γ/2, y con ello también su diferencia; la tercera θ₀. El más rápido gana una oscilación entera en 2π dividido por la diferencia de las frecuencias angulares."
+          },
+          "lag": {
+            "title": "Sobre las latas, el más rápido se adelanta",
+            "setting": "Dos metrónomos sobre la tabla de Pantaleone (58 g), separados medio por ciento, sobre las latas, soltados juntos; tras 200 s.",
+            "reads": "Los dos se enganchan, el más rápido adelantado ψ* = arcsin(μΔ/(β(3γ + β))), con β = x₀ω²/g a partir del x₀ = 0,088 cm de Pantaleone.",
+            "why": "Comprueba el acoplamiento a través de la tabla, su intensidad y su signo: 3,11° según la fórmula, 3,27° en el motor. La fórmula es de primer orden y toma, en el empuje de la tabla, el seno y el coseno de la desviación de 45° como si fuera pequeña; eso da el 5,4 %."
+          },
+          "inphase": {
+            "title": "Puestos casi en oposición, dos pronto oscilan igual",
+            "setting": "Dos metrónomos iguales sobre las latas, soltados con 170° de diferencia; su desfase tras 200 s.",
+            "reads": "Oscilar en oposición es inestable sobre la tabla libre: los dos pasan a oscilar al unísono, media oscilación más allá, como muestra la fig. 2 de Pantaleone.",
+            "why": "Comprueba que la tabla libre hace estable la oscilación al unísono, y no la oposición: tras 200 s los dos están a 0,0006° uno del otro."
+          },
+          "five": {
+            "title": "Cinco iguales se vuelven uno",
+            "setting": "Cinco metrónomos iguales sobre la tabla de Pantaleone, sobre las latas, en la posición de partida dispersa del experimento (R = 0,015); R tras dos minutos.",
+            "reads": "El parámetro de orden R es la media de las agujas de todas las fases: 1 cuando todos oscilan al unísono. Pantaleone vio siete metrónomos sincronizarse cada vez.",
+            "why": "Comprueba la tabla con más de dos metrónomos y el parámetro de orden de la página: tras dos minutos a R aún le faltan 5 · 10⁻⁶ para llegar a 1."
+          }
+        },
+        "ship": {
+          "metacentric_height": {
+            "title": "La altura metacéntrica de la caja",
+            "setting": "El casco de la página, 20 cm de ancho, 2 kg, con 1 kg en la cubierta (12 cm); inclinado 0,01°, calculado como GZ/sen φ.",
+            "reads": "El calado sale de Arquímedes: d = m/(ρ·L·b) = 3,006 cm. La parte sumergida es un rectángulo con su centro a media altura, KB = d/2. La flotación es un rectángulo de ancho b, su momento de inercia de área L·b³/12, y BM = I_t/∇ = b²/(12·d) = 11,09 cm.",
+            "why": "Comprueba la curva sobre la que calcula el bucle temporal de la página frente a GM = KB + BM − KG = 5,259 cm. A 0,01° queda por encima en ½·BM·tan²φ, 3 · 10⁻⁸ de GM.",
+            "step": "Las fuentes dan GM = KB + I_t/∇ − KG e I_t = L·b³/12; KB = d/2 es el centro del rectángulo sumergido."
+          },
+          "wall_sided": {
+            "title": "El brazo a 15°: paredes verticales",
+            "setting": "El casco con el peso en la cubierta, inclinado 15°.",
+            "reads": "En un casco de paredes verticales en la flotación, el punto donde la línea de empuje corta la línea media sube al escorar: GN_φ = KB + BM·(1 + ½·tan²φ) − KG, y GZ = GN_φ·sen φ.",
+            "why": "Comprueba la geometría de la página en una escora en la que GM·sen φ solo ya es un 7 % demasiado pequeño: 1,464 cm. Para la caja la fórmula es exacta hasta que el fondo emerge a 16,7°.",
+            "step": "La fuente da la fórmula (Scribanti) para 5 a 15°. Para una caja es exacta mientras ambas paredes estén en el agua: entonces las cuñas que entran y salen son triángulos."
+          },
+          "on_its_side": {
+            "title": "Tumbado de costado",
+            "setting": "El peso al pie de la quilla, 15 cm bajo el fondo; el casco inclinado 90°, de costado.",
+            "reads": "De costado, la parte sumergida es un rectángulo a lo largo de toda la altura H del casco; su centro, el centro de carena, está a media altura. El brazo es la distancia horizontal entre las dos líneas de acción, ahora a lo largo del casco: H/2 − KG.",
+            "why": "Comprueba el corte a 90°, donde dos esquinas están a la misma altura: 7,667 cm, positivo porque G (−1,67 cm) está bajo la media altura. Se endereza, incluso de costado.",
+            "step": "La primera fuente dice que el empuje actúa en el centro de la parte sumergida, la segunda que GZ es la distancia horizontal entre las dos líneas; el centro del rectángulo sumergido está a media altura."
+          },
+          "roll_period": {
+            "title": "El periodo de balanceo",
+            "setting": "El peso en la cubierta; el casco inclinado 0,5° y soltado, sin amortiguación; tres oscilaciones.",
+            "reads": "Para ángulos pequeños el casco se balancea como un péndulo: con el radio de giro k respecto al eje longitudinal por G y la altura metacéntrica como recuperación.",
+            "why": "Comprueba el bucle temporal de la página frente al periodo de 0,5774 s. A 0,5° el brazo es más rígido que GM·sen φ en ½·BM·tan²φ, y el periodo 2,5 · 10⁻⁵ más corto.",
+            "step": "La fuente suma el agua arrastrada como a₄₄; la página la omite, a₄₄ = 0. k² = I/m, con I por Steiner: el casco, 2 kg con 7 cm de radio de giro respecto a su propio centro de gravedad, trasladado a G, y el peso como un punto."
+          }
+        },
+        "string": {
+          "fundamental": {
+            "title": "El tono más grave",
+            "setting": "La cuerda de la página tensada con 3 N; el tono del vibrador donde la cuerda oscila más.",
+            "reads": "El tono más grave de una cuerda tiene sus dos extremos como nodos: la longitud es media onda, f = v/(2L) con v = √(T/μ).",
+            "why": "Comprueba dónde la página hace oscilar más la cuerda: a 38,72 Hz, donde la fórmula dice 38,73 Hz. La amortiguación baja el pico un 0,03 %."
+          },
+          "third": {
+            "title": "El tercer tono",
+            "setting": "La misma cuerda, la misma tracción; el tono cerca del tercer tono propio.",
+            "reads": "El n-ésimo tono tiene n semiondas entre los extremos: fₙ = n/(2L)·√(T/μ).",
+            "why": "Comprueba los tonos más altos: el pico está en 116,19 Hz, tres veces el tono más grave."
+          },
+          "pull": {
+            "title": "La tracción para tres vientres",
+            "setting": "El vibrador a 100 Hz; la tracción donde la cuerda oscila más, tal como usted la busca en la cuerda.",
+            "reads": "La misma fórmula despejada para la tracción: T = μ·(2Lf/n)².",
+            "why": "Comprueba lo que cuenta en la exposición: el tirar. El pico está en 2,2228 N, la fórmula dice 2,2222 N. Queda algo más alto porque con la tracción las ondas también se hacen más rápidas y los vientres más anchos.",
+            "step": "La fuente da fₙ = n/(2L)·√(T/μ). Al cuadrado y despejando T: T = μ·(2Lfₙ/n)²."
+          },
+          "loops": {
+            "title": "Tres vientres, cuatro nodos",
+            "setting": "El vibrador a 100 Hz, la cuerda tensada con la tracción de la fórmula para tres vientres.",
+            "reads": "Una onda estacionaria entre dos extremos fijos tiene n + 1 nodos, contando los extremos, y n vientres.",
+            "why": "Comprueba el patrón mismo: la página cuenta los vientres a lo largo de la cuerda y encuentra tres."
+          },
+          "speed": {
+            "title": "La velocidad de la onda",
+            "setting": "La cuerda tensada con 3 N, el vibrador a 100 Hz, entre dos tonos propios.",
+            "reads": "Dos nodos están a media onda de distancia, y una onda recorre una longitud de onda en una oscilación: v = λf = 2·d·f. La fuente dice v = √(T/μ).",
+            "why": "Comprueba la velocidad en los nodos que encuentra la página, también donde la cuerda no forma patrón: 77,45 m/s en lugar de 77,46 m/s; la amortiguación desplaza los nodos un 0,01 %.",
+            "step": "La primera fuente da v = √(T/μ), la segunda v = λf, la tercera la distancia entre dos nodos, λ/2. Así v = 2·d·f, con d la distancia entre los dos nodos más cercanos al perno."
+          },
+          "settled": {
+            "title": "El vientre estacionario",
+            "setting": "El vibrador a 100 Hz, la tracción para tres vientres; la cuerda desde el reposo, calculada fotograma a fotograma durante cinco segundos.",
+            "reads": "La ecuación de ondas de la fuente con amortiguación, impulsada en un extremo y fija en el otro: Y(x) = A·sin(κ(L − x))/sin(κL) con κ² = (Ω² − iγΩ)·μ/T.",
+            "why": "Comprueba el bucle temporal de la página frente a la solución a mano: en el centro de la cuerda oscila 22,215 mm tras cinco segundos, con 10⁻⁷ de exactitud respecto a la fórmula.",
+            "step": "La fuente da la ecuación de ondas μ·∂²y/∂t² = T·∂²y/∂x²; la amortiguación añade μγ·∂y/∂t. Con y = Im[Y(x)·e^(iΩt)] se obtiene Y'' = −κ²·Y; la solución que vale A en el vibrador y cero en el perno es la de arriba."
+          }
+        },
+        "jet": {
+          "critical": {
+            "title": "El ángulo crítico del agua",
+            "setting": "El objeto expuesto: agua de índice 1,333; el ángulo a partir del cual la página refleja toda la luz en la superficie.",
+            "reads": "A partir del ángulo crítico arcsin(n₂/n₁) no hay luz refractada y la reflexión es total. Del agua (1,333) al aire (1) son 48,6°.",
+            "why": "Comprueba la decisión que se toma en cada punto de incidencia: si la luz sale o se refleja toda. La página cambia en 48,6066°, hallado por bisección entre 30° y 70°."
+          },
+          "snell": {
+            "title": "La luz que sale se refracta según Snell",
+            "setting": "El objeto expuesto, el láser inclinado 45° hacia arriba; el rayo central en su primer punto de incidencia, donde incide más inclinado que el ángulo crítico.",
+            "reads": "La razón de los senos de los ángulos de incidencia y de refracción es la razón de los índices, n₂/n₁: al salir del agua la luz se desvía alejándose de la normal.",
+            "why": "Comprueba la dirección de la luz dibujada al salir: 68,9° desde la normal. La comprobación halla el ángulo de incidencia a partir del camino dibujado y de su propia búsqueda del eje."
+          },
+          "fresnel": {
+            "title": "Cuánta luz sale",
+            "setting": "Como arriba: el láser inclinado 45° hacia arriba, el primer punto de incidencia del rayo central.",
+            "reads": "Para cada polarización, las fórmulas de Fresnel dan la fracción reflejada, Rₛ y Rₚ. La luz no polarizada refleja su media, y lo que no se refleja sale.",
+            "why": "Comprueba cuánta luz deja salir la página en la superficie: el 87,8 % de la luz en ese punto; el resto sigue, reflejado.",
+            "step": "La fuente da Rₛ y Rₚ, que pasa lo que no se refleja y que la luz no polarizada refleja la media de ambas: T = 1 − (Rₛ + Rₚ)/2, con n₁ = 1,333 dentro y n₂ = 1 fuera."
+          },
+          "landing": {
+            "title": "Dónde llega el chorro a la pila",
+            "setting": "El objeto expuesto: 15 cm de agua sobre el orificio, la pila 40 cm por debajo.",
+            "reads": "El agua sale en horizontal a √(2gh) y cae H en el tiempo √(2H/g), sea cual sea su velocidad horizontal. En ese tiempo avanza v·t.",
+            "why": "Comprueba el arco que dibuja la página y a lo largo del cual sigue la luz: llega a la pila a 49 cm del orificio, 2√(h·H).",
+            "step": "La primera fuente da la velocidad en el orificio, la segunda el tiempo de caída desde la altura, sea cual sea la velocidad horizontal. La velocidad horizontal no cambia, así que x = v·t = 2√(h·H)."
+          }
         }
       },
       "set_up": "Configurar",
@@ -4752,6 +5301,827 @@
     },
     "list": {
       "lead": "Cada exposición con su dibujo, que se mueve en cuanto lo señala. Filtre por tema o recórralas todas."
+    },
+    "galton": {
+      "at": {
+        "funnel": "Arriba un embudo lleno de bolas, debajo doce filas de clavos, abajo trece casillas. Las bolas salen una a una y rebotan a la izquierda o a la derecha en cada clavo.",
+        "heap": "Nadie puede predecir el camino de una bola. Y sin embargo, abajo crece cada vez el mismo montón: alto en el centro, plano hacia los bordes, una campana.",
+        "tilt": "Si el tablero se inclina, la campana se desplaza hacia un lado. Pero sigue siendo una campana."
+      },
+      "view": "El tablero de Galton: arriba el embudo, debajo los clavos, abajo las casillas con las bolas caídas",
+      "play": {
+        "title": "Soltar las bolas",
+        "hint": "Suelte las bolas: atraviesan los clavos una tras otra, cada una hacia la izquierda o la derecha en cada clavo. «Bolas nuevas» toma una nueva tanda con otros números aleatorios; la misma tanda cae siempre igual.",
+        "drop": "Soltar",
+        "all": "Todas a la vez",
+        "new": "Bolas nuevas",
+        "again": "De vuelta al embudo",
+        "caption": "{{rows}} filas, {{bins}} casillas, tanda {{run}} de {{balls}} bolas, esquemático. Las barras son las bolas en cada casilla.",
+        "waiting": "Las bolas esperan en el embudo.",
+        "falling": "Las bolas caen.",
+        "done": "Han caído las {{balls}} bolas. El centro del montón está en la casilla {{mean}}.",
+        "expected": "A trazos: el montón que los caminos hacen esperar."
+      },
+      "figures": {
+        "landed": "Caídas",
+        "mean": "Centro de la tanda (casilla)",
+        "spread": "Dispersión de la tanda (casillas)",
+        "expected_mean": "Centro esperado n·p",
+        "expected_spread": "Dispersión esperada σ"
+      },
+      "change": {
+        "title": "Modificar el tablero",
+        "hint": "Más o menos filas, un tablero inclinado, más bolas. Cada cambio devuelve las bolas al embudo.",
+        "rows": "Filas",
+        "rows_hint": "Cuántas filas de clavos tiene el tablero; tiene una casilla más que filas.",
+        "p": "Proporción a la derecha",
+        "p_hint": "Con qué frecuencia una bola va a la derecha en un clavo: 0,5 en un tablero horizontal, más en uno inclinado hacia la derecha.",
+        "balls": "Bolas",
+        "balls_hint": "Cuántas bolas tiene una tanda.",
+        "status": "{{rows}} filas, {{bins}} casillas, {{paths}} caminos a través del tablero."
+      },
+      "model": {
+        "intro": "Una bola que en n filas va k veces a la derecha cae en la casilla k, sea cual sea el orden. Las casillas se cuentan desde la izquierda, de 0 a n.",
+        "paths": "Tantos caminos llevan a la casilla k: con doce filas, uno a cada borde y 924 de los 4096 al centro.",
+        "binomial": "Cada camino con k pasos a la derecha tiene la misma probabilidad, pᵏ·(1 − p)ⁿ⁻ᵏ. Multiplicada por el número de caminos, es la proporción de la casilla: la distribución binomial.",
+        "moments": "El centro del montón y su anchura, en casillas: con doce filas en un tablero horizontal, la casilla 6 y 1,73 casillas.",
+        "normal": "Con muchas filas, la distribución binomial se acerca tanto como se quiera a la curva normal del mismo centro y la misma anchura (de Moivre y Laplace): la campana."
+      },
+      "symbols": {
+        "paths": "número de caminos a la casilla k",
+        "n": "número de filas",
+        "k": "casilla, contada desde la izquierda a partir de 0; cuántas veces fue la bola a la derecha",
+        "share": "proporción de las bolas en la casilla k",
+        "p": "proporción a la derecha en cada clavo",
+        "mu": "centro del montón",
+        "sigma": "dispersión del montón",
+        "e": "número de Euler, 2,718…"
+      },
+      "computed": {
+        "system": "Aquí nada se mueve según una ecuación diferencial: decide el azar, y la página calcula lo que hace en promedio. Calcula las proporciones fila a fila, tal como caen las bolas.",
+        "rows": "Lo que llega a un clavo sigue en la proporción p a la derecha y 1 − p a la izquierda: cada casilla de la fila siguiente recibe p de la casilla de arriba a la izquierda y 1 − p de la de arriba. Es la regla del triángulo de Pascal con pesos; con ambos pesos iguales a uno, cuenta los caminos.",
+        "pj": "proporción de las bolas que llega al lugar k tras j filas",
+        "j": "filas que las bolas ya han atravesado",
+        "random": "Las bolas mismas las sortea un generador aleatorio con semilla (Mulberry32, a partir de enteros de 32 bits): la bola i toma los números i·n a i·n + n − 1, uno por fila, y va a la derecha donde su número es menor que p. La misma semilla da las mismas bolas en su navegador, en el motor de cálculo de la página y en sus pruebas; «Bolas nuevas» toma la siguiente. El vuelo de las bolas solo está dibujado.",
+        "check": "Las pruebas de la página recalculan las proporciones de cada tablero de hasta 24 filas con fracciones exactas y comprueban el centro y la dispersión. En una tanda de 5000 bolas, cada casilla queda a menos de cuatro desviaciones típicas de su número esperado. Todo se calcula en su navegador, con las mismas fórmulas que en el motor de cálculo de la página.",
+        "left_out": "Se omite: cómo la inclinación o la forma de los clavos fija p, pues la página toma p como dado, igual en cada clavo; bolas que saltan sobre dos clavos o chocan entre sí, lo que en un tablero real ensancha el montón; casillas que se llenan."
+      },
+      "sweet": {
+        "paths": "El truco: cada bola sola es puro azar, pero el montón no. Lo decide el número de caminos. Doce filas tienen 4096 caminos, todos igual de probables: solo uno a cada casilla del borde, 924 a la del centro. Por eso casi un cuarto de las bolas cae en el centro, el 22,6 %, y solo una de cada 4096 en una casilla del borde.",
+        "middle": "Las tres casillas del centro reciben el 61 % de las bolas; las tres de cada borde juntas, solo el 3,9 %. El centro está en la casilla 6, la dispersión es de 1,73 casillas.",
+        "all": "Caminos a través de {{rows}} filas",
+        "peak": "Caminos a la casilla {{bin}}",
+        "edge": "Caminos al borde",
+        "normal": "Con más filas la campana se ensancha, pero más despacio que el tablero: la dispersión crece con la raíz del número de filas, con el doble solo 1,41 veces más ancha, de 1,73 a 2,45 casillas. Y se acerca cada vez más a la curva normal; con 24 filas la casilla del centro queda solo un 1,0 % por debajo."
+      },
+      "chart": {
+        "hint": "La proporción de cada casilla en el tablero que ha construido, y la curva normal con el mismo centro y la misma dispersión.",
+        "binomial": "proporción de la casilla",
+        "normal": "curva normal",
+        "share": "Proporción",
+        "bin": "Casilla"
+      }
+    },
+    "spring": {
+      "at": {
+        "weight": "Un peso cuelga de un muelle helicoidal largo. Se tira de él un poco hacia abajo y se suelta: sube y baja.",
+        "trade": "Poco a poco el vaivén vertical se debilita y el peso empieza a girar de un lado a otro, hasta que solo gira y ya no sube ni baja. Luego vuelve el vaivén, una y otra vez. Con el muelle de esta página, ida y vuelta tarda 27,3 s.",
+        "nuts": "Cuatro tuercas en brazos a los lados del peso se pueden enroscar hacia dentro y hacia fuera. Solo en un lugar el vaivén se convierte por completo en giro."
+      },
+      "view": "El peso en su muelle visto de frente, con los cuatro brazos y sus tuercas",
+      "play": {
+        "title": "Tirar del peso y girarlo",
+        "hint": "Tire del peso hacia abajo o hacia arriba y empújelo de lado para girarlo; al soltarlo, oscila. O elija un inicio. Las barras muestran cuánta energía hay ahora en el vaivén y en el giro.",
+        "let_go": "Soltar:",
+        "starts": {
+          "down": "Tirado hacia abajo",
+          "twisted": "Girado",
+          "fast": "Modo más rápido",
+          "slow": "Modo más lento"
+        },
+        "energy": "Energía en el vaivén y en el giro",
+        "bobbing": "Vaivén",
+        "twisting": "Giro"
+      },
+      "figures": {
+        "bobbing": "Periodo del vaivén solo",
+        "twisting": "Periodo del giro solo",
+        "tuned": "Afinado en",
+        "beat": "Ida y vuelta",
+        "share": "De ello pasa al giro"
+      },
+      "change": {
+        "title": "Modificar el aparato",
+        "hint": "Las tuercas fijan cuán perezosamente gira el peso: más afuera gira más despacio, más adentro más rápido. Solo cuando gira tan rápido como sube y baja, el vaivén pasa por completo al giro.",
+        "nuts": "Distancia de las tuercas al eje",
+        "nuts_hint": "A 20,0 mm el muelle está afinado.",
+        "damping": "Amortiguación"
+      },
+      "model": {
+        "intro": "El muelle actúa dos veces: estirado, devuelve el peso; torcido, lo gira de vuelta. Pero un muelle helicoidal también se tuerce un poco al estirarlo, y al revés: este acoplamiento une las dos oscilaciones.",
+        "equation": "Las dos ecuaciones del movimiento tal como las escriben Berg y Marshall: cada oscilación por sí sola y el acoplamiento ε, con el que el estiramiento gira el peso y la torsión tira de él. Aquí z cuenta hacia abajo.",
+        "inertia": "El momento de inercia del peso: el del cuerpo y el de las cuatro tuercas, cada una como un punto a su distancia del eje. Aquí es donde se ajusta el aparato.",
+        "modes": "Dos movimientos en los que vaivén y giro mantienen un mismo ritmo: los modos normales. Sus frecuencias angulares son las raíces de esta ecuación; cualquier otro movimiento es una suma de los dos.",
+        "beat": "Tirado hacia abajo, el peso está más o menos a medias en cada modo normal. Se desfasan lentamente y vuelven a coincidir; en ese tiempo la energía pasa una vez al giro y vuelve al vaivén."
+      },
+      "symbols": {
+        "z": "cuánto está el peso por debajo de su posición de reposo",
+        "theta": "cuánto está girado",
+        "m": "la masa del peso, con un tercio de la del muelle",
+        "I": "su momento de inercia respecto al eje vertical",
+        "k": "la constante del muelle frente al estiramiento",
+        "delta": "la constante del muelle frente a la torsión",
+        "epsilon": "el acoplamiento entre estiramiento y torsión",
+        "I0": "el momento de inercia del cuerpo sin tuercas",
+        "mn": "la masa de una tuerca, 10 g",
+        "r": "la distancia de las tuercas al eje",
+        "omega": "las frecuencias angulares de los dos modos normales, primero la más rápida",
+        "alone": "las frecuencias angulares del vaivén solo y del giro solo",
+        "beat": "el tiempo en que la energía pasa una vez al giro y vuelve",
+        "c": "el acoplamiento, referido a la masa y al momento de inercia"
+      },
+      "sweet": {
+        "modes": "Afinado, el peso gira por sí solo exactamente tan rápido como sube y baja por sí solo. Solo entonces pasa todo: tras media pulsación el peso ya no sube ni baja y solo gira.",
+        "beat": "Con las tuercas a {{r}} mm la energía pasa una vez al giro y vuelve en {{beat}} s, y alrededor del {{share}} % llega al giro.",
+        "detuned": "Desafinado, nunca pasa todo, solo esta parte: tanto menos cuanto más se separan los dos ritmos en comparación con el acoplamiento.",
+        "tuned": "Todo pasa con las tuercas a {{tuned}} mm. A 35 mm solo llega al giro más o menos la mitad, el 48 %, y el vaivén vuelve ya a los 19,9 s."
+      },
+      "chart": {
+        "energy": "Parte de la energía",
+        "time": "Tiempo",
+        "share": "Parte que pasa al giro",
+        "nuts": "Distancia de las tuercas"
+      },
+      "computed": {
+        "system": "Cuatro ecuaciones de primer orden: el desplazamiento, la torsión y sus velocidades, escritas aquí sin la amortiguación. El motor las resuelve con el método de Runge-Kutta en pasos de un milisegundo; la página hace lo mismo con los mismos pasos, unas docenas por fotograma."
+      }
+    },
+    "polarizer": {
+      "at": {
+        "lamp": "Una lámpara ilumina a través de dos filtros polarizadores. Si se gira el de atrás, la luz se debilita hasta que queda del todo oscuro: los dos filtros están cruzados.",
+        "third": "Ahora se desliza un tercer filtro entre los dos, inclinado, y vuelve a haber luz. Sin embargo, cada filtro solo puede absorber luz, nunca añadirla."
+      },
+      "stack_view": "La lámpara, los tres filtros y la ventana por la que usted mira",
+      "play": {
+        "title": "Tres filtros ante una lámpara",
+        "hint": "Introduzca el filtro del medio y gírelo a él o al de atrás, con el control deslizante o con el ratón o el dedo sobre el filtro.",
+        "middle": "Filtro del medio entre ambos",
+        "middle_hint": "Deslizar el tercer filtro entre los dos.",
+        "middle_deg": "Ángulo del filtro del medio",
+        "middle_deg_hint": "Medido respecto al filtro delantero; a 180° está como a 0°.",
+        "last_deg": "Ángulo del filtro de atrás",
+        "last_deg_hint": "A 90° está cruzado con el delantero.",
+        "real": "Filtros reales",
+        "real_hint": "En lugar de filtros ideales, filtros como el Polaroid: a lo largo de su eje no dejan pasar todo, y a través no del todo nada.",
+        "caption": "Cada filtro como se ve al mirar a través de él; sus líneas muestran su eje. Sobre el haz, la dirección en la que oscila la luz, tan larga como su amplitud; antes del primer filtro oscila en todas direcciones. Blanco es la luz tras el primer filtro, la mitad de la de la lámpara.",
+        "status_dark": "Prácticamente oscuro: pasa menos del 0,2 % de la luz de la lámpara.",
+        "status_light": "Pasa el {{share}} % de la luz de la lámpara.",
+        "labels": {
+          "lamp": "lámpara",
+          "front": "delante",
+          "middle": "medio",
+          "slot": "(vacío)",
+          "back": "detrás",
+          "window": "ventana"
+        }
+      },
+      "figures": {
+        "front": "Tras el filtro delantero",
+        "middle": "Tras el filtro del medio",
+        "out": "Pasa",
+        "between_ideal": "{{n}} entre ambos, ideales",
+        "between_real": "{{n}} entre ambos, reales",
+        "best_between": "Mejor número de filtros reales entre ambos",
+        "one": "Un filtro real deja pasar"
+      },
+      "change": {
+        "title": "Más filtros, filtros reales",
+        "hint": "Ponga más filtros entre el par cruzado, girados por igual, y cambie lo bueno que es un filtro real.",
+        "between": "Filtros entre el par cruzado",
+        "between_hint": "Cada uno girado lo mismo respecto al anterior, de 0° a 90°.",
+        "transmission": "Transmisión a lo largo del eje",
+        "transmission_hint": "Qué parte de la luz que oscila a lo largo de su eje deja pasar un filtro real; idealmente el 100 %.",
+        "extinction": "Razón de extinción 1 a …",
+        "extinction_hint": "Cuánto menos deja pasar un filtro real a través de su eje que a lo largo; Polaroid, aproximadamente 1 a 500."
+      },
+      "chart": {
+        "hint": "Cuánta luz pasa por el par cruzado según el número de filtros entre ellos, ideales y reales; en porcentaje de la luz de la lámpara.",
+        "ideal": "Filtros ideales",
+        "real": "Filtros reales",
+        "light": "Luz",
+        "between": "Filtros entre ambos",
+        "middle": "Ángulo del filtro del medio"
+      },
+      "model": {
+        "intro": "La luz es una onda que oscila transversalmente a su dirección. Un filtro polarizador deja pasar solo la parte que oscila a lo largo de su eje, y lo que pasa oscila después a lo largo de ese eje.",
+        "malus": "La ley de Malus: si la luz oscila con un ángulo θ respecto al eje de un filtro, pasa la fracción cos²θ: toda a 0°, nada a 90°.",
+        "half": "La luz de la lámpara oscila por igual en todas direcciones; en promedio cos²θ vale un medio. El primer filtro deja pasar la mitad.",
+        "three": "Tres filtros, el del medio a φ, el de atrás cruzado: Malus dos veces. Lo máximo pasa a φ = 45°, un octavo de la luz de la lámpara, un cuarto de lo que deja pasar el primero.",
+        "many": "n filtros repartidos por igual entre el par cruzado: n + 1 giros pequeños, cada uno pierde poco. Con diez pasa el 40 %, con sesenta el 48 %: cuantos más, más cerca de la mitad que deja pasar el primer filtro."
+      },
+      "symbols": {
+        "i": "Luz tras el filtro (intensidad)",
+        "i0": "Luz antes del filtro, ya polarizada",
+        "theta": "Ángulo entre la dirección de oscilación y el eje del filtro",
+        "i1": "Luz tras el primer filtro",
+        "il": "Luz de la lámpara, no polarizada",
+        "i3": "Luz tras el tercer filtro",
+        "phi": "Ángulo del filtro del medio respecto al delantero",
+        "n": "Número de filtros entre el par cruzado"
+      },
+      "sweet": {
+        "turns": "El truco: un filtro no solo bloquea, polariza de nuevo. Lo que pasa por el del medio oscila a lo largo de su eje, girado 45°: la mitad de lo que dejó pasar el primero. Respecto a esta nueva dirección, el filtro de atrás ya no está cruzado, solo inclinado 45°: vuelve a dejar pasar la mitad. Así sale un cuarto de lo que dejó pasar el primero, un octavo de la luz de la lámpara, donde sin el del medio no pasaba nada. Con el del medio a 30° es el 9,4 %.",
+        "real": "Los filtros reales (aquí supuestos: 76 % a lo largo del eje, 1 a 500 a través, como el Polaroid) dejan pasar el 38 % cada uno, cruzados el 0,12 %. Con el tercero a 45° pasa el 5,0 %, 44 veces más. Más filtros solo ayudan hasta dos: con ellos pasa el 6,6 %, y cada uno más absorbe más de lo que ahorra su giro menor. Con diez queda el 1,5 %; los filtros ideales dejarían pasar el 40 %.",
+        "chart_hint": "La luz a través del par cruzado según el ángulo del filtro del medio, en porcentaje de la luz de la lámpara. Su filtro del medio está a {{deg}}°: {{share}} % con filtros ideales."
+      },
+      "computed": {
+        "system": "La página trata cada filtro como una matriz que deja pasar la oscilación a lo largo de su eje y no la transversal (matriz de Jones), y multiplica los filtros por orden. La luz de la lámpara es una mezcla a partes iguales de dos oscilaciones cruzadas; tras la pila su intensidad es la mitad de la suma de los cuadrados de las cuatro entradas. Para filtros ideales es exactamente la ley de Malus, filtro a filtro.",
+        "real": "Un filtro real deja pasar la fracción k₁ a lo largo de su eje y k₂ a través; k₂/k₁ es su razón de extinción. Para el Polaroid la bibliografía da alrededor del 38 % para luz no polarizada y 1 a 500; de ahí k₁ = 76 %.",
+        "check": "Las pruebas de la página calculan cada pila una segunda vez con matrices de Mueller sobre el vector de Stokes y comparan, comprueban la ley de Malus filtro a filtro y la curva ⅛ sin² 2φ en cada grado entero. Se calcula en su navegador, con las mismas fórmulas que el motor de cálculo del sitio.",
+        "left_out": "Se omite: el color (los filtros reales dejan pasar el rojo y el azul de forma distinta, el Polaroid cruzado se ve ligeramente azulado; aquí vale un solo valor para toda la luz); la luz reflejada de un lado a otro entre los filtros; los filtros que además desplazan la fase de la oscilación (láminas retardadoras)."
+      }
+    },
+    "vessel": {
+      "at": {
+        "build": "Sobre un soporte, encima de una larga cubeta, hay un tubo transparente de un metro de alto y 8 cm de ancho, lleno de agua hasta 90 cm. En su costado tiene tres agujeros uno sobre otro, a 5, 35 y 65 cm, cada uno cerrado con un tapón.",
+        "drain": "Si se quita el tapón de abajo, un chorro sale disparado lejos dentro de la cubeta. Luego cae cada vez más cerca del tubo, y el nivel del agua baja cada vez más despacio; los últimos centímetros son los que más tardan. Con los tres agujeros abiertos, el chorro del medio llega más lejos, y el de arriba y el de abajo caen en el mismo punto.",
+        "origin": "Un clásico de la clase de física, construido aquí lo bastante alto para ver cómo el chorro se acorta."
+      },
+      "view": "El tubo sobre su soporte encima de la cubeta, dibujado en corte: el agua, los tapones y los chorros, con una regla a lo largo del fondo de la cubeta",
+      "play": {
+        "title": "Quitar los tapones",
+        "hint": "Haga clic en un tapón del dibujo o en uno de los botones para abrir un agujero o volver a cerrarlo. El reloj corre desde el primer agujero abierto.",
+        "refill": "Volver a llenar",
+        "caption": "Un tubo de {{diameter}} cm de ancho con agujeros de {{hole}} mm; la marca discontinua indica hasta dónde estaba lleno. Todo a la misma escala.",
+        "plugs": "Agujeros, de arriba abajo",
+        "hole": "Agujero a {{height}} cm",
+        "full": "El tubo está lleno hasta {{fill}} cm y todos los agujeros están tapados.",
+        "time": "Tiempo",
+        "level": "Nivel del agua",
+        "flow": "Caudal de salida",
+        "jet": "Chorro más largo",
+        "halved": "A media altura ({{height}} cm) tras"
+      },
+      "change": {
+        "title": "Reconstruir el tubo",
+        "hint": "Cambie el tubo, los agujeros, el llenado y el soporte. Después el tubo vuelve a estar lleno y todos los tapones puestos; los agujeros siguen a 5, 35 y 65 cm. Las cifras valen para el agujero de abajo solo.",
+        "diameter": "Ancho del tubo",
+        "diameter_hint": "Diámetro interior. El doble de ancho significa cuatro veces más agua: tarda cuatro veces más. En la exposición, 8 cm.",
+        "hole": "Ancho de los agujeros",
+        "hole_hint": "Como mucho, una cuarta parte del ancho del tubo. El doble de ancho, vacío en una cuarta parte del tiempo. En la exposición, 8 mm.",
+        "fill": "Llenado",
+        "fill_hint": "Hasta qué altura sobre el fondo del tubo llega el agua al principio. En la exposición, 90 cm.",
+        "discharge": "Coeficiente de descarga μ",
+        "discharge_hint": "Cuánto se estrecha el chorro justo después del agujero: unos 0,61 para un agujero de borde vivo, más de 0,9 si el agua sale por un tubito corto. En la exposición, 0,61.",
+        "stand": "Altura del soporte",
+        "stand_hint": "A qué altura está el fondo del tubo sobre el fondo de la cubeta. Cuanto más alto, más tiempo caen los chorros y más lejos llegan. En la exposición, 20 cm.",
+        "dry": "Los agujeros por encima del nivel del agua quedan secos."
+      },
+      "figures": {
+        "drain": "Vacío hasta el agujero de abajo",
+        "half": "Media altura tras",
+        "speed": "Velocidad del primer chorro",
+        "flow": "Primer caudal",
+        "volume": "Agua sobre el agujero de abajo",
+        "farthest": "Chorro más largo posible"
+      },
+      "chart": {
+        "range": "Alcance",
+        "hole": "Altura del agujero sobre el fondo del tubo",
+        "range_hint": "Hasta dónde llega un chorro del tubo lleno según la altura de su agujero: lo más lejos desde la mitad entre la superficie del agua y el fondo de la cubeta.",
+        "depth": "Agua sobre el agujero",
+        "time": "Tiempo tras abrir",
+        "time_hint": "El agujero de abajo solo, para el montaje ajustado arriba: el nivel baja cada vez más despacio, el alcance disminuye a ritmo constante, en línea recta."
+      },
+      "model": {
+        "intro": "El agua presiona sobre un agujero con más fuerza cuanto más hondo está el agujero bajo la superficie. Sale tan rápido como lo haría una piedra que cayera desde la superficie hasta el agujero. Justo después del agujero el chorro se estrecha: por un agujero de borde vivo sale solo algo más de seis décimas de lo que haría esperar su área.",
+        "torricelli": "La ley de Torricelli: la velocidad del chorro según la profundidad del agujero bajo la superficie.",
+        "flow": "Lo que sale cada segundo: el área del agujero, reducida a la del chorro contraído, por su velocidad.",
+        "balance": "Lo que sale falta en el tubo: la superficie baja tan deprisa como todos los agujeros abiertos por debajo de ella dejan salir agua juntos. Una ecuación diferencial de primer orden para el nivel del agua.",
+        "range": "El chorro sale horizontal de la pared y cae como una piedra lanzada en horizontal: a esta distancia del tubo llega al fondo de la cubeta."
+      },
+      "symbols": {
+        "v": "la velocidad del chorro",
+        "g": "la aceleración de la gravedad",
+        "h": "el nivel del agua sobre el fondo del tubo",
+        "y": "la altura del agujero sobre el fondo del tubo",
+        "q": "el caudal de salida",
+        "mu": "el coeficiente de descarga, el estrechamiento del chorro",
+        "a": "el área de un agujero",
+        "area": "la sección del tubo",
+        "t": "el tiempo",
+        "yk": "la altura del agujero abierto k; se suma sobre los agujeros abiertos bajo la superficie",
+        "x": "a qué distancia de la pared cae el chorro en el fondo de la cubeta",
+        "s": "la altura del soporte",
+        "half": "el tiempo hasta que la profundidad sobre el agujero ha bajado a la mitad"
+      },
+      "computed": {
+        "system": "Los agujeros se abren y se cierran cuando usted quiera, así que la página calcula el nivel paso a paso: cada 5 ms un paso de Runge-Kutta de la ecuación de arriba, en su navegador, con las mismas fórmulas que el motor de cálculo del sitio. Con un solo agujero abierto hay también una solución exacta.",
+        "exact": "La raíz cuadrada de la profundidad del agua sobre el agujero disminuye a ritmo constante hasta que el agua llega al agujero, tras el tiempo T.",
+        "h0": "el nivel del agua al abrir",
+        "T": "el tiempo hasta que se ha vaciado el agua sobre el agujero",
+        "check": "Las pruebas de la página contrastan los pasos con esta solución: hasta un segundo antes del final, el nivel se desvía menos de una milmillonésima de la profundidad, y el tubo queda vacío con la precisión de un paso.",
+        "left_out": "Se omite: la velocidad con que baja el agua dentro del propio tubo (aquí menos de una diezmilésima del cálculo); el frenado del chorro por la viscosidad y el aire (medido por debajo de una milésima en chorros rápidos de agujeros de borde vivo); la inercia de la columna de agua cuando un agujero se abre o se cierra; la tensión superficial, que al final rompe el chorro fino en gotas; el ancho de los tapones."
+      },
+      "sweet": {
+        "root": "El truco es la raíz cuadrada. El agua sale más deprisa cuanto más alta está, pero solo con la raíz cuadrada de la altura. Al bajar la superficie, el chorro se frena, y la superficie baja aún más despacio. Por eso la primera mitad del agua sale mucho antes que la segunda.",
+        "numbers": "En la exposición, con el agujero de abajo solo: tras 20 s el agua está solo a la mitad de altura sobre el agujero, pero el tubo no se vacía hasta los 68 s. La mitad del agua no necesita la mitad del tiempo, sino el 29 % de él; la última décima necesita el 32 %. Con los tres agujeros abiertos el tubo baja en 57 s, apenas antes, porque los agujeros de arriba se quedan secos pronto.",
+        "jet": "El chorro, en cambio, se acorta a ritmo constante: su alcance crece con la raíz cuadrada de la profundidad, y justo esa raíz disminuye de manera uniforme. Al principio sale a 4,1 m/s, 7,5 litros por minuto, y cae a 0,92 m del tubo; a mitad de tiempo, a los 34 s, cae a 0,46 m.",
+        "half": "La profundidad sobre el agujero baja con el cuadrado del tiempo que queda: la mitad ha salido tras (1 − 1/√2) T, el 29 % del tiempo, sea cual sea el ancho del tubo y del agujero."
+      }
+    },
+    "kapitza": {
+      "at": {
+        "rod": "Una varilla rígida con un peso en el extremo cuelga de un pivote. Si se pone vertical y se suelta, se cae, como cualquier lápiz apoyado en su punta.",
+        "motor": "Entonces se enciende el motor: sacude el pivote arriba y abajo, un centímetro, unas 40 veces por segundo. Ahora la varilla se queda de pie, boca abajo. Si se la empuja, se tambalea y vuelve a enderezarse."
+      },
+      "view": "La varilla en su pivote sacudido, el peso en el extremo; a trazos, la vertical hacia arriba",
+      "play": {
+        "title": "Enderezar y sacudir",
+        "hint": "Enderece la varilla, primero sin motor y luego con él. Empújela o tire del peso hacia un lado.",
+        "upright": "Enderezar",
+        "nudge": "Empujar",
+        "motor": "Motor",
+        "motor_hint": "Sacude el pivote arriba y abajo",
+        "drag_hint": "El peso se puede sujetar con el ratón o con el dedo y soltar.",
+        "frequency": "Frecuencia del motor",
+        "amplitude": "Recorrido del pivote (arriba y abajo)",
+        "presets_label": "Ajustes:",
+        "presets": {
+          "fast": "Rápido y fino",
+          "slow": "Lento y amplio",
+          "swing": "Hacer oscilar"
+        },
+        "holds": "Sacudida así de rápido, la varilla se queda de pie arriba.",
+        "falls": "Sacudida así, la varilla se cae desde arriba.",
+        "swings": "Sacudida así, incluso la varilla colgada oscila cada vez más.",
+        "off": "Sin motor, la varilla se cae desde arriba."
+      },
+      "figures": {
+        "angle": "Ángulo con la vertical hacia arriba",
+        "least": "Frecuencia mínima, exacta",
+        "kapitza": "Frecuencia mínima según Kapitza",
+        "gap": "Diferencia",
+        "wobble": "Bamboleo arriba, periodo",
+        "multiplier": "Mayor multiplicador de Floquet (módulo)"
+      },
+      "change": {
+        "title": "Cambiar el objeto expuesto",
+        "hint": "La varilla sigue desde donde está.",
+        "length": "Longitud de la varilla",
+        "damping": "Amortiguamiento"
+      },
+      "model": {
+        "intro": "Moviéndose con el pivote, el peso siente, además de la gravedad, la aceleración del pivote: unas veces más pesado, otras más ligero, 40 veces por segundo. Promediadas sobre las sacudidas rápidas, estas fuerzas no se anulan.",
+        "motion": "La ecuación de movimiento de la varilla: la gravedad y las sacudidas la giran hacia abajo, el amortiguamiento la frena. El pivote está a a·cos ωt por debajo de su posición media.",
+        "potential": "El potencial promediado de Kapitza: a la energía de altura se suma una parte de las sacudidas que es máxima cuando la varilla está horizontal y mínima cuando está vertical, abajo igual que arriba.",
+        "bound": "Arriba este potencial es un valle en cuanto a²ω² supera 2gl: para la varilla de 20 cm sacudida 1 cm, a partir de 31,5 Hz. Alrededor de arriba la varilla se bambolea entonces lentamente con la frecuencia angular Ω."
+      },
+      "symbols": {
+        "theta": "el ángulo de la varilla desde la vertical hacia abajo (π: boca abajo)",
+        "g": "aceleración de la gravedad, 9,81 m/s²",
+        "a": "el recorrido del pivote",
+        "omega": "la frecuencia angular del motor, 2π por su frecuencia",
+        "l": "la longitud de la varilla hasta el peso",
+        "c": "el amortiguamiento",
+        "u": "el potencial promediado del movimiento lento",
+        "m": "la masa del peso",
+        "big_omega": "la frecuencia angular del bamboleo lento alrededor de arriba"
+      },
+      "computed": {
+        "system": "Dos ecuaciones de primer orden, ángulo y velocidad angular, con el método de Runge-Kutta, en pasos de una centésima de periodo del motor, nunca de más de 1 ms. Si la varilla se queda arriba lo dice un segundo cálculo, sin esperar: cerca de arriba la ecuación es lineal con un coeficiente periódico (ecuación de Mathieu). Según Floquet, cada periodo hace entonces lo mismo con cada pequeña desviación: la multiplica por una matriz fija M. El motor de cálculo encuentra M siguiendo dos desviaciones durante un periodo, en 1000 pasos; sus valores propios, los multiplicadores de Floquet, deciden. La frecuencia mínima la busca con 40 bisecciones.",
+        "floquet": "Un periodo del motor transforma la desviación respecto a arriba con la matriz M. Si ambos valores propios de M están dentro del círculo unidad, toda desviación pequeña sigue siendo pequeña: eso ocurre exactamente cuando el valor absoluto de la traza es menor que 1 más el determinante. El determinante es e^(−cT), menor que 1 con amortiguamiento.",
+        "phi": "la pequeña desviación respecto a la vertical hacia arriba",
+        "t": "un periodo del motor, 1/f",
+        "m": "la matriz de monodromía: lo que un periodo hace con la desviación"
+      },
+      "chart": {
+        "gravity": "Gravedad",
+        "shaking": "Sacudidas",
+        "sum": "Juntas",
+        "potential": "Potencial por masa",
+        "angle": "Ángulo desde abajo"
+      },
+      "sweet": {
+        "potential": "El truco: las sacudidas rápidas se promedian en un potencial adicional con su mínimo arriba. La gravedad sola tiene allí una colina; con sacudidas bastante fuertes, la suma la convierte en una hondonada donde la varilla se queda (a 180°, en el centro).",
+        "approach": "El límite de Kapitza es el primer término de una aproximación en a/l. Los multiplicadores de Floquet dan el límite exacto: sin amortiguamiento está un 0,002 % más alto con a/l = 0,01, un 0,055 % con 0,05 y un 0,86 % con 0,2; cuanto menor es el recorrido frente a la varilla, más acierta Kapitza.",
+        "band": "¿Y colgada? La varilla oscila por sí sola a {{own}} Hz. Si el motor sacude más o menos el doble de rápido, entre {{low}} y {{high}} Hz, oscila cada vez más (resonancia paramétrica): pruebe «Hacer oscilar».",
+        "no_band": "¿Y colgada? La varilla oscila por sí sola a {{own}} Hz. Con este recorrido y este amortiguamiento, ni la frecuencia doble la hace oscilar cada vez más."
+      }
+    },
+    "film": {
+      "at": {
+        "rings": "Dos aros de alambre se sumergen juntos en agua jabonosa y se separan despacio. Entre ellos se tiende una película de jabón, estrechada en el centro como una cintura.",
+        "waist": "Cuanto más se separan los aros, más estrecha es la cintura. A unos dos tercios del diámetro de los aros la película cede de repente: en cada aro queda un disco plano."
+      },
+      "view": "Dos aros vistos de lado con la película de jabón entre ellos; el aro derecho se puede arrastrar o mover con las flechas",
+      "play": {
+        "title": "Separarlos",
+        "hint": "Arrastre el aro derecho a la derecha o a la izquierda, o selecciónelo con la tecla Tab y muévalo con las flechas, de centímetro en centímetro con Mayús. En discontinua, a través de la película: su cintura.",
+        "dip": "Sumergir de nuevo",
+        "ring": "Aro derecho",
+        "distance": "Distancia entre los aros",
+        "distance_hint": "De centro a centro de los aros.",
+        "radius": "Radio de los aros",
+        "radius_hint": "Los dos aros son del mismo tamaño.",
+        "thin": "Mostrar la forma estrecha",
+        "thin_hint": "A cada distancia le corresponde también una segunda película, más estrecha. Es inestable: la película de jabón nunca la adopta.",
+        "caption": "Vista lateral, a escala: aros de {{diameter}} cm de diámetro. «Sumergir de nuevo» vuelve a juntar los aros.",
+        "least": "La película tiene la menor área posible: {{area}} cm²; dos discos planos tendrían {{discs}} cm².",
+        "held": "Dos discos planos tendrían ahora menos área, {{discs}} cm² en lugar de {{area}} cm². Aun así la película se mantiene – por ahora.",
+        "torn": "Rota: en cada aro ha quedado un disco plano. Juntándolos siguen siendo discos; vuelva a sumergir los aros."
+      },
+      "figures": {
+        "neck": "Cintura (radio)",
+        "area": "Área de la película",
+        "discs": "Dos discos",
+        "tear": "Se rompe a"
+      },
+      "model": {
+        "intro": "Una película de jabón se contrae hasta la menor área que permite su borde: su energía es la tensión superficial por el área. Entre dos aros iguales sobre un eje esa superficie es un catenoide, una catenaria girada alrededor del eje – la misma curva que la de la cadena colgante del arco.",
+        "catenoid": "El radio de la película a una distancia z de su cintura; c es el radio de la cintura.",
+        "rings": "La película tiene que llegar a ambos aros: eso fija la cintura c – si la hay.",
+        "ratio": "Con t = h/(2c) queda una ecuación solo para t. Su lado derecho primero sube y luego vuelve a bajar.",
+        "peak": "Es máximo donde t·tanh t = 1, en t ≈ 1,1997: allí h/R ≈ 1,3255. Por debajo caben dos películas entre los aros, una ancha y una estrecha; por encima, ninguna.",
+        "area": "El área de la película y la de los dos discos que deja una película rota.",
+        "two": "La película ancha es estable, la estrecha no: si se la empuja, vuelve a la ancha o se rompe. A la distancia de ruptura ambas coinciden; la cintura se ha reducido entonces al 55 % del radio de los aros."
+      },
+      "symbols": {
+        "r": "radio de la película",
+        "z": "distancia a la cintura, a lo largo del eje",
+        "c": "radio de la cintura",
+        "R": "radio de los aros",
+        "h": "distancia entre los aros",
+        "t": "media distancia entre los aros, en radios de la cintura",
+        "hmax": "la mayor distancia a la que una película con cintura alcanza los aros",
+        "A": "área de la película",
+        "discs": "área de los dos discos"
+      },
+      "sweet": {
+        "least": "El truco: la película siempre se contrae hasta la menor área que puede alcanzar. A partir de 1,055 radios, con aros de 5 cm a partir de 5,28 cm, dos discos planos tendrían menos área. Pero para llegar allí la película tendría que crecer primero: por eso se mantiene.",
+        "tear": "A partir de 1,3255 radios, con aros de 5 cm a partir de 6,63 cm, ninguna película con cintura alcanza ya ambos aros. La cintura se estrangula y la película salta a los dos discos. Justo antes tiene una quinta parte más de área que ellos.",
+        "equal_tile": "Discos menores desde h/R",
+        "tear_tile": "Se rompe desde h/R",
+        "t_tile": "t con t·tanh t = 1",
+        "seen": "Así ocurre también con películas reales: Ito y Sato (2010) filmaron cómo el salto a los discos no se produce donde estos tendrían menos área. La película aguanta hasta poco antes de la distancia de ruptura y luego se estrangula en un instante."
+      },
+      "chart": {
+        "hint": "El área de la película frente a la de los dos discos, según la distancia entre los aros: la película ancha y estable, la estrecha e inestable, y los discos. Donde las dos películas se encuentran terminan las curvas: allí se rompe la película.",
+        "wide": "película ancha (estable)",
+        "thin": "película estrecha (inestable)",
+        "discs": "dos discos",
+        "area": "área / dos discos",
+        "distance": "distancia / radio del aro"
+      },
+      "computed": {
+        "system": "Para cada distancia la página busca t partiendo un intervalo por la mitad una y otra vez, una vez a la izquierda y otra a la derecha del máximo en t·tanh t = 1, y de ahí calcula la cintura y el área. Aquí nada avanza en el tiempo: la mano fija la distancia. Se calcula en su navegador, con las mismas fórmulas que el motor de cálculo del sitio.",
+        "left_out": "Se omite: la gravedad, que hace combarse un poco una película real; el grosor de la película, su escurrido y que a veces estalle antes de tiempo; el alambre de los aros, aquí una línea; y cómo se estrangula la cintura cuando ya no tiene apoyo."
+      }
+    },
+    "metronomes": {
+      "at": {
+        "board": "Sobre una tabla ligera hay cinco metrónomos, todos ajustados al mismo tempo. La tabla descansa sobre dos latas de bebida vacías y puede rodar de lado. Los metrónomos se ponen en marcha uno tras otro, en cualquier momento.",
+        "agree": "Al principio marcan desordenados. En menos de un minuto todos oscilan al unísono, y la tabla se mece con ellos. Con la tabla sobre la mesa, nunca se ponen de acuerdo."
+      },
+      "view": "La tabla sobre dos latas vista de frente, con los metrónomos encima",
+      "play": {
+        "title": "Poner en marcha los metrónomos",
+        "hint": "Toque un metrónomo para ponerlo en marcha o pararlo. El movimiento de la tabla está dibujado {{times}} veces mayor. El círculo muestra en qué punto de su oscilación está cada metrónomo; la flecha es su media.",
+        "random": "Poner todos en marcha al azar",
+        "stop_all": "Parar todos",
+        "each": "Los metrónomos uno a uno",
+        "start_one": "Poner en marcha el metrónomo {{n}}",
+        "stop_one": "Parar el metrónomo {{n}}",
+        "board": "La tabla",
+        "free": "Sobre las latas",
+        "held": "Sobre la mesa",
+        "dial": "En qué punto de su oscilación está cada metrónomo, y su media como flecha",
+        "trace": "Cuánto coincidieron en el último minuto",
+        "answer": "Ahora están de acuerdo: R supera 0,99. Sobre la mesa nunca se ponen de acuerdo por sí solos."
+      },
+      "figures": {
+        "order": "Acuerdo R",
+        "time": "Tiempo",
+        "coupling": "Acoplamiento β"
+      },
+      "change": {
+        "title": "Modificar el experimento",
+        "hint": "Una tabla más ligera acopla con más fuerza. Si los tempos están demasiado separados, los metrónomos ya no se ponen de acuerdo.",
+        "count": "Número de metrónomos",
+        "board": "Masa de la tabla",
+        "board_hint": "Sin los metrónomos. Una tabla más pesada se mueve menos, y el acoplamiento se debilita.",
+        "spread": "Diferencia de tempo",
+        "spread_hint": "Cuánto más rápido va el metrónomo más rápido que el más lento; los demás quedan en medio."
+      },
+      "model": {
+        "intro": "James Pantaleone hizo este experimento en 2002 con dos y con siete metrónomos y planteó un modelo sencillo. Cada metrónomo es un péndulo; el escape que lo impulsa es un término que aviva las oscilaciones pequeñas y frena las grandes.",
+        "equation": "La ecuación del metrónomo i, con el tiempo medido en oscilaciones: el peso, el impulso que mantiene la oscilación en unos 45° (θ₀ = 0,39 rad, μ = 0,010) y la fuerza de inercia de la tabla que se mueve bajo el metrónomo.",
+        "board": "Nada empuja desde fuera: el centro de masa de la tabla y los metrónomos se queda donde está. Cuando los péndulos van a la derecha, la tabla rueda a la izquierda. β indica con qué fuerza lo nota cada metrónomo; para los dos de Pantaleone sobre su tabla, x₀ = 0,088 cm y β = 0,011.",
+        "order": "Cuánto coinciden se mide con la media de sus agujas: R = 1 cuando todos oscilan al unísono, cerca de 0 cuando están dispersos.",
+        "lock": "Para dos metrónomos, Pantaleone deriva de aquí una sola ecuación para su desfase ψ. Se detiene si Δ es lo bastante pequeño: entonces el más rápido va adelantado ψ* = arcsin(μΔ/(β(3γ + β))). Para sus dos, separados medio por ciento, son 3,1°; el motor encuentra 3,3°."
+      },
+      "symbols": {
+        "theta": "la desviación del péndulo i",
+        "tau": "el tiempo, contado en radianes de la oscilación",
+        "omega": "la frecuencia angular de los metrónomos, 10,9 1/s (208 golpes por minuto)",
+        "delta": "cuánto más rápido o más lento está ajustado el metrónomo i",
+        "mu": "la intensidad del impulso",
+        "theta0": "el ángulo en el que el impulso pasa a frenar: la mitad de la desviación",
+        "beta": "el acoplamiento a través de la tabla",
+        "x": "dónde está la tabla",
+        "mr": "la masa de un péndulo por la distancia de su centro de masa al eje",
+        "M": "todo lo que rueda sobre las latas: tabla y metrónomos",
+        "g": "aceleración de la gravedad, 9,81 m/s²",
+        "R": "cuánto coinciden, de 0 a 1",
+        "phi": "en qué punto de su oscilación está el metrónomo j",
+        "N": "el número de metrónomos en marcha",
+        "psi": "el desfase de los dos",
+        "gamma": "cuánto frena al péndulo la gran amplitud",
+        "F": "lo que aceleran el peso y el impulso por sí solos",
+        "S": "la segunda derivada de Σ sin θⱼ: lo que mueve la tabla"
+      },
+      "sweet": {
+        "push": "Cada golpe empuja un poco la tabla –al unísono, unos 1,4 mm a un lado y a otro–, y el movimiento de la tabla empuja a cada metrónomo hacia la misma fase.",
+        "in_step": "Desde la posición de partida del experimento, sobre las latas están al unísono tras {{seconds}} s (R por encima de 0,99). Sobre la mesa, R alcanza como mucho {{most}} en los mismos dos minutos.",
+        "never": "Sobre las latas no se ponen de acuerdo en dos minutos: sus tempos están demasiado separados para este acoplamiento. Sobre la mesa, R alcanza como mucho {{most}}.",
+        "why": "Sobre la mesa falta justamente eso: la tabla está quieta, ninguno nota a los demás y cada uno conserva su propio tempo. Sus distancias se desplazan despacio, según difieren sus tempos."
+      },
+      "chart": {
+        "order": "Acuerdo R",
+        "time": "Tiempo"
+      },
+      "computed": {
+        "solve": "La tabla depende de las aceleraciones de todos los péndulos, y cada péndulo de la de la tabla. Como todos comparten la misma tabla, se resuelve de una vez: primero S con una suma, luego cada aceleración.",
+        "system": "Así las 2N ecuaciones de primer orden, desviaciones y sus velocidades, se vuelven explícitas. El motor las resuelve con el método de Runge-Kutta en pasos de 4 ms, 144 por oscilación; la página lo hace con los mismos pasos, unos pocos por fotograma."
+      }
+    },
+    "ship": {
+      "at": {
+        "basin": "En un estanque flota el casco de una maqueta. Un peso se desliza hacia arriba por un mástil o hacia abajo dentro de una quilla bajo el casco.",
+        "low": "Con el peso abajo, se inclina el casco con la mano y se suelta: se balancea y se endereza.",
+        "high": "Con el peso arriba en el mástil basta un pequeño empujón: el casco da la vuelta y flota con la quilla hacia arriba."
+      },
+      "view": "El estanque con el casco en sección, el peso en el mástil o la quilla, el centro de gravedad G y el centro de carena B",
+      "play": {
+        "title": "Inclinar el casco",
+        "hint": "Agarre el casco, inclínelo y suéltelo. Después suba o baje el peso y vuelva a intentarlo.",
+        "push": "Empujar",
+        "upright": "Enderezar",
+        "tilt": "Escora del casco: las flechas lo inclinan; al soltar se balancea libre",
+        "weight": "Altura del peso",
+        "weight_hint": "Sobre el fondo del casco: bajo cero está en la quilla, por encima de 12 cm en el mástil.",
+        "caption": "Un corte transversal del casco. Sombreado, lo que está bajo el agua: el empuje sube por su centro B, el peso baja por G, y su distancia horizontal es el brazo GZ.",
+        "motion": {
+          "held": "Su mano sujeta el casco.",
+          "upright": "Flota derecho.",
+          "on_edge": "Está en equilibrio inestable: un pequeño empujón y vuelca.",
+          "loll": "Se queda escorado: derecho no se sostiene.",
+          "keel_up": "Ha zozobrado y flota con la quilla hacia arriba.",
+          "capsizing": "Zozobra.",
+          "rolling": "Se balancea."
+        },
+        "heel": "Escora",
+        "arm": "Brazo GZ",
+        "gm": "Altura metacéntrica GM",
+        "period": "Periodo de balanceo"
+      },
+      "change": {
+        "title": "Reconstruir el casco",
+        "hint": "Haga el casco más ancho o más estrecho, el peso más pesado o más ligero, y deje que el agua frene más o menos.",
+        "beam": "Manga del casco",
+        "beam_hint": "Cuanto más ancha la flotación, más alto el metacentro: BM crece con el cuadrado de la manga.",
+        "weight": "Masa del peso",
+        "weight_hint": "El casco solo pesa 2 kg.",
+        "damping": "Amortiguación del agua",
+        "damping_hint": "Lo rápido que el agua frena el balanceo; con cero se balancea sin fin."
+      },
+      "figures": {
+        "draft": "Calado",
+        "kb": "Centro de carena KB",
+        "bm": "Radio metacéntrico BM",
+        "kg": "Centro de gravedad KG",
+        "limit": "Altura del peso a partir de la cual vuelca",
+        "vanishing": "Escora hasta la que vuelve"
+      },
+      "chart": {
+        "curve_hint": "El brazo GZ según la escora, con el peso a la altura elegida; a trazos GM·sen φ, la aproximación para ángulos pequeños. Donde la curva cae bajo cero, zozobra.",
+        "arm": "Brazo GZ",
+        "small": "GM·sen φ",
+        "heel": "Escora",
+        "trick_hint": "El brazo GZ según la escora para tres alturas del peso: al pie de la quilla, en la cubierta y arriba en el mástil.",
+        "weight_at": "Peso a {{cm}} cm"
+      },
+      "model": {
+        "intro": "El casco es aquí una caja cerrada, un rectángulo en sección. Se hunde hasta que el agua desplazada pesa tanto como el casco y el peso juntos.",
+        "draft": "Arquímedes para la caja: el agua desplazada pesa tanto como el casco y el peso. Aquí se hunde 3,0 cm.",
+        "gravity": "El centro de gravedad del casco y el peso, medido desde el fondo K. Cuando el peso se mueve, solo se mueve este; el calado sigue igual.",
+        "arm": "Inclinado, el centro de carena B, el centro de la parte sumergida, queda a una distancia horizontal GZ del centro de gravedad. Si GZ es positivo, B está del lado bajo, y el empuje y el peso devuelven el casco.",
+        "metacentre": "Para ángulos pequeños, la vertical por B corta siempre la línea media del casco en el mismo punto, el metacentro M; GM es su altura sobre G. Para la caja de aquí, B está 1,5 cm sobre el fondo, BM mide 11,1 cm y M está 12,6 cm sobre el fondo.",
+        "wall": "Mientras las paredes estén verticales en el agua, esta fórmula es exacta para la caja, aquí hasta 16,7°, donde emerge el fondo; para ángulos pequeños queda GM·sen φ. Más allá, la página calcula geométricamente la parte sumergida, hasta que el casco queda de costado o con la quilla hacia arriba."
+      },
+      "symbols": {
+        "rho": "densidad del agua",
+        "l": "eslora del casco",
+        "b": "manga del casco",
+        "d": "calado",
+        "mh": "masa del casco",
+        "mw": "masa del peso",
+        "kg": "altura del centro de gravedad G sobre el fondo K",
+        "zh": "altura del centro de gravedad del casco vacío",
+        "zw": "altura del peso",
+        "gz": "brazo entre empuje y peso",
+        "phi": "escora",
+        "yzb": "posición del centro de carena B en el casco, de través y en altura",
+        "gm": "altura metacéntrica",
+        "kb": "altura del centro de carena sobre el fondo",
+        "bm": "distancia del centro de carena al metacentro",
+        "i": "momento de inercia de área de la flotación",
+        "v": "volumen desplazado",
+        "inertia": "momento de inercia respecto al eje longitudinal por G",
+        "m": "masa del casco y el peso",
+        "g": "aceleración de la gravedad",
+        "beta": "amortiguación del agua",
+        "kh": "radio de giro del casco vacío",
+        "t": "periodo de balanceo"
+      },
+      "sweet": {
+        "moves": "El truco: cuando el casco se inclina, el lado bajo se hunde y el alto emerge. El agua desplazada, y con ella el centro de carena B, pasa al lado bajo. Mientras el metacentro M esté por encima del centro de gravedad G, B queda más afuera que G, y el empuje y el peso devuelven el casco.",
+        "numbers": "Aquí M está 12,6 cm sobre el fondo. Con el peso en la cubierta, G está a 7,3 cm: GM mide 5,3 cm, y vuelve desde hasta 75° de escora. Al pie de la quilla, G queda bajo el fondo, GM mide 14,3 cm, y vuelve desde cualquier posición, incluso de costado, donde un brazo de 7,7 cm lo endereza.",
+        "high": "Subir el peso eleva G y nada más: el calado, B y M siguen donde están. A partir de 27,8 cm en el mástil, G queda por encima de M. Derecho está entonces en equilibrio inestable, y un pequeño empujón lo hace zozobrar; a 35 cm GM es −2,4 cm. Con la quilla hacia arriba, en cambio, flota entonces de forma estable."
+      },
+      "computed": {
+        "system": "La página calcula el balanceo paso a paso, cada 2 ms (Runge-Kutta). En cada paso busca, para la escora, la flotación que deja bajo el agua exactamente el desplazamiento, recorta la parte sumergida de la sección y toma su centro como centro de carena.",
+        "roll": "El giro alrededor del centro de gravedad: el brazo GZ lo devuelve, el agua frena. El momento de inercia es el del casco, trasladado a G por el teorema de Steiner, y el del peso.",
+        "period": "Para ángulos pequeños se balancea como un péndulo: con el peso en la cubierta cada 0,58 s. Cuanto menor GM, más lento: con el peso a 25 cm en el mástil GM es solo 0,9 cm, y se balancea cada 2,3 s.",
+        "check": "Las pruebas de la página contrastan GM con KB + BM − KG, el brazo a 15° con la fórmula de paredes verticales, el casco de costado con el centro del rectángulo sumergido y el periodo de balanceo con la fórmula para ángulos pequeños. El cálculo se hace en su navegador, con las mismas fórmulas que el motor del sitio.",
+        "left_out": "Se omite: el agua que el casco arrastra al balancearse (alarga el periodo); que el casco suba y baje al inclinarse (aquí flota enseguida sobre su desplazamiento, en cada ángulo); la deriva lateral y las olas del balanceo; el volumen y el peso de la quilla y el mástil; el agua que entra. Los valores son un modelo supuesto: una caja de 20 cm de ancho, 12 cm de alto, 50 cm de largo y 2 kg, con su propio centro de gravedad 5 cm sobre el fondo; un peso de 1 kg, desde 15 cm bajo el casco hasta 40 cm en el mástil."
+      }
+    },
+    "string": {
+      "at": {
+        "cord": "Una cuerda fina y elástica está sujeta por un extremo a un vibrador que la sacude un poco arriba y abajo cien veces por segundo. El otro extremo lo pasa usted por encima de un perno y tira de él hacia abajo con la mano.",
+        "loops": "Floja, la cuerda solo tiembla borrosa. Ténsela despacio: con ciertas fuerzas de tracción se queda de pronto quieta en uno, dos, tres vientres, con nodos tranquilos entre ellos. Cuanto más fuerte tira, menos vientres."
+      },
+      "view": "La cuerda del vibrador al perno: cuánto oscila, dentro la cuerda como la muestra una luz estroboscópica, y a la derecha la tracción de su mano",
+      "play": {
+        "title": "Tirar de la cuerda",
+        "hint": "Tire más fuerte o más suave y busque las tracciones con las que la cuerda se queda quieta en vientres.",
+        "calm": "Calmar",
+        "caption": "La franja muestra cuánto oscila la cuerda; la línea dentro la muestra como una luz estroboscópica algo desviada del tono: a cámara lenta. La altura está dibujada {{times}} veces mayor.",
+        "pull": "Tracción de su mano",
+        "pull_hint": "La fuerza con que tensa la cuerda sobre el perno. Cuanto más tensa, más rápido corren las ondas.",
+        "tone": "Tono del vibrador",
+        "tone_hint": "Cuántas veces por segundo sacude el vibrador la cuerda; en la exposición, fijo en 100.",
+        "widest": "Mayor oscilación",
+        "stroke": "Carrera del vibrador",
+        "speed": "Velocidad de la onda",
+        "half_waves": "Semiondas entre los extremos",
+        "three": "Tracción para tres vientres a {{hz}} Hz"
+      },
+      "chart": {
+        "swing": "Mayor oscilación",
+        "half_waves": "Semiondas entre los extremos, 2Lf/v",
+        "caption": "La oscilación estacionaria de la cuerda al tono del vibrador, frente al número de semiondas que caben entre los extremos: picos justo en los números enteros. La línea está en su tracción.",
+        "tone": "Tono del vibrador",
+        "tones_hint": "La oscilación estacionaria frente al tono del vibrador, para tres tracciones, cada una cuatro veces la anterior: los tonos en que la cuerda forma vientres se duplican."
+      },
+      "change": {
+        "title": "Cambiar la cuerda",
+        "hint": "Otra cuerda u otro vibrador.",
+        "length": "Longitud",
+        "length_hint": "Del vibrador al perno.",
+        "density": "Masa por metro",
+        "density_hint": "En una cuerda más pesada las ondas corren más despacio.",
+        "damping": "Amortiguación",
+        "damping_hint": "El aire y la cuerda juntos, como una sola tasa: cuanto más fuerte, más bajos y anchos los picos.",
+        "stroke": "Carrera del vibrador",
+        "stroke_hint": "Cuánto mueve el vibrador el extremo de la cuerda hacia cada lado.",
+        "f1": "Tono más grave con su tracción",
+        "one": "Tracción para un vientre a {{hz}} Hz",
+        "limit": "Oscilación de un vientre con su tracción"
+      },
+      "model": {
+        "intro": "La cuerda obedece la ecuación de ondas: cada trozo es devuelto por sus vecinos, tanto más cuanto más curvada está allí la cuerda. El vibrador mueve un extremo, el perno sujeta el otro.",
+        "wave": "Masa por aceleración, más un poco de amortiguación, es igual a tracción por curvatura. En el vibrador la cuerda se mueve con él; en el perno está quieta.",
+        "tones": "Los tonos propios: caben exactamente n semiondas entre los extremos (leyes de Mersenne). Con el tono del vibrador fijo, a n vientres les corresponde por tanto una tracción: cuatro veces más tensa da la mitad de vientres.",
+        "transfer": "La función de transferencia del vibrador al punto x. En s = iΩ su módulo da la oscilación estacionaria; sus polos son los modos propios, cada uno amortiguado con γ/2.",
+        "peak": "Justo en un tono propio la cuerda oscila más o menos esto en cada vientre; entre ellos, apenas más que el propio vibrador."
+      },
+      "symbols": {
+        "y": "Desplazamiento de la cuerda",
+        "x": "Posición a lo largo de la cuerda, desde el vibrador",
+        "t": "Tiempo",
+        "mu": "Masa de la cuerda por metro",
+        "gamma": "Amortiguación, aire y cuerda juntos",
+        "tension": "Tracción de su mano",
+        "a": "Carrera del vibrador",
+        "omega": "Frecuencia angular del vibrador",
+        "l": "Longitud del vibrador al perno",
+        "fn": "n-ésimo tono propio",
+        "n": "Número de vientres",
+        "v": "Velocidad de la onda",
+        "tn": "Tracción para n vientres",
+        "f": "Tono del vibrador",
+        "g": "Función de transferencia del vibrador al punto x",
+        "s": "Frecuencia compleja de la transformada de Laplace",
+        "kappa": "Número de onda complejo",
+        "sn": "Polos: los modos propios amortiguados",
+        "omegan": "Frecuencia angular del n-ésimo tono propio",
+        "peak": "Oscilación en un vientre",
+        "theta": "Fase del vibrador",
+        "qn": "Oscilación del n-ésimo modo propio"
+      },
+      "sweet": {
+        "trick": "El truco: el vibrador lanza una onda; corre hasta el perno, se refleja, vuelve y se refleja de nuevo en el vibrador, una y otra vez. Solo cuando cabe un número entero de semiondas entre los extremos, cada onda reflejada llega al compás de las nuevas y todas se suman en un patrón estacionario. Si no, se anulan en su mayor parte.",
+        "numbers": "A 100 Hz la cuerda forma un vientre con 20 N, dos con 5 N, tres con 2,22 N. Un vientre oscila entonces 67 mm, tres vientres 22 mm cada uno, once veces lo que el vibrador. Con 3,2 N, dos semiondas y media, no oscila en ningún punto más que el propio vibrador: 2 mm.",
+        "pull": "Tirar más fuerte hace las ondas más rápidas y más largas, y caben menos vientres: cuatro veces más tracción duplica los tonos. Así se afina una guitarra."
+      },
+      "computed": {
+        "system": "La página descompone la cuerda en la recta que marca el vibrador y 40 modos propios. Cada uno es un oscilador amortiguado que el vibrador impulsa; la página resuelve cada uno exactamente fotograma a fotograma, con el tono fijo durante el fotograma. Se calcula en su navegador, con las mismas fórmulas que el motor de cálculo del sitio.",
+        "modes": "La cuerda como suma: la recta del vibrador al perno y 40 modos propios, cada uno un oscilador amortiguado e impulsado.",
+        "drawing": "Una cuerda que oscila cien veces por segundo no se puede mostrar fotograma a fotograma en una pantalla. Por eso el dibujo muestra lo que ve el ojo: la franja entre sus dos posiciones extremas, y dentro la cuerda como la muestra una luz estroboscópica algo desviada del tono.",
+        "left_out": "Se omite: que una cuerda elástica se estira y adelgaza al tirar de ella; su rigidez; oscilaciones tan amplias que la tracción cambia a lo largo de la cuerda; la cesión del vibrador; las oscilaciones fuera del plano del dibujo."
+      }
+    },
+    "jet": {
+      "at": {
+        "tank": "Un depósito de agua tiene un orificio abajo en su pared delantera. Detrás del depósito hay un láser; su haz atraviesa el agua directamente hacia el orificio por el que sale el agua.",
+        "follows": "El agua cae en arco a una pila, y la luz no sigue en línea recta: sigue al chorro que se curva, que brilla en verde, y solo sale donde el chorro llega a la pila o se rompe en gotas.",
+        "colladon": "Daniel Colladon describió este experimento en 1842 en los Comptes rendus de la Academia de Ciencias de París. La luz en el chorro de agua es una precursora de la fibra óptica."
+      },
+      "scene_view": "El depósito con su láser, el chorro de agua en arco y la pila; el chorro brilla hasta donde la luz permanece en él",
+      "close_view": "El orificio, muy ampliado, con los rayos de luz reflejados en la superficie del chorro de agua",
+      "play": {
+        "title": "Inclinar el láser, bajar el nivel",
+        "hint": "Incline el láser y baje el agua: vea cuándo la luz abandona el chorro.",
+        "level": "Agua sobre el orificio",
+        "level_hint": "Cuanto más alta está el agua, más rápido sale y más suavemente se curva el chorro.",
+        "tilt": "Inclinación del láser",
+        "tilt_hint": "El ángulo de la luz del láser en el agua respecto al eje del chorro, positivo hacia arriba.",
+        "scene_caption": "Todo el objeto expuesto. El chorro brilla en verde hasta donde la luz permanece en él; los círculos muestran dónde sale por el camino.",
+        "close_caption": "El orificio, muy ampliado: nueve rayos del láser, reflejados en la superficie del chorro de agua. En trazos, la luz que sale.",
+        "all_in": "Toda la luz permanece en el chorro: cada rayo incide en la superficie a {{steepest}}° de la normal o más rasante, más allá del ángulo crítico de {{critical}}°. Solo sale en la pila.",
+        "some_out": "El {{out}} % de la luz sale del chorro por el camino; el {{arrives}} % llega a la pila.",
+        "all_out": "Ninguna luz llega a la pila: incide en la superficie más inclinada que el ángulo crítico de {{critical}}° y sale justo después del orificio."
+      },
+      "figures": {
+        "speed": "Velocidad en el orificio",
+        "bend": "Radio de curvatura en el orificio",
+        "critical": "Ángulo crítico",
+        "steepest": "Incidencia más inclinada, desde la normal",
+        "arrives": "Luz en la pila",
+        "first_out": "Primera luz sale tras",
+        "landing": "El chorro llega a la pila tras",
+        "hits": "Reflexiones del rayo central"
+      },
+      "change": {
+        "title": "Cambiar el objeto expuesto",
+        "hint": "Cambie el orificio, su altura sobre la pila y el líquido.",
+        "hole": "Diámetro del orificio",
+        "hole_hint": "Así de grueso es el chorro. Cuanto más grueso, más cerrada es su curva en el orificio en relación con su grosor.",
+        "drop": "Altura sobre la pila",
+        "drop_hint": "A qué profundidad bajo el orificio está la pila: la longitud del camino de la luz.",
+        "index": "Índice de refracción del líquido",
+        "index_hint": "El agua tiene 1,333. Cuanto mayor el índice, menor el ángulo crítico y mejor retiene el chorro la luz."
+      },
+      "chart": {
+        "inside_hint": "La luz que aún está en el chorro a lo largo de su camino del orificio a la pila, medido en horizontal.",
+        "inside": "Luz en el chorro",
+        "along": "Distancia al orificio",
+        "reflected_hint": "La fracción que la superficie refleja desde dentro, según el ángulo de incidencia, para el índice {{index}}: poca por debajo del ángulo crítico, toda a partir de él.",
+        "reflected": "Fracción reflejada",
+        "incidence": "Ángulo de incidencia, desde la normal"
+      },
+      "model": {
+        "intro": "El agua sale del orificio en horizontal y cae como una piedra lanzada. La luz en ella va en línea recta hasta tocar la superficie del chorro; allí se refleja, y por debajo del ángulo crítico una parte sale refractada.",
+        "torricelli": "El agua sale tan rápido como iría una piedra tras caer la altura del nivel h (Torricelli).",
+        "parabola": "El eje del chorro es una parábola. Se curva más en el orificio, con el radio R, el doble del nivel; más abajo, cada vez más suavemente.",
+        "snell": "La luz que pasa del agua al aire se desvía alejándose de la normal (ley de Snell).",
+        "critical": "A partir del ángulo crítico no queda ningún ángulo para la luz refractada: se refleja toda. Para el agua son 48,6°.",
+        "fresnel": "Por debajo del ángulo crítico solo se refleja esta fracción (Fresnel, las dos polarizaciones promediadas para luz no polarizada); el resto sale."
+      },
+      "symbols": {
+        "v": "velocidad del agua en el orificio",
+        "g": "aceleración de la gravedad",
+        "h": "nivel del agua sobre el orificio",
+        "x": "distancia horizontal al orificio",
+        "y": "altura respecto al orificio",
+        "r": "radio de curvatura del eje en el orificio",
+        "n": "índice de refracción del líquido (aire: 1)",
+        "theta": "ángulo de incidencia en el agua, desde la normal",
+        "theta_t": "ángulo de la luz que sale, desde la normal",
+        "theta_c": "ángulo crítico",
+        "r_f": "fracción reflejada"
+      },
+      "sweet": {
+        "grazing": "El truco: dentro del chorro la luz incide en la superficie de forma rasante, a más de unos 49° de la normal. Tan rasante no puede salir del agua: se refleja entera, cruza el chorro hasta el otro lado, se refleja de nuevo, y así hasta el final. Con el láser apuntando recto al orificio, la luz incide en la superficie del objeto expuesto a 79° o más rasante.",
+        "bend": "El chorro solo suelta la luz cuando esta incide más inclinada: cuando el láser se inclina más de 40° (en un chorro recto serían 41,4°, 90° menos 48,6°) o cuando el chorro se curva demasiado. En el orificio su radio de curvatura es el doble del nivel del agua; con un orificio de 6 mm, sale luz por debajo de un nivel de unos 6 mm. Donde el chorro se rompe en gotas falta la superficie, y la luz brilla hacia fuera."
+      },
+      "computed": {
+        "system": "La página sigue nueve rayos, repartidos por igual en el orificio, en línea recta hasta la superficie del chorro. La superficie está donde un punto dista medio diámetro del orificio del eje; el método de Newton halla el punto más cercano del eje, la regula falsi el punto de incidencia. Allí rige la ley de la reflexión; por debajo del ángulo crítico sale lo que la superficie no refleja, refractada según Snell, y el resto continúa. Se calcula en su navegador, con las mismas fórmulas que el motor de cálculo del sitio.",
+        "check": "Las pruebas de la página vuelven a medir los puntos de incidencia con una búsqueda propia: están a medio diámetro del orificio del eje, los ángulos de entrada y salida son iguales, y lo que sale y lo que llega suman exactamente toda la luz. En el objeto expuesto, con el láser recto, toda la luz llega a la pila, a 49 cm del orificio.",
+        "left_out": "Omitido: la otra dirección del chorro redondo (la página calcula en la sección en la que cae, y faltan los rayos fuera de esa sección); que el chorro se adelgaza a medida que cae más rápido; su rotura en gotas (aquí queda entero hasta la pila); la tensión superficial que mantiene un chorro muy lento pegado a la pared; la polarización del láser y la anchura de su haz; las ondas en la superficie; la luz que absorbe el propio agua."
+      }
     }
   },
   "course": {

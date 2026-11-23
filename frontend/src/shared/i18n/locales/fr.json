@@ -148,7 +148,8 @@
       "flow": "Écoulement",
       "induction": "Induction",
       "light": "Lumière",
-      "perception": "Perception"
+      "perception": "Perception",
+      "chance": "Hasard"
     },
     "frame": {
       "eyebrow": "Exposition",
@@ -392,6 +393,66 @@
         "title": "Les battements",
         "summary": "Deux diapasons presque accordés sonnent ensemble comme un seul son qui enfle et s’éteint lentement. Un petit cavalier sur l’un d’eux règle la vitesse.",
         "question": "Pourquoi le son de deux diapasons presque identiques enfle-t-il et s’éteint-il ?"
+      },
+      "galton": {
+        "short": "Planche de Galton",
+        "title": "La planche de Galton",
+        "summary": "Des billes tombent à travers des rangées de clous, rebondissent à gauche ou à droite sur chacun – et s’entassent en bas, chaque fois, en la même cloche.",
+        "question": "Dans quelle case tombent la plupart des billes – et pourquoi chaque fois dans la même ?"
+      },
+      "spring": {
+        "short": "Ressort de Wilberforce",
+        "title": "Le ressort de Wilberforce",
+        "summary": "Un poids sur un ressort hélicoïdal monte et descend, puis ne fait plus que tourner, puis remonte et redescend : l’énergie va et vient entre deux oscillations.",
+        "question": "On tire un poids vers le bas sur son ressort et on le lâche. Combien de temps faut-il pour que l’énergie passe dans la rotation et revienne au mouvement vertical ?"
+      },
+      "polarizer": {
+        "short": "Filtres polarisants",
+        "title": "Le troisième filtre polarisant",
+        "summary": "Deux filtres polarisants croisés ne laissent passer aucune lumière. Glissez-en un troisième, incliné, entre eux, et la lumière revient – alors qu’un filtre ne peut qu’en retirer.",
+        "question": "Comment un filtre de plus peut-il laisser passer plus de lumière ?"
+      },
+      "vessel": {
+        "short": "Récipient qui se vide",
+        "title": "Le récipient qui se vide",
+        "summary": "Un grand tube plein d’eau avec un trou en bas : le jet raccourcit sans cesse et le tube se vide toujours plus lentement.",
+        "question": "Quand la moitié de l’eau s’est écoulée, la moitié du temps est-elle passée aussi ?"
+      },
+      "kapitza": {
+        "short": "Pendule de Kapitza",
+        "title": "Le pendule qui tient la tête en bas",
+        "summary": "Une tige qui devrait tomber reste debout – tant que son pivot est secoué de haut en bas assez vite.",
+        "question": "Le pivot monte et descend d’un centimètre. À quelle vitesse doit-il secouer pour que la tige reste debout, tête en bas ?"
+      },
+      "film": {
+        "short": "Film de savon",
+        "title": "Le film de savon entre deux anneaux",
+        "summary": "Un film de savon entre deux anneaux se resserre en une taille. Écartez les anneaux : à une certaine distance, il saute dans deux disques plats.",
+        "question": "Jusqu’où peut-on écarter les anneaux avant que le film de savon ne se rompe ?"
+      },
+      "metronomes": {
+        "short": "Métronomes",
+        "title": "Les métronomes qui s’accordent",
+        "summary": "Cinq métronomes sur une planche posée sur deux canettes : lancés au hasard, ils battent bientôt tous en mesure – sur la table, jamais.",
+        "question": "Cinq métronomes, lancés au hasard, sont posés sur une planche sur deux canettes. Finiront-ils par battre ensemble – et combien de temps faut-il ?"
+      },
+      "ship": {
+        "short": "Bateau qui se redresse",
+        "title": "Le bateau qui se redresse",
+        "summary": "Une coque de maquette flotte dans un bassin. Avec le poids en bas, elle se redresse quand on l’incline ; avec le poids en haut du mât, une petite poussée la fait chavirer.",
+        "question": "Pourquoi la coque inclinée se redresse-t-elle tant que le poids est bas, et pourquoi chavire-t-elle quand il est en haut du mât ?"
+      },
+      "string": {
+        "short": "Corde stationnaire",
+        "title": "La corde stationnaire",
+        "summary": "Une corde secouée à un bout et tendue à la main à l’autre : à certaines tractions, elle s’immobilise en un, deux, trois ventres.",
+        "question": "Pourquoi la corde ne s’immobilise-t-elle en ventres qu’à certaines tractions ?"
+      },
+      "jet": {
+        "short": "Lumière dans un jet d'eau",
+        "title": "La lumière dans le jet d'eau",
+        "summary": "Un laser éclaire à travers un réservoir d'eau le trou par lequel l'eau s'écoule : la lumière suit le jet courbé jusqu'au bassin au lieu de continuer tout droit.",
+        "question": "Pourquoi la lumière suit-elle la courbe du jet d'eau ?"
       }
     },
     "chair": {
@@ -769,7 +830,10 @@
       "links": {
         "first_order": "Systèmes du premier ordre",
         "second_order": "Systèmes du second ordre",
-        "numerics": "Résolution numérique"
+        "numerics": "Résolution numérique",
+        "eigenvalues": "Valeurs propres et plan des pôles",
+        "laplace": "Laplace et Bode",
+        "two_mass": "L'oscillateur à deux masses"
       }
     },
     "race": {
@@ -3659,7 +3723,143 @@
         "top_b": "2mgd/I₁",
         "below_level": "de combien l’axe est sous l’horizontale",
         "torque": "couple que fournissent les mains",
-        "suitcase_turn": "vitesse à laquelle on tourne la valise"
+        "suitcase_turn": "vitesse à laquelle on tourne la valise",
+        "galton_share": "part des billes dans la case k",
+        "galton_rows": "nombre de rangées",
+        "galton_bin": "case, comptée depuis la gauche à partir de 0",
+        "galton_p": "part vers la droite sur chaque clou",
+        "galton_mean": "milieu de la loi",
+        "galton_paths": "nombre de chemins vers la case k",
+        "galton_variance": "variance de la loi, en cases au carré",
+        "galton_run_mean": "milieu d’une série",
+        "galton_balls": "nombre de billes d’une série",
+        "galton_ball_bin": "case de la bille i",
+        "galton_standard_error": "erreur type du milieu d’une série",
+        "galton_q": "part vers la gauche, 1 − p",
+        "galton_half": "moitié du nombre de rangées, n/2",
+        "spring_T1": "période du mode le plus rapide",
+        "spring_T2": "période du mode le plus lent",
+        "spring_omega12": "pulsations des deux modes propres",
+        "spring_omega2": "pulsation du mode le plus lent",
+        "spring_omega_z": "pulsation du mouvement vertical seul, au carré",
+        "spring_omega_theta": "pulsation de la rotation seule, au carré",
+        "spring_epsilon": "couplage entre étirement et torsion",
+        "spring_z0": "déplacement au départ, vers le bas",
+        "spring_theta0": "torsion au départ",
+        "spring_T_beat": "temps pour passer une fois dans la rotation et revenir",
+        "spring_omega_B": "pulsation de battement",
+        "spring_omega_B_measured": "pulsation de battement mesurée",
+        "spring_E": "énergie du poids et du ressort",
+        "spring_z": "déplacement vers le bas",
+        "spring_theta": "torsion",
+        "spring_k": "raideur du ressort contre l’étirement",
+        "spring_delta": "raideur du ressort contre la torsion",
+        "spring_pull": "de combien le poids est tiré vers le bas au départ",
+        "pol_I": "Lumière qui passe (intensité)",
+        "pol_I0": "Lumière devant le filtre, polarisée",
+        "pol_I1": "Lumière derrière le filtre de devant",
+        "pol_I3": "Lumière derrière le troisième filtre",
+        "pol_IL": "Lumière de la lampe, non polarisée",
+        "pol_theta": "Angle entre la direction d’oscillation et l’axe",
+        "pol_k1": "Transmission le long de l’axe",
+        "pol_k2": "Transmission en travers de l’axe",
+        "pol_n": "Filtres entre la paire croisée",
+        "pol_eps": "Taux d’extinction",
+        "vessel_flow": "débit sortant",
+        "vessel_mu": "coefficient de débit, A_C/A_A",
+        "vessel_hole": "surface du trou",
+        "vessel_speed": "vitesse du jet au trou",
+        "vessel_head": "profondeur d’eau au-dessus du trou au départ",
+        "vessel_area": "section du tube",
+        "vessel_T": "temps jusqu’à ce que l’eau au-dessus du trou soit écoulée",
+        "vessel_depth": "profondeur d’eau au-dessus du trou",
+        "vessel_D": "portée du jet au fond du bassin",
+        "vessel_orifice": "hauteur du trou au-dessus du fond du bassin",
+        "vessel_surface": "hauteur de la surface au-dessus du fond du bassin",
+        "kap_a": "la course du pivot",
+        "kap_omega": "la pulsation du moteur",
+        "kap_l": "la longueur de la tige",
+        "kap_f": "la fréquence minimale du moteur",
+        "kap_lambda": "le paramètre a de Mathieu (a dans la source, ici λ pour le distinguer de la course)",
+        "kap_q": "le paramètre q de Mathieu",
+        "kap_z": "le temps à l’échelle de Mathieu, ωt/2",
+        "kap_w": "le petit écart au haut ou au bas",
+        "kap_period": "période de l’oscillation autour du haut",
+        "kap_Omega": "pulsation de l’oscillation autour du haut",
+        "kap_band": "largeur de la bande où la tige pendante s’amplifie",
+        "kap_a0": "la valeur caractéristique de Mathieu où commence la région stable",
+        "kap_a1b1": "les valeurs caractéristiques de Mathieu entre lesquelles se trouve la première région instable",
+        "film_u_tear": "u = x₀/a à la plus grande distance",
+        "film_u_equal": "u = y₀/a, le rayon des anneaux en rayons de la taille",
+        "film_x0": "demi-distance entre les anneaux",
+        "film_y0": "rayon des anneaux",
+        "film_R": "rayon des anneaux",
+        "film_hmax": "la plus grande distance avec un film",
+        "film_h0": "distance à laquelle film et disques ont la même aire",
+        "film_a": "rayon de la taille",
+        "film_A": "aire du film",
+        "film_S": "aire du film",
+        "film_Abar": "aire du film rapportée à celle des deux disques",
+        "metronomes_amplitude": "l’écart auquel un métronome seul se stabilise",
+        "metronomes_theta0": "l’angle où l’entraînement se met à freiner",
+        "metronomes_T_drift": "le temps en lequel le plus rapide gagne une oscillation",
+        "metronomes_omega": "la pulsation des métronomes",
+        "metronomes_delta": "la différence des deux pulsations, en unités de ω",
+        "metronomes_gamma": "à quel point la grande amplitude ralentit le pendule",
+        "metronomes_psi": "l’avance du plus rapide",
+        "metronomes_mu": "la force de l’entraînement",
+        "metronomes_beta": "le couplage par la planche",
+        "metronomes_x0": "de combien la planche bouge par unité de Σ sin θⱼ",
+        "metronomes_R": "le paramètre d’ordre : leur degré d’accord",
+        "metronomes_phi": "la phase du métronome j",
+        "metronomes_N": "le nombre de métronomes",
+        "ship_GM": "hauteur métacentrique",
+        "ship_KB": "hauteur du centre de carène au-dessus du fond",
+        "ship_It": "moment quadratique de la flottaison autour de l’axe longitudinal",
+        "ship_volume": "volume déplacé",
+        "ship_KG": "hauteur du centre de gravité au-dessus du fond",
+        "ship_d": "tirant d’eau",
+        "ship_L": "longueur de la coque",
+        "ship_b": "largeur de la coque",
+        "ship_m": "masse de la coque et du poids",
+        "ship_rho": "masse volumique de l’eau",
+        "ship_GZ": "bras entre poussée et poids",
+        "ship_GN": "distance de G au point où la ligne de poussée coupe l’axe",
+        "ship_phi": "gîte",
+        "ship_KB90": "hauteur du centre de carène au-dessus du fond, couchée sur le flanc",
+        "ship_H": "hauteur de la coque",
+        "ship_a44": "rayon de giration de l’eau entraînée",
+        "ship_k": "rayon de giration autour de l’axe longitudinal passant par G",
+        "ship_I": "moment d’inertie autour de l’axe longitudinal passant par G",
+        "string_f": "Ton le plus grave de la corde",
+        "string_fn": "n-ième ton de la corde",
+        "string_v": "Vitesse de l’onde",
+        "string_L": "Longueur du vibreur au goujon",
+        "string_T": "Traction sur la corde",
+        "string_mu": "Masse de la corde par mètre",
+        "string_n": "Nombre de ventres",
+        "string_drive": "Ton du vibreur",
+        "string_nodes": "Nombre de nœuds, bouts compris",
+        "string_loops": "Nombre de ventres",
+        "string_lambda": "Longueur d’onde",
+        "string_d": "Distance entre deux nœuds",
+        "string_Y": "Amplitude stationnaire au point x, complexe",
+        "string_x": "Position le long de la corde, depuis le vibreur",
+        "string_A": "Course du vibreur",
+        "string_kappa": "Nombre d’onde complexe",
+        "string_Omega": "Pulsation du vibreur",
+        "string_gamma": "Amortissement",
+        "jet_critical": "angle critique",
+        "jet_n1": "indice à l'intérieur (eau)",
+        "jet_n2": "indice à l'extérieur (air)",
+        "jet_incidence": "angle d'incidence, depuis la normale",
+        "jet_refraction": "angle de réfraction, depuis la normale",
+        "jet_let_out": "part qui sort",
+        "jet_landing": "distance au trou où le jet touche le bassin",
+        "jet_speed": "vitesse au trou",
+        "jet_fall": "temps de chute",
+        "jet_level": "niveau de l'eau au-dessus du trou",
+        "jet_drop": "hauteur du trou au-dessus du bassin"
       },
       "cases": {
         "sphere": {
@@ -4745,6 +4945,355 @@
             "why": "Vérifie le couple qu’indique la page, avec la vitesse de rotation et l’angle dans leurs unités : 5,92 N·m.",
             "step": "La source donne τ = Ω × L, de norme Ω·L·sin θ ; l’axe est horizontal, sin θ = 1, et L = I₃·ω₃ avec le I₃ = m·r² du cerceau, tiré de la seconde."
           }
+        },
+        "galton": {
+          "eight_rows": {
+            "title": "Huit rangées, la case du milieu",
+            "setting": "Huit rangées, planche horizontale (p = 0,5).",
+            "reads": "C(8, 4) = 70 des 2⁸ = 256 chemins mènent à la case du milieu de huit rangées, chacun avec la probabilité 1/256.",
+            "why": "Vérifie les parts que la page calcule rangée par rangée contre la formule fermée : 70/256 = 0,2734375, exactement."
+          },
+          "paths": {
+            "title": "Les chemins vers le milieu",
+            "setting": "Douze rangées, comme la planche de l’exposition.",
+            "reads": "Le nombre de chemins vers la case k est le coefficient binomial n!/(k!·(n − k)!).",
+            "why": "Vérifie le nombre que cite l’astuce : 924 chemins vers la case du milieu, calculés ici avec des factorielles, sur la page par des additions dans le triangle de Pascal."
+          },
+          "tilted_mean": {
+            "title": "Une planche inclinée : le milieu",
+            "setting": "Douze rangées, sept rebonds sur dix vers la droite (p = 0,7).",
+            "reads": "Le milieu de la loi binomiale est n·p = 12 · 0,7 = 8,4.",
+            "why": "Vérifie que les parts de la page ont le bon milieu sur une planche inclinée aussi : Σ k·P(k) = 8,4 cases."
+          },
+          "tilted_spread": {
+            "title": "Une planche inclinée : la dispersion",
+            "setting": "Douze rangées, p = 0,7.",
+            "reads": "La variance est n·p·(1 − p) = 12 · 0,7 · 0,3 = 2,52 ; la dispersion en est la racine, 1,59 case.",
+            "why": "Vérifie la largeur du tas : Σ (k − μ)²·P(k) = 2,52, à 10⁻¹² près."
+          },
+          "seeded_run": {
+            "title": "La série de l’exposition",
+            "setting": "Douze rangées, planche horizontale, 500 billes, graine 1874.",
+            "reads": "Le milieu attendu est n·p = 6. Le milieu de N billes se disperse autour avec l’erreur type σ/√N, ici √3/√500 = 0,077 case.",
+            "why": "Vérifie les billes que lâche la page : leur milieu, 5,876, est à 1,6 erreur type de 6. Trois sont permises, 3,87 % de 6. Un générateur aléatoire qui favoriserait un côté échouerait ici.",
+            "step": "Les sources donnent le milieu n·p et la dispersion σ = √(n·p·(1 − p)) d’une bille, et l’erreur type σ/√N du milieu de N billes. Le milieu d’une série ne s’écarte de plus de trois erreurs types que dans environ trois séries sur mille ; c’est l’écart permis, 3·√3/(√500·6) = 3,87 %."
+          },
+          "de_moivre": {
+            "title": "24 rangées et la courbe normale",
+            "setting": "24 rangées, planche horizontale, la case du milieu.",
+            "reads": "La courbe normale de milieu n·p = 12 et de variance n·p·q = 6 a au milieu la hauteur 1/√(2π·6) = 0,16287.",
+            "why": "Vérifie à quel point la cloche de la page s’approche de la courbe normale : la case du milieu a 0,16118, 1,036 % de moins.",
+            "step": "De Moivre et Laplace disent seulement que le rapport tend vers 1. À quelle vitesse, la série du coefficient binomial central le dit : avec n = 2m rangées, la case du milieu vaut C(2m, m)/4ᵐ = (1 − 1/(8m) + 1/(128m²) + …)/√(πm), et 1/√(πm) est exactement la hauteur de la courbe normale. Elle est donc 1/(8m) − 1/(128m²) − … en dessous ; le premier terme est permis, 1/(8m) = 1,042 % pour m = 12."
+          }
+        },
+        "spring": {
+          "fast_mode": {
+            "title": "Le mode le plus rapide",
+            "setting": "Le ressort de la page, écrous à 20 mm, sans amortissement ; « Mode le plus rapide » : tourné de 1 rad et tiré autant que le demande l’éq. (28).",
+            "reads": "Dans un mode propre, le poids monte, descend et tourne au même rythme, et rien ne passe de l’un à l’autre. Sa pulsation ω₁ est la plus grande racine de l’éq. (7), sa période 2π/ω₁.",
+            "why": "Vérifie la boucle temporelle de la page, le couplage ε/2 dans les deux équations et le départ selon l’éq. (28) : 2,574328 s. Si le couplage était faux, le mode se déferait et la période ne tiendrait pas.",
+            "step": "La première source donne les équations du mouvement, la deuxième ω₁ et ω₂, la troisième le rapport z₀/θ₀ d’un mode propre. À une pulsation ω correspond la période 2π/ω."
+          },
+          "slow_mode": {
+            "title": "Le mode le plus lent",
+            "setting": "Le même ressort, « Mode le plus lent » : tourné de 1 rad et poussé vers le haut autant que le demande l’éq. (29).",
+            "reads": "Le second mode propre : mouvement vertical et rotation au même rythme, couplés en sens inverse. Sa pulsation ω₂ est la plus petite racine de l’éq. (7), sa période 2π/ω₂.",
+            "why": "Vérifie la même chose sur le mode le plus lent : 2,842581 s. Avec le plus rapide, il fixe les deux racines, donc aussi le battement.",
+            "step": "Comme pour le mode le plus rapide, avec ω₂ et l’éq. (29)."
+          },
+          "beat": {
+            "title": "Aller et retour",
+            "setting": "Le même ressort, « Tiré vers le bas » ; la tuile « Aller et retour ».",
+            "reads": "L’énergie va et vient au battement des deux modes propres, ω_B = ω₁ − ω₂ : une fois dans la rotation et retour en 2π/ω_B.",
+            "why": "Vérifie la formule de la page pour les deux pulsations contre l’éq. (7) telle qu’imprimée, avec ε²/mI sous la racine : 27,27920 s.",
+            "step": "La première source donne ω₁ et ω₂, la seconde ω_B = ω₁ − ω₂ comme pulsation de battement ; à elle correspond le temps 2π/ω_B."
+          },
+          "measured": {
+            "title": "Aussi vite que mesuré",
+            "setting": "Le même ressort : le pendule même de Berg et Marshall, m, k, δ et I tels que mesurés, ε tiré de leur mesure ; « Tiré vers le bas ».",
+            "reads": "Berg et Marshall ont mesuré ω_B = 0,232 rad/s sur leur pendule : l’énergie passe dans la rotation et revient en 2π/ω_B = 27,08 s.",
+            "why": "Vérifie le modèle sur un vrai pendule : 27,28 s calculées, à 0,7 % de la mesure. Leur ε a été obtenu avec ω = 2,31 rad/s mesuré, alors que k/m donne 2,33 rad/s ; les deux restent dans leurs ±0,02 rad/s. 2 % sont admis."
+          },
+          "energy": {
+            "title": "L’énergie se conserve",
+            "setting": "Le même ressort, « Tiré vers le bas », 2 cm ; après 60 s, 60 000 pas.",
+            "reads": "Sans amortissement l’énergie reste la même, mouvement et tension ensemble. Au départ, c’est l’étirement seul, ½k·z₀² = 0,56 mJ.",
+            "why": "Vérifie la boucle temporelle et que le couplage dans les deux équations correspond à son énergie ½εzθ : 0,560000 mJ au départ et après 60 s, égales à 10⁻¹⁰ près.",
+            "step": "La source donne le lagrangien L = T − V avec V = ½kz² + ½δθ² + ½εzθ ; l’énergie est T + V."
+          }
+        },
+        "polarizer": {
+          "half": {
+            "title": "Lumière non polarisée : la moitié",
+            "setting": "Filtres idéaux ; la lumière derrière le filtre de devant.",
+            "reads": "La lumière de la lampe oscille également dans toutes les directions. En moyenne cos²θ vaut un demi : un filtre idéal laisse passer la moitié.",
+            "why": "Vérifie que la page traite la lumière de la lampe comme non polarisée : 0,5, ni 1 ni le cos² d’un angle."
+          },
+          "malus": {
+            "title": "La loi de Malus",
+            "setting": "Filtres idéaux, celui de derrière tourné de 30° par rapport à celui de devant, sans celui du milieu ; la lumière derrière celui de derrière rapportée à celle derrière celui de devant.",
+            "reads": "Une lumière polarisée oscillant à l’angle θ de l’axe d’un filtre passe avec la part cos²θ.",
+            "why": "Vérifie que la page prend le carré du cosinus, non le cosinus : 0,75 à 30°, là où le cosinus donnerait 0,87."
+          },
+          "crossed": {
+            "title": "Croisés : sombre",
+            "setting": "Filtres idéaux, celui de derrière à 90°, sans celui du milieu.",
+            "reads": "Lorsque les axes sont perpendiculaires, le second filtre ne laisse passer aucune lumière.",
+            "why": "Vérifie que les deux filtres s’annulent vraiment : 10⁻³³, l’arrondi de cos 90° dans l’ordinateur."
+          },
+          "third": {
+            "title": "Le troisième filtre : un huitième",
+            "setting": "Filtres idéaux, celui de derrière à 90°, celui du milieu à 45° ; la lumière derrière celui de derrière.",
+            "reads": "Chacun des trois filtres laisse passer la moitié de ce qui lui arrive : un huitième de la lumière de la lampe, un quart de ce que laisse passer le premier.",
+            "why": "Vérifie l’astuce même de l’expérience : le filtre du milieu redonne une direction à la lumière au lieu de seulement l’affaiblir. S’il ne faisait que l’affaiblir, il resterait sombre."
+          },
+          "slanted": {
+            "title": "Le filtre du milieu à 30°",
+            "setting": "Filtres idéaux, celui de derrière à 90°, celui du milieu à 30°.",
+            "reads": "Deux fois Malus : cos² 30° au filtre du milieu, cos² 60° à celui de derrière, après la moitié à celui de devant.",
+            "why": "Vérifie que la page mesure chaque rotation par rapport au filtre précédent, non par rapport à celui de devant : 3/32 = 0,09375.",
+            "step": "La première source donne la moitié pour la lumière non polarisée, la deuxième cos²θ pour la lumière polarisée, la troisième dit qu’on applique Malus deux fois : au filtre du milieu avec 30°, à celui de derrière avec 90° − 30° = 60°."
+          },
+          "many": {
+            "title": "Dix filtres entre les deux",
+            "setting": "Filtres idéaux : dix entre la paire croisée, chacun tourné de 90°/11 de plus que le précédent.",
+            "reads": "Onze petites rotations de 8,18° chacune, chacune laissant passer son cos², après la moitié au filtre de devant.",
+            "why": "Vérifie la pile que la page calcule pour plus de filtres : 0,3992, déjà proche de la moitié.",
+            "step": "La première source donne la moitié au filtre de devant, la deuxième cos²θ à chacun des suivants ; chacun est à 90°/11 du précédent, onze fois."
+          },
+          "polaroid_one": {
+            "title": "Un filtre Polaroid : environ 38 %",
+            "setting": "Filtres réels comme le Polaroid (76 % le long de l’axe, 1 pour 500 en travers) ; la lumière derrière le filtre de devant.",
+            "reads": "Un filtre de type Polaroid laisse passer environ 38 % de la lumière non polarisée ; son taux d’extinction est d’environ 1 pour 500.",
+            "why": "Vérifie que le filtre réel supposé correspond à la littérature : 38,08 %. La source dit « environ », d’où une marge d’un pour cent."
+          },
+          "polaroid_crossed": {
+            "title": "Deux filtres Polaroid croisés",
+            "setting": "Filtres réels comme le Polaroid, celui de derrière à 90°, sans celui du milieu.",
+            "reads": "Celui de devant laisse passer une moitié de la lumière avec k₁, l’autre avec k₂ ; celui de derrière, croisé, prend la première avec k₂, la seconde avec k₁.",
+            "why": "Vérifie comment la page calcule un filtre réel : 0,1155 %, pas zéro – c’est pourquoi une vraie paire croisée n’est pas tout à fait noire.",
+            "step": "La première source donne la lumière non polarisée comme un mélange égal de toutes les directions, donc de deux moitiés croisées ; la deuxième le taux d’extinction comme la transmission en travers rapportée à celle le long, k₂/k₁. Derrière la paire : ½(k₁k₂ + k₂k₁)."
+          }
+        },
+        "vessel": {
+          "flow": {
+            "title": "Le premier jet",
+            "setting": "Le tube de la page : 8 cm de large, rempli jusqu’à 90 cm ; le trou du bas, à 5 cm, ouvert, de 8 mm, μ = 0,61.",
+            "reads": "Torricelli : l’eau quitte le trou à v = √(2gH). Par le trou s’écoule μ·A_A·v, avec la contraction μ, environ 0,611 pour un trou à arête vive.",
+            "why": "Vérifie le débit de la page au premier instant : 7,512 litres par minute sous 85 cm d’eau au-dessus du trou. Un facteur 2 oublié sous la racine ou une surface de trou sans contraction se verrait aussitôt."
+          },
+          "drain_time": {
+            "title": "Jusqu’à ce que le tube soit vide",
+            "setting": "Comme ci-dessus ; calculé pas à pas jusqu’à ce que l’eau arrive au trou du bas.",
+            "reads": "Un récipient cylindrique percé d’un trou au fond est vide après T = (A/A_A)·√(2H/g).",
+            "why": "Vérifie les pas de la page sur toute la minute : 68,25 s. Compté en pas de 5 ms, d’où une précision d’un dix-millième.",
+            "step": "La première source calcule avec la surface entière du trou A_A, la deuxième la remplace par celle du jet contracté, μ·A_A. H est la profondeur d’eau au-dessus du trou, situé ici à 5 cm au-dessus du fond du tube."
+          },
+          "half": {
+            "title": "La mi-hauteur",
+            "setting": "Comme ci-dessus ; jusqu’à ce que la profondeur au-dessus du trou soit tombée de moitié, à 42,5 cm.",
+            "reads": "Le niveau de l’eau baisse selon h(t) = H·(1 − t/T)².",
+            "why": "Vérifie l’idée maîtresse de la page : la mi-hauteur est atteinte après 19,99 s, après (1 − 1/√2) = 29 % des 68,25 s. Mesuré dans le pas où cela se produit, à un milliardième près.",
+            "step": "De h(t) = H·(1 − t/T)² = H/2 découle 1 − t/T = 1/√2. T est le temps de la deuxième source, avec la contraction de la troisième."
+          },
+          "farthest": {
+            "title": "Le jet le plus long",
+            "setting": "Le tube de la page avec les trois bouchons retirés. Mesurée depuis le fond du bassin, la surface est à 110 cm et les trous à 25, 55 et 85 cm.",
+            "reads": "Un trou à la hauteur h sous une surface à la hauteur H lance son jet à D = 2√(h(H − h)) ; le plus loin, soit H, depuis h = H/2.",
+            "why": "Vérifie les jets de la page, en cherchant sur toutes les hauteurs de trou la plus grande portée : 1,1 m depuis 55 cm au-dessus du fond du bassin, exactement au trou du milieu. Ceux du haut et du bas sont aussi loin au-dessus qu’au-dessous et vont tous deux à 0,92 m."
+          }
+        },
+        "kapitza": {
+          "bound": {
+            "title": "La limite de Kapitza pour une petite course",
+            "setting": "Tige de 20 cm, course 2 mm (a/l = 0,01), sans amortissement ; moteur à 160 Hz, juste au-dessus de la limite, tige à 2° du haut.",
+            "reads": "En haut, la tige est stable quand la plus grande vitesse du pivot, aω, dépasse √(2gl), la vitesse après une chute libre de la longueur de la tige. Résolu pour la fréquence : 157,61 Hz.",
+            "why": "Vérifie le calcul de Floquet et la dichotomie de la page là où l’approximation de Kapitza est presque exacte : la limite exacte est 2,2 · 10⁻⁵ plus haute, de (7/32)(a/l)², le terme suivant de l’approximation."
+          },
+          "mathieu": {
+            "title": "La limite exacte pour une grande course",
+            "setting": "Tige de 20 cm, course 4 cm (a/l = 0,2), sans amortissement ; moteur à 8,5 Hz, tige à 2° du haut.",
+            "reads": "Près du haut, le mouvement suit l’équation de Mathieu. Sa région stable commence à la courbe a₀(q), dont la source donne la série jusqu’à q⁸. D’où : 7,9478 Hz, là où l’approximation de Kapitza dit 7,88 Hz.",
+            "why": "Vérifie la matrice de monodromie là où l’approximation de Kapitza se trompe de 0,86 % : la page rejoint la série à 7,5 · 10⁻⁷ près, aussi près que la série tronquée après q⁸ l’est elle-même.",
+            "step": "Avec ωt = 2z, l’équation d’un petit écart φ au haut, φ″ = (g + aω²·cos ωt)/l · φ, devient l’équation de Mathieu avec λ = −4g/(lω²) et q = 2a/l. Le bord de la région stable est λ = a₀(q) ; résolu pour ω : ω² = 4g/(l·|a₀(q)|)."
+          },
+          "wobble": {
+            "title": "L’oscillation lente autour du haut",
+            "setting": "La tige de la page, 20 cm, course 1 cm, 40 Hz, sans amortissement ; lâchée à 2° du haut, pendant 10 s.",
+            "reads": "Autour du haut, la tige oscille lentement, avec Ω² = a²ω²/(2l²) − g/l : une période de 1,1486 s, pendant laquelle le moteur secoue 46 fois.",
+            "why": "Vérifie la boucle temporelle de la page : lue une fois par période du moteur, comme avec un stroboscope, la tige oscille en 1,1483 s, à 3,0 · 10⁻⁴ de Kapitza. Sa moyenne néglige des termes en (a/l)² et (Ω/ω)², tous deux de quelques dix-millièmes."
+          },
+          "swing_up": {
+            "title": "L’oscillation qui s’amplifie en pendant",
+            "setting": "Tige de 20 cm, course 1 cm (q = 0,1), sans amortissement ; moteur à 2,23 Hz, tige pendante, écartée de 5°.",
+            "reads": "En pendant, le petit mouvement suit de nouveau l’équation de Mathieu. Entre les courbes b₁(q) et a₁(q) se trouve sa première région instable : la tige s’amplifie quand le moteur secoue entre 2,1264 et 2,3511 Hz, une bande de 0,22469 Hz autour du double de sa fréquence propre.",
+            "why": "Vérifie le calcul de Floquet pour le bas, les deux bords à la fois : la page rejoint la largeur de la bande à 3 · 10⁻¹² près.",
+            "step": "Avec ωt = 2z, l’équation d’un petit écart φ au bas, φ″ = −(g + aω²·cos ωt)/l · φ, devient l’équation de Mathieu avec λ = 4g/(lω²) et q = −2a/l. Comme a₁(−q) = b₁(q), les bords sont λ = a₁(|q|) et λ = b₁(|q|) ; résolu pour ω : ω² = 4g/(l·λ)."
+          }
+        },
+        "film": {
+          "tear": {
+            "title": "La distance de rupture",
+            "setting": "Anneaux de 5 cm de rayon, à 6,5 cm l’un de l’autre : écartez encore l’anneau de droite.",
+            "reads": "La plus grande distance à laquelle y₀ = a·cosh(x₀/a) a encore une solution est en u = coth u ; là, h/R = 2x₀/y₀ = 2·csch u.",
+            "why": "Vérifie où la page fait rompre le film : à 1,32549 rayon, à 6,6274 cm pour des anneaux de 5 cm – trouvée par dichotomie sur la réponse même de la page, non lue dans sa constante."
+          },
+          "critical_area": {
+            "title": "L’aire juste avant la rupture",
+            "setting": "Anneaux de 5 cm de rayon, à 6,6 cm, près de la distance de rupture.",
+            "reads": "À la distance de rupture, la taille est en a = R/cosh u ; la formule d’aire d’Ito et Sato y donne l’aire, comparée aux 2πR² des deux disques.",
+            "why": "Vérifie l’aire que la page donne au film là où cela compte le plus : 1,19968 fois les deux disques, le nombre u lui-même."
+          },
+          "flat": {
+            "title": "À un rayon d’écart : le film large",
+            "setting": "Anneaux de 5 cm de rayon, à 5 cm.",
+            "reads": "Pour x₀ = ½ et y₀ = 1, 1 = a·cosh(1/(2a)) a deux solutions. La plate, a = 0,8483…, a l’aire A = 5,9917… ; avec des anneaux de 5 cm, chaque aire est 25 cm² fois plus grande.",
+            "why": "Vérifie l’aire du film affichée par la page : 149,795 cm², recalculée sur l’exemple de MathWorld."
+          },
+          "deep": {
+            "title": "À un rayon d’écart : le film étroit",
+            "setting": "Anneaux de 5 cm de rayon, à 5 cm ; activez la forme étroite.",
+            "reads": "La solution profonde, a = 0,2350…, est le film étroit à la plus grande aire, A = 6,8456… : pas un minimum.",
+            "why": "Vérifie la forme étroite en pointillé de la page : sa taille de 1,1755 cm pour des anneaux de 5 cm."
+          },
+          "equal": {
+            "title": "À partir d’où deux disques auraient moins d’aire",
+            "setting": "Anneaux de 5 cm de rayon, à 5,4 cm, juste au-delà.",
+            "reads": "L’aire du film égale à celle de deux disques : u·√(u² − 1) + cosh⁻¹u − u² = 0 avec u = y₀/a ; alors h/R = 2·cosh⁻¹(u)/u.",
+            "why": "Vérifie où la page passe de « la plus petite aire possible » à « Deux disques plats auraient maintenant moins d’aire » : à 1,05539 rayon, à 5,2770 cm pour des anneaux de 5 cm."
+          }
+        },
+        "metronomes": {
+          "lone": {
+            "title": "Un métronome seul oscille à 2θ₀",
+            "setting": "Un métronome, la planche sur la table, lâché à 10° ; après deux minutes, le plus grand écart des cinq dernières secondes.",
+            "reads": "L’entraînement entretient les petites oscillations et freine les grandes. Un métronome seul se stabilise à un écart d’environ 2θ₀, soit 44,69° avec le θ₀ = 0,39 rad de Pantaleone.",
+            "why": "Vérifie l’entraînement, le signe de son terme et son angle θ₀ : le moteur oscille à 44,84°. Les 2θ₀ valent au premier ordre en μ ; le sinus complet du pendule élargit l’oscillation de 0,3 %."
+          },
+          "drift": {
+            "title": "Sur la table, deux se décalent",
+            "setting": "Deux métronomes écartés d’un demi pour cent (Δ = 0,005), la planche sur la table, lâchés ensemble ; leurs périodes sur 200 s.",
+            "reads": "Sans couplage, le déphasage croît régulièrement, à la différence des fréquences Δ : le plus rapide gagne une oscillation entière en 2π/(ωΔ(1 − 3γ/2)).",
+            "why": "Vérifie que la planche sur la table ne couple rien et que Δ figure là où Pantaleone le met : 119,95 s à la main, 119,96 s dans le moteur.",
+            "step": "La première source donne la dérive à Δ, la deuxième qu’un écart de 2θ₀ ralentit chaque pulsation du facteur 1 − 3γ/2, et donc aussi leur différence ; la troisième θ₀. Le plus rapide gagne une oscillation entière en 2π divisé par la différence des pulsations."
+          },
+          "lag": {
+            "title": "Sur les canettes, le plus rapide prend de l’avance",
+            "setting": "Deux métronomes sur la planche de Pantaleone (58 g), écartés d’un demi pour cent, sur les canettes, lâchés ensemble ; après 200 s.",
+            "reads": "Les deux s’accrochent, le plus rapide en avance de ψ* = arcsin(μΔ/(β(3γ + β))), avec β = x₀ω²/g tiré du x₀ = 0,088 cm de Pantaleone.",
+            "why": "Vérifie le couplage par la planche, sa force et son signe : 3,11° selon la formule, 3,27° dans le moteur. La formule est du premier ordre et prend, dans la poussée de la planche, le sinus et le cosinus de l’écart de 45° comme pour un petit ; cela fait les 5,4 %."
+          },
+          "inphase": {
+            "title": "Lancés presque en opposition, deux oscillent bientôt pareil",
+            "setting": "Deux métronomes identiques sur les canettes, lâchés à 170° d’écart ; leur déphasage après 200 s.",
+            "reads": "Osciller en opposition est instable sur la planche libre : les deux passent en phase, une demi-oscillation plus loin, comme le montre la fig. 2 de Pantaleone.",
+            "why": "Vérifie que la planche libre rend stable l’oscillation en phase, et non l’opposition : après 200 s, les deux sont à 0,0006° l’un de l’autre."
+          },
+          "five": {
+            "title": "Cinq identiques n’en font plus qu’un",
+            "setting": "Cinq métronomes identiques sur la planche de Pantaleone, sur les canettes, dans la position de départ dispersée de l’exposition (R = 0,015) ; R après deux minutes.",
+            "reads": "Le paramètre d’ordre R est la moyenne des aiguilles de toutes les phases : 1 quand tous oscillent en mesure. Pantaleone a vu sept métronomes se mettre en phase à chaque fois.",
+            "why": "Vérifie la planche avec plus de deux métronomes et le paramètre d’ordre de la page : après deux minutes, il manque encore 5 · 10⁻⁶ à R pour atteindre 1."
+          }
+        },
+        "ship": {
+          "metacentric_height": {
+            "title": "La hauteur métacentrique de la boîte",
+            "setting": "La coque de la page, 20 cm de large, 2 kg, avec 1 kg sur le pont (12 cm) ; inclinée de 0,01°, calculée comme GZ/sin φ.",
+            "reads": "Le tirant d’eau découle d’Archimède : d = m/(ρ·L·b) = 3,006 cm. La partie immergée est un rectangle dont le centre est à mi-hauteur, KB = d/2. La flottaison est un rectangle de largeur b, son moment quadratique L·b³/12, et BM = I_t/∇ = b²/(12·d) = 11,09 cm.",
+            "why": "Vérifie la courbe sur laquelle tourne la boucle temporelle de la page par rapport à GM = KB + BM − KG = 5,259 cm. À 0,01°, elle est au-dessus de ½·BM·tan²φ, soit 3 · 10⁻⁸ de GM.",
+            "step": "Les sources donnent GM = KB + I_t/∇ − KG et I_t = L·b³/12 ; KB = d/2 est le centre du rectangle immergé."
+          },
+          "wall_sided": {
+            "title": "Le bras à 15° : parois verticales",
+            "setting": "La coque avec le poids sur le pont, inclinée de 15°.",
+            "reads": "Pour une coque à parois verticales à la flottaison, le point où la ligne de poussée coupe l’axe monte avec la gîte : GN_φ = KB + BM·(1 + ½·tan²φ) − KG, et GZ = GN_φ·sin φ.",
+            "why": "Vérifie la géométrie de la page à une gîte où GM·sin φ seul est déjà 7 % trop petit : 1,464 cm. Pour la boîte, la formule est exacte jusqu’à ce que le fond émerge à 16,7°.",
+            "step": "La source donne la formule (Scribanti) pour 5 à 15°. Pour une boîte, elle est exacte tant que les deux parois sont dans l’eau : les coins qui entrent et sortent sont alors des triangles."
+          },
+          "on_its_side": {
+            "title": "Couchée sur le flanc",
+            "setting": "Le poids au pied de la quille, 15 cm sous le fond ; la coque inclinée de 90°, sur le flanc.",
+            "reads": "Sur le flanc, la partie immergée est un rectangle sur toute la hauteur H de la coque ; son centre, le centre de carène, est à mi-hauteur. Le bras est la distance horizontale entre les deux lignes d’action, désormais le long de la coque : H/2 − KG.",
+            "why": "Vérifie la coupe à 90°, où deux coins sont à la même hauteur : 7,667 cm, positif car G (−1,67 cm) est sous la mi-hauteur. Elle se redresse, même depuis le flanc.",
+            "step": "La première source dit que la poussée s’applique au centre de la partie immergée, la seconde que GZ est la distance horizontale entre les deux lignes ; le centre du rectangle immergé est à mi-hauteur."
+          },
+          "roll_period": {
+            "title": "La période de roulis",
+            "setting": "Le poids sur le pont ; la coque inclinée de 0,5° et lâchée, sans amortissement ; trois oscillations.",
+            "reads": "Pour les petits angles, la coque roule comme un pendule : avec le rayon de giration k autour de l’axe longitudinal passant par G et la hauteur métacentrique comme rappel.",
+            "why": "Vérifie la boucle temporelle de la page par rapport à la période de 0,5774 s. À 0,5°, le bras est plus raide que GM·sin φ de ½·BM·tan²φ, et la période plus courte de 2,5 · 10⁻⁵.",
+            "step": "La source ajoute l’eau entraînée sous forme de a₄₄ ; la page l’omet, a₄₄ = 0. k² = I/m, avec I par Steiner : la coque, 2 kg avec 7 cm de rayon de giration autour de son propre centre de gravité, déplacée en G, et le poids comme un point."
+          }
+        },
+        "string": {
+          "fundamental": {
+            "title": "Le ton le plus grave",
+            "setting": "La corde de la page tendue à 3 N ; le ton du vibreur là où la corde oscille le plus.",
+            "reads": "Le ton le plus grave d’une corde a ses deux bouts pour nœuds : la longueur est une demi-onde, f = v/(2L) avec v = √(T/μ).",
+            "why": "Vérifie où la page fait osciller la corde le plus : à 38,72 Hz, là où la formule dit 38,73 Hz. L’amortissement abaisse le pic de 0,03 %."
+          },
+          "third": {
+            "title": "Le troisième ton",
+            "setting": "La même corde, la même traction ; le ton près du troisième ton propre.",
+            "reads": "Le n-ième ton a n demi-ondes entre les bouts : fₙ = n/(2L)·√(T/μ).",
+            "why": "Vérifie les tons plus aigus : le pic se trouve à 116,19 Hz, trois fois le ton le plus grave."
+          },
+          "pull": {
+            "title": "La traction pour trois ventres",
+            "setting": "Le vibreur à 100 Hz ; la traction là où la corde oscille le plus, comme vous la cherchez sur la corde.",
+            "reads": "La même formule résolue pour la traction : T = μ·(2Lf/n)².",
+            "why": "Vérifie ce qui compte à l’exposition : tirer. Le pic se trouve à 2,2228 N, la formule dit 2,2222 N. Il est un peu plus haut parce qu’avec la traction, les ondes deviennent aussi plus rapides et les ventres plus amples.",
+            "step": "La source donne fₙ = n/(2L)·√(T/μ). Au carré et résolu pour T : T = μ·(2Lfₙ/n)²."
+          },
+          "loops": {
+            "title": "Trois ventres, quatre nœuds",
+            "setting": "Le vibreur à 100 Hz, la corde tendue à la traction de la formule pour trois ventres.",
+            "reads": "Une onde stationnaire entre deux bouts fixes a n + 1 nœuds, bouts compris, et n ventres.",
+            "why": "Vérifie la figure elle-même : la page compte les ventres le long de la corde et en trouve trois."
+          },
+          "speed": {
+            "title": "La vitesse de l’onde",
+            "setting": "La corde tendue à 3 N, le vibreur à 100 Hz, entre deux tons propres.",
+            "reads": "Deux nœuds sont à une demi-onde l’un de l’autre, et une onde parcourt une longueur d’onde en une oscillation : v = λf = 2·d·f. La source dit v = √(T/μ).",
+            "why": "Vérifie la vitesse aux nœuds que trouve la page, même là où la corde ne forme aucune figure : 77,45 m/s au lieu de 77,46 m/s ; l’amortissement déplace les nœuds de 0,01 %.",
+            "step": "La première source donne v = √(T/μ), la deuxième v = λf, la troisième la distance entre deux nœuds, λ/2. Donc v = 2·d·f, d étant la distance entre les deux nœuds les plus proches du goujon."
+          },
+          "settled": {
+            "title": "Le ventre établi",
+            "setting": "Le vibreur à 100 Hz, la traction pour trois ventres ; la corde partant du repos, calculée image par image pendant cinq secondes.",
+            "reads": "L’équation des ondes de la source avec amortissement, entraînée à un bout et fixe à l’autre : Y(x) = A·sin(κ(L − x))/sin(κL) avec κ² = (Ω² − iγΩ)·μ/T.",
+            "why": "Vérifie la boucle temporelle de la page face à la solution à la main : au milieu de la corde, elle oscille de 22,215 mm après cinq secondes, à 10⁻⁷ près de la formule.",
+            "step": "La source donne l’équation des ondes μ·∂²y/∂t² = T·∂²y/∂x² ; l’amortissement ajoute μγ·∂y/∂t. Avec y = Im[Y(x)·e^(iΩt)], on obtient Y'' = −κ²·Y ; la solution qui vaut A au vibreur et zéro au goujon est celle ci-dessus."
+          }
+        },
+        "jet": {
+          "critical": {
+            "title": "L'angle critique de l'eau",
+            "setting": "L'installation : eau d'indice 1,333 ; l'angle à partir duquel la page réfléchit toute la lumière à la surface.",
+            "reads": "À partir de l'angle critique arcsin(n₂/n₁), il n'y a plus de lumière réfractée et la réflexion est totale. De l'eau (1,333) vers l'air (1), c'est 48,6°.",
+            "why": "Vérifie la décision prise à chaque point d'incidence : la lumière sort-elle ou est-elle toute réfléchie. La page bascule à 48,6066°, trouvé par dichotomie entre 30° et 70°."
+          },
+          "snell": {
+            "title": "La lumière qui sort est réfractée selon Snell",
+            "setting": "L'installation, le laser incliné de 45° vers le haut ; le rayon central à son premier point d'incidence, où il touche la surface plus raide que l'angle critique.",
+            "reads": "Le rapport des sinus des angles d'incidence et de réfraction est le rapport des indices, n₂/n₁ : en sortant de l'eau, la lumière s'écarte de la normale.",
+            "why": "Vérifie la direction de la lumière dessinée en sortant : 68,9° de la normale. La vérification trouve l'angle d'incidence à partir du chemin dessiné et de sa propre recherche de l'axe."
+          },
+          "fresnel": {
+            "title": "Combien de lumière sort",
+            "setting": "Comme ci-dessus : le laser incliné de 45° vers le haut, le premier point d'incidence du rayon central.",
+            "reads": "Pour chaque polarisation, les formules de Fresnel donnent la part réfléchie, Rₛ et Rₚ. La lumière non polarisée réfléchit leur moyenne, et ce qui n'est pas réfléchi sort.",
+            "why": "Vérifie combien de lumière la page laisse sortir à la surface : 87,8 % de la lumière en ce point ; le reste continue, réfléchi.",
+            "step": "La source donne Rₛ et Rₚ, que passe ce qui n'est pas réfléchi, et que la lumière non polarisée réfléchit la moyenne des deux : T = 1 − (Rₛ + Rₚ)/2, avec n₁ = 1,333 dedans et n₂ = 1 dehors."
+          },
+          "landing": {
+            "title": "Où le jet touche le bassin",
+            "setting": "L'installation : 15 cm d'eau au-dessus du trou, le bassin 40 cm plus bas.",
+            "reads": "L'eau sort à l'horizontale à √(2gh) et tombe de H en un temps √(2H/g), quelle que soit sa vitesse horizontale. En ce temps, elle avance de v·t.",
+            "why": "Vérifie l'arc que la page dessine et le long duquel elle suit la lumière : il touche le bassin à 49 cm du trou, 2√(h·H).",
+            "step": "La première source donne la vitesse au trou, la seconde le temps de chute depuis la hauteur, quelle que soit la vitesse horizontale. La vitesse horizontale reste la même, donc x = v·t = 2√(h·H)."
+          }
         }
       },
       "set_up": "Régler",
@@ -4752,6 +5301,827 @@
     },
     "list": {
       "lead": "Chaque exposition avec son dessin, qui s’anime dès que vous le pointez. Filtrez par thème ou parcourez-les toutes."
+    },
+    "galton": {
+      "at": {
+        "funnel": "En haut un entonnoir plein de billes, en dessous douze rangées de clous, en bas treize cases. Les billes partent une à une et rebondissent à gauche ou à droite sur chaque clou.",
+        "heap": "Personne ne peut prédire le chemin d’une bille. Et pourtant, en bas, le même tas se forme chaque fois : haut au milieu, plat vers les bords, une cloche.",
+        "tilt": "Si la planche est inclinée, la cloche glisse sur le côté. Mais elle reste une cloche."
+      },
+      "view": "La planche de Galton : l’entonnoir en haut, les clous en dessous, en bas les cases avec les billes tombées",
+      "play": {
+        "title": "Lâcher les billes",
+        "hint": "Lâchez les billes : elles traversent les clous l’une après l’autre, chacune allant à gauche ou à droite sur chaque clou. « Nouvelles billes » lance une nouvelle série avec d’autres nombres aléatoires ; la même série tombe chaque fois de la même façon.",
+        "drop": "Lâcher",
+        "all": "Toutes d’un coup",
+        "new": "Nouvelles billes",
+        "again": "Retour dans l’entonnoir",
+        "caption": "{{rows}} rangées, {{bins}} cases, série {{run}} de {{balls}} billes, schématique. Les barres sont les billes dans chaque case.",
+        "waiting": "Les billes attendent dans l’entonnoir.",
+        "falling": "Les billes tombent.",
+        "done": "Les {{balls}} billes sont toutes tombées. Le milieu du tas est à la case {{mean}}.",
+        "expected": "En tirets : le tas que les chemins laissent attendre."
+      },
+      "figures": {
+        "landed": "Tombées",
+        "mean": "Milieu de la série (case)",
+        "spread": "Dispersion de la série (cases)",
+        "expected_mean": "Milieu attendu n·p",
+        "expected_spread": "Dispersion attendue σ"
+      },
+      "change": {
+        "title": "Modifier la planche",
+        "hint": "Plus ou moins de rangées, une planche inclinée, plus de billes. Chaque changement remet les billes dans l’entonnoir.",
+        "rows": "Rangées",
+        "rows_hint": "Combien de rangées de clous a la planche ; elle a une case de plus que de rangées.",
+        "p": "Part vers la droite",
+        "p_hint": "À quelle fréquence une bille va à droite sur un clou : 0,5 sur une planche horizontale, plus sur une planche penchée vers la droite.",
+        "balls": "Billes",
+        "balls_hint": "Combien de billes compte une série.",
+        "status": "{{rows}} rangées, {{bins}} cases, {{paths}} chemins à travers la planche."
+      },
+      "model": {
+        "intro": "Une bille qui va k fois à droite sur n rangées tombe dans la case k, quel que soit l’ordre. Les cases sont comptées depuis la gauche, de 0 à n.",
+        "paths": "Autant de chemins mènent à la case k : avec douze rangées, un vers chaque bord et 924 des 4096 vers le milieu.",
+        "binomial": "Chaque chemin avec k pas vers la droite a la même probabilité, pᵏ·(1 − p)ⁿ⁻ᵏ. Multipliée par le nombre de chemins, c’est la part de la case : la loi binomiale.",
+        "moments": "Le milieu du tas et sa largeur, en cases : avec douze rangées sur une planche horizontale, la case 6 et 1,73 case.",
+        "normal": "Avec beaucoup de rangées, la loi binomiale s’approche autant qu’on veut de la courbe normale de même milieu et de même largeur (de Moivre et Laplace) : la cloche."
+      },
+      "symbols": {
+        "paths": "nombre de chemins vers la case k",
+        "n": "nombre de rangées",
+        "k": "case, comptée depuis la gauche à partir de 0 ; le nombre de fois où la bille est allée à droite",
+        "share": "part des billes dans la case k",
+        "p": "part vers la droite sur chaque clou",
+        "mu": "milieu du tas",
+        "sigma": "dispersion du tas",
+        "e": "nombre d’Euler, 2,718…"
+      },
+      "computed": {
+        "system": "Rien ici ne bouge selon une équation différentielle : le hasard décide, et la page calcule ce qu’il fait en moyenne. Elle calcule les parts rangée par rangée, comme tombent les billes.",
+        "rows": "Ce qui arrive sur un clou repart pour la part p à droite et 1 − p à gauche : chaque case de la rangée suivante reçoit p de la case en haut à gauche et 1 − p de la case au-dessus. C’est la règle du triangle de Pascal avec des poids ; avec les deux poids égaux à un, elle compte les chemins.",
+        "pj": "part des billes qui arrive à la place k après j rangées",
+        "j": "rangées déjà traversées par les billes",
+        "random": "Les billes elles-mêmes sont tirées par un générateur aléatoire avec une graine (Mulberry32, à partir d’entiers de 32 bits) : la bille i prend les nombres i·n à i·n + n − 1, un par rangée, et va à droite là où son nombre est inférieur à p. La même graine donne les mêmes billes dans votre navigateur, dans le moteur de calcul de la page et dans ses tests ; « Nouvelles billes » prend la suivante. Le vol des billes n’est que dessiné.",
+        "check": "Les tests de la page recalculent les parts de chaque planche jusqu’à 24 rangées en fractions exactes et vérifient le milieu et la dispersion. Dans une série de 5000 billes, chaque case reste à moins de quatre écarts types de son nombre attendu. Tout est calculé dans votre navigateur, avec les mêmes formules que dans le moteur de calcul de la page.",
+        "left_out": "Laissé de côté : comment l’inclinaison ou la forme des clous fixe p, car la page prend p comme donné, le même sur chaque clou ; les billes qui sautent par-dessus deux clous ou se heurtent, ce qui élargit le tas sur une vraie planche ; les cases qui se remplissent."
+      },
+      "sweet": {
+        "paths": "L’astuce : chaque bille seule est pur hasard, mais le tas ne l’est pas. C’est le nombre de chemins qui le décide. Douze rangées offrent 4096 chemins, tous également probables : un seul vers chaque case du bord, 924 vers celle du milieu. C’est pourquoi près d’un quart des billes tombe au milieu, 22,6 %, et seulement une sur 4096 dans une case du bord.",
+        "middle": "Les trois cases du milieu reçoivent 61 % des billes, les trois cases de chaque bord ensemble seulement 3,9 %. Le milieu est à la case 6, la dispersion vaut 1,73 case.",
+        "all": "Chemins à travers {{rows}} rangées",
+        "peak": "Chemins vers la case {{bin}}",
+        "edge": "Chemins vers le bord",
+        "normal": "Avec plus de rangées, la cloche s’élargit, mais moins vite que la planche : la dispersion croît comme la racine du nombre de rangées, avec deux fois plus seulement 1,41 fois plus large, de 1,73 à 2,45 cases. Et elle s’approche toujours plus de la courbe normale ; avec 24 rangées, la case du milieu n’est plus que 1,0 % en dessous."
+      },
+      "chart": {
+        "hint": "La part de chaque case sur la planche que vous avez construite, et la courbe normale de même milieu et de même dispersion.",
+        "binomial": "part de la case",
+        "normal": "courbe normale",
+        "share": "Part",
+        "bin": "Case"
+      }
+    },
+    "spring": {
+      "at": {
+        "weight": "Un poids est suspendu à un long ressort hélicoïdal. On le tire un peu vers le bas et on le lâche : il monte et descend.",
+        "trade": "Peu à peu ce mouvement vertical faiblit, et le poids se met à tourner dans un sens puis dans l’autre – jusqu’à ce qu’il ne fasse plus que tourner, sans monter ni descendre. Puis le mouvement vertical revient, encore et encore. Avec le ressort de cette page, l’aller et retour dure 27,3 s.",
+        "nuts": "Quatre écrous sur des bras, sur les côtés du poids, se vissent vers l’intérieur ou l’extérieur. À un seul endroit le mouvement vertical se change entièrement en rotation."
+      },
+      "view": "Le poids sur son ressort, vu de face, avec les quatre bras et leurs écrous",
+      "play": {
+        "title": "Tirer et tourner le poids",
+        "hint": "Tirez le poids vers le bas ou le haut, et poussez-le de côté pour le tourner ; lâché, il oscille. Ou choisissez un départ. Les barres montrent quelle part de l’énergie se trouve dans le mouvement vertical et dans la rotation.",
+        "let_go": "Lâcher :",
+        "starts": {
+          "down": "Tiré vers le bas",
+          "twisted": "Tourné",
+          "fast": "Mode le plus rapide",
+          "slow": "Mode le plus lent"
+        },
+        "energy": "Énergie du mouvement vertical et de la rotation",
+        "bobbing": "Mouvement vertical",
+        "twisting": "Rotation"
+      },
+      "figures": {
+        "bobbing": "Période du mouvement vertical seul",
+        "twisting": "Période de la rotation seule",
+        "tuned": "Accordé à",
+        "beat": "Aller et retour",
+        "share": "Part qui passe dans la rotation"
+      },
+      "change": {
+        "title": "Modifier l’objet",
+        "hint": "Les écrous fixent la paresse avec laquelle le poids tourne : plus à l’extérieur il tourne plus lentement, plus à l’intérieur plus vite. Ce n’est que s’il tourne aussi vite qu’il monte et descend que le mouvement vertical passe entièrement dans la rotation.",
+        "nuts": "Distance des écrous à l’axe",
+        "nuts_hint": "À 20,0 mm le ressort est accordé.",
+        "damping": "Amortissement"
+      },
+      "model": {
+        "intro": "Le ressort agit deux fois : étiré, il ramène le poids ; tordu, il le fait tourner en retour. Mais un ressort hélicoïdal se tord aussi un peu quand on l’étire, et inversement – ce couplage relie les deux oscillations.",
+        "equation": "Les deux équations du mouvement telles que Berg et Marshall les écrivent : chaque oscillation pour elle-même, et le couplage ε par lequel l’étirement fait tourner le poids et la torsion le tire. Ici z compte vers le bas.",
+        "inertia": "Le moment d’inertie du poids : celui du corps et celui des quatre écrous, chacun comme un point à sa distance de l’axe. C’est là qu’on règle l’objet.",
+        "modes": "Deux mouvements où mouvement vertical et rotation gardent un même rythme : les modes propres. Leurs pulsations sont les racines de cette équation ; tout autre mouvement est une somme des deux.",
+        "beat": "Tiré vers le bas, le poids est à peu près pour moitié dans chaque mode propre. Ils se décalent lentement puis se retrouvent ; pendant ce temps l’énergie passe une fois dans la rotation et revient au mouvement vertical."
+      },
+      "symbols": {
+        "z": "de combien le poids se trouve sous sa position de repos",
+        "theta": "de combien il est tourné",
+        "m": "la masse du poids, avec un tiers de celle du ressort",
+        "I": "son moment d’inertie par rapport à l’axe vertical",
+        "k": "la raideur du ressort contre l’étirement",
+        "delta": "la raideur du ressort contre la torsion",
+        "epsilon": "le couplage entre étirement et torsion",
+        "I0": "le moment d’inertie du corps sans les écrous",
+        "mn": "la masse d’un écrou, 10 g",
+        "r": "la distance des écrous à l’axe",
+        "omega": "les pulsations des deux modes propres, la plus rapide d’abord",
+        "alone": "les pulsations du mouvement vertical seul et de la rotation seule",
+        "beat": "le temps pendant lequel l’énergie passe une fois dans la rotation et revient",
+        "c": "le couplage, rapporté à la masse et au moment d’inertie"
+      },
+      "sweet": {
+        "modes": "Accordé, le poids tourne seul exactement aussi vite qu’il monte et descend seul. Alors seulement tout passe – après un demi-battement le poids ne monte ni ne descend plus et ne fait que tourner.",
+        "beat": "Avec les écrous à {{r}} mm, l’énergie passe une fois dans la rotation et revient en {{beat}} s, et environ {{share}} % arrivent dans la rotation.",
+        "detuned": "Désaccordé, jamais tout ne passe, seulement cette part : d’autant moins que les deux rythmes sont éloignés, comparés au couplage.",
+        "tuned": "Tout passe avec les écrous à {{tuned}} mm. À 35 mm, seule la moitié environ arrive dans la rotation, 48 %, et le mouvement vertical revient déjà après 19,9 s."
+      },
+      "chart": {
+        "energy": "Part de l’énergie",
+        "time": "Temps",
+        "share": "Part qui passe dans la rotation",
+        "nuts": "Distance des écrous"
+      },
+      "computed": {
+        "system": "Quatre équations du premier ordre : le déplacement, la torsion et leurs vitesses, écrites ici sans l’amortissement. Le moteur de calcul les résout par la méthode de Runge-Kutta, par pas d’une milliseconde ; la page fait de même avec les mêmes pas, quelques dizaines par image."
+      }
+    },
+    "polarizer": {
+      "at": {
+        "lamp": "Une lampe éclaire à travers deux filtres polarisants. Si l’on tourne celui de derrière, la lumière faiblit jusqu’à l’obscurité complète : les deux filtres sont croisés.",
+        "third": "On glisse alors un troisième filtre entre les deux, incliné – et la lumière revient. Pourtant chaque filtre ne peut qu’absorber de la lumière, jamais en ajouter."
+      },
+      "stack_view": "La lampe, les trois filtres et la fenêtre par laquelle vous regardez",
+      "play": {
+        "title": "Trois filtres devant une lampe",
+        "hint": "Glissez le filtre du milieu et tournez-le, ou celui de derrière – avec le curseur, ou à la souris ou au doigt sur le filtre.",
+        "middle": "Filtre du milieu entre les deux",
+        "middle_hint": "Glisser le troisième filtre entre les deux.",
+        "middle_deg": "Angle du filtre du milieu",
+        "middle_deg_hint": "Mesuré par rapport au filtre de devant ; à 180°, il est comme à 0°.",
+        "last_deg": "Angle du filtre de derrière",
+        "last_deg_hint": "À 90°, il est croisé avec celui de devant.",
+        "real": "Filtres réels",
+        "real_hint": "Au lieu de filtres idéaux, des filtres comme le Polaroid : le long de leur axe ils ne laissent pas tout passer, en travers pas tout à fait rien.",
+        "caption": "Chaque filtre tel que vous le voyez en regardant au travers ; ses lignes montrent son axe. Au-dessus du faisceau, la direction dans laquelle la lumière oscille, aussi longue que son amplitude ; avant le premier filtre, elle oscille dans toutes les directions. Le blanc est la lumière derrière le premier filtre, la moitié de celle de la lampe.",
+        "status_dark": "Pratiquement sombre : moins de 0,2 % de la lumière de la lampe passe.",
+        "status_light": "{{share}} % de la lumière de la lampe passe.",
+        "labels": {
+          "lamp": "lampe",
+          "front": "devant",
+          "middle": "milieu",
+          "slot": "(vide)",
+          "back": "derrière",
+          "window": "fenêtre"
+        }
+      },
+      "figures": {
+        "front": "Derrière le filtre de devant",
+        "middle": "Derrière le filtre du milieu",
+        "out": "Passe",
+        "between_ideal": "{{n}} entre les deux, idéaux",
+        "between_real": "{{n}} entre les deux, réels",
+        "best_between": "Meilleur nombre de filtres réels entre les deux",
+        "one": "Un filtre réel laisse passer"
+      },
+      "change": {
+        "title": "Plus de filtres, filtres réels",
+        "hint": "Placez plus de filtres entre la paire croisée, tournés régulièrement, et changez la qualité d’un filtre réel.",
+        "between": "Filtres entre la paire croisée",
+        "between_hint": "Chacun tourné d’autant par rapport au précédent, de 0° à 90°.",
+        "transmission": "Transmission le long de l’axe",
+        "transmission_hint": "Quelle part de la lumière oscillant le long de son axe un filtre réel laisse passer ; idéalement 100 %.",
+        "extinction": "Taux d’extinction 1 pour …",
+        "extinction_hint": "Combien moins un filtre réel laisse passer en travers de son axe que le long ; Polaroid environ 1 pour 500."
+      },
+      "chart": {
+        "hint": "Combien de lumière traverse la paire croisée selon le nombre de filtres entre les deux, idéaux et réels ; en pour cent de la lumière de la lampe.",
+        "ideal": "Filtres idéaux",
+        "real": "Filtres réels",
+        "light": "Lumière",
+        "between": "Filtres entre les deux",
+        "middle": "Angle du filtre du milieu"
+      },
+      "model": {
+        "intro": "La lumière est une onde qui oscille en travers de sa direction. Un filtre polarisant ne laisse passer que la part qui oscille le long de son axe – et ce qui passe oscille ensuite le long de cet axe.",
+        "malus": "La loi de Malus : si la lumière oscille à l’angle θ de l’axe d’un filtre, la part cos²θ passe – tout à 0°, rien à 90°.",
+        "half": "La lumière de la lampe oscille également dans toutes les directions ; en moyenne cos²θ vaut un demi. Le premier filtre laisse passer la moitié.",
+        "three": "Trois filtres, celui du milieu à φ, celui de derrière croisé : deux fois Malus. Le plus passe à φ = 45°, un huitième de la lumière de la lampe – un quart de ce que laisse passer le premier.",
+        "many": "n filtres répartis régulièrement entre la paire croisée : n + 1 petites rotations, chacune perd peu. Avec dix, 40 % passe, avec soixante 48 % – plus il y en a, plus on approche de la moitié que laisse passer le premier filtre."
+      },
+      "symbols": {
+        "i": "Lumière derrière le filtre (intensité)",
+        "i0": "Lumière devant le filtre, déjà polarisée",
+        "theta": "Angle entre la direction d’oscillation et l’axe du filtre",
+        "i1": "Lumière derrière le premier filtre",
+        "il": "Lumière de la lampe, non polarisée",
+        "i3": "Lumière derrière le troisième filtre",
+        "phi": "Angle du filtre du milieu par rapport à celui de devant",
+        "n": "Nombre de filtres entre la paire croisée"
+      },
+      "sweet": {
+        "turns": "L’astuce : un filtre ne bloque pas seulement, il polarise à nouveau. Ce qui traverse celui du milieu oscille le long de son axe, tourné de 45° – la moitié de ce que le premier a laissé passer. Face à cette nouvelle direction, le filtre de derrière n’est plus en travers, il n’est incliné que de 45° : il laisse de nouveau passer la moitié. Il sort ainsi un quart de ce que le premier a laissé passer, un huitième de la lumière de la lampe, là où sans celui du milieu rien ne passait. Avec celui du milieu à 30°, c’est 9,4 %.",
+        "real": "Les filtres réels (supposés ici : 76 % le long de l’axe, 1 pour 500 en travers, comme le Polaroid) laissent passer 38 % chacun, 0,12 % croisés. Avec le troisième à 45°, 5,0 % passe, 44 fois plus. Plus de filtres n’aident que jusqu’à deux : avec eux 6,6 % passe, et chaque filtre de plus absorbe davantage que ce que sa rotation plus petite épargne. Avec dix, il ne reste que 1,5 % ; des filtres idéaux laisseraient passer 40 %.",
+        "chart_hint": "La lumière à travers la paire croisée selon l’angle du filtre du milieu, en pour cent de la lumière de la lampe. Votre filtre du milieu est à {{deg}}° : {{share}} % avec des filtres idéaux."
+      },
+      "computed": {
+        "system": "La page traite chaque filtre comme une matrice qui laisse passer l’oscillation le long de son axe et non en travers (matrice de Jones), et multiplie les filtres dans l’ordre. La lumière de la lampe est un mélange égal de deux oscillations croisées ; derrière la pile, son intensité est la moitié de la somme des carrés des quatre coefficients. Pour des filtres idéaux, c’est exactement la loi de Malus, filtre après filtre.",
+        "real": "Un filtre réel laisse passer la part k₁ le long de son axe et k₂ en travers ; k₂/k₁ est son taux d’extinction. Pour le Polaroid, la littérature donne environ 38 % pour la lumière non polarisée et 1 pour 500 ; d’où k₁ = 76 %.",
+        "check": "Les tests de la page calculent chaque pile une seconde fois avec des matrices de Mueller sur le vecteur de Stokes et comparent, vérifient la loi de Malus filtre après filtre et la courbe ⅛ sin² 2φ à chaque degré entier. Le calcul se fait dans votre navigateur, avec les mêmes formules que le moteur de calcul du site.",
+        "left_out": "Omis : la couleur (les filtres réels laissent passer le rouge et le bleu différemment, un Polaroid croisé paraît légèrement bleuté ; ici une seule valeur vaut pour toute la lumière) ; la lumière réfléchie dans un sens et dans l’autre entre les filtres ; les filtres qui décalent aussi la phase de l’oscillation (lames retardatrices)."
+      }
+    },
+    "vessel": {
+      "at": {
+        "build": "Sur un support, au-dessus d’un long bassin, se dresse un tube transparent d’un mètre de haut et de 8 cm de large, rempli d’eau jusqu’à 90 cm. Sur son côté, trois trous l’un au-dessus de l’autre, à 5, 35 et 65 cm, chacun fermé par un bouchon.",
+        "drain": "Retirez le bouchon du bas : un jet jaillit loin dans le bassin. Puis il retombe toujours plus près du tube, et le niveau de l’eau baisse toujours plus lentement ; les derniers centimètres sont les plus longs. Avec les trois trous ouverts, le jet du milieu va le plus loin, et ceux du haut et du bas retombent au même endroit.",
+        "origin": "Un classique des cours de physique, construit ici assez haut pour voir le jet raccourcir."
+      },
+      "view": "Le tube sur son support au-dessus du bassin, dessiné en coupe : l’eau, les bouchons et les jets, avec une règle le long du fond du bassin",
+      "play": {
+        "title": "Retirer les bouchons",
+        "hint": "Cliquez sur un bouchon dans l’image ou sur l’un des boutons pour ouvrir un trou ou le refermer. Le chronomètre part au premier trou ouvert.",
+        "refill": "Remplir à nouveau",
+        "caption": "Un tube de {{diameter}} cm de large avec des trous de {{hole}} mm ; la marque en pointillés montre jusqu’où il était rempli. Tout à la même échelle.",
+        "plugs": "Trous, de haut en bas",
+        "hole": "Trou à {{height}} cm",
+        "full": "Le tube est rempli jusqu’à {{fill}} cm, tous les trous sont bouchés.",
+        "time": "Temps",
+        "level": "Niveau de l’eau",
+        "flow": "Débit sortant",
+        "jet": "Jet le plus long",
+        "halved": "À mi-hauteur ({{height}} cm) après"
+      },
+      "change": {
+        "title": "Modifier le tube",
+        "hint": "Changez le tube, les trous, le remplissage et le support. Le tube est alors rempli à nouveau et tous les bouchons remis ; les trous restent à 5, 35 et 65 cm. Les chiffres valent pour le trou du bas seul.",
+        "diameter": "Largeur du tube",
+        "diameter_hint": "Diamètre intérieur. Deux fois plus large, c’est quatre fois plus d’eau : cela dure quatre fois plus longtemps. Celle du module : 8 cm.",
+        "hole": "Largeur des trous",
+        "hole_hint": "Au plus un quart de la largeur du tube. Deux fois plus large, vide en un quart du temps. Celle du module : 8 mm.",
+        "fill": "Remplissage",
+        "fill_hint": "La hauteur de l’eau au-dessus du fond du tube au départ. Celle du module : 90 cm.",
+        "discharge": "Coefficient de débit μ",
+        "discharge_hint": "À quel point le jet se resserre juste après le trou : environ 0,61 pour un trou à arête vive, plus de 0,9 si l’eau sort par un petit tube court. Celui du module : 0,61.",
+        "stand": "Hauteur du support",
+        "stand_hint": "La hauteur du fond du tube au-dessus du fond du bassin. Plus elle est grande, plus les jets tombent longtemps et plus ils vont loin. Celle du module : 20 cm.",
+        "dry": "Les trous au-dessus du niveau de l’eau restent secs."
+      },
+      "figures": {
+        "drain": "Vide jusqu’au trou du bas",
+        "half": "Mi-hauteur après",
+        "speed": "Vitesse du premier jet",
+        "flow": "Premier débit",
+        "volume": "Eau au-dessus du trou du bas",
+        "farthest": "Jet le plus long possible"
+      },
+      "chart": {
+        "range": "Portée",
+        "hole": "Hauteur du trou au-dessus du fond du tube",
+        "range_hint": "Jusqu’où va un jet du tube plein selon la hauteur de son trou : le plus loin depuis le milieu entre la surface de l’eau et le fond du bassin.",
+        "depth": "Eau au-dessus du trou",
+        "time": "Temps après l’ouverture",
+        "time_hint": "Le trou du bas seul, pour le montage réglé ci-dessus : le niveau baisse toujours plus lentement, la portée diminue à un rythme régulier, en ligne droite."
+      },
+      "model": {
+        "intro": "L’eau appuie sur un trou d’autant plus fort que le trou est profond sous la surface. Elle jaillit aussi vite que tomberait une pierre de la surface jusqu’au trou. Juste après le trou, le jet se resserre : par un trou à arête vive ne sort qu’un peu plus des six dixièmes de ce que laisserait attendre sa surface.",
+        "torricelli": "La loi de Torricelli : la vitesse du jet selon la profondeur du trou sous la surface.",
+        "flow": "Ce qui sort chaque seconde : la surface du trou, réduite à celle du jet contracté, fois sa vitesse.",
+        "balance": "Ce qui sort manque dans le tube : la surface baisse aussi vite que tous les trous ouverts sous elle laissent sortir d’eau ensemble. Une équation différentielle du premier ordre pour le niveau de l’eau.",
+        "range": "Le jet quitte la paroi à l’horizontale et tombe comme une pierre lancée à l’horizontale : il touche le fond du bassin à cette distance du tube."
+      },
+      "symbols": {
+        "v": "la vitesse du jet",
+        "g": "l’accélération de la pesanteur",
+        "h": "le niveau de l’eau au-dessus du fond du tube",
+        "y": "la hauteur du trou au-dessus du fond du tube",
+        "q": "le débit sortant",
+        "mu": "le coefficient de débit, le resserrement du jet",
+        "a": "la surface d’un trou",
+        "area": "la section du tube",
+        "t": "le temps",
+        "yk": "la hauteur du trou ouvert k ; la somme porte sur les trous ouverts sous la surface",
+        "x": "à quelle distance de la paroi le jet touche le fond du bassin",
+        "s": "la hauteur du support",
+        "half": "le temps jusqu’à ce que la profondeur au-dessus du trou soit tombée de moitié"
+      },
+      "computed": {
+        "system": "Les trous s’ouvrent et se ferment quand vous le voulez ; la page calcule donc le niveau pas à pas : toutes les 5 ms un pas de Runge-Kutta de l’équation ci-dessus, dans votre navigateur, avec les mêmes formules que le moteur de calcul du site. Avec un seul trou ouvert, il existe aussi une solution exacte.",
+        "exact": "La racine carrée de la profondeur d’eau au-dessus du trou diminue à un rythme régulier jusqu’à ce que l’eau atteigne le trou, après le temps T.",
+        "h0": "le niveau de l’eau à l’ouverture",
+        "T": "le temps jusqu’à ce que l’eau au-dessus du trou soit écoulée",
+        "check": "Les tests de la page confrontent les pas à cette solution : jusqu’à une seconde avant la fin, le niveau s’en écarte de moins d’un milliardième de la profondeur, et le tube est vide à un pas près.",
+        "left_out": "Laissé de côté : la vitesse à laquelle l’eau descend dans le tube lui-même (ici moins d’un dix-millième du calcul) ; le freinage du jet par la viscosité et l’air (mesuré sous un millième pour des jets rapides sortant de trous à arête vive) ; l’inertie de la colonne d’eau quand un trou s’ouvre ou se ferme ; la tension superficielle, qui à la fin brise le mince jet en gouttes ; la largeur des bouchons."
+      },
+      "sweet": {
+        "root": "L’astuce, c’est la racine carrée. L’eau sort d’autant plus vite qu’elle est haute, mais seulement selon la racine carrée de la hauteur. Quand la surface baisse, le jet ralentit, et la surface baisse encore plus lentement. C’est pourquoi la première moitié de l’eau sort bien plus vite que la seconde.",
+        "numbers": "Au module, avec le trou du bas seul : après 20 s, l’eau ne se trouve plus qu’à mi-hauteur au-dessus du trou, mais le tube n’est vide qu’après 68 s. La moitié de l’eau ne demande pas la moitié du temps, mais 29 % ; le dernier dixième demande 32 %. Avec les trois trous ouverts, le tube est descendu après 57 s, à peine plus tôt, car les trous du haut se retrouvent vite à sec.",
+        "jet": "Le jet, lui, raccourcit à un rythme régulier : sa portée croît avec la racine carrée de la profondeur, et c’est justement cette racine qui diminue régulièrement. Au début, il jaillit à 4,1 m/s, 7,5 litres par minute, et tombe à 0,92 m du tube ; à mi-temps, après 34 s, il tombe à 0,46 m.",
+        "half": "La profondeur au-dessus du trou diminue comme le carré du temps restant : la moitié est sortie après (1 − 1/√2) T, après 29 % du temps, quelle que soit la largeur du tube et du trou."
+      }
+    },
+    "kapitza": {
+      "at": {
+        "rod": "Une tige rigide portant un poids à son extrémité pend à un pivot. Redressée puis lâchée, elle tombe – comme tout crayon posé sur sa pointe.",
+        "motor": "On met alors le moteur en marche : il secoue le pivot de haut en bas, d’un centimètre, quelque 40 fois par seconde. La tige reste maintenant debout, la tête en bas. Poussée, elle oscille et se redresse."
+      },
+      "view": "La tige sur son pivot secoué, le poids à son extrémité ; en pointillé, la verticale vers le haut",
+      "play": {
+        "title": "Redresser et secouer",
+        "hint": "Redressez la tige, d’abord sans moteur, puis avec. Poussez-la ou tirez le poids de côté.",
+        "upright": "Redresser",
+        "nudge": "Pousser",
+        "motor": "Moteur",
+        "motor_hint": "Secoue le pivot de haut en bas",
+        "drag_hint": "Le poids peut être tenu à la souris ou au doigt, puis lâché.",
+        "frequency": "Fréquence du moteur",
+        "amplitude": "Course du pivot (haut et bas)",
+        "presets_label": "Réglages :",
+        "presets": {
+          "fast": "Rapide et fin",
+          "slow": "Lent et ample",
+          "swing": "Faire osciller"
+        },
+        "holds": "Secouée aussi vite, la tige reste debout en haut.",
+        "falls": "Secouée ainsi, la tige tombe du haut.",
+        "swings": "Secouée ainsi, même la tige pendante se met à osciller de plus en plus.",
+        "off": "Sans moteur, la tige tombe du haut."
+      },
+      "figures": {
+        "angle": "Angle à la verticale haute",
+        "least": "Fréquence minimale, exacte",
+        "kapitza": "Fréquence minimale selon Kapitza",
+        "gap": "Écart",
+        "wobble": "Oscillation en haut, période",
+        "multiplier": "Plus grand multiplicateur de Floquet (module)"
+      },
+      "change": {
+        "title": "Modifier l'objet exposé",
+        "hint": "La tige continue là où elle se trouve.",
+        "length": "Longueur de la tige",
+        "damping": "Amortissement"
+      },
+      "model": {
+        "intro": "Entraîné avec le pivot, le poids ressent, en plus de la pesanteur, l’accélération du pivot : tantôt plus lourd, tantôt plus léger, 40 fois par seconde. Moyennées sur les secousses rapides, ces forces ne s’annulent pas.",
+        "motion": "L’équation du mouvement de la tige : la pesanteur et les secousses la ramènent vers le bas, l’amortissement la freine. Le pivot se trouve à a·cos ωt sous sa position moyenne.",
+        "potential": "Le potentiel moyen de Kapitza : à l’énergie de hauteur s’ajoute une part due aux secousses, la plus grande quand la tige est horizontale et la plus petite quand elle est verticale – en bas comme en haut.",
+        "bound": "En haut, ce potentiel forme une vallée dès que a²ω² dépasse 2gl : pour la tige de 20 cm secouée d’1 cm, à partir de 31,5 Hz. Autour du haut, la tige oscille alors lentement à la pulsation Ω."
+      },
+      "symbols": {
+        "theta": "l’angle de la tige depuis la verticale basse (π : tête en bas)",
+        "g": "accélération de la pesanteur, 9,81 m/s²",
+        "a": "la course du pivot",
+        "omega": "la pulsation du moteur, 2π fois sa fréquence",
+        "l": "la longueur de la tige jusqu’au poids",
+        "c": "l’amortissement",
+        "u": "le potentiel moyen du mouvement lent",
+        "m": "la masse du poids",
+        "big_omega": "la pulsation de l’oscillation lente autour du haut"
+      },
+      "computed": {
+        "system": "Deux équations du premier ordre, angle et vitesse angulaire, par la méthode de Runge-Kutta, par pas d’un centième de période du moteur, jamais plus de 1 ms. Si la tige reste en haut, un second calcul le dit sans attendre : près du haut, l’équation est linéaire à coefficient périodique (équation de Mathieu). Selon Floquet, chaque période fait alors la même chose à chaque petit écart : elle le multiplie par une matrice fixe M. Le moteur de calcul trouve M en suivant deux écarts sur une période, en 1000 pas ; ses valeurs propres, les multiplicateurs de Floquet, décident. La fréquence minimale, il la trouve par 40 dichotomies.",
+        "floquet": "Une période du moteur transforme l’écart au haut par la matrice M. Si les deux valeurs propres de M sont dans le cercle unité, tout petit écart reste petit : c’est le cas exactement quand la valeur absolue de la trace est inférieure à 1 plus le déterminant. Le déterminant vaut e^(−cT), inférieur à 1 avec amortissement.",
+        "phi": "le petit écart à la verticale haute",
+        "t": "une période du moteur, 1/f",
+        "m": "la matrice de monodromie : ce qu’une période fait de l’écart"
+      },
+      "chart": {
+        "gravity": "Pesanteur",
+        "shaking": "Secousses",
+        "sum": "Ensemble",
+        "potential": "Potentiel par masse",
+        "angle": "Angle depuis le bas"
+      },
+      "sweet": {
+        "potential": "L’astuce : les secousses rapides se moyennent en un potentiel supplémentaire dont le minimum est en haut. La pesanteur seule y forme une bosse ; secouée assez fort, la somme en fait un creux où la tige reste (à 180°, au milieu).",
+        "approach": "La limite de Kapitza est le premier terme d’une approximation en a/l. Les multiplicateurs de Floquet donnent la limite exacte : sans amortissement, elle est plus haute de 0,002 % pour a/l = 0,01, de 0,055 % pour 0,05, de 0,86 % pour 0,2 – plus la course est petite devant la tige, plus Kapitza est juste.",
+        "band": "Et pendante ? La tige oscille d’elle-même à {{own}} Hz. Si le moteur secoue environ deux fois plus vite, entre {{low}} et {{high}} Hz, elle s’amplifie d’elle-même (résonance paramétrique) – essayez « Faire osciller ».",
+        "no_band": "Et pendante ? La tige oscille d’elle-même à {{own}} Hz. Avec cette course et cet amortissement, même la fréquence double ne l’amplifie pas."
+      }
+    },
+    "film": {
+      "at": {
+        "rings": "Deux anneaux de fil de fer sont plongés ensemble dans de l’eau savonneuse puis écartés lentement. Entre eux se tend un film de savon, resserré au milieu comme une taille.",
+        "waist": "Plus les anneaux s’écartent, plus la taille s’amincit. À environ deux tiers du diamètre des anneaux, le film cède soudain : il reste un disque plat dans chaque anneau."
+      },
+      "view": "Deux anneaux vus de côté avec le film de savon entre eux ; l’anneau de droite se tire à la souris ou se déplace avec les flèches",
+      "play": {
+        "title": "Les écarter",
+        "hint": "Tirez l’anneau de droite vers la droite ou la gauche, ou sélectionnez-le avec la touche Tab et déplacez-le avec les flèches, centimètre par centimètre avec Maj. En pointillé à travers le film : sa taille.",
+        "dip": "Replonger",
+        "ring": "Anneau de droite",
+        "distance": "Distance entre les anneaux",
+        "distance_hint": "D’un centre d’anneau à l’autre.",
+        "radius": "Rayon des anneaux",
+        "radius_hint": "Les deux anneaux ont la même taille.",
+        "thin": "Montrer la forme étroite",
+        "thin_hint": "À chaque distance correspond aussi un second film, plus étroit. Il est instable : le film de savon ne le prend jamais.",
+        "caption": "Vu de côté, à l’échelle : anneaux de {{diameter}} cm de diamètre. « Replonger » rapproche à nouveau les anneaux.",
+        "least": "Le film a la plus petite aire possible : {{area}} cm² ; deux disques plats auraient {{discs}} cm².",
+        "held": "Deux disques plats auraient maintenant moins d’aire, {{discs}} cm² au lieu de {{area}} cm². Le film tient pourtant – pour l’instant.",
+        "torn": "Rompu : il reste un disque plat dans chaque anneau. Rapprochés, ils restent des disques ; replongez les anneaux."
+      },
+      "figures": {
+        "neck": "Taille (rayon)",
+        "area": "Aire du film",
+        "discs": "Deux disques",
+        "tear": "Se rompt à"
+      },
+      "model": {
+        "intro": "Un film de savon se contracte jusqu’à la plus petite aire que son bord permet : son énergie est la tension superficielle fois son aire. Entre deux anneaux égaux sur un même axe, c’est une caténoïde, une chaînette tournée autour de l’axe – la même courbe que celle de la chaîne suspendue de l’arc.",
+        "catenoid": "Le rayon du film à la distance z de sa taille ; c est le rayon de la taille.",
+        "rings": "Le film doit atteindre les deux anneaux : cela fixe la taille c – s’il y en a une.",
+        "ratio": "Avec t = h/(2c), il reste une équation pour t seul. Son membre de droite monte d’abord, puis redescend.",
+        "peak": "Il est le plus haut là où t·tanh t = 1, à t ≈ 1,1997 : là, h/R ≈ 1,3255. En dessous, deux films tiennent entre les anneaux, un large et un étroit ; au-dessus, aucun.",
+        "area": "L’aire du film, et celle des deux disques que laisse un film rompu.",
+        "two": "Le film large est stable, l’étroit ne l’est pas : poussé, il retombe vers le large ou se rompt. À la distance de rupture les deux se rejoignent ; la taille est alors réduite à 55 % du rayon des anneaux."
+      },
+      "symbols": {
+        "r": "rayon du film",
+        "z": "distance à la taille, le long de l’axe",
+        "c": "rayon de la taille",
+        "R": "rayon des anneaux",
+        "h": "distance entre les anneaux",
+        "t": "demi-distance des anneaux, en rayons de la taille",
+        "hmax": "la plus grande distance à laquelle un film avec une taille atteint les anneaux",
+        "A": "aire du film",
+        "discs": "aire des deux disques"
+      },
+      "sweet": {
+        "least": "L’astuce : le film se contracte toujours jusqu’à la plus petite aire qu’il peut atteindre. À partir de 1,055 rayon, soit 5,28 cm pour des anneaux de 5 cm, deux disques plats auraient certes moins d’aire. Mais pour y arriver, le film devrait d’abord grandir : c’est pourquoi il reste.",
+        "tear": "À partir de 1,3255 rayon, soit 6,63 cm pour des anneaux de 5 cm, plus aucun film avec une taille n’atteint les deux anneaux. La taille se resserre et le film saute dans les deux disques. Juste avant, il a un cinquième d’aire de plus qu’eux.",
+        "equal_tile": "Disques plus petits dès h/R",
+        "tear_tile": "Se rompt dès h/R",
+        "t_tile": "t avec t·tanh t = 1",
+        "seen": "Il en va de même avec de vrais films de savon : Ito et Sato (2010) ont filmé comment le saut vers les disques ne se produit pas là où ils auraient moins d’aire. Le film tient jusque peu avant la distance de rupture, puis se resserre en un instant."
+      },
+      "chart": {
+        "hint": "L’aire du film comparée à celle des deux disques, selon la distance entre les anneaux : le film large et stable, l’étroit et instable, et les disques. Là où les deux films se rejoignent, les courbes s’arrêtent : c’est là que le film se rompt.",
+        "wide": "film large (stable)",
+        "thin": "film étroit (instable)",
+        "discs": "deux disques",
+        "area": "aire / deux disques",
+        "distance": "distance / rayon de l’anneau"
+      },
+      "computed": {
+        "system": "Pour chaque distance, la page cherche t en coupant un intervalle en deux encore et encore, une fois à gauche et une fois à droite du sommet en t·tanh t = 1, et en tire la taille et l’aire. Rien ne se déroule ici dans le temps : la main impose la distance. Le calcul se fait dans votre navigateur, avec les mêmes formules que le moteur de calcul du site.",
+        "left_out": "Laissé de côté : la pesanteur, qui fait un peu fléchir un vrai film ; l’épaisseur du film, son égouttement et le fait qu’il éclate parfois avant l’heure ; le fil des anneaux, ici un trait ; et la façon dont la taille se resserre quand elle n’a plus d’appui."
+      }
+    },
+    "metronomes": {
+      "at": {
+        "board": "Cinq métronomes se tiennent sur une planche légère, tous réglés sur le même tempo. La planche repose sur deux canettes vides et peut rouler sur le côté. On lance les métronomes l’un après l’autre, à n’importe quel moment.",
+        "agree": "D’abord, ils battent en désordre. En moins d’une minute, tous oscillent en mesure, et la planche se balance avec eux. Posée sur la table, la planche ne les accorde jamais."
+      },
+      "view": "La planche sur deux canettes vue de face, avec les métronomes",
+      "play": {
+        "title": "Lancer les métronomes",
+        "hint": "Touchez un métronome pour le lancer ou l’arrêter. Le mouvement de la planche est dessiné {{times}} fois plus grand. Le cercle montre où chaque métronome en est de son oscillation ; la flèche est leur moyenne.",
+        "random": "Tout lancer au hasard",
+        "stop_all": "Tout arrêter",
+        "each": "Les métronomes un par un",
+        "start_one": "Lancer le métronome {{n}}",
+        "stop_one": "Arrêter le métronome {{n}}",
+        "board": "La planche",
+        "free": "Sur les canettes",
+        "held": "Sur la table",
+        "dial": "Où chaque métronome en est de son oscillation, et leur moyenne en flèche",
+        "trace": "À quel point ils se sont accordés pendant la dernière minute",
+        "answer": "Les voilà d’accord : R dépasse 0,99. Sur la table, ils ne s’accordent jamais d’eux-mêmes."
+      },
+      "figures": {
+        "order": "Accord R",
+        "time": "Temps",
+        "coupling": "Couplage β"
+      },
+      "change": {
+        "title": "Modifier l’exposition",
+        "hint": "Une planche plus légère couple plus fort. Si les tempos sont trop éloignés, les métronomes ne s’accordent plus.",
+        "count": "Nombre de métronomes",
+        "board": "Masse de la planche",
+        "board_hint": "Sans les métronomes. Une planche plus lourde bouge moins, et le couplage s’affaiblit.",
+        "spread": "Écart de tempo",
+        "spread_hint": "De combien le métronome le plus rapide va plus vite que le plus lent ; les autres se situent entre les deux."
+      },
+      "model": {
+        "intro": "James Pantaleone a fait cette expérience en 2002 avec deux et avec sept métronomes, et en a établi un modèle simple. Chaque métronome est un pendule ; l’échappement qui l’entraîne est un terme qui entretient les petites oscillations et freine les grandes.",
+        "equation": "L’équation du métronome i, le temps compté en oscillations : le poids, l’entraînement qui maintient l’oscillation à environ 45° (θ₀ = 0,39 rad, μ = 0,010), et la force d’inertie de la planche qui bouge sous le métronome.",
+        "board": "Rien ne pousse de l’extérieur : le centre de masse de la planche et des métronomes reste où il est. Quand les pendules vont vers la droite, la planche roule vers la gauche. β dit avec quelle force chaque métronome le ressent ; pour les deux de Pantaleone sur sa planche, x₀ = 0,088 cm et β = 0,011.",
+        "order": "Leur accord se mesure par la moyenne de leurs aiguilles : R = 1 quand tous oscillent en mesure, près de 0 quand ils sont dispersés.",
+        "lock": "Pour deux métronomes, Pantaleone en tire une seule équation pour leur déphasage ψ. Il s’immobilise si Δ est assez petit : le plus rapide a alors une avance de ψ* = arcsin(μΔ/(β(3γ + β))). Pour ses deux, écartés d’un demi pour cent, cela fait 3,1° ; le moteur trouve 3,3°."
+      },
+      "symbols": {
+        "theta": "l’écart du pendule i",
+        "tau": "le temps, compté en radians de l’oscillation",
+        "omega": "la pulsation des métronomes, 10,9 1/s (208 battements par minute)",
+        "delta": "de combien le métronome i est réglé plus vite ou plus lentement",
+        "mu": "la force de l’entraînement",
+        "theta0": "l’angle où l’entraînement se met à freiner : la moitié de l’écart",
+        "beta": "le couplage par la planche",
+        "x": "la position de la planche",
+        "mr": "la masse d’un pendule fois la distance de son centre de masse à l’axe",
+        "M": "tout ce qui roule sur les canettes : planche et métronomes",
+        "g": "accélération de la pesanteur, 9,81 m/s²",
+        "R": "leur degré d’accord, de 0 à 1",
+        "phi": "où le métronome j en est de son oscillation",
+        "N": "le nombre de métronomes en marche",
+        "psi": "le déphasage des deux",
+        "gamma": "à quel point la grande amplitude ralentit le pendule",
+        "F": "ce que le poids et l’entraînement seuls accélèrent",
+        "S": "la dérivée seconde de Σ sin θⱼ : ce qui fait bouger la planche"
+      },
+      "sweet": {
+        "push": "Chaque battement pousse un peu la planche – en mesure, d’environ 1,4 mm d’un côté et de l’autre –, et le mouvement de la planche pousse chaque métronome vers la même phase.",
+        "in_step": "Depuis la position de départ de l’exposition, ils sont en mesure sur les canettes après {{seconds}} s (R au-dessus de 0,99). Sur la table, R atteint au plus {{most}} pendant les mêmes deux minutes.",
+        "never": "Sur les canettes, ils ne s’accordent pas en deux minutes : leurs tempos sont trop éloignés pour ce couplage. Sur la table, R atteint au plus {{most}}.",
+        "why": "Sur la table, c’est justement cela qui manque : la planche reste immobile, aucun ne sent les autres, et chacun garde son propre tempo. Leurs écarts dérivent lentement, au rythme de la différence de leurs tempos."
+      },
+      "chart": {
+        "order": "Accord R",
+        "time": "Temps"
+      },
+      "computed": {
+        "solve": "La planche dépend des accélérations de tous les pendules, et chaque pendule de celle de la planche. Comme tous partagent la même planche, cela se résout d’un coup : d’abord S par une somme, puis chaque accélération.",
+        "system": "Les 2N équations du premier ordre, écarts et vitesses, deviennent ainsi explicites. Le moteur les résout par la méthode de Runge-Kutta par pas de 4 ms, 144 par oscillation ; la page fait de même avec les mêmes pas, quelques-uns par image."
+      }
+    },
+    "ship": {
+      "at": {
+        "basin": "Une coque de maquette flotte dans un bassin. Un poids coulisse vers le haut d’un mât ou vers le bas dans une quille sous la coque.",
+        "low": "Avec le poids en bas, on incline la coque à la main et on la lâche : elle se balance et se redresse.",
+        "high": "Avec le poids en haut du mât, une petite poussée suffit : la coque se retourne et flotte quille en l’air."
+      },
+      "view": "Le bassin avec la coque en coupe, le poids sur le mât ou la quille, le centre de gravité G et le centre de carène B",
+      "play": {
+        "title": "Incliner la coque",
+        "hint": "Saisissez la coque, inclinez-la et lâchez-la. Faites ensuite monter ou descendre le poids et recommencez.",
+        "push": "Pousser",
+        "upright": "Redresser",
+        "tilt": "Gîte de la coque : les flèches l’inclinent, en lâchant elle se balance librement",
+        "weight": "Hauteur du poids",
+        "weight_hint": "Au-dessus du fond de la coque : sous zéro il est dans la quille, au-dessus de 12 cm sur le mât.",
+        "caption": "Une coupe transversale de la coque. En teinte, ce qui est sous l’eau : la poussée monte par son centre B, le poids descend par G, et leur distance horizontale est le bras GZ.",
+        "motion": {
+          "held": "Votre main tient la coque.",
+          "upright": "Elle flotte droite.",
+          "on_edge": "Elle est en équilibre instable : une petite poussée et elle bascule.",
+          "loll": "Elle reste inclinée : droite, elle ne peut pas tenir.",
+          "keel_up": "Elle a chaviré et flotte quille en l’air.",
+          "capsizing": "Elle chavire.",
+          "rolling": "Elle roule."
+        },
+        "heel": "Gîte",
+        "arm": "Bras GZ",
+        "gm": "Hauteur métacentrique GM",
+        "period": "Période de roulis"
+      },
+      "change": {
+        "title": "Transformer la coque",
+        "hint": "Rendez la coque plus large ou plus étroite, le poids plus lourd ou plus léger, et laissez l’eau freiner plus ou moins.",
+        "beam": "Largeur de la coque",
+        "beam_hint": "Plus la flottaison est large, plus le métacentre est haut : BM croît avec le carré de la largeur.",
+        "weight": "Masse du poids",
+        "weight_hint": "La coque seule pèse 2 kg.",
+        "damping": "Amortissement par l’eau",
+        "damping_hint": "La vitesse à laquelle l’eau freine le roulis ; à zéro, elle roule sans fin."
+      },
+      "figures": {
+        "draft": "Tirant d’eau",
+        "kb": "Centre de carène KB",
+        "bm": "Rayon métacentrique BM",
+        "kg": "Centre de gravité KG",
+        "limit": "Hauteur du poids à partir de laquelle elle bascule",
+        "vanishing": "Gîte jusqu’à laquelle elle revient"
+      },
+      "chart": {
+        "curve_hint": "Le bras GZ selon la gîte, avec le poids à la hauteur réglée ; en tirets GM·sin φ, l’approximation pour les petits angles. Là où la courbe passe sous zéro, elle chavire.",
+        "arm": "Bras GZ",
+        "small": "GM·sin φ",
+        "heel": "Gîte",
+        "trick_hint": "Le bras GZ selon la gîte pour trois hauteurs du poids : au pied de la quille, sur le pont et en haut du mât.",
+        "weight_at": "Poids à {{cm}} cm"
+      },
+      "model": {
+        "intro": "La coque est ici une boîte fermée, un rectangle en coupe. Elle s’enfonce jusqu’à ce que l’eau déplacée pèse autant que la coque et le poids ensemble.",
+        "draft": "Archimède pour la boîte : l’eau déplacée pèse autant que la coque et le poids. Ici, elle s’enfonce de 3,0 cm.",
+        "gravity": "Le centre de gravité de la coque et du poids, mesuré depuis le fond K. Quand le poids se déplace, seul lui se déplace ; le tirant d’eau reste le même.",
+        "arm": "Inclinée, le centre de carène B, le centre de la partie immergée, se trouve à une distance horizontale GZ du centre de gravité. Si GZ est positif, B est du côté bas, et la poussée et le poids ramènent la coque.",
+        "metacentre": "Pour les petits angles, la verticale par B coupe toujours l’axe de la coque au même point, le métacentre M ; GM est sa hauteur au-dessus de G. Pour la boîte ici, B est à 1,5 cm au-dessus du fond, BM vaut 11,1 cm et M est à 12,6 cm au-dessus du fond.",
+        "wall": "Tant que les parois sont verticales dans l’eau, cette formule est exacte pour la boîte, ici jusqu’à 16,7°, où le fond émerge ; pour les petits angles reste GM·sin φ. Au-delà, la page calcule géométriquement la partie immergée, jusqu’à ce que la coque soit sur le flanc ou quille en l’air."
+      },
+      "symbols": {
+        "rho": "masse volumique de l’eau",
+        "l": "longueur de la coque",
+        "b": "largeur de la coque",
+        "d": "tirant d’eau",
+        "mh": "masse de la coque",
+        "mw": "masse du poids",
+        "kg": "hauteur du centre de gravité G au-dessus du fond K",
+        "zh": "hauteur du centre de gravité de la coque vide",
+        "zw": "hauteur du poids",
+        "gz": "bras entre poussée et poids",
+        "phi": "gîte",
+        "yzb": "position du centre de carène B dans la coque, en travers et en hauteur",
+        "gm": "hauteur métacentrique",
+        "kb": "hauteur du centre de carène au-dessus du fond",
+        "bm": "distance du centre de carène au métacentre",
+        "i": "moment quadratique de la flottaison",
+        "v": "volume déplacé",
+        "inertia": "moment d’inertie autour de l’axe longitudinal passant par G",
+        "m": "masse de la coque et du poids",
+        "g": "accélération de la pesanteur",
+        "beta": "amortissement par l’eau",
+        "kh": "rayon de giration de la coque vide",
+        "t": "période de roulis"
+      },
+      "sweet": {
+        "moves": "L’astuce : quand la coque s’incline, le côté bas s’enfonce et le côté haut émerge. L’eau déplacée, et avec elle le centre de carène B, passe du côté bas. Tant que le métacentre M est au-dessus du centre de gravité G, B est plus à l’extérieur que G, et la poussée et le poids ramènent la coque.",
+        "numbers": "Ici, M est à 12,6 cm au-dessus du fond. Avec le poids sur le pont, G est à 7,3 cm : GM vaut 5,3 cm, et elle revient jusqu’à 75° de gîte. Au pied de la quille, G est sous le fond, GM vaut 14,3 cm, et elle revient de n’importe quelle position, même du flanc, où un bras de 7,7 cm la redresse.",
+        "high": "Monter le poids élève G et rien d’autre : le tirant d’eau, B et M restent où ils sont. À partir de 27,8 cm sur le mât, G est au-dessus de M. Droite, elle est alors en équilibre instable, et une petite poussée la fait chavirer ; à 35 cm, GM vaut −2,4 cm. Quille en l’air, en revanche, elle flotte alors de façon stable."
+      },
+      "computed": {
+        "system": "La page calcule le roulis pas à pas, toutes les 2 ms (Runge-Kutta). À chaque pas, elle cherche pour la gîte la flottaison qui laisse exactement le déplacement sous l’eau, découpe la partie immergée dans la section et prend son centre comme centre de carène.",
+        "roll": "La rotation autour du centre de gravité : le bras GZ ramène, l’eau freine. Le moment d’inertie est celui de la coque, déplacé en G par le théorème de Steiner, et celui du poids.",
+        "period": "Pour les petits angles, elle roule comme un pendule : avec le poids sur le pont toutes les 0,58 s. Plus GM est petit, plus elle est lente : avec le poids à 25 cm sur le mât, GM ne vaut plus que 0,9 cm, et elle roule toutes les 2,3 s.",
+        "check": "Les tests de la page confrontent GM à KB + BM − KG, le bras à 15° à la formule des parois verticales, la coque sur le flanc au centre du rectangle immergé, et la période de roulis à la formule des petits angles. Le calcul se fait dans votre navigateur, avec les mêmes formules que le moteur du site.",
+        "left_out": "Omis : l’eau que la coque entraîne en roulant (elle allonge la période) ; la coque qui monte et descend en s’inclinant (ici, elle flotte tout de suite sur son déplacement, à chaque angle) ; la dérive latérale et les vagues du roulis ; le volume et le poids de la quille et du mât ; l’eau qui entre. Les valeurs sont un modèle supposé : une boîte de 20 cm de large, 12 cm de haut, 50 cm de long et 2 kg, son propre centre de gravité à 5 cm au-dessus du fond ; un poids de 1 kg, de 15 cm sous la coque à 40 cm sur le mât."
+      }
+    },
+    "string": {
+      "at": {
+        "cord": "Une fine corde élastique est fixée par un bout à un vibreur qui la secoue un peu de haut en bas cent fois par seconde. L’autre bout, vous le passez sur un goujon et le tirez vers le bas à la main.",
+        "loops": "Tenue lâche, la corde ne fait que trembler, floue. Tendez-la lentement : à certaines tractions, elle s’immobilise soudain en un, deux, trois ventres, avec des nœuds calmes entre eux. Plus vous tirez fort, moins il y a de ventres."
+      },
+      "view": "La corde du vibreur au goujon : l’ampleur de son mouvement, à l’intérieur la corde telle que la montre un stroboscope, et à droite la traction de votre main",
+      "play": {
+        "title": "Tirer sur la corde",
+        "hint": "Tirez plus ou moins fort et cherchez les tractions auxquelles la corde s’immobilise en ventres.",
+        "calm": "Calmer",
+        "caption": "La bande montre l’ampleur du mouvement de la corde ; la ligne à l’intérieur la montre comme un stroboscope légèrement décalé du ton : au ralenti. La hauteur est dessinée {{times}} fois plus grande.",
+        "pull": "Traction de votre main",
+        "pull_hint": "La force avec laquelle vous tendez la corde sur le goujon. Plus elle est tendue, plus les ondes vont vite.",
+        "tone": "Ton du vibreur",
+        "tone_hint": "Combien de fois par seconde le vibreur secoue la corde ; à l’exposition, fixé à 100.",
+        "widest": "Plus grande amplitude",
+        "stroke": "Course du vibreur",
+        "speed": "Vitesse de l’onde",
+        "half_waves": "Demi-ondes entre les bouts",
+        "three": "Traction pour trois ventres à {{hz}} Hz"
+      },
+      "chart": {
+        "swing": "Plus grande amplitude",
+        "half_waves": "Demi-ondes entre les bouts, 2Lf/v",
+        "caption": "L’amplitude stationnaire de la corde au ton du vibreur, en fonction du nombre de demi-ondes qui tiennent entre les bouts : des pics exactement aux nombres entiers. La ligne se trouve à votre traction.",
+        "tone": "Ton du vibreur",
+        "tones_hint": "L’amplitude stationnaire en fonction du ton du vibreur, pour trois tractions, chacune quatre fois la précédente : les tons auxquels la corde forme des ventres doublent."
+      },
+      "change": {
+        "title": "Changer la corde",
+        "hint": "Une autre corde ou un autre vibreur.",
+        "length": "Longueur",
+        "length_hint": "Du vibreur au goujon.",
+        "density": "Masse par mètre",
+        "density_hint": "Sur une corde plus lourde, les ondes vont moins vite.",
+        "damping": "Amortissement",
+        "damping_hint": "L’air et la corde ensemble, en un seul taux : plus il est fort, plus les pics sont bas et larges.",
+        "stroke": "Course du vibreur",
+        "stroke_hint": "De combien le vibreur déplace le bout de la corde de chaque côté.",
+        "f1": "Ton le plus grave à votre traction",
+        "one": "Traction pour un ventre à {{hz}} Hz",
+        "limit": "Amplitude d’un ventre à votre traction"
+      },
+      "model": {
+        "intro": "La corde obéit à l’équation des ondes : chaque morceau est rappelé par ses voisins, d’autant plus fort que la corde y est courbée. Le vibreur déplace un bout, le goujon tient l’autre.",
+        "wave": "Masse fois accélération, plus un peu d’amortissement, égale traction fois courbure. Au vibreur, la corde suit ; au goujon, elle est immobile.",
+        "tones": "Les tons propres : exactement n demi-ondes tiennent entre les bouts (lois de Mersenne). À ton du vibreur fixé, n ventres correspondent donc à une traction : quatre fois plus tendue donne deux fois moins de ventres.",
+        "transfer": "La fonction de transfert du vibreur au point x. En s = iΩ, son module donne l’amplitude stationnaire ; ses pôles sont les modes propres, chacun amorti de γ/2.",
+        "peak": "Juste à un ton propre, la corde oscille à peu près de cette amplitude dans chaque ventre ; entre deux, à peine plus que le vibreur lui-même."
+      },
+      "symbols": {
+        "y": "Déplacement de la corde",
+        "x": "Position le long de la corde, depuis le vibreur",
+        "t": "Temps",
+        "mu": "Masse de la corde par mètre",
+        "gamma": "Amortissement, air et corde ensemble",
+        "tension": "Traction de votre main",
+        "a": "Course du vibreur",
+        "omega": "Pulsation du vibreur",
+        "l": "Longueur du vibreur au goujon",
+        "fn": "n-ième ton propre",
+        "n": "Nombre de ventres",
+        "v": "Vitesse de l’onde",
+        "tn": "Traction pour n ventres",
+        "f": "Ton du vibreur",
+        "g": "Fonction de transfert du vibreur au point x",
+        "s": "Fréquence complexe de la transformée de Laplace",
+        "kappa": "Nombre d’onde complexe",
+        "sn": "Pôles : les modes propres amortis",
+        "omegan": "Pulsation du n-ième ton propre",
+        "peak": "Amplitude dans un ventre",
+        "theta": "Phase du vibreur",
+        "qn": "Amplitude du n-ième mode propre"
+      },
+      "sweet": {
+        "trick": "L’astuce : le vibreur envoie une onde ; elle court jusqu’au goujon, s’y réfléchit, revient et se réfléchit de nouveau au vibreur, encore et encore. Ce n’est que lorsqu’un nombre entier de demi-ondes tient entre les bouts que chaque onde réfléchie revient en phase avec les nouvelles, et toutes s’additionnent en une figure stationnaire. Sinon, elles s’annulent pour la plupart.",
+        "numbers": "À 100 Hz, la corde forme un ventre à 20 N, deux à 5 N, trois à 2,22 N. Un ventre oscille alors de 67 mm, trois ventres de 22 mm chacun, onze fois plus que le vibreur. À 3,2 N, deux demi-ondes et demie, elle n’oscille nulle part plus que le vibreur lui-même : 2 mm.",
+        "pull": "Tirer plus fort rend les ondes plus rapides et plus longues, et moins de ventres y tiennent : quatre fois plus de traction double les tons. C’est ainsi qu’on accorde une guitare."
+      },
+      "computed": {
+        "system": "La page décompose la corde en la droite que fixe le vibreur et 40 modes propres. Chacun est un oscillateur amorti que le vibreur entraîne ; la page résout chacun exactement image par image, le ton tenu fixe pendant l’image. Le calcul se fait dans votre navigateur, avec les mêmes formules que le moteur de calcul du site.",
+        "modes": "La corde comme une somme : la droite du vibreur au goujon et 40 modes propres, chacun un oscillateur amorti et entraîné.",
+        "drawing": "Une corde qui oscille cent fois par seconde ne peut pas être montrée image par image sur un écran. Le dessin montre donc ce que voit l’œil : la bande entre ses deux positions extrêmes, et à l’intérieur la corde telle que la montre un stroboscope légèrement décalé du ton.",
+        "left_out": "Laissé de côté : qu’une corde élastique s’allonge et s’amincit quand on tire ; sa raideur ; des amplitudes si grandes que la traction change le long de la corde ; la souplesse du vibreur ; les oscillations hors du plan du dessin."
+      }
+    },
+    "jet": {
+      "at": {
+        "tank": "Un réservoir d'eau est percé d'un trou en bas de sa paroi avant. Derrière le réservoir se trouve un laser ; son faisceau traverse l'eau droit dans le trou par lequel l'eau s'écoule.",
+        "follows": "L'eau retombe en arc dans un bassin – et la lumière ne continue pas tout droit : elle suit le jet qui se courbe, qui brille en vert, et ne ressort que là où le jet touche le bassin ou se brise en gouttes.",
+        "colladon": "Daniel Colladon a décrit cette expérience en 1842 dans les Comptes rendus de l'Académie des sciences de Paris. La lumière dans le jet d'eau est une ancêtre de la fibre optique."
+      },
+      "scene_view": "Le réservoir avec son laser, le jet d'eau en arc et le bassin ; le jet brille aussi loin que la lumière y reste",
+      "close_view": "Le trou, très agrandi, avec les rayons de lumière réfléchis à la surface du jet d'eau",
+      "play": {
+        "title": "Incliner le laser, baisser le niveau",
+        "hint": "Inclinez le laser et baissez l'eau : voyez quand la lumière quitte le jet.",
+        "level": "Eau au-dessus du trou",
+        "level_hint": "Plus l'eau est haute, plus elle sort vite et plus le jet se courbe doucement.",
+        "tilt": "Inclinaison du laser",
+        "tilt_hint": "L'angle de la lumière du laser dans l'eau par rapport à l'axe du jet, positif vers le haut.",
+        "scene_caption": "Toute l'installation. Le jet brille en vert aussi loin que la lumière y reste ; des cercles montrent où elle sort en chemin.",
+        "close_caption": "Le trou, très agrandi : neuf rayons du laser, réfléchis à la surface du jet d'eau. En tirets, la lumière qui sort.",
+        "all_in": "Toute la lumière reste dans le jet : chaque rayon touche la surface à {{steepest}}° de la normale ou plus rasant, au-delà de l'angle critique de {{critical}}°. Elle ne sort que dans le bassin.",
+        "some_out": "{{out}} % de la lumière quittent le jet en chemin, {{arrives}} % atteignent le bassin.",
+        "all_out": "Aucune lumière n'atteint le bassin : elle touche la surface plus raide que l'angle critique de {{critical}}° et sort juste après le trou."
+      },
+      "figures": {
+        "speed": "Vitesse au trou",
+        "bend": "Rayon de courbure au trou",
+        "critical": "Angle critique",
+        "steepest": "Incidence la plus raide, depuis la normale",
+        "arrives": "Lumière dans le bassin",
+        "first_out": "Première lumière sortie après",
+        "landing": "Le jet touche le bassin après",
+        "hits": "Réflexions du rayon central"
+      },
+      "change": {
+        "title": "Modifier l'installation",
+        "hint": "Modifiez le trou, sa hauteur au-dessus du bassin et le liquide.",
+        "hole": "Diamètre du trou",
+        "hole_hint": "Le jet a cette épaisseur. Plus il est épais, plus sa courbure au trou est serrée par rapport à son épaisseur.",
+        "drop": "Hauteur au-dessus du bassin",
+        "drop_hint": "À quelle profondeur sous le trou se trouve le bassin : la longueur du chemin de la lumière.",
+        "index": "Indice de réfraction du liquide",
+        "index_hint": "L'eau a 1,333. Plus l'indice est grand, plus l'angle critique est petit et mieux le jet retient la lumière."
+      },
+      "chart": {
+        "inside_hint": "La lumière encore dans le jet le long de son chemin du trou au bassin, mesuré à l'horizontale.",
+        "inside": "Lumière dans le jet",
+        "along": "Distance au trou",
+        "reflected_hint": "La part que la surface réfléchit de l'intérieur, selon l'angle d'incidence, pour l'indice {{index}} : peu sous l'angle critique, tout à partir de lui.",
+        "reflected": "Part réfléchie",
+        "incidence": "Angle d'incidence, depuis la normale"
+      },
+      "model": {
+        "intro": "L'eau quitte le trou à l'horizontale et tombe comme une pierre lancée. La lumière y va tout droit jusqu'à la surface du jet ; là, elle est réfléchie, et sous l'angle critique une partie sort, réfractée.",
+        "torricelli": "L'eau sort aussi vite qu'une pierre après une chute de la hauteur du niveau h (Torricelli).",
+        "parabola": "L'axe du jet est une parabole. Il se courbe le plus au trou, avec le rayon R, le double du niveau ; plus bas, de plus en plus doucement.",
+        "snell": "La lumière qui passe de l'eau dans l'air s'écarte de la normale (loi de Snell-Descartes).",
+        "critical": "À partir de l'angle critique, il ne reste aucun angle pour la lumière réfractée : elle est entièrement réfléchie. Pour l'eau, c'est 48,6°.",
+        "fresnel": "Sous l'angle critique, seule cette part est réfléchie (Fresnel, les deux polarisations moyennées pour la lumière non polarisée) ; le reste sort."
+      },
+      "symbols": {
+        "v": "vitesse de l'eau au trou",
+        "g": "accélération de la pesanteur",
+        "h": "niveau de l'eau au-dessus du trou",
+        "x": "distance horizontale au trou",
+        "y": "hauteur par rapport au trou",
+        "r": "rayon de courbure de l'axe au trou",
+        "n": "indice de réfraction du liquide (air : 1)",
+        "theta": "angle d'incidence dans l'eau, depuis la normale",
+        "theta_t": "angle de la lumière qui sort, depuis la normale",
+        "theta_c": "angle critique",
+        "r_f": "part réfléchie"
+      },
+      "sweet": {
+        "grazing": "L'astuce : dans le jet, la lumière touche la surface de façon rasante, à plus d'environ 49° de la normale. Aussi rasante, elle ne peut pas sortir de l'eau : elle est entièrement réfléchie, traverse le jet jusqu'à l'autre bord, y est réfléchie de nouveau, et ainsi de suite jusqu'au bout. Avec le laser visant droit dans le trou, la lumière touche la surface de l'installation à 79° ou plus rasant.",
+        "bend": "Le jet ne lâche la lumière que lorsqu'elle touche la surface plus raide : quand le laser est incliné de plus de 40° (dans un jet droit ce serait 41,4°, 90° moins 48,6°) ou quand le jet se courbe trop serré. Au trou, son rayon de courbure est le double du niveau d'eau ; avec un trou de 6 mm, de la lumière sort sous un niveau d'environ 6 mm. Là où le jet se brise en gouttes, la surface manque, et la lumière brille au dehors."
+      },
+      "computed": {
+        "system": "La page suit neuf rayons, répartis également sur le trou, tout droit jusqu'à la surface du jet. La surface est là où un point est à un demi-diamètre du trou de l'axe ; la méthode de Newton trouve le point le plus proche de l'axe, la regula falsi le point d'incidence. Là s'applique la loi de la réflexion ; sous l'angle critique sort ce que la surface ne réfléchit pas, réfractée selon Snell, et le reste continue. Le calcul se fait dans votre navigateur, avec les mêmes formules que le moteur de calcul du site.",
+        "check": "Les tests de la page remesurent les points d'incidence par une recherche à eux : ils sont à un demi-diamètre du trou de l'axe, les angles d'entrée et de sortie sont égaux, et ce qui sort et ce qui arrive font exactement toute la lumière. Sur l'installation, laser droit, toute la lumière atteint le bassin, à 49 cm du trou.",
+        "left_out": "Omis : l'autre direction du jet rond (la page calcule dans la section où il tombe, et les rayons hors de cette section manquent) ; l'amincissement du jet à mesure qu'il tombe plus vite ; sa rupture en gouttes (ici il reste entier jusqu'au bassin) ; la tension superficielle qui retient un jet très lent contre la paroi ; la polarisation du laser et la largeur de son faisceau ; les vagues à la surface ; la lumière que l'eau elle-même absorbe."
+      }
     }
   },
   "course": {

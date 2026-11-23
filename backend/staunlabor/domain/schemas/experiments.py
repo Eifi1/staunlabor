@@ -655,6 +655,19 @@ class DoublePendulumIn(_In):
     damping_per_s: float = Field(ge=0, le=1, default=0.0)
 
 
+# ── Kapitza's pendulum ───────────────────────────────────────────────────────
+# No route: the page asks the port (``simulate/kapitza.ts``).
+
+
+class KapitzaPendulumIn(_In):
+    length_m: float = Field(ge=0.05, le=2, default=0.2)
+    #: At most :data:`~staunlabor.domain.experiments.kapitza.MAX_SHARE` of the
+    #: length, which the engine checks against the length it comes with.
+    amplitude_m: float = Field(ge=0, le=0.6, default=0.01)
+    frequency_hz: float = Field(ge=0, le=200, default=40.0)
+    damping_per_s: float = Field(ge=0, le=5, default=0.3)
+
+
 # ── the chaotic waterwheel ───────────────────────────────────────────────────
 # No route: the page asks the port (``simulate/waterwheel.ts``).
 
@@ -835,6 +848,20 @@ class PlatesIn(_In):
     plate: PlateIn
 
 
+# ── the draining vessel ──────────────────────────────────────────────────────
+# No route: the page asks the port (``simulate/vessel.ts``).
+
+
+class DrainingVesselIn(_In):
+    diameter_m: float = Field(ge=0.01, le=1, default=0.08)
+    height_m: float = Field(ge=0.1, le=5, default=1.0)
+    fill_m: float = Field(gt=0, le=5, default=0.9)
+    holes_m: list[Annotated[float, Field(ge=0, lt=5)]] = Field(min_length=1, max_length=6, default=[0.05, 0.35, 0.65])
+    hole_diameter_m: float = Field(gt=0, le=0.25, default=0.008)
+    discharge: float = Field(gt=0, le=1, default=0.61)
+    stand_m: float = Field(ge=0, le=5, default=0.2)
+
+
 # ── the bouncing ball ────────────────────────────────────────────────────────
 # No route: the page asks the port (``simulate/bounce.ts``).
 
@@ -861,6 +888,27 @@ class OverhangIn(_In):
     height_m: float = Field(gt=0, le=1, default=0.04)
 
 
+# ── the Galton board ─────────────────────────────────────────────────────────
+# No route: the page asks the port (``simulate/galton.ts``).
+
+
+class GaltonIn(_In):
+    rows: int = Field(ge=1, le=24, default=12)
+    #: The share of turns to the right at every pin: a half on a level board.
+    p: float = Field(ge=0, le=1, default=0.5)
+    balls: int = Field(ge=1, le=5000, default=500)
+    seed: int = Field(ge=0, le=2**32 - 1, default=1874)
+
+
+# ── the soap film between two rings ──────────────────────────────────────────
+# No route: the page asks the port (``simulate/film.ts``).
+
+
+class FilmIn(_In):
+    radius_m: float = Field(ge=0.001, le=1, default=0.05)
+    distance_m: float = Field(ge=0.0001, le=2, default=0.01)
+
+
 # ── the Cartesian diver ──────────────────────────────────────────────────────
 # No route: the page asks the port (``simulate/diver.ts``).
 
@@ -875,6 +923,31 @@ class DiverIn(_In):
 class DiverExhibitIn(_In):
     diver: DiverIn
     depth_m: float = Field(ge=0.05, le=2, default=0.30)
+
+
+# ── the ship that rights itself ──────────────────────────────────────────────
+# No route: the page asks the port (``simulate/ship.ts``).
+
+
+class ShipHullIn(_In):
+    beam_m: float = Field(ge=0.05, le=1, default=0.20)
+    depth_m: float = Field(ge=0.02, le=1, default=0.12)
+    length_m: float = Field(ge=0.1, le=5, default=0.50)
+    mass_kg: float = Field(gt=0, le=100, default=2.0)
+    centre_m: float = Field(ge=0, le=1, default=0.05)
+    gyration_m: float = Field(gt=0, le=1, default=0.07)
+
+
+class ShipWeightIn(_In):
+    mass_kg: float = Field(ge=0, le=100, default=1.0)
+    #: Above the hull's bottom; below zero, down in the keel.
+    height_m: float = Field(ge=-0.15, le=0.40, default=0.12)
+
+
+class ShipIn(_In):
+    hull: ShipHullIn
+    weight: ShipWeightIn
+    damping_per_s: float = Field(ge=0, le=10, default=0.5)
 
 
 # ── the glass-bead rainbow ───────────────────────────────────────────────────
@@ -911,6 +984,30 @@ class SlitsIn(_In):
     distance_m: float = Field(ge=0.2, le=10, default=2.0)
 
 
+# ── the third polarising filter ──────────────────────────────────────────────
+# No route: the page asks the port (``simulate/polarizer.ts``).
+
+
+class PolarizerSheetIn(_In):
+    """A real filter's sheet: the share along its axis, and the extinction ratio across."""
+
+    transmission: float = Field(ge=0.1, le=1, default=0.76)
+    extinction: float = Field(ge=0, le=0.5, default=0.002)
+
+
+# ── the light in the water jet ───────────────────────────────────────────────
+# No route: the page asks the port (``simulate/jet.ts``).
+
+
+class WaterJetIn(_In):
+    """The exhibit's jet, bounded as the engine's ``Jet``."""
+
+    level_m: float = Field(ge=0.005, le=0.5, default=0.15)
+    hole_m: float = Field(ge=0.002, le=0.01, default=0.006)
+    drop_m: float = Field(ge=0.1, le=1.0, default=0.4)
+    index: float = Field(ge=1.2, le=1.6, default=1.333)
+
+
 # ── beats ────────────────────────────────────────────────────────────────────
 # No route: the page asks the port (``simulate/beats.ts``).
 
@@ -929,6 +1026,44 @@ class RiderIn(_In):
 class BeatsIn(_In):
     fork: ForkIn
     rider: RiderIn
+
+
+# ── the Wilberforce spring ───────────────────────────────────────────────────
+# No route: the page asks the port (``simulate/spring.ts``).
+
+
+class WilberforceSpringIn(_In):
+    mass_kg: float = Field(ge=0.05, le=5.0, default=0.5164)
+    stiffness_n_m: float = Field(ge=0.5, le=50.0, default=2.80)
+    torsion_n_m: float = Field(ge=1e-5, le=1e-2, default=7.86e-4)
+    coupling_n: float = Field(ge=0, le=0.05, default=9.27e-3)
+    body_inertia_kg_m2: float = Field(ge=1e-6, le=1e-2, default=1.29e-4)
+    nut_kg: float = Field(ge=0, le=0.1, default=0.010)
+    nut_radius_m: float = Field(ge=0, le=0.1, default=0.020)
+    damping_per_s: float = Field(ge=0, le=1, default=0.0)
+
+
+# ── the standing string ──────────────────────────────────────────────────────
+# No route: the page asks the port (``simulate/string.ts``).
+
+
+class StringCordIn(_In):
+    length_m: float = Field(ge=0.2, le=5, default=1.0)
+    tension_n: float = Field(ge=0.05, le=100, default=3.0)
+    density_kg_m: float = Field(ge=0.0002, le=0.1, default=0.0005)
+    damping_per_s: float = Field(ge=0.01, le=20, default=12.0)
+    drive_m: float = Field(gt=0, le=0.01, default=0.002)
+
+
+# ── the metronomes ───────────────────────────────────────────────────────────
+# No route: the page asks the port (``simulate/metronomes.ts``).
+
+
+class MetronomesIn(_In):
+    count: int = Field(ge=1, le=7, default=5)
+    board_kg: float = Field(ge=0, le=10, default=0.058)
+    spread: float = Field(ge=0, le=0.1, default=0.004)
+    free: bool = True
 
 
 # ── the pages' starting point ────────────────────────────────────────────────
@@ -950,6 +1085,7 @@ class ExperimentsDefaultsOut(_Out):
     peg: PegPendulumIn
     maxwell: MaxwellWheelIn
     chaos: DoublePendulumIn
+    kapitza: KapitzaPendulumIn
     waterwheel: WaterWheelIn
     foucault: FoucaultPendulumIn
     coriolis: CarouselIn
@@ -961,13 +1097,22 @@ class ExperimentsDefaultsOut(_Out):
     levitation: LevitationIn
     circuit: CircuitIn
     plates: PlatesIn
+    vessel: DrainingVesselIn
     bounce: BounceIn
     overhang: OverhangIn
+    galton: GaltonIn
+    film: FilmIn
     diver: DiverExhibitIn
+    ship: ShipIn
     rainbow: RainbowIn
     sky: SkyTubeIn
     slits: SlitsIn
+    polarizer: PolarizerSheetIn
+    jet: WaterJetIn
     beats: BeatsIn
+    spring: WilberforceSpringIn
+    metronomes: MetronomesIn
+    string: StringCordIn
     chladni: ChladniPlateIn
     #: The exhibit's meter: digital, ± this many amperes.
     meter_range_a: float

@@ -21,7 +21,7 @@ const run = (count: number, pool?: readonly WeeklyMember[], weights?: WeeklyWeig
     .reverse();
 
 /** The draw with neither bonus nor malus: what the weights are measured against. */
-const EVEN: WeeklyWeights = { bonusPerWeek: 0, topicMalus: 1, pairMalus: 1 };
+const EVEN: WeeklyWeights = { topicMalus: 1, pairMalus: 1 };
 
 const built = EXHIBITS.map((entry) => entry.exhibit);
 
@@ -128,26 +128,6 @@ describe("the experiment of the week", () => {
     const even = again(run(built.length * 400, pool, EVEN));
     expect(even).toBeGreaterThan(200);
     expect(leaned).toBeLessThan(even * 0.5);
-  });
-
-  it("brings an exhibit that has waited long sooner (the bonus)", () => {
-    const pool = built.map((exhibit) => ({ exhibit, since: WEEKLY_EPOCH }));
-    /** How many turns came after a wait of more than a round and two weeks. */
-    const late = (weeks: string[]) =>
-      weeks.filter((exhibit, i) => {
-        // lastIndexOf from -1 would search from the end: the first week has none before it.
-        const before = i > 0 ? weeks.lastIndexOf(exhibit, i - 1) : -1;
-        return before !== -1 && i - before > built.length + 2;
-      }).length;
-    const leaned = late(run(built.length * 1200, pool));
-    const even = late(run(built.length * 1200, pool, EVEN));
-    expect(even).toBeGreaterThan(50);
-    // With eight exhibits the bonus cut such turns by a quarter; with fifteen,
-    // by an eighth; with sixteen, by a tenth; with 35, by a thirty-sixth
-    // (14966 against 15376 over 1200 rounds): a week's weight is
-    // fixed while a round grows, and stays so (Marcel weakened the maluses
-    // instead, 2026-11-15). Still fewer.
-    expect(leaned).toBeLessThan(even * 0.98);
   });
 
   it("keeps the first round as drawn: what the live site will have shown", () => {
