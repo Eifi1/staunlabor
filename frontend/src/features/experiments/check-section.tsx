@@ -8,6 +8,7 @@ import { askCheckSetting } from "./check-setting";
 import { checkCases, type CheckCase } from "./checks";
 import { Equation } from "./equation";
 import type { Exhibit } from "./exhibits";
+import { PART_TARGET } from "./exhibit-nav";
 
 /** The section's anchor, which the check status under the title links to. */
 export const CHECKS_ANCHOR = "check-it";
@@ -164,7 +165,7 @@ export function CheckSection({ exhibit }: { exhibit: Exhibit }) {
       <CardHeader>
         <div className="flex items-center gap-2">
           <ClipboardCheck className="size-5 shrink-0 text-brand" aria-hidden />
-          <CardTitle as="h2" id={CHECKS_ANCHOR}>
+          <CardTitle as="h2" id={CHECKS_ANCHOR} tabIndex={-1} className={PART_TARGET}>
             {t("experiments.checks.title")}
           </CardTitle>
         </div>

@@ -37,6 +37,14 @@ Every exhibit gets one page in one shape:
    2026-11-20); at the foot, back to every exhibit and on to the next one in
    the list's order.
 
+Under the title a bar names the parts, held under the site's header while
+the page scrolls and marking the part being read (Marcel, 2026-11-24): Try
+it, What happens, How it is computed (not on the chair, which does not
+move), The trick, Check it yourself (`exhibit-nav.tsx`). Its entries are the
+parts' own headings; a jump to one adds no entry to the browser's history,
+and the mark is worked out in the browser alone, so nothing of it leaves
+the page.
+
 The prose reads at 75 characters a line at most (a paragraph across a wide
 screen ran to some 250); the figures, charts and equations keep the page's
 full width. The frame (`exhibit-frame.tsx`) owns all of this, so every page
