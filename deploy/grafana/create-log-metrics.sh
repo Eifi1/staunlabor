@@ -7,7 +7,7 @@
 #
 #   bash deploy/grafana/create-log-metrics.sh
 #
-# Five metrics, none holding anything about a visitor:
+# Six metrics, none holding anything about a visitor:
 #   staunlabor_api_latency      the backend's line (request_log.py): time in the
 #                               app, by route template, method and status
 #   staunlabor_api_requests     the same lines counted, by route, status, cold and
@@ -22,6 +22,13 @@
 #                               from its request log, of which only the status is
 #                               taken: the address and browser in those entries
 #                               never reach the metric
+#   staunlabor_web_sources      page views (not files, not /api, not bots) by
+#                               the site the visitor came from: only that
+#                               site's name, taken from the Referer in Cloud
+#                               Run's request log; the address, the browser and
+#                               the rest of the referring URL never reach the
+#                               metric (Marcel, 2026-11-24: where visitors come
+#                               from, without an analytics tool)
 #
 # User-defined log-based metrics are chargeable Cloud Monitoring metrics: 80
 # bytes a point for a distribution, 8 for a counter, one point a minute for
@@ -172,6 +179,33 @@ metricDescriptor:
     - key: status
       valueType: STRING
       description: "The status Cloud Run answered: 429 or 500."
+YAML
+
+# Page views by the site they came from (Marcel, 2026-11-24): how the site is
+# found, e.g. after a LinkedIn post, without an analytics tool. Read from Cloud
+# Run's request log of the web service, which the privacy policy names; only
+# the referring site's host reaches the metric ("linkedin.com"), never its
+# path, the address or the browser. A page view is a GET answered 200 for a
+# path without a file extension, outside /api: the SPA's pages, not their files.
+# Left out: the probes for WordPress (the SPA answers any path with 200) and
+# agents that say they are bots, crawlers or link previews. An empty source is
+# no Referer at all: typed in, a bookmark, or an app that sends none (the
+# LinkedIn app often does not); an app's own scheme (android-app://) gives the
+# app's name. Few distinct sources, so few series: a counter costs 8 bytes a
+# point.
+metric staunlabor_web_sources <<YAML
+description: "Page views of the web service (no files, no /api, no bots), by the site the visitor came from: only that site's host from the Referer, nothing else of the request."
+filter: 'resource.type="cloud_run_revision" AND resource.labels.service_name="staunlabor-web" AND httpRequest.requestMethod="GET" AND httpRequest.status=200 AND httpRequest.requestUrl=~"^https?://[^/]+/[^.?]*([?].*)?\$" AND NOT httpRequest.requestUrl:"/api/" AND NOT httpRequest.requestUrl:"/wp" AND NOT httpRequest.userAgent=~"(?i)(bot|crawl|spider|slurp|preview|facebookexternalhit|curl|wget|python|go-http|headless|monitor)"'
+labelExtractors:
+  source: REGEXP_EXTRACT(httpRequest.referer, "^[a-z-]+://(?:www[.])?([^/:?#]+)")
+metricDescriptor:
+  metricKind: DELTA
+  valueType: INT64
+  unit: "1"
+  labels:
+    - key: source
+      valueType: STRING
+      description: "The referring site's host without www, e.g. linkedin.com; empty when the browser sent no Referer."
 YAML
 
 echo

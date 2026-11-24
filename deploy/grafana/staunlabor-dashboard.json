@@ -3485,6 +3485,176 @@
           "sort": "desc"
         }
       }
+    },
+    {
+      "id": 39,
+      "type": "row",
+      "title": "7 · Where visitors come from: page views by the referring site (its name only, no bots)",
+      "collapsed": false,
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 122
+      },
+      "panels": []
+    },
+    {
+      "id": 40,
+      "type": "timeseries",
+      "title": "Page views per hour, by where they came from",
+      "description": "From Cloud Run's request log of the web service: GETs answered 200 for a page (no files, no /api, no WordPress probes, no agents that call themselves bots). Only the referring site's host is kept. 'No referrer' is typed in, a bookmark, or an app that sends none — the LinkedIn app often sends none, so LinkedIn's own post analytics count its clicks better. staunlabor.app is a reload or a page opened from the site itself.",
+      "datasource": {
+        "type": "stackdriver",
+        "uid": "${DS_CLOUD_MONITORING}"
+      },
+      "gridPos": {
+        "h": 9,
+        "w": 12,
+        "x": 0,
+        "y": 123
+      },
+      "interval": "1h",
+      "fieldConfig": {
+        "defaults": {
+          "unit": "short",
+          "custom": {
+            "drawStyle": "bars",
+            "lineWidth": 1,
+            "fillOpacity": 80,
+            "stacking": {
+              "mode": "normal",
+              "group": "A"
+            },
+            "axisSoftMin": 0
+          }
+        },
+        "overrides": []
+      },
+      "targets": [
+        {
+          "refId": "A",
+          "datasource": {
+            "type": "stackdriver",
+            "uid": "${DS_CLOUD_MONITORING}"
+          },
+          "queryType": "timeSeriesList",
+          "timeSeriesList": {
+            "projectName": "$project",
+            "filters": [
+              "metric.type",
+              "=",
+              "logging.googleapis.com/user/staunlabor_web_sources",
+              "AND",
+              "resource.label.service_name",
+              "=",
+              "staunlabor-web"
+            ],
+            "groupBys": [
+              "metric.label.source"
+            ],
+            "perSeriesAligner": "ALIGN_DELTA",
+            "crossSeriesReducer": "REDUCE_SUM",
+            "alignmentPeriod": "+3600s",
+            "view": "FULL"
+          },
+          "aliasBy": "from {{metric.label.source}}"
+        }
+      ],
+      "transformations": [
+        {
+          "id": "renameByRegex",
+          "options": {
+            "regex": "^from\\s*$",
+            "renamePattern": "no referrer (typed, bookmark, app)"
+          }
+        }
+      ],
+      "options": {
+        "legend": {
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "mode": "multi",
+          "sort": "desc"
+        }
+      }
+    },
+    {
+      "id": 41,
+      "type": "bargauge",
+      "title": "Page views over the range, by where they came from",
+      "description": "The same count, summed over the dashboard's range: the week after a post, for instance.",
+      "datasource": {
+        "type": "stackdriver",
+        "uid": "${DS_CLOUD_MONITORING}"
+      },
+      "gridPos": {
+        "h": 9,
+        "w": 12,
+        "x": 12,
+        "y": 123
+      },
+      "interval": "1h",
+      "fieldConfig": {
+        "defaults": {
+          "unit": "short"
+        },
+        "overrides": []
+      },
+      "targets": [
+        {
+          "refId": "A",
+          "datasource": {
+            "type": "stackdriver",
+            "uid": "${DS_CLOUD_MONITORING}"
+          },
+          "queryType": "timeSeriesList",
+          "timeSeriesList": {
+            "projectName": "$project",
+            "filters": [
+              "metric.type",
+              "=",
+              "logging.googleapis.com/user/staunlabor_web_sources",
+              "AND",
+              "resource.label.service_name",
+              "=",
+              "staunlabor-web"
+            ],
+            "groupBys": [
+              "metric.label.source"
+            ],
+            "perSeriesAligner": "ALIGN_DELTA",
+            "crossSeriesReducer": "REDUCE_SUM",
+            "alignmentPeriod": "cloud-monitoring-auto",
+            "view": "FULL"
+          },
+          "aliasBy": "from {{metric.label.source}}"
+        }
+      ],
+      "transformations": [
+        {
+          "id": "renameByRegex",
+          "options": {
+            "regex": "^from\\s*$",
+            "renamePattern": "no referrer (typed, bookmark, app)"
+          }
+        }
+      ],
+      "options": {
+        "orientation": "horizontal",
+        "displayMode": "basic",
+        "showUnfilled": true,
+        "reduceOptions": {
+          "calcs": [
+            "sum"
+          ],
+          "fields": "",
+          "values": false
+        }
+      }
     }
   ]
 }

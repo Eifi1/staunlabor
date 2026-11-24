@@ -9,7 +9,7 @@ Grafana stores none of it.
 | File | What it is |
 | --- | --- |
 | `staunlabor-dashboard.json` | The dashboard: one row per bottleneck, 31 panels, all queries in Grafana's query builder for Cloud Monitoring (`timeSeriesList`), as Keksdose's dashboards |
-| `create-log-metrics.sh` | The five log-based metrics the per-route panels read; the owner runs it |
+| `create-log-metrics.sh` | The six log-based metrics the per-route panels and the sources' row read; the owner runs it |
 | `../../backend/staunlabor/request_log.py` | The backend's one line per `/api` request they are made from |
 
 Every command below is the project owner's to run. Nothing here is run by CI,
@@ -47,7 +47,20 @@ metric values, never log entries. Do not give it `roles/logging.viewer`: Cloud
 Run's request log holds every visitor's IP address and browser, which would
 make Grafana Labs a processor of personal data that the privacy policy does not
 name. The log-based metrics are read in Google's project, and what leaves it is
-counts and durations by route, method and status.
+counts and durations by route, method and status, and page views by the
+referring site's name.
+
+**Where visitors come from** (row 7, Marcel, 2026-11-24): `staunlabor_web_sources`
+counts the web service's page views by the host of the Referer in Cloud Run's
+request log (`linkedin.com`, `google.com`, empty for none), and nothing else
+of the entry: no address, no browser, no path of the referring page. It
+leaves out files, `/api`, the WordPress probes and agents that call themselves
+bots or link previews. It is a count from logs the policy names, not an
+analytics tool: nothing runs in the visitor's browser and no visitor is told
+apart from another. Most entries carry no Referer (typed, bookmarked, or an
+app such as LinkedIn's), so a post's clicks are better read in LinkedIn's
+own analytics; on 2026-11-24, the day of the first post, 45 of 74 page views
+had none.
 
 ## Set-up, in order
 
@@ -77,6 +90,7 @@ during it.
 | `staunlabor_api_cpu` | distribution, ms | the backend's line: `cpu_ms` | `route` |
 | `staunlabor_api_cold` | distribution, ms | the backend's line with `cold=true`: `duration_ms` | `route` |
 | `staunlabor_run_no_instance` | counter | Cloud Run's entries with "no available instance" | `status` |
+| `staunlabor_web_sources` | counter | Cloud Run's request log of the web service: page views, no bots | `source` (the Referer's host) |
 
 Each also carries the entry's resource labels (`service_name`,
 `revision_name`, …) and the `log` label every log-based metric gets.
@@ -217,7 +231,7 @@ Grafana's (grafana.com/pricing, the same day).
 | Grafana Cloud Free | 10k active metric series, 50 GB logs and 50 GB traces a month, 14 days' retention, 3 active users | this dashboard ingests nothing into Grafana Cloud, so it uses none of it (the series are Keksdose's pushed app metrics); the data source is one of Grafana's own |
 | Cloud Run's and Cloud SQL's metrics | non-chargeable Google Cloud metrics | free |
 | The backend's lines in Cloud Logging | $0.50/GiB beyond the first **50 GiB per project a month**, 30 days' storage included; the `_Default` bucket keeps 30 days | a line is about 250 bytes: a million requests are a quarter of a GiB. Free |
-| The five log-based metrics | chargeable custom metrics: **$0.2580/MiB** beyond the first **150 MiB per billing account a month**; a distribution point counts **80 bytes**, a counter point **8**; one point a minute per label combination that saw a request in that minute | a post's day, 4 hours with 30 busy combinations on two distributions: 2 × 30 × 240 × 80 B ≈ 1.1 MiB. A combination busy every minute of a month is 3.3 MiB (≈ $0.85 once past the free 150): twenty on two distributions, around the clock, ≈ 132 MiB, still free |
+| The six log-based metrics | chargeable custom metrics: **$0.2580/MiB** beyond the first **150 MiB per billing account a month**; a distribution point counts **80 bytes**, a counter point **8**; one point a minute per label combination that saw a request in that minute | a post's day, 4 hours with 30 busy combinations on two distributions: 2 × 30 × 240 × 80 B ≈ 1.1 MiB. A combination busy every minute of a month is 3.3 MiB (≈ $0.85 once past the free 150): twenty on two distributions, around the clock, ≈ 132 MiB, still free |
 | Reading the metrics (Monitoring API) | **$0.50 per million time series returned** beyond the first **million per billing account a month** (since 2025-10-02); console reads are free | one refresh returns about 100–300 series, depending on how many routes saw requests: at the 1-minute refresh about 15,000 an hour, so some 66 free hours a month. Left open around the clock, about $5 a month. Grafana queries only while a browser shows the dashboard: it has no alert rules, and Keksdose's alert rules read only its own pushed metrics |
 | The binding, Keksdose's reader and its key, the Resource Manager API | free | |
 
@@ -271,7 +285,10 @@ durations, so the policy's sentences stay true: the hosting provider still logs
 each request with the address and browser (Cloud Run's request log, as before),
 the server still keeps the address in memory only, the request logs still go
 after 30 days (the `_Default` bucket's retention; the metrics are aggregates,
-not logs), and no tracking or analytics tool watches a visitor. Should the
+not logs), and no tracking or analytics tool watches a visitor. Since
+2026-11-24 the policy names the page a visitor came from among what the host
+logs, and says that page views are counted by the referring site's name
+(`legal.privacy.data`), for row 7. Should the
 policy one day say so, a sentence such as "the server counts requests and
 measures their duration per route, without any detail about you" would cover
 it; nothing requires it.
