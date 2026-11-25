@@ -2,6 +2,8 @@
 
 All notable changes to Staunlabor are documented in this file, generated from the commit messages by commit-and-tag-version at each release.
 
+## [0.1.15](https://github.com/Eifi1/staunlabor/compare/v0.1.14...v0.1.15) (2026-11-25)
+
 ## [0.1.14](https://github.com/Eifi1/staunlabor/compare/v0.1.13...v0.1.14) (2026-11-23)
 
 ### Added
