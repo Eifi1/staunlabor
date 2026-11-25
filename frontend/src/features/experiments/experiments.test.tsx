@@ -300,6 +300,52 @@ describe("trying an exhibit", () => {
   });
 });
 
+describe("the bar of an exhibit's parts", () => {
+  const partsOf = async () => {
+    const bar = await screen.findByRole("navigation", { name: E.frame.parts });
+    return within(bar)
+      .getAllByRole("link")
+      .map((link) => [link.textContent, link.getAttribute("href")]);
+  };
+
+  it("links every part a moving exhibit has, in the page's order, each to its heading", async () => {
+    renderWithProviders(<CradlePage />);
+    const parts = await partsOf();
+    expect(parts).toEqual([
+      [E.frame.try_it, "#try-it"],
+      [E.frame.what_happens, "#what-happens"],
+      [E.frame.computed, "#computed"],
+      [E.frame.sweet_spot, "#sweet-spot"],
+      [E.checks.title, "#check-it"],
+    ]);
+    for (const [name, href] of parts) {
+      expect(screen.getByRole("heading", { level: 2, name: name as string })).toHaveAttribute(
+        "id",
+        (href as string).slice(1),
+      );
+    }
+  });
+
+  it("leaves out How it is computed for the chair, which does not move", async () => {
+    renderWithProviders(<ChairPage />);
+    const names = (await partsOf()).map(([name]) => name);
+    expect(names).not.toContain(E.frame.computed);
+    expect(names).toContain(E.frame.sweet_spot);
+  });
+
+  it("moves to a part without putting an entry in the history", async () => {
+    renderWithProviders(<CradlePage />);
+    const bar = await screen.findByRole("navigation", { name: E.frame.parts });
+    const length = window.history.length;
+    const heading = screen.getByRole("heading", { level: 2, name: E.frame.sweet_spot });
+    heading.scrollIntoView = vi.fn();
+    fireEvent.click(within(bar).getByRole("link", { name: E.frame.sweet_spot }));
+    expect(heading.scrollIntoView).toHaveBeenCalled();
+    expect(heading).toHaveFocus();
+    expect(window.history.length).toBe(length);
+  });
+});
+
 describe("a preview", () => {
   it("is the exhibit's own drawing, held still where motion cannot be asked about", async () => {
     renderWithProviders(<ExhibitPreview exhibit="cannon" />);

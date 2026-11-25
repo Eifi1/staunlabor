@@ -1,6 +1,6 @@
 import { useTranslation } from "react-i18next";
 import { BookOpen, ClipboardCheck, SlidersHorizontal } from "lucide-react";
-import { Button, Card, CardHeader, CardTitle, Chip, TextLink } from "@eifi1/ui-kit";
+import { Button, Card, CardHeader, CardTitle, Chip, PAGE_CONTENTS_BAR_TARGET, TextLink } from "@eifi1/ui-kit";
 import { useLocale } from "@/shared/i18n/use-locale";
 import { formatSig, powerOfTen, superscript } from "@/shared/lib/format";
 import { CHECK_FORMULAS } from "./check-formulas";
@@ -164,7 +164,7 @@ export function CheckSection({ exhibit }: { exhibit: Exhibit }) {
       <CardHeader>
         <div className="flex items-center gap-2">
           <ClipboardCheck className="size-5 shrink-0 text-brand" aria-hidden />
-          <CardTitle as="h2" id={CHECKS_ANCHOR}>
+          <CardTitle as="h2" id={CHECKS_ANCHOR} className={PAGE_CONTENTS_BAR_TARGET}>
             {t("experiments.checks.title")}
           </CardTitle>
         </div>

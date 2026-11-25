@@ -11,18 +11,41 @@
 import type { ReactNode } from "react";
 import { useTranslation } from "react-i18next";
 import { ArrowLeft, ArrowRight, Cpu, FlaskConical, Lightbulb } from "lucide-react";
-import { Button, Card, CardHeader, CardTitle, PageHeader, SectionLabel, TextLink } from "@eifi1/ui-kit";
+import { useMemo } from "react";
+import {
+  Button,
+  Card,
+  CardHeader,
+  CardTitle,
+  PAGE_CONTENTS_BAR_TARGET,
+  PageContents,
+  PageHeader,
+  SectionLabel,
+  TextLink,
+  useScrollSpy,
+  type PageContentsItem,
+} from "@eifi1/ui-kit";
 import { PAGE_SHELL } from "@/shared/ui/page-shell";
 import { lessonEntry } from "@/features/course/lessons";
 import { EXHIBITS, EXHIBITS_PATH, exhibitEntry, type Exhibit } from "./exhibits";
 import { useTried } from "./tried";
-import { CheckSection } from "./check-section";
+import { CHECKS_ANCHOR, CheckSection } from "./check-section";
+import { checkCases } from "./checks";
 import { CheckStatus } from "./check-status";
 
 /** Prose at a reading measure: a paragraph across a wide screen ran to some
  *  250 characters a line, where 60 to 80 read well. Paragraphs only — the
  *  figures, charts and equations beside them keep the full width. */
 const PROSE = "[&_p]:max-w-[75ch]";
+
+/** The anchors of the page's parts, which the bar under the header links to;
+ *  the checks' is `CHECKS_ANCHOR`, which the check status links to as well. */
+const PARTS = {
+  tryIt: "try-it",
+  whatHappens: "what-happens",
+  computed: "computed",
+  sweetSpot: "sweet-spot",
+} as const;
 
 /** The exhibit after `exhibit` in the list, the first after the last. */
 function nextExhibit(exhibit: Exhibit) {
@@ -56,6 +79,23 @@ export function ExhibitFrame({
   const mark = useTried((state) => state.mark);
   const tried = () => mark(exhibit);
   const next = nextExhibit(exhibit);
+  // The bar names the parts this page has: the chair, which does not move,
+  // has no "How it is computed", and an exhibit without cases no checks.
+  const parts: PageContentsItem[] = [
+    { id: PARTS.tryIt, label: t("experiments.frame.try_it") },
+    { id: PARTS.whatHappens, label: t("experiments.frame.what_happens") },
+    ...(computed ? [{ id: PARTS.computed, label: t("experiments.frame.computed") }] : []),
+    { id: PARTS.sweetSpot, label: t("experiments.frame.sweet_spot") },
+    ...(checkCases(exhibit).length > 0 ? [{ id: CHECKS_ANCHOR, label: t("experiments.checks.title") }] : []),
+  ];
+  // Keyed by the ids' text: `parts` is built anew on every render, and a new
+  // array each time would set the spy up again each time.
+  const key = parts.map((part) => part.id).join(" ");
+  const ids = useMemo(() => key.split(" "), [key]);
+  // The reading line a fifth down the window: below the two bars on a phone
+  // (some 100 px of some 640), so a part counts as read once its heading has
+  // gone under them.
+  const active = useScrollSpy(ids, { line: 0.2 });
   return (
     <div className={PAGE_SHELL}>
       {/* The way back to the list, now that the header names no exhibit. */}
@@ -71,6 +111,20 @@ export function ExhibitFrame({
       />
 
       <CheckStatus exhibit={exhibit} />
+
+      {/* The parts as a bar held under the site's header while the page
+          scrolls (Marcel, 2026-11-24): every page has the same parts, so a
+          reader can jump to the trick or the checks of any exhibit and sees
+          where in the page they are. The kit's (0.66), built from this site's
+          first one; a jump adds no history entry, and the mark is worked out
+          in the browser alone. Out to the column's edges, as the header. */}
+      <PageContents
+        variant="bar"
+        items={parts}
+        activeId={active}
+        labels={{ title: t("experiments.frame.parts") }}
+        className="top-14 -mx-3 px-3 md:-mx-6 md:px-6"
+      />
 
       <Card padding="md" density="compact" className="border-l-4 border-l-brand">
         <div className="flex gap-3">
@@ -88,8 +142,13 @@ export function ExhibitFrame({
       {/* Anything the reader does in here is trying the exhibit: the
           overview ticks it from then on (`tried.ts`). Captured, so a control
           that stops its event still counts. */}
-      <section className="space-y-4" aria-labelledby="try-it" onPointerDownCapture={tried} onKeyDownCapture={tried}>
-        <SectionLabel as="h2" id="try-it">
+      <section
+        className="space-y-4"
+        aria-labelledby={PARTS.tryIt}
+        onPointerDownCapture={tried}
+        onKeyDownCapture={tried}
+      >
+        <SectionLabel as="h2" id={PARTS.tryIt} className={PAGE_CONTENTS_BAR_TARGET}>
           {t("experiments.frame.try_it")}
         </SectionLabel>
         {children}
@@ -97,7 +156,9 @@ export function ExhibitFrame({
 
       <Card padding="md" density="compact" className="space-y-3">
         <CardHeader>
-          <CardTitle as="h2">{t("experiments.frame.what_happens")}</CardTitle>
+          <CardTitle as="h2" id={PARTS.whatHappens} className={PAGE_CONTENTS_BAR_TARGET}>
+            {t("experiments.frame.what_happens")}
+          </CardTitle>
         </CardHeader>
         <div className={`space-y-3 text-sm text-secondary ${PROSE}`}>{whatHappens}</div>
       </Card>
@@ -107,7 +168,9 @@ export function ExhibitFrame({
           <CardHeader>
             <div className="flex items-center gap-2">
               <Cpu className="size-5 shrink-0 text-brand" aria-hidden />
-              <CardTitle as="h2">{t("experiments.frame.computed")}</CardTitle>
+              <CardTitle as="h2" id={PARTS.computed} className={PAGE_CONTENTS_BAR_TARGET}>
+                {t("experiments.frame.computed")}
+              </CardTitle>
             </div>
           </CardHeader>
           <div className={`space-y-3 text-sm text-secondary ${PROSE}`}>{computed}</div>
@@ -131,7 +194,9 @@ export function ExhibitFrame({
         <CardHeader>
           <div className="flex items-center gap-2">
             <Lightbulb className="size-5 shrink-0 text-success" aria-hidden />
-            <CardTitle as="h2">{t("experiments.frame.sweet_spot")}</CardTitle>
+            <CardTitle as="h2" id={PARTS.sweetSpot} className={PAGE_CONTENTS_BAR_TARGET}>
+              {t("experiments.frame.sweet_spot")}
+            </CardTitle>
           </div>
         </CardHeader>
         <div className={`space-y-3 text-sm text-secondary ${PROSE}`}>{sweetSpot}</div>

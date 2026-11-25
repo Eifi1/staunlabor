@@ -15,13 +15,17 @@ import { AccountFeedbackPage } from "@eifi1/ui-kit/accounts";
  * The kit's header, with one sentence of the site's under its title (Marcel, 2026-11-15, in
  * place of terms of use): feedback is sent under CC BY 4.0, the licence of every text here,
  * so ideas and wording from it may be taken over.
+ *
+ * No screenshot button (`onCaptureScreenshot={null}`, ui-kit 0.66): the kit's capture needs
+ * `modern-screenshot`, which this site does not install, so the button always failed. A
+ * reporter attaches a picture of their own instead.
  */
 export function FeedbackInboxPage() {
-  return <AccountFeedbackPage mine={false} header={useLicensedHeader()} />;
+  return <AccountFeedbackPage mine={false} header={useLicensedHeader()} onCaptureScreenshot={null} />;
 }
 
 export function MyFeedbackPage() {
-  return <AccountFeedbackPage mine header={useLicensedHeader()} />;
+  return <AccountFeedbackPage mine header={useLicensedHeader()} onCaptureScreenshot={null} />;
 }
 
 function useLicensedHeader() {
