@@ -40,7 +40,8 @@ Every exhibit gets one page in one shape:
 Under the title a bar names the parts, held under the site's header while
 the page scrolls and marking the part being read (Marcel, 2026-11-24): Try
 it, What happens, How it is computed (not on the chair, which does not
-move), The trick, Check it yourself (`exhibit-nav.tsx`). Its entries are the
+move), The trick, Check it yourself. It is the kit's `PageContents
+variant="bar"` (0.66, built from this site's first one). Its entries are the
 parts' own headings; a jump to one adds no entry to the browser's history,
 and the mark is worked out in the browser alone, so nothing of it leaves
 the page.
