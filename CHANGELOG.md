@@ -2,6 +2,12 @@
 
 All notable changes to Staunlabor are documented in this file, generated from the commit messages by commit-and-tag-version at each release.
 
+## [0.1.16](https://github.com/Eifi1/staunlabor/compare/v0.1.15...v0.1.16) (2026-11-25)
+
+### Added
+
+* **exhibits:** a bar of the page's parts; where visitors come from; ui-kit 0.66.1 ([#11](https://github.com/Eifi1/staunlabor/issues/11)) ([93259af](https://github.com/Eifi1/staunlabor/commit/93259affb5ac95fdc7cccc9f5dddaadac84f89a8))
+
 ## [0.1.15](https://github.com/Eifi1/staunlabor/compare/v0.1.14...v0.1.15) (2026-11-25)
 
 ## [0.1.14](https://github.com/Eifi1/staunlabor/compare/v0.1.13...v0.1.14) (2026-11-23)
