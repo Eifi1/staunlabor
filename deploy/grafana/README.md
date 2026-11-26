@@ -8,7 +8,7 @@ Grafana stores none of it.
 
 | File | What it is |
 | --- | --- |
-| `staunlabor-dashboard.json` | The dashboard: one row per bottleneck, 31 panels, all queries in Grafana's query builder for Cloud Monitoring (`timeSeriesList`), as Keksdose's dashboards |
+| `staunlabor-dashboard.json` | The dashboard: one row per bottleneck and one for where visitors come from, 33 panels, all queries in Grafana's query builder for Cloud Monitoring (`timeSeriesList`), as Keksdose's dashboards |
 | `create-log-metrics.sh` | The six log-based metrics the per-route panels and the sources' row read; the owner runs it |
 | `../../backend/staunlabor/request_log.py` | The backend's one line per `/api` request they are made from |
 
