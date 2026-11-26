@@ -1888,7 +1888,7 @@
         "regime_starting": "En 200 secondes, la roue ne trouve ici pas encore de marche stable.",
         "rate": "Rotation de la roue",
         "rpm": "tr/min",
-        "hopf": "Chaos dès un robinet de"
+        "hopf": "Instable dès un robinet de"
       },
       "model": {
         "intro": "Ce qui compte, c'est la répartition de l'eau autour de la roue – plus précisément, à quelle distance son centre de gravité se trouve à côté de l'axe et au-dessus ou au-dessous. Avec cela et la rotation de la roue s'écrivent trois équations.",
@@ -4049,7 +4049,7 @@
           },
           "threshold": {
             "title": "Le seuil du chaos",
-            "setting": "Frein σ = 15 au lieu de 10 ; relevé dans l’encadré « Chaos dès un robinet de ».",
+            "setting": "Frein σ = 15 au lieu de 10 ; relevé dans l’encadré « Instable dès un robinet de ».",
             "reads": "Au-dessus de ρ_H = σ(σ + b + 3)/(σ − b − 1), même la rotation régulière n’est plus stable.",
             "why": "Vérifie le seuil qu’indique la page, avec le b de la roue : 21,9 pour σ = 15. Avec le b = 8/3 de Lorenz, on y lirait 27,4.",
             "step": "Les deux premières sources donnent le seuil pour tout b ; on y met le b = 1 de la roue à eau, tiré de la troisième."

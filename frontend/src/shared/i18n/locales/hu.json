@@ -1888,7 +1888,7 @@
         "regime_starting": "A kerék itt 200 másodperc alatt még nem talál egyenletes járásba.",
         "rate": "A kerék fordulatszáma",
         "rpm": "ford./perc",
-        "hopf": "Káosz ettől a csaptól"
+        "hopf": "Nyugtalan ettől a csaptól"
       },
       "model": {
         "intro": "Az számít, hogyan oszlik el a víz a kerék körül – pontosabban, milyen messze van a súlypontja oldalt a tengelytől, és fölötte vagy alatta. Ezzel és a kerék forgásával három egyenlet írható fel.",
@@ -4049,7 +4049,7 @@
           },
           "threshold": {
             "title": "A káosz határa",
-            "setting": "Fék σ = 15 a 10 helyett; a „Káosz ettől a csaptól” mezőről leolvasva.",
+            "setting": "Fék σ = 15 a 10 helyett; a „Nyugtalan ettől a csaptól” mezőről leolvasva.",
             "reads": "ρ_H = σ(σ + b + 3)/(σ − b − 1) fölött már az egyenletes forgás sem stabil.",
             "why": "Az oldal által megadott határt ellenőrzi, a kerék b-jével: 21,9 σ = 15 mellett. Lorenz b = 8/3 értékével 27,4 állna ott.",
             "step": "Az első két forrás bármely b-re megadja a határt; ebbe a vízkerék b = 1 értéke kerül, a harmadik forrásból."
