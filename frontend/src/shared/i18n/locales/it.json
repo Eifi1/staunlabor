@@ -1888,7 +1888,7 @@
         "regime_starting": "In 200 secondi la ruota qui non trova ancora un andamento stabile.",
         "rate": "Rotazione della ruota",
         "rpm": "giri/min",
-        "hopf": "Caos da un rubinetto di"
+        "hopf": "Instabile da un rubinetto di"
       },
       "model": {
         "intro": "Ciò che conta è come l'acqua è distribuita attorno alla ruota – più precisamente, quanto il suo baricentro si trova di lato rispetto all'asse e sopra o sotto. Con questo e la rotazione della ruota si scrivono tre equazioni.",
@@ -4049,7 +4049,7 @@
           },
           "threshold": {
             "title": "La soglia del caos",
-            "setting": "Freno σ = 15 invece di 10; letto nel riquadro «Caos da un rubinetto di».",
+            "setting": "Freno σ = 15 invece di 10; letto nel riquadro «Instabile da un rubinetto di».",
             "reads": "Sopra ρ_H = σ(σ + b + 3)/(σ − b − 1) nemmeno la rotazione regolare è più stabile.",
             "why": "Verifica la soglia che indica la pagina, con la b della ruota: 21,9 con σ = 15. Con la b = 8/3 di Lorenz vi si leggerebbe 27,4.",
             "step": "Le prime due fonti danno la soglia per qualsiasi b; vi si inserisce la b = 1 della ruota idraulica, presa dalla terza."

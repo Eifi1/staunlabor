@@ -1888,7 +1888,7 @@
         "regime_starting": "In 200 Sekunden findet das Rad hier noch in keinen festen Lauf.",
         "rate": "Drehzahl des Rads",
         "rpm": "U/min",
-        "hopf": "Chaos ab Hahn"
+        "hopf": "Unruhig ab Hahn"
       },
       "model": {
         "intro": "Was zählt, ist, wie das Wasser um das Rad verteilt ist – genauer: wie weit sein Schwerpunkt seitlich und in der Höhe von der Achse liegt. Damit und mit der Drehrate des Rads schreiben sich drei Gleichungen.",
@@ -4049,7 +4049,7 @@
           },
           "threshold": {
             "title": "Die Schwelle zum Chaos",
-            "setting": "Bremse σ = 15 statt 10; abgelesen an der Kachel «Chaos ab Hahn».",
+            "setting": "Bremse σ = 15 statt 10; abgelesen an der Kachel «Unruhig ab Hahn».",
             "reads": "Oberhalb von ρ_H = σ(σ + b + 3)/(σ − b − 1) ist auch das gleichmässige Drehen nicht mehr stabil.",
             "why": "Prüft die Schwelle, die die Seite nennt, mit dem b des Rads: 21.9 bei σ = 15. Mit Lorenz' b = 8/3 stünde dort 27.4.",
             "step": "Die ersten beiden Quellen geben die Schwelle für jedes b; eingesetzt ist b = 1 des Wasserrads aus der dritten."

@@ -1888,7 +1888,7 @@
         "regime_starting": "En 200 segundos la rueda aquí aún no encuentra una marcha estable.",
         "rate": "Giro de la rueda",
         "rpm": "rpm",
-        "hopf": "Caos a partir de un grifo de"
+        "hopf": "Inestable a partir de un grifo de"
       },
       "model": {
         "intro": "Lo que cuenta es cómo se reparte el agua alrededor de la rueda – más exactamente, a qué distancia queda su centro de masa al lado del eje y por encima o por debajo. Con eso y el giro de la rueda se escriben tres ecuaciones.",
@@ -4049,7 +4049,7 @@
           },
           "threshold": {
             "title": "El umbral del caos",
-            "setting": "Freno σ = 15 en lugar de 10; leído en el recuadro «Caos a partir de un grifo de».",
+            "setting": "Freno σ = 15 en lugar de 10; leído en el recuadro «Inestable a partir de un grifo de».",
             "reads": "Por encima de ρ_H = σ(σ + b + 3)/(σ − b − 1) ni siquiera el giro regular es estable.",
             "why": "Comprueba el umbral que indica la página, con la b de la rueda: 21,9 con σ = 15. Con la b = 8/3 de Lorenz pondría 27,4.",
             "step": "Las dos primeras fuentes dan el umbral para cualquier b; se introduce la b = 1 de la noria, tomada de la tercera."
