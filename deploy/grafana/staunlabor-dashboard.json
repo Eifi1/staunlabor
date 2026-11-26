@@ -3565,7 +3565,7 @@
         {
           "id": "renameByRegex",
           "options": {
-            "regex": "^from\\s*$",
+            "regex": "^from\\s*(\\{\\{metric\\.label\\.source\\}\\})?\\s*$",
             "renamePattern": "no referrer (typed, bookmark, app)"
           }
         }
@@ -3638,7 +3638,7 @@
         {
           "id": "renameByRegex",
           "options": {
-            "regex": "^from\\s*$",
+            "regex": "^from\\s*(\\{\\{metric\\.label\\.source\\}\\})?\\s*$",
             "renamePattern": "no referrer (typed, bookmark, app)"
           }
         }
