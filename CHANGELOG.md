@@ -2,6 +2,12 @@
 
 All notable changes to Staunlabor are documented in this file, generated from the commit messages by commit-and-tag-version at each release.
 
+## [0.1.17](https://github.com/Eifi1/staunlabor/compare/v0.1.16...v0.1.17) (2026-11-26)
+
+### Fixed
+
+* the waterwheel's threshold tile says unsteady; the dashboard's row 7 read and named ([#12](https://github.com/Eifi1/staunlabor/issues/12)) ([6a6897f](https://github.com/Eifi1/staunlabor/commit/6a6897fd4de02948f07de1ee0f22c97a6d0b8dc7))
+
 ## [0.1.16](https://github.com/Eifi1/staunlabor/compare/v0.1.15...v0.1.16) (2026-11-25)
 
 ### Added
